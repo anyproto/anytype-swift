@@ -6,6 +6,7 @@ protocol SetViewSettingsCoordinatorAssemblyProtocol {
     func make(
         setDocument: SetDocumentProtocol,
         viewId: String,
+        mode: SetViewSettingsMode,
         subscriptionDetailsStorage: ObjectDetailsStorage
     ) -> AnyView
 }
@@ -23,11 +24,17 @@ final class SetViewSettingsCoordinatorAssembly: SetViewSettingsCoordinatorAssemb
     // MARK: - SetViewSettingsCoordinatorModuleAssemblyProtocol
     
     @MainActor
-    func make(setDocument: SetDocumentProtocol, viewId: String, subscriptionDetailsStorage: ObjectDetailsStorage) -> AnyView {
+    func make(
+        setDocument: SetDocumentProtocol,
+        viewId: String,
+        mode: SetViewSettingsMode,
+        subscriptionDetailsStorage: ObjectDetailsStorage
+    ) -> AnyView {
         return SetViewSettingsCoordinatorView(
             model: SetViewSettingsCoordinatorViewModel(
                 setDocument: setDocument,
                 viewId: viewId,
+                mode: mode,
                 subscriptionDetailsStorage: subscriptionDetailsStorage,
                 setViewSettingsListModuleAssembly: self.modulesDI.setViewSettingsList(),
                 setLayoutSettingsCoordinatorAssembly: self.coordinatorsDI.setLayoutSettings(),

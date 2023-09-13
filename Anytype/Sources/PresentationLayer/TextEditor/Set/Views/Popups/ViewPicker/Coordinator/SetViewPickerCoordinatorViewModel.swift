@@ -5,15 +5,15 @@ import AnytypeCore
 @MainActor
 protocol SetViewPickerCoordinatorOutput: AnyObject {
     func onAddButtonTap()
+    func onAddButtonTap(with viewId: String)
     func onEditButtonTap(dataView: DataviewView)
 }
 
 @MainActor
 final class SetViewPickerCoordinatorViewModel: ObservableObject, SetViewPickerCoordinatorOutput {
-    @Published var showSetSettings = false
+    @Published var setSettingsData: SetSettingsData?
     
     private let setDocument: SetDocumentProtocol
-    private var viewId = ""
     private let setViewPickerModuleAssembly: SetViewPickerModuleAssemblyProtocol
     private let setViewSettingsCoordinatorAssembly: SetViewSettingsCoordinatorAssemblyProtocol
     private let subscriptionDetailsStorage: ObjectDetailsStorage
@@ -46,27 +46,38 @@ final class SetViewPickerCoordinatorViewModel: ObservableObject, SetViewPickerCo
         showViewTypes(nil)
     }
     
+    func onAddButtonTap(with viewId: String) {
+        setSettingsData = SetSettingsData(
+            viewId: viewId,
+            mode: .new
+        )
+    }
+    
     func onEditButtonTap(dataView: DataviewView) {
         if FeatureFlags.newSetSettings {
-            viewId = dataView.id
-            showSetSettings.toggle()
+            setSettingsData = SetSettingsData(
+                viewId: dataView.id,
+                mode: .edit
+            )
         } else {
             showViewTypes(dataView)
         }
     }
     
-    func setSettingsView() -> AnyView {
+    func setSettingsView(data: SetSettingsData) -> AnyView {
         setViewSettingsCoordinatorAssembly.make(
             setDocument: setDocument,
-            viewId: viewId,
+            viewId: data.viewId,
+            mode: data.mode,
             subscriptionDetailsStorage: subscriptionDetailsStorage
         )
     }
 }
 
 extension SetViewPickerCoordinatorViewModel {
-    struct AddRelationsData: Identifiable {
+    struct SetSettingsData: Identifiable {
         let id = UUID()
-        let completion: (RelationDetails, _ isNew: Bool) -> Void
+        let viewId: String
+        let mode: SetViewSettingsMode
     }
 }

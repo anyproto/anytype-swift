@@ -25,7 +25,11 @@ final class SetViewPickerViewModel: ObservableObject {
     }
     
     func addButtonTapped() {
-        output?.onAddButtonTap()
+        if FeatureFlags.newSetSettings {
+            createView()
+        } else {
+            output?.onAddButtonTap()
+        }
     }
     
     func move(from: IndexSet, to: Int) {
@@ -59,9 +63,10 @@ final class SetViewPickerViewModel: ObservableObject {
     
     private func updateRows(with dataView: BlockDataview) {
         rows = dataView.views.map { view in
-            SetViewRowConfiguration(
+            let name = view.name.isNotEmpty ? view.name : Loc.SetViewTypesPicker.Settings.Textfield.Placeholder.untitled
+            return SetViewRowConfiguration(
                 id: view.id,
-                name: view.name,
+                name: name,
                 typeName: view.type.name.lowercased(),
                 isSupported: view.type.isSupported,
                 isActive: view == dataView.views.first { $0.id == dataView.activeViewId },
@@ -89,5 +94,20 @@ final class SetViewPickerViewModel: ObservableObject {
             return
         }
         output?.onEditButtonTap(dataView: activeView)
+    }
+    
+    private func createView() {
+        Task { @MainActor [weak self] in
+            guard let self else { return }
+            let viewId = try await dataviewService.createView(
+                DataviewView.created(with: "", type: .table),
+                source: setDocument.details?.setOf ?? []
+            )
+            output?.onAddButtonTap(with: viewId)
+            AnytypeAnalytics.instance().logAddView(
+                type: DataviewViewType.table.stringValue,
+                objectType: setDocument.analyticsType
+            )
+        }
     }
 }

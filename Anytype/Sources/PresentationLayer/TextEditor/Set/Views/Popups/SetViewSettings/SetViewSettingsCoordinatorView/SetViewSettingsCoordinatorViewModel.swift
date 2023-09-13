@@ -21,6 +21,7 @@ final class SetViewSettingsCoordinatorViewModel: ObservableObject, SetViewSettin
     
     private let setDocument: SetDocumentProtocol
     private let viewId: String
+    private let mode: SetViewSettingsMode
     private let subscriptionDetailsStorage: ObjectDetailsStorage
     private let setViewSettingsListModuleAssembly: SetViewSettingsListModuleAssemblyProtocol
     private let setLayoutSettingsCoordinatorAssembly: SetLayoutSettingsCoordinatorAssemblyProtocol
@@ -31,6 +32,7 @@ final class SetViewSettingsCoordinatorViewModel: ObservableObject, SetViewSettin
     init(
         setDocument: SetDocumentProtocol,
         viewId: String,
+        mode: SetViewSettingsMode,
         subscriptionDetailsStorage: ObjectDetailsStorage,
         setViewSettingsListModuleAssembly: SetViewSettingsListModuleAssemblyProtocol,
         setLayoutSettingsCoordinatorAssembly: SetLayoutSettingsCoordinatorAssemblyProtocol,
@@ -40,6 +42,7 @@ final class SetViewSettingsCoordinatorViewModel: ObservableObject, SetViewSettin
     ) {
         self.setDocument = setDocument
         self.viewId = viewId
+        self.mode = mode
         self.subscriptionDetailsStorage = subscriptionDetailsStorage
         self.setViewSettingsListModuleAssembly = setViewSettingsListModuleAssembly
         self.setLayoutSettingsCoordinatorAssembly = setLayoutSettingsCoordinatorAssembly
@@ -52,6 +55,7 @@ final class SetViewSettingsCoordinatorViewModel: ObservableObject, SetViewSettin
         setViewSettingsListModuleAssembly.make(
             setDocument: setDocument,
             viewId: viewId,
+            mode: mode,
             output: self
         )
     }

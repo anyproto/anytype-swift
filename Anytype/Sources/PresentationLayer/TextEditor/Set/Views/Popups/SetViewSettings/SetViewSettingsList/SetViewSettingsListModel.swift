@@ -15,6 +15,7 @@ final class SetViewSettingsListModel: ObservableObject {
     @Published var settings: [SetViewSettings] = []
     
     let canBeDeleted: Bool
+    let mode: SetViewSettingsMode
     
     private let setDocument: SetDocumentProtocol
     private let viewId: String
@@ -35,6 +36,7 @@ final class SetViewSettingsListModel: ObservableObject {
     init(
         setDocument: SetDocumentProtocol,
         viewId: String,
+        mode: SetViewSettingsMode,
         dataviewService: DataviewServiceProtocol,
         templatesInteractor: SetTemplatesInteractorProtocol,
         templateInteractorProvider: TemplateSelectionInteractorProvider?,
@@ -42,6 +44,7 @@ final class SetViewSettingsListModel: ObservableObject {
     ) {
         self.setDocument = setDocument
         self.viewId = viewId
+        self.mode = mode
         self.dataviewService = dataviewService
         self.templatesInteractor = templatesInteractor
         self.templateInteractorProvider = templateInteractorProvider

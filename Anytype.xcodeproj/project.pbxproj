@@ -861,6 +861,7 @@
 		2E9EFE72285B62E500C8E47A /* SetFilter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E9EFE71285B62E500C8E47A /* SetFilter.swift */; };
 		2EA098A72A697511009182C0 /* SubscriptionData+Info.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EA098A62A697511009182C0 /* SubscriptionData+Info.swift */; };
 		2EA0F4912936629E003225BA /* GroupsSubscribeResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EA0F4902936629E003225BA /* GroupsSubscribeResult.swift */; };
+		2EA2B7D42AB2113B00F1F49F /* SetViewSettingsListMode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EA2B7D32AB2113B00F1F49F /* SetViewSettingsListMode.swift */; };
 		2EAA13FB2AA63918000A712A /* SetRelationsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EAA13EB2AA63918000A712A /* SetRelationsView.swift */; };
 		2EAA13FC2AA63918000A712A /* SetViewSettingsImagePreviewModuleAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EAA13ED2AA63918000A712A /* SetViewSettingsImagePreviewModuleAssembly.swift */; };
 		2EAA13FD2AA63918000A712A /* SetViewSettingsImagePreviewViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EAA13EE2AA63918000A712A /* SetViewSettingsImagePreviewViewModel.swift */; };
@@ -2433,6 +2434,7 @@
 		2E9EFE71285B62E500C8E47A /* SetFilter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetFilter.swift; sourceTree = "<group>"; };
 		2EA098A62A697511009182C0 /* SubscriptionData+Info.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SubscriptionData+Info.swift"; sourceTree = "<group>"; };
 		2EA0F4902936629E003225BA /* GroupsSubscribeResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupsSubscribeResult.swift; sourceTree = "<group>"; };
+		2EA2B7D32AB2113B00F1F49F /* SetViewSettingsListMode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetViewSettingsListMode.swift; sourceTree = "<group>"; };
 		2EAA13EB2AA63918000A712A /* SetRelationsView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SetRelationsView.swift; sourceTree = "<group>"; };
 		2EAA13ED2AA63918000A712A /* SetViewSettingsImagePreviewModuleAssembly.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SetViewSettingsImagePreviewModuleAssembly.swift; sourceTree = "<group>"; };
 		2EAA13EE2AA63918000A712A /* SetViewSettingsImagePreviewViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SetViewSettingsImagePreviewViewModel.swift; sourceTree = "<group>"; };
@@ -6579,6 +6581,7 @@
 				2ED9F43A2A8E902A00BE0A6B /* SetViewSettingsListModel.swift */,
 				2ED9F4422A8F94D400BE0A6B /* SetViewSettings.swift */,
 				2ED9F4442A8FBB5400BE0A6B /* SetViewSettingsListModuleAssembly.swift */,
+				2EA2B7D32AB2113B00F1F49F /* SetViewSettingsListMode.swift */,
 			);
 			path = SetViewSettingsList;
 			sourceTree = "<group>";
@@ -10446,6 +10449,7 @@
 				2E9221A1294B8D4900968750 /* DataViewBlockView.swift in Sources */,
 				3D07ED6C261F49ED00C007E2 /* DividerBlockViewModel.swift in Sources */,
 				2EAA14052AA63918000A712A /* SetRelationsViewModuleAssembly.swift in Sources */,
+				2EA2B7D42AB2113B00F1F49F /* SetViewSettingsListMode.swift in Sources */,
 				53FF7C4E26F7DB3C00A5A592 /* AnytypeSharedAudioplayer.swift in Sources */,
 				3D8D41B62742840000F8EBF3 /* DocumentDetaisProvider.swift in Sources */,
 				EA20CDD926122CCF00DBA9FE /* VideoBlockContentViewConfiguration.swift in Sources */,

@@ -5,6 +5,7 @@ protocol SetViewSettingsListModuleAssemblyProtocol {
     func make(
         setDocument: SetDocumentProtocol,
         viewId: String,
+        mode: SetViewSettingsMode,
         output: SetViewSettingsCoordinatorOutput?
     ) -> AnyView
 }
@@ -20,7 +21,12 @@ final class SetViewSettingsListModuleAssembly: SetViewSettingsListModuleAssembly
     // MARK: - SetViewSettingsListModuleAssemblyProtocol
     
     @MainActor
-    func make(setDocument: SetDocumentProtocol, viewId: String, output: SetViewSettingsCoordinatorOutput?) -> AnyView {
+    func make(
+        setDocument: SetDocumentProtocol,
+        viewId: String,
+        mode: SetViewSettingsMode,
+        output: SetViewSettingsCoordinatorOutput?
+    ) -> AnyView {
         let dataviewService = serviceLocator.dataviewService(
             objectId: setDocument.objectId,
             blockId: setDocument.blockId
@@ -41,6 +47,7 @@ final class SetViewSettingsListModuleAssembly: SetViewSettingsListModuleAssembly
             model: SetViewSettingsListModel(
                 setDocument: setDocument,
                 viewId: viewId,
+                mode: mode,
                 dataviewService: dataviewService,
                 templatesInteractor: self.serviceLocator.setTemplatesInteractor,
                 templateInteractorProvider: templateInteractorProvider,

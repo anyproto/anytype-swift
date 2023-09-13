@@ -8,7 +8,7 @@ struct SetViewSettingsList: View {
         VStack(spacing: 0) {
             Spacer.fixedHeight(8)
             TitleView(
-                title: Loc.SetViewTypesPicker.title,
+                title: model.mode.title,
                 rightButton: {
                     settingsMenu
                 }
@@ -55,7 +55,7 @@ struct SetViewSettingsList: View {
         Spacer.fixedHeight(2)
         
         TextField(
-            Loc.SetViewTypesPicker.Settings.Textfield.Placeholder.New.view,
+            model.mode.placeholder,
             text: $model.name
         )
         .foregroundColor(.Text.primary)
