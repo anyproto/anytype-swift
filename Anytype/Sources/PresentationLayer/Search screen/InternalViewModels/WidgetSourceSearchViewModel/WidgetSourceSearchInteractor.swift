@@ -28,11 +28,7 @@ final class WidgetSourceSearchInteractor: WidgetSourceSearchInteractorProtocol {
     // MARK: - WidgetSourceSearchInteractorProtocol
     
     func objectSearch(text: String) async throws -> [ObjectDetails] {
-        try await searchService.searchObjects(
-            text: text,
-            excludedObjectIds: [],
-            limitedTypeIds: []
-        )
+        try await searchService.search(text: text)
     }
     
     func anytypeLibrarySearch(text: String) -> [WidgetAnytypeLibrarySource] {
