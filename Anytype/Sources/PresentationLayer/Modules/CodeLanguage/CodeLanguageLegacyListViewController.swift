@@ -4,12 +4,12 @@ import UIKit
 /// View that represents list and search bar on top
 ///
 /// For more information, see  [Anytype design.](https://www.figma.com/file/TpUBIdjDYVWGyaarlnHIsz/Android-main?node-id=351%3A32)
-final class CodeLanguageListViewController: UIViewController {
+final class CodeLanguageLegacyListViewController: UIViewController {
     enum Section {
         case main
     }
 
-    private let viewModel: CodeLanguageListViewModel
+    private let viewModel: CodeLanguageLegacyListViewModel
     private var dataSource: UICollectionViewDiffableDataSource<Section, CodeLanguage>?
 
     // MARK: - Views
@@ -39,7 +39,7 @@ final class CodeLanguageListViewController: UIViewController {
 
     // MARK: - Lifecycle
 
-    init(viewModel: CodeLanguageListViewModel) {
+    init(viewModel: CodeLanguageLegacyListViewModel) {
         self.viewModel = viewModel
         
         super.init(nibName: nil, bundle: nil)
@@ -106,7 +106,7 @@ final class CodeLanguageListViewController: UIViewController {
 
 // MARK: - UICollectionViewDelegate
 
-extension CodeLanguageListViewController: UICollectionViewDelegate {
+extension CodeLanguageLegacyListViewController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         guard let selectedItem = self.dataSource?.itemIdentifier(for: indexPath) else {
             collectionView.deselectItem(at: indexPath, animated: true)
@@ -120,7 +120,7 @@ extension CodeLanguageListViewController: UICollectionViewDelegate {
 
 // MARK: - UISearchBarDelegate
 
-extension CodeLanguageListViewController: UISearchBarDelegate {
+extension CodeLanguageLegacyListViewController: UISearchBarDelegate {
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
         let filteredItems = viewModel.items.filter { $0.rawValue.lowercased().hasPrefix(searchText.lowercased()) }
 

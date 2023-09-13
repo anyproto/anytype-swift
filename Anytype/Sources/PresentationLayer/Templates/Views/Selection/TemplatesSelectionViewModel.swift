@@ -56,7 +56,7 @@ final class TemplatesSelectionViewModel: ObservableObject {
                 route: setDocument.isCollection() ? .collection : .set
             )
         case .blank:
-            onTemplateSelection(nil)
+            onTemplateSelection("")
             AnytypeAnalytics.instance().logTemplateSelection(
                 objectType: nil,
                 route: setDocument.isCollection() ? .collection : .set

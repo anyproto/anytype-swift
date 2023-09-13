@@ -142,8 +142,6 @@ internal enum Loc {
   internal static let color = Loc.tr("Localizable", "Color", fallback: "Color")
   /// Companies, contacts, friends and family
   internal static let companiesContactsFriendsAndFamily = Loc.tr("Localizable", "Companies, contacts, friends and family", fallback: "Companies, contacts, friends and family")
-  /// Connection refused. Please, try again
-  internal static let connectionRefused = Loc.tr("Localizable", "Connection refused", fallback: "Connection refused. Please, try again")
   /// Copied
   internal static let copied = Loc.tr("Localizable", "Copied", fallback: "Copied")
   /// %@ copied to clipboard
@@ -226,8 +224,6 @@ internal enum Loc {
   internal static let everywhere = Loc.tr("Localizable", "Everywhere", fallback: "Everywhere")
   /// Exact day
   internal static let exactDay = Loc.tr("Localizable", "Exact day", fallback: "Exact day")
-  /// Failed to create your account due to a network error
-  internal static let failedToCreateYourAccountDueToANetworkError = Loc.tr("Localizable", "Failed to create your account due to a network error", fallback: "Failed to create your account due to a network error")
   /// Failed to sync, trying again...
   internal static let failedToSyncTryingAgain = Loc.tr("Localizable", "Failed to sync, trying again...", fallback: "Failed to sync, trying again...")
   /// Favorite
@@ -268,8 +264,6 @@ internal enum Loc {
   internal static let initializingSync = Loc.tr("Localizable", "Initializing sync", fallback: "Initializing sync")
   /// Into object
   internal static let intoObject = Loc.tr("Localizable", "Into object", fallback: "Into object")
-  /// Invalid invitation code
-  internal static let invalidInvitationCode = Loc.tr("Localizable", "Invalid invitation code", fallback: "Invalid invitation code")
   /// Layout
   internal static let layout = Loc.tr("Localizable", "Layout", fallback: "Layout")
   /// Limit object types
@@ -545,8 +539,6 @@ internal enum Loc {
   internal static let yellowBackground = Loc.tr("Localizable", "Yellow background", fallback: "Yellow background")
   /// Yesterday
   internal static let yesterday = Loc.tr("Localizable", "Yesterday", fallback: "Yesterday")
-  /// Your device seems to be offline. Please, check your connection and try again
-  internal static let yourDeviceSeemsToBeOffline = Loc.tr("Localizable", "Your device seems to be offline", fallback: "Your device seems to be offline. Please, check your connection and try again")
   internal enum About {
     /// Account ID: %@
     internal static func accountId(_ p1: Any) -> String {
@@ -723,16 +715,16 @@ internal enum Loc {
             }
           }
           internal enum Option1 {
-            /// Recovery Phrase is 12 random words from which your account is magically generated on this device.
-            internal static let title = Loc.tr("Localizable", "Auth.JoinFlow.Key.ReadMore.Option1.Title", fallback: "Recovery Phrase is 12 random words from which your account is magically generated on this device.")
+            /// Recovery Phrase is a random combination of 12 words from which your account is magically generated on this device.
+            internal static let title = Loc.tr("Localizable", "Auth.JoinFlow.Key.ReadMore.Option1.Title", fallback: "Recovery Phrase is a random combination of 12 words from which your account is magically generated on this device.")
           }
           internal enum Option2 {
-            /// Who knows combination of these words – owns the account. **Now, you are the only person in the world who can access it.**
-            internal static let title = Loc.tr("Localizable", "Auth.JoinFlow.Key.ReadMore.Option2.Title", fallback: "Who knows combination of these words – owns the account. **Now, you are the only person in the world who can access it.**")
+            /// Whomever knows Recovery Phrase, owns the account. **At this moment, you are the only person in the world who knows it.**
+            internal static let title = Loc.tr("Localizable", "Auth.JoinFlow.Key.ReadMore.Option2.Title", fallback: "Whomever knows Recovery Phrase, owns the account. **At this moment, you are the only person in the world who knows it.**")
           }
           internal enum Option3 {
-            /// That is why it is essential to keep Recovery Phrase secure! You own - you responsible!
-            internal static let title = Loc.tr("Localizable", "Auth.JoinFlow.Key.ReadMore.Option3.Title", fallback: "That is why it is essential to keep Recovery Phrase secure! You own - you responsible!")
+            /// That's why it's essential to keep Recovery Phrase safe. As the sole owner, nobody can help you if it's lost.
+            internal static let title = Loc.tr("Localizable", "Auth.JoinFlow.Key.ReadMore.Option3.Title", fallback: "That's why it's essential to keep Recovery Phrase safe. As the sole owner, nobody can help you if it's lost.")
           }
         }
         internal enum TextField {

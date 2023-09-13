@@ -36,6 +36,9 @@ final class ObjectTypeProvider: ObjectTypeProviderProtocol {
     var defaultObjectType: ObjectType = .fallbackType
     var defaultObjectTypePublisher: AnyPublisher<ObjectType, Never> { $defaultObjectType.eraseToAnyPublisher() }
     
+    @Published var sync: () = ()
+    var syncPublisher: AnyPublisher<Void, Never> { $sync.eraseToAnyPublisher() }
+    
     func setDefaulObjectType(type: ObjectType) {
         UserDefaultsConfig.defaultObjectType = type
         updateDefaultObjectType()
@@ -57,7 +60,8 @@ final class ObjectTypeProvider: ObjectTypeProviderProtocol {
             isArchived: false,
             isDeleted: true,
             sourceObject: "",
-            recommendedRelations: []
+            recommendedRelations: [],
+            defaultTemplateId: ""
         )
     }
     
@@ -78,6 +82,7 @@ final class ObjectTypeProvider: ObjectTypeProviderProtocol {
     private func handleEvent(update: SubscriptionUpdate) {
         objectTypes.applySubscriptionUpdate(update, transform: { ObjectType(details: $0) })
         updateAllCache()
+        sync = ()
     }
     
     private func updateAllCache() {

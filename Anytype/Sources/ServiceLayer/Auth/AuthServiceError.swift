@@ -15,7 +15,7 @@ enum AuthServiceError: Error, LocalizedError {
         case .recoverWalletError: return Loc.errorWalletRecoverAccount
         case .recoverAccountError(let code):
             switch code {
-            case .badInput, .anotherAnytypeProcessIsRunning, .failedToCreateLocalRepo, .failedToRunNode, .failedToStopRunningNode, .unknownError, .noAccountsFound, .needToRecoverWalletFirst, .localRepoExistsButCorrupted, .walletRecoverNotPerformed:
+            case .badInput, .unknownError, .needToRecoverWalletFirst:
                 return Loc.accountRecoverError
             case .UNRECOGNIZED, .null:
                 return Loc.accountRecoverErrorNoInternet

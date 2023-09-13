@@ -9,6 +9,8 @@ protocol ObjectTypeProviderProtocol: AnyObject {
     var defaultObjectTypePublisher: AnyPublisher<ObjectType, Never> { get }
     func setDefaulObjectType(type: ObjectType)
     
+    var syncPublisher: AnyPublisher<Void, Never> { get }
+    
     func objectType(id: String) -> ObjectType?
     func deleteObjectType(id: String) -> ObjectType
         
