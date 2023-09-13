@@ -36,6 +36,7 @@ final class ObjectSettingModuleAssembly: ObjectSettingModuleAssemblyProtocol {
             objectActionsService: serviceLocator.objectActionsService(),
             blockActionsService: serviceLocator.blockActionsServiceSingle(),
             templatesService: serviceLocator.templatesService,
+            documentsProvider: serviceLocator.documentsProvider,
             output: output,
             delegate: delegate
         )

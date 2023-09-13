@@ -7,6 +7,7 @@ final class BaseDocument: BaseDocumentProtocol {
     var updatePublisher: AnyPublisher<DocumentUpdate, Never> { updateSubject.eraseToAnyPublisher() }
     let objectId: BlockId
     private(set) var isOpened = false
+    let forPreview: Bool
 
     let infoContainer: InfoContainerProtocol = InfoContainer()
     let relationLinksStorage: RelationLinksStorageProtocol = RelationLinksStorage()
@@ -21,7 +22,6 @@ final class BaseDocument: BaseDocumentProtocol {
     private let relationBuilder: RelationsBuilder
     private let relationDetailsStorage = ServiceLocator.shared.relationDetailsStorage()
     private let viewModelSetter: DocumentViewModelSetterProtocol
-    private let forPreview: Bool
     
     private var subscriptions = [AnyCancellable]()
     
@@ -70,6 +70,7 @@ final class BaseDocument: BaseDocumentProtocol {
             .eraseToAnyPublisher()
     }
     
+    @available(*, deprecated, message: "Use `DocumentsProvider` instead")
     init(objectId: BlockId, forPreview: Bool = false) {
         self.objectId = objectId
         self.forPreview = forPreview
@@ -106,10 +107,7 @@ final class BaseDocument: BaseDocumentProtocol {
     
     @MainActor
     func open() async throws {
-        guard !isOpened else {
-            anytypeAssertionFailure("Try object open multiple times")
-            return
-        }
+        if isOpened { return }
         guard !forPreview else {
             anytypeAssertionFailure("Document created for preview. You should use openForPreview() method.")
             return

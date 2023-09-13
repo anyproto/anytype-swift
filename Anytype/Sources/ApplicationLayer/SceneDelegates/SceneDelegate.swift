@@ -33,7 +33,8 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         
         ToastPresenter.shared = ToastPresenter(
             viewControllerProvider: ViewControllerProvider(sceneWindow: window),
-            keyboardHeightListener: KeyboardHeightListener()
+            keyboardHeightListener: KeyboardHeightListener(),
+            documentsProvider: di.serviceLocator.documentsProvider
         )
     }
 

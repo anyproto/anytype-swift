@@ -148,9 +148,8 @@ struct SetViewTypesPicker_Previews: PreviewProvider {
         SetViewTypesPicker(
             viewModel: SetViewTypesPickerViewModel(
                 setDocument: SetDocument(
-                    document: BaseDocument(objectId: "blockId"),
-                    blockId: nil,
-                    targetObjectID: nil,
+                    document: MockBaseDocument(),
+                    inlineParameters: nil,
                     relationDetailsStorage: DI.preview.serviceLocator.relationDetailsStorage()
                 ),
                 activeView: DataviewView.empty,

@@ -12,17 +12,20 @@ final class EditorPageCoordinator: EditorPageCoordinatorProtocol, WidgetObjectLi
     private let editorAssembly: EditorAssembly
     private let alertHelper: AlertHelper
     private let objectTypeProvider: ObjectTypeProviderProtocol
+    private let documentsProvider: DocumentsProviderProtocol
     
     init(
         browserController: EditorBrowserController?,
         editorAssembly: EditorAssembly,
         alertHelper: AlertHelper,
-        objectTypeProvider: ObjectTypeProviderProtocol
+        objectTypeProvider: ObjectTypeProviderProtocol,
+        documentsProvider: DocumentsProviderProtocol
     ) {
         self.browserController = browserController
         self.editorAssembly = editorAssembly
         self.alertHelper = alertHelper
         self.objectTypeProvider = objectTypeProvider
+        self.documentsProvider = documentsProvider
     }
     
     // MARK: - EditorPageCoordinatorProtocol
@@ -56,7 +59,7 @@ final class EditorPageCoordinator: EditorPageCoordinatorProtocol, WidgetObjectLi
     
     private func showUnsupportedTypeAlert(documentId: String) {
         Task { @MainActor in
-            let document = BaseDocument(objectId: documentId, forPreview: true)
+            let document = documentsProvider.document(objectId: documentId, forPreview: true)
             try await document.openForPreview()
 
             guard let typeId = document.details?.type else { return }

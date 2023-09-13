@@ -28,7 +28,7 @@ final class SetRelationsViewModuleAssembly: SetRelationsViewModuleAssemblyProtoc
     ) -> AnyView {
         let dataviewService = serviceLocator.dataviewService(
             objectId: setDocument.objectId,
-            blockId: setDocument.blockId
+            blockId: setDocument.inlineParameters?.blockId
         )
         return SetRelationsView(
             model: SetRelationsViewModel(

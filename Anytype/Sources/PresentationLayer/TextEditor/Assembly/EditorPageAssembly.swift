@@ -60,12 +60,10 @@ final class EditorAssembly {
         browser: EditorBrowserController?,
         data: EditorSetObject
     ) -> (EditorSetHostingController, EditorPageOpenRouterProtocol) {
-        let document = BaseDocument(objectId: data.objectId)
-        let setDocument = SetDocument(
-            document: document,
-            blockId: data.inline?.blockId,
-            targetObjectID: data.inline?.targetObjectID,
-            relationDetailsStorage: serviceLocator.relationDetailsStorage()
+        let setDocument = serviceLocator.documentsProvider.setDocument(
+            objectId: data.objectId,
+            forPreview: !data.isSupportedForEdit,
+            inlineParameters: data.inline
         )
         let dataviewService = serviceLocator.dataviewService(objectId: data.objectId, blockId: data.inline?.blockId)
         
@@ -140,7 +138,11 @@ final class EditorAssembly {
             bottomNavigationManager: bottomNavigationManager,
             browserViewInput: browser
         )
-        let document = BaseDocument(objectId: data.objectId, forPreview: data.isOpenedForPreview)
+        
+        let document = serviceLocator.documentService().document(
+            objectId: data.objectId,
+            forPreview: data.isOpenedForPreview
+        )
         let navigationContext = NavigationContext(rootViewController: browser ?? controller)
         let router = EditorRouter(
             rootController: browser,
@@ -260,7 +262,8 @@ final class EditorAssembly {
             router: router,
             initialEditingState: configuration.isOpenedForPreview ? .readonly(state: .locked) : .editing,
             viewInput: viewInput,
-            bottomNavigationManager: bottomNavigationManager
+            bottomNavigationManager: bottomNavigationManager,
+            documentsProvider: serviceLocator.documentsProvider
         )
         
         let accessoryState = AccessoryViewBuilder.accessoryState(

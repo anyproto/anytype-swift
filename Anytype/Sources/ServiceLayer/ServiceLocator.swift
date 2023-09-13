@@ -19,6 +19,7 @@ final class ServiceLocator {
         blockActionService: blockActionsServiceSingle(),
         pageRepository: pageRepository()
     )
+    lazy private(set) var documentsProvider: DocumentsProviderProtocol = DocumentsProvider(relationDetailsStorage: relationDetailsStorage())
     
     // MARK: - Services
     
@@ -202,8 +203,8 @@ final class ServiceLocator {
         return _middlewareConfigurationProvider
     }
     
-    private lazy var _documentService = DocumentService(relationDetailsStorage: relationDetailsStorage())
-    func documentService() -> DocumentServiceProtocol {
+    private lazy var _documentService = OpenedDocumentsProvider(documentsProvider: documentsProvider)
+    func documentService() -> OpenedDocumentsProviderProtocol {
         return _documentService
     }
     

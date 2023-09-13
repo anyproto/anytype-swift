@@ -345,7 +345,7 @@ final class EditorSetRouter: EditorSetRouterProtocol, ObjectSettingsCoordinatorO
     func showCoverPicker() {
         let moduleViewController = objectCoverPickerModuleAssembly.make(
             document: setDocument,
-            objectId: setDocument.targetObjectID ?? setDocument.objectId
+            objectId: setDocument.inlineParameters?.targetObjectID ?? setDocument.objectId
         )
         navigationContext.present(moduleViewController)
     }
@@ -353,7 +353,7 @@ final class EditorSetRouter: EditorSetRouterProtocol, ObjectSettingsCoordinatorO
     func showIconPicker() {
         let moduleViewController = objectIconPickerModuleAssembly.make(
             document: setDocument,
-            objectId: setDocument.targetObjectID ?? setDocument.objectId
+            objectId: setDocument.inlineParameters?.targetObjectID ?? setDocument.objectId
         )
         navigationContext.present(moduleViewController)
     }

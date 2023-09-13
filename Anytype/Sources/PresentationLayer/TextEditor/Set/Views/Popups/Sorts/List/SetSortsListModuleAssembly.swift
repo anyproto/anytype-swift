@@ -20,7 +20,7 @@ final class SetSortsListModuleAssembly: SetSortsListModuleAssemblyProtocol {
     func make(with setDocument: SetDocumentProtocol, output: SetSortsListCoordinatorOutput?) -> AnyView {
         let dataviewService = serviceLocator.dataviewService(
             objectId: setDocument.objectId,
-            blockId: setDocument.blockId
+            blockId: setDocument.inlineParameters?.blockId
         )
         return SetSortsListView(
             viewModel: SetSortsListViewModel(

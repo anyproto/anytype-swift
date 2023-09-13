@@ -91,9 +91,8 @@ struct SetHeaderSettings_Previews: PreviewProvider {
         SetHeaderSettingsView(
             model: SetHeaderSettingsViewModel(
                 setDocument: SetDocument(
-                    document: BaseDocument(objectId: "blockId"),
-                    blockId: nil,
-                    targetObjectID: nil,
+                    document: MockBaseDocument(),
+                    inlineParameters: nil,
                     relationDetailsStorage: DI.preview.serviceLocator.relationDetailsStorage()
                 ),
                 setTemplatesInteractor: DI.preview.serviceLocator.setTemplatesInteractor,

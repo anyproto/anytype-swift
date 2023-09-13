@@ -22,7 +22,7 @@ final class FavoriteWidgetInternalViewModel: CommonWidgetInternalViewModel, Widg
         widgetObject: BaseDocumentProtocol,
         favoriteSubscriptionService: FavoriteSubscriptionServiceProtocol,
         accountManager: AccountManagerProtocol,
-        documentService: DocumentServiceProtocol
+        documentService: OpenedDocumentsProviderProtocol
     ) {
         self.favoriteSubscriptionService = favoriteSubscriptionService
         self.document = documentService.document(objectId: accountManager.account.info.homeObjectID)

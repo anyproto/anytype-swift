@@ -7,6 +7,14 @@ protocol BaseDocumentGeneralProtocol: AnyObject {
     var detailsPublisher: AnyPublisher<ObjectDetails, Never> { get }
     var updatePublisher: AnyPublisher<DocumentUpdate, Never> { get }
     var syncPublisher: AnyPublisher<Void, Never> { get }
+    var forPreview: Bool { get }
+    
+    @MainActor
+    func open() async throws
+    @MainActor
+    func openForPreview() async throws
+    @MainActor
+    func close() async throws
 }
 
 protocol BaseDocumentProtocol: AnyObject, BaseDocumentGeneralProtocol {
@@ -24,13 +32,6 @@ protocol BaseDocumentProtocol: AnyObject, BaseDocumentGeneralProtocol {
     var parsedRelationsPublisher: AnyPublisher<ParsedRelations, Never> { get }
     
     var syncPublisher: AnyPublisher<Void, Never> { get }
-    
-    @MainActor
-    func open() async throws
-    @MainActor
-    func openForPreview() async throws
-    @MainActor
-    func close() async throws
     
     func resetSubscriptions()
 }

@@ -29,7 +29,7 @@ final class WidgetObjectListFavoritesViewModel: WidgetObjectListInternalViewMode
     init(
         favoriteSubscriptionService: FavoriteSubscriptionServiceProtocol,
         accountManager: AccountManagerProtocol,
-        documentService: DocumentServiceProtocol,
+        documentService: OpenedDocumentsProviderProtocol,
         objectActionService: ObjectActionsServiceProtocol
     ) {
         self.favoriteSubscriptionService = favoriteSubscriptionService

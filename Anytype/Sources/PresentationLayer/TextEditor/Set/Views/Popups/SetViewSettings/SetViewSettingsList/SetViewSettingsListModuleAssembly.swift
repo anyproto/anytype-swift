@@ -19,7 +19,7 @@ final class SetViewSettingsListModuleAssembly: SetViewSettingsListModuleAssembly
     func make(setDocument: SetDocumentProtocol, output: SetViewSettingsCoordinatorOutput?) -> AnyView {
         let dataviewService = serviceLocator.dataviewService(
             objectId: setDocument.objectId,
-            blockId: setDocument.blockId
+            blockId: setDocument.inlineParameters?.blockId
         )
         let templateInteractorProvider: TemplateSelectionInteractorProvider?
         if setDocument.isTypeSet() {

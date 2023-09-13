@@ -30,7 +30,7 @@ final class HomeWidgetsViewModel: ObservableObject {
         stateManager: HomeWidgetsStateManagerProtocol,
         objectActionService: ObjectActionsServiceProtocol,
         recentStateManagerProtocol: HomeWidgetsRecentStateManagerProtocol,
-        documentService: DocumentServiceProtocol,
+        documentService: OpenedDocumentsProviderProtocol,
         output: HomeWidgetsModuleOutput?
     ) {
         self.widgetObject = documentService.document(objectId: widgetObjectId)

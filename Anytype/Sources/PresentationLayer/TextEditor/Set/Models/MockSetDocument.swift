@@ -7,9 +7,9 @@ final class MockSetDocument: SetDocumentProtocol {
     
     var objectId: BlockId { "" }
     
-    var blockId: BlockId? { nil }
+    var inlineParameters: EditorInlineSetObject? { nil }
     
-    var targetObjectID: String? { "" }
+    var forPreview: Bool { false }
     
     var dataviews: [BlockDataview] { [] }
     

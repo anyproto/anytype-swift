@@ -70,7 +70,8 @@ struct TemplatesSelectionView_Previews: PreviewProvider {
                 templatesService: TemplatesService(),
                 toastPresenter: ToastPresenter(
                     viewControllerProvider: ViewControllerProvider(sceneWindow: UIWindow()),
-                    keyboardHeightListener: KeyboardHeightListener()
+                    keyboardHeightListener: KeyboardHeightListener(),
+                    documentsProvider: ServiceLocator().documentsProvider
                 ),
                 onTemplateSelection: { _ in }
             )

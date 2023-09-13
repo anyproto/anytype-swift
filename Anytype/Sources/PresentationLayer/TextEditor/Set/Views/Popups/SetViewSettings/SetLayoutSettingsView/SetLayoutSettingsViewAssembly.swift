@@ -19,7 +19,7 @@ final class SetLayoutSettingsViewAssembly: SetLayoutSettingsViewAssemblyProtocol
     func make(setDocument: SetDocumentProtocol, output: SetLayoutSettingsCoordinatorOutput?) -> AnyView {
         let dataviewService = serviceLocator.dataviewService(
             objectId: setDocument.objectId,
-            blockId: setDocument.blockId
+            blockId: setDocument.inlineParameters?.blockId
         )
         return SetLayoutSettingsView(
             model: SetLayoutSettingsViewModel(

@@ -25,7 +25,7 @@ final class SettingsCoordinator: SettingsCoordinatorProtocol, SettingsModuleOutp
     private let objectIconPickerModuleAssembly: ObjectIconPickerModuleAssemblyProtocol
     private let fileStorageModuleAssembly: FileStorageModuleAssemblyProtocol
     private let widgetObjectListModuleAssembly: WidgetObjectListModuleAssemblyProtocol
-    private let documentService: DocumentServiceProtocol
+    private let documentService: OpenedDocumentsProviderProtocol
     private let urlOpener: URLOpenerProtocol
     
     init(
@@ -44,7 +44,7 @@ final class SettingsCoordinator: SettingsCoordinatorProtocol, SettingsModuleOutp
         objectIconPickerModuleAssembly: ObjectIconPickerModuleAssemblyProtocol,
         fileStorageModuleAssembly: FileStorageModuleAssemblyProtocol,
         widgetObjectListModuleAssembly: WidgetObjectListModuleAssemblyProtocol,
-        documentService: DocumentServiceProtocol,
+        documentService: OpenedDocumentsProviderProtocol,
         urlOpener: URLOpenerProtocol
     ) {
         self.navigationContext = navigationContext

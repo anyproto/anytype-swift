@@ -18,7 +18,7 @@ final class WidgetTypeChangeViewModel: WidgetTypeInternalViewModelProtocol {
         widgetObjectId: String,
         widgetId: String,
         blockWidgetService: BlockWidgetServiceProtocol,
-        documentService: DocumentServiceProtocol,
+        documentService: OpenedDocumentsProviderProtocol,
         context: AnalyticsWidgetContext,
         onFinish: @escaping () -> Void
     ) {

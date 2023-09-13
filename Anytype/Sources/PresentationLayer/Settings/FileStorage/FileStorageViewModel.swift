@@ -17,6 +17,7 @@ final class FileStorageViewModel: ObservableObject {
     private let accountManager: AccountManagerProtocol
     private let subscriptionService: SingleObjectSubscriptionServiceProtocol
     private let fileLimitsStorage: FileLimitsStorageProtocol
+    private let documentsProvider: DocumentsProviderProtocol
     private weak var output: FileStorageModuleOutput?
     private var subscriptions = [AnyCancellable]()
     
@@ -46,11 +47,13 @@ final class FileStorageViewModel: ObservableObject {
         accountManager: AccountManagerProtocol,
         subscriptionService: SingleObjectSubscriptionServiceProtocol,
         fileLimitsStorage: FileLimitsStorageProtocol,
+        documentsProvider: DocumentsProviderProtocol,
         output: FileStorageModuleOutput?
     ) {
         self.accountManager = accountManager
         self.subscriptionService = subscriptionService
         self.fileLimitsStorage = fileLimitsStorage
+        self.documentsProvider = documentsProvider
         self.output = output
         setupPlaceholderState()
         setupSubscription()
@@ -72,7 +75,7 @@ final class FileStorageViewModel: ObservableObject {
         guard let limits else { return }
         AnytypeAnalytics.instance().logGetMoreSpace()
         Task { @MainActor in
-            let profileDocument = BaseDocument(objectId: accountManager.account.info.profileObjectID, forPreview: true)
+            let profileDocument = documentsProvider.document(objectId: accountManager.account.info.profileObjectID, forPreview: true)
             try await profileDocument.openForPreview()
             let limit = byteCountFormatter.string(fromByteCount: limits.bytesLimit)
             let mailLink = MailUrl(

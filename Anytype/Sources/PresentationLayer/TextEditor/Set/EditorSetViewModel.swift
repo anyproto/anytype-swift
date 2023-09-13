@@ -68,7 +68,7 @@ final class EditorSetViewModel: ObservableObject {
     }
     
     var hasTargetObjectId: Bool {
-        setDocument.targetObjectID != nil
+        setDocument.inlineParameters?.targetObjectID != nil
     }
     
     var isEmptyQuery: Bool {
@@ -309,7 +309,7 @@ final class EditorSetViewModel: ObservableObject {
 
                 Task { @MainActor in
                     try? await self.textService.setText(
-                        contextId: self.setDocument.targetObjectID ?? self.objectId,
+                        contextId: self.setDocument.inlineParameters?.targetObjectID ?? self.objectId,
                         blockId: RelationKey.title.rawValue,
                         middlewareString: .init(text: newValue, marks: .init())
                     )
@@ -831,9 +831,8 @@ extension EditorSetViewModel {
 extension EditorSetViewModel {
     static let emptyPreview = EditorSetViewModel(
         setDocument: SetDocument(
-            document: BaseDocument(objectId: "objectId"),
-            blockId: nil,
-            targetObjectID: nil,
+            document: MockBaseDocument(),
+            inlineParameters: nil,
             relationDetailsStorage: DI.preview.serviceLocator.relationDetailsStorage()
         ),
         subscriptionService: DI.preview.serviceLocator.subscriptionService(),

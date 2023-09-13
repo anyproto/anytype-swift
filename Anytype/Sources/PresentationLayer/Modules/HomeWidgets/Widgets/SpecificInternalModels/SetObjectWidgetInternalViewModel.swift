@@ -9,7 +9,7 @@ final class SetObjectWidgetInternalViewModel: CommonWidgetInternalViewModel, Wid
     
     private let setSubscriptionDataBuilder: SetSubscriptionDataBuilderProtocol
     private let subscriptionService: SubscriptionsServiceProtocol
-    private let documentService: DocumentServiceProtocol
+    private let documentService: OpenedDocumentsProviderProtocol
     private let blockWidgetService: BlockWidgetServiceProtocol
     
     private let subscriptionId = "SetWidget-\(UUID().uuidString)"
@@ -37,7 +37,7 @@ final class SetObjectWidgetInternalViewModel: CommonWidgetInternalViewModel, Wid
         widgetObject: BaseDocumentProtocol,
         setSubscriptionDataBuilder: SetSubscriptionDataBuilderProtocol,
         subscriptionService: SubscriptionsServiceProtocol,
-        documentService: DocumentServiceProtocol,
+        documentService: OpenedDocumentsProviderProtocol,
         blockWidgetService: BlockWidgetServiceProtocol
     ) {
         self.setSubscriptionDataBuilder = setSubscriptionDataBuilder

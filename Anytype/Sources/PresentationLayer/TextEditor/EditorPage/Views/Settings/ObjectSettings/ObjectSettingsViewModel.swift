@@ -50,6 +50,7 @@ final class ObjectSettingsViewModel: ObservableObject, Dismissible {
         objectActionsService: ObjectActionsServiceProtocol,
         blockActionsService: BlockActionsServiceSingleProtocol,
         templatesService: TemplatesServiceProtocol,
+        documentsProvider: DocumentsProviderProtocol,
         output: ObjectSettingswModelOutput,
         delegate: ObjectSettingsModuleDelegate
     ) {
@@ -63,6 +64,7 @@ final class ObjectSettingsViewModel: ObservableObject, Dismissible {
             service: objectActionsService,
             blockActionsService: blockActionsService,
             templatesService: templatesService,
+            documentsProvider: documentsProvider,
             undoRedoAction: { [weak output] in
                 output?.undoRedoAction(document: document)
             },
