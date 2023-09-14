@@ -26,10 +26,6 @@ public extension FeatureFlags {
         value(for: .migrationGuide)
     }
 
-    static var newAuthorization: Bool {
-        value(for: .newAuthorization)
-    }
-
     static var compactListWidget: Bool {
         value(for: .compactListWidget)
     }
@@ -97,7 +93,6 @@ public extension FeatureFlags {
         .fullInlineSetImpl,
         .dndOnCollectionsAndSets,
         .migrationGuide,
-        .newAuthorization,
         .compactListWidget,
         .getMoreSpace,
         .deleteObjectPlaceholder,

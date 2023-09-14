@@ -43,7 +43,6 @@ final class LoginStateService: LoginStateServiceProtocol {
     
     func setupStateAfterRegistration(account: AccountData) async {
         isFirstLaunchAfterRegistration = true
-        UserDefaultsConfig.showKeychainAlert = !FeatureFlags.newAuthorization 
         middlewareConfigurationProvider.setupConfiguration(account: account)
         await startSubscriptions()
     }
