@@ -159,13 +159,9 @@ class ScannerViewController: UIViewController, AVCaptureMetadataOutputObjectsDel
     }
     
     private func startRunningCaptureSession() {
-        if FeatureFlags.fixAVCaptureSessionError {
-            serialQueue.async { [weak self] in
-                guard let self else { return }
-                self.startRunningCaptureSessionIfNeeded()
-            }
-        } else {
-            startRunningCaptureSessionIfNeeded()
+        serialQueue.async { [weak self] in
+            guard let self else { return }
+            self.startRunningCaptureSessionIfNeeded()
         }
     }
     
@@ -176,13 +172,9 @@ class ScannerViewController: UIViewController, AVCaptureMetadataOutputObjectsDel
     }
     
     private func stopRunningCaptureSession() {
-        if FeatureFlags.fixAVCaptureSessionError {
-            serialQueue.async { [weak self] in
-                guard let self else { return }
-                self.stopRunningCaptureSessionIfNeeded()
-            }
-        } else {
-            stopRunningCaptureSessionIfNeeded()
+        serialQueue.async { [weak self] in
+            guard let self else { return }
+            self.stopRunningCaptureSessionIfNeeded()
         }
     }
     

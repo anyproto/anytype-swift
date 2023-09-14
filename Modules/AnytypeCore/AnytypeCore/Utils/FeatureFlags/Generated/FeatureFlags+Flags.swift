@@ -38,10 +38,6 @@ public extension FeatureFlags {
         value(for: .getMoreSpace)
     }
 
-    static var fixAVCaptureSessionError: Bool {
-        value(for: .fixAVCaptureSessionError)
-    }
-
     static var clearAccountDataOnDeletedStatus: Bool {
         value(for: .clearAccountDataOnDeletedStatus)
     }
@@ -120,7 +116,6 @@ public extension FeatureFlags {
         .newAuthorization,
         .compactListWidget,
         .getMoreSpace,
-        .fixAVCaptureSessionError,
         .clearAccountDataOnDeletedStatus,
         .fixAudioSession,
         .deleteObjectPlaceholder,
