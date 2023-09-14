@@ -90,9 +90,7 @@ final class SetViewPickerViewModel: ObservableObject {
     }
     
     private func handleEditTap(with id: String) {
-        guard let activeView = setDocument.dataView.views.first(where: { $0.id == id }) else {
-            return
-        }
+        let activeView = setDocument.view(by: id)
         output?.onEditButtonTap(dataView: activeView)
     }
     

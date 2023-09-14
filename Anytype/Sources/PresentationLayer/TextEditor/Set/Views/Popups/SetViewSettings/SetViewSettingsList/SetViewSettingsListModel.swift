@@ -26,12 +26,7 @@ final class SetViewSettingsListModel: ObservableObject {
     
     private var cancellables = [AnyCancellable]()
     
-    private var view: DataviewView {
-        setDocument.dataView.views.first { [weak self] view in
-            guard let self else { return false }
-            return view.id == viewId
-        } ?? .empty
-    }
+    private var view: DataviewView = .empty
     
     init(
         setDocument: SetDocumentProtocol,
@@ -126,7 +121,8 @@ final class SetViewSettingsListModel: ObservableObject {
     }
     
     private func updateState() {
-        let view = view
+        view = setDocument.view(by: viewId)
+        
         name = view.name
         layoutValue = view.type.name
         updateRelationsValue()
@@ -137,7 +133,6 @@ final class SetViewSettingsListModel: ObservableObject {
         
         let filters = setDocument.filters(for: viewId)
         updateFiltersValue(filters)
-        
     }
     
     private func setupTemplatesSubscriptions() {

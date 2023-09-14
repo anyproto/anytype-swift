@@ -71,8 +71,8 @@ class SetDocument: SetDocumentProtocol {
     @Published var activeView = DataviewView.empty
     var activeViewPublisher: AnyPublisher<DataviewView, Never> { $activeView.eraseToAnyPublisher() }
     
-    @Published var sorts: [SetSort] = []
-    @Published var filters: [SetFilter] = []
+    @Published var activeViewSorts: [SetSort] = []
+    @Published var activeViewFilters: [SetFilter] = []
     
     let blockId: BlockId?
     
@@ -98,13 +98,17 @@ class SetDocument: SetDocumentProtocol {
         self.setup()
     }
     
+    func view(by id: String) -> DataviewView {
+        dataView.views.first { $0.id == id } ?? .empty
+    }
+    
     func sortedRelations(for viewId: String) -> [SetRelation] {
-        let view = dataView.views.first { $0.id == viewId } ?? .empty
+        let view = view(by: viewId)
         return dataBuilder.sortedRelations(dataview: dataView, view: view)
     }
     
     func sorts(for viewId: String) -> [SetSort] {
-        let view = dataView.views.first { $0.id == viewId } ?? .empty
+        let view = view(by: viewId)
         return view.sorts.compactMap { sort in
             let relationDetails = dataViewRelationsDetails.first { relationDetails in
                 sort.relationKey == relationDetails.key
@@ -116,7 +120,7 @@ class SetDocument: SetDocumentProtocol {
     }
     
     func filters(for viewId: String) -> [SetFilter] {
-        let view = dataView.views.first { $0.id == viewId } ?? .empty
+        let view = view(by: viewId)
         return view.filters.compactMap { filter in
             let relationDetails = dataViewRelationsDetails.first { relationDetails in
                 filter.relationKey == relationDetails.key
@@ -132,7 +136,7 @@ class SetDocument: SetDocumentProtocol {
     }
     
     func viewRelations(viewId: String, excludeRelations: [RelationDetails]) -> [RelationDetails] {
-        let view = dataView.views.first { $0.id == viewId } ?? .empty
+        let view = view(by: viewId)
         return dataBuilder.activeViewRelations(
             dataViewRelationsDetails: dataViewRelationsDetails,
             view: view,
@@ -234,11 +238,11 @@ class SetDocument: SetDocumentProtocol {
     }
     
     private func updateSorts() {
-        sorts = sorts(for: activeView.id)
+        activeViewSorts = sorts(for: activeView.id)
     }
     
     private func updateFilters() {
-        filters = filters(for: activeView.id)
+        activeViewFilters = filters(for: activeView.id)
     }
     
     private func shouldClearState(prevActiveView: DataviewView) -> Bool {

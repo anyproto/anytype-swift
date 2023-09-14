@@ -140,7 +140,7 @@ extension SetFiltersListViewModel {
                     try await dataviewService.replaceFilter(
                         filter.filter.id,
                         with: updatedFilter.filter,
-                        viewId: self.viewId
+                        viewId: viewId
                     )
                     if filter.filter.condition != updatedFilter.filter.condition {
                         AnytypeAnalytics.instance().logChangeFilterValue(
@@ -151,7 +151,7 @@ extension SetFiltersListViewModel {
                 } else {
                     try await dataviewService.addFilter(
                         updatedFilter.filter,
-                        viewId: self.viewId
+                        viewId: viewId
                     )
                     AnytypeAnalytics.instance().logAddFilter(
                         condition: updatedFilter.filter.condition.stringValue,

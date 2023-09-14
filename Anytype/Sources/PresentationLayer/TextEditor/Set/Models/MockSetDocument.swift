@@ -35,17 +35,15 @@ final class MockSetDocument: SetDocumentProtocol {
     
     var activeViewPublisher: AnyPublisher<Services.DataviewView, Never> { fatalError() }
     
-    var sorts: [SetSort] { [] }
-    
-    var sortsPublisher: AnyPublisher<[SetSort], Never> { fatalError() }
+    var activeViewSorts: [SetSort] { [] }
     
     func sorts(for viewId: String) -> [SetSort] { [] }
     
-    var filters: [SetFilter] { [] }
-    
-    var filtersPublisher: AnyPublisher<[SetFilter], Never> { fatalError() }
+    var activeViewFilters: [SetFilter] { [] }
     
     func filters(for viewId: String) -> [SetFilter] { [] }
+    
+    func view(by id: String) -> DataviewView { .empty }
     
     func sortedRelations(for viewId: String) -> [SetRelation] { [] }
     

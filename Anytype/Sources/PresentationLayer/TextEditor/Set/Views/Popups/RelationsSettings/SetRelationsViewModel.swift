@@ -19,12 +19,7 @@ final class SetRelationsViewModel: ObservableObject {
     
     private var cancellable: Cancellable?
     
-    private var view: DataviewView {
-        setDocument.dataView.views.first { [weak self] view in
-            guard let self else { return false }
-            return view.id == viewId
-        } ?? .empty
-    }
+    private var view: DataviewView = .empty
     
     var cardSizeSetting: SetViewSettingsValueItem {
         SetViewSettingsValueItem(
@@ -169,6 +164,7 @@ final class SetRelationsViewModel: ObservableObject {
     private func setup() {
         cancellable = setDocument.syncPublisher.sink {  [weak self] in
             guard let self else { return }
+            view = setDocument.view(by: viewId)
             contentViewType = view.type.setContentViewType
         }
     }

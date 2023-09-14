@@ -20,12 +20,7 @@ final class SetLayoutSettingsViewModel: ObservableObject {
     private var cancellable: Cancellable?
     private let dataviewService: DataviewServiceProtocol
     
-    private var view: DataviewView {
-        setDocument.dataView.views.first { [weak self] view in
-            guard let self else { return false }
-            return view.id == viewId
-        } ?? .empty
-    }
+    private var view: DataviewView = .empty
     
     init(
         setDocument: SetDocumentProtocol,
@@ -43,6 +38,7 @@ final class SetLayoutSettingsViewModel: ObservableObject {
     private func setupSubscription() {
         cancellable = setDocument.syncPublisher.sink { [weak self] in
             guard let self else { return }
+            view = setDocument.view(by: viewId)
             selectedType = view.type
         }
     }

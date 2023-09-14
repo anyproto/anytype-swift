@@ -77,7 +77,7 @@ final class EditorSetViewModel: ObservableObject {
     
     var showEmptyState: Bool {
         (isEmptyQuery && !setDocument.isCollection()) ||
-        (setDocument.isCollection() && recordsDict.values.first { $0.isNotEmpty } == nil && setDocument.filters.isEmpty)
+        (setDocument.isCollection() && recordsDict.values.first { $0.isNotEmpty } == nil && setDocument.activeViewFilters.isEmpty)
     }
     
     func groupBackgroundColor(for groupId: String) -> BlockBackgroundColor {
@@ -650,7 +650,7 @@ final class EditorSetViewModel: ObservableObject {
                 objectType: type,
                 shouldSelectType: shouldSelectType,
                 templateId: templateId ?? "",
-                setFilters: self.setDocument.filters,
+                setFilters: self.setDocument.activeViewFilters,
                 relationsDetails: relationsDetails
             )
             AnytypeAnalytics.instance().logCreateObject(objectType: details.analyticsType, route: setDocument.isCollection() ? .collection : .set)
