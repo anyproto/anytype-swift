@@ -54,10 +54,6 @@ public extension FeatureFlags {
         value(for: .openBinObject)
     }
 
-    static var colorfulRecoveryPhrase: Bool {
-        value(for: .colorfulRecoveryPhrase)
-    }
-
     static var recentEditWidget: Bool {
         value(for: .recentEditWidget)
     }
@@ -108,7 +104,6 @@ public extension FeatureFlags {
         .showAllFilesInBin,
         .superNewButtonLoadingState,
         .openBinObject,
-        .colorfulRecoveryPhrase,
         .recentEditWidget,
         .widgetTaskDone,
         .newCodeLanguages,

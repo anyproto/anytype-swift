@@ -76,12 +76,6 @@ public extension FeatureDescription {
         defaultValue: true
     )
     
-    static let colorfulRecoveryPhrase = FeatureDescription(
-        title: "Colourful recovery phrase",
-        type: .feature(author: "joe_pusya@anytype.io", releaseVersion: "0.24.0"),
-        defaultValue: true
-    )
-    
     static let recentEditWidget = FeatureDescription(
         title: "Recent edit widget - IOS-1608",
         type: .feature(author: "m@anytype.io", releaseVersion: "0.24.0"),
