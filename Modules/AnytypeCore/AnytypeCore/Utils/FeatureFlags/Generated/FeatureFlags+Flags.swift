@@ -38,10 +38,6 @@ public extension FeatureFlags {
         value(for: .getMoreSpace)
     }
 
-    static var fixAudioSession: Bool {
-        value(for: .fixAudioSession)
-    }
-
     static var deleteObjectPlaceholder: Bool {
         value(for: .deleteObjectPlaceholder)
     }
@@ -112,7 +108,6 @@ public extension FeatureFlags {
         .newAuthorization,
         .compactListWidget,
         .getMoreSpace,
-        .fixAudioSession,
         .deleteObjectPlaceholder,
         .showAllFilesInBin,
         .superNewButtonLoadingState,

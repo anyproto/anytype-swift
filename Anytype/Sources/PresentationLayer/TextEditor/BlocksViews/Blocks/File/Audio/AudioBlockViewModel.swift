@@ -1,7 +1,6 @@
 import Services
 import UIKit
 import AVFoundation
-import AnytypeCore
 
 
 final class AudioBlockViewModel: BlockViewModelProtocol {
@@ -82,16 +81,10 @@ final class AudioBlockViewModel: BlockViewModelProtocol {
     }
     
     func setAudioSessionCategorypPlayback() {
-        if FeatureFlags.fixAudioSession {
-            audioSessionService.setCategorypPlayback()
-        } else {
-            audioSessionService.setAudioSessionActiveLegacy()
-        }
+        audioSessionService.setCategorypPlayback()
     }
     
     func setAudioSessionCategorypPlaybackMixWithOthers() {
-        if FeatureFlags.fixAudioSession {
-            audioSessionService.setCategorypPlaybackMixWithOthers()
-        }
+        audioSessionService.setCategorypPlaybackMixWithOthers()
     }
 }
