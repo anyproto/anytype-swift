@@ -1,7 +1,6 @@
 import AVFoundation
 import UIKit
 import SwiftUI
-import AnytypeCore
 
 
 // MARK: - SwiftUI adapter

@@ -52,12 +52,6 @@ public extension FeatureDescription {
         defaultValue: true
     )
     
-    static let clearAccountDataOnDeletedStatus = FeatureDescription(
-        title: "Clear cccount data on deleted status",
-        type: .feature(author: "joe_pusya@anytype.io", releaseVersion: "0.23.0"),
-        defaultValue: true
-    )
-    
     static let fixAudioSession = FeatureDescription(
         title: "Fix AudioSession to avoid stop playing misic on the new onboarding",
         type: .feature(author: "joe_pusya@anytype.io", releaseVersion: "0.23.0"),

@@ -38,10 +38,6 @@ public extension FeatureFlags {
         value(for: .getMoreSpace)
     }
 
-    static var clearAccountDataOnDeletedStatus: Bool {
-        value(for: .clearAccountDataOnDeletedStatus)
-    }
-
     static var fixAudioSession: Bool {
         value(for: .fixAudioSession)
     }
@@ -116,7 +112,6 @@ public extension FeatureFlags {
         .newAuthorization,
         .compactListWidget,
         .getMoreSpace,
-        .clearAccountDataOnDeletedStatus,
         .fixAudioSession,
         .deleteObjectPlaceholder,
         .showAllFilesInBin,
