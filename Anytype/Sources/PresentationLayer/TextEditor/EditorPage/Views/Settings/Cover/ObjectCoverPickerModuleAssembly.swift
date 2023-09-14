@@ -3,25 +3,22 @@ import UIKit
 import SwiftUI
 
 protocol ObjectCoverPickerModuleAssemblyProtocol {
-    func make(document: BaseDocumentGeneralProtocol, objectId: String) -> UIViewController
+    func make(
+        document: BaseDocumentGeneralProtocol,
+        onCoverAction: @escaping (ObjectCoverPickerAction) -> Void
+    ) -> UIViewController
 }
 
 final class ObjectCoverPickerModuleAssembly: ObjectCoverPickerModuleAssemblyProtocol {
     
-    private let serviceLocator: ServiceLocator
-    
-    init(serviceLocator: ServiceLocator) {
-        self.serviceLocator = serviceLocator
-    }
-    
     // MARK: - ObjectCoverPickerModuleAssemblyProtocol
-    
-    func make(document: BaseDocumentGeneralProtocol, objectId: String) -> UIViewController {
+    func make(
+        document: BaseDocumentGeneralProtocol,
+        onCoverAction: @escaping (ObjectCoverPickerAction) -> Void
+    ) -> UIViewController {
         let viewModel = ObjectCoverPickerViewModel(
             document: document,
-            objectId: objectId,
-            fileService: serviceLocator.fileService(),
-            detailsService: serviceLocator.detailsService(objectId: objectId)
+            onCoverAction: onCoverAction
         )
         
         let controller = UIHostingController(

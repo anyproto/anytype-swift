@@ -27,6 +27,7 @@ final class SettingsCoordinator: SettingsCoordinatorProtocol, SettingsModuleOutp
     private let widgetObjectListModuleAssembly: WidgetObjectListModuleAssemblyProtocol
     private let documentService: DocumentServiceProtocol
     private let urlOpener: URLOpenerProtocol
+    private let serviceLocator: ServiceLocator
     
     init(
         navigationContext: NavigationContextProtocol,
@@ -45,7 +46,8 @@ final class SettingsCoordinator: SettingsCoordinatorProtocol, SettingsModuleOutp
         fileStorageModuleAssembly: FileStorageModuleAssemblyProtocol,
         widgetObjectListModuleAssembly: WidgetObjectListModuleAssemblyProtocol,
         documentService: DocumentServiceProtocol,
-        urlOpener: URLOpenerProtocol
+        urlOpener: URLOpenerProtocol,
+        serviceLocator: ServiceLocator
     ) {
         self.navigationContext = navigationContext
         self.objectTypeProvider = objectTypeProvider
@@ -64,6 +66,7 @@ final class SettingsCoordinator: SettingsCoordinatorProtocol, SettingsModuleOutp
         self.widgetObjectListModuleAssembly = widgetObjectListModuleAssembly
         self.documentService = documentService
         self.urlOpener = urlOpener
+        self.serviceLocator = serviceLocator
     }
     
     func startFlow() {
@@ -105,7 +108,10 @@ final class SettingsCoordinator: SettingsCoordinatorProtocol, SettingsModuleOutp
     
     func onChangeIconSelected(objectId: String) {
         let document = documentService.document(objectId: objectId, forPreview: true)
-        let module = objectIconPickerModuleAssembly.make(document: document, objectId: objectId)
+        let interactor = serviceLocator.objectHeaderInteractor(objectId: objectId)
+        let module = objectIconPickerModuleAssembly.make(document: document) { action in
+            interactor.handleIconAction(action: action)
+        }
         navigationContext.present(module)
     }
     

@@ -19,6 +19,7 @@ final class ServiceLocator {
         blockActionService: blockActionsServiceSingle(),
         pageRepository: pageRepository()
     )
+    lazy private(set) var unsplashService: UnsplashServiceProtocol = UnsplashService()
     
     // MARK: - Services
     
@@ -223,6 +224,14 @@ final class ServiceLocator {
     
     func objectsCommonSubscriptionDataBuilder() -> ObjectsCommonSubscriptionDataBuilderProtocol {
         ObjectsCommonSubscriptionDataBuilder()
+    }
+    
+    func objectHeaderInteractor(objectId: BlockId) -> ObjectHeaderInteractorProtocol {
+        ObjectHeaderInteractor(
+            detailsService: detailsService(objectId: objectId),
+            fileService: fileService(),
+            unsplashService: unsplashService
+        )
     }
     
     func singleObjectSubscriptionService() -> SingleObjectSubscriptionServiceProtocol {

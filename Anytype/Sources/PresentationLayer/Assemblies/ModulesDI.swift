@@ -31,7 +31,7 @@ final class ModulesDI: ModulesDIProtocol {
     }
     
     func objectCoverPicker() -> ObjectCoverPickerModuleAssemblyProtocol {
-        return ObjectCoverPickerModuleAssembly(serviceLocator: serviceLocator)
+        return ObjectCoverPickerModuleAssembly()
     }
     
     func objectIconPicker() -> ObjectIconPickerModuleAssemblyProtocol {

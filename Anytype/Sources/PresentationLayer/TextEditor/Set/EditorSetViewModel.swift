@@ -5,8 +5,9 @@ import SwiftUI
 import OrderedCollections
 
 final class EditorSetViewModel: ObservableObject {
+    let headerModel: ObjectHeaderViewModel
+    
     @Published var titleString: String
-    @Published private(set) var headerModel: ObjectHeaderViewModel!
     @Published var loadingDocument = true
     @Published var featuredRelations = [Relation]()
     
@@ -136,6 +137,7 @@ final class EditorSetViewModel: ObservableObject {
 
     init(
         setDocument: SetDocumentProtocol,
+        headerViewModel: ObjectHeaderViewModel,
         subscriptionService: SubscriptionsServiceProtocol,
         dataviewService: DataviewServiceProtocol,
         searchService: SearchServiceProtocol,
@@ -148,6 +150,7 @@ final class EditorSetViewModel: ObservableObject {
         objectTypeProvider: ObjectTypeProviderProtocol
     ) {
         self.setDocument = setDocument
+        self.headerModel = headerViewModel
         self.subscriptionService = subscriptionService
         self.dataviewService = dataviewService
         self.searchService = searchService
@@ -163,15 +166,6 @@ final class EditorSetViewModel: ObservableObject {
     
     func setup(router: EditorSetRouterProtocol) {
         self.router = router
-        self.headerModel = ObjectHeaderViewModel(
-            document: setDocument,
-            router: router,
-            configuration: .init(
-                isOpenedForPreview: false,
-                shouldShowTemplateSelection: false,
-                usecase: .editor
-            )
-        )
         
         setDocument.setUpdatePublisher.sink { [weak self] in
             self?.onDataChange($0)
@@ -721,7 +715,14 @@ extension EditorSetViewModel {
     }
     
     func showObjectSettings() {
-        router?.showSettings()
+        router?.showSettings { [weak self] action in
+            switch action {
+            case .cover(let objectCoverPickerAction):
+                self?.headerModel.handleCoverAction(action: objectCoverPickerAction)
+            case .icon(let objectIconPickerAction):
+                self?.headerModel.handleIconAction(action: objectIconPickerAction)
+            }
+        }
     }
     
     func objectOrderUpdate(with groupObjectIds: [GroupObjectIds]) {
@@ -752,7 +753,9 @@ extension EditorSetViewModel {
     }
     
     func showIconPicker() {
-        router?.showIconPicker()
+        router?.showIconPicker(document: setDocument) { [weak self] action in
+            self?.headerModel.handleIconAction(action: action)
+        }
     }
     
     func showSetOfTypeSelection() {
@@ -836,6 +839,15 @@ extension EditorSetViewModel {
             blockId: nil,
             targetObjectID: nil,
             relationDetailsStorage: DI.preview.serviceLocator.relationDetailsStorage()
+        ),
+        headerViewModel: .init(
+            document: BaseDocument(objectId: "objectId", forPreview: false),
+            configuration: .init(
+                isOpenedForPreview: false,
+                shouldShowTemplateSelection: false,
+                usecase: .editor
+            ),
+            interactor: DI.preview.serviceLocator.objectHeaderInteractor(objectId: "objectId")
         ),
         subscriptionService: DI.preview.serviceLocator.subscriptionService(),
         dataviewService: DataviewService(objectId: "objectId", blockId: "blockId", prefilledFieldsBuilder: SetPrefilledFieldsBuilder()),
