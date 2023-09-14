@@ -5,11 +5,14 @@ import UIKit
 import FloatingPanel
 import SwiftUI
 
-protocol ObjectSettingswModelOutput: AnyObject {
+enum ObjectSettingsAction {
+    case cover(ObjectCoverPickerAction)
+    case icon(ObjectIconPickerAction)
+}
+
+protocol ObjectSettingsModelOutput: AnyObject, ObjectHeaderRouterProtocol {
     func undoRedoAction(document: BaseDocumentProtocol)
     func layoutPickerAction(document: BaseDocumentProtocol)
-    func coverPickerAction(document: BaseDocumentProtocol)
-    func iconPickerAction(document: BaseDocumentProtocol)
     func relationsAction(document: BaseDocumentProtocol)
     func openPageAction(screenData: EditorScreenData)
     func linkToAction(document: BaseDocumentProtocol, onSelect: @escaping (BlockId) -> ())
@@ -37,26 +40,28 @@ final class ObjectSettingsViewModel: ObservableObject, Dismissible {
     private let document: BaseDocumentProtocol
     private let objectDetailsService: DetailsServiceProtocol
     private let settingsBuilder = ObjectSettingBuilder()
+    private let settingsActionHandler: (ObjectSettingsAction) -> Void
     
     private var subscription: AnyCancellable?
     private var onLinkItselfToObjectHandler: ((EditorScreenData) -> Void)?
     
-    private weak var output: ObjectSettingswModelOutput?
+    private weak var output: ObjectSettingsModelOutput?
     private weak var delegate: ObjectSettingsModuleDelegate?
-    
     init(
         document: BaseDocumentProtocol,
         objectDetailsService: DetailsServiceProtocol,
         objectActionsService: ObjectActionsServiceProtocol,
         blockActionsService: BlockActionsServiceSingleProtocol,
         templatesService: TemplatesServiceProtocol,
-        output: ObjectSettingswModelOutput,
-        delegate: ObjectSettingsModuleDelegate
+        output: ObjectSettingsModelOutput,
+        delegate: ObjectSettingsModuleDelegate,
+        settingsActionHandler: @escaping (ObjectSettingsAction) -> Void
     ) {
         self.document = document
         self.objectDetailsService = objectDetailsService
         self.output = output
         self.delegate = delegate
+        self.settingsActionHandler = settingsActionHandler
         
         self.objectActionsViewModel = ObjectActionsViewModel(
             objectId: document.objectId,
@@ -102,11 +107,15 @@ final class ObjectSettingsViewModel: ObservableObject, Dismissible {
     }
     
     func onTapIconPicker() {
-        output?.iconPickerAction(document: document)
+        output?.showIconPicker(document: document) { [weak self] action in
+            self?.settingsActionHandler(.icon(action))
+        }
     }
     
     func onTapCoverPicker() {
-        output?.coverPickerAction(document: document)
+        output?.showCoverPicker(document: document) { [weak self] action in
+            self?.settingsActionHandler(.cover(action))
+        }
     }
     
     func onTapRelations() {

@@ -363,16 +363,30 @@ final class EditorRouter: NSObject, EditorRouterProtocol, ObjectSettingsCoordina
     }
     
     // MARK: - Settings
-    func showSettings() {
-        objectSettingCoordinator.startFlow(objectId: document.objectId, delegate: self, output: self)
+    func showSettings(actionHandler: @escaping (ObjectSettingsAction) -> Void) {
+        objectSettingCoordinator.startFlow(
+            objectId: document.objectId,
+            delegate: self,
+            output: self,
+            objectSettingsHandler: actionHandler
+        )
     }
     
-    func showCoverPicker() {
-        let moduleViewController = objectCoverPickerModuleAssembly.make(document: document, objectId: document.objectId)
+    func showCoverPicker(
+        document: BaseDocumentGeneralProtocol,
+        onCoverAction: @escaping (ObjectCoverPickerAction) -> Void
+    ) {
+        let moduleViewController = objectCoverPickerModuleAssembly.make(
+            document: document,
+            onCoverAction: onCoverAction
+        )
         navigationContext.present(moduleViewController)
     }
     
-    func showIconPicker() {
+    func showIconPicker(
+        document: BaseDocumentGeneralProtocol,
+        onIconAction: @escaping (ObjectIconPickerAction) -> Void
+    ) {
         let moduleViewController = objectIconPickerModuleAssembly.make(document: document, objectId: document.objectId)
         navigationContext.present(moduleViewController)
     }

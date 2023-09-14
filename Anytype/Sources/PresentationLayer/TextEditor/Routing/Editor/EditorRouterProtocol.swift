@@ -40,7 +40,7 @@ protocol EditorRouterProtocol:
         viewDidClose: @escaping () -> Void
     )
     
-    func showSettings()
+    func showSettings(actionHandler: @escaping (ObjectSettingsAction) -> Void)
     func showTextIconPicker(contextId: BlockId, objectId: BlockId)
     
     func showMoveTo(onSelect: @escaping (ObjectDetails) -> ())

@@ -33,17 +33,17 @@ extension DetailsService: DetailsServiceProtocol {
     }
     
     func setCover(source: FileUploadingSource) async throws {
-        await EventsBunch(
-            contextId: objectId,
-            localEvents: [.header(.coverUploading(.bundleImagePath("")))]
-        ).send()
-        let data = try await fileService.createFileData(source: source)
-        await EventsBunch(
-            contextId: objectId,
-            localEvents: [.header(.coverUploading(.bundleImagePath(data.path)))]
-        ).send()
-        let imageHash = try await fileService.uploadImage(data: data)
-        try await setCover(imageHash: imageHash)
+//        await EventsBunch(
+//            contextId: objectId,
+//            localEvents: [.header(.coverUploading(.bundleImagePath("")))]
+//        ).send()
+//        let data = try await fileService.createFileData(source: source)
+//        await EventsBunch(
+//            contextId: objectId,
+//            localEvents: [.header(.coverUploading(.bundleImagePath(data.path)))]
+//        ).send()
+//        let imageHash = try await fileService.uploadImage(data: data)
+//        try await setCover(imageHash: imageHash)
     }
     
     func setCover(imageHash: Hash) async throws {
@@ -51,16 +51,16 @@ extension DetailsService: DetailsServiceProtocol {
     }
     
     func setObjectIcon(source: FileUploadingSource) async throws {
-        await EventsBunch(
-            contextId: objectId,
-            localEvents: [.header(.iconUploading(""))]
-        ).send()
-        let data = try await fileService.createFileData(source: source)
-        await EventsBunch(
-            contextId: objectId,
-            localEvents: [.header(.iconUploading(data.path))]
-        ).send()
-        let imageHash = try await fileService.uploadImage(data: data)
-        try await updateBundledDetails([.iconEmoji(""), .iconImageHash(imageHash)])
+//        await EventsBunch(
+//            contextId: objectId,
+//            localEvents: [.header(.iconUploading(""))]
+//        ).send()
+//        let data = try await fileService.createFileData(source: source)
+//        await EventsBunch(
+//            contextId: objectId,
+//            localEvents: [.header(.iconUploading(data.path))]
+//        ).send()
+//        let imageHash = try await fileService.uploadImage(data: data)
+//        try await updateBundledDetails([.iconEmoji(""), .iconImageHash(imageHash)])
     }
 }

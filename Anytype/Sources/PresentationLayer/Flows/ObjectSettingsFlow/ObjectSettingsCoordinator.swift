@@ -3,11 +3,16 @@ import Services
 import AnytypeCore
 
 protocol ObjectSettingsCoordinatorProtocol {
-    func startFlow(objectId: BlockId, delegate: ObjectSettingsModuleDelegate, output: ObjectSettingsCoordinatorOutput?)
+    func startFlow(
+        objectId: BlockId,
+        delegate: ObjectSettingsModuleDelegate,
+        output: ObjectSettingsCoordinatorOutput?,
+        objectSettingsHandler: @escaping (ObjectSettingsAction) -> Void
+    )
 }
 
 final class ObjectSettingsCoordinator: ObjectSettingsCoordinatorProtocol,
-                                       ObjectSettingswModelOutput, RelationsListModuleOutput,
+                                       ObjectSettingsModelOutput, RelationsListModuleOutput,
                                        RelationValueCoordinatorOutput {
     private let navigationContext: NavigationContextProtocol
     private let objectSettingsModuleAssembly: ObjectSettingModuleAssemblyProtocol
@@ -52,7 +57,12 @@ final class ObjectSettingsCoordinator: ObjectSettingsCoordinatorProtocol,
         self.newSearchModuleAssembly = newSearchModuleAssembly
     }
     
-    func startFlow(objectId: BlockId, delegate: ObjectSettingsModuleDelegate, output: ObjectSettingsCoordinatorOutput?) {
+    func startFlow(
+        objectId: BlockId,
+        delegate: ObjectSettingsModuleDelegate,
+        output: ObjectSettingsCoordinatorOutput?,
+        objectSettingsHandler: @escaping (ObjectSettingsAction) -> Void
+    ) {
         self.output = output
         let document = BaseDocument(objectId: objectId)
         Task { @MainActor in
@@ -61,7 +71,8 @@ final class ObjectSettingsCoordinator: ObjectSettingsCoordinatorProtocol,
                 let moduleViewController = objectSettingsModuleAssembly.make(
                     document: document,
                     output: self,
-                    delegate: delegate
+                    delegate: delegate,
+                    actionHandler: objectSettingsHandler
                 )
                 
                 navigationContext.present(moduleViewController)
@@ -71,7 +82,7 @@ final class ObjectSettingsCoordinator: ObjectSettingsCoordinatorProtocol,
         }
     }
     
-    // MARK: - ObjectSettingswModelOutput
+    // MARK: - ObjectSettingsModelOutput
     
     func undoRedoAction(document: BaseDocumentProtocol) {
         let moduleViewController = undoRedoModuleAssembly.make(document: document)
@@ -84,12 +95,19 @@ final class ObjectSettingsCoordinator: ObjectSettingsCoordinatorProtocol,
         navigationContext.present(moduleViewController)
     }
     
-    func coverPickerAction(document: BaseDocumentProtocol) {
-        let moduleViewController = objectCoverPickerModuleAssembly.make(document: document, objectId: document.objectId)
+    
+    func showCoverPicker(document: BaseDocumentGeneralProtocol, onCoverAction: @escaping (ObjectCoverPickerAction) -> Void) {
+        let moduleViewController = objectCoverPickerModuleAssembly.make(
+            document: document,
+            onCoverAction: onCoverAction
+        )
         navigationContext.present(moduleViewController)
     }
     
-    func iconPickerAction(document: BaseDocumentProtocol) {
+    func showIconPicker(
+        document: BaseDocumentGeneralProtocol,
+        onIconAction: @escaping (ObjectIconPickerAction) -> Void
+    ) {
         let moduleViewController = objectIconPickerModuleAssembly.make(document: document, objectId: document.objectId)
         navigationContext.present(moduleViewController)
     }

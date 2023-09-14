@@ -4,8 +4,14 @@ import Combine
 import AnytypeCore
 
 protocol ObjectHeaderRouterProtocol: AnyObject {
-    func showIconPicker()
-    func showCoverPicker()
+    func showIconPicker(
+        document: BaseDocumentGeneralProtocol,
+        onIconAction: @escaping (ObjectIconPickerAction) -> Void
+    )
+    func showCoverPicker(
+        document: BaseDocumentGeneralProtocol,
+        onCoverAction: @escaping (ObjectCoverPickerAction) -> Void
+    )
 }
 
 final class ObjectHeaderViewModel: ObservableObject {
@@ -17,35 +23,44 @@ final class ObjectHeaderViewModel: ObservableObject {
     private lazy var onIconTap = { [weak self] in
         guard let self = self, !self.configuration.isOpenedForPreview else { return }
         UISelectionFeedbackGenerator().selectionChanged()
-        self.router.showIconPicker()
+        self.onIconPickerTap?((document, { [weak self] action in
+            self?.handleIconAction(action: action)
+        }))
     }
     
     private lazy var onCoverTap = { [weak self] in
         guard let self = self, !self.configuration.isOpenedForPreview else { return }
         guard self.document.details?.layoutValue != .note else { return }
-
-
         UISelectionFeedbackGenerator().selectionChanged()
-
-        self.router.showCoverPicker()
+        self.onCoverPickerTap?((document, { [weak self] action in
+            self?.handleCoverAction(action: action)
+        }))
     }
     
     private let document: BaseDocumentGeneralProtocol
-    private let router: ObjectHeaderRouterProtocol
-    
     private var subscription: AnyCancellable?
     private let configuration: EditorPageViewModelConfiguration
+    private let detailsService: DetailsServiceProtocol
+    private let fileService: FileActionsServiceProtocol
+    private let unsplashService: UnsplashServiceProtocol
+    
+    var onCoverPickerTap: RoutingAction<(BaseDocumentGeneralProtocol, (ObjectCoverPickerAction) -> Void)>?
+    var onIconPickerTap: RoutingAction<(BaseDocumentGeneralProtocol, (ObjectIconPickerAction) -> Void)>?
     
     // MARK: - Initializers
     
     init(
         document: BaseDocumentGeneralProtocol,
-        router: ObjectHeaderRouterProtocol,
-        configuration: EditorPageViewModelConfiguration
+        configuration: EditorPageViewModelConfiguration,
+        detailsService: DetailsServiceProtocol,
+        fileService: FileActionsServiceProtocol,
+        unsplashService: UnsplashServiceProtocol
     ) {
         self.document = document
-        self.router = router
         self.configuration = configuration
+        self.detailsService = detailsService
+        self.fileService = fileService
+        self.unsplashService = unsplashService
         
         setupSubscription()
 
@@ -88,8 +103,8 @@ final class ObjectHeaderViewModel: ObservableObject {
         switch update {
         case .details, .general:
             header = buildHeader()
-        case .header(let data):
-            header = buildLoadingHeader(data)
+//        case .header(let data):
+//            header = buildLoadingHeader(data)
         case .blocks, .dataSourceUpdate, .syncStatus:
             break
         }
@@ -167,67 +182,57 @@ final class ObjectHeaderViewModel: ObservableObject {
     }
 }
 
-enum HeaderBuilder {
-    static func buildObjectHeader(
-        details: ObjectDetails,
-        usecase: ObjectIconImageUsecase,
-        presentationUsecase: ObjectHeaderEmptyData.ObjectHeaderEmptyUsecase,
-        onIconTap: @escaping () -> Void,
-        onCoverTap: @escaping () -> Void
-    ) -> ObjectHeader {
-        let layoutAlign = details.layoutAlignValue
-        
-        if details.layoutValue == .note {
-            return .empty(usecase: presentationUsecase, onTap: {})
-        }
-        
-        let icon = details.layoutValue == .bookmark ? nil : details.icon
-        
-        if let icon = icon, let cover = details.documentCover {
-            return .filled(state:
-                    .iconAndCover(
-                        icon: ObjectHeaderIcon(
-                            icon: .init(mode: .icon(icon), usecase: usecase),
-                            layoutAlignment: layoutAlign,
-                            onTap: onIconTap
-                        ),
-                        cover: ObjectHeaderCover(
-                            coverType: .cover(cover),
-                            onTap: onCoverTap
-                        )
+extension ObjectHeaderViewModel {
+    func handleCoverAction(action: ObjectCoverPickerAction) {
+        switch action {
+        case .setCover(let coverSource):
+            switch coverSource {
+            case let .color(colorName):
+                AnytypeAnalytics.instance().logEvent(AnalyticsEventsName.setCover)
+                Task {
+                    try? await detailsService.updateBundledDetails(
+                        [.coverType(CoverType.color), .coverId(colorName)]
                     )
-            )
-        }
-        
-        if let icon = icon {
-            return .filled(state:
-                    .iconOnly(
-                        ObjectHeaderIconOnlyState(
-                            icon: ObjectHeaderIcon(
-                                icon: .init(mode: .icon(icon), usecase: usecase),
-                                layoutAlignment: layoutAlign,
-                                onTap: onIconTap
-                            ),
-                            onCoverTap: onCoverTap
-                        )
+                }
+            case let .gradient(gradientName):
+                AnytypeAnalytics.instance().logEvent(AnalyticsEventsName.setCover)
+                Task {
+                    try? await detailsService.updateBundledDetails(
+                        [.coverType(CoverType.gradient), .coverId(gradientName)]
                     )
-            )
+                }
+            case let .upload(itemProvider):
+                Task { @MainActor [weak self] in
+                    guard let data = try? await self?.fileService.createFileData(source: .itemProvider(itemProvider)) else {
+                        anytypeAssertionFailure("Can't load image from item provider")
+                        return
+                    }
+                    
+                    self?.header = self?.buildLoadingHeader(.coverUploading(.bundleImagePath(data.path)))
+                    AnytypeAnalytics.instance().logEvent(AnalyticsEventsName.setCover)
+                    
+                    try await self?.detailsService.setCover(source: .itemProvider(itemProvider))
+                }
+            case let .unsplash(unsplashItem):
+                AnytypeAnalytics.instance().logEvent(AnalyticsEventsName.setCover)
+                
+                header = buildLoadingHeader(.coverUploading(.remotePreviewURL(unsplashItem.url)))
+                Task { @MainActor in
+                    let imageHash = try await unsplashService.downloadImage(id: unsplashItem.id)
+                    try await detailsService.setCover(imageHash: imageHash)
+                }
+            }
+        case .removeCover:
+            AnytypeAnalytics.instance().logEvent(AnalyticsEventsName.removeCover)
+            Task {
+                try? await detailsService.updateBundledDetails(
+                    [.coverType(CoverType.none), .coverId("")]
+                )
+            }
         }
+    }
+    
+    func handleIconAction(action: ObjectIconPickerAction) {
         
-        if let cover = details.documentCover {
-            return .filled(state:
-                    .coverOnly(
-                        ObjectHeaderCover(
-                            coverType: .cover(cover),
-                            onTap: onCoverTap
-                        )
-                    )
-            )
-        }
-        
-        return .empty(
-            data: .init(presentationStyle: presentationUsecase, onTap: onCoverTap),
-            isShimmering: false
-        )
     }
 }

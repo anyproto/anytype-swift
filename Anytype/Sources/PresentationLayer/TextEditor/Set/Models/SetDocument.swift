@@ -211,8 +211,6 @@ class SetDocument: SetDocumentProtocol {
             updateData()
         case .syncStatus(let status):
             updateSubject.send(.syncStatus(status))
-        case .header:
-            break
         }
     }
     

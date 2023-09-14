@@ -769,7 +769,6 @@
 		2E52DE6C2A1CE77100F16815 /* SoulViewModuleAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E52DE6B2A1CE77100F16815 /* SoulViewModuleAssembly.swift */; };
 		2E52DE6E2A1CE7E700F16815 /* SoulViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E52DE6D2A1CE7E700F16815 /* SoulViewModel.swift */; };
 		2E52DE712A1CEAF700F16815 /* SoulView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E52DE702A1CEAF700F16815 /* SoulView.swift */; };
-		2E5310202A44B27900BD2893 /* UnsplashItem+LocalEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E53101F2A44B27900BD2893 /* UnsplashItem+LocalEvent.swift */; };
 		2E56F1332A0D410E00031167 /* anytype-shader-S.mp4 in Resources */ = {isa = PBXBuildFile; fileRef = 2E56F1322A0D410E00031167 /* anytype-shader-S.mp4 */; };
 		2E56F1362A0D43BB00031167 /* LoopingPlayerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E56F1352A0D43BB00031167 /* LoopingPlayerView.swift */; };
 		2E56F1382A0D43F400031167 /* LoopingPlayerUIView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E56F1372A0D43F400031167 /* LoopingPlayerUIView.swift */; };
@@ -1290,6 +1289,7 @@
 		8638777C2A58088F0024F814 /* TemplatesSelectionViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8638777B2A58088F0024F814 /* TemplatesSelectionViewModel.swift */; };
 		8638C7602A6FE26300BF2A41 /* EmojiTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8638C75F2A6FE26300BF2A41 /* EmojiTests.swift */; };
 		8639E0142A6020E700F52ED2 /* TemplatesSubscriptionService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8639E0132A6020E700F52ED2 /* TemplatesSubscriptionService.swift */; };
+		863DB2942AB320D800CB6914 /* HeaderBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 863DB2932AB320D700CB6914 /* HeaderBuilder.swift */; };
 		864F93D92AA5EC94008AA9E7 /* SharedContentSaveOption.swift in Sources */ = {isa = PBXBuildFile; fileRef = 864F93D82AA5EC94008AA9E7 /* SharedContentSaveOption.swift */; };
 		8673528B2AA8BC00003F92DC /* URL+Middleware.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8673528A2AA8BC00003F92DC /* URL+Middleware.swift */; };
 		8673528D2AA8BF2C003F92DC /* WrappedSearchInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8673528C2AA8BF2C003F92DC /* WrappedSearchInteractor.swift */; };
@@ -2318,7 +2318,6 @@
 		2E52DE6B2A1CE77100F16815 /* SoulViewModuleAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SoulViewModuleAssembly.swift; sourceTree = "<group>"; };
 		2E52DE6D2A1CE7E700F16815 /* SoulViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SoulViewModel.swift; sourceTree = "<group>"; };
 		2E52DE702A1CEAF700F16815 /* SoulView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SoulView.swift; sourceTree = "<group>"; };
-		2E53101F2A44B27900BD2893 /* UnsplashItem+LocalEvent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UnsplashItem+LocalEvent.swift"; sourceTree = "<group>"; };
 		2E56F1322A0D410E00031167 /* anytype-shader-S.mp4 */ = {isa = PBXFileReference; lastKnownFileType = file; path = "anytype-shader-S.mp4"; sourceTree = "<group>"; };
 		2E56F1352A0D43BB00031167 /* LoopingPlayerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoopingPlayerView.swift; sourceTree = "<group>"; };
 		2E56F1372A0D43F400031167 /* LoopingPlayerUIView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoopingPlayerUIView.swift; sourceTree = "<group>"; };
@@ -2837,6 +2836,7 @@
 		8638777B2A58088F0024F814 /* TemplatesSelectionViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TemplatesSelectionViewModel.swift; sourceTree = "<group>"; };
 		8638C75F2A6FE26300BF2A41 /* EmojiTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = EmojiTests.swift; path = AnyTypeTests/Emoji/EmojiTests.swift; sourceTree = SOURCE_ROOT; };
 		8639E0132A6020E700F52ED2 /* TemplatesSubscriptionService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TemplatesSubscriptionService.swift; sourceTree = "<group>"; };
+		863DB2932AB320D700CB6914 /* HeaderBuilder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HeaderBuilder.swift; sourceTree = "<group>"; };
 		864F93D82AA5EC94008AA9E7 /* SharedContentSaveOption.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SharedContentSaveOption.swift; sourceTree = "<group>"; };
 		8673528A2AA8BC00003F92DC /* URL+Middleware.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "URL+Middleware.swift"; sourceTree = "<group>"; };
 		8673528C2AA8BF2C003F92DC /* WrappedSearchInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WrappedSearchInteractor.swift; sourceTree = "<group>"; };
@@ -4617,6 +4617,7 @@
 			children = (
 				123FDACD26C1361B00F6F44B /* ObjectHeader.swift */,
 				122FFD42272BA7420069129A /* ObjectHeaderFilledState.swift */,
+				863DB2932AB320D700CB6914 /* HeaderBuilder.swift */,
 				3D38CC9526D632C500E4F7BF /* ObjectHeaderViewModel.swift */,
 				3D44983F26D53A89005A3E06 /* ObjectHeader+Mutation.swift */,
 				C99A53AD28A1411B00B3E5F4 /* ObjectHeaderEmptyData.swift */,
@@ -6724,7 +6725,6 @@
 				3D24912827BD271900821595 /* LocalEvent.swift */,
 				3D24912927BD271900821595 /* EventsBunch.swift */,
 				3D24912A27BD271900821595 /* DocumentUpdate.swift */,
-				2E53101F2A44B27900BD2893 /* UnsplashItem+LocalEvent.swift */,
 				2A4063642A5D9D8A00ECEA79 /* EventBunchSubscribtion.swift */,
 			);
 			path = Model;
@@ -9367,7 +9367,6 @@
 				3DE296472617439C00EADB0A /* ServiceLocator.swift in Sources */,
 				864F93D92AA5EC94008AA9E7 /* SharedContentSaveOption.swift in Sources */,
 				2A7DCDE2292E60BA001919B4 /* AddNewRelationCoordinatorAssembly.swift in Sources */,
-				2E5310202A44B27900BD2893 /* UnsplashItem+LocalEvent.swift in Sources */,
 				53F7447227F7157A005C9BB0 /* CheckPopupView.swift in Sources */,
 				3D93D56B270C9E3400614E29 /* URLInputViewController.swift in Sources */,
 				2ACA341829AD09D400BBD2F5 /* DashboardWallpaperViewModel.swift in Sources */,
@@ -10439,6 +10438,7 @@
 				2ED9F43D2A8E90A800BE0A6B /* SetViewSettingsCoordinatorView.swift in Sources */,
 				2AE7ECA3298816F30079F12B /* WidgetObjectListInternalViewModelProtocol.swift in Sources */,
 				2E4D78B62A82909900813A4F /* KeyPhraseMoreInfoViewModuleAssembly.swift in Sources */,
+				863DB2942AB320D800CB6914 /* HeaderBuilder.swift in Sources */,
 				12136D2C2796C5EC00262FE7 /* RelationOptionsPopupLayout.swift in Sources */,
 				2A673C0D29B0B2AA00E3D672 /* SettingsModuleAssembly.swift in Sources */,
 				12636CF3276A0CF00084D35D /* ListSectionHeaderView.swift in Sources */,

@@ -3,6 +3,16 @@ import UIKit
 import Services
 import AnytypeCore
 
+enum ObjectIconPickerAction {
+    enum IconSource {
+        case emoji(emojiUnicode: String)
+        case upload(itemProvider: NSItemProvider)
+    }
+    
+    case setIcon(IconSource)
+    case removeCover
+}
+
 final class ObjectIconPickerViewModel: ObservableObject, ObjectIconPickerViewModelProtocol {
     
     let mediaPickerContentType: MediaPickerContentType = .images

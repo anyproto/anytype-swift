@@ -19,6 +19,7 @@ final class ServiceLocator {
         blockActionService: blockActionsServiceSingle(),
         pageRepository: pageRepository()
     )
+    lazy private(set) var unsplashService: UnsplashServiceProtocol = UnsplashService()
     
     // MARK: - Services
     
