@@ -50,10 +50,6 @@ public extension FeatureFlags {
         value(for: .superNewButtonLoadingState)
     }
 
-    static var validateRecoveryPhrase: Bool {
-        value(for: .validateRecoveryPhrase)
-    }
-
     static var openBinObject: Bool {
         value(for: .openBinObject)
     }
@@ -111,7 +107,6 @@ public extension FeatureFlags {
         .deleteObjectPlaceholder,
         .showAllFilesInBin,
         .superNewButtonLoadingState,
-        .validateRecoveryPhrase,
         .openBinObject,
         .colorfulRecoveryPhrase,
         .recentEditWidget,

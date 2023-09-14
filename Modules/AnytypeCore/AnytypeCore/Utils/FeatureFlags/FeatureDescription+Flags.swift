@@ -70,12 +70,6 @@ public extension FeatureDescription {
         defaultValue: true
     )
     
-    static let validateRecoveryPhrase = FeatureDescription(
-        title: "Trim typed/inserted text in recovery phrase field",
-        type: .feature(author: "joe_pusya@anytype.io", releaseVersion: "0.24.0"),
-        defaultValue: true
-    )
-    
     static let openBinObject = FeatureDescription(
         title: "Open bin object - IOS-1605",
         type: .feature(author: "m@anytype.io", releaseVersion: "0.25.0"),
