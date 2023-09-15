@@ -36,4 +36,28 @@ public extension InfoContainerProtocol {
             info.updated(horizontalAlignment: data.align.asBlockModel)
         }
     }
+    
+    func setFile(data: Anytype_Event.Block.Set.File) {
+        updateFile(blockId: data.id) { $0.handleSetFile(data: data) }
+    }
+    
+    func setBookmark(data: Anytype_Event.Block.Set.Bookmark) {
+        updateBookmark(blockId: data.id) { $0.handleSetBookmark(data: data) }
+    }
+    
+    func setDiv(data: Anytype_Event.Block.Set.Div) {
+        updateDivider(blockId: data.id) { $0.handleSetDiv(data: data) }
+    }
+    
+    func setLink(data: Anytype_Event.Block.Set.Link) {
+        updateLink(blockId: data.id) { $0.handleSetLink(data: data) }
+    }
+    
+    func setRelation(data: Anytype_Event.Block.Set.Relation) {
+        updateRelation(blockId: data.id) { $0.handleSetRelation(data: data) }
+    }
+    
+    func setWidget(data: Anytype_Event.Block.Set.Widget) {
+        updateWidget(blockId: data.id) { $0.handleSetWidget(data: data) }
+    }
 }
