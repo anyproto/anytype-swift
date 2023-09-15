@@ -12,10 +12,6 @@ import Combine
 public protocol AudioSessionServiceProtocol {
     func setCategorypPlayback()
     func setCategorypPlaybackMixWithOthers()
-    
-    // TODO: remove with FeatureFlags.fixAudioSession
-    func setCategorypPlaybackLegacy()
-    func setAudioSessionActiveLegacy()
 }
 
 public final class AudioSessionService: AudioSessionServiceProtocol {
@@ -28,19 +24,6 @@ public final class AudioSessionService: AudioSessionServiceProtocol {
     
     public func setCategorypPlaybackMixWithOthers() {
         setCategorypPlayback(with: [.mixWithOthers])
-    }
-    
-    public func setCategorypPlaybackLegacy() {
-        do {
-            try AVAudioSession.sharedInstance().setCategory(AVAudioSession.Category.playback)
-            if !AVAudioSession.sharedInstance().isOtherAudioPlaying {
-                try AVAudioSession.sharedInstance().setActive(true)
-            }
-        } catch { }
-    }
-    
-    public func setAudioSessionActiveLegacy() {
-        try? AVAudioSession.sharedInstance().setActive(true)
     }
     
     private func setCategorypPlayback(with options: AVAudioSession.CategoryOptions) {

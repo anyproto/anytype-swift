@@ -102,10 +102,6 @@ final class CoordinatorsDI: CoordinatorsDIProtocol {
         return LoginFlowCoordinatorAssembly(modulesDI: modulesDI, uiHelpersDI: uiHelpersDI)
     }
     
-    func legacyAuthViewAssembly() -> LegacyAuthViewAssembly {
-        return LegacyAuthViewAssembly(serviceLocator: serviceLocator)
-    }
-    
     func setViewSettings() -> SetViewSettingsCoordinatorAssemblyProtocol {
         return SetViewSettingsCoordinatorAssembly(modulesDI: modulesDI, coordinatorsDI: self)
     }

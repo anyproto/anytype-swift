@@ -8,7 +8,6 @@ final class WindowManager {
     
     private let viewControllerProvider: ViewControllerProviderProtocol
     private let authCoordinatorAssembly: AuthCoordinatorAssemblyProtocol
-    private let legacyAuthViewAssembly: LegacyAuthViewAssembly
     private let homeWidgetsCoordinatorAssembly: HomeWidgetsCoordinatorAssemblyProtocol
     private let applicationStateService: ApplicationStateServiceProtocol
     
@@ -21,13 +20,11 @@ final class WindowManager {
     init(
         viewControllerProvider: ViewControllerProviderProtocol,
         authCoordinatorAssembly: AuthCoordinatorAssemblyProtocol,
-        legacyAuthViewAssembly: LegacyAuthViewAssembly,
         homeWidgetsCoordinatorAssembly: HomeWidgetsCoordinatorAssemblyProtocol,
         applicationStateService: ApplicationStateServiceProtocol
     ) {
         self.viewControllerProvider = viewControllerProvider
         self.authCoordinatorAssembly = authCoordinatorAssembly
-        self.legacyAuthViewAssembly = legacyAuthViewAssembly
         self.homeWidgetsCoordinatorAssembly = homeWidgetsCoordinatorAssembly
         self.applicationStateService = applicationStateService
     }
@@ -43,15 +40,10 @@ final class WindowManager {
     
     @MainActor
     func showAuthWindow() {
-        if FeatureFlags.newAuthorization {
-            let coordinator = authCoordinatorAssembly.make()
-            self.authCoordinator = coordinator
-            let authView = coordinator.startFlow()
-            startNewRootView(authView, preferredColorScheme: .dark, disableBackSwipe: true)
-        } else {
-            let legacyAuthView = legacyAuthViewAssembly.createAuthView()
-            startNewRootView(legacyAuthView)
-        }
+        let coordinator = authCoordinatorAssembly.make()
+        self.authCoordinator = coordinator
+        let authView = coordinator.startFlow()
+        startNewRootView(authView, preferredColorScheme: .dark, disableBackSwipe: true)
     }
     
     func showLaunchWindow() {

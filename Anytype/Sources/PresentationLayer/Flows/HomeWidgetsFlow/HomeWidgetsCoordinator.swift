@@ -94,12 +94,6 @@ final class HomeWidgetsCoordinator: HomeWidgetsCoordinatorProtocol, HomeWidgetsM
             openObject(screenData: data)
             return
         }
-        
-        if UserDefaultsConfig.showKeychainAlert {
-            UserDefaultsConfig.showKeychainAlert = false
-            let module = dashboardAlertsAssembly.makeKeychainRemind(context: .signup)
-            navigationContext.present(module)
-        }
     }
     
     func createAndShowNewPage() {

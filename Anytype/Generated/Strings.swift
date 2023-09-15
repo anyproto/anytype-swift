@@ -62,10 +62,6 @@ internal enum Loc {
   internal static let amber = Loc.tr("Localizable", "Amber", fallback: "Amber")
   /// Amber background
   internal static let amberBackground = Loc.tr("Localizable", "Amber background", fallback: "Amber background")
-  /// Understanding how people use Anytype helps us improve the product. This version of Anytype includes the analytics code that protects your privacy.
-  /// It doesn't record the actual document's content but still allows us to understand how you use Anytype.
-  /// Stay subscribed to our mailing list, as we will soon announce a new release that enables you to opt-out.
-  internal static let analyticsConstentText = Loc.tr("Localizable", "Analytics constent text", fallback: "Understanding how people use Anytype helps us improve the product. This version of Anytype includes the analytics code that protects your privacy.\nIt doesn't record the actual document's content but still allows us to understand how you use Anytype.\nStay subscribed to our mailing list, as we will soon announce a new release that enables you to opt-out.")
   /// Anytype Library
   internal static let anytypeLibrary = Loc.tr("Localizable", "Anytype Library", fallback: "Anytype Library")
   /// Anytype node is not connected
@@ -212,8 +208,6 @@ internal enum Loc {
   internal static let enterText = Loc.tr("Localizable", "Enter text", fallback: "Enter text")
   /// Enter value
   internal static let enterValue = Loc.tr("Localizable", "Enter value", fallback: "Enter value")
-  /// Enter your name
-  internal static let enterYourName = Loc.tr("Localizable", "Enter your name", fallback: "Enter your name")
   /// Error creating wallet
   internal static let errorCreatingWallet = Loc.tr("Localizable", "Error creating wallet", fallback: "Error creating wallet")
   /// Error select account
@@ -300,8 +294,6 @@ internal enum Loc {
   internal static let name = Loc.tr("Localizable", "Name", fallback: "Name")
   /// New
   internal static let new = Loc.tr("Localizable", "New", fallback: "New")
-  /// New profile
-  internal static let newProfile = Loc.tr("Localizable", "New profile", fallback: "New profile")
   /// New relation
   internal static let newRelation = Loc.tr("Localizable", "New relation", fallback: "New relation")
   /// No connection
@@ -340,10 +332,6 @@ internal enum Loc {
   internal static let openObject = Loc.tr("Localizable", "Open object", fallback: "Open object")
   /// Open source
   internal static let openSource = Loc.tr("Localizable", "Open source", fallback: "Open source")
-  /// or type your recovery phrase
-  internal static let orTypeYourRecoveryPhrase = Loc.tr("Localizable", "or type your recovery phrase", fallback: "or type your recovery phrase")
-  /// With Anytype you can write notes and documents, manage tasks and save important content from the web.
-  internal static let organizeEverythingDescription = Loc.tr("Localizable", "OrganizeEverythingDescription", fallback: "With Anytype you can write notes and documents, manage tasks and save important content from the web.")
   /// Other
   internal static let other = Loc.tr("Localizable", "Other", fallback: "Other")
   /// Other relations
@@ -437,8 +425,6 @@ internal enum Loc {
   /// Setting up encrypted storage
   /// Please wait
   internal static let settingUpEncryptedStoragePleaseWait = Loc.tr("Localizable", "Setting up encrypted storage\nPlease wait", fallback: "Setting up encrypted storage\nPlease wait")
-  /// Setting up the wallet
-  internal static let settingUpTheWallet = Loc.tr("Localizable", "Setting up the wallet", fallback: "Setting up the wallet")
   /// Settings
   internal static let settings = Loc.tr("Localizable", "Settings", fallback: "Settings")
   /// Shared
@@ -531,8 +517,6 @@ internal enum Loc {
   internal static let wallpaper = Loc.tr("Localizable", "Wallpaper", fallback: "Wallpaper")
   /// Web pages
   internal static let webPages = Loc.tr("Localizable", "Web pages", fallback: "Web pages")
-  /// Welcome to Anytype
-  internal static let welcomeToAnytype = Loc.tr("Localizable", "Welcome to Anytype", fallback: "Welcome to Anytype")
   /// Yellow
   internal static let yellow = Loc.tr("Localizable", "Yellow", fallback: "Yellow")
   /// Yellow background
@@ -1654,12 +1638,6 @@ internal enum Loc {
       internal static let bookmark = Loc.tr("Localizable", "Sharing.URL.Bookmark", fallback: "Bookmark object")
       /// Text block
       internal static let text = Loc.tr("Localizable", "Sharing.URL.Text", fallback: "Text block")
-    }
-  }
-  internal enum SignUp {
-    internal enum InvintationCode {
-      /// Invitation code
-      internal static let placeholder = Loc.tr("Localizable", "SignUp.InvintationCode.Placeholder", fallback: "Invitation code")
     }
   }
   internal enum SimpleTableMenu {
