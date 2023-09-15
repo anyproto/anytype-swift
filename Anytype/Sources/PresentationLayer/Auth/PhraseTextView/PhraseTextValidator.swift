@@ -1,5 +1,3 @@
-import AnytypeCore
-
 protocol PhraseTextValidatorProtocol {
     func validated(prevText: String, text : String) -> String
 }
@@ -14,8 +12,6 @@ struct PhraseTextValidator: PhraseTextValidatorProtocol {
     
     func validated(prevText: String, text : String) -> String {
         let textWithoutNewlines = text.trimmingCharacters(in: .newlines)
-        
-        guard FeatureFlags.validateRecoveryPhrase else { return textWithoutNewlines }
         
         let whitespacesTextCount = textWithoutNewlines.filter { $0 == " " }.count
         let whitespacesPrevTextCount = prevText.filter { $0 == " " }.count
