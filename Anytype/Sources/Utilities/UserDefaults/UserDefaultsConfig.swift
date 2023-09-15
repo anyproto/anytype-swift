@@ -27,9 +27,6 @@ struct UserDefaultsConfig {
     @UserDefault("UserData.RowsPerPageInGroupedSet", defaultValue: 20)
     static var rowsPerPageInGroupedSet: Int
     
-    @UserDefault("UserData.ShowKeychainAlert", defaultValue: false)
-    static var showKeychainAlert: Bool
-    
 }
 
 extension UserDefaultsConfig {
