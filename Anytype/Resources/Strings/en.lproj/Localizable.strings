@@ -680,6 +680,7 @@
 
 // MARK: Edit view type
 "SetViewTypesPicker.Title" = "Edit view";
+"SetViewTypesPicker.New.Title" = "New view";
 "SetViewTypesPicker.Section.Types.Title" = "View as";
 "SetViewTypesPicker.Settings.Duplicate.View" = "Duplicate";
 "SetViewTypesPicker.Settings.Delete.View" = "Delete view";

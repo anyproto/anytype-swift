@@ -11,15 +11,18 @@ final class SetRelationsCoordinatorViewModel: ObservableObject, SetRelationsCoor
     @Published var addRelationsData: AddRelationsData?
     
     private let setDocument: SetDocumentProtocol
+    private let viewId: String
     private let setRelationsViewModuleAssembly: SetRelationsViewModuleAssemblyProtocol
     private let addNewRelationCoordinator: AddNewRelationCoordinatorProtocol
     
     init(
         setDocument: SetDocumentProtocol,
+        viewId: String,
         setRelationsViewModuleAssembly: SetRelationsViewModuleAssemblyProtocol,
         addNewRelationCoordinator: AddNewRelationCoordinatorProtocol
     ) {
         self.setDocument = setDocument
+        self.viewId = viewId
         self.setRelationsViewModuleAssembly = setRelationsViewModuleAssembly
         self.addNewRelationCoordinator = addNewRelationCoordinator
     }
@@ -27,6 +30,7 @@ final class SetRelationsCoordinatorViewModel: ObservableObject, SetRelationsCoor
     func list() -> AnyView {
         setRelationsViewModuleAssembly.make(
             setDocument: setDocument,
+            viewId: viewId,
             output: self,
             router: nil
         )
@@ -41,7 +45,7 @@ final class SetRelationsCoordinatorViewModel: ObservableObject, SetRelationsCoor
     func newRelationView(data: AddRelationsData) -> NewSearchView {
         addNewRelationCoordinator.addNewRelationView(
             document: setDocument.document,
-            excludedRelationsIds: setDocument.sortedRelations(for: setDocument.activeView).map(\.id),
+            excludedRelationsIds: setDocument.sortedRelations(for: viewId).map(\.id),
             target: .dataview(activeViewId: setDocument.activeView.id),
             onCompletion: data.completion
         )

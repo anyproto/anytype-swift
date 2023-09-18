@@ -1571,6 +1571,10 @@ internal enum Loc {
   internal enum SetViewTypesPicker {
     /// Edit view
     internal static let title = Loc.tr("Localizable", "SetViewTypesPicker.Title", fallback: "Edit view")
+    internal enum New {
+      /// New view
+      internal static let title = Loc.tr("Localizable", "SetViewTypesPicker.New.Title", fallback: "New view")
+    }
     internal enum Section {
       internal enum Types {
         /// View as

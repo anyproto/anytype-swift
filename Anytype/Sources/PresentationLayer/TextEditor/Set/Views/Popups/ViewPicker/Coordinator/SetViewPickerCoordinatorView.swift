@@ -5,5 +5,9 @@ struct SetViewPickerCoordinatorView: View {
     
     var body: some View {
         model.list()
+            .sheet(item: $model.setSettingsData) { data in
+                model.setSettingsView(data: data)
+                    .mediumPresentationDetents()
+            }
     }
 }

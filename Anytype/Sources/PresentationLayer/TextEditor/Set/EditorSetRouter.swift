@@ -15,7 +15,7 @@ protocol EditorSetRouterProtocol:
     func dismissSetSettingsIfNeeded()
     
     func setNavigationViewHidden(_ isHidden: Bool, animated: Bool)
-    func showViewPicker(showViewTypes: @escaping RoutingAction<DataviewView?>)
+    func showViewPicker(subscriptionDetailsStorage: ObjectDetailsStorage, showViewTypes: @escaping RoutingAction<DataviewView?>)
     
     func showCreateObject(details: ObjectDetails)
     func showCreateBookmarkObject()
@@ -143,6 +143,8 @@ final class EditorSetRouter: EditorSetRouterProtocol, ObjectSettingsCoordinatorO
     func showSetSettings(subscriptionDetailsStorage: ObjectDetailsStorage) {
         let view = setViewSettingsCoordinatorAssembly.make(
             setDocument: setDocument,
+            viewId: setDocument.activeView.id,
+            mode: .edit,
             subscriptionDetailsStorage: subscriptionDetailsStorage
         )
         navigationContext.presentSwiftUISheetView(view: view)
@@ -169,9 +171,13 @@ final class EditorSetRouter: EditorSetRouterProtocol, ObjectSettingsCoordinatorO
     }
     
     @MainActor
-    func showViewPicker(showViewTypes: @escaping RoutingAction<DataviewView?>) {
+    func showViewPicker(
+        subscriptionDetailsStorage: ObjectDetailsStorage,
+        showViewTypes: @escaping RoutingAction<DataviewView?>
+    ) {
         let view = setViewPickerCoordinatorAssembly.make(
             with: setDocument,
+            subscriptionDetailsStorage: subscriptionDetailsStorage,
             showViewTypes: showViewTypes
         )
         navigationContext.presentSwiftUISheetView(view: view)
@@ -253,13 +259,19 @@ final class EditorSetRouter: EditorSetRouterProtocol, ObjectSettingsCoordinatorO
 
     @MainActor
     func showViewSettings(setDocument: SetDocumentProtocol) {
-        let view = editorSetRelationsCoordinatorAssembly.make(with: setDocument)
+        let view = editorSetRelationsCoordinatorAssembly.make(
+            with: setDocument,
+            viewId: setDocument.activeView.id
+        )
         navigationContext.presentSwiftUIView(view: view)
     }
     
     @MainActor
     func showSorts() {
-        let view = setSortsListCoordinatorAssembly.make(with: setDocument)
+        let view = setSortsListCoordinatorAssembly.make(
+            with: setDocument,
+            viewId: setDocument.activeView.id
+        )
         let vc = UIHostingController(
             rootView: view
         )
@@ -270,6 +282,7 @@ final class EditorSetRouter: EditorSetRouterProtocol, ObjectSettingsCoordinatorO
     func showFilters(setDocument: SetDocumentProtocol, subscriptionDetailsStorage: ObjectDetailsStorage) {
         let view = setFiltersListCoordinatorAssembly.make(
             with: setDocument,
+            viewId: setDocument.activeView.id,
             subscriptionDetailsStorage: subscriptionDetailsStorage
         )
         let vc = UIHostingController(
