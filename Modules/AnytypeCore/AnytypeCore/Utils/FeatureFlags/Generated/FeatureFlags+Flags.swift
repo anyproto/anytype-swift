@@ -26,10 +26,6 @@ public extension FeatureFlags {
         value(for: .migrationGuide)
     }
 
-    static var superNewButtonLoadingState: Bool {
-        value(for: .superNewButtonLoadingState)
-    }
-
     static var openBinObject: Bool {
         value(for: .openBinObject)
     }
@@ -77,7 +73,6 @@ public extension FeatureFlags {
         .fullInlineSetImpl,
         .dndOnCollectionsAndSets,
         .migrationGuide,
-        .superNewButtonLoadingState,
         .openBinObject,
         .recentEditWidget,
         .widgetTaskDone,
