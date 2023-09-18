@@ -26,10 +26,6 @@ public extension FeatureFlags {
         value(for: .migrationGuide)
     }
 
-    static var deleteObjectPlaceholder: Bool {
-        value(for: .deleteObjectPlaceholder)
-    }
-
     static var showAllFilesInBin: Bool {
         value(for: .showAllFilesInBin)
     }
@@ -85,7 +81,6 @@ public extension FeatureFlags {
         .fullInlineSetImpl,
         .dndOnCollectionsAndSets,
         .migrationGuide,
-        .deleteObjectPlaceholder,
         .showAllFilesInBin,
         .superNewButtonLoadingState,
         .openBinObject,

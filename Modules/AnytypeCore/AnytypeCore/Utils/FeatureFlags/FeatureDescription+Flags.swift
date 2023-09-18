@@ -34,12 +34,6 @@ public extension FeatureDescription {
         defaultValue: true
     )
 
-    static let deleteObjectPlaceholder = FeatureDescription(
-        title: "Delete object placeholder - IOS-960",
-        type: .feature(author: "m@anytype.io", releaseVersion: "0.23.0"),
-        defaultValue: true
-    )
-
     static let showAllFilesInBin = FeatureDescription(
         title: "Show all files in bin - IOS-1408",
         type: .feature(author: "m@anytype.io", releaseVersion: "0.24.0"),

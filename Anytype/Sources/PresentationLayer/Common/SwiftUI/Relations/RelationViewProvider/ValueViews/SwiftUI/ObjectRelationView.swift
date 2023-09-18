@@ -31,22 +31,12 @@ struct ObjectRelationView: View {
     private func objectView(option: Relation.Object.Option) -> some View {
         HStack(spacing: style.objectRelationStyle.hSpaсingObject) {
             
-            if FeatureFlags.deleteObjectPlaceholder {
-                if let icon = option.icon, shouldShowIcon(icon: icon) {
-                    IconView(icon: icon)
-                        .frame(
-                            width: style.objectRelationStyle.size.width,
-                            height: style.objectRelationStyle.size.height
-                        )
-                }
-            } else {
-                if let icon = option.icon, shouldShowIconLegacy(icon: icon) {
-                    IconView(icon: icon)
-                        .frame(
-                            width: style.objectRelationStyle.size.width,
-                            height: style.objectRelationStyle.size.height
-                        )
-                }
+            if let icon = option.icon, shouldShowIcon(icon: icon) {
+                IconView(icon: icon)
+                    .frame(
+                        width: style.objectRelationStyle.size.width,
+                        height: style.objectRelationStyle.size.height
+                    )
             }
             
             AnytypeText(
@@ -92,19 +82,6 @@ struct ObjectRelationView: View {
             return .Text.tertiary
         } else {
             return style.fontColor
-        }
-    }
-
-    // Delete with FeatureFlags.deleteObjectPlaceholder
-    private func shouldShowIconLegacy(icon: Icon) -> Bool {
-        if case .object(.placeholder) = icon {
-            return false
-        }
-        switch style {
-        case .regular, .set, .filter, .setCollection, .kanbanHeader:
-            return true
-        case .featuredRelationBlock(let settings):
-            return settings.showIcon
         }
     }
     

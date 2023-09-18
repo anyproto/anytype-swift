@@ -22,7 +22,7 @@ struct LinkToObjectSearchData: SearchDataProtocol {
         self.description = details.description
         self.callout = details.objectType.name
         self.typeId = details.objectType.id
-        self.iconImage = FeatureFlags.deleteObjectPlaceholder ? details.objectIconImage : details.objectIconImageWithPlaceholder
+        self.iconImage = details.objectIconImage
         self.editorScreenData = details.editorScreenData()
     }
 
