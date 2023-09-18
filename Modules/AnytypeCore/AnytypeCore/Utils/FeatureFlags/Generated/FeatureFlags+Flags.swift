@@ -26,10 +26,6 @@ public extension FeatureFlags {
         value(for: .migrationGuide)
     }
 
-    static var widgetTaskDone: Bool {
-        value(for: .widgetTaskDone)
-    }
-
     static var newCodeLanguages: Bool {
         value(for: .newCodeLanguages)
     }
@@ -65,7 +61,6 @@ public extension FeatureFlags {
         .fullInlineSetImpl,
         .dndOnCollectionsAndSets,
         .migrationGuide,
-        .widgetTaskDone,
         .newCodeLanguages,
         .newSetSettings,
         .rainbowViews,

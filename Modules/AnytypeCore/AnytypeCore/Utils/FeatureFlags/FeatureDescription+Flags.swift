@@ -34,12 +34,6 @@ public extension FeatureDescription {
         defaultValue: true
     )
     
-    static let widgetTaskDone = FeatureDescription(
-        title: "Widget task done - IOS-1577",
-        type: .feature(author: "m@anytype.io", releaseVersion: "0.25.0"),
-        defaultValue: true
-    )
-    
     static let newCodeLanguages = FeatureDescription(
         title: "New code languages - IOS-987",
         type: .feature(author: "m@anytype.io", releaseVersion: "0.26.0"),
