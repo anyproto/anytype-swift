@@ -53,19 +53,23 @@ final class DataviewTemplateSelectionInteractorProvider: TemplateSelectionIntera
         self.objectTypeProvider = objectTypeProvider
         self.dataviewService = dataviewService
         
-        let defaultObjectTypeID = setDocument.activeView.defaultObjectTypeIDWithFallback
+        let defaultObjectType = try? setDocument.defaultObjectTypeForActiveView()
+        if defaultObjectType.isNil {
+            anytypeAssertionFailure("Couldn't find default object type", info: ["setId": setDocument.objectId])
+        }
+        
         if setDocument.isTypeSet() {
             if let firstSetOf = setDocument.details?.setOf.first {
                 self.objectTypeId = firstSetOf
             } else {
-                self.objectTypeId = .dynamic(defaultObjectTypeID)
+                self.objectTypeId = defaultObjectType?.id ?? ""
                 anytypeAssertionFailure("Couldn't find default object type in sets", info: ["setId": setDocument.objectId])
             }
         } else {
-            self.objectTypeId = .dynamic(defaultObjectTypeID)
+            self.objectTypeId = defaultObjectType?.id ?? ""
         }
         
-        self.typeDefaultTemplateId = objectTypeProvider.objectType(id: objectTypeId.rawValue)?.defaultTemplateId ?? .empty
+        self.typeDefaultTemplateId = defaultObjectType?.defaultTemplateId ?? ""
         
         subscribeOnDocmentUpdates()
         loadTemplates()
@@ -81,7 +85,7 @@ final class DataviewTemplateSelectionInteractorProvider: TemplateSelectionIntera
         
         objectTypeProvider.syncPublisher.sink { [weak self] in
             guard let self else { return }
-            let defaultTemplateId = objectTypeProvider.objectType(id: objectTypeId.rawValue)?.defaultTemplateId ?? .empty
+            let defaultTemplateId = (try? objectTypeProvider.objectType(id: objectTypeId))?.defaultTemplateId ?? .empty
             if typeDefaultTemplateId != defaultTemplateId {
                 typeDefaultTemplateId = defaultTemplateId
             }

@@ -16,19 +16,22 @@ final class SharedContentInteractor: SharedContentInteractorProtocol {
     private let objectActionsService: ObjectActionsServiceProtocol
     private let blockActionService: BlockActionsServiceSingleProtocol
     private let pageRepository: PageRepositoryProtocol
+    private let activeWorkpaceStorage: ActiveWorkpaceStorageProtocol
     
     init(
         listService: BlockListServiceProtocol,
         bookmarkService: BookmarkServiceProtocol,
         objectActionsService: ObjectActionsServiceProtocol,
         blockActionService: BlockActionsServiceSingleProtocol,
-        pageRepository: PageRepositoryProtocol
+        pageRepository: PageRepositoryProtocol,
+        activeWorkpaceStorage: ActiveWorkpaceStorageProtocol
     ) {
         self.listService = listService
         self.bookmarkService = bookmarkService
         self.objectActionsService = objectActionsService
         self.blockActionService = blockActionService
         self.pageRepository = pageRepository
+        self.activeWorkpaceStorage = activeWorkpaceStorage
     }
     
     func saveContent(saveOption: SharedContentSaveOption) async throws {
@@ -69,7 +72,7 @@ final class SharedContentInteractor: SharedContentInteractorProtocol {
     }
     
     private func createBookmarkObject(url: URL) async throws -> ObjectDetails {
-        let newBookmark = try await bookmarkService.createBookmarkObject(url: url.absoluteString)
+        let newBookmark = try await bookmarkService.createBookmarkObject(spaceId: activeWorkpaceStorage.workspaceInfo.accountSpaceId, url: url.absoluteString)
         try await bookmarkService.fetchBookmarkContent(bookmarkId: newBookmark.id, url: url.absoluteString)
         
         return newBookmark
@@ -80,10 +83,11 @@ final class SharedContentInteractor: SharedContentInteractorProtocol {
         case let .object(named, linkedTo):
             let newObject = try await pageRepository.createPage(
                 name: named ?? "",
-                type: ObjectTypeId.BundledTypeId.note.rawValue,
+                typeUniqueKey: .note,
                 shouldDeleteEmptyObject: false,
                 shouldSelectType: false,
                 shouldSelectTemplate: false,
+                spaceId: activeWorkpaceStorage.workspaceInfo.accountSpaceId,
                 templateId: nil
             )
             let lastBlockInDocument = try await listService.lastBlockId(from: newObject.id)

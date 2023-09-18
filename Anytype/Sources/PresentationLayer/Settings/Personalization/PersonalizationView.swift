@@ -13,8 +13,8 @@ struct PersonalizationView: View {
             AnytypeText(Loc.personalization, style: .uxTitle1Semibold, color: .Text.primary)
             Spacer.fixedHeight(12)
             
-            PersonalizationRowView(title: Loc.defaultObjectType, descriontion: model.objectType, onTap: { model.onObjectTypeTap() })
-            PersonalizationRowView(title: Loc.wallpaper, descriontion: nil, onTap: { model.onWallpaperChangeTap() })
+            AnytypeRow(title: Loc.defaultObjectType, description: model.objectType, action: { model.onObjectTypeTap() })
+            AnytypeRow(title: Loc.wallpaper, description: nil, action: { model.onWallpaperChangeTap() })
             Spacer.fixedHeight(20)
         }
         .background(Color.Background.secondary)

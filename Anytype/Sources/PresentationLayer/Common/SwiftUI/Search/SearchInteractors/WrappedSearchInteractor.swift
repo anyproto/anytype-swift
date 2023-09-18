@@ -8,7 +8,7 @@ final class WrappedSearchInteractor: SearchInteractorProtocol {
         self.searchService = searchService
     }
     
-    func search(text: String) async throws -> [ObjectDetails] {
-        try await searchService.search(text: text)
+    func search(text: String, spaceId: String) async throws -> [ObjectDetails] {
+        try await searchService.search(text: text, spaceId: spaceId)
     }
 }

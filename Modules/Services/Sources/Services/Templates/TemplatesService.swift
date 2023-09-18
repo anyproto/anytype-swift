@@ -2,7 +2,7 @@ import ProtobufMessages
 import SwiftProtobuf
 
 public protocol TemplatesServiceProtocol {
-    func objectDetails(objectId: BlockId) async throws -> ObjectDetails
+//    func objectDetails(objectId: BlockId) async throws -> ObjectDetails
     func cloneTemplate(blockId: BlockId) async throws
     func createTemplateFromObjectType(objectTypeId: BlockId) async throws -> BlockId
     func createTemplateFromObject(objectId: BlockId) async throws -> BlockId

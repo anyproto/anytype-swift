@@ -113,7 +113,7 @@ final class ObjectTypeProvider: ObjectTypeProviderProtocol {
             uniqueKey: .empty,
             defaultTemplateId: "",
             recommendedRelations: [],
-            recommendedLayout: nil,
+            recommendedLayout: nil
         )
     }
     

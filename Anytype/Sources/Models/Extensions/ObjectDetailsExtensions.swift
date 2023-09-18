@@ -149,13 +149,4 @@ extension BundledRelationsValueProvider {
     var isTemplateType: Bool {
         objectType.uniqueKey == .objectType
     }
-    
-    var setIsTemplatesAvailable: Bool {
-        guard let recommendedLayout = recommendedLayout,
-              let recommendedLayout = DetailsLayout(rawValue: recommendedLayout) else {
-            return false
-        }
-        
-        return recommendedLayout.isTemplatesAvailable
-    }
 }

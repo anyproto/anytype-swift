@@ -37,7 +37,7 @@ final class ObjectTypeSubscriptionDataBuilder: ObjectTypeSubscriptionDataBuilder
             BundledRelationKey.recommendedRelations.rawValue,
             BundledRelationKey.recommendedLayout.rawValue,
             BundledRelationKey.uniqueKey.rawValue,
-            BundledRelationKey.spaceId.rawValue
+            BundledRelationKey.spaceId.rawValue,
             BundledRelationKey.defaultTemplateId.rawValue
         ]
 

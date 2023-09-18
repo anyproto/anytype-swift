@@ -77,7 +77,7 @@ final class TemplatesSelectionViewModel: ObservableObject {
                 self?.templateEditingHandler?(objectId)
                 self?.toastPresenter.showObjectCompositeAlert(
                     prefixText: Loc.Templates.Popup.wasAddedTo,
-                    objectId: self?.interactor.objectTypeId.rawValue ?? "",
+                    objectId: self?.interactor.objectTypeId ?? "",
                     tapHandler: { }
                 )
             } catch {

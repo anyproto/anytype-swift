@@ -67,7 +67,7 @@ final class PageRepository: PageRepositoryProtocol {
     ) async throws -> ObjectDetails {
         try await pageService.createPage(
             name: name,
-            type: type,
+            typeUniqueKey: typeUniqueKey,
             shouldDeleteEmptyObject: shouldDeleteEmptyObject,
             shouldSelectType: shouldSelectType,
             shouldSelectTemplate: shouldSelectTemplate,
@@ -85,7 +85,7 @@ final class PageRepository: PageRepositoryProtocol {
         templateId: String? = nil
     ) async throws -> ObjectDetails {
         let defaultObjectType = try objectTypeProvider.defaultObjectType(spaceId: spaceId)
-        try await pageService.createPage(
+        return try await pageService.createPage(
             name: name,
             typeUniqueKey: defaultObjectType.uniqueKey,
             shouldDeleteEmptyObject: shouldDeleteEmptyObject,

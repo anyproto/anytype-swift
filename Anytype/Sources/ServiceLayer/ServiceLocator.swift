@@ -10,15 +10,15 @@ final class ServiceLocator {
 
     let textService = TextService()
     let templatesService = TemplatesService()
-    lazy private(set) var setTemplatesInteractor = SetTemplatesInteractor(templatesService: templatesService, objectTypeProvider: objectTypeProvider())
     let sharedContentManager: SharedContentManagerProtocol = SharedContentManager()
-    lazy private(set) var setTemplatesInteractor = SetTemplatesInteractor(templatesService: templatesService)
+    lazy private(set) var setTemplatesInteractor = SetTemplatesInteractor(templatesService: templatesService, objecTypeProvider: objectTypeProvider())
     lazy private(set) var sharedContentInteractor: SharedContentInteractorProtocol = SharedContentInteractor(
         listService: blockListService(),
         bookmarkService: bookmarkService(),
         objectActionsService: objectActionsService(),
         blockActionService: blockActionsServiceSingle(),
-        pageRepository: pageRepository()
+        pageRepository: pageRepository(),
+        activeWorkpaceStorage: activeWorkspaceStorage()
     )
     
     // MARK: - Services

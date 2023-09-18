@@ -60,9 +60,10 @@ final class ApplicationCoordinator: ApplicationCoordinatorProtocol {
         guard applicationStateService.state == .home else { return }
         switch url {
         case URLConstants.createObjectURL:
-            windowManager.createAndShowNewObject()
+            DispatchQueue.main.async { QuickActionsStorage.shared.action = .newObject }
         case URLConstants.sharingExtenstionURL:
-            windowManager.showSharingScene()
+            // TODO: Add sharing extension
+            break
         default:
             break
         }

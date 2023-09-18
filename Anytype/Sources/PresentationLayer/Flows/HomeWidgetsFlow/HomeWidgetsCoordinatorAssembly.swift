@@ -46,13 +46,11 @@ final class HomeWidgetsCoordinatorAssembly: HomeWidgetsCoordinatorAssemblyProtoc
             settingsCoordinator: coordinatorsID.settings().make(),
             newSearchModuleAssembly: modulesDI.newSearch(),
             dashboardService: serviceLocator.dashboardService(),
-            dashboardAlertsAssembly: modulesDI.dashboardAlerts(),
             quickActionsStorage: serviceLocator.quickActionStorage(),
             widgetTypeModuleAssembly: modulesDI.widgetType(),
             spaceSwitchModuleAssembly: modulesDI.spaceSwitch(),
             spaceCreateModuleAssembly: modulesDI.spaceCreate(),
             spaceSettingsCoordinatorAssembly: coordinatorsID.spaceSettings()
-            shareModuleAssembly: modulesDI.shareAssembly()
         )
     }
 }

@@ -664,6 +664,16 @@ public struct ClientCommands {
         }
     }
 
+    public static func objectImportExperience(
+        _ request: Anytype_Rpc.Object.ImportExperience.Request = .init()
+    ) -> Invocation<Anytype_Rpc.Object.ImportExperience.Request, Anytype_Rpc.Object.ImportExperience.Response> {
+        return Invocation(messageName: "ObjectImportExperience", request: request) { request in
+            let requestData = try request.serializedData()
+            let responseData = Lib.ServiceObjectImportExperience(requestData) ?? Data()
+            return try Anytype_Rpc.Object.ImportExperience.Response(serializedData: responseData)
+        }
+    }
+
     public static func objectCollectionAdd(
         _ request: Anytype_Rpc.ObjectCollection.Add.Request = .init()
     ) -> Invocation<Anytype_Rpc.ObjectCollection.Add.Request, Anytype_Rpc.ObjectCollection.Add.Response> {

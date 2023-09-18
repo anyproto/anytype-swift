@@ -15,9 +15,17 @@ extension ObjectType {
         sourceObject: "",
         spaceId: "",
         uniqueKey: .empty,
-        defaultTemplateId: ""
+        defaultTemplateId: "",
         recommendedRelations: [],
         recommendedLayout: nil
     )
     
+    var setIsTemplatesAvailable: Bool {
+        guard let recommendedLayout else {
+            return false
+        }
+        
+        return recommendedLayout.isTemplatesAvailable
+    }
 }
+

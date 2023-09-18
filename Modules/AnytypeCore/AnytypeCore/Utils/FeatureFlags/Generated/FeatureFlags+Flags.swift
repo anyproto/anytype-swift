@@ -46,6 +46,14 @@ public extension FeatureFlags {
         value(for: .superNewButtonLoadingState)
     }
 
+    static var multiSpace: Bool {
+        value(for: .multiSpace)
+    }
+
+    static var multiSpaceSettings: Bool {
+        value(for: .multiSpaceSettings)
+    }
+
     static var openBinObject: Bool {
         value(for: .openBinObject)
     }
@@ -98,6 +106,8 @@ public extension FeatureFlags {
         .deleteObjectPlaceholder,
         .showAllFilesInBin,
         .superNewButtonLoadingState,
+        .multiSpace,
+        .multiSpaceSettings,
         .openBinObject,
         .recentEditWidget,
         .widgetTaskDone,

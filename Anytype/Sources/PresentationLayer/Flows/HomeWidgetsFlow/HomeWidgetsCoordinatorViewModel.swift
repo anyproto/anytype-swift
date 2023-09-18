@@ -20,7 +20,6 @@ final class HomeWidgetsCoordinatorViewModel: ObservableObject,
     private let settingsCoordinator: SettingsCoordinatorProtocol
     private let newSearchModuleAssembly: NewSearchModuleAssemblyProtocol
     private let dashboardService: DashboardServiceProtocol
-    private let dashboardAlertsAssembly: DashboardAlertsAssemblyProtocol
     private let quickActionsStorage: QuickActionsStorage
     private let widgetTypeModuleAssembly: WidgetTypeModuleAssemblyProtocol
     private let spaceSwitchModuleAssembly: SpaceSwitchModuleAssemblyProtocol
@@ -60,7 +59,6 @@ final class HomeWidgetsCoordinatorViewModel: ObservableObject,
         settingsCoordinator: SettingsCoordinatorProtocol,
         newSearchModuleAssembly: NewSearchModuleAssemblyProtocol,
         dashboardService: DashboardServiceProtocol,
-        dashboardAlertsAssembly: DashboardAlertsAssemblyProtocol,
         quickActionsStorage: QuickActionsStorage,
         widgetTypeModuleAssembly: WidgetTypeModuleAssemblyProtocol,
         spaceSwitchModuleAssembly: SpaceSwitchModuleAssemblyProtocol,
@@ -76,7 +74,6 @@ final class HomeWidgetsCoordinatorViewModel: ObservableObject,
         self.settingsCoordinator = settingsCoordinator
         self.newSearchModuleAssembly = newSearchModuleAssembly
         self.dashboardService = dashboardService
-        self.dashboardAlertsAssembly = dashboardAlertsAssembly
         self.quickActionsStorage = quickActionsStorage
         self.widgetTypeModuleAssembly = widgetTypeModuleAssembly
         self.spaceSwitchModuleAssembly = spaceSwitchModuleAssembly
@@ -113,12 +110,6 @@ final class HomeWidgetsCoordinatorViewModel: ObservableObject,
             UserDefaultsConfig.lastOpenedPage = nil
             openObject(screenData: data)
             return
-        }
-        
-        if UserDefaultsConfig.showKeychainAlert {
-            UserDefaultsConfig.showKeychainAlert = false
-            let module = dashboardAlertsAssembly.makeKeychainRemind(context: .signup)
-            navigationContext.present(module)
         }
     }
     

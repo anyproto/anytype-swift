@@ -132,7 +132,6 @@ final class EditorSetViewModel: ObservableObject {
     private let setSubscriptionDataBuilder: SetSubscriptionDataBuilderProtocol
     private let objectTypeProvider: ObjectTypeProviderProtocol
     private let setTemplatesInteractor: SetTemplatesInteractorProtocol
-    private let objectTypeProvider: ObjectTypeProviderProtocol
     private var subscriptions = [AnyCancellable]()
     private var titleSubscription: AnyCancellable?
 
@@ -160,7 +159,6 @@ final class EditorSetViewModel: ObservableObject {
         self.setSubscriptionDataBuilder = setSubscriptionDataBuilder
         self.objectTypeProvider = objectTypeProvider
         self.setTemplatesInteractor = setTemplatesInteractor
-        self.objectTypeProvider = objectTypeProvider
         self.titleString = setDocument.details?.pageCellTitle ?? ""
     }
     
@@ -571,10 +569,10 @@ final class EditorSetViewModel: ObservableObject {
     
     func createObject(selectedTemplateId: BlockId?) {
         if setDocument.isCollection() {
-            let objectTypeId = setDocument.activeView.defaultObjectTypeIDWithFallback
-            let templateId = selectedTemplateId ?? defaultTemplateId(for: objectTypeId)
+            let objectType = try? setDocument.defaultObjectTypeForActiveView()
+            let templateId = selectedTemplateId ?? defaultTemplateId(for: objectType)
             createObject(
-                type: setDocument.defaultObjectTypeForActiveView(),
+                type: objectType,
                 shouldSelectType: true,
                 relationsDetails: [],
                 templateId: templateId,
@@ -597,10 +595,10 @@ final class EditorSetViewModel: ObservableObject {
                 guard let source = self?.details?.setOf else { return false }
                 return source.contains(detail.id)
             }
-            let objectTypeId = setDocument.activeView.defaultObjectTypeIDWithFallback
-            let templateId = selectedTemplateId ?? defaultTemplateId(for: objectTypeId)
+            let objectType = try? setDocument.defaultObjectTypeForActiveView()
+            let templateId = selectedTemplateId ?? defaultTemplateId(for: objectType)
             createObject(
-                type: setDocument.defaultObjectTypeForActiveView(),
+                type: objectType,
                 shouldSelectType: true,
                 relationsDetails: relationsDetails,
                 templateId: templateId,
@@ -610,9 +608,10 @@ final class EditorSetViewModel: ObservableObject {
             )
         } else {
             let objectTypeId = details?.setOf.first ?? ""
-            let templateId = selectedTemplateId ?? defaultTemplateId(for: objectTypeId)
+            let objectType = try? objectTypeProvider.objectType(id: objectTypeId)
+            let templateId = selectedTemplateId ?? defaultTemplateId(for: objectType)
             createObject(
-                with: objectTypeId,
+                type: objectType,
                 shouldSelectType: templateId.isEmpty,
                 relationsDetails: [],
                 templateId: templateId,
@@ -623,12 +622,12 @@ final class EditorSetViewModel: ObservableObject {
         }
     }
     
-    private func defaultTemplateId(for objectTypeId: String) -> String {
+    private func defaultTemplateId(for objectType: ObjectType?) -> String {
         if let defaultTemplateID = activeView.defaultTemplateID, defaultTemplateID.isNotEmpty {
             let templateID = defaultTemplateID == TemplateType.blank.id ? "" : defaultTemplateID
             return templateID
         } else {
-            return objectTypeProvider.objectType(id: objectTypeId)?.defaultTemplateId ?? ""
+            return objectType?.defaultTemplateId ?? ""
         }
     }
     
@@ -872,8 +871,5 @@ extension EditorSetViewModel {
         setSubscriptionDataBuilder: SetSubscriptionDataBuilder(activeWorkspaceStorage: DI.preview.serviceLocator.activeWorkspaceStorage()),
         objectTypeProvider: DI.preview.serviceLocator.objectTypeProvider(),
         setTemplatesInteractor: DI.preview.serviceLocator.setTemplatesInteractor
-        setSubscriptionDataBuilder: SetSubscriptionDataBuilder(accountManager: DI.preview.serviceLocator.accountManager()),
-        setTemplatesInteractor: DI.preview.serviceLocator.setTemplatesInteractor,
-        objectTypeProvider: DI.preview.serviceLocator.objectTypeProvider()
     )
 }

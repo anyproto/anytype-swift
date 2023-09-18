@@ -706,6 +706,11 @@ extension Anytype_Rpc.Object.Import.Response.Error: ResponseError {
     public var isNull: Bool { code == .null }
 }
 
+extension Anytype_Rpc.Object.ImportExperience.Response: ResultWithError {}
+extension Anytype_Rpc.Object.ImportExperience.Response.Error: ResponseError {
+    public var isNull: Bool { code == .null }
+}
+
 extension Anytype_Rpc.Object.ImportList.Response: ResultWithError {}
 extension Anytype_Rpc.Object.ImportList.Response.Error: ResponseError {
     public var isNull: Bool { code == .null }

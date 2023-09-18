@@ -106,10 +106,6 @@ final class CoordinatorsDI: CoordinatorsDIProtocol {
         return SpaceSettingsCoordinatorAssembly(modulesDI: modulesDI, serviceLocator: serviceLocator, uiHelpersDI: uiHelpersDI)
     }
     
-    func legacyAuthViewAssembly() -> LegacyAuthViewAssembly {
-        return LegacyAuthViewAssembly(serviceLocator: serviceLocator)
-    }
-    
     func setViewSettings() -> SetViewSettingsCoordinatorAssemblyProtocol {
         return SetViewSettingsCoordinatorAssembly(modulesDI: modulesDI, coordinatorsDI: self)
     }

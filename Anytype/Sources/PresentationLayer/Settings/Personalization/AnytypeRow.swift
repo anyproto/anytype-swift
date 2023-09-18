@@ -1,19 +1,19 @@
 import Foundation
 import SwiftUI
 
-struct PersonalizationRowView: View {
+struct AnytypeRow: View {
     
     let title: String
-    let descriontion: String?
-    let onTap: () -> Void
+    let description: String?
+    let action: () -> Void
     
     var body: some View {
-        Button(action: onTap) {
+        Button(action: action) {
             HStack(spacing: 0) {
                 AnytypeText(title, style: .uxBodyRegular, color: .Text.primary)
                 Spacer()
-                if let descriontion {
-                    AnytypeText(descriontion, style: .uxBodyRegular, color: .Text.secondary)
+                if let description {
+                    AnytypeText(description, style: .uxBodyRegular, color: .Text.secondary)
                     Spacer.fixedWidth(10)
                 }
                 Image(asset: .arrowForward).foregroundColor(.Text.tertiary)

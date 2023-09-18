@@ -3,6 +3,7 @@ import Combine
 import SwiftUI
 import ProtobufMessages
 import Services
+import AnytypeCore
 
 final class AuthService: AuthServiceProtocol {
     

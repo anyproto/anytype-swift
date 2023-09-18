@@ -95,6 +95,7 @@ struct HomeSearchView_Previews: PreviewProvider {
         SearchView(
             title: "FOoo",
             viewModel: ObjectSearchViewModel(
+                spaceId: "",
                 searchService: WrappedSearchInteractor(searchService: DI.preview.serviceLocator.searchService())
             ) { _ in }
         )

@@ -4,10 +4,11 @@ import SwiftProtobuf
 public protocol PageServiceProtocol: AnyObject {
     func createPage(
         name: String,
-        type: String,
+        typeUniqueKey: ObjectTypeUniqueKey,
         shouldDeleteEmptyObject: Bool,
         shouldSelectType: Bool,
         shouldSelectTemplate: Bool,
+        spaceId: String,
         templateId: String?
     ) async throws -> ObjectDetails
 }
@@ -17,16 +18,16 @@ public final class PageService: PageServiceProtocol {
     
     public func createPage(
         name: String,
-        type: String,
+        typeUniqueKey: ObjectTypeUniqueKey,
         shouldDeleteEmptyObject: Bool,
         shouldSelectType: Bool,
         shouldSelectTemplate: Bool,
+        spaceId: String,
         templateId: String? = nil
     ) async throws -> ObjectDetails {
         let details = Google_Protobuf_Struct(
             fields: [
-                BundledRelationKey.name.rawValue: name.protobufValue,
-                BundledRelationKey.type.rawValue: type.protobufValue
+                BundledRelationKey.name.rawValue: name.protobufValue
             ]
         )
         
@@ -46,6 +47,8 @@ public final class PageService: PageServiceProtocol {
             $0.details = details
             $0.internalFlags = internalFlags
             $0.templateID = templateId ?? ""
+            $0.spaceID = spaceId
+            $0.objectTypeUniqueKey = typeUniqueKey.value
         }).invoke()
         
         return try response.details.toDetails()

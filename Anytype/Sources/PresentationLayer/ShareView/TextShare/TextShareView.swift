@@ -18,9 +18,9 @@ struct TextShareView: View {
     
     var selectDocumentRow: some View {
         AnytypeRow(
-            action: viewModel.tapSelectDestination,
             title: viewModel.textOption.destinationText,
-            description: viewModel.destinationObject?.name ?? ""
+            description: viewModel.destinationObject?.name ?? "",
+            action: viewModel.tapSelectDestination
         )
         .background(Color.Background.primary)
         .cornerRadius(8)

@@ -66,7 +66,9 @@ final class MockSetDocument: SetDocumentProtocol {
     
     func isCollection() -> Bool { false }
     
-    func defaultObjectTypeForActiveView() -> Services.ObjectType? { nil }
+    func defaultObjectTypeForActiveView() throws -> ObjectType { fatalError() }
+    
+    func defaultObjectTypeForView(_ view: DataviewView) throws -> ObjectType { fatalError() }
     
     var syncPublisher: AnyPublisher<Void, Never> { fatalError() }
     

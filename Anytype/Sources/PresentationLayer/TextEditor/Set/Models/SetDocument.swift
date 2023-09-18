@@ -109,7 +109,7 @@ class SetDocument: SetDocumentProtocol {
     
     func sortedRelations(for viewId: String) -> [SetRelation] {
         let view = view(by: viewId)
-        return dataBuilder.sortedRelations(dataview: dataView, view: view)
+        return dataBuilder.sortedRelations(dataview: dataView, view: view, spaceId: spaceId)
     }
     
     func sorts(for viewId: String) -> [SetSort] {
@@ -184,9 +184,15 @@ class SetDocument: SetDocumentProtocol {
         details?.isCollection ?? false
     }
     
-    func defaultObjectTypeForActiveView() -> ObjectType? {
-        let activeViewDefaulType = activeView.defaultObjectTypeID.flatMap { try? ObjectTypeProvider.shared.objectType(id: $0) }
-        return activeViewDefaulType ?? (try? objectTypeProvider.objectType(uniqueKey: .page, spaceId: spaceId))
+    func defaultObjectTypeForActiveView() throws -> ObjectType {
+        return try defaultObjectTypeForView(activeView)
+    }
+    
+    func defaultObjectTypeForView(_ view: DataviewView) throws -> ObjectType {
+        if let viewDefaulTypeId = view.defaultObjectTypeID {
+            return try objectTypeProvider.objectType(id: viewDefaulTypeId)
+        }
+        return try objectTypeProvider.objectType(uniqueKey: .page, spaceId: spaceId)
     }
     
     @MainActor
