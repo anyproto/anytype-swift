@@ -26,10 +26,6 @@ public extension FeatureFlags {
         value(for: .migrationGuide)
     }
 
-    static var compactListWidget: Bool {
-        value(for: .compactListWidget)
-    }
-
     static var getMoreSpace: Bool {
         value(for: .getMoreSpace)
     }
@@ -93,7 +89,6 @@ public extension FeatureFlags {
         .fullInlineSetImpl,
         .dndOnCollectionsAndSets,
         .migrationGuide,
-        .compactListWidget,
         .getMoreSpace,
         .deleteObjectPlaceholder,
         .showAllFilesInBin,

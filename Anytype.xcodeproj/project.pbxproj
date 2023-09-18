@@ -570,7 +570,6 @@
 		2AC906CC29B61A9700209E39 /* RecentWidgetInternalViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AC906CB29B61A9700209E39 /* RecentWidgetInternalViewModel.swift */; };
 		2AC906CE29B61B1F00209E39 /* RecentTreeWidgetModuleAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AC906CD29B61B1F00209E39 /* RecentTreeWidgetModuleAssembly.swift */; };
 		2AC906D029B61DAC00209E39 /* SetsWidgetInternalViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AC906CF29B61DAC00209E39 /* SetsWidgetInternalViewModel.swift */; };
-		2AC906D229B61E0800209E39 /* SetsTreeWidgetModuleAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AC906D129B61E0800209E39 /* SetsTreeWidgetModuleAssembly.swift */; };
 		2AC906D829B6233700209E39 /* ListWidgetViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AC906D729B6233700209E39 /* ListWidgetViewModel.swift */; };
 		2AC906DC29B6276A00209E39 /* ListWidgetModuleAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AC906DB29B6276A00209E39 /* ListWidgetModuleAssembly.swift */; };
 		2AC906DF29B6289A00209E39 /* RecentListWidgetModuleAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AC906DD29B6289A00209E39 /* RecentListWidgetModuleAssembly.swift */; };
@@ -683,7 +682,6 @@
 		2AFB54692869989D004F7458 /* ObjectType+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AFB54682869989D004F7458 /* ObjectType+Extensions.swift */; };
 		2AFCEB3729C89A7B00841E13 /* CollectionsWidgetInternalViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AFCEB3629C89A7B00841E13 /* CollectionsWidgetInternalViewModel.swift */; };
 		2AFCEB3929C8A25900841E13 /* CollectionsSubscriptionService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AFCEB3829C8A25900841E13 /* CollectionsSubscriptionService.swift */; };
-		2AFCEB3B29C8A61800841E13 /* CollectionsTreeWidgetModuleAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AFCEB3A29C8A61800841E13 /* CollectionsTreeWidgetModuleAssembly.swift */; };
 		2AFCEB3D29C8A67700841E13 /* CollectionsListWidgetModuleAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AFCEB3C29C8A67700841E13 /* CollectionsListWidgetModuleAssembly.swift */; };
 		2AFCEB3F29C8A76900841E13 /* WidgetObjectListCollectionsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AFCEB3E29C8A76900841E13 /* WidgetObjectListCollectionsViewModel.swift */; };
 		2AFCEB4329CC808D00841E13 /* HomeWidgetsRecentStateManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AFCEB4229CC808D00841E13 /* HomeWidgetsRecentStateManager.swift */; };
@@ -2128,7 +2126,6 @@
 		2AC906CB29B61A9700209E39 /* RecentWidgetInternalViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecentWidgetInternalViewModel.swift; sourceTree = "<group>"; };
 		2AC906CD29B61B1F00209E39 /* RecentTreeWidgetModuleAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecentTreeWidgetModuleAssembly.swift; sourceTree = "<group>"; };
 		2AC906CF29B61DAC00209E39 /* SetsWidgetInternalViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetsWidgetInternalViewModel.swift; sourceTree = "<group>"; };
-		2AC906D129B61E0800209E39 /* SetsTreeWidgetModuleAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetsTreeWidgetModuleAssembly.swift; sourceTree = "<group>"; };
 		2AC906D729B6233700209E39 /* ListWidgetViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListWidgetViewModel.swift; sourceTree = "<group>"; };
 		2AC906DB29B6276A00209E39 /* ListWidgetModuleAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListWidgetModuleAssembly.swift; sourceTree = "<group>"; };
 		2AC906DD29B6289A00209E39 /* RecentListWidgetModuleAssembly.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RecentListWidgetModuleAssembly.swift; sourceTree = "<group>"; };
@@ -2241,7 +2238,6 @@
 		2AFB54682869989D004F7458 /* ObjectType+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ObjectType+Extensions.swift"; sourceTree = "<group>"; };
 		2AFCEB3629C89A7B00841E13 /* CollectionsWidgetInternalViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionsWidgetInternalViewModel.swift; sourceTree = "<group>"; };
 		2AFCEB3829C8A25900841E13 /* CollectionsSubscriptionService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionsSubscriptionService.swift; sourceTree = "<group>"; };
-		2AFCEB3A29C8A61800841E13 /* CollectionsTreeWidgetModuleAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionsTreeWidgetModuleAssembly.swift; sourceTree = "<group>"; };
 		2AFCEB3C29C8A67700841E13 /* CollectionsListWidgetModuleAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionsListWidgetModuleAssembly.swift; sourceTree = "<group>"; };
 		2AFCEB3E29C8A76900841E13 /* WidgetObjectListCollectionsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WidgetObjectListCollectionsViewModel.swift; sourceTree = "<group>"; };
 		2AFCEB4229CC808D00841E13 /* HomeWidgetsRecentStateManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeWidgetsRecentStateManager.swift; sourceTree = "<group>"; };
@@ -5602,8 +5598,6 @@
 				2AF4C3DF295D837C00FD7153 /* ObjectTreeWidgetModuleAssembly.swift */,
 				2AC906C929B609FB00209E39 /* FavoriteTreeWidgetModuleAssembly.swift */,
 				2AC906CD29B61B1F00209E39 /* RecentTreeWidgetModuleAssembly.swift */,
-				2AC906D129B61E0800209E39 /* SetsTreeWidgetModuleAssembly.swift */,
-				2AFCEB3A29C8A61800841E13 /* CollectionsTreeWidgetModuleAssembly.swift */,
 			);
 			path = Specific;
 			sourceTree = "<group>";
@@ -10224,7 +10218,6 @@
 				1211AF6627F338EC00BACB88 /* AnytypeImageDownloader.swift in Sources */,
 				3D1CEC2827F38A38000D36BA /* AccountStatus.swift in Sources */,
 				2AA8108A29A66854007DD64B /* View+DragAndDrop.swift in Sources */,
-				2AC906D229B61E0800209E39 /* SetsTreeWidgetModuleAssembly.swift in Sources */,
 				2AF4260129AF3A6000753B17 /* SettingsAppearanceViewModel.swift in Sources */,
 				2EDC2AFD2A125C6A0065E009 /* JoinFlowStep.swift in Sources */,
 				12B691D227F4CB5D00A0C336 /* ImageGuideline.swift in Sources */,
@@ -10661,7 +10654,6 @@
 				EAFDEFBF26381E22001B07E4 /* UITextView+Convenience.swift in Sources */,
 				12887F26274B94A600228330 /* DetailsServiceProtocol.swift in Sources */,
 				C9F44C7F27E351400078E709 /* TextBlockLeadingViewBuilder.swift in Sources */,
-				2AFCEB3B29C8A61800841E13 /* CollectionsTreeWidgetModuleAssembly.swift in Sources */,
 				2A28D050297FCFE400E55E15 /* WidgetContainerView.swift in Sources */,
 				53FF7CB526FCCDE800A5A592 /* ObjectActionRow.swift in Sources */,
 				2A1F946E2978208F00E25782 /* ListWidgetView.swift in Sources */,

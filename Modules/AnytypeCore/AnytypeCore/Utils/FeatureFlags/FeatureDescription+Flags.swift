@@ -34,12 +34,6 @@ public extension FeatureDescription {
         defaultValue: true
     )
     
-    static let compactListWidget = FeatureDescription(
-        title: "Compact List widget",
-        type: .feature(author: "m@anytype.io", releaseVersion: "0.23.0"),
-        defaultValue: true
-    )
-    
     static let getMoreSpace = FeatureDescription(
         title: "Get more space - IOS-1307",
         type: .feature(author: "m@anytype.io", releaseVersion: "0.23.0"),

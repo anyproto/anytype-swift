@@ -29,11 +29,7 @@ public extension Anytype_Model_Block.Content.Widget.Layout {
             case .list:
                 return .list
             case .compactList:
-                if FeatureFlags.compactListWidget {
-                    return .compactList
-                } else {
-                    return .list
-                }
+                return .compactList
             case .UNRECOGNIZED:
                 anytypeAssertionFailure("UNRECOGNIZED layout type", info: ["type": "\(rawValue)"])
                 throw WidgetLayoutError.valueUnrecognized
