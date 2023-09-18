@@ -17,9 +17,7 @@ protocol WidgetSourceSearchInteractorProtocol: AnyObject {
 final class WidgetSourceSearchInteractor: WidgetSourceSearchInteractorProtocol {
     
     private let searchService: SearchServiceProtocol
-    private let anytypeLibrary = FeatureFlags.recentEditWidget
-        ? AnytypeWidgetId.allCases.map { $0.librarySource }
-        : [AnytypeWidgetId.favorite, AnytypeWidgetId.sets, AnytypeWidgetId.collections, AnytypeWidgetId.recent].map { $0.librarySource }
+    private let anytypeLibrary = AnytypeWidgetId.allCases.map { $0.librarySource }
     
     init(searchService: SearchServiceProtocol) {
         self.searchService = searchService
@@ -62,21 +60,12 @@ private extension AnytypeWidgetId {
                 icon: .object(.emoji(Emoji("📂") ?? .default))
             )
         case .recent:
-            if FeatureFlags.recentEditWidget {
-                return WidgetAnytypeLibrarySource(
-                    type: .recent,
-                    name: Loc.Widgets.Library.RecentlyEdited.name,
-                    description: nil,
-                    icon: .object(.emoji(Emoji("📝") ?? .default))
-                )
-            } else {
-                return WidgetAnytypeLibrarySource(
-                    type: .recent,
-                    name: Loc.recent,
-                    description: nil,
-                    icon: .object(.emoji(Emoji("📅") ?? .default))
-                )
-            }
+            return WidgetAnytypeLibrarySource(
+                type: .recent,
+                name: Loc.Widgets.Library.RecentlyEdited.name,
+                description: nil,
+                icon: .object(.emoji(Emoji("📝") ?? .default))
+            )
         case .recentOpen:
             return WidgetAnytypeLibrarySource(
                 type: .recentOpen,

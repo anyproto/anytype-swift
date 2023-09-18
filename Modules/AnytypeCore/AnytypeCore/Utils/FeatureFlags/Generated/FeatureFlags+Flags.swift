@@ -26,10 +26,6 @@ public extension FeatureFlags {
         value(for: .migrationGuide)
     }
 
-    static var recentEditWidget: Bool {
-        value(for: .recentEditWidget)
-    }
-
     static var widgetTaskDone: Bool {
         value(for: .widgetTaskDone)
     }
@@ -69,7 +65,6 @@ public extension FeatureFlags {
         .fullInlineSetImpl,
         .dndOnCollectionsAndSets,
         .migrationGuide,
-        .recentEditWidget,
         .widgetTaskDone,
         .newCodeLanguages,
         .newSetSettings,

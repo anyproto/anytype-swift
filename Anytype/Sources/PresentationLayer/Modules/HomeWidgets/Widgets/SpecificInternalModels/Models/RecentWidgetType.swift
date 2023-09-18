@@ -10,41 +10,29 @@ enum RecentWidgetType {
 
 extension RecentWidgetType {
     var title: String {
-        if FeatureFlags.recentEditWidget {
-            switch self {
-            case .recentEdit:
-                return Loc.Widgets.Library.RecentlyEdited.name
-            case .recentOpen:
-                return Loc.Widgets.Library.RecentlyOpened.name
-            }
-        } else {
-            return Loc.recent
+        switch self {
+        case .recentEdit:
+            return Loc.Widgets.Library.RecentlyEdited.name
+        case .recentOpen:
+            return Loc.Widgets.Library.RecentlyOpened.name
         }
     }
     
     var editorScreenData: EditorScreenData {
-        if FeatureFlags.recentEditWidget {
-            switch self {
-            case .recentEdit:
-                return .recentEdit
-            case .recentOpen:
-                return .recentOpen
-            }
-        } else {
+        switch self {
+        case .recentEdit:
             return .recentEdit
+        case .recentOpen:
+            return .recentOpen
         }
     }
     
     var analyticsSource: AnalyticsWidgetSource {
-        if FeatureFlags.recentEditWidget {
-            switch self {
-            case .recentEdit:
-                return .recent
-            case .recentOpen:
-                return .recentOpen
-            }
-        } else {
+        switch self {
+        case .recentEdit:
             return .recent
+        case .recentOpen:
+            return .recentOpen
         }
     }
 }

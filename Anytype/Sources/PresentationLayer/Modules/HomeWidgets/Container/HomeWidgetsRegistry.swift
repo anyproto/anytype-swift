@@ -176,23 +176,11 @@ final class HomeWidgetsRegistry: HomeWidgetsRegistryProtocol {
         case (.recent, .compactList):
             return recentEditCompactListWidgetProviderAssembly
         case (.recentOpen, .tree):
-            if FeatureFlags.recentEditWidget {
-                return recentOpenTreeWidgetProviderAssembly
-            } else {
-                return nil
-            }
+            return recentOpenTreeWidgetProviderAssembly
         case (.recentOpen, .list):
-            if FeatureFlags.recentEditWidget {
-                return recentOpenListWidgetProviderAssembly
-            } else {
-                return nil
-            }
+            return recentOpenListWidgetProviderAssembly
         case (.recentOpen, .compactList):
-            if FeatureFlags.recentEditWidget {
-                return recentOpenCompactListWidgetProviderAssembly
-            } else {
-                return nil
-            }
+            return recentOpenCompactListWidgetProviderAssembly
         case (.sets, .tree):
             return setsCompactListWidgetProviderAssembly
         case (.sets, .list):
