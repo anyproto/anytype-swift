@@ -1,6 +1,5 @@
 import Foundation
 import ProtobufMessages
-import Services
 
 extension BlockWidget {
     func handleSetWidget(data: Anytype_Event.Block.Set.Widget) -> Self {

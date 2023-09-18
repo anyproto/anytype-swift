@@ -68,4 +68,15 @@ public extension InfoContainerProtocol {
             return info.updated(content: .bookmark(updateAction(bookmark)))
         }
     }
+    
+    func updateLink(blockId: BlockId, update updateAction: (BlockLink) -> (BlockLink)) {
+        update(blockId: blockId) { info in
+            guard case let .link(link) = info.content else {
+                anytypeAssertionFailure("Not a link", info: ["content": "\(info.content.type)"])
+                return nil
+            }
+            
+            return info.updated(content: .link(updateAction(link)))
+        }
+    }
 }

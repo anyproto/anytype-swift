@@ -1,6 +1,7 @@
-import Services
 import AnytypeCore
 import SwiftUI
+
+// TODO: Delete active view ID from middleware model
 
 extension Array where Element == DataviewView {
     // Looking forward first, then backward
@@ -19,5 +20,14 @@ extension Array where Element == DataviewView {
         }
         
         return nil
+    }
+}
+
+public extension DataviewViewType {
+    var isSupported: Bool {
+        self == .table ||
+        self == .gallery ||
+        self == .list ||
+        (FeatureFlags.setKanbanView && self == .kanban)
     }
 }
