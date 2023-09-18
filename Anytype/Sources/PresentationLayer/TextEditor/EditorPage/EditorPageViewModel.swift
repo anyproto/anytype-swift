@@ -162,12 +162,6 @@ final class EditorPageViewModel: EditorPageViewModelProtocol {
     
     private func handleDeletionState(details: ObjectDetails, isAppear: Bool) {
         viewInput?.showDeletedScreen(details.isDeleted)
-        if !FeatureFlags.openBinObject, details.isArchived && isAppear {
-            // Waiting for the first responder automatic restoration and then close the screen
-            DispatchQueue.main.asyncAfter(deadline: .now() + 0.7) { [router] in
-                router.closeEditor()
-            }
-        }
     }
 
     private func difference(

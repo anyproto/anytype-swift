@@ -26,10 +26,6 @@ public extension FeatureFlags {
         value(for: .migrationGuide)
     }
 
-    static var openBinObject: Bool {
-        value(for: .openBinObject)
-    }
-
     static var recentEditWidget: Bool {
         value(for: .recentEditWidget)
     }
@@ -73,7 +69,6 @@ public extension FeatureFlags {
         .fullInlineSetImpl,
         .dndOnCollectionsAndSets,
         .migrationGuide,
-        .openBinObject,
         .recentEditWidget,
         .widgetTaskDone,
         .newCodeLanguages,

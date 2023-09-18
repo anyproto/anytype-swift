@@ -34,12 +34,6 @@ public extension FeatureDescription {
         defaultValue: true
     )
     
-    static let openBinObject = FeatureDescription(
-        title: "Open bin object - IOS-1605",
-        type: .feature(author: "m@anytype.io", releaseVersion: "0.25.0"),
-        defaultValue: true
-    )
-    
     static let recentEditWidget = FeatureDescription(
         title: "Recent edit widget - IOS-1608",
         type: .feature(author: "m@anytype.io", releaseVersion: "0.24.0"),
