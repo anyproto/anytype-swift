@@ -26,10 +26,6 @@ public extension FeatureFlags {
         value(for: .migrationGuide)
     }
 
-    static var getMoreSpace: Bool {
-        value(for: .getMoreSpace)
-    }
-
     static var deleteObjectPlaceholder: Bool {
         value(for: .deleteObjectPlaceholder)
     }
@@ -89,7 +85,6 @@ public extension FeatureFlags {
         .fullInlineSetImpl,
         .dndOnCollectionsAndSets,
         .migrationGuide,
-        .getMoreSpace,
         .deleteObjectPlaceholder,
         .showAllFilesInBin,
         .superNewButtonLoadingState,

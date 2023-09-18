@@ -33,12 +33,6 @@ public extension FeatureDescription {
         type: .feature(author: "m@anytype.io", releaseVersion: "0.22.0"),
         defaultValue: true
     )
-    
-    static let getMoreSpace = FeatureDescription(
-        title: "Get more space - IOS-1307",
-        type: .feature(author: "m@anytype.io", releaseVersion: "0.23.0"),
-        defaultValue: true
-    )
 
     static let deleteObjectPlaceholder = FeatureDescription(
         title: "Delete object placeholder - IOS-960",
