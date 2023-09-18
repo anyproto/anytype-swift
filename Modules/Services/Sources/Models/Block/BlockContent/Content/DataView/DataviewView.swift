@@ -19,6 +19,14 @@ public struct DataviewView: Hashable, Identifiable {
     public let groupBackgroundColors: Bool
     public let defaultTemplateID: BlockId?
     public let defaultObjectTypeID: BlockId?
+    
+    public var defaultObjectTypeIDWithFallback: BlockId {
+        if let defaultObjectTypeID, defaultObjectTypeID.isNotEmpty {
+            return defaultObjectTypeID
+        } else {
+            return ObjectTypeId.BundledTypeId.page.rawValue
+        }
+    }
 
     public static var empty: DataviewView {
         DataviewView(

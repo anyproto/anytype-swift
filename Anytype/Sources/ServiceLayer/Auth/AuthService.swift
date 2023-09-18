@@ -2,7 +2,6 @@ import Foundation
 import Combine
 import SwiftUI
 import ProtobufMessages
-import AnytypeCore
 import Services
 
 final class AuthService: AuthServiceProtocol {
@@ -138,11 +137,7 @@ final class AuthService: AuthServiceProtocol {
             case .active, .pendingDeletion:
                 await setupAccountData(response.account.asModel)
             case .deleted:
-                if FeatureFlags.clearAccountDataOnDeletedStatus {
-                    loginStateService.cleanStateAfterLogout()
-                } else {
-                    await setupAccountData(response.account.asModel)
-                }
+                loginStateService.cleanStateAfterLogout()
             }
             
             return status

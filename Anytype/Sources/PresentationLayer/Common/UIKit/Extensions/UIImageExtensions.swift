@@ -171,39 +171,39 @@ extension UIImage {
             return image
         }
 
-    func image(
+    static func image(
         imageSize: CGSize,
         cornerRadius: CGFloat,
         side: CGFloat,
         foregroundColor: UIColor?,
         backgroundColor: UIColor?
     ) -> UIImage {
-        
-        return .generateDynamicImage {
+        .generateDynamicImage {
             let size = CGSize(width: side, height: side)
             let renderer = UIGraphicsImageRenderer(size: size)
-
-            return renderer.image { actions in
+            
+            let image = renderer.image { actions in
                 let context = actions.cgContext
-
+                
                 let rect = CGRect(origin: .zero, size: size)
                 let rectPath = UIBezierPath(roundedRect: rect, cornerRadius: cornerRadius)
                 context.addPath(rectPath.cgPath)
                 backgroundColor.map { context.setFillColor($0.cgColor) }
                 context.fillPath()
-
-                let x = (size.width - imageSize.width) / 2
-                let y = (size.height - imageSize.height) / 2
-                
-                
-                applyTint(color: foregroundColor)
-                    .scaled(to: imageSize)
-                    .draw(
-                        at: .init(x: x, y: y),
-                        blendMode: .normal,
-                        alpha: 1.0
-                    )
             }
+            
+            
+            let x = (size.width - imageSize.width) / 2
+            let y = (size.height - imageSize.height) / 2
+            image.applyTint(color: foregroundColor)
+                .scaled(to: imageSize)
+                .draw(
+                    at: .init(x: x, y: y),
+                    blendMode: .normal,
+                    alpha: 1.0
+                )
+            
+            return image
         }
     }
 

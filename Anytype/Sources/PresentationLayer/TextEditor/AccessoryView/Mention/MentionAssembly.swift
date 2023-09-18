@@ -11,7 +11,7 @@ final class MentionAssembly {
             documentId: documentId,
             spaceId: spaceId,
             mentionService: mentionService,
-            pageService: ServiceLocator.shared.pageService(),
+            pageService: ServiceLocator.shared.pageRepository(),
             onSelect: onMentionSelect
         )
         let controller = MentionsViewController(viewModel: viewModel, dismissAction: onDismiss)

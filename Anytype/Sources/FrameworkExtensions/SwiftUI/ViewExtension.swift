@@ -1,11 +1,7 @@
 import SwiftUI
 
 
-extension View {
-    func errorToast(isShowing: Binding<Bool>, errorText: String, onOkPressed: @escaping () -> () = {}) -> some View {
-        LegacyErrorAlertView(isShowing: isShowing, errorText: errorText, presenting: self, onOkPressed: onOkPressed)
-    }
-    
+extension View {    
     func alertView(isShowing: Binding<Bool>, errorText: String, onButtonTap: @escaping () -> () = {}) -> some View {
         AlertView(isShowing: isShowing, errorText: errorText, presenting: self, onButtonTap: onButtonTap)
     }

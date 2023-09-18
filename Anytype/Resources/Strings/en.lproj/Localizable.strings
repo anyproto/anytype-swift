@@ -178,23 +178,20 @@
 "Keychain.SeedPhrasePlaceholder" = "witch collapse practice feed shame open despair creek road again ice least lake tree young address brain despair";
 
 // Auth
-"Welcome to Anytype" = "Welcome to Anytype";
-"OrganizeEverythingDescription" = "With Anytype you can write notes and documents, manage tasks and save important content from the web.";
 "Sign up" = "Sign up";
 "Login" = "Login";
-"Restore secret phrase from keychain" = "Restore Recovery Phrase from the keychain";
-"or type your recovery phrase" = "or type your recovery phrase";
-"Setting up the wallet" = "Setting up the wallet";
-"Enter your name" = "Enter your name";
-"New profile" = "New profile";
 "Create" = "Create";
 "Scan QR code" = "Scan QR code";
 "Auth.CameraPermissionTitle" = "Please allow access";
-"Analytics constent text" = "Understanding how people use Anytype helps us improve the product. This version of Anytype includes the analytics code that protects your privacy.\nIt doesn't record the actual document's content but still allows us to understand how you use Anytype.\nStay subscribed to our mailing list, as we will soon announce a new release that enables you to opt-out.";
+"Restore secret phrase from keychain" = "Restore Recovery Phrase from the keychain";
+"Auth.LogIn" = "I already have one";
+"Auth.Join" = "Generate new account";
+"Auth.Welcome.Subtitle" = "Anytype is your safe space to write, plan, think and organise everything that matters to you.";
+"Auth.Caption.Privacy.Text" = "By continuing you agree to [Terms of Use](%@) and [Privacy Policy](%@)";
+"Auth.Next" = "Next";
 
 "Account recover error" = "Account recover error, try again";
 "Account recover error no internet" = "Account recover error, probably no internet connection";
-"SignUp.InvintationCode.Placeholder" = "Invitation code";
 
 // Auth Errors
 "Error creating wallet" = "Error creating wallet";
@@ -203,38 +200,35 @@
 
 "Search for language" = "Search for language";
 
-// New Auth
-"Auth.LogIn" = "Log in";
-"Auth.Join" = "Join";
-"Auth.Welcome.Title" = "the\neverything\napp";
-"Auth.Welcome.Subtitle" = "Anytype is your safe space to write, plan, think and organise everything that matters to you.";
-"Auth.Caption.Privacy.Text" = "By continuing you agree to [Terms of Use](%@) and [Privacy Policy](%@)";
-"Auth.Next" = "Next";
+// Auth - Join flow
 
-// New Auth - Join flow
-
-"Auth.JoinFlow.Key.Title" = "Save your recovery phrase";
-"Auth.JoinFlow.Key.Description" = "To log in into your account you need a recovery phrase. It is 12 random words, like a master password for all data. Save it now or later in settings.";
-"Auth.JoinFlow.Key.Description.Shown" = "Lose the Recovery Phrase, lose your account. It's irreplaceable, so secure it well. Quick option: Save to password manager. Safest option: Write on paper and store offline in a secure spot.";
+"Auth.JoinFlow.Key.Title" = "Save your Recovery Phrase";
+"Auth.JoinFlow.Key.Description" = "It’s a novel way of authentication that gives you full ownership over your account and data.";
 "Auth.JoinFlow.Key.TextField.Placeholder" = "Type your recovery phrase";
 "Auth.JoinFlow.Key.Button.Show.Title" = "Show Recovery Phrase";
-"Auth.JoinFlow.Key.Button.Saved.Title" = "Enter your space";
-"Auth.JoinFlow.Key.Button.Later.Title" = "Do it later";
+"Auth.JoinFlow.Key.Button.Saved.Title" = "Go to the app";
+"Auth.JoinFlow.Key.Button.Later.Title" = "Skip";
 "Auth.JoinFlow.Key.Button.Copy.Title" = "Copy to clipboard";
-"Auth.JoinFlow.Key.Button.Info.Title" = "Learn more";
+"Auth.JoinFlow.Key.Button.Info.Title" = "Read more";
+"Auth.JoinFlow.Key.Button.Tip.Title" = "You can find Recovery Phrase later in Anytype settings";
 
-"Auth.JoinFlow.Key.MoreInfo.Description" = "Your Recovery Phrase protects your data cryptographically. No one can access your data without your Recovery Phrase (not even Anytype).\nThat makes it very important to keep it safe, and equally importantly, to keep it to yourself.\n\n**So again, please don't share your Recovery Phrase.**\n\n**One last important thing...**\nWe do not know your Recovery Phrase and will never ask for it. If you lose it, no one, including Anytype, can help you restore your data. So, it's essential you keep it somewhere safe.\n\n**The easiest way so store your Recovery Phrase is to save it to your password manager.\n\nThe securest way is to write it down on paper and keep it offline, in a safe and secure place.**";
-"Auth.JoinFlow.Key.MoreInfo.Button.Title" = "Sounds good";
+"Auth.JoinFlow.Key.ReadMore.Title" = "What is Recovery Phrase?";
+"Auth.JoinFlow.Key.ReadMore.Option1.Title" = "Recovery Phrase is a random combination of 12 words from which your account is magically generated on this device.";
+"Auth.JoinFlow.Key.ReadMore.Option2.Title" = "Whomever knows Recovery Phrase, owns the account. **At this moment, you are the only person in the world who knows it.**";
+"Auth.JoinFlow.Key.ReadMore.Option3.Title" = "That's why it's essential to keep Recovery Phrase safe. As the sole owner, nobody can help you if it's lost.";
+"Auth.JoinFlow.Key.ReadMore.Instruction.Title" = "How to save my phrase?";
+"Auth.JoinFlow.Key.ReadMore.Instruction.Option1.Title" = "The easiest way to store your Recovery Phrase is to save it in your password manager.";
+"Auth.JoinFlow.Key.ReadMore.Instruction.Option2.Title" = "The most secure way is to write it down on paper and keep it offline, in a safe and secure place.";
 
 "Auth.JoinFlow.Soul.Title" = "Set a name for new identity";
 "Auth.JoinFlow.Soul.Description" = "First, choose a name to use inside Anytype.";
 "Auth.JoinFlow.Soul.Placeholder" = "Untitled";
 
-"Auth.JoinFlow.Creating.Soul.Title" = "Generating new Anytype identity";
-"Auth.JoinFlow.Setting.Space.Title" = "Setting up your Personal space";
+"Auth.JoinFlow.Creating.Soul.Title" = "Generating new account";
+"Auth.JoinFlow.Setting.Space.Title" = "Setting up your personal space";
 "Auth.JoinFlow.Personal.Space.Title" = "Personal Space";
 
-// New Auth - Login flow
+// Auth - Login flow
 "Auth.LoginFlow.Use.Keychain.Title" = "Use keychain";
 "Auth.LoginFlow.Or" = "OR";
 "Auth.LoginFlow.Textfield.Placeholder" = "Type your recovery phrase";
@@ -329,6 +323,11 @@
 
 "TemplateEditing.Title" = "Edit template";
 "TemplateEditing.SelectButtonTitle" = "Select template";
+
+"Templates.Popup.WasAddedTo" = "New template was added to the type";
+"Templates.Popup.Duplicated" = "The template was duplicated";
+"Templates.Popup.Removed" = "The template was removed";
+"Templates.Popup.Default" = "The template was set as default";
 
 "To Bin" = "To Bin";
 
@@ -432,6 +431,7 @@
 "Set.View.Settings.GroupBy.Title" = "Group by";
 "Set.View.Settings.GroupBackgroundColors.Title" = "Color columns";
 "Set.View.Settings.DefaultObject.Title" = "Default object";
+"Set.View.Settings.DefaultTemplate.Title" = "Default template";
 
 "Set.View.Settings.NoRelations.Placeholder" = "No relations";
 "Set.View.Settings.NoFilters.Placeholder" = "No filters";
@@ -680,6 +680,7 @@
 
 // MARK: Edit view type
 "SetViewTypesPicker.Title" = "Edit view";
+"SetViewTypesPicker.New.Title" = "New view";
 "SetViewTypesPicker.Section.Types.Title" = "View as";
 "SetViewTypesPicker.Settings.Duplicate.View" = "Duplicate";
 "SetViewTypesPicker.Settings.Delete.View" = "Delete view";
@@ -687,7 +688,7 @@
 "SetViewTypesPicker.Settings.Textfield.Placeholder.Untitled" = "Untitled";
 
 // MARK: Select view picker
-"EditorSetViewPicker.View.Not.Supported.Title" = "not supported";
+"EditorSetViewPicker.View.Not.Supported.Title" = "Unsupported";
 
 // BlockContent
 "Content.File.Upload" = "Upload a file";
@@ -820,3 +821,18 @@
 
 // MARK: - Space Create
 "SpaceCreate.Title" = "Create a space";
+
+// MARK: - Sharing
+"Sharing.Navigation.title" = "Add to Anytype";
+"Sharing.Navigation.LeftButton.Title" = "Cancel";
+"Sharing.Navigation.RightButton.Title" = "Done";
+
+"Sharing.SaveAs" = "SAVE AS";
+"Sharing.AddTo" = "Add to";
+"Sharing.LinkTo" = "Link to";
+
+"Sharing.URL.Bookmark" = "Bookmark object";
+"Sharing.URL.Text" = "Text block";
+"Sharing.Text.NoteObject" = "Note object";
+"Sharing.Text.TextBlock" = "Text block";
+

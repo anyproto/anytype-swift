@@ -62,7 +62,7 @@ final class ObjectHeaderViewModel: ObservableObject {
     func buildShimmeringHeader() -> ObjectHeader {
         let usecase = ObjectIconImageUsecase.openedObject
         let imageSize = usecase.objectIconImageGuidelineSet.emojiImageGuideline?.size ?? .zero
-        let image = UIImage().image(
+        let image = UIImage.image(
             imageSize: imageSize,
             cornerRadius: 0,
             side: imageSize.height,

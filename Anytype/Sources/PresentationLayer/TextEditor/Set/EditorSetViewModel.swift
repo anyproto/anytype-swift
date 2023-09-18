@@ -47,7 +47,8 @@ final class EditorSetViewModel: ObservableObject {
     }
     
     var colums: [RelationDetails] {
-        setDocument.sortedRelations.filter { $0.option.isVisible }.map(\.relationDetails)
+        setDocument.sortedRelations(for: setDocument.activeView.id)
+            .filter { $0.option.isVisible }.map(\.relationDetails)
     }
     
     var isSmallItemSize: Bool {
@@ -76,7 +77,7 @@ final class EditorSetViewModel: ObservableObject {
     
     var showEmptyState: Bool {
         (isEmptyQuery && !setDocument.isCollection()) ||
-        (setDocument.isCollection() && recordsDict.values.first { $0.isNotEmpty } == nil && setDocument.filters.isEmpty)
+        (setDocument.isCollection() && recordsDict.values.first { $0.isNotEmpty } == nil && setDocument.activeViewFilters.isEmpty)
     }
     
     func groupBackgroundColor(for groupId: String) -> BlockBackgroundColor {
@@ -131,6 +132,7 @@ final class EditorSetViewModel: ObservableObject {
     private let setSubscriptionDataBuilder: SetSubscriptionDataBuilderProtocol
     private let objectTypeProvider: ObjectTypeProviderProtocol
     private let setTemplatesInteractor: SetTemplatesInteractorProtocol
+    private let objectTypeProvider: ObjectTypeProviderProtocol
     private var subscriptions = [AnyCancellable]()
     private var titleSubscription: AnyCancellable?
 
@@ -158,7 +160,7 @@ final class EditorSetViewModel: ObservableObject {
         self.setSubscriptionDataBuilder = setSubscriptionDataBuilder
         self.objectTypeProvider = objectTypeProvider
         self.setTemplatesInteractor = setTemplatesInteractor
-
+        self.objectTypeProvider = objectTypeProvider
         self.titleString = setDocument.details?.pageCellTitle ?? ""
     }
     
@@ -564,16 +566,18 @@ final class EditorSetViewModel: ObservableObject {
     }
     
     func createObject() {
-        createObject(selectedTemplateId: activeView.defaultTemplateID)
+        createObject(selectedTemplateId: nil)
     }
     
     func createObject(selectedTemplateId: BlockId?) {
         if setDocument.isCollection() {
+            let objectTypeId = setDocument.activeView.defaultObjectTypeIDWithFallback
+            let templateId = selectedTemplateId ?? defaultTemplateId(for: objectTypeId)
             createObject(
                 type: setDocument.defaultObjectTypeForActiveView(),
                 shouldSelectType: true,
                 relationsDetails: [],
-                templateId: selectedTemplateId,
+                templateId: templateId,
                 completion: { details in
                     Task { @MainActor [weak self] in
                         guard let self else { return }
@@ -593,27 +597,38 @@ final class EditorSetViewModel: ObservableObject {
                 guard let source = self?.details?.setOf else { return false }
                 return source.contains(detail.id)
             }
+            let objectTypeId = setDocument.activeView.defaultObjectTypeIDWithFallback
+            let templateId = selectedTemplateId ?? defaultTemplateId(for: objectTypeId)
             createObject(
                 type: setDocument.defaultObjectTypeForActiveView(),
                 shouldSelectType: true,
                 relationsDetails: relationsDetails,
-                templateId: selectedTemplateId,
+                templateId: templateId,
                 completion: { [weak self] details in
                     self?.openObject(details: details)
                 }
             )
         } else {
-            let typeId = details?.setOf.first ?? ""
-            let type = try? objectTypeProvider.objectType(id: typeId)
+            let objectTypeId = details?.setOf.first ?? ""
+            let templateId = selectedTemplateId ?? defaultTemplateId(for: objectTypeId)
             createObject(
-                type: type,
-                shouldSelectType: type.isNil,
+                with: objectTypeId,
+                shouldSelectType: templateId.isEmpty,
                 relationsDetails: [],
-                templateId: selectedTemplateId,
+                templateId: templateId,
                 completion: { [weak self] details in
                     self?.handleCreatedObject(details: details)
                 }
             )
+        }
+    }
+    
+    private func defaultTemplateId(for objectTypeId: String) -> String {
+        if let defaultTemplateID = activeView.defaultTemplateID, defaultTemplateID.isNotEmpty {
+            let templateID = defaultTemplateID == TemplateType.blank.id ? "" : defaultTemplateID
+            return templateID
+        } else {
+            return objectTypeProvider.objectType(id: objectTypeId)?.defaultTemplateId ?? ""
         }
     }
     
@@ -640,7 +655,7 @@ final class EditorSetViewModel: ObservableObject {
                 shouldSelectType: shouldSelectType,
                 templateId: templateId ?? "",
                 spaceId: setDocument.spaceId,
-                setFilters: self.setDocument.filters,
+                setFilters: self.setDocument.activeViewFilters,
                 relationsDetails: relationsDetails
             )
             AnytypeAnalytics.instance().logCreateObject(objectType: details.analyticsType, route: setDocument.isCollection() ? .collection : .set)
@@ -677,10 +692,7 @@ extension EditorSetViewModel {
     }
     
     func showViewPicker() {
-        router?.showViewPicker(
-            setDocument: setDocument,
-            dataviewService: dataviewService)
-        { [weak self] activeView in
+        router?.showViewPicker(subscriptionDetailsStorage: subscriptionService.storage) { [weak self] activeView in
             self?.showViewTypes(with: activeView)
         }
     }
@@ -714,10 +726,7 @@ extension EditorSetViewModel {
     }
 
     func showViewSettings() {
-        router?.showViewSettings(
-            setDocument: setDocument,
-            dataviewService: dataviewService
-        )
+        router?.showViewSettings(setDocument: setDocument)
     }
     
     func showSorts() {
@@ -863,5 +872,8 @@ extension EditorSetViewModel {
         setSubscriptionDataBuilder: SetSubscriptionDataBuilder(activeWorkspaceStorage: DI.preview.serviceLocator.activeWorkspaceStorage()),
         objectTypeProvider: DI.preview.serviceLocator.objectTypeProvider(),
         setTemplatesInteractor: DI.preview.serviceLocator.setTemplatesInteractor
+        setSubscriptionDataBuilder: SetSubscriptionDataBuilder(accountManager: DI.preview.serviceLocator.accountManager()),
+        setTemplatesInteractor: DI.preview.serviceLocator.setTemplatesInteractor,
+        objectTypeProvider: DI.preview.serviceLocator.objectTypeProvider()
     )
 }

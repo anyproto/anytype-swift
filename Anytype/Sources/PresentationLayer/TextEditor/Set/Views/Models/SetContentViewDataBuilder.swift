@@ -16,10 +16,11 @@ final class SetContentViewDataBuilder {
     }
     
     func sortedRelations(dataview: BlockDataview, view: DataviewView, spaceId: String) -> [SetRelation] {
+        let storageRelationsDetails = relationDetailsStorage.relationsDetails(for: dataview.relationLinks, spaceId: spaceId)
+            .filter { !$0.isHidden && !$0.isDeleted }
         let relations: [SetRelation] = view.options
             .compactMap { option in
-                let relationsDetails = relationDetailsStorage.relationsDetails(for: dataview.relationLinks, spaceId: spaceId)
-                    .filter { !$0.isHidden && !$0.isDeleted }
+                let relationsDetails = storageRelationsDetails
                     .first { $0.key == option.key }
                 guard let relationsDetails = relationsDetails else { return nil }
                 

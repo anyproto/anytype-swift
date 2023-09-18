@@ -22,6 +22,7 @@ public struct ObjectType: Equatable, Hashable, Codable {
     public let sourceObject: String
     public let spaceId: String
     public let uniqueKey: ObjectTypeUniqueKey
+    public let defaultTemplateId: String
     
     public let recommendedRelations: [ObjectId]
     public let recommendedLayout: DetailsLayout?
@@ -38,6 +39,7 @@ public struct ObjectType: Equatable, Hashable, Codable {
         sourceObject: String,
         spaceId: String,
         uniqueKey: ObjectTypeUniqueKey,
+        defaultTemplateId: String,
         recommendedRelations: [ObjectId],
         recommendedLayout: DetailsLayout?
     ) {
@@ -52,6 +54,7 @@ public struct ObjectType: Equatable, Hashable, Codable {
         self.sourceObject = sourceObject
         self.spaceId = spaceId
         self.uniqueKey = uniqueKey
+        self.defaultTemplateId = defaultTemplateId
         self.recommendedRelations = recommendedRelations
         self.recommendedLayout = recommendedLayout
     }
@@ -72,6 +75,7 @@ extension ObjectType {
             sourceObject: details.sourceObject,
             spaceId: details.spaceId,
             uniqueKey: details.uniqueKeyValue,
+            defaultTemplateId: details.defaultTemplateId,
             recommendedRelations: details.recommendedRelations,
             recommendedLayout: details.recommendedLayoutValue
         )

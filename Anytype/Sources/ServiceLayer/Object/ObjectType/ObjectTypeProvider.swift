@@ -31,6 +31,9 @@ final class ObjectTypeProvider: ObjectTypeProviderProtocol {
     private(set) var objectTypes = [ObjectType]()
     private var searchTypesById = SynchronizedDictionary<String, ObjectType>()
     
+    @Published var sync: () = ()
+    var syncPublisher: AnyPublisher<Void, Never> { $sync.eraseToAnyPublisher() }
+
     private init(
         subscriptionsService: SubscriptionsServiceProtocol,
         subscriptionBuilder: ObjectTypeSubscriptionDataBuilderProtocol
@@ -108,8 +111,9 @@ final class ObjectTypeProvider: ObjectTypeProviderProtocol {
             sourceObject: "",
             spaceId: "",
             uniqueKey: .empty,
+            defaultTemplateId: "",
             recommendedRelations: [],
-            recommendedLayout: nil
+            recommendedLayout: nil,
         )
     }
     
@@ -130,6 +134,7 @@ final class ObjectTypeProvider: ObjectTypeProviderProtocol {
     private func handleEvent(update: SubscriptionUpdate) {
         objectTypes.applySubscriptionUpdate(update, transform: { ObjectType(details: $0) })
         updateAllCache()
+        sync = ()
     }
     
     private func updateAllCache() {

@@ -8,6 +8,7 @@ final class SetSortsListViewModel: ObservableObject {
     @Published var rows: [SetSortRowConfiguration] = []
     
     private let setDocument: SetDocumentProtocol
+    private let viewId: String
     private var cancellable: Cancellable?
     
     private let dataviewService: DataviewServiceProtocol
@@ -15,10 +16,12 @@ final class SetSortsListViewModel: ObservableObject {
     
     init(
         setDocument: SetDocumentProtocol,
+        viewId: String,
         dataviewService: DataviewServiceProtocol,
         output: SetSortsListCoordinatorOutput?
     ) {
         self.setDocument = setDocument
+        self.viewId = viewId
         self.dataviewService = dataviewService
         self.output = output
         self.setup()
@@ -30,15 +33,15 @@ extension SetSortsListViewModel {
     // MARK: - Routing
     
     func addButtonTapped() {
-        let excludeRelations: [RelationDetails] = setDocument.sorts.map { $0.relationDetails }
-        let relationsDetails = setDocument.activeViewRelations(excludeRelations: excludeRelations)
+        let excludeRelations: [RelationDetails] = setDocument.sorts(for: viewId).map { $0.relationDetails }
+        let relationsDetails = setDocument.viewRelations(viewId: viewId, excludeRelations: excludeRelations)
         output?.onAddButtonTap(relationDetails: relationsDetails, completion: { [weak self] relationDetails in
             self?.addNewSort(with: relationDetails)
         })
     }
     
     func rowTapped(_ id: String, index: Int) {
-        guard let setSort = setDocument.sorts[safe: index], setSort.id == id  else {
+        guard let setSort = setDocument.sorts(for: viewId)[safe: index], setSort.id == id  else {
             return
         }
         output?.onSetSortTap(setSort, completion: { [weak self] setSort in
@@ -49,22 +52,26 @@ extension SetSortsListViewModel {
     // MARK: - Actions
     
     func delete(_ indexSet: IndexSet) {
-        indexSet.forEach { deleteIndex in
-            guard deleteIndex < setDocument.sorts.count else { return }
-            let sort = setDocument.sorts[deleteIndex]
-            Task {
-                try await dataviewService.removeSorts([sort.sort.id], viewId: setDocument.activeView.id)
+        indexSet.forEach { [weak self] deleteIndex in
+            guard let self else { return }
+            let sorts = setDocument.sorts(for: viewId)
+            guard deleteIndex < sorts.count else { return }
+            let sort = sorts[deleteIndex]
+            Task { [weak self] in
+                guard let self else { return }
+                try await dataviewService.removeSorts([sort.sort.id], viewId: viewId)
                 AnytypeAnalytics.instance().logSortRemove(objectType: setDocument.analyticsType)
             }
         }
     }
     
     func move(from: IndexSet, to: Int) {
-        Task {
-            var sorts = setDocument.sorts
+        Task { [weak self] in
+            guard let self else { return }
+            var sorts = setDocument.sorts(for: viewId)
             sorts.move(fromOffsets: from, toOffset: to)
             let sortIds = sorts.map { $0.sort.id }
-            try await dataviewService.sortSorts(sortIds, viewId: setDocument.activeView.id)
+            try await dataviewService.sortSorts(sortIds, viewId: viewId)
             AnytypeAnalytics.instance().logRepositionSort(objectType: setDocument.analyticsType)
         }
     }
@@ -74,15 +81,18 @@ extension SetSortsListViewModel {
             relationKey: relation.key,
             type: .asc
         )
-        Task {
-            try await dataviewService.addSort(newSort, viewId: setDocument.activeView.id)
+        Task { [weak self] in
+            guard let self else { return }
+            try await dataviewService.addSort(newSort, viewId: viewId)
             AnytypeAnalytics.instance().logAddSort(objectType: setDocument.analyticsType)
         }
     }
     
     private func setup() {
-        cancellable = setDocument.sortsPublisher.sink { [weak self] sorts in
-            self?.updateRows(with: sorts)
+        cancellable = setDocument.syncPublisher.sink { [weak self] in
+            guard let self else { return }
+            let sorts = setDocument.sorts(for: viewId)
+            updateRows(with: sorts)
         }
     }
     
@@ -101,11 +111,12 @@ extension SetSortsListViewModel {
     }
     
     private func updateSorts(with setSort: SetSort) {
-        Task {
+        Task { [weak self] in
+            guard let self else { return }
             try await dataviewService.replaceSort(
                 setSort.sort.id,
                 with: setSort.sort,
-                viewId: setDocument.activeView.id
+                viewId: viewId
             )
             AnytypeAnalytics.instance().logChangeSortValue(
                 type: setSort.sort.type.stringValue,

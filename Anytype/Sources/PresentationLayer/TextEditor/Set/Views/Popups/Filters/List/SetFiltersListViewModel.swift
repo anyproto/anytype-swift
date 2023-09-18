@@ -9,6 +9,7 @@ final class SetFiltersListViewModel: ObservableObject {
     @Published var rows: [SetFilterRowConfiguration] = []
     
     private let setDocument: SetDocumentProtocol
+    private let viewId: String
     private var cancellable: Cancellable?
     
     private let dataviewService: DataviewServiceProtocol
@@ -19,11 +20,13 @@ final class SetFiltersListViewModel: ObservableObject {
     
     init(
         setDocument: SetDocumentProtocol,
+        viewId: String,
         dataviewService: DataviewServiceProtocol,
         output: SetFiltersListCoordinatorOutput?,
         subscriptionDetailsStorage: ObjectDetailsStorage)
     {
         self.setDocument = setDocument
+        self.viewId = viewId
         self.dataviewService = dataviewService
         self.output = output
         self.subscriptionDetailsStorage = subscriptionDetailsStorage
@@ -37,7 +40,7 @@ extension SetFiltersListViewModel {
     // MARK: - Actions
     
     func addButtonTapped() {
-        let relationsDetails = setDocument.activeViewRelations(excludeRelations: [])
+        let relationsDetails = setDocument.viewRelations(viewId: viewId, excludeRelations: [])
         output?.onAddButtonTap(relationDetails: relationsDetails) { [weak self] relationDetails in
             guard let filter = self?.makeSetFilter(with: relationDetails) else {
                 return
@@ -47,12 +50,15 @@ extension SetFiltersListViewModel {
     }
     
     func delete(_ indexSet: IndexSet) {
-        indexSet.forEach { deleteIndex in
-            guard deleteIndex < setDocument.filters.count else { return }
-            let filter = setDocument.filters[deleteIndex]
-            Task {
-                try await dataviewService.removeFilters([filter.filter.id], viewId: setDocument.activeView.id)
-                AnytypeAnalytics.instance().logFilterRemove(objectType: self.setDocument.analyticsType)
+        indexSet.forEach { [weak self] deleteIndex in
+            guard let self else { return }
+            let filters = setDocument.filters(for: viewId)
+            guard deleteIndex < filters.count else { return }
+            let filter = filters[deleteIndex]
+            Task { [weak self] in
+                guard let self else { return }
+                try await dataviewService.removeFilters([filter.filter.id], viewId: viewId)
+                AnytypeAnalytics.instance().logFilterRemove(objectType: setDocument.analyticsType)
             }
         }
     }
@@ -60,8 +66,10 @@ extension SetFiltersListViewModel {
     // MARK: - Private methods
     
     private func setup() {
-        cancellable = setDocument.filtersPublisher.sink { [weak self] filters in
-            self?.updateRows(with: filters)
+        cancellable = setDocument.syncPublisher.sink { [weak self] in
+            guard let self else { return }
+            let filters = setDocument.filters(for: viewId)
+            updateRows(with: filters)
         }
     }
     
@@ -82,14 +90,14 @@ extension SetFiltersListViewModel {
     }
     
     private func rowTapped(_ id: String, index: Int) {
-        guard let filter = setDocument.filters[safe: index], filter.id == id  else {
+        guard let filter = setDocument.filters(for: viewId)[safe: index], filter.id == id  else {
             return
         }
         showFilterSearch(with: filter)
     }
     
     private func makeSetFilter(with relationDetails: RelationDetails) -> SetFilter? {
-        guard let filteredDetails = setDocument.activeViewRelations(excludeRelations: []).first(where: { $0.id == relationDetails.id }) else {
+        guard let filteredDetails = setDocument.viewRelations(viewId: viewId, excludeRelations: []).first(where: { $0.id == relationDetails.id }) else {
             return nil
         }
         return SetFilter(
@@ -126,27 +134,28 @@ extension SetFiltersListViewModel {
     func showFilterSearch(with filter: SetFilter) {
         output?.onFilterTap(filter: filter) { [weak self] updatedFilter in
             guard let self else { return }
-            Task {
+            Task { [weak self] in
+                guard let self else { return }
                 if filter.filter.id.isNotEmpty {
-                    try await self.dataviewService.replaceFilter(
+                    try await dataviewService.replaceFilter(
                         filter.filter.id,
                         with: updatedFilter.filter,
-                        viewId: self.setDocument.activeView.id
+                        viewId: viewId
                     )
                     if filter.filter.condition != updatedFilter.filter.condition {
                         AnytypeAnalytics.instance().logChangeFilterValue(
                             condition: updatedFilter.filter.condition.stringValue,
-                            objectType: self.setDocument.analyticsType
+                            objectType: setDocument.analyticsType
                         )
                     }
                 } else {
-                    try await self.dataviewService.addFilter(
+                    try await dataviewService.addFilter(
                         updatedFilter.filter,
-                        viewId: self.setDocument.activeView.id
+                        viewId: viewId
                     )
                     AnytypeAnalytics.instance().logAddFilter(
                         condition: updatedFilter.filter.condition.stringValue,
-                        objectType: self.setDocument.analyticsType
+                        objectType: setDocument.analyticsType
                     )
                 }
             }

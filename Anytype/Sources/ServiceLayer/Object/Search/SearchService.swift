@@ -18,8 +18,8 @@ protocol SearchServiceProtocol: AnyObject {
     func searchMarketplaceObjectTypes(text: String, excludedIds: [String]) async throws -> [ObjectDetails]
     func searchFiles(text: String, excludedFileIds: [String],  spaceId: String) async throws -> [ObjectDetails]
     func searchImages() async throws -> [ObjectDetails]
-    func searchObjects(text: String, excludedObjectIds: [String], limitedTypeIds: [String], spaceId: String) async throws -> [ObjectDetails]
-    func searchTemplates(for type: String, spaceId: String) async throws -> [ObjectDetails]
+    func searchObjectsByTypes(text: String, typeIds: [String], excludedObjectIds: [String], spaceId: String) async throws -> [ObjectDetails]
+    func searchTemplates(for type: ObjectTypeId, spaceId: String)) async throws -> [ObjectDetails]
     func searchObjects(
         text: String,
         excludedObjectIds: [String],
@@ -32,6 +32,7 @@ protocol SearchServiceProtocol: AnyObject {
     func searchRelations(text: String, excludedIds: [String], spaceId: String) async throws -> [RelationDetails]
     func searchMarketplaceRelations(text: String, excludedIds: [String]) async throws -> [RelationDetails]
     func searchArchiveObjectIds(spaceId: String) async throws -> [String]
+    func searchObjectsWithLayouts(text: String, layouts: [DetailsLayout], spaceId: String) async throws -> [ObjectDetails]
 }
 
 final class SearchService: ObservableObject, SearchServiceProtocol {
@@ -45,14 +46,7 @@ final class SearchService: ObservableObject, SearchServiceProtocol {
     // MARK: - SearchServiceProtocol
     
     func search(text: String, spaceId: String) async throws -> [ObjectDetails] {
-        let sort = SearchHelper.sort(
-            relation: BundledRelationKey.lastOpenedDate,
-            type: .desc
-        )
-        
-        let filters = buildFilters(isArchived: false, spaceId: spaceId, layouts: DetailsLayout.visibleLayouts)
-        
-        return try await search(filters: filters, sorts: [sort], fullText: text, limit: Constants.defaultLimit)
+        try await searchObjectsWithLayouts(text: text, layouts: DetailsLayout.visibleLayouts, spaceId: spaceId)
     }
     
     func search(text: String, excludedObjectIds: [String], spaceId: String) async throws -> [ObjectDetails] {
@@ -165,17 +159,19 @@ final class SearchService: ObservableObject, SearchServiceProtocol {
         return try await search(filters: filters, sorts: [sort], fullText: "", limit: Constants.defaultLimit)
     }
     
-    func searchObjects(text: String, excludedObjectIds: [String], limitedTypeIds: [String], spaceId: String) async throws -> [ObjectDetails] {
+    func searchObjectsByTypes(text: String, excludedObjectIds: [String], limitedTypeIds: [String], spaceId: String) async throws -> [ObjectDetails] {
         let sort = SearchHelper.sort(
             relation: BundledRelationKey.lastOpenedDate,
             type: .desc
         )
         
-        let filters = Array.builder {
-            buildFilters(isArchived: false, spaceId: spaceId, layouts: DetailsLayout.visibleLayouts)
+        let filters: [DataviewFilter] = .builder {
             SearchHelper.excludedIdsFilter(excludedObjectIds)
-            if limitedTypeIds.isNotEmpty {
-                SearchHelper.typeFilter(typeIds: limitedTypeIds)
+            if typeIds.isEmpty {
+                buildFilters(isArchived: false, spaceId: spaceId, layouts: DetailsLayout.visibleLayouts)
+            } else {
+                buildFilters(isArchived: false, spaceId: spaceId)
+                SearchHelper.typeFilter(typeIds: typeIds)
             }
         }
                 
@@ -275,6 +271,17 @@ final class SearchService: ObservableObject, SearchServiceProtocol {
         let result = try await search(filters: filters, keys: keys)
         return result.map { $0.id }
     }
+    
+    func searchObjectsWithLayouts(text: String, layouts: [DetailsLayout]) async throws -> [ObjectDetails] {
+        let sort = SearchHelper.sort(
+            relation: BundledRelationKey.lastOpenedDate,
+            type: .desc
+        )
+        
+        let filters = buildFilters(isArchived: false, layouts: layouts)
+        
+        return try await search(filters: filters, sorts: [sort], fullText: text, limit: Constants.defaultLimit)
+    }
 }
 
 private extension SearchService {
@@ -314,12 +321,8 @@ private extension SearchService {
         return response.records.asDetais
     }
 
-    private func buildFilters(isArchived: Bool, workspaceId: String) -> [DataviewFilter] {
-        [
-            SearchHelper.notHiddenFilter(),
-            SearchHelper.isArchivedFilter(isArchived: isArchived),
-            SearchHelper.workspaceId(workspaceId)
-        ]
+    private func buildFilters(isArchived: Bool, workspaceId: String? = nil) -> [DataviewFilter] {
+        SearchHelper.buildFilters(isArchived: isArchived, workspaceId: workspaceId ?? accountManager.account.info.accountSpaceId)
     }
     
     private func buildFilters(isArchived: Bool, spaceId: String) -> [DataviewFilter] {

@@ -64,4 +64,8 @@ final class BlockListServiceMock: BlockListServiceProtocol {
     func setLinkAppearance(objectId: BlockId, blockIds: [BlockId], appearance: BlockLink.Appearance) {
         assertionFailure()
     }
+    
+    func lastBlockId(from objectId: Services.BlockId) async throws -> Services.BlockId {
+        ""
+    }
 }

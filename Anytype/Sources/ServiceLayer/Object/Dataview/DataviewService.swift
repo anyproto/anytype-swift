@@ -138,13 +138,14 @@ final class DataviewService: DataviewServiceProtocol {
     
     // MARK: -
 
-    func createView( _ view: DataviewView, source: [String]) async throws {
-        try await ClientCommands.blockDataviewViewCreate(.with {
+    func createView( _ view: DataviewView, source: [String]) async throws -> String {
+        let response = try await ClientCommands.blockDataviewViewCreate(.with {
             $0.contextID = objectId
             $0.blockID = blockId
             $0.view = view.asMiddleware
             $0.source = source
         }).invoke()
+        return response.viewID
     }
 
     func deleteView( _ viewId: String) async throws {

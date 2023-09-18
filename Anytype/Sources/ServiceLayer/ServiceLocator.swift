@@ -2,6 +2,7 @@ import Foundation
 import UIKit
 import Services
 import AnytypeCore
+import SecureService
 
 // TODO: Migrate to ServicesDI
 final class ServiceLocator {
@@ -10,6 +11,15 @@ final class ServiceLocator {
     let textService = TextService()
     let templatesService = TemplatesService()
     lazy private(set) var setTemplatesInteractor = SetTemplatesInteractor(templatesService: templatesService, objectTypeProvider: objectTypeProvider())
+    let sharedContentManager: SharedContentManagerProtocol = SharedContentManager()
+    lazy private(set) var setTemplatesInteractor = SetTemplatesInteractor(templatesService: templatesService)
+    lazy private(set) var sharedContentInteractor: SharedContentInteractorProtocol = SharedContentInteractor(
+        listService: blockListService(),
+        bookmarkService: bookmarkService(),
+        objectActionsService: objectActionsService(),
+        blockActionService: blockActionsServiceSingle(),
+        pageRepository: pageRepository()
+    )
     
     // MARK: - Services
     
@@ -52,7 +62,7 @@ final class ServiceLocator {
     }
     
     func dashboardService() -> DashboardServiceProtocol {
-        DashboardService(searchService: searchService(), pageService: pageService(), objectTypeProvider: objectTypeProvider())
+        DashboardService(searchService: searchService(), pageService: pageRepository(), objectTypeProvider: objectTypeProvider())
     }
     
     func blockActionsServiceSingle() -> BlockActionsServiceSingleProtocol {
@@ -131,8 +141,8 @@ final class ServiceLocator {
         return WorkspaceService()
     }
     
-    func pageService() -> PageServiceProtocol {
-        return PageService(objectTypeProvider: objectTypeProvider())
+    func pageRepository() -> PageRepositoryProtocol {
+        return PageRepository(objectTypeProvider: objectTypeProvider(), pageService: PageService())
     }
         
     func blockWidgetService() -> BlockWidgetServiceProtocol {

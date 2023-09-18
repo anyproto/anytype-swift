@@ -13,8 +13,6 @@ enum AnalyticsEventsName {
     static let logout = "LogOut"
     static let deleteAccount = "DeleteAccount"
     static let cancelDeletion = "CancelDeletion"
-    
-    // New auth events
     static let screenOnboarding = "ScreenOnboarding"
     static let clickOnboarding = "ClickOnboarding"
     static let clickLogin = "ClickLogin"
@@ -363,6 +361,7 @@ enum ScreenOnboardingStep: String {
 enum ClickOnboardingButton: String {
     case showAndCopy = "ShowAndCopy"
     case checkLater = "CheckLater"
+    case moreInfo = "MoreInfo"
 }
 
 enum ClickLoginButton: String {

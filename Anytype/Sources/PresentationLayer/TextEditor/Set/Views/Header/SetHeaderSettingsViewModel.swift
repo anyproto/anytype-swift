@@ -48,10 +48,10 @@ class SetHeaderSettingsViewModel: ObservableObject {
             .sink { [weak self] details in
                 guard let self else { return }
                 isActive = details.setOf.first { $0.isNotEmpty } != nil || details.isCollection
-                if setDocument.isCollection() || setDocument.isRelationsSet() {
-                    checkTemplatesAvailablility(activeView: setDocument.activeView)
-                } else {
+                if setDocument.isTypeSet() {
                     checkTemplatesAvailablility(details: details)
+                } else {
+                    checkTemplatesAvailablility(activeView: setDocument.activeView)
                 }
             }
             .store(in: &subscriptions)

@@ -45,10 +45,6 @@ class SetDocument: SetDocumentProtocol {
     
     var dataViewRelationsDetails: [RelationDetails] = []
     
-    var sortedRelations: [SetRelation] {
-        dataBuilder.sortedRelations(dataview: dataView, view: activeView, spaceId: spaceId)
-    }
-    
     var isObjectLocked: Bool {
         document.isLocked ||
         activeView.type == .gallery ||
@@ -77,11 +73,8 @@ class SetDocument: SetDocumentProtocol {
     @Published var activeView = DataviewView.empty
     var activeViewPublisher: AnyPublisher<DataviewView, Never> { $activeView.eraseToAnyPublisher() }
     
-    @Published var sorts: [SetSort] = []
-    var sortsPublisher: AnyPublisher<[SetSort], Never> { $sorts.eraseToAnyPublisher() }
-    
-    @Published var filters: [SetFilter] = []
-    var filtersPublisher: AnyPublisher<[SetFilter], Never> { $filters.eraseToAnyPublisher() }
+    @Published var activeViewSorts: [SetSort] = []
+    @Published var activeViewFilters: [SetFilter] = []
     
     let blockId: BlockId?
     
@@ -110,14 +103,48 @@ class SetDocument: SetDocumentProtocol {
         self.setup()
     }
     
+    func view(by id: String) -> DataviewView {
+        dataView.views.first { $0.id == id } ?? .empty
+    }
+    
+    func sortedRelations(for viewId: String) -> [SetRelation] {
+        let view = view(by: viewId)
+        return dataBuilder.sortedRelations(dataview: dataView, view: view)
+    }
+    
+    func sorts(for viewId: String) -> [SetSort] {
+        let view = view(by: viewId)
+        return view.sorts.compactMap { sort in
+            let relationDetails = dataViewRelationsDetails.first { relationDetails in
+                sort.relationKey == relationDetails.key
+            }
+            guard let relationDetails = relationDetails else { return nil }
+            
+            return SetSort(relationDetails: relationDetails, sort: sort)
+        }
+    }
+    
+    func filters(for viewId: String) -> [SetFilter] {
+        let view = view(by: viewId)
+        return view.filters.compactMap { filter in
+            let relationDetails = dataViewRelationsDetails.first { relationDetails in
+                filter.relationKey == relationDetails.key
+            }
+            guard let relationDetails = relationDetails else { return nil }
+            
+            return SetFilter(relationDetails: relationDetails, filter: filter)
+        }
+    }
+    
     func canStartSubscription() -> Bool {
         (details?.setOf.isNotEmpty ?? false) || isCollection()
     }
     
-    func activeViewRelations(excludeRelations: [RelationDetails]) -> [RelationDetails] {
-        dataBuilder.activeViewRelations(
+    func viewRelations(viewId: String, excludeRelations: [RelationDetails]) -> [RelationDetails] {
+        let view = view(by: viewId)
+        return dataBuilder.activeViewRelations(
             dataViewRelationsDetails: dataViewRelationsDetails,
-            view: activeView,
+            view: view,
             excludeRelations: excludeRelations,
             spaceId: spaceId
         )
@@ -132,6 +159,10 @@ class SetDocument: SetDocumentProtocol {
     func updateActiveViewId(_ id: BlockId) {
         updateDataview(with: id)
         updateData()
+    }
+    
+    func isTypeSet() -> Bool {
+        !isCollection() && !isRelationsSet()
     }
     
     func isBookmarksSet() -> Bool {
@@ -220,25 +251,11 @@ class SetDocument: SetDocumentProtocol {
     }
     
     private func updateSorts() {
-        sorts = activeView.sorts.compactMap { sort in
-            let relationDetails = dataViewRelationsDetails.first { relationDetails in
-                sort.relationKey == relationDetails.key
-            }
-            guard let relationDetails = relationDetails else { return nil }
-            
-            return SetSort(relationDetails: relationDetails, sort: sort)
-        }
+        activeViewSorts = sorts(for: activeView.id)
     }
     
     private func updateFilters() {
-        filters = activeView.filters.compactMap { filter in
-            let relationDetails = dataViewRelationsDetails.first { relationDetails in
-                filter.relationKey == relationDetails.key
-            }
-            guard let relationDetails = relationDetails else { return nil }
-            
-            return SetFilter(relationDetails: relationDetails, filter: filter)
-        }
+        activeViewFilters = filters(for: activeView.id)
     }
     
     private func shouldClearState(prevActiveView: DataviewView) -> Bool {

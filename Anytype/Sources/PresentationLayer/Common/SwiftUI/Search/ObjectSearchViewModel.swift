@@ -12,11 +12,11 @@ final class ObjectSearchViewModel: SearchViewModelProtocol {
     let placeholder: String = Loc.search
     
     private let spaceId: String
-    private let searchService: SearchServiceProtocol
+    private let searchService: SearchInteractorProtocol
     
     private var searchTask: AnyCancellable?
     
-    init(spaceId: String, searchService: SearchServiceProtocol, onSelect: @escaping (SearchDataType) -> ()) {
+    init(spaceId: String, searchService: SearchInteractorProtocol, onSelect: @escaping (SearchDataType) -> ()) {
         self.spaceId = spaceId
         self.searchService = searchService
         self.onSelect = onSelect

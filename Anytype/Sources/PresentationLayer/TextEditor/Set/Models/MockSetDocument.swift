@@ -18,8 +18,6 @@ final class MockSetDocument: SetDocumentProtocol {
     
     var dataViewRelationsDetails: [Services.RelationDetails] { [] }
     
-    var sortedRelations: [SetRelation] { [] }
-    
     var isObjectLocked: Bool { false }
     
     var analyticsType: AnalyticsObjectType { .custom }
@@ -40,21 +38,27 @@ final class MockSetDocument: SetDocumentProtocol {
     
     var activeViewPublisher: AnyPublisher<Services.DataviewView, Never> { fatalError() }
     
-    var sorts: [SetSort] { [] }
+    var activeViewSorts: [SetSort] { [] }
     
-    var sortsPublisher: AnyPublisher<[SetSort], Never> { fatalError() }
+    func sorts(for viewId: String) -> [SetSort] { [] }
     
-    var filters: [SetFilter] { [] }
+    var activeViewFilters: [SetFilter] { [] }
     
-    var filtersPublisher: AnyPublisher<[SetFilter], Never> { fatalError() }
+    func filters(for viewId: String) -> [SetFilter] { [] }
+    
+    func view(by id: String) -> DataviewView { .empty }
+    
+    func sortedRelations(for viewId: String) -> [SetRelation] { [] }
     
     func canStartSubscription() -> Bool { false }
     
-    func activeViewRelations(excludeRelations: [Services.RelationDetails]) -> [Services.RelationDetails] { [] }
+    func viewRelations(viewId: String, excludeRelations: [Services.RelationDetails]) -> [Services.RelationDetails] { [] }
     
     func objectOrderIds(for groupId: String) -> [String] { [] }
     
     func updateActiveViewId(_ id: Services.BlockId) { }
+    
+    func isTypeSet() -> Bool { false }
     
     func isRelationsSet() -> Bool { false }
     

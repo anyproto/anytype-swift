@@ -5,6 +5,7 @@ protocol SetFiltersListModuleAssemblyProtocol {
     @MainActor
     func make(
         with setDocument: SetDocumentProtocol,
+        viewId: String,
         subscriptionDetailsStorage: ObjectDetailsStorage,
         output: SetFiltersListCoordinatorOutput?
     ) -> AnyView
@@ -23,6 +24,7 @@ final class SetFiltersListModuleAssembly: SetFiltersListModuleAssemblyProtocol {
     @MainActor
     func make(
         with setDocument: SetDocumentProtocol,
+        viewId: String,
         subscriptionDetailsStorage: ObjectDetailsStorage,
         output: SetFiltersListCoordinatorOutput?
     ) -> AnyView {
@@ -33,6 +35,7 @@ final class SetFiltersListModuleAssembly: SetFiltersListModuleAssemblyProtocol {
         return SetFiltersListView(
             viewModel: SetFiltersListViewModel(
                 setDocument: setDocument,
+                viewId: viewId,
                 dataviewService: dataviewService,
                 output: output,
                 subscriptionDetailsStorage: subscriptionDetailsStorage

@@ -13,7 +13,7 @@ final class BlockViewModelBuilder {
     private let subjectsHolder: FocusSubjectsHolder
     private let markdownListener: MarkdownListener
     private let simpleTableDependenciesBuilder: SimpleTableDependenciesBuilder
-    private let pageService: PageServiceProtocol
+    private let pageService: PageRepositoryProtocol
     private let detailsService: DetailsServiceProtocol
     private let audioSessionService: AudioSessionServiceProtocol
     private let infoContainer: InfoContainerProtocol
@@ -28,7 +28,7 @@ final class BlockViewModelBuilder {
         markdownListener: MarkdownListener,
         simpleTableDependenciesBuilder: SimpleTableDependenciesBuilder,
         subjectsHolder: FocusSubjectsHolder,
-        pageService: PageServiceProtocol,
+        pageService: PageRepositoryProtocol,
         detailsService: DetailsServiceProtocol,
         audioSessionService: AudioSessionServiceProtocol,
         infoContainer: InfoContainerProtocol,
@@ -78,20 +78,21 @@ final class BlockViewModelBuilder {
         case let .text(content):
             switch content.contentType {
             case .code:
+                let codeLanguage = CodeLanguage.create(
+                    middleware: info.fields[CodeBlockFields.FieldName.codeLanguage]?.stringValue
+                )
                 return CodeBlockViewModel(
                     info: info,
                     content: content,
                     anytypeText: content.anytypeText(document: document),
-                    codeLanguage: CodeLanguage.create(
-                        middleware: info.fields[CodeBlockFields.FieldName.codeLanguage]?.stringValue
-                    ),
+                    codeLanguage: codeLanguage,
                     becomeFirstResponder: { _ in },
                     textDidChange: { [weak self] block, textView in
                         self?.handler.changeText(textView.attributedText, info: info)
                         self?.delegate.textBlockSetNeedsLayout()
                     },
                     showCodeSelection: { [weak self] info in
-                        self?.router.showCodeLanguage(blockId: info.id)
+                        self?.router.showCodeLanguage(blockId: info.id, selectedLanguage: codeLanguage)
                     }
                 )
             default:

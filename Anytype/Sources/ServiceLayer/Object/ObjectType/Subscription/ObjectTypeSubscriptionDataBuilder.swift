@@ -38,6 +38,7 @@ final class ObjectTypeSubscriptionDataBuilder: ObjectTypeSubscriptionDataBuilder
             BundledRelationKey.recommendedLayout.rawValue,
             BundledRelationKey.uniqueKey.rawValue,
             BundledRelationKey.spaceId.rawValue
+            BundledRelationKey.defaultTemplateId.rawValue
         ]
 
         return .search(

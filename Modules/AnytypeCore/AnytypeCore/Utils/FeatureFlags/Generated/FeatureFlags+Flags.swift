@@ -26,28 +26,12 @@ public extension FeatureFlags {
         value(for: .migrationGuide)
     }
 
-    static var newAuthorization: Bool {
-        value(for: .newAuthorization)
-    }
-
     static var compactListWidget: Bool {
         value(for: .compactListWidget)
     }
 
     static var getMoreSpace: Bool {
         value(for: .getMoreSpace)
-    }
-
-    static var fixAVCaptureSessionError: Bool {
-        value(for: .fixAVCaptureSessionError)
-    }
-
-    static var clearAccountDataOnDeletedStatus: Bool {
-        value(for: .clearAccountDataOnDeletedStatus)
-    }
-
-    static var fixAudioSession: Bool {
-        value(for: .fixAudioSession)
     }
 
     static var deleteObjectPlaceholder: Bool {
@@ -62,24 +46,8 @@ public extension FeatureFlags {
         value(for: .superNewButtonLoadingState)
     }
 
-    static var validateRecoveryPhrase: Bool {
-        value(for: .validateRecoveryPhrase)
-    }
-
-    static var multiSpace: Bool {
-        value(for: .multiSpace)
-    }
-
-    static var multiSpaceSettings: Bool {
-        value(for: .multiSpaceSettings)
-    }
-
     static var openBinObject: Bool {
         value(for: .openBinObject)
-    }
-
-    static var colorfulRecoveryPhrase: Bool {
-        value(for: .colorfulRecoveryPhrase)
     }
 
     static var recentEditWidget: Bool {
@@ -88,6 +56,10 @@ public extension FeatureFlags {
 
     static var widgetTaskDone: Bool {
         value(for: .widgetTaskDone)
+    }
+
+    static var newCodeLanguages: Bool {
+        value(for: .newCodeLanguages)
     }
 
     static var newSetSettings: Bool {
@@ -121,22 +93,15 @@ public extension FeatureFlags {
         .fullInlineSetImpl,
         .dndOnCollectionsAndSets,
         .migrationGuide,
-        .newAuthorization,
         .compactListWidget,
         .getMoreSpace,
-        .fixAVCaptureSessionError,
-        .clearAccountDataOnDeletedStatus,
-        .fixAudioSession,
         .deleteObjectPlaceholder,
         .showAllFilesInBin,
         .superNewButtonLoadingState,
-        .validateRecoveryPhrase,
-        .multiSpace,
-        .multiSpaceSettings,
         .openBinObject,
-        .colorfulRecoveryPhrase,
         .recentEditWidget,
         .widgetTaskDone,
+        .newCodeLanguages,
         .newSetSettings,
         .rainbowViews,
         .showAlertOnAssert,

@@ -163,7 +163,7 @@ final class ModulesDI: ModulesDIProtocol {
     }
     
     func templatesAssembly() -> TemplateModulesAssembly {
-        return TemplateModulesAssembly(serviceLocator: serviceLocator)
+        return TemplateModulesAssembly(serviceLocator: serviceLocator, uiHelperDI: uiHelpersDI)
     }
     
     func spaceSettings() -> SpaceSettingsModuleAssemblyProtocol {
@@ -228,5 +228,17 @@ final class ModulesDI: ModulesDIProtocol {
     
     func setViewSettingsGroupByView() -> SetViewSettingsGroupByModuleAssemblyProtocol {
         SetViewSettingsGroupByModuleAssembly()
+    }
+    
+    func setRelationsView() -> SetRelationsViewModuleAssemblyProtocol {
+        SetRelationsViewModuleAssembly(serviceLocator: serviceLocator)
+    }
+
+    func shareAssembly() -> ShareModuleAssemblyProtocol {
+        return ShareModuleAssembly(serviceLocator: serviceLocator)
+    }
+    
+    func setViewPicker() -> SetViewPickerModuleAssemblyProtocol {
+        SetViewPickerModuleAssembly(serviceLocator: serviceLocator)
     }
 }
