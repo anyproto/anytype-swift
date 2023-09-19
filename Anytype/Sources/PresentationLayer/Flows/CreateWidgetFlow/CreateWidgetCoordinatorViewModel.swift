@@ -9,6 +9,7 @@ final class CreateWidgetCoordinatorViewModel: ObservableObject {
     private let data: CreateWidgetCoordinatorModel
     private let newSearchModuleAssembly: NewSearchModuleAssemblyProtocol
     private let widgetTypeModuleAssembly: WidgetTypeModuleAssemblyProtocol
+    private let activeWorkspaceStorage: ActiveWorkpaceStorageProtocol
     
     // MARK: - State
     
@@ -18,17 +19,19 @@ final class CreateWidgetCoordinatorViewModel: ObservableObject {
     init(
         data: CreateWidgetCoordinatorModel,
         newSearchModuleAssembly: NewSearchModuleAssemblyProtocol,
-        widgetTypeModuleAssembly: WidgetTypeModuleAssemblyProtocol
+        widgetTypeModuleAssembly: WidgetTypeModuleAssemblyProtocol,
+        activeWorkspaceStorage: ActiveWorkpaceStorageProtocol
     ) {
         self.data = data
         self.newSearchModuleAssembly = newSearchModuleAssembly
         self.widgetTypeModuleAssembly = widgetTypeModuleAssembly
+        self.activeWorkspaceStorage = activeWorkspaceStorage
     }
 
     func makeWidgetSourceModule() -> AnyView {
         return newSearchModuleAssembly.widgetSourceSearchModule(
             data: WidgetSourceSearchModuleModel(
-                spaceId: data.spaceId,
+                spaceId: activeWorkspaceStorage.workspaceInfo.accountSpaceId,
                 context: data.context,
                 onSelect: { [weak self] source in
                     self?.showSelectWidgetType(source: source)

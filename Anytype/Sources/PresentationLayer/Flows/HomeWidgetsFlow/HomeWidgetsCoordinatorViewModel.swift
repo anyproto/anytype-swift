@@ -146,9 +146,8 @@ final class HomeWidgetsCoordinatorViewModel: ObservableObject,
         return spaceCreateModuleAssembly.make()
     }
     
-    func createSharingModule() -> AnyView? {
-        return nil
-//        return shareCoordinatorAssembly.make()
+    func createSharingModule() -> AnyView {
+        return shareCoordinatorAssembly.make()
     }
  
     // MARK: - HomeWidgetsModuleOutput
@@ -185,7 +184,6 @@ final class HomeWidgetsCoordinatorViewModel: ObservableObject,
     func onAddBelowWidget(widgetId: String, context: AnalyticsWidgetContext) {
         showCreateWidgetData = CreateWidgetCoordinatorModel(
             widgetObjectId: activeWorkspaceStorage.workspaceInfo.widgetsId,
-            spaceId: activeWorkspaceStorage.workspaceInfo.accountSpaceId,
             position: .below(widgetId: widgetId),
             context: context
         )
@@ -204,7 +202,6 @@ final class HomeWidgetsCoordinatorViewModel: ObservableObject,
     func onCreateWidgetSelected(context: AnalyticsWidgetContext) {
         showCreateWidgetData = CreateWidgetCoordinatorModel(
             widgetObjectId: activeWorkspaceStorage.workspaceInfo.widgetsId,
-            spaceId: activeWorkspaceStorage.workspaceInfo.accountSpaceId,
             position: .end,
             context: context
         )
