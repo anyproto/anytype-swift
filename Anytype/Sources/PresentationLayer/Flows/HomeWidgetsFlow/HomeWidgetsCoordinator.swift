@@ -127,7 +127,7 @@ final class HomeWidgetsCoordinator: HomeWidgetsCoordinatorProtocol, HomeWidgetsM
             configuration: .init(isGrabberVisible: false, dismissOnBackdropView: true)
         )
 
-        navigationContext.present(shareView)
+        navigationContext.present(shareView, animated: false)
     }
     
     // MARK: - HomeWidgetsModuleOutput
