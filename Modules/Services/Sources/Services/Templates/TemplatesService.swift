@@ -2,7 +2,6 @@ import ProtobufMessages
 import SwiftProtobuf
 
 public protocol TemplatesServiceProtocol {
-//    func objectDetails(objectId: BlockId) async throws -> ObjectDetails
     func cloneTemplate(blockId: BlockId) async throws
     func createTemplateFromObjectType(objectTypeId: BlockId) async throws -> BlockId
     func createTemplateFromObject(objectId: BlockId) async throws -> BlockId
@@ -12,20 +11,6 @@ public protocol TemplatesServiceProtocol {
 
 public final class TemplatesService: TemplatesServiceProtocol {
     public init() {}
-    
-    public func objectDetails(objectId: BlockId) async throws -> ObjectDetails {
-        let objectShow = try await ClientCommands.objectShow(.with {
-            $0.contextID = objectId
-            $0.objectID = objectId
-        }).invoke()
-        
-        guard let details = objectShow.objectView.details.first(where: { $0.id == objectId })?.details,
-              let objectDetails = try? ObjectDetails(protobufStruct: details) else {
-            throw AnyUnpackError.typeMismatch
-        }
-        
-        return objectDetails
-    }
     
     public func cloneTemplate(blockId: BlockId) async throws {
         _ = try await ClientCommands.objectListDuplicate(.with {
@@ -79,5 +64,21 @@ public final class TemplatesService: TemplatesServiceProtocol {
                 }
             ]
         }).invoke()
+    }
+    
+    // MARK: - Private
+    
+    private func objectDetails(objectId: BlockId) async throws -> ObjectDetails {
+        let objectShow = try await ClientCommands.objectShow(.with {
+            $0.contextID = objectId
+            $0.objectID = objectId
+        }).invoke()
+        
+        guard let details = objectShow.objectView.details.first(where: { $0.id == objectId })?.details,
+              let objectDetails = try? ObjectDetails(protobufStruct: details) else {
+            throw AnyUnpackError.typeMismatch
+        }
+        
+        return objectDetails
     }
 }

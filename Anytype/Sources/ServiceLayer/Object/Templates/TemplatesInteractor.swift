@@ -3,7 +3,6 @@ import Services
 protocol SetTemplatesInteractorProtocol {
     func isTemplatesAvailableFor(setObject: ObjectDetails) async throws -> Bool
     func isTemplatesAvailableForActiveView(setDocument: SetDocumentProtocol) async throws -> Bool
-//    func objectDetails(for objectTypeId: String) async throws -> ObjectDetails
 }
 
 final class SetTemplatesInteractor: SetTemplatesInteractorProtocol {
