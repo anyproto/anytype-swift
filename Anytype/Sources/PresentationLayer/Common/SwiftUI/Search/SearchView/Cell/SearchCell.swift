@@ -22,7 +22,7 @@ struct SearchCell<SearchData: SearchDataProtocol>: View {
     @ViewBuilder
     private var icon: some View {
         if let iconImage = data.iconImage {
-            SwiftUIObjectIconImageView(iconImage: iconImage, usecase: data.usecase)
+            IconView(icon: iconImage)
                 .frame(width: 48, height: 48)
             Spacer.fixedWidth(12)
         }

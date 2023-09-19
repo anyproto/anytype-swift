@@ -1,7 +1,7 @@
-
 import UIKit
 import Combine
 import Services
+import AnytypeCore
 
 struct BlockLinkViewModel: BlockViewModelProtocol {    
     var hashable: AnyHashable {
@@ -54,13 +54,17 @@ struct BlockLinkViewModel: BlockViewModelProtocol {
     }
     
     func didSelectRowInTableView(editorEditingState: EditorEditingState) {
-        if state.deleted || state.archived { return }
+        if FeatureFlags.openBinObject {
+            if state.deleted { return }
+        } else {
+            if state.deleted || state.archived { return }
+        }
         
         openLink(state.screenData)
     }
 
     private func toggleTodo() {
-        guard case let .checkmark(isChecked) = state.style else {
+        guard case let .object(.todo(isChecked)) = state.icon else {
             return
         }
         

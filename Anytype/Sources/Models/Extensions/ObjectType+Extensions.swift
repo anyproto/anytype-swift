@@ -14,7 +14,8 @@ extension ObjectType {
         isArchived: false,
         isDeleted: false,
         sourceObject: "",
-        recommendedRelations: []
+        recommendedRelations: [],
+        defaultTemplateId: ""
     )
     
 }

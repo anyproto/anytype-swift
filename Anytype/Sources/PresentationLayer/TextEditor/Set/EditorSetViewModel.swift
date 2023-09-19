@@ -129,8 +129,8 @@ final class EditorSetViewModel: ObservableObject {
     private let textService: TextServiceProtocol
     private let groupsSubscriptionsHandler: GroupsSubscriptionsHandlerProtocol
     private let setSubscriptionDataBuilder: SetSubscriptionDataBuilderProtocol
-    private let objectTypeProvider: ObjectTypeProviderProtocol
     private let setTemplatesInteractor: SetTemplatesInteractorProtocol
+    private let objectTypeProvider: ObjectTypeProviderProtocol
     private var subscriptions = [AnyCancellable]()
     private var titleSubscription: AnyCancellable?
 
@@ -144,8 +144,8 @@ final class EditorSetViewModel: ObservableObject {
         textService: TextServiceProtocol,
         groupsSubscriptionsHandler: GroupsSubscriptionsHandlerProtocol,
         setSubscriptionDataBuilder: SetSubscriptionDataBuilderProtocol,
-        objectTypeProvider: ObjectTypeProviderProtocol,
-        setTemplatesInteractor: SetTemplatesInteractorProtocol
+        setTemplatesInteractor: SetTemplatesInteractorProtocol,
+        objectTypeProvider: ObjectTypeProviderProtocol
     ) {
         self.setDocument = setDocument
         self.subscriptionService = subscriptionService
@@ -156,9 +156,8 @@ final class EditorSetViewModel: ObservableObject {
         self.textService = textService
         self.groupsSubscriptionsHandler = groupsSubscriptionsHandler
         self.setSubscriptionDataBuilder = setSubscriptionDataBuilder
-        self.objectTypeProvider = objectTypeProvider
         self.setTemplatesInteractor = setTemplatesInteractor
-
+        self.objectTypeProvider = objectTypeProvider
         self.titleString = setDocument.details?.pageCellTitle ?? ""
     }
     
@@ -518,7 +517,7 @@ final class EditorSetViewModel: ObservableObject {
     }
     
     private func handleDetails(details: ObjectDetails, isAppear: Bool) {
-        if details.isArchived && isAppear {
+        if !FeatureFlags.openBinObject, details.isArchived && isAppear {
             // Waiting for the first responder automatic restoration and then close the screen
             DispatchQueue.main.asyncAfter(deadline: .now() + 0.7) { [router] in
                 router?.closeEditor()
@@ -563,16 +562,18 @@ final class EditorSetViewModel: ObservableObject {
     }
     
     func createObject() {
-        createObject(selectedTemplateId: activeView.defaultTemplateID)
+        createObject(selectedTemplateId: nil)
     }
     
     func createObject(selectedTemplateId: BlockId?) {
         if setDocument.isCollection() {
+            let objectTypeId = setDocument.activeView.defaultObjectTypeIDWithFallback
+            let templateId = selectedTemplateId ?? defaultTemplateId(for: objectTypeId)
             createObject(
-                with: objectTypeProvider.defaultObjectType.id,
+                with: objectTypeId,
                 shouldSelectType: true,
                 relationsDetails: [],
-                templateId: selectedTemplateId,
+                templateId: templateId,
                 completion: { details in
                     Task { @MainActor [weak self] in
                         guard let self else { return }
@@ -591,26 +592,38 @@ final class EditorSetViewModel: ObservableObject {
                 guard let source = self?.details?.setOf else { return false }
                 return source.contains(detail.id)
             }
+            let objectTypeId = setDocument.activeView.defaultObjectTypeIDWithFallback
+            let templateId = selectedTemplateId ?? defaultTemplateId(for: objectTypeId)
             createObject(
-                with: objectTypeProvider.defaultObjectType.id,
+                with: setDocument.activeView.defaultObjectTypeIDWithFallback,
                 shouldSelectType: true,
                 relationsDetails: relationsDetails,
-                templateId: selectedTemplateId,
+                templateId: templateId,
                 completion: { [weak self] details in
                     self?.openObject(details: details)
                 }
             )
         } else {
-            let type = details?.setOf.first ?? ""
+            let objectTypeId = details?.setOf.first ?? ""
+            let templateId = selectedTemplateId ?? defaultTemplateId(for: objectTypeId)
             createObject(
-                with: type,
-                shouldSelectType: type.isEmpty,
+                with: objectTypeId,
+                shouldSelectType: templateId.isEmpty,
                 relationsDetails: [],
-                templateId: selectedTemplateId,
+                templateId: templateId,
                 completion: { [weak self] details in
                     self?.handleCreatedObject(details: details)
                 }
             )
+        }
+    }
+    
+    private func defaultTemplateId(for objectTypeId: String) -> String {
+        if let defaultTemplateID = activeView.defaultTemplateID, defaultTemplateID.isNotEmpty {
+            let templateID = defaultTemplateID == TemplateType.blank.id ? "" : defaultTemplateID
+            return templateID
+        } else {
+            return objectTypeProvider.objectType(id: objectTypeId)?.defaultTemplateId ?? ""
         }
     }
     
@@ -682,17 +695,21 @@ extension EditorSetViewModel {
     }
     
     func showSetSettings() {
-        router?.showSetSettings { [weak self] setting in
-            guard let self else { return }
-            switch setting {
-            case .view:
-                self.showViewTypes(with: self.activeView)
-            case .settings:
-                self.showViewSettings()
-            case .sort:
-                self.showSorts()
-            case .filter:
-                self.showFilters()
+        if FeatureFlags.newSetSettings {
+            router?.showSetSettings(subscriptionDetailsStorage: subscriptionService.storage)
+        } else {
+            router?.showSetSettingsLegacy { [weak self] setting in
+                guard let self else { return }
+                switch setting {
+                case .view:
+                    self.showViewTypes(with: self.activeView)
+                case .settings:
+                    self.showViewSettings()
+                case .sort:
+                    self.showSorts()
+                case .filter:
+                    self.showFilters()
+                }
             }
         }
     }
@@ -713,16 +730,12 @@ extension EditorSetViewModel {
     }
     
     func showSorts() {
-        router?.showSorts(
-            setDocument: setDocument,
-            dataviewService: dataviewService
-        )
+        router?.showSorts()
     }
     
     func showFilters() {
         router?.showFilters(
             setDocument: setDocument,
-            dataviewService: dataviewService,
             subscriptionDetailsStorage: subscriptionService.storage
         )
     }
@@ -856,6 +869,7 @@ extension EditorSetViewModel {
         textService: TextService(),
         groupsSubscriptionsHandler: DI.preview.serviceLocator.groupsSubscriptionsHandler(),
         setSubscriptionDataBuilder: SetSubscriptionDataBuilder(accountManager: DI.preview.serviceLocator.accountManager()),
-        objectTypeProvider: DI.preview.serviceLocator.objectTypeProvider(), setTemplatesInteractor: DI.preview.serviceLocator.setTemplatesInteractor
+        setTemplatesInteractor: DI.preview.serviceLocator.setTemplatesInteractor,
+        objectTypeProvider: DI.preview.serviceLocator.objectTypeProvider()
     )
 }

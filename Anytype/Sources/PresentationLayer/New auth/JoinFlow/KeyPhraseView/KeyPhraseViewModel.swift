@@ -9,6 +9,7 @@ final class KeyPhraseViewModel: ObservableObject {
             state.keyShown = keyShown
         }
     }
+    @Published var showMoreInfo = false
     let state: JoinFlowState
     
     private weak var output: JoinFlowStepOutput?
@@ -49,5 +50,10 @@ final class KeyPhraseViewModel: ObservableObject {
         UISelectionFeedbackGenerator().selectionChanged()
         UIPasteboard.general.string = state.mnemonic
         alertOpener.showTopAlert(message: Loc.copied)
+    }
+    
+    func keyPhraseMoreInfo() -> AnyView? {
+        AnytypeAnalytics.instance().logClickOnboarding(step: .phrase, button: .moreInfo)
+        return output?.keyPhraseMoreInfo()
     }
 }

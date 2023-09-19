@@ -21,6 +21,7 @@ public struct ObjectType: Equatable, Hashable, Codable {
     public let isArchived: Bool
     public let isDeleted: Bool
     public let sourceObject: String
+    public let defaultTemplateId: String
     
     public let recommendedRelations: [ObjectId]
     
@@ -35,7 +36,8 @@ public struct ObjectType: Equatable, Hashable, Codable {
         isArchived: Bool,
         isDeleted: Bool,
         sourceObject: String,
-        recommendedRelations: [ObjectId]
+        recommendedRelations: [ObjectId],
+        defaultTemplateId: String
     ) {
         self.id = id
         self.name = name
@@ -48,6 +50,7 @@ public struct ObjectType: Equatable, Hashable, Codable {
         self.isDeleted = isDeleted
         self.sourceObject = sourceObject
         self.recommendedRelations = recommendedRelations
+        self.defaultTemplateId = defaultTemplateId
     }
 }
 
@@ -65,7 +68,8 @@ extension ObjectType {
             isArchived: details.isArchived,
             isDeleted: details.isDeleted,
             sourceObject: details.sourceObject,
-            recommendedRelations: details.recommendedRelations
+            recommendedRelations: details.recommendedRelations,
+            defaultTemplateId: details.defaultTemplateId
         )
     }
     

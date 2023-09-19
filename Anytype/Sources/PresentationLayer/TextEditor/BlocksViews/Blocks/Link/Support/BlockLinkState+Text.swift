@@ -4,25 +4,23 @@ import Services
 extension BlockLinkState {
     var titleText: String {
         if deleted {
-            return Loc.deletedObject
+            return Loc.Object.Deleted.placeholder
         }
 
-        return !title.isEmpty ? title : Loc.untitled
+        return !title.isEmpty ? title : Loc.Object.Title.placeholder
     }
 
     var textTitleFont: AnytypeFont { .previewTitle1Medium }
 
     var titleColor: UIColor {
-        if case let .checkmark(value) = style, value {
+        if case let .object(.todo(value)) = icon, value {
             return .Button.active
         }
 
         if deleted || archived {
             return .Button.active
         }
-
-
-
+        
         return .Text.primary
     }
 

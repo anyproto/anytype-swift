@@ -4,5 +4,6 @@ import SwiftUI
 protocol JoinFlowOutput: AnyObject {
     
     func onStepChanged(_ step: JoinFlowStep, state: JoinFlowState, output: JoinFlowStepOutput) -> AnyView
+    func keyPhraseMoreInfo() -> AnyView
     
 }

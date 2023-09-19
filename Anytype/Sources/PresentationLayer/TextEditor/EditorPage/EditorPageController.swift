@@ -258,7 +258,7 @@ final class EditorPageController: UIViewController {
             }
             collectionView.isLocked = false
             view.isUserInteractionEnabled = true
-        case .locked:
+        case .readonly:
             view.endEditing(true)
             collectionView.isLocked = true
         case .simpleTablesSelection:

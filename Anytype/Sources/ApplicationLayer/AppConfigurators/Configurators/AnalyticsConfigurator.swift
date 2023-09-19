@@ -37,23 +37,14 @@ final class AnalyticsConfigurator: AppConfiguratorProtocol {
         // Show alert
         
         guard FeatureFlags.analyticsAlerts else { return }
-            
-        var attributes = EKAttributes.topFloat
-        attributes.entryBackground = .color(color: EKColor(red: 169, green: 134, blue: 235))
-        attributes.precedence = .enqueue(priority: .high)
         
-        let titleText = "Event: \(eventType)"
-        let title = EKProperty.LabelContent(text: titleText, style: .init(font: .systemFont(ofSize: 12), color: .white))
+        let title = "Event: \(eventType)"
         
-        let descriptionText = eventProperties?
+        let description = eventProperties?
             .sorted(by: { "\($0.key)" < "\($1.key)" })
             .map { "\($0.key): \($0.value)" }
             .joined(separator: "\n") ?? ""
-        let description = EKProperty.LabelContent(text: descriptionText, style: .init(font: .systemFont(ofSize: 12), color: .white))
-        
-        let simpleMessage = EKSimpleMessage(title: title, description: description)
-        let notificationMessage = EKNotificationMessage(simpleMessage: simpleMessage)
-        let contentView = EKNotificationMessageView(with: notificationMessage)
-        SwiftEntryKit.display(entry: contentView, using: attributes)
+
+        SwiftEntryKit.displayDebugInfo(title: title, description: description)
     }
 }

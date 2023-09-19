@@ -94,15 +94,35 @@ public extension FeatureDescription {
         defaultValue: true
     )
     
+    static let openBinObject = FeatureDescription(
+        title: "Open bin object - IOS-1605",
+        type: .feature(author: "m@anytype.io", releaseVersion: "0.25.0"),
+        defaultValue: true
+    )
+    
     static let colorfulRecoveryPhrase = FeatureDescription(
         title: "Colourful recovery phrase",
         type: .feature(author: "joe_pusya@anytype.io", releaseVersion: "0.24.0"),
         defaultValue: true
     )
+    
     static let recentEditWidget = FeatureDescription(
         title: "Recent edit widget - IOS-1608",
         type: .feature(author: "m@anytype.io", releaseVersion: "0.24.0"),
         defaultValue: true
+    )
+    
+    static let widgetTaskDone = FeatureDescription(
+        title: "Widget task done - IOS-1577",
+        type: .feature(author: "m@anytype.io", releaseVersion: "0.25.0"),
+        defaultValue: true
+    )
+    
+    static let newSetSettings = FeatureDescription(
+        title: "New Set settings",
+        type: .feature(author: "joe_pusya@anytype.io", releaseVersion: "0.25.0"),
+        defaultValue: false,
+        debugValue: false
     )
     
     // MARK: - Debug
@@ -132,5 +152,12 @@ public extension FeatureDescription {
         type: .debug,
         defaultValue: false,
         debugValue: false
+    )
+    
+    static let nonfatalAlerts = FeatureDescription(
+        title: "Show non fatal alerts",
+        type: .debug,
+        defaultValue: false,
+        debugValue: CoreEnvironment.isSimulator
     )
 }

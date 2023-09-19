@@ -138,14 +138,12 @@ final class ModulesDI: ModulesDIProtocol {
         return MigrationGuideViewModuleAssembly()
     }
     
-    // @joe_pusya: will be moved to separate modulesDI
-    
-    func authVoid() -> VoidViewModuleAssemblyProtocol {
-        return VoidViewModuleAssembly(serviceLocator: serviceLocator)
-    }
-    
     func authKey() -> KeyPhraseViewModuleAssemblyProtocol {
         return KeyPhraseViewModuleAssembly(uiHelpersDI: uiHelpersDI)
+    }
+    
+    func authKeyMoreInfo() -> KeyPhraseMoreInfoViewModuleAssembly {
+        return KeyPhraseMoreInfoViewModuleAssembly()
     }
     
     func authSoul() -> SoulViewModuleAssemblyProtocol {
@@ -158,5 +156,61 @@ final class ModulesDI: ModulesDIProtocol {
     
     func templatesAssembly() -> TemplateModulesAssembly {
         return TemplateModulesAssembly(serviceLocator: serviceLocator)
+    }
+    
+    func setViewSettingsList() -> SetViewSettingsListModuleAssemblyProtocol {
+        return SetViewSettingsListModuleAssembly(serviceLocator: serviceLocator)
+    }
+    
+    func setSortsList() -> SetSortsListModuleAssemblyProtocol {
+        return SetSortsListModuleAssembly(serviceLocator: serviceLocator)
+    }
+    
+    func setSortTypesList() -> SetSortTypesListModuleAssemblyProtocol {
+        SetSortTypesListModuleAssembly()
+    }
+    
+    func setTextView() -> SetTextViewModuleAssemblyProtocol {
+        SetTextViewModuleAssembly()
+    }
+    
+    func setFiltersDateView() -> SetFiltersDateViewModuleAssemblyProtocol {
+        SetFiltersDateViewModuleAssembly()
+    }
+    
+    func setFilterConditions() -> SetFilterConditionsModuleAssemblyProtocol {
+        SetFilterConditionsModuleAssembly()
+    }
+    
+    func setFiltersSelectionHeader() -> SetFiltersSelectionHeaderModuleAssemblyProtocol {
+        SetFiltersSelectionHeaderModuleAssembly()
+    }
+    
+    func setFiltersSelectionView() -> SetFiltersSelectionViewModuleAssemblyProtocol {
+        SetFiltersSelectionViewModuleAssembly()
+    }
+    
+    func setFiltersTextView() -> SetFiltersTextViewModuleAssemblyProtocol {
+        SetFiltersTextViewModuleAssembly()
+    }
+    
+    func setFiltersCheckboxView() -> SetFiltersCheckboxViewModuleAssemblyProtocol {
+        SetFiltersCheckboxViewModuleAssembly()
+    }
+    
+    func setFiltersListModule() -> SetFiltersListModuleAssemblyProtocol {
+        SetFiltersListModuleAssembly(serviceLocator: serviceLocator)
+    }
+    
+    func setViewSettingsImagePreview() -> SetViewSettingsImagePreviewModuleAssemblyProtocol {
+        SetViewSettingsImagePreviewModuleAssembly()
+    }
+    
+    func setLayoutSettingsView() -> SetLayoutSettingsViewAssemblyProtocol {
+        SetLayoutSettingsViewAssembly(serviceLocator: serviceLocator)
+    }
+    
+    func setViewSettingsGroupByView() -> SetViewSettingsGroupByModuleAssemblyProtocol {
+        SetViewSettingsGroupByModuleAssembly()
     }
 }

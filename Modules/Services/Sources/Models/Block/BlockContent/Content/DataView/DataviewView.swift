@@ -18,6 +18,15 @@ public struct DataviewView: Hashable, Identifiable {
     public let groupRelationKey: String
     public let groupBackgroundColors: Bool
     public let defaultTemplateID: BlockId?
+    public let defaultObjectTypeID: BlockId?
+    
+    public var defaultObjectTypeIDWithFallback: BlockId {
+        if let defaultObjectTypeID, defaultObjectTypeID.isNotEmpty {
+            return defaultObjectTypeID
+        } else {
+            return ObjectTypeId.BundledTypeId.page.rawValue
+        }
+    }
 
     public static var empty: DataviewView {
         DataviewView(
@@ -33,7 +42,8 @@ public struct DataviewView: Hashable, Identifiable {
             coverFit: false,
             groupRelationKey: "",
             groupBackgroundColors: false,
-            defaultTemplateID: nil
+            defaultTemplateID: nil,
+            defaultObjectTypeID: nil
         )
     }
     
@@ -49,7 +59,8 @@ public struct DataviewView: Hashable, Identifiable {
         filters: [DataviewFilter]? = nil,
         groupRelationKey: String?  = nil,
         groupBackgroundColors: Bool? = nil,
-        defaultTemplateID: BlockId? = nil
+        defaultTemplateID: BlockId? = nil,
+        defaultObjectTypeID: BlockId? = nil
     ) -> DataviewView {
         DataviewView(
             id: id,
@@ -64,7 +75,8 @@ public struct DataviewView: Hashable, Identifiable {
             coverFit: coverFit ?? self.coverFit,
             groupRelationKey: groupRelationKey ?? self.groupRelationKey,
             groupBackgroundColors: groupBackgroundColors ?? self.groupBackgroundColors,
-            defaultTemplateID: defaultTemplateID ?? self.defaultTemplateID
+            defaultTemplateID: defaultTemplateID ?? self.defaultTemplateID,
+            defaultObjectTypeID: defaultObjectTypeID ?? self.defaultObjectTypeID
         )
     }
     
@@ -82,7 +94,8 @@ public struct DataviewView: Hashable, Identifiable {
             coverFit: fields.coverFit,
             groupRelationKey: fields.groupRelationKey,
             groupBackgroundColors: fields.groupBackgroundColors,
-            defaultTemplateID: fields.defaultTemplateID
+            defaultTemplateID: fields.defaultTemplateID,
+            defaultObjectTypeID: fields.defaultObjectTypeID
         )
     }
     
@@ -113,7 +126,8 @@ public struct DataviewView: Hashable, Identifiable {
             coverFit: false,
             groupRelationKey: "",
             groupBackgroundColors: false,
-            defaultTemplateID: nil
+            defaultTemplateID: nil,
+            defaultObjectTypeID: nil
         )
     }
     
@@ -132,6 +146,7 @@ public struct DataviewView: Hashable, Identifiable {
             $0.groupRelationKey = groupRelationKey
             $0.groupBackgroundColors = groupBackgroundColors
             $0.defaultTemplateID = defaultTemplateID ?? ""
+            $0.defaultObjectTypeID = defaultObjectTypeID ?? ""
         }
     }
 }
@@ -153,6 +168,7 @@ public extension DataviewView {
         self.groupRelationKey = data.groupRelationKey
         self.groupBackgroundColors = data.groupBackgroundColors
         self.defaultTemplateID = data.defaultTemplateID.isEmpty ? nil : data.defaultTemplateID
+        self.defaultObjectTypeID = data.defaultObjectTypeID.isEmpty ? nil : data.defaultObjectTypeID
     }
 }
 

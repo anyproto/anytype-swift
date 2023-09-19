@@ -5,7 +5,7 @@ struct DataViewBlockContent: Hashable {
     let title: String?
     let placeholder: String
     let subtitle: String
-    let iconImage: ObjectIconImage?
+    let iconImage: Icon?
     let badgeTitle: String?
 }
 

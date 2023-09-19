@@ -45,9 +45,9 @@ actor FileLimitsStorage: FileLimitsStorageProtocol {
         for event in events.middlewareEvents {
             switch event.value {
             case let .fileLocalUsage(eventData):
-                data.value?.localBytesUsage = Int64(eventData.localBytesUsage)
+                data.value?.localBytesUsage = Int64(clamping: eventData.localBytesUsage)
             case let .fileSpaceUsage(eventData):
-                data.value?.bytesUsage = Int64(eventData.bytesUsage)
+                data.value?.bytesUsage = Int64(clamping: eventData.bytesUsage)
             default:
                 break
             }

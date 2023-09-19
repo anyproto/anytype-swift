@@ -16,7 +16,20 @@ extension DataviewViewType {
         }
     }
     
-    var icon: ImageAsset {
+    func icon(selected: Bool) -> ImageAsset {
+        switch self {
+        case .table:
+            return selected ? .X54.View.gridSelected : .X54.View.grid
+        case .list:
+            return selected ? .X54.View.listSelected : .X54.View.list
+        case .gallery:
+            return selected ? .X54.View.gallerySelected : .X54.View.gallery
+        case .kanban:
+            return selected ? .X54.View.kanbanSelected : .X54.View.kanban
+        }
+    }
+    
+    var iconLecacy: ImageAsset {
         switch self {
         case .table:
             return .X24.View.table
@@ -47,5 +60,21 @@ extension DataviewViewType {
         self == .gallery ||
         self == .list ||
         (FeatureFlags.setKanbanView && self == .kanban)
+    }
+    
+    var settings: [SetLayoutSettings] {
+        switch setContentViewType {
+        case let .collection(type):
+            switch type {
+            case .gallery:
+                return [.icon, .cardSize, .imagePreview, .fitImage]
+            case .list:
+                return [.icon]
+            }
+        case .table:
+            return [.icon]
+        case .kanban:
+            return [.icon, .groupBy, .colorColumns]
+        }
     }
 }

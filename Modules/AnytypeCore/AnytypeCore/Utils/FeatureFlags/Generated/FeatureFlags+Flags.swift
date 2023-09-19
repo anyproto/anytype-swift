@@ -66,12 +66,24 @@ public extension FeatureFlags {
         value(for: .validateRecoveryPhrase)
     }
 
+    static var openBinObject: Bool {
+        value(for: .openBinObject)
+    }
+
     static var colorfulRecoveryPhrase: Bool {
         value(for: .colorfulRecoveryPhrase)
     }
 
     static var recentEditWidget: Bool {
         value(for: .recentEditWidget)
+    }
+
+    static var widgetTaskDone: Bool {
+        value(for: .widgetTaskDone)
+    }
+
+    static var newSetSettings: Bool {
+        value(for: .newSetSettings)
     }
 
     static var rainbowViews: Bool {
@@ -88,6 +100,10 @@ public extension FeatureFlags {
 
     static var analyticsAlerts: Bool {
         value(for: .analyticsAlerts)
+    }
+
+    static var nonfatalAlerts: Bool {
+        value(for: .nonfatalAlerts)
     }
 
     // All toggles
@@ -107,11 +123,15 @@ public extension FeatureFlags {
         .showAllFilesInBin,
         .superNewButtonLoadingState,
         .validateRecoveryPhrase,
+        .openBinObject,
         .colorfulRecoveryPhrase,
         .recentEditWidget,
+        .widgetTaskDone,
+        .newSetSettings,
         .rainbowViews,
         .showAlertOnAssert,
         .analytics,
-        .analyticsAlerts
+        .analyticsAlerts,
+        .nonfatalAlerts
     ]
 }

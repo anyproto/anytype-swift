@@ -143,18 +143,6 @@ extension RelationStyle {
             return Constants.size16
         }
     }
-    
-    var objectIconImageUsecase: ObjectIconImageUsecase {
-        switch self {
-        case .regular, .set:
-            return .mention(.body)
-        case .featuredRelationBlock, .filter, .kanbanHeader:
-            return .featuredRelationsBlock
-        case .setCollection:
-            return .setCollection
-        }
-    }
-    
 }
 
 private extension RelationStyle {

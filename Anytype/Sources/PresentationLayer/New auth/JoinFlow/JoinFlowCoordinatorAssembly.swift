@@ -21,8 +21,8 @@ final class JoinFlowCoordinatorAssembly: JoinFlowCoordinatorAssemblyProtocol {
     func make() -> JoinFlowCoordinatorProtocol {
         return JoinFlowCoordinator(
             joinFlowModuleAssembly: modulesDI.joinFlow(),
-            voidViewModuleAssembly: modulesDI.authVoid(),
             keyViewModuleAssembly: modulesDI.authKey(),
+            keyPhraseMoreInfoViewModuleAssembly: modulesDI.authKeyMoreInfo(),
             soulViewModuleAssembly: modulesDI.authSoul(),
             creatingSoulViewModuleAssembly: modulesDI.authCreatingSoul()
         )

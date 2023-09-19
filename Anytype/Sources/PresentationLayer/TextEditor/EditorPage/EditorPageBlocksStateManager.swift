@@ -8,9 +8,16 @@ enum EditorEditingState {
     case editing
     case selecting(blocks: [BlockId])
     case moving(indexPaths: [IndexPath])
-    case locked
+    case readonly(state: ReadonlyState)
     case simpleTablesSelection(block: BlockId, selectedBlocks: [BlockId], simpleTableMenuModel: SimpleTableMenuModel)
     case loading
+}
+
+extension EditorEditingState {
+    enum ReadonlyState {
+        case locked
+        case archived
+    }
 }
 
 /// Blocks drag & drop protocol.
@@ -108,9 +115,11 @@ final class EditorPageBlocksStateManager: EditorPageBlocksStateManagerProtocol {
     }
 
     func checkDocumentLockField() {
-        if document.isLocked {
-            editingState = .locked
-        } else if case .locked = editingState, !document.isLocked {
+        if document.isArchived {
+            editingState = .readonly(state: .archived)
+        } else if document.isLocked {
+            editingState = .readonly(state: .locked)
+        } else if case .readonly = editingState, !document.isLocked, !document.isArchived {
             editingState = .editing
         }
     }
@@ -236,7 +245,7 @@ final class EditorPageBlocksStateManager: EditorPageBlocksStateManagerProtocol {
                 blocksSelectionOverlayViewModel?.state = .moving
             case .editing:
                 movingBlocksIds.removeAll()
-            case .locked, .loading:
+            case .readonly, .loading:
                 break
             case let .simpleTablesSelection(_,  blocks, model):
                 blocksSelectionOverlayViewModel?.state = .simpleTableMenu(selectedBlocksCount: blocks.count, model: model)
@@ -402,7 +411,7 @@ final class EditorPageBlocksStateManager: EditorPageBlocksStateManagerProtocol {
             )
 
             if case let .file(blockFile) = elements.first?.content,
-               let url = blockFile.metadata.contentUrl {
+               let url = blockFile.contentUrl {
                 router.saveFile(fileURL: url, type: blockFile.contentType)
             }
         case .openObject:

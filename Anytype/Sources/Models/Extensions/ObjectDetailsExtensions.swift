@@ -6,7 +6,7 @@ extension BundledRelationsValueProvider {
     
     // MARK: - Icon
     
-    var icon: ObjectIconType? {
+    var icon: ObjectIcon? {
         switch layoutValue {
         case .basic, .set, .collection, .image, .objectType:
             return basicIcon
@@ -21,7 +21,7 @@ extension BundledRelationsValueProvider {
         }
     }
     
-    private var basicIcon: ObjectIconType? {
+    private var basicIcon: ObjectIcon? {
         if let iconImageHash = self.iconImage {
             return .basic(iconImageHash.value)
         }
@@ -33,7 +33,7 @@ extension BundledRelationsValueProvider {
         return nil
     }
     
-    private var profileIcon: ObjectIconType? {
+    private var profileIcon: ObjectIcon? {
         if let iconImageHash = self.iconImage {
             return .profile(.imageId(iconImageHash.value))
         }
@@ -45,11 +45,11 @@ extension BundledRelationsValueProvider {
         return title.first.flatMap { .profile(.character($0)) }
     }
     
-    private var bookmarkIcon: ObjectIconType? {
+    private var bookmarkIcon: ObjectIcon? {
         return iconImage.map { .bookmark($0.value) }
     }
     
-    private var spaceIcon: ObjectIconType? {
+    private var spaceIcon: ObjectIcon? {
         if let basicIcon {
             return basicIcon
         }
@@ -58,11 +58,11 @@ extension BundledRelationsValueProvider {
             return .space(.gradient(gradiendId))
         }
         
-        return title.first.flatMap { .space(ObjectIconType.Space.character($0)) }
+        return title.first.flatMap { .space(.character($0)) }
     }
     
-    private var fileIcon: ObjectIconImage {
-        return .imageAsset(FileIconBuilder.convert(mime: fileMimeType, fileName: name))
+    private var fileIcon: Icon {
+        return .asset(FileIconBuilder.convert(mime: fileMimeType, fileName: name))
     }
     
     // MARK: - Cover
@@ -88,13 +88,13 @@ extension BundledRelationsValueProvider {
         }
     }
     
-    var objectIconImage: ObjectIconImage? {
+    var objectIconImage: Icon? {
         guard !isDeleted else {
-            return .imageAsset(.ghost)
+            return .asset(.ghost)
         }
         
         if let icon = icon {
-            return .icon(icon)
+            return .object(icon)
         }
         
         if layoutValue == .file {
@@ -102,14 +102,14 @@ extension BundledRelationsValueProvider {
         }
         
         if layoutValue == .todo {
-            return .todo(isDone)
+            return .object(.todo(isDone))
         }
         
         return nil
     }
     
-    var objectIconImageWithPlaceholder: ObjectIconImage {
-        return objectIconImage ?? .placeholder(title.first)
+    var objectIconImageWithPlaceholder: Icon {
+        return objectIconImage ?? .object(.placeholder(title.first))
     }
     
     var objectType: ObjectType {

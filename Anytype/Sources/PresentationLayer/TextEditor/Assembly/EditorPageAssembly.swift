@@ -67,11 +67,8 @@ final class EditorAssembly {
             targetObjectID: data.inline?.targetObjectID,
             relationDetailsStorage: serviceLocator.relationDetailsStorage()
         )
-        let dataviewService = DataviewService(
-            objectId: data.objectId,
-            blockId: data.inline?.blockId,
-            prefilledFieldsBuilder: SetPrefilledFieldsBuilder()
-        )
+        let dataviewService = serviceLocator.dataviewService(objectId: data.objectId, blockId: data.inline?.blockId)
+        
         let detailsService = serviceLocator.detailsService(objectId: data.objectId)
         
         let model = EditorSetViewModel(
@@ -84,8 +81,8 @@ final class EditorAssembly {
             textService: serviceLocator.textService,
             groupsSubscriptionsHandler: serviceLocator.groupsSubscriptionsHandler(),
             setSubscriptionDataBuilder: SetSubscriptionDataBuilder(accountManager: serviceLocator.accountManager()),
-            objectTypeProvider: serviceLocator.objectTypeProvider(),
-            setTemplatesInteractor: serviceLocator.setTemplatesInteractor
+            setTemplatesInteractor: serviceLocator.setTemplatesInteractor,
+            objectTypeProvider: serviceLocator.objectTypeProvider()
         )
         let controller = EditorSetHostingController(objectId: data.objectId, model: model)
         let navigationContext = NavigationContext(rootViewController: browser ?? controller)
@@ -103,6 +100,11 @@ final class EditorAssembly {
             relationValueCoordinator: coordinatorsDI.relationValue().make(),
             objectCoverPickerModuleAssembly: modulesDI.objectCoverPicker(),
             objectIconPickerModuleAssembly: modulesDI.objectIconPicker(),
+            setViewSettingsCoordinatorAssembly: coordinatorsDI.setViewSettings(),
+            setSortsListCoordinatorAssembly: coordinatorsDI.setSortsList(),
+            setFiltersListCoordinatorAssembly: coordinatorsDI.setFiltersList(),
+            setViewSettingsImagePreviewModuleAssembly: modulesDI.setViewSettingsImagePreview(),
+            setViewSettingsGroupByModuleAssembly: modulesDI.setViewSettingsGroupByView(),
             toastPresenter: uiHelpersDI.toastPresenter(using: browser),
             alertHelper: AlertHelper(viewController: controller),
             templateSelectionCoordinator: TemplateSelectionCoordinator(
@@ -256,7 +258,7 @@ final class EditorAssembly {
             actionHandler: actionHandler,
             pasteboardService: pasteboardService,
             router: router,
-            initialEditingState: configuration.isOpenedForPreview ? .locked : .editing,
+            initialEditingState: configuration.isOpenedForPreview ? .readonly(state: .locked) : .editing,
             viewInput: viewInput,
             bottomNavigationManager: bottomNavigationManager
         )
@@ -269,7 +271,8 @@ final class EditorAssembly {
             onShowStyleMenu: blocksStateManager.didSelectStyleSelection(infos:),
             onBlockSelection: actionHandler.selectBlock(info:),
             pageService: serviceLocator.pageService(),
-            linkToObjectCoordinator: coordinatorsDI.linkToObject().make(browserController: browser)
+            linkToObjectCoordinator: coordinatorsDI.linkToObject().make(browserController: browser),
+            cursorManager: cursorManager
         )
         
         let markdownListener = MarkdownListenerImpl(
@@ -292,6 +295,8 @@ final class EditorAssembly {
         )
 
         let responderScrollViewHelper = ResponderScrollViewHelper(scrollView: scrollView)
+        
+        let simpleTableCursorManager = EditorCursorManager(focusSubjectHolder: focusSubjectHolder)
         let simpleTableDependenciesBuilder = SimpleTableDependenciesBuilder(
             document: document,
             router: router,
@@ -317,7 +322,9 @@ final class EditorAssembly {
             subjectsHolder: focusSubjectHolder,
             pageService: serviceLocator.pageService(),
             detailsService: serviceLocator.detailsService(objectId: document.objectId),
-            audioSessionService: serviceLocator.audioSessionService()
+            audioSessionService: serviceLocator.audioSessionService(),
+            infoContainer: document.infoContainer,
+            tableService: blockTableService
         )
 
         actionHandler.blockSelectionHandler = blocksStateManager

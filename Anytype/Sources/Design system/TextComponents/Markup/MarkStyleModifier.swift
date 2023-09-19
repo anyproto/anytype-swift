@@ -149,7 +149,7 @@ final class MarkStyleModifier {
         iconAttributes.removeValue(forKey: .anytypeLink) // no underline under icon
         
         let mentionIcon = data.image
-        let mentionAttachment = MentionAttachment(icon: mentionIcon, size: font.mentionType)
+        let mentionAttachment = IconTextAttachment(icon: mentionIcon, mentionType: font.mentionType)
         let mentionAttachmentString = NSMutableAttributedString(attachment: mentionAttachment)
         mentionAttachmentString.addAttributes(iconAttributes, range: mentionAttachmentString.wholeRange)
         
@@ -166,7 +166,7 @@ final class MarkStyleModifier {
         var iconAttributes = emojiAttributedString.attributes(at: 0, effectiveRange: nil)
         iconAttributes.removeValue(forKey: .anytypeLink) // no underline under icon
         
-        let attachment = MentionAttachment(icon: .icon(.emoji(data)), size: font.mentionType)
+        let attachment = IconTextAttachment(icon: .object(.emoji(data)), mentionType: font.mentionType)
         let attachmentString = NSMutableAttributedString(attachment: attachment)
         attachmentString.addAttributes(iconAttributes, range: attachmentString.wholeRange)
         

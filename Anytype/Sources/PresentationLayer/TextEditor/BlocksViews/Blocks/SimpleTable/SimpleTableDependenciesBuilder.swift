@@ -15,6 +15,8 @@ struct SimpleTableDependenciesContainer {
 }
 
 final class SimpleTableDependenciesBuilder {
+    let cursorManager: EditorCursorManager
+    
     private let document: BaseDocumentProtocol
     private let router: EditorRouterProtocol
     private let handler: BlockActionHandlerProtocol
@@ -54,11 +56,11 @@ final class SimpleTableDependenciesBuilder {
         self.responderScrollViewHelper = responderScrollViewHelper
         self.pageService = pageService
         self.linkToObjectCoordinator = linkToObjectCoordinator
+        
+        self.cursorManager = EditorCursorManager(focusSubjectHolder: focusSubjectHolder)
     }
 
     func buildDependenciesContainer(blockInformation: BlockInformation) -> SimpleTableDependenciesContainer {
-        let cursorManager = EditorCursorManager(focusSubjectHolder: focusSubjectHolder)
-
         let selectionOptionHandler = SimpleTableSelectionOptionHandler(
             router: router,
             tableService: tableService,
@@ -84,7 +86,8 @@ final class SimpleTableDependenciesBuilder {
             onShowStyleMenu: stateManager.didSelectStyleSelection(infos:),
             onBlockSelection: stateManager.didSelectEditingState(info:),
             pageService: pageService,
-            linkToObjectCoordinator: linkToObjectCoordinator
+            linkToObjectCoordinator: linkToObjectCoordinator,
+            cursorManager: cursorManager
         )
 
         let simpleTablesBlockDelegate = BlockDelegateImpl(

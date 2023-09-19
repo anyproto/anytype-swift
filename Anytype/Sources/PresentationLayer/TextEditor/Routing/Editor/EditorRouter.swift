@@ -5,7 +5,7 @@ import SwiftUI
 import FloatingPanel
 import AnytypeCore
 
-final class EditorRouter: NSObject, EditorRouterProtocol {
+final class EditorRouter: NSObject, EditorRouterProtocol, ObjectSettingsCoordinatorOutput {
     private weak var rootController: EditorBrowserController?
     private weak var viewController: UIViewController?
     private let navigationContext: NavigationContextProtocol
@@ -84,7 +84,11 @@ final class EditorRouter: NSObject, EditorRouterProtocol {
             anytypeAssertionFailure("Details not found")
             return
         }
-        guard !details.isArchived && !details.isDeleted else { return }
+        if FeatureFlags.openBinObject {
+            guard !details.isDeleted else { return }
+        } else {
+            guard !details.isArchived && !details.isDeleted else { return }
+        }
         
         showPage(data: details.editorScreenData())
     }
@@ -314,6 +318,7 @@ final class EditorRouter: NSObject, EditorRouterProtocol {
         navigationContext.present(vc)
     }
     
+    @MainActor
     func showObjectPreview(
         blockLinkState: BlockLinkState,
         onSelect: @escaping (BlockLink.Appearance) -> Void
@@ -358,7 +363,7 @@ final class EditorRouter: NSObject, EditorRouterProtocol {
     
     // MARK: - Settings
     func showSettings() {
-        objectSettingCoordinator.startFlow(objectId: document.objectId, delegate: self)
+        objectSettingCoordinator.startFlow(objectId: document.objectId, delegate: self, output: self)
     }
     
     func showCoverPicker() {

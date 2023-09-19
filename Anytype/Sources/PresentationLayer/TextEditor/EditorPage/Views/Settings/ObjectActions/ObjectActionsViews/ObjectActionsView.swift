@@ -27,6 +27,8 @@ struct ObjectActionsView: View {
                             viewModel.makeAsTempalte()
                         case .templateSetAsDefault:
                             viewModel.makeTemplateAsDefault()
+                        case .delete:
+                            viewModel.deleteAction()
                         }
                     }
                 }

@@ -3211,25 +3211,31 @@ public struct Anytype_Event {
         // methods supported on all messages.
 
         /// dataview block's id
-        public var id: String = String()
+        public var id: String {
+          get {return _storage._id}
+          set {_uniqueStorage()._id = newValue}
+        }
 
         /// view id, client should double check this to make sure client doesn't switch the active view in the middle
-        public var viewID: String = String()
+        public var viewID: String {
+          get {return _storage._viewID}
+          set {_uniqueStorage()._viewID = newValue}
+        }
 
         public var view: Anytype_Model_Block.Content.Dataview.View {
-          get {return _view ?? Anytype_Model_Block.Content.Dataview.View()}
-          set {_view = newValue}
+          get {return _storage._view ?? Anytype_Model_Block.Content.Dataview.View()}
+          set {_uniqueStorage()._view = newValue}
         }
         /// Returns true if `view` has been explicitly set.
-        public var hasView: Bool {return self._view != nil}
+        public var hasView: Bool {return _storage._view != nil}
         /// Clears the value of `view`. Subsequent reads from it will return its default value.
-        public mutating func clearView() {self._view = nil}
+        public mutating func clearView() {_uniqueStorage()._view = nil}
 
         public var unknownFields = SwiftProtobuf.UnknownStorage()
 
         public init() {}
 
-        fileprivate var _view: Anytype_Model_Block.Content.Dataview.View? = nil
+        fileprivate var _storage = _StorageClass.defaultInstance
       }
 
       public struct ViewUpdate {
@@ -3285,10 +3291,14 @@ public struct Anytype_Event {
           /// Enable backgrounds in groups
           public var groupBackgroundColors: Bool = false
 
+          /// Limit of objects shown in widget
           public var pageLimit: Int32 = 0
 
           /// Id of template object set default for the view
           public var defaultTemplateID: String = String()
+
+          /// Default object type that is chosen for new object created within the view
+          public var defaultObjectTypeID: String = String()
 
           public var unknownFields = SwiftProtobuf.UnknownStorage()
 
@@ -4417,7 +4427,7 @@ public struct Anytype_Event {
 
 extension Anytype_Event.Block.Dataview.SliceOperation: CaseIterable {
   // The compiler won't synthesize support with the UNRECOGNIZED case.
-  public static var allCases: [Anytype_Event.Block.Dataview.SliceOperation] = [
+  public static let allCases: [Anytype_Event.Block.Dataview.SliceOperation] = [
     .none,
     .add,
     .move,
@@ -4428,7 +4438,7 @@ extension Anytype_Event.Block.Dataview.SliceOperation: CaseIterable {
 
 extension Anytype_Event.Status.Thread.SyncStatus: CaseIterable {
   // The compiler won't synthesize support with the UNRECOGNIZED case.
-  public static var allCases: [Anytype_Event.Status.Thread.SyncStatus] = [
+  public static let allCases: [Anytype_Event.Status.Thread.SyncStatus] = [
     .unknown,
     .offline,
     .syncing,
@@ -4590,7 +4600,7 @@ public struct Anytype_Model {
 
 extension Anytype_Model.Process.TypeEnum: CaseIterable {
   // The compiler won't synthesize support with the UNRECOGNIZED case.
-  public static var allCases: [Anytype_Model.Process.TypeEnum] = [
+  public static let allCases: [Anytype_Model.Process.TypeEnum] = [
     .dropFiles,
     .import,
     .export,
@@ -4602,7 +4612,7 @@ extension Anytype_Model.Process.TypeEnum: CaseIterable {
 
 extension Anytype_Model.Process.State: CaseIterable {
   // The compiler won't synthesize support with the UNRECOGNIZED case.
-  public static var allCases: [Anytype_Model.Process.State] = [
+  public static let allCases: [Anytype_Model.Process.State] = [
     .none,
     .running,
     .done,
@@ -10395,41 +10405,77 @@ extension Anytype_Event.Block.Dataview.ViewSet: SwiftProtobuf.Message, SwiftProt
     3: .same(proto: "view"),
   ]
 
+  fileprivate class _StorageClass {
+    var _id: String = String()
+    var _viewID: String = String()
+    var _view: Anytype_Model_Block.Content.Dataview.View? = nil
+
+    static let defaultInstance = _StorageClass()
+
+    private init() {}
+
+    init(copying source: _StorageClass) {
+      _id = source._id
+      _viewID = source._viewID
+      _view = source._view
+    }
+  }
+
+  fileprivate mutating func _uniqueStorage() -> _StorageClass {
+    if !isKnownUniquelyReferenced(&_storage) {
+      _storage = _StorageClass(copying: _storage)
+    }
+    return _storage
+  }
+
   public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
-    while let fieldNumber = try decoder.nextFieldNumber() {
-      // The use of inline closures is to circumvent an issue where the compiler
-      // allocates stack space for every case branch when no optimizations are
-      // enabled. https://github.com/apple/swift-protobuf/issues/1034
-      switch fieldNumber {
-      case 1: try { try decoder.decodeSingularStringField(value: &self.id) }()
-      case 2: try { try decoder.decodeSingularStringField(value: &self.viewID) }()
-      case 3: try { try decoder.decodeSingularMessageField(value: &self._view) }()
-      default: break
+    _ = _uniqueStorage()
+    try withExtendedLifetime(_storage) { (_storage: _StorageClass) in
+      while let fieldNumber = try decoder.nextFieldNumber() {
+        // The use of inline closures is to circumvent an issue where the compiler
+        // allocates stack space for every case branch when no optimizations are
+        // enabled. https://github.com/apple/swift-protobuf/issues/1034
+        switch fieldNumber {
+        case 1: try { try decoder.decodeSingularStringField(value: &_storage._id) }()
+        case 2: try { try decoder.decodeSingularStringField(value: &_storage._viewID) }()
+        case 3: try { try decoder.decodeSingularMessageField(value: &_storage._view) }()
+        default: break
+        }
       }
     }
   }
 
   public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
-    // The use of inline closures is to circumvent an issue where the compiler
-    // allocates stack space for every if/case branch local when no optimizations
-    // are enabled. https://github.com/apple/swift-protobuf/issues/1034 and
-    // https://github.com/apple/swift-protobuf/issues/1182
-    if !self.id.isEmpty {
-      try visitor.visitSingularStringField(value: self.id, fieldNumber: 1)
+    try withExtendedLifetime(_storage) { (_storage: _StorageClass) in
+      // The use of inline closures is to circumvent an issue where the compiler
+      // allocates stack space for every if/case branch local when no optimizations
+      // are enabled. https://github.com/apple/swift-protobuf/issues/1034 and
+      // https://github.com/apple/swift-protobuf/issues/1182
+      if !_storage._id.isEmpty {
+        try visitor.visitSingularStringField(value: _storage._id, fieldNumber: 1)
+      }
+      if !_storage._viewID.isEmpty {
+        try visitor.visitSingularStringField(value: _storage._viewID, fieldNumber: 2)
+      }
+      try { if let v = _storage._view {
+        try visitor.visitSingularMessageField(value: v, fieldNumber: 3)
+      } }()
     }
-    if !self.viewID.isEmpty {
-      try visitor.visitSingularStringField(value: self.viewID, fieldNumber: 2)
-    }
-    try { if let v = self._view {
-      try visitor.visitSingularMessageField(value: v, fieldNumber: 3)
-    } }()
     try unknownFields.traverse(visitor: &visitor)
   }
 
   public static func ==(lhs: Anytype_Event.Block.Dataview.ViewSet, rhs: Anytype_Event.Block.Dataview.ViewSet) -> Bool {
-    if lhs.id != rhs.id {return false}
-    if lhs.viewID != rhs.viewID {return false}
-    if lhs._view != rhs._view {return false}
+    if lhs._storage !== rhs._storage {
+      let storagesAreEqual: Bool = withExtendedLifetime((lhs._storage, rhs._storage)) { (_args: (_StorageClass, _StorageClass)) in
+        let _storage = _args.0
+        let rhs_storage = _args.1
+        if _storage._id != rhs_storage._id {return false}
+        if _storage._viewID != rhs_storage._viewID {return false}
+        if _storage._view != rhs_storage._view {return false}
+        return true
+      }
+      if !storagesAreEqual {return false}
+    }
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
@@ -10514,6 +10560,7 @@ extension Anytype_Event.Block.Dataview.ViewUpdate.Fields: SwiftProtobuf.Message,
     8: .same(proto: "groupBackgroundColors"),
     9: .same(proto: "pageLimit"),
     10: .same(proto: "defaultTemplateId"),
+    15: .same(proto: "defaultObjectTypeId"),
   ]
 
   public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
@@ -10532,6 +10579,7 @@ extension Anytype_Event.Block.Dataview.ViewUpdate.Fields: SwiftProtobuf.Message,
       case 8: try { try decoder.decodeSingularBoolField(value: &self.groupBackgroundColors) }()
       case 9: try { try decoder.decodeSingularInt32Field(value: &self.pageLimit) }()
       case 10: try { try decoder.decodeSingularStringField(value: &self.defaultTemplateID) }()
+      case 15: try { try decoder.decodeSingularStringField(value: &self.defaultObjectTypeID) }()
       default: break
       }
     }
@@ -10568,6 +10616,9 @@ extension Anytype_Event.Block.Dataview.ViewUpdate.Fields: SwiftProtobuf.Message,
     if !self.defaultTemplateID.isEmpty {
       try visitor.visitSingularStringField(value: self.defaultTemplateID, fieldNumber: 10)
     }
+    if !self.defaultObjectTypeID.isEmpty {
+      try visitor.visitSingularStringField(value: self.defaultObjectTypeID, fieldNumber: 15)
+    }
     try unknownFields.traverse(visitor: &visitor)
   }
 
@@ -10582,6 +10633,7 @@ extension Anytype_Event.Block.Dataview.ViewUpdate.Fields: SwiftProtobuf.Message,
     if lhs.groupBackgroundColors != rhs.groupBackgroundColors {return false}
     if lhs.pageLimit != rhs.pageLimit {return false}
     if lhs.defaultTemplateID != rhs.defaultTemplateID {return false}
+    if lhs.defaultObjectTypeID != rhs.defaultObjectTypeID {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }

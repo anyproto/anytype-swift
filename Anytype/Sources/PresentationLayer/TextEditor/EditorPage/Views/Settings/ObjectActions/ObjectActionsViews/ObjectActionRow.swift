@@ -56,6 +56,8 @@ private extension ObjectAction {
             return Loc.Actions.makeAsTemplate
         case .templateSetAsDefault:
             return Loc.Actions.templateMakeDefault
+        case .delete:
+            return Loc.delete
         }
     }
 
@@ -77,6 +79,8 @@ private extension ObjectAction {
             return .makeAsTemplate
         case .templateSetAsDefault:
             return .templateMakeDefault
+        case .delete:
+            return .X32.delete
         }
     }
 }

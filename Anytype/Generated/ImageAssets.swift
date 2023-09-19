@@ -85,6 +85,7 @@ internal extension ImageAsset {
   enum X18 {
     static let attention = ImageAsset.bundle(name: "x18/Attention")
     static let clear = ImageAsset.bundle(name: "x18/Clear")
+    static let delete = ImageAsset.bundle(name: "x18/Delete")
     enum Disclosure {
       static let down = ImageAsset.bundle(name: "x18/Disclosure/Down")
       static let `left` = ImageAsset.bundle(name: "x18/Disclosure/Left")
@@ -272,14 +273,24 @@ internal extension ImageAsset {
     static let underline = ImageAsset.bundle(name: "x40/Underline")
     static let video = ImageAsset.bundle(name: "x40/Video")
   }
+  enum X54 {
+    enum View {
+      static let gallerySelected = ImageAsset.bundle(name: "x54/View/Gallery.Selected")
+      static let gallery = ImageAsset.bundle(name: "x54/View/Gallery")
+      static let gridSelected = ImageAsset.bundle(name: "x54/View/Grid.Selected")
+      static let grid = ImageAsset.bundle(name: "x54/View/Grid")
+      static let kanbanSelected = ImageAsset.bundle(name: "x54/View/Kanban.Selected")
+      static let kanban = ImageAsset.bundle(name: "x54/View/Kanban")
+      static let listSelected = ImageAsset.bundle(name: "x54/View/List.Selected")
+      static let list = ImageAsset.bundle(name: "x54/View/List")
+    }
+  }
   enum Emoji {
     }
   static let createNewObject = ImageAsset.bundle(name: "createNewObject")
   enum Migration {
     static let close = ImageAsset.bundle(name: "Migration/Close")
   }
-  static let taskChecked = ImageAsset.bundle(name: "task_checked")
-  static let taskUnchecked = ImageAsset.bundle(name: "task_unchecked")
   static let linkToItself = ImageAsset.bundle(name: "link_to_itself")
   static let makeAsTemplate = ImageAsset.bundle(name: "make_as_template")
   static let templateMakeDefault = ImageAsset.bundle(name: "template_make_default")
@@ -321,7 +332,6 @@ internal extension ImageAsset {
     enum Divider {
       static let dots = ImageAsset.bundle(name: "TextEditor/Divider/Dots")
     }
-    static let lockedObject = ImageAsset.bundle(name: "TextEditor/locked_object")
     static let search = ImageAsset.bundle(name: "TextEditor/search")
     static let shimmering = ImageAsset.bundle(name: "TextEditor/shimmering")
     enum Text {

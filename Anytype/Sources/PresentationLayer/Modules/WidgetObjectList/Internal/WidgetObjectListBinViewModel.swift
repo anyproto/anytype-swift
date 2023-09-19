@@ -1,6 +1,7 @@
 import Foundation
 import Services
 import Combine
+import AnytypeCore
 
 final class WidgetObjectListBinViewModel: WidgetObjectListInternalViewModelProtocol {
     
@@ -13,7 +14,13 @@ final class WidgetObjectListBinViewModel: WidgetObjectListInternalViewModelProto
     let title = Loc.bin
     let editorScreenData: EditorScreenData = .bin
     var rowDetailsPublisher: AnyPublisher<[WidgetObjectListDetailsData], Never> { $rowDetails.eraseToAnyPublisher()}
-    let editMode: WidgetObjectListEditMode = .editOnly
+    var editMode: WidgetObjectListEditMode {
+        if FeatureFlags.openBinObject {
+            return .normal(allowDnd: false)
+        } else {
+            return .editOnly
+        }
+    }
     let availableMenuItems: [WidgetObjectListMenuItem] = [.restore, .delete]
     
     private var details: [ObjectDetails] = [] {

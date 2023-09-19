@@ -1,11 +1,17 @@
 import Foundation
 import UIKit
 
+enum EditorNavigationBarTitleMode {
+    case edit
+    case locked
+    case archived
+}
+
 final class EditorNavigationBarTitleView: UIView {
     
     private let stackView = UIStackView()
     
-    private let iconImageView = ObjectIconImageView()
+    private let iconImageView = IconViewUIKit()
     private let titleLabel = UILabel()
     private let lockImageView = UIImageView()
     
@@ -24,7 +30,7 @@ extension EditorNavigationBarTitleView: ConfigurableView {
 
     enum Mode {
         struct TitleModel {
-            let icon: ObjectIconImage?
+            let icon: Icon?
             let title: String?
         }
 
@@ -38,18 +44,8 @@ extension EditorNavigationBarTitleView: ConfigurableView {
         case let .title(titleModel):
             titleLabel.text = titleModel.title
             titleLabel.font = .uxCalloutRegular
-            switch titleModel.icon {
-            case .some(let objectIconImage):
-                iconImageView.isHidden = false
-                iconImageView.configure(
-                    model: ObjectIconImageView.Model(
-                        iconImage: objectIconImage,
-                        usecase: .openedObjectNavigationBar
-                    )
-                )
-            case .none:
-                iconImageView.isHidden = true
-            }
+            iconImageView.isHidden = titleModel.icon.isNil
+            iconImageView.icon = titleModel.icon
         case let .modeTitle(text):
             titleLabel.text = text
             titleLabel.font = .uxTitle1Semibold
@@ -57,8 +53,9 @@ extension EditorNavigationBarTitleView: ConfigurableView {
         }
     }
 
-    func setIsLocked(_ isLocked: Bool) {
-        lockImageView.isHidden = !isLocked
+    func setIsReadonly(_ isReadonly: EditorEditingState.ReadonlyState?) {
+        lockImageView.isHidden = isReadonly.isNil
+        lockImageView.image = isReadonly.flatMap { UIImage(asset: $0.barIcon) }
     }
     
     /// Parents alpha sets automatically by system when it attaches to NavigationBar. 
@@ -80,7 +77,6 @@ private extension EditorNavigationBarTitleView {
         
         stackView.axis = .horizontal
         stackView.spacing = 8
-        lockImageView.image =  UIImage(asset: .TextEditor.lockedObject)
         lockImageView.contentMode = .center
         lockImageView.tintColor = .Button.active
         
@@ -102,7 +98,18 @@ private extension EditorNavigationBarTitleView {
         }
 
         lockImageView.layoutUsing.anchors {
-            $0.size(CGSize(width: 10, height: 18))
+            $0.size(CGSize(width: 18, height: 18))
+        }
+    }
+}
+
+private extension EditorEditingState.ReadonlyState {
+    var barIcon: ImageAsset {
+        switch self {
+        case .locked:
+            return .X18.lock
+        case .archived:
+            return .X18.delete
         }
     }
 }

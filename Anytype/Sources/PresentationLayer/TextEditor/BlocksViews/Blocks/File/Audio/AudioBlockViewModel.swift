@@ -31,13 +31,13 @@ final class AudioBlockViewModel: BlockViewModelProtocol {
         self.audioSessionService = audioSessionService
         self.showAudioPicker = showAudioPicker
 
-        if let url = fileData.metadata.contentUrl {
+        if let url = fileData.contentUrl {
             self.playerItem = AVPlayerItem(url: url)
         }
     }
 
     func didSelectRowInTableView(editorEditingState: EditorEditingState) {
-        if case .locked = editorEditingState { return }
+        if case .readonly = editorEditingState { return }
         switch fileData.state {
         case .empty, .error:
             showAudioPicker(blockId)

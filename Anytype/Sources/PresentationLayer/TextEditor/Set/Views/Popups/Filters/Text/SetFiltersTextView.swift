@@ -1,7 +1,7 @@
 import SwiftUI
 
 struct SetFiltersTextView: View {
-    @ObservedObject var viewModel: SetFiltersTextViewModel
+    @StateObject var viewModel: SetFiltersTextViewModel
     
     var body: some View {
         VStack(spacing: 0) {
@@ -11,7 +11,6 @@ struct SetFiltersTextView: View {
             button
         }
         .padding(.horizontal, 20)
-        .animation(.easeOut.speed(1.5), value: UUID())
     }
     
     var textField: some View {

@@ -6,7 +6,7 @@ extension BlockFile {
         FileManager
             .default
             .temporaryDirectory
-            .appendingPathComponent(blockId)
+            .appendingPathComponent("file-\(blockId)")
             .appendingPathComponent(metadata.name)
     }
 

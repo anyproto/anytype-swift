@@ -6,6 +6,7 @@ protocol BaseDocumentGeneralProtocol: AnyObject {
     var details: ObjectDetails? { get }
     var detailsPublisher: AnyPublisher<ObjectDetails, Never> { get }
     var updatePublisher: AnyPublisher<DocumentUpdate, Never> { get }
+    var syncPublisher: AnyPublisher<Void, Never> { get }
 }
 
 protocol BaseDocumentProtocol: AnyObject, BaseDocumentGeneralProtocol {
@@ -18,9 +19,9 @@ protocol BaseDocumentProtocol: AnyObject, BaseDocumentGeneralProtocol {
     var isLocked: Bool { get }
     var isEmpty: Bool { get }
     var isOpened: Bool { get }
+    var isArchived: Bool { get }
     
     var parsedRelationsPublisher: AnyPublisher<ParsedRelations, Never> { get }
-    var isLockedPublisher: AnyPublisher<Bool, Never> { get }
     
     var syncPublisher: AnyPublisher<Void, Never> { get }
     

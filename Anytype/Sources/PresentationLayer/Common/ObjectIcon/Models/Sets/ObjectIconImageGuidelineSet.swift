@@ -11,10 +11,10 @@ struct ObjectIconImageGuidelineSet {
     let bookmarkImageGuideline: ImageGuideline?
     let spaceImageGuideline: ImageGuideline?
     
-    func imageGuideline(for iconImage: ObjectIconImage) -> ImageGuideline? {
-        switch iconImage {
-        case .icon(let objectIconType):
-            switch objectIconType {
+    func imageGuideline(for icon: Icon) -> ImageGuideline? {
+        switch icon {
+        case .object(let objectIcon):
+            switch objectIcon {
             case .basic:
                 return basicImageGuideline
             case .profile:
@@ -25,15 +25,17 @@ struct ObjectIconImageGuidelineSet {
                 return bookmarkImageGuideline
             case .space:
                 return spaceImageGuideline
+            case .todo:
+                return todoImageGuideline
+            case .placeholder:
+                return placeholderImageGuideline
             }
-        case .todo:
-            return todoImageGuideline
-        case .placeholder:
-            return placeholderImageGuideline
-        case .imageAsset:
+        case .asset:
             return staticImageGuideline
         case .image:
             return staticImageGuideline
+        case .square, .squareDynamic, .cycle, .squircle:
+            return nil
         }
     }
     

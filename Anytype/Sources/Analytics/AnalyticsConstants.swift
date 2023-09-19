@@ -363,6 +363,7 @@ enum ScreenOnboardingStep: String {
 enum ClickOnboardingButton: String {
     case showAndCopy = "ShowAndCopy"
     case checkLater = "CheckLater"
+    case moreInfo = "MoreInfo"
 }
 
 enum ClickLoginButton: String {

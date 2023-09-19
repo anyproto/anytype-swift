@@ -18,10 +18,10 @@ final class ObjectsSearchInteractor {
 extension ObjectsSearchInteractor: ObjectsSearchInteractorProtocol {
     
     func search(text: String) async throws -> [ObjectDetails] {
-        try await searchService.searchObjects(
+        try await searchService.searchObjectsByTypes(
             text: text,
-            excludedObjectIds: excludedObjectIds,
-            limitedTypeIds: limitedObjectType
+            typeIds: limitedObjectType,
+            excludedObjectIds: excludedObjectIds
         )
     }
     
