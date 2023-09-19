@@ -30,7 +30,6 @@ final class EditorSetViewModel: ObservableObject {
     @Published var pagitationDataDict: OrderedDictionary<String, EditorSetPaginationData> = [:]
     
     @Published var syncStatus: SyncStatus = .unknown
-    @Published private var isAppear: Bool = false
     
     var isUpdating = false
 
@@ -202,12 +201,10 @@ final class EditorSetViewModel: ObservableObject {
     func onAppear() {
         startSubscriptionIfNeeded()
         router?.setNavigationViewHidden(false, animated: true)
-        isAppear = true
     }
     
     func onWillDisappear() {
         router?.dismissSetSettingsIfNeeded()
-        isAppear = false
     }
     
     func onDisappear() {
