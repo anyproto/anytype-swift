@@ -54,7 +54,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         let quickActionShortcutBuilder = di?.serviceLocator.quickActionShortcutBuilder()
         guard let action = quickActionShortcutBuilder?.buildAction(shortcutItem: item) else { return false }
         
-        DispatchQueue.main.async { QuickActionsStorage.shared.action = action }
+        AppActionStorage.shared.action = action.toAppAction()
         return true
     }
 

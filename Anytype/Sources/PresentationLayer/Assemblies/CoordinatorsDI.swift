@@ -137,4 +137,8 @@ final class CoordinatorsDI: CoordinatorsDIProtocol {
     func setViewPicker() -> SetViewPickerCoordinatorAssemblyProtocol {
         SetViewPickerCoordinatorAssembly(modulesDI: modulesDI, coordinatorsDI: self)
     }
+    
+    func share() -> ShareCoordinatorAssemblyProtocol {
+        ShareCoordinatorAssembly(modulesDI: modulesDI, serviceLocator: serviceLocator)
+    }
 }

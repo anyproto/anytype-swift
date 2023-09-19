@@ -215,8 +215,8 @@ final class ServiceLocator {
         _applicationStateService
     }
     
-    func quickActionStorage() -> QuickActionsStorage {
-        QuickActionsStorage.shared
+    func appActionStorage() -> AppActionStorage {
+        AppActionStorage.shared
     }
     
     func objectsCommonSubscriptionDataBuilder() -> ObjectsCommonSubscriptionDataBuilderProtocol {

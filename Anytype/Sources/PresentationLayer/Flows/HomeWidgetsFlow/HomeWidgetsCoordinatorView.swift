@@ -45,5 +45,8 @@ struct HomeWidgetsCoordinatorView: View {
         .sheet(isPresented: $model.showSpaceSettings) {
             model.createSpaceSeetingsModule()
         }
+        .sheet(isPresented: $model.showSharing) {
+            model.createSharingModule()
+        }
     }
 }

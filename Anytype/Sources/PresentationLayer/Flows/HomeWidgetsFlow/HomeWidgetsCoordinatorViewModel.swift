@@ -20,11 +20,12 @@ final class HomeWidgetsCoordinatorViewModel: ObservableObject,
     private let settingsCoordinator: SettingsCoordinatorProtocol
     private let newSearchModuleAssembly: NewSearchModuleAssemblyProtocol
     private let dashboardService: DashboardServiceProtocol
-    private let quickActionsStorage: QuickActionsStorage
+    private let appActionsStorage: AppActionStorage
     private let widgetTypeModuleAssembly: WidgetTypeModuleAssemblyProtocol
     private let spaceSwitchModuleAssembly: SpaceSwitchModuleAssemblyProtocol
     private let spaceCreateModuleAssembly: SpaceCreateModuleAssemblyProtocol
     private let spaceSettingsCoordinatorAssembly: SpaceSettingsCoordinatorAssemblyProtocol
+    private let shareCoordinatorAssembly: ShareCoordinatorAssemblyProtocol
     
     // MARK: - State
     
@@ -38,6 +39,7 @@ final class HomeWidgetsCoordinatorViewModel: ObservableObject,
     @Published var showCreateWidgetData: CreateWidgetCoordinatorModel?
     @Published var showSpaceSettings: Bool = false
     @Published var showSpaceCreate: Bool = false
+    @Published var showSharing: Bool = false
     
     @Published var info: AccountInfo? {
         didSet {
@@ -59,11 +61,12 @@ final class HomeWidgetsCoordinatorViewModel: ObservableObject,
         settingsCoordinator: SettingsCoordinatorProtocol,
         newSearchModuleAssembly: NewSearchModuleAssemblyProtocol,
         dashboardService: DashboardServiceProtocol,
-        quickActionsStorage: QuickActionsStorage,
+        appActionsStorage: AppActionStorage,
         widgetTypeModuleAssembly: WidgetTypeModuleAssemblyProtocol,
         spaceSwitchModuleAssembly: SpaceSwitchModuleAssemblyProtocol,
         spaceCreateModuleAssembly: SpaceCreateModuleAssemblyProtocol,
-        spaceSettingsCoordinatorAssembly: SpaceSettingsCoordinatorAssemblyProtocol
+        spaceSettingsCoordinatorAssembly: SpaceSettingsCoordinatorAssemblyProtocol,
+        shareCoordinatorAssembly: ShareCoordinatorAssemblyProtocol
     ) {
         self.homeWidgetsModuleAssembly = homeWidgetsModuleAssembly
         self.activeWorkspaceStorage = activeWorkspaceStorage
@@ -74,11 +77,12 @@ final class HomeWidgetsCoordinatorViewModel: ObservableObject,
         self.settingsCoordinator = settingsCoordinator
         self.newSearchModuleAssembly = newSearchModuleAssembly
         self.dashboardService = dashboardService
-        self.quickActionsStorage = quickActionsStorage
+        self.appActionsStorage = appActionsStorage
         self.widgetTypeModuleAssembly = widgetTypeModuleAssembly
         self.spaceSwitchModuleAssembly = spaceSwitchModuleAssembly
         self.spaceCreateModuleAssembly = spaceCreateModuleAssembly
         self.spaceSettingsCoordinatorAssembly = spaceSettingsCoordinatorAssembly
+        self.shareCoordinatorAssembly = shareCoordinatorAssembly
     }
 
     func onAppear() {
@@ -93,16 +97,12 @@ final class HomeWidgetsCoordinatorViewModel: ObservableObject,
             }
             .store(in: &subscriptions)
         
-        quickActionsStorage.$action
+        appActionsStorage.$action
+            .compactMap { $0 }
             .receiveOnMain()
             .sink { [weak self] action in
-                switch action {
-                case .newObject:
-                    self?.createAndShowNewPage()
-                    self?.quickActionsStorage.action = nil
-                case .none:
-                    break
-                }
+                self?.handleAppAction(action: action)
+                self?.appActionsStorage.action = nil
             }
             .store(in: &subscriptions)
         
@@ -144,6 +144,11 @@ final class HomeWidgetsCoordinatorViewModel: ObservableObject,
     
     func createSpaceCreateModule() -> AnyView {
         return spaceCreateModuleAssembly.make()
+    }
+    
+    func createSharingModule() -> AnyView? {
+        return nil
+//        return shareCoordinatorAssembly.make()
     }
  
     // MARK: - HomeWidgetsModuleOutput
@@ -249,6 +254,15 @@ final class HomeWidgetsCoordinatorViewModel: ObservableObject,
             guard let details = try? await dashboardService.createNewPage(spaceId: activeWorkspaceStorage.workspaceInfo.accountSpaceId) else { return }
             AnytypeAnalytics.instance().logCreateObject(objectType: details.analyticsType, route: .navigation, view: .home)
             openObject(screenData: details.editorScreenData())
+        }
+    }
+    
+    private func handleAppAction(action: AppAction) {
+        switch action {
+        case .createObject:
+            createAndShowNewPage()
+        case .showSharingExtension:
+            showSharing.toggle()
         }
     }
 }

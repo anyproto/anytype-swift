@@ -24,6 +24,7 @@ protocol CoordinatorsDIProtocol: AnyObject {
     func setLayoutSettings() -> SetLayoutSettingsCoordinatorAssemblyProtocol
     func setRelations() -> SetRelationsCoordinatorAssemblyProtocol
     func setViewPicker() -> SetViewPickerCoordinatorAssemblyProtocol
+    func share() -> ShareCoordinatorAssemblyProtocol
     
     // Now like a coordinator. Migrate to isolated modules
     func browser() -> EditorBrowserAssembly

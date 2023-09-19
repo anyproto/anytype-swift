@@ -8,7 +8,7 @@ protocol ShareModuleAssemblyProtocol {
     func make(
         onSearch: @escaping RoutingAction<(String, [DetailsLayout], (ObjectSearchData) -> Void)>,
         onClose: @escaping RoutingAction<Void>
-    ) -> ShareView?
+    ) -> AnyView?
 }
 
 final class ShareModuleAssembly: ShareModuleAssemblyProtocol {
@@ -23,7 +23,7 @@ final class ShareModuleAssembly: ShareModuleAssemblyProtocol {
     func make(
         onSearch: @escaping RoutingAction<(String, [DetailsLayout], (ObjectSearchData) -> Void)>,
         onClose: @escaping RoutingAction<Void>
-    ) -> ShareView? {
+    ) -> AnyView? {
         let sharedContent: [SharedContent]
         do {
             sharedContent = try serviceLocator.sharedContentManager.getSharedContent()
@@ -56,6 +56,8 @@ final class ShareModuleAssembly: ShareModuleAssemblyProtocol {
     
         viewModel.onClose = onClose
         
-        return ShareView(viewModel: viewModel)
+        let shareView = ShareView(viewModel: viewModel)
+        
+        return shareView.eraseToAnyView()
     }
 }
