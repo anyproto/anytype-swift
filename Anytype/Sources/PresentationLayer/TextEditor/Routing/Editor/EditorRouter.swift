@@ -84,11 +84,7 @@ final class EditorRouter: NSObject, EditorRouterProtocol, ObjectSettingsCoordina
             anytypeAssertionFailure("Details not found")
             return
         }
-        if FeatureFlags.openBinObject {
-            guard !details.isDeleted else { return }
-        } else {
-            guard !details.isArchived && !details.isDeleted else { return }
-        }
+        guard !details.isDeleted else { return }
         
         showPage(data: details.editorScreenData())
     }

@@ -26,7 +26,6 @@ final class EditorPageViewModel: EditorPageViewModelProtocol {
     private let editorPageTemplatesHandler: EditorPageTemplatesHandlerProtocol
     private let accountManager: AccountManagerProtocol
     private let configuration: EditorPageViewModelConfiguration
-    @Published private var isAppear: Bool = false
     
     private lazy var subscriptions = [AnyCancellable]()
 
@@ -83,8 +82,8 @@ final class EditorPageViewModel: EditorPageViewModelProtocol {
             self?.updateHeaderIfNeeded(headerModel: headerModel)
         }.store(in: &subscriptions)
         
-        Publishers.CombineLatest(document.detailsPublisher, $isAppear)
-            .sink { [weak self] in self?.handleDeletionState(details: $0, isAppear: $1) }
+        document.detailsPublisher
+            .sink { [weak self] in self?.handleDeletionState(details: $0) }
             .store(in: &subscriptions)
     }
 
@@ -160,14 +159,8 @@ final class EditorPageViewModel: EditorPageViewModelProtocol {
         }
     }
     
-    private func handleDeletionState(details: ObjectDetails, isAppear: Bool) {
+    private func handleDeletionState(details: ObjectDetails) {
         viewInput?.showDeletedScreen(details.isDeleted)
-        if !FeatureFlags.openBinObject, details.isArchived && isAppear {
-            // Waiting for the first responder automatic restoration and then close the screen
-            DispatchQueue.main.asyncAfter(deadline: .now() + 0.7) { [router] in
-                router.closeEditor()
-            }
-        }
     }
 
     private func difference(
@@ -269,15 +262,11 @@ extension EditorPageViewModel {
     func viewDidAppear() {
         cursorManager.didAppeared(with: modelsHolder.items, type: document.details?.type)
         editorPageTemplatesHandler.didAppeared(with: document.details?.type)
-        isAppear = true
     }
 
     func viewWillDisappear() {}
 
-    func viewDidDissapear() {
-        isAppear = false
-    }
-
+    func viewDidDissapear() {}
 
     func shakeMotionDidAppear() {
         router.showAlert(

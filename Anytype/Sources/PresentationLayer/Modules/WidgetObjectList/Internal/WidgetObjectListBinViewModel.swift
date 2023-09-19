@@ -14,13 +14,7 @@ final class WidgetObjectListBinViewModel: WidgetObjectListInternalViewModelProto
     let title = Loc.bin
     let editorScreenData: EditorScreenData = .bin
     var rowDetailsPublisher: AnyPublisher<[WidgetObjectListDetailsData], Never> { $rowDetails.eraseToAnyPublisher()}
-    var editMode: WidgetObjectListEditMode {
-        if FeatureFlags.openBinObject {
-            return .normal(allowDnd: false)
-        } else {
-            return .editOnly
-        }
-    }
+    let editMode: WidgetObjectListEditMode = .normal(allowDnd: false)
     let availableMenuItems: [WidgetObjectListMenuItem] = [.restore, .delete]
     
     private var details: [ObjectDetails] = [] {

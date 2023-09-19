@@ -186,8 +186,6 @@ final class TreeWidgetViewModel: ObservableObject, WidgetContainerContentViewMod
     }
     
     private func updateDone(details: ObjectDetails) {
-        guard
-            FeatureFlags.widgetTaskDone else { return }
         guard details.layoutValue == .todo else { return }
         
         Task {

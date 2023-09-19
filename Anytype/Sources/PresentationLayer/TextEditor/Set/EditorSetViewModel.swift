@@ -30,7 +30,6 @@ final class EditorSetViewModel: ObservableObject {
     @Published var pagitationDataDict: OrderedDictionary<String, EditorSetPaginationData> = [:]
     
     @Published var syncStatus: SyncStatus = .unknown
-    @Published private var isAppear: Bool = false
     
     var isUpdating = false
 
@@ -177,10 +176,6 @@ final class EditorSetViewModel: ObservableObject {
         setDocument.setUpdatePublisher.sink { [weak self] in
             self?.onDataChange($0)
         }.store(in: &subscriptions)
-
-        Publishers.CombineLatest(setDocument.document.detailsPublisher, $isAppear)
-            .sink { [weak self] in self?.handleDetails(details: $0, isAppear: $1) }
-            .store(in: &subscriptions)
         
         Task { @MainActor [weak self] in
             guard let self else { return }
@@ -206,12 +201,10 @@ final class EditorSetViewModel: ObservableObject {
     func onAppear() {
         startSubscriptionIfNeeded()
         router?.setNavigationViewHidden(false, animated: true)
-        isAppear = true
     }
     
     func onWillDisappear() {
         router?.dismissSetSettingsIfNeeded()
-        isAppear = false
     }
     
     func onDisappear() {
@@ -516,16 +509,7 @@ final class EditorSetViewModel: ObservableObject {
         }
         return records.reorderedStable(by: objectOrderIds, transform: { $0.id })
     }
-    
-    private func handleDetails(details: ObjectDetails, isAppear: Bool) {
-        if !FeatureFlags.openBinObject, details.isArchived && isAppear {
-            // Waiting for the first responder automatic restoration and then close the screen
-            DispatchQueue.main.asyncAfter(deadline: .now() + 0.7) { [router] in
-                router?.closeEditor()
-            }
-        }
-    }
-    
+        
     private func updateDetailsIfNeeded(_ details: ObjectDetails) {
         guard details.layoutValue == .todo else { return }
         Task {

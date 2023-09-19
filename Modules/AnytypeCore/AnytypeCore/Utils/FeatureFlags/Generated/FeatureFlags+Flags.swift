@@ -26,38 +26,6 @@ public extension FeatureFlags {
         value(for: .migrationGuide)
     }
 
-    static var compactListWidget: Bool {
-        value(for: .compactListWidget)
-    }
-
-    static var getMoreSpace: Bool {
-        value(for: .getMoreSpace)
-    }
-
-    static var deleteObjectPlaceholder: Bool {
-        value(for: .deleteObjectPlaceholder)
-    }
-
-    static var showAllFilesInBin: Bool {
-        value(for: .showAllFilesInBin)
-    }
-
-    static var superNewButtonLoadingState: Bool {
-        value(for: .superNewButtonLoadingState)
-    }
-
-    static var openBinObject: Bool {
-        value(for: .openBinObject)
-    }
-
-    static var recentEditWidget: Bool {
-        value(for: .recentEditWidget)
-    }
-
-    static var widgetTaskDone: Bool {
-        value(for: .widgetTaskDone)
-    }
-
     static var newCodeLanguages: Bool {
         value(for: .newCodeLanguages)
     }
@@ -93,14 +61,6 @@ public extension FeatureFlags {
         .fullInlineSetImpl,
         .dndOnCollectionsAndSets,
         .migrationGuide,
-        .compactListWidget,
-        .getMoreSpace,
-        .deleteObjectPlaceholder,
-        .showAllFilesInBin,
-        .superNewButtonLoadingState,
-        .openBinObject,
-        .recentEditWidget,
-        .widgetTaskDone,
         .newCodeLanguages,
         .newSetSettings,
         .rainbowViews,

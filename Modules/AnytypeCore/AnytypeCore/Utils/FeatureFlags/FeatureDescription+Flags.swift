@@ -34,54 +34,6 @@ public extension FeatureDescription {
         defaultValue: true
     )
     
-    static let compactListWidget = FeatureDescription(
-        title: "Compact List widget",
-        type: .feature(author: "m@anytype.io", releaseVersion: "0.23.0"),
-        defaultValue: true
-    )
-    
-    static let getMoreSpace = FeatureDescription(
-        title: "Get more space - IOS-1307",
-        type: .feature(author: "m@anytype.io", releaseVersion: "0.23.0"),
-        defaultValue: true
-    )
-
-    static let deleteObjectPlaceholder = FeatureDescription(
-        title: "Delete object placeholder - IOS-960",
-        type: .feature(author: "m@anytype.io", releaseVersion: "0.23.0"),
-        defaultValue: true
-    )
-
-    static let showAllFilesInBin = FeatureDescription(
-        title: "Show all files in bin - IOS-1408",
-        type: .feature(author: "m@anytype.io", releaseVersion: "0.24.0"),
-        defaultValue: true
-    )
-
-    static let superNewButtonLoadingState = FeatureDescription(
-        title: "New Button loading state - IOS-1185",
-        type: .feature(author: "m@anytype.io", releaseVersion: "0.24.0"),
-        defaultValue: true
-    )
-    
-    static let openBinObject = FeatureDescription(
-        title: "Open bin object - IOS-1605",
-        type: .feature(author: "m@anytype.io", releaseVersion: "0.25.0"),
-        defaultValue: true
-    )
-    
-    static let recentEditWidget = FeatureDescription(
-        title: "Recent edit widget - IOS-1608",
-        type: .feature(author: "m@anytype.io", releaseVersion: "0.24.0"),
-        defaultValue: true
-    )
-    
-    static let widgetTaskDone = FeatureDescription(
-        title: "Widget task done - IOS-1577",
-        type: .feature(author: "m@anytype.io", releaseVersion: "0.25.0"),
-        defaultValue: true
-    )
-    
     static let newCodeLanguages = FeatureDescription(
         title: "New code languages - IOS-987",
         type: .feature(author: "m@anytype.io", releaseVersion: "0.26.0"),
