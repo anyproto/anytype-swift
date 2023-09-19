@@ -77,20 +77,13 @@ final class RecentSubscriptionService: RecentSubscriptionServiceProtocol {
     // MARK: - Private
     
     private func makeSort(type: RecentWidgetType) -> DataviewSort {
-        if FeatureFlags.recentEditWidget {
-            switch type {
-            case .recentEdit:
-                return SearchHelper.sort(
-                    relation: BundledRelationKey.lastModifiedDate,
-                    type: .desc
-                )
-            case .recentOpen:
-                return SearchHelper.sort(
-                    relation: BundledRelationKey.lastOpenedDate,
-                    type: .desc
-                )
-            }
-        } else {
+        switch type {
+        case .recentEdit:
+            return SearchHelper.sort(
+                relation: BundledRelationKey.lastModifiedDate,
+                type: .desc
+            )
+        case .recentOpen:
             return SearchHelper.sort(
                 relation: BundledRelationKey.lastOpenedDate,
                 type: .desc
@@ -99,14 +92,10 @@ final class RecentSubscriptionService: RecentSubscriptionServiceProtocol {
     }
     
     private func makeDateFilter(type: RecentWidgetType) -> DataviewFilter? {
-        if FeatureFlags.recentEditWidget {
-            switch type {
-            case .recentEdit:
-                return nil
-            case .recentOpen:
-                return SearchHelper.lastOpenedDateNotNilFilter()
-            }
-        } else {
+        switch type {
+        case .recentEdit:
+            return nil
+        case .recentOpen:
             return SearchHelper.lastOpenedDateNotNilFilter()
         }
     }

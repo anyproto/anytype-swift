@@ -53,6 +53,6 @@ extension ObjectSearchData {
     }
 
     var iconImage: Icon? {
-        FeatureFlags.deleteObjectPlaceholder ? details.objectIconImage : details.objectIconImageWithPlaceholder
+        details.objectIconImage
     }
 }

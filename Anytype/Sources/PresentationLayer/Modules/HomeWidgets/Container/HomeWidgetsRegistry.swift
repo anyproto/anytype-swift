@@ -27,9 +27,6 @@ final class HomeWidgetsRegistry: HomeWidgetsRegistryProtocol {
     private let favoriteTreeWidgetProviderAssembly: HomeWidgetProviderAssemblyProtocol
     private let recentEditTreeWidgetProviderAssembly: HomeWidgetProviderAssemblyProtocol
     private let recentOpenTreeWidgetProviderAssembly: HomeWidgetProviderAssemblyProtocol
-    // Delete with compactListWidget toggle
-    private let setsTreeWidgetProviderAssembly: HomeWidgetProviderAssemblyProtocol
-    private let collectionsTreeWidgetProviderAssembly: HomeWidgetProviderAssemblyProtocol
     // MARK: - List
     private let setListWidgetProviderAssembly: HomeWidgetProviderAssemblyProtocol
     private let favoriteListWidgetProviderAssembly: HomeWidgetProviderAssemblyProtocol
@@ -57,8 +54,6 @@ final class HomeWidgetsRegistry: HomeWidgetsRegistryProtocol {
         favoriteTreeWidgetProviderAssembly: HomeWidgetProviderAssemblyProtocol,
         recentEditTreeWidgetProviderAssembly: HomeWidgetProviderAssemblyProtocol,
         recentOpenTreeWidgetProviderAssembly: HomeWidgetProviderAssemblyProtocol,
-        setsTreeWidgetProviderAssembly: HomeWidgetProviderAssemblyProtocol,
-        collectionsTreeWidgetProviderAssembly: HomeWidgetProviderAssemblyProtocol,
         setListWidgetProviderAssembly: HomeWidgetProviderAssemblyProtocol,
         favoriteListWidgetProviderAssembly: HomeWidgetProviderAssemblyProtocol,
         recentEditListWidgetProviderAssembly: HomeWidgetProviderAssemblyProtocol,
@@ -80,8 +75,6 @@ final class HomeWidgetsRegistry: HomeWidgetsRegistryProtocol {
         self.favoriteTreeWidgetProviderAssembly = favoriteTreeWidgetProviderAssembly
         self.recentEditTreeWidgetProviderAssembly = recentEditTreeWidgetProviderAssembly
         self.recentOpenTreeWidgetProviderAssembly = recentOpenTreeWidgetProviderAssembly
-        self.setsTreeWidgetProviderAssembly = setsTreeWidgetProviderAssembly
-        self.collectionsTreeWidgetProviderAssembly = collectionsTreeWidgetProviderAssembly
         self.setListWidgetProviderAssembly = setListWidgetProviderAssembly
         self.favoriteListWidgetProviderAssembly = favoriteListWidgetProviderAssembly
         self.recentEditListWidgetProviderAssembly = recentEditListWidgetProviderAssembly
@@ -203,39 +196,19 @@ final class HomeWidgetsRegistry: HomeWidgetsRegistryProtocol {
         case (.recent, .compactList):
             return recentEditCompactListWidgetProviderAssembly
         case (.recentOpen, .tree):
-            if FeatureFlags.recentEditWidget {
-                return recentOpenTreeWidgetProviderAssembly
-            } else {
-                return nil
-            }
+            return recentOpenTreeWidgetProviderAssembly
         case (.recentOpen, .list):
-            if FeatureFlags.recentEditWidget {
-                return recentOpenListWidgetProviderAssembly
-            } else {
-                return nil
-            }
+            return recentOpenListWidgetProviderAssembly
         case (.recentOpen, .compactList):
-            if FeatureFlags.recentEditWidget {
-                return recentOpenCompactListWidgetProviderAssembly
-            } else {
-                return nil
-            }
+            return recentOpenCompactListWidgetProviderAssembly
         case (.sets, .tree):
-            if FeatureFlags.compactListWidget {
-                return setsCompactListWidgetProviderAssembly
-            } else {
-                return setsTreeWidgetProviderAssembly
-            }
+            return setsCompactListWidgetProviderAssembly
         case (.sets, .list):
             return setsListWidgetProviderAssembly
         case (.sets, .compactList):
             return setsCompactListWidgetProviderAssembly
         case (.collections, .tree):
-            if FeatureFlags.compactListWidget {
-                return collectionsCompactListWidgetProviderAssembly
-            } else {
-                return collectionsTreeWidgetProviderAssembly
-            }
+            return collectionsCompactListWidgetProviderAssembly
         case (.collections, .list):
             return collectionsListWidgetProviderAssembly
         case (.collections, .compactList):

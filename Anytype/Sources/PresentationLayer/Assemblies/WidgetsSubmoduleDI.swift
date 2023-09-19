@@ -11,9 +11,6 @@ protocol WidgetsSubmoduleDIProtocol {
     func favoriteTreeWidgetModuleAssembly() -> HomeWidgetCommonAssemblyProtocol
     func recentEditTreeWidgetModuleAssembly() -> HomeWidgetCommonAssemblyProtocol
     func recentOpenTreeWidgetModuleAssembly() -> HomeWidgetCommonAssemblyProtocol
-    // Delete with compactListWidget toggle
-    func setsTreeWidgetModuleAssembly() -> HomeWidgetCommonAssemblyProtocol
-    func collectionsTreeWidgetModuleAssembly() -> HomeWidgetCommonAssemblyProtocol
     // MARK: - List
     func listWidgetModuleAssembly() -> ListWidgetModuleAssemblyProtocol
     func setListWidgetModuleAssembly() -> HomeWidgetCommonAssemblyProtocol
@@ -70,14 +67,6 @@ final class WidgetsSubmoduleDI: WidgetsSubmoduleDIProtocol {
             ),
             recentOpenTreeWidgetProviderAssembly: HomeWidgetCommonProviderAssembly(
                 widgetAssembly: recentOpenTreeWidgetModuleAssembly(),
-                output: widgetOutput
-            ),
-            setsTreeWidgetProviderAssembly: HomeWidgetCommonProviderAssembly(
-                widgetAssembly: setsTreeWidgetModuleAssembly(),
-                output: widgetOutput
-            ),
-            collectionsTreeWidgetProviderAssembly: HomeWidgetCommonProviderAssembly(
-                widgetAssembly: collectionsTreeWidgetModuleAssembly(),
                 output: widgetOutput
             ),
             setListWidgetProviderAssembly: HomeWidgetCommonProviderAssembly(
@@ -164,14 +153,6 @@ final class WidgetsSubmoduleDI: WidgetsSubmoduleDIProtocol {
     
     func recentOpenTreeWidgetModuleAssembly() -> HomeWidgetCommonAssemblyProtocol {
         return RecentTreeWidgetModuleAssembly(type: .recentOpen, serviceLocator: serviceLocator, widgetsSubmoduleDI: self)
-    }
-    
-    func setsTreeWidgetModuleAssembly() -> HomeWidgetCommonAssemblyProtocol {
-        return SetsTreeWidgetModuleAssembly(serviceLocator: serviceLocator, widgetsSubmoduleDI: self)
-    }
-    
-    func collectionsTreeWidgetModuleAssembly() -> HomeWidgetCommonAssemblyProtocol {
-        return CollectionsTreeWidgetModuleAssembly(serviceLocator: serviceLocator, widgetsSubmoduleDI: self)
     }
     
     // MARK: - List

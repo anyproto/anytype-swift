@@ -35,24 +35,13 @@ private extension ObjectRelationViewUIKit {
     }
     
     func setupIconViewIfNeeded() {
-        
-        if FeatureFlags.deleteObjectPlaceholder {
-            guard let icon = option.icon else {
-                iconView.isHidden = true
-                return
-            }
-            
-            iconView.icon = icon
-            iconView.isHidden = false
-        } else {
-            guard let icon = option.icon, shouldShowIcon(icon: icon) else {
-                iconView.isHidden = true
-                return
-            }
-            
-            iconView.icon = icon
-            iconView.isHidden = false
+        guard let icon = option.icon else {
+            iconView.isHidden = true
+            return
         }
+        
+        iconView.icon = icon
+        iconView.isHidden = false
     }
     
     func setupTitleLabel() {
@@ -89,15 +78,4 @@ private extension ObjectRelationViewUIKit {
             return relationStyle.uiKitFontColor
         }
     }
-    
-    // Delete with FeatureFlags.deleteObjectPlaceholder
-    func shouldShowIcon(icon: Icon) -> Bool {
-        switch icon {
-        case .object(.placeholder):
-            return false
-        default:
-            return true
-        }
-    }
-    
 }

@@ -12,7 +12,7 @@ final class EditorNavigationBarTitleView: UIView {
     private let stackView = UIStackView()
     
     private let iconImageView = IconViewUIKit()
-    private let titleLabel = UILabel()
+    private let titleLabel = AnytypeLabel(style: .uxCalloutRegular)
     private let lockImageView = UIImageView()
     
     init() {
@@ -42,13 +42,11 @@ extension EditorNavigationBarTitleView: ConfigurableView {
     func configure(model: Mode) {
         switch model {
         case let .title(titleModel):
-            titleLabel.text = titleModel.title
-            titleLabel.font = .uxCalloutRegular
+            titleLabel.setText(titleModel.title ?? "", style: .uxCalloutRegular)
             iconImageView.isHidden = titleModel.icon.isNil
             iconImageView.icon = titleModel.icon
         case let .modeTitle(text):
-            titleLabel.text = text
-            titleLabel.font = .uxTitle1Semibold
+            titleLabel.setText(text, style: .uxTitle1Semibold)
             iconImageView.isHidden = true
         }
     }

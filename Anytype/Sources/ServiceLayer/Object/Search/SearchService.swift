@@ -266,7 +266,7 @@ final class SearchService: ObservableObject, SearchServiceProtocol {
     }
     
     func searchArchiveObjectIds(spaceId: String) async throws -> [String] {
-        let filters = FeatureFlags.showAllFilesInBin ? buildFilters(isArchived: true, spaceId: spaceId) : buildFilters(isArchived: true, spaceId: spaceId, layouts: DetailsLayout.visibleLayouts)
+        let filters = buildFilters(isArchived: true, spaceId: spaceId)
         let keys = [BundledRelationKey.id.rawValue]
         let result = try await search(filters: filters, keys: keys)
         return result.map { $0.id }

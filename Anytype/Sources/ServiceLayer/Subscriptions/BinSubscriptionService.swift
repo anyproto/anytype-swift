@@ -39,18 +39,11 @@ final class BinSubscriptionService: BinSubscriptionServiceProtocol {
             type: .desc
         )
         
-        let filters = FeatureFlags.showAllFilesInBin
-            ? [
-                SearchHelper.notHiddenFilter(),
-                SearchHelper.isArchivedFilter(isArchived: true),
-                SearchHelper.spaceId(activeWorkspaceStorage.workspaceInfo.accountSpaceId)
-            ]
-            : [
-                SearchHelper.notHiddenFilter(),
-                SearchHelper.isArchivedFilter(isArchived: true),
-                SearchHelper.spaceId(activeWorkspaceStorage.workspaceInfo.accountSpaceId),
-                SearchHelper.layoutFilter(DetailsLayout.visibleLayouts)
-            ]
+        let filters = [
+            SearchHelper.notHiddenFilter(),
+            SearchHelper.isArchivedFilter(isArchived: true),
+            SearchHelper.spaceId(activeWorkspaceStorage.workspaceInfo.accountSpaceId)
+        ]
         
         let searchData: SubscriptionData = .search(
             SubscriptionData.Search(

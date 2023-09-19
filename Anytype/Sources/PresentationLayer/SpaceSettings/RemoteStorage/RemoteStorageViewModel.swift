@@ -130,9 +130,7 @@ final class RemoteStorageViewModel: ObservableObject {
         spaceUsed = Loc.FileStorage.Space.used(used, limit)
         percentUsage = Double(bytesUsed) / Double(bytesLimit)
         spaceUsedWarning = percentUsage >= Constants.warningPercent
-        if FeatureFlags.getMoreSpace {
-            let localPercentUsage = Double(localBytesUsage) / Double(bytesLimit)
-            showGetMoreSpaceButton = percentUsage >= Constants.warningPercent || localPercentUsage >= Constants.warningPercent
-        }
+        let localPercentUsage = Double(localBytesUsage) / Double(bytesLimit)
+        showGetMoreSpaceButton = percentUsage >= Constants.warningPercent || localPercentUsage >= Constants.warningPercent
     }
 }
