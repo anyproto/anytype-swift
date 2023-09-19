@@ -33,9 +33,7 @@ public struct AnytypeInlinePicker<T> : View where T: (Identifiable & Equatable &
     func buildItem(value: T) -> some View {
         HStack {
             Spacer.fixedWidth(16)
-            Image(asset: .toastTick)
-                .renderingMode(.template)
-                .foregroundColor(Color.Dark.blue)
+            Image(asset: .system(name: "checkmark"))
                 .opacity(value == initialValue ? 1 : 0)
             Spacer.fixedWidth(8)
             AnytypeText(value.title, style: .bodyRegular, color: .Text.primary)
