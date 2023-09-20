@@ -1,5 +1,5 @@
 import AnytypeCore
-
+import Foundation
 /// Input:
 /// A -> [B, C, D]
 /// B -> [X]
@@ -37,6 +37,29 @@ final class ChildrenInfoTreeBuilder {
         
         return result
     }
+//    func treeList(root: TreeList<BlockInformation>) -> [TreeList<BlockInformation>] {
+//        var result: TreeList<BlockInformation>?
+//        let stack = Stack<BlockInformation>()
+//
+//        let children = findChildren(info: root.value)
+//        for item in children.reversed() {
+//            stack.push(item)
+//        }
+//        
+//        stack.push(root.value)
+//
+//        while !stack.isEmpty {
+//            if let info = stack.pop() {
+//                guard info.kind == .block else {
+//                    continue
+//                }  // Skip meta blocks
+//
+//                result = .init(value: info, children: children)
+//            }
+//        }
+//
+//        return result
+//    }
 
     private func findChildren(info: BlockInformation) -> [BlockInformation] {
         switch info.content {
@@ -52,3 +75,28 @@ final class ChildrenInfoTreeBuilder {
         return container.children(of: info.id)
     }
 }
+
+public final class TreeList<T> {
+    
+    var value: T
+    var children: [TreeList<T>]
+    
+    internal init(value: T, children: [TreeList<T>]) {
+        self.value = value
+        self.children = children
+    }
+}
+
+//
+//extension Array where Element == BlockInformation {
+//    var treeList: [TreeList<BlockInformation>] {
+//        let listTree = Array<TreeList<BlockInformation>>()
+//
+//        var skippedBlockIds = [BlockId]()
+//
+//        for child in self {
+//
+//        }
+//    }
+//}
+

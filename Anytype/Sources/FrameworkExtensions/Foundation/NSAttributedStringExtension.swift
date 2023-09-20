@@ -65,7 +65,10 @@ extension NSAttributedString {
     ///   - range: Range at which to search value for
     /// - Returns: Returns non nil value only if it exists in a whole passed range
     func value<Result>(for attributeKey: NSAttributedString.Key, range: NSRange) -> Result? {
+        
         guard isRangeValid(range) else { return nil }
+        guard range.length > 0 else { return nil }
+        
         var longestRange = NSRange()
         let value = attribute(
             attributeKey,
@@ -95,5 +98,15 @@ extension NSAttributedString {
             ranges.append(subrange)
         }
         return ranges
+    }
+}
+
+extension Int {
+    init(any: Any?) {
+        if let any, let anyInt = any as? Int {
+            self = anyInt
+        }
+        
+        self.init(0)
     }
 }

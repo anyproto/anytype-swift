@@ -3,8 +3,8 @@ import Services
 import Combine
 
 protocol AccessoryViewSwitcherProtocol {
-    func updateData(data: TextBlockDelegateData)
-    func clearAccessory(data: TextBlockDelegateData)
+    func update(with configuration: TextViewAccessoryConfiguration?)
+    func clearAccessory()
 
     func restoreDefaultState()
 
@@ -15,8 +15,8 @@ protocol AccessoryViewSwitcherProtocol {
 
 final class AccessoryViewSwitcher: AccessoryViewSwitcherProtocol {
 
+    private(set) var configuration: TextViewAccessoryConfiguration?
     private(set) var activeView = AccessoryViewType.none
-    private(set) var data: TextBlockDelegateData?
     
     private let cursorModeAccessoryView: CursorModeAccessoryView
     private let mentionsView: MentionView
@@ -24,42 +24,26 @@ final class AccessoryViewSwitcher: AccessoryViewSwitcherProtocol {
     private let changeTypeView: ChangeTypeAccessoryView
     private let markupAccessoryView: MarkupAccessoryView
     
-    private let document: BaseDocumentProtocol
-    private var didChangeTypeDismissByUser = false
-
     init(
         mentionsView: MentionView,
         slashMenuView: SlashMenuView,
         cursorModeAccessoryView: CursorModeAccessoryView,
         markupAccessoryView: MarkupAccessoryView,
-        changeTypeView: ChangeTypeAccessoryView,
-        document: BaseDocumentProtocol
+        changeTypeView: ChangeTypeAccessoryView
     ) {
         self.slashMenuView = slashMenuView
         self.cursorModeAccessoryView = cursorModeAccessoryView
         self.markupAccessoryView = markupAccessoryView
         self.changeTypeView = changeTypeView
         self.mentionsView = mentionsView
-        self.document = document
         
         setupDismissHandlers()
     }
 
     // MARK: - Public methods
-    
-    func updateData(data: TextBlockDelegateData) {
-        self.data = data
-        
-        cursorModeAccessoryView.update(info: data.info, textView: data.textView, usecase: data.usecase)
-        markupAccessoryView.update(info: data.info, textView: data.textView)
-        slashMenuView.update(spaceId: document.spaceId, info: data.info, relations: document.parsedRelations.installed)
 
-        cursorModeAccessoryView.isHidden = false
-        if data.textView.selectedRange.length != .zero {
-            showMarkupView(range: data.textView.selectedRange)
-        } else {
-            showDefaultView()
-        }
+    func update(with configuration: TextViewAccessoryConfiguration?) {
+        self.configuration = configuration
     }
     
     func showMentionsView() {
@@ -70,46 +54,27 @@ final class AccessoryViewSwitcher: AccessoryViewSwitcherProtocol {
         showAccessoryView(.slashMenu(slashMenuView))
     }
 
-    func showMarkupView(range: NSRange) {
-        markupAccessoryView.selectionChanged(range: range)
+    func showMarkupView() {
         showAccessoryView(.markup(markupAccessoryView))
     }
 
-    func updateSelection(range: NSRange) {
-        markupAccessoryView.selectionChanged(range: range)
-    }
 
     func showDefaultView() {
-        markupAccessoryView.selectionChanged(range: .zero)
-
-        let isSelectType = document.details?.isSelectType ?? false
-        
-        if isSelectType &&
-            !document.objectRestrictions.objectRestriction.contains(.typechange),
-            !didChangeTypeDismissByUser {
-            showAccessoryView(.changeType(changeTypeView), animation: activeView.animation)
-        } else {
-            showAccessoryView(.default(cursorModeAccessoryView), animation: activeView.animation)
-        }
+        showAccessoryView(.default(cursorModeAccessoryView), animation: activeView.animation)
+        cursorModeAccessoryView.isHidden = false
     }
 
-    func clearAccessory(data: TextBlockDelegateData) {
-        slashMenuView.restoreDefaultState()
-        data.textView.inputAccessoryView = nil
-
-        if data.textView == self.data?.textView {
-            cursorModeAccessoryView.isHidden = true
-        }
+    func clearAccessory() {
+        cursorModeAccessoryView.isHidden = true
     }
     
     func restoreDefaultState() {
-        slashMenuView.restoreDefaultState()
         showDefaultView()
     }
     
     // MARK: - Private methods
     private func showAccessoryView(_ view: AccessoryViewType, animation: Bool = false) {
-        guard let textView = data?.textView else { return }
+        guard let textView = configuration?.textView else { return }
         
         activeView = view
         
@@ -122,7 +87,7 @@ final class AccessoryViewSwitcher: AccessoryViewSwitcherProtocol {
     
     private func changeAccessoryView(_ accessoryView: UIView?, animation: Bool = false) {
         guard let accessoryView = accessoryView,
-              let textView = data?.textView,
+              let textView = configuration?.textView,
               textView.inputAccessoryView != accessoryView else {
             return
         }
@@ -152,7 +117,6 @@ final class AccessoryViewSwitcher: AccessoryViewSwitcherProtocol {
         }
 
         changeTypeView.viewModel.onDoneButtonTap = { [weak self] in
-            self?.didChangeTypeDismissByUser = true
             self?.showDefaultView()
         }
 

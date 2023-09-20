@@ -8,7 +8,7 @@ final class EventsListener: EventsListenerProtocol {
     
     // MARK: - Internal variables
     
-    var onUpdateReceive: ((DocumentUpdate) -> Void)?
+    var onUpdatesReceive: (([DocumentUpdate]) -> Void)?
         
     // MARK: - Private variables
     
@@ -89,20 +89,19 @@ final class EventsListener: EventsListenerProtocol {
         subscriptions.append(subscription)
     }
     
-    @MainActor
     private func handle(events: EventsBunch) {
         let middlewareUpdates = events.middlewareEvents.compactMap(\.value).compactMap { middlewareConverter.convert($0) }
         let localUpdates = events.localEvents.compactMap { localConverter.convert($0) }
         let markupUpdates = [mentionMarkupEventProvider.updateMentionsEvent()].compactMap { $0 }
-        let dataSourceUpdates = events.dataSourceEvents.compactMap { localConverter.convert($0) }
 
         var updates = middlewareUpdates + markupUpdates + localUpdates
+        
+        IndentationBuilder.build(
+            container: infoContainer,
+            id: objectId
+        )
 
-        if dataSourceUpdates.isNotEmpty {
-            updates.append(.dataSourceUpdate)
-        }
-
-        receiveUpdates(updates)
+        receiveUpdates(updates.filteredUpdates)
     }
     
     private func handleRelation(eventsBunch: RelationEventsBunch) {
@@ -111,46 +110,12 @@ final class EventsListener: EventsListenerProtocol {
     }
     
     private func receiveUpdates(_ updates: [DocumentUpdate]) {
-        if updates.contains(where: (\.hasUpdate)) {
-            IndentationBuilder.build(
-                container: infoContainer,
-                id: objectId
-            )
-        }
-        
-        updates
-            .filteredUpdates
-            .forEach { update in
-            onUpdateReceive?(update)
-        }
+        onUpdatesReceive?(updates)
     }
 }
 
 private extension Array where Element == DocumentUpdate {
     var filteredUpdates: Self {
-        var newUpdates = filter {
-            if case .blocks = $0 {
-                return false
-            }
-
-            return true
-        }
-
-        var blockIdsUpdates = Set<BlockId>()
-
-        forEach {
-            if case let .blocks(blocksSet) = $0 {
-                blocksSet.forEach { blockIdsUpdates.insert($0) }
-            }
-        }
-        if blockIdsUpdates.count > 0 {
-            newUpdates.append(.blocks(blockIds: blockIdsUpdates))
-        }
-
-        guard contains(.general) else {
-            return newUpdates
-        }
-
-        return [.general]
+        contains(.general) ? [.general] : self
     }
 }

@@ -3,11 +3,12 @@ import Combine
 import AnytypeCore
 
 protocol BaseDocumentGeneralProtocol: AnyObject {
+    var syncStatus: AnyPublisher<SyncStatus, Never> { get }
+    
     var objectId: BlockId { get }
     var spaceId: String { get }
     var details: ObjectDetails? { get }
     var detailsPublisher: AnyPublisher<ObjectDetails, Never> { get }
-    var updatePublisher: AnyPublisher<DocumentUpdate, Never> { get }
     var syncPublisher: AnyPublisher<Void, Never> { get }
     var forPreview: Bool { get }
     
@@ -33,6 +34,7 @@ protocol BaseDocumentProtocol: AnyObject, BaseDocumentGeneralProtocol {
     var isArchived: Bool { get }
     
     var parsedRelationsPublisher: AnyPublisher<ParsedRelations, Never> { get }
-    
+    var childrenPublisher: AnyPublisher<[BlockInformation], Never> { get }
     var syncPublisher: AnyPublisher<Void, Never> { get }
+    var resetBlocksSubject: PassthroughSubject<Set<BlockId>, Never> { get }
 }

@@ -19,9 +19,9 @@ final class EditorMainItemModelsHolder {
             blocksMapping = dictionary
         }
     }
-
+    
     var header: ObjectHeader?
-    private var blocksMapping = BlockMapping()
+    var blocksMapping = BlockMapping()
 }
 
 // MARK: - Models searching
@@ -31,30 +31,30 @@ extension EditorMainItemModelsHolder {
         acceptingTypes: [BlockContentType]
     ) -> BlockViewModelProtocol? {
         guard let modelIndex = items.firstIndex(blockId: blockId) else { return nil }
-
+        
         let index = items.index(before: modelIndex)
-
+        
         guard items.indices.contains(index) else { return nil }
-
+        
         let model = items[0...index].last { item in
             if case .block = item { return true }
-
+            
             return false
         }
-
+        
         guard case let .block(block) = model else { return nil }
-
+        
         if !acceptingTypes.contains(block.content.type) {
             return findModel(beforeBlockId: block.blockId, acceptingTypes: acceptingTypes)
         }
-
+        
         return block
     }
-
+    
     func contentProvider(for blockId: BlockId) -> BlockViewModelProtocol? {
         blocksMapping[blockId]
     }
-
+    
     func contentProvider(for item: EditorItem) -> EditorItem?  {
         switch item {
         case .header, .system:
@@ -64,12 +64,12 @@ extension EditorMainItemModelsHolder {
                 .map { EditorItem.block($0) }
         }
     }
-
+    
     func blockViewModel(at index: Int) -> BlockViewModelProtocol? {
         if case let .block(viewModel) = items[safe: index] {
             return viewModel
         }
-
+        
         return nil
     }
 }
@@ -80,7 +80,7 @@ extension EditorMainItemModelsHolder {
         between newItems: [EditorItem]
     ) -> CollectionDifference<EditorItem> {
         if items.isEmpty { return .init([])! }
-
+        
         return newItems.difference(from: items) { (rhs, lhs) in
             switch (rhs, lhs) {
             case let (.system(rhsSystem), .system(lhsSystem)):
@@ -94,7 +94,7 @@ extension EditorMainItemModelsHolder {
             }
         }
     }
-
+    
     func applyDifference(difference: CollectionDifference<EditorItem>) {
         if !difference.isEmpty, let result = items.applying(difference) {
             items = result
@@ -110,7 +110,7 @@ extension Array where Element == EditorItem {
             return block.blockId == blockId
         }
     }
-
+    
     var allRelationViewModel: [BlockViewModelProtocol] {
         compactMap { element -> BlockViewModelProtocol? in
             if case let .block(block) = element {

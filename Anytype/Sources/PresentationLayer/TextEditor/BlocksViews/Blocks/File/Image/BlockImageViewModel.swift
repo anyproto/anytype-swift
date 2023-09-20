@@ -7,22 +7,17 @@ import AnytypeCore
 struct BlockImageViewModel: BlockViewModelProtocol {
     typealias Action<T> = (_ arg: T) -> Void
     
-    var hashable: AnyHashable { [ info ] as [AnyHashable] }
+    var hashable: AnyHashable { info.id }
     
-    let info: BlockInformation
-    let fileData: BlockFile
+    var info: BlockInformation { blockInformationProvider.info }
+    let blockInformationProvider: BlockModelInfomationProvider
     let handler: BlockActionHandlerProtocol
     
     let showIconPicker: Action<BlockId>
     let onImageOpen: Action<FilePreviewContext>?
     
-    init?(
-        info: BlockInformation,
-        fileData: BlockFile,
-        handler: BlockActionHandlerProtocol,
-        showIconPicker: @escaping (BlockId) -> (),
-        onImageOpen: Action<FilePreviewContext>?
-    ) {
+    var fileData: BlockFile? {
+        guard case let .file(fileData) = info.content else { return nil }
         guard fileData.contentType == .image else {
             anytypeAssertionFailure(
                 "Wrong content type, image expected", info: ["contentType": "\(fileData.contentType)"]
@@ -30,14 +25,26 @@ struct BlockImageViewModel: BlockViewModelProtocol {
             return nil
         }
         
-        self.info = info
-        self.fileData = fileData
+        return fileData
+    }
+    
+    init?(
+        blockInformationProvider: BlockModelInfomationProvider,
+        handler: BlockActionHandlerProtocol,
+        showIconPicker: @escaping (BlockId) -> (),
+        onImageOpen: Action<FilePreviewContext>?
+    ) {
+        self.blockInformationProvider = blockInformationProvider
         self.handler = handler
         self.showIconPicker = showIconPicker
         self.onImageOpen = onImageOpen
     }
     
     func makeContentConfiguration(maxWidth: CGFloat) -> UIContentConfiguration {
+        guard let fileData else {
+            anytypeAssertionFailure("UnsupportedBlockViewModel has wrong content type")
+            return UnsupportedBlockViewModel(info: info).makeContentConfiguration(maxWidth: maxWidth)
+        }
         switch fileData.state {
         case .empty:
             return emptyViewConfiguration(text: Loc.Content.Picture.upload, state: .default)
@@ -52,10 +59,9 @@ struct BlockImageViewModel: BlockViewModelProtocol {
                 alignment: info.horizontalAlignment,
                 fileData: fileData,
                 imageViewTapHandler: didTapOpenImage
-            )
-            .cellBlockConfiguration(
-                indentationSettings: .init(with: info.configurationData),
-                dragConfiguration: .init(id: info.id)
+            ).cellBlockConfiguration(
+                dragConfiguration: .init(id: info.id),
+                styleConfiguration: .init(backgroundColor: info.backgroundColor?.backgroundColor.color)
             )
         }
     }
@@ -66,12 +72,13 @@ struct BlockImageViewModel: BlockViewModelProtocol {
             text: text,
             state: state
         ).cellBlockConfiguration(
-            indentationSettings: .init(with: info.configurationData),
-            dragConfiguration: .init(id: info.id)
+            dragConfiguration: .init(id: info.id),
+            styleConfiguration: .init(backgroundColor: info.backgroundColor?.backgroundColor.color)
         )
     }
 
     func didSelectRowInTableView(editorEditingState: EditorEditingState) {
+        guard let fileData else { return }
         switch fileData.state {
         case .empty, .error:
             guard case .editing = editorEditingState else { return }
@@ -82,6 +89,7 @@ struct BlockImageViewModel: BlockViewModelProtocol {
     }
     
     private func didTapOpenImage(_ sender: UIImageView) {
+        guard let fileData else { return }
         onImageOpen?(
             .init(
                 file: ImagePreviewMedia(file: fileData, blockId: info.id, previewImage: sender.image),

@@ -23,6 +23,10 @@ final class DynamicCollectionView: EditorCollectionView {
         isEditing = true
     }
 
+    override func setContentOffset(_ contentOffset: CGPoint, animated: Bool) {
+        print("ContentOffset: \(contentOffset)")
+        super.setContentOffset(contentOffset, animated: animated)
+    }
     override func layoutSubviews() {
         super.layoutSubviews()
 

@@ -188,7 +188,7 @@ private extension MarkupType {
         case let .linkToObject(blockId):
             return Anytype_Model_Block.Content.Text.Mark(range: .init(), type: .object, param: blockId ?? "")
         case let .mention(mentionData):
-            return Anytype_Model_Block.Content.Text.Mark(range: .init(), type: .mention, param: mentionData.blockId)
+            return Anytype_Model_Block.Content.Text.Mark(range: .init(), type: .mention, param: mentionData.id)
         case let .emoji(emoji):
             return Anytype_Model_Block.Content.Text.Mark(range: .init(), type: .emoji, param: emoji.value)
         }

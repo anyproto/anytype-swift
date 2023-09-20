@@ -4,14 +4,12 @@ import Combine
 import AnytypeCore
 import ProtobufMessages
 
-final class BlockActionHandler: BlockActionHandlerProtocol {    
-    weak var blockSelectionHandler: BlockSelectionHandler?
+final class BlockActionHandler: BlockActionHandlerProtocol {
     private let document: BaseDocumentProtocol
     
     private let service: BlockActionServiceProtocol
     private let blockService: BlockServiceProtocol
     private let markupChanger: BlockMarkupChangerProtocol
-    private let keyboardHandler: KeyboardActionHandlerProtocol
     private let blockTableService: BlockTableServiceProtocol
     private let fileService: FileActionsServiceProtocol
     private let objectService: ObjectActionsServiceProtocol
@@ -21,7 +19,6 @@ final class BlockActionHandler: BlockActionHandlerProtocol {
         markupChanger: BlockMarkupChangerProtocol,
         service: BlockActionServiceProtocol,
         blockService: BlockServiceProtocol,
-        keyboardHandler: KeyboardActionHandlerProtocol,
         blockTableService: BlockTableServiceProtocol,
         fileService: FileActionsServiceProtocol,
         objectService: ObjectActionsServiceProtocol
@@ -30,7 +27,6 @@ final class BlockActionHandler: BlockActionHandlerProtocol {
         self.markupChanger = markupChanger
         self.service = service
         self.blockService = blockService
-        self.keyboardHandler = keyboardHandler
         self.blockTableService = blockTableService
         self.fileService = fileService
         self.objectService = objectService
@@ -154,96 +150,73 @@ final class BlockActionHandler: BlockActionHandlerProtocol {
     }
     
     // MARK: - Markup changer proxy
-    func toggleWholeBlockMarkup(_ markup: MarkupType, blockId: BlockId) {
-        guard let newText = markupChanger.toggleMarkup(markup, blockId: blockId) else { return }
+    func toggleWholeBlockMarkup(
+        _ attributedString: NSAttributedString?,
+        markup: MarkupType,
+        info: BlockInformation
+    ) -> NSAttributedString? {
+        guard let textContent = info.textContent, let attributedString else { return nil }
+        let changedAttributedString = markupChanger.toggleMarkup(
+            attributedString,
+            markup: markup,
+            contentType: .text(textContent.contentType)
+        )
         
-        changeTextForced(newText, blockId: blockId)
+        changeText(changedAttributedString, blockId: info.id)
+        
+        return changedAttributedString
     }
-    
+
     func changeTextStyle(_ attribute: MarkupType, range: NSRange, blockId: BlockId) {
-        guard let newText = markupChanger.toggleMarkup(attribute, blockId: blockId, range: range) else { return }
-
-        AnytypeAnalytics.instance().logChangeTextStyle(attribute)
-
-        changeTextForced(newText, blockId: blockId)
+        fatalError()
+//        guard let newText = markupChanger.toggleMarkup(attribute, blockId: blockId, range: range) else { return }
+//
+//        AnytypeAnalytics.instance().logChangeTextStyle(attribute)
+//
+//        changeTextForced(newText, blockId: blockId)
     }
-    
+
     func setTextStyle(_ attribute: MarkupType, range: NSRange, blockId: BlockId, currentText: NSAttributedString?) {
-        guard let newText = markupChanger.setMarkup(attribute, blockId: blockId, range: range, currentText: currentText)
-            else { return }
-
-        AnytypeAnalytics.instance().logChangeTextStyle(attribute)
-
-        changeTextForced(newText, blockId: blockId)
+        fatalError()
+//        guard let newText = markupChanger.setMarkup(attribute, blockId: blockId, range: range, currentText: currentText)
+//            else { return }
+//
+//        AnytypeAnalytics.instance().logChangeTextStyle(attribute)
+//
+//        changeTextForced(newText, blockId: blockId)
     }
     
     func setLink(url: URL?, range: NSRange, blockId: BlockId) {
-        let newText: NSAttributedString?
-        AnytypeAnalytics.instance().logChangeTextStyle(MarkupType.link(url))
-        if let url = url {
-            newText = markupChanger.setMarkup(.link(url), blockId: blockId, range: range)
-        } else {
-            newText = markupChanger.removeMarkup(.link(nil), blockId: blockId, range: range)
-        }
-        
-        guard let newText = newText else { return }
-        changeTextForced(newText, blockId: blockId)
+        fatalError()
+//        let newText: NSAttributedString?
+//        AnytypeAnalytics.instance().logChangeTextStyle(MarkupType.link(url))
+//        if let url = url {
+//            newText = markupChanger.setMarkup(.link(url), blockId: blockId, range: range)
+//        } else {
+//            newText = markupChanger.removeMarkup(.link(nil), blockId: blockId, range: range)
+//        }
+//
+//        guard let newText = newText else { return }
+//        changeTextForced(newText, blockId: blockId)
     }
     
     func setLinkToObject(linkBlockId: BlockId?, range: NSRange, blockId: BlockId) {
-        let newText: NSAttributedString?
-        AnytypeAnalytics.instance().logChangeTextStyle(MarkupType.linkToObject(linkBlockId))
-        if let linkBlockId = linkBlockId {
-            newText = markupChanger.setMarkup(.linkToObject(linkBlockId), blockId: blockId, range: range)
-        } else {
-            newText = markupChanger.removeMarkup(.linkToObject(nil), blockId: blockId, range: range)
-        }
-        
-        guard let newText = newText else { return }
-        changeTextForced(newText, blockId: blockId)
-    }
-
-    func handleKeyboardAction(
-        _ action: CustomTextView.KeyboardAction,
-        currentText: NSAttributedString,
-        info: BlockInformation
-    ) {
-        keyboardHandler.handle(info: info, currentString: currentText, action: action)
+        fatalError()
     }
     
-    func changeTextForced(_ text: NSAttributedString, blockId: BlockId) {
+    func changeText(_ text: NSAttributedString, blockId: BlockId) {
         let safeSendableText = SafeSendable(value: text)
-        
+
         Task {
-            guard let info = document.infoContainer.get(id: blockId) else { return }
-            
-            guard case .text = info.content else { return }
-            
             let middlewareString = AttributedTextConverter.asMiddleware(attributedText: safeSendableText.value)
             
             await EventsBunch(
                 contextId: document.objectId,
-                localEvents: [.setText(blockId: info.id, text: middlewareString)]
+                localEvents: [.setText(blockId: blockId, text: middlewareString)]
             ).send()
-            
-            try await service.setTextForced(contextId: document.objectId, blockId: info.id, middlewareString: middlewareString)
-        }
-    }
-    
-    func changeText(_ text: NSAttributedString, info: BlockInformation) {
-        let safeSendableText = SafeSendable(value: text)
 
-        Task {
-            guard case .text = info.content else { return }
-            
-            let middlewareString = AttributedTextConverter.asMiddleware(attributedText: safeSendableText.value)
-            
-            await EventsBunch(
-                contextId: document.objectId,
-                dataSourceUpdateEvents: [.setText(blockId: info.id, text: middlewareString)]
-            ).send()
-            
-            try await service.setText(contextId: document.objectId, blockId: info.id, middlewareString: middlewareString)
+
+            try await service.setText(contextId: document.objectId, blockId: blockId, middlewareString: middlewareString)
         }
     }
     
@@ -325,10 +298,6 @@ final class BlockActionHandler: BlockActionHandlerProtocol {
         
         AnytypeAnalytics.instance().logCreateBlock(type: newBlock.content.type)
         service.add(info: newBlock, targetBlockId: blockId, position: position)
-    }
-
-    func selectBlock(info: BlockInformation) {
-        blockSelectionHandler?.didSelectEditingState(info: info)
     }
 
     func createAndFetchBookmark(

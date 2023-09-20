@@ -31,12 +31,10 @@ extension TextBlockContentView: CustomTextViewDelegate {
 
     func didBeginEditing() {
         actions?.textViewDidBeginEditing(textView.textView)
-        isFirstResponderValueChangeHandler?(true)
     }
     
     func didEndEditing() {
         actions?.textViewDidEndEditing(textView.textView)
-        isFirstResponderValueChangeHandler?(false)
     }
 
     func textViewDidChangeText(_ textView: UITextView) {
@@ -52,7 +50,7 @@ extension TextBlockContentView: CustomTextViewDelegate {
         actions?.changeTextStyle(attribute, range)
     }
     
-    func keyboardAction(_ action: CustomTextView.KeyboardAction) {        
+    func keyboardAction(_ action: CustomTextView.KeyboardAction) {
         actions?.handleKeyboardAction(action, textView.textView)
     }
     

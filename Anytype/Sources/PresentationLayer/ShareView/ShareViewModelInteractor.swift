@@ -84,7 +84,6 @@ final class SharedContentInteractor: SharedContentInteractorProtocol {
             origin: .sharingExtension
         )
         try await bookmarkService.fetchBookmarkContent(bookmarkId: newBookmark.id, url: url.absoluteString)
-        
         AnytypeAnalytics.instance().logCreateObject(
             objectType: .object(typeId: ObjectTypeUniqueKey.bookmark.value),
             route: .sharingExtension

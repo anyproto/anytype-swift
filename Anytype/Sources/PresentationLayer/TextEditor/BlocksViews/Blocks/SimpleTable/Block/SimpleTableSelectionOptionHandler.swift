@@ -17,7 +17,7 @@ final class SimpleTableSelectionOptionHandler {
     private let router: EditorRouterProtocol
     private let tableService: BlockTableServiceProtocol
     private let document: BaseDocumentProtocol
-    private let tableBlockInformation: BlockInformation
+    private let blockInformationProvider: BlockModelInfomationProvider
     private let actionHandler: BlockActionHandlerProtocol
 
     private var currentSortType: BlocksSortType = .asc
@@ -26,13 +26,13 @@ final class SimpleTableSelectionOptionHandler {
         router: EditorRouterProtocol,
         tableService: BlockTableServiceProtocol,
         document: BaseDocumentProtocol,
-        tableBlockInformation: BlockInformation,
+        blockInformationProvider: BlockModelInfomationProvider,
         actionHandler: BlockActionHandlerProtocol
     ) {
         self.router = router
         self.tableService = tableService
         self.document = document
-        self.tableBlockInformation = tableBlockInformation
+        self.blockInformationProvider = blockInformationProvider
         self.actionHandler = actionHandler
     }
 
@@ -56,7 +56,7 @@ final class SimpleTableSelectionOptionHandler {
     @MainActor
     private func handleColumnAction(action: SimpleTableColumnMenuItem) async {
         guard let table = ComputedTable(
-            blockInformation: tableBlockInformation,
+            blockInformation: blockInformationProvider.info,
             infoContainer: document.infoContainer
         ) else { return }
 
@@ -176,7 +176,7 @@ final class SimpleTableSelectionOptionHandler {
     @MainActor
     private func handleRowAction(action: SimpleTableRowMenuItem) async {
         guard let table = ComputedTable(
-            blockInformation: tableBlockInformation,
+            blockInformation: blockInformationProvider.info,
             infoContainer: document.infoContainer
         ) else { return }
 
@@ -256,7 +256,7 @@ final class SimpleTableSelectionOptionHandler {
     @MainActor
     private func handleCellAction(action: SimpleTableCellMenuItem) async {
         guard let table = ComputedTable(
-            blockInformation: tableBlockInformation,
+            blockInformation: blockInformationProvider.info,
             infoContainer: document.infoContainer
         ) else { return }
 
@@ -285,7 +285,7 @@ final class SimpleTableSelectionOptionHandler {
     @MainActor
     private func fillSelectedRows() async {
         guard let table = ComputedTable(
-            blockInformation: tableBlockInformation,
+            blockInformation: blockInformationProvider.info,
             infoContainer: document.infoContainer
         ) else { return }
 

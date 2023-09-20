@@ -30,15 +30,3 @@ public struct BlockInformation: Hashable {
         self.configurationData = configurationData
     }
 }
-
-public extension BlockInformation {
-    var relativeBackgroundColor: MiddlewareColor? {
-        if backgroundColor != nil { return backgroundColor }
-
-        if case let .text(text) = content, case .callout = text.contentType {
-            return backgroundColor ?? .grey
-        }
-
-        return backgroundColor
-    }
-}

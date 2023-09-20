@@ -3,41 +3,83 @@ import Combine
 import UIKit
 import AnytypeCore
 
-struct DataViewBlockViewModel: BlockViewModelProtocol {
+final class ObjectDetailsInfomationProvider {
+    @Published private(set) var details: ObjectDetails?
+    
+    private let detailsStorage: ObjectDetailsStorage
+    private let targetObjectId: BlockId
+    private var subscription: AnyCancellable?
+    
+    init(
+        detailsStorage: ObjectDetailsStorage,
+        targetObjectId: BlockId,
+        details: ObjectDetails?
+    ) {
+        self.detailsStorage = detailsStorage
+        self.targetObjectId = targetObjectId
+        self.details = details
+        
+        setupPublisher()
+    }
+    
+    private func setupPublisher() {
+        subscription = detailsStorage
+            .publisherFor(id: targetObjectId)
+            .sink { [weak self] in $0.map { self?.details = $0 } }
+    }
+}
 
-    let info: BlockInformation
-    let objectDetails: ObjectDetails?
-    let isCollection: Bool
+final class DataViewBlockViewModel: BlockViewModelProtocol {
+
+    let blockInformationProvider: BlockModelInfomationProvider
+    let objectDetailsProvider: ObjectDetailsInfomationProvider
     
     private let showFailureToast: (_ message: String) -> ()
     private let openSet: (EditorScreenData) -> ()
+    private weak var reloadable: EditorCollectionReloadable?
+    
+    var info: BlockInformation { blockInformationProvider.info }
 
-    var hashable: AnyHashable {
-        [
-            info,
-            objectDetails
-        ] as [AnyHashable]
-    }
+    var hashable: AnyHashable { info.id }
+    var detailsSubscription: AnyCancellable?
 
     init(
-        info: BlockInformation,
-        objectDetails: ObjectDetails?,
-        isCollection: Bool,
+        blockInformationProvider: BlockModelInfomationProvider,
+        objectDetailsProvider: ObjectDetailsInfomationProvider,
+        reloadable: EditorCollectionReloadable?,
         showFailureToast: @escaping (_ message: String) -> (),
         openSet: @escaping (EditorScreenData) -> ()
     ) {
-        self.info = info
-        self.objectDetails = objectDetails
-        self.isCollection = isCollection
+        self.blockInformationProvider = blockInformationProvider
+        self.objectDetailsProvider = objectDetailsProvider
+        self.reloadable = reloadable
         self.showFailureToast = showFailureToast
         self.openSet = openSet
+        
+        detailsSubscription = objectDetailsProvider
+            .$details
+            .removeDuplicates()
+            .receiveOnMain()
+            .sink { [weak self] _ in
+            guard let self = self else { return }
+            let selfItem = EditorItem.block(self)
+            self.reloadable?.reconfigure(items: [selfItem])
+        }
     }
 
     func makeContentConfiguration(maxWidth: CGFloat) -> UIContentConfiguration {
+        guard case let .dataView(data) = info.content, 
+                !(objectDetailsProvider.details?.isDeleted ?? false) else {
+            return NonExistentBlockViewModel(info: info)
+                .makeContentConfiguration(maxWidth: maxWidth)
+        }
+        
+        let isCollection = data.isCollection
+        
         let content: DataViewBlockContent
         let subtitle = isCollection ? Loc.Content.DataView.InlineCollection.subtitle : Loc.Content.DataView.InlineSet.subtitle
         let placeholder = isCollection ? Loc.Content.DataView.InlineCollection.untitled : Loc.Content.DataView.InlineSet.untitled
-        if let objectDetails {
+        if let objectDetails = objectDetailsProvider.details {
             let setOfIsNotEmpty = objectDetails.setOf.first { $0.isNotEmpty } != nil
             content = DataViewBlockContent(
                 title: objectDetails.title,
@@ -59,13 +101,13 @@ struct DataViewBlockViewModel: BlockViewModelProtocol {
             content: content
         )
         .cellBlockConfiguration(
-            indentationSettings: .init(with: info.configurationData),
-            dragConfiguration: .init(id: info.id)
+            dragConfiguration: .init(id: info.id),
+            styleConfiguration: .init(backgroundColor: info.backgroundColor?.backgroundColor.color)
         )
     }
 
     func didSelectRowInTableView(editorEditingState: EditorEditingState) {
-        guard let objectDetails else {
+        guard let objectDetails = objectDetailsProvider.details else {
             showFailureToast(Loc.Content.DataView.InlineSet.Toast.failure)
             return
         }

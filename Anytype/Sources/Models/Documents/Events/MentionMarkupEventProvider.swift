@@ -52,7 +52,13 @@ final class MentionMarkupEventProvider {
             else { return nil }
             
             let mentionNameInDetails = details.mentionTitle
-            needUpdate = true
+            
+            
+            let previousString = string.substring(with: mentionRange)
+            if previousString != mentionNameInDetails {
+                needUpdate = true
+            }
+            
             let countDelta = Int32(mentionName.count - mentionNameInDetails.count)
 
             string.replaceSubrange(mentionRange, with: mentionNameInDetails)

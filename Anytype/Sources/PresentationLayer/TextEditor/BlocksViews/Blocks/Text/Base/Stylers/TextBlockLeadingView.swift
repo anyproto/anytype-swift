@@ -10,10 +10,16 @@ final class TextBlockLeadingView: UIView {
     private(set) var bulletedView: UIView?
     private(set) var quoteView: UIView?
     private(set) var calloutIconView: UIView?
+    
+    private var currentStyle: TextBlockLeadingStyle?
 
     func update(style: TextBlockLeadingStyle) {
+        guard currentStyle != style else { return }
+        
         removeAllSubviews()
         isHidden = false
+        
+        currentStyle = style
 
         let innerView: UIView
         switch style {
@@ -81,5 +87,9 @@ final class TextBlockLeadingView: UIView {
             $0.pinToSuperview(excluding: [.bottom])
             $0.bottom.equal(to: bottomAnchor, priority: .defaultLow)
         }
+    }
+    
+    override func layoutSubviews() {
+        super.layoutSubviews()
     }
 }

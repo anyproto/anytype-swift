@@ -85,9 +85,7 @@ extension TextViewAttributeSelectionInteraction: UIGestureRecognizerDelegate {
             return false
         }
         let tapLocation = gestureRecognizer.location(in: textView)
-        return rects.contains { rect in
-            rect.contains(tapLocation)
-        }
+        return rects.contains { rect in rect.contains(tapLocation) }
     }
     
     func gestureRecognizer(

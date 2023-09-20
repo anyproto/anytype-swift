@@ -1,14 +1,30 @@
 import UIKit
 
 class EditorCollectionView: UICollectionView {
-    override var adjustedContentInset: UIEdgeInsets {
-        .init(
-            top: 0,
-            left: super.adjustedContentInset.left,
-            bottom: super.adjustedContentInset.bottom,
-            right: super.adjustedContentInset.right
-        )
+    override init(frame: CGRect, collectionViewLayout layout: UICollectionViewLayout) {
+        super.init(frame: frame, collectionViewLayout: layout)
+        
+        setup()
     }
+    
+    required init?(coder: NSCoder) {
+        super.init(coder: coder)
+        
+        setup()
+    }
+    
+    private func setup() {
+        alwaysBounceVertical = true
+    }
+    
+//    override var adjustedContentInset: UIEdgeInsets {
+//        .init(
+//            top: 0,
+//            left: super.adjustedContentInset.left,
+//            bottom: super.adjustedContentInset.bottom,
+//            right: super.adjustedContentInset.right
+//        )
+//    }
 
     var isLocked: Bool = false {
         didSet {
@@ -16,6 +32,13 @@ class EditorCollectionView: UICollectionView {
                 ($0 as? CustomTypesAccessable)?.isLocked = isLocked
             }
         }
+    }
+    
+    override func setContentOffset(_ contentOffset: CGPoint, animated: Bool) {
+        if contentOffset == .zero {
+            print("ZEROOO")
+        }
+        super.setContentOffset(contentOffset, animated: animated)
     }
 
     private(set) var indexPathsForMovingItems = Set<IndexPath>()
@@ -46,10 +69,6 @@ class EditorCollectionView: UICollectionView {
         let cell = cellForItem(at: indexPath) as? CustomTypesAccessable
 
         cell?.isMoving = isMoving
-    }
-
-    override func selectItem(at indexPath: IndexPath?, animated: Bool, scrollPosition: UICollectionView.ScrollPosition) {
-        super.selectItem(at: indexPath, animated: animated, scrollPosition: scrollPosition)
     }
 
     func adjustContentOffsetForSelectedItem(relatively relativeView: UIView) {

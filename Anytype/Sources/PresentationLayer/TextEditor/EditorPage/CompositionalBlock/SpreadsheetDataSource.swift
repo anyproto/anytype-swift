@@ -33,7 +33,14 @@ final class SpreadsheetViewDataSource {
     }
 
     func reconfigureItems(items: [EditorItem]) {
-        items.forEach(reloadCell(for:))
+        let filtered = dataSource.snapshot().itemIdentifiers.filter { items.contains($0) }
+        guard filtered.isNotEmpty else { return }
+        
+        var snapshot = dataSource.snapshot()
+        snapshot.reconfigureItems(filtered)
+        
+    
+        dataSource.apply(snapshot)
     }
 
     func update(

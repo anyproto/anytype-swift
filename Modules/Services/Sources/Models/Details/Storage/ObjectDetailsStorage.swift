@@ -6,7 +6,7 @@ import Combine
 
 public final class ObjectDetailsStorage {
     
-    private var storage = SynchronizedDictionary<BlockId, ObjectDetails>()
+    fileprivate var storage = PassthroughSubjectDictionary<BlockId, ObjectDetails>()
     
     public init() {}
         
@@ -17,6 +17,8 @@ public final class ObjectDetailsStorage {
     
     public func add(details: ObjectDetails) {
         storage[details.id] = details
+        // Should we move to Published instead of subject here?
+        storage.publishValue(for: details.id)
     }
     
     @discardableResult
@@ -33,5 +35,11 @@ public final class ObjectDetailsStorage {
     
     public func removeAll() {
         storage.removeAll()
+    }
+}
+
+public extension ObjectDetailsStorage {
+    func publisherFor(id: BlockId) -> AnyPublisher<ObjectDetails?, Never> {
+        storage.publisher(id)
     }
 }

@@ -85,13 +85,13 @@ class BeginingOfTextMarkdownListenerTests: XCTestCase {
         }
     }
 
-    private func buildData(text: String, carretPosition: Int) -> TextBlockDelegateData {
+    private func buildData(text: String, carretPosition: Int) -> TextViewAccessoryConfiguration {
         let textView = UITextView()
         textView.text = text
         textView.selectedRange = NSRange(location: carretPosition, length: 0)
         
         let text = UIKitAnytypeText(text: text, style: .bodyRegular, lineBreakModel: .byWordWrapping)
         
-        return TextBlockDelegateData(textView: textView, info: .emptyText, text: text, usecase: .editor)
+        return TextViewAccessoryConfiguration(textView: textView, info: .emptyText, text: text, usecase: .editor)
     }
 }

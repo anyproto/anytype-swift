@@ -1,15 +1,25 @@
 import Services
 import UIKit
 import AVFoundation
-
+import AnytypeCore
 
 final class AudioBlockViewModel: BlockViewModelProtocol {
     private(set) var playerItem: AVPlayerItem?
 
-    var hashable: AnyHashable { [ info ] as [AnyHashable] }
-
-    let info: BlockInformation
-    let fileData: BlockFile
+    var hashable: AnyHashable { info.id }
+    var info: BlockInformation { informantionProvider.info }
+    let informantionProvider: BlockModelInfomationProvider
+    var fileData: BlockFile? {
+        guard case let .file(fileData) = info.content else { return nil }
+        guard fileData.contentType == .audio else {
+            anytypeAssertionFailure(
+                "Wrong content type, audio expected", info: ["contentType": "\(fileData.contentType)"]
+            )
+            return nil
+        }
+        
+        return fileData
+    }
     let audioSessionService: AudioSessionServiceProtocol
 
     let showAudioPicker: (BlockId) -> ()
@@ -20,23 +30,22 @@ final class AudioBlockViewModel: BlockViewModelProtocol {
     weak var audioPlayerView: AudioPlayerViewInput?
 
     init(
-        info: BlockInformation,
-        fileData: BlockFile,
+        informationProvider: BlockModelInfomationProvider,
         audioSessionService: AudioSessionServiceProtocol,
         showAudioPicker: @escaping (BlockId) -> ()
     ) {
-        self.info = info
-        self.fileData = fileData
+        self.informantionProvider = informationProvider
         self.audioSessionService = audioSessionService
         self.showAudioPicker = showAudioPicker
 
-        if let url = fileData.contentUrl {
+        if let url = fileData?.contentUrl {
             self.playerItem = AVPlayerItem(url: url)
         }
     }
 
     func didSelectRowInTableView(editorEditingState: EditorEditingState) {
         if case .readonly = editorEditingState { return }
+        guard let fileData = fileData else { return }
         switch fileData.state {
         case .empty, .error:
             showAudioPicker(blockId)
@@ -45,7 +54,11 @@ final class AudioBlockViewModel: BlockViewModelProtocol {
         }
     }
 
-    func makeContentConfiguration(maxWidth _ : CGFloat) -> UIContentConfiguration {
+    func makeContentConfiguration(maxWidth width: CGFloat) -> UIContentConfiguration {
+        guard let fileData = fileData else {
+            return UnsupportedBlockViewModel(info: info)
+                .makeContentConfiguration(maxWidth: width)
+        }
         switch fileData.state {
         case .empty:
             return emptyViewConfiguration(text: Loc.Content.Audio.upload, state: .default)
@@ -63,8 +76,8 @@ final class AudioBlockViewModel: BlockViewModelProtocol {
                 trackId: info.id,
                 audioPlayerViewDelegate: self
             ).cellBlockConfiguration(
-                indentationSettings: .init(with: info.configurationData),
-                dragConfiguration: .init(id: info.id)
+                dragConfiguration: .init(id: info.id),
+                styleConfiguration: .init(backgroundColor: info.backgroundColor?.backgroundColor.color)
             )
         }
     }
@@ -75,8 +88,8 @@ final class AudioBlockViewModel: BlockViewModelProtocol {
             text: text,
             state: state
         ).cellBlockConfiguration(
-            indentationSettings: .init(with: info.configurationData),
-            dragConfiguration: .init(id: info.id)
+            dragConfiguration: .init(id: info.id),
+            styleConfiguration: .init(backgroundColor: info.backgroundColor?.backgroundColor.color)
         )
     }
     

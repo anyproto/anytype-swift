@@ -1,12 +1,12 @@
 import UIKit
 
 extension CursorModeAccessoryView {
-    enum Item {
-        case mention
+    enum Item: CaseIterable, Hashable, Equatable {
         case slash
         case style
         case actions
-
+        case mention
+        
         var image: UIImage? {
             switch self {
             case .mention:

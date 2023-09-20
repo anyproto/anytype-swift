@@ -23,8 +23,8 @@ class SetDocument: SetDocumentProtocol {
         document.detailsPublisher
     }
     
-    var updatePublisher: AnyPublisher<DocumentUpdate, Never> {
-        document.updatePublisher
+    var syncStatus: AnyPublisher<SyncStatus, Never> {
+        document.syncStatus
     }
     
     var forPreview: Bool { document.forPreview }
@@ -241,8 +241,8 @@ class SetDocument: SetDocumentProtocol {
     // MARK: - Private
     
     private func setup() {
-        document.updatePublisher.sink { [weak self] update in
-            self?.onDocumentUpdate(update)
+        document.syncPublisher.sink { [weak self] update in
+            self?.updateData()
         }
         .store(in: &subscriptions)
         
@@ -251,15 +251,6 @@ class SetDocument: SetDocumentProtocol {
             self?.triggerSync()
         }
         .store(in: &subscriptions)
-    }
-    
-    private func onDocumentUpdate(_ data: DocumentUpdate) {
-        switch data {
-        case .general, .blocks, .details, .dataSourceUpdate:
-            updateData()
-        case .syncStatus(let status):
-            updateSubject.send(.syncStatus(status))
-        }
     }
     
     private func updateData() {

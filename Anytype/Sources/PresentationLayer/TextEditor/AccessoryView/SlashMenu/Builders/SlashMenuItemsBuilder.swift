@@ -4,7 +4,7 @@ import AnytypeCore
 struct SlashMenuItemsBuilder {
     private let searchService: SearchServiceProtocol
     
-    init(searchService: SearchServiceProtocol = ServiceLocator.shared.searchService()) {
+    init(searchService: SearchServiceProtocol) {
         self.searchService = searchService
     }
     

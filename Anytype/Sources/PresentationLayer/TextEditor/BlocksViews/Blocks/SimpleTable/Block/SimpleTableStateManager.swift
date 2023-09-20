@@ -37,7 +37,7 @@ final class SimpleTableStateManager: SimpleTableStateManagerProtocol {
     @Published var selectedMenuTab: SimpleTableMenuView.Tab = .cell
 
     private let selectedIndexPathsSubject = PassthroughSubject<[IndexPath], Never>()
-    private let tableBlockInformation: BlockInformation
+    private let blockInformationProvider: BlockModelInfomationProvider
     private let document: BaseDocumentProtocol
     private let selectionOptionHandler: SimpleTableSelectionOptionHandler
     private let router: EditorRouterProtocol
@@ -59,14 +59,14 @@ final class SimpleTableStateManager: SimpleTableStateManagerProtocol {
 
     init(
         document: BaseDocumentProtocol,
-        tableBlockInformation: BlockInformation,
+        blockInformationProvider: BlockModelInfomationProvider,
         selectionOptionHandler: SimpleTableSelectionOptionHandler,
         router: EditorRouterProtocol,
         cursorManager: EditorCursorManager,
         mainEditorSelectionManager: SimpleTableSelectionHandler?
     ) {
         self.document = document
-        self.tableBlockInformation = tableBlockInformation
+        self.blockInformationProvider = blockInformationProvider
         self.selectionOptionHandler = selectionOptionHandler
         self.router = router
         self.cursorManager = cursorManager
@@ -143,7 +143,7 @@ final class SimpleTableStateManager: SimpleTableStateManagerProtocol {
     }
 
     private func updateMenuItems(for selectedBlocks: [IndexPath]) {
-        guard let computedTable = ComputedTable(blockInformation: tableBlockInformation, infoContainer: document.infoContainer) else {
+        guard let computedTable = ComputedTable(blockInformation: blockInformationProvider.info, infoContainer: document.infoContainer) else {
             return
         }
         let horizontalListItems: [SelectionOptionsItemViewModel]
@@ -181,7 +181,7 @@ final class SimpleTableStateManager: SimpleTableStateManagerProtocol {
         let blockIds = computedTable.cells.blockIds(for: selectedBlocks)
 
         mainEditorSelectionManager?.didStartSimpleTableSelectionMode(
-            simpleTableBlockId: tableBlockInformation.id,
+            simpleTableBlockId: blockInformationProvider.info.id,
             selectedBlockIds: blockIds,
             menuModel: .init(
                 tabs: tabs(),
@@ -206,7 +206,7 @@ final class SimpleTableStateManager: SimpleTableStateManagerProtocol {
 // MARK: - SimpleTableMenuDelegate
 extension SimpleTableStateManager: SimpleTableMenuDelegate {
     func didSelectTab(tab: SimpleTableMenuView.Tab) {
-        guard let table = ComputedTable(blockInformation: tableBlockInformation, infoContainer: document.infoContainer) else {
+        guard let table = ComputedTable(blockInformation: blockInformationProvider.info, infoContainer: document.infoContainer) else {
             return
         }
 
@@ -243,9 +243,9 @@ extension SimpleTableStateManager: SimpleTableMenuDelegate {
 }
 
 // MARK: - BlocksSelectionHandler
-extension SimpleTableStateManager: BlockSelectionHandler {
+extension SimpleTableStateManager {
     func didSelectEditingState(info: BlockInformation) {
-        guard let computedTable = ComputedTable(blockInformation: tableBlockInformation, infoContainer: document.infoContainer),
+        guard let computedTable = ComputedTable(blockInformation: blockInformationProvider.info, infoContainer: document.infoContainer),
               let selectedIndexPath = computedTable.cells.indexPaths(for: info) else {
             return
         }
@@ -260,7 +260,7 @@ extension SimpleTableStateManager: BlockSelectionHandler {
     func didSelectStyleSelection(infos: [BlockInformation]) {
         guard
             let firstInfo = infos.first,
-            let computedTable = ComputedTable(blockInformation: tableBlockInformation, infoContainer: document.infoContainer),
+            let computedTable = ComputedTable(blockInformation: blockInformationProvider.info, infoContainer: document.infoContainer),
               let selectedIndexPath = computedTable.cells.indexPaths(for: firstInfo) else {
             return
         }

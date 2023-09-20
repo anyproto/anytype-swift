@@ -4,12 +4,8 @@ import AnytypeCore
 
 public final class InfoContainer: InfoContainerProtocol {
     
-    private var models = PublishedDictionary<BlockId, BlockInformation>()
+    private var models = PassthroughSubjectDictionary<BlockId, BlockInformation>()
     public init() {}
-    
-    public func publisherFor(id: BlockId) -> AnyPublisher<BlockInformation?, Never> {
-        return models.publisher(id)
-    }
     
     public func children(of id: BlockId) -> [BlockInformation] {
         guard let information = models[id] else {
@@ -60,5 +56,19 @@ public final class InfoContainer: InfoContainerProtocol {
         }
         
         updateAction(entry).flatMap { add($0) }
+    }
+    
+    // MARK: - Published
+    
+    public func publisherFor(id: BlockId) -> AnyPublisher<BlockInformation?, Never> {
+        return models.publisher(id)
+    }
+    
+    public func publishAllValues() {
+        models.publishAllValues()
+    }
+    
+    public func publishValue(for key: BlockId) {
+        models.publishValue(for: key)
     }
 }

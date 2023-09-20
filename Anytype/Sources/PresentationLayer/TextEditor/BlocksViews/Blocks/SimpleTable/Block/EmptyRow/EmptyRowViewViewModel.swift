@@ -4,12 +4,7 @@ import CoreGraphics
 
 struct EmptyRowViewViewModel: SystemContentConfiguationProvider {
     var hashable: AnyHashable {
-        [
-            contextId,
-            rowId,
-            columnId,
-            isHeaderRow
-        ] as [AnyHashable]
+        "\(rowId) - \(columnId)"
     }
 
     init(

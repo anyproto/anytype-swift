@@ -4,12 +4,11 @@ import AnytypeCore
 import Services
 
 final class IconTextAttachment: NSTextAttachment {
-    
     let icon: Icon?
     let size: CGSize
     let rightPadding: CGFloat
     
-    init(icon: Icon?, size: CGSize, rightPadding: CGFloat = 0) {
+    private init(icon: Icon?, size: CGSize, rightPadding: CGFloat = 0) {
         self.icon = icon
         self.size = size
         self.rightPadding = rightPadding
@@ -21,13 +20,29 @@ final class IconTextAttachment: NSTextAttachment {
         fatalError("init(coder:) has not been implemented")
     }
     
+    override func isEqual(_ object: Any?) -> Bool {
+        if let otherObject = object as? IconTextAttachment {
+            return self.hash == otherObject.hash
+        }
+        
+        return false
+    }
+    
+    override var hash: Int {
+        (icon?.hashValue ?? 0)
+            .addingReportingOverflow(size.hashValue).partialValue
+            .addingReportingOverflow(rightPadding.hashValue).partialValue
+    }
+    
     override func attachmentBounds(
         for textContainer: NSTextContainer?,
         proposedLineFragment lineFrag: CGRect,
         glyphPosition position: CGPoint,
         characterIndex charIndex: Int
     ) -> CGRect {
-        guard icon.isNotNil else { return .zero }
+        guard icon.isNotNil else { 
+            return .zero
+        }
         
         let textStorage: NSTextStorage? = textContainer?.layoutManager?.textStorage
         let anyAttribute: Any? = textStorage?.attribute(.font, at: charIndex, effectiveRange: nil)
@@ -43,29 +58,38 @@ final class IconTextAttachment: NSTextAttachment {
         // Shift image to center take into account the offset
         let imageYPoint: CGFloat = -(size.height / 2.0) + yOffset
         let imageOrigin = CGPoint(x: .zero, y: imageYPoint)
+        
+        let rect = CGRect(origin: imageOrigin, size: CGSize(width: size.width + rightPadding, height: size.height))
+        
+        print("REEEECT \(rect)")
 
-        return CGRect(origin: imageOrigin, size: CGSize(width: size.width + rightPadding, height: size.height))
+        return rect
     }
     
     override func viewProvider(for parentView: UIView?, location: NSTextLocation, textContainer: NSTextContainer?) -> NSTextAttachmentViewProvider? {
         super.viewProvider(for: parentView, location: location, textContainer: textContainer)
     }
-    
+
     override var usesTextAttachmentView: Bool {
         super.usesTextAttachmentView
     }
 }
 
 extension IconTextAttachment {
-    convenience init(icon: Icon?, mentionType: ObjectIconImageMentionType) {
-        self.init(icon: icon, size: mentionType.size, rightPadding: mentionType.iconSpacing)
+    static func iconTextAttachment(icon: Icon?, mentionType: ObjectIconImageMentionType) -> IconTextAttachment {
+        IconTextAttachment.init(
+            icon: icon,
+            size: mentionType.size,
+            rightPadding: mentionType.iconSpacing
+        )
     }
 }
 
 final class IconTextAttachmentViewProvider: NSTextAttachmentViewProvider {
-    
     override init(textAttachment: NSTextAttachment, parentView: UIView?, textLayoutManager: NSTextLayoutManager?, location: NSTextLocation) {
         super.init(textAttachment: textAttachment, parentView: parentView, textLayoutManager: textLayoutManager, location: location)
+        
+        tracksTextAttachmentViewBounds = true
     }
     
     override func loadView() {
