@@ -500,6 +500,17 @@
 		2A7DCDE2292E60BA001919B4 /* AddNewRelationCoordinatorAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A7DCDE1292E60BA001919B4 /* AddNewRelationCoordinatorAssembly.swift */; };
 		2A7DCDE4292E7D5A001919B4 /* SearchModuleAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A7DCDE3292E7D5A001919B4 /* SearchModuleAssembly.swift */; };
 		2A7DCDE8292E8260001919B4 /* SearchModuleAssemblyProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A7DCDE7292E8260001919B4 /* SearchModuleAssemblyProtocol.swift */; };
+		2A80D0422AB9EB2000DB0513 /* HomeBottomPanelContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A80D0412AB9EB2000DB0513 /* HomeBottomPanelContainer.swift */; };
+		2A80D04A2ABADD4600DB0513 /* EditorCoordinatorAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A80D0492ABADD4600DB0513 /* EditorCoordinatorAssembly.swift */; };
+		2A80D04C2ABADD5800DB0513 /* EditorSetCoordinatorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A80D04B2ABADD5800DB0513 /* EditorSetCoordinatorView.swift */; };
+		2A80D04E2ABADD6000DB0513 /* EditorSetCoordinatorViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A80D04D2ABADD6000DB0513 /* EditorSetCoordinatorViewModel.swift */; };
+		2A80D0502ABADD6C00DB0513 /* EditorSetCoordinatorAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A80D04F2ABADD6C00DB0513 /* EditorSetCoordinatorAssembly.swift */; };
+		2A80D0552ABAE17F00DB0513 /* EditorNewPageCoordinatorAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A80D0522ABAE17F00DB0513 /* EditorNewPageCoordinatorAssembly.swift */; };
+		2A80D0562ABAE17F00DB0513 /* EditorNewPageCoordinatorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A80D0532ABAE17F00DB0513 /* EditorNewPageCoordinatorView.swift */; };
+		2A80D0572ABAE17F00DB0513 /* EditorNewPageCoordinatorViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A80D0542ABAE17F00DB0513 /* EditorNewPageCoordinatorViewModel.swift */; };
+		2A80D0602ABAE39800DB0513 /* EditorCoordinatorCommonOutput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A80D05F2ABAE39800DB0513 /* EditorCoordinatorCommonOutput.swift */; };
+		2A85B0422AA637F100988ABD /* ApplicationCoordinatorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A85B0402AA637F100988ABD /* ApplicationCoordinatorView.swift */; };
+		2A85B0432AA637F100988ABD /* ApplicationCoordinatorViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A85B0412AA637F100988ABD /* ApplicationCoordinatorViewModel.swift */; };
 		2A8A2DCA2AB9956000105549 /* AppAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A8A2DC92AB9956000105549 /* AppAction.swift */; };
 		2A8A2DCC2AB9960F00105549 /* AppActionStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A8A2DCB2AB9960F00105549 /* AppActionStorage.swift */; };
 		2A8A2DD12AB99B0E00105549 /* ShareCoordinatorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A8A2DD02AB99B0E00105549 /* ShareCoordinatorView.swift */; };
@@ -556,6 +567,8 @@
 		2AA4C26D2A7026C600C2EC66 /* WorkspacesStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AA4C26C2A7026C600C2EC66 /* WorkspacesStorage.swift */; };
 		2AA4C26F2A70287100C2EC66 /* WorkspacesSubscriptionBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AA4C26E2A70287100C2EC66 /* WorkspacesSubscriptionBuilder.swift */; };
 		2AA4E51B29E8547B008632EB /* BlockWidgetLayout+Analytics.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AA4E51A29E8547B008632EB /* BlockWidgetLayout+Analytics.swift */; };
+		2AA7B2902AA63F0800E0E4C0 /* NavigationBackport in Frameworks */ = {isa = PBXBuildFile; productRef = 2AA7B28F2AA63F0800E0E4C0 /* NavigationBackport */; };
+		2AA7B2922AA63FC100E0E4C0 /* EditorNavigationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AA7B2912AA63FC100E0E4C0 /* EditorNavigationView.swift */; };
 		2AA8107229A36412007DD64B /* BrowserBottomPanelManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AA8107129A36412007DD64B /* BrowserBottomPanelManager.swift */; };
 		2AA8107629A3BF90007DD64B /* WidgetObjectListMenuItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AA8107529A3BF90007DD64B /* WidgetObjectListMenuItem.swift */; };
 		2AA8107829A3BFE3007DD64B /* WidgetObjectListMenuBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AA8107729A3BFE3007DD64B /* WidgetObjectListMenuBuilder.swift */; };
@@ -623,6 +636,7 @@
 		2AD06B81285729890006C255 /* TableOfContentsConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AD06B80285729890006C255 /* TableOfContentsConfiguration.swift */; };
 		2AD06B8328572A520006C255 /* TableOfContentsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AD06B8228572A520006C255 /* TableOfContentsView.swift */; };
 		2AD06B8B28573D5B0006C255 /* TableOfContentData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AD06B8A28573D5B0006C255 /* TableOfContentData.swift */; };
+		2AD1FCC12AB8466C00CEBE1E /* SetBottomPanelHidenEnvironment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AD1FCC02AB8466C00CEBE1E /* SetBottomPanelHidenEnvironment.swift */; };
 		2AD239072A8A05BF00F7697A /* SpaceCreateView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AD239062A8A05BF00F7697A /* SpaceCreateView.swift */; };
 		2AD239092A8A05C800F7697A /* SpaceCreateViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AD239082A8A05C800F7697A /* SpaceCreateViewModel.swift */; };
 		2AD2390B2A8A05D200F7697A /* SpaceCreateModuleAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AD2390A2A8A05D200F7697A /* SpaceCreateModuleAssembly.swift */; };
@@ -2098,6 +2112,17 @@
 		2A7DCDE1292E60BA001919B4 /* AddNewRelationCoordinatorAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddNewRelationCoordinatorAssembly.swift; sourceTree = "<group>"; };
 		2A7DCDE3292E7D5A001919B4 /* SearchModuleAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchModuleAssembly.swift; sourceTree = "<group>"; };
 		2A7DCDE7292E8260001919B4 /* SearchModuleAssemblyProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchModuleAssemblyProtocol.swift; sourceTree = "<group>"; };
+		2A80D0412AB9EB2000DB0513 /* HomeBottomPanelContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeBottomPanelContainer.swift; sourceTree = "<group>"; };
+		2A80D0492ABADD4600DB0513 /* EditorCoordinatorAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditorCoordinatorAssembly.swift; sourceTree = "<group>"; };
+		2A80D04B2ABADD5800DB0513 /* EditorSetCoordinatorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditorSetCoordinatorView.swift; sourceTree = "<group>"; };
+		2A80D04D2ABADD6000DB0513 /* EditorSetCoordinatorViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditorSetCoordinatorViewModel.swift; sourceTree = "<group>"; };
+		2A80D04F2ABADD6C00DB0513 /* EditorSetCoordinatorAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditorSetCoordinatorAssembly.swift; sourceTree = "<group>"; };
+		2A80D0522ABAE17F00DB0513 /* EditorNewPageCoordinatorAssembly.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditorNewPageCoordinatorAssembly.swift; sourceTree = "<group>"; };
+		2A80D0532ABAE17F00DB0513 /* EditorNewPageCoordinatorView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditorNewPageCoordinatorView.swift; sourceTree = "<group>"; };
+		2A80D0542ABAE17F00DB0513 /* EditorNewPageCoordinatorViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditorNewPageCoordinatorViewModel.swift; sourceTree = "<group>"; };
+		2A80D05F2ABAE39800DB0513 /* EditorCoordinatorCommonOutput.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditorCoordinatorCommonOutput.swift; sourceTree = "<group>"; };
+		2A85B0402AA637F100988ABD /* ApplicationCoordinatorView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ApplicationCoordinatorView.swift; sourceTree = "<group>"; };
+		2A85B0412AA637F100988ABD /* ApplicationCoordinatorViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ApplicationCoordinatorViewModel.swift; sourceTree = "<group>"; };
 		2A8A2DC92AB9956000105549 /* AppAction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppAction.swift; sourceTree = "<group>"; };
 		2A8A2DCB2AB9960F00105549 /* AppActionStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppActionStorage.swift; sourceTree = "<group>"; };
 		2A8A2DD02AB99B0E00105549 /* ShareCoordinatorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShareCoordinatorView.swift; sourceTree = "<group>"; };
@@ -2145,6 +2170,7 @@
 		2AA4C26C2A7026C600C2EC66 /* WorkspacesStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkspacesStorage.swift; sourceTree = "<group>"; };
 		2AA4C26E2A70287100C2EC66 /* WorkspacesSubscriptionBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkspacesSubscriptionBuilder.swift; sourceTree = "<group>"; };
 		2AA4E51A29E8547B008632EB /* BlockWidgetLayout+Analytics.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "BlockWidgetLayout+Analytics.swift"; sourceTree = "<group>"; };
+		2AA7B2912AA63FC100E0E4C0 /* EditorNavigationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditorNavigationView.swift; sourceTree = "<group>"; };
 		2AA8107129A36412007DD64B /* BrowserBottomPanelManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BrowserBottomPanelManager.swift; sourceTree = "<group>"; };
 		2AA8107529A3BF90007DD64B /* WidgetObjectListMenuItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WidgetObjectListMenuItem.swift; sourceTree = "<group>"; };
 		2AA8107729A3BFE3007DD64B /* WidgetObjectListMenuBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WidgetObjectListMenuBuilder.swift; sourceTree = "<group>"; };
@@ -2212,6 +2238,7 @@
 		2AD06B80285729890006C255 /* TableOfContentsConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableOfContentsConfiguration.swift; sourceTree = "<group>"; };
 		2AD06B8228572A520006C255 /* TableOfContentsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableOfContentsView.swift; sourceTree = "<group>"; };
 		2AD06B8A28573D5B0006C255 /* TableOfContentData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableOfContentData.swift; sourceTree = "<group>"; };
+		2AD1FCC02AB8466C00CEBE1E /* SetBottomPanelHidenEnvironment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetBottomPanelHidenEnvironment.swift; sourceTree = "<group>"; };
 		2AD239062A8A05BF00F7697A /* SpaceCreateView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpaceCreateView.swift; sourceTree = "<group>"; };
 		2AD239082A8A05C800F7697A /* SpaceCreateViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpaceCreateViewModel.swift; sourceTree = "<group>"; };
 		2AD2390A2A8A05D200F7697A /* SpaceCreateModuleAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpaceCreateModuleAssembly.swift; sourceTree = "<group>"; };
@@ -3125,6 +3152,7 @@
 				538ABD50284F9F88000D3CCC /* DequeModule in Frameworks */,
 				2A6ED169285B44DB00AAA21C /* Services in Frameworks */,
 				5333421C262E249100238121 /* FloatingPanel in Frameworks */,
+				2AA7B2902AA63F0800E0E4C0 /* NavigationBackport in Frameworks */,
 				2A6ED16C285B44DB00AAA21C /* ProtobufMessages in Frameworks */,
 				2A6ED166285B44DB00AAA21C /* AnytypeCore in Frameworks */,
 				538ABD52284F9F88000D3CCC /* OrderedCollections in Frameworks */,
@@ -5455,6 +5483,9 @@
 		2A7DCDDB292E4A4E001919B4 /* Flows */ = {
 			isa = PBXGroup;
 			children = (
+				2A80D0452ABADCC700DB0513 /* EditorSetFlow */,
+				2A80D0442ABADCBC00DB0513 /* EditorPageFlow */,
+				2A80D0432ABADCA800DB0513 /* EditorFlow */,
 				2A8A2DCF2AB99AFC00105549 /* ShareCoordinator */,
 				2A5B53B62A80DC9000BC993B /* SpaceSettings */,
 				2AF4C3E1295DE1AB00FD7153 /* CreateWidgetFlow */,
@@ -5462,6 +5493,35 @@
 				2AEE49EC292E27E300EA53AA /* ObjectSettingsFlow */,
 			);
 			path = Flows;
+			sourceTree = "<group>";
+		};
+		2A80D0432ABADCA800DB0513 /* EditorFlow */ = {
+			isa = PBXGroup;
+			children = (
+				2A80D0492ABADD4600DB0513 /* EditorCoordinatorAssembly.swift */,
+				2A80D05F2ABAE39800DB0513 /* EditorCoordinatorCommonOutput.swift */,
+			);
+			path = EditorFlow;
+			sourceTree = "<group>";
+		};
+		2A80D0442ABADCBC00DB0513 /* EditorPageFlow */ = {
+			isa = PBXGroup;
+			children = (
+				2A80D0522ABAE17F00DB0513 /* EditorNewPageCoordinatorAssembly.swift */,
+				2A80D0532ABAE17F00DB0513 /* EditorNewPageCoordinatorView.swift */,
+				2A80D0542ABAE17F00DB0513 /* EditorNewPageCoordinatorViewModel.swift */,
+			);
+			path = EditorPageFlow;
+			sourceTree = "<group>";
+		};
+		2A80D0452ABADCC700DB0513 /* EditorSetFlow */ = {
+			isa = PBXGroup;
+			children = (
+				2A80D04B2ABADD5800DB0513 /* EditorSetCoordinatorView.swift */,
+				2A80D04D2ABADD6000DB0513 /* EditorSetCoordinatorViewModel.swift */,
+				2A80D04F2ABADD6C00DB0513 /* EditorSetCoordinatorAssembly.swift */,
+			);
+			path = EditorSetFlow;
 			sourceTree = "<group>";
 		};
 		2A83ED79285347B700612723 /* TableOfContents */ = {
@@ -5538,6 +5598,8 @@
 				2A94865C2950A59D007A5586 /* HomeWidgetsCoordinatorAssembly.swift */,
 				2AFEED152A73AE8C00D7A45B /* HomeWidgetsCoordinatorView.swift */,
 				2AFEED172A73AEDB00D7A45B /* HomeWidgetsCoordinatorViewModel.swift */,
+				2AD1FCC02AB8466C00CEBE1E /* SetBottomPanelHidenEnvironment.swift */,
+				2A80D0412AB9EB2000DB0513 /* HomeBottomPanelContainer.swift */,
 			);
 			path = HomeWidgetsFlow;
 			sourceTree = "<group>";
@@ -6903,9 +6965,12 @@
 		3D1CEC3227F5D147000D36BA /* AppCoordinator */ = {
 			isa = PBXGroup;
 			children = (
+				2A85B0402AA637F100988ABD /* ApplicationCoordinatorView.swift */,
+				2A85B0412AA637F100988ABD /* ApplicationCoordinatorViewModel.swift */,
 				037AA83322E34601002CB09F /* ApplicationCoordinator.swift */,
 				3D1CEC3327F5D174000D36BA /* WindowManager.swift */,
 				2AD7413629951C43004BD223 /* ApplicationCoordinatorAssembly.swift */,
+				2AA7B2912AA63FC100E0E4C0 /* EditorNavigationView.swift */,
 			);
 			path = AppCoordinator;
 			sourceTree = "<group>";
@@ -9266,6 +9331,7 @@
 				2A01A4F82A1FB507002042FB /* DeviceKit */,
 				2A8CD40D2A28EBE400E3D1EB /* AsyncQueue */,
 				86E69DD52A938CE8009F2221 /* SecureService */,
+				2AA7B28F2AA63F0800E0E4C0 /* NavigationBackport */,
 			);
 			productName = Anytype;
 			productReference = 0303ECFB22D8EDAA005C552B /* Anytype.app */;
@@ -9380,6 +9446,7 @@
 				2A94B5D129B88E95009AE2A7 /* XCRemoteSwiftPackageReference "sentry-cocoa" */,
 				2A01A4F72A1FB4B7002042FB /* XCRemoteSwiftPackageReference "DeviceKit" */,
 				2A8CD40C2A28EBE400E3D1EB /* XCRemoteSwiftPackageReference "swift-async-queue" */,
+				2AA7B28E2AA63F0700E0E4C0 /* XCRemoteSwiftPackageReference "NavigationBackport" */,
 			);
 			productRefGroup = 0303ECFC22D8EDAA005C552B /* Products */;
 			projectDirPath = "";
@@ -9511,6 +9578,7 @@
 				C9A59DEA27E0F40B0063D3E1 /* TextBlockLeadingStyle.swift in Sources */,
 				2AFA1113296DBBD60055422F /* ObjectsCommonSubscriptionDataBuilder.swift in Sources */,
 				3D829172265E50190007C152 /* RedactedText.swift in Sources */,
+				2AD1FCC12AB8466C00CEBE1E /* SetBottomPanelHidenEnvironment.swift in Sources */,
 				C9EF85172938E6A50001E6EC /* TappableLabel.swift in Sources */,
 				2AFA1110296C67B50055422F /* HomeBottomPanelProviderAssembly.swift in Sources */,
 				2EC9426E2901946800DE91E4 /* SetKanbanColumn.swift in Sources */,
@@ -9893,6 +9961,7 @@
 				3D3040F427E2193500FFE0EB /* ObjectHeaderFilledContentSwitfUIView.swift in Sources */,
 				537A73852677FA5F001FEBBB /* CustomTextView+UITextViewDelegate.swift in Sources */,
 				3DA7AD7E2712C7BF00EA45F6 /* CustomTextViewKeyboardAction.swift in Sources */,
+				2A80D0562ABAE17F00DB0513 /* EditorNewPageCoordinatorView.swift in Sources */,
 				2E0797BA2A096571006F0FD7 /* JoinFlowCoordinator.swift in Sources */,
 				2A7DCDE4292E7D5A001919B4 /* SearchModuleAssembly.swift in Sources */,
 				2A2B33302A7BB6BF004BD906 /* SpacePlusRow.swift in Sources */,
@@ -9936,6 +10005,7 @@
 				EAC5728D2621D38A00F25949 /* UIApplicationExtension.swift in Sources */,
 				2A03FD5A2A7A620800CB7191 /* SearchModuleModel.swift in Sources */,
 				1289F59C2733622C00656EC2 /* RelationsListRowView.swift in Sources */,
+				2A80D0602ABAE39800DB0513 /* EditorCoordinatorCommonOutput.swift in Sources */,
 				3D24913327BD271900821595 /* SubscriptionsServiceProtocol.swift in Sources */,
 				3D7C08212684B68600E2168D /* BlockFileViewModel.swift in Sources */,
 				2AF4261F29AF86CD00753B17 /* DashboardAlertsAssembly.swift in Sources */,
@@ -9961,6 +10031,7 @@
 				2AA0209228D3502000321A66 /* Array+SubscriptionUpdate.swift in Sources */,
 				3D93851726FAF46E001C137F /* MentionAssembly.swift in Sources */,
 				53F8210D26528D1A003FEB0B /* CustomTextViewDelegate.swift in Sources */,
+				2A80D0502ABADD6C00DB0513 /* EditorSetCoordinatorAssembly.swift in Sources */,
 				2A5B53B92A80DCA500BC993B /* SpaceSettingsCoordinatorView.swift in Sources */,
 				12C8440426FCE92D00D64B8D /* ObjectHeaderEmptyContentView.swift in Sources */,
 				0303ECFF22D8EDAA005C552B /* AppDelegate.swift in Sources */,
@@ -10232,6 +10303,7 @@
 				53FF7CB826FCDB4B00A5A592 /* ObjectActionsView.swift in Sources */,
 				2AFCEB3F29C8A76900841E13 /* WidgetObjectListCollectionsViewModel.swift in Sources */,
 				2AE906E9296FFE820044A10A /* TextIconPickerModuleAssembly.swift in Sources */,
+				2A85B0432AA637F100988ABD /* ApplicationCoordinatorViewModel.swift in Sources */,
 				3D30416D27EA5E9900FFE0EB /* DataviewService.swift in Sources */,
 				125683D527DF17CE003A8251 /* TagSearchRowView.swift in Sources */,
 				3DCEE135273C18FC00BC5565 /* BeginingOfTextMarkdown.swift in Sources */,
@@ -10248,6 +10320,7 @@
 				2A7BD6E828D8599D008B735C /* RelationSubscriptionDataBuilderProtocol.swift in Sources */,
 				1244794727DC96FB00581174 /* TagsSearchViewModel.swift in Sources */,
 				C90F8F2C28DCBDBA00E874A9 /* FilePreviewContext.swift in Sources */,
+				2A80D04E2ABADD6000DB0513 /* EditorSetCoordinatorViewModel.swift in Sources */,
 				126C46D326BD909300D31DBF /* EditorSection.swift in Sources */,
 				12DE405F264AE455007B5074 /* LayoutProxy.swift in Sources */,
 				120F7D80267F8A2B00327734 /* BlockBookmarkState.swift in Sources */,
@@ -10255,6 +10328,7 @@
 				127EAC0C273A353A00C731F2 /* Relation.swift in Sources */,
 				2EFFEB9629A52537002F5859 /* SetDragAndDropView.swift in Sources */,
 				2E975EC72874BB18004DE574 /* SetViewPickerViewModel.swift in Sources */,
+				2A80D0552ABAE17F00DB0513 /* EditorNewPageCoordinatorAssembly.swift in Sources */,
 				1215E8B626A8610C0089AF7E /* KingfisherConfigurator.swift in Sources */,
 				2A39F3CB29ED97F3005DE8F5 /* BlockTextStyle+Analytics.swift in Sources */,
 				3D2D4C5B27BA54030070A4C6 /* Divider.swift in Sources */,
@@ -10322,10 +10396,12 @@
 				5356072726E61A0F001464A4 /* UnsupportedBlockView.swift in Sources */,
 				1244793127DC575D00581174 /* ListRowConfiguration.swift in Sources */,
 				C955AF232886A61700AF23B5 /* SimpleTableTextCellRestrictions.swift in Sources */,
+				2A80D0572ABAE17F00DB0513 /* EditorNewPageCoordinatorViewModel.swift in Sources */,
 				53BC39A7261B7946004D7EB6 /* CodeBlockContentConfiguration.swift in Sources */,
 				1244794327DC8F8000581174 /* ListSectionConfiguration.swift in Sources */,
 				2AA22F68289BF27500BBA174 /* EditorBrowserView.swift in Sources */,
 				C9767C0628193E2300AEF728 /* DynamicCollectionLayoutView.swift in Sources */,
+				2A85B0422AA637F100988ABD /* ApplicationCoordinatorView.swift in Sources */,
 				53EA4A7326371DAB00968B8E /* StyleColorViewController.swift in Sources */,
 				2A733A8D294082C200B7D27C /* RelationsSearchInteractor.swift in Sources */,
 				2AE7ECA4298816F30079F12B /* WidgetObjectListModuleAssembly.swift in Sources */,
@@ -10538,6 +10614,7 @@
 				3D1CEC2F27F4D9F7000D36BA /* CalendarExtension.swift in Sources */,
 				2AD741292993DB27004BD223 /* BinLinkWidgetViewModel.swift in Sources */,
 				2AE906F1297043A60044A10A /* EditorSetRouter.swift in Sources */,
+				2AA7B2922AA63FC100E0E4C0 /* EditorNavigationView.swift in Sources */,
 				3D1D840F26F4AC330091A78A /* TextTriggerSymbols.swift in Sources */,
 				2EAA14022AA63918000A712A /* SetViewSettingsGroupByModuleAssembly.swift in Sources */,
 				12FD9D2B2767180A00991886 /* RelationUnknown.swift in Sources */,
@@ -10612,6 +10689,7 @@
 				2A673C0F29B0B39300E3D672 /* SettingsCoordinatorAssembly.swift in Sources */,
 				125B6ED426F235F400BCD7D6 /* SlashMenuContentConfigurationFactory.swift in Sources */,
 				2A2B33292A7B9C5E004BD906 /* SpaceSwitchView.swift in Sources */,
+				2A80D0422AB9EB2000DB0513 /* HomeBottomPanelContainer.swift in Sources */,
 				0A83081125D562AC0067EEC9 /* ObjectActionsService.swift in Sources */,
 				3D30410227E364FC00FFE0EB /* ObjectHeaderConstants.swift in Sources */,
 				0ACDB06A25599A0C00B8B0D8 /* BlocksFileEmptyView.swift in Sources */,
@@ -10639,6 +10717,7 @@
 				2ACEAE482984018100B467CE /* WidgetTypeModuleAssembly.swift in Sources */,
 				2AFB54692869989D004F7458 /* ObjectType+Extensions.swift in Sources */,
 				53F820C22648B257003FEB0B /* BlockActionService.swift in Sources */,
+				2A80D04A2ABADD4600DB0513 /* EditorCoordinatorAssembly.swift in Sources */,
 				C9C283822864727C00F035C5 /* GenericCollectionViewCell.swift in Sources */,
 				2AECFD4228993CA2000E9CFB /* RelationValueModuleAssemblyProtocol.swift in Sources */,
 				3D3040CE27DF664600FFE0EB /* ObjectSettingBuilder.swift in Sources */,
@@ -10814,6 +10893,7 @@
 				2ECB34132A97AC3500E0F9BB /* SetTextViewModuleAssembly.swift in Sources */,
 				C93B2D2F274E41390008544D /* CustomStateKeys.swift in Sources */,
 				2A2C3311289294B8008BC326 /* ModulesDI.swift in Sources */,
+				2A80D04C2ABADD5800DB0513 /* EditorSetCoordinatorView.swift in Sources */,
 				2AFFFB9B292778B700A487E1 /* ObjectSettingModuleAssembly.swift in Sources */,
 				12928C8C27BD3C0B00CE94C3 /* IntrinsicPopupLayout.swift in Sources */,
 				538F1728272C126F009528E7 /* SearchViewModelProtocol.swift in Sources */,
@@ -11762,6 +11842,14 @@
 				version = 8.8.0;
 			};
 		};
+		2AA7B28E2AA63F0700E0E4C0 /* XCRemoteSwiftPackageReference "NavigationBackport" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/johnpatrickmorgan/NavigationBackport.git";
+			requirement = {
+				kind = exactVersion;
+				version = 0.9.0;
+			};
+		};
 		5333421A262E249100238121 /* XCRemoteSwiftPackageReference "FloatingPanel" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "git@github.com:scenee/FloatingPanel.git";
@@ -11869,6 +11957,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 2A94B5D129B88E95009AE2A7 /* XCRemoteSwiftPackageReference "sentry-cocoa" */;
 			productName = Sentry;
+		};
+		2AA7B28F2AA63F0800E0E4C0 /* NavigationBackport */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 2AA7B28E2AA63F0700E0E4C0 /* XCRemoteSwiftPackageReference "NavigationBackport" */;
+			productName = NavigationBackport;
 		};
 		5333421B262E249100238121 /* FloatingPanel */ = {
 			isa = XCSwiftPackageProductDependency;

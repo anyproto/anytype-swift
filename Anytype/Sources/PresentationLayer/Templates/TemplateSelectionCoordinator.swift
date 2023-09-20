@@ -84,6 +84,7 @@ final class TemplateSelectionCoordinator: TemplateSelectionCoordinatorProtocol {
         onTemplateSelection: @escaping (BlockId) -> Void,
         onSetAsDefaultTempalte: @escaping (BlockId) -> Void
     ) {
+        // TODO: Navigation: Check and fit it
         let editorPage = editorAssembly.buildEditorModule(
             browser: nil,
             data: .page(
@@ -98,7 +99,8 @@ final class TemplateSelectionCoordinator: TemplateSelectionCoordinatorProtocol {
         )
         handler = TemplateSelectionObjectSettingsHandler(useAsTemplateAction: onSetAsDefaultTempalte)
         let editingTemplateViewController = TemplateEditingViewController(
-            editorViewController: editorPage.vc,
+            editorViewController: UIViewController(),
+//            editorViewController: editorPage.vc,
             onSettingsTap: { [weak self] in
                 guard let self = self, let handler = self.handler else { return }
                 

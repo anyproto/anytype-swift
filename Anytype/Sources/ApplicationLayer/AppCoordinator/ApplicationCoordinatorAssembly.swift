@@ -1,8 +1,13 @@
 import Foundation
+import SwiftUI
 
 protocol ApplicationCoordinatorAssemblyProtocol: AnyObject {
+    // TODO: Navigation: Delete it
     @MainActor
     func make() -> ApplicationCoordinatorProtocol
+    
+    @MainActor
+    func makeView() -> AnyView
 }
 
 final class ApplicationCoordinatorAssembly: ApplicationCoordinatorAssemblyProtocol {
@@ -43,5 +48,22 @@ final class ApplicationCoordinatorAssembly: ApplicationCoordinatorAssemblyProtoc
             fileErrorEventHandler: serviceLocator.fileErrorEventHandler(),
             toastPresenter: uiHelpersDI.toastPresenter()
         )
+    }
+    
+    @MainActor
+    func makeView() -> AnyView {
+        return ApplicationCoordinatorView(
+            model: ApplicationCoordinatorViewModel(
+                authService: self.serviceLocator.authService(),
+                accountEventHandler: self.serviceLocator.accountEventHandler(),
+                applicationStateService: self.serviceLocator.applicationStateService(),
+                accountManager: self.serviceLocator.accountManager(),
+                seedService: self.serviceLocator.seedService(),
+                fileErrorEventHandler: self.serviceLocator.fileErrorEventHandler(),
+                toastPresenter: self.uiHelpersDI.toastPresenter(),
+                authCoordinatorAssembly: self.coordinatorsDI.authorization(),
+                homeWidgetsCoordinatorAssembly: self.coordinatorsDI.homeWidgets()
+            )
+        ).eraseToAnyView()
     }
 }

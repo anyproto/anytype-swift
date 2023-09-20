@@ -2,6 +2,7 @@ import SwiftUI
 import Services
 import Combine
 
+// TODO: Navigation: Delete it
 final class EditorBrowserAssembly {
     
     private let coordinatorsDI: CoordinatorsDIProtocol
@@ -19,19 +20,19 @@ final class EditorBrowserAssembly {
     ) -> EditorBrowserController {
         let browser = EditorBrowserController(dashboardService: serviceLocator.dashboardService(), activeWorkspaceStorage: serviceLocator.activeWorkspaceStorage())
 
-        if addRoot {
-            // Legacy logic. Delete with homeWidgets toggle
-            let (page, moduleRouter) = coordinatorsDI.editor()
-                .buildEditorModule(browser: browser, data: data, widgetListOutput: nil)
-            
-            browser.childNavigation = navigationStack(rootPage: page)
-            browser.router = router ?? moduleRouter
-        } else {
-            browser.childNavigation = navigationStack(rootPage: nil)
-            browser.router = router
-        }
-        
-        browser.setup()
+//        if addRoot {
+//            // Legacy logic. Delete with homeWidgets toggle
+//            let (page, moduleRouter) = coordinatorsDI.editor()
+//                .buildEditorModule(browser: browser, data: data, widgetListOutput: nil)
+//
+//            browser.childNavigation = navigationStack(rootPage: page)
+//            browser.router = router ?? moduleRouter
+//        } else {
+//            browser.childNavigation = navigationStack(rootPage: nil)
+//            browser.router = router
+//        }
+//
+//        browser.setup()
         
         return browser
     }

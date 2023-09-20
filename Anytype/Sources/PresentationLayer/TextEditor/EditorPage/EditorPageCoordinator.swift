@@ -33,17 +33,17 @@ final class EditorPageCoordinator: EditorPageCoordinatorProtocol, WidgetObjectLi
             return
         }
         
-        let controller = editorAssembly.buildEditorController(
-            browser: browserController,
-            data: data,
-            widgetListOutput: self
-        )
-        
-        if replaceCurrentPage {
-            browserController?.childNavigation?.replaceLastViewController(controller, animated: false)
-        } else {
-            browserController?.childNavigation?.pushViewController(controller, animated: true)
-        }
+//        let controller = editorAssembly.buildEditorController(
+//            browser: browserController,
+//            data: data,
+//            widgetListOutput: self
+//        )
+//
+//        if replaceCurrentPage {
+//            browserController?.childNavigation?.replaceLastViewController(controller, animated: false)
+//        } else {
+//            browserController?.childNavigation?.pushViewController(controller, animated: true)
+//        }
     }
     
     // MARK: - WidgetObjectListCommonModuleOutput
@@ -53,6 +53,8 @@ final class EditorPageCoordinator: EditorPageCoordinatorProtocol, WidgetObjectLi
     }
     
     // MARK: - Private
+    
+    // TODO: Navigation: Move unsupported logic to navigation
     
     private func showUnsupportedTypeAlert(documentId: String) {
         Task { @MainActor in

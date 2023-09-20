@@ -9,6 +9,7 @@ final class EditorSetViewModel: ObservableObject {
     @Published private(set) var headerModel: ObjectHeaderViewModel!
     @Published var loadingDocument = true
     @Published var featuredRelations = [Relation]()
+    @Published var dismiss = false
     
     private var recordsDict: OrderedDictionary<String, [ObjectDetails]> = [:]
     private var groups: [DataviewGroup] = [] {
@@ -185,7 +186,8 @@ final class EditorSetViewModel: ObservableObject {
                 self.onDataviewUpdate()
                 self.logModuleScreen()
             } catch {
-                self.router?.closeEditor()
+                self.dismiss.toggle()
+//                self.router?.closeEditor()
             }
         }
     }
@@ -200,7 +202,8 @@ final class EditorSetViewModel: ObservableObject {
     
     func onAppear() {
         startSubscriptionIfNeeded()
-        router?.setNavigationViewHidden(false, animated: true)
+//        router?.setNavigationViewHidden(false, animated: true)
+//        isAppear = true
     }
     
     func onWillDisappear() {

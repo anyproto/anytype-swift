@@ -28,6 +28,7 @@ final class WidgetObjectListViewModel: ObservableObject, OptionsItemProvider, Wi
     var editModel: WidgetObjectListEditMode { internalModel.editMode }
     @Published private(set) var selectButtonText: String = ""
     @Published private(set) var showActionPanel: Bool = false
+    @Published private(set) var homeBottomPanelHiddel: Bool = false
     var contentIsNotEmpty: Bool { rowDetails.contains { $0.details.isNotEmpty } }
     var isSheet: Bool
     
@@ -225,6 +226,7 @@ final class WidgetObjectListViewModel: ObservableObject, OptionsItemProvider, Wi
         updateSelectButtonTitle()
         updateActions()
         showActionPanel = selectedRowIds.isNotEmpty
-        bottomPanelManager?.setNavigationViewHidden(selectedRowIds.isNotEmpty, animated: false)
+        homeBottomPanelHiddel = selectedRowIds.isNotEmpty
+//        bottomPanelManager?.setNavigationViewHidden(selectedRowIds.isNotEmpty, animated: false)
     }
 }

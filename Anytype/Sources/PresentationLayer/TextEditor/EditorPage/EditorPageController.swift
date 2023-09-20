@@ -397,7 +397,7 @@ extension EditorPageController: EditorPageViewInput {
     }
 
     func showDeletedScreen(_ show: Bool) {
-        navigationController?.setNavigationBarHidden(show, animated: false)
+//        navigationController?.setNavigationBarHidden(show, animated: false)
         deletedScreen.isHidden = !show
         if show { UIApplication.shared.hideKeyboard() }
     }

@@ -2,13 +2,14 @@ import Foundation
 import SwiftUI
 
 protocol WidgetObjectListModuleAssemblyProtocol: AnyObject {
-    func makeFavorites(bottomPanelManager: BrowserBottomPanelManagerProtocol, output: WidgetObjectListCommonModuleOutput?) -> UIViewController
-    func makerecentEdit(bottomPanelManager: BrowserBottomPanelManagerProtocol, output: WidgetObjectListCommonModuleOutput?) -> UIViewController
-    func makeRecentOpen(bottomPanelManager: BrowserBottomPanelManagerProtocol, output: WidgetObjectListCommonModuleOutput?) -> UIViewController
-    func makeSets(bottomPanelManager: BrowserBottomPanelManagerProtocol, output: WidgetObjectListCommonModuleOutput?) -> UIViewController
-    func makeCollections(bottomPanelManager: BrowserBottomPanelManagerProtocol, output: WidgetObjectListCommonModuleOutput?) -> UIViewController
-    func makeBin(bottomPanelManager: BrowserBottomPanelManagerProtocol, output: WidgetObjectListCommonModuleOutput?) -> UIViewController
-    func makeFiles() -> UIViewController
+    // TODO: Navigation: Delete BrowserBottomPanelManagerProtocol
+    func makeFavorites(bottomPanelManager: BrowserBottomPanelManagerProtocol?, output: WidgetObjectListCommonModuleOutput?) -> AnyView
+    func makerecentEdit(bottomPanelManager: BrowserBottomPanelManagerProtocol?, output: WidgetObjectListCommonModuleOutput?) -> AnyView
+    func makeRecentOpen(bottomPanelManager: BrowserBottomPanelManagerProtocol?, output: WidgetObjectListCommonModuleOutput?) -> AnyView
+    func makeSets(bottomPanelManager: BrowserBottomPanelManagerProtocol?, output: WidgetObjectListCommonModuleOutput?) -> AnyView
+    func makeCollections(bottomPanelManager: BrowserBottomPanelManagerProtocol?, output: WidgetObjectListCommonModuleOutput?) -> AnyView
+    func makeBin(bottomPanelManager: BrowserBottomPanelManagerProtocol?, output: WidgetObjectListCommonModuleOutput?) -> AnyView
+    func makeFiles() -> AnyView
 }
 
 final class WidgetObjectListModuleAssembly: WidgetObjectListModuleAssemblyProtocol {
@@ -23,65 +24,93 @@ final class WidgetObjectListModuleAssembly: WidgetObjectListModuleAssemblyProtoc
     
     // MARK: - WidgetObjectListModuleAssemblyProtocol
     
-    func makeFavorites(bottomPanelManager: BrowserBottomPanelManagerProtocol, output: WidgetObjectListCommonModuleOutput?) -> UIViewController {
-        let model = WidgetObjectListFavoritesViewModel(
-            favoriteSubscriptionService: serviceLocator.favoriteSubscriptionService(),
-            activeWorkspaceStorage: serviceLocator.activeWorkspaceStorage(),
-            documentService: serviceLocator.documentService(),
-            objectActionService: serviceLocator.objectActionsService()
+    func makeFavorites(bottomPanelManager: BrowserBottomPanelManagerProtocol?, output: WidgetObjectListCommonModuleOutput?) -> AnyView {
+        return make(
+            internalModel: WidgetObjectListFavoritesViewModel(
+                favoriteSubscriptionService: self.serviceLocator.favoriteSubscriptionService(),
+                activeWorkspaceStorage: self.serviceLocator.activeWorkspaceStorage(),
+                documentService: self.serviceLocator.documentService(),
+                objectActionService: self.serviceLocator.objectActionsService()
+            ),
+            bottomPanelManager: bottomPanelManager,
+            output: output
         )
-        return make(internalModel: model, bottomPanelManager: bottomPanelManager, output: output)
     }
     
-    func makerecentEdit(bottomPanelManager: BrowserBottomPanelManagerProtocol, output: WidgetObjectListCommonModuleOutput?) -> UIViewController {
-        let model = WidgetObjectListRecentViewModel(type: .recentEdit, recentSubscriptionService: serviceLocator.recentSubscriptionService())
-        return make(internalModel: model, bottomPanelManager: bottomPanelManager, output: output)
+    func makerecentEdit(bottomPanelManager: BrowserBottomPanelManagerProtocol?, output: WidgetObjectListCommonModuleOutput?) -> AnyView {
+        return make(
+            internalModel: WidgetObjectListRecentViewModel(
+                type: .recentEdit,
+                recentSubscriptionService: self.serviceLocator.recentSubscriptionService()
+            ),
+            bottomPanelManager: bottomPanelManager,
+            output: output
+        )
     }
     
-    func makeRecentOpen(bottomPanelManager: BrowserBottomPanelManagerProtocol, output: WidgetObjectListCommonModuleOutput?) -> UIViewController {
-        let model = WidgetObjectListRecentViewModel(type: .recentOpen, recentSubscriptionService: serviceLocator.recentSubscriptionService())
-        return make(internalModel: model, bottomPanelManager: bottomPanelManager, output: output)
+    func makeRecentOpen(bottomPanelManager: BrowserBottomPanelManagerProtocol?, output: WidgetObjectListCommonModuleOutput?) -> AnyView {
+        return make(
+            internalModel: WidgetObjectListRecentViewModel(
+                type: .recentOpen,
+                recentSubscriptionService: self.serviceLocator.recentSubscriptionService()
+            ),
+            bottomPanelManager: bottomPanelManager,
+            output: output
+        )
     }
     
-    func makeSets(bottomPanelManager: BrowserBottomPanelManagerProtocol, output: WidgetObjectListCommonModuleOutput?) -> UIViewController {
-        let model = WidgetObjectListSetsViewModel(setsSubscriptionService: serviceLocator.setsSubscriptionService())
-        return make(internalModel: model, bottomPanelManager: bottomPanelManager, output: output)
+    func makeSets(bottomPanelManager: BrowserBottomPanelManagerProtocol?, output: WidgetObjectListCommonModuleOutput?) -> AnyView {
+        return make(
+            internalModel: WidgetObjectListSetsViewModel(setsSubscriptionService: self.serviceLocator.setsSubscriptionService()),
+            bottomPanelManager: bottomPanelManager,
+            output: output
+        )
     }
     
-    func makeCollections(bottomPanelManager: BrowserBottomPanelManagerProtocol, output: WidgetObjectListCommonModuleOutput?) -> UIViewController {
-        let model = WidgetObjectListCollectionsViewModel(subscriptionService: serviceLocator.collectionsSubscriptionService())
-        return make(internalModel: model, bottomPanelManager: bottomPanelManager, output: output)
+    func makeCollections(bottomPanelManager: BrowserBottomPanelManagerProtocol?, output: WidgetObjectListCommonModuleOutput?) -> AnyView {
+        return make(
+            internalModel: WidgetObjectListCollectionsViewModel(subscriptionService: self.serviceLocator.collectionsSubscriptionService()),
+            bottomPanelManager: bottomPanelManager,
+            output: output
+        )
     }
     
-    func makeBin(bottomPanelManager: BrowserBottomPanelManagerProtocol, output: WidgetObjectListCommonModuleOutput?) -> UIViewController {
-        let model = WidgetObjectListBinViewModel(binSubscriptionService: serviceLocator.binSubscriptionService())
-        return make(internalModel: model, bottomPanelManager: bottomPanelManager, output: output)
+    func makeBin(bottomPanelManager: BrowserBottomPanelManagerProtocol?, output: WidgetObjectListCommonModuleOutput?) -> AnyView {
+        return make(
+            internalModel: WidgetObjectListBinViewModel(binSubscriptionService: self.serviceLocator.binSubscriptionService()),
+            bottomPanelManager: bottomPanelManager,
+            output: output
+        )
     }
     
-    func makeFiles() -> UIViewController {
-        let model = WidgetObjectListFilesViewModel(subscriptionService: serviceLocator.filesSubscriptionManager())
-        return make(internalModel: model, bottomPanelManager: nil, output: nil, isSheet: true)
+    func makeFiles() -> AnyView {
+        return make(
+            internalModel: WidgetObjectListFilesViewModel(subscriptionService: self.serviceLocator.filesSubscriptionManager()),
+            bottomPanelManager: nil,
+            output: nil,
+            isSheet: true
+        )
     }
     
     // MARK: - Private
     
     private func make(
-        internalModel: WidgetObjectListInternalViewModelProtocol,
+        internalModel: @autoclosure @escaping () -> WidgetObjectListInternalViewModelProtocol,
         bottomPanelManager: BrowserBottomPanelManagerProtocol?,
         output: WidgetObjectListCommonModuleOutput?,
         isSheet: Bool = false
-    ) -> UIViewController {
+    ) -> AnyView {
         
-        let model = WidgetObjectListViewModel(
-            internalModel: internalModel,
+        let view = WidgetObjectListView(model: WidgetObjectListViewModel(
+            internalModel: internalModel(),
             bottomPanelManager: bottomPanelManager,
-            objectActionService: serviceLocator.objectActionsService(),
+            objectActionService: self.serviceLocator.objectActionsService(),
             menuBuilder: WidgetObjectListMenuBuilder(),
-            alertOpener: uiHelpersDI.alertOpener(),
+            alertOpener: self.uiHelpersDI.alertOpener(),
             output: output,
             isSheet: isSheet
-        )
-        let view = WidgetObjectListView(model: model)
-        return WidgetObjectListHostingController(model: model, rootView: view)
+        ))
+        return view.eraseToAnyView()
+//        return WidgetObjectListHostingController(model: model, rootView: view)
     }
 }

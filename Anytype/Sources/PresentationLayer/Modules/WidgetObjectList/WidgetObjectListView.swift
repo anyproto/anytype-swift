@@ -2,14 +2,15 @@ import SwiftUI
 
 struct WidgetObjectListView: View {
     
-    @ObservedObject var model: WidgetObjectListViewModel
+    @StateObject var model: WidgetObjectListViewModel
     @State private var searchText: String = ""
-    @State private var editMode: EditMode
+    // TODO: Navigation: Delete edit mode configurataion
+    @State private var editMode: EditMode = .active
     
-    init(model: WidgetObjectListViewModel) {
-        self.model = model
-        self._editMode = State(initialValue: (model.editModel == .editOnly) ? .active : .inactive)
-    }
+//    init(model: WidgetObjectListViewModel) {
+//        self.model = model
+//        self._editMode = State(initialValue: (model.editModel == .editOnly) ? .active : .inactive)
+//    }
     
     var body: some View {
         ZStack(alignment: .bottom) {
@@ -37,8 +38,10 @@ struct WidgetObjectListView: View {
         }
         .onChange(of: searchText) { model.didAskToSearch(text: $0) }
         .onChange(of: editMode) { _ in model.onSwitchEditMode() }
+        .navigationBarTitle("")
         .navigationBarHidden(true)
         .environment(\.editMode, $editMode)
+        .homeBottomPanelHidden(model.homeBottomPanelHiddel)
     }
     
     @ViewBuilder

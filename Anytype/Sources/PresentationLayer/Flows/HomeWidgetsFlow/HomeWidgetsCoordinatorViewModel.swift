@@ -3,6 +3,7 @@ import SwiftUI
 import Combine
 import Services
 import AnytypeCore
+import NavigationBackport
 
 @MainActor
 final class HomeWidgetsCoordinatorViewModel: ObservableObject,
@@ -26,6 +27,7 @@ final class HomeWidgetsCoordinatorViewModel: ObservableObject,
     private let spaceCreateModuleAssembly: SpaceCreateModuleAssemblyProtocol
     private let spaceSettingsCoordinatorAssembly: SpaceSettingsCoordinatorAssemblyProtocol
     private let shareCoordinatorAssembly: ShareCoordinatorAssemblyProtocol
+    private let editorCoordinatorAssembly: EditorCoordinatorAssemblyProtocol
     
     // MARK: - State
     
@@ -40,6 +42,8 @@ final class HomeWidgetsCoordinatorViewModel: ObservableObject,
     @Published var showSpaceSettings: Bool = false
     @Published var showSpaceCreate: Bool = false
     @Published var showSharing: Bool = false
+//    @Published var editor: EditorScreenData?
+    @Published var editorPath = NBNavigationPath()
     
     @Published var info: AccountInfo? {
         didSet {
@@ -66,7 +70,8 @@ final class HomeWidgetsCoordinatorViewModel: ObservableObject,
         spaceSwitchModuleAssembly: SpaceSwitchModuleAssemblyProtocol,
         spaceCreateModuleAssembly: SpaceCreateModuleAssemblyProtocol,
         spaceSettingsCoordinatorAssembly: SpaceSettingsCoordinatorAssemblyProtocol,
-        shareCoordinatorAssembly: ShareCoordinatorAssemblyProtocol
+        shareCoordinatorAssembly: ShareCoordinatorAssemblyProtocol,
+        editorCoordinatorAssembly: EditorCoordinatorAssemblyProtocol
     ) {
         self.homeWidgetsModuleAssembly = homeWidgetsModuleAssembly
         self.activeWorkspaceStorage = activeWorkspaceStorage
@@ -83,6 +88,7 @@ final class HomeWidgetsCoordinatorViewModel: ObservableObject,
         self.spaceCreateModuleAssembly = spaceCreateModuleAssembly
         self.spaceSettingsCoordinatorAssembly = spaceSettingsCoordinatorAssembly
         self.shareCoordinatorAssembly = shareCoordinatorAssembly
+        self.editorCoordinatorAssembly = editorCoordinatorAssembly
     }
 
     func onAppear() {
@@ -148,6 +154,10 @@ final class HomeWidgetsCoordinatorViewModel: ObservableObject,
     
     func createSharingModule() -> AnyView {
         return shareCoordinatorAssembly.make()
+    }
+    
+    func editorModule(data: EditorScreenData) -> AnyView {
+        return editorCoordinatorAssembly.make(data: data)
     }
  
     // MARK: - HomeWidgetsModuleOutput
@@ -243,10 +253,14 @@ final class HomeWidgetsCoordinatorViewModel: ObservableObject,
     // MARK: - Private
     
     private func openObject(screenData: EditorScreenData) {
-        editorBrowserCoordinator.startFlow(data: screenData)
+        editorPath.push(screenData)
+//        editor = screenData
+//        editorBrowserCoordinator.startFlow(data: screenData)
     }
     
     private func createAndShowNewPage() {
+//        editor = .bin
+//        editorPath.push(screenData)
         Task {
             guard let details = try? await dashboardService.createNewPage(spaceId: activeWorkspaceStorage.workspaceInfo.accountSpaceId) else { return }
             AnytypeAnalytics.instance().logCreateObject(objectType: details.analyticsType, route: .navigation, view: .home)

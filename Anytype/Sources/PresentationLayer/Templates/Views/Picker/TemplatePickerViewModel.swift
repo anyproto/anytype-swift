@@ -1,9 +1,10 @@
 import Services
+import SwiftUI
 
 final class TemplatePickerViewModel {
     struct Item: Identifiable {
         let id: Int
-        let viewController: GenericUIKitToSwiftUIView
+        let viewController: AnyView
         let object: ObjectDetails
     }
 

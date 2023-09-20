@@ -6,7 +6,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
     var window: UIWindow?
     private var di: DIProtocol?
-    private var applicationCoordinator: ApplicationCoordinatorProtocol?
+//    private var applicationCoordinator: ApplicationCoordinatorProtocol?
     
     // Use this method to optionally configure and attach the UIWindow `window` to the provided UIWindowScene `scene`.
     // If using a storyboard, the `window` property will automatically be initialized and attached to the scene.
@@ -24,11 +24,14 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         let di: DIProtocol = DI(viewControllerProvider: viewControllerProvider)
         self.di = di
         
-        let applicationCoordinator = di.coordinatorsDI.application().make()
-        self.applicationCoordinator = applicationCoordinator
+//        let applicationCoordinator = di.coordinatorsDI.application().make()
+//        self.applicationCoordinator = applicationCoordinator
         
-        applicationCoordinator.start(connectionOptions: connectionOptions)
+//        applicationCoordinator.start(connectionOptions: connectionOptions)
 
+        let applicationView = di.coordinatorsDI.application().makeView()
+        window.rootViewController = UIHostingController(rootView: applicationView)
+        window.makeKeyAndVisible()
         window.overrideUserInterfaceStyle = UserDefaultsConfig.userInterfaceStyle
         
         ToastPresenter.shared = ToastPresenter(
@@ -62,7 +65,9 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         guard URLContexts.count == 1, let context = URLContexts.first else {
             return
         }
+        
+        // TODO: Navigation: Fix handling
 
-        applicationCoordinator?.handleDeeplink(url: context.url)
+//        applicationCoordinator?.handleDeeplink(url: context.url)
     }
 }

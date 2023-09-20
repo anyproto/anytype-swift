@@ -1,5 +1,6 @@
 import Foundation
 import SwiftUI
+import NavigationBackport
 
 struct HomeWidgetsCoordinatorView: View {
     
@@ -7,19 +8,27 @@ struct HomeWidgetsCoordinatorView: View {
     @State private var backgroundOpacity = 0.0
     
     var body: some View {
-        ZStack {
-            Color.Text.primary
-                .opacity(backgroundOpacity)
-                .ignoresSafeArea()
-                .onChange(of: model.homeAnimationId) { newValue in
-                    backgroundOpacity = 0
-                    withAnimation(.easeInOut(duration: 0.2)) {
-                        backgroundOpacity = 0.5
-                    }
+        HomeBottomPanelContainer(path: $model.editorPath) {
+            NBNavigationStack(path: $model.editorPath) {
+                ZStack {
+                    Color.Text.primary
+                        .opacity(backgroundOpacity)
+                        .ignoresSafeArea()
+                        .onChange(of: model.homeAnimationId) { newValue in
+                            backgroundOpacity = 0
+                            withAnimation(.easeInOut(duration: 0.2)) {
+                                backgroundOpacity = 0.5
+                            }
+                        }
+                    model.homeWidgetsModule()
+                        .transition(.asymmetric(insertion: .move(edge: .trailing), removal: .offset(x: -100)))
+                        .animation(.easeInOut(duration: 0.35), value: model.homeAnimationId)
                 }
-            model.homeWidgetsModule()
-                .transition(.asymmetric(insertion: .move(edge: .trailing), removal: .offset(x: -100)))
-                .animation(.easeInOut(duration: 0.35), value: model.homeAnimationId)
+                .nbNavigationDestination(for: EditorScreenData.self) { data in
+                    model.editorModule(data: data)
+                }
+                .fixNavigationBarGesture()
+            }
         }
         .onAppear {
             model.onAppear()

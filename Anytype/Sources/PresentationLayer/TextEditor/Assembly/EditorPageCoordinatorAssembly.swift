@@ -1,6 +1,7 @@
 import Foundation
 import UIKit
 
+// TODO: Navigation: Delete it
 protocol EditorPageCoordinatorAssemblyProtocol: AnyObject {
     func make(browserController: EditorBrowserController?) -> EditorPageCoordinatorProtocol
 }
@@ -22,7 +23,7 @@ final class EditorPageCoordinatorAssembly: EditorPageCoordinatorAssemblyProtocol
     func make(browserController: EditorBrowserController?) -> EditorPageCoordinatorProtocol {
         let coordinator = EditorPageCoordinator(
             browserController: browserController,
-            editorAssembly: coordinatorsID.editor(),
+            editorAssembly: coordinatorsID.editorLegacy(),
             alertHelper: AlertHelper(viewController: browserController),
             objectTypeProvider: serviceLocator.objectTypeProvider()
         )

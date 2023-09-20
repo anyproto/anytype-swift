@@ -121,12 +121,12 @@ final class TemplatesCoordinator {
         let items = availableTemplates.enumerated().map { info -> TemplatePickerViewModel.Item in
             let item = info.element
             let data = item.editorScreenData(isOpenedForPreview: true)
-
+            // TODO: Navigation: Check and fix it
             let editorController = editorPageAssembly.buildEditorController(browser: nil, data: data)
 
             return TemplatePickerViewModel.Item(
                 id: info.offset,
-                viewController: GenericUIKitToSwiftUIView(viewController: editorController),
+                viewController: editorController,
                 object: item
             )
         }

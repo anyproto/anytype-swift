@@ -74,7 +74,7 @@ final class CoordinatorsDI: CoordinatorsDIProtocol {
         return EditorBrowserAssembly(coordinatorsDI: self, serviceLocator: serviceLocator)
     }
     
-    func editor() -> EditorAssembly {
+    func editorLegacy() -> EditorAssembly {
         return EditorAssembly(serviceLocator: serviceLocator, coordinatorsDI: self, modulesDI: modulesDI, uiHelpersDI: uiHelpersDI)
     }
     
@@ -140,5 +140,17 @@ final class CoordinatorsDI: CoordinatorsDIProtocol {
     
     func share() -> ShareCoordinatorAssemblyProtocol {
         ShareCoordinatorAssembly(modulesDI: modulesDI, serviceLocator: serviceLocator)
+    }
+    
+    func editor() -> EditorCoordinatorAssemblyProtocol {
+        EditorCoordinatorAssembly(coordinatorsID: self, modulesDI: modulesDI)
+    }
+    
+    func editorSet() -> EditorSetCoordinatorAssemblyProtocol {
+        EditorSetCoordinatorAssembly(coordinatorsID: self, modulesDI: modulesDI, serviceLocator: serviceLocator, uiHelpersDI: uiHelpersDI)
+    }
+    
+    func editorPage() -> EditorNewPageCoordinatorAssemblyProtocol {
+        EditorNewPageCoordinatorAssembly(coordinatorsID: self, modulesDI: modulesDI, serviceLocator: serviceLocator, uiHelpersDI: uiHelpersDI)
     }
 }
