@@ -194,12 +194,14 @@ final class BlockActionHandler: BlockActionHandlerProtocol {
     }
     
     func changeTextForced(_ text: NSAttributedString, blockId: BlockId) {
+        let safeSendableText = SafeSendable(value: text)
+        
         Task {
             guard let info = document.infoContainer.get(id: blockId) else { return }
             
             guard case .text = info.content else { return }
             
-            let middlewareString = AttributedTextConverter.asMiddleware(attributedText: text)
+            let middlewareString = AttributedTextConverter.asMiddleware(attributedText: safeSendableText.value)
             
             await EventsBunch(
                 contextId: document.objectId,
@@ -211,10 +213,12 @@ final class BlockActionHandler: BlockActionHandlerProtocol {
     }
     
     func changeText(_ text: NSAttributedString, info: BlockInformation) {
+        let safeSendableText = SafeSendable(value: text)
+
         Task {
             guard case .text = info.content else { return }
             
-            let middlewareString = AttributedTextConverter.asMiddleware(attributedText: text)
+            let middlewareString = AttributedTextConverter.asMiddleware(attributedText: safeSendableText.value)
             
             await EventsBunch(
                 contextId: document.objectId,
@@ -271,9 +275,9 @@ final class BlockActionHandler: BlockActionHandlerProtocol {
         blockId: BlockId,
         rowsCount: Int,
         columnsCount: Int,
-        blockText: NSAttributedString?
+        blockText: SafeSendable<NSAttributedString?>
     ) async throws -> BlockId {
-        guard let isTextAndEmpty = blockText?.string.isEmpty
+        guard let isTextAndEmpty = blockText.value?.string.isEmpty
                 ?? document.infoContainer.get(id: blockId)?.isTextAndEmpty else { return "" }
         
         let position: BlockPosition = isTextAndEmpty ? .replace : .bottom

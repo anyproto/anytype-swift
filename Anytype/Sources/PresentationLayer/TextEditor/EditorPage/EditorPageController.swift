@@ -9,10 +9,6 @@ final class EditorPageController: UIViewController {
     let bottomNavigationManager: EditorBottomNavigationManagerProtocol
     private(set) weak var browserViewInput: EditorBrowserViewInputProtocol?
     private(set) lazy var dataSource = makeCollectionViewDataSource()
-    
-    private lazy var deletedScreen = EditorPageDeletedScreen(
-        onBackTap: viewModel.router.closeEditor
-    )
     private weak var firstResponderView: UIView?
 
     let collectionView: EditorCollectionView = {
@@ -396,12 +392,6 @@ extension EditorPageController: EditorPageViewInput {
         // For future changes
     }
 
-    func showDeletedScreen(_ show: Bool) {
-        navigationController?.setNavigationBarHidden(show, animated: false)
-        deletedScreen.isHidden = !show
-        if show { UIApplication.shared.hideKeyboard() }
-    }
-
     func blockDidFinishEditing(blockId: BlockId) {
         self.selectingRangeTextView = nil
         self.selectingRangeEditorItem = nil
@@ -485,10 +475,6 @@ private extension EditorPageController {
         view.addSubview(collectionView) {
             $0.pinToSuperviewPreservingReadability()
         }
-        
-        view.addSubview(deletedScreen) {
-            $0.pinToSuperviewPreservingReadability()
-        }
 
         navigationBarHelper.addFakeNavigationBarBackgroundView(to: view)
 
@@ -497,8 +483,6 @@ private extension EditorPageController {
         }
 
         blocksSelectionOverlayView.isHidden = true
-
-        deletedScreen.isHidden = true
     }
 
     func reloadCell(for item: EditorItem) {

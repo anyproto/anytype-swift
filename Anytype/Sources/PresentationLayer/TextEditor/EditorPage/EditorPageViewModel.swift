@@ -81,10 +81,6 @@ final class EditorPageViewModel: EditorPageViewModelProtocol {
             guard let headerModel = value else { return }
             self?.updateHeaderIfNeeded(headerModel: headerModel)
         }.store(in: &subscriptions)
-        
-        document.detailsPublisher
-            .sink { [weak self] in self?.handleDeletionState(details: $0) }
-            .store(in: &subscriptions)
     }
 
     private func setupLoadingState() {
@@ -157,10 +153,6 @@ final class EditorPageViewModel: EditorPageViewModelProtocol {
             cursorManager.handleGeneralUpdate(with: modelsHolder.items, type: document.details?.type)
             handleTemplatesPopupShowing()
         }
-    }
-    
-    private func handleDeletionState(details: ObjectDetails) {
-        viewInput?.showDeletedScreen(details.isDeleted)
     }
 
     private func difference(

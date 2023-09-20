@@ -188,7 +188,7 @@ final class BlockActionHandlerMock: BlockActionHandlerProtocol {
         assertionFailure()
     }
 
-    func createTable(blockId: Services.BlockId, rowsCount: Int, columnsCount: Int, blockText: NSAttributedString?) async throws -> Services.BlockId {
+    func createTable(blockId: Services.BlockId, rowsCount: Int, columnsCount: Int, blockText: AnytypeCore.SafeSendable<NSAttributedString?>) async throws -> Services.BlockId {
         fatalError()
     }
     
