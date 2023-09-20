@@ -121,7 +121,7 @@ final class HomeWidgetsCoordinator: HomeWidgetsCoordinatorProtocol, HomeWidgetsM
             return
         }
 
-        navigationContext.present(shareView)
+        navigationContext.present(shareView, animated: false)
     }
     
     // MARK: - HomeWidgetsModuleOutput
