@@ -3,7 +3,11 @@ import Services
 
 protocol SetFiltersListCoordinatorAssemblyProtocol {
     @MainActor
-    func make(with setDocument: SetDocumentProtocol, subscriptionDetailsStorage: ObjectDetailsStorage) -> AnyView
+    func make(
+        with setDocument: SetDocumentProtocol,
+        viewId: String,
+        subscriptionDetailsStorage: ObjectDetailsStorage
+    ) -> AnyView
 }
 
 final class SetFiltersListCoordinatorAssembly: SetFiltersListCoordinatorAssemblyProtocol {
@@ -19,10 +23,15 @@ final class SetFiltersListCoordinatorAssembly: SetFiltersListCoordinatorAssembly
     // MARK: - SetFiltersListCoordinatorAssemblyProtocol
     
     @MainActor
-    func make(with setDocument: SetDocumentProtocol, subscriptionDetailsStorage: ObjectDetailsStorage) -> AnyView {
+    func make(
+        with setDocument: SetDocumentProtocol,
+        viewId: String,
+        subscriptionDetailsStorage: ObjectDetailsStorage
+    ) -> AnyView {
         return SetFiltersListCoordinatorView(
             model: SetFiltersListCoordinatorViewModel(
                 setDocument: setDocument,
+                viewId: viewId,
                 subscriptionDetailsStorage: subscriptionDetailsStorage,
                 setFiltersListModuleAssembly: self.modulesDI.setFiltersListModule(),
                 setFiltersSelectionCoordinatorAssembly: self.coordinatorsDI.setFiltersSelection(),

@@ -51,7 +51,7 @@ struct SetSortsListView: View {
     
     private var emptyState: some View {
         VStack {
-            Spacer.fixedHeight(20)
+            Spacer()
             AnytypeText(
                 Loc.EditSet.Popup.Sorts.EmptyView.title,
                 style: .uxCalloutRegular,

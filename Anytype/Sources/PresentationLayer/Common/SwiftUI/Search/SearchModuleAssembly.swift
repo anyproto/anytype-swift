@@ -1,5 +1,6 @@
 import Foundation
 import UIKit
+import Services
 
 final class SearchModuleAssembly: SearchModuleAssemblyProtocol {
     
@@ -15,9 +16,28 @@ final class SearchModuleAssembly: SearchModuleAssemblyProtocol {
         title: String?,
         onSelect: @escaping (ObjectSearchData) -> ()
     ) -> SwiftUIModule {
-        let viewModel = ObjectSearchViewModel(searchService: serviceLocator.searchService()) { data in
+        let viewModel = ObjectSearchViewModel(
+            searchService: WrappedSearchInteractor(searchService: serviceLocator.searchService())
+        ) { data in
             onSelect(data)
         }
+        let searchView = SearchView(title: title, viewModel: viewModel)
+        return SwiftUIModule(view: searchView, model: viewModel)
+    }
+    
+    func makeObjectSearch(
+        title: String?,
+        layouts: [DetailsLayout],
+        onSelect: @escaping (ObjectSearchData) -> ()
+    ) -> SwiftUIModule {
+        let viewModel = ObjectSearchViewModel(
+            searchService: ObjectLayoutSearch(
+                layouts: layouts,
+                searchService: serviceLocator.searchService()
+            ), onSelect: { data in
+                onSelect(data)
+            }
+        )
         let searchView = SearchView(title: title, viewModel: viewModel)
         return SwiftUIModule(view: searchView, model: viewModel)
     }

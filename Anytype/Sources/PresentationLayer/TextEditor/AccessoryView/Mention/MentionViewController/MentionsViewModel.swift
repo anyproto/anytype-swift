@@ -10,7 +10,7 @@ final class MentionsViewModel {
     
     private let documentId: String
     private let mentionService: MentionObjectsServiceProtocol
-    private let pageService: PageServiceProtocol
+    private let pageService: PageRepositoryProtocol
     private let onSelect: (MentionObject) -> Void
     
     private var searchTask: Task<(), Error>?
@@ -19,7 +19,7 @@ final class MentionsViewModel {
     init(
         documentId: String,
         mentionService: MentionObjectsServiceProtocol,
-        pageService: PageServiceProtocol,
+        pageService: PageRepositoryProtocol,
         onSelect: @escaping (MentionObject) -> Void
     ) {
         self.documentId = documentId
@@ -48,7 +48,7 @@ final class MentionsViewModel {
     
     func didSelectCreateNewMention() {
         Task { @MainActor in
-            guard let newBlockDetails = try? await pageService.createPage(name: searchString) else { return }
+            guard let newBlockDetails = try? await pageService.createDefaultPage(name: searchString) else { return }
             
             AnytypeAnalytics.instance().logCreateObject(objectType: newBlockDetails.analyticsType, route: .mention)
             let name = searchString.isEmpty ? Loc.Object.Title.placeholder : searchString

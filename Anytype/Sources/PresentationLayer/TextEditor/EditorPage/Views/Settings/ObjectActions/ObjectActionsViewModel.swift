@@ -63,9 +63,7 @@ final class ObjectActionsViewModel: ObservableObject {
             try await service.setArchive(objectIds: [objectId], isArchived)
             if isArchived {
                 dismissSheet()
-                if FeatureFlags.openBinObject {
-                    closeEditorAction()
-                }
+                closeEditorAction()
             }
         }
     }

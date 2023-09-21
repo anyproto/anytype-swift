@@ -26,7 +26,6 @@ final class EditorPageViewModel: EditorPageViewModelProtocol {
     private let editorPageTemplatesHandler: EditorPageTemplatesHandlerProtocol
     private let accountManager: AccountManagerProtocol
     private let configuration: EditorPageViewModelConfiguration
-    @Published private var isAppear: Bool = false
     
     private lazy var subscriptions = [AnyCancellable]()
 
@@ -82,10 +81,6 @@ final class EditorPageViewModel: EditorPageViewModelProtocol {
             guard let headerModel = value else { return }
             self?.updateHeaderIfNeeded(headerModel: headerModel)
         }.store(in: &subscriptions)
-        
-        Publishers.CombineLatest(document.detailsPublisher, $isAppear)
-            .sink { [weak self] in self?.handleDeletionState(details: $0, isAppear: $1) }
-            .store(in: &subscriptions)
     }
 
     private func setupLoadingState() {
@@ -157,16 +152,6 @@ final class EditorPageViewModel: EditorPageViewModelProtocol {
         if !document.isLocked {
             cursorManager.handleGeneralUpdate(with: modelsHolder.items, type: document.details?.type)
             handleTemplatesPopupShowing()
-        }
-    }
-    
-    private func handleDeletionState(details: ObjectDetails, isAppear: Bool) {
-        viewInput?.showDeletedScreen(details.isDeleted)
-        if !FeatureFlags.openBinObject, details.isArchived && isAppear {
-            // Waiting for the first responder automatic restoration and then close the screen
-            DispatchQueue.main.asyncAfter(deadline: .now() + 0.7) { [router] in
-                router.closeEditor()
-            }
         }
     }
 
@@ -269,15 +254,11 @@ extension EditorPageViewModel {
     func viewDidAppear() {
         cursorManager.didAppeared(with: modelsHolder.items, type: document.details?.type)
         editorPageTemplatesHandler.didAppeared(with: document.details?.type)
-        isAppear = true
     }
 
     func viewWillDisappear() {}
 
-    func viewDidDissapear() {
-        isAppear = false
-    }
-
+    func viewDidDissapear() {}
 
     func shakeMotionDidAppear() {
         router.showAlert(

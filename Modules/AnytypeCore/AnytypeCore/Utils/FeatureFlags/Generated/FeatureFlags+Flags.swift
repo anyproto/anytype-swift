@@ -26,60 +26,8 @@ public extension FeatureFlags {
         value(for: .migrationGuide)
     }
 
-    static var newAuthorization: Bool {
-        value(for: .newAuthorization)
-    }
-
-    static var compactListWidget: Bool {
-        value(for: .compactListWidget)
-    }
-
-    static var getMoreSpace: Bool {
-        value(for: .getMoreSpace)
-    }
-
-    static var fixAVCaptureSessionError: Bool {
-        value(for: .fixAVCaptureSessionError)
-    }
-
-    static var clearAccountDataOnDeletedStatus: Bool {
-        value(for: .clearAccountDataOnDeletedStatus)
-    }
-
-    static var fixAudioSession: Bool {
-        value(for: .fixAudioSession)
-    }
-
-    static var deleteObjectPlaceholder: Bool {
-        value(for: .deleteObjectPlaceholder)
-    }
-
-    static var showAllFilesInBin: Bool {
-        value(for: .showAllFilesInBin)
-    }
-
-    static var superNewButtonLoadingState: Bool {
-        value(for: .superNewButtonLoadingState)
-    }
-
-    static var validateRecoveryPhrase: Bool {
-        value(for: .validateRecoveryPhrase)
-    }
-
-    static var openBinObject: Bool {
-        value(for: .openBinObject)
-    }
-
-    static var colorfulRecoveryPhrase: Bool {
-        value(for: .colorfulRecoveryPhrase)
-    }
-
-    static var recentEditWidget: Bool {
-        value(for: .recentEditWidget)
-    }
-
-    static var widgetTaskDone: Bool {
-        value(for: .widgetTaskDone)
+    static var newCodeLanguages: Bool {
+        value(for: .newCodeLanguages)
     }
 
     static var newSetSettings: Bool {
@@ -113,20 +61,7 @@ public extension FeatureFlags {
         .fullInlineSetImpl,
         .dndOnCollectionsAndSets,
         .migrationGuide,
-        .newAuthorization,
-        .compactListWidget,
-        .getMoreSpace,
-        .fixAVCaptureSessionError,
-        .clearAccountDataOnDeletedStatus,
-        .fixAudioSession,
-        .deleteObjectPlaceholder,
-        .showAllFilesInBin,
-        .superNewButtonLoadingState,
-        .validateRecoveryPhrase,
-        .openBinObject,
-        .colorfulRecoveryPhrase,
-        .recentEditWidget,
-        .widgetTaskDone,
+        .newCodeLanguages,
         .newSetSettings,
         .rainbowViews,
         .showAlertOnAssert,

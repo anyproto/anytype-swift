@@ -178,23 +178,20 @@
 "Keychain.SeedPhrasePlaceholder" = "witch collapse practice feed shame open despair creek road again ice least lake tree young address brain despair";
 
 // Auth
-"Welcome to Anytype" = "Welcome to Anytype";
-"OrganizeEverythingDescription" = "With Anytype you can write notes and documents, manage tasks and save important content from the web.";
 "Sign up" = "Sign up";
 "Login" = "Login";
-"Restore secret phrase from keychain" = "Restore Recovery Phrase from the keychain";
-"or type your recovery phrase" = "or type your recovery phrase";
-"Setting up the wallet" = "Setting up the wallet";
-"Enter your name" = "Enter your name";
-"New profile" = "New profile";
 "Create" = "Create";
 "Scan QR code" = "Scan QR code";
 "Auth.CameraPermissionTitle" = "Please allow access";
-"Analytics constent text" = "Understanding how people use Anytype helps us improve the product. This version of Anytype includes the analytics code that protects your privacy.\nIt doesn't record the actual document's content but still allows us to understand how you use Anytype.\nStay subscribed to our mailing list, as we will soon announce a new release that enables you to opt-out.";
+"Restore secret phrase from keychain" = "Restore Recovery Phrase from the keychain";
+"Auth.LogIn" = "I already have one";
+"Auth.Join" = "Generate new account";
+"Auth.Welcome.Subtitle" = "Anytype is your safe space to write, plan, think and organise everything that matters to you.";
+"Auth.Caption.Privacy.Text" = "By continuing you agree to [Terms of Use](%@) and [Privacy Policy](%@)";
+"Auth.Next" = "Next";
 
 "Account recover error" = "Account recover error, try again";
 "Account recover error no internet" = "Account recover error, probably no internet connection";
-"SignUp.InvintationCode.Placeholder" = "Invitation code";
 
 // Auth Errors
 "Error creating wallet" = "Error creating wallet";
@@ -203,14 +200,7 @@
 
 "Search for language" = "Search for language";
 
-// New Auth
-"Auth.LogIn" = "I already have one";
-"Auth.Join" = "Generate new account";
-"Auth.Welcome.Subtitle" = "Anytype is your safe space to write, plan, think and organise everything that matters to you.";
-"Auth.Caption.Privacy.Text" = "By continuing you agree to [Terms of Use](%@) and [Privacy Policy](%@)";
-"Auth.Next" = "Next";
-
-// New Auth - Join flow
+// Auth - Join flow
 
 "Auth.JoinFlow.Key.Title" = "Save your Recovery Phrase";
 "Auth.JoinFlow.Key.Description" = "It’s a novel way of authentication that gives you full ownership over your account and data.";
@@ -238,7 +228,7 @@
 "Auth.JoinFlow.Setting.Space.Title" = "Setting up your personal space";
 "Auth.JoinFlow.Personal.Space.Title" = "Personal Space";
 
-// New Auth - Login flow
+// Auth - Login flow
 "Auth.LoginFlow.Use.Keychain.Title" = "Use keychain";
 "Auth.LoginFlow.Or" = "OR";
 "Auth.LoginFlow.Textfield.Placeholder" = "Type your recovery phrase";
@@ -333,6 +323,11 @@
 
 "TemplateEditing.Title" = "Edit template";
 "TemplateEditing.SelectButtonTitle" = "Select template";
+
+"Templates.Popup.WasAddedTo" = "New template was added to the type";
+"Templates.Popup.Duplicated" = "The template was duplicated";
+"Templates.Popup.Removed" = "The template was removed";
+"Templates.Popup.Default" = "The template was set as default";
 
 "To Bin" = "To Bin";
 
@@ -436,6 +431,7 @@
 "Set.View.Settings.GroupBy.Title" = "Group by";
 "Set.View.Settings.GroupBackgroundColors.Title" = "Color columns";
 "Set.View.Settings.DefaultObject.Title" = "Default object";
+"Set.View.Settings.DefaultTemplate.Title" = "Default template";
 
 "Set.View.Settings.NoRelations.Placeholder" = "No relations";
 "Set.View.Settings.NoFilters.Placeholder" = "No filters";
@@ -684,6 +680,7 @@
 
 // MARK: Edit view type
 "SetViewTypesPicker.Title" = "Edit view";
+"SetViewTypesPicker.New.Title" = "New view";
 "SetViewTypesPicker.Section.Types.Title" = "View as";
 "SetViewTypesPicker.Settings.Duplicate.View" = "Duplicate";
 "SetViewTypesPicker.Settings.Delete.View" = "Delete view";
@@ -691,7 +688,7 @@
 "SetViewTypesPicker.Settings.Textfield.Placeholder.Untitled" = "Untitled";
 
 // MARK: Select view picker
-"EditorSetViewPicker.View.Not.Supported.Title" = "not supported";
+"EditorSetViewPicker.View.Not.Supported.Title" = "Unsupported";
 
 // BlockContent
 "Content.File.Upload" = "Upload a file";
@@ -804,4 +801,18 @@
 // MARK: - Cpear cache alert
 "ClearCacheAlert.Title" = "Are you sure?";
 "ClearCacheAlert.Description" = "All media files stored in Anytype will be deleted from your current device. They can be downloaded again from a backup node or another device.";
+
+// MARK: - Sharing
+"Sharing.Navigation.title" = "Add to Anytype";
+"Sharing.Navigation.LeftButton.Title" = "Cancel";
+"Sharing.Navigation.RightButton.Title" = "Done";
+
+"Sharing.SaveAs" = "SAVE AS";
+"Sharing.AddTo" = "Add to";
+"Sharing.LinkTo" = "Link to";
+
+"Sharing.URL.Bookmark" = "Bookmark object";
+"Sharing.URL.Text" = "Text block";
+"Sharing.Text.NoteObject" = "Note object";
+"Sharing.Text.TextBlock" = "Text block";
 

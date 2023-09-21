@@ -1,6 +1,7 @@
 import Foundation
 import Services
 import Combine
+import AnytypeCore
 
 final class ObjectCoverPickerViewModel: ObservableObject {
     
@@ -54,8 +55,9 @@ extension ObjectCoverPickerViewModel {
     
     func uploadImage(from itemProvider: NSItemProvider) {
         AnytypeAnalytics.instance().logEvent(AnalyticsEventsName.setCover)
+        let safeSendableProvider = SafeSendable(value: itemProvider)
         Task {
-            try await detailsService.setCover(source: .itemProvider(itemProvider))
+            try await detailsService.setCover(source: .itemProvider(safeSendableProvider.value))
         }
     }
 

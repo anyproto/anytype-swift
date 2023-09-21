@@ -129,15 +129,13 @@ final class FileStorageViewModel: ObservableObject {
         let used = byteCountFormatter.string(fromByteCount: bytesUsed)
         let limit = byteCountFormatter.string(fromByteCount: bytesLimit)
         let local = byteCountFormatter.string(fromByteCount: localBytesUsage)
+        let localPercentUsage = Double(localBytesUsage) / Double(bytesLimit)
         
         spaceInstruction = Loc.FileStorage.Space.instruction(limit)
         spaceUsed = Loc.FileStorage.Space.used(used, limit)
         percentUsage = Double(bytesUsed) / Double(bytesLimit)
         locaUsed = Loc.FileStorage.Local.used(local)
         spaceUsedWarning = percentUsage >= Constants.warningPercent
-        if FeatureFlags.getMoreSpace {
-            let localPercentUsage = Double(localBytesUsage) / Double(bytesLimit)
-            showGetMoreSpaceButton = percentUsage >= Constants.warningPercent || localPercentUsage >= Constants.warningPercent
-        }
+        showGetMoreSpaceButton = percentUsage >= Constants.warningPercent || localPercentUsage >= Constants.warningPercent
     }
 }

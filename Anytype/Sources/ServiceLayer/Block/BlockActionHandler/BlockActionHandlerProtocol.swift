@@ -58,7 +58,7 @@ protocol BlockActionHandlerProtocol: AnyObject {
         blockId: BlockId,
         rowsCount: Int,
         columnsCount: Int,
-        blockText: NSAttributedString?
+        blockText: SafeSendable<NSAttributedString?>
     ) async throws -> BlockId
 }
 

@@ -1,13 +1,7 @@
 import Foundation
 import SwiftUI
 
-protocol DashboardAlertsAssemblyProtocol: AnyObject {
-    @MainActor
-    func makeKeychainRemindView(context: AnalyticsEventsKeychainContext) -> AnyView
-    
-    @MainActor
-    func makeKeychainRemind(context: AnalyticsEventsKeychainContext) -> UIViewController
-    
+protocol DashboardAlertsAssemblyProtocol: AnyObject {    
     @MainActor
     func logoutAlert(onBackup: @escaping () -> Void) -> UIViewController
     
@@ -29,22 +23,6 @@ final class DashboardAlertsAssembly: DashboardAlertsAssemblyProtocol {
     }
     
     // MARK: - DashboardAlertsAssemblyProtocol
-    
-    @MainActor
-    func makeKeychainRemindView(context: AnalyticsEventsKeychainContext) -> AnyView {
-        let kaychainModel = KeychainPhraseViewModel(
-            shownInContext: context,
-            seedService: serviceLocator.seedService(),
-            localAuthService: serviceLocator.localAuthService()
-        )
-        let view = DashboardKeychainReminderAlert(keychainViewModel: kaychainModel)
-        return view.eraseToAnyView()
-    }
-    
-    @MainActor
-    func makeKeychainRemind(context: AnalyticsEventsKeychainContext) -> UIViewController {
-        return popup(view: makeKeychainRemindView(context: context))
-    }
     
     @MainActor
     func logoutAlert(onBackup: @escaping () -> Void) -> UIViewController {

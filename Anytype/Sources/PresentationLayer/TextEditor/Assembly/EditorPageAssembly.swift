@@ -95,7 +95,6 @@ final class EditorAssembly {
             createObjectModuleAssembly: modulesDI.createObject(),
             newSearchModuleAssembly: modulesDI.newSearch(),
             editorPageCoordinator: coordinatorsDI.editorPage().make(browserController: browser),
-            addNewRelationCoordinator: coordinatorsDI.addNewRelation().make(),
             objectSettingCoordinator: coordinatorsDI.objectSettings().make(browserController: browser),
             relationValueCoordinator: coordinatorsDI.relationValue().make(),
             objectCoverPickerModuleAssembly: modulesDI.objectCoverPicker(),
@@ -105,6 +104,8 @@ final class EditorAssembly {
             setFiltersListCoordinatorAssembly: coordinatorsDI.setFiltersList(),
             setViewSettingsImagePreviewModuleAssembly: modulesDI.setViewSettingsImagePreview(),
             setViewSettingsGroupByModuleAssembly: modulesDI.setViewSettingsGroupByView(),
+            editorSetRelationsCoordinatorAssembly: coordinatorsDI.setRelations(),
+            setViewPickerCoordinatorAssembly: coordinatorsDI.setViewPicker(),
             toastPresenter: uiHelpersDI.toastPresenter(using: browser),
             alertHelper: AlertHelper(viewController: controller),
             templateSelectionCoordinator: TemplateSelectionCoordinator(
@@ -168,7 +169,7 @@ final class EditorAssembly {
             newSearchModuleAssembly: modulesDI.newSearch(),
             textIconPickerModuleAssembly: modulesDI.textIconPicker(),
             alertHelper: AlertHelper(viewController: controller),
-            pageService: serviceLocator.pageService(),
+            pageService: serviceLocator.pageRepository(),
             templateService: serviceLocator.templatesService
         )
 
@@ -270,7 +271,7 @@ final class EditorAssembly {
             document: document,
             onShowStyleMenu: blocksStateManager.didSelectStyleSelection(infos:),
             onBlockSelection: actionHandler.selectBlock(info:),
-            pageService: serviceLocator.pageService(),
+            pageService: serviceLocator.pageRepository(),
             linkToObjectCoordinator: coordinatorsDI.linkToObject().make(browserController: browser),
             cursorManager: cursorManager
         )
@@ -296,7 +297,6 @@ final class EditorAssembly {
 
         let responderScrollViewHelper = ResponderScrollViewHelper(scrollView: scrollView)
         
-        let simpleTableCursorManager = EditorCursorManager(focusSubjectHolder: focusSubjectHolder)
         let simpleTableDependenciesBuilder = SimpleTableDependenciesBuilder(
             document: document,
             router: router,
@@ -307,7 +307,7 @@ final class EditorAssembly {
             viewInput: viewInput,
             mainEditorSelectionManager: blocksStateManager,
             responderScrollViewHelper: responderScrollViewHelper,
-            pageService: serviceLocator.pageService(),
+            pageService: serviceLocator.pageRepository(),
             linkToObjectCoordinator: coordinatorsDI.linkToObject().make(browserController: browser)
         )
 
@@ -320,7 +320,7 @@ final class EditorAssembly {
             markdownListener: markdownListener,
             simpleTableDependenciesBuilder: simpleTableDependenciesBuilder,
             subjectsHolder: focusSubjectHolder,
-            pageService: serviceLocator.pageService(),
+            pageService: serviceLocator.pageRepository(),
             detailsService: serviceLocator.detailsService(objectId: document.objectId),
             audioSessionService: serviceLocator.audioSessionService(),
             infoContainer: document.infoContainer,

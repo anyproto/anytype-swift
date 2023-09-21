@@ -30,7 +30,6 @@ final class EditorSetViewModel: ObservableObject {
     @Published var pagitationDataDict: OrderedDictionary<String, EditorSetPaginationData> = [:]
     
     @Published var syncStatus: SyncStatus = .unknown
-    @Published private var isAppear: Bool = false
     
     var isUpdating = false
 
@@ -47,7 +46,8 @@ final class EditorSetViewModel: ObservableObject {
     }
     
     var colums: [RelationDetails] {
-        setDocument.sortedRelations.filter { $0.option.isVisible }.map(\.relationDetails)
+        setDocument.sortedRelations(for: setDocument.activeView.id)
+            .filter { $0.option.isVisible }.map(\.relationDetails)
     }
     
     var isSmallItemSize: Bool {
@@ -76,7 +76,7 @@ final class EditorSetViewModel: ObservableObject {
     
     var showEmptyState: Bool {
         (isEmptyQuery && !setDocument.isCollection()) ||
-        (setDocument.isCollection() && recordsDict.values.first { $0.isNotEmpty } == nil && setDocument.filters.isEmpty)
+        (setDocument.isCollection() && recordsDict.values.first { $0.isNotEmpty } == nil && setDocument.activeViewFilters.isEmpty)
     }
     
     func groupBackgroundColor(for groupId: String) -> BlockBackgroundColor {
@@ -176,10 +176,6 @@ final class EditorSetViewModel: ObservableObject {
         setDocument.setUpdatePublisher.sink { [weak self] in
             self?.onDataChange($0)
         }.store(in: &subscriptions)
-
-        Publishers.CombineLatest(setDocument.document.detailsPublisher, $isAppear)
-            .sink { [weak self] in self?.handleDetails(details: $0, isAppear: $1) }
-            .store(in: &subscriptions)
         
         Task { @MainActor [weak self] in
             guard let self else { return }
@@ -205,12 +201,10 @@ final class EditorSetViewModel: ObservableObject {
     func onAppear() {
         startSubscriptionIfNeeded()
         router?.setNavigationViewHidden(false, animated: true)
-        isAppear = true
     }
     
     func onWillDisappear() {
         router?.dismissSetSettingsIfNeeded()
-        isAppear = false
     }
     
     func onDisappear() {
@@ -515,16 +509,7 @@ final class EditorSetViewModel: ObservableObject {
         }
         return records.reorderedStable(by: objectOrderIds, transform: { $0.id })
     }
-    
-    private func handleDetails(details: ObjectDetails, isAppear: Bool) {
-        if !FeatureFlags.openBinObject, details.isArchived && isAppear {
-            // Waiting for the first responder automatic restoration and then close the screen
-            DispatchQueue.main.asyncAfter(deadline: .now() + 0.7) { [router] in
-                router?.closeEditor()
-            }
-        }
-    }
-    
+        
     private func updateDetailsIfNeeded(_ details: ObjectDetails) {
         guard details.layoutValue == .todo else { return }
         Task {
@@ -649,7 +634,7 @@ final class EditorSetViewModel: ObservableObject {
                 objectType: type,
                 shouldSelectType: shouldSelectType,
                 templateId: templateId ?? "",
-                setFilters: self.setDocument.filters,
+                setFilters: self.setDocument.activeViewFilters,
                 relationsDetails: relationsDetails
             )
             AnytypeAnalytics.instance().logCreateObject(objectType: details.analyticsType, route: setDocument.isCollection() ? .collection : .set)
@@ -686,10 +671,7 @@ extension EditorSetViewModel {
     }
     
     func showViewPicker() {
-        router?.showViewPicker(
-            setDocument: setDocument,
-            dataviewService: dataviewService)
-        { [weak self] activeView in
+        router?.showViewPicker(subscriptionDetailsStorage: subscriptionService.storage) { [weak self] activeView in
             self?.showViewTypes(with: activeView)
         }
     }
@@ -723,10 +705,7 @@ extension EditorSetViewModel {
     }
 
     func showViewSettings() {
-        router?.showViewSettings(
-            setDocument: setDocument,
-            dataviewService: dataviewService
-        )
+        router?.showViewSettings(setDocument: setDocument)
     }
     
     func showSorts() {

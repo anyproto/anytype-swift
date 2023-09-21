@@ -3,16 +3,23 @@ import UIKit
 extension UIButton {
 
     func setImageAndTitleSpacing(_ spacing: CGFloat) {
-        let insetAmount = spacing / 2
+        var configuration = self.configuration
         let isRTL = UIView.userInterfaceLayoutDirection(for: semanticContentAttribute) == .rightToLeft
+        
+        configuration?.imagePadding = spacing
+        configuration?.contentInsets = .init(
+            top: 0,
+            leading: spacing / 2,
+            bottom: 0,
+            trailing: spacing / 2
+        )
+        
         if isRTL {
-            imageEdgeInsets = UIEdgeInsets(top: 0, left: insetAmount, bottom: 0, right: -insetAmount)
-            titleEdgeInsets = UIEdgeInsets(top: 0, left: -insetAmount, bottom: 0, right: insetAmount)
-            contentEdgeInsets = UIEdgeInsets(top: 0, left: -insetAmount, bottom: 0, right: -insetAmount)
+            configuration?.imagePlacement = .trailing
         } else {
-            imageEdgeInsets = UIEdgeInsets(top: 0, left: -insetAmount, bottom: 0, right: insetAmount)
-            titleEdgeInsets = UIEdgeInsets(top: 0, left: insetAmount, bottom: 0, right: -insetAmount)
-            contentEdgeInsets = UIEdgeInsets(top: 0, left: insetAmount, bottom: 0, right: insetAmount)
+            configuration?.imagePlacement = .leading
         }
+        
+        self.configuration = configuration
     }
 }

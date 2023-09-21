@@ -52,7 +52,8 @@ final class ObjectIconPickerViewModel: ObservableObject, ObjectIconPickerViewMod
             return details.iconImage.isNotNil
         default:
             anytypeAssertionFailure(
-                "`ObjectIconPickerViewModel` unavailable", info: ["detailsLayout": "\(detailsLayout?.rawValue)"]
+                "`ObjectIconPickerViewModel` unavailable",
+                info: ["detailsLayout": String(detailsLayout?.rawValue ?? 0)]
             )
             return true
         }
@@ -69,8 +70,9 @@ extension ObjectIconPickerViewModel {
     
     func uploadImage(from itemProvider: NSItemProvider) {
         AnytypeAnalytics.instance().logEvent(AnalyticsEventsName.setIcon)
+        let safeSendableItemProvider = SafeSendable(value: itemProvider)
         Task {
-            let data = try await fileService.createFileData(source: .itemProvider(itemProvider))
+            let data = try await fileService.createFileData(source: .itemProvider(safeSendableItemProvider.value))
             let imageHash = try await fileService.uploadImage(data: data)
             try await detailsService.updateBundledDetails([.iconEmoji(""), .iconImageHash(imageHash)])
         }

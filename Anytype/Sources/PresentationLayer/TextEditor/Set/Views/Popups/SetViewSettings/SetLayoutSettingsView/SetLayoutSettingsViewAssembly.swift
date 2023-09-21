@@ -2,7 +2,11 @@ import SwiftUI
 
 protocol SetLayoutSettingsViewAssemblyProtocol {
     @MainActor
-    func make(setDocument: SetDocumentProtocol, output: SetLayoutSettingsCoordinatorOutput?) -> AnyView
+    func make(
+        setDocument: SetDocumentProtocol,
+        viewId: String,
+        output: SetLayoutSettingsCoordinatorOutput?
+    ) -> AnyView
 }
 
 final class SetLayoutSettingsViewAssembly: SetLayoutSettingsViewAssemblyProtocol {
@@ -16,7 +20,11 @@ final class SetLayoutSettingsViewAssembly: SetLayoutSettingsViewAssemblyProtocol
     // MARK: - SetLayoutSettingsViewAssemblyProtocol
     
     @MainActor
-    func make(setDocument: SetDocumentProtocol, output: SetLayoutSettingsCoordinatorOutput?) -> AnyView {
+    func make(
+        setDocument: SetDocumentProtocol,
+        viewId: String,
+        output: SetLayoutSettingsCoordinatorOutput?
+    ) -> AnyView {
         let dataviewService = serviceLocator.dataviewService(
             objectId: setDocument.objectId,
             blockId: setDocument.blockId
@@ -24,6 +32,7 @@ final class SetLayoutSettingsViewAssembly: SetLayoutSettingsViewAssemblyProtocol
         return SetLayoutSettingsView(
             model: SetLayoutSettingsViewModel(
                 setDocument: setDocument,
+                viewId: viewId,
                 output: output,
                 dataviewService: dataviewService
             )
