@@ -7,5 +7,6 @@ struct EditorNewPageCoordinatorView: View {
     
     var body: some View {
         model.pageModule()
+            .ignoresSafeArea()
     }
 }

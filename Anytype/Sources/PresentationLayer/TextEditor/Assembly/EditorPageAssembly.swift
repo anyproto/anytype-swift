@@ -28,31 +28,31 @@ final class EditorAssembly {
         data: EditorScreenData,
         widgetListOutput: WidgetObjectListCommonModuleOutput? = nil
     ) -> AnyView {
-        buildEditorModule(browser: browser, data: data, widgetListOutput: widgetListOutput).vc
+        buildEditorModule(browser: browser, data: data, widgetListOutput: widgetListOutput)
     }
 
     func buildEditorModule(
         browser: EditorBrowserController?,
         data: EditorScreenData,
         widgetListOutput: WidgetObjectListCommonModuleOutput? = nil
-    ) -> (vc: AnyView, router: EditorPageOpenRouterProtocol?) {
+    ) -> AnyView {
         switch data {
         case let .page(pageData):
-            return buildPageModule(browser: browser, data: pageData)
+            return buildPageModule(data: pageData)
         case let .set(setData):
-            return buildSetModule(browser: browser, data: setData)
+            return buildSetModule(browser: browser, data: setData).0
         case .favorites:
-            return favoritesModule(browser: browser, output: widgetListOutput)
+            return favoritesModule(browser: browser, output: widgetListOutput).0
         case .recentEdit:
-            return recentEditModule(browser: browser, output: widgetListOutput)
+            return recentEditModule(browser: browser, output: widgetListOutput).0
         case .recentOpen:
-            return recentOpenModule(browser: browser, output: widgetListOutput)
+            return recentOpenModule(browser: browser, output: widgetListOutput).0
         case .sets:
-            return setsModule(browser: browser, output: widgetListOutput)
+            return setsModule(browser: browser, output: widgetListOutput).0
         case .collections:
-            return collectionsModule(browser: browser, output: widgetListOutput)
+            return collectionsModule(browser: browser, output: widgetListOutput).0
         case .bin:
-            return binModule(browser: browser, output: widgetListOutput)
+            return binModule(browser: browser, output: widgetListOutput).0
         }
     }
     
@@ -130,7 +130,11 @@ final class EditorAssembly {
     
     // MARK: - Page
     
-    func buildPageModule(
+    func buildPageModule(data: EditorPageObject) -> AnyView {
+        ViewMakeAdapter(model: ViewModelMakeAdapter(viewMake: self.buildPageModuleInternal(browser: nil, data: data).0)).eraseToAnyView()
+    }
+    
+    func buildPageModuleInternal(
         browser: EditorBrowserController?,
         data: EditorPageObject
     ) -> (AnyView, EditorPageOpenRouterProtocol) {
@@ -141,7 +145,9 @@ final class EditorAssembly {
             simleTableMenuViewModel: simpleTableMenuViewModel,
             blockOptionsViewViewModel: blocksOptionViewModel
         )
-        let bottomNavigationManager = EditorBottomNavigationManager(browser: browser)
+        
+        let environmentBridge = EditorPageViewEnvironmentBridge()
+        let bottomNavigationManager = EditorBottomNavigationManager(browser: browser, environmentBridge: environmentBridge)
         
         let controller = EditorPageController(
             blocksSelectionOverlayView: blocksSelectionOverlayView,
@@ -200,8 +206,7 @@ final class EditorAssembly {
 
         controller.viewModel = viewModel
         
-        let view = GenericUIKitToSwiftUIView(viewController: controller)
-            .navigationBarHidden(true)
+        let view = EditorPageView(editorPageController: controller, environmentBridge: environmentBridge)
             .eraseToAnyView()
         
         return (view, router)

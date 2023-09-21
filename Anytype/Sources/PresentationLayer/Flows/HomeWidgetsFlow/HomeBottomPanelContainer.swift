@@ -23,6 +23,7 @@ struct HomeBottomPanelContainer<Content: View>: View {
         .safeAreaInset(edge: .bottom) {
             if !bottomPanelHidden {
                 bottomPanel
+                    .transition(.move(edge: .bottom))
             }
         }
         .setHomeBottomPanelHiddenHandler { newValue in

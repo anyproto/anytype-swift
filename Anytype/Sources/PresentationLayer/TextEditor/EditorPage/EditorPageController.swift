@@ -55,7 +55,8 @@ final class EditorPageController: UIViewController {
     }()
 
     private lazy var navigationBarHelper: EditorNavigationBarHelper = EditorNavigationBarHelper(
-        viewController: self,
+//        viewController: self,
+        navigationBarView: navigationBarView,
         onSettingsBarButtonItemTap: { [weak viewModel] in
             UISelectionFeedbackGenerator().selectionChanged()
             viewModel?.showSettings()
@@ -66,6 +67,7 @@ final class EditorPageController: UIViewController {
     )
 
     private let blocksSelectionOverlayView: BlocksSelectionOverlayView
+    private let navigationBarView = EditorNavigationBarView()
     
     var viewModel: EditorPageViewModelProtocol! {
         didSet {
@@ -457,7 +459,8 @@ private extension EditorPageController {
     
     func setupView() {
         view.backgroundColor = .Background.primary
-        
+        // 44 For custom navigation view
+        additionalSafeAreaInsets = UIEdgeInsets(top: 44, left: 0, bottom: 0, right: 0)
         setupCollectionView()
         
         setupInteractions()
@@ -490,10 +493,18 @@ private extension EditorPageController {
             $0.pinToSuperviewPreservingReadability()
         }
 
-        navigationBarHelper.addFakeNavigationBarBackgroundView(to: view)
+//        navigationBarHelper.addFakeNavigationBarBackgroundView(to: view)
 
         view.addSubview(blocksSelectionOverlayView) {
             $0.pinToSuperview()
+        }
+        
+        view.addSubview(navigationBarView) {
+            $0.pinToSuperview(excluding: [.bottom])
+            $0.bottom.equal(to: view.safeAreaLayoutGuide.topAnchor)
+//            $0.height.equal(to: view.safeAreaLayoutGuide.topAnchor)
+//            $0.top.equal(to: view.safeAreaLayoutGuide.topAnchor)
+//            $0.height.equal(to: 44)
         }
 
         blocksSelectionOverlayView.isHidden = true

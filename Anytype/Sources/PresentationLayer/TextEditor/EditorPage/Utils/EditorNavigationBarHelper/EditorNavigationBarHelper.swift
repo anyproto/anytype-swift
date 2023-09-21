@@ -4,14 +4,16 @@ import Services
 
 final class EditorNavigationBarHelper {
     
-    private weak var controller: UIViewController?
+//    private weak var controller: UIViewController?
+    private let navigationBarView: EditorNavigationBarView
     
     private let fakeNavigationBarBackgroundView = UIView()
     private let navigationBarTitleView = EditorNavigationBarTitleView()
     
-    private lazy var settingsBarButtonItem = UIBarButtonItem(customView: settingsItem)
-    private let doneBarButtonItem: UIBarButtonItem
-    private lazy var syncStatusBarButtonItem = UIBarButtonItem(customView: syncStatusItem)
+//    private lazy var settingsBarButtonItem = UIBarButtonItem(customView: settingsItem)
+//    private let doneBarButtonItem: UIBarButtonItem
+    private let doneButton: UIButton
+//    private lazy var syncStatusBarButtonItem = UIBarButtonItem(customView: syncStatusItem)
 
     private let settingsItem: UIEditorBarButtonItem
     private let syncStatusItem = EditorSyncStatusItem(status: .unknown)
@@ -28,20 +30,35 @@ final class EditorNavigationBarHelper {
     private var lastTitleModel: EditorNavigationBarTitleView.Mode.TitleModel?
         
     init(
-        viewController: UIViewController,
+//        viewController: UIViewController,
+        navigationBarView: EditorNavigationBarView,
         onSettingsBarButtonItemTap: @escaping () -> Void,
         onDoneBarButtonItemTap: @escaping () -> Void
     ) {
-        self.controller = viewController
+        //        self.controller = viewController
+        self.navigationBarView = navigationBarView
         self.settingsItem = UIEditorBarButtonItem(imageAsset: .X24.more, action: onSettingsBarButtonItemTap)
-
-        self.doneBarButtonItem = UIBarButtonItem(
-            title: Loc.done,
-            image: nil,
-            primaryAction: UIAction(handler: { _ in onDoneBarButtonItemTap() }),
-            menu: nil
+        
+//        self.doneBarButtonItem = UIBarButtonItem(
+//            title: Loc.done,
+//            image: nil,
+//            primaryAction: UIAction(handler: { _ in onDoneBarButtonItemTap() }),
+//            menu: nil
+//        )
+//
+        var buttonConfig = UIButton.Configuration.plain()
+        buttonConfig.title = Loc.done
+        buttonConfig.baseForegroundColor = .Button.accent
+        self.doneButton = UIButton(configuration: buttonConfig)
+        self.doneButton.addAction(
+            UIAction(
+                handler: { _ in
+                    onDoneBarButtonItemTap()
+                }
+            ),
+            for: .touchUpInside
         )
-        self.doneBarButtonItem.tintColor = UIColor.Button.accent
+//        self.doneBarButtonItem.tintColor = UIColor.Button.accent
 
 
         self.fakeNavigationBarBackgroundView.backgroundColor = .Background.primary
@@ -62,7 +79,7 @@ extension EditorNavigationBarHelper: EditorNavigationBarHelperProtocol {
             $0.top.equal(to: view.topAnchor)
             $0.leading.equal(to: view.leadingAnchor)
             $0.trailing.equal(to: view.trailingAnchor)
-            $0.bottom.equal(to: view.layoutMarginsGuide.topAnchor)
+            $0.bottom.equal(to: navigationBarView.bottomAnchor)
         }
     }
     
@@ -108,42 +125,56 @@ extension EditorNavigationBarHelper: EditorNavigationBarHelperProtocol {
         currentEditorState = state
         switch state {
         case .editing:
-            controller?.navigationItem.titleView = navigationBarTitleView
-            controller?.navigationItem.rightBarButtonItem = settingsBarButtonItem
-            controller?.navigationItem.leftBarButtonItem = syncStatusBarButtonItem
+            navigationBarView.titleView = navigationBarTitleView
+            navigationBarView.rightButton = settingsItem
+            navigationBarView.leftButton = syncStatusItem
+//            controller?.navigationItem.titleView = navigationBarTitleView
+//            controller?.navigationItem.rightBarButtonItem = settingsBarButtonItem
+//            controller?.navigationItem.leftBarButtonItem = syncStatusBarButtonItem
             lastTitleModel.map { navigationBarTitleView.configure(model: .title($0)) }
             navigationBarTitleView.setIsReadonly(nil)
             updateNavigationBarAppearanceBasedOnContentOffset(currentScrollViewOffset)
         case .selecting(let blocks):
             navigationBarTitleView.setAlphaForSubviews(1)
             updateBarButtonItemsBackground(opacity: 1)
-            fakeNavigationBarBackgroundView.alpha = 1
-            controller?.navigationItem.leftBarButtonItem = nil
-            controller?.navigationItem.rightBarButtonItem = doneBarButtonItem
+//            fakeNavigationBarBackgroundView.alpha = 1
+            navigationBarView.setBackgroundAlpha(alpha: 1)
+            navigationBarView.leftButton = nil
+            navigationBarView.rightButton = doneButton
+//            controller?.navigationItem.leftBarButtonItem = nil
+//            controller?.navigationItem.rightBarButtonItem = doneBarButtonItem
             let title = Loc.selectedBlocks(blocks.count)
             navigationBarTitleView.configure(model: .modeTitle(title))
             navigationBarTitleView.setIsReadonly(nil)
         case .moving:
             let title = Loc.Editor.MovingState.scrollToSelectedPlace
             navigationBarTitleView.configure(model: .modeTitle(title))
-            controller?.navigationItem.leftBarButtonItem = nil
-            controller?.navigationItem.rightBarButtonItem = nil
+            navigationBarView.leftButton = nil
+            navigationBarView.rightButton = nil
+//            controller?.navigationItem.leftBarButtonItem = nil
+//            controller?.navigationItem.rightBarButtonItem = nil
             navigationBarTitleView.setIsReadonly(nil)
         case .readonly(let mode):
             navigationBarTitleView.setIsReadonly(mode)
         case let .simpleTablesSelection(_, selectedBlocks, _):
             navigationBarTitleView.setAlphaForSubviews(1)
             updateBarButtonItemsBackground(opacity: 1)
-            fakeNavigationBarBackgroundView.alpha = 1
-            controller?.navigationItem.leftBarButtonItem = nil
-            controller?.navigationItem.rightBarButtonItem = doneBarButtonItem
+//            fakeNavigationBarBackgroundView.alpha = 1
+            navigationBarView.setBackgroundAlpha(alpha: 1)
+            navigationBarView.leftButton = nil
+            navigationBarView.rightButton = doneButton
+//            controller?.navigationItem.leftBarButtonItem = nil
+//            controller?.navigationItem.rightBarButtonItem = doneBarButtonItem
             let title = Loc.selectedBlocks(selectedBlocks.count)
             navigationBarTitleView.configure(model: .modeTitle(title))
             navigationBarTitleView.setIsReadonly(nil)
         case .loading:
-            controller?.navigationItem.titleView = navigationBarTitleView
-            controller?.navigationItem.rightBarButtonItem = nil
-            controller?.navigationItem.leftBarButtonItem = syncStatusBarButtonItem
+            navigationBarView.titleView = navigationBarTitleView
+            navigationBarView.rightButton = nil
+            navigationBarView.leftButton = syncStatusItem
+//            controller?.navigationItem.titleView = navigationBarTitleView
+//            controller?.navigationItem.rightBarButtonItem = nil
+//            controller?.navigationItem.leftBarButtonItem = syncStatusBarButtonItem
             navigationBarTitleView.setIsReadonly(nil)
         }
     }
@@ -154,8 +185,8 @@ extension EditorNavigationBarHelper: EditorNavigationBarHelperProtocol {
 private extension EditorNavigationBarHelper {
     
     func configureNavigationItem() {
-        controller?.navigationItem.backBarButtonItem = nil
-        controller?.navigationItem.hidesBackButton = true
+//        controller?.navigationItem.backBarButtonItem = nil
+//        controller?.navigationItem.hidesBackButton = true
     }
     
     func updateBarButtonItemsBackground(opacity: CGFloat) {
@@ -180,7 +211,8 @@ private extension EditorNavigationBarHelper {
         
         navigationBarTitleView.setAlphaForSubviews(titleAlpha)
         updateBarButtonItemsBackground(opacity: barButtonsOpacity)
-        fakeNavigationBarBackgroundView.alpha = percent
+        navigationBarView.setBackgroundAlpha(alpha: percent)
+//        fakeNavigationBarBackgroundView.alpha = percent
     }
     
     private func countPercentOfNavigationBarAppearance(offset: CGFloat) -> CGFloat? {

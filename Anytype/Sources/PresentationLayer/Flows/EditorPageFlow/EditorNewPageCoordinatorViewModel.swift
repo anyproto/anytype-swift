@@ -12,6 +12,6 @@ final class EditorNewPageCoordinatorViewModel: ObservableObject {
     }
     
     func pageModule() -> AnyView {
-        return editorAssembly.buildPageModule(browser: nil, data: data).0.eraseToAnyView()
+        return editorAssembly.buildPageModule(data: data)
     }
 }

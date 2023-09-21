@@ -52,7 +52,6 @@ final class HomeWidgetsCoordinatorAssembly: HomeWidgetsCoordinatorAssemblyProtoc
             spaceCreateModuleAssembly: modulesDI.spaceCreate(),
             spaceSettingsCoordinatorAssembly: coordinatorsID.spaceSettings(),
             shareCoordinatorAssembly: coordinatorsID.share(),
-            editorAssembly: coordinatorsID.editorLegacy(),
             editorCoordinatorAssembly: coordinatorsID.editor()
         )
     }
