@@ -1,0 +1,3 @@
+files:
+  - source: Anytype/Resources/Strings/en.lproj/*
+    translation: Anytype/Resources/Strings/%two_letters_code%.lproj/*
