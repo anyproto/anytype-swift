@@ -35,7 +35,7 @@ final class SetViewSettingsListModuleAssembly: SetViewSettingsListModuleAssembly
         if setDocument.isTypeSet() {
             templateInteractorProvider = DataviewTemplateSelectionInteractorProvider(
                 setDocument: setDocument,
-                dataView: setDocument.activeView,
+                viewId: viewId,
                 objectTypeProvider: serviceLocator.objectTypeProvider(),
                 subscriptionService: TemplatesSubscriptionService(subscriptionService: serviceLocator.subscriptionService()),
                 dataviewService: dataviewService

@@ -5,7 +5,7 @@ protocol SetObjectCreationSettingsModuleAssemblyProtocol {
     @MainActor
     func buildTemplateSelection(
         setDocument: SetDocumentProtocol,
-        dataView: DataviewView,
+        viewId: String,
         onTemplateSelection: @escaping (BlockId?) -> Void
     ) -> SetObjectCreationSettingsView
 }
@@ -22,14 +22,14 @@ final class SetObjectCreationSettingsModuleAssembly: SetObjectCreationSettingsMo
     @MainActor
     func buildTemplateSelection(
         setDocument: SetDocumentProtocol,
-        dataView: DataviewView,
+        viewId: String,
         onTemplateSelection: @escaping (BlockId?) -> Void
     ) -> SetObjectCreationSettingsView {
         SetObjectCreationSettingsView(
             model: SetObjectCreationSettingsViewModel(
                 interactor: DataviewTemplateSelectionInteractorProvider(
                     setDocument: setDocument,
-                    dataView: dataView,
+                    viewId: viewId,
                     objectTypeProvider: serviceLocator.objectTypeProvider(),
                     subscriptionService: TemplatesSubscriptionService(subscriptionService: serviceLocator.subscriptionService()),
                     dataviewService: DataviewService(

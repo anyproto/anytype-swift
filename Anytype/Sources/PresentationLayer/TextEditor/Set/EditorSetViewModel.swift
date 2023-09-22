@@ -539,7 +539,7 @@ final class EditorSetViewModel: ObservableObject {
     func onSecondaryCreateTap() {
         router?.showTemplatesSelection(
             setDocument: setDocument,
-            dataview: activeView,
+            viewId: activeView.id,
             onTemplateSelection: { [weak self] templateId in
                 self?.createObject(selectedTemplateId: templateId)
             }

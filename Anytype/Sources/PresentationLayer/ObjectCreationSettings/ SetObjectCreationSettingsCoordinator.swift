@@ -7,7 +7,7 @@ protocol SetObjectCreationSettingsCoordinatorProtocol: AnyObject {
     @MainActor
     func showTemplatesSelection(
         setDocument: SetDocumentProtocol,
-        dataview: DataviewView,
+        viewId: String,
         onTemplateSelection: @escaping (BlockId?) -> ()
     )
     
@@ -40,12 +40,12 @@ final class SetObjectCreationSettingsCoordinator: SetObjectCreationSettingsCoord
     @MainActor
     func showTemplatesSelection(
         setDocument: SetDocumentProtocol,
-        dataview: DataviewView,
+        viewId: String,
         onTemplateSelection: @escaping (BlockId?) -> ()
     ) {
         let view = setObjectCreationSettingsAssembly.buildTemplateSelection(
             setDocument: setDocument,
-            dataView: dataview,
+            viewId: viewId,
             onTemplateSelection: { [weak navigationContext] templateId in
                 navigationContext?.dismissTopPresented(animated: true) {
                     onTemplateSelection(templateId)

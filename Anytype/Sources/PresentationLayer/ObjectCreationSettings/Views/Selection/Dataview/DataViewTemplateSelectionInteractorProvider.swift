@@ -27,7 +27,7 @@ final class DataviewTemplateSelectionInteractorProvider: TemplateSelectionIntera
     let objectTypeId: ObjectTypeId
     
     private let setDocument: SetDocumentProtocol
-    private let dataView: DataviewView
+    private let viewId: String
     
     private let subscriptionService: TemplatesSubscriptionServiceProtocol
     private let objectTypeProvider: ObjectTypeProviderProtocol
@@ -37,23 +37,26 @@ final class DataviewTemplateSelectionInteractorProvider: TemplateSelectionIntera
     @Published private var defaultTemplateId: BlockId
     @Published private var typeDefaultTemplateId: BlockId
     
+    private var dataView: DataviewView
+    
     private var cancellables = [AnyCancellable]()
     
     init(
         setDocument: SetDocumentProtocol,
-        dataView: DataviewView,
+        viewId: String,
         objectTypeProvider: ObjectTypeProviderProtocol,
         subscriptionService: TemplatesSubscriptionServiceProtocol,
         dataviewService: DataviewServiceProtocol
     ) {
         self.setDocument = setDocument
-        self.dataView = dataView
+        self.viewId = viewId
+        self.dataView = setDocument.view(by: viewId)
         self.defaultTemplateId = dataView.defaultTemplateID ?? .empty
         self.subscriptionService = subscriptionService
         self.objectTypeProvider = objectTypeProvider
         self.dataviewService = dataviewService
         
-        let defaultObjectTypeID = setDocument.activeView.defaultObjectTypeIDWithFallback
+        let defaultObjectTypeID = dataView.defaultObjectTypeIDWithFallback
         if setDocument.isTypeSet() {
             if let firstSetOf = setDocument.details?.setOf.first {
                 self.objectTypeId = .dynamic(firstSetOf)
@@ -72,10 +75,11 @@ final class DataviewTemplateSelectionInteractorProvider: TemplateSelectionIntera
     }
     
     private func subscribeOnDocmentUpdates() {
-        setDocument.activeViewPublisher.sink { [weak self] activeDataView in
+        setDocument.syncPublisher.sink { [weak self] in
             guard let self else { return }
-            if self.defaultTemplateId != activeDataView.defaultTemplateID {
-                self.defaultTemplateId = activeDataView.defaultTemplateID ?? .empty
+            dataView = setDocument.view(by: dataView.id)
+            if defaultTemplateId != dataView.defaultTemplateID {
+                defaultTemplateId = dataView.defaultTemplateID ?? .empty
             }
         }.store(in: &cancellables)
         
