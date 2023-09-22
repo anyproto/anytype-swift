@@ -23,7 +23,7 @@ public struct AnytypeInlinePicker<T> : View where T: (Identifiable & Equatable &
                 } label: {
                     buildItem(value: value)
                 }
-                .newDivider(leadingPadding: 40)
+                .newDivider(leadingPadding: 40, color: Color(UIColor.separator))
             }
         }
         .cornerRadius(8)
@@ -40,6 +40,6 @@ public struct AnytypeInlinePicker<T> : View where T: (Identifiable & Equatable &
             Spacer()
         }
         .frame(height: 48)
-        .background(Color.Background.primary)
+        .background(Color(UIColor.secondarySystemGroupedBackground))
     }
 }

@@ -22,7 +22,7 @@ struct URLShareView: View {
             title: viewModel.urlOption.destinationText,
             description: viewModel.destinationObject?.title ?? ""
         )
-        .background(Color.Background.primary)
+        .background(Color(UIColor.secondarySystemGroupedBackground))
         .cornerRadius(8)
     }
 }

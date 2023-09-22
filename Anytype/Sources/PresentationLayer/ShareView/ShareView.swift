@@ -10,7 +10,7 @@ struct ShareView: View {
                     viewModel.contentViewModel.showingView
                 }
             }.padding(.horizontal, 16)
-                .background(Color.Additional.sharingBackground)
+                .background(Color(UIColor.systemGroupedBackground))
                 .navigationTitle(Loc.Sharing.Navigation.title)
             .navigationBarTitleDisplayMode(.inline)
             .navigationBarItems(
@@ -33,7 +33,7 @@ struct SectionTitle: View {
     var body: some View {
         HStack {
             Spacer.fixedWidth(16)
-            AnytypeText(title, style: .caption1Medium, color: .Text.tertiary)
+            AnytypeText(title, style: .caption1Medium, color: Color(UIColor.secondaryLabel))
             Spacer()
         }
     }

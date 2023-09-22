@@ -73,7 +73,6 @@ internal enum Asset {
   }
   internal enum Additional {
     static let separator = ColorAsset(name: "Additional/separator")
-    static let sharingBackground = ColorAsset(name: "Additional/sharingBackground")
     static let space = ColorAsset(name: "Additional/space")
   }
   internal enum Auth {
