@@ -1,16 +1,16 @@
 import Services
 import SwiftUI
 
-protocol TemplateModulesAssemblyProtocol {
+protocol SetObjectCreationSettingsModuleAssemblyProtocol {
     @MainActor
     func buildTemplateSelection(
         setDocument: SetDocumentProtocol,
         dataView: DataviewView,
         onTemplateSelection: @escaping (BlockId?) -> Void
-    ) -> TemplatesSelectionView
+    ) -> SetObjectCreationSettingsView
 }
 
-final class TemplateModulesAssembly: TemplateModulesAssemblyProtocol {
+final class SetObjectCreationSettingsModuleAssembly: SetObjectCreationSettingsModuleAssemblyProtocol {
     private let serviceLocator: ServiceLocator
     private let uiHelperDI: UIHelpersDIProtocol
     
@@ -24,9 +24,9 @@ final class TemplateModulesAssembly: TemplateModulesAssemblyProtocol {
         setDocument: SetDocumentProtocol,
         dataView: DataviewView,
         onTemplateSelection: @escaping (BlockId?) -> Void
-    ) -> TemplatesSelectionView {
-        TemplatesSelectionView(
-            model: .init(
+    ) -> SetObjectCreationSettingsView {
+        SetObjectCreationSettingsView(
+            model: SetObjectCreationSettingsViewModel(
                 interactor: DataviewTemplateSelectionInteractorProvider(
                     setDocument: setDocument,
                     dataView: dataView,

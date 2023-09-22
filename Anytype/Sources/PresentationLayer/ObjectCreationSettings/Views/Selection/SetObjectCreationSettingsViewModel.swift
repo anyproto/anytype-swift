@@ -5,7 +5,7 @@ import Combine
 import SwiftUI
 
 @MainActor
-final class TemplatesSelectionViewModel: ObservableObject {
+final class SetObjectCreationSettingsViewModel: ObservableObject {
     @Published var isEditingState = false
     @Published var templates = [TemplatePreviewViewModel]()
     

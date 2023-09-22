@@ -1276,18 +1276,18 @@
 		53FF7CBC26FDD36200A5A592 /* ObjectActionsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53FF7CBB26FDD36200A5A592 /* ObjectActionsViewModel.swift */; };
 		53FF7CBE26FDD37D00A5A592 /* ObjectAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53FF7CBD26FDD37D00A5A592 /* ObjectAction.swift */; };
 		861E75F62A5C03E400F18552 /* EditableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 861E75F52A5C03E400F18552 /* EditableView.swift */; };
-		861E75F82A5D5A5F00F18552 /* TemplateSelectionCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 861E75F72A5D5A5F00F18552 /* TemplateSelectionCoordinator.swift */; };
+		861E75F82A5D5A5F00F18552 /*  SetObjectCreationSettingsCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 861E75F72A5D5A5F00F18552 /*  SetObjectCreationSettingsCoordinator.swift */; };
 		8624C8612A6E577E0065CBC0 /* EditorPageViewModelConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8624C8602A6E577E0065CBC0 /* EditorPageViewModelConfiguration.swift */; };
 		862D55932A8F78330018103F /* ShareViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 862D55922A8F78330018103F /* ShareViewController.swift */; };
 		862D55962A8F78330018103F /* MainInterface.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 862D55942A8F78330018103F /* MainInterface.storyboard */; };
 		862D559A2A8F78330018103F /* AnytypeShareExtension.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = 862D55902A8F78330018103F /* AnytypeShareExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
-		863776832A658AF10040308E /* TemplateModulesAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 863776822A658AF10040308E /* TemplateModulesAssembly.swift */; };
+		863776832A658AF10040308E /* SetObjectCreationSettingsModuleAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 863776822A658AF10040308E /* SetObjectCreationSettingsModuleAssembly.swift */; };
 		863776852A658B410040308E /* TemplateOptionAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 863776842A658B410040308E /* TemplateOptionAction.swift */; };
 		8637768A2A66644B0040308E /* DataviewTemplateSelectionInteractorProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 863776892A66644B0040308E /* DataviewTemplateSelectionInteractorProvider.swift */; };
 		8637768F2A6668680040308E /* TemplatePreviewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8637768E2A6668680040308E /* TemplatePreviewModel.swift */; };
 		863776902A6669030040308E /* MockTemplateSelectionInteractorProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8637768B2A6664DB0040308E /* MockTemplateSelectionInteractorProvider.swift */; };
-		8638777A2A5808620024F814 /* TemplatesSelectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 863877792A5808620024F814 /* TemplatesSelectionView.swift */; };
-		8638777C2A58088F0024F814 /* TemplatesSelectionViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8638777B2A58088F0024F814 /* TemplatesSelectionViewModel.swift */; };
+		8638777A2A5808620024F814 /* SetObjectCreationSettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 863877792A5808620024F814 /* SetObjectCreationSettingsView.swift */; };
+		8638777C2A58088F0024F814 /* SetObjectCreationSettingsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8638777B2A58088F0024F814 /* SetObjectCreationSettingsViewModel.swift */; };
 		8638C7602A6FE26300BF2A41 /* EmojiTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8638C75F2A6FE26300BF2A41 /* EmojiTests.swift */; };
 		8639E0142A6020E700F52ED2 /* TemplatesSubscriptionService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8639E0132A6020E700F52ED2 /* TemplatesSubscriptionService.swift */; };
 		864F93D92AA5EC94008AA9E7 /* SharedContentSaveOption.swift in Sources */ = {isa = PBXBuildFile; fileRef = 864F93D82AA5EC94008AA9E7 /* SharedContentSaveOption.swift */; };
@@ -2822,19 +2822,19 @@
 		53FF7CBB26FDD36200A5A592 /* ObjectActionsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObjectActionsViewModel.swift; sourceTree = "<group>"; };
 		53FF7CBD26FDD37D00A5A592 /* ObjectAction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObjectAction.swift; sourceTree = "<group>"; };
 		861E75F52A5C03E400F18552 /* EditableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditableView.swift; sourceTree = "<group>"; };
-		861E75F72A5D5A5F00F18552 /* TemplateSelectionCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TemplateSelectionCoordinator.swift; sourceTree = "<group>"; };
+		861E75F72A5D5A5F00F18552 /*  SetObjectCreationSettingsCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = " SetObjectCreationSettingsCoordinator.swift"; sourceTree = "<group>"; };
 		8624C8602A6E577E0065CBC0 /* EditorPageViewModelConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditorPageViewModelConfiguration.swift; sourceTree = "<group>"; };
 		862D55902A8F78330018103F /* AnytypeShareExtension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = AnytypeShareExtension.appex; sourceTree = BUILT_PRODUCTS_DIR; };
 		862D55922A8F78330018103F /* ShareViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShareViewController.swift; sourceTree = "<group>"; };
 		862D55952A8F78330018103F /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/MainInterface.storyboard; sourceTree = "<group>"; };
 		862D55972A8F78330018103F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		863776822A658AF10040308E /* TemplateModulesAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TemplateModulesAssembly.swift; sourceTree = "<group>"; };
+		863776822A658AF10040308E /* SetObjectCreationSettingsModuleAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetObjectCreationSettingsModuleAssembly.swift; sourceTree = "<group>"; };
 		863776842A658B410040308E /* TemplateOptionAction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TemplateOptionAction.swift; sourceTree = "<group>"; };
 		863776892A66644B0040308E /* DataviewTemplateSelectionInteractorProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataviewTemplateSelectionInteractorProvider.swift; sourceTree = "<group>"; };
 		8637768B2A6664DB0040308E /* MockTemplateSelectionInteractorProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockTemplateSelectionInteractorProvider.swift; sourceTree = "<group>"; };
 		8637768E2A6668680040308E /* TemplatePreviewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TemplatePreviewModel.swift; sourceTree = "<group>"; };
-		863877792A5808620024F814 /* TemplatesSelectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TemplatesSelectionView.swift; sourceTree = "<group>"; };
-		8638777B2A58088F0024F814 /* TemplatesSelectionViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TemplatesSelectionViewModel.swift; sourceTree = "<group>"; };
+		863877792A5808620024F814 /* SetObjectCreationSettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetObjectCreationSettingsView.swift; sourceTree = "<group>"; };
+		8638777B2A58088F0024F814 /* SetObjectCreationSettingsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetObjectCreationSettingsViewModel.swift; sourceTree = "<group>"; };
 		8638C75F2A6FE26300BF2A41 /* EmojiTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = EmojiTests.swift; path = AnyTypeTests/Emoji/EmojiTests.swift; sourceTree = SOURCE_ROOT; };
 		8639E0132A6020E700F52ED2 /* TemplatesSubscriptionService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TemplatesSubscriptionService.swift; sourceTree = "<group>"; };
 		864F93D82AA5EC94008AA9E7 /* SharedContentSaveOption.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SharedContentSaveOption.swift; sourceTree = "<group>"; };
@@ -3312,7 +3312,7 @@
 				2A2C330728928BF7008BC326 /* Openers */,
 				2A2C330128928633008BC326 /* RelationValueFlow */,
 				1244790F27D8A35800581174 /* Search screen */,
-				C90189A428338D1100F30853 /* Templates */,
+				C90189A428338D1100F30853 /* ObjectCreationSettings */,
 				03A24B8D232152ED00DA7369 /* TextEditor */,
 				C9CFFEBF2825429C00A66FC8 /* ToastPresenter */,
 			);
@@ -5793,7 +5793,7 @@
 			children = (
 				2A2C33122892A161008BC326 /* TemplatesCoordinatorAssembly.swift */,
 				2AECFD4328993CCA000E9CFB /* TemplatesCoordinatorAssemblyProtocol.swift */,
-				863776822A658AF10040308E /* TemplateModulesAssembly.swift */,
+				863776822A658AF10040308E /* SetObjectCreationSettingsModuleAssembly.swift */,
 			);
 			path = Assembly;
 			sourceTree = "<group>";
@@ -8360,8 +8360,8 @@
 			children = (
 				863776882A6664360040308E /* Dataview */,
 				867580022A582F110008566A /* Objects */,
-				863877792A5808620024F814 /* TemplatesSelectionView.swift */,
-				8638777B2A58088F0024F814 /* TemplatesSelectionViewModel.swift */,
+				863877792A5808620024F814 /* SetObjectCreationSettingsView.swift */,
+				8638777B2A58088F0024F814 /* SetObjectCreationSettingsViewModel.swift */,
 				861E75F52A5C03E400F18552 /* EditableView.swift */,
 				863776842A658B410040308E /* TemplateOptionAction.swift */,
 			);
@@ -8476,15 +8476,15 @@
 			path = Auth;
 			sourceTree = "<group>";
 		};
-		C90189A428338D1100F30853 /* Templates */ = {
+		C90189A428338D1100F30853 /* ObjectCreationSettings */ = {
 			isa = PBXGroup;
 			children = (
 				2AECFD4528993CCC000E9CFB /* Assembly */,
 				C99DCE8F283B6C270051F99D /* Views */,
 				C90189A828338D2900F30853 /* TemplatesCoordinator.swift */,
-				861E75F72A5D5A5F00F18552 /* TemplateSelectionCoordinator.swift */,
+				861E75F72A5D5A5F00F18552 /*  SetObjectCreationSettingsCoordinator.swift */,
 			);
-			path = Templates;
+			path = ObjectCreationSettings;
 			sourceTree = "<group>";
 		};
 		C90F8F2D28DCBDE800E874A9 /* PreviewItem */ = {
@@ -9630,7 +9630,7 @@
 				2A90C47B28605F8C00B6B44E /* TableOfContentsContentProvider.swift in Sources */,
 				2AC3F9462A138263005EFEE9 /* FileLimitsStorage.swift in Sources */,
 				2ECB34062A95131100E0F9BB /* SetSortsListCoordinatorViewModel.swift in Sources */,
-				863776832A658AF10040308E /* TemplateModulesAssembly.swift in Sources */,
+				863776832A658AF10040308E /* SetObjectCreationSettingsModuleAssembly.swift in Sources */,
 				2EAA14012AA63918000A712A /* SetViewSettingsGroupByViewModel.swift in Sources */,
 				2E6F3E1D2A4DB179002F4278 /* SceneStateNotifier.swift in Sources */,
 				1211D65A2667CED000541D9C /* ActivityIndicatorView.swift in Sources */,
@@ -9668,7 +9668,7 @@
 				3D1CEC4B27F70B2E000D36BA /* AccountData.swift in Sources */,
 				C946681728462EB000A8A6F5 /* SimpleTableBlockView.swift in Sources */,
 				2A00A4E929E811FD00C5FCC3 /* ControlsExample.swift in Sources */,
-				8638777C2A58088F0024F814 /* TemplatesSelectionViewModel.swift in Sources */,
+				8638777C2A58088F0024F814 /* SetObjectCreationSettingsViewModel.swift in Sources */,
 				53F7449D27FB9006005C9BB0 /* ObjectPreviewIconMenuViewModel.swift in Sources */,
 				2AEABE0328C7546200BDE3AC /* RelationEvent.swift in Sources */,
 				2E2D256F288AD08100E3DFD1 /* SetFiltersCheckboxValue.swift in Sources */,
@@ -9802,7 +9802,7 @@
 				12EB9AF62771F0E900BA732F /* RelationOptionsListView.swift in Sources */,
 				2ECB342B2A97C95600E0F9BB /* SetFiltersSelectionHeaderModuleAssembly.swift in Sources */,
 				3DDD3D0E26AEB55700B5673A /* BlockFileView.swift in Sources */,
-				861E75F82A5D5A5F00F18552 /* TemplateSelectionCoordinator.swift in Sources */,
+				861E75F82A5D5A5F00F18552 /*  SetObjectCreationSettingsCoordinator.swift in Sources */,
 				C96AFFD1284A385D0048B8EB /* SeparatorItemView.swift in Sources */,
 				53FF7C6D26F8F8E400A5A592 /* iCloudBackupConfigurator.swift in Sources */,
 				53F80F1227BDA96E00E9E12A /* FileRelationViewUIKit.swift in Sources */,
@@ -9861,7 +9861,7 @@
 				3D6E9A46270F4889001B0A07 /* BrowserNavigationManagerError.swift in Sources */,
 				03A90DF423A04FFE000E3EFE /* LocalRepoService.swift in Sources */,
 				EAADB16F26776DDD004B0AF2 /* MentionAttachment.swift in Sources */,
-				8638777A2A5808620024F814 /* TemplatesSelectionView.swift in Sources */,
+				8638777A2A5808620024F814 /* SetObjectCreationSettingsView.swift in Sources */,
 				867B2A922A9CB85E0040381E /* URLShareViewModel.swift in Sources */,
 				3DB6E247268B5F8900C303E5 /* BlockViewModelProtocol.swift in Sources */,
 				120EB4E326E8F618003A0C2B /* ObjectHeaderIconView.swift in Sources */,

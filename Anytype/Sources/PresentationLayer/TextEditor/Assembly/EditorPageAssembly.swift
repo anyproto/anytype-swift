@@ -108,9 +108,9 @@ final class EditorAssembly {
             setViewPickerCoordinatorAssembly: coordinatorsDI.setViewPicker(),
             toastPresenter: uiHelpersDI.toastPresenter(using: browser),
             alertHelper: AlertHelper(viewController: controller),
-            templateSelectionCoordinator: TemplateSelectionCoordinator(
+            setObjectCreationSettingsCoordinator:  SetObjectCreationSettingsCoordinator(
                 navigationContext: navigationContext,
-                templatesModulesAssembly: modulesDI.templatesAssembly(),
+                setObjectCreationSettingsAssembly: modulesDI.setObjectCreationSettings(),
                 editorAssembly: coordinatorsDI.editor(),
                 objectSettingCoordinator: coordinatorsDI.objectSettings().make(browserController: nil)
             )
@@ -150,9 +150,9 @@ final class EditorAssembly {
             document: document,
             addNewRelationCoordinator: coordinatorsDI.addNewRelation().make(),
             templatesCoordinator: coordinatorsDI.templates().make(viewController: controller),
-            templateSelectionCoordinator: TemplateSelectionCoordinator(
+            setObjectCreationSettingsCoordinator:  SetObjectCreationSettingsCoordinator(
                 navigationContext: navigationContext,
-                templatesModulesAssembly: modulesDI.templatesAssembly(),
+                setObjectCreationSettingsAssembly: modulesDI.setObjectCreationSettings(),
                 editorAssembly: coordinatorsDI.editor(),
                 objectSettingCoordinator: coordinatorsDI.objectSettings().make(browserController: nil)
             ),

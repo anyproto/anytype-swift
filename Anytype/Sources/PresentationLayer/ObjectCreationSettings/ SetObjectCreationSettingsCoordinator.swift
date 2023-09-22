@@ -3,7 +3,7 @@ import Services
 import SwiftUI
 import AnytypeCore
 
-protocol TemplateSelectionCoordinatorProtocol: AnyObject {
+protocol SetObjectCreationSettingsCoordinatorProtocol: AnyObject {
     @MainActor
     func showTemplatesSelection(
         setDocument: SetDocumentProtocol,
@@ -18,21 +18,21 @@ protocol TemplateSelectionCoordinatorProtocol: AnyObject {
     )
 }
 
-final class TemplateSelectionCoordinator: TemplateSelectionCoordinatorProtocol {
+final class SetObjectCreationSettingsCoordinator: SetObjectCreationSettingsCoordinatorProtocol {
     private let navigationContext: NavigationContextProtocol
-    private let templatesModuleAssembly: TemplateModulesAssembly
+    private let setObjectCreationSettingsAssembly: SetObjectCreationSettingsModuleAssemblyProtocol
     private let editorAssembly: EditorAssembly
     private let objectSettingCoordinator: ObjectSettingsCoordinatorProtocol
     private var handler: TemplateSelectionObjectSettingsHandler?
     
     init(
         navigationContext: NavigationContextProtocol,
-        templatesModulesAssembly: TemplateModulesAssembly,
+        setObjectCreationSettingsAssembly: SetObjectCreationSettingsModuleAssemblyProtocol,
         editorAssembly: EditorAssembly,
         objectSettingCoordinator: ObjectSettingsCoordinatorProtocol
     ) {
         self.navigationContext = navigationContext
-        self.templatesModuleAssembly = templatesModulesAssembly
+        self.setObjectCreationSettingsAssembly = setObjectCreationSettingsAssembly
         self.editorAssembly = editorAssembly
         self.objectSettingCoordinator = objectSettingCoordinator
     }
@@ -43,7 +43,7 @@ final class TemplateSelectionCoordinator: TemplateSelectionCoordinatorProtocol {
         dataview: DataviewView,
         onTemplateSelection: @escaping (BlockId?) -> ()
     ) {
-        let view = templatesModuleAssembly.buildTemplateSelection(
+        let view = setObjectCreationSettingsAssembly.buildTemplateSelection(
             setDocument: setDocument,
             dataView: dataview,
             onTemplateSelection: { [weak navigationContext] templateId in
@@ -67,7 +67,7 @@ final class TemplateSelectionCoordinator: TemplateSelectionCoordinatorProtocol {
         
         let viewModel = AnytypePopupViewModel(
             contentView: view,
-            popupLayout: .constantHeight(height: TemplatesSelectionView.height, floatingPanelStyle: true, needBottomInset: false))
+            popupLayout: .constantHeight(height: SetObjectCreationSettingsView.height, floatingPanelStyle: true, needBottomInset: false))
         let popup = AnytypePopup(
             viewModel: viewModel,
             floatingPanelStyle: true,
