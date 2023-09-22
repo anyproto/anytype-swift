@@ -112,6 +112,7 @@ final class EditorAssembly {
                 navigationContext: navigationContext,
                 setObjectCreationSettingsAssembly: modulesDI.setObjectCreationSettings(),
                 editorAssembly: coordinatorsDI.editor(),
+                newSearchModuleAssembly: modulesDI.newSearch(),
                 objectSettingCoordinator: coordinatorsDI.objectSettings().make(browserController: nil)
             )
         )
@@ -154,6 +155,7 @@ final class EditorAssembly {
                 navigationContext: navigationContext,
                 setObjectCreationSettingsAssembly: modulesDI.setObjectCreationSettings(),
                 editorAssembly: coordinatorsDI.editor(),
+                newSearchModuleAssembly: modulesDI.newSearch(),
                 objectSettingCoordinator: coordinatorsDI.objectSettings().make(browserController: nil)
             ),
             urlOpener: uiHelpersDI.urlOpener(),

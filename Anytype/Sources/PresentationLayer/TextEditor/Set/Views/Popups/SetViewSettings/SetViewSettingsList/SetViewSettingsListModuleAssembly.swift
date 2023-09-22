@@ -31,17 +31,17 @@ final class SetViewSettingsListModuleAssembly: SetViewSettingsListModuleAssembly
             objectId: setDocument.objectId,
             blockId: setDocument.blockId
         )
-        let templateInteractorProvider: TemplateSelectionInteractorProvider?
+        let setObjectCreationSettingsInteractor: SetObjectCreationSettingsInteractorProtocol?
         if setDocument.isTypeSet() {
-            templateInteractorProvider = DataviewTemplateSelectionInteractorProvider(
+            setObjectCreationSettingsInteractor = SetObjectCreationSettingsInteractor(
                 setDocument: setDocument,
                 viewId: viewId,
-                objectTypeProvider: serviceLocator.objectTypeProvider(),
+                installedObjectTypesProvider: serviceLocator.installedObjectTypesProvider(),
                 subscriptionService: TemplatesSubscriptionService(subscriptionService: serviceLocator.subscriptionService()),
                 dataviewService: dataviewService
             )
         } else {
-            templateInteractorProvider = nil
+            setObjectCreationSettingsInteractor = nil
         }
         return SetViewSettingsList(
             model: SetViewSettingsListModel(
@@ -50,7 +50,7 @@ final class SetViewSettingsListModuleAssembly: SetViewSettingsListModuleAssembly
                 mode: mode,
                 dataviewService: dataviewService,
                 templatesInteractor: self.serviceLocator.setTemplatesInteractor,
-                templateInteractorProvider: templateInteractorProvider,
+                setObjectCreationSettingsInteractor: setObjectCreationSettingsInteractor,
                 output: output
             )
         ).eraseToAnyView()

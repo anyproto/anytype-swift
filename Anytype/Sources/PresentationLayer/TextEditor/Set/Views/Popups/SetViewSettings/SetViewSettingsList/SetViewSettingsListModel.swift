@@ -21,7 +21,7 @@ final class SetViewSettingsListModel: ObservableObject {
     private let viewId: String
     private let dataviewService: DataviewServiceProtocol
     private let templatesInteractor: SetTemplatesInteractorProtocol
-    private let templateInteractorProvider: TemplateSelectionInteractorProvider?
+    private let setObjectCreationSettingsInteractor: SetObjectCreationSettingsInteractorProtocol?
     private weak var output: SetViewSettingsCoordinatorOutput?
     
     private var cancellables = [AnyCancellable]()
@@ -34,7 +34,7 @@ final class SetViewSettingsListModel: ObservableObject {
         mode: SetViewSettingsMode,
         dataviewService: DataviewServiceProtocol,
         templatesInteractor: SetTemplatesInteractorProtocol,
-        templateInteractorProvider: TemplateSelectionInteractorProvider?,
+        setObjectCreationSettingsInteractor: SetObjectCreationSettingsInteractorProtocol?,
         output: SetViewSettingsCoordinatorOutput?
     ) {
         self.setDocument = setDocument
@@ -42,7 +42,7 @@ final class SetViewSettingsListModel: ObservableObject {
         self.mode = mode
         self.dataviewService = dataviewService
         self.templatesInteractor = templatesInteractor
-        self.templateInteractorProvider = templateInteractorProvider
+        self.setObjectCreationSettingsInteractor = setObjectCreationSettingsInteractor
         self.output = output
         self.canBeDeleted = setDocument.dataView.views.count > 1
         self.setupFocus()
@@ -136,7 +136,7 @@ final class SetViewSettingsListModel: ObservableObject {
     }
     
     private func setupTemplatesSubscriptions() {
-        templateInteractorProvider?.userTemplates.sink { [weak self] templates in
+        setObjectCreationSettingsInteractor?.userTemplates.sink { [weak self] templates in
             let defaultTemplate = templates.first(where: { $0.isDefault })
             
             let title: String

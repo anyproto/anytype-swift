@@ -532,17 +532,18 @@ extension EditorRouter: ObjectSettingsModuleDelegate {
     }
     
     func didCreateTemplate(templateId: BlockId) {
-        setObjectCreationSettingsCoordinator.showTemplateEditing(blockId: templateId) { [weak self] templateSelection in
+        guard let objectTypeId = document.details?.type else { return }
+        let setting = ObjectCreationSetting(objectTypeId: objectTypeId, templateId: templateId)
+        setObjectCreationSettingsCoordinator.showTemplateEditing(setting: setting) { [weak self] setting in
             Task { @MainActor [weak self] in
                 do {
-                    guard let type = self?.document.details?.type,
-                          let objectDetails = try await self?.pageService.createPage(
+                    guard let objectDetails = try await self?.pageService.createPage(
                             name: "",
-                            type: type,
+                            type: setting.objectTypeId,
                             shouldDeleteEmptyObject: true,
                             shouldSelectType: false,
                             shouldSelectTemplate: false,
-                            templateId: templateSelection
+                            templateId: setting.templateId
                           ) else {
                         return
                     }

@@ -111,6 +111,14 @@ final class ServiceLocator {
         return ObjectTypeProvider.shared
     }
     
+    func installedObjectTypesProvider() -> InstalledObjectTypesProviderProtocol {
+        let subscriptionBuilder = InstalledObjectTypesSubscriptionDataBuilder(accountManager: accountManager())
+        return InstalledObjectTypesProvider(
+            subscriptionsService: subscriptionService(),
+            subscriptionBuilder: subscriptionBuilder
+        )
+    }
+    
     func groupsSubscriptionsHandler() -> GroupsSubscriptionsHandlerProtocol {
         GroupsSubscriptionsHandler(groupsSubscribeService: GroupsSubscribeService())
     }

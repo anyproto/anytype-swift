@@ -57,7 +57,7 @@ protocol EditorSetRouterProtocol:
     func showTemplatesSelection(
         setDocument: SetDocumentProtocol,
         viewId: String,
-        onTemplateSelection: @escaping (BlockId?) -> ()
+        onTemplateSelection: @escaping (ObjectCreationSetting) -> ()
     )
 }
 
@@ -416,7 +416,7 @@ final class EditorSetRouter: EditorSetRouterProtocol, ObjectSettingsCoordinatorO
     func showTemplatesSelection(
         setDocument: SetDocumentProtocol,
         viewId: String,
-        onTemplateSelection: @escaping (BlockId?) -> ()
+        onTemplateSelection: @escaping (ObjectCreationSetting) -> ()
     ) {
         setObjectCreationSettingsCoordinator.showTemplatesSelection(
             setDocument: setDocument,

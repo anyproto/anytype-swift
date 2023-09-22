@@ -2,14 +2,29 @@ import Combine
 import Services
 import AnytypeCore
 
-protocol TemplateSelectionInteractorProvider {
+protocol SetObjectCreationSettingsInteractorProtocol {
     var userTemplates: AnyPublisher<[TemplatePreviewModel], Never> { get }
+    
     var objectTypeId: ObjectTypeId { get }
+    var objectTypesConfigPublisher: AnyPublisher<ObjectTypesConfiguration, Never> { get }
+    func setObjectTypeId(_ objectTypeId: ObjectTypeId)
     
     func setDefaultTemplate(templateId: BlockId) async throws
 }
 
-final class DataviewTemplateSelectionInteractorProvider: TemplateSelectionInteractorProvider {
+final class SetObjectCreationSettingsInteractor: SetObjectCreationSettingsInteractorProtocol {
+    
+    var objectTypesConfigPublisher: AnyPublisher<ObjectTypesConfiguration, Never> {
+        Publishers.CombineLatest(installedObjectTypesProvider.objectTypesPublisher, $objectTypeId)
+            .map { objectTypes, objectTypeId in
+                return ObjectTypesConfiguration(
+                    objectTypes: objectTypes,
+                    objectTypeId: objectTypeId
+                )
+            }
+            .eraseToAnyPublisher()
+    }
+    
     var userTemplates: AnyPublisher<[TemplatePreviewModel], Never> {
         Publishers.CombineLatest3($templatesDetails, $defaultTemplateId, $typeDefaultTemplateId)
             .map { details, defaultTemplateId, typeDefaultTemplateId in
@@ -24,18 +39,18 @@ final class DataviewTemplateSelectionInteractorProvider: TemplateSelectionIntera
             .eraseToAnyPublisher()
     }
     
-    let objectTypeId: ObjectTypeId
+    @Published var objectTypeId: ObjectTypeId
     
     private let setDocument: SetDocumentProtocol
     private let viewId: String
     
     private let subscriptionService: TemplatesSubscriptionServiceProtocol
-    private let objectTypeProvider: ObjectTypeProviderProtocol
+    private let installedObjectTypesProvider: InstalledObjectTypesProviderProtocol
     private let dataviewService: DataviewServiceProtocol
     
     @Published private var templatesDetails = [ObjectDetails]()
     @Published private var defaultTemplateId: BlockId
-    @Published private var typeDefaultTemplateId: BlockId
+    @Published private var typeDefaultTemplateId: BlockId = .empty
     
     private var dataView: DataviewView
     
@@ -44,7 +59,7 @@ final class DataviewTemplateSelectionInteractorProvider: TemplateSelectionIntera
     init(
         setDocument: SetDocumentProtocol,
         viewId: String,
-        objectTypeProvider: ObjectTypeProviderProtocol,
+        installedObjectTypesProvider: InstalledObjectTypesProviderProtocol,
         subscriptionService: TemplatesSubscriptionServiceProtocol,
         dataviewService: DataviewServiceProtocol
     ) {
@@ -53,7 +68,7 @@ final class DataviewTemplateSelectionInteractorProvider: TemplateSelectionIntera
         self.dataView = setDocument.view(by: viewId)
         self.defaultTemplateId = dataView.defaultTemplateID ?? .empty
         self.subscriptionService = subscriptionService
-        self.objectTypeProvider = objectTypeProvider
+        self.installedObjectTypesProvider = installedObjectTypesProvider
         self.dataviewService = dataviewService
         
         let defaultObjectTypeID = dataView.defaultObjectTypeIDWithFallback
@@ -68,10 +83,18 @@ final class DataviewTemplateSelectionInteractorProvider: TemplateSelectionIntera
             self.objectTypeId = .dynamic(defaultObjectTypeID)
         }
         
-        self.typeDefaultTemplateId = objectTypeProvider.objectType(id: objectTypeId.rawValue)?.defaultTemplateId ?? .empty
-        
         subscribeOnDocmentUpdates()
         loadTemplates()
+    }
+    
+    func setObjectTypeId(_ objectTypeId: ObjectTypeId) {
+        self.objectTypeId = objectTypeId
+        loadTemplates()
+    }
+    
+    func setDefaultTemplate(templateId: BlockId) async throws {
+        let updatedDataView = dataView.updated(defaultTemplateID: templateId)
+        try await dataviewService.updateView(updatedDataView)
     }
     
     private func subscribeOnDocmentUpdates() {
@@ -81,25 +104,36 @@ final class DataviewTemplateSelectionInteractorProvider: TemplateSelectionIntera
             if defaultTemplateId != dataView.defaultTemplateID {
                 defaultTemplateId = dataView.defaultTemplateID ?? .empty
             }
+            // TODO: это уже надо будет когда в настройки положу
+//            if !setDocument.isTypeSet(), objectTypeId.rawValue != dataView.defaultObjectTypeIDWithFallback {
+//                objectTypeId = .dynamic(dataView.defaultObjectTypeIDWithFallback)
+//                loadTemplates()
+//            }
         }.store(in: &cancellables)
         
-        objectTypeProvider.syncPublisher.sink { [weak self] in
+        startObjectTypesSubscription()
+        installedObjectTypesProvider.objectTypesPublisher.sink { [weak self] objectTypes in
             guard let self else { return }
-            let defaultTemplateId = objectTypeProvider.objectType(id: objectTypeId.rawValue)?.defaultTemplateId ?? .empty
+            let defaultTemplateId = objectTypes.first { [weak self] in
+                guard let self else { return false }
+                return $0.id == objectTypeId.rawValue
+            }?.defaultTemplateId ?? .empty
             if typeDefaultTemplateId != defaultTemplateId {
                 typeDefaultTemplateId = defaultTemplateId
             }
         }.store(in: &cancellables)
     }
     
+    private func startObjectTypesSubscription() {
+        Task { [weak self] in
+            guard let self else { return }
+            await installedObjectTypesProvider.startSubscription()
+        }
+    }
+    
     private func loadTemplates() {
         subscriptionService.startSubscription(objectType: objectTypeId) { [weak self] _, update in
             self?.templatesDetails.applySubscriptionUpdate(update)
         }
-    }
-    
-    func setDefaultTemplate(templateId: BlockId) async throws {
-        let updatedDataView = dataView.updated(defaultTemplateID: templateId)
-        try await dataviewService.updateView(updatedDataView)
     }
 }
