@@ -1,6 +1,7 @@
 import Foundation
 import SwiftUI
 
+// TODO: Navigation: Check it
 class AnytypeHostingController: UIHostingController<AnyView> {
     
     private class Observer {

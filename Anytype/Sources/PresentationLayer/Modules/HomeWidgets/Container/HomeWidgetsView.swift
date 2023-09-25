@@ -30,10 +30,10 @@ struct HomeWidgetsView: View {
             }
             .animation(.default, value: model.models.count)
         }
-        .safeAreaInset(edge: .bottom, spacing: 20) {
-            model.bottomPanelProvider.view
-                .fitIPadToReadableContentGuide()
-        }
+//        .safeAreaInset(edge: .bottom, spacing: 20) {
+//            model.bottomPanelProvider.view
+//                .fitIPadToReadableContentGuide()
+//        }
         .onAppear {
             model.onAppear()
         }
@@ -42,7 +42,8 @@ struct HomeWidgetsView: View {
         }
         .navigationBarHidden(true)
         .anytypeStatusBar(style: .lightContent)
-        .ignoresSafeArea(.all, edges: .bottom)
+//        .ignoresSafeArea(.all, edges: .bottom)
+        .ignoresSafeArea(.keyboard, edges: .bottom)
         .anytypeVerticalDrop(data: model.models, state: $dndState) { from, to in
             model.dropUpdate(from: from, to: to)
         } dropFinish: { from, to in

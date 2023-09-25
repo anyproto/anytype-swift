@@ -8,7 +8,8 @@ import NavigationBackport
 @MainActor
 final class HomeWidgetsCoordinatorViewModel: ObservableObject,
                                              HomeWidgetsModuleOutput, CommonWidgetModuleOutput,
-                                             HomeBottomPanelModuleOutput, SpaceSwitchModuleOutput {
+                                             HomeBottomPanelModuleOutput, SpaceSwitchModuleOutput,
+                                             HomeBottomNavigationPanelModuleOutput {
     
     // MARK: - DI
     
@@ -28,6 +29,7 @@ final class HomeWidgetsCoordinatorViewModel: ObservableObject,
     private let spaceSettingsCoordinatorAssembly: SpaceSettingsCoordinatorAssemblyProtocol
     private let shareCoordinatorAssembly: ShareCoordinatorAssemblyProtocol
     private let editorCoordinatorAssembly: EditorCoordinatorAssemblyProtocol
+    private let homeBottomNavigationPanelModuleAssembly: HomeBottomNavigationPanelModuleAssemblyProtocol
     
     // MARK: - State
     
@@ -71,7 +73,8 @@ final class HomeWidgetsCoordinatorViewModel: ObservableObject,
         spaceCreateModuleAssembly: SpaceCreateModuleAssemblyProtocol,
         spaceSettingsCoordinatorAssembly: SpaceSettingsCoordinatorAssemblyProtocol,
         shareCoordinatorAssembly: ShareCoordinatorAssemblyProtocol,
-        editorCoordinatorAssembly: EditorCoordinatorAssemblyProtocol
+        editorCoordinatorAssembly: EditorCoordinatorAssemblyProtocol,
+        homeBottomNavigationPanelModuleAssembly: HomeBottomNavigationPanelModuleAssemblyProtocol
     ) {
         self.homeWidgetsModuleAssembly = homeWidgetsModuleAssembly
         self.activeWorkspaceStorage = activeWorkspaceStorage
@@ -89,6 +92,7 @@ final class HomeWidgetsCoordinatorViewModel: ObservableObject,
         self.spaceSettingsCoordinatorAssembly = spaceSettingsCoordinatorAssembly
         self.shareCoordinatorAssembly = shareCoordinatorAssembly
         self.editorCoordinatorAssembly = editorCoordinatorAssembly
+        self.homeBottomNavigationPanelModuleAssembly = homeBottomNavigationPanelModuleAssembly
     }
 
     func onAppear() {
@@ -122,6 +126,10 @@ final class HomeWidgetsCoordinatorViewModel: ObservableObject,
     func homeWidgetsModule() -> AnyView? {
         guard let info else { return nil }
         return homeWidgetsModuleAssembly.make(info: info, output: self, widgetOutput: self, bottomPanelOutput: self)
+    }
+    
+    func homeBottomNavigationPanelModule() -> AnyView {
+        return homeBottomNavigationPanelModuleAssembly.make(countItems: editorPath.count, output: self)
     }
     
     func changeSourceModule(data: WidgetChangeSourceSearchModuleModel) -> AnyView {
@@ -275,5 +283,19 @@ final class HomeWidgetsCoordinatorViewModel: ObservableObject,
         case .showSharingExtension:
             showSharing.toggle()
         }
+    }
+    
+    // MARK: - HomeBottomNavigationPanelModuleOutput
+    
+    func onHomeSelected() {
+        editorPath.popToRoot()
+    }
+    
+    func onForwardSelected() {
+        
+    }
+    
+    func onBackwardSelected() {
+        editorPath.pop()
     }
 }

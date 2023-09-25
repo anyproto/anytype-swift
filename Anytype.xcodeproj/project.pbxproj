@@ -706,6 +706,10 @@
 		2AEE49EE292E27FA00EA53AA /* ObjectSettingsCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AEE49ED292E27FA00EA53AA /* ObjectSettingsCoordinator.swift */; };
 		2AF109562A02639700EDDE26 /* FileIconBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AF109552A02639700EDDE26 /* FileIconBuilder.swift */; };
 		2AF109582A03C56600EDDE26 /* NSItemProvider+Async.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AF109572A03C56600EDDE26 /* NSItemProvider+Async.swift */; };
+		2AF205BB2ABD8E660027F3EA /* HomeBottomNavigationPanelViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AF205B72ABD8E660027F3EA /* HomeBottomNavigationPanelViewModel.swift */; };
+		2AF205BC2ABD8E660027F3EA /* HomeBottomNavigationPanelView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AF205B82ABD8E660027F3EA /* HomeBottomNavigationPanelView.swift */; };
+		2AF205BD2ABD8E660027F3EA /* HomeBottomNavigationPanelModuleAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AF205B92ABD8E660027F3EA /* HomeBottomNavigationPanelModuleAssembly.swift */; };
+		2AF205BE2ABD8E660027F3EA /* HomeBottomNavigationPanelModuleOutput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AF205BA2ABD8E660027F3EA /* HomeBottomNavigationPanelModuleOutput.swift */; };
 		2AF2C6B928BD104B00F8612B /* UIAnytypeActivityIndicator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AF2C6B828BD104B00F8612B /* UIAnytypeActivityIndicator.swift */; };
 		2AF4260129AF3A6000753B17 /* SettingsAppearanceViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AF4260029AF3A6000753B17 /* SettingsAppearanceViewModel.swift */; };
 		2AF4260329AF3B1700753B17 /* SettingsAppearanceModuleAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AF4260229AF3B1700753B17 /* SettingsAppearanceModuleAssembly.swift */; };
@@ -2310,6 +2314,10 @@
 		2AEE49ED292E27FA00EA53AA /* ObjectSettingsCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObjectSettingsCoordinator.swift; sourceTree = "<group>"; };
 		2AF109552A02639700EDDE26 /* FileIconBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileIconBuilder.swift; sourceTree = "<group>"; };
 		2AF109572A03C56600EDDE26 /* NSItemProvider+Async.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSItemProvider+Async.swift"; sourceTree = "<group>"; };
+		2AF205B72ABD8E660027F3EA /* HomeBottomNavigationPanelViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeBottomNavigationPanelViewModel.swift; sourceTree = "<group>"; };
+		2AF205B82ABD8E660027F3EA /* HomeBottomNavigationPanelView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeBottomNavigationPanelView.swift; sourceTree = "<group>"; };
+		2AF205B92ABD8E660027F3EA /* HomeBottomNavigationPanelModuleAssembly.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeBottomNavigationPanelModuleAssembly.swift; sourceTree = "<group>"; };
+		2AF205BA2ABD8E660027F3EA /* HomeBottomNavigationPanelModuleOutput.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeBottomNavigationPanelModuleOutput.swift; sourceTree = "<group>"; };
 		2AF2C6B828BD104B00F8612B /* UIAnytypeActivityIndicator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIAnytypeActivityIndicator.swift; sourceTree = "<group>"; };
 		2AF4260029AF3A6000753B17 /* SettingsAppearanceViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsAppearanceViewModel.swift; sourceTree = "<group>"; };
 		2AF4260229AF3B1700753B17 /* SettingsAppearanceModuleAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsAppearanceModuleAssembly.swift; sourceTree = "<group>"; };
@@ -5605,7 +5613,6 @@
 				2AFEED152A73AE8C00D7A45B /* HomeWidgetsCoordinatorView.swift */,
 				2AFEED172A73AEDB00D7A45B /* HomeWidgetsCoordinatorViewModel.swift */,
 				2AD1FCC02AB8466C00CEBE1E /* SetBottomPanelHidenEnvironment.swift */,
-				2A80D0412AB9EB2000DB0513 /* HomeBottomPanelContainer.swift */,
 			);
 			path = HomeWidgetsFlow;
 			sourceTree = "<group>";
@@ -5789,6 +5796,7 @@
 		2ABAF2B62938E53A003C4730 /* Modules */ = {
 			isa = PBXGroup;
 			children = (
+				2AF205B52ABD874C0027F3EA /* HomeNavigationContainer */,
 				2AD239052A8A05AC00F7697A /* SpaceCreate */,
 				2A2B33252A7B9A01004BD906 /* SpaceSwitch */,
 				2AE7EC9E298816F30079F12B /* WidgetObjectList */,
@@ -6121,6 +6129,26 @@
 				2A7466A92A9DFDF400D73F63 /* ObjectSettingsCoordinatorOutput.swift */,
 			);
 			path = ObjectSettingsFlow;
+			sourceTree = "<group>";
+		};
+		2AF205B52ABD874C0027F3EA /* HomeNavigationContainer */ = {
+			isa = PBXGroup;
+			children = (
+				2AF205B62ABD8E660027F3EA /* Panel */,
+				2A80D0412AB9EB2000DB0513 /* HomeBottomPanelContainer.swift */,
+			);
+			path = HomeNavigationContainer;
+			sourceTree = "<group>";
+		};
+		2AF205B62ABD8E660027F3EA /* Panel */ = {
+			isa = PBXGroup;
+			children = (
+				2AF205B72ABD8E660027F3EA /* HomeBottomNavigationPanelViewModel.swift */,
+				2AF205B82ABD8E660027F3EA /* HomeBottomNavigationPanelView.swift */,
+				2AF205B92ABD8E660027F3EA /* HomeBottomNavigationPanelModuleAssembly.swift */,
+				2AF205BA2ABD8E660027F3EA /* HomeBottomNavigationPanelModuleOutput.swift */,
+			);
+			path = Panel;
 			sourceTree = "<group>";
 		};
 		2AF2C6B728BD102E00F8612B /* ActivityIndicator */ = {
@@ -9941,6 +9969,7 @@
 				039F669C23C7FDC300DBE36A /* TimingTimer.swift in Sources */,
 				2A9D299028BCC11A00789AC7 /* NonExistentBlockView.swift in Sources */,
 				2AEAA48529F68BC8009ACA00 /* Color+Info.swift in Sources */,
+				2AF205BB2ABD8E660027F3EA /* HomeBottomNavigationPanelViewModel.swift in Sources */,
 				3D2F9C3F271F024E0043C326 /* FloaterAlertView.swift in Sources */,
 				2A90C47B28605F8C00B6B44E /* TableOfContentsContentProvider.swift in Sources */,
 				2AC3F9462A138263005EFEE9 /* FileLimitsStorage.swift in Sources */,
@@ -9983,6 +10012,7 @@
 				EA20CDCD2612288400DBA9FE /* VideoBlockViewModel.swift in Sources */,
 				2AD6792C29812EE600339624 /* HomeBottomPanelModuleOutput.swift in Sources */,
 				3D1CEC4527F5F566000D36BA /* Clock.swift in Sources */,
+				2AF205BC2ABD8E660027F3EA /* HomeBottomNavigationPanelView.swift in Sources */,
 				53FF7C4826F7562B00A5A592 /* AnytypeAudioPlayer.swift in Sources */,
 				C946681728462EB000A8A6F5 /* SimpleTableBlockView.swift in Sources */,
 				2A00A4E929E811FD00C5FCC3 /* ControlsExample.swift in Sources */,
@@ -10507,6 +10537,7 @@
 				53F80F0D27BDA5B700E9E12A /* ObjectRelationViewUIKit.swift in Sources */,
 				C920F7F92903082600360F01 /* BlockTextLinkView.swift in Sources */,
 				2E7C4461289184BA0062287C /* SetFiltersDateRowConfiguration.swift in Sources */,
+				2AF205BE2ABD8E660027F3EA /* HomeBottomNavigationPanelModuleOutput.swift in Sources */,
 				3D24912D27BD271900821595 /* EventsListenerProtocol.swift in Sources */,
 				2EA0F4912936629E003225BA /* GroupsSubscribeResult.swift in Sources */,
 				129C54D027FC79F900C390C7 /* RelationFormatsListView.swift in Sources */,
@@ -10904,6 +10935,7 @@
 				2A80D04C2ABADD5800DB0513 /* EditorSetCoordinatorView.swift in Sources */,
 				2AFFFB9B292778B700A487E1 /* ObjectSettingModuleAssembly.swift in Sources */,
 				12928C8C27BD3C0B00CE94C3 /* IntrinsicPopupLayout.swift in Sources */,
+				2AF205BD2ABD8E660027F3EA /* HomeBottomNavigationPanelModuleAssembly.swift in Sources */,
 				538F1728272C126F009528E7 /* SearchViewModelProtocol.swift in Sources */,
 				2E2D256428880C8D00E3DFD1 /* SetFiltersSelectionHeaderViewModel.swift in Sources */,
 				12EB9B2C27743D1700BA732F /* RelationFile.swift in Sources */,
