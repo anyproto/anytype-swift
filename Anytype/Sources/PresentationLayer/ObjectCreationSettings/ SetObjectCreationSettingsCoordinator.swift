@@ -3,9 +3,23 @@ import Services
 import SwiftUI
 import AnytypeCore
 
+enum SetObjectCreationSettingsMode {
+    case creation
+    case `default`
+    
+    var title: String {
+        switch self {
+        case .creation:
+            return Loc.createObject
+        case .default:
+            return Loc.Set.View.Settings.DefaultObject.title
+        }
+    }
+}
+
 protocol SetObjectCreationSettingsCoordinatorProtocol: AnyObject {
     @MainActor
-    func showTemplatesSelection(
+    func showSetObjectCreationSettings(
         setDocument: SetDocumentProtocol,
         viewId: String,
         onTemplateSelection: @escaping (ObjectCreationSetting) -> ()
@@ -19,6 +33,7 @@ protocol SetObjectCreationSettingsCoordinatorProtocol: AnyObject {
 }
 
 final class SetObjectCreationSettingsCoordinator: SetObjectCreationSettingsCoordinatorProtocol {
+    private let mode: SetObjectCreationSettingsMode
     private let navigationContext: NavigationContextProtocol
     private let setObjectCreationSettingsAssembly: SetObjectCreationSettingsModuleAssemblyProtocol
     private let editorAssembly: EditorAssembly
@@ -27,12 +42,14 @@ final class SetObjectCreationSettingsCoordinator: SetObjectCreationSettingsCoord
     private var handler: TemplateSelectionObjectSettingsHandler?
     
     init(
+        mode: SetObjectCreationSettingsMode,
         navigationContext: NavigationContextProtocol,
         setObjectCreationSettingsAssembly: SetObjectCreationSettingsModuleAssemblyProtocol,
         editorAssembly: EditorAssembly,
         newSearchModuleAssembly: NewSearchModuleAssemblyProtocol,
         objectSettingCoordinator: ObjectSettingsCoordinatorProtocol
     ) {
+        self.mode = mode
         self.navigationContext = navigationContext
         self.setObjectCreationSettingsAssembly = setObjectCreationSettingsAssembly
         self.editorAssembly = editorAssembly
@@ -41,16 +58,23 @@ final class SetObjectCreationSettingsCoordinator: SetObjectCreationSettingsCoord
     }
     
     @MainActor
-    func showTemplatesSelection(
+    func showSetObjectCreationSettings(
         setDocument: SetDocumentProtocol,
         viewId: String,
         onTemplateSelection: @escaping (ObjectCreationSetting) -> ()
     ) {
-        let view = setObjectCreationSettingsAssembly.buildTemplateSelection(
+        let view = setObjectCreationSettingsAssembly.build(
+            mode: mode,
             setDocument: setDocument,
             viewId: viewId,
-            onTemplateSelection: { [weak navigationContext] setting in
-                navigationContext?.dismissTopPresented(animated: true) {
+            onTemplateSelection: { [weak self] setting in
+                guard let self else { return }
+                switch mode {
+                case .creation:
+                    navigationContext.dismissTopPresented(animated: true) {
+                        onTemplateSelection(setting)
+                    }
+                case .default:
                     onTemplateSelection(setting)
                 }
             }
@@ -72,23 +96,29 @@ final class SetObjectCreationSettingsCoordinator: SetObjectCreationSettingsCoord
                 setting: setting,
                 onTemplateSelection: onTemplateSelection,
                 onSetAsDefaultTempalte: { templateId in
-                    model?.setTemplateAsDefault(templateId: templateId)
+                    model?.setTemplateAsDefault(templateId: templateId, showMessage: true)
                     navigationContext?.dismissTopPresented(animated: true, completion: nil)
                 }
             )
         }
         
+        let floatingPanelStyle = mode == .creation
         let viewModel = AnytypePopupViewModel(
             contentView: view,
-            popupLayout: .constantHeight(height: SetObjectCreationSettingsView.height, floatingPanelStyle: true, needBottomInset: false))
+            popupLayout: .constantHeight(
+                height: SetObjectCreationSettingsView.height,
+                floatingPanelStyle: floatingPanelStyle,
+                needBottomInset: false)
+        )
         let popup = AnytypePopup(
             viewModel: viewModel,
-            floatingPanelStyle: true,
+            floatingPanelStyle: floatingPanelStyle,
             configuration: .init(isGrabberVisible: false, dismissOnBackdropView: true, skipThroughGestures: false)
         )
         navigationContext.present(popup)
     }
     
+    @MainActor
     func showTemplateEditing(
         setting: ObjectCreationSetting,
         onTemplateSelection: @escaping (ObjectCreationSetting) -> Void,
@@ -113,8 +143,16 @@ final class SetObjectCreationSettingsCoordinator: SetObjectCreationSettingsCoord
                 
                 self.objectSettingCoordinator.startFlow(objectId: setting.templateId, delegate: handler, output: nil)
             }, onSelectTemplateTap: { [weak self] in
-                self?.navigationContext.dismissAllPresented(animated: true) {
-                    onTemplateSelection(setting)
+                guard let self else { return }
+                switch mode {
+                case .creation:
+                    navigationContext.dismissAllPresented(animated: true) {
+                        onTemplateSelection(setting)
+                    }
+                case .default:
+                    navigationContext.dismissTopPresented(animated: true) {
+                        onTemplateSelection(setting)
+                    }
                 }
             }
         )

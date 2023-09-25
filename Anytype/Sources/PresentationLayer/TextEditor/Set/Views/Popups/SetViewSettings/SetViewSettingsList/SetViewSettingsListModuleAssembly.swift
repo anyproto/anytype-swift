@@ -34,6 +34,7 @@ final class SetViewSettingsListModuleAssembly: SetViewSettingsListModuleAssembly
         let setObjectCreationSettingsInteractor: SetObjectCreationSettingsInteractorProtocol?
         if setDocument.isTypeSet() {
             setObjectCreationSettingsInteractor = SetObjectCreationSettingsInteractor(
+                mode: .default,
                 setDocument: setDocument,
                 viewId: viewId,
                 installedObjectTypesProvider: serviceLocator.installedObjectTypesProvider(),

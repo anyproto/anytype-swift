@@ -866,6 +866,7 @@
 		2EC46DD52ABDFAF800DEA4BD /* InstalledObjectTypesSubscriptionDataBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EC46DD42ABDFAF800DEA4BD /* InstalledObjectTypesSubscriptionDataBuilder.swift */; };
 		2EC46DD72ABE000D00DEA4BD /* ObjectTypesConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EC46DD62ABE000D00DEA4BD /* ObjectTypesConfiguration.swift */; };
 		2EC46DD92ABE081800DEA4BD /* InstalledObjectTypeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EC46DD82ABE081800DEA4BD /* InstalledObjectTypeView.swift */; };
+		2EC46DDB2AC1B9EA00DEA4BD /* SetObjectCreationSettingsCoordinatorAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EC46DDA2AC1B9EA00DEA4BD /* SetObjectCreationSettingsCoordinatorAssembly.swift */; };
 		2EC669212A166FD1001F71BC /* JoinFlowStepOutput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EC669202A166FD1001F71BC /* JoinFlowStepOutput.swift */; };
 		2EC669242A16755A001F71BC /* AuthCustomTransition.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EC669232A16755A001F71BC /* AuthCustomTransition.swift */; };
 		2EC7FB9F2A5EF7FD00491F99 /* LoginLoadingRoute.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EC7FB9E2A5EF7FD00491F99 /* LoginLoadingRoute.swift */; };
@@ -2419,6 +2420,7 @@
 		2EC46DD42ABDFAF800DEA4BD /* InstalledObjectTypesSubscriptionDataBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InstalledObjectTypesSubscriptionDataBuilder.swift; sourceTree = "<group>"; };
 		2EC46DD62ABE000D00DEA4BD /* ObjectTypesConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObjectTypesConfiguration.swift; sourceTree = "<group>"; };
 		2EC46DD82ABE081800DEA4BD /* InstalledObjectTypeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InstalledObjectTypeView.swift; sourceTree = "<group>"; };
+		2EC46DDA2AC1B9EA00DEA4BD /* SetObjectCreationSettingsCoordinatorAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetObjectCreationSettingsCoordinatorAssembly.swift; sourceTree = "<group>"; };
 		2EC669202A166FD1001F71BC /* JoinFlowStepOutput.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JoinFlowStepOutput.swift; sourceTree = "<group>"; };
 		2EC669232A16755A001F71BC /* AuthCustomTransition.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthCustomTransition.swift; sourceTree = "<group>"; };
 		2EC7FB9E2A5EF7FD00491F99 /* LoginLoadingRoute.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginLoadingRoute.swift; sourceTree = "<group>"; };
@@ -8495,6 +8497,7 @@
 				C99DCE8F283B6C270051F99D /* Views */,
 				C90189A828338D2900F30853 /* TemplatesCoordinator.swift */,
 				861E75F72A5D5A5F00F18552 /*  SetObjectCreationSettingsCoordinator.swift */,
+				2EC46DDA2AC1B9EA00DEA4BD /* SetObjectCreationSettingsCoordinatorAssembly.swift */,
 			);
 			path = ObjectCreationSettings;
 			sourceTree = "<group>";
@@ -10582,6 +10585,7 @@
 				C90F8F2A28DCBD9900E874A9 /* PreviewRemoteItem.swift in Sources */,
 				2AA8108329A3E0E3007DD64B /* WidgetObjectListMenuOutput.swift in Sources */,
 				2A4E5C8A296C0BAD002BB71B /* HomeBottomPanelView.swift in Sources */,
+				2EC46DDB2AC1B9EA00DEA4BD /* SetObjectCreationSettingsCoordinatorAssembly.swift in Sources */,
 				53FF7CBE26FDD37D00A5A592 /* ObjectAction.swift in Sources */,
 				2A150BE028AA8E9700F2E569 /* TextRelationURLActionViewModel.swift in Sources */,
 				8637768F2A6668680040308E /* TemplatePreviewModel.swift in Sources */,

@@ -13,7 +13,6 @@ protocol SetViewSettingsCoordinatorOutput: AnyObject {
 
 @MainActor
 final class SetViewSettingsCoordinatorViewModel: ObservableObject, SetViewSettingsCoordinatorOutput {
-    @Published var showObjects = false
     @Published var showLayouts = false
     @Published var showRelations = false
     @Published var showFilters = false
@@ -28,6 +27,7 @@ final class SetViewSettingsCoordinatorViewModel: ObservableObject, SetViewSettin
     private let setRelationsCoordinatorAssembly: SetRelationsCoordinatorAssemblyProtocol
     private let setFiltersListCoordinatorAssembly: SetFiltersListCoordinatorAssemblyProtocol
     private let setSortsListCoordinatorAssembly: SetSortsListCoordinatorAssemblyProtocol
+    private let objectCreationSettingsCoordinator: SetObjectCreationSettingsCoordinatorProtocol
     
     init(
         setDocument: SetDocumentProtocol,
@@ -38,7 +38,8 @@ final class SetViewSettingsCoordinatorViewModel: ObservableObject, SetViewSettin
         setLayoutSettingsCoordinatorAssembly: SetLayoutSettingsCoordinatorAssemblyProtocol,
         setRelationsCoordinatorAssembly: SetRelationsCoordinatorAssemblyProtocol,
         setFiltersListCoordinatorAssembly: SetFiltersListCoordinatorAssemblyProtocol,
-        setSortsListCoordinatorAssembly: SetSortsListCoordinatorAssemblyProtocol
+        setSortsListCoordinatorAssembly: SetSortsListCoordinatorAssemblyProtocol,
+        objectCreationSettingsCoordinator: SetObjectCreationSettingsCoordinatorProtocol
     ) {
         self.setDocument = setDocument
         self.viewId = viewId
@@ -49,6 +50,7 @@ final class SetViewSettingsCoordinatorViewModel: ObservableObject, SetViewSettin
         self.setRelationsCoordinatorAssembly = setRelationsCoordinatorAssembly
         self.setFiltersListCoordinatorAssembly = setFiltersListCoordinatorAssembly
         self.setSortsListCoordinatorAssembly = setSortsListCoordinatorAssembly
+        self.objectCreationSettingsCoordinator = objectCreationSettingsCoordinator
     }
     
     func list() -> AnyView {
@@ -62,14 +64,22 @@ final class SetViewSettingsCoordinatorViewModel: ObservableObject, SetViewSettin
     
     // MARK: - SetViewSettingsCoordinatorOutput
     
-    // MARK: - Default type
+    // MARK: - Default object creation settings
     
     func onDefaultObjectTap() {
-        showObjects.toggle()
+        startObjectCreationSettings()
     }
     
     func onDefaultTemplateTap() {
-        showObjects.toggle()
+        startObjectCreationSettings()
+    }
+    
+    private func startObjectCreationSettings() {
+        objectCreationSettingsCoordinator.showSetObjectCreationSettings(
+            setDocument: setDocument,
+            viewId: viewId,
+            onTemplateSelection: { _ in }
+        )
     }
     
     // MARK: - Layout
@@ -123,5 +133,12 @@ final class SetViewSettingsCoordinatorViewModel: ObservableObject, SetViewSettin
             with: setDocument,
             viewId: viewId
         )
+    }
+}
+
+extension SetViewSettingsCoordinatorViewModel {
+    struct TypesSearchData: Identifiable {
+        let id = UUID()
+        let completion: (BlockId) -> Void
     }
 }

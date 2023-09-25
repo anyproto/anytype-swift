@@ -22,6 +22,7 @@ final class EditorAssembly {
         self.uiHelpersDI = uiHelpersDI
     }
     
+    @MainActor
     func buildEditorController(
         browser: EditorBrowserController?,
         data: EditorScreenData,
@@ -30,6 +31,7 @@ final class EditorAssembly {
         buildEditorModule(browser: browser, data: data, widgetListOutput: widgetListOutput).vc
     }
 
+    @MainActor
     func buildEditorModule(
         browser: EditorBrowserController?,
         data: EditorScreenData,
@@ -56,6 +58,8 @@ final class EditorAssembly {
     }
     
     // MARK: - Set
+    
+    @MainActor
     private func buildSetModule(
         browser: EditorBrowserController?,
         data: EditorSetObject
@@ -108,12 +112,9 @@ final class EditorAssembly {
             setViewPickerCoordinatorAssembly: coordinatorsDI.setViewPicker(),
             toastPresenter: uiHelpersDI.toastPresenter(using: browser),
             alertHelper: AlertHelper(viewController: controller),
-            setObjectCreationSettingsCoordinator:  SetObjectCreationSettingsCoordinator(
-                navigationContext: navigationContext,
-                setObjectCreationSettingsAssembly: modulesDI.setObjectCreationSettings(),
-                editorAssembly: coordinatorsDI.editor(),
-                newSearchModuleAssembly: modulesDI.newSearch(),
-                objectSettingCoordinator: coordinatorsDI.objectSettings().make(browserController: nil)
+            setObjectCreationSettingsCoordinator: coordinatorsDI.setObjectCreationSettings().make(
+                with: .creation,
+                navigationContext: navigationContext
             )
         )
         
@@ -124,6 +125,7 @@ final class EditorAssembly {
     
     // MARK: - Page
     
+    @MainActor
     private func buildPageModule(
         browser: EditorBrowserController?,
         data: EditorPageObject
@@ -151,12 +153,9 @@ final class EditorAssembly {
             document: document,
             addNewRelationCoordinator: coordinatorsDI.addNewRelation().make(),
             templatesCoordinator: coordinatorsDI.templates().make(viewController: controller),
-            setObjectCreationSettingsCoordinator:  SetObjectCreationSettingsCoordinator(
-                navigationContext: navigationContext,
-                setObjectCreationSettingsAssembly: modulesDI.setObjectCreationSettings(),
-                editorAssembly: coordinatorsDI.editor(),
-                newSearchModuleAssembly: modulesDI.newSearch(),
-                objectSettingCoordinator: coordinatorsDI.objectSettings().make(browserController: nil)
+            setObjectCreationSettingsCoordinator: coordinatorsDI.setObjectCreationSettings().make(
+                with: .creation,
+                navigationContext: navigationContext
             ),
             urlOpener: uiHelpersDI.urlOpener(),
             relationValueCoordinator: coordinatorsDI.relationValue().make(),

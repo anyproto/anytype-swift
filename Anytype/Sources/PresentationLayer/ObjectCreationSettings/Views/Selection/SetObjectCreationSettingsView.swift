@@ -19,7 +19,7 @@ struct SetObjectCreationSettingsView: View {
 
     private var navigation: some View {
         ZStack {
-            AnytypeText(Loc.createObject, style: .uxTitle2Medium, color: .Text.primary)
+            AnytypeText(model.title, style: .uxTitle2Medium, color: .Text.primary)
             HStack(spacing: 0) {
                 Button {
                     model.isEditingState.toggle()

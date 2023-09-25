@@ -54,7 +54,7 @@ protocol EditorSetRouterProtocol:
     func showFailureToast(message: String)
     
     @MainActor
-    func showTemplatesSelection(
+    func showSetObjectCreationSettings(
         setDocument: SetDocumentProtocol,
         viewId: String,
         onTemplateSelection: @escaping (ObjectCreationSetting) -> ()
@@ -413,12 +413,12 @@ final class EditorSetRouter: EditorSetRouterProtocol, ObjectSettingsCoordinatorO
     }
     
     @MainActor
-    func showTemplatesSelection(
+    func showSetObjectCreationSettings(
         setDocument: SetDocumentProtocol,
         viewId: String,
         onTemplateSelection: @escaping (ObjectCreationSetting) -> ()
     ) {
-        setObjectCreationSettingsCoordinator.showTemplatesSelection(
+        setObjectCreationSettingsCoordinator.showSetObjectCreationSettings(
             setDocument: setDocument,
             viewId: viewId,
             onTemplateSelection: onTemplateSelection

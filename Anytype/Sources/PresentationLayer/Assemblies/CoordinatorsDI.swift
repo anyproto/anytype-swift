@@ -133,4 +133,9 @@ final class CoordinatorsDI: CoordinatorsDIProtocol {
     func setViewPicker() -> SetViewPickerCoordinatorAssemblyProtocol {
         SetViewPickerCoordinatorAssembly(modulesDI: modulesDI, coordinatorsDI: self)
     }
+    
+    func setObjectCreationSettings() -> SetObjectCreationSettingsCoordinatorAssemblyProtocol {
+        SetObjectCreationSettingsCoordinatorAssembly(modulesDI: modulesDI, uiHelpersDI: uiHelpersDI, coordinatorsDI: self)
+    }
+    
 }

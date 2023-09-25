@@ -40,7 +40,11 @@ final class SetViewSettingsCoordinatorAssembly: SetViewSettingsCoordinatorAssemb
                 setLayoutSettingsCoordinatorAssembly: self.coordinatorsDI.setLayoutSettings(),
                 setRelationsCoordinatorAssembly: self.coordinatorsDI.setRelations(),
                 setFiltersListCoordinatorAssembly: self.coordinatorsDI.setFiltersList(),
-                setSortsListCoordinatorAssembly: self.coordinatorsDI.setSortsList()
+                setSortsListCoordinatorAssembly: self.coordinatorsDI.setSortsList(),
+                objectCreationSettingsCoordinator: self.coordinatorsDI.setObjectCreationSettings().make(
+                    with: .default,
+                    navigationContext: nil
+                )
             )
         ).eraseToAnyView()
     }

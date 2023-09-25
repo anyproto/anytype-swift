@@ -79,6 +79,7 @@ final class TemplatesCoordinator {
         )
     }
 
+    @MainActor
     private func showTemplateAvailablitityPopup(
         availableTemplates: [ObjectDetails],
         document: BaseDocumentProtocol
@@ -110,6 +111,7 @@ final class TemplatesCoordinator {
         popup.addPanel(toParent: rootViewController, animated: true)
     }
 
+    @MainActor
     private func showTemplatesPicker(
         document: BaseDocumentProtocol,
         availableTemplates: [ObjectDetails]

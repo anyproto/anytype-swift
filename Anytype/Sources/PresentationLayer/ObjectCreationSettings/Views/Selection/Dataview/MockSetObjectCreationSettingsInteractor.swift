@@ -2,6 +2,8 @@ import Services
 import Combine
 
 final class MockSetObjectCreationSettingsInteractor: SetObjectCreationSettingsInteractorProtocol {
+    var mode: SetObjectCreationSettingsMode { .creation }
+    
     var objectTypeId: ObjectTypeId { fatalError() }
     var objectTypesConfigPublisher: AnyPublisher<ObjectTypesConfiguration, Never> { $objectTypesConfig.eraseToAnyPublisher()
     }
@@ -10,6 +12,10 @@ final class MockSetObjectCreationSettingsInteractor: SetObjectCreationSettingsIn
     var userTemplates: AnyPublisher<[TemplatePreviewModel], Never> { $templates.eraseToAnyPublisher() }
 
     @Published private var templates = MockTemplatePreviewModel.allPreviews.map { $0.model }
+    
+    func setDefaultObjectType(objectTypeId: BlockId) async throws {
+        fatalError()
+    }
     
     func setDefaultTemplate(templateId: Services.BlockId) async throws {
         fatalError()

@@ -15,6 +15,10 @@ final class SetObjectCreationSettingsViewModel: ObservableObject {
     @Published var objectTypes = [InstalledObjectTypeViewModel]()
     @Published var templates = [TemplatePreviewViewModel]()
     
+    var title: String {
+        interactor.mode.title
+    }
+    
     var isTemplatesAvailable = true
     
     var templateEditingHandler: ((ObjectCreationSetting) -> Void)?
@@ -54,22 +58,18 @@ final class SetObjectCreationSettingsViewModel: ObservableObject {
     func onTemplateTap(model: TemplatePreviewModel) {
         switch model.mode {
         case .installed(let templateModel):
-            onTemplateSelection(
-                ObjectCreationSetting(
-                    objectTypeId: interactor.objectTypeId.rawValue,
-                    templateId: templateModel.id
-                )
+            onTemplateSelect(
+                objectTypeId: interactor.objectTypeId.rawValue,
+                templateId: templateModel.id
             )
             AnytypeAnalytics.instance().logTemplateSelection(
                 objectType: templateModel.isBundled ? .object(typeId: templateModel.id) : .custom,
                 route: setDocument.isCollection() ? .collection : .set
             )
         case .blank:
-            onTemplateSelection(
-                ObjectCreationSetting(
-                    objectTypeId: interactor.objectTypeId.rawValue,
-                    templateId: ""
-                )
+            onTemplateSelect(
+                objectTypeId: interactor.objectTypeId.rawValue,
+                templateId: ""
             )
             AnytypeAnalytics.instance().logTemplateSelection(
                 objectType: nil,
@@ -78,6 +78,18 @@ final class SetObjectCreationSettingsViewModel: ObservableObject {
         case .addTemplate:
             onAddTemplateTap()
         }
+    }
+    
+    func onTemplateSelect(objectTypeId: BlockId, templateId: BlockId) {
+        if interactor.mode == .default {
+            setTemplateAsDefault(templateId: templateId, showMessage: false)
+        }
+        onTemplateSelection(
+            ObjectCreationSetting(
+                objectTypeId: objectTypeId,
+                templateId: templateId
+            )
+        )
     }
     
     func onAddTemplateTap() {
@@ -104,14 +116,30 @@ final class SetObjectCreationSettingsViewModel: ObservableObject {
     
     func setObjectTypeId(_ objectTypeId: String) {
         guard let objectTypeId = ObjectTypeId(rawValue: objectTypeId) else { return }
-        interactor.setObjectTypeId(objectTypeId)
+        switch interactor.mode {
+        case .creation:
+            interactor.setObjectTypeId(objectTypeId)
+        case .default:
+            setObjectTypeAsDefault(objectTypeId: objectTypeId.rawValue)
+        }
+        
     }
     
-    func setTemplateAsDefault(templateId: BlockId) {
+    func setTemplateAsDefault(templateId: BlockId, showMessage: Bool) {
         Task {
             do {
                 try await interactor.setDefaultTemplate(templateId: templateId)
-                toastPresenter.show(message: Loc.Templates.Popup.default)
+                if showMessage {
+                    toastPresenter.show(message: Loc.Templates.Popup.default)
+                }
+            }
+        }
+    }
+    
+    private func setObjectTypeAsDefault(objectTypeId: BlockId) {
+        Task {
+            do {
+                try await interactor.setDefaultObjectType(objectTypeId: objectTypeId)
             }
         }
     }
@@ -181,7 +209,7 @@ final class SetObjectCreationSettingsViewModel: ObservableObject {
                         ObjectCreationSetting(objectTypeId: objectTypeId, templateId: templateViewModel.id)
                     )
                 case .setAsDefault:
-                    setTemplateAsDefault(templateId: templateViewModel.id)
+                    setTemplateAsDefault(templateId: templateViewModel.id, showMessage: true)
                 }
                 
                 handleAnalytics(option: option, templateViewModel: templateViewModel)
