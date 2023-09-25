@@ -85,7 +85,7 @@ final class ObjectActionsViewModel: ObservableObject {
         Task { @MainActor [weak self] in
             guard let details = self?.details, let objectId = self?.objectId else { return }
             
-            guard let duplicatedId = try await self?.service.duplicate(objectId: objectId) else { return }
+            guard let duplicatedId = try await self?.service.duplicate(objectId: objectId, typeId: details.type) else { return }
             let newDetails = ObjectDetails(id: duplicatedId, values: details.values)
             self?.dismissSheet()
             self?.openPageAction(newDetails.editorScreenData())
