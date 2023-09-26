@@ -119,12 +119,13 @@ final class SetViewSettingsListModel: ObservableObject {
     }
     
     private func updateState() {
+        let prevObjectTypeId = view.defaultObjectTypeID ?? ""
         view = setDocument.view(by: viewId)
         
         name = view.name
         layoutValue = view.type.name
         updateRelationsValue()
-        updateDefaultObjectValue(with: view)
+        updateDefaultObjectValue(with: view, prevObjectTypeId: prevObjectTypeId)
         
         let sorts = setDocument.sorts(for: viewId)
         updateSortsValue(sorts)
@@ -186,10 +187,10 @@ final class SetViewSettingsListModel: ObservableObject {
         }
     }
     
-    private func updateDefaultObjectValue(with view: DataviewView) {
+    private func updateDefaultObjectValue(with view: DataviewView, prevObjectTypeId: String) {
         guard !setDocument.isTypeSet(),
             defaultObjectValue == SetViewSettings.defaultObject.placeholder ||
-                view.defaultObjectTypeID != view.defaultObjectTypeID else { return }
+                prevObjectTypeId != view.defaultObjectTypeID else { return }
         let objectTypeId = view.defaultObjectTypeIDWithFallback
         Task { @MainActor in
             let objectDetails = try await templatesInteractor.objectDetails(for: objectTypeId)
