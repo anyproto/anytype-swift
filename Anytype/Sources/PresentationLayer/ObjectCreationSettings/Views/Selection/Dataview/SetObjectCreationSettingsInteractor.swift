@@ -99,18 +99,22 @@ final class SetObjectCreationSettingsInteractor: SetObjectCreationSettingsIntera
     }
     
     func setObjectTypeId(_ objectTypeId: ObjectTypeId) {
-        self.objectTypeId = objectTypeId
-        loadTemplates()
+        updateState(with: objectTypeId)
     }
     
     func setDefaultObjectType(objectTypeId: BlockId) async throws {
-        let updatedDataView = dataView.updated(defaultObjectTypeID: objectTypeId)
+        let updatedDataView = dataView.updated(defaultTemplateID: "", defaultObjectTypeID: objectTypeId)
         try await dataviewService.updateView(updatedDataView)
     }
     
     func setDefaultTemplate(templateId: BlockId) async throws {
         let updatedDataView = dataView.updated(defaultTemplateID: templateId)
         try await dataviewService.updateView(updatedDataView)
+    }
+    
+    private func updateState(with objectTypeId: ObjectTypeId) {
+        self.objectTypeId = objectTypeId
+        loadTemplates()
     }
     
     private func subscribeOnDocmentUpdates() {
@@ -124,8 +128,7 @@ final class SetObjectCreationSettingsInteractor: SetObjectCreationSettingsIntera
             guard mode == .default else { return }
             
             if !setDocument.isTypeSet(), objectTypeId.rawValue != dataView.defaultObjectTypeIDWithFallback {
-                objectTypeId = .dynamic(dataView.defaultObjectTypeIDWithFallback)
-                loadTemplates()
+                updateState(with: .dynamic(dataView.defaultObjectTypeIDWithFallback))
             }
         }.store(in: &cancellables)
         
@@ -140,15 +143,18 @@ final class SetObjectCreationSettingsInteractor: SetObjectCreationSettingsIntera
     
         startObjectTypesSubscription()
         installedObjectTypesProvider.objectTypesPublisher.sink { [weak self] objectTypes in
-            guard let self else { return }
-            let defaultTemplateId = objectTypes.first { [weak self] in
-                guard let self else { return false }
-                return $0.id == objectTypeId.rawValue
-            }?.defaultTemplateId ?? .empty
-            if typeDefaultTemplateId != defaultTemplateId {
-                typeDefaultTemplateId = defaultTemplateId
-            }
+            self?.updateTypeDefaultTemplateId(objectTypes: objectTypes)
         }.store(in: &cancellables)
+    }
+    
+    private func updateTypeDefaultTemplateId(objectTypes: [ObjectType]) {
+        let defaultTemplateId = objectTypes.first { [weak self] in
+            guard let self else { return false }
+            return $0.id == objectTypeId.rawValue
+        }?.defaultTemplateId ?? .empty
+        if typeDefaultTemplateId != defaultTemplateId {
+            typeDefaultTemplateId = defaultTemplateId
+        }
     }
     
     private func startObjectTypesSubscription() {
@@ -160,7 +166,9 @@ final class SetObjectCreationSettingsInteractor: SetObjectCreationSettingsIntera
     
     private func loadTemplates() {
         subscriptionService.startSubscription(objectType: objectTypeId) { [weak self] _, update in
-            self?.templatesDetails.applySubscriptionUpdate(update)
+            guard let self else { return }
+            templatesDetails.applySubscriptionUpdate(update)
+            updateTypeDefaultTemplateId(objectTypes: installedObjectTypesProvider.objectTypes)
         }
     }
 }
