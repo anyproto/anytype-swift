@@ -18,6 +18,7 @@ final class BlockViewModelBuilder {
     private let audioSessionService: AudioSessionServiceProtocol
     private let infoContainer: InfoContainerProtocol
     private let tableService: BlockTableServiceProtocol
+    private let objectTypeProvider: ObjectTypeProviderProtocol
 
     init(
         document: BaseDocumentProtocol,
@@ -32,7 +33,8 @@ final class BlockViewModelBuilder {
         detailsService: DetailsServiceProtocol,
         audioSessionService: AudioSessionServiceProtocol,
         infoContainer: InfoContainerProtocol,
-        tableService: BlockTableServiceProtocol
+        tableService: BlockTableServiceProtocol,
+        objectTypeProvider: ObjectTypeProviderProtocol
     ) {
         self.document = document
         self.handler = handler
@@ -47,6 +49,7 @@ final class BlockViewModelBuilder {
         self.audioSessionService = audioSessionService
         self.infoContainer = infoContainer
         self.tableService = tableService
+        self.objectTypeProvider = objectTypeProvider
     }
 
     func buildEditorItems(infos: [BlockInformation]) -> [EditorItem] {
@@ -242,9 +245,12 @@ final class BlockViewModelBuilder {
                 if relation.key == BundledRelationKey.type.rawValue && !self.document.isLocked && bookmarkFilter && allowTypeChange {
                     self.router.showTypes(
                         selectedObjectId: self.document.details?.type,
-                        onSelect: { [weak self] id in
+                        onSelect: { id in
                             Task { [weak self] in
-                                try await self?.handler.setObjectTypeId(id)
+                                guard let self else { return }
+                                try await handler.setObjectTypeId(id)
+                                let objectType = objectTypeProvider.objectType(id: id)?.analyticsType ?? .object(typeId: id)
+                                AnytypeAnalytics.instance().logObjectTypeChange(objectType)
                             }
                         }
                     )

@@ -15,6 +15,7 @@ final class ChangeTypeAccessoryViewModel {
     private let handler: BlockActionHandlerProtocol
     private let searchService: SearchServiceProtocol
     private let objectService: ObjectActionsServiceProtocol
+    private let objectTypeProvider: ObjectTypeProviderProtocol
     private let document: BaseDocumentProtocol
     private lazy var searchItem = TypeItem.searchItem { [weak self] in self?.onSearchTap() }
 
@@ -25,12 +26,14 @@ final class ChangeTypeAccessoryViewModel {
         handler: BlockActionHandlerProtocol,
         searchService: SearchServiceProtocol,
         objectService: ObjectActionsServiceProtocol,
+        objectTypeProvider: ObjectTypeProviderProtocol,
         document: BaseDocumentProtocol
     ) {
         self.router = router
         self.handler = handler
         self.searchService = searchService
         self.objectService = objectService
+        self.objectTypeProvider = objectTypeProvider
         self.document = document
 
         fetchSupportedTypes()
@@ -87,6 +90,9 @@ final class ChangeTypeAccessoryViewModel {
 
         Task { @MainActor in
             try await handler.setObjectTypeId(typeId)
+            let objectType = objectTypeProvider.objectType(id: typeId)?.analyticsType ?? .object(typeId: typeId)
+            AnytypeAnalytics.instance().logSelectObjectType(objectType)
+            
             applyDefaultTemplateIfNeeded(typeId: typeId)
         }
     }

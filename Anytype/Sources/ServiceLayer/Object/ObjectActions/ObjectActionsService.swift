@@ -190,9 +190,6 @@ final class ObjectActionsService: ObjectActionsServiceProtocol {
             $0.contextID = objectId
             $0.objectTypeURL = objectTypeId
         }).invoke()
-        
-        let objectType = objectTypeProvider.objectType(id: objectTypeId)?.analyticsType ?? .object(typeId: objectTypeId)
-        AnytypeAnalytics.instance().logObjectTypeChange(objectType)
     }
 
     func setObjectSetType(objectId: BlockId) async throws {

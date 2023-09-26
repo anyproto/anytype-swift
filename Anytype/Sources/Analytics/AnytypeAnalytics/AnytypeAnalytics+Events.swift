@@ -99,6 +99,11 @@ extension AnytypeAnalytics {
         logEvent(AnalyticsEventsName.objectTypeChange,
                  withEventProperties: [AnalyticsEventsPropertiesKey.objectType: type.analyticsId])
     }
+    
+    func logSelectObjectType(_ type: AnalyticsObjectType) {
+        logEvent(AnalyticsEventsName.selectObjectType,
+                 withEventProperties: [AnalyticsEventsPropertiesKey.objectType: type.analyticsId])
+    }
 
     func logLayoutChange(_ layout: DetailsLayout) {
         logEvent(AnalyticsEventsName.changeLayout,
