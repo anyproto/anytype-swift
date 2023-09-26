@@ -4,6 +4,9 @@ import Combine
 final class MockSetObjectCreationSettingsInteractor: SetObjectCreationSettingsInteractorProtocol {
     var mode: SetObjectCreationSettingsMode { .creation }
     
+    var objectTypesAvailabilityPublisher: AnyPublisher<Bool, Never> { $canChangeObjectType.eraseToAnyPublisher() }
+    @Published var canChangeObjectType = false
+    
     var objectTypeId: ObjectTypeId { fatalError() }
     var objectTypesConfigPublisher: AnyPublisher<ObjectTypesConfiguration, Never> { $objectTypesConfig.eraseToAnyPublisher()
     }

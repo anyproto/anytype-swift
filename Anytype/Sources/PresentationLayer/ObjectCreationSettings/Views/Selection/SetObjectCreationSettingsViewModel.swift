@@ -14,9 +14,14 @@ final class SetObjectCreationSettingsViewModel: ObservableObject {
     @Published var isEditingState = false
     @Published var objectTypes = [InstalledObjectTypeViewModel]()
     @Published var templates = [TemplatePreviewViewModel]()
+    @Published var canChangeObjectType = false
     
     var title: String {
-        interactor.mode.title
+        if canChangeObjectType {
+            return interactor.mode.title
+        } else {
+            return Loc.Set.View.Settings.DefaultTemplate.title
+        }
     }
     
     var isTemplatesAvailable = true
@@ -146,6 +151,7 @@ final class SetObjectCreationSettingsViewModel: ObservableObject {
     
     private func setupSubscriptions() {
         // Templates
+        
         interactor.userTemplates.sink { [weak self] templates in
             if let userTemplates = self?.userTemplates,
                 userTemplates != templates {
@@ -154,6 +160,11 @@ final class SetObjectCreationSettingsViewModel: ObservableObject {
         }.store(in: &cancellables)
         
         // Object types
+        
+        interactor.objectTypesAvailabilityPublisher.sink { [weak self] canChangeObjectType in
+            self?.canChangeObjectType = canChangeObjectType
+        }.store(in: &cancellables)
+        
         interactor.objectTypesConfigPublisher.sink { [weak self] objectTypesConfig in
             guard let self else { return }
             let defaultObjectType = objectTypesConfig.objectTypes.first {

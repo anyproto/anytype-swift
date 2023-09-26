@@ -11,7 +11,9 @@ struct SetObjectCreationSettingsView: View {
         VStack {
             Spacer.fixedHeight(8)
             navigation
-            objectTypeView
+            if model.canChangeObjectType {
+                objectTypeView
+            }
             templatesView
             Spacer.fixedHeight(24)
         }

@@ -7,6 +7,7 @@ protocol SetObjectCreationSettingsInteractorProtocol {
     
     var userTemplates: AnyPublisher<[TemplatePreviewModel], Never> { get }
     
+    var objectTypesAvailabilityPublisher: AnyPublisher<Bool, Never> { get }
     var objectTypeId: ObjectTypeId { get }
     var objectTypesConfigPublisher: AnyPublisher<ObjectTypesConfiguration, Never> { get }
     func setObjectTypeId(_ objectTypeId: ObjectTypeId)
@@ -16,6 +17,8 @@ protocol SetObjectCreationSettingsInteractorProtocol {
 }
 
 final class SetObjectCreationSettingsInteractor: SetObjectCreationSettingsInteractorProtocol {
+    
+    var objectTypesAvailabilityPublisher: AnyPublisher<Bool, Never> { $canChangeObjectType.eraseToAnyPublisher() }
     
     var objectTypesConfigPublisher: AnyPublisher<ObjectTypesConfiguration, Never> {
         Publishers.CombineLatest(installedObjectTypesProvider.objectTypesPublisher, $objectTypeId)
@@ -43,6 +46,7 @@ final class SetObjectCreationSettingsInteractor: SetObjectCreationSettingsIntera
     }
     
     @Published var objectTypeId: ObjectTypeId
+    @Published var canChangeObjectType = false
     
     let mode: SetObjectCreationSettingsMode
     
@@ -125,6 +129,15 @@ final class SetObjectCreationSettingsInteractor: SetObjectCreationSettingsIntera
             }
         }.store(in: &cancellables)
         
+        setDocument.detailsPublisher.sink { [weak self] details in
+            guard let self else { return }
+            let isNotTypeSet = !setDocument.isTypeSet()
+            if canChangeObjectType != isNotTypeSet {
+                canChangeObjectType = isNotTypeSet
+            }
+        }
+        .store(in: &cancellables)
+    
         startObjectTypesSubscription()
         installedObjectTypesProvider.objectTypesPublisher.sink { [weak self] objectTypes in
             guard let self else { return }
