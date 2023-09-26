@@ -1,0 +1,806 @@
+// style menu
+"StyleMenu.Color.TextColor.Placeholder" = "A";
+
+// MARK: Text Style in Slash and Style menu
+"TextStyle.Text.Title" = "正文";
+"TextStyle.Text.Subtitle" = "只需从正文开始书写";
+
+"TextStyle.Title.Title" = "大标题";
+"TextStyle.Title.Subtitle" = "一级标题";
+
+"TextStyle.Heading.Title" = "中等标题";
+"TextStyle.Heading.Subtitle" = "中等标题";
+
+"TextStyle.Subheading.Title" = "副标题";
+"TextStyle.Subheading.Subtitle" = "小标题";
+
+"TextStyle.Highlighted.Title" = "高亮";
+"TextStyle.Highlighted.Subtitle" = "聚焦，这需要特别关注";
+
+"TextStyle.Callout.Title" = "标注";
+"TextStyle.Callout.Subtitle" = "带图标的带边框文本";
+
+"TextStyle.Checkbox.Title" = "复选框";
+"TextStyle.Checkbox.Subtitle" = "使用待办事项列表创建和跟踪任务";
+
+"TextStyle.Bulleted.Title" = "项目符号";
+"TextStyle.Bulleted.Subtitle" = "简单列表";
+
+"TextStyle.Numbered.Title" = "编号列表";
+"TextStyle.Numbered.Subtitle" = "编号列表";
+
+"TextStyle.Toggle.Title" = "切换";
+"TextStyle.Toggle.Subtitle" = "隐藏和显示内部内容";
+
+"TextStyle.Bold.Title" = "粗体";
+"TextStyle.Italic.Title" = "斜体";
+"TextStyle.Strikethrough.Title" = "删除线";
+"TextStyle.Code.Title" = "代码";
+"TextStyle.Link.Title" = "链接";
+
+// MARK: - Block Text
+"BlockText.Content.Placeholder" = "无标题";
+
+"BlockText.ContentType.Title.Placeholder" = "无标题";
+"BlockText.ContentType.Description.Placeholder" = "添加描述";
+"BlockText.ContentType.Toggle.Placeholder" = "切换块";
+"BlockText.ContentType.Bulleted.Placeholder" = "项目符号列表项";
+"BlockText.ContentType.Checkbox.Placeholder" = "复选框";
+"BlockText.ContentType.Numbered.Placeholder" = "编号列表项";
+"BlockText.ContentType.Quote.Placeholder" = "高亮显示的文本";
+"BlockText.ContentType.Header.Placeholder" = "大标题";
+"BlockText.ContentType.Header2.Placeholder" = "中等标题";
+"BlockText.ContentType.Header3.Placeholder" = "副标题";
+
+// MARK: - Block Link
+
+"BlockLink.PreviewSettings.IconSize.None" = "无";
+"BlockLink.PreviewSettings.IconSize.Small" = "小";
+"BlockLink.PreviewSettings.IconSize.Medium" = "中等";
+
+"BlockLink.PreviewSettings.Layout.Card.Title" = "卡片";
+"BlockLink.PreviewSettings.Layout.Text.Title" = "正文";
+
+// MARK: - Settings
+"Settings.Title" = "个人空间";
+"Settings.SpaceName" = "空间名称";
+
+// MARK: - Object
+"Object.Title.Placeholder" = "无标题";
+"Object.Deleted.Placeholder" = "已删除的对象";
+
+// MARK: - Relation
+"Featured relations" = "精选关联";
+"Create relation" = "创建关联 ‘%@’";
+"Relation.View.Hint.Empty" = "空的";
+"Relation.MyRelations" = "我的关联";
+"Relation.AddedToLibrary" = "名称为 ‘%@’ 关联已添加到您的库";
+"Relation.Deleted" = "已删除的关联";
+"Relation.From.Type" = "来自 %@ 类型";
+
+"Relation.Format.Object.Title" = "对象";
+"Relation.Format.Text.Title" = "正文";
+"Relation.Format.Number.Title" = "数目";
+"Relation.Format.Status.Title" = "状态";
+"Relation.Format.Tag.Title" = "标签";
+"Relation.Format.Date.Title" = "日期";
+"Relation.Format.FileMedia.Title" = "文件 & 媒体";
+"Relation.Format.Checkbox.Title" = "复选框";
+"Relation.Format.Url.Title" = "URL";
+"Relation.Format.Email.Title" = "电子邮件";
+"Relation.Format.Phone.Title" = "电话号码";
+
+// MARK: - Mention
+"Mention.Subtitle.Placeholder" = "对象";
+
+"None" = "无";
+"Callout" = "标注";
+"Toggle empty. Tap to create block." = "切换为空。点击以创建块。";
+"Loading, please wait" = "正在加载中，请稍候";
+"Done" = "完成";
+"Style" = "样式";
+"Color" = "颜色";
+"Background" = "背景";
+"Other" = "其他";
+"Media" = "媒体";
+"Alignment" = "排列";
+"Actions" = "操作";
+"Relations" = "关联";
+"Objects" = "对象";
+"Delete" = "删除";
+"Duplicate" = "生成副本";
+"Copy" = "拷贝";
+"Preview" = "预览";
+"View" = "视图";
+"Paste" = "粘贴";
+"Move" = "移动";
+"Move to" = "移至";
+"Back" = "返回";
+"File block subtitle" = "以原始状态存储文件";
+"Picture block subtitle" = "上传图片，丰富页面内容";
+"Video block subtitle" = "上传可播放的视频";
+"Bookmark block subtitle" = "剪藏您最喜欢的链接和摘要";
+"Code block subtitle" = "捕获代码片段";
+"Align right" = "右对齐";
+"Align left" = "左对齐";
+"Align center" = "居中对齐";
+"Black" = "黑色";
+"Amber" = "琥珀色";
+"Red" = "朱红色";
+"Pink" = "品红色";
+"Purple" = "紫色";
+"Blue" = "靛蓝色";
+"Teal" = "松柏绿";
+"Green" = "绿色";
+"Default background" = "雪色背景";
+"Amber background" = "琥珀色背景";
+"Red background" = "米红色背景";
+"Pink background" = "萝兰紫背景";
+"Purple background" = "淡牵牛紫背景";
+"Blue background" = "星蓝色背景";
+"Green background" = "浮萍绿背景";
+"Create new object" = "创建新对象";
+"Cancel" = "取消";
+"Paste or type URL" = "粘贴或输入网址";
+"No items match filter" = "没有与筛选匹配的项目";
+"Unsupported block" = "不支持的数据块";
+"Name" = "名称";
+"Description" = "描述";
+"Paste processing..." = "粘贴处理...";
+"Anytype Library" = "Anytype 文库";
+"Copied" = "已复制";
+
+// Home
+"Favorites" = "收藏夹";
+"Recent" = "最近";
+"Bin" = "废纸篓";
+
+// Settings
+"Wallpaper" = "壁纸";
+"Log out" = "退出登录";
+
+// Action
+"Restore" = "恢复";
+
+// Keychain screen
+"Keychain.Recovery phrase" = "恢复短语";
+"Keychain.Recovery phrase copied to clipboard" = "已复制的恢复短语";
+"Keychain.Recovery phrase description" = "您将需要短语才能登录。将其保存在安全的地方。如果您丢失了它，您将无法再访问您的帐户。";
+"Keychain.Save keychain alert part 1" = "如果您丢失了恢复短语并注销，您将再也无法 ";
+"Keychain.Save keychain alert part 2" = "访问您的数据";
+"Keychain.Save keychain alert part 3" = ".\n将此恢复短语保存在 Anytype 之外以进行数据恢复。\n我们建议在保险箱中使用安全的数据保管库、密码管理器或纸张。";
+"Keychain.Don’t forget to save your recovery phrase" = "不要忘记保存您的恢复短语";
+"Keychain.Show and copy phrase" = "显示和复制短语";
+"Keychain.Have you backed up your recovery phrase?" = "您是否备份了恢复短语?";
+"Keychain.Error.String to Data conversion error" = "字符串到数据转换错误";
+"Keychain.Error.Data to String conversion error" = "数据到字符串转换错误";
+"Keychain.Error.Unknown Keychain Error" = "未知的钥匙串是错误的";
+"Keychain.SeedPhrasePlaceholder" = "witch collapse practice feed shame open despair creek road again ice least lake tree young address brain despair";
+
+// Auth
+"Welcome to Anytype" = "欢迎来到 Anytype";
+"OrganizeEverythingDescription" = "使用 Anytype，您可以编写笔记和文档，管理任务并从网页保存重要内容。";
+"Sign up" = "注册";
+"Login" = "登录";
+"Restore secret phrase from keychain" = "从钥匙串恢复恢复短语";
+"or type your recovery phrase" = "或输入恢复短语";
+"Setting up the wallet" = "设置钱包";
+"Enter your name" = "输入您的姓名";
+"New profile" = "新的个人资料";
+"Create" = "创建";
+"Scan QR code" = "扫描二维码";
+"Auth.CameraPermissionTitle" = "请允许访问";
+"Analytics constent text" = "了解人们如何使用 Anytype 有助于我们改进产品。此版本的 Anytype 包含保护您的隐私的分析代码。\n它不会记录实际文档的内容，但仍允许我们了解您如何使用Anytype。\n请继续订阅我们的邮件列表，因为我们很快就会宣布一个新的版本，使您可以选择退出。";
+
+"Account recover error" = "帐户恢复错误，请重试";
+"Account recover error no internet" = "帐户恢复错误，可能没有互联网连接";
+"SignUp.InvintationCode.Placeholder" = "邀请码";
+
+// Auth Errors
+"Error creating wallet" = "创建钱包时出错";
+"Error select account" = "选择帐户时出错";
+"Error wallet recover account" = "错误钱包恢复帐户";
+
+"Search for language" = "搜索语言";
+
+// New Auth
+"Auth.LogIn" = "登录";
+"Auth.Join" = "加入";
+"Auth.Welcome.Title" = "学习与思考\n集于一身\n的创作应用";
+"Auth.Welcome.Subtitle" = "Anytype 是您编写、计划、思考和组织集于一身，对您重要的安全空间。";
+"Auth.Caption.Privacy.Text" = "继续即表示您同意 [使用条款](%@) 和 [隐私策略](%@)";
+"Auth.Next" = "下一步";
+
+// New Auth - Join flow
+
+"Auth.JoinFlow.Key.Title" = "保存您的恢复短语";
+"Auth.JoinFlow.Key.Description" = "要登录您的帐户，您需要一个恢复短语。它是12个随机单词，就像所有数据的主密码。立即保存或稍后在设置中保存恢复短语。";
+"Auth.JoinFlow.Key.Description.Shown" = "丢失恢复短语将会丢失您的帐户。因为短语是不可替代的，所以要妥善保护它。快速选择：保存到密码管理器。最安全的选择：在纸上书写并离线存储在安全的地方。";
+"Auth.JoinFlow.Key.TextField.Placeholder" = "输入恢复短语";
+"Auth.JoinFlow.Key.Button.Show.Title" = "显示恢复短语";
+"Auth.JoinFlow.Key.Button.Saved.Title" = "输入您的共享空间";
+"Auth.JoinFlow.Key.Button.Later.Title" = "以后再做吧";
+"Auth.JoinFlow.Key.Button.Copy.Title" = "复制到剪贴板";
+"Auth.JoinFlow.Key.Button.Info.Title" = "了解更多";
+
+"Auth.JoinFlow.Key.MoreInfo.Description" = "恢复短语以加密方式保护您的数据。没有您的恢复短语，任何人（甚至 Anytype）都无法访问您的数据。\n这非常重要，因为使得帐户保持安全，同样重要的是，把它交给自己保管。\n\n**所以再说一次，请不要对外分享你的恢复短语。**\n\n**最后一件重要的事情...**\n我们不知道您的恢复短语，也绝不会要求您提供。如果您丢失了它，没有人（包括 Anytype ）可以帮助您恢复数据。因此，必须将其保存在安全的地方。\n\n**存储恢复短语的最简单方法是将其保存到密码管理器中。\n\n最安全的方法是将其写在纸上并保持离线状态，放在安全可靠的地方。**";
+"Auth.JoinFlow.Key.MoreInfo.Button.Title" = "听起来不错";
+
+"Auth.JoinFlow.Soul.Title" = "为新标识设置名称";
+"Auth.JoinFlow.Soul.Description" = "首先，选择要在 Anytype 中使用的名称。";
+"Auth.JoinFlow.Soul.Placeholder" = "无标题";
+
+"Auth.JoinFlow.Creating.Soul.Title" = "生成新的 Anytype 标识";
+"Auth.JoinFlow.Setting.Space.Title" = "设置您的个人空间";
+"Auth.JoinFlow.Personal.Space.Title" = "个人空间";
+
+// New Auth - Login flow
+"Auth.LoginFlow.Use.Keychain.Title" = "使用钥匙串";
+"Auth.LoginFlow.Or" = "或者";
+"Auth.LoginFlow.Textfield.Placeholder" = "输入恢复短语";
+"Auth.LoginFlow.Enter.Button.Title" = "登录";
+"Auth.LoginFlow.Entering.Void.Title" = "无效的输入";
+
+// Object settings
+
+"Icon" = "图标";
+"Emoji or image for object" = "对象的表情符号或图像";
+"Cover" = "封面";
+"Background picture" = "背景图片";
+"Layout" = "布局";
+"Arrangement of objects on a canvas" = "画布上对象的排列";
+
+"Search" = "搜索";
+"There is no emoji named" = "没有表情符号命名";
+"Try to find a new one or upload your image" = "尝试查找新图片或上传图片";
+
+"Emoji" = "Emoji";
+"Random" = "随机";
+"Upload" = "上传";
+"Change icon" = "更改图标";
+"Change cover" = "更换封面";
+"Remove" = "移除";
+
+"Solid colors" = "纯色";
+"Gradients" = "渐变";
+"Gallery" = "相簿";
+
+"Remove photo" = "移除照片";
+"Basic" = "基本";
+"Profile" = "概要";
+"Task" = "任务";
+"Note" = "笔记";
+"Choose layout type" = "选择布局类型";
+
+"Undo typing" = "撤消输入";
+"Undo" = "撤消";
+"Actions.LinkItself" = "链接到";
+"Actions.MakeAsTemplate" = "制作模板";
+"Actions.TemplateMakeDefault" = "设置为默认";
+
+// Object Type
+"Set" = "集合";
+"Collection" = "集锦";
+
+"Editor.MovingState.ScrollToSelectedPlace" = "滚动以选择位置";
+
+// MARK: - Link to search
+
+"Editor.LinkToObject.SearchPlaceholder" = "粘贴链接或搜索对象";
+"Editor.LinkToObject.PasteFromClipboard" = "从剪贴板粘贴";
+"Editor.LinkToObject.LinkedTo" = "链接到";
+"Editor.LinkToObject.CopyLink" = "拷贝链接";
+"Editor.LinkToObject.RemoveLink" = "移除链接";
+
+// MARK: - Main search
+"There is no object named" = "没有命名为 %@ 的对象";
+"There is no type named" = "没有命名为 %@ 的类型";
+"Create a new one or search for something else" = "创建一个新的或搜索其他内容";
+
+// MARK: - Home
+
+"Home.Snackbar.Library" = "文库在桌面端应用程序中可用";
+
+// MARK: - Alerts
+"Alert.CameraPermissions.Settings" = "设置";
+"Alert.CameraPermissions.GoToSettings" = "Anytype 需要访问您的相机才能扫描二维码。\n\n请转到您设备的设置 -> 隐私 -> 将 Anytype 相机设置为开。";
+
+// MARK: - Deletion
+"Pending deletion text" = "我们很遗憾看到您离开。您有 30 天的时间撤销此请求。30 天后，您的加密帐户数据将从备份节点中永久删除。";
+
+// MARK: - Object Settings
+"Undo/Redo" = "撤消/重做";
+
+
+// MARK: - Templates
+"Alert.Templates_Available.Title" = "此类型有 %d 个模板";
+"Alert.Templates_Available.Description" = "向下滑动以跳过";
+"Alert.Templates_Available.Button" = "显示";
+"TemplatePicker.ChooseTemplate" = "选择模板";
+"TemplatePicker.Buttons.Skip" = "跳过";
+"TemplatePicker.Buttons.UseTemplate" = "使用模板";
+"TemplateSelection.SelectTemplate" = "选择模板";
+"TemplateSelection.blankTemplate" = "空白";
+
+"TemplateOptions.Alert.SetAsDefault" = "设置为此视图的默认";
+"TemplateOptions.Alert.EditTemplate" = "编辑模板";
+"TemplateOptions.Alert.Duplicate" = "生成副本";
+"TemplateOptions.Alert.Delete" = "删除";
+
+"TemplateEditing.Title" = "编辑模板";
+"TemplateEditing.SelectButtonTitle" = "选择模板";
+
+"To Bin" = "移到废纸篓";
+
+// MARK: - Context Menu
+"Remove From Favorite" = "从收藏夹中删除";
+"Add To Favorite" = "加入收藏夹";
+"Move To Bin" = "移动到废纸篓";
+
+
+"LinkAppearance.Description.None.Title" = "无";
+"LinkAppearance.Description.Object.Title" = "对象描述";
+"LinkAppearance.Description.Content.Title" = "内容预览";
+"LinkAppearance.ObjectType.Title" = "对象类型";
+
+// MARK: - Sets: Sorts
+"EditSet.Popup.Sorts.NavigationView.Title" = "排序";
+"EditSet.Popup.Sorts.EmptyView.Title" = "这里没有可排序。您可以添加一些";
+"EditSet.Popup.Sort.Types.Ascending" = "升序";
+"EditSet.Popup.Sort.Types.Descending" = "降序";
+"EditSet.Popup.Sort.Add.SearchPlaceholder" = "选择要排序的关联";
+
+// MARK: - Sets: Filters
+"EditSet.Popup.Filters.NavigationView.Title" = "筛选";
+"EditSet.Popup.Filters.EmptyView.Title" = "这里没有可筛选。您可以添加一些";
+"EditSet.Popup.Filters.TextView.Placeholder" = "值";
+
+// MARK: - Sets: Filters.Conditions
+"EditSet.Popup.Filter.Condition.Text.Equal" = "Is";
+"EditSet.Popup.Filter.Condition.Text.NotEqual" = "Is not";
+"EditSet.Popup.Filter.Condition.Text.Like" = "包含";
+"EditSet.Popup.Filter.Condition.Text.NotLike" = "不包含";
+
+"EditSet.Popup.Filter.Condition.Number.Equal" = "等于";
+"EditSet.Popup.Filter.Condition.Number.NotEqual" = "不等于";
+"EditSet.Popup.Filter.Condition.Number.Greater" = "大于";
+"EditSet.Popup.Filter.Condition.Number.Less" = "小于";
+"EditSet.Popup.Filter.Condition.Number.GreaterOrEqual" = "大于或等于";
+"EditSet.Popup.Filter.Condition.Number.LessOrEqual" = "小于或等于";
+
+"EditSet.Popup.Filter.Condition.Date.Equal" = "Is";
+"EditSet.Popup.Filter.Condition.Date.After" = "Is after";
+"EditSet.Popup.Filter.Condition.Date.Before" = "Is before";
+"EditSet.Popup.Filter.Condition.Date.OnOrAfter" = "Is on or after";
+"EditSet.Popup.Filter.Condition.Date.OnOrBefore" = "Is on or before";
+"EditSet.Popup.Filter.Condition.Date.In" = "Is within";
+
+"EditSet.Popup.Filter.Condition.Selected.In" = "具有任何";
+"EditSet.Popup.Filter.Condition.Selected.AllIn" = "具有所有";
+"EditSet.Popup.Filter.Condition.Selected.NotIn" = "不具有";
+"EditSet.Popup.Filter.Condition.Selected.Equal" = "Is exactly";
+
+"EditSet.Popup.Filter.Condition.Checkbox.Equal" = "Is";
+"EditSet.Popup.Filter.Condition.Checkbox.NotEqual" = "Is not";
+
+"EditSet.Popup.Filter.Condition.General.Empty" = "Is empty";
+"EditSet.Popup.Filter.Condition.General.NotEmpty" = "Is not empty";
+"EditSet.Popup.Filter.Condition.General.None" = "所有";
+
+"EditSet.Popup.Filter.Value.Checked" = "选中";
+"EditSet.Popup.Filter.Value.Unchecked" = "未选中";
+
+"EditSet.Popup.Filter.Date.Option.Today" = "今天";
+"EditSet.Popup.Filter.Date.Option.Yesterday" = "昨天";
+"EditSet.Popup.Filter.Date.Option.Tomorrow" = "明天";
+"EditSet.Popup.Filter.Date.Option.LastWeek" = "上个星期";
+"EditSet.Popup.Filter.Date.Option.CurrentWeek" = "本周";
+"EditSet.Popup.Filter.Date.Option.NextWeek" = "下星期";
+"EditSet.Popup.Filter.Date.Option.LastMonth" = "上个月";
+"EditSet.Popup.Filter.Date.Option.CurrentMonth" = "本月";
+"EditSet.Popup.Filter.Date.Option.NextMonth" = "下个月";
+"EditSet.Popup.Filter.Date.Option.NumberOfDaysAgo" = "前几天";
+"EditSet.Popup.Filter.Date.Option.NumberOfDaysFromNow" = "从现在起的天数";
+"EditSet.Popup.Filter.Date.Option.ExactDate" = "确切日期";
+
+"EditSet.Popup.Filter.Date.Option.NumberOfDaysAgo.Short" = "%@ 天前";
+"EditSet.Popup.Filter.Date.Option.NumberOfDaysFromNow.Short" = "%@ 天后";
+
+// MARK: - Sets. Create object
+"Set.Create.ObjectTitle.Placeholder" = "无标题";
+
+// MARK: - Sets: Featured relations
+"Set.FeaturedRelations.Query" = "查询";
+"Set.FeaturedRelations.RelationsList" = "关联列表:";
+"Set.FeaturedRelations.Relation" = "关联:";
+"Set.FeaturedRelations.Type" = "类型:";
+
+// MARK: - Sets: Filters search
+"Set.Button.Title.Apply" = "应用";
+
+// MARK: - Set.Bookmarks
+"Set.Bookmark.Create.Placeholder" = "粘贴链接";
+"Set.Bookmark.Error.Title" = "哎呀 - 出问题了";
+"Set.Bookmark.Error.Message" = "请重试";
+
+// MARK: - Sets: View Settings
+"Set.View.Settings.ImageFit.Title" = "图像自适应";
+"Set.View.Settings.CardSize.Title" = "卡片尺寸";
+"Set.View.Settings.CardSize.Small.Title" = "小";
+"Set.View.Settings.CardSize.Large.Title" = "大";
+"Set.View.Settings.ImagePreview.Title" = "图像预览";
+"Set.View.Settings.GroupBy.Title" = "分组";
+"Set.View.Settings.GroupBackgroundColors.Title" = "颜色列表";
+"Set.View.Settings.DefaultObject.Title" = "默认对象";
+
+"Set.View.Settings.NoRelations.Placeholder" = "没有关联";
+"Set.View.Settings.NoFilters.Placeholder" = "没有筛选";
+"Set.View.Settings.NoSorts.Placeholder" = "没有排序";
+"Set.View.Settings.Objects.Applied.Title" = "%d 已应用";
+
+// MARK: - Sets: Kanban
+"Set.View.Kanban.Column.Title.Uncategorized" = "未分类";
+"Set.View.Kanban.Column.Title.Checked" = "%@ 已选中";
+"Set.View.Kanban.Column.Title.Unchecked" = "%@ 未选中";
+"Set.View.Kanban.Column.Paging.Title.ShowMore" = "显示更多对象";
+"Set.View.Kanban.Column.Settings.Color.Title" = "颜色列表";
+"Set.View.Kanban.Column.Settings.Hide.Column.Title" = "隐藏列表";
+
+// MARK: - Sets: empty view
+"Set.View.Empty.Title" = "未选择查询";
+"Set.View.Empty.Subtitle" = "添加搜索查询以在实时模式下聚合具有相同类型和关联的对象";
+
+// MARK: - Set source type
+"Set.SourceType.SelectQuery" = "选择查询";
+"Set.SourceType.Cancel.Toast.Title" = "只能在桌面端更改此查询";
+
+// MARK: - Set: Type context menu
+"Set.TypeRelation.ContextMenu.TurnIntoCollection" = "将集合转换为集锦";
+"Set.TypeRelation.ContextMenu.ChangeQuery" = "更改查询";
+
+// MARK: - Collection: empty view
+"Collection.View.Empty.Title" = "无对象";
+"Collection.View.Empty.Subtitle" = "创建第一个对象以继续";
+"Collection.View.Empty.Button.Title" = "创建对象";
+
+// MARK: Slash Menu
+"SlashMenu.DotsDivider" = "圆点分隔线";
+"SlashMenu.LineDivider" = "分割线";
+"SlashMenu.TableOfContents" = "目录";
+"SlashMenu.Table" = "表格";
+
+"Failed to create your account due to a network error" = "由于网络错误，无法创建您的帐户";
+"Invalid invitation code" = "邀请码无效";
+"Unknown error" = "未知错误";
+"Account is deleted" = "帐户已删除";
+"Add phone" = "添加电话号";
+"Nothing to redo" = "无需重做";
+"Nothing to undo" = "无需撤消任何操作";
+"Progress..." = "进展...";
+"Grey" = "浅灰色";
+"Sky" = "靛青色";
+"Yellow" = "姜黄色";
+"Grey background" = "浅灰色背景";
+"Teal background" = "石绿背景";
+"Sky background" = "海天蓝背景";
+"Yellow background" = "拿坡里黄背景";
+"Enter value" = "输入值";
+"Select object" = "选择对象";
+"Select file" = "选择文件";
+"Select tag" = "选择标签";
+"Select status" = "选择状态";
+"Select date" = "选择日期";
+"Add email" = "添加电子邮件";
+"Add link" = "添加链接";
+"Enter number" = "输入号码";
+"Enter text" = "输入文本";
+"Unsupported value" = "不支持该值";
+"Select relation type" = "选择关联类型";
+
+"Limit object types" = "限制对象类型";
+"Type" = "类型";
+"No name" = "无名称";
+"New relation" = "新增关联";
+"Non-existent object" = "对象不存在";
+
+"Select all" = "全选";
+"Unselect all" = "取消全选";
+"Deselect all" = "取消全选";
+"Shared" = "共享";
+"Sets" = "集合";
+"Collections" = "集锦";
+"Default object type" = "默认对象类型";
+"Personalization" = "个性化";
+"Choose default object type" = "选择默认对象类型";
+"About" = "关于";
+"Appearance" = "外观";
+"Change wallpaper" = "更换壁纸";
+"Application icon" = "应用程序图标";
+"Mode" = "模式";
+"copied to clipboard" = "%@ 复制到剪贴板";
+"Access to secret phrase from keychain" = "从钥匙串访问秘密短语";
+"Back up your recovery phrase" = "备份恢复短语";
+"Account" = "帐户";
+"Access" = "访问";
+"Back up phrase" = "备份短语";
+"Removing cache" = "删除缓存";
+"Deletion error" = "删除错误";
+"Start" = "开始";
+"On analytics" = "关于分析";
+"Select account error" = "选择帐户错误";
+"Account deleted" = "帐户已删除";
+"Account.Select.Incompatible.Version.Error.Text" = "由于远程节点上的版本不兼容，无法检索帐户数据。请将 Anytype 更新到最新版本。";
+"Restore from keychain" = "从钥匙串恢复";
+"Edit" = "编辑";
+"In this object" = "在此对象中";
+"Other relations" = "其他关联";
+"Collection of objects" = "对象的集锦";
+"Designed to capture thoughts quickly" = "专为快速捕捉想法而设计";
+"Action-focused layout with a checkbox" = "带复选框的操作重点布局";
+"Standard layout for canvas blocks" = "画布区块的标准布局";
+"List of related objects" = "关联对象列表";
+"Lock" = "上锁";
+"Unlock" = "解锁";
+"Favorite" = "收藏夹";
+"Unfavorite" = "取消收藏";
+"Unsplash" = "Unsplash";
+"Go back" = "回到";
+"Backed up on one node at least" = "至少在一个节点上备份";
+"Downloading or uploading data to some node" = "向某个节点下载或上传数据";
+"Anytype node is not connected" = "Anytype 节点未连接";
+"Initializing sync" = "初始化同步";
+"Not syncing" = "没有同步";
+"Synced" = "已同步";
+"Syncing..." = "同步中...";
+"No connection" = "没有连接";
+"Preparing..." = "准备中...";
+"Deleted" = "已删除";
+"Download" = "下载";
+"Open object" = "打开对象";
+"Open source" = "开放源代码";
+"Into object" = "进入对象";
+"Add below" = "添加到下面";
+"Change type" = "更改类型";
+"Link to existing object" = "链接到现有对象";
+"Link to object" = "链接到对象";
+"Upload playable audio" = "上传可播放音频";
+"Code snippet" = "代码片段";
+"Bookmark" = "书签";
+"Audio" = "音频";
+"Video" = "视频";
+"Picture" = "图像";
+"File" = "文件";
+"No related options here" = "这里没有相关选项。您可以添加一些";
+"Empty" = "空的";
+"Link to" = "链接到";
+"Unknown" = "未知";
+"Settings" = "设置";
+"Views" = "视图";
+"Filter" = "筛选";
+"Sort" = "排序";
+"View" = "视图";
+"Home" = "主页";
+"Highlight" = "高亮";
+"Create object" = "创建对象";
+"Web pages" = "网页页面";
+"Preview layout" = "预览布局";
+"Everywhere" = "无处不在";
+"Exact day" = "确切日期";
+"Tomorrow" = "明天";
+"Yesterday" = "昨天";
+"Today" = "今天";
+"No date" = "未注明日期";
+"Clear" = "清除";
+"Create option" = "创建选项 ‘%@’";
+"Add URL" = "添加网址";
+"Add email" = "添加电子邮件";
+"Add phone number" = "添加电话号码";
+"Add number" = "添加数字";
+"Add text" = "添加文本";
+"Ok" = "好的";
+"Error occurred. Please try again" = "发生错误。请重试";
+"Add" = "添加";
+"Your device seems to be offline" = "您的设备似乎处于离线状态。请检查您的连接，然后重试";
+"Connection refused" = "连接被拒绝。请重试";
+"Companies, contacts, friends and family" = "公司、联系人、朋友和家人";
+"Failed to sync, trying again..." = "同步失败，请重试...";
+"Sync.Status.Version.Outdated.Description" = "版本已过时。请更新 Anytype";
+"This object doesn't exist" = "此对象不存在";
+"Setting up encrypted storage\nPlease wait" = "设置加密存储\n请稍候";
+"These objects will be deleted irrevocably" = "这些对象将被删除且不可撤销。您无法撤销此操作。";
+"Delete account" = "删除帐户";
+"Cancel deletion" = "取消删除";
+"Logout and clear data" = "注销并清除数据";
+"New" = "新建";
+
+// MARK: - DeletionAlert
+"DeletionAlert.title" = "您确定要删除账户吗？";
+"DeletionAlert.description" = "您将在所有其他设备上注销。您将有 30 天的时间来恢复它。之后将永久删除";
+
+// MARK: - DataviewType
+"DataviewType.grid" = "网格";
+"DataviewType.list" = "列表";
+"DataviewType.gallery" = "图像";
+"DataviewType.kanban" = "看板";
+
+// MARK: - ObjectType
+"ObjectType.fallbackDescription" = "没有标题的空白画布";
+"ObjectType.SearchOrInstall" = "搜索或安装新类型";
+"ObjectType.MyTypes" = "我的类型";
+"ObjectType.AddedToLibrary" = "类型 ‘%@’ 已添加到您的文库";
+"ObjectType.DeletedName" = "删除类型";
+
+// MARK: - QuickAction
+"QuickAction.create" = "创建 %@";
+
+// MARK: - RedactedText
+"RedactedText.pageTitle" = "《黑客帝国》醒醒, Neo";
+"RedactedText.pageType" = "《黑客帝国》红色药丸";
+
+// MARK: - InterfaceStyle
+"InterfaceStyle.light" = "亮色";
+"InterfaceStyle.dark" = "暗色";
+"InterfaceStyle.system" = "跟随系统";
+
+// MARK: Table of Contents
+"TalbeOfContents.Empty" = "添加标题以制作目录";
+
+// MARK: - Simple tables
+"SimpleTableMenu.Item.clearContents" = "清除";
+"SimpleTableMenu.Item.color" = "颜色";
+"SimpleTableMenu.Item.style" = "样式";
+"SimpleTableMenu.Item.clearStyle" = "重置样式";
+
+"SimpleTableMenu.Item.InsertLeft" = "插入左侧";
+"SimpleTableMenu.Item.InsertRight" = "插入右侧";
+"SimpleTableMenu.Item.MoveLeft" = "向左移动";
+"SimpleTableMenu.Item.MoveRight" = "向右移动";
+"SimpleTableMenu.Item.Duplicate" = "生成副本";
+"SimpleTableMenu.Item.Delete" = "删除";
+"SimpleTableMenu.Item.Sort" = "排序";
+
+"SimpleTableMenu.Item.InsertAbove" = "插入上文";
+"SimpleTableMenu.Item.InsertBelow" = "插入下文";
+"SimpleTableMenu.Item.MoveUp" = "向上移动";
+"SimpleTableMenu.Item.MoveDown" = "向下移动";
+
+"DebugMenu.ToggleAuthor" = "发行版本: %@, %@";
+
+// MARK: Link Past Actions
+"LinkPaste.text" = "粘贴为正文";
+"LinkPaste.link" = "粘贴为链接";
+"LinkPaste.bookmark" = "创建书签";
+
+// Relation Actions
+"RelationAction.CopyPhone" = "拷贝电话号码";
+"RelationAction.CopyEmail" = "拷贝电子邮件";
+"RelationAction.CopyLink" = "拷贝链接";
+"RelationAction.Copied" = "已拷贝";
+"RelationAction.ReloadingContent" = "重新加载内容";
+"RelationAction.ReloadContent" = "重新加载对象内容";
+"RelationAction.CallPhone" = "呼叫电话号码";
+"RelationAction.SendEmail" = "发送电子邮件";
+"RelationAction.OpenLink" = "打开链接";
+
+// MARK: Edit view type
+"SetViewTypesPicker.Title" = "编辑视图";
+"SetViewTypesPicker.Section.Types.Title" = "查看为";
+"SetViewTypesPicker.Settings.Duplicate.View" = "生成副本";
+"SetViewTypesPicker.Settings.Delete.View" = "删除视图";
+"SetViewTypesPicker.Settings.Textfield.Placeholder.New.View" = "新视图";
+"SetViewTypesPicker.Settings.Textfield.Placeholder.Untitled" = "无标题";
+
+// MARK: Select view picker
+"EditorSetViewPicker.View.Not.Supported.Title" = "暂不支持";
+
+// BlockContent
+"Content.File.Upload" = "上传文件";
+"Content.Audio.Upload" = "上传音频";
+"Content.Video.Upload" = "上传视频";
+"Content.Picture.Upload" = "上传图像";
+"Content.Common.Uploading" = "上传中...";
+"Content.Common.Error" = "出错了，请重试";
+"Content.Bookmark.Add" = "添加网络书签";
+"Content.Bookmark.Loading" = "正在加载，请稍候...";
+"Content.DataView.InlineSet.Subtitle" = "关联设置";
+"Content.DataView.InlineCollection.Subtitle" = "关联集锦";
+"Content.DataView.InlineSet.NoSource" = "无信息来源";
+"Content.DataView.InlineSet.NoData" = "没有数据";
+"Content.DataView.InlineSet.Untitled" = "无标题集";
+"Content.DataView.InlineCollection.Untitled" = "无标题集锦";
+"Content.DataView.InlineSet.Toast.Failure" = "该关联集合无信息来源";
+
+// MARK: - Widget extension
+"WidgetExtension.LockScreen.Title" = "新对象";
+"WidgetExtension.LockScreen.Description" = "快速创建新对象";
+
+// MARK: - Toast
+"Editor.Toast.LinkedTo" = "链接到";
+"Editor.Toast.MovedTo" = "区块移至";
+
+// MARK: - Scanner
+"Scanner.Error.Scanning not supported" = "不支持扫描";
+
+// MARK: - Widgets
+"Widgets.SourceSearch" = "小部件来源";
+"Widgets.Actions.ChangeSource" = "更改来源";
+"Widgets.Actions.ChangeWidgetType" = "更改小部件类型";
+"Widgets.Actions.RemoveWidget" = "删除小部件";
+"Widgets.Actions.EditWidgets" = "编辑小部件";
+"Widgets.Actions.EmptyBin" = "清空废纸篓";
+"Widgets.Actions.AddBelow" = "在下面添加";
+"Widgets.Layout.Screen.Title" = "小部件类型";
+"Widgets.Layout.Link.Title" = "链接";
+"Widgets.Layout.Tree.Title" = "树状图";
+"Widgets.Layout.List.Title" = "列表";
+"Widgets.Layout.CompactList.Title" = "紧凑型列表";
+"Widgets.Layout.Link.Description" = "紧凑型对象";
+"Widgets.Layout.Tree.Description" = "对象的层次结构";
+"Widgets.Layout.List.Description" = "具有集合对象列表视图的小部件";
+"Widgets.Layout.CompactList.Description" = "具有集合对象列表视图的小部件";
+"Widgets.Empty.Title" = "该数据视图不包含对象";
+"Widgets.Library.RecentlyEdited.Name" = "最近编辑的文档";
+"Widgets.Library.RecentlyOpened.Name" = "最近打开的文档";
+"Widgets.Library.RecentlyOpened.Description" = "在此设备上";
+
+// MARK: - About
+"About.AppVersion" = "App 版本: %@";
+"About.BuildNumber" = "构建版本: %@";
+"About.Library" = "库版本: %@";
+"About.accountId" = "帐户 ID: %@";
+"About.analyticsId" = "分析 ID: %@";
+"About.deviceId" = "设备 ID: %@";
+"About.Device" = "设备: %@";
+"About.OSVersion" = "操作系统版本: %@";
+"About.HelpCommunity" = "帮助 & 社区";
+"About.WhatsNew" = "最新消息";
+"About.AnytypeCommunity" = "Anytype 社区";
+"About.HelpTutorials" = "帮助 & 教程";
+"About.ContactUs" = "联系我们";
+"About.Legal" = "法律";
+"About.TermsOfUse" = "使用条款";
+"About.PrivacyPolicy" = "隐私策略";
+"About.TechInfo" = "技术信息";
+"About.Mail.Subject" = "支持请求, 帐户 ID %@";
+"About.Mail.Body" = "\n\n技术信息\n%@";
+
+// MARK: - Cache
+"ClearCache.Success" = "缓存已成功清除";
+"ClearCache.Error" = "错误，请稍后重试";
+
+// MARK: - MigrationGuide
+"MigrationGuide.Title" = "快好了!";
+"MigrationGuide.Subtitle" = "要使用此版本的应用程序，请在下面选择正确的选项来迁移您的帐户。";
+"MigrationGuide.DidntComplete.Title" = "我没有完成迁移";
+"MigrationGuide.DidntComplete.Step1" = "下载桌面端应用程序 **点这里**";
+"MigrationGuide.DidntComplete.Step2" = "登录并将其更新到最新版本";
+"MigrationGuide.DidntComplete.Step3" = "按照迁移说明进行操作";
+"MigrationGuide.Completed.Title" = "我已完成迁移";
+"MigrationGuide.Completed.Description" = "可能出了什么问题。请访问我们的论坛，阅读迁移说明，并向我们的团队提问。";
+"MigrationGuide.Completed.ForumButton" = "访问论坛";
+
+// MARK: - File Storage
+"FileStorage.Title" = "文件存储";
+"FileStorage.Space.Title" = "远程存储";
+"FileStorage.Space.Instruction" = "您可以在我们的节点上免费加密备份存储多达 %@ 的文件。如果达到限制，文件将仅存储在本地。";
+"FileStorage.Space.Used" = "已使用 %@ ,总共有 %@ ";
+"FileStorage.Space.GetMore" = "获取更多空间";
+"FileStorage.Space.Mail.Subject" = " %@ 帐户，获取更多存储空间";
+"FileStorage.Space.Mail.Body" = "Hi, Anytype team. I am reaching out to request an increase in my file storage capacity as I have run out of storage. My current limits is %@. My account id is %@. Cheers, %@.";
+"FileStorage.Local.Title" = "本地存储";
+"FileStorage.Local.Instruction" = "为了节省本地设备上的空间，您可以将所有文件卸载到我们的加密备份节点。打开文件时，文件将被加载回去。";
+"FileStorage.Local.Used" = "%@ 已使用";
+"FileStorage.OffloadTitle" = "卸载文件";
+"FileStorage.ManageFiles" = "管理文件";
+"FileStorage.LimitError" = "您超出了上传的文件限制";
+
+// MARK: - Files List
+"FilesList.Title" = "同步的文件";
+"FilesList.ForceDelete.Title" = "是否确定要永久删除文件?";
+
+// MARK: - Widget object list
+"WidgetObjectList.ForceDelete.Message" = "您无法撤消此操作。";
+
+// MARK: - Cpear cache alert
+"ClearCacheAlert.Title" = "是否确定?";
+"ClearCacheAlert.Description" = "存储在 Anytype 中的所有媒体文件将从您当前的设备中删除。可以从备份节点或其他设备再次下载它们。";
