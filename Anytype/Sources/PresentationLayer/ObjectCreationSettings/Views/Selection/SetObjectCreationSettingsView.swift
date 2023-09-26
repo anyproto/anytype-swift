@@ -3,7 +3,7 @@ import Services
 
 struct SetObjectCreationSettingsView: View {
     // Popup height. Something is wrong with keyboard appearance on UIKit view. Intistic content size couldn't be calculated in FloatingPanel :/
-    static let height: CGFloat = 450
+    static let height: CGFloat = 480
 
     @ObservedObject var model: SetObjectCreationSettingsViewModel
 
