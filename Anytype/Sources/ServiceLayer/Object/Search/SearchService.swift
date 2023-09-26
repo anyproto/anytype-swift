@@ -118,7 +118,7 @@ final class SearchService: ObservableObject, SearchServiceProtocol {
         )
         
         let filters = Array.builder {
-            SearchHelper.workspaceId(MarketplaceId.anytypeMarketplace.rawValue)
+            SearchHelper.spaceId(MarketplaceId.anytypeMarketplace.rawValue)
             SearchHelper.layoutFilter([DetailsLayout.objectType])
             SearchHelper.recomendedLayoutFilter(DetailsLayout.visibleLayouts)
             SearchHelper.excludedIdsFilter(excludedIds)
@@ -254,7 +254,7 @@ final class SearchService: ObservableObject, SearchServiceProtocol {
         let filters: [DataviewFilter] = .builder {
             buildFilters(
                 isArchived: false,
-                workspaceId: MarketplaceId.anytypeMarketplace.rawValue
+                spaceId: MarketplaceId.anytypeMarketplace.rawValue
             )
             SearchHelper.layoutFilter([DetailsLayout.relation])
             SearchHelper.relationReadonlyValue(false)
@@ -319,14 +319,6 @@ private extension SearchService {
         }).invoke()
         
         return response.records.asDetais
-    }
-    
-    private func buildFilters(isArchived: Bool, workspaceId: String) -> [DataviewFilter] {
-        [
-            SearchHelper.notHiddenFilter(),
-            SearchHelper.isArchivedFilter(isArchived: isArchived),
-            SearchHelper.workspaceId(workspaceId)
-        ]
     }
     
     private func buildFilters(isArchived: Bool, spaceId: String) -> [DataviewFilter] {

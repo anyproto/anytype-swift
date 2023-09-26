@@ -130,11 +130,11 @@ class SearchHelper {
     }
     
     static func sharedObjectsFilters() -> [DataviewFilter] {
-        var workspaceFilter = DataviewFilter()
-        workspaceFilter.condition = .notEmpty
-        workspaceFilter.value = nil
-        workspaceFilter.relationKey = BundledRelationKey.workspaceId.rawValue
-        workspaceFilter.operator = .and
+        var spaceFilter = DataviewFilter()
+        spaceFilter.condition = .notEmpty
+        spaceFilter.value = nil
+        spaceFilter.relationKey = BundledRelationKey.spaceId.rawValue
+        spaceFilter.operator = .and
    
         var highlightedFilter = DataviewFilter()
         highlightedFilter.condition = .equal
@@ -143,7 +143,7 @@ class SearchHelper {
         highlightedFilter.operator = .and
         
         return [
-            workspaceFilter,
+            spaceFilter,
             highlightedFilter
         ]
     }
@@ -191,28 +191,6 @@ class SearchHelper {
         ]
     }
     
-    static func workspaceId(_ workspaceId: String) -> DataviewFilter {
-        var filter = DataviewFilter()
-        filter.condition = .equal
-        filter.value = workspaceId.protobufValue
-        
-        filter.relationKey = BundledRelationKey.workspaceId.rawValue
-        filter.operator = .and
-        
-        return filter
-    }
-    
-    static func workspaceIds(_ workspaceIds: [String]) -> DataviewFilter {
-        var filter = DataviewFilter()
-        filter.condition = .in
-        filter.value = workspaceIds.protobufValue
-        
-        filter.relationKey = BundledRelationKey.workspaceId.rawValue
-        filter.operator = .and
-        
-        return filter
-    }
-    
     static func spaceId(_ spaceId: String) -> DataviewFilter {
         var filter = DataviewFilter()
         filter.condition = .equal
@@ -242,14 +220,6 @@ class SearchHelper {
         filter.operator = .and
         
         return filter
-    }
-    
-    static func buildFilters(isArchived: Bool, workspaceId: String) -> [DataviewFilter] {
-        [
-            SearchHelper.notHiddenFilter(),
-            SearchHelper.isArchivedFilter(isArchived: isArchived),
-            SearchHelper.workspaceId(workspaceId),
-        ]
     }
     
     // MARK: - Private
