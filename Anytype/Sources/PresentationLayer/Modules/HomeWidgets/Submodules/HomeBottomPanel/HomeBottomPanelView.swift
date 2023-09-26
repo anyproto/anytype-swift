@@ -39,7 +39,7 @@ struct HomeBottomPanelView: View {
         }
         .padding(.horizontal, 20)
         .padding(.vertical, 10)
-        .background(Color.Background.material)
+        .background(Color.Widget.bottomPanel)
         .background(.ultraThinMaterial)
         .cornerRadius(16, style: .continuous)
         .transition(.scale(scale: 0.8).combined(with: .opacity))
@@ -54,7 +54,7 @@ struct HomeBottomPanelView: View {
                         .frame(maxWidth: .infinity)
                 })
                 .frame(height: 52)
-                .background(Color.Background.material)
+                .background(Color.Widget.bottomPanel)
                 .background(.ultraThinMaterial)
                 .cornerRadius(14, style: .continuous)
             }

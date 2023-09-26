@@ -24,14 +24,21 @@ struct SpaceSwitchView: View {
     }
     
     var body: some View {
-        if #available(iOS 16.0, *) {
+        if #available(iOS 16.4, *) {
             contentContainer
+                .background(Color.ModalScreen.backgroundWithBlur)
                 .presentationDetents([.height(380), .large])
                 .presentationDragIndicator(.hidden)
-                .presentationBackgroundLegacy(.ultraThinMaterial)
-                .presentationCornerRadiusLegacy(16)
+                .presentationBackground(.ultraThinMaterial)
+                .presentationCornerRadius(16)
+        } else if #available(iOS 16.0, *) {
+            contentContainer
+                .background(Color.ModalScreen.background)
+                .presentationDetents([.height(380), .large])
+                .presentationDragIndicator(.hidden)
         } else {
             contentContainer
+                .background(Color.ModalScreen.background)
         }
     }
     
@@ -41,7 +48,7 @@ struct SpaceSwitchView: View {
                 VerticalScrollViewWithOverlayHeader {
                     Color.clear
                         .frame(height: headerSize.height)
-                        .background(Color.Background.material)
+                        .background(Color.ModalScreen.backgroundWithBlur)
                         .background(.ultraThinMaterial)
                 } content: {
                     content
@@ -56,7 +63,6 @@ struct SpaceSwitchView: View {
                     headerSize = size
                 }
         }
-        .background(Color.Background.material)
         .readSize { newSize in
             let allSpacing = newSize.width - CGFloat(columns.count) * Constants.itemWidth
             let countBetweenSpacing = CGFloat(columns.count - 1)
@@ -93,7 +99,7 @@ struct SpaceSwitchView: View {
             IconView(icon: model.profileIcon)
                 .frame(width: 32, height: 32)
             Spacer.fixedWidth(12)
-            AnytypeText(model.profileName, style: .heading, color: .Text.labelInversion)
+            AnytypeText(model.profileName, style: .heading, color: .Text.white)
                 .lineLimit(1)
             Spacer()
             Button {
