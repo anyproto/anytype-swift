@@ -16,7 +16,6 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
             return
         }
 
-        connectionOptions.shortcutItem.flatMap { _ = handleQuickAction($0) }
         let window = AnytypeWindow(windowScene: windowScene)
         self.window = window
         
@@ -26,6 +25,8 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         
         let applicationCoordinator = di.coordinatorsDI.application().make()
         self.applicationCoordinator = applicationCoordinator
+
+        connectionOptions.shortcutItem.flatMap { _ = handleQuickAction($0) }
         
         applicationCoordinator.start(connectionOptions: connectionOptions)
 
