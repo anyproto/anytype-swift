@@ -98,6 +98,12 @@ extension UIColor {
       internal static let white = UIColor(asset: Asset.Button.white)
     }
     
+    // MARK: - ModalScreen
+    enum ModalScreen {
+      internal static let background = UIColor(asset: Asset.ModalScreen.background)
+      internal static let backgroundWithBlur = UIColor(asset: Asset.ModalScreen.backgroundWithBlur)
+    }
+    
     // MARK: - Shadow
     enum Shadow {
       internal static let primary = UIColor(asset: Asset.Shadow.primary)
@@ -122,6 +128,7 @@ extension UIColor {
     
     // MARK: - Widget
     enum Widget {
+      internal static let bottomPanel = UIColor(asset: Asset.Widget.bottomPanel)
       internal static let card = UIColor(asset: Asset.Widget.card)
       internal static let divider = UIColor(asset: Asset.Widget.divider)
       internal static let inactiveTab = UIColor(asset: Asset.Widget.inactiveTab)
