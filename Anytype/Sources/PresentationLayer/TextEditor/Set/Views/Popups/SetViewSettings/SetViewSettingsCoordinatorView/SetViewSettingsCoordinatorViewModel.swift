@@ -3,8 +3,7 @@ import Services
 
 @MainActor
 protocol SetViewSettingsCoordinatorOutput: AnyObject {
-    func onDefaultObjectTap()
-    func onDefaultTemplateTap()
+    func onDefaultSettingsTap()
     func onLayoutTap()
     func onRelationsTap()
     func onFiltersTap()
@@ -66,15 +65,7 @@ final class SetViewSettingsCoordinatorViewModel: ObservableObject, SetViewSettin
     
     // MARK: - Default object creation settings
     
-    func onDefaultObjectTap() {
-        startObjectCreationSettings()
-    }
-    
-    func onDefaultTemplateTap() {
-        startObjectCreationSettings()
-    }
-    
-    private func startObjectCreationSettings() {
+    func onDefaultSettingsTap() {
         objectCreationSettingsCoordinator.showSetObjectCreationSettings(
             setDocument: setDocument,
             viewId: viewId,
@@ -133,12 +124,5 @@ final class SetViewSettingsCoordinatorViewModel: ObservableObject, SetViewSettin
             with: setDocument,
             viewId: viewId
         )
-    }
-}
-
-extension SetViewSettingsCoordinatorViewModel {
-    struct TypesSearchData: Identifiable {
-        let id = UUID()
-        let completion: (BlockId) -> Void
     }
 }

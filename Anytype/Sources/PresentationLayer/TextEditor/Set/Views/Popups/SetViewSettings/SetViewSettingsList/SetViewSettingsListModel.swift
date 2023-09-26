@@ -53,10 +53,8 @@ final class SetViewSettingsListModel: ObservableObject {
     
     func onSettingTap(_ setting: SetViewSettings) {
         switch setting {
-        case .defaultObject:
-            output?.onDefaultObjectTap()
-        case .defaultTemplate:
-            output?.onDefaultObjectTap()
+        case .defaultObject, .defaultTemplate:
+            output?.onDefaultSettingsTap()
         case .layout:
             output?.onLayoutTap()
         case .relations:

@@ -867,6 +867,7 @@
 		2EC46DD72ABE000D00DEA4BD /* ObjectTypesConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EC46DD62ABE000D00DEA4BD /* ObjectTypesConfiguration.swift */; };
 		2EC46DD92ABE081800DEA4BD /* InstalledObjectTypeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EC46DD82ABE081800DEA4BD /* InstalledObjectTypeView.swift */; };
 		2EC46DDB2AC1B9EA00DEA4BD /* SetObjectCreationSettingsCoordinatorAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EC46DDA2AC1B9EA00DEA4BD /* SetObjectCreationSettingsCoordinatorAssembly.swift */; };
+		2EC46DE62AC3088800DEA4BD /* SetObjectCreationSettingsMode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EC46DE52AC3088800DEA4BD /* SetObjectCreationSettingsMode.swift */; };
 		2EC669212A166FD1001F71BC /* JoinFlowStepOutput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EC669202A166FD1001F71BC /* JoinFlowStepOutput.swift */; };
 		2EC669242A16755A001F71BC /* AuthCustomTransition.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EC669232A16755A001F71BC /* AuthCustomTransition.swift */; };
 		2EC7FB9F2A5EF7FD00491F99 /* LoginLoadingRoute.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EC7FB9E2A5EF7FD00491F99 /* LoginLoadingRoute.swift */; };
@@ -1281,7 +1282,7 @@
 		53FF7CBC26FDD36200A5A592 /* ObjectActionsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53FF7CBB26FDD36200A5A592 /* ObjectActionsViewModel.swift */; };
 		53FF7CBE26FDD37D00A5A592 /* ObjectAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53FF7CBD26FDD37D00A5A592 /* ObjectAction.swift */; };
 		861E75F62A5C03E400F18552 /* EditableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 861E75F52A5C03E400F18552 /* EditableView.swift */; };
-		861E75F82A5D5A5F00F18552 /*  SetObjectCreationSettingsCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 861E75F72A5D5A5F00F18552 /*  SetObjectCreationSettingsCoordinator.swift */; };
+		861E75F82A5D5A5F00F18552 /* SetObjectCreationSettingsCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 861E75F72A5D5A5F00F18552 /* SetObjectCreationSettingsCoordinator.swift */; };
 		8624C8612A6E577E0065CBC0 /* EditorPageViewModelConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8624C8602A6E577E0065CBC0 /* EditorPageViewModelConfiguration.swift */; };
 		862D55932A8F78330018103F /* ShareViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 862D55922A8F78330018103F /* ShareViewController.swift */; };
 		862D55962A8F78330018103F /* MainInterface.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 862D55942A8F78330018103F /* MainInterface.storyboard */; };
@@ -2421,6 +2422,7 @@
 		2EC46DD62ABE000D00DEA4BD /* ObjectTypesConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObjectTypesConfiguration.swift; sourceTree = "<group>"; };
 		2EC46DD82ABE081800DEA4BD /* InstalledObjectTypeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InstalledObjectTypeView.swift; sourceTree = "<group>"; };
 		2EC46DDA2AC1B9EA00DEA4BD /* SetObjectCreationSettingsCoordinatorAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetObjectCreationSettingsCoordinatorAssembly.swift; sourceTree = "<group>"; };
+		2EC46DE52AC3088800DEA4BD /* SetObjectCreationSettingsMode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetObjectCreationSettingsMode.swift; sourceTree = "<group>"; };
 		2EC669202A166FD1001F71BC /* JoinFlowStepOutput.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JoinFlowStepOutput.swift; sourceTree = "<group>"; };
 		2EC669232A16755A001F71BC /* AuthCustomTransition.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthCustomTransition.swift; sourceTree = "<group>"; };
 		2EC7FB9E2A5EF7FD00491F99 /* LoginLoadingRoute.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginLoadingRoute.swift; sourceTree = "<group>"; };
@@ -2832,7 +2834,7 @@
 		53FF7CBB26FDD36200A5A592 /* ObjectActionsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObjectActionsViewModel.swift; sourceTree = "<group>"; };
 		53FF7CBD26FDD37D00A5A592 /* ObjectAction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObjectAction.swift; sourceTree = "<group>"; };
 		861E75F52A5C03E400F18552 /* EditableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditableView.swift; sourceTree = "<group>"; };
-		861E75F72A5D5A5F00F18552 /*  SetObjectCreationSettingsCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = " SetObjectCreationSettingsCoordinator.swift"; sourceTree = "<group>"; };
+		861E75F72A5D5A5F00F18552 /* SetObjectCreationSettingsCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetObjectCreationSettingsCoordinator.swift; sourceTree = "<group>"; };
 		8624C8602A6E577E0065CBC0 /* EditorPageViewModelConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditorPageViewModelConfiguration.swift; sourceTree = "<group>"; };
 		862D55902A8F78330018103F /* AnytypeShareExtension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = AnytypeShareExtension.appex; sourceTree = BUILT_PRODUCTS_DIR; };
 		862D55922A8F78330018103F /* ShareViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShareViewController.swift; sourceTree = "<group>"; };
@@ -8496,7 +8498,8 @@
 				2AECFD4528993CCC000E9CFB /* Assembly */,
 				C99DCE8F283B6C270051F99D /* Views */,
 				C90189A828338D2900F30853 /* TemplatesCoordinator.swift */,
-				861E75F72A5D5A5F00F18552 /*  SetObjectCreationSettingsCoordinator.swift */,
+				2EC46DE52AC3088800DEA4BD /* SetObjectCreationSettingsMode.swift */,
+				861E75F72A5D5A5F00F18552 /* SetObjectCreationSettingsCoordinator.swift */,
 				2EC46DDA2AC1B9EA00DEA4BD /* SetObjectCreationSettingsCoordinatorAssembly.swift */,
 			);
 			path = ObjectCreationSettings;
@@ -9421,6 +9424,7 @@
 				3D88217C26F3722600A41E75 /* BlockText+AnytypeText.swift in Sources */,
 				2ECB33FD2A94F79C00E0F9BB /* SetSortTypesListModuleAssembly.swift in Sources */,
 				12AF9986273A8B87004CBB80 /* RelationsBuilder.swift in Sources */,
+				2EC46DE62AC3088800DEA4BD /* SetObjectCreationSettingsMode.swift in Sources */,
 				EA57F41B26B99937007D4292 /* MarkupViewProtocol.swift in Sources */,
 				3D210C142758CCE50007F558 /* RelationsListRowPlaceholderView.swift in Sources */,
 				2A947B3E2A30E25600119140 /* WidgetObjectListRowView.swift in Sources */,
@@ -9818,7 +9822,7 @@
 				12EB9AF62771F0E900BA732F /* RelationOptionsListView.swift in Sources */,
 				2ECB342B2A97C95600E0F9BB /* SetFiltersSelectionHeaderModuleAssembly.swift in Sources */,
 				3DDD3D0E26AEB55700B5673A /* BlockFileView.swift in Sources */,
-				861E75F82A5D5A5F00F18552 /*  SetObjectCreationSettingsCoordinator.swift in Sources */,
+				861E75F82A5D5A5F00F18552 /* SetObjectCreationSettingsCoordinator.swift in Sources */,
 				C96AFFD1284A385D0048B8EB /* SeparatorItemView.swift in Sources */,
 				53FF7C6D26F8F8E400A5A592 /* iCloudBackupConfigurator.swift in Sources */,
 				53F80F1227BDA96E00E9E12A /* FileRelationViewUIKit.swift in Sources */,

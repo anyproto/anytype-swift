@@ -151,7 +151,6 @@ final class SetObjectCreationSettingsViewModel: ObservableObject {
     
     private func setupSubscriptions() {
         // Templates
-        
         interactor.userTemplates.sink { [weak self] templates in
             if let userTemplates = self?.userTemplates,
                 userTemplates != templates {
@@ -160,7 +159,6 @@ final class SetObjectCreationSettingsViewModel: ObservableObject {
         }.store(in: &cancellables)
         
         // Object types
-        
         interactor.objectTypesAvailabilityPublisher.sink { [weak self] canChangeObjectType in
             self?.canChangeObjectType = canChangeObjectType
         }.store(in: &cancellables)
@@ -198,7 +196,7 @@ final class SetObjectCreationSettingsViewModel: ObservableObject {
             }
         )
         convertedObjectTypes.insert(searchItem, at: 0)
-        self.objectTypes = convertedObjectTypes
+        objectTypes = convertedObjectTypes
     }
     
     private func handleTemplateOption(
@@ -220,7 +218,10 @@ final class SetObjectCreationSettingsViewModel: ObservableObject {
                         ObjectCreationSetting(objectTypeId: objectTypeId, templateId: templateViewModel.id)
                     )
                 case .setAsDefault:
-                    setTemplateAsDefault(templateId: templateViewModel.id, showMessage: true)
+                    setTemplateAsDefault(
+                        templateId: templateViewModel.id,
+                        showMessage: interactor.mode == .creation
+                    )
                 }
                 
                 handleAnalytics(option: option, templateViewModel: templateViewModel)
