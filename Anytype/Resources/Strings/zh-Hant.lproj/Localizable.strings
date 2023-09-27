@@ -9,7 +9,7 @@
 "TextStyle.Title.Subtitle" = "Big section heading";
 
 "TextStyle.Heading.Title" = "Heading";
-"TextStyle.Heading.Subtitle" = "Medium headline";
+"TextStyle.Heading.Subtitle" = "中等大小的標題";
 
 "TextStyle.Subheading.Title" = "Subheading";
 "TextStyle.Subheading.Subtitle" = "Small headline";
