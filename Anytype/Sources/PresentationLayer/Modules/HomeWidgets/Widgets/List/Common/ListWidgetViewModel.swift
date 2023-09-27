@@ -135,6 +135,7 @@ final class ListWidgetViewModel: WidgetContainerContentViewModelProtocol, Observ
         
         Task {
             try await objectActionsService.updateBundledDetails(contextID: details.id, details: [.done(!details.done)])
+            UIImpactFeedbackGenerator(style: .rigid).impactOccurred()
         }
     }
 }
