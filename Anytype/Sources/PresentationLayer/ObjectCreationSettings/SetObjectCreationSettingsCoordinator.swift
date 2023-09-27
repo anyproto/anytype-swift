@@ -152,7 +152,6 @@ final class SetObjectCreationSettingsCoordinator: SetObjectCreationSettingsCoord
         let view = newSearchModuleAssembly.objectTypeSearchModule(
             title: Loc.changeType,
             selectedObjectId: selectedObjectId,
-            excludedObjectTypeId: setDocument.details?.type,
             showBookmark: true,
             showSetAndCollection: true,
             browser: nil
