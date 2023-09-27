@@ -26,8 +26,8 @@ extension PageRepositoryProtocol {
     func createDefaultPage(
         name: String,
         shouldDeleteEmptyObject: Bool = false,
-        shouldSelectType: Bool = false,
-        shouldSelectTemplate: Bool = false,
+        shouldSelectType: Bool = true,
+        shouldSelectTemplate: Bool = true,
         templateId: String? = nil
     ) async throws -> ObjectDetails {
         try await createDefaultPage(
@@ -82,7 +82,7 @@ final class PageRepository: PageRepositoryProtocol {
             shouldDeleteEmptyObject: shouldDeleteEmptyObject,
             shouldSelectType: shouldSelectType,
             shouldSelectTemplate: shouldSelectTemplate,
-            templateId: templateId
+            templateId: templateId ?? objectTypeProvider.defaultObjectType.defaultTemplateId
         )
     }
 }

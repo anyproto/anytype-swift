@@ -8,12 +8,10 @@ final class DashboardService: DashboardServiceProtocol {
     
     private let searchService: SearchServiceProtocol
     private let pageService: PageRepositoryProtocol
-    private let objectTypeProvider: ObjectTypeProviderProtocol
 
-    init(searchService: SearchServiceProtocol, pageService: PageRepositoryProtocol, objectTypeProvider: ObjectTypeProviderProtocol) {
+    init(searchService: SearchServiceProtocol, pageService: PageRepositoryProtocol) {
         self.searchService = searchService
         self.pageService = pageService
-        self.objectTypeProvider = objectTypeProvider
     }
     
     // MARK: - DashboardServiceProtocol
@@ -21,11 +19,8 @@ final class DashboardService: DashboardServiceProtocol {
     func createNewPage() async throws -> ObjectDetails {
         let details = try await pageService.createDefaultPage(
             name: "",
-            shouldDeleteEmptyObject: true,
-            shouldSelectType: true,
-            shouldSelectTemplate: true
+            shouldDeleteEmptyObject: true
         )
-        
         return details
     }
     
