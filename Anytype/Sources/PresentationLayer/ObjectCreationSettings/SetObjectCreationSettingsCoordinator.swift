@@ -3,8 +3,8 @@ import Services
 import SwiftUI
 import AnytypeCore
 
+@MainActor
 protocol SetObjectCreationSettingsCoordinatorProtocol: AnyObject {
-    @MainActor
     func showSetObjectCreationSettings(
         setDocument: SetDocumentProtocol,
         viewId: String,
@@ -43,7 +43,6 @@ final class SetObjectCreationSettingsCoordinator: SetObjectCreationSettingsCoord
         self.objectSettingCoordinator = objectSettingCoordinator
     }
     
-    @MainActor
     func showSetObjectCreationSettings(
         setDocument: SetDocumentProtocol,
         viewId: String,
@@ -104,7 +103,6 @@ final class SetObjectCreationSettingsCoordinator: SetObjectCreationSettingsCoord
         navigationContext.present(popup)
     }
     
-    @MainActor
     func showTemplateEditing(
         setting: ObjectCreationSetting,
         onTemplateSelection: @escaping (ObjectCreationSetting) -> Void,

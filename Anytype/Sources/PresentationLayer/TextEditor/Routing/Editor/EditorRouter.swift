@@ -531,6 +531,7 @@ extension EditorRouter: ObjectSettingsModuleDelegate {
         }
     }
     
+    @MainActor
     func didCreateTemplate(templateId: BlockId) {
         guard let objectTypeId = document.details?.type else { return }
         let setting = ObjectCreationSetting(objectTypeId: objectTypeId, templateId: templateId)
