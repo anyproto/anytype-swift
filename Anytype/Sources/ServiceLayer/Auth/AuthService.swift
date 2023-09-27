@@ -124,7 +124,7 @@ final class AuthService: AuthServiceProtocol {
             
             let analyticsId = response.account.info.analyticsID
             AnytypeAnalytics.instance().setUserId(analyticsId)
-            AnytypeAnalytics.instance().logAccountSelect(analyticsId: analyticsId)
+            AnytypeAnalytics.instance().logAccountOpen(analyticsId: analyticsId)
             appErrorLoggerConfiguration.setUserId(analyticsId)
             
             guard let status = response.account.status.asModel else {
