@@ -182,8 +182,6 @@ final class LoginViewModel: ObservableObject {
                 case .deleted:
                     errorText = Loc.accountDeleted
                 }
-            } catch SelectAccountError.failedToFindAccountInfo {
-                errorText = Loc.selectAccountError
             } catch SelectAccountError.accountIsDeleted {
                 errorText = Loc.accountDeleted
             } catch SelectAccountError.failedToFetchRemoteNodeHasIncompatibleProtoVersion {
