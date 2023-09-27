@@ -68,6 +68,8 @@ final class ChangeTypeAccessoryViewModel {
     }
 
     private func onTypeTap(typeId: String) {
+        defer { logSelectObjectType(typeId: typeId) }
+        
         if typeId == ObjectTypeId.BundledTypeId.set.rawValue {
             Task { @MainActor in
                 document.resetSubscriptions() // to avoid glytch with premature document update
@@ -90,11 +92,13 @@ final class ChangeTypeAccessoryViewModel {
 
         Task { @MainActor in
             try await handler.setObjectTypeId(typeId)
-            let objectType = objectTypeProvider.objectType(id: typeId)?.analyticsType ?? .object(typeId: typeId)
-            AnytypeAnalytics.instance().logSelectObjectType(objectType)
-            
             applyDefaultTemplateIfNeeded(typeId: typeId)
         }
+    }
+    
+    private func logSelectObjectType(typeId: String) {
+        let objectType = objectTypeProvider.objectType(id: typeId)?.analyticsType ?? .object(typeId: typeId)
+        AnytypeAnalytics.instance().logSelectObjectType(objectType)
     }
     
     private func applyDefaultTemplateIfNeeded(typeId: String) {
