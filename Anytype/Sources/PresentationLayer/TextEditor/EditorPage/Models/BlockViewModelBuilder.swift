@@ -245,12 +245,10 @@ final class BlockViewModelBuilder {
                 if relation.key == BundledRelationKey.type.rawValue && !self.document.isLocked && bookmarkFilter && allowTypeChange {
                     self.router.showTypes(
                         selectedObjectId: self.document.details?.type,
-                        onSelect: { id in
+                        onSelect: { [weak self] id in
                             Task { [weak self] in
-                                guard let self else { return }
-                                try await handler.setObjectTypeId(id)
-                                let objectType = objectTypeProvider.objectType(id: id)?.analyticsType ?? .object(typeId: id)
-                                AnytypeAnalytics.instance().logObjectTypeChange(objectType)
+                                try await self?.handler.setObjectTypeId(id)
+                                self?.logObjectTypeChange(typeId: id)
                             }
                         }
                     )
@@ -321,6 +319,11 @@ final class BlockViewModelBuilder {
 
             return UnsupportedBlockViewModel(info: info)
         }
+    }
+    
+    private func logObjectTypeChange(typeId: String) {
+        let objectType = objectTypeProvider.objectType(id: typeId)?.analyticsType ?? .object(typeId: typeId)
+        AnytypeAnalytics.instance().logObjectTypeChange(objectType)
     }
 
     // MARK: - Actions
