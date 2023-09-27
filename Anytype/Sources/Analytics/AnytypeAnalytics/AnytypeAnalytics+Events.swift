@@ -507,8 +507,14 @@ extension AnytypeAnalytics {
         logEvent(AnalyticsEventsName.redo)
     }
     
-    func logDuplicateObject() {
-        logEvent(AnalyticsEventsName.duplicateObject)
+    func logDuplicateObject(count: Int, objectType: AnalyticsObjectType) {
+        logEvent(
+            AnalyticsEventsName.duplicateObject,
+            withEventProperties: [
+                AnalyticsEventsPropertiesKey.count: count,
+                AnalyticsEventsPropertiesKey.objectType: objectType.analyticsId,
+            ]
+        )
     }
     
     func logCopyBlock() {
