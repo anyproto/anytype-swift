@@ -174,7 +174,7 @@ final class DataviewService: DataviewServiceProtocol {
     
     func addRecord(
         objectType: String,
-        shouldSelectType: Bool,
+        shouldSelectTemplate: Bool,
         templateId: BlockId,
         setFilters: [SetFilter],
         relationsDetails: [RelationDetails]
@@ -183,9 +183,8 @@ final class DataviewService: DataviewServiceProtocol {
         prefilledFields[BundledRelationKey.type.rawValue] = objectType.protobufValue
 
         let internalFlags: [Anytype_Model_InternalFlag] = .builder {
-            Anytype_Model_InternalFlag.with { $0.value = .editorSelectTemplate }
-            if shouldSelectType {
-                Anytype_Model_InternalFlag.with { $0.value = .editorSelectType }
+            if shouldSelectTemplate {
+                Anytype_Model_InternalFlag.with { $0.value = .editorSelectTemplate }
             }
         }
 
