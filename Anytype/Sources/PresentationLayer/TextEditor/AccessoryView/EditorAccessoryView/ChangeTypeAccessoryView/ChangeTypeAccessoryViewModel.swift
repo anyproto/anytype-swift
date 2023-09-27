@@ -15,6 +15,7 @@ final class ChangeTypeAccessoryViewModel {
     private let handler: BlockActionHandlerProtocol
     private let searchService: SearchServiceProtocol
     private let objectService: ObjectActionsServiceProtocol
+    private let objectTypeProvider: ObjectTypeProviderProtocol
     private let document: BaseDocumentProtocol
     private lazy var searchItem = TypeItem.searchItem { [weak self] in self?.onSearchTap() }
 
@@ -25,12 +26,14 @@ final class ChangeTypeAccessoryViewModel {
         handler: BlockActionHandlerProtocol,
         searchService: SearchServiceProtocol,
         objectService: ObjectActionsServiceProtocol,
+        objectTypeProvider: ObjectTypeProviderProtocol,
         document: BaseDocumentProtocol
     ) {
         self.router = router
         self.handler = handler
         self.searchService = searchService
         self.objectService = objectService
+        self.objectTypeProvider = objectTypeProvider
         self.document = document
 
         fetchSupportedTypes()
@@ -65,6 +68,8 @@ final class ChangeTypeAccessoryViewModel {
     }
 
     private func onTypeTap(typeId: String) {
+        defer { logSelectObjectType(typeId: typeId) }
+        
         if typeId == ObjectTypeId.BundledTypeId.set.rawValue {
             Task { @MainActor in
                 document.resetSubscriptions() // to avoid glytch with premature document update
@@ -89,6 +94,11 @@ final class ChangeTypeAccessoryViewModel {
             try await handler.setObjectTypeId(typeId)
             applyDefaultTemplateIfNeeded(typeId: typeId)
         }
+    }
+    
+    private func logSelectObjectType(typeId: String) {
+        let objectType = objectTypeProvider.objectType(id: typeId)?.analyticsType ?? .object(typeId: typeId)
+        AnytypeAnalytics.instance().logSelectObjectType(objectType)
     }
     
     private func applyDefaultTemplateIfNeeded(typeId: String) {

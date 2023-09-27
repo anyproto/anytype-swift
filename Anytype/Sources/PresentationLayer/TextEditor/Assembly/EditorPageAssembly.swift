@@ -324,7 +324,8 @@ final class EditorAssembly {
             detailsService: serviceLocator.detailsService(objectId: document.objectId),
             audioSessionService: serviceLocator.audioSessionService(),
             infoContainer: document.infoContainer,
-            tableService: blockTableService
+            tableService: blockTableService,
+            objectTypeProvider: serviceLocator.objectTypeProvider()
         )
 
         actionHandler.blockSelectionHandler = blocksStateManager

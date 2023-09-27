@@ -62,6 +62,7 @@ enum AnalyticsEventsName {
     static let objectListDelete = "RemoveCompletely"
     static let defaultObjectTypeChange = "DefaultTypeChange"
     static let objectTypeChange = "ChangeObjectType"
+    static let selectObjectType = "SelectObjectType"
     static let showObject = "ScreenObject"
     static let setLayoutAlign = "SetLayoutAlign"
     static let setIcon = "SetIcon"
