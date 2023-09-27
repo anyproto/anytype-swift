@@ -47,7 +47,7 @@ final class ObjectIconPickerViewModel: ObservableObject, ObjectIconPickerViewMod
         switch detailsLayout {
         case .basic:
             return true
-        case .profile:
+        case .profile, .space:
             guard let details = document.details else { return false }
             return details.iconImage.isNotNil
         default:
