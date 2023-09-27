@@ -27,6 +27,8 @@ final class IconTextAttachment: NSTextAttachment {
         glyphPosition position: CGPoint,
         characterIndex charIndex: Int
     ) -> CGRect {
+        guard icon.isNotNil else { return .zero }
+        
         let textStorage: NSTextStorage? = textContainer?.layoutManager?.textStorage
         let anyAttribute: Any? = textStorage?.attribute(.font, at: charIndex, effectiveRange: nil)
 
@@ -71,7 +73,10 @@ final class IconTextAttachmentViewProvider: NSTextAttachmentViewProvider {
             anytypeAssertionFailure("Text attachment type is not IconTextAttachment", info: ["type": String(describing: textAttachment)])
             return
         }
-        guard let icon = mentionAttachment.icon else { return }
+        guard let icon = mentionAttachment.icon else {
+            view = UIView()
+            return
+        }
         let container = UIView()
         let iconView = IconViewUIKit()
         container.addSubview(iconView) {
