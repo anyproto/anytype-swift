@@ -23,10 +23,16 @@ final class JoinFlowViewModel: ObservableObject, JoinFlowStepOutput {
     
     private weak var output: JoinFlowOutput?
     private let applicationStateService: ApplicationStateServiceProtocol
+    private let accountManager: AccountManagerProtocol
     
-    init(output: JoinFlowOutput?, applicationStateService: ApplicationStateServiceProtocol) {
+    init(
+        output: JoinFlowOutput?,
+        applicationStateService: ApplicationStateServiceProtocol,
+        accountManager: AccountManagerProtocol
+    ) {
         self.output = output
         self.applicationStateService = applicationStateService
+        self.accountManager = accountManager
     }
     
     func content() -> AnyView? {
@@ -72,5 +78,8 @@ final class JoinFlowViewModel: ObservableObject, JoinFlowStepOutput {
     
     private func finishFlow() {
         applicationStateService.state = .home
+        AnytypeAnalytics.instance().logAccountOpen(
+            analyticsId: accountManager.account.info.analyticsId
+        )
     }
 }

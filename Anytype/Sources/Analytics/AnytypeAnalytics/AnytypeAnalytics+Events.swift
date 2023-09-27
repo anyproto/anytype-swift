@@ -13,7 +13,7 @@ extension AnytypeAnalytics {
         )
     }
     
-    func logAccountSelect(analyticsId: String) {
+    func logAccountOpen(analyticsId: String) {
         logEvent(
             AnalyticsEventsName.openAccount,
             withEventProperties: [AnalyticsEventsPropertiesKey.accountId : analyticsId]
