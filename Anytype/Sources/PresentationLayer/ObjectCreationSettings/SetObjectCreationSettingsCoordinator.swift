@@ -69,7 +69,6 @@ final class SetObjectCreationSettingsCoordinator: SetObjectCreationSettingsCoord
         view.model.onObjectTypesSearchAction = { [weak self, weak model] in
             self?.showTypesSearch(
                 setDocument: setDocument,
-                selectedObjectId: nil,
                 onSelect: { objectTypeId in
                     model?.setObjectTypeId(objectTypeId)
                 }
@@ -146,13 +145,10 @@ final class SetObjectCreationSettingsCoordinator: SetObjectCreationSettingsCoord
     
     private func showTypesSearch(
         setDocument: SetDocumentProtocol,
-        selectedObjectId: BlockId?,
         onSelect: @escaping (BlockId) -> ()
     ) {
         let view = newSearchModuleAssembly.objectTypeSearchModule(
             title: Loc.changeType,
-            selectedObjectId: selectedObjectId,
-            excludedObjectTypeId: setDocument.details?.type,
             showBookmark: true,
             showSetAndCollection: true,
             browser: nil
