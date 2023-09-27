@@ -37,7 +37,7 @@ final class SetViewSettingsListModuleAssembly: SetViewSettingsListModuleAssembly
                 mode: .default,
                 setDocument: setDocument,
                 viewId: viewId,
-                installedObjectTypesProvider: serviceLocator.installedObjectTypesProvider(),
+                objectTypesProvider: serviceLocator.objectTypeProvider(),
                 subscriptionService: TemplatesSubscriptionService(subscriptionService: serviceLocator.subscriptionService()),
                 dataviewService: dataviewService
             )

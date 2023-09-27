@@ -862,8 +862,6 @@
 		2EB3F0212A9D1B5D00B79A3F /* SetFiltersTextViewModuleAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EB3F0202A9D1B5D00B79A3F /* SetFiltersTextViewModuleAssembly.swift */; };
 		2EB3F0232A9D1CAA00B79A3F /* SetFiltersCheckboxViewModuleAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EB3F0222A9D1CAA00B79A3F /* SetFiltersCheckboxViewModuleAssembly.swift */; };
 		2EB97A1B28B64CDC002BBB39 /* SetListViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EB97A1A28B64CDC002BBB39 /* SetListViewCell.swift */; };
-		2EC46DD22ABDFA7000DEA4BD /* InstalledObjectTypesProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EC46DD12ABDFA7000DEA4BD /* InstalledObjectTypesProvider.swift */; };
-		2EC46DD52ABDFAF800DEA4BD /* InstalledObjectTypesSubscriptionDataBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EC46DD42ABDFAF800DEA4BD /* InstalledObjectTypesSubscriptionDataBuilder.swift */; };
 		2EC46DD72ABE000D00DEA4BD /* ObjectTypesConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EC46DD62ABE000D00DEA4BD /* ObjectTypesConfiguration.swift */; };
 		2EC46DD92ABE081800DEA4BD /* InstalledObjectTypeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EC46DD82ABE081800DEA4BD /* InstalledObjectTypeView.swift */; };
 		2EC46DDB2AC1B9EA00DEA4BD /* SetObjectCreationSettingsCoordinatorAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EC46DDA2AC1B9EA00DEA4BD /* SetObjectCreationSettingsCoordinatorAssembly.swift */; };
@@ -2417,8 +2415,6 @@
 		2EB3F0202A9D1B5D00B79A3F /* SetFiltersTextViewModuleAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetFiltersTextViewModuleAssembly.swift; sourceTree = "<group>"; };
 		2EB3F0222A9D1CAA00B79A3F /* SetFiltersCheckboxViewModuleAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetFiltersCheckboxViewModuleAssembly.swift; sourceTree = "<group>"; };
 		2EB97A1A28B64CDC002BBB39 /* SetListViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SetListViewCell.swift; sourceTree = "<group>"; };
-		2EC46DD12ABDFA7000DEA4BD /* InstalledObjectTypesProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InstalledObjectTypesProvider.swift; sourceTree = "<group>"; };
-		2EC46DD42ABDFAF800DEA4BD /* InstalledObjectTypesSubscriptionDataBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InstalledObjectTypesSubscriptionDataBuilder.swift; sourceTree = "<group>"; };
 		2EC46DD62ABE000D00DEA4BD /* ObjectTypesConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObjectTypesConfiguration.swift; sourceTree = "<group>"; };
 		2EC46DD82ABE081800DEA4BD /* InstalledObjectTypeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InstalledObjectTypeView.swift; sourceTree = "<group>"; };
 		2EC46DDA2AC1B9EA00DEA4BD /* SetObjectCreationSettingsCoordinatorAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetObjectCreationSettingsCoordinatorAssembly.swift; sourceTree = "<group>"; };
@@ -6308,15 +6304,6 @@
 			path = Coordinator;
 			sourceTree = "<group>";
 		};
-		2EC46DD32ABDFAAC00DEA4BD /* InstalledObjectTypes */ = {
-			isa = PBXGroup;
-			children = (
-				2EC46DD12ABDFA7000DEA4BD /* InstalledObjectTypesProvider.swift */,
-				2EC46DD42ABDFAF800DEA4BD /* InstalledObjectTypesSubscriptionDataBuilder.swift */,
-			);
-			path = InstalledObjectTypes;
-			sourceTree = "<group>";
-		};
 		2EC669222A167513001F71BC /* Transition */ = {
 			isa = PBXGroup;
 			children = (
@@ -7774,7 +7761,6 @@
 		3DE8D5AE26CD76CF006F31C1 /* ObjectType */ = {
 			isa = PBXGroup;
 			children = (
-				2EC46DD32ABDFAAC00DEA4BD /* InstalledObjectTypes */,
 				2A7BD6E928D85B4E008B735C /* Subscription */,
 				12E286E72849EF5D00BF64EB /* ObjectTypeProviderProtocol.swift */,
 				3DE8D5AF26CD76E2006F31C1 /* ObjectTypeProvider.swift */,
@@ -10219,7 +10205,6 @@
 				2E8387C1291A897700506766 /* BlockDataview+Group.swift in Sources */,
 				12C2A59D2757A6E000311854 /* StatusRelationDetailsViewModel.swift in Sources */,
 				C90189A928338D2900F30853 /* TemplatesCoordinator.swift in Sources */,
-				2EC46DD52ABDFAF800DEA4BD /* InstalledObjectTypesSubscriptionDataBuilder.swift in Sources */,
 				1240EAF627B13D6B005B501E /* UIDeviceExtension.swift in Sources */,
 				125B6EC026F235F400BCD7D6 /* CursorModeAccessoryViewItem.swift in Sources */,
 				2A4C79AD29B8A0E3003BB9D3 /* WidgetSourceSearchInternalViewModel.swift in Sources */,
@@ -10337,7 +10322,6 @@
 				2AC906C729B601C200209E39 /* FavoriteWidgetInternalViewModel.swift in Sources */,
 				C9367A9327312E8C007D687A /* BlocksOptionItem.swift in Sources */,
 				C90F8F2828DCBCA300E874A9 /* BlockFile+Paths.swift in Sources */,
-				2EC46DD22ABDFA7000DEA4BD /* InstalledObjectTypesProvider.swift in Sources */,
 				C9473C37273CEE6700B248AF /* EditorSelectionView.swift in Sources */,
 				2A1D2B3E2A42CD0300B07596 /* UIUserInterfaceStyle+Analytics.swift in Sources */,
 				3DC9F261266018B000B115B9 /* StandardButton.swift in Sources */,

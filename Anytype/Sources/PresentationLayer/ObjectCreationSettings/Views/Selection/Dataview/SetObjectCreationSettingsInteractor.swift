@@ -21,7 +21,7 @@ final class SetObjectCreationSettingsInteractor: SetObjectCreationSettingsIntera
     var objectTypesAvailabilityPublisher: AnyPublisher<Bool, Never> { $canChangeObjectType.eraseToAnyPublisher() }
     
     var objectTypesConfigPublisher: AnyPublisher<ObjectTypesConfiguration, Never> {
-        Publishers.CombineLatest(installedObjectTypesProvider.objectTypesPublisher, $objectTypeId)
+        Publishers.CombineLatest($objectTypes, $objectTypeId)
             .map { objectTypes, objectTypeId in
                 return ObjectTypesConfiguration(
                     objectTypes: objectTypes,
@@ -47,6 +47,7 @@ final class SetObjectCreationSettingsInteractor: SetObjectCreationSettingsIntera
     
     @Published var objectTypeId: ObjectTypeId
     @Published var canChangeObjectType = false
+    @Published private var objectTypes = [ObjectType]()
     
     let mode: SetObjectCreationSettingsMode
     
@@ -54,7 +55,7 @@ final class SetObjectCreationSettingsInteractor: SetObjectCreationSettingsIntera
     private let viewId: String
     
     private let subscriptionService: TemplatesSubscriptionServiceProtocol
-    private let installedObjectTypesProvider: InstalledObjectTypesProviderProtocol
+    private let objectTypesProvider: ObjectTypeProviderProtocol
     private let dataviewService: DataviewServiceProtocol
     
     @Published private var templatesDetails = [ObjectDetails]()
@@ -69,7 +70,7 @@ final class SetObjectCreationSettingsInteractor: SetObjectCreationSettingsIntera
         mode: SetObjectCreationSettingsMode,
         setDocument: SetDocumentProtocol,
         viewId: String,
-        installedObjectTypesProvider: InstalledObjectTypesProviderProtocol,
+        objectTypesProvider: ObjectTypeProviderProtocol,
         subscriptionService: TemplatesSubscriptionServiceProtocol,
         dataviewService: DataviewServiceProtocol
     ) {
@@ -79,7 +80,7 @@ final class SetObjectCreationSettingsInteractor: SetObjectCreationSettingsIntera
         self.dataView = setDocument.view(by: viewId)
         self.defaultTemplateId = dataView.defaultTemplateID ?? .empty
         self.subscriptionService = subscriptionService
-        self.installedObjectTypesProvider = installedObjectTypesProvider
+        self.objectTypesProvider = objectTypesProvider
         self.dataviewService = dataviewService
         
         let defaultObjectTypeID = dataView.defaultObjectTypeIDWithFallback
@@ -141,13 +142,27 @@ final class SetObjectCreationSettingsInteractor: SetObjectCreationSettingsIntera
         }
         .store(in: &cancellables)
     
-        startObjectTypesSubscription()
-        installedObjectTypesProvider.objectTypesPublisher.sink { [weak self] objectTypes in
-            self?.updateTypeDefaultTemplateId(objectTypes: objectTypes)
+        objectTypesProvider.syncPublisher.sink { [weak self] in
+            self?.updateObjectTypes()
+            self?.updateTypeDefaultTemplateId()
         }.store(in: &cancellables)
     }
     
-    private func updateTypeDefaultTemplateId(objectTypes: [ObjectType]) {
+    private func updateObjectTypes() {
+        let objectTypes = objectTypesProvider.objectTypes.filter {
+            !$0.isArchived && DetailsLayout.visibleLayouts.contains($0.recommendedLayout)
+        }
+        self.objectTypes = objectTypes.reordered(
+            by: [
+                ObjectTypeId.bundled(.page).rawValue,
+                ObjectTypeId.bundled(.note).rawValue,
+                ObjectTypeId.bundled(.task).rawValue,
+                ObjectTypeId.bundled(.collection).rawValue
+            ]
+        ) { $0.id }
+    }
+    
+    private func updateTypeDefaultTemplateId() {
         let defaultTemplateId = objectTypes.first { [weak self] in
             guard let self else { return false }
             return $0.id == objectTypeId.rawValue
@@ -157,18 +172,11 @@ final class SetObjectCreationSettingsInteractor: SetObjectCreationSettingsIntera
         }
     }
     
-    private func startObjectTypesSubscription() {
-        Task { [weak self] in
-            guard let self else { return }
-            await installedObjectTypesProvider.startSubscription()
-        }
-    }
-    
     private func loadTemplates() {
         subscriptionService.startSubscription(objectType: objectTypeId) { [weak self] _, update in
             guard let self else { return }
             templatesDetails.applySubscriptionUpdate(update)
-            updateTypeDefaultTemplateId(objectTypes: installedObjectTypesProvider.objectTypes)
+            updateTypeDefaultTemplateId()
         }
     }
 }

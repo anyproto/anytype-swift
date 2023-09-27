@@ -36,6 +36,7 @@ final class ObjectTypeSubscriptionDataBuilder: ObjectTypeSubscriptionDataBuilder
             BundledRelationKey.smartblockTypes.rawValue,
             BundledRelationKey.sourceObject.rawValue,
             BundledRelationKey.recommendedRelations.rawValue,
+            BundledRelationKey.recommendedLayout.rawValue,
             BundledRelationKey.defaultTemplateId.rawValue
         ]
 
