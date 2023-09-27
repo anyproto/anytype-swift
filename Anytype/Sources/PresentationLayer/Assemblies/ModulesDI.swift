@@ -134,10 +134,6 @@ final class ModulesDI: ModulesDIProtocol {
         return LoginViewModuleAssembly(serviceLocator: serviceLocator)
     }
     
-    func migrationGuide() -> MigrationGuideViewModuleAssemblyProtocol {
-        return MigrationGuideViewModuleAssembly()
-    }
-    
     func authKey() -> KeyPhraseViewModuleAssemblyProtocol {
         return KeyPhraseViewModuleAssembly(uiHelpersDI: uiHelpersDI)
     }

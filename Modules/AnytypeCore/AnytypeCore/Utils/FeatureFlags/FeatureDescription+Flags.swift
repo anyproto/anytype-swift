@@ -28,12 +28,6 @@ public extension FeatureDescription {
         defaultValue: false
     )
     
-    static let migrationGuide = FeatureDescription(
-        title: "Migration guide",
-        type: .feature(author: "m@anytype.io", releaseVersion: "0.22.0"),
-        defaultValue: true
-    )
-    
     static let newCodeLanguages = FeatureDescription(
         title: "New code languages - IOS-987",
         type: .feature(author: "m@anytype.io", releaseVersion: "0.26.0"),

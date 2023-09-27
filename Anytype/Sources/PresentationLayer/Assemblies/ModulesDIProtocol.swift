@@ -30,7 +30,6 @@ protocol ModulesDIProtocol: AnyObject {
     func authorization() -> AuthModuleAssemblyProtocol
     func joinFlow() -> JoinFlowModuleAssemblyProtocol
     func login() -> LoginViewModuleAssemblyProtocol
-    func migrationGuide() -> MigrationGuideViewModuleAssemblyProtocol
     func authKey() -> KeyPhraseViewModuleAssemblyProtocol
     func authKeyMoreInfo() -> KeyPhraseMoreInfoViewModuleAssembly
     func authSoul() -> SoulViewModuleAssemblyProtocol

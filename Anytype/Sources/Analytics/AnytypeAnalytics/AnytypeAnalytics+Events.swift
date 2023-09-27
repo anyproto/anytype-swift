@@ -351,15 +351,6 @@ extension AnytypeAnalytics {
         )
     }
     
-    func logMigrationGoneWrong(type: AnalyticsEventsMigrationType?) {
-        logEvent(
-            AnalyticsEventsName.migrationGoneWrong,
-            withEventProperties: [
-                AnalyticsEventsPropertiesKey.type: type?.rawValue
-            ].compactMapValues { $0 }
-        )
-    }
-    
     func logEditWidget() {
         logEvent(AnalyticsEventsName.Widget.edit)
     }

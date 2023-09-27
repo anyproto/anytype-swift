@@ -22,9 +22,7 @@ final class LoginFlowCoordinatorAssembly: LoginFlowCoordinatorAssemblyProtocol {
     @MainActor
     func make() -> LoginFlowCoordinatorProtocol {
         return LoginFlowCoordinator(
-            loginViewModuleAssembly: modulesDI.login(),
-            migrationGuideViewModuleAssembly: modulesDI.migrationGuide(),
-            navigationContext: uiHelpersDI.commonNavigationContext()
+            loginViewModuleAssembly: modulesDI.login()
         )
     }
 }

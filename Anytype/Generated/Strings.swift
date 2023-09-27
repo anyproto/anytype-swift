@@ -1260,30 +1260,6 @@ internal enum Loc {
       internal static let placeholder = Loc.tr("Localizable", "Mention.Subtitle.Placeholder", fallback: "Object")
     }
   }
-  internal enum MigrationGuide {
-    /// To use this version of the app, please choose the correct option below to migrate your account.
-    internal static let subtitle = Loc.tr("Localizable", "MigrationGuide.Subtitle", fallback: "To use this version of the app, please choose the correct option below to migrate your account.")
-    /// Almost there!
-    internal static let title = Loc.tr("Localizable", "MigrationGuide.Title", fallback: "Almost there!")
-    internal enum Completed {
-      /// Something might have gone wrong. Please visit our forum, read the migration instructions, and ask questions to our team.
-      internal static let description = Loc.tr("Localizable", "MigrationGuide.Completed.Description", fallback: "Something might have gone wrong. Please visit our forum, read the migration instructions, and ask questions to our team.")
-      /// Visit forum
-      internal static let forumButton = Loc.tr("Localizable", "MigrationGuide.Completed.ForumButton", fallback: "Visit forum")
-      /// I completed migration
-      internal static let title = Loc.tr("Localizable", "MigrationGuide.Completed.Title", fallback: "I completed migration")
-    }
-    internal enum DidntComplete {
-      /// Download the desktop app **here**
-      internal static let step1 = Loc.tr("Localizable", "MigrationGuide.DidntComplete.Step1", fallback: "Download the desktop app **here**")
-      /// Log in and update it to the latest version
-      internal static let step2 = Loc.tr("Localizable", "MigrationGuide.DidntComplete.Step2", fallback: "Log in and update it to the latest version")
-      /// Follow the migration instructions
-      internal static let step3 = Loc.tr("Localizable", "MigrationGuide.DidntComplete.Step3", fallback: "Follow the migration instructions")
-      /// I didn’t complete migration
-      internal static let title = Loc.tr("Localizable", "MigrationGuide.DidntComplete.Title", fallback: "I didn’t complete migration")
-    }
-  }
   internal enum Object {
     internal enum Deleted {
       /// Deleted object
