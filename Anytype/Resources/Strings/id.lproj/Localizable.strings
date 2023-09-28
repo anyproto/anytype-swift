@@ -2,99 +2,99 @@
 "StyleMenu.Color.TextColor.Placeholder" = "A";
 
 // MARK: Text Style in Slash and Style menu
-"TextStyle.Text.Title" = "Text";
+"TextStyle.Text.Title" = "Teks";
 "TextStyle.Text.Subtitle" = "Just start writing with a plain text";
 
-"TextStyle.Title.Title" = "Title";
-"TextStyle.Title.Subtitle" = "Big section heading";
+"TextStyle.Title.Title" = "Tajuk 1";
+"TextStyle.Title.Subtitle" = "Tajuk ukuran besar";
 
-"TextStyle.Heading.Title" = "Heading";
-"TextStyle.Heading.Subtitle" = "Medium headline";
+"TextStyle.Heading.Title" = "Tajuk 2";
+"TextStyle.Heading.Subtitle" = "Tajuk ukuran sedang";
 
-"TextStyle.Subheading.Title" = "Subheading";
-"TextStyle.Subheading.Subtitle" = "Small headline";
+"TextStyle.Subheading.Title" = "Tajuk 3";
+"TextStyle.Subheading.Subtitle" = "Tajuk ukuran kecil";
 
-"TextStyle.Highlighted.Title" = "Highlighted";
-"TextStyle.Highlighted.Subtitle" = "Spotlight, that needs special attention";
+"TextStyle.Highlighted.Title" = "Sorotan";
+"TextStyle.Highlighted.Subtitle" = "Sorotan, yang membutuhkan perhatian khusus";
 
-"TextStyle.Callout.Title" = "Callout";
-"TextStyle.Callout.Subtitle" = "Bordered text with icon";
+"TextStyle.Callout.Title" = "Berbingkai";
+"TextStyle.Callout.Subtitle" = "Teks dengan bingkai dan ikon";
 
-"TextStyle.Checkbox.Title" = "Checkbox";
-"TextStyle.Checkbox.Subtitle" = "Create and track task with to-do list";
+"TextStyle.Checkbox.Title" = "Kotak centang";
+"TextStyle.Checkbox.Subtitle" = "Buat dan perhatikan tugas dengan daftar tugas";
 
-"TextStyle.Bulleted.Title" = "Bulleted";
-"TextStyle.Bulleted.Subtitle" = "Simple list";
+"TextStyle.Bulleted.Title" = "Daftar bertitik";
+"TextStyle.Bulleted.Subtitle" = "Daftar sederhana";
 
-"TextStyle.Numbered.Title" = "Numbered list";
-"TextStyle.Numbered.Subtitle" = "Numbered list";
+"TextStyle.Numbered.Title" = "Daftar urut";
+"TextStyle.Numbered.Subtitle" = "Daftar urut";
 
-"TextStyle.Toggle.Title" = "Toggle";
-"TextStyle.Toggle.Subtitle" = "Hide and show content inside";
+"TextStyle.Toggle.Title" = "Bukaan";
+"TextStyle.Toggle.Subtitle" = "Teks yang bisa dibuka-tutup";
 
-"TextStyle.Bold.Title" = "Bold";
-"TextStyle.Italic.Title" = "Italic";
-"TextStyle.Strikethrough.Title" = "Strikethrough";
-"TextStyle.Code.Title" = "Code";
-"TextStyle.Link.Title" = "Link";
+"TextStyle.Bold.Title" = "Tebal";
+"TextStyle.Italic.Title" = "Miring";
+"TextStyle.Strikethrough.Title" = "Coret";
+"TextStyle.Code.Title" = "Kode";
+"TextStyle.Link.Title" = "Tautan";
 
 // MARK: - Block Text
-"BlockText.Content.Placeholder" = "Untitled";
+"BlockText.Content.Placeholder" = "Nirjudul";
 
-"BlockText.ContentType.Title.Placeholder" = "Untitled";
-"BlockText.ContentType.Description.Placeholder" = "Add a description";
-"BlockText.ContentType.Toggle.Placeholder" = "Toggle block";
-"BlockText.ContentType.Bulleted.Placeholder" = "Bulleted list item";
-"BlockText.ContentType.Checkbox.Placeholder" = "Checkbox";
-"BlockText.ContentType.Numbered.Placeholder" = "Numbered list item";
-"BlockText.ContentType.Quote.Placeholder" = "Highlighted text";
-"BlockText.ContentType.Header.Placeholder" = "Title";
-"BlockText.ContentType.Header2.Placeholder" = "Heading";
-"BlockText.ContentType.Header3.Placeholder" = "Subheading";
+"BlockText.ContentType.Title.Placeholder" = "Nirjudul";
+"BlockText.ContentType.Description.Placeholder" = "Tambahkan deskripsi";
+"BlockText.ContentType.Toggle.Placeholder" = "Balok bukaan";
+"BlockText.ContentType.Bulleted.Placeholder" = "Daftar bertitik";
+"BlockText.ContentType.Checkbox.Placeholder" = "Kotak centang";
+"BlockText.ContentType.Numbered.Placeholder" = "Daftar urut";
+"BlockText.ContentType.Quote.Placeholder" = "Teks tersorot";
+"BlockText.ContentType.Header.Placeholder" = "Tajuk 1";
+"BlockText.ContentType.Header2.Placeholder" = "Tajuk 2";
+"BlockText.ContentType.Header3.Placeholder" = "Tajuk 3";
 
 // MARK: - Block Link
 
-"BlockLink.PreviewSettings.IconSize.None" = "None";
-"BlockLink.PreviewSettings.IconSize.Small" = "Small";
-"BlockLink.PreviewSettings.IconSize.Medium" = "Medium";
+"BlockLink.PreviewSettings.IconSize.None" = "Tidak ada";
+"BlockLink.PreviewSettings.IconSize.Small" = "Kecil";
+"BlockLink.PreviewSettings.IconSize.Medium" = "Sedang";
 
-"BlockLink.PreviewSettings.Layout.Card.Title" = "Card";
-"BlockLink.PreviewSettings.Layout.Text.Title" = "Text";
+"BlockLink.PreviewSettings.Layout.Card.Title" = "Kartu";
+"BlockLink.PreviewSettings.Layout.Text.Title" = "Teks";
 
 // MARK: - Settings
-"Settings.Title" = "Personal Space";
-"Settings.SpaceName" = "Space name";
+"Settings.Title" = "Ruang Pribadi";
+"Settings.SpaceName" = "Nama Ruang";
 
 // MARK: - Object
-"Object.Title.Placeholder" = "Untitled";
-"Object.Deleted.Placeholder" = "Deleted object";
+"Object.Title.Placeholder" = "Nirjudul";
+"Object.Deleted.Placeholder" = "Objek terhapus";
 
 // MARK: - Relation
 "Featured relations" = "Featured relations";
-"Create relation" = "Create relation ‘%@’";
-"Relation.View.Hint.Empty" = "empty";
-"Relation.MyRelations" = "My relations";
-"Relation.AddedToLibrary" = "Relation ‘%@’ added to your library";
-"Relation.Deleted" = "Deleted relation";
-"Relation.From.Type" = "From type %@";
+"Create relation" = "Buat relasi ‘%@’";
+"Relation.View.Hint.Empty" = "kosong";
+"Relation.MyRelations" = "Relasiku";
+"Relation.AddedToLibrary" = "Relasi ‘%@’ ditambahkan ke pustakamu";
+"Relation.Deleted" = "Relasi terhapus";
+"Relation.From.Type" = "Dari tipe %@";
 
-"Relation.Format.Object.Title" = "Object";
-"Relation.Format.Text.Title" = "Text";
-"Relation.Format.Number.Title" = "Number";
+"Relation.Format.Object.Title" = "Objek";
+"Relation.Format.Text.Title" = "Teks";
+"Relation.Format.Number.Title" = "Angka";
 "Relation.Format.Status.Title" = "Status";
-"Relation.Format.Tag.Title" = "Tag";
-"Relation.Format.Date.Title" = "Date";
+"Relation.Format.Tag.Title" = "Label";
+"Relation.Format.Date.Title" = "Tanggal";
 "Relation.Format.FileMedia.Title" = "File & Media";
-"Relation.Format.Checkbox.Title" = "Checkbox";
+"Relation.Format.Checkbox.Title" = "Kotak centang";
 "Relation.Format.Url.Title" = "URL";
 "Relation.Format.Email.Title" = "Email";
 "Relation.Format.Phone.Title" = "Phone number";
 
 // MARK: - Mention
-"Mention.Subtitle.Placeholder" = "Object";
+"Mention.Subtitle.Placeholder" = "Objek";
 
-"None" = "None";
-"Callout" = "Callout";
+"None" = "Tidak ada";
+"Callout" = "Berbingkai";
 "Toggle empty. Tap to create block." = "Toggle empty. Tap to create block.";
 "Loading, please wait" = "Loading, please wait";
 "Done" = "Done";
@@ -139,73 +139,73 @@
 "Purple background" = "Purple background";
 "Blue background" = "Blue background";
 "Green background" = "Green background";
-"Create new object" = "Create new object";
-"Cancel" = "Cancel";
-"Paste or type URL" = "Paste or type URL";
-"No items match filter" = "No items match filter";
-"Unsupported block" = "Unsupported block";
-"Name" = "Name";
-"Description" = "Description";
-"Paste processing..." = "Paste processing...";
-"Anytype Library" = "Anytype Library";
-"Copied" = "Copied";
+"Create new object" = "Buat objek baru";
+"Cancel" = "Batal";
+"Paste or type URL" = "Tempel atau ketik URL";
+"No items match filter" = "Tidak ada kecocokan";
+"Unsupported block" = "Balok tak didukung";
+"Name" = "Nama";
+"Description" = "Deskripsi";
+"Paste processing..." = "Memproses penempelan ...";
+"Anytype Library" = "Pustaka Anytype";
+"Copied" = "Disalin";
 
 // Home
-"Favorites" = "Favorites";
-"Recent" = "Recent";
-"Bin" = "Bin";
+"Favorites" = "Favorit";
+"Recent" = "Baru-Baru Ini";
+"Bin" = "Bak Sampah";
 
 // Settings
-"Wallpaper" = "Wallpaper";
-"Log out" = "Log out";
+"Wallpaper" = "Latar belakang";
+"Log out" = "Keluar log";
 
 // Action
-"Restore" = "Restore";
+"Restore" = "Pulihkan";
 
 // Keychain screen
-"Keychain.Recovery phrase" = "Recovery phrase";
-"Keychain.Recovery phrase copied to clipboard" = "Recovery phrase copied";
-"Keychain.Recovery phrase description" = "You will need it to sign in. Keep it in a safe place. If you lose it, you can no longer access your account.";
-"Keychain.Save keychain alert part 1" = "If you lose the recovery phrase and get logged out you will not be able to ";
-"Keychain.Save keychain alert part 2" = "ever access your data again";
-"Keychain.Save keychain alert part 3" = ".\nSave this recovery phrase outside of Anytype for data recovery.\nWe recommend using a secure data vault, password manager or piece of paper in the safe.";
-"Keychain.Don’t forget to save your recovery phrase" = "Don’t forget to save your recovery phrase";
-"Keychain.Show and copy phrase" = "Show and copy phrase";
-"Keychain.Have you backed up your recovery phrase?" = "Have you backed up your recovery phrase?";
-"Keychain.Error.String to Data conversion error" = "String to Data conversion error";
-"Keychain.Error.Data to String conversion error" = "Data to String conversion error";
-"Keychain.Error.Unknown Keychain Error" = "Unknown Keychain Error";
+"Keychain.Recovery phrase" = "Frasa pemulihan";
+"Keychain.Recovery phrase copied to clipboard" = "Frasa pemulihan disalin";
+"Keychain.Recovery phrase description" = "Kamu membutuhkannya untuk masuk. Simpanlah dengan baik. Jika kamu kehilangan frasa ini, kamu tidak bisa mengakses akunmu.";
+"Keychain.Save keychain alert part 1" = "Jika kamu kehilangan frasa pemulihan dan keluar log, kamu tidak akan bisa ";
+"Keychain.Save keychain alert part 2" = "lagi mengakses datamu";
+"Keychain.Save keychain alert part 3" = ".\nSimpanlah frasa pemulihan di luar Anytype sebagai cadangan.\nKami menyarankan menggunakan brankas data yang aman, manajer kata sandi atau tulisan langsung di kertas.";
+"Keychain.Don’t forget to save your recovery phrase" = "Jangan lupa menyimpan frasa pemulihanmu";
+"Keychain.Show and copy phrase" = "Tampilkan dan salin frasa";
+"Keychain.Have you backed up your recovery phrase?" = "Sudahkah kamu mencadangkan frasa pemulihanmu?";
+"Keychain.Error.String to Data conversion error" = "Galat konversi String ke Data";
+"Keychain.Error.Data to String conversion error" = "Galat konversi Data ke String";
+"Keychain.Error.Unknown Keychain Error" = "Galat Kunci Tak Diketahui";
 "Keychain.SeedPhrasePlaceholder" = "witch collapse practice feed shame open despair creek road again ice least lake tree young address brain despair";
 
 // Auth
-"Sign up" = "Sign up";
-"Login" = "Login";
-"Create" = "Create";
-"Scan QR code" = "Scan QR code";
-"Auth.CameraPermissionTitle" = "Please allow access";
+"Sign up" = "Daftar";
+"Login" = "Masuk";
+"Create" = "Buat";
+"Scan QR code" = "Pindai kode QR";
+"Auth.CameraPermissionTitle" = "Tolong izinkan akses";
 "Restore secret phrase from keychain" = "Restore Recovery Phrase from the keychain";
-"Auth.LogIn" = "I already have one";
-"Auth.Join" = "Generate new account";
-"Auth.Welcome.Subtitle" = "Anytype is your safe space to write, plan, think and organise everything that matters to you.";
-"Auth.Caption.Privacy.Text" = "By continuing you agree to [Terms of Use](%@) and [Privacy Policy](%@)";
-"Auth.Next" = "Next";
+"Auth.LogIn" = "Aku sudah punya";
+"Auth.Join" = "Buat akun baru";
+"Auth.Welcome.Subtitle" = "Anytype adalah tempat aman bagimu untuk menulis, berpikir, merencanakan, dan mengorganisasikan apa pun yang penting bagimu.";
+"Auth.Caption.Privacy.Text" = "Dengan melanjutkan, kamu menyetujui [Syarat Penggunaan](%@) dan [Kebijakan Privasi](%@)";
+"Auth.Next" = "Lanjut";
 
-"Account recover error" = "Account recover error, try again";
-"Account recover error no internet" = "Account recover error, probably no internet connection";
+"Account recover error" = "Galat pemulihan akun, coba lagi";
+"Account recover error no internet" = "Galat pemulihan akun, kemungkinan tak ada koneksi internet";
 
 // Auth Errors
-"Error creating wallet" = "Error creating wallet";
-"Error select account" = "Error select account";
-"Error wallet recover account" = "Error wallet recover account";
+"Error creating wallet" = "Galat membuat wallet";
+"Error select account" = "Galat memilih akun";
+"Error wallet recover account" = "Galat wallet memulihkan akun";
 
-"Search for language" = "Search for language";
+"Search for language" = "Cari bahasa";
 
 // Auth - Join flow
 
-"Auth.JoinFlow.Key.Title" = "Save your Recovery Phrase";
-"Auth.JoinFlow.Key.Description" = "It’s a novel way of authentication that gives you full ownership over your account and data.";
-"Auth.JoinFlow.Key.TextField.Placeholder" = "Type your recovery phrase";
-"Auth.JoinFlow.Key.Button.Show.Title" = "Show Recovery Phrase";
+"Auth.JoinFlow.Key.Title" = "Simpan Frasa Pemulihanmu";
+"Auth.JoinFlow.Key.Description" = "Ini adalah cara autentikasi baru yang memberimu kepemilikan penuh atas akun dan datamu.";
+"Auth.JoinFlow.Key.TextField.Placeholder" = "Masukkan frasa pemulihanmu";
+"Auth.JoinFlow.Key.Button.Show.Title" = "Tampilkan Frasa Pemulihan";
 "Auth.JoinFlow.Key.Button.Saved.Title" = "Go to the app";
 "Auth.JoinFlow.Key.Button.Later.Title" = "Skip";
 "Auth.JoinFlow.Key.Button.Copy.Title" = "Copy to clipboard";
@@ -222,17 +222,17 @@
 
 "Auth.JoinFlow.Soul.Title" = "Set a name for new identity";
 "Auth.JoinFlow.Soul.Description" = "First, choose a name to use inside Anytype.";
-"Auth.JoinFlow.Soul.Placeholder" = "Untitled";
+"Auth.JoinFlow.Soul.Placeholder" = "Nirjudul";
 
 "Auth.JoinFlow.Creating.Soul.Title" = "Generating new account";
 "Auth.JoinFlow.Setting.Space.Title" = "Setting up your personal space";
-"Auth.JoinFlow.Personal.Space.Title" = "Personal Space";
+"Auth.JoinFlow.Personal.Space.Title" = "Ruang Pribadi";
 
 // Auth - Login flow
 "Auth.LoginFlow.Use.Keychain.Title" = "Use keychain";
 "Auth.LoginFlow.Or" = "OR";
-"Auth.LoginFlow.Textfield.Placeholder" = "Type your recovery phrase";
-"Auth.LoginFlow.Enter.Button.Title" = "Login";
+"Auth.LoginFlow.Textfield.Placeholder" = "Masukkan frasa pemulihanmu";
+"Auth.LoginFlow.Enter.Button.Title" = "Masuk";
 "Auth.LoginFlow.Entering.Void.Title" = "Entering the Void";
 
 // Object settings
@@ -274,40 +274,40 @@
 
 // Object Type
 "Set" = "Set";
-"Collection" = "Collection";
+"Collection" = "Koleksi";
 
-"Editor.MovingState.ScrollToSelectedPlace" = "Scroll to select a place";
+"Editor.MovingState.ScrollToSelectedPlace" = "Gulir untuk memilih tempat";
 
 // MARK: - Link to search
 
-"Editor.LinkToObject.SearchPlaceholder" = "Paste link or search objects";
-"Editor.LinkToObject.PasteFromClipboard" = "Paste from clipboard";
-"Editor.LinkToObject.LinkedTo" = "Linked to";
-"Editor.LinkToObject.CopyLink" = "Copy link";
-"Editor.LinkToObject.RemoveLink" = "Remove link";
+"Editor.LinkToObject.SearchPlaceholder" = "Tempelkan tautan atau telusuri objek";
+"Editor.LinkToObject.PasteFromClipboard" = "Tempel dari papan kerani";
+"Editor.LinkToObject.LinkedTo" = "Ditautkan ke";
+"Editor.LinkToObject.CopyLink" = "Salin tautan";
+"Editor.LinkToObject.RemoveLink" = "Hapus tautan";
 
 // MARK: - Main search
-"There is no object named" = "There is no object named %@";
-"There is no type named" = "There is no type named %@";
+"There is no object named" = "Tidak ada objek bernama %@";
+"There is no type named" = "Tidak ada tipe bernama %@";
 "Create a new one or search for something else" = "Create a new one or search for something else";
 
 // MARK: - Home
 
-"Home.Snackbar.Library" = "Library is available in desktop app";
+"Home.Snackbar.Library" = "Pustaka tersedia di aplikasi desktop";
 
 // MARK: - Alerts
-"Alert.CameraPermissions.Settings" = "Settings";
-"Alert.CameraPermissions.GoToSettings" = "Anytype needs access to your camera to scan QR codes.\n\nPlease, go to your device's Settings -> Privacy -> Camera and set Anytype to ON";
+"Alert.CameraPermissions.Settings" = "Setelan";
+"Alert.CameraPermissions.GoToSettings" = "Anytype perlu mengakses kameramu untuk memindai kode QR.\n\nSilakan menuju Setelan -> Privasi -> Kamera dan atur Anytype menjadi ON";
 
 // MARK: - Deletion
-"Pending deletion text" = "We're sorry to see you go. You have 30 days to cancel this request. After 30 days, your encrypted account data is permanently removed from the backup node.";
+"Pending deletion text" = "Kami sedih melihatmu pergi. Kamu punya waktu 30 hari untuk membatalkan permintaan ini. Setelah 30 hari, data akun terenkripsimu akan dihapus secara permanen dari simpul cadangan.";
 
 // MARK: - Object Settings
-"Undo/Redo" = "Undo/Redo";
+"Undo/Redo" = "Batalkan/Ulangi";
 
 
 // MARK: - Templates
-"Alert.Templates_Available.Title" = "This type has %d templates";
+"Alert.Templates_Available.Title" = "Tipe ini memiliki %d templat";
 "Alert.Templates_Available.Description" = "Swipe down to skip";
 "Alert.Templates_Available.Button" = "Show";
 "TemplatePicker.ChooseTemplate" = "Choose template";
@@ -337,7 +337,7 @@
 "Move To Bin" = "Move To Bin";
 
 
-"LinkAppearance.Description.None.Title" = "None";
+"LinkAppearance.Description.None.Title" = "Tidak ada";
 "LinkAppearance.Description.Object.Title" = "Object description";
 "LinkAppearance.Description.Content.Title" = "Content preview";
 "LinkAppearance.ObjectType.Title" = "Object type";
@@ -406,7 +406,7 @@
 "EditSet.Popup.Filter.Date.Option.NumberOfDaysFromNow.Short" = "%@ days from now";
 
 // MARK: - Sets. Create object
-"Set.Create.ObjectTitle.Placeholder" = "Untitled";
+"Set.Create.ObjectTitle.Placeholder" = "Nirjudul";
 
 // MARK: - Sets: Featured relations
 "Set.FeaturedRelations.Query" = "Query";
@@ -425,7 +425,7 @@
 // MARK: - Sets: View Settings
 "Set.View.Settings.ImageFit.Title" = "Fit image";
 "Set.View.Settings.CardSize.Title" = "Card size";
-"Set.View.Settings.CardSize.Small.Title" = "Small";
+"Set.View.Settings.CardSize.Small.Title" = "Kecil";
 "Set.View.Settings.CardSize.Large.Title" = "Large";
 "Set.View.Settings.ImagePreview.Title" = "Image preview";
 "Set.View.Settings.GroupBy.Title" = "Group by";
@@ -572,7 +572,7 @@
 "Empty" = "Empty";
 "Link to" = "Link to";
 "Unknown" = "Unknown";
-"Settings" = "Settings";
+"Settings" = "Setelan";
 "Views" = "Views";
 "Filter" = "Filter";
 "Sort" = "Sort";
@@ -670,8 +670,8 @@
 // Relation Actions
 "RelationAction.CopyPhone" = "Copy phone numbler";
 "RelationAction.CopyEmail" = "Copy email";
-"RelationAction.CopyLink" = "Copy link";
-"RelationAction.Copied" = "Copied";
+"RelationAction.CopyLink" = "Salin tautan";
+"RelationAction.Copied" = "Disalin";
 "RelationAction.ReloadingContent" = "Reloading content";
 "RelationAction.ReloadContent" = "Reload object content";
 "RelationAction.CallPhone" = "Call phone numbler";
@@ -685,7 +685,7 @@
 "SetViewTypesPicker.Settings.Duplicate.View" = "Duplicate";
 "SetViewTypesPicker.Settings.Delete.View" = "Delete view";
 "SetViewTypesPicker.Settings.Textfield.Placeholder.New.View" = "New view";
-"SetViewTypesPicker.Settings.Textfield.Placeholder.Untitled" = "Untitled";
+"SetViewTypesPicker.Settings.Textfield.Placeholder.Untitled" = "Nirjudul";
 
 // MARK: Select view picker
 "EditorSetViewPicker.View.Not.Supported.Title" = "Unsupported";
@@ -727,7 +727,7 @@
 "Widgets.Actions.EmptyBin" = "Empty Bin";
 "Widgets.Actions.AddBelow" = "Add Below";
 "Widgets.Layout.Screen.Title" = "Widget type";
-"Widgets.Layout.Link.Title" = "Link";
+"Widgets.Layout.Link.Title" = "Tautan";
 "Widgets.Layout.Tree.Title" = "Tree";
 "Widgets.Layout.List.Title" = "List";
 "Widgets.Layout.CompactList.Title" = "Сompact list";
@@ -793,7 +793,7 @@
 
 // MARK: - Sharing
 "Sharing.Navigation.title" = "Add to Anytype";
-"Sharing.Navigation.LeftButton.Title" = "Cancel";
+"Sharing.Navigation.LeftButton.Title" = "Batal";
 "Sharing.Navigation.RightButton.Title" = "Done";
 
 "Sharing.SaveAs" = "SAVE AS";
