@@ -1,5 +1,5 @@
 append_commit_message: false
-commit_message: "%language% (%file_name%.%file_extension%) [skip ci]"
+commit_message: "%language% [skip ci]"
 
 files:
   - source: /Anytype/Resources/Strings/en.lproj/*
