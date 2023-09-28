@@ -44,7 +44,7 @@ final class SlashMenuActionHandler {
             case .objectType(let object):
                 Task { @MainActor [weak self] in
                     try await self?.actionHandler
-                        .createPage(targetId: blockId, type: .dynamic(object.id))
+                        .createPage(targetId: blockId, type: .dynamic(object.id), templateId: object.defaultTemplateId)
                         .flatMap { id in
                             AnytypeAnalytics.instance().logCreateObject(objectType: object.analyticsType, route: .powertool)
                             self?.router.showPage(data: .page(EditorPageObject(objectId: id, isSupportedForEdit: true, isOpenedForPreview: false)))
