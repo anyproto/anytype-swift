@@ -538,23 +538,23 @@ final class EditorSetViewModel: ObservableObject {
     
     @MainActor
     func onSecondaryCreateTap() {
-        router?.showTemplatesSelection(
+        router?.showSetObjectCreationSettings(
             setDocument: setDocument,
-            dataview: activeView,
-            onTemplateSelection: { [weak self] templateId in
-                self?.createObject(selectedTemplateId: templateId)
+            viewId: activeView.id,
+            onTemplateSelection: { [weak self] setting in
+                self?.createObject(setting: setting)
             }
         )
     }
     
     func createObject() {
-        createObject(selectedTemplateId: nil)
+        createObject(setting: nil)
     }
     
-    func createObject(selectedTemplateId: BlockId?) {
+    func createObject(setting: ObjectCreationSetting?) {
         if setDocument.isCollection() {
-            let objectTypeId = setDocument.activeView.defaultObjectTypeIDWithFallback
-            let templateId = selectedTemplateId ?? defaultTemplateId(for: objectTypeId)
+            let objectTypeId = setting?.objectTypeId ?? setDocument.activeView.defaultObjectTypeIDWithFallback
+            let templateId = setting?.templateId ?? defaultTemplateId(for: objectTypeId)
             createObject(
                 with: objectTypeId,
                 shouldSelectType: true,
@@ -578,10 +578,10 @@ final class EditorSetViewModel: ObservableObject {
                 guard let source = self?.details?.setOf else { return false }
                 return source.contains(detail.id)
             }
-            let objectTypeId = setDocument.activeView.defaultObjectTypeIDWithFallback
-            let templateId = selectedTemplateId ?? defaultTemplateId(for: objectTypeId)
+            let objectTypeId = setting?.objectTypeId ?? setDocument.activeView.defaultObjectTypeIDWithFallback
+            let templateId = setting?.templateId ?? defaultTemplateId(for: objectTypeId)
             createObject(
-                with: setDocument.activeView.defaultObjectTypeIDWithFallback,
+                with: objectTypeId,
                 shouldSelectType: true,
                 relationsDetails: relationsDetails,
                 templateId: templateId,
@@ -591,7 +591,7 @@ final class EditorSetViewModel: ObservableObject {
             )
         } else {
             let objectTypeId = details?.setOf.first ?? ""
-            let templateId = selectedTemplateId ?? defaultTemplateId(for: objectTypeId)
+            let templateId = setting?.templateId ?? defaultTemplateId(for: objectTypeId)
             createObject(
                 with: objectTypeId,
                 shouldSelectType: templateId.isEmpty,

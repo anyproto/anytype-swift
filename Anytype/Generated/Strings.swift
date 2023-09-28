@@ -1715,6 +1715,18 @@ internal enum Loc {
     internal static let blankTemplate = Loc.tr("Localizable", "TemplateSelection.blankTemplate", fallback: "Blank")
     /// Select template
     internal static let selectTemplate = Loc.tr("Localizable", "TemplateSelection.SelectTemplate", fallback: "Select template")
+    internal enum ObjectType {
+      /// Object type
+      internal static let subtitle = Loc.tr("Localizable", "TemplateSelection.ObjectType.Subtitle", fallback: "Object type")
+      internal enum NoTemplates {
+        /// This type doesn’t support templates
+        internal static let title = Loc.tr("Localizable", "TemplateSelection.ObjectType.NoTemplates.Title", fallback: "This type doesn’t support templates")
+      }
+    }
+    internal enum Template {
+      /// Template
+      internal static let subtitle = Loc.tr("Localizable", "TemplateSelection.Template.Subtitle", fallback: "Template")
+    }
   }
   internal enum Templates {
     internal enum Popup {

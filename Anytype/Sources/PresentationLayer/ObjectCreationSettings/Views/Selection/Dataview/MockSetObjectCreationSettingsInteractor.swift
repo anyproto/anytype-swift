@@ -1,13 +1,30 @@
 import Services
 import Combine
 
-final class MockTemplateSelectionInteractorProvider: TemplateSelectionInteractorProvider {
+final class MockSetObjectCreationSettingsInteractor: SetObjectCreationSettingsInteractorProtocol {
+    var mode: SetObjectCreationSettingsMode { .creation }
+    
+    var objectTypesAvailabilityPublisher: AnyPublisher<Bool, Never> { $canChangeObjectType.eraseToAnyPublisher() }
+    @Published var canChangeObjectType = false
+    
     var objectTypeId: ObjectTypeId { fatalError() }
+    var objectTypesConfigPublisher: AnyPublisher<ObjectTypesConfiguration, Never> { $objectTypesConfig.eraseToAnyPublisher()
+    }
+    @Published private var objectTypesConfig = ObjectTypesConfiguration.empty
+    
     var userTemplates: AnyPublisher<[TemplatePreviewModel], Never> { $templates.eraseToAnyPublisher() }
 
     @Published private var templates = MockTemplatePreviewModel.allPreviews.map { $0.model }
     
+    func setDefaultObjectType(objectTypeId: BlockId) async throws {
+        fatalError()
+    }
+    
     func setDefaultTemplate(templateId: Services.BlockId) async throws {
+        fatalError()
+    }
+    
+    func setObjectTypeId(_ objectTypeId: ObjectTypeId) {
         fatalError()
     }
 }

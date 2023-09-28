@@ -1,16 +1,17 @@
 import Services
 import SwiftUI
 
-protocol TemplateModulesAssemblyProtocol {
+protocol SetObjectCreationSettingsModuleAssemblyProtocol {
     @MainActor
-    func buildTemplateSelection(
+    func build(
+        mode: SetObjectCreationSettingsMode,
         setDocument: SetDocumentProtocol,
-        dataView: DataviewView,
-        onTemplateSelection: @escaping (BlockId?) -> Void
-    ) -> TemplatesSelectionView
+        viewId: String,
+        onTemplateSelection: @escaping (ObjectCreationSetting) -> Void
+    ) -> SetObjectCreationSettingsView
 }
 
-final class TemplateModulesAssembly: TemplateModulesAssemblyProtocol {
+final class SetObjectCreationSettingsModuleAssembly: SetObjectCreationSettingsModuleAssemblyProtocol {
     private let serviceLocator: ServiceLocator
     private let uiHelperDI: UIHelpersDIProtocol
     
@@ -20,17 +21,19 @@ final class TemplateModulesAssembly: TemplateModulesAssemblyProtocol {
     }
     
     @MainActor
-    func buildTemplateSelection(
+    func build(
+        mode: SetObjectCreationSettingsMode,
         setDocument: SetDocumentProtocol,
-        dataView: DataviewView,
-        onTemplateSelection: @escaping (BlockId?) -> Void
-    ) -> TemplatesSelectionView {
-        TemplatesSelectionView(
-            model: .init(
-                interactor: DataviewTemplateSelectionInteractorProvider(
+        viewId: String,
+        onTemplateSelection: @escaping (ObjectCreationSetting) -> Void
+    ) -> SetObjectCreationSettingsView {
+        SetObjectCreationSettingsView(
+            model: SetObjectCreationSettingsViewModel(
+                interactor: SetObjectCreationSettingsInteractor(
+                    mode: mode,
                     setDocument: setDocument,
-                    dataView: dataView,
-                    objectTypeProvider: serviceLocator.objectTypeProvider(),
+                    viewId: viewId,
+                    objectTypesProvider: serviceLocator.objectTypeProvider(),
                     subscriptionService: TemplatesSubscriptionService(subscriptionService: serviceLocator.subscriptionService()),
                     dataviewService: DataviewService(
                         objectId: setDocument.objectId,

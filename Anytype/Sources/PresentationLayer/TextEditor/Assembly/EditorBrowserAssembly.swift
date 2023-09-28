@@ -12,6 +12,7 @@ final class EditorBrowserAssembly {
         self.serviceLocator = serviceLocator
     }
     
+    @MainActor
     func buildEditorBrowser(
         data: EditorScreenData,
         router: EditorPageOpenRouterProtocol? = nil,

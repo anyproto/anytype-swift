@@ -150,8 +150,8 @@ final class ModulesDI: ModulesDIProtocol {
         return CreatingSoulViewModuleAssembly(serviceLocator: serviceLocator)
     }
     
-    func templatesAssembly() -> TemplateModulesAssembly {
-        return TemplateModulesAssembly(serviceLocator: serviceLocator, uiHelperDI: uiHelpersDI)
+    func setObjectCreationSettings() -> SetObjectCreationSettingsModuleAssemblyProtocol {
+        return SetObjectCreationSettingsModuleAssembly(serviceLocator: serviceLocator, uiHelperDI: uiHelpersDI)
     }
     
     func setViewSettingsList() -> SetViewSettingsListModuleAssemblyProtocol {

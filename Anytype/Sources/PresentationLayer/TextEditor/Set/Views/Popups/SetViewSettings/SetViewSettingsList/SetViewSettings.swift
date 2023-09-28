@@ -40,10 +40,6 @@ enum SetViewSettings: CaseIterable {
         self == SetViewSettings.allCases.last
     }
     
-    var disabled: Bool {
-        self == .defaultObject || self == .defaultTemplate
-    }
-    
     func isPlaceholder(_ text: String) -> Bool {
         self.placeholder == text
     }

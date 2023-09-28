@@ -54,10 +54,10 @@ protocol EditorSetRouterProtocol:
     func showFailureToast(message: String)
     
     @MainActor
-    func showTemplatesSelection(
+    func showSetObjectCreationSettings(
         setDocument: SetDocumentProtocol,
-        dataview: DataviewView,
-        onTemplateSelection: @escaping (BlockId?) -> ()
+        viewId: String,
+        onTemplateSelection: @escaping (ObjectCreationSetting) -> ()
     )
 }
 
@@ -85,7 +85,7 @@ final class EditorSetRouter: EditorSetRouterProtocol, ObjectSettingsCoordinatorO
     private let setViewPickerCoordinatorAssembly: SetViewPickerCoordinatorAssemblyProtocol
     private let toastPresenter: ToastPresenterProtocol
     private let alertHelper: AlertHelper
-    private let templateSelectionCoordinator: TemplateSelectionCoordinatorProtocol
+    private let setObjectCreationSettingsCoordinator: SetObjectCreationSettingsCoordinatorProtocol
     
     // MARK: - State
     
@@ -112,7 +112,7 @@ final class EditorSetRouter: EditorSetRouterProtocol, ObjectSettingsCoordinatorO
         setViewPickerCoordinatorAssembly: SetViewPickerCoordinatorAssemblyProtocol,
         toastPresenter: ToastPresenterProtocol,
         alertHelper: AlertHelper,
-        templateSelectionCoordinator: TemplateSelectionCoordinatorProtocol
+        setObjectCreationSettingsCoordinator: SetObjectCreationSettingsCoordinatorProtocol
     ) {
         self.setDocument = setDocument
         self.rootController = rootController
@@ -134,7 +134,7 @@ final class EditorSetRouter: EditorSetRouterProtocol, ObjectSettingsCoordinatorO
         self.setViewPickerCoordinatorAssembly = setViewPickerCoordinatorAssembly
         self.toastPresenter = toastPresenter
         self.alertHelper = alertHelper
-        self.templateSelectionCoordinator = templateSelectionCoordinator
+        self.setObjectCreationSettingsCoordinator = setObjectCreationSettingsCoordinator
     }
     
     // MARK: - EditorSetRouterProtocol
@@ -413,14 +413,14 @@ final class EditorSetRouter: EditorSetRouterProtocol, ObjectSettingsCoordinatorO
     }
     
     @MainActor
-    func showTemplatesSelection(
+    func showSetObjectCreationSettings(
         setDocument: SetDocumentProtocol,
-        dataview: DataviewView,
-        onTemplateSelection: @escaping (BlockId?) -> ()
+        viewId: String,
+        onTemplateSelection: @escaping (ObjectCreationSetting) -> ()
     ) {
-        templateSelectionCoordinator.showTemplatesSelection(
+        setObjectCreationSettingsCoordinator.showSetObjectCreationSettings(
             setDocument: setDocument,
-            dataview: dataview,
+            viewId: viewId,
             onTemplateSelection: onTemplateSelection
         )
     }

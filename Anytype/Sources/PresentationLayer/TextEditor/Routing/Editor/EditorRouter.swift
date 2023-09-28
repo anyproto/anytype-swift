@@ -13,7 +13,7 @@ final class EditorRouter: NSObject, EditorRouterProtocol, ObjectSettingsCoordina
     private let addNewRelationCoordinator: AddNewRelationCoordinatorProtocol
     private let document: BaseDocumentProtocol
     private let templatesCoordinator: TemplatesCoordinator
-    private let templateSelectionCoordinator: TemplateSelectionCoordinatorProtocol
+    private let setObjectCreationSettingsCoordinator: SetObjectCreationSettingsCoordinatorProtocol
     private let urlOpener: URLOpenerProtocol
     private let relationValueCoordinator: RelationValueCoordinatorProtocol
     private let editorPageCoordinator: EditorPageCoordinatorProtocol
@@ -37,7 +37,7 @@ final class EditorRouter: NSObject, EditorRouterProtocol, ObjectSettingsCoordina
         document: BaseDocumentProtocol,
         addNewRelationCoordinator: AddNewRelationCoordinatorProtocol,
         templatesCoordinator: TemplatesCoordinator,
-        templateSelectionCoordinator: TemplateSelectionCoordinatorProtocol,
+        setObjectCreationSettingsCoordinator: SetObjectCreationSettingsCoordinatorProtocol,
         urlOpener: URLOpenerProtocol,
         relationValueCoordinator: RelationValueCoordinatorProtocol,
         editorPageCoordinator: EditorPageCoordinatorProtocol,
@@ -61,7 +61,7 @@ final class EditorRouter: NSObject, EditorRouterProtocol, ObjectSettingsCoordina
         self.fileCoordinator = FileDownloadingCoordinator(viewController: viewController)
         self.addNewRelationCoordinator = addNewRelationCoordinator
         self.templatesCoordinator = templatesCoordinator
-        self.templateSelectionCoordinator = templateSelectionCoordinator
+        self.setObjectCreationSettingsCoordinator = setObjectCreationSettingsCoordinator
         self.urlOpener = urlOpener
         self.relationValueCoordinator = relationValueCoordinator
         self.editorPageCoordinator = editorPageCoordinator
@@ -531,18 +531,20 @@ extension EditorRouter: ObjectSettingsModuleDelegate {
         }
     }
     
+    @MainActor
     func didCreateTemplate(templateId: BlockId) {
-        templateSelectionCoordinator.showTemplateEditing(blockId: templateId) { [weak self] templateSelection in
+        guard let objectTypeId = document.details?.type else { return }
+        let setting = ObjectCreationSetting(objectTypeId: objectTypeId, templateId: templateId)
+        setObjectCreationSettingsCoordinator.showTemplateEditing(setting: setting) { [weak self] setting in
             Task { @MainActor [weak self] in
                 do {
-                    guard let type = self?.document.details?.type,
-                          let objectDetails = try await self?.pageService.createPage(
+                    guard let objectDetails = try await self?.pageService.createPage(
                             name: "",
-                            type: type,
+                            type: setting.objectTypeId,
                             shouldDeleteEmptyObject: true,
                             shouldSelectType: false,
                             shouldSelectTemplate: false,
-                            templateId: templateSelection
+                            templateId: setting.templateId
                           ) else {
                         return
                     }
