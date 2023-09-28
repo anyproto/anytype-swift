@@ -10,5 +10,4 @@ protocol DetailsServiceProtocol {
     
     func setCover(source: FileUploadingSource) async throws
     func setCover(imageHash: Hash) async throws
-    func setObjectIcon(source: FileUploadingSource) async throws
 }

@@ -43,7 +43,7 @@ final class TableOfContentsContentProvider {
             }
         case .dataSourceUpdate, .general:
             updateContent()
-        case .header, .syncStatus, .details:
+        case .syncStatus, .details:
             break
         }
     }

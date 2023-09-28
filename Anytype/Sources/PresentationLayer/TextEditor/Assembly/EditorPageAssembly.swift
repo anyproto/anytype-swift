@@ -75,8 +75,19 @@ final class EditorAssembly {
         
         let detailsService = serviceLocator.detailsService(objectId: data.objectId)
         
+        let headerModel = ObjectHeaderViewModel(
+            document: setDocument,
+            configuration: .init(
+                isOpenedForPreview: false,
+                shouldShowTemplateSelection: false,
+                usecase: .editor
+            ),
+            interactor: serviceLocator.objectHeaderInteractor(objectId: setDocument.targetObjectID ?? setDocument.objectId)
+        )
+        
         let model = EditorSetViewModel(
             setDocument: setDocument,
+            headerViewModel: headerModel,
             subscriptionService: serviceLocator.subscriptionService(),
             dataviewService: dataviewService,
             searchService: serviceLocator.searchService(),
@@ -94,7 +105,6 @@ final class EditorAssembly {
         let router = EditorSetRouter(
             setDocument: setDocument,
             rootController: browser,
-            viewController: controller,
             navigationContext: navigationContext,
             createObjectModuleAssembly: modulesDI.createObject(),
             newSearchModuleAssembly: modulesDI.newSearch(),
@@ -118,6 +128,8 @@ final class EditorAssembly {
             )
         )
         
+        setupHeaderModelActions(headerModel: headerModel, using: router)
+        
         model.setup(router: router)
         
         return (controller, router)
@@ -126,7 +138,7 @@ final class EditorAssembly {
     // MARK: - Page
     
     @MainActor
-    private func buildPageModule(
+    func buildPageModule(
         browser: EditorBrowserController?,
         data: EditorPageObject
     ) -> (EditorPageController, EditorPageOpenRouterProtocol) {
@@ -289,12 +301,12 @@ final class EditorAssembly {
             accessoryState: accessoryState,
             cursorManager: cursorManager
         )
-
         let headerModel = ObjectHeaderViewModel(
             document: document,
-            router: router,
-            configuration: configuration
+            configuration: configuration,
+            interactor: serviceLocator.objectHeaderInteractor(objectId: document.objectId)
         )
+        setupHeaderModelActions(headerModel: headerModel, using: router)
 
         let responderScrollViewHelper = ResponderScrollViewHelper(scrollView: scrollView)
         
@@ -410,5 +422,15 @@ final class EditorAssembly {
         let bottomPanelManager = BrowserBottomPanelManager(browser: browser)
         let module = moduleAssembly.makeBin(bottomPanelManager: bottomPanelManager, output: output)
         return (module, nil)
+    }
+    
+    private func setupHeaderModelActions(headerModel: ObjectHeaderViewModel, using router: ObjectHeaderRouterProtocol) {
+        headerModel.onCoverPickerTap = { [weak router] args in
+            router?.showCoverPicker(document: args.0, onCoverAction: args.1)
+        }
+        
+        headerModel.onIconPickerTap = { [weak router] args in
+            router?.showIconPicker(document: args.0, onIconAction: args.1)
+        }
     }
 }
