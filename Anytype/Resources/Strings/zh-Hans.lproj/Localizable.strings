@@ -178,23 +178,20 @@
 "Keychain.SeedPhrasePlaceholder" = "witch collapse practice feed shame open despair creek road again ice least lake tree young address brain despair";
 
 // Auth
-"Welcome to Anytype" = "欢迎来到 Anytype";
-"OrganizeEverythingDescription" = "使用 Anytype，您可以编写笔记和文档，管理任务并从网页保存重要内容。";
 "Sign up" = "注册";
 "Login" = "登录";
-"Restore secret phrase from keychain" = "从钥匙串恢复恢复短语";
-"or type your recovery phrase" = "或输入恢复短语";
-"Setting up the wallet" = "设置钱包";
-"Enter your name" = "输入您的姓名";
-"New profile" = "新的个人资料";
 "Create" = "创建";
 "Scan QR code" = "扫描二维码";
 "Auth.CameraPermissionTitle" = "请允许访问";
-"Analytics constent text" = "了解人们如何使用 Anytype 有助于我们改进产品。此版本的 Anytype 包含保护您的隐私的分析代码。\n它不会记录实际文档的内容，但仍允许我们了解您如何使用Anytype。\n请继续订阅我们的邮件列表，因为我们很快就会宣布一个新的版本，使您可以选择退出。";
+"Restore secret phrase from keychain" = "从钥匙串恢复恢复短语";
+"Auth.LogIn" = "登录";
+"Auth.Join" = "加入";
+"Auth.Welcome.Subtitle" = "Anytype 是您编写、计划、思考和组织集于一身，对您重要的安全空间。";
+"Auth.Caption.Privacy.Text" = "继续即表示您同意 [使用条款](%@) 和 [隐私策略](%@)";
+"Auth.Next" = "下一步";
 
 "Account recover error" = "帐户恢复错误，请重试";
 "Account recover error no internet" = "帐户恢复错误，可能没有互联网连接";
-"SignUp.InvintationCode.Placeholder" = "邀请码";
 
 // Auth Errors
 "Error creating wallet" = "创建钱包时出错";
@@ -203,28 +200,25 @@
 
 "Search for language" = "搜索语言";
 
-// New Auth
-"Auth.LogIn" = "登录";
-"Auth.Join" = "加入";
-"Auth.Welcome.Title" = "学习与思考\n集于一身\n的创作应用";
-"Auth.Welcome.Subtitle" = "Anytype 是您编写、计划、思考和组织集于一身，对您重要的安全空间。";
-"Auth.Caption.Privacy.Text" = "继续即表示您同意 [使用条款](%@) 和 [隐私策略](%@)";
-"Auth.Next" = "下一步";
-
-// New Auth - Join flow
+// Auth - Join flow
 
 "Auth.JoinFlow.Key.Title" = "保存您的恢复短语";
 "Auth.JoinFlow.Key.Description" = "要登录您的帐户，您需要一个恢复短语。它是12个随机单词，就像所有数据的主密码。立即保存或稍后在设置中保存恢复短语。";
-"Auth.JoinFlow.Key.Description.Shown" = "丢失恢复短语将会丢失您的帐户。因为短语是不可替代的，所以要妥善保护它。快速选择：保存到密码管理器。最安全的选择：在纸上书写并离线存储在安全的地方。";
 "Auth.JoinFlow.Key.TextField.Placeholder" = "输入恢复短语";
 "Auth.JoinFlow.Key.Button.Show.Title" = "显示恢复短语";
 "Auth.JoinFlow.Key.Button.Saved.Title" = "输入您的共享空间";
 "Auth.JoinFlow.Key.Button.Later.Title" = "以后再做吧";
 "Auth.JoinFlow.Key.Button.Copy.Title" = "复制到剪贴板";
 "Auth.JoinFlow.Key.Button.Info.Title" = "了解更多";
+"Auth.JoinFlow.Key.Button.Tip.Title" = "恢复短语可以在 Anytype 设置中找到";
 
-"Auth.JoinFlow.Key.MoreInfo.Description" = "恢复短语以加密方式保护您的数据。没有您的恢复短语，任何人（甚至 Anytype）都无法访问您的数据。\n这非常重要，因为使得帐户保持安全，同样重要的是，把它交给自己保管。\n\n**所以再说一次，请不要对外分享你的恢复短语。**\n\n**最后一件重要的事情...**\n我们不知道您的恢复短语，也绝不会要求您提供。如果您丢失了它，没有人（包括 Anytype ）可以帮助您恢复数据。因此，必须将其保存在安全的地方。\n\n**存储恢复短语的最简单方法是将其保存到密码管理器中。\n\n最安全的方法是将其写在纸上并保持离线状态，放在安全可靠的地方。**";
-"Auth.JoinFlow.Key.MoreInfo.Button.Title" = "听起来不错";
+"Auth.JoinFlow.Key.ReadMore.Title" = "什么是恢复短语？";
+"Auth.JoinFlow.Key.ReadMore.Option1.Title" = "Recovery Phrase is a random combination of 12 words from which your account is magically generated on this device.";
+"Auth.JoinFlow.Key.ReadMore.Option2.Title" = "Whomever knows Recovery Phrase, owns the account. **At this moment, you are the only person in the world who knows it.**";
+"Auth.JoinFlow.Key.ReadMore.Option3.Title" = "That's why it's essential to keep Recovery Phrase safe. As the sole owner, nobody can help you if it's lost.";
+"Auth.JoinFlow.Key.ReadMore.Instruction.Title" = "How to save my phrase?";
+"Auth.JoinFlow.Key.ReadMore.Instruction.Option1.Title" = "The easiest way to store your Recovery Phrase is to save it in your password manager.";
+"Auth.JoinFlow.Key.ReadMore.Instruction.Option2.Title" = "The most secure way is to write it down on paper and keep it offline, in a safe and secure place.";
 
 "Auth.JoinFlow.Soul.Title" = "为新标识设置名称";
 "Auth.JoinFlow.Soul.Description" = "首先，选择要在 Anytype 中使用的名称。";
@@ -234,7 +228,7 @@
 "Auth.JoinFlow.Setting.Space.Title" = "设置您的个人空间";
 "Auth.JoinFlow.Personal.Space.Title" = "个人空间";
 
-// New Auth - Login flow
+// Auth - Login flow
 "Auth.LoginFlow.Use.Keychain.Title" = "使用钥匙串";
 "Auth.LoginFlow.Or" = "或者";
 "Auth.LoginFlow.Textfield.Placeholder" = "输入恢复短语";
@@ -317,7 +311,7 @@
 "Alert.Templates_Available.Description" = "向下滑动以跳过";
 "Alert.Templates_Available.Button" = "显示";
 "TemplatePicker.ChooseTemplate" = "选择模板";
-"TemplatePicker.Buttons.Skip" = "跳过";
+"TemplatePicker.Buttons.Skip" = "以后再做吧";
 "TemplatePicker.Buttons.UseTemplate" = "使用模板";
 "TemplateSelection.SelectTemplate" = "选择模板";
 "TemplateSelection.blankTemplate" = "空白";
@@ -329,6 +323,11 @@
 
 "TemplateEditing.Title" = "编辑模板";
 "TemplateEditing.SelectButtonTitle" = "选择模板";
+
+"Templates.Popup.WasAddedTo" = "New template was added to the type";
+"Templates.Popup.Duplicated" = "The template was duplicated";
+"Templates.Popup.Removed" = "The template was removed";
+"Templates.Popup.Default" = "The template was set as default";
 
 "To Bin" = "移到废纸篓";
 
@@ -432,6 +431,7 @@
 "Set.View.Settings.GroupBy.Title" = "分组";
 "Set.View.Settings.GroupBackgroundColors.Title" = "颜色列表";
 "Set.View.Settings.DefaultObject.Title" = "默认对象";
+"Set.View.Settings.DefaultTemplate.Title" = "Default template";
 
 "Set.View.Settings.NoRelations.Placeholder" = "没有关联";
 "Set.View.Settings.NoFilters.Placeholder" = "没有筛选";
@@ -469,8 +469,6 @@
 "SlashMenu.TableOfContents" = "目录";
 "SlashMenu.Table" = "表格";
 
-"Failed to create your account due to a network error" = "由于网络错误，无法创建您的帐户";
-"Invalid invitation code" = "邀请码无效";
 "Unknown error" = "未知错误";
 "Account is deleted" = "帐户已删除";
 "Add phone" = "添加电话号";
@@ -600,8 +598,6 @@
 "Ok" = "好的";
 "Error occurred. Please try again" = "发生错误。请重试";
 "Add" = "添加";
-"Your device seems to be offline" = "您的设备似乎处于离线状态。请检查您的连接，然后重试";
-"Connection refused" = "连接被拒绝。请重试";
 "Companies, contacts, friends and family" = "公司、联系人、朋友和家人";
 "Failed to sync, trying again..." = "同步失败，请重试...";
 "Sync.Status.Version.Outdated.Description" = "版本已过时。请更新 Anytype";
@@ -620,7 +616,7 @@
 // MARK: - DataviewType
 "DataviewType.grid" = "网格";
 "DataviewType.list" = "列表";
-"DataviewType.gallery" = "图像";
+"DataviewType.gallery" = "相簿";
 "DataviewType.kanban" = "看板";
 
 // MARK: - ObjectType
@@ -675,7 +671,7 @@
 "RelationAction.CopyPhone" = "拷贝电话号码";
 "RelationAction.CopyEmail" = "拷贝电子邮件";
 "RelationAction.CopyLink" = "拷贝链接";
-"RelationAction.Copied" = "已拷贝";
+"RelationAction.Copied" = "已复制";
 "RelationAction.ReloadingContent" = "重新加载内容";
 "RelationAction.ReloadContent" = "重新加载对象内容";
 "RelationAction.CallPhone" = "呼叫电话号码";
@@ -684,10 +680,11 @@
 
 // MARK: Edit view type
 "SetViewTypesPicker.Title" = "编辑视图";
+"SetViewTypesPicker.New.Title" = "New view";
 "SetViewTypesPicker.Section.Types.Title" = "查看为";
 "SetViewTypesPicker.Settings.Duplicate.View" = "生成副本";
 "SetViewTypesPicker.Settings.Delete.View" = "删除视图";
-"SetViewTypesPicker.Settings.Textfield.Placeholder.New.View" = "新视图";
+"SetViewTypesPicker.Settings.Textfield.Placeholder.New.View" = "New view";
 "SetViewTypesPicker.Settings.Textfield.Placeholder.Untitled" = "无标题";
 
 // MARK: Select view picker
@@ -768,17 +765,6 @@
 "ClearCache.Success" = "缓存已成功清除";
 "ClearCache.Error" = "错误，请稍后重试";
 
-// MARK: - MigrationGuide
-"MigrationGuide.Title" = "快好了!";
-"MigrationGuide.Subtitle" = "要使用此版本的应用程序，请在下面选择正确的选项来迁移您的帐户。";
-"MigrationGuide.DidntComplete.Title" = "我没有完成迁移";
-"MigrationGuide.DidntComplete.Step1" = "下载桌面端应用程序 **点这里**";
-"MigrationGuide.DidntComplete.Step2" = "登录并将其更新到最新版本";
-"MigrationGuide.DidntComplete.Step3" = "按照迁移说明进行操作";
-"MigrationGuide.Completed.Title" = "我已完成迁移";
-"MigrationGuide.Completed.Description" = "可能出了什么问题。请访问我们的论坛，阅读迁移说明，并向我们的团队提问。";
-"MigrationGuide.Completed.ForumButton" = "访问论坛";
-
 // MARK: - File Storage
 "FileStorage.Title" = "文件存储";
 "FileStorage.Space.Title" = "远程存储";
@@ -804,3 +790,17 @@
 // MARK: - Cpear cache alert
 "ClearCacheAlert.Title" = "是否确定?";
 "ClearCacheAlert.Description" = "存储在 Anytype 中的所有媒体文件将从您当前的设备中删除。可以从备份节点或其他设备再次下载它们。";
+
+// MARK: - Sharing
+"Sharing.Navigation.title" = "添加至 Anytype";
+"Sharing.Navigation.LeftButton.Title" = "取消";
+"Sharing.Navigation.RightButton.Title" = "完成";
+
+"Sharing.SaveAs" = "SAVE AS";
+"Sharing.AddTo" = "Add to";
+"Sharing.LinkTo" = "链接到";
+
+"Sharing.URL.Bookmark" = "Bookmark object";
+"Sharing.URL.Text" = "Text block";
+"Sharing.Text.NoteObject" = "Note object";
+"Sharing.Text.TextBlock" = "Text block";
