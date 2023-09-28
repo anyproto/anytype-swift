@@ -556,7 +556,6 @@ final class EditorSetViewModel: ObservableObject {
             let templateId = setting?.templateId ?? defaultTemplateId(for: objectTypeId)
             createObject(
                 with: objectTypeId,
-                shouldSelectTemplate: templateId.isEmpty,
                 relationsDetails: [],
                 templateId: templateId,
                 completion: { details in
@@ -581,7 +580,6 @@ final class EditorSetViewModel: ObservableObject {
             let templateId = setting?.templateId ?? defaultTemplateId(for: objectTypeId)
             createObject(
                 with: objectTypeId,
-                shouldSelectTemplate: templateId.isEmpty,
                 relationsDetails: relationsDetails,
                 templateId: templateId,
                 completion: { [weak self] details in
@@ -593,7 +591,6 @@ final class EditorSetViewModel: ObservableObject {
             let templateId = setting?.templateId ?? defaultTemplateId(for: objectTypeId)
             createObject(
                 with: objectTypeId,
-                shouldSelectTemplate: templateId.isEmpty,
                 relationsDetails: [],
                 templateId: templateId,
                 completion: { [weak self] details in
@@ -622,7 +619,6 @@ final class EditorSetViewModel: ObservableObject {
     
     private func createObject(
         with type: String,
-        shouldSelectTemplate: Bool,
         relationsDetails: [RelationDetails],
         templateId: BlockId?,
         completion: ((_ details: ObjectDetails) -> Void)?
@@ -632,7 +628,6 @@ final class EditorSetViewModel: ObservableObject {
             
             let details = try await self.dataviewService.addRecord(
                 objectType: type,
-                shouldSelectTemplate: shouldSelectTemplate,
                 templateId: templateId ?? "",
                 setFilters: self.setDocument.activeViewFilters,
                 relationsDetails: relationsDetails
