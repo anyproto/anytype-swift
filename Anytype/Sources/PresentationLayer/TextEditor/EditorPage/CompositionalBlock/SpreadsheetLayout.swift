@@ -48,24 +48,10 @@ final class SpreadsheetLayout: UICollectionViewLayout {
     override func layoutAttributesForElements(
         in rect: CGRect
     ) -> [UICollectionViewLayoutAttributes]? {
-        
-        guard let collectionView = collectionView,
-              dataSource?.allModels.count ?? 0 > 0,
-              let visibleRect = relativePositionProvider?.visibleRect(to: collectionView)  else {
+        guard dataSource?.allModels.count ?? 0 > 0 else {
             return nil
         }
 
-        let height: CGFloat
-        let y: CGFloat
-        if visibleRect.origin.y < 0 {
-            y = 0
-            height = visibleRect.size.height + visibleRect.origin.y
-        } else {
-            y = visibleRect.origin.y
-            height = visibleRect.size.height
-        }
-
-        let newRect = CGRect(x: rect.origin.x, y: y, width: rect.width, height: height)
         let attributes = (attributes + [selectionAttributes])
 
         return attributes

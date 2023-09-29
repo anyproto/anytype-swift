@@ -65,12 +65,13 @@ final class SlashMenuActionHandler {
         case let .other(other):
             switch other {
             case .table(let rowsCount, let columnsCount):
-                Task { @MainActor [textView] in
+                let safeSendableAttributedText = SafeSendable(value: textView?.attributedText)
+                Task { @MainActor in
                     guard let blockId = try? await actionHandler.createTable(
                         blockId: blockId,
                         rowsCount: rowsCount,
                         columnsCount: columnsCount,
-                        blockText: textView?.attributedText
+                        blockText: safeSendableAttributedText
                     ) else { return }
                     
                     cursorManager.blockFocus = .init(id: blockId, position: .beginning)

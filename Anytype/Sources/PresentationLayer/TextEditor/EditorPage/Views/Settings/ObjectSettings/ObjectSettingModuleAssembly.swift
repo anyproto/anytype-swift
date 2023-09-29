@@ -10,8 +10,9 @@ protocol ObjectSettingsModuleDelegate: AnyObject {
 protocol ObjectSettingModuleAssemblyProtocol {
     func make(
         document: BaseDocumentProtocol,
-        output: ObjectSettingswModelOutput,
-        delegate: ObjectSettingsModuleDelegate
+        output: ObjectSettingsModelOutput,
+        delegate: ObjectSettingsModuleDelegate,
+        actionHandler: @escaping (ObjectSettingsAction) -> Void
     ) -> UIViewController
 }
 
@@ -27,8 +28,9 @@ final class ObjectSettingModuleAssembly: ObjectSettingModuleAssemblyProtocol {
     
     func make(
         document: BaseDocumentProtocol,
-        output: ObjectSettingswModelOutput,
-        delegate: ObjectSettingsModuleDelegate
+        output: ObjectSettingsModelOutput,
+        delegate: ObjectSettingsModuleDelegate,
+        actionHandler: @escaping (ObjectSettingsAction) -> Void
     ) -> UIViewController {
         let viewModel = ObjectSettingsViewModel(
             document: document,
@@ -37,7 +39,8 @@ final class ObjectSettingModuleAssembly: ObjectSettingModuleAssemblyProtocol {
             blockActionsService: serviceLocator.blockActionsServiceSingle(),
             templatesService: serviceLocator.templatesService,
             output: output,
-            delegate: delegate
+            delegate: delegate,
+            settingsActionHandler: actionHandler
         )
         let view = ObjectSettingsView(viewModel: viewModel)
         let popup = AnytypePopup(contentView: view, floatingPanelStyle: true)

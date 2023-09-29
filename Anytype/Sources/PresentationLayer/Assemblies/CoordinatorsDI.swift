@@ -141,4 +141,8 @@ final class CoordinatorsDI: CoordinatorsDIProtocol {
     func share() -> ShareCoordinatorAssemblyProtocol {
         ShareCoordinatorAssembly(modulesDI: modulesDI, serviceLocator: serviceLocator)
     }
+
+    func setObjectCreationSettings() -> SetObjectCreationSettingsCoordinatorAssemblyProtocol {
+        SetObjectCreationSettingsCoordinatorAssembly(modulesDI: modulesDI, uiHelpersDI: uiHelpersDI, coordinatorsDI: self)
+    }
 }

@@ -9,7 +9,6 @@ enum SetDocumentUpdate {
 protocol SetDocumentProtocol: BaseDocumentGeneralProtocol {
     var document: BaseDocumentProtocol { get }
     var objectId: BlockId { get }
-    var spaceId: String { get }
     var blockId: BlockId? { get }
     var targetObjectID: String? { get }
     var dataviews: [BlockDataview] { get }

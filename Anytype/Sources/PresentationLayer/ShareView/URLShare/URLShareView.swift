@@ -22,7 +22,7 @@ struct URLShareView: View {
             description: viewModel.destinationObject?.title ?? "",
             action: viewModel.tapSelectDestination
         )
-        .background(Color.Background.primary)
+        .background(UIColor.secondarySystemGroupedBackground.suColor)
         .cornerRadius(8)
     }
 }

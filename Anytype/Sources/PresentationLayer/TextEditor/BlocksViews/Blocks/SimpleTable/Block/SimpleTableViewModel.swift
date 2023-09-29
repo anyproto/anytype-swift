@@ -47,7 +47,7 @@ final class SimpleTableViewModel {
         switch update {
         case .general, .details:
             forceUpdate(shouldApplyFocus: true)
-        case .syncStatus, .header: break
+        case .syncStatus: break
         case .blocks(let blockIds):
             let container = document.infoContainer
 

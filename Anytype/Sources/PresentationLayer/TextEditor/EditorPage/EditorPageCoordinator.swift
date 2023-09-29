@@ -27,6 +27,7 @@ final class EditorPageCoordinator: EditorPageCoordinatorProtocol, WidgetObjectLi
     
     // MARK: - EditorPageCoordinatorProtocol
     
+    @MainActor
     func startFlow(data: EditorScreenData, replaceCurrentPage: Bool) {
         if !data.isSupportedForEdit {
             showUnsupportedTypeAlert(documentId: data.objectId)
@@ -48,6 +49,7 @@ final class EditorPageCoordinator: EditorPageCoordinatorProtocol, WidgetObjectLi
     
     // MARK: - WidgetObjectListCommonModuleOutput
     
+    @MainActor
     func onObjectSelected(screenData: EditorScreenData) {
         startFlow(data: screenData, replaceCurrentPage: false)
     }

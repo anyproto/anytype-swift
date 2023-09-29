@@ -22,10 +22,6 @@ public extension FeatureFlags {
         value(for: .dndOnCollectionsAndSets)
     }
 
-    static var migrationGuide: Bool {
-        value(for: .migrationGuide)
-    }
-
     static var multiSpace: Bool {
         value(for: .multiSpace)
     }
@@ -68,7 +64,6 @@ public extension FeatureFlags {
         .setKanbanView,
         .fullInlineSetImpl,
         .dndOnCollectionsAndSets,
-        .migrationGuide,
         .multiSpace,
         .multiSpaceSettings,
         .newCodeLanguages,

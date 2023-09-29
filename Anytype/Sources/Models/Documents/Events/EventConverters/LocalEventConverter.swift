@@ -32,8 +32,6 @@ final class LocalEventConverter {
             return .blocks(blockIds: [blockId])
         case .reload(blockId: let blockId):
             return .blocks(blockIds: [blockId])
-        case .header(let data):
-            return .header(data)
         }
     }
         

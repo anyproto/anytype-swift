@@ -115,7 +115,6 @@ final class ObjectActionsService: ObjectActionsServiceProtocol {
     }
     
     func duplicate(objectId: BlockId) async throws -> BlockId {
-        AnytypeAnalytics.instance().logDuplicateObject()
         let result = try await ClientCommands.objectDuplicate(.with {
             $0.contextID = objectId
         }).invoke()

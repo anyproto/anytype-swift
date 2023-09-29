@@ -12,8 +12,6 @@ protocol EditorPageViewInput: RelativePositionProvider {
     )
     func update(syncStatus: SyncStatus)
         
-    func showDeletedScreen(_ show: Bool)
-
     /// Tells the delegate when editing of the text block begins
     func textBlockDidBeginEditing(firstResponderView: UIView)
 

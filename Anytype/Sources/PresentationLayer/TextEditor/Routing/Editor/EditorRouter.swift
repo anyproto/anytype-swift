@@ -13,7 +13,7 @@ final class EditorRouter: NSObject, EditorRouterProtocol, ObjectSettingsCoordina
     private let addNewRelationCoordinator: AddNewRelationCoordinatorProtocol
     private let document: BaseDocumentProtocol
     private let templatesCoordinator: TemplatesCoordinator
-    private let templateSelectionCoordinator: TemplateSelectionCoordinatorProtocol
+    private let setObjectCreationSettingsCoordinator: SetObjectCreationSettingsCoordinatorProtocol
     private let urlOpener: URLOpenerProtocol
     private let relationValueCoordinator: RelationValueCoordinatorProtocol
     private let editorPageCoordinator: EditorPageCoordinatorProtocol
@@ -37,7 +37,7 @@ final class EditorRouter: NSObject, EditorRouterProtocol, ObjectSettingsCoordina
         document: BaseDocumentProtocol,
         addNewRelationCoordinator: AddNewRelationCoordinatorProtocol,
         templatesCoordinator: TemplatesCoordinator,
-        templateSelectionCoordinator: TemplateSelectionCoordinatorProtocol,
+        setObjectCreationSettingsCoordinator: SetObjectCreationSettingsCoordinatorProtocol,
         urlOpener: URLOpenerProtocol,
         relationValueCoordinator: RelationValueCoordinatorProtocol,
         editorPageCoordinator: EditorPageCoordinatorProtocol,
@@ -61,7 +61,7 @@ final class EditorRouter: NSObject, EditorRouterProtocol, ObjectSettingsCoordina
         self.fileCoordinator = FileDownloadingCoordinator(viewController: viewController)
         self.addNewRelationCoordinator = addNewRelationCoordinator
         self.templatesCoordinator = templatesCoordinator
-        self.templateSelectionCoordinator = templateSelectionCoordinator
+        self.setObjectCreationSettingsCoordinator = setObjectCreationSettingsCoordinator
         self.urlOpener = urlOpener
         self.relationValueCoordinator = relationValueCoordinator
         self.editorPageCoordinator = editorPageCoordinator
@@ -370,17 +370,31 @@ final class EditorRouter: NSObject, EditorRouterProtocol, ObjectSettingsCoordina
     }
     
     // MARK: - Settings
-    func showSettings() {
-        objectSettingCoordinator.startFlow(objectId: document.objectId, delegate: self, output: self)
+    func showSettings(actionHandler: @escaping (ObjectSettingsAction) -> Void) {
+        objectSettingCoordinator.startFlow(
+            objectId: document.objectId,
+            delegate: self,
+            output: self,
+            objectSettingsHandler: actionHandler
+        )
     }
     
-    func showCoverPicker() {
-        let moduleViewController = objectCoverPickerModuleAssembly.make(document: document, objectId: document.objectId)
+    func showCoverPicker(
+        document: BaseDocumentGeneralProtocol,
+        onCoverAction: @escaping (ObjectCoverPickerAction) -> Void
+    ) {
+        let moduleViewController = objectCoverPickerModuleAssembly.make(
+            document: document,
+            onCoverAction: onCoverAction
+        )
         navigationContext.present(moduleViewController)
     }
     
-    func showIconPicker() {
-        let moduleViewController = objectIconPickerModuleAssembly.make(document: document, objectId: document.objectId)
+    func showIconPicker(
+        document: BaseDocumentGeneralProtocol,
+        onIconAction: @escaping (ObjectIconPickerAction) -> Void
+    ) {
+        let moduleViewController = objectIconPickerModuleAssembly.make(document: document, onIconAction: onIconAction)
         navigationContext.present(moduleViewController)
     }
 
@@ -539,20 +553,21 @@ extension EditorRouter: ObjectSettingsModuleDelegate {
         }
     }
     
+    @MainActor
     func didCreateTemplate(templateId: BlockId) {
-        templateSelectionCoordinator.showTemplateEditing(blockId: templateId, spaceId: document.spaceId) { [weak self] templateSelection in
+        guard let objectType = document.details?.objectType else { return }
+        let setting = ObjectCreationSetting(objectTypeId: objectType.id, spaceId: document.spaceId, templateId: templateId)
+        setObjectCreationSettingsCoordinator.showTemplateEditing(setting: setting) { [weak self] setting in
             Task { @MainActor [weak self] in
                 do {
-                    guard let document = self?.document,
-                          let type = self?.document.details?.objectType,
-                          let objectDetails = try await self?.pageService.createPage(
+                    guard let objectDetails = try await self?.pageService.createPage(
                             name: "",
-                            typeUniqueKey: type.uniqueKey,
+                            typeUniqueKey: objectType.uniqueKey,
                             shouldDeleteEmptyObject: true,
                             shouldSelectType: false,
                             shouldSelectTemplate: false,
-                            spaceId: document.spaceId,
-                            templateId: templateSelection
+                            spaceId: objectType.spaceId,
+                            templateId: setting.templateId
                           ) else {
                         return
                     }

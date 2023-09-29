@@ -22,7 +22,7 @@ struct TextShareView: View {
             description: viewModel.destinationObject?.name ?? "",
             action: viewModel.tapSelectDestination
         )
-        .background(Color.Background.primary)
+        .background(UIColor.secondarySystemGroupedBackground.suColor)
         .cornerRadius(8)
     }
 }

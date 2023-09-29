@@ -97,10 +97,9 @@ final class SetViewPickerViewModel: ObservableObject {
     private func createView() {
         Task { @MainActor [weak self] in
             guard let self else { return }
-            let viewId = try await dataviewService.createView(
-                DataviewView.created(with: "", type: .table),
-                source: setDocument.details?.setOf ?? []
-            )
+            let newView = setDocument.activeView.updated(name: "", type: .table)
+            let source = setDocument.details?.setOf ?? []
+            let viewId = try await dataviewService.createView(newView, source: source)
             output?.onAddButtonTap(with: viewId)
             AnytypeAnalytics.instance().logAddView(
                 type: DataviewViewType.table.stringValue,

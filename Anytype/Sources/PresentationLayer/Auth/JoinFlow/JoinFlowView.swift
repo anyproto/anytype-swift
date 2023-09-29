@@ -86,7 +86,8 @@ struct JoinFlowView_Previews : PreviewProvider {
         JoinFlowView(
             model: JoinFlowViewModel(
                 output: nil,
-                applicationStateService: DI.preview.serviceLocator.applicationStateService()
+                applicationStateService: DI.preview.serviceLocator.applicationStateService(),
+                accountManager: DI.preview.serviceLocator.accountManager()
             )
         )
     }

@@ -100,10 +100,8 @@ final class SetViewTypesPickerViewModel: ObservableObject {
     private func createView() {
         let name = name.isEmpty ? Loc.SetViewTypesPicker.Settings.Textfield.Placeholder.untitled : name
         Task {
-            try await dataviewService.createView(
-                DataviewView.created(with: name, type: selectedType),
-                source: source
-            )
+            let newView = setDocument.activeView.updated(name: name, type: selectedType)
+            try await dataviewService.createView(newView, source: source)
             AnytypeAnalytics.instance().logAddView(type: selectedType.stringValue, objectType: setDocument.analyticsType)
         }
     }

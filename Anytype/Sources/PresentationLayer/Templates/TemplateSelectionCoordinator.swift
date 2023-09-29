@@ -84,25 +84,33 @@ final class TemplateSelectionCoordinator: TemplateSelectionCoordinatorProtocol {
         onTemplateSelection: @escaping (BlockId) -> Void,
         onSetAsDefaultTempalte: @escaping (BlockId) -> Void
     ) {
-        let editorPage = editorAssembly.buildEditorModule(
+        let editorPage = editorAssembly.buildPageModule(
             browser: nil,
-            data: .page(
-                .init(
-                    objectId: blockId,
-                    spaceId: spaceId,
-                    isSupportedForEdit: true,
-                    isOpenedForPreview: false,
-                    usecase: .templateEditing
-                )
+            data: .init(
+                objectId: blockId,
+                spaceId: spaceId,
+                isSupportedForEdit: true,
+                isOpenedForPreview: false,
+                usecase: .templateEditing
             )
         )
+        let viewModel = editorPage.0.viewModel
+        let settingsHandler: (ObjectSettingsAction) -> Void = { [weak viewModel] action in
+            viewModel?.handleSettingsAction(action: action)
+        }
+        
         handler = TemplateSelectionObjectSettingsHandler(useAsTemplateAction: onSetAsDefaultTempalte)
         let editingTemplateViewController = TemplateEditingViewController(
-            editorViewController: editorPage.vc,
+            editorViewController: editorPage.0,
             onSettingsTap: { [weak self] in
                 guard let self = self, let handler = self.handler else { return }
                 
-                self.objectSettingCoordinator.startFlow(objectId: blockId, delegate: handler, output: nil)
+                self.objectSettingCoordinator.startFlow(
+                    objectId: blockId,
+                    delegate: handler,
+                    output: nil,
+                    objectSettingsHandler: settingsHandler
+                )
             }, onSelectTemplateTap: { [weak self] in
                 self?.navigationContext.dismissAllPresented(animated: true) {
                     onTemplateSelection(blockId)
