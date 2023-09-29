@@ -315,6 +315,9 @@
 "TemplatePicker.Buttons.UseTemplate" = "使用模板";
 "TemplateSelection.SelectTemplate" = "选择模板";
 "TemplateSelection.blankTemplate" = "空白";
+"TemplateSelection.Template.Subtitle" = "Template";
+"TemplateSelection.ObjectType.Subtitle" = "对象类型";
+"TemplateSelection.ObjectType.NoTemplates.Title" = "This type doesn’t support templates";
 
 "TemplateOptions.Alert.SetAsDefault" = "设置为此视图的默认";
 "TemplateOptions.Alert.EditTemplate" = "编辑模板";
