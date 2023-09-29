@@ -2,7 +2,7 @@
 "StyleMenu.Color.TextColor.Placeholder" = "A";
 
 // MARK: Text Style in Slash and Style menu
-"TextStyle.Text.Title" = "Text";
+"TextStyle.Text.Title" = "Tekst";
 "TextStyle.Text.Subtitle" = "Just start writing with a plain text";
 
 "TextStyle.Title.Title" = "Title";
@@ -59,7 +59,7 @@
 "BlockLink.PreviewSettings.IconSize.Medium" = "Medium";
 
 "BlockLink.PreviewSettings.Layout.Card.Title" = "Card";
-"BlockLink.PreviewSettings.Layout.Text.Title" = "Text";
+"BlockLink.PreviewSettings.Layout.Text.Title" = "Tekst";
 
 // MARK: - Settings
 "Settings.Title" = "Personal Space";
@@ -79,12 +79,12 @@
 "Relation.From.Type" = "From type %@";
 
 "Relation.Format.Object.Title" = "Object";
-"Relation.Format.Text.Title" = "Text";
+"Relation.Format.Text.Title" = "Tekst";
 "Relation.Format.Number.Title" = "Number";
 "Relation.Format.Status.Title" = "Status";
 "Relation.Format.Tag.Title" = "Tag";
-"Relation.Format.Date.Title" = "Date";
-"Relation.Format.FileMedia.Title" = "File & Media";
+"Relation.Format.Date.Title" = "Dato";
+"Relation.Format.FileMedia.Title" = "Fil & Media";
 "Relation.Format.Checkbox.Title" = "Checkbox";
 "Relation.Format.Url.Title" = "URL";
 "Relation.Format.Email.Title" = "Email";
@@ -96,16 +96,16 @@
 "None" = "None";
 "Callout" = "Callout";
 "Toggle empty. Tap to create block." = "Toggle empty. Tap to create block.";
-"Loading, please wait" = "Loading, please wait";
-"Done" = "Done";
-"Style" = "Style";
-"Color" = "Color";
-"Background" = "Background";
-"Other" = "Other";
+"Loading, please wait" = "Laster inn, vennligst vent";
+"Done" = "Ferdig";
+"Style" = "Stil";
+"Color" = "Farge";
+"Background" = "Bakgrunn";
+"Other" = "Annet";
 "Media" = "Media";
 "Alignment" = "Alignment";
 "Actions" = "Actions";
-"Relations" = "Relations";
+"Relations" = "Relasjoner";
 "Objects" = "Objects";
 "Delete" = "Delete";
 "Duplicate" = "Duplicate";
@@ -315,6 +315,9 @@
 "TemplatePicker.Buttons.UseTemplate" = "Use template";
 "TemplateSelection.SelectTemplate" = "Select template";
 "TemplateSelection.blankTemplate" = "Blank";
+"TemplateSelection.Template.Subtitle" = "Template";
+"TemplateSelection.ObjectType.Subtitle" = "Object type";
+"TemplateSelection.ObjectType.NoTemplates.Title" = "This type doesn’t support templates";
 
 "TemplateOptions.Alert.SetAsDefault" = "Set as default for this view";
 "TemplateOptions.Alert.EditTemplate" = "Edit template";
@@ -643,8 +646,8 @@
 
 // MARK: - Simple tables
 "SimpleTableMenu.Item.clearContents" = "Clear";
-"SimpleTableMenu.Item.color" = "Color";
-"SimpleTableMenu.Item.style" = "Style";
+"SimpleTableMenu.Item.color" = "Farge";
+"SimpleTableMenu.Item.style" = "Stil";
 "SimpleTableMenu.Item.clearStyle" = "Reset style";
 
 "SimpleTableMenu.Item.InsertLeft" = "Insert left";
@@ -794,7 +797,7 @@
 // MARK: - Sharing
 "Sharing.Navigation.title" = "Add to Anytype";
 "Sharing.Navigation.LeftButton.Title" = "Cancel";
-"Sharing.Navigation.RightButton.Title" = "Done";
+"Sharing.Navigation.RightButton.Title" = "Ferdig";
 
 "Sharing.SaveAs" = "SAVE AS";
 "Sharing.AddTo" = "Add to";
