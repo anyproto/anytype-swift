@@ -238,37 +238,37 @@
 // Object settings
 
 "Icon" = "Ikon";
-"Emoji or image for object" = "Emoji or image for object";
-"Cover" = "Cover";
-"Background picture" = "Background picture";
-"Layout" = "Layout";
-"Arrangement of objects on a canvas" = "Arrangement of objects on a canvas";
+"Emoji or image for object" = "Emoji atau gambar untuk objek";
+"Cover" = "Sampul";
+"Background picture" = "Gambar latar belakang";
+"Layout" = "Tata letak";
+"Arrangement of objects on a canvas" = "Susunan balok dalam kanvas";
 
-"Search" = "Search";
-"There is no emoji named" = "There is no emoji named";
-"Try to find a new one or upload your image" = "Try to find a new one or upload your image";
+"Search" = "Telusuri";
+"There is no emoji named" = "Tidak ada emoji bernama";
+"Try to find a new one or upload your image" = "Coba cari yang lain atau unggah gambarmu sendiri";
 
 "Emoji" = "Emoji";
-"Random" = "Random";
-"Upload" = "Upload";
-"Change icon" = "Change icon";
-"Change cover" = "Change cover";
-"Remove" = "Remove";
+"Random" = "Acak";
+"Upload" = "Unggah";
+"Change icon" = "Ubah ikon";
+"Change cover" = "Ubah sampul";
+"Remove" = "Hapus";
 
-"Solid colors" = "Solid colors";
-"Gradients" = "Gradients";
-"Gallery" = "Gallery";
+"Solid colors" = "Warna tunggal";
+"Gradients" = "Gradien";
+"Gallery" = "Galeri";
 
-"Remove photo" = "Remove photo";
-"Basic" = "Basic";
-"Profile" = "Profile";
-"Task" = "Task";
-"Note" = "Note";
-"Choose layout type" = "Choose layout type";
+"Remove photo" = "Hapus foto";
+"Basic" = "Dasar";
+"Profile" = "Profil";
+"Task" = "Tugas";
+"Note" = "Catatan";
+"Choose layout type" = "Pilih jenis tata letak";
 
-"Undo typing" = "Undo typing";
-"Undo" = "Undo";
-"Actions.LinkItself" = "Link to";
+"Undo typing" = "Urungkan mengetik";
+"Undo" = "Urungkan";
+"Actions.LinkItself" = "Tautkan ke";
 "Actions.MakeAsTemplate" = "Buat templat";
 "Actions.TemplateMakeDefault" = "Atur sebagai bawaan";
 
@@ -413,26 +413,26 @@
 
 // MARK: - Sets: Featured relations
 "Set.FeaturedRelations.Query" = "Query";
-"Set.FeaturedRelations.RelationsList" = "Relations:";
-"Set.FeaturedRelations.Relation" = "Relation:";
-"Set.FeaturedRelations.Type" = "Type:";
+"Set.FeaturedRelations.RelationsList" = "Relasi:";
+"Set.FeaturedRelations.Relation" = "Relasi:";
+"Set.FeaturedRelations.Type" = "Tipe:";
 
 // MARK: - Sets: Filters search
-"Set.Button.Title.Apply" = "Apply";
+"Set.Button.Title.Apply" = "Terapkan";
 
 // MARK: - Set.Bookmarks
-"Set.Bookmark.Create.Placeholder" = "Paste link";
-"Set.Bookmark.Error.Title" = "Oops - something went wrong";
-"Set.Bookmark.Error.Message" = "Please try again";
+"Set.Bookmark.Create.Placeholder" = "Tempelkan tautan";
+"Set.Bookmark.Error.Title" = "Ups, ada yang salah";
+"Set.Bookmark.Error.Message" = "Silakan coba lagi";
 
 // MARK: - Sets: View Settings
-"Set.View.Settings.ImageFit.Title" = "Fit image";
-"Set.View.Settings.CardSize.Title" = "Card size";
+"Set.View.Settings.ImageFit.Title" = "Paskan gambar";
+"Set.View.Settings.CardSize.Title" = "Ukuran kartu";
 "Set.View.Settings.CardSize.Small.Title" = "Kecil";
-"Set.View.Settings.CardSize.Large.Title" = "Large";
-"Set.View.Settings.ImagePreview.Title" = "Image preview";
-"Set.View.Settings.GroupBy.Title" = "Group by";
-"Set.View.Settings.GroupBackgroundColors.Title" = "Color columns";
+"Set.View.Settings.CardSize.Large.Title" = "Besar";
+"Set.View.Settings.ImagePreview.Title" = "Pratinjau gambar";
+"Set.View.Settings.GroupBy.Title" = "Kelompokkan berdasarkan";
+"Set.View.Settings.GroupBackgroundColors.Title" = "Warna kolom";
 "Set.View.Settings.DefaultObject.Title" = "Default object";
 "Set.View.Settings.DefaultTemplate.Title" = "Default template";
 
@@ -573,7 +573,7 @@
 "File" = "File";
 "No related options here" = "No related options here. You can add some";
 "Empty" = "Empty";
-"Link to" = "Link to";
+"Link to" = "Tautkan ke";
 "Unknown" = "Unknown";
 "Settings" = "Setelan";
 "Views" = "Views";
@@ -619,7 +619,7 @@
 // MARK: - DataviewType
 "DataviewType.grid" = "Grid";
 "DataviewType.list" = "List";
-"DataviewType.gallery" = "Gallery";
+"DataviewType.gallery" = "Galeri";
 "DataviewType.kanban" = "Kanban";
 
 // MARK: - ObjectType
@@ -801,7 +801,7 @@
 
 "Sharing.SaveAs" = "SAVE AS";
 "Sharing.AddTo" = "Add to";
-"Sharing.LinkTo" = "Link to";
+"Sharing.LinkTo" = "Tautkan ke";
 
 "Sharing.URL.Bookmark" = "Bookmark object";
 "Sharing.URL.Text" = "Text block";
