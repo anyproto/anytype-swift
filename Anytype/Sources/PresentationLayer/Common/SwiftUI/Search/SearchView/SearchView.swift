@@ -42,7 +42,6 @@ struct SearchView<SearchViewModel: SearchViewModelProtocol>: View {
                             Button(
                                 action: {
                                     presentationMode.wrappedValue.dismiss()
-                                    viewModel.onDismiss()
                                     viewModel.onSelect(searchData)
                                 }
                             ) {
@@ -96,6 +95,7 @@ struct HomeSearchView_Previews: PreviewProvider {
         SearchView(
             title: "FOoo",
             viewModel: ObjectSearchViewModel(
+                spaceId: "",
                 searchService: WrappedSearchInteractor(searchService: DI.preview.serviceLocator.searchService())
             ) { _ in }
         )

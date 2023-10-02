@@ -8,28 +8,48 @@ struct SettingsView: View {
     var body: some View {
         VStack(spacing: 0) {
             DragIndicator()
-            TitleView(title: Loc.Settings.title)
+            if FeatureFlags.multiSpaceSettings {
+                TitleView(title: Loc.Settings.title)
+            } else {
+                TitleView(title: Loc.Settings.titleLegacy)
+            }
             
             ScrollView(showsIndicators: false) {
                 VStack(spacing: 0) {
                     
-                    SettingsObjectHeader(name: $model.spaceName, nameTitle: Loc.Settings.spaceName, iconImage: model.spaceIcon, onTap: {
-                        model.onChangeIconTap()
-                    })
+                    if FeatureFlags.multiSpaceSettings {
+                        SettingsObjectHeader(name: $model.profileName, nameTitle: Loc.name, iconImage: model.profileIcon, onTap: {
+                            model.onChangeIconTap()
+                        })
+                    } else {
+                        SettingsObjectHeader(name: $model.spaceName, nameTitle: Loc.Settings.spaceName, iconImage: model.spaceIcon, onTap: {
+                            model.onChangeIconTap()
+                        })
+                    }
                     
                     SectionHeaderView(title: Loc.settings)
                     
-                    SettingsSectionItemView(
-                        name: Loc.profile,
-                        iconImage: model.profileIcon,
-                        onTap: { model.onAccountDataTap() }
-                    )
+                    if FeatureFlags.multiSpaceSettings {
+                        SettingsSectionItemView(
+                            name: Loc.Settings.accountAndAccess,
+                            imageAsset: .Settings.keychainPhrase,
+                            onTap: { model.onAccountDataTap() }
+                        )
+                    } else {
+                        SettingsSectionItemView(
+                            name: Loc.profile,
+                            iconImage: model.profileIcon,
+                            onTap: { model.onAccountDataTap() }
+                        )
+                    }
                     
-                    SettingsSectionItemView(
-                        name: Loc.personalization,
-                        imageAsset: .Settings.personalization,
-                        onTap: { model.onPersonalizationTap() }
-                    )
+                    if !FeatureFlags.multiSpaceSettings {
+                        SettingsSectionItemView(
+                            name: Loc.personalization,
+                            imageAsset: .Settings.personalization,
+                            onTap: { model.onPersonalizationTap() }
+                        )
+                    }
                     
                     SettingsSectionItemView(
                         name: Loc.appearance,
@@ -37,11 +57,19 @@ struct SettingsView: View {
                         onTap: { model.onAppearanceTap() }
                     )
                     
-                    SettingsSectionItemView(
-                        name: Loc.FileStorage.title,
-                        imageAsset: .Settings.fileStorage,
-                        onTap: { model.onFileStorageTap() }
-                    )
+                    if FeatureFlags.multiSpaceSettings {
+                        SettingsSectionItemView(
+                            name: Loc.FileStorage.Local.title,
+                            imageAsset: .Settings.fileStorage,
+                            onTap: { model.onFileStorageTap() }
+                        )
+                    } else {
+                        SettingsSectionItemView(
+                            name: Loc.FileStorage.title,
+                            imageAsset: .Settings.fileStorage,
+                            onTap: { model.onFileStorageTap() }
+                        )
+                    }
                     
                     SettingsSectionItemView(
                         name: Loc.about,

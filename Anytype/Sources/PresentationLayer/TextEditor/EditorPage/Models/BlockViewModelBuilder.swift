@@ -18,6 +18,7 @@ final class BlockViewModelBuilder {
     private let audioSessionService: AudioSessionServiceProtocol
     private let infoContainer: InfoContainerProtocol
     private let tableService: BlockTableServiceProtocol
+    private let objectTypeProvider: ObjectTypeProviderProtocol
 
     init(
         document: BaseDocumentProtocol,
@@ -32,7 +33,8 @@ final class BlockViewModelBuilder {
         detailsService: DetailsServiceProtocol,
         audioSessionService: AudioSessionServiceProtocol,
         infoContainer: InfoContainerProtocol,
-        tableService: BlockTableServiceProtocol
+        tableService: BlockTableServiceProtocol,
+        objectTypeProvider: ObjectTypeProviderProtocol
     ) {
         self.document = document
         self.handler = handler
@@ -47,6 +49,7 @@ final class BlockViewModelBuilder {
         self.audioSessionService = audioSessionService
         self.infoContainer = infoContainer
         self.tableService = tableService
+        self.objectTypeProvider = objectTypeProvider
     }
 
     func buildEditorItems(infos: [BlockInformation]) -> [EditorItem] {
@@ -236,15 +239,16 @@ final class BlockViewModelBuilder {
             ) { [weak self] relation in
                 guard let self = self else { return }
 
-                let bookmarkFilter = self.document.details?.type != ObjectTypeId.bundled(.bookmark).rawValue
+                let bookmarkFilter = self.document.details?.layoutValue != .bookmark
                 let allowTypeChange = !self.document.objectRestrictions.objectRestriction.contains(.typechange)
                 
                 if relation.key == BundledRelationKey.type.rawValue && !self.document.isLocked && bookmarkFilter && allowTypeChange {
                     self.router.showTypes(
                         selectedObjectId: self.document.details?.type,
-                        onSelect: { [weak self] id in
+                        onSelect: { [weak self] type in
                             Task { [weak self] in
-                                try await self?.handler.setObjectTypeId(id)
+                                try await self?.handler.setObjectType(type: type)
+                                self?.logObjectTypeChange(typeId: type.id)
                             }
                         }
                     )
@@ -315,6 +319,11 @@ final class BlockViewModelBuilder {
 
             return UnsupportedBlockViewModel(info: info)
         }
+    }
+    
+    private func logObjectTypeChange(typeId: String) {
+        let objectType = (try? objectTypeProvider.objectType(id: typeId))?.analyticsType ?? .object(typeId: typeId)
+        AnytypeAnalytics.instance().logObjectTypeChange(objectType)
     }
 
     // MARK: - Actions

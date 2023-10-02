@@ -22,12 +22,14 @@ final class RelationOptionsListViewModel: ObservableObject {
 
     private weak var popup: AnytypePopupProxy?
 
+    private let details: ObjectDetails
     private let relationKey: String
     private let searchModuleBuilder: RelationOptionsSearchModuleBuilderProtocol
     private let service: RelationsServiceProtocol
     private let analyticsType: AnalyticsEventsRelationType
     
     init(
+        details: ObjectDetails,
         selectedOptions: [ListRowConfiguration],
         emptyOptionsPlaceholder: String,
         relation: Relation,
@@ -35,6 +37,7 @@ final class RelationOptionsListViewModel: ObservableObject {
         service: RelationsServiceProtocol,
         analyticsType: AnalyticsEventsRelationType
     ) {
+        self.details = details
         self.selectedOptions = selectedOptions
         self.title = relation.name
         self.emptyPlaceholder = emptyOptionsPlaceholder
@@ -83,6 +86,7 @@ extension RelationOptionsListViewModel {
     
     func makeSearchView() -> some View {
         searchModuleBuilder.buildModule(
+            spaceId: details.spaceId,
             excludedOptionIds: selectedOptionIds
         ) { [weak self] ids in
             self?.handleNewOptionIds(ids)
@@ -112,7 +116,7 @@ private extension RelationOptionsListViewModel {
     
     func handleCreateOption(title: String) {
         Task {
-            let optionId = try await service.addRelationOption(relationKey: relationKey, optionText: title)
+            let optionId = try await service.addRelationOption(spaceId: details.spaceId, relationKey: relationKey, optionText: title)
             guard let optionId = optionId else { return}
 
             handleNewOptionIds([optionId])

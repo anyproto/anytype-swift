@@ -10,6 +10,8 @@ class SetDocument: SetDocumentProtocol {
         document.objectId
     }
     
+    var spaceId: String { document.spaceId }
+    
     var targetObjectID: String?
     
     var details: ObjectDetails? {
@@ -78,13 +80,15 @@ class SetDocument: SetDocumentProtocol {
     
     private var subscriptions = [AnyCancellable]()
     private let relationDetailsStorage: RelationDetailsStorageProtocol
+    private let objectTypeProvider: ObjectTypeProviderProtocol
     let dataBuilder: SetContentViewDataBuilder
     
     init(
         document: BaseDocumentProtocol,
         blockId: BlockId?,
         targetObjectID: String?,
-        relationDetailsStorage: RelationDetailsStorageProtocol)
+        relationDetailsStorage: RelationDetailsStorageProtocol,
+        objectTypeProvider: ObjectTypeProviderProtocol)
     {
         self.document = document
         self.relationDetailsStorage = relationDetailsStorage
@@ -95,6 +99,7 @@ class SetDocument: SetDocumentProtocol {
             detailsStorage: document.detailsStorage,
             relationDetailsStorage: relationDetailsStorage
         )
+        self.objectTypeProvider = objectTypeProvider
         self.setup()
     }
     
@@ -104,7 +109,7 @@ class SetDocument: SetDocumentProtocol {
     
     func sortedRelations(for viewId: String) -> [SetRelation] {
         let view = view(by: viewId)
-        return dataBuilder.sortedRelations(dataview: dataView, view: view)
+        return dataBuilder.sortedRelations(dataview: dataView, view: view, spaceId: spaceId)
     }
     
     func sorts(for viewId: String) -> [SetSort] {
@@ -140,7 +145,8 @@ class SetDocument: SetDocumentProtocol {
         return dataBuilder.activeViewRelations(
             dataViewRelationsDetails: dataViewRelationsDetails,
             view: view,
-            excludeRelations: excludeRelations
+            excludeRelations: excludeRelations,
+            spaceId: spaceId
         )
     }
     
@@ -160,7 +166,9 @@ class SetDocument: SetDocumentProtocol {
     }
     
     func isBookmarksSet() -> Bool {
-        details?.setOf.contains(ObjectTypeId.BundledTypeId.bookmark.rawValue) ?? false
+        guard let details,
+              let bookmarkType = (try? objectTypeProvider.objectType(recommendedLayout: .bookmark, spaceId: document.spaceId)) else { return false }
+        return details.setOf.contains(bookmarkType.id)
     }
     
     func isRelationsSet() -> Bool {
@@ -174,6 +182,17 @@ class SetDocument: SetDocumentProtocol {
     
     func isCollection() -> Bool {
         details?.isCollection ?? false
+    }
+    
+    func defaultObjectTypeForActiveView() throws -> ObjectType {
+        return try defaultObjectTypeForView(activeView)
+    }
+    
+    func defaultObjectTypeForView(_ view: DataviewView) throws -> ObjectType {
+        if let viewDefaulTypeId = view.defaultObjectTypeID {
+            return try objectTypeProvider.objectType(id: viewDefaulTypeId)
+        }
+        return try objectTypeProvider.objectType(uniqueKey: .page, spaceId: spaceId)
     }
     
     @MainActor
@@ -211,8 +230,6 @@ class SetDocument: SetDocumentProtocol {
             updateData()
         case .syncStatus(let status):
             updateSubject.send(.syncStatus(status))
-        case .header:
-            break
         }
     }
     
@@ -234,7 +251,7 @@ class SetDocument: SetDocumentProtocol {
     }
     
     private func updateDataViewRelations() {
-        dataViewRelationsDetails = relationDetailsStorage.relationsDetails(for: dataView.relationLinks, includeDeleted: false)
+        dataViewRelationsDetails = relationDetailsStorage.relationsDetails(for: dataView.relationLinks, spaceId: spaceId, includeDeleted: false)
     }
     
     private func updateSorts() {

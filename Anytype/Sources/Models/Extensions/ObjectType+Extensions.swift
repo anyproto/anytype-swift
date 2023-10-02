@@ -3,19 +3,29 @@ import Services
 
 extension ObjectType {
     
-    public static let fallbackType: ObjectType = ObjectType(
-        id: ObjectTypeId.bundled(.note).rawValue,
-        name: Loc.note,
+    public static let emptyType: ObjectType = ObjectType(
+        id: "",
+        name: "",
         iconEmoji: .default,
-        description: Loc.ObjectType.fallbackDescription,
-        recommendedLayout: .note,
+        description: "",
         hidden: false,
         readonly: false,
         isArchived: false,
         isDeleted: false,
         sourceObject: "",
+        spaceId: "",
+        uniqueKey: .empty,
+        defaultTemplateId: "",
         recommendedRelations: [],
-        defaultTemplateId: ""
+        recommendedLayout: nil
     )
     
+    var setIsTemplatesAvailable: Bool {
+        guard let recommendedLayout else {
+            return false
+        }
+        
+        return recommendedLayout.isTemplatesAvailable
+    }
 }
+

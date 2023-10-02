@@ -20,16 +20,16 @@ final class RecentSubscriptionService: RecentSubscriptionServiceProtocol {
     
     private let subscriptionService: SubscriptionsServiceProtocol
     private let objectTypeProvider: ObjectTypeProviderProtocol
-    private let accountManager: AccountManagerProtocol
+    private let activeWorkspaceStorage: ActiveWorkpaceStorageProtocol
     private let subscriptionId = "Recent-\(UUID().uuidString)"
     
     init(
         subscriptionService: SubscriptionsServiceProtocol,
-        accountManager: AccountManagerProtocol,
+        activeWorkspaceStorage: ActiveWorkpaceStorageProtocol,
         objectTypeProvider: ObjectTypeProviderProtocol
     ) {
         self.subscriptionService = subscriptionService
-        self.accountManager = accountManager
+        self.activeWorkspaceStorage = activeWorkspaceStorage
         self.objectTypeProvider = objectTypeProvider
     }
     
@@ -44,7 +44,7 @@ final class RecentSubscriptionService: RecentSubscriptionServiceProtocol {
         let filters: [DataviewFilter] = .builder {
             SearchHelper.notHiddenFilter()
             SearchHelper.isArchivedFilter(isArchived: false)
-            SearchHelper.workspaceId(accountManager.account.info.accountSpaceId)
+            SearchHelper.spaceId(activeWorkspaceStorage.workspaceInfo.accountSpaceId)
             SearchHelper.layoutFilter(DetailsLayout.visibleLayouts)
             makeDateFilter(type: type)
         }

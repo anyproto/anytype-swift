@@ -27,14 +27,17 @@ protocol ModulesDIProtocol: AnyObject {
     func debugMenu() -> DebugMenuModuleAssemblyProtocol
     func settingsAccount() -> SettingsAccountModuleAssemblyProtocol
     func fileStorage() -> FileStorageModuleAssemblyProtocol
+    func spaceSwitch() -> SpaceSwitchModuleAssemblyProtocol
+    func spaceCreate() -> SpaceCreateModuleAssemblyProtocol
     func authorization() -> AuthModuleAssemblyProtocol
     func joinFlow() -> JoinFlowModuleAssemblyProtocol
     func login() -> LoginViewModuleAssemblyProtocol
-    func migrationGuide() -> MigrationGuideViewModuleAssemblyProtocol
     func authKey() -> KeyPhraseViewModuleAssemblyProtocol
     func authKeyMoreInfo() -> KeyPhraseMoreInfoViewModuleAssembly
     func authSoul() -> SoulViewModuleAssemblyProtocol
     func authCreatingSoul() -> CreatingSoulViewModuleAssemblyProtocol
+    func spaceSettings() -> SpaceSettingsModuleAssemblyProtocol
+    func remoteStorage() -> RemoteStorageModuleAssemblyProtocol
     func setObjectCreationSettings() -> SetObjectCreationSettingsModuleAssemblyProtocol
     func setViewSettingsList() -> SetViewSettingsListModuleAssemblyProtocol
     func setSortsList() -> SetSortsListModuleAssemblyProtocol

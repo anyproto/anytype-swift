@@ -38,8 +38,8 @@ extension BundledRelationsValueProvider {
             return .profile(.imageId(iconImageHash.value))
         }
         
-        if let iconOption, let gradiendId = GradientId(iconOption) {
-            return .profile(.gradient(gradiendId))
+        if let iconOptionValue {
+            return .profile(.gradient(iconOptionValue))
         }
         
         return title.first.flatMap { .profile(.character($0)) }
@@ -54,8 +54,8 @@ extension BundledRelationsValueProvider {
             return basicIcon
         }
         
-        if let iconOption, let gradiendId = GradientId(iconOption) {
-            return .space(.gradient(gradiendId))
+        if let iconOptionValue {
+            return .space(.gradient(iconOptionValue))
         }
         
         return title.first.flatMap { .space(.character($0)) }
@@ -113,11 +113,7 @@ extension BundledRelationsValueProvider {
     }
     
     var objectType: ObjectType {
-        guard !isDeleted, type.isNotEmpty else {
-            return ObjectTypeProvider.shared.defaultObjectType
-        }
-        
-        let parsedType = ObjectTypeProvider.shared.objectType(id: type)
+        let parsedType = try? ObjectTypeProvider.shared.objectType(id: type)
         return parsedType ?? ObjectTypeProvider.shared.deleteObjectType(id: type)
     }
     
@@ -151,15 +147,6 @@ extension BundledRelationsValueProvider {
     }
     
     var isTemplateType: Bool {
-        type == ObjectTypeId.BundledTypeId.template.rawValue
-    }
-    
-    var setIsTemplatesAvailable: Bool {
-        guard let recommendedLayout = recommendedLayout,
-              let recommendedLayout = DetailsLayout(rawValue: recommendedLayout) else {
-            return false
-        }
-        
-        return recommendedLayout.isTemplatesAvailable
+        objectType.uniqueKey == .objectType
     }
 }

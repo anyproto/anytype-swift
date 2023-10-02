@@ -69,14 +69,26 @@ final class EditorAssembly {
             document: document,
             blockId: data.inline?.blockId,
             targetObjectID: data.inline?.targetObjectID,
-            relationDetailsStorage: serviceLocator.relationDetailsStorage()
+            relationDetailsStorage: serviceLocator.relationDetailsStorage(),
+            objectTypeProvider: serviceLocator.objectTypeProvider()
         )
         let dataviewService = serviceLocator.dataviewService(objectId: data.objectId, blockId: data.inline?.blockId)
         
         let detailsService = serviceLocator.detailsService(objectId: data.objectId)
         
+        let headerModel = ObjectHeaderViewModel(
+            document: setDocument,
+            configuration: .init(
+                isOpenedForPreview: false,
+                shouldShowTemplateSelection: false,
+                usecase: .editor
+            ),
+            interactor: serviceLocator.objectHeaderInteractor(objectId: setDocument.targetObjectID ?? setDocument.objectId)
+        )
+        
         let model = EditorSetViewModel(
             setDocument: setDocument,
+            headerViewModel: headerModel,
             subscriptionService: serviceLocator.subscriptionService(),
             dataviewService: dataviewService,
             searchService: serviceLocator.searchService(),
@@ -84,9 +96,9 @@ final class EditorAssembly {
             objectActionsService: serviceLocator.objectActionsService(),
             textService: serviceLocator.textService,
             groupsSubscriptionsHandler: serviceLocator.groupsSubscriptionsHandler(),
-            setSubscriptionDataBuilder: SetSubscriptionDataBuilder(accountManager: serviceLocator.accountManager()),
-            setTemplatesInteractor: serviceLocator.setTemplatesInteractor,
-            objectTypeProvider: serviceLocator.objectTypeProvider()
+            setSubscriptionDataBuilder: SetSubscriptionDataBuilder(activeWorkspaceStorage: serviceLocator.activeWorkspaceStorage()),
+            objectTypeProvider: serviceLocator.objectTypeProvider(),
+            setTemplatesInteractor: serviceLocator.setTemplatesInteractor
         )
         let controller = EditorSetHostingController(objectId: data.objectId, model: model)
         let navigationContext = NavigationContext(rootViewController: browser ?? controller)
@@ -94,7 +106,6 @@ final class EditorAssembly {
         let router = EditorSetRouter(
             setDocument: setDocument,
             rootController: browser,
-            viewController: controller,
             navigationContext: navigationContext,
             createObjectModuleAssembly: modulesDI.createObject(),
             newSearchModuleAssembly: modulesDI.newSearch(),
@@ -118,6 +129,8 @@ final class EditorAssembly {
             )
         )
         
+        setupHeaderModelActions(headerModel: headerModel, using: router)
+        
         model.setup(router: router)
         
         return (controller, router)
@@ -126,7 +139,7 @@ final class EditorAssembly {
     // MARK: - Page
     
     @MainActor
-    private func buildPageModule(
+    func buildPageModule(
         browser: EditorBrowserController?,
         data: EditorPageObject
     ) -> (EditorPageController, EditorPageOpenRouterProtocol) {
@@ -223,7 +236,8 @@ final class EditorAssembly {
             objectActionService: serviceLocator.objectActionsService(),
             modelsHolder: modelsHolder,
             bookmarkService: serviceLocator.bookmarkService(),
-            cursorManager: cursorManager
+            cursorManager: cursorManager,
+            objectTypeProvider: serviceLocator.objectTypeProvider()
         )
         let keyboardHandler = KeyboardActionHandler(
             documentId: document.objectId,
@@ -289,12 +303,12 @@ final class EditorAssembly {
             accessoryState: accessoryState,
             cursorManager: cursorManager
         )
-
         let headerModel = ObjectHeaderViewModel(
             document: document,
-            router: router,
-            configuration: configuration
+            configuration: configuration,
+            interactor: serviceLocator.objectHeaderInteractor(objectId: document.objectId)
         )
+        setupHeaderModelActions(headerModel: headerModel, using: router)
 
         let responderScrollViewHelper = ResponderScrollViewHelper(scrollView: scrollView)
         
@@ -325,7 +339,8 @@ final class EditorAssembly {
             detailsService: serviceLocator.detailsService(objectId: document.objectId),
             audioSessionService: serviceLocator.audioSessionService(),
             infoContainer: document.infoContainer,
-            tableService: blockTableService
+            tableService: blockTableService,
+            objectTypeProvider: serviceLocator.objectTypeProvider()
         )
 
         actionHandler.blockSelectionHandler = blocksStateManager
@@ -409,5 +424,15 @@ final class EditorAssembly {
         let bottomPanelManager = BrowserBottomPanelManager(browser: browser)
         let module = moduleAssembly.makeBin(bottomPanelManager: bottomPanelManager, output: output)
         return (module, nil)
+    }
+    
+    private func setupHeaderModelActions(headerModel: ObjectHeaderViewModel, using router: ObjectHeaderRouterProtocol) {
+        headerModel.onCoverPickerTap = { [weak router] args in
+            router?.showCoverPicker(document: args.0, onCoverAction: args.1)
+        }
+        
+        headerModel.onIconPickerTap = { [weak router] args in
+            router?.showIconPicker(document: args.0, onIconAction: args.1)
+        }
     }
 }

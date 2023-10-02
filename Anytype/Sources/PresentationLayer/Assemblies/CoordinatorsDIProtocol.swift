@@ -15,6 +15,7 @@ protocol CoordinatorsDIProtocol: AnyObject {
     func authorization() -> AuthCoordinatorAssemblyProtocol
     func joinFlow() -> JoinFlowCoordinatorAssemblyProtocol
     func loginFlow() -> LoginFlowCoordinatorAssemblyProtocol
+    func spaceSettings() -> SpaceSettingsCoordinatorAssemblyProtocol
     func setViewSettings() -> SetViewSettingsCoordinatorAssemblyProtocol
     func setSortsList() -> SetSortsListCoordinatorAssemblyProtocol
     func setFiltersDate() -> SetFiltersDateCoordinatorAssemblyProtocol
@@ -23,6 +24,7 @@ protocol CoordinatorsDIProtocol: AnyObject {
     func setLayoutSettings() -> SetLayoutSettingsCoordinatorAssemblyProtocol
     func setRelations() -> SetRelationsCoordinatorAssemblyProtocol
     func setViewPicker() -> SetViewPickerCoordinatorAssemblyProtocol
+    func share() -> ShareCoordinatorAssemblyProtocol
     func setObjectCreationSettings() -> SetObjectCreationSettingsCoordinatorAssemblyProtocol
     
     // Now like a coordinator. Migrate to isolated modules

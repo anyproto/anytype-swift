@@ -57,12 +57,11 @@ final class ApplicationCoordinator: ApplicationCoordinatorProtocol {
     }
     
     func handleDeeplink(url: URL) {
-        guard applicationStateService.state == .home else { return }
         switch url {
         case URLConstants.createObjectURL:
-            windowManager.createAndShowNewObject()
+            AppActionStorage.shared.action = .createObject
         case URLConstants.sharingExtenstionURL:
-            windowManager.showSharingScene()
+            AppActionStorage.shared.action = .showSharingExtension
         default:
             break
         }

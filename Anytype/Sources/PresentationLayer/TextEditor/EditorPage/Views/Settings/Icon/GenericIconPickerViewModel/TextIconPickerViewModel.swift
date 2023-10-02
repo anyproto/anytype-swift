@@ -12,18 +12,21 @@ final class TextIconPickerViewModel: ObservableObject, ObjectIconPickerViewModel
     private let textService: TextServiceProtocol
     private let contextId: BlockId
     private let objectId: BlockId
+    private let spaceId: String
     private var cancellables = [AnyCancellable]()
 
     init(
         fileService: FileActionsServiceProtocol,
         textService: TextServiceProtocol,
         contextId: BlockId,
-        objectId: BlockId
+        objectId: BlockId,
+        spaceId: String
     ) {
         self.fileService = fileService
         self.textService = textService
         self.contextId = contextId
         self.objectId = objectId
+        self.spaceId = spaceId
     }
     
 
@@ -41,7 +44,7 @@ final class TextIconPickerViewModel: ObservableObject, ObjectIconPickerViewModel
     func uploadImage(from itemProvider: NSItemProvider) {
         let safeSendableItemProvider = SafeSendable(value: itemProvider)
         Task {
-            let hash = try await fileService.uploadImage(source: .itemProvider(safeSendableItemProvider.value))
+            let hash = try await fileService.uploadImage(spaceId: spaceId, source: .itemProvider(safeSendableItemProvider.value))
             try await textService.setTextIcon(
                 contextId: contextId,
                 blockId: objectId,

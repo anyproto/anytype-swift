@@ -7,30 +7,34 @@ final class RelationsSearchInteractor {
     private let workspaceService: WorkspaceServiceProtocol
     private let relationsService: RelationsServiceProtocol
     private let dataviewService: DataviewServiceProtocol
+    private let relationDetailsStorage: RelationDetailsStorageProtocol
     
     init(
         searchService: SearchServiceProtocol,
         workspaceService: WorkspaceServiceProtocol,
         relationsService: RelationsServiceProtocol,
-        dataviewService: DataviewServiceProtocol
+        dataviewService: DataviewServiceProtocol,
+        relationDetailsStorage: RelationDetailsStorageProtocol
     ) {
         self.searchService = searchService
         self.workspaceService = workspaceService
         self.relationsService = relationsService
         self.dataviewService = dataviewService
+        self.relationDetailsStorage = relationDetailsStorage
     }
     
-    func search(text: String, excludedIds: [String]) async throws -> [RelationDetails] {
-        try await searchService.searchRelations(text: text, excludedIds: excludedIds)
+    func search(text: String, excludedIds: [String], spaceId: String) async throws -> [RelationDetails] {
+        try await searchService.searchRelations(text: text, excludedIds: excludedIds, spaceId: spaceId)
     }
     
-    func searchInMarketplace(text: String) async throws -> [RelationDetails] {
-        try await searchService.searchMarketplaceRelations(text: text, includeInstalled: false)
+    func searchInMarketplace(text: String, spaceId: String) async throws -> [RelationDetails] {
+        let excludedIds = relationDetailsStorage.relationsDetails(spaceId: spaceId).map(\.sourceObject)
+        return try await searchService.searchMarketplaceRelations(text: text, excludedIds: excludedIds)
     }
     
-    func installRelation(objectId: String) async throws -> RelationDetails? {
-        try await workspaceService.installObject(objectId: objectId)
-            .map { RelationDetails(objectDetails: $0) }
+    func installRelation(spaceId: String, objectId: String) async throws -> RelationDetails? {
+        let objectDetails = try await workspaceService.installObject(spaceId: spaceId, objectId: objectId)
+        return RelationDetails(objectDetails: objectDetails)
     }
     
     func addRelationToObject(relation: RelationDetails) async throws {

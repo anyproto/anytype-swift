@@ -42,7 +42,7 @@ protocol EditorSetRouterProtocol:
         onSelect: @escaping (Bool, BlockBackgroundColor?) -> Void
     )
     
-    func showSettings()
+    func showSettings(actionHandler: @escaping (ObjectSettingsAction) -> Void)
     func showQueries(selectedObjectId: BlockId?, onSelect: @escaping (BlockId) -> ())
     
     func closeEditor()
@@ -67,7 +67,6 @@ final class EditorSetRouter: EditorSetRouterProtocol, ObjectSettingsCoordinatorO
     
     private let setDocument: SetDocumentProtocol
     private weak var rootController: EditorBrowserController?
-    private weak var viewController: UIViewController?
     private let navigationContext: NavigationContextProtocol
     private let createObjectModuleAssembly: CreateObjectModuleAssemblyProtocol
     private let newSearchModuleAssembly: NewSearchModuleAssemblyProtocol
@@ -94,7 +93,6 @@ final class EditorSetRouter: EditorSetRouterProtocol, ObjectSettingsCoordinatorO
     init(
         setDocument: SetDocumentProtocol,
         rootController: EditorBrowserController?,
-        viewController: UIViewController,
         navigationContext: NavigationContextProtocol,
         createObjectModuleAssembly: CreateObjectModuleAssemblyProtocol,
         newSearchModuleAssembly: NewSearchModuleAssemblyProtocol,
@@ -116,7 +114,6 @@ final class EditorSetRouter: EditorSetRouterProtocol, ObjectSettingsCoordinatorO
     ) {
         self.setDocument = setDocument
         self.rootController = rootController
-        self.viewController = viewController
         self.navigationContext = navigationContext
         self.createObjectModuleAssembly = createObjectModuleAssembly
         self.newSearchModuleAssembly = newSearchModuleAssembly
@@ -196,6 +193,7 @@ final class EditorSetRouter: EditorSetRouterProtocol, ObjectSettingsCoordinatorO
     
     func showCreateBookmarkObject() {
         let moduleViewController = createObjectModuleAssembly.makeCreateBookmark(
+            spaceId: setDocument.spaceId,
             closeAction: { [weak self] details in
                 if let details, let self {
                     AnytypeAnalytics.instance().logCreateObject(objectType: details.analyticsType, route: setDocument.isCollection() ? .collection : .set)
@@ -351,22 +349,30 @@ final class EditorSetRouter: EditorSetRouterProtocol, ObjectSettingsCoordinatorO
         navigationContext.present(popup)
     }
     
-    func showSettings() {
-        objectSettingCoordinator.startFlow(objectId: setDocument.objectId, delegate: self, output: self)
+    func showSettings(actionHandler: @escaping (ObjectSettingsAction) -> Void) {
+        objectSettingCoordinator.startFlow(
+            objectId: setDocument.objectId,
+            delegate: self,
+            output: self,
+            objectSettingsHandler: actionHandler
+        )
     }
     
-    func showCoverPicker() {
+    func showCoverPicker(
+        document: BaseDocumentGeneralProtocol,
+        onCoverAction: @escaping (ObjectCoverPickerAction) -> Void
+    ) {
         let moduleViewController = objectCoverPickerModuleAssembly.make(
-            document: setDocument,
-            objectId: setDocument.targetObjectID ?? setDocument.objectId
+            document: document,
+            onCoverAction: onCoverAction
         )
         navigationContext.present(moduleViewController)
     }
     
-    func showIconPicker() {
+    func showIconPicker(document: BaseDocumentGeneralProtocol, onIconAction: @escaping (ObjectIconPickerAction) -> Void) {
         let moduleViewController = objectIconPickerModuleAssembly.make(
             document: setDocument,
-            objectId: setDocument.targetObjectID ?? setDocument.objectId
+            onIconAction: onIconAction
         )
         navigationContext.present(moduleViewController)
     }
@@ -382,8 +388,7 @@ final class EditorSetRouter: EditorSetRouterProtocol, ObjectSettingsCoordinatorO
     }
     
     func closeEditor() {
-        guard let viewController else { return }
-        rootController?.popIfPresent(viewController)
+        navigationContext.pop(animated: true)
     }
     
     func showRelationValueEditingView(key: String) {
@@ -436,6 +441,7 @@ final class EditorSetRouter: EditorSetRouterProtocol, ObjectSettingsCoordinatorO
     ) {
         let view = newSearchModuleAssembly.objectTypeSearchModule(
             title: title,
+            spaceId: setDocument.spaceId,
             selectedObjectId: selectedObjectId,
             excludedObjectTypeId: setDocument.details?.type,
             showBookmark: showBookmark,

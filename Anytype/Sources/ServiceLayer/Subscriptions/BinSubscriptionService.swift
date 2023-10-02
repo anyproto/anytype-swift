@@ -18,15 +18,15 @@ final class BinSubscriptionService: BinSubscriptionServiceProtocol {
     }
     
     private let subscriptionService: SubscriptionsServiceProtocol
-    private let accountManager: AccountManagerProtocol
+    private let activeWorkspaceStorage: ActiveWorkpaceStorageProtocol
     private let subscriptionId = "Bin-\(UUID().uuidString)"
     
     init(
         subscriptionService: SubscriptionsServiceProtocol,
-        accountManager: AccountManagerProtocol
+        activeWorkspaceStorage: ActiveWorkpaceStorageProtocol
     ) {
         self.subscriptionService = subscriptionService
-        self.accountManager = accountManager
+        self.activeWorkspaceStorage = activeWorkspaceStorage
     }
     
     func startSubscription(
@@ -42,7 +42,7 @@ final class BinSubscriptionService: BinSubscriptionServiceProtocol {
         let filters = [
             SearchHelper.notHiddenFilter(),
             SearchHelper.isArchivedFilter(isArchived: true),
-            SearchHelper.workspaceId(accountManager.account.info.accountSpaceId)
+            SearchHelper.spaceId(activeWorkspaceStorage.workspaceInfo.accountSpaceId)
         ]
         
         let searchData: SubscriptionData = .search(

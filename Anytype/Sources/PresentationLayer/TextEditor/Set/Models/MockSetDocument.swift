@@ -3,9 +3,12 @@ import Services
 import Combine
 
 final class MockSetDocument: SetDocumentProtocol {
+    
     var document: BaseDocumentProtocol { fatalError() }
     
     var objectId: BlockId { "" }
+    
+    var spaceId: String { "" }
     
     var blockId: BlockId? { nil }
     
@@ -62,6 +65,10 @@ final class MockSetDocument: SetDocumentProtocol {
     func isBookmarksSet() -> Bool { false }
     
     func isCollection() -> Bool { false }
+    
+    func defaultObjectTypeForActiveView() throws -> ObjectType { fatalError() }
+    
+    func defaultObjectTypeForView(_ view: DataviewView) throws -> ObjectType { fatalError() }
     
     var syncPublisher: AnyPublisher<Void, Never> { fatalError() }
     

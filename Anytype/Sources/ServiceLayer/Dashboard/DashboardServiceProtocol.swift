@@ -3,5 +3,5 @@ import Services
 
 protocol DashboardServiceProtocol {
     
-    func createNewPage() async throws -> ObjectDetails
+    func createNewPage(spaceId: String) async throws -> ObjectDetails
 }

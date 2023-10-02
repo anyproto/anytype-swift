@@ -80,6 +80,7 @@ final class ObjectActionsService: ObjectActionsServiceProtocol {
     func createPage(
         contextId: BlockId,
         targetId: BlockId,
+        spaceId: String,
         details: [BundledDetails],
         position: BlockPosition,
         templateId: String
@@ -102,6 +103,7 @@ final class ObjectActionsService: ObjectActionsServiceProtocol {
             $0.targetID = targetId
             $0.position = position.asMiddleware
             $0.internalFlags = internalFlags
+            $0.spaceID = spaceId
         }).invoke()
         
         return response.targetID
@@ -118,7 +120,6 @@ final class ObjectActionsService: ObjectActionsServiceProtocol {
     }
     
     func duplicate(objectId: BlockId) async throws -> BlockId {
-        AnytypeAnalytics.instance().logDuplicateObject()
         let result = try await ClientCommands.objectDuplicate(.with {
             $0.contextID = objectId
         }).invoke()
@@ -168,14 +169,11 @@ final class ObjectActionsService: ObjectActionsServiceProtocol {
         }).invoke()
     }
 
-    func convertChildrenToPages(contextID: BlockId, blocksIds: [BlockId], typeId: String) async throws -> [BlockId] {
-        let type = objectTypeProvider.objectType(id: typeId)?.analyticsType ?? .object(typeId: typeId)
-        AnytypeAnalytics.instance().logCreateObject(objectType: type, route: .turnInto)
-
+    func convertChildrenToPages(contextID: BlockId, blocksIds: [BlockId], typeUniqueKey: ObjectTypeUniqueKey) async throws -> [BlockId] {
         let response = try await ClientCommands.blockListConvertToObjects(.with {
             $0.contextID = contextID
             $0.blockIds = blocksIds
-            $0.objectType = typeId
+            $0.objectTypeUniqueKey = typeUniqueKey.value
         }).invoke()
         
         return response.linkIds
@@ -191,14 +189,11 @@ final class ObjectActionsService: ObjectActionsServiceProtocol {
         }).invoke()
     }
     
-    func setObjectType(objectId: BlockId, objectTypeId: String) async throws {
+    func setObjectType(objectId: BlockId, typeUniqueKey: ObjectTypeUniqueKey) async throws {
         _ = try await ClientCommands.objectSetObjectType(.with {
             $0.contextID = objectId
-            $0.objectTypeURL = objectTypeId
+            $0.objectTypeUniqueKey = typeUniqueKey.value
         }).invoke()
-        
-        let objectType = objectTypeProvider.objectType(id: objectTypeId)?.analyticsType ?? .object(typeId: objectTypeId)
-        AnytypeAnalytics.instance().logObjectTypeChange(objectType)
     }
 
     func setObjectSetType(objectId: BlockId) async throws {

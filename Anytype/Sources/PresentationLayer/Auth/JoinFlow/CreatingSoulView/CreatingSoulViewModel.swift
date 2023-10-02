@@ -55,11 +55,11 @@ final class CreatingSoulViewModel: ObservableObject {
             output?.disableBackAction(true)
             do {
                 state.mnemonic = try await authService.createWallet()
-                try await authService.createAccount(
+                let account = try await authService.createAccount(
                     name: "",
                     imagePath: ""
                 )
-                try await usecaseService.setObjectImportUseCaseToSkip()
+                try await usecaseService.setObjectImportUseCaseToSkip(spaceId: account.info.accountSpaceId)
                 try? seedService.saveSeed(state.mnemonic)
                 
                 createAccountSuccess()
@@ -92,7 +92,7 @@ final class CreatingSoulViewModel: ObservableObject {
         
         subscriptionService.startSubscription(
             subIdPrefix: Constants.subSpaceId,
-            objectId: accountManager.account.info.accountSpaceId
+            objectId: accountManager.account.info.workspaceObjectId
         ) { [weak self] details in
             self?.spaceIcon = details.objectIconImage
             self?.animateCreation()

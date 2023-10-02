@@ -15,42 +15,48 @@ public struct ObjectType: Equatable, Hashable, Codable {
     public let name: String
     public let iconEmoji: Emoji
     public let description: String
-    public let recommendedLayout: DetailsLayout
     public let hidden: Bool
     public let readonly: Bool
     public let isArchived: Bool
     public let isDeleted: Bool
     public let sourceObject: String
+    public let spaceId: String
+    public let uniqueKey: ObjectTypeUniqueKey
     public let defaultTemplateId: String
     
     public let recommendedRelations: [ObjectId]
+    public let recommendedLayout: DetailsLayout?
     
     public init(
         id: String,
         name: String,
         iconEmoji: Emoji,
         description: String,
-        recommendedLayout: DetailsLayout,
         hidden: Bool,
         readonly: Bool,
         isArchived: Bool,
         isDeleted: Bool,
         sourceObject: String,
+        spaceId: String,
+        uniqueKey: ObjectTypeUniqueKey,
+        defaultTemplateId: String,
         recommendedRelations: [ObjectId],
-        defaultTemplateId: String
+        recommendedLayout: DetailsLayout?
     ) {
         self.id = id
         self.name = name
         self.iconEmoji = iconEmoji
         self.description = description
-        self.recommendedLayout = recommendedLayout
         self.hidden = hidden
         self.readonly = readonly
         self.isArchived = isArchived
         self.isDeleted = isDeleted
         self.sourceObject = sourceObject
-        self.recommendedRelations = recommendedRelations
+        self.spaceId = spaceId
+        self.uniqueKey = uniqueKey
         self.defaultTemplateId = defaultTemplateId
+        self.recommendedRelations = recommendedRelations
+        self.recommendedLayout = recommendedLayout
     }
 }
 
@@ -62,14 +68,16 @@ extension ObjectType {
             name: details.name,
             iconEmoji: details.iconEmoji ?? Emoji.default,
             description: details.description,
-            recommendedLayout: details.recommendedLayout.flatMap { DetailsLayout(rawValue: $0) } ?? .unknown,
             hidden: details.isHidden,
             readonly: details.isReadonly,
             isArchived: details.isArchived,
             isDeleted: details.isDeleted,
             sourceObject: details.sourceObject,
+            spaceId: details.spaceId,
+            uniqueKey: details.uniqueKeyValue,
+            defaultTemplateId: details.defaultTemplateId,
             recommendedRelations: details.recommendedRelations,
-            defaultTemplateId: details.defaultTemplateId
+            recommendedLayout: details.recommendedLayoutValue
         )
     }
     

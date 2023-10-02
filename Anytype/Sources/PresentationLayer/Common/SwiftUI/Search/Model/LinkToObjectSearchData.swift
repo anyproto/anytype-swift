@@ -33,7 +33,7 @@ struct LinkToObjectSearchData: SearchDataProtocol {
         self.description = ""
         self.callout = ""
         self.typeId = ""
-        self.editorScreenData = .page(EditorPageObject(objectId: "", isSupportedForEdit: true, isOpenedForPreview: false))
+        self.editorScreenData = .page(EditorPageObject(objectId: "", spaceId: "", isSupportedForEdit: true, isOpenedForPreview: false))
     }
     
 }

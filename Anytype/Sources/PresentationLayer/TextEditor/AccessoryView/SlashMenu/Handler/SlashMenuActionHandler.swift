@@ -39,15 +39,15 @@ final class SlashMenuActionHandler {
             switch action {
             case .linkTo:
                 router.showLinkTo { [weak self] details in
-                    self?.actionHandler.addLink(targetId: details.id, typeId: details.type, blockId: blockId)
+                    self?.actionHandler.addLink(targetDetails: details, blockId: blockId)
                 }
             case .objectType(let object):
                 Task { @MainActor [weak self] in
                     try await self?.actionHandler
-                        .createPage(targetId: blockId, type: .dynamic(object.id), templateId: object.defaultTemplateId)
-                        .flatMap { id in
+                        .createPage(targetId: blockId, spaceId: object.spaceId, typeUniqueKey: object.uniqueKeyValue, templateId: object.defaultTemplateId)
+                        .flatMap { objectId in
                             AnytypeAnalytics.instance().logCreateObject(objectType: object.analyticsType, route: .powertool)
-                            self?.router.showPage(data: .page(EditorPageObject(objectId: id, isSupportedForEdit: true, isOpenedForPreview: false)))
+                            self?.router.showPage(data: .page(EditorPageObject(objectId: objectId, spaceId: object.spaceId, isSupportedForEdit: true, isOpenedForPreview: false)))
                         }
                 }
             }

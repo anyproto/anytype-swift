@@ -15,6 +15,7 @@ extension NSItemProvider {
                     let destination = directory.appendingPathComponent(url.lastPathComponent, isDirectory: false)
                     do {
                         try? FileManager.default.createDirectory(at: directory, withIntermediateDirectories: false)
+                        try? FileManager.default.removeItem(at: destination)
                         try FileManager.default.copyItem(at: url, to: destination)
                         continuation.resume(returning: destination)
                     } catch {

@@ -19,7 +19,7 @@ final class TextRelationReloadContentActionViewModel: TextRelationActionViewMode
         bookmarkService: BookmarkServiceProtocol,
         alertOpener: AlertOpenerProtocol
     ) {
-        guard objectDetails.objectType.id == ObjectTypeId.bundled(.bookmark).rawValue,
+        guard objectDetails.layoutValue == .bookmark,
               relation.isSource else { return nil }
         
         self.objectDetails = objectDetails

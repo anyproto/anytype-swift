@@ -35,7 +35,7 @@ final class TemplatesCoordinator {
 
     func showTemplatesPopupIfNeeded(
         document: BaseDocumentProtocol,
-        templatesTypeId: ObjectTypeId,
+        templatesTypeId: String,
         onShow: (() -> Void)?
     ) {
         let isSelectTemplate = document.details?.isSelectTemplate ?? false
@@ -43,7 +43,7 @@ final class TemplatesCoordinator {
         
         showTemplatesTask = Task { @MainActor [weak self] in
             guard isSelectTemplate,
-                  let availableTemplates = try? await self?.searchService.searchTemplates(for: templatesTypeId) else {
+                  let availableTemplates = try? await self?.searchService.searchTemplates(for: templatesTypeId, spaceId: document.spaceId) else {
                 return
             }
             guard availableTemplates.count >= Constants.minimumTemplatesAvailableToPick else {
@@ -64,7 +64,7 @@ final class TemplatesCoordinator {
     
     func showTemplatesPopupWithTypeCheckIfNeeded(
         document: BaseDocumentProtocol,
-        templatesTypeId: ObjectTypeId,
+        templatesTypeId: String,
         onShow: (() -> Void)?
     ) {
         let needShowTypeMenu = document.details?.isSelectType ?? false &&

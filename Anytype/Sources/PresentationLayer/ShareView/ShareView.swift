@@ -1,7 +1,7 @@
 import SwiftUI
 
 struct ShareView: View {
-    @ObservedObject var viewModel: ShareViewModel
+    @StateObject var viewModel: ShareViewModel
     
     var body: some View {
         NavigationView {
@@ -10,7 +10,7 @@ struct ShareView: View {
                     viewModel.contentViewModel.showingView
                 }
             }.padding(.horizontal, 16)
-                .background(Color.Additional.sharingBackground)
+                .background(UIColor.systemGroupedBackground.suColor)
                 .navigationTitle(Loc.Sharing.Navigation.title)
             .navigationBarTitleDisplayMode(.inline)
             .navigationBarItems(
@@ -33,7 +33,7 @@ struct SectionTitle: View {
     var body: some View {
         HStack {
             Spacer.fixedWidth(16)
-            AnytypeText(title, style: .caption1Medium, color: .Text.tertiary)
+            AnytypeText(title, style: .caption1Medium, color: UIColor.secondaryLabel.suColor)
             Spacer()
         }
     }

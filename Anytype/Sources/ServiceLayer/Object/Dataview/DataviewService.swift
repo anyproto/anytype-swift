@@ -173,14 +173,14 @@ final class DataviewService: DataviewServiceProtocol {
     }
     
     func addRecord(
-        objectType: String,
+        typeUniqueKey: ObjectTypeUniqueKey?,
         templateId: BlockId,
+        spaceId: String,
         setFilters: [SetFilter],
         relationsDetails: [RelationDetails]
     ) async throws -> ObjectDetails {
-        var prefilledFields = prefilledFieldsBuilder.buildPrefilledFields(from: setFilters, relationsDetails: relationsDetails)
-        prefilledFields[BundledRelationKey.type.rawValue] = objectType.protobufValue
-
+        let prefilledFields = prefilledFieldsBuilder.buildPrefilledFields(from: setFilters, relationsDetails: relationsDetails)
+        
         let internalFlags: [Anytype_Model_InternalFlag] = .builder {
             Anytype_Model_InternalFlag.with { $0.value = .editorSelectTemplate }
         }
@@ -191,6 +191,10 @@ final class DataviewService: DataviewServiceProtocol {
             $0.details = details
             $0.internalFlags = internalFlags
             $0.templateID = templateId
+            $0.spaceID = spaceId
+            if let typeUniqueKey {
+                $0.objectTypeUniqueKey = typeUniqueKey.value
+            }
         }).invoke()
 
         return try ObjectDetails(protobufStruct: response.details)

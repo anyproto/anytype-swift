@@ -3,11 +3,11 @@ import Services
 
 struct ObjectTypesConfiguration {
     let objectTypes: [ObjectType]
-    let objectTypeId: ObjectTypeId
+    let objectTypeId: String
 
     static let empty = ObjectTypesConfiguration(
         objectTypes: [],
-        objectTypeId: .dynamic("")
+        objectTypeId: ""
     )
 }
 

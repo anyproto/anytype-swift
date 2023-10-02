@@ -7,7 +7,7 @@ final class MockSetObjectCreationSettingsInteractor: SetObjectCreationSettingsIn
     var objectTypesAvailabilityPublisher: AnyPublisher<Bool, Never> { $canChangeObjectType.eraseToAnyPublisher() }
     @Published var canChangeObjectType = false
     
-    var objectTypeId: ObjectTypeId { fatalError() }
+    var objectTypeId: String { fatalError() }
     var objectTypesConfigPublisher: AnyPublisher<ObjectTypesConfiguration, Never> { $objectTypesConfig.eraseToAnyPublisher()
     }
     @Published private var objectTypesConfig = ObjectTypesConfiguration.empty
@@ -24,7 +24,7 @@ final class MockSetObjectCreationSettingsInteractor: SetObjectCreationSettingsIn
         fatalError()
     }
     
-    func setObjectTypeId(_ objectTypeId: ObjectTypeId) {
+    func setObjectTypeId(_ objectTypeId: String) {
         fatalError()
     }
 }

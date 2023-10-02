@@ -21,6 +21,7 @@ final class NewRelationViewModel: ObservableObject {
     @Published private var format: SupportedRelationFormat
     @Published private var objectTypes: [ObjectType]?
     
+    private let document: BaseDocumentProtocol
     private let service: RelationsServiceProtocol
     private let toastPresenter: ToastPresenterProtocol
     private let objectTypeProvider: ObjectTypeProviderProtocol
@@ -28,11 +29,13 @@ final class NewRelationViewModel: ObservableObject {
     
     init(
         name: String,
+        document: BaseDocumentProtocol,
         service: RelationsServiceProtocol,
         toastPresenter: ToastPresenterProtocol,
         objectTypeProvider: ObjectTypeProviderProtocol,
         output: NewRelationModuleOutput?
     ) {
+        self.document = document
         self.service = service
         self.toastPresenter = toastPresenter
         self.objectTypeProvider = objectTypeProvider
@@ -69,14 +72,15 @@ extension NewRelationViewModel {
             objectTypes: objectTypeIds,
             maxCount: 0,
             sourceObject: "",
-            isDeleted: false
+            isDeleted: false,
+            spaceId: ""
         )
         
-        Task { @MainActor [weak self] in
-            guard let createRelation = try await self?.service.createRelation(relationDetails: relationDetails) else { return }
-            self?.toastPresenter.show(message: Loc.Relation.addedToLibrary(createRelation.name))
+        Task { @MainActor in
+            let createRelation = try await service.createRelation(spaceId: document.spaceId, relationDetails: relationDetails)
+            toastPresenter.show(message: Loc.Relation.addedToLibrary(createRelation.name))
             UINotificationFeedbackGenerator().notificationOccurred(.success)
-            self?.output?.didCreateRelation(createRelation)
+            output?.didCreateRelation(createRelation)
         }
     }
     
@@ -93,7 +97,7 @@ extension NewRelationViewModel: NewRelationModuleInput {
     
     func updateTypesRestriction(objectTypeIds: [String]) {
         objectTypes = objectTypeIds.compactMap {
-            objectTypeProvider.objectType(id: $0)
+            try? objectTypeProvider.objectType(id: $0)
         }
     }
     

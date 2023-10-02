@@ -90,6 +90,7 @@ public protocol BundledRelationsValueProvider {
     var isFavorite: Bool { get }
     var stars: [ObjectId] { get }
     var workspaceId: ObjectId { get }
+    var spaceId: ObjectId { get }
     var audioGenre: String { get }
     var telegram: AnytypeURL? { get }
     var trailer: [Hash] { get }
@@ -149,7 +150,9 @@ public protocol BundledRelationsValueProvider {
     var lastChangeId: String { get }
     var starred: Bool { get }
     var defaultTemplateId: ObjectId { get }
+    var uniqueKey: String { get }
     var backlinks: ObjectId { get }
+    var isUninstalled: Bool { get }
 } 
 
 public extension BundledRelationsValueProvider where Self: RelationValueProvider {
@@ -441,6 +444,10 @@ public extension BundledRelationsValueProvider where Self: RelationValueProvider
     var workspaceId: ObjectId {
         return value(for: BundledRelationKey.workspaceId.rawValue)
     }
+    /// Space belongs to
+    var spaceId: ObjectId {
+        return value(for: BundledRelationKey.spaceId.rawValue)
+    }
     /// Audio record's genre name
     var audioGenre: String {
         return value(for: BundledRelationKey.audioGenre.rawValue)
@@ -648,8 +655,16 @@ public extension BundledRelationsValueProvider where Self: RelationValueProvider
     var defaultTemplateId: ObjectId {
         return value(for: BundledRelationKey.defaultTemplateId.rawValue)
     }
+    /// Unique key used to ensure object uniqueness within the space
+    var uniqueKey: String {
+        return value(for: BundledRelationKey.uniqueKey.rawValue)
+    }
     /// List of backlinks
     var backlinks: ObjectId {
         return value(for: BundledRelationKey.backlinks.rawValue)
+    }
+    /// Relation that indicates document has been uninstalled
+    var isUninstalled: Bool {
+        return value(for: BundledRelationKey.isUninstalled.rawValue)
     }
 }

@@ -5,6 +5,7 @@ import AnytypeCore
 
 protocol LinkToObjectCoordinatorProtocol: AnyObject {
     func startFlow(
+        spaceId: String,
         currentLink: Either<URL, BlockId>?,
         setLinkToObject: @escaping (_ blockId: String) -> Void,
         setLinkToUrl: @escaping (_ url: URL) -> Void,
@@ -38,6 +39,7 @@ final class LinkToObjectCoordinator: LinkToObjectCoordinatorProtocol {
     // MARK: - LinkToObjectCoordinatorProtocol
         
     func startFlow(
+        spaceId: String,
         currentLink: Either<URL, BlockId>?,
         setLinkToObject: @escaping (_ blockId: String) -> Void,
         setLinkToUrl: @escaping (_ url: URL) -> Void,
@@ -51,7 +53,7 @@ final class LinkToObjectCoordinator: LinkToObjectCoordinatorProtocol {
                 setLinkToObject(linkBlockId)
             case let .createObject(name):
                 Task { @MainActor [weak self] in
-                    if let linkBlockDetails = try? await self?.pageService.createDefaultPage(name: name) {
+                    if let linkBlockDetails = try? await self?.pageService.createDefaultPage(name: name, spaceId: spaceId) {
                         AnytypeAnalytics.instance().logCreateObject(objectType: linkBlockDetails.analyticsType, route: .mention)
                         setLinkToObject(linkBlockDetails.id)
                     }
@@ -71,22 +73,23 @@ final class LinkToObjectCoordinator: LinkToObjectCoordinatorProtocol {
             }
         }
         
-        showLinkToObject(currentLink: currentLink, onSelect: onLinkSelection)
+        showLinkToObject(spaceId: spaceId, currentLink: currentLink, onSelect: onLinkSelection)
     }
     
     
     // MARK: - Private
     
     func showLinkToObject(
+        spaceId: String,
         currentLink: Either<URL, BlockId>?,
         onSelect: @escaping (LinkToObjectSearchViewModel.SearchKind) -> ()
     ) {
-        let viewModel = LinkToObjectSearchViewModel(currentLink: currentLink, searchService: searchService) { data in
+        let viewModel = LinkToObjectSearchViewModel(spaceId: spaceId, currentLink: currentLink, searchService: searchService) { data in
             onSelect(data.searchKind)
         }
         let linkToView = SearchView(title: Loc.linkTo, viewModel: viewModel)
 
-        navigationContext.presentSwiftUIView(view: linkToView, model: viewModel)
+        navigationContext.presentSwiftUIView(view: linkToView)
     }
     
 }

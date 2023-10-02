@@ -11,14 +11,16 @@ final class ServiceLocator {
     let textService = TextService()
     let templatesService = TemplatesService()
     let sharedContentManager: SharedContentManagerProtocol = SharedContentManager()
-    lazy private(set) var setTemplatesInteractor = SetTemplatesInteractor(templatesService: templatesService)
+    lazy private(set) var setTemplatesInteractor = SetTemplatesInteractor(templatesService: templatesService, objecTypeProvider: objectTypeProvider())
     lazy private(set) var sharedContentInteractor: SharedContentInteractorProtocol = SharedContentInteractor(
         listService: blockListService(),
         bookmarkService: bookmarkService(),
         objectActionsService: objectActionsService(),
         blockActionService: blockActionsServiceSingle(),
-        pageRepository: pageRepository()
+        pageRepository: pageRepository(),
+        activeWorkpaceStorage: activeWorkspaceStorage()
     )
+    lazy private(set) var unsplashService: UnsplashServiceProtocol = UnsplashService()
     
     // MARK: - Services
     
@@ -53,7 +55,8 @@ final class ServiceLocator {
         objectTypeProvider: objectTypeProvider(),
         middlewareConfigurationProvider: middlewareConfigurationProvider(),
         blockWidgetExpandedService: blockWidgetExpandedService(),
-        relationDetailsStorage: relationDetailsStorage()
+        relationDetailsStorage: relationDetailsStorage(),
+        workspacesStorage: workspaceStorage()
     )
     func loginStateService() -> LoginStateServiceProtocol {
         return _loginStateService
@@ -76,11 +79,7 @@ final class ServiceLocator {
     }
     
     func searchService() -> SearchServiceProtocol {
-        SearchService(
-            accountManager: accountManager(),
-            objectTypeProvider: objectTypeProvider(),
-            relationDetailsStorage: relationDetailsStorage()
-        )
+        SearchService()
     }
     
     func detailsService(objectId: BlockId) -> DetailsServiceProtocol {
@@ -158,7 +157,7 @@ final class ServiceLocator {
     func recentSubscriptionService() -> RecentSubscriptionServiceProtocol {
         return RecentSubscriptionService(
             subscriptionService: subscriptionService(),
-            accountManager: accountManager(),
+            activeWorkspaceStorage: activeWorkspaceStorage(),
             objectTypeProvider: objectTypeProvider()
         )
     }
@@ -166,7 +165,7 @@ final class ServiceLocator {
     func setsSubscriptionService() -> SetsSubscriptionServiceProtocol {
         return SetsSubscriptionService(
             subscriptionService: subscriptionService(),
-            accountManager: accountManager(),
+            activeWorkspaceStorage: activeWorkspaceStorage(),
             objectTypeProvider: objectTypeProvider()
         )
     }
@@ -174,7 +173,7 @@ final class ServiceLocator {
     func collectionsSubscriptionService() -> CollectionsSubscriptionServiceProtocol {
         return CollectionsSubscriptionService(
             subscriptionService: subscriptionService(),
-            accountManager: accountManager(),
+            activeWorkspaceStorage: activeWorkspaceStorage(),
             objectTypeProvider: objectTypeProvider()
         )
     }
@@ -182,7 +181,7 @@ final class ServiceLocator {
     func binSubscriptionService() -> BinSubscriptionServiceProtocol {
         return BinSubscriptionService(
             subscriptionService: subscriptionService(),
-            accountManager: accountManager()
+            activeWorkspaceStorage: activeWorkspaceStorage()
         )
     }
     
@@ -194,7 +193,7 @@ final class ServiceLocator {
     }
     
     func filesSubscriptionManager() -> FilesSubscriptionServiceProtocol {
-        return FilesSubscriptionService(subscriptionService: subscriptionService(), accountManager: accountManager())
+        return FilesSubscriptionService(subscriptionService: subscriptionService(), activeWorkspaceStorage: activeWorkspaceStorage())
     }
     
     private lazy var _middlewareConfigurationProvider = MiddlewareConfigurationProvider()
@@ -202,7 +201,7 @@ final class ServiceLocator {
         return _middlewareConfigurationProvider
     }
     
-    private lazy var _documentService = DocumentService(relationDetailsStorage: relationDetailsStorage())
+    private lazy var _documentService = DocumentService(relationDetailsStorage: relationDetailsStorage(), objectTypeProvider: objectTypeProvider())
     func documentService() -> DocumentServiceProtocol {
         return _documentService
     }
@@ -217,23 +216,28 @@ final class ServiceLocator {
         _applicationStateService
     }
     
-    func quickActionStorage() -> QuickActionsStorage {
-        QuickActionsStorage.shared
+    func appActionStorage() -> AppActionStorage {
+        AppActionStorage.shared
     }
     
     func objectsCommonSubscriptionDataBuilder() -> ObjectsCommonSubscriptionDataBuilderProtocol {
         ObjectsCommonSubscriptionDataBuilder()
     }
     
+    func objectHeaderInteractor(objectId: BlockId) -> ObjectHeaderInteractorProtocol {
+        ObjectHeaderInteractor(
+            detailsService: detailsService(objectId: objectId),
+            fileService: fileService(),
+            unsplashService: unsplashService
+        )
+    }
+    
     func singleObjectSubscriptionService() -> SingleObjectSubscriptionServiceProtocol {
         SingleObjectSubscriptionService(subscriptionService: subscriptionService(), subscriotionBuilder: objectsCommonSubscriptionDataBuilder())
     }
     
-    private weak var _fileLimitsStorage: FileLimitsStorageProtocol?
     func fileLimitsStorage() -> FileLimitsStorageProtocol {
-        let storage = _fileLimitsStorage ?? FileLimitsStorage(fileService: fileService())
-        _fileLimitsStorage = storage
-        return storage
+        return FileLimitsStorage(fileService: fileService())
     }
     
     private lazy var _fileErrorEventHandler = FileErrorEventHandler()
@@ -275,6 +279,28 @@ final class ServiceLocator {
     private lazy var _audioSessionService = AudioSessionService()
     func audioSessionService() -> AudioSessionServiceProtocol {
         _audioSessionService
+    }
+    
+    // In future lifecycle should be depend for screen
+    private lazy var _activeWorkspaceStorage = ActiveWorkspaceStorage(
+        workspaceStorage: workspaceStorage(),
+        accountManager: accountManager(),
+        workspaceService: workspaceService()
+    )
+    func activeWorkspaceStorage() -> ActiveWorkpaceStorageProtocol {
+        return _activeWorkspaceStorage
+    }
+
+    private lazy var _workspaceStorage = WorkspacesStorage(
+        subscriptionsService: subscriptionService(),
+        subscriptionBuilder: WorkspacesSubscriptionBuilder()
+    )
+    func workspaceStorage() -> WorkspacesStorageProtocol {
+        return _workspaceStorage
+    }
+    
+    func quickActionShortcutBuilder() -> QuickActionShortcutBuilderProtocol {
+        return QuickActionShortcutBuilder(activeWorkspaceStorage: activeWorkspaceStorage(), objectTypeProvider: objectTypeProvider())
     }
     
     // MARK: - Private

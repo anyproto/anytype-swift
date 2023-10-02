@@ -69,7 +69,6 @@ final class SetObjectCreationSettingsCoordinator: SetObjectCreationSettingsCoord
         view.model.onObjectTypesSearchAction = { [weak self, weak model] in
             self?.showTypesSearch(
                 setDocument: setDocument,
-                selectedObjectId: nil,
                 onSelect: { objectTypeId in
                     model?.setObjectTypeId(objectTypeId)
                 }
@@ -108,24 +107,29 @@ final class SetObjectCreationSettingsCoordinator: SetObjectCreationSettingsCoord
         onTemplateSelection: @escaping (ObjectCreationSetting) -> Void,
         onSetAsDefaultTempalte: @escaping (BlockId) -> Void
     ) {
-        let editorPage = editorAssembly.buildEditorModule(
-            browser: nil,
-            data: .page(
-                .init(
-                    objectId: setting.templateId,
-                    isSupportedForEdit: true,
-                    isOpenedForPreview: false,
-                    usecase: .templateEditing
-                )
-            )
-        )
+        let editorPage = editorAssembly.buildPageModule(browser: nil, data: .init(
+            objectId: setting.templateId,
+            spaceId: setting.spaceId,
+            isSupportedForEdit: true,
+            isOpenedForPreview: false,
+            usecase: .templateEditing
+        ))
+       
+        let viewModel = editorPage.0.viewModel
         handler = TemplateSelectionObjectSettingsHandler(useAsTemplateAction: onSetAsDefaultTempalte)
         let editingTemplateViewController = TemplateEditingViewController(
-            editorViewController: editorPage.vc,
-            onSettingsTap: { [weak self] in
+            editorViewController: editorPage.0,
+            onSettingsTap: { [weak self, weak viewModel] in
                 guard let self = self, let handler = self.handler else { return }
                 
-                self.objectSettingCoordinator.startFlow(objectId: setting.templateId, delegate: handler, output: nil)
+                self.objectSettingCoordinator.startFlow(
+                    objectId: setting.templateId,
+                    delegate: handler,
+                    output: nil,
+                    objectSettingsHandler: {
+                        viewModel?.handleSettingsAction(action: $0)
+                    }
+                )
             }, onSelectTemplateTap: { [weak self] in
                 guard let self else { return }
                 switch mode {
@@ -146,12 +150,11 @@ final class SetObjectCreationSettingsCoordinator: SetObjectCreationSettingsCoord
     
     private func showTypesSearch(
         setDocument: SetDocumentProtocol,
-        selectedObjectId: BlockId?,
         onSelect: @escaping (BlockId) -> ()
     ) {
         let view = newSearchModuleAssembly.objectTypeSearchModule(
             title: Loc.changeType,
-            selectedObjectId: selectedObjectId,
+            spaceId: setDocument.spaceId,
             showBookmark: true,
             showSetAndCollection: true,
             browser: nil

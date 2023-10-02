@@ -3,11 +3,16 @@ import Foundation
 @MainActor
 final class WallpaperPickerViewModel: ObservableObject {
  
-    @Published var wallpaper: BackgroundType = UserDefaultsConfig.wallpaper {
+    private let spaceId: String
+    
+    @Published var wallpaper: BackgroundType {
         didSet {
-            UserDefaultsConfig.wallpaper = wallpaper
+            UserDefaultsConfig.setWallpaper(spaceId: spaceId, wallpaper: wallpaper)
         }
     }
     
-    init() {}
+    init(spaceId: String) {
+        self.spaceId = spaceId
+        wallpaper = UserDefaultsConfig.wallpaper(spaceId: spaceId)
+    }
 }

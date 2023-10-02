@@ -17,6 +17,7 @@ final class SetFiltersSelectionCoordinatorViewModel: ObservableObject, SetFilter
     private let completion: (SetFilter) -> Void
     
     init(
+        spaceId: String,
         filter: SetFilter,
         setFiltersSelectionHeaderModuleAssembly: SetFiltersSelectionHeaderModuleAssemblyProtocol,
         setFiltersSelectionViewModuleAssembly: SetFiltersSelectionViewModuleAssemblyProtocol,
@@ -31,6 +32,7 @@ final class SetFiltersSelectionCoordinatorViewModel: ObservableObject, SetFilter
         self.setFiltersSelectionViewModuleAssembly = setFiltersSelectionViewModuleAssembly
         self.setFilterConditionsModuleAssembly = setFilterConditionsModuleAssembly
         self.contentViewBuilder = SetFiltersContentViewBuilder(
+            spaceId: spaceId,
             filter: filter,
             setFiltersSelectionHeaderModuleAssembly: setFiltersSelectionHeaderModuleAssembly,
             setFiltersDateCoordinatorAssembly: setFiltersDateCoordinatorAssembly,

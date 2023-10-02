@@ -37,10 +37,15 @@ public enum Anytype_Model_SmartBlockType: SwiftProtobuf.Enum {
   /// DEPRECATED
   case bundledRelation // = 512
   case subObject // = 513
+
+  /// DEPRECATED
   case bundledObjectType // = 514
   case anytypeProfile // = 515
   case date // = 516
   case workspace // = 518
+  case strelation // = 521
+  case sttype // = 528
+  case strelationOption // = 529
   case missingObject // = 519
   case UNRECOGNIZED(Int)
 
@@ -66,6 +71,9 @@ public enum Anytype_Model_SmartBlockType: SwiftProtobuf.Enum {
     case 516: self = .date
     case 518: self = .workspace
     case 519: self = .missingObject
+    case 521: self = .strelation
+    case 528: self = .sttype
+    case 529: self = .strelationOption
     default: self = .UNRECOGNIZED(rawValue)
     }
   }
@@ -88,6 +96,9 @@ public enum Anytype_Model_SmartBlockType: SwiftProtobuf.Enum {
     case .date: return 516
     case .workspace: return 518
     case .missingObject: return 519
+    case .strelation: return 521
+    case .sttype: return 528
+    case .strelationOption: return 529
     case .UNRECOGNIZED(let i): return i
     }
   }
@@ -98,7 +109,7 @@ public enum Anytype_Model_SmartBlockType: SwiftProtobuf.Enum {
 
 extension Anytype_Model_SmartBlockType: CaseIterable {
   // The compiler won't synthesize support with the UNRECOGNIZED case.
-  public static let allCases: [Anytype_Model_SmartBlockType] = [
+  public static var allCases: [Anytype_Model_SmartBlockType] = [
     .accountOld,
     .page,
     .profilePage,
@@ -114,6 +125,9 @@ extension Anytype_Model_SmartBlockType: CaseIterable {
     .anytypeProfile,
     .date,
     .workspace,
+    .strelation,
+    .sttype,
+    .strelationOption,
     .missingObject,
   ]
 }
@@ -217,7 +231,7 @@ public enum Anytype_Model_RelationFormat: SwiftProtobuf.Enum {
 
 extension Anytype_Model_RelationFormat: CaseIterable {
   // The compiler won't synthesize support with the UNRECOGNIZED case.
-  public static let allCases: [Anytype_Model_RelationFormat] = [
+  public static var allCases: [Anytype_Model_RelationFormat] = [
     .longtext,
     .shorttext,
     .number,
@@ -279,6 +293,9 @@ public struct Anytype_Model_SmartBlockSnapshotBase {
   public var removedCollectionKeys: [String] = []
 
   public var relationLinks: [Anytype_Model_RelationLink] = []
+
+  /// this field is not passing to the crdt changes and can be only set in the snapshot
+  public var key: String = String()
 
   public var unknownFields = SwiftProtobuf.UnknownStorage()
 
@@ -2232,7 +2249,7 @@ public struct Anytype_Model_Block {
 
 extension Anytype_Model_Block.Position: CaseIterable {
   // The compiler won't synthesize support with the UNRECOGNIZED case.
-  public static let allCases: [Anytype_Model_Block.Position] = [
+  public static var allCases: [Anytype_Model_Block.Position] = [
     .none,
     .top,
     .bottom,
@@ -2246,7 +2263,7 @@ extension Anytype_Model_Block.Position: CaseIterable {
 
 extension Anytype_Model_Block.Align: CaseIterable {
   // The compiler won't synthesize support with the UNRECOGNIZED case.
-  public static let allCases: [Anytype_Model_Block.Align] = [
+  public static var allCases: [Anytype_Model_Block.Align] = [
     .left,
     .center,
     .right,
@@ -2255,7 +2272,7 @@ extension Anytype_Model_Block.Align: CaseIterable {
 
 extension Anytype_Model_Block.VerticalAlign: CaseIterable {
   // The compiler won't synthesize support with the UNRECOGNIZED case.
-  public static let allCases: [Anytype_Model_Block.VerticalAlign] = [
+  public static var allCases: [Anytype_Model_Block.VerticalAlign] = [
     .top,
     .middle,
     .bottom,
@@ -2264,7 +2281,7 @@ extension Anytype_Model_Block.VerticalAlign: CaseIterable {
 
 extension Anytype_Model_Block.Content.Layout.Style: CaseIterable {
   // The compiler won't synthesize support with the UNRECOGNIZED case.
-  public static let allCases: [Anytype_Model_Block.Content.Layout.Style] = [
+  public static var allCases: [Anytype_Model_Block.Content.Layout.Style] = [
     .row,
     .column,
     .div,
@@ -2276,7 +2293,7 @@ extension Anytype_Model_Block.Content.Layout.Style: CaseIterable {
 
 extension Anytype_Model_Block.Content.Link.IconSize: CaseIterable {
   // The compiler won't synthesize support with the UNRECOGNIZED case.
-  public static let allCases: [Anytype_Model_Block.Content.Link.IconSize] = [
+  public static var allCases: [Anytype_Model_Block.Content.Link.IconSize] = [
     .sizeNone,
     .sizeSmall,
     .sizeMedium,
@@ -2285,7 +2302,7 @@ extension Anytype_Model_Block.Content.Link.IconSize: CaseIterable {
 
 extension Anytype_Model_Block.Content.Link.Style: CaseIterable {
   // The compiler won't synthesize support with the UNRECOGNIZED case.
-  public static let allCases: [Anytype_Model_Block.Content.Link.Style] = [
+  public static var allCases: [Anytype_Model_Block.Content.Link.Style] = [
     .page,
     .dataview,
     .dashboard,
@@ -2295,7 +2312,7 @@ extension Anytype_Model_Block.Content.Link.Style: CaseIterable {
 
 extension Anytype_Model_Block.Content.Link.Description: CaseIterable {
   // The compiler won't synthesize support with the UNRECOGNIZED case.
-  public static let allCases: [Anytype_Model_Block.Content.Link.Description] = [
+  public static var allCases: [Anytype_Model_Block.Content.Link.Description] = [
     .none,
     .added,
     .content,
@@ -2304,7 +2321,7 @@ extension Anytype_Model_Block.Content.Link.Description: CaseIterable {
 
 extension Anytype_Model_Block.Content.Link.CardStyle: CaseIterable {
   // The compiler won't synthesize support with the UNRECOGNIZED case.
-  public static let allCases: [Anytype_Model_Block.Content.Link.CardStyle] = [
+  public static var allCases: [Anytype_Model_Block.Content.Link.CardStyle] = [
     .text,
     .card,
     .inline,
@@ -2313,7 +2330,7 @@ extension Anytype_Model_Block.Content.Link.CardStyle: CaseIterable {
 
 extension Anytype_Model_Block.Content.Div.Style: CaseIterable {
   // The compiler won't synthesize support with the UNRECOGNIZED case.
-  public static let allCases: [Anytype_Model_Block.Content.Div.Style] = [
+  public static var allCases: [Anytype_Model_Block.Content.Div.Style] = [
     .line,
     .dots,
   ]
@@ -2321,7 +2338,7 @@ extension Anytype_Model_Block.Content.Div.Style: CaseIterable {
 
 extension Anytype_Model_Block.Content.Bookmark.State: CaseIterable {
   // The compiler won't synthesize support with the UNRECOGNIZED case.
-  public static let allCases: [Anytype_Model_Block.Content.Bookmark.State] = [
+  public static var allCases: [Anytype_Model_Block.Content.Bookmark.State] = [
     .empty,
     .fetching,
     .done,
@@ -2331,7 +2348,7 @@ extension Anytype_Model_Block.Content.Bookmark.State: CaseIterable {
 
 extension Anytype_Model_Block.Content.Text.Style: CaseIterable {
   // The compiler won't synthesize support with the UNRECOGNIZED case.
-  public static let allCases: [Anytype_Model_Block.Content.Text.Style] = [
+  public static var allCases: [Anytype_Model_Block.Content.Text.Style] = [
     .paragraph,
     .header1,
     .header2,
@@ -2351,7 +2368,7 @@ extension Anytype_Model_Block.Content.Text.Style: CaseIterable {
 
 extension Anytype_Model_Block.Content.Text.Mark.TypeEnum: CaseIterable {
   // The compiler won't synthesize support with the UNRECOGNIZED case.
-  public static let allCases: [Anytype_Model_Block.Content.Text.Mark.TypeEnum] = [
+  public static var allCases: [Anytype_Model_Block.Content.Text.Mark.TypeEnum] = [
     .strikethrough,
     .keyboard,
     .italic,
@@ -2368,7 +2385,7 @@ extension Anytype_Model_Block.Content.Text.Mark.TypeEnum: CaseIterable {
 
 extension Anytype_Model_Block.Content.File.TypeEnum: CaseIterable {
   // The compiler won't synthesize support with the UNRECOGNIZED case.
-  public static let allCases: [Anytype_Model_Block.Content.File.TypeEnum] = [
+  public static var allCases: [Anytype_Model_Block.Content.File.TypeEnum] = [
     .none,
     .file,
     .image,
@@ -2380,7 +2397,7 @@ extension Anytype_Model_Block.Content.File.TypeEnum: CaseIterable {
 
 extension Anytype_Model_Block.Content.File.Style: CaseIterable {
   // The compiler won't synthesize support with the UNRECOGNIZED case.
-  public static let allCases: [Anytype_Model_Block.Content.File.Style] = [
+  public static var allCases: [Anytype_Model_Block.Content.File.Style] = [
     .auto,
     .link,
     .embed,
@@ -2389,7 +2406,7 @@ extension Anytype_Model_Block.Content.File.Style: CaseIterable {
 
 extension Anytype_Model_Block.Content.File.State: CaseIterable {
   // The compiler won't synthesize support with the UNRECOGNIZED case.
-  public static let allCases: [Anytype_Model_Block.Content.File.State] = [
+  public static var allCases: [Anytype_Model_Block.Content.File.State] = [
     .empty,
     .uploading,
     .done,
@@ -2399,7 +2416,7 @@ extension Anytype_Model_Block.Content.File.State: CaseIterable {
 
 extension Anytype_Model_Block.Content.Dataview.View.TypeEnum: CaseIterable {
   // The compiler won't synthesize support with the UNRECOGNIZED case.
-  public static let allCases: [Anytype_Model_Block.Content.Dataview.View.TypeEnum] = [
+  public static var allCases: [Anytype_Model_Block.Content.Dataview.View.TypeEnum] = [
     .table,
     .list,
     .gallery,
@@ -2409,7 +2426,7 @@ extension Anytype_Model_Block.Content.Dataview.View.TypeEnum: CaseIterable {
 
 extension Anytype_Model_Block.Content.Dataview.View.Size: CaseIterable {
   // The compiler won't synthesize support with the UNRECOGNIZED case.
-  public static let allCases: [Anytype_Model_Block.Content.Dataview.View.Size] = [
+  public static var allCases: [Anytype_Model_Block.Content.Dataview.View.Size] = [
     .small,
     .medium,
     .large,
@@ -2418,7 +2435,7 @@ extension Anytype_Model_Block.Content.Dataview.View.Size: CaseIterable {
 
 extension Anytype_Model_Block.Content.Dataview.Relation.DateFormat: CaseIterable {
   // The compiler won't synthesize support with the UNRECOGNIZED case.
-  public static let allCases: [Anytype_Model_Block.Content.Dataview.Relation.DateFormat] = [
+  public static var allCases: [Anytype_Model_Block.Content.Dataview.Relation.DateFormat] = [
     .monthAbbrBeforeDay,
     .monthAbbrAfterDay,
     .short,
@@ -2429,7 +2446,7 @@ extension Anytype_Model_Block.Content.Dataview.Relation.DateFormat: CaseIterable
 
 extension Anytype_Model_Block.Content.Dataview.Relation.TimeFormat: CaseIterable {
   // The compiler won't synthesize support with the UNRECOGNIZED case.
-  public static let allCases: [Anytype_Model_Block.Content.Dataview.Relation.TimeFormat] = [
+  public static var allCases: [Anytype_Model_Block.Content.Dataview.Relation.TimeFormat] = [
     .format12,
     .format24,
   ]
@@ -2437,7 +2454,7 @@ extension Anytype_Model_Block.Content.Dataview.Relation.TimeFormat: CaseIterable
 
 extension Anytype_Model_Block.Content.Dataview.Sort.TypeEnum: CaseIterable {
   // The compiler won't synthesize support with the UNRECOGNIZED case.
-  public static let allCases: [Anytype_Model_Block.Content.Dataview.Sort.TypeEnum] = [
+  public static var allCases: [Anytype_Model_Block.Content.Dataview.Sort.TypeEnum] = [
     .asc,
     .desc,
     .custom,
@@ -2446,7 +2463,7 @@ extension Anytype_Model_Block.Content.Dataview.Sort.TypeEnum: CaseIterable {
 
 extension Anytype_Model_Block.Content.Dataview.Filter.Operator: CaseIterable {
   // The compiler won't synthesize support with the UNRECOGNIZED case.
-  public static let allCases: [Anytype_Model_Block.Content.Dataview.Filter.Operator] = [
+  public static var allCases: [Anytype_Model_Block.Content.Dataview.Filter.Operator] = [
     .and,
     .or,
   ]
@@ -2454,7 +2471,7 @@ extension Anytype_Model_Block.Content.Dataview.Filter.Operator: CaseIterable {
 
 extension Anytype_Model_Block.Content.Dataview.Filter.Condition: CaseIterable {
   // The compiler won't synthesize support with the UNRECOGNIZED case.
-  public static let allCases: [Anytype_Model_Block.Content.Dataview.Filter.Condition] = [
+  public static var allCases: [Anytype_Model_Block.Content.Dataview.Filter.Condition] = [
     .none,
     .equal,
     .notEqual,
@@ -2478,7 +2495,7 @@ extension Anytype_Model_Block.Content.Dataview.Filter.Condition: CaseIterable {
 
 extension Anytype_Model_Block.Content.Dataview.Filter.QuickOption: CaseIterable {
   // The compiler won't synthesize support with the UNRECOGNIZED case.
-  public static let allCases: [Anytype_Model_Block.Content.Dataview.Filter.QuickOption] = [
+  public static var allCases: [Anytype_Model_Block.Content.Dataview.Filter.QuickOption] = [
     .exactDate,
     .yesterday,
     .today,
@@ -2496,7 +2513,7 @@ extension Anytype_Model_Block.Content.Dataview.Filter.QuickOption: CaseIterable 
 
 extension Anytype_Model_Block.Content.Widget.Layout: CaseIterable {
   // The compiler won't synthesize support with the UNRECOGNIZED case.
-  public static let allCases: [Anytype_Model_Block.Content.Widget.Layout] = [
+  public static var allCases: [Anytype_Model_Block.Content.Widget.Layout] = [
     .link,
     .tree,
     .list,
@@ -2759,8 +2776,9 @@ public struct Anytype_Model_Account {
 
     public var deviceID: String = String()
 
-    /// marketplace template id
     public var accountSpaceID: String = String()
+
+    public var workspaceObjectID: String = String()
 
     public var widgetsID: String = String()
 
@@ -2792,7 +2810,7 @@ public struct Anytype_Model_Account {
 
 extension Anytype_Model_Account.StatusType: CaseIterable {
   // The compiler won't synthesize support with the UNRECOGNIZED case.
-  public static let allCases: [Anytype_Model_Account.StatusType] = [
+  public static var allCases: [Anytype_Model_Account.StatusType] = [
     .active,
     .pendingDeletion,
     .startedDeletion,
@@ -2862,7 +2880,7 @@ public struct Anytype_Model_LinkPreview {
 
 extension Anytype_Model_LinkPreview.TypeEnum: CaseIterable {
   // The compiler won't synthesize support with the UNRECOGNIZED case.
-  public static let allCases: [Anytype_Model_LinkPreview.TypeEnum] = [
+  public static var allCases: [Anytype_Model_LinkPreview.TypeEnum] = [
     .unknown,
     .page,
     .image,
@@ -3003,7 +3021,7 @@ public struct Anytype_Model_Restrictions {
 
 extension Anytype_Model_Restrictions.ObjectRestriction: CaseIterable {
   // The compiler won't synthesize support with the UNRECOGNIZED case.
-  public static let allCases: [Anytype_Model_Restrictions.ObjectRestriction] = [
+  public static var allCases: [Anytype_Model_Restrictions.ObjectRestriction] = [
     .none,
     .delete,
     .relations,
@@ -3018,7 +3036,7 @@ extension Anytype_Model_Restrictions.ObjectRestriction: CaseIterable {
 
 extension Anytype_Model_Restrictions.DataviewRestriction: CaseIterable {
   // The compiler won't synthesize support with the UNRECOGNIZED case.
-  public static let allCases: [Anytype_Model_Restrictions.DataviewRestriction] = [
+  public static var allCases: [Anytype_Model_Restrictions.DataviewRestriction] = [
     .dvnone,
     .dvrelation,
     .dvcreateObject,
@@ -3041,6 +3059,8 @@ public struct Anytype_Model_Object {
     // methods supported on all messages.
 
     public var smartBlockType: Anytype_Model_SmartBlockType = .accountOld
+
+    public var key: String = String()
 
     public var unknownFields = SwiftProtobuf.UnknownStorage()
 
@@ -3082,6 +3102,9 @@ public struct Anytype_Model_ObjectType {
 
   public var installedByDefault: Bool = false
 
+  /// name of objectType (can be localized for bundled types)
+  public var key: String = String()
+
   public var unknownFields = SwiftProtobuf.UnknownStorage()
 
   public enum Layout: SwiftProtobuf.Enum {
@@ -3101,6 +3124,9 @@ public struct Anytype_Model_ObjectType {
     case relationOptionsList // = 12
     case relationOption // = 13
     case collection // = 14
+    case audio // = 15
+    case video // = 16
+    case date // = 17
 
     /// to be released later
     case database // = 20
@@ -3127,6 +3153,9 @@ public struct Anytype_Model_ObjectType {
       case 12: self = .relationOptionsList
       case 13: self = .relationOption
       case 14: self = .collection
+      case 15: self = .audio
+      case 16: self = .video
+      case 17: self = .date
       case 20: self = .database
       default: self = .UNRECOGNIZED(rawValue)
       }
@@ -3149,6 +3178,9 @@ public struct Anytype_Model_ObjectType {
       case .relationOptionsList: return 12
       case .relationOption: return 13
       case .collection: return 14
+      case .audio: return 15
+      case .video: return 16
+      case .date: return 17
       case .database: return 20
       case .UNRECOGNIZED(let i): return i
       }
@@ -3163,7 +3195,7 @@ public struct Anytype_Model_ObjectType {
 
 extension Anytype_Model_ObjectType.Layout: CaseIterable {
   // The compiler won't synthesize support with the UNRECOGNIZED case.
-  public static let allCases: [Anytype_Model_ObjectType.Layout] = [
+  public static var allCases: [Anytype_Model_ObjectType.Layout] = [
     .basic,
     .profile,
     .todo,
@@ -3179,6 +3211,9 @@ extension Anytype_Model_ObjectType.Layout: CaseIterable {
     .relationOptionsList,
     .relationOption,
     .collection,
+    .audio,
+    .video,
+    .date,
     .database,
   ]
 }
@@ -3412,7 +3447,7 @@ public struct Anytype_Model_Relation {
 
 extension Anytype_Model_Relation.Scope: CaseIterable {
   // The compiler won't synthesize support with the UNRECOGNIZED case.
-  public static let allCases: [Anytype_Model_Relation.Scope] = [
+  public static var allCases: [Anytype_Model_Relation.Scope] = [
     .object,
     .type,
     .setOfTheSameType,
@@ -3423,7 +3458,7 @@ extension Anytype_Model_Relation.Scope: CaseIterable {
 
 extension Anytype_Model_Relation.DataSource: CaseIterable {
   // The compiler won't synthesize support with the UNRECOGNIZED case.
-  public static let allCases: [Anytype_Model_Relation.DataSource] = [
+  public static var allCases: [Anytype_Model_Relation.DataSource] = [
     .details,
     .derived,
     .account,
@@ -3523,7 +3558,7 @@ public struct Anytype_Model_InternalFlag {
 
 extension Anytype_Model_InternalFlag.Value: CaseIterable {
   // The compiler won't synthesize support with the UNRECOGNIZED case.
-  public static let allCases: [Anytype_Model_InternalFlag.Value] = [
+  public static var allCases: [Anytype_Model_InternalFlag.Value] = [
     .editorDeleteEmpty,
     .editorSelectType,
     .editorSelectTemplate,
@@ -3761,6 +3796,9 @@ extension Anytype_Model_SmartBlockType: SwiftProtobuf._ProtoNameProviding {
     516: .same(proto: "Date"),
     518: .same(proto: "Workspace"),
     519: .same(proto: "MissingObject"),
+    521: .same(proto: "STRelation"),
+    528: .same(proto: "STType"),
+    529: .same(proto: "STRelationOption"),
   ]
 }
 
@@ -3794,6 +3832,7 @@ extension Anytype_Model_SmartBlockSnapshotBase: SwiftProtobuf.Message, SwiftProt
     6: .same(proto: "collections"),
     8: .same(proto: "removedCollectionKeys"),
     7: .same(proto: "relationLinks"),
+    9: .same(proto: "key"),
   ]
 
   public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
@@ -3810,6 +3849,7 @@ extension Anytype_Model_SmartBlockSnapshotBase: SwiftProtobuf.Message, SwiftProt
       case 6: try { try decoder.decodeSingularMessageField(value: &self._collections) }()
       case 7: try { try decoder.decodeRepeatedMessageField(value: &self.relationLinks) }()
       case 8: try { try decoder.decodeRepeatedStringField(value: &self.removedCollectionKeys) }()
+      case 9: try { try decoder.decodeSingularStringField(value: &self.key) }()
       default: break
       }
     }
@@ -3844,6 +3884,9 @@ extension Anytype_Model_SmartBlockSnapshotBase: SwiftProtobuf.Message, SwiftProt
     if !self.removedCollectionKeys.isEmpty {
       try visitor.visitRepeatedStringField(value: self.removedCollectionKeys, fieldNumber: 8)
     }
+    if !self.key.isEmpty {
+      try visitor.visitSingularStringField(value: self.key, fieldNumber: 9)
+    }
     try unknownFields.traverse(visitor: &visitor)
   }
 
@@ -3856,6 +3899,7 @@ extension Anytype_Model_SmartBlockSnapshotBase: SwiftProtobuf.Message, SwiftProt
     if lhs._collections != rhs._collections {return false}
     if lhs.removedCollectionKeys != rhs.removedCollectionKeys {return false}
     if lhs.relationLinks != rhs.relationLinks {return false}
+    if lhs.key != rhs.key {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
@@ -6449,6 +6493,7 @@ extension Anytype_Model_Account.Info: SwiftProtobuf.Message, SwiftProtobuf._Mess
     11: .same(proto: "marketplaceWorkspaceId"),
     8: .same(proto: "deviceId"),
     9: .same(proto: "accountSpaceId"),
+    12: .same(proto: "workspaceObjectId"),
     10: .same(proto: "widgetsId"),
     101: .same(proto: "gatewayUrl"),
     103: .same(proto: "localStoragePath"),
@@ -6470,6 +6515,7 @@ extension Anytype_Model_Account.Info: SwiftProtobuf.Message, SwiftProtobuf._Mess
       case 9: try { try decoder.decodeSingularStringField(value: &self.accountSpaceID) }()
       case 10: try { try decoder.decodeSingularStringField(value: &self.widgetsID) }()
       case 11: try { try decoder.decodeSingularStringField(value: &self.marketplaceWorkspaceID) }()
+      case 12: try { try decoder.decodeSingularStringField(value: &self.workspaceObjectID) }()
       case 101: try { try decoder.decodeSingularStringField(value: &self.gatewayURL) }()
       case 103: try { try decoder.decodeSingularStringField(value: &self.localStoragePath) }()
       case 104: try { try decoder.decodeSingularStringField(value: &self.timeZone) }()
@@ -6502,6 +6548,9 @@ extension Anytype_Model_Account.Info: SwiftProtobuf.Message, SwiftProtobuf._Mess
     if !self.marketplaceWorkspaceID.isEmpty {
       try visitor.visitSingularStringField(value: self.marketplaceWorkspaceID, fieldNumber: 11)
     }
+    if !self.workspaceObjectID.isEmpty {
+      try visitor.visitSingularStringField(value: self.workspaceObjectID, fieldNumber: 12)
+    }
     if !self.gatewayURL.isEmpty {
       try visitor.visitSingularStringField(value: self.gatewayURL, fieldNumber: 101)
     }
@@ -6527,6 +6576,7 @@ extension Anytype_Model_Account.Info: SwiftProtobuf.Message, SwiftProtobuf._Mess
     if lhs.marketplaceWorkspaceID != rhs.marketplaceWorkspaceID {return false}
     if lhs.deviceID != rhs.deviceID {return false}
     if lhs.accountSpaceID != rhs.accountSpaceID {return false}
+    if lhs.workspaceObjectID != rhs.workspaceObjectID {return false}
     if lhs.widgetsID != rhs.widgetsID {return false}
     if lhs.gatewayURL != rhs.gatewayURL {return false}
     if lhs.localStoragePath != rhs.localStoragePath {return false}
@@ -6731,6 +6781,7 @@ extension Anytype_Model_Object.ChangePayload: SwiftProtobuf.Message, SwiftProtob
   public static let protoMessageName: String = Anytype_Model_Object.protoMessageName + ".ChangePayload"
   public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
     1: .same(proto: "smartBlockType"),
+    2: .same(proto: "key"),
   ]
 
   public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
@@ -6740,6 +6791,7 @@ extension Anytype_Model_Object.ChangePayload: SwiftProtobuf.Message, SwiftProtob
       // enabled. https://github.com/apple/swift-protobuf/issues/1034
       switch fieldNumber {
       case 1: try { try decoder.decodeSingularEnumField(value: &self.smartBlockType) }()
+      case 2: try { try decoder.decodeSingularStringField(value: &self.key) }()
       default: break
       }
     }
@@ -6749,11 +6801,15 @@ extension Anytype_Model_Object.ChangePayload: SwiftProtobuf.Message, SwiftProtob
     if self.smartBlockType != .accountOld {
       try visitor.visitSingularEnumField(value: self.smartBlockType, fieldNumber: 1)
     }
+    if !self.key.isEmpty {
+      try visitor.visitSingularStringField(value: self.key, fieldNumber: 2)
+    }
     try unknownFields.traverse(visitor: &visitor)
   }
 
   public static func ==(lhs: Anytype_Model_Object.ChangePayload, rhs: Anytype_Model_Object.ChangePayload) -> Bool {
     if lhs.smartBlockType != rhs.smartBlockType {return false}
+    if lhs.key != rhs.key {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
@@ -6773,6 +6829,7 @@ extension Anytype_Model_ObjectType: SwiftProtobuf.Message, SwiftProtobuf._Messag
     8: .same(proto: "types"),
     9: .same(proto: "isArchived"),
     11: .same(proto: "installedByDefault"),
+    12: .same(proto: "key"),
   ]
 
   public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
@@ -6792,6 +6849,7 @@ extension Anytype_Model_ObjectType: SwiftProtobuf.Message, SwiftProtobuf._Messag
       case 9: try { try decoder.decodeSingularBoolField(value: &self.isArchived) }()
       case 10: try { try decoder.decodeSingularBoolField(value: &self.readonly) }()
       case 11: try { try decoder.decodeSingularBoolField(value: &self.installedByDefault) }()
+      case 12: try { try decoder.decodeSingularStringField(value: &self.key) }()
       default: break
       }
     }
@@ -6831,6 +6889,9 @@ extension Anytype_Model_ObjectType: SwiftProtobuf.Message, SwiftProtobuf._Messag
     if self.installedByDefault != false {
       try visitor.visitSingularBoolField(value: self.installedByDefault, fieldNumber: 11)
     }
+    if !self.key.isEmpty {
+      try visitor.visitSingularStringField(value: self.key, fieldNumber: 12)
+    }
     try unknownFields.traverse(visitor: &visitor)
   }
 
@@ -6846,6 +6907,7 @@ extension Anytype_Model_ObjectType: SwiftProtobuf.Message, SwiftProtobuf._Messag
     if lhs.types != rhs.types {return false}
     if lhs.isArchived != rhs.isArchived {return false}
     if lhs.installedByDefault != rhs.installedByDefault {return false}
+    if lhs.key != rhs.key {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
@@ -6868,6 +6930,9 @@ extension Anytype_Model_ObjectType.Layout: SwiftProtobuf._ProtoNameProviding {
     12: .same(proto: "relationOptionsList"),
     13: .same(proto: "relationOption"),
     14: .same(proto: "collection"),
+    15: .same(proto: "audio"),
+    16: .same(proto: "video"),
+    17: .same(proto: "date"),
     20: .same(proto: "database"),
   ]
 }

@@ -2,6 +2,7 @@ import Foundation
 import Services
 import Combine
 import UIKit
+import AnytypeCore
 
 @MainActor
 final class HomeBottomPanelViewModel: ObservableObject {
@@ -28,7 +29,7 @@ final class HomeBottomPanelViewModel: ObservableObject {
     
     // MARK: - Private properties
     
-    private let accountManager: AccountManagerProtocol
+    private let info: AccountInfo
     private let subscriptionService: SingleObjectSubscriptionServiceProtocol
     private let stateManager: HomeWidgetsStateManagerProtocol
     private let dashboardService: DashboardServiceProtocol
@@ -36,26 +37,28 @@ final class HomeBottomPanelViewModel: ObservableObject {
     
     // MARK: - State
     
-    private var spaceDetails: ObjectDetails?
-    private var subscriptions: [AnyCancellable] = []
+    private var profileDetails: ObjectDetails?
+    private var workspaceSubscription: AnyCancellable?
+    private var dataSubscriptions: [AnyCancellable] = []
     
     // MARK: - Public properties
     
     @Published var buttonState: ButtonState = .normal([])
+    @Published var isEditState: Bool = false
     
     init(
-        accountManager: AccountManagerProtocol,
+        info: AccountInfo,
         subscriptionService: SingleObjectSubscriptionServiceProtocol,
         stateManager: HomeWidgetsStateManagerProtocol,
         dashboardService: DashboardServiceProtocol,
         output: HomeBottomPanelModuleOutput?
     ) {
-        self.accountManager = accountManager
+        self.info = info
         self.subscriptionService = subscriptionService
         self.stateManager = stateManager
         self.dashboardService = dashboardService
         self.output = output
-        setupSubscription()
+        setupDataSubscription()
     }
         
     // MARK: - Private
@@ -80,35 +83,43 @@ final class HomeBottomPanelViewModel: ObservableObject {
                     UISelectionFeedbackGenerator().selectionChanged()
                     self?.handleCreateObject()
                 }),
-                ImageButton(image: spaceDetails?.objectIconImage, padding: true, onTap: { [weak self] in
-                    self?.output?.onSettingsSelected()
+                ImageButton(image: profileDetails?.objectIconImage, padding: true, onTap: { [weak self] in
+                    if FeatureFlags.multiSpace {
+                        self?.output?.onProfileSelected()
+                    } else {
+                        self?.output?.onSettingsSelected()
+                    }
                 })
             ])
         }
+        self.isEditState = isEditState
     }
     
-    private func setupSubscription() {
+    private func setupDataSubscription() {
+        dataSubscriptions.removeAll()
+        subscriptionService.stopSubscription(subIdPrefix: Constants.subId)
+        
         subscriptionService.startSubscription(
             subIdPrefix: Constants.subId,
-            objectId: accountManager.account.info.accountSpaceId
+            objectId: FeatureFlags.multiSpace ? info.profileObjectID : info.workspaceObjectId
         ) { [weak self] details in
-            self?.handleSpaceDetails(details: details)
+            self?.handleProfileDetails(details: details)
         }
         
         stateManager.isEditStatePublisher
             .receiveOnMain()
             .sink { [weak self] in self?.updateModels(isEditState: $0) }
-            .store(in: &subscriptions)
+            .store(in: &dataSubscriptions)
     }
     
-    private func handleSpaceDetails(details: ObjectDetails) {
-        spaceDetails = details
+    private func handleProfileDetails(details: ObjectDetails) {
+        profileDetails = details
         updateModels(isEditState: stateManager.isEditState)
     }
     
     private func handleCreateObject() {
         Task { @MainActor in
-            guard let details = try? await dashboardService.createNewPage() else { return }
+            guard let details = try? await dashboardService.createNewPage(spaceId: info.accountSpaceId) else { return }
             AnytypeAnalytics.instance().logCreateObject(objectType: details.analyticsType, route: .navigation, view: .home)
             
             output?.onCreateObjectSelected(screenData: details.editorScreenData())

@@ -768,16 +768,11 @@
 "ClearCache.Success" = "Cache sucessfully cleared";
 "ClearCache.Error" = "Error, try again later";
 
-// MARK: - MigrationGuide
-"MigrationGuide.Title" = "Almost there!";
-"MigrationGuide.Subtitle" = "To use this version of the app, please choose the correct option below to migrate your account.";
-"MigrationGuide.DidntComplete.Title" = "I didn’t complete migration";
-"MigrationGuide.DidntComplete.Step1" = "Download the desktop app **here**";
-"MigrationGuide.DidntComplete.Step2" = "Log in and update it to the latest version";
-"MigrationGuide.DidntComplete.Step3" = "Follow the migration instructions";
-"MigrationGuide.Completed.Title" = "I completed migration";
-"MigrationGuide.Completed.Description" = "Something might have gone wrong. Please visit our forum, read the migration instructions, and ask questions to our team.";
-"MigrationGuide.Completed.ForumButton" = "Visit forum";
+// MARK: - Settings
+"Settings.TitleLegacy" = "Personal Space";
+"Settings.Title" = "Settings";
+"Settings.SpaceName" = "Space name";
+"Settings.AccountAndAccess" = "Account and access";
 
 // MARK: - File Storage
 "FileStorage.Title" = "File storage";
@@ -804,6 +799,20 @@
 // MARK: - Cpear cache alert
 "ClearCacheAlert.Title" = "Are you sure?";
 "ClearCacheAlert.Description" = "All media files stored in Anytype will be deleted from your current device. They can be downloaded again from a backup node or another device.";
+
+// MARK: - Spaces
+"Spaces.Accessibility.Public" = "Public";
+"Spaces.Accessibility.Private" = "Private";
+"Spaces.Accessibility.PublicFull" = "Public space";
+"Spaces.Accessibility.PrivateFull" = "Private space";
+
+// MARK: - Space Settings
+"SpaceSettings.Title" = "Space settings";
+"SpaceSettings.RemoteStorage" = "Remote storage";
+"SpaceSettings.Info" = "Space info";
+
+// MARK: - Space Create
+"SpaceCreate.Title" = "Create a space";
 
 // MARK: - Sharing
 "Sharing.Navigation.title" = "Add to Anytype";

@@ -1,0 +1,21 @@
+// swiftlint:disable all
+
+{% macro enumList prefixType prefixVar %}
+{% for file in files %}
+  {% for value in file.document.data %}
+    {% if prefixVar.count == 0 %}
+    static let {{value}} = ObjectTypeUniqueKey(value: "{{prefixType}}{{value}}")
+    {% else %}
+    static let {{prefixVar}}{{value|upperFirstLetter}} = ObjectTypeUniqueKey(value: "{{prefixType}}{{value}}")
+    {% endif %}
+  {% endfor %}
+{% endfor %}
+{% endmacro %}
+
+{% if files %}
+public extension ObjectTypeUniqueKey {
+
+    {% call enumList "ot-" "" %}
+
+}
+{% endif %}

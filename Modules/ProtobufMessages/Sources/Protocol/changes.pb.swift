@@ -201,31 +201,6 @@ public struct Anytype_Change {
       set {value = .detailsUnset(newValue)}
     }
 
-    /// deprecated
-    public var oldRelationAdd: Anytype_Change._RelationAdd {
-      get {
-        if case .oldRelationAdd(let v)? = value {return v}
-        return Anytype_Change._RelationAdd()
-      }
-      set {value = .oldRelationAdd(newValue)}
-    }
-
-    public var oldRelationRemove: Anytype_Change._RelationRemove {
-      get {
-        if case .oldRelationRemove(let v)? = value {return v}
-        return Anytype_Change._RelationRemove()
-      }
-      set {value = .oldRelationRemove(newValue)}
-    }
-
-    public var oldRelationUpdate: Anytype_Change._RelationUpdate {
-      get {
-        if case .oldRelationUpdate(let v)? = value {return v}
-        return Anytype_Change._RelationUpdate()
-      }
-      set {value = .oldRelationUpdate(newValue)}
-    }
-
     public var objectTypeAdd: Anytype_Change.ObjectTypeAdd {
       get {
         if case .objectTypeAdd(let v)? = value {return v}
@@ -278,10 +253,6 @@ public struct Anytype_Change {
       case relationRemove(Anytype_Change.RelationRemove)
       case detailsSet(Anytype_Change.DetailsSet)
       case detailsUnset(Anytype_Change.DetailsUnset)
-      /// deprecated
-      case oldRelationAdd(Anytype_Change._RelationAdd)
-      case oldRelationRemove(Anytype_Change._RelationRemove)
-      case oldRelationUpdate(Anytype_Change._RelationUpdate)
       case objectTypeAdd(Anytype_Change.ObjectTypeAdd)
       case objectTypeRemove(Anytype_Change.ObjectTypeRemove)
       case storeKeySet(Anytype_Change.StoreKeySet)
@@ -328,18 +299,6 @@ public struct Anytype_Change {
         }()
         case (.detailsUnset, .detailsUnset): return {
           guard case .detailsUnset(let l) = lhs, case .detailsUnset(let r) = rhs else { preconditionFailure() }
-          return l == r
-        }()
-        case (.oldRelationAdd, .oldRelationAdd): return {
-          guard case .oldRelationAdd(let l) = lhs, case .oldRelationAdd(let r) = rhs else { preconditionFailure() }
-          return l == r
-        }()
-        case (.oldRelationRemove, .oldRelationRemove): return {
-          guard case .oldRelationRemove(let l) = lhs, case .oldRelationRemove(let r) = rhs else { preconditionFailure() }
-          return l == r
-        }()
-        case (.oldRelationUpdate, .oldRelationUpdate): return {
-          guard case .oldRelationUpdate(let l) = lhs, case .oldRelationUpdate(let r) = rhs else { preconditionFailure() }
           return l == r
         }()
         case (.objectTypeAdd, .objectTypeAdd): return {
@@ -502,175 +461,14 @@ public struct Anytype_Change {
     public init() {}
   }
 
-  public struct _RelationAdd {
-    // SwiftProtobuf.Message conformance is added in an extension below. See the
-    // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
-    // methods supported on all messages.
-
-    public var relation: Anytype_Model_Relation {
-      get {return _relation ?? Anytype_Model_Relation()}
-      set {_relation = newValue}
-    }
-    /// Returns true if `relation` has been explicitly set.
-    public var hasRelation: Bool {return self._relation != nil}
-    /// Clears the value of `relation`. Subsequent reads from it will return its default value.
-    public mutating func clearRelation() {self._relation = nil}
-
-    public var unknownFields = SwiftProtobuf.UnknownStorage()
-
-    public init() {}
-
-    fileprivate var _relation: Anytype_Model_Relation? = nil
-  }
-
-  public struct _RelationUpdate {
-    // SwiftProtobuf.Message conformance is added in an extension below. See the
-    // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
-    // methods supported on all messages.
-
-    public var key: String = String()
-
-    public var value: Anytype_Change._RelationUpdate.OneOf_Value? = nil
-
-    public var format: Anytype_Model_RelationFormat {
-      get {
-        if case .format(let v)? = value {return v}
-        return .longtext
-      }
-      set {value = .format(newValue)}
-    }
-
-    public var name: String {
-      get {
-        if case .name(let v)? = value {return v}
-        return String()
-      }
-      set {value = .name(newValue)}
-    }
-
-    public var defaultValue: SwiftProtobuf.Google_Protobuf_Value {
-      get {
-        if case .defaultValue(let v)? = value {return v}
-        return SwiftProtobuf.Google_Protobuf_Value()
-      }
-      set {value = .defaultValue(newValue)}
-    }
-
-    public var objectTypes: Anytype_Change._RelationUpdate.ObjectTypes {
-      get {
-        if case .objectTypes(let v)? = value {return v}
-        return Anytype_Change._RelationUpdate.ObjectTypes()
-      }
-      set {value = .objectTypes(newValue)}
-    }
-
-    public var multi: Bool {
-      get {
-        if case .multi(let v)? = value {return v}
-        return false
-      }
-      set {value = .multi(newValue)}
-    }
-
-    public var selectDict: Anytype_Change._RelationUpdate.Dict {
-      get {
-        if case .selectDict(let v)? = value {return v}
-        return Anytype_Change._RelationUpdate.Dict()
-      }
-      set {value = .selectDict(newValue)}
-    }
-
-    public var unknownFields = SwiftProtobuf.UnknownStorage()
-
-    public enum OneOf_Value: Equatable {
-      case format(Anytype_Model_RelationFormat)
-      case name(String)
-      case defaultValue(SwiftProtobuf.Google_Protobuf_Value)
-      case objectTypes(Anytype_Change._RelationUpdate.ObjectTypes)
-      case multi(Bool)
-      case selectDict(Anytype_Change._RelationUpdate.Dict)
-
-    #if !swift(>=4.1)
-      public static func ==(lhs: Anytype_Change._RelationUpdate.OneOf_Value, rhs: Anytype_Change._RelationUpdate.OneOf_Value) -> Bool {
-        // The use of inline closures is to circumvent an issue where the compiler
-        // allocates stack space for every case branch when no optimizations are
-        // enabled. https://github.com/apple/swift-protobuf/issues/1034
-        switch (lhs, rhs) {
-        case (.format, .format): return {
-          guard case .format(let l) = lhs, case .format(let r) = rhs else { preconditionFailure() }
-          return l == r
-        }()
-        case (.name, .name): return {
-          guard case .name(let l) = lhs, case .name(let r) = rhs else { preconditionFailure() }
-          return l == r
-        }()
-        case (.defaultValue, .defaultValue): return {
-          guard case .defaultValue(let l) = lhs, case .defaultValue(let r) = rhs else { preconditionFailure() }
-          return l == r
-        }()
-        case (.objectTypes, .objectTypes): return {
-          guard case .objectTypes(let l) = lhs, case .objectTypes(let r) = rhs else { preconditionFailure() }
-          return l == r
-        }()
-        case (.multi, .multi): return {
-          guard case .multi(let l) = lhs, case .multi(let r) = rhs else { preconditionFailure() }
-          return l == r
-        }()
-        case (.selectDict, .selectDict): return {
-          guard case .selectDict(let l) = lhs, case .selectDict(let r) = rhs else { preconditionFailure() }
-          return l == r
-        }()
-        default: return false
-        }
-      }
-    #endif
-    }
-
-    public struct Dict {
-      // SwiftProtobuf.Message conformance is added in an extension below. See the
-      // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
-      // methods supported on all messages.
-
-      public var dict: [Anytype_Model_Relation.Option] = []
-
-      public var unknownFields = SwiftProtobuf.UnknownStorage()
-
-      public init() {}
-    }
-
-    public struct ObjectTypes {
-      // SwiftProtobuf.Message conformance is added in an extension below. See the
-      // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
-      // methods supported on all messages.
-
-      public var objectTypes: [String] = []
-
-      public var unknownFields = SwiftProtobuf.UnknownStorage()
-
-      public init() {}
-    }
-
-    public init() {}
-  }
-
-  public struct _RelationRemove {
-    // SwiftProtobuf.Message conformance is added in an extension below. See the
-    // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
-    // methods supported on all messages.
-
-    public var key: String = String()
-
-    public var unknownFields = SwiftProtobuf.UnknownStorage()
-
-    public init() {}
-  }
-
   public struct ObjectTypeAdd {
     // SwiftProtobuf.Message conformance is added in an extension below. See the
     // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
     // methods supported on all messages.
 
     public var url: String = String()
+
+    public var key: String = String()
 
     public var unknownFields = SwiftProtobuf.UnknownStorage()
 
@@ -683,6 +481,8 @@ public struct Anytype_Change {
     // methods supported on all messages.
 
     public var url: String = String()
+
+    public var key: String = String()
 
     public var unknownFields = SwiftProtobuf.UnknownStorage()
 
@@ -851,12 +651,6 @@ extension Anytype_Change.DetailsSet: @unchecked Sendable {}
 extension Anytype_Change.DetailsUnset: @unchecked Sendable {}
 extension Anytype_Change.RelationAdd: @unchecked Sendable {}
 extension Anytype_Change.RelationRemove: @unchecked Sendable {}
-extension Anytype_Change._RelationAdd: @unchecked Sendable {}
-extension Anytype_Change._RelationUpdate: @unchecked Sendable {}
-extension Anytype_Change._RelationUpdate.OneOf_Value: @unchecked Sendable {}
-extension Anytype_Change._RelationUpdate.Dict: @unchecked Sendable {}
-extension Anytype_Change._RelationUpdate.ObjectTypes: @unchecked Sendable {}
-extension Anytype_Change._RelationRemove: @unchecked Sendable {}
 extension Anytype_Change.ObjectTypeAdd: @unchecked Sendable {}
 extension Anytype_Change.ObjectTypeRemove: @unchecked Sendable {}
 extension Anytype_Change.StoreKeySet: @unchecked Sendable {}
@@ -1094,9 +888,6 @@ extension Anytype_Change.Content: SwiftProtobuf.Message, SwiftProtobuf._MessageI
     51: .same(proto: "relationRemove"),
     100: .same(proto: "detailsSet"),
     101: .same(proto: "detailsUnset"),
-    102: .standard(proto: "old_relationAdd"),
-    103: .standard(proto: "old_relationRemove"),
-    104: .standard(proto: "old_relationUpdate"),
     105: .same(proto: "objectTypeAdd"),
     106: .same(proto: "objectTypeRemove"),
     107: .same(proto: "storeKeySet"),
@@ -1227,45 +1018,6 @@ extension Anytype_Change.Content: SwiftProtobuf.Message, SwiftProtobuf._MessageI
           self.value = .detailsUnset(v)
         }
       }()
-      case 102: try {
-        var v: Anytype_Change._RelationAdd?
-        var hadOneofValue = false
-        if let current = self.value {
-          hadOneofValue = true
-          if case .oldRelationAdd(let m) = current {v = m}
-        }
-        try decoder.decodeSingularMessageField(value: &v)
-        if let v = v {
-          if hadOneofValue {try decoder.handleConflictingOneOf()}
-          self.value = .oldRelationAdd(v)
-        }
-      }()
-      case 103: try {
-        var v: Anytype_Change._RelationRemove?
-        var hadOneofValue = false
-        if let current = self.value {
-          hadOneofValue = true
-          if case .oldRelationRemove(let m) = current {v = m}
-        }
-        try decoder.decodeSingularMessageField(value: &v)
-        if let v = v {
-          if hadOneofValue {try decoder.handleConflictingOneOf()}
-          self.value = .oldRelationRemove(v)
-        }
-      }()
-      case 104: try {
-        var v: Anytype_Change._RelationUpdate?
-        var hadOneofValue = false
-        if let current = self.value {
-          hadOneofValue = true
-          if case .oldRelationUpdate(let m) = current {v = m}
-        }
-        try decoder.decodeSingularMessageField(value: &v)
-        if let v = v {
-          if hadOneofValue {try decoder.handleConflictingOneOf()}
-          self.value = .oldRelationUpdate(v)
-        }
-      }()
       case 105: try {
         var v: Anytype_Change.ObjectTypeAdd?
         var hadOneofValue = false
@@ -1377,18 +1129,6 @@ extension Anytype_Change.Content: SwiftProtobuf.Message, SwiftProtobuf._MessageI
     case .detailsUnset?: try {
       guard case .detailsUnset(let v)? = self.value else { preconditionFailure() }
       try visitor.visitSingularMessageField(value: v, fieldNumber: 101)
-    }()
-    case .oldRelationAdd?: try {
-      guard case .oldRelationAdd(let v)? = self.value else { preconditionFailure() }
-      try visitor.visitSingularMessageField(value: v, fieldNumber: 102)
-    }()
-    case .oldRelationRemove?: try {
-      guard case .oldRelationRemove(let v)? = self.value else { preconditionFailure() }
-      try visitor.visitSingularMessageField(value: v, fieldNumber: 103)
-    }()
-    case .oldRelationUpdate?: try {
-      guard case .oldRelationUpdate(let v)? = self.value else { preconditionFailure() }
-      try visitor.visitSingularMessageField(value: v, fieldNumber: 104)
     }()
     case .objectTypeAdd?: try {
       guard case .objectTypeAdd(let v)? = self.value else { preconditionFailure() }
@@ -1756,275 +1496,11 @@ extension Anytype_Change.RelationRemove: SwiftProtobuf.Message, SwiftProtobuf._M
   }
 }
 
-extension Anytype_Change._RelationAdd: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
-  public static let protoMessageName: String = Anytype_Change.protoMessageName + "._RelationAdd"
-  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
-    2: .same(proto: "relation"),
-  ]
-
-  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
-    while let fieldNumber = try decoder.nextFieldNumber() {
-      // The use of inline closures is to circumvent an issue where the compiler
-      // allocates stack space for every case branch when no optimizations are
-      // enabled. https://github.com/apple/swift-protobuf/issues/1034
-      switch fieldNumber {
-      case 2: try { try decoder.decodeSingularMessageField(value: &self._relation) }()
-      default: break
-      }
-    }
-  }
-
-  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
-    // The use of inline closures is to circumvent an issue where the compiler
-    // allocates stack space for every if/case branch local when no optimizations
-    // are enabled. https://github.com/apple/swift-protobuf/issues/1034 and
-    // https://github.com/apple/swift-protobuf/issues/1182
-    try { if let v = self._relation {
-      try visitor.visitSingularMessageField(value: v, fieldNumber: 2)
-    } }()
-    try unknownFields.traverse(visitor: &visitor)
-  }
-
-  public static func ==(lhs: Anytype_Change._RelationAdd, rhs: Anytype_Change._RelationAdd) -> Bool {
-    if lhs._relation != rhs._relation {return false}
-    if lhs.unknownFields != rhs.unknownFields {return false}
-    return true
-  }
-}
-
-extension Anytype_Change._RelationUpdate: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
-  public static let protoMessageName: String = Anytype_Change.protoMessageName + "._RelationUpdate"
-  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
-    1: .same(proto: "key"),
-    2: .same(proto: "format"),
-    3: .same(proto: "name"),
-    4: .same(proto: "defaultValue"),
-    5: .same(proto: "objectTypes"),
-    6: .same(proto: "multi"),
-    7: .same(proto: "selectDict"),
-  ]
-
-  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
-    while let fieldNumber = try decoder.nextFieldNumber() {
-      // The use of inline closures is to circumvent an issue where the compiler
-      // allocates stack space for every case branch when no optimizations are
-      // enabled. https://github.com/apple/swift-protobuf/issues/1034
-      switch fieldNumber {
-      case 1: try { try decoder.decodeSingularStringField(value: &self.key) }()
-      case 2: try {
-        var v: Anytype_Model_RelationFormat?
-        try decoder.decodeSingularEnumField(value: &v)
-        if let v = v {
-          if self.value != nil {try decoder.handleConflictingOneOf()}
-          self.value = .format(v)
-        }
-      }()
-      case 3: try {
-        var v: String?
-        try decoder.decodeSingularStringField(value: &v)
-        if let v = v {
-          if self.value != nil {try decoder.handleConflictingOneOf()}
-          self.value = .name(v)
-        }
-      }()
-      case 4: try {
-        var v: SwiftProtobuf.Google_Protobuf_Value?
-        var hadOneofValue = false
-        if let current = self.value {
-          hadOneofValue = true
-          if case .defaultValue(let m) = current {v = m}
-        }
-        try decoder.decodeSingularMessageField(value: &v)
-        if let v = v {
-          if hadOneofValue {try decoder.handleConflictingOneOf()}
-          self.value = .defaultValue(v)
-        }
-      }()
-      case 5: try {
-        var v: Anytype_Change._RelationUpdate.ObjectTypes?
-        var hadOneofValue = false
-        if let current = self.value {
-          hadOneofValue = true
-          if case .objectTypes(let m) = current {v = m}
-        }
-        try decoder.decodeSingularMessageField(value: &v)
-        if let v = v {
-          if hadOneofValue {try decoder.handleConflictingOneOf()}
-          self.value = .objectTypes(v)
-        }
-      }()
-      case 6: try {
-        var v: Bool?
-        try decoder.decodeSingularBoolField(value: &v)
-        if let v = v {
-          if self.value != nil {try decoder.handleConflictingOneOf()}
-          self.value = .multi(v)
-        }
-      }()
-      case 7: try {
-        var v: Anytype_Change._RelationUpdate.Dict?
-        var hadOneofValue = false
-        if let current = self.value {
-          hadOneofValue = true
-          if case .selectDict(let m) = current {v = m}
-        }
-        try decoder.decodeSingularMessageField(value: &v)
-        if let v = v {
-          if hadOneofValue {try decoder.handleConflictingOneOf()}
-          self.value = .selectDict(v)
-        }
-      }()
-      default: break
-      }
-    }
-  }
-
-  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
-    // The use of inline closures is to circumvent an issue where the compiler
-    // allocates stack space for every if/case branch local when no optimizations
-    // are enabled. https://github.com/apple/swift-protobuf/issues/1034 and
-    // https://github.com/apple/swift-protobuf/issues/1182
-    if !self.key.isEmpty {
-      try visitor.visitSingularStringField(value: self.key, fieldNumber: 1)
-    }
-    switch self.value {
-    case .format?: try {
-      guard case .format(let v)? = self.value else { preconditionFailure() }
-      try visitor.visitSingularEnumField(value: v, fieldNumber: 2)
-    }()
-    case .name?: try {
-      guard case .name(let v)? = self.value else { preconditionFailure() }
-      try visitor.visitSingularStringField(value: v, fieldNumber: 3)
-    }()
-    case .defaultValue?: try {
-      guard case .defaultValue(let v)? = self.value else { preconditionFailure() }
-      try visitor.visitSingularMessageField(value: v, fieldNumber: 4)
-    }()
-    case .objectTypes?: try {
-      guard case .objectTypes(let v)? = self.value else { preconditionFailure() }
-      try visitor.visitSingularMessageField(value: v, fieldNumber: 5)
-    }()
-    case .multi?: try {
-      guard case .multi(let v)? = self.value else { preconditionFailure() }
-      try visitor.visitSingularBoolField(value: v, fieldNumber: 6)
-    }()
-    case .selectDict?: try {
-      guard case .selectDict(let v)? = self.value else { preconditionFailure() }
-      try visitor.visitSingularMessageField(value: v, fieldNumber: 7)
-    }()
-    case nil: break
-    }
-    try unknownFields.traverse(visitor: &visitor)
-  }
-
-  public static func ==(lhs: Anytype_Change._RelationUpdate, rhs: Anytype_Change._RelationUpdate) -> Bool {
-    if lhs.key != rhs.key {return false}
-    if lhs.value != rhs.value {return false}
-    if lhs.unknownFields != rhs.unknownFields {return false}
-    return true
-  }
-}
-
-extension Anytype_Change._RelationUpdate.Dict: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
-  public static let protoMessageName: String = Anytype_Change._RelationUpdate.protoMessageName + ".Dict"
-  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
-    2: .same(proto: "dict"),
-  ]
-
-  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
-    while let fieldNumber = try decoder.nextFieldNumber() {
-      // The use of inline closures is to circumvent an issue where the compiler
-      // allocates stack space for every case branch when no optimizations are
-      // enabled. https://github.com/apple/swift-protobuf/issues/1034
-      switch fieldNumber {
-      case 2: try { try decoder.decodeRepeatedMessageField(value: &self.dict) }()
-      default: break
-      }
-    }
-  }
-
-  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
-    if !self.dict.isEmpty {
-      try visitor.visitRepeatedMessageField(value: self.dict, fieldNumber: 2)
-    }
-    try unknownFields.traverse(visitor: &visitor)
-  }
-
-  public static func ==(lhs: Anytype_Change._RelationUpdate.Dict, rhs: Anytype_Change._RelationUpdate.Dict) -> Bool {
-    if lhs.dict != rhs.dict {return false}
-    if lhs.unknownFields != rhs.unknownFields {return false}
-    return true
-  }
-}
-
-extension Anytype_Change._RelationUpdate.ObjectTypes: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
-  public static let protoMessageName: String = Anytype_Change._RelationUpdate.protoMessageName + ".ObjectTypes"
-  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
-    1: .same(proto: "objectTypes"),
-  ]
-
-  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
-    while let fieldNumber = try decoder.nextFieldNumber() {
-      // The use of inline closures is to circumvent an issue where the compiler
-      // allocates stack space for every case branch when no optimizations are
-      // enabled. https://github.com/apple/swift-protobuf/issues/1034
-      switch fieldNumber {
-      case 1: try { try decoder.decodeRepeatedStringField(value: &self.objectTypes) }()
-      default: break
-      }
-    }
-  }
-
-  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
-    if !self.objectTypes.isEmpty {
-      try visitor.visitRepeatedStringField(value: self.objectTypes, fieldNumber: 1)
-    }
-    try unknownFields.traverse(visitor: &visitor)
-  }
-
-  public static func ==(lhs: Anytype_Change._RelationUpdate.ObjectTypes, rhs: Anytype_Change._RelationUpdate.ObjectTypes) -> Bool {
-    if lhs.objectTypes != rhs.objectTypes {return false}
-    if lhs.unknownFields != rhs.unknownFields {return false}
-    return true
-  }
-}
-
-extension Anytype_Change._RelationRemove: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
-  public static let protoMessageName: String = Anytype_Change.protoMessageName + "._RelationRemove"
-  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
-    1: .same(proto: "key"),
-  ]
-
-  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
-    while let fieldNumber = try decoder.nextFieldNumber() {
-      // The use of inline closures is to circumvent an issue where the compiler
-      // allocates stack space for every case branch when no optimizations are
-      // enabled. https://github.com/apple/swift-protobuf/issues/1034
-      switch fieldNumber {
-      case 1: try { try decoder.decodeSingularStringField(value: &self.key) }()
-      default: break
-      }
-    }
-  }
-
-  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
-    if !self.key.isEmpty {
-      try visitor.visitSingularStringField(value: self.key, fieldNumber: 1)
-    }
-    try unknownFields.traverse(visitor: &visitor)
-  }
-
-  public static func ==(lhs: Anytype_Change._RelationRemove, rhs: Anytype_Change._RelationRemove) -> Bool {
-    if lhs.key != rhs.key {return false}
-    if lhs.unknownFields != rhs.unknownFields {return false}
-    return true
-  }
-}
-
 extension Anytype_Change.ObjectTypeAdd: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
   public static let protoMessageName: String = Anytype_Change.protoMessageName + ".ObjectTypeAdd"
   public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
     1: .same(proto: "url"),
+    2: .same(proto: "key"),
   ]
 
   public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
@@ -2034,6 +1510,7 @@ extension Anytype_Change.ObjectTypeAdd: SwiftProtobuf.Message, SwiftProtobuf._Me
       // enabled. https://github.com/apple/swift-protobuf/issues/1034
       switch fieldNumber {
       case 1: try { try decoder.decodeSingularStringField(value: &self.url) }()
+      case 2: try { try decoder.decodeSingularStringField(value: &self.key) }()
       default: break
       }
     }
@@ -2043,11 +1520,15 @@ extension Anytype_Change.ObjectTypeAdd: SwiftProtobuf.Message, SwiftProtobuf._Me
     if !self.url.isEmpty {
       try visitor.visitSingularStringField(value: self.url, fieldNumber: 1)
     }
+    if !self.key.isEmpty {
+      try visitor.visitSingularStringField(value: self.key, fieldNumber: 2)
+    }
     try unknownFields.traverse(visitor: &visitor)
   }
 
   public static func ==(lhs: Anytype_Change.ObjectTypeAdd, rhs: Anytype_Change.ObjectTypeAdd) -> Bool {
     if lhs.url != rhs.url {return false}
+    if lhs.key != rhs.key {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
@@ -2057,6 +1538,7 @@ extension Anytype_Change.ObjectTypeRemove: SwiftProtobuf.Message, SwiftProtobuf.
   public static let protoMessageName: String = Anytype_Change.protoMessageName + ".ObjectTypeRemove"
   public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
     1: .same(proto: "url"),
+    2: .same(proto: "key"),
   ]
 
   public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
@@ -2066,6 +1548,7 @@ extension Anytype_Change.ObjectTypeRemove: SwiftProtobuf.Message, SwiftProtobuf.
       // enabled. https://github.com/apple/swift-protobuf/issues/1034
       switch fieldNumber {
       case 1: try { try decoder.decodeSingularStringField(value: &self.url) }()
+      case 2: try { try decoder.decodeSingularStringField(value: &self.key) }()
       default: break
       }
     }
@@ -2075,11 +1558,15 @@ extension Anytype_Change.ObjectTypeRemove: SwiftProtobuf.Message, SwiftProtobuf.
     if !self.url.isEmpty {
       try visitor.visitSingularStringField(value: self.url, fieldNumber: 1)
     }
+    if !self.key.isEmpty {
+      try visitor.visitSingularStringField(value: self.key, fieldNumber: 2)
+    }
     try unknownFields.traverse(visitor: &visitor)
   }
 
   public static func ==(lhs: Anytype_Change.ObjectTypeRemove, rhs: Anytype_Change.ObjectTypeRemove) -> Bool {
     if lhs.url != rhs.url {return false}
+    if lhs.key != rhs.key {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }

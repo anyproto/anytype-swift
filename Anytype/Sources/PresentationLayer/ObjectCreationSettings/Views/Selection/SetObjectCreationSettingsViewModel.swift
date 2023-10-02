@@ -6,6 +6,7 @@ import SwiftUI
 
 struct ObjectCreationSetting {
     let objectTypeId: BlockId
+    let spaceId: String
     let templateId: BlockId
 }
 
@@ -64,7 +65,7 @@ final class SetObjectCreationSettingsViewModel: ObservableObject {
         switch model.mode {
         case .installed(let templateModel):
             onTemplateSelect(
-                objectTypeId: interactor.objectTypeId.rawValue,
+                objectTypeId: interactor.objectTypeId,
                 templateId: templateModel.id
             )
             AnytypeAnalytics.instance().logTemplateSelection(
@@ -73,7 +74,7 @@ final class SetObjectCreationSettingsViewModel: ObservableObject {
             )
         case .blank:
             onTemplateSelect(
-                objectTypeId: interactor.objectTypeId.rawValue,
+                objectTypeId: interactor.objectTypeId,
                 templateId: ""
             )
             AnytypeAnalytics.instance().logTemplateSelection(
@@ -92,13 +93,15 @@ final class SetObjectCreationSettingsViewModel: ObservableObject {
         onTemplateSelection(
             ObjectCreationSetting(
                 objectTypeId: objectTypeId,
+                spaceId: setDocument.spaceId,
                 templateId: templateId
             )
         )
     }
     
     func onAddTemplateTap() {
-        let objectTypeId = interactor.objectTypeId.rawValue
+        let objectTypeId = interactor.objectTypeId
+        let spaceId = setDocument.spaceId
         Task { [weak self] in
             do {
                 guard let templateId = try await self?.templatesService.createTemplateFromObjectType(objectTypeId: objectTypeId) else {
@@ -106,11 +109,11 @@ final class SetObjectCreationSettingsViewModel: ObservableObject {
                 }
                 AnytypeAnalytics.instance().logTemplateCreate(objectType: .object(typeId: objectTypeId))
                 self?.templateEditingHandler?(
-                    ObjectCreationSetting(objectTypeId: objectTypeId, templateId: templateId)
+                    ObjectCreationSetting(objectTypeId: objectTypeId, spaceId: spaceId, templateId: templateId)
                 )
                 self?.toastPresenter.showObjectCompositeAlert(
                     prefixText: Loc.Templates.Popup.wasAddedTo,
-                    objectId: self?.interactor.objectTypeId.rawValue ?? "",
+                    objectId: self?.interactor.objectTypeId ?? "",
                     tapHandler: { }
                 )
             } catch {
@@ -120,12 +123,11 @@ final class SetObjectCreationSettingsViewModel: ObservableObject {
     }
     
     func setObjectTypeId(_ objectTypeId: String) {
-        guard let objectTypeId = ObjectTypeId(rawValue: objectTypeId) else { return }
         switch interactor.mode {
         case .creation:
             interactor.setObjectTypeId(objectTypeId)
         case .default:
-            setObjectTypeAsDefault(objectTypeId: objectTypeId.rawValue)
+            setObjectTypeAsDefault(objectTypeId: objectTypeId)
         }
         
     }
@@ -166,16 +168,16 @@ final class SetObjectCreationSettingsViewModel: ObservableObject {
         interactor.objectTypesConfigPublisher.sink { [weak self] objectTypesConfig in
             guard let self else { return }
             let defaultObjectType = objectTypesConfig.objectTypes.first {
-                $0.id == objectTypesConfig.objectTypeId.rawValue
+                $0.id == objectTypesConfig.objectTypeId
             }
-            isTemplatesAvailable = defaultObjectType?.recommendedLayout.isTemplatesAvailable ?? false
+            isTemplatesAvailable = defaultObjectType?.recommendedLayout?.isTemplatesAvailable ?? false
             updateObjectTypes(objectTypesConfig)
         }.store(in: &cancellables)
     }
     
     private func updateObjectTypes(_ objectTypesConfig: ObjectTypesConfiguration) {
         var convertedObjectTypes = objectTypesConfig.objectTypes.map {  type in
-            let isSelected = type.id == objectTypesConfig.objectTypeId.rawValue
+            let isSelected = type.id == objectTypesConfig.objectTypeId
             return InstalledObjectTypeViewModel(
                 id: type.id,
                 icon: .object(.emoji(type.iconEmoji)),
@@ -203,7 +205,8 @@ final class SetObjectCreationSettingsViewModel: ObservableObject {
         option: TemplateOptionAction,
         templateViewModel: TemplatePreviewModel
     ) {
-        let objectTypeId = interactor.objectTypeId.rawValue
+        let objectTypeId = interactor.objectTypeId
+        let spaceId = setDocument.spaceId
         Task {
             do {
                 switch option {
@@ -215,7 +218,7 @@ final class SetObjectCreationSettingsViewModel: ObservableObject {
                     toastPresenter.show(message: Loc.Templates.Popup.duplicated)
                 case .editTemplate:
                     templateEditingHandler?(
-                        ObjectCreationSetting(objectTypeId: objectTypeId, templateId: templateViewModel.id)
+                        ObjectCreationSetting(objectTypeId: objectTypeId, spaceId: spaceId, templateId: templateViewModel.id)
                     )
                 case .setAsDefault:
                     setTemplateAsDefault(

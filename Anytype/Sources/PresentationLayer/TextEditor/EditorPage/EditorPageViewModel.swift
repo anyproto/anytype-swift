@@ -133,8 +133,6 @@ final class EditorPageViewModel: EditorPageViewModelProtocol {
 
             let items = blockBuilder.buildEditorItems(infos: models)
             modelsHolder.items = items
-        case .header:
-            break // supported in headerModel
         }
 
         if !configuration.isOpenedForPreview {
@@ -211,12 +209,12 @@ final class EditorPageViewModel: EditorPageViewModelProtocol {
     private func handleTemplatesPopupShowing() {
         guard configuration.shouldShowTemplateSelection,
               editorPageTemplatesHandler.needShowTemplates(for: document),
-              let type = document.details?.objectType else {
+              let typeId = document.details?.type else {
             return
         }
         router.showTemplatesPopupWithTypeCheckIfNeeded(
             document: document,
-            templatesTypeId: .dynamic(type.id),
+            templatesTypeId: typeId,
             onShow: { [weak self] in
                 self?.editorPageTemplatesHandler.onTemplatesShow()
             }
@@ -291,20 +289,23 @@ extension EditorPageViewModel {
     func element(at: IndexPath) -> BlockViewModelProtocol? {
         modelsHolder.blockViewModel(at: at.row)
     }
+    
+    func handleSettingsAction(action: ObjectSettingsAction) {
+        switch action {
+        case .cover(let objectCoverPickerAction):
+            headerModel.handleCoverAction(action: objectCoverPickerAction)
+        case .icon(let objectIconPickerAction):
+            headerModel.handleIconAction(action: objectIconPickerAction)
+        }
+    }
 }
 
 extension EditorPageViewModel {
     
     func showSettings() {
-        router.showSettings()
-    }
-    
-    func showIconPicker() {
-        router.showIconPicker()
-    }
-    
-    func showCoverPicker() {
-        router.showCoverPicker()
+        router.showSettings { [weak self] action in
+            self?.handleSettingsAction(action: action)
+        }
     }
 }
 

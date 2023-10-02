@@ -16,10 +16,11 @@ final class DashboardService: DashboardServiceProtocol {
     
     // MARK: - DashboardServiceProtocol
     
-    func createNewPage() async throws -> ObjectDetails {
+    func createNewPage(spaceId: String) async throws -> ObjectDetails {
         let details = try await pageService.createDefaultPage(
             name: "",
-            shouldDeleteEmptyObject: true
+            shouldDeleteEmptyObject: true,
+            spaceId: spaceId
         )
         return details
     }

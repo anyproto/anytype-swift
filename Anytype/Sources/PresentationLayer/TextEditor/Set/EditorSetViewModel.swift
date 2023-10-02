@@ -5,8 +5,9 @@ import SwiftUI
 import OrderedCollections
 
 final class EditorSetViewModel: ObservableObject {
+    let headerModel: ObjectHeaderViewModel
+    
     @Published var titleString: String
-    @Published private(set) var headerModel: ObjectHeaderViewModel!
     @Published var loadingDocument = true
     @Published var featuredRelations = [Relation]()
     
@@ -129,13 +130,14 @@ final class EditorSetViewModel: ObservableObject {
     private let textService: TextServiceProtocol
     private let groupsSubscriptionsHandler: GroupsSubscriptionsHandlerProtocol
     private let setSubscriptionDataBuilder: SetSubscriptionDataBuilderProtocol
-    private let setTemplatesInteractor: SetTemplatesInteractorProtocol
     private let objectTypeProvider: ObjectTypeProviderProtocol
+    private let setTemplatesInteractor: SetTemplatesInteractorProtocol
     private var subscriptions = [AnyCancellable]()
     private var titleSubscription: AnyCancellable?
 
     init(
         setDocument: SetDocumentProtocol,
+        headerViewModel: ObjectHeaderViewModel,
         subscriptionService: SubscriptionsServiceProtocol,
         dataviewService: DataviewServiceProtocol,
         searchService: SearchServiceProtocol,
@@ -144,10 +146,11 @@ final class EditorSetViewModel: ObservableObject {
         textService: TextServiceProtocol,
         groupsSubscriptionsHandler: GroupsSubscriptionsHandlerProtocol,
         setSubscriptionDataBuilder: SetSubscriptionDataBuilderProtocol,
-        setTemplatesInteractor: SetTemplatesInteractorProtocol,
-        objectTypeProvider: ObjectTypeProviderProtocol
+        objectTypeProvider: ObjectTypeProviderProtocol,
+        setTemplatesInteractor: SetTemplatesInteractorProtocol
     ) {
         self.setDocument = setDocument
+        self.headerModel = headerViewModel
         self.subscriptionService = subscriptionService
         self.dataviewService = dataviewService
         self.searchService = searchService
@@ -156,22 +159,13 @@ final class EditorSetViewModel: ObservableObject {
         self.textService = textService
         self.groupsSubscriptionsHandler = groupsSubscriptionsHandler
         self.setSubscriptionDataBuilder = setSubscriptionDataBuilder
-        self.setTemplatesInteractor = setTemplatesInteractor
         self.objectTypeProvider = objectTypeProvider
+        self.setTemplatesInteractor = setTemplatesInteractor
         self.titleString = setDocument.details?.pageCellTitle ?? ""
     }
     
     func setup(router: EditorSetRouterProtocol) {
         self.router = router
-        self.headerModel = ObjectHeaderViewModel(
-            document: setDocument,
-            router: router,
-            configuration: .init(
-                isOpenedForPreview: false,
-                shouldShowTemplateSelection: false,
-                usecase: .editor
-            )
-        )
         
         setDocument.setUpdatePublisher.sink { [weak self] in
             self?.onDataChange($0)
@@ -443,6 +437,7 @@ final class EditorSetViewModel: ObservableObject {
                     activeView: activeView,
                     isObjectLocked: setDocument.isObjectLocked,
                     storage: subscriptionService.storage,
+                    spaceId: setDocument.spaceId,
                     onIconTap: { [weak self] details in
                         self?.updateDetailsIfNeeded(details)
                     },
@@ -517,6 +512,7 @@ final class EditorSetViewModel: ObservableObject {
                 contextID: details.id,
                 bundledDetails: [.done(!details.isDone)]
             )
+            await UIImpactFeedbackGenerator(style: .rigid).impactOccurred()
         }
     }
     
@@ -552,10 +548,12 @@ final class EditorSetViewModel: ObservableObject {
     
     func createObject(setting: ObjectCreationSetting?) {
         if setDocument.isCollection() {
-            let objectTypeId = setting?.objectTypeId ?? setDocument.activeView.defaultObjectTypeIDWithFallback
-            let templateId = setting?.templateId ?? defaultTemplateId(for: objectTypeId)
+            let settingsObjectType = setting.map { try? objectTypeProvider.objectType(id: $0.objectTypeId) }
+            let objectType = settingsObjectType ?? (try? setDocument.defaultObjectTypeForActiveView())
+            let templateId = setting?.templateId ?? defaultTemplateId(for: objectType)
+            
             createObject(
-                with: objectTypeId,
+                type: objectType,
                 relationsDetails: [],
                 templateId: templateId,
                 completion: { details in
@@ -576,10 +574,11 @@ final class EditorSetViewModel: ObservableObject {
                 guard let source = self?.details?.setOf else { return false }
                 return source.contains(detail.id)
             }
-            let objectTypeId = setting?.objectTypeId ?? setDocument.activeView.defaultObjectTypeIDWithFallback
-            let templateId = setting?.templateId ?? defaultTemplateId(for: objectTypeId)
+            let settingsObjectType = setting.map { try? objectTypeProvider.objectType(id: $0.objectTypeId) }
+            let objectType = settingsObjectType ?? (try? setDocument.defaultObjectTypeForActiveView())
+            let templateId = setting?.templateId ?? defaultTemplateId(for: objectType)
             createObject(
-                with: objectTypeId,
+                type: objectType,
                 relationsDetails: relationsDetails,
                 templateId: templateId,
                 completion: { [weak self] details in
@@ -588,9 +587,10 @@ final class EditorSetViewModel: ObservableObject {
             )
         } else {
             let objectTypeId = details?.setOf.first ?? ""
-            let templateId = setting?.templateId ?? defaultTemplateId(for: objectTypeId)
+            let objectType = try? objectTypeProvider.objectType(id: objectTypeId)
+            let templateId = setting?.templateId ?? defaultTemplateId(for: objectType)
             createObject(
-                with: objectTypeId,
+                type: objectType,
                 relationsDetails: [],
                 templateId: templateId,
                 completion: { [weak self] details in
@@ -600,12 +600,12 @@ final class EditorSetViewModel: ObservableObject {
         }
     }
     
-    private func defaultTemplateId(for objectTypeId: String) -> String {
+    private func defaultTemplateId(for objectType: ObjectType?) -> String {
         if let defaultTemplateID = activeView.defaultTemplateID, defaultTemplateID.isNotEmpty {
             let templateID = defaultTemplateID == TemplateType.blank.id ? "" : defaultTemplateID
             return templateID
         } else {
-            return objectTypeProvider.objectType(id: objectTypeId)?.defaultTemplateId ?? ""
+            return objectType?.defaultTemplateId ?? ""
         }
     }
     
@@ -618,7 +618,7 @@ final class EditorSetViewModel: ObservableObject {
     }
     
     private func createObject(
-        with type: String,
+        type: ObjectType?,
         relationsDetails: [RelationDetails],
         templateId: BlockId?,
         completion: ((_ details: ObjectDetails) -> Void)?
@@ -627,8 +627,9 @@ final class EditorSetViewModel: ObservableObject {
             guard let self else { return }
             
             let details = try await self.dataviewService.addRecord(
-                objectType: type,
+                typeUniqueKey: type?.uniqueKey,
                 templateId: templateId ?? "",
+                spaceId: setDocument.spaceId,
                 setFilters: self.setDocument.activeViewFilters,
                 relationsDetails: relationsDetails
             )
@@ -715,7 +716,14 @@ extension EditorSetViewModel {
     }
     
     func showObjectSettings() {
-        router?.showSettings()
+        router?.showSettings { [weak self] action in
+            switch action {
+            case .cover(let objectCoverPickerAction):
+                self?.headerModel.handleCoverAction(action: objectCoverPickerAction)
+            case .icon(let objectIconPickerAction):
+                self?.headerModel.handleIconAction(action: objectIconPickerAction)
+            }
+        }
     }
     
     func objectOrderUpdate(with groupObjectIds: [GroupObjectIds]) {
@@ -746,7 +754,9 @@ extension EditorSetViewModel {
     }
     
     func showIconPicker() {
-        router?.showIconPicker()
+        router?.showIconPicker(document: setDocument) { [weak self] action in
+            self?.headerModel.handleIconAction(action: action)
+        }
     }
     
     func showSetOfTypeSelection() {
@@ -763,7 +773,7 @@ extension EditorSetViewModel {
         Task { @MainActor in
             try await objectActionsService.setObjectCollectionType(objectId: objectId)
             try await setDocument.close()
-            router?.replaceCurrentPage(with: .set(EditorSetObject(objectId: objectId, isSupportedForEdit: true)))
+            router?.replaceCurrentPage(with: .set(EditorSetObject(objectId: objectId, spaceId: setDocument.spaceId, isSupportedForEdit: true)))
         }
         AnytypeAnalytics.instance().logSetTurnIntoCollection()
     }
@@ -805,7 +815,7 @@ extension EditorSetViewModel {
     }
     
     private func handleCreatedObject(details: ObjectDetails) {
-        if details.type == ObjectTypeId.BundledTypeId.note.rawValue {
+        if details.layoutValue == .note {
             openObject(details: details)
         } else {
             router?.showCreateObject(details: details)
@@ -829,7 +839,17 @@ extension EditorSetViewModel {
             document: BaseDocument(objectId: "objectId"),
             blockId: nil,
             targetObjectID: nil,
-            relationDetailsStorage: DI.preview.serviceLocator.relationDetailsStorage()
+            relationDetailsStorage: DI.preview.serviceLocator.relationDetailsStorage(),
+            objectTypeProvider: DI.preview.serviceLocator.objectTypeProvider()
+        ),
+        headerViewModel: .init(
+            document: BaseDocument(objectId: "objectId", forPreview: false),
+            configuration: .init(
+                isOpenedForPreview: false,
+                shouldShowTemplateSelection: false,
+                usecase: .editor
+            ),
+            interactor: DI.preview.serviceLocator.objectHeaderInteractor(objectId: "objectId")
         ),
         subscriptionService: DI.preview.serviceLocator.subscriptionService(),
         dataviewService: DataviewService(objectId: "objectId", blockId: "blockId", prefilledFieldsBuilder: SetPrefilledFieldsBuilder()),
@@ -842,8 +862,8 @@ extension EditorSetViewModel {
         objectActionsService: DI.preview.serviceLocator.objectActionsService(),
         textService: TextService(),
         groupsSubscriptionsHandler: DI.preview.serviceLocator.groupsSubscriptionsHandler(),
-        setSubscriptionDataBuilder: SetSubscriptionDataBuilder(accountManager: DI.preview.serviceLocator.accountManager()),
-        setTemplatesInteractor: DI.preview.serviceLocator.setTemplatesInteractor,
-        objectTypeProvider: DI.preview.serviceLocator.objectTypeProvider()
+        setSubscriptionDataBuilder: SetSubscriptionDataBuilder(activeWorkspaceStorage: DI.preview.serviceLocator.activeWorkspaceStorage()),
+        objectTypeProvider: DI.preview.serviceLocator.objectTypeProvider(),
+        setTemplatesInteractor: DI.preview.serviceLocator.setTemplatesInteractor
     )
 }

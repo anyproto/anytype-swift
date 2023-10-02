@@ -15,6 +15,7 @@ final class BlockActionService: BlockActionServiceProtocol {
     private let bookmarkService: BookmarkServiceProtocol
     private let fileService = FileActionsService()
     private let cursorManager: EditorCursorManager
+    private let objectTypeProvider: ObjectTypeProviderProtocol
     
     private weak var modelsHolder: EditorMainItemModelsHolder?
 
@@ -25,7 +26,8 @@ final class BlockActionService: BlockActionServiceProtocol {
         objectActionService: ObjectActionsServiceProtocol,
         modelsHolder: EditorMainItemModelsHolder,
         bookmarkService: BookmarkServiceProtocol,
-        cursorManager: EditorCursorManager
+        cursorManager: EditorCursorManager,
+        objectTypeProvider: ObjectTypeProviderProtocol
     ) {
         self.documentId = documentId
         self.listService = listService
@@ -34,6 +36,7 @@ final class BlockActionService: BlockActionServiceProtocol {
         self.modelsHolder = modelsHolder
         self.bookmarkService = bookmarkService
         self.cursorManager = cursorManager
+        self.objectTypeProvider = objectTypeProvider
     }
 
     // MARK: Actions
@@ -85,16 +88,12 @@ final class BlockActionService: BlockActionServiceProtocol {
         }
     }
 
-    func createPage(
-        targetId: BlockId,
-        type: ObjectTypeId,
-        position: BlockPosition,
-        templateId: String
-    ) async throws -> BlockId {
+    func createPage(targetId: BlockId, spaceId: String, typeUniqueKey: ObjectTypeUniqueKey, position: BlockPosition, templateId: String) async throws -> BlockId {
         try await objectActionService.createPage(
             contextId: documentId,
             targetId: targetId,
-            details: [.name(""), .type(type)],
+            spaceId: spaceId,
+            details: [.name(""), .typeUniqueKey(typeUniqueKey)],
             position: position,
             templateId: templateId
         )
@@ -106,11 +105,14 @@ final class BlockActionService: BlockActionServiceProtocol {
         }
     }
     
-    func turnIntoPage(blockId: BlockId) async throws -> BlockId? {
-        try await objectActionService.convertChildrenToPages(
+    func turnIntoPage(blockId: BlockId, spaceId: String) async throws -> BlockId? {
+        let pageType = try objectTypeProvider.objectType(uniqueKey: .page, spaceId: spaceId)
+        AnytypeAnalytics.instance().logCreateObject(objectType: pageType.analyticsType, route: .turnInto)
+
+        return try await objectActionService.convertChildrenToPages(
             contextID: documentId,
             blocksIds: [blockId],
-            typeId: ObjectTypeId.BundledTypeId.page.rawValue
+            typeUniqueKey: pageType.uniqueKey
         ).first
     }
     
@@ -156,8 +158,9 @@ final class BlockActionService: BlockActionServiceProtocol {
         try await textService.setTextForced(contextId: contextId, blockId: blockId, middlewareString: middlewareString)
     }
     
-    func setObjectTypeId(_ objectTypeId: String) async throws {
-        try await objectActionService.setObjectType(objectId: documentId, objectTypeId: objectTypeId)
+    func setObjectType(type: ObjectType) async throws {
+        try await objectActionService.setObjectType(objectId: documentId, typeUniqueKey: type.uniqueKey)
+        AnytypeAnalytics.instance().logObjectTypeChange(type.analyticsType)
     }
 
     func setObjectSetType() async throws {

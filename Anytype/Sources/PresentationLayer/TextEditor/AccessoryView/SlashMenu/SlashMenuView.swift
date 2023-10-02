@@ -26,14 +26,14 @@ final class SlashMenuView: DismissableInputAccessoryView {
         }
     }
     
-    func update(info: BlockInformation, relations: [Relation]) {
+    func update(spaceId: String, info: BlockInformation, relations: [Relation]) {
         searchMenuItemsTask?.cancel()
 
         viewModel.info = info
         let restrictions = BlockRestrictionsBuilder.build(contentType: info.content.type)
     
         Task { @MainActor [weak self] in
-            self?.menuItems = (try? await self?.itemsBuilder.slashMenuItems(resrictions: restrictions, relations: relations)) ?? []
+            self?.menuItems = (try? await self?.itemsBuilder.slashMenuItems(spaceId: spaceId, resrictions: restrictions, relations: relations)) ?? []
             self?.restoreDefaultState()
         }
     }

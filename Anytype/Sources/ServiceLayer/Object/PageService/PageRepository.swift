@@ -1,19 +1,22 @@
 import ProtobufMessages
 import SwiftProtobuf
 import Services
+import AnytypeCore
 
 protocol PageRepositoryProtocol: AnyObject {
     func createDefaultPage(
         name: String,
-        shouldDeleteEmptyObject: Bool
+        shouldDeleteEmptyObject: Bool,
+        spaceId: String
     ) async throws -> ObjectDetails
     
     func createPage(
         name: String,
-        type: String,
+        typeUniqueKey: ObjectTypeUniqueKey,
         shouldDeleteEmptyObject: Bool,
         shouldSelectType: Bool,
         shouldSelectTemplate: Bool,
+        spaceId: String,
         templateId: String?
     ) async throws -> ObjectDetails
 }
@@ -22,11 +25,13 @@ protocol PageRepositoryProtocol: AnyObject {
 extension PageRepositoryProtocol {
     func createDefaultPage(
         name: String,
-        shouldDeleteEmptyObject: Bool = false
+        shouldDeleteEmptyObject: Bool = false,
+        spaceId: String
     ) async throws -> ObjectDetails {
         try await createDefaultPage(
             name: name,
-            shouldDeleteEmptyObject: shouldDeleteEmptyObject
+            shouldDeleteEmptyObject: shouldDeleteEmptyObject,
+            spaceId: spaceId
         )
     }
 }
@@ -44,33 +49,38 @@ final class PageRepository: PageRepositoryProtocol {
     
     func createPage(
         name: String,
-        type: String,
+        typeUniqueKey: ObjectTypeUniqueKey,
         shouldDeleteEmptyObject: Bool,
         shouldSelectType: Bool,
         shouldSelectTemplate: Bool,
+        spaceId: String,
         templateId: String? = nil
     ) async throws -> ObjectDetails {
         try await pageService.createPage(
             name: name,
-            type: type,
+            typeUniqueKey: typeUniqueKey,
             shouldDeleteEmptyObject: shouldDeleteEmptyObject,
             shouldSelectType: shouldSelectType,
             shouldSelectTemplate: shouldSelectTemplate,
+            spaceId: spaceId,
             templateId: templateId
         )
     }
     
     func createDefaultPage(
         name: String,
-        shouldDeleteEmptyObject: Bool
+        shouldDeleteEmptyObject: Bool,
+        spaceId: String
     ) async throws -> ObjectDetails {
-        try await pageService.createPage(
+        let defaultObjectType = try objectTypeProvider.defaultObjectType(spaceId: spaceId)
+        return try await pageService.createPage(
             name: name,
-            type: objectTypeProvider.defaultObjectType.id,
+            typeUniqueKey: defaultObjectType.uniqueKey,
             shouldDeleteEmptyObject: shouldDeleteEmptyObject,
             shouldSelectType: true,
             shouldSelectTemplate: true,
-            templateId: objectTypeProvider.defaultObjectType.defaultTemplateId
+            spaceId: spaceId,
+            templateId: defaultObjectType.defaultTemplateId
         )
     }
 }

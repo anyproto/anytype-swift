@@ -7,6 +7,7 @@ protocol NewSearchModuleAssemblyProtocol {
     func statusSearchModule(
         style: NewSearchView.Style,
         selectionMode: NewSearchViewModel.SelectionMode,
+        spaceId: String,
         relationKey: String,
         selectedStatusesIds: [String],
         onSelect: @escaping (_ ids: [String]) -> Void,
@@ -16,6 +17,7 @@ protocol NewSearchModuleAssemblyProtocol {
     func tagsSearchModule(
         style: NewSearchView.Style,
         selectionMode: NewSearchViewModel.SelectionMode,
+        spaceId: String,
         relationKey: String,
         selectedTagIds: [String],
         onSelect: @escaping (_ ids: [String]) -> Void,
@@ -24,6 +26,7 @@ protocol NewSearchModuleAssemblyProtocol {
     
     func objectsSearchModule(
         title: String?,
+        spaceId: String,
         style: NewSearchView.Style,
         selectionMode: NewSearchViewModel.SelectionMode,
         excludedObjectIds: [String],
@@ -32,6 +35,7 @@ protocol NewSearchModuleAssemblyProtocol {
     ) -> NewSearchView
     
     func filesSearchModule(
+        spaceId: String,
         excludedFileIds: [String],
         onSelect: @escaping (_ ids: [String]) -> Void
     ) -> NewSearchView
@@ -39,6 +43,7 @@ protocol NewSearchModuleAssemblyProtocol {
     func objectTypeSearchModule(
         style: NewSearchView.Style,
         title: String,
+        spaceId: String,
         selectedObjectId: BlockId?,
         excludedObjectTypeId: String?,
         showBookmark: Bool,
@@ -49,13 +54,15 @@ protocol NewSearchModuleAssemblyProtocol {
     
     func multiselectObjectTypesSearchModule(
         selectedObjectTypeIds: [String],
+        spaceId: String,
         onSelect: @escaping (_ ids: [String]) -> Void
     ) -> NewSearchView
     
     func blockObjectsSearchModule(
         title: String,
+        spaceId: String,
         excludedObjectIds: [String],
-        excludedTypeIds: [String],
+        excludedLayouts: [DetailsLayout],
         onSelect: @escaping (_ details: ObjectDetails) -> Void
     ) -> NewSearchView
     
@@ -71,14 +78,9 @@ protocol NewSearchModuleAssemblyProtocol {
         output: RelationSearchModuleOutput
     ) -> NewSearchView
     
-    func widgetSourceSearchModule(context: AnalyticsWidgetContext, onSelect: @escaping (_ source: WidgetSource) -> Void) -> AnyView
+    func widgetSourceSearchModule(data: WidgetSourceSearchModuleModel) -> AnyView
     
-    func widgetChangeSourceSearchModule(
-        widgetObjectId: String,
-        widgetId: String,
-        context: AnalyticsWidgetContext,
-        onFinish: @escaping () -> Void
-    ) -> AnyView
+    func widgetChangeSourceSearchModule(data: WidgetChangeSourceSearchModuleModel) -> AnyView
 }
 
 // Extension for specific Settings
@@ -86,6 +88,7 @@ extension NewSearchModuleAssemblyProtocol {
     func statusSearchModule(
         style: NewSearchView.Style = .default,
         selectionMode: NewSearchViewModel.SelectionMode = .singleItem,
+        spaceId: String,
         relationKey: String,
         selectedStatusesIds: [String],
         onSelect: @escaping (_ ids: [String]) -> Void,
@@ -94,6 +97,7 @@ extension NewSearchModuleAssemblyProtocol {
         return statusSearchModule(
             style: style,
             selectionMode: selectionMode,
+            spaceId: spaceId,
             relationKey: relationKey,
             selectedStatusesIds: selectedStatusesIds,
             onSelect: onSelect,
@@ -104,6 +108,7 @@ extension NewSearchModuleAssemblyProtocol {
     func tagsSearchModule(
         style: NewSearchView.Style = .default,
         selectionMode: NewSearchViewModel.SelectionMode = .multipleItems(),
+        spaceId: String,
         relationKey: String,
         selectedTagIds: [String],
         onSelect: @escaping (_ ids: [String]) -> Void,
@@ -112,6 +117,7 @@ extension NewSearchModuleAssemblyProtocol {
         return tagsSearchModule(
             style: style,
             selectionMode: selectionMode,
+            spaceId: spaceId,
             relationKey: relationKey,
             selectedTagIds: selectedTagIds,
             onSelect: onSelect,
@@ -121,6 +127,7 @@ extension NewSearchModuleAssemblyProtocol {
     
     func objectsSearchModule(
         title: String? = nil,
+        spaceId: String,
         style: NewSearchView.Style = .default,
         selectionMode: NewSearchViewModel.SelectionMode = .multipleItems(),
         excludedObjectIds: [String],
@@ -129,6 +136,7 @@ extension NewSearchModuleAssemblyProtocol {
     ) -> NewSearchView {
         return objectsSearchModule(
             title: title,
+            spaceId: spaceId,
             style: style,
             selectionMode: selectionMode,
             excludedObjectIds: excludedObjectIds,
@@ -140,6 +148,7 @@ extension NewSearchModuleAssemblyProtocol {
     func objectTypeSearchModule(
         style: NewSearchView.Style = .default,
         title: String,
+        spaceId: String,
         selectedObjectId: BlockId? = nil,
         excludedObjectTypeId: String? = nil,
         showBookmark: Bool = false,
@@ -150,6 +159,7 @@ extension NewSearchModuleAssemblyProtocol {
         return objectTypeSearchModule(
             style: style,
             title: title,
+            spaceId: spaceId,
             selectedObjectId: selectedObjectId,
             excludedObjectTypeId: excludedObjectTypeId,
             showBookmark: showBookmark,

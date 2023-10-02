@@ -26,8 +26,9 @@ protocol DataviewServiceProtocol {
     func addRelation(_ relationDetails: RelationDetails) async throws
     func deleteRelation(relationKey: String) async throws
     func addRecord(
-        objectType: String,
+        typeUniqueKey: ObjectTypeUniqueKey?,
         templateId: BlockId,
+        spaceId: String,
         setFilters: [SetFilter],
         relationsDetails: [RelationDetails]
     ) async throws -> ObjectDetails

@@ -212,6 +212,9 @@ public enum BundledRelationKey: String {
     /// Space object belongs to
     case workspaceId = "workspaceId"
 
+    /// Space belongs to
+    case spaceId = "spaceId"
+
     /// Audio record's genre name
     case audioGenre = "audioGenre"
 
@@ -360,6 +363,12 @@ public enum BundledRelationKey: String {
     /// ID of template chosen as default for particular object type
     case defaultTemplateId = "defaultTemplateId"
 
+    /// Unique key used to ensure object uniqueness within the space
+    case uniqueKey = "uniqueKey"
+
     /// List of backlinks
     case backlinks = "backlinks"
+
+    /// Relation that indicates document has been uninstalled
+    case isUninstalled = "isUninstalled"
 }
