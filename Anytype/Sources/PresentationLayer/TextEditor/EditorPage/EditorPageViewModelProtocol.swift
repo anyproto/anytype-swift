@@ -24,11 +24,9 @@ protocol EditorPageViewModelProtocol: AnyObject {
     func didFinishEditing(blockId: BlockId)
     
     func showSettings()
-    
-    func showIconPicker()
-    func showCoverPicker()
-    
     func setupSubscriptions()
     
     func cursorFocus(blockId: BlockId)
+    
+    func handleSettingsAction(action: ObjectSettingsAction)
 }

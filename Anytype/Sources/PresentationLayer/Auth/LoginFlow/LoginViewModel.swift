@@ -182,12 +182,6 @@ final class LoginViewModel: ObservableObject {
                 case .deleted:
                     errorText = Loc.accountDeleted
                 }
-            } catch SelectAccountError.failedToFindAccountInfo {
-                if FeatureFlags.migrationGuide {
-                    output?.onShowMigrationGuideAction()
-                } else {
-                    errorText = Loc.selectAccountError
-                }
             } catch SelectAccountError.accountIsDeleted {
                 errorText = Loc.accountDeleted
             } catch SelectAccountError.failedToFetchRemoteNodeHasIncompatibleProtoVersion {

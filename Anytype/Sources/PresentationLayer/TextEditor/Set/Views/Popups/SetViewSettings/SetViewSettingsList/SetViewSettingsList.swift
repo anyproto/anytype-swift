@@ -81,7 +81,7 @@ struct SetViewSettingsList: View {
                 AnytypeText(
                     setting.title,
                     style: .uxBodyRegular,
-                    color: setting.disabled ? .Text.tertiary : .Text.primary
+                    color: .Text.primary
                 )
                 
                 Spacer()
@@ -91,10 +91,9 @@ struct SetViewSettingsList: View {
                 Spacer.fixedWidth(6)
                 
                 Image(asset: .X18.Disclosure.right)
-                    .foregroundColor(setting.disabled ? .Text.tertiary : .Button.active)
+                    .foregroundColor(.Button.active)
             }
         }
-        .disabled(setting.disabled)
         .frame(height: 52, alignment: .leading)
         .if(!setting.isLast) {
             $0.divider()
@@ -106,7 +105,7 @@ struct SetViewSettingsList: View {
         return AnytypeText(
             text,
             style: .uxCalloutRegular,
-            color: setting.isPlaceholder(text) || setting.disabled ? .Text.tertiary : .Text.secondary
+            color: setting.isPlaceholder(text) ? .Text.tertiary : .Text.secondary
         )
         .lineLimit(1)
     }

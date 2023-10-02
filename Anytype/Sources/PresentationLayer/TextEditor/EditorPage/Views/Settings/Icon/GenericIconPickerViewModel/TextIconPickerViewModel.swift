@@ -2,6 +2,7 @@ import Foundation
 import Services
 import UniformTypeIdentifiers
 import Combine
+import AnytypeCore
 
 final class TextIconPickerViewModel: ObservableObject, ObjectIconPickerViewModelProtocol {
     let mediaPickerContentType: MediaPickerContentType = .images
@@ -41,8 +42,9 @@ final class TextIconPickerViewModel: ObservableObject, ObjectIconPickerViewModel
     }
 
     func uploadImage(from itemProvider: NSItemProvider) {
+        let safeSendableItemProvider = SafeSendable(value: itemProvider)
         Task {
-            let hash = try await fileService.uploadImage(spaceId: spaceId, source: .itemProvider(itemProvider))
+            let hash = try await fileService.uploadImage(spaceId: spaceId, source: .itemProvider(safeSendableItemProvider.value))
             try await textService.setTextIcon(
                 contextId: contextId,
                 blockId: objectId,

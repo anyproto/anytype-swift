@@ -31,7 +31,7 @@ final class ModulesDI: ModulesDIProtocol {
     }
     
     func objectCoverPicker() -> ObjectCoverPickerModuleAssemblyProtocol {
-        return ObjectCoverPickerModuleAssembly(serviceLocator: serviceLocator)
+        return ObjectCoverPickerModuleAssembly()
     }
     
     func objectIconPicker() -> ObjectIconPickerModuleAssemblyProtocol {
@@ -142,10 +142,6 @@ final class ModulesDI: ModulesDIProtocol {
         return LoginViewModuleAssembly(serviceLocator: serviceLocator)
     }
     
-    func migrationGuide() -> MigrationGuideViewModuleAssemblyProtocol {
-        return MigrationGuideViewModuleAssembly()
-    }
-    
     func authKey() -> KeyPhraseViewModuleAssemblyProtocol {
         return KeyPhraseViewModuleAssembly(uiHelpersDI: uiHelpersDI)
     }
@@ -162,8 +158,8 @@ final class ModulesDI: ModulesDIProtocol {
         return CreatingSoulViewModuleAssembly(serviceLocator: serviceLocator)
     }
     
-    func templatesAssembly() -> TemplateModulesAssembly {
-        return TemplateModulesAssembly(serviceLocator: serviceLocator, uiHelperDI: uiHelpersDI)
+    func setObjectCreationSettings() -> SetObjectCreationSettingsModuleAssemblyProtocol {
+        return SetObjectCreationSettingsModuleAssembly(serviceLocator: serviceLocator, uiHelperDI: uiHelpersDI)
     }
     
     func spaceSettings() -> SpaceSettingsModuleAssemblyProtocol {

@@ -295,9 +295,6 @@ internal extension ImageAsset {
   enum Emoji {
     }
   static let createNewObject = ImageAsset.bundle(name: "createNewObject")
-  enum Migration {
-    static let close = ImageAsset.bundle(name: "Migration/Close")
-  }
   static let linkToItself = ImageAsset.bundle(name: "link_to_itself")
   static let makeAsTemplate = ImageAsset.bundle(name: "make_as_template")
   static let templateMakeDefault = ImageAsset.bundle(name: "template_make_default")

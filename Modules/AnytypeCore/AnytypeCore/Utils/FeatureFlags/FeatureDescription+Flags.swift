@@ -28,12 +28,6 @@ public extension FeatureDescription {
         defaultValue: false
     )
     
-    static let migrationGuide = FeatureDescription(
-        title: "Migration guide",
-        type: .feature(author: "m@anytype.io", releaseVersion: "0.22.0"),
-        defaultValue: true
-    )
-    
     static let multiSpace = FeatureDescription(
         title: "Multi spaces - switch space - IOS-1568",
         type: .feature(author: "m@anytype.io", releaseVersion: "0.25.0"),

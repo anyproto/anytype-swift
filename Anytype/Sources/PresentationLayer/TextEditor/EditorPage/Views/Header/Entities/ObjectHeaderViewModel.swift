@@ -4,8 +4,14 @@ import Combine
 import AnytypeCore
 
 protocol ObjectHeaderRouterProtocol: AnyObject {
-    func showIconPicker()
-    func showCoverPicker()
+    func showIconPicker(
+        document: BaseDocumentGeneralProtocol,
+        onIconAction: @escaping (ObjectIconPickerAction) -> Void
+    )
+    func showCoverPicker(
+        document: BaseDocumentGeneralProtocol,
+        onCoverAction: @escaping (ObjectCoverPickerAction) -> Void
+    )
 }
 
 final class ObjectHeaderViewModel: ObservableObject {
@@ -17,35 +23,39 @@ final class ObjectHeaderViewModel: ObservableObject {
     private lazy var onIconTap = { [weak self] in
         guard let self = self, !self.configuration.isOpenedForPreview else { return }
         UISelectionFeedbackGenerator().selectionChanged()
-        self.router.showIconPicker()
+        self.onIconPickerTap?((document, { [weak self] action in
+            self?.handleIconAction(action: action)
+        }))
     }
     
     private lazy var onCoverTap = { [weak self] in
         guard let self = self, !self.configuration.isOpenedForPreview else { return }
         guard self.document.details?.layoutValue != .note else { return }
-
-
         UISelectionFeedbackGenerator().selectionChanged()
-
-        self.router.showCoverPicker()
+        self.onCoverPickerTap?((document, { [weak self] action in
+            self?.handleCoverAction(action: action)
+        }))
     }
     
     private let document: BaseDocumentGeneralProtocol
-    private let router: ObjectHeaderRouterProtocol
-    
     private var subscription: AnyCancellable?
     private let configuration: EditorPageViewModelConfiguration
+    private let objectHeaderInteractor: ObjectHeaderInteractorProtocol
+    
+    
+    var onCoverPickerTap: RoutingAction<(BaseDocumentGeneralProtocol, (ObjectCoverPickerAction) -> Void)>?
+    var onIconPickerTap: RoutingAction<(BaseDocumentGeneralProtocol, (ObjectIconPickerAction) -> Void)>?
     
     // MARK: - Initializers
     
     init(
         document: BaseDocumentGeneralProtocol,
-        router: ObjectHeaderRouterProtocol,
-        configuration: EditorPageViewModelConfiguration
+        configuration: EditorPageViewModelConfiguration,
+        interactor: ObjectHeaderInteractorProtocol
     ) {
         self.document = document
-        self.router = router
         self.configuration = configuration
+        self.objectHeaderInteractor = interactor
         
         setupSubscription()
 
@@ -88,8 +98,6 @@ final class ObjectHeaderViewModel: ObservableObject {
         switch update {
         case .details, .general:
             header = buildHeader()
-        case .header(let data):
-            header = buildLoadingHeader(data)
         case .blocks, .dataSourceUpdate, .syncStatus:
             break
         }
@@ -131,103 +139,53 @@ final class ObjectHeaderViewModel: ObservableObject {
         switch update {
         case .iconUploading(let path):
             return ObjectHeader.filled(state:
-                .iconOnly(
-                    ObjectHeaderIconOnlyState(
-                        icon: ObjectHeaderIcon(
-                            icon: .init(mode: .basicPreview(UIImage(contentsOfFile: path)), usecase: .openedObject),
-                            layoutAlignment: .left,
-                            onTap: onIconTap
-                        ),
-                        onCoverTap: onCoverTap
-                    )
-                )
-            )
-        case .coverUploading(let coverUpdate):
-            switch coverUpdate {
-            case .bundleImagePath(let string):
-                return ObjectHeader.filled(state:
-                    .coverOnly(
-                        ObjectHeaderCover(
-                            coverType: .preview(.image(UIImage(contentsOfFile: string))),
-                            onTap: onCoverTap
-                        )
-                    )
-                )
-            case .remotePreviewURL(let url):
-                return ObjectHeader.filled(state:
-                    .coverOnly(
-                        ObjectHeaderCover(
-                            coverType: .preview(.remote(url)),
-                            onTap: onCoverTap
-                        )
-                    )
-                )
-            }
-        }
-    }
-}
-
-enum HeaderBuilder {
-    static func buildObjectHeader(
-        details: ObjectDetails,
-        usecase: ObjectIconImageUsecase,
-        presentationUsecase: ObjectHeaderEmptyData.ObjectHeaderEmptyUsecase,
-        onIconTap: @escaping () -> Void,
-        onCoverTap: @escaping () -> Void
-    ) -> ObjectHeader {
-        let layoutAlign = details.layoutAlignValue
-        
-        if details.layoutValue == .note {
-            return .empty(usecase: presentationUsecase, onTap: {})
-        }
-        
-        let icon = details.layoutValue == .bookmark ? nil : details.icon
-        
-        if let icon = icon, let cover = details.documentCover {
-            return .filled(state:
-                    .iconAndCover(
-                        icon: ObjectHeaderIcon(
-                            icon: .init(mode: .icon(icon), usecase: usecase),
-                            layoutAlignment: layoutAlign,
-                            onTap: onIconTap
-                        ),
-                        cover: ObjectHeaderCover(
-                            coverType: .cover(cover),
-                            onTap: onCoverTap
-                        )
-                    )
-            )
-        }
-        
-        if let icon = icon {
-            return .filled(state:
                     .iconOnly(
                         ObjectHeaderIconOnlyState(
                             icon: ObjectHeaderIcon(
-                                icon: .init(mode: .icon(icon), usecase: usecase),
-                                layoutAlignment: layoutAlign,
+                                icon: .init(mode: .basicPreview(UIImage(contentsOfFile: path)), usecase: .openedObject),
+                                layoutAlignment: .left,
                                 onTap: onIconTap
                             ),
                             onCoverTap: onCoverTap
                         )
                     )
             )
-        }
-        
-        if let cover = details.documentCover {
-            return .filled(state:
-                    .coverOnly(
-                        ObjectHeaderCover(
-                            coverType: .cover(cover),
-                            onTap: onCoverTap
+        case .coverUploading(let coverUpdate):
+            switch coverUpdate {
+            case .bundleImagePath(let string):
+                return ObjectHeader.filled(state:
+                        .coverOnly(
+                            ObjectHeaderCover(
+                                coverType: .preview(.image(UIImage(contentsOfFile: string))),
+                                onTap: onCoverTap
+                            )
                         )
-                    )
-            )
+                )
+            case .remotePreviewURL(let url):
+                return ObjectHeader.filled(state:
+                        .coverOnly(
+                            ObjectHeaderCover(
+                                coverType: .preview(.remote(url)),
+                                onTap: onCoverTap
+                            )
+                        )
+                )
+            }
         }
-        
-        return .empty(
-            data: .init(presentationStyle: presentationUsecase, onTap: onCoverTap),
-            isShimmering: false
-        )
+    }
+
+}
+
+extension ObjectHeaderViewModel {
+    func handleCoverAction(action: ObjectCoverPickerAction) {
+        objectHeaderInteractor.handleCoverAction(spaceId: document.spaceId, action: action) { [weak self] update in
+            if let loadingHeader = self?.buildLoadingHeader(update) {
+                self?.header = loadingHeader
+            }
+        }
+    }
+    
+    func handleIconAction(action: ObjectIconPickerAction) {
+        objectHeaderInteractor.handleIconAction(spaceId: document.spaceId, action: action)
     }
 }

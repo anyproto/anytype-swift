@@ -3,8 +3,7 @@ import Services
 
 @MainActor
 protocol SetViewSettingsCoordinatorOutput: AnyObject {
-    func onDefaultObjectTap()
-    func onDefaultTemplateTap()
+    func onDefaultSettingsTap()
     func onLayoutTap()
     func onRelationsTap()
     func onFiltersTap()
@@ -13,7 +12,6 @@ protocol SetViewSettingsCoordinatorOutput: AnyObject {
 
 @MainActor
 final class SetViewSettingsCoordinatorViewModel: ObservableObject, SetViewSettingsCoordinatorOutput {
-    @Published var showObjects = false
     @Published var showLayouts = false
     @Published var showRelations = false
     @Published var showFilters = false
@@ -28,6 +26,7 @@ final class SetViewSettingsCoordinatorViewModel: ObservableObject, SetViewSettin
     private let setRelationsCoordinatorAssembly: SetRelationsCoordinatorAssemblyProtocol
     private let setFiltersListCoordinatorAssembly: SetFiltersListCoordinatorAssemblyProtocol
     private let setSortsListCoordinatorAssembly: SetSortsListCoordinatorAssemblyProtocol
+    private let objectCreationSettingsCoordinator: SetObjectCreationSettingsCoordinatorProtocol
     
     init(
         setDocument: SetDocumentProtocol,
@@ -38,7 +37,8 @@ final class SetViewSettingsCoordinatorViewModel: ObservableObject, SetViewSettin
         setLayoutSettingsCoordinatorAssembly: SetLayoutSettingsCoordinatorAssemblyProtocol,
         setRelationsCoordinatorAssembly: SetRelationsCoordinatorAssemblyProtocol,
         setFiltersListCoordinatorAssembly: SetFiltersListCoordinatorAssemblyProtocol,
-        setSortsListCoordinatorAssembly: SetSortsListCoordinatorAssemblyProtocol
+        setSortsListCoordinatorAssembly: SetSortsListCoordinatorAssemblyProtocol,
+        objectCreationSettingsCoordinator: SetObjectCreationSettingsCoordinatorProtocol
     ) {
         self.setDocument = setDocument
         self.viewId = viewId
@@ -49,6 +49,7 @@ final class SetViewSettingsCoordinatorViewModel: ObservableObject, SetViewSettin
         self.setRelationsCoordinatorAssembly = setRelationsCoordinatorAssembly
         self.setFiltersListCoordinatorAssembly = setFiltersListCoordinatorAssembly
         self.setSortsListCoordinatorAssembly = setSortsListCoordinatorAssembly
+        self.objectCreationSettingsCoordinator = objectCreationSettingsCoordinator
     }
     
     func list() -> AnyView {
@@ -62,14 +63,14 @@ final class SetViewSettingsCoordinatorViewModel: ObservableObject, SetViewSettin
     
     // MARK: - SetViewSettingsCoordinatorOutput
     
-    // MARK: - Default type
+    // MARK: - Default object creation settings
     
-    func onDefaultObjectTap() {
-        showObjects.toggle()
-    }
-    
-    func onDefaultTemplateTap() {
-        showObjects.toggle()
+    func onDefaultSettingsTap() {
+        objectCreationSettingsCoordinator.showSetObjectCreationSettings(
+            setDocument: setDocument,
+            viewId: viewId,
+            onTemplateSelection: { _ in }
+        )
     }
     
     // MARK: - Layout

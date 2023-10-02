@@ -27,12 +27,14 @@ final class EditorBrowserCoordinator: EditorBrowserCoordinatorProtocol, EditorPa
         self.editorPageCoordinatorAssembly = editorPageCoordinatorAssembly
     }
     
+    @MainActor
     func startFlow(data: EditorScreenData) {
         showPage(data: data)
     }
     
     // MARK: - EditorPageOpenRouterProtocol
     
+    @MainActor
     func showPage(data: EditorScreenData) {
         if browserController != nil {
             editorPageCoordinator?.startFlow(data: data, replaceCurrentPage: false)

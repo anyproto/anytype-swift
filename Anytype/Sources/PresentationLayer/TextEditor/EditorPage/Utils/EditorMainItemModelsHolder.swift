@@ -10,7 +10,7 @@ final class EditorMainItemModelsHolder {
                 guard case let .block(blockViewModel) = pair else { return }
                 
                 if let viewModel = result[blockViewModel.blockId] {
-                    anytypeAssertionFailure("There are duplicates with block type: \(blockViewModel.content.type)")
+                    anytypeAssertionFailure("There are duplicates with block type: \(viewModel.content.type)")
                 }
                 
                 result[blockViewModel.blockId] = blockViewModel

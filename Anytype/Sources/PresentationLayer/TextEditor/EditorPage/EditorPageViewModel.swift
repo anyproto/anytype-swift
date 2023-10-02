@@ -81,10 +81,6 @@ final class EditorPageViewModel: EditorPageViewModelProtocol {
             guard let headerModel = value else { return }
             self?.updateHeaderIfNeeded(headerModel: headerModel)
         }.store(in: &subscriptions)
-        
-        document.detailsPublisher
-            .sink { [weak self] in self?.handleDeletionState(details: $0) }
-            .store(in: &subscriptions)
     }
 
     private func setupLoadingState() {
@@ -137,8 +133,6 @@ final class EditorPageViewModel: EditorPageViewModelProtocol {
 
             let items = blockBuilder.buildEditorItems(infos: models)
             modelsHolder.items = items
-        case .header:
-            break // supported in headerModel
         }
 
         if !configuration.isOpenedForPreview {
@@ -157,10 +151,6 @@ final class EditorPageViewModel: EditorPageViewModelProtocol {
             cursorManager.handleGeneralUpdate(with: modelsHolder.items, type: document.details?.type)
             handleTemplatesPopupShowing()
         }
-    }
-    
-    private func handleDeletionState(details: ObjectDetails) {
-        viewInput?.showDeletedScreen(details.isDeleted)
     }
 
     private func difference(
@@ -299,20 +289,23 @@ extension EditorPageViewModel {
     func element(at: IndexPath) -> BlockViewModelProtocol? {
         modelsHolder.blockViewModel(at: at.row)
     }
+    
+    func handleSettingsAction(action: ObjectSettingsAction) {
+        switch action {
+        case .cover(let objectCoverPickerAction):
+            headerModel.handleCoverAction(action: objectCoverPickerAction)
+        case .icon(let objectIconPickerAction):
+            headerModel.handleIconAction(action: objectIconPickerAction)
+        }
+    }
 }
 
 extension EditorPageViewModel {
     
     func showSettings() {
-        router.showSettings()
-    }
-    
-    func showIconPicker() {
-        router.showIconPicker()
-    }
-    
-    func showCoverPicker() {
-        router.showCoverPicker()
+        router.showSettings { [weak self] action in
+            self?.handleSettingsAction(action: action)
+        }
     }
 }
 

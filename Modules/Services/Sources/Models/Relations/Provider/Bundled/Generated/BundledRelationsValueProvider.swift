@@ -152,6 +152,7 @@ public protocol BundledRelationsValueProvider {
     var defaultTemplateId: ObjectId { get }
     var uniqueKey: String { get }
     var backlinks: ObjectId { get }
+    var isUninstalled: Bool { get }
 } 
 
 public extension BundledRelationsValueProvider where Self: RelationValueProvider {
@@ -661,5 +662,9 @@ public extension BundledRelationsValueProvider where Self: RelationValueProvider
     /// List of backlinks
     var backlinks: ObjectId {
         return value(for: BundledRelationKey.backlinks.rawValue)
+    }
+    /// Relation that indicates document has been uninstalled
+    var isUninstalled: Bool {
+        return value(for: BundledRelationKey.isUninstalled.rawValue)
     }
 }

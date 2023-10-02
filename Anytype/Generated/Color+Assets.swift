@@ -66,7 +66,6 @@ extension Color {
     // MARK: - Additional
     enum Additional {
       internal static let separator = Color(asset: Asset.Additional.separator)
-      internal static let sharingBackground = Color(asset: Asset.Additional.sharingBackground)
       internal static let space = Color(asset: Asset.Additional.space)
     }
     

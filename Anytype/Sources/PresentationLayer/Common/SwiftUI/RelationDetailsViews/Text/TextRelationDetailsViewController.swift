@@ -174,30 +174,47 @@ private extension TextRelationDetailsViewController {
             actionStackView.addArrangedSubview(UIKitAnytypeDivider())
         }
         for actionViewModel in viewModel.actionsViewModel {
-            let actionButton = UIButton(type: .custom)
             let image = UIImage(asset: actionViewModel.iconAsset)
-            actionButton.setImage(image, for: .normal)
-            actionButton.tintColor = .Button.active
-            let text = NSAttributedString(
-                string: actionViewModel.title,
-                attributes: [
+            let text = AttributedString(
+                actionViewModel.title,
+                attributes: AttributeContainer([
                     .font: UIFont.bodyRegular,
                     .foregroundColor: UIColor.Text.primary
-                ]
+                ])
             )
             
-            let disabledText = NSAttributedString(
-                string: actionViewModel.title,
-                attributes: [
+            let disabledText = AttributedString(
+                actionViewModel.title,
+                attributes: AttributeContainer([
                     .font: UIFont.bodyRegular,
                     .foregroundColor: UIColor.Text.tertiary
-                ]
+                ])
             )
-            actionButton.setAttributedTitle(text, for: .normal)
-            actionButton.setAttributedTitle(disabledText, for: .disabled)
+            
+            var configuration = UIButton.Configuration.plain()
+            configuration.attributedTitle = text
+            configuration.image = image
+            configuration.buttonSize = .large
+            configuration.titleAlignment = .leading
+            configuration.imagePlacement = .leading
+            configuration.contentInsets = .init(top: 14, leading: -8, bottom: 14, trailing: 0)
+            configuration.imagePadding = 10
+
+            let actionButton = UIButton(configuration: configuration)
+            actionButton.configurationUpdateHandler = { button in
+                var configuration = button.configuration
+                switch button.state {
+                case .disabled:
+                    configuration?.attributedTitle = disabledText
+                default:
+                    configuration?.attributedTitle = text
+                }
+                
+                button.configuration = configuration
+            }
+            
+            actionButton.tintColor = .Button.active
             actionButton.contentHorizontalAlignment = .leading
-            actionButton.contentEdgeInsets = UIEdgeInsets(top: 14, left: 0, bottom: 14, right: 0)
-            actionButton.titleEdgeInsets = UIEdgeInsets(top: 0, left: 10, bottom: 0, right: 0)
             
             actionButton.addAction(
                 UIAction(

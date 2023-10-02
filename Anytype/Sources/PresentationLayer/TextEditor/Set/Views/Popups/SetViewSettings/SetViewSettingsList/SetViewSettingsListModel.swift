@@ -21,7 +21,7 @@ final class SetViewSettingsListModel: ObservableObject {
     private let viewId: String
     private let dataviewService: DataviewServiceProtocol
     private let templatesInteractor: SetTemplatesInteractorProtocol
-    private let templateInteractorProvider: TemplateSelectionInteractorProvider?
+    private let setObjectCreationSettingsInteractor: SetObjectCreationSettingsInteractorProtocol?
     private weak var output: SetViewSettingsCoordinatorOutput?
     
     private var cancellables = [AnyCancellable]()
@@ -34,7 +34,7 @@ final class SetViewSettingsListModel: ObservableObject {
         mode: SetViewSettingsMode,
         dataviewService: DataviewServiceProtocol,
         templatesInteractor: SetTemplatesInteractorProtocol,
-        templateInteractorProvider: TemplateSelectionInteractorProvider?,
+        setObjectCreationSettingsInteractor: SetObjectCreationSettingsInteractorProtocol?,
         output: SetViewSettingsCoordinatorOutput?
     ) {
         self.setDocument = setDocument
@@ -42,7 +42,7 @@ final class SetViewSettingsListModel: ObservableObject {
         self.mode = mode
         self.dataviewService = dataviewService
         self.templatesInteractor = templatesInteractor
-        self.templateInteractorProvider = templateInteractorProvider
+        self.setObjectCreationSettingsInteractor = setObjectCreationSettingsInteractor
         self.output = output
         self.canBeDeleted = setDocument.dataView.views.count > 1
         self.setupFocus()
@@ -53,10 +53,8 @@ final class SetViewSettingsListModel: ObservableObject {
     
     func onSettingTap(_ setting: SetViewSettings) {
         switch setting {
-        case .defaultObject:
-            output?.onDefaultObjectTap()
-        case .defaultTemplate:
-            output?.onDefaultObjectTap()
+        case .defaultObject, .defaultTemplate:
+            output?.onDefaultSettingsTap()
         case .layout:
             output?.onLayoutTap()
         case .relations:
@@ -121,12 +119,13 @@ final class SetViewSettingsListModel: ObservableObject {
     }
     
     private func updateState() {
+        let prevObjectTypeId = view.defaultObjectTypeID ?? ""
         view = setDocument.view(by: viewId)
         
         name = view.name
         layoutValue = view.type.name
         updateRelationsValue()
-        updateDefaultObjectValue(with: view)
+        updateDefaultObjectValue(with: view, prevObjectTypeId: prevObjectTypeId)
         
         let sorts = setDocument.sorts(for: viewId)
         updateSortsValue(sorts)
@@ -136,7 +135,7 @@ final class SetViewSettingsListModel: ObservableObject {
     }
     
     private func setupTemplatesSubscriptions() {
-        templateInteractorProvider?.userTemplates.sink { [weak self] templates in
+        setObjectCreationSettingsInteractor?.userTemplates.sink { [weak self] templates in
             let defaultTemplate = templates.first(where: { $0.isDefault })
             
             let title: String
@@ -188,10 +187,10 @@ final class SetViewSettingsListModel: ObservableObject {
         }
     }
     
-    private func updateDefaultObjectValue(with view: DataviewView) {
+    private func updateDefaultObjectValue(with view: DataviewView, prevObjectTypeId: String) {
         guard !setDocument.isTypeSet(),
             defaultObjectValue == SetViewSettings.defaultObject.placeholder ||
-                view.defaultObjectTypeID != view.defaultObjectTypeID else { return }
+                prevObjectTypeId != view.defaultObjectTypeID else { return }
         let objectType = try? setDocument.defaultObjectTypeForView(view)
         defaultObjectValue = objectType?.name ?? ""
     }

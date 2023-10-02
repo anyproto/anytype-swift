@@ -33,34 +33,12 @@ extension DetailsService: DetailsServiceProtocol {
     }
     
     func setCover(spaceId: String, source: FileUploadingSource) async throws {
-        await EventsBunch(
-            contextId: objectId,
-            localEvents: [.header(.coverUploading(.bundleImagePath("")))]
-        ).send()
         let data = try await fileService.createFileData(source: source)
-        await EventsBunch(
-            contextId: objectId,
-            localEvents: [.header(.coverUploading(.bundleImagePath(data.path)))]
-        ).send()
         let imageHash = try await fileService.uploadImage(spaceId: spaceId, data: data)
         try await setCover(imageHash: imageHash)
     }
     
     func setCover(imageHash: Hash) async throws {
         try await updateBundledDetails([.coverType(CoverType.uploadedImage), .coverId(imageHash.value)])
-    }
-    
-    func setObjectIcon(spaceId: String, source: FileUploadingSource) async throws {
-        await EventsBunch(
-            contextId: objectId,
-            localEvents: [.header(.iconUploading(""))]
-        ).send()
-        let data = try await fileService.createFileData(source: source)
-        await EventsBunch(
-            contextId: objectId,
-            localEvents: [.header(.iconUploading(data.path))]
-        ).send()
-        let imageHash = try await fileService.uploadImage(spaceId: spaceId, data: data)
-        try await updateBundledDetails([.iconEmoji(""), .iconImageHash(imageHash)])
     }
 }

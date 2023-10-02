@@ -28,6 +28,7 @@ protocol CoordinatorsDIProtocol: AnyObject {
     func editor() -> EditorCoordinatorAssemblyProtocol
     func editorSet() -> EditorSetCoordinatorAssemblyProtocol
     func editorPage() -> EditorNewPageCoordinatorAssemblyProtocol
+    func setObjectCreationSettings() -> SetObjectCreationSettingsCoordinatorAssemblyProtocol
     
     // Now like a coordinator. Migrate to isolated modules
     func browser() -> EditorBrowserAssembly

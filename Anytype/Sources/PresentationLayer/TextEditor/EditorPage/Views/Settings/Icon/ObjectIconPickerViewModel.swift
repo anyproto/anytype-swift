@@ -3,6 +3,16 @@ import UIKit
 import Services
 import AnytypeCore
 
+enum ObjectIconPickerAction {
+    enum IconSource {
+        case emoji(emojiUnicode: String)
+        case upload(itemProvider: NSItemProvider)
+    }
+    
+    case setIcon(IconSource)
+    case removeIcon
+}
+
 final class ObjectIconPickerViewModel: ObservableObject, ObjectIconPickerViewModelProtocol {
     
     let mediaPickerContentType: MediaPickerContentType = .images
@@ -14,24 +24,17 @@ final class ObjectIconPickerViewModel: ObservableObject, ObjectIconPickerViewMod
     // MARK: - Private variables
     
     private let document: BaseDocumentGeneralProtocol
-    private let objectId: String
-    private let fileService: FileActionsServiceProtocol
-    private let detailsService: DetailsServiceProtocol
-    
     private var subscription: AnyCancellable?
+    private let onIconAction: (ObjectIconPickerAction) -> Void
         
     // MARK: - Initializer
     
     init(
         document: BaseDocumentGeneralProtocol,
-        objectId: String,
-        fileService: FileActionsServiceProtocol,
-        detailsService: DetailsServiceProtocol
+        onIconAction: @escaping (ObjectIconPickerAction) -> Void
     ) {
         self.document = document
-        self.objectId = objectId
-        self.fileService = fileService
-        self.detailsService = detailsService
+        self.onIconAction = onIconAction
         subscription = document.syncPublisher.sink { [weak self] in
             self?.updateState()
         }
@@ -52,7 +55,8 @@ final class ObjectIconPickerViewModel: ObservableObject, ObjectIconPickerViewMod
             return details.iconImage.isNotNil
         default:
             anytypeAssertionFailure(
-                "`ObjectIconPickerViewModel` unavailable", info: ["detailsLayout": "\(detailsLayout?.rawValue)"]
+                "`ObjectIconPickerViewModel` unavailable",
+                info: ["detailsLayout": String(detailsLayout?.rawValue ?? 0)]
             )
             return true
         }
@@ -61,29 +65,14 @@ final class ObjectIconPickerViewModel: ObservableObject, ObjectIconPickerViewMod
 
 extension ObjectIconPickerViewModel {
     func setEmoji(_ emojiUnicode: String) {
-        AnytypeAnalytics.instance().logEvent(AnalyticsEventsName.setIcon)
-        Task {
-            try await detailsService.updateBundledDetails([.iconEmoji(emojiUnicode), .iconImageHash(nil)])
-        }
+        onIconAction(.setIcon(.emoji(emojiUnicode: emojiUnicode)))
     }
     
     func uploadImage(from itemProvider: NSItemProvider) {
-        AnytypeAnalytics.instance().logEvent(AnalyticsEventsName.setIcon)
-        Task {
-            let data = try await fileService.createFileData(source: .itemProvider(itemProvider))
-            let imageHash = try await fileService.uploadImage(spaceId: document.details?.spaceId ?? "", data: data)
-            try await detailsService.updateBundledDetails([.iconEmoji(""), .iconImageHash(imageHash)])
-        }
+        onIconAction(.setIcon(.upload(itemProvider: itemProvider)))
     }
     
     func removeIcon() {
-        // Analytics
-        AnytypeAnalytics.instance().logEvent(AnalyticsEventsName.removeIcon)
-        Task {
-            try await detailsService.updateBundledDetails(
-                [.iconEmoji(""), .iconImageHash(nil)]
-            )
-        }
+        onIconAction(.removeIcon)
     }
-    
 }

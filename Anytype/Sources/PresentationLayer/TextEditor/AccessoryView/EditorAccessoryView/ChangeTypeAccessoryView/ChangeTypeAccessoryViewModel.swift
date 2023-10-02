@@ -15,6 +15,7 @@ final class ChangeTypeAccessoryViewModel {
     private let handler: BlockActionHandlerProtocol
     private let searchService: SearchServiceProtocol
     private let objectService: ObjectActionsServiceProtocol
+    private let objectTypeProvider: ObjectTypeProviderProtocol
     private let document: BaseDocumentProtocol
     private lazy var searchItem = TypeItem.searchItem { [weak self] in self?.onSearchTap() }
 
@@ -25,12 +26,14 @@ final class ChangeTypeAccessoryViewModel {
         handler: BlockActionHandlerProtocol,
         searchService: SearchServiceProtocol,
         objectService: ObjectActionsServiceProtocol,
+        objectTypeProvider: ObjectTypeProviderProtocol,
         document: BaseDocumentProtocol
     ) {
         self.router = router
         self.handler = handler
         self.searchService = searchService
         self.objectService = objectService
+        self.objectTypeProvider = objectTypeProvider
         self.document = document
 
         subscribeOnDocumentChanges()
@@ -44,7 +47,29 @@ final class ChangeTypeAccessoryViewModel {
         isTypesViewVisible.toggle()
     }
 
+    private func fetchSupportedTypes() {
+        Task { @MainActor [weak self] in
+            let supportedTypes = try? await self?.searchService
+                .searchObjectTypes(
+                    text: "",
+                    filteringTypeId: nil,
+                    shouldIncludeSets: true,
+                    shouldIncludeCollections: true,
+                    shouldIncludeBookmark: false,
+                    spaceId: document.spaceId
+                ).map { type in
+                    TypeItem(from: type, handler: { [weak self] in
+                        self?.onTypeTap(type: ObjectType(details: type))
+                    })
+                }
+            
+            supportedTypes.map { self?.allSupportedTypes = $0 }
+        }
+    }
+
     private func onTypeTap(type: ObjectType) {
+        defer { logSelectObjectType(type: type) }
+        
         if type.recommendedLayout == .set {
             Task { @MainActor in
                 document.resetSubscriptions() // to avoid glytch with premature document update
@@ -69,6 +94,10 @@ final class ChangeTypeAccessoryViewModel {
             try await handler.setObjectType(type: type)
             applyDefaultTemplateIfNeeded(typeId: type.id)
         }
+    }
+    
+    private func logSelectObjectType(type: ObjectType) {
+        AnytypeAnalytics.instance().logSelectObjectType(type.analyticsType)
     }
     
     private func applyDefaultTemplateIfNeeded(typeId: String) {

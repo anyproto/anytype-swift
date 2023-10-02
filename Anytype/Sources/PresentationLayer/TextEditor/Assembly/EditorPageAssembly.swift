@@ -23,6 +23,7 @@ final class EditorAssembly {
         self.uiHelpersDI = uiHelpersDI
     }
     
+    @MainActor
     func buildEditorController(
         browser: EditorBrowserController?,
         data: EditorScreenData,
@@ -31,6 +32,7 @@ final class EditorAssembly {
         buildEditorModule(browser: browser, data: data, widgetListOutput: widgetListOutput)
     }
 
+    @MainActor
     func buildEditorModule(
         browser: EditorBrowserController?,
         data: EditorScreenData,
@@ -57,7 +59,9 @@ final class EditorAssembly {
     }
     
     // MARK: - Set
-    func buildSetModule(
+    
+    @MainActor
+    private func buildSetModule(
         browser: EditorBrowserController?,
         data: EditorSetObject
     ) -> (AnyView, EditorPageOpenRouterProtocol?) {
@@ -77,8 +81,19 @@ final class EditorAssembly {
         
         let detailsService = serviceLocator.detailsService(objectId: data.objectId)
         
+        let headerModel = ObjectHeaderViewModel(
+            document: setDocument,
+            configuration: .init(
+                isOpenedForPreview: false,
+                shouldShowTemplateSelection: false,
+                usecase: .editor
+            ),
+            interactor: serviceLocator.objectHeaderInteractor(objectId: setDocument.targetObjectID ?? setDocument.objectId)
+        )
+        
         let model = EditorSetViewModel(
             setDocument: setDocument,
+            headerViewModel: headerModel,
             subscriptionService: serviceLocator.subscriptionService(),
             dataviewService: dataviewService,
             searchService: serviceLocator.searchService(),
@@ -97,8 +112,7 @@ final class EditorAssembly {
         let router = EditorSetRouter(
             setDocument: setDocument,
             rootController: browser,
-            viewController: UIViewController(),
-            navigationContext: uiHelpersDI.commonNavigationContext(),
+            navigationContext: navigationContext,
             createObjectModuleAssembly: modulesDI.createObject(),
             newSearchModuleAssembly: modulesDI.newSearch(),
             editorPageCoordinator: coordinatorsDI.editorPage().make(browserController: browser),
@@ -114,14 +128,14 @@ final class EditorAssembly {
             editorSetRelationsCoordinatorAssembly: coordinatorsDI.setRelations(),
             setViewPickerCoordinatorAssembly: coordinatorsDI.setViewPicker(),
             toastPresenter: uiHelpersDI.toastPresenter(using: browser),
-            alertHelper: AlertHelper(viewController: browser),
-            templateSelectionCoordinator: TemplateSelectionCoordinator(
-                navigationContext: uiHelpersDI.commonNavigationContext(),
-                templatesModulesAssembly: modulesDI.templatesAssembly(),
-                editorAssembly: coordinatorsDI.editorLegacy(),
-                objectSettingCoordinator: coordinatorsDI.objectSettings().make(browserController: nil)
+            alertHelper: AlertHelper(viewController: controller),
+            setObjectCreationSettingsCoordinator: coordinatorsDI.setObjectCreationSettings().make(
+                with: .creation,
+                navigationContext: navigationContext
             )
         )
+        
+        setupHeaderModelActions(headerModel: headerModel, using: router)
         
         model.setup(router: router)
         
@@ -130,11 +144,8 @@ final class EditorAssembly {
     
     // MARK: - Page
     
-    func buildPageModule(data: EditorPageObject) -> AnyView {
-        ViewMakeAdapter(model: ViewModelMakeAdapter(viewMake: self.buildPageModuleInternal(browser: nil, data: data).0)).eraseToAnyView()
-    }
-    
-    func buildPageModuleInternal(
+    @MainActor
+    func buildPageModule(
         browser: EditorBrowserController?,
         data: EditorPageObject
     ) -> (AnyView, EditorPageOpenRouterProtocol) {
@@ -163,11 +174,9 @@ final class EditorAssembly {
             document: document,
             addNewRelationCoordinator: coordinatorsDI.addNewRelation().make(),
             templatesCoordinator: coordinatorsDI.templates().make(viewController: controller),
-            templateSelectionCoordinator: TemplateSelectionCoordinator(
-                navigationContext: navigationContext,
-                templatesModulesAssembly: modulesDI.templatesAssembly(),
-                editorAssembly: coordinatorsDI.editorLegacy(),
-                objectSettingCoordinator: coordinatorsDI.objectSettings().make(browserController: nil)
+            setObjectCreationSettingsCoordinator: coordinatorsDI.setObjectCreationSettings().make(
+                with: .creation,
+                navigationContext: navigationContext
             ),
             urlOpener: uiHelpersDI.urlOpener(),
             relationValueCoordinator: coordinatorsDI.relationValue().make(),
@@ -305,12 +314,12 @@ final class EditorAssembly {
             accessoryState: accessoryState,
             cursorManager: cursorManager
         )
-
         let headerModel = ObjectHeaderViewModel(
             document: document,
-            router: router,
-            configuration: configuration
+            configuration: configuration,
+            interactor: serviceLocator.objectHeaderInteractor(objectId: document.objectId)
         )
+        setupHeaderModelActions(headerModel: headerModel, using: router)
 
         let responderScrollViewHelper = ResponderScrollViewHelper(scrollView: scrollView)
         
@@ -341,7 +350,8 @@ final class EditorAssembly {
             detailsService: serviceLocator.detailsService(objectId: document.objectId),
             audioSessionService: serviceLocator.audioSessionService(),
             infoContainer: document.infoContainer,
-            tableService: blockTableService
+            tableService: blockTableService,
+            objectTypeProvider: serviceLocator.objectTypeProvider()
         )
 
         actionHandler.blockSelectionHandler = blocksStateManager
@@ -425,5 +435,15 @@ final class EditorAssembly {
         let bottomPanelManager = BrowserBottomPanelManager(browser: browser)
         let module = moduleAssembly.makeBin(bottomPanelManager: bottomPanelManager, output: output)
         return (module, nil)
+    }
+    
+    private func setupHeaderModelActions(headerModel: ObjectHeaderViewModel, using router: ObjectHeaderRouterProtocol) {
+        headerModel.onCoverPickerTap = { [weak router] args in
+            router?.showCoverPicker(document: args.0, onCoverAction: args.1)
+        }
+        
+        headerModel.onIconPickerTap = { [weak router] args in
+            router?.showIconPicker(document: args.0, onIconAction: args.1)
+        }
     }
 }

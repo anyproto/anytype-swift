@@ -153,4 +153,8 @@ final class CoordinatorsDI: CoordinatorsDIProtocol {
     func editorPage() -> EditorNewPageCoordinatorAssemblyProtocol {
         EditorNewPageCoordinatorAssembly(coordinatorsID: self, modulesDI: modulesDI, serviceLocator: serviceLocator, uiHelpersDI: uiHelpersDI)
     }
+    
+    func setObjectCreationSettings() -> SetObjectCreationSettingsCoordinatorAssemblyProtocol {
+        SetObjectCreationSettingsCoordinatorAssembly(modulesDI: modulesDI, uiHelpersDI: uiHelpersDI, coordinatorsDI: self)
+    }
 }
