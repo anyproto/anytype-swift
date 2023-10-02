@@ -54,11 +54,11 @@
 
 // MARK: - Block Link
 
-"BlockLink.PreviewSettings.IconSize.None" = "None";
-"BlockLink.PreviewSettings.IconSize.Small" = "Small";
-"BlockLink.PreviewSettings.IconSize.Medium" = "Medium";
+"BlockLink.PreviewSettings.IconSize.None" = "Ora nganggo";
+"BlockLink.PreviewSettings.IconSize.Small" = "Cilik";
+"BlockLink.PreviewSettings.IconSize.Medium" = "Gedhé";
 
-"BlockLink.PreviewSettings.Layout.Card.Title" = "Card";
+"BlockLink.PreviewSettings.Layout.Card.Title" = "Kertu";
 "BlockLink.PreviewSettings.Layout.Text.Title" = "Text";
 
 // MARK: - Settings
@@ -72,7 +72,7 @@
 // MARK: - Relation
 "Featured relations" = "Featured relations";
 "Create relation" = "Create relation ‘%@’";
-"Relation.View.Hint.Empty" = "empty";
+"Relation.View.Hint.Empty" = "kosong";
 "Relation.MyRelations" = "My relations";
 "Relation.AddedToLibrary" = "Relation ‘%@’ added to your library";
 "Relation.Deleted" = "Deleted relation";
@@ -80,10 +80,10 @@
 
 "Relation.Format.Object.Title" = "Object";
 "Relation.Format.Text.Title" = "Text";
-"Relation.Format.Number.Title" = "Number";
+"Relation.Format.Number.Title" = "Angka";
 "Relation.Format.Status.Title" = "Status";
 "Relation.Format.Tag.Title" = "Tag";
-"Relation.Format.Date.Title" = "Date";
+"Relation.Format.Date.Title" = "Tanggal";
 "Relation.Format.FileMedia.Title" = "File & Media";
 "Relation.Format.Checkbox.Title" = "Checkbox";
 "Relation.Format.Url.Title" = "URL";
@@ -93,13 +93,13 @@
 // MARK: - Mention
 "Mention.Subtitle.Placeholder" = "Object";
 
-"None" = "None";
+"None" = "Ora nganggo";
 "Callout" = "Callout";
 "Toggle empty. Tap to create block." = "Toggle empty. Tap to create block.";
 "Loading, please wait" = "Loading, please wait";
 "Done" = "Done";
 "Style" = "Style";
-"Color" = "Color";
+"Color" = "Warna";
 "Background" = "Background";
 "Other" = "Other";
 "Media" = "Media";
@@ -124,14 +124,14 @@
 "Align right" = "Align right";
 "Align left" = "Align left";
 "Align center" = "Align center";
-"Black" = "Black";
-"Amber" = "Amber";
-"Red" = "Red";
-"Pink" = "Pink";
-"Purple" = "Purple";
-"Blue" = "Blue";
-"Teal" = "Teal";
-"Green" = "Green";
+"Black" = "Ireng";
+"Amber" = "Jingga";
+"Red" = "Abang";
+"Pink" = "Jambon";
+"Purple" = "Wungu";
+"Blue" = "Biru";
+"Teal" = "Gumedhah";
+"Green" = "Ijo";
 "Default background" = "Default background";
 "Amber background" = "Amber background";
 "Red background" = "Red background";
@@ -340,7 +340,7 @@
 "Move To Bin" = "Move To Bin";
 
 
-"LinkAppearance.Description.None.Title" = "None";
+"LinkAppearance.Description.None.Title" = "Ora nganggo";
 "LinkAppearance.Description.Object.Title" = "Object description";
 "LinkAppearance.Description.Content.Title" = "Content preview";
 "LinkAppearance.ObjectType.Title" = "Object type";
@@ -428,7 +428,7 @@
 // MARK: - Sets: View Settings
 "Set.View.Settings.ImageFit.Title" = "Fit image";
 "Set.View.Settings.CardSize.Title" = "Card size";
-"Set.View.Settings.CardSize.Small.Title" = "Small";
+"Set.View.Settings.CardSize.Small.Title" = "Cilik";
 "Set.View.Settings.CardSize.Large.Title" = "Large";
 "Set.View.Settings.ImagePreview.Title" = "Image preview";
 "Set.View.Settings.GroupBy.Title" = "Group by";
@@ -646,7 +646,7 @@
 
 // MARK: - Simple tables
 "SimpleTableMenu.Item.clearContents" = "Clear";
-"SimpleTableMenu.Item.color" = "Color";
+"SimpleTableMenu.Item.color" = "Warna";
 "SimpleTableMenu.Item.style" = "Style";
 "SimpleTableMenu.Item.clearStyle" = "Reset style";
 
