@@ -7720,6 +7720,8 @@ public struct Anytype_Rpc {
         /// Clears the value of `error`. Subsequent reads from it will return its default value.
         public mutating func clearError() {self._error = nil}
 
+        public var collectionID: String = String()
+
         public var unknownFields = SwiftProtobuf.UnknownStorage()
 
         public struct Error {
@@ -37452,6 +37454,7 @@ extension Anytype_Rpc.Object.Import.Response: SwiftProtobuf.Message, SwiftProtob
   public static let protoMessageName: String = Anytype_Rpc.Object.Import.protoMessageName + ".Response"
   public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
     1: .same(proto: "error"),
+    2: .same(proto: "collectionId"),
   ]
 
   public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
@@ -37461,6 +37464,7 @@ extension Anytype_Rpc.Object.Import.Response: SwiftProtobuf.Message, SwiftProtob
       // enabled. https://github.com/apple/swift-protobuf/issues/1034
       switch fieldNumber {
       case 1: try { try decoder.decodeSingularMessageField(value: &self._error) }()
+      case 2: try { try decoder.decodeSingularStringField(value: &self.collectionID) }()
       default: break
       }
     }
@@ -37474,11 +37478,15 @@ extension Anytype_Rpc.Object.Import.Response: SwiftProtobuf.Message, SwiftProtob
     try { if let v = self._error {
       try visitor.visitSingularMessageField(value: v, fieldNumber: 1)
     } }()
+    if !self.collectionID.isEmpty {
+      try visitor.visitSingularStringField(value: self.collectionID, fieldNumber: 2)
+    }
     try unknownFields.traverse(visitor: &visitor)
   }
 
   public static func ==(lhs: Anytype_Rpc.Object.Import.Response, rhs: Anytype_Rpc.Object.Import.Response) -> Bool {
     if lhs._error != rhs._error {return false}
+    if lhs.collectionID != rhs.collectionID {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }

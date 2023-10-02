@@ -368,4 +368,7 @@ public enum BundledRelationKey: String {
 
     /// List of backlinks
     case backlinks = "backlinks"
+
+    /// Relation that indicates document has been uninstalled
+    case isUninstalled = "isUninstalled"
 }

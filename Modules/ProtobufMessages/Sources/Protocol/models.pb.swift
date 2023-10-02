@@ -45,6 +45,7 @@ public enum Anytype_Model_SmartBlockType: SwiftProtobuf.Enum {
   case workspace // = 518
   case strelation // = 521
   case sttype // = 528
+  case strelationOption // = 529
   case missingObject // = 519
   case UNRECOGNIZED(Int)
 
@@ -72,6 +73,7 @@ public enum Anytype_Model_SmartBlockType: SwiftProtobuf.Enum {
     case 519: self = .missingObject
     case 521: self = .strelation
     case 528: self = .sttype
+    case 529: self = .strelationOption
     default: self = .UNRECOGNIZED(rawValue)
     }
   }
@@ -96,6 +98,7 @@ public enum Anytype_Model_SmartBlockType: SwiftProtobuf.Enum {
     case .missingObject: return 519
     case .strelation: return 521
     case .sttype: return 528
+    case .strelationOption: return 529
     case .UNRECOGNIZED(let i): return i
     }
   }
@@ -124,6 +127,7 @@ extension Anytype_Model_SmartBlockType: CaseIterable {
     .workspace,
     .strelation,
     .sttype,
+    .strelationOption,
     .missingObject,
   ]
 }
@@ -3794,6 +3798,7 @@ extension Anytype_Model_SmartBlockType: SwiftProtobuf._ProtoNameProviding {
     519: .same(proto: "MissingObject"),
     521: .same(proto: "STRelation"),
     528: .same(proto: "STType"),
+    529: .same(proto: "STRelationOption"),
   ]
 }
 
