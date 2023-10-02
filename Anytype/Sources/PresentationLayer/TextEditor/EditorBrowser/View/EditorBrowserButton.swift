@@ -11,9 +11,11 @@ final class EditorBrowserButton: UIView, CustomizableHitTestAreaView {
     var minHitTestArea: CGSize = Constants.minimumHitArea
 
     private let button = UIButton(type: .custom)
+    private let longTapAction: (() -> Void)?
     
-    init(imageAsset: ImageAsset, isEnabled: Bool = true, action: @escaping () -> Void) {
+    init(imageAsset: ImageAsset, isEnabled: Bool = true, action: @escaping () -> Void, longTapAction: (() -> Void)? = nil) {
         self.isEnabled = isEnabled
+        self.longTapAction = longTapAction
         super.init(frame: .zero)
         
         setupView(imageAsset: imageAsset, action: action)
@@ -55,6 +57,16 @@ final class EditorBrowserButton: UIView, CustomizableHitTestAreaView {
             ),
             for: .touchUpInside
         )
+        if longTapAction.isNotNil {
+            let longPress = UILongPressGestureRecognizer(target: self, action: #selector(longTapGesture(gesture:)))
+            button.addGestureRecognizer(longPress)
+        }
+    }
+    
+    @objc private func longTapGesture(gesture: UILongPressGestureRecognizer) {
+        if gesture.state == .ended {
+            longTapAction?()
+        }
     }
     
     private func setupLayout() {
