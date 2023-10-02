@@ -53,7 +53,12 @@ final class MarkupAccessoryView: UIView {
         let contentView = MarkupAccessoryContentView(viewModel: viewModel).asUIView()
 
         addSubview(contentView) {
-            $0.pinToSuperviewPreservingReadability()
+            if FeatureFlags.ipadIncreaseWidth {
+                $0.pinToSuperview()
+            } else {
+                $0.pinToSuperviewPreservingReadability()
+            }
+
         }
     }
 

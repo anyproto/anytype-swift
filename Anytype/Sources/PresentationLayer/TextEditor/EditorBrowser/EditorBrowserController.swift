@@ -48,13 +48,21 @@ final class EditorBrowserController: UIViewController, UINavigationControllerDel
         childNavigation.delegate = self
         
         view.addSubview(navigationView) {
-            $0.pinToSuperviewPreservingReadability(excluding: [.top, .bottom])
+            if FeatureFlags.ipadIncreaseWidth {
+                $0.pinToSuperview(excluding: [.top, .bottom])
+            } else {
+                $0.pinToSuperviewPreservingReadability(excluding: [.top, .bottom])
+            }
             navigationViewBottomConstaint = $0.bottom.equal(to: view.bottomAnchor)
         }
         
         embedChild(childNavigation, into: view)
         childNavigation.view.layoutUsing.anchors {
-            $0.pinToSuperviewPreservingReadability(excluding: [.bottom])
+            if FeatureFlags.ipadIncreaseWidth {
+                $0.pinToSuperview(excluding: [.bottom])
+            } else {
+                $0.pinToSuperviewPreservingReadability(excluding: [.bottom])
+            }
             $0.bottom.equal(to: view.bottomAnchor)
         }
 
