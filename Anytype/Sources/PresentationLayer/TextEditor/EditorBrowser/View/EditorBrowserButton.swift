@@ -64,7 +64,7 @@ final class EditorBrowserButton: UIView, CustomizableHitTestAreaView {
     }
     
     @objc private func longTapGesture(gesture: UILongPressGestureRecognizer) {
-        if gesture.state == .ended {
+        if gesture.state == .began {
             longTapAction?()
         }
     }
