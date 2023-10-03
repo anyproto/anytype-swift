@@ -34,7 +34,7 @@ final class SetObjectCreationSettingsCoordinatorAssembly: SetObjectCreationSetti
             mode: mode,
             navigationContext: navigationContext ?? uiHelpersDI.commonNavigationContext(),
             setObjectCreationSettingsAssembly: modulesDI.setObjectCreationSettings(),
-            editorAssembly: coordinatorsDI.editor(),
+            editorAssembly: coordinatorsDI.editorLegacy(),
             newSearchModuleAssembly: modulesDI.newSearch(),
             objectSettingCoordinator: coordinatorsDI.objectSettings().make(browserController: nil)
         )

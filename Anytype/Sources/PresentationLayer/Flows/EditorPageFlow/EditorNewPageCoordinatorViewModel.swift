@@ -1,17 +1,20 @@
 import Foundation
 import SwiftUI
 
-final class EditorNewPageCoordinatorViewModel: ObservableObject {
+@MainActor
+final class EditorNewPageCoordinatorViewModel: ObservableObject, EditorPageModuleOutput {
     
     private let data: EditorPageObject
-    private let editorAssembly: EditorAssembly
+    private let editorPageAssembly: EditorPageModuleAssemblyProtocol
     
-    init(data: EditorPageObject, editorAssembly: EditorAssembly) {
+    init(data: EditorPageObject,editorPageAssembly: EditorPageModuleAssemblyProtocol) {
         self.data = data
-        self.editorAssembly = editorAssembly
+        self.editorPageAssembly = editorPageAssembly
     }
     
     func pageModule() -> AnyView {
-        return editorAssembly.buildPageModule(data: data)
+        return editorPageAssembly.make(data: data, output: self)
     }
+    
+    // MARK: - EditorPageModuleOutput
 }

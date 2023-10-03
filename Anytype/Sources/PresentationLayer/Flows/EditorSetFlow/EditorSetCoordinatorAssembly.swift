@@ -30,7 +30,7 @@ final class EditorSetCoordinatorAssembly: EditorSetCoordinatorAssemblyProtocol {
     @MainActor
     func make(data: EditorSetObject) -> AnyView {
         return EditorSetCoordinatorView(
-            model: EditorSetCoordinatorViewModel(data: data, editorAssembly: self.coordinatorsID.editorLegacy())
+            model: EditorSetCoordinatorViewModel(data: data,editorSetAssembly: self.coordinatorsID.editorSetModule())
         ).eraseToAnyView()
     }
 }

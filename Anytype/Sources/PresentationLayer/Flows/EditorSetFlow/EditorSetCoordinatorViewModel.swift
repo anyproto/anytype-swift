@@ -1,17 +1,20 @@
 import Foundation
 import SwiftUI
 
-final class EditorSetCoordinatorViewModel: ObservableObject {
+@MainActor
+final class EditorSetCoordinatorViewModel: ObservableObject, EditorSetModuleOutput {
     
     private let data: EditorSetObject
-    private let editorAssembly: EditorAssembly
+    private let editorSetAssembly: EditorSetModuleAssemblyProtocol
     
-    init(data: EditorSetObject, editorAssembly: EditorAssembly) {
+    init(data: EditorSetObject, editorSetAssembly: EditorSetModuleAssemblyProtocol) {
         self.data = data
-        self.editorAssembly = editorAssembly
+        self.editorSetAssembly = editorSetAssembly
     }
     
     func setModule() -> AnyView {
-        return editorAssembly.buildSetModule(browser: nil, data: data).0.eraseToAnyView()
+        return editorSetAssembly.make(data: data, output: self)
     }
+    
+    // MARK: - EditorSetModuleOutput
 }

@@ -33,4 +33,7 @@ protocol CoordinatorsDIProtocol: AnyObject {
     // Now like a coordinator. Migrate to isolated modules
     func browser() -> EditorBrowserAssembly
     func editorLegacy() -> EditorAssembly
+    
+    func editorPageModule() -> EditorPageModuleAssemblyProtocol
+    func editorSetModule() -> EditorSetModuleAssemblyProtocol
 }

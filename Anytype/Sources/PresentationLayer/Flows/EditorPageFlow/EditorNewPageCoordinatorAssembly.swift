@@ -30,7 +30,7 @@ final class EditorNewPageCoordinatorAssembly: EditorNewPageCoordinatorAssemblyPr
     @MainActor
     func make(data: EditorPageObject) -> AnyView {
         return EditorNewPageCoordinatorView(
-            model: EditorNewPageCoordinatorViewModel(data: data, editorAssembly: self.coordinatorsID.editorLegacy())
+            model: EditorNewPageCoordinatorViewModel(data: data, editorPageAssembly: self.coordinatorsID.editorPageModule())
         ).eraseToAnyView()
     }
 }

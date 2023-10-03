@@ -1,12 +1,16 @@
-import Services
-import UIKit
-import AnytypeCore
+import Foundation
 import SwiftUI
+import Services
 
-// TODO: Navigation: Delete it
-final class EditorAssembly {
+protocol EditorPageModuleAssemblyProtocol: AnyObject {
+    @MainActor
+    func make(data: EditorPageObject, output: EditorPageModuleOutput?) -> AnyView 
+}
+
+final class EditorPageModuleAssembly: EditorPageModuleAssemblyProtocol {
     
     private let serviceLocator: ServiceLocator
+    // TODO: Delete coordinator dependency
     private let coordinatorsDI: CoordinatorsDIProtocol
     private let modulesDI: ModulesDIProtocol
     private let uiHelpersDI: UIHelpersDIProtocol
@@ -23,132 +27,10 @@ final class EditorAssembly {
         self.uiHelpersDI = uiHelpersDI
     }
     
-    @MainActor
-    func buildEditorController(
-        browser: EditorBrowserController?,
-        data: EditorScreenData,
-        widgetListOutput: WidgetObjectListCommonModuleOutput? = nil
-    ) -> AnyView {
-        buildEditorModule(browser: browser, data: data, widgetListOutput: widgetListOutput)
-    }
-
-    @MainActor
-    func buildEditorModule(
-        browser: EditorBrowserController?,
-        data: EditorScreenData,
-        widgetListOutput: WidgetObjectListCommonModuleOutput? = nil
-    ) -> AnyView {
-        switch data {
-        case let .page(pageData):
-            return buildPageModule(data: pageData)
-        case let .set(setData):
-            return buildSetModule(browser: browser, data: setData).0
-        case .favorites:
-            return favoritesModule(browser: browser, output: widgetListOutput).0
-        case .recentEdit:
-            return recentEditModule(browser: browser, output: widgetListOutput).0
-        case .recentOpen:
-            return recentOpenModule(browser: browser, output: widgetListOutput).0
-        case .sets:
-            return setsModule(browser: browser, output: widgetListOutput).0
-        case .collections:
-            return collectionsModule(browser: browser, output: widgetListOutput).0
-        case .bin:
-            return binModule(browser: browser, output: widgetListOutput).0
-        }
-    }
-    
-    // MARK: - Set
+    // MARK: - EditorPageModuleAssemblyProtocol
     
     @MainActor
-    private func buildSetModule(
-        browser: EditorBrowserController?,
-        data: EditorSetObject
-    ) -> (AnyView, EditorPageOpenRouterProtocol?) {
-        return (EditorSetView(model: self.setModel(browser: browser, data: data)).eraseToAnyView(), nil)
-    }
-    
-    private func setModel(browser: EditorBrowserController?, data: EditorSetObject) -> EditorSetViewModel {
-        let document = BaseDocument(objectId: data.objectId)
-        let setDocument = SetDocument(
-            document: document,
-            blockId: data.inline?.blockId,
-            targetObjectID: data.inline?.targetObjectID,
-            relationDetailsStorage: serviceLocator.relationDetailsStorage(),
-            objectTypeProvider: serviceLocator.objectTypeProvider()
-        )
-        let dataviewService = serviceLocator.dataviewService(objectId: data.objectId, blockId: data.inline?.blockId)
-        
-        let detailsService = serviceLocator.detailsService(objectId: data.objectId)
-        
-        let headerModel = ObjectHeaderViewModel(
-            document: setDocument,
-            configuration: .init(
-                isOpenedForPreview: false,
-                shouldShowTemplateSelection: false,
-                usecase: .editor
-            ),
-            interactor: serviceLocator.objectHeaderInteractor(objectId: setDocument.targetObjectID ?? setDocument.objectId)
-        )
-        
-        let model = EditorSetViewModel(
-            setDocument: setDocument,
-            headerViewModel: headerModel,
-            subscriptionService: serviceLocator.subscriptionService(),
-            dataviewService: dataviewService,
-            searchService: serviceLocator.searchService(),
-            detailsService: detailsService,
-            objectActionsService: serviceLocator.objectActionsService(),
-            textService: serviceLocator.textService,
-            groupsSubscriptionsHandler: serviceLocator.groupsSubscriptionsHandler(),
-            setSubscriptionDataBuilder: SetSubscriptionDataBuilder(activeWorkspaceStorage: serviceLocator.activeWorkspaceStorage()),
-            objectTypeProvider: serviceLocator.objectTypeProvider(),
-            setTemplatesInteractor: serviceLocator.setTemplatesInteractor
-        )
-//        let controller = EditorSetHostingController(objectId: data.objectId, model: model)
-//        let navigationContext = NavigationContext(rootViewController: browser ?? controller)
-//        let navigationContext = NavigationContext(rootViewController: service)
-
-        let router = EditorSetRouter(
-            setDocument: setDocument,
-            rootController: browser,
-            navigationContext: navigationContext,
-            createObjectModuleAssembly: modulesDI.createObject(),
-            newSearchModuleAssembly: modulesDI.newSearch(),
-            editorPageCoordinator: coordinatorsDI.editorPage().make(browserController: browser),
-            objectSettingCoordinator: coordinatorsDI.objectSettings().make(browserController: browser),
-            relationValueCoordinator: coordinatorsDI.relationValue().make(),
-            objectCoverPickerModuleAssembly: modulesDI.objectCoverPicker(),
-            objectIconPickerModuleAssembly: modulesDI.objectIconPicker(),
-            setViewSettingsCoordinatorAssembly: coordinatorsDI.setViewSettings(),
-            setSortsListCoordinatorAssembly: coordinatorsDI.setSortsList(),
-            setFiltersListCoordinatorAssembly: coordinatorsDI.setFiltersList(),
-            setViewSettingsImagePreviewModuleAssembly: modulesDI.setViewSettingsImagePreview(),
-            setViewSettingsGroupByModuleAssembly: modulesDI.setViewSettingsGroupByView(),
-            editorSetRelationsCoordinatorAssembly: coordinatorsDI.setRelations(),
-            setViewPickerCoordinatorAssembly: coordinatorsDI.setViewPicker(),
-            toastPresenter: uiHelpersDI.toastPresenter(using: browser),
-            alertHelper: AlertHelper(viewController: controller),
-            setObjectCreationSettingsCoordinator: coordinatorsDI.setObjectCreationSettings().make(
-                with: .creation,
-                navigationContext: navigationContext
-            )
-        )
-        
-        setupHeaderModelActions(headerModel: headerModel, using: router)
-        
-        model.setup(router: router)
-        
-        return model
-    }
-    
-    // MARK: - Page
-    
-    @MainActor
-    func buildPageModule(
-        browser: EditorBrowserController?,
-        data: EditorPageObject
-    ) -> (AnyView, EditorPageOpenRouterProtocol) {
+    func make(data: EditorPageObject, output: EditorPageModuleOutput?) -> AnyView {
         let simpleTableMenuViewModel = SimpleTableMenuViewModel()
         let blocksOptionViewModel = SelectionOptionsViewModel(itemProvider: nil)
 
@@ -158,17 +40,17 @@ final class EditorAssembly {
         )
         
         let environmentBridge = EditorPageViewEnvironmentBridge()
-        let bottomNavigationManager = EditorBottomNavigationManager(browser: browser, environmentBridge: environmentBridge)
+        let bottomNavigationManager = EditorBottomNavigationManager(browser: nil, environmentBridge: environmentBridge)
         
         let controller = EditorPageController(
             blocksSelectionOverlayView: blocksSelectionOverlayView,
             bottomNavigationManager: bottomNavigationManager,
-            browserViewInput: browser
+            browserViewInput: nil
         )
         let document = BaseDocument(objectId: data.objectId, forPreview: data.isOpenedForPreview)
-        let navigationContext = NavigationContext(rootViewController: browser ?? controller)
+        let navigationContext = NavigationContext(rootViewController: controller)
         let router = EditorRouter(
-            rootController: browser,
+            rootController: nil,
             viewController: controller,
             navigationContext: navigationContext,
             document: document,
@@ -180,13 +62,13 @@ final class EditorAssembly {
             ),
             urlOpener: uiHelpersDI.urlOpener(),
             relationValueCoordinator: coordinatorsDI.relationValue().make(),
-            editorPageCoordinator: coordinatorsDI.editorPage().make(browserController: browser),
-            linkToObjectCoordinator: coordinatorsDI.linkToObject().make(browserController: browser),
+            editorPageCoordinator: coordinatorsDI.editorPage().make(browserController: nil),
+            linkToObjectCoordinator: coordinatorsDI.linkToObject().make(browserController: nil),
             objectCoverPickerModuleAssembly: modulesDI.objectCoverPicker(),
             objectIconPickerModuleAssembly: modulesDI.objectIconPicker(),
-            objectSettingCoordinator: coordinatorsDI.objectSettings().make(browserController: browser),
+            objectSettingCoordinator: coordinatorsDI.objectSettings().make(browserController: nil),
             searchModuleAssembly: modulesDI.search(),
-            toastPresenter: uiHelpersDI.toastPresenter(using: browser),
+            toastPresenter: uiHelpersDI.toastPresenter(using: nil),
             codeLanguageListModuleAssembly: modulesDI.codeLanguageList(),
             newSearchModuleAssembly: modulesDI.newSearch(),
             textIconPickerModuleAssembly: modulesDI.textIconPicker(),
@@ -196,7 +78,7 @@ final class EditorAssembly {
         )
 
         let viewModel = buildViewModel(
-            browser: browser,
+            browser: nil,
             controller: controller,
             scrollView: controller.collectionView,
             viewInput: controller,
@@ -218,8 +100,10 @@ final class EditorAssembly {
         let view = EditorPageView(editorPageController: controller, environmentBridge: environmentBridge)
             .eraseToAnyView()
         
-        return (view, router)
+        return view
     }
+    
+    // MARK: - Private
     
     private func buildViewModel(
         browser: EditorBrowserController?,
@@ -380,7 +264,7 @@ final class EditorAssembly {
             configuration: configuration
         )
     }
-
+    
     private func buildBlocksSelectionOverlayView(
         simleTableMenuViewModel: SimpleTableMenuViewModel,
         blockOptionsViewViewModel: SelectionOptionsViewModel
@@ -393,48 +277,6 @@ final class EditorAssembly {
             blocksOptionView: blocksOptionView,
             simpleTablesOptionView: SimpleTableMenuView(viewModel: simleTableMenuViewModel)
         )
-    }
-    
-    private func favoritesModule(browser: EditorBrowserController?, output: WidgetObjectListCommonModuleOutput?) -> (AnyView, EditorPageOpenRouterProtocol?) {
-        let moduleAssembly = modulesDI.widgetObjectList()
-        let bottomPanelManager = BrowserBottomPanelManager(browser: browser)
-        let module = moduleAssembly.makeFavorites(bottomPanelManager: bottomPanelManager, output: output)
-        return (module, nil)
-    }
-    
-    private func recentEditModule(browser: EditorBrowserController?, output: WidgetObjectListCommonModuleOutput?) -> (AnyView, EditorPageOpenRouterProtocol?) {
-        let moduleAssembly = modulesDI.widgetObjectList()
-        let bottomPanelManager = BrowserBottomPanelManager(browser: browser)
-        let module = moduleAssembly.makerecentEdit(bottomPanelManager: bottomPanelManager, output: output)
-        return (module, nil)
-    }
-    
-    private func recentOpenModule(browser: EditorBrowserController?, output: WidgetObjectListCommonModuleOutput?) -> (AnyView, EditorPageOpenRouterProtocol?) {
-        let moduleAssembly = modulesDI.widgetObjectList()
-        let bottomPanelManager = BrowserBottomPanelManager(browser: browser)
-        let module = moduleAssembly.makeRecentOpen(bottomPanelManager: bottomPanelManager, output: output)
-        return (module, nil)
-    }
-
-    private func setsModule(browser: EditorBrowserController?, output: WidgetObjectListCommonModuleOutput?) -> (AnyView, EditorPageOpenRouterProtocol?) {
-        let moduleAssembly = modulesDI.widgetObjectList()
-        let bottomPanelManager = BrowserBottomPanelManager(browser: browser)
-        let module = moduleAssembly.makeSets(bottomPanelManager: bottomPanelManager, output: output)
-        return (module, nil)
-    }
-    
-    private func collectionsModule(browser: EditorBrowserController?, output: WidgetObjectListCommonModuleOutput?) -> (AnyView, EditorPageOpenRouterProtocol?) {
-        let moduleAssembly = modulesDI.widgetObjectList()
-        let bottomPanelManager = BrowserBottomPanelManager(browser: browser)
-        let module = moduleAssembly.makeCollections(bottomPanelManager: bottomPanelManager, output: output)
-        return (module, nil)
-    }
-
-    private func binModule(browser: EditorBrowserController?, output: WidgetObjectListCommonModuleOutput?) -> (AnyView, EditorPageOpenRouterProtocol?) {
-        let moduleAssembly = modulesDI.widgetObjectList()
-        let bottomPanelManager = BrowserBottomPanelManager(browser: browser)
-        let module = moduleAssembly.makeBin(bottomPanelManager: bottomPanelManager, output: output)
-        return (module, nil)
     }
     
     private func setupHeaderModelActions(headerModel: ObjectHeaderViewModel, using router: ObjectHeaderRouterProtocol) {

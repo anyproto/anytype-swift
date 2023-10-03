@@ -12,7 +12,7 @@ final class TemplatesCoordinator {
     private weak var rootViewController: UIViewController?
 
     private let searchService: SearchServiceProtocol
-    private let editorPageAssembly: EditorAssembly
+    private let editorPageAssembly: EditorPageModuleAssemblyProtocol
     private let objectsService: ObjectActionsServiceProtocol
 
     private let keyboardHeightListener: KeyboardHeightListener
@@ -24,7 +24,7 @@ final class TemplatesCoordinator {
         keyboardHeightListener: KeyboardHeightListener,
         searchService: SearchServiceProtocol,
         objectsService: ObjectActionsServiceProtocol,
-        editorPageAssembly: EditorAssembly
+        editorPageAssembly: EditorPageModuleAssemblyProtocol
     ) {
         self.rootViewController = rootViewController
         self.keyboardHeightListener = keyboardHeightListener
@@ -124,7 +124,7 @@ final class TemplatesCoordinator {
             let item = info.element
             let data = item.editorScreenData(isOpenedForPreview: true)
             // TODO: Navigation: Check and fix it
-            let editorController = editorPageAssembly.buildEditorController(browser: nil, data: data)
+            let editorController = EmptyView().eraseToAnyView()//editorPageAssembly.make(data: data, output: nil)
 
             return TemplatePickerViewModel.Item(
                 id: info.offset,
