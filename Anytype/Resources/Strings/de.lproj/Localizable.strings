@@ -3,7 +3,7 @@
 
 // MARK: Text Style in Slash and Style menu
 "TextStyle.Text.Title" = "Text";
-"TextStyle.Text.Subtitle" = "Just start writing with a plain text";
+"TextStyle.Text.Subtitle" = "Einfach mit einem reinen Text beginnen";
 
 "TextStyle.Title.Title" = "Titel";
 "TextStyle.Title.Subtitle" = "Große Abschnittsüberschrift";
@@ -15,7 +15,7 @@
 "TextStyle.Subheading.Subtitle" = "Kleine Abschnittsüberschrift";
 
 "TextStyle.Highlighted.Title" = "Hervorhebung";
-"TextStyle.Highlighted.Subtitle" = "Spotlight, that needs special attention";
+"TextStyle.Highlighted.Subtitle" = "Spotlight, der besondere Aufmerksamkeit benötigt";
 
 "TextStyle.Callout.Title" = "Textbox";
 "TextStyle.Callout.Subtitle" = "Umrandeter Text mit Icon";
@@ -43,7 +43,7 @@
 
 "BlockText.ContentType.Title.Placeholder" = "Unbenannt";
 "BlockText.ContentType.Description.Placeholder" = "Beschreibung hinzufügen";
-"BlockText.ContentType.Toggle.Placeholder" = "Toggle block";
+"BlockText.ContentType.Toggle.Placeholder" = "Block wechseln";
 "BlockText.ContentType.Bulleted.Placeholder" = "Aufzählung";
 "BlockText.ContentType.Checkbox.Placeholder" = "Checkbox";
 "BlockText.ContentType.Numbered.Placeholder" = "Nummerierung";
@@ -80,33 +80,33 @@
 
 "Relation.Format.Object.Title" = "Objekt";
 "Relation.Format.Text.Title" = "Text";
-"Relation.Format.Number.Title" = "Number";
+"Relation.Format.Number.Title" = "Nummer";
 "Relation.Format.Status.Title" = "Status";
 "Relation.Format.Tag.Title" = "Tag";
-"Relation.Format.Date.Title" = "Date";
-"Relation.Format.FileMedia.Title" = "File & Media";
+"Relation.Format.Date.Title" = "Datum";
+"Relation.Format.FileMedia.Title" = "Dateien & Medien";
 "Relation.Format.Checkbox.Title" = "Checkbox";
-"Relation.Format.Url.Title" = "URL";
-"Relation.Format.Email.Title" = "Email";
-"Relation.Format.Phone.Title" = "Phone number";
+"Relation.Format.Url.Title" = "Link";
+"Relation.Format.Email.Title" = "E-Mail";
+"Relation.Format.Phone.Title" = "Telefonnummer";
 
 // MARK: - Mention
 "Mention.Subtitle.Placeholder" = "Objekt";
 
 "None" = "Keine";
 "Callout" = "Textbox";
-"Toggle empty. Tap to create block." = "Toggle empty. Tap to create block.";
-"Loading, please wait" = "Loading, please wait";
-"Done" = "Done";
-"Style" = "Style";
-"Color" = "Color";
-"Background" = "Background";
-"Other" = "Other";
-"Media" = "Media";
-"Alignment" = "Alignment";
-"Actions" = "Actions";
-"Relations" = "Relations";
-"Objects" = "Objects";
+"Toggle empty. Tap to create block." = "Tippen um Block zu erstellen.";
+"Loading, please wait" = "Wird geladen, bitte warten";
+"Done" = "Fertig";
+"Style" = "Design";
+"Color" = "Farbe";
+"Background" = "Hintergrund";
+"Other" = "Weitere";
+"Media" = "Medien";
+"Alignment" = "Ausrichtung";
+"Actions" = "Aktionen";
+"Relations" = "Verknüpfungen";
+"Objects" = "Objekte";
 "Delete" = "Delete";
 "Duplicate" = "Duplicate";
 "Copy" = "Copy";
@@ -646,8 +646,8 @@
 
 // MARK: - Simple tables
 "SimpleTableMenu.Item.clearContents" = "Clear";
-"SimpleTableMenu.Item.color" = "Color";
-"SimpleTableMenu.Item.style" = "Style";
+"SimpleTableMenu.Item.color" = "Farbe";
+"SimpleTableMenu.Item.style" = "Design";
 "SimpleTableMenu.Item.clearStyle" = "Reset style";
 
 "SimpleTableMenu.Item.InsertLeft" = "Insert left";
@@ -797,7 +797,7 @@
 // MARK: - Sharing
 "Sharing.Navigation.title" = "Add to Anytype";
 "Sharing.Navigation.LeftButton.Title" = "Abbrechen";
-"Sharing.Navigation.RightButton.Title" = "Done";
+"Sharing.Navigation.RightButton.Title" = "Fertig";
 
 "Sharing.SaveAs" = "SAVE AS";
 "Sharing.AddTo" = "Add to";

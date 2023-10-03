@@ -2,19 +2,19 @@
 "StyleMenu.Color.TextColor.Placeholder" = "A";
 
 // MARK: Text Style in Slash and Style menu
-"TextStyle.Text.Title" = "Text";
-"TextStyle.Text.Subtitle" = "Just start writing with a plain text";
+"TextStyle.Text.Title" = "Texto";
+"TextStyle.Text.Subtitle" = "Comece a escrever com um texto simples";
 
-"TextStyle.Title.Title" = "Title";
+"TextStyle.Title.Title" = "Título";
 "TextStyle.Title.Subtitle" = "Big section heading";
 
-"TextStyle.Heading.Title" = "Heading";
+"TextStyle.Heading.Title" = "Título";
 "TextStyle.Heading.Subtitle" = "Medium headline";
 
-"TextStyle.Subheading.Title" = "Subheading";
+"TextStyle.Subheading.Title" = "Subtítulo";
 "TextStyle.Subheading.Subtitle" = "Small headline";
 
-"TextStyle.Highlighted.Title" = "Highlighted";
+"TextStyle.Highlighted.Title" = "Realçado";
 "TextStyle.Highlighted.Subtitle" = "Spotlight, that needs special attention";
 
 "TextStyle.Callout.Title" = "Callout";
@@ -32,9 +32,9 @@
 "TextStyle.Toggle.Title" = "Toggle";
 "TextStyle.Toggle.Subtitle" = "Hide and show content inside";
 
-"TextStyle.Bold.Title" = "Bold";
-"TextStyle.Italic.Title" = "Italic";
-"TextStyle.Strikethrough.Title" = "Strikethrough";
+"TextStyle.Bold.Title" = "Negrito";
+"TextStyle.Italic.Title" = "Itálico";
+"TextStyle.Strikethrough.Title" = "Rasurado";
 "TextStyle.Code.Title" = "Code";
 "TextStyle.Link.Title" = "Link";
 
@@ -42,27 +42,27 @@
 "BlockText.Content.Placeholder" = "Untitled";
 
 "BlockText.ContentType.Title.Placeholder" = "Untitled";
-"BlockText.ContentType.Description.Placeholder" = "Add a description";
+"BlockText.ContentType.Description.Placeholder" = "Adicione uma descrição";
 "BlockText.ContentType.Toggle.Placeholder" = "Toggle block";
 "BlockText.ContentType.Bulleted.Placeholder" = "Bulleted list item";
 "BlockText.ContentType.Checkbox.Placeholder" = "Checkbox";
 "BlockText.ContentType.Numbered.Placeholder" = "Numbered list item";
 "BlockText.ContentType.Quote.Placeholder" = "Highlighted text";
-"BlockText.ContentType.Header.Placeholder" = "Title";
-"BlockText.ContentType.Header2.Placeholder" = "Heading";
-"BlockText.ContentType.Header3.Placeholder" = "Subheading";
+"BlockText.ContentType.Header.Placeholder" = "Título";
+"BlockText.ContentType.Header2.Placeholder" = "Título";
+"BlockText.ContentType.Header3.Placeholder" = "Subtítulo";
 
 // MARK: - Block Link
 
-"BlockLink.PreviewSettings.IconSize.None" = "None";
-"BlockLink.PreviewSettings.IconSize.Small" = "Small";
-"BlockLink.PreviewSettings.IconSize.Medium" = "Medium";
+"BlockLink.PreviewSettings.IconSize.None" = "Nenhum";
+"BlockLink.PreviewSettings.IconSize.Small" = "Pequeno";
+"BlockLink.PreviewSettings.IconSize.Medium" = "Médio";
 
-"BlockLink.PreviewSettings.Layout.Card.Title" = "Card";
-"BlockLink.PreviewSettings.Layout.Text.Title" = "Text";
+"BlockLink.PreviewSettings.Layout.Card.Title" = "Cartão";
+"BlockLink.PreviewSettings.Layout.Text.Title" = "Texto";
 
 // MARK: - Settings
-"Settings.Title" = "Personal Space";
+"Settings.Title" = "Espaço pessoal";
 "Settings.SpaceName" = "Space name";
 
 // MARK: - Object
@@ -72,31 +72,31 @@
 // MARK: - Relation
 "Featured relations" = "Featured relations";
 "Create relation" = "Create relation ‘%@’";
-"Relation.View.Hint.Empty" = "empty";
+"Relation.View.Hint.Empty" = "vazio";
 "Relation.MyRelations" = "My relations";
-"Relation.AddedToLibrary" = "Relation ‘%@’ added to your library";
-"Relation.Deleted" = "Deleted relation";
-"Relation.From.Type" = "From type %@";
+"Relation.AddedToLibrary" = "Relação ‘%@' adicionada à sua biblioteca";
+"Relation.Deleted" = "Relação eliminada";
+"Relation.From.Type" = "Do tipo %@";
 
-"Relation.Format.Object.Title" = "Object";
-"Relation.Format.Text.Title" = "Text";
-"Relation.Format.Number.Title" = "Number";
-"Relation.Format.Status.Title" = "Status";
+"Relation.Format.Object.Title" = "Objeto";
+"Relation.Format.Text.Title" = "Texto";
+"Relation.Format.Number.Title" = "Número";
+"Relation.Format.Status.Title" = "Estado";
 "Relation.Format.Tag.Title" = "Tag";
-"Relation.Format.Date.Title" = "Date";
+"Relation.Format.Date.Title" = "Data";
 "Relation.Format.FileMedia.Title" = "File & Media";
 "Relation.Format.Checkbox.Title" = "Checkbox";
 "Relation.Format.Url.Title" = "URL";
 "Relation.Format.Email.Title" = "Email";
-"Relation.Format.Phone.Title" = "Phone number";
+"Relation.Format.Phone.Title" = "Número de telefone";
 
 // MARK: - Mention
-"Mention.Subtitle.Placeholder" = "Object";
+"Mention.Subtitle.Placeholder" = "Objeto";
 
-"None" = "None";
+"None" = "Nenhum";
 "Callout" = "Callout";
 "Toggle empty. Tap to create block." = "Toggle empty. Tap to create block.";
-"Loading, please wait" = "Loading, please wait";
+"Loading, please wait" = "A carregar, por favor aguarde";
 "Done" = "Done";
 "Style" = "Style";
 "Color" = "Color";
@@ -226,7 +226,7 @@
 
 "Auth.JoinFlow.Creating.Soul.Title" = "Generating new account";
 "Auth.JoinFlow.Setting.Space.Title" = "Setting up your personal space";
-"Auth.JoinFlow.Personal.Space.Title" = "Personal Space";
+"Auth.JoinFlow.Personal.Space.Title" = "Espaço pessoal";
 
 // Auth - Login flow
 "Auth.LoginFlow.Use.Keychain.Title" = "Use keychain";
@@ -340,7 +340,7 @@
 "Move To Bin" = "Move To Bin";
 
 
-"LinkAppearance.Description.None.Title" = "None";
+"LinkAppearance.Description.None.Title" = "Nenhum";
 "LinkAppearance.Description.Object.Title" = "Object description";
 "LinkAppearance.Description.Content.Title" = "Content preview";
 "LinkAppearance.ObjectType.Title" = "Object type";
@@ -428,7 +428,7 @@
 // MARK: - Sets: View Settings
 "Set.View.Settings.ImageFit.Title" = "Fit image";
 "Set.View.Settings.CardSize.Title" = "Card size";
-"Set.View.Settings.CardSize.Small.Title" = "Small";
+"Set.View.Settings.CardSize.Small.Title" = "Pequeno";
 "Set.View.Settings.CardSize.Large.Title" = "Large";
 "Set.View.Settings.ImagePreview.Title" = "Image preview";
 "Set.View.Settings.GroupBy.Title" = "Group by";
