@@ -82,6 +82,7 @@ final class ObjectActionsService: ObjectActionsServiceProtocol {
         targetId: BlockId,
         spaceId: String,
         details: [BundledDetails],
+        typeUniqueKey: ObjectTypeUniqueKey,
         position: BlockPosition,
         templateId: String
     ) async throws -> BlockId {
@@ -104,6 +105,7 @@ final class ObjectActionsService: ObjectActionsServiceProtocol {
             $0.position = position.asMiddleware
             $0.internalFlags = internalFlags
             $0.spaceID = spaceId
+            $0.objectTypeUniqueKey = typeUniqueKey.value
         }).invoke()
         
         return response.targetID

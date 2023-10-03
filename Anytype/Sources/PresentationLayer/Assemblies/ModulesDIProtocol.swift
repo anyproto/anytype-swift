@@ -56,4 +56,5 @@ protocol ModulesDIProtocol: AnyObject {
     func setRelationsView() -> SetRelationsViewModuleAssemblyProtocol
     func shareAssembly() -> ShareModuleAssemblyProtocol
     func setViewPicker() -> SetViewPickerModuleAssemblyProtocol
+    func objectTypeSearch() -> ObjectTypeSearchModuleAssemblyProtocol
 }

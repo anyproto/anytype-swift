@@ -25,4 +25,17 @@ final class DashboardService: DashboardServiceProtocol {
         return details
     }
     
+    func createNewPage(spaceId: String, typeUniqueKey: ObjectTypeUniqueKey) async throws -> ObjectDetails {
+        let details = try await pageService.createPage(
+            name: "",
+            typeUniqueKey: typeUniqueKey,
+            shouldDeleteEmptyObject: true,
+            shouldSelectType: false,
+            shouldSelectTemplate: true,
+            spaceId: spaceId,
+            templateId: nil
+        )
+        return details
+    }
+    
 }

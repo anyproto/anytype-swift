@@ -7,7 +7,8 @@ import AnytypeCore
 @MainActor
 final class HomeWidgetsCoordinatorViewModel: ObservableObject,
                                              HomeWidgetsModuleOutput, CommonWidgetModuleOutput,
-                                             HomeBottomPanelModuleOutput, SpaceSwitchModuleOutput {
+                                             HomeBottomPanelModuleOutput, SpaceSwitchModuleOutput,
+                                             EditorBrowserDelegate {
     
     // MARK: - DI
     
@@ -26,6 +27,7 @@ final class HomeWidgetsCoordinatorViewModel: ObservableObject,
     private let spaceCreateModuleAssembly: SpaceCreateModuleAssemblyProtocol
     private let spaceSettingsCoordinatorAssembly: SpaceSettingsCoordinatorAssemblyProtocol
     private let shareCoordinatorAssembly: ShareCoordinatorAssemblyProtocol
+    private let objectTypeSearchModuleAssembly: ObjectTypeSearchModuleAssemblyProtocol
     
     // MARK: - State
     
@@ -40,6 +42,7 @@ final class HomeWidgetsCoordinatorViewModel: ObservableObject,
     @Published var showSpaceSettings: Bool = false
     @Published var showSpaceCreate: Bool = false
     @Published var showSharing: Bool = false
+    @Published var showCreateObjectWithType: Bool = false
     
     @Published var info: AccountInfo? {
         didSet {
@@ -66,7 +69,8 @@ final class HomeWidgetsCoordinatorViewModel: ObservableObject,
         spaceSwitchModuleAssembly: SpaceSwitchModuleAssemblyProtocol,
         spaceCreateModuleAssembly: SpaceCreateModuleAssemblyProtocol,
         spaceSettingsCoordinatorAssembly: SpaceSettingsCoordinatorAssemblyProtocol,
-        shareCoordinatorAssembly: ShareCoordinatorAssemblyProtocol
+        shareCoordinatorAssembly: ShareCoordinatorAssemblyProtocol,
+        objectTypeSearchModuleAssembly: ObjectTypeSearchModuleAssemblyProtocol
     ) {
         self.homeWidgetsModuleAssembly = homeWidgetsModuleAssembly
         self.activeWorkspaceStorage = activeWorkspaceStorage
@@ -83,6 +87,7 @@ final class HomeWidgetsCoordinatorViewModel: ObservableObject,
         self.spaceCreateModuleAssembly = spaceCreateModuleAssembly
         self.spaceSettingsCoordinatorAssembly = spaceSettingsCoordinatorAssembly
         self.shareCoordinatorAssembly = shareCoordinatorAssembly
+        self.objectTypeSearchModuleAssembly = objectTypeSearchModuleAssembly
     }
 
     func onAppear() {
@@ -148,6 +153,15 @@ final class HomeWidgetsCoordinatorViewModel: ObservableObject,
     
     func createSharingModule() -> AnyView {
         return shareCoordinatorAssembly.make()
+    }
+    
+    func createObjectWithTypeModule() -> AnyView {
+        return objectTypeSearchModuleAssembly.objectTypeSearchForCreateObject(
+            spaceId: activeWorkspaceStorage.workspaceInfo.accountSpaceId
+        ) { [weak self] type in
+            self?.showCreateObjectWithType = false
+            self?.createAndShowNewPage(type: type)
+        }
     }
  
     // MARK: - HomeWidgetsModuleOutput
@@ -240,15 +254,32 @@ final class HomeWidgetsCoordinatorViewModel: ObservableObject,
         showSpaceCreate.toggle()
     }
     
+    // MARK: - EditorBrowserDelegate
+    
+    func onCreateObjectWithTypeSelected() {
+        showCreateObjectWithType.toggle()
+    }
+    
     // MARK: - Private
     
     private func openObject(screenData: EditorScreenData) {
-        editorBrowserCoordinator.startFlow(data: screenData)
+        editorBrowserCoordinator.startFlow(data: screenData, delegate: self)
     }
     
     private func createAndShowNewPage() {
         Task {
-            guard let details = try? await dashboardService.createNewPage(spaceId: activeWorkspaceStorage.workspaceInfo.accountSpaceId) else { return }
+            let details = try await dashboardService.createNewPage(spaceId: activeWorkspaceStorage.workspaceInfo.accountSpaceId)
+            AnytypeAnalytics.instance().logCreateObject(objectType: details.analyticsType, route: .navigation, view: .home)
+            openObject(screenData: details.editorScreenData())
+        }
+    }
+    
+    private func createAndShowNewPage(type: ObjectType) {
+        Task {
+            let details = try await dashboardService.createNewPage(
+                spaceId: activeWorkspaceStorage.workspaceInfo.accountSpaceId,
+                typeUniqueKey: type.uniqueKey
+            )
             AnytypeAnalytics.instance().logCreateObject(objectType: details.analyticsType, route: .navigation, view: .home)
             openObject(screenData: details.editorScreenData())
         }

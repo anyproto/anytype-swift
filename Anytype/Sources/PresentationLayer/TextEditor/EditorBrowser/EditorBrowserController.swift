@@ -19,11 +19,17 @@ protocol EditorPageOpenRouterProtocol: AnyObject {
     func showPage(data: EditorScreenData)
 }
 
+@MainActor
+protocol EditorBrowserDelegate: AnyObject {
+    func onCreateObjectWithTypeSelected()
+}
+
 final class EditorBrowserController: UIViewController, UINavigationControllerDelegate, EditorBrowser, EditorBrowserViewInputProtocol {
         
     var childNavigation: UINavigationController!
     weak var router: EditorPageOpenRouterProtocol!
-
+    weak var delegate: EditorBrowserDelegate?
+    
     private lazy var navigationView: EditorBottomNavigationView = createNavigationView()
     private var navigationViewBottomConstaint: NSLayoutConstraint?
     
@@ -48,13 +54,21 @@ final class EditorBrowserController: UIViewController, UINavigationControllerDel
         childNavigation.delegate = self
         
         view.addSubview(navigationView) {
-            $0.pinToSuperviewPreservingReadability(excluding: [.top, .bottom])
+            if FeatureFlags.ipadIncreaseWidth {
+                $0.pinToSuperview(excluding: [.top, .bottom])
+            } else {
+                $0.pinToSuperviewPreservingReadability(excluding: [.top, .bottom])
+            }
             navigationViewBottomConstaint = $0.bottom.equal(to: view.bottomAnchor)
         }
         
         embedChild(childNavigation, into: view)
         childNavigation.view.layoutUsing.anchors {
-            $0.pinToSuperviewPreservingReadability(excluding: [.bottom])
+            if FeatureFlags.ipadIncreaseWidth {
+                $0.pinToSuperview(excluding: [.bottom])
+            } else {
+                $0.pinToSuperviewPreservingReadability(excluding: [.bottom])
+            }
             $0.bottom.equal(to: view.bottomAnchor)
         }
 
@@ -123,6 +137,9 @@ final class EditorBrowserController: UIViewController, UINavigationControllerDel
                     AnytypeAnalytics.instance().logCreateObject(objectType: details.analyticsType, route: .navigation, view: .navbar)
                     self.router.showPage(data: details.editorScreenData())
                 }
+            },
+            onCreateObjectWithTypeTap: { [weak self] in
+                self?.delegate?.onCreateObjectWithTypeSelected()
             }
         )
     }

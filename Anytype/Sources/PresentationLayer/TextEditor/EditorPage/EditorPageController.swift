@@ -473,7 +473,11 @@ private extension EditorPageController {
     
     func setupLayout() {
         view.addSubview(collectionView) {
-            $0.pinToSuperviewPreservingReadability()
+            if FeatureFlags.ipadIncreaseWidth {
+                $0.pinToSuperview()
+            } else {
+                $0.pinToSuperviewPreservingReadability()
+            }
         }
 
         navigationBarHelper.addFakeNavigationBarBackgroundView(to: view)

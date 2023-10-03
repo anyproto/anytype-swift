@@ -7,4 +7,5 @@ protocol HomeBottomPanelModuleOutput: AnyObject {
     func onCreateObjectSelected(screenData: EditorScreenData)
     func onSettingsSelected()
     func onProfileSelected()
+    func onCreateObjectWithTypeSelected()
 }

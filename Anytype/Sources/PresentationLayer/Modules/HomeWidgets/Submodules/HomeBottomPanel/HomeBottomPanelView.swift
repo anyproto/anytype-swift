@@ -22,19 +22,23 @@ struct HomeBottomPanelView: View {
     func normalButtons(_ buttons: [HomeBottomPanelViewModel.ImageButton]) -> some View {
         HStack(alignment: .center, spacing: 40) {
             ForEach(buttons, id:\.self) { button in
-                Button(action: button.onTap, label: {
-                    VStack {
-                        if let image = button.image {
-                            IconView(icon: image)
-                                .if(button.padding) {
-                                    $0.padding(EdgeInsets(side: 4))
-                                }
-                                .frame(width: 32, height: 32)
-                        }
+                VStack {
+                    if let image = button.image {
+                        IconView(icon: image)
+                            .if(button.padding) {
+                                $0.padding(EdgeInsets(side: 4))
+                            }
+                            .frame(width: 32, height: 32)
                     }
-                    .fixTappableArea()
-                    .frame(width: 32, height: 32)
-                })
+                }
+                .fixTappableArea()
+                .frame(width: 32, height: 32)
+                .onTapGesture {
+                    button.onTap()
+                }
+                .onLongPressGesture {
+                    button.onLongTap?()
+                }
             }
         }
         .padding(.horizontal, 20)

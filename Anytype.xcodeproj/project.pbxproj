@@ -546,6 +546,7 @@
 		2AA0209528D3523000321A66 /* SetSubscriptionDataBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AA0209428D3523000321A66 /* SetSubscriptionDataBuilder.swift */; };
 		2AA0209728D3526700321A66 /* SetSubscriptionDataBuilderProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AA0209628D3526700321A66 /* SetSubscriptionDataBuilderProtocol.swift */; };
 		2AA0209928D352C300321A66 /* SetSubscriptionData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AA0209828D352C300321A66 /* SetSubscriptionData.swift */; };
+		2AA044262ACAD73900D1C2E7 /* ObjectTypeSearchModuleAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AA044252ACAD73900D1C2E7 /* ObjectTypeSearchModuleAssembly.swift */; };
 		2AA0C43D2A013EB500B9C108 /* WidgetObjectListFilesViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AA0C43C2A013EB500B9C108 /* WidgetObjectListFilesViewModel.swift */; };
 		2AA0C43F2A013EF800B9C108 /* FilesSubscriptionService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AA0C43E2A013EF800B9C108 /* FilesSubscriptionService.swift */; };
 		2AA1652629D4711B0093DB12 /* DebugMenuViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AA1652529D4711B0093DB12 /* DebugMenuViewModel.swift */; };
@@ -2135,6 +2136,7 @@
 		2AA0209428D3523000321A66 /* SetSubscriptionDataBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetSubscriptionDataBuilder.swift; sourceTree = "<group>"; };
 		2AA0209628D3526700321A66 /* SetSubscriptionDataBuilderProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetSubscriptionDataBuilderProtocol.swift; sourceTree = "<group>"; };
 		2AA0209828D352C300321A66 /* SetSubscriptionData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetSubscriptionData.swift; sourceTree = "<group>"; };
+		2AA044252ACAD73900D1C2E7 /* ObjectTypeSearchModuleAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObjectTypeSearchModuleAssembly.swift; sourceTree = "<group>"; };
 		2AA0C43C2A013EB500B9C108 /* WidgetObjectListFilesViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WidgetObjectListFilesViewModel.swift; sourceTree = "<group>"; };
 		2AA0C43E2A013EF800B9C108 /* FilesSubscriptionService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilesSubscriptionService.swift; sourceTree = "<group>"; };
 		2AA1652529D4711B0093DB12 /* DebugMenuViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DebugMenuViewModel.swift; sourceTree = "<group>"; };
@@ -4035,6 +4037,7 @@
 			children = (
 				1247BC7427FDD3D4005F2DB4 /* NewSearchModuleAssemblyProtocol.swift */,
 				1244792327D8AE4100581174 /* NewSearchModuleAssembly.swift */,
+				2AA044252ACAD73900D1C2E7 /* ObjectTypeSearchModuleAssembly.swift */,
 			);
 			path = Assembly;
 			sourceTree = "<group>";
@@ -9587,7 +9590,6 @@
 				864F93D92AA5EC94008AA9E7 /* SharedContentSaveOption.swift in Sources */,
 				2A7DCDE2292E60BA001919B4 /* AddNewRelationCoordinatorAssembly.swift in Sources */,
 				2AD2390B2A8A05D200F7697A /* SpaceCreateModuleAssembly.swift in Sources */,
-				2E5310202A44B27900BD2893 /* UnsplashItem+LocalEvent.swift in Sources */,
 				53F7447227F7157A005C9BB0 /* CheckPopupView.swift in Sources */,
 				3D93D56B270C9E3400614E29 /* URLInputViewController.swift in Sources */,
 				C982025E28746DBF00065EBE /* SimpleTableStateManager.swift in Sources */,
@@ -10343,6 +10345,7 @@
 				535FDE0A27E7E27B0098DBFA /* PasteboardTask.swift in Sources */,
 				2A2B33222A7AA891004BD906 /* WidgetSourceSearchModuleModel.swift in Sources */,
 				2E975EED287C23DA004DE574 /* SetSortsSearchViewModel.swift in Sources */,
+				2AA044262ACAD73900D1C2E7 /* ObjectTypeSearchModuleAssembly.swift in Sources */,
 				12CAF37026D6A9B0001E56B2 /* ImageStorage.swift in Sources */,
 				3D300BBC26D8E86B00F46763 /* LoadingAnimationView.swift in Sources */,
 				53EA4A7C2637638800968B8E /* StyleColorContentView.swift in Sources */,

@@ -237,4 +237,8 @@ final class ModulesDI: ModulesDIProtocol {
     func setViewPicker() -> SetViewPickerModuleAssemblyProtocol {
         SetViewPickerModuleAssembly(serviceLocator: serviceLocator)
     }
+    
+    func objectTypeSearch() -> ObjectTypeSearchModuleAssemblyProtocol {
+        ObjectTypeSearchModuleAssembly(uiHelpersDI: uiHelpersDI, serviceLocator: serviceLocator)
+    }
 }

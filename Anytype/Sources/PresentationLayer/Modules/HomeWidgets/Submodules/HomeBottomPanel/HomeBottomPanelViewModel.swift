@@ -15,6 +15,7 @@ final class HomeBottomPanelViewModel: ObservableObject {
         let image: Icon?
         let padding: Bool
         @EquatableNoop var onTap: () -> Void
+        @EquatableNoop var onLongTap: (() -> Void)?
     }
     
     struct TexButton: Hashable, Equatable {
@@ -78,10 +79,15 @@ final class HomeBottomPanelViewModel: ObservableObject {
             buttonState = .normal([
                 ImageButton(image: .asset(.Widget.search), padding: false, onTap: { [weak self] in
                     self?.output?.onSearchSelected()
-                }),
+                }, onLongTap: nil),
                 ImageButton(image: .asset(.Widget.add), padding: false, onTap: { [weak self] in
                     UISelectionFeedbackGenerator().selectionChanged()
                     self?.handleCreateObject()
+                }, onLongTap: { [weak self] in
+                    if FeatureFlags.selectTypeByLongTap {
+                        UISelectionFeedbackGenerator().selectionChanged()
+                        self?.output?.onCreateObjectWithTypeSelected()
+                    }
                 }),
                 ImageButton(image: profileDetails?.objectIconImage, padding: true, onTap: { [weak self] in
                     if FeatureFlags.multiSpace {
@@ -89,7 +95,7 @@ final class HomeBottomPanelViewModel: ObservableObject {
                     } else {
                         self?.output?.onSettingsSelected()
                     }
-                })
+                }, onLongTap: nil)
             ])
         }
         self.isEditState = isEditState

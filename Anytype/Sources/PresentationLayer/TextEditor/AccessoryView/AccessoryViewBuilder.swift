@@ -15,8 +15,7 @@ struct AccessoryViewBuilder {
         cursorManager: EditorCursorManager
     ) -> AccessoryViewStateManager {
         let mentionsView = MentionView(
-            documentId: document.objectId,
-            spaceId: document.spaceId,
+            document: document,
             frame: CGRect(origin: .zero, size: menuActionsViewSize)
         )
         
