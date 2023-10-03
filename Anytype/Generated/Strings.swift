@@ -1281,6 +1281,8 @@ internal enum Loc {
     internal static let fallbackDescription = Loc.tr("Localizable", "ObjectType.fallbackDescription", fallback: "Blank canvas with no title")
     /// My Types
     internal static let myTypes = Loc.tr("Localizable", "ObjectType.MyTypes", fallback: "My Types")
+    /// Search for Type
+    internal static let search = Loc.tr("Localizable", "ObjectType.Search", fallback: "Search for Type")
     /// Search or install a new type
     internal static let searchOrInstall = Loc.tr("Localizable", "ObjectType.SearchOrInstall", fallback: "Search or install a new type")
   }

@@ -51,7 +51,8 @@ final class HomeWidgetsCoordinatorAssembly: HomeWidgetsCoordinatorAssemblyProtoc
             spaceSwitchModuleAssembly: modulesDI.spaceSwitch(),
             spaceCreateModuleAssembly: modulesDI.spaceCreate(),
             spaceSettingsCoordinatorAssembly: coordinatorsID.spaceSettings(),
-            shareCoordinatorAssembly: coordinatorsID.share()
+            shareCoordinatorAssembly: coordinatorsID.share(),
+            objectTypeSearchModuleAssembly: modulesDI.objectTypeSearch()
         )
     }
 }
