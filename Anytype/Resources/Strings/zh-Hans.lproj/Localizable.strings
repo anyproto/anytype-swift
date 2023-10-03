@@ -358,8 +358,8 @@
 "EditSet.Popup.Filters.TextView.Placeholder" = "值";
 
 // MARK: - Sets: Filters.Conditions
-"EditSet.Popup.Filter.Condition.Text.Equal" = "Is";
-"EditSet.Popup.Filter.Condition.Text.NotEqual" = "Is not";
+"EditSet.Popup.Filter.Condition.Text.Equal" = "是";
+"EditSet.Popup.Filter.Condition.Text.NotEqual" = "不是";
 "EditSet.Popup.Filter.Condition.Text.Like" = "包含";
 "EditSet.Popup.Filter.Condition.Text.NotLike" = "不包含";
 
@@ -370,20 +370,20 @@
 "EditSet.Popup.Filter.Condition.Number.GreaterOrEqual" = "大于或等于";
 "EditSet.Popup.Filter.Condition.Number.LessOrEqual" = "小于或等于";
 
-"EditSet.Popup.Filter.Condition.Date.Equal" = "Is";
-"EditSet.Popup.Filter.Condition.Date.After" = "Is after";
-"EditSet.Popup.Filter.Condition.Date.Before" = "Is before";
-"EditSet.Popup.Filter.Condition.Date.OnOrAfter" = "Is on or after";
-"EditSet.Popup.Filter.Condition.Date.OnOrBefore" = "Is on or before";
-"EditSet.Popup.Filter.Condition.Date.In" = "Is within";
+"EditSet.Popup.Filter.Condition.Date.Equal" = "是";
+"EditSet.Popup.Filter.Condition.Date.After" = "在之后";
+"EditSet.Popup.Filter.Condition.Date.Before" = "在之前";
+"EditSet.Popup.Filter.Condition.Date.OnOrAfter" = "在之前（包含当前）";
+"EditSet.Popup.Filter.Condition.Date.OnOrBefore" = "在之后（包含当前）";
+"EditSet.Popup.Filter.Condition.Date.In" = "在之内";
 
 "EditSet.Popup.Filter.Condition.Selected.In" = "具有任何";
 "EditSet.Popup.Filter.Condition.Selected.AllIn" = "具有所有";
 "EditSet.Popup.Filter.Condition.Selected.NotIn" = "不具有";
-"EditSet.Popup.Filter.Condition.Selected.Equal" = "Is exactly";
+"EditSet.Popup.Filter.Condition.Selected.Equal" = "准确为";
 
-"EditSet.Popup.Filter.Condition.Checkbox.Equal" = "Is";
-"EditSet.Popup.Filter.Condition.Checkbox.NotEqual" = "Is not";
+"EditSet.Popup.Filter.Condition.Checkbox.Equal" = "是";
+"EditSet.Popup.Filter.Condition.Checkbox.NotEqual" = "不是";
 
 "EditSet.Popup.Filter.Condition.General.Empty" = "是空的";
 "EditSet.Popup.Filter.Condition.General.NotEmpty" = "不是空的";
