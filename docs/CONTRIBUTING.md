@@ -109,6 +109,10 @@ Basic rules for pull requests:
 
 All pull requests will be reviewed by the team.
 
+### Translations
+
+You can help us translate Anytype by visiting our [Crowdin translation page](https://crowdin.com/project/anytype-mobile).
+
 ## Contributors Recognition
 
 This project follows the [all-contributors](https://github.com/all-contributors/all-contributors) specification. Contributions of any kind are welcome! 
