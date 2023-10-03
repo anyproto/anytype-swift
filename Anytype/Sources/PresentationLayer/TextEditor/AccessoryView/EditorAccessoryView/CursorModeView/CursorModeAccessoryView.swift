@@ -1,5 +1,6 @@
 import UIKit
 import Services
+import AnytypeCore
 
 class CursorModeAccessoryView: UIView {
     private let viewModel: CursorModeAccessoryViewModel
@@ -18,7 +19,11 @@ class CursorModeAccessoryView: UIView {
         autoresizingMask = .flexibleHeight
         backgroundColor = .Background.primary
         addSubview(stackView) {
-            $0.pinToSuperviewPreservingReadability()
+            if FeatureFlags.ipadIncreaseWidth {
+                $0.pinToSuperview()
+            } else {
+                $0.pinToSuperviewPreservingReadability()
+            }
         }
     }
     
