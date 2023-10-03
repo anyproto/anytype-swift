@@ -625,6 +625,7 @@
 // MARK: - ObjectType
 "ObjectType.fallbackDescription" = "Blank canvas with no title";
 "ObjectType.SearchOrInstall" = "Search or install a new type";
+"ObjectType.Search" = "Search for Type";
 "ObjectType.MyTypes" = "My Types";
 "ObjectType.AddedToLibrary" = "Type ‘%@’ added to your library";
 "ObjectType.DeletedName" = "Deleted type";

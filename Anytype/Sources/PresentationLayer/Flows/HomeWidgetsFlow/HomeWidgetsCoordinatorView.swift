@@ -48,5 +48,8 @@ struct HomeWidgetsCoordinatorView: View {
         .sheet(isPresented: $model.showSharing) {
             model.createSharingModule()
         }
+        .sheet(isPresented: $model.showCreateObjectWithType) {
+            model.createObjectWithTypeModule()
+        }
     }
 }

@@ -42,6 +42,10 @@ public extension FeatureFlags {
         value(for: .ipadIncreaseWidth)
     }
 
+    static var selectTypeByLongTap: Bool {
+        value(for: .selectTypeByLongTap)
+    }
+
     static var rainbowViews: Bool {
         value(for: .rainbowViews)
     }
@@ -73,6 +77,7 @@ public extension FeatureFlags {
         .newCodeLanguages,
         .newSetSettings,
         .ipadIncreaseWidth,
+        .selectTypeByLongTap,
         .rainbowViews,
         .showAlertOnAssert,
         .analytics,

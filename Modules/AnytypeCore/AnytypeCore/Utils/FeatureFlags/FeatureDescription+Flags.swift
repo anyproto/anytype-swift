@@ -58,6 +58,12 @@ public extension FeatureDescription {
         defaultValue: true
     )
     
+    static let selectTypeByLongTap = FeatureDescription(
+        title: "Object creation flow updates - MVP - IOS-1796",
+        type: .feature(author: "m@anytype.io", releaseVersion: "0.26.0"),
+        defaultValue: true
+    )
+    
     // MARK: - Debug
     
     static let rainbowViews = FeatureDescription(

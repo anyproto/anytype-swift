@@ -19,11 +19,17 @@ protocol EditorPageOpenRouterProtocol: AnyObject {
     func showPage(data: EditorScreenData)
 }
 
+@MainActor
+protocol EditorBrowserDelegate: AnyObject {
+    func onCreateObjectWithTypeSelected()
+}
+
 final class EditorBrowserController: UIViewController, UINavigationControllerDelegate, EditorBrowser, EditorBrowserViewInputProtocol {
         
     var childNavigation: UINavigationController!
     weak var router: EditorPageOpenRouterProtocol!
-
+    weak var delegate: EditorBrowserDelegate?
+    
     private lazy var navigationView: EditorBottomNavigationView = createNavigationView()
     private var navigationViewBottomConstaint: NSLayoutConstraint?
     
@@ -131,6 +137,9 @@ final class EditorBrowserController: UIViewController, UINavigationControllerDel
                     AnytypeAnalytics.instance().logCreateObject(objectType: details.analyticsType, route: .navigation, view: .navbar)
                     self.router.showPage(data: details.editorScreenData())
                 }
+            },
+            onCreateObjectWithTypeTap: { [weak self] in
+                self?.delegate?.onCreateObjectWithTypeSelected()
             }
         )
     }
