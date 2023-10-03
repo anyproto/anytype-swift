@@ -2,7 +2,7 @@ import Foundation
 import UIKit
 
 protocol LinkToObjectCoordinatorAssemblyProtocol: AnyObject {
-    func make(browserController: EditorBrowserController?) -> LinkToObjectCoordinatorProtocol
+    func make() -> LinkToObjectCoordinatorProtocol
 }
 
 final class LinkToObjectCoordinatorAssembly: LinkToObjectCoordinatorAssemblyProtocol {
@@ -21,15 +21,15 @@ final class LinkToObjectCoordinatorAssembly: LinkToObjectCoordinatorAssemblyProt
     
     // MARK: - LinkToObjectCoordinatorAssemblyProtocol
     
-    func make(browserController: EditorBrowserController?) -> LinkToObjectCoordinatorProtocol {
+    func make() -> LinkToObjectCoordinatorProtocol {
         
         let coordinator = LinkToObjectCoordinator(
             navigationContext: uiHelopersDI.commonNavigationContext(),
             pageService: serviceLocator.pageRepository(),
             urlOpener: uiHelopersDI.urlOpener(),
-            editorPageCoordinator: coordinatorsID.editorPage().make(
-                browserController: browserController
-            ),
+//            editorPageCoordinator: coordinatorsID.editorPage().make(
+//                browserController: browserController
+//            ),
             searchService: serviceLocator.searchService()
         )
         

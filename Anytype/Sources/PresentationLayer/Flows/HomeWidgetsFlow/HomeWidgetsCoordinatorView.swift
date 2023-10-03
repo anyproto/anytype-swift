@@ -40,6 +40,7 @@ struct HomeWidgetsCoordinatorView: View {
         .onAppear {
             model.onAppear()
         }
+        .environment(\.pageNavigation, model.pageNavigation)
         .sheet(item: $model.showChangeSourceData) { data in
             model.changeSourceModule(data: data)
         }

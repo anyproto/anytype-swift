@@ -48,7 +48,6 @@ protocol NewSearchModuleAssemblyProtocol {
         excludedObjectTypeId: String?,
         showBookmark: Bool,
         showSetAndCollection: Bool,
-        browser: EditorBrowserController?,
         onSelect: @escaping (_ type: ObjectType) -> Void
     ) -> NewSearchView
     
@@ -153,7 +152,6 @@ extension NewSearchModuleAssemblyProtocol {
         excludedObjectTypeId: String? = nil,
         showBookmark: Bool = false,
         showSetAndCollection: Bool = false,
-        browser: EditorBrowserController? = nil,
         onSelect: @escaping (_ type: ObjectType) -> Void
     ) -> NewSearchView {
         return objectTypeSearchModule(
@@ -164,7 +162,6 @@ extension NewSearchModuleAssemblyProtocol {
             excludedObjectTypeId: excludedObjectTypeId,
             showBookmark: showBookmark,
             showSetAndCollection: showSetAndCollection,
-            browser: browser,
             onSelect: onSelect
         )
     }

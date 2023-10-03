@@ -2,13 +2,12 @@ import Foundation
 import SwiftUI
 
 protocol WidgetObjectListModuleAssemblyProtocol: AnyObject {
-    // TODO: Navigation: Delete BrowserBottomPanelManagerProtocol
-    func makeFavorites(bottomPanelManager: BrowserBottomPanelManagerProtocol?, output: WidgetObjectListCommonModuleOutput?) -> AnyView
-    func makerecentEdit(bottomPanelManager: BrowserBottomPanelManagerProtocol?, output: WidgetObjectListCommonModuleOutput?) -> AnyView
-    func makeRecentOpen(bottomPanelManager: BrowserBottomPanelManagerProtocol?, output: WidgetObjectListCommonModuleOutput?) -> AnyView
-    func makeSets(bottomPanelManager: BrowserBottomPanelManagerProtocol?, output: WidgetObjectListCommonModuleOutput?) -> AnyView
-    func makeCollections(bottomPanelManager: BrowserBottomPanelManagerProtocol?, output: WidgetObjectListCommonModuleOutput?) -> AnyView
-    func makeBin(bottomPanelManager: BrowserBottomPanelManagerProtocol?, output: WidgetObjectListCommonModuleOutput?) -> AnyView
+    func makeFavorites(output: WidgetObjectListCommonModuleOutput?) -> AnyView
+    func makerecentEdit(output: WidgetObjectListCommonModuleOutput?) -> AnyView
+    func makeRecentOpen(output: WidgetObjectListCommonModuleOutput?) -> AnyView
+    func makeSets(output: WidgetObjectListCommonModuleOutput?) -> AnyView
+    func makeCollections(output: WidgetObjectListCommonModuleOutput?) -> AnyView
+    func makeBin(output: WidgetObjectListCommonModuleOutput?) -> AnyView
     func makeFiles() -> AnyView
 }
 
@@ -24,7 +23,7 @@ final class WidgetObjectListModuleAssembly: WidgetObjectListModuleAssemblyProtoc
     
     // MARK: - WidgetObjectListModuleAssemblyProtocol
     
-    func makeFavorites(bottomPanelManager: BrowserBottomPanelManagerProtocol?, output: WidgetObjectListCommonModuleOutput?) -> AnyView {
+    func makeFavorites(output: WidgetObjectListCommonModuleOutput?) -> AnyView {
         return make(
             internalModel: WidgetObjectListFavoritesViewModel(
                 favoriteSubscriptionService: self.serviceLocator.favoriteSubscriptionService(),
@@ -32,53 +31,47 @@ final class WidgetObjectListModuleAssembly: WidgetObjectListModuleAssemblyProtoc
                 documentService: self.serviceLocator.documentService(),
                 objectActionService: self.serviceLocator.objectActionsService()
             ),
-            bottomPanelManager: bottomPanelManager,
             output: output
         )
     }
     
-    func makerecentEdit(bottomPanelManager: BrowserBottomPanelManagerProtocol?, output: WidgetObjectListCommonModuleOutput?) -> AnyView {
+    func makerecentEdit(output: WidgetObjectListCommonModuleOutput?) -> AnyView {
         return make(
             internalModel: WidgetObjectListRecentViewModel(
                 type: .recentEdit,
                 recentSubscriptionService: self.serviceLocator.recentSubscriptionService()
             ),
-            bottomPanelManager: bottomPanelManager,
             output: output
         )
     }
     
-    func makeRecentOpen(bottomPanelManager: BrowserBottomPanelManagerProtocol?, output: WidgetObjectListCommonModuleOutput?) -> AnyView {
+    func makeRecentOpen(output: WidgetObjectListCommonModuleOutput?) -> AnyView {
         return make(
             internalModel: WidgetObjectListRecentViewModel(
                 type: .recentOpen,
                 recentSubscriptionService: self.serviceLocator.recentSubscriptionService()
             ),
-            bottomPanelManager: bottomPanelManager,
             output: output
         )
     }
     
-    func makeSets(bottomPanelManager: BrowserBottomPanelManagerProtocol?, output: WidgetObjectListCommonModuleOutput?) -> AnyView {
+    func makeSets(output: WidgetObjectListCommonModuleOutput?) -> AnyView {
         return make(
             internalModel: WidgetObjectListSetsViewModel(setsSubscriptionService: self.serviceLocator.setsSubscriptionService()),
-            bottomPanelManager: bottomPanelManager,
             output: output
         )
     }
     
-    func makeCollections(bottomPanelManager: BrowserBottomPanelManagerProtocol?, output: WidgetObjectListCommonModuleOutput?) -> AnyView {
+    func makeCollections(output: WidgetObjectListCommonModuleOutput?) -> AnyView {
         return make(
             internalModel: WidgetObjectListCollectionsViewModel(subscriptionService: self.serviceLocator.collectionsSubscriptionService()),
-            bottomPanelManager: bottomPanelManager,
             output: output
         )
     }
     
-    func makeBin(bottomPanelManager: BrowserBottomPanelManagerProtocol?, output: WidgetObjectListCommonModuleOutput?) -> AnyView {
+    func makeBin(output: WidgetObjectListCommonModuleOutput?) -> AnyView {
         return make(
             internalModel: WidgetObjectListBinViewModel(binSubscriptionService: self.serviceLocator.binSubscriptionService()),
-            bottomPanelManager: bottomPanelManager,
             output: output
         )
     }
@@ -86,7 +79,6 @@ final class WidgetObjectListModuleAssembly: WidgetObjectListModuleAssemblyProtoc
     func makeFiles() -> AnyView {
         return make(
             internalModel: WidgetObjectListFilesViewModel(subscriptionService: self.serviceLocator.filesSubscriptionManager()),
-            bottomPanelManager: nil,
             output: nil,
             isSheet: true
         )
@@ -96,14 +88,12 @@ final class WidgetObjectListModuleAssembly: WidgetObjectListModuleAssemblyProtoc
     
     private func make(
         internalModel: @autoclosure @escaping () -> WidgetObjectListInternalViewModelProtocol,
-        bottomPanelManager: BrowserBottomPanelManagerProtocol?,
         output: WidgetObjectListCommonModuleOutput?,
         isSheet: Bool = false
     ) -> AnyView {
         
         let view = WidgetObjectListView(model: WidgetObjectListViewModel(
             internalModel: internalModel(),
-            bottomPanelManager: bottomPanelManager,
             objectActionService: self.serviceLocator.objectActionsService(),
             menuBuilder: WidgetObjectListMenuBuilder(),
             alertOpener: self.uiHelpersDI.alertOpener(),
@@ -111,6 +101,5 @@ final class WidgetObjectListModuleAssembly: WidgetObjectListModuleAssemblyProtoc
             isSheet: isSheet
         ))
         return view.eraseToAnyView()
-//        return WidgetObjectListHostingController(model: model, rootView: view)
     }
 }

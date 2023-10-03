@@ -1,6 +1,7 @@
 import Services
 import AnytypeCore
 
+// TODO: Navigation: Support it
 protocol DocumentDetaisProvider {
     
     var screenData: EditorScreenData { get }
@@ -20,20 +21,5 @@ extension EditorPageController: DocumentDetaisProvider {
     
     var documentDescription: String? {
         viewModel?.document.details?.description
-    }
-}
-
-extension EditorSetHostingController: DocumentDetaisProvider {
-    
-    var screenData: EditorScreenData {
-        .set(EditorSetObject(objectId: objectId, spaceId: model.setDocument.spaceId, inline: nil, isSupportedForEdit: true))
-    }
-    
-    var documentTitle: String? {
-        model.details?.title
-    }
-    
-    var documentDescription: String? {
-        model.details?.description
     }
 }

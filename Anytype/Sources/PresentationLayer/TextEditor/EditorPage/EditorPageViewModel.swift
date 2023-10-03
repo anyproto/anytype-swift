@@ -5,7 +5,7 @@ import os
 import Services
 import AnytypeCore
 
-final class EditorPageViewModel: EditorPageViewModelProtocol {
+final class EditorPageViewModel: EditorPageViewModelProtocol, EditorBottomNavigationManagerOutput, ObservableObject {
     weak private(set) var viewInput: EditorPageViewInput?
 
     let blocksStateManager: EditorPageBlocksStateManagerProtocol
@@ -31,9 +31,16 @@ final class EditorPageViewModel: EditorPageViewModelProtocol {
 
     private let blockActionsService: BlockActionsServiceSingleProtocol
 
+    var viewController: UIViewController
+    
+    @Published var bottomPanelHidden: Bool = false
+    @Published var dismiss = false
+    
     // MARK: - Initialization
     init(
         document: BaseDocumentProtocol,
+        // TODO: Fix it
+        viewController: UIViewController,
         viewInput: EditorPageViewInput,
         blockDelegate: BlockDelegate,
         router: EditorRouterProtocol,
@@ -50,6 +57,7 @@ final class EditorPageViewModel: EditorPageViewModelProtocol {
         accountManager: AccountManagerProtocol,
         configuration: EditorPageViewModelConfiguration
     ) {
+        self.viewController = viewController
         self.viewInput = viewInput
         self.document = document
         self.router = router
@@ -238,7 +246,7 @@ extension EditorPageViewModel {
                     blocksStateManager.checkOpenedState()
                 }
             } catch {
-                router.closeEditor()
+                dismiss.toggle()
             }
             
             if let objectDetails = document.details {
@@ -269,6 +277,12 @@ extension EditorPageViewModel {
                 }
             )
         )
+    }
+    
+    // MARK: - EditorBottomNavigationManagerOutput
+    
+    func setHomeBottomPanelHidden(_ hidden: Bool) {
+        bottomPanelHidden = hidden
     }
 }
 

@@ -3,13 +3,11 @@ import Foundation
 protocol CoordinatorsDIProtocol: AnyObject {
     func relationValue() -> RelationValueCoordinatorAssemblyProtocol
     func templates() -> TemplatesCoordinatorAssemblyProtocol
-    func editorPage() -> EditorPageCoordinatorAssemblyProtocol
     func linkToObject() -> LinkToObjectCoordinatorAssemblyProtocol
     func objectSettings() -> ObjectSettingsCoordinatorAssemblyProtocol
     func addNewRelation() -> AddNewRelationCoordinatorAssemblyProtocol
     func homeWidgets() -> HomeWidgetsCoordinatorAssemblyProtocol
     func createWidget() -> CreateWidgetCoordinatorAssemblyProtocol
-    func editorBrowser() -> EditorBrowserModuleAssemblyProtocol
     func application() -> ApplicationCoordinatorAssemblyProtocol
     func settings() -> SettingsCoordinatorAssemblyProtocol
     func authorization() -> AuthCoordinatorAssemblyProtocol
@@ -31,9 +29,6 @@ protocol CoordinatorsDIProtocol: AnyObject {
     func setObjectCreationSettings() -> SetObjectCreationSettingsCoordinatorAssemblyProtocol
     
     // Now like a coordinator. Migrate to isolated modules
-    func browser() -> EditorBrowserAssembly
-    func editorLegacy() -> EditorAssembly
-    
     func editorPageModule() -> EditorPageModuleAssemblyProtocol
     func editorSetModule() -> EditorSetModuleAssemblyProtocol
 }

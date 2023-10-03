@@ -6,7 +6,6 @@ import SwiftUI
 
 protocol EditorSetRouterProtocol:
     AnyObject,
-    EditorPageOpenRouterProtocol,
     ObjectHeaderRouterProtocol
 {
     
@@ -46,8 +45,6 @@ protocol EditorSetRouterProtocol:
     func showQueries(selectedObjectId: BlockId?, onSelect: @escaping (BlockId) -> ())
     
     func closeEditor()
-    func showPage(data: EditorScreenData)
-    func replaceCurrentPage(with data: EditorScreenData)
     func showRelationValueEditingView(key: String)
     func showRelationValueEditingView(objectDetails: ObjectDetails, relation: Relation)
     
@@ -66,11 +63,9 @@ final class EditorSetRouter: EditorSetRouterProtocol, ObjectSettingsCoordinatorO
     // MARK: - DI
     
     private let setDocument: SetDocumentProtocol
-    private weak var rootController: EditorBrowserController?
     private let navigationContext: NavigationContextProtocol
     private let createObjectModuleAssembly: CreateObjectModuleAssemblyProtocol
     private let newSearchModuleAssembly: NewSearchModuleAssemblyProtocol
-    private let editorPageCoordinator: EditorPageCoordinatorProtocol
     private let objectSettingCoordinator: ObjectSettingsCoordinatorProtocol
     private let relationValueCoordinator: RelationValueCoordinatorProtocol
     private let objectCoverPickerModuleAssembly: ObjectCoverPickerModuleAssemblyProtocol
@@ -85,6 +80,7 @@ final class EditorSetRouter: EditorSetRouterProtocol, ObjectSettingsCoordinatorO
     private let toastPresenter: ToastPresenterProtocol
     private let alertHelper: AlertHelper
     private let setObjectCreationSettingsCoordinator: SetObjectCreationSettingsCoordinatorProtocol
+    private var output: EditorSetModuleOutput?
     
     // MARK: - State
     
@@ -92,11 +88,9 @@ final class EditorSetRouter: EditorSetRouterProtocol, ObjectSettingsCoordinatorO
     
     init(
         setDocument: SetDocumentProtocol,
-        rootController: EditorBrowserController?,
         navigationContext: NavigationContextProtocol,
         createObjectModuleAssembly: CreateObjectModuleAssemblyProtocol,
         newSearchModuleAssembly: NewSearchModuleAssemblyProtocol,
-        editorPageCoordinator: EditorPageCoordinatorProtocol,
         objectSettingCoordinator: ObjectSettingsCoordinatorProtocol,
         relationValueCoordinator: RelationValueCoordinatorProtocol,
         objectCoverPickerModuleAssembly: ObjectCoverPickerModuleAssemblyProtocol,
@@ -110,14 +104,13 @@ final class EditorSetRouter: EditorSetRouterProtocol, ObjectSettingsCoordinatorO
         setViewPickerCoordinatorAssembly: SetViewPickerCoordinatorAssemblyProtocol,
         toastPresenter: ToastPresenterProtocol,
         alertHelper: AlertHelper,
-        setObjectCreationSettingsCoordinator: SetObjectCreationSettingsCoordinatorProtocol
+        setObjectCreationSettingsCoordinator: SetObjectCreationSettingsCoordinatorProtocol,
+        output: EditorSetModuleOutput?
     ) {
         self.setDocument = setDocument
-        self.rootController = rootController
         self.navigationContext = navigationContext
         self.createObjectModuleAssembly = createObjectModuleAssembly
         self.newSearchModuleAssembly = newSearchModuleAssembly
-        self.editorPageCoordinator = editorPageCoordinator
         self.objectSettingCoordinator = objectSettingCoordinator
         self.relationValueCoordinator = relationValueCoordinator
         self.objectCoverPickerModuleAssembly = objectCoverPickerModuleAssembly
@@ -132,6 +125,7 @@ final class EditorSetRouter: EditorSetRouterProtocol, ObjectSettingsCoordinatorO
         self.toastPresenter = toastPresenter
         self.alertHelper = alertHelper
         self.setObjectCreationSettingsCoordinator = setObjectCreationSettingsCoordinator
+        self.output = output
     }
     
     // MARK: - EditorSetRouterProtocol
@@ -406,11 +400,9 @@ final class EditorSetRouter: EditorSetRouterProtocol, ObjectSettingsCoordinatorO
     }
     
     func showPage(data: EditorScreenData) {
-        editorPageCoordinator.startFlow(data: data, replaceCurrentPage: false)
-    }
-    
-    func replaceCurrentPage(with data: EditorScreenData) {
-        editorPageCoordinator.startFlow(data: data, replaceCurrentPage: true)
+        Task { @MainActor in
+            output?.showEditorScreen(data: data)
+        }
     }
     
     func showFailureToast(message: String) {
@@ -445,8 +437,7 @@ final class EditorSetRouter: EditorSetRouterProtocol, ObjectSettingsCoordinatorO
             selectedObjectId: selectedObjectId,
             excludedObjectTypeId: setDocument.details?.type,
             showBookmark: showBookmark,
-            showSetAndCollection: showSetAndCollection,
-            browser: rootController
+            showSetAndCollection: showSetAndCollection
         ) { [weak self] type in
             self?.navigationContext.dismissTopPresented()
             onSelect(type.id)

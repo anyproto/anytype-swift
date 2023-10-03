@@ -17,7 +17,6 @@ final class HomeWidgetsCoordinatorViewModel: ObservableObject,
     private let activeWorkspaceStorage: ActiveWorkpaceStorageProtocol
     private let navigationContext: NavigationContextProtocol
     private let createWidgetCoordinatorAssembly: CreateWidgetCoordinatorAssemblyProtocol
-    private let editorBrowserCoordinator: EditorBrowserCoordinatorProtocol
     private let searchModuleAssembly: SearchModuleAssemblyProtocol
     private let settingsCoordinator: SettingsCoordinatorProtocol
     private let newSearchModuleAssembly: NewSearchModuleAssemblyProtocol
@@ -57,12 +56,24 @@ final class HomeWidgetsCoordinatorViewModel: ObservableObject,
     }
     @Published var homeAnimationId = UUID()
     
+    var pageNavigation: PageNavigation {
+        PageNavigation(
+            push: { [weak self] data in
+                self?.editorPath.push(data)
+            }, pop: { [weak self] in
+                self?.editorPath.pop()
+            }, replace: { [weak self] data in
+                self?.editorPath.removeLast()
+                self?.editorPath.push(data)
+            }
+        )
+    }
+    
     init(
         homeWidgetsModuleAssembly: HomeWidgetsModuleAssemblyProtocol,
         activeWorkspaceStorage: ActiveWorkpaceStorageProtocol,
         navigationContext: NavigationContextProtocol,
         createWidgetCoordinatorAssembly: CreateWidgetCoordinatorAssemblyProtocol,
-        editorBrowserCoordinator: EditorBrowserCoordinatorProtocol,
         searchModuleAssembly: SearchModuleAssemblyProtocol,
         settingsCoordinator: SettingsCoordinatorProtocol,
         newSearchModuleAssembly: NewSearchModuleAssemblyProtocol,
@@ -80,7 +91,6 @@ final class HomeWidgetsCoordinatorViewModel: ObservableObject,
         self.activeWorkspaceStorage = activeWorkspaceStorage
         self.navigationContext = navigationContext
         self.createWidgetCoordinatorAssembly = createWidgetCoordinatorAssembly
-        self.editorBrowserCoordinator = editorBrowserCoordinator
         self.searchModuleAssembly = searchModuleAssembly
         self.settingsCoordinator = settingsCoordinator
         self.newSearchModuleAssembly = newSearchModuleAssembly
@@ -262,13 +272,9 @@ final class HomeWidgetsCoordinatorViewModel: ObservableObject,
     
     private func openObject(screenData: EditorScreenData) {
         editorPath.push(screenData)
-//        editor = screenData
-//        editorBrowserCoordinator.startFlow(data: screenData)
     }
     
     private func createAndShowNewPage() {
-//        editor = .bin
-//        editorPath.push(screenData)
         Task {
             guard let details = try? await dashboardService.createNewPage(spaceId: activeWorkspaceStorage.workspaceInfo.accountSpaceId) else { return }
             AnytypeAnalytics.instance().logCreateObject(objectType: details.analyticsType, route: .navigation, view: .home)

@@ -30,13 +30,13 @@ final class EditorSetModuleAssembly: EditorSetModuleAssemblyProtocol {
     
     @MainActor
     func make(data: EditorSetObject, output: EditorSetModuleOutput?) -> AnyView {
-        return EditorSetView(model: self.setModel(browser: nil, data: data)).eraseToAnyView()
+        return EditorSetView(model: self.setModel(data: data, output: output)).eraseToAnyView()
     }
     
     // MARK: - Private
     
     @MainActor
-    private func setModel(browser: EditorBrowserController?, data: EditorSetObject) -> EditorSetViewModel {
+    private func setModel(data: EditorSetObject, output: EditorSetModuleOutput?) -> EditorSetViewModel {
         let document = BaseDocument(objectId: data.objectId)
         let setDocument = SetDocument(
             document: document,
@@ -71,17 +71,16 @@ final class EditorSetModuleAssembly: EditorSetModuleAssemblyProtocol {
             groupsSubscriptionsHandler: serviceLocator.groupsSubscriptionsHandler(),
             setSubscriptionDataBuilder: SetSubscriptionDataBuilder(activeWorkspaceStorage: serviceLocator.activeWorkspaceStorage()),
             objectTypeProvider: serviceLocator.objectTypeProvider(),
-            setTemplatesInteractor: serviceLocator.setTemplatesInteractor
+            setTemplatesInteractor: serviceLocator.setTemplatesInteractor,
+            output: output
         )
 
         let router = EditorSetRouter(
             setDocument: setDocument,
-            rootController: browser,
             navigationContext: uiHelpersDI.commonNavigationContext(),
             createObjectModuleAssembly: modulesDI.createObject(),
             newSearchModuleAssembly: modulesDI.newSearch(),
-            editorPageCoordinator: coordinatorsDI.editorPage().make(browserController: browser),
-            objectSettingCoordinator: coordinatorsDI.objectSettings().make(browserController: browser),
+            objectSettingCoordinator: coordinatorsDI.objectSettings().make(),
             relationValueCoordinator: coordinatorsDI.relationValue().make(),
             objectCoverPickerModuleAssembly: modulesDI.objectCoverPicker(),
             objectIconPickerModuleAssembly: modulesDI.objectIconPicker(),
@@ -92,12 +91,13 @@ final class EditorSetModuleAssembly: EditorSetModuleAssemblyProtocol {
             setViewSettingsGroupByModuleAssembly: modulesDI.setViewSettingsGroupByView(),
             editorSetRelationsCoordinatorAssembly: coordinatorsDI.setRelations(),
             setViewPickerCoordinatorAssembly: coordinatorsDI.setViewPicker(),
-            toastPresenter: uiHelpersDI.toastPresenter(using: browser),
+            toastPresenter: uiHelpersDI.toastPresenter(),
             alertHelper: AlertHelper(viewController: nil),
             setObjectCreationSettingsCoordinator: coordinatorsDI.setObjectCreationSettings().make(
                 with: .creation,
                 navigationContext: uiHelpersDI.commonNavigationContext()
-            )
+            ),
+            output: output
         )
         
         setupHeaderModelActions(headerModel: headerModel, using: router)

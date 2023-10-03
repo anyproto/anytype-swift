@@ -1,6 +1,7 @@
 import Foundation
 import UIKit
 
+// TODO: Navigation: Check DND in editor
 final class EditorBrowserView: UIView {
     
     // Forward touches for drag and drop.

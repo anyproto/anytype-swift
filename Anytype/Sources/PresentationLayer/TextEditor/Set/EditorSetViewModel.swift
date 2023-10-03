@@ -135,7 +135,8 @@ final class EditorSetViewModel: ObservableObject {
     private let setTemplatesInteractor: SetTemplatesInteractorProtocol
     private var subscriptions = [AnyCancellable]()
     private var titleSubscription: AnyCancellable?
-
+    private let output: EditorSetModuleOutput?
+    
     init(
         setDocument: SetDocumentProtocol,
         headerViewModel: ObjectHeaderViewModel,
@@ -148,7 +149,8 @@ final class EditorSetViewModel: ObservableObject {
         groupsSubscriptionsHandler: GroupsSubscriptionsHandlerProtocol,
         setSubscriptionDataBuilder: SetSubscriptionDataBuilderProtocol,
         objectTypeProvider: ObjectTypeProviderProtocol,
-        setTemplatesInteractor: SetTemplatesInteractorProtocol
+        setTemplatesInteractor: SetTemplatesInteractorProtocol,
+        output: EditorSetModuleOutput?
     ) {
         self.setDocument = setDocument
         self.headerModel = headerViewModel
@@ -163,6 +165,7 @@ final class EditorSetViewModel: ObservableObject {
         self.objectTypeProvider = objectTypeProvider
         self.setTemplatesInteractor = setTemplatesInteractor
         self.titleString = setDocument.details?.pageCellTitle ?? ""
+        self.output = output
     }
     
     func setup(router: EditorSetRouterProtocol) {
@@ -519,6 +522,7 @@ final class EditorSetViewModel: ObservableObject {
         }
     }
     
+    @MainActor
     private func itemTapped(_ details: ObjectDetails) {
         openObject(details: details)
     }
@@ -629,7 +633,7 @@ final class EditorSetViewModel: ObservableObject {
         shouldSelectType: Bool,
         relationsDetails: [RelationDetails],
         templateId: BlockId?,
-        completion: ((_ details: ObjectDetails) -> Void)?
+        completion: (@MainActor (_ details: ObjectDetails) -> Void)?
     ) {
         Task { @MainActor [weak self] in
             guard let self else { return }
@@ -782,7 +786,7 @@ extension EditorSetViewModel {
         Task { @MainActor in
             try await objectActionsService.setObjectCollectionType(objectId: objectId)
             try await setDocument.close()
-            router?.replaceCurrentPage(with: .set(EditorSetObject(objectId: objectId, spaceId: setDocument.spaceId, isSupportedForEdit: true)))
+            output?.replaceEditorScreen(data: .set(EditorSetObject(objectId: objectId, spaceId: setDocument.spaceId, isSupportedForEdit: true)))
         }
         AnytypeAnalytics.instance().logSetTurnIntoCollection()
     }
@@ -823,6 +827,7 @@ extension EditorSetViewModel {
         return groupOrder.updated(viewGroups: viewGroups)
     }
     
+    @MainActor
     private func handleCreatedObject(details: ObjectDetails) {
         if details.layoutValue == .note {
             openObject(details: details)
@@ -831,9 +836,10 @@ extension EditorSetViewModel {
         }
     }
     
-   private func openObject(details: ObjectDetails) {
-       router?.showPage(
-        data: details.editorScreenData(shouldShowTemplatesOptions: !FeatureFlags.setTemplateSelection)
+    @MainActor
+    private func openObject(details: ObjectDetails) {
+       output?.showEditorScreen(
+            data: details.editorScreenData(shouldShowTemplatesOptions: !FeatureFlags.setTemplateSelection)
        )
     }
     
@@ -873,6 +879,7 @@ extension EditorSetViewModel {
         groupsSubscriptionsHandler: DI.preview.serviceLocator.groupsSubscriptionsHandler(),
         setSubscriptionDataBuilder: SetSubscriptionDataBuilder(activeWorkspaceStorage: DI.preview.serviceLocator.activeWorkspaceStorage()),
         objectTypeProvider: DI.preview.serviceLocator.objectTypeProvider(),
-        setTemplatesInteractor: DI.preview.serviceLocator.setTemplatesInteractor
+        setTemplatesInteractor: DI.preview.serviceLocator.setTemplatesInteractor,
+        output: nil
     )
 }

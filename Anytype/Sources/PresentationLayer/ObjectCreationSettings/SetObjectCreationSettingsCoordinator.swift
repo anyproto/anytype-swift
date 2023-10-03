@@ -22,7 +22,6 @@ final class SetObjectCreationSettingsCoordinator: SetObjectCreationSettingsCoord
     private let mode: SetObjectCreationSettingsMode
     private let navigationContext: NavigationContextProtocol
     private let setObjectCreationSettingsAssembly: SetObjectCreationSettingsModuleAssemblyProtocol
-    private let editorAssembly: EditorAssembly
     private let newSearchModuleAssembly: NewSearchModuleAssemblyProtocol
     private let objectSettingCoordinator: ObjectSettingsCoordinatorProtocol
     private var handler: TemplateSelectionObjectSettingsHandler?
@@ -31,14 +30,12 @@ final class SetObjectCreationSettingsCoordinator: SetObjectCreationSettingsCoord
         mode: SetObjectCreationSettingsMode,
         navigationContext: NavigationContextProtocol,
         setObjectCreationSettingsAssembly: SetObjectCreationSettingsModuleAssemblyProtocol,
-        editorAssembly: EditorAssembly,
         newSearchModuleAssembly: NewSearchModuleAssemblyProtocol,
         objectSettingCoordinator: ObjectSettingsCoordinatorProtocol
     ) {
         self.mode = mode
         self.navigationContext = navigationContext
         self.setObjectCreationSettingsAssembly = setObjectCreationSettingsAssembly
-        self.editorAssembly = editorAssembly
         self.newSearchModuleAssembly = newSearchModuleAssembly
         self.objectSettingCoordinator = objectSettingCoordinator
     }
@@ -156,8 +153,7 @@ final class SetObjectCreationSettingsCoordinator: SetObjectCreationSettingsCoord
             title: Loc.changeType,
             spaceId: setDocument.spaceId,
             showBookmark: true,
-            showSetAndCollection: true,
-            browser: nil
+            showSetAndCollection: true
         ) { [weak self] type in
             self?.navigationContext.dismissTopPresented()
             onSelect(type.id)

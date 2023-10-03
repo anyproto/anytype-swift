@@ -2,6 +2,11 @@ import SwiftUI
 
 struct WidgetObjectListView: View {
     
+    // TODO: Navigation delete it and using safe area
+    enum Constants {
+        static let navigationHeight: CGFloat = 48
+    }
+    
     @StateObject var model: WidgetObjectListViewModel
     @State private var searchText: String = ""
     // TODO: Navigation: Delete edit mode configurataion
@@ -25,7 +30,7 @@ struct WidgetObjectListView: View {
                 content
             }
             .safeAreaInset(edge: .bottom, content: {
-                Spacer.fixedHeight(EditorBottomNavigationView.Constants.height) // Navigation bottom panel offset
+                Spacer.fixedHeight(Constants.navigationHeight) // Navigation bottom panel offset
             })
             optionsView
         }
@@ -70,7 +75,7 @@ struct WidgetObjectListView: View {
                     }
                 }
             }
-            Spacer.fixedHeight(130 - EditorBottomNavigationView.Constants.height) // Additional space for action view
+            Spacer.fixedHeight(130 - Constants.navigationHeight) // Additional space for action view
         }
         .hideScrollIndicatorLegacy()
         .hideKeyboardOnScrollLegacy()

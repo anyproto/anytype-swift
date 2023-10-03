@@ -7,7 +7,6 @@ import SwiftUI
 final class EditorPageController: UIViewController {
     
     let bottomNavigationManager: EditorBottomNavigationManagerProtocol
-    private(set) weak var browserViewInput: EditorBrowserViewInputProtocol?
     private(set) lazy var dataSource = makeCollectionViewDataSource()
     private weak var firstResponderView: UIView?
 
@@ -79,12 +78,10 @@ final class EditorPageController: UIViewController {
     // MARK: - Initializers
     init(
         blocksSelectionOverlayView: BlocksSelectionOverlayView,
-        bottomNavigationManager: EditorBottomNavigationManagerProtocol,
-        browserViewInput: EditorBrowserViewInputProtocol?
+        bottomNavigationManager: EditorBottomNavigationManagerProtocol
     ) {
         self.blocksSelectionOverlayView = blocksSelectionOverlayView
         self.bottomNavigationManager = bottomNavigationManager
-        self.browserViewInput = browserViewInput
 
         super.init(nibName: nil, bundle: nil)
     }
@@ -195,7 +192,6 @@ final class EditorPageController: UIViewController {
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         viewModel.viewDidAppear()
-        browserViewInput?.didShow(collectionView: collectionView)
     }
     
     override func viewWillDisappear(_ animated: Bool) {

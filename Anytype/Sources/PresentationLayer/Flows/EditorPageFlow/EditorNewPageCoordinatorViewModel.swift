@@ -7,6 +7,8 @@ final class EditorNewPageCoordinatorViewModel: ObservableObject, EditorPageModul
     private let data: EditorPageObject
     private let editorPageAssembly: EditorPageModuleAssemblyProtocol
     
+    var pageNavigation: PageNavigation?
+    
     init(data: EditorPageObject,editorPageAssembly: EditorPageModuleAssemblyProtocol) {
         self.data = data
         self.editorPageAssembly = editorPageAssembly
@@ -17,4 +19,12 @@ final class EditorNewPageCoordinatorViewModel: ObservableObject, EditorPageModul
     }
     
     // MARK: - EditorPageModuleOutput
+    
+    func showEditorScreen(data: EditorScreenData) {
+        pageNavigation?.push(data)
+    }
+    
+    func replaceEditorScreen(data: EditorScreenData) {
+        pageNavigation?.replace(data)
+    }
 }

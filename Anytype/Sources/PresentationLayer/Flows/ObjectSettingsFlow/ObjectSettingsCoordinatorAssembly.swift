@@ -1,7 +1,7 @@
 import Foundation
 
 protocol ObjectSettingsCoordinatorAssemblyProtocol {
-    func make(browserController: EditorBrowserController?) -> ObjectSettingsCoordinatorProtocol
+    func make() -> ObjectSettingsCoordinatorProtocol
 }
 
 final class ObjectSettingsCoordinatorAssembly: ObjectSettingsCoordinatorAssemblyProtocol {
@@ -22,7 +22,7 @@ final class ObjectSettingsCoordinatorAssembly: ObjectSettingsCoordinatorAssembly
     
     // MARK: - ObjectSettingsCoordinatorAssemblyProtocol
     
-    func make(browserController: EditorBrowserController?) -> ObjectSettingsCoordinatorProtocol {
+    func make() -> ObjectSettingsCoordinatorProtocol {
         ObjectSettingsCoordinator(
             navigationContext: uiHelpersDI.commonNavigationContext(),
             objectSettingsModuleAssembly: modulesDI.objectSetting(),
@@ -32,7 +32,7 @@ final class ObjectSettingsCoordinatorAssembly: ObjectSettingsCoordinatorAssembly
             objectIconPickerModuleAssembly: modulesDI.objectIconPicker(),
             relationsListModuleAssembly: modulesDI.relationsList(),
             relationValueCoordinator: coordinatorsDI.relationValue().make(),
-            editorPageCoordinator: coordinatorsDI.editorPage().make(browserController: browserController),
+//            editorPageCoordinator: coordinatorsDI.editorPage().make(browserController: browserController),
             addNewRelationCoordinator: coordinatorsDI.addNewRelation().make(),
             searchModuleAssembly: modulesDI.search(),
             newSearchModuleAssembly: modulesDI.newSearch()

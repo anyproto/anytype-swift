@@ -27,14 +27,6 @@ final class CoordinatorsDI: CoordinatorsDIProtocol {
         return TemplatesCoordinatorAssembly(serviceLocator: serviceLocator, coordinatorsDI: self)
     }
     
-    func editorPage() -> EditorPageCoordinatorAssemblyProtocol {
-        return EditorPageCoordinatorAssembly(
-            serviceLocator: serviceLocator,
-            modulesDI: modulesDI,
-            coordinatorsID: self
-        )
-    }
-    
     func linkToObject() -> LinkToObjectCoordinatorAssemblyProtocol {
         return LinkToObjectCoordinatorAssembly(
             serviceLocator: serviceLocator,
@@ -68,18 +60,6 @@ final class CoordinatorsDI: CoordinatorsDIProtocol {
             serviceLocator: serviceLocator,
             uiHelpersDI: uiHelpersDI
         )
-    }
-    
-    func browser() -> EditorBrowserAssembly {
-        return EditorBrowserAssembly(coordinatorsDI: self, serviceLocator: serviceLocator)
-    }
-    
-    func editorLegacy() -> EditorAssembly {
-        return EditorAssembly(serviceLocator: serviceLocator, coordinatorsDI: self, modulesDI: modulesDI, uiHelpersDI: uiHelpersDI)
-    }
-    
-    func editorBrowser() -> EditorBrowserModuleAssemblyProtocol {
-        return EditorBrowserModuleAssembly(uiHelpersDI: uiHelpersDI, coordinatorsID: self)
     }
     
     func application() -> ApplicationCoordinatorAssemblyProtocol {

@@ -7,6 +7,8 @@ final class EditorSetCoordinatorViewModel: ObservableObject, EditorSetModuleOutp
     private let data: EditorSetObject
     private let editorSetAssembly: EditorSetModuleAssemblyProtocol
     
+    var pageNavigation: PageNavigation?
+    
     init(data: EditorSetObject, editorSetAssembly: EditorSetModuleAssemblyProtocol) {
         self.data = data
         self.editorSetAssembly = editorSetAssembly
@@ -17,4 +19,12 @@ final class EditorSetCoordinatorViewModel: ObservableObject, EditorSetModuleOutp
     }
     
     // MARK: - EditorSetModuleOutput
+    
+    func showEditorScreen(data: EditorScreenData) {
+        pageNavigation?.push(data)
+    }
+    
+    func replaceEditorScreen(data: EditorScreenData) {
+        pageNavigation?.replace(data)
+    }
 }

@@ -26,9 +26,9 @@ struct HomeBottomPanelContainer<Content: View, BottomContent: View>: View {
             if !bottomPanelHidden {
                 VStack(spacing: 0) {
                     bottomPanel
-                        .transition(.move(edge: .bottom))
                     Spacer.fixedHeight(32)
                 }
+                .transition(.move(edge: .bottom))
             }
         }
         .setHomeBottomPanelHiddenHandler { newValue in
@@ -36,5 +36,6 @@ struct HomeBottomPanelContainer<Content: View, BottomContent: View>: View {
             bottomPanelHidden = newValue
         }
         .ignoresSafeArea(bottomPanelHidden ? .keyboard : .all) // TODO: Check in subviews
+        .animation(.default, value: bottomPanelHidden)
     }
 }

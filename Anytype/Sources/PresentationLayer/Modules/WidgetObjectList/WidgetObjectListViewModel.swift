@@ -14,7 +14,6 @@ final class WidgetObjectListViewModel: ObservableObject, OptionsItemProvider, Wi
     // MARK: - DI
     
     private let internalModel: WidgetObjectListInternalViewModelProtocol
-    private let bottomPanelManager: BrowserBottomPanelManagerProtocol?
     private let objectActionService: ObjectActionsServiceProtocol
     private let menuBuilder: WidgetObjectListMenuBuilderProtocol
     private let alertOpener: AlertOpenerProtocol
@@ -46,7 +45,6 @@ final class WidgetObjectListViewModel: ObservableObject, OptionsItemProvider, Wi
     
     init(
         internalModel: WidgetObjectListInternalViewModelProtocol,
-        bottomPanelManager: BrowserBottomPanelManagerProtocol?,
         objectActionService: ObjectActionsServiceProtocol,
         menuBuilder: WidgetObjectListMenuBuilderProtocol,
         alertOpener: AlertOpenerProtocol,
@@ -54,7 +52,6 @@ final class WidgetObjectListViewModel: ObservableObject, OptionsItemProvider, Wi
         isSheet: Bool = false
     ) {
         self.internalModel = internalModel
-        self.bottomPanelManager = bottomPanelManager
         self.objectActionService = objectActionService
         self.menuBuilder = menuBuilder
         self.alertOpener = alertOpener
@@ -227,6 +224,5 @@ final class WidgetObjectListViewModel: ObservableObject, OptionsItemProvider, Wi
         updateActions()
         showActionPanel = selectedRowIds.isNotEmpty
         homeBottomPanelHiddel = selectedRowIds.isNotEmpty
-//        bottomPanelManager?.setNavigationViewHidden(selectedRowIds.isNotEmpty, animated: false)
     }
 }

@@ -41,7 +41,6 @@ final class HomeWidgetsCoordinatorAssembly: HomeWidgetsCoordinatorAssemblyProtoc
             activeWorkspaceStorage: serviceLocator.activeWorkspaceStorage(),
             navigationContext: uiHelpersDI.commonNavigationContext(),
             createWidgetCoordinatorAssembly: coordinatorsID.createWidget(),
-            editorBrowserCoordinator: coordinatorsID.editorBrowser().make(),
             searchModuleAssembly: modulesDI.search(),
             settingsCoordinator: coordinatorsID.settings().make(),
             newSearchModuleAssembly: modulesDI.newSearch(),

@@ -31,6 +31,14 @@ final class EditorPageModuleAssembly: EditorPageModuleAssemblyProtocol {
     
     @MainActor
     func make(data: EditorPageObject, output: EditorPageModuleOutput?) -> AnyView {
+        return EditorPageView(model: self.buildViewModel(data: data, output: output))
+            .eraseToAnyView()
+    }
+    
+    // MARK: - Private
+    
+    @MainActor
+    private func buildViewModel(data: EditorPageObject, output: EditorPageModuleOutput?) -> EditorPageViewModel {
         let simpleTableMenuViewModel = SimpleTableMenuViewModel()
         let blocksOptionViewModel = SelectionOptionsViewModel(itemProvider: nil)
 
@@ -39,18 +47,15 @@ final class EditorPageModuleAssembly: EditorPageModuleAssemblyProtocol {
             blockOptionsViewViewModel: blocksOptionViewModel
         )
         
-        let environmentBridge = EditorPageViewEnvironmentBridge()
-        let bottomNavigationManager = EditorBottomNavigationManager(browser: nil, environmentBridge: environmentBridge)
+        let bottomNavigationManager = EditorBottomNavigationManager()
         
         let controller = EditorPageController(
             blocksSelectionOverlayView: blocksSelectionOverlayView,
-            bottomNavigationManager: bottomNavigationManager,
-            browserViewInput: nil
+            bottomNavigationManager: bottomNavigationManager
         )
         let document = BaseDocument(objectId: data.objectId, forPreview: data.isOpenedForPreview)
         let navigationContext = NavigationContext(rootViewController: controller)
         let router = EditorRouter(
-            rootController: nil,
             viewController: controller,
             navigationContext: navigationContext,
             document: document,
@@ -62,11 +67,10 @@ final class EditorPageModuleAssembly: EditorPageModuleAssemblyProtocol {
             ),
             urlOpener: uiHelpersDI.urlOpener(),
             relationValueCoordinator: coordinatorsDI.relationValue().make(),
-            editorPageCoordinator: coordinatorsDI.editorPage().make(browserController: nil),
-            linkToObjectCoordinator: coordinatorsDI.linkToObject().make(browserController: nil),
+            linkToObjectCoordinator: coordinatorsDI.linkToObject().make(),
             objectCoverPickerModuleAssembly: modulesDI.objectCoverPicker(),
             objectIconPickerModuleAssembly: modulesDI.objectIconPicker(),
-            objectSettingCoordinator: coordinatorsDI.objectSettings().make(browserController: nil),
+            objectSettingCoordinator: coordinatorsDI.objectSettings().make(),
             searchModuleAssembly: modulesDI.search(),
             toastPresenter: uiHelpersDI.toastPresenter(using: nil),
             codeLanguageListModuleAssembly: modulesDI.codeLanguageList(),
@@ -74,11 +78,11 @@ final class EditorPageModuleAssembly: EditorPageModuleAssemblyProtocol {
             textIconPickerModuleAssembly: modulesDI.textIconPicker(),
             alertHelper: AlertHelper(viewController: controller),
             pageService: serviceLocator.pageRepository(),
-            templateService: serviceLocator.templatesService
+            templateService: serviceLocator.templatesService,
+            output: output
         )
 
         let viewModel = buildViewModel(
-            browser: nil,
             controller: controller,
             scrollView: controller.collectionView,
             viewInput: controller,
@@ -92,21 +96,18 @@ final class EditorPageModuleAssembly: EditorPageModuleAssemblyProtocol {
                 isOpenedForPreview: data.isOpenedForPreview,
                 shouldShowTemplateSelection: data.shouldShowTemplatesOptions,
                 usecase: data.usecase
-            )
+            ),
+            output: output
         )
+        
+        bottomNavigationManager.output = viewModel
 
         controller.viewModel = viewModel
         
-        let view = EditorPageView(editorPageController: controller, environmentBridge: environmentBridge)
-            .eraseToAnyView()
-        
-        return view
+        return viewModel
     }
     
-    // MARK: - Private
-    
     private func buildViewModel(
-        browser: EditorBrowserController?,
         controller: UIViewController,
         scrollView: UIScrollView,
         viewInput: EditorPageViewInput,
@@ -116,7 +117,8 @@ final class EditorPageModuleAssembly: EditorPageModuleAssemblyProtocol {
         simpleTableMenuViewModel: SimpleTableMenuViewModel,
         blocksSelectionOverlayViewModel: BlocksSelectionOverlayViewModel,
         bottomNavigationManager: EditorBottomNavigationManagerProtocol,
-        configuration: EditorPageViewModelConfiguration
+        configuration: EditorPageViewModelConfiguration,
+        output: EditorPageModuleOutput?
     ) -> EditorPageViewModel {
         let modelsHolder = EditorMainItemModelsHolder()
         let markupChanger = BlockMarkupChanger(document: document)
@@ -165,7 +167,7 @@ final class EditorPageModuleAssembly: EditorPageModuleAssemblyProtocol {
             modelsHolder: modelsHolder,
             blocksSelectionOverlayViewModel: blocksSelectionOverlayViewModel,
             blockActionsServiceSingle: serviceLocator.blockActionsServiceSingle(),
-            toastPresenter: uiHelpersDI.toastPresenter(using: browser),
+            toastPresenter: uiHelpersDI.toastPresenter(),
             actionHandler: actionHandler,
             pasteboardService: pasteboardService,
             router: router,
@@ -182,7 +184,7 @@ final class EditorPageModuleAssembly: EditorPageModuleAssemblyProtocol {
             onShowStyleMenu: blocksStateManager.didSelectStyleSelection(infos:),
             onBlockSelection: actionHandler.selectBlock(info:),
             pageService: serviceLocator.pageRepository(),
-            linkToObjectCoordinator: coordinatorsDI.linkToObject().make(browserController: browser),
+            linkToObjectCoordinator: coordinatorsDI.linkToObject().make(),
             cursorManager: cursorManager
         )
         
@@ -218,7 +220,7 @@ final class EditorPageModuleAssembly: EditorPageModuleAssemblyProtocol {
             mainEditorSelectionManager: blocksStateManager,
             responderScrollViewHelper: responderScrollViewHelper,
             pageService: serviceLocator.pageRepository(),
-            linkToObjectCoordinator: coordinatorsDI.linkToObject().make(browserController: browser)
+            linkToObjectCoordinator: coordinatorsDI.linkToObject().make()
         )
 
         let blocksConverter = BlockViewModelBuilder(
@@ -247,6 +249,7 @@ final class EditorPageModuleAssembly: EditorPageModuleAssemblyProtocol {
         
         return EditorPageViewModel(
             document: document,
+            viewController: controller,
             viewInput: viewInput,
             blockDelegate: blockDelegate,
             router: router,

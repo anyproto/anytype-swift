@@ -2,6 +2,7 @@ import Foundation
 import SwiftUI
 
 protocol EditorCoordinatorAssemblyProtocol {
+    // TODO: Add object type checking for opening
     @MainActor
     func make(data: EditorScreenData) -> AnyView
 }
@@ -23,17 +24,17 @@ final class EditorCoordinatorAssembly: EditorCoordinatorAssemblyProtocol {
         // TODO: Navigation: Fix widget object list output
         switch data {
         case .favorites:
-            return modulesDI.widgetObjectList().makeFavorites(bottomPanelManager: nil, output: nil)
+            return modulesDI.widgetObjectList().makeFavorites(output: nil)
         case .recentEdit:
-            return modulesDI.widgetObjectList().makeRecentOpen(bottomPanelManager: nil, output: nil)
+            return modulesDI.widgetObjectList().makeRecentOpen(output: nil)
         case .recentOpen:
-            return modulesDI.widgetObjectList().makeRecentOpen(bottomPanelManager: nil, output: nil)
+            return modulesDI.widgetObjectList().makeRecentOpen(output: nil)
         case .sets:
-            return modulesDI.widgetObjectList().makeSets(bottomPanelManager: nil, output: nil)
+            return modulesDI.widgetObjectList().makeSets(output: nil)
         case .collections:
-            return modulesDI.widgetObjectList().makeCollections(bottomPanelManager: nil, output: nil)
+            return modulesDI.widgetObjectList().makeCollections(output: nil)
         case .bin:
-            return modulesDI.widgetObjectList().makeBin(bottomPanelManager: nil, output: nil)
+            return modulesDI.widgetObjectList().makeBin(output: nil)
         case .page(let data):
             return coordinatorsID.editorPage().make(data: data)
         case .set(let data):
