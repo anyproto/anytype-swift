@@ -278,7 +278,8 @@ final class HomeWidgetsCoordinatorViewModel: ObservableObject,
         Task {
             let details = try await dashboardService.createNewPage(
                 spaceId: activeWorkspaceStorage.workspaceInfo.accountSpaceId,
-                typeUniqueKey: type.uniqueKey
+                typeUniqueKey: type.uniqueKey,
+                templateId: type.defaultTemplateId
             )
             AnytypeAnalytics.instance().logCreateObject(objectType: details.analyticsType, route: .navigation, view: .home)
             openObject(screenData: details.editorScreenData())
