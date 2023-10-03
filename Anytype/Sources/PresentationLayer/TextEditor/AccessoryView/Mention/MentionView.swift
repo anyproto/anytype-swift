@@ -7,14 +7,12 @@ protocol MentionViewDelegate: AnyObject {
 
 final class MentionView: DismissableInputAccessoryView {
 
-    private let documentId: String
-    private let spaceId: String
+    private let document: BaseDocumentProtocol
     private weak var mentionsController: MentionsViewController?
     weak var delegate: MentionViewDelegate?
     
-    init(documentId: String, spaceId: String, frame: CGRect) {
-        self.documentId = documentId
-        self.spaceId = spaceId
+    init(document: BaseDocumentProtocol, frame: CGRect) {
+        self.document = document
         super.init(frame: frame)
     }
     
@@ -27,8 +25,7 @@ final class MentionView: DismissableInputAccessoryView {
 
     private func addMentionsController(to controller: UIViewController) {
         let mentionsController = MentionAssembly().controller(
-            documentId: documentId,
-            spaceId: spaceId,
+            document: document,
             onMentionSelect: { [weak self] mentionObject in
                 self?.delegate?.selectMention(mentionObject)
             },
