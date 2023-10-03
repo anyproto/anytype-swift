@@ -22,6 +22,7 @@ protocol ObjectActionsServiceProtocol {
         targetId: BlockId,
         spaceId: String,
         details: [BundledDetails],
+        typeUniqueKey: ObjectTypeUniqueKey,
         position: BlockPosition,
         templateId: String
     ) async throws -> BlockId

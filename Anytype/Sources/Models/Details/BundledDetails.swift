@@ -18,7 +18,6 @@ enum BundledDetails {
     case iconImageHash(Hash?)
     case coverId(String)
     case coverType(CoverType)
-    case typeUniqueKey(ObjectTypeUniqueKey)
     case done(Bool)
 }
 
@@ -31,7 +30,6 @@ extension BundledDetails {
         case .iconImageHash: return BundledRelationKey.iconImage.rawValue
         case .coverId: return BundledRelationKey.coverId.rawValue
         case .coverType: return BundledRelationKey.coverType.rawValue
-        case .typeUniqueKey: return BundledRelationKey.uniqueKey.rawValue
         case .done: return BundledRelationKey.done.rawValue
         }
     }
@@ -43,7 +41,6 @@ extension BundledDetails {
         case .iconImageHash(let hash): return (hash?.value ?? "").protobufValue
         case .coverId(let string): return string.protobufValue
         case .coverType(let coverType): return coverType.rawValue.protobufValue
-        case .typeUniqueKey(let uniqueKey): return uniqueKey.value.protobufValue
         case .done(let bool): return bool.protobufValue
         }
     }

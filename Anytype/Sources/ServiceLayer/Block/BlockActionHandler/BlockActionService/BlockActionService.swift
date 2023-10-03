@@ -93,7 +93,8 @@ final class BlockActionService: BlockActionServiceProtocol {
             contextId: documentId,
             targetId: targetId,
             spaceId: spaceId,
-            details: [.name(""), .typeUniqueKey(typeUniqueKey)],
+            details: [.name("")],
+            typeUniqueKey: typeUniqueKey,
             position: position,
             templateId: ""
         )

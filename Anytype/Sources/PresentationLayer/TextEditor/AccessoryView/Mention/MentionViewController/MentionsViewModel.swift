@@ -8,8 +8,7 @@ import AnytypeCore
 final class MentionsViewModel {
     weak var view: MentionsView!
     
-    private let documentId: String
-    private let spaceId: String
+    private let document: BaseDocumentProtocol
     private let mentionService: MentionObjectsServiceProtocol
     private let pageService: PageRepositoryProtocol
     private let onSelect: (MentionObject) -> Void
@@ -18,14 +17,12 @@ final class MentionsViewModel {
     private var searchString = ""
     
     init(
-        documentId: String,
-        spaceId: String,
+        document: BaseDocumentProtocol,
         mentionService: MentionObjectsServiceProtocol,
         pageService: PageRepositoryProtocol,
         onSelect: @escaping (MentionObject) -> Void
     ) {
-        self.documentId = documentId
-        self.spaceId = spaceId
+        self.document = document
         self.mentionService = mentionService
         self.pageService = pageService
         self.onSelect = onSelect
@@ -35,7 +32,7 @@ final class MentionsViewModel {
         searchString = filterString
         searchTask?.cancel()
         searchTask = Task { @MainActor in
-            let mentions = try await mentionService.searchMentions(spaceId: spaceId, text: filterString, excludedObjectIds: [documentId])
+            let mentions = try await mentionService.searchMentions(spaceId: document.spaceId, text: filterString, excludedObjectIds: [document.objectId])
             view?.display(mentions.map { .mention($0) }, newObjectName: filterString)
         }
     }
@@ -51,7 +48,7 @@ final class MentionsViewModel {
     
     func didSelectCreateNewMention() {
         Task { @MainActor in
-            guard let newBlockDetails = try? await pageService.createDefaultPage(name: searchString, spaceId: spaceId) else { return }
+            guard let newBlockDetails = try? await pageService.createDefaultPage(name: searchString, spaceId: document.spaceId) else { return }
             
             AnytypeAnalytics.instance().logCreateObject(objectType: newBlockDetails.analyticsType, route: .mention)
             let name = searchString.isEmpty ? Loc.Object.Title.placeholder : searchString
