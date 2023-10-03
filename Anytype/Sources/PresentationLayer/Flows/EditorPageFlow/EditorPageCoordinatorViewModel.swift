@@ -2,7 +2,7 @@ import Foundation
 import SwiftUI
 
 @MainActor
-final class EditorNewPageCoordinatorViewModel: ObservableObject, EditorPageModuleOutput {
+final class EditorPageCoordinatorViewModel: ObservableObject, EditorPageModuleOutput {
     
     private let data: EditorPageObject
     private let editorPageAssembly: EditorPageModuleAssemblyProtocol

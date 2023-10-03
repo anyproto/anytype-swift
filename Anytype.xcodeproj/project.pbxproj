@@ -508,9 +508,9 @@
 		2A80D04C2ABADD5800DB0513 /* EditorSetCoordinatorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A80D04B2ABADD5800DB0513 /* EditorSetCoordinatorView.swift */; };
 		2A80D04E2ABADD6000DB0513 /* EditorSetCoordinatorViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A80D04D2ABADD6000DB0513 /* EditorSetCoordinatorViewModel.swift */; };
 		2A80D0502ABADD6C00DB0513 /* EditorSetCoordinatorAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A80D04F2ABADD6C00DB0513 /* EditorSetCoordinatorAssembly.swift */; };
-		2A80D0552ABAE17F00DB0513 /* EditorNewPageCoordinatorAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A80D0522ABAE17F00DB0513 /* EditorNewPageCoordinatorAssembly.swift */; };
-		2A80D0562ABAE17F00DB0513 /* EditorNewPageCoordinatorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A80D0532ABAE17F00DB0513 /* EditorNewPageCoordinatorView.swift */; };
-		2A80D0572ABAE17F00DB0513 /* EditorNewPageCoordinatorViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A80D0542ABAE17F00DB0513 /* EditorNewPageCoordinatorViewModel.swift */; };
+		2A80D0552ABAE17F00DB0513 /* EditorPageCoordinatorAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A80D0522ABAE17F00DB0513 /* EditorPageCoordinatorAssembly.swift */; };
+		2A80D0562ABAE17F00DB0513 /* EditorPageCoordinatorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A80D0532ABAE17F00DB0513 /* EditorPageCoordinatorView.swift */; };
+		2A80D0572ABAE17F00DB0513 /* EditorPageCoordinatorViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A80D0542ABAE17F00DB0513 /* EditorPageCoordinatorViewModel.swift */; };
 		2A80D0602ABAE39800DB0513 /* EditorCoordinatorCommonOutput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A80D05F2ABAE39800DB0513 /* EditorCoordinatorCommonOutput.swift */; };
 		2A80D0622ABAFE9200DB0513 /* EditorNavigationBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A80D0612ABAFE9200DB0513 /* EditorNavigationBarView.swift */; };
 		2A85B0422AA637F100988ABD /* ApplicationCoordinatorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A85B0402AA637F100988ABD /* ApplicationCoordinatorView.swift */; };
@@ -2117,9 +2117,9 @@
 		2A80D04B2ABADD5800DB0513 /* EditorSetCoordinatorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditorSetCoordinatorView.swift; sourceTree = "<group>"; };
 		2A80D04D2ABADD6000DB0513 /* EditorSetCoordinatorViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditorSetCoordinatorViewModel.swift; sourceTree = "<group>"; };
 		2A80D04F2ABADD6C00DB0513 /* EditorSetCoordinatorAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditorSetCoordinatorAssembly.swift; sourceTree = "<group>"; };
-		2A80D0522ABAE17F00DB0513 /* EditorNewPageCoordinatorAssembly.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditorNewPageCoordinatorAssembly.swift; sourceTree = "<group>"; };
-		2A80D0532ABAE17F00DB0513 /* EditorNewPageCoordinatorView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditorNewPageCoordinatorView.swift; sourceTree = "<group>"; };
-		2A80D0542ABAE17F00DB0513 /* EditorNewPageCoordinatorViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditorNewPageCoordinatorViewModel.swift; sourceTree = "<group>"; };
+		2A80D0522ABAE17F00DB0513 /* EditorPageCoordinatorAssembly.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditorPageCoordinatorAssembly.swift; sourceTree = "<group>"; };
+		2A80D0532ABAE17F00DB0513 /* EditorPageCoordinatorView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditorPageCoordinatorView.swift; sourceTree = "<group>"; };
+		2A80D0542ABAE17F00DB0513 /* EditorPageCoordinatorViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditorPageCoordinatorViewModel.swift; sourceTree = "<group>"; };
 		2A80D05F2ABAE39800DB0513 /* EditorCoordinatorCommonOutput.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditorCoordinatorCommonOutput.swift; sourceTree = "<group>"; };
 		2A80D0612ABAFE9200DB0513 /* EditorNavigationBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditorNavigationBarView.swift; sourceTree = "<group>"; };
 		2A85B0402AA637F100988ABD /* ApplicationCoordinatorView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ApplicationCoordinatorView.swift; sourceTree = "<group>"; };
@@ -5514,9 +5514,9 @@
 		2A80D0442ABADCBC00DB0513 /* EditorPageFlow */ = {
 			isa = PBXGroup;
 			children = (
-				2A80D0522ABAE17F00DB0513 /* EditorNewPageCoordinatorAssembly.swift */,
-				2A80D0532ABAE17F00DB0513 /* EditorNewPageCoordinatorView.swift */,
-				2A80D0542ABAE17F00DB0513 /* EditorNewPageCoordinatorViewModel.swift */,
+				2A80D0522ABAE17F00DB0513 /* EditorPageCoordinatorAssembly.swift */,
+				2A80D0532ABAE17F00DB0513 /* EditorPageCoordinatorView.swift */,
+				2A80D0542ABAE17F00DB0513 /* EditorPageCoordinatorViewModel.swift */,
 			);
 			path = EditorPageFlow;
 			sourceTree = "<group>";
@@ -9952,7 +9952,7 @@
 				3D3040F427E2193500FFE0EB /* ObjectHeaderFilledContentSwitfUIView.swift in Sources */,
 				537A73852677FA5F001FEBBB /* CustomTextView+UITextViewDelegate.swift in Sources */,
 				3DA7AD7E2712C7BF00EA45F6 /* CustomTextViewKeyboardAction.swift in Sources */,
-				2A80D0562ABAE17F00DB0513 /* EditorNewPageCoordinatorView.swift in Sources */,
+				2A80D0562ABAE17F00DB0513 /* EditorPageCoordinatorView.swift in Sources */,
 				2E0797BA2A096571006F0FD7 /* JoinFlowCoordinator.swift in Sources */,
 				2A7DCDE4292E7D5A001919B4 /* SearchModuleAssembly.swift in Sources */,
 				2A2B33302A7BB6BF004BD906 /* SpacePlusRow.swift in Sources */,
@@ -10317,7 +10317,7 @@
 				127EAC0C273A353A00C731F2 /* Relation.swift in Sources */,
 				2EFFEB9629A52537002F5859 /* SetDragAndDropView.swift in Sources */,
 				2E975EC72874BB18004DE574 /* SetViewPickerViewModel.swift in Sources */,
-				2A80D0552ABAE17F00DB0513 /* EditorNewPageCoordinatorAssembly.swift in Sources */,
+				2A80D0552ABAE17F00DB0513 /* EditorPageCoordinatorAssembly.swift in Sources */,
 				1215E8B626A8610C0089AF7E /* KingfisherConfigurator.swift in Sources */,
 				2A39F3CB29ED97F3005DE8F5 /* BlockTextStyle+Analytics.swift in Sources */,
 				3D2D4C5B27BA54030070A4C6 /* Divider.swift in Sources */,
@@ -10384,7 +10384,7 @@
 				5356072726E61A0F001464A4 /* UnsupportedBlockView.swift in Sources */,
 				1244793127DC575D00581174 /* ListRowConfiguration.swift in Sources */,
 				C955AF232886A61700AF23B5 /* SimpleTableTextCellRestrictions.swift in Sources */,
-				2A80D0572ABAE17F00DB0513 /* EditorNewPageCoordinatorViewModel.swift in Sources */,
+				2A80D0572ABAE17F00DB0513 /* EditorPageCoordinatorViewModel.swift in Sources */,
 				53BC39A7261B7946004D7EB6 /* CodeBlockContentConfiguration.swift in Sources */,
 				1244794327DC8F8000581174 /* ListSectionConfiguration.swift in Sources */,
 				2AA22F68289BF27500BBA174 /* EditorBrowserView.swift in Sources */,

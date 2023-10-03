@@ -1,12 +1,12 @@
 import Foundation
 import SwiftUI
 
-protocol EditorNewPageCoordinatorAssemblyProtocol {
+protocol EditorPageCoordinatorAssemblyProtocol {
     @MainActor
     func make(data: EditorPageObject) -> AnyView
 }
 
-final class EditorNewPageCoordinatorAssembly: EditorNewPageCoordinatorAssemblyProtocol {
+final class EditorPageCoordinatorAssembly: EditorPageCoordinatorAssemblyProtocol {
     
     private let coordinatorsID: CoordinatorsDIProtocol
     private let modulesDI: ModulesDIProtocol
@@ -29,8 +29,8 @@ final class EditorNewPageCoordinatorAssembly: EditorNewPageCoordinatorAssemblyPr
     
     @MainActor
     func make(data: EditorPageObject) -> AnyView {
-        return EditorNewPageCoordinatorView(
-            model: EditorNewPageCoordinatorViewModel(data: data, editorPageAssembly: self.coordinatorsID.editorPageModule())
+        return EditorPageCoordinatorView(
+            model: EditorPageCoordinatorViewModel(data: data, editorPageAssembly: self.coordinatorsID.editorPageModule())
         ).eraseToAnyView()
     }
 }

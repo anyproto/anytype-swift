@@ -130,8 +130,8 @@ final class CoordinatorsDI: CoordinatorsDIProtocol {
         EditorSetCoordinatorAssembly(coordinatorsID: self, modulesDI: modulesDI, serviceLocator: serviceLocator, uiHelpersDI: uiHelpersDI)
     }
     
-    func editorPage() -> EditorNewPageCoordinatorAssemblyProtocol {
-        EditorNewPageCoordinatorAssembly(coordinatorsID: self, modulesDI: modulesDI, serviceLocator: serviceLocator, uiHelpersDI: uiHelpersDI)
+    func editorPage() -> EditorPageCoordinatorAssemblyProtocol {
+        EditorPageCoordinatorAssembly(coordinatorsID: self, modulesDI: modulesDI, serviceLocator: serviceLocator, uiHelpersDI: uiHelpersDI)
     }
     
     func setObjectCreationSettings() -> SetObjectCreationSettingsCoordinatorAssemblyProtocol {
