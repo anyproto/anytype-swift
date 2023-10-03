@@ -122,12 +122,12 @@ final class SetObjectCreationSettingsViewModel: ObservableObject {
         }
     }
     
-    func setObjectTypeId(_ objectTypeId: String) {
+    func setObjectType(_ objectType: ObjectType) {
         switch interactor.mode {
         case .creation:
-            interactor.setObjectTypeId(objectTypeId)
+            interactor.setObjectTypeId(objectType.id)
         case .default:
-            setObjectTypeAsDefault(objectTypeId: objectTypeId)
+            setObjectTypeAsDefault(objectType: objectType)
         }
         
     }
@@ -143,10 +143,14 @@ final class SetObjectCreationSettingsViewModel: ObservableObject {
         }
     }
     
-    private func setObjectTypeAsDefault(objectTypeId: BlockId) {
+    private func setObjectTypeAsDefault(objectType: ObjectType) {
         Task {
             do {
-                try await interactor.setDefaultObjectType(objectTypeId: objectTypeId)
+                try await interactor.setDefaultObjectType(objectTypeId: objectType.id)
+                AnytypeAnalytics.instance().logDefaultObjectTypeChange(
+                    objectType.analyticsType,
+                    route: setDocument.isCollection() ? .collection : .set
+                )
             }
         }
     }
@@ -184,7 +188,7 @@ final class SetObjectCreationSettingsViewModel: ObservableObject {
                 title: type.name,
                 isSelected: isSelected,
                 onTap: { [weak self] in
-                    self?.setObjectTypeId(type.id)
+                    self?.setObjectType(type)
                 }
             )
         }

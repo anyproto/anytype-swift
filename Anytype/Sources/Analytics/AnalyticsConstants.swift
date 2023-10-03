@@ -374,3 +374,9 @@ enum ClickLoginButton: String {
 enum TableBlockType: String {
     case simpleTableBlock = "table"
 }
+
+enum AnalyticsDefaultObjectTypeChangeRoute: String {
+    case settings = "Settings"
+    case set = "Set"
+    case collection = "Collection"
+}

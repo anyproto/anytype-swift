@@ -57,7 +57,7 @@ final class ObjectTypeProvider: ObjectTypeProviderProtocol {
     
     func setDefaultObjectType(type: ObjectType, spaceId: String) {
         defaultObjectTypes[spaceId] = type.id
-        AnytypeAnalytics.instance().logDefaultObjectTypeChange(type.analyticsType)
+        AnytypeAnalytics.instance().logDefaultObjectTypeChange(type.analyticsType, route: .settings)
     }
 
     func objectType(id: String) throws -> ObjectType {

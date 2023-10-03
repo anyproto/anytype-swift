@@ -69,8 +69,8 @@ final class SetObjectCreationSettingsCoordinator: SetObjectCreationSettingsCoord
         view.model.onObjectTypesSearchAction = { [weak self, weak model] in
             self?.showTypesSearch(
                 setDocument: setDocument,
-                onSelect: { objectTypeId in
-                    model?.setObjectTypeId(objectTypeId)
+                onSelect: { objectType in
+                    model?.setObjectType(objectType)
                 }
             )
         }
@@ -150,7 +150,7 @@ final class SetObjectCreationSettingsCoordinator: SetObjectCreationSettingsCoord
     
     private func showTypesSearch(
         setDocument: SetDocumentProtocol,
-        onSelect: @escaping (BlockId) -> ()
+        onSelect: @escaping (ObjectType) -> ()
     ) {
         let view = newSearchModuleAssembly.objectTypeSearchModule(
             title: Loc.changeType,
@@ -160,7 +160,7 @@ final class SetObjectCreationSettingsCoordinator: SetObjectCreationSettingsCoord
             browser: nil
         ) { [weak self] type in
             self?.navigationContext.dismissTopPresented()
-            onSelect(type.id)
+            onSelect(type)
         }
 
         navigationContext.presentSwiftUIView(view: view)
