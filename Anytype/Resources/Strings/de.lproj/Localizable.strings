@@ -107,32 +107,32 @@
 "Actions" = "Aktionen";
 "Relations" = "Verknüpfungen";
 "Objects" = "Objekte";
-"Delete" = "Delete";
-"Duplicate" = "Duplicate";
-"Copy" = "Copy";
-"Preview" = "Preview";
+"Delete" = "Löschen";
+"Duplicate" = "Duplizieren";
+"Copy" = "Kopieren";
+"Preview" = "Vorschau";
 "View" = "View";
-"Paste" = "Paste";
-"Move" = "Move";
-"Move to" = "Move to";
-"Back" = "Back";
-"File block subtitle" = "Store file in original state";
-"Picture block subtitle" = "Upload and enrich the page with image";
-"Video block subtitle" = "Upload playable video";
-"Bookmark block subtitle" = "Save your favorite link with summary";
-"Code block subtitle" = "Capture code snippet";
-"Align right" = "Align right";
-"Align left" = "Align left";
-"Align center" = "Align center";
-"Black" = "Black";
-"Amber" = "Amber";
-"Red" = "Red";
+"Paste" = "Einfügen";
+"Move" = "Verschieben";
+"Move to" = "Verschieben nach";
+"Back" = "Zurück";
+"File block subtitle" = "Datei im Originalzustand speichern";
+"Picture block subtitle" = "Lade ein Bild hoch und bereichere die Seite";
+"Video block subtitle" = "Video hochladen";
+"Bookmark block subtitle" = "Speichere deinen Link mit der Zusammenfassung";
+"Code block subtitle" = "Code-Snippet erfassen";
+"Align right" = "Rechts ausrichten";
+"Align left" = "Links ausrichten";
+"Align center" = "Zentral ausrichten";
+"Black" = "Schwarz";
+"Amber" = "Gelb";
+"Red" = "Rot";
 "Pink" = "Pink";
-"Purple" = "Purple";
-"Blue" = "Blue";
-"Teal" = "Teal";
-"Green" = "Green";
-"Default background" = "Default background";
+"Purple" = "Lila";
+"Blue" = "Blau";
+"Teal" = "Türkis";
+"Green" = "Grün";
+"Default background" = "Standardhintergrund";
 "Amber background" = "Bernstein Hintergrund";
 "Red background" = "Roter Hintergrund";
 "Pink background" = "Pinker Hintergrund";
@@ -142,7 +142,7 @@
 "Create new object" = "Neues Objekt erstellen";
 "Cancel" = "Abbrechen";
 "Paste or type URL" = "URL einfügen oder eingeben";
-"No items match filter" = "No items match filter";
+"No items match filter" = "Keine Gegenstände konnten mit diesem Filter gefunden werden";
 "Unsupported block" = "Nicht unterstützter Block";
 "Name" = "Name";
 "Description" = "Beschreibung";
@@ -172,8 +172,8 @@
 "Keychain.Don’t forget to save your recovery phrase" = "Vergiss nicht deine Wiederherstellungsphrase zu sichern";
 "Keychain.Show and copy phrase" = "Phrase anzeigen und kopieren";
 "Keychain.Have you backed up your recovery phrase?" = "Hast du deine Wiederherstellungsphrase gesichert?";
-"Keychain.Error.String to Data conversion error" = "String to Data conversion error";
-"Keychain.Error.Data to String conversion error" = "Data to String conversion error";
+"Keychain.Error.String to Data conversion error" = "Zeichenkettenkonvertierungsfehler";
+"Keychain.Error.Data to String conversion error" = "Fehler bei der Konvertierung der Daten zu Zeichenketten";
 "Keychain.Error.Unknown Keychain Error" = "Unknown Keychain Error";
 "Keychain.SeedPhrasePlaceholder" = "witch collapse practice feed shame open despair creek road again ice least lake tree young address brain despair";
 
@@ -198,7 +198,7 @@
 "Error select account" = "Error select account";
 "Error wallet recover account" = "Error wallet recover account";
 
-"Search for language" = "Search for language";
+"Search for language" = "Sprache suchen";
 
 // Auth - Join flow
 
@@ -207,7 +207,7 @@
 "Auth.JoinFlow.Key.TextField.Placeholder" = "Type your recovery phrase";
 "Auth.JoinFlow.Key.Button.Show.Title" = "Show Recovery Phrase";
 "Auth.JoinFlow.Key.Button.Saved.Title" = "Go to the app";
-"Auth.JoinFlow.Key.Button.Later.Title" = "Skip";
+"Auth.JoinFlow.Key.Button.Later.Title" = "Überspringen";
 "Auth.JoinFlow.Key.Button.Copy.Title" = "Copy to clipboard";
 "Auth.JoinFlow.Key.Button.Info.Title" = "Read more";
 "Auth.JoinFlow.Key.Button.Tip.Title" = "You can find Recovery Phrase later in Anytype settings";
@@ -220,24 +220,24 @@
 "Auth.JoinFlow.Key.ReadMore.Instruction.Option1.Title" = "The easiest way to store your Recovery Phrase is to save it in your password manager.";
 "Auth.JoinFlow.Key.ReadMore.Instruction.Option2.Title" = "The most secure way is to write it down on paper and keep it offline, in a safe and secure place.";
 
-"Auth.JoinFlow.Soul.Title" = "Set a name for new identity";
-"Auth.JoinFlow.Soul.Description" = "First, choose a name to use inside Anytype.";
+"Auth.JoinFlow.Soul.Title" = "Namen für die neue Identität festlegen";
+"Auth.JoinFlow.Soul.Description" = "Wähle zuerst einen Namen innerhalb von Anytype aus";
 "Auth.JoinFlow.Soul.Placeholder" = "Unbenannt";
 
-"Auth.JoinFlow.Creating.Soul.Title" = "Generating new account";
+"Auth.JoinFlow.Creating.Soul.Title" = "Neues Konto erstellen";
 "Auth.JoinFlow.Setting.Space.Title" = "Setting up your personal space";
 "Auth.JoinFlow.Personal.Space.Title" = "Persönlicher Space";
 
 // Auth - Login flow
 "Auth.LoginFlow.Use.Keychain.Title" = "Use keychain";
-"Auth.LoginFlow.Or" = "OR";
+"Auth.LoginFlow.Or" = "ODER";
 "Auth.LoginFlow.Textfield.Placeholder" = "Type your recovery phrase";
 "Auth.LoginFlow.Enter.Button.Title" = "Anmelden";
-"Auth.LoginFlow.Entering.Void.Title" = "Entering the Void";
+"Auth.LoginFlow.Entering.Void.Title" = "Leere betreten";
 
 // Object settings
 
-"Icon" = "Icon";
+"Icon" = "Symbol";
 "Emoji or image for object" = "Emoji or image for object";
 "Cover" = "Cover";
 "Background picture" = "Background picture";
@@ -311,7 +311,7 @@
 "Alert.Templates_Available.Description" = "Swipe down to skip";
 "Alert.Templates_Available.Button" = "Show";
 "TemplatePicker.ChooseTemplate" = "Choose template";
-"TemplatePicker.Buttons.Skip" = "Skip";
+"TemplatePicker.Buttons.Skip" = "Überspringen";
 "TemplatePicker.Buttons.UseTemplate" = "Use template";
 "TemplateSelection.SelectTemplate" = "Select template";
 "TemplateSelection.blankTemplate" = "Blank";
@@ -321,8 +321,8 @@
 
 "TemplateOptions.Alert.SetAsDefault" = "Set as default for this view";
 "TemplateOptions.Alert.EditTemplate" = "Edit template";
-"TemplateOptions.Alert.Duplicate" = "Duplicate";
-"TemplateOptions.Alert.Delete" = "Delete";
+"TemplateOptions.Alert.Duplicate" = "Duplizieren";
+"TemplateOptions.Alert.Delete" = "Löschen";
 
 "TemplateEditing.Title" = "Edit template";
 "TemplateEditing.SelectButtonTitle" = "Select template";
@@ -654,8 +654,8 @@
 "SimpleTableMenu.Item.InsertRight" = "Insert right";
 "SimpleTableMenu.Item.MoveLeft" = "Move left";
 "SimpleTableMenu.Item.MoveRight" = "Move right";
-"SimpleTableMenu.Item.Duplicate" = "Duplicate";
-"SimpleTableMenu.Item.Delete" = "Delete";
+"SimpleTableMenu.Item.Duplicate" = "Duplizieren";
+"SimpleTableMenu.Item.Delete" = "Löschen";
 "SimpleTableMenu.Item.Sort" = "Sort";
 
 "SimpleTableMenu.Item.InsertAbove" = "Insert above";
@@ -685,7 +685,7 @@
 "SetViewTypesPicker.Title" = "Edit view";
 "SetViewTypesPicker.New.Title" = "New view";
 "SetViewTypesPicker.Section.Types.Title" = "View as";
-"SetViewTypesPicker.Settings.Duplicate.View" = "Duplicate";
+"SetViewTypesPicker.Settings.Duplicate.View" = "Duplizieren";
 "SetViewTypesPicker.Settings.Delete.View" = "Delete view";
 "SetViewTypesPicker.Settings.Textfield.Placeholder.New.View" = "New view";
 "SetViewTypesPicker.Settings.Textfield.Placeholder.Untitled" = "Unbenannt";
