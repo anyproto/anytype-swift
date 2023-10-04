@@ -13,7 +13,7 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>d</string>
         <key>other</key>
-        <string>%d objects</string>
+        <string>%d objek</string>
       </dict>
     </dict>
     <key>Object selected</key>
@@ -27,7 +27,7 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>d</string>
         <key>other</key>
-        <string>%d objects</string>
+        <string>%d objek</string>
       </dict>
     </dict>
     <key>Selected blocks</key>
@@ -41,7 +41,7 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>d</string>
         <key>other</key>
-        <string>%d selected blocks</string>
+        <string>%d blok terpilih</string>
       </dict>
     </dict>
     <key>Days to deletion account</key>
