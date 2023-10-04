@@ -93,13 +93,13 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>d</string>
         <key>one</key>
-        <string>Jeden obiekt został usunięty</string>
+        <string>Usunięto jeden obiekt</string>
         <key>few</key>
         <string>%d objects deleted</string>
         <key>many</key>
         <string>%d objects deleted</string>
         <key>other</key>
-        <string>%d objects deleted</string>
+        <string>Usunięto %d obiektów</string>
       </dict>
     </dict>
   </dict>
