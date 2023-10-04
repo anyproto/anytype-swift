@@ -4,79 +4,62 @@ import AnytypeCore
 import Services
 import NavigationBackport
 
-//@MainActor
-//protocol ApplicationCoordinatorProtocol: AnyObject {
-//    func start(connectionOptions: UIScene.ConnectionOptions)
-//    func handleDeeplink(url: URL)
-//}
-
 @MainActor
 final class ApplicationCoordinatorViewModel: ObservableObject {
     
-//    private let windowManager: WindowManager
     private let authService: AuthServiceProtocol
     private let accountEventHandler: AccountEventHandlerProtocol
     private let applicationStateService: ApplicationStateServiceProtocol
     private let accountManager: AccountManagerProtocol
     private let seedService: SeedServiceProtocol
     private let fileErrorEventHandler: FileErrorEventHandlerProtocol
-    private let toastPresenter: ToastPresenterProtocol
     
     private let authCoordinatorAssembly: AuthCoordinatorAssemblyProtocol
     private let homeWidgetsCoordinatorAssembly: HomeWidgetsCoordinatorAssemblyProtocol
+    private let deleteAccountModuleAssembly: DeleteAccountModuleAssemblyProtocol
     
     private var authCoordinator: AuthCoordinatorProtocol?
+
     // MARK: - State
     
     @Published var applicationState: ApplicationState = .initial
-    
-//    private var connectionOptions: UIScene.ConnectionOptions?
+    @Published var toastBarData: ToastBarData = .empty
     
     // MARK: - Initializers
     
     init(
-//        windowManager: WindowManager,
         authService: AuthServiceProtocol,
         accountEventHandler: AccountEventHandlerProtocol,
         applicationStateService: ApplicationStateServiceProtocol,
         accountManager: AccountManagerProtocol,
         seedService: SeedServiceProtocol,
         fileErrorEventHandler: FileErrorEventHandlerProtocol,
-        toastPresenter: ToastPresenterProtocol,
         authCoordinatorAssembly: AuthCoordinatorAssemblyProtocol,
-        homeWidgetsCoordinatorAssembly: HomeWidgetsCoordinatorAssemblyProtocol
+        homeWidgetsCoordinatorAssembly: HomeWidgetsCoordinatorAssemblyProtocol,
+        deleteAccountModuleAssembly: DeleteAccountModuleAssemblyProtocol
     ) {
-//        self.windowManager = windowManager
         self.authService = authService
         self.accountEventHandler = accountEventHandler
         self.applicationStateService = applicationStateService
         self.accountManager = accountManager
         self.seedService = seedService
         self.fileErrorEventHandler = fileErrorEventHandler
-        self.toastPresenter = toastPresenter
         self.authCoordinatorAssembly = authCoordinatorAssembly
         self.homeWidgetsCoordinatorAssembly = homeWidgetsCoordinatorAssembly
+        self.deleteAccountModuleAssembly = deleteAccountModuleAssembly
     }
     
     func onAppear() {
         runAtFirstLaunch()
         startObserve()
     }
-
-//    func start(connectionOptions: UIScene.ConnectionOptions) {
-//        self.connectionOptions = connectionOptions
-//        runAtFirstLaunch()
-//        startObserve()
-//    }
-    
-    // TODO: Navigation: Fix handling
     
     func handleDeeplink(url: URL) {
-        guard applicationStateService.state == .home else { return }
         switch url {
         case URLConstants.createObjectURL:
-            break
-//            windowManager.createAndShowNewObject()
+            AppActionStorage.shared.action = .createObject
+        case URLConstants.sharingExtenstionURL:
+            AppActionStorage.shared.action = .showSharingExtension
         default:
             break
         }
@@ -93,6 +76,16 @@ final class ApplicationCoordinatorViewModel: ObservableObject {
     
     func homeView() -> AnyView {
         return homeWidgetsCoordinatorAssembly.make()
+    }
+    
+    func deleteAccount() -> AnyView? {
+        if case let .pendingDeletion(deadline) = accountManager.account.status {
+            return deleteAccountModuleAssembly.make(deadline: deadline)
+        } else {
+            applicationStateService.state = .initial
+            return nil
+        }
+    
     }
     
     // MARK: - Subscription
@@ -148,12 +141,11 @@ final class ApplicationCoordinatorViewModel: ObservableObject {
         case .login:
             loginProcess()
         case .home:
-            homeProcess()
+            break
         case .auth:
             break
-//            windowManager.showAuthWindow()
         case .delete:
-            deleteProcess()
+            break
         }
     }
     
@@ -173,8 +165,6 @@ final class ApplicationCoordinatorViewModel: ObservableObject {
             applicationStateService.state = .auth
             return
         }
-        
-//        windowManager.showLaunchWindow()
         
         Task { @MainActor in
             do {
@@ -196,30 +186,7 @@ final class ApplicationCoordinatorViewModel: ObservableObject {
         }
     }
     
-    private func homeProcess() {
-//        windowManager.showHomeWindow()
-        
-//        let url = connectionOptions?
-//            .urlContexts
-//            .map(\.url)
-//            .first
-//
-//        if let url {
-//            handleDeeplink(url: url)
-//        }
-        
-//        connectionOptions = nil
-    }
-    
-    private func deleteProcess() {
-        guard case let .pendingDeletion(deadline) = accountManager.account.status else {
-            applicationStateService.state = .initial
-            return
-        }
-//        windowManager.showDeletedAccountWindow(deadline: deadline)
-    }
-    
     private func handleFileLimitReachedError() {
-        toastPresenter.show(message: Loc.FileStorage.limitError)
+        toastBarData = ToastBarData(text: Loc.FileStorage.limitError, showSnackBar: true, messageType: .none)
     }
 }

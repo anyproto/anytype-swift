@@ -57,4 +57,5 @@ protocol ModulesDIProtocol: AnyObject {
     func shareAssembly() -> ShareModuleAssemblyProtocol
     func setViewPicker() -> SetViewPickerModuleAssemblyProtocol
     func homeBottomNavigationPanel() -> HomeBottomNavigationPanelModuleAssemblyProtocol
+    func deleteAccount() -> DeleteAccountModuleAssemblyProtocol
 }

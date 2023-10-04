@@ -43,7 +43,6 @@ final class HomeWidgetsCoordinatorViewModel: ObservableObject,
     @Published var showSpaceSettings: Bool = false
     @Published var showSpaceCreate: Bool = false
     @Published var showSharing: Bool = false
-//    @Published var editor: EditorScreenData?
     @Published var editorPath = NBNavigationPath()
     
     @Published var info: AccountInfo? {

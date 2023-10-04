@@ -17,6 +17,7 @@ struct ApplicationCoordinatorView: View {
         .onAppear {
             model.onAppear()
         }
+        .snackbar(toastBarData: $model.toastBarData)
     }
     
     // TODO: Navigation: Fix states
@@ -30,7 +31,7 @@ struct ApplicationCoordinatorView: View {
             model.authView()
                 .preferredColorScheme(.dark)
         case .login:
-            EmptyView()
+            LaunchView()
         case .home:
             model.homeView()
         case .delete:

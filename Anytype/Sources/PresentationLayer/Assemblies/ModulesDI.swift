@@ -241,4 +241,8 @@ final class ModulesDI: ModulesDIProtocol {
     func homeBottomNavigationPanel() -> HomeBottomNavigationPanelModuleAssemblyProtocol {
         HomeBottomNavigationPanelModuleAssembly(serviceLocator: serviceLocator)
     }
+    
+    func deleteAccount() -> DeleteAccountModuleAssemblyProtocol {
+        DeleteAccountModuleAssembly(serviceLocator: serviceLocator)
+    }
 }

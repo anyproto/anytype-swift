@@ -6,7 +6,6 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
     var window: UIWindow?
     private var di: DIProtocol?
-//    private var applicationCoordinator: ApplicationCoordinatorProtocol?
     
     // Use this method to optionally configure and attach the UIWindow `window` to the provided UIWindowScene `scene`.
     // If using a storyboard, the `window` property will automatically be initialized and attached to the scene.
@@ -23,12 +22,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         let di: DIProtocol = DI(viewControllerProvider: viewControllerProvider)
         self.di = di
         
-//        let applicationCoordinator = di.coordinatorsDI.application().make()
-//        self.applicationCoordinator = applicationCoordinator
-
         connectionOptions.shortcutItem.flatMap { _ = handleQuickAction($0) }
-        
-//        applicationCoordinator.start(connectionOptions: connectionOptions)
 
         let applicationView = di.coordinatorsDI.application().makeView()
         window.rootViewController = UIHostingController(rootView: applicationView)
@@ -63,12 +57,6 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     }
 
     private func handleURLContext(openURLContexts URLContexts: Set<UIOpenURLContext>) {
-        guard URLContexts.count == 1, let context = URLContexts.first else {
-            return
-        }
-        
-        // TODO: Navigation: Fix handling
-
-//        applicationCoordinator?.handleDeeplink(url: context.url)
+        // TODO: Navigation: Check handling
     }
 }
