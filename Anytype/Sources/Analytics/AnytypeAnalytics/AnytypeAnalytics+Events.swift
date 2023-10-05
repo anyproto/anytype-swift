@@ -77,9 +77,12 @@ extension AnytypeAnalytics {
                  withEventProperties: [AnalyticsEventsPropertiesKey.type: context.rawValue])
     }
 
-    func logDefaultObjectTypeChange(_ type: AnalyticsObjectType) {
+    func logDefaultObjectTypeChange(_ type: AnalyticsObjectType, route: AnalyticsDefaultObjectTypeChangeRoute) {
         logEvent(AnalyticsEventsName.defaultObjectTypeChange,
-                 withEventProperties: [AnalyticsEventsPropertiesKey.objectType: type.analyticsId])
+                 withEventProperties: [
+                    AnalyticsEventsPropertiesKey.objectType: type.analyticsId,
+                    AnalyticsEventsPropertiesKey.route: route.rawValue
+                 ])
     }
 
     func logSelectTheme(_ userInterfaceStyle: UIUserInterfaceStyle) {
