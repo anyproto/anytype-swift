@@ -29,7 +29,7 @@
 "TextStyle.Numbered.Title" = "Očíslovaný zoznam";
 "TextStyle.Numbered.Subtitle" = "Očíslovaný zoznam";
 
-"TextStyle.Toggle.Title" = "Toggle";
+"TextStyle.Toggle.Title" = "Prepnúť";
 "TextStyle.Toggle.Subtitle" = "Skryť a zobraziť obsah vo vnútri";
 
 "TextStyle.Bold.Title" = "Tučné";
@@ -70,65 +70,65 @@
 "Object.Deleted.Placeholder" = "Vymazaný objekt";
 
 // MARK: - Relation
-"Featured relations" = "Featured relations";
-"Create relation" = "Create relation ‘%@’";
-"Relation.View.Hint.Empty" = "empty";
-"Relation.MyRelations" = "My relations";
-"Relation.AddedToLibrary" = "Relation ‘%@’ added to your library";
-"Relation.Deleted" = "Deleted relation";
-"Relation.From.Type" = "From type %@";
+"Featured relations" = "Vybrané prepojenia";
+"Create relation" = "Vytvoriť prepojenie '%@'";
+"Relation.View.Hint.Empty" = "prázdne";
+"Relation.MyRelations" = "Moje prepojenia";
+"Relation.AddedToLibrary" = "Prepojenie '%@' pridané do vašej knižnice";
+"Relation.Deleted" = "Odstránené prepojenie";
+"Relation.From.Type" = "Z typu %@";
 
-"Relation.Format.Object.Title" = "Object";
+"Relation.Format.Object.Title" = "Objekt";
 "Relation.Format.Text.Title" = "Text";
-"Relation.Format.Number.Title" = "Number";
-"Relation.Format.Status.Title" = "Status";
-"Relation.Format.Tag.Title" = "Tag";
-"Relation.Format.Date.Title" = "Date";
-"Relation.Format.FileMedia.Title" = "File & Media";
+"Relation.Format.Number.Title" = "Číslo";
+"Relation.Format.Status.Title" = "Stav";
+"Relation.Format.Tag.Title" = "Štítok";
+"Relation.Format.Date.Title" = "Dátum";
+"Relation.Format.FileMedia.Title" = "Súbor a média";
 "Relation.Format.Checkbox.Title" = "Zaškrtávacie pole";
 "Relation.Format.Url.Title" = "URL";
 "Relation.Format.Email.Title" = "Email";
-"Relation.Format.Phone.Title" = "Phone number";
+"Relation.Format.Phone.Title" = "Telefónne číslo";
 
 // MARK: - Mention
-"Mention.Subtitle.Placeholder" = "Object";
+"Mention.Subtitle.Placeholder" = "Objekt";
 
 "None" = "Žiadne";
 "Callout" = "Popis";
-"Toggle empty. Tap to create block." = "Toggle empty. Tap to create block.";
-"Loading, please wait" = "Loading, please wait";
-"Done" = "Done";
-"Style" = "Style";
-"Color" = "Color";
-"Background" = "Background";
-"Other" = "Other";
-"Media" = "Media";
-"Alignment" = "Alignment";
-"Actions" = "Actions";
-"Relations" = "Relations";
-"Objects" = "Objects";
-"Delete" = "Delete";
-"Duplicate" = "Duplicate";
-"Copy" = "Copy";
-"Preview" = "Preview";
+"Toggle empty. Tap to create block." = "Prepínač prázdny. Ťuknutím vytvorte blok.";
+"Loading, please wait" = "Načítavanie, čakajte prosím";
+"Done" = "Hotovo";
+"Style" = "Štýl";
+"Color" = "Farba";
+"Background" = "Pozadie";
+"Other" = "Ostatné";
+"Media" = "Médiá";
+"Alignment" = "Zarovnanie";
+"Actions" = "Akcie";
+"Relations" = "Prepojenia";
+"Objects" = "Objekty";
+"Delete" = "Vymazať";
+"Duplicate" = "Duplikovať";
+"Copy" = "Kopírovať";
+"Preview" = "Náhľad";
 "View" = "View";
-"Paste" = "Paste";
-"Move" = "Move";
-"Move to" = "Move to";
-"Back" = "Back";
-"File block subtitle" = "Store file in original state";
-"Picture block subtitle" = "Upload and enrich the page with image";
-"Video block subtitle" = "Upload playable video";
-"Bookmark block subtitle" = "Save your favorite link with summary";
-"Code block subtitle" = "Capture code snippet";
-"Align right" = "Align right";
-"Align left" = "Align left";
-"Align center" = "Align center";
-"Black" = "Black";
-"Amber" = "Amber";
-"Red" = "Red";
-"Pink" = "Pink";
-"Purple" = "Purple";
+"Paste" = "Prilepiť";
+"Move" = "Presunúť";
+"Move to" = "Presunúť do";
+"Back" = "Späť";
+"File block subtitle" = "Uložiť súbor v pôvodnom stave";
+"Picture block subtitle" = "Nahrať obrázok na obohatenie obsahu stránky";
+"Video block subtitle" = "Nahrať prehrateľné video";
+"Bookmark block subtitle" = "Uložiť obľúbený odkaz so zhrnutím";
+"Code block subtitle" = "Zachytiť úryvok kódu";
+"Align right" = "Zarovnať vpravo";
+"Align left" = "Zarovnať vľavo";
+"Align center" = "Zarovnať na stred";
+"Black" = "Čierna";
+"Amber" = "Jantárová";
+"Red" = "Červená";
+"Pink" = "Ružová";
+"Purple" = "Fialová";
 "Blue" = "Blue";
 "Teal" = "Teal";
 "Green" = "Green";
@@ -321,8 +321,8 @@
 
 "TemplateOptions.Alert.SetAsDefault" = "Set as default for this view";
 "TemplateOptions.Alert.EditTemplate" = "Edit template";
-"TemplateOptions.Alert.Duplicate" = "Duplicate";
-"TemplateOptions.Alert.Delete" = "Delete";
+"TemplateOptions.Alert.Duplicate" = "Duplikovať";
+"TemplateOptions.Alert.Delete" = "Vymazať";
 
 "TemplateEditing.Title" = "Edit template";
 "TemplateEditing.SelectButtonTitle" = "Select template";
@@ -646,16 +646,16 @@
 
 // MARK: - Simple tables
 "SimpleTableMenu.Item.clearContents" = "Clear";
-"SimpleTableMenu.Item.color" = "Color";
-"SimpleTableMenu.Item.style" = "Style";
+"SimpleTableMenu.Item.color" = "Farba";
+"SimpleTableMenu.Item.style" = "Štýl";
 "SimpleTableMenu.Item.clearStyle" = "Reset style";
 
 "SimpleTableMenu.Item.InsertLeft" = "Insert left";
 "SimpleTableMenu.Item.InsertRight" = "Insert right";
 "SimpleTableMenu.Item.MoveLeft" = "Move left";
 "SimpleTableMenu.Item.MoveRight" = "Move right";
-"SimpleTableMenu.Item.Duplicate" = "Duplicate";
-"SimpleTableMenu.Item.Delete" = "Delete";
+"SimpleTableMenu.Item.Duplicate" = "Duplikovať";
+"SimpleTableMenu.Item.Delete" = "Vymazať";
 "SimpleTableMenu.Item.Sort" = "Sort";
 
 "SimpleTableMenu.Item.InsertAbove" = "Insert above";
@@ -685,7 +685,7 @@
 "SetViewTypesPicker.Title" = "Edit view";
 "SetViewTypesPicker.New.Title" = "New view";
 "SetViewTypesPicker.Section.Types.Title" = "View as";
-"SetViewTypesPicker.Settings.Duplicate.View" = "Duplicate";
+"SetViewTypesPicker.Settings.Duplicate.View" = "Duplikovať";
 "SetViewTypesPicker.Settings.Delete.View" = "Delete view";
 "SetViewTypesPicker.Settings.Textfield.Placeholder.New.View" = "New view";
 "SetViewTypesPicker.Settings.Textfield.Placeholder.Untitled" = "Bez názvu";
@@ -797,7 +797,7 @@
 // MARK: - Sharing
 "Sharing.Navigation.title" = "Add to Anytype";
 "Sharing.Navigation.LeftButton.Title" = "Cancel";
-"Sharing.Navigation.RightButton.Title" = "Done";
+"Sharing.Navigation.RightButton.Title" = "Hotovo";
 
 "Sharing.SaveAs" = "SAVE AS";
 "Sharing.AddTo" = "Add to";
