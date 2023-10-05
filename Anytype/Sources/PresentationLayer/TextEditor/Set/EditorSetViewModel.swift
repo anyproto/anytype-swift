@@ -554,7 +554,6 @@ final class EditorSetViewModel: ObservableObject {
             
             createObject(
                 type: objectType,
-                shouldSelectType: true,
                 relationsDetails: [],
                 templateId: templateId,
                 completion: { details in
@@ -571,7 +570,6 @@ final class EditorSetViewModel: ObservableObject {
         } else if setDocument.isBookmarksSet() {
             createBookmarkObject()
         } else if setDocument.isRelationsSet() {
-            guard let defaultObjectType = try? objectTypeProvider.defaultObjectType(spaceId: setDocument.spaceId) else { return }
             let relationsDetails = setDocument.dataViewRelationsDetails.filter { [weak self] detail in
                 guard let source = self?.details?.setOf else { return false }
                 return source.contains(detail.id)
@@ -581,7 +579,6 @@ final class EditorSetViewModel: ObservableObject {
             let templateId = setting?.templateId ?? defaultTemplateId(for: objectType)
             createObject(
                 type: objectType,
-                shouldSelectType: true,
                 relationsDetails: relationsDetails,
                 templateId: templateId,
                 completion: { [weak self] details in
@@ -594,7 +591,6 @@ final class EditorSetViewModel: ObservableObject {
             let templateId = setting?.templateId ?? defaultTemplateId(for: objectType)
             createObject(
                 type: objectType,
-                shouldSelectType: templateId.isEmpty,
                 relationsDetails: [],
                 templateId: templateId,
                 completion: { [weak self] details in
@@ -623,7 +619,6 @@ final class EditorSetViewModel: ObservableObject {
     
     private func createObject(
         type: ObjectType?,
-        shouldSelectType: Bool,
         relationsDetails: [RelationDetails],
         templateId: BlockId?,
         completion: ((_ details: ObjectDetails) -> Void)?
@@ -633,7 +628,6 @@ final class EditorSetViewModel: ObservableObject {
             
             let details = try await self.dataviewService.addRecord(
                 typeUniqueKey: type?.uniqueKey,
-                shouldSelectType: shouldSelectType,
                 templateId: templateId ?? "",
                 spaceId: setDocument.spaceId,
                 setFilters: self.setDocument.activeViewFilters,
