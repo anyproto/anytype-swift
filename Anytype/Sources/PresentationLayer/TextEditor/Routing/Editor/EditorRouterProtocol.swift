@@ -64,8 +64,6 @@ protocol EditorRouterProtocol:
     func showWaitingView(text: String)
     func hideWaitingView()
     
-//    func closeEditor()
-    
     func presentSheet(_ vc: UIViewController)
     func presentFullscreen(_ vc: UIViewController)
     

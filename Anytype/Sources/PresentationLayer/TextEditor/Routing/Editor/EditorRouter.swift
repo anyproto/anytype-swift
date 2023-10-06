@@ -75,7 +75,7 @@ final class EditorRouter: NSObject, EditorRouterProtocol, ObjectSettingsCoordina
         self.templateService = templateService
         self.output = output
     }
-
+    
     func showPage(objectId: String) {
         guard let details = document.detailsStorage.get(id: objectId) else {
             anytypeAssertionFailure("Details not found")
@@ -310,8 +310,9 @@ final class EditorRouter: NSObject, EditorRouterProtocol, ObjectSettingsCoordina
     }
     
     func closeEditor() {
-//        guard let viewController else { return }
-//        rootController?.popIfPresent(viewController)
+        Task { @MainActor in
+            output?.closeEditor()
+        }
     }
     
     func presentSheet(_ vc: UIViewController) {

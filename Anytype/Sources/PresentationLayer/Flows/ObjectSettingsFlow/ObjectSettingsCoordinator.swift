@@ -92,7 +92,6 @@ final class ObjectSettingsCoordinator: ObjectSettingsCoordinatorProtocol,
         navigationContext.present(moduleViewController)
     }
     
-    
     func showCoverPicker(document: BaseDocumentGeneralProtocol, onCoverAction: @escaping (ObjectCoverPickerAction) -> Void) {
         let moduleViewController = objectCoverPickerModuleAssembly.make(
             document: document,

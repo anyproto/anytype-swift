@@ -32,7 +32,6 @@ final class ObjectSettingsCoordinatorAssembly: ObjectSettingsCoordinatorAssembly
             objectIconPickerModuleAssembly: modulesDI.objectIconPicker(),
             relationsListModuleAssembly: modulesDI.relationsList(),
             relationValueCoordinator: coordinatorsDI.relationValue().make(),
-//            editorPageCoordinator: coordinatorsDI.editorPage().make(browserController: browserController),
             addNewRelationCoordinator: coordinatorsDI.addNewRelation().make(),
             searchModuleAssembly: modulesDI.search(),
             newSearchModuleAssembly: modulesDI.newSearch()

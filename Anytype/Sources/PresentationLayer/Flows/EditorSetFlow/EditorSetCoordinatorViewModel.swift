@@ -8,6 +8,7 @@ final class EditorSetCoordinatorViewModel: ObservableObject, EditorSetModuleOutp
     private let editorSetAssembly: EditorSetModuleAssemblyProtocol
     
     var pageNavigation: PageNavigation?
+    @Published var dismiss = false
     
     init(data: EditorSetObject, editorSetAssembly: EditorSetModuleAssemblyProtocol) {
         self.data = data
@@ -26,5 +27,9 @@ final class EditorSetCoordinatorViewModel: ObservableObject, EditorSetModuleOutp
     
     func replaceEditorScreen(data: EditorScreenData) {
         pageNavigation?.replace(data)
+    }
+    
+    func closeEditor() {
+        dismiss.toggle()
     }
 }

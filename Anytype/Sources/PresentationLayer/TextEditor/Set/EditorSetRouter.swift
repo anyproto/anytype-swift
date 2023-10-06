@@ -13,7 +13,6 @@ protocol EditorSetRouterProtocol:
     func showSetSettingsLegacy(onSettingTap: @escaping (EditorSetSetting) -> Void)
     func dismissSetSettingsIfNeeded()
     
-    // func setNavigationViewHidden(_ isHidden: Bool, animated: Bool)
     func showViewPicker(subscriptionDetailsStorage: ObjectDetailsStorage, showViewTypes: @escaping RoutingAction<DataviewView?>)
     
     func showCreateObject(details: ObjectDetails)
@@ -44,7 +43,6 @@ protocol EditorSetRouterProtocol:
     func showSettings(actionHandler: @escaping (ObjectSettingsAction) -> Void)
     func showQueries(selectedObjectId: BlockId?, onSelect: @escaping (BlockId) -> ())
     
-    func closeEditor()
     func showRelationValueEditingView(key: String)
     func showRelationValueEditingView(objectDetails: ObjectDetails, relation: Relation)
     
@@ -156,10 +154,6 @@ final class EditorSetRouter: EditorSetRouterProtocol, ObjectSettingsCoordinatorO
     func dismissSetSettingsIfNeeded() {
         currentSetSettingsPopup?.dismiss(animated: false)
     }
-    
-//    func setNavigationViewHidden(_ isHidden: Bool, animated: Bool) {
-//        rootController?.setNavigationViewHidden(isHidden, animated: animated)
-//    }
     
     @MainActor
     func showViewPicker(
@@ -382,7 +376,9 @@ final class EditorSetRouter: EditorSetRouterProtocol, ObjectSettingsCoordinatorO
     }
     
     func closeEditor() {
-        // navigationContext.pop(animated: true)
+        Task { @MainActor in
+            output?.closeEditor()
+        }
     }
     
     func showRelationValueEditingView(key: String) {
