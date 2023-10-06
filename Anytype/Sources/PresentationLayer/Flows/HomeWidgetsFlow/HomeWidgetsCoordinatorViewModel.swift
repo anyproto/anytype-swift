@@ -34,7 +34,7 @@ final class HomeWidgetsCoordinatorViewModel: ObservableObject,
     
     private var viewLoaded = false
     private var subscriptions = [AnyCancellable]()
-
+    
     @Published var showChangeSourceData: WidgetChangeSourceSearchModuleModel?
     @Published var showChangeTypeData: WidgetTypeModuleChangeModel?
     @Published var showSearchData: SearchModuleModel?

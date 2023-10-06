@@ -22,7 +22,6 @@ final class ObjectSettingsCoordinator: ObjectSettingsCoordinatorProtocol,
     private let objectIconPickerModuleAssembly: ObjectIconPickerModuleAssemblyProtocol
     private let relationsListModuleAssembly: RelationsListModuleAssemblyProtocol
     private let relationValueCoordinator: RelationValueCoordinatorProtocol
-//    private let editorPageCoordinator: EditorPageCoordinatorProtocol
     private let addNewRelationCoordinator: AddNewRelationCoordinatorProtocol
     private let searchModuleAssembly: SearchModuleAssemblyProtocol
     private let newSearchModuleAssembly: NewSearchModuleAssemblyProtocol
@@ -38,7 +37,6 @@ final class ObjectSettingsCoordinator: ObjectSettingsCoordinatorProtocol,
         objectIconPickerModuleAssembly: ObjectIconPickerModuleAssemblyProtocol,
         relationsListModuleAssembly: RelationsListModuleAssemblyProtocol,
         relationValueCoordinator: RelationValueCoordinatorProtocol,
-//        editorPageCoordinator: EditorPageCoordinatorProtocol,
         addNewRelationCoordinator: AddNewRelationCoordinatorProtocol,
         searchModuleAssembly: SearchModuleAssemblyProtocol,
         newSearchModuleAssembly: NewSearchModuleAssemblyProtocol
@@ -51,7 +49,6 @@ final class ObjectSettingsCoordinator: ObjectSettingsCoordinatorProtocol,
         self.objectIconPickerModuleAssembly = objectIconPickerModuleAssembly
         self.relationsListModuleAssembly = relationsListModuleAssembly
         self.relationValueCoordinator = relationValueCoordinator
-//        self.editorPageCoordinator = editorPageCoordinator
         self.addNewRelationCoordinator = addNewRelationCoordinator
         self.searchModuleAssembly = searchModuleAssembly
         self.newSearchModuleAssembly = newSearchModuleAssembly
@@ -120,7 +117,7 @@ final class ObjectSettingsCoordinator: ObjectSettingsCoordinatorProtocol,
     }
     
     func openPageAction(screenData: EditorScreenData) {
-//        editorPageCoordinator.startFlow(data: screenData, replaceCurrentPage: false)
+        output?.showPage(data: screenData)
     }
     
     func linkToAction(document: BaseDocumentProtocol, onSelect: @escaping (BlockId) -> ()) {
@@ -178,7 +175,8 @@ final class ObjectSettingsCoordinator: ObjectSettingsCoordinatorProtocol,
     // MARK: - RelationValueCoordinatorOutput
     
     func openObject(screenData: EditorScreenData) {
-        navigationContext.dismissAllPresented()
-//        editorPageCoordinator.startFlow(data: screenData, replaceCurrentPage: false)
+        navigationContext.dismissAllPresented(animated: true) { [weak self] in
+            self?.output?.showPage(data: screenData)
+        }
     }
 }

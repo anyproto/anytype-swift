@@ -5,7 +5,7 @@ import SwiftUI
 import FloatingPanel
 import AnytypeCore
 
-final class EditorRouter: NSObject, EditorRouterProtocol, ObjectSettingsCoordinatorOutput {
+final class EditorRouter: NSObject, EditorRouterProtocol, ObjectSettingsCoordinatorOutput, LinkToObjectCoordinatorOutput {
     private weak var viewController: UIViewController?
     private let navigationContext: NavigationContextProtocol
     private let fileCoordinator: FileDownloadingCoordinator
@@ -15,8 +15,7 @@ final class EditorRouter: NSObject, EditorRouterProtocol, ObjectSettingsCoordina
     private let setObjectCreationSettingsCoordinator: SetObjectCreationSettingsCoordinatorProtocol
     private let urlOpener: URLOpenerProtocol
     private let relationValueCoordinator: RelationValueCoordinatorProtocol
-//    private let editorPageCoordinator: EditorPageCoordinatorProtocol
-    private let linkToObjectCoordinator: LinkToObjectCoordinatorProtocol
+    private let linkToObjectCoordinatorAssembly: LinkToObjectCoordinatorAssemblyProtocol
     private let objectCoverPickerModuleAssembly: ObjectCoverPickerModuleAssemblyProtocol
     private let objectIconPickerModuleAssembly: ObjectIconPickerModuleAssemblyProtocol
     private let objectSettingCoordinator: ObjectSettingsCoordinatorProtocol
@@ -39,8 +38,7 @@ final class EditorRouter: NSObject, EditorRouterProtocol, ObjectSettingsCoordina
         setObjectCreationSettingsCoordinator: SetObjectCreationSettingsCoordinatorProtocol,
         urlOpener: URLOpenerProtocol,
         relationValueCoordinator: RelationValueCoordinatorProtocol,
-//        editorPageCoordinator: EditorPageCoordinatorProtocol,
-        linkToObjectCoordinator: LinkToObjectCoordinatorProtocol,
+        linkToObjectCoordinatorAssembly: LinkToObjectCoordinatorAssemblyProtocol,
         objectCoverPickerModuleAssembly: ObjectCoverPickerModuleAssemblyProtocol,
         objectIconPickerModuleAssembly: ObjectIconPickerModuleAssemblyProtocol,
         objectSettingCoordinator: ObjectSettingsCoordinatorProtocol,
@@ -63,8 +61,7 @@ final class EditorRouter: NSObject, EditorRouterProtocol, ObjectSettingsCoordina
         self.setObjectCreationSettingsCoordinator = setObjectCreationSettingsCoordinator
         self.urlOpener = urlOpener
         self.relationValueCoordinator = relationValueCoordinator
-//        self.editorPageCoordinator = editorPageCoordinator
-        self.linkToObjectCoordinator = linkToObjectCoordinator
+        self.linkToObjectCoordinatorAssembly = linkToObjectCoordinatorAssembly
         self.objectCoverPickerModuleAssembly = objectCoverPickerModuleAssembly
         self.objectIconPickerModuleAssembly = objectIconPickerModuleAssembly
         self.objectSettingCoordinator = objectSettingCoordinator
@@ -93,14 +90,12 @@ final class EditorRouter: NSObject, EditorRouterProtocol, ObjectSettingsCoordina
         Task { @MainActor in
             output?.showEditorScreen(data: data)
         }
-//        editorPageCoordinator.startFlow(data: data, replaceCurrentPage: false)
     }
 
     func replaceCurrentPage(with data: EditorScreenData) {
         Task { @MainActor in
             output?.replaceEditorScreen(data: data)
         }
-//        editorPageCoordinator.startFlow(data: data, replaceCurrentPage: true)
     }
     
     func showAlert(alertModel: AlertModel) {
@@ -210,7 +205,7 @@ final class EditorRouter: NSObject, EditorRouterProtocol, ObjectSettingsCoordina
                     document: self.document,
                     blockIds: infos.map { $0.id },
                     actionHandler: controller.viewModel.actionHandler,
-                    linkToObjectCoordinator: self.linkToObjectCoordinator,
+                    linkToObjectCoordinator: self.linkToObjectCoordinatorAssembly.make(output: self),
                     viewDidClose: viewDidClose
                 )
             },
@@ -445,7 +440,7 @@ final class EditorRouter: NSObject, EditorRouterProtocol, ObjectSettingsCoordina
             document: document,
             blockIds: selectedBlockIds,
             actionHandler: controller.viewModel.actionHandler,
-            linkToObjectCoordinator: linkToObjectCoordinator
+            linkToObjectCoordinator: linkToObjectCoordinatorAssembly.make(output: self)
         )
         let viewController = MarkupsViewController(
             viewModel: viewModel,

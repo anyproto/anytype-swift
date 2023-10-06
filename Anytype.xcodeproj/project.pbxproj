@@ -667,6 +667,7 @@
 		2ADF008F2ACD5DAC000D01F8 /* StatusBarStyleModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2ADF008E2ACD5DAC000D01F8 /* StatusBarStyleModifier.swift */; };
 		2ADF00912ACD66D4000D01F8 /* NavigationGestureModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2ADF00902ACD66D4000D01F8 /* NavigationGestureModifier.swift */; };
 		2ADF00932ACF0040000D01F8 /* HomePath.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2ADF00922ACF0040000D01F8 /* HomePath.swift */; };
+		2ADF00952AD00B04000D01F8 /* LinkToObjectCoordinatorOutput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2ADF00942AD00B04000D01F8 /* LinkToObjectCoordinatorOutput.swift */; };
 		2ADF94D429CDAFB000F6FFCC /* EnvironmentConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2ADF94D329CDAFB000F6FFCC /* EnvironmentConfiguration.swift */; };
 		2ADFA9DC2949C61D00F64688 /* UIKitModule.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2ADFA9DB2949C61D00F64688 /* UIKitModule.swift */; };
 		2AE10778296C258400BAB22A /* View+LegacyAdopt.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AE10777296C258400BAB22A /* View+LegacyAdopt.swift */; };
@@ -2266,6 +2267,7 @@
 		2ADF008E2ACD5DAC000D01F8 /* StatusBarStyleModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatusBarStyleModifier.swift; sourceTree = "<group>"; };
 		2ADF00902ACD66D4000D01F8 /* NavigationGestureModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationGestureModifier.swift; sourceTree = "<group>"; };
 		2ADF00922ACF0040000D01F8 /* HomePath.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomePath.swift; sourceTree = "<group>"; };
+		2ADF00942AD00B04000D01F8 /* LinkToObjectCoordinatorOutput.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LinkToObjectCoordinatorOutput.swift; sourceTree = "<group>"; };
 		2ADF94D329CDAFB000F6FFCC /* EnvironmentConfiguration.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EnvironmentConfiguration.swift; sourceTree = "<group>"; };
 		2ADFA9DB2949C61D00F64688 /* UIKitModule.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIKitModule.swift; sourceTree = "<group>"; };
 		2AE10777296C258400BAB22A /* View+LegacyAdopt.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "View+LegacyAdopt.swift"; sourceTree = "<group>"; };
@@ -6193,6 +6195,7 @@
 			children = (
 				2ADD1EAE28FD795E00F41DE1 /* LinkToObjecttCoordinator.swift */,
 				2ADD1EAD28FD795E00F41DE1 /* LinkToObjectCoordinatorAssembly.swift */,
+				2ADF00942AD00B04000D01F8 /* LinkToObjectCoordinatorOutput.swift */,
 			);
 			path = LinkToObjectFlow;
 			sourceTree = "<group>";
@@ -10731,6 +10734,7 @@
 				2AF4C3E5295DE3CB00FD7153 /* CreateWidgetCoordinatorAssembly.swift in Sources */,
 				2A9486542950A3E7007A5586 /* HomeWidgetsModuleAssembly.swift in Sources */,
 				129C54D427FC83C000C390C7 /* SupportedRelationFormat.swift in Sources */,
+				2ADF00952AD00B04000D01F8 /* LinkToObjectCoordinatorOutput.swift in Sources */,
 				120F7D86267F9E8000327734 /* URLExtensions.swift in Sources */,
 				2ECB34042A95130800E0F9BB /* SetSortsListCoordinatorView.swift in Sources */,
 				2A66937E2A7104EA007747DD /* ObjectIconImageFontSet.swift in Sources */,

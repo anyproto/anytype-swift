@@ -67,7 +67,7 @@ final class EditorPageModuleAssembly: EditorPageModuleAssemblyProtocol {
             ),
             urlOpener: uiHelpersDI.urlOpener(),
             relationValueCoordinator: coordinatorsDI.relationValue().make(),
-            linkToObjectCoordinator: coordinatorsDI.linkToObject().make(),
+            linkToObjectCoordinatorAssembly: coordinatorsDI.linkToObject(),
             objectCoverPickerModuleAssembly: modulesDI.objectCoverPicker(),
             objectIconPickerModuleAssembly: modulesDI.objectIconPicker(),
             objectSettingCoordinator: coordinatorsDI.objectSettings().make(),
@@ -184,7 +184,7 @@ final class EditorPageModuleAssembly: EditorPageModuleAssemblyProtocol {
             onShowStyleMenu: blocksStateManager.didSelectStyleSelection(infos:),
             onBlockSelection: actionHandler.selectBlock(info:),
             pageService: serviceLocator.pageRepository(),
-            linkToObjectCoordinator: coordinatorsDI.linkToObject().make(),
+            linkToObjectCoordinator: coordinatorsDI.linkToObject().make(output: router),
             cursorManager: cursorManager
         )
         
@@ -220,7 +220,7 @@ final class EditorPageModuleAssembly: EditorPageModuleAssemblyProtocol {
             mainEditorSelectionManager: blocksStateManager,
             responderScrollViewHelper: responderScrollViewHelper,
             pageService: serviceLocator.pageRepository(),
-            linkToObjectCoordinator: coordinatorsDI.linkToObject().make()
+            linkToObjectCoordinator: coordinatorsDI.linkToObject().make(output: router)
         )
 
         let blocksConverter = BlockViewModelBuilder(
