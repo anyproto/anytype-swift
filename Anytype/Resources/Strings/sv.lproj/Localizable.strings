@@ -36,13 +36,13 @@
 "TextStyle.Italic.Title" = "Italic";
 "TextStyle.Strikethrough.Title" = "Strikethrough";
 "TextStyle.Code.Title" = "Code";
-"TextStyle.Link.Title" = "Link";
+"TextStyle.Link.Title" = "Länk";
 
 // MARK: - Block Text
 "BlockText.Content.Placeholder" = "Untitled";
 
 "BlockText.ContentType.Title.Placeholder" = "Untitled";
-"BlockText.ContentType.Description.Placeholder" = "Add a description";
+"BlockText.ContentType.Description.Placeholder" = "Lägg till en beskrivning";
 "BlockText.ContentType.Toggle.Placeholder" = "Toggle block";
 "BlockText.ContentType.Bulleted.Placeholder" = "Bulleted list item";
 "BlockText.ContentType.Checkbox.Placeholder" = "Checkbox";
@@ -82,13 +82,13 @@
 "Relation.Format.Text.Title" = "Text";
 "Relation.Format.Number.Title" = "Number";
 "Relation.Format.Status.Title" = "Status";
-"Relation.Format.Tag.Title" = "Tag";
-"Relation.Format.Date.Title" = "Date";
+"Relation.Format.Tag.Title" = "Tagg";
+"Relation.Format.Date.Title" = "Datum";
 "Relation.Format.FileMedia.Title" = "File & Media";
 "Relation.Format.Checkbox.Title" = "Checkbox";
 "Relation.Format.Url.Title" = "URL";
 "Relation.Format.Email.Title" = "Email";
-"Relation.Format.Phone.Title" = "Phone number";
+"Relation.Format.Phone.Title" = "Telefonnummer";
 
 // MARK: - Mention
 "Mention.Subtitle.Placeholder" = "Object";
@@ -99,22 +99,22 @@
 "Loading, please wait" = "Loading, please wait";
 "Done" = "Done";
 "Style" = "Style";
-"Color" = "Color";
-"Background" = "Background";
+"Color" = "Färg";
+"Background" = "Bakgrund";
 "Other" = "Other";
 "Media" = "Media";
 "Alignment" = "Alignment";
 "Actions" = "Actions";
 "Relations" = "Relations";
 "Objects" = "Objects";
-"Delete" = "Delete";
+"Delete" = "Radera";
 "Duplicate" = "Duplicate";
-"Copy" = "Copy";
+"Copy" = "Kopiera";
 "Preview" = "Preview";
 "View" = "View";
 "Paste" = "Paste";
-"Move" = "Move";
-"Move to" = "Move to";
+"Move" = "Flytta";
+"Move to" = "Flytta till";
 "Back" = "Back";
 "File block subtitle" = "Store file in original state";
 "Picture block subtitle" = "Upload and enrich the page with image";
@@ -124,14 +124,14 @@
 "Align right" = "Align right";
 "Align left" = "Align left";
 "Align center" = "Align center";
-"Black" = "Black";
+"Black" = "Svart";
 "Amber" = "Amber";
-"Red" = "Red";
-"Pink" = "Pink";
-"Purple" = "Purple";
-"Blue" = "Blue";
+"Red" = "Röd";
+"Pink" = "Rosa";
+"Purple" = "Lila";
+"Blue" = "Blå";
 "Teal" = "Teal";
-"Green" = "Green";
+"Green" = "Grön";
 "Default background" = "Default background";
 "Amber background" = "Amber background";
 "Red background" = "Red background";
@@ -140,30 +140,30 @@
 "Blue background" = "Blue background";
 "Green background" = "Green background";
 "Create new object" = "Create new object";
-"Cancel" = "Cancel";
+"Cancel" = "Avbryt";
 "Paste or type URL" = "Paste or type URL";
 "No items match filter" = "No items match filter";
 "Unsupported block" = "Unsupported block";
-"Name" = "Name";
-"Description" = "Description";
+"Name" = "Namn";
+"Description" = "Beskrivning";
 "Paste processing..." = "Paste processing...";
 "Anytype Library" = "Anytype Library";
 "Copied" = "Copied";
 
 // Home
-"Favorites" = "Favorites";
+"Favorites" = "Favoriter";
 "Recent" = "Recent";
-"Bin" = "Bin";
+"Bin" = "Papperskorg";
 
 // Settings
 "Wallpaper" = "Wallpaper";
-"Log out" = "Log out";
+"Log out" = "Logga ut";
 
 // Action
-"Restore" = "Restore";
+"Restore" = "Återställ";
 
 // Keychain screen
-"Keychain.Recovery phrase" = "Recovery phrase";
+"Keychain.Recovery phrase" = "Återställningsfras";
 "Keychain.Recovery phrase copied to clipboard" = "Recovery phrase copied";
 "Keychain.Recovery phrase description" = "You will need it to sign in. Keep it in a safe place. If you lose it, you can no longer access your account.";
 "Keychain.Save keychain alert part 1" = "If you lose the recovery phrase and get logged out you will not be able to ";
@@ -178,17 +178,17 @@
 "Keychain.SeedPhrasePlaceholder" = "witch collapse practice feed shame open despair creek road again ice least lake tree young address brain despair";
 
 // Auth
-"Sign up" = "Sign up";
+"Sign up" = "Registrera dig";
 "Login" = "Login";
-"Create" = "Create";
-"Scan QR code" = "Scan QR code";
+"Create" = "Skapa";
+"Scan QR code" = "Skanna QR-kod";
 "Auth.CameraPermissionTitle" = "Please allow access";
 "Restore secret phrase from keychain" = "Restore Recovery Phrase from the keychain";
-"Auth.LogIn" = "I already have one";
+"Auth.LogIn" = "Jag har redan en";
 "Auth.Join" = "Generate new account";
-"Auth.Welcome.Subtitle" = "Anytype is your safe space to write, plan, think and organise everything that matters to you.";
+"Auth.Welcome.Subtitle" = "Anytype är din trygga plats där du kan skriva, planera, tänka och organisera allt som är viktigt för dig.";
 "Auth.Caption.Privacy.Text" = "By continuing you agree to [Terms of Use](%@) and [Privacy Policy](%@)";
-"Auth.Next" = "Next";
+"Auth.Next" = "Nästa";
 
 "Account recover error" = "Account recover error, try again";
 "Account recover error no internet" = "Account recover error, probably no internet connection";
@@ -198,18 +198,18 @@
 "Error select account" = "Error select account";
 "Error wallet recover account" = "Error wallet recover account";
 
-"Search for language" = "Search for language";
+"Search for language" = "Sök efter språk";
 
 // Auth - Join flow
 
-"Auth.JoinFlow.Key.Title" = "Save your Recovery Phrase";
+"Auth.JoinFlow.Key.Title" = "Spara din återställningsfras";
 "Auth.JoinFlow.Key.Description" = "It’s a novel way of authentication that gives you full ownership over your account and data.";
-"Auth.JoinFlow.Key.TextField.Placeholder" = "Type your recovery phrase";
-"Auth.JoinFlow.Key.Button.Show.Title" = "Show Recovery Phrase";
+"Auth.JoinFlow.Key.TextField.Placeholder" = "Ange din återställningsfras";
+"Auth.JoinFlow.Key.Button.Show.Title" = "Visa återställningsfras";
 "Auth.JoinFlow.Key.Button.Saved.Title" = "Go to the app";
 "Auth.JoinFlow.Key.Button.Later.Title" = "Skip";
-"Auth.JoinFlow.Key.Button.Copy.Title" = "Copy to clipboard";
-"Auth.JoinFlow.Key.Button.Info.Title" = "Read more";
+"Auth.JoinFlow.Key.Button.Copy.Title" = "Kopiera till urklipp";
+"Auth.JoinFlow.Key.Button.Info.Title" = "Läs mer";
 "Auth.JoinFlow.Key.Button.Tip.Title" = "You can find Recovery Phrase later in Anytype settings";
 
 "Auth.JoinFlow.Key.ReadMore.Title" = "What is Recovery Phrase?";
@@ -230,28 +230,28 @@
 
 // Auth - Login flow
 "Auth.LoginFlow.Use.Keychain.Title" = "Use keychain";
-"Auth.LoginFlow.Or" = "OR";
-"Auth.LoginFlow.Textfield.Placeholder" = "Type your recovery phrase";
+"Auth.LoginFlow.Or" = "ELLER";
+"Auth.LoginFlow.Textfield.Placeholder" = "Ange din återställningsfras";
 "Auth.LoginFlow.Enter.Button.Title" = "Login";
 "Auth.LoginFlow.Entering.Void.Title" = "Entering the Void";
 
 // Object settings
 
-"Icon" = "Icon";
+"Icon" = "Ikon";
 "Emoji or image for object" = "Emoji or image for object";
 "Cover" = "Cover";
-"Background picture" = "Background picture";
+"Background picture" = "Bakgrundsbild";
 "Layout" = "Layout";
 "Arrangement of objects on a canvas" = "Arrangement of objects on a canvas";
 
-"Search" = "Search";
+"Search" = "Sök";
 "There is no emoji named" = "There is no emoji named";
 "Try to find a new one or upload your image" = "Try to find a new one or upload your image";
 
 "Emoji" = "Emoji";
 "Random" = "Random";
 "Upload" = "Upload";
-"Change icon" = "Change icon";
+"Change icon" = "Ändra ikon";
 "Change cover" = "Change cover";
 "Remove" = "Remove";
 
@@ -261,13 +261,13 @@
 
 "Remove photo" = "Remove photo";
 "Basic" = "Basic";
-"Profile" = "Profile";
+"Profile" = "Profil";
 "Task" = "Task";
 "Note" = "Note";
 "Choose layout type" = "Choose layout type";
 
 "Undo typing" = "Undo typing";
-"Undo" = "Undo";
+"Undo" = "Ångra";
 "Actions.LinkItself" = "Link to";
 "Actions.MakeAsTemplate" = "Make template";
 "Actions.TemplateMakeDefault" = "Set as default";
@@ -296,7 +296,7 @@
 "Home.Snackbar.Library" = "Library is available in desktop app";
 
 // MARK: - Alerts
-"Alert.CameraPermissions.Settings" = "Settings";
+"Alert.CameraPermissions.Settings" = "Inställningar";
 "Alert.CameraPermissions.GoToSettings" = "Anytype needs access to your camera to scan QR codes.\n\nPlease, go to your device's Settings -> Privacy -> Camera and set Anytype to ON";
 
 // MARK: - Deletion
@@ -322,7 +322,7 @@
 "TemplateOptions.Alert.SetAsDefault" = "Set as default for this view";
 "TemplateOptions.Alert.EditTemplate" = "Edit template";
 "TemplateOptions.Alert.Duplicate" = "Duplicate";
-"TemplateOptions.Alert.Delete" = "Delete";
+"TemplateOptions.Alert.Delete" = "Radera";
 
 "TemplateEditing.Title" = "Edit template";
 "TemplateEditing.SelectButtonTitle" = "Select template";
@@ -405,7 +405,7 @@
 "EditSet.Popup.Filter.Date.Option.NumberOfDaysFromNow" = "Number of days from now";
 "EditSet.Popup.Filter.Date.Option.ExactDate" = "Exact date";
 
-"EditSet.Popup.Filter.Date.Option.NumberOfDaysAgo.Short" = "%@ days ago";
+"EditSet.Popup.Filter.Date.Option.NumberOfDaysAgo.Short" = "%@ dagar sedan";
 "EditSet.Popup.Filter.Date.Option.NumberOfDaysFromNow.Short" = "%@ days from now";
 
 // MARK: - Sets. Create object
@@ -423,7 +423,7 @@
 // MARK: - Set.Bookmarks
 "Set.Bookmark.Create.Placeholder" = "Paste link";
 "Set.Bookmark.Error.Title" = "Oops - something went wrong";
-"Set.Bookmark.Error.Message" = "Please try again";
+"Set.Bookmark.Error.Message" = "Försök igen";
 
 // MARK: - Sets: View Settings
 "Set.View.Settings.ImageFit.Title" = "Fit image";
@@ -499,7 +499,7 @@
 "Select relation type" = "Select relation type";
 
 "Limit object types" = "Limit object types";
-"Type" = "Type";
+"Type" = "Typ";
 "No name" = "No name";
 "New relation" = "New relation";
 "Non-existent object" = "Non-existent object";
@@ -513,7 +513,7 @@
 "Default object type" = "Default object type";
 "Personalization" = "Personalization";
 "Choose default object type" = "Choose default object type";
-"About" = "About";
+"About" = "Om";
 "Appearance" = "Appearance";
 "Change wallpaper" = "Change wallpaper";
 "Application icon" = "Application icon";
@@ -521,7 +521,7 @@
 "copied to clipboard" = "%@ copied to clipboard";
 "Access to secret phrase from keychain" = "Access to secret phrase from keychain";
 "Back up your recovery phrase" = "Back up your recovery phrase";
-"Account" = "Account";
+"Account" = "Konto";
 "Access" = "Access";
 "Back up phrase" = "Back up phrase";
 "Removing cache" = "Removing cache";
@@ -532,7 +532,7 @@
 "Account deleted" = "Account deleted";
 "Account.Select.Incompatible.Version.Error.Text" = "Unable to retrieve account data due to incompatible version on remote nodes. Please update Anytype to the latest version.";
 "Restore from keychain" = "Restore from keychain";
-"Edit" = "Edit";
+"Edit" = "Redigera";
 "In this object" = "In this object";
 "Other relations" = "Other relations";
 "Collection of objects" = "Collection of objects";
@@ -570,12 +570,12 @@
 "Audio" = "Audio";
 "Video" = "Video";
 "Picture" = "Picture";
-"File" = "File";
+"File" = "Fil";
 "No related options here" = "No related options here. You can add some";
 "Empty" = "Empty";
 "Link to" = "Link to";
 "Unknown" = "Unknown";
-"Settings" = "Settings";
+"Settings" = "Inställningar";
 "Views" = "Views";
 "Filter" = "Filter";
 "Sort" = "Sort";
@@ -593,21 +593,21 @@
 "No date" = "No date";
 "Clear" = "Clear";
 "Create option" = "Create option ‘%@’";
-"Add URL" = "Add URL";
+"Add URL" = "Lägg till URL";
 "Add email" = "Add email";
 "Add phone number" = "Add phone number";
 "Add number" = "Add number";
 "Add text" = "Add text";
 "Ok" = "Ok";
 "Error occurred. Please try again" = "Error occurred. Please try again";
-"Add" = "Add";
+"Add" = "Lägg till";
 "Companies, contacts, friends and family" = "Companies, contacts, friends and family";
 "Failed to sync, trying again..." = "Failed to sync, trying again...";
 "Sync.Status.Version.Outdated.Description" = "Version outdated. Please update Anytype";
 "This object doesn't exist" = "This object doesn't exist";
 "Setting up encrypted storage\nPlease wait" = "Setting up encrypted storage\nPlease wait";
 "These objects will be deleted irrevocably" = "These objects will be deleted irrevocably. You can’t undo this action.";
-"Delete account" = "Delete account";
+"Delete account" = "Radera konto";
 "Cancel deletion" = "Cancel deletion";
 "Logout and clear data" = "Logout and clear data";
 "New" = "New";
@@ -646,7 +646,7 @@
 
 // MARK: - Simple tables
 "SimpleTableMenu.Item.clearContents" = "Clear";
-"SimpleTableMenu.Item.color" = "Color";
+"SimpleTableMenu.Item.color" = "Färg";
 "SimpleTableMenu.Item.style" = "Style";
 "SimpleTableMenu.Item.clearStyle" = "Reset style";
 
@@ -655,7 +655,7 @@
 "SimpleTableMenu.Item.MoveLeft" = "Move left";
 "SimpleTableMenu.Item.MoveRight" = "Move right";
 "SimpleTableMenu.Item.Duplicate" = "Duplicate";
-"SimpleTableMenu.Item.Delete" = "Delete";
+"SimpleTableMenu.Item.Delete" = "Radera";
 "SimpleTableMenu.Item.Sort" = "Sort";
 
 "SimpleTableMenu.Item.InsertAbove" = "Insert above";
@@ -730,7 +730,7 @@
 "Widgets.Actions.EmptyBin" = "Empty Bin";
 "Widgets.Actions.AddBelow" = "Add Below";
 "Widgets.Layout.Screen.Title" = "Widget type";
-"Widgets.Layout.Link.Title" = "Link";
+"Widgets.Layout.Link.Title" = "Länk";
 "Widgets.Layout.Tree.Title" = "Tree";
 "Widgets.Layout.List.Title" = "List";
 "Widgets.Layout.CompactList.Title" = "Сompact list";
@@ -750,7 +750,7 @@
 "About.accountId" = "Account ID: %@";
 "About.analyticsId" = "Analytics ID: %@";
 "About.deviceId" = "Device ID: %@";
-"About.Device" = "Device: %@";
+"About.Device" = "Enhet: %@";
 "About.OSVersion" = "OS version: %@";
 "About.HelpCommunity" = "Help & Community";
 "About.WhatsNew" = "What’s New";
@@ -759,7 +759,7 @@
 "About.ContactUs" = "Contact Us";
 "About.Legal" = "Legal";
 "About.TermsOfUse" = "Terms of Use";
-"About.PrivacyPolicy" = "Privacy Policy";
+"About.PrivacyPolicy" = "Integritetspolicy";
 "About.TechInfo" = "Tech Info";
 "About.Mail.Subject" = "Support request, Account ID %@";
 "About.Mail.Body" = "\n\nTechnical information\n%@";
@@ -780,7 +780,7 @@
 "FileStorage.Local.Instruction" = "In order to save space on your local device, you can offload all your files to our encrypted backup node. The files will be loaded back when you open them.";
 "FileStorage.Local.Used" = "%@ used";
 "FileStorage.OffloadTitle" = "Offload files";
-"FileStorage.ManageFiles" = "Manage files";
+"FileStorage.ManageFiles" = "Hantera filer";
 "FileStorage.LimitError" = "You exceeded file limit upload";
 
 // MARK: - Files List
@@ -796,7 +796,7 @@
 
 // MARK: - Sharing
 "Sharing.Navigation.title" = "Add to Anytype";
-"Sharing.Navigation.LeftButton.Title" = "Cancel";
+"Sharing.Navigation.LeftButton.Title" = "Avbryt";
 "Sharing.Navigation.RightButton.Title" = "Done";
 
 "Sharing.SaveAs" = "SAVE AS";

@@ -2,13 +2,13 @@
 "StyleMenu.Color.TextColor.Placeholder" = "A";
 
 // MARK: Text Style in Slash and Style menu
-"TextStyle.Text.Title" = "Text";
-"TextStyle.Text.Subtitle" = "Just start writing with a plain text";
+"TextStyle.Text.Title" = "Testo";
+"TextStyle.Text.Subtitle" = "Inizia a scrivere con un testo semplice";
 
-"TextStyle.Title.Title" = "Title";
-"TextStyle.Title.Subtitle" = "Big section heading";
+"TextStyle.Title.Title" = "Titolo";
+"TextStyle.Title.Subtitle" = "Sezione titolo grande";
 
-"TextStyle.Heading.Title" = "Heading";
+"TextStyle.Heading.Title" = "Titolo";
 "TextStyle.Heading.Subtitle" = "Medium headline";
 
 "TextStyle.Subheading.Title" = "Subheading";
@@ -48,8 +48,8 @@
 "BlockText.ContentType.Checkbox.Placeholder" = "Checkbox";
 "BlockText.ContentType.Numbered.Placeholder" = "Numbered list item";
 "BlockText.ContentType.Quote.Placeholder" = "Highlighted text";
-"BlockText.ContentType.Header.Placeholder" = "Title";
-"BlockText.ContentType.Header2.Placeholder" = "Heading";
+"BlockText.ContentType.Header.Placeholder" = "Titolo";
+"BlockText.ContentType.Header2.Placeholder" = "Titolo";
 "BlockText.ContentType.Header3.Placeholder" = "Subheading";
 
 // MARK: - Block Link
@@ -59,7 +59,7 @@
 "BlockLink.PreviewSettings.IconSize.Medium" = "Medium";
 
 "BlockLink.PreviewSettings.Layout.Card.Title" = "Card";
-"BlockLink.PreviewSettings.Layout.Text.Title" = "Text";
+"BlockLink.PreviewSettings.Layout.Text.Title" = "Testo";
 
 // MARK: - Settings
 "Settings.Title" = "Personal Space";
@@ -79,7 +79,7 @@
 "Relation.From.Type" = "From type %@";
 
 "Relation.Format.Object.Title" = "Object";
-"Relation.Format.Text.Title" = "Text";
+"Relation.Format.Text.Title" = "Testo";
 "Relation.Format.Number.Title" = "Number";
 "Relation.Format.Status.Title" = "Status";
 "Relation.Format.Tag.Title" = "Tag";

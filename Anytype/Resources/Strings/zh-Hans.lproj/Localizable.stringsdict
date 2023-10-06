@@ -71,7 +71,9 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>d</string>
         <key>other</key>
-        <string>%d objects deleted</string>
+        <string>删除了一个对象
+
+删除了 %d 个对象</string>
       </dict>
     </dict>
   </dict>

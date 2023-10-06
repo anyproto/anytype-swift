@@ -15,7 +15,7 @@
 "TextStyle.Subheading.Subtitle" = "Petit titre";
 
 "TextStyle.Highlighted.Title" = "Surligné";
-"TextStyle.Highlighted.Subtitle" = "Spotlight, that needs special attention";
+"TextStyle.Highlighted.Subtitle" = "Mise en avant, qui nécessite une attention particulière";
 
 "TextStyle.Callout.Title" = "Callout";
 "TextStyle.Callout.Subtitle" = "Bordered text with icon";
@@ -54,16 +54,16 @@
 
 // MARK: - Block Link
 
-"BlockLink.PreviewSettings.IconSize.None" = "None";
+"BlockLink.PreviewSettings.IconSize.None" = "Aucun";
 "BlockLink.PreviewSettings.IconSize.Small" = "Petit";
-"BlockLink.PreviewSettings.IconSize.Medium" = "Medium";
+"BlockLink.PreviewSettings.IconSize.Medium" = "Moyen";
 
 "BlockLink.PreviewSettings.Layout.Card.Title" = "Carte";
 "BlockLink.PreviewSettings.Layout.Text.Title" = "Texte";
 
 // MARK: - Settings
-"Settings.Title" = "Personal Space";
-"Settings.SpaceName" = "Space name";
+"Settings.Title" = "Espace personnel";
+"Settings.SpaceName" = "Nom de l'espace";
 
 // MARK: - Object
 "Object.Title.Placeholder" = "Sans titre";
@@ -72,11 +72,11 @@
 // MARK: - Relation
 "Featured relations" = "Relations mises en avant";
 "Create relation" = "Create relation ‘%@’";
-"Relation.View.Hint.Empty" = "empty";
+"Relation.View.Hint.Empty" = "vide";
 "Relation.MyRelations" = "Mes relations";
 "Relation.AddedToLibrary" = "Relation ‘%@’ added to your library";
 "Relation.Deleted" = "Relation supprimée";
-"Relation.From.Type" = "From type %@";
+"Relation.From.Type" = "À partir du type %@";
 
 "Relation.Format.Object.Title" = "Objet";
 "Relation.Format.Text.Title" = "Texte";
@@ -84,7 +84,7 @@
 "Relation.Format.Status.Title" = "Statut";
 "Relation.Format.Tag.Title" = "Tag";
 "Relation.Format.Date.Title" = "Date";
-"Relation.Format.FileMedia.Title" = "File & Media";
+"Relation.Format.FileMedia.Title" = "Fichier & Média";
 "Relation.Format.Checkbox.Title" = "Case à cocher";
 "Relation.Format.Url.Title" = "URL";
 "Relation.Format.Email.Title" = "Email";
@@ -93,10 +93,10 @@
 // MARK: - Mention
 "Mention.Subtitle.Placeholder" = "Objet";
 
-"None" = "None";
+"None" = "Aucun";
 "Callout" = "Callout";
 "Toggle empty. Tap to create block." = "Toggle empty. Tap to create block.";
-"Loading, please wait" = "Loading, please wait";
+"Loading, please wait" = "Chargement, veuillez patienter...";
 "Done" = "Fait";
 "Style" = "Style";
 "Color" = "Couleur ";
@@ -119,7 +119,7 @@
 "File block subtitle" = "Stocker le fichier dans l'état original";
 "Picture block subtitle" = "Envoyer et enrichir la page avec une image";
 "Video block subtitle" = "Upload playable video";
-"Bookmark block subtitle" = "Save your favorite link with summary";
+"Bookmark block subtitle" = "Enregistrez votre lien favori avec un résumé";
 "Code block subtitle" = "Capturer un extrait de code";
 "Align right" = "Aligner à droite";
 "Align left" = "Aligner à gauche";
@@ -132,8 +132,8 @@
 "Blue" = "Bleu";
 "Teal" = "Turquoise";
 "Green" = "Vert";
-"Default background" = "Default background";
-"Amber background" = "Amber background";
+"Default background" = "Arrière-plan par défaut";
+"Amber background" = "Fond Ambre";
 "Red background" = "Fond rouge";
 "Pink background" = "Fond rose";
 "Purple background" = "Fond violet";
@@ -160,17 +160,17 @@
 "Log out" = "Déconnexion";
 
 // Action
-"Restore" = "Restore";
+"Restore" = "Restaurer";
 
 // Keychain screen
-"Keychain.Recovery phrase" = "Recovery phrase";
-"Keychain.Recovery phrase copied to clipboard" = "Recovery phrase copied";
+"Keychain.Recovery phrase" = "Phrase de récupération";
+"Keychain.Recovery phrase copied to clipboard" = "Phrase de récupération copiée";
 "Keychain.Recovery phrase description" = "You will need it to sign in. Keep it in a safe place. If you lose it, you can no longer access your account.";
 "Keychain.Save keychain alert part 1" = "If you lose the recovery phrase and get logged out you will not be able to ";
 "Keychain.Save keychain alert part 2" = "ever access your data again";
 "Keychain.Save keychain alert part 3" = ".\nSave this recovery phrase outside of Anytype for data recovery.\nWe recommend using a secure data vault, password manager or piece of paper in the safe.";
-"Keychain.Don’t forget to save your recovery phrase" = "Don’t forget to save your recovery phrase";
-"Keychain.Show and copy phrase" = "Show and copy phrase";
+"Keychain.Don’t forget to save your recovery phrase" = "N'oubliez pas d'enregistrer votre phrase de récupération";
+"Keychain.Show and copy phrase" = "Afficher et copier la phrase";
 "Keychain.Have you backed up your recovery phrase?" = "Have you backed up your recovery phrase?";
 "Keychain.Error.String to Data conversion error" = "String to Data conversion error";
 "Keychain.Error.Data to String conversion error" = "Data to String conversion error";
@@ -208,15 +208,15 @@
 "Auth.JoinFlow.Key.Button.Show.Title" = "Show Recovery Phrase";
 "Auth.JoinFlow.Key.Button.Saved.Title" = "Go to the app";
 "Auth.JoinFlow.Key.Button.Later.Title" = "Skip";
-"Auth.JoinFlow.Key.Button.Copy.Title" = "Copy to clipboard";
-"Auth.JoinFlow.Key.Button.Info.Title" = "Read more";
-"Auth.JoinFlow.Key.Button.Tip.Title" = "You can find Recovery Phrase later in Anytype settings";
+"Auth.JoinFlow.Key.Button.Copy.Title" = "Copier dans le presse-papier";
+"Auth.JoinFlow.Key.Button.Info.Title" = "En savoir plus";
+"Auth.JoinFlow.Key.Button.Tip.Title" = "Vous pouvez trouver la phrase de récupération plus tard dans les paramètres de Anytype";
 
-"Auth.JoinFlow.Key.ReadMore.Title" = "What is Recovery Phrase?";
-"Auth.JoinFlow.Key.ReadMore.Option1.Title" = "Recovery Phrase is a random combination of 12 words from which your account is magically generated on this device.";
-"Auth.JoinFlow.Key.ReadMore.Option2.Title" = "Whomever knows Recovery Phrase, owns the account. **At this moment, you are the only person in the world who knows it.**";
-"Auth.JoinFlow.Key.ReadMore.Option3.Title" = "That's why it's essential to keep Recovery Phrase safe. As the sole owner, nobody can help you if it's lost.";
-"Auth.JoinFlow.Key.ReadMore.Instruction.Title" = "How to save my phrase?";
+"Auth.JoinFlow.Key.ReadMore.Title" = "Qu'est-ce que la phrase de récupération ?";
+"Auth.JoinFlow.Key.ReadMore.Option1.Title" = "La phrase de récupération est une combinaison aléatoire de 12 mots à partir desquels votre compte est généré comme par magie sur cet appareil.";
+"Auth.JoinFlow.Key.ReadMore.Option2.Title" = "Quiconque connaît la Phrase de Récupération, possède le compte. **En ce moment, vous êtes la seule personne au monde à le connaître.**";
+"Auth.JoinFlow.Key.ReadMore.Option3.Title" = "C'est pourquoi il est essentiel de garder la phrase de récupération en sécurité. En tant que propriétaire unique, personne ne peut vous aider si elle est perdue.";
+"Auth.JoinFlow.Key.ReadMore.Instruction.Title" = "Comment sauvegarder ma phrase ?";
 "Auth.JoinFlow.Key.ReadMore.Instruction.Option1.Title" = "The easiest way to store your Recovery Phrase is to save it in your password manager.";
 "Auth.JoinFlow.Key.ReadMore.Instruction.Option2.Title" = "The most secure way is to write it down on paper and keep it offline, in a safe and secure place.";
 
@@ -226,7 +226,7 @@
 
 "Auth.JoinFlow.Creating.Soul.Title" = "Generating new account";
 "Auth.JoinFlow.Setting.Space.Title" = "Setting up your personal space";
-"Auth.JoinFlow.Personal.Space.Title" = "Personal Space";
+"Auth.JoinFlow.Personal.Space.Title" = "Espace personnel";
 
 // Auth - Login flow
 "Auth.LoginFlow.Use.Keychain.Title" = "Use keychain";
@@ -340,7 +340,7 @@
 "Move To Bin" = "Move To Bin";
 
 
-"LinkAppearance.Description.None.Title" = "None";
+"LinkAppearance.Description.None.Title" = "Aucun";
 "LinkAppearance.Description.Object.Title" = "Object description";
 "LinkAppearance.Description.Content.Title" = "Content preview";
 "LinkAppearance.ObjectType.Title" = "Object type";
