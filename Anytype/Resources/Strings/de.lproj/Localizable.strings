@@ -194,7 +194,7 @@
 "Account recover error no internet" = "Account recover error, probably no internet connection";
 
 // Auth Errors
-"Error creating wallet" = "Error creating wallet";
+"Error creating wallet" = "Fehler beim Erstellen der Wallet";
 "Error select account" = "Error select account";
 "Error wallet recover account" = "Error wallet recover account";
 
@@ -206,9 +206,9 @@
 "Auth.JoinFlow.Key.Description" = "It’s a novel way of authentication that gives you full ownership over your account and data.";
 "Auth.JoinFlow.Key.TextField.Placeholder" = "Type your recovery phrase";
 "Auth.JoinFlow.Key.Button.Show.Title" = "Show Recovery Phrase";
-"Auth.JoinFlow.Key.Button.Saved.Title" = "Go to the app";
+"Auth.JoinFlow.Key.Button.Saved.Title" = "Zur App gehen";
 "Auth.JoinFlow.Key.Button.Later.Title" = "Überspringen";
-"Auth.JoinFlow.Key.Button.Copy.Title" = "Copy to clipboard";
+"Auth.JoinFlow.Key.Button.Copy.Title" = "In die Zwischenablage kopieren";
 "Auth.JoinFlow.Key.Button.Info.Title" = "Read more";
 "Auth.JoinFlow.Key.Button.Tip.Title" = "You can find Recovery Phrase later in Anytype settings";
 
@@ -250,10 +250,10 @@
 
 "Emoji" = "Emoji";
 "Random" = "Random";
-"Upload" = "Upload";
-"Change icon" = "Change icon";
-"Change cover" = "Change cover";
-"Remove" = "Remove";
+"Upload" = "Hochladen";
+"Change icon" = "Symbol ändern";
+"Change cover" = "Titelbild ändern";
+"Remove" = "Entfernen";
 
 "Solid colors" = "Solid colors";
 "Gradients" = "Gradients";
