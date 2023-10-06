@@ -5,7 +5,7 @@
     <key>Are you sure you want to delete</key>
     <dict>
       <key>NSStringLocalizedFormatKey</key>
-      <string>Bunu %#@object@ silmek istediğine emin misin?</string>
+      <string> %#@object@ öğesini silmek istediğinize emin misiniz?</string>
       <key>object</key>
       <dict>
         <key>NSStringFormatSpecTypeKey</key>
@@ -15,7 +15,7 @@
         <key>one</key>
         <string>%d nesne</string>
         <key>other</key>
-        <string>%d objects</string>
+        <string>%d nesne</string>
       </dict>
     </dict>
     <key>Object selected</key>
@@ -31,7 +31,7 @@
         <key>one</key>
         <string>%d nesne</string>
         <key>other</key>
-        <string>%d objects</string>
+        <string>%d nesne</string>
       </dict>
     </dict>
     <key>Selected blocks</key>
@@ -47,7 +47,7 @@
         <key>one</key>
         <string>%d seçilen blok</string>
         <key>other</key>
-        <string>%d selected blocks</string>
+        <string>%d seçilen blok</string>
       </dict>
     </dict>
     <key>Days to deletion account</key>
@@ -63,7 +63,7 @@
         <key>one</key>
         <string>yarın</string>
         <key>other</key>
-        <string>in %d days</string>
+        <string>%d gün içinde</string>
       </dict>
     </dict>
     <key>Widgets.Actions.BinConfirm</key>
@@ -79,7 +79,7 @@
         <key>one</key>
         <string>Bir nesne silindi</string>
         <key>other</key>
-        <string>%d objects deleted</string>
+        <string>%d nesne silindi</string>
       </dict>
     </dict>
   </dict>
