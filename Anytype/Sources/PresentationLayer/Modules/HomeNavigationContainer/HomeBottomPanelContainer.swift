@@ -8,9 +8,9 @@ struct HomeBottomPanelContainer<Content: View, BottomContent: View>: View {
     
     private var content: Content
     private var bottomPanel: BottomContent
-    @Binding private var path: NBNavigationPath
+    @Binding private var path: HomePath
     
-    init(path: Binding<NBNavigationPath>, @ViewBuilder content: () -> Content, @ViewBuilder bottomPanel: () -> BottomContent) {
+    init(path: Binding<HomePath>, @ViewBuilder content: () -> Content, @ViewBuilder bottomPanel: () -> BottomContent) {
         self._path = path
         self.content = content()
         self.bottomPanel = bottomPanel()

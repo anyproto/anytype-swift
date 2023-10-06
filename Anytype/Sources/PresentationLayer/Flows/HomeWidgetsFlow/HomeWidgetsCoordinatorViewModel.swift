@@ -34,7 +34,7 @@ final class HomeWidgetsCoordinatorViewModel: ObservableObject,
     
     private var viewLoaded = false
     private var subscriptions = [AnyCancellable]()
-    
+
     @Published var showChangeSourceData: WidgetChangeSourceSearchModuleModel?
     @Published var showChangeTypeData: WidgetTypeModuleChangeModel?
     @Published var showSearchData: SearchModuleModel?
@@ -43,7 +43,7 @@ final class HomeWidgetsCoordinatorViewModel: ObservableObject,
     @Published var showSpaceSettings: Bool = false
     @Published var showSpaceCreate: Bool = false
     @Published var showSharing: Bool = false
-    @Published var editorPath = NBNavigationPath()
+    @Published var editorPath = HomePath()
     
     @Published var info: AccountInfo? {
         didSet {
@@ -62,8 +62,7 @@ final class HomeWidgetsCoordinatorViewModel: ObservableObject,
             }, pop: { [weak self] in
                 self?.editorPath.pop()
             }, replace: { [weak self] data in
-                self?.editorPath.removeLast()
-                self?.editorPath.push(data)
+                self?.editorPath.replaceLast(data)
             }
         )
     }
@@ -125,10 +124,14 @@ final class HomeWidgetsCoordinatorViewModel: ObservableObject,
             }
             .store(in: &subscriptions)
         
-        if let data = UserDefaultsConfig.lastOpenedPage {
-            UserDefaultsConfig.lastOpenedPage = nil
-            openObject(screenData: data)
-            return
+        // Disable push
+        // Transaction with disablesAnimations doesnt work
+        // From ios 16, delete restoreLastOpenPage and use init for restore state. Read restoreLastOpenPage comment.
+        // setAnimationsEnabled will be not needed
+        UINavigationBar.setAnimationsEnabled(false)
+        editorPath.restoreLastOpenPage()
+        DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+            UINavigationBar.setAnimationsEnabled(true)
         }
     }
     
@@ -138,7 +141,7 @@ final class HomeWidgetsCoordinatorViewModel: ObservableObject,
     }
     
     func homeBottomNavigationPanelModule() -> AnyView {
-        return homeBottomNavigationPanelModuleAssembly.make(countItems: editorPath.count, output: self)
+        return homeBottomNavigationPanelModuleAssembly.make(homePath: editorPath, output: self)
     }
     
     func changeSourceModule(data: WidgetChangeSourceSearchModuleModel) -> AnyView {
@@ -267,6 +270,20 @@ final class HomeWidgetsCoordinatorViewModel: ObservableObject,
         showSpaceCreate.toggle()
     }
     
+    // MARK: - HomeBottomNavigationPanelModuleOutput
+    
+    func onHomeSelected() {
+        editorPath.popToRoot()
+    }
+    
+    func onForwardSelected() {
+        editorPath.pushFromHistory()
+    }
+    
+    func onBackwardSelected() {
+        editorPath.pop()
+    }
+    
     // MARK: - Private
     
     private func openObject(screenData: EditorScreenData) {
@@ -288,19 +305,5 @@ final class HomeWidgetsCoordinatorViewModel: ObservableObject,
         case .showSharingExtension:
             showSharing.toggle()
         }
-    }
-    
-    // MARK: - HomeBottomNavigationPanelModuleOutput
-    
-    func onHomeSelected() {
-        editorPath.popToRoot()
-    }
-    
-    func onForwardSelected() {
-        
-    }
-    
-    func onBackwardSelected() {
-        editorPath.pop()
     }
 }

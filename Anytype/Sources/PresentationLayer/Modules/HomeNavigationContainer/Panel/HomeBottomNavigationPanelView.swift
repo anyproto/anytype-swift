@@ -3,7 +3,7 @@ import SwiftUI
 
 struct HomeBottomNavigationPanelView: View {
     
-    let countItems: Int
+    let homePath: HomePath
     @StateObject var model: HomeBottomNavigationPanelViewModel
     
     var body: some View {
@@ -19,15 +19,18 @@ struct HomeBottomNavigationPanelView: View {
                 Button {
                     model.onTapForward()
                 } label: {
-                    Image(asset: .X32.Arrow.right)
+                    IconView(icon: .asset(.X32.Arrow.right))
+                        .frame(width: 32, height: 32)
                 }
                 .id("transition1")
                 .transition(.scale.combined(with: .opacity))
+                .disabled(!homePath.hasForwardPath())
             } else {
                 Button {
                     model.onTapBackward()
                 } label: {
-                    Image(asset: .X32.Arrow.left)
+                    IconView(icon: .asset(.X32.Arrow.left))
+                        .frame(width: 32, height: 32)
                 }
                 .id("transition2")
                 .transition(.scale.combined(with: .opacity))
@@ -37,14 +40,16 @@ struct HomeBottomNavigationPanelView: View {
             Button {
                 model.onTapNewObject()
             } label: {
-                Image(asset: .X32.addNew)
+                IconView(icon: .asset( .X32.addNew))
+                    .frame(width: 32, height: 32)
             }
             
             if homeMode {
                 Button {
                     model.onTapSearch()
                 } label: {
-                    Image(asset: .X32.search)
+                    IconView(icon: .asset(.X32.search))
+                        .frame(width: 32, height: 32)
                 }
                 .id("transition3")
                 .transition(.scale.combined(with: .opacity))
@@ -52,7 +57,8 @@ struct HomeBottomNavigationPanelView: View {
                 Button {
                     model.onTapHome()
                 } label: {
-                    Image(asset: .X32.dashboard)
+                    IconView(icon: .asset(.X32.dashboard))
+                        .frame(width: 32, height: 32)
                 }
                 .id("transition4")
                 .transition(.scale.combined(with: .opacity))
@@ -78,6 +84,6 @@ struct HomeBottomNavigationPanelView: View {
     }
     
     private var homeMode: Bool {
-        return countItems == 0
+        return homePath.count == 0
     }
 }

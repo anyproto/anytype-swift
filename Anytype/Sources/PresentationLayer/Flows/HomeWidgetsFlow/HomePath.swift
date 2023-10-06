@@ -1,0 +1,85 @@
+import Foundation
+import AnytypeCore
+import SwiftUI
+import NavigationBackport
+
+struct HomePath {
+    
+    private var forwardPath: [AnyHashable] = []
+    
+    fileprivate var path: [AnyHashable] = [] {
+        didSet { didChangePath(newPath: path, oldPath: oldValue) }
+    }
+    
+    var count: Int {
+        path.count
+    }
+    
+    // From ios 16 delete NavigationBackport and restore path in init.
+    @available(iOS, deprecated: 16)
+    mutating func restoreLastOpenPage() {
+        if let page = UserDefaultsConfig.lastOpenedPage {
+            path.push(page)
+        }
+    }
+    
+    mutating func push(_ item: AnyHashable) {
+        path.push(item)
+    }
+    
+    mutating func pop() {
+        _ = path.popLast()
+    }
+    
+    mutating func popToRoot() {
+        path.removeAll()
+    }
+    
+    mutating func replaceLast(_ item: AnyHashable) {
+        guard path.count > 0 else {
+            anytypeAssertionFailure("Path is 0")
+            return
+        }
+        path[path.count-1] = item
+    }
+    
+    mutating func pushFromHistory() {
+        guard let item = forwardPath.first else { return }
+        path.push(item)
+    }
+    
+    func hasForwardPath() -> Bool {
+        return forwardPath.isNotEmpty
+    }
+    
+    // MARK: - Private
+    
+    private mutating func didChangePath(newPath: [AnyHashable], oldPath: [AnyHashable]) {
+        UserDefaultsConfig.lastOpenedPage = newPath.last as? EditorScreenData
+        
+        if oldPath.count > newPath.count {
+            // Pop
+            let oldSubPath = oldPath[newPath.count...].reversed()
+            forwardPath.insert(contentsOf: oldSubPath, at: 0)
+        } else if oldPath.count < newPath.count {
+            // Push
+            let newSubPath = newPath[oldPath.count...].reversed()
+            guard forwardPath.count >= newSubPath.count, newSubPath.count > 0 else { return }
+            let currentForwardSubpath = forwardPath[...(newSubPath.count-1)]
+            if Array(newSubPath) != Array(currentForwardSubpath) {
+                forwardPath.removeAll()
+            }
+        }
+    }
+}
+
+extension NBNavigationStack where Data == AnyHashable {
+
+    init(path: Binding<HomePath>, @ViewBuilder root: () -> Root) {
+        let path = Binding(
+            get: { path.wrappedValue.path },
+            set: { path.wrappedValue.path = $0 }
+        )
+        self.init(path: path, root: root)
+    }
+}

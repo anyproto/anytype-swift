@@ -666,6 +666,7 @@
 		2ADF008C2ACD5763000D01F8 /* DeleteAccountModuleAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2ADF008B2ACD5763000D01F8 /* DeleteAccountModuleAssembly.swift */; };
 		2ADF008F2ACD5DAC000D01F8 /* StatusBarStyleModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2ADF008E2ACD5DAC000D01F8 /* StatusBarStyleModifier.swift */; };
 		2ADF00912ACD66D4000D01F8 /* NavigationGestureModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2ADF00902ACD66D4000D01F8 /* NavigationGestureModifier.swift */; };
+		2ADF00932ACF0040000D01F8 /* HomePath.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2ADF00922ACF0040000D01F8 /* HomePath.swift */; };
 		2ADF94D429CDAFB000F6FFCC /* EnvironmentConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2ADF94D329CDAFB000F6FFCC /* EnvironmentConfiguration.swift */; };
 		2ADFA9DC2949C61D00F64688 /* UIKitModule.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2ADFA9DB2949C61D00F64688 /* UIKitModule.swift */; };
 		2AE10778296C258400BAB22A /* View+LegacyAdopt.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AE10777296C258400BAB22A /* View+LegacyAdopt.swift */; };
@@ -2264,6 +2265,7 @@
 		2ADF008B2ACD5763000D01F8 /* DeleteAccountModuleAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeleteAccountModuleAssembly.swift; sourceTree = "<group>"; };
 		2ADF008E2ACD5DAC000D01F8 /* StatusBarStyleModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatusBarStyleModifier.swift; sourceTree = "<group>"; };
 		2ADF00902ACD66D4000D01F8 /* NavigationGestureModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationGestureModifier.swift; sourceTree = "<group>"; };
+		2ADF00922ACF0040000D01F8 /* HomePath.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomePath.swift; sourceTree = "<group>"; };
 		2ADF94D329CDAFB000F6FFCC /* EnvironmentConfiguration.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EnvironmentConfiguration.swift; sourceTree = "<group>"; };
 		2ADFA9DB2949C61D00F64688 /* UIKitModule.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIKitModule.swift; sourceTree = "<group>"; };
 		2AE10777296C258400BAB22A /* View+LegacyAdopt.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "View+LegacyAdopt.swift"; sourceTree = "<group>"; };
@@ -5604,6 +5606,7 @@
 				2AFEED172A73AEDB00D7A45B /* HomeWidgetsCoordinatorViewModel.swift */,
 				2AD1FCC02AB8466C00CEBE1E /* SetBottomPanelHidenEnvironment.swift */,
 				2A29873B2ACC087B009E8787 /* PageNavigationEnvironment.swift */,
+				2ADF00922ACF0040000D01F8 /* HomePath.swift */,
 			);
 			path = HomeWidgetsFlow;
 			sourceTree = "<group>";
@@ -10814,6 +10817,7 @@
 				03D1516623FB446A004027CE /* MiddlewareConfigurationProvider.swift in Sources */,
 				2AD8AFD72A851CC400F12D54 /* BlockWidgetExpandedService.swift in Sources */,
 				3D30408C27DA92F900FFE0EB /* ObjectHeaderLocalEvent.swift in Sources */,
+				2ADF00932ACF0040000D01F8 /* HomePath.swift in Sources */,
 				124A60B727130EFD0012FD2D /* ObjectDetailsExtensions.swift in Sources */,
 				533AED8C26CC421F0018E33C /* SwiftUIFont.swift in Sources */,
 				2EAA14032AA63918000A712A /* SetViewSettingsCardSizeViewModel.swift in Sources */,

@@ -4,7 +4,7 @@ import Services
 
 protocol HomeBottomNavigationPanelModuleAssemblyProtocol {
     @MainActor
-    func make(countItems: Int, output: HomeBottomNavigationPanelModuleOutput?) -> AnyView
+    func make(homePath: HomePath, output: HomeBottomNavigationPanelModuleOutput?) -> AnyView
 }
 
 final class HomeBottomNavigationPanelModuleAssembly: HomeBottomNavigationPanelModuleAssemblyProtocol {
@@ -18,9 +18,9 @@ final class HomeBottomNavigationPanelModuleAssembly: HomeBottomNavigationPanelMo
     // MARK: - HomeBottomNavigationPanelModuleAssemblyProtocol
     
     @MainActor
-    func make(countItems: Int, output: HomeBottomNavigationPanelModuleOutput?) -> AnyView {
+    func make(homePath: HomePath, output: HomeBottomNavigationPanelModuleOutput?) -> AnyView {
         return HomeBottomNavigationPanelView(
-            countItems: countItems,
+            homePath: homePath,
             model: HomeBottomNavigationPanelViewModel(
                 activeWorkpaceStorage: self.serviceLocator.activeWorkspaceStorage(),
                 subscriptionService: self.serviceLocator.singleObjectSubscriptionService(),
