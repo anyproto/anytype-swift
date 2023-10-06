@@ -3,10 +3,10 @@
 
 // MARK: Text Style in Slash and Style menu
 "TextStyle.Text.Title" = "Metin";
-"TextStyle.Text.Subtitle" = "Just start writing with a plain text";
+"TextStyle.Text.Subtitle" = "Düz bir metinle yazmaya başlayın";
 
 "TextStyle.Title.Title" = "Başlık";
-"TextStyle.Title.Subtitle" = "Big section heading";
+"TextStyle.Title.Subtitle" = "Büyük bölüm başlığı";
 
 "TextStyle.Heading.Title" = "Başlık";
 "TextStyle.Heading.Subtitle" = "Orta başlık";
@@ -111,7 +111,7 @@
 "Duplicate" = "Çoğalt";
 "Copy" = "Kopyala";
 "Preview" = "Önizleme";
-"View" = "View";
+"View" = "Görüntüle";
 "Paste" = "Yapıştır";
 "Move" = "Taşı";
 "Move to" = "Şuraya taşı";
@@ -120,7 +120,7 @@
 "Picture block subtitle" = "Resim yükle ve sayfayı zenginleştir";
 "Video block subtitle" = "Oynatılabilir video yükle";
 "Bookmark block subtitle" = "Favori bağlantınızı özetiyle kaydedin";
-"Code block subtitle" = "Capture code snippet";
+"Code block subtitle" = "Kod kesitini yakala";
 "Align right" = "Sağa hizala";
 "Align left" = "Sola hizala";
 "Align center" = "Ortaya hizala";
@@ -174,7 +174,7 @@
 "Keychain.Have you backed up your recovery phrase?" = "Kurtarma dizilimini yedekledin mi?";
 "Keychain.Error.String to Data conversion error" = "String to Data conversion error";
 "Keychain.Error.Data to String conversion error" = "Data to String conversion error";
-"Keychain.Error.Unknown Keychain Error" = "Unknown Keychain Error";
+"Keychain.Error.Unknown Keychain Error" = "Bilinmeyen Keychain hatası";
 "Keychain.SeedPhrasePlaceholder" = "witch collapse practice feed shame open despair creek road again ice least lake tree young address brain despair";
 
 // Auth
@@ -560,38 +560,38 @@
 "Open object" = "Open object";
 "Open source" = "Open source";
 "Into object" = "Into object";
-"Add below" = "Add below";
-"Change type" = "Change type";
+"Add below" = "Aşağıya ekleyin";
+"Change type" = "Türü değiştir";
 "Link to existing object" = "Link to existing object";
 "Link to object" = "Link to object";
-"Upload playable audio" = "Upload playable audio";
-"Code snippet" = "Code snippet";
+"Upload playable audio" = "Oynatılabilir ses yükle";
+"Code snippet" = "Kod parçacığı";
 "Bookmark" = "Bookmark";
 "Audio" = "Audio";
 "Video" = "Video";
 "Picture" = "Picture";
-"File" = "File";
+"File" = "Dosya";
 "No related options here" = "No related options here. You can add some";
-"Empty" = "Empty";
+"Empty" = "Boş";
 "Link to" = "Şuna bağla";
-"Unknown" = "Unknown";
+"Unknown" = "Bilinmeyen";
 "Settings" = "Ayarlar";
 "Views" = "Views";
-"Filter" = "Filter";
-"Sort" = "Sort";
-"View" = "View";
+"Filter" = "Filtre";
+"Sort" = "Sırala";
+"View" = "Görüntüle";
 "Home" = "Home";
 "Highlight" = "Highlight";
 "Create object" = "Nesne oluştur";
-"Web pages" = "Web pages";
-"Preview layout" = "Preview layout";
+"Web pages" = "Web sayfaları";
+"Preview layout" = "Önizleme düzeni";
 "Everywhere" = "Everywhere";
-"Exact day" = "Exact day";
+"Exact day" = "Tam tarih";
 "Tomorrow" = "Yarın";
 "Yesterday" = "Dün";
 "Today" = "Bugün";
-"No date" = "No date";
-"Clear" = "Clear";
+"No date" = "Tarih yok";
+"Clear" = "Temizle";
 "Create option" = "Create option ‘%@’";
 "Add URL" = "Add URL";
 "Add email" = "E-posta ekle";
@@ -645,7 +645,7 @@
 "TalbeOfContents.Empty" = "Add headings to create a table of contents";
 
 // MARK: - Simple tables
-"SimpleTableMenu.Item.clearContents" = "Clear";
+"SimpleTableMenu.Item.clearContents" = "Temizle";
 "SimpleTableMenu.Item.color" = "Renk";
 "SimpleTableMenu.Item.style" = "Stil";
 "SimpleTableMenu.Item.clearStyle" = "Reset style";
@@ -656,7 +656,7 @@
 "SimpleTableMenu.Item.MoveRight" = "Move right";
 "SimpleTableMenu.Item.Duplicate" = "Çoğalt";
 "SimpleTableMenu.Item.Delete" = "Sil";
-"SimpleTableMenu.Item.Sort" = "Sort";
+"SimpleTableMenu.Item.Sort" = "Sırala";
 
 "SimpleTableMenu.Item.InsertAbove" = "Insert above";
 "SimpleTableMenu.Item.InsertBelow" = "Insert below";
