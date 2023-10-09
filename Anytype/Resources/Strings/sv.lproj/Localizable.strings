@@ -26,15 +26,15 @@
 "TextStyle.Bulleted.Title" = "Bulleted";
 "TextStyle.Bulleted.Subtitle" = "Simple list";
 
-"TextStyle.Numbered.Title" = "Numbered list";
-"TextStyle.Numbered.Subtitle" = "Numbered list";
+"TextStyle.Numbered.Title" = "Numrerad lista";
+"TextStyle.Numbered.Subtitle" = "Numrerad lista";
 
 "TextStyle.Toggle.Title" = "Toggle";
 "TextStyle.Toggle.Subtitle" = "Hide and show content inside";
 
-"TextStyle.Bold.Title" = "Bold";
-"TextStyle.Italic.Title" = "Italic";
-"TextStyle.Strikethrough.Title" = "Strikethrough";
+"TextStyle.Bold.Title" = "Fet";
+"TextStyle.Italic.Title" = "Kursiv";
+"TextStyle.Strikethrough.Title" = "Genomstruken";
 "TextStyle.Code.Title" = "Code";
 "TextStyle.Link.Title" = "Länk";
 
@@ -310,9 +310,9 @@
 "Alert.Templates_Available.Title" = "This type has %d templates";
 "Alert.Templates_Available.Description" = "Swipe down to skip";
 "Alert.Templates_Available.Button" = "Show";
-"TemplatePicker.ChooseTemplate" = "Choose template";
+"TemplatePicker.ChooseTemplate" = "Välj mall";
 "TemplatePicker.Buttons.Skip" = "Skip";
-"TemplatePicker.Buttons.UseTemplate" = "Use template";
+"TemplatePicker.Buttons.UseTemplate" = "Använd mall";
 "TemplateSelection.SelectTemplate" = "Select template";
 "TemplateSelection.blankTemplate" = "Blank";
 "TemplateSelection.Template.Subtitle" = "Mall";
