@@ -13,9 +13,9 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>d</string>
         <key>one</key>
-        <string>%d object</string>
+        <string>%d objekt</string>
         <key>other</key>
-        <string>%d objects</string>
+        <string>%d objekt</string>
       </dict>
     </dict>
     <key>Object selected</key>
@@ -29,9 +29,9 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>d</string>
         <key>one</key>
-        <string>%d object</string>
+        <string>%d objekt</string>
         <key>other</key>
-        <string>%d objects</string>
+        <string>%d objekt</string>
       </dict>
     </dict>
     <key>Selected blocks</key>

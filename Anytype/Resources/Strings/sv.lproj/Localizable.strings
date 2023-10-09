@@ -26,15 +26,15 @@
 "TextStyle.Bulleted.Title" = "Bulleted";
 "TextStyle.Bulleted.Subtitle" = "Simple list";
 
-"TextStyle.Numbered.Title" = "Numbered list";
-"TextStyle.Numbered.Subtitle" = "Numbered list";
+"TextStyle.Numbered.Title" = "Numrerad lista";
+"TextStyle.Numbered.Subtitle" = "Numrerad lista";
 
 "TextStyle.Toggle.Title" = "Toggle";
 "TextStyle.Toggle.Subtitle" = "Hide and show content inside";
 
-"TextStyle.Bold.Title" = "Bold";
-"TextStyle.Italic.Title" = "Italic";
-"TextStyle.Strikethrough.Title" = "Strikethrough";
+"TextStyle.Bold.Title" = "Fet";
+"TextStyle.Italic.Title" = "Kursiv";
+"TextStyle.Strikethrough.Title" = "Genomstruken";
 "TextStyle.Code.Title" = "Code";
 "TextStyle.Link.Title" = "Länk";
 
@@ -96,7 +96,7 @@
 "None" = "None";
 "Callout" = "Callout";
 "Toggle empty. Tap to create block." = "Toggle empty. Tap to create block.";
-"Loading, please wait" = "Loading, please wait";
+"Loading, please wait" = "Laddar, vänligen vänta";
 "Done" = "Done";
 "Style" = "Style";
 "Color" = "Färg";
@@ -169,8 +169,8 @@
 "Keychain.Save keychain alert part 1" = "If you lose the recovery phrase and get logged out you will not be able to ";
 "Keychain.Save keychain alert part 2" = "ever access your data again";
 "Keychain.Save keychain alert part 3" = ".\nSave this recovery phrase outside of Anytype for data recovery.\nWe recommend using a secure data vault, password manager or piece of paper in the safe.";
-"Keychain.Don’t forget to save your recovery phrase" = "Don’t forget to save your recovery phrase";
-"Keychain.Show and copy phrase" = "Show and copy phrase";
+"Keychain.Don’t forget to save your recovery phrase" = "Glöm inte att spara din återställningsfras";
+"Keychain.Show and copy phrase" = "Visa och kopiera fras";
 "Keychain.Have you backed up your recovery phrase?" = "Have you backed up your recovery phrase?";
 "Keychain.Error.String to Data conversion error" = "String to Data conversion error";
 "Keychain.Error.Data to String conversion error" = "Data to String conversion error";
@@ -250,14 +250,14 @@
 
 "Emoji" = "Emoji";
 "Random" = "Random";
-"Upload" = "Upload";
+"Upload" = "Ladda upp";
 "Change icon" = "Ändra ikon";
 "Change cover" = "Change cover";
 "Remove" = "Remove";
 
 "Solid colors" = "Solid colors";
 "Gradients" = "Gradients";
-"Gallery" = "Gallery";
+"Gallery" = "Galleri";
 
 "Remove photo" = "Remove photo";
 "Basic" = "Basic";
@@ -281,9 +281,9 @@
 // MARK: - Link to search
 
 "Editor.LinkToObject.SearchPlaceholder" = "Paste link or search objects";
-"Editor.LinkToObject.PasteFromClipboard" = "Paste from clipboard";
+"Editor.LinkToObject.PasteFromClipboard" = "Klistra in från urklipp";
 "Editor.LinkToObject.LinkedTo" = "Linked to";
-"Editor.LinkToObject.CopyLink" = "Copy link";
+"Editor.LinkToObject.CopyLink" = "Kopiera länk";
 "Editor.LinkToObject.RemoveLink" = "Remove link";
 
 // MARK: - Main search
@@ -310,21 +310,21 @@
 "Alert.Templates_Available.Title" = "This type has %d templates";
 "Alert.Templates_Available.Description" = "Swipe down to skip";
 "Alert.Templates_Available.Button" = "Show";
-"TemplatePicker.ChooseTemplate" = "Choose template";
+"TemplatePicker.ChooseTemplate" = "Välj mall";
 "TemplatePicker.Buttons.Skip" = "Skip";
-"TemplatePicker.Buttons.UseTemplate" = "Use template";
+"TemplatePicker.Buttons.UseTemplate" = "Använd mall";
 "TemplateSelection.SelectTemplate" = "Select template";
 "TemplateSelection.blankTemplate" = "Blank";
-"TemplateSelection.Template.Subtitle" = "Template";
+"TemplateSelection.Template.Subtitle" = "Mall";
 "TemplateSelection.ObjectType.Subtitle" = "Object type";
 "TemplateSelection.ObjectType.NoTemplates.Title" = "This type doesn’t support templates";
 
 "TemplateOptions.Alert.SetAsDefault" = "Set as default for this view";
-"TemplateOptions.Alert.EditTemplate" = "Edit template";
+"TemplateOptions.Alert.EditTemplate" = "Redigera mall";
 "TemplateOptions.Alert.Duplicate" = "Duplicate";
 "TemplateOptions.Alert.Delete" = "Radera";
 
-"TemplateEditing.Title" = "Edit template";
+"TemplateEditing.Title" = "Redigera mall";
 "TemplateEditing.SelectButtonTitle" = "Select template";
 
 "Templates.Popup.WasAddedTo" = "New template was added to the type";
@@ -397,10 +397,10 @@
 "EditSet.Popup.Filter.Date.Option.Tomorrow" = "Tomorrow";
 "EditSet.Popup.Filter.Date.Option.LastWeek" = "Last week";
 "EditSet.Popup.Filter.Date.Option.CurrentWeek" = "Current week";
-"EditSet.Popup.Filter.Date.Option.NextWeek" = "Next week";
+"EditSet.Popup.Filter.Date.Option.NextWeek" = "Nästa vecka";
 "EditSet.Popup.Filter.Date.Option.LastMonth" = "Last month";
 "EditSet.Popup.Filter.Date.Option.CurrentMonth" = "Current month";
-"EditSet.Popup.Filter.Date.Option.NextMonth" = "Next month";
+"EditSet.Popup.Filter.Date.Option.NextMonth" = "Nästa månad";
 "EditSet.Popup.Filter.Date.Option.NumberOfDaysAgo" = "Number of days ago";
 "EditSet.Popup.Filter.Date.Option.NumberOfDaysFromNow" = "Number of days from now";
 "EditSet.Popup.Filter.Date.Option.ExactDate" = "Exact date";
@@ -437,7 +437,7 @@
 "Set.View.Settings.DefaultTemplate.Title" = "Default template";
 
 "Set.View.Settings.NoRelations.Placeholder" = "No relations";
-"Set.View.Settings.NoFilters.Placeholder" = "No filters";
+"Set.View.Settings.NoFilters.Placeholder" = "Inga filter";
 "Set.View.Settings.NoSorts.Placeholder" = "No sorts";
 "Set.View.Settings.Objects.Applied.Title" = "%d applied";
 
@@ -474,26 +474,26 @@
 
 "Unknown error" = "Unknown error";
 "Account is deleted" = "Account is deleted";
-"Add phone" = "Add phone";
+"Add phone" = "Lägg till telefon";
 "Nothing to redo" = "Nothing to redo";
 "Nothing to undo" = "Nothing to undo";
 "Progress..." = "Progress...";
-"Grey" = "Grey";
+"Grey" = "Grå";
 "Sky" = "Sky";
-"Yellow" = "Yellow";
+"Yellow" = "Gul";
 "Grey background" = "Grey background";
 "Teal background" = "Teal background";
 "Sky background" = "Sky background";
 "Yellow background" = "Yellow background";
 "Enter value" = "Enter value";
 "Select object" = "Select object";
-"Select file" = "Select file";
-"Select tag" = "Select tag";
+"Select file" = "Välj fil";
+"Select tag" = "Välj tagg";
 "Select status" = "Select status";
 "Select date" = "Select date";
 "Add email" = "Add email";
 "Add link" = "Add link";
-"Enter number" = "Enter number";
+"Enter number" = "Ange nummer";
 "Enter text" = "Enter text";
 "Unsupported value" = "Unsupported value";
 "Select relation type" = "Select relation type";
@@ -553,7 +553,7 @@
 "Not syncing" = "Not syncing";
 "Synced" = "Synced";
 "Syncing..." = "Syncing...";
-"No connection" = "No connection";
+"No connection" = "Ingen anslutning";
 "Preparing..." = "Preparing...";
 "Deleted" = "Deleted";
 "Download" = "Download";
@@ -591,17 +591,17 @@
 "Yesterday" = "Yesterday";
 "Today" = "Today";
 "No date" = "No date";
-"Clear" = "Clear";
+"Clear" = "Rensa";
 "Create option" = "Create option ‘%@’";
 "Add URL" = "Lägg till URL";
 "Add email" = "Add email";
-"Add phone number" = "Add phone number";
+"Add phone number" = "Lägg till telefonnummer";
 "Add number" = "Add number";
 "Add text" = "Add text";
 "Ok" = "Ok";
-"Error occurred. Please try again" = "Error occurred. Please try again";
+"Error occurred. Please try again" = "Ett fel uppstod. Vänligen försök igen";
 "Add" = "Lägg till";
-"Companies, contacts, friends and family" = "Companies, contacts, friends and family";
+"Companies, contacts, friends and family" = "Företag, kontakter, vänner och familj";
 "Failed to sync, trying again..." = "Failed to sync, trying again...";
 "Sync.Status.Version.Outdated.Description" = "Version outdated. Please update Anytype";
 "This object doesn't exist" = "This object doesn't exist";
@@ -609,7 +609,7 @@
 "These objects will be deleted irrevocably" = "These objects will be deleted irrevocably. You can’t undo this action.";
 "Delete account" = "Radera konto";
 "Cancel deletion" = "Cancel deletion";
-"Logout and clear data" = "Logout and clear data";
+"Logout and clear data" = "Logga ut och rensa data";
 "New" = "New";
 
 // MARK: - DeletionAlert
@@ -619,7 +619,7 @@
 // MARK: - DataviewType
 "DataviewType.grid" = "Grid";
 "DataviewType.list" = "List";
-"DataviewType.gallery" = "Gallery";
+"DataviewType.gallery" = "Galleri";
 "DataviewType.kanban" = "Kanban";
 
 // MARK: - ObjectType
@@ -637,15 +637,15 @@
 "RedactedText.pageType" = "Red pill";
 
 // MARK: - InterfaceStyle
-"InterfaceStyle.light" = "Light";
-"InterfaceStyle.dark" = "Dark";
+"InterfaceStyle.light" = "Ljust";
+"InterfaceStyle.dark" = "Mörkt";
 "InterfaceStyle.system" = "System";
 
 // MARK: Table of Contents
 "TalbeOfContents.Empty" = "Add headings to create a table of contents";
 
 // MARK: - Simple tables
-"SimpleTableMenu.Item.clearContents" = "Clear";
+"SimpleTableMenu.Item.clearContents" = "Rensa";
 "SimpleTableMenu.Item.color" = "Färg";
 "SimpleTableMenu.Item.style" = "Style";
 "SimpleTableMenu.Item.clearStyle" = "Reset style";
@@ -668,12 +668,12 @@
 // MARK: Link Past Actions
 "LinkPaste.text" = "Paste as text";
 "LinkPaste.link" = "Paste as link";
-"LinkPaste.bookmark" = "Create bookmark";
+"LinkPaste.bookmark" = "Skapa bokmärke";
 
 // Relation Actions
 "RelationAction.CopyPhone" = "Copy phone numbler";
 "RelationAction.CopyEmail" = "Copy email";
-"RelationAction.CopyLink" = "Copy link";
+"RelationAction.CopyLink" = "Kopiera länk";
 "RelationAction.Copied" = "Copied";
 "RelationAction.ReloadingContent" = "Reloading content";
 "RelationAction.ReloadContent" = "Reload object content";
@@ -694,14 +694,14 @@
 "EditorSetViewPicker.View.Not.Supported.Title" = "Unsupported";
 
 // BlockContent
-"Content.File.Upload" = "Upload a file";
-"Content.Audio.Upload" = "Upload audio";
+"Content.File.Upload" = "Ladda upp en fil";
+"Content.Audio.Upload" = "Ladda upp ljud";
 "Content.Video.Upload" = "Upload a video";
-"Content.Picture.Upload" = "Upload a picture";
+"Content.Picture.Upload" = "Ladda upp en bild";
 "Content.Common.Uploading" = "Uploading...";
-"Content.Common.Error" = "Something went wrong, try again";
+"Content.Common.Error" = "Något gick fel, försök igen";
 "Content.Bookmark.Add" = "Add a web bookmark";
-"Content.Bookmark.Loading" = "Loading, please wait...";
+"Content.Bookmark.Loading" = "Laddar, vänligen vänta...";
 "Content.DataView.InlineSet.Subtitle" = "Inline set";
 "Content.DataView.InlineCollection.Subtitle" = "Inline collection";
 "Content.DataView.InlineSet.NoSource" = "No source";
@@ -758,7 +758,7 @@
 "About.HelpTutorials" = "Help & Tutorials";
 "About.ContactUs" = "Contact Us";
 "About.Legal" = "Legal";
-"About.TermsOfUse" = "Terms of Use";
+"About.TermsOfUse" = "Användarvillkor";
 "About.PrivacyPolicy" = "Integritetspolicy";
 "About.TechInfo" = "Tech Info";
 "About.Mail.Subject" = "Support request, Account ID %@";
@@ -788,10 +788,10 @@
 "FilesList.ForceDelete.Title" = "Are you sure you want to permanently delete the files?";
 
 // MARK: - Widget object list
-"WidgetObjectList.ForceDelete.Message" = "You can’t undo this action.";
+"WidgetObjectList.ForceDelete.Message" = "Du kan inte ångra denna åtgärd.";
 
 // MARK: - Cpear cache alert
-"ClearCacheAlert.Title" = "Are you sure?";
+"ClearCacheAlert.Title" = "Är du säker?";
 "ClearCacheAlert.Description" = "All media files stored in Anytype will be deleted from your current device. They can be downloaded again from a backup node or another device.";
 
 // MARK: - Sharing
@@ -799,7 +799,7 @@
 "Sharing.Navigation.LeftButton.Title" = "Avbryt";
 "Sharing.Navigation.RightButton.Title" = "Done";
 
-"Sharing.SaveAs" = "SAVE AS";
+"Sharing.SaveAs" = "SPARA SOM";
 "Sharing.AddTo" = "Add to";
 "Sharing.LinkTo" = "Link to";
 

@@ -139,7 +139,7 @@
 "Purple background" = "Purple background";
 "Blue background" = "Blue background";
 "Green background" = "Green background";
-"Create new object" = "Create new object";
+"Create new object" = "Создать новый объект";
 "Cancel" = "Отмена";
 "Paste or type URL" = "Вставить или ввести URL-адрес";
 "No items match filter" = "Нет элементов, соответствующих фильтру";
@@ -224,27 +224,27 @@
 "Auth.JoinFlow.Soul.Description" = "First, choose a name to use inside Anytype.";
 "Auth.JoinFlow.Soul.Placeholder" = "Без названия";
 
-"Auth.JoinFlow.Creating.Soul.Title" = "Generating new account";
+"Auth.JoinFlow.Creating.Soul.Title" = "Создание нового аккаунта";
 "Auth.JoinFlow.Setting.Space.Title" = "Настройка вашего личного пространства";
 "Auth.JoinFlow.Personal.Space.Title" = "Личное пространство";
 
 // Auth - Login flow
-"Auth.LoginFlow.Use.Keychain.Title" = "Use keychain";
+"Auth.LoginFlow.Use.Keychain.Title" = "Использовать связку ключей";
 "Auth.LoginFlow.Or" = "OR";
 "Auth.LoginFlow.Textfield.Placeholder" = "Введите свою фразу восстановления";
 "Auth.LoginFlow.Enter.Button.Title" = "Войти";
-"Auth.LoginFlow.Entering.Void.Title" = "Entering the Void";
+"Auth.LoginFlow.Entering.Void.Title" = "Входим в пустоту";
 
 // Object settings
 
-"Icon" = "Icon";
-"Emoji or image for object" = "Emoji or image for object";
-"Cover" = "Cover";
+"Icon" = "Иконка";
+"Emoji or image for object" = "Эмодзи или изображение для объекта";
+"Cover" = "Обложка";
 "Background picture" = "Background picture";
-"Layout" = "Layout";
+"Layout" = "Макет";
 "Arrangement of objects on a canvas" = "Arrangement of objects on a canvas";
 
-"Search" = "Search";
+"Search" = "Поиск";
 "There is no emoji named" = "There is no emoji named";
 "Try to find a new one or upload your image" = "Try to find a new one or upload your image";
 
@@ -308,7 +308,7 @@
 
 // MARK: - Templates
 "Alert.Templates_Available.Title" = "This type has %d templates";
-"Alert.Templates_Available.Description" = "Swipe down to skip";
+"Alert.Templates_Available.Description" = "Смахните вниз, чтобы пропустить";
 "Alert.Templates_Available.Button" = "Show";
 "TemplatePicker.ChooseTemplate" = "Choose template";
 "TemplatePicker.Buttons.Skip" = "Пропустить";

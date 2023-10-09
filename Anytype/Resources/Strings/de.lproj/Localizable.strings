@@ -174,7 +174,7 @@
 "Keychain.Have you backed up your recovery phrase?" = "Hast du deine Wiederherstellungsphrase gesichert?";
 "Keychain.Error.String to Data conversion error" = "Zeichenkettenkonvertierungsfehler";
 "Keychain.Error.Data to String conversion error" = "Fehler bei der Konvertierung der Daten zu Zeichenketten";
-"Keychain.Error.Unknown Keychain Error" = "Unknown Keychain Error";
+"Keychain.Error.Unknown Keychain Error" = "Unbekannter Schlüsselbund-Fehler";
 "Keychain.SeedPhrasePlaceholder" = "witch collapse practice feed shame open despair creek road again ice least lake tree young address brain despair";
 
 // Auth
@@ -183,27 +183,27 @@
 "Create" = "Erstellen";
 "Scan QR code" = "QR-Code scannen";
 "Auth.CameraPermissionTitle" = "Bitte Zugriff erlauben";
-"Restore secret phrase from keychain" = "Restore Recovery Phrase from the keychain";
+"Restore secret phrase from keychain" = "Stelle die Wiederherstellungsphrase aus dem Schlüsselbund wieder her";
 "Auth.LogIn" = "Ich habe schon einen";
 "Auth.Join" = "Neues Konto erstellen";
 "Auth.Welcome.Subtitle" = "Anytype ist dein sicherer Ort zum Schreiben, Planen, Denken und Organisieren von allem, was dir wichtig ist.";
 "Auth.Caption.Privacy.Text" = "Durch Fortfahren stimmst du den [Nutzungsbedingungen](%@) und [Datenschutzrichtlinie](%@ ) zu";
 "Auth.Next" = "Weiter";
 
-"Account recover error" = "Account recover error, try again";
-"Account recover error no internet" = "Account recover error, probably no internet connection";
+"Account recover error" = "Fehler beim Wiederherstellen des Kontos, versuche es erneut";
+"Account recover error no internet" = "Fehler bei der Kontowiederherstellung, wahrscheinlich keine Internetverbindung";
 
 // Auth Errors
 "Error creating wallet" = "Fehler beim Erstellen der Wallet";
-"Error select account" = "Error select account";
+"Error select account" = "Fehler bei der Kontoauswahl";
 "Error wallet recover account" = "Error wallet recover account";
 
 "Search for language" = "Sprache suchen";
 
 // Auth - Join flow
 
-"Auth.JoinFlow.Key.Title" = "Save your Recovery Phrase";
-"Auth.JoinFlow.Key.Description" = "It’s a novel way of authentication that gives you full ownership over your account and data.";
+"Auth.JoinFlow.Key.Title" = "Speichere deine Wiederherstellungsphrase";
+"Auth.JoinFlow.Key.Description" = "Es handelt sich um eine neuartige Authentifizierungsart, die dir vollen Besitz über dein Konto und die Daten gibt.";
 "Auth.JoinFlow.Key.TextField.Placeholder" = "Type your recovery phrase";
 "Auth.JoinFlow.Key.Button.Show.Title" = "Show Recovery Phrase";
 "Auth.JoinFlow.Key.Button.Saved.Title" = "Zur App gehen";
@@ -249,32 +249,32 @@
 "Try to find a new one or upload your image" = "Try to find a new one or upload your image";
 
 "Emoji" = "Emoji";
-"Random" = "Random";
+"Random" = "Zufällig";
 "Upload" = "Hochladen";
 "Change icon" = "Symbol ändern";
 "Change cover" = "Titelbild ändern";
 "Remove" = "Entfernen";
 
-"Solid colors" = "Solid colors";
-"Gradients" = "Gradients";
-"Gallery" = "Gallery";
+"Solid colors" = "Vollfarben";
+"Gradients" = "Farbverläufe";
+"Gallery" = "Galerie";
 
-"Remove photo" = "Remove photo";
-"Basic" = "Basic";
-"Profile" = "Profile";
+"Remove photo" = "Foto entfernen";
+"Basic" = "Einfach";
+"Profile" = "Profil";
 "Task" = "Task";
 "Note" = "Note";
 "Choose layout type" = "Choose layout type";
 
 "Undo typing" = "Undo typing";
 "Undo" = "Undo";
-"Actions.LinkItself" = "Link to";
+"Actions.LinkItself" = "Link zu";
 "Actions.MakeAsTemplate" = "Make template";
 "Actions.TemplateMakeDefault" = "Set as default";
 
 // Object Type
 "Set" = "Set";
-"Collection" = "Collection";
+"Collection" = "Sammlung";
 
 "Editor.MovingState.ScrollToSelectedPlace" = "Scroll to select a place";
 
@@ -573,7 +573,7 @@
 "File" = "File";
 "No related options here" = "No related options here. You can add some";
 "Empty" = "Empty";
-"Link to" = "Link to";
+"Link to" = "Link zu";
 "Unknown" = "Unknown";
 "Settings" = "Settings";
 "Views" = "Views";
@@ -619,7 +619,7 @@
 // MARK: - DataviewType
 "DataviewType.grid" = "Grid";
 "DataviewType.list" = "List";
-"DataviewType.gallery" = "Gallery";
+"DataviewType.gallery" = "Galerie";
 "DataviewType.kanban" = "Kanban";
 
 // MARK: - ObjectType
@@ -801,7 +801,7 @@
 
 "Sharing.SaveAs" = "SAVE AS";
 "Sharing.AddTo" = "Add to";
-"Sharing.LinkTo" = "Link to";
+"Sharing.LinkTo" = "Link zu";
 
 "Sharing.URL.Bookmark" = "Bookmark object";
 "Sharing.URL.Text" = "Text block";
