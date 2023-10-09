@@ -4,7 +4,7 @@ import SwiftUI
 struct SpaceCreateView: View {
     
     @StateObject var model: SpaceCreateViewModel
-    @Environment(\.presentationMode) @Binding var presentationMode
+    @Environment(\.dismiss) var dismiss
     
     var body: some View {
         VStack(spacing: 0) {
@@ -28,7 +28,7 @@ struct SpaceCreateView: View {
             .padding(.horizontal, 20)
         }
         .onChange(of: model.dismiss) { _ in
-            presentationMode.dismiss()
+            dismiss()
         }
     }
 }

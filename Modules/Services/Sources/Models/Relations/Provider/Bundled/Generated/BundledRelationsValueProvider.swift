@@ -153,6 +153,8 @@ public protocol BundledRelationsValueProvider {
     var uniqueKey: String { get }
     var backlinks: ObjectId { get }
     var isUninstalled: Bool { get }
+    var spaceLocalStatus: Int? { get }
+    var spaceRemoteStatus: Int? { get }
 } 
 
 public extension BundledRelationsValueProvider where Self: RelationValueProvider {
@@ -666,5 +668,13 @@ public extension BundledRelationsValueProvider where Self: RelationValueProvider
     /// Relation that indicates document has been uninstalled
     var isUninstalled: Bool {
         return value(for: BundledRelationKey.isUninstalled.rawValue)
+    }
+    /// Relation that indicates the local status of space. Possible values: models.SpaceStatus
+    var spaceLocalStatus: Int? {
+        return value(for: BundledRelationKey.spaceLocalStatus.rawValue)
+    }
+    /// Relation that indicates the remote status of space. Possible values: models.SpaceStatus
+    var spaceRemoteStatus: Int? {
+        return value(for: BundledRelationKey.spaceRemoteStatus.rawValue)
     }
 }

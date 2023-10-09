@@ -1114,6 +1114,16 @@ public struct ClientCommands {
         }
     }
 
+    public static func blockSetCarriage(
+        _ request: Anytype_Rpc.Block.SetCarriage.Request = .init()
+    ) -> Invocation<Anytype_Rpc.Block.SetCarriage.Request, Anytype_Rpc.Block.SetCarriage.Response> {
+        return Invocation(messageName: "BlockSetCarriage", request: request) { request in
+            let requestData = try request.serializedData()
+            let responseData = Lib.ServiceBlockSetCarriage(requestData) ?? Data()
+            return try Anytype_Rpc.Block.SetCarriage.Response(serializedData: responseData)
+        }
+    }
+
     public static func blockListDelete(
         _ request: Anytype_Rpc.Block.ListDelete.Request = .init()
     ) -> Invocation<Anytype_Rpc.Block.ListDelete.Request, Anytype_Rpc.Block.ListDelete.Response> {

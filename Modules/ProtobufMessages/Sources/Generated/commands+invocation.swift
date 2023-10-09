@@ -157,6 +157,11 @@ extension Anytype_Rpc.Block.Replace.Response.Error: ResponseError {
     public var isNull: Bool { code == .null }
 }
 
+extension Anytype_Rpc.Block.SetCarriage.Response: ResultWithError {}
+extension Anytype_Rpc.Block.SetCarriage.Response.Error: ResponseError {
+    public var isNull: Bool { code == .null }
+}
+
 extension Anytype_Rpc.Block.SetFields.Response: ResultWithError {}
 extension Anytype_Rpc.Block.SetFields.Response.Error: ResponseError {
     public var isNull: Bool { code == .null }

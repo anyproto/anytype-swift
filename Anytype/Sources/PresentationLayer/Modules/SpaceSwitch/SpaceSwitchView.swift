@@ -9,7 +9,7 @@ struct SpaceSwitchView: View {
     }
     
     @StateObject var model: SpaceSwitchViewModel
-    @Environment(\.presentationMode) @Binding var presentationMode
+    @Environment(\.dismiss) var dismiss
     
     @State private var headerSize: CGSize = .zero
     @State private var spacingBetweenItems: CGFloat = 0
@@ -74,7 +74,7 @@ struct SpaceSwitchView: View {
             self.externalSpacing = externalSpacing
         }
         .onChange(of: model.dismiss) { _ in
-            presentationMode.dismiss()
+            dismiss()
         }
     }
     

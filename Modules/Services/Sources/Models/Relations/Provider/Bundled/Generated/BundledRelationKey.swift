@@ -371,4 +371,10 @@ public enum BundledRelationKey: String {
 
     /// Relation that indicates document has been uninstalled
     case isUninstalled = "isUninstalled"
+
+    /// Relation that indicates the local status of space. Possible values: models.SpaceStatus
+    case spaceLocalStatus = "spaceLocalStatus"
+
+    /// Relation that indicates the remote status of space. Possible values: models.SpaceStatus
+    case spaceRemoteStatus = "spaceRemoteStatus"
 }

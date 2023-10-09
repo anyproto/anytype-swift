@@ -8,6 +8,7 @@ public extension ObjectTypeUniqueKey {
     static let video = ObjectTypeUniqueKey(value: "ot-video")
     static let audio = ObjectTypeUniqueKey(value: "ot-audio")
     static let space = ObjectTypeUniqueKey(value: "ot-space")
+    static let spaceView = ObjectTypeUniqueKey(value: "ot-spaceView")
     static let dashboard = ObjectTypeUniqueKey(value: "ot-dashboard")
     static let objectType = ObjectTypeUniqueKey(value: "ot-objectType")
     static let relation = ObjectTypeUniqueKey(value: "ot-relation")

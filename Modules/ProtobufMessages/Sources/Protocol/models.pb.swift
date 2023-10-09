@@ -46,6 +46,7 @@ public enum Anytype_Model_SmartBlockType: SwiftProtobuf.Enum {
   case strelation // = 521
   case sttype // = 528
   case strelationOption // = 529
+  case spaceView // = 530
   case missingObject // = 519
   case UNRECOGNIZED(Int)
 
@@ -74,6 +75,7 @@ public enum Anytype_Model_SmartBlockType: SwiftProtobuf.Enum {
     case 521: self = .strelation
     case 528: self = .sttype
     case 529: self = .strelationOption
+    case 530: self = .spaceView
     default: self = .UNRECOGNIZED(rawValue)
     }
   }
@@ -99,6 +101,7 @@ public enum Anytype_Model_SmartBlockType: SwiftProtobuf.Enum {
     case .strelation: return 521
     case .sttype: return 528
     case .strelationOption: return 529
+    case .spaceView: return 530
     case .UNRECOGNIZED(let i): return i
     }
   }
@@ -128,6 +131,7 @@ extension Anytype_Model_SmartBlockType: CaseIterable {
     .strelation,
     .sttype,
     .strelationOption,
+    .spaceView,
     .missingObject,
   ]
 }
@@ -246,6 +250,80 @@ extension Anytype_Model_RelationFormat: CaseIterable {
     .emoji,
     .object,
     .relations,
+  ]
+}
+
+#endif  // swift(>=4.2)
+
+public enum Anytype_Model_SpaceStatus: SwiftProtobuf.Enum {
+  public typealias RawValue = Int
+
+  /// Unknown means the space is not loaded yet
+  case unknown // = 0
+
+  /// Loading - the space in progress of loading
+  case loading // = 1
+
+  /// Ok - the space loaded and available
+  case ok // = 2
+
+  /// Missing - the space is missing
+  case missing // = 3
+
+  /// Error - the space loading ended with an error
+  case error // = 4
+
+  /// RemoteWaitingDeletion - network status is "waiting deletion"
+  case remoteWaitingDeletion // = 5
+
+  /// RemoteDeleted - the space is deleted in the current network
+  case remoteDeleted // = 6
+  case UNRECOGNIZED(Int)
+
+  public init() {
+    self = .unknown
+  }
+
+  public init?(rawValue: Int) {
+    switch rawValue {
+    case 0: self = .unknown
+    case 1: self = .loading
+    case 2: self = .ok
+    case 3: self = .missing
+    case 4: self = .error
+    case 5: self = .remoteWaitingDeletion
+    case 6: self = .remoteDeleted
+    default: self = .UNRECOGNIZED(rawValue)
+    }
+  }
+
+  public var rawValue: Int {
+    switch self {
+    case .unknown: return 0
+    case .loading: return 1
+    case .ok: return 2
+    case .missing: return 3
+    case .error: return 4
+    case .remoteWaitingDeletion: return 5
+    case .remoteDeleted: return 6
+    case .UNRECOGNIZED(let i): return i
+    }
+  }
+
+}
+
+#if swift(>=4.2)
+
+extension Anytype_Model_SpaceStatus: CaseIterable {
+  // The compiler won't synthesize support with the UNRECOGNIZED case.
+  public static var allCases: [Anytype_Model_SpaceStatus] = [
+    .unknown,
+    .loading,
+    .ok,
+    .missing,
+    .error,
+    .remoteWaitingDeletion,
+    .remoteDeleted,
   ]
 }
 
@@ -3062,10 +3140,24 @@ public struct Anytype_Model_Object {
 
     public var key: String = String()
 
+    public var data: Data = Data()
+
     public var unknownFields = SwiftProtobuf.UnknownStorage()
 
     public init() {}
   }
+
+  public init() {}
+}
+
+public struct Anytype_Model_SpaceObjectHeader {
+  // SwiftProtobuf.Message conformance is added in an extension below. See the
+  // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+  // methods supported on all messages.
+
+  public var spaceID: String = String()
+
+  public var unknownFields = SwiftProtobuf.UnknownStorage()
 
   public init() {}
 }
@@ -3127,6 +3219,7 @@ public struct Anytype_Model_ObjectType {
     case audio // = 15
     case video // = 16
     case date // = 17
+    case spaceView // = 18
 
     /// to be released later
     case database // = 20
@@ -3156,6 +3249,7 @@ public struct Anytype_Model_ObjectType {
       case 15: self = .audio
       case 16: self = .video
       case 17: self = .date
+      case 18: self = .spaceView
       case 20: self = .database
       default: self = .UNRECOGNIZED(rawValue)
       }
@@ -3181,6 +3275,7 @@ public struct Anytype_Model_ObjectType {
       case .audio: return 15
       case .video: return 16
       case .date: return 17
+      case .spaceView: return 18
       case .database: return 20
       case .UNRECOGNIZED(let i): return i
       }
@@ -3214,6 +3309,7 @@ extension Anytype_Model_ObjectType.Layout: CaseIterable {
     .audio,
     .video,
     .date,
+    .spaceView,
     .database,
   ]
 }
@@ -3677,6 +3773,7 @@ public struct Anytype_Model_ObjectView {
 #if swift(>=5.5) && canImport(_Concurrency)
 extension Anytype_Model_SmartBlockType: @unchecked Sendable {}
 extension Anytype_Model_RelationFormat: @unchecked Sendable {}
+extension Anytype_Model_SpaceStatus: @unchecked Sendable {}
 extension Anytype_Model_SmartBlockSnapshotBase: @unchecked Sendable {}
 extension Anytype_Model_Block: @unchecked Sendable {}
 extension Anytype_Model_Block.OneOf_Content: @unchecked Sendable {}
@@ -3755,6 +3852,7 @@ extension Anytype_Model_Restrictions.DataviewRestriction: @unchecked Sendable {}
 extension Anytype_Model_Restrictions.DataviewRestrictions: @unchecked Sendable {}
 extension Anytype_Model_Object: @unchecked Sendable {}
 extension Anytype_Model_Object.ChangePayload: @unchecked Sendable {}
+extension Anytype_Model_SpaceObjectHeader: @unchecked Sendable {}
 extension Anytype_Model_ObjectType: @unchecked Sendable {}
 extension Anytype_Model_ObjectType.Layout: @unchecked Sendable {}
 extension Anytype_Model_Layout: @unchecked Sendable {}
@@ -3799,6 +3897,7 @@ extension Anytype_Model_SmartBlockType: SwiftProtobuf._ProtoNameProviding {
     521: .same(proto: "STRelation"),
     528: .same(proto: "STType"),
     529: .same(proto: "STRelationOption"),
+    530: .same(proto: "SpaceView"),
   ]
 }
 
@@ -3818,6 +3917,18 @@ extension Anytype_Model_RelationFormat: SwiftProtobuf._ProtoNameProviding {
     11: .same(proto: "tag"),
     100: .same(proto: "object"),
     101: .same(proto: "relations"),
+  ]
+}
+
+extension Anytype_Model_SpaceStatus: SwiftProtobuf._ProtoNameProviding {
+  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    0: .same(proto: "Unknown"),
+    1: .same(proto: "Loading"),
+    2: .same(proto: "Ok"),
+    3: .same(proto: "Missing"),
+    4: .same(proto: "Error"),
+    5: .same(proto: "RemoteWaitingDeletion"),
+    6: .same(proto: "RemoteDeleted"),
   ]
 }
 
@@ -6782,6 +6893,7 @@ extension Anytype_Model_Object.ChangePayload: SwiftProtobuf.Message, SwiftProtob
   public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
     1: .same(proto: "smartBlockType"),
     2: .same(proto: "key"),
+    3: .same(proto: "data"),
   ]
 
   public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
@@ -6792,6 +6904,7 @@ extension Anytype_Model_Object.ChangePayload: SwiftProtobuf.Message, SwiftProtob
       switch fieldNumber {
       case 1: try { try decoder.decodeSingularEnumField(value: &self.smartBlockType) }()
       case 2: try { try decoder.decodeSingularStringField(value: &self.key) }()
+      case 3: try { try decoder.decodeSingularBytesField(value: &self.data) }()
       default: break
       }
     }
@@ -6804,12 +6917,48 @@ extension Anytype_Model_Object.ChangePayload: SwiftProtobuf.Message, SwiftProtob
     if !self.key.isEmpty {
       try visitor.visitSingularStringField(value: self.key, fieldNumber: 2)
     }
+    if !self.data.isEmpty {
+      try visitor.visitSingularBytesField(value: self.data, fieldNumber: 3)
+    }
     try unknownFields.traverse(visitor: &visitor)
   }
 
   public static func ==(lhs: Anytype_Model_Object.ChangePayload, rhs: Anytype_Model_Object.ChangePayload) -> Bool {
     if lhs.smartBlockType != rhs.smartBlockType {return false}
     if lhs.key != rhs.key {return false}
+    if lhs.data != rhs.data {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    return true
+  }
+}
+
+extension Anytype_Model_SpaceObjectHeader: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = _protobuf_package + ".SpaceObjectHeader"
+  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    1: .same(proto: "spaceID"),
+  ]
+
+  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let fieldNumber = try decoder.nextFieldNumber() {
+      // The use of inline closures is to circumvent an issue where the compiler
+      // allocates stack space for every case branch when no optimizations are
+      // enabled. https://github.com/apple/swift-protobuf/issues/1034
+      switch fieldNumber {
+      case 1: try { try decoder.decodeSingularStringField(value: &self.spaceID) }()
+      default: break
+      }
+    }
+  }
+
+  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    if !self.spaceID.isEmpty {
+      try visitor.visitSingularStringField(value: self.spaceID, fieldNumber: 1)
+    }
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  public static func ==(lhs: Anytype_Model_SpaceObjectHeader, rhs: Anytype_Model_SpaceObjectHeader) -> Bool {
+    if lhs.spaceID != rhs.spaceID {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
@@ -6933,6 +7082,7 @@ extension Anytype_Model_ObjectType.Layout: SwiftProtobuf._ProtoNameProviding {
     15: .same(proto: "audio"),
     16: .same(proto: "video"),
     17: .same(proto: "date"),
+    18: .same(proto: "spaceView"),
     20: .same(proto: "database"),
   ]
 }
