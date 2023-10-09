@@ -196,42 +196,42 @@
 // Auth Errors
 "Error creating wallet" = "Erro ao criar a carteira";
 "Error select account" = "Erro ao selecionar conta";
-"Error wallet recover account" = "Error wallet recover account";
+"Error wallet recover account" = "Erro ao recuperar conta da carteira";
 
-"Search for language" = "Search for language";
+"Search for language" = "Pesquisar idioma";
 
 // Auth - Join flow
 
-"Auth.JoinFlow.Key.Title" = "Save your Recovery Phrase";
-"Auth.JoinFlow.Key.Description" = "It’s a novel way of authentication that gives you full ownership over your account and data.";
-"Auth.JoinFlow.Key.TextField.Placeholder" = "Type your recovery phrase";
-"Auth.JoinFlow.Key.Button.Show.Title" = "Show Recovery Phrase";
-"Auth.JoinFlow.Key.Button.Saved.Title" = "Go to the app";
-"Auth.JoinFlow.Key.Button.Later.Title" = "Skip";
-"Auth.JoinFlow.Key.Button.Copy.Title" = "Copy to clipboard";
-"Auth.JoinFlow.Key.Button.Info.Title" = "Read more";
-"Auth.JoinFlow.Key.Button.Tip.Title" = "You can find Recovery Phrase later in Anytype settings";
+"Auth.JoinFlow.Key.Title" = "Guarde a sua frase de recuperação";
+"Auth.JoinFlow.Key.Description" = "É uma nova forma de autenticação que lhe concede a titularidade total da sua conta e dos seus dados.";
+"Auth.JoinFlow.Key.TextField.Placeholder" = "Digite a sua frase de recuperação";
+"Auth.JoinFlow.Key.Button.Show.Title" = "Mostrar frase de recuperação";
+"Auth.JoinFlow.Key.Button.Saved.Title" = "Ir para a aplicação";
+"Auth.JoinFlow.Key.Button.Later.Title" = "Saltar";
+"Auth.JoinFlow.Key.Button.Copy.Title" = "Copiar para área de transferência";
+"Auth.JoinFlow.Key.Button.Info.Title" = "Ler mais";
+"Auth.JoinFlow.Key.Button.Tip.Title" = "Mais tarde, poderá encontrar a frase de recuperação nas configurações do Anytype";
 
-"Auth.JoinFlow.Key.ReadMore.Title" = "What is Recovery Phrase?";
-"Auth.JoinFlow.Key.ReadMore.Option1.Title" = "Recovery Phrase is a random combination of 12 words from which your account is magically generated on this device.";
-"Auth.JoinFlow.Key.ReadMore.Option2.Title" = "Whomever knows Recovery Phrase, owns the account. **At this moment, you are the only person in the world who knows it.**";
-"Auth.JoinFlow.Key.ReadMore.Option3.Title" = "That's why it's essential to keep Recovery Phrase safe. As the sole owner, nobody can help you if it's lost.";
-"Auth.JoinFlow.Key.ReadMore.Instruction.Title" = "How to save my phrase?";
-"Auth.JoinFlow.Key.ReadMore.Instruction.Option1.Title" = "The easiest way to store your Recovery Phrase is to save it in your password manager.";
-"Auth.JoinFlow.Key.ReadMore.Instruction.Option2.Title" = "The most secure way is to write it down on paper and keep it offline, in a safe and secure place.";
+"Auth.JoinFlow.Key.ReadMore.Title" = "O que é uma frase de recuperação?";
+"Auth.JoinFlow.Key.ReadMore.Option1.Title" = "Uma frase de recuperação é uma combinação aleatória de 12 palavras a partir das quais é possível gerar a sua conta magicamente neste dispositivo.";
+"Auth.JoinFlow.Key.ReadMore.Option2.Title" = "Quem souber qual é a frase de recuperação tem titularidade sobre a conta. **Neste momento, é a única pessoa no mundo que sabe qual é.**";
+"Auth.JoinFlow.Key.ReadMore.Option3.Title" = "É por isso que é essencial manter segura a frase de recuperação. Enquanto for a única pessoa proprietária, ninguem lhe poderá ajudar em caso de perda.";
+"Auth.JoinFlow.Key.ReadMore.Instruction.Title" = "Como é que eu guardo a minha frase?";
+"Auth.JoinFlow.Key.ReadMore.Instruction.Option1.Title" = "A maneira mais fácil de armazenar a sua frase de recuperação é guardá-la no seu gestor de palavras-passe.";
+"Auth.JoinFlow.Key.ReadMore.Instruction.Option2.Title" = "A maneira mais segura é apontá-la num papel e mantê-la em suporte físico num lugar seguro.";
 
-"Auth.JoinFlow.Soul.Title" = "Set a name for new identity";
-"Auth.JoinFlow.Soul.Description" = "First, choose a name to use inside Anytype.";
+"Auth.JoinFlow.Soul.Title" = "Definir um nome para a nova identidade.";
+"Auth.JoinFlow.Soul.Description" = "Primeiro, escolha um nome para utilizar dentro do Anytype.";
 "Auth.JoinFlow.Soul.Placeholder" = "Sem título";
 
-"Auth.JoinFlow.Creating.Soul.Title" = "Generating new account";
+"Auth.JoinFlow.Creating.Soul.Title" = "A gerar uma conta nova";
 "Auth.JoinFlow.Setting.Space.Title" = "Setting up your personal space";
 "Auth.JoinFlow.Personal.Space.Title" = "Espaço pessoal";
 
 // Auth - Login flow
 "Auth.LoginFlow.Use.Keychain.Title" = "Use keychain";
 "Auth.LoginFlow.Or" = "OR";
-"Auth.LoginFlow.Textfield.Placeholder" = "Type your recovery phrase";
+"Auth.LoginFlow.Textfield.Placeholder" = "Digite a sua frase de recuperação";
 "Auth.LoginFlow.Enter.Button.Title" = "Iniciar sessão";
 "Auth.LoginFlow.Entering.Void.Title" = "Entering the Void";
 
@@ -311,7 +311,7 @@
 "Alert.Templates_Available.Description" = "Swipe down to skip";
 "Alert.Templates_Available.Button" = "Show";
 "TemplatePicker.ChooseTemplate" = "Choose template";
-"TemplatePicker.Buttons.Skip" = "Skip";
+"TemplatePicker.Buttons.Skip" = "Saltar";
 "TemplatePicker.Buttons.UseTemplate" = "Use template";
 "TemplateSelection.SelectTemplate" = "Select template";
 "TemplateSelection.blankTemplate" = "Blank";
