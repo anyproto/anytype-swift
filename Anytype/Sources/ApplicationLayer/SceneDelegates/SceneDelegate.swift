@@ -23,6 +23,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         self.di = di
         
         connectionOptions.shortcutItem.flatMap { _ = handleQuickAction($0) }
+        handleURLContext(openURLContexts: connectionOptions.urlContexts)
 
         let applicationView = di.coordinatorsDI.application().makeView()
         window.rootViewController = UIHostingController(rootView: applicationView)
@@ -56,7 +57,17 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         return true
     }
 
-    private func handleURLContext(openURLContexts URLContexts: Set<UIOpenURLContext>) {
-        // TODO: Navigation: Check handling
+    private func handleURLContext(openURLContexts: Set<UIOpenURLContext>) {
+        guard openURLContexts.count == 1, let context = openURLContexts.first else {
+            return
+        }
+        switch context.url {
+        case URLConstants.createObjectURL:
+            AppActionStorage.shared.action = .createObject
+        case URLConstants.sharingExtenstionURL:
+            AppActionStorage.shared.action = .showSharingExtension
+        default:
+            break
+        }
     }
 }

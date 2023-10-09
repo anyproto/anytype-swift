@@ -11,9 +11,6 @@ struct ApplicationCoordinatorView: View {
         Group {
             applicationView
         }
-        .onOpenURL { url in
-            model.handleDeeplink(url: url)
-        }
         .onAppear {
             model.onAppear()
         }

@@ -54,17 +54,6 @@ final class ApplicationCoordinatorViewModel: ObservableObject {
         startObserve()
     }
     
-    func handleDeeplink(url: URL) {
-        switch url {
-        case URLConstants.createObjectURL:
-            AppActionStorage.shared.action = .createObject
-        case URLConstants.sharingExtenstionURL:
-            AppActionStorage.shared.action = .showSharingExtension
-        default:
-            break
-        }
-    }
-    
     func authView() -> AnyView {
         if let authCoordinator {
             return authCoordinator.startFlow()
