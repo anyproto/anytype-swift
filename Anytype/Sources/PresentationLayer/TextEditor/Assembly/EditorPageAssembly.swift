@@ -89,7 +89,7 @@ final class EditorAssembly {
         let model = EditorSetViewModel(
             setDocument: setDocument,
             headerViewModel: headerModel,
-            subscriptionService: serviceLocator.subscriptionService(),
+            subscriptionStorageProvider: serviceLocator.subscriptionStorageProvider(),
             dataviewService: dataviewService,
             searchService: serviceLocator.searchService(),
             detailsService: detailsService,

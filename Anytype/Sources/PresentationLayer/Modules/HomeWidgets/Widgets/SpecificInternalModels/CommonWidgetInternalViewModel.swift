@@ -2,6 +2,7 @@ import Foundation
 import Services
 import Combine
 
+@MainActor
 class CommonWidgetInternalViewModel {
     
     // MARK: - DI
@@ -44,11 +45,11 @@ class CommonWidgetInternalViewModel {
         subscriptions.removeAll()
     }
     
-    func startContentSubscription() {
+    func startContentSubscription() async {
         contentIsAppear = true
     }
     
-    func stopContentSubscription() {
+    func stopContentSubscription() async {
         contentIsAppear = false
     }
     

@@ -3,6 +3,7 @@ import Services
 import Combine
 import UIKit
 
+@MainActor
 final class SetObjectWidgetInternalViewModel: CommonWidgetInternalViewModel, WidgetDataviewInternalViewModelProtocol {
     
     // MARK: - DI
@@ -53,7 +54,7 @@ final class SetObjectWidgetInternalViewModel: CommonWidgetInternalViewModel, Wid
             .receiveOnMain()
             .sink { [weak self] details in
                 self?.name = details.title
-                self?.updateSetDocument(objectId: details.id)
+                Task { await self?.updateSetDocument(objectId: details.id) }
             }
             .store(in: &subscriptions)
     }
@@ -63,8 +64,8 @@ final class SetObjectWidgetInternalViewModel: CommonWidgetInternalViewModel, Wid
         subscriptions.removeAll()
     }
     
-    override func startContentSubscription() {
-        super.startContentSubscription()
+    override func startContentSubscription() async {
+        await super.startContentSubscription()
         setDocument?.syncPublisher.sink { [weak self] in
             self?.updateActiveViewId()
             self?.updateDataviewState()
@@ -73,8 +74,8 @@ final class SetObjectWidgetInternalViewModel: CommonWidgetInternalViewModel, Wid
         .store(in: &contentSubscriptions)
     }
     
-    override func stopContentSubscription() {
-        super.stopContentSubscription()
+    override func stopContentSubscription() async {
+        await super.stopContentSubscription()
         contentSubscriptions.removeAll()
     }
     
@@ -167,7 +168,7 @@ final class SetObjectWidgetInternalViewModel: CommonWidgetInternalViewModel, Wid
         return details?.reorderedStable(by: objectOrderIds, transform: { $0.id })
     }
     
-    private func updateSetDocument(objectId: String) {
+    private func updateSetDocument(objectId: String) async {
         guard objectId != setDocument?.objectId else {
             Task { @MainActor in
                 try await setDocument?.openForPreview()
@@ -182,7 +183,7 @@ final class SetObjectWidgetInternalViewModel: CommonWidgetInternalViewModel, Wid
         
         guard contentIsAppear else { return }
         
-        stopContentSubscription()
-        startContentSubscription()
+        await stopContentSubscription()
+        await startContentSubscription()
     }
 }

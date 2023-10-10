@@ -18,6 +18,12 @@ enum SubscriptionUpdate {
     }
 }
 
+enum SubscriptionUpdate2 {
+    case remove(BlockId)
+    case add(BlockId, after: BlockId?)
+    case move(from: BlockId, after: BlockId?)
+}
+
 typealias SubscriptionCallback = (String, SubscriptionUpdate) -> ()
 protocol SubscriptionsServiceProtocol {
    

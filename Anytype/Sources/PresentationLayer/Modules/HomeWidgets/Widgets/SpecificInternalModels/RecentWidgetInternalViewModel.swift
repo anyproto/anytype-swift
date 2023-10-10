@@ -2,6 +2,7 @@ import Foundation
 import Services
 import Combine
 
+@MainActor
 final class RecentWidgetInternalViewModel: CommonWidgetInternalViewModel, WidgetInternalViewModelProtocol {
     
     // MARK: - DI
@@ -31,13 +32,13 @@ final class RecentWidgetInternalViewModel: CommonWidgetInternalViewModel, Widget
     
     // MARK: - WidgetInternalViewModelProtocol
     
-    override func startContentSubscription() {
-        super.startContentSubscription()
+    override func startContentSubscription() async {
+        await super.startContentSubscription()
         updateSubscription()
     }
     
-    override func stopContentSubscription() {
-        super.stopContentSubscription()
+    override func stopContentSubscription() async {
+        await super.stopContentSubscription()
         recentSubscriptionService.stopSubscription()
     }
     

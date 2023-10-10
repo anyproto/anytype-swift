@@ -1,6 +1,6 @@
 import Services
 
-typealias GroupsSubscriptionCallback = (_ group: DataviewGroup, _ remove: Bool) -> ()
+typealias GroupsSubscriptionCallback = @MainActor (_ group: DataviewGroup, _ remove: Bool) async -> ()
 
 protocol GroupsSubscriptionsHandlerProtocol {
     func hasGroupsSubscriptionDataDiff(with data: GroupsSubscription) -> Bool

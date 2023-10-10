@@ -188,7 +188,7 @@ final class ServiceLocator {
     func treeSubscriptionManager() -> TreeSubscriptionManagerProtocol {
         return TreeSubscriptionManager(
             subscriptionDataBuilder: TreeSubscriptionDataBuilder(),
-            subscriptionService: subscriptionService()
+            subscriptionStorageProvider: subscriptionStorageProvider()
         )
     }
     
@@ -301,6 +301,11 @@ final class ServiceLocator {
     
     func quickActionShortcutBuilder() -> QuickActionShortcutBuilderProtocol {
         return QuickActionShortcutBuilder(activeWorkspaceStorage: activeWorkspaceStorage(), objectTypeProvider: objectTypeProvider())
+    }
+    
+    private lazy var _subscriptionStorageProvider = SubscriptionStorageProvider(toggler: subscriptionToggler())
+    func subscriptionStorageProvider() -> SubscriptionStorageProviderProtocol {
+        return _subscriptionStorageProvider
     }
     
     // MARK: - Private

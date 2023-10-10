@@ -118,7 +118,7 @@ final class SubscriptionsService: SubscriptionsServiceProtocol {
         
         await MainActor.run {
             update(data.identifier, .initialData(result.records))
-            update(data.identifier, .pageCount(numberOfPagesFromTotalCount(result.count, numberOfRowsPerPage: data.rowsPerPage)))
+            update(data.identifier, .pageCount(numberOfPagesFromTotalCount(result.total, numberOfRowsPerPage: 0)))
         }
     }
     

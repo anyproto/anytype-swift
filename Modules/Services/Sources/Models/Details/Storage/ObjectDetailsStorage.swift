@@ -30,4 +30,8 @@ public final class ObjectDetailsStorage {
         add(details: updatedDetails)
         return updatedDetails
     }
+    
+    public func removeAll() {
+        storage.removeAll()
+    }
 }

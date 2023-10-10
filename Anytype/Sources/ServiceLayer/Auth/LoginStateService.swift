@@ -7,7 +7,7 @@ protocol LoginStateServiceProtocol: AnyObject {
     func setupStateAfterLoginOrAuth(account: AccountData) async
     func setupStateAfterAuth()
     func setupStateAfterRegistration(account: AccountData) async
-    func cleanStateAfterLogout()
+    func cleanStateAfterLogout() async
 }
 
 final class LoginStateService: LoginStateServiceProtocol {
@@ -51,11 +51,11 @@ final class LoginStateService: LoginStateServiceProtocol {
         await startSubscriptions()
     }
     
-    func cleanStateAfterLogout() {
+    func cleanStateAfterLogout() async {
         UserDefaultsConfig.cleanStateAfterLogout()
         blockWidgetExpandedService.clearData()
         middlewareConfigurationProvider.removeCachedConfiguration()
-        stopSubscriptions()
+        await stopSubscriptions()
     }
     
     // MARK: - Private
@@ -66,9 +66,9 @@ final class LoginStateService: LoginStateServiceProtocol {
         await objectTypeProvider.startSubscription()
     }
     
-    private func stopSubscriptions() {
+    private func stopSubscriptions() async {
         workspacesStorage.stopSubscription()
         relationDetailsStorage.stopSubscription()
-        objectTypeProvider.stopSubscription()
+        await objectTypeProvider.stopSubscription()
     }
 }

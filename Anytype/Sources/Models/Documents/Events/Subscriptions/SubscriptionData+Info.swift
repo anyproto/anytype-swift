@@ -9,13 +9,4 @@ extension SubscriptionData {
             return description.identifier
         }
     }
-    
-    var rowsPerPage: Int {
-        switch self {
-        case .search(let data):
-            return data.limit
-        case .objects:
-            return UserDefaultsConfig.rowsPerPageInSet
-        }
-    }
 }
