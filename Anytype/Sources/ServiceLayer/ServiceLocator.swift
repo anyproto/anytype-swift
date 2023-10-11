@@ -172,7 +172,7 @@ final class ServiceLocator {
     
     func collectionsSubscriptionService() -> CollectionsSubscriptionServiceProtocol {
         return CollectionsSubscriptionService(
-            subscriptionService: subscriptionService(),
+            subscriptionStorageProvider: subscriptionStorageProvider(),
             activeWorkspaceStorage: activeWorkspaceStorage(),
             objectTypeProvider: objectTypeProvider()
         )
