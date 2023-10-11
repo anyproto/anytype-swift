@@ -7,9 +7,9 @@ protocol RecentSubscriptionServiceProtocol: AnyObject {
     func startSubscription(
         type: RecentWidgetType,
         objectLimit: Int?,
-        update: @escaping SubscriptionCallback
-    )
-    func stopSubscription()
+        update: @escaping ([ObjectDetails]) -> Void
+    ) async
+    func stopSubscription() async
 }
 
 final class RecentSubscriptionService: RecentSubscriptionServiceProtocol {
@@ -18,17 +18,17 @@ final class RecentSubscriptionService: RecentSubscriptionServiceProtocol {
         static let limit = 100
     }
     
-    private let subscriptionService: SubscriptionsServiceProtocol
+    private let subscriptionStorage: SubscriptionStorageProtocol
     private let objectTypeProvider: ObjectTypeProviderProtocol
     private let activeWorkspaceStorage: ActiveWorkpaceStorageProtocol
     private let subscriptionId = "Recent-\(UUID().uuidString)"
     
     init(
-        subscriptionService: SubscriptionsServiceProtocol,
+        subscriptionStorageProvider: SubscriptionStorageProviderProtocol,
         activeWorkspaceStorage: ActiveWorkpaceStorageProtocol,
         objectTypeProvider: ObjectTypeProviderProtocol
     ) {
-        self.subscriptionService = subscriptionService
+        self.subscriptionStorage = subscriptionStorageProvider.createSubscriptionStorage(subId: subscriptionId)
         self.activeWorkspaceStorage = activeWorkspaceStorage
         self.objectTypeProvider = objectTypeProvider
     }
@@ -36,8 +36,8 @@ final class RecentSubscriptionService: RecentSubscriptionServiceProtocol {
     func startSubscription(
         type: RecentWidgetType,
         objectLimit: Int?,
-        update: @escaping SubscriptionCallback
-    ) {
+        update: @escaping ([ObjectDetails]) -> Void
+    ) async {
         
         let sort = makeSort(type: type)
         
@@ -67,11 +67,14 @@ final class RecentSubscriptionService: RecentSubscriptionServiceProtocol {
             )
         )
         
-        subscriptionService.startSubscription(data: searchData, update: update)
+        try? await subscriptionStorage.startOrUpdateSubscription(data: searchData) { [weak self] in
+            guard let self else { return }
+            update(subscriptionStorage.items)
+        }
     }
     
-    func stopSubscription() {
-        subscriptionService.stopAllSubscriptions()
+    func stopSubscription() async {
+        try? await subscriptionStorage.stopSubscription()
     }
     
     // MARK: - Private

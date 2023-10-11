@@ -30,14 +30,18 @@ final class WidgetObjectListRecentViewModel: WidgetObjectListInternalViewModelPr
     // MARK: - WidgetObjectListInternalViewModelProtocol
     
     func onAppear() {
-        recentSubscriptionService.startSubscription(type: type, objectLimit: nil, update: { [weak self] _, update in
-            self?.details.applySubscriptionUpdate(update)
-            self?.updateRows()
-        })
+        Task {
+            await recentSubscriptionService.startSubscription(type: type, objectLimit: nil) { [weak self] details in
+                self?.details = details
+                self?.updateRows()
+            }
+        }
     }
     
     func onDisappear() {
-        recentSubscriptionService.stopSubscription()
+        Task {
+            await recentSubscriptionService.stopSubscription()
+        }
     }
     
     func subtitle(for details: ObjectDetails) -> String? {
