@@ -11,18 +11,18 @@ final class TemplatePickerViewModel {
     private var selectedTab = 0
     private let document: BaseDocumentProtocol
     private let objectService: ObjectActionsServiceProtocol
-    private let onSkip: () -> Void
+    private let onClose: () -> Void
 
     init(
         items: [Item],
         document: BaseDocumentProtocol,
         objectService: ObjectActionsServiceProtocol,
-        onSkip: @escaping () -> Void
+        onClose: @escaping () -> Void
     ) {
         self.items = items
         self.document = document
         self.objectService = objectService
-        self.onSkip = onSkip
+        self.onClose = onClose
     }
 
     func onTabChange(selectedTab: Int) {
@@ -34,11 +34,11 @@ final class TemplatePickerViewModel {
         
         Task { @MainActor in
             try await objectService.applyTemplate(objectId: document.objectId, templateId: objectId)
-            onSkip()
+            onClose()
         }
     }
 
     func onCloseButton() {
-        onSkip()
+        onClose()
     }
 }

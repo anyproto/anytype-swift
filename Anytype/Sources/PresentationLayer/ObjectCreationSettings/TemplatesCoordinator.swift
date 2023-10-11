@@ -43,7 +43,7 @@ final class TemplatesCoordinator {
                 items: items,
                 document: document,
                 objectService: ServiceLocator.shared.objectActionsService(),
-                onSkip: { [weak rootViewController] in
+                onClose: { [weak rootViewController] in
                     rootViewController?.dismiss(animated: true, completion: nil)
                 }
             )
