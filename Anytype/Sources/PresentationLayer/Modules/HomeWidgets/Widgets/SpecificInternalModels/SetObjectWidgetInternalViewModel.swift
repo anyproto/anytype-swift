@@ -143,9 +143,9 @@ final class SetObjectWidgetInternalViewModel: CommonWidgetInternalViewModel, Wid
             )
         )
         
-        try? await subscriptionStorage.startOrUpdateSubscription(data: subscriptionData) { [weak self] in
+        try? await subscriptionStorage.startOrUpdateSubscription(data: subscriptionData) { [weak self] data in
             guard let self else { return }
-            details = subscriptionStorage.items
+            details = data.items
         }
     }
     

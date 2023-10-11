@@ -116,8 +116,8 @@ final class ObjectTypeProvider: ObjectTypeProviderProtocol {
     }
     
     func startSubscription() async {
-        try? await subscriptionStorage.startOrUpdateSubscription(data: subscriptionBuilder.build()) { [weak self] in
-            self?.updateStorage()
+        try? await subscriptionStorage.startOrUpdateSubscription(data: subscriptionBuilder.build()) { [weak self] data in
+            self?.updateStorage(data: data)
         }
     }
     
@@ -160,8 +160,8 @@ final class ObjectTypeProvider: ObjectTypeProviderProtocol {
         return type
     }
     
-    private func updateStorage() {
-        objectTypes = subscriptionStorage.items.map { ObjectType(details: $0) }
+    private func updateStorage(data: SubscriptionStorageState) {
+        objectTypes = data.items.map { ObjectType(details: $0) }
         updateAllCache()
         sync = ()
     }

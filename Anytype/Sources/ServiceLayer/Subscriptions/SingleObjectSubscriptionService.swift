@@ -51,9 +51,8 @@ final class SingleObjectSubscriptionService: SingleObjectSubscriptionServiceProt
         
         let subscriptionStorage = subsctipyionStorages[subId] ?? subscriptionStorageProvider.createSubscriptionStorage(subId: subId)
         
-        try? await subscriptionStorage.startOrUpdateSubscription(data: subData) { [weak subscriptionStorage] in
-            guard let subscriptionStorage,
-                  let item = subscriptionStorage.items.first else { return }
+        try? await subscriptionStorage.startOrUpdateSubscription(data: subData) { data in
+            guard let item = data.items.first else { return }
             dataHandler(item)
         }
         

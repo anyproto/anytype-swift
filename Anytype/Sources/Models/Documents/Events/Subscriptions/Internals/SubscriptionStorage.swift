@@ -3,24 +3,27 @@ import Services
 import Combine
 import AnytypeCore
 
+struct  SubscriptionStorageState: Equatable {
+    var total: Int
+    var nextCount: Int
+    var prevCount: Int
+    var items: [ObjectDetails]
+}
+
 protocol SubscriptionStorageProtocol: AnyObject {
     var subId: String { get }
-    var total: Int { get }
-    var nextCount: Int { get }
-    var prevCount: Int { get }
-    var items: [ObjectDetails] { get }
     var detailsStorage: ObjectDetailsStorage { get }
     
-    func startOrUpdateSubscription(data: SubscriptionData, update: @MainActor @escaping () -> Void) async throws
+    func startOrUpdateSubscription(data: SubscriptionData, update: @MainActor @escaping (_ state: SubscriptionStorageState) -> Void) async throws
     func stopSubscription() async throws
 }
 
-final class SubscriptionStorage: SubscriptionStorageProtocol {
+actor SubscriptionStorage: SubscriptionStorageProtocol {
     
     // MARK: - DI
     
-    let subId: String
-    let detailsStorage: ObjectDetailsStorage
+    nonisolated let subId: String
+    nonisolated let detailsStorage: ObjectDetailsStorage
     private let toggler: SubscriptionTogglerProtocol
     
     // MARK: - State
@@ -28,13 +31,10 @@ final class SubscriptionStorage: SubscriptionStorageProtocol {
     private var subscription: AnyCancellable?
     
     private var data: SubscriptionData?
-    private var update: (@MainActor () -> Void)?
+    private var update: (@MainActor (_ data: SubscriptionStorageState) -> Void)?
     
-    private(set) var orderIds: [BlockId] = []
-    private(set) var items: [ObjectDetails] = []
-    private(set) var total: Int = 0
-    private(set) var nextCount: Int = 0
-    private(set) var prevCount: Int = 0
+    private var orderIds: [BlockId] = []
+    private var state = SubscriptionStorageState(total: 0, nextCount: 0, prevCount: 0, items: [])
     
     init(subId: String, detailsStorage: ObjectDetailsStorage, toggler: SubscriptionTogglerProtocol) {
         self.subId = subId
@@ -53,11 +53,13 @@ final class SubscriptionStorage: SubscriptionStorageProtocol {
         }
     }
     
-    func startOrUpdateSubscription(data: SubscriptionData, update: @MainActor @escaping () -> Void) async throws {
+    func startOrUpdateSubscription(data: SubscriptionData, update: @MainActor @escaping (_ state: SubscriptionStorageState) -> Void) async throws {
         guard subId == data.identifier else {
             anytypeAssertionFailure("Ids should be equals", info: ["old id": subId, "new id": data.identifier])
             return
         }
+        
+        let result = try await toggler.startSubscription(data: data)
         
         self.data = data
         self.update = update
@@ -65,18 +67,16 @@ final class SubscriptionStorage: SubscriptionStorageProtocol {
         detailsStorage.removeAll()
         orderIds.removeAll()
         
-        let result = try await toggler.startSubscription(data: data)
-        
         result.records.forEach { detailsStorage.amend(details: $0) }
         result.dependencies.forEach { detailsStorage.amend(details: $0) }
         result.records.forEach { orderIds.append($0.id) }
         
-        total = result.total
-        prevCount = result.prevCount
-        nextCount = result.nextCount
+        state.total = result.total
+        state.prevCount = result.prevCount
+        state.nextCount = result.nextCount
         
         updateItemsCache()
-        await update()
+        await update(state)
     }
     
     func stopSubscription() async throws {
@@ -89,53 +89,46 @@ final class SubscriptionStorage: SubscriptionStorageProtocol {
     private func handle(events: EventsBunch) async {
         anytypeAssert(events.localEvents.isEmpty, "Local events with emplty objectId: \(events)")
         
-        var hasChanges = false
+        let oldState = state
         
         for event in events.middlewareEvents {
             switch event.value {
             case .objectDetailsSet(let data):
                 guard idsContainsMySub(data.subIds) else { return }
-                hasChanges = true
                 _ = detailsStorage.set(data: data)
             case .objectDetailsAmend(let data):
                 guard idsContainsMySub(data.subIds) else { return }
-                hasChanges = true
                 _ = detailsStorage.amend(data: data)
             case .objectDetailsUnset(let data):
                 guard idsContainsMySub(data.subIds) else { return }
-                hasChanges = true
                 _ = detailsStorage.unset(data: data)
             case .subscriptionPosition(let data):
                 guard idsContainsMySub([data.subID]) else { return }
-                hasChanges = true
                 let update: SubscriptionUpdate = .move(from: data.id, after: data.afterID.isNotEmpty ? data.afterID : nil)
                 orderIds.applySubscriptionUpdate(update)
             case .subscriptionAdd(let data):
                 guard idsContainsMySub([data.subID]) else { return }
-                hasChanges = true
                 let update: SubscriptionUpdate = .add(data.id, after: data.afterID.isNotEmpty ? data.afterID : nil)
                 orderIds.applySubscriptionUpdate(update)
             case .subscriptionRemove(let data):
                 guard idsContainsMySub([data.subID]) else { return }
-                hasChanges = true
                 let update: SubscriptionUpdate = .remove(data.id)
                 orderIds.applySubscriptionUpdate(update)
             case .objectRemove:
                 break // unsupported (Not supported in middleware converter also)
             case .subscriptionCounters(let data):
                 guard idsContainsMySub([data.subID]) else { return }
-                hasChanges = true
-                total = Int(data.total)
-                nextCount = Int(data.nextCount)
-                prevCount = Int(data.prevCount)
+                state.total = Int(data.total)
+                state.nextCount = Int(data.nextCount)
+                state.prevCount = Int(data.prevCount)
             default:
                 break
             }
         }
         
-        if hasChanges {
+        if oldState != state {
             updateItemsCache()
-            await update?()
+            await update?(state)
         }
     }
     
@@ -145,6 +138,6 @@ final class SubscriptionStorage: SubscriptionStorageProtocol {
     }
     
     private func updateItemsCache() {
-        items = orderIds.compactMap { detailsStorage.get(id: $0) }
+        state.items = orderIds.compactMap { detailsStorage.get(id: $0) }
     }
 }

@@ -409,16 +409,16 @@ final class EditorSetViewModel: ObservableObject {
         let subscription = subscriptionStorages[data.identifier] ?? subscriptionStorageProvider.createSubscriptionStorage(subId: data.identifier)
         subscriptionStorages[data.identifier] = subscription
         
-        try? await subscription.startOrUpdateSubscription(data: data) { [weak subscription, weak self] in
-            guard let self, let subscription else { return }
-            updateData(with: subscription.subId, numberOfRowsPerPage: numberOfRowsPerPage, subscription: subscription)
+        try? await subscription.startOrUpdateSubscription(data: data) { [weak self] state in
+            guard let self else { return }
+            updateData(with: subscriptionId, numberOfRowsPerPage: numberOfRowsPerPage, state: state)
         }
     }
     
-    private func updateData(with groupId: String, numberOfRowsPerPage: Int, subscription: SubscriptionStorageProtocol) {
-        let pagesCount = numberOfRowsPerPage > 0 ? Int(ceil(Float(subscription.total) / Float(numberOfRowsPerPage))) : 0
+    private func updateData(with groupId: String, numberOfRowsPerPage: Int, state: SubscriptionStorageState) {
+        let pagesCount = numberOfRowsPerPage > 0 ? Int(ceil(Float(state.total) / Float(numberOfRowsPerPage))) : 0
         updatePageCount(pagesCount, groupId: groupId, ignorePageLimit: activeView.type.hasGroups)
-        recordsDict[groupId] = subscription.items
+        recordsDict[groupId] = state.items
         updateConfigurations(with: [groupId])
     }
     

@@ -58,8 +58,8 @@ final class RelationDetailsStorage: RelationDetailsStorageProtocol {
     }
     
     func startSubscription() async {
-        try? await subscriptionStorage.startOrUpdateSubscription(data: subscriptionDataBuilder.build()) { [weak self] in
-            self?.updateaDat()
+        try? await subscriptionStorage.startOrUpdateSubscription(data: subscriptionDataBuilder.build()) { [weak self] data in
+            self?.updateaData(data: data)
         }
     }
     
@@ -72,9 +72,9 @@ final class RelationDetailsStorage: RelationDetailsStorageProtocol {
     
     // MARK: - Private
     
-    private func updateaDat() {
+    private func updateaData(data: SubscriptionStorageState) {
         let oldDetails = details
-        details = subscriptionStorage.items.map { RelationDetails(objectDetails: $0) }
+        details = data.items.map { RelationDetails(objectDetails: $0) }
         updateSearchCache()
         relationsDetailsSubject.send(details)
 

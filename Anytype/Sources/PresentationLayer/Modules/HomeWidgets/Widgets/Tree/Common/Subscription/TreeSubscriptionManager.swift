@@ -41,8 +41,8 @@ final class TreeSubscriptionManager: TreeSubscriptionManagerProtocol {
         }
         
         let subscriptionData = subscriptionDataBuilder.build(objectIds: objectIds)
-        try? await subscriptionStorage.startOrUpdateSubscription(data: subscriptionData) { [weak self] in
-            self?.handleStorage()
+        try? await subscriptionStorage.startOrUpdateSubscription(data: subscriptionData) { [weak self] data in
+            self?.handleStorage(data: data)
         }
         return true
     }
@@ -55,8 +55,8 @@ final class TreeSubscriptionManager: TreeSubscriptionManagerProtocol {
     
     // MARK: - Private
     
-    private func handleStorage() {
-        let result = subscriptionStorage.items.filter(\.isNotDeletedAndSupportedForEdit)
+    private func handleStorage(data: SubscriptionStorageState) {
+        let result = data.items.filter(\.isNotDeletedAndSupportedForEdit)
         handler?(result)
     }
 }

@@ -28,9 +28,9 @@ final class WorkspacesStorage: WorkspacesStorageProtocol {
     
     func startSubscription() async {
         let data = subscriptionBuilder.build()
-        try? await subscriptionStorage.startOrUpdateSubscription(data: data) { [weak self] in
+        try? await subscriptionStorage.startOrUpdateSubscription(data: data) { [weak self] data in
             guard let self else { return }
-            workspaces = subscriptionStorage.items
+            workspaces = data.items
         }
     }
     

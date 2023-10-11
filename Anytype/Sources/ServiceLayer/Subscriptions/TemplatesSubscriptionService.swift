@@ -40,9 +40,8 @@ final class TemplatesSubscriptionService: TemplatesSubscriptionServiceProtocol {
             )
         )
         
-        try? await subscriptionStorage.startOrUpdateSubscription(data: searchData) { [weak self] in
-            guard let self else { return }
-            update(subscriptionStorage.items)
+        try? await subscriptionStorage.startOrUpdateSubscription(data: searchData) { data in
+            update(data.items)
         }
     }
 }
