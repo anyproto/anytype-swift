@@ -43,6 +43,8 @@ jobs:
 
       - name: Download Middleware
         run: make setup-middle 
+        env:
+          MIDDLEWARE_TOKEN: ${{ secrets.MIDDLEWARE_TOKEN }}
 
       - name: Run unit tests
         run: bundle exec fastlane tests
