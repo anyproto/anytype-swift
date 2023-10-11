@@ -8,7 +8,7 @@ import AnytypeCore
 final class RemoteStorageViewModel: ObservableObject {
     
     private enum Constants {
-        static let subSpaceId = "RemoteStorageViewModel-Space"
+        
         static let warningPercent = 0.9
         static let mailTo = "storage@anytype.io"
     }
@@ -19,6 +19,7 @@ final class RemoteStorageViewModel: ObservableObject {
     private let fileLimitsStorage: FileLimitsStorageProtocol
     private weak var output: RemoteStorageModuleOutput?
     private var subscriptions = [AnyCancellable]()
+    private let subSpaceId = "RemoteStorageViewModel-Space-\(UUID())"
     
     private let byteCountFormatter: ByteCountFormatter = {
         let formatter = ByteCountFormatter()
@@ -53,7 +54,9 @@ final class RemoteStorageViewModel: ObservableObject {
         self.fileLimitsStorage = fileLimitsStorage
         self.output = output
         setupPlaceholderState()
-        setupSubscription()
+        Task {
+            await setupSubscription()
+        }
     }
         
     func onTapManageFiles() {
@@ -83,7 +86,7 @@ final class RemoteStorageViewModel: ObservableObject {
     
     // MARK: - Private
     
-    private func setupSubscription() {
+    private func setupSubscription() async {
         fileLimitsStorage.setupSpaceId(spaceId: activeWorkspaceStorage.workspaceInfo.accountSpaceId)
         fileLimitsStorage.limits
             .receiveOnMain()
@@ -99,8 +102,8 @@ final class RemoteStorageViewModel: ObservableObject {
             .store(in: &subscriptions)
             
         
-        subscriptionService.startSubscription(
-            subIdPrefix: Constants.subSpaceId,
+        await subscriptionService.startSubscription(
+            subId: subSpaceId,
             objectId: activeWorkspaceStorage.workspaceInfo.workspaceObjectId
         ) { [weak self] details in
             self?.handleSpaceDetails(details: details)

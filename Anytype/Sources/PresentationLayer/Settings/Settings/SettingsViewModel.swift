@@ -7,11 +7,6 @@ import Services
 @MainActor
 final class SettingsViewModel: ObservableObject {
     
-    private enum Constants {
-        static let subSpaceId = "SettingsViewModel-Space"
-        static let subAccountId = "SettingsAccount"
-    }
-    
     // MARK: - DI
     
     private let activeWorkspaceStorage: ActiveWorkpaceStorageProtocol
@@ -24,6 +19,8 @@ final class SettingsViewModel: ObservableObject {
     private var subscriptions: [AnyCancellable] = []
     private var spaceDataLoaded: Bool = false
     private var profileDataLoaded: Bool = false
+    private let subSpaceId = "SettingsViewModel-Space-\(UUID().uuidString)"
+    private let subAccountId = "SettingsAccount-\(UUID().uuidString)"
     
     @Published var spaceName: String = ""
     @Published var spaceIcon: Icon?
@@ -40,8 +37,9 @@ final class SettingsViewModel: ObservableObject {
         self.subscriptionService = subscriptionService
         self.objectActionsService = objectActionsService
         self.output = output
-        
-        setupSubscription()
+        Task {
+            await setupSubscription()
+        }
     }
     
     func onAppear() {
@@ -82,16 +80,16 @@ final class SettingsViewModel: ObservableObject {
     
     // MARK: - Private
     
-    private func setupSubscription() {
-        subscriptionService.startSubscription(
-            subIdPrefix: Constants.subSpaceId,
+    private func setupSubscription() async {
+        await subscriptionService.startSubscription(
+            subId: subSpaceId,
             objectId: activeWorkspaceStorage.workspaceInfo.workspaceObjectId
         ) { [weak self] details in
             self?.handleSpaceDetails(details: details)
         }
         
-        subscriptionService.startSubscription(
-            subIdPrefix: Constants.subAccountId,
+        await subscriptionService.startSubscription(
+            subId: subAccountId,
             objectId: activeWorkspaceStorage.workspaceInfo.profileObjectID
         ) { [weak self] details in
             self?.handleProfileDetails(details: details)

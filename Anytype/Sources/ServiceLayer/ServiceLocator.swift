@@ -86,13 +86,6 @@ final class ServiceLocator {
         DetailsService(objectId: objectId, service: objectActionsService(), fileService: fileService())
     }
     
-    func subscriptionService() -> SubscriptionsServiceProtocol {
-        SubscriptionsService(
-            toggler: subscriptionToggler(),
-            storage: ObjectDetailsStorage()
-        )
-    }
-    
     func bookmarkService() -> BookmarkServiceProtocol {
         BookmarkService()
     }
@@ -236,7 +229,10 @@ final class ServiceLocator {
     }
     
     func singleObjectSubscriptionService() -> SingleObjectSubscriptionServiceProtocol {
-        SingleObjectSubscriptionService(subscriptionService: subscriptionService(), subscriotionBuilder: objectsCommonSubscriptionDataBuilder())
+        SingleObjectSubscriptionService(
+            subscriptionStorageProvider: subscriptionStorageProvider(),
+            subscriotionBuilder: objectsCommonSubscriptionDataBuilder()
+        )
     }
     
     func fileLimitsStorage() -> FileLimitsStorageProtocol {

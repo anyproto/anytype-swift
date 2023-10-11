@@ -108,17 +108,17 @@ final class SubscriptionStorage: SubscriptionStorageProtocol {
             case .subscriptionPosition(let data):
                 guard idsContainsMySub([data.subID]) else { return }
                 hasChanges = true
-                let update: SubscriptionUpdate2 = .move(from: data.id, after: data.afterID.isNotEmpty ? data.afterID : nil)
+                let update: SubscriptionUpdate = .move(from: data.id, after: data.afterID.isNotEmpty ? data.afterID : nil)
                 orderIds.applySubscriptionUpdate(update)
             case .subscriptionAdd(let data):
                 guard idsContainsMySub([data.subID]) else { return }
                 hasChanges = true
-                let update: SubscriptionUpdate2 = .add(data.id, after: data.afterID.isNotEmpty ? data.afterID : nil)
+                let update: SubscriptionUpdate = .add(data.id, after: data.afterID.isNotEmpty ? data.afterID : nil)
                 orderIds.applySubscriptionUpdate(update)
             case .subscriptionRemove(let data):
                 guard idsContainsMySub([data.subID]) else { return }
                 hasChanges = true
-                let update: SubscriptionUpdate2 = .remove(data.id)
+                let update: SubscriptionUpdate = .remove(data.id)
                 orderIds.applySubscriptionUpdate(update)
             case .objectRemove:
                 break // unsupported (Not supported in middleware converter also)

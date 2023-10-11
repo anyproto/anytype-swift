@@ -40,8 +40,10 @@ final class SpaceSwitchViewModel: ObservableObject {
         self.activeWorkspaceStorage = activeWorkspaceStorage
         self.subscriptionService = subscriptionService
         self.output = output
-        startProfileSubscriotions()
-        startSpacesSubscriotions()
+        Task {
+            await startProfileSubscriotions()
+            startSpacesSubscriotions()
+        }
     }
     
     func onTapAddSpace() {
@@ -54,9 +56,9 @@ final class SpaceSwitchViewModel: ObservableObject {
     
     // MARK: - Private
     
-    private func startProfileSubscriotions() {
-        subscriptionService.startSubscription(
-            subIdPrefix: profileSubId,
+    private func startProfileSubscriotions() async {
+        await subscriptionService.startSubscription(
+            subId: profileSubId,
             objectId: activeWorkspaceStorage.workspaceInfo.profileObjectID
         ) { [weak self] details in
             self?.updateProfile(profile: details)

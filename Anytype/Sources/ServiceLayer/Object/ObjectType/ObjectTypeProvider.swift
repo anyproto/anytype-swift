@@ -3,8 +3,6 @@ import Services
 import ProtobufMessages
 import Combine
 
-extension ObjectType: IdProvider {}
-
 enum ObjectTypeError: Error {
     case objectTypeNotFound
 }

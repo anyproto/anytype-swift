@@ -3,8 +3,6 @@ import Services
 import AnytypeCore
 import Combine
 
-extension RelationDetails: IdProvider {}
-
 enum RelationDetailsStorageError: Error {
     case relationNotFound
 }
