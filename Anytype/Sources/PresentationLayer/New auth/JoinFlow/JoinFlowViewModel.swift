@@ -4,7 +4,6 @@ import SwiftUI
 final class JoinFlowViewModel: ObservableObject, JoinFlowStepOutput {
     
     @Published var step: JoinFlowStep = JoinFlowStep.firstStep
-    @Published var showNavigation = false
     @Published var forward = true
     @Published var errorText: String? {
         didSet {
@@ -44,7 +43,6 @@ final class JoinFlowViewModel: ObservableObject, JoinFlowStepOutput {
         
         withAnimation {
             step = nextStep
-            showNavigation = nextStep.countableStep
         }
     }
     
@@ -54,7 +52,6 @@ final class JoinFlowViewModel: ObservableObject, JoinFlowStepOutput {
         
         withAnimation {
             step = previousStep
-            showNavigation = previousStep.countableStep
         }
     }
     

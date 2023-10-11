@@ -745,12 +745,12 @@ internal enum Loc {
         }
       }
       internal enum Soul {
-        /// First, choose a name to use inside Anytype.
-        internal static let description = Loc.tr("Localizable", "Auth.JoinFlow.Soul.Description", fallback: "First, choose a name to use inside Anytype.")
+        /// This is how you will appear in the app.
+        internal static let description = Loc.tr("Localizable", "Auth.JoinFlow.Soul.Description", fallback: "This is how you will appear in the app.")
         /// Untitled
         internal static let placeholder = Loc.tr("Localizable", "Auth.JoinFlow.Soul.Placeholder", fallback: "Untitled")
-        /// Set a name for new identity
-        internal static let title = Loc.tr("Localizable", "Auth.JoinFlow.Soul.Title", fallback: "Set a name for new identity")
+        /// Set your name
+        internal static let title = Loc.tr("Localizable", "Auth.JoinFlow.Soul.Title", fallback: "Set your name")
       }
     }
     internal enum LoginFlow {

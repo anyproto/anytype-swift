@@ -1,6 +1,7 @@
+import AnytypeCore
+
 enum JoinFlowStep: Int, CaseIterable {
-    case creatingSoul
-    case soul
+    case soul = 1
     case key
     
     var next: JoinFlowStep? {
@@ -20,11 +21,11 @@ enum JoinFlowStep: Int, CaseIterable {
     }
     
     static var firstStep: JoinFlowStep {
-        JoinFlowStep.allCases.first ?? .creatingSoul
+        JoinFlowStep.allCases.first ?? .soul
     }
     
-    var isFirstCountable: Bool {
-        self == JoinFlowStep.allCases.filter { $0.countableStep }.first
+    var isFirst: Bool {
+        self == JoinFlowStep.allCases.first
     }
     
     var isLast: Bool {
@@ -32,15 +33,6 @@ enum JoinFlowStep: Int, CaseIterable {
     }
     
     static var totalCount: Int {
-        JoinFlowStep.allCases.filter { $0.countableStep }.count
-    }
-    
-    var countableStep: Bool {
-        switch self {
-        case .creatingSoul:
-            return false
-        case .key, .soul:
-            return true
-        }
+        JoinFlowStep.allCases.count
     }
 }

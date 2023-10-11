@@ -11,7 +11,7 @@ struct JoinFlowView: View {
         }
         .customBackSwipe {
             guard !model.disableBackAction else { return }
-            if model.step.isFirstCountable {
+            if model.step.isFirst {
                  presentationMode.dismiss()
              } else {
                  model.onBack()
@@ -32,7 +32,7 @@ struct JoinFlowView: View {
             navigationBar
             
             Spacer.fixedHeight(
-                UIDevice.isPad || !model.step.countableStep ? height / Constants.offsetFactor : Constants.topOffset
+                UIDevice.isPad ? height / Constants.offsetFactor : Constants.topOffset
             )
             
             model.content()
@@ -56,13 +56,12 @@ struct JoinFlowView: View {
                 backButton
             })
         }
-        .opacity(model.showNavigation ? 1 : 0)
         .frame(height: 44)
     }
     
     private var backButton : some View {
         Button(action: {
-            if model.step.isFirstCountable {
+            if model.step.isFirst {
                 presentationMode.dismiss()
             } else {
                 model.onBack()
