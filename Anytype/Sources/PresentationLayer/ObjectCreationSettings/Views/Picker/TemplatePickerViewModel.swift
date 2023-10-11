@@ -38,7 +38,7 @@ final class TemplatePickerViewModel {
         }
     }
 
-    func onSkipButton() {
+    func onCloseButton() {
         onSkip()
     }
 }

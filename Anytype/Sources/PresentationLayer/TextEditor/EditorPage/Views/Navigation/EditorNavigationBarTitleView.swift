@@ -62,7 +62,7 @@ extension EditorNavigationBarTitleView: ConfigurableView {
             iconImageView.isHidden = true
             arrowImageView.isHidden = true
         case let .templates(model):
-            titleLabel.setText(Loc.Alert.TemplatesAvailable.title(model.count), style: .caption1Medium)
+            titleLabel.setText(Loc.TemplateSelection.Available.title(model.count), style: .caption1Medium)
             titleLabel.isUserInteractionEnabled = true
             titleLabel.addTapGesture { _ in model.onTap() }
             arrowImageView.isHidden = false

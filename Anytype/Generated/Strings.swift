@@ -617,16 +617,6 @@ internal enum Loc {
       /// Settings
       internal static let settings = Loc.tr("Localizable", "Alert.CameraPermissions.Settings", fallback: "Settings")
     }
-    internal enum TemplatesAvailable {
-      /// Show
-      internal static let button = Loc.tr("Localizable", "Alert.Templates_Available.Button", fallback: "Show")
-      /// Swipe down to skip
-      internal static let description = Loc.tr("Localizable", "Alert.Templates_Available.Description", fallback: "Swipe down to skip")
-      /// This type has %d templates
-      internal static func title(_ p1: Int) -> String {
-        return Loc.tr("Localizable", "Alert.Templates_Available.Title", p1, fallback: "This type has %d templates")
-      }
-    }
   }
   internal enum Auth {
     /// Please allow access
@@ -1734,8 +1724,6 @@ internal enum Loc {
     /// Choose template
     internal static let chooseTemplate = Loc.tr("Localizable", "TemplatePicker.ChooseTemplate", fallback: "Choose template")
     internal enum Buttons {
-      /// Skip
-      internal static let skip = Loc.tr("Localizable", "TemplatePicker.Buttons.Skip", fallback: "Skip")
       /// Use template
       internal static let useTemplate = Loc.tr("Localizable", "TemplatePicker.Buttons.UseTemplate", fallback: "Use template")
     }
@@ -1745,6 +1733,12 @@ internal enum Loc {
     internal static let blankTemplate = Loc.tr("Localizable", "TemplateSelection.blankTemplate", fallback: "Blank")
     /// Select template
     internal static let selectTemplate = Loc.tr("Localizable", "TemplateSelection.SelectTemplate", fallback: "Select template")
+    internal enum Available {
+      /// This type has %d templates
+      internal static func title(_ p1: Int) -> String {
+        return Loc.tr("Localizable", "TemplateSelection.Available.Title", p1, fallback: "This type has %d templates")
+      }
+    }
     internal enum ObjectType {
       /// Object type
       internal static let subtitle = Loc.tr("Localizable", "TemplateSelection.ObjectType.Subtitle", fallback: "Object type")
