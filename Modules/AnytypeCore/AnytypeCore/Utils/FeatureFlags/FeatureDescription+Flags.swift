@@ -125,12 +125,6 @@ public extension FeatureDescription {
         debugValue: false
     )
     
-    static let skipCreatingSoul = FeatureDescription(
-        title: "Skip Creating Soul - IOS-1789",
-        type: .feature(author: "joe_pusya@anytype.io", releaseVersion: "0.25.2"),
-        defaultValue: true
-    )
-    
     // MARK: - Debug
     
     static let rainbowViews = FeatureDescription(

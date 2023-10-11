@@ -86,10 +86,6 @@ public extension FeatureFlags {
         value(for: .newSetSettings)
     }
 
-    static var skipCreatingSoul: Bool {
-        value(for: .skipCreatingSoul)
-    }
-
     static var rainbowViews: Bool {
         value(for: .rainbowViews)
     }
@@ -132,7 +128,6 @@ public extension FeatureFlags {
         .recentEditWidget,
         .widgetTaskDone,
         .newSetSettings,
-        .skipCreatingSoul,
         .rainbowViews,
         .showAlertOnAssert,
         .analytics,
