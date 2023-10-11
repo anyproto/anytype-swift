@@ -7,9 +7,9 @@ protocol FilesSubscriptionServiceProtocol: AnyObject {
     func startSubscription(
         syncStatus: FileSyncStatus,
         objectLimit: Int?,
-        update: @escaping SubscriptionCallback
-    )
-    func stopSubscription()
+        update: @escaping ([ObjectDetails]) -> Void
+    ) async
+    func stopSubscription() async
 }
 
 final class FilesSubscriptionService: FilesSubscriptionServiceProtocol {
@@ -18,15 +18,15 @@ final class FilesSubscriptionService: FilesSubscriptionServiceProtocol {
         static let limit = 100
     }
     
-    private let subscriptionService: SubscriptionsServiceProtocol
+    private let subscriptionStorage: SubscriptionStorageProtocol
     private let activeWorkspaceStorage: ActiveWorkpaceStorageProtocol
     private let subscriptionId = "Files-\(UUID().uuidString)"
     
     init(
-        subscriptionService: SubscriptionsServiceProtocol,
+        subscriptionStorageProvider: SubscriptionStorageProviderProtocol,
         activeWorkspaceStorage: ActiveWorkpaceStorageProtocol
     ) {
-        self.subscriptionService = subscriptionService
+        self.subscriptionStorage = subscriptionStorageProvider.createSubscriptionStorage(subId: subscriptionId)
         self.activeWorkspaceStorage = activeWorkspaceStorage
     }
     
@@ -35,8 +35,8 @@ final class FilesSubscriptionService: FilesSubscriptionServiceProtocol {
     func startSubscription(
         syncStatus: FileSyncStatus,
         objectLimit: Int?,
-        update: @escaping SubscriptionCallback
-    ) {
+        update: @escaping ([ObjectDetails]) -> Void
+    ) async {
         
         let sort = SearchHelper.sort(
             relation: BundledRelationKey.sizeInBytes,
@@ -64,10 +64,13 @@ final class FilesSubscriptionService: FilesSubscriptionServiceProtocol {
             )
         )
         
-        subscriptionService.startSubscription(data: searchData, update: update)
+        try? await subscriptionStorage.startOrUpdateSubscription(data: searchData) { [weak self] in
+            guard let self else { return }
+            update(subscriptionStorage.items)
+        }
     }
     
-    func stopSubscription() {
-        subscriptionService.stopAllSubscriptions()
+    func stopSubscription() async {
+        try? await subscriptionStorage.stopSubscription()
     }
 }

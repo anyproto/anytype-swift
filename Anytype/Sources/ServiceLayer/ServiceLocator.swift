@@ -193,7 +193,10 @@ final class ServiceLocator {
     }
     
     func filesSubscriptionManager() -> FilesSubscriptionServiceProtocol {
-        return FilesSubscriptionService(subscriptionService: subscriptionService(), activeWorkspaceStorage: activeWorkspaceStorage())
+        return FilesSubscriptionService(
+            subscriptionStorageProvider: subscriptionStorageProvider(),
+            activeWorkspaceStorage: activeWorkspaceStorage()
+        )
     }
     
     private lazy var _middlewareConfigurationProvider = MiddlewareConfigurationProvider()

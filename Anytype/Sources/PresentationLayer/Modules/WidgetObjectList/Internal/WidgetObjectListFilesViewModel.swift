@@ -30,13 +30,17 @@ final class WidgetObjectListFilesViewModel: WidgetObjectListInternalViewModelPro
     
     func onAppear() {
         AnytypeAnalytics.instance().logScreenSettingsStorageManager()
-        subscriptionService.startSubscription(syncStatus: .synced, objectLimit: nil, update: { [weak self] _, update in
-            self?.details.applySubscriptionUpdate(update)
-        })
+        Task {
+            await subscriptionService.startSubscription(syncStatus: .synced, objectLimit: nil, update: { [weak self] details in
+                self?.details = details
+            })
+        }
     }
     
     func onDisappear() {
-        subscriptionService.stopSubscription()
+        Task {
+            await subscriptionService.stopSubscription()
+        }
     }
     
     func subtitle(for details: ObjectDetails) -> String? {
