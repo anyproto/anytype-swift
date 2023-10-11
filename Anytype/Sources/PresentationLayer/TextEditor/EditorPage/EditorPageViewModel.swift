@@ -151,10 +151,10 @@ final class EditorPageViewModel: EditorPageViewModelProtocol {
         let blocksViewModels = blockBuilder.buildEditorItems(infos: models)
         
         handleGeneralUpdate(with: blocksViewModels)
-
+        handleTemplatesIfNeeded()
+        
         if !document.isLocked {
             cursorManager.handleGeneralUpdate(with: modelsHolder.items, type: document.details?.type)
-            handleTemplatesIfNeeded()
         }
     }
 
@@ -212,7 +212,7 @@ final class EditorPageViewModel: EditorPageViewModelProtocol {
     }
     
     private func handleTemplatesIfNeeded() {
-        guard configuration.shouldShowTemplateSelection,
+        guard !document.isLocked, configuration.shouldShowTemplateSelection,
               let details = document.details, details.isSelectTemplate else {
             templatesSubscriptionService.stopSubscription()
             viewInput?.update(details: document.details, templatesCount: 0)
