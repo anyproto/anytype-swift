@@ -76,16 +76,6 @@ struct AccessoryViewBuilder {
             document: document
         )
 
-        accessoryViewSwitcher.onDoneButton = {
-            guard let typeId = document.details?.type else { return }
-
-            router.showTemplatesPopupIfNeeded(
-                document: document,
-                templatesTypeId: typeId,
-                onShow: nil
-            )
-        }
-
         slashMenuViewModel.resetSlashMenuHandler = { [weak accessoryViewSwitcher] in
             accessoryViewSwitcher?.restoreDefaultState()
 

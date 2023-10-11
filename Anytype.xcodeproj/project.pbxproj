@@ -682,7 +682,6 @@
 		2AECFD3E28993C67000E9CFB /* RelationValueCoordinatorAssemblyProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AECFD3D28993C67000E9CFB /* RelationValueCoordinatorAssemblyProtocol.swift */; };
 		2AECFD4028993C77000E9CFB /* RelationValueCoordinatorProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AECFD3F28993C77000E9CFB /* RelationValueCoordinatorProtocol.swift */; };
 		2AECFD4228993CA2000E9CFB /* RelationValueModuleAssemblyProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AECFD4128993CA2000E9CFB /* RelationValueModuleAssemblyProtocol.swift */; };
-		2AECFD4428993CCA000E9CFB /* TemplatesCoordinatorAssemblyProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AECFD4328993CCA000E9CFB /* TemplatesCoordinatorAssemblyProtocol.swift */; };
 		2AEE3E6B29C1C2E2007C72AF /* AnytypeHostingController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AEE3E6A29C1C2E2007C72AF /* AnytypeHostingController.swift */; };
 		2AEE3E6D29C1C352007C72AF /* AnytypeStatusBarStyleKey.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AEE3E6C29C1C352007C72AF /* AnytypeStatusBarStyleKey.swift */; };
 		2AEE49EE292E27FA00EA53AA /* ObjectSettingsCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AEE49ED292E27FA00EA53AA /* ObjectSettingsCoordinator.swift */; };
@@ -1358,7 +1357,6 @@
 		86FB86592A812F6D008DAF52 /* TemplatesInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86FB86582A812F6D008DAF52 /* TemplatesInteractor.swift */; };
 		95A38D3A2A03F17700D06C96 /* Riccione-Xlight-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 95A38D392A03F17700D06C96 /* Riccione-Xlight-Regular.ttf */; };
 		C90189A928338D2900F30853 /* TemplatesCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = C90189A828338D2900F30853 /* TemplatesCoordinator.swift */; };
-		C90189AB2833903A00F30853 /* TemplateAvailabilityPopup.swift in Sources */ = {isa = PBXBuildFile; fileRef = C90189AA2833903A00F30853 /* TemplateAvailabilityPopup.swift */; };
 		C905B29A2828CA2F00F1106B /* ToastPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = C905B2992828CA2F00F1106B /* ToastPresenter.swift */; };
 		C905B2B128291C9100F1106B /* ToastView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C905B2B028291C9100F1106B /* ToastView.swift */; };
 		C9099607281AD5220011682F /* RelationItemModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9099606281AD5220011682F /* RelationItemModel.swift */; };
@@ -2272,7 +2270,6 @@
 		2AECFD3D28993C67000E9CFB /* RelationValueCoordinatorAssemblyProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RelationValueCoordinatorAssemblyProtocol.swift; sourceTree = "<group>"; };
 		2AECFD3F28993C77000E9CFB /* RelationValueCoordinatorProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RelationValueCoordinatorProtocol.swift; sourceTree = "<group>"; };
 		2AECFD4128993CA2000E9CFB /* RelationValueModuleAssemblyProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RelationValueModuleAssemblyProtocol.swift; sourceTree = "<group>"; };
-		2AECFD4328993CCA000E9CFB /* TemplatesCoordinatorAssemblyProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TemplatesCoordinatorAssemblyProtocol.swift; sourceTree = "<group>"; };
 		2AEE3E6A29C1C2E2007C72AF /* AnytypeHostingController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnytypeHostingController.swift; sourceTree = "<group>"; };
 		2AEE3E6C29C1C352007C72AF /* AnytypeStatusBarStyleKey.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnytypeStatusBarStyleKey.swift; sourceTree = "<group>"; };
 		2AEE49ED292E27FA00EA53AA /* ObjectSettingsCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObjectSettingsCoordinator.swift; sourceTree = "<group>"; };
@@ -2945,7 +2942,6 @@
 		86FB86582A812F6D008DAF52 /* TemplatesInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TemplatesInteractor.swift; sourceTree = "<group>"; };
 		95A38D392A03F17700D06C96 /* Riccione-Xlight-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Riccione-Xlight-Regular.ttf"; sourceTree = "<group>"; };
 		C90189A828338D2900F30853 /* TemplatesCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TemplatesCoordinator.swift; sourceTree = "<group>"; };
-		C90189AA2833903A00F30853 /* TemplateAvailabilityPopup.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TemplateAvailabilityPopup.swift; sourceTree = "<group>"; };
 		C905B2992828CA2F00F1106B /* ToastPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToastPresenter.swift; sourceTree = "<group>"; };
 		C905B2B028291C9100F1106B /* ToastView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToastView.swift; sourceTree = "<group>"; };
 		C9099606281AD5220011682F /* RelationItemModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RelationItemModel.swift; sourceTree = "<group>"; };
@@ -6016,7 +6012,6 @@
 			isa = PBXGroup;
 			children = (
 				2A2C33122892A161008BC326 /* TemplatesCoordinatorAssembly.swift */,
-				2AECFD4328993CCA000E9CFB /* TemplatesCoordinatorAssemblyProtocol.swift */,
 				863776822A658AF10040308E /* SetObjectCreationSettingsModuleAssembly.swift */,
 			);
 			path = Assembly;
@@ -8554,14 +8549,6 @@
 			path = Dataview;
 			sourceTree = "<group>";
 		};
-		863877752A5808050024F814 /* Popup */ = {
-			isa = PBXGroup;
-			children = (
-				C90189AA2833903A00F30853 /* TemplateAvailabilityPopup.swift */,
-			);
-			path = Popup;
-			sourceTree = "<group>";
-		};
 		863877762A5808100024F814 /* Picker */ = {
 			isa = PBXGroup;
 			children = (
@@ -8933,7 +8920,6 @@
 				867519E02A669133001C2346 /* Editing */,
 				863877782A58084B0024F814 /* Selection */,
 				863877762A5808100024F814 /* Picker */,
-				863877752A5808050024F814 /* Popup */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -9515,7 +9501,6 @@
 				0AA00C4424CB02D400870C18 /* DividerBlockContentConfiguration.swift in Sources */,
 				3D850B9F26458CC2005805A8 /* DragIndicator.swift in Sources */,
 				2E975EDA287C2325004DE574 /* SetFilterRow.swift in Sources */,
-				C90189AB2833903A00F30853 /* TemplateAvailabilityPopup.swift in Sources */,
 				867F5E122A962EEF00129856 /* ShareView.swift in Sources */,
 				2A8C00FB29C4ADE500309C14 /* SettingsTextField.swift in Sources */,
 				2AE671DE2901896400118F56 /* UIView+DynamicBorderColor.swift in Sources */,
@@ -10203,7 +10188,6 @@
 				120E819726A06CFC006FE84E /* ObjectLayoutPickerViewModel.swift in Sources */,
 				2AE671E129018B0300118F56 /* TraitCollectionDidChangeNotification.swift in Sources */,
 				2E2D256028880C8D00E3DFD1 /* SetFiltersContentViewBuilder.swift in Sources */,
-				2AECFD4428993CCA000E9CFB /* TemplatesCoordinatorAssemblyProtocol.swift in Sources */,
 				C93B2D32274E4FA70008544D /* TwoStandardButtonsView.swift in Sources */,
 				120E818E26A05946006FE84E /* ObjectIconPickerViewModel.swift in Sources */,
 				3DB692B12697645C00149864 /* MiddlewareColorConverter.swift in Sources */,

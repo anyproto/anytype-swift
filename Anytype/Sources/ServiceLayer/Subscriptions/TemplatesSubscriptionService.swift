@@ -9,6 +9,7 @@ protocol TemplatesSubscriptionServiceProtocol: AnyObject {
         spaceId: String,
         update: @escaping SubscriptionCallback
     )
+    func stopSubscription()
 }
 
 final class TemplatesSubscriptionService: TemplatesSubscriptionServiceProtocol {
@@ -47,7 +48,7 @@ final class TemplatesSubscriptionService: TemplatesSubscriptionServiceProtocol {
         subscriptionService.startSubscription(data: searchData, update: update)
     }
     
-    private func stopSubscription() {
+    func stopSubscription() {
         subscriptionService.stopSubscription(id: subscriptionId)
     }
 }

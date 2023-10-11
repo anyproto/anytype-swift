@@ -26,6 +26,8 @@ protocol EditorPageViewModelProtocol: AnyObject {
     func showSettings()
     func setupSubscriptions()
     
+    func showTemplates()
+    
     func cursorFocus(blockId: BlockId)
     
     func handleSettingsAction(action: ObjectSettingsAction)

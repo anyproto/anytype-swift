@@ -27,6 +27,9 @@ final class EditorPageViewModel: EditorPageViewModelProtocol {
     private let accountManager: AccountManagerProtocol
     private let configuration: EditorPageViewModelConfiguration
     
+    private let templatesSubscriptionService: TemplatesSubscriptionService
+    private var availableTemplates = [ObjectDetails]()
+    
     private lazy var subscriptions = [AnyCancellable]()
 
     private let blockActionsService: BlockActionsServiceSingleProtocol
@@ -48,7 +51,8 @@ final class EditorPageViewModel: EditorPageViewModelProtocol {
         searchService: SearchServiceProtocol,
         editorPageTemplatesHandler: EditorPageTemplatesHandlerProtocol,
         accountManager: AccountManagerProtocol,
-        configuration: EditorPageViewModelConfiguration
+        configuration: EditorPageViewModelConfiguration,
+        templatesSubscriptionService: TemplatesSubscriptionService
     ) {
         self.viewInput = viewInput
         self.document = document
@@ -66,6 +70,7 @@ final class EditorPageViewModel: EditorPageViewModelProtocol {
         self.editorPageTemplatesHandler = editorPageTemplatesHandler
         self.accountManager = accountManager
         self.configuration = configuration
+        self.templatesSubscriptionService = templatesSubscriptionService
 
         setupLoadingState()
     }
@@ -149,7 +154,7 @@ final class EditorPageViewModel: EditorPageViewModelProtocol {
 
         if !document.isLocked {
             cursorManager.handleGeneralUpdate(with: modelsHolder.items, type: document.details?.type)
-            handleTemplatesPopupShowing()
+            handleTemplatesIfNeeded()
         }
     }
 
@@ -202,23 +207,26 @@ final class EditorPageViewModel: EditorPageViewModelProtocol {
             return
         }
 
-        viewInput?.update(header: headerModel, details: document.details)
+        viewInput?.update(header: headerModel)
         modelsHolder.header = headerModel
     }
     
-    private func handleTemplatesPopupShowing() {
+    private func handleTemplatesIfNeeded() {
         guard configuration.shouldShowTemplateSelection,
-              editorPageTemplatesHandler.needShowTemplates(for: document),
-              let typeId = document.details?.type else {
+              let details = document.details, details.isSelectTemplate else {
+            templatesSubscriptionService.stopSubscription()
+            viewInput?.update(details: document.details, templatesCount: 0)
             return
         }
-        router.showTemplatesPopupWithTypeCheckIfNeeded(
-            document: document,
-            templatesTypeId: typeId,
-            onShow: { [weak self] in
-                self?.editorPageTemplatesHandler.onTemplatesShow()
-            }
-        )
+        
+        templatesSubscriptionService.startSubscription(
+            objectType: details.type,
+            spaceId: document.spaceId
+        ) { [weak self] _, update in
+            guard let self else { return }
+            availableTemplates.applySubscriptionUpdate(update)
+            viewInput?.update(details: document.details, templatesCount: availableTemplates.count)
+        }
     }
 }
 
@@ -251,7 +259,6 @@ extension EditorPageViewModel {
 
     func viewDidAppear() {
         cursorManager.didAppeared(with: modelsHolder.items, type: document.details?.type)
-        editorPageTemplatesHandler.didAppeared(with: document.details?.type)
     }
 
     func viewWillDisappear() {}
@@ -306,6 +313,11 @@ extension EditorPageViewModel {
         router.showSettings { [weak self] action in
             self?.handleSettingsAction(action: action)
         }
+    }
+    
+    @MainActor
+    func showTemplates() {
+        router.showTemplatesPicker(availableTemplates: availableTemplates)
     }
 }
 

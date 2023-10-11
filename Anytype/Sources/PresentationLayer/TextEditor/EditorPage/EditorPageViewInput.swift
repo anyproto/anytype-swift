@@ -4,7 +4,8 @@ import UIKit
 /// Input data for document view
 protocol EditorPageViewInput: RelativePositionProvider {
     
-    func update(header: ObjectHeader, details: ObjectDetails?)
+    func update(header: ObjectHeader)
+    func update(details: ObjectDetails?, templatesCount: Int)
     func update(changes: CollectionDifference<EditorItem>?)
     func update(
         changes: CollectionDifference<EditorItem>?,
