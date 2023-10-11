@@ -292,7 +292,7 @@ final class ServiceLocator {
     }
 
     private lazy var _workspaceStorage = WorkspacesStorage(
-        subscriptionsService: subscriptionService(),
+        subscriptionStorageProvider: subscriptionStorageProvider(),
         subscriptionBuilder: WorkspacesSubscriptionBuilder()
     )
     func workspaceStorage() -> WorkspacesStorageProtocol {

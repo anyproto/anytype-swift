@@ -67,7 +67,7 @@ final class LoginStateService: LoginStateServiceProtocol {
     }
     
     private func stopSubscriptions() async {
-        workspacesStorage.stopSubscription()
+        await workspacesStorage.stopSubscription()
         relationDetailsStorage.stopSubscription()
         await objectTypeProvider.stopSubscription()
     }
