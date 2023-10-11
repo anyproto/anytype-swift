@@ -612,6 +612,10 @@ extension AnytypeAnalytics {
         )
     }
     
+    func logSkipName() {
+        logEvent(AnalyticsEventsName.skipName)
+    }
+    
     func logTemplateSelection(objectType: AnalyticsObjectType?, route: AnalyticsEventsRouteKind) {
         logEvent(
             AnalyticsEventsName.selectTemplate,

@@ -18,6 +18,7 @@ enum AnalyticsEventsName {
     static let screenOnboarding = "ScreenOnboarding"
     static let clickOnboarding = "ClickOnboarding"
     static let clickLogin = "ClickLogin"
+    static let skipName = "SkipName"
 
     // Block events
     static let blockCreate = "CreateBlock"

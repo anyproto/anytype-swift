@@ -71,6 +71,9 @@ final class SoulViewModel: ObservableObject {
                 createAccountError(error)
             }
         }
+        if state.soul.isEmpty {
+            AnytypeAnalytics.instance().logSkipName()
+        }
     }
     
     private func onSuccess() {
