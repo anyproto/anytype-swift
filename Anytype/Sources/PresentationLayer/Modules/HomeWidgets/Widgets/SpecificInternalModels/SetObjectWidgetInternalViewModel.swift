@@ -99,6 +99,7 @@ final class SetObjectWidgetInternalViewModel: CommonWidgetInternalViewModel, Wid
     // MARK: - CommonWidgetInternalViewModel oveerides
     
     override func widgetInfoUpdated() {
+        super.widgetInfoUpdated()
         updateActiveViewId()
         updateDataviewState()
         updateViewSubscription()

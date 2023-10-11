@@ -53,6 +53,7 @@ final class FavoriteWidgetInternalViewModel: CommonWidgetInternalViewModel, Widg
     // MARK: - CommonWidgetInternalViewModel oveerides
     
     override func widgetInfoUpdated() {
+        super.widgetInfoUpdated()
         updateSubscription()
     }
     

@@ -30,12 +30,12 @@ final class SetsWidgetInternalViewModel: CommonWidgetInternalViewModel, WidgetIn
     
     override func startContentSubscription() async {
         await super.startContentSubscription()
-        updateSubscription()
+        await updateSubscription()
     }
     
     override func stopContentSubscription() async {
         await super.stopContentSubscription()
-        setsSubscriptionService.stopSubscription()
+        await setsSubscriptionService.stopSubscription()
     }
     
     func screenData() -> EditorScreenData? {
@@ -49,18 +49,19 @@ final class SetsWidgetInternalViewModel: CommonWidgetInternalViewModel, WidgetIn
     // MARK: - CommonWidgetInternalViewModel oveerides
     
     override func widgetInfoUpdated() {
-        updateSubscription()
+        super.widgetInfoUpdated()
+        Task {
+            await updateSubscription()
+        }
     }
     
     // MARK: - Private func
     
-    private func updateSubscription() {
+    private func updateSubscription() async {
         guard let widgetInfo, contentIsAppear else { return }
-        setsSubscriptionService.startSubscription(
+        await setsSubscriptionService.startSubscription(
             objectLimit: widgetInfo.fixedLimit,
-            update: { [weak self] _, update in
-                var details = self?.details ?? []
-                details.applySubscriptionUpdate(update)
+            update: { [weak self] details in
                 self?.details = details
             }
         )

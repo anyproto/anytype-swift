@@ -53,6 +53,7 @@ final class RecentWidgetInternalViewModel: CommonWidgetInternalViewModel, Widget
     // MARK: - CommonWidgetInternalViewModel oveerides
     
     override func widgetInfoUpdated() {
+        super.widgetInfoUpdated()
         Task {
             await updateSubscription()
         }
