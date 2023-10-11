@@ -9,7 +9,7 @@ final class SetObjectWidgetInternalViewModel: CommonWidgetInternalViewModel, Wid
     // MARK: - DI
     
     private let setSubscriptionDataBuilder: SetSubscriptionDataBuilderProtocol
-    private let subscriptionService: SubscriptionsServiceProtocol
+    private let subscriptionStorage: SubscriptionStorageProtocol
     private let documentService: DocumentServiceProtocol
     private let blockWidgetService: BlockWidgetServiceProtocol
     
@@ -37,12 +37,12 @@ final class SetObjectWidgetInternalViewModel: CommonWidgetInternalViewModel, Wid
         widgetBlockId: BlockId,
         widgetObject: BaseDocumentProtocol,
         setSubscriptionDataBuilder: SetSubscriptionDataBuilderProtocol,
-        subscriptionService: SubscriptionsServiceProtocol,
+        subscriptionStorageProvider: SubscriptionStorageProviderProtocol,
         documentService: DocumentServiceProtocol,
         blockWidgetService: BlockWidgetServiceProtocol
     ) {
         self.setSubscriptionDataBuilder = setSubscriptionDataBuilder
-        self.subscriptionService = subscriptionService
+        self.subscriptionStorage = subscriptionStorageProvider.createSubscriptionStorage(subId: subscriptionId)
         self.documentService = documentService
         self.blockWidgetService = blockWidgetService
         super.init(widgetBlockId: widgetBlockId, widgetObject: widgetObject)
@@ -69,7 +69,7 @@ final class SetObjectWidgetInternalViewModel: CommonWidgetInternalViewModel, Wid
         setDocument?.syncPublisher.sink { [weak self] in
             self?.updateActiveViewId()
             self?.updateDataviewState()
-            self?.updateViewSubscription()
+            Task { await self?.updateViewSubscription() }
         }
         .store(in: &contentSubscriptions)
     }
@@ -102,7 +102,7 @@ final class SetObjectWidgetInternalViewModel: CommonWidgetInternalViewModel, Wid
         super.widgetInfoUpdated()
         updateActiveViewId()
         updateDataviewState()
-        updateViewSubscription()
+        Task { await updateViewSubscription() }
     }
     
     // MARK: - Private
@@ -121,9 +121,9 @@ final class SetObjectWidgetInternalViewModel: CommonWidgetInternalViewModel, Wid
         activeViewId = setDocument.dataView.activeViewId
     }
         
-    private func updateViewSubscription() {
+    private func updateViewSubscription() async {
         guard let setDocument, let widgetInfo else {
-            subscriptionService.stopAllSubscriptions()
+            try? await subscriptionStorage.stopSubscription()
             return
         }
         
@@ -143,10 +143,9 @@ final class SetObjectWidgetInternalViewModel: CommonWidgetInternalViewModel, Wid
             )
         )
         
-        subscriptionService.updateSubscription(data: subscriptionData, required: false) { [weak self] in
-            var details = self?.details ?? []
-            details.applySubscriptionUpdate($1)
-            self?.details = details
+        try? await subscriptionStorage.startOrUpdateSubscription(data: subscriptionData) { [weak self] in
+            guard let self else { return }
+            details = subscriptionStorage.items
         }
     }
     
