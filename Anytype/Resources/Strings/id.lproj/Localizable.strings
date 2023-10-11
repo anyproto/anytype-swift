@@ -458,16 +458,16 @@
 "Set.SourceType.Cancel.Toast.Title" = "This query can be changed on desktop only";
 
 // MARK: - Set: Type context menu
-"Set.TypeRelation.ContextMenu.TurnIntoCollection" = "Turn Set into Collection";
-"Set.TypeRelation.ContextMenu.ChangeQuery" = "Change query";
+"Set.TypeRelation.ContextMenu.TurnIntoCollection" = "Ubah Set menjadi Koleksi";
+"Set.TypeRelation.ContextMenu.ChangeQuery" = "Ubah kueri";
 
 // MARK: - Collection: empty view
-"Collection.View.Empty.Title" = "No objects";
-"Collection.View.Empty.Subtitle" = "Create first object to continue";
-"Collection.View.Empty.Button.Title" = "Create object";
+"Collection.View.Empty.Title" = "Tidak ada objek";
+"Collection.View.Empty.Subtitle" = "Buatlah objek pertama dulu";
+"Collection.View.Empty.Button.Title" = "Buat objek";
 
 // MARK: Slash Menu
-"SlashMenu.DotsDivider" = "Dots divider";
+"SlashMenu.DotsDivider" = "Titik pemisah";
 "SlashMenu.LineDivider" = "Line divider";
 "SlashMenu.TableOfContents" = "Daftar isi";
 "SlashMenu.Table" = "Tabel";
@@ -496,21 +496,21 @@
 "Enter number" = "Masukkan angka";
 "Enter text" = "Masukkan teks";
 "Unsupported value" = "Nilai tak didukung";
-"Select relation type" = "Select relation type";
+"Select relation type" = "Pilih jenis relasi";
 
-"Limit object types" = "Limit object types";
-"Type" = "Type";
+"Limit object types" = "Batasi tipe objek";
+"Type" = "Tipe";
 "No name" = "Tanpa nama";
-"New relation" = "New relation";
-"Non-existent object" = "Non-existent object";
+"New relation" = "Relasi baru";
+"Non-existent object" = "Objek tidak ada";
 
 "Select all" = "Pilih semua";
 "Unselect all" = "Batal pilih semua";
 "Deselect all" = "Batal pilih semua";
 "Shared" = "Shared";
-"Sets" = "Sets";
-"Collections" = "Collections";
-"Default object type" = "Default object type";
+"Sets" = "Set";
+"Collections" = "Koleksi";
+"Default object type" = "Tipe objek bawaan";
 "Personalization" = "Personalisasi";
 "Choose default object type" = "Pilih tipe objek bawaan";
 "About" = "Tentang";
@@ -521,8 +521,8 @@
 "copied to clipboard" = "%@ tersalin ke papan klip";
 "Access to secret phrase from keychain" = "Access to secret phrase from keychain";
 "Back up your recovery phrase" = "Back up your recovery phrase";
-"Account" = "Account";
-"Access" = "Access";
+"Account" = "Akun";
+"Access" = "Akses";
 "Back up phrase" = "Back up phrase";
 "Removing cache" = "Removing cache";
 "Deletion error" = "Deletion error";
@@ -540,17 +540,17 @@
 "Action-focused layout with a checkbox" = "Action-focused layout with a checkbox";
 "Standard layout for canvas blocks" = "Standard layout for canvas blocks";
 "List of related objects" = "List of related objects";
-"Lock" = "Lock";
-"Unlock" = "Unlock";
-"Favorite" = "Favorite";
-"Unfavorite" = "Unfavorite";
+"Lock" = "Kunci";
+"Unlock" = "Buka kunci";
+"Favorite" = "Favorit";
+"Unfavorite" = "Batal favorit";
 "Unsplash" = "Unsplash";
-"Go back" = "Go back";
-"Backed up on one node at least" = "Backed up on one node at least";
-"Downloading or uploading data to some node" = "Downloading or uploading data to some node";
-"Anytype node is not connected" = "Anytype node is not connected";
-"Initializing sync" = "Initializing sync";
-"Not syncing" = "Not syncing";
+"Go back" = "Kembali";
+"Backed up on one node at least" = "Tercadangkan di minimal satu simpul";
+"Downloading or uploading data to some node" = "Mengunduh atau mengunggah data ke simpul";
+"Anytype node is not connected" = "Simpul Anytype tidak terhubung";
+"Initializing sync" = "Memulai sinkron";
+"Not syncing" = "Tidak menyinkron";
 "Synced" = "Tersinkron";
 "Syncing..." = "Menyinkronkan...";
 "No connection" = "Tak ada koneksi";
@@ -566,7 +566,7 @@
 "Link to object" = "Tautkan ke objek";
 "Upload playable audio" = "Unggah audio yang dapat diputar";
 "Code snippet" = "Potongan kode";
-"Bookmark" = "Bookmark";
+"Bookmark" = "Markah";
 "Audio" = "Audio";
 "Video" = "Video";
 "Picture" = "Gambar";
@@ -582,7 +582,7 @@
 "View" = "View";
 "Home" = "Home";
 "Highlight" = "Highlight";
-"Create object" = "Create object";
+"Create object" = "Buat objek";
 "Web pages" = "Web pages";
 "Preview layout" = "Preview layout";
 "Everywhere" = "Everywhere";
@@ -605,27 +605,27 @@
 "Failed to sync, trying again..." = "Failed to sync, trying again...";
 "Sync.Status.Version.Outdated.Description" = "Version outdated. Please update Anytype";
 "This object doesn't exist" = "This object doesn't exist";
-"Setting up encrypted storage\nPlease wait" = "Setting up encrypted storage\nPlease wait";
-"These objects will be deleted irrevocably" = "These objects will be deleted irrevocably. You can’t undo this action.";
-"Delete account" = "Delete account";
-"Cancel deletion" = "Cancel deletion";
-"Logout and clear data" = "Logout and clear data";
-"New" = "New";
+"Setting up encrypted storage\nPlease wait" = "Menyiapkan penyimpanan terenkripsi\nMohon tunggu";
+"These objects will be deleted irrevocably" = "Objek berikut akan dihapus secara permanen. Kamu tidak bisa membatalkan tindakan ini.";
+"Delete account" = "Hapus akun";
+"Cancel deletion" = "Batalkan penghapusan";
+"Logout and clear data" = "Keluar dan bersihkan data";
+"New" = "Baru";
 
 // MARK: - DeletionAlert
-"DeletionAlert.title" = "Are you sure to delete account?";
-"DeletionAlert.description" = "You will be logged out on all other devices. You will have 30 days to recover it. Afterwards it will be deleted permanently";
+"DeletionAlert.title" = "Kamu yakin ingin menghapus akun?";
+"DeletionAlert.description" = "Kamu akan keluar akun pada semua perangkat. Kamu punya waktu 30 hari untuk membatalkannya, setelah itu akun akan dihapus secara permanen";
 
 // MARK: - DataviewType
-"DataviewType.grid" = "Grid";
-"DataviewType.list" = "List";
+"DataviewType.grid" = "Tabel";
+"DataviewType.list" = "Daftar";
 "DataviewType.gallery" = "Galeri";
 "DataviewType.kanban" = "Kanban";
 
 // MARK: - ObjectType
-"ObjectType.fallbackDescription" = "Blank canvas with no title";
-"ObjectType.SearchOrInstall" = "Search or install a new type";
-"ObjectType.MyTypes" = "My Types";
+"ObjectType.fallbackDescription" = "Kanvas kosong tanpa judul";
+"ObjectType.SearchOrInstall" = "Telusuri atau buat tipe baru";
+"ObjectType.MyTypes" = "Tipeku";
 "ObjectType.AddedToLibrary" = "Type ‘%@’ added to your library";
 "ObjectType.DeletedName" = "Deleted type";
 
@@ -732,7 +732,7 @@
 "Widgets.Layout.Screen.Title" = "Widget type";
 "Widgets.Layout.Link.Title" = "Tautan";
 "Widgets.Layout.Tree.Title" = "Tree";
-"Widgets.Layout.List.Title" = "List";
+"Widgets.Layout.List.Title" = "Daftar";
 "Widgets.Layout.CompactList.Title" = "Сompact list";
 "Widgets.Layout.Link.Description" = "Сompact version of the object";
 "Widgets.Layout.Tree.Description" = "Hierarchical structure of objects";
