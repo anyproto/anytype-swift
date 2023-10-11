@@ -180,10 +180,12 @@ final class SetObjectCreationSettingsInteractor: SetObjectCreationSettingsIntera
     }
     
     private func loadTemplates() {
-        subscriptionService.startSubscription(objectType: objectTypeId, spaceId: setDocument.spaceId) { [weak self] _, update in
-            guard let self else { return }
-            templatesDetails.applySubscriptionUpdate(update)
-            updateTypeDefaultTemplateId()
+        Task {
+            await subscriptionService.startSubscription(objectType: objectTypeId, spaceId: setDocument.spaceId) { [weak self] details in
+                guard let self else { return }
+                templatesDetails = details
+                updateTypeDefaultTemplateId()
+            }
         }
     }
 }
