@@ -1,13 +1,14 @@
 setup-middle:
-	ruby Scripts/middleware.rb
-	
-update-middle:
-	ruby Scripts/middleware.rb --latest
+	./Scripts/middle-install.sh
 
+change-github-token:
+	./Scripts/change-token.sh
 # Build from local repo
 
 install-middle-local:
-	ruby Scripts/middleware.rb --artifact-path ../anytype-heart/dist/ios
+	rm -f Dependencies/Middleware/*
+	mkdir -p Dependencies/Middleware
+	cp -r ../anytype-heart/dist/ios/ Dependencies/Middleware
 
 build-middle-local:
 	make -C ../anytype-heart build-ios
