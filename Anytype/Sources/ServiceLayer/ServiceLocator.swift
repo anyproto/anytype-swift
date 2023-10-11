@@ -180,7 +180,7 @@ final class ServiceLocator {
     
     func binSubscriptionService() -> BinSubscriptionServiceProtocol {
         return BinSubscriptionService(
-            subscriptionService: subscriptionService(),
+            subscriptionStorageProvider: subscriptionStorageProvider(),
             activeWorkspaceStorage: activeWorkspaceStorage()
         )
     }
