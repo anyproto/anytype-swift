@@ -1,5 +1,3 @@
-import AnytypeCore
-
 enum JoinFlowStep: Int, CaseIterable {
     case soul = 1
     case key
