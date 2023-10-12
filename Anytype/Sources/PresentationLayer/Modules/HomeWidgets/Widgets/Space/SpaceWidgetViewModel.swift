@@ -23,7 +23,7 @@ final class SpaceWidgetViewModel: ObservableObject {
     @Published var spaceAccessibility: String = ""
     
     init(activeWorkspaceStorage: ActiveWorkpaceStorageProtocol, subscriptionService: SingleObjectSubscriptionServiceProtocol, output: CommonWidgetModuleOutput?) {
-        self.workspaceObjectId = activeWorkspaceStorage.workspaceInfo.workspaceObjectId
+        self.workspaceObjectId = activeWorkspaceStorage.workspaceInfo.spaceViewId
         self.subscriptionService = subscriptionService
         self.output = output
         Task {

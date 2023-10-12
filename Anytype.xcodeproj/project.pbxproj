@@ -503,6 +503,8 @@
 		2A7DCDE2292E60BA001919B4 /* AddNewRelationCoordinatorAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A7DCDE1292E60BA001919B4 /* AddNewRelationCoordinatorAssembly.swift */; };
 		2A7DCDE4292E7D5A001919B4 /* SearchModuleAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A7DCDE3292E7D5A001919B4 /* SearchModuleAssembly.swift */; };
 		2A7DCDE8292E8260001919B4 /* SearchModuleAssemblyProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A7DCDE7292E8260001919B4 /* SearchModuleAssemblyProtocol.swift */; };
+		2A816AD12AD8069400975BCA /* SpaceView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A816AD02AD8069400975BCA /* SpaceView.swift */; };
+		2A816AD42AD840F500975BCA /* SpaceViewIconInternalViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A816AD32AD840F500975BCA /* SpaceViewIconInternalViewModel.swift */; };
 		2A8A2DCA2AB9956000105549 /* AppAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A8A2DC92AB9956000105549 /* AppAction.swift */; };
 		2A8A2DCC2AB9960F00105549 /* AppActionStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A8A2DCB2AB9960F00105549 /* AppActionStorage.swift */; };
 		2A8A2DD12AB99B0E00105549 /* ShareCoordinatorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A8A2DD02AB99B0E00105549 /* ShareCoordinatorView.swift */; };
@@ -571,6 +573,7 @@
 		2AA8108A29A66854007DD64B /* View+DragAndDrop.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AA8108929A66854007DD64B /* View+DragAndDrop.swift */; };
 		2AA8108C29A6686F007DD64B /* DragAndDropModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AA8108B29A6686F007DD64B /* DragAndDropModels.swift */; };
 		2AA8108E29A6697A007DD64B /* HomeWidgetSubmoduleModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AA8108D29A6697A007DD64B /* HomeWidgetSubmoduleModel.swift */; };
+		2AA8E8242AD852E600950427 /* SubscriptionStorageState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AA8E8232AD852E600950427 /* SubscriptionStorageState.swift */; };
 		2AAE455828A5307C00E538C8 /* BlockBookmark+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AAE455728A5307C00E538C8 /* BlockBookmark+Extensions.swift */; };
 		2AAF34372954C86800921320 /* TreeWidgetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AAF34362954C86800921320 /* TreeWidgetView.swift */; };
 		2AAF343C29559BF700921320 /* TreeWidgetViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AAF343B29559BF700921320 /* TreeWidgetViewModel.swift */; };
@@ -2103,6 +2106,8 @@
 		2A7DCDE1292E60BA001919B4 /* AddNewRelationCoordinatorAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddNewRelationCoordinatorAssembly.swift; sourceTree = "<group>"; };
 		2A7DCDE3292E7D5A001919B4 /* SearchModuleAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchModuleAssembly.swift; sourceTree = "<group>"; };
 		2A7DCDE7292E8260001919B4 /* SearchModuleAssemblyProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchModuleAssemblyProtocol.swift; sourceTree = "<group>"; };
+		2A816AD02AD8069400975BCA /* SpaceView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpaceView.swift; sourceTree = "<group>"; };
+		2A816AD32AD840F500975BCA /* SpaceViewIconInternalViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpaceViewIconInternalViewModel.swift; sourceTree = "<group>"; };
 		2A8A2DC92AB9956000105549 /* AppAction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppAction.swift; sourceTree = "<group>"; };
 		2A8A2DCB2AB9960F00105549 /* AppActionStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppActionStorage.swift; sourceTree = "<group>"; };
 		2A8A2DD02AB99B0E00105549 /* ShareCoordinatorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShareCoordinatorView.swift; sourceTree = "<group>"; };
@@ -2162,6 +2167,7 @@
 		2AA8108929A66854007DD64B /* View+DragAndDrop.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "View+DragAndDrop.swift"; sourceTree = "<group>"; };
 		2AA8108B29A6686F007DD64B /* DragAndDropModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DragAndDropModels.swift; sourceTree = "<group>"; };
 		2AA8108D29A6697A007DD64B /* HomeWidgetSubmoduleModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeWidgetSubmoduleModel.swift; sourceTree = "<group>"; };
+		2AA8E8232AD852E600950427 /* SubscriptionStorageState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubscriptionStorageState.swift; sourceTree = "<group>"; };
 		2AAE455728A5307C00E538C8 /* BlockBookmark+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "BlockBookmark+Extensions.swift"; sourceTree = "<group>"; };
 		2AAF34362954C86800921320 /* TreeWidgetView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TreeWidgetView.swift; sourceTree = "<group>"; };
 		2AAF343B29559BF700921320 /* TreeWidgetViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TreeWidgetViewModel.swift; sourceTree = "<group>"; };
@@ -3892,6 +3898,7 @@
 		120E818A26A05937006FE84E /* Icon */ = {
 			isa = PBXGroup;
 			children = (
+				2A816AD22AD840DE00975BCA /* Internal */,
 				2AE906E7296FFE720044A10A /* Modules */,
 				C9F0A47B28057D6000FA16DD /* GenericIconPickerViewModel */,
 				3D44985926D57456005A3E06 /* ObjectIconPicker.swift */,
@@ -5023,6 +5030,7 @@
 				2A29FD2E2A701BDD007A8549 /* ActiveWorkspaceStorage.swift */,
 				2AA4C26C2A7026C600C2EC66 /* WorkspacesStorage.swift */,
 				2AA4C26E2A70287100C2EC66 /* WorkspacesSubscriptionBuilder.swift */,
+				2A816AD02AD8069400975BCA /* SpaceView.swift */,
 			);
 			path = SpaceStorage;
 			sourceTree = "<group>";
@@ -5461,6 +5469,14 @@
 				2AEE49EC292E27E300EA53AA /* ObjectSettingsFlow */,
 			);
 			path = Flows;
+			sourceTree = "<group>";
+		};
+		2A816AD22AD840DE00975BCA /* Internal */ = {
+			isa = PBXGroup;
+			children = (
+				2A816AD32AD840F500975BCA /* SpaceViewIconInternalViewModel.swift */,
+			);
+			path = Internal;
 			sourceTree = "<group>";
 		};
 		2A83ED79285347B700612723 /* TableOfContents */ = {
@@ -6940,6 +6956,7 @@
 				2A794B412AD53D3A00BA160F /* SubscriptionStorageProvider.swift */,
 				2A794B432AD53D4400BA160F /* SubscriptionStorage.swift */,
 				2A771F2F2AD6F0D8000ED2D4 /* SubscriptionUpdate.swift */,
+				2AA8E8232AD852E600950427 /* SubscriptionStorageState.swift */,
 			);
 			path = Internals;
 			sourceTree = "<group>";
@@ -10031,6 +10048,7 @@
 				2A12B77E2A6A754200CE1AFD /* GradientIconPainter.swift in Sources */,
 				125B6EBE26F235F400BCD7D6 /* EditorSearchCellConfiguration.swift in Sources */,
 				3D5A41482702E4E400F1F6A1 /* SlashMenuCellDataBuilder.swift in Sources */,
+				2A816AD12AD8069400975BCA /* SpaceView.swift in Sources */,
 				124AF82C26A6DA63004911E9 /* RelationValuesProtocol+PageCellTitle.swift in Sources */,
 				3D07ED72261F4B5A00C007E2 /* DividerBlockView.swift in Sources */,
 				2AE5C71D29B7299F00A92C12 /* WidgetSourceSearchViewModel.swift in Sources */,
@@ -10053,6 +10071,7 @@
 				2A66937D2A7104EA007747DD /* ObjectIconImageGuidelineSet.swift in Sources */,
 				3D44984D26D54A64005A3E06 /* BindableGestureRecognizer.swift in Sources */,
 				2ED9F4452A8FBB5400BE0A6B /* SetViewSettingsListModuleAssembly.swift in Sources */,
+				2A816AD42AD840F500975BCA /* SpaceViewIconInternalViewModel.swift in Sources */,
 				53EDA8802837EC4000887804 /* CreateObjectView.swift in Sources */,
 				1244792227D8A8BE00581174 /* StatusSearchRowView.swift in Sources */,
 				2E999487294240C300FFBED9 /* SetDocumentProtocol.swift in Sources */,
@@ -10479,6 +10498,7 @@
 				EA20CDD526122C9200DBA9FE /* VideoBlockContentView.swift in Sources */,
 				2A1F947E2978312900E25782 /* ListWidgetHeaderItem.swift in Sources */,
 				2A6F5048288A9AB600ED6E2E /* Image+Create.swift in Sources */,
+				2AA8E8242AD852E600950427 /* SubscriptionStorageState.swift in Sources */,
 				2E0A6CD92A3773F200A28AF2 /* LoginFlowOutput.swift in Sources */,
 				12F14CD52758D0B200B976B5 /* RelationEditingViewModelBuilderProtocol.swift in Sources */,
 				2E37F01428C768B900337BD4 /* SetViewRow.swift in Sources */,

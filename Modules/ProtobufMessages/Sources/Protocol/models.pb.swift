@@ -2856,9 +2856,9 @@ public struct Anytype_Model_Account {
 
     public var accountSpaceID: String = String()
 
-    public var workspaceObjectID: String = String()
-
     public var widgetsID: String = String()
+
+    public var spaceViewID: String = String()
 
     /// gateway url for fetching static files
     public var gatewayURL: String = String()
@@ -6604,8 +6604,8 @@ extension Anytype_Model_Account.Info: SwiftProtobuf.Message, SwiftProtobuf._Mess
     11: .same(proto: "marketplaceWorkspaceId"),
     8: .same(proto: "deviceId"),
     9: .same(proto: "accountSpaceId"),
-    12: .same(proto: "workspaceObjectId"),
     10: .same(proto: "widgetsId"),
+    13: .same(proto: "spaceViewId"),
     101: .same(proto: "gatewayUrl"),
     103: .same(proto: "localStoragePath"),
     104: .same(proto: "timeZone"),
@@ -6626,7 +6626,7 @@ extension Anytype_Model_Account.Info: SwiftProtobuf.Message, SwiftProtobuf._Mess
       case 9: try { try decoder.decodeSingularStringField(value: &self.accountSpaceID) }()
       case 10: try { try decoder.decodeSingularStringField(value: &self.widgetsID) }()
       case 11: try { try decoder.decodeSingularStringField(value: &self.marketplaceWorkspaceID) }()
-      case 12: try { try decoder.decodeSingularStringField(value: &self.workspaceObjectID) }()
+      case 13: try { try decoder.decodeSingularStringField(value: &self.spaceViewID) }()
       case 101: try { try decoder.decodeSingularStringField(value: &self.gatewayURL) }()
       case 103: try { try decoder.decodeSingularStringField(value: &self.localStoragePath) }()
       case 104: try { try decoder.decodeSingularStringField(value: &self.timeZone) }()
@@ -6659,8 +6659,8 @@ extension Anytype_Model_Account.Info: SwiftProtobuf.Message, SwiftProtobuf._Mess
     if !self.marketplaceWorkspaceID.isEmpty {
       try visitor.visitSingularStringField(value: self.marketplaceWorkspaceID, fieldNumber: 11)
     }
-    if !self.workspaceObjectID.isEmpty {
-      try visitor.visitSingularStringField(value: self.workspaceObjectID, fieldNumber: 12)
+    if !self.spaceViewID.isEmpty {
+      try visitor.visitSingularStringField(value: self.spaceViewID, fieldNumber: 13)
     }
     if !self.gatewayURL.isEmpty {
       try visitor.visitSingularStringField(value: self.gatewayURL, fieldNumber: 101)
@@ -6687,8 +6687,8 @@ extension Anytype_Model_Account.Info: SwiftProtobuf.Message, SwiftProtobuf._Mess
     if lhs.marketplaceWorkspaceID != rhs.marketplaceWorkspaceID {return false}
     if lhs.deviceID != rhs.deviceID {return false}
     if lhs.accountSpaceID != rhs.accountSpaceID {return false}
-    if lhs.workspaceObjectID != rhs.workspaceObjectID {return false}
     if lhs.widgetsID != rhs.widgetsID {return false}
+    if lhs.spaceViewID != rhs.spaceViewID {return false}
     if lhs.gatewayURL != rhs.gatewayURL {return false}
     if lhs.localStoragePath != rhs.localStoragePath {return false}
     if lhs.timeZone != rhs.timeZone {return false}

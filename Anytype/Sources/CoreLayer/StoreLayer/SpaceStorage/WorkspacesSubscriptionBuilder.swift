@@ -21,17 +21,17 @@ final class WorkspacesSubscriptionBuilder: WorkspacesSubscriptionBuilderProtocol
     
     func build() -> SubscriptionData {
         let sort = SearchHelper.sort(
-            relation: BundledRelationKey.createdDate,
-            type: .asc
+            relation: BundledRelationKey.lastModifiedDate,
+            type: .desc
         )
         
         let filters = [
-            SearchHelper.layoutFilter([.space])
+            SearchHelper.layoutFilter([.spaceView])
         ]
         
         let keys: [BundledRelationKey] = .builder {
             BundledRelationKey.id
-            BundledRelationKey.spaceId
+            BundledRelationKey.targetSpaceId
             BundledRelationKey.titleKeys
             BundledRelationKey.objectIconImageKeys
         }.uniqued()

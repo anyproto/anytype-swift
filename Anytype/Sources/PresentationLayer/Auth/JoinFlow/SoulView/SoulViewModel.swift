@@ -56,7 +56,7 @@ final class SoulViewModel: ObservableObject {
     private func updateSpaceName() {
         Task {
             try await objectActionsService.updateBundledDetails(
-                contextID: accountManager.account.info.workspaceObjectId,
+                contextID: accountManager.account.info.spaceViewId,
                 details: [.name(state.soul)]
             )
         }

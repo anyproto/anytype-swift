@@ -104,7 +104,7 @@ final class RemoteStorageViewModel: ObservableObject {
         
         await subscriptionService.startSubscription(
             subId: subSpaceId,
-            objectId: activeWorkspaceStorage.workspaceInfo.workspaceObjectId
+            objectId: activeWorkspaceStorage.workspaceInfo.spaceViewId
         ) { [weak self] details in
             self?.handleSpaceDetails(details: details)
         }

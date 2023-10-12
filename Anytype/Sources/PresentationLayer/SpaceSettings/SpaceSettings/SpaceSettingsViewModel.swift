@@ -12,6 +12,7 @@ final class SpaceSettingsViewModel: ObservableObject {
     private let subscriptionService: SingleObjectSubscriptionServiceProtocol
     private let objectActionsService: ObjectActionsServiceProtocol
     private let relationDetailsStorage: RelationDetailsStorageProtocol
+    private let workspaceService: WorkspaceServiceProtocol
     private let dateFormatter = DateFormatter.relationDateFormatter
     private weak var output: SpaceSettingsModuleOutput?
     
@@ -33,12 +34,14 @@ final class SpaceSettingsViewModel: ObservableObject {
         subscriptionService: SingleObjectSubscriptionServiceProtocol,
         objectActionsService: ObjectActionsServiceProtocol,
         relationDetailsStorage: RelationDetailsStorageProtocol,
+        workspaceService: WorkspaceServiceProtocol,
         output: SpaceSettingsModuleOutput?
     ) {
         self.activeWorkspaceStorage = activeWorkspaceStorage
         self.subscriptionService = subscriptionService
         self.objectActionsService = objectActionsService
         self.relationDetailsStorage = relationDetailsStorage
+        self.workspaceService = workspaceService
         self.output = output
         Task {
             await setupSubscription()
@@ -46,7 +49,7 @@ final class SpaceSettingsViewModel: ObservableObject {
     }
     
     func onChangeIconTap() {
-        output?.onChangeIconSelected(objectId: activeWorkspaceStorage.workspaceInfo.workspaceObjectId)
+        output?.onChangeIconSelected(objectId: activeWorkspaceStorage.workspaceInfo.spaceViewId)
     }
     
     func onStorageTap() {
@@ -62,7 +65,7 @@ final class SpaceSettingsViewModel: ObservableObject {
     private func setupSubscription() async {
         await subscriptionService.startSubscription(
             subId: subSpaceId,
-            objectId: activeWorkspaceStorage.workspaceInfo.workspaceObjectId,
+            objectId: activeWorkspaceStorage.workspaceInfo.spaceViewId,
             additionalKeys: [.createdDate, .creator, .spaceAccessibility]
         ) { [weak self] details in
             self?.handleSpaceDetails(details: details)
@@ -109,8 +112,8 @@ final class SpaceSettingsViewModel: ObservableObject {
     
     private func updateSpaceName(name: String) {
         Task {
-            try await objectActionsService.updateBundledDetails(
-                contextID: activeWorkspaceStorage.workspaceInfo.workspaceObjectId,
+            try await workspaceService.workspaceSetDetails(
+                spaceId: activeWorkspaceStorage.workspaceInfo.accountSpaceId,
                 details: [.name(name)]
             )
         }

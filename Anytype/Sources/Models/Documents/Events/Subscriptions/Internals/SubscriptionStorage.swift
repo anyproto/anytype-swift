@@ -3,13 +3,6 @@ import Services
 import Combine
 import AnytypeCore
 
-struct  SubscriptionStorageState: Equatable {
-    var total: Int
-    var nextCount: Int
-    var prevCount: Int
-    var items: [ObjectDetails]
-}
-
 protocol SubscriptionStorageProtocol: AnyObject {
     var subId: String { get }
     var detailsStorage: ObjectDetailsStorage { get }

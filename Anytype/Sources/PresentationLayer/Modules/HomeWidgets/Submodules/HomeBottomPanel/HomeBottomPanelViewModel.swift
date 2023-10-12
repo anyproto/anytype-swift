@@ -107,7 +107,7 @@ final class HomeBottomPanelViewModel: ObservableObject {
     private func setupDataSubscription() async {
         await subscriptionService.startSubscription(
             subId: subId,
-            objectId: FeatureFlags.multiSpace ? info.profileObjectID : info.workspaceObjectId
+            objectId: FeatureFlags.multiSpace ? info.profileObjectID : info.spaceViewId
         ) { [weak self] details in
             self?.handleProfileDetails(details: details)
         }

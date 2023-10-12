@@ -1016,11 +1016,6 @@ extension Anytype_Rpc.Workspace.GetCurrent.Response.Error: ResponseError {
     public var isNull: Bool { code == .null }
 }
 
-extension Anytype_Rpc.Workspace.Info.Response: ResultWithError {}
-extension Anytype_Rpc.Workspace.Info.Response.Error: ResponseError {
-    public var isNull: Bool { code == .null }
-}
-
 extension Anytype_Rpc.Workspace.Object.Add.Response: ResultWithError {}
 extension Anytype_Rpc.Workspace.Object.Add.Response.Error: ResponseError {
     public var isNull: Bool { code == .null }
@@ -1036,13 +1031,18 @@ extension Anytype_Rpc.Workspace.Object.ListRemove.Response.Error: ResponseError 
     public var isNull: Bool { code == .null }
 }
 
+extension Anytype_Rpc.Workspace.Open.Response: ResultWithError {}
+extension Anytype_Rpc.Workspace.Open.Response.Error: ResponseError {
+    public var isNull: Bool { code == .null }
+}
+
 extension Anytype_Rpc.Workspace.Select.Response: ResultWithError {}
 extension Anytype_Rpc.Workspace.Select.Response.Error: ResponseError {
     public var isNull: Bool { code == .null }
 }
 
-extension Anytype_Rpc.Workspace.SetIsHighlighted.Response: ResultWithError {}
-extension Anytype_Rpc.Workspace.SetIsHighlighted.Response.Error: ResponseError {
+extension Anytype_Rpc.Workspace.SetInfo.Response: ResultWithError {}
+extension Anytype_Rpc.Workspace.SetInfo.Response.Error: ResponseError {
     public var isNull: Bool { code == .null }
 }
 

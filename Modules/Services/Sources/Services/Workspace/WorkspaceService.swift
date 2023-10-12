@@ -7,7 +7,8 @@ public protocol WorkspaceServiceProtocol {
     func installObject(spaceId: String, objectId: String) async throws -> ObjectDetails
     func createWorkspace(name: String, gradient: GradientId, accessibility: SpaceAccessibility) async throws -> String
     func deleteWorkspace(objectId: String) async throws
-    func workspaceInfo(spaceId: String) async throws -> AccountInfo
+    func workspaceOpen(spaceId: String) async throws -> AccountInfo
+    func workspaceSetDetails(spaceId: String, details: [WorkspaceSetDetails]) async throws
 }
 
 public final class WorkspaceService: WorkspaceServiceProtocol {
@@ -48,11 +49,20 @@ public final class WorkspaceService: WorkspaceServiceProtocol {
         }).invoke()
     }
     
-    public func workspaceInfo(spaceId: String) async throws -> AccountInfo {
-        let result = try await ClientCommands.workspaceInfo(.with {
+    public func workspaceOpen(spaceId: String) async throws -> AccountInfo {
+        let result = try await ClientCommands.workspaceOpen(.with {
             $0.spaceID = spaceId
         }).invoke()
         
         return result.info.asModel
+    }
+    
+    public func workspaceSetDetails(spaceId: String, details: [WorkspaceSetDetails]) async throws {
+        try await ClientCommands.workspaceSetInfo(.with {
+            $0.spaceID = spaceId
+            for detail in details {
+                $0.details.fields[detail.key] = detail.value
+            }
+        }).invoke()
     }
 }

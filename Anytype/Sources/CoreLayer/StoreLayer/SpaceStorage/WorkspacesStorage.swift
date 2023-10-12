@@ -3,8 +3,8 @@ import Combine
 import Services
 
 protocol WorkspacesStorageProtocol: AnyObject {
-    var workspaces: [ObjectDetails] { get }
-    var workspsacesPublisher: AnyPublisher<[ObjectDetails], Never> { get }
+    var workspaces: [SpaceView] { get }
+    var workspsacesPublisher: AnyPublisher<[SpaceView], Never> { get }
     func startSubscription() async
     func stopSubscription() async
 }
@@ -18,8 +18,8 @@ final class WorkspacesStorage: WorkspacesStorageProtocol {
     
     // MARK: - State
     
-    @Published private(set) var workspaces: [ObjectDetails] = []
-    var workspsacesPublisher: AnyPublisher<[ObjectDetails], Never> { $workspaces.eraseToAnyPublisher() }
+    @Published private(set) var workspaces: [SpaceView] = []
+    var workspsacesPublisher: AnyPublisher<[SpaceView], Never> { $workspaces.eraseToAnyPublisher() }
     
     init(subscriptionStorageProvider: SubscriptionStorageProviderProtocol, subscriptionBuilder: WorkspacesSubscriptionBuilderProtocol) {
         self.subscriptionStorage = subscriptionStorageProvider.createSubscriptionStorage(subId: subscriptionBuilder.subscriptionId)
@@ -30,7 +30,7 @@ final class WorkspacesStorage: WorkspacesStorageProtocol {
         let data = subscriptionBuilder.build()
         try? await subscriptionStorage.startOrUpdateSubscription(data: data) { [weak self] data in
             guard let self else { return }
-            workspaces = data.items
+            workspaces = data.items.map { SpaceView(details: $0) }
         }
     }
     
