@@ -27,7 +27,7 @@ final class EditorPageViewModel: EditorPageViewModelProtocol {
     private let accountManager: AccountManagerProtocol
     private let configuration: EditorPageViewModelConfiguration
     
-    private let templatesSubscriptionService: TemplatesSubscriptionService
+    private let templatesSubscriptionService: TemplatesSubscriptionServiceProtocol
     private var availableTemplates = [ObjectDetails]()
     
     private lazy var subscriptions = [AnyCancellable]()
@@ -52,7 +52,7 @@ final class EditorPageViewModel: EditorPageViewModelProtocol {
         editorPageTemplatesHandler: EditorPageTemplatesHandlerProtocol,
         accountManager: AccountManagerProtocol,
         configuration: EditorPageViewModelConfiguration,
-        templatesSubscriptionService: TemplatesSubscriptionService
+        templatesSubscriptionService: TemplatesSubscriptionServiceProtocol
     ) {
         self.viewInput = viewInput
         self.document = document

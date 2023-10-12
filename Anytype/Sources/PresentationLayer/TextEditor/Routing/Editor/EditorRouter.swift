@@ -447,7 +447,6 @@ final class EditorRouter: NSObject, EditorRouterProtocol, ObjectSettingsCoordina
         )
     }
     
-    
     // MARK: - Private
     
     private func showURLInputViewController(

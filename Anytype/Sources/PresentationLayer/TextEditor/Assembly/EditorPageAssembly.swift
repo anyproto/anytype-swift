@@ -367,7 +367,7 @@ final class EditorAssembly {
             editorPageTemplatesHandler: editorPageTemplatesHandler,
             accountManager: serviceLocator.accountManager(),
             configuration: configuration,
-            templatesSubscriptionService: TemplatesSubscriptionService(subscriptionService: serviceLocator.subscriptionService())
+            templatesSubscriptionService: serviceLocator.templatesSubscription()
         )
     }
 

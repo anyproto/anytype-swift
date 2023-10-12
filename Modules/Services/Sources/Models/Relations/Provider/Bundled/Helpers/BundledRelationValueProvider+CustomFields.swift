@@ -43,12 +43,6 @@ extension BundledRelationsValueProvider {
         return layout
     }
     
-    public var internalFlagsWithoutTemplates: [Int] {
-        internalFlags.filter {
-            $0 != Anytype_Model_InternalFlag.Value.editorSelectTemplate.rawValue
-        }
-    }
-    
     public var isSelectTemplate: Bool {
         let flag = Anytype_Model_InternalFlag.Value.editorSelectTemplate.rawValue
         return internalFlags.contains(flag)

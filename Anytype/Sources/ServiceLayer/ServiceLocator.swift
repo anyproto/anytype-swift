@@ -303,6 +303,10 @@ final class ServiceLocator {
         return QuickActionShortcutBuilder(activeWorkspaceStorage: activeWorkspaceStorage(), objectTypeProvider: objectTypeProvider())
     }
     
+    func templatesSubscription() -> TemplatesSubscriptionServiceProtocol {
+        TemplatesSubscriptionService(subscriptionService: subscriptionService())
+    }
+    
     // MARK: - Private
     
     private func subscriptionToggler() -> SubscriptionTogglerProtocol {
