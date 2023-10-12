@@ -59,20 +59,17 @@ final class SoulViewModel: ObservableObject {
             
             do {
                 state.mnemonic = try await authService.createWallet()
-                try await authService.createAccount(
+                let account = try await authService.createAccount(
                     name: state.soul,
                     imagePath: ""
                 )
-                try await usecaseService.setObjectImportUseCaseToSkip()
+                try await usecaseService.setObjectImportUseCaseToSkip(spaceId: account.info.accountSpaceId)
                 try? seedService.saveSeed(state.mnemonic)
                 
                 onSuccess()
             } catch {
                 createAccountError(error)
             }
-        }
-        if state.soul.isEmpty {
-            AnytypeAnalytics.instance().logSkipName()
         }
     }
     

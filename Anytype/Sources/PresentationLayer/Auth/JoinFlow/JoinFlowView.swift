@@ -18,9 +18,7 @@ struct JoinFlowView: View {
              }
         }
         .ifLet(model.errorText) { view, errorText in
-            view.alertView(isShowing: $model.showError, errorText: errorText, onButtonTap: {
-                presentationMode.dismiss()
-            })
+            view.alertView(isShowing: $model.showError, errorText: errorText, onButtonTap: {})
         }
         .fitIPadToReadableContentGuide()
     }
