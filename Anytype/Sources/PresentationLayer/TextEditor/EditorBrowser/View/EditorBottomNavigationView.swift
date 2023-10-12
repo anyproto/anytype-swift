@@ -9,6 +9,7 @@ final class EditorBottomNavigationView: UIView {
     private let onForwardPageTap: (BrowserPage) -> ()
     private let onHomeTap: () -> ()
     private let onCreateObjectTap: () -> ()
+    private let onCreateObjectWithTypeTap: () -> ()
     
     private lazy var backButton = createBackButton()
     private lazy var forwardButton = createForwardButton()
@@ -21,7 +22,8 @@ final class EditorBottomNavigationView: UIView {
         onForwardTap: @escaping () -> (),
         onForwardPageTap: @escaping (BrowserPage) -> (),
         onHomeTap: @escaping () -> (),
-        onCreateObjectTap: @escaping () -> ()
+        onCreateObjectTap: @escaping () -> (),
+        onCreateObjectWithTypeTap: @escaping () -> ()
     ) {
         self.onBackTap = onBackTap
         self.onBackPageTap = onBackPageTap
@@ -29,6 +31,7 @@ final class EditorBottomNavigationView: UIView {
         self.onForwardPageTap = onForwardPageTap
         self.onHomeTap = onHomeTap
         self.onCreateObjectTap = onCreateObjectTap
+        self.onCreateObjectWithTypeTap = onCreateObjectWithTypeTap
         
         super.init(frame: .zero)
         
@@ -126,6 +129,11 @@ final class EditorBottomNavigationView: UIView {
         EditorBrowserButton(imageAsset: .X32.plus) { [weak self] in
             UISelectionFeedbackGenerator().selectionChanged()
             self?.onCreateObjectTap()
+        } longTapAction: { [weak self] in
+            if FeatureFlags.selectTypeByLongTap {
+                UISelectionFeedbackGenerator().selectionChanged()
+                self?.onCreateObjectWithTypeTap()
+            }
         }
     }
     

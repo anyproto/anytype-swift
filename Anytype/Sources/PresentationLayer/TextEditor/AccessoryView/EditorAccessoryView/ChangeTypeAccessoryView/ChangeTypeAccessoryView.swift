@@ -1,5 +1,6 @@
 import UIKit
 import Combine
+import AnytypeCore
 
 class ChangeTypeAccessoryView: UIView {
     // https://www.figma.com/file/TupCOWb8sC9NcjtSToWIkS/Mobile---main?node-id=5309%3A1717
@@ -38,7 +39,11 @@ class ChangeTypeAccessoryView: UIView {
         backgroundColor = .Background.primary
 
         addSubview(stackView) {
-            $0.pinToSuperviewPreservingReadability(excluding: [.bottom])
+            if FeatureFlags.ipadIncreaseWidth {
+                $0.pinToSuperview(excluding: [.bottom])
+            } else {
+                $0.pinToSuperviewPreservingReadability(excluding: [.bottom])
+            }
         }
 
         topView.addSubview(doneButton) {
@@ -138,12 +143,32 @@ private final class ChangeButton: UIButton {
     }
 
     private func setup() {
-        setTitle(Loc.changeType, for: .normal)
-        setImage(UIImage(asset: .TextEditor.turnIntoArrow), for: .normal)
-        titleLabel?.font = .bodyRegular
-        setTitleColor(.Button.active, for: .normal)
-        setTitleColor(.Text.primary, for: .highlighted)
-
-        imageEdgeInsets = .init(top: 0, left: -9, bottom: 0, right: 0)
+        var configuration = UIButton.Configuration.plain()
+        configuration.attributedTitle = attributedString(for: .normal)
+        configuration.image = UIImage(asset: .TextEditor.turnIntoArrow)
+        configuration.buttonSize = .mini
+        configuration.titleAlignment = .leading
+        configuration.imagePlacement = .leading
+        configuration.contentInsets = .init(top: 0, leading: -5, bottom: 0, trailing: 0)
+        configuration.imagePadding = 5
+        self.configuration = configuration
+        
+        configurationUpdateHandler = { [weak self] button in
+            guard let self = self else { return }
+            
+            var configuration = button.configuration
+            configuration?.attributedTitle = attributedString(for: button.state)
+            self.configuration = configuration
+        }
+    }
+    
+    private func attributedString(for state: UIButton.State) -> AttributedString {
+        .init(
+            Loc.changeType,
+            attributes: AttributeContainer([
+                NSAttributedString.Key.font: UIFont.bodyRegular,
+                NSAttributedString.Key.foregroundColor: state == .highlighted ? UIColor.Text.primary : UIColor.Button.active
+            ])
+        )
     }
 }

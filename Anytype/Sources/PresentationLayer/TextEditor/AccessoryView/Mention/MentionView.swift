@@ -1,5 +1,5 @@
 import UIKit
-
+import AnytypeCore
 
 protocol MentionViewDelegate: AnyObject {
     func selectMention(_ mention: MentionObject)
@@ -7,12 +7,12 @@ protocol MentionViewDelegate: AnyObject {
 
 final class MentionView: DismissableInputAccessoryView {
 
-    private let documentId: String
+    private let document: BaseDocumentProtocol
     private weak var mentionsController: MentionsViewController?
     weak var delegate: MentionViewDelegate?
     
-    init(documentId: String, frame: CGRect) {
-        self.documentId = documentId
+    init(document: BaseDocumentProtocol, frame: CGRect) {
+        self.document = document
         super.init(frame: frame)
     }
     
@@ -25,7 +25,7 @@ final class MentionView: DismissableInputAccessoryView {
 
     private func addMentionsController(to controller: UIViewController) {
         let mentionsController = MentionAssembly().controller(
-            documentId: documentId,
+            document: document,
             onMentionSelect: { [weak self] mentionObject in
                 self?.delegate?.selectMention(mentionObject)
             },
@@ -34,7 +34,11 @@ final class MentionView: DismissableInputAccessoryView {
         
         controller.addChild(mentionsController)
         addSubview(mentionsController.view) {
-            $0.pinToSuperviewPreservingReadability(excluding: [.top])
+            if FeatureFlags.ipadIncreaseWidth {
+                $0.pinToSuperview(excluding: [.top])
+            } else {
+                $0.pinToSuperviewPreservingReadability(excluding: [.top])
+            }
             $0.top.equal(to: topSeparator?.bottomAnchor ?? topAnchor)
         }
         mentionsController.didMove(toParent: controller)

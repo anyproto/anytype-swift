@@ -77,9 +77,12 @@ extension AnytypeAnalytics {
                  withEventProperties: [AnalyticsEventsPropertiesKey.type: context.rawValue])
     }
 
-    func logDefaultObjectTypeChange(_ type: AnalyticsObjectType) {
+    func logDefaultObjectTypeChange(_ type: AnalyticsObjectType, route: AnalyticsDefaultObjectTypeChangeRoute) {
         logEvent(AnalyticsEventsName.defaultObjectTypeChange,
-                 withEventProperties: [AnalyticsEventsPropertiesKey.objectType: type.analyticsId])
+                 withEventProperties: [
+                    AnalyticsEventsPropertiesKey.objectType: type.analyticsId,
+                    AnalyticsEventsPropertiesKey.route: route.rawValue
+                 ])
     }
 
     func logSelectTheme(_ userInterfaceStyle: UIUserInterfaceStyle) {
@@ -97,6 +100,11 @@ extension AnytypeAnalytics {
 
     func logObjectTypeChange(_ type: AnalyticsObjectType) {
         logEvent(AnalyticsEventsName.objectTypeChange,
+                 withEventProperties: [AnalyticsEventsPropertiesKey.objectType: type.analyticsId])
+    }
+    
+    func logSelectObjectType(_ type: AnalyticsObjectType) {
+        logEvent(AnalyticsEventsName.selectObjectType,
                  withEventProperties: [AnalyticsEventsPropertiesKey.objectType: type.analyticsId])
     }
 
@@ -351,15 +359,6 @@ extension AnytypeAnalytics {
         )
     }
     
-    func logMigrationGoneWrong(type: AnalyticsEventsMigrationType?) {
-        logEvent(
-            AnalyticsEventsName.migrationGoneWrong,
-            withEventProperties: [
-                AnalyticsEventsPropertiesKey.type: type?.rawValue
-            ].compactMapValues { $0 }
-        )
-    }
-    
     func logEditWidget() {
         logEvent(AnalyticsEventsName.Widget.edit)
     }
@@ -507,8 +506,14 @@ extension AnytypeAnalytics {
         logEvent(AnalyticsEventsName.redo)
     }
     
-    func logDuplicateObject() {
-        logEvent(AnalyticsEventsName.duplicateObject)
+    func logDuplicateObject(count: Int, objectType: AnalyticsObjectType) {
+        logEvent(
+            AnalyticsEventsName.duplicateObject,
+            withEventProperties: [
+                AnalyticsEventsPropertiesKey.count: count,
+                AnalyticsEventsPropertiesKey.objectType: objectType.analyticsId,
+            ]
+        )
     }
     
     func logCopyBlock() {

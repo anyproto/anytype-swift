@@ -20,14 +20,6 @@ public struct DataviewView: Hashable, Identifiable {
     public let defaultTemplateID: BlockId?
     public let defaultObjectTypeID: BlockId?
     
-    public var defaultObjectTypeIDWithFallback: BlockId {
-        if let defaultObjectTypeID, defaultObjectTypeID.isNotEmpty {
-            return defaultObjectTypeID
-        } else {
-            return ObjectTypeId.BundledTypeId.page.rawValue
-        }
-    }
-
     public static var empty: DataviewView {
         DataviewView(
             id: "",
@@ -110,25 +102,6 @@ public struct DataviewView: Hashable, Identifiable {
         }
         
         return updated(options: newOptions)
-    }
-    
-    public static func created(with name: String, type: DataviewViewType) -> DataviewView {
-        DataviewView(
-            id: "",
-            name: name,
-            type: type,
-            options: [],
-            sorts: [],
-            filters: [],
-            coverRelationKey: "",
-            hideIcon: false,
-            cardSize: .small,
-            coverFit: false,
-            groupRelationKey: "",
-            groupBackgroundColors: false,
-            defaultTemplateID: nil,
-            defaultObjectTypeID: nil
-        )
     }
     
     public var asMiddleware: MiddlewareDataviewView {

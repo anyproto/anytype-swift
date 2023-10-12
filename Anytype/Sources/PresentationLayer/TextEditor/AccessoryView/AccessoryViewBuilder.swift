@@ -10,11 +10,14 @@ struct AccessoryViewBuilder {
         document: BaseDocumentProtocol,
         onShowStyleMenu: @escaping RoutingAction<[BlockInformation]>,
         onBlockSelection: @escaping RoutingAction<BlockInformation>,
-        pageService: PageServiceProtocol,
+        pageService: PageRepositoryProtocol,
         linkToObjectCoordinator: LinkToObjectCoordinatorProtocol,
         cursorManager: EditorCursorManager
     ) -> AccessoryViewStateManager {
-        let mentionsView = MentionView(documentId: document.objectId, frame: CGRect(origin: .zero, size: menuActionsViewSize))
+        let mentionsView = MentionView(
+            document: document,
+            frame: CGRect(origin: .zero, size: menuActionsViewSize)
+        )
         
         let cursorModeAccessoryViewModel = CursorModeAccessoryViewModel(
             handler: actionHandler,
@@ -34,6 +37,7 @@ struct AccessoryViewBuilder {
             handler: actionHandler,
             searchService: ServiceLocator.shared.searchService(),
             objectService: ServiceLocator.shared.objectActionsService(),
+            objectTypeProvider: ServiceLocator.shared.objectTypeProvider(),
             document: document
         )
         
@@ -73,11 +77,11 @@ struct AccessoryViewBuilder {
         )
 
         accessoryViewSwitcher.onDoneButton = {
-            guard let type = document.details?.objectType else { return }
+            guard let typeId = document.details?.type else { return }
 
             router.showTemplatesPopupIfNeeded(
                 document: document,
-                templatesTypeId: .dynamic(type.id),
+                templatesTypeId: typeId,
                 onShow: nil
             )
         }

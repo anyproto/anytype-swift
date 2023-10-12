@@ -21,8 +21,7 @@ final class ObjectTypeSubscriptionDataBuilder: ObjectTypeSubscriptionDataBuilder
             type: .asc
         )
         let filters = [
-            SearchHelper.layoutFilter([DetailsLayout.objectType]),
-            SearchHelper.workspaceId(accountManager.account.info.accountSpaceId)
+            SearchHelper.layoutFilter([DetailsLayout.objectType])
         ]
         
         let keys = [
@@ -36,6 +35,9 @@ final class ObjectTypeSubscriptionDataBuilder: ObjectTypeSubscriptionDataBuilder
             BundledRelationKey.smartblockTypes.rawValue,
             BundledRelationKey.sourceObject.rawValue,
             BundledRelationKey.recommendedRelations.rawValue,
+            BundledRelationKey.recommendedLayout.rawValue,
+            BundledRelationKey.uniqueKey.rawValue,
+            BundledRelationKey.spaceId.rawValue,
             BundledRelationKey.defaultTemplateId.rawValue
         ]
 

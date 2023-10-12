@@ -15,7 +15,7 @@ struct ObjectSearchData: SearchDataProtocol {
     
     let editorScreenData: EditorScreenData
     
-    private let details: ObjectDetails
+    let details: ObjectDetails
     
     init(details: ObjectDetails) {
         self.details = details
@@ -53,6 +53,6 @@ extension ObjectSearchData {
     }
 
     var iconImage: Icon? {
-        FeatureFlags.deleteObjectPlaceholder ? details.objectIconImage : details.objectIconImageWithPlaceholder
+        details.objectIconImage
     }
 }

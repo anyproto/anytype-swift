@@ -102,8 +102,8 @@ final class CoordinatorsDI: CoordinatorsDIProtocol {
         return LoginFlowCoordinatorAssembly(modulesDI: modulesDI, uiHelpersDI: uiHelpersDI)
     }
     
-    func legacyAuthViewAssembly() -> LegacyAuthViewAssembly {
-        return LegacyAuthViewAssembly(serviceLocator: serviceLocator)
+    func spaceSettings() -> SpaceSettingsCoordinatorAssemblyProtocol {
+        return SpaceSettingsCoordinatorAssembly(modulesDI: modulesDI, serviceLocator: serviceLocator, uiHelpersDI: uiHelpersDI)
     }
     
     func setViewSettings() -> SetViewSettingsCoordinatorAssemblyProtocol {
@@ -128,5 +128,21 @@ final class CoordinatorsDI: CoordinatorsDIProtocol {
     
     func setLayoutSettings() -> SetLayoutSettingsCoordinatorAssemblyProtocol {
         SetLayoutSettingsCoordinatorAssembly(modulesDI: modulesDI)
+    }
+    
+    func setRelations() -> SetRelationsCoordinatorAssemblyProtocol {
+        SetRelationsCoordinatorAssembly(modulesDI: modulesDI, coordinatorsDI: self)
+    }
+    
+    func setViewPicker() -> SetViewPickerCoordinatorAssemblyProtocol {
+        SetViewPickerCoordinatorAssembly(modulesDI: modulesDI, coordinatorsDI: self)
+    }
+    
+    func share() -> ShareCoordinatorAssemblyProtocol {
+        ShareCoordinatorAssembly(modulesDI: modulesDI, serviceLocator: serviceLocator)
+    }
+
+    func setObjectCreationSettings() -> SetObjectCreationSettingsCoordinatorAssemblyProtocol {
+        SetObjectCreationSettingsCoordinatorAssembly(modulesDI: modulesDI, uiHelpersDI: uiHelpersDI, coordinatorsDI: self)
     }
 }

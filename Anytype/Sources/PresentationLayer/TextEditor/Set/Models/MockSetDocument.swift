@@ -3,9 +3,12 @@ import Services
 import Combine
 
 final class MockSetDocument: SetDocumentProtocol {
+    
     var document: BaseDocumentProtocol { fatalError() }
     
     var objectId: BlockId { "" }
+    
+    var spaceId: String { "" }
     
     var blockId: BlockId? { nil }
     
@@ -14,8 +17,6 @@ final class MockSetDocument: SetDocumentProtocol {
     var dataviews: [BlockDataview] { [] }
     
     var dataViewRelationsDetails: [Services.RelationDetails] { [] }
-    
-    var sortedRelations: [SetRelation] { [] }
     
     var isObjectLocked: Bool { false }
     
@@ -37,27 +38,37 @@ final class MockSetDocument: SetDocumentProtocol {
     
     var activeViewPublisher: AnyPublisher<Services.DataviewView, Never> { fatalError() }
     
-    var sorts: [SetSort] { [] }
+    var activeViewSorts: [SetSort] { [] }
     
-    var sortsPublisher: AnyPublisher<[SetSort], Never> { fatalError() }
+    func sorts(for viewId: String) -> [SetSort] { [] }
     
-    var filters: [SetFilter] { [] }
+    var activeViewFilters: [SetFilter] { [] }
     
-    var filtersPublisher: AnyPublisher<[SetFilter], Never> { fatalError() }
+    func filters(for viewId: String) -> [SetFilter] { [] }
+    
+    func view(by id: String) -> DataviewView { .empty }
+    
+    func sortedRelations(for viewId: String) -> [SetRelation] { [] }
     
     func canStartSubscription() -> Bool { false }
     
-    func activeViewRelations(excludeRelations: [Services.RelationDetails]) -> [Services.RelationDetails] { [] }
+    func viewRelations(viewId: String, excludeRelations: [Services.RelationDetails]) -> [Services.RelationDetails] { [] }
     
     func objectOrderIds(for groupId: String) -> [String] { [] }
     
     func updateActiveViewId(_ id: Services.BlockId) { }
+    
+    func isTypeSet() -> Bool { false }
     
     func isRelationsSet() -> Bool { false }
     
     func isBookmarksSet() -> Bool { false }
     
     func isCollection() -> Bool { false }
+    
+    func defaultObjectTypeForActiveView() throws -> ObjectType { fatalError() }
+    
+    func defaultObjectTypeForView(_ view: DataviewView) throws -> ObjectType { fatalError() }
     
     var syncPublisher: AnyPublisher<Void, Never> { fatalError() }
     

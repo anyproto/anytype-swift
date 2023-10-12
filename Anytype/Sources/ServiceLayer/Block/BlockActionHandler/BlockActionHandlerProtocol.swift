@@ -26,14 +26,14 @@ protocol BlockActionHandlerProtocol: AnyObject {
     func createEmptyBlock(parentId: BlockId)
     func setLink(url: URL?, range: NSRange, blockId: BlockId)
     func setLinkToObject(linkBlockId: BlockId?, range: NSRange, blockId: BlockId)
-    func addLink(targetId: BlockId, typeId: String, blockId: BlockId)
+    func addLink(targetDetails: ObjectDetails, blockId: BlockId)
     func changeMarkup(blockIds: [BlockId], markType: MarkupType)
     func addBlock(_ type: BlockContentType, blockId: BlockId, blockText: NSAttributedString?, position: BlockPosition?)
     func toggleWholeBlockMarkup(_ markup: MarkupType, blockId: BlockId)
     func upload(blockId: BlockId, filePath: String) async throws
-    func createPage(targetId: BlockId, type: ObjectTypeId) async throws -> BlockId?
+    func createPage(targetId: BlockId, spaceId: String, typeUniqueKey: ObjectTypeUniqueKey, templateId: String) async throws -> BlockId?
 
-    func setObjectTypeId(_ objectTypeId: String) async throws
+    func setObjectType(type: ObjectType) async throws
     func setObjectSetType() async throws
     func setObjectCollectionType() async throws
     func changeTextForced(_ text: NSAttributedString, blockId: BlockId)
@@ -58,7 +58,7 @@ protocol BlockActionHandlerProtocol: AnyObject {
         blockId: BlockId,
         rowsCount: Int,
         columnsCount: Int,
-        blockText: NSAttributedString?
+        blockText: SafeSendable<NSAttributedString?>
     ) async throws -> BlockId
 }
 

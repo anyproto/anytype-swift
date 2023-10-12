@@ -56,14 +56,10 @@ final class WidgetObjectListRecentViewModel: WidgetObjectListInternalViewModelPr
     }
     
     private func sortValue(for details: ObjectDetails) -> Date? {
-        if FeatureFlags.recentEditWidget {
-            switch type {
-            case .recentEdit:
-                return details.lastModifiedDate
-            case .recentOpen:
-                return details.lastOpenedDate
-            }
-        } else {
+        switch type {
+        case .recentEdit:
+            return details.lastModifiedDate
+        case .recentOpen:
             return details.lastOpenedDate
         }
     }

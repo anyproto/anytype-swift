@@ -16,19 +16,19 @@ protocol WidgetSourceSearchInteractorProtocol: AnyObject {
 
 final class WidgetSourceSearchInteractor: WidgetSourceSearchInteractorProtocol {
     
+    private let spaceId: String
     private let searchService: SearchServiceProtocol
-    private let anytypeLibrary = FeatureFlags.recentEditWidget
-        ? AnytypeWidgetId.allCases.map { $0.librarySource }
-        : [AnytypeWidgetId.favorite, AnytypeWidgetId.sets, AnytypeWidgetId.collections, AnytypeWidgetId.recent].map { $0.librarySource }
+    private let anytypeLibrary = AnytypeWidgetId.allCases.map { $0.librarySource }
     
-    init(searchService: SearchServiceProtocol) {
+    init(spaceId: String, searchService: SearchServiceProtocol) {
+        self.spaceId = spaceId
         self.searchService = searchService
     }
     
     // MARK: - WidgetSourceSearchInteractorProtocol
     
     func objectSearch(text: String) async throws -> [ObjectDetails] {
-        try await searchService.search(text: text)
+        try await searchService.search(text: text, spaceId: spaceId)
     }
     
     func anytypeLibrarySearch(text: String) -> [WidgetAnytypeLibrarySource] {
@@ -62,21 +62,12 @@ private extension AnytypeWidgetId {
                 icon: .object(.emoji(Emoji("📂") ?? .default))
             )
         case .recent:
-            if FeatureFlags.recentEditWidget {
-                return WidgetAnytypeLibrarySource(
-                    type: .recent,
-                    name: Loc.Widgets.Library.RecentlyEdited.name,
-                    description: nil,
-                    icon: .object(.emoji(Emoji("📝") ?? .default))
-                )
-            } else {
-                return WidgetAnytypeLibrarySource(
-                    type: .recent,
-                    name: Loc.recent,
-                    description: nil,
-                    icon: .object(.emoji(Emoji("📅") ?? .default))
-                )
-            }
+            return WidgetAnytypeLibrarySource(
+                type: .recent,
+                name: Loc.Widgets.Library.RecentlyEdited.name,
+                description: nil,
+                icon: .object(.emoji(Emoji("📝") ?? .default))
+            )
         case .recentOpen:
             return WidgetAnytypeLibrarySource(
                 type: .recentOpen,

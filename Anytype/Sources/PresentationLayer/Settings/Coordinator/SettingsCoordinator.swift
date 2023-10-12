@@ -27,6 +27,8 @@ final class SettingsCoordinator: SettingsCoordinatorProtocol, SettingsModuleOutp
     private let widgetObjectListModuleAssembly: WidgetObjectListModuleAssemblyProtocol
     private let documentService: DocumentServiceProtocol
     private let urlOpener: URLOpenerProtocol
+    private let activeWorkspaceStorage: ActiveWorkpaceStorageProtocol
+    private let serviceLocator: ServiceLocator
     
     init(
         navigationContext: NavigationContextProtocol,
@@ -45,7 +47,9 @@ final class SettingsCoordinator: SettingsCoordinatorProtocol, SettingsModuleOutp
         fileStorageModuleAssembly: FileStorageModuleAssemblyProtocol,
         widgetObjectListModuleAssembly: WidgetObjectListModuleAssemblyProtocol,
         documentService: DocumentServiceProtocol,
-        urlOpener: URLOpenerProtocol
+        urlOpener: URLOpenerProtocol,
+        activeWorkspaceStorage: ActiveWorkpaceStorageProtocol,
+        serviceLocator: ServiceLocator
     ) {
         self.navigationContext = navigationContext
         self.objectTypeProvider = objectTypeProvider
@@ -64,6 +68,8 @@ final class SettingsCoordinator: SettingsCoordinatorProtocol, SettingsModuleOutp
         self.widgetObjectListModuleAssembly = widgetObjectListModuleAssembly
         self.documentService = documentService
         self.urlOpener = urlOpener
+        self.activeWorkspaceStorage = activeWorkspaceStorage
+        self.serviceLocator = serviceLocator
     }
     
     func startFlow() {
@@ -79,8 +85,8 @@ final class SettingsCoordinator: SettingsCoordinatorProtocol, SettingsModuleOutp
     }
     
     func onPersonalizationSelected() {
-        let module = personalizationModuleAssembly.make(output: self)
-        navigationContext.present(module)
+        let module = personalizationModuleAssembly.make(spaceId: activeWorkspaceStorage.workspaceInfo.accountSpaceId, output: self)
+        navigationContext.present(AnytypePopup(contentView: module))
     }
     
     func onAppearanceSelected() {
@@ -105,7 +111,10 @@ final class SettingsCoordinator: SettingsCoordinatorProtocol, SettingsModuleOutp
     
     func onChangeIconSelected(objectId: String) {
         let document = documentService.document(objectId: objectId, forPreview: true)
-        let module = objectIconPickerModuleAssembly.make(document: document, objectId: objectId)
+        let interactor = serviceLocator.objectHeaderInteractor(objectId: objectId)
+        let module = objectIconPickerModuleAssembly.make(document: document) { action in
+            interactor.handleIconAction(spaceId: document.spaceId, action: action)
+        }
         navigationContext.present(module)
     }
     
@@ -114,9 +123,10 @@ final class SettingsCoordinator: SettingsCoordinatorProtocol, SettingsModuleOutp
     func onDefaultTypeSelected() {
         let module = newSearchModuleAssembly.objectTypeSearchModule(
             title: Loc.chooseDefaultObjectType,
+            spaceId: activeWorkspaceStorage.workspaceInfo.accountSpaceId,
             showBookmark: false
         ) { [weak self] type in
-            self?.objectTypeProvider.setDefaulObjectType(type: type)
+            self?.objectTypeProvider.setDefaultObjectType(type: type, spaceId: type.spaceId)
             self?.navigationContext.dismissTopPresented(animated: true)
         }
         navigationContext.present(module)
@@ -125,7 +135,7 @@ final class SettingsCoordinator: SettingsCoordinatorProtocol, SettingsModuleOutp
     // MARK: - SettingsAppearanceModuleOutput
     
     func onWallpaperChangeSelected() {
-        let module = wallpaperPickerModuleAssembly.make()
+        let module = wallpaperPickerModuleAssembly.make(spaceId: activeWorkspaceStorage.workspaceInfo.accountSpaceId)
         navigationContext.present(module)
     }
     

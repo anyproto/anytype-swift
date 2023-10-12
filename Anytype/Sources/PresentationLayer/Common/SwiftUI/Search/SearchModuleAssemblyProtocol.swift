@@ -1,8 +1,8 @@
-import Foundation
+import Services
+import SwiftUI
 
 protocol SearchModuleAssemblyProtocol {
     func makeObjectSearch(
-        title: String?,
-        onSelect: @escaping (ObjectSearchData) -> ()
-    ) -> SwiftUIModule
+        data: SearchModuleModel
+    ) -> AnyView
 }

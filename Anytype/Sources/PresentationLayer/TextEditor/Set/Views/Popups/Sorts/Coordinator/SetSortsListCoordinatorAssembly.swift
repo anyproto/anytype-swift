@@ -3,7 +3,7 @@ import Services
 
 protocol SetSortsListCoordinatorAssemblyProtocol {
     @MainActor
-    func make(with setDocument: SetDocumentProtocol) -> AnyView
+    func make(with setDocument: SetDocumentProtocol, viewId: String) -> AnyView
 }
 
 final class SetSortsListCoordinatorAssembly: SetSortsListCoordinatorAssemblyProtocol {
@@ -17,10 +17,11 @@ final class SetSortsListCoordinatorAssembly: SetSortsListCoordinatorAssemblyProt
     // MARK: - SetSortsListCoordinatorAssemblyProtocol
     
     @MainActor
-    func make(with setDocument: SetDocumentProtocol) -> AnyView {
+    func make(with setDocument: SetDocumentProtocol, viewId: String) -> AnyView {
         return SetSortsListCoordinatorView(
             model: SetSortsListCoordinatorViewModel(
                 setDocument: setDocument,
+                viewId: viewId,
                 setSortsListModuleAssembly: self.modulesDI.setSortsList(),
                 newSearchModuleAssembly: self.modulesDI.newSearch(),
                 setSortTypesListModuleAssembly: self.modulesDI.setSortTypesList()

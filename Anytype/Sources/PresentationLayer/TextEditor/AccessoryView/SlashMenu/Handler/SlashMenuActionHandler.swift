@@ -39,15 +39,15 @@ final class SlashMenuActionHandler {
             switch action {
             case .linkTo:
                 router.showLinkTo { [weak self] details in
-                    self?.actionHandler.addLink(targetId: details.id, typeId: details.type, blockId: blockId)
+                    self?.actionHandler.addLink(targetDetails: details, blockId: blockId)
                 }
             case .objectType(let object):
                 Task { @MainActor [weak self] in
                     try await self?.actionHandler
-                        .createPage(targetId: blockId, type: .dynamic(object.id))
-                        .flatMap { id in
+                        .createPage(targetId: blockId, spaceId: object.spaceId, typeUniqueKey: object.uniqueKeyValue, templateId: object.defaultTemplateId)
+                        .flatMap { objectId in
                             AnytypeAnalytics.instance().logCreateObject(objectType: object.analyticsType, route: .powertool)
-                            self?.router.showPage(data: .page(EditorPageObject(objectId: id, isSupportedForEdit: true, isOpenedForPreview: false)))
+                            self?.router.showPage(data: .page(EditorPageObject(objectId: objectId, spaceId: object.spaceId, isSupportedForEdit: true, isOpenedForPreview: false)))
                         }
                 }
             }
@@ -65,12 +65,13 @@ final class SlashMenuActionHandler {
         case let .other(other):
             switch other {
             case .table(let rowsCount, let columnsCount):
-                Task { @MainActor [textView] in
+                let safeSendableAttributedText = SafeSendable(value: textView?.attributedText)
+                Task { @MainActor in
                     guard let blockId = try? await actionHandler.createTable(
                         blockId: blockId,
                         rowsCount: rowsCount,
                         columnsCount: columnsCount,
-                        blockText: textView?.attributedText
+                        blockText: safeSendableAttributedText
                     ) else { return }
                     
                     cursorManager.blockFocus = .init(id: blockId, position: .beginning)

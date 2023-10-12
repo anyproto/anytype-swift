@@ -19,6 +19,7 @@ final class StatusRelationDetailsViewModel: ObservableObject {
     var isEditable: Bool {
         return relation.isEditable
     }
+    private let details: ObjectDetails
     private let relation: Relation
     private let service: RelationsServiceProtocol
     private let searchService: SearchServiceProtocol
@@ -27,13 +28,15 @@ final class StatusRelationDetailsViewModel: ObservableObject {
     private weak var popup: AnytypePopupProxy?
     
     init(
+        details: ObjectDetails,
         selectedStatus: Relation.Status.Option?,
         relation: Relation,
         service: RelationsServiceProtocol,
         newSearchModuleAssembly: NewSearchModuleAssemblyProtocol,
         searchService: SearchServiceProtocol,
         analyticsType: AnalyticsEventsRelationType
-    ) {        
+    ) {
+        self.details = details
         self.selectedStatus = selectedStatus
         
         self.relation = relation
@@ -64,6 +67,7 @@ extension StatusRelationDetailsViewModel {
     @ViewBuilder
     func makeSearchView() -> some View {
         newSearchModuleAssembly.statusSearchModule(
+            spaceId: details.spaceId,
             relationKey: relation.key,
             selectedStatusesIds: selectedStatus.flatMap { [$0.id] } ?? []
         ) { [weak self] ids in
@@ -95,7 +99,7 @@ private extension StatusRelationDetailsViewModel {
         Task {
             try await service.updateRelation(relationKey: relation.key, value: newStatusId.protobufValue)
             
-            let newStatus = try await searchService.searchRelationOptions(optionIds: [newStatusId]).first
+            let newStatus = try await searchService.searchRelationOptions(optionIds: [newStatusId], spaceId: details.spaceId).first
                 .map { Relation.Status.Option(option: $0) }
             
             guard let newStatus = newStatus else {
@@ -110,7 +114,7 @@ private extension StatusRelationDetailsViewModel {
     
     func handleCreateOption(title: String) {
         Task {
-            let optionId = try await service.addRelationOption(relationKey: relation.key, optionText: title)
+            let optionId = try await service.addRelationOption(spaceId: details.spaceId, relationKey: relation.key, optionText: title)
             guard let optionId = optionId else { return }
             
             try? await handleSelectedOptionIds([optionId])

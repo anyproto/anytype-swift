@@ -17,6 +17,7 @@ final class HomeWidgetsRegistry: HomeWidgetsRegistryProtocol {
     }
     
     private enum Constants {
+        static let spaceWidgetId = "SpaceWidgetId"
         static let binWidgetId = "BinWidgetId"
     }
     
@@ -26,9 +27,6 @@ final class HomeWidgetsRegistry: HomeWidgetsRegistryProtocol {
     private let favoriteTreeWidgetProviderAssembly: HomeWidgetProviderAssemblyProtocol
     private let recentEditTreeWidgetProviderAssembly: HomeWidgetProviderAssemblyProtocol
     private let recentOpenTreeWidgetProviderAssembly: HomeWidgetProviderAssemblyProtocol
-    // Delete with compactListWidget toggle
-    private let setsTreeWidgetProviderAssembly: HomeWidgetProviderAssemblyProtocol
-    private let collectionsTreeWidgetProviderAssembly: HomeWidgetProviderAssemblyProtocol
     // MARK: - List
     private let setListWidgetProviderAssembly: HomeWidgetProviderAssemblyProtocol
     private let favoriteListWidgetProviderAssembly: HomeWidgetProviderAssemblyProtocol
@@ -46,6 +44,8 @@ final class HomeWidgetsRegistry: HomeWidgetsRegistryProtocol {
     
     private let linkWidgetProviderAssembly: HomeWidgetProviderAssemblyProtocol
     private let binLinkWidgetProviderAssembly: HomeWidgetProviderAssemblyProtocol
+    private let spaceWidgetProviderAssembly: HomeWidgetProviderAssemblyProtocol
+    
     private let stateManager: HomeWidgetsStateManagerProtocol
     private var providersCache: [ProviderCache] = []
     
@@ -54,8 +54,6 @@ final class HomeWidgetsRegistry: HomeWidgetsRegistryProtocol {
         favoriteTreeWidgetProviderAssembly: HomeWidgetProviderAssemblyProtocol,
         recentEditTreeWidgetProviderAssembly: HomeWidgetProviderAssemblyProtocol,
         recentOpenTreeWidgetProviderAssembly: HomeWidgetProviderAssemblyProtocol,
-        setsTreeWidgetProviderAssembly: HomeWidgetProviderAssemblyProtocol,
-        collectionsTreeWidgetProviderAssembly: HomeWidgetProviderAssemblyProtocol,
         setListWidgetProviderAssembly: HomeWidgetProviderAssemblyProtocol,
         favoriteListWidgetProviderAssembly: HomeWidgetProviderAssemblyProtocol,
         recentEditListWidgetProviderAssembly: HomeWidgetProviderAssemblyProtocol,
@@ -70,14 +68,13 @@ final class HomeWidgetsRegistry: HomeWidgetsRegistryProtocol {
         collectionsCompactListWidgetProviderAssembly: HomeWidgetProviderAssemblyProtocol,
         linkWidgetProviderAssembly: HomeWidgetProviderAssemblyProtocol,
         binLinkWidgetProviderAssembly: HomeWidgetProviderAssemblyProtocol,
+        spaceWidgetProviderAssembly: HomeWidgetProviderAssemblyProtocol,
         stateManager: HomeWidgetsStateManagerProtocol
     ) {
         self.objectTreeWidgetProviderAssembly = objectTreeWidgetProviderAssembly
         self.favoriteTreeWidgetProviderAssembly = favoriteTreeWidgetProviderAssembly
         self.recentEditTreeWidgetProviderAssembly = recentEditTreeWidgetProviderAssembly
         self.recentOpenTreeWidgetProviderAssembly = recentOpenTreeWidgetProviderAssembly
-        self.setsTreeWidgetProviderAssembly = setsTreeWidgetProviderAssembly
-        self.collectionsTreeWidgetProviderAssembly = collectionsTreeWidgetProviderAssembly
         self.setListWidgetProviderAssembly = setListWidgetProviderAssembly
         self.favoriteListWidgetProviderAssembly = favoriteListWidgetProviderAssembly
         self.recentEditListWidgetProviderAssembly = recentEditListWidgetProviderAssembly
@@ -92,6 +89,7 @@ final class HomeWidgetsRegistry: HomeWidgetsRegistryProtocol {
         self.collectionsCompactListWidgetProviderAssembly = collectionsCompactListWidgetProviderAssembly
         self.linkWidgetProviderAssembly = linkWidgetProviderAssembly
         self.binLinkWidgetProviderAssembly = binLinkWidgetProviderAssembly
+        self.spaceWidgetProviderAssembly = spaceWidgetProviderAssembly
         self.stateManager = stateManager
     }
     
@@ -102,7 +100,20 @@ final class HomeWidgetsRegistry: HomeWidgetsRegistryProtocol {
         widgetObject: BaseDocumentProtocol
     ) -> [HomeWidgetSubmoduleModel] {
         
-        var newProvidersCache: [ProviderCache] = blocks.compactMap { block in
+        var newProvidersCache: [ProviderCache] = []
+        
+        if FeatureFlags.multiSpace {
+            newProvidersCache.append(
+                createProviderCache(
+                    source: spaceWidgetProviderAssembly,
+                    widgetBlockId: Constants.spaceWidgetId,
+                    info: nil,
+                    widgetObject: widgetObject
+                )
+            )
+        }
+        
+        let blockWidgets = blocks.compactMap { block -> ProviderCache? in
             guard let widgetInfo = widgetObject.widgetInfo(block: block),
                   let provider = providerForInfo(widgetInfo) else { return nil }
             
@@ -113,6 +124,8 @@ final class HomeWidgetsRegistry: HomeWidgetsRegistryProtocol {
                 widgetObject: widgetObject
             )
         }
+        
+        newProvidersCache.append(contentsOf: blockWidgets)
         
         newProvidersCache.append(
             createProviderCache(
@@ -183,39 +196,19 @@ final class HomeWidgetsRegistry: HomeWidgetsRegistryProtocol {
         case (.recent, .compactList):
             return recentEditCompactListWidgetProviderAssembly
         case (.recentOpen, .tree):
-            if FeatureFlags.recentEditWidget {
-                return recentOpenTreeWidgetProviderAssembly
-            } else {
-                return nil
-            }
+            return recentOpenTreeWidgetProviderAssembly
         case (.recentOpen, .list):
-            if FeatureFlags.recentEditWidget {
-                return recentOpenListWidgetProviderAssembly
-            } else {
-                return nil
-            }
+            return recentOpenListWidgetProviderAssembly
         case (.recentOpen, .compactList):
-            if FeatureFlags.recentEditWidget {
-                return recentOpenCompactListWidgetProviderAssembly
-            } else {
-                return nil
-            }
+            return recentOpenCompactListWidgetProviderAssembly
         case (.sets, .tree):
-            if FeatureFlags.compactListWidget {
-                return setsCompactListWidgetProviderAssembly
-            } else {
-                return setsTreeWidgetProviderAssembly
-            }
+            return setsCompactListWidgetProviderAssembly
         case (.sets, .list):
             return setsListWidgetProviderAssembly
         case (.sets, .compactList):
             return setsCompactListWidgetProviderAssembly
         case (.collections, .tree):
-            if FeatureFlags.compactListWidget {
-                return collectionsCompactListWidgetProviderAssembly
-            } else {
-                return collectionsTreeWidgetProviderAssembly
-            }
+            return collectionsCompactListWidgetProviderAssembly
         case (.collections, .list):
             return collectionsListWidgetProviderAssembly
         case (.collections, .compactList):

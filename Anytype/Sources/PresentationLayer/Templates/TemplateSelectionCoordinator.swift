@@ -13,6 +13,7 @@ protocol TemplateSelectionCoordinatorProtocol: AnyObject {
     
     func showTemplateEditing(
         blockId: BlockId,
+        spaceId: String,
         onTemplateSelection: @escaping (BlockId) -> Void,
         onSetAsDefaultTempalte: @escaping (BlockId) -> Void
     )
@@ -54,12 +55,14 @@ final class TemplateSelectionCoordinator: TemplateSelectionCoordinatorProtocol {
         )
         let model = view.model
         
-        view.model.templateEditingHandler = { [weak self, weak model] templateId in
+        view.model.templateEditingHandler = { [weak self, weak model, weak navigationContext] templateId in
             self?.showTemplateEditing(
                 blockId: templateId,
+                spaceId: setDocument.spaceId,
                 onTemplateSelection: onTemplateSelection,
                 onSetAsDefaultTempalte: { templateId in
                     model?.setTemplateAsDefault(templateId: templateId)
+                    navigationContext?.dismissTopPresented(animated: true, completion: nil)
                 }
             )
         }
@@ -77,27 +80,37 @@ final class TemplateSelectionCoordinator: TemplateSelectionCoordinatorProtocol {
     
     func showTemplateEditing(
         blockId: BlockId,
+        spaceId: String,
         onTemplateSelection: @escaping (BlockId) -> Void,
         onSetAsDefaultTempalte: @escaping (BlockId) -> Void
     ) {
-        let editorPage = editorAssembly.buildEditorModule(
+        let editorPage = editorAssembly.buildPageModule(
             browser: nil,
-            data: .page(
-                .init(
-                    objectId: blockId,
-                    isSupportedForEdit: true,
-                    isOpenedForPreview: false,
-                    usecase: .templateEditing
-                )
+            data: .init(
+                objectId: blockId,
+                spaceId: spaceId,
+                isSupportedForEdit: true,
+                isOpenedForPreview: false,
+                usecase: .templateEditing
             )
         )
+        let viewModel = editorPage.0.viewModel
+        let settingsHandler: (ObjectSettingsAction) -> Void = { [weak viewModel] action in
+            viewModel?.handleSettingsAction(action: action)
+        }
+        
         handler = TemplateSelectionObjectSettingsHandler(useAsTemplateAction: onSetAsDefaultTempalte)
         let editingTemplateViewController = TemplateEditingViewController(
-            editorViewController: editorPage.vc,
+            editorViewController: editorPage.0,
             onSettingsTap: { [weak self] in
                 guard let self = self, let handler = self.handler else { return }
                 
-                self.objectSettingCoordinator.startFlow(objectId: blockId, delegate: handler, output: nil)
+                self.objectSettingCoordinator.startFlow(
+                    objectId: blockId,
+                    delegate: handler,
+                    output: nil,
+                    objectSettingsHandler: settingsHandler
+                )
             }, onSelectTemplateTap: { [weak self] in
                 self?.navigationContext.dismissAllPresented(animated: true) {
                     onTemplateSelection(blockId)

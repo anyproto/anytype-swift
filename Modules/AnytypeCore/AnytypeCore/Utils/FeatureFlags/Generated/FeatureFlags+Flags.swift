@@ -22,68 +22,28 @@ public extension FeatureFlags {
         value(for: .dndOnCollectionsAndSets)
     }
 
-    static var migrationGuide: Bool {
-        value(for: .migrationGuide)
+    static var multiSpace: Bool {
+        value(for: .multiSpace)
     }
 
-    static var newAuthorization: Bool {
-        value(for: .newAuthorization)
+    static var multiSpaceSettings: Bool {
+        value(for: .multiSpaceSettings)
     }
 
-    static var compactListWidget: Bool {
-        value(for: .compactListWidget)
-    }
-
-    static var getMoreSpace: Bool {
-        value(for: .getMoreSpace)
-    }
-
-    static var fixAVCaptureSessionError: Bool {
-        value(for: .fixAVCaptureSessionError)
-    }
-
-    static var clearAccountDataOnDeletedStatus: Bool {
-        value(for: .clearAccountDataOnDeletedStatus)
-    }
-
-    static var fixAudioSession: Bool {
-        value(for: .fixAudioSession)
-    }
-
-    static var deleteObjectPlaceholder: Bool {
-        value(for: .deleteObjectPlaceholder)
-    }
-
-    static var showAllFilesInBin: Bool {
-        value(for: .showAllFilesInBin)
-    }
-
-    static var superNewButtonLoadingState: Bool {
-        value(for: .superNewButtonLoadingState)
-    }
-
-    static var validateRecoveryPhrase: Bool {
-        value(for: .validateRecoveryPhrase)
-    }
-
-    static var openBinObject: Bool {
-        value(for: .openBinObject)
-    }
-
-    static var colorfulRecoveryPhrase: Bool {
-        value(for: .colorfulRecoveryPhrase)
-    }
-
-    static var recentEditWidget: Bool {
-        value(for: .recentEditWidget)
-    }
-
-    static var widgetTaskDone: Bool {
-        value(for: .widgetTaskDone)
+    static var newCodeLanguages: Bool {
+        value(for: .newCodeLanguages)
     }
 
     static var newSetSettings: Bool {
         value(for: .newSetSettings)
+    }
+
+    static var ipadIncreaseWidth: Bool {
+        value(for: .ipadIncreaseWidth)
+    }
+
+    static var selectTypeByLongTap: Bool {
+        value(for: .selectTypeByLongTap)
     }
 
     static var rainbowViews: Bool {
@@ -112,22 +72,12 @@ public extension FeatureFlags {
         .setKanbanView,
         .fullInlineSetImpl,
         .dndOnCollectionsAndSets,
-        .migrationGuide,
-        .newAuthorization,
-        .compactListWidget,
-        .getMoreSpace,
-        .fixAVCaptureSessionError,
-        .clearAccountDataOnDeletedStatus,
-        .fixAudioSession,
-        .deleteObjectPlaceholder,
-        .showAllFilesInBin,
-        .superNewButtonLoadingState,
-        .validateRecoveryPhrase,
-        .openBinObject,
-        .colorfulRecoveryPhrase,
-        .recentEditWidget,
-        .widgetTaskDone,
+        .multiSpace,
+        .multiSpaceSettings,
+        .newCodeLanguages,
         .newSetSettings,
+        .ipadIncreaseWidth,
+        .selectTypeByLongTap,
         .rainbowViews,
         .showAlertOnAssert,
         .analytics,

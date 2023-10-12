@@ -6,6 +6,10 @@ import ProtobufMessages
 import SwiftProtobuf
 import AnytypeCore
 
+enum BlockListServiceError: Error {
+    case lastBlockIdNotFound
+}
+
 class BlockListService: BlockListServiceProtocol {
     func setBlockColor(objectId: BlockId, blockIds: [BlockId], color: MiddlewareColor) async throws {
         try await ClientCommands.blockTextListSetColor(.with {
@@ -100,6 +104,20 @@ class BlockListService: BlockListServiceProtocol {
             $0.description_p = appearance.description.asMiddleware
             $0.relations = appearance.relations.map(\.rawValue)
         }).invoke()
+    }
+    
+    func lastBlockId(from objectId: BlockId) async throws -> BlockId {
+        let objectShow = try await ClientCommands.objectShow(.with {
+            $0.contextID = objectId
+            $0.objectID = objectId
+        }).invoke()
+        
+
+        guard let lastBlockId = objectShow.objectView.blocks.first(where: { $0.id == objectId} )?.childrenIds.last else {
+            throw BlockListServiceError.lastBlockIdNotFound
+        }
+    
+        return lastBlockId
     }
 }
 

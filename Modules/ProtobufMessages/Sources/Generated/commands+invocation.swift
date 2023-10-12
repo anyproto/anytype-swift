@@ -157,6 +157,11 @@ extension Anytype_Rpc.Block.Replace.Response.Error: ResponseError {
     public var isNull: Bool { code == .null }
 }
 
+extension Anytype_Rpc.Block.SetCarriage.Response: ResultWithError {}
+extension Anytype_Rpc.Block.SetCarriage.Response.Error: ResponseError {
+    public var isNull: Bool { code == .null }
+}
+
 extension Anytype_Rpc.Block.SetFields.Response: ResultWithError {}
 extension Anytype_Rpc.Block.SetFields.Response.Error: ResponseError {
     public var isNull: Bool { code == .null }
@@ -706,6 +711,11 @@ extension Anytype_Rpc.Object.Import.Response.Error: ResponseError {
     public var isNull: Bool { code == .null }
 }
 
+extension Anytype_Rpc.Object.ImportExperience.Response: ResultWithError {}
+extension Anytype_Rpc.Object.ImportExperience.Response.Error: ResponseError {
+    public var isNull: Bool { code == .null }
+}
+
 extension Anytype_Rpc.Object.ImportList.Response: ResultWithError {}
 extension Anytype_Rpc.Object.ImportList.Response.Error: ResponseError {
     public var isNull: Bool { code == .null }
@@ -1003,6 +1013,11 @@ extension Anytype_Rpc.Workspace.GetAll.Response.Error: ResponseError {
 
 extension Anytype_Rpc.Workspace.GetCurrent.Response: ResultWithError {}
 extension Anytype_Rpc.Workspace.GetCurrent.Response.Error: ResponseError {
+    public var isNull: Bool { code == .null }
+}
+
+extension Anytype_Rpc.Workspace.Info.Response: ResultWithError {}
+extension Anytype_Rpc.Workspace.Info.Response.Error: ResponseError {
     public var isNull: Bool { code == .null }
 }
 

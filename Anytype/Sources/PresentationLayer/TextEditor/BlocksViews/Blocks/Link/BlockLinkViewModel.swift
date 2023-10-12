@@ -54,11 +54,7 @@ struct BlockLinkViewModel: BlockViewModelProtocol {
     }
     
     func didSelectRowInTableView(editorEditingState: EditorEditingState) {
-        if FeatureFlags.openBinObject {
-            if state.deleted { return }
-        } else {
-            if state.deleted || state.archived { return }
-        }
+        if state.deleted { return }
         
         openLink(state.screenData)
     }
@@ -74,6 +70,7 @@ struct BlockLinkViewModel: BlockViewModelProtocol {
                 relationKey: BundledRelationKey.done.rawValue,
                 value: .checkbox(.with { $0.checked = !isChecked })
             )
+            await UIImpactFeedbackGenerator(style: .rigid).impactOccurred()
         }
     }
 }

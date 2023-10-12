@@ -17,6 +17,7 @@ final class RelationsSearchViewModel: NewInternalSearchViewModelProtocol {
     private var objects: [RelationDetails] = []
     private var marketplaceObjects: [RelationDetails] = []
     
+    private let document: BaseDocumentProtocol
     private let excludedRelationsIds: [String]
     private let target: RelationsSearchTarget
     private let interactor: RelationsSearchInteractor
@@ -24,12 +25,14 @@ final class RelationsSearchViewModel: NewInternalSearchViewModelProtocol {
     private let onSelect: (_ relation: RelationDetails) -> Void
     
     init(
+        document: BaseDocumentProtocol,
         excludedRelationsIds: [String],
         target: RelationsSearchTarget,
         interactor: RelationsSearchInteractor,
         toastPresenter: ToastPresenterProtocol,
         onSelect: @escaping (_ relation: RelationDetails) -> Void
     ) {
+        self.document = document
         self.excludedRelationsIds = excludedRelationsIds
         self.target = target
         self.interactor = interactor
@@ -40,8 +43,8 @@ final class RelationsSearchViewModel: NewInternalSearchViewModelProtocol {
     // MARK: - NewInternalSearchViewModelProtocol
     
     func search(text: String) async throws {
-        let objects = try await interactor.search(text: text, excludedIds: excludedRelationsIds)
-        let marketplaceObjects = try await interactor.searchInMarketplace(text: text)
+        let objects = try await interactor.search(text: text, excludedIds: excludedRelationsIds, spaceId: document.spaceId)
+        let marketplaceObjects = try await interactor.searchInMarketplace(text: text, spaceId: document.spaceId)
         
         handleSearchResults(objects: objects, marketplaceObjects: marketplaceObjects)
         
@@ -61,13 +64,13 @@ final class RelationsSearchViewModel: NewInternalSearchViewModelProtocol {
         guard let id = ids.first else { return }
         
         if let marketplaceRelation = marketplaceObjects.first(where: { $0.id == id}) {
-            Task { @MainActor [weak self] in
-                guard let installedRelation = try await self?.interactor.installRelation(objectId: marketplaceRelation.id) else {
+            Task { @MainActor in
+                guard let installedRelation = try await interactor.installRelation(spaceId: document.spaceId, objectId: marketplaceRelation.id) else {
                     anytypeAssertionFailure("Relation not installed", info: ["id": marketplaceRelation.id, "key": marketplaceRelation.key])
                     return
                 }
-                self?.toastPresenter.show(message: Loc.Relation.addedToLibrary(installedRelation.name))
-                self?.addRelation(relation: installedRelation)
+                toastPresenter.show(message: Loc.Relation.addedToLibrary(installedRelation.name))
+                addRelation(relation: installedRelation)
             }
             return
         }

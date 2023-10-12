@@ -8,31 +8,13 @@ struct RelationObjectsRowView: View {
     
     var body: some View {
         HStack(alignment: .center, spacing: 0) {
-            if FeatureFlags.deleteObjectPlaceholder {
-                icon
-            } else {
-                legacyIcon
-                Spacer.fixedWidth(12)
-            }
+            icon
             text
             Spacer()
         }
         .frame(height: 68)
         .onTapGesture {
             action()
-        }
-    }
-    
-    @ViewBuilder
-    private var legacyIcon: some View {
-        if let icon = object.icon {
-            Group {
-                if object.isDeleted {
-                    Image(asset: .ghost).resizable().frame(width: 28, height: 28)
-                } else {
-                    IconView(icon: icon)
-                }
-            }.frame(width: 48, height: 48)
         }
     }
     

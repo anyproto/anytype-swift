@@ -8,6 +8,7 @@ protocol NavigationContextProtocol: AnyObject {
     func dismissTopPresented(animated: Bool, completion: (() -> Void)?)
     func dismissAllPresented(animated: Bool, completion: (() -> Void)?)
     func push(_ viewControllerToPresent: UIViewController, animated: Bool)
+    func pop(animated: Bool)
 }
 
 extension NavigationContextProtocol {
@@ -24,20 +25,18 @@ extension NavigationContextProtocol {
         dismissAllPresented(animated: animated, completion: completion)
     }
     
-    func presentSwiftUIView<Content: View>(view: Content, model: Dismissible? = nil, animated: Bool = true) {
-        present(view, model: model, animated: animated)
+    func presentSwiftUIView<Content: View>(view: Content, animated: Bool = true) {
+        present(view, animated: animated)
     }
     
-    func presentSwiftUISheetView<Content: View>(view: Content, model: Dismissible? = nil, animated: Bool = true) {
+    func presentSwiftUISheetView<Content: View>(view: Content, animated: Bool = true) {
         let rootView = SheetView { view }
         let controller = UISheetController(rootView: rootView)
-        model?.onDismiss = { [weak controller] in controller?.dismiss(animated: true) }
         present(controller, animated: animated)
     }
     
-    func present<Content: View>(_ view: Content, model: Dismissible? = nil, animated: Bool = true) {
+    func present<Content: View>(_ view: Content, animated: Bool = true) {
         let controller = UIHostingController(rootView: view)
-        model?.onDismiss = { [weak controller] in controller?.dismiss(animated: true) }
         present(controller, animated: animated)
     }
     
@@ -54,6 +53,9 @@ extension NavigationContextProtocol {
 final class NavigationContext: NavigationContextProtocol {
     
     private var rootViewControllerProvider: () -> UIViewController?
+    private var navigationController: UINavigationController? {
+        rootViewControllerProvider()?.topPresentedController as? UINavigationController
+    }
     
     convenience init(window: UIWindow?) {
         self.init(rootViewControllerProvider: { [weak window] in
@@ -107,10 +109,10 @@ final class NavigationContext: NavigationContextProtocol {
     }
     
     func push(_ viewControllerToPresent: UIViewController, animated: Bool) {
-        guard let viewController = rootViewControllerProvider()?.topPresentedController as? UINavigationController else {
-            return
-        }
-            
-        viewController.pushViewController(viewControllerToPresent, animated: animated)
+        navigationController?.pushViewController(viewControllerToPresent, animated: animated)
+    }
+    
+    func pop(animated: Bool) {
+        navigationController?.popViewController(animated: animated)
     }
 }

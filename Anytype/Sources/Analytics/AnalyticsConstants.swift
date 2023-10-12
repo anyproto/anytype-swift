@@ -13,8 +13,6 @@ enum AnalyticsEventsName {
     static let logout = "LogOut"
     static let deleteAccount = "DeleteAccount"
     static let cancelDeletion = "CancelDeletion"
-    
-    // New auth events
     static let screenOnboarding = "ScreenOnboarding"
     static let clickOnboarding = "ClickOnboarding"
     static let clickLogin = "ClickLogin"
@@ -65,6 +63,7 @@ enum AnalyticsEventsName {
     static let objectListDelete = "RemoveCompletely"
     static let defaultObjectTypeChange = "DefaultTypeChange"
     static let objectTypeChange = "ChangeObjectType"
+    static let selectObjectType = "SelectObjectType"
     static let showObject = "ScreenObject"
     static let setLayoutAlign = "SetLayoutAlign"
     static let setIcon = "SetIcon"
@@ -338,7 +337,7 @@ enum AnalyticsWidgetRoute: String {
     case inner = "Inner"
 }
 
-enum AnalyticsWidgetContext: String {
+enum AnalyticsWidgetContext: String, Hashable {
     case home = "Home"
     case editor = "Editor"
 }
@@ -375,4 +374,10 @@ enum ClickLoginButton: String {
 
 enum TableBlockType: String {
     case simpleTableBlock = "table"
+}
+
+enum AnalyticsDefaultObjectTypeChangeRoute: String {
+    case settings = "Settings"
+    case set = "Set"
+    case collection = "Collection"
 }

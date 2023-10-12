@@ -8,13 +8,13 @@ import Services
 final class SettingsViewModel: ObservableObject {
     
     private enum Constants {
-        static let subSpaceId = "SettingsSpace"
+        static let subSpaceId = "SettingsViewModel-Space"
         static let subAccountId = "SettingsAccount"
     }
     
     // MARK: - DI
     
-    private let accountManager: AccountManagerProtocol
+    private let activeWorkspaceStorage: ActiveWorkpaceStorageProtocol
     private let subscriptionService: SingleObjectSubscriptionServiceProtocol
     private let objectActionsService: ObjectActionsServiceProtocol
     private weak var output: SettingsModuleOutput?
@@ -22,19 +22,21 @@ final class SettingsViewModel: ObservableObject {
     // MARK: - State
     
     private var subscriptions: [AnyCancellable] = []
-    private var dataLoaded: Bool = false
+    private var spaceDataLoaded: Bool = false
+    private var profileDataLoaded: Bool = false
     
     @Published var spaceName: String = ""
     @Published var spaceIcon: Icon?
-    @Published var profileIcon: Icon = .asset(.SettingsOld.accountAndData)
+    @Published var profileName: String = ""
+    @Published var profileIcon: Icon?
     
     init(
-        accountManager: AccountManagerProtocol,
+        activeWorkspaceStorage: ActiveWorkpaceStorageProtocol,
         subscriptionService: SingleObjectSubscriptionServiceProtocol,
         objectActionsService: ObjectActionsServiceProtocol,
         output: SettingsModuleOutput?
     ) {
-        self.accountManager = accountManager
+        self.activeWorkspaceStorage = activeWorkspaceStorage
         self.subscriptionService = subscriptionService
         self.objectActionsService = objectActionsService
         self.output = output
@@ -71,7 +73,11 @@ final class SettingsViewModel: ObservableObject {
     }
     
     func onChangeIconTap() {
-        output?.onChangeIconSelected(objectId: accountManager.account.info.accountSpaceId)
+        if FeatureFlags.multiSpaceSettings {
+            output?.onChangeIconSelected(objectId: activeWorkspaceStorage.workspaceInfo.profileObjectID)
+        } else {
+            output?.onChangeIconSelected(objectId: activeWorkspaceStorage.workspaceInfo.workspaceObjectId)
+        }
     }
     
     // MARK: - Private
@@ -79,14 +85,14 @@ final class SettingsViewModel: ObservableObject {
     private func setupSubscription() {
         subscriptionService.startSubscription(
             subIdPrefix: Constants.subSpaceId,
-            objectId: accountManager.account.info.accountSpaceId
+            objectId: activeWorkspaceStorage.workspaceInfo.workspaceObjectId
         ) { [weak self] details in
             self?.handleSpaceDetails(details: details)
         }
         
         subscriptionService.startSubscription(
             subIdPrefix: Constants.subAccountId,
-            objectId: accountManager.account.info.profileObjectID
+            objectId: activeWorkspaceStorage.workspaceInfo.profileObjectID
         ) { [weak self] details in
             self?.handleProfileDetails(details: details)
         }
@@ -95,9 +101,9 @@ final class SettingsViewModel: ObservableObject {
     private func handleSpaceDetails(details: ObjectDetails) {
         spaceIcon = details.objectIconImage
         
-        if !dataLoaded {
+        if !spaceDataLoaded {
             spaceName = details.name
-            dataLoaded = true
+            spaceDataLoaded = true
             $spaceName
                 .delay(for: 0.3, scheduler: DispatchQueue.main)
                 .sink { [weak self] name in
@@ -108,13 +114,33 @@ final class SettingsViewModel: ObservableObject {
     }
     
     private func handleProfileDetails(details: ObjectDetails) {
-        profileIcon = details.objectIconImage ?? .asset(.SettingsOld.accountAndData)
+        profileIcon = details.objectIconImage
+        
+        if !profileDataLoaded {
+            profileName = details.name
+            profileDataLoaded = true
+            $profileName
+                .delay(for: 0.3, scheduler: DispatchQueue.main)
+                .sink { [weak self] name in
+                    self?.updateProfileName(name: name)
+                }
+                .store(in: &subscriptions)
+        }
     }
     
     private func updateSpaceName(name: String) {
         Task {
             try await objectActionsService.updateBundledDetails(
-                contextID: accountManager.account.info.accountSpaceId,
+                contextID: activeWorkspaceStorage.workspaceInfo.workspaceObjectId,
+                details: [.name(name)]
+            )
+        }
+    }
+    
+    private func updateProfileName(name: String) {
+        Task {
+            try await objectActionsService.updateBundledDetails(
+                contextID: activeWorkspaceStorage.workspaceInfo.profileObjectID,
                 details: [.name(name)]
             )
         }

@@ -73,7 +73,7 @@ struct SetHeaderSettingsView: View {
         }) {
             HStack(alignment: .center, spacing: 0) {
                 AnytypeText(
-                    model.viewName,
+                    model.viewName.isNotEmpty ? model.viewName : Loc.SetViewTypesPicker.Settings.Textfield.Placeholder.untitled,
                     style: .subheading,
                     color: model.isActive ? .Text.primary : .Text.tertiary
                 )
@@ -94,7 +94,8 @@ struct SetHeaderSettings_Previews: PreviewProvider {
                     document: BaseDocument(objectId: "blockId"),
                     blockId: nil,
                     targetObjectID: nil,
-                    relationDetailsStorage: DI.preview.serviceLocator.relationDetailsStorage()
+                    relationDetailsStorage: DI.preview.serviceLocator.relationDetailsStorage(),
+                    objectTypeProvider: DI.preview.serviceLocator.objectTypeProvider()
                 ),
                 setTemplatesInteractor: DI.preview.serviceLocator.setTemplatesInteractor,
                 onViewTap: {},

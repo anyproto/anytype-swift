@@ -2,8 +2,8 @@ import Foundation
 import Combine
 import SwiftUI
 import ProtobufMessages
-import AnytypeCore
 import Services
+import AnytypeCore
 
 final class AuthService: AuthServiceProtocol {
     
@@ -54,7 +54,7 @@ final class AuthService: AuthServiceProtocol {
         return result.mnemonic
     }
 
-    func createAccount(name: String, imagePath: String) async throws {
+    func createAccount(name: String, imagePath: String) async throws -> AccountData {
         do {
             let start = CFAbsoluteTimeGetCurrent()
             
@@ -72,11 +72,14 @@ final class AuthService: AuthServiceProtocol {
             AnytypeAnalytics.instance().logAccountCreate(analyticsId: analyticsId, middleTime: middleTime)
             appErrorLoggerConfiguration.setUserId(analyticsId)
             
+            let account = response.account.asModel
+            
             UserDefaultsConfig.usersId = response.account.id
             
-            accountManager.account = response.account.asModel
+            accountManager.account = account
             
-            await loginStateService.setupStateAfterRegistration(account: accountManager.account)
+            await loginStateService.setupStateAfterRegistration(account: account)
+            return account
         } catch let responseError as Anytype_Rpc.Account.Create.Response.Error {
             throw responseError.asError ?? responseError
         }
@@ -135,11 +138,7 @@ final class AuthService: AuthServiceProtocol {
             case .active, .pendingDeletion:
                 await setupAccountData(response.account.asModel)
             case .deleted:
-                if FeatureFlags.clearAccountDataOnDeletedStatus {
-                    loginStateService.cleanStateAfterLogout()
-                } else {
-                    await setupAccountData(response.account.asModel)
-                }
+                loginStateService.cleanStateAfterLogout()
             }
             
             return status

@@ -22,6 +22,7 @@ final class AboutModuleAssembly: AboutModuleAssemblyProtocol {
         let model = AboutViewModel(
             middlewareConfigurationProvider: serviceLocator.middlewareConfigurationProvider(),
             accountManager: serviceLocator.accountManager(),
+            activeWorkspaceStorage: serviceLocator.activeWorkspaceStorage(),
             output: output
         )
         let view = AboutView(model: model)

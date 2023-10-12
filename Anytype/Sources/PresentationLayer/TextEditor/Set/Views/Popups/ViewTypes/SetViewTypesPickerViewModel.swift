@@ -80,7 +80,7 @@ final class SetViewTypesPickerViewModel: ObservableObject {
         guard activeView.type != selectedType || activeView.name != name else {
             return
         }
-        let dataViewRelationsDetails = relationDetailsStorage.relationsDetails(for: setDocument.dataView.relationLinks)
+        let dataViewRelationsDetails = relationDetailsStorage.relationsDetails(for: setDocument.dataView.relationLinks, spaceId: setDocument.spaceId)
         let groupRelationKey = activeView.groupRelationKey.isEmpty ?
         setDocument.dataView.groupByRelations(for: activeView, dataViewRelationsDetails: dataViewRelationsDetails).first?.key ?? "" :
         activeView.groupRelationKey
@@ -100,10 +100,8 @@ final class SetViewTypesPickerViewModel: ObservableObject {
     private func createView() {
         let name = name.isEmpty ? Loc.SetViewTypesPicker.Settings.Textfield.Placeholder.untitled : name
         Task {
-            try await dataviewService.createView(
-                DataviewView.created(with: name, type: selectedType),
-                source: source
-            )
+            let newView = setDocument.activeView.updated(name: name, type: selectedType)
+            try await dataviewService.createView(newView, source: source)
             AnytypeAnalytics.instance().logAddView(type: selectedType.stringValue, objectType: setDocument.analyticsType)
         }
     }

@@ -33,6 +33,7 @@ extension UIColor {
                 UIColor.Auth.collectionInfo, 
                 UIColor.Background.collectionInfo, 
                 UIColor.Button.collectionInfo, 
+                UIColor.ModalScreen.collectionInfo, 
                 UIColor.Shadow.collectionInfo, 
                 UIColor.Stroke.collectionInfo, 
                 UIColor.Text.collectionInfo, 
@@ -161,6 +162,15 @@ extension UIColor.Button {
         ]
     )
 }
+extension UIColor.ModalScreen {
+    static let collectionInfo = ColorCollectionInfo(
+        name: "ModalScreen",
+        colors: [
+            ColorInfo(name: "background", color: UIColor.ModalScreen.background), 
+            ColorInfo(name: "backgroundWithBlur", color: UIColor.ModalScreen.backgroundWithBlur)
+        ]
+    )
+}
 extension UIColor.Shadow {
     static let collectionInfo = ColorCollectionInfo(
         name: "Shadow",
@@ -196,6 +206,7 @@ extension UIColor.Widget {
     static let collectionInfo = ColorCollectionInfo(
         name: "Widget",
         colors: [
+            ColorInfo(name: "bottomPanel", color: UIColor.Widget.bottomPanel), 
             ColorInfo(name: "card", color: UIColor.Widget.card), 
             ColorInfo(name: "divider", color: UIColor.Widget.divider), 
             ColorInfo(name: "inactiveTab", color: UIColor.Widget.inactiveTab), 

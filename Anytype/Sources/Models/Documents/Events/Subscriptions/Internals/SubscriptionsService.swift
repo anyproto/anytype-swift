@@ -148,7 +148,9 @@ final class SubscriptionsService: SubscriptionsServiceProtocol {
             switch event.value {
             case .objectDetailsSet(let data):
                 guard let details = storage.set(data: data) else { return }
-                await update(details: details, ids: data.subIds)
+                // TODO: Refactoring this. Middleware send objectDetailsSet before subscriptionAdd.
+                // If we send notification, storage will be incorrect
+//                await update(details: details, ids: data.subIds)
             case .objectDetailsAmend(let data):
                 guard let details = storage.amend(data: data) else { return }
                 await update(details: details, ids: data.subIds)

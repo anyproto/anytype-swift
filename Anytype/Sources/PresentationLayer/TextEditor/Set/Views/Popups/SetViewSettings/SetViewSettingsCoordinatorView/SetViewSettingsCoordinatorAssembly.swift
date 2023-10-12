@@ -3,7 +3,12 @@ import Services
 
 protocol SetViewSettingsCoordinatorAssemblyProtocol {
     @MainActor
-    func make(setDocument: SetDocumentProtocol, subscriptionDetailsStorage: ObjectDetailsStorage) -> AnyView
+    func make(
+        setDocument: SetDocumentProtocol,
+        viewId: String,
+        mode: SetViewSettingsMode,
+        subscriptionDetailsStorage: ObjectDetailsStorage
+    ) -> AnyView
 }
 
 final class SetViewSettingsCoordinatorAssembly: SetViewSettingsCoordinatorAssemblyProtocol {
@@ -19,15 +24,27 @@ final class SetViewSettingsCoordinatorAssembly: SetViewSettingsCoordinatorAssemb
     // MARK: - SetViewSettingsCoordinatorModuleAssemblyProtocol
     
     @MainActor
-    func make(setDocument: SetDocumentProtocol, subscriptionDetailsStorage: ObjectDetailsStorage) -> AnyView {
+    func make(
+        setDocument: SetDocumentProtocol,
+        viewId: String,
+        mode: SetViewSettingsMode,
+        subscriptionDetailsStorage: ObjectDetailsStorage
+    ) -> AnyView {
         return SetViewSettingsCoordinatorView(
             model: SetViewSettingsCoordinatorViewModel(
                 setDocument: setDocument,
+                viewId: viewId,
+                mode: mode,
                 subscriptionDetailsStorage: subscriptionDetailsStorage,
                 setViewSettingsListModuleAssembly: self.modulesDI.setViewSettingsList(),
                 setLayoutSettingsCoordinatorAssembly: self.coordinatorsDI.setLayoutSettings(),
+                setRelationsCoordinatorAssembly: self.coordinatorsDI.setRelations(),
                 setFiltersListCoordinatorAssembly: self.coordinatorsDI.setFiltersList(),
-                setSortsListCoordinatorAssembly: self.coordinatorsDI.setSortsList()
+                setSortsListCoordinatorAssembly: self.coordinatorsDI.setSortsList(),
+                objectCreationSettingsCoordinator: self.coordinatorsDI.setObjectCreationSettings().make(
+                    with: .default,
+                    navigationContext: nil
+                )
             )
         ).eraseToAnyView()
     }

@@ -1,6 +1,7 @@
 import Foundation
 import AnytypeCore
 import Services
+import Combine
 
 @MainActor
 final class HomeWidgetsViewModel: ObservableObject {
@@ -13,6 +14,8 @@ final class HomeWidgetsViewModel: ObservableObject {
     private let stateManager: HomeWidgetsStateManagerProtocol
     private let objectActionService: ObjectActionsServiceProtocol
     private let recentStateManagerProtocol: HomeWidgetsRecentStateManagerProtocol
+    private let documentService: DocumentServiceProtocol
+    private let activeWorkspaceStorage: ActiveWorkpaceStorageProtocol
     private weak var output: HomeWidgetsModuleOutput?
     
     // MARK: - State
@@ -21,9 +24,12 @@ final class HomeWidgetsViewModel: ObservableObject {
     @Published var bottomPanelProvider: HomeSubmoduleProviderProtocol
     @Published var hideEditButton: Bool = false
     @Published var dataLoaded: Bool = false
+    @Published var wallpaper: BackgroundType = .default
+    
+    private var objectSubscriptions = [AnyCancellable]()
     
     init(
-        widgetObjectId: String,
+        info: AccountInfo,
         registry: HomeWidgetsRegistryProtocol,
         blockWidgetService: BlockWidgetServiceProtocol,
         bottomPanelProviderAssembly: HomeBottomPanelProviderAssemblyProtocol,
@@ -31,16 +37,20 @@ final class HomeWidgetsViewModel: ObservableObject {
         objectActionService: ObjectActionsServiceProtocol,
         recentStateManagerProtocol: HomeWidgetsRecentStateManagerProtocol,
         documentService: DocumentServiceProtocol,
+        activeWorkspaceStorage: ActiveWorkpaceStorageProtocol,
         output: HomeWidgetsModuleOutput?
     ) {
-        self.widgetObject = documentService.document(objectId: widgetObjectId)
+        self.widgetObject = documentService.document(objectId: info.widgetsId)
         self.registry = registry
         self.blockWidgetService = blockWidgetService
-        self.bottomPanelProvider = bottomPanelProviderAssembly.make(stateManager: stateManager)
+        self.bottomPanelProvider = bottomPanelProviderAssembly.make(info: info, stateManager: stateManager)
         self.stateManager = stateManager
         self.objectActionService = objectActionService
         self.recentStateManagerProtocol = recentStateManagerProtocol
+        self.documentService = documentService
+        self.activeWorkspaceStorage = activeWorkspaceStorage
         self.output = output
+        subscribeOnWallpaper(info: info)
     }
     
     func onAppear() {
@@ -76,18 +86,27 @@ final class HomeWidgetsViewModel: ObservableObject {
     
     private func setupInitialState() {
         widgetObject.widgetsPublisher
-            .map { [weak self] blocks in
-                self?.dataLoaded = true
-                guard let self = self else { return [] }
-                self.recentStateManagerProtocol.setupRecentStateIfNeeded(blocks: blocks, widgetObject: self.widgetObject)
-                return self.registry.providers(blocks: blocks, widgetObject: self.widgetObject)
+            .map { [weak self] blocks -> [HomeWidgetSubmoduleModel] in
+                guard let self else { return [] }
+                recentStateManagerProtocol.setupRecentStateIfNeeded(blocks: blocks, widgetObject: self.widgetObject)
+                return registry.providers(blocks: blocks, widgetObject: widgetObject)
             }
             .removeDuplicates()
             .receiveOnMain()
-            .assign(to: &$models)
+            .sink { [weak self] models in
+                self?.models = models
+                self?.dataLoaded = true
+            }
+            .store(in: &objectSubscriptions)
         
         stateManager.isEditStatePublisher
             .receiveOnMain()
             .assign(to: &$hideEditButton)
+    }
+    
+    private func subscribeOnWallpaper(info: AccountInfo) {
+        UserDefaultsConfig.wallpaperPublisher(spaceId: info.accountSpaceId)
+            .receiveOnMain()
+            .assign(to: &$wallpaper)
     }
 }

@@ -27,6 +27,7 @@ final class EditorPageCoordinator: EditorPageCoordinatorProtocol, WidgetObjectLi
     
     // MARK: - EditorPageCoordinatorProtocol
     
+    @MainActor
     func startFlow(data: EditorScreenData, replaceCurrentPage: Bool) {
         if !data.isSupportedForEdit {
             showUnsupportedTypeAlert(documentId: data.objectId)
@@ -48,6 +49,7 @@ final class EditorPageCoordinator: EditorPageCoordinatorProtocol, WidgetObjectLi
     
     // MARK: - WidgetObjectListCommonModuleOutput
     
+    @MainActor
     func onObjectSelected(screenData: EditorScreenData) {
         startFlow(data: screenData, replaceCurrentPage: false)
     }
@@ -61,7 +63,7 @@ final class EditorPageCoordinator: EditorPageCoordinatorProtocol, WidgetObjectLi
 
             guard let typeId = document.details?.type else { return }
             
-            let typeName = objectTypeProvider.objectType(id: typeId)?.name ?? Loc.unknown
+            let typeName = (try? objectTypeProvider.objectType(id: typeId))?.name ?? Loc.unknown
             
             alertHelper.showToast(
                 title: "Not supported type \"\(typeName)\"",

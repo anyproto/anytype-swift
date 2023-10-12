@@ -1,5 +1,6 @@
 import Foundation
-import UIKit
+import Services
+import SwiftUI
 
 final class SearchModuleAssembly: SearchModuleAssemblyProtocol {
     
@@ -12,13 +13,48 @@ final class SearchModuleAssembly: SearchModuleAssemblyProtocol {
     // MARK: - SearchModuleAssemblyProtocol
     
     func makeObjectSearch(
+        data: SearchModuleModel
+    ) -> AnyView {
+        if data.layoutLimits.isNotEmpty {
+            return makeObjectSearch(title: data.title, spaceId: data.spaceId, layouts: data.layoutLimits, onSelect: data.onSelect)
+        } else {
+            return makeObjectSearch(title: data.title, spaceId: data.spaceId, onSelect: data.onSelect)
+        }
+    }
+    
+    // MARK: - Private
+    
+    private func makeObjectSearch(
         title: String?,
+        spaceId: String,
         onSelect: @escaping (ObjectSearchData) -> ()
-    ) -> SwiftUIModule {
-        let viewModel = ObjectSearchViewModel(searchService: serviceLocator.searchService()) { data in
+    ) -> AnyView {
+        let viewModel = ObjectSearchViewModel(
+            spaceId: spaceId,
+            searchService: WrappedSearchInteractor(searchService: serviceLocator.searchService())
+        ) { data in
             onSelect(data)
         }
         let searchView = SearchView(title: title, viewModel: viewModel)
-        return SwiftUIModule(view: searchView, model: viewModel)
+        return searchView.eraseToAnyView()
+    }
+    
+    private func makeObjectSearch(
+        title: String?,
+        spaceId: String,
+        layouts: [DetailsLayout],
+        onSelect: @escaping (ObjectSearchData) -> ()
+    ) -> AnyView {
+        let viewModel = ObjectSearchViewModel(
+            spaceId: spaceId,
+            searchService: ObjectLayoutSearch(
+                layouts: layouts,
+                searchService: serviceLocator.searchService()
+            ), onSelect: { data in
+                onSelect(data)
+            }
+        )
+        let searchView = SearchView(title: title, viewModel: viewModel)
+        return searchView.eraseToAnyView()
     }
 }

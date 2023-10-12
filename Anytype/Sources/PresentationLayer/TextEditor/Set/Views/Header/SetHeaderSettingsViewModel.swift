@@ -48,10 +48,10 @@ class SetHeaderSettingsViewModel: ObservableObject {
             .sink { [weak self] details in
                 guard let self else { return }
                 isActive = details.setOf.first { $0.isNotEmpty } != nil || details.isCollection
-                if setDocument.isCollection() || setDocument.isRelationsSet() {
-                    checkTemplatesAvailablility(activeView: setDocument.activeView)
-                } else {
+                if setDocument.isTypeSet() {
                     checkTemplatesAvailablility(details: details)
+                } else {
+                    checkTemplatesAvailablility(activeView: setDocument.activeView)
                 }
             }
             .store(in: &subscriptions)
@@ -59,8 +59,8 @@ class SetHeaderSettingsViewModel: ObservableObject {
     
     func checkTemplatesAvailablility(activeView: DataviewView) {
         Task { @MainActor in
-            let isTemplatesAvailable = try await setTemplatesInteractor.isTemplatesAvailableFor(
-                activeView: activeView
+            let isTemplatesAvailable = try await setTemplatesInteractor.isTemplatesAvailableForActiveView(
+                setDocument: setDocument
             )
             isTemplatesSelectionAvailable = isTemplatesAvailable
         }

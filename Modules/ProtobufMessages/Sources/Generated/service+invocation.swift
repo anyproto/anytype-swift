@@ -94,6 +94,16 @@ public struct ClientCommands {
         }
     }
 
+    public static func workspaceInfo(
+        _ request: Anytype_Rpc.Workspace.Info.Request = .init()
+    ) -> Invocation<Anytype_Rpc.Workspace.Info.Request, Anytype_Rpc.Workspace.Info.Response> {
+        return Invocation(messageName: "WorkspaceInfo", request: request) { request in
+            let requestData = try request.serializedData()
+            let responseData = Lib.ServiceWorkspaceInfo(requestData) ?? Data()
+            return try Anytype_Rpc.Workspace.Info.Response(serializedData: responseData)
+        }
+    }
+
     public static func workspaceObjectAdd(
         _ request: Anytype_Rpc.Workspace.Object.Add.Request = .init()
     ) -> Invocation<Anytype_Rpc.Workspace.Object.Add.Request, Anytype_Rpc.Workspace.Object.Add.Response> {
@@ -654,6 +664,16 @@ public struct ClientCommands {
         }
     }
 
+    public static func objectImportExperience(
+        _ request: Anytype_Rpc.Object.ImportExperience.Request = .init()
+    ) -> Invocation<Anytype_Rpc.Object.ImportExperience.Request, Anytype_Rpc.Object.ImportExperience.Response> {
+        return Invocation(messageName: "ObjectImportExperience", request: request) { request in
+            let requestData = try request.serializedData()
+            let responseData = Lib.ServiceObjectImportExperience(requestData) ?? Data()
+            return try Anytype_Rpc.Object.ImportExperience.Response(serializedData: responseData)
+        }
+    }
+
     public static func objectCollectionAdd(
         _ request: Anytype_Rpc.ObjectCollection.Add.Request = .init()
     ) -> Invocation<Anytype_Rpc.ObjectCollection.Add.Request, Anytype_Rpc.ObjectCollection.Add.Response> {
@@ -1091,6 +1111,16 @@ public struct ClientCommands {
             let requestData = try request.serializedData()
             let responseData = Lib.ServiceBlockExport(requestData) ?? Data()
             return try Anytype_Rpc.Block.Export.Response(serializedData: responseData)
+        }
+    }
+
+    public static func blockSetCarriage(
+        _ request: Anytype_Rpc.Block.SetCarriage.Request = .init()
+    ) -> Invocation<Anytype_Rpc.Block.SetCarriage.Request, Anytype_Rpc.Block.SetCarriage.Response> {
+        return Invocation(messageName: "BlockSetCarriage", request: request) { request in
+            let requestData = try request.serializedData()
+            let responseData = Lib.ServiceBlockSetCarriage(requestData) ?? Data()
+            return try Anytype_Rpc.Block.SetCarriage.Response(serializedData: responseData)
         }
     }
 

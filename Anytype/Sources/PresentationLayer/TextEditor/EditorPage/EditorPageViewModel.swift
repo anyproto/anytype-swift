@@ -26,7 +26,6 @@ final class EditorPageViewModel: EditorPageViewModelProtocol {
     private let editorPageTemplatesHandler: EditorPageTemplatesHandlerProtocol
     private let accountManager: AccountManagerProtocol
     private let configuration: EditorPageViewModelConfiguration
-    @Published private var isAppear: Bool = false
     
     private lazy var subscriptions = [AnyCancellable]()
 
@@ -82,10 +81,6 @@ final class EditorPageViewModel: EditorPageViewModelProtocol {
             guard let headerModel = value else { return }
             self?.updateHeaderIfNeeded(headerModel: headerModel)
         }.store(in: &subscriptions)
-        
-        Publishers.CombineLatest(document.detailsPublisher, $isAppear)
-            .sink { [weak self] in self?.handleDeletionState(details: $0, isAppear: $1) }
-            .store(in: &subscriptions)
     }
 
     private func setupLoadingState() {
@@ -138,8 +133,6 @@ final class EditorPageViewModel: EditorPageViewModelProtocol {
 
             let items = blockBuilder.buildEditorItems(infos: models)
             modelsHolder.items = items
-        case .header:
-            break // supported in headerModel
         }
 
         if !configuration.isOpenedForPreview {
@@ -157,16 +150,6 @@ final class EditorPageViewModel: EditorPageViewModelProtocol {
         if !document.isLocked {
             cursorManager.handleGeneralUpdate(with: modelsHolder.items, type: document.details?.type)
             handleTemplatesPopupShowing()
-        }
-    }
-    
-    private func handleDeletionState(details: ObjectDetails, isAppear: Bool) {
-        viewInput?.showDeletedScreen(details.isDeleted)
-        if !FeatureFlags.openBinObject, details.isArchived && isAppear {
-            // Waiting for the first responder automatic restoration and then close the screen
-            DispatchQueue.main.asyncAfter(deadline: .now() + 0.7) { [router] in
-                router.closeEditor()
-            }
         }
     }
 
@@ -226,12 +209,12 @@ final class EditorPageViewModel: EditorPageViewModelProtocol {
     private func handleTemplatesPopupShowing() {
         guard configuration.shouldShowTemplateSelection,
               editorPageTemplatesHandler.needShowTemplates(for: document),
-              let type = document.details?.objectType else {
+              let typeId = document.details?.type else {
             return
         }
         router.showTemplatesPopupWithTypeCheckIfNeeded(
             document: document,
-            templatesTypeId: .dynamic(type.id),
+            templatesTypeId: typeId,
             onShow: { [weak self] in
                 self?.editorPageTemplatesHandler.onTemplatesShow()
             }
@@ -269,15 +252,11 @@ extension EditorPageViewModel {
     func viewDidAppear() {
         cursorManager.didAppeared(with: modelsHolder.items, type: document.details?.type)
         editorPageTemplatesHandler.didAppeared(with: document.details?.type)
-        isAppear = true
     }
 
     func viewWillDisappear() {}
 
-    func viewDidDissapear() {
-        isAppear = false
-    }
-
+    func viewDidDissapear() {}
 
     func shakeMotionDidAppear() {
         router.showAlert(
@@ -310,20 +289,23 @@ extension EditorPageViewModel {
     func element(at: IndexPath) -> BlockViewModelProtocol? {
         modelsHolder.blockViewModel(at: at.row)
     }
+    
+    func handleSettingsAction(action: ObjectSettingsAction) {
+        switch action {
+        case .cover(let objectCoverPickerAction):
+            headerModel.handleCoverAction(action: objectCoverPickerAction)
+        case .icon(let objectIconPickerAction):
+            headerModel.handleIconAction(action: objectIconPickerAction)
+        }
+    }
 }
 
 extension EditorPageViewModel {
     
     func showSettings() {
-        router.showSettings()
-    }
-    
-    func showIconPicker() {
-        router.showIconPicker()
-    }
-    
-    func showCoverPicker() {
-        router.showCoverPicker()
+        router.showSettings { [weak self] action in
+            self?.handleSettingsAction(action: action)
+        }
     }
 }
 

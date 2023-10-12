@@ -1,5 +1,5 @@
 protocol MentionObjectsServiceProtocol: AnyObject {
-    func searchMentions(text: String, excludedObjectIds: [String]) async throws -> [MentionObject]
+    func searchMentions(spaceId: String, text: String, excludedObjectIds: [String]) async throws -> [MentionObject]
 }
 
 final class MentionObjectsService: MentionObjectsServiceProtocol {
@@ -10,8 +10,8 @@ final class MentionObjectsService: MentionObjectsServiceProtocol {
         self.searchService = searchService
     }
     
-    func searchMentions(text: String, excludedObjectIds: [String]) async throws -> [MentionObject] {
-        let details = try await searchService.search(text: text, excludedObjectIds: excludedObjectIds)
+    func searchMentions(spaceId: String, text: String, excludedObjectIds: [String]) async throws -> [MentionObject] {
+        let details = try await searchService.search(text: text, excludedObjectIds: excludedObjectIds, spaceId: spaceId)
         return details.map { MentionObject(details: $0) }
     }
 }

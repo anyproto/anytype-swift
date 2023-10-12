@@ -51,7 +51,7 @@ struct SetFiltersListView: View {
     
     private var emptyState: some View {
         VStack {
-            Spacer.fixedHeight(20)
+            Spacer()
             AnytypeText(
                 Loc.EditSet.Popup.Filters.EmptyView.title,
                 style: .uxCalloutRegular,

@@ -31,7 +31,7 @@ final class ModulesDI: ModulesDIProtocol {
     }
     
     func objectCoverPicker() -> ObjectCoverPickerModuleAssemblyProtocol {
-        return ObjectCoverPickerModuleAssembly(serviceLocator: serviceLocator)
+        return ObjectCoverPickerModuleAssembly()
     }
     
     func objectIconPicker() -> ObjectIconPickerModuleAssemblyProtocol {
@@ -122,6 +122,14 @@ final class ModulesDI: ModulesDIProtocol {
         return FileStorageModuleAssembly(serviceLocator: serviceLocator, uiHelpersDI: uiHelpersDI)
     }
     
+    func spaceSwitch() -> SpaceSwitchModuleAssemblyProtocol {
+        return SpaceSwitchModileAssembly(serviceLocator: serviceLocator)
+    }
+    
+    func spaceCreate() -> SpaceCreateModuleAssemblyProtocol {
+        return SpaceCreateModuleAssembly(serviceLocator: serviceLocator)
+    }
+    
     func authorization() -> AuthModuleAssemblyProtocol {
         return AuthModuleAssembly()
     }
@@ -132,10 +140,6 @@ final class ModulesDI: ModulesDIProtocol {
     
     func login() -> LoginViewModuleAssemblyProtocol {
         return LoginViewModuleAssembly(serviceLocator: serviceLocator)
-    }
-    
-    func migrationGuide() -> MigrationGuideViewModuleAssemblyProtocol {
-        return MigrationGuideViewModuleAssembly()
     }
     
     func authKey() -> KeyPhraseViewModuleAssemblyProtocol {
@@ -154,8 +158,16 @@ final class ModulesDI: ModulesDIProtocol {
         return CreatingSoulViewModuleAssembly(serviceLocator: serviceLocator)
     }
     
-    func templatesAssembly() -> TemplateModulesAssembly {
-        return TemplateModulesAssembly(serviceLocator: serviceLocator)
+    func setObjectCreationSettings() -> SetObjectCreationSettingsModuleAssemblyProtocol {
+        return SetObjectCreationSettingsModuleAssembly(serviceLocator: serviceLocator, uiHelperDI: uiHelpersDI)
+    }
+    
+    func spaceSettings() -> SpaceSettingsModuleAssemblyProtocol {
+        return SpaceSettingsModuleAssembly(serviceLocator: serviceLocator)
+    }
+    
+    func remoteStorage() -> RemoteStorageModuleAssemblyProtocol {
+        return RemoteStorageModuleAssembly(serviceLocator: serviceLocator)
     }
     
     func setViewSettingsList() -> SetViewSettingsListModuleAssemblyProtocol {
@@ -212,5 +224,21 @@ final class ModulesDI: ModulesDIProtocol {
     
     func setViewSettingsGroupByView() -> SetViewSettingsGroupByModuleAssemblyProtocol {
         SetViewSettingsGroupByModuleAssembly()
+    }
+    
+    func setRelationsView() -> SetRelationsViewModuleAssemblyProtocol {
+        SetRelationsViewModuleAssembly(serviceLocator: serviceLocator)
+    }
+
+    func shareAssembly() -> ShareModuleAssemblyProtocol {
+        return ShareModuleAssembly(serviceLocator: serviceLocator)
+    }
+    
+    func setViewPicker() -> SetViewPickerModuleAssemblyProtocol {
+        SetViewPickerModuleAssembly(serviceLocator: serviceLocator)
+    }
+    
+    func objectTypeSearch() -> ObjectTypeSearchModuleAssemblyProtocol {
+        ObjectTypeSearchModuleAssembly(uiHelpersDI: uiHelpersDI, serviceLocator: serviceLocator)
     }
 }

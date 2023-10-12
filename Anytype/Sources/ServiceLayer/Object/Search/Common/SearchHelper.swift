@@ -99,6 +99,16 @@ class SearchHelper {
         return filter
     }
     
+    static func excludedLayoutFilter(_ layouts: [DetailsLayout]) -> DataviewFilter {
+        var filter = DataviewFilter()
+        filter.condition = .notIn
+        filter.value = layouts.map(\.rawValue).protobufValue
+        filter.relationKey = BundledRelationKey.layout.rawValue
+        filter.operator = .and
+        
+        return filter
+    }
+    
     static func recomendedLayoutFilter(_ layouts: [DetailsLayout]) -> DataviewFilter {
         var filter = DataviewFilter()
         filter.condition = .in
@@ -120,11 +130,11 @@ class SearchHelper {
     }
     
     static func sharedObjectsFilters() -> [DataviewFilter] {
-        var workspaceFilter = DataviewFilter()
-        workspaceFilter.condition = .notEmpty
-        workspaceFilter.value = nil
-        workspaceFilter.relationKey = BundledRelationKey.workspaceId.rawValue
-        workspaceFilter.operator = .and
+        var spaceFilter = DataviewFilter()
+        spaceFilter.condition = .notEmpty
+        spaceFilter.value = nil
+        spaceFilter.relationKey = BundledRelationKey.spaceId.rawValue
+        spaceFilter.operator = .and
    
         var highlightedFilter = DataviewFilter()
         highlightedFilter.condition = .equal
@@ -133,7 +143,7 @@ class SearchHelper {
         highlightedFilter.operator = .and
         
         return [
-            workspaceFilter,
+            spaceFilter,
             highlightedFilter
         ]
     }
@@ -171,32 +181,22 @@ class SearchHelper {
         return filter
     }
 
-    static func templatesFilters(type: ObjectTypeId) -> [DataviewFilter] {
+    static func templatesFilters(type: String, spaceId spaceIdValue: String) -> [DataviewFilter] {
         [
             isArchivedFilter(isArchived: false),
             isDeletedFilter(isDeleted: false),
             templateScheme(),
-            templateTypeFilter(type: type.rawValue)
+            templateTypeFilter(type: type),
+            spaceId(spaceIdValue)
         ]
     }
     
-    static func workspaceId(_ workspaceId: String) -> DataviewFilter {
+    static func spaceId(_ spaceId: String) -> DataviewFilter {
         var filter = DataviewFilter()
         filter.condition = .equal
-        filter.value = workspaceId.protobufValue
+        filter.value = spaceId.protobufValue
         
-        filter.relationKey = BundledRelationKey.workspaceId.rawValue
-        filter.operator = .and
-        
-        return filter
-    }
-    
-    static func workspaceIds(_ workspaceIds: [String]) -> DataviewFilter {
-        var filter = DataviewFilter()
-        filter.condition = .in
-        filter.value = workspaceIds.protobufValue
-        
-        filter.relationKey = BundledRelationKey.workspaceId.rawValue
+        filter.relationKey = BundledRelationKey.spaceId.rawValue
         filter.operator = .and
         
         return filter
@@ -236,8 +236,8 @@ class SearchHelper {
     private static func templateScheme() -> DataviewFilter {
         var filter = DataviewFilter()
         filter.condition = .equal
-        filter.relationKey = BundledRelationKey.type.rawValue
-        filter.value = ObjectTypeId.bundled(.template).rawValue.protobufValue
+        filter.relationKey = "\(BundledRelationKey.type.rawValue).\(BundledRelationKey.uniqueKey.rawValue)"
+        filter.value = ObjectTypeUniqueKey.template.value.protobufValue
 
         return filter
     }

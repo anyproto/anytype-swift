@@ -58,3 +58,16 @@ extension EditorItem {
         }
     }
 }
+
+extension EditorItem {
+    var canHandleTextRangeTouch: Bool {
+        switch self {
+        case .header:
+            return false
+        case .block(let viewModel):
+            return viewModel.info.content.type != .text(.title)
+        case .system:
+            return true
+        }
+    }
+}

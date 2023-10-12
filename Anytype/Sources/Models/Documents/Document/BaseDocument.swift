@@ -38,9 +38,10 @@ final class BaseDocument: BaseDocumentProtocol {
     // All places, where parsedRelations used, should be subscribe on parsedRelationsPublisher.
     var parsedRelations: ParsedRelations {
         let objectRelationsDetails = relationDetailsStorage.relationsDetails(
-            for: relationLinksStorage.relationLinks
+            for: relationLinksStorage.relationLinks,
+            spaceId: spaceId
         )
-        let recommendedRelations = relationDetailsStorage.relationsDetails(for: details?.objectType.recommendedRelations ?? [])
+        let recommendedRelations = relationDetailsStorage.relationsDetails(for: details?.objectType.recommendedRelations ?? [], spaceId: spaceId)
         let typeRelationsDetails = recommendedRelations.filter { !objectRelationsDetails.contains($0) }
         return relationBuilder.parsedRelations(
             relationsDetails: objectRelationsDetails,
@@ -103,6 +104,10 @@ final class BaseDocument: BaseDocumentProtocol {
     }
 
     // MARK: - BaseDocumentProtocol
+    
+    var spaceId: String {
+        details?.spaceId ?? ""
+    }
     
     @MainActor
     func open() async throws {

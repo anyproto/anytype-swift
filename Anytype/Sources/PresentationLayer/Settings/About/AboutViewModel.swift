@@ -11,6 +11,7 @@ final class AboutViewModel: ObservableObject {
     
     private let middlewareConfigurationProvider: MiddlewareConfigurationProviderProtocol
     private let accountManager: AccountManagerProtocol
+    private let activeWorkspaceStorage: ActiveWorkpaceStorageProtocol
     private weak var output: AboutModuleOutput?
     
     private var appVersion: String? = MetadataProvider.appVersion
@@ -24,10 +25,12 @@ final class AboutViewModel: ObservableObject {
     init(
         middlewareConfigurationProvider: MiddlewareConfigurationProviderProtocol,
         accountManager: AccountManagerProtocol,
+        activeWorkspaceStorage: ActiveWorkpaceStorageProtocol,
         output: AboutModuleOutput?
     ) {
         self.middlewareConfigurationProvider = middlewareConfigurationProvider
         self.accountManager = accountManager
+        self.activeWorkspaceStorage = activeWorkspaceStorage
         self.output = output
         setupView()
     }
@@ -94,8 +97,8 @@ final class AboutViewModel: ObservableObject {
                 Loc.About.buildNumber(buildNumber ?? ""),
                 Loc.About.library(libraryVersion ?? ""),
                 Loc.About.accountId(accountManager.account.id),
-                Loc.About.deviceId(accountManager.account.info.deviceId),
-                Loc.About.analyticsId(accountManager.account.info.analyticsId)
+                Loc.About.deviceId(activeWorkspaceStorage.workspaceInfo.deviceId),
+                Loc.About.analyticsId(activeWorkspaceStorage.workspaceInfo.analyticsId)
             ].joined(separator: "\n")
         }
     }

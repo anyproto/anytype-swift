@@ -24,7 +24,7 @@ final class MarkupAccessoryViewModel: ObservableObject {
     private(set) var restrictions: BlockRestrictions?
     private(set) var actionHandler: BlockActionHandlerProtocol
     private(set) var blockId: BlockId = ""
-    private let pageService: PageServiceProtocol
+    private let pageService: PageRepositoryProtocol
     private let document: BaseDocumentProtocol
     private let linkToObjectCoordinator: LinkToObjectCoordinatorProtocol
 
@@ -39,7 +39,7 @@ final class MarkupAccessoryViewModel: ObservableObject {
     init(
         document: BaseDocumentProtocol,
         actionHandler: BlockActionHandlerProtocol,
-        pageService: PageServiceProtocol,
+        pageService: PageRepositoryProtocol,
         linkToObjectCoordinator: LinkToObjectCoordinatorProtocol
     ) {
         self.actionHandler = actionHandler
@@ -119,6 +119,7 @@ final class MarkupAccessoryViewModel: ObservableObject {
         let eitherLink: Either<URL, BlockId>? = urlLink.map { .left($0) } ?? objectIdLink.map { .right($0) } ?? nil
         
         linkToObjectCoordinator.startFlow(
+            spaceId: document.spaceId,
             currentLink: eitherLink,
             setLinkToObject: { [weak self] linkBlockId in
                 self?.actionHandler.setLinkToObject(linkBlockId: linkBlockId, range: range, blockId: blockId)

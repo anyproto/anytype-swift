@@ -20,14 +20,15 @@ protocol DataviewServiceProtocol {
     func replaceViewRelation(_ key: String, with relation: MiddlewareRelation, viewId: String) async throws
     func sortViewRelations(_ keys: [String], viewId: String) async throws
     
-    func createView(_ view: DataviewView, source: [String]) async throws
+    @discardableResult
+    func createView( _ view: DataviewView, source: [String]) async throws -> String
     func deleteView(_ viewId: String) async throws
     func addRelation(_ relationDetails: RelationDetails) async throws
     func deleteRelation(relationKey: String) async throws
     func addRecord(
-        objectType: String,
-        shouldSelectType: Bool,
+        typeUniqueKey: ObjectTypeUniqueKey?,
         templateId: BlockId,
+        spaceId: String,
         setFilters: [SetFilter],
         relationsDetails: [RelationDetails]
     ) async throws -> ObjectDetails

@@ -55,13 +55,6 @@ extension DataviewViewType {
         }
     }
     
-    var isSupported: Bool {
-        self == .table ||
-        self == .gallery ||
-        self == .list ||
-        (FeatureFlags.setKanbanView && self == .kanban)
-    }
-    
     var settings: [SetLayoutSettings] {
         switch setContentViewType {
         case let .collection(type):

@@ -1,7 +1,7 @@
 import Foundation
 
 protocol EditorBrowserCoordinatorProtocol: AnyObject {
-    func startFlow(data: EditorScreenData)
+    func startFlow(data: EditorScreenData, delegate: EditorBrowserDelegate?)
 }
 
 final class EditorBrowserCoordinator: EditorBrowserCoordinatorProtocol, EditorPageOpenRouterProtocol {
@@ -27,17 +27,27 @@ final class EditorBrowserCoordinator: EditorBrowserCoordinatorProtocol, EditorPa
         self.editorPageCoordinatorAssembly = editorPageCoordinatorAssembly
     }
     
-    func startFlow(data: EditorScreenData) {
-        showPage(data: data)
+    @MainActor
+    func startFlow(data: EditorScreenData, delegate: EditorBrowserDelegate?) {
+        showPage(data: data, delegate: delegate)
     }
     
     // MARK: - EditorPageOpenRouterProtocol
     
+    @MainActor
     func showPage(data: EditorScreenData) {
+        showPage(data: data, delegate: nil)
+    }
+    
+    // MARK: - Private
+    
+    @MainActor
+    private func showPage(data: EditorScreenData, delegate: EditorBrowserDelegate?) {
         if browserController != nil {
             editorPageCoordinator?.startFlow(data: data, replaceCurrentPage: false)
         } else {
             let controller = editorBrowserAssembly.buildEditorBrowser(data: data, router: self, addRoot: false)
+            controller.delegate = delegate
             editorPageCoordinator = editorPageCoordinatorAssembly.make(browserController: controller)
             editorPageCoordinator?.startFlow(data: data, replaceCurrentPage: true)
             navigationContext.push(controller)
