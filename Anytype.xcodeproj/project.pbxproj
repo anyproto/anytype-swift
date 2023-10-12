@@ -500,6 +500,10 @@
 		2A7DCDE2292E60BA001919B4 /* AddNewRelationCoordinatorAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A7DCDE1292E60BA001919B4 /* AddNewRelationCoordinatorAssembly.swift */; };
 		2A7DCDE4292E7D5A001919B4 /* SearchModuleAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A7DCDE3292E7D5A001919B4 /* SearchModuleAssembly.swift */; };
 		2A7DCDE8292E8260001919B4 /* SearchModuleAssemblyProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A7DCDE7292E8260001919B4 /* SearchModuleAssemblyProtocol.swift */; };
+		2A816AC72AD7DC1700975BCA /* ServerConfigirationStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A816AC62AD7DC1700975BCA /* ServerConfigirationStorage.swift */; };
+		2A816AC92AD7DFC700975BCA /* ServerConfigurationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A816AC82AD7DFC700975BCA /* ServerConfigurationView.swift */; };
+		2A816ACC2AD7E31F00975BCA /* ServerDocumentPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A816ACB2AD7E31F00975BCA /* ServerDocumentPicker.swift */; };
+		2A816ACE2AD7EDB300975BCA /* ServerConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A816ACD2AD7EDB300975BCA /* ServerConfiguration.swift */; };
 		2A8A2DCA2AB9956000105549 /* AppAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A8A2DC92AB9956000105549 /* AppAction.swift */; };
 		2A8A2DCC2AB9960F00105549 /* AppActionStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A8A2DCB2AB9960F00105549 /* AppActionStorage.swift */; };
 		2A8A2DD12AB99B0E00105549 /* ShareCoordinatorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A8A2DD02AB99B0E00105549 /* ShareCoordinatorView.swift */; };
@@ -2099,6 +2103,10 @@
 		2A7DCDE1292E60BA001919B4 /* AddNewRelationCoordinatorAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddNewRelationCoordinatorAssembly.swift; sourceTree = "<group>"; };
 		2A7DCDE3292E7D5A001919B4 /* SearchModuleAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchModuleAssembly.swift; sourceTree = "<group>"; };
 		2A7DCDE7292E8260001919B4 /* SearchModuleAssemblyProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchModuleAssemblyProtocol.swift; sourceTree = "<group>"; };
+		2A816AC62AD7DC1700975BCA /* ServerConfigirationStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServerConfigirationStorage.swift; sourceTree = "<group>"; };
+		2A816AC82AD7DFC700975BCA /* ServerConfigurationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServerConfigurationView.swift; sourceTree = "<group>"; };
+		2A816ACB2AD7E31F00975BCA /* ServerDocumentPicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServerDocumentPicker.swift; sourceTree = "<group>"; };
+		2A816ACD2AD7EDB300975BCA /* ServerConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServerConfiguration.swift; sourceTree = "<group>"; };
 		2A8A2DC92AB9956000105549 /* AppAction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppAction.swift; sourceTree = "<group>"; };
 		2A8A2DCB2AB9960F00105549 /* AppActionStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppActionStorage.swift; sourceTree = "<group>"; };
 		2A8A2DD02AB99B0E00105549 /* ShareCoordinatorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShareCoordinatorView.swift; sourceTree = "<group>"; };
@@ -3530,6 +3538,7 @@
 		03C5C53422DF6C9900DD91DE /* StoreLayer */ = {
 			isa = PBXGroup;
 			children = (
+				2A816AC52AD7DC0D00975BCA /* ServerConfigirationStorage */,
 				2A8A2DC82AB993E900105549 /* AppActions */,
 				2A29FD2D2A701BBB007A8549 /* SpaceStorage */,
 				2E9B405E2A1F806600A7D74E /* LocalAuthService */,
@@ -3943,6 +3952,7 @@
 				53FF7C6C26F8F8E400A5A592 /* iCloudBackupConfigurator.swift */,
 				2E9B46612A4F2723000541EA /* MiddlewareMerticsConfigurator.swift */,
 				2A5BC4C82A791AED004FAABF /* ViewProvidersConfigurator.swift */,
+				2A816ACD2AD7EDB300975BCA /* ServerConfiguration.swift */,
 			);
 			path = Configurators;
 			sourceTree = "<group>";
@@ -5459,6 +5469,23 @@
 				2AEE49EC292E27E300EA53AA /* ObjectSettingsFlow */,
 			);
 			path = Flows;
+			sourceTree = "<group>";
+		};
+		2A816AC52AD7DC0D00975BCA /* ServerConfigirationStorage */ = {
+			isa = PBXGroup;
+			children = (
+				2A816AC62AD7DC1700975BCA /* ServerConfigirationStorage.swift */,
+			);
+			path = ServerConfigirationStorage;
+			sourceTree = "<group>";
+		};
+		2A816ACA2AD7E30D00975BCA /* ServerConfiguration */ = {
+			isa = PBXGroup;
+			children = (
+				2A816AC82AD7DFC700975BCA /* ServerConfigurationView.swift */,
+				2A816ACB2AD7E31F00975BCA /* ServerDocumentPicker.swift */,
+			);
+			path = ServerConfiguration;
 			sourceTree = "<group>";
 		};
 		2A83ED79285347B700612723 /* TableOfContents */ = {
@@ -8744,6 +8771,7 @@
 		C91AFEEB270B4C9C005F9386 /* Debug */ = {
 			isa = PBXGroup;
 			children = (
+				2A816ACA2AD7E30D00975BCA /* ServerConfiguration */,
 				0A996BAD23EDBC09000FDC9C /* FeatureFlags */,
 				1247BCA627FF3827005F2DB4 /* FeedbackGeneratorExamplesView.swift */,
 				1247BCAB27FF3A0C005F2DB4 /* FeedbackGeneratorExample.swift */,
@@ -9492,6 +9520,7 @@
 				2AA8108029A3D8E8007DD64B /* WidgetObjectListRowModel.swift in Sources */,
 				2A4373722906808700A1C4D6 /* InlineMarkdownListener.swift in Sources */,
 				3DAE1CB0273EA208009A72F3 /* EditorSetView.swift in Sources */,
+				2A816ACE2AD7EDB300975BCA /* ServerConfiguration.swift in Sources */,
 				53D408CA27F1D3AB00495335 /* UIPasteboardExtension.swift in Sources */,
 				3D24913527BD271900821595 /* EventsBunch.swift in Sources */,
 				2E0797C62A09678C006F0FD7 /* AuthCoordinatorAssembly.swift in Sources */,
@@ -9942,6 +9971,7 @@
 				0A2ADCE62496C72A00FA135D /* ObjectActionsServiceProtocol.swift in Sources */,
 				2AB2C22428AD23FD000191F8 /* AlertOpenerProtocol.swift in Sources */,
 				2A0BAD3129E020A3005BC5D9 /* Task+Extensions.swift in Sources */,
+				2A816ACC2AD7E31F00975BCA /* ServerDocumentPicker.swift in Sources */,
 				2A947B422A30E3EC00119140 /* ListWidgetRowModel.swift in Sources */,
 				1256840427E0C606003A8251 /* NewSearchViewModel+ItemCreationMode.swift in Sources */,
 				EAADB1AE2678D5FB004B0AF2 /* NSLayoutManager+Convenience.swift in Sources */,
@@ -10009,6 +10039,7 @@
 				12C2A5802755F0CE00311854 /* DateRelationValue.swift in Sources */,
 				2A95A26C29DD94F4009637C9 /* IconGradientStorage.swift in Sources */,
 				3DDC6A6A26270998004F5EA4 /* BlockLinkContentConfiguration.swift in Sources */,
+				2A816AC72AD7DC1700975BCA /* ServerConfigirationStorage.swift in Sources */,
 				53F7447427F71737005C9BB0 /* CheckPopupViewViewModelProtocol.swift in Sources */,
 				C905B2B128291C9100F1106B /* ToastView.swift in Sources */,
 				2AA8107E29A3D8A9007DD64B /* WidgetObjectListMenuItemModel.swift in Sources */,
@@ -10720,6 +10751,7 @@
 				2ECD123028AFE6A900BD464A /* TitleWithIconStyle.swift in Sources */,
 				2E8387BF291A521900506766 /* EditorSetViewModel+DragAndDropDelegate.swift in Sources */,
 				1244791C27D8A63D00581174 /* StatusSearchInteractor.swift in Sources */,
+				2A816AC92AD7DFC700975BCA /* ServerConfigurationView.swift in Sources */,
 				12A7B6C126C3E47200544037 /* DocumentCover.swift in Sources */,
 				53D408AC27F0B7EE00495335 /* CodeBlockFields.swift in Sources */,
 				1219F971269350A5009DE4D4 /* ObjectIcon.swift in Sources */,
