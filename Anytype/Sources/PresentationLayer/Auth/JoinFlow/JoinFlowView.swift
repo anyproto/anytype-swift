@@ -11,16 +11,14 @@ struct JoinFlowView: View {
         }
         .customBackSwipe {
             guard !model.disableBackAction else { return }
-            if model.step.isFirstCountable {
+            if model.step.isFirst {
                  presentationMode.dismiss()
              } else {
                  model.onBack()
              }
         }
         .ifLet(model.errorText) { view, errorText in
-            view.alertView(isShowing: $model.showError, errorText: errorText, onButtonTap: {
-                presentationMode.dismiss()
-            })
+            view.alertView(isShowing: $model.showError, errorText: errorText, onButtonTap: {})
         }
         .fitIPadToReadableContentGuide()
     }
@@ -32,7 +30,7 @@ struct JoinFlowView: View {
             navigationBar
             
             Spacer.fixedHeight(
-                UIDevice.isPad || !model.step.countableStep ? height / Constants.offsetFactor : Constants.topOffset
+                UIDevice.isPad ? height / Constants.offsetFactor : Constants.topOffset
             )
             
             model.content()
@@ -56,27 +54,26 @@ struct JoinFlowView: View {
                 backButton
             })
         }
-        .opacity(model.showNavigation ? 1 : 0)
         .frame(height: 44)
     }
     
     private var backButton : some View {
         Button(action: {
-            if model.step.isFirstCountable {
+            if model.step.isFirst {
                 presentationMode.dismiss()
             } else {
                 model.onBack()
             }
         }) {
             Image(asset: .X18.slashMenuArrow)
-                .foregroundColor(.Text.tertiary)
+                .foregroundColor(.Button.active)
                 .padding(EdgeInsets(top: 10, leading: 0, bottom: 10, trailing: 10))
         }
         .disabled(model.disableBackAction)
     }
     
     private var counter : some View {
-        AnytypeText(model.counter, style: .authBody, color: .Text.tertiary)
+        AnytypeText(model.counter, style: .authBody, color: .Button.active)
     }
 }
 

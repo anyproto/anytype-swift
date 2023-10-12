@@ -23,8 +23,7 @@ final class JoinFlowCoordinatorAssembly: JoinFlowCoordinatorAssemblyProtocol {
             joinFlowModuleAssembly: modulesDI.joinFlow(),
             keyViewModuleAssembly: modulesDI.authKey(),
             keyPhraseMoreInfoViewModuleAssembly: modulesDI.authKeyMoreInfo(),
-            soulViewModuleAssembly: modulesDI.authSoul(),
-            creatingSoulViewModuleAssembly: modulesDI.authCreatingSoul()
+            soulViewModuleAssembly: modulesDI.authSoul()
         )
     }
 }

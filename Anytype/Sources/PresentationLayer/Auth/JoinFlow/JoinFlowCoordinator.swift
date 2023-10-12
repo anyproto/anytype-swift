@@ -14,20 +14,17 @@ final class JoinFlowCoordinator: JoinFlowCoordinatorProtocol, JoinFlowOutput {
     private let keyViewModuleAssembly: KeyPhraseViewModuleAssemblyProtocol
     private let keyPhraseMoreInfoViewModuleAssembly: KeyPhraseMoreInfoViewModuleAssemblyProtocol
     private let soulViewModuleAssembly: SoulViewModuleAssemblyProtocol
-    private let creatingSoulViewModuleAssembly: CreatingSoulViewModuleAssemblyProtocol
     
     init(
         joinFlowModuleAssembly: JoinFlowModuleAssemblyProtocol,
         keyViewModuleAssembly: KeyPhraseViewModuleAssemblyProtocol,
         keyPhraseMoreInfoViewModuleAssembly: KeyPhraseMoreInfoViewModuleAssemblyProtocol,
-        soulViewModuleAssembly: SoulViewModuleAssemblyProtocol,
-        creatingSoulViewModuleAssembly: CreatingSoulViewModuleAssemblyProtocol
+        soulViewModuleAssembly: SoulViewModuleAssemblyProtocol
     ) {
         self.joinFlowModuleAssembly = joinFlowModuleAssembly
         self.keyViewModuleAssembly = keyViewModuleAssembly
         self.keyPhraseMoreInfoViewModuleAssembly = keyPhraseMoreInfoViewModuleAssembly
         self.soulViewModuleAssembly = soulViewModuleAssembly
-        self.creatingSoulViewModuleAssembly = creatingSoulViewModuleAssembly
     }
     
     // MARK: - JoinFlowCoordinatorProtocol
@@ -40,8 +37,6 @@ final class JoinFlowCoordinator: JoinFlowCoordinatorProtocol, JoinFlowOutput {
     
     func onStepChanged(_ step: JoinFlowStep, state: JoinFlowState, output: JoinFlowStepOutput) -> AnyView {
         switch step {
-        case .creatingSoul:
-            return creatingSoulViewModuleAssembly.make(state: state, output: output)
         case .soul:
             return soulViewModuleAssembly.make(state: state, output: output)
         case .key:
