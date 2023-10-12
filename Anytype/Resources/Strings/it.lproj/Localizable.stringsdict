@@ -13,7 +13,7 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>d</string>
         <key>one</key>
-        <string>%d object</string>
+        <string>%d oggetto</string>
         <key>other</key>
         <string>%d oggetti</string>
       </dict>
@@ -29,7 +29,7 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>d</string>
         <key>one</key>
-        <string>%d object</string>
+        <string>%d oggetto</string>
         <key>other</key>
         <string>%d oggetti</string>
       </dict>
@@ -45,7 +45,7 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>d</string>
         <key>one</key>
-        <string>%d selected block</string>
+        <string>%d blocco selezionato</string>
         <key>other</key>
         <string>%d blocchi selezionati</string>
       </dict>
@@ -61,7 +61,7 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>d</string>
         <key>one</key>
-        <string>tomorrow</string>
+        <string>domani</string>
         <key>other</key>
         <string>in %d giorni</string>
       </dict>
@@ -77,7 +77,7 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>d</string>
         <key>one</key>
-        <string>One object deleted</string>
+        <string>Un oggetto eliminato</string>
         <key>other</key>
         <string>%d oggetti eliminati</string>
       </dict>

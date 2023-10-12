@@ -78,7 +78,7 @@
 "Relation.Deleted" = "Deleted relation";
 "Relation.From.Type" = "From type %@";
 
-"Relation.Format.Object.Title" = "Object";
+"Relation.Format.Object.Title" = "Objekt";
 "Relation.Format.Text.Title" = "Text";
 "Relation.Format.Number.Title" = "Number";
 "Relation.Format.Status.Title" = "Status";
@@ -91,7 +91,7 @@
 "Relation.Format.Phone.Title" = "Telefonnummer";
 
 // MARK: - Mention
-"Mention.Subtitle.Placeholder" = "Object";
+"Mention.Subtitle.Placeholder" = "Objekt";
 
 "None" = "None";
 "Callout" = "Callout";
@@ -106,7 +106,7 @@
 "Alignment" = "Alignment";
 "Actions" = "Actions";
 "Relations" = "Relations";
-"Objects" = "Objects";
+"Objects" = "Objekt";
 "Delete" = "Radera";
 "Duplicate" = "Duplicate";
 "Copy" = "Kopiera";

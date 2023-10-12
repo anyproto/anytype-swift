@@ -1,35 +1,35 @@
 // style menu
-"StyleMenu.Color.TextColor.Placeholder" = "A";
+"StyleMenu.Color.TextColor.Placeholder" = "Uma";
 
 // MARK: Text Style in Slash and Style menu
 "TextStyle.Text.Title" = "Texto";
-"TextStyle.Text.Subtitle" = "Just start writing with a plain text";
+"TextStyle.Text.Subtitle" = "Apenas comece a escrever";
 
 "TextStyle.Title.Title" = "Título";
-"TextStyle.Title.Subtitle" = "Big section heading";
+"TextStyle.Title.Subtitle" = "Título grande da seção";
 
 "TextStyle.Heading.Title" = "Cabeçalho";
-"TextStyle.Heading.Subtitle" = "Medium headline";
+"TextStyle.Heading.Subtitle" = "Título médio";
 
 "TextStyle.Subheading.Title" = "Subtítulo";
-"TextStyle.Subheading.Subtitle" = "Small headline";
+"TextStyle.Subheading.Subtitle" = "Título pequeno";
 
 "TextStyle.Highlighted.Title" = "Destacado";
-"TextStyle.Highlighted.Subtitle" = "Spotlight, that needs special attention";
+"TextStyle.Highlighted.Subtitle" = "Destaque, que precisa de uma atenção especial";
 
-"TextStyle.Callout.Title" = "Callout";
+"TextStyle.Callout.Title" = "Chamada";
 "TextStyle.Callout.Subtitle" = "Texto com borda e ícone";
 
 "TextStyle.Checkbox.Title" = "Caixa de seleção";
 "TextStyle.Checkbox.Subtitle" = "Criar e rastrear tarefas com uma lista de tarefas";
 
-"TextStyle.Bulleted.Title" = "Bulleted";
+"TextStyle.Bulleted.Title" = "Pontuado";
 "TextStyle.Bulleted.Subtitle" = "Lista simples";
 
 "TextStyle.Numbered.Title" = "Lista numerada";
 "TextStyle.Numbered.Subtitle" = "Lista numerada";
 
-"TextStyle.Toggle.Title" = "Toggle";
+"TextStyle.Toggle.Title" = "Alternar";
 "TextStyle.Toggle.Subtitle" = "Exibir e ocultar conteúdo";
 
 "TextStyle.Bold.Title" = "Negrito";
@@ -70,59 +70,59 @@
 "Object.Deleted.Placeholder" = "Objeto excluído";
 
 // MARK: - Relation
-"Featured relations" = "Featured relations";
+"Featured relations" = "Relações destacadas";
 "Create relation" = "Criar relacionamento %@’";
 "Relation.View.Hint.Empty" = "vazio";
 "Relation.MyRelations" = "Meus relacionamentos";
-"Relation.AddedToLibrary" = "Relation ‘%@’ added to your library";
-"Relation.Deleted" = "Deleted relation";
-"Relation.From.Type" = "From type %@";
+"Relation.AddedToLibrary" = "Relação \"%@\" adicionada à biblioteca";
+"Relation.Deleted" = "Relação apagada";
+"Relation.From.Type" = "Do tipo \"%@\"";
 
-"Relation.Format.Object.Title" = "Object";
+"Relation.Format.Object.Title" = "Objeto";
 "Relation.Format.Text.Title" = "Texto";
-"Relation.Format.Number.Title" = "Number";
-"Relation.Format.Status.Title" = "Status";
-"Relation.Format.Tag.Title" = "Tag";
-"Relation.Format.Date.Title" = "Date";
-"Relation.Format.FileMedia.Title" = "File & Media";
+"Relation.Format.Number.Title" = "Número";
+"Relation.Format.Status.Title" = "Situação";
+"Relation.Format.Tag.Title" = "Etiqueta";
+"Relation.Format.Date.Title" = "Data";
+"Relation.Format.FileMedia.Title" = "Arquivos e mídias";
 "Relation.Format.Checkbox.Title" = "Caixa de seleção";
 "Relation.Format.Url.Title" = "URL";
 "Relation.Format.Email.Title" = "Email";
-"Relation.Format.Phone.Title" = "Phone number";
+"Relation.Format.Phone.Title" = "Número de telefone";
 
 // MARK: - Mention
-"Mention.Subtitle.Placeholder" = "Object";
+"Mention.Subtitle.Placeholder" = "Objeto";
 
 "None" = "Nenhum";
-"Callout" = "Callout";
+"Callout" = "Chamada";
 "Toggle empty. Tap to create block." = "Toggle empty. Tap to create block.";
-"Loading, please wait" = "Loading, please wait";
-"Done" = "Done";
-"Style" = "Style";
-"Color" = "Color";
-"Background" = "Background";
-"Other" = "Other";
-"Media" = "Media";
-"Alignment" = "Alignment";
-"Actions" = "Actions";
-"Relations" = "Relations";
-"Objects" = "Objects";
-"Delete" = "Delete";
-"Duplicate" = "Duplicate";
-"Copy" = "Copy";
-"Preview" = "Preview";
+"Loading, please wait" = "Carregando, aguarde por favor!";
+"Done" = "Concluído";
+"Style" = "Estilo";
+"Color" = "Cor";
+"Background" = "Fundo";
+"Other" = "Outro";
+"Media" = "Mídias";
+"Alignment" = "Alinhamento";
+"Actions" = "Ações";
+"Relations" = "Relações";
+"Objects" = "Objetos";
+"Delete" = "Excluir";
+"Duplicate" = "Duplicar";
+"Copy" = "Copiar";
+"Preview" = "Pré-visualizar";
 "View" = "View";
-"Paste" = "Paste";
-"Move" = "Move";
-"Move to" = "Move to";
-"Back" = "Back";
-"File block subtitle" = "Store file in original state";
-"Picture block subtitle" = "Upload and enrich the page with image";
-"Video block subtitle" = "Upload playable video";
-"Bookmark block subtitle" = "Save your favorite link with summary";
-"Code block subtitle" = "Capture code snippet";
-"Align right" = "Align right";
-"Align left" = "Align left";
+"Paste" = "Colar";
+"Move" = "Mover";
+"Move to" = "Mover para";
+"Back" = "Voltar";
+"File block subtitle" = "Armazenar arquivo no estado original";
+"Picture block subtitle" = "Enviar e enriquecer a página com imagem";
+"Video block subtitle" = "Enviar vídeo";
+"Bookmark block subtitle" = "Salvar link favorito com resumo";
+"Code block subtitle" = "Capturar pedaço de código";
+"Align right" = "Alinhar à direita";
+"Align left" = "Alinhar à esquerda";
 "Align center" = "Align center";
 "Black" = "Black";
 "Amber" = "Amber";
@@ -181,17 +181,17 @@
 "Sign up" = "Sign up";
 "Login" = "Login";
 "Create" = "Create";
-"Scan QR code" = "Scan QR code";
-"Auth.CameraPermissionTitle" = "Please allow access";
+"Scan QR code" = "Ler código QR";
+"Auth.CameraPermissionTitle" = "Conceda acesso, por favor";
 "Restore secret phrase from keychain" = "Restore Recovery Phrase from the keychain";
-"Auth.LogIn" = "I already have one";
-"Auth.Join" = "Generate new account";
-"Auth.Welcome.Subtitle" = "Anytype is your safe space to write, plan, think and organise everything that matters to you.";
-"Auth.Caption.Privacy.Text" = "By continuing you agree to [Terms of Use](%@) and [Privacy Policy](%@)";
-"Auth.Next" = "Next";
+"Auth.LogIn" = "Já tenho um";
+"Auth.Join" = "Gerar nova conta";
+"Auth.Welcome.Subtitle" = "Anytype é seu lugar seguro para pensar, planejar, escrever, e organizar tudo que é importante para você";
+"Auth.Caption.Privacy.Text" = "Ao continuar, você concorda com os [Termos de Uso](%@) e com a [Política de Privacidade](%@)";
+"Auth.Next" = "Avançar";
 
-"Account recover error" = "Account recover error, try again";
-"Account recover error no internet" = "Account recover error, probably no internet connection";
+"Account recover error" = "Erro na recuperação de conta, tente novamente";
+"Account recover error no internet" = "Erro na recuperação de conta, provavelmente não há conexão de internet";
 
 // Auth Errors
 "Error creating wallet" = "Error creating wallet";
@@ -321,8 +321,8 @@
 
 "TemplateOptions.Alert.SetAsDefault" = "Set as default for this view";
 "TemplateOptions.Alert.EditTemplate" = "Edit template";
-"TemplateOptions.Alert.Duplicate" = "Duplicate";
-"TemplateOptions.Alert.Delete" = "Delete";
+"TemplateOptions.Alert.Duplicate" = "Duplicar";
+"TemplateOptions.Alert.Delete" = "Excluir";
 
 "TemplateEditing.Title" = "Edit template";
 "TemplateEditing.SelectButtonTitle" = "Select template";
@@ -646,16 +646,16 @@
 
 // MARK: - Simple tables
 "SimpleTableMenu.Item.clearContents" = "Clear";
-"SimpleTableMenu.Item.color" = "Color";
-"SimpleTableMenu.Item.style" = "Style";
+"SimpleTableMenu.Item.color" = "Cor";
+"SimpleTableMenu.Item.style" = "Estilo";
 "SimpleTableMenu.Item.clearStyle" = "Reset style";
 
 "SimpleTableMenu.Item.InsertLeft" = "Insert left";
 "SimpleTableMenu.Item.InsertRight" = "Insert right";
 "SimpleTableMenu.Item.MoveLeft" = "Move left";
 "SimpleTableMenu.Item.MoveRight" = "Move right";
-"SimpleTableMenu.Item.Duplicate" = "Duplicate";
-"SimpleTableMenu.Item.Delete" = "Delete";
+"SimpleTableMenu.Item.Duplicate" = "Duplicar";
+"SimpleTableMenu.Item.Delete" = "Excluir";
 "SimpleTableMenu.Item.Sort" = "Sort";
 
 "SimpleTableMenu.Item.InsertAbove" = "Insert above";
@@ -685,7 +685,7 @@
 "SetViewTypesPicker.Title" = "Edit view";
 "SetViewTypesPicker.New.Title" = "New view";
 "SetViewTypesPicker.Section.Types.Title" = "View as";
-"SetViewTypesPicker.Settings.Duplicate.View" = "Duplicate";
+"SetViewTypesPicker.Settings.Duplicate.View" = "Duplicar";
 "SetViewTypesPicker.Settings.Delete.View" = "Delete view";
 "SetViewTypesPicker.Settings.Textfield.Placeholder.New.View" = "New view";
 "SetViewTypesPicker.Settings.Textfield.Placeholder.Untitled" = "Sem título";
@@ -797,7 +797,7 @@
 // MARK: - Sharing
 "Sharing.Navigation.title" = "Add to Anytype";
 "Sharing.Navigation.LeftButton.Title" = "Cancel";
-"Sharing.Navigation.RightButton.Title" = "Done";
+"Sharing.Navigation.RightButton.Title" = "Concluído";
 
 "Sharing.SaveAs" = "SAVE AS";
 "Sharing.AddTo" = "Add to";
