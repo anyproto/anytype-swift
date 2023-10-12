@@ -2347,7 +2347,7 @@ public struct Anytype_Rpc {
       public init() {}
     }
 
-    public struct Info {
+    public struct Open {
       // SwiftProtobuf.Message conformance is added in an extension below. See the
       // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
       // methods supported on all messages.
@@ -2371,8 +2371,8 @@ public struct Anytype_Rpc {
         // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
         // methods supported on all messages.
 
-        public var error: Anytype_Rpc.Workspace.Info.Response.Error {
-          get {return _error ?? Anytype_Rpc.Workspace.Info.Response.Error()}
+        public var error: Anytype_Rpc.Workspace.Open.Response.Error {
+          get {return _error ?? Anytype_Rpc.Workspace.Open.Response.Error()}
           set {_error = newValue}
         }
         /// Returns true if `error` has been explicitly set.
@@ -2396,7 +2396,7 @@ public struct Anytype_Rpc {
           // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
           // methods supported on all messages.
 
-          public var code: Anytype_Rpc.Workspace.Info.Response.Error.Code = .null
+          public var code: Anytype_Rpc.Workspace.Open.Response.Error.Code = .null
 
           public var description_p: String = String()
 
@@ -2438,7 +2438,7 @@ public struct Anytype_Rpc {
 
         public init() {}
 
-        fileprivate var _error: Anytype_Rpc.Workspace.Info.Response.Error? = nil
+        fileprivate var _error: Anytype_Rpc.Workspace.Open.Response.Error? = nil
         fileprivate var _info: Anytype_Model_Account.Info? = nil
       }
 
@@ -2745,7 +2745,7 @@ public struct Anytype_Rpc {
       public init() {}
     }
 
-    public struct SetIsHighlighted {
+    public struct SetInfo {
       // SwiftProtobuf.Message conformance is added in an extension below. See the
       // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
       // methods supported on all messages.
@@ -2757,13 +2757,22 @@ public struct Anytype_Rpc {
         // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
         // methods supported on all messages.
 
-        public var objectID: String = String()
+        public var spaceID: String = String()
 
-        public var isHighlighted: Bool = false
+        public var details: SwiftProtobuf.Google_Protobuf_Struct {
+          get {return _details ?? SwiftProtobuf.Google_Protobuf_Struct()}
+          set {_details = newValue}
+        }
+        /// Returns true if `details` has been explicitly set.
+        public var hasDetails: Bool {return self._details != nil}
+        /// Clears the value of `details`. Subsequent reads from it will return its default value.
+        public mutating func clearDetails() {self._details = nil}
 
         public var unknownFields = SwiftProtobuf.UnknownStorage()
 
         public init() {}
+
+        fileprivate var _details: SwiftProtobuf.Google_Protobuf_Struct? = nil
       }
 
       public struct Response {
@@ -2771,8 +2780,8 @@ public struct Anytype_Rpc {
         // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
         // methods supported on all messages.
 
-        public var error: Anytype_Rpc.Workspace.SetIsHighlighted.Response.Error {
-          get {return _error ?? Anytype_Rpc.Workspace.SetIsHighlighted.Response.Error()}
+        public var error: Anytype_Rpc.Workspace.SetInfo.Response.Error {
+          get {return _error ?? Anytype_Rpc.Workspace.SetInfo.Response.Error()}
           set {_error = newValue}
         }
         /// Returns true if `error` has been explicitly set.
@@ -2787,7 +2796,7 @@ public struct Anytype_Rpc {
           // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
           // methods supported on all messages.
 
-          public var code: Anytype_Rpc.Workspace.SetIsHighlighted.Response.Error.Code = .null
+          public var code: Anytype_Rpc.Workspace.SetInfo.Response.Error.Code = .null
 
           public var description_p: String = String()
 
@@ -2831,7 +2840,7 @@ public struct Anytype_Rpc {
 
         public init() {}
 
-        fileprivate var _error: Anytype_Rpc.Workspace.SetIsHighlighted.Response.Error? = nil
+        fileprivate var _error: Anytype_Rpc.Workspace.SetInfo.Response.Error? = nil
       }
 
       public init() {}
@@ -23653,9 +23662,9 @@ extension Anytype_Rpc.Workspace.Create.Response.Error.Code: CaseIterable {
   ]
 }
 
-extension Anytype_Rpc.Workspace.Info.Response.Error.Code: CaseIterable {
+extension Anytype_Rpc.Workspace.Open.Response.Error.Code: CaseIterable {
   // The compiler won't synthesize support with the UNRECOGNIZED case.
-  public static var allCases: [Anytype_Rpc.Workspace.Info.Response.Error.Code] = [
+  public static var allCases: [Anytype_Rpc.Workspace.Open.Response.Error.Code] = [
     .null,
     .unknownError,
     .badInput,
@@ -23689,9 +23698,9 @@ extension Anytype_Rpc.Workspace.Object.ListRemove.Response.Error.Code: CaseItera
   ]
 }
 
-extension Anytype_Rpc.Workspace.SetIsHighlighted.Response.Error.Code: CaseIterable {
+extension Anytype_Rpc.Workspace.SetInfo.Response.Error.Code: CaseIterable {
   // The compiler won't synthesize support with the UNRECOGNIZED case.
-  public static var allCases: [Anytype_Rpc.Workspace.SetIsHighlighted.Response.Error.Code] = [
+  public static var allCases: [Anytype_Rpc.Workspace.SetInfo.Response.Error.Code] = [
     .null,
     .unknownError,
     .badInput,
@@ -25618,11 +25627,11 @@ extension Anytype_Rpc.Workspace.Create.Request: @unchecked Sendable {}
 extension Anytype_Rpc.Workspace.Create.Response: @unchecked Sendable {}
 extension Anytype_Rpc.Workspace.Create.Response.Error: @unchecked Sendable {}
 extension Anytype_Rpc.Workspace.Create.Response.Error.Code: @unchecked Sendable {}
-extension Anytype_Rpc.Workspace.Info: @unchecked Sendable {}
-extension Anytype_Rpc.Workspace.Info.Request: @unchecked Sendable {}
-extension Anytype_Rpc.Workspace.Info.Response: @unchecked Sendable {}
-extension Anytype_Rpc.Workspace.Info.Response.Error: @unchecked Sendable {}
-extension Anytype_Rpc.Workspace.Info.Response.Error.Code: @unchecked Sendable {}
+extension Anytype_Rpc.Workspace.Open: @unchecked Sendable {}
+extension Anytype_Rpc.Workspace.Open.Request: @unchecked Sendable {}
+extension Anytype_Rpc.Workspace.Open.Response: @unchecked Sendable {}
+extension Anytype_Rpc.Workspace.Open.Response.Error: @unchecked Sendable {}
+extension Anytype_Rpc.Workspace.Open.Response.Error.Code: @unchecked Sendable {}
 extension Anytype_Rpc.Workspace.Object: @unchecked Sendable {}
 extension Anytype_Rpc.Workspace.Object.Add: @unchecked Sendable {}
 extension Anytype_Rpc.Workspace.Object.Add.Request: @unchecked Sendable {}
@@ -25639,11 +25648,11 @@ extension Anytype_Rpc.Workspace.Object.ListRemove.Request: @unchecked Sendable {
 extension Anytype_Rpc.Workspace.Object.ListRemove.Response: @unchecked Sendable {}
 extension Anytype_Rpc.Workspace.Object.ListRemove.Response.Error: @unchecked Sendable {}
 extension Anytype_Rpc.Workspace.Object.ListRemove.Response.Error.Code: @unchecked Sendable {}
-extension Anytype_Rpc.Workspace.SetIsHighlighted: @unchecked Sendable {}
-extension Anytype_Rpc.Workspace.SetIsHighlighted.Request: @unchecked Sendable {}
-extension Anytype_Rpc.Workspace.SetIsHighlighted.Response: @unchecked Sendable {}
-extension Anytype_Rpc.Workspace.SetIsHighlighted.Response.Error: @unchecked Sendable {}
-extension Anytype_Rpc.Workspace.SetIsHighlighted.Response.Error.Code: @unchecked Sendable {}
+extension Anytype_Rpc.Workspace.SetInfo: @unchecked Sendable {}
+extension Anytype_Rpc.Workspace.SetInfo.Request: @unchecked Sendable {}
+extension Anytype_Rpc.Workspace.SetInfo.Response: @unchecked Sendable {}
+extension Anytype_Rpc.Workspace.SetInfo.Response.Error: @unchecked Sendable {}
+extension Anytype_Rpc.Workspace.SetInfo.Response.Error.Code: @unchecked Sendable {}
 extension Anytype_Rpc.Workspace.Select: @unchecked Sendable {}
 extension Anytype_Rpc.Workspace.Select.Request: @unchecked Sendable {}
 extension Anytype_Rpc.Workspace.Select.Response: @unchecked Sendable {}
@@ -29732,8 +29741,8 @@ extension Anytype_Rpc.Workspace.Create.Response.Error.Code: SwiftProtobuf._Proto
   ]
 }
 
-extension Anytype_Rpc.Workspace.Info: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
-  public static let protoMessageName: String = Anytype_Rpc.Workspace.protoMessageName + ".Info"
+extension Anytype_Rpc.Workspace.Open: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = Anytype_Rpc.Workspace.protoMessageName + ".Open"
   public static let _protobuf_nameMap = SwiftProtobuf._NameMap()
 
   public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
@@ -29745,14 +29754,14 @@ extension Anytype_Rpc.Workspace.Info: SwiftProtobuf.Message, SwiftProtobuf._Mess
     try unknownFields.traverse(visitor: &visitor)
   }
 
-  public static func ==(lhs: Anytype_Rpc.Workspace.Info, rhs: Anytype_Rpc.Workspace.Info) -> Bool {
+  public static func ==(lhs: Anytype_Rpc.Workspace.Open, rhs: Anytype_Rpc.Workspace.Open) -> Bool {
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
 }
 
-extension Anytype_Rpc.Workspace.Info.Request: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
-  public static let protoMessageName: String = Anytype_Rpc.Workspace.Info.protoMessageName + ".Request"
+extension Anytype_Rpc.Workspace.Open.Request: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = Anytype_Rpc.Workspace.Open.protoMessageName + ".Request"
   public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
     1: .same(proto: "spaceId"),
   ]
@@ -29776,15 +29785,15 @@ extension Anytype_Rpc.Workspace.Info.Request: SwiftProtobuf.Message, SwiftProtob
     try unknownFields.traverse(visitor: &visitor)
   }
 
-  public static func ==(lhs: Anytype_Rpc.Workspace.Info.Request, rhs: Anytype_Rpc.Workspace.Info.Request) -> Bool {
+  public static func ==(lhs: Anytype_Rpc.Workspace.Open.Request, rhs: Anytype_Rpc.Workspace.Open.Request) -> Bool {
     if lhs.spaceID != rhs.spaceID {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
 }
 
-extension Anytype_Rpc.Workspace.Info.Response: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
-  public static let protoMessageName: String = Anytype_Rpc.Workspace.Info.protoMessageName + ".Response"
+extension Anytype_Rpc.Workspace.Open.Response: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = Anytype_Rpc.Workspace.Open.protoMessageName + ".Response"
   public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
     1: .same(proto: "error"),
     2: .same(proto: "info"),
@@ -29817,7 +29826,7 @@ extension Anytype_Rpc.Workspace.Info.Response: SwiftProtobuf.Message, SwiftProto
     try unknownFields.traverse(visitor: &visitor)
   }
 
-  public static func ==(lhs: Anytype_Rpc.Workspace.Info.Response, rhs: Anytype_Rpc.Workspace.Info.Response) -> Bool {
+  public static func ==(lhs: Anytype_Rpc.Workspace.Open.Response, rhs: Anytype_Rpc.Workspace.Open.Response) -> Bool {
     if lhs._error != rhs._error {return false}
     if lhs._info != rhs._info {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
@@ -29825,8 +29834,8 @@ extension Anytype_Rpc.Workspace.Info.Response: SwiftProtobuf.Message, SwiftProto
   }
 }
 
-extension Anytype_Rpc.Workspace.Info.Response.Error: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
-  public static let protoMessageName: String = Anytype_Rpc.Workspace.Info.Response.protoMessageName + ".Error"
+extension Anytype_Rpc.Workspace.Open.Response.Error: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = Anytype_Rpc.Workspace.Open.Response.protoMessageName + ".Error"
   public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
     1: .same(proto: "code"),
     2: .same(proto: "description"),
@@ -29855,7 +29864,7 @@ extension Anytype_Rpc.Workspace.Info.Response.Error: SwiftProtobuf.Message, Swif
     try unknownFields.traverse(visitor: &visitor)
   }
 
-  public static func ==(lhs: Anytype_Rpc.Workspace.Info.Response.Error, rhs: Anytype_Rpc.Workspace.Info.Response.Error) -> Bool {
+  public static func ==(lhs: Anytype_Rpc.Workspace.Open.Response.Error, rhs: Anytype_Rpc.Workspace.Open.Response.Error) -> Bool {
     if lhs.code != rhs.code {return false}
     if lhs.description_p != rhs.description_p {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
@@ -29863,7 +29872,7 @@ extension Anytype_Rpc.Workspace.Info.Response.Error: SwiftProtobuf.Message, Swif
   }
 }
 
-extension Anytype_Rpc.Workspace.Info.Response.Error.Code: SwiftProtobuf._ProtoNameProviding {
+extension Anytype_Rpc.Workspace.Open.Response.Error.Code: SwiftProtobuf._ProtoNameProviding {
   public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
     0: .same(proto: "NULL"),
     1: .same(proto: "UNKNOWN_ERROR"),
@@ -30325,8 +30334,8 @@ extension Anytype_Rpc.Workspace.Object.ListRemove.Response.Error.Code: SwiftProt
   ]
 }
 
-extension Anytype_Rpc.Workspace.SetIsHighlighted: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
-  public static let protoMessageName: String = Anytype_Rpc.Workspace.protoMessageName + ".SetIsHighlighted"
+extension Anytype_Rpc.Workspace.SetInfo: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = Anytype_Rpc.Workspace.protoMessageName + ".SetInfo"
   public static let _protobuf_nameMap = SwiftProtobuf._NameMap()
 
   public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
@@ -30338,17 +30347,17 @@ extension Anytype_Rpc.Workspace.SetIsHighlighted: SwiftProtobuf.Message, SwiftPr
     try unknownFields.traverse(visitor: &visitor)
   }
 
-  public static func ==(lhs: Anytype_Rpc.Workspace.SetIsHighlighted, rhs: Anytype_Rpc.Workspace.SetIsHighlighted) -> Bool {
+  public static func ==(lhs: Anytype_Rpc.Workspace.SetInfo, rhs: Anytype_Rpc.Workspace.SetInfo) -> Bool {
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
 }
 
-extension Anytype_Rpc.Workspace.SetIsHighlighted.Request: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
-  public static let protoMessageName: String = Anytype_Rpc.Workspace.SetIsHighlighted.protoMessageName + ".Request"
+extension Anytype_Rpc.Workspace.SetInfo.Request: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = Anytype_Rpc.Workspace.SetInfo.protoMessageName + ".Request"
   public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
-    1: .same(proto: "objectId"),
-    2: .same(proto: "isHighlighted"),
+    1: .same(proto: "spaceId"),
+    2: .same(proto: "details"),
   ]
 
   public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
@@ -30357,33 +30366,37 @@ extension Anytype_Rpc.Workspace.SetIsHighlighted.Request: SwiftProtobuf.Message,
       // allocates stack space for every case branch when no optimizations are
       // enabled. https://github.com/apple/swift-protobuf/issues/1034
       switch fieldNumber {
-      case 1: try { try decoder.decodeSingularStringField(value: &self.objectID) }()
-      case 2: try { try decoder.decodeSingularBoolField(value: &self.isHighlighted) }()
+      case 1: try { try decoder.decodeSingularStringField(value: &self.spaceID) }()
+      case 2: try { try decoder.decodeSingularMessageField(value: &self._details) }()
       default: break
       }
     }
   }
 
   public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
-    if !self.objectID.isEmpty {
-      try visitor.visitSingularStringField(value: self.objectID, fieldNumber: 1)
+    // The use of inline closures is to circumvent an issue where the compiler
+    // allocates stack space for every if/case branch local when no optimizations
+    // are enabled. https://github.com/apple/swift-protobuf/issues/1034 and
+    // https://github.com/apple/swift-protobuf/issues/1182
+    if !self.spaceID.isEmpty {
+      try visitor.visitSingularStringField(value: self.spaceID, fieldNumber: 1)
     }
-    if self.isHighlighted != false {
-      try visitor.visitSingularBoolField(value: self.isHighlighted, fieldNumber: 2)
-    }
+    try { if let v = self._details {
+      try visitor.visitSingularMessageField(value: v, fieldNumber: 2)
+    } }()
     try unknownFields.traverse(visitor: &visitor)
   }
 
-  public static func ==(lhs: Anytype_Rpc.Workspace.SetIsHighlighted.Request, rhs: Anytype_Rpc.Workspace.SetIsHighlighted.Request) -> Bool {
-    if lhs.objectID != rhs.objectID {return false}
-    if lhs.isHighlighted != rhs.isHighlighted {return false}
+  public static func ==(lhs: Anytype_Rpc.Workspace.SetInfo.Request, rhs: Anytype_Rpc.Workspace.SetInfo.Request) -> Bool {
+    if lhs.spaceID != rhs.spaceID {return false}
+    if lhs._details != rhs._details {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
 }
 
-extension Anytype_Rpc.Workspace.SetIsHighlighted.Response: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
-  public static let protoMessageName: String = Anytype_Rpc.Workspace.SetIsHighlighted.protoMessageName + ".Response"
+extension Anytype_Rpc.Workspace.SetInfo.Response: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = Anytype_Rpc.Workspace.SetInfo.protoMessageName + ".Response"
   public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
     1: .same(proto: "error"),
   ]
@@ -30411,15 +30424,15 @@ extension Anytype_Rpc.Workspace.SetIsHighlighted.Response: SwiftProtobuf.Message
     try unknownFields.traverse(visitor: &visitor)
   }
 
-  public static func ==(lhs: Anytype_Rpc.Workspace.SetIsHighlighted.Response, rhs: Anytype_Rpc.Workspace.SetIsHighlighted.Response) -> Bool {
+  public static func ==(lhs: Anytype_Rpc.Workspace.SetInfo.Response, rhs: Anytype_Rpc.Workspace.SetInfo.Response) -> Bool {
     if lhs._error != rhs._error {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
 }
 
-extension Anytype_Rpc.Workspace.SetIsHighlighted.Response.Error: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
-  public static let protoMessageName: String = Anytype_Rpc.Workspace.SetIsHighlighted.Response.protoMessageName + ".Error"
+extension Anytype_Rpc.Workspace.SetInfo.Response.Error: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = Anytype_Rpc.Workspace.SetInfo.Response.protoMessageName + ".Error"
   public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
     1: .same(proto: "code"),
     2: .same(proto: "description"),
@@ -30448,7 +30461,7 @@ extension Anytype_Rpc.Workspace.SetIsHighlighted.Response.Error: SwiftProtobuf.M
     try unknownFields.traverse(visitor: &visitor)
   }
 
-  public static func ==(lhs: Anytype_Rpc.Workspace.SetIsHighlighted.Response.Error, rhs: Anytype_Rpc.Workspace.SetIsHighlighted.Response.Error) -> Bool {
+  public static func ==(lhs: Anytype_Rpc.Workspace.SetInfo.Response.Error, rhs: Anytype_Rpc.Workspace.SetInfo.Response.Error) -> Bool {
     if lhs.code != rhs.code {return false}
     if lhs.description_p != rhs.description_p {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
@@ -30456,7 +30469,7 @@ extension Anytype_Rpc.Workspace.SetIsHighlighted.Response.Error: SwiftProtobuf.M
   }
 }
 
-extension Anytype_Rpc.Workspace.SetIsHighlighted.Response.Error.Code: SwiftProtobuf._ProtoNameProviding {
+extension Anytype_Rpc.Workspace.SetInfo.Response.Error.Code: SwiftProtobuf._ProtoNameProviding {
   public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
     0: .same(proto: "NULL"),
     1: .same(proto: "UNKNOWN_ERROR"),

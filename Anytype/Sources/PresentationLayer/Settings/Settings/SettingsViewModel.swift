@@ -76,7 +76,7 @@ final class SettingsViewModel: ObservableObject {
         if FeatureFlags.multiSpaceSettings {
             output?.onChangeIconSelected(objectId: activeWorkspaceStorage.workspaceInfo.profileObjectID)
         } else {
-            output?.onChangeIconSelected(objectId: activeWorkspaceStorage.workspaceInfo.workspaceObjectId)
+            output?.onChangeIconSelected(objectId: activeWorkspaceStorage.workspaceInfo.spaceViewId)
         }
     }
     
@@ -85,7 +85,7 @@ final class SettingsViewModel: ObservableObject {
     private func setupSubscription() {
         subscriptionService.startSubscription(
             subIdPrefix: Constants.subSpaceId,
-            objectId: activeWorkspaceStorage.workspaceInfo.workspaceObjectId
+            objectId: activeWorkspaceStorage.workspaceInfo.spaceViewId
         ) { [weak self] details in
             self?.handleSpaceDetails(details: details)
         }
@@ -131,7 +131,7 @@ final class SettingsViewModel: ObservableObject {
     private func updateSpaceName(name: String) {
         Task {
             try await objectActionsService.updateBundledDetails(
-                contextID: activeWorkspaceStorage.workspaceInfo.workspaceObjectId,
+                contextID: activeWorkspaceStorage.workspaceInfo.spaceViewId,
                 details: [.name(name)]
             )
         }
