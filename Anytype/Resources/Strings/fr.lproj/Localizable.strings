@@ -47,7 +47,7 @@
 "BlockText.ContentType.Bulleted.Placeholder" = "Élément de liste à puces";
 "BlockText.ContentType.Checkbox.Placeholder" = "Case à cocher";
 "BlockText.ContentType.Numbered.Placeholder" = "Élément de liste numérotée";
-"BlockText.ContentType.Quote.Placeholder" = "Highlighted text";
+"BlockText.ContentType.Quote.Placeholder" = "Texte mis en évidence";
 "BlockText.ContentType.Header.Placeholder" = "Titre";
 "BlockText.ContentType.Header2.Placeholder" = "Titre";
 "BlockText.ContentType.Header3.Placeholder" = "Sous-titre";
@@ -71,10 +71,10 @@
 
 // MARK: - Relation
 "Featured relations" = "Relations mises en avant";
-"Create relation" = "Create relation ‘%@’";
+"Create relation" = "Créer une relation %@’";
 "Relation.View.Hint.Empty" = "vide";
 "Relation.MyRelations" = "Mes relations";
-"Relation.AddedToLibrary" = "Relation ‘%@’ added to your library";
+"Relation.AddedToLibrary" = "La relation %@ a été ajoutée à votre bibliothèque";
 "Relation.Deleted" = "Relation supprimée";
 "Relation.From.Type" = "À partir du type %@";
 
@@ -95,7 +95,7 @@
 
 "None" = "Aucun";
 "Callout" = "Callout";
-"Toggle empty. Tap to create block." = "Toggle empty. Tap to create block.";
+"Toggle empty. Tap to create block." = "Activer/désactiver vide. Touchez pour créer un bloc.";
 "Loading, please wait" = "Chargement, veuillez patienter...";
 "Done" = "Fait";
 "Style" = "Style";
@@ -118,7 +118,7 @@
 "Back" = "Retour";
 "File block subtitle" = "Stocker le fichier dans l'état original";
 "Picture block subtitle" = "Envoyer et enrichir la page avec une image";
-"Video block subtitle" = "Upload playable video";
+"Video block subtitle" = "Charger une vidéo";
 "Bookmark block subtitle" = "Enregistrez votre lien favori avec un résumé";
 "Code block subtitle" = "Capturer un extrait de code";
 "Align right" = "Aligner à droite";
@@ -146,7 +146,7 @@
 "Unsupported block" = "Bloc non pris en charge";
 "Name" = "Nom";
 "Description" = "Description";
-"Paste processing..." = "Paste processing...";
+"Paste processing..." = "En train de coller...";
 "Anytype Library" = "Bibliothèque Anytype";
 "Copied" = "Copié";
 
@@ -165,17 +165,17 @@
 // Keychain screen
 "Keychain.Recovery phrase" = "Phrase de récupération";
 "Keychain.Recovery phrase copied to clipboard" = "Phrase de récupération copiée";
-"Keychain.Recovery phrase description" = "You will need it to sign in. Keep it in a safe place. If you lose it, you can no longer access your account.";
-"Keychain.Save keychain alert part 1" = "If you lose the recovery phrase and get logged out you will not be able to ";
-"Keychain.Save keychain alert part 2" = "ever access your data again";
-"Keychain.Save keychain alert part 3" = ".\nSave this recovery phrase outside of Anytype for data recovery.\nWe recommend using a secure data vault, password manager or piece of paper in the safe.";
+"Keychain.Recovery phrase description" = "Vous en aurez besoin pour vous connecter. Conservez le dans un endroit sûr. Si vous le perdez, vous ne pouvez plus accéder à votre compte.";
+"Keychain.Save keychain alert part 1" = "Si vous perdez la phrase de récupération et si vous êtes déconnecté, vous ne serez pas capable de ";
+"Keychain.Save keychain alert part 2" = "plus jamais accéder à vos données";
+"Keychain.Save keychain alert part 3" = "\nEnregistrez cette phrase de récupération en dehors d' Anytype pour la récupération de données.\nNous vous recommandons d'utiliser un coffre-fort de données sécurisé, un gestionnaire de mots de passe ou un morceau de papier dans un endroit sûr.";
 "Keychain.Don’t forget to save your recovery phrase" = "N'oubliez pas d'enregistrer votre phrase de récupération";
 "Keychain.Show and copy phrase" = "Afficher et copier la phrase";
-"Keychain.Have you backed up your recovery phrase?" = "Have you backed up your recovery phrase?";
-"Keychain.Error.String to Data conversion error" = "String to Data conversion error";
-"Keychain.Error.Data to String conversion error" = "Data to String conversion error";
-"Keychain.Error.Unknown Keychain Error" = "Unknown Keychain Error";
-"Keychain.SeedPhrasePlaceholder" = "witch collapse practice feed shame open despair creek road again ice least lake tree young address brain despair";
+"Keychain.Have you backed up your recovery phrase?" = "Avez-vous sauvegardé votre phrase de récupération ?";
+"Keychain.Error.String to Data conversion error" = "Erreur de conversion de chaîne de. caractères en données";
+"Keychain.Error.Data to String conversion error" = "Erreur de conversion de données en chaîne de caractères";
+"Keychain.Error.Unknown Keychain Error" = "Erreur de trousseau inconnue";
+"Keychain.SeedPhrasePlaceholder" = "sorcière effondrement pratique nourrir honte ouvert désespoir ruisseau route à nouveau glace moins lac arbre jeune adresse cerveau désespoir";
 
 // Auth
 "Sign up" = "Sign up";
