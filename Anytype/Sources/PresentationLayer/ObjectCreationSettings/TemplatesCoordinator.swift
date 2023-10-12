@@ -25,18 +25,21 @@ final class TemplatesCoordinator {
             return
         }
 
-        let items = availableTemplates.enumerated().map { info -> TemplatePickerViewModel.Item in
+        var items = availableTemplates.enumerated().map { info -> TemplatePickerViewModel.Item in
             let item = info.element
             let data = item.editorScreenData(isOpenedForPreview: true)
 
             let editorController = editorPageAssembly.buildEditorController(browser: nil, data: data)
 
-            return TemplatePickerViewModel.Item(
-                id: info.offset,
-                viewController: GenericUIKitToSwiftUIView(viewController: editorController),
-                object: item
+            return .template(
+                .init(
+                    id: info.offset + 1,
+                    viewController: GenericUIKitToSwiftUIView(viewController: editorController),
+                    object: item
+                )
             )
         }
+        items.insert(.blank(0), at: 0)
 
         let picker = TemplatePickerView(
             viewModel: .init(

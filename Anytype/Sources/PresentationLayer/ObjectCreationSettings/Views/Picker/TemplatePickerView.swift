@@ -12,7 +12,7 @@ struct TemplatePickerView: View {
         .navigationViewStyle(.stack)
     }
     
-    var content: some View {
+    private var content: some View {
         VStack(spacing: 0) {
             Spacer.fixedHeight(6)
             
@@ -27,8 +27,13 @@ struct TemplatePickerView: View {
             
             TabView(selection: $index) {
                 ForEach(viewModel.items) { item in
-                    VStack() {
-                        item.viewController
+                    VStack(spacing: 0) {
+                        switch item {
+                        case .blank:
+                            blankView
+                        case let .template(model):
+                            model.viewController
+                        }
                         Spacer()
                     }
                     .frame(maxHeight: .infinity)
@@ -57,8 +62,19 @@ struct TemplatePickerView: View {
             }
         }
     }
+    
+    private var blankView: some View {
+        VStack(spacing: 0) {
+            Spacer.fixedHeight(125)
+            HStack {
+                AnytypeText(Loc.TemplateSelection.blankTemplate, style: .title, color: .Text.primary)
+                Spacer()
+            }
+        }
+        .padding([.horizontal], 20)
+    }
 
-    func storyIndicatorView(isSelected: Bool) -> some View {
+    private func storyIndicatorView(isSelected: Bool) -> some View {
         Spacer
             .fixedHeight(4)
             .background(isSelected ? Color.Text.primary : Color.Stroke.primary)

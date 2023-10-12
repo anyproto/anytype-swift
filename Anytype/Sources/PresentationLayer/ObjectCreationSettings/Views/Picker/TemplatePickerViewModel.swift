@@ -1,12 +1,6 @@
 import Services
 
 final class TemplatePickerViewModel {
-    struct Item: Identifiable {
-        let id: Int
-        let viewController: GenericUIKitToSwiftUIView
-        let object: ObjectDetails
-    }
-
     let items: [Item]
     private var selectedTab = 0
     private let document: BaseDocumentProtocol
@@ -30,15 +24,44 @@ final class TemplatePickerViewModel {
     }
 
     func onApplyButton() {
-        let objectId = items[selectedTab].object.id
+        let item = items[selectedTab]
+        let templateId: String
+        switch item {
+        case let .template(model):
+            templateId = model.object.id
+        case .blank:
+            templateId = ""
+        }
         
         Task { @MainActor in
-            try await objectService.applyTemplate(objectId: document.objectId, templateId: objectId)
+            try await objectService.applyTemplate(objectId: document.objectId, templateId: templateId)
             onClose()
         }
     }
 
     func onCloseButton() {
         onClose()
+    }
+}
+
+extension TemplatePickerViewModel {
+    enum Item: Identifiable {
+        case blank(Int)
+        case template(TemplateModel)
+        
+        var id: Int {
+            switch self {
+            case let .blank(id):
+                return id
+            case let .template(model):
+                return model.id
+            }
+        }
+        
+        struct TemplateModel {
+            let id: Int
+            let viewController: GenericUIKitToSwiftUIView
+            let object: ObjectDetails
+        }
     }
 }
