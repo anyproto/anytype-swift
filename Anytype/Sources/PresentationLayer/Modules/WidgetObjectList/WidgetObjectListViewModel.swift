@@ -9,6 +9,7 @@ enum WidgetObjectListData {
     case error(NewSearchError)
 }
 
+@MainActor
 final class WidgetObjectListViewModel: ObservableObject, OptionsItemProvider, WidgetObjectListMenuOutput {
     
     // MARK: - DI

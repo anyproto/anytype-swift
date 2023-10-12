@@ -3,6 +3,7 @@ import Services
 import Combine
 import AnytypeCore
 
+@MainActor
 final class WidgetObjectListBinViewModel: WidgetObjectListInternalViewModelProtocol {
     
     // MARK: - DI

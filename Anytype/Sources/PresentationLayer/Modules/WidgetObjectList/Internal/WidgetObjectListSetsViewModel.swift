@@ -2,6 +2,7 @@ import Foundation
 import Services
 import Combine
 
+@MainActor
 final class WidgetObjectListSetsViewModel: WidgetObjectListInternalViewModelProtocol {
     
     // MARK: - DI

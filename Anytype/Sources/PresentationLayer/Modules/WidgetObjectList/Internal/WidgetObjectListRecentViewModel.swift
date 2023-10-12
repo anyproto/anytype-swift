@@ -4,6 +4,7 @@ import Combine
 import Collections
 import AnytypeCore
 
+@MainActor
 final class WidgetObjectListRecentViewModel: WidgetObjectListInternalViewModelProtocol {
     
     // MARK: - DI
