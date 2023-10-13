@@ -106,16 +106,17 @@ final class BlockActionServiceMock: BlockActionServiceProtocol {
         assertionFailure()
     }
     
-    func turnIntoPage(blockId: BlockId) -> BlockId? {
+    func turnIntoPage(blockId: BlockId, spaceId: String) async throws -> BlockId? {
         assertionFailure()
         return nil
     }
     
     func createPage(
-        targetId: Services.BlockId,
+        targetId: BlockId,
         spaceId: String,
-        type: Services.ObjectTypeId,
-        position: Services.BlockPosition
+        typeUniqueKey: ObjectTypeUniqueKey,
+        position: BlockPosition,
+        templateId: String
     ) async throws -> BlockId {
         assertionFailure()
         return "nil"
@@ -161,7 +162,7 @@ final class BlockActionServiceMock: BlockActionServiceProtocol {
         assertionFailure()
     }
     
-    func setObjectTypeId(_ objectTypeId: String) {
+    func setObjectType(type: ObjectType) async throws {
         assertionFailure()
     }
     
