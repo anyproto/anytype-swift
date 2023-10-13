@@ -189,7 +189,7 @@ class SetDocument: SetDocumentProtocol {
     }
     
     func defaultObjectTypeForView(_ view: DataviewView) throws -> ObjectType {
-        if let viewDefaulTypeId = view.defaultObjectTypeID {
+        if let viewDefaulTypeId = view.defaultObjectTypeID, viewDefaulTypeId.isNotEmpty {
             return try objectTypeProvider.objectType(id: viewDefaulTypeId)
         }
         return try objectTypeProvider.objectType(uniqueKey: .page, spaceId: spaceId)
