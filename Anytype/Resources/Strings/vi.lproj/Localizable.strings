@@ -221,8 +221,8 @@
 "Auth.JoinFlow.Key.ReadMore.Instruction.Option1.Title" = "Dễ nhất là lưu vào trình quản lý mật khẩu.";
 "Auth.JoinFlow.Key.ReadMore.Instruction.Option2.Title" = "An toàn nhất là viết ra giấy và giữ nó ở một nơi kín đáo, an toàn.";
 
-"Auth.JoinFlow.Soul.Title" = "Set a name for new identity";
-"Auth.JoinFlow.Soul.Description" = "First, choose a name to use inside Anytype.";
+"Auth.JoinFlow.Soul.Title" = "Set your name";
+"Auth.JoinFlow.Soul.Description" = "This is how you will appear in the app.";
 "Auth.JoinFlow.Soul.Placeholder" = "Không tên";
 
 "Auth.JoinFlow.Creating.Soul.Title" = "Đang khởi tạo tài khoản mới";
@@ -308,11 +308,8 @@
 
 
 // MARK: - Templates
-"Alert.Templates_Available.Title" = "This type has %d templates";
-"Alert.Templates_Available.Description" = "Swipe down to skip";
-"Alert.Templates_Available.Button" = "Hiện";
+"TemplateSelection.Available.Title" = "This type has %d templates";
 "TemplatePicker.ChooseTemplate" = "Chọn mẫu";
-"TemplatePicker.Buttons.Skip" = "Skip";
 "TemplatePicker.Buttons.UseTemplate" = "Dùng mẫu";
 "TemplateSelection.SelectTemplate" = "Chọn mẫu";
 "TemplateSelection.blankTemplate" = "Trống";
@@ -626,6 +623,7 @@
 // MARK: - ObjectType
 "ObjectType.fallbackDescription" = "Blank canvas with no title";
 "ObjectType.SearchOrInstall" = "Tìm hoặc cài một loại mới";
+"ObjectType.Search" = "Search for Type";
 "ObjectType.MyTypes" = "Các Loại của tôi";
 "ObjectType.AddedToLibrary" = "Type ‘%@’ added to your library";
 "ObjectType.DeletedName" = "Loại đã xoá";
@@ -769,6 +767,12 @@
 "ClearCache.Success" = "Cache sucessfully cleared";
 "ClearCache.Error" = "Lỗi, hãy thử lại sau";
 
+// MARK: - Settings
+"Settings.TitleLegacy" = "Không gian Riêng";
+"Settings.Title" = "Cài đặt";
+"Settings.SpaceName" = "Tên Không gian";
+"Settings.AccountAndAccess" = "Account and access";
+
 // MARK: - File Storage
 "FileStorage.Title" = "File storage";
 "FileStorage.Space.Title" = "Bộ nhớ ngoài";
@@ -794,6 +798,20 @@
 // MARK: - Cpear cache alert
 "ClearCacheAlert.Title" = "Bạn chắc chưa?";
 "ClearCacheAlert.Description" = "Mọi tập tin đa phương tiện được lưu trong Anytype sẽ bị xoá khỏi thiết bị hiện tại của bạn. Chúng có thể được tải lại từ một điểm sao lưu hoặc một thiết bị khác.";
+
+// MARK: - Spaces
+"Spaces.Accessibility.Public" = "Public";
+"Spaces.Accessibility.Private" = "Private";
+"Spaces.Accessibility.PublicFull" = "Public space";
+"Spaces.Accessibility.PrivateFull" = "Private space";
+
+// MARK: - Space Settings
+"SpaceSettings.Title" = "Space settings";
+"SpaceSettings.RemoteStorage" = "Bộ nhớ ngoài";
+"SpaceSettings.Info" = "Space info";
+
+// MARK: - Space Create
+"SpaceCreate.Title" = "Create a space";
 
 // MARK: - Sharing
 "Sharing.Navigation.title" = "Add to Anytype";
