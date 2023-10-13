@@ -6,7 +6,7 @@ change-github-token:
 # Build from local repo
 
 install-middle-local:
-	rm -f Dependencies/Middleware/*
+	rm -fr Dependencies/Middleware/*
 	mkdir -p Dependencies/Middleware
 	cp -r ../anytype-heart/dist/ios/ Dependencies/Middleware
 
