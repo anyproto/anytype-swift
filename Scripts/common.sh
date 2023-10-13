@@ -24,7 +24,7 @@ function keychain-environment-variable () {
 function set-keychain-environment-variable () {
     [ -n "$1" ] || printf "Missing environment variable name\n"
     
-    printf "Input ${1} value: "
+    printf "Input ${1} value (read README.md): "
     read -s secret
     printf "\n"
     
