@@ -220,8 +220,8 @@
 "Auth.JoinFlow.Key.ReadMore.Instruction.Option1.Title" = "The easiest way to store your Recovery Phrase is to save it in your password manager.";
 "Auth.JoinFlow.Key.ReadMore.Instruction.Option2.Title" = "The most secure way is to write it down on paper and keep it offline, in a safe and secure place.";
 
-"Auth.JoinFlow.Soul.Title" = "Set a name for new identity";
-"Auth.JoinFlow.Soul.Description" = "First, choose a name to use inside Anytype.";
+"Auth.JoinFlow.Soul.Title" = "Set your name";
+"Auth.JoinFlow.Soul.Description" = "This is how you will appear in the app.";
 "Auth.JoinFlow.Soul.Placeholder" = "Bez nazwy";
 
 "Auth.JoinFlow.Creating.Soul.Title" = "Generating new account";
@@ -307,11 +307,8 @@
 
 
 // MARK: - Templates
-"Alert.Templates_Available.Title" = "This type has %d templates";
-"Alert.Templates_Available.Description" = "Przeciągnij w dół, aby pominąć";
-"Alert.Templates_Available.Button" = "Pokaż";
+"TemplateSelection.Available.Title" = "This type has %d templates";
 "TemplatePicker.ChooseTemplate" = "Choose template";
-"TemplatePicker.Buttons.Skip" = "Pomiń";
 "TemplatePicker.Buttons.UseTemplate" = "Use template";
 "TemplateSelection.SelectTemplate" = "Select template";
 "TemplateSelection.blankTemplate" = "Puste";
@@ -625,6 +622,7 @@
 // MARK: - ObjectType
 "ObjectType.fallbackDescription" = "Puste płótno bez tytułu";
 "ObjectType.SearchOrInstall" = "Szukaj lub utwórz nowy typ";
+"ObjectType.Search" = "Search for Type";
 "ObjectType.MyTypes" = "Moje typy";
 "ObjectType.AddedToLibrary" = "Type ‘%@’ added to your library";
 "ObjectType.DeletedName" = "Usunięty typ";
@@ -768,6 +766,12 @@
 "ClearCache.Success" = "Cache sucessfully cleared";
 "ClearCache.Error" = "Error, try again later";
 
+// MARK: - Settings
+"Settings.TitleLegacy" = "Przestrzeń osobista";
+"Settings.Title" = "Ustawienia";
+"Settings.SpaceName" = "Nazwa przestrzeni";
+"Settings.AccountAndAccess" = "Account and access";
+
 // MARK: - File Storage
 "FileStorage.Title" = "File storage";
 "FileStorage.Space.Title" = "Remote storage";
@@ -793,6 +797,20 @@
 // MARK: - Cpear cache alert
 "ClearCacheAlert.Title" = "Are you sure?";
 "ClearCacheAlert.Description" = "All media files stored in Anytype will be deleted from your current device. They can be downloaded again from a backup node or another device.";
+
+// MARK: - Spaces
+"Spaces.Accessibility.Public" = "Public";
+"Spaces.Accessibility.Private" = "Private";
+"Spaces.Accessibility.PublicFull" = "Public space";
+"Spaces.Accessibility.PrivateFull" = "Private space";
+
+// MARK: - Space Settings
+"SpaceSettings.Title" = "Space settings";
+"SpaceSettings.RemoteStorage" = "Remote storage";
+"SpaceSettings.Info" = "Space info";
+
+// MARK: - Space Create
+"SpaceCreate.Title" = "Create a space";
 
 // MARK: - Sharing
 "Sharing.Navigation.title" = "Add to Anytype";
