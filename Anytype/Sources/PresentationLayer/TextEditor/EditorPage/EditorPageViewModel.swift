@@ -212,20 +212,22 @@ final class EditorPageViewModel: EditorPageViewModelProtocol {
     }
     
     private func handleTemplatesIfNeeded() {
-        guard !document.isLocked, configuration.shouldShowTemplateSelection,
-              let details = document.details, details.isSelectTemplate else {
-            templatesSubscriptionService.stopSubscription()
-            viewInput?.update(details: document.details, templatesCount: 0)
-            return
-        }
-        
-        templatesSubscriptionService.startSubscription(
-            objectType: details.type,
-            spaceId: document.spaceId
-        ) { [weak self] _, update in
-            guard let self else { return }
-            availableTemplates.applySubscriptionUpdate(update)
-            viewInput?.update(details: document.details, templatesCount: availableTemplates.count)
+        Task { @MainActor in
+            guard !document.isLocked, configuration.shouldShowTemplateSelection,
+                  let details = document.details, details.isSelectTemplate else {
+                await templatesSubscriptionService.stopSubscription()
+                viewInput?.update(details: document.details, templatesCount: 0)
+                return
+            }
+            
+            await templatesSubscriptionService.startSubscription(
+                objectType: details.type,
+                spaceId: document.spaceId
+            ) { [weak self] details in
+                guard let self else { return }
+                availableTemplates = details
+                viewInput?.update(details: document.details, templatesCount: availableTemplates.count)
+            }
         }
     }
 }

@@ -3,8 +3,6 @@ import Services
 import ProtobufMessages
 import Combine
 
-extension ObjectType: IdProvider {}
-
 enum ObjectTypeError: Error {
     case objectTypeNotFound
 }
@@ -12,7 +10,7 @@ enum ObjectTypeError: Error {
 final class ObjectTypeProvider: ObjectTypeProviderProtocol {
     
     static let shared: ObjectTypeProviderProtocol = ObjectTypeProvider(
-        subscriptionsService: ServiceLocator.shared.subscriptionService(),
+        subscriptionStorageProvider: ServiceLocator.shared.subscriptionStorageProvider(),
         subscriptionBuilder: ObjectTypeSubscriptionDataBuilder(accountManager: ServiceLocator.shared.accountManager())
     )
     
@@ -25,7 +23,7 @@ final class ObjectTypeProvider: ObjectTypeProviderProtocol {
             UserDefaultsConfig.defaultObjectTypes = defaultObjectTypes
         }
     }
-    private let subscriptionsService: SubscriptionsServiceProtocol
+    private let subscriptionStorage: SubscriptionStorageProtocol
     private let subscriptionBuilder: ObjectTypeSubscriptionDataBuilderProtocol
     
     private(set) var objectTypes = [ObjectType]()
@@ -35,10 +33,10 @@ final class ObjectTypeProvider: ObjectTypeProviderProtocol {
     var syncPublisher: AnyPublisher<Void, Never> { $sync.eraseToAnyPublisher() }
 
     private init(
-        subscriptionsService: SubscriptionsServiceProtocol,
+        subscriptionStorageProvider: SubscriptionStorageProviderProtocol,
         subscriptionBuilder: ObjectTypeSubscriptionDataBuilderProtocol
     ) {
-        self.subscriptionsService = subscriptionsService
+        self.subscriptionStorage = subscriptionStorageProvider.createSubscriptionStorage(subId: ObjectTypeProvider.subscriptionId)
         self.subscriptionBuilder = subscriptionBuilder
     }
     
@@ -118,24 +116,18 @@ final class ObjectTypeProvider: ObjectTypeProviderProtocol {
     }
     
     func startSubscription() async {
-        await subscriptionsService.startSubscriptionAsync(data: subscriptionBuilder.build()) { [weak self] subId, update in
-            self?.handleEvent(update: update)
+        try? await subscriptionStorage.startOrUpdateSubscription(data: subscriptionBuilder.build()) { [weak self] data in
+            self?.updateStorage(data: data)
         }
     }
     
-    func stopSubscription() {
-        subscriptionsService.stopSubscription(id: Self.subscriptionId)
+    func stopSubscription() async {
+        try? await subscriptionStorage.stopSubscription()
         objectTypes.removeAll()
         updateAllCache()
     }
     
     // MARK: - Private func
-    
-    private func handleEvent(update: SubscriptionUpdate) {
-        objectTypes.applySubscriptionUpdate(update, transform: { ObjectType(details: $0) })
-        updateAllCache()
-        sync = ()
-    }
     
     private func updateAllCache() {
         updateSearchCache()
@@ -159,12 +151,18 @@ final class ObjectTypeProvider: ObjectTypeProviderProtocol {
         return type
     }
     
-    func defaultObjectType(storage: [String: String], spaceId: String) throws -> ObjectType {
+    private func defaultObjectType(storage: [String: String], spaceId: String) throws -> ObjectType {
         let typeId = storage[spaceId]
         guard let type = objectTypes.first(where: { $0.id == typeId }) ?? findNoteType(spaceId: spaceId) else {
             anytypeAssertionFailure("Default object type not found")
             throw ObjectTypeError.objectTypeNotFound
         }
         return type
+    }
+    
+    private func updateStorage(data: SubscriptionStorageState) {
+        objectTypes = data.items.map { ObjectType(details: $0) }
+        updateAllCache()
+        sync = ()
     }
 }

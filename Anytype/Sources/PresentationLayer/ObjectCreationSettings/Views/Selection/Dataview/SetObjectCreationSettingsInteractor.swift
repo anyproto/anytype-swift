@@ -2,6 +2,7 @@ import Combine
 import Services
 import AnytypeCore
 
+@MainActor
 protocol SetObjectCreationSettingsInteractorProtocol {
     var mode: SetObjectCreationSettingsMode { get }
     
@@ -16,6 +17,7 @@ protocol SetObjectCreationSettingsInteractorProtocol {
     func setDefaultTemplate(templateId: BlockId) async throws
 }
 
+@MainActor
 final class SetObjectCreationSettingsInteractor: SetObjectCreationSettingsInteractorProtocol {
     
     var objectTypesAvailabilityPublisher: AnyPublisher<Bool, Never> { $canChangeObjectType.eraseToAnyPublisher() }
@@ -180,10 +182,12 @@ final class SetObjectCreationSettingsInteractor: SetObjectCreationSettingsIntera
     }
     
     private func loadTemplates() {
-        subscriptionService.startSubscription(objectType: objectTypeId, spaceId: setDocument.spaceId) { [weak self] _, update in
-            guard let self else { return }
-            templatesDetails.applySubscriptionUpdate(update)
-            updateTypeDefaultTemplateId()
+        Task {
+            await subscriptionService.startSubscription(objectType: objectTypeId, spaceId: setDocument.spaceId) { [weak self] details in
+                guard let self else { return }
+                templatesDetails = details
+                updateTypeDefaultTemplateId()
+            }
         }
     }
 }

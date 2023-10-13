@@ -41,6 +41,7 @@ final class HomeBottomPanelViewModel: ObservableObject {
     private var profileDetails: ObjectDetails?
     private var workspaceSubscription: AnyCancellable?
     private var dataSubscriptions: [AnyCancellable] = []
+    private let subId = "HomeBottomSpace-\(UUID().uuidString)"
     
     // MARK: - Public properties
     
@@ -59,7 +60,9 @@ final class HomeBottomPanelViewModel: ObservableObject {
         self.stateManager = stateManager
         self.dashboardService = dashboardService
         self.output = output
-        setupDataSubscription()
+        Task {
+            await setupDataSubscription()
+        }
     }
         
     // MARK: - Private
@@ -101,13 +104,10 @@ final class HomeBottomPanelViewModel: ObservableObject {
         self.isEditState = isEditState
     }
     
-    private func setupDataSubscription() {
-        dataSubscriptions.removeAll()
-        subscriptionService.stopSubscription(subIdPrefix: Constants.subId)
-        
-        subscriptionService.startSubscription(
-            subIdPrefix: Constants.subId,
-            objectId: FeatureFlags.multiSpace ? info.profileObjectID : info.workspaceObjectId
+    private func setupDataSubscription() async {
+        await subscriptionService.startSubscription(
+            subId: subId,
+            objectId: FeatureFlags.multiSpace ? info.profileObjectID : info.spaceViewId
         ) { [weak self] details in
             self?.handleProfileDetails(details: details)
         }

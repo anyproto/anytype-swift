@@ -14,6 +14,7 @@ final class SpaceWidgetViewModel: ObservableObject {
     private let workspaceObjectId: String
     private let subscriptionService: SingleObjectSubscriptionServiceProtocol
     private weak var output: CommonWidgetModuleOutput?
+    private let subSpaceId = "SpaceWidgetViewModel-\(UUID().uuidString)"
     
     // MARK: - State
     
@@ -22,10 +23,12 @@ final class SpaceWidgetViewModel: ObservableObject {
     @Published var spaceAccessibility: String = ""
     
     init(activeWorkspaceStorage: ActiveWorkpaceStorageProtocol, subscriptionService: SingleObjectSubscriptionServiceProtocol, output: CommonWidgetModuleOutput?) {
-        self.workspaceObjectId = activeWorkspaceStorage.workspaceInfo.workspaceObjectId
+        self.workspaceObjectId = activeWorkspaceStorage.workspaceInfo.spaceViewId
         self.subscriptionService = subscriptionService
         self.output = output
-        startSubscription()
+        Task {
+            await startSubscription()
+        }
     }
     
     func onTapWidget() {
@@ -34,9 +37,9 @@ final class SpaceWidgetViewModel: ObservableObject {
     
     // MARK: - Private
     
-    private func startSubscription() {
-        subscriptionService.startSubscription(
-            subIdPrefix: Constants.subSpaceId,
+    private func startSubscription() async {
+        await subscriptionService.startSubscription(
+            subId: Constants.subSpaceId,
             objectId: workspaceObjectId,
             additionalKeys: [.spaceAccessibility]
         ) { [weak self] details in

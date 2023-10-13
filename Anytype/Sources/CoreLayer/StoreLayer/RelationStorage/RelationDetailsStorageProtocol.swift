@@ -12,7 +12,7 @@ protocol RelationDetailsStorageProtocol: AnyObject {
     var relationsDetailsPublisher: AnyPublisher<[RelationDetails], Never> { get }
     
     func startSubscription() async
-    func stopSubscription()
+    func stopSubscription() async
 }
 
 extension RelationDetailsStorageProtocol {

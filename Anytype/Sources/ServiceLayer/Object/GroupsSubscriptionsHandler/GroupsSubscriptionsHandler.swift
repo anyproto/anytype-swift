@@ -71,13 +71,12 @@ final class GroupsSubscriptionsHandler: GroupsSubscriptionsHandlerProtocol {
         }
     }
     
-    @MainActor
-    private func handle(events: EventsBunch) {
+    private func handle(events: EventsBunch) async {
         // handle only Groups Subscription events
         for event in events.middlewareEvents {
             switch event.value {
             case .subscriptionGroups(let data):
-                sendUpdate(
+                await sendUpdate(
                     subId: data.subID,
                     group: data.group,
                     remove: data.remove
@@ -88,10 +87,10 @@ final class GroupsSubscriptionsHandler: GroupsSubscriptionsHandlerProtocol {
         }
     }
     
-    private func sendUpdate(subId: String, group: DataviewGroup, remove: Bool) {
+    private func sendUpdate(subId: String, group: DataviewGroup, remove: Bool) async {
         guard let action = subscribers[subId]?.callback else {
             return
         }
-        action(group, remove)
+        await action(group, remove)
     }
 }

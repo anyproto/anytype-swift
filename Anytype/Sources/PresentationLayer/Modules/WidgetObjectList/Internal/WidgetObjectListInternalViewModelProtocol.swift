@@ -13,6 +13,7 @@ enum WidgetObjectListEditMode: Equatable {
     case editOnly
 }
 
+@MainActor
 protocol WidgetObjectListInternalViewModelProtocol: AnyObject {
     
     var title: String { get }

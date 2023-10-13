@@ -377,4 +377,7 @@ public enum BundledRelationKey: String {
 
     /// Relation that indicates the remote status of space. Possible values: models.SpaceStatus
     case spaceRemoteStatus = "spaceRemoteStatus"
+
+    /// Relation that indicates the real space id on the spaceView
+    case targetSpaceId = "targetSpaceId"
 }

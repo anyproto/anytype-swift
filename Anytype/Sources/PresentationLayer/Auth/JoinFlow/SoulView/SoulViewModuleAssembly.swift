@@ -22,7 +22,10 @@ final class SoulViewModuleAssembly: SoulViewModuleAssemblyProtocol {
                 state: state,
                 output: output,
                 accountManager: self.serviceLocator.accountManager(),
-                objectActionsService: self.serviceLocator.objectActionsService()
+                objectActionsService: self.serviceLocator.objectActionsService(),
+                authService: self.serviceLocator.authService(),
+                seedService:  self.serviceLocator.seedService(),
+                usecaseService: self.serviceLocator.usecaseService()
             )
         ).eraseToAnyView()
     }

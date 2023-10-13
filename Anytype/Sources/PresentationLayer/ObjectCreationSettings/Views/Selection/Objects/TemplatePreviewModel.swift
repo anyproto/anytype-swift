@@ -60,9 +60,7 @@ struct TemplatePreviewModel: Identifiable, Equatable {
     let mode: TemplateType
     let alignment: LayoutAlignment
     let isDefault: Bool
-}
-
-extension TemplatePreviewModel: IdProvider {
+    
     var id: BlockId {
         mode.id
     }

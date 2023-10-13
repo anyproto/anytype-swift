@@ -19,7 +19,7 @@ final class SpaceSwitchViewModel: ObservableObject {
     // MARK: - State
     
     private let profileSubId = "Profile-\(UUID().uuidString)"
-    private var workspaces: [ObjectDetails]?
+    private var workspaces: [SpaceView]?
     private var activeWorkspaceInfo: AccountInfo?
     private var subscriptions = [AnyCancellable]()
     
@@ -40,8 +40,10 @@ final class SpaceSwitchViewModel: ObservableObject {
         self.activeWorkspaceStorage = activeWorkspaceStorage
         self.subscriptionService = subscriptionService
         self.output = output
-        startProfileSubscriotions()
-        startSpacesSubscriotions()
+        Task {
+            await startProfileSubscriotions()
+            startSpacesSubscriotions()
+        }
     }
     
     func onTapAddSpace() {
@@ -54,9 +56,9 @@ final class SpaceSwitchViewModel: ObservableObject {
     
     // MARK: - Private
     
-    private func startProfileSubscriotions() {
-        subscriptionService.startSubscription(
-            subIdPrefix: profileSubId,
+    private func startProfileSubscriotions() async {
+        await subscriptionService.startSubscription(
+            subId: profileSubId,
             objectId: activeWorkspaceStorage.workspaceInfo.profileObjectID
         ) { [weak self] details in
             self?.updateProfile(profile: details)
@@ -92,12 +94,13 @@ final class SpaceSwitchViewModel: ObservableObject {
             return
         }
         let activeSpaceId = activeWorkspaceInfo.accountSpaceId
+        
         rows = workspaces.map { workspace -> SpaceRowModel in
             SpaceRowModel(
                 id: workspace.id,
                 title: workspace.title,
-                icon: workspace.objectIconImage,
-                isSelected: activeSpaceId == workspace.spaceId
+                icon: workspace.icon,
+                isSelected: activeSpaceId == workspace.targetSpaceId
             ) { [weak self] in
                 self?.onTapWorkspace(workspace: workspace)
             }
@@ -115,9 +118,9 @@ final class SpaceSwitchViewModel: ObservableObject {
         profileIcon = profile.objectIconImage
     }
     
-    private func onTapWorkspace(workspace: ObjectDetails) {
+    private func onTapWorkspace(workspace: SpaceView) {
         Task {
-            try await activeWorkspaceStorage.setActiveSpace(spaceId: workspace.spaceId)
+            try await activeWorkspaceStorage.setActiveSpace(spaceId: workspace.targetSpaceId)
             dismiss.toggle()
         }
     }

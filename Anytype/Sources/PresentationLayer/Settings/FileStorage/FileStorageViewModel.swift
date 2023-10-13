@@ -8,7 +8,6 @@ import AnytypeCore
 final class FileStorageViewModel: ObservableObject {
     
     private enum Constants {
-        static let subSpaceId = "FileStorageSpace"
         static let warningPercent = 0.9
         static let mailTo = "storage@anytype.io"
     }
@@ -29,6 +28,7 @@ final class FileStorageViewModel: ObservableObject {
     }()
     
     private var limits: FileLimits?
+    private let subSpaceId = "FileStorageSpace-\(UUID().uuidString)"
     
     @Published var spaceInstruction: String = ""
     @Published var spaceName: String = ""
@@ -55,7 +55,9 @@ final class FileStorageViewModel: ObservableObject {
         self.fileLimitsStorage = fileLimitsStorage
         self.output = output
         setupPlaceholderState()
-        setupSubscription()
+        Task {
+            await setupSubscription()
+        }
     }
     
     func onTapOffloadFiles() {
@@ -89,7 +91,7 @@ final class FileStorageViewModel: ObservableObject {
     
     // MARK: - Private
     
-    private func setupSubscription() {
+    private func setupSubscription() async {
         fileLimitsStorage.setupSpaceId(spaceId: activeWorkspaceStorage.workspaceInfo.accountSpaceId)
         fileLimitsStorage.limits
             .receiveOnMain()
@@ -105,9 +107,9 @@ final class FileStorageViewModel: ObservableObject {
             .store(in: &subscriptions)
             
         
-        subscriptionService.startSubscription(
-            subIdPrefix: Constants.subSpaceId,
-            objectId: activeWorkspaceStorage.workspaceInfo.workspaceObjectId
+        await subscriptionService.startSubscription(
+            subId: subSpaceId,
+            objectId: activeWorkspaceStorage.workspaceInfo.spaceViewId
         ) { [weak self] details in
             self?.handleSpaceDetails(details: details)
         }

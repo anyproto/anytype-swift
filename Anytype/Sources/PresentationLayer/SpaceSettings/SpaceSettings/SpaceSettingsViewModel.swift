@@ -6,16 +6,13 @@ import UIKit
 @MainActor
 final class SpaceSettingsViewModel: ObservableObject {
     
-    private enum Constants {
-        static let subSpaceId = "SpaceSettingsViewModel-Space"
-    }
-    
     // MARK: - DI
     
     private let activeWorkspaceStorage: ActiveWorkpaceStorageProtocol
     private let subscriptionService: SingleObjectSubscriptionServiceProtocol
     private let objectActionsService: ObjectActionsServiceProtocol
     private let relationDetailsStorage: RelationDetailsStorageProtocol
+    private let workspaceService: WorkspaceServiceProtocol
     private let dateFormatter = DateFormatter.relationDateFormatter
     private weak var output: SpaceSettingsModuleOutput?
     
@@ -23,6 +20,7 @@ final class SpaceSettingsViewModel: ObservableObject {
     
     private var subscriptions: [AnyCancellable] = []
     private var dataLoaded: Bool = false
+    private let subSpaceId = "SpaceSettingsViewModel-Space-\(UUID())"
     
     @Published var spaceName: String = ""
     @Published var spaceType: String = ""
@@ -36,19 +34,22 @@ final class SpaceSettingsViewModel: ObservableObject {
         subscriptionService: SingleObjectSubscriptionServiceProtocol,
         objectActionsService: ObjectActionsServiceProtocol,
         relationDetailsStorage: RelationDetailsStorageProtocol,
+        workspaceService: WorkspaceServiceProtocol,
         output: SpaceSettingsModuleOutput?
     ) {
         self.activeWorkspaceStorage = activeWorkspaceStorage
         self.subscriptionService = subscriptionService
         self.objectActionsService = objectActionsService
         self.relationDetailsStorage = relationDetailsStorage
+        self.workspaceService = workspaceService
         self.output = output
-        
-        setupSubscription()
+        Task {
+            await setupSubscription()
+        }
     }
     
     func onChangeIconTap() {
-        output?.onChangeIconSelected(objectId: activeWorkspaceStorage.workspaceInfo.workspaceObjectId)
+        output?.onChangeIconSelected(objectId: activeWorkspaceStorage.workspaceInfo.spaceViewId)
     }
     
     func onStorageTap() {
@@ -61,10 +62,10 @@ final class SpaceSettingsViewModel: ObservableObject {
     
     // MARK: - Private
     
-    private func setupSubscription() {
-        subscriptionService.startSubscription(
-            subIdPrefix: Constants.subSpaceId,
-            objectId: activeWorkspaceStorage.workspaceInfo.workspaceObjectId,
+    private func setupSubscription() async {
+        await subscriptionService.startSubscription(
+            subId: subSpaceId,
+            objectId: activeWorkspaceStorage.workspaceInfo.spaceViewId,
             additionalKeys: [.createdDate, .creator, .spaceAccessibility]
         ) { [weak self] details in
             self?.handleSpaceDetails(details: details)
@@ -111,8 +112,8 @@ final class SpaceSettingsViewModel: ObservableObject {
     
     private func updateSpaceName(name: String) {
         Task {
-            try await objectActionsService.updateBundledDetails(
-                contextID: activeWorkspaceStorage.workspaceInfo.workspaceObjectId,
+            try await workspaceService.workspaceSetDetails(
+                spaceId: activeWorkspaceStorage.workspaceInfo.accountSpaceId,
                 details: [.name(name)]
             )
         }

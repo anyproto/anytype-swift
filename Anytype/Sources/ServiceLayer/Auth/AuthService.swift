@@ -37,7 +37,7 @@ final class AuthService: AuthServiceProtocol {
                 try await ClientCommands.accountStop(.with {
                     $0.removeData = removeData
                 }).invoke()
-                self?.loginStateService.cleanStateAfterLogout()
+                await self?.loginStateService.cleanStateAfterLogout()
                 onCompletion(true)
             } catch {
                 onCompletion(false)
@@ -138,7 +138,7 @@ final class AuthService: AuthServiceProtocol {
             case .active, .pendingDeletion:
                 await setupAccountData(response.account.asModel)
             case .deleted:
-                loginStateService.cleanStateAfterLogout()
+                await loginStateService.cleanStateAfterLogout()
             }
             
             return status

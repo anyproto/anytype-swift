@@ -41,7 +41,7 @@ final class ActiveWorkspaceStorage: ActiveWorkpaceStorageProtocol {
     }
     
     func setActiveSpace(spaceId: String) async throws {
-        let info = try await workspaceService.workspaceInfo(spaceId: spaceId)
+        let info = try await workspaceService.workspaceOpen(spaceId: spaceId)
         workspaceInfo = info
         activeSpaceId = spaceId
     }
@@ -50,7 +50,7 @@ final class ActiveWorkspaceStorage: ActiveWorkpaceStorageProtocol {
     
     private func setupActiveSpace() async {
         do {
-            let info = try await workspaceService.workspaceInfo(spaceId: activeSpaceId)
+            let info = try await workspaceService.workspaceOpen(spaceId: activeSpaceId)
             workspaceInfo = info
         } catch {
             resetActiveSpace()
@@ -60,7 +60,7 @@ final class ActiveWorkspaceStorage: ActiveWorkpaceStorageProtocol {
     
     private func startSubscriotion() {
         workspaceSubscription = workspaceStorage.workspsacesPublisher
-            .map { $0.map(\.spaceId) }
+            .map { $0.map(\.targetSpaceId) }
             .receiveOnMain()
             .sink { [weak self] spaceIds in
                 guard let self else { return }

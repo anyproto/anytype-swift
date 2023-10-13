@@ -10,7 +10,7 @@ protocol ObjectIconPickerModuleAssemblyProtocol {
     
     // MARK: - Specific
     
-    func makeObjectChange(
+    func makeSpaceView(
         document: BaseDocumentGeneralProtocol
     ) -> UIViewController
 }
@@ -47,12 +47,13 @@ final class ObjectIconPickerModuleAssembly: ObjectIconPickerModuleAssemblyProtoc
         return controller
     }
     
-    func makeObjectChange(
+    func makeSpaceView(
         document: BaseDocumentGeneralProtocol
     ) -> UIViewController {
-        let interactor = serviceLocator.objectHeaderInteractor(objectId: document.objectId)
+        // TODO: Use space view
+        let internalViewModel = SpaceViewIconInternalViewModel(workspaceService: serviceLocator.workspaceService(), fileService: serviceLocator.fileService())
         let module = make(document: document) { action in
-            interactor.handleIconAction(spaceId: document.spaceId, action: action)
+            internalViewModel.handleIconAction(spaceId: document.details?.targetSpaceId ?? "", action: action)
         }
         return module
     }

@@ -3,6 +3,7 @@ import UIKit
 import AnytypeCore
 import SwiftUI
 
+@MainActor
 final class EditorAssembly {
     
     private let serviceLocator: ServiceLocator
@@ -10,7 +11,7 @@ final class EditorAssembly {
     private let modulesDI: ModulesDIProtocol
     private let uiHelpersDI: UIHelpersDIProtocol
     
-    init(
+    nonisolated init(
         serviceLocator: ServiceLocator,
         coordinatorsDI: CoordinatorsDIProtocol,
         modulesDI: ModulesDIProtocol,
@@ -21,8 +22,7 @@ final class EditorAssembly {
         self.modulesDI = modulesDI
         self.uiHelpersDI = uiHelpersDI
     }
-    
-    @MainActor
+        
     func buildEditorController(
         browser: EditorBrowserController?,
         data: EditorScreenData,
@@ -31,7 +31,6 @@ final class EditorAssembly {
         buildEditorModule(browser: browser, data: data, widgetListOutput: widgetListOutput).vc
     }
 
-    @MainActor
     func buildEditorModule(
         browser: EditorBrowserController?,
         data: EditorScreenData,
@@ -59,7 +58,6 @@ final class EditorAssembly {
     
     // MARK: - Set
     
-    @MainActor
     private func buildSetModule(
         browser: EditorBrowserController?,
         data: EditorSetObject
@@ -89,7 +87,7 @@ final class EditorAssembly {
         let model = EditorSetViewModel(
             setDocument: setDocument,
             headerViewModel: headerModel,
-            subscriptionService: serviceLocator.subscriptionService(),
+            subscriptionStorageProvider: serviceLocator.subscriptionStorageProvider(),
             dataviewService: dataviewService,
             searchService: serviceLocator.searchService(),
             detailsService: detailsService,
@@ -138,7 +136,6 @@ final class EditorAssembly {
     
     // MARK: - Page
     
-    @MainActor
     func buildPageModule(
         browser: EditorBrowserController?,
         data: EditorPageObject

@@ -12,7 +12,7 @@ extension EditorSetViewModel {
     }
     
     func updatePageCount(_ count: Int, groupId: String, ignorePageLimit: Bool) {
-        guard let pagitationData = pagitationDataDict[groupId] else { return }
+        guard let pagitationData = pagitationDataDict[groupId], pagitationData.pageCount != count else { return }
         update(data: paginationHelper.updatePageCount(count, data: pagitationData, ignorePageLimit: ignorePageLimit), groupId: groupId)
     }
     
@@ -30,7 +30,9 @@ extension EditorSetViewModel {
         guard let data = data else { return }
         pagitationDataDict[groupId] = data.data
         if data.shoudUpdateSubscription {
-            startSubscriptionIfNeeded(forceUpdate: true)
+            Task {
+                await startSubscriptionIfNeeded(forceUpdate: true)
+            }
         }
     }
 }
