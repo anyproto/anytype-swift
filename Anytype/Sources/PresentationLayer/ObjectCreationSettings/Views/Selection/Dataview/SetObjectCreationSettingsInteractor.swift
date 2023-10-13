@@ -2,6 +2,7 @@ import Combine
 import Services
 import AnytypeCore
 
+@MainActor
 protocol SetObjectCreationSettingsInteractorProtocol {
     var mode: SetObjectCreationSettingsMode { get }
     
@@ -16,6 +17,7 @@ protocol SetObjectCreationSettingsInteractorProtocol {
     func setDefaultTemplate(templateId: BlockId) async throws
 }
 
+@MainActor
 final class SetObjectCreationSettingsInteractor: SetObjectCreationSettingsInteractorProtocol {
     
     var objectTypesAvailabilityPublisher: AnyPublisher<Bool, Never> { $canChangeObjectType.eraseToAnyPublisher() }

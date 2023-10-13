@@ -363,7 +363,8 @@ final class EditorAssembly {
             searchService: serviceLocator.searchService(),
             editorPageTemplatesHandler: editorPageTemplatesHandler,
             accountManager: serviceLocator.accountManager(),
-            configuration: configuration
+            configuration: configuration,
+            templatesSubscriptionService: serviceLocator.templatesSubscription()
         )
     }
 

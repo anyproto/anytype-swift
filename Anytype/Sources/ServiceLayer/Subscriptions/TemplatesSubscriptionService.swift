@@ -9,6 +9,7 @@ protocol TemplatesSubscriptionServiceProtocol: AnyObject {
         spaceId: String,
         update: @escaping ([ObjectDetails]) -> Void
     ) async
+    func stopSubscription() async
 }
 
 final class TemplatesSubscriptionService: TemplatesSubscriptionServiceProtocol {
@@ -43,5 +44,9 @@ final class TemplatesSubscriptionService: TemplatesSubscriptionServiceProtocol {
         try? await subscriptionStorage.startOrUpdateSubscription(data: searchData) { data in
             update(data.items)
         }
+    }
+    
+    func stopSubscription() async {
+        try? await subscriptionStorage.stopSubscription()
     }
 }

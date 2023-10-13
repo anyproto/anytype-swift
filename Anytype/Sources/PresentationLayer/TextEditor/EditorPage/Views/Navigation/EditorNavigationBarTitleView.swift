@@ -14,6 +14,9 @@ final class EditorNavigationBarTitleView: UIView {
     private let iconImageView = IconViewUIKit()
     private let titleLabel = AnytypeLabel(style: .uxCalloutRegular)
     private let lockImageView = UIImageView()
+    private let arrowImageView = UIImageView()
+    
+    private var mode: Mode?
     
     init() {
         super.init(frame: .zero)
@@ -33,9 +36,15 @@ extension EditorNavigationBarTitleView: ConfigurableView {
             let icon: Icon?
             let title: String?
         }
+        
+        struct TemplatesModel {
+            let count: Int
+            let onTap: () -> Void
+        }
 
         case title(TitleModel)
         case modeTitle(String)
+        case templates(TemplatesModel)
     }
 
     
@@ -43,12 +52,23 @@ extension EditorNavigationBarTitleView: ConfigurableView {
         switch model {
         case let .title(titleModel):
             titleLabel.setText(titleModel.title ?? "", style: .uxCalloutRegular)
+            titleLabel.isUserInteractionEnabled = false
             iconImageView.isHidden = titleModel.icon.isNil
             iconImageView.icon = titleModel.icon
+            arrowImageView.isHidden = true
         case let .modeTitle(text):
             titleLabel.setText(text, style: .uxTitle1Semibold)
+            titleLabel.isUserInteractionEnabled = false
+            iconImageView.isHidden = true
+            arrowImageView.isHidden = true
+        case let .templates(model):
+            titleLabel.setText(Loc.TemplateSelection.Available.title(model.count), style: .caption1Medium)
+            titleLabel.isUserInteractionEnabled = true
+            titleLabel.addTapGesture { _ in model.onTap() }
+            arrowImageView.isHidden = false
             iconImageView.isHidden = true
         }
+        mode = model
     }
 
     func setIsReadonly(_ isReadonly: EditorEditingState.ReadonlyState?) {
@@ -58,7 +78,11 @@ extension EditorNavigationBarTitleView: ConfigurableView {
     
     /// Parents alpha sets automatically by system when it attaches to NavigationBar. 
     func setAlphaForSubviews(_ alpha: CGFloat) {
-        titleLabel.alpha = alpha
+        if case .templates = mode {
+            titleLabel.alpha = 1
+        } else {
+            titleLabel.alpha = alpha
+        }
         iconImageView.alpha = alpha
         lockImageView.alpha = alpha
     }
@@ -78,6 +102,10 @@ private extension EditorNavigationBarTitleView {
         lockImageView.contentMode = .center
         lockImageView.tintColor = .Button.active
         
+        arrowImageView.contentMode = .center
+        arrowImageView.tintColor = .Text.primary
+        arrowImageView.image = UIImage(asset: .X18.listArrow)
+        
         setupLayout()        
     }
     
@@ -90,12 +118,17 @@ private extension EditorNavigationBarTitleView {
         stackView.addArrangedSubview(iconImageView)
         stackView.addArrangedSubview(titleLabel)
         stackView.addArrangedSubview(lockImageView)
+        stackView.addArrangedSubview(arrowImageView)
 
         iconImageView.layoutUsing.anchors {
             $0.size(CGSize(width: 18, height: 18))
         }
 
         lockImageView.layoutUsing.anchors {
+            $0.size(CGSize(width: 18, height: 18))
+        }
+        
+        arrowImageView.layoutUsing.anchors {
             $0.size(CGSize(width: 18, height: 18))
         }
     }

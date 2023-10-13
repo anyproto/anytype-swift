@@ -307,6 +307,10 @@ final class ServiceLocator {
         return _subscriptionStorageProvider
     }
     
+    func templatesSubscription() -> TemplatesSubscriptionServiceProtocol {
+        TemplatesSubscriptionService(subscriptionStorageProvider: subscriptionStorageProvider())
+    }
+    
     // MARK: - Private
     
     private func subscriptionToggler() -> SubscriptionTogglerProtocol {

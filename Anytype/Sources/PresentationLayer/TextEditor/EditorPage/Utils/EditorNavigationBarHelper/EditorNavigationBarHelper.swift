@@ -25,12 +25,15 @@ final class EditorNavigationBarHelper {
     private var currentScrollViewOffset: CGFloat = 0.0
 
     private var currentEditorState: EditorEditingState?
-    private var lastTitleModel: EditorNavigationBarTitleView.Mode.TitleModel?
+    private var lastMode: EditorNavigationBarTitleView.Mode?
+    
+    private let onTemplatesButtonTap: () -> Void
         
     init(
         viewController: UIViewController,
         onSettingsBarButtonItemTap: @escaping () -> Void,
-        onDoneBarButtonItemTap: @escaping () -> Void
+        onDoneBarButtonItemTap: @escaping () -> Void,
+        onTemplatesButtonTap: @escaping () -> Void
     ) {
         self.controller = viewController
         self.settingsItem = UIEditorBarButtonItem(imageAsset: .X24.more, action: onSettingsBarButtonItemTap)
@@ -42,6 +45,7 @@ final class EditorNavigationBarHelper {
             menu: nil
         )
         self.doneBarButtonItem.tintColor = UIColor.Button.accent
+        self.onTemplatesButtonTap = onTemplatesButtonTap
 
 
         self.fakeNavigationBarBackgroundView.backgroundColor = .Background.primary
@@ -82,22 +86,33 @@ extension EditorNavigationBarHelper: EditorNavigationBarHelperProtocol {
         contentOffsetObservation = nil
     }
     
-    func configureNavigationBar(using header: ObjectHeader, details: ObjectDetails?) {
+    func configureNavigationBar(using header: ObjectHeader) {
         isObjectHeaderWithCover = header.hasCover
         startAppearingOffset = header.startAppearingOffset
         endAppearingOffset = header.endAppearingOffset
         
         updateBarButtonItemsBackground(opacity: 0)
-
-        let titleModel = EditorNavigationBarTitleView.Mode.TitleModel(
-            icon: details?.objectIconImage,
-            title: details?.title
-        )
-        self.lastTitleModel = titleModel
-
-        navigationBarTitleView.configure(
-            model: .title(titleModel)
-        )
+    }
+    
+    func configureNavigationTitle(using details: ObjectDetails?, templatesCount: Int) {
+        let mode: EditorNavigationBarTitleView.Mode
+        if templatesCount >= Constants.minimumTemplatesAvailableToPick {
+            let model = EditorNavigationBarTitleView.Mode.TemplatesModel(
+                count: templatesCount + 1,
+                onTap: onTemplatesButtonTap
+            )
+            mode = .templates(model)
+            
+        } else {
+            let titleModel = EditorNavigationBarTitleView.Mode.TitleModel(
+                icon: details?.objectIconImage,
+                title: details?.title
+            )
+            mode = .title(titleModel)
+        }
+        navigationBarTitleView.configure(model: mode)
+        updateNavigationBarAppearanceBasedOnContentOffset(currentScrollViewOffset)
+        lastMode = mode
     }
     
     func updateSyncStatus(_ status: SyncStatus) {
@@ -111,7 +126,7 @@ extension EditorNavigationBarHelper: EditorNavigationBarHelperProtocol {
             controller?.navigationItem.titleView = navigationBarTitleView
             controller?.navigationItem.rightBarButtonItem = settingsBarButtonItem
             controller?.navigationItem.leftBarButtonItem = syncStatusBarButtonItem
-            lastTitleModel.map { navigationBarTitleView.configure(model: .title($0)) }
+            lastMode.map { navigationBarTitleView.configure(model: $0) }
             navigationBarTitleView.setIsReadonly(nil)
             updateNavigationBarAppearanceBasedOnContentOffset(currentScrollViewOffset)
         case .selecting(let blocks):
@@ -200,6 +215,12 @@ private extension EditorNavigationBarHelper {
         return nil
     }
     
+}
+
+private extension EditorNavigationBarHelper {
+    private enum Constants {
+        static let minimumTemplatesAvailableToPick = 1
+    }
 }
 
 // MARK: - ObjectHeader

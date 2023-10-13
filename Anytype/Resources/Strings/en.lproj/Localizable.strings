@@ -307,11 +307,8 @@
 
 
 // MARK: - Templates
-"Alert.Templates_Available.Title" = "This type has %d templates";
-"Alert.Templates_Available.Description" = "Swipe down to skip";
-"Alert.Templates_Available.Button" = "Show";
+"TemplateSelection.Available.Title" = "This type has %d templates";
 "TemplatePicker.ChooseTemplate" = "Choose template";
-"TemplatePicker.Buttons.Skip" = "Skip";
 "TemplatePicker.Buttons.UseTemplate" = "Use template";
 "TemplateSelection.SelectTemplate" = "Select template";
 "TemplateSelection.blankTemplate" = "Blank";

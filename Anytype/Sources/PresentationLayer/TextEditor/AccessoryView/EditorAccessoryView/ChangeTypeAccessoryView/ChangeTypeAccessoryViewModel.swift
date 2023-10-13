@@ -101,13 +101,11 @@ final class ChangeTypeAccessoryViewModel {
     }
     
     private func applyDefaultTemplateIfNeeded(typeId: String) {
-        Task { @MainActor in
-            let availableTemplates = try? await searchService.searchTemplates(for: typeId, spaceId: document.spaceId)
-            guard availableTemplates?.count == 1,
-                  let firstTemplate = availableTemplates?.first
-            else { return }
+        Task {
+            guard let defaultTemplateId = try? objectTypeProvider.objectType(id: typeId).defaultTemplateId,
+                      defaultTemplateId.isNotEmpty else { return }
             
-            try await objectService.applyTemplate(objectId: document.objectId, templateId: firstTemplate.id)
+            try await objectService.applyTemplate(objectId: document.objectId, templateId: defaultTemplateId)
         }
     }
 

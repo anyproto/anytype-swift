@@ -34,7 +34,7 @@ final class SetObjectCreationSettingsModuleAssembly: SetObjectCreationSettingsMo
                     setDocument: setDocument,
                     viewId: viewId,
                     objectTypesProvider: serviceLocator.objectTypeProvider(),
-                    subscriptionService: TemplatesSubscriptionService(subscriptionStorageProvider: serviceLocator.subscriptionStorageProvider()),
+                    subscriptionService: serviceLocator.templatesSubscription(),
                     dataviewService: DataviewService(
                         objectId: setDocument.objectId,
                         blockId: nil,

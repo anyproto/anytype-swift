@@ -38,7 +38,7 @@ final class SetViewSettingsListModuleAssembly: SetViewSettingsListModuleAssembly
                 setDocument: setDocument,
                 viewId: viewId,
                 objectTypesProvider: serviceLocator.objectTypeProvider(),
-                subscriptionService: TemplatesSubscriptionService(subscriptionStorageProvider: serviceLocator.subscriptionStorageProvider()),
+                subscriptionService: serviceLocator.templatesSubscription(),
                 dataviewService: dataviewService
             )
         } else {

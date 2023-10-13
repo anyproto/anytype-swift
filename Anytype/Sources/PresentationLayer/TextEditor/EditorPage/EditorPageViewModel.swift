@@ -27,6 +27,9 @@ final class EditorPageViewModel: EditorPageViewModelProtocol {
     private let accountManager: AccountManagerProtocol
     private let configuration: EditorPageViewModelConfiguration
     
+    private let templatesSubscriptionService: TemplatesSubscriptionServiceProtocol
+    private var availableTemplates = [ObjectDetails]()
+    
     private lazy var subscriptions = [AnyCancellable]()
 
     private let blockActionsService: BlockActionsServiceSingleProtocol
@@ -48,7 +51,8 @@ final class EditorPageViewModel: EditorPageViewModelProtocol {
         searchService: SearchServiceProtocol,
         editorPageTemplatesHandler: EditorPageTemplatesHandlerProtocol,
         accountManager: AccountManagerProtocol,
-        configuration: EditorPageViewModelConfiguration
+        configuration: EditorPageViewModelConfiguration,
+        templatesSubscriptionService: TemplatesSubscriptionServiceProtocol
     ) {
         self.viewInput = viewInput
         self.document = document
@@ -66,6 +70,7 @@ final class EditorPageViewModel: EditorPageViewModelProtocol {
         self.editorPageTemplatesHandler = editorPageTemplatesHandler
         self.accountManager = accountManager
         self.configuration = configuration
+        self.templatesSubscriptionService = templatesSubscriptionService
 
         setupLoadingState()
     }
@@ -146,10 +151,10 @@ final class EditorPageViewModel: EditorPageViewModelProtocol {
         let blocksViewModels = blockBuilder.buildEditorItems(infos: models)
         
         handleGeneralUpdate(with: blocksViewModels)
-
+        handleTemplatesIfNeeded()
+        
         if !document.isLocked {
             cursorManager.handleGeneralUpdate(with: modelsHolder.items, type: document.details?.type)
-            handleTemplatesPopupShowing()
         }
     }
 
@@ -202,23 +207,28 @@ final class EditorPageViewModel: EditorPageViewModelProtocol {
             return
         }
 
-        viewInput?.update(header: headerModel, details: document.details)
+        viewInput?.update(header: headerModel)
         modelsHolder.header = headerModel
     }
     
-    private func handleTemplatesPopupShowing() {
-        guard configuration.shouldShowTemplateSelection,
-              editorPageTemplatesHandler.needShowTemplates(for: document),
-              let typeId = document.details?.type else {
-            return
-        }
-        router.showTemplatesPopupWithTypeCheckIfNeeded(
-            document: document,
-            templatesTypeId: typeId,
-            onShow: { [weak self] in
-                self?.editorPageTemplatesHandler.onTemplatesShow()
+    private func handleTemplatesIfNeeded() {
+        Task { @MainActor in
+            guard !document.isLocked, configuration.shouldShowTemplateSelection,
+                  let details = document.details, details.isSelectTemplate else {
+                await templatesSubscriptionService.stopSubscription()
+                viewInput?.update(details: document.details, templatesCount: 0)
+                return
             }
-        )
+            
+            await templatesSubscriptionService.startSubscription(
+                objectType: details.type,
+                spaceId: document.spaceId
+            ) { [weak self] details in
+                guard let self else { return }
+                availableTemplates = details
+                viewInput?.update(details: document.details, templatesCount: availableTemplates.count)
+            }
+        }
     }
 }
 
@@ -251,7 +261,6 @@ extension EditorPageViewModel {
 
     func viewDidAppear() {
         cursorManager.didAppeared(with: modelsHolder.items, type: document.details?.type)
-        editorPageTemplatesHandler.didAppeared(with: document.details?.type)
     }
 
     func viewWillDisappear() {}
@@ -306,6 +315,11 @@ extension EditorPageViewModel {
         router.showSettings { [weak self] action in
             self?.handleSettingsAction(action: action)
         }
+    }
+    
+    @MainActor
+    func showTemplates() {
+        router.showTemplatesPicker(availableTemplates: availableTemplates)
     }
 }
 

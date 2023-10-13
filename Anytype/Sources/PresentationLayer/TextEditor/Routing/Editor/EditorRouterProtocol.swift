@@ -70,17 +70,6 @@ protocol EditorRouterProtocol:
     func presentSheet(_ vc: UIViewController)
     func presentFullscreen(_ vc: UIViewController)
     
-    func showTemplatesPopupIfNeeded(
-        document: BaseDocumentProtocol,
-        templatesTypeId: String,
-        onShow: (() -> Void)?
-    )
-    func showTemplatesPopupWithTypeCheckIfNeeded(
-        document: BaseDocumentProtocol,
-        templatesTypeId: String,
-        onShow: (() -> Void)?
-    )
-    
     func showColorPicker(
         onColorSelection: @escaping (ColorView.ColorItem) -> Void,
         selectedColor: UIColor?,
@@ -88,4 +77,7 @@ protocol EditorRouterProtocol:
     )
     
     func showFailureToast(message: String)
+    
+    @MainActor
+    func showTemplatesPicker(availableTemplates: [ObjectDetails])
 }
