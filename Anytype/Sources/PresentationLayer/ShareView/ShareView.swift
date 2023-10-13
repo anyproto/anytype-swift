@@ -1,7 +1,7 @@
 import SwiftUI
 
 struct ShareView: View {
-    @ObservedObject var viewModel: ShareViewModel
+    @StateObject var viewModel: ShareViewModel
     
     var body: some View {
         NavigationView {

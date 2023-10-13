@@ -11,6 +11,7 @@ struct DebugMenu: View {
     @State private var showControls = false
     @State private var showColors = false
     @State private var showObjectIcons = false
+    @State private var showServerConfiguration = false
     
     var body: some View {
         VStack {
@@ -87,6 +88,11 @@ struct DebugMenu: View {
                     showObjectIcons.toggle()
                 }
             }
+            
+            StandardButton("Server configuration 📟", style: .secondaryLarge) {
+                UIImpactFeedbackGenerator(style: .heavy).impactOccurred()
+                showServerConfiguration.toggle()
+            }
 
             StandardButton("Feedback Generator 🃏", style: .secondaryLarge) {
                 UIImpactFeedbackGenerator(style: .heavy).impactOccurred()
@@ -110,6 +116,7 @@ struct DebugMenu: View {
         .sheet(isPresented: $showControls) { ControlsExample() }
         .sheet(isPresented: $showColors) { ColorsExample() }
         .sheet(isPresented: $showObjectIcons) { ObjectIconExample() }
+        .sheet(isPresented: $showServerConfiguration) { ServerConfigurationView() }
     }
     
     var toggles: some View {

@@ -13,6 +13,7 @@ protocol TemplateSelectionCoordinatorProtocol: AnyObject {
     
     func showTemplateEditing(
         blockId: BlockId,
+        spaceId: String,
         onTemplateSelection: @escaping (BlockId) -> Void,
         onSetAsDefaultTempalte: @escaping (BlockId) -> Void
     )
@@ -57,6 +58,7 @@ final class TemplateSelectionCoordinator: TemplateSelectionCoordinatorProtocol {
         view.model.templateEditingHandler = { [weak self, weak model, weak navigationContext] templateId in
             self?.showTemplateEditing(
                 blockId: templateId,
+                spaceId: setDocument.spaceId,
                 onTemplateSelection: onTemplateSelection,
                 onSetAsDefaultTempalte: { templateId in
                     model?.setTemplateAsDefault(templateId: templateId)
@@ -78,6 +80,7 @@ final class TemplateSelectionCoordinator: TemplateSelectionCoordinatorProtocol {
     
     func showTemplateEditing(
         blockId: BlockId,
+        spaceId: String,
         onTemplateSelection: @escaping (BlockId) -> Void,
         onSetAsDefaultTempalte: @escaping (BlockId) -> Void
     ) {
@@ -85,6 +88,7 @@ final class TemplateSelectionCoordinator: TemplateSelectionCoordinatorProtocol {
             browser: nil,
             data: .init(
                 objectId: blockId,
+                spaceId: spaceId,
                 isSupportedForEdit: true,
                 isOpenedForPreview: false,
                 usecase: .templateEditing

@@ -36,7 +36,7 @@ final class BlockActionHandler: BlockActionHandlerProtocol {
     // MARK: - Service proxy
 
     func turnIntoPage(blockId: BlockId) async throws -> BlockId? {
-        try await service.turnIntoPage(blockId: blockId)
+        try await service.turnIntoPage(blockId: blockId, spaceId: document.spaceId)
     }
     
     func turnInto(_ style: BlockText.Style, blockId: BlockId) {
@@ -56,8 +56,8 @@ final class BlockActionHandler: BlockActionHandlerProtocol {
         try await service.upload(blockId: blockId, filePath: filePath)
     }
     
-    func setObjectTypeId(_ objectTypeId: String) async throws {
-        try await service.setObjectTypeId(objectTypeId)
+    func setObjectType(type: ObjectType) async throws {
+        try await service.setObjectType(type: type)
     }
 
     func setObjectSetType() async throws {
@@ -119,10 +119,10 @@ final class BlockActionHandler: BlockActionHandlerProtocol {
         service.addChild(info: BlockInformation.emptyText, parentId: parentId)
     }
     
-    func addLink(targetId: BlockId, typeId: String, blockId: BlockId) {
-        let isBookmarkType = ObjectTypeId.bundled(.bookmark).rawValue == typeId
+    func addLink(targetDetails: ObjectDetails, blockId: BlockId) {
+        let isBookmarkType = targetDetails.layoutValue == .bookmark
         service.add(
-            info: isBookmarkType ? .bookmark(targetId: targetId) : .emptyLink(targetId: targetId),
+            info: isBookmarkType ? .bookmark(targetId: targetDetails.id) : .emptyLink(targetId: targetDetails.id),
             targetBlockId: blockId,
             position: .replace
         )
@@ -258,7 +258,7 @@ final class BlockActionHandler: BlockActionHandlerProtocol {
         }
     }
     
-    func createPage(targetId: BlockId, type: ObjectTypeId) async throws -> BlockId? {
+    func createPage(targetId: BlockId, spaceId: String, typeUniqueKey: ObjectTypeUniqueKey, templateId: String) async throws -> BlockId? {
         guard let info = document.infoContainer.get(id: targetId) else { return nil }
         var position: BlockPosition
         if case .text(let blockText) = info.content, blockText.text.isEmpty {
@@ -266,10 +266,8 @@ final class BlockActionHandler: BlockActionHandlerProtocol {
         } else {
             position = .bottom
         }
-        
-        return try await service.createPage(targetId: targetId, type: type, position: position)
+        return try await service.createPage(targetId: targetId, spaceId: spaceId, typeUniqueKey: typeUniqueKey, position: position, templateId: templateId)
     }
-
 
     func createTable(
         blockId: BlockId,

@@ -16,17 +16,19 @@ protocol WidgetSourceSearchInteractorProtocol: AnyObject {
 
 final class WidgetSourceSearchInteractor: WidgetSourceSearchInteractorProtocol {
     
+    private let spaceId: String
     private let searchService: SearchServiceProtocol
     private let anytypeLibrary = AnytypeWidgetId.allCases.map { $0.librarySource }
     
-    init(searchService: SearchServiceProtocol) {
+    init(spaceId: String, searchService: SearchServiceProtocol) {
+        self.spaceId = spaceId
         self.searchService = searchService
     }
     
     // MARK: - WidgetSourceSearchInteractorProtocol
     
     func objectSearch(text: String) async throws -> [ObjectDetails] {
-        try await searchService.search(text: text)
+        try await searchService.search(text: text, spaceId: spaceId)
     }
     
     func anytypeLibrarySearch(text: String) -> [WidgetAnytypeLibrarySource] {

@@ -239,16 +239,16 @@ final class BlockViewModelBuilder {
             ) { [weak self] relation in
                 guard let self = self else { return }
 
-                let bookmarkFilter = self.document.details?.type != ObjectTypeId.bundled(.bookmark).rawValue
+                let bookmarkFilter = self.document.details?.layoutValue != .bookmark
                 let allowTypeChange = !self.document.objectRestrictions.objectRestriction.contains(.typechange)
                 
                 if relation.key == BundledRelationKey.type.rawValue && !self.document.isLocked && bookmarkFilter && allowTypeChange {
                     self.router.showTypes(
                         selectedObjectId: self.document.details?.type,
-                        onSelect: { [weak self] id in
+                        onSelect: { [weak self] type in
                             Task { [weak self] in
-                                try await self?.handler.setObjectTypeId(id)
-                                self?.logObjectTypeChange(typeId: id)
+                                try await self?.handler.setObjectType(type: type)
+                                self?.logObjectTypeChange(typeId: type.id)
                             }
                         }
                     )
@@ -322,7 +322,7 @@ final class BlockViewModelBuilder {
     }
     
     private func logObjectTypeChange(typeId: String) {
-        let objectType = objectTypeProvider.objectType(id: typeId)?.analyticsType ?? .object(typeId: typeId)
+        let objectType = (try? objectTypeProvider.objectType(id: typeId))?.analyticsType ?? .object(typeId: typeId)
         AnytypeAnalytics.instance().logObjectTypeChange(objectType)
     }
 

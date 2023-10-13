@@ -16,7 +16,6 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
             return
         }
 
-        connectionOptions.shortcutItem.flatMap { _ = handleQuickAction($0) }
         let window = AnytypeWindow(windowScene: windowScene)
         self.window = window
         
@@ -26,6 +25,8 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         
         let applicationCoordinator = di.coordinatorsDI.application().make()
         self.applicationCoordinator = applicationCoordinator
+
+        connectionOptions.shortcutItem.flatMap { _ = handleQuickAction($0) }
         
         applicationCoordinator.start(connectionOptions: connectionOptions)
 
@@ -42,7 +43,8 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     }
 
     func sceneWillResignActive(_ scene: UIScene) {
-        UIApplication.shared.shortcutItems = QuickAction.allCases.map { $0.shortcut }
+        let quickActionShortcutBuilder = di?.serviceLocator.quickActionShortcutBuilder()
+        UIApplication.shared.shortcutItems = QuickAction.allCases.compactMap { quickActionShortcutBuilder?.buildShortcutItem(action: $0) }
     }
     
     func windowScene(_ windowScene: UIWindowScene, performActionFor shortcutItem: UIApplicationShortcutItem, completionHandler: @escaping (Bool) -> Void) {
@@ -50,12 +52,10 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     }
     
     private func handleQuickAction(_ item: UIApplicationShortcutItem) -> Bool {
-        guard let action = QuickAction(rawValue: item.type) else {
-            anytypeAssertionFailure("Not supported action", info: ["action": item.type])
-            return false
-        }
+        let quickActionShortcutBuilder = di?.serviceLocator.quickActionShortcutBuilder()
+        guard let action = quickActionShortcutBuilder?.buildAction(shortcutItem: item) else { return false }
         
-        DispatchQueue.main.async { QuickActionsStorage.shared.action = action }
+        AppActionStorage.shared.action = action.toAppAction()
         return true
     }
 

@@ -4,11 +4,12 @@ import AnytypeCore
 
 protocol ObjectHeaderInteractorProtocol {
     func handleCoverAction(
+        spaceId: String,
         action: ObjectCoverPickerAction,
         onCoverUpdate: @escaping (ObjectHeaderUpdate) -> Void
     )
     
-    func handleIconAction(action: ObjectIconPickerAction)
+    func handleIconAction(spaceId: String, action: ObjectIconPickerAction)
 }
 
 final class ObjectHeaderInteractor: ObjectHeaderInteractorProtocol {
@@ -27,6 +28,7 @@ final class ObjectHeaderInteractor: ObjectHeaderInteractorProtocol {
     }
     
     func handleCoverAction(
+        spaceId: String,
         action: ObjectCoverPickerAction,
         onCoverUpdate: @escaping (ObjectHeaderUpdate) -> Void
     ) {
@@ -59,14 +61,14 @@ final class ObjectHeaderInteractor: ObjectHeaderInteractorProtocol {
 
                     AnytypeAnalytics.instance().logEvent(AnalyticsEventsName.setCover)
                     
-                    try await self?.detailsService.setCover(source: .itemProvider(safeSendableItemProvider.value))
+                    try await self?.detailsService.setCover(spaceId: spaceId, source: .itemProvider(safeSendableItemProvider.value))
                 }
             case let .unsplash(unsplashItem):
                 AnytypeAnalytics.instance().logEvent(AnalyticsEventsName.setCover)
                 
                 onCoverUpdate(.coverUploading(.remotePreviewURL(unsplashItem.url)))
                 Task { @MainActor in
-                    let imageHash = try await unsplashService.downloadImage(id: unsplashItem.id)
+                    let imageHash = try await unsplashService.downloadImage(spaceId: spaceId, id: unsplashItem.id)
                     try await detailsService.setCover(imageHash: imageHash)
                 }
             }
@@ -80,7 +82,7 @@ final class ObjectHeaderInteractor: ObjectHeaderInteractorProtocol {
         }
     }
     
-    func handleIconAction(action: ObjectIconPickerAction) {
+    func handleIconAction(spaceId: String, action: ObjectIconPickerAction) {
         switch action {
         case .setIcon(let iconSource):
             switch iconSource {
@@ -94,7 +96,7 @@ final class ObjectHeaderInteractor: ObjectHeaderInteractorProtocol {
                 let safeSendableItemProvider = SafeSendable(value: itemProvider)
                 Task {
                     let data = try await fileService.createFileData(source: .itemProvider(safeSendableItemProvider.value))
-                    let imageHash = try await fileService.uploadImage(data: data)
+                    let imageHash = try await fileService.uploadImage(spaceId: spaceId, data: data)
                     try await detailsService.updateBundledDetails([.iconEmoji(""), .iconImageHash(imageHash)])
                 }
             }

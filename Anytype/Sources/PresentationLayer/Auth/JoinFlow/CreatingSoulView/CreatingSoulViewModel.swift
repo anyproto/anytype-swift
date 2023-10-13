@@ -23,6 +23,8 @@ final class CreatingSoulViewModel: ObservableObject {
     private weak var output: JoinFlowStepOutput?
     
     private var animationInProgress = false
+    private var subProfileId = "CreatingSoulProfile-\(UUID())"
+    private var subSpaceId = "CreatingSoulSpace-\(UUID())"
     
     init(
         state: JoinFlowState,
@@ -55,23 +57,23 @@ final class CreatingSoulViewModel: ObservableObject {
             output?.disableBackAction(true)
             do {
                 state.mnemonic = try await authService.createWallet()
-                try await authService.createAccount(
+                let account = try await authService.createAccount(
                     name: "",
                     imagePath: ""
                 )
-                try await usecaseService.setObjectImportUseCaseToSkip()
+                try await usecaseService.setObjectImportUseCaseToSkip(spaceId: account.info.accountSpaceId)
                 try? seedService.saveSeed(state.mnemonic)
                 
-                createAccountSuccess()
+                await createAccountSuccess()
             } catch {
                 createAccountError(error)
             }
         }
     }
     
-    private func createAccountSuccess() {
+    private func createAccountSuccess() async {
         output?.disableBackAction(false)
-        setupSubscription()
+        await setupSubscription()
     }
     
     private func createAccountError(_ error: Error) {
@@ -81,18 +83,18 @@ final class CreatingSoulViewModel: ObservableObject {
     
     // MARK: - Animation step
     
-    private func setupSubscription() {
-        subscriptionService.startSubscription(
-            subIdPrefix: Constants.subProfileId,
+    private func setupSubscription() async {
+        await subscriptionService.startSubscription(
+            subId: subProfileId,
             objectId: accountManager.account.info.profileObjectID
         ) { [weak self] details in
             self?.profileIcon = details.objectIconImage
             self?.animateCreation()
         }
         
-        subscriptionService.startSubscription(
-            subIdPrefix: Constants.subSpaceId,
-            objectId: accountManager.account.info.accountSpaceId
+        await subscriptionService.startSubscription(
+            subId: subSpaceId,
+            objectId: accountManager.account.info.spaceViewId
         ) { [weak self] details in
             self?.spaceIcon = details.objectIconImage
             self?.animateCreation()
@@ -121,12 +123,5 @@ final class CreatingSoulViewModel: ObservableObject {
                 self?.output?.onNext()
             }
        }
-    }
-}
-
-private extension CreatingSoulViewModel {
-    private enum Constants {
-        static let subProfileId = "CreatingSoulProfile"
-        static let subSpaceId = "CreatingSoulSpace"
     }
 }

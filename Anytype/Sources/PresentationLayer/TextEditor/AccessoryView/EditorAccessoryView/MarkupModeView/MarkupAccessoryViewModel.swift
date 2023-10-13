@@ -119,6 +119,7 @@ final class MarkupAccessoryViewModel: ObservableObject {
         let eitherLink: Either<URL, BlockId>? = urlLink.map { .left($0) } ?? objectIdLink.map { .right($0) } ?? nil
         
         linkToObjectCoordinator.startFlow(
+            spaceId: document.spaceId,
             currentLink: eitherLink,
             setLinkToObject: { [weak self] linkBlockId in
                 self?.actionHandler.setLinkToObject(linkBlockId: linkBlockId, range: range, blockId: blockId)

@@ -2,6 +2,7 @@ import Foundation
 import Services
 import Combine
 
+@MainActor
 final class WidgetObjectListCollectionsViewModel: WidgetObjectListInternalViewModelProtocol {
     
     // MARK: - DI
@@ -27,12 +28,17 @@ final class WidgetObjectListCollectionsViewModel: WidgetObjectListInternalViewMo
     // MARK: - WidgetObjectListInternalViewModelProtocol
     
     func onAppear() {
-        subscriptionService.startSubscription(objectLimit: nil, update: { [weak self] _, update in
-            self?.details.applySubscriptionUpdate(update)
-        })
+        Task {
+            await subscriptionService.startSubscription(objectLimit: nil) { [weak self] details in
+                guard let self else { return }
+                rowDetails = [WidgetObjectListDetailsData(details: details)]
+            }
+        }
     }
     
     func onDisappear() {
-        subscriptionService.stopSubscription()
+        Task {
+            await subscriptionService.stopSubscription()
+        }
     }
 }

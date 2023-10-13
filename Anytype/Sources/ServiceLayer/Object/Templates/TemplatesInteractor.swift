@@ -2,35 +2,29 @@ import Services
 
 protocol SetTemplatesInteractorProtocol {
     func isTemplatesAvailableFor(setObject: ObjectDetails) async throws -> Bool
-    func isTemplatesAvailableFor(activeView: DataviewView) async throws -> Bool
-    func objectDetails(for objectTypeId: String) async throws -> ObjectDetails
+    func isTemplatesAvailableForActiveView(setDocument: SetDocumentProtocol) async throws -> Bool
 }
 
 final class SetTemplatesInteractor: SetTemplatesInteractorProtocol {
     private let templatesService: TemplatesServiceProtocol
+    private let objecTypeProvider: ObjectTypeProviderProtocol
     
-    init(templatesService: TemplatesServiceProtocol) {
+    init(templatesService: TemplatesServiceProtocol, objecTypeProvider: ObjectTypeProviderProtocol) {
         self.templatesService = templatesService
+        self.objecTypeProvider = objecTypeProvider
     }
     
     func isTemplatesAvailableFor(setObject: ObjectDetails) async throws -> Bool {
         guard setObject.setOf.count == 1, let objectTypeId = setObject.setOf.first, objectTypeId.isNotEmpty else {
             return false
         }
-        return try await isTemplatesAvailableFor(objectTypeId: objectTypeId)
+        let objectType = try objecTypeProvider.objectType(id: objectTypeId)
+        return objectType.setIsTemplatesAvailable
     }
     
-    func isTemplatesAvailableFor(activeView: DataviewView) async throws -> Bool {
-        let objectTypeId = activeView.defaultObjectTypeIDWithFallback
-        return try await isTemplatesAvailableFor(objectTypeId: objectTypeId)
-    }
-    
-    func objectDetails(for objectTypeId: String) async throws -> ObjectDetails {
-        try await templatesService.objectDetails(objectId: objectTypeId)
-    }
-    
-    private func isTemplatesAvailableFor(objectTypeId: String) async throws -> Bool {
-        let objectDetails = try await objectDetails(for: objectTypeId)
-        return objectDetails.setIsTemplatesAvailable
+    func isTemplatesAvailableForActiveView(setDocument: SetDocumentProtocol) async throws -> Bool {
+        let objectType = try setDocument.defaultObjectTypeForActiveView()
+        return objectType.setIsTemplatesAvailable
     }
 }
+

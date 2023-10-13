@@ -69,8 +69,8 @@ final class SetObjectCreationSettingsCoordinator: SetObjectCreationSettingsCoord
         view.model.onObjectTypesSearchAction = { [weak self, weak model] in
             self?.showTypesSearch(
                 setDocument: setDocument,
-                onSelect: { objectTypeId in
-                    model?.setObjectTypeId(objectTypeId)
+                onSelect: { objectType in
+                    model?.setObjectType(objectType)
                 }
             )
         }
@@ -109,6 +109,7 @@ final class SetObjectCreationSettingsCoordinator: SetObjectCreationSettingsCoord
     ) {
         let editorPage = editorAssembly.buildPageModule(browser: nil, data: .init(
             objectId: setting.templateId,
+            spaceId: setting.spaceId,
             isSupportedForEdit: true,
             isOpenedForPreview: false,
             usecase: .templateEditing
@@ -149,16 +150,17 @@ final class SetObjectCreationSettingsCoordinator: SetObjectCreationSettingsCoord
     
     private func showTypesSearch(
         setDocument: SetDocumentProtocol,
-        onSelect: @escaping (BlockId) -> ()
+        onSelect: @escaping (ObjectType) -> ()
     ) {
         let view = newSearchModuleAssembly.objectTypeSearchModule(
             title: Loc.changeType,
+            spaceId: setDocument.spaceId,
             showBookmark: true,
             showSetAndCollection: true,
             browser: nil
         ) { [weak self] type in
             self?.navigationContext.dismissTopPresented()
-            onSelect(type.id)
+            onSelect(type)
         }
 
         navigationContext.presentSwiftUIView(view: view)

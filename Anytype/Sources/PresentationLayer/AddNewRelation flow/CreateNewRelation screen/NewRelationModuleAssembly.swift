@@ -30,6 +30,7 @@ final class NewRelationModuleAssembly: NewRelationModuleAssemblyProtocol {
     ) -> UIKitModule<NewRelationModuleInput> {
         let viewModel = NewRelationViewModel(
             name: searchText,
+            document: document,
             service: RelationsService(objectId: document.objectId),
             toastPresenter: uiHelpersDI.toastPresenter(),
             objectTypeProvider: serviceLocator.objectTypeProvider(),

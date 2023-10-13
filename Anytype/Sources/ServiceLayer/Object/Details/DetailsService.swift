@@ -32,9 +32,9 @@ extension DetailsService: DetailsServiceProtocol {
         try await service.updateLayout(contextID: objectId, value: detailsLayout.rawValue)
     }
     
-    func setCover(source: FileUploadingSource) async throws {
+    func setCover(spaceId: String, source: FileUploadingSource) async throws {
         let data = try await fileService.createFileData(source: source)
-        let imageHash = try await fileService.uploadImage(data: data)
+        let imageHash = try await fileService.uploadImage(spaceId: spaceId, data: data)
         try await setCover(imageHash: imageHash)
     }
     

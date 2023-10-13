@@ -19,7 +19,8 @@ protocol ObjectSettingsModelOutput: AnyObject, ObjectHeaderRouterProtocol {
     func closeEditorAction()
 }
 
-final class ObjectSettingsViewModel: ObservableObject, Dismissible {
+final class ObjectSettingsViewModel: ObservableObject {
+   
     var onDismiss: () -> Void = {} {
         didSet {
             objectActionsViewModel.dismissSheet = onDismiss

@@ -193,6 +193,7 @@ final class EditorSetRouter: EditorSetRouterProtocol, ObjectSettingsCoordinatorO
     
     func showCreateBookmarkObject() {
         let moduleViewController = createObjectModuleAssembly.makeCreateBookmark(
+            spaceId: setDocument.spaceId,
             closeAction: { [weak self] details in
                 if let details, let self {
                     AnytypeAnalytics.instance().logCreateObject(objectType: details.analyticsType, route: setDocument.isCollection() ? .collection : .set)
@@ -440,6 +441,7 @@ final class EditorSetRouter: EditorSetRouterProtocol, ObjectSettingsCoordinatorO
     ) {
         let view = newSearchModuleAssembly.objectTypeSearchModule(
             title: title,
+            spaceId: setDocument.spaceId,
             selectedObjectId: selectedObjectId,
             excludedObjectTypeId: setDocument.details?.type,
             showBookmark: showBookmark,

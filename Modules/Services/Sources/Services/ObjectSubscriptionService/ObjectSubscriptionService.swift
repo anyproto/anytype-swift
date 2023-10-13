@@ -20,7 +20,9 @@ public final class ObjectSubscriptionService: ObjectSubscriptionServiceProtocol 
         return ObjectSubscriptionResponse(
             records: result.records.asDetais,
             dependencies: result.dependencies.asDetais,
-            count: data.objectIds.count
+            total: data.objectIds.count,
+            prevCount: 0,
+            nextCount: 0
         )
     }
     
@@ -42,7 +44,9 @@ public final class ObjectSubscriptionService: ObjectSubscriptionServiceProtocol 
         return ObjectSubscriptionResponse(
             records: result.records.asDetais,
             dependencies: result.dependencies.asDetais,
-            count: Int(result.counters.total)
+            total: Int(result.counters.total),
+            prevCount: Int(result.counters.prevCount),
+            nextCount: Int(result.counters.nextCount)
         )
     }
     

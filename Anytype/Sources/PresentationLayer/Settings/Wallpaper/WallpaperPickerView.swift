@@ -2,7 +2,7 @@ import SwiftUI
 import AnytypeCore
 
 struct WallpaperPickerView: View {
-    @ObservedObject var model: WallpaperPickerViewModel
+    @StateObject var model: WallpaperPickerViewModel
     @Environment(\.presentationMode) var presentationMode
     
     var body: some View {
@@ -26,6 +26,6 @@ struct WallpaperPickerView: View {
 
 struct WallpaperPickerView_Previews: PreviewProvider {
     static var previews: some View {
-        WallpaperPickerView(model: WallpaperPickerViewModel())
+        WallpaperPickerView(model: WallpaperPickerViewModel(spaceId: ""))
     }
 }

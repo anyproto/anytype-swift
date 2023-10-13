@@ -4,6 +4,7 @@ import AnytypeCore
 
 protocol BaseDocumentGeneralProtocol: AnyObject {
     var objectId: BlockId { get }
+    var spaceId: String { get }
     var details: ObjectDetails? { get }
     var detailsPublisher: AnyPublisher<ObjectDetails, Never> { get }
     var updatePublisher: AnyPublisher<DocumentUpdate, Never> { get }

@@ -12,7 +12,9 @@ struct SettingsAppearanceView: View {
             AnytypeText(Loc.appearance, style: .uxTitle1Semibold, color: .Text.primary)
             Spacer.fixedHeight(12)
             
-            wallpaper
+            if !FeatureFlags.multiSpaceSettings {
+                wallpaper
+            }
             appearanceType
             iconPicker
             

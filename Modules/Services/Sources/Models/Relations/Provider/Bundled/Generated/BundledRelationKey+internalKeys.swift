@@ -24,6 +24,7 @@ public extension BundledRelationKey {
         .featuredRelations,
         .isFavorite,
         .workspaceId,
+        .spaceId,
         .links,
         .internalFlags,
         .restrictions,

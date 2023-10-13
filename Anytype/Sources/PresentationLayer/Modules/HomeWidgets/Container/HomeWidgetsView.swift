@@ -3,12 +3,12 @@ import SwiftUI
 
 struct HomeWidgetsView: View {
     
-    @ObservedObject var model: HomeWidgetsViewModel
+    @StateObject var model: HomeWidgetsViewModel
     @State var dndState = DragState()
     
     var body: some View {
         ZStack {
-            DashboardWallpaper()
+            DashboardWallpaper(wallpaper: model.wallpaper)
             VerticalScrollViewWithOverlayHeader {
                 HomeTopShadow()
             } content: {
@@ -21,12 +21,9 @@ struct HomeWidgetsView: View {
                     }
                     .opacity(model.hideEditButton ? 0 : 1)
                     .animation(.default, value: model.hideEditButton)
-                    if #available(iOS 15.0, *) {} else {
-                        // For safeAreaInsetLegacy
-                        Color.clear.frame(height: 72)
-                    }
                 }
                 .padding(.horizontal, 20)
+                .padding(.top, 12)
                 .opacity(model.dataLoaded ? 1 : 0)
                 .animation(.default.delay(0.3), value: model.dataLoaded)
                 .fitIPadToReadableContentGuide()

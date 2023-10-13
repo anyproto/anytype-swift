@@ -94,6 +94,16 @@ public struct ClientCommands {
         }
     }
 
+    public static func workspaceOpen(
+        _ request: Anytype_Rpc.Workspace.Open.Request = .init()
+    ) -> Invocation<Anytype_Rpc.Workspace.Open.Request, Anytype_Rpc.Workspace.Open.Response> {
+        return Invocation(messageName: "WorkspaceOpen", request: request) { request in
+            let requestData = try request.serializedData()
+            let responseData = Lib.ServiceWorkspaceOpen(requestData) ?? Data()
+            return try Anytype_Rpc.Workspace.Open.Response(serializedData: responseData)
+        }
+    }
+
     public static func workspaceObjectAdd(
         _ request: Anytype_Rpc.Workspace.Object.Add.Request = .init()
     ) -> Invocation<Anytype_Rpc.Workspace.Object.Add.Request, Anytype_Rpc.Workspace.Object.Add.Response> {
@@ -154,13 +164,13 @@ public struct ClientCommands {
         }
     }
 
-    public static func workspaceSetIsHighlighted(
-        _ request: Anytype_Rpc.Workspace.SetIsHighlighted.Request = .init()
-    ) -> Invocation<Anytype_Rpc.Workspace.SetIsHighlighted.Request, Anytype_Rpc.Workspace.SetIsHighlighted.Response> {
-        return Invocation(messageName: "WorkspaceSetIsHighlighted", request: request) { request in
+    public static func workspaceSetInfo(
+        _ request: Anytype_Rpc.Workspace.SetInfo.Request = .init()
+    ) -> Invocation<Anytype_Rpc.Workspace.SetInfo.Request, Anytype_Rpc.Workspace.SetInfo.Response> {
+        return Invocation(messageName: "WorkspaceSetInfo", request: request) { request in
             let requestData = try request.serializedData()
-            let responseData = Lib.ServiceWorkspaceSetIsHighlighted(requestData) ?? Data()
-            return try Anytype_Rpc.Workspace.SetIsHighlighted.Response(serializedData: responseData)
+            let responseData = Lib.ServiceWorkspaceSetInfo(requestData) ?? Data()
+            return try Anytype_Rpc.Workspace.SetInfo.Response(serializedData: responseData)
         }
     }
 
@@ -654,6 +664,16 @@ public struct ClientCommands {
         }
     }
 
+    public static func objectImportExperience(
+        _ request: Anytype_Rpc.Object.ImportExperience.Request = .init()
+    ) -> Invocation<Anytype_Rpc.Object.ImportExperience.Request, Anytype_Rpc.Object.ImportExperience.Response> {
+        return Invocation(messageName: "ObjectImportExperience", request: request) { request in
+            let requestData = try request.serializedData()
+            let responseData = Lib.ServiceObjectImportExperience(requestData) ?? Data()
+            return try Anytype_Rpc.Object.ImportExperience.Response(serializedData: responseData)
+        }
+    }
+
     public static func objectCollectionAdd(
         _ request: Anytype_Rpc.ObjectCollection.Add.Request = .init()
     ) -> Invocation<Anytype_Rpc.ObjectCollection.Add.Request, Anytype_Rpc.ObjectCollection.Add.Response> {
@@ -1091,6 +1111,16 @@ public struct ClientCommands {
             let requestData = try request.serializedData()
             let responseData = Lib.ServiceBlockExport(requestData) ?? Data()
             return try Anytype_Rpc.Block.Export.Response(serializedData: responseData)
+        }
+    }
+
+    public static func blockSetCarriage(
+        _ request: Anytype_Rpc.Block.SetCarriage.Request = .init()
+    ) -> Invocation<Anytype_Rpc.Block.SetCarriage.Request, Anytype_Rpc.Block.SetCarriage.Response> {
+        return Invocation(messageName: "BlockSetCarriage", request: request) { request in
+            let requestData = try request.serializedData()
+            let responseData = Lib.ServiceBlockSetCarriage(requestData) ?? Data()
+            return try Anytype_Rpc.Block.SetCarriage.Response(serializedData: responseData)
         }
     }
 

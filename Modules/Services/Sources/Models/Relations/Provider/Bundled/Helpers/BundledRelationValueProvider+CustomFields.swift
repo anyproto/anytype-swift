@@ -17,6 +17,9 @@ extension BundledRelationsValueProvider {
         return layout
     }
     
+    public var recommendedLayoutValue: DetailsLayout? {
+        return recommendedLayout.flatMap { DetailsLayout(rawValue: $0) }
+    }
     
     public var coverTypeValue: CoverType {
         guard
@@ -40,12 +43,6 @@ extension BundledRelationsValueProvider {
         return layout
     }
     
-    public var internalFlagsWithoutTemplates: [Int] {
-        internalFlags.filter {
-            $0 != Anytype_Model_InternalFlag.Value.editorSelectTemplate.rawValue
-        }
-    }
-    
     public var isSelectTemplate: Bool {
         let flag = Anytype_Model_InternalFlag.Value.editorSelectTemplate.rawValue
         return internalFlags.contains(flag)
@@ -58,5 +55,17 @@ extension BundledRelationsValueProvider {
 
     var relationFormatValue: RelationFormat {
         relationFormat.map { RelationFormat(rawValue: $0) } ?? .unrecognized
+    }
+    
+    public var spaceAccessibilityValue: SpaceAccessibility? {
+        return spaceAccessibility.flatMap { SpaceAccessibility(rawValue: $0) }
+    }
+    
+    public var iconOptionValue: GradientId? {
+        return iconOption.flatMap { GradientId($0) }
+    }
+    
+    public var uniqueKeyValue: ObjectTypeUniqueKey {
+        return ObjectTypeUniqueKey(value: uniqueKey)
     }
 }

@@ -38,6 +38,8 @@ jobs:
 
       - name: Download Middleware
         run: make setup-middle
+        env:
+          MIDDLEWARE_TOKEN: ${{ secrets.MIDDLEWARE_TOKEN }}
 
       # - name: Test comment
       #   run: bundle exec fastlane add_linear_comment from_tag:dev/0.22.0/32 to_tag:dev/0.22.0/33 comment:"Test comment \`0.23\`"

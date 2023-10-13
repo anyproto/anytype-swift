@@ -18,9 +18,9 @@ struct URLShareView: View {
     
     var selectDocumentRow: some View {
         AnytypeRow(
-            action: viewModel.tapSelectDestination,
             title: viewModel.urlOption.destinationText,
-            description: viewModel.destinationObject?.title ?? ""
+            description: viewModel.destinationObject?.title ?? "",
+            action: viewModel.tapSelectDestination
         )
         .background(UIColor.secondarySystemGroupedBackground.suColor)
         .cornerRadius(8)

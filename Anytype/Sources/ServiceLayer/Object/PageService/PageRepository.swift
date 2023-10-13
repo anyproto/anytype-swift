@@ -1,22 +1,22 @@
 import ProtobufMessages
 import SwiftProtobuf
 import Services
+import AnytypeCore
 
 protocol PageRepositoryProtocol: AnyObject {
     func createDefaultPage(
         name: String,
         shouldDeleteEmptyObject: Bool,
-        shouldSelectType: Bool,
-        shouldSelectTemplate: Bool,
-        templateId: String?
+        spaceId: String
     ) async throws -> ObjectDetails
     
     func createPage(
         name: String,
-        type: String,
+        typeUniqueKey: ObjectTypeUniqueKey,
         shouldDeleteEmptyObject: Bool,
         shouldSelectType: Bool,
         shouldSelectTemplate: Bool,
+        spaceId: String,
         templateId: String?
     ) async throws -> ObjectDetails
 }
@@ -26,16 +26,12 @@ extension PageRepositoryProtocol {
     func createDefaultPage(
         name: String,
         shouldDeleteEmptyObject: Bool = false,
-        shouldSelectType: Bool = false,
-        shouldSelectTemplate: Bool = false,
-        templateId: String? = nil
+        spaceId: String
     ) async throws -> ObjectDetails {
         try await createDefaultPage(
             name: name,
             shouldDeleteEmptyObject: shouldDeleteEmptyObject,
-            shouldSelectType: shouldSelectType,
-            shouldSelectTemplate: shouldSelectTemplate,
-            templateId: templateId
+            spaceId: spaceId
         )
     }
 }
@@ -53,18 +49,20 @@ final class PageRepository: PageRepositoryProtocol {
     
     func createPage(
         name: String,
-        type: String,
+        typeUniqueKey: ObjectTypeUniqueKey,
         shouldDeleteEmptyObject: Bool,
         shouldSelectType: Bool,
         shouldSelectTemplate: Bool,
+        spaceId: String,
         templateId: String? = nil
     ) async throws -> ObjectDetails {
         try await pageService.createPage(
             name: name,
-            type: type,
+            typeUniqueKey: typeUniqueKey,
             shouldDeleteEmptyObject: shouldDeleteEmptyObject,
             shouldSelectType: shouldSelectType,
             shouldSelectTemplate: shouldSelectTemplate,
+            spaceId: spaceId,
             templateId: templateId
         )
     }
@@ -72,17 +70,17 @@ final class PageRepository: PageRepositoryProtocol {
     func createDefaultPage(
         name: String,
         shouldDeleteEmptyObject: Bool,
-        shouldSelectType: Bool,
-        shouldSelectTemplate: Bool,
-        templateId: String? = nil
+        spaceId: String
     ) async throws -> ObjectDetails {
-        try await pageService.createPage(
+        let defaultObjectType = try objectTypeProvider.defaultObjectType(spaceId: spaceId)
+        return try await pageService.createPage(
             name: name,
-            type: objectTypeProvider.defaultObjectType.id,
+            typeUniqueKey: defaultObjectType.uniqueKey,
             shouldDeleteEmptyObject: shouldDeleteEmptyObject,
-            shouldSelectType: shouldSelectType,
-            shouldSelectTemplate: shouldSelectTemplate,
-            templateId: templateId
+            shouldSelectType: true,
+            shouldSelectTemplate: true,
+            spaceId: spaceId,
+            templateId: defaultObjectType.defaultTemplateId
         )
     }
 }

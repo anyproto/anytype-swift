@@ -43,6 +43,7 @@ final class SettingsCoordinatorAssembly: SettingsCoordinatorAssemblyProtocol {
             widgetObjectListModuleAssembly: modulesDI.widgetObjectList(),
             documentService: serviceLocator.documentService(),
             urlOpener: uiHelpersDI.urlOpener(),
+            activeWorkspaceStorage: serviceLocator.activeWorkspaceStorage(),
             serviceLocator: serviceLocator
         )
     }

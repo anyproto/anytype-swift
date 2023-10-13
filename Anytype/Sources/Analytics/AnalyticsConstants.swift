@@ -16,6 +16,7 @@ enum AnalyticsEventsName {
     static let screenOnboarding = "ScreenOnboarding"
     static let clickOnboarding = "ClickOnboarding"
     static let clickLogin = "ClickLogin"
+    static let skipName = "SkipName"
 
     // Block events
     static let blockCreate = "CreateBlock"
@@ -336,7 +337,7 @@ enum AnalyticsWidgetRoute: String {
     case inner = "Inner"
 }
 
-enum AnalyticsWidgetContext: String {
+enum AnalyticsWidgetContext: String, Hashable {
     case home = "Home"
     case editor = "Editor"
 }
@@ -373,4 +374,10 @@ enum ClickLoginButton: String {
 
 enum TableBlockType: String {
     case simpleTableBlock = "table"
+}
+
+enum AnalyticsDefaultObjectTypeChangeRoute: String {
+    case settings = "Settings"
+    case set = "Set"
+    case collection = "Collection"
 }

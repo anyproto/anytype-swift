@@ -25,20 +25,18 @@ extension NavigationContextProtocol {
         dismissAllPresented(animated: animated, completion: completion)
     }
     
-    func presentSwiftUIView<Content: View>(view: Content, model: Dismissible? = nil, animated: Bool = true) {
-        present(view, model: model, animated: animated)
+    func presentSwiftUIView<Content: View>(view: Content, animated: Bool = true) {
+        present(view, animated: animated)
     }
     
-    func presentSwiftUISheetView<Content: View>(view: Content, model: Dismissible? = nil, animated: Bool = true) {
+    func presentSwiftUISheetView<Content: View>(view: Content, animated: Bool = true) {
         let rootView = SheetView { view }
         let controller = UISheetController(rootView: rootView)
-        model?.onDismiss = { [weak controller] in controller?.dismiss(animated: true) }
         present(controller, animated: animated)
     }
     
-    func present<Content: View>(_ view: Content, model: Dismissible? = nil, animated: Bool = true) {
+    func present<Content: View>(_ view: Content, animated: Bool = true) {
         let controller = UIHostingController(rootView: view)
-        model?.onDismiss = { [weak controller] in controller?.dismiss(animated: true) }
         present(controller, animated: animated)
     }
     

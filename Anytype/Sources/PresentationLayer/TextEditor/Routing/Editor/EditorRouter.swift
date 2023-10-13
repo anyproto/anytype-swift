@@ -223,24 +223,23 @@ final class EditorRouter: NSObject, EditorRouterProtocol, ObjectSettingsCoordina
         
         let moveToView = newSearchModuleAssembly.blockObjectsSearchModule(
             title: Loc.moveTo,
+            spaceId: document.spaceId,
             excludedObjectIds: [document.objectId],
-            excludedTypeIds: [
-                ObjectTypeId.bundled(.set).rawValue,
-                ObjectTypeId.bundled(.collection).rawValue
-            ]
+            excludedLayouts: [.set, .collection]
         ) { [weak self] details in
             onSelect(details)
             self?.navigationContext.dismissTopPresented()
         }
 
-        navigationContext.presentSwiftUIView(view: moveToView, model: nil)
+        navigationContext.present(moveToView)
     }
 
     func showLinkTo(onSelect: @escaping (ObjectDetails) -> ()) {
         let moduleView = newSearchModuleAssembly.blockObjectsSearchModule(
             title: Loc.linkTo,
+            spaceId: document.spaceId,
             excludedObjectIds: [document.objectId],
-            excludedTypeIds: []
+            excludedLayouts: []
         ) { [weak self] details in
             onSelect(details)
             self?.navigationContext.dismissTopPresented()
@@ -253,22 +252,30 @@ final class EditorRouter: NSObject, EditorRouterProtocol, ObjectSettingsCoordina
         let moduleView = textIconPickerModuleAssembly.make(
             contextId: contextId,
             objectId: objectId,
+            // In feature space id should be read from blockInfo, when we will create "link to" between sapces
+            spaceId: document.spaceId,
             onDismiss: { [weak self] in
                 self?.navigationContext.dismissTopPresented()
             }
         )
 
-        navigationContext.presentSwiftUIView(view: moduleView, model: nil)
+        navigationContext.present(moduleView)
     }
     
     func showSearch(onSelect: @escaping (EditorScreenData) -> ()) {
-        let module = searchModuleAssembly.makeObjectSearch(title: nil) { data in
-            onSelect(data.editorScreenData)
-        }
+        let module = searchModuleAssembly.makeObjectSearch(
+            data: SearchModuleModel(
+                spaceId: document.spaceId,
+                title: nil,
+                onSelect: { data in
+                    onSelect(data.editorScreenData)
+                }
+            )
+        )
         navigationContext.present(module)
     }
     
-    func showTypes(selectedObjectId: BlockId?, onSelect: @escaping (BlockId) -> ()) {
+    func showTypes(selectedObjectId: BlockId?, onSelect: @escaping (ObjectType) -> ()) {
         showTypesSearch(
             title: Loc.changeType,
             selectedObjectId: selectedObjectId,
@@ -280,7 +287,7 @@ final class EditorRouter: NSObject, EditorRouterProtocol, ObjectSettingsCoordina
     
     func showTypesForEmptyObject(
         selectedObjectId: BlockId?,
-        onSelect: @escaping (BlockId) -> ()
+        onSelect: @escaping (ObjectType) -> ()
     ) {
         showTypesSearch(
             title: Loc.changeType,
@@ -338,30 +345,6 @@ final class EditorRouter: NSObject, EditorRouterProtocol, ObjectSettingsCoordina
 
     }
 
-    func showTemplatesPopupIfNeeded(
-        document: BaseDocumentProtocol,
-        templatesTypeId: ObjectTypeId,
-        onShow: (() -> Void)?
-    ) {
-        templatesCoordinator.showTemplatesPopupIfNeeded(
-            document: document,
-            templatesTypeId: .dynamic(templatesTypeId.rawValue),
-            onShow: onShow
-        )
-    }
-    
-    func showTemplatesPopupWithTypeCheckIfNeeded(
-        document: BaseDocumentProtocol,
-        templatesTypeId: ObjectTypeId,
-        onShow: (() -> Void)?
-    ) {
-        templatesCoordinator.showTemplatesPopupWithTypeCheckIfNeeded(
-            document: document,
-            templatesTypeId: .dynamic(templatesTypeId.rawValue),
-            onShow: onShow
-        )
-    }
-    
     // MARK: - Settings
     func showSettings(actionHandler: @escaping (ObjectSettingsAction) -> Void) {
         objectSettingCoordinator.startFlow(
@@ -456,6 +439,14 @@ final class EditorRouter: NSObject, EditorRouterProtocol, ObjectSettingsCoordina
         toastPresenter.showFailureAlert(message: message)
     }
     
+    @MainActor
+    func showTemplatesPicker(availableTemplates: [ObjectDetails]) {
+        templatesCoordinator.showTemplatesPicker(
+            document: document,
+            availableTemplates: availableTemplates
+        )
+    }
+    
     // MARK: - Private
     
     private func showURLInputViewController(
@@ -472,10 +463,11 @@ final class EditorRouter: NSObject, EditorRouterProtocol, ObjectSettingsCoordina
         selectedObjectId: BlockId?,
         showBookmark: Bool,
         showSetAndCollection: Bool,
-        onSelect: @escaping (BlockId) -> ()
+        onSelect: @escaping (ObjectType) -> ()
     ) {
         let view = newSearchModuleAssembly.objectTypeSearchModule(
             title: title,
+            spaceId: document.spaceId,
             selectedObjectId: selectedObjectId,
             excludedObjectTypeId: document.details?.type,
             showBookmark: showBookmark,
@@ -483,7 +475,7 @@ final class EditorRouter: NSObject, EditorRouterProtocol, ObjectSettingsCoordina
             browser: rootController
         ) { [weak self] type in
             self?.navigationContext.dismissTopPresented()
-            onSelect(type.id)
+            onSelect(type)
         }
         
         navigationContext.presentSwiftUIView(view: view)
@@ -547,17 +539,18 @@ extension EditorRouter: ObjectSettingsModuleDelegate {
     
     @MainActor
     func didCreateTemplate(templateId: BlockId) {
-        guard let objectTypeId = document.details?.type else { return }
-        let setting = ObjectCreationSetting(objectTypeId: objectTypeId, templateId: templateId)
+        guard let objectType = document.details?.objectType else { return }
+        let setting = ObjectCreationSetting(objectTypeId: objectType.id, spaceId: document.spaceId, templateId: templateId)
         setObjectCreationSettingsCoordinator.showTemplateEditing(setting: setting) { [weak self] setting in
             Task { @MainActor [weak self] in
                 do {
                     guard let objectDetails = try await self?.pageService.createPage(
                             name: "",
-                            type: setting.objectTypeId,
+                            typeUniqueKey: objectType.uniqueKey,
                             shouldDeleteEmptyObject: true,
                             shouldSelectType: false,
                             shouldSelectTemplate: false,
+                            spaceId: objectType.spaceId,
                             templateId: setting.templateId
                           ) else {
                         return

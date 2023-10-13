@@ -19,17 +19,20 @@ final class ObjectTypesSearchViewModel {
     private let interactor: ObjectTypesSearchInteractor
     private let toastPresenter: ToastPresenterProtocol
     private let selectedObjectId: BlockId?
+    private let hideMarketplace: Bool
     private let onSelect: (_ type: ObjectType) -> Void
     
     init(
         interactor: ObjectTypesSearchInteractor,
         toastPresenter: ToastPresenterProtocol,
         selectedObjectId: BlockId? = nil,
+        hideMarketplace: Bool = false,
         onSelect: @escaping (_ type: ObjectType) -> Void
     ) {
         self.interactor = interactor
         self.toastPresenter = toastPresenter
         self.selectedObjectId = selectedObjectId
+        self.hideMarketplace = hideMarketplace
         self.onSelect = onSelect
     }
 }
@@ -40,7 +43,7 @@ extension ObjectTypesSearchViewModel: NewInternalSearchViewModelProtocol {
     
     func search(text: String) async throws {
         let objects = try await interactor.search(text: text)
-        let marketplaceObjects = try await interactor.searchInMarketplace(text: text)
+        let marketplaceObjects = (text.isEmpty && hideMarketplace) ? [] : try await interactor.searchInMarketplace(text: text)
         
         if objects.isEmpty && marketplaceObjects.isEmpty {
             handleError(for: text)
@@ -60,7 +63,7 @@ extension ObjectTypesSearchViewModel: NewInternalSearchViewModelProtocol {
 
         if let marketplaceType = marketplaceObjects.first(where: { $0.id == id}) {
             Task { @MainActor in
-                guard let installedType = try await interactor.installType(objectId: marketplaceType.id) else { return }
+                let installedType = try await interactor.installType(objectId: marketplaceType.id)
                 toastPresenter.show(message: Loc.ObjectType.addedToLibrary(installedType.name))
                 onSelect(ObjectType(details: installedType))
             }

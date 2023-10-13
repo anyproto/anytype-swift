@@ -19,13 +19,16 @@ struct VerticalScrollViewWithOverlayHeader<Content, Header>: View where Content:
     
     var body: some View {
         ScrollView {
-            PositionCatcher { newPosition in
-                contentTopOffseet = newPosition.y
-                updateOverlay()
+            VStack(spacing: 0) {
+                PositionCatcher { newPosition in
+                    contentTopOffseet = newPosition.y
+                    updateOverlay()
+                }
+                .background(Color.orange)
+                content
             }
-            content
         }
-        .safeAreaInset(edge: .top, content: {
+        .safeAreaInset(edge: .top, spacing: 0, content: {
             PositionCatcher { newPosition in
                 safeAreaTopOffset = newPosition.y
                 updateOverlay()

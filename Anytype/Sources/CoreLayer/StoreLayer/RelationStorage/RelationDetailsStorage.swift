@@ -3,17 +3,24 @@ import Services
 import AnytypeCore
 import Combine
 
-extension RelationDetails: IdProvider {}
+enum RelationDetailsStorageError: Error {
+    case relationNotFound
+}
+
+private struct RelationDetailsKey: Hashable {
+    let key: String
+    let spaceId: String
+}
 
 final class RelationDetailsStorage: RelationDetailsStorageProtocol {
     
     static let subscriptionId = "SubscriptionId.Relation"
     
-    private let subscriptionsService: SubscriptionsServiceProtocol
+    private let subscriptionStorage: SubscriptionStorageProtocol
     private let subscriptionDataBuilder: RelationSubscriptionDataBuilderProtocol
     
     private var details = [RelationDetails]()
-    private var searchDetailsByKey = SynchronizedDictionary<String, RelationDetails>()
+    private var searchDetailsByKey = SynchronizedDictionary<RelationDetailsKey, RelationDetails>()
 
     private var relationsDetailsSubject = CurrentValueSubject<[RelationDetails], Never>([])
     var relationsDetailsPublisher: AnyPublisher<[RelationDetails], Never> {
@@ -21,36 +28,43 @@ final class RelationDetailsStorage: RelationDetailsStorageProtocol {
     }
     
     init(
-        subscriptionsService: SubscriptionsServiceProtocol,
+        subscriptionStorageProvider: SubscriptionStorageProviderProtocol,
         subscriptionDataBuilder: RelationSubscriptionDataBuilderProtocol
     ) {
-        self.subscriptionsService = subscriptionsService
+        self.subscriptionStorage = subscriptionStorageProvider.createSubscriptionStorage(subId: Self.subscriptionId)
         self.subscriptionDataBuilder = subscriptionDataBuilder
     }
     // MARK: - RelationDetailsStorageProtocol
     
-    func relationsDetails(for links: [RelationLink]) -> [RelationDetails] {
-        return links.map { searchDetailsByKey[$0.key] ?? createDeletedRelation(link: $0) }
+    func relationsDetails(for links: [RelationLink], spaceId: String) -> [RelationDetails] {
+        return links.map { searchDetailsByKey[RelationDetailsKey(key: $0.key, spaceId: spaceId)] ?? createDeletedRelation(link: $0) }
     }
     
-    func relationsDetails(for ids: [ObjectId]) -> [RelationDetails] {
+    func relationsDetails(for ids: [ObjectId], spaceId: String) -> [RelationDetails] {
         return ids.compactMap { id in
-            return details.first { $0.id == id }
+            return details.first { $0.id == id && $0.spaceId == spaceId }
         }
     }
     
-    func relationsDetails() -> [RelationDetails] {
+    func relationsDetails(spaceId: String) -> [RelationDetails] {
+        return details.filter { $0.spaceId == spaceId }
+    }
+    
+    func relationsDetails(for key: BundledRelationKey, spaceId: String) throws -> RelationDetails {
+        guard let details = searchDetailsByKey[RelationDetailsKey(key: key.rawValue, spaceId: spaceId)] else {
+            throw RelationDetailsStorageError.relationNotFound
+        }
         return details
     }
     
     func startSubscription() async {
-        await subscriptionsService.startSubscriptionAsync(data: subscriptionDataBuilder.build()) { [weak self] subId, update in
-            self?.handleEvent(update: update)
+        try? await subscriptionStorage.startOrUpdateSubscription(data: subscriptionDataBuilder.build()) { [weak self] data in
+            self?.updateaData(data: data)
         }
     }
     
-    func stopSubscription() {
-        subscriptionsService.stopSubscription(id: Self.subscriptionId)
+    func stopSubscription() async {
+        try? await subscriptionStorage.stopSubscription()
         details.removeAll()
         updateSearchCache()
         relationsDetailsSubject.send(details)
@@ -58,19 +72,16 @@ final class RelationDetailsStorage: RelationDetailsStorageProtocol {
     
     // MARK: - Private
     
-    private func handleEvent(update: SubscriptionUpdate) {
-        details.applySubscriptionUpdate(update, transform: { RelationDetails(objectDetails: $0) })
+    private func updateaData(data: SubscriptionStorageState) {
+        let oldDetails = details
+        details = data.items.map { RelationDetails(objectDetails: $0) }
         updateSearchCache()
         relationsDetailsSubject.send(details)
-        
-        switch update {
-        case .initialData(let details):
-            let relationKeys = details.map { $0.relationKey }
-            sendLocalEvents(relationKeys: relationKeys)
-        case .update(let objectDetails):
-            sendLocalEvents(relationKeys: [objectDetails.relationKey])
-        case .remove, .add, .move, .pageCount:
-            break
+
+        let diff = details.difference(from: oldDetails)
+        let keys = diff.insertions.map(\.element.key) + diff.removals.map(\.element.key)
+        if keys.isNotEmpty {
+            sendLocalEvents(relationKeys: keys)
         }
     }
     
@@ -82,10 +93,11 @@ final class RelationDetailsStorage: RelationDetailsStorageProtocol {
     private func updateSearchCache() {
         searchDetailsByKey.removeAll()
         details.forEach {
-            if searchDetailsByKey[$0.key] != nil {
-                anytypeAssertionFailure("Dublicate relation found", info: ["key": $0.key, "id": $0.id])
+            let key = RelationDetailsKey(key: $0.key, spaceId: $0.spaceId)
+            if searchDetailsByKey[key] != nil {
+                anytypeAssertionFailure("Dublicate relation found", info: ["key": $0.key, "id": $0.id, "spaceId": $0.spaceId])
             }
-            searchDetailsByKey[$0.key] = $0
+            searchDetailsByKey[key] = $0
         }
     }
     
@@ -101,7 +113,8 @@ final class RelationDetailsStorage: RelationDetailsStorageProtocol {
             objectTypes: [],
             maxCount: 1,
             sourceObject: "",
-            isDeleted: true
+            isDeleted: true,
+            spaceId: ""
         )
     }
 }

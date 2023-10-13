@@ -4,6 +4,7 @@ import AnytypeCore
 import SwiftUI
 import OrderedCollections
 
+@MainActor
 final class EditorSetViewModel: ObservableObject {
     let headerModel: ObjectHeaderViewModel
     
@@ -12,11 +13,7 @@ final class EditorSetViewModel: ObservableObject {
     @Published var featuredRelations = [Relation]()
     
     private var recordsDict: OrderedDictionary<String, [ObjectDetails]> = [:]
-    private var groups: [DataviewGroup] = [] {
-        didSet {
-            startSubscriptionsByGroups()
-        }
-    }
+    private var groups: [DataviewGroup] = []
     
     @MainActor
     lazy var headerSettingsViewModel = SetHeaderSettingsViewModel(
@@ -122,7 +119,7 @@ final class EditorSetViewModel: ObservableObject {
     let paginationHelper = EditorSetPaginationHelper()
     
     private var router: EditorSetRouterProtocol?
-    private let subscriptionService: SubscriptionsServiceProtocol
+    private let subscriptionStorageProvider: SubscriptionStorageProviderProtocol
     private let dataviewService: DataviewServiceProtocol
     private let searchService: SearchServiceProtocol
     private let detailsService: DetailsServiceProtocol
@@ -130,15 +127,16 @@ final class EditorSetViewModel: ObservableObject {
     private let textService: TextServiceProtocol
     private let groupsSubscriptionsHandler: GroupsSubscriptionsHandlerProtocol
     private let setSubscriptionDataBuilder: SetSubscriptionDataBuilderProtocol
-    private let setTemplatesInteractor: SetTemplatesInteractorProtocol
     private let objectTypeProvider: ObjectTypeProviderProtocol
+    private let setTemplatesInteractor: SetTemplatesInteractorProtocol
     private var subscriptions = [AnyCancellable]()
+    private var subscriptionStorages = [String: SubscriptionStorageProtocol]()
     private var titleSubscription: AnyCancellable?
 
     init(
         setDocument: SetDocumentProtocol,
         headerViewModel: ObjectHeaderViewModel,
-        subscriptionService: SubscriptionsServiceProtocol,
+        subscriptionStorageProvider: SubscriptionStorageProviderProtocol,
         dataviewService: DataviewServiceProtocol,
         searchService: SearchServiceProtocol,
         detailsService: DetailsServiceProtocol,
@@ -146,12 +144,12 @@ final class EditorSetViewModel: ObservableObject {
         textService: TextServiceProtocol,
         groupsSubscriptionsHandler: GroupsSubscriptionsHandlerProtocol,
         setSubscriptionDataBuilder: SetSubscriptionDataBuilderProtocol,
-        setTemplatesInteractor: SetTemplatesInteractorProtocol,
-        objectTypeProvider: ObjectTypeProviderProtocol
+        objectTypeProvider: ObjectTypeProviderProtocol,
+        setTemplatesInteractor: SetTemplatesInteractorProtocol
     ) {
         self.setDocument = setDocument
         self.headerModel = headerViewModel
-        self.subscriptionService = subscriptionService
+        self.subscriptionStorageProvider = subscriptionStorageProvider
         self.dataviewService = dataviewService
         self.searchService = searchService
         self.detailsService = detailsService
@@ -159,16 +157,18 @@ final class EditorSetViewModel: ObservableObject {
         self.textService = textService
         self.groupsSubscriptionsHandler = groupsSubscriptionsHandler
         self.setSubscriptionDataBuilder = setSubscriptionDataBuilder
-        self.setTemplatesInteractor = setTemplatesInteractor
         self.objectTypeProvider = objectTypeProvider
+        self.setTemplatesInteractor = setTemplatesInteractor
         self.titleString = setDocument.details?.pageCellTitle ?? ""
     }
     
     func setup(router: EditorSetRouterProtocol) {
         self.router = router
         
-        setDocument.setUpdatePublisher.sink { [weak self] in
-            self?.onDataChange($0)
+        setDocument.setUpdatePublisher.sink { [weak self] update in
+            Task { [weak self] in
+                await self?.onDataChange(update)
+            }
         }.store(in: &subscriptions)
         
         Task { @MainActor [weak self] in
@@ -176,7 +176,7 @@ final class EditorSetViewModel: ObservableObject {
             do {
                 try await self.setDocument.open()
                 self.loadingDocument = false
-                self.onDataviewUpdate()
+                await self.onDataviewUpdate()
                 self.logModuleScreen()
             } catch {
                 self.router?.closeEditor()
@@ -193,7 +193,9 @@ final class EditorSetViewModel: ObservableObject {
     }
     
     func onAppear() {
-        startSubscriptionIfNeeded()
+        Task {
+            await startSubscriptionIfNeeded()
+        }
         router?.setNavigationViewHidden(false, animated: true)
     }
     
@@ -202,8 +204,8 @@ final class EditorSetViewModel: ObservableObject {
     }
     
     func onDisappear() {
-        subscriptionService.stopAllSubscriptions()
         Task {
+            await stopAllSubscriptionStorages()
             try await groupsSubscriptionsHandler.stopAllSubscriptions()
         }
     }
@@ -216,17 +218,17 @@ final class EditorSetViewModel: ObservableObject {
         }
     }
 
-    func startSubscriptionIfNeeded(forceUpdate: Bool = false) {
+    func startSubscriptionIfNeeded(forceUpdate: Bool = false) async {
         guard setDocument.dataView.activeViewId.isNotEmpty else {
-            subscriptionService.stopAllSubscriptions()
+            await stopAllSubscriptionStorages()
             return
         }
         
         if activeView.type.hasGroups {
-            setupGroupsSubscription(forceUpdate: forceUpdate)
+            try? await setupGroupsSubscription(forceUpdate: forceUpdate)
         } else {
             setupPaginationDataIfNeeded(groupId: SetSubscriptionData.setId)
-            startSubscriptionIfNeeded(with: SetSubscriptionData.setId)
+            await startSubscriptionIfNeeded(with: SetSubscriptionData.setId)
         }
     }
     
@@ -249,16 +251,16 @@ final class EditorSetViewModel: ObservableObject {
     
     // MARK: - Private
     
-    private func onDataChange(_ update: SetDocumentUpdate) {
+    private func onDataChange(_ update: SetDocumentUpdate) async {
         switch update {
         case .dataviewUpdated(clearState: let clearState):
-            onDataviewUpdate(clearState: clearState)
+            await onDataviewUpdate(clearState: clearState)
         case .syncStatus(let status):
             syncStatus = status
         }
     }
     
-    private func onDataviewUpdate(clearState: Bool = false) {
+    private func onDataviewUpdate(clearState shouldClearState: Bool = false) async {
         // Show for empty state
         featuredRelations = setDocument.featuredRelationsForEditor
         
@@ -270,11 +272,11 @@ final class EditorSetViewModel: ObservableObject {
         
         isUpdating = true
         
-        if clearState {
-            self.clearState()
+        if shouldClearState {
+            await clearState()
         }
         setupTitle()
-        startSubscriptionIfNeeded()
+        await startSubscriptionIfNeeded()
         updateConfigurations(with: Array(recordsDict.keys))
 
         isUpdating = false
@@ -311,40 +313,40 @@ final class EditorSetViewModel: ObservableObject {
     
     // MARK: - Groups Subscriptions
     
-    private func setupGroupsSubscription(forceUpdate: Bool) {
-        Task { @MainActor [weak self] in
-            guard let self else { return }
-            let data = GroupsSubscription(
-                identifier: SetSubscriptionData.setGroupsId,
-                relationKey: self.activeView.groupRelationKey,
-                filters: self.activeView.filters,
-                source: self.details?.setOf,
-                collectionId: self.setDocument.isCollection() ? objectId : nil
-            )
-            if self.groupsSubscriptionsHandler.hasGroupsSubscriptionDataDiff(with: data) {
-                try await self.groupsSubscriptionsHandler.stopAllSubscriptions()
-                self.groups = try await self.startGroupsSubscription(with: data)
-            }
+    private func setupGroupsSubscription(forceUpdate: Bool) async throws {
+        let data = GroupsSubscription(
+            identifier: SetSubscriptionData.setGroupsId,
+            relationKey: activeView.groupRelationKey,
+            filters: activeView.filters,
+            source: details?.setOf,
+            collectionId: setDocument.isCollection() ? objectId : nil
+        )
+        let hasGroupDiff = groupsSubscriptionsHandler.hasGroupsSubscriptionDataDiff(with: data)
+        if hasGroupDiff {
+            try await groupsSubscriptionsHandler.stopAllSubscriptions()
+            groups = try await startGroupsSubscription(with: data)
+        }
+        
+        let groupOrderUpdates = await checkGroupOrderUpdates()
             
-            if forceUpdate || self.checkGroupOrderUpdates() {
-                self.startSubscriptionsByGroups()
-            }
+        if forceUpdate || groupOrderUpdates || hasGroupDiff {
+            await startSubscriptionsByGroups()
         }
     }
     
-    private func checkGroupOrderUpdates() -> Bool {
+    private func checkGroupOrderUpdates() async -> Bool {
         let groupOrder = setDocument.dataView.groupOrders.first { [weak self] in $0.viewID == self?.activeView.id }
         let visibleViewGroups = groupOrder?.viewGroups.filter { !$0.hidden }
         let newVisible = visibleViewGroups?.first { [weak self] in self?.recordsDict[$0.groupID] == nil }
         
-        let hiddenViewGroups = groupOrder?.viewGroups.filter { $0.hidden }
+        let hiddenViewGroups = groupOrder?.viewGroups.filter { $0.hidden } ?? []
         var hasNewHidden = false
-        hiddenViewGroups?.forEach { group in
+        for group in hiddenViewGroups {
             if recordsDict[group.groupID] != nil {
                 hasNewHidden = true
                 recordsDict[group.groupID] = nil
                 configurationsDict[group.groupID] = nil
-                subscriptionService.stopSubscription(id: group.groupID)
+                try? await subscriptionStorages[group.groupID]?.stopSubscription()
             }
         }
         
@@ -359,16 +361,16 @@ final class EditorSetViewModel: ObservableObject {
             } else {
                 self.groups.append(group)
             }
+            await startSubscriptionsByGroups()
         }
     }
     
-    private func startSubscriptionsByGroups() {
-        sortedVisibleGroups().forEach { [weak self] group in
-            guard let self else { return }
+    private func startSubscriptionsByGroups() async {
+        await sortedVisibleGroups().asyncForEach { group in
             let groupFilter = group.filter(with: self.activeView.groupRelationKey)
             let subscriptionId = group.id
-            self.setupPaginationDataIfNeeded(groupId: group.id)
-            self.startSubscriptionIfNeeded(with: subscriptionId, groupFilter: groupFilter)
+            setupPaginationDataIfNeeded(groupId: group.id)
+            await startSubscriptionIfNeeded(with: subscriptionId, groupFilter: groupFilter)
         }
     }
     
@@ -377,7 +379,7 @@ final class EditorSetViewModel: ObservableObject {
         pagitationDataDict[groupId] = EditorSetPaginationData.empty
     }
     
-    private func startSubscriptionIfNeeded(with subscriptionId: String, groupFilter: DataviewFilter? = nil) {
+    private func startSubscriptionIfNeeded(with subscriptionId: String, groupFilter: DataviewFilter? = nil) async {
         let pagitationData = pagitationData(by: subscriptionId)
         let currentPage: Int
         let numberOfRowsPerPage: Int
@@ -404,39 +406,41 @@ final class EditorSetViewModel: ObservableObject {
             )
         )
         
-        subscriptionService.updateSubscription(data: data, required: recordsDict.keys.isEmpty) { [weak self] subId, update in
-            DispatchQueue.main.async {
-                self?.updateData(with: subId, update: update)
-            }
+        let subscription = subscriptionStorages[data.identifier] ?? subscriptionStorageProvider.createSubscriptionStorage(subId: data.identifier)
+        subscriptionStorages[data.identifier] = subscription
+        
+        try? await subscription.startOrUpdateSubscription(data: data) { [weak self] state in
+            guard let self else { return }
+            updateData(with: subscriptionId, numberOfRowsPerPage: numberOfRowsPerPage, state: state)
         }
     }
     
-    private func updateData(with groupId: String, update: SubscriptionUpdate) {
-        if case let .pageCount(count) = update {
-            updatePageCount(count, groupId: groupId, ignorePageLimit: activeView.type.hasGroups)
-            return
-        }
-        
-        updateRecords(for: groupId, update: update)
+    private func updateData(with groupId: String, numberOfRowsPerPage: Int, state: SubscriptionStorageState) {
+        let pagesCount = numberOfRowsPerPage > 0 ? Int(ceil(Float(state.total) / Float(numberOfRowsPerPage))) : 0
+        updatePageCount(pagesCount, groupId: groupId, ignorePageLimit: activeView.type.hasGroups)
+        recordsDict[groupId] = state.items
         updateConfigurations(with: [groupId])
     }
     
-    private func updateRecords(for groupId: String, update: SubscriptionUpdate) {
-        var records = recordsDict[groupId, default: []]
-        records.applySubscriptionUpdate(update)
-        recordsDict[groupId] = records
+    private func stopAllSubscriptionStorages() async {
+        await subscriptionStorages.values.asyncForEach { try? await $0.stopSubscription() }
     }
     
     private func updateConfigurations(with groupIds: [String]) {
         var tempConfigurationsDict = configurationsDict
         for groupId in groupIds {
+            guard let subscription = subscriptionStorages[groupId] else {
+                anytypeAssertionFailure("Subscription not started for group")
+                continue
+            }
             if let records = sortedRecords(with: groupId) {
                 let configurations = setDocument.dataBuilder.itemData(
                     records,
                     dataView: setDocument.dataView,
                     activeView: activeView,
                     isObjectLocked: setDocument.isObjectLocked,
-                    storage: subscriptionService.storage,
+                    storage: subscription.detailsStorage,
+                    spaceId: setDocument.spaceId,
                     onIconTap: { [weak self] details in
                         self?.updateDetailsIfNeeded(details)
                     },
@@ -519,15 +523,13 @@ final class EditorSetViewModel: ObservableObject {
         openObject(details: details)
     }
     
-    private func clearState() {
+    private func clearState() async {
         recordsDict = [:]
         configurationsDict = [:]
         pagitationDataDict = [:]
         groups = []
-        subscriptionService.stopAllSubscriptions()
-        Task {
-            try await groupsSubscriptionsHandler.stopAllSubscriptions()
-        }
+        await stopAllSubscriptionStorages()
+        try? await groupsSubscriptionsHandler.stopAllSubscriptions()
     }
     
     @MainActor
@@ -547,11 +549,12 @@ final class EditorSetViewModel: ObservableObject {
     
     func createObject(setting: ObjectCreationSetting?) {
         if setDocument.isCollection() {
-            let objectTypeId = setting?.objectTypeId ?? setDocument.activeView.defaultObjectTypeIDWithFallback
-            let templateId = setting?.templateId ?? defaultTemplateId(for: objectTypeId)
+            let settingsObjectType = setting.map { try? objectTypeProvider.objectType(id: $0.objectTypeId) }
+            let objectType = settingsObjectType ?? (try? setDocument.defaultObjectTypeForActiveView())
+            let templateId = setting?.templateId ?? defaultTemplateId(for: objectType)
+            
             createObject(
-                with: objectTypeId,
-                shouldSelectType: true,
+                type: objectType,
                 relationsDetails: [],
                 templateId: templateId,
                 completion: { details in
@@ -572,11 +575,11 @@ final class EditorSetViewModel: ObservableObject {
                 guard let source = self?.details?.setOf else { return false }
                 return source.contains(detail.id)
             }
-            let objectTypeId = setting?.objectTypeId ?? setDocument.activeView.defaultObjectTypeIDWithFallback
-            let templateId = setting?.templateId ?? defaultTemplateId(for: objectTypeId)
+            let settingsObjectType = setting.map { try? objectTypeProvider.objectType(id: $0.objectTypeId) }
+            let objectType = settingsObjectType ?? (try? setDocument.defaultObjectTypeForActiveView())
+            let templateId = setting?.templateId ?? defaultTemplateId(for: objectType)
             createObject(
-                with: objectTypeId,
-                shouldSelectType: true,
+                type: objectType,
                 relationsDetails: relationsDetails,
                 templateId: templateId,
                 completion: { [weak self] details in
@@ -585,10 +588,10 @@ final class EditorSetViewModel: ObservableObject {
             )
         } else {
             let objectTypeId = details?.setOf.first ?? ""
-            let templateId = setting?.templateId ?? defaultTemplateId(for: objectTypeId)
+            let objectType = try? objectTypeProvider.objectType(id: objectTypeId)
+            let templateId = setting?.templateId ?? defaultTemplateId(for: objectType)
             createObject(
-                with: objectTypeId,
-                shouldSelectType: templateId.isEmpty,
+                type: objectType,
                 relationsDetails: [],
                 templateId: templateId,
                 completion: { [weak self] details in
@@ -598,12 +601,12 @@ final class EditorSetViewModel: ObservableObject {
         }
     }
     
-    private func defaultTemplateId(for objectTypeId: String) -> String {
+    private func defaultTemplateId(for objectType: ObjectType?) -> String {
         if let defaultTemplateID = activeView.defaultTemplateID, defaultTemplateID.isNotEmpty {
             let templateID = defaultTemplateID == TemplateType.blank.id ? "" : defaultTemplateID
             return templateID
         } else {
-            return objectTypeProvider.objectType(id: objectTypeId)?.defaultTemplateId ?? ""
+            return objectType?.defaultTemplateId ?? ""
         }
     }
     
@@ -616,8 +619,7 @@ final class EditorSetViewModel: ObservableObject {
     }
     
     private func createObject(
-        with type: String,
-        shouldSelectType: Bool,
+        type: ObjectType?,
         relationsDetails: [RelationDetails],
         templateId: BlockId?,
         completion: ((_ details: ObjectDetails) -> Void)?
@@ -626,15 +628,23 @@ final class EditorSetViewModel: ObservableObject {
             guard let self else { return }
             
             let details = try await self.dataviewService.addRecord(
-                objectType: type,
-                shouldSelectType: shouldSelectType,
+                typeUniqueKey: type?.uniqueKey,
                 templateId: templateId ?? "",
+                spaceId: setDocument.spaceId,
                 setFilters: self.setDocument.activeViewFilters,
                 relationsDetails: relationsDetails
             )
             AnytypeAnalytics.instance().logCreateObject(objectType: details.analyticsType, route: setDocument.isCollection() ? .collection : .set)
             completion?(details)
         }
+    }
+    
+    private func defaultSubscriptionDetailsStorage(file: StaticString = #file, function: String = #function, line: UInt = #line) -> ObjectDetailsStorage? {
+        let subscription = subscriptionStorages.values.first
+        if subscription.isNil {
+            anytypeAssertionFailure("Try map without storage", file: file, function: function, line: line)
+        }
+        return subscription?.detailsStorage
     }
 }
 
@@ -654,7 +664,8 @@ extension EditorSetViewModel {
         objectId: BlockId,
         relation: Relation
     ) {
-        guard let objectDetails = subscriptionService.storage.get(id: objectId) else {
+        guard let detailsStorage = defaultSubscriptionDetailsStorage() else { return }
+        guard let objectDetails = detailsStorage.get(id: objectId) else {
             anytypeAssertionFailure("Details not found")
             return
         }
@@ -666,14 +677,16 @@ extension EditorSetViewModel {
     }
     
     func showViewPicker() {
-        router?.showViewPicker(subscriptionDetailsStorage: subscriptionService.storage) { [weak self] activeView in
+        guard let detailsStorage = defaultSubscriptionDetailsStorage() else { return }
+        router?.showViewPicker(subscriptionDetailsStorage: detailsStorage) { [weak self] activeView in
             self?.showViewTypes(with: activeView)
         }
     }
     
     func showSetSettings() {
         if FeatureFlags.newSetSettings {
-            router?.showSetSettings(subscriptionDetailsStorage: subscriptionService.storage)
+            guard let detailsStorage = defaultSubscriptionDetailsStorage() else { return }
+            router?.showSetSettings(subscriptionDetailsStorage: detailsStorage)
         } else {
             router?.showSetSettingsLegacy { [weak self] setting in
                 guard let self else { return }
@@ -708,9 +721,10 @@ extension EditorSetViewModel {
     }
     
     func showFilters() {
+        guard let detailsStorage = defaultSubscriptionDetailsStorage() else { return }
         router?.showFilters(
             setDocument: setDocument,
-            subscriptionDetailsStorage: subscriptionService.storage
+            subscriptionDetailsStorage: detailsStorage
         )
     }
     
@@ -772,7 +786,7 @@ extension EditorSetViewModel {
         Task { @MainActor in
             try await objectActionsService.setObjectCollectionType(objectId: objectId)
             try await setDocument.close()
-            router?.replaceCurrentPage(with: .set(EditorSetObject(objectId: objectId, isSupportedForEdit: true)))
+            router?.replaceCurrentPage(with: .set(EditorSetObject(objectId: objectId, spaceId: setDocument.spaceId, isSupportedForEdit: true)))
         }
         AnytypeAnalytics.instance().logSetTurnIntoCollection()
     }
@@ -814,7 +828,7 @@ extension EditorSetViewModel {
     }
     
     private func handleCreatedObject(details: ObjectDetails) {
-        if details.type == ObjectTypeId.BundledTypeId.note.rawValue {
+        if details.layoutValue == .note {
             openObject(details: details)
         } else {
             router?.showCreateObject(details: details)
@@ -838,7 +852,8 @@ extension EditorSetViewModel {
             document: BaseDocument(objectId: "objectId"),
             blockId: nil,
             targetObjectID: nil,
-            relationDetailsStorage: DI.preview.serviceLocator.relationDetailsStorage()
+            relationDetailsStorage: DI.preview.serviceLocator.relationDetailsStorage(),
+            objectTypeProvider: DI.preview.serviceLocator.objectTypeProvider()
         ),
         headerViewModel: .init(
             document: BaseDocument(objectId: "objectId", forPreview: false),
@@ -849,7 +864,7 @@ extension EditorSetViewModel {
             ),
             interactor: DI.preview.serviceLocator.objectHeaderInteractor(objectId: "objectId")
         ),
-        subscriptionService: DI.preview.serviceLocator.subscriptionService(),
+        subscriptionStorageProvider: DI.preview.serviceLocator.subscriptionStorageProvider(),
         dataviewService: DataviewService(objectId: "objectId", blockId: "blockId", prefilledFieldsBuilder: SetPrefilledFieldsBuilder()),
         searchService: DI.preview.serviceLocator.searchService(),
         detailsService: DetailsService(
@@ -860,8 +875,8 @@ extension EditorSetViewModel {
         objectActionsService: DI.preview.serviceLocator.objectActionsService(),
         textService: TextService(),
         groupsSubscriptionsHandler: DI.preview.serviceLocator.groupsSubscriptionsHandler(),
-        setSubscriptionDataBuilder: SetSubscriptionDataBuilder(accountManager: DI.preview.serviceLocator.accountManager()),
-        setTemplatesInteractor: DI.preview.serviceLocator.setTemplatesInteractor,
-        objectTypeProvider: DI.preview.serviceLocator.objectTypeProvider()
+        setSubscriptionDataBuilder: SetSubscriptionDataBuilder(activeWorkspaceStorage: DI.preview.serviceLocator.activeWorkspaceStorage()),
+        objectTypeProvider: DI.preview.serviceLocator.objectTypeProvider(),
+        setTemplatesInteractor: DI.preview.serviceLocator.setTemplatesInteractor
     )
 }

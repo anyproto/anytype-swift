@@ -26,6 +26,7 @@ extension EditorPageObject {
         usecase: ObjectHeaderEmptyData.ObjectHeaderEmptyUsecase = .editor
     ) {
         self.objectId = details.id
+        self.spaceId = details.spaceId
         self.isSupportedForEdit = details.isSupportedForEdit
         self.isOpenedForPreview = isOpenedForPreview
         self.shouldShowTemplatesOptions = shouldShowTemplatesOptions
@@ -36,6 +37,7 @@ extension EditorPageObject {
 extension EditorSetObject {
     init(details: ObjectDetails) {
         self.objectId = details.id
+        self.spaceId = details.spaceId
         self.isSupportedForEdit = details.isSupportedForEdit
         self.inline = nil
     }
@@ -72,6 +74,17 @@ extension EditorScreenData {
             return object.objectId
         case .set(let object):
             return object.objectId
+        }
+    }
+    
+    var spaceId: String? {
+        switch self {
+        case .favorites, .recentEdit, .recentOpen, .sets, .collections, .bin:
+            return nil
+        case .page(let object):
+            return object.spaceId
+        case .set(let object):
+            return object.spaceId
         }
     }
 }

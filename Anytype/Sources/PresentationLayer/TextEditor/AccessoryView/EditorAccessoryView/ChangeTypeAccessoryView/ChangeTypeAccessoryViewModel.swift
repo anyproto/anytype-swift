@@ -36,7 +36,6 @@ final class ChangeTypeAccessoryViewModel {
         self.objectTypeProvider = objectTypeProvider
         self.document = document
 
-        fetchSupportedTypes()
         subscribeOnDocumentChanges()
     }
 
@@ -56,10 +55,11 @@ final class ChangeTypeAccessoryViewModel {
                     filteringTypeId: nil,
                     shouldIncludeSets: true,
                     shouldIncludeCollections: true,
-                    shouldIncludeBookmark: false
+                    shouldIncludeBookmark: false,
+                    spaceId: document.spaceId
                 ).map { type in
                     TypeItem(from: type, handler: { [weak self] in
-                        self?.onTypeTap(typeId: type.id)
+                        self?.onTypeTap(type: ObjectType(details: type))
                     })
                 }
             
@@ -67,66 +67,89 @@ final class ChangeTypeAccessoryViewModel {
         }
     }
 
-    private func onTypeTap(typeId: String) {
-        defer { logSelectObjectType(typeId: typeId) }
+    private func onTypeTap(type: ObjectType) {
+        defer { logSelectObjectType(type: type) }
         
-        if typeId == ObjectTypeId.BundledTypeId.set.rawValue {
+        if type.recommendedLayout == .set {
             Task { @MainActor in
                 document.resetSubscriptions() // to avoid glytch with premature document update
                 try await handler.setObjectSetType()
                 try await document.close()
-                router.replaceCurrentPage(with: .set(.init(objectId: document.objectId, isSupportedForEdit: true)))
+                router.replaceCurrentPage(with: .set(.init(objectId: document.objectId, spaceId: document.spaceId, isSupportedForEdit: true)))
             }
             return
         }
         
-        if typeId == ObjectTypeId.BundledTypeId.collection.rawValue {
+        if type.recommendedLayout == .collection {
             Task { @MainActor in
                 document.resetSubscriptions() // to avoid glytch with premature document update
                 try await handler.setObjectCollectionType()
                 try await document.close()
-                router.replaceCurrentPage(with: .set(.init(objectId: document.objectId, isSupportedForEdit: true)))
+                router.replaceCurrentPage(with: .set(.init(objectId: document.objectId, spaceId: document.spaceId, isSupportedForEdit: true)))
             }
             return
         }
 
         Task { @MainActor in
-            try await handler.setObjectTypeId(typeId)
-            applyDefaultTemplateIfNeeded(typeId: typeId)
+            try await handler.setObjectType(type: type)
+            applyDefaultTemplateIfNeeded(typeId: type.id)
         }
     }
     
-    private func logSelectObjectType(typeId: String) {
-        let objectType = objectTypeProvider.objectType(id: typeId)?.analyticsType ?? .object(typeId: typeId)
-        AnytypeAnalytics.instance().logSelectObjectType(objectType)
+    private func logSelectObjectType(type: ObjectType) {
+        AnytypeAnalytics.instance().logSelectObjectType(type.analyticsType)
     }
     
     private func applyDefaultTemplateIfNeeded(typeId: String) {
-        Task { @MainActor in
-            let availableTemplates = try? await searchService.searchTemplates(for: .dynamic(typeId))
-            guard availableTemplates?.count == 1,
-                  let firstTemplate = availableTemplates?.first
-            else { return }
+        Task {
+            guard let defaultTemplateId = try? objectTypeProvider.objectType(id: typeId).defaultTemplateId,
+                      defaultTemplateId.isNotEmpty else { return }
             
-            try await objectService.applyTemplate(objectId: document.objectId, templateId: firstTemplate.id)
+            try await objectService.applyTemplate(objectId: document.objectId, templateId: defaultTemplateId)
         }
     }
 
     private func subscribeOnDocumentChanges() {
         document.updatePublisher.sink { [weak self] _ in
-            guard let self = self else { return }
-            let filteredItems = self.allSupportedTypes.filter {
-                $0.id != self.document.details?.type
+            Task { @MainActor [weak self] in
+                await self?.fetchSupportedTypes()
+                self?.updateSupportedTypes()
             }
-            self.supportedTypes = [self.searchItem] + filteredItems
+            
         }.store(in: &cancellables)
+    }
+    
+    private func updateSupportedTypes() {
+        let filteredItems = allSupportedTypes.filter {
+            $0.id != document.details?.type
+        }
+        supportedTypes = [searchItem] + filteredItems
+        
+    }
+    
+    private func fetchSupportedTypes() async {
+        let supportedTypes = try? await searchService
+            .searchObjectTypes(
+                text: "",
+                filteringTypeId: nil,
+                shouldIncludeSets: true,
+                shouldIncludeCollections: true,
+                shouldIncludeBookmark: false,
+                spaceId: document.spaceId
+            ).map { type in
+                TypeItem(from: type, handler: { [weak self] in
+                    self?.onTypeTap(type: ObjectType(details: type))
+                })
+            }
+        
+        supportedTypes.map { allSupportedTypes = $0 }
     }
     
     private func onSearchTap() {
         router.showTypesForEmptyObject(
             selectedObjectId: document.details?.type,
-            onSelect: { [weak self] typeId in
-                self?.onTypeTap(typeId: typeId)
+            onSelect: { [weak self] type in
+                self?.onTypeTap(type: type)
             }
         )
     }

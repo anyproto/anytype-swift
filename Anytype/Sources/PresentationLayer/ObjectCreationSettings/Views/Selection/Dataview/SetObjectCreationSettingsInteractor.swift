@@ -2,20 +2,22 @@ import Combine
 import Services
 import AnytypeCore
 
+@MainActor
 protocol SetObjectCreationSettingsInteractorProtocol {
     var mode: SetObjectCreationSettingsMode { get }
     
     var userTemplates: AnyPublisher<[TemplatePreviewModel], Never> { get }
     
     var objectTypesAvailabilityPublisher: AnyPublisher<Bool, Never> { get }
-    var objectTypeId: ObjectTypeId { get }
+    var objectTypeId: String { get }
     var objectTypesConfigPublisher: AnyPublisher<ObjectTypesConfiguration, Never> { get }
-    func setObjectTypeId(_ objectTypeId: ObjectTypeId)
+    func setObjectTypeId(_ objectTypeId: String)
     
     func setDefaultObjectType(objectTypeId: BlockId) async throws
     func setDefaultTemplate(templateId: BlockId) async throws
 }
 
+@MainActor
 final class SetObjectCreationSettingsInteractor: SetObjectCreationSettingsInteractorProtocol {
     
     var objectTypesAvailabilityPublisher: AnyPublisher<Bool, Never> { $canChangeObjectType.eraseToAnyPublisher() }
@@ -45,7 +47,7 @@ final class SetObjectCreationSettingsInteractor: SetObjectCreationSettingsIntera
             .eraseToAnyPublisher()
     }
     
-    @Published var objectTypeId: ObjectTypeId
+    @Published var objectTypeId: String
     @Published var canChangeObjectType = false
     @Published private var objectTypes = [ObjectType]()
     
@@ -83,23 +85,28 @@ final class SetObjectCreationSettingsInteractor: SetObjectCreationSettingsIntera
         self.objectTypesProvider = objectTypesProvider
         self.dataviewService = dataviewService
         
-        let defaultObjectTypeID = dataView.defaultObjectTypeIDWithFallback
+        let defaultObjectType = try? setDocument.defaultObjectTypeForActiveView()
+        let defaultObjectTypeID = defaultObjectType?.id ?? ""
+        if defaultObjectTypeID.isEmpty {
+            anytypeAssertionFailure("Couldn't find default object type", info: ["setId": setDocument.objectId])
+        }
+        
         if setDocument.isTypeSet() {
             if let firstSetOf = setDocument.details?.setOf.first {
-                self.objectTypeId = .dynamic(firstSetOf)
+                self.objectTypeId = firstSetOf
             } else {
-                self.objectTypeId = .dynamic(defaultObjectTypeID)
+                self.objectTypeId = defaultObjectTypeID
                 anytypeAssertionFailure("Couldn't find default object type in sets", info: ["setId": setDocument.objectId])
             }
         } else {
-            self.objectTypeId = .dynamic(defaultObjectTypeID)
+            self.objectTypeId = defaultObjectTypeID
         }
         
         subscribeOnDocmentUpdates()
         loadTemplates()
     }
     
-    func setObjectTypeId(_ objectTypeId: ObjectTypeId) {
+    func setObjectTypeId(_ objectTypeId: String) {
         updateState(with: objectTypeId)
     }
     
@@ -113,7 +120,7 @@ final class SetObjectCreationSettingsInteractor: SetObjectCreationSettingsIntera
         try await dataviewService.updateView(updatedDataView)
     }
     
-    private func updateState(with objectTypeId: ObjectTypeId) {
+    private func updateState(with objectTypeId: String) {
         self.objectTypeId = objectTypeId
         loadTemplates()
     }
@@ -128,8 +135,9 @@ final class SetObjectCreationSettingsInteractor: SetObjectCreationSettingsIntera
             
             guard mode == .default else { return }
             
-            if !setDocument.isTypeSet(), objectTypeId.rawValue != dataView.defaultObjectTypeIDWithFallback {
-                updateState(with: .dynamic(dataView.defaultObjectTypeIDWithFallback))
+            let defaultObjectTypeId = try? setDocument.defaultObjectTypeForView(dataView).id
+            if !setDocument.isTypeSet(), let defaultObjectTypeId, objectTypeId != defaultObjectTypeId {
+                updateState(with: defaultObjectTypeId)
             }
         }.store(in: &cancellables)
         
@@ -150,22 +158,23 @@ final class SetObjectCreationSettingsInteractor: SetObjectCreationSettingsIntera
     
     private func updateObjectTypes() {
         let objectTypes = objectTypesProvider.objectTypes.filter {
-            !$0.isArchived && DetailsLayout.visibleLayouts.contains($0.recommendedLayout)
+            guard let recommendedLayout = $0.recommendedLayout else { return false }
+            return !$0.isArchived && DetailsLayout.visibleLayouts.contains(recommendedLayout)
         }
         self.objectTypes = objectTypes.reordered(
             by: [
-                ObjectTypeId.bundled(.page).rawValue,
-                ObjectTypeId.bundled(.note).rawValue,
-                ObjectTypeId.bundled(.task).rawValue,
-                ObjectTypeId.bundled(.collection).rawValue
+                ObjectTypeUniqueKey.page.value,
+                ObjectTypeUniqueKey.note.value,
+                ObjectTypeUniqueKey.task.value,
+                ObjectTypeUniqueKey.collection.value
             ]
-        ) { $0.id }
+        ) { $0.uniqueKey.value }
     }
     
     private func updateTypeDefaultTemplateId() {
         let defaultTemplateId = objectTypes.first { [weak self] in
             guard let self else { return false }
-            return $0.id == objectTypeId.rawValue
+            return $0.id == objectTypeId
         }?.defaultTemplateId ?? .empty
         if typeDefaultTemplateId != defaultTemplateId {
             typeDefaultTemplateId = defaultTemplateId
@@ -173,10 +182,12 @@ final class SetObjectCreationSettingsInteractor: SetObjectCreationSettingsIntera
     }
     
     private func loadTemplates() {
-        subscriptionService.startSubscription(objectType: objectTypeId) { [weak self] _, update in
-            guard let self else { return }
-            templatesDetails.applySubscriptionUpdate(update)
-            updateTypeDefaultTemplateId()
+        Task {
+            await subscriptionService.startSubscription(objectType: objectTypeId, spaceId: setDocument.spaceId) { [weak self] details in
+                guard let self else { return }
+                templatesDetails = details
+                updateTypeDefaultTemplateId()
+            }
         }
     }
 }

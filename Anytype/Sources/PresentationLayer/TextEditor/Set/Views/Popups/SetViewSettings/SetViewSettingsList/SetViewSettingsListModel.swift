@@ -191,11 +191,8 @@ final class SetViewSettingsListModel: ObservableObject {
         guard !setDocument.isTypeSet(),
             defaultObjectValue == SetViewSettings.defaultObject.placeholder ||
                 prevObjectTypeId != view.defaultObjectTypeID else { return }
-        let objectTypeId = view.defaultObjectTypeIDWithFallback
-        Task { @MainActor in
-            let objectDetails = try await templatesInteractor.objectDetails(for: objectTypeId)
-            defaultObjectValue = objectDetails.name
-        }
+        let objectType = try? setDocument.defaultObjectTypeForView(view)
+        defaultObjectValue = objectType?.name ?? ""
     }
     
     private func updateRelationsValue() {

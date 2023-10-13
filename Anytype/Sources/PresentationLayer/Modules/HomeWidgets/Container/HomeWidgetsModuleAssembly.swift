@@ -1,10 +1,11 @@
 import Foundation
 import SwiftUI
+import Services
 
 protocol HomeWidgetsModuleAssemblyProtocol {
     @MainActor
     func make(
-        widgetObjectId: String,
+        info: AccountInfo,
         output: HomeWidgetsModuleOutput,
         widgetOutput: CommonWidgetModuleOutput?,
         bottomPanelOutput: HomeBottomPanelModuleOutput?
@@ -24,22 +25,42 @@ final class HomeWidgetsModuleAssembly: HomeWidgetsModuleAssemblyProtocol {
     }
     
     // MARK: - HomeWidgetsModuleAssemblyProtocol
+    
     @MainActor
     func make(
-        widgetObjectId: String,
+        info: AccountInfo,
         output: HomeWidgetsModuleOutput,
         widgetOutput: CommonWidgetModuleOutput?,
         bottomPanelOutput: HomeBottomPanelModuleOutput?
     ) -> AnyView {
-        
+        let view = HomeWidgetsView(
+            model: self.modelProvider(
+                info: info,
+                output: output,
+                widgetOutput: widgetOutput,
+                bottomPanelOutput: bottomPanelOutput
+            )
+        )
+        return view.id(info.widgetsId).eraseToAnyView()
+    }
+    
+    // MARK: - Private
+    
+    @MainActor
+    private func modelProvider(
+        info: AccountInfo,
+        output: HomeWidgetsModuleOutput,
+        widgetOutput: CommonWidgetModuleOutput?,
+        bottomPanelOutput: HomeBottomPanelModuleOutput?
+    ) -> HomeWidgetsViewModel {
         let stateManager = HomeWidgetsStateManager()
         let recentStateManagerProtocol = HomeWidgetsRecentStateManager(
             loginStateService: serviceLocator.loginStateService(),
             expandedService: serviceLocator.blockWidgetExpandedService()
         )
         
-        let model = HomeWidgetsViewModel(
-            widgetObjectId: widgetObjectId,
+        return HomeWidgetsViewModel(
+            info: info,
             registry: widgetsSubmoduleDI.homeWidgetsRegistry(stateManager: stateManager, widgetOutput: widgetOutput),
             blockWidgetService: serviceLocator.blockWidgetService(),
             bottomPanelProviderAssembly: widgetsSubmoduleDI.bottomPanelProviderAssembly(output: bottomPanelOutput),
@@ -47,9 +68,8 @@ final class HomeWidgetsModuleAssembly: HomeWidgetsModuleAssemblyProtocol {
             objectActionService: serviceLocator.objectActionsService(),
             recentStateManagerProtocol: recentStateManagerProtocol,
             documentService: serviceLocator.documentService(),
+            activeWorkspaceStorage: serviceLocator.activeWorkspaceStorage(),
             output: output
         )
-        let view = HomeWidgetsView(model: model)
-        return view.eraseToAnyView()
     }
 }

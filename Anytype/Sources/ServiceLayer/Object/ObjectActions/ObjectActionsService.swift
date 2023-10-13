@@ -80,7 +80,9 @@ final class ObjectActionsService: ObjectActionsServiceProtocol {
     func createPage(
         contextId: BlockId,
         targetId: BlockId,
+        spaceId: String,
         details: [BundledDetails],
+        typeUniqueKey: ObjectTypeUniqueKey,
         position: BlockPosition,
         templateId: String
     ) async throws -> BlockId {
@@ -91,12 +93,19 @@ final class ObjectActionsService: ObjectActionsServiceProtocol {
         }
         let protobufStruct = Google_Protobuf_Struct(fields: protobufDetails)
         
+        let internalFlags: [Anytype_Model_InternalFlag] = .builder {
+            Anytype_Model_InternalFlag.with { $0.value = .editorSelectTemplate }
+        }
+        
         let response = try await ClientCommands.blockLinkCreateWithObject(.with {
             $0.contextID = contextId
             $0.details = protobufStruct
             $0.templateID = templateId
             $0.targetID = targetId
             $0.position = position.asMiddleware
+            $0.internalFlags = internalFlags
+            $0.spaceID = spaceId
+            $0.objectTypeUniqueKey = typeUniqueKey.value
         }).invoke()
         
         return response.targetID
@@ -162,14 +171,11 @@ final class ObjectActionsService: ObjectActionsServiceProtocol {
         }).invoke()
     }
 
-    func convertChildrenToPages(contextID: BlockId, blocksIds: [BlockId], typeId: String) async throws -> [BlockId] {
-        let type = objectTypeProvider.objectType(id: typeId)?.analyticsType ?? .object(typeId: typeId)
-        AnytypeAnalytics.instance().logCreateObject(objectType: type, route: .turnInto)
-
+    func convertChildrenToPages(contextID: BlockId, blocksIds: [BlockId], typeUniqueKey: ObjectTypeUniqueKey) async throws -> [BlockId] {
         let response = try await ClientCommands.blockListConvertToObjects(.with {
             $0.contextID = contextID
             $0.blockIds = blocksIds
-            $0.objectType = typeId
+            $0.objectTypeUniqueKey = typeUniqueKey.value
         }).invoke()
         
         return response.linkIds
@@ -185,10 +191,10 @@ final class ObjectActionsService: ObjectActionsServiceProtocol {
         }).invoke()
     }
     
-    func setObjectType(objectId: BlockId, objectTypeId: String) async throws {
+    func setObjectType(objectId: BlockId, typeUniqueKey: ObjectTypeUniqueKey) async throws {
         _ = try await ClientCommands.objectSetObjectType(.with {
             $0.contextID = objectId
-            $0.objectTypeURL = objectTypeId
+            $0.objectTypeUniqueKey = typeUniqueKey.value
         }).invoke()
     }
 

@@ -7,9 +7,16 @@ Use XCode to build the project.
 [`anytype-heart`](https://github.com/anyproto/anytype-heart) is required for a successful build.
 
 ### Use pre-built `anytype-heart`
+
+Create a personal access token [here](https://github.com/settings/tokens) with `read:packages` access.
+
+More about [access to maven repo](https://docs.github.com/en/packages/working-with-a-github-packages-registry/working-with-the-apache-maven-registry).
+
 `make setup-middle` — install the latest `anytype-heart` version.
 
-`make update-middle` — update to the latest `anytype-heart` version
+Script will be ask you to input `MIDDLEWARE_TOKEN` - this is your personal github token.
+
+`make change-github-token` - update `MIDDLEWARE_TOKEN`
 
 ### Build `anytype-heart` locally
 

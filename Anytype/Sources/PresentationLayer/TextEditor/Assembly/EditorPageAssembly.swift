@@ -3,6 +3,7 @@ import UIKit
 import AnytypeCore
 import SwiftUI
 
+@MainActor
 final class EditorAssembly {
     
     private let serviceLocator: ServiceLocator
@@ -10,7 +11,7 @@ final class EditorAssembly {
     private let modulesDI: ModulesDIProtocol
     private let uiHelpersDI: UIHelpersDIProtocol
     
-    init(
+    nonisolated init(
         serviceLocator: ServiceLocator,
         coordinatorsDI: CoordinatorsDIProtocol,
         modulesDI: ModulesDIProtocol,
@@ -21,8 +22,7 @@ final class EditorAssembly {
         self.modulesDI = modulesDI
         self.uiHelpersDI = uiHelpersDI
     }
-    
-    @MainActor
+        
     func buildEditorController(
         browser: EditorBrowserController?,
         data: EditorScreenData,
@@ -31,7 +31,6 @@ final class EditorAssembly {
         buildEditorModule(browser: browser, data: data, widgetListOutput: widgetListOutput).vc
     }
 
-    @MainActor
     func buildEditorModule(
         browser: EditorBrowserController?,
         data: EditorScreenData,
@@ -59,7 +58,6 @@ final class EditorAssembly {
     
     // MARK: - Set
     
-    @MainActor
     private func buildSetModule(
         browser: EditorBrowserController?,
         data: EditorSetObject
@@ -69,7 +67,8 @@ final class EditorAssembly {
             document: document,
             blockId: data.inline?.blockId,
             targetObjectID: data.inline?.targetObjectID,
-            relationDetailsStorage: serviceLocator.relationDetailsStorage()
+            relationDetailsStorage: serviceLocator.relationDetailsStorage(),
+            objectTypeProvider: serviceLocator.objectTypeProvider()
         )
         let dataviewService = serviceLocator.dataviewService(objectId: data.objectId, blockId: data.inline?.blockId)
         
@@ -88,16 +87,16 @@ final class EditorAssembly {
         let model = EditorSetViewModel(
             setDocument: setDocument,
             headerViewModel: headerModel,
-            subscriptionService: serviceLocator.subscriptionService(),
+            subscriptionStorageProvider: serviceLocator.subscriptionStorageProvider(),
             dataviewService: dataviewService,
             searchService: serviceLocator.searchService(),
             detailsService: detailsService,
             objectActionsService: serviceLocator.objectActionsService(),
             textService: serviceLocator.textService,
             groupsSubscriptionsHandler: serviceLocator.groupsSubscriptionsHandler(),
-            setSubscriptionDataBuilder: SetSubscriptionDataBuilder(accountManager: serviceLocator.accountManager()),
-            setTemplatesInteractor: serviceLocator.setTemplatesInteractor,
-            objectTypeProvider: serviceLocator.objectTypeProvider()
+            setSubscriptionDataBuilder: SetSubscriptionDataBuilder(activeWorkspaceStorage: serviceLocator.activeWorkspaceStorage()),
+            objectTypeProvider: serviceLocator.objectTypeProvider(),
+            setTemplatesInteractor: serviceLocator.setTemplatesInteractor
         )
         let controller = EditorSetHostingController(objectId: data.objectId, model: model)
         let navigationContext = NavigationContext(rootViewController: browser ?? controller)
@@ -137,7 +136,6 @@ final class EditorAssembly {
     
     // MARK: - Page
     
-    @MainActor
     func buildPageModule(
         browser: EditorBrowserController?,
         data: EditorPageObject
@@ -235,7 +233,8 @@ final class EditorAssembly {
             objectActionService: serviceLocator.objectActionsService(),
             modelsHolder: modelsHolder,
             bookmarkService: serviceLocator.bookmarkService(),
-            cursorManager: cursorManager
+            cursorManager: cursorManager,
+            objectTypeProvider: serviceLocator.objectTypeProvider()
         )
         let keyboardHandler = KeyboardActionHandler(
             documentId: document.objectId,
@@ -364,7 +363,8 @@ final class EditorAssembly {
             searchService: serviceLocator.searchService(),
             editorPageTemplatesHandler: editorPageTemplatesHandler,
             accountManager: serviceLocator.accountManager(),
-            configuration: configuration
+            configuration: configuration,
+            templatesSubscriptionService: serviceLocator.templatesSubscription()
         )
     }
 

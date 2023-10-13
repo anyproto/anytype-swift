@@ -58,6 +58,9 @@ final class EditorPageController: UIViewController {
         },
         onDoneBarButtonItemTap:  { [weak viewModel] in
             viewModel?.blocksStateManager.didSelectEditingMode()
+        },
+        onTemplatesButtonTap: { [weak viewModel] in
+            viewModel?.showTemplates()
         }
     )
 
@@ -296,19 +299,16 @@ extension EditorPageController: EditorPageViewInput {
         return collectionView.convert(collectionView.bounds, to: view)
     }
 
-    func update(header: ObjectHeader, details: ObjectDetails?) {
+    func update(header: ObjectHeader) {
         var headerSnapshot = NSDiffableDataSourceSectionSnapshot<EditorItem>()
         headerSnapshot.append([.header(header)])
-        if #available(iOS 15.0, *) {
-            dataSource.apply(headerSnapshot, to: .header, animatingDifferences: true)
+        dataSource.apply(headerSnapshot, to: .header, animatingDifferences: true)
 
-        } else {
-            UIView.performWithoutAnimation {
-                dataSource.apply(headerSnapshot, to: .header, animatingDifferences: true)
-            }
-        }
-
-        navigationBarHelper.configureNavigationBar(using: header, details: details)
+        navigationBarHelper.configureNavigationBar(using: header)
+    }
+    
+    func update(details: ObjectDetails?, templatesCount: Int) {
+        navigationBarHelper.configureNavigationTitle(using: details, templatesCount: templatesCount)
     }
     
     func update(syncStatus: SyncStatus) {
@@ -473,7 +473,11 @@ private extension EditorPageController {
     
     func setupLayout() {
         view.addSubview(collectionView) {
-            $0.pinToSuperviewPreservingReadability()
+            if FeatureFlags.ipadIncreaseWidth {
+                $0.pinToSuperview()
+            } else {
+                $0.pinToSuperviewPreservingReadability()
+            }
         }
 
         navigationBarHelper.addFakeNavigationBarBackgroundView(to: view)

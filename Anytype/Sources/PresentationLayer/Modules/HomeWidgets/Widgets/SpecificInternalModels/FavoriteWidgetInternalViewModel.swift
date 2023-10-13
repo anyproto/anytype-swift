@@ -2,6 +2,7 @@ import Foundation
 import Services
 import Combine
 
+@MainActor
 final class FavoriteWidgetInternalViewModel: CommonWidgetInternalViewModel, WidgetInternalViewModelProtocol {
     
     // MARK: - DI
@@ -21,23 +22,23 @@ final class FavoriteWidgetInternalViewModel: CommonWidgetInternalViewModel, Widg
         widgetBlockId: BlockId,
         widgetObject: BaseDocumentProtocol,
         favoriteSubscriptionService: FavoriteSubscriptionServiceProtocol,
-        accountManager: AccountManagerProtocol,
+        activeWorkspaceStorage: ActiveWorkpaceStorageProtocol,
         documentService: DocumentServiceProtocol
     ) {
         self.favoriteSubscriptionService = favoriteSubscriptionService
-        self.document = documentService.document(objectId: accountManager.account.info.homeObjectID)
+        self.document = documentService.document(objectId: activeWorkspaceStorage.workspaceInfo.homeObjectID)
         super.init(widgetBlockId: widgetBlockId, widgetObject: widgetObject)
     }
     
     // MARK: - WidgetInternalViewModelProtocol
     
-    override func startContentSubscription() {
-        super.startContentSubscription()
+    override func startContentSubscription() async {
+        await super.startContentSubscription()
         updateSubscription()
     }
     
-    override func stopContentSubscription() {
-        super.stopContentSubscription()
+    override func stopContentSubscription() async {
+        await super.stopContentSubscription()
         favoriteSubscriptionService.stopSubscription()
     }
     
@@ -52,6 +53,7 @@ final class FavoriteWidgetInternalViewModel: CommonWidgetInternalViewModel, Widg
     // MARK: - CommonWidgetInternalViewModel oveerides
     
     override func widgetInfoUpdated() {
+        super.widgetInfoUpdated()
         updateSubscription()
     }
     

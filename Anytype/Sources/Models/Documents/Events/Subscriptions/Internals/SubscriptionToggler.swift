@@ -3,7 +3,7 @@ import Services
 import AnytypeCore
 
 protocol SubscriptionTogglerProtocol {
-    func startSubscription(data: SubscriptionData) async throws -> SubscriptionTogglerResult?
+    func startSubscription(data: SubscriptionData) async throws -> SubscriptionTogglerResult
     func stopSubscription(id: String) async throws
     func stopSubscriptions(ids: [String]) async throws
 }
@@ -16,7 +16,7 @@ final class SubscriptionToggler: SubscriptionTogglerProtocol {
         self.objectSubscriptionService = objectSubscriptionService
     }
 
-    func startSubscription(data: SubscriptionData) async throws -> SubscriptionTogglerResult? {
+    func startSubscription(data: SubscriptionData) async throws -> SubscriptionTogglerResult {
         switch data {
         case let .search(data):
             return try await makeSearchToggler(data: data)
@@ -41,17 +41,21 @@ final class SubscriptionToggler: SubscriptionTogglerProtocol {
         return SubscriptionTogglerResult(
             records: response.records,
             dependencies: response.dependencies,
-            count: response.count
+            total: response.total,
+            prevCount: response.prevCount,
+            nextCount: response.nextCount
         )
     }
     
-    private func makeObjectsToggler(data: SubscriptionData.Object) async throws -> SubscriptionTogglerResult? {
+    private func makeObjectsToggler(data: SubscriptionData.Object) async throws -> SubscriptionTogglerResult {
         let response = try await objectSubscriptionService.objectSubscribe(data: data)
         
         return SubscriptionTogglerResult(
             records: response.records,
             dependencies: response.dependencies,
-            count: response.count
+            total: response.total,
+            prevCount: response.prevCount,
+            nextCount: response.nextCount
         )
     }
 }

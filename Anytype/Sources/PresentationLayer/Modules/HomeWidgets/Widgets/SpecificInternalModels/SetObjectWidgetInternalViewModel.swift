@@ -3,12 +3,13 @@ import Services
 import Combine
 import UIKit
 
+@MainActor
 final class SetObjectWidgetInternalViewModel: CommonWidgetInternalViewModel, WidgetDataviewInternalViewModelProtocol {
     
     // MARK: - DI
     
     private let setSubscriptionDataBuilder: SetSubscriptionDataBuilderProtocol
-    private let subscriptionService: SubscriptionsServiceProtocol
+    private let subscriptionStorage: SubscriptionStorageProtocol
     private let documentService: DocumentServiceProtocol
     private let blockWidgetService: BlockWidgetServiceProtocol
     
@@ -36,12 +37,12 @@ final class SetObjectWidgetInternalViewModel: CommonWidgetInternalViewModel, Wid
         widgetBlockId: BlockId,
         widgetObject: BaseDocumentProtocol,
         setSubscriptionDataBuilder: SetSubscriptionDataBuilderProtocol,
-        subscriptionService: SubscriptionsServiceProtocol,
+        subscriptionStorageProvider: SubscriptionStorageProviderProtocol,
         documentService: DocumentServiceProtocol,
         blockWidgetService: BlockWidgetServiceProtocol
     ) {
         self.setSubscriptionDataBuilder = setSubscriptionDataBuilder
-        self.subscriptionService = subscriptionService
+        self.subscriptionStorage = subscriptionStorageProvider.createSubscriptionStorage(subId: subscriptionId)
         self.documentService = documentService
         self.blockWidgetService = blockWidgetService
         super.init(widgetBlockId: widgetBlockId, widgetObject: widgetObject)
@@ -53,7 +54,7 @@ final class SetObjectWidgetInternalViewModel: CommonWidgetInternalViewModel, Wid
             .receiveOnMain()
             .sink { [weak self] details in
                 self?.name = details.title
-                self?.updateSetDocument(objectId: details.id)
+                Task { await self?.updateSetDocument(objectId: details.id) }
             }
             .store(in: &subscriptions)
     }
@@ -63,18 +64,18 @@ final class SetObjectWidgetInternalViewModel: CommonWidgetInternalViewModel, Wid
         subscriptions.removeAll()
     }
     
-    override func startContentSubscription() {
-        super.startContentSubscription()
+    override func startContentSubscription() async {
+        await super.startContentSubscription()
         setDocument?.syncPublisher.sink { [weak self] in
             self?.updateActiveViewId()
             self?.updateDataviewState()
-            self?.updateViewSubscription()
+            Task { await self?.updateViewSubscription() }
         }
         .store(in: &contentSubscriptions)
     }
     
-    override func stopContentSubscription() {
-        super.stopContentSubscription()
+    override func stopContentSubscription() async {
+        await super.stopContentSubscription()
         contentSubscriptions.removeAll()
     }
     
@@ -98,9 +99,10 @@ final class SetObjectWidgetInternalViewModel: CommonWidgetInternalViewModel, Wid
     // MARK: - CommonWidgetInternalViewModel oveerides
     
     override func widgetInfoUpdated() {
+        super.widgetInfoUpdated()
         updateActiveViewId()
         updateDataviewState()
-        updateViewSubscription()
+        Task { await updateViewSubscription() }
     }
     
     // MARK: - Private
@@ -119,9 +121,9 @@ final class SetObjectWidgetInternalViewModel: CommonWidgetInternalViewModel, Wid
         activeViewId = setDocument.dataView.activeViewId
     }
         
-    private func updateViewSubscription() {
+    private func updateViewSubscription() async {
         guard let setDocument, let widgetInfo else {
-            subscriptionService.stopAllSubscriptions()
+            try? await subscriptionStorage.stopSubscription()
             return
         }
         
@@ -141,10 +143,9 @@ final class SetObjectWidgetInternalViewModel: CommonWidgetInternalViewModel, Wid
             )
         )
         
-        subscriptionService.updateSubscription(data: subscriptionData, required: false) { [weak self] in
-            var details = self?.details ?? []
-            details.applySubscriptionUpdate($1)
-            self?.details = details
+        try? await subscriptionStorage.startOrUpdateSubscription(data: subscriptionData) { [weak self] data in
+            guard let self else { return }
+            details = data.items
         }
     }
     
@@ -167,7 +168,7 @@ final class SetObjectWidgetInternalViewModel: CommonWidgetInternalViewModel, Wid
         return details?.reorderedStable(by: objectOrderIds, transform: { $0.id })
     }
     
-    private func updateSetDocument(objectId: String) {
+    private func updateSetDocument(objectId: String) async {
         guard objectId != setDocument?.objectId else {
             Task { @MainActor in
                 try await setDocument?.openForPreview()
@@ -182,7 +183,7 @@ final class SetObjectWidgetInternalViewModel: CommonWidgetInternalViewModel, Wid
         
         guard contentIsAppear else { return }
         
-        stopContentSubscription()
-        startContentSubscription()
+        await stopContentSubscription()
+        await startContentSubscription()
     }
 }

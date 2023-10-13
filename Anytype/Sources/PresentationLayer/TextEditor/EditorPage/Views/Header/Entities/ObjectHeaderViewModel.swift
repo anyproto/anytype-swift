@@ -178,7 +178,7 @@ final class ObjectHeaderViewModel: ObservableObject {
 
 extension ObjectHeaderViewModel {
     func handleCoverAction(action: ObjectCoverPickerAction) {
-        objectHeaderInteractor.handleCoverAction(action: action) { [weak self] update in
+        objectHeaderInteractor.handleCoverAction(spaceId: document.spaceId, action: action) { [weak self] update in
             if let loadingHeader = self?.buildLoadingHeader(update) {
                 self?.header = loadingHeader
             }
@@ -186,6 +186,6 @@ extension ObjectHeaderViewModel {
     }
     
     func handleIconAction(action: ObjectIconPickerAction) {
-        objectHeaderInteractor.handleIconAction(action: action)
+        objectHeaderInteractor.handleIconAction(spaceId: document.spaceId, action: action)
     }
 }

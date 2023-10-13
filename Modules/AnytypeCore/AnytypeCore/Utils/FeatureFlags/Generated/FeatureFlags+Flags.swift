@@ -22,12 +22,28 @@ public extension FeatureFlags {
         value(for: .dndOnCollectionsAndSets)
     }
 
+    static var multiSpace: Bool {
+        value(for: .multiSpace)
+    }
+
+    static var multiSpaceSettings: Bool {
+        value(for: .multiSpaceSettings)
+    }
+
     static var newCodeLanguages: Bool {
         value(for: .newCodeLanguages)
     }
 
     static var newSetSettings: Bool {
         value(for: .newSetSettings)
+    }
+
+    static var ipadIncreaseWidth: Bool {
+        value(for: .ipadIncreaseWidth)
+    }
+
+    static var selectTypeByLongTap: Bool {
+        value(for: .selectTypeByLongTap)
     }
 
     static var rainbowViews: Bool {
@@ -56,8 +72,12 @@ public extension FeatureFlags {
         .setKanbanView,
         .fullInlineSetImpl,
         .dndOnCollectionsAndSets,
+        .multiSpace,
+        .multiSpaceSettings,
         .newCodeLanguages,
         .newSetSettings,
+        .ipadIncreaseWidth,
+        .selectTypeByLongTap,
         .rainbowViews,
         .showAlertOnAssert,
         .analytics,
