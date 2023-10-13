@@ -107,7 +107,7 @@ final class FileStorageViewModel: ObservableObject {
         
         subscriptionService.startSubscription(
             subIdPrefix: Constants.subSpaceId,
-            objectId: activeWorkspaceStorage.workspaceInfo.workspaceObjectId
+            objectId: activeWorkspaceStorage.workspaceInfo.spaceViewId
         ) { [weak self] details in
             self?.handleSpaceDetails(details: details)
         }

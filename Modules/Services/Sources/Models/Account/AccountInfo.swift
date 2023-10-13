@@ -7,7 +7,7 @@ public struct AccountInfo: Equatable {
     public let profileObjectID: String
     public let gatewayURL: String
     public let accountSpaceId: String
-    public let workspaceObjectId: String
+    public let spaceViewId: String
     public let widgetsId: String
     public let analyticsId: String
     public let deviceId: String
@@ -20,7 +20,7 @@ public extension AccountInfo {
         profileObjectID: "",
         gatewayURL: "",
         accountSpaceId: "",
-        workspaceObjectId: "",
+        spaceViewId: "",
         widgetsId: "",
         analyticsId: "",
         deviceId: ""
@@ -35,7 +35,7 @@ extension Anytype_Model_Account.Info {
             profileObjectID: profileObjectID,
             gatewayURL: gatewayURL,
             accountSpaceId: accountSpaceID,
-            workspaceObjectId: workspaceObjectID,
+            spaceViewId: spaceViewID,
             widgetsId: widgetsID,
             analyticsId: analyticsID,
             deviceId: deviceID

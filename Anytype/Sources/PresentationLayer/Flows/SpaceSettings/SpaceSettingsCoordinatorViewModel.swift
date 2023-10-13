@@ -69,7 +69,7 @@ final class SpaceSettingsCoordinatorViewModel: ObservableObject, SpaceSettingsMo
     
     func onChangeIconSelected(objectId: String) {
         let document = documentService.document(objectId: objectId, forPreview: true)
-        let module = objectIconPickerModuleAssembly.makeObjectChange(document: document)
+        let module = objectIconPickerModuleAssembly.makeSpaceView(document: document)
         navigationContext.present(module)
     }
     

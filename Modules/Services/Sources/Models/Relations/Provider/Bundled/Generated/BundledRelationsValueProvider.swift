@@ -155,6 +155,7 @@ public protocol BundledRelationsValueProvider {
     var isUninstalled: Bool { get }
     var spaceLocalStatus: Int? { get }
     var spaceRemoteStatus: Int? { get }
+    var targetSpaceId: String { get }
 } 
 
 public extension BundledRelationsValueProvider where Self: RelationValueProvider {
@@ -676,5 +677,9 @@ public extension BundledRelationsValueProvider where Self: RelationValueProvider
     /// Relation that indicates the remote status of space. Possible values: models.SpaceStatus
     var spaceRemoteStatus: Int? {
         return value(for: BundledRelationKey.spaceRemoteStatus.rawValue)
+    }
+    /// Relation that indicates the real space id on the spaceView
+    var targetSpaceId: String {
+        return value(for: BundledRelationKey.targetSpaceId.rawValue)
     }
 }

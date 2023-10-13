@@ -504,6 +504,8 @@
 		2A816AC92AD7DFC700975BCA /* ServerConfigurationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A816AC82AD7DFC700975BCA /* ServerConfigurationView.swift */; };
 		2A816ACC2AD7E31F00975BCA /* ServerDocumentPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A816ACB2AD7E31F00975BCA /* ServerDocumentPicker.swift */; };
 		2A816ACE2AD7EDB300975BCA /* ServerConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A816ACD2AD7EDB300975BCA /* ServerConfiguration.swift */; };
+		2A816AD12AD8069400975BCA /* SpaceView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A816AD02AD8069400975BCA /* SpaceView.swift */; };
+		2A816AD42AD840F500975BCA /* SpaceViewIconInternalViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A816AD32AD840F500975BCA /* SpaceViewIconInternalViewModel.swift */; };
 		2A8A2DCA2AB9956000105549 /* AppAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A8A2DC92AB9956000105549 /* AppAction.swift */; };
 		2A8A2DCC2AB9960F00105549 /* AppActionStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A8A2DCB2AB9960F00105549 /* AppActionStorage.swift */; };
 		2A8A2DD12AB99B0E00105549 /* ShareCoordinatorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A8A2DD02AB99B0E00105549 /* ShareCoordinatorView.swift */; };
@@ -2107,6 +2109,8 @@
 		2A816AC82AD7DFC700975BCA /* ServerConfigurationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServerConfigurationView.swift; sourceTree = "<group>"; };
 		2A816ACB2AD7E31F00975BCA /* ServerDocumentPicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServerDocumentPicker.swift; sourceTree = "<group>"; };
 		2A816ACD2AD7EDB300975BCA /* ServerConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServerConfiguration.swift; sourceTree = "<group>"; };
+		2A816AD02AD8069400975BCA /* SpaceView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpaceView.swift; sourceTree = "<group>"; };
+		2A816AD32AD840F500975BCA /* SpaceViewIconInternalViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpaceViewIconInternalViewModel.swift; sourceTree = "<group>"; };
 		2A8A2DC92AB9956000105549 /* AppAction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppAction.swift; sourceTree = "<group>"; };
 		2A8A2DCB2AB9960F00105549 /* AppActionStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppActionStorage.swift; sourceTree = "<group>"; };
 		2A8A2DD02AB99B0E00105549 /* ShareCoordinatorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShareCoordinatorView.swift; sourceTree = "<group>"; };
@@ -3899,6 +3903,7 @@
 		120E818A26A05937006FE84E /* Icon */ = {
 			isa = PBXGroup;
 			children = (
+				2A816AD22AD840DE00975BCA /* Internal */,
 				2AE906E7296FFE720044A10A /* Modules */,
 				C9F0A47B28057D6000FA16DD /* GenericIconPickerViewModel */,
 				3D44985926D57456005A3E06 /* ObjectIconPicker.swift */,
@@ -5031,6 +5036,7 @@
 				2A29FD2E2A701BDD007A8549 /* ActiveWorkspaceStorage.swift */,
 				2AA4C26C2A7026C600C2EC66 /* WorkspacesStorage.swift */,
 				2AA4C26E2A70287100C2EC66 /* WorkspacesSubscriptionBuilder.swift */,
+				2A816AD02AD8069400975BCA /* SpaceView.swift */,
 			);
 			path = SpaceStorage;
 			sourceTree = "<group>";
@@ -5486,6 +5492,14 @@
 				2A816ACB2AD7E31F00975BCA /* ServerDocumentPicker.swift */,
 			);
 			path = ServerConfiguration;
+			sourceTree = "<group>";
+		};
+		2A816AD22AD840DE00975BCA /* Internal */ = {
+			isa = PBXGroup;
+			children = (
+				2A816AD32AD840F500975BCA /* SpaceViewIconInternalViewModel.swift */,
+			);
+			path = Internal;
 			sourceTree = "<group>";
 		};
 		2A83ED79285347B700612723 /* TableOfContents */ = {
@@ -10059,6 +10073,7 @@
 				2A12B77E2A6A754200CE1AFD /* GradientIconPainter.swift in Sources */,
 				125B6EBE26F235F400BCD7D6 /* EditorSearchCellConfiguration.swift in Sources */,
 				3D5A41482702E4E400F1F6A1 /* SlashMenuCellDataBuilder.swift in Sources */,
+				2A816AD12AD8069400975BCA /* SpaceView.swift in Sources */,
 				124AF82C26A6DA63004911E9 /* RelationValuesProtocol+PageCellTitle.swift in Sources */,
 				3D07ED72261F4B5A00C007E2 /* DividerBlockView.swift in Sources */,
 				2AE5C71D29B7299F00A92C12 /* WidgetSourceSearchViewModel.swift in Sources */,
@@ -10081,6 +10096,7 @@
 				2A66937D2A7104EA007747DD /* ObjectIconImageGuidelineSet.swift in Sources */,
 				3D44984D26D54A64005A3E06 /* BindableGestureRecognizer.swift in Sources */,
 				2ED9F4452A8FBB5400BE0A6B /* SetViewSettingsListModuleAssembly.swift in Sources */,
+				2A816AD42AD840F500975BCA /* SpaceViewIconInternalViewModel.swift in Sources */,
 				53EDA8802837EC4000887804 /* CreateObjectView.swift in Sources */,
 				1244792227D8A8BE00581174 /* StatusSearchRowView.swift in Sources */,
 				2E999487294240C300FFBED9 /* SetDocumentProtocol.swift in Sources */,

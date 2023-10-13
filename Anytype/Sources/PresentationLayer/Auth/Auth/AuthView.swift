@@ -20,6 +20,7 @@ struct AuthView: View {
     
     private var content: some View {
         VStack(alignment: .center, spacing: 0) {
+            Spacer.fixedHeight(80)
             Spacer()
             greetings
             Spacer()
