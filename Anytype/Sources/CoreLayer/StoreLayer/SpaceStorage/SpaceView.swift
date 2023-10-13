@@ -1,8 +1,6 @@
 import Foundation
 import Services
 
-extension SpaceView: IdProvider {}
-
 struct SpaceView {
     let id: String
     let title: String

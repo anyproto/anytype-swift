@@ -6,9 +6,9 @@ import AnytypeCore
 protocol SetsSubscriptionServiceProtocol: AnyObject {
     func startSubscription(
         objectLimit: Int?,
-        update: @escaping SubscriptionCallback
-    )
-    func stopSubscription()
+        update: @escaping ([ObjectDetails]) -> Void
+    ) async
+    func stopSubscription() async
 }
 
 final class SetsSubscriptionService: SetsSubscriptionServiceProtocol {
@@ -17,25 +17,25 @@ final class SetsSubscriptionService: SetsSubscriptionServiceProtocol {
         static let limit = 100
     }
     
-    private let subscriptionService: SubscriptionsServiceProtocol
+    private let subscriptionStorage: SubscriptionStorageProtocol
     private let objectTypeProvider: ObjectTypeProviderProtocol
     private let activeWorkspaceStorage: ActiveWorkpaceStorageProtocol
     private let subscriptionId = "Sets-\(UUID().uuidString)"
     
     init(
-        subscriptionService: SubscriptionsServiceProtocol,
+        subscriptionStorageProvider: SubscriptionStorageProviderProtocol,
         activeWorkspaceStorage: ActiveWorkpaceStorageProtocol,
         objectTypeProvider: ObjectTypeProviderProtocol
     ) {
-        self.subscriptionService = subscriptionService
+        self.subscriptionStorage = subscriptionStorageProvider.createSubscriptionStorage(subId: subscriptionId)
         self.activeWorkspaceStorage = activeWorkspaceStorage
         self.objectTypeProvider = objectTypeProvider
     }
     
     func startSubscription(
         objectLimit: Int?,
-        update: @escaping SubscriptionCallback
-    ) {
+        update: @escaping ([ObjectDetails]) -> Void
+    ) async {
         
         let sort = SearchHelper.sort(
             relation: BundledRelationKey.lastModifiedDate,
@@ -60,10 +60,12 @@ final class SetsSubscriptionService: SetsSubscriptionServiceProtocol {
             )
         )
         
-        subscriptionService.startSubscription(data: searchData, update: update)
+        try? await subscriptionStorage.startOrUpdateSubscription(data: searchData) { data in
+            update(data.items)
+        }
     }
     
-    func stopSubscription() {
-        subscriptionService.stopAllSubscriptions()
+    func stopSubscription() async {
+        try? await subscriptionStorage.stopSubscription()
     }
 }

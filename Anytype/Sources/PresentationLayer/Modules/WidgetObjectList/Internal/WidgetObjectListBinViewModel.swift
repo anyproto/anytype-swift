@@ -3,6 +3,7 @@ import Services
 import Combine
 import AnytypeCore
 
+@MainActor
 final class WidgetObjectListBinViewModel: WidgetObjectListInternalViewModelProtocol {
     
     // MARK: - DI
@@ -29,13 +30,17 @@ final class WidgetObjectListBinViewModel: WidgetObjectListInternalViewModelProto
     // MARK: - WidgetObjectListInternalViewModelProtocol
     
     func onAppear() {
-        binSubscriptionService.startSubscription(objectLimit: nil, update: { [weak self] _, update in
-            self?.details.applySubscriptionUpdate(update)
-        })
+        Task {
+            await binSubscriptionService.startSubscription(objectLimit: nil) { [weak self] details in
+                self?.details = details
+            }
+        }
     }
     
     func onDisappear() {
-        binSubscriptionService.stopSubscription()
+        Task {
+            await binSubscriptionService.stopSubscription()
+        }
     }
     
     func subtitle(for details: ObjectDetails) -> String? {

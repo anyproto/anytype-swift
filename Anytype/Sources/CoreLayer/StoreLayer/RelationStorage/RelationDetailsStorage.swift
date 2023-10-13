@@ -3,8 +3,6 @@ import Services
 import AnytypeCore
 import Combine
 
-extension RelationDetails: IdProvider {}
-
 enum RelationDetailsStorageError: Error {
     case relationNotFound
 }
@@ -18,7 +16,7 @@ final class RelationDetailsStorage: RelationDetailsStorageProtocol {
     
     static let subscriptionId = "SubscriptionId.Relation"
     
-    private let subscriptionsService: SubscriptionsServiceProtocol
+    private let subscriptionStorage: SubscriptionStorageProtocol
     private let subscriptionDataBuilder: RelationSubscriptionDataBuilderProtocol
     
     private var details = [RelationDetails]()
@@ -30,10 +28,10 @@ final class RelationDetailsStorage: RelationDetailsStorageProtocol {
     }
     
     init(
-        subscriptionsService: SubscriptionsServiceProtocol,
+        subscriptionStorageProvider: SubscriptionStorageProviderProtocol,
         subscriptionDataBuilder: RelationSubscriptionDataBuilderProtocol
     ) {
-        self.subscriptionsService = subscriptionsService
+        self.subscriptionStorage = subscriptionStorageProvider.createSubscriptionStorage(subId: Self.subscriptionId)
         self.subscriptionDataBuilder = subscriptionDataBuilder
     }
     // MARK: - RelationDetailsStorageProtocol
@@ -60,13 +58,13 @@ final class RelationDetailsStorage: RelationDetailsStorageProtocol {
     }
     
     func startSubscription() async {
-        await subscriptionsService.startSubscriptionAsync(data: subscriptionDataBuilder.build()) { [weak self] subId, update in
-            self?.handleEvent(update: update)
+        try? await subscriptionStorage.startOrUpdateSubscription(data: subscriptionDataBuilder.build()) { [weak self] data in
+            self?.updateaData(data: data)
         }
     }
     
-    func stopSubscription() {
-        subscriptionsService.stopSubscription(id: Self.subscriptionId)
+    func stopSubscription() async {
+        try? await subscriptionStorage.stopSubscription()
         details.removeAll()
         updateSearchCache()
         relationsDetailsSubject.send(details)
@@ -74,19 +72,16 @@ final class RelationDetailsStorage: RelationDetailsStorageProtocol {
     
     // MARK: - Private
     
-    private func handleEvent(update: SubscriptionUpdate) {
-        details.applySubscriptionUpdate(update, transform: { RelationDetails(objectDetails: $0) })
+    private func updateaData(data: SubscriptionStorageState) {
+        let oldDetails = details
+        details = data.items.map { RelationDetails(objectDetails: $0) }
         updateSearchCache()
         relationsDetailsSubject.send(details)
-        
-        switch update {
-        case .initialData(let details):
-            let relationKeys = details.map { $0.relationKey }
-            sendLocalEvents(relationKeys: relationKeys)
-        case .update(let objectDetails):
-            sendLocalEvents(relationKeys: [objectDetails.relationKey])
-        case .remove, .add, .move, .pageCount:
-            break
+
+        let diff = details.difference(from: oldDetails)
+        let keys = diff.insertions.map(\.element.key) + diff.removals.map(\.element.key)
+        if keys.isNotEmpty {
+            sendLocalEvents(relationKeys: keys)
         }
     }
     

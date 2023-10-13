@@ -2,6 +2,7 @@ import Foundation
 import Services
 import Combine
 
+@MainActor
 final class ObjectWidgetInternalViewModel: CommonWidgetInternalViewModel, WidgetInternalViewModelProtocol {
     
     // MARK: - DI
@@ -34,7 +35,7 @@ final class ObjectWidgetInternalViewModel: CommonWidgetInternalViewModel, Widget
             .sink { [weak self] details in
                 self?.name = details.title
                 self?.linkedObjectDetails = details
-                self?.updateLinksSubscriptions()
+                Task { await self?.updateLinksSubscriptions() }
             }
             .store(in: &subscriptions)
         
@@ -52,14 +53,14 @@ final class ObjectWidgetInternalViewModel: CommonWidgetInternalViewModel, Widget
         subscriptions.removeAll()
     }
     
-    override func startContentSubscription() {
-        super.startContentSubscription()
-        updateLinksSubscriptions()
+    override func startContentSubscription() async {
+        await super.startContentSubscription()
+        await updateLinksSubscriptions()
     }
     
-    override func stopContentSubscription() {
-        super.stopContentSubscription()
-        subscriptionManager.stopAllSubscriptions()
+    override func stopContentSubscription() async {
+        await super.stopContentSubscription()
+        await subscriptionManager.stopAllSubscriptions()
     }
     
     func screenData() -> EditorScreenData? {
@@ -73,9 +74,9 @@ final class ObjectWidgetInternalViewModel: CommonWidgetInternalViewModel, Widget
     
     // MARK: - Private
     
-    private func updateLinksSubscriptions() {
+    private func updateLinksSubscriptions() async {
         guard let linkedObjectDetails, contentIsAppear else { return }
         
-        _ = subscriptionManager.startOrUpdateSubscription(objectIds: linkedObjectDetails.links)
+        await _ = subscriptionManager.startOrUpdateSubscription(objectIds: linkedObjectDetails.links)
     }
 }

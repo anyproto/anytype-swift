@@ -6,10 +6,6 @@ import UIKit
 @MainActor
 final class SpaceSettingsViewModel: ObservableObject {
     
-    private enum Constants {
-        static let subSpaceId = "SpaceSettingsViewModel-Space"
-    }
-    
     // MARK: - DI
     
     private let activeWorkspaceStorage: ActiveWorkpaceStorageProtocol
@@ -24,6 +20,7 @@ final class SpaceSettingsViewModel: ObservableObject {
     
     private var subscriptions: [AnyCancellable] = []
     private var dataLoaded: Bool = false
+    private let subSpaceId = "SpaceSettingsViewModel-Space-\(UUID())"
     
     @Published var spaceName: String = ""
     @Published var spaceType: String = ""
@@ -46,8 +43,9 @@ final class SpaceSettingsViewModel: ObservableObject {
         self.relationDetailsStorage = relationDetailsStorage
         self.workspaceService = workspaceService
         self.output = output
-        
-        setupSubscription()
+        Task {
+            await setupSubscription()
+        }
     }
     
     func onChangeIconTap() {
@@ -64,9 +62,9 @@ final class SpaceSettingsViewModel: ObservableObject {
     
     // MARK: - Private
     
-    private func setupSubscription() {
-        subscriptionService.startSubscription(
-            subIdPrefix: Constants.subSpaceId,
+    private func setupSubscription() async {
+        await subscriptionService.startSubscription(
+            subId: subSpaceId,
             objectId: activeWorkspaceStorage.workspaceInfo.spaceViewId,
             additionalKeys: [.createdDate, .creator, .spaceAccessibility]
         ) { [weak self] details in

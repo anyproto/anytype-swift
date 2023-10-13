@@ -25,6 +25,7 @@ final class SettingsAccountViewModel: ObservableObject {
     @Published var profileName: String = ""
     private var subscriptions: [AnyCancellable] = []
     private var dataLoaded: Bool = false
+    private let subId = "SettingsAccount-\(UUID().uuidString)"
     
     init(
         activeWorkspaceStorage: ActiveWorkpaceStorageProtocol,
@@ -36,8 +37,9 @@ final class SettingsAccountViewModel: ObservableObject {
         self.subscriptionService = subscriptionService
         self.objectActionsService = objectActionsService
         self.output = output
-        
-        setupSubscription()
+        Task {
+            await setupSubscription()
+        }
     }
     
     func onRecoveryPhraseTap() {
@@ -58,9 +60,9 @@ final class SettingsAccountViewModel: ObservableObject {
     
     // MARK: - Private
     
-    private func setupSubscription() {
-        subscriptionService.startSubscription(
-            subIdPrefix: Constants.subId,
+    private func setupSubscription() async {
+        await subscriptionService.startSubscription(
+            subId: subId,
             objectId: activeWorkspaceStorage.workspaceInfo.profileObjectID
         ) { [weak self] details in
             self?.updateProfile(details: details)

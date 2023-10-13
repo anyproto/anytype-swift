@@ -7,27 +7,23 @@ protocol TemplatesSubscriptionServiceProtocol: AnyObject {
     func startSubscription(
         objectType: String,
         spaceId: String,
-        update: @escaping SubscriptionCallback
-    )
+        update: @escaping ([ObjectDetails]) -> Void
+    ) async
 }
 
 final class TemplatesSubscriptionService: TemplatesSubscriptionServiceProtocol {
     private let subscriptionId = "Templates-\(UUID().uuidString)"
-    private let subscriptionService: SubscriptionsServiceProtocol
+    private let subscriptionStorage: SubscriptionStorageProtocol
     
-    deinit {
-        stopSubscription()
-    }
-    
-    init(subscriptionService: SubscriptionsServiceProtocol) {
-        self.subscriptionService = subscriptionService
+    init(subscriptionStorageProvider: SubscriptionStorageProviderProtocol) {
+        self.subscriptionStorage = subscriptionStorageProvider.createSubscriptionStorage(subId: subscriptionId)
     }
     
     func startSubscription(
         objectType: String,
         spaceId: String,
-        update: @escaping SubscriptionCallback
-    ) {
+        update: @escaping ([ObjectDetails]) -> Void
+    ) async {
         let sort = SearchHelper.sort(
             relation: BundledRelationKey.addedDate,
             type: .desc
@@ -44,10 +40,8 @@ final class TemplatesSubscriptionService: TemplatesSubscriptionServiceProtocol {
             )
         )
         
-        subscriptionService.startSubscription(data: searchData, update: update)
-    }
-    
-    private func stopSubscription() {
-        subscriptionService.stopSubscription(id: subscriptionId)
+        try? await subscriptionStorage.startOrUpdateSubscription(data: searchData) { data in
+            update(data.items)
+        }
     }
 }

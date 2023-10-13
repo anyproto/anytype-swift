@@ -17,5 +17,5 @@ protocol ObjectTypeProviderProtocol: AnyObject {
     func deleteObjectType(id: String) -> ObjectType
     
     func startSubscription() async
-    func stopSubscription()
+    func stopSubscription() async
 }
