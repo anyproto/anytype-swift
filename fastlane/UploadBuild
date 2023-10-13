@@ -1,0 +1,14 @@
+  lane :upload_build_to_testflight do 
+    api_key = app_store_connect_api_key(
+        key_id: ENV['APP_STORE_CONNECT_KEY_ID'],
+        issuer_id: ENV['APP_STORE_CONNECT_ISSUER_ID'],
+        key_content: ENV['APP_STORE_CONNECT_KEY_CONTENT'],
+        duration: 1200,
+        in_house: false
+    )
+
+    upload_to_testflight(
+      api_key: api_key, 
+      skip_waiting_for_build_processing: true
+    )
+  end
