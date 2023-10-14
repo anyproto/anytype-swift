@@ -221,7 +221,7 @@
 "Auth.JoinFlow.Key.ReadMore.Instruction.Option2.Title" = "最可靠的方法是现实中在纸面上写下，并放在一个安全可靠的地方。";
 
 "Auth.JoinFlow.Soul.Title" = "设置名称";
-"Auth.JoinFlow.Soul.Description" = "This is how you will appear in the app.";
+"Auth.JoinFlow.Soul.Description" = "这将是您在应用中的显示方式。";
 "Auth.JoinFlow.Soul.Placeholder" = "无标题";
 
 "Auth.JoinFlow.Creating.Soul.Title" = "生成新的 Anytype 标识";
@@ -799,8 +799,8 @@
 "ClearCacheAlert.Description" = "存储在 Anytype 中的所有媒体文件将从您当前的设备中删除。可以从备份节点或其他设备再次下载它们。";
 
 // MARK: - Spaces
-"Spaces.Accessibility.Public" = "Public";
-"Spaces.Accessibility.Private" = "Private";
+"Spaces.Accessibility.Public" = "公共";
+"Spaces.Accessibility.Private" = "私人";
 "Spaces.Accessibility.PublicFull" = "公共空间";
 "Spaces.Accessibility.PrivateFull" = "私人空间";
 
