@@ -220,7 +220,7 @@
 "Auth.JoinFlow.Key.ReadMore.Instruction.Option1.Title" = "The easiest way to store your Recovery Phrase is to save it in your password manager.";
 "Auth.JoinFlow.Key.ReadMore.Instruction.Option2.Title" = "The most secure way is to write it down on paper and keep it offline, in a safe and secure place.";
 
-"Auth.JoinFlow.Soul.Title" = "Set your name";
+"Auth.JoinFlow.Soul.Title" = "Ange ditt namn";
 "Auth.JoinFlow.Soul.Description" = "This is how you will appear in the app.";
 "Auth.JoinFlow.Soul.Placeholder" = "Untitled";
 
@@ -307,7 +307,7 @@
 
 
 // MARK: - Templates
-"TemplateSelection.Available.Title" = "This type has %d templates";
+"TemplateSelection.Available.Title" = "Denna typ har %d mallar";
 "TemplatePicker.ChooseTemplate" = "Välj mall";
 "TemplatePicker.Buttons.UseTemplate" = "Använd mall";
 "TemplateSelection.SelectTemplate" = "Select template";
@@ -622,7 +622,7 @@
 // MARK: - ObjectType
 "ObjectType.fallbackDescription" = "Blank canvas with no title";
 "ObjectType.SearchOrInstall" = "Search or install a new type";
-"ObjectType.Search" = "Search for Type";
+"ObjectType.Search" = "Sök efter typ";
 "ObjectType.MyTypes" = "My Types";
 "ObjectType.AddedToLibrary" = "Type ‘%@’ added to your library";
 "ObjectType.DeletedName" = "Deleted type";
@@ -800,7 +800,7 @@
 
 // MARK: - Spaces
 "Spaces.Accessibility.Public" = "Public";
-"Spaces.Accessibility.Private" = "Private";
+"Spaces.Accessibility.Private" = "Privat";
 "Spaces.Accessibility.PublicFull" = "Public space";
 "Spaces.Accessibility.PrivateFull" = "Private space";
 
