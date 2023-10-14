@@ -3,7 +3,7 @@
 
 // MARK: Text Style in Slash and Style menu
 "TextStyle.Text.Title" = "Tekst";
-"TextStyle.Text.Subtitle" = "Just start writing with a plain text";
+"TextStyle.Text.Subtitle" = "Start bare å skrive med ren tekst";
 
 "TextStyle.Title.Title" = "Tittel";
 "TextStyle.Title.Subtitle" = "Stor seksjonsoverskrift";
@@ -39,26 +39,26 @@
 "TextStyle.Link.Title" = "Lenke";
 
 // MARK: - Block Text
-"BlockText.Content.Placeholder" = "Untitled";
+"BlockText.Content.Placeholder" = "Uten tittel";
 
-"BlockText.ContentType.Title.Placeholder" = "Untitled";
-"BlockText.ContentType.Description.Placeholder" = "Add a description";
-"BlockText.ContentType.Toggle.Placeholder" = "Toggle block";
-"BlockText.ContentType.Bulleted.Placeholder" = "Bulleted list item";
+"BlockText.ContentType.Title.Placeholder" = "Uten tittel";
+"BlockText.ContentType.Description.Placeholder" = "Legg til en beskrivelse";
+"BlockText.ContentType.Toggle.Placeholder" = "Ekspanderbar blokk";
+"BlockText.ContentType.Bulleted.Placeholder" = "Punktliste-element";
 "BlockText.ContentType.Checkbox.Placeholder" = "Avkrysningsboks";
-"BlockText.ContentType.Numbered.Placeholder" = "Numbered list item";
-"BlockText.ContentType.Quote.Placeholder" = "Highlighted text";
+"BlockText.ContentType.Numbered.Placeholder" = "Nummerert liste-element";
+"BlockText.ContentType.Quote.Placeholder" = "Uthevet tekst";
 "BlockText.ContentType.Header.Placeholder" = "Tittel";
 "BlockText.ContentType.Header2.Placeholder" = "Overskrift";
 "BlockText.ContentType.Header3.Placeholder" = "Underoverskrift";
 
 // MARK: - Block Link
 
-"BlockLink.PreviewSettings.IconSize.None" = "None";
-"BlockLink.PreviewSettings.IconSize.Small" = "Small";
+"BlockLink.PreviewSettings.IconSize.None" = "Ingen";
+"BlockLink.PreviewSettings.IconSize.Small" = "Liten";
 "BlockLink.PreviewSettings.IconSize.Medium" = "Medium";
 
-"BlockLink.PreviewSettings.Layout.Card.Title" = "Card";
+"BlockLink.PreviewSettings.Layout.Card.Title" = "Kort";
 "BlockLink.PreviewSettings.Layout.Text.Title" = "Tekst";
 
 // MARK: - Settings
@@ -66,36 +66,36 @@
 "Settings.SpaceName" = "Romnavn";
 
 // MARK: - Object
-"Object.Title.Placeholder" = "Untitled";
-"Object.Deleted.Placeholder" = "Deleted object";
+"Object.Title.Placeholder" = "Uten tittel";
+"Object.Deleted.Placeholder" = "Slettet objekt";
 
 // MARK: - Relation
-"Featured relations" = "Featured relations";
-"Create relation" = "Create relation ‘%@’";
-"Relation.View.Hint.Empty" = "empty";
-"Relation.MyRelations" = "My relations";
-"Relation.AddedToLibrary" = "Relation ‘%@’ added to your library";
-"Relation.Deleted" = "Deleted relation";
-"Relation.From.Type" = "From type %@";
+"Featured relations" = "Utvalgte relasjoner";
+"Create relation" = "Lag relasjon ’%@’";
+"Relation.View.Hint.Empty" = "tom";
+"Relation.MyRelations" = "Mine relasjoner";
+"Relation.AddedToLibrary" = "Relasjonen ’%@’ har blitt lagt til i biblioteket ditt";
+"Relation.Deleted" = "Slettet relasjon";
+"Relation.From.Type" = "Fra type %@";
 
-"Relation.Format.Object.Title" = "Object";
+"Relation.Format.Object.Title" = "Objekt";
 "Relation.Format.Text.Title" = "Tekst";
-"Relation.Format.Number.Title" = "Number";
+"Relation.Format.Number.Title" = "Tall";
 "Relation.Format.Status.Title" = "Status";
 "Relation.Format.Tag.Title" = "Tag";
 "Relation.Format.Date.Title" = "Dato";
 "Relation.Format.FileMedia.Title" = "Fil & Media";
 "Relation.Format.Checkbox.Title" = "Avkrysningsboks";
 "Relation.Format.Url.Title" = "URL";
-"Relation.Format.Email.Title" = "Email";
-"Relation.Format.Phone.Title" = "Phone number";
+"Relation.Format.Email.Title" = "E-post";
+"Relation.Format.Phone.Title" = "Telefonnummer";
 
 // MARK: - Mention
-"Mention.Subtitle.Placeholder" = "Object";
+"Mention.Subtitle.Placeholder" = "Objekt";
 
-"None" = "None";
+"None" = "Ingen";
 "Callout" = "Utrop";
-"Toggle empty. Tap to create block." = "Toggle empty. Tap to create block.";
+"Toggle empty. Tap to create block." = "Tom ekspanderbar liste. Trykk for å opprette blokk.";
 "Loading, please wait" = "Laster inn, vennligst vent";
 "Done" = "Ferdig";
 "Style" = "Stil";
@@ -103,27 +103,27 @@
 "Background" = "Bakgrunn";
 "Other" = "Annet";
 "Media" = "Media";
-"Alignment" = "Alignment";
-"Actions" = "Actions";
+"Alignment" = "Justering";
+"Actions" = "Handlinger";
 "Relations" = "Relasjoner";
-"Objects" = "Objects";
-"Delete" = "Delete";
-"Duplicate" = "Duplicate";
-"Copy" = "Copy";
-"Preview" = "Preview";
-"View" = "View";
-"Paste" = "Paste";
-"Move" = "Move";
-"Move to" = "Move to";
-"Back" = "Back";
-"File block subtitle" = "Store file in original state";
-"Picture block subtitle" = "Upload and enrich the page with image";
-"Video block subtitle" = "Upload playable video";
-"Bookmark block subtitle" = "Save your favorite link with summary";
-"Code block subtitle" = "Capture code snippet";
-"Align right" = "Align right";
-"Align left" = "Align left";
-"Align center" = "Align center";
+"Objects" = "Objekter";
+"Delete" = "Slett";
+"Duplicate" = "Dupliser";
+"Copy" = "Kopier";
+"Preview" = "Forhåndsvisning";
+"View" = "Visning";
+"Paste" = "Lim inn";
+"Move" = "Flytt";
+"Move to" = "Flytt til";
+"Back" = "Tilbake";
+"File block subtitle" = "Lagre fil i original tilstand";
+"Picture block subtitle" = "Last opp og berik siden med bilde";
+"Video block subtitle" = "Last opp spillbar video";
+"Bookmark block subtitle" = "Lagre din favorittlenke med sammendrag";
+"Code block subtitle" = "Formatere kodeutdrag";
+"Align right" = "Høyrejuster";
+"Align left" = "Venstrejuster";
+"Align center" = "Midtstill";
 "Black" = "Svart";
 "Amber" = "Amber";
 "Red" = "Rød";
@@ -132,14 +132,14 @@
 "Blue" = "Blå";
 "Teal" = "Turkis";
 "Green" = "Grønn";
-"Default background" = "Default background";
-"Amber background" = "Amber background";
-"Red background" = "Red background";
-"Pink background" = "Pink background";
-"Purple background" = "Purple background";
-"Blue background" = "Blue background";
-"Green background" = "Green background";
-"Create new object" = "Create new object";
+"Default background" = "Standardbakgrunn";
+"Amber background" = "Amber bakgrunn";
+"Red background" = "Rød bakgrunn";
+"Pink background" = "Rosa bakgrunn";
+"Purple background" = "Lilla bakgrunn";
+"Blue background" = "Blå bakgrunn";
+"Green background" = "Grønn bakgrunn";
+"Create new object" = "Opprett nytt objekt";
 "Cancel" = "Avbryt";
 "Paste or type URL" = "Lim inn eller skriv URL";
 "No items match filter" = "Ingen elementer samsvarer med filteret";
@@ -147,7 +147,7 @@
 "Name" = "Navn";
 "Description" = "Beskrivelse";
 "Paste processing..." = "Paste processing...";
-"Anytype Library" = "Anytype Library";
+"Anytype Library" = "Anytype bibliotek";
 "Copied" = "Kopiert";
 
 // Home
@@ -160,11 +160,11 @@
 "Log out" = "Logg ut";
 
 // Action
-"Restore" = "Restore";
+"Restore" = "Gjenopprett";
 
 // Keychain screen
-"Keychain.Recovery phrase" = "Recovery phrase";
-"Keychain.Recovery phrase copied to clipboard" = "Recovery phrase copied";
+"Keychain.Recovery phrase" = "Gjenopprettingsfrase";
+"Keychain.Recovery phrase copied to clipboard" = "Gjenopprettingsfrase kopiert";
 "Keychain.Recovery phrase description" = "You will need it to sign in. Keep it in a safe place. If you lose it, you can no longer access your account.";
 "Keychain.Save keychain alert part 1" = "If you lose the recovery phrase and get logged out you will not be able to ";
 "Keychain.Save keychain alert part 2" = "ever access your data again";
@@ -174,16 +174,16 @@
 "Keychain.Have you backed up your recovery phrase?" = "Have you backed up your recovery phrase?";
 "Keychain.Error.String to Data conversion error" = "String to Data conversion error";
 "Keychain.Error.Data to String conversion error" = "Data to String conversion error";
-"Keychain.Error.Unknown Keychain Error" = "Unknown Keychain Error";
+"Keychain.Error.Unknown Keychain Error" = "Ukjent feil med nøkkelring";
 "Keychain.SeedPhrasePlaceholder" = "witch collapse practice feed shame open despair creek road again ice least lake tree young address brain despair";
 
 // Auth
-"Sign up" = "Sign up";
-"Login" = "Login";
-"Create" = "Create";
-"Scan QR code" = "Scan QR code";
-"Auth.CameraPermissionTitle" = "Please allow access";
-"Restore secret phrase from keychain" = "Restore Recovery Phrase from the keychain";
+"Sign up" = "Registrer deg";
+"Login" = "Logg inn";
+"Create" = "Opprett";
+"Scan QR code" = "Skann QR-kode";
+"Auth.CameraPermissionTitle" = "Vennligst tillat tilgang";
+"Restore secret phrase from keychain" = "Gjenopprett gjenopprettingsfrasen fra nøkkelringen";
 "Auth.LogIn" = "Jeg har allerede en";
 "Auth.Join" = "Generer ny konto";
 "Auth.Welcome.Subtitle" = "Anytype is your safe space to write, plan, think and organise everything that matters to you.";
@@ -198,42 +198,42 @@
 "Error select account" = "Error select account";
 "Error wallet recover account" = "Error wallet recover account";
 
-"Search for language" = "Search for language";
+"Search for language" = "Søk etter språk";
 
 // Auth - Join flow
 
-"Auth.JoinFlow.Key.Title" = "Save your Recovery Phrase";
+"Auth.JoinFlow.Key.Title" = "Lagre gjenopprettingsfrasen din";
 "Auth.JoinFlow.Key.Description" = "It’s a novel way of authentication that gives you full ownership over your account and data.";
 "Auth.JoinFlow.Key.TextField.Placeholder" = "Type your recovery phrase";
-"Auth.JoinFlow.Key.Button.Show.Title" = "Show Recovery Phrase";
-"Auth.JoinFlow.Key.Button.Saved.Title" = "Go to the app";
+"Auth.JoinFlow.Key.Button.Show.Title" = "Vis gjenopprettingsfrasen";
+"Auth.JoinFlow.Key.Button.Saved.Title" = "Gå til appen";
 "Auth.JoinFlow.Key.Button.Later.Title" = "Hopp over";
 "Auth.JoinFlow.Key.Button.Copy.Title" = "Kopier til utklippstavlen";
 "Auth.JoinFlow.Key.Button.Info.Title" = "Les mer";
-"Auth.JoinFlow.Key.Button.Tip.Title" = "You can find Recovery Phrase later in Anytype settings";
+"Auth.JoinFlow.Key.Button.Tip.Title" = "Du kan finne gjenopprettingsfrasen senere i Anytype innstillingene";
 
-"Auth.JoinFlow.Key.ReadMore.Title" = "What is Recovery Phrase?";
+"Auth.JoinFlow.Key.ReadMore.Title" = "Hva er gjenopprettingsfrase?";
 "Auth.JoinFlow.Key.ReadMore.Option1.Title" = "Recovery Phrase is a random combination of 12 words from which your account is magically generated on this device.";
 "Auth.JoinFlow.Key.ReadMore.Option2.Title" = "Whomever knows Recovery Phrase, owns the account. **At this moment, you are the only person in the world who knows it.**";
 "Auth.JoinFlow.Key.ReadMore.Option3.Title" = "That's why it's essential to keep Recovery Phrase safe. As the sole owner, nobody can help you if it's lost.";
-"Auth.JoinFlow.Key.ReadMore.Instruction.Title" = "How to save my phrase?";
-"Auth.JoinFlow.Key.ReadMore.Instruction.Option1.Title" = "The easiest way to store your Recovery Phrase is to save it in your password manager.";
-"Auth.JoinFlow.Key.ReadMore.Instruction.Option2.Title" = "The most secure way is to write it down on paper and keep it offline, in a safe and secure place.";
+"Auth.JoinFlow.Key.ReadMore.Instruction.Title" = "Hvordan lagre min frase?";
+"Auth.JoinFlow.Key.ReadMore.Instruction.Option1.Title" = "Den enkleste måten å lagre gjenopprettingsfrasen er å lagre den i passordbehandleren.";
+"Auth.JoinFlow.Key.ReadMore.Instruction.Option2.Title" = "Den sikreste måten er å skrive den ned på papir og oppbevare den offline, på et trygt og sikkert sted.";
 
-"Auth.JoinFlow.Soul.Title" = "Set your name";
-"Auth.JoinFlow.Soul.Description" = "This is how you will appear in the app.";
-"Auth.JoinFlow.Soul.Placeholder" = "Untitled";
+"Auth.JoinFlow.Soul.Title" = "Skriv inn navnet ditt";
+"Auth.JoinFlow.Soul.Description" = "Slik vises du i appen.";
+"Auth.JoinFlow.Soul.Placeholder" = "Uten tittel";
 
-"Auth.JoinFlow.Creating.Soul.Title" = "Generating new account";
+"Auth.JoinFlow.Creating.Soul.Title" = "Genererer ny konto";
 "Auth.JoinFlow.Setting.Space.Title" = "Setter opp ditt personlige rom";
 "Auth.JoinFlow.Personal.Space.Title" = "Personlig rom";
 
 // Auth - Login flow
-"Auth.LoginFlow.Use.Keychain.Title" = "Use keychain";
-"Auth.LoginFlow.Or" = "OR";
+"Auth.LoginFlow.Use.Keychain.Title" = "Bruk nøkkelring";
+"Auth.LoginFlow.Or" = "ELLER";
 "Auth.LoginFlow.Textfield.Placeholder" = "Type your recovery phrase";
-"Auth.LoginFlow.Enter.Button.Title" = "Login";
-"Auth.LoginFlow.Entering.Void.Title" = "Entering the Void";
+"Auth.LoginFlow.Enter.Button.Title" = "Logg inn";
+"Auth.LoginFlow.Entering.Void.Title" = "Går inn i Void";
 
 // Object settings
 
@@ -244,9 +244,9 @@
 "Layout" = "Oppsett";
 "Arrangement of objects on a canvas" = "Arrangement of objects on a canvas";
 
-"Search" = "Search";
-"There is no emoji named" = "There is no emoji named";
-"Try to find a new one or upload your image" = "Try to find a new one or upload your image";
+"Search" = "Søk";
+"There is no emoji named" = "Det finnes ingen emoji med navnet";
+"Try to find a new one or upload your image" = "Prøv å finne en ny eller last opp bildet ditt";
 
 "Emoji" = "Emoji";
 "Random" = "Tilfeldig";
@@ -256,31 +256,31 @@
 "Remove" = "Fjern";
 
 "Solid colors" = "Heldekkende farger";
-"Gradients" = "Gradients";
-"Gallery" = "Gallery";
+"Gradients" = "Graderinger";
+"Gallery" = "Galleri";
 
-"Remove photo" = "Remove photo";
-"Basic" = "Basic";
-"Profile" = "Profile";
-"Task" = "Task";
-"Note" = "Note";
-"Choose layout type" = "Choose layout type";
+"Remove photo" = "Fjern bilde";
+"Basic" = "Grunnleggende";
+"Profile" = "Profil";
+"Task" = "Oppgave";
+"Note" = "Notat";
+"Choose layout type" = "Velg oppsett";
 
-"Undo typing" = "Undo typing";
-"Undo" = "Undo";
-"Actions.LinkItself" = "Link to";
-"Actions.MakeAsTemplate" = "Make template";
-"Actions.TemplateMakeDefault" = "Set as default";
+"Undo typing" = "Angre skriving";
+"Undo" = "Angre";
+"Actions.LinkItself" = "Koble til";
+"Actions.MakeAsTemplate" = "Lag mal";
+"Actions.TemplateMakeDefault" = "Bruk som standard";
 
 // Object Type
-"Set" = "Set";
-"Collection" = "Collection";
+"Set" = "Sett";
+"Collection" = "Samling";
 
-"Editor.MovingState.ScrollToSelectedPlace" = "Scroll to select a place";
+"Editor.MovingState.ScrollToSelectedPlace" = "Scroll for å velge et sted";
 
 // MARK: - Link to search
 
-"Editor.LinkToObject.SearchPlaceholder" = "Paste link or search objects";
+"Editor.LinkToObject.SearchPlaceholder" = "Lim inn kobling eller søk i objekter";
 "Editor.LinkToObject.PasteFromClipboard" = "Lim inn fra utklippstavle";
 "Editor.LinkToObject.LinkedTo" = "Koblet til";
 "Editor.LinkToObject.CopyLink" = "Kopier lenke";
@@ -293,7 +293,7 @@
 
 // MARK: - Home
 
-"Home.Snackbar.Library" = "Library is available in desktop app";
+"Home.Snackbar.Library" = "Biblioteket er tilgjengelig i skrivebordsappen";
 
 // MARK: - Alerts
 "Alert.CameraPermissions.Settings" = "Innstillinger";
@@ -303,525 +303,525 @@
 "Pending deletion text" = "We're sorry to see you go. You have 30 days to cancel this request. After 30 days, your encrypted account data is permanently removed from the backup node.";
 
 // MARK: - Object Settings
-"Undo/Redo" = "Undo/Redo";
+"Undo/Redo" = "Angre/Omgjør";
 
 
 // MARK: - Templates
-"TemplateSelection.Available.Title" = "This type has %d templates";
+"TemplateSelection.Available.Title" = "Denne typen har %d maler";
 "TemplatePicker.ChooseTemplate" = "Velg mal";
 "TemplatePicker.Buttons.UseTemplate" = "Bruk mal";
 "TemplateSelection.SelectTemplate" = "Velg mal";
 "TemplateSelection.blankTemplate" = "Tom";
 "TemplateSelection.Template.Subtitle" = "Mal";
-"TemplateSelection.ObjectType.Subtitle" = "Object type";
+"TemplateSelection.ObjectType.Subtitle" = "Objekttype";
 "TemplateSelection.ObjectType.NoTemplates.Title" = "Denne typen støtter ikke maler";
 
 "TemplateOptions.Alert.SetAsDefault" = "Sett som standard for denne visningen";
 "TemplateOptions.Alert.EditTemplate" = "Rediger mal";
-"TemplateOptions.Alert.Duplicate" = "Duplicate";
-"TemplateOptions.Alert.Delete" = "Delete";
+"TemplateOptions.Alert.Duplicate" = "Dupliser";
+"TemplateOptions.Alert.Delete" = "Slett";
 
 "TemplateEditing.Title" = "Rediger mal";
 "TemplateEditing.SelectButtonTitle" = "Velg mal";
 
-"Templates.Popup.WasAddedTo" = "New template was added to the type";
-"Templates.Popup.Duplicated" = "The template was duplicated";
-"Templates.Popup.Removed" = "The template was removed";
-"Templates.Popup.Default" = "The template was set as default";
+"Templates.Popup.WasAddedTo" = "Ny mal ble lagt til typen";
+"Templates.Popup.Duplicated" = "Malen ble duplisert";
+"Templates.Popup.Removed" = "Malen ble fjernet";
+"Templates.Popup.Default" = "Malen ble satt som standard";
 
-"To Bin" = "To Bin";
+"To Bin" = "Til papirkurv";
 
 // MARK: - Context Menu
-"Remove From Favorite" = "Remove From Favorite";
-"Add To Favorite" = "Add To Favorite";
-"Move To Bin" = "Move To Bin";
+"Remove From Favorite" = "Fjern fra favoritter";
+"Add To Favorite" = "Legg til i favoritter";
+"Move To Bin" = "Flytt til papirkurv";
 
 
-"LinkAppearance.Description.None.Title" = "None";
-"LinkAppearance.Description.Object.Title" = "Object description";
-"LinkAppearance.Description.Content.Title" = "Content preview";
-"LinkAppearance.ObjectType.Title" = "Object type";
+"LinkAppearance.Description.None.Title" = "Ingen";
+"LinkAppearance.Description.Object.Title" = "Beskrivelse av objektet";
+"LinkAppearance.Description.Content.Title" = "Forhåndsvisning av innhold";
+"LinkAppearance.ObjectType.Title" = "Objekttype";
 
 // MARK: - Sets: Sorts
-"EditSet.Popup.Sorts.NavigationView.Title" = "Sorts";
+"EditSet.Popup.Sorts.NavigationView.Title" = "Sorteringer";
 "EditSet.Popup.Sorts.EmptyView.Title" = "No sorts here. You can add some";
-"EditSet.Popup.Sort.Types.Ascending" = "Ascending";
-"EditSet.Popup.Sort.Types.Descending" = "Descending";
-"EditSet.Popup.Sort.Add.SearchPlaceholder" = "Сhoose a relation to sort";
+"EditSet.Popup.Sort.Types.Ascending" = "Stigende rekkefølge";
+"EditSet.Popup.Sort.Types.Descending" = "Synkende rekkefølge";
+"EditSet.Popup.Sort.Add.SearchPlaceholder" = "Velg en relasjon for sortering";
 
 // MARK: - Sets: Filters
-"EditSet.Popup.Filters.NavigationView.Title" = "Filters";
-"EditSet.Popup.Filters.EmptyView.Title" = "No filters here. You can add some";
-"EditSet.Popup.Filters.TextView.Placeholder" = "Value";
+"EditSet.Popup.Filters.NavigationView.Title" = "Filtre";
+"EditSet.Popup.Filters.EmptyView.Title" = "Ingen filtre her. Du kan legge til noen";
+"EditSet.Popup.Filters.TextView.Placeholder" = "Verdi";
 
 // MARK: - Sets: Filters.Conditions
-"EditSet.Popup.Filter.Condition.Text.Equal" = "Is";
-"EditSet.Popup.Filter.Condition.Text.NotEqual" = "Is not";
-"EditSet.Popup.Filter.Condition.Text.Like" = "Contains";
-"EditSet.Popup.Filter.Condition.Text.NotLike" = "Doesn't contain";
+"EditSet.Popup.Filter.Condition.Text.Equal" = "Er";
+"EditSet.Popup.Filter.Condition.Text.NotEqual" = "Er ikke";
+"EditSet.Popup.Filter.Condition.Text.Like" = "Inneholder";
+"EditSet.Popup.Filter.Condition.Text.NotLike" = "Inneholder ikke";
 
-"EditSet.Popup.Filter.Condition.Number.Equal" = "Is equal to";
-"EditSet.Popup.Filter.Condition.Number.NotEqual" = "Is not equal to";
-"EditSet.Popup.Filter.Condition.Number.Greater" = "Is greater than";
-"EditSet.Popup.Filter.Condition.Number.Less" = "Is less than";
-"EditSet.Popup.Filter.Condition.Number.GreaterOrEqual" = "Is greater than or equal to";
-"EditSet.Popup.Filter.Condition.Number.LessOrEqual" = "Is less than or equal to";
+"EditSet.Popup.Filter.Condition.Number.Equal" = "Er lik";
+"EditSet.Popup.Filter.Condition.Number.NotEqual" = "Er ikke lik";
+"EditSet.Popup.Filter.Condition.Number.Greater" = "Er større enn";
+"EditSet.Popup.Filter.Condition.Number.Less" = "Er mindre enn";
+"EditSet.Popup.Filter.Condition.Number.GreaterOrEqual" = "Er større enn eller lik";
+"EditSet.Popup.Filter.Condition.Number.LessOrEqual" = "Er mindre enn eller lik";
 
-"EditSet.Popup.Filter.Condition.Date.Equal" = "Is";
-"EditSet.Popup.Filter.Condition.Date.After" = "Is after";
-"EditSet.Popup.Filter.Condition.Date.Before" = "Is before";
-"EditSet.Popup.Filter.Condition.Date.OnOrAfter" = "Is on or after";
-"EditSet.Popup.Filter.Condition.Date.OnOrBefore" = "Is on or before";
-"EditSet.Popup.Filter.Condition.Date.In" = "Is within";
+"EditSet.Popup.Filter.Condition.Date.Equal" = "Er";
+"EditSet.Popup.Filter.Condition.Date.After" = "Er etter";
+"EditSet.Popup.Filter.Condition.Date.Before" = "Er før";
+"EditSet.Popup.Filter.Condition.Date.OnOrAfter" = "Er på eller etter";
+"EditSet.Popup.Filter.Condition.Date.OnOrBefore" = "Er på eller før";
+"EditSet.Popup.Filter.Condition.Date.In" = "Er innenfor";
 
-"EditSet.Popup.Filter.Condition.Selected.In" = "Has any of";
-"EditSet.Popup.Filter.Condition.Selected.AllIn" = "Has all of";
-"EditSet.Popup.Filter.Condition.Selected.NotIn" = "Has none of";
-"EditSet.Popup.Filter.Condition.Selected.Equal" = "Is exactly";
+"EditSet.Popup.Filter.Condition.Selected.In" = "Har noen av";
+"EditSet.Popup.Filter.Condition.Selected.AllIn" = "Har alle av";
+"EditSet.Popup.Filter.Condition.Selected.NotIn" = "Har ingen av";
+"EditSet.Popup.Filter.Condition.Selected.Equal" = "Er nøyaktig";
 
-"EditSet.Popup.Filter.Condition.Checkbox.Equal" = "Is";
-"EditSet.Popup.Filter.Condition.Checkbox.NotEqual" = "Is not";
+"EditSet.Popup.Filter.Condition.Checkbox.Equal" = "Er";
+"EditSet.Popup.Filter.Condition.Checkbox.NotEqual" = "Er ikke";
 
-"EditSet.Popup.Filter.Condition.General.Empty" = "Is empty";
-"EditSet.Popup.Filter.Condition.General.NotEmpty" = "Is not empty";
-"EditSet.Popup.Filter.Condition.General.None" = "All";
+"EditSet.Popup.Filter.Condition.General.Empty" = "Er tom";
+"EditSet.Popup.Filter.Condition.General.NotEmpty" = "Er ikke tom";
+"EditSet.Popup.Filter.Condition.General.None" = "Alle";
 
-"EditSet.Popup.Filter.Value.Checked" = "Checked";
-"EditSet.Popup.Filter.Value.Unchecked" = "Unchecked";
+"EditSet.Popup.Filter.Value.Checked" = "Krysset av";
+"EditSet.Popup.Filter.Value.Unchecked" = "Ikke krysset av";
 
-"EditSet.Popup.Filter.Date.Option.Today" = "Today";
-"EditSet.Popup.Filter.Date.Option.Yesterday" = "Yesterday";
-"EditSet.Popup.Filter.Date.Option.Tomorrow" = "Tomorrow";
-"EditSet.Popup.Filter.Date.Option.LastWeek" = "Last week";
-"EditSet.Popup.Filter.Date.Option.CurrentWeek" = "Current week";
-"EditSet.Popup.Filter.Date.Option.NextWeek" = "Next week";
-"EditSet.Popup.Filter.Date.Option.LastMonth" = "Last month";
-"EditSet.Popup.Filter.Date.Option.CurrentMonth" = "Current month";
-"EditSet.Popup.Filter.Date.Option.NextMonth" = "Next month";
-"EditSet.Popup.Filter.Date.Option.NumberOfDaysAgo" = "Number of days ago";
-"EditSet.Popup.Filter.Date.Option.NumberOfDaysFromNow" = "Number of days from now";
-"EditSet.Popup.Filter.Date.Option.ExactDate" = "Exact date";
+"EditSet.Popup.Filter.Date.Option.Today" = "I dag";
+"EditSet.Popup.Filter.Date.Option.Yesterday" = "I går";
+"EditSet.Popup.Filter.Date.Option.Tomorrow" = "I morgen";
+"EditSet.Popup.Filter.Date.Option.LastWeek" = "Forrige uke";
+"EditSet.Popup.Filter.Date.Option.CurrentWeek" = "Denne uken";
+"EditSet.Popup.Filter.Date.Option.NextWeek" = "Neste uke";
+"EditSet.Popup.Filter.Date.Option.LastMonth" = "Forrige måned";
+"EditSet.Popup.Filter.Date.Option.CurrentMonth" = "Denne måneden";
+"EditSet.Popup.Filter.Date.Option.NextMonth" = "Neste måned";
+"EditSet.Popup.Filter.Date.Option.NumberOfDaysAgo" = "Antall dager siden";
+"EditSet.Popup.Filter.Date.Option.NumberOfDaysFromNow" = "Antall dager fra nå";
+"EditSet.Popup.Filter.Date.Option.ExactDate" = "Eksakt dato";
 
-"EditSet.Popup.Filter.Date.Option.NumberOfDaysAgo.Short" = "%@ days ago";
-"EditSet.Popup.Filter.Date.Option.NumberOfDaysFromNow.Short" = "%@ days from now";
+"EditSet.Popup.Filter.Date.Option.NumberOfDaysAgo.Short" = "%@ dager siden";
+"EditSet.Popup.Filter.Date.Option.NumberOfDaysFromNow.Short" = "%@ dager fra nå";
 
 // MARK: - Sets. Create object
-"Set.Create.ObjectTitle.Placeholder" = "Untitled";
+"Set.Create.ObjectTitle.Placeholder" = "Uten tittel";
 
 // MARK: - Sets: Featured relations
-"Set.FeaturedRelations.Query" = "Query";
-"Set.FeaturedRelations.RelationsList" = "Relations:";
-"Set.FeaturedRelations.Relation" = "Relation:";
+"Set.FeaturedRelations.Query" = "Spørring";
+"Set.FeaturedRelations.RelationsList" = "Relasjoner:";
+"Set.FeaturedRelations.Relation" = "Relasjon:";
 "Set.FeaturedRelations.Type" = "Type:";
 
 // MARK: - Sets: Filters search
-"Set.Button.Title.Apply" = "Apply";
+"Set.Button.Title.Apply" = "Bruk";
 
 // MARK: - Set.Bookmarks
-"Set.Bookmark.Create.Placeholder" = "Paste link";
-"Set.Bookmark.Error.Title" = "Oops - something went wrong";
-"Set.Bookmark.Error.Message" = "Please try again";
+"Set.Bookmark.Create.Placeholder" = "Lim inn lenke";
+"Set.Bookmark.Error.Title" = "Oops, noe gikk galt";
+"Set.Bookmark.Error.Message" = "Vennligst prøv igjen";
 
 // MARK: - Sets: View Settings
-"Set.View.Settings.ImageFit.Title" = "Fit image";
-"Set.View.Settings.CardSize.Title" = "Card size";
-"Set.View.Settings.CardSize.Small.Title" = "Small";
-"Set.View.Settings.CardSize.Large.Title" = "Large";
-"Set.View.Settings.ImagePreview.Title" = "Image preview";
-"Set.View.Settings.GroupBy.Title" = "Group by";
-"Set.View.Settings.GroupBackgroundColors.Title" = "Color columns";
-"Set.View.Settings.DefaultObject.Title" = "Default object";
-"Set.View.Settings.DefaultTemplate.Title" = "Default template";
+"Set.View.Settings.ImageFit.Title" = "Tilpass bilde";
+"Set.View.Settings.CardSize.Title" = "Størrelse på kort";
+"Set.View.Settings.CardSize.Small.Title" = "Liten";
+"Set.View.Settings.CardSize.Large.Title" = "Stor";
+"Set.View.Settings.ImagePreview.Title" = "Forhåndsvisning av bilde";
+"Set.View.Settings.GroupBy.Title" = "Gruppér etter";
+"Set.View.Settings.GroupBackgroundColors.Title" = "Fargelegg kolonner";
+"Set.View.Settings.DefaultObject.Title" = "Standardobjekt";
+"Set.View.Settings.DefaultTemplate.Title" = "Standardmal";
 
-"Set.View.Settings.NoRelations.Placeholder" = "No relations";
-"Set.View.Settings.NoFilters.Placeholder" = "No filters";
-"Set.View.Settings.NoSorts.Placeholder" = "No sorts";
-"Set.View.Settings.Objects.Applied.Title" = "%d applied";
+"Set.View.Settings.NoRelations.Placeholder" = "Ingen relasjoner";
+"Set.View.Settings.NoFilters.Placeholder" = "Ingen filtre";
+"Set.View.Settings.NoSorts.Placeholder" = "Ingen sorteringer";
+"Set.View.Settings.Objects.Applied.Title" = "%d brukt";
 
 // MARK: - Sets: Kanban
-"Set.View.Kanban.Column.Title.Uncategorized" = "Uncategorized";
-"Set.View.Kanban.Column.Title.Checked" = "%@ is checked";
-"Set.View.Kanban.Column.Title.Unchecked" = "%@ is unchecked";
-"Set.View.Kanban.Column.Paging.Title.ShowMore" = "Show more objects";
-"Set.View.Kanban.Column.Settings.Color.Title" = "Column color";
-"Set.View.Kanban.Column.Settings.Hide.Column.Title" = "Hide column";
+"Set.View.Kanban.Column.Title.Uncategorized" = "Ukategorisert";
+"Set.View.Kanban.Column.Title.Checked" = "%@ er krysset av";
+"Set.View.Kanban.Column.Title.Unchecked" = "%@ er ikke krysset av";
+"Set.View.Kanban.Column.Paging.Title.ShowMore" = "Vis flere objekter";
+"Set.View.Kanban.Column.Settings.Color.Title" = "Kolonnefarge";
+"Set.View.Kanban.Column.Settings.Hide.Column.Title" = "Skjul kolonne";
 
 // MARK: - Sets: empty view
-"Set.View.Empty.Title" = "No query selected";
-"Set.View.Empty.Subtitle" = "Add search query to aggregate objects with equal types and relations in a live mode";
+"Set.View.Empty.Title" = "Ingen spørring valgt";
+"Set.View.Empty.Subtitle" = "Legg til søk etter objekter med samme typer og relasjoner i en live-modus";
 
 // MARK: - Set source type
-"Set.SourceType.SelectQuery" = "Select query";
-"Set.SourceType.Cancel.Toast.Title" = "This query can be changed on desktop only";
+"Set.SourceType.SelectQuery" = "Velg spørring";
+"Set.SourceType.Cancel.Toast.Title" = "Denne spørringen kan bare endres i skrivebordsappen";
 
 // MARK: - Set: Type context menu
-"Set.TypeRelation.ContextMenu.TurnIntoCollection" = "Turn Set into Collection";
-"Set.TypeRelation.ContextMenu.ChangeQuery" = "Change query";
+"Set.TypeRelation.ContextMenu.TurnIntoCollection" = "Gjør sett til samling";
+"Set.TypeRelation.ContextMenu.ChangeQuery" = "Endre spørring";
 
 // MARK: - Collection: empty view
-"Collection.View.Empty.Title" = "No objects";
-"Collection.View.Empty.Subtitle" = "Create first object to continue";
-"Collection.View.Empty.Button.Title" = "Create object";
+"Collection.View.Empty.Title" = "Ingen objekter";
+"Collection.View.Empty.Subtitle" = "Opprett det første objektet for å fortsette";
+"Collection.View.Empty.Button.Title" = "Opprett objekt";
 
 // MARK: Slash Menu
-"SlashMenu.DotsDivider" = "Dots divider";
-"SlashMenu.LineDivider" = "Line divider";
-"SlashMenu.TableOfContents" = "Table of contents";
-"SlashMenu.Table" = "Table";
+"SlashMenu.DotsDivider" = "Prikkelinje";
+"SlashMenu.LineDivider" = "Linjeskiller";
+"SlashMenu.TableOfContents" = "Innholdsfortegnelse";
+"SlashMenu.Table" = "Tabell";
 
-"Unknown error" = "Unknown error";
-"Account is deleted" = "Account is deleted";
-"Add phone" = "Add phone";
-"Nothing to redo" = "Nothing to redo";
-"Nothing to undo" = "Nothing to undo";
-"Progress..." = "Progress...";
-"Grey" = "Grey";
-"Sky" = "Sky";
-"Yellow" = "Yellow";
-"Grey background" = "Grey background";
-"Teal background" = "Teal background";
-"Sky background" = "Sky background";
-"Yellow background" = "Yellow background";
-"Enter value" = "Enter value";
-"Select object" = "Select object";
-"Select file" = "Select file";
-"Select tag" = "Select tag";
-"Select status" = "Select status";
-"Select date" = "Select date";
-"Add email" = "Add email";
-"Add link" = "Add link";
-"Enter number" = "Enter number";
-"Enter text" = "Enter text";
-"Unsupported value" = "Unsupported value";
-"Select relation type" = "Select relation type";
+"Unknown error" = "Ukjent feil";
+"Account is deleted" = "Konto er slettet";
+"Add phone" = "Legg til telefon";
+"Nothing to redo" = "Ingenting å gjenta";
+"Nothing to undo" = "Ingenting å angre";
+"Progress..." = "Fremdrift...";
+"Grey" = "Grå";
+"Sky" = "Himmelblå";
+"Yellow" = "Gul";
+"Grey background" = "Grå bakgrunn";
+"Teal background" = "Turkis bakgrunn";
+"Sky background" = "Himmelblå bakgrunn";
+"Yellow background" = "Gul bakgrunn";
+"Enter value" = "Skriv inn verdi";
+"Select object" = "Velg objekt";
+"Select file" = "Velg fil";
+"Select tag" = "Velg merkelapp";
+"Select status" = "Velg status";
+"Select date" = "Velg dato";
+"Add email" = "Legg til e-post";
+"Add link" = "Legg til lenke";
+"Enter number" = "Skriv inn tall";
+"Enter text" = "Skriv inn tekst";
+"Unsupported value" = "Ikke-støttet verdi";
+"Select relation type" = "Velg relasjonstype";
 
-"Limit object types" = "Limit object types";
+"Limit object types" = "Begrens objekttyper";
 "Type" = "Type";
-"No name" = "No name";
-"New relation" = "New relation";
-"Non-existent object" = "Non-existent object";
+"No name" = "Ingen navn";
+"New relation" = "Ny relasjon";
+"Non-existent object" = "Ikke-eksisterende objekt";
 
-"Select all" = "Select all";
-"Unselect all" = "Unselect all";
-"Deselect all" = "Deselect all";
-"Shared" = "Shared";
-"Sets" = "Sets";
-"Collections" = "Collections";
-"Default object type" = "Default object type";
-"Personalization" = "Personalization";
-"Choose default object type" = "Choose default object type";
-"About" = "About";
-"Appearance" = "Appearance";
-"Change wallpaper" = "Change wallpaper";
-"Application icon" = "Application icon";
-"Mode" = "Mode";
-"copied to clipboard" = "%@ copied to clipboard";
+"Select all" = "Velg alle";
+"Unselect all" = "Fjern alle valg";
+"Deselect all" = "Fjern alle";
+"Shared" = "Delt";
+"Sets" = "Sett";
+"Collections" = "Samlinger";
+"Default object type" = "Standard objekttype";
+"Personalization" = "Personlig tilpasning";
+"Choose default object type" = "Velg standard objekttype";
+"About" = "Om";
+"Appearance" = "Utseende";
+"Change wallpaper" = "Endre bakgrunnsbilde";
+"Application icon" = "Appikon";
+"Mode" = "Modus";
+"copied to clipboard" = "%@ kopiert til utklippstavlen";
 "Access to secret phrase from keychain" = "Access to secret phrase from keychain";
 "Back up your recovery phrase" = "Back up your recovery phrase";
-"Account" = "Account";
-"Access" = "Access";
-"Back up phrase" = "Back up phrase";
-"Removing cache" = "Removing cache";
-"Deletion error" = "Deletion error";
+"Account" = "Konto";
+"Access" = "Tilgang";
+"Back up phrase" = "Sikkerhetskopier frase";
+"Removing cache" = "Fjerner hurtigbuffer";
+"Deletion error" = "Feil ved sletting";
 "Start" = "Start";
 "On analytics" = "On analytics";
 "Select account error" = "Select account error";
-"Account deleted" = "Account deleted";
+"Account deleted" = "Konto slettet";
 "Account.Select.Incompatible.Version.Error.Text" = "Unable to retrieve account data due to incompatible version on remote nodes. Please update Anytype to the latest version.";
-"Restore from keychain" = "Restore from keychain";
-"Edit" = "Edit";
-"In this object" = "In this object";
-"Other relations" = "Other relations";
-"Collection of objects" = "Collection of objects";
+"Restore from keychain" = "Gjenopprett fra nøkkelring";
+"Edit" = "Rediger";
+"In this object" = "I dette objektet";
+"Other relations" = "Andre relasjoner";
+"Collection of objects" = "Samling av objekter";
 "Designed to capture thoughts quickly" = "Designed to capture thoughts quickly";
 "Action-focused layout with a checkbox" = "Action-focused layout with a checkbox";
 "Standard layout for canvas blocks" = "Standard layout for canvas blocks";
-"List of related objects" = "List of related objects";
-"Lock" = "Lock";
-"Unlock" = "Unlock";
-"Favorite" = "Favorite";
-"Unfavorite" = "Unfavorite";
+"List of related objects" = "Liste over relaterte objekter";
+"Lock" = "Lås";
+"Unlock" = "Lås opp";
+"Favorite" = "Favoritt";
+"Unfavorite" = "Fjern fra favoritter";
 "Unsplash" = "Unsplash";
-"Go back" = "Go back";
-"Backed up on one node at least" = "Backed up on one node at least";
-"Downloading or uploading data to some node" = "Downloading or uploading data to some node";
-"Anytype node is not connected" = "Anytype node is not connected";
-"Initializing sync" = "Initializing sync";
-"Not syncing" = "Not syncing";
-"Synced" = "Synced";
-"Syncing..." = "Syncing...";
-"No connection" = "No connection";
-"Preparing..." = "Preparing...";
-"Deleted" = "Deleted";
-"Download" = "Download";
-"Open object" = "Open object";
-"Open source" = "Open source";
+"Go back" = "Gå tilbake";
+"Backed up on one node at least" = "Sikkerhetskopiert på minst én node";
+"Downloading or uploading data to some node" = "Laster ned eller laster opp data til en node";
+"Anytype node is not connected" = "Anytype-noden er ikke tilkoblet";
+"Initializing sync" = "Initialiserer synkronisering";
+"Not syncing" = "Synkroniserer ikke";
+"Synced" = "Synkronisert";
+"Syncing..." = "Synkroniserer...";
+"No connection" = "Ingen tilkobling";
+"Preparing..." = "Forbereder...";
+"Deleted" = "Slettet";
+"Download" = "Last ned";
+"Open object" = "Åpne objekt";
+"Open source" = "Åpne kilde";
 "Into object" = "Into object";
-"Add below" = "Add below";
-"Change type" = "Change type";
-"Link to existing object" = "Link to existing object";
-"Link to object" = "Link to object";
-"Upload playable audio" = "Upload playable audio";
-"Code snippet" = "Code snippet";
-"Bookmark" = "Bookmark";
-"Audio" = "Audio";
+"Add below" = "Legg til under";
+"Change type" = "Endre type";
+"Link to existing object" = "Lenke til eksisterende objekt";
+"Link to object" = "Lenke til objekt";
+"Upload playable audio" = "Last opp spillbar lyd";
+"Code snippet" = "Kodesnutt";
+"Bookmark" = "Bokmerke";
+"Audio" = "Lyd";
 "Video" = "Video";
-"Picture" = "Picture";
-"File" = "File";
-"No related options here" = "No related options here. You can add some";
-"Empty" = "Empty";
-"Link to" = "Link to";
-"Unknown" = "Unknown";
+"Picture" = "Bilde";
+"File" = "Fil";
+"No related options here" = "Ingen relaterte valg her. Du kan legge til noen";
+"Empty" = "Tom";
+"Link to" = "Koble til";
+"Unknown" = "Ukjent";
 "Settings" = "Innstillinger";
-"Views" = "Views";
+"Views" = "Visninger";
 "Filter" = "Filter";
-"Sort" = "Sort";
-"View" = "View";
-"Home" = "Home";
-"Highlight" = "Highlight";
-"Create object" = "Create object";
-"Web pages" = "Web pages";
-"Preview layout" = "Preview layout";
-"Everywhere" = "Everywhere";
-"Exact day" = "Exact day";
-"Tomorrow" = "Tomorrow";
-"Yesterday" = "Yesterday";
-"Today" = "Today";
-"No date" = "No date";
-"Clear" = "Clear";
-"Create option" = "Create option ‘%@’";
-"Add URL" = "Add URL";
-"Add email" = "Add email";
-"Add phone number" = "Add phone number";
-"Add number" = "Add number";
-"Add text" = "Add text";
+"Sort" = "Sorter";
+"View" = "Visning";
+"Home" = "Hjem";
+"Highlight" = "Uthev";
+"Create object" = "Opprett objekt";
+"Web pages" = "Nettsider";
+"Preview layout" = "Forhåndsvis oppsett";
+"Everywhere" = "Overalt";
+"Exact day" = "Eksakt dag";
+"Tomorrow" = "I morgen";
+"Yesterday" = "I går";
+"Today" = "I dag";
+"No date" = "Ingen dato";
+"Clear" = "Tøm";
+"Create option" = "Opprett valg '%@'";
+"Add URL" = "Legg til URL";
+"Add email" = "Legg til e-post";
+"Add phone number" = "Legg til telefonnummer";
+"Add number" = "Legg til nummer";
+"Add text" = "Legge til tekst";
 "Ok" = "Ok";
-"Error occurred. Please try again" = "Error occurred. Please try again";
-"Add" = "Add";
-"Companies, contacts, friends and family" = "Companies, contacts, friends and family";
-"Failed to sync, trying again..." = "Failed to sync, trying again...";
-"Sync.Status.Version.Outdated.Description" = "Version outdated. Please update Anytype";
-"This object doesn't exist" = "This object doesn't exist";
-"Setting up encrypted storage\nPlease wait" = "Setting up encrypted storage\nPlease wait";
-"These objects will be deleted irrevocably" = "These objects will be deleted irrevocably. You can’t undo this action.";
-"Delete account" = "Delete account";
-"Cancel deletion" = "Cancel deletion";
-"Logout and clear data" = "Logout and clear data";
-"New" = "New";
+"Error occurred. Please try again" = "Det oppstod en feil. Vennligst prøv igjen";
+"Add" = "Legg til";
+"Companies, contacts, friends and family" = "Firmaer, kontakter, venner og familie";
+"Failed to sync, trying again..." = "Klarte ikke å synkronisere, prøver igjen...";
+"Sync.Status.Version.Outdated.Description" = "Versjonen er utdatert. Vennligst oppdater Anytype";
+"This object doesn't exist" = "Dette objektet eksisterer ikke";
+"Setting up encrypted storage\nPlease wait" = "Setter opp kryptert lagring\nVennligst vent";
+"These objects will be deleted irrevocably" = "Disse objektene vil bli slettet ugjenkallelig. Du kan ikke angre denne handlingen.";
+"Delete account" = "Slett konto";
+"Cancel deletion" = "Avbryt sletting";
+"Logout and clear data" = "Logg ut og slett data";
+"New" = "Ny";
 
 // MARK: - DeletionAlert
-"DeletionAlert.title" = "Are you sure to delete account?";
-"DeletionAlert.description" = "You will be logged out on all other devices. You will have 30 days to recover it. Afterwards it will be deleted permanently";
+"DeletionAlert.title" = "Er du sikker på at du vil slette kontoen?";
+"DeletionAlert.description" = "Du blir logget ut på alle andre enheter. Du vil ha 30 dager for å gjenopprette den. Etterpå vil den bli slettet permanent";
 
 // MARK: - DataviewType
-"DataviewType.grid" = "Grid";
-"DataviewType.list" = "List";
-"DataviewType.gallery" = "Gallery";
+"DataviewType.grid" = "Rutenett";
+"DataviewType.list" = "Liste";
+"DataviewType.gallery" = "Galleri";
 "DataviewType.kanban" = "Kanban";
 
 // MARK: - ObjectType
-"ObjectType.fallbackDescription" = "Blank canvas with no title";
-"ObjectType.SearchOrInstall" = "Search or install a new type";
-"ObjectType.Search" = "Search for Type";
-"ObjectType.MyTypes" = "My Types";
-"ObjectType.AddedToLibrary" = "Type ‘%@’ added to your library";
-"ObjectType.DeletedName" = "Deleted type";
+"ObjectType.fallbackDescription" = "Tomt lerret uten tittel";
+"ObjectType.SearchOrInstall" = "Søk eller installer en ny type";
+"ObjectType.Search" = "Søk etter type";
+"ObjectType.MyTypes" = "Mine typer";
+"ObjectType.AddedToLibrary" = "Type ’%@’ har blitt lagt til i biblioteket ditt";
+"ObjectType.DeletedName" = "Slettet type";
 
 // MARK: - QuickAction
-"QuickAction.create" = "Create %@";
+"QuickAction.create" = "Opprett %@";
 
 // MARK: - RedactedText
-"RedactedText.pageTitle" = "Wake up, Neo";
-"RedactedText.pageType" = "Red pill";
+"RedactedText.pageTitle" = "Våkn opp, Neo";
+"RedactedText.pageType" = "Rød p-pille";
 
 // MARK: - InterfaceStyle
-"InterfaceStyle.light" = "Light";
-"InterfaceStyle.dark" = "Dark";
+"InterfaceStyle.light" = "Lys";
+"InterfaceStyle.dark" = "Mørk";
 "InterfaceStyle.system" = "System";
 
 // MARK: Table of Contents
-"TalbeOfContents.Empty" = "Add headings to create a table of contents";
+"TalbeOfContents.Empty" = "Legg til overskrifter for å lage en innholdsfortegnelse";
 
 // MARK: - Simple tables
-"SimpleTableMenu.Item.clearContents" = "Clear";
+"SimpleTableMenu.Item.clearContents" = "Tøm";
 "SimpleTableMenu.Item.color" = "Farge";
 "SimpleTableMenu.Item.style" = "Stil";
-"SimpleTableMenu.Item.clearStyle" = "Reset style";
+"SimpleTableMenu.Item.clearStyle" = "Gjenopprett stil";
 
-"SimpleTableMenu.Item.InsertLeft" = "Insert left";
-"SimpleTableMenu.Item.InsertRight" = "Insert right";
-"SimpleTableMenu.Item.MoveLeft" = "Move left";
-"SimpleTableMenu.Item.MoveRight" = "Move right";
-"SimpleTableMenu.Item.Duplicate" = "Duplicate";
-"SimpleTableMenu.Item.Delete" = "Delete";
-"SimpleTableMenu.Item.Sort" = "Sort";
+"SimpleTableMenu.Item.InsertLeft" = "Sett inn til venstre";
+"SimpleTableMenu.Item.InsertRight" = "Sett inn til høyre";
+"SimpleTableMenu.Item.MoveLeft" = "Flytt til venstre";
+"SimpleTableMenu.Item.MoveRight" = "Flytt til høyre";
+"SimpleTableMenu.Item.Duplicate" = "Dupliser";
+"SimpleTableMenu.Item.Delete" = "Slett";
+"SimpleTableMenu.Item.Sort" = "Sorter";
 
-"SimpleTableMenu.Item.InsertAbove" = "Insert above";
-"SimpleTableMenu.Item.InsertBelow" = "Insert below";
-"SimpleTableMenu.Item.MoveUp" = "Move up";
-"SimpleTableMenu.Item.MoveDown" = "Move down";
+"SimpleTableMenu.Item.InsertAbove" = "Sett inn over";
+"SimpleTableMenu.Item.InsertBelow" = "Sett inn under";
+"SimpleTableMenu.Item.MoveUp" = "Flytt opp";
+"SimpleTableMenu.Item.MoveDown" = "Flytt ned";
 
-"DebugMenu.ToggleAuthor" = "Release: %@, %@";
+"DebugMenu.ToggleAuthor" = "Versjon: %@, %@";
 
 // MARK: Link Past Actions
-"LinkPaste.text" = "Paste as text";
-"LinkPaste.link" = "Paste as link";
-"LinkPaste.bookmark" = "Create bookmark";
+"LinkPaste.text" = "Lim inn som tekst";
+"LinkPaste.link" = "Lim inn som lenke";
+"LinkPaste.bookmark" = "Opprett bokmerke";
 
 // Relation Actions
-"RelationAction.CopyPhone" = "Copy phone numbler";
-"RelationAction.CopyEmail" = "Copy email";
+"RelationAction.CopyPhone" = "Kopier telefonnummer";
+"RelationAction.CopyEmail" = "Kopier e-post";
 "RelationAction.CopyLink" = "Kopier lenke";
 "RelationAction.Copied" = "Kopiert";
-"RelationAction.ReloadingContent" = "Reloading content";
-"RelationAction.ReloadContent" = "Reload object content";
-"RelationAction.CallPhone" = "Call phone numbler";
-"RelationAction.SendEmail" = "Send email";
-"RelationAction.OpenLink" = "Open link";
+"RelationAction.ReloadingContent" = "Oppdaterer innhold";
+"RelationAction.ReloadContent" = "Last objektinnhold på nytt";
+"RelationAction.CallPhone" = "Ring telefonnummer";
+"RelationAction.SendEmail" = "Send e-post";
+"RelationAction.OpenLink" = "Åpne lenke";
 
 // MARK: Edit view type
-"SetViewTypesPicker.Title" = "Edit view";
-"SetViewTypesPicker.New.Title" = "New view";
-"SetViewTypesPicker.Section.Types.Title" = "View as";
-"SetViewTypesPicker.Settings.Duplicate.View" = "Duplicate";
-"SetViewTypesPicker.Settings.Delete.View" = "Delete view";
-"SetViewTypesPicker.Settings.Textfield.Placeholder.New.View" = "New view";
-"SetViewTypesPicker.Settings.Textfield.Placeholder.Untitled" = "Untitled";
+"SetViewTypesPicker.Title" = "Redigeringsvisning";
+"SetViewTypesPicker.New.Title" = "Ny visning";
+"SetViewTypesPicker.Section.Types.Title" = "Vis som";
+"SetViewTypesPicker.Settings.Duplicate.View" = "Dupliser";
+"SetViewTypesPicker.Settings.Delete.View" = "Slett visning";
+"SetViewTypesPicker.Settings.Textfield.Placeholder.New.View" = "Ny visning";
+"SetViewTypesPicker.Settings.Textfield.Placeholder.Untitled" = "Uten tittel";
 
 // MARK: Select view picker
-"EditorSetViewPicker.View.Not.Supported.Title" = "Unsupported";
+"EditorSetViewPicker.View.Not.Supported.Title" = "Ikke støttet";
 
 // BlockContent
-"Content.File.Upload" = "Upload a file";
-"Content.Audio.Upload" = "Upload audio";
-"Content.Video.Upload" = "Upload a video";
-"Content.Picture.Upload" = "Upload a picture";
-"Content.Common.Uploading" = "Uploading...";
-"Content.Common.Error" = "Something went wrong, try again";
-"Content.Bookmark.Add" = "Add a web bookmark";
-"Content.Bookmark.Loading" = "Loading, please wait...";
-"Content.DataView.InlineSet.Subtitle" = "Inline set";
-"Content.DataView.InlineCollection.Subtitle" = "Inline collection";
-"Content.DataView.InlineSet.NoSource" = "No source";
-"Content.DataView.InlineSet.NoData" = "No data";
-"Content.DataView.InlineSet.Untitled" = "Untitled set";
-"Content.DataView.InlineCollection.Untitled" = "Untitled collection";
-"Content.DataView.InlineSet.Toast.Failure" = "This inline set doesn’t have a source";
+"Content.File.Upload" = "Last opp en fil";
+"Content.Audio.Upload" = "Last opp lyd";
+"Content.Video.Upload" = "Last opp en video";
+"Content.Picture.Upload" = "Last opp et bilde";
+"Content.Common.Uploading" = "Laster opp...";
+"Content.Common.Error" = "Noe gikk galt, vennligst prøv på nytt";
+"Content.Bookmark.Add" = "Legg til bokmerke";
+"Content.Bookmark.Loading" = "Laster inn, vennligst vent...";
+"Content.DataView.InlineSet.Subtitle" = "Innfelt sett";
+"Content.DataView.InlineCollection.Subtitle" = "Innfelt samling";
+"Content.DataView.InlineSet.NoSource" = "Ingen kilde";
+"Content.DataView.InlineSet.NoData" = "Ingen data";
+"Content.DataView.InlineSet.Untitled" = "Navnløst sett";
+"Content.DataView.InlineCollection.Untitled" = "Navnløs samling";
+"Content.DataView.InlineSet.Toast.Failure" = "Dette innfelte settet har ingen kilde";
 
 // MARK: - Widget extension
-"WidgetExtension.LockScreen.Title" = "New object";
-"WidgetExtension.LockScreen.Description" = "Create a new object on the fly";
+"WidgetExtension.LockScreen.Title" = "Nytt objekt";
+"WidgetExtension.LockScreen.Description" = "Opprett et nytt objekt på direkten";
 
 // MARK: - Toast
-"Editor.Toast.LinkedTo" = "linked to";
-"Editor.Toast.MovedTo" = "Block moved to";
+"Editor.Toast.LinkedTo" = "koblet til";
+"Editor.Toast.MovedTo" = "Blokk flyttet til";
 
 // MARK: - Scanner
-"Scanner.Error.Scanning not supported" = "Scanning not supported";
+"Scanner.Error.Scanning not supported" = "Skanning er ikke støttet";
 
 // MARK: - Widgets
-"Widgets.SourceSearch" = "Widget source";
-"Widgets.Actions.ChangeSource" = "Change Source";
-"Widgets.Actions.ChangeWidgetType" = "Change Widget Type";
-"Widgets.Actions.RemoveWidget" = "Remove Widget";
-"Widgets.Actions.EditWidgets" = "Edit Widgets";
-"Widgets.Actions.EmptyBin" = "Empty Bin";
-"Widgets.Actions.AddBelow" = "Add Below";
-"Widgets.Layout.Screen.Title" = "Widget type";
+"Widgets.SourceSearch" = "Widget-kilde";
+"Widgets.Actions.ChangeSource" = "Endre kilde";
+"Widgets.Actions.ChangeWidgetType" = "Endre Widget type";
+"Widgets.Actions.RemoveWidget" = "Fjern widget";
+"Widgets.Actions.EditWidgets" = "Endre widgets";
+"Widgets.Actions.EmptyBin" = "Tøm papirkurven";
+"Widgets.Actions.AddBelow" = "Legg til under";
+"Widgets.Layout.Screen.Title" = "Widget-type";
 "Widgets.Layout.Link.Title" = "Lenke";
-"Widgets.Layout.Tree.Title" = "Tree";
-"Widgets.Layout.List.Title" = "List";
-"Widgets.Layout.CompactList.Title" = "Сompact list";
-"Widgets.Layout.Link.Description" = "Сompact version of the object";
-"Widgets.Layout.Tree.Description" = "Hierarchical structure of objects";
-"Widgets.Layout.List.Description" = "Widget with list view of set object";
-"Widgets.Layout.CompactList.Description" = "Widget with list view of set object";
-"Widgets.Empty.Title" = "This data view contains no objects";
-"Widgets.Library.RecentlyEdited.Name" = "Recently edited";
-"Widgets.Library.RecentlyOpened.Name" = "Recently opened";
-"Widgets.Library.RecentlyOpened.Description" = "On this device";
+"Widgets.Layout.Tree.Title" = "Tre";
+"Widgets.Layout.List.Title" = "Liste";
+"Widgets.Layout.CompactList.Title" = "Kompakt liste";
+"Widgets.Layout.Link.Description" = "Kompakt versjon av objektet";
+"Widgets.Layout.Tree.Description" = "Hierarkisk struktur av objekter";
+"Widgets.Layout.List.Description" = "Widget med listevisning av settobjekt";
+"Widgets.Layout.CompactList.Description" = "Widget med listevisning av settobjekt";
+"Widgets.Empty.Title" = "Denne datavisningen inneholder ingen objekter";
+"Widgets.Library.RecentlyEdited.Name" = "Nylig endret";
+"Widgets.Library.RecentlyOpened.Name" = "Nylig åpnet";
+"Widgets.Library.RecentlyOpened.Description" = "På denne enheten";
 
 // MARK: - About
-"About.AppVersion" = "App version: %@";
-"About.BuildNumber" = "Build number: %@";
-"About.Library" = "Library version: %@";
-"About.accountId" = "Account ID: %@";
-"About.analyticsId" = "Analytics ID: %@";
-"About.deviceId" = "Device ID: %@";
-"About.Device" = "Device: %@";
-"About.OSVersion" = "OS version: %@";
-"About.HelpCommunity" = "Help & Community";
-"About.WhatsNew" = "What’s New";
+"About.AppVersion" = "Appversjon: %@";
+"About.BuildNumber" = "Byggnummer: %@";
+"About.Library" = "Bibliotekversjon: %@";
+"About.accountId" = "Konto-ID: %@";
+"About.analyticsId" = "Analytics-ID: %@";
+"About.deviceId" = "Enhets-ID: %@";
+"About.Device" = "Enhet: %@";
+"About.OSVersion" = "OS-versjon: %@";
+"About.HelpCommunity" = "Hjelp & fellesskap";
+"About.WhatsNew" = "Hva er nytt";
 "About.AnytypeCommunity" = "Anytype Community";
-"About.HelpTutorials" = "Help & Tutorials";
-"About.ContactUs" = "Contact Us";
-"About.Legal" = "Legal";
-"About.TermsOfUse" = "Terms of Use";
-"About.PrivacyPolicy" = "Privacy Policy";
-"About.TechInfo" = "Tech Info";
-"About.Mail.Subject" = "Support request, Account ID %@";
-"About.Mail.Body" = "\n\nTechnical information\n%@";
+"About.HelpTutorials" = "Hjelp & veiledere";
+"About.ContactUs" = "Kontakt oss";
+"About.Legal" = "Juridisk";
+"About.TermsOfUse" = "Brukervilkår";
+"About.PrivacyPolicy" = "Personvernerklæring";
+"About.TechInfo" = "Teknisk informasjon";
+"About.Mail.Subject" = "Supportforespørsel, konto-ID %@";
+"About.Mail.Body" = "\n\nTeknisk informasjon\n%@";
 
 // MARK: - Cache
-"ClearCache.Success" = "Cache sucessfully cleared";
-"ClearCache.Error" = "Error, try again later";
+"ClearCache.Success" = "Hurtigbuffer slettet";
+"ClearCache.Error" = "Feil, prøv igjen senere";
 
 // MARK: - Settings
 "Settings.TitleLegacy" = "Personlig rom";
 "Settings.Title" = "Innstillinger";
 "Settings.SpaceName" = "Romnavn";
-"Settings.AccountAndAccess" = "Account and access";
+"Settings.AccountAndAccess" = "Konto og tilgang";
 
 // MARK: - File Storage
-"FileStorage.Title" = "File storage";
+"FileStorage.Title" = "Fillagring";
 "FileStorage.Space.Title" = "Fjernlagring";
-"FileStorage.Space.Instruction" = "You can store up to %@ of your files on our encrypted backup node for free. If you reach the limit, files will be stored only locally.";
-"FileStorage.Space.Used" = "%@ of %@ used";
+"FileStorage.Space.Instruction" = "Du kan lagre opptil %@ av filene dine på vår krypterte sikkerhetskopi-node gratis. Hvis du når grensen, vil filene kun bli lagret lokalt.";
+"FileStorage.Space.Used" = "%@ av %@ brukt";
 "FileStorage.Space.GetMore" = "Få mer plass";
-"FileStorage.Space.Mail.Subject" = "Get more storage, account %@";
+"FileStorage.Space.Mail.Subject" = "Få mer lagringsplass, konto %@";
 "FileStorage.Space.Mail.Body" = "Hi, Anytype team. I am reaching out to request an increase in my file storage capacity as I have run out of storage. My current limits is %@. My account id is %@. Cheers, %@.";
-"FileStorage.Local.Title" = "Local storage";
-"FileStorage.Local.Instruction" = "In order to save space on your local device, you can offload all your files to our encrypted backup node. The files will be loaded back when you open them.";
-"FileStorage.Local.Used" = "%@ used";
-"FileStorage.OffloadTitle" = "Offload files";
-"FileStorage.ManageFiles" = "Manage files";
-"FileStorage.LimitError" = "You exceeded file limit upload";
+"FileStorage.Local.Title" = "Lokal lagring";
+"FileStorage.Local.Instruction" = "For å spare plass på den lokale enheten din, kan du slette alle lokale filer og beholde dem på vår krypterte sikkerhetskopi-node. Filene vil bli lastet ned igjen når du åpner dem.";
+"FileStorage.Local.Used" = "%@ brukt";
+"FileStorage.OffloadTitle" = "Slett lokale filer";
+"FileStorage.ManageFiles" = "Administrer filer";
+"FileStorage.LimitError" = "Du overskred filopplastingsgrensen";
 
 // MARK: - Files List
-"FilesList.Title" = "Synced files";
-"FilesList.ForceDelete.Title" = "Are you sure you want to permanently delete the files?";
+"FilesList.Title" = "Synkroniserte filer";
+"FilesList.ForceDelete.Title" = "Er du sikker på at du vil slette denne filene permanent?";
 
 // MARK: - Widget object list
-"WidgetObjectList.ForceDelete.Message" = "You can’t undo this action.";
+"WidgetObjectList.ForceDelete.Message" = "Du kan ikke angre denne handlingen.";
 
 // MARK: - Cpear cache alert
-"ClearCacheAlert.Title" = "Are you sure?";
-"ClearCacheAlert.Description" = "All media files stored in Anytype will be deleted from your current device. They can be downloaded again from a backup node or another device.";
+"ClearCacheAlert.Title" = "Er du sikker?";
+"ClearCacheAlert.Description" = "Alle mediefiler lagret i Anytype vil bli slettet fra din nåværende enhet. De kan lastes ned igjen fra en backup-node eller en annen enhet.";
 
 // MARK: - Spaces
-"Spaces.Accessibility.Public" = "Public";
-"Spaces.Accessibility.Private" = "Private";
-"Spaces.Accessibility.PublicFull" = "Public space";
-"Spaces.Accessibility.PrivateFull" = "Private space";
+"Spaces.Accessibility.Public" = "Offentlig";
+"Spaces.Accessibility.Private" = "Privat";
+"Spaces.Accessibility.PublicFull" = "Offentlig rom";
+"Spaces.Accessibility.PrivateFull" = "Privat rom";
 
 // MARK: - Space Settings
-"SpaceSettings.Title" = "Space settings";
+"SpaceSettings.Title" = "Rominnstillinger";
 "SpaceSettings.RemoteStorage" = "Fjernlagring";
-"SpaceSettings.Info" = "Space info";
+"SpaceSettings.Info" = "Rominformasjon";
 
 // MARK: - Space Create
-"SpaceCreate.Title" = "Create a space";
+"SpaceCreate.Title" = "Opprett et rom";
 
 // MARK: - Sharing
-"Sharing.Navigation.title" = "Add to Anytype";
+"Sharing.Navigation.title" = "Legg til Anytype";
 "Sharing.Navigation.LeftButton.Title" = "Avbryt";
 "Sharing.Navigation.RightButton.Title" = "Ferdig";
 
-"Sharing.SaveAs" = "SAVE AS";
-"Sharing.AddTo" = "Add to";
-"Sharing.LinkTo" = "Link to";
+"Sharing.SaveAs" = "LAGRE SOM";
+"Sharing.AddTo" = "Legg til i";
+"Sharing.LinkTo" = "Koble til";
 
-"Sharing.URL.Bookmark" = "Bookmark object";
-"Sharing.URL.Text" = "Text block";
-"Sharing.Text.NoteObject" = "Note object";
-"Sharing.Text.TextBlock" = "Text block";
+"Sharing.URL.Bookmark" = "Bokmerkeobjekt";
+"Sharing.URL.Text" = "Tekstblokk";
+"Sharing.Text.NoteObject" = "Notatobjekt";
+"Sharing.Text.TextBlock" = "Tekstblokk";
