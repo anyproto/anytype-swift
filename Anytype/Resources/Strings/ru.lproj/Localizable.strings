@@ -124,21 +124,21 @@
 "Align right" = "Выровнять по правому краю";
 "Align left" = "Выровнять по левому краю";
 "Align center" = "Выровнять по центру";
-"Black" = "Black";
-"Amber" = "Amber";
-"Red" = "Red";
-"Pink" = "Pink";
-"Purple" = "Purple";
-"Blue" = "Blue";
-"Teal" = "Teal";
-"Green" = "Green";
+"Black" = "Чёрный";
+"Amber" = "Янтарный";
+"Red" = "Красный";
+"Pink" = "Розовый";
+"Purple" = "Фиолетовый";
+"Blue" = "Синий";
+"Teal" = "Бирюзовый";
+"Green" = "Зелёный";
 "Default background" = "Фон по умолчанию";
 "Amber background" = "Amber background";
-"Red background" = "Red background";
-"Pink background" = "Pink background";
-"Purple background" = "Purple background";
-"Blue background" = "Blue background";
-"Green background" = "Green background";
+"Red background" = "Красный фон";
+"Pink background" = "Розовый фон";
+"Purple background" = "Фиолетовый фон";
+"Blue background" = "Синий фон";
+"Green background" = "Зелёный фон";
 "Create new object" = "Создать новый объект";
 "Cancel" = "Отмена";
 "Paste or type URL" = "Вставить или ввести URL-адрес";
@@ -174,7 +174,7 @@
 "Keychain.Have you backed up your recovery phrase?" = "Вы сделали резервную копию вашей фразы восстановления?";
 "Keychain.Error.String to Data conversion error" = "String to Data conversion error";
 "Keychain.Error.Data to String conversion error" = "Data to String conversion error";
-"Keychain.Error.Unknown Keychain Error" = "Unknown Keychain Error";
+"Keychain.Error.Unknown Keychain Error" = "Неизвестная ошибка Связки ключей";
 "Keychain.SeedPhrasePlaceholder" = "witch collapse practice feed shame open despair creek road again ice least lake tree young address brain despair";
 
 // Auth
@@ -283,8 +283,8 @@
 "Editor.LinkToObject.SearchPlaceholder" = "Вставить ссылку или найти объекты";
 "Editor.LinkToObject.PasteFromClipboard" = "Вставить из буфера обмена";
 "Editor.LinkToObject.LinkedTo" = "Linked to";
-"Editor.LinkToObject.CopyLink" = "Copy link";
-"Editor.LinkToObject.RemoveLink" = "Remove link";
+"Editor.LinkToObject.CopyLink" = "Скопировать ссылку";
+"Editor.LinkToObject.RemoveLink" = "Удалить ссылку";
 
 // MARK: - Main search
 "There is no object named" = "There is no object named %@";
@@ -389,18 +389,18 @@
 "EditSet.Popup.Filter.Value.Checked" = "Checked";
 "EditSet.Popup.Filter.Value.Unchecked" = "Unchecked";
 
-"EditSet.Popup.Filter.Date.Option.Today" = "Today";
-"EditSet.Popup.Filter.Date.Option.Yesterday" = "Yesterday";
-"EditSet.Popup.Filter.Date.Option.Tomorrow" = "Tomorrow";
-"EditSet.Popup.Filter.Date.Option.LastWeek" = "Last week";
-"EditSet.Popup.Filter.Date.Option.CurrentWeek" = "Current week";
-"EditSet.Popup.Filter.Date.Option.NextWeek" = "Next week";
-"EditSet.Popup.Filter.Date.Option.LastMonth" = "Last month";
-"EditSet.Popup.Filter.Date.Option.CurrentMonth" = "Current month";
-"EditSet.Popup.Filter.Date.Option.NextMonth" = "Next month";
-"EditSet.Popup.Filter.Date.Option.NumberOfDaysAgo" = "Number of days ago";
-"EditSet.Popup.Filter.Date.Option.NumberOfDaysFromNow" = "Number of days from now";
-"EditSet.Popup.Filter.Date.Option.ExactDate" = "Exact date";
+"EditSet.Popup.Filter.Date.Option.Today" = "Сегодня";
+"EditSet.Popup.Filter.Date.Option.Yesterday" = "Вчера";
+"EditSet.Popup.Filter.Date.Option.Tomorrow" = "Завтра";
+"EditSet.Popup.Filter.Date.Option.LastWeek" = "Прошлая неделя";
+"EditSet.Popup.Filter.Date.Option.CurrentWeek" = "Текущая неделя";
+"EditSet.Popup.Filter.Date.Option.NextWeek" = "Следующая неделя";
+"EditSet.Popup.Filter.Date.Option.LastMonth" = "Прошлый месяц";
+"EditSet.Popup.Filter.Date.Option.CurrentMonth" = "Текущий месяц";
+"EditSet.Popup.Filter.Date.Option.NextMonth" = "Следующий месяц";
+"EditSet.Popup.Filter.Date.Option.NumberOfDaysAgo" = "Количество дней назад";
+"EditSet.Popup.Filter.Date.Option.NumberOfDaysFromNow" = "Количество дней с этого момента";
+"EditSet.Popup.Filter.Date.Option.ExactDate" = "Точная дата";
 
 "EditSet.Popup.Filter.Date.Option.NumberOfDaysAgo.Short" = "%@ days ago";
 "EditSet.Popup.Filter.Date.Option.NumberOfDaysFromNow.Short" = "%@ days from now";
@@ -409,16 +409,16 @@
 "Set.Create.ObjectTitle.Placeholder" = "Без названия";
 
 // MARK: - Sets: Featured relations
-"Set.FeaturedRelations.Query" = "Query";
+"Set.FeaturedRelations.Query" = "Запрос";
 "Set.FeaturedRelations.RelationsList" = "Свойства:";
 "Set.FeaturedRelations.Relation" = "Свойство:";
-"Set.FeaturedRelations.Type" = "Type:";
+"Set.FeaturedRelations.Type" = "Тип:";
 
 // MARK: - Sets: Filters search
-"Set.Button.Title.Apply" = "Apply";
+"Set.Button.Title.Apply" = "Применить";
 
 // MARK: - Set.Bookmarks
-"Set.Bookmark.Create.Placeholder" = "Paste link";
+"Set.Bookmark.Create.Placeholder" = "Вставить ссылку";
 "Set.Bookmark.Error.Title" = "Oops - something went wrong";
 "Set.Bookmark.Error.Message" = "Please try again";
 
@@ -469,15 +469,15 @@
 "SlashMenu.TableOfContents" = "Table of contents";
 "SlashMenu.Table" = "Table";
 
-"Unknown error" = "Unknown error";
+"Unknown error" = "Неизвестная ошибка";
 "Account is deleted" = "Account is deleted";
 "Add phone" = "Add phone";
 "Nothing to redo" = "Nothing to redo";
 "Nothing to undo" = "Nothing to undo";
 "Progress..." = "Progress...";
-"Grey" = "Grey";
-"Sky" = "Sky";
-"Yellow" = "Yellow";
+"Grey" = "Серый";
+"Sky" = "Небесный";
+"Yellow" = "Жёлтый";
 "Grey background" = "Grey background";
 "Teal background" = "Teal background";
 "Sky background" = "Sky background";
@@ -584,9 +584,9 @@
 "Preview layout" = "Preview layout";
 "Everywhere" = "Everywhere";
 "Exact day" = "Exact day";
-"Tomorrow" = "Tomorrow";
-"Yesterday" = "Yesterday";
-"Today" = "Today";
+"Tomorrow" = "Завтра";
+"Yesterday" = "Вчера";
+"Today" = "Сегодня";
 "No date" = "No date";
 "Clear" = "Clear";
 "Create option" = "Create option ‘%@’";
@@ -671,7 +671,7 @@
 // Relation Actions
 "RelationAction.CopyPhone" = "Copy phone numbler";
 "RelationAction.CopyEmail" = "Copy email";
-"RelationAction.CopyLink" = "Copy link";
+"RelationAction.CopyLink" = "Скопировать ссылку";
 "RelationAction.Copied" = "Скопировано";
 "RelationAction.ReloadingContent" = "Reloading content";
 "RelationAction.ReloadContent" = "Reload object content";
