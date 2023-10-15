@@ -54,11 +54,11 @@
 
 // MARK: - Block Link
 
-"BlockLink.PreviewSettings.IconSize.None" = "None";
+"BlockLink.PreviewSettings.IconSize.None" = "Ingen";
 "BlockLink.PreviewSettings.IconSize.Small" = "Small";
 "BlockLink.PreviewSettings.IconSize.Medium" = "Medium";
 
-"BlockLink.PreviewSettings.Layout.Card.Title" = "Card";
+"BlockLink.PreviewSettings.Layout.Card.Title" = "Kort";
 "BlockLink.PreviewSettings.Layout.Text.Title" = "Text";
 
 // MARK: - Settings
@@ -73,7 +73,7 @@
 "Featured relations" = "Featured relations";
 "Create relation" = "Create relation ‘%@’";
 "Relation.View.Hint.Empty" = "empty";
-"Relation.MyRelations" = "My relations";
+"Relation.MyRelations" = "Mina relationer";
 "Relation.AddedToLibrary" = "Relation ‘%@’ added to your library";
 "Relation.Deleted" = "Deleted relation";
 "Relation.From.Type" = "From type %@";
@@ -93,11 +93,11 @@
 // MARK: - Mention
 "Mention.Subtitle.Placeholder" = "Objekt";
 
-"None" = "None";
+"None" = "Ingen";
 "Callout" = "Callout";
 "Toggle empty. Tap to create block." = "Toggle empty. Tap to create block.";
 "Loading, please wait" = "Laddar, vänligen vänta";
-"Done" = "Done";
+"Done" = "Klar";
 "Style" = "Style";
 "Color" = "Färg";
 "Background" = "Bakgrund";
@@ -139,7 +139,7 @@
 "Purple background" = "Purple background";
 "Blue background" = "Blue background";
 "Green background" = "Green background";
-"Create new object" = "Create new object";
+"Create new object" = "Skapa nytt objekt";
 "Cancel" = "Avbryt";
 "Paste or type URL" = "Paste or type URL";
 "No items match filter" = "No items match filter";
@@ -252,7 +252,7 @@
 "Random" = "Random";
 "Upload" = "Ladda upp";
 "Change icon" = "Ändra ikon";
-"Change cover" = "Change cover";
+"Change cover" = "Ändra omslag";
 "Remove" = "Remove";
 
 "Solid colors" = "Solid colors";
@@ -262,8 +262,8 @@
 "Remove photo" = "Remove photo";
 "Basic" = "Basic";
 "Profile" = "Profil";
-"Task" = "Task";
-"Note" = "Note";
+"Task" = "Uppgift";
+"Note" = "Anteckning";
 "Choose layout type" = "Choose layout type";
 
 "Undo typing" = "Undo typing";
@@ -274,7 +274,7 @@
 
 // Object Type
 "Set" = "Set";
-"Collection" = "Collection";
+"Collection" = "Samling";
 
 "Editor.MovingState.ScrollToSelectedPlace" = "Scroll to select a place";
 
@@ -313,7 +313,7 @@
 "TemplateSelection.SelectTemplate" = "Select template";
 "TemplateSelection.blankTemplate" = "Blank";
 "TemplateSelection.Template.Subtitle" = "Mall";
-"TemplateSelection.ObjectType.Subtitle" = "Object type";
+"TemplateSelection.ObjectType.Subtitle" = "Objekttyp";
 "TemplateSelection.ObjectType.NoTemplates.Title" = "This type doesn’t support templates";
 
 "TemplateOptions.Alert.SetAsDefault" = "Set as default for this view";
@@ -337,16 +337,16 @@
 "Move To Bin" = "Move To Bin";
 
 
-"LinkAppearance.Description.None.Title" = "None";
+"LinkAppearance.Description.None.Title" = "Ingen";
 "LinkAppearance.Description.Object.Title" = "Object description";
 "LinkAppearance.Description.Content.Title" = "Content preview";
-"LinkAppearance.ObjectType.Title" = "Object type";
+"LinkAppearance.ObjectType.Title" = "Objekttyp";
 
 // MARK: - Sets: Sorts
 "EditSet.Popup.Sorts.NavigationView.Title" = "Sorts";
 "EditSet.Popup.Sorts.EmptyView.Title" = "No sorts here. You can add some";
-"EditSet.Popup.Sort.Types.Ascending" = "Ascending";
-"EditSet.Popup.Sort.Types.Descending" = "Descending";
+"EditSet.Popup.Sort.Types.Ascending" = "Stigande";
+"EditSet.Popup.Sort.Types.Descending" = "Fallande";
 "EditSet.Popup.Sort.Add.SearchPlaceholder" = "Сhoose a relation to sort";
 
 // MARK: - Sets: Filters
@@ -357,10 +357,10 @@
 // MARK: - Sets: Filters.Conditions
 "EditSet.Popup.Filter.Condition.Text.Equal" = "Is";
 "EditSet.Popup.Filter.Condition.Text.NotEqual" = "Is not";
-"EditSet.Popup.Filter.Condition.Text.Like" = "Contains";
-"EditSet.Popup.Filter.Condition.Text.NotLike" = "Doesn't contain";
+"EditSet.Popup.Filter.Condition.Text.Like" = "Innehåller";
+"EditSet.Popup.Filter.Condition.Text.NotLike" = "Innehåller inte";
 
-"EditSet.Popup.Filter.Condition.Number.Equal" = "Is equal to";
+"EditSet.Popup.Filter.Condition.Number.Equal" = "Är lika med";
 "EditSet.Popup.Filter.Condition.Number.NotEqual" = "Is not equal to";
 "EditSet.Popup.Filter.Condition.Number.Greater" = "Is greater than";
 "EditSet.Popup.Filter.Condition.Number.Less" = "Is less than";
@@ -392,7 +392,7 @@
 "EditSet.Popup.Filter.Date.Option.Today" = "Today";
 "EditSet.Popup.Filter.Date.Option.Yesterday" = "Yesterday";
 "EditSet.Popup.Filter.Date.Option.Tomorrow" = "Tomorrow";
-"EditSet.Popup.Filter.Date.Option.LastWeek" = "Last week";
+"EditSet.Popup.Filter.Date.Option.LastWeek" = "Förra veckan";
 "EditSet.Popup.Filter.Date.Option.CurrentWeek" = "Current week";
 "EditSet.Popup.Filter.Date.Option.NextWeek" = "Nästa vecka";
 "EditSet.Popup.Filter.Date.Option.LastMonth" = "Last month";
@@ -410,9 +410,9 @@
 
 // MARK: - Sets: Featured relations
 "Set.FeaturedRelations.Query" = "Query";
-"Set.FeaturedRelations.RelationsList" = "Relations:";
+"Set.FeaturedRelations.RelationsList" = "Relationer:";
 "Set.FeaturedRelations.Relation" = "Relation:";
-"Set.FeaturedRelations.Type" = "Type:";
+"Set.FeaturedRelations.Type" = "Typ:";
 
 // MARK: - Sets: Filters search
 "Set.Button.Title.Apply" = "Apply";
@@ -431,9 +431,9 @@
 "Set.View.Settings.GroupBy.Title" = "Group by";
 "Set.View.Settings.GroupBackgroundColors.Title" = "Color columns";
 "Set.View.Settings.DefaultObject.Title" = "Default object";
-"Set.View.Settings.DefaultTemplate.Title" = "Default template";
+"Set.View.Settings.DefaultTemplate.Title" = "Standardmall";
 
-"Set.View.Settings.NoRelations.Placeholder" = "No relations";
+"Set.View.Settings.NoRelations.Placeholder" = "Inga relationer";
 "Set.View.Settings.NoFilters.Placeholder" = "Inga filter";
 "Set.View.Settings.NoSorts.Placeholder" = "No sorts";
 "Set.View.Settings.Objects.Applied.Title" = "%d applied";
@@ -442,9 +442,9 @@
 "Set.View.Kanban.Column.Title.Uncategorized" = "Uncategorized";
 "Set.View.Kanban.Column.Title.Checked" = "%@ is checked";
 "Set.View.Kanban.Column.Title.Unchecked" = "%@ is unchecked";
-"Set.View.Kanban.Column.Paging.Title.ShowMore" = "Show more objects";
+"Set.View.Kanban.Column.Paging.Title.ShowMore" = "Visa fler objekt";
 "Set.View.Kanban.Column.Settings.Color.Title" = "Column color";
-"Set.View.Kanban.Column.Settings.Hide.Column.Title" = "Hide column";
+"Set.View.Kanban.Column.Settings.Hide.Column.Title" = "Dölj kolumn";
 
 // MARK: - Sets: empty view
 "Set.View.Empty.Title" = "No query selected";
@@ -459,17 +459,17 @@
 "Set.TypeRelation.ContextMenu.ChangeQuery" = "Change query";
 
 // MARK: - Collection: empty view
-"Collection.View.Empty.Title" = "No objects";
+"Collection.View.Empty.Title" = "Inga objekt";
 "Collection.View.Empty.Subtitle" = "Create first object to continue";
-"Collection.View.Empty.Button.Title" = "Create object";
+"Collection.View.Empty.Button.Title" = "Skapa objekt";
 
 // MARK: Slash Menu
 "SlashMenu.DotsDivider" = "Dots divider";
 "SlashMenu.LineDivider" = "Line divider";
-"SlashMenu.TableOfContents" = "Table of contents";
-"SlashMenu.Table" = "Table";
+"SlashMenu.TableOfContents" = "Innehållsförteckning";
+"SlashMenu.Table" = "Tabell";
 
-"Unknown error" = "Unknown error";
+"Unknown error" = "Okänt fel";
 "Account is deleted" = "Account is deleted";
 "Add phone" = "Lägg till telefon";
 "Nothing to redo" = "Nothing to redo";
@@ -482,23 +482,23 @@
 "Teal background" = "Teal background";
 "Sky background" = "Sky background";
 "Yellow background" = "Yellow background";
-"Enter value" = "Enter value";
+"Enter value" = "Ange värde";
 "Select object" = "Select object";
 "Select file" = "Välj fil";
 "Select tag" = "Välj tagg";
 "Select status" = "Select status";
 "Select date" = "Select date";
 "Add email" = "Add email";
-"Add link" = "Add link";
+"Add link" = "Lägg till länk";
 "Enter number" = "Ange nummer";
-"Enter text" = "Enter text";
+"Enter text" = "Ange text";
 "Unsupported value" = "Unsupported value";
 "Select relation type" = "Select relation type";
 
-"Limit object types" = "Limit object types";
+"Limit object types" = "Begränsa objekttyper";
 "Type" = "Typ";
 "No name" = "No name";
-"New relation" = "New relation";
+"New relation" = "Ny relation";
 "Non-existent object" = "Non-existent object";
 
 "Select all" = "Select all";
@@ -506,7 +506,7 @@
 "Deselect all" = "Deselect all";
 "Shared" = "Shared";
 "Sets" = "Sets";
-"Collections" = "Collections";
+"Collections" = "Samlingar";
 "Default object type" = "Default object type";
 "Personalization" = "Personalization";
 "Choose default object type" = "Choose default object type";
@@ -532,7 +532,7 @@
 "Edit" = "Redigera";
 "In this object" = "In this object";
 "Other relations" = "Other relations";
-"Collection of objects" = "Collection of objects";
+"Collection of objects" = "Samling av objekt";
 "Designed to capture thoughts quickly" = "Designed to capture thoughts quickly";
 "Action-focused layout with a checkbox" = "Action-focused layout with a checkbox";
 "Standard layout for canvas blocks" = "Standard layout for canvas blocks";
@@ -558,7 +558,7 @@
 "Open source" = "Open source";
 "Into object" = "Into object";
 "Add below" = "Add below";
-"Change type" = "Change type";
+"Change type" = "Ändra typ";
 "Link to existing object" = "Link to existing object";
 "Link to object" = "Link to object";
 "Upload playable audio" = "Upload playable audio";
@@ -566,7 +566,7 @@
 "Bookmark" = "Bookmark";
 "Audio" = "Audio";
 "Video" = "Video";
-"Picture" = "Picture";
+"Picture" = "Bild";
 "File" = "Fil";
 "No related options here" = "No related options here. You can add some";
 "Empty" = "Empty";
@@ -579,7 +579,7 @@
 "View" = "View";
 "Home" = "Home";
 "Highlight" = "Highlight";
-"Create object" = "Create object";
+"Create object" = "Skapa objekt";
 "Web pages" = "Web pages";
 "Preview layout" = "Preview layout";
 "Everywhere" = "Everywhere";
@@ -601,7 +601,7 @@
 "Companies, contacts, friends and family" = "Företag, kontakter, vänner och familj";
 "Failed to sync, trying again..." = "Failed to sync, trying again...";
 "Sync.Status.Version.Outdated.Description" = "Version outdated. Please update Anytype";
-"This object doesn't exist" = "This object doesn't exist";
+"This object doesn't exist" = "Detta objekt existerar inte";
 "Setting up encrypted storage\nPlease wait" = "Setting up encrypted storage\nPlease wait";
 "These objects will be deleted irrevocably" = "These objects will be deleted irrevocably. You can’t undo this action.";
 "Delete account" = "Radera konto";
@@ -623,7 +623,7 @@
 "ObjectType.fallbackDescription" = "Blank canvas with no title";
 "ObjectType.SearchOrInstall" = "Search or install a new type";
 "ObjectType.Search" = "Sök efter typ";
-"ObjectType.MyTypes" = "My Types";
+"ObjectType.MyTypes" = "Mina typer";
 "ObjectType.AddedToLibrary" = "Type ‘%@’ added to your library";
 "ObjectType.DeletedName" = "Deleted type";
 
@@ -669,7 +669,7 @@
 "LinkPaste.bookmark" = "Skapa bokmärke";
 
 // Relation Actions
-"RelationAction.CopyPhone" = "Copy phone numbler";
+"RelationAction.CopyPhone" = "Kopiera telefonnummer";
 "RelationAction.CopyEmail" = "Copy email";
 "RelationAction.CopyLink" = "Kopiera länk";
 "RelationAction.Copied" = "Copied";
@@ -682,7 +682,7 @@
 // MARK: Edit view type
 "SetViewTypesPicker.Title" = "Edit view";
 "SetViewTypesPicker.New.Title" = "New view";
-"SetViewTypesPicker.Section.Types.Title" = "View as";
+"SetViewTypesPicker.Section.Types.Title" = "Visa som";
 "SetViewTypesPicker.Settings.Duplicate.View" = "Duplicate";
 "SetViewTypesPicker.Settings.Delete.View" = "Delete view";
 "SetViewTypesPicker.Settings.Textfield.Placeholder.New.View" = "New view";
@@ -709,7 +709,7 @@
 "Content.DataView.InlineSet.Toast.Failure" = "This inline set doesn’t have a source";
 
 // MARK: - Widget extension
-"WidgetExtension.LockScreen.Title" = "New object";
+"WidgetExtension.LockScreen.Title" = "Nytt objekt";
 "WidgetExtension.LockScreen.Description" = "Create a new object on the fly";
 
 // MARK: - Toast
@@ -815,7 +815,7 @@
 // MARK: - Sharing
 "Sharing.Navigation.title" = "Add to Anytype";
 "Sharing.Navigation.LeftButton.Title" = "Avbryt";
-"Sharing.Navigation.RightButton.Title" = "Done";
+"Sharing.Navigation.RightButton.Title" = "Klar";
 
 "Sharing.SaveAs" = "SPARA SOM";
 "Sharing.AddTo" = "Add to";
