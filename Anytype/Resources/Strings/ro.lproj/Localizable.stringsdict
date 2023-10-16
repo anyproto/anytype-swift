@@ -15,9 +15,9 @@
         <key>one</key>
         <string>Obiect %d</string>
         <key>few</key>
-        <string>%d objects</string>
+        <string>Obiecte %d</string>
         <key>other</key>
-        <string>%d objects</string>
+        <string>%d obiecte</string>
       </dict>
     </dict>
     <key>Object selected</key>
@@ -33,9 +33,9 @@
         <key>one</key>
         <string>Obiect %d</string>
         <key>few</key>
-        <string>%d objects</string>
+        <string>Obiecte %d</string>
         <key>other</key>
-        <string>%d objects</string>
+        <string>%d obiecte</string>
       </dict>
     </dict>
     <key>Selected blocks</key>

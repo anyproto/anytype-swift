@@ -220,8 +220,8 @@
 "Auth.JoinFlow.Key.ReadMore.Instruction.Option1.Title" = "保存恢复短语的最简单方法是将其保存在您的密码管理器中。";
 "Auth.JoinFlow.Key.ReadMore.Instruction.Option2.Title" = "最可靠的方法是现实中在纸面上写下，并放在一个安全可靠的地方。";
 
-"Auth.JoinFlow.Soul.Title" = "为新标识设置名称";
-"Auth.JoinFlow.Soul.Description" = "首先，选择要在 Anytype 中使用的名称。";
+"Auth.JoinFlow.Soul.Title" = "设置名称";
+"Auth.JoinFlow.Soul.Description" = "这将是您在应用中的显示方式。";
 "Auth.JoinFlow.Soul.Placeholder" = "无标题";
 
 "Auth.JoinFlow.Creating.Soul.Title" = "生成新的 Anytype 标识";
@@ -307,11 +307,8 @@
 
 
 // MARK: - Templates
-"Alert.Templates_Available.Title" = "此类型有 %d 个模板";
-"Alert.Templates_Available.Description" = "向下滑动以跳过";
-"Alert.Templates_Available.Button" = "显示";
+"TemplateSelection.Available.Title" = "此类型有 %d 个模板";
 "TemplatePicker.ChooseTemplate" = "选择模板";
-"TemplatePicker.Buttons.Skip" = "以后再做吧";
 "TemplatePicker.Buttons.UseTemplate" = "使用模板";
 "TemplateSelection.SelectTemplate" = "选择模板";
 "TemplateSelection.blankTemplate" = "空白";
@@ -625,6 +622,7 @@
 // MARK: - ObjectType
 "ObjectType.fallbackDescription" = "没有标题的空白画布";
 "ObjectType.SearchOrInstall" = "搜索或安装新类型";
+"ObjectType.Search" = "搜索类型";
 "ObjectType.MyTypes" = "我的类型";
 "ObjectType.AddedToLibrary" = "类型 ‘%@’ 已添加到您的文库";
 "ObjectType.DeletedName" = "删除类型";
@@ -768,6 +766,12 @@
 "ClearCache.Success" = "缓存已成功清除";
 "ClearCache.Error" = "错误，请稍后重试";
 
+// MARK: - Settings
+"Settings.TitleLegacy" = "个人空间";
+"Settings.Title" = "设置";
+"Settings.SpaceName" = "空间名称";
+"Settings.AccountAndAccess" = "账户与访问权限";
+
 // MARK: - File Storage
 "FileStorage.Title" = "文件存储";
 "FileStorage.Space.Title" = "远程存储";
@@ -793,6 +797,20 @@
 // MARK: - Cpear cache alert
 "ClearCacheAlert.Title" = "是否确定?";
 "ClearCacheAlert.Description" = "存储在 Anytype 中的所有媒体文件将从您当前的设备中删除。可以从备份节点或其他设备再次下载它们。";
+
+// MARK: - Spaces
+"Spaces.Accessibility.Public" = "公共";
+"Spaces.Accessibility.Private" = "私人";
+"Spaces.Accessibility.PublicFull" = "公共空间";
+"Spaces.Accessibility.PrivateFull" = "私人空间";
+
+// MARK: - Space Settings
+"SpaceSettings.Title" = "空间设置";
+"SpaceSettings.RemoteStorage" = "远程存储";
+"SpaceSettings.Info" = "空间信息";
+
+// MARK: - Space Create
+"SpaceCreate.Title" = "创建空间";
 
 // MARK: - Sharing
 "Sharing.Navigation.title" = "添加至 Anytype";

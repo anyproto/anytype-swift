@@ -111,7 +111,7 @@
 "Duplicate" = "Duplizieren";
 "Copy" = "Kopieren";
 "Preview" = "Vorschau";
-"View" = "View";
+"View" = "Ansicht";
 "Paste" = "Einfügen";
 "Move" = "Verschieben";
 "Move to" = "Verschieben nach";
@@ -204,47 +204,47 @@
 
 "Auth.JoinFlow.Key.Title" = "Speichere deine Wiederherstellungsphrase";
 "Auth.JoinFlow.Key.Description" = "Es handelt sich um eine neuartige Authentifizierungsart, die dir vollen Besitz über dein Konto und die Daten gibt.";
-"Auth.JoinFlow.Key.TextField.Placeholder" = "Type your recovery phrase";
-"Auth.JoinFlow.Key.Button.Show.Title" = "Show Recovery Phrase";
+"Auth.JoinFlow.Key.TextField.Placeholder" = "Geben Sie Ihre Wiederherstellungsphrase ein";
+"Auth.JoinFlow.Key.Button.Show.Title" = "Wiederherstellungsphrase anzeigen";
 "Auth.JoinFlow.Key.Button.Saved.Title" = "Zur App gehen";
 "Auth.JoinFlow.Key.Button.Later.Title" = "Überspringen";
 "Auth.JoinFlow.Key.Button.Copy.Title" = "In die Zwischenablage kopieren";
-"Auth.JoinFlow.Key.Button.Info.Title" = "Read more";
-"Auth.JoinFlow.Key.Button.Tip.Title" = "You can find Recovery Phrase later in Anytype settings";
+"Auth.JoinFlow.Key.Button.Info.Title" = "Mehr lesen";
+"Auth.JoinFlow.Key.Button.Tip.Title" = "Wiederherstellungsphrase findest du später in den Anytype Einstellungen";
 
-"Auth.JoinFlow.Key.ReadMore.Title" = "What is Recovery Phrase?";
-"Auth.JoinFlow.Key.ReadMore.Option1.Title" = "Recovery Phrase is a random combination of 12 words from which your account is magically generated on this device.";
-"Auth.JoinFlow.Key.ReadMore.Option2.Title" = "Whomever knows Recovery Phrase, owns the account. **At this moment, you are the only person in the world who knows it.**";
-"Auth.JoinFlow.Key.ReadMore.Option3.Title" = "That's why it's essential to keep Recovery Phrase safe. As the sole owner, nobody can help you if it's lost.";
-"Auth.JoinFlow.Key.ReadMore.Instruction.Title" = "How to save my phrase?";
-"Auth.JoinFlow.Key.ReadMore.Instruction.Option1.Title" = "The easiest way to store your Recovery Phrase is to save it in your password manager.";
-"Auth.JoinFlow.Key.ReadMore.Instruction.Option2.Title" = "The most secure way is to write it down on paper and keep it offline, in a safe and secure place.";
+"Auth.JoinFlow.Key.ReadMore.Title" = "Was ist Wiederherstellungsphrase?";
+"Auth.JoinFlow.Key.ReadMore.Option1.Title" = "Wiederherstellungsphrase ist eine zufällige Kombination von 12 Wörtern, aus denen Ihr Konto auf diesem Gerät magisch generiert wird.";
+"Auth.JoinFlow.Key.ReadMore.Option2.Title" = "Wer das Wiederherstellungsphrase kennt, besitzt den Account. **In diesem Moment bist du der einzige Mensch auf der Welt, der es kennt.**";
+"Auth.JoinFlow.Key.ReadMore.Option3.Title" = "Deshalb ist es wichtig, dass Recovery Phrase sicher bleibt. Als einziger Besitzer kann dir niemand helfen, wenn es verloren geht.";
+"Auth.JoinFlow.Key.ReadMore.Instruction.Title" = "Wie kann ich meine Phrase speichern?";
+"Auth.JoinFlow.Key.ReadMore.Instruction.Option1.Title" = "Der einfachste Weg, Ihre Wiederherstellungsphrase zu speichern, ist die Speicherung in Ihrem Passwort-Manager.";
+"Auth.JoinFlow.Key.ReadMore.Instruction.Option2.Title" = "Am sichersten ist es, sie auf Papier aufzuschreiben und offline, an einem sicheren Ort.";
 
-"Auth.JoinFlow.Soul.Title" = "Namen für die neue Identität festlegen";
-"Auth.JoinFlow.Soul.Description" = "Wähle zuerst einen Namen innerhalb von Anytype aus";
+"Auth.JoinFlow.Soul.Title" = "Gib deinen Namen ein";
+"Auth.JoinFlow.Soul.Description" = "So wirst du in der App erscheinen.";
 "Auth.JoinFlow.Soul.Placeholder" = "Unbenannt";
 
 "Auth.JoinFlow.Creating.Soul.Title" = "Neues Konto erstellen";
-"Auth.JoinFlow.Setting.Space.Title" = "Setting up your personal space";
+"Auth.JoinFlow.Setting.Space.Title" = "Einrichtung deines persönlichen Spaces";
 "Auth.JoinFlow.Personal.Space.Title" = "Persönlicher Space";
 
 // Auth - Login flow
-"Auth.LoginFlow.Use.Keychain.Title" = "Use keychain";
+"Auth.LoginFlow.Use.Keychain.Title" = "Schlüsselbund verwenden";
 "Auth.LoginFlow.Or" = "ODER";
-"Auth.LoginFlow.Textfield.Placeholder" = "Type your recovery phrase";
+"Auth.LoginFlow.Textfield.Placeholder" = "Geben Sie Ihre Wiederherstellungsphrase ein";
 "Auth.LoginFlow.Enter.Button.Title" = "Anmelden";
 "Auth.LoginFlow.Entering.Void.Title" = "Leere betreten";
 
 // Object settings
 
 "Icon" = "Symbol";
-"Emoji or image for object" = "Emoji or image for object";
-"Cover" = "Cover";
-"Background picture" = "Background picture";
+"Emoji or image for object" = "Emoji oder Bild für das Objekt";
+"Cover" = "Titelbild";
+"Background picture" = "Hintergrundbild";
 "Layout" = "Layout";
-"Arrangement of objects on a canvas" = "Arrangement of objects on a canvas";
+"Arrangement of objects on a canvas" = "Anordnung von Objekten auf einer Leinwand";
 
-"Search" = "Search";
+"Search" = "Suchen";
 "There is no emoji named" = "There is no emoji named";
 "Try to find a new one or upload your image" = "Try to find a new one or upload your image";
 
@@ -262,29 +262,29 @@
 "Remove photo" = "Foto entfernen";
 "Basic" = "Einfach";
 "Profile" = "Profil";
-"Task" = "Task";
-"Note" = "Note";
-"Choose layout type" = "Choose layout type";
+"Task" = "Aufgabe";
+"Note" = "Notiz";
+"Choose layout type" = "Wähle einen Ansichtstyp";
 
-"Undo typing" = "Undo typing";
-"Undo" = "Undo";
+"Undo typing" = "Eingabe widerrufen";
+"Undo" = "Rückgängig";
 "Actions.LinkItself" = "Link zu";
-"Actions.MakeAsTemplate" = "Make template";
-"Actions.TemplateMakeDefault" = "Set as default";
+"Actions.MakeAsTemplate" = "Vorlage erstellen";
+"Actions.TemplateMakeDefault" = "Als Standard festlegen";
 
 // Object Type
 "Set" = "Set";
 "Collection" = "Sammlung";
 
-"Editor.MovingState.ScrollToSelectedPlace" = "Scroll to select a place";
+"Editor.MovingState.ScrollToSelectedPlace" = "Scrollen, um einen Ort auszuwählen";
 
 // MARK: - Link to search
 
-"Editor.LinkToObject.SearchPlaceholder" = "Paste link or search objects";
-"Editor.LinkToObject.PasteFromClipboard" = "Paste from clipboard";
-"Editor.LinkToObject.LinkedTo" = "Linked to";
-"Editor.LinkToObject.CopyLink" = "Copy link";
-"Editor.LinkToObject.RemoveLink" = "Remove link";
+"Editor.LinkToObject.SearchPlaceholder" = "Link einfügen oder Objekte suchen";
+"Editor.LinkToObject.PasteFromClipboard" = "Aus Zwischenspeicher einfügen";
+"Editor.LinkToObject.LinkedTo" = "Verlinkt mit";
+"Editor.LinkToObject.CopyLink" = "Link kopieren";
+"Editor.LinkToObject.RemoveLink" = "Link entfernen";
 
 // MARK: - Main search
 "There is no object named" = "There is no object named %@";
@@ -307,11 +307,8 @@
 
 
 // MARK: - Templates
-"Alert.Templates_Available.Title" = "This type has %d templates";
-"Alert.Templates_Available.Description" = "Swipe down to skip";
-"Alert.Templates_Available.Button" = "Show";
+"TemplateSelection.Available.Title" = "This type has %d templates";
 "TemplatePicker.ChooseTemplate" = "Choose template";
-"TemplatePicker.Buttons.Skip" = "Überspringen";
 "TemplatePicker.Buttons.UseTemplate" = "Use template";
 "TemplateSelection.SelectTemplate" = "Select template";
 "TemplateSelection.blankTemplate" = "Blank";
@@ -579,7 +576,7 @@
 "Views" = "Views";
 "Filter" = "Filter";
 "Sort" = "Sort";
-"View" = "View";
+"View" = "Ansicht";
 "Home" = "Home";
 "Highlight" = "Highlight";
 "Create object" = "Create object";
@@ -625,6 +622,7 @@
 // MARK: - ObjectType
 "ObjectType.fallbackDescription" = "Blank canvas with no title";
 "ObjectType.SearchOrInstall" = "Search or install a new type";
+"ObjectType.Search" = "Search for Type";
 "ObjectType.MyTypes" = "My Types";
 "ObjectType.AddedToLibrary" = "Type ‘%@’ added to your library";
 "ObjectType.DeletedName" = "Deleted type";
@@ -673,7 +671,7 @@
 // Relation Actions
 "RelationAction.CopyPhone" = "Copy phone numbler";
 "RelationAction.CopyEmail" = "Copy email";
-"RelationAction.CopyLink" = "Copy link";
+"RelationAction.CopyLink" = "Link kopieren";
 "RelationAction.Copied" = "Kopiert";
 "RelationAction.ReloadingContent" = "Reloading content";
 "RelationAction.ReloadContent" = "Reload object content";
@@ -768,6 +766,12 @@
 "ClearCache.Success" = "Cache sucessfully cleared";
 "ClearCache.Error" = "Error, try again later";
 
+// MARK: - Settings
+"Settings.TitleLegacy" = "Persönlicher Space";
+"Settings.Title" = "Settings";
+"Settings.SpaceName" = "Space-Name";
+"Settings.AccountAndAccess" = "Account and access";
+
 // MARK: - File Storage
 "FileStorage.Title" = "File storage";
 "FileStorage.Space.Title" = "Remote storage";
@@ -793,6 +797,20 @@
 // MARK: - Cpear cache alert
 "ClearCacheAlert.Title" = "Are you sure?";
 "ClearCacheAlert.Description" = "All media files stored in Anytype will be deleted from your current device. They can be downloaded again from a backup node or another device.";
+
+// MARK: - Spaces
+"Spaces.Accessibility.Public" = "Public";
+"Spaces.Accessibility.Private" = "Private";
+"Spaces.Accessibility.PublicFull" = "Public space";
+"Spaces.Accessibility.PrivateFull" = "Private space";
+
+// MARK: - Space Settings
+"SpaceSettings.Title" = "Space settings";
+"SpaceSettings.RemoteStorage" = "Remote storage";
+"SpaceSettings.Info" = "Space info";
+
+// MARK: - Space Create
+"SpaceCreate.Title" = "Create a space";
 
 // MARK: - Sharing
 "Sharing.Navigation.title" = "Add to Anytype";

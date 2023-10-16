@@ -15,7 +15,7 @@
 "TextStyle.Subheading.Subtitle" = "Küçük başlık";
 
 "TextStyle.Highlighted.Title" = "Vurgulanan";
-"TextStyle.Highlighted.Subtitle" = "Spotlight, that needs special attention";
+"TextStyle.Highlighted.Subtitle" = "Özel dikkat gerektiren bir bölge";
 
 "TextStyle.Callout.Title" = "Callout";
 "TextStyle.Callout.Subtitle" = "Simgeli kenarlıklı metin";
@@ -220,8 +220,8 @@
 "Auth.JoinFlow.Key.ReadMore.Instruction.Option1.Title" = "Kurtarma Dizilimini saklamanın en kolay yolu şifre yöneticisinde kaydetmektir.";
 "Auth.JoinFlow.Key.ReadMore.Instruction.Option2.Title" = "En güvenli yol ise kağıt üstüne yazarak internet üstünde olmayan bir yerde, güvenli ve emin bir yerde saklamaktır.";
 
-"Auth.JoinFlow.Soul.Title" = "Set a name for new identity";
-"Auth.JoinFlow.Soul.Description" = "First, choose a name to use inside Anytype.";
+"Auth.JoinFlow.Soul.Title" = "Adınızı girin";
+"Auth.JoinFlow.Soul.Description" = "Uygulamada bu şekilde görüneceksiniz.";
 "Auth.JoinFlow.Soul.Placeholder" = "Başlıksız";
 
 "Auth.JoinFlow.Creating.Soul.Title" = "Generating new account";
@@ -307,11 +307,8 @@
 
 
 // MARK: - Templates
-"Alert.Templates_Available.Title" = "Bu türün %d tane şablonu var";
-"Alert.Templates_Available.Description" = "Atlamak için alta kaydırın";
-"Alert.Templates_Available.Button" = "Göster";
+"TemplateSelection.Available.Title" = "Bu türün %d tane şablonu var";
 "TemplatePicker.ChooseTemplate" = "Şablon seç";
-"TemplatePicker.Buttons.Skip" = "Atla";
 "TemplatePicker.Buttons.UseTemplate" = "Şablonu kullan";
 "TemplateSelection.SelectTemplate" = "Şablon seç";
 "TemplateSelection.blankTemplate" = "Boş";
@@ -625,6 +622,7 @@
 // MARK: - ObjectType
 "ObjectType.fallbackDescription" = "Blank canvas with no title";
 "ObjectType.SearchOrInstall" = "Search or install a new type";
+"ObjectType.Search" = "Tür ara";
 "ObjectType.MyTypes" = "My Types";
 "ObjectType.AddedToLibrary" = "Type ‘%@’ added to your library";
 "ObjectType.DeletedName" = "Deleted type";
@@ -768,6 +766,12 @@
 "ClearCache.Success" = "Cache sucessfully cleared";
 "ClearCache.Error" = "Error, try again later";
 
+// MARK: - Settings
+"Settings.TitleLegacy" = "Kişisel alan";
+"Settings.Title" = "Ayarlar";
+"Settings.SpaceName" = "Alan Adı";
+"Settings.AccountAndAccess" = "Hesap ve erişim";
+
 // MARK: - File Storage
 "FileStorage.Title" = "File storage";
 "FileStorage.Space.Title" = "Remote storage";
@@ -793,6 +797,20 @@
 // MARK: - Cpear cache alert
 "ClearCacheAlert.Title" = "Are you sure?";
 "ClearCacheAlert.Description" = "All media files stored in Anytype will be deleted from your current device. They can be downloaded again from a backup node or another device.";
+
+// MARK: - Spaces
+"Spaces.Accessibility.Public" = "Genel";
+"Spaces.Accessibility.Private" = "Özel";
+"Spaces.Accessibility.PublicFull" = "Genel alan";
+"Spaces.Accessibility.PrivateFull" = "Özel Alan";
+
+// MARK: - Space Settings
+"SpaceSettings.Title" = "Alan ayarları";
+"SpaceSettings.RemoteStorage" = "Remote storage";
+"SpaceSettings.Info" = "Alan bilgisi";
+
+// MARK: - Space Create
+"SpaceCreate.Title" = "Alan oluştur";
 
 // MARK: - Sharing
 "Sharing.Navigation.title" = "Add to Anytype";

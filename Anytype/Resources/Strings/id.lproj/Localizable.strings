@@ -220,8 +220,8 @@
 "Auth.JoinFlow.Key.ReadMore.Instruction.Option1.Title" = "Cara paling mudah untuk menyimpan Frasa Pemulihan adalah dengan meyimpannya di manajer kata sandi.";
 "Auth.JoinFlow.Key.ReadMore.Instruction.Option2.Title" = "Sedangkan, cara yang paling aman adalah dengan menuliskannya pada secarik kertas dan menyimpan kertas itu di tempat yang aman.";
 
-"Auth.JoinFlow.Soul.Title" = "Beri nama identitas baru";
-"Auth.JoinFlow.Soul.Description" = "Pertama-tama, tentukan nama untuk digunakan dalam Anytype.";
+"Auth.JoinFlow.Soul.Title" = "Siapa namamu?";
+"Auth.JoinFlow.Soul.Description" = "Beginilah penampilanmu di dalam aplikasi.";
 "Auth.JoinFlow.Soul.Placeholder" = "Nirjudul";
 
 "Auth.JoinFlow.Creating.Soul.Title" = "Membuat akun baru";
@@ -307,11 +307,8 @@
 
 
 // MARK: - Templates
-"Alert.Templates_Available.Title" = "Tipe ini memiliki %d templat";
-"Alert.Templates_Available.Description" = "Swipe down to skip";
-"Alert.Templates_Available.Button" = "Tampilkan";
+"TemplateSelection.Available.Title" = "Tipe ini memiliki %d templat";
 "TemplatePicker.ChooseTemplate" = "Pilih templat";
-"TemplatePicker.Buttons.Skip" = "Lewati";
 "TemplatePicker.Buttons.UseTemplate" = "Gunakan templat";
 "TemplateSelection.SelectTemplate" = "Pilih templat";
 "TemplateSelection.blankTemplate" = "Kosong";
@@ -625,6 +622,7 @@
 // MARK: - ObjectType
 "ObjectType.fallbackDescription" = "Kanvas kosong tanpa judul";
 "ObjectType.SearchOrInstall" = "Telusuri atau buat tipe baru";
+"ObjectType.Search" = "Telusuri Tipe";
 "ObjectType.MyTypes" = "Tipeku";
 "ObjectType.AddedToLibrary" = "Type ‘%@’ added to your library";
 "ObjectType.DeletedName" = "Deleted type";
@@ -768,6 +766,12 @@
 "ClearCache.Success" = "Cache sucessfully cleared";
 "ClearCache.Error" = "Error, try again later";
 
+// MARK: - Settings
+"Settings.TitleLegacy" = "Ruang Pribadi";
+"Settings.Title" = "Setelan";
+"Settings.SpaceName" = "Nama Ruang";
+"Settings.AccountAndAccess" = "Akun dan akses";
+
 // MARK: - File Storage
 "FileStorage.Title" = "File storage";
 "FileStorage.Space.Title" = "Remote storage";
@@ -793,6 +797,20 @@
 // MARK: - Cpear cache alert
 "ClearCacheAlert.Title" = "Are you sure?";
 "ClearCacheAlert.Description" = "All media files stored in Anytype will be deleted from your current device. They can be downloaded again from a backup node or another device.";
+
+// MARK: - Spaces
+"Spaces.Accessibility.Public" = "Publik";
+"Spaces.Accessibility.Private" = "Pribadi";
+"Spaces.Accessibility.PublicFull" = "Ruang publik";
+"Spaces.Accessibility.PrivateFull" = "Ruang pribadi";
+
+// MARK: - Space Settings
+"SpaceSettings.Title" = "Setelan ruang";
+"SpaceSettings.RemoteStorage" = "Remote storage";
+"SpaceSettings.Info" = "Info ruang";
+
+// MARK: - Space Create
+"SpaceCreate.Title" = "Buat ruang";
 
 // MARK: - Sharing
 "Sharing.Navigation.title" = "Add to Anytype";

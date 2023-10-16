@@ -8,11 +8,11 @@
 "TextStyle.Title.Title" = "Título";
 "TextStyle.Title.Subtitle" = "Encabezado de sección grande";
 
-"TextStyle.Heading.Title" = "Encabezado";
-"TextStyle.Heading.Subtitle" = "Encabezado medio";
+"TextStyle.Heading.Title" = "Título";
+"TextStyle.Heading.Subtitle" = "Título medio";
 
 "TextStyle.Subheading.Title" = "Subtítulo";
-"TextStyle.Subheading.Subtitle" = "Encabezado pequeño";
+"TextStyle.Subheading.Subtitle" = "Título pequeño";
 
 "TextStyle.Highlighted.Title" = "Destacado";
 "TextStyle.Highlighted.Subtitle" = "Spotlight, que requiere especial atención";
@@ -49,7 +49,7 @@
 "BlockText.ContentType.Numbered.Placeholder" = "Elemento de lista numerada";
 "BlockText.ContentType.Quote.Placeholder" = "Texto resaltado";
 "BlockText.ContentType.Header.Placeholder" = "Título";
-"BlockText.ContentType.Header2.Placeholder" = "Encabezado";
+"BlockText.ContentType.Header2.Placeholder" = "Título";
 "BlockText.ContentType.Header3.Placeholder" = "Subtítulo";
 
 // MARK: - Block Link
@@ -67,7 +67,7 @@
 
 // MARK: - Object
 "Object.Title.Placeholder" = "Sin título";
-"Object.Deleted.Placeholder" = "Objetos eliminado";
+"Object.Deleted.Placeholder" = "Objetos eliminados";
 
 // MARK: - Relation
 "Featured relations" = "Relaciones destacadas";
@@ -75,7 +75,7 @@
 "Relation.View.Hint.Empty" = "vacío";
 "Relation.MyRelations" = "Mis relaciones";
 "Relation.AddedToLibrary" = "La relación ‘%@’ ha sido añadida a tu librería";
-"Relation.Deleted" = "Eliminar relación";
+"Relation.Deleted" = "Relación eliminada";
 "Relation.From.Type" = "Del tipo %@";
 
 "Relation.Format.Object.Title" = "Objeto";
@@ -220,8 +220,8 @@
 "Auth.JoinFlow.Key.ReadMore.Instruction.Option1.Title" = "La forma más fácil de almacenar su frase de recuperación es guardarla en su gestor de contraseñas.";
 "Auth.JoinFlow.Key.ReadMore.Instruction.Option2.Title" = "La forma más segura de almacenarla es escribirla en papel y mantenerla fuera de línea, en un lugar seguro.";
 
-"Auth.JoinFlow.Soul.Title" = "Establezca un nombre para la nueva identidad";
-"Auth.JoinFlow.Soul.Description" = "Primero, elija un nombre para usar dentro de Anytype.";
+"Auth.JoinFlow.Soul.Title" = "Ingresa tu nombre";
+"Auth.JoinFlow.Soul.Description" = "Así es como aparecerá en la aplicación.";
 "Auth.JoinFlow.Soul.Placeholder" = "Sin título";
 
 "Auth.JoinFlow.Creating.Soul.Title" = "Generando nueva cuenta";
@@ -307,11 +307,8 @@
 
 
 // MARK: - Templates
-"Alert.Templates_Available.Title" = "Este tipo tiene %d plantillas";
-"Alert.Templates_Available.Description" = "Deslizar hacia abajo para omitir";
-"Alert.Templates_Available.Button" = "Mostrar";
+"TemplateSelection.Available.Title" = "Este tipo tiene %d plantillas";
 "TemplatePicker.ChooseTemplate" = "Elegir plantilla";
-"TemplatePicker.Buttons.Skip" = "Saltar";
 "TemplatePicker.Buttons.UseTemplate" = "Usar plantilla";
 "TemplateSelection.SelectTemplate" = "Seleccionar plantilla";
 "TemplateSelection.blankTemplate" = "Vacío";
@@ -625,6 +622,7 @@
 // MARK: - ObjectType
 "ObjectType.fallbackDescription" = "Lienzo en blanco sin título";
 "ObjectType.SearchOrInstall" = "Buscar o instalar un nuevo tipo";
+"ObjectType.Search" = "Buscar por tipo";
 "ObjectType.MyTypes" = "Mis tipos";
 "ObjectType.AddedToLibrary" = "El tipo ‘%@’ ha sido añadida a tu librería";
 "ObjectType.DeletedName" = "Tipo eliminado";
@@ -768,6 +766,12 @@
 "ClearCache.Success" = "Caché borrada con éxito";
 "ClearCache.Error" = "Error, inténtelo de después";
 
+// MARK: - Settings
+"Settings.TitleLegacy" = "Espacio personal";
+"Settings.Title" = "Ajustes";
+"Settings.SpaceName" = "Nombre del espacio";
+"Settings.AccountAndAccess" = "Cuenta y acceso";
+
 // MARK: - File Storage
 "FileStorage.Title" = "Almacenamiento de archivos";
 "FileStorage.Space.Title" = "Almacenamiento remoto";
@@ -793,6 +797,20 @@
 // MARK: - Cpear cache alert
 "ClearCacheAlert.Title" = "¿Estás seguro?";
 "ClearCacheAlert.Description" = "Todos los archivos multimedia almacenados en Anytype se eliminarán de tu dispositivo actual. Se pueden volver a descargar desde un nodo de copia de seguridad o desde otro dispositivo.";
+
+// MARK: - Spaces
+"Spaces.Accessibility.Public" = "Público";
+"Spaces.Accessibility.Private" = "Privado";
+"Spaces.Accessibility.PublicFull" = "Espacio Público";
+"Spaces.Accessibility.PrivateFull" = "Espacio privado";
+
+// MARK: - Space Settings
+"SpaceSettings.Title" = "Configuración del espacio";
+"SpaceSettings.RemoteStorage" = "Almacenamiento remoto";
+"SpaceSettings.Info" = "Información del espacio";
+
+// MARK: - Space Create
+"SpaceCreate.Title" = "Crear un espacio";
 
 // MARK: - Sharing
 "Sharing.Navigation.title" = "Añadir a Anytype";

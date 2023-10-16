@@ -17,7 +17,7 @@
 "TextStyle.Highlighted.Title" = "Surligné";
 "TextStyle.Highlighted.Subtitle" = "Mise en avant, qui nécessite une attention particulière";
 
-"TextStyle.Callout.Title" = "Callout";
+"TextStyle.Callout.Title" = "Encadré";
 "TextStyle.Callout.Subtitle" = "Bordered text with icon";
 
 "TextStyle.Checkbox.Title" = "Case à cocher";
@@ -94,7 +94,7 @@
 "Mention.Subtitle.Placeholder" = "Objet";
 
 "None" = "Aucun";
-"Callout" = "Callout";
+"Callout" = "Encadré";
 "Toggle empty. Tap to create block." = "Activer/désactiver vide. Touchez pour créer un bloc.";
 "Loading, please wait" = "Chargement, veuillez patienter...";
 "Done" = "Fait";
@@ -178,36 +178,36 @@
 "Keychain.SeedPhrasePlaceholder" = "sorcière effondrement pratique nourrir honte ouvert désespoir ruisseau route à nouveau glace moins lac arbre jeune adresse cerveau désespoir";
 
 // Auth
-"Sign up" = "Sign up";
-"Login" = "Login";
-"Create" = "Create";
-"Scan QR code" = "Scan QR code";
-"Auth.CameraPermissionTitle" = "Please allow access";
-"Restore secret phrase from keychain" = "Restore Recovery Phrase from the keychain";
-"Auth.LogIn" = "I already have one";
-"Auth.Join" = "Generate new account";
-"Auth.Welcome.Subtitle" = "Anytype is your safe space to write, plan, think and organise everything that matters to you.";
-"Auth.Caption.Privacy.Text" = "By continuing you agree to [Terms of Use](%@) and [Privacy Policy](%@)";
-"Auth.Next" = "Next";
+"Sign up" = "Inscription";
+"Login" = "Connexion";
+"Create" = "Créer";
+"Scan QR code" = "Scanner un QR code";
+"Auth.CameraPermissionTitle" = "Veuillez autoriser l'accès";
+"Restore secret phrase from keychain" = "Restaurer la phrase de récupération à partir du trousseau";
+"Auth.LogIn" = "J'en ai déjà un";
+"Auth.Join" = "Générer un nouveau compte";
+"Auth.Welcome.Subtitle" = "Anytype est votre lieu sûr pour écrire, planifier, penser et organiser tout ce qui compte pour vous.";
+"Auth.Caption.Privacy.Text" = "En continuant, vous acceptez [Conditions d'utilisation](%@) et [Politique de confidentialité](%@)";
+"Auth.Next" = "Suivant";
 
-"Account recover error" = "Account recover error, try again";
-"Account recover error no internet" = "Account recover error, probably no internet connection";
+"Account recover error" = "Erreur de récupération de compte, veuillez réessayer";
+"Account recover error no internet" = "Erreur de récupération de compte, probablement pour cause d'absence de connexion Internet";
 
 // Auth Errors
-"Error creating wallet" = "Error creating wallet";
-"Error select account" = "Error select account";
-"Error wallet recover account" = "Error wallet recover account";
+"Error creating wallet" = "Erreur lors de la création du portefeuille";
+"Error select account" = "Erreur de sélection du compte";
+"Error wallet recover account" = "Erreur lors de la récupération du compte";
 
-"Search for language" = "Search for language";
+"Search for language" = "Rechercher une langue…";
 
 // Auth - Join flow
 
-"Auth.JoinFlow.Key.Title" = "Save your Recovery Phrase";
-"Auth.JoinFlow.Key.Description" = "It’s a novel way of authentication that gives you full ownership over your account and data.";
-"Auth.JoinFlow.Key.TextField.Placeholder" = "Type your recovery phrase";
-"Auth.JoinFlow.Key.Button.Show.Title" = "Show Recovery Phrase";
-"Auth.JoinFlow.Key.Button.Saved.Title" = "Go to the app";
-"Auth.JoinFlow.Key.Button.Later.Title" = "Skip";
+"Auth.JoinFlow.Key.Title" = "Sauvegardez votre phrase de récupération";
+"Auth.JoinFlow.Key.Description" = "C’est un nouveau moyen d’authentification qui vous octroie la pleine propriété de votre compte et de vos données.";
+"Auth.JoinFlow.Key.TextField.Placeholder" = "Saisissez votre phrase de récupération";
+"Auth.JoinFlow.Key.Button.Show.Title" = "Afficher la phrase de récupération";
+"Auth.JoinFlow.Key.Button.Saved.Title" = "Accéder à l'application";
+"Auth.JoinFlow.Key.Button.Later.Title" = "Ignorer";
 "Auth.JoinFlow.Key.Button.Copy.Title" = "Copier dans le presse-papier";
 "Auth.JoinFlow.Key.Button.Info.Title" = "En savoir plus";
 "Auth.JoinFlow.Key.Button.Tip.Title" = "Vous pouvez trouver la phrase de récupération plus tard dans les paramètres de Anytype";
@@ -217,60 +217,60 @@
 "Auth.JoinFlow.Key.ReadMore.Option2.Title" = "Quiconque connaît la Phrase de Récupération, possède le compte. **En ce moment, vous êtes la seule personne au monde à le connaître.**";
 "Auth.JoinFlow.Key.ReadMore.Option3.Title" = "C'est pourquoi il est essentiel de garder la phrase de récupération en sécurité. En tant que propriétaire unique, personne ne peut vous aider si elle est perdue.";
 "Auth.JoinFlow.Key.ReadMore.Instruction.Title" = "Comment sauvegarder ma phrase ?";
-"Auth.JoinFlow.Key.ReadMore.Instruction.Option1.Title" = "The easiest way to store your Recovery Phrase is to save it in your password manager.";
-"Auth.JoinFlow.Key.ReadMore.Instruction.Option2.Title" = "The most secure way is to write it down on paper and keep it offline, in a safe and secure place.";
+"Auth.JoinFlow.Key.ReadMore.Instruction.Option1.Title" = "La façon la plus simple de stocker votre phrase de récupération est de l’enregistrer dans votre gestionnaire de mots de passe.";
+"Auth.JoinFlow.Key.ReadMore.Instruction.Option2.Title" = "Le moyen le plus sûr est de l'écrire sur papier et de le garder dans un endroit sûr et sécurisé.";
 
-"Auth.JoinFlow.Soul.Title" = "Set a name for new identity";
-"Auth.JoinFlow.Soul.Description" = "First, choose a name to use inside Anytype.";
+"Auth.JoinFlow.Soul.Title" = "Saisissez votre nom";
+"Auth.JoinFlow.Soul.Description" = "This is how you will appear in the app.";
 "Auth.JoinFlow.Soul.Placeholder" = "Sans titre";
 
-"Auth.JoinFlow.Creating.Soul.Title" = "Generating new account";
-"Auth.JoinFlow.Setting.Space.Title" = "Setting up your personal space";
+"Auth.JoinFlow.Creating.Soul.Title" = "Génération d'un nouveau compte";
+"Auth.JoinFlow.Setting.Space.Title" = "Configuration de votre espace personnel";
 "Auth.JoinFlow.Personal.Space.Title" = "Espace personnel";
 
 // Auth - Login flow
-"Auth.LoginFlow.Use.Keychain.Title" = "Use keychain";
-"Auth.LoginFlow.Or" = "OR";
-"Auth.LoginFlow.Textfield.Placeholder" = "Type your recovery phrase";
-"Auth.LoginFlow.Enter.Button.Title" = "Login";
+"Auth.LoginFlow.Use.Keychain.Title" = "Utiliser le trousseau";
+"Auth.LoginFlow.Or" = "OU";
+"Auth.LoginFlow.Textfield.Placeholder" = "Saisissez votre phrase de récupération";
+"Auth.LoginFlow.Enter.Button.Title" = "Connexion";
 "Auth.LoginFlow.Entering.Void.Title" = "Entering the Void";
 
 // Object settings
 
-"Icon" = "Icon";
-"Emoji or image for object" = "Emoji or image for object";
+"Icon" = "Icône";
+"Emoji or image for object" = "Emoji ou image";
 "Cover" = "Cover";
-"Background picture" = "Background picture";
-"Layout" = "Layout";
-"Arrangement of objects on a canvas" = "Arrangement of objects on a canvas";
+"Background picture" = "Image d'arrière-plan";
+"Layout" = "Mise en page";
+"Arrangement of objects on a canvas" = "Arrangement d'objets sur une toile";
 
-"Search" = "Search";
-"There is no emoji named" = "There is no emoji named";
+"Search" = "Rechercher";
+"There is no emoji named" = "Il n'y a pas d'émoji nommé";
 "Try to find a new one or upload your image" = "Try to find a new one or upload your image";
 
 "Emoji" = "Emoji";
 "Random" = "Random";
 "Upload" = "Upload";
-"Change icon" = "Change icon";
+"Change icon" = "Changer d'icône";
 "Change cover" = "Change cover";
-"Remove" = "Remove";
+"Remove" = "Supprimer";
 
-"Solid colors" = "Solid colors";
-"Gradients" = "Gradients";
-"Gallery" = "Gallery";
+"Solid colors" = "Couleurs unies";
+"Gradients" = "Dégradés";
+"Gallery" = "Galerie";
 
-"Remove photo" = "Remove photo";
+"Remove photo" = "Supprimer la photo";
 "Basic" = "Basic";
-"Profile" = "Profile";
+"Profile" = "Profil";
 "Task" = "Task";
 "Note" = "Note";
-"Choose layout type" = "Choose layout type";
+"Choose layout type" = "Choisir une mise en page";
 
 "Undo typing" = "Undo typing";
 "Undo" = "Undo";
 "Actions.LinkItself" = "Link to";
 "Actions.MakeAsTemplate" = "Make template";
-"Actions.TemplateMakeDefault" = "Set as default";
+"Actions.TemplateMakeDefault" = "Définir par défaut";
 
 // Object Type
 "Set" = "Set";
@@ -281,23 +281,23 @@
 // MARK: - Link to search
 
 "Editor.LinkToObject.SearchPlaceholder" = "Paste link or search objects";
-"Editor.LinkToObject.PasteFromClipboard" = "Paste from clipboard";
+"Editor.LinkToObject.PasteFromClipboard" = "Coller depuis le presse-papier";
 "Editor.LinkToObject.LinkedTo" = "Linked to";
-"Editor.LinkToObject.CopyLink" = "Copy link";
-"Editor.LinkToObject.RemoveLink" = "Remove link";
+"Editor.LinkToObject.CopyLink" = "Copier le lien";
+"Editor.LinkToObject.RemoveLink" = "Supprimer le lien";
 
 // MARK: - Main search
-"There is no object named" = "There is no object named %@";
-"There is no type named" = "There is no type named %@";
+"There is no object named" = "Il n'y a aucun objet nommé %@";
+"There is no type named" = "Il n'y a aucun type nommé %@";
 "Create a new one or search for something else" = "Create a new one or search for something else";
 
 // MARK: - Home
 
-"Home.Snackbar.Library" = "Library is available in desktop app";
+"Home.Snackbar.Library" = "La bibliothèque est disponible dans l'application bureau";
 
 // MARK: - Alerts
-"Alert.CameraPermissions.Settings" = "Settings";
-"Alert.CameraPermissions.GoToSettings" = "Anytype needs access to your camera to scan QR codes.\n\nPlease, go to your device's Settings -> Privacy -> Camera and set Anytype to ON";
+"Alert.CameraPermissions.Settings" = "Paramètres";
+"Alert.CameraPermissions.GoToSettings" = "Anytype a besoin d'accéder à votre caméra pour scanner les QR codes.\n\nAllez dans les paramètres de votre appareil -> Confidentialité -> Caméra et donnez accès à Anytype";
 
 // MARK: - Deletion
 "Pending deletion text" = "We're sorry to see you go. You have 30 days to cancel this request. After 30 days, your encrypted account data is permanently removed from the backup node.";
@@ -307,11 +307,8 @@
 
 
 // MARK: - Templates
-"Alert.Templates_Available.Title" = "This type has %d templates";
-"Alert.Templates_Available.Description" = "Swipe down to skip";
-"Alert.Templates_Available.Button" = "Show";
+"TemplateSelection.Available.Title" = "This type has %d templates";
 "TemplatePicker.ChooseTemplate" = "Choose template";
-"TemplatePicker.Buttons.Skip" = "Skip";
 "TemplatePicker.Buttons.UseTemplate" = "Use template";
 "TemplateSelection.SelectTemplate" = "Select template";
 "TemplateSelection.blankTemplate" = "Blank";
@@ -354,79 +351,79 @@
 
 // MARK: - Sets: Filters
 "EditSet.Popup.Filters.NavigationView.Title" = "Filters";
-"EditSet.Popup.Filters.EmptyView.Title" = "No filters here. You can add some";
-"EditSet.Popup.Filters.TextView.Placeholder" = "Value";
+"EditSet.Popup.Filters.EmptyView.Title" = "Aucun filtre ici. Vous pouvez en ajouter";
+"EditSet.Popup.Filters.TextView.Placeholder" = "Valeur";
 
 // MARK: - Sets: Filters.Conditions
-"EditSet.Popup.Filter.Condition.Text.Equal" = "Is";
-"EditSet.Popup.Filter.Condition.Text.NotEqual" = "Is not";
-"EditSet.Popup.Filter.Condition.Text.Like" = "Contains";
-"EditSet.Popup.Filter.Condition.Text.NotLike" = "Doesn't contain";
+"EditSet.Popup.Filter.Condition.Text.Equal" = "Est";
+"EditSet.Popup.Filter.Condition.Text.NotEqual" = "N'est pas";
+"EditSet.Popup.Filter.Condition.Text.Like" = "Contient";
+"EditSet.Popup.Filter.Condition.Text.NotLike" = "Ne contient pas";
 
-"EditSet.Popup.Filter.Condition.Number.Equal" = "Is equal to";
-"EditSet.Popup.Filter.Condition.Number.NotEqual" = "Is not equal to";
-"EditSet.Popup.Filter.Condition.Number.Greater" = "Is greater than";
-"EditSet.Popup.Filter.Condition.Number.Less" = "Is less than";
-"EditSet.Popup.Filter.Condition.Number.GreaterOrEqual" = "Is greater than or equal to";
-"EditSet.Popup.Filter.Condition.Number.LessOrEqual" = "Is less than or equal to";
+"EditSet.Popup.Filter.Condition.Number.Equal" = "Égal à";
+"EditSet.Popup.Filter.Condition.Number.NotEqual" = "N’est pas égal à";
+"EditSet.Popup.Filter.Condition.Number.Greater" = "Supérieur à";
+"EditSet.Popup.Filter.Condition.Number.Less" = "Inférieur à";
+"EditSet.Popup.Filter.Condition.Number.GreaterOrEqual" = "Supérieur ou égal à";
+"EditSet.Popup.Filter.Condition.Number.LessOrEqual" = "Inférieur ou égal à";
 
-"EditSet.Popup.Filter.Condition.Date.Equal" = "Is";
-"EditSet.Popup.Filter.Condition.Date.After" = "Is after";
-"EditSet.Popup.Filter.Condition.Date.Before" = "Is before";
-"EditSet.Popup.Filter.Condition.Date.OnOrAfter" = "Is on or after";
-"EditSet.Popup.Filter.Condition.Date.OnOrBefore" = "Is on or before";
-"EditSet.Popup.Filter.Condition.Date.In" = "Is within";
+"EditSet.Popup.Filter.Condition.Date.Equal" = "Est";
+"EditSet.Popup.Filter.Condition.Date.After" = "Après";
+"EditSet.Popup.Filter.Condition.Date.Before" = "Avant";
+"EditSet.Popup.Filter.Condition.Date.OnOrAfter" = "Le ou après";
+"EditSet.Popup.Filter.Condition.Date.OnOrBefore" = "Le ou avant";
+"EditSet.Popup.Filter.Condition.Date.In" = "Dedans";
 
-"EditSet.Popup.Filter.Condition.Selected.In" = "Has any of";
+"EditSet.Popup.Filter.Condition.Selected.In" = "";
 "EditSet.Popup.Filter.Condition.Selected.AllIn" = "Has all of";
 "EditSet.Popup.Filter.Condition.Selected.NotIn" = "Has none of";
 "EditSet.Popup.Filter.Condition.Selected.Equal" = "Is exactly";
 
-"EditSet.Popup.Filter.Condition.Checkbox.Equal" = "Is";
-"EditSet.Popup.Filter.Condition.Checkbox.NotEqual" = "Is not";
+"EditSet.Popup.Filter.Condition.Checkbox.Equal" = "Est";
+"EditSet.Popup.Filter.Condition.Checkbox.NotEqual" = "N'est pas";
 
 "EditSet.Popup.Filter.Condition.General.Empty" = "Is empty";
 "EditSet.Popup.Filter.Condition.General.NotEmpty" = "Is not empty";
 "EditSet.Popup.Filter.Condition.General.None" = "All";
 
-"EditSet.Popup.Filter.Value.Checked" = "Checked";
-"EditSet.Popup.Filter.Value.Unchecked" = "Unchecked";
+"EditSet.Popup.Filter.Value.Checked" = "Coché";
+"EditSet.Popup.Filter.Value.Unchecked" = "Décoché";
 
-"EditSet.Popup.Filter.Date.Option.Today" = "Today";
-"EditSet.Popup.Filter.Date.Option.Yesterday" = "Yesterday";
-"EditSet.Popup.Filter.Date.Option.Tomorrow" = "Tomorrow";
-"EditSet.Popup.Filter.Date.Option.LastWeek" = "Last week";
-"EditSet.Popup.Filter.Date.Option.CurrentWeek" = "Current week";
-"EditSet.Popup.Filter.Date.Option.NextWeek" = "Next week";
-"EditSet.Popup.Filter.Date.Option.LastMonth" = "Last month";
-"EditSet.Popup.Filter.Date.Option.CurrentMonth" = "Current month";
-"EditSet.Popup.Filter.Date.Option.NextMonth" = "Next month";
-"EditSet.Popup.Filter.Date.Option.NumberOfDaysAgo" = "Number of days ago";
-"EditSet.Popup.Filter.Date.Option.NumberOfDaysFromNow" = "Number of days from now";
-"EditSet.Popup.Filter.Date.Option.ExactDate" = "Exact date";
+"EditSet.Popup.Filter.Date.Option.Today" = "Aujourd'hui";
+"EditSet.Popup.Filter.Date.Option.Yesterday" = "Hier";
+"EditSet.Popup.Filter.Date.Option.Tomorrow" = "Demain";
+"EditSet.Popup.Filter.Date.Option.LastWeek" = "Semaine dernière";
+"EditSet.Popup.Filter.Date.Option.CurrentWeek" = "Semaine en cours";
+"EditSet.Popup.Filter.Date.Option.NextWeek" = "Semaine prochaine";
+"EditSet.Popup.Filter.Date.Option.LastMonth" = "Mois dernier";
+"EditSet.Popup.Filter.Date.Option.CurrentMonth" = "Mois en cours";
+"EditSet.Popup.Filter.Date.Option.NextMonth" = "Mois prochain";
+"EditSet.Popup.Filter.Date.Option.NumberOfDaysAgo" = "Nombre de jours auparavant";
+"EditSet.Popup.Filter.Date.Option.NumberOfDaysFromNow" = "Nombre de jours à partir de maintenant";
+"EditSet.Popup.Filter.Date.Option.ExactDate" = "Date exacte";
 
-"EditSet.Popup.Filter.Date.Option.NumberOfDaysAgo.Short" = "%@ days ago";
-"EditSet.Popup.Filter.Date.Option.NumberOfDaysFromNow.Short" = "%@ days from now";
+"EditSet.Popup.Filter.Date.Option.NumberOfDaysAgo.Short" = "Il y a %@ jours";
+"EditSet.Popup.Filter.Date.Option.NumberOfDaysFromNow.Short" = "Dans %@ jours";
 
 // MARK: - Sets. Create object
 "Set.Create.ObjectTitle.Placeholder" = "Sans titre";
 
 // MARK: - Sets: Featured relations
-"Set.FeaturedRelations.Query" = "Query";
+"Set.FeaturedRelations.Query" = "Requête";
 "Set.FeaturedRelations.RelationsList" = "Relations:";
 "Set.FeaturedRelations.Relation" = "Relation:";
-"Set.FeaturedRelations.Type" = "Type:";
+"Set.FeaturedRelations.Type" = "Type :";
 
 // MARK: - Sets: Filters search
-"Set.Button.Title.Apply" = "Apply";
+"Set.Button.Title.Apply" = "Appliquer";
 
 // MARK: - Set.Bookmarks
-"Set.Bookmark.Create.Placeholder" = "Paste link";
-"Set.Bookmark.Error.Title" = "Oops - something went wrong";
-"Set.Bookmark.Error.Message" = "Please try again";
+"Set.Bookmark.Create.Placeholder" = "Coller le lien";
+"Set.Bookmark.Error.Title" = "Oups, une erreur c'est produite !";
+"Set.Bookmark.Error.Message" = "Veuillez réessayer";
 
 // MARK: - Sets: View Settings
-"Set.View.Settings.ImageFit.Title" = "Fit image";
+"Set.View.Settings.ImageFit.Title" = "Ajuster l'image";
 "Set.View.Settings.CardSize.Title" = "Card size";
 "Set.View.Settings.CardSize.Small.Title" = "Petit";
 "Set.View.Settings.CardSize.Large.Title" = "Large";
@@ -504,7 +501,7 @@
 "New relation" = "New relation";
 "Non-existent object" = "Non-existent object";
 
-"Select all" = "Select all";
+"Select all" = "Tout sélectionner";
 "Unselect all" = "Unselect all";
 "Deselect all" = "Deselect all";
 "Shared" = "Shared";
@@ -575,7 +572,7 @@
 "Empty" = "Empty";
 "Link to" = "Link to";
 "Unknown" = "Unknown";
-"Settings" = "Settings";
+"Settings" = "Paramètres";
 "Views" = "Views";
 "Filter" = "Filter";
 "Sort" = "Sort";
@@ -587,9 +584,9 @@
 "Preview layout" = "Preview layout";
 "Everywhere" = "Everywhere";
 "Exact day" = "Exact day";
-"Tomorrow" = "Tomorrow";
-"Yesterday" = "Yesterday";
-"Today" = "Today";
+"Tomorrow" = "Demain";
+"Yesterday" = "Hier";
+"Today" = "Aujourd'hui";
 "No date" = "No date";
 "Clear" = "Clear";
 "Create option" = "Create option ‘%@’";
@@ -619,12 +616,13 @@
 // MARK: - DataviewType
 "DataviewType.grid" = "Grid";
 "DataviewType.list" = "List";
-"DataviewType.gallery" = "Gallery";
+"DataviewType.gallery" = "Galerie";
 "DataviewType.kanban" = "Kanban";
 
 // MARK: - ObjectType
 "ObjectType.fallbackDescription" = "Blank canvas with no title";
 "ObjectType.SearchOrInstall" = "Search or install a new type";
+"ObjectType.Search" = "Rechercher un type";
 "ObjectType.MyTypes" = "My Types";
 "ObjectType.AddedToLibrary" = "Type ‘%@’ added to your library";
 "ObjectType.DeletedName" = "Deleted type";
@@ -673,7 +671,7 @@
 // Relation Actions
 "RelationAction.CopyPhone" = "Copy phone numbler";
 "RelationAction.CopyEmail" = "Copy email";
-"RelationAction.CopyLink" = "Copy link";
+"RelationAction.CopyLink" = "Copier le lien";
 "RelationAction.Copied" = "Copié";
 "RelationAction.ReloadingContent" = "Reloading content";
 "RelationAction.ReloadContent" = "Reload object content";
@@ -768,6 +766,12 @@
 "ClearCache.Success" = "Cache sucessfully cleared";
 "ClearCache.Error" = "Error, try again later";
 
+// MARK: - Settings
+"Settings.TitleLegacy" = "Espace personnel";
+"Settings.Title" = "Paramètres";
+"Settings.SpaceName" = "Nom de l'espace";
+"Settings.AccountAndAccess" = "Compte et accès";
+
 // MARK: - File Storage
 "FileStorage.Title" = "File storage";
 "FileStorage.Space.Title" = "Remote storage";
@@ -793,6 +797,20 @@
 // MARK: - Cpear cache alert
 "ClearCacheAlert.Title" = "Are you sure?";
 "ClearCacheAlert.Description" = "All media files stored in Anytype will be deleted from your current device. They can be downloaded again from a backup node or another device.";
+
+// MARK: - Spaces
+"Spaces.Accessibility.Public" = "Public";
+"Spaces.Accessibility.Private" = "Private";
+"Spaces.Accessibility.PublicFull" = "Espace public";
+"Spaces.Accessibility.PrivateFull" = "Espace privé";
+
+// MARK: - Space Settings
+"SpaceSettings.Title" = "Paramètres de l'espace";
+"SpaceSettings.RemoteStorage" = "Remote storage";
+"SpaceSettings.Info" = "Informations sur l'espace";
+
+// MARK: - Space Create
+"SpaceCreate.Title" = "Créer un espace";
 
 // MARK: - Sharing
 "Sharing.Navigation.title" = "Add to Anytype";
