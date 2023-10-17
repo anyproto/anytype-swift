@@ -20,7 +20,7 @@ extension SpaceView: DetailsModel {
         self.targetSpaceId = details.targetSpaceId
         self.createdDate = details.createdDate
         // Doesn't work on middleware side
-        self.spaceAccessibility = .public
+        self.spaceAccessibility = .private
     }
     
     static var subscriptionKeys: [BundledRelationKey] = .builder {
