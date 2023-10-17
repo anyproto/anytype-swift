@@ -87,30 +87,30 @@ actor SubscriptionStorage: SubscriptionStorageProtocol {
         for event in events.middlewareEvents {
             switch event.value {
             case .objectDetailsSet(let data):
-                guard idsContainsMySub(data.subIds) else { return }
+                guard idsContainsMySub(data.subIds) else { break }
                 _ = detailsStorage.set(data: data)
             case .objectDetailsAmend(let data):
-                guard idsContainsMySub(data.subIds) else { return }
+                guard idsContainsMySub(data.subIds) else { break }
                 _ = detailsStorage.amend(data: data)
             case .objectDetailsUnset(let data):
-                guard idsContainsMySub(data.subIds) else { return }
+                guard idsContainsMySub(data.subIds) else { break }
                 _ = detailsStorage.unset(data: data)
             case .subscriptionPosition(let data):
-                guard idsContainsMySub([data.subID]) else { return }
+                guard idsContainsMySub([data.subID]) else { break }
                 let update: SubscriptionUpdate = .move(from: data.id, after: data.afterID.isNotEmpty ? data.afterID : nil)
                 orderIds.applySubscriptionUpdate(update)
             case .subscriptionAdd(let data):
-                guard idsContainsMySub([data.subID]) else { return }
+                guard idsContainsMySub([data.subID]) else { break }
                 let update: SubscriptionUpdate = .add(data.id, after: data.afterID.isNotEmpty ? data.afterID : nil)
                 orderIds.applySubscriptionUpdate(update)
             case .subscriptionRemove(let data):
-                guard idsContainsMySub([data.subID]) else { return }
+                guard idsContainsMySub([data.subID]) else { break }
                 let update: SubscriptionUpdate = .remove(data.id)
                 orderIds.applySubscriptionUpdate(update)
             case .objectRemove:
                 break // unsupported (Not supported in middleware converter also)
             case .subscriptionCounters(let data):
-                guard idsContainsMySub([data.subID]) else { return }
+                guard idsContainsMySub([data.subID]) else { break }
                 state.total = Int(data.total)
                 state.nextCount = Int(data.nextCount)
                 state.prevCount = Int(data.prevCount)
@@ -118,6 +118,8 @@ actor SubscriptionStorage: SubscriptionStorageProtocol {
                 break
             }
         }
+        
+        state.items = orderIds.compactMap { detailsStorage.get(id: $0) }
         
         if oldState != state {
             updateItemsCache()
