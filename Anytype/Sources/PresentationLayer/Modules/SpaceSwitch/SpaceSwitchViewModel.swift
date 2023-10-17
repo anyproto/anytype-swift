@@ -99,7 +99,7 @@ final class SpaceSwitchViewModel: ObservableObject {
             SpaceRowModel(
                 id: workspace.id,
                 title: workspace.title,
-                icon: workspace.icon,
+                icon: workspace.objectIconImage,
                 isSelected: activeSpaceId == workspace.targetSpaceId
             ) { [weak self] in
                 self?.onTapWorkspace(workspace: workspace)
@@ -120,6 +120,7 @@ final class SpaceSwitchViewModel: ObservableObject {
     
     private func onTapWorkspace(workspace: SpaceView) {
         Task {
+            stopSpacesSubscriotions()
             try await activeWorkspaceStorage.setActiveSpace(spaceId: workspace.targetSpaceId)
             dismiss.toggle()
         }

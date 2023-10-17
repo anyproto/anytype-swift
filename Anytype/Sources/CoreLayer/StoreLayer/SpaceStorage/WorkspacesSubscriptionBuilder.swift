@@ -21,20 +21,13 @@ final class WorkspacesSubscriptionBuilder: WorkspacesSubscriptionBuilderProtocol
     
     func build() -> SubscriptionData {
         let sort = SearchHelper.sort(
-            relation: BundledRelationKey.lastModifiedDate,
+            relation: BundledRelationKey.lastOpenedDate,
             type: .desc
         )
         
         let filters = [
             SearchHelper.layoutFilter([.spaceView])
         ]
-        
-        let keys: [BundledRelationKey] = .builder {
-            BundledRelationKey.id
-            BundledRelationKey.targetSpaceId
-            BundledRelationKey.titleKeys
-            BundledRelationKey.objectIconImageKeys
-        }.uniqued()
         
         return .search(
             SubscriptionData.Search(
@@ -43,7 +36,7 @@ final class WorkspacesSubscriptionBuilder: WorkspacesSubscriptionBuilderProtocol
                 filters: filters,
                 limit: 0,
                 offset: 0,
-                keys: keys.map(\.rawValue)
+                keys: SpaceView.subscriptionKeys.map(\.rawValue)
             )
         )
     }
