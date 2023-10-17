@@ -97,7 +97,7 @@ final class SpaceSettingsViewModel: ObservableObject {
             info.append(
                 SettingsInfoModel(title: spaceRelationDetails.name, subtitle: details.targetSpaceId, onTap: { [weak self] in
                     UIPasteboard.general.string = details.targetSpaceId
-                    self?.snackBarData = .init(text: Loc.copiedToClipboard(details.targetSpaceId), showSnackBar: true)
+                    self?.snackBarData = .init(text: Loc.copiedToClipboard(spaceRelationDetails.name), showSnackBar: true)
                 })
             )
         }
