@@ -23,8 +23,8 @@
       "kind" : "remoteSourceControl",
       "location" : "git@github.com:anyproto/anytype-swift-codegen.git",
       "state" : {
-        "branch" : "0.0.11",
-        "revision" : "b3e9ba26804373951cb20f2b2455abc01d8d6c35"
+        "branch" : "0.0.12",
+        "revision" : "5b1d7ab0ad13b2259d9904810b59b60fb2349de5"
       }
     },
     {
@@ -95,8 +95,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/anyproto/SourceryGenPlugin.git",
       "state" : {
-        "branch" : "1.9.3",
-        "revision" : "97163be62fb7bb21bc150f4e6d26269dd73b9534"
+        "branch" : "1.9.4",
+        "revision" : "49f7fb9e3caba14f6c6fc4bf86fe3badcbc780b9"
       }
     },
     {

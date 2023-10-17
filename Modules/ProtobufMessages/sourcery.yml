@@ -4,4 +4,4 @@ configurations:
     templates:
       - Templates/invocation-adoption.stencil
     output:
-      Sources/Generated/commands+invocation.swift
+      ${DERIVED_SOURCES_DIR}/commands+invocation.swift

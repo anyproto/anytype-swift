@@ -3,4 +3,4 @@ source:
 template:
   Templates/service.stencil
 output:
-  Sources/Generated/service+invocation.swift
+  service+invocation.swift
