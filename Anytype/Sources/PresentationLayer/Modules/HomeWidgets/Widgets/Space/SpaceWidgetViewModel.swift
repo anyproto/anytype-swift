@@ -41,15 +41,15 @@ final class SpaceWidgetViewModel: ObservableObject {
         await subscriptionService.startSubscription(
             subId: Constants.subSpaceId,
             objectId: workspaceObjectId,
-            additionalKeys: [.spaceAccessibility]
+            additionalKeys: SpaceView.subscriptionKeys
         ) { [weak self] details in
-            self?.handleSpaceDetails(details: details)
+            self?.handleSpaceDetails(details: SpaceView(details: details))
         }
     }
     
-    private func handleSpaceDetails(details: ObjectDetails) {
+    private func handleSpaceDetails(details: SpaceView) {
         spaceName = details.title
         spaceIcon = details.objectIconImage
-        spaceAccessibility = details.spaceAccessibilityValue?.name ?? ""
+        spaceAccessibility = details.spaceAccessibility?.name ?? ""
     }
 }

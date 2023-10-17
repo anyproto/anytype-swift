@@ -66,15 +66,15 @@ final class SpaceSettingsViewModel: ObservableObject {
         await subscriptionService.startSubscription(
             subId: subSpaceId,
             objectId: activeWorkspaceStorage.workspaceInfo.spaceViewId,
-            additionalKeys: [.createdDate, .creator, .spaceAccessibility]
+            additionalKeys: SpaceView.subscriptionKeys
         ) { [weak self] details in
-            self?.handleSpaceDetails(details: details)
+            self?.handleSpaceDetails(details: SpaceView(details: details))
         }
     }
     
-    private func handleSpaceDetails(details: ObjectDetails) {
+    private func handleSpaceDetails(details: SpaceView) {
         spaceIcon = details.objectIconImage
-        spaceType = details.spaceAccessibilityValue?.fullName ?? ""
+        spaceType = details.spaceAccessibility?.name ?? ""
         buildInfoBlock(details: details)
         
         if !dataLoaded {
@@ -89,15 +89,15 @@ final class SpaceSettingsViewModel: ObservableObject {
         }
     }
     
-    private func buildInfoBlock(details: ObjectDetails) {
+    private func buildInfoBlock(details: SpaceView) {
         
         info.removeAll()
         
         if let spaceRelationDetails = try? relationDetailsStorage.relationsDetails(for: .spaceId, spaceId: activeWorkspaceStorage.workspaceInfo.accountSpaceId) {
             info.append(
-                SettingsInfoModel(title: spaceRelationDetails.name, subtitle: details.spaceId, onTap: { [weak self] in
-                    UIPasteboard.general.string = details.spaceId
-                    self?.snackBarData = .init(text: Loc.copiedToClipboard(details.spaceId), showSnackBar: true)
+                SettingsInfoModel(title: spaceRelationDetails.name, subtitle: details.targetSpaceId, onTap: { [weak self] in
+                    UIPasteboard.general.string = details.targetSpaceId
+                    self?.snackBarData = .init(text: Loc.copiedToClipboard(details.targetSpaceId), showSnackBar: true)
                 })
             )
         }

@@ -29,13 +29,6 @@ final class WorkspacesSubscriptionBuilder: WorkspacesSubscriptionBuilderProtocol
             SearchHelper.layoutFilter([.spaceView])
         ]
         
-        let keys: [BundledRelationKey] = .builder {
-            BundledRelationKey.id
-            BundledRelationKey.targetSpaceId
-            BundledRelationKey.titleKeys
-            BundledRelationKey.objectIconImageKeys
-        }.uniqued()
-        
         return .search(
             SubscriptionData.Search(
                 identifier: Constants.spacesSubId,
@@ -43,7 +36,7 @@ final class WorkspacesSubscriptionBuilder: WorkspacesSubscriptionBuilderProtocol
                 filters: filters,
                 limit: 0,
                 offset: 0,
-                keys: keys.map(\.rawValue)
+                keys: SpaceView.subscriptionKeys.map(\.rawValue)
             )
         )
     }

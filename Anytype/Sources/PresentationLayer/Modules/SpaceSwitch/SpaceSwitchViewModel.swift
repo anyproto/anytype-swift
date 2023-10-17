@@ -99,7 +99,7 @@ final class SpaceSwitchViewModel: ObservableObject {
             SpaceRowModel(
                 id: workspace.id,
                 title: workspace.title,
-                icon: workspace.icon,
+                icon: workspace.objectIconImage,
                 isSelected: activeSpaceId == workspace.targetSpaceId
             ) { [weak self] in
                 self?.onTapWorkspace(workspace: workspace)

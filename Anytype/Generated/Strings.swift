@@ -1672,12 +1672,8 @@ internal enum Loc {
     internal enum Accessibility {
       /// Private
       internal static let `private` = Loc.tr("Localizable", "Spaces.Accessibility.Private", fallback: "Private")
-      /// Private space
-      internal static let privateFull = Loc.tr("Localizable", "Spaces.Accessibility.PrivateFull", fallback: "Private space")
       /// Public
       internal static let `public` = Loc.tr("Localizable", "Spaces.Accessibility.Public", fallback: "Public")
-      /// Public space
-      internal static let publicFull = Loc.tr("Localizable", "Spaces.Accessibility.PublicFull", fallback: "Public space")
     }
   }
   internal enum StyleMenu {
