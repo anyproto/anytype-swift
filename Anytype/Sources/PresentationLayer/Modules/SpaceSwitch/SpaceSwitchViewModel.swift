@@ -120,6 +120,7 @@ final class SpaceSwitchViewModel: ObservableObject {
     
     private func onTapWorkspace(workspace: SpaceView) {
         Task {
+            stopSpacesSubscriotions()
             try await activeWorkspaceStorage.setActiveSpace(spaceId: workspace.targetSpaceId)
             dismiss.toggle()
         }
