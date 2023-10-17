@@ -5,10 +5,6 @@ import Services
 @MainActor
 final class SpaceWidgetViewModel: ObservableObject {
     
-    private enum Constants {
-        static let subSpaceId = "SpaceWidgetViewModel-\(UUID().uuidString)"
-    }
-    
     // MARK: - DI
     
     private let workspaceObjectId: String
@@ -39,7 +35,7 @@ final class SpaceWidgetViewModel: ObservableObject {
     
     private func startSubscription() async {
         await subscriptionService.startSubscription(
-            subId: Constants.subSpaceId,
+            subId: subSpaceId,
             objectId: workspaceObjectId,
             additionalKeys: SpaceView.subscriptionKeys
         ) { [weak self] details in
