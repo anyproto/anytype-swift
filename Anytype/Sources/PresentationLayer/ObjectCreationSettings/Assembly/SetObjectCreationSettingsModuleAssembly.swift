@@ -4,7 +4,6 @@ import SwiftUI
 protocol SetObjectCreationSettingsModuleAssemblyProtocol {
     @MainActor
     func build(
-        mode: SetObjectCreationSettingsMode,
         setDocument: SetDocumentProtocol,
         viewId: String,
         onTemplateSelection: @escaping (ObjectCreationSetting) -> Void
@@ -22,7 +21,6 @@ final class SetObjectCreationSettingsModuleAssembly: SetObjectCreationSettingsMo
     
     @MainActor
     func build(
-        mode: SetObjectCreationSettingsMode,
         setDocument: SetDocumentProtocol,
         viewId: String,
         onTemplateSelection: @escaping (ObjectCreationSetting) -> Void
@@ -30,7 +28,6 @@ final class SetObjectCreationSettingsModuleAssembly: SetObjectCreationSettingsMo
         SetObjectCreationSettingsView(
             model: SetObjectCreationSettingsViewModel(
                 interactor: SetObjectCreationSettingsInteractor(
-                    mode: mode,
                     setDocument: setDocument,
                     viewId: viewId,
                     objectTypesProvider: serviceLocator.objectTypeProvider(),

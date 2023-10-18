@@ -19,7 +19,6 @@ protocol SetObjectCreationSettingsCoordinatorProtocol: AnyObject {
 }
 
 final class SetObjectCreationSettingsCoordinator: SetObjectCreationSettingsCoordinatorProtocol {
-    private let mode: SetObjectCreationSettingsMode
     private let navigationContext: NavigationContextProtocol
     private let setObjectCreationSettingsAssembly: SetObjectCreationSettingsModuleAssemblyProtocol
     private let editorAssembly: EditorAssembly
@@ -28,14 +27,12 @@ final class SetObjectCreationSettingsCoordinator: SetObjectCreationSettingsCoord
     private var handler: TemplateSelectionObjectSettingsHandler?
     
     init(
-        mode: SetObjectCreationSettingsMode,
         navigationContext: NavigationContextProtocol,
         setObjectCreationSettingsAssembly: SetObjectCreationSettingsModuleAssemblyProtocol,
         editorAssembly: EditorAssembly,
         newSearchModuleAssembly: NewSearchModuleAssemblyProtocol,
         objectSettingCoordinator: ObjectSettingsCoordinatorProtocol
     ) {
-        self.mode = mode
         self.navigationContext = navigationContext
         self.setObjectCreationSettingsAssembly = setObjectCreationSettingsAssembly
         self.editorAssembly = editorAssembly
@@ -49,17 +46,11 @@ final class SetObjectCreationSettingsCoordinator: SetObjectCreationSettingsCoord
         onTemplateSelection: @escaping (ObjectCreationSetting) -> ()
     ) {
         let view = setObjectCreationSettingsAssembly.build(
-            mode: mode,
             setDocument: setDocument,
             viewId: viewId,
             onTemplateSelection: { [weak self] setting in
                 guard let self else { return }
-                switch mode {
-                case .creation:
-                    navigationContext.dismissTopPresented(animated: true) {
-                        onTemplateSelection(setting)
-                    }
-                case .default:
+                navigationContext.dismissTopPresented(animated: true) {
                     onTemplateSelection(setting)
                 }
             }
@@ -86,17 +77,16 @@ final class SetObjectCreationSettingsCoordinator: SetObjectCreationSettingsCoord
             )
         }
         
-        let floatingPanelStyle = mode == .creation
         let viewModel = AnytypePopupViewModel(
             contentView: view,
             popupLayout: .constantHeight(
                 height: SetObjectCreationSettingsView.height,
-                floatingPanelStyle: floatingPanelStyle,
+                floatingPanelStyle: true,
                 needBottomInset: false)
         )
         let popup = AnytypePopup(
             viewModel: viewModel,
-            floatingPanelStyle: floatingPanelStyle,
+            floatingPanelStyle: true,
             configuration: .init(isGrabberVisible: false, dismissOnBackdropView: true, skipThroughGestures: false)
         )
         navigationContext.present(popup)
@@ -132,15 +122,8 @@ final class SetObjectCreationSettingsCoordinator: SetObjectCreationSettingsCoord
                 )
             }, onSelectTemplateTap: { [weak self] in
                 guard let self else { return }
-                switch mode {
-                case .creation:
-                    navigationContext.dismissAllPresented(animated: true) {
-                        onTemplateSelection(setting)
-                    }
-                case .default:
-                    navigationContext.dismissTopPresented(animated: true) {
-                        onTemplateSelection(setting)
-                    }
+                navigationContext.dismissAllPresented(animated: true) {
+                    onTemplateSelection(setting)
                 }
             }
         )

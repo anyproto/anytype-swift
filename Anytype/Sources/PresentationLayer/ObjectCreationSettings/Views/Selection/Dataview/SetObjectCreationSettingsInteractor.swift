@@ -4,8 +4,6 @@ import AnytypeCore
 
 @MainActor
 protocol SetObjectCreationSettingsInteractorProtocol {
-    var mode: SetObjectCreationSettingsMode { get }
-    
     var userTemplates: AnyPublisher<[TemplatePreviewModel], Never> { get }
     
     var objectTypesAvailabilityPublisher: AnyPublisher<Bool, Never> { get }
@@ -51,8 +49,6 @@ final class SetObjectCreationSettingsInteractor: SetObjectCreationSettingsIntera
     @Published var canChangeObjectType = false
     @Published private var objectTypes = [ObjectType]()
     
-    let mode: SetObjectCreationSettingsMode
-    
     private let setDocument: SetDocumentProtocol
     private let viewId: String
     
@@ -69,14 +65,12 @@ final class SetObjectCreationSettingsInteractor: SetObjectCreationSettingsIntera
     private var cancellables = [AnyCancellable]()
     
     init(
-        mode: SetObjectCreationSettingsMode,
         setDocument: SetDocumentProtocol,
         viewId: String,
         objectTypesProvider: ObjectTypeProviderProtocol,
         subscriptionService: TemplatesSubscriptionServiceProtocol,
         dataviewService: DataviewServiceProtocol
     ) {
-        self.mode = mode
         self.setDocument = setDocument
         self.viewId = viewId
         self.dataView = setDocument.view(by: viewId)
@@ -132,8 +126,6 @@ final class SetObjectCreationSettingsInteractor: SetObjectCreationSettingsIntera
             if defaultTemplateId != dataView.defaultTemplateID {
                 defaultTemplateId = dataView.defaultTemplateID ?? .empty
             }
-            
-            guard mode == .default else { return }
             
             let defaultObjectTypeId = try? setDocument.defaultObjectTypeForView(dataView).id
             if !setDocument.isTypeSet(), let defaultObjectTypeId, objectTypeId != defaultObjectTypeId {

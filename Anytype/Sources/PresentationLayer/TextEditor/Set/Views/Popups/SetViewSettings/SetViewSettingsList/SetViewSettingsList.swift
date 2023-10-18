@@ -18,7 +18,7 @@ struct SetViewSettingsList: View {
             content
         }
         .background(Color.Background.secondary)
-        .frame(maxHeight: 401)
+        .frame(maxHeight: 350)
     }
     
     private var content: some View {

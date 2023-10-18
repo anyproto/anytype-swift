@@ -17,14 +17,6 @@ final class SetObjectCreationSettingsViewModel: ObservableObject {
     @Published var templates = [TemplatePreviewViewModel]()
     @Published var canChangeObjectType = false
     
-    var title: String {
-        if canChangeObjectType {
-            return interactor.mode.title
-        } else {
-            return Loc.Set.View.Settings.DefaultTemplate.title
-        }
-    }
-    
     var isTemplatesAvailable = true
     
     var templateEditingHandler: ((ObjectCreationSetting) -> Void)?
@@ -87,9 +79,7 @@ final class SetObjectCreationSettingsViewModel: ObservableObject {
     }
     
     func onTemplateSelect(objectTypeId: BlockId, templateId: BlockId) {
-        if interactor.mode == .default {
-            setTemplateAsDefault(templateId: templateId, showMessage: false)
-        }
+        setTemplateAsDefault(templateId: templateId, showMessage: false)
         onTemplateSelection(
             ObjectCreationSetting(
                 objectTypeId: objectTypeId,
@@ -123,13 +113,7 @@ final class SetObjectCreationSettingsViewModel: ObservableObject {
     }
     
     func setObjectType(_ objectType: ObjectType) {
-        switch interactor.mode {
-        case .creation:
-            interactor.setObjectTypeId(objectType.id)
-        case .default:
-            setObjectTypeAsDefault(objectType: objectType)
-        }
-        
+        setObjectTypeAsDefault(objectType: objectType)
     }
     
     func setTemplateAsDefault(templateId: BlockId, showMessage: Bool) {
@@ -224,11 +208,6 @@ final class SetObjectCreationSettingsViewModel: ObservableObject {
                     templateEditingHandler?(
                         ObjectCreationSetting(objectTypeId: objectTypeId, spaceId: spaceId, templateId: templateViewModel.id)
                     )
-                case .setAsDefault:
-                    setTemplateAsDefault(
-                        templateId: templateViewModel.id,
-                        showMessage: interactor.mode == .creation
-                    )
                 }
                 
                 handleAnalytics(option: option, templateViewModel: templateViewModel)
@@ -253,8 +232,6 @@ final class SetObjectCreationSettingsViewModel: ObservableObject {
             AnytypeAnalytics.instance().logMoveToBin(true)
         case .duplicate:
             AnytypeAnalytics.instance().logTemplateDuplicate(objectType: objectType, route: setDocument.isCollection() ? .collection : .set)
-        case .setAsDefault:
-            break // Interactor resposibility
         }
     }
     
@@ -309,9 +286,9 @@ extension TemplatePreviewModel {
 extension TemplatePreviewModel {
     var isEditable: Bool {
         switch mode {
-        case .blank, .installed:
+        case .installed:
             return true
-        case .addTemplate:
+        case .addTemplate, .blank:
             return false
         }
     }

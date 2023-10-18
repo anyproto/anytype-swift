@@ -11,7 +11,6 @@ final class ServiceLocator {
     let textService = TextService()
     let templatesService = TemplatesService()
     let sharedContentManager: SharedContentManagerProtocol = SharedContentManager()
-    lazy private(set) var setTemplatesInteractor = SetTemplatesInteractor(templatesService: templatesService, objecTypeProvider: objectTypeProvider())
     lazy private(set) var sharedContentInteractor: SharedContentInteractorProtocol = SharedContentInteractor(
         listService: blockListService(),
         bookmarkService: bookmarkService(),

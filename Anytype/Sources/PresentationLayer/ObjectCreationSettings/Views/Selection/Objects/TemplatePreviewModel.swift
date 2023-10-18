@@ -69,12 +69,10 @@ struct TemplatePreviewModel: Identifiable, Equatable {
 extension TemplatePreviewModel {
     var contextualMenuOptions: [TemplateOptionAction] {
         switch mode {
-        case .addTemplate:
+        case .addTemplate, .blank:
             return []
         case .installed:
             return TemplateOptionAction.allCases
-        case .blank:
-            return [.setAsDefault]
         }
     }
 }
