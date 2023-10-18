@@ -22,27 +22,33 @@ struct SetObjectCreationSettingsView: View {
     private var navigation: some View {
         ZStack {
             AnytypeText(Loc.createObject, style: .uxTitle2Medium, color: .Text.primary)
-            HStack(spacing: 0) {
-                Button {
-                    model.isEditingState.toggle()
-                } label: {
-                    AnytypeText(
-                        model.isEditingState ? Loc.done : Loc.edit,
-                        style: .calloutRegular,
-                        color: .Button.active
-                    )
-                }
-                Spacer()
-                Button {
-                    model.onAddTemplateTap()
-                } label: {
-                    Image(asset: .X32.plus)
-                        .tint(.Button.active)
-                }
+            if model.isTemplatesAvailable {
+                navigationButtons
             }
-            .padding(.leading, 16)
-            .padding(.trailing, 12)
         }
+    }
+    
+    private var navigationButtons: some View {
+        HStack(spacing: 0) {
+            Button {
+                model.isEditingState.toggle()
+            } label: {
+                AnytypeText(
+                    model.isEditingState ? Loc.done : Loc.edit,
+                    style: .calloutRegular,
+                    color: .Button.active
+                )
+            }
+            Spacer()
+            Button {
+                model.onAddTemplateTap()
+            } label: {
+                Image(asset: .X32.plus)
+                    .tint(.Button.active)
+            }
+        }
+        .padding(.leading, 16)
+        .padding(.trailing, 12)
     }
     
     private var objectTypeView: some View {
@@ -72,21 +78,8 @@ struct SetObjectCreationSettingsView: View {
             SectionHeaderView(title: Loc.TemplateSelection.Template.subtitle)
                 .padding(.horizontal, 16)
             Spacer.fixedHeight(4)
-            if model.isTemplatesAvailable {
-                templatesCollection
-            } else {
-                emptyTemplatesView
-            }
+            templatesCollection
         }
-    }
-    
-    private var emptyTemplatesView: some View {
-        VStack(spacing: 0) {
-            Spacer()
-            AnytypeText(Loc.TemplateSelection.ObjectType.NoTemplates.title, style: .uxCalloutRegular, color: .Text.secondary)
-            Spacer()
-        }
-        .frame(height: 232)
     }
     
     private var templatesCollection: some View {

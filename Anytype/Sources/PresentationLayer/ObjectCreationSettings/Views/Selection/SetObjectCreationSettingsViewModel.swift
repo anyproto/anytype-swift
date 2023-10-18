@@ -17,7 +17,7 @@ final class SetObjectCreationSettingsViewModel: ObservableObject {
     @Published var templates = [TemplatePreviewViewModel]()
     @Published var canChangeObjectType = false
     
-    var isTemplatesAvailable = true
+    var isTemplatesAvailable = false
     
     var templateEditingHandler: ((ObjectCreationSetting) -> Void)?
     var onObjectTypesSearchAction: (() -> Void)?
@@ -158,7 +158,11 @@ final class SetObjectCreationSettingsViewModel: ObservableObject {
             let defaultObjectType = objectTypesConfig.objectTypes.first {
                 $0.id == objectTypesConfig.objectTypeId
             }
-            isTemplatesAvailable = defaultObjectType?.recommendedLayout?.isTemplatesAvailable ?? false
+            let isAvailable = defaultObjectType?.recommendedLayout?.isTemplatesAvailable ?? false
+            if isAvailable != isTemplatesAvailable {
+                isTemplatesAvailable = isAvailable
+                updateTemplatesList()
+            }
             updateObjectTypes(objectTypesConfig)
         }.store(in: &cancellables)
     }
@@ -245,7 +249,9 @@ final class SetObjectCreationSettingsViewModel: ObservableObject {
         }
         
         templates.append(contentsOf: userTemplates)
-        templates.append(.init(mode: .addTemplate, alignment: .center, isDefault: false))
+        if isTemplatesAvailable {
+            templates.append(.init(mode: .addTemplate, alignment: .center, isDefault: false))
+        }
         
         withAnimation {
             self.templates = templates.map { model in

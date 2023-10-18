@@ -1730,10 +1730,6 @@ internal enum Loc {
     internal enum ObjectType {
       /// Object type
       internal static let subtitle = Loc.tr("Localizable", "TemplateSelection.ObjectType.Subtitle", fallback: "Object type")
-      internal enum NoTemplates {
-        /// This type doesn’t support templates
-        internal static let title = Loc.tr("Localizable", "TemplateSelection.ObjectType.NoTemplates.Title", fallback: "This type doesn’t support templates")
-      }
     }
     internal enum Template {
       /// Template
