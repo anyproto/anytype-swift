@@ -801,8 +801,6 @@
 // MARK: - Spaces
 "Spaces.Accessibility.Public" = "Genel";
 "Spaces.Accessibility.Private" = "Özel";
-"Spaces.Accessibility.PublicFull" = "Genel alan";
-"Spaces.Accessibility.PrivateFull" = "Özel Alan";
 
 // MARK: - Space Settings
 "SpaceSettings.Title" = "Alan ayarları";
