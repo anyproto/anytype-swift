@@ -39,10 +39,6 @@ extension BundledRelationsValueProvider {
             return .profile(.imageId(iconImageHash.value))
         }
         
-        if let iconOptionValue {
-            return .profile(.gradient(iconOptionValue))
-        }
-        
         return title.first.flatMap { .profile(.character($0)) }
     }
     

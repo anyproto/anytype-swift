@@ -33,9 +33,6 @@ struct GradientIconsExamples: View {
                                 IconView(icon: .object(.space(.gradient(gradientId))))
                                     .frame(width: 96, height: 96)
                                 Spacer()
-                                IconView(icon: .object(.profile(.gradient(gradientId))))
-                                    .frame(width: 96, height: 96)
-                                Spacer()
                             }
                             .padding(.bottom, 12)
                             .newDivider()

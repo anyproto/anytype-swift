@@ -91,8 +91,6 @@ final class IconMaker {
                     return CircleIconPainter(contentPainter: contentPainter(.imageId(imageId)))
                 case .character(let c):
                     return CircleIconPainter(contentPainter: contentPainter(.char(String(c))))
-                case .gradient(let gradientId):
-                    return GradientIdIconPainter(gradientId: gradientId.rawValue)
                 }
             case .emoji(let emoji):
                 return SquircleIconPainter(contentPainter: contentPainter(.char(emoji.value)))
