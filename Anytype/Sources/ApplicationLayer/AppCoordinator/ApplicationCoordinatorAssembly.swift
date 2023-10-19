@@ -30,7 +30,8 @@ final class ApplicationCoordinatorAssembly: ApplicationCoordinatorAssemblyProtoc
             viewControllerProvider: uiHelpersDI.viewControllerProvider(),
             authCoordinatorAssembly: coordinatorsDI.authorization(),
             homeWidgetsCoordinatorAssembly: coordinatorsDI.homeWidgets(),
-            applicationStateService: serviceLocator.applicationStateService()
+            applicationStateService: serviceLocator.applicationStateService(),
+            initialCoordinatorAssembly: coordinatorsDI.initial()
         )
         
         return ApplicationCoordinator(

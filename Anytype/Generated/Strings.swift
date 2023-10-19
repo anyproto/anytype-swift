@@ -1176,6 +1176,20 @@ internal enum Loc {
       internal static let library = Loc.tr("Localizable", "Home.Snackbar.Library", fallback: "Library is available in desktop app")
     }
   }
+  internal enum Initial {
+    internal enum UnstableMiddle {
+      /// Continue with current account
+      internal static let `continue` = Loc.tr("Localizable", "Initial.UnstableMiddle.Continue", fallback: "Continue with current account")
+      /// Logout from current account
+      internal static let logout = Loc.tr("Localizable", "Initial.UnstableMiddle.Logout", fallback: "Logout from current account")
+      /// You launch app with a unstable middleware. Don't use your production account. Your account may be broken.
+      internal static let message = Loc.tr("Localizable", "Initial.UnstableMiddle.Message", fallback: "You launch app with a unstable middleware. Don't use your production account. Your account may be broken.")
+      /// Warning
+      internal static let title = Loc.tr("Localizable", "Initial.UnstableMiddle.Title", fallback: "Warning")
+      /// I won't be using my production account
+      internal static let wontUseProd = Loc.tr("Localizable", "Initial.UnstableMiddle.WontUseProd", fallback: "I won't be using my production account")
+    }
+  }
   internal enum InterfaceStyle {
     /// Dark
     internal static let dark = Loc.tr("Localizable", "InterfaceStyle.dark", fallback: "Dark")
