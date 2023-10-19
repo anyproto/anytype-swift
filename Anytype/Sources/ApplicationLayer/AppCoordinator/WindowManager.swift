@@ -10,6 +10,7 @@ final class WindowManager {
     private let authCoordinatorAssembly: AuthCoordinatorAssemblyProtocol
     private let homeWidgetsCoordinatorAssembly: HomeWidgetsCoordinatorAssemblyProtocol
     private let applicationStateService: ApplicationStateServiceProtocol
+    private let initialCoordinatorAssembly: InitialCoordinatorAssemblyProtocol
     
     // MARK: - State
     
@@ -19,12 +20,14 @@ final class WindowManager {
         viewControllerProvider: ViewControllerProviderProtocol,
         authCoordinatorAssembly: AuthCoordinatorAssemblyProtocol,
         homeWidgetsCoordinatorAssembly: HomeWidgetsCoordinatorAssemblyProtocol,
-        applicationStateService: ApplicationStateServiceProtocol
+        applicationStateService: ApplicationStateServiceProtocol,
+        initialCoordinatorAssembly: InitialCoordinatorAssemblyProtocol
     ) {
         self.viewControllerProvider = viewControllerProvider
         self.authCoordinatorAssembly = authCoordinatorAssembly
         self.homeWidgetsCoordinatorAssembly = homeWidgetsCoordinatorAssembly
         self.applicationStateService = applicationStateService
+        self.initialCoordinatorAssembly = initialCoordinatorAssembly
     }
 
     @MainActor
@@ -52,6 +55,11 @@ final class WindowManager {
                 viewModel: DeletedAccountViewModel(deadline: deadline, applicationStateService: applicationStateService)
             )
         )
+    }
+    
+    @MainActor
+    func showInitialWindow() {
+        startNewRootView(initialCoordinatorAssembly.make())
     }
     
     // MARK: - Private

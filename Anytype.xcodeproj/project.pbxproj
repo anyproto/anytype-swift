@@ -446,6 +446,9 @@
 		2A617BCC2A49E5B400725152 /* BlockWidget+Limits.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A617BCB2A49E5B400725152 /* BlockWidget+Limits.swift */; };
 		2A617BCE2A49EC0B00725152 /* CommonWidgetInternalViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A617BCD2A49EC0B00725152 /* CommonWidgetInternalViewModel.swift */; };
 		2A6574682A4456F6002F568C /* ObjectIconExample.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A6574672A4456F6002F568C /* ObjectIconExample.swift */; };
+		2A65E9B22AE1290300D40657 /* InitialCoordinatorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A65E9B12AE1290300D40657 /* InitialCoordinatorView.swift */; };
+		2A65E9B42AE1294900D40657 /* InitialCoordinatorViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A65E9B32AE1294900D40657 /* InitialCoordinatorViewModel.swift */; };
+		2A65E9B62AE1297800D40657 /* InitialCoordinatorAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A65E9B52AE1297800D40657 /* InitialCoordinatorAssembly.swift */; };
 		2A6688932A1CCB1100D80CED /* AboutView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A6688922A1CCB1100D80CED /* AboutView.swift */; };
 		2A6688952A1CCB3D00D80CED /* AboutViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A6688942A1CCB3D00D80CED /* AboutViewModel.swift */; };
 		2A6693712A7104EA007747DD /* SpaceIconImageGuideline.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A6693612A7104EA007747DD /* SpaceIconImageGuideline.swift */; };
@@ -2054,6 +2057,9 @@
 		2A617BCB2A49E5B400725152 /* BlockWidget+Limits.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "BlockWidget+Limits.swift"; sourceTree = "<group>"; };
 		2A617BCD2A49EC0B00725152 /* CommonWidgetInternalViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommonWidgetInternalViewModel.swift; sourceTree = "<group>"; };
 		2A6574672A4456F6002F568C /* ObjectIconExample.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObjectIconExample.swift; sourceTree = "<group>"; };
+		2A65E9B12AE1290300D40657 /* InitialCoordinatorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InitialCoordinatorView.swift; sourceTree = "<group>"; };
+		2A65E9B32AE1294900D40657 /* InitialCoordinatorViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InitialCoordinatorViewModel.swift; sourceTree = "<group>"; };
+		2A65E9B52AE1297800D40657 /* InitialCoordinatorAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InitialCoordinatorAssembly.swift; sourceTree = "<group>"; };
 		2A6688922A1CCB1100D80CED /* AboutView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AboutView.swift; sourceTree = "<group>"; };
 		2A6688942A1CCB3D00D80CED /* AboutViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AboutViewModel.swift; sourceTree = "<group>"; };
 		2A6693612A7104EA007747DD /* SpaceIconImageGuideline.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SpaceIconImageGuideline.swift; sourceTree = "<group>"; };
@@ -5355,6 +5361,16 @@
 			path = IconView;
 			sourceTree = "<group>";
 		};
+		2A65E9B02AE128EC00D40657 /* InitialCoordinator */ = {
+			isa = PBXGroup;
+			children = (
+				2A65E9B12AE1290300D40657 /* InitialCoordinatorView.swift */,
+				2A65E9B32AE1294900D40657 /* InitialCoordinatorViewModel.swift */,
+				2A65E9B52AE1297800D40657 /* InitialCoordinatorAssembly.swift */,
+			);
+			path = InitialCoordinator;
+			sourceTree = "<group>";
+		};
 		2A6693602A7104EA007747DD /* ObjectIconImageGuidelines */ = {
 			isa = PBXGroup;
 			children = (
@@ -5466,6 +5482,7 @@
 		2A7DCDDB292E4A4E001919B4 /* Flows */ = {
 			isa = PBXGroup;
 			children = (
+				2A65E9B02AE128EC00D40657 /* InitialCoordinator */,
 				2A8A2DCF2AB99AFC00105549 /* ShareCoordinator */,
 				2A5B53B62A80DC9000BC993B /* SpaceSettings */,
 				2AF4C3E1295DE1AB00FD7153 /* CreateWidgetFlow */,
@@ -9554,6 +9571,7 @@
 				8624C8612A6E577E0065CBC0 /* EditorPageViewModelConfiguration.swift in Sources */,
 				2A8A2DCA2AB9956000105549 /* AppAction.swift in Sources */,
 				3D17025C2716E4F60079B65B /* EditorBarItemState.swift in Sources */,
+				2A65E9B62AE1297800D40657 /* InitialCoordinatorAssembly.swift in Sources */,
 				1289C51628105A2D005085E2 /* FileDownloadingViewModel.swift in Sources */,
 				2A673C1D29B0FA2800E3D672 /* AnytypeDismiss.swift in Sources */,
 				12CAF37226D6A9E3001E56B2 /* ImageStorageProtocol.swift in Sources */,
@@ -9606,6 +9624,7 @@
 				3D22B20E2685DABD00C78C28 /* BlockImageViewModel.swift in Sources */,
 				2AAF343C29559BF700921320 /* TreeWidgetViewModel.swift in Sources */,
 				2AFF7AC4299CDA6900B7746B /* BinSubscriptionService.swift in Sources */,
+				2A65E9B42AE1294900D40657 /* InitialCoordinatorViewModel.swift in Sources */,
 				2A17643A283E2245002853D3 /* ContentUrlBuilder.swift in Sources */,
 				129C54C927FC4EA200C390C7 /* NewRelationView.swift in Sources */,
 				2AA0209528D3523000321A66 /* SetSubscriptionDataBuilder.swift in Sources */,
@@ -10317,6 +10336,7 @@
 				2ECB341A2A97B4C400E0F9BB /* SetFiltersDateCoordinatorAssembly.swift in Sources */,
 				1226857928D4C5E60013A28E /* AppMetricsTracker.swift in Sources */,
 				2A00A74229D33B25007BE598 /* EdgeInsets+Helpers.swift in Sources */,
+				2A65E9B22AE1290300D40657 /* InitialCoordinatorView.swift in Sources */,
 				3D8D41B9274287A900F8EBF3 /* EditorSetHostingController.swift in Sources */,
 				3DE6E3C026542151008FB0AF /* UIVIewController+Child.swift in Sources */,
 				1270CE9326DA84A600B2D443 /* GradientImageBuilder.swift in Sources */,

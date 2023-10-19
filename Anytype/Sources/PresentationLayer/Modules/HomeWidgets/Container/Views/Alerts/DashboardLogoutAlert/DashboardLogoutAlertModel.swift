@@ -42,7 +42,7 @@ final class DashboardLogoutAlertModel: ObservableObject {
             }
             
             UINotificationFeedbackGenerator().notificationOccurred(.success)
-            self?.applicationStateService.state = .auth
+            self?.applicationStateService.state = .initial
         }
     }
 }

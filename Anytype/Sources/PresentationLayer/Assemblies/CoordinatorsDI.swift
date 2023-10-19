@@ -145,4 +145,8 @@ final class CoordinatorsDI: CoordinatorsDIProtocol {
     func setObjectCreationSettings() -> SetObjectCreationSettingsCoordinatorAssemblyProtocol {
         SetObjectCreationSettingsCoordinatorAssembly(modulesDI: modulesDI, uiHelpersDI: uiHelpersDI, coordinatorsDI: self)
     }
+    
+    func initial() -> InitialCoordinatorAssemblyProtocol {
+        InitialCoordinatorAssembly(serviceLocator: serviceLocator)
+    }
 }
