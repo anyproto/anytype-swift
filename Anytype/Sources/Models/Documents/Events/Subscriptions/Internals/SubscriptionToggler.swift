@@ -26,10 +26,11 @@ final class SubscriptionToggler: SubscriptionTogglerProtocol {
     }
     
     func stopSubscription(id: String) async throws {
-        try await objectSubscriptionService.stopSubscriptions(ids: [id])
+        try await stopSubscriptions(ids: [id])
     }
     
     func stopSubscriptions(ids: [String]) async throws {
+        guard UserDefaultsConfig.usersId.isNotEmpty else { return }
         try await objectSubscriptionService.stopSubscriptions(ids: ids)
     }
     

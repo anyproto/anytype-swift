@@ -97,7 +97,7 @@ final class BaseDocument: BaseDocumentProtocol {
     }
     
     deinit {
-        guard !forPreview, isOpened else { return }
+        guard !forPreview, isOpened, UserDefaultsConfig.usersId.isNotEmpty else { return }
         Task.detached(priority: .userInitiated) { [blockActionsService, objectId] in
             try await blockActionsService.close(contextId: objectId)
         }
@@ -135,7 +135,7 @@ final class BaseDocument: BaseDocumentProtocol {
     
     @MainActor
     func close() async throws {
-        guard !forPreview, isOpened else { return }
+        guard !forPreview, isOpened, UserDefaultsConfig.usersId.isNotEmpty else { return }
         try await blockActionsService.close(contextId: objectId)
         isOpened = false
     }
