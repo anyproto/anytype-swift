@@ -915,7 +915,6 @@
 		2EC46DD72ABE000D00DEA4BD /* ObjectTypesConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EC46DD62ABE000D00DEA4BD /* ObjectTypesConfiguration.swift */; };
 		2EC46DD92ABE081800DEA4BD /* InstalledObjectTypeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EC46DD82ABE081800DEA4BD /* InstalledObjectTypeView.swift */; };
 		2EC46DDB2AC1B9EA00DEA4BD /* SetObjectCreationSettingsCoordinatorAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EC46DDA2AC1B9EA00DEA4BD /* SetObjectCreationSettingsCoordinatorAssembly.swift */; };
-		2EC46DE62AC3088800DEA4BD /* SetObjectCreationSettingsMode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EC46DE52AC3088800DEA4BD /* SetObjectCreationSettingsMode.swift */; };
 		2EC669212A166FD1001F71BC /* JoinFlowStepOutput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EC669202A166FD1001F71BC /* JoinFlowStepOutput.swift */; };
 		2EC669242A16755A001F71BC /* AuthCustomTransition.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EC669232A16755A001F71BC /* AuthCustomTransition.swift */; };
 		2EC7FB9F2A5EF7FD00491F99 /* LoginLoadingRoute.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EC7FB9E2A5EF7FD00491F99 /* LoginLoadingRoute.swift */; };
@@ -1363,7 +1362,6 @@
 		86E555372A7AB983000A8DC7 /* MockSetDocument.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86E555362A7AB983000A8DC7 /* MockSetDocument.swift */; };
 		86E69DD62A938CE8009F2221 /* SecureService in Frameworks */ = {isa = PBXBuildFile; productRef = 86E69DD52A938CE8009F2221 /* SecureService */; };
 		86E69DD72A938CE8009F2221 /* SecureService in Embed Frameworks */ = {isa = PBXBuildFile; productRef = 86E69DD52A938CE8009F2221 /* SecureService */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
-		86FB86592A812F6D008DAF52 /* TemplatesInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86FB86582A812F6D008DAF52 /* TemplatesInteractor.swift */; };
 		95A38D3A2A03F17700D06C96 /* Riccione-Xlight-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 95A38D392A03F17700D06C96 /* Riccione-Xlight-Regular.ttf */; };
 		C90189A928338D2900F30853 /* TemplatesCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = C90189A828338D2900F30853 /* TemplatesCoordinator.swift */; };
 		C905B29A2828CA2F00F1106B /* ToastPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = C905B2992828CA2F00F1106B /* ToastPresenter.swift */; };
@@ -2513,7 +2511,6 @@
 		2EC46DD62ABE000D00DEA4BD /* ObjectTypesConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObjectTypesConfiguration.swift; sourceTree = "<group>"; };
 		2EC46DD82ABE081800DEA4BD /* InstalledObjectTypeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InstalledObjectTypeView.swift; sourceTree = "<group>"; };
 		2EC46DDA2AC1B9EA00DEA4BD /* SetObjectCreationSettingsCoordinatorAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetObjectCreationSettingsCoordinatorAssembly.swift; sourceTree = "<group>"; };
-		2EC46DE52AC3088800DEA4BD /* SetObjectCreationSettingsMode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetObjectCreationSettingsMode.swift; sourceTree = "<group>"; };
 		2EC669202A166FD1001F71BC /* JoinFlowStepOutput.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JoinFlowStepOutput.swift; sourceTree = "<group>"; };
 		2EC669232A16755A001F71BC /* AuthCustomTransition.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthCustomTransition.swift; sourceTree = "<group>"; };
 		2EC7FB9E2A5EF7FD00491F99 /* LoginLoadingRoute.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginLoadingRoute.swift; sourceTree = "<group>"; };
@@ -2958,7 +2955,6 @@
 		86D725602A94EFB8008DF702 /* AnytypeShareExtension.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = AnytypeShareExtension.entitlements; sourceTree = "<group>"; };
 		86E555362A7AB983000A8DC7 /* MockSetDocument.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockSetDocument.swift; sourceTree = "<group>"; };
 		86E69DD42A9389DC009F2221 /* SecureService */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = SecureService; path = Modules/SecureService; sourceTree = "<group>"; };
-		86FB86582A812F6D008DAF52 /* TemplatesInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TemplatesInteractor.swift; sourceTree = "<group>"; };
 		95A38D392A03F17700D06C96 /* Riccione-Xlight-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Riccione-Xlight-Regular.ttf"; sourceTree = "<group>"; };
 		C90189A828338D2900F30853 /* TemplatesCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TemplatesCoordinator.swift; sourceTree = "<group>"; };
 		C905B2992828CA2F00F1106B /* ToastPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToastPresenter.swift; sourceTree = "<group>"; };
@@ -7054,7 +7050,6 @@
 				3DE8D5AE26CD76CF006F31C1 /* ObjectType */,
 				3D24F435269C92F700FA0F5F /* Search */,
 				0A721EE6244067DF0035A3E4 /* ObjectActions */,
-				86FB86572A812F54008DAF52 /* Templates */,
 				3D93851B26FB0AD0001C137F /* PageService */,
 			);
 			path = Object;
@@ -8716,14 +8711,6 @@
 			path = TextShare;
 			sourceTree = "<group>";
 		};
-		86FB86572A812F54008DAF52 /* Templates */ = {
-			isa = PBXGroup;
-			children = (
-				86FB86582A812F6D008DAF52 /* TemplatesInteractor.swift */,
-			);
-			path = Templates;
-			sourceTree = "<group>";
-		};
 		957A2A252A01707400F81076 /* Auth */ = {
 			isa = PBXGroup;
 			children = (
@@ -8745,7 +8732,6 @@
 				2AECFD4528993CCC000E9CFB /* Assembly */,
 				C99DCE8F283B6C270051F99D /* Views */,
 				C90189A828338D2900F30853 /* TemplatesCoordinator.swift */,
-				2EC46DE52AC3088800DEA4BD /* SetObjectCreationSettingsMode.swift */,
 				861E75F72A5D5A5F00F18552 /* SetObjectCreationSettingsCoordinator.swift */,
 				2EC46DDA2AC1B9EA00DEA4BD /* SetObjectCreationSettingsCoordinatorAssembly.swift */,
 			);
@@ -9672,7 +9658,6 @@
 				3D88217C26F3722600A41E75 /* BlockText+AnytypeText.swift in Sources */,
 				2ECB33FD2A94F79C00E0F9BB /* SetSortTypesListModuleAssembly.swift in Sources */,
 				12AF9986273A8B87004CBB80 /* RelationsBuilder.swift in Sources */,
-				2EC46DE62AC3088800DEA4BD /* SetObjectCreationSettingsMode.swift in Sources */,
 				EA57F41B26B99937007D4292 /* MarkupViewProtocol.swift in Sources */,
 				3D210C142758CCE50007F558 /* RelationsListRowPlaceholderView.swift in Sources */,
 				2A947B3E2A30E25600119140 /* WidgetObjectListRowView.swift in Sources */,
@@ -10310,7 +10295,6 @@
 				2AAE455828A5307C00E538C8 /* BlockBookmark+Extensions.swift in Sources */,
 				535E02B0275023B300E1AF8C /* RelationStyle.swift in Sources */,
 				2A3AFF552A7CEB9F004F7E09 /* SpaceAccessibility+Localization.swift in Sources */,
-				86FB86592A812F6D008DAF52 /* TemplatesInteractor.swift in Sources */,
 				0303ED0122D8EDAA005C552B /* SceneDelegate.swift in Sources */,
 				2AE1558C2A31BB220049C387 /* ListWidgetStyle.swift in Sources */,
 				0A74E50023A90EF000B6C406 /* NotificationExtension.swift in Sources */,

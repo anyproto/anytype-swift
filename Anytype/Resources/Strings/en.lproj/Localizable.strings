@@ -314,9 +314,7 @@
 "TemplateSelection.blankTemplate" = "Blank";
 "TemplateSelection.Template.Subtitle" = "Template";
 "TemplateSelection.ObjectType.Subtitle" = "Object type";
-"TemplateSelection.ObjectType.NoTemplates.Title" = "This type doesn’t support templates";
 
-"TemplateOptions.Alert.SetAsDefault" = "Set as default for this view";
 "TemplateOptions.Alert.EditTemplate" = "Edit template";
 "TemplateOptions.Alert.Duplicate" = "Duplicate";
 "TemplateOptions.Alert.Delete" = "Delete";
@@ -430,8 +428,6 @@
 "Set.View.Settings.ImagePreview.Title" = "Image preview";
 "Set.View.Settings.GroupBy.Title" = "Group by";
 "Set.View.Settings.GroupBackgroundColors.Title" = "Color columns";
-"Set.View.Settings.DefaultObject.Title" = "Default object";
-"Set.View.Settings.DefaultTemplate.Title" = "Default template";
 
 "Set.View.Settings.NoRelations.Placeholder" = "No relations";
 "Set.View.Settings.NoFilters.Placeholder" = "No filters";

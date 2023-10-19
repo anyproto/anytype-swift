@@ -12,7 +12,7 @@ struct SetHeaderSettingsView: View {
             settingButton
 
             Spacer.fixedWidth(16)
-            if FeatureFlags.setTemplateSelection && model.isTemplatesSelectionAvailable {
+            if FeatureFlags.setTemplateSelection {
                 compositeCreateButtons
             } else {
                 createObjectButton
@@ -97,7 +97,6 @@ struct SetHeaderSettings_Previews: PreviewProvider {
                     relationDetailsStorage: DI.preview.serviceLocator.relationDetailsStorage(),
                     objectTypeProvider: DI.preview.serviceLocator.objectTypeProvider()
                 ),
-                setTemplatesInteractor: DI.preview.serviceLocator.setTemplatesInteractor,
                 onViewTap: {},
                 onSettingsTap: {},
                 onCreateTap:{},

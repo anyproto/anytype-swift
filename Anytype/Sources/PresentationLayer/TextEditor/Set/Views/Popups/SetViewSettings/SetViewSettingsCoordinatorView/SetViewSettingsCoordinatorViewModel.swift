@@ -3,7 +3,6 @@ import Services
 
 @MainActor
 protocol SetViewSettingsCoordinatorOutput: AnyObject {
-    func onDefaultSettingsTap()
     func onLayoutTap()
     func onRelationsTap()
     func onFiltersTap()
@@ -26,7 +25,6 @@ final class SetViewSettingsCoordinatorViewModel: ObservableObject, SetViewSettin
     private let setRelationsCoordinatorAssembly: SetRelationsCoordinatorAssemblyProtocol
     private let setFiltersListCoordinatorAssembly: SetFiltersListCoordinatorAssemblyProtocol
     private let setSortsListCoordinatorAssembly: SetSortsListCoordinatorAssemblyProtocol
-    private let objectCreationSettingsCoordinator: SetObjectCreationSettingsCoordinatorProtocol
     
     init(
         setDocument: SetDocumentProtocol,
@@ -37,8 +35,7 @@ final class SetViewSettingsCoordinatorViewModel: ObservableObject, SetViewSettin
         setLayoutSettingsCoordinatorAssembly: SetLayoutSettingsCoordinatorAssemblyProtocol,
         setRelationsCoordinatorAssembly: SetRelationsCoordinatorAssemblyProtocol,
         setFiltersListCoordinatorAssembly: SetFiltersListCoordinatorAssemblyProtocol,
-        setSortsListCoordinatorAssembly: SetSortsListCoordinatorAssemblyProtocol,
-        objectCreationSettingsCoordinator: SetObjectCreationSettingsCoordinatorProtocol
+        setSortsListCoordinatorAssembly: SetSortsListCoordinatorAssemblyProtocol
     ) {
         self.setDocument = setDocument
         self.viewId = viewId
@@ -49,7 +46,6 @@ final class SetViewSettingsCoordinatorViewModel: ObservableObject, SetViewSettin
         self.setRelationsCoordinatorAssembly = setRelationsCoordinatorAssembly
         self.setFiltersListCoordinatorAssembly = setFiltersListCoordinatorAssembly
         self.setSortsListCoordinatorAssembly = setSortsListCoordinatorAssembly
-        self.objectCreationSettingsCoordinator = objectCreationSettingsCoordinator
     }
     
     func list() -> AnyView {
@@ -62,16 +58,6 @@ final class SetViewSettingsCoordinatorViewModel: ObservableObject, SetViewSettin
     }
     
     // MARK: - SetViewSettingsCoordinatorOutput
-    
-    // MARK: - Default object creation settings
-    
-    func onDefaultSettingsTap() {
-        objectCreationSettingsCoordinator.showSetObjectCreationSettings(
-            setDocument: setDocument,
-            viewId: viewId,
-            onTemplateSelection: { _ in }
-        )
-    }
     
     // MARK: - Layout
     

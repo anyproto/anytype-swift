@@ -4,14 +4,11 @@ import AnytypeCore
 
 @MainActor
 protocol SetObjectCreationSettingsInteractorProtocol {
-    var mode: SetObjectCreationSettingsMode { get }
-    
     var userTemplates: AnyPublisher<[TemplatePreviewModel], Never> { get }
     
     var objectTypesAvailabilityPublisher: AnyPublisher<Bool, Never> { get }
     var objectTypeId: String { get }
     var objectTypesConfigPublisher: AnyPublisher<ObjectTypesConfiguration, Never> { get }
-    func setObjectTypeId(_ objectTypeId: String)
     
     func setDefaultObjectType(objectTypeId: BlockId) async throws
     func setDefaultTemplate(templateId: BlockId) async throws
@@ -51,8 +48,6 @@ final class SetObjectCreationSettingsInteractor: SetObjectCreationSettingsIntera
     @Published var canChangeObjectType = false
     @Published private var objectTypes = [ObjectType]()
     
-    let mode: SetObjectCreationSettingsMode
-    
     private let setDocument: SetDocumentProtocol
     private let viewId: String
     
@@ -69,14 +64,12 @@ final class SetObjectCreationSettingsInteractor: SetObjectCreationSettingsIntera
     private var cancellables = [AnyCancellable]()
     
     init(
-        mode: SetObjectCreationSettingsMode,
         setDocument: SetDocumentProtocol,
         viewId: String,
         objectTypesProvider: ObjectTypeProviderProtocol,
         subscriptionService: TemplatesSubscriptionServiceProtocol,
         dataviewService: DataviewServiceProtocol
     ) {
-        self.mode = mode
         self.setDocument = setDocument
         self.viewId = viewId
         self.dataView = setDocument.view(by: viewId)
@@ -106,10 +99,6 @@ final class SetObjectCreationSettingsInteractor: SetObjectCreationSettingsIntera
         loadTemplates()
     }
     
-    func setObjectTypeId(_ objectTypeId: String) {
-        updateState(with: objectTypeId)
-    }
-    
     func setDefaultObjectType(objectTypeId: BlockId) async throws {
         let updatedDataView = dataView.updated(defaultTemplateID: "", defaultObjectTypeID: objectTypeId)
         try await dataviewService.updateView(updatedDataView)
@@ -133,8 +122,6 @@ final class SetObjectCreationSettingsInteractor: SetObjectCreationSettingsIntera
                 defaultTemplateId = dataView.defaultTemplateID ?? .empty
             }
             
-            guard mode == .default else { return }
-            
             let defaultObjectTypeId = try? setDocument.defaultObjectTypeForView(dataView).id
             if !setDocument.isTypeSet(), let defaultObjectTypeId, objectTypeId != defaultObjectTypeId {
                 updateState(with: defaultObjectTypeId)
@@ -157,7 +144,7 @@ final class SetObjectCreationSettingsInteractor: SetObjectCreationSettingsIntera
     }
     
     private func updateObjectTypes() {
-        let objectTypes = objectTypesProvider.objectTypes.filter {
+        let objectTypes = objectTypesProvider.objectTypes(spaceId: setDocument.spaceId).filter {
             guard let recommendedLayout = $0.recommendedLayout else { return false }
             return !$0.isArchived && DetailsLayout.visibleLayouts.contains(recommendedLayout)
         }

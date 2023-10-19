@@ -18,7 +18,6 @@ final class EditorSetViewModel: ObservableObject {
     @MainActor
     lazy var headerSettingsViewModel = SetHeaderSettingsViewModel(
         setDocument: setDocument,
-        setTemplatesInteractor: setTemplatesInteractor,
         onViewTap: { [weak self] in self?.showViewPicker() } ,
         onSettingsTap: { [weak self] in self?.showSetSettings() } ,
         onCreateTap: { [weak self] in self?.createObject() },
@@ -128,7 +127,6 @@ final class EditorSetViewModel: ObservableObject {
     private let groupsSubscriptionsHandler: GroupsSubscriptionsHandlerProtocol
     private let setSubscriptionDataBuilder: SetSubscriptionDataBuilderProtocol
     private let objectTypeProvider: ObjectTypeProviderProtocol
-    private let setTemplatesInteractor: SetTemplatesInteractorProtocol
     private var subscriptions = [AnyCancellable]()
     private var subscriptionStorages = [String: SubscriptionStorageProtocol]()
     private var titleSubscription: AnyCancellable?
@@ -144,8 +142,7 @@ final class EditorSetViewModel: ObservableObject {
         textService: TextServiceProtocol,
         groupsSubscriptionsHandler: GroupsSubscriptionsHandlerProtocol,
         setSubscriptionDataBuilder: SetSubscriptionDataBuilderProtocol,
-        objectTypeProvider: ObjectTypeProviderProtocol,
-        setTemplatesInteractor: SetTemplatesInteractorProtocol
+        objectTypeProvider: ObjectTypeProviderProtocol
     ) {
         self.setDocument = setDocument
         self.headerModel = headerViewModel
@@ -158,7 +155,6 @@ final class EditorSetViewModel: ObservableObject {
         self.groupsSubscriptionsHandler = groupsSubscriptionsHandler
         self.setSubscriptionDataBuilder = setSubscriptionDataBuilder
         self.objectTypeProvider = objectTypeProvider
-        self.setTemplatesInteractor = setTemplatesInteractor
         self.titleString = setDocument.details?.pageCellTitle ?? ""
     }
     
@@ -876,7 +872,6 @@ extension EditorSetViewModel {
         textService: TextService(),
         groupsSubscriptionsHandler: DI.preview.serviceLocator.groupsSubscriptionsHandler(),
         setSubscriptionDataBuilder: SetSubscriptionDataBuilder(activeWorkspaceStorage: DI.preview.serviceLocator.activeWorkspaceStorage()),
-        objectTypeProvider: DI.preview.serviceLocator.objectTypeProvider(),
-        setTemplatesInteractor: DI.preview.serviceLocator.setTemplatesInteractor
+        objectTypeProvider: DI.preview.serviceLocator.objectTypeProvider()
     )
 }

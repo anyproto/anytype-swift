@@ -31,27 +31,12 @@ final class SetViewSettingsListModuleAssembly: SetViewSettingsListModuleAssembly
             objectId: setDocument.objectId,
             blockId: setDocument.blockId
         )
-        let setObjectCreationSettingsInteractor: SetObjectCreationSettingsInteractorProtocol?
-        if setDocument.isTypeSet() {
-            setObjectCreationSettingsInteractor = SetObjectCreationSettingsInteractor(
-                mode: .default,
-                setDocument: setDocument,
-                viewId: viewId,
-                objectTypesProvider: serviceLocator.objectTypeProvider(),
-                subscriptionService: serviceLocator.templatesSubscription(),
-                dataviewService: dataviewService
-            )
-        } else {
-            setObjectCreationSettingsInteractor = nil
-        }
         return SetViewSettingsList(
             model: SetViewSettingsListModel(
                 setDocument: setDocument,
                 viewId: viewId,
                 mode: mode,
                 dataviewService: dataviewService,
-                templatesInteractor: self.serviceLocator.setTemplatesInteractor,
-                setObjectCreationSettingsInteractor: setObjectCreationSettingsInteractor,
                 output: output
             )
         ).eraseToAnyView()

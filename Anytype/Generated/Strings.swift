@@ -1503,14 +1503,6 @@ internal enum Loc {
             internal static let title = Loc.tr("Localizable", "Set.View.Settings.CardSize.Small.Title", fallback: "Small")
           }
         }
-        internal enum DefaultObject {
-          /// Default object
-          internal static let title = Loc.tr("Localizable", "Set.View.Settings.DefaultObject.Title", fallback: "Default object")
-        }
-        internal enum DefaultTemplate {
-          /// Default template
-          internal static let title = Loc.tr("Localizable", "Set.View.Settings.DefaultTemplate.Title", fallback: "Default template")
-        }
         internal enum GroupBackgroundColors {
           /// Color columns
           internal static let title = Loc.tr("Localizable", "Set.View.Settings.GroupBackgroundColors.Title", fallback: "Color columns")
@@ -1726,8 +1718,6 @@ internal enum Loc {
       internal static let duplicate = Loc.tr("Localizable", "TemplateOptions.Alert.Duplicate", fallback: "Duplicate")
       /// Edit template
       internal static let editTemplate = Loc.tr("Localizable", "TemplateOptions.Alert.EditTemplate", fallback: "Edit template")
-      /// Set as default for this view
-      internal static let setAsDefault = Loc.tr("Localizable", "TemplateOptions.Alert.SetAsDefault", fallback: "Set as default for this view")
     }
   }
   internal enum TemplatePicker {
@@ -1752,10 +1742,6 @@ internal enum Loc {
     internal enum ObjectType {
       /// Object type
       internal static let subtitle = Loc.tr("Localizable", "TemplateSelection.ObjectType.Subtitle", fallback: "Object type")
-      internal enum NoTemplates {
-        /// This type doesn’t support templates
-        internal static let title = Loc.tr("Localizable", "TemplateSelection.ObjectType.NoTemplates.Title", fallback: "This type doesn’t support templates")
-      }
     }
     internal enum Template {
       /// Template
