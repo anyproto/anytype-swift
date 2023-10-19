@@ -63,7 +63,7 @@ struct ObjectIconExample: View {
                     Spacer()
                 }
                 .padding(10)
-                .background(Color.white)
+                .background(.white)
                 .colorScheme(.light)
                 HStack {
                     Spacer()
@@ -72,7 +72,7 @@ struct ObjectIconExample: View {
                     Spacer()
                 }
                 .padding(10)
-                .background(Color.black)
+                .background(.gray)
                 .colorScheme(.dark)
             }
             .padding(.bottom, 10)

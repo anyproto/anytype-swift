@@ -39,6 +39,7 @@ struct GradientIconsExamples: View {
                 }
             }
         }
+        .background(.gray)
     }
 }
 
