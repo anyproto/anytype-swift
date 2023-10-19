@@ -20,8 +20,6 @@ struct GradientIconsExamples: View {
             HStack(spacing: 0) {
                 AnytypeText("Space", style: .subheading, color: .Text.primary)
                     .frame(maxWidth: .infinity)
-                AnytypeText("Profile", style: .subheading, color: .Text.primary)
-                    .frame(maxWidth: .infinity)
             }
             ScrollView() {
                 VStack {
