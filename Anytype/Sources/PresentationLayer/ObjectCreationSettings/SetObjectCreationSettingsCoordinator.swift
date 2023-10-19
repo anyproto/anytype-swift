@@ -123,6 +123,7 @@ final class SetObjectCreationSettingsCoordinator: SetObjectCreationSettingsCoord
             }, onSelectTemplateTap: { [weak self] in
                 guard let self else { return }
                 navigationContext.dismissAllPresented(animated: true) {
+                    onSetAsDefaultTempalte(setting.templateId)
                     onTemplateSelection(setting)
                 }
             }
