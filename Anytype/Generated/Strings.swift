@@ -1704,8 +1704,6 @@ internal enum Loc {
       internal static let duplicate = Loc.tr("Localizable", "TemplateOptions.Alert.Duplicate", fallback: "Duplicate")
       /// Edit template
       internal static let editTemplate = Loc.tr("Localizable", "TemplateOptions.Alert.EditTemplate", fallback: "Edit template")
-      /// Set as default for this view
-      internal static let setAsDefault = Loc.tr("Localizable", "TemplateOptions.Alert.SetAsDefault", fallback: "Set as default for this view")
     }
   }
   internal enum TemplatePicker {

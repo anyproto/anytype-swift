@@ -22,7 +22,7 @@ struct SetObjectCreationSettingsView: View {
     private var navigation: some View {
         ZStack {
             AnytypeText(Loc.createObject, style: .uxTitle2Medium, color: .Text.primary)
-            if model.isTemplatesAvailable {
+            if model.isTemplatesEditable {
                 navigationButtons
             }
         }

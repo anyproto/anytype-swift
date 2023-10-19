@@ -17,7 +17,7 @@ final class SetObjectCreationSettingsViewModel: ObservableObject {
     @Published var templates = [TemplatePreviewViewModel]()
     @Published var canChangeObjectType = false
     
-    var isTemplatesAvailable = false
+    var isTemplatesEditable = false
     
     var templateEditingHandler: ((ObjectCreationSetting) -> Void)?
     var onObjectTypesSearchAction: (() -> Void)?
@@ -159,8 +159,8 @@ final class SetObjectCreationSettingsViewModel: ObservableObject {
                 $0.id == objectTypesConfig.objectTypeId
             }
             let isAvailable = defaultObjectType?.recommendedLayout?.isTemplatesAvailable ?? false
-            if isAvailable != isTemplatesAvailable {
-                isTemplatesAvailable = isAvailable
+            if isAvailable != isTemplatesEditable {
+                isTemplatesEditable = isAvailable
                 updateTemplatesList()
             }
             updateObjectTypes(objectTypesConfig)
@@ -249,7 +249,7 @@ final class SetObjectCreationSettingsViewModel: ObservableObject {
         }
         
         templates.append(contentsOf: userTemplates)
-        if isTemplatesAvailable {
+        if isTemplatesEditable {
             templates.append(.init(mode: .addTemplate, alignment: .center, isDefault: false))
         }
         
@@ -291,11 +291,6 @@ extension TemplatePreviewModel {
 
 extension TemplatePreviewModel {
     var isEditable: Bool {
-        switch mode {
-        case .installed:
-            return true
-        case .addTemplate, .blank:
-            return false
-        }
+        contextualMenuOptions.isNotEmpty
     }
 }

@@ -9,7 +9,6 @@ protocol SetObjectCreationSettingsInteractorProtocol {
     var objectTypesAvailabilityPublisher: AnyPublisher<Bool, Never> { get }
     var objectTypeId: String { get }
     var objectTypesConfigPublisher: AnyPublisher<ObjectTypesConfiguration, Never> { get }
-    func setObjectTypeId(_ objectTypeId: String)
     
     func setDefaultObjectType(objectTypeId: BlockId) async throws
     func setDefaultTemplate(templateId: BlockId) async throws
@@ -98,10 +97,6 @@ final class SetObjectCreationSettingsInteractor: SetObjectCreationSettingsIntera
         
         subscribeOnDocmentUpdates()
         loadTemplates()
-    }
-    
-    func setObjectTypeId(_ objectTypeId: String) {
-        updateState(with: objectTypeId)
     }
     
     func setDefaultObjectType(objectTypeId: BlockId) async throws {
