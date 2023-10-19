@@ -801,8 +801,6 @@
 // MARK: - Spaces
 "Spaces.Accessibility.Public" = "Offentlig";
 "Spaces.Accessibility.Private" = "Privat";
-"Spaces.Accessibility.PublicFull" = "Offentlig rom";
-"Spaces.Accessibility.PrivateFull" = "Privat rom";
 
 // MARK: - Space Settings
 "SpaceSettings.Title" = "Rominnstillinger";

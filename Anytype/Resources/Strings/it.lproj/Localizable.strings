@@ -801,8 +801,6 @@
 // MARK: - Spaces
 "Spaces.Accessibility.Public" = "Pubblico";
 "Spaces.Accessibility.Private" = "Privato";
-"Spaces.Accessibility.PublicFull" = "Spazio pubblico";
-"Spaces.Accessibility.PrivateFull" = "Spazio privato";
 
 // MARK: - Space Settings
 "SpaceSettings.Title" = "Impostazioni dello Spazio";

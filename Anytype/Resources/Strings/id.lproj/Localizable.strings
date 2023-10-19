@@ -801,8 +801,6 @@
 // MARK: - Spaces
 "Spaces.Accessibility.Public" = "Publik";
 "Spaces.Accessibility.Private" = "Pribadi";
-"Spaces.Accessibility.PublicFull" = "Ruang publik";
-"Spaces.Accessibility.PrivateFull" = "Ruang pribadi";
 
 // MARK: - Space Settings
 "SpaceSettings.Title" = "Setelan ruang";
