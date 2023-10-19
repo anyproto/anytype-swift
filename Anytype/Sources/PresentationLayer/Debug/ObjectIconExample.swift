@@ -21,8 +21,6 @@ struct ObjectIconExample: View {
                         demoBlock { IconView(icon: .object(.profile(.imageId(iconId)))) }
                         AnytypeText("Profile Char", style: .subheading, color: .Text.primary)
                         demoBlock { IconView(icon: .object(.profile(.character("A")))) }
-                        AnytypeText("Profile Gradient", style: .subheading, color: .Text.primary)
-                        demoBlock { IconView(icon: .object(.profile(.gradient(GradientId(1)!)))) }
                     }
                     Group {
                         AnytypeText("Emoji", style: .subheading, color: .Text.primary)

@@ -18,7 +18,6 @@ extension ObjectIcon {
     enum Profile: Hashable {
         case imageId(String)
         case character(Character)
-        case gradient(GradientId)
     }
     
 }
