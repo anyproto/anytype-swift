@@ -76,7 +76,9 @@ struct JoinFlowInputView_Previews: PreviewProvider {
                 objectActionsService: DI.preview.serviceLocator.objectActionsService(),
                 authService: DI.preview.serviceLocator.authService(),
                 seedService: DI.preview.serviceLocator.seedService(),
-                usecaseService: DI.preview.serviceLocator.usecaseService()
+                usecaseService: DI.preview.serviceLocator.usecaseService(),
+                workspaceService: DI.preview.serviceLocator.workspaceService(),
+                activeWorkspaceStorage: DI.preview.serviceLocator.activeWorkspaceStorage()
             )
         )
     }

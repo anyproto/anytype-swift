@@ -1,4 +1,5 @@
 import SwiftUI
+import Services
 
 @MainActor
 final class SoulViewModel: ObservableObject {
@@ -19,6 +20,8 @@ final class SoulViewModel: ObservableObject {
     private let authService: AuthServiceProtocol
     private let seedService: SeedServiceProtocol
     private let usecaseService: UsecaseServiceProtocol
+    private let workspaceService: WorkspaceServiceProtocol
+    private let activeWorkspaceStorage: ActiveWorkpaceStorageProtocol
     
     init(
         state: JoinFlowState,
@@ -27,7 +30,9 @@ final class SoulViewModel: ObservableObject {
         objectActionsService: ObjectActionsServiceProtocol,
         authService: AuthServiceProtocol,
         seedService: SeedServiceProtocol,
-        usecaseService: UsecaseServiceProtocol
+        usecaseService: UsecaseServiceProtocol,
+        workspaceService: WorkspaceServiceProtocol,
+        activeWorkspaceStorage: ActiveWorkpaceStorageProtocol
     ) {
         self.state = state
         self.inputText = state.soul
@@ -37,6 +42,8 @@ final class SoulViewModel: ObservableObject {
         self.authService = authService
         self.seedService = seedService
         self.usecaseService = usecaseService
+        self.workspaceService = workspaceService
+        self.activeWorkspaceStorage = activeWorkspaceStorage
     }
     
     func onAppear() {
@@ -92,16 +99,20 @@ final class SoulViewModel: ObservableObject {
         Task { @MainActor in
             startLoading()
             
-            try await objectActionsService.updateBundledDetails(
-                contextID: accountManager.account.info.spaceViewId,
-                details: [.name(state.soul)]
-            )
-            try await objectActionsService.updateBundledDetails(
-                contextID: accountManager.account.info.profileObjectID,
-                details: [.name(state.soul)]
-            )
-            
-            onSuccess()
+            do {
+                try await workspaceService.workspaceSetDetails(
+                    spaceId: activeWorkspaceStorage.workspaceInfo.accountSpaceId,
+                    details: [.name(state.soul)]
+                )
+                try await objectActionsService.updateBundledDetails(
+                    contextID: accountManager.account.info.profileObjectID,
+                    details: [.name(state.soul)]
+                )
+                
+                onSuccess()
+            } catch {
+                createAccountError(error)
+            }
         }
     }
     
