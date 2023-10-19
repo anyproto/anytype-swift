@@ -25,7 +25,9 @@ final class SoulViewModuleAssembly: SoulViewModuleAssemblyProtocol {
                 objectActionsService: self.serviceLocator.objectActionsService(),
                 authService: self.serviceLocator.authService(),
                 seedService:  self.serviceLocator.seedService(),
-                usecaseService: self.serviceLocator.usecaseService()
+                usecaseService: self.serviceLocator.usecaseService(),
+                workspaceService: self.serviceLocator.workspaceService(), 
+                activeWorkspaceStorage: self.serviceLocator.activeWorkspaceStorage()
             )
         ).eraseToAnyView()
     }
