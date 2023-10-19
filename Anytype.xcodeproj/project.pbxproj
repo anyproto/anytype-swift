@@ -702,7 +702,6 @@
 		2AF2C6B928BD104B00F8612B /* UIAnytypeActivityIndicator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AF2C6B828BD104B00F8612B /* UIAnytypeActivityIndicator.swift */; };
 		2AF4260129AF3A6000753B17 /* SettingsAppearanceViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AF4260029AF3A6000753B17 /* SettingsAppearanceViewModel.swift */; };
 		2AF4260329AF3B1700753B17 /* SettingsAppearanceModuleAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AF4260229AF3B1700753B17 /* SettingsAppearanceModuleAssembly.swift */; };
-		2AF4260529AF3CA100753B17 /* SettingsAppearanceModuleOutput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AF4260429AF3CA100753B17 /* SettingsAppearanceModuleOutput.swift */; };
 		2AF4260729AF402200753B17 /* WallpaperPickerViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AF4260629AF402200753B17 /* WallpaperPickerViewModel.swift */; };
 		2AF4260929AF405700753B17 /* WallpaperPickerModuleAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AF4260829AF405600753B17 /* WallpaperPickerModuleAssembly.swift */; };
 		2AF4260D29AF471C00753B17 /* AboutModuleOutput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AF4260C29AF471C00753B17 /* AboutModuleOutput.swift */; };
@@ -2301,7 +2300,6 @@
 		2AF2C6B828BD104B00F8612B /* UIAnytypeActivityIndicator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIAnytypeActivityIndicator.swift; sourceTree = "<group>"; };
 		2AF4260029AF3A6000753B17 /* SettingsAppearanceViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsAppearanceViewModel.swift; sourceTree = "<group>"; };
 		2AF4260229AF3B1700753B17 /* SettingsAppearanceModuleAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsAppearanceModuleAssembly.swift; sourceTree = "<group>"; };
-		2AF4260429AF3CA100753B17 /* SettingsAppearanceModuleOutput.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsAppearanceModuleOutput.swift; sourceTree = "<group>"; };
 		2AF4260629AF402200753B17 /* WallpaperPickerViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WallpaperPickerViewModel.swift; sourceTree = "<group>"; };
 		2AF4260829AF405600753B17 /* WallpaperPickerModuleAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WallpaperPickerModuleAssembly.swift; sourceTree = "<group>"; };
 		2AF4260C29AF471C00753B17 /* AboutModuleOutput.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AboutModuleOutput.swift; sourceTree = "<group>"; };
@@ -7211,7 +7209,6 @@
 				3D34F20927BE3B5300990C49 /* SettingsAppearanceView.swift */,
 				2AF4260029AF3A6000753B17 /* SettingsAppearanceViewModel.swift */,
 				2AF4260229AF3B1700753B17 /* SettingsAppearanceModuleAssembly.swift */,
-				2AF4260429AF3CA100753B17 /* SettingsAppearanceModuleOutput.swift */,
 				2ABF214229B204BE00E872D9 /* UIUserInterfaceStyle+Settings.swift */,
 			);
 			path = Appearance;
@@ -9958,7 +9955,6 @@
 				2E52DE672A1CDF3D00F16815 /* LineProgressBar.swift in Sources */,
 				2A8A2DD52AB9A14300105549 /* ShareCoordinatorAssembly.swift in Sources */,
 				1215E8B126A860D20089AF7E /* AppConfigurator.swift in Sources */,
-				2AF4260529AF3CA100753B17 /* SettingsAppearanceModuleOutput.swift in Sources */,
 				2E975EDE287C2325004DE574 /* SetFilterRowConfiguration.swift in Sources */,
 				C91FAF5D2812865B0055BC4A /* UndoRedoViewModel.swift in Sources */,
 				2EE10C7428ACFCF100F41D50 /* LightDimmingButtonStyle.swift in Sources */,

@@ -6,9 +6,7 @@ struct PersonalizationView: View {
 
     var body: some View {
         VStack(spacing: 0) {
-            if FeatureFlags.multiSpaceSettings {
-                DragIndicator()
-            }
+            DragIndicator()
             Spacer.fixedHeight(12)
             AnytypeText(Loc.personalization, style: .uxTitle1Semibold, color: .Text.primary)
             Spacer.fixedHeight(12)
@@ -22,9 +20,7 @@ struct PersonalizationView: View {
         .onAppear {
             AnytypeAnalytics.instance().logScreenSettingsPersonal()
         }
-        .if(FeatureFlags.multiSpaceSettings, transform: {
-            $0.fitPresentationDetents()
-        })
+        .fitPresentationDetents()
     }
 }
 

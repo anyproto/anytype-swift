@@ -93,11 +93,7 @@ final class HomeBottomPanelViewModel: ObservableObject {
                     }
                 }),
                 ImageButton(image: profileDetails?.objectIconImage, padding: true, onTap: { [weak self] in
-                    if FeatureFlags.multiSpace {
-                        self?.output?.onProfileSelected()
-                    } else {
-                        self?.output?.onSettingsSelected()
-                    }
+                    self?.output?.onProfileSelected()
                 }, onLongTap: nil)
             ])
         }
@@ -107,7 +103,7 @@ final class HomeBottomPanelViewModel: ObservableObject {
     private func setupDataSubscription() async {
         await subscriptionService.startSubscription(
             subId: subId,
-            objectId: FeatureFlags.multiSpace ? info.profileObjectID : info.spaceViewId
+            objectId: info.profileObjectID
         ) { [weak self] details in
             self?.handleProfileDetails(details: details)
         }

@@ -204,11 +204,7 @@ final class HomeWidgetsCoordinatorViewModel: ObservableObject,
     }
     
     func onSpaceSelected() {
-        if FeatureFlags.multiSpaceSettings {
-            showSpaceSettings.toggle()
-        } else {
-            settingsCoordinator.startFlow()
-        }
+        showSpaceSettings.toggle()
     }
     
     // MARK: - HomeBottomPanelModuleOutput
@@ -240,10 +236,6 @@ final class HomeWidgetsCoordinatorViewModel: ObservableObject,
         openObject(screenData: screenData)
     }
     
-    func onSettingsSelected() {
-        settingsCoordinator.startFlow()
-    }
-    
     func onProfileSelected() {
         showSpaceSwitch.toggle()
     }
@@ -252,6 +244,10 @@ final class HomeWidgetsCoordinatorViewModel: ObservableObject,
     
     func onCreateSpaceSelected() {
         showSpaceCreate.toggle()
+    }
+    
+    func onSettingsSelected() {
+        settingsCoordinator.startFlow()
     }
     
     // MARK: - EditorBrowserDelegate
