@@ -21,7 +21,7 @@ struct InitialCoordinatorView: View {
                     }
                 } else {
                     Button(Loc.Initial.UnstableMiddle.wontUseProd) {
-                        model.contunueWithoutLogout()
+                        model.contunueWithTrust()
                     }
                 }
             } message: {

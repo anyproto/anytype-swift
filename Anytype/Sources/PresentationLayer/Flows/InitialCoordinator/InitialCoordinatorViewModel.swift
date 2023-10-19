@@ -20,9 +20,13 @@ final class InitialCoordinatorViewModel: ObservableObject {
         Task { @MainActor in
             do {
                 let version = try await middlewareConfigurationProvider.libraryVersion()
-                if !version.hasPrefix("v") && (UserDefaultsConfig.usersId.isEmpty || UserDefaultsConfig.showUnstableMiddlewareError) {
-                    showWarningAlert.toggle()
-                    UserDefaultsConfig.showUnstableMiddlewareError = false
+                let isUnstableVersion = !version.hasPrefix("v")
+                if isUnstableVersion {
+                    if (UserDefaultsConfig.usersId.isEmpty || UserDefaultsConfig.showUnstableMiddlewareError) {
+                        showWarningAlert.toggle()
+                    } else {
+                        showLoginOrAuth()
+                    }
                 } else {
                     showLoginOrAuth()
                     UserDefaultsConfig.showUnstableMiddlewareError = true
@@ -38,11 +42,18 @@ final class InitialCoordinatorViewModel: ObservableObject {
     
     func contunueWithoutLogout() {
         showLoginOrAuth()
+        UserDefaultsConfig.showUnstableMiddlewareError = false
     }
     
     func contunueWithLogout() {
         UserDefaultsConfig.usersId = ""
         showLoginOrAuth()
+        UserDefaultsConfig.showUnstableMiddlewareError = false
+    }
+    
+    func contunueWithTrust() {
+        showLoginOrAuth()
+        UserDefaultsConfig.showUnstableMiddlewareError = false
     }
     
     // MARK: - Private
