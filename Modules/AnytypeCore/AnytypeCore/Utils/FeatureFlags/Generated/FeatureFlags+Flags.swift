@@ -22,14 +22,6 @@ public extension FeatureFlags {
         value(for: .dndOnCollectionsAndSets)
     }
 
-    static var multiSpace: Bool {
-        value(for: .multiSpace)
-    }
-
-    static var multiSpaceSettings: Bool {
-        value(for: .multiSpaceSettings)
-    }
-
     static var newCodeLanguages: Bool {
         value(for: .newCodeLanguages)
     }
@@ -72,8 +64,6 @@ public extension FeatureFlags {
         .setKanbanView,
         .fullInlineSetImpl,
         .dndOnCollectionsAndSets,
-        .multiSpace,
-        .multiSpaceSettings,
         .newCodeLanguages,
         .newSetSettings,
         .ipadIncreaseWidth,

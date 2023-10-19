@@ -9,9 +9,6 @@ struct SettingsAccountView: View {
             header
             ScrollView(showsIndicators: false) {
                 VStack(spacing: 0) {
-                    if !FeatureFlags.multiSpaceSettings {
-                        profileBlock
-                    }
                     accessBlock
                     accountBlock
                 }
@@ -26,18 +23,7 @@ struct SettingsAccountView: View {
     @ViewBuilder
     private var header: some View {
         DragIndicator()
-        if FeatureFlags.multiSpaceSettings {
-            TitleView(title: Loc.Settings.accountAndAccess)
-        } else {
-            TitleView(title: Loc.profile)
-        }
-    }
-    
-    @ViewBuilder
-    private var profileBlock: some View {
-        SettingsObjectHeader(name: $model.profileName, nameTitle: Loc.name, iconImage: model.profileIcon, onTap: {
-            model.onChangeIconTap()
-        })
+        TitleView(title: Loc.Settings.accountAndAccess)
     }
     
     @ViewBuilder

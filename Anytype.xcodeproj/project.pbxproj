@@ -398,7 +398,7 @@
 		2A377E452A82701700EA856B /* RemoteStorageModuleAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A377E442A82701700EA856B /* RemoteStorageModuleAssembly.swift */; };
 		2A377E472A82703500EA856B /* RemoteStorageModuleOutput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A377E462A82703500EA856B /* RemoteStorageModuleOutput.swift */; };
 		2A39DC4629FBC567003C43A9 /* FileStorageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A39DC4529FBC567003C43A9 /* FileStorageView.swift */; };
-		2A39DC4829FBC57F003C43A9 /* FileStorageViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A39DC4729FBC57F003C43A9 /* FileStorageViewModel.swift */; };
+		2A39DC4829FBC57F003C43A9 /* onClearCacheSelected.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A39DC4729FBC57F003C43A9 /* onClearCacheSelected.swift */; };
 		2A39DC4D29FBC6DF003C43A9 /* FileStorageInfoBlock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A39DC4C29FBC6DF003C43A9 /* FileStorageInfoBlock.swift */; };
 		2A39F3C929ED96AB005DE8F5 /* MarkupType+Analytics.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A39F3C829ED96AB005DE8F5 /* MarkupType+Analytics.swift */; };
 		2A39F3CB29ED97F3005DE8F5 /* BlockTextStyle+Analytics.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A39F3CA29ED97F2005DE8F5 /* BlockTextStyle+Analytics.swift */; };
@@ -699,7 +699,6 @@
 		2AF2C6B928BD104B00F8612B /* UIAnytypeActivityIndicator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AF2C6B828BD104B00F8612B /* UIAnytypeActivityIndicator.swift */; };
 		2AF4260129AF3A6000753B17 /* SettingsAppearanceViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AF4260029AF3A6000753B17 /* SettingsAppearanceViewModel.swift */; };
 		2AF4260329AF3B1700753B17 /* SettingsAppearanceModuleAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AF4260229AF3B1700753B17 /* SettingsAppearanceModuleAssembly.swift */; };
-		2AF4260529AF3CA100753B17 /* SettingsAppearanceModuleOutput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AF4260429AF3CA100753B17 /* SettingsAppearanceModuleOutput.swift */; };
 		2AF4260729AF402200753B17 /* WallpaperPickerViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AF4260629AF402200753B17 /* WallpaperPickerViewModel.swift */; };
 		2AF4260929AF405700753B17 /* WallpaperPickerModuleAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AF4260829AF405600753B17 /* WallpaperPickerModuleAssembly.swift */; };
 		2AF4260D29AF471C00753B17 /* AboutModuleOutput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AF4260C29AF471C00753B17 /* AboutModuleOutput.swift */; };
@@ -2007,7 +2006,7 @@
 		2A377E442A82701700EA856B /* RemoteStorageModuleAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemoteStorageModuleAssembly.swift; sourceTree = "<group>"; };
 		2A377E462A82703500EA856B /* RemoteStorageModuleOutput.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemoteStorageModuleOutput.swift; sourceTree = "<group>"; };
 		2A39DC4529FBC567003C43A9 /* FileStorageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileStorageView.swift; sourceTree = "<group>"; };
-		2A39DC4729FBC57F003C43A9 /* FileStorageViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileStorageViewModel.swift; sourceTree = "<group>"; };
+		2A39DC4729FBC57F003C43A9 /* onClearCacheSelected.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = onClearCacheSelected.swift; sourceTree = "<group>"; };
 		2A39DC4C29FBC6DF003C43A9 /* FileStorageInfoBlock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileStorageInfoBlock.swift; sourceTree = "<group>"; };
 		2A39F3C829ED96AB005DE8F5 /* MarkupType+Analytics.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MarkupType+Analytics.swift"; sourceTree = "<group>"; };
 		2A39F3CA29ED97F2005DE8F5 /* BlockTextStyle+Analytics.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "BlockTextStyle+Analytics.swift"; sourceTree = "<group>"; };
@@ -2295,7 +2294,6 @@
 		2AF2C6B828BD104B00F8612B /* UIAnytypeActivityIndicator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIAnytypeActivityIndicator.swift; sourceTree = "<group>"; };
 		2AF4260029AF3A6000753B17 /* SettingsAppearanceViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsAppearanceViewModel.swift; sourceTree = "<group>"; };
 		2AF4260229AF3B1700753B17 /* SettingsAppearanceModuleAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsAppearanceModuleAssembly.swift; sourceTree = "<group>"; };
-		2AF4260429AF3CA100753B17 /* SettingsAppearanceModuleOutput.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsAppearanceModuleOutput.swift; sourceTree = "<group>"; };
 		2AF4260629AF402200753B17 /* WallpaperPickerViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WallpaperPickerViewModel.swift; sourceTree = "<group>"; };
 		2AF4260829AF405600753B17 /* WallpaperPickerModuleAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WallpaperPickerModuleAssembly.swift; sourceTree = "<group>"; };
 		2AF4260C29AF471C00753B17 /* AboutModuleOutput.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AboutModuleOutput.swift; sourceTree = "<group>"; };
@@ -5163,7 +5161,7 @@
 			children = (
 				2A39DC4B29FBC6C7003C43A9 /* Subviews */,
 				2A39DC4529FBC567003C43A9 /* FileStorageView.swift */,
-				2A39DC4729FBC57F003C43A9 /* FileStorageViewModel.swift */,
+				2A39DC4729FBC57F003C43A9 /* onClearCacheSelected.swift */,
 				2A03631F29FBEEC200CE3116 /* FileStorageModuleAssembly.swift */,
 				2A6C75C529FC16D2002BD440 /* FileStorageModuleOutput.swift */,
 			);
@@ -7194,7 +7192,6 @@
 				3D34F20927BE3B5300990C49 /* SettingsAppearanceView.swift */,
 				2AF4260029AF3A6000753B17 /* SettingsAppearanceViewModel.swift */,
 				2AF4260229AF3B1700753B17 /* SettingsAppearanceModuleAssembly.swift */,
-				2AF4260429AF3CA100753B17 /* SettingsAppearanceModuleOutput.swift */,
 				2ABF214229B204BE00E872D9 /* UIUserInterfaceStyle+Settings.swift */,
 			);
 			path = Appearance;
@@ -9776,7 +9773,7 @@
 				125B6EBC26F235F400BCD7D6 /* EditorSearchCell.swift in Sources */,
 				127EABD9273745C000C731F2 /* AnytypeColorProtocol.swift in Sources */,
 				2ACF42982A6A7C09001B5D2E /* SquareGradientIconPainter.swift in Sources */,
-				2A39DC4829FBC57F003C43A9 /* FileStorageViewModel.swift in Sources */,
+				2A39DC4829FBC57F003C43A9 /* onClearCacheSelected.swift in Sources */,
 				2A971C08297E7BFD00D3D786 /* ListWidgetRowModel+ObjectDetails.swift in Sources */,
 				2AFCEB3D29C8A67700841E13 /* CollectionsListWidgetModuleAssembly.swift in Sources */,
 				2A2C330328928668008BC326 /* RelationValueCoordinator.swift in Sources */,
@@ -9939,7 +9936,6 @@
 				2E52DE672A1CDF3D00F16815 /* LineProgressBar.swift in Sources */,
 				2A8A2DD52AB9A14300105549 /* ShareCoordinatorAssembly.swift in Sources */,
 				1215E8B126A860D20089AF7E /* AppConfigurator.swift in Sources */,
-				2AF4260529AF3CA100753B17 /* SettingsAppearanceModuleOutput.swift in Sources */,
 				2E975EDE287C2325004DE574 /* SetFilterRowConfiguration.swift in Sources */,
 				C91FAF5D2812865B0055BC4A /* UndoRedoViewModel.swift in Sources */,
 				2EE10C7428ACFCF100F41D50 /* LightDimmingButtonStyle.swift in Sources */,

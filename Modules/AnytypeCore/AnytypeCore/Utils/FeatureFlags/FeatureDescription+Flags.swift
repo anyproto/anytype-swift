@@ -28,18 +28,6 @@ public extension FeatureDescription {
         defaultValue: false
     )
     
-    static let multiSpace = FeatureDescription(
-        title: "Multi spaces - switch space - IOS-1568",
-        type: .feature(author: "m@anytype.io", releaseVersion: "0.25.0"),
-        defaultValue: false
-    )
-    
-    static let multiSpaceSettings = FeatureDescription(
-        title: "Multi spaces - settings - IOS-1568",
-        type: .feature(author: "m@anytype.io", releaseVersion: "0.25.0"),
-        defaultValue: false
-    )
-
     static let newCodeLanguages = FeatureDescription(
         title: "New code languages - IOS-987",
         type: .feature(author: "m@anytype.io", releaseVersion: "0.26.0"),

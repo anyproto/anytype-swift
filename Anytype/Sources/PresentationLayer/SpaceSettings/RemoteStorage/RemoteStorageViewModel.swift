@@ -127,7 +127,6 @@ final class RemoteStorageViewModel: ObservableObject {
         
         let used = byteCountFormatter.string(fromByteCount: bytesUsed)
         let limit = byteCountFormatter.string(fromByteCount: bytesLimit)
-        let local = byteCountFormatter.string(fromByteCount: localBytesUsage)
         
         spaceInstruction = Loc.FileStorage.Space.instruction(limit)
         spaceUsed = Loc.FileStorage.Space.used(used, limit)
