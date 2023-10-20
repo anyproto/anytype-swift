@@ -102,12 +102,22 @@ final class SpaceSettingsViewModel: ObservableObject {
             )
         }
         
-        if let createdDateDetails = try? relationDetailsStorage.relationsDetails(for: .createdDate, spaceId: activeWorkspaceStorage.workspaceInfo.accountSpaceId) {
-            let date = details.createdDate.map { dateFormatter.string(from: $0) } ?? Loc.unknown
+        if let creatorDetails = try? relationDetailsStorage.relationsDetails(for: .creator, spaceId: activeWorkspaceStorage.workspaceInfo.accountSpaceId) {
+            info.append(
+                SettingsInfoModel(title: creatorDetails.name, subtitle: activeWorkspaceStorage.workspaceInfo.profileObjectID)
+            )
+        }
+        
+        if let createdDateDetails = try? relationDetailsStorage.relationsDetails(for: .createdDate, spaceId: activeWorkspaceStorage.workspaceInfo.accountSpaceId),
+           let date = details.createdDate.map({ dateFormatter.string(from: $0) }) {
             info.append(
                 SettingsInfoModel(title: createdDateDetails.name, subtitle: date)
             )
         }
+        
+        info.append(
+            SettingsInfoModel(title: Loc.SpaceSettings.networkId, subtitle: activeWorkspaceStorage.workspaceInfo.networkId)
+        )
     }
     
     private func updateSpaceName(name: String) {

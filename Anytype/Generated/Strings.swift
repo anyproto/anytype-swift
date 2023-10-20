@@ -1669,6 +1669,8 @@ internal enum Loc {
   internal enum SpaceSettings {
     /// Space info
     internal static let info = Loc.tr("Localizable", "SpaceSettings.Info", fallback: "Space info")
+    /// Network ID
+    internal static let networkId = Loc.tr("Localizable", "SpaceSettings.NetworkId", fallback: "Network ID")
     /// Remote storage
     internal static let remoteStorage = Loc.tr("Localizable", "SpaceSettings.RemoteStorage", fallback: "Remote storage")
     /// Space settings
