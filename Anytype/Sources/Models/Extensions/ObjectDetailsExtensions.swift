@@ -47,8 +47,8 @@ extension BundledRelationsValueProvider {
     }
     
     private var spaceIcon: ObjectIcon? {
-        if let basicIcon {
-            return basicIcon
+        if let iconImageHash = self.iconImage {
+            return .basic(iconImageHash.value)
         }
         
         if let iconOptionValue {

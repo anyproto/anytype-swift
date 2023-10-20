@@ -18,24 +18,22 @@ final class SpaceViewIconInternalViewModel {
         switch action {
         case .setIcon(let iconSource):
             switch iconSource {
-            case .emoji(let emojiUnicode):
-                AnytypeAnalytics.instance().logEvent(AnalyticsEventsName.setIcon)
-                Task {
-                    try await workspaceService.workspaceSetDetails(spaceId: spaceId, details:[.iconEmoji(emojiUnicode), .iconImageHash(nil)])
-                }
+            case .emoji:
+                anytypeAssertionFailure("Try to setup emoji for space")
+                break
             case .upload(let itemProvider):
                 AnytypeAnalytics.instance().logEvent(AnalyticsEventsName.setIcon)
                 let safeSendableItemProvider = SafeSendable(value: itemProvider)
                 Task {
                     let data = try await fileService.createFileData(source: .itemProvider(safeSendableItemProvider.value))
                     let imageHash = try await fileService.uploadImage(spaceId: spaceId, data: data)
-                    try await workspaceService.workspaceSetDetails(spaceId: spaceId, details: [.iconEmoji(""), .iconImageHash(imageHash)])
+                    try await workspaceService.workspaceSetDetails(spaceId: spaceId, details: [.iconImageHash(imageHash)])
                 }
             }
         case .removeIcon:
             AnytypeAnalytics.instance().logEvent(AnalyticsEventsName.removeIcon)
             Task {
-                try await workspaceService.workspaceSetDetails(spaceId: spaceId, details: [.iconEmoji(""), .iconImageHash(nil)])
+                try await workspaceService.workspaceSetDetails(spaceId: spaceId, details: [.iconImageHash(nil)])
             }
         }
     }
