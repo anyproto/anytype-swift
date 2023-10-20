@@ -229,7 +229,7 @@
 "Auth.JoinFlow.Personal.Space.Title" = "Ruang Pribadi";
 
 // Auth - Login flow
-"Auth.LoginFlow.Use.Keychain.Title" = "Use keychain";
+"Auth.LoginFlow.Use.Keychain.Title" = "Gunakan rantai kunci";
 "Auth.LoginFlow.Or" = "ATAU";
 "Auth.LoginFlow.Textfield.Placeholder" = "Masukkan frasa pemulihanmu";
 "Auth.LoginFlow.Enter.Button.Title" = "Masuk";
@@ -314,9 +314,7 @@
 "TemplateSelection.blankTemplate" = "Kosong";
 "TemplateSelection.Template.Subtitle" = "Templat";
 "TemplateSelection.ObjectType.Subtitle" = "Tipe objek";
-"TemplateSelection.ObjectType.NoTemplates.Title" = "Tipe ini tidak mendukung templat";
 
-"TemplateOptions.Alert.SetAsDefault" = "Jadikan bawaan untuk tampilan ini";
 "TemplateOptions.Alert.EditTemplate" = "Sunting templat";
 "TemplateOptions.Alert.Duplicate" = "Gandakan";
 "TemplateOptions.Alert.Delete" = "Hapus";
@@ -343,15 +341,15 @@
 "LinkAppearance.ObjectType.Title" = "Tipe objek";
 
 // MARK: - Sets: Sorts
-"EditSet.Popup.Sorts.NavigationView.Title" = "Sorts";
-"EditSet.Popup.Sorts.EmptyView.Title" = "No sorts here. You can add some";
-"EditSet.Popup.Sort.Types.Ascending" = "Ascending";
-"EditSet.Popup.Sort.Types.Descending" = "Descending";
-"EditSet.Popup.Sort.Add.SearchPlaceholder" = "Сhoose a relation to sort";
+"EditSet.Popup.Sorts.NavigationView.Title" = "Urutan";
+"EditSet.Popup.Sorts.EmptyView.Title" = "Tidak ada urutan disini. Kamu dapat menambahkan beberapa";
+"EditSet.Popup.Sort.Types.Ascending" = "Urutan naik";
+"EditSet.Popup.Sort.Types.Descending" = "Urutan turun";
+"EditSet.Popup.Sort.Add.SearchPlaceholder" = "Pilih sebuah relasi untuk diurutkan ";
 
 // MARK: - Sets: Filters
-"EditSet.Popup.Filters.NavigationView.Title" = "Filters";
-"EditSet.Popup.Filters.EmptyView.Title" = "No filters here. You can add some";
+"EditSet.Popup.Filters.NavigationView.Title" = "Saringan";
+"EditSet.Popup.Filters.EmptyView.Title" = "Tidak ada saringan disini. Kamu dapat menambahkan beberapa";
 "EditSet.Popup.Filters.TextView.Placeholder" = "Value";
 
 // MARK: - Sets: Filters.Conditions
@@ -430,8 +428,6 @@
 "Set.View.Settings.ImagePreview.Title" = "Pratinjau gambar";
 "Set.View.Settings.GroupBy.Title" = "Kelompokkan berdasarkan";
 "Set.View.Settings.GroupBackgroundColors.Title" = "Warna kolom";
-"Set.View.Settings.DefaultObject.Title" = "Default object";
-"Set.View.Settings.DefaultTemplate.Title" = "Default template";
 
 "Set.View.Settings.NoRelations.Placeholder" = "No relations";
 "Set.View.Settings.NoFilters.Placeholder" = "No filters";
@@ -823,3 +819,12 @@
 "Sharing.URL.Text" = "Text block";
 "Sharing.Text.NoteObject" = "Note object";
 "Sharing.Text.TextBlock" = "Text block";
+
+// MARK: - Initial
+
+"Initial.UnstableMiddle.Title" = "Peringatan";
+"Initial.UnstableMiddle.Message" = "You launch app with a unstable middleware. Don't use your production account. Your account may be broken.";
+"Initial.UnstableMiddle.Title" = "Peringatan";
+"Initial.UnstableMiddle.Logout" = "Keluar dari akun ini";
+"Initial.UnstableMiddle.Continue" = "Lanjutkan dengan akun ini";
+"Initial.UnstableMiddle.WontUseProd" = "I won't be using my production account";
