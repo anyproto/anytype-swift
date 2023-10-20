@@ -138,7 +138,7 @@
 "Pink background" = "Sfondo rosa";
 "Purple background" = "Sfondo viola";
 "Blue background" = "Sfondo blu";
-"Green background" = "Green background";
+"Green background" = "Sfondo verde";
 "Create new object" = "Create new object";
 "Cancel" = "Annulla";
 "Paste or type URL" = "Paste or type URL";
@@ -186,27 +186,27 @@
 "Restore secret phrase from keychain" = "Restore Recovery Phrase from the keychain";
 "Auth.LogIn" = "I already have one";
 "Auth.Join" = "Generate new account";
-"Auth.Welcome.Subtitle" = "Anytype is your safe space to write, plan, think and organise everything that matters to you.";
-"Auth.Caption.Privacy.Text" = "By continuing you agree to [Terms of Use](%@) and [Privacy Policy](%@)";
+"Auth.Welcome.Subtitle" = "Anytype è il tuo spazio sicuro per scrivere, pianificare, pensare e organizzare tutto ciò che conta per te.";
+"Auth.Caption.Privacy.Text" = "Continuando accetti i [Termini d'uso](%@) e [Informativa sulla privacy](%@)";
 "Auth.Next" = "Next";
 
 "Account recover error" = "Account recover error, try again";
-"Account recover error no internet" = "Account recover error, probably no internet connection";
+"Account recover error no internet" = "Errore di recupero account, probabilmente nessuna connessione ad internet";
 
 // Auth Errors
-"Error creating wallet" = "Error creating wallet";
-"Error select account" = "Error select account";
-"Error wallet recover account" = "Error wallet recover account";
+"Error creating wallet" = "Errore nella creazione del portafoglio";
+"Error select account" = "Errore nella selezione dell'account";
+"Error wallet recover account" = "Errore portafoglio recupero account";
 
-"Search for language" = "Search for language";
+"Search for language" = "Cerca lingua";
 
 // Auth - Join flow
 
-"Auth.JoinFlow.Key.Title" = "Save your Recovery Phrase";
+"Auth.JoinFlow.Key.Title" = "Salva la tua Frase di Recupero";
 "Auth.JoinFlow.Key.Description" = "It’s a novel way of authentication that gives you full ownership over your account and data.";
-"Auth.JoinFlow.Key.TextField.Placeholder" = "Type your recovery phrase";
+"Auth.JoinFlow.Key.TextField.Placeholder" = "Digita la frase di recupero";
 "Auth.JoinFlow.Key.Button.Show.Title" = "Mostra Frase di Recupero";
-"Auth.JoinFlow.Key.Button.Saved.Title" = "Go to the app";
+"Auth.JoinFlow.Key.Button.Saved.Title" = "Vai all'app";
 "Auth.JoinFlow.Key.Button.Later.Title" = "Salta";
 "Auth.JoinFlow.Key.Button.Copy.Title" = "Copia negli appunti";
 "Auth.JoinFlow.Key.Button.Info.Title" = "Read more";
@@ -231,7 +231,7 @@
 // Auth - Login flow
 "Auth.LoginFlow.Use.Keychain.Title" = "Use keychain";
 "Auth.LoginFlow.Or" = "O";
-"Auth.LoginFlow.Textfield.Placeholder" = "Type your recovery phrase";
+"Auth.LoginFlow.Textfield.Placeholder" = "Digita la frase di recupero";
 "Auth.LoginFlow.Enter.Button.Title" = "Login";
 "Auth.LoginFlow.Entering.Void.Title" = "Entering the Void";
 
@@ -314,9 +314,7 @@
 "TemplateSelection.blankTemplate" = "Vuoto";
 "TemplateSelection.Template.Subtitle" = "Modello";
 "TemplateSelection.ObjectType.Subtitle" = "Object type";
-"TemplateSelection.ObjectType.NoTemplates.Title" = "Questo tipo di oggetto non supporta i modelli";
 
-"TemplateOptions.Alert.SetAsDefault" = "Imposta come predefinito per questa vista";
 "TemplateOptions.Alert.EditTemplate" = "Modifica modello";
 "TemplateOptions.Alert.Duplicate" = "Duplica";
 "TemplateOptions.Alert.Delete" = "Elimina";
@@ -430,8 +428,6 @@
 "Set.View.Settings.ImagePreview.Title" = "Anteprima immagine";
 "Set.View.Settings.GroupBy.Title" = "Raggruppa per";
 "Set.View.Settings.GroupBackgroundColors.Title" = "Colore colonne";
-"Set.View.Settings.DefaultObject.Title" = "Oggetto predefinito";
-"Set.View.Settings.DefaultTemplate.Title" = "Modello predefinito";
 
 "Set.View.Settings.NoRelations.Placeholder" = "Nessuna relazione";
 "Set.View.Settings.NoFilters.Placeholder" = "Nessun filtro";
@@ -823,3 +819,12 @@
 "Sharing.URL.Text" = "Text block";
 "Sharing.Text.NoteObject" = "Note object";
 "Sharing.Text.TextBlock" = "Text block";
+
+// MARK: - Initial
+
+"Initial.UnstableMiddle.Title" = "Warning";
+"Initial.UnstableMiddle.Message" = "You launch app with a unstable middleware. Don't use your production account. Your account may be broken.";
+"Initial.UnstableMiddle.Title" = "Warning";
+"Initial.UnstableMiddle.Logout" = "Logout from current account";
+"Initial.UnstableMiddle.Continue" = "Continue with current account";
+"Initial.UnstableMiddle.WontUseProd" = "I won't be using my production account";
