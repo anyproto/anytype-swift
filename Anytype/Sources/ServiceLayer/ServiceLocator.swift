@@ -55,7 +55,8 @@ final class ServiceLocator {
         middlewareConfigurationProvider: middlewareConfigurationProvider(),
         blockWidgetExpandedService: blockWidgetExpandedService(),
         relationDetailsStorage: relationDetailsStorage(),
-        workspacesStorage: workspaceStorage()
+        workspacesStorage: workspaceStorage(),
+        activeWorkpaceStorage: activeWorkspaceStorage()
     )
     func loginStateService() -> LoginStateServiceProtocol {
         return _loginStateService

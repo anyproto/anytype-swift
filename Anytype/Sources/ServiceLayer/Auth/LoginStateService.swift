@@ -19,19 +19,22 @@ final class LoginStateService: LoginStateServiceProtocol {
     private let blockWidgetExpandedService: BlockWidgetExpandedServiceProtocol
     private let relationDetailsStorage: RelationDetailsStorageProtocol
     private let workspacesStorage: WorkspacesStorageProtocol
+    private let activeWorkpaceStorage: ActiveWorkpaceStorageProtocol
     
     init(
         objectTypeProvider: ObjectTypeProviderProtocol,
         middlewareConfigurationProvider: MiddlewareConfigurationProviderProtocol,
         blockWidgetExpandedService: BlockWidgetExpandedServiceProtocol,
         relationDetailsStorage: RelationDetailsStorageProtocol,
-        workspacesStorage: WorkspacesStorageProtocol
+        workspacesStorage: WorkspacesStorageProtocol,
+        activeWorkpaceStorage: ActiveWorkpaceStorageProtocol
     ) {
         self.objectTypeProvider = objectTypeProvider
         self.middlewareConfigurationProvider = middlewareConfigurationProvider
         self.blockWidgetExpandedService = blockWidgetExpandedService
         self.relationDetailsStorage = relationDetailsStorage
         self.workspacesStorage = workspacesStorage
+        self.activeWorkpaceStorage = activeWorkpaceStorage
     }
     
     // MARK: - LoginStateServiceProtocol
@@ -62,6 +65,7 @@ final class LoginStateService: LoginStateServiceProtocol {
     
     private func startSubscriptions() async {
         await workspacesStorage.startSubscription()
+        await activeWorkpaceStorage.setupActiveSpace()
         await relationDetailsStorage.startSubscription()
         await objectTypeProvider.startSubscription()
     }
