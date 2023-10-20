@@ -314,9 +314,7 @@
 "TemplateSelection.blankTemplate" = "Пусто";
 "TemplateSelection.Template.Subtitle" = "Шаблон";
 "TemplateSelection.ObjectType.Subtitle" = "Object type";
-"TemplateSelection.ObjectType.NoTemplates.Title" = "Этот тип не поддерживает шаблоны";
 
-"TemplateOptions.Alert.SetAsDefault" = "Установить по умолчанию для этого вида";
 "TemplateOptions.Alert.EditTemplate" = "Изменить шаблон";
 "TemplateOptions.Alert.Duplicate" = "Дублировать";
 "TemplateOptions.Alert.Delete" = "Удалить";
@@ -430,8 +428,6 @@
 "Set.View.Settings.ImagePreview.Title" = "Image preview";
 "Set.View.Settings.GroupBy.Title" = "Group by";
 "Set.View.Settings.GroupBackgroundColors.Title" = "Color columns";
-"Set.View.Settings.DefaultObject.Title" = "Default object";
-"Set.View.Settings.DefaultTemplate.Title" = "Default template";
 
 "Set.View.Settings.NoRelations.Placeholder" = "Нет свойств";
 "Set.View.Settings.NoFilters.Placeholder" = "No filters";
@@ -801,8 +797,6 @@
 // MARK: - Spaces
 "Spaces.Accessibility.Public" = "Public";
 "Spaces.Accessibility.Private" = "Private";
-"Spaces.Accessibility.PublicFull" = "Public space";
-"Spaces.Accessibility.PrivateFull" = "Private space";
 
 // MARK: - Space Settings
 "SpaceSettings.Title" = "Space settings";
@@ -825,3 +819,12 @@
 "Sharing.URL.Text" = "Text block";
 "Sharing.Text.NoteObject" = "Note object";
 "Sharing.Text.TextBlock" = "Text block";
+
+// MARK: - Initial
+
+"Initial.UnstableMiddle.Title" = "Warning";
+"Initial.UnstableMiddle.Message" = "You launch app with a unstable middleware. Don't use your production account. Your account may be broken.";
+"Initial.UnstableMiddle.Title" = "Warning";
+"Initial.UnstableMiddle.Logout" = "Logout from current account";
+"Initial.UnstableMiddle.Continue" = "Continue with current account";
+"Initial.UnstableMiddle.WontUseProd" = "I won't be using my production account";

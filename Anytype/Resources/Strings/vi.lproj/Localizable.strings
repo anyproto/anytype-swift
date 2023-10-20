@@ -315,9 +315,7 @@
 "TemplateSelection.blankTemplate" = "Trống";
 "TemplateSelection.Template.Subtitle" = "Mẫu";
 "TemplateSelection.ObjectType.Subtitle" = "Loại đối tượng";
-"TemplateSelection.ObjectType.NoTemplates.Title" = "Loại này không hỗ trợ mẫu";
 
-"TemplateOptions.Alert.SetAsDefault" = "Set as default for this view";
 "TemplateOptions.Alert.EditTemplate" = "Sửa mẫu";
 "TemplateOptions.Alert.Duplicate" = "Nhân đôi";
 "TemplateOptions.Alert.Delete" = "Xoá";
@@ -431,8 +429,6 @@
 "Set.View.Settings.ImagePreview.Title" = "Xem trước ảnh";
 "Set.View.Settings.GroupBy.Title" = "Nhóm theo";
 "Set.View.Settings.GroupBackgroundColors.Title" = "Tô màu cột";
-"Set.View.Settings.DefaultObject.Title" = "Đối tượng mặc định";
-"Set.View.Settings.DefaultTemplate.Title" = "Mẫu mặc định";
 
 "Set.View.Settings.NoRelations.Placeholder" = "No relations";
 "Set.View.Settings.NoFilters.Placeholder" = "No filters";
@@ -824,3 +820,12 @@
 "Sharing.URL.Text" = "Text block";
 "Sharing.Text.NoteObject" = "Note object";
 "Sharing.Text.TextBlock" = "Text block";
+
+// MARK: - Initial
+
+"Initial.UnstableMiddle.Title" = "Warning";
+"Initial.UnstableMiddle.Message" = "You launch app with a unstable middleware. Don't use your production account. Your account may be broken.";
+"Initial.UnstableMiddle.Title" = "Warning";
+"Initial.UnstableMiddle.Logout" = "Logout from current account";
+"Initial.UnstableMiddle.Continue" = "Continue with current account";
+"Initial.UnstableMiddle.WontUseProd" = "I won't be using my production account";
