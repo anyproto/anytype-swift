@@ -1379,8 +1379,8 @@ internal enum Loc {
     internal static let copyEmail = Loc.tr("Localizable", "RelationAction.CopyEmail", fallback: "Copy email")
     /// Copy link
     internal static let copyLink = Loc.tr("Localizable", "RelationAction.CopyLink", fallback: "Copy link")
-    /// Copy phone numbler
-    internal static let copyPhone = Loc.tr("Localizable", "RelationAction.CopyPhone", fallback: "Copy phone numbler")
+    /// Copy phone number
+    internal static let copyPhone = Loc.tr("Localizable", "RelationAction.CopyPhone", fallback: "Copy phone number")
     /// Open link
     internal static let openLink = Loc.tr("Localizable", "RelationAction.OpenLink", fallback: "Open link")
     /// Reload object content

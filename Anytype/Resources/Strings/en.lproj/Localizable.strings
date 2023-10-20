@@ -665,7 +665,7 @@
 "LinkPaste.bookmark" = "Create bookmark";
 
 // Relation Actions
-"RelationAction.CopyPhone" = "Copy phone numbler";
+"RelationAction.CopyPhone" = "Copy phone number";
 "RelationAction.CopyEmail" = "Copy email";
 "RelationAction.CopyLink" = "Copy link";
 "RelationAction.Copied" = "Copied";
