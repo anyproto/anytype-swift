@@ -8,6 +8,7 @@ protocol ActiveWorkpaceStorageProtocol: AnyObject {
     var workspaceInfo: AccountInfo { get }
     var workspaceInfoPublisher: AnyPublisher<AccountInfo, Never> { get }
     func setActiveSpace(spaceId: String) async throws
+    func setupActiveSpace() async
 }
 
 final class ActiveWorkspaceStorage: ActiveWorkpaceStorageProtocol {
@@ -31,9 +32,6 @@ final class ActiveWorkspaceStorage: ActiveWorkpaceStorageProtocol {
         self.accountManager = accountManager
         self.workspaceService = workspaceService
         self.workspaceInfo = accountManager.account.info
-        Task {
-            await setupActiveSpace()
-        }
     }
     
     var workspaceInfoPublisher: AnyPublisher<AccountInfo, Never> {
@@ -46,9 +44,7 @@ final class ActiveWorkspaceStorage: ActiveWorkpaceStorageProtocol {
         activeSpaceId = spaceId
     }
     
-    // MARK: - Private
-    
-    private func setupActiveSpace() async {
+    func setupActiveSpace() async {
         do {
             let info = try await workspaceService.workspaceOpen(spaceId: activeSpaceId)
             workspaceInfo = info
@@ -57,6 +53,9 @@ final class ActiveWorkspaceStorage: ActiveWorkpaceStorageProtocol {
         }
         startSubscriotion()
     }
+    
+    
+    // MARK: - Private
     
     private func startSubscriotion() {
         workspaceSubscription = workspaceStorage.workspsacesPublisher
