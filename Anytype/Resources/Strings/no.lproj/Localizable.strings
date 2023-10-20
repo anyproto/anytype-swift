@@ -314,9 +314,7 @@
 "TemplateSelection.blankTemplate" = "Tom";
 "TemplateSelection.Template.Subtitle" = "Mal";
 "TemplateSelection.ObjectType.Subtitle" = "Objekttype";
-"TemplateSelection.ObjectType.NoTemplates.Title" = "Denne typen støtter ikke maler";
 
-"TemplateOptions.Alert.SetAsDefault" = "Sett som standard for denne visningen";
 "TemplateOptions.Alert.EditTemplate" = "Rediger mal";
 "TemplateOptions.Alert.Duplicate" = "Dupliser";
 "TemplateOptions.Alert.Delete" = "Slett";
@@ -430,8 +428,6 @@
 "Set.View.Settings.ImagePreview.Title" = "Forhåndsvisning av bilde";
 "Set.View.Settings.GroupBy.Title" = "Gruppér etter";
 "Set.View.Settings.GroupBackgroundColors.Title" = "Fargelegg kolonner";
-"Set.View.Settings.DefaultObject.Title" = "Standardobjekt";
-"Set.View.Settings.DefaultTemplate.Title" = "Standardmal";
 
 "Set.View.Settings.NoRelations.Placeholder" = "Ingen relasjoner";
 "Set.View.Settings.NoFilters.Placeholder" = "Ingen filtre";
@@ -823,3 +819,12 @@
 "Sharing.URL.Text" = "Tekstblokk";
 "Sharing.Text.NoteObject" = "Notatobjekt";
 "Sharing.Text.TextBlock" = "Tekstblokk";
+
+// MARK: - Initial
+
+"Initial.UnstableMiddle.Title" = "Warning";
+"Initial.UnstableMiddle.Message" = "You launch app with a unstable middleware. Don't use your production account. Your account may be broken.";
+"Initial.UnstableMiddle.Title" = "Warning";
+"Initial.UnstableMiddle.Logout" = "Logout from current account";
+"Initial.UnstableMiddle.Continue" = "Continue with current account";
+"Initial.UnstableMiddle.WontUseProd" = "I won't be using my production account";
