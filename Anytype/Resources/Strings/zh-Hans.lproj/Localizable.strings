@@ -314,9 +314,7 @@
 "TemplateSelection.blankTemplate" = "空白";
 "TemplateSelection.Template.Subtitle" = "模板";
 "TemplateSelection.ObjectType.Subtitle" = "对象类型";
-"TemplateSelection.ObjectType.NoTemplates.Title" = "此对象类型不支持模板";
 
-"TemplateOptions.Alert.SetAsDefault" = "设置为此视图的默认";
 "TemplateOptions.Alert.EditTemplate" = "编辑模板";
 "TemplateOptions.Alert.Duplicate" = "生成副本";
 "TemplateOptions.Alert.Delete" = "删除";
@@ -430,8 +428,6 @@
 "Set.View.Settings.ImagePreview.Title" = "图像预览";
 "Set.View.Settings.GroupBy.Title" = "分组";
 "Set.View.Settings.GroupBackgroundColors.Title" = "颜色列表";
-"Set.View.Settings.DefaultObject.Title" = "默认对象";
-"Set.View.Settings.DefaultTemplate.Title" = "默认模板";
 
 "Set.View.Settings.NoRelations.Placeholder" = "没有关联";
 "Set.View.Settings.NoFilters.Placeholder" = "没有筛选";
@@ -823,3 +819,12 @@
 "Sharing.URL.Text" = "文本块";
 "Sharing.Text.NoteObject" = "笔记对象";
 "Sharing.Text.TextBlock" = "文本块";
+
+// MARK: - Initial
+
+"Initial.UnstableMiddle.Title" = "警告";
+"Initial.UnstableMiddle.Message" = "您启动了一个不稳定的中间程序。不要使用您的生产账户。您的账户可能已损坏。";
+"Initial.UnstableMiddle.Title" = "警告";
+"Initial.UnstableMiddle.Logout" = "退出当前账户";
+"Initial.UnstableMiddle.Continue" = "继续使用当前账户";
+"Initial.UnstableMiddle.WontUseProd" = "我不会使用我的生产账户";
