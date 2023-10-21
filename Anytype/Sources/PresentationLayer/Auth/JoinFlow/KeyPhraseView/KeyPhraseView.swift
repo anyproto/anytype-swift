@@ -75,7 +75,7 @@ struct KeyPhraseView: View {
     private var buttons: some View {
         VStack(spacing: 0) {
             if !model.keyShown {
-                AnytypeText(Loc.Auth.JoinFlow.Key.Button.Tip.title, style: .uxCalloutRegular, color: .Auth.body)
+                AnytypeText(Loc.Auth.JoinFlow.Key.Button.Tip.title, style: .caption1Regular, color: .Auth.body)
                     .multilineTextAlignment(.center)
                     .padding(.horizontal, 28)
                 Spacer.fixedHeight(18)
