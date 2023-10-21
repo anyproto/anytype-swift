@@ -8,12 +8,12 @@ struct ObjectIconPicker: View {
     var body: some View {
         Group {
             switch viewModel.detailsLayout {
-            case .basic, .set, .collection, .space, .file, .image, .objectType, .spaceView:
+            case .basic, .set, .collection, .file, .image, .objectType:
                 ObjectBasicIconPicker(
                     viewModel: viewModel,
                     onDismiss: dismissHandler.onDismiss
                 )
-            case .profile:
+            case .space, .spaceView, .profile:
                 ObjectProfileIconPicker(viewModel: viewModel, onDismiss: dismissHandler.onDismiss)
             case nil:
                 EmptyView()
