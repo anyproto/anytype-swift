@@ -70,7 +70,7 @@
 "Object.Deleted.Placeholder" = "Objek terhapus";
 
 // MARK: - Relation
-"Featured relations" = "Featured relations";
+"Featured relations" = "Hubungan yang penting";
 "Create relation" = "Buat relasi ‘%@’";
 "Relation.View.Hint.Empty" = "kosong";
 "Relation.MyRelations" = "Relasiku";
@@ -111,7 +111,7 @@
 "Duplicate" = "Gandakan";
 "Copy" = "Salin";
 "Preview" = "Pratinjau";
-"View" = "View";
+"View" = "Tampilan";
 "Paste" = "Tempel";
 "Move" = "Pindahkan";
 "Move to" = "Pindahkan ke";
@@ -183,7 +183,7 @@
 "Create" = "Buat";
 "Scan QR code" = "Pindai kode QR";
 "Auth.CameraPermissionTitle" = "Tolong izinkan akses";
-"Restore secret phrase from keychain" = "Restore Recovery Phrase from the keychain";
+"Restore secret phrase from keychain" = "Mengembalikan Tahap Pemulihan dari rantai kunci";
 "Auth.LogIn" = "Aku sudah punya";
 "Auth.Join" = "Buat akun baru";
 "Auth.Welcome.Subtitle" = "Anytype adalah tempat aman bagimu untuk menulis, berpikir, merencanakan, dan mengorganisasikan apa pun yang penting bagimu.";
@@ -350,13 +350,13 @@
 // MARK: - Sets: Filters
 "EditSet.Popup.Filters.NavigationView.Title" = "Saringan";
 "EditSet.Popup.Filters.EmptyView.Title" = "Tidak ada saringan disini. Kamu dapat menambahkan beberapa";
-"EditSet.Popup.Filters.TextView.Placeholder" = "Value";
+"EditSet.Popup.Filters.TextView.Placeholder" = "Nilai";
 
 // MARK: - Sets: Filters.Conditions
-"EditSet.Popup.Filter.Condition.Text.Equal" = "Is";
-"EditSet.Popup.Filter.Condition.Text.NotEqual" = "Is not";
-"EditSet.Popup.Filter.Condition.Text.Like" = "Contains";
-"EditSet.Popup.Filter.Condition.Text.NotLike" = "Doesn't contain";
+"EditSet.Popup.Filter.Condition.Text.Equal" = "Adalah";
+"EditSet.Popup.Filter.Condition.Text.NotEqual" = "Adalah bukan";
+"EditSet.Popup.Filter.Condition.Text.Like" = "Mengandung";
+"EditSet.Popup.Filter.Condition.Text.NotLike" = "Tidak mengandung";
 
 "EditSet.Popup.Filter.Condition.Number.Equal" = "Sama dengan";
 "EditSet.Popup.Filter.Condition.Number.NotEqual" = "Tidak sama dengan";
@@ -365,27 +365,27 @@
 "EditSet.Popup.Filter.Condition.Number.GreaterOrEqual" = "Lebih dari sama dengan";
 "EditSet.Popup.Filter.Condition.Number.LessOrEqual" = "Kurang dari sama dengan";
 
-"EditSet.Popup.Filter.Condition.Date.Equal" = "Is";
+"EditSet.Popup.Filter.Condition.Date.Equal" = "Adalah";
 "EditSet.Popup.Filter.Condition.Date.After" = "Setelah";
 "EditSet.Popup.Filter.Condition.Date.Before" = "Sebelum";
 "EditSet.Popup.Filter.Condition.Date.OnOrAfter" = "Pada atau setelah";
 "EditSet.Popup.Filter.Condition.Date.OnOrBefore" = "Pada atau sebelum";
 "EditSet.Popup.Filter.Condition.Date.In" = "Antara";
 
-"EditSet.Popup.Filter.Condition.Selected.In" = "Has any of";
-"EditSet.Popup.Filter.Condition.Selected.AllIn" = "Has all of";
-"EditSet.Popup.Filter.Condition.Selected.NotIn" = "Has none of";
-"EditSet.Popup.Filter.Condition.Selected.Equal" = "Is exactly";
+"EditSet.Popup.Filter.Condition.Selected.In" = "Memiliki salah satu";
+"EditSet.Popup.Filter.Condition.Selected.AllIn" = "Memiliki semua ";
+"EditSet.Popup.Filter.Condition.Selected.NotIn" = "Tidak memiliki satupun";
+"EditSet.Popup.Filter.Condition.Selected.Equal" = "Tepatnya";
 
-"EditSet.Popup.Filter.Condition.Checkbox.Equal" = "Is";
-"EditSet.Popup.Filter.Condition.Checkbox.NotEqual" = "Is not";
+"EditSet.Popup.Filter.Condition.Checkbox.Equal" = "Adalah";
+"EditSet.Popup.Filter.Condition.Checkbox.NotEqual" = "Adalah bukan";
 
-"EditSet.Popup.Filter.Condition.General.Empty" = "Is empty";
-"EditSet.Popup.Filter.Condition.General.NotEmpty" = "Is not empty";
+"EditSet.Popup.Filter.Condition.General.Empty" = "Adalah kosong";
+"EditSet.Popup.Filter.Condition.General.NotEmpty" = "Adalah tidak kosong";
 "EditSet.Popup.Filter.Condition.General.None" = "Semua";
 
-"EditSet.Popup.Filter.Value.Checked" = "Checked";
-"EditSet.Popup.Filter.Value.Unchecked" = "Unchecked";
+"EditSet.Popup.Filter.Value.Checked" = "Telah diperiksa";
+"EditSet.Popup.Filter.Value.Unchecked" = "Belum diperiksa";
 
 "EditSet.Popup.Filter.Date.Option.Today" = "Hari ini";
 "EditSet.Popup.Filter.Date.Option.Yesterday" = "Kemarin";
@@ -398,16 +398,16 @@
 "EditSet.Popup.Filter.Date.Option.NextMonth" = "Bulan depan";
 "EditSet.Popup.Filter.Date.Option.NumberOfDaysAgo" = "Sekian hari yang lalu";
 "EditSet.Popup.Filter.Date.Option.NumberOfDaysFromNow" = "Sekian hari ke depan";
-"EditSet.Popup.Filter.Date.Option.ExactDate" = "Exact date";
+"EditSet.Popup.Filter.Date.Option.ExactDate" = "Tanggal yang pasti";
 
-"EditSet.Popup.Filter.Date.Option.NumberOfDaysAgo.Short" = "%@ days ago";
-"EditSet.Popup.Filter.Date.Option.NumberOfDaysFromNow.Short" = "%@ days from now";
+"EditSet.Popup.Filter.Date.Option.NumberOfDaysAgo.Short" = "%@ hari lalu";
+"EditSet.Popup.Filter.Date.Option.NumberOfDaysFromNow.Short" = "%@ hari dari sekarang";
 
 // MARK: - Sets. Create object
 "Set.Create.ObjectTitle.Placeholder" = "Nirjudul";
 
 // MARK: - Sets: Featured relations
-"Set.FeaturedRelations.Query" = "Query";
+"Set.FeaturedRelations.Query" = "Pertanyaan";
 "Set.FeaturedRelations.RelationsList" = "Relasi:";
 "Set.FeaturedRelations.Relation" = "Relasi:";
 "Set.FeaturedRelations.Type" = "Tipe:";
@@ -429,26 +429,26 @@
 "Set.View.Settings.GroupBy.Title" = "Kelompokkan berdasarkan";
 "Set.View.Settings.GroupBackgroundColors.Title" = "Warna kolom";
 
-"Set.View.Settings.NoRelations.Placeholder" = "No relations";
-"Set.View.Settings.NoFilters.Placeholder" = "No filters";
-"Set.View.Settings.NoSorts.Placeholder" = "No sorts";
-"Set.View.Settings.Objects.Applied.Title" = "%d applied";
+"Set.View.Settings.NoRelations.Placeholder" = "Tidak ada hubungan";
+"Set.View.Settings.NoFilters.Placeholder" = "Tidak ada saringan";
+"Set.View.Settings.NoSorts.Placeholder" = "Tidak ada urutan";
+"Set.View.Settings.Objects.Applied.Title" = "%d direrapkan";
 
 // MARK: - Sets: Kanban
-"Set.View.Kanban.Column.Title.Uncategorized" = "Uncategorized";
-"Set.View.Kanban.Column.Title.Checked" = "%@ is checked";
-"Set.View.Kanban.Column.Title.Unchecked" = "%@ is unchecked";
-"Set.View.Kanban.Column.Paging.Title.ShowMore" = "Show more objects";
-"Set.View.Kanban.Column.Settings.Color.Title" = "Column color";
-"Set.View.Kanban.Column.Settings.Hide.Column.Title" = "Hide column";
+"Set.View.Kanban.Column.Title.Uncategorized" = "Tidak dikategorikan";
+"Set.View.Kanban.Column.Title.Checked" = "%@ telah diperiksa";
+"Set.View.Kanban.Column.Title.Unchecked" = "%@ belum dicentang";
+"Set.View.Kanban.Column.Paging.Title.ShowMore" = "Perlihatkan lebih banyak objek";
+"Set.View.Kanban.Column.Settings.Color.Title" = "Warna kolom";
+"Set.View.Kanban.Column.Settings.Hide.Column.Title" = "Sembunyikan kolom";
 
 // MARK: - Sets: empty view
-"Set.View.Empty.Title" = "No query selected";
-"Set.View.Empty.Subtitle" = "Add search query to aggregate objects with equal types and relations in a live mode";
+"Set.View.Empty.Title" = "Tidak ada queri terpilih";
+"Set.View.Empty.Subtitle" = "Tambahkan pencarian kueri untuk mengumpulkan objek dengan tipe dan relasi yang sama dalam mode langsung";
 
 // MARK: - Set source type
-"Set.SourceType.SelectQuery" = "Select query";
-"Set.SourceType.Cancel.Toast.Title" = "This query can be changed on desktop only";
+"Set.SourceType.SelectQuery" = "Pilih kueri";
+"Set.SourceType.Cancel.Toast.Title" = "Kueri ini bisa berubah hanya pada tampilan komputer";
 
 // MARK: - Set: Type context menu
 "Set.TypeRelation.ContextMenu.TurnIntoCollection" = "Ubah Set menjadi Koleksi";
@@ -461,22 +461,22 @@
 
 // MARK: Slash Menu
 "SlashMenu.DotsDivider" = "Titik pemisah";
-"SlashMenu.LineDivider" = "Line divider";
+"SlashMenu.LineDivider" = "Garis pemisah";
 "SlashMenu.TableOfContents" = "Daftar isi";
 "SlashMenu.Table" = "Tabel";
 
 "Unknown error" = "Kesalahan tak dikenal";
 "Account is deleted" = "Akun terhapus";
 "Add phone" = "Tambahkan telepon";
-"Nothing to redo" = "Nothing to redo";
-"Nothing to undo" = "Nothing to undo";
-"Progress..." = "Progress...";
+"Nothing to redo" = "Tidak ada yang dibatalkan";
+"Nothing to undo" = "Tidak ada yang dikembalikan";
+"Progress..." = "Kemajuan";
 "Grey" = "Abu-abu";
-"Sky" = "Sky";
+"Sky" = "Langit";
 "Yellow" = "Kuning";
 "Grey background" = "Latar belakang kelabu";
-"Teal background" = "Teal background";
-"Sky background" = "Sky background";
+"Teal background" = "Latar belakang hijau laut";
+"Sky background" = "Latar belakang langit";
 "Yellow background" = "Latar belakang kuning";
 "Enter value" = "Masukkan nilai";
 "Select object" = "Pilih objek";
@@ -500,7 +500,7 @@
 "Select all" = "Pilih semua";
 "Unselect all" = "Batal pilih semua";
 "Deselect all" = "Batal pilih semua";
-"Shared" = "Shared";
+"Shared" = "Berbagi";
 "Sets" = "Set";
 "Collections" = "Koleksi";
 "Default object type" = "Tipe objek bawaan";
@@ -512,27 +512,27 @@
 "Application icon" = "Ikon aplikasi";
 "Mode" = "Mode";
 "copied to clipboard" = "%@ tersalin ke papan klip";
-"Access to secret phrase from keychain" = "Access to secret phrase from keychain";
-"Back up your recovery phrase" = "Back up your recovery phrase";
+"Access to secret phrase from keychain" = "Akses untuk tahap rahasia dari rantai kunci";
+"Back up your recovery phrase" = "Cadangkan untuk tahap pemulihan";
 "Account" = "Akun";
 "Access" = "Akses";
-"Back up phrase" = "Back up phrase";
-"Removing cache" = "Removing cache";
-"Deletion error" = "Deletion error";
-"Start" = "Start";
-"On analytics" = "On analytics";
-"Select account error" = "Select account error";
-"Account deleted" = "Account deleted";
-"Account.Select.Incompatible.Version.Error.Text" = "Unable to retrieve account data due to incompatible version on remote nodes. Please update Anytype to the latest version.";
-"Restore from keychain" = "Restore from keychain";
-"Edit" = "Edit";
-"In this object" = "In this object";
-"Other relations" = "Other relations";
-"Collection of objects" = "Collection of objects";
-"Designed to capture thoughts quickly" = "Designed to capture thoughts quickly";
-"Action-focused layout with a checkbox" = "Action-focused layout with a checkbox";
-"Standard layout for canvas blocks" = "Standard layout for canvas blocks";
-"List of related objects" = "List of related objects";
+"Back up phrase" = "Tahap cadangkan";
+"Removing cache" = "Menghapus cache";
+"Deletion error" = "Kesalahan penghapusan ";
+"Start" = "Mulai";
+"On analytics" = "Tentang analitik";
+"Select account error" = "Memilih akun salah";
+"Account deleted" = "Akun dihapus";
+"Account.Select.Incompatible.Version.Error.Text" = "Tidak bisa mengembalikkan data akun karena versi yang tidak kompatibel pada node jarak jauh. Tolong perbaharui tipe apapun ke versi terbaru";
+"Restore from keychain" = "Memulihkan dari rantai kunci";
+"Edit" = "Sunting";
+"In this object" = "Di objek ini";
+"Other relations" = "Hubungan lain";
+"Collection of objects" = "Kumpulan dari objek";
+"Designed to capture thoughts quickly" = "Didesain untuk menangkap pemikiran dengan cepat";
+"Action-focused layout with a checkbox" = "Tata letak berfokus pada aksi dengan sebuah centang";
+"Standard layout for canvas blocks" = "Tata letak standar untuk blok kanvas";
+"List of related objects" = "Daftar dari objek yang berelasi";
 "Lock" = "Kunci";
 "Unlock" = "Buka kunci";
 "Favorite" = "Favorit";
@@ -552,7 +552,7 @@
 "Download" = "Unduh";
 "Open object" = "Buka objek";
 "Open source" = "Buka sumber";
-"Into object" = "Into object";
+"Into object" = "Di dalam objek";
 "Add below" = "Tambah di bawah";
 "Change type" = "Ubah tipe";
 "Link to existing object" = "Tautkan ke objek yang telah ada";
@@ -564,40 +564,40 @@
 "Video" = "Video";
 "Picture" = "Gambar";
 "File" = "Berkas";
-"No related options here" = "No related options here. You can add some";
-"Empty" = "Empty";
+"No related options here" = "Tidak ada pilihan hubungan disini. Kamu dapat menambahkan beberapa";
+"Empty" = "Kosong";
 "Link to" = "Tautkan ke";
-"Unknown" = "Unknown";
+"Unknown" = "Tidak diketahui";
 "Settings" = "Setelan";
-"Views" = "Views";
-"Filter" = "Filter";
-"Sort" = "Sort";
-"View" = "View";
-"Home" = "Home";
-"Highlight" = "Highlight";
+"Views" = "Tampilan";
+"Filter" = "Saringan";
+"Sort" = "Urutkan";
+"View" = "Tampilan";
+"Home" = "Beranda";
+"Highlight" = "Menyorot";
 "Create object" = "Buat objek";
-"Web pages" = "Web pages";
-"Preview layout" = "Preview layout";
-"Everywhere" = "Everywhere";
-"Exact day" = "Exact day";
+"Web pages" = "Halaman web";
+"Preview layout" = "Pratinjau tata letak";
+"Everywhere" = "Dimana saja";
+"Exact day" = "Hari yang pasti";
 "Tomorrow" = "Besok";
 "Yesterday" = "Kemarin";
 "Today" = "Hari ini";
-"No date" = "No date";
-"Clear" = "Clear";
-"Create option" = "Create option ‘%@’";
-"Add URL" = "Add URL";
+"No date" = "Tidak ada tanggal";
+"Clear" = "Bersihkan";
+"Create option" = "Buat pilihan '%@'";
+"Add URL" = "Tambahkan URL";
 "Add email" = "Tambahkan surel";
-"Add phone number" = "Add phone number";
-"Add number" = "Add number";
-"Add text" = "Add text";
-"Ok" = "Ok";
-"Error occurred. Please try again" = "Error occurred. Please try again";
-"Add" = "Add";
-"Companies, contacts, friends and family" = "Companies, contacts, friends and family";
-"Failed to sync, trying again..." = "Failed to sync, trying again...";
-"Sync.Status.Version.Outdated.Description" = "Version outdated. Please update Anytype";
-"This object doesn't exist" = "This object doesn't exist";
+"Add phone number" = "Tambahkan nomor telepon";
+"Add number" = "Tambahkan nomor";
+"Add text" = "Tambahkan teks";
+"Ok" = "Oke";
+"Error occurred. Please try again" = "Terjadi kesalahan. Silahlan coba lagi";
+"Add" = "Tambah";
+"Companies, contacts, friends and family" = "Perusahaan, kontak, teman - teman dan keluarga";
+"Failed to sync, trying again..." = "Gagal menyinkronkan, coba lagi";
+"Sync.Status.Version.Outdated.Description" = "Versi kadaluwarsa. Silahkan memperbahrui segala tipe";
+"This object doesn't exist" = "Objek ini tidak ada";
 "Setting up encrypted storage\nPlease wait" = "Menyiapkan penyimpanan terenkripsi\nMohon tunggu";
 "These objects will be deleted irrevocably" = "Objek berikut akan dihapus secara permanen. Kamu tidak bisa membatalkan tindakan ini.";
 "Delete account" = "Hapus akun";
@@ -620,37 +620,37 @@
 "ObjectType.SearchOrInstall" = "Telusuri atau buat tipe baru";
 "ObjectType.Search" = "Telusuri Tipe";
 "ObjectType.MyTypes" = "Tipeku";
-"ObjectType.AddedToLibrary" = "Type ‘%@’ added to your library";
-"ObjectType.DeletedName" = "Deleted type";
+"ObjectType.AddedToLibrary" = "Tipe '%@' ditambahkan ke perpustakaanmu";
+"ObjectType.DeletedName" = "Tipe yang terhapus";
 
 // MARK: - QuickAction
-"QuickAction.create" = "Create %@";
+"QuickAction.create" = "Membuat %@";
 
 // MARK: - RedactedText
-"RedactedText.pageTitle" = "Wake up, Neo";
-"RedactedText.pageType" = "Red pill";
+"RedactedText.pageTitle" = "Bangun, Neo";
+"RedactedText.pageType" = "Pil merah";
 
 // MARK: - InterfaceStyle
-"InterfaceStyle.light" = "Light";
-"InterfaceStyle.dark" = "Dark";
-"InterfaceStyle.system" = "System";
+"InterfaceStyle.light" = "Cahaya";
+"InterfaceStyle.dark" = "Gelap";
+"InterfaceStyle.system" = "Sistem";
 
 // MARK: Table of Contents
-"TalbeOfContents.Empty" = "Add headings to create a table of contents";
+"TalbeOfContents.Empty" = "Tambahkan tajuk untuk membuat konten tabel";
 
 // MARK: - Simple tables
-"SimpleTableMenu.Item.clearContents" = "Clear";
+"SimpleTableMenu.Item.clearContents" = "Bersihkan";
 "SimpleTableMenu.Item.color" = "Warna";
 "SimpleTableMenu.Item.style" = "Gaya";
-"SimpleTableMenu.Item.clearStyle" = "Reset style";
+"SimpleTableMenu.Item.clearStyle" = "Mengembalikan gaya";
 
-"SimpleTableMenu.Item.InsertLeft" = "Insert left";
-"SimpleTableMenu.Item.InsertRight" = "Insert right";
+"SimpleTableMenu.Item.InsertLeft" = "Sisip kiri";
+"SimpleTableMenu.Item.InsertRight" = "Menyisipkan di kanan";
 "SimpleTableMenu.Item.MoveLeft" = "Move left";
 "SimpleTableMenu.Item.MoveRight" = "Move right";
 "SimpleTableMenu.Item.Duplicate" = "Gandakan";
 "SimpleTableMenu.Item.Delete" = "Hapus";
-"SimpleTableMenu.Item.Sort" = "Sort";
+"SimpleTableMenu.Item.Sort" = "Urutkan";
 
 "SimpleTableMenu.Item.InsertAbove" = "Insert above";
 "SimpleTableMenu.Item.InsertBelow" = "Insert below";
@@ -722,20 +722,20 @@
 "Widgets.Actions.RemoveWidget" = "Remove Widget";
 "Widgets.Actions.EditWidgets" = "Edit Widgets";
 "Widgets.Actions.EmptyBin" = "Empty Bin";
-"Widgets.Actions.AddBelow" = "Add Below";
-"Widgets.Layout.Screen.Title" = "Widget type";
+"Widgets.Actions.AddBelow" = "Tambah di bawah";
+"Widgets.Layout.Screen.Title" = "Jenis widget";
 "Widgets.Layout.Link.Title" = "Tautan";
-"Widgets.Layout.Tree.Title" = "Tree";
+"Widgets.Layout.Tree.Title" = "Pohon";
 "Widgets.Layout.List.Title" = "Daftar";
-"Widgets.Layout.CompactList.Title" = "Сompact list";
-"Widgets.Layout.Link.Description" = "Сompact version of the object";
-"Widgets.Layout.Tree.Description" = "Hierarchical structure of objects";
-"Widgets.Layout.List.Description" = "Widget with list view of set object";
-"Widgets.Layout.CompactList.Description" = "Widget with list view of set object";
-"Widgets.Empty.Title" = "This data view contains no objects";
-"Widgets.Library.RecentlyEdited.Name" = "Recently edited";
-"Widgets.Library.RecentlyOpened.Name" = "Recently opened";
-"Widgets.Library.RecentlyOpened.Description" = "On this device";
+"Widgets.Layout.CompactList.Title" = "Daftar padat";
+"Widgets.Layout.Link.Description" = "Versi padat dari objek";
+"Widgets.Layout.Tree.Description" = "Susunan hierarkis dari objek";
+"Widgets.Layout.List.Description" = "Widget dengan daftar tampilan dari daftar objek";
+"Widgets.Layout.CompactList.Description" = "Widget dengan daftar tampilan dari daftar objek";
+"Widgets.Empty.Title" = "Tampilan data ini tidak mengandung objek";
+"Widgets.Library.RecentlyEdited.Name" = "Baru disunting";
+"Widgets.Library.RecentlyOpened.Name" = "Baru saja dibuka";
+"Widgets.Library.RecentlyOpened.Description" = "Di perangkat ini";
 
 // MARK: - About
 "About.AppVersion" = "App version: %@";
