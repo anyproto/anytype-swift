@@ -5,6 +5,7 @@ final class ServerConfigurationStorage {
 
     enum ServerError: Error {
         case badExtension
+        case accessError
     }
     
     static let shared = ServerConfigurationStorage()
@@ -30,6 +31,9 @@ final class ServerConfigurationStorage {
     
     func addConfiguration(filePath: URL, setupAsCurrent: Bool) throws {
         guard filePath.pathExtension == "yml" else { throw ServerError.badExtension }
+        
+        guard filePath.startAccessingSecurityScopedResource() else { throw ServerError.accessError }
+        defer { filePath.stopAccessingSecurityScopedResource() }
         
         try? FileManager.default.createDirectory(at: storagePath, withIntermediateDirectories: false)
         try FileManager.default.copyItem(at: filePath, to: storagePath.appendingPathComponent(filePath.lastPathComponent))
