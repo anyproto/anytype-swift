@@ -87,7 +87,7 @@ final class SetObjectCreationSettingsCoordinator: SetObjectCreationSettingsCoord
         let popup = AnytypePopup(
             viewModel: viewModel,
             floatingPanelStyle: true,
-            configuration: .init(isGrabberVisible: false, dismissOnBackdropView: true, skipThroughGestures: false)
+            configuration: .init(isGrabberVisible: true, dismissOnBackdropView: true, skipThroughGestures: false)
         )
         navigationContext.present(popup)
     }

@@ -7,10 +7,10 @@ struct SetViewPicker: View {
     
     var body: some View {
         VStack(spacing: 0) {
-            Spacer.fixedHeight(8)
+            DragIndicator()
             content
         }
-        .frame(height: 350)
+        .frame(height: 358)
         .background(Color.Background.primary)
     }
     

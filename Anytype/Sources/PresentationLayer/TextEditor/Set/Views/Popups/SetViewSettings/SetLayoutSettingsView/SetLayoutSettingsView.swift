@@ -5,7 +5,7 @@ struct SetLayoutSettingsView: View {
 
     var body: some View {
         VStack(spacing: 0) {
-            Spacer.fixedHeight(8)
+            DragIndicator()
             TitleView(title: Loc.layout)
             ScrollView(.vertical, showsIndicators: false) {
                 content

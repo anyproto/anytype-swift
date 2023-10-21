@@ -9,7 +9,6 @@ struct SetObjectCreationSettingsView: View {
 
     var body: some View {
         VStack {
-            Spacer.fixedHeight(8)
             navigation
             if model.canChangeObjectType {
                 objectTypeView
@@ -21,11 +20,12 @@ struct SetObjectCreationSettingsView: View {
 
     private var navigation: some View {
         ZStack {
-            AnytypeText(Loc.createObject, style: .uxTitle2Medium, color: .Text.primary)
+            AnytypeText(Loc.createObject, style: .uxTitle1Semibold, color: .Text.primary)
             if model.isTemplatesEditable {
                 navigationButtons
             }
         }
+        .frame(height: 48)
     }
     
     private var navigationButtons: some View {
@@ -35,7 +35,7 @@ struct SetObjectCreationSettingsView: View {
             } label: {
                 AnytypeText(
                     model.isEditingState ? Loc.done : Loc.edit,
-                    style: .calloutRegular,
+                    style: .bodyRegular,
                     color: .Button.active
                 )
             }

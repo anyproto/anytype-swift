@@ -6,7 +6,7 @@ struct SetViewSettingsList: View {
     
     var body: some View {
         VStack(spacing: 0) {
-            Spacer.fixedHeight(8)
+            DragIndicator()
             TitleView(
                 title: model.mode.title,
                 rightButton: {
@@ -18,7 +18,7 @@ struct SetViewSettingsList: View {
             content
         }
         .background(Color.Background.secondary)
-        .frame(maxHeight: 350)
+        .frame(maxHeight: 358)
     }
     
     private var content: some View {
