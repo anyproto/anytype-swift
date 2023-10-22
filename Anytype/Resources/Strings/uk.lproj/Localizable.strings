@@ -804,6 +804,7 @@
 "SpaceSettings.Title" = "Параметри простору";
 "SpaceSettings.RemoteStorage" = "Віддалене сховище";
 "SpaceSettings.Info" = "Інформація про простір";
+"SpaceSettings.NetworkId" = "Ідентифікатор мережі";
 
 // MARK: - Space Create
 "SpaceCreate.Title" = "Створити простір";
