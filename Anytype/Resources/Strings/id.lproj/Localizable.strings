@@ -646,56 +646,56 @@
 
 "SimpleTableMenu.Item.InsertLeft" = "Sisip kiri";
 "SimpleTableMenu.Item.InsertRight" = "Menyisipkan di kanan";
-"SimpleTableMenu.Item.MoveLeft" = "Move left";
-"SimpleTableMenu.Item.MoveRight" = "Move right";
+"SimpleTableMenu.Item.MoveLeft" = "Pindah ke kiri";
+"SimpleTableMenu.Item.MoveRight" = "Pindah ke kanan";
 "SimpleTableMenu.Item.Duplicate" = "Gandakan";
 "SimpleTableMenu.Item.Delete" = "Hapus";
 "SimpleTableMenu.Item.Sort" = "Urutkan";
 
-"SimpleTableMenu.Item.InsertAbove" = "Insert above";
-"SimpleTableMenu.Item.InsertBelow" = "Insert below";
-"SimpleTableMenu.Item.MoveUp" = "Move up";
-"SimpleTableMenu.Item.MoveDown" = "Move down";
+"SimpleTableMenu.Item.InsertAbove" = "Sisip di atas";
+"SimpleTableMenu.Item.InsertBelow" = "Sisip di bawah";
+"SimpleTableMenu.Item.MoveUp" = "Pindah ke atas";
+"SimpleTableMenu.Item.MoveDown" = "Pindah ke bawah";
 
-"DebugMenu.ToggleAuthor" = "Release: %@, %@";
+"DebugMenu.ToggleAuthor" = "Rilis: %@, %@";
 
 // MARK: Link Past Actions
-"LinkPaste.text" = "Paste as text";
-"LinkPaste.link" = "Paste as link";
-"LinkPaste.bookmark" = "Create bookmark";
+"LinkPaste.text" = "Tempel sebagai teks";
+"LinkPaste.link" = "Tempel sebagai tautan";
+"LinkPaste.bookmark" = "Buat penanda";
 
 // Relation Actions
-"RelationAction.CopyPhone" = "Copy phone numbler";
-"RelationAction.CopyEmail" = "Copy email";
+"RelationAction.CopyPhone" = "Salin nomor telepon";
+"RelationAction.CopyEmail" = "Salin email";
 "RelationAction.CopyLink" = "Salin tautan";
 "RelationAction.Copied" = "Disalin";
-"RelationAction.ReloadingContent" = "Reloading content";
-"RelationAction.ReloadContent" = "Reload object content";
-"RelationAction.CallPhone" = "Call phone numbler";
-"RelationAction.SendEmail" = "Send email";
-"RelationAction.OpenLink" = "Open link";
+"RelationAction.ReloadingContent" = "Memuat kembali konten";
+"RelationAction.ReloadContent" = "Muat ulang konten objek";
+"RelationAction.CallPhone" = "Panggil nomor telepon";
+"RelationAction.SendEmail" = "Kirim email";
+"RelationAction.OpenLink" = "Buka tautan";
 
 // MARK: Edit view type
-"SetViewTypesPicker.Title" = "Edit view";
-"SetViewTypesPicker.New.Title" = "New view";
-"SetViewTypesPicker.Section.Types.Title" = "View as";
+"SetViewTypesPicker.Title" = "Sunting tampilan";
+"SetViewTypesPicker.New.Title" = "Tampilan baru";
+"SetViewTypesPicker.Section.Types.Title" = "Tampilkan sebagai";
 "SetViewTypesPicker.Settings.Duplicate.View" = "Gandakan";
-"SetViewTypesPicker.Settings.Delete.View" = "Delete view";
-"SetViewTypesPicker.Settings.Textfield.Placeholder.New.View" = "New view";
+"SetViewTypesPicker.Settings.Delete.View" = "Hapus tampilan";
+"SetViewTypesPicker.Settings.Textfield.Placeholder.New.View" = "Tampilan baru";
 "SetViewTypesPicker.Settings.Textfield.Placeholder.Untitled" = "Nirjudul";
 
 // MARK: Select view picker
-"EditorSetViewPicker.View.Not.Supported.Title" = "Unsupported";
+"EditorSetViewPicker.View.Not.Supported.Title" = "Tidak didukung";
 
 // BlockContent
-"Content.File.Upload" = "Upload a file";
-"Content.Audio.Upload" = "Upload audio";
-"Content.Video.Upload" = "Upload a video";
-"Content.Picture.Upload" = "Upload a picture";
-"Content.Common.Uploading" = "Uploading...";
-"Content.Common.Error" = "Something went wrong, try again";
-"Content.Bookmark.Add" = "Add a web bookmark";
-"Content.Bookmark.Loading" = "Loading, please wait...";
+"Content.File.Upload" = "Unggah sebuah berkas";
+"Content.Audio.Upload" = "Unggah suara";
+"Content.Video.Upload" = "Unggah sebuah video";
+"Content.Picture.Upload" = "Unggah sebuah gambar";
+"Content.Common.Uploading" = "Mengunggah...";
+"Content.Common.Error" = "Ada yang salah, coba lagi";
+"Content.Bookmark.Add" = "Tambahkan sebuah penanda web";
+"Content.Bookmark.Loading" = "Memuat, mohon tunggu...";
 "Content.DataView.InlineSet.Subtitle" = "Inline set";
 "Content.DataView.InlineCollection.Subtitle" = "Inline collection";
 "Content.DataView.InlineSet.NoSource" = "No source";
@@ -802,6 +802,7 @@
 "SpaceSettings.Title" = "Setelan ruang";
 "SpaceSettings.RemoteStorage" = "Remote storage";
 "SpaceSettings.Info" = "Info ruang";
+"SpaceSettings.NetworkId" = "ID Jaringan";
 
 // MARK: - Space Create
 "SpaceCreate.Title" = "Buat ruang";
