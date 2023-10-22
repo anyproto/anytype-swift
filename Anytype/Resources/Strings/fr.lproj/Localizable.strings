@@ -802,6 +802,7 @@
 "SpaceSettings.Title" = "Paramètres de l'espace";
 "SpaceSettings.RemoteStorage" = "Remote storage";
 "SpaceSettings.Info" = "Informations sur l'espace";
+"SpaceSettings.NetworkId" = "ID réseau";
 
 // MARK: - Space Create
 "SpaceCreate.Title" = "Créer un espace";
