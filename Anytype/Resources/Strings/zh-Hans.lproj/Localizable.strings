@@ -802,6 +802,7 @@
 "SpaceSettings.Title" = "空间设置";
 "SpaceSettings.RemoteStorage" = "远程存储";
 "SpaceSettings.Info" = "空间信息";
+"SpaceSettings.NetworkId" = "网络 ID";
 
 // MARK: - Space Create
 "SpaceCreate.Title" = "创建空间";
