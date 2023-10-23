@@ -13,9 +13,9 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>d</string>
         <key>one</key>
-        <string>%d Objets</string>
+        <string>%d objet</string>
         <key>other</key>
-        <string>%d Objets</string>
+        <string>%d objets</string>
       </dict>
     </dict>
     <key>Object selected</key>
@@ -29,9 +29,9 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>d</string>
         <key>one</key>
-        <string>%d Objets</string>
+        <string>%d objet</string>
         <key>other</key>
-        <string>%d Objets</string>
+        <string>%d objets</string>
       </dict>
     </dict>
     <key>Selected blocks</key>
@@ -47,7 +47,7 @@
         <key>one</key>
         <string>%d Blocs sélectionnés</string>
         <key>other</key>
-        <string>%d Blocs sélectionnés</string>
+        <string>%d blocs sélectionnés</string>
       </dict>
     </dict>
     <key>Days to deletion account</key>
@@ -63,7 +63,7 @@
         <key>one</key>
         <string>demain</string>
         <key>other</key>
-        <string>in %d days</string>
+        <string>dans %d jours</string>
       </dict>
     </dict>
     <key>Widgets.Actions.BinConfirm</key>
@@ -79,7 +79,7 @@
         <key>one</key>
         <string>Un objet supprimé</string>
         <key>other</key>
-        <string>%d objects deleted</string>
+        <string>%d objets supprimés</string>
       </dict>
     </dict>
   </dict>
