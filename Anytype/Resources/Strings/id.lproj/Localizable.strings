@@ -696,32 +696,32 @@
 "Content.Common.Error" = "Ada yang salah, coba lagi";
 "Content.Bookmark.Add" = "Tambahkan sebuah penanda web";
 "Content.Bookmark.Loading" = "Memuat, mohon tunggu...";
-"Content.DataView.InlineSet.Subtitle" = "Inline set";
-"Content.DataView.InlineCollection.Subtitle" = "Inline collection";
-"Content.DataView.InlineSet.NoSource" = "No source";
-"Content.DataView.InlineSet.NoData" = "No data";
-"Content.DataView.InlineSet.Untitled" = "Untitled set";
-"Content.DataView.InlineCollection.Untitled" = "Untitled collection";
-"Content.DataView.InlineSet.Toast.Failure" = "This inline set doesn’t have a source";
+"Content.DataView.InlineSet.Subtitle" = "Set dalam baris";
+"Content.DataView.InlineCollection.Subtitle" = "Koleksi dalam baris";
+"Content.DataView.InlineSet.NoSource" = "Tidak ada sumber";
+"Content.DataView.InlineSet.NoData" = "Tidak ada data";
+"Content.DataView.InlineSet.Untitled" = "Set tidak berjudul";
+"Content.DataView.InlineCollection.Untitled" = "Koleksi tidak berjudul";
+"Content.DataView.InlineSet.Toast.Failure" = "Set dalam-baris ini tidak memiliki sebuah sumber";
 
 // MARK: - Widget extension
-"WidgetExtension.LockScreen.Title" = "New object";
-"WidgetExtension.LockScreen.Description" = "Create a new object on the fly";
+"WidgetExtension.LockScreen.Title" = "Objek baru";
+"WidgetExtension.LockScreen.Description" = "Buat sebuah objek baru dengan cepat";
 
 // MARK: - Toast
-"Editor.Toast.LinkedTo" = "linked to";
-"Editor.Toast.MovedTo" = "Block moved to";
+"Editor.Toast.LinkedTo" = "ditautkan pada";
+"Editor.Toast.MovedTo" = "Diblok berpindah ke";
 
 // MARK: - Scanner
-"Scanner.Error.Scanning not supported" = "Scanning not supported";
+"Scanner.Error.Scanning not supported" = "Pemindaian tidak didukung";
 
 // MARK: - Widgets
-"Widgets.SourceSearch" = "Widget source";
-"Widgets.Actions.ChangeSource" = "Change Source";
-"Widgets.Actions.ChangeWidgetType" = "Change Widget Type";
-"Widgets.Actions.RemoveWidget" = "Remove Widget";
-"Widgets.Actions.EditWidgets" = "Edit Widgets";
-"Widgets.Actions.EmptyBin" = "Empty Bin";
+"Widgets.SourceSearch" = "Sumber widget";
+"Widgets.Actions.ChangeSource" = "Ubah sumber";
+"Widgets.Actions.ChangeWidgetType" = "Ubah tipe widget";
+"Widgets.Actions.RemoveWidget" = "Hapus widget";
+"Widgets.Actions.EditWidgets" = "Sunting widget";
+"Widgets.Actions.EmptyBin" = "Tempat sampah kosong";
 "Widgets.Actions.AddBelow" = "Tambah di bawah";
 "Widgets.Layout.Screen.Title" = "Jenis widget";
 "Widgets.Layout.Link.Title" = "Tautan";
@@ -738,29 +738,29 @@
 "Widgets.Library.RecentlyOpened.Description" = "Di perangkat ini";
 
 // MARK: - About
-"About.AppVersion" = "App version: %@";
-"About.BuildNumber" = "Build number: %@";
-"About.Library" = "Library version: %@";
-"About.accountId" = "Account ID: %@";
-"About.analyticsId" = "Analytics ID: %@";
-"About.deviceId" = "Device ID: %@";
-"About.Device" = "Device: %@";
-"About.OSVersion" = "OS version: %@";
-"About.HelpCommunity" = "Help & Community";
-"About.WhatsNew" = "What’s New";
-"About.AnytypeCommunity" = "Anytype Community";
-"About.HelpTutorials" = "Help & Tutorials";
-"About.ContactUs" = "Contact Us";
+"About.AppVersion" = "Versi aplikasi: %@";
+"About.BuildNumber" = "Nomor Pembuatan: %@";
+"About.Library" = "Versi Pustaka: %@";
+"About.accountId" = "ID akun: %@";
+"About.analyticsId" = "ID analitik: %@";
+"About.deviceId" = "ID perangkat: %@";
+"About.Device" = "Perangkat: %@";
+"About.OSVersion" = "Versi Sistem Operasi: %@";
+"About.HelpCommunity" = "Bantuan & Komunitas";
+"About.WhatsNew" = "Apa yang baru";
+"About.AnytypeCommunity" = "Komunitas tipe apapun";
+"About.HelpTutorials" = "Bantuan dan Tutorial";
+"About.ContactUs" = "Hubungi Kami";
 "About.Legal" = "Legal";
-"About.TermsOfUse" = "Terms of Use";
-"About.PrivacyPolicy" = "Privacy Policy";
-"About.TechInfo" = "Tech Info";
-"About.Mail.Subject" = "Support request, Account ID %@";
-"About.Mail.Body" = "\n\nTechnical information\n%@";
+"About.TermsOfUse" = "Ketentuan Penggunaan";
+"About.PrivacyPolicy" = "Kebijakan Privasi";
+"About.TechInfo" = "Info Tekhnologi";
+"About.Mail.Subject" = "Permintaan dukungan, ID akun %@";
+"About.Mail.Body" = "\n\nInformasi Tekhnik\n%@";
 
 // MARK: - Cache
-"ClearCache.Success" = "Cache sucessfully cleared";
-"ClearCache.Error" = "Error, try again later";
+"ClearCache.Success" = "Cache sukses dibersihkan";
+"ClearCache.Error" = "Terjadi kesalahan, silahkan coba lagi nanti";
 
 // MARK: - Settings
 "Settings.TitleLegacy" = "Ruang Pribadi";
@@ -769,12 +769,12 @@
 "Settings.AccountAndAccess" = "Akun dan akses";
 
 // MARK: - File Storage
-"FileStorage.Title" = "File storage";
-"FileStorage.Space.Title" = "Remote storage";
-"FileStorage.Space.Instruction" = "You can store up to %@ of your files on our encrypted backup node for free. If you reach the limit, files will be stored only locally.";
-"FileStorage.Space.Used" = "%@ of %@ used";
-"FileStorage.Space.GetMore" = "Get more space";
-"FileStorage.Space.Mail.Subject" = "Get more storage, account %@";
+"FileStorage.Title" = "Penyimpanan berkas";
+"FileStorage.Space.Title" = "Penyimpanan jarak jauh";
+"FileStorage.Space.Instruction" = "Kamu bisa menyimpan berkasmu hingga %@ di simpul cadangan terenkripsi kami secara gratis. Jika kamu mencapai limit, berkas hanya akan disimpan secara lokal.";
+"FileStorage.Space.Used" = "%@ dari %@ digunakan";
+"FileStorage.Space.GetMore" = "Dapatkan ruang tambahan";
+"FileStorage.Space.Mail.Subject" = "Dapatkan penyimpanan lebih, akun %@";
 "FileStorage.Space.Mail.Body" = "Hi, Anytype team. I am reaching out to request an increase in my file storage capacity as I have run out of storage. My current limits is %@. My account id is %@. Cheers, %@.";
 "FileStorage.Local.Title" = "Local storage";
 "FileStorage.Local.Instruction" = "In order to save space on your local device, you can offload all your files to our encrypted backup node. The files will be loaded back when you open them.";
@@ -800,7 +800,7 @@
 
 // MARK: - Space Settings
 "SpaceSettings.Title" = "Setelan ruang";
-"SpaceSettings.RemoteStorage" = "Remote storage";
+"SpaceSettings.RemoteStorage" = "Penyimpanan jarak jauh";
 "SpaceSettings.Info" = "Info ruang";
 "SpaceSettings.NetworkId" = "ID Jaringan";
 
