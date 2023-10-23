@@ -246,11 +246,11 @@
 
 "Search" = "Rechercher";
 "There is no emoji named" = "Il n'y a pas d'émoji nommé";
-"Try to find a new one or upload your image" = "Try to find a new one or upload your image";
+"Try to find a new one or upload your image" = "Essayez de trouver une autre image ou mettre en ligne votre image";
 
 "Emoji" = "Emoji";
-"Random" = "Random";
-"Upload" = "Upload";
+"Random" = "Aléatoire";
+"Upload" = "Mettre en ligne";
 "Change icon" = "Changer d'icône";
 "Change cover" = "Change cover";
 "Remove" = "Supprimer";
@@ -260,9 +260,9 @@
 "Gallery" = "Galerie";
 
 "Remove photo" = "Supprimer la photo";
-"Basic" = "Basic";
+"Basic" = "Basique";
 "Profile" = "Profil";
-"Task" = "Task";
+"Task" = "Tâche";
 "Note" = "Note";
 "Choose layout type" = "Choisir une mise en page";
 
@@ -330,9 +330,9 @@
 "To Bin" = "To Bin";
 
 // MARK: - Context Menu
-"Remove From Favorite" = "Remove From Favorite";
-"Add To Favorite" = "Add To Favorite";
-"Move To Bin" = "Move To Bin";
+"Remove From Favorite" = "Retirer des favoris";
+"Add To Favorite" = "Ajouter aux favoris";
+"Move To Bin" = "Déplacer à la corbeille";
 
 
 "LinkAppearance.Description.None.Title" = "Aucun";
@@ -343,8 +343,8 @@
 // MARK: - Sets: Sorts
 "EditSet.Popup.Sorts.NavigationView.Title" = "Sorts";
 "EditSet.Popup.Sorts.EmptyView.Title" = "No sorts here. You can add some";
-"EditSet.Popup.Sort.Types.Ascending" = "Ascending";
-"EditSet.Popup.Sort.Types.Descending" = "Descending";
+"EditSet.Popup.Sort.Types.Ascending" = "Tri croissant";
+"EditSet.Popup.Sort.Types.Descending" = "Tri décroissant";
 "EditSet.Popup.Sort.Add.SearchPlaceholder" = "Сhoose a relation to sort";
 
 // MARK: - Sets: Filters
@@ -382,7 +382,7 @@
 
 "EditSet.Popup.Filter.Condition.General.Empty" = "Is empty";
 "EditSet.Popup.Filter.Condition.General.NotEmpty" = "Is not empty";
-"EditSet.Popup.Filter.Condition.General.None" = "All";
+"EditSet.Popup.Filter.Condition.General.None" = "Tout";
 
 "EditSet.Popup.Filter.Value.Checked" = "Coché";
 "EditSet.Popup.Filter.Value.Unchecked" = "Décoché";
