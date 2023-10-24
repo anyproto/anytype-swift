@@ -96,7 +96,6 @@ struct SpaceSwitchView: View {
             }
         }
         .padding([.top], headerSize.height + 6)
-        .animation(.default, value: model.rows.count)
     }
 
     private var header: some View {
