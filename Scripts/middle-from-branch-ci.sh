@@ -19,3 +19,6 @@ cd ../../
 rm -fr Dependencies/Middleware/*
 mkdir -p Dependencies/Middleware
 cp -r build/anytype-heart/dist/ios/ Dependencies/Middleware
+
+rm -rf ${PROJECT_DIR}/Modules/ProtobufMessages/Sources/Protocol/*
+cp -r ${PROJECT_DIR}/Dependencies/Middleware/protobuf/*.swift ${PROJECT_DIR}/Modules/ProtobufMessages/Sources/Protocol

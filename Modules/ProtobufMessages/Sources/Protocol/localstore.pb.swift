@@ -47,8 +47,6 @@ public struct Anytype_Model_ObjectInfo {
   /// DEPRECATED
   public var hasInboundLinks_p: Bool = false
 
-  public var objectType: Anytype_Model_SmartBlockType = .accountOld
-
   public var unknownFields = SwiftProtobuf.UnknownStorage()
 
   public init() {}
@@ -247,7 +245,6 @@ extension Anytype_Model_ObjectInfo: SwiftProtobuf.Message, SwiftProtobuf._Messag
     4: .same(proto: "relations"),
     5: .same(proto: "snippet"),
     6: .same(proto: "hasInboundLinks"),
-    7: .same(proto: "objectType"),
   ]
 
   public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
@@ -262,7 +259,6 @@ extension Anytype_Model_ObjectInfo: SwiftProtobuf.Message, SwiftProtobuf._Messag
       case 4: try { try decoder.decodeRepeatedMessageField(value: &self.relations) }()
       case 5: try { try decoder.decodeSingularStringField(value: &self.snippet) }()
       case 6: try { try decoder.decodeSingularBoolField(value: &self.hasInboundLinks_p) }()
-      case 7: try { try decoder.decodeSingularEnumField(value: &self.objectType) }()
       default: break
       }
     }
@@ -291,9 +287,6 @@ extension Anytype_Model_ObjectInfo: SwiftProtobuf.Message, SwiftProtobuf._Messag
     if self.hasInboundLinks_p != false {
       try visitor.visitSingularBoolField(value: self.hasInboundLinks_p, fieldNumber: 6)
     }
-    if self.objectType != .accountOld {
-      try visitor.visitSingularEnumField(value: self.objectType, fieldNumber: 7)
-    }
     try unknownFields.traverse(visitor: &visitor)
   }
 
@@ -304,7 +297,6 @@ extension Anytype_Model_ObjectInfo: SwiftProtobuf.Message, SwiftProtobuf._Messag
     if lhs.relations != rhs.relations {return false}
     if lhs.snippet != rhs.snippet {return false}
     if lhs.hasInboundLinks_p != rhs.hasInboundLinks_p {return false}
-    if lhs.objectType != rhs.objectType {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
