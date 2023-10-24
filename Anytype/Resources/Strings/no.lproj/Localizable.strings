@@ -802,6 +802,7 @@
 "SpaceSettings.Title" = "Rominnstillinger";
 "SpaceSettings.RemoteStorage" = "Fjernlagring";
 "SpaceSettings.Info" = "Rominformasjon";
+"SpaceSettings.NetworkId" = "Nettverks-ID";
 
 // MARK: - Space Create
 "SpaceCreate.Title" = "Opprett et rom";
@@ -822,9 +823,9 @@
 
 // MARK: - Initial
 
-"Initial.UnstableMiddle.Title" = "Warning";
-"Initial.UnstableMiddle.Message" = "You launch app with a unstable middleware. Don't use your production account. Your account may be broken.";
-"Initial.UnstableMiddle.Title" = "Warning";
-"Initial.UnstableMiddle.Logout" = "Logout from current account";
-"Initial.UnstableMiddle.Continue" = "Continue with current account";
-"Initial.UnstableMiddle.WontUseProd" = "I won't be using my production account";
+"Initial.UnstableMiddle.Title" = "Advarsel";
+"Initial.UnstableMiddle.Message" = "Du starter app med en ustabil mellomvare. Ikke bruk din produksjonskonto. Kontoen din kan bli ødelagt.";
+"Initial.UnstableMiddle.Title" = "Advarsel";
+"Initial.UnstableMiddle.Logout" = "Logg ut fra denne kontoen";
+"Initial.UnstableMiddle.Continue" = "Fortsett med denne kontoen";
+"Initial.UnstableMiddle.WontUseProd" = "Jeg vil ikke bruke min produksjonskonto";

@@ -111,7 +111,7 @@
 "Duplicate" = "Duplicar";
 "Copy" = "Copiar";
 "Preview" = "Pré-visualizar";
-"View" = "View";
+"View" = "Exibição";
 "Paste" = "Colar";
 "Move" = "Mover";
 "Move to" = "Mover para";
@@ -307,7 +307,7 @@
 
 
 // MARK: - Templates
-"TemplateSelection.Available.Title" = "This type has %d templates";
+"TemplateSelection.Available.Title" = "Este tipo tem %d modelos";
 "TemplatePicker.ChooseTemplate" = "Escolher modelo";
 "TemplatePicker.Buttons.UseTemplate" = "Utilizar modelo";
 "TemplateSelection.SelectTemplate" = "Selecionar modelo";
@@ -342,7 +342,7 @@
 
 // MARK: - Sets: Sorts
 "EditSet.Popup.Sorts.NavigationView.Title" = "Classificar";
-"EditSet.Popup.Sorts.EmptyView.Title" = "No sorts here. You can add some";
+"EditSet.Popup.Sorts.EmptyView.Title" = "Sem ordenações aqui. Você pode adicionar alguns";
 "EditSet.Popup.Sort.Types.Ascending" = "Crescente";
 "EditSet.Popup.Sort.Types.Descending" = "Decrescente";
 "EditSet.Popup.Sort.Add.SearchPlaceholder" = "Escolha uma relação para classificar";
@@ -427,20 +427,20 @@
 "Set.View.Settings.CardSize.Large.Title" = "Grande";
 "Set.View.Settings.ImagePreview.Title" = "Pré-visualização da imagem";
 "Set.View.Settings.GroupBy.Title" = "Agrupar por";
-"Set.View.Settings.GroupBackgroundColors.Title" = "Color columns";
+"Set.View.Settings.GroupBackgroundColors.Title" = "Colunas de cor";
 
-"Set.View.Settings.NoRelations.Placeholder" = "No relations";
-"Set.View.Settings.NoFilters.Placeholder" = "No filters";
-"Set.View.Settings.NoSorts.Placeholder" = "No sorts";
-"Set.View.Settings.Objects.Applied.Title" = "%d applied";
+"Set.View.Settings.NoRelations.Placeholder" = "Nenhuma relação";
+"Set.View.Settings.NoFilters.Placeholder" = "Sem filtros";
+"Set.View.Settings.NoSorts.Placeholder" = "Sem ordenação";
+"Set.View.Settings.Objects.Applied.Title" = "%d aplicado";
 
 // MARK: - Sets: Kanban
-"Set.View.Kanban.Column.Title.Uncategorized" = "Uncategorized";
-"Set.View.Kanban.Column.Title.Checked" = "%@ is checked";
-"Set.View.Kanban.Column.Title.Unchecked" = "%@ is unchecked";
-"Set.View.Kanban.Column.Paging.Title.ShowMore" = "Show more objects";
-"Set.View.Kanban.Column.Settings.Color.Title" = "Column color";
-"Set.View.Kanban.Column.Settings.Hide.Column.Title" = "Hide column";
+"Set.View.Kanban.Column.Title.Uncategorized" = "Sem classificação";
+"Set.View.Kanban.Column.Title.Checked" = "%@ está marcado";
+"Set.View.Kanban.Column.Title.Unchecked" = "%@ está desmarcado";
+"Set.View.Kanban.Column.Paging.Title.ShowMore" = "Mostrar mais objetos";
+"Set.View.Kanban.Column.Settings.Color.Title" = "Cor da coluna";
+"Set.View.Kanban.Column.Settings.Hide.Column.Title" = "Ocultar coluna";
 
 // MARK: - Sets: empty view
 "Set.View.Empty.Title" = "No query selected";
@@ -451,19 +451,19 @@
 "Set.SourceType.Cancel.Toast.Title" = "This query can be changed on desktop only";
 
 // MARK: - Set: Type context menu
-"Set.TypeRelation.ContextMenu.TurnIntoCollection" = "Turn Set into Collection";
+"Set.TypeRelation.ContextMenu.TurnIntoCollection" = "Transformar conjunto em coleção";
 "Set.TypeRelation.ContextMenu.ChangeQuery" = "Change query";
 
 // MARK: - Collection: empty view
-"Collection.View.Empty.Title" = "No objects";
-"Collection.View.Empty.Subtitle" = "Create first object to continue";
-"Collection.View.Empty.Button.Title" = "Create object";
+"Collection.View.Empty.Title" = "Sem objetos";
+"Collection.View.Empty.Subtitle" = "Crie seu primeiro objeto para continuar";
+"Collection.View.Empty.Button.Title" = "Criar objeto";
 
 // MARK: Slash Menu
-"SlashMenu.DotsDivider" = "Dots divider";
-"SlashMenu.LineDivider" = "Line divider";
-"SlashMenu.TableOfContents" = "Table of contents";
-"SlashMenu.Table" = "Table";
+"SlashMenu.DotsDivider" = "Divisor pontilhado";
+"SlashMenu.LineDivider" = "Divisor de linha";
+"SlashMenu.TableOfContents" = "Tabela de conteúdos";
+"SlashMenu.Table" = "Tabela";
 
 "Unknown error" = "Erro desconhecido";
 "Account is deleted" = "A conta foi removida";
@@ -515,33 +515,33 @@
 "Access to secret phrase from keychain" = "Access to secret phrase from keychain";
 "Back up your recovery phrase" = "Salve sua frase de recuperação";
 "Account" = "Conta";
-"Access" = "Access";
+"Access" = "Acesso";
 "Back up phrase" = "Back up phrase";
-"Removing cache" = "Removing cache";
-"Deletion error" = "Deletion error";
-"Start" = "Start";
+"Removing cache" = "Removendo o cache";
+"Deletion error" = "Erro ao excluir";
+"Start" = "Começar";
 "On analytics" = "On analytics";
-"Select account error" = "Select account error";
-"Account deleted" = "Account deleted";
+"Select account error" = "Erro ao selecionar conta";
+"Account deleted" = "Conta excluída";
 "Account.Select.Incompatible.Version.Error.Text" = "Unable to retrieve account data due to incompatible version on remote nodes. Please update Anytype to the latest version.";
 "Restore from keychain" = "Restore from keychain";
-"Edit" = "Edit";
-"In this object" = "In this object";
-"Other relations" = "Other relations";
-"Collection of objects" = "Collection of objects";
-"Designed to capture thoughts quickly" = "Designed to capture thoughts quickly";
-"Action-focused layout with a checkbox" = "Action-focused layout with a checkbox";
-"Standard layout for canvas blocks" = "Standard layout for canvas blocks";
-"List of related objects" = "List of related objects";
-"Lock" = "Lock";
-"Unlock" = "Unlock";
+"Edit" = "Editar";
+"In this object" = "Neste objeto";
+"Other relations" = "Outras relações";
+"Collection of objects" = "Coleção de objetos";
+"Designed to capture thoughts quickly" = "Projetado para capturar pensamentos rapidamente";
+"Action-focused layout with a checkbox" = "Layout focado em ações com uma caixa de seleção";
+"Standard layout for canvas blocks" = "Layout padrão para blocos de tela";
+"List of related objects" = "Lista de objetos relacionados";
+"Lock" = "Bloquear";
+"Unlock" = "Desbloquear";
 "Favorite" = "Favorito";
 "Unfavorite" = "Remover dos favoritos";
 "Unsplash" = "Unsplash";
 "Go back" = "Voltar";
 "Backed up on one node at least" = "Backed up on one node at least";
-"Downloading or uploading data to some node" = "Downloading or uploading data to some node";
-"Anytype node is not connected" = "Anytype node is not connected";
+"Downloading or uploading data to some node" = "Baixando ou carregando dados para algum nó";
+"Anytype node is not connected" = "Nó Anytype não está conectado";
 "Initializing sync" = "Iniciando sincronização";
 "Not syncing" = "Sincronização desativada";
 "Synced" = "Sincronizado";
@@ -572,18 +572,18 @@
 "Views" = "Exibições";
 "Filter" = "Filtro";
 "Sort" = "Ordenar";
-"View" = "View";
+"View" = "Exibição";
 "Home" = "Início";
 "Highlight" = "Destaque";
-"Create object" = "Create object";
+"Create object" = "Criar objeto";
 "Web pages" = "Páginas da Web";
-"Preview layout" = "Preview layout";
-"Everywhere" = "Everywhere";
-"Exact day" = "Exact day";
+"Preview layout" = "Pré-visualizar layout";
+"Everywhere" = "Em todo lugar";
+"Exact day" = "Dia exato";
 "Tomorrow" = "Amanhã";
 "Yesterday" = "Ontem";
 "Today" = "Hoje";
-"No date" = "No date";
+"No date" = "Sem data";
 "Clear" = "Limpar";
 "Create option" = "Criar opção %@’";
 "Add URL" = "Adicionar URL";
@@ -600,108 +600,108 @@
 "This object doesn't exist" = "Esse objeto não existe";
 "Setting up encrypted storage\nPlease wait" = "Configurando o armazenamento criptografado\nPor favor, aguarde";
 "These objects will be deleted irrevocably" = "Esses objetos serão excluídos irrevogavelmente. Você não pode desfazer esta ação.";
-"Delete account" = "Delete account";
-"Cancel deletion" = "Cancel deletion";
-"Logout and clear data" = "Logout and clear data";
-"New" = "New";
+"Delete account" = "Apagar conta";
+"Cancel deletion" = "Cancelar exclusão";
+"Logout and clear data" = "Desconectar e limpar dados";
+"New" = "Novo";
 
 // MARK: - DeletionAlert
-"DeletionAlert.title" = "Are you sure to delete account?";
+"DeletionAlert.title" = "Tem certeza que deseja excluir a conta?";
 "DeletionAlert.description" = "You will be logged out on all other devices. You will have 30 days to recover it. Afterwards it will be deleted permanently";
 
 // MARK: - DataviewType
-"DataviewType.grid" = "Grid";
-"DataviewType.list" = "List";
+"DataviewType.grid" = "Grade";
+"DataviewType.list" = "Lista";
 "DataviewType.gallery" = "Galeria";
 "DataviewType.kanban" = "Kanban";
 
 // MARK: - ObjectType
-"ObjectType.fallbackDescription" = "Blank canvas with no title";
-"ObjectType.SearchOrInstall" = "Search or install a new type";
-"ObjectType.Search" = "Search for Type";
-"ObjectType.MyTypes" = "My Types";
+"ObjectType.fallbackDescription" = "Tela em branco sem título";
+"ObjectType.SearchOrInstall" = "Pesquise ou instale um novo tipo";
+"ObjectType.Search" = "Pesquisar por Tipo";
+"ObjectType.MyTypes" = "Meus Tipos";
 "ObjectType.AddedToLibrary" = "Type ‘%@’ added to your library";
-"ObjectType.DeletedName" = "Deleted type";
+"ObjectType.DeletedName" = "Tipo apagado";
 
 // MARK: - QuickAction
-"QuickAction.create" = "Create %@";
+"QuickAction.create" = "Criar %@";
 
 // MARK: - RedactedText
-"RedactedText.pageTitle" = "Wake up, Neo";
-"RedactedText.pageType" = "Red pill";
+"RedactedText.pageTitle" = "Acorda, Neo";
+"RedactedText.pageType" = "Pílula vermelha";
 
 // MARK: - InterfaceStyle
-"InterfaceStyle.light" = "Light";
-"InterfaceStyle.dark" = "Dark";
-"InterfaceStyle.system" = "System";
+"InterfaceStyle.light" = "Claro";
+"InterfaceStyle.dark" = "Escuro";
+"InterfaceStyle.system" = "Sistema";
 
 // MARK: Table of Contents
-"TalbeOfContents.Empty" = "Add headings to create a table of contents";
+"TalbeOfContents.Empty" = "Adicionar cabeçalhos para criar uma tabela de conteúdos";
 
 // MARK: - Simple tables
 "SimpleTableMenu.Item.clearContents" = "Limpar";
 "SimpleTableMenu.Item.color" = "Cor";
 "SimpleTableMenu.Item.style" = "Estilo";
-"SimpleTableMenu.Item.clearStyle" = "Reset style";
+"SimpleTableMenu.Item.clearStyle" = "Redefinir estilo";
 
-"SimpleTableMenu.Item.InsertLeft" = "Insert left";
-"SimpleTableMenu.Item.InsertRight" = "Insert right";
-"SimpleTableMenu.Item.MoveLeft" = "Move left";
-"SimpleTableMenu.Item.MoveRight" = "Move right";
+"SimpleTableMenu.Item.InsertLeft" = "Inserir à esquerda";
+"SimpleTableMenu.Item.InsertRight" = "Iserir à direita";
+"SimpleTableMenu.Item.MoveLeft" = "Mover à esquerda";
+"SimpleTableMenu.Item.MoveRight" = "Move à direita";
 "SimpleTableMenu.Item.Duplicate" = "Duplicar";
 "SimpleTableMenu.Item.Delete" = "Excluir";
 "SimpleTableMenu.Item.Sort" = "Ordenar";
 
-"SimpleTableMenu.Item.InsertAbove" = "Insert above";
-"SimpleTableMenu.Item.InsertBelow" = "Insert below";
-"SimpleTableMenu.Item.MoveUp" = "Move up";
-"SimpleTableMenu.Item.MoveDown" = "Move down";
+"SimpleTableMenu.Item.InsertAbove" = "Inserir acima";
+"SimpleTableMenu.Item.InsertBelow" = "Inserir abaixo";
+"SimpleTableMenu.Item.MoveUp" = "Mover para cima";
+"SimpleTableMenu.Item.MoveDown" = "Mover para baixo";
 
-"DebugMenu.ToggleAuthor" = "Release: %@, %@";
+"DebugMenu.ToggleAuthor" = "Lançamento: %@, %@";
 
 // MARK: Link Past Actions
-"LinkPaste.text" = "Paste as text";
-"LinkPaste.link" = "Paste as link";
-"LinkPaste.bookmark" = "Create bookmark";
+"LinkPaste.text" = "Colar como texto";
+"LinkPaste.link" = "Colar como link";
+"LinkPaste.bookmark" = "Criar marcador";
 
 // Relation Actions
-"RelationAction.CopyPhone" = "Copy phone numbler";
-"RelationAction.CopyEmail" = "Copy email";
+"RelationAction.CopyPhone" = "Copiar número de telefone";
+"RelationAction.CopyEmail" = "Copiar e-mail";
 "RelationAction.CopyLink" = "Copiar link";
 "RelationAction.Copied" = "Copiado";
-"RelationAction.ReloadingContent" = "Reloading content";
-"RelationAction.ReloadContent" = "Reload object content";
+"RelationAction.ReloadingContent" = "Recarregando conteúdo";
+"RelationAction.ReloadContent" = "Recarregar conteúdo do objeto";
 "RelationAction.CallPhone" = "Call phone numbler";
-"RelationAction.SendEmail" = "Send email";
-"RelationAction.OpenLink" = "Open link";
+"RelationAction.SendEmail" = "Enviar email";
+"RelationAction.OpenLink" = "Abrir link";
 
 // MARK: Edit view type
-"SetViewTypesPicker.Title" = "Edit view";
-"SetViewTypesPicker.New.Title" = "New view";
-"SetViewTypesPicker.Section.Types.Title" = "View as";
+"SetViewTypesPicker.Title" = "Editar exibição";
+"SetViewTypesPicker.New.Title" = "Nova Exibição";
+"SetViewTypesPicker.Section.Types.Title" = "Exibir como";
 "SetViewTypesPicker.Settings.Duplicate.View" = "Duplicar";
-"SetViewTypesPicker.Settings.Delete.View" = "Delete view";
-"SetViewTypesPicker.Settings.Textfield.Placeholder.New.View" = "New view";
+"SetViewTypesPicker.Settings.Delete.View" = "Remover exibição";
+"SetViewTypesPicker.Settings.Textfield.Placeholder.New.View" = "Nova Exibição";
 "SetViewTypesPicker.Settings.Textfield.Placeholder.Untitled" = "Sem título";
 
 // MARK: Select view picker
-"EditorSetViewPicker.View.Not.Supported.Title" = "Unsupported";
+"EditorSetViewPicker.View.Not.Supported.Title" = "Incompatível";
 
 // BlockContent
-"Content.File.Upload" = "Upload a file";
-"Content.Audio.Upload" = "Upload audio";
-"Content.Video.Upload" = "Upload a video";
-"Content.Picture.Upload" = "Upload a picture";
-"Content.Common.Uploading" = "Uploading...";
-"Content.Common.Error" = "Something went wrong, try again";
-"Content.Bookmark.Add" = "Add a web bookmark";
-"Content.Bookmark.Loading" = "Loading, please wait...";
-"Content.DataView.InlineSet.Subtitle" = "Inline set";
-"Content.DataView.InlineCollection.Subtitle" = "Inline collection";
+"Content.File.Upload" = "Enviar um arquivo";
+"Content.Audio.Upload" = "Enviar áudio";
+"Content.Video.Upload" = "Enviar um vídeo";
+"Content.Picture.Upload" = "Enviar uma imagem";
+"Content.Common.Uploading" = "Enviando...";
+"Content.Common.Error" = "Algo deu errado, tente novamente";
+"Content.Bookmark.Add" = "Adicionar um marcador da web";
+"Content.Bookmark.Loading" = "Carregando, por favor aguarde...";
+"Content.DataView.InlineSet.Subtitle" = "Conjunto em linha";
+"Content.DataView.InlineCollection.Subtitle" = "Coleção em linha";
 "Content.DataView.InlineSet.NoSource" = "Não há fonte";
 "Content.DataView.InlineSet.NoData" = "Sem dados";
-"Content.DataView.InlineSet.Untitled" = "Untitled set";
-"Content.DataView.InlineCollection.Untitled" = "Untitled collection";
+"Content.DataView.InlineSet.Untitled" = "Conjunto sem título";
+"Content.DataView.InlineCollection.Untitled" = "Coleção sem título";
 "Content.DataView.InlineSet.Toast.Failure" = "This inline set doesn’t have a source";
 
 // MARK: - Widget extension
@@ -709,122 +709,123 @@
 "WidgetExtension.LockScreen.Description" = "Create a new object on the fly";
 
 // MARK: - Toast
-"Editor.Toast.LinkedTo" = "linked to";
-"Editor.Toast.MovedTo" = "Block moved to";
+"Editor.Toast.LinkedTo" = "vinculado a";
+"Editor.Toast.MovedTo" = "Bloco movido para";
 
 // MARK: - Scanner
-"Scanner.Error.Scanning not supported" = "Scanning not supported";
+"Scanner.Error.Scanning not supported" = "Escaneamento não suportado";
 
 // MARK: - Widgets
 "Widgets.SourceSearch" = "Widget source";
 "Widgets.Actions.ChangeSource" = "Change Source";
-"Widgets.Actions.ChangeWidgetType" = "Change Widget Type";
-"Widgets.Actions.RemoveWidget" = "Remove Widget";
-"Widgets.Actions.EditWidgets" = "Edit Widgets";
-"Widgets.Actions.EmptyBin" = "Empty Bin";
+"Widgets.Actions.ChangeWidgetType" = "Alterar Tipo de Widget";
+"Widgets.Actions.RemoveWidget" = "Remover widget";
+"Widgets.Actions.EditWidgets" = "Editar widgets";
+"Widgets.Actions.EmptyBin" = "Lixeira Limpa";
 "Widgets.Actions.AddBelow" = "Adicionar abaixo";
 "Widgets.Layout.Screen.Title" = "Tipo de widget";
 "Widgets.Layout.Link.Title" = "Link";
 "Widgets.Layout.Tree.Title" = "Árvore";
-"Widgets.Layout.List.Title" = "List";
+"Widgets.Layout.List.Title" = "Lista";
 "Widgets.Layout.CompactList.Title" = "Lista compacta";
-"Widgets.Layout.Link.Description" = "Сompact version of the object";
-"Widgets.Layout.Tree.Description" = "Hierarchical structure of objects";
+"Widgets.Layout.Link.Description" = "Versão compacta do objeto";
+"Widgets.Layout.Tree.Description" = "Estrutura hierárquica dos objetos";
 "Widgets.Layout.List.Description" = "Widget with list view of set object";
 "Widgets.Layout.CompactList.Description" = "Widget with list view of set object";
-"Widgets.Empty.Title" = "This data view contains no objects";
-"Widgets.Library.RecentlyEdited.Name" = "Recently edited";
-"Widgets.Library.RecentlyOpened.Name" = "Recently opened";
-"Widgets.Library.RecentlyOpened.Description" = "On this device";
+"Widgets.Empty.Title" = "Esta visualização de dados não contém objetos";
+"Widgets.Library.RecentlyEdited.Name" = "Editado recentemente";
+"Widgets.Library.RecentlyOpened.Name" = "Aberto recentemente";
+"Widgets.Library.RecentlyOpened.Description" = "Neste dispositivo";
 
 // MARK: - About
-"About.AppVersion" = "App version: %@";
-"About.BuildNumber" = "Build number: %@";
-"About.Library" = "Library version: %@";
-"About.accountId" = "Account ID: %@";
+"About.AppVersion" = "Versão do aplicativo: %@";
+"About.BuildNumber" = "Número de compilação: %@";
+"About.Library" = "Versão da biblioteca: %@";
+"About.accountId" = "ID da conta: %@";
 "About.analyticsId" = "Analytics ID: %@";
-"About.deviceId" = "Device ID: %@";
-"About.Device" = "Device: %@";
-"About.OSVersion" = "OS version: %@";
-"About.HelpCommunity" = "Help & Community";
-"About.WhatsNew" = "What’s New";
-"About.AnytypeCommunity" = "Anytype Community";
-"About.HelpTutorials" = "Help & Tutorials";
-"About.ContactUs" = "Contact Us";
-"About.Legal" = "Legal";
-"About.TermsOfUse" = "Terms of Use";
-"About.PrivacyPolicy" = "Privacy Policy";
-"About.TechInfo" = "Tech Info";
+"About.deviceId" = "ID do dispositivo: %@";
+"About.Device" = "Dispositivo: %@";
+"About.OSVersion" = "Versão do SO: %@";
+"About.HelpCommunity" = "Ajuda & Comunidade";
+"About.WhatsNew" = "O que á de novo";
+"About.AnytypeCommunity" = "Comunidade Anytype";
+"About.HelpTutorials" = "Ajuda e Tutoriais";
+"About.ContactUs" = "Fale conosco";
+"About.Legal" = "Informações Legais";
+"About.TermsOfUse" = "Termos de uso";
+"About.PrivacyPolicy" = "Política de Privacidade";
+"About.TechInfo" = "Informação técnica";
 "About.Mail.Subject" = "Support request, Account ID %@";
 "About.Mail.Body" = "\n\nTechnical information\n%@";
 
 // MARK: - Cache
-"ClearCache.Success" = "Cache sucessfully cleared";
-"ClearCache.Error" = "Error, try again later";
+"ClearCache.Success" = "Cache limpo com sucesso";
+"ClearCache.Error" = "Erro, tente novamente mais tarde";
 
 // MARK: - Settings
 "Settings.TitleLegacy" = "Espaço Pessoal";
 "Settings.Title" = "Configurações";
 "Settings.SpaceName" = "Nome do espaço";
-"Settings.AccountAndAccess" = "Account and access";
+"Settings.AccountAndAccess" = "Conta e acesso";
 
 // MARK: - File Storage
-"FileStorage.Title" = "File storage";
-"FileStorage.Space.Title" = "Remote storage";
-"FileStorage.Space.Instruction" = "You can store up to %@ of your files on our encrypted backup node for free. If you reach the limit, files will be stored only locally.";
+"FileStorage.Title" = "Armazenamento de arquivos";
+"FileStorage.Space.Title" = "Armazenamento remoto";
+"FileStorage.Space.Instruction" = "Você pode armazenar até %@ de seus arquivos em nosso nó de backup criptografado gratuitamente. Se você atingir o limite, os arquivos serão armazenados apenas localmente.";
 "FileStorage.Space.Used" = "%@ of %@ used";
-"FileStorage.Space.GetMore" = "Get more space";
-"FileStorage.Space.Mail.Subject" = "Get more storage, account %@";
+"FileStorage.Space.GetMore" = "Obtenha mais espaço";
+"FileStorage.Space.Mail.Subject" = "Obtenha mais armazenamento, conta %@";
 "FileStorage.Space.Mail.Body" = "Hi, Anytype team. I am reaching out to request an increase in my file storage capacity as I have run out of storage. My current limits is %@. My account id is %@. Cheers, %@.";
-"FileStorage.Local.Title" = "Local storage";
+"FileStorage.Local.Title" = "Armazenamento local";
 "FileStorage.Local.Instruction" = "In order to save space on your local device, you can offload all your files to our encrypted backup node. The files will be loaded back when you open them.";
-"FileStorage.Local.Used" = "%@ used";
+"FileStorage.Local.Used" = "%@ usados";
 "FileStorage.OffloadTitle" = "Offload files";
-"FileStorage.ManageFiles" = "Manage files";
-"FileStorage.LimitError" = "You exceeded file limit upload";
+"FileStorage.ManageFiles" = "Gerenciar arquivos";
+"FileStorage.LimitError" = "Você excedeu o limite de upload";
 
 // MARK: - Files List
-"FilesList.Title" = "Synced files";
-"FilesList.ForceDelete.Title" = "Are you sure you want to permanently delete the files?";
+"FilesList.Title" = "Arquivos sincronizados";
+"FilesList.ForceDelete.Title" = "Tem certeza de que deseja excluir permanentemente os arquivos?";
 
 // MARK: - Widget object list
-"WidgetObjectList.ForceDelete.Message" = "You can’t undo this action.";
+"WidgetObjectList.ForceDelete.Message" = "Você não pode desfazer esta ação.";
 
 // MARK: - Cpear cache alert
-"ClearCacheAlert.Title" = "Are you sure?";
-"ClearCacheAlert.Description" = "All media files stored in Anytype will be deleted from your current device. They can be downloaded again from a backup node or another device.";
+"ClearCacheAlert.Title" = "Você tem certeza?";
+"ClearCacheAlert.Description" = "Todos os arquivos de mídia armazenados no Anytype serão excluídos do seu dispositivo atual. Eles podem ser baixados novamente de um nó de backup ou de outro dispositivo.";
 
 // MARK: - Spaces
-"Spaces.Accessibility.Public" = "Public";
-"Spaces.Accessibility.Private" = "Private";
+"Spaces.Accessibility.Public" = "Público";
+"Spaces.Accessibility.Private" = "Privado";
 
 // MARK: - Space Settings
-"SpaceSettings.Title" = "Space settings";
-"SpaceSettings.RemoteStorage" = "Remote storage";
-"SpaceSettings.Info" = "Space info";
+"SpaceSettings.Title" = "Configurações do espaço";
+"SpaceSettings.RemoteStorage" = "Armazenamento remoto";
+"SpaceSettings.Info" = "Informações do Espaço";
+"SpaceSettings.NetworkId" = "ID da rede";
 
 // MARK: - Space Create
-"SpaceCreate.Title" = "Create a space";
+"SpaceCreate.Title" = "Cria um Espaço";
 
 // MARK: - Sharing
-"Sharing.Navigation.title" = "Add to Anytype";
+"Sharing.Navigation.title" = "Adicionar ao Anytype";
 "Sharing.Navigation.LeftButton.Title" = "Cancelar";
 "Sharing.Navigation.RightButton.Title" = "Concluído";
 
-"Sharing.SaveAs" = "SAVE AS";
-"Sharing.AddTo" = "Add to";
+"Sharing.SaveAs" = "SALVAR COMO";
+"Sharing.AddTo" = "Adicionar à";
 "Sharing.LinkTo" = "Vincular a";
 
-"Sharing.URL.Bookmark" = "Bookmark object";
-"Sharing.URL.Text" = "Text block";
+"Sharing.URL.Bookmark" = "Objeto marcador";
+"Sharing.URL.Text" = "Bloco de texto";
 "Sharing.Text.NoteObject" = "Note object";
-"Sharing.Text.TextBlock" = "Text block";
+"Sharing.Text.TextBlock" = "Bloco de texto";
 
 // MARK: - Initial
 
-"Initial.UnstableMiddle.Title" = "Warning";
-"Initial.UnstableMiddle.Message" = "You launch app with a unstable middleware. Don't use your production account. Your account may be broken.";
-"Initial.UnstableMiddle.Title" = "Warning";
-"Initial.UnstableMiddle.Logout" = "Logout from current account";
-"Initial.UnstableMiddle.Continue" = "Continue with current account";
-"Initial.UnstableMiddle.WontUseProd" = "I won't be using my production account";
+"Initial.UnstableMiddle.Title" = "Aviso";
+"Initial.UnstableMiddle.Message" = "Você iniciou o aplicativo com um middleware instável. Não use sua conta de produção. Sua conta pode estar quebrada.";
+"Initial.UnstableMiddle.Title" = "Aviso";
+"Initial.UnstableMiddle.Logout" = "Sair da conta atual";
+"Initial.UnstableMiddle.Continue" = "Continuar com a conta atual";
+"Initial.UnstableMiddle.WontUseProd" = "Não usarei a minha conta de produção";

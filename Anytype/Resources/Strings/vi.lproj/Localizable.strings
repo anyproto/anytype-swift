@@ -803,6 +803,7 @@
 "SpaceSettings.Title" = "Space settings";
 "SpaceSettings.RemoteStorage" = "Bộ nhớ ngoài";
 "SpaceSettings.Info" = "Space info";
+"SpaceSettings.NetworkId" = "Network ID";
 
 // MARK: - Space Create
 "SpaceCreate.Title" = "Create a space";
