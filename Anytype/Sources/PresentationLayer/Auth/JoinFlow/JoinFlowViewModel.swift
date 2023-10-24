@@ -79,7 +79,7 @@ final class JoinFlowViewModel: ObservableObject, JoinFlowStepOutput {
             analyticsId: accountManager.account.info.analyticsId
         )
         if state.soul.isEmpty {
-            AnytypeAnalytics.instance().logSkipName()
+            AnytypeAnalytics.instance().logOnboardingSkipName()
         }
     }
 }
