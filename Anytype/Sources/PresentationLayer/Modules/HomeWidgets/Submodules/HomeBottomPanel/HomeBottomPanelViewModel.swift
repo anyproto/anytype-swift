@@ -14,8 +14,13 @@ final class HomeBottomPanelViewModel: ObservableObject {
     struct ImageButton: Hashable, Equatable {
         let image: Icon?
         let padding: Bool
+        let tip: Tip?
         @EquatableNoop var onTap: () -> Void
         @EquatableNoop var onLongTap: (() -> Void)?
+        
+        enum Tip {
+            case createLogTapObject
+        }
     }
     
     struct TexButton: Hashable, Equatable {
@@ -80,10 +85,10 @@ final class HomeBottomPanelViewModel: ObservableObject {
             ])
         } else {
             buttonState = .normal([
-                ImageButton(image: .asset(.Widget.search), padding: false, onTap: { [weak self] in
+                ImageButton(image: .asset(.Widget.search), padding: false, tip: nil, onTap: { [weak self] in
                     self?.output?.onSearchSelected()
                 }, onLongTap: nil),
-                ImageButton(image: .asset(.Widget.add), padding: false, onTap: { [weak self] in
+                ImageButton(image: .asset(.Widget.add), padding: false, tip: .createLogTapObject, onTap: { [weak self] in
                     UISelectionFeedbackGenerator().selectionChanged()
                     self?.handleCreateObject()
                 }, onLongTap: { [weak self] in
@@ -92,7 +97,7 @@ final class HomeBottomPanelViewModel: ObservableObject {
                         self?.output?.onCreateObjectWithTypeSelected()
                     }
                 }),
-                ImageButton(image: profileDetails?.objectIconImage, padding: true, onTap: { [weak self] in
+                ImageButton(image: profileDetails?.objectIconImage, padding: true, tip: nil, onTap: { [weak self] in
                     self?.output?.onProfileSelected()
                 }, onLongTap: nil)
             ])

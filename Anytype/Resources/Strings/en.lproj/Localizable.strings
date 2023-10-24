@@ -829,3 +829,7 @@
 "Initial.UnstableMiddle.Logout" = "Logout from current account";
 "Initial.UnstableMiddle.Continue" = "Continue with current account";
 "Initial.UnstableMiddle.WontUseProd" = "I won't be using my production account";
+
+// MARK: - Create tip
+"LongTapCreateTip.Title" = "Crete Objects with specific Type";
+"LongTapCreateTip.Message" = "Long tap on Create Object button to open menu with types";

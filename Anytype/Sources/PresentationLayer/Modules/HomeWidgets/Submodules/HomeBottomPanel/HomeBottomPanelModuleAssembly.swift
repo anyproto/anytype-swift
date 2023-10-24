@@ -21,13 +21,12 @@ final class HomeBottomPanelModuleAssembly: HomeBottomPanelModuleAssemblyProtocol
     
     @MainActor
     func make(info: AccountInfo, stateManager: HomeWidgetsStateManagerProtocol, output: HomeBottomPanelModuleOutput?) -> AnyView {
-        let model = HomeBottomPanelViewModel(
+        return HomeBottomPanelView(model: HomeBottomPanelViewModel(
             info: info,
-            subscriptionService: serviceLocator.singleObjectSubscriptionService(),
+            subscriptionService: self.serviceLocator.singleObjectSubscriptionService(),
             stateManager: stateManager,
-            dashboardService: serviceLocator.dashboardService(),
+            dashboardService: self.serviceLocator.dashboardService(),
             output: output
-        )
-        return HomeBottomPanelView(model: model).eraseToAnyView()
+        )).eraseToAnyView()
     }
 }

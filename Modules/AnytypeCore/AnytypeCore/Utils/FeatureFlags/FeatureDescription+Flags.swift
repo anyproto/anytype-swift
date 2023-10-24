@@ -87,4 +87,18 @@ public extension FeatureDescription {
         defaultValue: false,
         debugValue: CoreEnvironment.isSimulator
     )
+    
+    static let resetTips = FeatureDescription(
+        title: "Reset tips 💭 on launch",
+        type: .debug,
+        defaultValue: false,
+        debugValue: false
+    )
+    
+    static let showAllTips = FeatureDescription(
+        title: "Show all tips 💭 for testing (ignore rules)",
+        type: .debug,
+        defaultValue: false,
+        debugValue: false
+    )
 }

@@ -57,6 +57,9 @@ final class BlockActionHandler: BlockActionHandlerProtocol {
     }
     
     func setObjectType(type: ObjectType) async throws {
+        if #available(iOS 17, *) {
+            await HomeCreateObjectTip.objectChangeType.donate()
+        }
         try await service.setObjectType(type: type)
     }
 

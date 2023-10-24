@@ -1258,6 +1258,12 @@ internal enum Loc {
     /// Paste as text
     internal static let text = Loc.tr("Localizable", "LinkPaste.text", fallback: "Paste as text")
   }
+  internal enum LongTapCreateTip {
+    /// Long tap on Create Object button to open menu with types
+    internal static let message = Loc.tr("Localizable", "LongTapCreateTip.Message", fallback: "Long tap on Create Object button to open menu with types")
+    /// Crete Objects with specific Type
+    internal static let title = Loc.tr("Localizable", "LongTapCreateTip.Title", fallback: "Crete Objects with specific Type")
+  }
   internal enum Mention {
     internal enum Subtitle {
       /// Object
