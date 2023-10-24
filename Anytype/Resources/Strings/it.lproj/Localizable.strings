@@ -97,7 +97,7 @@
 "Callout" = "Richiamo";
 "Toggle empty. Tap to create block." = "Interruttore vuoto. Tocca per creare un blocco.";
 "Loading, please wait" = "Loading, please wait";
-"Done" = "Done";
+"Done" = "Fatto";
 "Style" = "Stile";
 "Color" = "Colore";
 "Background" = "Sfondo";
@@ -141,12 +141,12 @@
 "Green background" = "Sfondo verde";
 "Create new object" = "Create new object";
 "Cancel" = "Annulla";
-"Paste or type URL" = "Paste or type URL";
+"Paste or type URL" = "Incolla o digita URL";
 "No items match filter" = "Nessun elemento corrisponde al filtro";
 "Unsupported block" = "Blocco non supportato";
 "Name" = "Nome";
 "Description" = "Descrizione";
-"Paste processing..." = "Paste processing...";
+"Paste processing..." = "Contenuto in elaborazione...";
 "Anytype Library" = "Libreria di Anytype";
 "Copied" = "Copiato";
 
@@ -165,7 +165,7 @@
 // Keychain screen
 "Keychain.Recovery phrase" = "Frase di recupero";
 "Keychain.Recovery phrase copied to clipboard" = "Frase di recupero copiata";
-"Keychain.Recovery phrase description" = "You will need it to sign in. Keep it in a safe place. If you lose it, you can no longer access your account.";
+"Keychain.Recovery phrase description" = "Ne avrai bisogno per accedere. Conservala in un luogo sicuro. In caso di smarrimento, perderai l'accesso al tuo account.";
 "Keychain.Save keychain alert part 1" = "If you lose the recovery phrase and get logged out you will not be able to ";
 "Keychain.Save keychain alert part 2" = "ever access your data again";
 "Keychain.Save keychain alert part 3" = ".\nSave this recovery phrase outside of Anytype for data recovery.\nWe recommend using a secure data vault, password manager or piece of paper in the safe.";
@@ -203,7 +203,7 @@
 // Auth - Join flow
 
 "Auth.JoinFlow.Key.Title" = "Salva la tua Frase di Recupero";
-"Auth.JoinFlow.Key.Description" = "It’s a novel way of authentication that gives you full ownership over your account and data.";
+"Auth.JoinFlow.Key.Description" = "È un metodo di autenticazione innovativo che ti garantisce la totale proprietà del tuo account e dei tuoi dati.";
 "Auth.JoinFlow.Key.TextField.Placeholder" = "Digita la frase di recupero";
 "Auth.JoinFlow.Key.Button.Show.Title" = "Mostra Frase di Recupero";
 "Auth.JoinFlow.Key.Button.Saved.Title" = "Vai all'app";
@@ -810,7 +810,7 @@
 // MARK: - Sharing
 "Sharing.Navigation.title" = "Add to Anytype";
 "Sharing.Navigation.LeftButton.Title" = "Annulla";
-"Sharing.Navigation.RightButton.Title" = "Done";
+"Sharing.Navigation.RightButton.Title" = "Fatto";
 
 "Sharing.SaveAs" = "SAVE AS";
 "Sharing.AddTo" = "Add to";
