@@ -30,14 +30,16 @@ struct SetObjectCreationSettingsView: View {
     
     private var navigationButtons: some View {
         HStack(spacing: 0) {
-            Button {
-                model.isEditingState.toggle()
-            } label: {
-                AnytypeText(
-                    model.isEditingState ? Loc.done : Loc.edit,
-                    style: .bodyRegular,
-                    color: .Button.active
-                )
+            if model.templates.count > 2 {
+                Button {
+                    model.isEditingState.toggle()
+                } label: {
+                    AnytypeText(
+                        model.isEditingState ? Loc.done : Loc.edit,
+                        style: .bodyRegular,
+                        color: .Button.active
+                    )
+                }
             }
             Spacer()
             Button {
