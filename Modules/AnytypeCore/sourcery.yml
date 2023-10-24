@@ -3,4 +3,4 @@ sources:
 templates:
   - ./SourceryTemplates/Toggles.stencil
 output:
-  ./AnytypeCore/Utils/FeatureFlags/Generated/FeatureFlags+Flags.swift
+  ${DERIVED_SOURCES_DIR}/FeatureFlags+Flags.swift

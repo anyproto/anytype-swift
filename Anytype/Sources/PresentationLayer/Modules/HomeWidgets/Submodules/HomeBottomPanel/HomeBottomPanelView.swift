@@ -3,7 +3,7 @@ import SwiftUI
 
 struct HomeBottomPanelView: View {
     
-    @ObservedObject var model: HomeBottomPanelViewModel
+    @StateObject var model: HomeBottomPanelViewModel
     
     var body: some View {
         VStack(spacing: 0) {
@@ -38,6 +38,12 @@ struct HomeBottomPanelView: View {
                 }
                 .onLongPressGesture {
                     button.onLongTap?()
+                }
+                .ifLet(button.tip) { view, tip in
+                    switch tip {
+                    case .createLogTapObject:
+                        view.popoverHomeCreateObjectTip()
+                    }
                 }
             }
         }

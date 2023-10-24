@@ -1,6 +1,7 @@
 import SwiftUI
 import AnytypeCore
 import Logger
+import TipKit
 
 struct DebugMenu: View {
     @StateObject private var model = DebugMenuViewModel()
