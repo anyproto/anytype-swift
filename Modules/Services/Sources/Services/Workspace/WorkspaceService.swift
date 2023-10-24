@@ -9,6 +9,7 @@ public protocol WorkspaceServiceProtocol {
     func deleteWorkspace(objectId: String) async throws
     func workspaceOpen(spaceId: String) async throws -> AccountInfo
     func workspaceSetDetails(spaceId: String, details: [WorkspaceSetDetails]) async throws
+    func deleteSpace(spaceId: String) async throws
 }
 
 public final class WorkspaceService: WorkspaceServiceProtocol {
@@ -63,6 +64,12 @@ public final class WorkspaceService: WorkspaceServiceProtocol {
             for detail in details {
                 $0.details.fields[detail.key] = detail.value
             }
+        }).invoke()
+    }
+    
+    public func deleteSpace(spaceId: String) async throws {
+        try await ClientCommands.spaceDelete(.with {
+            $0.spaceID = spaceId
         }).invoke()
     }
 }

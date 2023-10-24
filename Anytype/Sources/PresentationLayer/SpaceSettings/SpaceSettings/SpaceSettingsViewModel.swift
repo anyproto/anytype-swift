@@ -21,6 +21,7 @@ final class SpaceSettingsViewModel: ObservableObject {
     private var subscriptions: [AnyCancellable] = []
     private var dataLoaded: Bool = false
     private let subSpaceId = "SpaceSettingsViewModel-Space-\(UUID())"
+    private var spaceView: SpaceView?
     
     @Published var spaceName: String = ""
     @Published var spaceType: String = ""
@@ -28,6 +29,8 @@ final class SpaceSettingsViewModel: ObservableObject {
     @Published var profileIcon: Icon = .asset(.SettingsOld.accountAndData)
     @Published var info = [SettingsInfoModel]()
     @Published var snackBarData = ToastBarData.empty
+    @Published var showSpaceDeleteAlert = false
+    @Published var dismiss: Bool = false
     
     init(
         activeWorkspaceStorage: ActiveWorkpaceStorageProtocol,
@@ -60,6 +63,18 @@ final class SpaceSettingsViewModel: ObservableObject {
         output?.onPersonalizationSelected()
     }
     
+    func onDeleteTap() {
+        showSpaceDeleteAlert.toggle()
+    }
+    
+    func onDeleteConfirmationTap() {
+        guard let spaceView else { return }
+        Task {
+            try await workspaceService.deleteSpace(spaceId: spaceView.targetSpaceId)
+            dismiss.toggle()
+        }
+    }
+    
     // MARK: - Private
     
     private func setupSubscription() async {
@@ -73,6 +88,7 @@ final class SpaceSettingsViewModel: ObservableObject {
     }
     
     private func handleSpaceDetails(details: SpaceView) {
+        spaceView = details
         spaceIcon = details.objectIconImage
         spaceType = details.spaceAccessibility?.name ?? ""
         buildInfoBlock(details: details)

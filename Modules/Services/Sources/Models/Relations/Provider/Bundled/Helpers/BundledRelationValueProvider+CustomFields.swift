@@ -68,4 +68,9 @@ extension BundledRelationsValueProvider {
     public var uniqueKeyValue: ObjectTypeUniqueKey {
         return ObjectTypeUniqueKey(value: uniqueKey)
     }
+    
+    public var spaceAccountStatusMiddlewareValue: Anytype_Model_SpaceStatus? {
+        guard let spaceAccountStatus else { return nil }
+        return Anytype_Model_SpaceStatus(rawValue: spaceAccountStatus)
+    }
 }
