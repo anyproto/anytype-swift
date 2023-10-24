@@ -115,15 +115,15 @@
 "Paste" = "Paste";
 "Move" = "Flytta";
 "Move to" = "Flytta till";
-"Back" = "Back";
+"Back" = "Tillbaka";
 "File block subtitle" = "Store file in original state";
 "Picture block subtitle" = "Upload and enrich the page with image";
 "Video block subtitle" = "Upload playable video";
 "Bookmark block subtitle" = "Save your favorite link with summary";
 "Code block subtitle" = "Capture code snippet";
-"Align right" = "Align right";
-"Align left" = "Align left";
-"Align center" = "Align center";
+"Align right" = "Högerjustera";
+"Align left" = "Vänsterjustera";
+"Align center" = "Centrera";
 "Black" = "Svart";
 "Amber" = "Amber";
 "Red" = "Röd";
@@ -171,7 +171,7 @@
 "Keychain.Save keychain alert part 3" = ".\nSave this recovery phrase outside of Anytype for data recovery.\nWe recommend using a secure data vault, password manager or piece of paper in the safe.";
 "Keychain.Don’t forget to save your recovery phrase" = "Glöm inte att spara din återställningsfras";
 "Keychain.Show and copy phrase" = "Visa och kopiera fras";
-"Keychain.Have you backed up your recovery phrase?" = "Have you backed up your recovery phrase?";
+"Keychain.Have you backed up your recovery phrase?" = "Har du säkerhetskopierat din återställningsfras?";
 "Keychain.Error.String to Data conversion error" = "String to Data conversion error";
 "Keychain.Error.Data to String conversion error" = "Data to String conversion error";
 "Keychain.Error.Unknown Keychain Error" = "Unknown Keychain Error";
@@ -179,12 +179,12 @@
 
 // Auth
 "Sign up" = "Registrera dig";
-"Login" = "Login";
+"Login" = "Logga in";
 "Create" = "Skapa";
 "Scan QR code" = "Skanna QR-kod";
 "Auth.CameraPermissionTitle" = "Please allow access";
 "Restore secret phrase from keychain" = "Restore Recovery Phrase from the keychain";
-"Auth.LogIn" = "Jag har redan en";
+"Auth.LogIn" = "I already have one";
 "Auth.Join" = "Generate new account";
 "Auth.Welcome.Subtitle" = "Anytype är din trygga plats där du kan skriva, planera, tänka och organisera allt som är viktigt för dig.";
 "Auth.Caption.Privacy.Text" = "By continuing you agree to [Terms of Use](%@) and [Privacy Policy](%@)";
@@ -217,7 +217,7 @@
 "Auth.JoinFlow.Key.ReadMore.Option2.Title" = "Whomever knows Recovery Phrase, owns the account. **At this moment, you are the only person in the world who knows it.**";
 "Auth.JoinFlow.Key.ReadMore.Option3.Title" = "That's why it's essential to keep Recovery Phrase safe. As the sole owner, nobody can help you if it's lost.";
 "Auth.JoinFlow.Key.ReadMore.Instruction.Title" = "How to save my phrase?";
-"Auth.JoinFlow.Key.ReadMore.Instruction.Option1.Title" = "The easiest way to store your Recovery Phrase is to save it in your password manager.";
+"Auth.JoinFlow.Key.ReadMore.Instruction.Option1.Title" = "Det enklaste sättet att lagra din återställningsfras är att spara den i din lösenordshanterare.";
 "Auth.JoinFlow.Key.ReadMore.Instruction.Option2.Title" = "The most secure way is to write it down on paper and keep it offline, in a safe and secure place.";
 
 "Auth.JoinFlow.Soul.Title" = "Ange ditt namn";
@@ -232,7 +232,7 @@
 "Auth.LoginFlow.Use.Keychain.Title" = "Use keychain";
 "Auth.LoginFlow.Or" = "ELLER";
 "Auth.LoginFlow.Textfield.Placeholder" = "Ange din återställningsfras";
-"Auth.LoginFlow.Enter.Button.Title" = "Login";
+"Auth.LoginFlow.Enter.Button.Title" = "Logga in";
 "Auth.LoginFlow.Entering.Void.Title" = "Entering the Void";
 
 // Object settings
@@ -310,7 +310,7 @@
 "TemplateSelection.Available.Title" = "Denna typ har %d mallar";
 "TemplatePicker.ChooseTemplate" = "Välj mall";
 "TemplatePicker.Buttons.UseTemplate" = "Använd mall";
-"TemplateSelection.SelectTemplate" = "Select template";
+"TemplateSelection.SelectTemplate" = "Välj mall";
 "TemplateSelection.blankTemplate" = "Blank";
 "TemplateSelection.Template.Subtitle" = "Mall";
 "TemplateSelection.ObjectType.Subtitle" = "Objekttyp";
@@ -320,7 +320,7 @@
 "TemplateOptions.Alert.Delete" = "Radera";
 
 "TemplateEditing.Title" = "Redigera mall";
-"TemplateEditing.SelectButtonTitle" = "Select template";
+"TemplateEditing.SelectButtonTitle" = "Välj mall";
 
 "Templates.Popup.WasAddedTo" = "New template was added to the type";
 "Templates.Popup.Duplicated" = "The template was duplicated";
@@ -396,7 +396,7 @@
 "EditSet.Popup.Filter.Date.Option.LastMonth" = "Last month";
 "EditSet.Popup.Filter.Date.Option.CurrentMonth" = "Current month";
 "EditSet.Popup.Filter.Date.Option.NextMonth" = "Nästa månad";
-"EditSet.Popup.Filter.Date.Option.NumberOfDaysAgo" = "Number of days ago";
+"EditSet.Popup.Filter.Date.Option.NumberOfDaysAgo" = "Antal dagar sedan";
 "EditSet.Popup.Filter.Date.Option.NumberOfDaysFromNow" = "Number of days from now";
 "EditSet.Popup.Filter.Date.Option.ExactDate" = "Exact date";
 
@@ -479,11 +479,11 @@
 "Sky background" = "Sky background";
 "Yellow background" = "Yellow background";
 "Enter value" = "Ange värde";
-"Select object" = "Select object";
+"Select object" = "Välj objekt";
 "Select file" = "Välj fil";
 "Select tag" = "Välj tagg";
 "Select status" = "Select status";
-"Select date" = "Select date";
+"Select date" = "Välj datum";
 "Add email" = "Add email";
 "Add link" = "Lägg till länk";
 "Enter number" = "Ange nummer";
@@ -513,7 +513,7 @@
 "Mode" = "Mode";
 "copied to clipboard" = "%@ copied to clipboard";
 "Access to secret phrase from keychain" = "Access to secret phrase from keychain";
-"Back up your recovery phrase" = "Back up your recovery phrase";
+"Back up your recovery phrase" = "Säkerhetskopiera din återställningsfras";
 "Account" = "Konto";
 "Access" = "Access";
 "Back up phrase" = "Back up phrase";
@@ -560,7 +560,7 @@
 "Upload playable audio" = "Upload playable audio";
 "Code snippet" = "Code snippet";
 "Bookmark" = "Bookmark";
-"Audio" = "Audio";
+"Audio" = "Ljud";
 "Video" = "Video";
 "Picture" = "Bild";
 "File" = "Fil";
