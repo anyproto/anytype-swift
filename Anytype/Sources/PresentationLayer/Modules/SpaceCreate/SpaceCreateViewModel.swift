@@ -36,7 +36,7 @@ final class SpaceCreateViewModel: ObservableObject {
             defer {
                 createLoadingState = false
             }
-            let spaceId = try await workspaceService.createWorkspace(name: spaceName, gradient: spaceGradient, accessibility: spaceType)
+            let spaceId = try await workspaceService.createSpace(name: spaceName, gradient: spaceGradient, accessibility: spaceType)
             try await activeWorkspaceStorage.setActiveSpace(spaceId: spaceId)
             dismiss.toggle()
         }
