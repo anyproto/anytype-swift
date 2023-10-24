@@ -40,6 +40,7 @@ final class EditorPageController: UIViewController {
         recognizer.cancelsTouchesInView = false
         return recognizer
     }()
+    private var shakeGestureStartDate: Date?
 
     @Published var offsetDidChanged: CGPoint = .zero
 
@@ -225,9 +226,20 @@ final class EditorPageController: UIViewController {
         super.motionBegan(motion, with: event)
 
         if motion == .motionShake {
-            viewModel.shakeMotionDidAppear()
-
-            UIImpactFeedbackGenerator(style: .heavy).impactOccurred()
+            shakeGestureStartDate = Date()
+        }
+    }
+    
+    override func motionEnded(_ motion: UIEvent.EventSubtype, with event: UIEvent?) {
+        if motion == .motionShake {
+            if let startDate = shakeGestureStartDate {
+                defer { shakeGestureStartDate = nil }
+                let timeInterval = Date().timeIntervalSince(startDate)
+                if timeInterval.rounded() >= Constants.shakeUndoTriggerDuration {
+                    viewModel.shakeMotionDidAppear()
+                    UIImpactFeedbackGenerator(style: .heavy).impactOccurred()
+                }
+            }
         }
     }
 
@@ -647,5 +659,6 @@ extension UICollectionView {
 
 private enum Constants {
     static let selectingTextThreshold: CGFloat = 30
+    static let shakeUndoTriggerDuration: CGFloat = 1
 }
 
