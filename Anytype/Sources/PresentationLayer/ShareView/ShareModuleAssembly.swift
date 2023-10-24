@@ -6,7 +6,8 @@ import AnytypeCore
 protocol ShareModuleAssemblyProtocol {
     @MainActor
     func make(
-        onSearch: @escaping RoutingAction<(String, [DetailsLayout], (ObjectSearchData) -> Void)>,
+        onSearch: @escaping RoutingAction<SearchModuleModel>,
+        onSpaceSearch: @escaping RoutingAction<(SpaceView) -> Void>,
         onClose: @escaping RoutingAction<Void>
     ) -> AnyView?
 }
@@ -21,7 +22,8 @@ final class ShareModuleAssembly: ShareModuleAssemblyProtocol {
     // MARK: - ShareModuleAssemblyProtocol
     @MainActor
     func make(
-        onSearch: @escaping RoutingAction<(String, [DetailsLayout], (ObjectSearchData) -> Void)>,
+        onSearch: @escaping RoutingAction<SearchModuleModel>,
+        onSpaceSearch: @escaping RoutingAction<(SpaceView) -> Void>,
         onClose: @escaping RoutingAction<Void>
     ) -> AnyView? {
         let sharedContent: [SharedContent]
@@ -36,9 +38,17 @@ final class ShareModuleAssembly: ShareModuleAssemblyProtocol {
         if sharedContent.count == 1, let content = sharedContent.first {
             switch content {
             case .text(let attributedString):
-                contentViewModel = TextShareViewModel(attributedText: attributedString, onDocumentSelection: onSearch)
+                contentViewModel = TextShareViewModel(
+                    attributedText: attributedString,
+                    onDocumentSelection: onSearch,
+                    onSpaceSelection: onSpaceSearch
+                )
             case .url(let url):
-                contentViewModel = URLShareViewModel(url: url, onDocumentSelection: onSearch)
+                contentViewModel = URLShareViewModel(
+                    url: url,
+                    onDocumentSelection: onSearch,
+                    onSpaceSelection: onSpaceSearch
+                )
             case .image:
                 anytypeAssertionFailure("Images still are not supported")
                 return nil
@@ -48,6 +58,12 @@ final class ShareModuleAssembly: ShareModuleAssemblyProtocol {
             return nil
         }
         
+        contentViewModel.selectedSpace = serviceLocator
+            .workspaceStorage()
+            .workspaces
+            .first(where: {
+                $0.targetSpaceId == serviceLocator.activeWorkspaceStorage().workspaceInfo.accountSpaceId
+        })
         let viewModel = ShareViewModel(
             contentViewModel: contentViewModel,
             interactor: serviceLocator.sharedContentInteractor,

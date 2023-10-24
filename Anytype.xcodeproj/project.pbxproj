@@ -1353,6 +1353,7 @@
 		868464692A97739E00B9E56A /* ShareViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 868464682A97739E00B9E56A /* ShareViewModel.swift */; };
 		8684646B2A97747100B9E56A /* SharedContentManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8684646A2A97747100B9E56A /* SharedContentManager.swift */; };
 		8684646C2A97813700B9E56A /* SharedContentManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8684646A2A97747100B9E56A /* SharedContentManager.swift */; };
+		868572512AE6A4CD00F0A747 /* SpaceSearchViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 868572502AE6A4CD00F0A747 /* SpaceSearchViewModel.swift */; };
 		86947EFF2A56B91D00CD7335 /* XCTests+Eventually.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86947EFE2A56B91D00CD7335 /* XCTests+Eventually.swift */; };
 		869B8DBA2AA7680400636B49 /* AnytypeInlinePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 869B8DB92AA7680400636B49 /* AnytypeInlinePicker.swift */; };
 		86A16AA62A9CF1CC009F27CD /* ShareModuleAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86A16AA52A9CF1CC009F27CD /* ShareModuleAssembly.swift */; };
@@ -2946,6 +2947,7 @@
 		867F5E112A962EEF00129856 /* ShareView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShareView.swift; sourceTree = "<group>"; };
 		868464682A97739E00B9E56A /* ShareViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShareViewModel.swift; sourceTree = "<group>"; };
 		8684646A2A97747100B9E56A /* SharedContentManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SharedContentManager.swift; sourceTree = "<group>"; };
+		868572502AE6A4CD00F0A747 /* SpaceSearchViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpaceSearchViewModel.swift; sourceTree = "<group>"; };
 		86947EFE2A56B91D00CD7335 /* XCTests+Eventually.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "XCTests+Eventually.swift"; path = "AnyTypeTests/Extensions/XCTests+Eventually.swift"; sourceTree = SOURCE_ROOT; };
 		869B8DB92AA7680400636B49 /* AnytypeInlinePicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnytypeInlinePicker.swift; sourceTree = "<group>"; };
 		86A16AA52A9CF1CC009F27CD /* ShareModuleAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShareModuleAssembly.swift; sourceTree = "<group>"; };
@@ -4161,6 +4163,7 @@
 		1247BC6B27FDD0B8005F2DB4 /* InternalViewModels */ = {
 			isa = PBXGroup;
 			children = (
+				8685724F2AE6A4BC00F0A747 /* SpaceSearchViewModel */,
 				2AE5C71B29B7294F00A92C12 /* WidgetSourceSearchViewModel */,
 				1244793C27DC626B00581174 /* NewInternalSearchViewModelProtocol.swift */,
 				125683D827DF1BEE003A8251 /* ObjectsSearchViewModel */,
@@ -8686,6 +8689,14 @@
 			path = ShareView;
 			sourceTree = "<group>";
 		};
+		8685724F2AE6A4BC00F0A747 /* SpaceSearchViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				868572502AE6A4CD00F0A747 /* SpaceSearchViewModel.swift */,
+			);
+			path = SpaceSearchViewModel;
+			sourceTree = "<group>";
+		};
 		86947EFD2A56B90E00CD7335 /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
@@ -10838,6 +10849,7 @@
 				2ECB34132A97AC3500E0F9BB /* SetTextViewModuleAssembly.swift in Sources */,
 				C93B2D2F274E41390008544D /* CustomStateKeys.swift in Sources */,
 				2A2C3311289294B8008BC326 /* ModulesDI.swift in Sources */,
+				868572512AE6A4CD00F0A747 /* SpaceSearchViewModel.swift in Sources */,
 				2AFFFB9B292778B700A487E1 /* ObjectSettingModuleAssembly.swift in Sources */,
 				12928C8C27BD3C0B00CE94C3 /* IntrinsicPopupLayout.swift in Sources */,
 				538F1728272C126F009528E7 /* SearchViewModelProtocol.swift in Sources */,

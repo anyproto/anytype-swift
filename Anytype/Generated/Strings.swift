@@ -1593,6 +1593,8 @@ internal enum Loc {
     internal static let linkTo = Loc.tr("Localizable", "Sharing.LinkTo", fallback: "Link to")
     /// SAVE AS
     internal static let saveAs = Loc.tr("Localizable", "Sharing.SaveAs", fallback: "SAVE AS")
+    /// Space
+    internal static let selectSpace = Loc.tr("Localizable", "Sharing.SelectSpace", fallback: "Space")
     internal enum Navigation {
       /// Add to Anytype
       internal static let title = Loc.tr("Localizable", "Sharing.Navigation.title", fallback: "Add to Anytype")
@@ -1682,6 +1684,10 @@ internal enum Loc {
       internal static let `private` = Loc.tr("Localizable", "Spaces.Accessibility.Private", fallback: "Private")
       /// Public
       internal static let `public` = Loc.tr("Localizable", "Spaces.Accessibility.Public", fallback: "Public")
+    }
+    internal enum Search {
+      /// Search spaces
+      internal static let title = Loc.tr("Localizable", "Spaces.Search.Title", fallback: "Search spaces")
     }
   }
   internal enum StyleMenu {

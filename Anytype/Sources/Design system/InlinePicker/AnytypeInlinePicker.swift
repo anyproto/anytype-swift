@@ -5,13 +5,12 @@ public protocol TitleProvider {
 }
 
 public struct AnytypeInlinePicker<T> : View where T: (Identifiable & Equatable & TitleProvider & Hashable) {
-    @State private var initialValue: T?
+    @Binding private var initialValue: T
     private var allValues: [T]
-    private let selectionHandler: (T) -> Void
     
-    public init(allValues: [T], selectionHandler: @escaping (T) -> Void) {
+    public init(initialValue: Binding<T>, allValues: [T]) {
+        self._initialValue = initialValue
         self.allValues = allValues
-        self.selectionHandler = selectionHandler
     }
     
     public var body: some View {
@@ -19,7 +18,6 @@ public struct AnytypeInlinePicker<T> : View where T: (Identifiable & Equatable &
             ForEach(allValues, id: \.self) { value in
                 Button {
                     initialValue = value
-                    selectionHandler(value)
                 } label: {
                     buildItem(value: value)
                 }

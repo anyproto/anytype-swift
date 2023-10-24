@@ -2,6 +2,10 @@ import Foundation
 import Services
 
 enum SharedContentSaveOption {
+    enum SpaceDestination<T> {
+        case space(space: SpaceView, destination: T)
+    }
+    
     enum URLDestinationOption {
         case asObject(named: String?)
         case target(ObjectDetails)
@@ -18,6 +22,6 @@ enum SharedContentSaveOption {
     }
     
     case unavailable
-    case url(url: URL, savingOption: URLSavingOption)
-    case text(string: NSAttributedString, destination: TextDestinationOption)
+    case url(url: URL, savingOption: SpaceDestination<URLSavingOption>)
+    case text(string: NSAttributedString, destination: SpaceDestination<TextDestinationOption>)
 }
