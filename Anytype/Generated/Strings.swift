@@ -612,8 +612,8 @@ internal enum Loc {
     internal enum CameraPermissions {
       /// Anytype needs access to your camera to scan QR codes.
       /// 
-      /// Please, go to your device's Settings -> Privacy -> Camera and set Anytype to ON
-      internal static let goToSettings = Loc.tr("Localizable", "Alert.CameraPermissions.GoToSettings", fallback: "Anytype needs access to your camera to scan QR codes.\n\nPlease, go to your device's Settings -> Privacy -> Camera and set Anytype to ON")
+      /// Please, go to your device's Settings -> Anytype and set Camera to ON
+      internal static let goToSettings = Loc.tr("Localizable", "Alert.CameraPermissions.GoToSettings", fallback: "Anytype needs access to your camera to scan QR codes.\n\nPlease, go to your device's Settings -> Anytype and set Camera to ON")
       /// Settings
       internal static let settings = Loc.tr("Localizable", "Alert.CameraPermissions.Settings", fallback: "Settings")
     }
@@ -1385,8 +1385,8 @@ internal enum Loc {
     internal static let copyEmail = Loc.tr("Localizable", "RelationAction.CopyEmail", fallback: "Copy email")
     /// Copy link
     internal static let copyLink = Loc.tr("Localizable", "RelationAction.CopyLink", fallback: "Copy link")
-    /// Copy phone numbler
-    internal static let copyPhone = Loc.tr("Localizable", "RelationAction.CopyPhone", fallback: "Copy phone numbler")
+    /// Copy phone number
+    internal static let copyPhone = Loc.tr("Localizable", "RelationAction.CopyPhone", fallback: "Copy phone number")
     /// Open link
     internal static let openLink = Loc.tr("Localizable", "RelationAction.OpenLink", fallback: "Open link")
     /// Reload object content
