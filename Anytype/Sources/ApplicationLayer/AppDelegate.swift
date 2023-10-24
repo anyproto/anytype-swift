@@ -1,6 +1,5 @@
 import UIKit
 import AnytypeCore
-import TipKit
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -23,7 +22,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         ServiceLocator.shared.accountEventHandler().startSubscription()
         ServiceLocator.shared.fileErrorEventHandler().startSubscription()
         ServiceLocator.shared.deviceSceneStateListener().start()
-        
+
         return true
     }
 
