@@ -38,7 +38,7 @@ struct BlockLinkState: Hashable, Equatable {
         }
 
         self.init(
-            title: details.name,
+            title: details.title.trimmed(numberOfCharacters: Constants.maxTitleLength),
             cardStyle: blockLink.appearance.cardStyle,
             description: description,
             icon: details.objectIconImage,
@@ -81,5 +81,11 @@ struct BlockLinkState: Hashable, Equatable {
         self.documentCover = documentCover
         self.objectLayout = objectLayout
         self.screenData = screenData
+    }
+}
+
+private extension BlockLinkState {
+    enum Constants {
+        static let maxTitleLength = 30
     }
 }
