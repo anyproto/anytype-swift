@@ -28,3 +28,6 @@ rm -rf ${PROJECT_DIR}/Dependencies/Middleware/*
 mkdir -p ${PROJECT_DIR}/Dependencies/Middleware
 tar xzf lib.gz -C ${PROJECT_DIR}/Dependencies/Middleware
 rm lib.gz
+
+rm -rf ${PROJECT_DIR}/Modules/ProtobufMessages/Sources/Protocol/*
+cp -r ${PROJECT_DIR}/Dependencies/Middleware/protobuf/*.swift ${PROJECT_DIR}/Modules/ProtobufMessages/Sources/Protocol
