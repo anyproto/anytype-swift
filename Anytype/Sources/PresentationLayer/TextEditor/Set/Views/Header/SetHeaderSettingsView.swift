@@ -53,9 +53,9 @@ struct SetHeaderSettingsView: View {
             }
             .disabled(!model.isActive)
             Rectangle()
-                .fill(Color.Additional.separator)
+                .fill(Color.clear)
                 .frame(width: 1, height: 28)
-                .background(Color.Button.button)
+                .background(Color.Additional.separator)
             StandardButton(.image(.X18.listArrow), style: .primaryXSmall, corners: [.topRight, .bottomRight]) {
                 UISelectionFeedbackGenerator().selectionChanged()
                 model.onSecondaryCreateTap()
