@@ -62,7 +62,7 @@
 "BlockLink.PreviewSettings.Layout.Text.Title" = "Текст";
 
 // MARK: - Settings
-"Settings.Title" = "Особистий простір";
+"Settings.Title" = "Налаштування";
 "Settings.SpaceName" = "Назва простору";
 
 // MARK: - Object
@@ -227,7 +227,7 @@
 
 "Auth.JoinFlow.Creating.Soul.Title" = "Створення нового облікового запису";
 "Auth.JoinFlow.Setting.Space.Title" = "Налаштування вашого особистого простору";
-"Auth.JoinFlow.Personal.Space.Title" = "Особистий простір";
+"Auth.JoinFlow.Personal.Space.Title" = "Налаштування";
 
 // Auth - Login flow
 "Auth.LoginFlow.Use.Keychain.Title" = "Використотати в'язку ключів";
@@ -321,7 +321,6 @@
 "TemplateOptions.Alert.Delete" = "Видалити";
 
 "TemplateEditing.Title" = "Редагувати шаблон";
-"TemplateEditing.SelectButtonTitle" = "Обрати шаблон";
 
 "Templates.Popup.WasAddedTo" = "Новий шаблон додано до типу";
 "Templates.Popup.Duplicated" = "Шаблон було продубльовано";
@@ -765,7 +764,7 @@
 "ClearCache.Error" = "Помилка, повторіть спробу пізніше";
 
 // MARK: - Settings
-"Settings.TitleLegacy" = "Особистий простір";
+"Settings.TitleLegacy" = "Налаштування";
 "Settings.Title" = "Налаштування";
 "Settings.SpaceName" = "Назва простору";
 "Settings.AccountAndAccess" = "Обліковий запис та доступ";
@@ -799,12 +798,16 @@
 // MARK: - Spaces
 "Spaces.Accessibility.Public" = "Публічний";
 "Spaces.Accessibility.Private" = "Приватний";
+"Spaces.Search.Title" = "Пошук просторів";
 
 // MARK: - Space Settings
 "SpaceSettings.Title" = "Параметри простору";
 "SpaceSettings.RemoteStorage" = "Віддалене сховище";
 "SpaceSettings.Info" = "Інформація про простір";
 "SpaceSettings.NetworkId" = "Ідентифікатор мережі";
+"SpaceSettings.DeleteAlert.Title" = "Видалити ‘%@’ простір";
+"SpaceSettings.DeleteAlert.Message" = "Цей простір буде видалено безповоротно. Ви не можете скасувати цю дію.";
+"SpaceSettings.DeleteButton" = "Видалити простір ";
 
 // MARK: - Space Create
 "SpaceCreate.Title" = "Створити простір";
@@ -815,6 +818,7 @@
 "Sharing.Navigation.RightButton.Title" = "Готово";
 
 "Sharing.SaveAs" = "ЗБЕРЕГТИ ЯК";
+"Sharing.SelectSpace" = "Простір";
 "Sharing.AddTo" = "Додати до";
 "Sharing.LinkTo" = "Зв'язати з";
 
@@ -831,3 +835,7 @@
 "Initial.UnstableMiddle.Logout" = "Вийти з поточного облікового запису";
 "Initial.UnstableMiddle.Continue" = "Продовжити з поточним обліковим записом";
 "Initial.UnstableMiddle.WontUseProd" = "Я не використовуватиму свій виробничий обліковий запис";
+
+// MARK: - Create tip
+"LongTapCreateTip.Title" = "Створення об'єктів з певним типом";
+"LongTapCreateTip.Message" = "Натисніть і утримуйте кнопку Створити об'єкт, щоб відкрити меню типів об'єктів";
