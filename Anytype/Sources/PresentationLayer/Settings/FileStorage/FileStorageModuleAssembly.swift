@@ -23,6 +23,7 @@ final class FileStorageModuleAssembly: FileStorageModuleAssemblyProtocol {
         let model = FileStorageViewModel(
             activeWorkspaceStorage: serviceLocator.activeWorkspaceStorage(),
             fileLimitsStorage: serviceLocator.fileLimitsStorage(),
+            documentsProvider: serviceLocator.documentsProvider,
             output: output
         )
         let view = FileStorageView(model: model)

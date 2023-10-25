@@ -56,7 +56,8 @@ final class ObjectSettingsViewModel: ObservableObject {
         templatesService: TemplatesServiceProtocol,
         output: ObjectSettingsModelOutput,
         delegate: ObjectSettingsModuleDelegate,
-        settingsActionHandler: @escaping (ObjectSettingsAction) -> Void
+        settingsActionHandler: @escaping (ObjectSettingsAction) -> Void,
+        documentsProvider: DocumentsProviderProtocol
     ) {
         self.document = document
         self.objectDetailsService = objectDetailsService
@@ -69,6 +70,7 @@ final class ObjectSettingsViewModel: ObservableObject {
             service: objectActionsService,
             blockActionsService: blockActionsService,
             templatesService: templatesService,
+            documentsProvider: documentsProvider,
             undoRedoAction: { [weak output] in
                 output?.undoRedoAction(document: document)
             },

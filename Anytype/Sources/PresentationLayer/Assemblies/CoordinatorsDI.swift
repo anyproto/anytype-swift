@@ -45,7 +45,7 @@ final class CoordinatorsDI: CoordinatorsDIProtocol {
     }
     
     func objectSettings() -> ObjectSettingsCoordinatorAssemblyProtocol {
-        return ObjectSettingsCoordinatorAssembly(modulesDI: modulesDI, uiHelpersDI: uiHelpersDI, coordinatorsDI: self)
+        return ObjectSettingsCoordinatorAssembly(modulesDI: modulesDI, uiHelpersDI: uiHelpersDI, coordinatorsDI: self, serviceLocator: serviceLocator)
     }
     
     func addNewRelation() -> AddNewRelationCoordinatorAssemblyProtocol {

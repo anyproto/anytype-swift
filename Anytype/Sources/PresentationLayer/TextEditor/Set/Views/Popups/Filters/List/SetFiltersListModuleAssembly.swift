@@ -30,7 +30,7 @@ final class SetFiltersListModuleAssembly: SetFiltersListModuleAssemblyProtocol {
     ) -> AnyView {
         let dataviewService = serviceLocator.dataviewService(
             objectId: setDocument.objectId,
-            blockId: setDocument.blockId
+            blockId: setDocument.inlineParameters?.blockId
         )
         return SetFiltersListView(
             viewModel: SetFiltersListViewModel(

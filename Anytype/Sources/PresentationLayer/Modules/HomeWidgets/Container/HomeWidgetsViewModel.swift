@@ -14,7 +14,7 @@ final class HomeWidgetsViewModel: ObservableObject {
     private let stateManager: HomeWidgetsStateManagerProtocol
     private let objectActionService: ObjectActionsServiceProtocol
     private let recentStateManagerProtocol: HomeWidgetsRecentStateManagerProtocol
-    private let documentService: DocumentServiceProtocol
+    private let documentService: OpenedDocumentsProviderProtocol
     private let activeWorkspaceStorage: ActiveWorkpaceStorageProtocol
     private weak var output: HomeWidgetsModuleOutput?
     
@@ -36,8 +36,8 @@ final class HomeWidgetsViewModel: ObservableObject {
         stateManager: HomeWidgetsStateManagerProtocol,
         objectActionService: ObjectActionsServiceProtocol,
         recentStateManagerProtocol: HomeWidgetsRecentStateManagerProtocol,
-        documentService: DocumentServiceProtocol,
         activeWorkspaceStorage: ActiveWorkpaceStorageProtocol,
+        documentService: OpenedDocumentsProviderProtocol,
         output: HomeWidgetsModuleOutput?
     ) {
         self.widgetObject = documentService.document(objectId: info.widgetsId)

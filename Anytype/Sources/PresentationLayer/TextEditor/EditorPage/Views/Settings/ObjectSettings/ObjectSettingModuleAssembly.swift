@@ -40,7 +40,8 @@ final class ObjectSettingModuleAssembly: ObjectSettingModuleAssemblyProtocol {
             templatesService: serviceLocator.templatesService,
             output: output,
             delegate: delegate,
-            settingsActionHandler: actionHandler
+            settingsActionHandler: actionHandler,
+            documentsProvider: serviceLocator.documentsProvider
         )
         let view = ObjectSettingsView(viewModel: viewModel)
         let popup = AnytypePopup(contentView: view, floatingPanelStyle: true)

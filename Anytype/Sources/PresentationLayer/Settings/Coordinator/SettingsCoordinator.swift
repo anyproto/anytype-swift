@@ -26,7 +26,7 @@ final class SettingsCoordinator: SettingsCoordinatorProtocol,
     private let dashboardAlertsAssembly: DashboardAlertsAssemblyProtocol
     private let objectIconPickerModuleAssembly: ObjectIconPickerModuleAssemblyProtocol
     private let fileStorageModuleAssembly: FileStorageModuleAssemblyProtocol
-    private let documentService: DocumentServiceProtocol
+    private let documentService: OpenedDocumentsProviderProtocol
     private let urlOpener: URLOpenerProtocol
     private let activeWorkspaceStorage: ActiveWorkpaceStorageProtocol
     private let serviceLocator: ServiceLocator
@@ -45,7 +45,7 @@ final class SettingsCoordinator: SettingsCoordinatorProtocol,
         dashboardAlertsAssembly: DashboardAlertsAssemblyProtocol,
         objectIconPickerModuleAssembly: ObjectIconPickerModuleAssemblyProtocol,
         fileStorageModuleAssembly: FileStorageModuleAssemblyProtocol,
-        documentService: DocumentServiceProtocol,
+        documentService: OpenedDocumentsProviderProtocol,
         urlOpener: URLOpenerProtocol,
         activeWorkspaceStorage: ActiveWorkpaceStorageProtocol,
         serviceLocator: ServiceLocator

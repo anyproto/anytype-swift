@@ -14,7 +14,7 @@ final class WidgetSourceSearchChangeInternalViewModel: WidgetSourceSearchInterna
     init(
         widgetObjectId: String,
         widgetId: String,
-        documentService: DocumentServiceProtocol,
+        documentService: OpenedDocumentsProviderProtocol,
         blockWidgetService: BlockWidgetServiceProtocol,
         context: AnalyticsWidgetContext,
         onFinish: @escaping () -> Void

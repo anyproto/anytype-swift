@@ -17,6 +17,7 @@ final class RemoteStorageViewModel: ObservableObject {
     private let activeWorkspaceStorage: ActiveWorkpaceStorageProtocol
     private let subscriptionService: SingleObjectSubscriptionServiceProtocol
     private let fileLimitsStorage: FileLimitsStorageProtocol
+    private let documentProvider: DocumentsProviderProtocol
     private weak var output: RemoteStorageModuleOutput?
     private var subscriptions = [AnyCancellable]()
     private let subSpaceId = "RemoteStorageViewModel-Space-\(UUID())"
@@ -46,12 +47,14 @@ final class RemoteStorageViewModel: ObservableObject {
         activeWorkspaceStorage: ActiveWorkpaceStorageProtocol,
         subscriptionService: SingleObjectSubscriptionServiceProtocol,
         fileLimitsStorage: FileLimitsStorageProtocol,
+        documentProvider: DocumentsProviderProtocol,
         output: RemoteStorageModuleOutput?
     ) {
         self.accountManager = accountManager
         self.activeWorkspaceStorage = activeWorkspaceStorage
         self.subscriptionService = subscriptionService
         self.fileLimitsStorage = fileLimitsStorage
+        self.documentProvider = documentProvider
         self.output = output
         setupPlaceholderState()
         Task {
@@ -71,7 +74,10 @@ final class RemoteStorageViewModel: ObservableObject {
         guard let limits else { return }
         AnytypeAnalytics.instance().logGetMoreSpace()
         Task { @MainActor in
-            let profileDocument = BaseDocument(objectId: activeWorkspaceStorage.workspaceInfo.profileObjectID, forPreview: true)
+            let profileDocument = documentProvider.document(
+                objectId: activeWorkspaceStorage.workspaceInfo.profileObjectID,
+                forPreview: true
+            )
             try await profileDocument.openForPreview()
             let limit = byteCountFormatter.string(fromByteCount: limits.bytesLimit)
             let mailLink = MailUrl(

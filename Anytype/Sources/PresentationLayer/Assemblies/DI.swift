@@ -21,7 +21,7 @@ final class DI: DIProtocol {
     }()
     
     lazy var uihelpersDI: UIHelpersDIProtocol = {
-       return UIHelpersDI(viewControllerProvider: viewControllerProvider)
+        return UIHelpersDI(viewControllerProvider: viewControllerProvider, serviceLocator: serviceLocator)
     }()
     
     var serviceLocator: ServiceLocator {

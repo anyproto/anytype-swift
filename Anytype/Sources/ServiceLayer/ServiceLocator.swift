@@ -19,7 +19,12 @@ final class ServiceLocator {
         pageRepository: pageRepository(),
         activeWorkpaceStorage: activeWorkspaceStorage()
     )
+
     lazy private(set) var unsplashService: UnsplashServiceProtocol = UnsplashService()
+    lazy private(set) var documentsProvider: DocumentsProviderProtocol = DocumentsProvider(
+        relationDetailsStorage: relationDetailsStorage(),
+        objectTypeProvider: objectTypeProvider()
+    )
     
     // MARK: - Services
     
@@ -197,8 +202,8 @@ final class ServiceLocator {
         return _middlewareConfigurationProvider
     }
     
-    private lazy var _documentService = DocumentService(relationDetailsStorage: relationDetailsStorage(), objectTypeProvider: objectTypeProvider())
-    func documentService() -> DocumentServiceProtocol {
+    private lazy var _documentService = OpenedDocumentsProvider(documentsProvider: documentsProvider)
+    func documentService() -> OpenedDocumentsProviderProtocol {
         return _documentService
     }
     

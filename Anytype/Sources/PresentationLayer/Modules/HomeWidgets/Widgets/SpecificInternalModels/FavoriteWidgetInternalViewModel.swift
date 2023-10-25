@@ -23,7 +23,7 @@ final class FavoriteWidgetInternalViewModel: CommonWidgetInternalViewModel, Widg
         widgetObject: BaseDocumentProtocol,
         favoriteSubscriptionService: FavoriteSubscriptionServiceProtocol,
         activeWorkspaceStorage: ActiveWorkpaceStorageProtocol,
-        documentService: DocumentServiceProtocol
+        documentService: OpenedDocumentsProviderProtocol
     ) {
         self.favoriteSubscriptionService = favoriteSubscriptionService
         self.document = documentService.document(objectId: activeWorkspaceStorage.workspaceInfo.homeObjectID)
