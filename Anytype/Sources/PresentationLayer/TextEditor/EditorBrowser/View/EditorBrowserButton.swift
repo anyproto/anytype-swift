@@ -59,6 +59,7 @@ final class EditorBrowserButton: UIView, CustomizableHitTestAreaView {
         )
         if longTapAction.isNotNil {
             let longPress = UILongPressGestureRecognizer(target: self, action: #selector(longTapGesture(gesture:)))
+            longPress.minimumPressDuration = 0.3
             button.addGestureRecognizer(longPress)
         }
     }

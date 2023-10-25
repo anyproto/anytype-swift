@@ -36,9 +36,12 @@ struct HomeBottomPanelView: View {
                 .onTapGesture {
                     button.onTap()
                 }
-                .onLongPressGesture {
-                    button.onLongTap?()
-                }
+                .simultaneousGesture(
+                    LongPressGesture(minimumDuration: 0.3)
+                        .onEnded { _ in
+                            button.onLongTap?()
+                        }
+                )
                 .ifLet(button.tip) { view, tip in
                     switch tip {
                     case .createLogTapObject:
