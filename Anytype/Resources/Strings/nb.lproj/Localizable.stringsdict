@@ -5,29 +5,33 @@
     <key>Are you sure you want to delete</key>
     <dict>
       <key>NSStringLocalizedFormatKey</key>
-      <string>您確定要刪除  %#@object@ 嗎？</string>
+      <string>Er du sikker på at du vil slette  %#@object@?</string>
       <key>object</key>
       <dict>
         <key>NSStringFormatSpecTypeKey</key>
         <string>NSStringPluralRuleType</string>
         <key>NSStringFormatValueTypeKey</key>
         <string>d</string>
+        <key>one</key>
+        <string>%d objekt</string>
         <key>other</key>
-        <string>%d 對象</string>
+        <string>%d objekter</string>
       </dict>
     </dict>
     <key>Object selected</key>
     <dict>
       <key>NSStringLocalizedFormatKey</key>
-      <string>%#@object@ selected</string>
+      <string>%#@object@ valgt</string>
       <key>object</key>
       <dict>
         <key>NSStringFormatSpecTypeKey</key>
         <string>NSStringPluralRuleType</string>
         <key>NSStringFormatValueTypeKey</key>
         <string>d</string>
+        <key>one</key>
+        <string>%d objekt</string>
         <key>other</key>
-        <string>%d 對象</string>
+        <string>%d objekter</string>
       </dict>
     </dict>
     <key>Selected blocks</key>
@@ -40,22 +44,26 @@
         <string>NSStringPluralRuleType</string>
         <key>NSStringFormatValueTypeKey</key>
         <string>d</string>
+        <key>one</key>
+        <string>%d valgt blokk</string>
         <key>other</key>
-        <string>%d selected blocks</string>
+        <string>%d valgte blokker</string>
       </dict>
     </dict>
     <key>Days to deletion account</key>
     <dict>
       <key>NSStringLocalizedFormatKey</key>
-      <string>This account will be deleted %#@days@</string>
+      <string>Denne kontoen vil bli slettet %#@days@</string>
       <key>days</key>
       <dict>
         <key>NSStringFormatSpecTypeKey</key>
         <string>NSStringPluralRuleType</string>
         <key>NSStringFormatValueTypeKey</key>
         <string>d</string>
+        <key>one</key>
+        <string>i morgen</string>
         <key>other</key>
-        <string>in %d days</string>
+        <string>om %d dager</string>
       </dict>
     </dict>
     <key>Widgets.Actions.BinConfirm</key>
@@ -68,8 +76,10 @@
         <string>NSStringPluralRuleType</string>
         <key>NSStringFormatValueTypeKey</key>
         <string>d</string>
+        <key>one</key>
+        <string>Ett objekt slettet</string>
         <key>other</key>
-        <string>%d objects deleted</string>
+        <string>%d objekter slettet</string>
       </dict>
     </dict>
   </dict>
