@@ -18,6 +18,7 @@ struct SetFiltersSelectionView: View {
         .if(viewModel.isCompactPresentationMode()) {
             $0.fitPresentationDetents()
         }
+        .background(Color.Background.secondary)
     }
     
     private var button: some View {

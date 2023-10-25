@@ -10,6 +10,7 @@ struct SetFiltersCheckboxView: View {
             button
         }
         .padding(.horizontal, 20)
+        .background(Color.Background.secondary)
     }
     
     private var rows: some View {

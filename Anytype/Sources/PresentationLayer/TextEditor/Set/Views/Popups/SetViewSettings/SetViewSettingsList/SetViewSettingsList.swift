@@ -128,6 +128,7 @@ struct SetViewSettingsList: View {
             presentationMode.dismiss()
             model.deleteView()
         }
+        .background(Color.Background.secondary)
     }
     
     private var duplicateButton: some View {
@@ -135,5 +136,6 @@ struct SetViewSettingsList: View {
             presentationMode.dismiss()
             model.duplicateView()
         }
+        .background(Color.Background.secondary)
     }
 }

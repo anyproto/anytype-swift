@@ -16,5 +16,6 @@ struct SetTextView: View {
         }
         .padding(.horizontal, 20)
         .fitPresentationDetents()
+        .background(Color.Background.secondary)
     }
 }

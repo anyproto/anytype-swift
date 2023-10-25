@@ -11,7 +11,7 @@ struct SetViewPicker: View {
             content
         }
         .frame(height: 358)
-        .background(Color.Background.primary)
+        .background(Color.Background.secondary)
     }
     
     private var content: some View {
@@ -46,6 +46,7 @@ struct SetViewPicker: View {
             .onDelete {
                 viewModel.delete($0)
             }
+            .listRowBackground(Color.Background.secondary)
         }
         .listStyle(.plain)
         .buttonStyle(BorderlessButtonStyle())
@@ -59,6 +60,7 @@ struct SetViewPicker: View {
             }
         }
         .bounceBehaviorBasedOnSize()
+        .background(Color.Background.secondary)
     }
     
     private var addButton: some View {

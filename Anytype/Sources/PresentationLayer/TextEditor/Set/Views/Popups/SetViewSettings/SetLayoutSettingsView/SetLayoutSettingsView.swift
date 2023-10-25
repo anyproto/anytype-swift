@@ -11,6 +11,7 @@ struct SetLayoutSettingsView: View {
                 content
             }
         }
+        .background(Color.Background.secondary)
     }
     
     private var content: some View {
