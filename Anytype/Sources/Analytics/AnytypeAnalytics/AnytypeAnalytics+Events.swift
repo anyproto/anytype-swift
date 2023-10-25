@@ -103,9 +103,16 @@ extension AnytypeAnalytics {
                  withEventProperties: [AnalyticsEventsPropertiesKey.objectType: type.analyticsId])
     }
     
-    func logSelectObjectType(_ type: AnalyticsObjectType) {
-        logEvent(AnalyticsEventsName.selectObjectType,
-                 withEventProperties: [AnalyticsEventsPropertiesKey.objectType: type.analyticsId])
+    func logSelectObjectType(_ type: AnalyticsObjectType, route: SelectObjectTypeRoute? = nil) {
+        logEvent(
+            AnalyticsEventsName.selectObjectType,
+            withEventProperties: Dictionary {
+                [AnalyticsEventsPropertiesKey.objectType: type.analyticsId]
+                if let route {
+                    [AnalyticsEventsPropertiesKey.route: route.rawValue]
+                }
+            }
+        )
     }
 
     func logLayoutChange(_ layout: DetailsLayout) {
@@ -667,6 +674,13 @@ extension AnytypeAnalytics {
             withEventProperties: [
                 AnalyticsEventsPropertiesKey.objectType: objectType.analyticsId
             ]
+        )
+    }
+    
+    func logOnboardingTooltip(tooltip: OnboardingTooltip) {
+        logEvent(
+            AnalyticsEventsName.onboardingTooltip,
+            withEventProperties: [AnalyticsEventsPropertiesKey.id: tooltip.rawValue]
         )
     }
 }

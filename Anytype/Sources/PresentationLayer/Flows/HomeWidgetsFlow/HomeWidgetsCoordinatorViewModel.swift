@@ -156,9 +156,11 @@ final class HomeWidgetsCoordinatorViewModel: ObservableObject,
     }
     
     func createObjectWithTypeModule() -> AnyView {
+        AnytypeAnalytics.instance().logOnboardingTooltip(tooltip: .selectType)
         return objectTypeSearchModuleAssembly.objectTypeSearchForCreateObject(
             spaceId: activeWorkspaceStorage.workspaceInfo.accountSpaceId
         ) { [weak self] type in
+            AnytypeAnalytics.instance().logSelectObjectType(type.analyticsType, route: .longTap)
             self?.showCreateObjectWithType = false
             self?.createAndShowNewPage(type: type)
         }

@@ -40,6 +40,7 @@ final class ObjectTypeSearchModuleAssembly: ObjectTypeSearchModuleAssemblyProtoc
             toastPresenter: uiHelpersDI.toastPresenter(),
             selectedObjectId: nil,
             hideMarketplace: true,
+            showDescription: false,
             onSelect: onSelect
         )
         let viewModel = NewSearchViewModel(

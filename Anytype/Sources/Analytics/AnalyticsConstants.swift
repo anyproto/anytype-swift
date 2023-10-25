@@ -122,6 +122,8 @@ enum AnalyticsEventsName {
     static let searchResult = "SearchResult"
     static let objectRelationShow = "ScreenObjectRelation"
 
+    static let onboardingTooltip = "OnboardingTooltip"
+    
     // Navigation events
     static let goBack = "HistoryBack"
     static let goForward = "HistoryForward"
@@ -380,4 +382,12 @@ enum AnalyticsDefaultObjectTypeChangeRoute: String {
     case settings = "Settings"
     case set = "Set"
     case collection = "Collection"
+}
+
+enum SelectObjectTypeRoute: String {
+    case longTap = "LongTap"
+}
+
+enum OnboardingTooltip: String {
+    case selectType = "SelectType"
 }
