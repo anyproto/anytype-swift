@@ -1,6 +1,7 @@
 import Foundation
 import Combine
 import Services
+import UIKit
 
 @MainActor
 final class SpaceSwitchViewModel: ObservableObject {
@@ -139,6 +140,7 @@ final class SpaceSwitchViewModel: ObservableObject {
         Task {
             stopSpacesSubscriotions()
             try await activeWorkspaceStorage.setActiveSpace(spaceId: workspace.targetSpaceId)
+            UISelectionFeedbackGenerator().selectionChanged()
             dismiss.toggle()
         }
     }
