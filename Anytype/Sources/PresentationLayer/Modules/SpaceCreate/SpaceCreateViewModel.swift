@@ -11,6 +11,7 @@ final class SpaceCreateViewModel: ObservableObject {
     
     private let activeWorkspaceStorage: ActiveWorkpaceStorageProtocol
     private let workspaceService: WorkspaceServiceProtocol
+    private weak var output: SpaceCreateModuleOutput?
     
     // MARK: - State
     
@@ -23,10 +24,12 @@ final class SpaceCreateViewModel: ObservableObject {
     
     init(
         activeWorkspaceStorage: ActiveWorkpaceStorageProtocol,
-        workspaceService: WorkspaceServiceProtocol
+        workspaceService: WorkspaceServiceProtocol,
+        output: SpaceCreateModuleOutput?
     ) {
         self.activeWorkspaceStorage = activeWorkspaceStorage
         self.workspaceService = workspaceService
+        self.output = output
     }
     
     func onTapCreate() {
@@ -39,6 +42,7 @@ final class SpaceCreateViewModel: ObservableObject {
             let spaceId = try await workspaceService.createSpace(name: spaceName, gradient: spaceGradient, accessibility: spaceType)
             try await activeWorkspaceStorage.setActiveSpace(spaceId: spaceId)
             UINotificationFeedbackGenerator().notificationOccurred(.success)
+            output?.spaceCreateWillDismiss()
             dismiss.toggle()
         }
     }
