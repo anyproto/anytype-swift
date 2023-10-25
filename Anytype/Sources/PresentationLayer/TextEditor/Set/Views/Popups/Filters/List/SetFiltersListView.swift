@@ -63,6 +63,8 @@ struct SetFiltersListView: View {
                 .frame(height: 68)
             Spacer()
         }
+        .frame(maxWidth: .infinity)
+        .background(Color.Background.secondary)
     }
     
     private var filtersList: some View {
