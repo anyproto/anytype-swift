@@ -21,16 +21,19 @@ final class RecentSubscriptionService: RecentSubscriptionServiceProtocol {
     private let subscriptionStorage: SubscriptionStorageProtocol
     private let objectTypeProvider: ObjectTypeProviderProtocol
     private let activeWorkspaceStorage: ActiveWorkpaceStorageProtocol
+    private let workspacesStorage: WorkspacesStorageProtocol
     private let subscriptionId = "Recent-\(UUID().uuidString)"
     
     init(
         subscriptionStorageProvider: SubscriptionStorageProviderProtocol,
         activeWorkspaceStorage: ActiveWorkpaceStorageProtocol,
-        objectTypeProvider: ObjectTypeProviderProtocol
+        objectTypeProvider: ObjectTypeProviderProtocol,
+        workspacesStorage: WorkspacesStorageProtocol
     ) {
         self.subscriptionStorage = subscriptionStorageProvider.createSubscriptionStorage(subId: subscriptionId)
         self.activeWorkspaceStorage = activeWorkspaceStorage
         self.objectTypeProvider = objectTypeProvider
+        self.workspacesStorage = workspacesStorage
     }
     
     func startSubscription(
@@ -96,7 +99,9 @@ final class RecentSubscriptionService: RecentSubscriptionServiceProtocol {
     private func makeDateFilter(type: RecentWidgetType) -> DataviewFilter? {
         switch type {
         case .recentEdit:
-            return nil
+            guard let spaceView = workspacesStorage.workspaces.first(where: { $0.id == activeWorkspaceStorage.workspaceInfo.spaceViewId }),
+                  let createdDate = spaceView.createdDate else { return nil }
+            return SearchHelper.lastModifiedDateFrom(createdDate.addingTimeInterval(60))
         case .recentOpen:
             return SearchHelper.lastOpenedDateNotNilFilter()
         }
