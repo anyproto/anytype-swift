@@ -13,6 +13,7 @@ final class SpaceSettingsViewModel: ObservableObject {
     private let objectActionsService: ObjectActionsServiceProtocol
     private let relationDetailsStorage: RelationDetailsStorageProtocol
     private let workspaceService: WorkspaceServiceProtocol
+    private let accountManager: AccountManagerProtocol
     private let dateFormatter = DateFormatter.relationDateFormatter
     private weak var output: SpaceSettingsModuleOutput?
     
@@ -38,6 +39,7 @@ final class SpaceSettingsViewModel: ObservableObject {
         objectActionsService: ObjectActionsServiceProtocol,
         relationDetailsStorage: RelationDetailsStorageProtocol,
         workspaceService: WorkspaceServiceProtocol,
+        accountManager: AccountManagerProtocol,
         output: SpaceSettingsModuleOutput?
     ) {
         self.activeWorkspaceStorage = activeWorkspaceStorage
@@ -45,6 +47,7 @@ final class SpaceSettingsViewModel: ObservableObject {
         self.objectActionsService = objectActionsService
         self.relationDetailsStorage = relationDetailsStorage
         self.workspaceService = workspaceService
+        self.accountManager = accountManager
         self.output = output
         Task {
             await setupSubscription()
@@ -111,7 +114,7 @@ final class SpaceSettingsViewModel: ObservableObject {
         
         if let spaceRelationDetails = try? relationDetailsStorage.relationsDetails(for: .spaceId, spaceId: activeWorkspaceStorage.workspaceInfo.accountSpaceId) {
             info.append(
-                SettingsInfoModel(title: spaceRelationDetails.name, subtitle: details.targetSpaceId, onTap: { [weak self] in
+                SettingsInfoModel(title: spaceRelationDetails.name, subtitle: details.id, onTap: { [weak self] in
                     UIPasteboard.general.string = details.targetSpaceId
                     self?.snackBarData = .init(text: Loc.copiedToClipboard(spaceRelationDetails.name), showSnackBar: true)
                 })
@@ -120,9 +123,13 @@ final class SpaceSettingsViewModel: ObservableObject {
         
         if let creatorDetails = try? relationDetailsStorage.relationsDetails(for: .creator, spaceId: activeWorkspaceStorage.workspaceInfo.accountSpaceId) {
             info.append(
-                SettingsInfoModel(title: creatorDetails.name, subtitle: activeWorkspaceStorage.workspaceInfo.profileObjectID)
+                SettingsInfoModel(title: creatorDetails.name, subtitle: accountManager.account.id)
             )
         }
+        
+        info.append(
+            SettingsInfoModel(title: Loc.SpaceSettings.networkId, subtitle: activeWorkspaceStorage.workspaceInfo.networkId)
+        )
         
         if let createdDateDetails = try? relationDetailsStorage.relationsDetails(for: .createdDate, spaceId: activeWorkspaceStorage.workspaceInfo.accountSpaceId),
            let date = details.createdDate.map({ dateFormatter.string(from: $0) }) {
@@ -130,10 +137,6 @@ final class SpaceSettingsViewModel: ObservableObject {
                 SettingsInfoModel(title: createdDateDetails.name, subtitle: date)
             )
         }
-        
-        info.append(
-            SettingsInfoModel(title: Loc.SpaceSettings.networkId, subtitle: activeWorkspaceStorage.workspaceInfo.networkId)
-        )
     }
     
     private func updateSpaceName(name: String) {
