@@ -38,6 +38,7 @@ final class SpaceCreateViewModel: ObservableObject {
             }
             let spaceId = try await workspaceService.createSpace(name: spaceName, gradient: spaceGradient, accessibility: spaceType)
             try await activeWorkspaceStorage.setActiveSpace(spaceId: spaceId)
+            UINotificationFeedbackGenerator().notificationOccurred(.success)
             dismiss.toggle()
         }
     }
