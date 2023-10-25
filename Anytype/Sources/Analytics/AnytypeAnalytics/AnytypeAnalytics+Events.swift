@@ -106,12 +106,10 @@ extension AnytypeAnalytics {
     func logSelectObjectType(_ type: AnalyticsObjectType, route: SelectObjectTypeRoute? = nil) {
         logEvent(
             AnalyticsEventsName.selectObjectType,
-            withEventProperties: Dictionary {
-                [AnalyticsEventsPropertiesKey.objectType: type.analyticsId]
-                if let route {
-                    [AnalyticsEventsPropertiesKey.route: route.rawValue]
-                }
-            }
+            withEventProperties: [
+                AnalyticsEventsPropertiesKey.objectType: type.analyticsId,
+                AnalyticsEventsPropertiesKey.route: route?.rawValue
+            ].compactMapValues { $0 }
         )
     }
 
