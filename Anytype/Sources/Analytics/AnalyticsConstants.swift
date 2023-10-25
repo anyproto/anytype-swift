@@ -21,6 +21,7 @@ enum AnalyticsEventsName {
     // Block events
     static let blockCreate = "CreateBlock"
     static let blockDelete = "DeleteBlock"
+    static let createLink = "CreateLink"
 
     static let blockListDuplicate = "DuplicateBlock"
     static let blockListSetAlign = "ChangeBlockAlign"
