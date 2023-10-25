@@ -62,7 +62,7 @@
 "BlockLink.PreviewSettings.Layout.Text.Title" = "Tekst";
 
 // MARK: - Settings
-"Settings.Title" = "Personlig rom";
+"Settings.Title" = "Innstillinger";
 "Settings.SpaceName" = "Romnavn";
 
 // MARK: - Object
@@ -226,7 +226,7 @@
 
 "Auth.JoinFlow.Creating.Soul.Title" = "Genererer ny konto";
 "Auth.JoinFlow.Setting.Space.Title" = "Setter opp ditt personlige rom";
-"Auth.JoinFlow.Personal.Space.Title" = "Personlig rom";
+"Auth.JoinFlow.Personal.Space.Title" = "Innstillinger";
 
 // Auth - Login flow
 "Auth.LoginFlow.Use.Keychain.Title" = "Bruk nøkkelring";
@@ -320,7 +320,6 @@
 "TemplateOptions.Alert.Delete" = "Slett";
 
 "TemplateEditing.Title" = "Rediger mal";
-"TemplateEditing.SelectButtonTitle" = "Velg mal";
 
 "Templates.Popup.WasAddedTo" = "Ny mal ble lagt til typen";
 "Templates.Popup.Duplicated" = "Malen ble duplisert";
@@ -763,7 +762,7 @@
 "ClearCache.Error" = "Feil, prøv igjen senere";
 
 // MARK: - Settings
-"Settings.TitleLegacy" = "Personlig rom";
+"Settings.TitleLegacy" = "Innstillinger";
 "Settings.Title" = "Innstillinger";
 "Settings.SpaceName" = "Romnavn";
 "Settings.AccountAndAccess" = "Konto og tilgang";
@@ -797,12 +796,16 @@
 // MARK: - Spaces
 "Spaces.Accessibility.Public" = "Offentlig";
 "Spaces.Accessibility.Private" = "Privat";
+"Spaces.Search.Title" = "Søk etter rom";
 
 // MARK: - Space Settings
 "SpaceSettings.Title" = "Rominnstillinger";
 "SpaceSettings.RemoteStorage" = "Fjernlagring";
 "SpaceSettings.Info" = "Rominformasjon";
 "SpaceSettings.NetworkId" = "Nettverks-ID";
+"SpaceSettings.DeleteAlert.Title" = "Delete ‘%@’ space";
+"SpaceSettings.DeleteAlert.Message" = "This space will be deleted irrevocably. You can’t undo this action.";
+"SpaceSettings.DeleteButton" = "Delete space";
 
 // MARK: - Space Create
 "SpaceCreate.Title" = "Opprett et rom";
@@ -813,6 +816,7 @@
 "Sharing.Navigation.RightButton.Title" = "Ferdig";
 
 "Sharing.SaveAs" = "LAGRE SOM";
+"Sharing.SelectSpace" = "Rom";
 "Sharing.AddTo" = "Legg til i";
 "Sharing.LinkTo" = "Koble til";
 
@@ -829,3 +833,7 @@
 "Initial.UnstableMiddle.Logout" = "Logg ut fra denne kontoen";
 "Initial.UnstableMiddle.Continue" = "Fortsett med denne kontoen";
 "Initial.UnstableMiddle.WontUseProd" = "Jeg vil ikke bruke min produksjonskonto";
+
+// MARK: - Create tip
+"LongTapCreateTip.Title" = "Opprett objekter med spesifikk type";
+"LongTapCreateTip.Message" = "Trykk og hold på Opprett objektknapp for å åpne meny med typer";

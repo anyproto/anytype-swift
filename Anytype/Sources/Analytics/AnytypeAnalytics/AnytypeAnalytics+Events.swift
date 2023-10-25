@@ -669,4 +669,8 @@ extension AnytypeAnalytics {
             ]
         )
     }
+    
+    func logCreateLink() {
+        logEvent(AnalyticsEventsName.createLink)
+    }
 }

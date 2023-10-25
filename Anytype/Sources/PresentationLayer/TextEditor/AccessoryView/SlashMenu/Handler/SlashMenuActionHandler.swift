@@ -43,6 +43,7 @@ final class SlashMenuActionHandler {
                 }
             case .objectType(let object):
                 Task { @MainActor [weak self] in
+                    AnytypeAnalytics.instance().logCreateLink()
                     try await self?.actionHandler
                         .createPage(targetId: blockId, spaceId: object.spaceId, typeUniqueKey: object.uniqueKeyValue, templateId: object.defaultTemplateId)
                         .flatMap { objectId in

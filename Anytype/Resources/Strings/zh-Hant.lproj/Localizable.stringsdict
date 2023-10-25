@@ -5,7 +5,7 @@
     <key>Are you sure you want to delete</key>
     <dict>
       <key>NSStringLocalizedFormatKey</key>
-      <string>Are you sure you want to delete %#@object@?</string>
+      <string>您確定要刪除  %#@object@ 嗎？</string>
       <key>object</key>
       <dict>
         <key>NSStringFormatSpecTypeKey</key>
@@ -13,7 +13,7 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>d</string>
         <key>other</key>
-        <string>%d objects</string>
+        <string>%d 對象</string>
       </dict>
     </dict>
     <key>Object selected</key>
@@ -27,7 +27,7 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>d</string>
         <key>other</key>
-        <string>%d objects</string>
+        <string>%d 對象</string>
       </dict>
     </dict>
     <key>Selected blocks</key>

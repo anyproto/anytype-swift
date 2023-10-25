@@ -62,7 +62,7 @@
 "BlockLink.PreviewSettings.Layout.Text.Title" = "Teks";
 
 // MARK: - Settings
-"Settings.Title" = "Ruang Pribadi";
+"Settings.Title" = "Setelan";
 "Settings.SpaceName" = "Nama Ruang";
 
 // MARK: - Object
@@ -226,7 +226,7 @@
 
 "Auth.JoinFlow.Creating.Soul.Title" = "Membuat akun baru";
 "Auth.JoinFlow.Setting.Space.Title" = "Menyiapkan ruang pribadimu";
-"Auth.JoinFlow.Personal.Space.Title" = "Ruang Pribadi";
+"Auth.JoinFlow.Personal.Space.Title" = "Setelan";
 
 // Auth - Login flow
 "Auth.LoginFlow.Use.Keychain.Title" = "Gunakan rantai kunci";
@@ -320,7 +320,6 @@
 "TemplateOptions.Alert.Delete" = "Hapus";
 
 "TemplateEditing.Title" = "Sunting templat";
-"TemplateEditing.SelectButtonTitle" = "Pilih templat";
 
 "Templates.Popup.WasAddedTo" = "Templat baru ditambahkan ke tipe ini";
 "Templates.Popup.Duplicated" = "Templat digandakan";
@@ -763,7 +762,7 @@
 "ClearCache.Error" = "Terjadi kesalahan, silahkan coba lagi nanti";
 
 // MARK: - Settings
-"Settings.TitleLegacy" = "Ruang Pribadi";
+"Settings.TitleLegacy" = "Setelan";
 "Settings.Title" = "Setelan";
 "Settings.SpaceName" = "Nama Ruang";
 "Settings.AccountAndAccess" = "Akun dan akses";
@@ -776,7 +775,7 @@
 "FileStorage.Space.GetMore" = "Dapatkan ruang tambahan";
 "FileStorage.Space.Mail.Subject" = "Dapatkan penyimpanan lebih, akun %@";
 "FileStorage.Space.Mail.Body" = "Hi, Anytype team. I am reaching out to request an increase in my file storage capacity as I have run out of storage. My current limits is %@. My account id is %@. Cheers, %@.";
-"FileStorage.Local.Title" = "Local storage";
+"FileStorage.Local.Title" = "Penyimpanan lokal";
 "FileStorage.Local.Instruction" = "In order to save space on your local device, you can offload all your files to our encrypted backup node. The files will be loaded back when you open them.";
 "FileStorage.Local.Used" = "%@ used";
 "FileStorage.OffloadTitle" = "Offload files";
@@ -797,12 +796,16 @@
 // MARK: - Spaces
 "Spaces.Accessibility.Public" = "Publik";
 "Spaces.Accessibility.Private" = "Pribadi";
+"Spaces.Search.Title" = "Cari ruang";
 
 // MARK: - Space Settings
 "SpaceSettings.Title" = "Setelan ruang";
 "SpaceSettings.RemoteStorage" = "Penyimpanan jarak jauh";
 "SpaceSettings.Info" = "Info ruang";
 "SpaceSettings.NetworkId" = "ID Jaringan";
+"SpaceSettings.DeleteAlert.Title" = "Delete ‘%@’ space";
+"SpaceSettings.DeleteAlert.Message" = "Ruang ini akan dihapus secara permanen. Kamu tidak bisa membatalkan tindakan ini.";
+"SpaceSettings.DeleteButton" = "Hapus ruang";
 
 // MARK: - Space Create
 "SpaceCreate.Title" = "Buat ruang";
@@ -813,6 +816,7 @@
 "Sharing.Navigation.RightButton.Title" = "Selesai";
 
 "Sharing.SaveAs" = "SAVE AS";
+"Sharing.SelectSpace" = "Ruang";
 "Sharing.AddTo" = "Add to";
 "Sharing.LinkTo" = "Tautkan ke";
 
@@ -829,3 +833,7 @@
 "Initial.UnstableMiddle.Logout" = "Keluar dari akun ini";
 "Initial.UnstableMiddle.Continue" = "Lanjutkan dengan akun ini";
 "Initial.UnstableMiddle.WontUseProd" = "I won't be using my production account";
+
+// MARK: - Create tip
+"LongTapCreateTip.Title" = "Buat Objek dengan Tipe tertentu";
+"LongTapCreateTip.Message" = "Tekan lama tombol Buat Objek untuk membuka menu dengan Tipe";

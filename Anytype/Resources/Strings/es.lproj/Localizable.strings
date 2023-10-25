@@ -320,7 +320,6 @@
 "TemplateOptions.Alert.Delete" = "Borrar";
 
 "TemplateEditing.Title" = "Editar plantilla";
-"TemplateEditing.SelectButtonTitle" = "Seleccionar plantilla";
 
 "Templates.Popup.WasAddedTo" = "Se ha añadido una nueva plantilla al tipo";
 "Templates.Popup.Duplicated" = "La plantilla ha sido duplicada";
@@ -797,12 +796,16 @@
 // MARK: - Spaces
 "Spaces.Accessibility.Public" = "Público";
 "Spaces.Accessibility.Private" = "Privado";
+"Spaces.Search.Title" = "Buscar espacios";
 
 // MARK: - Space Settings
 "SpaceSettings.Title" = "Configuración del espacio";
 "SpaceSettings.RemoteStorage" = "Almacenamiento remoto";
 "SpaceSettings.Info" = "Información del espacio";
 "SpaceSettings.NetworkId" = "Identificador de red";
+"SpaceSettings.DeleteAlert.Title" = "Eliminar '%@' espacio";
+"SpaceSettings.DeleteAlert.Message" = "Estos objetos se eliminarán de forma irrevocable. No se puede deshacer esta acción.";
+"SpaceSettings.DeleteButton" = "Eliminar '' espacio";
 
 // MARK: - Space Create
 "SpaceCreate.Title" = "Crear un espacio";
@@ -813,6 +816,7 @@
 "Sharing.Navigation.RightButton.Title" = "Listo";
 
 "Sharing.SaveAs" = "GUARDAR COMO";
+"Sharing.SelectSpace" = "Espacio";
 "Sharing.AddTo" = "Añadir a";
 "Sharing.LinkTo" = "Vincular a";
 
@@ -829,3 +833,7 @@
 "Initial.UnstableMiddle.Logout" = "Salir de la cuenta";
 "Initial.UnstableMiddle.Continue" = "Continuar con la cuenta actual";
 "Initial.UnstableMiddle.WontUseProd" = "No voy a utilizar mi cuenta de producción";
+
+// MARK: - Create tip
+"LongTapCreateTip.Title" = "Objetos de Creta con tipo específico";
+"LongTapCreateTip.Message" = "Pulsación larga en el botón Crear objeto para abrir el menú con tipos";

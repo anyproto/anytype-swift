@@ -62,7 +62,7 @@
 "BlockLink.PreviewSettings.Layout.Text.Title" = "Văn bản";
 
 // MARK: - Settings
-"Settings.Title" = "Không gian Riêng";
+"Settings.Title" = "Cài đặt";
 "Settings.SpaceName" = "Tên Không gian";
 
 // MARK: - Object
@@ -227,7 +227,7 @@
 
 "Auth.JoinFlow.Creating.Soul.Title" = "Đang khởi tạo tài khoản mới";
 "Auth.JoinFlow.Setting.Space.Title" = "Đang thiết lập không gian riêng của bạn";
-"Auth.JoinFlow.Personal.Space.Title" = "Không gian Riêng";
+"Auth.JoinFlow.Personal.Space.Title" = "Cài đặt";
 
 // Auth - Login flow
 "Auth.LoginFlow.Use.Keychain.Title" = "Use keychain";
@@ -321,7 +321,6 @@
 "TemplateOptions.Alert.Delete" = "Xoá";
 
 "TemplateEditing.Title" = "Sửa mẫu";
-"TemplateEditing.SelectButtonTitle" = "Chọn mẫu";
 
 "Templates.Popup.WasAddedTo" = "New template was added to the type";
 "Templates.Popup.Duplicated" = "The template was duplicated";
@@ -764,7 +763,7 @@
 "ClearCache.Error" = "Lỗi, hãy thử lại sau";
 
 // MARK: - Settings
-"Settings.TitleLegacy" = "Không gian Riêng";
+"Settings.TitleLegacy" = "Cài đặt";
 "Settings.Title" = "Cài đặt";
 "Settings.SpaceName" = "Tên Không gian";
 "Settings.AccountAndAccess" = "Account and access";
@@ -798,12 +797,16 @@
 // MARK: - Spaces
 "Spaces.Accessibility.Public" = "Public";
 "Spaces.Accessibility.Private" = "Private";
+"Spaces.Search.Title" = "Search spaces";
 
 // MARK: - Space Settings
 "SpaceSettings.Title" = "Space settings";
 "SpaceSettings.RemoteStorage" = "Bộ nhớ ngoài";
 "SpaceSettings.Info" = "Space info";
 "SpaceSettings.NetworkId" = "Network ID";
+"SpaceSettings.DeleteAlert.Title" = "Delete ‘%@’ space";
+"SpaceSettings.DeleteAlert.Message" = "This space will be deleted irrevocably. You can’t undo this action.";
+"SpaceSettings.DeleteButton" = "Delete space";
 
 // MARK: - Space Create
 "SpaceCreate.Title" = "Create a space";
@@ -814,6 +817,7 @@
 "Sharing.Navigation.RightButton.Title" = "Xong";
 
 "Sharing.SaveAs" = "SAVE AS";
+"Sharing.SelectSpace" = "Space";
 "Sharing.AddTo" = "Thêm vào";
 "Sharing.LinkTo" = "Liên kết đến";
 
@@ -830,3 +834,7 @@
 "Initial.UnstableMiddle.Logout" = "Logout from current account";
 "Initial.UnstableMiddle.Continue" = "Continue with current account";
 "Initial.UnstableMiddle.WontUseProd" = "I won't be using my production account";
+
+// MARK: - Create tip
+"LongTapCreateTip.Title" = "Crete Objects with specific Type";
+"LongTapCreateTip.Message" = "Long tap on Create Object button to open menu with types";

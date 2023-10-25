@@ -87,13 +87,13 @@ actor SubscriptionStorage: SubscriptionStorageProtocol {
         for event in events.middlewareEvents {
             switch event.value {
             case .objectDetailsSet(let data):
-                guard idsContainsMySub(data.subIds) else { break }
+                guard idsContainsMySub(data.subIds, incudeDeps: true) else { break }
                 _ = detailsStorage.set(data: data)
             case .objectDetailsAmend(let data):
-                guard idsContainsMySub(data.subIds) else { break }
+                guard idsContainsMySub(data.subIds, incudeDeps: true) else { break }
                 _ = detailsStorage.amend(data: data)
             case .objectDetailsUnset(let data):
-                guard idsContainsMySub(data.subIds) else { break }
+                guard idsContainsMySub(data.subIds, incudeDeps: true) else { break }
                 _ = detailsStorage.unset(data: data)
             case .subscriptionPosition(let data):
                 guard idsContainsMySub([data.subID]) else { break }
@@ -127,9 +127,13 @@ actor SubscriptionStorage: SubscriptionStorageProtocol {
         }
     }
     
-    private func idsContainsMySub(_ ids: [String]) -> Bool {
-        let subIdDeps = "\(subId)/deps"
-        return ids.contains(subId) || ids.contains(subIdDeps)
+    private func idsContainsMySub(_ ids: [String], incudeDeps: Bool = false) -> Bool {
+        if incudeDeps {
+            let subIdDeps = "\(subId)/dep"
+            return ids.contains(subId) || ids.contains(subIdDeps)
+        } else {
+            return ids.contains(subId)
+        }
     }
     
     private func updateItemsCache() {
