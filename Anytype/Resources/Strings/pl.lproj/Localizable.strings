@@ -62,7 +62,7 @@
 "BlockLink.PreviewSettings.Layout.Text.Title" = "Tekst";
 
 // MARK: - Settings
-"Settings.Title" = "Przestrzeń osobista";
+"Settings.Title" = "Ustawienia";
 "Settings.SpaceName" = "Nazwa przestrzeni";
 
 // MARK: - Object
@@ -226,7 +226,7 @@
 
 "Auth.JoinFlow.Creating.Soul.Title" = "Generating new account";
 "Auth.JoinFlow.Setting.Space.Title" = "Setting up your personal space";
-"Auth.JoinFlow.Personal.Space.Title" = "Przestrzeń osobista";
+"Auth.JoinFlow.Personal.Space.Title" = "Ustawienia";
 
 // Auth - Login flow
 "Auth.LoginFlow.Use.Keychain.Title" = "Use keychain";
@@ -320,7 +320,6 @@
 "TemplateOptions.Alert.Delete" = "Usuń";
 
 "TemplateEditing.Title" = "Edit template";
-"TemplateEditing.SelectButtonTitle" = "Select template";
 
 "Templates.Popup.WasAddedTo" = "New template was added to the type";
 "Templates.Popup.Duplicated" = "The template was duplicated";
@@ -763,7 +762,7 @@
 "ClearCache.Error" = "Error, try again later";
 
 // MARK: - Settings
-"Settings.TitleLegacy" = "Przestrzeń osobista";
+"Settings.TitleLegacy" = "Ustawienia";
 "Settings.Title" = "Ustawienia";
 "Settings.SpaceName" = "Nazwa przestrzeni";
 "Settings.AccountAndAccess" = "Account and access";
@@ -797,12 +796,16 @@
 // MARK: - Spaces
 "Spaces.Accessibility.Public" = "Public";
 "Spaces.Accessibility.Private" = "Private";
+"Spaces.Search.Title" = "Szukaj spacji";
 
 // MARK: - Space Settings
 "SpaceSettings.Title" = "Space settings";
 "SpaceSettings.RemoteStorage" = "Remote storage";
 "SpaceSettings.Info" = "Space info";
 "SpaceSettings.NetworkId" = "Network ID";
+"SpaceSettings.DeleteAlert.Title" = "Delete ‘%@’ space";
+"SpaceSettings.DeleteAlert.Message" = "This space will be deleted irrevocably. You can’t undo this action.";
+"SpaceSettings.DeleteButton" = "Delete space";
 
 // MARK: - Space Create
 "SpaceCreate.Title" = "Create a space";
@@ -813,6 +816,7 @@
 "Sharing.Navigation.RightButton.Title" = "Gotowe";
 
 "Sharing.SaveAs" = "SAVE AS";
+"Sharing.SelectSpace" = "Przestrzeń";
 "Sharing.AddTo" = "Add to";
 "Sharing.LinkTo" = "Łącze do";
 
@@ -829,3 +833,7 @@
 "Initial.UnstableMiddle.Logout" = "Logout from current account";
 "Initial.UnstableMiddle.Continue" = "Continue with current account";
 "Initial.UnstableMiddle.WontUseProd" = "I won't be using my production account";
+
+// MARK: - Create tip
+"LongTapCreateTip.Title" = "Crete Objects with specific Type";
+"LongTapCreateTip.Message" = "Long tap on Create Object button to open menu with types";
