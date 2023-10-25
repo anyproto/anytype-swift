@@ -15,7 +15,7 @@
         <key>one</key>
         <string>%d Objekt</string>
         <key>other</key>
-        <string>%d objects</string>
+        <string>%d Objekte</string>
       </dict>
     </dict>
     <key>Object selected</key>
@@ -31,7 +31,7 @@
         <key>one</key>
         <string>%d Objekt</string>
         <key>other</key>
-        <string>%d objects</string>
+        <string>%d Objekte</string>
       </dict>
     </dict>
     <key>Selected blocks</key>
