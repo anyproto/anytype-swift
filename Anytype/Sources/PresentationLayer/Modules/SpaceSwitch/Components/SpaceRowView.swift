@@ -22,8 +22,9 @@ struct SpaceRowView: View {
                 .frame(width: Self.width, height: 96)
                 .cornerRadius(8)
                 .shadow(color: .Shadow.primary, radius: 20)
+                .padding(3)
                 .if(model.isSelected) {
-                    $0.border(8, color: .Text.white, lineWidth: 3)
+                    $0.border(10, color: .Text.white, lineWidth: 3)
                 }
                 .contentShape(.contextMenuPreview, RoundedRectangle(cornerRadius: 8))
                 .contextMenu {
