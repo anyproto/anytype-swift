@@ -46,7 +46,6 @@ final class BlockActionService: BlockActionServiceProtocol {
     }
 
     func add(info: BlockInformation, targetBlockId: BlockId, position: BlockPosition, setFocus: Bool) {
-        AnytypeAnalytics.instance().logCreateBlock(type: info.content.description, style: info.content.type.style)
         Task {
             guard let blockId = try await singleService
                 .add(contextId: documentId, targetId: targetBlockId, info: info, position: position) else { return }

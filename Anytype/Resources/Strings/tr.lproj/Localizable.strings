@@ -62,7 +62,7 @@
 "BlockLink.PreviewSettings.Layout.Text.Title" = "Metin";
 
 // MARK: - Settings
-"Settings.Title" = "Kişisel alan";
+"Settings.Title" = "Ayarlar";
 "Settings.SpaceName" = "Alan Adı";
 
 // MARK: - Object
@@ -226,7 +226,7 @@
 
 "Auth.JoinFlow.Creating.Soul.Title" = "Generating new account";
 "Auth.JoinFlow.Setting.Space.Title" = "Setting up your personal space";
-"Auth.JoinFlow.Personal.Space.Title" = "Kişisel alan";
+"Auth.JoinFlow.Personal.Space.Title" = "Ayarlar";
 
 // Auth - Login flow
 "Auth.LoginFlow.Use.Keychain.Title" = "Use keychain";
@@ -320,7 +320,6 @@
 "TemplateOptions.Alert.Delete" = "Sil";
 
 "TemplateEditing.Title" = "Şablonu düzenle";
-"TemplateEditing.SelectButtonTitle" = "Şablon seç";
 
 "Templates.Popup.WasAddedTo" = "Bu türe yeni bir şablon eklendi";
 "Templates.Popup.Duplicated" = "Şablon çoğaltıldı";
@@ -763,7 +762,7 @@
 "ClearCache.Error" = "Error, try again later";
 
 // MARK: - Settings
-"Settings.TitleLegacy" = "Kişisel alan";
+"Settings.TitleLegacy" = "Ayarlar";
 "Settings.Title" = "Ayarlar";
 "Settings.SpaceName" = "Alan Adı";
 "Settings.AccountAndAccess" = "Hesap ve erişim";
@@ -797,12 +796,16 @@
 // MARK: - Spaces
 "Spaces.Accessibility.Public" = "Genel";
 "Spaces.Accessibility.Private" = "Özel";
+"Spaces.Search.Title" = "Search spaces";
 
 // MARK: - Space Settings
 "SpaceSettings.Title" = "Alan ayarları";
 "SpaceSettings.RemoteStorage" = "Remote storage";
 "SpaceSettings.Info" = "Alan bilgisi";
 "SpaceSettings.NetworkId" = "Network ID";
+"SpaceSettings.DeleteAlert.Title" = "Delete ‘%@’ space";
+"SpaceSettings.DeleteAlert.Message" = "This space will be deleted irrevocably. You can’t undo this action.";
+"SpaceSettings.DeleteButton" = "Delete space";
 
 // MARK: - Space Create
 "SpaceCreate.Title" = "Alan oluştur";
@@ -813,6 +816,7 @@
 "Sharing.Navigation.RightButton.Title" = "Bitti";
 
 "Sharing.SaveAs" = "SAVE AS";
+"Sharing.SelectSpace" = "Space";
 "Sharing.AddTo" = "Add to";
 "Sharing.LinkTo" = "Şuna bağla";
 
@@ -829,3 +833,7 @@
 "Initial.UnstableMiddle.Logout" = "Logout from current account";
 "Initial.UnstableMiddle.Continue" = "Continue with current account";
 "Initial.UnstableMiddle.WontUseProd" = "I won't be using my production account";
+
+// MARK: - Create tip
+"LongTapCreateTip.Title" = "Crete Objects with specific Type";
+"LongTapCreateTip.Message" = "Long tap on Create Object button to open menu with types";

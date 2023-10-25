@@ -133,7 +133,7 @@
 "Teal" = "Turquesa";
 "Green" = "Verde";
 "Default background" = "Plano de fundo padrão";
-"Amber background" = "Amber background";
+"Amber background" = "Fundo Âmbar";
 "Red background" = "Fundo vermelho";
 "Pink background" = "Fundo rosa";
 "Purple background" = "Fundo roxo";
@@ -196,7 +196,7 @@
 // Auth Errors
 "Error creating wallet" = "Erro na criação da carteira";
 "Error select account" = "Erro ao selecionar conta";
-"Error wallet recover account" = "Error wallet recover account";
+"Error wallet recover account" = "Erro ao recuperar conta da carteira";
 
 "Search for language" = "Pesquisar idioma";
 
@@ -297,7 +297,7 @@
 
 // MARK: - Alerts
 "Alert.CameraPermissions.Settings" = "Configurações";
-"Alert.CameraPermissions.GoToSettings" = "Anytype needs access to your camera to scan QR codes.\n\nPlease, go to your device's Settings -> Privacy -> Camera and set Anytype to ON";
+"Alert.CameraPermissions.GoToSettings" = "Anytype precisa de acesso à sua câmera para escanear códigos QR.\n\n Por favor, acesse Configurações do Dispositivo -> Anytype e ative o uso da Câmera.";
 
 // MARK: - Deletion
 "Pending deletion text" = "Lamentamos que tenha partido. Você tem 30 dias para cancelar este pedido. Após 30 dias, os dados da sua conta criptografada são removidos permanentemente do servidor de backup.";
@@ -320,7 +320,6 @@
 "TemplateOptions.Alert.Delete" = "Excluir";
 
 "TemplateEditing.Title" = "Editar modelo";
-"TemplateEditing.SelectButtonTitle" = "Selecionar modelo";
 
 "Templates.Popup.WasAddedTo" = "O novo modelo foi adicionado ao tipo";
 "Templates.Popup.Duplicated" = "O modelo foi duplicado";
@@ -422,7 +421,7 @@
 
 // MARK: - Sets: View Settings
 "Set.View.Settings.ImageFit.Title" = "Ajustar imagem";
-"Set.View.Settings.CardSize.Title" = "Card size";
+"Set.View.Settings.CardSize.Title" = "Tamanho do cartão";
 "Set.View.Settings.CardSize.Small.Title" = "Pequeno";
 "Set.View.Settings.CardSize.Large.Title" = "Grande";
 "Set.View.Settings.ImagePreview.Title" = "Pré-visualização da imagem";
@@ -443,12 +442,12 @@
 "Set.View.Kanban.Column.Settings.Hide.Column.Title" = "Ocultar coluna";
 
 // MARK: - Sets: empty view
-"Set.View.Empty.Title" = "No query selected";
+"Set.View.Empty.Title" = "Nenhuma consulta selecionada";
 "Set.View.Empty.Subtitle" = "Add search query to aggregate objects with equal types and relations in a live mode";
 
 // MARK: - Set source type
-"Set.SourceType.SelectQuery" = "Select query";
-"Set.SourceType.Cancel.Toast.Title" = "This query can be changed on desktop only";
+"Set.SourceType.SelectQuery" = "Selecione a consulta";
+"Set.SourceType.Cancel.Toast.Title" = "Esta consulta só pode ser alterada na versão desktop";
 
 // MARK: - Set: Type context menu
 "Set.TypeRelation.ContextMenu.TurnIntoCollection" = "Transformar conjunto em coleção";
@@ -499,7 +498,7 @@
 
 "Select all" = "Selecionar todos";
 "Unselect all" = "Unselect all";
-"Deselect all" = "Deselect all";
+"Deselect all" = "Desmarcar todos";
 "Shared" = "Compartilhado";
 "Sets" = "Conjuntos";
 "Collections" = "Coleções";
@@ -665,13 +664,13 @@
 "LinkPaste.bookmark" = "Criar marcador";
 
 // Relation Actions
-"RelationAction.CopyPhone" = "Copiar número de telefone";
+"RelationAction.CopyPhone" = "Copy phone number";
 "RelationAction.CopyEmail" = "Copiar e-mail";
 "RelationAction.CopyLink" = "Copiar link";
 "RelationAction.Copied" = "Copiado";
 "RelationAction.ReloadingContent" = "Recarregando conteúdo";
 "RelationAction.ReloadContent" = "Recarregar conteúdo do objeto";
-"RelationAction.CallPhone" = "Call phone numbler";
+"RelationAction.CallPhone" = "Ligar para número";
 "RelationAction.SendEmail" = "Enviar email";
 "RelationAction.OpenLink" = "Abrir link";
 
@@ -755,7 +754,7 @@
 "About.TermsOfUse" = "Termos de uso";
 "About.PrivacyPolicy" = "Política de Privacidade";
 "About.TechInfo" = "Informação técnica";
-"About.Mail.Subject" = "Support request, Account ID %@";
+"About.Mail.Subject" = "Requisição de suporte, ID da conta %@";
 "About.Mail.Body" = "\n\nTechnical information\n%@";
 
 // MARK: - Cache
@@ -772,10 +771,10 @@
 "FileStorage.Title" = "Armazenamento de arquivos";
 "FileStorage.Space.Title" = "Armazenamento remoto";
 "FileStorage.Space.Instruction" = "Você pode armazenar até %@ de seus arquivos em nosso nó de backup criptografado gratuitamente. Se você atingir o limite, os arquivos serão armazenados apenas localmente.";
-"FileStorage.Space.Used" = "%@ of %@ used";
+"FileStorage.Space.Used" = "%@ de %@ usados";
 "FileStorage.Space.GetMore" = "Obtenha mais espaço";
 "FileStorage.Space.Mail.Subject" = "Obtenha mais armazenamento, conta %@";
-"FileStorage.Space.Mail.Body" = "Hi, Anytype team. I am reaching out to request an increase in my file storage capacity as I have run out of storage. My current limits is %@. My account id is %@. Cheers, %@.";
+"FileStorage.Space.Mail.Body" = "Olá, equipe Anytype.  Estou entrando em contato para solicitar um aumento na minha capacidade de armazenamento de arquivos já que estou sem armazenamento. Os meus limites atuais são %@. O identificador da conta é %@. Saudações, %@.";
 "FileStorage.Local.Title" = "Armazenamento local";
 "FileStorage.Local.Instruction" = "In order to save space on your local device, you can offload all your files to our encrypted backup node. The files will be loaded back when you open them.";
 "FileStorage.Local.Used" = "%@ usados";
@@ -797,12 +796,16 @@
 // MARK: - Spaces
 "Spaces.Accessibility.Public" = "Público";
 "Spaces.Accessibility.Private" = "Privado";
+"Spaces.Search.Title" = "Search spaces";
 
 // MARK: - Space Settings
 "SpaceSettings.Title" = "Configurações do espaço";
 "SpaceSettings.RemoteStorage" = "Armazenamento remoto";
 "SpaceSettings.Info" = "Informações do Espaço";
 "SpaceSettings.NetworkId" = "ID da rede";
+"SpaceSettings.DeleteAlert.Title" = "Delete ‘%@’ space";
+"SpaceSettings.DeleteAlert.Message" = "This space will be deleted irrevocably. You can’t undo this action.";
+"SpaceSettings.DeleteButton" = "Delete space";
 
 // MARK: - Space Create
 "SpaceCreate.Title" = "Cria um Espaço";
@@ -813,12 +816,13 @@
 "Sharing.Navigation.RightButton.Title" = "Concluído";
 
 "Sharing.SaveAs" = "SALVAR COMO";
+"Sharing.SelectSpace" = "Space";
 "Sharing.AddTo" = "Adicionar à";
 "Sharing.LinkTo" = "Vincular a";
 
 "Sharing.URL.Bookmark" = "Objeto marcador";
 "Sharing.URL.Text" = "Bloco de texto";
-"Sharing.Text.NoteObject" = "Note object";
+"Sharing.Text.NoteObject" = "Objeto nota";
 "Sharing.Text.TextBlock" = "Bloco de texto";
 
 // MARK: - Initial
@@ -829,3 +833,7 @@
 "Initial.UnstableMiddle.Logout" = "Sair da conta atual";
 "Initial.UnstableMiddle.Continue" = "Continuar com a conta atual";
 "Initial.UnstableMiddle.WontUseProd" = "Não usarei a minha conta de produção";
+
+// MARK: - Create tip
+"LongTapCreateTip.Title" = "Crete Objects with specific Type";
+"LongTapCreateTip.Message" = "Toque longo no botão Criar Objeto para abrir o menu com os tipos";

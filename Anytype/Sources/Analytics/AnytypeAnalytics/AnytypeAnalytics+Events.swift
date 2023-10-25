@@ -683,4 +683,8 @@ extension AnytypeAnalytics {
             withEventProperties: [AnalyticsEventsPropertiesKey.id: tooltip.rawValue]
         )
     }
+    
+    func logCreateLink() {
+        logEvent(AnalyticsEventsName.createLink)
+    }
 }
