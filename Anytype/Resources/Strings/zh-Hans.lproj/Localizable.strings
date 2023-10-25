@@ -62,7 +62,7 @@
 "BlockLink.PreviewSettings.Layout.Text.Title" = "正文";
 
 // MARK: - Settings
-"Settings.Title" = "个人空间";
+"Settings.Title" = "设置";
 "Settings.SpaceName" = "空间名称";
 
 // MARK: - Object
@@ -226,7 +226,7 @@
 
 "Auth.JoinFlow.Creating.Soul.Title" = "生成新的 Anytype 标识";
 "Auth.JoinFlow.Setting.Space.Title" = "设置您的个人空间";
-"Auth.JoinFlow.Personal.Space.Title" = "个人空间";
+"Auth.JoinFlow.Personal.Space.Title" = "设置";
 
 // Auth - Login flow
 "Auth.LoginFlow.Use.Keychain.Title" = "使用钥匙串";
@@ -320,7 +320,6 @@
 "TemplateOptions.Alert.Delete" = "删除";
 
 "TemplateEditing.Title" = "编辑模板";
-"TemplateEditing.SelectButtonTitle" = "选择模板";
 
 "Templates.Popup.WasAddedTo" = "新模板已添加到类型";
 "Templates.Popup.Duplicated" = "模板已生成副本";
@@ -763,7 +762,7 @@
 "ClearCache.Error" = "错误，请稍后重试";
 
 // MARK: - Settings
-"Settings.TitleLegacy" = "个人空间";
+"Settings.TitleLegacy" = "设置";
 "Settings.Title" = "设置";
 "Settings.SpaceName" = "空间名称";
 "Settings.AccountAndAccess" = "账户与访问权限";
@@ -797,12 +796,16 @@
 // MARK: - Spaces
 "Spaces.Accessibility.Public" = "公共";
 "Spaces.Accessibility.Private" = "私人";
+"Spaces.Search.Title" = "搜索空间";
 
 // MARK: - Space Settings
 "SpaceSettings.Title" = "空间设置";
 "SpaceSettings.RemoteStorage" = "远程存储";
 "SpaceSettings.Info" = "空间信息";
 "SpaceSettings.NetworkId" = "网络 ID";
+"SpaceSettings.DeleteAlert.Title" = "删除 “%@” 空间";
+"SpaceSettings.DeleteAlert.Message" = "此空间将被不可撤销地删除。您无法撤消此操作。";
+"SpaceSettings.DeleteButton" = "删除空间";
 
 // MARK: - Space Create
 "SpaceCreate.Title" = "创建空间";
@@ -813,6 +816,7 @@
 "Sharing.Navigation.RightButton.Title" = "完成";
 
 "Sharing.SaveAs" = "保存为";
+"Sharing.SelectSpace" = "空间";
 "Sharing.AddTo" = "添加到";
 "Sharing.LinkTo" = "链接到";
 
@@ -829,3 +833,7 @@
 "Initial.UnstableMiddle.Logout" = "退出当前账户";
 "Initial.UnstableMiddle.Continue" = "继续使用当前账户";
 "Initial.UnstableMiddle.WontUseProd" = "我不会使用我的生产账户";
+
+// MARK: - Create tip
+"LongTapCreateTip.Title" = "创建带有特定类型的对象";
+"LongTapCreateTip.Message" = "长按创建对象按钮以打开带类型的菜单";

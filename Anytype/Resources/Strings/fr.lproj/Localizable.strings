@@ -62,7 +62,7 @@
 "BlockLink.PreviewSettings.Layout.Text.Title" = "Texte";
 
 // MARK: - Settings
-"Settings.Title" = "Espace personnel";
+"Settings.Title" = "Paramètres";
 "Settings.SpaceName" = "Nom de l'espace";
 
 // MARK: - Object
@@ -226,7 +226,7 @@
 
 "Auth.JoinFlow.Creating.Soul.Title" = "Génération d'un nouveau compte";
 "Auth.JoinFlow.Setting.Space.Title" = "Configuration de votre espace personnel";
-"Auth.JoinFlow.Personal.Space.Title" = "Espace personnel";
+"Auth.JoinFlow.Personal.Space.Title" = "Paramètres";
 
 // Auth - Login flow
 "Auth.LoginFlow.Use.Keychain.Title" = "Utiliser le trousseau";
@@ -320,7 +320,6 @@
 "TemplateOptions.Alert.Delete" = "Supprimer";
 
 "TemplateEditing.Title" = "Edit template";
-"TemplateEditing.SelectButtonTitle" = "Select template";
 
 "Templates.Popup.WasAddedTo" = "New template was added to the type";
 "Templates.Popup.Duplicated" = "The template was duplicated";
@@ -763,7 +762,7 @@
 "ClearCache.Error" = "Error, try again later";
 
 // MARK: - Settings
-"Settings.TitleLegacy" = "Espace personnel";
+"Settings.TitleLegacy" = "Paramètres";
 "Settings.Title" = "Paramètres";
 "Settings.SpaceName" = "Nom de l'espace";
 "Settings.AccountAndAccess" = "Compte et accès";
@@ -797,12 +796,16 @@
 // MARK: - Spaces
 "Spaces.Accessibility.Public" = "Public";
 "Spaces.Accessibility.Private" = "Private";
+"Spaces.Search.Title" = "Rechercher des espaces";
 
 // MARK: - Space Settings
 "SpaceSettings.Title" = "Paramètres de l'espace";
 "SpaceSettings.RemoteStorage" = "Remote storage";
 "SpaceSettings.Info" = "Informations sur l'espace";
 "SpaceSettings.NetworkId" = "ID réseau";
+"SpaceSettings.DeleteAlert.Title" = "Delete ‘%@’ space";
+"SpaceSettings.DeleteAlert.Message" = "This space will be deleted irrevocably. You can’t undo this action.";
+"SpaceSettings.DeleteButton" = "Delete space";
 
 // MARK: - Space Create
 "SpaceCreate.Title" = "Créer un espace";
@@ -813,6 +816,7 @@
 "Sharing.Navigation.RightButton.Title" = "Fait";
 
 "Sharing.SaveAs" = "SAVE AS";
+"Sharing.SelectSpace" = "Espace";
 "Sharing.AddTo" = "Add to";
 "Sharing.LinkTo" = "Link to";
 
@@ -829,3 +833,7 @@
 "Initial.UnstableMiddle.Logout" = "Déconnexion du compte actuel";
 "Initial.UnstableMiddle.Continue" = "Continuer avec le compte actuel";
 "Initial.UnstableMiddle.WontUseProd" = "Je n'utiliserai pas mon compte de production";
+
+// MARK: - Create tip
+"LongTapCreateTip.Title" = "Créer des objets avec un type spécifique";
+"LongTapCreateTip.Message" = "Appuyez longuement sur le bouton Créer un objet pour ouvrir le menu avec les types";
