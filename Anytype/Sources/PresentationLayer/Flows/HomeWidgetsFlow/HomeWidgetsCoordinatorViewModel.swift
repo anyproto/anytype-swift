@@ -8,7 +8,7 @@ import AnytypeCore
 final class HomeWidgetsCoordinatorViewModel: ObservableObject,
                                              HomeWidgetsModuleOutput, CommonWidgetModuleOutput,
                                              HomeBottomPanelModuleOutput, SpaceSwitchModuleOutput,
-                                             EditorBrowserDelegate {
+                                             EditorBrowserDelegate, SpaceCreateModuleOutput {
     
     // MARK: - DI
     
@@ -148,7 +148,7 @@ final class HomeWidgetsCoordinatorViewModel: ObservableObject,
     }
     
     func createSpaceCreateModule() -> AnyView {
-        return spaceCreateModuleAssembly.make()
+        return spaceCreateModuleAssembly.make(output: self)
     }
     
     func createSharingModule() -> AnyView {
@@ -248,6 +248,12 @@ final class HomeWidgetsCoordinatorViewModel: ObservableObject,
     
     func onSettingsSelected() {
         settingsCoordinator.startFlow()
+    }
+    
+    // MARK: - SpaceCreateModuleOutput
+    
+    func spaceCreateWillDismiss() {
+        showSpaceSwitch.toggle()
     }
     
     // MARK: - EditorBrowserDelegate

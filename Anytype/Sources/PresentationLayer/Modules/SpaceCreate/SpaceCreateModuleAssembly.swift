@@ -2,7 +2,7 @@ import SwiftUI
 
 protocol SpaceCreateModuleAssemblyProtocol: AnyObject {
     @MainActor
-    func make() -> AnyView
+    func make(output: SpaceCreateModuleOutput?) -> AnyView
 }
 
 final class SpaceCreateModuleAssembly: SpaceCreateModuleAssemblyProtocol {
@@ -16,10 +16,11 @@ final class SpaceCreateModuleAssembly: SpaceCreateModuleAssemblyProtocol {
     // MARK: - SpaceCreateModuleAssemblyProtocol
     
     @MainActor
-    func make() -> AnyView {
+    func make(output: SpaceCreateModuleOutput?) -> AnyView {
         return SpaceCreateView(model: SpaceCreateViewModel(
             activeWorkspaceStorage: self.serviceLocator.activeWorkspaceStorage(),
-            workspaceService: self.serviceLocator.workspaceService()
+            workspaceService: self.serviceLocator.workspaceService(),
+            output: output
         )).eraseToAnyView()
     }
 }
