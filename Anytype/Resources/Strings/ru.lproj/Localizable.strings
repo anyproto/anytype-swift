@@ -62,7 +62,7 @@
 "BlockLink.PreviewSettings.Layout.Text.Title" = "Текст";
 
 // MARK: - Settings
-"Settings.Title" = "Личное пространство";
+"Settings.Title" = "Настройки";
 "Settings.SpaceName" = "Название пространства";
 
 // MARK: - Object
@@ -226,7 +226,7 @@
 
 "Auth.JoinFlow.Creating.Soul.Title" = "Создание нового аккаунта";
 "Auth.JoinFlow.Setting.Space.Title" = "Настройка вашего личного пространства";
-"Auth.JoinFlow.Personal.Space.Title" = "Личное пространство";
+"Auth.JoinFlow.Personal.Space.Title" = "Настройки";
 
 // Auth - Login flow
 "Auth.LoginFlow.Use.Keychain.Title" = "Использовать связку ключей";
@@ -320,7 +320,6 @@
 "TemplateOptions.Alert.Delete" = "Удалить";
 
 "TemplateEditing.Title" = "Изменить шаблон";
-"TemplateEditing.SelectButtonTitle" = "Выбрать шаблон";
 
 "Templates.Popup.WasAddedTo" = "Новый шаблон добавлен к типу";
 "Templates.Popup.Duplicated" = "Шаблон был скопирован";
@@ -763,7 +762,7 @@
 "ClearCache.Error" = "Ошибка, повторите попытку позже";
 
 // MARK: - Settings
-"Settings.TitleLegacy" = "Личное пространство";
+"Settings.TitleLegacy" = "Настройки";
 "Settings.Title" = "Настройки";
 "Settings.SpaceName" = "Название пространства";
 "Settings.AccountAndAccess" = "Учетная запись и доступ";
@@ -797,12 +796,16 @@
 // MARK: - Spaces
 "Spaces.Accessibility.Public" = "Public";
 "Spaces.Accessibility.Private" = "Private";
+"Spaces.Search.Title" = "Search spaces";
 
 // MARK: - Space Settings
 "SpaceSettings.Title" = "Space settings";
 "SpaceSettings.RemoteStorage" = "Удалённое хранилище";
 "SpaceSettings.Info" = "Space info";
 "SpaceSettings.NetworkId" = "Network ID";
+"SpaceSettings.DeleteAlert.Title" = "Delete ‘%@’ space";
+"SpaceSettings.DeleteAlert.Message" = "This space will be deleted irrevocably. You can’t undo this action.";
+"SpaceSettings.DeleteButton" = "Delete space";
 
 // MARK: - Space Create
 "SpaceCreate.Title" = "Create a space";
@@ -813,6 +816,7 @@
 "Sharing.Navigation.RightButton.Title" = "Готово";
 
 "Sharing.SaveAs" = "SAVE AS";
+"Sharing.SelectSpace" = "Space";
 "Sharing.AddTo" = "Add to";
 "Sharing.LinkTo" = "Связать с";
 
@@ -829,3 +833,7 @@
 "Initial.UnstableMiddle.Logout" = "Logout from current account";
 "Initial.UnstableMiddle.Continue" = "Continue with current account";
 "Initial.UnstableMiddle.WontUseProd" = "I won't be using my production account";
+
+// MARK: - Create tip
+"LongTapCreateTip.Title" = "Crete Objects with specific Type";
+"LongTapCreateTip.Message" = "Long tap on Create Object button to open menu with types";
