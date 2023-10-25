@@ -62,7 +62,7 @@
 "BlockLink.PreviewSettings.Layout.Text.Title" = "Text";
 
 // MARK: - Settings
-"Settings.Title" = "Persönlicher Space";
+"Settings.Title" = "Settings";
 "Settings.SpaceName" = "Space-Name";
 
 // MARK: - Object
@@ -226,7 +226,7 @@
 
 "Auth.JoinFlow.Creating.Soul.Title" = "Neues Konto erstellen";
 "Auth.JoinFlow.Setting.Space.Title" = "Einrichtung deines persönlichen Spaces";
-"Auth.JoinFlow.Personal.Space.Title" = "Persönlicher Space";
+"Auth.JoinFlow.Personal.Space.Title" = "Settings";
 
 // Auth - Login flow
 "Auth.LoginFlow.Use.Keychain.Title" = "Schlüsselbund verwenden";
@@ -313,14 +313,13 @@
 "TemplateSelection.SelectTemplate" = "Select template";
 "TemplateSelection.blankTemplate" = "Blank";
 "TemplateSelection.Template.Subtitle" = "Template";
-"TemplateSelection.ObjectType.Subtitle" = "Object type";
+"TemplateSelection.ObjectType.Subtitle" = "Objekttyp";
 
 "TemplateOptions.Alert.EditTemplate" = "Edit template";
 "TemplateOptions.Alert.Duplicate" = "Duplizieren";
 "TemplateOptions.Alert.Delete" = "Löschen";
 
 "TemplateEditing.Title" = "Edit template";
-"TemplateEditing.SelectButtonTitle" = "Select template";
 
 "Templates.Popup.WasAddedTo" = "New template was added to the type";
 "Templates.Popup.Duplicated" = "The template was duplicated";
@@ -338,17 +337,17 @@
 "LinkAppearance.Description.None.Title" = "Keine";
 "LinkAppearance.Description.Object.Title" = "Object description";
 "LinkAppearance.Description.Content.Title" = "Content preview";
-"LinkAppearance.ObjectType.Title" = "Object type";
+"LinkAppearance.ObjectType.Title" = "Objekttyp";
 
 // MARK: - Sets: Sorts
 "EditSet.Popup.Sorts.NavigationView.Title" = "Sorts";
 "EditSet.Popup.Sorts.EmptyView.Title" = "No sorts here. You can add some";
-"EditSet.Popup.Sort.Types.Ascending" = "Ascending";
-"EditSet.Popup.Sort.Types.Descending" = "Descending";
+"EditSet.Popup.Sort.Types.Ascending" = "Aufsteigend";
+"EditSet.Popup.Sort.Types.Descending" = "Absteigend";
 "EditSet.Popup.Sort.Add.SearchPlaceholder" = "Сhoose a relation to sort";
 
 // MARK: - Sets: Filters
-"EditSet.Popup.Filters.NavigationView.Title" = "Filters";
+"EditSet.Popup.Filters.NavigationView.Title" = "Filter";
 "EditSet.Popup.Filters.EmptyView.Title" = "No filters here. You can add some";
 "EditSet.Popup.Filters.TextView.Placeholder" = "Value";
 
@@ -763,7 +762,7 @@
 "ClearCache.Error" = "Error, try again later";
 
 // MARK: - Settings
-"Settings.TitleLegacy" = "Persönlicher Space";
+"Settings.TitleLegacy" = "Settings";
 "Settings.Title" = "Settings";
 "Settings.SpaceName" = "Space-Name";
 "Settings.AccountAndAccess" = "Account and access";
@@ -797,12 +796,16 @@
 // MARK: - Spaces
 "Spaces.Accessibility.Public" = "Public";
 "Spaces.Accessibility.Private" = "Private";
+"Spaces.Search.Title" = "Search spaces";
 
 // MARK: - Space Settings
 "SpaceSettings.Title" = "Space settings";
 "SpaceSettings.RemoteStorage" = "Remote storage";
 "SpaceSettings.Info" = "Space info";
 "SpaceSettings.NetworkId" = "Network ID";
+"SpaceSettings.DeleteAlert.Title" = "Delete ‘%@’ space";
+"SpaceSettings.DeleteAlert.Message" = "This space will be deleted irrevocably. You can’t undo this action.";
+"SpaceSettings.DeleteButton" = "Delete space";
 
 // MARK: - Space Create
 "SpaceCreate.Title" = "Create a space";
@@ -813,6 +816,7 @@
 "Sharing.Navigation.RightButton.Title" = "Fertig";
 
 "Sharing.SaveAs" = "SAVE AS";
+"Sharing.SelectSpace" = "Space";
 "Sharing.AddTo" = "Add to";
 "Sharing.LinkTo" = "Link zu";
 
@@ -829,3 +833,7 @@
 "Initial.UnstableMiddle.Logout" = "Logout from current account";
 "Initial.UnstableMiddle.Continue" = "Continue with current account";
 "Initial.UnstableMiddle.WontUseProd" = "I won't be using my production account";
+
+// MARK: - Create tip
+"LongTapCreateTip.Title" = "Crete Objects with specific Type";
+"LongTapCreateTip.Message" = "Long tap on Create Object button to open menu with types";
