@@ -320,7 +320,6 @@
 "TemplateOptions.Alert.Delete" = "Delete";
 
 "TemplateEditing.Title" = "Edit template";
-"TemplateEditing.SelectButtonTitle" = "Select template";
 
 "Templates.Popup.WasAddedTo" = "New template was added to the type";
 "Templates.Popup.Duplicated" = "The template was duplicated";

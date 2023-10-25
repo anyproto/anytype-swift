@@ -83,7 +83,7 @@ struct TemplatePickerView: View {
     }
 
     private var button: some View {
-        StandardButton(Loc.TemplateEditing.selectButtonTitle, style: .primaryLarge) { [weak viewModel] in
+        StandardButton(Loc.TemplateSelection.selectTemplate, style: .primaryLarge) { [weak viewModel] in
             viewModel?.onApplyButton()
         }
         .padding([.horizontal], 20)

@@ -29,8 +29,16 @@ final class TemplatePickerViewModel {
         switch item {
         case let .template(model):
             templateId = model.object.id
+            AnytypeAnalytics.instance().logTemplateSelection(
+                objectType: model.object.templateIsBundled ? .object(typeId: model.object.id) : .custom,
+                route: .navigation
+            )
         case .blank:
             templateId = ""
+            AnytypeAnalytics.instance().logTemplateSelection(
+                objectType: nil,
+                route: .navigation
+            )
         }
         
         Task { @MainActor in

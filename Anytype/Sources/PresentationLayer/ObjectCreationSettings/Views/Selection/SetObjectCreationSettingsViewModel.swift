@@ -60,7 +60,7 @@ final class SetObjectCreationSettingsViewModel: ObservableObject {
                 objectTypeId: interactor.objectTypeId,
                 templateId: templateModel.id
             )
-            AnytypeAnalytics.instance().logTemplateSelection(
+            AnytypeAnalytics.instance().logChangeDefaultTemplate(
                 objectType: templateModel.isBundled ? .object(typeId: templateModel.id) : .custom,
                 route: setDocument.isCollection() ? .collection : .set
             )
@@ -69,7 +69,7 @@ final class SetObjectCreationSettingsViewModel: ObservableObject {
                 objectTypeId: interactor.objectTypeId,
                 templateId: ""
             )
-            AnytypeAnalytics.instance().logTemplateSelection(
+            AnytypeAnalytics.instance().logChangeDefaultTemplate(
                 objectType: nil,
                 route: setDocument.isCollection() ? .collection : .set
             )

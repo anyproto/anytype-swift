@@ -617,8 +617,8 @@ extension AnytypeAnalytics {
         )
     }
     
-    func logSkipName() {
-        logEvent(AnalyticsEventsName.skipName)
+    func logOnboardingSkipName() {
+        logEvent(AnalyticsEventsName.onboardingSkipName)
     }
     
     func logTemplateSelection(objectType: AnalyticsObjectType?, route: AnalyticsEventsRouteKind) {
@@ -631,13 +631,13 @@ extension AnytypeAnalytics {
         )
     }
     
-    func logChangeDefaultTemplate(objectType: AnalyticsObjectType, route: AnalyticsEventsRouteKind) {
+    func logChangeDefaultTemplate(objectType: AnalyticsObjectType?, route: AnalyticsEventsRouteKind) {
         logEvent(
             AnalyticsEventsName.changeDefaultTemplate,
             withEventProperties: [
-                AnalyticsEventsPropertiesKey.type: objectType.analyticsId,
+                AnalyticsEventsPropertiesKey.type: objectType?.analyticsId,
                 AnalyticsEventsPropertiesKey.route: route.rawValue
-            ]
+            ].compactMapValues { $0 }
         )
     }
     
