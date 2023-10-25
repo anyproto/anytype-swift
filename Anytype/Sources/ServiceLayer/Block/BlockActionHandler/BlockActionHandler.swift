@@ -119,11 +119,14 @@ final class BlockActionHandler: BlockActionHandlerProtocol {
     }
     
     func createEmptyBlock(parentId: BlockId) {
-        service.addChild(info: BlockInformation.emptyText, parentId: parentId)
+        let emptyBlock = BlockInformation.emptyText
+        AnytypeAnalytics.instance().logCreateBlock(type: emptyBlock.content.description, style: emptyBlock.content.type.style)
+        service.addChild(info: emptyBlock, parentId: parentId)
     }
     
     func addLink(targetDetails: ObjectDetails, blockId: BlockId) {
         let isBookmarkType = targetDetails.layoutValue == .bookmark
+        AnytypeAnalytics.instance().logCreateLink()
         service.add(
             info: isBookmarkType ? .bookmark(targetId: targetDetails.id) : .emptyLink(targetId: targetDetails.id),
             targetBlockId: blockId,
@@ -307,7 +310,8 @@ final class BlockActionHandler: BlockActionHandlerProtocol {
             ?? document.infoContainer.get(id: blockId)?.isTextAndEmpty else { return }
         
         let position: BlockPosition = isTextAndEmpty ? .replace : (position ?? .bottom)
-
+        
+        AnytypeAnalytics.instance().logCreateBlock(type: newBlock.content.description, style: newBlock.content.type.style)
         service.add(info: newBlock, targetBlockId: blockId, position: position)
     }
 
