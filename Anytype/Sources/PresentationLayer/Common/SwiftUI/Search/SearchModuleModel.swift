@@ -9,3 +9,9 @@ struct SearchModuleModel: Identifiable, Hashable {
     
     var id: Int { hashValue }
 }
+
+struct SearchSpaceModel: Identifiable, Hashable {
+    var id: Int { hashValue }
+    
+    @EquatableNoop var onSelect: (SpaceView) -> Void
+}

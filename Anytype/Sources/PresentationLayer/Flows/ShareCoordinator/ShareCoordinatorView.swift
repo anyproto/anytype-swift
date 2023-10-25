@@ -11,6 +11,9 @@ struct ShareCoordinatorView: View {
         .sheet(item: $model.showSearchData) { data in
             model.searchModule(data: data)
         }
+        .sheet(item: $model.showSpaceSearchData) { data in
+            model.searchSpaceModule(data: data)
+        }
         .onChange(of: model.dismiss) { _ in
             dismiss()
         }

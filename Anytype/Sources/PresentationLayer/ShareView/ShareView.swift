@@ -45,7 +45,9 @@ struct ShareView_Previews: PreviewProvider {
             viewModel: .init(
                 contentViewModel: URLShareViewModel(
                     url: URL(string: "http://anytype.io")!,
-                    onDocumentSelection: { _ in }),
+                    onDocumentSelection: { _ in }, 
+                    onSpaceSelection: { _ in }
+                ),
                 interactor: ServiceLocator().sharedContentInteractor,
                 contentManager: ServiceLocator().sharedContentManager
             )

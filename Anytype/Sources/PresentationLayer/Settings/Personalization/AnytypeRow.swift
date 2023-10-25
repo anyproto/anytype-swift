@@ -14,6 +14,7 @@ struct AnytypeRow: View {
                 Spacer()
                 if let description {
                     AnytypeText(description, style: .uxBodyRegular, color: .Text.secondary)
+                        .lineLimit(1)
                     Spacer.fixedWidth(10)
                 }
                 Image(asset: .arrowForward).foregroundColor(.Text.tertiary)

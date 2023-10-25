@@ -10,6 +10,7 @@ final class ShareCoordinatorViewModel: ObservableObject {
     private let activeWorkspaceStorage: ActiveWorkpaceStorageProtocol
     
     @Published var showSearchData: SearchModuleModel?
+    @Published var showSpaceSearchData: SearchSpaceModel?
     @Published var dismiss = false
     
     init(
@@ -23,16 +24,17 @@ final class ShareCoordinatorViewModel: ObservableObject {
     }
     
     func shareModule() -> AnyView? {
-        return shareModuleAssembly.make { [weak self, activeWorkspaceStorage] arg in
-            self?.showSearchData = SearchModuleModel(
-                spaceId: activeWorkspaceStorage.workspaceInfo.accountSpaceId,
-                title: arg.0,
-                layoutLimits: arg.1,
-                onSelect: arg.2
-            )
+        return shareModuleAssembly.make { [weak self] arg in
+            self?.showSearchData = arg
+        } onSpaceSearch: { [weak self] handler in
+            self?.showSpaceSearchData = .init(onSelect: handler)
         } onClose: { [weak self] arg in
             self?.dismiss.toggle()
         }
+    }
+    
+    func searchSpaceModule(data: SearchSpaceModel) -> AnyView {
+        return searchModuleAssembly.makeSpaceSearch(data: data)
     }
     
     func searchModule(data: SearchModuleModel) -> AnyView {

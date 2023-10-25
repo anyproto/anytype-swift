@@ -16,8 +16,7 @@ final class ServiceLocator {
         bookmarkService: bookmarkService(),
         objectActionsService: objectActionsService(),
         blockActionService: blockActionsServiceSingle(),
-        pageRepository: pageRepository(),
-        activeWorkpaceStorage: activeWorkspaceStorage()
+        pageRepository: pageRepository()
     )
 
     lazy private(set) var unsplashService: UnsplashServiceProtocol = UnsplashService()
