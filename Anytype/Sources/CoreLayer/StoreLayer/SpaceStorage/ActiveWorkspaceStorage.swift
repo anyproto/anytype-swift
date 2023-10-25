@@ -70,7 +70,8 @@ final class ActiveWorkspaceStorage: ActiveWorkpaceStorageProtocol {
     }
     
     private func resetActiveSpace() {
-        workspaceInfo = accountManager.account.info
-        activeSpaceId = workspaceInfo.accountSpaceId
+        Task {
+            try await setActiveSpace(spaceId: accountManager.account.info.accountSpaceId)
+        }
     }
 }

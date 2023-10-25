@@ -1675,6 +1675,8 @@ internal enum Loc {
     internal static let title = Loc.tr("Localizable", "SpaceCreate.Title", fallback: "Create a space")
   }
   internal enum SpaceSettings {
+    /// Delete space
+    internal static let deleteButton = Loc.tr("Localizable", "SpaceSettings.DeleteButton", fallback: "Delete space")
     /// Space info
     internal static let info = Loc.tr("Localizable", "SpaceSettings.Info", fallback: "Space info")
     /// Network ID
@@ -1683,6 +1685,14 @@ internal enum Loc {
     internal static let remoteStorage = Loc.tr("Localizable", "SpaceSettings.RemoteStorage", fallback: "Remote storage")
     /// Space settings
     internal static let title = Loc.tr("Localizable", "SpaceSettings.Title", fallback: "Space settings")
+    internal enum DeleteAlert {
+      /// This space will be deleted irrevocably. You can’t undo this action.
+      internal static let message = Loc.tr("Localizable", "SpaceSettings.DeleteAlert.Message", fallback: "This space will be deleted irrevocably. You can’t undo this action.")
+      /// Delete ‘%@’ space
+      internal static func title(_ p1: Any) -> String {
+        return Loc.tr("Localizable", "SpaceSettings.DeleteAlert.Title", String(describing: p1), fallback: "Delete ‘%@’ space")
+      }
+    }
   }
   internal enum Spaces {
     internal enum Accessibility {

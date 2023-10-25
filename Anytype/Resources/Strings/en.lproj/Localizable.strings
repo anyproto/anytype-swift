@@ -804,6 +804,9 @@
 "SpaceSettings.RemoteStorage" = "Remote storage";
 "SpaceSettings.Info" = "Space info";
 "SpaceSettings.NetworkId" = "Network ID";
+"SpaceSettings.DeleteAlert.Title" = "Delete ‘%@’ space";
+"SpaceSettings.DeleteAlert.Message" = "This space will be deleted irrevocably. You can’t undo this action.";
+"SpaceSettings.DeleteButton" = "Delete space";
 
 // MARK: - Space Create
 "SpaceCreate.Title" = "Create a space";

@@ -76,6 +76,11 @@ struct SpaceSwitchView: View {
         .onChange(of: model.dismiss) { _ in
             dismiss()
         }
+        .anytypeSheet(item: $model.spaceViewForDelete) { space in
+            FloaterAlertView.deleteSpaceAlert(spaceName: space.title) {
+                model.onDeleteConfirmationTap(space: space)
+            }
+        }
     }
     
     private var content: some View {
@@ -86,12 +91,11 @@ struct SpaceSwitchView: View {
             }
             if model.createSpaceAvailable {
                 SpacePlusRow() {
-                    model.onTapAddSpace()
+                    model.onAddSpaceTap()
                 }
             }
         }
         .padding([.top], headerSize.height + 6)
-        .animation(.default, value: model.rows.count)
     }
 
     private var header: some View {
@@ -103,7 +107,7 @@ struct SpaceSwitchView: View {
                 .lineLimit(1)
             Spacer()
             Button {
-                model.onTapProfile()
+                model.onProfileTap()
             } label: {
                 Image(asset: .Dashboard.settings)
                     .foregroundColor(.Button.white)
@@ -113,4 +117,3 @@ struct SpaceSwitchView: View {
         .padding(.horizontal, externalSpacing)
     }
 }
-

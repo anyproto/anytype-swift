@@ -14,12 +14,14 @@ final class SpaceSwitchViewModel: ObservableObject {
     private let workspacesStorage: WorkspacesStorageProtocol
     private let activeWorkspaceStorage: ActiveWorkpaceStorageProtocol
     private let subscriptionService: SingleObjectSubscriptionServiceProtocol
+    private let accountManager: AccountManagerProtocol
+    private let workspaceService: WorkspaceServiceProtocol
     private weak var output: SpaceSwitchModuleOutput?
     
     // MARK: - State
     
     private let profileSubId = "Profile-\(UUID().uuidString)"
-    private var workspaces: [SpaceView]?
+    private var spaces: [SpaceView]?
     private var activeWorkspaceInfo: AccountInfo?
     private var subscriptions = [AnyCancellable]()
     
@@ -29,16 +31,21 @@ final class SpaceSwitchViewModel: ObservableObject {
     @Published var profileIcon: Icon?
     @Published var scrollToRowId: String? = nil
     @Published var createSpaceAvailable: Bool = false
+    @Published var spaceViewForDelete: SpaceView?
     
     init(
         workspacesStorage: WorkspacesStorageProtocol,
         activeWorkspaceStorage: ActiveWorkpaceStorageProtocol,
         subscriptionService: SingleObjectSubscriptionServiceProtocol,
+        accountManager: AccountManagerProtocol,
+        workspaceService: WorkspaceServiceProtocol,
         output: SpaceSwitchModuleOutput?
     ) {
         self.workspacesStorage = workspacesStorage
         self.activeWorkspaceStorage = activeWorkspaceStorage
         self.subscriptionService = subscriptionService
+        self.accountManager = accountManager
+        self.workspaceService = workspaceService
         self.output = output
         Task {
             await startProfileSubscriotions()
@@ -46,12 +53,18 @@ final class SpaceSwitchViewModel: ObservableObject {
         }
     }
     
-    func onTapAddSpace() {
+    func onAddSpaceTap() {
         output?.onCreateSpaceSelected()
     }
     
-    func onTapProfile() {
+    func onProfileTap() {
         output?.onSettingsSelected()
+    }
+    
+    func onDeleteConfirmationTap(space: SpaceView) {
+        Task {
+            try await workspaceService.deleteSpace(spaceId: space.targetSpaceId)
+        }
     }
     
     // MARK: - Private
@@ -70,7 +83,7 @@ final class SpaceSwitchViewModel: ObservableObject {
         workspacesStorage.workspsacesPublisher
             .receiveOnMain()
             .sink { [weak self] workspaces in
-                self?.workspaces = workspaces
+                self?.spaces = workspaces
                 self?.updateViewModel()
             }
             .store(in: &subscriptions)
@@ -89,28 +102,32 @@ final class SpaceSwitchViewModel: ObservableObject {
     }
     
     private func updateViewModel() {
-        guard let activeWorkspaceInfo, let workspaces else {
+        guard let activeWorkspaceInfo, let spaces else {
             rows = []
             return
         }
         let activeSpaceId = activeWorkspaceInfo.accountSpaceId
         
-        rows = workspaces.map { workspace -> SpaceRowModel in
+        rows = spaces.map { spaceView -> SpaceRowModel in
             SpaceRowModel(
-                id: workspace.id,
-                title: workspace.title,
-                icon: workspace.objectIconImage,
-                isSelected: activeSpaceId == workspace.targetSpaceId
-            ) { [weak self] in
-                self?.onTapWorkspace(workspace: workspace)
-            }
+                id: spaceView.id,
+                title: spaceView.title,
+                icon: spaceView.objectIconImage,
+                isSelected: activeSpaceId == spaceView.targetSpaceId,
+                onTap: { [weak self] in
+                    self?.onTapWorkspace(workspace: spaceView)
+                },
+                onDelete: accountManager.account.info.spaceViewId == spaceView.id ? nil : { [weak self] in
+                    self?.spaceViewForDelete = spaceView
+                }
+            )
         }
         
         if scrollToRowId.isNil, let selectedRow = rows.first(where: { $0.isSelected }) {
             scrollToRowId = selectedRow.id
         }
         
-        createSpaceAvailable = workspaces.count < Constants.maxSpaces
+        createSpaceAvailable = spaces.count < Constants.maxSpaces
     }
     
     private func updateProfile(profile: ObjectDetails) {

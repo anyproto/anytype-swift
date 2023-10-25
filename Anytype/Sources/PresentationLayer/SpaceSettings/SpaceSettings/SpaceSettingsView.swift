@@ -4,6 +4,7 @@ import SwiftUI
 struct SpaceSettingsView: View {
     
     @StateObject var model: SpaceSettingsViewModel
+    @Environment(\.dismiss) var dismiss
     
     var body: some View {
         VStack(spacing: 0) {
@@ -40,11 +41,25 @@ struct SpaceSettingsView: View {
                     ForEach(0..<model.info.count, id:\.self) { index in
                         SettingsInfoBlockView(model: model.info[index])
                     }
+                    
+                    StandardButton(Loc.SpaceSettings.deleteButton, style: .warningLarge) {
+                        model.onDeleteTap()
+                    }
+                    .padding(.top, 20)
+                    .padding(.bottom, 10)
                 }
             }
             .padding(.horizontal, 20)
         }
         .snackbar(toastBarData: $model.snackBarData)
+        .onChange(of: model.dismiss) { _ in
+            dismiss()
+        }
+        .anytypeSheet(isPresented: $model.showSpaceDeleteAlert) {
+            FloaterAlertView.deleteSpaceAlert(spaceName: model.spaceName) {
+                model.onDeleteConfirmationTap()
+            }
+        }
     }
 }
 

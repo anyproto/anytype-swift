@@ -531,6 +531,7 @@
 		2A90C46E285B5A9100B6B44E /* ProtobufMessages in Embed Frameworks */ = {isa = PBXBuildFile; productRef = 2A90C46C285B5A9100B6B44E /* ProtobufMessages */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
 		2A90C470285B5AA700B6B44E /* SwiftProtobuf in Frameworks */ = {isa = PBXBuildFile; productRef = 2A90C46F285B5AA700B6B44E /* SwiftProtobuf */; };
 		2A90C47B28605F8C00B6B44E /* TableOfContentsContentProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A90C47A28605F8C00B6B44E /* TableOfContentsContentProvider.swift */; };
+		2A93E1A82AE7DE90004438FD /* View+Sheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A93E1A72AE7DE90004438FD /* View+Sheet.swift */; };
 		2A945D3C299E2CD300C34C86 /* WidgetEmptyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A945D3B299E2CD300C34C86 /* WidgetEmptyView.swift */; };
 		2A945D3E299E3E9D00C34C86 /* PlainList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A945D3D299E3E9D00C34C86 /* PlainList.swift */; };
 		2A947B302A3093DD00119140 /* BottomAlert+Bin.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A947B2F2A3093DD00119140 /* BottomAlert+Bin.swift */; };
@@ -609,6 +610,7 @@
 		2AC3F9462A138263005EFEE9 /* FileLimitsStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AC3F9452A138263005EFEE9 /* FileLimitsStorage.swift */; };
 		2AC3F9482A1394D9005EFEE9 /* FileLimits.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AC3F9472A1394D9005EFEE9 /* FileLimits.swift */; };
 		2AC429A629B784280002AD05 /* BaseDocumentProtocol+Home.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AC429A529B784280002AD05 /* BaseDocumentProtocol+Home.swift */; };
+		2AC750222AE7EB1A000CDD66 /* FloaterAlertView+DeleteSpace.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AC750212AE7EB1A000CDD66 /* FloaterAlertView+DeleteSpace.swift */; };
 		2AC906C129B5F8EF00209E39 /* WidgetInternalViewModelProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AC906C029B5F8EF00209E39 /* WidgetInternalViewModelProtocol.swift */; };
 		2AC906C329B5FA3300209E39 /* ObjectWidgetInternalViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AC906C229B5FA3300209E39 /* ObjectWidgetInternalViewModel.swift */; };
 		2AC906C529B5FFD600209E39 /* TreeWidgetModuleAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AC906C429B5FFD600209E39 /* TreeWidgetModuleAssembly.swift */; };
@@ -2133,6 +2135,7 @@
 		2A8C00FC29C4C61300309C14 /* SectionHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SectionHeaderView.swift; sourceTree = "<group>"; };
 		2A8DCAD128C635CE0029B914 /* RelationDetailsStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RelationDetailsStorage.swift; sourceTree = "<group>"; };
 		2A90C47A28605F8C00B6B44E /* TableOfContentsContentProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableOfContentsContentProvider.swift; sourceTree = "<group>"; };
+		2A93E1A72AE7DE90004438FD /* View+Sheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "View+Sheet.swift"; sourceTree = "<group>"; };
 		2A945D3B299E2CD300C34C86 /* WidgetEmptyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WidgetEmptyView.swift; sourceTree = "<group>"; };
 		2A945D3D299E3E9D00C34C86 /* PlainList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlainList.swift; sourceTree = "<group>"; };
 		2A947B2F2A3093DD00119140 /* BottomAlert+Bin.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "BottomAlert+Bin.swift"; sourceTree = "<group>"; };
@@ -2210,6 +2213,7 @@
 		2AC3F9452A138263005EFEE9 /* FileLimitsStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileLimitsStorage.swift; sourceTree = "<group>"; };
 		2AC3F9472A1394D9005EFEE9 /* FileLimits.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileLimits.swift; sourceTree = "<group>"; };
 		2AC429A529B784280002AD05 /* BaseDocumentProtocol+Home.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "BaseDocumentProtocol+Home.swift"; sourceTree = "<group>"; };
+		2AC750212AE7EB1A000CDD66 /* FloaterAlertView+DeleteSpace.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "FloaterAlertView+DeleteSpace.swift"; sourceTree = "<group>"; };
 		2AC906C029B5F8EF00209E39 /* WidgetInternalViewModelProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WidgetInternalViewModelProtocol.swift; sourceTree = "<group>"; };
 		2AC906C229B5FA3300209E39 /* ObjectWidgetInternalViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObjectWidgetInternalViewModel.swift; sourceTree = "<group>"; };
 		2AC906C429B5FFD600209E39 /* TreeWidgetModuleAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TreeWidgetModuleAssembly.swift; sourceTree = "<group>"; };
@@ -5079,6 +5083,7 @@
 			children = (
 				2A2B332D2A7BB0AC004BD906 /* SpaceRowView.swift */,
 				2A2B332F2A7BB6BF004BD906 /* SpacePlusRow.swift */,
+				2AC750212AE7EB1A000CDD66 /* FloaterAlertView+DeleteSpace.swift */,
 			);
 			path = Components;
 			sourceTree = "<group>";
@@ -6784,6 +6789,7 @@
 			children = (
 				2EEFEADB2A93C39100AD5CDC /* SheetView.swift */,
 				2EEFEADE2A93C41100AD5CDC /* UISheetController.swift */,
+				2A93E1A72AE7DE90004438FD /* View+Sheet.swift */,
 			);
 			path = SheetView;
 			sourceTree = "<group>";
@@ -9631,6 +9637,7 @@
 				3D7F7173279F0829003FE893 /* EditorSetPaginationData.swift in Sources */,
 				2ECB34182A97B45B00E0F9BB /* SetFiltersDateCoordinatorViewModel.swift in Sources */,
 				53FF7C5226F7E49900A5A592 /* AudioPlayerView.swift in Sources */,
+				2AC750222AE7EB1A000CDD66 /* FloaterAlertView+DeleteSpace.swift in Sources */,
 				2AC906E029B6289A00209E39 /* FavoriteListWidgetModuleAssembly.swift in Sources */,
 				1289C518281159DE005085E2 /* FileDownloadingModuleOutput.swift in Sources */,
 				12DE4057264AE455007B5074 /* UIView+Layout.swift in Sources */,
@@ -9818,6 +9825,7 @@
 				2A2C330328928668008BC326 /* RelationValueCoordinator.swift in Sources */,
 				C99DCE86283B53C30051F99D /* AnytypeAlertViewModel.swift in Sources */,
 				535F79962746CDBC0050A1B8 /* FlowRelationsView.swift in Sources */,
+				2A93E1A82AE7DE90004438FD /* View+Sheet.swift in Sources */,
 				2A2C33212892BA36008BC326 /* RelationValueViewModelOutput.swift in Sources */,
 				2AECFD3E28993C67000E9CFB /* RelationValueCoordinatorAssemblyProtocol.swift in Sources */,
 				2EC9425128F97F5E00DE91E4 /* GroupsSubscribeServiceProtocol.swift in Sources */,
