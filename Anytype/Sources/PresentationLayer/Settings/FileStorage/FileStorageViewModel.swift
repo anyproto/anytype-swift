@@ -13,13 +13,7 @@ final class FileStorageViewModel: ObservableObject {
     private weak var output: FileStorageModuleOutput?
     private var subscriptions = [AnyCancellable]()
     
-    private let byteCountFormatter: ByteCountFormatter = {
-        let formatter = ByteCountFormatter()
-        formatter.allowedUnits = [.useMB, .useGB]
-        formatter.countStyle = .binary
-        formatter.allowsNonnumericFormatting = false
-        return formatter
-    }()
+    private let byteCountFormatter = ByteCountFormatter.fileFormatter
     
     private var limits: FileLimits?
     private let subSpaceId = "FileStorageSpace-\(UUID().uuidString)"

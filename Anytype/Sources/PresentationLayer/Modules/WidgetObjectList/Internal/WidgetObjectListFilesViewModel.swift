@@ -8,7 +8,7 @@ final class WidgetObjectListFilesViewModel: WidgetObjectListInternalViewModelPro
     // MARK: - DI
     
     private let subscriptionService: FilesSubscriptionServiceProtocol
-    
+    private let formatter = ByteCountFormatter.fileFormatter
     // MARK: - State
     
     let title = Loc.FilesList.title
@@ -45,6 +45,6 @@ final class WidgetObjectListFilesViewModel: WidgetObjectListInternalViewModelPro
     }
     
     func subtitle(for details: ObjectDetails) -> String? {
-        return details.sizeInBytes.map { FileSizeConverter.convert(size: Int64($0)) }
+        return details.sizeInBytes.map { formatter.string(fromByteCount: Int64($0)) }
     }
 }
