@@ -36,6 +36,7 @@ protocol BlockActionHandlerProtocol: AnyObject {
     func setObjectType(type: ObjectType) async throws
     func setObjectSetType() async throws
     func setObjectCollectionType() async throws
+    func applyTemplate(objectId: String, templateId: String) async throws
     func changeTextForced(_ text: NSAttributedString, blockId: BlockId)
     func changeText(_ text: NSAttributedString, info: BlockInformation)
     func handleKeyboardAction(

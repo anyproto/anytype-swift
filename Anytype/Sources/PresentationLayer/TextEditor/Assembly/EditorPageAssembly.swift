@@ -247,7 +247,8 @@ final class EditorAssembly {
             listService: listService,
             keyboardHandler: keyboardHandler,
             blockTableService: blockTableService,
-            fileService: serviceLocator.fileService()
+            fileService: serviceLocator.fileService(), 
+            objectService: serviceLocator.objectActionsService()
         )
 
         let pasteboardMiddlewareService = PasteboardMiddleService(document: document)

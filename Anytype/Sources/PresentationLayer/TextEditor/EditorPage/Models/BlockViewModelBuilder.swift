@@ -246,10 +246,7 @@ final class BlockViewModelBuilder {
                     self.router.showTypes(
                         selectedObjectId: self.document.details?.type,
                         onSelect: { [weak self] type in
-                            Task { [weak self] in
-                                try await self?.handler.setObjectType(type: type)
-                                self?.logObjectTypeChange(typeId: type.id)
-                            }
+                            self?.typeSelected(type)
                         }
                     )
                 } else {
@@ -321,9 +318,16 @@ final class BlockViewModelBuilder {
         }
     }
     
-    private func logObjectTypeChange(typeId: String) {
-        let objectType = (try? objectTypeProvider.objectType(id: typeId))?.analyticsType ?? .object(typeId: typeId)
-        AnytypeAnalytics.instance().logObjectTypeChange(objectType)
+    private func typeSelected(_ type: ObjectType) {
+        Task { [weak self] in
+            guard let self else { return }
+            try await handler.setObjectType(type: type)
+            
+            if let isSelectTemplate = document.details?.isSelectTemplate, isSelectTemplate,
+               let defaultTemplateId = try? objectTypeProvider.objectType(id: type.id).defaultTemplateId {
+                try await handler.applyTemplate(objectId: document.objectId, templateId: defaultTemplateId)
+            }
+        }
     }
 
     // MARK: - Actions

@@ -36,7 +36,6 @@ struct AccessoryViewBuilder {
             router: router,
             handler: actionHandler,
             searchService: ServiceLocator.shared.searchService(),
-            objectService: ServiceLocator.shared.objectActionsService(),
             objectTypeProvider: ServiceLocator.shared.objectTypeProvider(),
             document: document
         )
