@@ -598,6 +598,8 @@
 		2AB511AC29093A36005D0A91 /* BeginingOfTextMarkdownListener.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AB511AB29093A36005D0A91 /* BeginingOfTextMarkdownListener.swift */; };
 		2AB511AE29093CB4005D0A91 /* InlineMarkdownListenerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AB511AD29093CB4005D0A91 /* InlineMarkdownListenerTests.swift */; };
 		2AB522082A14D0E7007DEE53 /* FileErrorEventHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AB522072A14D0E7007DEE53 /* FileErrorEventHandler.swift */; };
+		2AB7F6912AEA556600857244 /* AnytypeWidget.intentdefinition in Sources */ = {isa = PBXBuildFile; fileRef = 2AB7F6932AEA556600857244 /* AnytypeWidget.intentdefinition */; };
+		2AB7F6922AEA556600857244 /* AnytypeWidget.intentdefinition in Sources */ = {isa = PBXBuildFile; fileRef = 2AB7F6932AEA556600857244 /* AnytypeWidget.intentdefinition */; };
 		2ABA0E07283BC420008369DC /* BlockObjectsSearchInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2ABA0E06283BC420008369DC /* BlockObjectsSearchInteractor.swift */; };
 		2ABAF2B92938E58E003C4730 /* CodeLanguageLegacyListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2ABAF2B82938E58E003C4730 /* CodeLanguageLegacyListViewModel.swift */; };
 		2ABAF2BB2938E5FA003C4730 /* CodeLanguageModuleAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2ABAF2BA2938E5FA003C4730 /* CodeLanguageModuleAssembly.swift */; };
@@ -1388,8 +1390,6 @@
 		C91989ED2811673600CC6BEB /* UndoRedoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C91989EC2811673600CC6BEB /* UndoRedoView.swift */; };
 		C91A492A28EAE5100049A137 /* Strings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AFB541C28621776004F7458 /* Strings.swift */; };
 		C91A492B28EAE5220049A137 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 0AAC96662340C288006CE58C /* Localizable.strings */; };
-		C91A492C28EAE7360049A137 /* AnytypeWidget.intentdefinition in Sources */ = {isa = PBXBuildFile; fileRef = C91A492F28EAE7360049A137 /* AnytypeWidget.intentdefinition */; };
-		C91A492D28EAE7360049A137 /* AnytypeWidget.intentdefinition in Sources */ = {isa = PBXBuildFile; fileRef = C91A492F28EAE7360049A137 /* AnytypeWidget.intentdefinition */; };
 		C91AFF11270C3E2F005F9386 /* ActivityViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C91AFF10270C3E2F005F9386 /* ActivityViewController.swift */; };
 		C91B81BA28E74222006AE9EB /* AnytypeWindow.swift in Sources */ = {isa = PBXBuildFile; fileRef = C91B81B928E74222006AE9EB /* AnytypeWindow.swift */; };
 		C91FAF5D2812865B0055BC4A /* UndoRedoViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C91FAF5C2812865B0055BC4A /* UndoRedoViewModel.swift */; };
@@ -2204,7 +2204,6 @@
 		2AB2C22328AD23FD000191F8 /* AlertOpenerProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertOpenerProtocol.swift; sourceTree = "<group>"; };
 		2AB2C23628B658D1000191F8 /* AnytypeURLTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = AnytypeURLTests.swift; path = AnyTypeTests/AnytypeURL/AnytypeURLTests.swift; sourceTree = SOURCE_ROOT; };
 		2AB508152AE81DEA00E1C986 /* ByteCountFormatter+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ByteCountFormatter+Extensions.swift"; sourceTree = "<group>"; };
-		2AB5083A2AE9395600E1C986 /* SpaceCreateModuleOutput.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpaceCreateModuleOutput.swift; sourceTree = "<group>"; };
 		2AB508272AE922DD00E1C986 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/Localizable.strings"; sourceTree = "<group>"; };
 		2AB508282AE922E400E1C986 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/InfoPlist.strings"; sourceTree = "<group>"; };
 		2AB508292AE922E800E1C986 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.stringsdict; name = "zh-Hans"; path = "zh-Hans.lproj/Localizable.stringsdict"; sourceTree = "<group>"; };
@@ -2217,9 +2216,11 @@
 		2AB508372AE9280400E1C986 /* es */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = es; path = es.lproj/Localizable.strings; sourceTree = "<group>"; };
 		2AB508382AE9280800E1C986 /* es */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = es; path = es.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		2AB508392AE9280B00E1C986 /* es */ = {isa = PBXFileReference; lastKnownFileType = text.plist.stringsdict; name = es; path = es.lproj/Localizable.stringsdict; sourceTree = "<group>"; };
+		2AB5083A2AE9395600E1C986 /* SpaceCreateModuleOutput.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpaceCreateModuleOutput.swift; sourceTree = "<group>"; };
 		2AB511AB29093A36005D0A91 /* BeginingOfTextMarkdownListener.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BeginingOfTextMarkdownListener.swift; sourceTree = "<group>"; };
 		2AB511AD29093CB4005D0A91 /* InlineMarkdownListenerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = InlineMarkdownListenerTests.swift; path = AnyTypeTests/Markdown/InlineMarkdownListenerTests.swift; sourceTree = SOURCE_ROOT; };
 		2AB522072A14D0E7007DEE53 /* FileErrorEventHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileErrorEventHandler.swift; sourceTree = "<group>"; };
+		2AB7F6932AEA556600857244 /* AnytypeWidget.intentdefinition */ = {isa = PBXFileReference; lastKnownFileType = file.intentdefinition; path = AnytypeWidget.intentdefinition; sourceTree = "<group>"; };
 		2ABA0E06283BC420008369DC /* BlockObjectsSearchInteractor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BlockObjectsSearchInteractor.swift; sourceTree = "<group>"; };
 		2ABAF2B82938E58E003C4730 /* CodeLanguageLegacyListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CodeLanguageLegacyListViewModel.swift; sourceTree = "<group>"; };
 		2ABAF2BA2938E5FA003C4730 /* CodeLanguageModuleAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CodeLanguageModuleAssembly.swift; sourceTree = "<group>"; };
@@ -3005,7 +3006,6 @@
 		C9121A5B273B8E2F00FFDA07 /* RoundedShadowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoundedShadowView.swift; sourceTree = "<group>"; };
 		C9121A5D273B918900FFDA07 /* BlocksSelectionOverlayViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlocksSelectionOverlayViewModel.swift; sourceTree = "<group>"; };
 		C91989EC2811673600CC6BEB /* UndoRedoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UndoRedoView.swift; sourceTree = "<group>"; };
-		C91A492E28EAE7360049A137 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.intentdefinition; name = en; path = en.lproj/AnytypeWidget.intentdefinition; sourceTree = "<group>"; };
 		C91AFF10270C3E2F005F9386 /* ActivityViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityViewController.swift; sourceTree = "<group>"; };
 		C91B81B928E74222006AE9EB /* AnytypeWindow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnytypeWindow.swift; sourceTree = "<group>"; };
 		C91FAF5C2812865B0055BC4A /* UndoRedoViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UndoRedoViewModel.swift; sourceTree = "<group>"; };
@@ -8951,7 +8951,7 @@
 			isa = PBXGroup;
 			children = (
 				C960DFAF28D88615002898AE /* AnytypeWidget.swift */,
-				C91A492F28EAE7360049A137 /* AnytypeWidget.intentdefinition */,
+				2AB7F6932AEA556600857244 /* AnytypeWidget.intentdefinition */,
 				C960DFB228D88618002898AE /* Assets.xcassets */,
 				C960DFB428D88618002898AE /* Info.plist */,
 			);
@@ -10527,7 +10527,7 @@
 				03D1516323FB43A9004027CE /* DashboardService.swift in Sources */,
 				2A8A2DCC2AB9960F00105549 /* AppActionStorage.swift in Sources */,
 				3D30412C27E8D45C00FFE0EB /* EditorSetSetting.swift in Sources */,
-				C91A492C28EAE7360049A137 /* AnytypeWidget.intentdefinition in Sources */,
+				2AB7F6912AEA556600857244 /* AnytypeWidget.intentdefinition in Sources */,
 				2AD06B8328572A520006C255 /* TableOfContentsView.swift in Sources */,
 				1211AF6627F338EC00BACB88 /* AnytypeImageDownloader.swift in Sources */,
 				2AA8108A29A66854007DD64B /* View+DragAndDrop.swift in Sources */,
@@ -11074,7 +11074,7 @@
 				C9A7528428E3297400235BDE /* SharedContants.swift in Sources */,
 				C960DFB028D88615002898AE /* AnytypeWidget.swift in Sources */,
 				C91A492A28EAE5100049A137 /* Strings.swift in Sources */,
-				C91A492D28EAE7360049A137 /* AnytypeWidget.intentdefinition in Sources */,
+				2AB7F6922AEA556600857244 /* AnytypeWidget.intentdefinition in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -11155,14 +11155,6 @@
 				862D55952A8F78330018103F /* Base */,
 			);
 			name = MainInterface.storyboard;
-			sourceTree = "<group>";
-		};
-		C91A492F28EAE7360049A137 /* AnytypeWidget.intentdefinition */ = {
-			isa = PBXVariantGroup;
-			children = (
-				C91A492E28EAE7360049A137 /* en */,
-			);
-			name = AnytypeWidget.intentdefinition;
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */
