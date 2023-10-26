@@ -62,7 +62,7 @@
 "BlockLink.PreviewSettings.Layout.Text.Title" = "Texto";
 
 // MARK: - Settings
-"Settings.Title" = "Espaço Pessoal";
+"Settings.Title" = "Configurações";
 "Settings.SpaceName" = "Nome do espaço";
 
 // MARK: - Object
@@ -226,7 +226,7 @@
 
 "Auth.JoinFlow.Creating.Soul.Title" = "Gerando nova conta";
 "Auth.JoinFlow.Setting.Space.Title" = "Configurando seu espaço pessoal";
-"Auth.JoinFlow.Personal.Space.Title" = "Espaço Pessoal";
+"Auth.JoinFlow.Personal.Space.Title" = "Configurações";
 
 // Auth - Login flow
 "Auth.LoginFlow.Use.Keychain.Title" = "Usar chave de acesso";
@@ -762,7 +762,7 @@
 "ClearCache.Error" = "Erro, tente novamente mais tarde";
 
 // MARK: - Settings
-"Settings.TitleLegacy" = "Espaço Pessoal";
+"Settings.TitleLegacy" = "Configurações";
 "Settings.Title" = "Configurações";
 "Settings.SpaceName" = "Nome do espaço";
 "Settings.AccountAndAccess" = "Conta e acesso";
