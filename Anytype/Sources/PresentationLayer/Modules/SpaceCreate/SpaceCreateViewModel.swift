@@ -43,6 +43,16 @@ final class SpaceCreateViewModel: ObservableObject {
             try await activeWorkspaceStorage.setActiveSpace(spaceId: spaceId)
             UINotificationFeedbackGenerator().notificationOccurred(.success)
             output?.spaceCreateWillDismiss()
+            dismissForLegacyOS()
+        }
+    }
+    
+    // MARK: - Private
+    
+    @available(iOS, deprecated: 17)
+    private func dismissForLegacyOS() {
+        if #available(iOS 17, *) {
+        } else {
             dismiss.toggle()
         }
     }
