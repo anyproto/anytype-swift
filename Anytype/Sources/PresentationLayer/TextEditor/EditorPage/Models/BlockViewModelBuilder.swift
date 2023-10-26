@@ -319,6 +319,7 @@ final class BlockViewModelBuilder {
         Task { [weak self] in
             guard let self else { return }
             try await handler.setObjectType(type: type)
+            AnytypeAnalytics.instance().logObjectTypeChange(type.analyticsType)
             
             guard let isSelectTemplate = document.details?.isSelectTemplate, isSelectTemplate else { return }
             try await handler.applyTemplate(objectId: document.objectId, templateId: type.defaultTemplateId)

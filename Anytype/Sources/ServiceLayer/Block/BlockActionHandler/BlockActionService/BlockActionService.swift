@@ -160,7 +160,6 @@ final class BlockActionService: BlockActionServiceProtocol {
     
     func setObjectType(type: ObjectType) async throws {
         try await objectActionService.setObjectType(objectId: documentId, typeUniqueKey: type.uniqueKey)
-        AnytypeAnalytics.instance().logObjectTypeChange(type.analyticsType)
     }
 
     func setObjectSetType() async throws {
