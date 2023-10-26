@@ -1,5 +1,5 @@
 // style menu
-"StyleMenu.Color.TextColor.Placeholder" = "A";
+"StyleMenu.Color.TextColor.Placeholder" = "А";
 
 // MARK: Text Style in Slash and Style menu
 "TextStyle.Text.Title" = "Текст";
@@ -313,7 +313,7 @@
 "TemplateSelection.SelectTemplate" = "Выбрать шаблон";
 "TemplateSelection.blankTemplate" = "Пусто";
 "TemplateSelection.Template.Subtitle" = "Шаблон";
-"TemplateSelection.ObjectType.Subtitle" = "Object type";
+"TemplateSelection.ObjectType.Subtitle" = "Тип объекта";
 
 "TemplateOptions.Alert.EditTemplate" = "Изменить шаблон";
 "TemplateOptions.Alert.Duplicate" = "Дублировать";
@@ -329,26 +329,26 @@
 "To Bin" = "В корзину";
 
 // MARK: - Context Menu
-"Remove From Favorite" = "Remove From Favorite";
-"Add To Favorite" = "Add To Favorite";
-"Move To Bin" = "Move To Bin";
+"Remove From Favorite" = "Удалить из избранного";
+"Add To Favorite" = "Добавить в избранное";
+"Move To Bin" = "Переместить в корзину";
 
 
 "LinkAppearance.Description.None.Title" = "Нет";
-"LinkAppearance.Description.Object.Title" = "Object description";
-"LinkAppearance.Description.Content.Title" = "Content preview";
-"LinkAppearance.ObjectType.Title" = "Object type";
+"LinkAppearance.Description.Object.Title" = "Описание объекта";
+"LinkAppearance.Description.Content.Title" = "Предпросмотр контента";
+"LinkAppearance.ObjectType.Title" = "Тип объекта";
 
 // MARK: - Sets: Sorts
 "EditSet.Popup.Sorts.NavigationView.Title" = "Сортировки";
-"EditSet.Popup.Sorts.EmptyView.Title" = "No sorts here. You can add some";
+"EditSet.Popup.Sorts.EmptyView.Title" = "Здесь нет сортировки. Вы можете добавить несколько";
 "EditSet.Popup.Sort.Types.Ascending" = "По возрастанию";
 "EditSet.Popup.Sort.Types.Descending" = "По убыванию";
 "EditSet.Popup.Sort.Add.SearchPlaceholder" = "Выберите свойство для сортировки";
 
 // MARK: - Sets: Filters
 "EditSet.Popup.Filters.NavigationView.Title" = "Фильтры";
-"EditSet.Popup.Filters.EmptyView.Title" = "No filters here. You can add some";
+"EditSet.Popup.Filters.EmptyView.Title" = "Здесь нет фильтров. Вы можете добавить свои";
 "EditSet.Popup.Filters.TextView.Placeholder" = "Значение";
 
 // MARK: - Sets: Filters.Conditions
