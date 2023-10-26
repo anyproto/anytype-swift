@@ -18,7 +18,6 @@ final class BlockViewModelBuilder {
     private let audioSessionService: AudioSessionServiceProtocol
     private let infoContainer: InfoContainerProtocol
     private let tableService: BlockTableServiceProtocol
-    private let objectTypeProvider: ObjectTypeProviderProtocol
 
     init(
         document: BaseDocumentProtocol,
@@ -33,8 +32,7 @@ final class BlockViewModelBuilder {
         detailsService: DetailsServiceProtocol,
         audioSessionService: AudioSessionServiceProtocol,
         infoContainer: InfoContainerProtocol,
-        tableService: BlockTableServiceProtocol,
-        objectTypeProvider: ObjectTypeProviderProtocol
+        tableService: BlockTableServiceProtocol
     ) {
         self.document = document
         self.handler = handler
@@ -49,7 +47,6 @@ final class BlockViewModelBuilder {
         self.audioSessionService = audioSessionService
         self.infoContainer = infoContainer
         self.tableService = tableService
-        self.objectTypeProvider = objectTypeProvider
     }
 
     func buildEditorItems(infos: [BlockInformation]) -> [EditorItem] {
@@ -323,10 +320,8 @@ final class BlockViewModelBuilder {
             guard let self else { return }
             try await handler.setObjectType(type: type)
             
-            if let isSelectTemplate = document.details?.isSelectTemplate, isSelectTemplate,
-               let defaultTemplateId = try? objectTypeProvider.objectType(id: type.id).defaultTemplateId {
-                try await handler.applyTemplate(objectId: document.objectId, templateId: defaultTemplateId)
-            }
+            guard let isSelectTemplate = document.details?.isSelectTemplate, isSelectTemplate else { return }
+            try await handler.applyTemplate(objectId: document.objectId, templateId: type.defaultTemplateId)
         }
     }
 
