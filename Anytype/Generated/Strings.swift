@@ -907,6 +907,8 @@ internal enum Loc {
     }
   }
   internal enum DataviewType {
+    /// Calendar
+    internal static let calendar = Loc.tr("Localizable", "DataviewType.calendar", fallback: "Calendar")
     /// Gallery
     internal static let gallery = Loc.tr("Localizable", "DataviewType.gallery", fallback: "Gallery")
     /// Grid

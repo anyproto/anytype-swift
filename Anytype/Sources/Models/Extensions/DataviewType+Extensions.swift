@@ -13,12 +13,14 @@ extension DataviewViewType {
             return Loc.DataviewType.gallery
         case .kanban:
             return Loc.DataviewType.kanban
+        case .calendar:
+            return Loc.DataviewType.calendar
         }
     }
     
     func icon(selected: Bool) -> ImageAsset {
         switch self {
-        case .table:
+        case .table, .calendar:
             return selected ? .X54.View.gridSelected : .X54.View.grid
         case .list:
             return selected ? .X54.View.listSelected : .X54.View.list
@@ -31,7 +33,7 @@ extension DataviewViewType {
     
     var iconLecacy: ImageAsset {
         switch self {
-        case .table:
+        case .table, .calendar:
             return .X24.View.table
         case .list:
             return .X24.View.list
@@ -44,7 +46,7 @@ extension DataviewViewType {
     
     var setContentViewType: SetContentViewType {
         switch self {
-        case .table:
+        case .table, .calendar:
             return .table
         case .gallery:
             return .collection(.gallery)
