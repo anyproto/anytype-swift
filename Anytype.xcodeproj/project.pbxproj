@@ -582,6 +582,9 @@
 		2AA8108C29A6686F007DD64B /* DragAndDropModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AA8108B29A6686F007DD64B /* DragAndDropModels.swift */; };
 		2AA8108E29A6697A007DD64B /* HomeWidgetSubmoduleModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AA8108D29A6697A007DD64B /* HomeWidgetSubmoduleModel.swift */; };
 		2AA8E8242AD852E600950427 /* SubscriptionStorageState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AA8E8232AD852E600950427 /* SubscriptionStorageState.swift */; };
+		2AAA09042AEAB71900A446B8 /* SpaceSwitchCoordinatorViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AAA09012AEAB71900A446B8 /* SpaceSwitchCoordinatorViewModel.swift */; };
+		2AAA09052AEAB71900A446B8 /* SpaceSwitchCoordinatorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AAA09022AEAB71900A446B8 /* SpaceSwitchCoordinatorView.swift */; };
+		2AAA09062AEAB71900A446B8 /* SpaceSwitchCoordinatorAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AAA09032AEAB71900A446B8 /* SpaceSwitchCoordinatorAssembly.swift */; };
 		2AAE455828A5307C00E538C8 /* BlockBookmark+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AAE455728A5307C00E538C8 /* BlockBookmark+Extensions.swift */; };
 		2AAF34372954C86800921320 /* TreeWidgetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AAF34362954C86800921320 /* TreeWidgetView.swift */; };
 		2AAF343C29559BF700921320 /* TreeWidgetViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AAF343B29559BF700921320 /* TreeWidgetViewModel.swift */; };
@@ -2192,6 +2195,9 @@
 		2AA8108B29A6686F007DD64B /* DragAndDropModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DragAndDropModels.swift; sourceTree = "<group>"; };
 		2AA8108D29A6697A007DD64B /* HomeWidgetSubmoduleModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeWidgetSubmoduleModel.swift; sourceTree = "<group>"; };
 		2AA8E8232AD852E600950427 /* SubscriptionStorageState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubscriptionStorageState.swift; sourceTree = "<group>"; };
+		2AAA09012AEAB71900A446B8 /* SpaceSwitchCoordinatorViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SpaceSwitchCoordinatorViewModel.swift; sourceTree = "<group>"; };
+		2AAA09022AEAB71900A446B8 /* SpaceSwitchCoordinatorView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SpaceSwitchCoordinatorView.swift; sourceTree = "<group>"; };
+		2AAA09032AEAB71900A446B8 /* SpaceSwitchCoordinatorAssembly.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SpaceSwitchCoordinatorAssembly.swift; sourceTree = "<group>"; };
 		2AAE455728A5307C00E538C8 /* BlockBookmark+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "BlockBookmark+Extensions.swift"; sourceTree = "<group>"; };
 		2AAF34362954C86800921320 /* TreeWidgetView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TreeWidgetView.swift; sourceTree = "<group>"; };
 		2AAF343B29559BF700921320 /* TreeWidgetViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TreeWidgetViewModel.swift; sourceTree = "<group>"; };
@@ -5514,6 +5520,7 @@
 		2A7DCDDB292E4A4E001919B4 /* Flows */ = {
 			isa = PBXGroup;
 			children = (
+				2AAA08FE2AEAB6DC00A446B8 /* SpaceSwitchCoordinator */,
 				2A65E9B02AE128EC00D40657 /* InitialCoordinator */,
 				2A8A2DCF2AB99AFC00105549 /* ShareCoordinator */,
 				2A5B53B62A80DC9000BC993B /* SpaceSettings */,
@@ -5724,6 +5731,16 @@
 				2AA8108B29A6686F007DD64B /* DragAndDropModels.swift */,
 			);
 			path = DragAndDrop;
+			sourceTree = "<group>";
+		};
+		2AAA08FE2AEAB6DC00A446B8 /* SpaceSwitchCoordinator */ = {
+			isa = PBXGroup;
+			children = (
+				2AAA09032AEAB71900A446B8 /* SpaceSwitchCoordinatorAssembly.swift */,
+				2AAA09022AEAB71900A446B8 /* SpaceSwitchCoordinatorView.swift */,
+				2AAA09012AEAB71900A446B8 /* SpaceSwitchCoordinatorViewModel.swift */,
+			);
+			path = SpaceSwitchCoordinator;
 			sourceTree = "<group>";
 		};
 		2AAF343829559BD400921320 /* Tree */ = {
@@ -9883,6 +9900,7 @@
 				C9A7528328E3297000235BDE /* SharedContants.swift in Sources */,
 				12D15D2027F5F78500D22086 /* TagsOptionsSearchModuleBuilder.swift in Sources */,
 				2AD741352994F19B004BD223 /* ApplicationStateService.swift in Sources */,
+				2AAA09052AEAB71900A446B8 /* SpaceSwitchCoordinatorView.swift in Sources */,
 				2A081A2E2AE7B3CF0040178D /* TipsConfiguration.swift in Sources */,
 				2ACD86F629C316C90082E861 /* BlockWidgetInfo.swift in Sources */,
 				8673528B2AA8BC00003F92DC /* URL+Middleware.swift in Sources */,
@@ -10028,6 +10046,7 @@
 				2AF4261F29AF86CD00753B17 /* DashboardAlertsAssembly.swift in Sources */,
 				1247BCAC27FF3A0C005F2DB4 /* FeedbackGeneratorExample.swift in Sources */,
 				2E2EA2CA2A53388500569E1E /* DotView.swift in Sources */,
+				2AAA09042AEAB71900A446B8 /* SpaceSwitchCoordinatorViewModel.swift in Sources */,
 				2A6E04B1298D66DB0023B33D /* WidgetObjectListCommonModuleOutput.swift in Sources */,
 				2ABA0E07283BC420008369DC /* BlockObjectsSearchInteractor.swift in Sources */,
 				2EAA13FC2AA63918000A712A /* SetViewSettingsImagePreviewModuleAssembly.swift in Sources */,
@@ -10489,6 +10508,7 @@
 				539E019727582AA300067A24 /* RelationNameValueView.swift in Sources */,
 				2E2D256328880C8D00E3DFD1 /* SetFiltersSelectionHeaderView.swift in Sources */,
 				3DE6924F27301C3E00A4CD4E /* AccessoryViewType.swift in Sources */,
+				2AAA09062AEAB71900A446B8 /* SpaceSwitchCoordinatorAssembly.swift in Sources */,
 				120E817F26A026F5006FE84E /* ObjectSettingRow.swift in Sources */,
 				129C54CB27FC694A00C390C7 /* NewRelationSectionView.swift in Sources */,
 				3D38CC9626D632C500E4F7BF /* ObjectHeaderViewModel.swift in Sources */,

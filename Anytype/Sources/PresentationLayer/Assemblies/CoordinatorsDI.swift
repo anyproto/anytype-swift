@@ -149,4 +149,8 @@ final class CoordinatorsDI: CoordinatorsDIProtocol {
     func initial() -> InitialCoordinatorAssemblyProtocol {
         InitialCoordinatorAssembly(serviceLocator: serviceLocator)
     }
+    
+    func spaceSwitch() -> SpaceSwitchCoordinatorAssemblyProtocol {
+        SpaceSwitchCoordinatorAssembly(modulesDI: modulesDI, coordinatorsDI: self)
+    }
 }

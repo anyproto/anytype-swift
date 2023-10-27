@@ -27,6 +27,7 @@ protocol CoordinatorsDIProtocol: AnyObject {
     func share() -> ShareCoordinatorAssemblyProtocol
     func setObjectCreationSettings() -> SetObjectCreationSettingsCoordinatorAssemblyProtocol
     func initial() -> InitialCoordinatorAssemblyProtocol
+    func spaceSwitch() -> SpaceSwitchCoordinatorAssemblyProtocol
     
     // Now like a coordinator. Migrate to isolated modules
     func browser() -> EditorBrowserAssembly

@@ -7,8 +7,7 @@ import AnytypeCore
 @MainActor
 final class HomeWidgetsCoordinatorViewModel: ObservableObject,
                                              HomeWidgetsModuleOutput, CommonWidgetModuleOutput,
-                                             HomeBottomPanelModuleOutput, SpaceSwitchModuleOutput,
-                                             EditorBrowserDelegate, SpaceCreateModuleOutput {
+                                             HomeBottomPanelModuleOutput, EditorBrowserDelegate {
     
     // MARK: - DI
     
@@ -18,13 +17,11 @@ final class HomeWidgetsCoordinatorViewModel: ObservableObject,
     private let createWidgetCoordinatorAssembly: CreateWidgetCoordinatorAssemblyProtocol
     private let editorBrowserCoordinator: EditorBrowserCoordinatorProtocol
     private let searchModuleAssembly: SearchModuleAssemblyProtocol
-    private let settingsCoordinator: SettingsCoordinatorProtocol
     private let newSearchModuleAssembly: NewSearchModuleAssemblyProtocol
     private let dashboardService: DashboardServiceProtocol
     private let appActionsStorage: AppActionStorage
     private let widgetTypeModuleAssembly: WidgetTypeModuleAssemblyProtocol
-    private let spaceSwitchModuleAssembly: SpaceSwitchModuleAssemblyProtocol
-    private let spaceCreateModuleAssembly: SpaceCreateModuleAssemblyProtocol
+    private let spaceSwitchCoordinatorAssembly: SpaceSwitchCoordinatorAssemblyProtocol
     private let spaceSettingsCoordinatorAssembly: SpaceSettingsCoordinatorAssemblyProtocol
     private let shareCoordinatorAssembly: ShareCoordinatorAssemblyProtocol
     private let objectTypeSearchModuleAssembly: ObjectTypeSearchModuleAssemblyProtocol
@@ -40,7 +37,6 @@ final class HomeWidgetsCoordinatorViewModel: ObservableObject,
     @Published var showSpaceSwitch: Bool = false
     @Published var showCreateWidgetData: CreateWidgetCoordinatorModel?
     @Published var showSpaceSettings: Bool = false
-    @Published var showSpaceCreate: Bool = false
     @Published var showSharing: Bool = false
     @Published var showCreateObjectWithType: Bool = false
     
@@ -61,13 +57,11 @@ final class HomeWidgetsCoordinatorViewModel: ObservableObject,
         createWidgetCoordinatorAssembly: CreateWidgetCoordinatorAssemblyProtocol,
         editorBrowserCoordinator: EditorBrowserCoordinatorProtocol,
         searchModuleAssembly: SearchModuleAssemblyProtocol,
-        settingsCoordinator: SettingsCoordinatorProtocol,
         newSearchModuleAssembly: NewSearchModuleAssemblyProtocol,
         dashboardService: DashboardServiceProtocol,
         appActionsStorage: AppActionStorage,
         widgetTypeModuleAssembly: WidgetTypeModuleAssemblyProtocol,
-        spaceSwitchModuleAssembly: SpaceSwitchModuleAssemblyProtocol,
-        spaceCreateModuleAssembly: SpaceCreateModuleAssemblyProtocol,
+        spaceSwitchCoordinatorAssembly: SpaceSwitchCoordinatorAssemblyProtocol,
         spaceSettingsCoordinatorAssembly: SpaceSettingsCoordinatorAssemblyProtocol,
         shareCoordinatorAssembly: ShareCoordinatorAssemblyProtocol,
         objectTypeSearchModuleAssembly: ObjectTypeSearchModuleAssemblyProtocol
@@ -78,13 +72,11 @@ final class HomeWidgetsCoordinatorViewModel: ObservableObject,
         self.createWidgetCoordinatorAssembly = createWidgetCoordinatorAssembly
         self.editorBrowserCoordinator = editorBrowserCoordinator
         self.searchModuleAssembly = searchModuleAssembly
-        self.settingsCoordinator = settingsCoordinator
         self.newSearchModuleAssembly = newSearchModuleAssembly
         self.dashboardService = dashboardService
         self.appActionsStorage = appActionsStorage
         self.widgetTypeModuleAssembly = widgetTypeModuleAssembly
-        self.spaceSwitchModuleAssembly = spaceSwitchModuleAssembly
-        self.spaceCreateModuleAssembly = spaceCreateModuleAssembly
+        self.spaceSwitchCoordinatorAssembly = spaceSwitchCoordinatorAssembly
         self.spaceSettingsCoordinatorAssembly = spaceSettingsCoordinatorAssembly
         self.shareCoordinatorAssembly = shareCoordinatorAssembly
         self.objectTypeSearchModuleAssembly = objectTypeSearchModuleAssembly
@@ -140,15 +132,11 @@ final class HomeWidgetsCoordinatorViewModel: ObservableObject,
     }
     
     func createSpaceSwitchModule() -> AnyView {
-        return spaceSwitchModuleAssembly.make(output: self)
+        return spaceSwitchCoordinatorAssembly.make()
     }
     
     func createSpaceSeetingsModule() -> AnyView {
         return spaceSettingsCoordinatorAssembly.make()
-    }
-    
-    func createSpaceCreateModule() -> AnyView {
-        return spaceCreateModuleAssembly.make(output: self)
     }
     
     func createSharingModule() -> AnyView {
@@ -239,22 +227,6 @@ final class HomeWidgetsCoordinatorViewModel: ObservableObject,
     }
     
     func onProfileSelected() {
-        showSpaceSwitch.toggle()
-    }
-    
-    // MARK: - SpaceSwitchModuleOutput
-    
-    func onCreateSpaceSelected() {
-        showSpaceCreate.toggle()
-    }
-    
-    func onSettingsSelected() {
-        settingsCoordinator.startFlow()
-    }
-    
-    // MARK: - SpaceCreateModuleOutput
-    
-    func spaceCreateWillDismiss() {
         showSpaceSwitch.toggle()
     }
     
