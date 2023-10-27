@@ -220,7 +220,7 @@
 "Auth.JoinFlow.Key.ReadMore.Instruction.Option1.Title" = "Kurtarma Dizilimini saklamanın en kolay yolu şifre yöneticisinde kaydetmektir.";
 "Auth.JoinFlow.Key.ReadMore.Instruction.Option2.Title" = "En güvenli yol ise kağıt üstüne yazarak internet üstünde olmayan bir yerde, güvenli ve emin bir yerde saklamaktır.";
 
-"Auth.JoinFlow.Soul.Title" = "Adınızı girin";
+"Auth.JoinFlow.Soul.Title" = "Choose your name";
 "Auth.JoinFlow.Soul.Description" = "Uygulamada bu şekilde görüneceksiniz.";
 "Auth.JoinFlow.Soul.Placeholder" = "Başlıksız";
 
@@ -613,6 +613,7 @@
 "DataviewType.list" = "List";
 "DataviewType.gallery" = "Galeri";
 "DataviewType.kanban" = "Kanban";
+"DataviewType.calendar" = "Calendar";
 
 // MARK: - ObjectType
 "ObjectType.fallbackDescription" = "Blank canvas with no title";
