@@ -233,11 +233,21 @@ class SearchHelper {
         return filter
     }
     
-    static func spaceAccountStatusExcludeFilter(_ statuses: SpaceStatus...) -> DataviewFilter {
+    static func spaceAccountStatusExcludeFilter(_ status: SpaceStatus) -> DataviewFilter {
         var filter = DataviewFilter()
-        filter.condition = .notIn
-        filter.value = statuses.map { $0.toMiddleware.rawValue }.protobufValue
+        filter.condition = .notEqual
+        filter.value = status.toMiddleware.rawValue.protobufValue
         filter.relationKey = BundledRelationKey.spaceAccountStatus.rawValue
+        filter.operator = .and
+        
+        return filter
+    }
+    
+    static func spaceLocalStatusFilter(_ statuse: SpaceStatus) -> DataviewFilter {
+        var filter = DataviewFilter()
+        filter.condition = .equal
+        filter.value = statuse.toMiddleware.rawValue.protobufValue
+        filter.relationKey = BundledRelationKey.spaceLocalStatus.rawValue
         filter.operator = .and
         
         return filter
