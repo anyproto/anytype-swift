@@ -32,6 +32,7 @@ final class SpaceSettingsViewModel: ObservableObject {
     @Published var snackBarData = ToastBarData.empty
     @Published var showSpaceDeleteAlert = false
     @Published var dismiss: Bool = false
+    @Published var allowDelete: Bool = false
     
     init(
         activeWorkspaceStorage: ActiveWorkpaceStorageProtocol,
@@ -94,6 +95,7 @@ final class SpaceSettingsViewModel: ObservableObject {
         spaceView = details
         spaceIcon = details.objectIconImage
         spaceType = details.spaceAccessibility?.name ?? ""
+        allowDelete = accountManager.account.info.spaceViewId != details.id
         buildInfoBlock(details: details)
         
         if !dataLoaded {
