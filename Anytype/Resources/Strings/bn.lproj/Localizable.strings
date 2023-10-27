@@ -2,99 +2,99 @@
 "StyleMenu.Color.TextColor.Placeholder" = "A";
 
 // MARK: Text Style in Slash and Style menu
-"TextStyle.Text.Title" = "Text";
-"TextStyle.Text.Subtitle" = "Just start writing with a plain text";
+"TextStyle.Text.Title" = "পাঠ্য";
+"TextStyle.Text.Subtitle" = "শুধু একটি সরল লেখা দিয়ে লেখা শুরু করুন ";
 
-"TextStyle.Title.Title" = "Title";
-"TextStyle.Title.Subtitle" = "Big section heading";
+"TextStyle.Title.Title" = "শিরোনাম";
+"TextStyle.Title.Subtitle" = "বড় অধ্যায়ের শিরোনাম";
 
-"TextStyle.Heading.Title" = "Heading";
-"TextStyle.Heading.Subtitle" = "Medium headline";
+"TextStyle.Heading.Title" = "শিরোনাম";
+"TextStyle.Heading.Subtitle" = "মাঝারি শিরোনাম";
 
-"TextStyle.Subheading.Title" = "Subheading";
-"TextStyle.Subheading.Subtitle" = "Small headline";
+"TextStyle.Subheading.Title" = "উপশিরোনাম";
+"TextStyle.Subheading.Subtitle" = "ছোট শিরোনাম";
 
-"TextStyle.Highlighted.Title" = "Highlighted";
-"TextStyle.Highlighted.Subtitle" = "Spotlight, that needs special attention";
+"TextStyle.Highlighted.Title" = "লক্ষণীয় করা হয়েছে";
+"TextStyle.Highlighted.Subtitle" = "স্পটলাইট, যার বিশেষ মনোযোগ প্রয়োজন";
 
-"TextStyle.Callout.Title" = "Callout";
-"TextStyle.Callout.Subtitle" = "Bordered text with icon";
+"TextStyle.Callout.Title" = "কল আউট";
+"TextStyle.Callout.Subtitle" = "আইকন সহ বর্ডারযুক্ত পাঠ্য";
 
-"TextStyle.Checkbox.Title" = "Checkbox";
-"TextStyle.Checkbox.Subtitle" = "Create and track task with to-do list";
+"TextStyle.Checkbox.Title" = "চেকবক্স";
+"TextStyle.Checkbox.Subtitle" = "করণীয় তালিকার সাথে কাজ তৈরি করুন এবং ট্র্যাক করুন";
 
-"TextStyle.Bulleted.Title" = "Bulleted";
-"TextStyle.Bulleted.Subtitle" = "Simple list";
+"TextStyle.Bulleted.Title" = "বুলেট করা হয়েছে";
+"TextStyle.Bulleted.Subtitle" = "সহজ তালিকা";
 
-"TextStyle.Numbered.Title" = "Numbered list";
-"TextStyle.Numbered.Subtitle" = "Numbered list";
+"TextStyle.Numbered.Title" = "সংখ্যাযুক্ত তালিকা";
+"TextStyle.Numbered.Subtitle" = "সংখ্যাযুক্ত তালিকা";
 
-"TextStyle.Toggle.Title" = "Toggle";
-"TextStyle.Toggle.Subtitle" = "Hide and show content inside";
+"TextStyle.Toggle.Title" = "পরিবর্তন";
+"TextStyle.Toggle.Subtitle" = "ভিতরের বিষয়বস্তু লুকানো এবং দেখানো";
 
-"TextStyle.Bold.Title" = "Bold";
-"TextStyle.Italic.Title" = "Italic";
-"TextStyle.Strikethrough.Title" = "Strikethrough";
-"TextStyle.Code.Title" = "Code";
-"TextStyle.Link.Title" = "Link";
+"TextStyle.Bold.Title" = "গাঢ়";
+"TextStyle.Italic.Title" = "তির্যক";
+"TextStyle.Strikethrough.Title" = "রেখান্বিত";
+"TextStyle.Code.Title" = "কোড";
+"TextStyle.Link.Title" = "লিঙ্ক";
 
 // MARK: - Block Text
-"BlockText.Content.Placeholder" = "Untitled";
+"BlockText.Content.Placeholder" = "শিরোনামহীন";
 
-"BlockText.ContentType.Title.Placeholder" = "Untitled";
-"BlockText.ContentType.Description.Placeholder" = "Add a description";
-"BlockText.ContentType.Toggle.Placeholder" = "Toggle block";
-"BlockText.ContentType.Bulleted.Placeholder" = "Bulleted list item";
-"BlockText.ContentType.Checkbox.Placeholder" = "Checkbox";
-"BlockText.ContentType.Numbered.Placeholder" = "Numbered list item";
-"BlockText.ContentType.Quote.Placeholder" = "Highlighted text";
-"BlockText.ContentType.Header.Placeholder" = "Title";
-"BlockText.ContentType.Header2.Placeholder" = "Heading";
-"BlockText.ContentType.Header3.Placeholder" = "Subheading";
+"BlockText.ContentType.Title.Placeholder" = "শিরোনামহীন";
+"BlockText.ContentType.Description.Placeholder" = "বর্ণনা যোগ করুন";
+"BlockText.ContentType.Toggle.Placeholder" = "পরিবর্তন বন্ধ করুন";
+"BlockText.ContentType.Bulleted.Placeholder" = "একটি বুলেট তালিকা আইটেম";
+"BlockText.ContentType.Checkbox.Placeholder" = "চেকবক্স";
+"BlockText.ContentType.Numbered.Placeholder" = "সংখ্যাযুক্ত তালিকা";
+"BlockText.ContentType.Quote.Placeholder" = "লক্ষণীয় করা পাঠ্য";
+"BlockText.ContentType.Header.Placeholder" = "শিরোনাম";
+"BlockText.ContentType.Header2.Placeholder" = "শিরোনাম";
+"BlockText.ContentType.Header3.Placeholder" = "উপশিরোনাম";
 
 // MARK: - Block Link
 
-"BlockLink.PreviewSettings.IconSize.None" = "None";
-"BlockLink.PreviewSettings.IconSize.Small" = "Small";
-"BlockLink.PreviewSettings.IconSize.Medium" = "Medium";
+"BlockLink.PreviewSettings.IconSize.None" = "কোনোটিই নয়";
+"BlockLink.PreviewSettings.IconSize.Small" = "ছোট";
+"BlockLink.PreviewSettings.IconSize.Medium" = "মাঝারি";
 
-"BlockLink.PreviewSettings.Layout.Card.Title" = "Card";
-"BlockLink.PreviewSettings.Layout.Text.Title" = "Text";
+"BlockLink.PreviewSettings.Layout.Card.Title" = "কার্ড";
+"BlockLink.PreviewSettings.Layout.Text.Title" = "পাঠ্য";
 
 // MARK: - Settings
 "Settings.Title" = "Settings";
-"Settings.SpaceName" = "Space name";
+"Settings.SpaceName" = "জায়গার নাম";
 
 // MARK: - Object
-"Object.Title.Placeholder" = "Untitled";
-"Object.Deleted.Placeholder" = "Deleted object";
+"Object.Title.Placeholder" = "শিরোনামহীন";
+"Object.Deleted.Placeholder" = "মুছে ফেলা বস্তু";
 
 // MARK: - Relation
-"Featured relations" = "Featured relations";
-"Create relation" = "Create relation ‘%@’";
-"Relation.View.Hint.Empty" = "empty";
-"Relation.MyRelations" = "My relations";
-"Relation.AddedToLibrary" = "Relation ‘%@’ added to your library";
-"Relation.Deleted" = "Deleted relation";
-"Relation.From.Type" = "From type %@";
+"Featured relations" = "বৈশিষ্ট্যযুক্ত সম্পর্ক";
+"Create relation" = "সম্পর্ক তৈরি করুন %@";
+"Relation.View.Hint.Empty" = "খালি";
+"Relation.MyRelations" = "আমার সম্পর্ক";
+"Relation.AddedToLibrary" = "আপনার লাইব্রেরিতে %@ সম্পর্ক যুক্ত করা হয়েছে";
+"Relation.Deleted" = "মুছে ফেলা সম্পর্ক";
+"Relation.From.Type" = "%@ প্রকার থেকে";
 
-"Relation.Format.Object.Title" = "Object";
-"Relation.Format.Text.Title" = "Text";
-"Relation.Format.Number.Title" = "Number";
-"Relation.Format.Status.Title" = "Status";
-"Relation.Format.Tag.Title" = "Tag";
-"Relation.Format.Date.Title" = "Date";
-"Relation.Format.FileMedia.Title" = "File & Media";
-"Relation.Format.Checkbox.Title" = "Checkbox";
+"Relation.Format.Object.Title" = "বস্তু";
+"Relation.Format.Text.Title" = "পাঠ্য";
+"Relation.Format.Number.Title" = "নম্বর";
+"Relation.Format.Status.Title" = "অবস্থা";
+"Relation.Format.Tag.Title" = "ট্যাগ";
+"Relation.Format.Date.Title" = "তারিখ";
+"Relation.Format.FileMedia.Title" = "ফাইল এবং মিডিয়া";
+"Relation.Format.Checkbox.Title" = "চেকবক্স";
 "Relation.Format.Url.Title" = "URL";
 "Relation.Format.Email.Title" = "Email";
 "Relation.Format.Phone.Title" = "Phone number";
 
 // MARK: - Mention
-"Mention.Subtitle.Placeholder" = "Object";
+"Mention.Subtitle.Placeholder" = "বস্তু";
 
-"None" = "None";
-"Callout" = "Callout";
+"None" = "কোনোটিই নয়";
+"Callout" = "কল আউট";
 "Toggle empty. Tap to create block." = "Toggle empty. Tap to create block.";
 "Loading, please wait" = "Loading, please wait";
 "Done" = "Done";
@@ -209,7 +209,7 @@
 "Auth.JoinFlow.Key.Button.Saved.Title" = "Go to the app";
 "Auth.JoinFlow.Key.Button.Later.Title" = "Skip";
 "Auth.JoinFlow.Key.Button.Copy.Title" = "Copy to clipboard";
-"Auth.JoinFlow.Key.Button.Info.Title" = "Read more";
+"Auth.JoinFlow.Key.Button.Info.Title" = "আরও পড়ুন";
 "Auth.JoinFlow.Key.Button.Tip.Title" = "You can find Recovery Phrase later in Anytype settings";
 
 "Auth.JoinFlow.Key.ReadMore.Title" = "What is Recovery Phrase?";
@@ -222,7 +222,7 @@
 
 "Auth.JoinFlow.Soul.Title" = "Set your name";
 "Auth.JoinFlow.Soul.Description" = "This is how you will appear in the app.";
-"Auth.JoinFlow.Soul.Placeholder" = "Untitled";
+"Auth.JoinFlow.Soul.Placeholder" = "শিরোনামহীন";
 
 "Auth.JoinFlow.Creating.Soul.Title" = "Generating new account";
 "Auth.JoinFlow.Setting.Space.Title" = "Setting up your personal space";
@@ -334,7 +334,7 @@
 "Move To Bin" = "Move To Bin";
 
 
-"LinkAppearance.Description.None.Title" = "None";
+"LinkAppearance.Description.None.Title" = "কোনোটিই নয়";
 "LinkAppearance.Description.Object.Title" = "Object description";
 "LinkAppearance.Description.Content.Title" = "Content preview";
 "LinkAppearance.ObjectType.Title" = "Object type";
@@ -403,7 +403,7 @@
 "EditSet.Popup.Filter.Date.Option.NumberOfDaysFromNow.Short" = "%@ days from now";
 
 // MARK: - Sets. Create object
-"Set.Create.ObjectTitle.Placeholder" = "Untitled";
+"Set.Create.ObjectTitle.Placeholder" = "শিরোনামহীন";
 
 // MARK: - Sets: Featured relations
 "Set.FeaturedRelations.Query" = "Query";
@@ -422,7 +422,7 @@
 // MARK: - Sets: View Settings
 "Set.View.Settings.ImageFit.Title" = "Fit image";
 "Set.View.Settings.CardSize.Title" = "Card size";
-"Set.View.Settings.CardSize.Small.Title" = "Small";
+"Set.View.Settings.CardSize.Small.Title" = "ছোট";
 "Set.View.Settings.CardSize.Large.Title" = "Large";
 "Set.View.Settings.ImagePreview.Title" = "Image preview";
 "Set.View.Settings.GroupBy.Title" = "Group by";
@@ -681,7 +681,7 @@
 "SetViewTypesPicker.Settings.Duplicate.View" = "Duplicate";
 "SetViewTypesPicker.Settings.Delete.View" = "Delete view";
 "SetViewTypesPicker.Settings.Textfield.Placeholder.New.View" = "New view";
-"SetViewTypesPicker.Settings.Textfield.Placeholder.Untitled" = "Untitled";
+"SetViewTypesPicker.Settings.Textfield.Placeholder.Untitled" = "শিরোনামহীন";
 
 // MARK: Select view picker
 "EditorSetViewPicker.View.Not.Supported.Title" = "Unsupported";
@@ -723,7 +723,7 @@
 "Widgets.Actions.EmptyBin" = "Empty Bin";
 "Widgets.Actions.AddBelow" = "Add Below";
 "Widgets.Layout.Screen.Title" = "Widget type";
-"Widgets.Layout.Link.Title" = "Link";
+"Widgets.Layout.Link.Title" = "লিঙ্ক";
 "Widgets.Layout.Tree.Title" = "Tree";
 "Widgets.Layout.List.Title" = "List";
 "Widgets.Layout.CompactList.Title" = "Сompact list";
@@ -764,7 +764,7 @@
 // MARK: - Settings
 "Settings.TitleLegacy" = "Settings";
 "Settings.Title" = "Settings";
-"Settings.SpaceName" = "Space name";
+"Settings.SpaceName" = "জায়গার নাম";
 "Settings.AccountAndAccess" = "Account and access";
 
 // MARK: - File Storage
