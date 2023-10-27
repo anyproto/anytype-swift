@@ -106,14 +106,14 @@ struct SpaceSwitchView: View {
             AnytypeText(model.profileName, style: .heading, color: .Text.white)
                 .lineLimit(1)
             Spacer()
-            Button {
-                model.onProfileTap()
-            } label: {
-                Image(asset: .Dashboard.settings)
-                    .foregroundColor(.Button.white)
-            }
+            Image(asset: .Dashboard.settings)
+                .foregroundColor(.Button.white)
         }
         .frame(height: 68)
+        .fixTappableArea()
+        .onTapGesture {
+            model.onProfileTap()
+        }
         .padding(.horizontal, externalSpacing)
     }
 }
