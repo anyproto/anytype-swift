@@ -220,7 +220,7 @@
 "Auth.JoinFlow.Key.ReadMore.Instruction.Option1.Title" = "La façon la plus simple de stocker votre phrase de récupération est de l’enregistrer dans votre gestionnaire de mots de passe.";
 "Auth.JoinFlow.Key.ReadMore.Instruction.Option2.Title" = "Le moyen le plus sûr est de l'écrire sur papier et de le garder dans un endroit sûr et sécurisé.";
 
-"Auth.JoinFlow.Soul.Title" = "Saisissez votre nom";
+"Auth.JoinFlow.Soul.Title" = "Choisissez votre nom";
 "Auth.JoinFlow.Soul.Description" = "This is how you will appear in the app.";
 "Auth.JoinFlow.Soul.Placeholder" = "Sans titre";
 
@@ -613,6 +613,7 @@
 "DataviewType.list" = "List";
 "DataviewType.gallery" = "Galerie";
 "DataviewType.kanban" = "Kanban";
+"DataviewType.calendar" = "Calendrier";
 
 // MARK: - ObjectType
 "ObjectType.fallbackDescription" = "Blank canvas with no title";
@@ -803,9 +804,9 @@
 "SpaceSettings.RemoteStorage" = "Remote storage";
 "SpaceSettings.Info" = "Informations sur l'espace";
 "SpaceSettings.NetworkId" = "ID réseau";
-"SpaceSettings.DeleteAlert.Title" = "Delete ‘%@’ space";
-"SpaceSettings.DeleteAlert.Message" = "This space will be deleted irrevocably. You can’t undo this action.";
-"SpaceSettings.DeleteButton" = "Delete space";
+"SpaceSettings.DeleteAlert.Title" = "Supprimer l'espace '%@'";
+"SpaceSettings.DeleteAlert.Message" = "Cet espace sera supprimé définitivement. Vous ne pouvez pas annuler cette action.";
+"SpaceSettings.DeleteButton" = "Supprimer l'espace";
 
 // MARK: - Space Create
 "SpaceCreate.Title" = "Créer un espace";
