@@ -167,9 +167,13 @@ enum AnalyticsEventsName {
     // Migration
     static let migrationGoneWrong = "MigrationGoneWrong"
     
+    // Space
     static let screenSettingsSpaceCreate = "ScreenSettingsSpaceCreate"
     static let createSpace = "CreateSpace"
     static let switchSpace = "SwitchSpace"
+    static let clickDeleteSpace = "ClickDeleteSpace"
+    static let clickDeleteSpaceWarning = "ClickDeleteSpaceWarning"
+    static let deleteSpace = "DeleteSpace"
     
     // Keyboard bar actions
     enum KeyboardBarAction {
@@ -395,4 +399,18 @@ enum SelectObjectTypeRoute: String {
 
 enum OnboardingTooltip: String {
     case selectType = "SelectType"
+}
+
+enum ClickDeleteSpaceRoute: String {
+    case navigation = "Navigation"
+    case settings = "Settings"
+}
+
+enum ClickDeleteSpaceWarningType: String {
+    case delete = "Delete"
+    case cancel = "Cancel"
+}
+
+enum DeleteSpaceType: String {
+    case `private` = "Private"
 }

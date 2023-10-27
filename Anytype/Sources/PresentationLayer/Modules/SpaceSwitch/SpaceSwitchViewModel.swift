@@ -64,6 +64,7 @@ final class SpaceSwitchViewModel: ObservableObject {
     
     func onDeleteConfirmationTap(space: SpaceView) {
         Task {
+            AnytypeAnalytics.instance().logDeleteSpace(type: .private)
             try await workspaceService.deleteSpace(spaceId: space.targetSpaceId)
         }
     }
@@ -119,6 +120,7 @@ final class SpaceSwitchViewModel: ObservableObject {
                     self?.onTapWorkspace(workspace: spaceView)
                 },
                 onDelete: accountManager.account.info.spaceViewId == spaceView.id ? nil : { [weak self] in
+                    AnytypeAnalytics.instance().logClickDeleteSpace(route: .navigation)
                     self?.spaceViewForDelete = spaceView
                 }
             )
