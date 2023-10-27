@@ -14,6 +14,7 @@ final class BlockActionHandler: BlockActionHandlerProtocol {
     private let keyboardHandler: KeyboardActionHandlerProtocol
     private let blockTableService: BlockTableServiceProtocol
     private let fileService: FileActionsServiceProtocol
+    private let objectService: ObjectActionsServiceProtocol
     
     init(
         document: BaseDocumentProtocol,
@@ -22,7 +23,8 @@ final class BlockActionHandler: BlockActionHandlerProtocol {
         listService: BlockListServiceProtocol,
         keyboardHandler: KeyboardActionHandlerProtocol,
         blockTableService: BlockTableServiceProtocol,
-        fileService: FileActionsServiceProtocol
+        fileService: FileActionsServiceProtocol,
+        objectService: ObjectActionsServiceProtocol
     ) {
         self.document = document
         self.markupChanger = markupChanger
@@ -31,6 +33,7 @@ final class BlockActionHandler: BlockActionHandlerProtocol {
         self.keyboardHandler = keyboardHandler
         self.blockTableService = blockTableService
         self.fileService = fileService
+        self.objectService = objectService
     }
 
     // MARK: - Service proxy
@@ -69,6 +72,10 @@ final class BlockActionHandler: BlockActionHandlerProtocol {
     
     func setObjectCollectionType() async throws {
         try await service.setObjectCollectionType()
+    }
+    
+    func applyTemplate(objectId: String, templateId: String) async throws {
+        try await objectService.applyTemplate(objectId: objectId, templateId: templateId)
     }
     
     func setTextColor(_ color: BlockColor, blockIds: [BlockId]) {

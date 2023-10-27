@@ -247,7 +247,8 @@ final class EditorAssembly {
             listService: listService,
             keyboardHandler: keyboardHandler,
             blockTableService: blockTableService,
-            fileService: serviceLocator.fileService()
+            fileService: serviceLocator.fileService(), 
+            objectService: serviceLocator.objectActionsService()
         )
 
         let pasteboardMiddlewareService = PasteboardMiddleService(document: document)
@@ -331,8 +332,7 @@ final class EditorAssembly {
             detailsService: serviceLocator.detailsService(objectId: document.objectId),
             audioSessionService: serviceLocator.audioSessionService(),
             infoContainer: document.infoContainer,
-            tableService: blockTableService,
-            objectTypeProvider: serviceLocator.objectTypeProvider()
+            tableService: blockTableService
         )
 
         actionHandler.blockSelectionHandler = blocksStateManager

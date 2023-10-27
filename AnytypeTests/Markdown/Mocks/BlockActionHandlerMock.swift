@@ -75,6 +75,10 @@ final class BlockActionHandlerMock: BlockActionHandlerProtocol {
         assertionFailure()
     }
     
+    func applyTemplate(objectId: String, templateId: String) async throws {
+        assertionFailure()
+    }
+    
     func delete(blockIds: [BlockId]) {
         assertionFailure()
     }

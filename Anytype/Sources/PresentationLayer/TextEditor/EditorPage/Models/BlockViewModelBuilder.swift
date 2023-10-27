@@ -18,7 +18,6 @@ final class BlockViewModelBuilder {
     private let audioSessionService: AudioSessionServiceProtocol
     private let infoContainer: InfoContainerProtocol
     private let tableService: BlockTableServiceProtocol
-    private let objectTypeProvider: ObjectTypeProviderProtocol
 
     init(
         document: BaseDocumentProtocol,
@@ -33,8 +32,7 @@ final class BlockViewModelBuilder {
         detailsService: DetailsServiceProtocol,
         audioSessionService: AudioSessionServiceProtocol,
         infoContainer: InfoContainerProtocol,
-        tableService: BlockTableServiceProtocol,
-        objectTypeProvider: ObjectTypeProviderProtocol
+        tableService: BlockTableServiceProtocol
     ) {
         self.document = document
         self.handler = handler
@@ -49,7 +47,6 @@ final class BlockViewModelBuilder {
         self.audioSessionService = audioSessionService
         self.infoContainer = infoContainer
         self.tableService = tableService
-        self.objectTypeProvider = objectTypeProvider
     }
 
     func buildEditorItems(infos: [BlockInformation]) -> [EditorItem] {
@@ -246,10 +243,7 @@ final class BlockViewModelBuilder {
                     self.router.showTypes(
                         selectedObjectId: self.document.details?.type,
                         onSelect: { [weak self] type in
-                            Task { [weak self] in
-                                try await self?.handler.setObjectType(type: type)
-                                self?.logObjectTypeChange(typeId: type.id)
-                            }
+                            self?.typeSelected(type)
                         }
                     )
                 } else {
@@ -321,9 +315,15 @@ final class BlockViewModelBuilder {
         }
     }
     
-    private func logObjectTypeChange(typeId: String) {
-        let objectType = (try? objectTypeProvider.objectType(id: typeId))?.analyticsType ?? .object(typeId: typeId)
-        AnytypeAnalytics.instance().logObjectTypeChange(objectType)
+    private func typeSelected(_ type: ObjectType) {
+        Task { [weak self] in
+            guard let self else { return }
+            try await handler.setObjectType(type: type)
+            AnytypeAnalytics.instance().logObjectTypeChange(type.analyticsType)
+            
+            guard let isSelectTemplate = document.details?.isSelectTemplate, isSelectTemplate else { return }
+            try await handler.applyTemplate(objectId: document.objectId, templateId: type.defaultTemplateId)
+        }
     }
 
     // MARK: - Actions
