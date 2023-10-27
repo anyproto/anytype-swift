@@ -243,10 +243,10 @@ class SearchHelper {
         return filter
     }
     
-    static func spaceLocalStatusFilter(_ statuse: SpaceStatus) -> DataviewFilter {
+    static func spaceLocalStatusFilter(_ status: SpaceStatus) -> DataviewFilter {
         var filter = DataviewFilter()
         filter.condition = .equal
-        filter.value = statuse.toMiddleware.rawValue.protobufValue
+        filter.value = status.toMiddleware.rawValue.protobufValue
         filter.relationKey = BundledRelationKey.spaceLocalStatus.rawValue
         filter.operator = .and
         
