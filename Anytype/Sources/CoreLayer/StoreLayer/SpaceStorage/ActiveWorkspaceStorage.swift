@@ -40,6 +40,7 @@ final class ActiveWorkspaceStorage: ActiveWorkpaceStorageProtocol {
     
     func setActiveSpace(spaceId: String) async throws {
         let info = try await workspaceService.workspaceOpen(spaceId: spaceId)
+        AnytypeAnalytics.instance().logSwitchSpace()
         workspaceInfo = info
         activeSpaceId = spaceId
     }

@@ -167,6 +167,10 @@ enum AnalyticsEventsName {
     // Migration
     static let migrationGoneWrong = "MigrationGoneWrong"
     
+    static let screenSettingsSpaceCreate = "ScreenSettingsSpaceCreate"
+    static let createSpace = "CreateSpace"
+    static let switchSpace = "SwitchSpace"
+    
     // Keyboard bar actions
     enum KeyboardBarAction {
         static let slashMenu = "KeyboardBarSlashMenu"

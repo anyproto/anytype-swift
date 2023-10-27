@@ -689,4 +689,16 @@ extension AnytypeAnalytics {
     func logCreateLink() {
         logEvent(AnalyticsEventsName.createLink)
     }
+    
+    func logScreenSettingsSpaceCreate() {
+        logEvent(AnalyticsEventsName.screenSettingsSpaceCreate)
+    }
+    
+    func logCreateSpace() {
+        logEvent(AnalyticsEventsName.createSpace)
+    }
+    
+    func logSwitchSpace() {
+        logEvent(AnalyticsEventsName.switchSpace)
+    }
 }
