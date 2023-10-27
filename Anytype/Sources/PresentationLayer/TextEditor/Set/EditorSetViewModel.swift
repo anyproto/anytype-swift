@@ -598,9 +598,8 @@ final class EditorSetViewModel: ObservableObject {
     }
     
     private func defaultTemplateId(for objectType: ObjectType?) -> String {
-        if let defaultTemplateID = activeView.defaultTemplateID, defaultTemplateID.isNotEmpty {
-            let templateID = defaultTemplateID == TemplateType.blank.id ? "" : defaultTemplateID
-            return templateID
+        if let defaultTemplateId = activeView.defaultTemplateID, defaultTemplateId.isNotEmpty {
+            return defaultTemplateId
         } else {
             return objectType?.defaultTemplateId ?? ""
         }
