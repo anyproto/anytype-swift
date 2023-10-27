@@ -123,12 +123,20 @@ final class SpaceSettingsViewModel: ObservableObject {
         
         if let creatorDetails = try? relationDetailsStorage.relationsDetails(for: .creator, spaceId: activeWorkspaceStorage.workspaceInfo.accountSpaceId) {
             info.append(
-                SettingsInfoModel(title: creatorDetails.name, subtitle: accountManager.account.id)
+                SettingsInfoModel(title: creatorDetails.name, subtitle: accountManager.account.id, onTap: { [weak self] in
+                    guard let self else { return }
+                    UIPasteboard.general.string = accountManager.account.id
+                    snackBarData = .init(text: Loc.copiedToClipboard(creatorDetails.name), showSnackBar: true)
+                })
             )
         }
         
         info.append(
-            SettingsInfoModel(title: Loc.SpaceSettings.networkId, subtitle: activeWorkspaceStorage.workspaceInfo.networkId)
+            SettingsInfoModel(title: Loc.SpaceSettings.networkId, subtitle: activeWorkspaceStorage.workspaceInfo.networkId, onTap: { [weak self] in
+                guard let self else { return }
+                UIPasteboard.general.string = activeWorkspaceStorage.workspaceInfo.networkId
+                snackBarData = .init(text: Loc.copiedToClipboard(Loc.SpaceSettings.networkId), showSnackBar: true)
+            })
         )
         
         if let createdDateDetails = try? relationDetailsStorage.relationsDetails(for: .createdDate, spaceId: activeWorkspaceStorage.workspaceInfo.accountSpaceId),
