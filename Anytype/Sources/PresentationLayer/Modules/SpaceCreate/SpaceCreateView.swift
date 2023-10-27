@@ -30,5 +30,18 @@ struct SpaceCreateView: View {
         .onChange(of: model.dismiss) { _ in
             dismiss()
         }
+        .ignoreSafeAreaKeyboardLegacy()
+    }
+}
+
+private extension View {
+    // Fix glitch when user dismiss screen with opened keyboard
+    @available(iOS, deprecated: 16.4)
+    func ignoreSafeAreaKeyboardLegacy() -> some View {
+        if #available(iOS 16.4, *) {
+            return self
+        } else {
+            return self.ignoresSafeArea(.keyboard)
+        }
     }
 }
