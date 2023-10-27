@@ -42,11 +42,13 @@ struct SpaceSettingsView: View {
                         SettingsInfoBlockView(model: model.info[index])
                     }
                     
-                    StandardButton(Loc.SpaceSettings.deleteButton, style: .warningLarge) {
-                        model.onDeleteTap()
+                    if model.allowDelete {
+                        StandardButton(Loc.SpaceSettings.deleteButton, style: .warningLarge) {
+                            model.onDeleteTap()
+                        }
+                        .padding(.top, 20)
+                        .padding(.bottom, 10)
                     }
-                    .padding(.top, 20)
-                    .padding(.bottom, 10)
                 }
             }
             .padding(.horizontal, 20)
