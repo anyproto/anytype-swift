@@ -101,11 +101,11 @@ enum AnalyticsEventsName {
     static let screenAuthRegistration = "ScreenAuthRegistration"
 
     static let homeShow = "ScreenHome"
-    static let settingsShow = "ScreenSettings"
     static let screenDeletion = "ScreenDeletion"
 
     static let wallpaperSettingsShow = "ScreenSettingsWallpaper"
-    static let accountSettingsShow = "ScreenSettingsAccount"
+    static let screenSettingsAccount = "ScreenSettingsAccount"
+    static let screenKeychain = "ScreenKeychain"
     static let screenSettingsPersonal = "ScreenSettingsPersonal"
     static let appearanceSettingsShow = "ScreenSettingsAppearance"
     static let menuHelp = "MenuHelp"
@@ -174,6 +174,7 @@ enum AnalyticsEventsName {
     static let clickDeleteSpace = "ClickDeleteSpace"
     static let clickDeleteSpaceWarning = "ClickDeleteSpaceWarning"
     static let deleteSpace = "DeleteSpace"
+    static let screenSettingsSpaceIndex = "ScreenSettingsSpaceIndex"
     
     // Keyboard bar actions
     enum KeyboardBarAction {

@@ -713,4 +713,16 @@ extension AnytypeAnalytics {
     func logDeleteSpace(type: DeleteSpaceType) {
         logEvent(AnalyticsEventsName.deleteSpace, withEventProperties: [AnalyticsEventsPropertiesKey.type: type.rawValue])
     }
+    
+    func logScreenSettingsSpaceIndex() {
+        logEvent(AnalyticsEventsName.screenSettingsSpaceIndex)
+    }
+    
+    func logScreenSettingsAccount() {
+        logEvent(AnalyticsEventsName.screenSettingsAccount)
+    }
+    
+    func logScreenKeychain() {
+        logEvent(AnalyticsEventsName.screenKeychain)
+    }
 }

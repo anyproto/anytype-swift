@@ -81,6 +81,10 @@ final class SpaceSettingsViewModel: ObservableObject {
         }
     }
     
+    func onAppear() {
+        AnytypeAnalytics.instance().logScreenSettingsSpaceIndex()
+    }
+    
     // MARK: - Private
     
     private func setupSubscription() async {
