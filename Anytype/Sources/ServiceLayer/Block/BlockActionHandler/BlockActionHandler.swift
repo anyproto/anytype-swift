@@ -127,7 +127,7 @@ final class BlockActionHandler: BlockActionHandlerProtocol {
     
     func createEmptyBlock(parentId: BlockId) {
         let emptyBlock = BlockInformation.emptyText
-        AnytypeAnalytics.instance().logCreateBlock(type: emptyBlock.content.description, style: emptyBlock.content.type.style)
+        AnytypeAnalytics.instance().logCreateBlock(type: emptyBlock.content.type)
         service.addChild(info: emptyBlock, parentId: parentId)
     }
     
@@ -318,7 +318,7 @@ final class BlockActionHandler: BlockActionHandlerProtocol {
         
         let position: BlockPosition = isTextAndEmpty ? .replace : (position ?? .bottom)
         
-        AnytypeAnalytics.instance().logCreateBlock(type: newBlock.content.description, style: newBlock.content.type.style)
+        AnytypeAnalytics.instance().logCreateBlock(type: newBlock.content.type)
         service.add(info: newBlock, targetBlockId: blockId, position: position)
     }
 
