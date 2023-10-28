@@ -280,7 +280,7 @@
 
 // MARK: - Link to search
 
-"Editor.LinkToObject.SearchPlaceholder" = "Paste link or search objects";
+"Editor.LinkToObject.SearchPlaceholder" = "Incolla collegamento o cerca oggetti";
 "Editor.LinkToObject.PasteFromClipboard" = "Paste from clipboard";
 "Editor.LinkToObject.LinkedTo" = "Collegato a";
 "Editor.LinkToObject.CopyLink" = "Copia collegamento";
@@ -613,7 +613,7 @@
 "DataviewType.list" = "List";
 "DataviewType.gallery" = "Galleria";
 "DataviewType.kanban" = "Kanban";
-"DataviewType.calendar" = "Calendar";
+"DataviewType.calendar" = "Calendario";
 
 // MARK: - ObjectType
 "ObjectType.fallbackDescription" = "Blank canvas with no title";
