@@ -34,7 +34,7 @@ final class TemplatePickerViewModel {
                 route: .navigation
             )
         case .blank:
-            templateId = ""
+            templateId = TemplateType.blank.id
             AnytypeAnalytics.instance().logTemplateSelection(
                 objectType: nil,
                 route: .navigation

@@ -67,7 +67,7 @@ final class SetObjectCreationSettingsViewModel: ObservableObject {
         case .blank:
             onTemplateSelect(
                 objectTypeId: interactor.objectTypeId,
-                templateId: ""
+                templateId: TemplateType.blank.id
             )
             AnytypeAnalytics.instance().logChangeDefaultTemplate(
                 objectType: nil,
