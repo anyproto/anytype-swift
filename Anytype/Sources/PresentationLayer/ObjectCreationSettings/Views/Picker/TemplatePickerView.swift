@@ -60,6 +60,9 @@ struct TemplatePickerView: View {
                     color: .Text.primary
                 )
             }
+            ToolbarItem(placement: .navigationBarTrailing) {
+                settingsButton
+            }
         }
     }
     
@@ -92,9 +95,18 @@ struct TemplatePickerView: View {
     
     private var closeButton: some View {
         Button {
-            viewModel.onCloseButton()
+            viewModel.onCloseButtonTap()
         } label: {
             Image(asset: .X24.close)
+                .foregroundColor(.Button.active)
+        }
+    }
+    
+    private var settingsButton: some View {
+        Button {
+            viewModel.onSettingsButtonTap()
+        } label: {
+            Image(asset: .X24.more)
                 .foregroundColor(.Button.active)
         }
     }
