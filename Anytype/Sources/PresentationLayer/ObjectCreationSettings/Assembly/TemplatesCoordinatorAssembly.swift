@@ -1,6 +1,10 @@
 import Foundation
 import UIKit
 
+protocol TemplatesCoordinatorAssemblyProtocol: AnyObject {
+    func make(viewController: UIViewController) -> TemplatesCoordinator
+}
+
 final class TemplatesCoordinatorAssembly: TemplatesCoordinatorAssemblyProtocol {
     
     private let serviceLocator: ServiceLocator
@@ -19,9 +23,6 @@ final class TemplatesCoordinatorAssembly: TemplatesCoordinatorAssemblyProtocol {
     func make(viewController: UIViewController) -> TemplatesCoordinator {
         return TemplatesCoordinator(
             rootViewController: viewController,
-            keyboardHeightListener: .init(),
-            searchService: serviceLocator.searchService(),
-            objectsService: serviceLocator.objectActionsService(),
             editorPageAssembly: coordinatorsDI.editorPageModule()
         )
     }

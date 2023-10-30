@@ -1,3 +1,4 @@
+import "./UploadBuild"
 import "./FastfileDeploy"
 import "./FastfileProfiles"
 import "./FastfileAppVersion"

@@ -20,7 +20,8 @@ final class ObjectSettingBuilder {
             return [.layout, .relations]
         case .bookmark, .todo:
             return ObjectSetting.allCases.filter { $0 != .icon }
-        case .objectType, .unknown, .relation, .relationOption, .dashboard, .relationOptionList, .database:
+        case .objectType, .unknown, .relation, .relationOption, .dashboard, .relationOptionList, .database,
+                .audio, .video, .date, .spaceView:
             return []
         }
     }

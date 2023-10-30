@@ -5,7 +5,7 @@
     <key>Are you sure you want to delete</key>
     <dict>
       <key>NSStringLocalizedFormatKey</key>
-      <string>Are you sure you want to delete %#@object@?</string>
+      <string>您确定要删除  %#@object@ 吗？</string>
       <key>object</key>
       <dict>
         <key>NSStringFormatSpecTypeKey</key>
@@ -13,13 +13,13 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>d</string>
         <key>other</key>
-        <string>%d objects</string>
+        <string>%d 个对象</string>
       </dict>
     </dict>
     <key>Object selected</key>
     <dict>
       <key>NSStringLocalizedFormatKey</key>
-      <string>%#@object@ selected</string>
+      <string>%#@object@ 已选择</string>
       <key>object</key>
       <dict>
         <key>NSStringFormatSpecTypeKey</key>
@@ -27,7 +27,7 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>d</string>
         <key>other</key>
-        <string>%d objects</string>
+        <string>%d 个对象</string>
       </dict>
     </dict>
     <key>Selected blocks</key>
@@ -41,13 +41,13 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>d</string>
         <key>other</key>
-        <string>%d selected blocks</string>
+        <string>%d 选定的块</string>
       </dict>
     </dict>
     <key>Days to deletion account</key>
     <dict>
       <key>NSStringLocalizedFormatKey</key>
-      <string>This account will be deleted %#@days@</string>
+      <string>该账号将被删除 %#@days@</string>
       <key>days</key>
       <dict>
         <key>NSStringFormatSpecTypeKey</key>
@@ -55,7 +55,9 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>d</string>
         <key>other</key>
-        <string>in %d days</string>
+        <string>明天
+
+在 %d 天内</string>
       </dict>
     </dict>
     <key>Widgets.Actions.BinConfirm</key>
@@ -69,7 +71,9 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>d</string>
         <key>other</key>
-        <string>%d objects deleted</string>
+        <string>删除了一个对象
+
+删除了 %d 个对象</string>
       </dict>
     </dict>
   </dict>

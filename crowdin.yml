@@ -1,6 +1,5 @@
-append_commit_message: false
-commit_message: "%language% [skip ci]"
-
+append_commit_message: 
+commit_message: '%language% [skip ci]'
 files:
   - source: /Anytype/Resources/Strings/en.lproj/*
-    translation: /Anytype/Resources/Strings/%osx_locale%.lproj/%original_file_name%
+    translation: /Anytype/Resources/Strings/%osx_code%/%original_file_name%

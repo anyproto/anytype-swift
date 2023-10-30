@@ -43,8 +43,9 @@ final class SlashMenuActionHandler {
                 }
             case .objectType(let object):
                 Task { @MainActor [weak self] in
+                    AnytypeAnalytics.instance().logCreateLink()
                     try await self?.actionHandler
-                        .createPage(targetId: blockId, spaceId: object.spaceId, typeUniqueKey: object.uniqueKeyValue)
+                        .createPage(targetId: blockId, spaceId: object.spaceId, typeUniqueKey: object.uniqueKeyValue, templateId: object.defaultTemplateId)
                         .flatMap { objectId in
                             AnytypeAnalytics.instance().logCreateObject(objectType: object.analyticsType, route: .powertool)
                             self?.router.showPage(data: .page(EditorPageObject(objectId: objectId, spaceId: object.spaceId, isSupportedForEdit: true, isOpenedForPreview: false)))

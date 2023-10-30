@@ -14,9 +14,10 @@ extension BundledRelationsValueProvider {
             return profileIcon
         case .bookmark:
             return bookmarkIcon
-        case .todo, .note, .file, .unknown, .relation, .relationOption, .dashboard, .relationOptionList, .database:
+        case .todo, .note, .file, .unknown, .relation, .relationOption, .dashboard, .relationOptionList, .database,
+                .audio, .video, .date:
             return nil
-        case .space:
+        case .space, .spaceView:
             return spaceIcon
         }
     }
@@ -38,10 +39,6 @@ extension BundledRelationsValueProvider {
             return .profile(.imageId(iconImageHash.value))
         }
         
-        if let iconOptionValue {
-            return .profile(.gradient(iconOptionValue))
-        }
-        
         return title.first.flatMap { .profile(.character($0)) }
     }
     
@@ -50,8 +47,8 @@ extension BundledRelationsValueProvider {
     }
     
     private var spaceIcon: ObjectIcon? {
-        if let basicIcon {
-            return basicIcon
+        if let iconImageHash = self.iconImage {
+            return .basic(iconImageHash.value)
         }
         
         if let iconOptionValue {
@@ -119,7 +116,8 @@ extension BundledRelationsValueProvider {
     
     var editorViewType: EditorViewType {
         switch layoutValue {
-        case .basic, .profile, .todo, .note, .bookmark, .space, .file, .image, .objectType, .unknown, .relation, .relationOption, .dashboard, .relationOptionList, .database:
+        case .basic, .profile, .todo, .note, .bookmark, .space, .file, .image, .objectType, .unknown, .relation,
+                .relationOption, .dashboard, .relationOptionList, .database, .audio, .video, .date, .spaceView:
             return .page
         case .set, .collection:
             return .set

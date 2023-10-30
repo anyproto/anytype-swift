@@ -9,10 +9,10 @@ final class MockSetDocument: SetDocumentProtocol {
     var objectId: BlockId { "" }
     
     var spaceId: String { "" }
+
+    var inlineParameters: EditorInlineSetObject? { nil }
     
-    var blockId: BlockId? { nil }
-    
-    var targetObjectID: String? { "" }
+    var forPreview: Bool { false }
     
     var dataviews: [BlockDataview] { [] }
     

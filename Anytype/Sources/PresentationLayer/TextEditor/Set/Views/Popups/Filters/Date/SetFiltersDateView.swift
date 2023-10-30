@@ -13,6 +13,7 @@ struct SetFiltersDateView: View {
         .sheet(isPresented: $viewModel.showFiltersDaysView) {
             viewModel.filtersDaysView()
         }
+        .background(Color.Background.secondary)
     }
     
     private var rows: some View {

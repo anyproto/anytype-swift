@@ -5,6 +5,6 @@ protocol HomeBottomPanelModuleOutput: AnyObject {
     func onCreateWidgetSelected(context: AnalyticsWidgetContext)
     func onSearchSelected()
     func onCreateObjectSelected(screenData: EditorScreenData)
-    func onSettingsSelected()
     func onProfileSelected()
+    func onCreateObjectWithTypeSelected()
 }

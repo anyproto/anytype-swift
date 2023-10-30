@@ -19,17 +19,23 @@ final class ObjectTypesSearchViewModel {
     private let interactor: ObjectTypesSearchInteractor
     private let toastPresenter: ToastPresenterProtocol
     private let selectedObjectId: BlockId?
+    private let hideMarketplace: Bool
+    private let showDescription: Bool
     private let onSelect: (_ type: ObjectType) -> Void
     
     init(
         interactor: ObjectTypesSearchInteractor,
         toastPresenter: ToastPresenterProtocol,
         selectedObjectId: BlockId? = nil,
+        hideMarketplace: Bool = false,
+        showDescription: Bool = true,
         onSelect: @escaping (_ type: ObjectType) -> Void
     ) {
         self.interactor = interactor
         self.toastPresenter = toastPresenter
         self.selectedObjectId = selectedObjectId
+        self.hideMarketplace = hideMarketplace
+        self.showDescription = showDescription
         self.onSelect = onSelect
     }
 }
@@ -40,7 +46,7 @@ extension ObjectTypesSearchViewModel: NewInternalSearchViewModelProtocol {
     
     func search(text: String) async throws {
         let objects = try await interactor.search(text: text)
-        let marketplaceObjects = try await interactor.searchInMarketplace(text: text)
+        let marketplaceObjects = (text.isEmpty && hideMarketplace) ? [] : try await interactor.searchInMarketplace(text: text)
         
         if objects.isEmpty && marketplaceObjects.isEmpty {
             handleError(for: text)
@@ -90,14 +96,14 @@ private extension ObjectTypesSearchViewModel {
                         ListSectionConfiguration.smallHeader(
                             id: Constants.installedSectionId,
                             title: Loc.ObjectType.myTypes,
-                            rows:  objects.asRowConfigurations(selectedId: selectedObjectId)
+                            rows:  objects.asRowConfigurations(selectedId: selectedObjectId, showDescription: showDescription)
                         )
                     }
                     if marketplaceObjects.isNotEmpty {
                         ListSectionConfiguration.smallHeader(
                             id: Constants.marketplaceSectionId,
                             title: Loc.anytypeLibrary,
-                            rows:  marketplaceObjects.asRowConfigurations(selectedId: selectedObjectId)
+                            rows:  marketplaceObjects.asRowConfigurations(selectedId: selectedObjectId, showDescription: showDescription)
                         )
                     }
                 })
@@ -109,7 +115,7 @@ private extension ObjectTypesSearchViewModel {
 
 private extension Array where Element == ObjectDetails {
 
-    func asRowConfigurations(selectedId: BlockId?) -> [ListRowConfiguration] {
+    func asRowConfigurations(selectedId: BlockId?, showDescription: Bool) -> [ListRowConfiguration] {
         sorted { lhs, rhs in
             lhs.id == selectedId && rhs.id != selectedId
         }.map { details in
@@ -118,7 +124,7 @@ private extension Array where Element == ObjectDetails {
                 contentHash: details.hashValue
             ) {
                 SearchObjectRowView(
-                    viewModel: SearchObjectRowView.Model(details: details, isChecked: details.id == selectedId),
+                    viewModel: SearchObjectRowView.Model(details: details, isChecked: details.id == selectedId, showDescription: showDescription),
                     selectionIndicatorViewModel: nil
                 ).eraseToAnyView()
             }
@@ -129,11 +135,11 @@ private extension Array where Element == ObjectDetails {
 
 private extension SearchObjectRowView.Model {
     
-    init(details: ObjectDetails, isChecked: Bool) {
+    init(details: ObjectDetails, isChecked: Bool, showDescription: Bool) {
         let title = details.title
         self.icon = details.objectIconImage
         self.title = title
-        self.subtitle = details.description
+        self.subtitle = showDescription ? details.description : ""
         self.style = .default
         self.isChecked = isChecked
     }

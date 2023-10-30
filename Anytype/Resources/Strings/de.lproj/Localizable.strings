@@ -3,7 +3,7 @@
 
 // MARK: Text Style in Slash and Style menu
 "TextStyle.Text.Title" = "Text";
-"TextStyle.Text.Subtitle" = "Just start writing with a plain text";
+"TextStyle.Text.Subtitle" = "Einfach mit einem reinen Text beginnen";
 
 "TextStyle.Title.Title" = "Titel";
 "TextStyle.Title.Subtitle" = "Große Abschnittsüberschrift";
@@ -15,7 +15,7 @@
 "TextStyle.Subheading.Subtitle" = "Kleine Abschnittsüberschrift";
 
 "TextStyle.Highlighted.Title" = "Hervorhebung";
-"TextStyle.Highlighted.Subtitle" = "Spotlight, that needs special attention";
+"TextStyle.Highlighted.Subtitle" = "Spotlight, der besondere Aufmerksamkeit benötigt";
 
 "TextStyle.Callout.Title" = "Textbox";
 "TextStyle.Callout.Subtitle" = "Umrandeter Text mit Icon";
@@ -43,7 +43,7 @@
 
 "BlockText.ContentType.Title.Placeholder" = "Unbenannt";
 "BlockText.ContentType.Description.Placeholder" = "Beschreibung hinzufügen";
-"BlockText.ContentType.Toggle.Placeholder" = "Toggle block";
+"BlockText.ContentType.Toggle.Placeholder" = "Block wechseln";
 "BlockText.ContentType.Bulleted.Placeholder" = "Aufzählung";
 "BlockText.ContentType.Checkbox.Placeholder" = "Checkbox";
 "BlockText.ContentType.Numbered.Placeholder" = "Nummerierung";
@@ -62,7 +62,7 @@
 "BlockLink.PreviewSettings.Layout.Text.Title" = "Text";
 
 // MARK: - Settings
-"Settings.Title" = "Persönlicher Space";
+"Settings.Title" = "Settings";
 "Settings.SpaceName" = "Space-Name";
 
 // MARK: - Object
@@ -80,59 +80,59 @@
 
 "Relation.Format.Object.Title" = "Objekt";
 "Relation.Format.Text.Title" = "Text";
-"Relation.Format.Number.Title" = "Number";
+"Relation.Format.Number.Title" = "Nummer";
 "Relation.Format.Status.Title" = "Status";
 "Relation.Format.Tag.Title" = "Tag";
-"Relation.Format.Date.Title" = "Date";
-"Relation.Format.FileMedia.Title" = "File & Media";
+"Relation.Format.Date.Title" = "Datum";
+"Relation.Format.FileMedia.Title" = "Dateien & Medien";
 "Relation.Format.Checkbox.Title" = "Checkbox";
-"Relation.Format.Url.Title" = "URL";
-"Relation.Format.Email.Title" = "Email";
-"Relation.Format.Phone.Title" = "Phone number";
+"Relation.Format.Url.Title" = "Link";
+"Relation.Format.Email.Title" = "E-Mail";
+"Relation.Format.Phone.Title" = "Telefonnummer";
 
 // MARK: - Mention
 "Mention.Subtitle.Placeholder" = "Objekt";
 
 "None" = "Keine";
 "Callout" = "Textbox";
-"Toggle empty. Tap to create block." = "Toggle empty. Tap to create block.";
-"Loading, please wait" = "Loading, please wait";
-"Done" = "Done";
-"Style" = "Style";
-"Color" = "Color";
-"Background" = "Background";
-"Other" = "Other";
-"Media" = "Media";
-"Alignment" = "Alignment";
-"Actions" = "Actions";
-"Relations" = "Relations";
-"Objects" = "Objects";
-"Delete" = "Delete";
-"Duplicate" = "Duplicate";
-"Copy" = "Copy";
-"Preview" = "Preview";
-"View" = "View";
-"Paste" = "Paste";
-"Move" = "Move";
-"Move to" = "Move to";
-"Back" = "Back";
-"File block subtitle" = "Store file in original state";
-"Picture block subtitle" = "Upload and enrich the page with image";
-"Video block subtitle" = "Upload playable video";
-"Bookmark block subtitle" = "Save your favorite link with summary";
-"Code block subtitle" = "Capture code snippet";
-"Align right" = "Align right";
-"Align left" = "Align left";
-"Align center" = "Align center";
-"Black" = "Black";
-"Amber" = "Amber";
-"Red" = "Red";
+"Toggle empty. Tap to create block." = "Tippen um Block zu erstellen.";
+"Loading, please wait" = "Wird geladen, bitte warten";
+"Done" = "Fertig";
+"Style" = "Design";
+"Color" = "Farbe";
+"Background" = "Hintergrund";
+"Other" = "Weitere";
+"Media" = "Medien";
+"Alignment" = "Ausrichtung";
+"Actions" = "Aktionen";
+"Relations" = "Verknüpfungen";
+"Objects" = "Objekte";
+"Delete" = "Löschen";
+"Duplicate" = "Duplizieren";
+"Copy" = "Kopieren";
+"Preview" = "Vorschau";
+"View" = "Ansicht";
+"Paste" = "Einfügen";
+"Move" = "Verschieben";
+"Move to" = "Verschieben nach";
+"Back" = "Zurück";
+"File block subtitle" = "Datei im Originalzustand speichern";
+"Picture block subtitle" = "Lade ein Bild hoch und bereichere die Seite";
+"Video block subtitle" = "Video hochladen";
+"Bookmark block subtitle" = "Speichere deinen Link mit der Zusammenfassung";
+"Code block subtitle" = "Code-Snippet erfassen";
+"Align right" = "Rechts ausrichten";
+"Align left" = "Links ausrichten";
+"Align center" = "Zentral ausrichten";
+"Black" = "Schwarz";
+"Amber" = "Gelb";
+"Red" = "Rot";
 "Pink" = "Pink";
-"Purple" = "Purple";
-"Blue" = "Blue";
-"Teal" = "Teal";
-"Green" = "Green";
-"Default background" = "Default background";
+"Purple" = "Lila";
+"Blue" = "Blau";
+"Teal" = "Türkis";
+"Green" = "Grün";
+"Default background" = "Standardhintergrund";
 "Amber background" = "Bernstein Hintergrund";
 "Red background" = "Roter Hintergrund";
 "Pink background" = "Pinker Hintergrund";
@@ -142,7 +142,7 @@
 "Create new object" = "Neues Objekt erstellen";
 "Cancel" = "Abbrechen";
 "Paste or type URL" = "URL einfügen oder eingeben";
-"No items match filter" = "No items match filter";
+"No items match filter" = "Keine Gegenstände konnten mit diesem Filter gefunden werden";
 "Unsupported block" = "Nicht unterstützter Block";
 "Name" = "Name";
 "Description" = "Beschreibung";
@@ -172,9 +172,9 @@
 "Keychain.Don’t forget to save your recovery phrase" = "Vergiss nicht deine Wiederherstellungsphrase zu sichern";
 "Keychain.Show and copy phrase" = "Phrase anzeigen und kopieren";
 "Keychain.Have you backed up your recovery phrase?" = "Hast du deine Wiederherstellungsphrase gesichert?";
-"Keychain.Error.String to Data conversion error" = "String to Data conversion error";
-"Keychain.Error.Data to String conversion error" = "Data to String conversion error";
-"Keychain.Error.Unknown Keychain Error" = "Unknown Keychain Error";
+"Keychain.Error.String to Data conversion error" = "Zeichenkettenkonvertierungsfehler";
+"Keychain.Error.Data to String conversion error" = "Fehler bei der Konvertierung der Daten zu Zeichenketten";
+"Keychain.Error.Unknown Keychain Error" = "Unbekannter Schlüsselbund-Fehler";
 "Keychain.SeedPhrasePlaceholder" = "witch collapse practice feed shame open despair creek road again ice least lake tree young address brain despair";
 
 // Auth
@@ -183,112 +183,112 @@
 "Create" = "Erstellen";
 "Scan QR code" = "QR-Code scannen";
 "Auth.CameraPermissionTitle" = "Bitte Zugriff erlauben";
-"Restore secret phrase from keychain" = "Restore Recovery Phrase from the keychain";
+"Restore secret phrase from keychain" = "Stelle die Wiederherstellungsphrase aus dem Schlüsselbund wieder her";
 "Auth.LogIn" = "Ich habe schon einen";
 "Auth.Join" = "Neues Konto erstellen";
 "Auth.Welcome.Subtitle" = "Anytype ist dein sicherer Ort zum Schreiben, Planen, Denken und Organisieren von allem, was dir wichtig ist.";
 "Auth.Caption.Privacy.Text" = "Durch Fortfahren stimmst du den [Nutzungsbedingungen](%@) und [Datenschutzrichtlinie](%@ ) zu";
 "Auth.Next" = "Weiter";
 
-"Account recover error" = "Account recover error, try again";
-"Account recover error no internet" = "Account recover error, probably no internet connection";
+"Account recover error" = "Fehler beim Wiederherstellen des Kontos, versuche es erneut";
+"Account recover error no internet" = "Fehler bei der Kontowiederherstellung, wahrscheinlich keine Internetverbindung";
 
 // Auth Errors
-"Error creating wallet" = "Error creating wallet";
-"Error select account" = "Error select account";
+"Error creating wallet" = "Fehler beim Erstellen der Wallet";
+"Error select account" = "Fehler bei der Kontoauswahl";
 "Error wallet recover account" = "Error wallet recover account";
 
-"Search for language" = "Search for language";
+"Search for language" = "Sprache suchen";
 
 // Auth - Join flow
 
-"Auth.JoinFlow.Key.Title" = "Save your Recovery Phrase";
-"Auth.JoinFlow.Key.Description" = "It’s a novel way of authentication that gives you full ownership over your account and data.";
-"Auth.JoinFlow.Key.TextField.Placeholder" = "Type your recovery phrase";
-"Auth.JoinFlow.Key.Button.Show.Title" = "Show Recovery Phrase";
-"Auth.JoinFlow.Key.Button.Saved.Title" = "Go to the app";
-"Auth.JoinFlow.Key.Button.Later.Title" = "Skip";
-"Auth.JoinFlow.Key.Button.Copy.Title" = "Copy to clipboard";
-"Auth.JoinFlow.Key.Button.Info.Title" = "Read more";
-"Auth.JoinFlow.Key.Button.Tip.Title" = "You can find Recovery Phrase later in Anytype settings";
+"Auth.JoinFlow.Key.Title" = "Speichere deine Wiederherstellungsphrase";
+"Auth.JoinFlow.Key.Description" = "Es handelt sich um eine neuartige Authentifizierungsart, die dir vollen Besitz über dein Konto und die Daten gibt.";
+"Auth.JoinFlow.Key.TextField.Placeholder" = "Geben Sie Ihre Wiederherstellungsphrase ein";
+"Auth.JoinFlow.Key.Button.Show.Title" = "Wiederherstellungsphrase anzeigen";
+"Auth.JoinFlow.Key.Button.Saved.Title" = "Zur App gehen";
+"Auth.JoinFlow.Key.Button.Later.Title" = "Überspringen";
+"Auth.JoinFlow.Key.Button.Copy.Title" = "In die Zwischenablage kopieren";
+"Auth.JoinFlow.Key.Button.Info.Title" = "Mehr lesen";
+"Auth.JoinFlow.Key.Button.Tip.Title" = "Wiederherstellungsphrase findest du später in den Anytype Einstellungen";
 
-"Auth.JoinFlow.Key.ReadMore.Title" = "What is Recovery Phrase?";
-"Auth.JoinFlow.Key.ReadMore.Option1.Title" = "Recovery Phrase is a random combination of 12 words from which your account is magically generated on this device.";
-"Auth.JoinFlow.Key.ReadMore.Option2.Title" = "Whomever knows Recovery Phrase, owns the account. **At this moment, you are the only person in the world who knows it.**";
-"Auth.JoinFlow.Key.ReadMore.Option3.Title" = "That's why it's essential to keep Recovery Phrase safe. As the sole owner, nobody can help you if it's lost.";
-"Auth.JoinFlow.Key.ReadMore.Instruction.Title" = "How to save my phrase?";
-"Auth.JoinFlow.Key.ReadMore.Instruction.Option1.Title" = "The easiest way to store your Recovery Phrase is to save it in your password manager.";
-"Auth.JoinFlow.Key.ReadMore.Instruction.Option2.Title" = "The most secure way is to write it down on paper and keep it offline, in a safe and secure place.";
+"Auth.JoinFlow.Key.ReadMore.Title" = "Was ist Wiederherstellungsphrase?";
+"Auth.JoinFlow.Key.ReadMore.Option1.Title" = "Wiederherstellungsphrase ist eine zufällige Kombination von 12 Wörtern, aus denen Ihr Konto auf diesem Gerät magisch generiert wird.";
+"Auth.JoinFlow.Key.ReadMore.Option2.Title" = "Wer das Wiederherstellungsphrase kennt, besitzt den Account. **In diesem Moment bist du der einzige Mensch auf der Welt, der es kennt.**";
+"Auth.JoinFlow.Key.ReadMore.Option3.Title" = "Deshalb ist es wichtig, dass Recovery Phrase sicher bleibt. Als einziger Besitzer kann dir niemand helfen, wenn es verloren geht.";
+"Auth.JoinFlow.Key.ReadMore.Instruction.Title" = "Wie kann ich meine Phrase speichern?";
+"Auth.JoinFlow.Key.ReadMore.Instruction.Option1.Title" = "Der einfachste Weg, Ihre Wiederherstellungsphrase zu speichern, ist die Speicherung in Ihrem Passwort-Manager.";
+"Auth.JoinFlow.Key.ReadMore.Instruction.Option2.Title" = "Am sichersten ist es, sie auf Papier aufzuschreiben und offline, an einem sicheren Ort.";
 
-"Auth.JoinFlow.Soul.Title" = "Set a name for new identity";
-"Auth.JoinFlow.Soul.Description" = "First, choose a name to use inside Anytype.";
+"Auth.JoinFlow.Soul.Title" = "Choose your name";
+"Auth.JoinFlow.Soul.Description" = "So wirst du in der App erscheinen.";
 "Auth.JoinFlow.Soul.Placeholder" = "Unbenannt";
 
-"Auth.JoinFlow.Creating.Soul.Title" = "Generating new account";
-"Auth.JoinFlow.Setting.Space.Title" = "Setting up your personal space";
-"Auth.JoinFlow.Personal.Space.Title" = "Persönlicher Space";
+"Auth.JoinFlow.Creating.Soul.Title" = "Neues Konto erstellen";
+"Auth.JoinFlow.Setting.Space.Title" = "Einrichtung deines persönlichen Spaces";
+"Auth.JoinFlow.Personal.Space.Title" = "Settings";
 
 // Auth - Login flow
-"Auth.LoginFlow.Use.Keychain.Title" = "Use keychain";
-"Auth.LoginFlow.Or" = "OR";
-"Auth.LoginFlow.Textfield.Placeholder" = "Type your recovery phrase";
+"Auth.LoginFlow.Use.Keychain.Title" = "Schlüsselbund verwenden";
+"Auth.LoginFlow.Or" = "ODER";
+"Auth.LoginFlow.Textfield.Placeholder" = "Geben Sie Ihre Wiederherstellungsphrase ein";
 "Auth.LoginFlow.Enter.Button.Title" = "Anmelden";
-"Auth.LoginFlow.Entering.Void.Title" = "Entering the Void";
+"Auth.LoginFlow.Entering.Void.Title" = "Leere betreten";
 
 // Object settings
 
-"Icon" = "Icon";
-"Emoji or image for object" = "Emoji or image for object";
-"Cover" = "Cover";
-"Background picture" = "Background picture";
+"Icon" = "Symbol";
+"Emoji or image for object" = "Emoji oder Bild für das Objekt";
+"Cover" = "Titelbild";
+"Background picture" = "Hintergrundbild";
 "Layout" = "Layout";
-"Arrangement of objects on a canvas" = "Arrangement of objects on a canvas";
+"Arrangement of objects on a canvas" = "Anordnung von Objekten auf einer Leinwand";
 
-"Search" = "Search";
+"Search" = "Suchen";
 "There is no emoji named" = "There is no emoji named";
 "Try to find a new one or upload your image" = "Try to find a new one or upload your image";
 
 "Emoji" = "Emoji";
-"Random" = "Random";
-"Upload" = "Upload";
-"Change icon" = "Change icon";
-"Change cover" = "Change cover";
-"Remove" = "Remove";
+"Random" = "Zufällig";
+"Upload" = "Hochladen";
+"Change icon" = "Symbol ändern";
+"Change cover" = "Titelbild ändern";
+"Remove" = "Entfernen";
 
-"Solid colors" = "Solid colors";
-"Gradients" = "Gradients";
-"Gallery" = "Gallery";
+"Solid colors" = "Vollfarben";
+"Gradients" = "Farbverläufe";
+"Gallery" = "Galerie";
 
-"Remove photo" = "Remove photo";
-"Basic" = "Basic";
-"Profile" = "Profile";
-"Task" = "Task";
-"Note" = "Note";
-"Choose layout type" = "Choose layout type";
+"Remove photo" = "Foto entfernen";
+"Basic" = "Einfach";
+"Profile" = "Profil";
+"Task" = "Aufgabe";
+"Note" = "Notiz";
+"Choose layout type" = "Wähle einen Ansichtstyp";
 
-"Undo typing" = "Undo typing";
-"Undo" = "Undo";
-"Actions.LinkItself" = "Link to";
-"Actions.MakeAsTemplate" = "Make template";
-"Actions.TemplateMakeDefault" = "Set as default";
+"Undo typing" = "Eingabe widerrufen";
+"Undo" = "Rückgängig";
+"Actions.LinkItself" = "Link zu";
+"Actions.MakeAsTemplate" = "Vorlage erstellen";
+"Actions.TemplateMakeDefault" = "Als Standard festlegen";
 
 // Object Type
 "Set" = "Set";
-"Collection" = "Collection";
+"Collection" = "Sammlung";
 
-"Editor.MovingState.ScrollToSelectedPlace" = "Scroll to select a place";
+"Editor.MovingState.ScrollToSelectedPlace" = "Scrollen, um einen Ort auszuwählen";
 
 // MARK: - Link to search
 
-"Editor.LinkToObject.SearchPlaceholder" = "Paste link or search objects";
-"Editor.LinkToObject.PasteFromClipboard" = "Paste from clipboard";
-"Editor.LinkToObject.LinkedTo" = "Linked to";
-"Editor.LinkToObject.CopyLink" = "Copy link";
-"Editor.LinkToObject.RemoveLink" = "Remove link";
+"Editor.LinkToObject.SearchPlaceholder" = "Link einfügen oder Objekte suchen";
+"Editor.LinkToObject.PasteFromClipboard" = "Aus Zwischenspeicher einfügen";
+"Editor.LinkToObject.LinkedTo" = "Verlinkt mit";
+"Editor.LinkToObject.CopyLink" = "Link kopieren";
+"Editor.LinkToObject.RemoveLink" = "Link entfernen";
 
 // MARK: - Main search
-"There is no object named" = "There is no object named %@";
-"There is no type named" = "There is no type named %@";
+"There is no object named" = "Es gibt kein Objekt mit dem Namen %@";
+"There is no type named" = "Es gibt keinen Typ mit dem Namen %@";
 "Create a new one or search for something else" = "Create a new one or search for something else";
 
 // MARK: - Home
@@ -296,64 +296,58 @@
 "Home.Snackbar.Library" = "Library is available in desktop app";
 
 // MARK: - Alerts
-"Alert.CameraPermissions.Settings" = "Settings";
+"Alert.CameraPermissions.Settings" = "Einstellungen";
 "Alert.CameraPermissions.GoToSettings" = "Anytype needs access to your camera to scan QR codes.\n\nPlease, go to your device's Settings -> Privacy -> Camera and set Anytype to ON";
 
 // MARK: - Deletion
-"Pending deletion text" = "We're sorry to see you go. You have 30 days to cancel this request. After 30 days, your encrypted account data is permanently removed from the backup node.";
+"Pending deletion text" = "Es tut uns leid, dass du gehst. Du hast 30 Tage Zeit, um diese Anfrage abzubrechen. Nach 30 Tagen werden deine verschlüsselten Kontodaten permanent aus dem Backup-Knoten entfernt.";
 
 // MARK: - Object Settings
-"Undo/Redo" = "Undo/Redo";
+"Undo/Redo" = "Rückgängig/Wiederholen";
 
 
 // MARK: - Templates
-"Alert.Templates_Available.Title" = "This type has %d templates";
-"Alert.Templates_Available.Description" = "Swipe down to skip";
-"Alert.Templates_Available.Button" = "Show";
+"TemplateSelection.Available.Title" = "This type has %d templates";
 "TemplatePicker.ChooseTemplate" = "Choose template";
-"TemplatePicker.Buttons.Skip" = "Skip";
 "TemplatePicker.Buttons.UseTemplate" = "Use template";
 "TemplateSelection.SelectTemplate" = "Select template";
 "TemplateSelection.blankTemplate" = "Blank";
 "TemplateSelection.Template.Subtitle" = "Template";
-"TemplateSelection.ObjectType.Subtitle" = "Object type";
-"TemplateSelection.ObjectType.NoTemplates.Title" = "This type doesn’t support templates";
+"TemplateSelection.ObjectType.Subtitle" = "Objekttyp";
 
-"TemplateOptions.Alert.SetAsDefault" = "Set as default for this view";
 "TemplateOptions.Alert.EditTemplate" = "Edit template";
-"TemplateOptions.Alert.Duplicate" = "Duplicate";
-"TemplateOptions.Alert.Delete" = "Delete";
+"TemplateOptions.Alert.Duplicate" = "Duplizieren";
+"TemplateOptions.Alert.Delete" = "Löschen";
 
 "TemplateEditing.Title" = "Edit template";
-"TemplateEditing.SelectButtonTitle" = "Select template";
 
 "Templates.Popup.WasAddedTo" = "New template was added to the type";
 "Templates.Popup.Duplicated" = "The template was duplicated";
 "Templates.Popup.Removed" = "The template was removed";
 "Templates.Popup.Default" = "The template was set as default";
 
-"To Bin" = "To Bin";
+"To Bin" = "Zum Papierkorb";
 
 // MARK: - Context Menu
-"Remove From Favorite" = "Remove From Favorite";
-"Add To Favorite" = "Add To Favorite";
-"Move To Bin" = "Move To Bin";
+"Remove From Favorite" = "Aus den Favoriten entfernen";
+"Add To Favorite" = "Zu den Favoriten hinzufügen";
+"Move To Bin" = "In den Papierkorb verschieben";
 
 
 "LinkAppearance.Description.None.Title" = "Keine";
 "LinkAppearance.Description.Object.Title" = "Object description";
 "LinkAppearance.Description.Content.Title" = "Content preview";
-"LinkAppearance.ObjectType.Title" = "Object type";
+"LinkAppearance.ObjectType.Title" = "Objekttyp";
 
 // MARK: - Sets: Sorts
 "EditSet.Popup.Sorts.NavigationView.Title" = "Sorts";
 "EditSet.Popup.Sorts.EmptyView.Title" = "No sorts here. You can add some";
-"EditSet.Popup.Sort.Types.Ascending" = "Ascending";
-"EditSet.Popup.Sort.Types.Descending" = "Descending";
+"EditSet.Popup.Sort.Types.Ascending" = "Aufsteigend";
+"EditSet.Popup.Sort.Types.Descending" = "Absteigend";
 "EditSet.Popup.Sort.Add.SearchPlaceholder" = "Сhoose a relation to sort";
 
 // MARK: - Sets: Filters
-"EditSet.Popup.Filters.NavigationView.Title" = "Filters";
+"EditSet.Popup.Filters.NavigationView.Title" = "Filter";
 "EditSet.Popup.Filters.EmptyView.Title" = "No filters here. You can add some";
 "EditSet.Popup.Filters.TextView.Placeholder" = "Value";
 
@@ -433,8 +427,6 @@
 "Set.View.Settings.ImagePreview.Title" = "Image preview";
 "Set.View.Settings.GroupBy.Title" = "Group by";
 "Set.View.Settings.GroupBackgroundColors.Title" = "Color columns";
-"Set.View.Settings.DefaultObject.Title" = "Default object";
-"Set.View.Settings.DefaultTemplate.Title" = "Default template";
 
 "Set.View.Settings.NoRelations.Placeholder" = "No relations";
 "Set.View.Settings.NoFilters.Placeholder" = "No filters";
@@ -573,13 +565,13 @@
 "File" = "File";
 "No related options here" = "No related options here. You can add some";
 "Empty" = "Empty";
-"Link to" = "Link to";
+"Link to" = "Link zu";
 "Unknown" = "Unknown";
-"Settings" = "Settings";
+"Settings" = "Einstellungen";
 "Views" = "Views";
 "Filter" = "Filter";
 "Sort" = "Sort";
-"View" = "View";
+"View" = "Ansicht";
 "Home" = "Home";
 "Highlight" = "Highlight";
 "Create object" = "Create object";
@@ -619,12 +611,14 @@
 // MARK: - DataviewType
 "DataviewType.grid" = "Grid";
 "DataviewType.list" = "List";
-"DataviewType.gallery" = "Gallery";
+"DataviewType.gallery" = "Galerie";
 "DataviewType.kanban" = "Kanban";
+"DataviewType.calendar" = "Calendar";
 
 // MARK: - ObjectType
 "ObjectType.fallbackDescription" = "Blank canvas with no title";
 "ObjectType.SearchOrInstall" = "Search or install a new type";
+"ObjectType.Search" = "Search for Type";
 "ObjectType.MyTypes" = "My Types";
 "ObjectType.AddedToLibrary" = "Type ‘%@’ added to your library";
 "ObjectType.DeletedName" = "Deleted type";
@@ -646,16 +640,16 @@
 
 // MARK: - Simple tables
 "SimpleTableMenu.Item.clearContents" = "Clear";
-"SimpleTableMenu.Item.color" = "Color";
-"SimpleTableMenu.Item.style" = "Style";
+"SimpleTableMenu.Item.color" = "Farbe";
+"SimpleTableMenu.Item.style" = "Design";
 "SimpleTableMenu.Item.clearStyle" = "Reset style";
 
 "SimpleTableMenu.Item.InsertLeft" = "Insert left";
 "SimpleTableMenu.Item.InsertRight" = "Insert right";
 "SimpleTableMenu.Item.MoveLeft" = "Move left";
 "SimpleTableMenu.Item.MoveRight" = "Move right";
-"SimpleTableMenu.Item.Duplicate" = "Duplicate";
-"SimpleTableMenu.Item.Delete" = "Delete";
+"SimpleTableMenu.Item.Duplicate" = "Duplizieren";
+"SimpleTableMenu.Item.Delete" = "Löschen";
 "SimpleTableMenu.Item.Sort" = "Sort";
 
 "SimpleTableMenu.Item.InsertAbove" = "Insert above";
@@ -673,7 +667,7 @@
 // Relation Actions
 "RelationAction.CopyPhone" = "Copy phone numbler";
 "RelationAction.CopyEmail" = "Copy email";
-"RelationAction.CopyLink" = "Copy link";
+"RelationAction.CopyLink" = "Link kopieren";
 "RelationAction.Copied" = "Kopiert";
 "RelationAction.ReloadingContent" = "Reloading content";
 "RelationAction.ReloadContent" = "Reload object content";
@@ -685,7 +679,7 @@
 "SetViewTypesPicker.Title" = "Edit view";
 "SetViewTypesPicker.New.Title" = "New view";
 "SetViewTypesPicker.Section.Types.Title" = "View as";
-"SetViewTypesPicker.Settings.Duplicate.View" = "Duplicate";
+"SetViewTypesPicker.Settings.Duplicate.View" = "Duplizieren";
 "SetViewTypesPicker.Settings.Delete.View" = "Delete view";
 "SetViewTypesPicker.Settings.Textfield.Placeholder.New.View" = "New view";
 "SetViewTypesPicker.Settings.Textfield.Placeholder.Untitled" = "Unbenannt";
@@ -768,6 +762,12 @@
 "ClearCache.Success" = "Cache sucessfully cleared";
 "ClearCache.Error" = "Error, try again later";
 
+// MARK: - Settings
+"Settings.TitleLegacy" = "Settings";
+"Settings.Title" = "Einstellungen";
+"Settings.SpaceName" = "Space-Name";
+"Settings.AccountAndAccess" = "Account and access";
+
 // MARK: - File Storage
 "FileStorage.Title" = "File storage";
 "FileStorage.Space.Title" = "Remote storage";
@@ -794,16 +794,47 @@
 "ClearCacheAlert.Title" = "Are you sure?";
 "ClearCacheAlert.Description" = "All media files stored in Anytype will be deleted from your current device. They can be downloaded again from a backup node or another device.";
 
+// MARK: - Spaces
+"Spaces.Accessibility.Public" = "Public";
+"Spaces.Accessibility.Private" = "Private";
+"Spaces.Search.Title" = "Search spaces";
+
+// MARK: - Space Settings
+"SpaceSettings.Title" = "Space settings";
+"SpaceSettings.RemoteStorage" = "Remote storage";
+"SpaceSettings.Info" = "Space info";
+"SpaceSettings.NetworkId" = "Network ID";
+"SpaceSettings.DeleteAlert.Title" = "Delete ‘%@’ space";
+"SpaceSettings.DeleteAlert.Message" = "This space will be deleted irrevocably. You can’t undo this action.";
+"SpaceSettings.DeleteButton" = "Delete space";
+
+// MARK: - Space Create
+"SpaceCreate.Title" = "Create a space";
+
 // MARK: - Sharing
 "Sharing.Navigation.title" = "Add to Anytype";
 "Sharing.Navigation.LeftButton.Title" = "Abbrechen";
-"Sharing.Navigation.RightButton.Title" = "Done";
+"Sharing.Navigation.RightButton.Title" = "Fertig";
 
 "Sharing.SaveAs" = "SAVE AS";
+"Sharing.SelectSpace" = "Space";
 "Sharing.AddTo" = "Add to";
-"Sharing.LinkTo" = "Link to";
+"Sharing.LinkTo" = "Link zu";
 
 "Sharing.URL.Bookmark" = "Bookmark object";
 "Sharing.URL.Text" = "Text block";
 "Sharing.Text.NoteObject" = "Note object";
 "Sharing.Text.TextBlock" = "Text block";
+
+// MARK: - Initial
+
+"Initial.UnstableMiddle.Title" = "Warning";
+"Initial.UnstableMiddle.Message" = "You launch app with a unstable middleware. Don't use your production account. Your account may be broken.";
+"Initial.UnstableMiddle.Title" = "Warning";
+"Initial.UnstableMiddle.Logout" = "Logout from current account";
+"Initial.UnstableMiddle.Continue" = "Continue with current account";
+"Initial.UnstableMiddle.WontUseProd" = "I won't be using my production account";
+
+// MARK: - Create tip
+"LongTapCreateTip.Title" = "Crete Objects with specific Type";
+"LongTapCreateTip.Message" = "Long tap on Create Object button to open menu with types";

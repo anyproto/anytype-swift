@@ -7,9 +7,9 @@ protocol RecentSubscriptionServiceProtocol: AnyObject {
     func startSubscription(
         type: RecentWidgetType,
         objectLimit: Int?,
-        update: @escaping SubscriptionCallback
-    )
-    func stopSubscription()
+        update: @escaping ([ObjectDetails]) -> Void
+    ) async
+    func stopSubscription() async
 }
 
 final class RecentSubscriptionService: RecentSubscriptionServiceProtocol {
@@ -18,26 +18,29 @@ final class RecentSubscriptionService: RecentSubscriptionServiceProtocol {
         static let limit = 100
     }
     
-    private let subscriptionService: SubscriptionsServiceProtocol
+    private let subscriptionStorage: SubscriptionStorageProtocol
     private let objectTypeProvider: ObjectTypeProviderProtocol
     private let activeWorkspaceStorage: ActiveWorkpaceStorageProtocol
+    private let workspacesStorage: WorkspacesStorageProtocol
     private let subscriptionId = "Recent-\(UUID().uuidString)"
     
     init(
-        subscriptionService: SubscriptionsServiceProtocol,
+        subscriptionStorageProvider: SubscriptionStorageProviderProtocol,
         activeWorkspaceStorage: ActiveWorkpaceStorageProtocol,
-        objectTypeProvider: ObjectTypeProviderProtocol
+        objectTypeProvider: ObjectTypeProviderProtocol,
+        workspacesStorage: WorkspacesStorageProtocol
     ) {
-        self.subscriptionService = subscriptionService
+        self.subscriptionStorage = subscriptionStorageProvider.createSubscriptionStorage(subId: subscriptionId)
         self.activeWorkspaceStorage = activeWorkspaceStorage
         self.objectTypeProvider = objectTypeProvider
+        self.workspacesStorage = workspacesStorage
     }
     
     func startSubscription(
         type: RecentWidgetType,
         objectLimit: Int?,
-        update: @escaping SubscriptionCallback
-    ) {
+        update: @escaping ([ObjectDetails]) -> Void
+    ) async {
         
         let sort = makeSort(type: type)
         
@@ -67,11 +70,13 @@ final class RecentSubscriptionService: RecentSubscriptionServiceProtocol {
             )
         )
         
-        subscriptionService.startSubscription(data: searchData, update: update)
+        try? await subscriptionStorage.startOrUpdateSubscription(data: searchData) { data in
+            update(data.items)
+        }
     }
     
-    func stopSubscription() {
-        subscriptionService.stopAllSubscriptions()
+    func stopSubscription() async {
+        try? await subscriptionStorage.stopSubscription()
     }
     
     // MARK: - Private
@@ -94,7 +99,9 @@ final class RecentSubscriptionService: RecentSubscriptionServiceProtocol {
     private func makeDateFilter(type: RecentWidgetType) -> DataviewFilter? {
         switch type {
         case .recentEdit:
-            return nil
+            guard let spaceView = workspacesStorage.workspaces.first(where: { $0.id == activeWorkspaceStorage.workspaceInfo.spaceViewId }),
+                  let createdDate = spaceView.createdDate else { return nil }
+            return SearchHelper.lastModifiedDateFrom(createdDate.addingTimeInterval(60))
         case .recentOpen:
             return SearchHelper.lastOpenedDateNotNilFilter()
         }

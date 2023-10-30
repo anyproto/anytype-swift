@@ -37,7 +37,7 @@ final class AuthService: AuthServiceProtocol {
                 try await ClientCommands.accountStop(.with {
                     $0.removeData = removeData
                 }).invoke()
-                self?.loginStateService.cleanStateAfterLogout()
+                await self?.loginStateService.cleanStateAfterLogout()
                 onCompletion(true)
             } catch {
                 onCompletion(false)
@@ -138,7 +138,7 @@ final class AuthService: AuthServiceProtocol {
             case .active, .pendingDeletion:
                 await setupAccountData(response.account.asModel)
             case .deleted:
-                loginStateService.cleanStateAfterLogout()
+                await loginStateService.cleanStateAfterLogout()
             }
             
             return status
@@ -154,9 +154,7 @@ final class AuthService: AuthServiceProtocol {
     }
     
     func deleteAccount() async throws -> AccountStatus {
-        let result = try await ClientCommands.accountDelete(.with {
-            $0.revert = false
-        }).invoke()
+        let result = try await ClientCommands.accountDelete().invoke()
         guard let model = result.status.asModel else {
             throw AuthServiceParsingError.undefinedModel
         }
@@ -165,9 +163,7 @@ final class AuthService: AuthServiceProtocol {
     }
     
     func restoreAccount() async throws -> AccountStatus {
-        let result = try await ClientCommands.accountDelete(.with {
-            $0.revert = true
-        }).invoke()
+        let result = try await ClientCommands.accountRevertDeletion().invoke()
         guard let model = result.status.asModel else {
             throw AuthServiceParsingError.undefinedModel
         }

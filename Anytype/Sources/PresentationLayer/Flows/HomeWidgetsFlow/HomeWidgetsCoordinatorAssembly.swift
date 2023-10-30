@@ -42,17 +42,16 @@ final class HomeWidgetsCoordinatorAssembly: HomeWidgetsCoordinatorAssemblyProtoc
             navigationContext: uiHelpersDI.commonNavigationContext(),
             createWidgetCoordinatorAssembly: coordinatorsID.createWidget(),
             searchModuleAssembly: modulesDI.search(),
-            settingsCoordinator: coordinatorsID.settings().make(),
             newSearchModuleAssembly: modulesDI.newSearch(),
             dashboardService: serviceLocator.dashboardService(),
             appActionsStorage: serviceLocator.appActionStorage(),
             widgetTypeModuleAssembly: modulesDI.widgetType(),
-            spaceSwitchModuleAssembly: modulesDI.spaceSwitch(),
-            spaceCreateModuleAssembly: modulesDI.spaceCreate(),
+            spaceSwitchCoordinatorAssembly: coordinatorsID.spaceSwitch(),
             spaceSettingsCoordinatorAssembly: coordinatorsID.spaceSettings(),
             shareCoordinatorAssembly: coordinatorsID.share(),
             editorCoordinatorAssembly: coordinatorsID.editor(),
-            homeBottomNavigationPanelModuleAssembly: modulesDI.homeBottomNavigationPanel()
+            homeBottomNavigationPanelModuleAssembly: modulesDI.homeBottomNavigationPanel(),
+            objectTypeSearchModuleAssembly: modulesDI.objectTypeSearch()
         )
     }
 }

@@ -8,7 +8,7 @@ import AnytypeCore
 final class RemoteStorageViewModel: ObservableObject {
     
     private enum Constants {
-        static let subSpaceId = "RemoteStorageViewModel-Space"
+        
         static let warningPercent = 0.9
         static let mailTo = "storage@anytype.io"
     }
@@ -17,16 +17,12 @@ final class RemoteStorageViewModel: ObservableObject {
     private let activeWorkspaceStorage: ActiveWorkpaceStorageProtocol
     private let subscriptionService: SingleObjectSubscriptionServiceProtocol
     private let fileLimitsStorage: FileLimitsStorageProtocol
+    private let documentProvider: DocumentsProviderProtocol
     private weak var output: RemoteStorageModuleOutput?
     private var subscriptions = [AnyCancellable]()
+    private let subSpaceId = "RemoteStorageViewModel-Space-\(UUID())"
     
-    private let byteCountFormatter: ByteCountFormatter = {
-        let formatter = ByteCountFormatter()
-        formatter.allowedUnits = [.useMB, .useGB]
-        formatter.countStyle = .binary
-        formatter.allowsNonnumericFormatting = false
-        return formatter
-    }()
+    private let byteCountFormatter = ByteCountFormatter.fileFormatter
     
     private var limits: FileLimits?
     
@@ -45,15 +41,19 @@ final class RemoteStorageViewModel: ObservableObject {
         activeWorkspaceStorage: ActiveWorkpaceStorageProtocol,
         subscriptionService: SingleObjectSubscriptionServiceProtocol,
         fileLimitsStorage: FileLimitsStorageProtocol,
+        documentProvider: DocumentsProviderProtocol,
         output: RemoteStorageModuleOutput?
     ) {
         self.accountManager = accountManager
         self.activeWorkspaceStorage = activeWorkspaceStorage
         self.subscriptionService = subscriptionService
         self.fileLimitsStorage = fileLimitsStorage
+        self.documentProvider = documentProvider
         self.output = output
         setupPlaceholderState()
-        setupSubscription()
+        Task {
+            await setupSubscription()
+        }
     }
         
     func onTapManageFiles() {
@@ -68,7 +68,10 @@ final class RemoteStorageViewModel: ObservableObject {
         guard let limits else { return }
         AnytypeAnalytics.instance().logGetMoreSpace()
         Task { @MainActor in
-            let profileDocument = BaseDocument(objectId: activeWorkspaceStorage.workspaceInfo.profileObjectID, forPreview: true)
+            let profileDocument = documentProvider.document(
+                objectId: activeWorkspaceStorage.workspaceInfo.profileObjectID,
+                forPreview: true
+            )
             try await profileDocument.openForPreview()
             let limit = byteCountFormatter.string(fromByteCount: limits.bytesLimit)
             let mailLink = MailUrl(
@@ -83,7 +86,7 @@ final class RemoteStorageViewModel: ObservableObject {
     
     // MARK: - Private
     
-    private func setupSubscription() {
+    private func setupSubscription() async {
         fileLimitsStorage.setupSpaceId(spaceId: activeWorkspaceStorage.workspaceInfo.accountSpaceId)
         fileLimitsStorage.limits
             .receiveOnMain()
@@ -99,9 +102,9 @@ final class RemoteStorageViewModel: ObservableObject {
             .store(in: &subscriptions)
             
         
-        subscriptionService.startSubscription(
-            subIdPrefix: Constants.subSpaceId,
-            objectId: activeWorkspaceStorage.workspaceInfo.workspaceObjectId
+        await subscriptionService.startSubscription(
+            subId: subSpaceId,
+            objectId: activeWorkspaceStorage.workspaceInfo.spaceViewId
         ) { [weak self] details in
             self?.handleSpaceDetails(details: details)
         }
@@ -124,7 +127,6 @@ final class RemoteStorageViewModel: ObservableObject {
         
         let used = byteCountFormatter.string(fromByteCount: bytesUsed)
         let limit = byteCountFormatter.string(fromByteCount: bytesLimit)
-        let local = byteCountFormatter.string(fromByteCount: localBytesUsage)
         
         spaceInstruction = Loc.FileStorage.Space.instruction(limit)
         spaceUsed = Loc.FileStorage.Space.used(used, limit)

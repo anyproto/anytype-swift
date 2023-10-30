@@ -1,12 +1,13 @@
 import Foundation
 import SwiftUI
 
-struct SpaceRowModel {
+struct SpaceRowModel: Identifiable {
     let id: String
     let title: String
     let icon: Icon?
     let isSelected: Bool
     let onTap: () -> Void
+    let onDelete: (() -> Void)?
 }
 
 struct SpaceRowView: View {
@@ -23,6 +24,14 @@ struct SpaceRowView: View {
                 .shadow(color: .Shadow.primary, radius: 20)
                 .if(model.isSelected) {
                     $0.border(8, color: .Text.white, lineWidth: 3)
+                }
+                .contentShape(.contextMenuPreview, RoundedRectangle(cornerRadius: 8))
+                .contextMenu {
+                    if let onDelete = model.onDelete {
+                        Button(Loc.SpaceSettings.deleteButton, role: .destructive) {
+                            onDelete()
+                        }
+                    }
                 }
             Spacer()
             AnytypeText(model.title, style: .caption1Medium, color: .Text.white)

@@ -60,9 +60,7 @@ struct TemplatePreviewModel: Identifiable, Equatable {
     let mode: TemplateType
     let alignment: LayoutAlignment
     let isDefault: Bool
-}
-
-extension TemplatePreviewModel: IdProvider {
+    
     var id: BlockId {
         mode.id
     }
@@ -71,12 +69,10 @@ extension TemplatePreviewModel: IdProvider {
 extension TemplatePreviewModel {
     var contextualMenuOptions: [TemplateOptionAction] {
         switch mode {
-        case .addTemplate:
+        case .addTemplate, .blank:
             return []
         case .installed:
             return TemplateOptionAction.allCases
-        case .blank:
-            return [.setAsDefault]
         }
     }
 }

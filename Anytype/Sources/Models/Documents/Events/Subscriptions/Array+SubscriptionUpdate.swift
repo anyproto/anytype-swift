@@ -1,39 +1,19 @@
 import Services
 import AnytypeCore
 
-protocol IdProvider {
-    var id: BlockId { get }
-}
-
-extension ObjectDetails: IdProvider {}
-
-extension Array where Element == ObjectDetails {
+extension Array where Element == BlockId {
     mutating func applySubscriptionUpdate(_ update: SubscriptionUpdate) {
-        applySubscriptionUpdate(update) { $0 }
-    }
-}
-
-extension Array where Element: IdProvider {
-    mutating func applySubscriptionUpdate(_ update: SubscriptionUpdate, transform: (ObjectDetails) -> (Element)) {
         switch update {
-        case .initialData(let data):
-            self = data.map { transform($0) }
-        case .update(let data):
-            let newData = transform(data)
-            guard let index = indexInCollection(blockId: newData.id) else { return }
-            self[index] = newData
-        case .remove(let blockId):
+        case let  .remove(blockId):
             guard let index = indexInCollection(blockId: blockId) else { return }
             self.remove(at: index)
-        case let .add(details, afterId):
+        case let .add(blockId, afterId):
             guard let index = indexInCollection(afterId: afterId) else { return }
-            self.insert(transform(details), at: index)
+            self.insert(blockId, at: index)
         case let .move(from, after):
             guard let index = indexInCollection(blockId: from) else { break }
             guard let insertIndex = indexInCollection(afterId: after) else { break }
             self.moveElement(from: index, to: insertIndex)
-        case .pageCount:
-            break
         }
     }
     
@@ -45,7 +25,7 @@ extension Array where Element: IdProvider {
     }
 
     private func indexInCollection(blockId: BlockId) -> Int? {
-        guard let index = firstIndex(where: { $0.id == blockId }) else {
+        guard let index = firstIndex(where: { $0 == blockId }) else {
             return nil
         }
         

@@ -7,12 +7,21 @@ struct URLShareView: View {
         SectionTitle(title: Loc.Sharing.saveAs)
         urlSegmentView
         Spacer.fixedHeight(16)
-        selectDocumentRow
+        VStack {
+            selectSpaceRow
+            if viewModel.selectedSpace != nil {
+                selectDocumentRow
+            }
+        }
+        .background(UIColor.secondarySystemGroupedBackground.suColor)
+        .cornerRadius(8)
+        
     }
     
     var urlSegmentView: some View {
-        AnytypeInlinePicker(allValues: Option.allCases) { selection in
-            viewModel.didSelectURLOption(option: selection)
+        AnytypeInlinePicker(initialValue: $viewModel.urlOption, allValues: Option.allCases)
+            .onChange(of: viewModel.urlOption) { newValue in
+                viewModel.didSelectURLOption(option: newValue)
         }
     }
     
@@ -22,8 +31,14 @@ struct URLShareView: View {
             description: viewModel.destinationObject?.title ?? "",
             action: viewModel.tapSelectDestination
         )
-        .background(UIColor.secondarySystemGroupedBackground.suColor)
-        .cornerRadius(8)
+    }
+    
+    var selectSpaceRow: some View {
+        AnytypeRow(
+            title: Loc.Sharing.selectSpace,
+            description: viewModel.selectedSpace?.title ?? "",
+            action: viewModel.tapSelectSpace
+        )
     }
 }
 

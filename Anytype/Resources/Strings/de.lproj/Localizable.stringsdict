@@ -5,7 +5,7 @@
     <key>Are you sure you want to delete</key>
     <dict>
       <key>NSStringLocalizedFormatKey</key>
-      <string>Are you sure you want to delete %#@object@?</string>
+      <string>Möchtest du wirklich  %#@object@ löschen?</string>
       <key>object</key>
       <dict>
         <key>NSStringFormatSpecTypeKey</key>
@@ -13,15 +13,15 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>d</string>
         <key>one</key>
-        <string>%d object</string>
+        <string>%d Objekt</string>
         <key>other</key>
-        <string>%d objects</string>
+        <string>%d Objekte</string>
       </dict>
     </dict>
     <key>Object selected</key>
     <dict>
       <key>NSStringLocalizedFormatKey</key>
-      <string>%#@object@ selected</string>
+      <string>%#@object@ ausgewählt</string>
       <key>object</key>
       <dict>
         <key>NSStringFormatSpecTypeKey</key>
@@ -29,9 +29,9 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>d</string>
         <key>one</key>
-        <string>%d object</string>
+        <string>%d Objekt</string>
         <key>other</key>
-        <string>%d objects</string>
+        <string>%d Objekte</string>
       </dict>
     </dict>
     <key>Selected blocks</key>
@@ -45,15 +45,15 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>d</string>
         <key>one</key>
-        <string>%d selected block</string>
+        <string>%d gewählter Block</string>
         <key>other</key>
-        <string>%d selected blocks</string>
+        <string>%d gewählte Blöcke</string>
       </dict>
     </dict>
     <key>Days to deletion account</key>
     <dict>
       <key>NSStringLocalizedFormatKey</key>
-      <string>This account will be deleted %#@days@</string>
+      <string>Dieses Konto wird gelöscht %#@days@</string>
       <key>days</key>
       <dict>
         <key>NSStringFormatSpecTypeKey</key>
@@ -61,9 +61,9 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>d</string>
         <key>one</key>
-        <string>tomorrow</string>
+        <string>morgen</string>
         <key>other</key>
-        <string>in %d days</string>
+        <string>in %d Tagen</string>
       </dict>
     </dict>
     <key>Widgets.Actions.BinConfirm</key>
@@ -77,9 +77,9 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>d</string>
         <key>one</key>
-        <string>One object deleted</string>
+        <string>Ein Objekt gelöscht</string>
         <key>other</key>
-        <string>%d objects deleted</string>
+        <string>%d Objekte gelöscht</string>
       </dict>
     </dict>
   </dict>

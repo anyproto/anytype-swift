@@ -8,7 +8,8 @@ protocol EditorNavigationBarHelperProtocol {
     func handleViewWillAppear(scrollView: UIScrollView)
     func handleViewWillDisappear()
     
-    func configureNavigationBar(using header: ObjectHeader, details: ObjectDetails?)
+    func configureNavigationBar(using header: ObjectHeader)
+    func configureNavigationTitle(using details: ObjectDetails?, templatesCount: Int)
     
     func editorEditingStateDidChange(_ state: EditorEditingState)
 }

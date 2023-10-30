@@ -5,15 +5,12 @@ import Services
 @MainActor
 final class SpaceWidgetViewModel: ObservableObject {
     
-    private enum Constants {
-        static let subSpaceId = "SpaceWidgetViewModel-\(UUID().uuidString)"
-    }
-    
     // MARK: - DI
     
     private let workspaceObjectId: String
     private let subscriptionService: SingleObjectSubscriptionServiceProtocol
     private weak var output: CommonWidgetModuleOutput?
+    private let subSpaceId = "SpaceWidgetViewModel-\(UUID().uuidString)"
     
     // MARK: - State
     
@@ -22,10 +19,12 @@ final class SpaceWidgetViewModel: ObservableObject {
     @Published var spaceAccessibility: String = ""
     
     init(activeWorkspaceStorage: ActiveWorkpaceStorageProtocol, subscriptionService: SingleObjectSubscriptionServiceProtocol, output: CommonWidgetModuleOutput?) {
-        self.workspaceObjectId = activeWorkspaceStorage.workspaceInfo.workspaceObjectId
+        self.workspaceObjectId = activeWorkspaceStorage.workspaceInfo.spaceViewId
         self.subscriptionService = subscriptionService
         self.output = output
-        startSubscription()
+        Task {
+            await startSubscription()
+        }
     }
     
     func onTapWidget() {
@@ -34,19 +33,19 @@ final class SpaceWidgetViewModel: ObservableObject {
     
     // MARK: - Private
     
-    private func startSubscription() {
-        subscriptionService.startSubscription(
-            subIdPrefix: Constants.subSpaceId,
+    private func startSubscription() async {
+        await subscriptionService.startSubscription(
+            subId: subSpaceId,
             objectId: workspaceObjectId,
-            additionalKeys: [.spaceAccessibility]
+            additionalKeys: SpaceView.subscriptionKeys
         ) { [weak self] details in
-            self?.handleSpaceDetails(details: details)
+            self?.handleSpaceDetails(details: SpaceView(details: details))
         }
     }
     
-    private func handleSpaceDetails(details: ObjectDetails) {
+    private func handleSpaceDetails(details: SpaceView) {
         spaceName = details.title
         spaceIcon = details.objectIconImage
-        spaceAccessibility = details.spaceAccessibilityValue?.name ?? ""
+        spaceAccessibility = details.spaceAccessibility?.name ?? ""
     }
 }

@@ -12,6 +12,17 @@ final class SearchModuleAssembly: SearchModuleAssemblyProtocol {
     
     // MARK: - SearchModuleAssemblyProtocol
     
+    func makeSpaceSearch(
+        data: SearchSpaceModel
+    ) -> AnyView {
+        let viewModel = SpaceSearchViewModel(
+            workspacesStorage: serviceLocator.workspaceStorage(),
+            onSelect: data.onSelect
+        )
+        let view = SearchView(title: Loc.Spaces.Search.title, viewModel: viewModel)
+        return view.eraseToAnyView()
+    }
+    
     func makeObjectSearch(
         data: SearchModuleModel
     ) -> AnyView {

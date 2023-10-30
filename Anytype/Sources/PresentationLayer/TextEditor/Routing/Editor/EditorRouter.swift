@@ -348,30 +348,6 @@ final class EditorRouter: NSObject, EditorRouterProtocol, ObjectSettingsCoordina
 
     }
 
-    func showTemplatesPopupIfNeeded(
-        document: BaseDocumentProtocol,
-        templatesTypeId: String,
-        onShow: (() -> Void)?
-    ) {
-        templatesCoordinator.showTemplatesPopupIfNeeded(
-            document: document,
-            templatesTypeId: templatesTypeId,
-            onShow: onShow
-        )
-    }
-    
-    func showTemplatesPopupWithTypeCheckIfNeeded(
-        document: BaseDocumentProtocol,
-        templatesTypeId: String,
-        onShow: (() -> Void)?
-    ) {
-        templatesCoordinator.showTemplatesPopupWithTypeCheckIfNeeded(
-            document: document,
-            templatesTypeId: templatesTypeId,
-            onShow: onShow
-        )
-    }
-    
     // MARK: - Settings
     func showSettings(actionHandler: @escaping (ObjectSettingsAction) -> Void) {
         objectSettingCoordinator.startFlow(
@@ -463,6 +439,14 @@ final class EditorRouter: NSObject, EditorRouterProtocol, ObjectSettingsCoordina
     
     func showFailureToast(message: String) {
         toastPresenter.showFailureAlert(message: message)
+    }
+    
+    @MainActor
+    func showTemplatesPicker(availableTemplates: [ObjectDetails]) {
+        templatesCoordinator.showTemplatesPicker(
+            document: document,
+            availableTemplates: availableTemplates
+        )
     }
     
     // MARK: - Private

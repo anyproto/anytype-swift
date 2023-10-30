@@ -6,19 +6,22 @@ struct SetFiltersListView: View {
     @State private var editMode = EditMode.inactive
     
     var body: some View {
-        DragIndicator()
-        NavigationView {
-            content
-                .navigationTitle(Loc.EditSet.Popup.Filters.NavigationView.title)
-                .navigationBarTitleDisplayMode(.inline)
-                .environment(\.editMode, $editMode)
-                .onChange(of: viewModel.rows) { newValue in
-                    if editMode == .active && viewModel.rows.count == 0 {
-                        editMode = .inactive
+        VStack(spacing: 0) {
+            DragIndicator()
+            NavigationView {
+                content
+                    .navigationTitle(Loc.EditSet.Popup.Filters.NavigationView.title)
+                    .navigationBarTitleDisplayMode(.inline)
+                    .environment(\.editMode, $editMode)
+                    .onChange(of: viewModel.rows) { newValue in
+                        if editMode == .active && viewModel.rows.count == 0 {
+                            editMode = .inactive
+                        }
                     }
-                }
+            }
+            .navigationViewStyle(.stack)
         }
-        .navigationViewStyle(.stack)
+        .background(Color.Background.secondary)
     }
     
     private var addButton: some View {
@@ -60,6 +63,8 @@ struct SetFiltersListView: View {
                 .frame(height: 68)
             Spacer()
         }
+        .frame(maxWidth: .infinity)
+        .background(Color.Background.secondary)
     }
     
     private var filtersList: some View {
@@ -77,6 +82,7 @@ struct SetFiltersListView: View {
             .onDelete {
                 viewModel.delete($0)
             }
+            .listRowBackground(Color.Background.secondary)
         }
         .listStyle(.plain)
         .buttonStyle(BorderlessButtonStyle())
@@ -86,6 +92,7 @@ struct SetFiltersListView: View {
                     .foregroundColor(Color.Button.active)
             }
         }
+        .background(Color.Background.secondary)
     }
     
     private func row(with configuration: SetFilterRowConfiguration) -> some View {

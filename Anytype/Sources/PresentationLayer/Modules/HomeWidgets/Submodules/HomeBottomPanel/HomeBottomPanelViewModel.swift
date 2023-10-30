@@ -14,7 +14,13 @@ final class HomeBottomPanelViewModel: ObservableObject {
     struct ImageButton: Hashable, Equatable {
         let image: Icon?
         let padding: Bool
+        let tip: Tip?
         @EquatableNoop var onTap: () -> Void
+        @EquatableNoop var onLongTap: (() -> Void)?
+        
+        enum Tip {
+            case createLogTapObject
+        }
     }
     
     struct TexButton: Hashable, Equatable {
@@ -40,6 +46,7 @@ final class HomeBottomPanelViewModel: ObservableObject {
     private var profileDetails: ObjectDetails?
     private var workspaceSubscription: AnyCancellable?
     private var dataSubscriptions: [AnyCancellable] = []
+    private let subId = "HomeBottomSpace-\(UUID().uuidString)"
     
     // MARK: - Public properties
     
@@ -58,7 +65,9 @@ final class HomeBottomPanelViewModel: ObservableObject {
         self.stateManager = stateManager
         self.dashboardService = dashboardService
         self.output = output
-        setupDataSubscription()
+        Task {
+            await setupDataSubscription()
+        }
     }
         
     // MARK: - Private
@@ -76,32 +85,30 @@ final class HomeBottomPanelViewModel: ObservableObject {
             ])
         } else {
             buttonState = .normal([
-                ImageButton(image: .asset(.Widget.search), padding: false, onTap: { [weak self] in
+                ImageButton(image: .asset(.Widget.search), padding: false, tip: nil, onTap: { [weak self] in
                     self?.output?.onSearchSelected()
-                }),
-                ImageButton(image: .asset(.Widget.add), padding: false, onTap: { [weak self] in
+                }, onLongTap: nil),
+                ImageButton(image: .asset(.Widget.add), padding: false, tip: .createLogTapObject, onTap: { [weak self] in
                     UISelectionFeedbackGenerator().selectionChanged()
                     self?.handleCreateObject()
-                }),
-                ImageButton(image: profileDetails?.objectIconImage, padding: true, onTap: { [weak self] in
-                    if FeatureFlags.multiSpace {
-                        self?.output?.onProfileSelected()
-                    } else {
-                        self?.output?.onSettingsSelected()
+                }, onLongTap: { [weak self] in
+                    if FeatureFlags.selectTypeByLongTap {
+                        UISelectionFeedbackGenerator().selectionChanged()
+                        self?.output?.onCreateObjectWithTypeSelected()
                     }
-                })
+                }),
+                ImageButton(image: profileDetails?.objectIconImage, padding: true, tip: nil, onTap: { [weak self] in
+                    self?.output?.onProfileSelected()
+                }, onLongTap: nil)
             ])
         }
         self.isEditState = isEditState
     }
     
-    private func setupDataSubscription() {
-        dataSubscriptions.removeAll()
-        subscriptionService.stopSubscription(subIdPrefix: Constants.subId)
-        
-        subscriptionService.startSubscription(
-            subIdPrefix: Constants.subId,
-            objectId: FeatureFlags.multiSpace ? info.profileObjectID : info.workspaceObjectId
+    private func setupDataSubscription() async {
+        await subscriptionService.startSubscription(
+            subId: subId,
+            objectId: info.profileObjectID
         ) { [weak self] details in
             self?.handleProfileDetails(details: details)
         }

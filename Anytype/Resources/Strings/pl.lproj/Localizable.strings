@@ -2,169 +2,169 @@
 "StyleMenu.Color.TextColor.Placeholder" = "A";
 
 // MARK: Text Style in Slash and Style menu
-"TextStyle.Text.Title" = "Text";
-"TextStyle.Text.Subtitle" = "Just start writing with a plain text";
+"TextStyle.Text.Title" = "Tekst";
+"TextStyle.Text.Subtitle" = "Zacznij pisać prostym tekstem";
 
-"TextStyle.Title.Title" = "Title";
-"TextStyle.Title.Subtitle" = "Big section heading";
+"TextStyle.Title.Title" = "Tytuł";
+"TextStyle.Title.Subtitle" = "Nagłówek wielkiej sekcji";
 
-"TextStyle.Heading.Title" = "Heading";
-"TextStyle.Heading.Subtitle" = "Medium headline";
+"TextStyle.Heading.Title" = "Nagłówek";
+"TextStyle.Heading.Subtitle" = "Średni nagłówek";
 
-"TextStyle.Subheading.Title" = "Subheading";
-"TextStyle.Subheading.Subtitle" = "Small headline";
+"TextStyle.Subheading.Title" = "Podtytuł";
+"TextStyle.Subheading.Subtitle" = "Mały nagłówek";
 
-"TextStyle.Highlighted.Title" = "Highlighted";
+"TextStyle.Highlighted.Title" = "Wyróżnione";
 "TextStyle.Highlighted.Subtitle" = "Spotlight, that needs special attention";
 
-"TextStyle.Callout.Title" = "Callout";
-"TextStyle.Callout.Subtitle" = "Bordered text with icon";
+"TextStyle.Callout.Title" = "Wezwanie";
+"TextStyle.Callout.Subtitle" = "Tekst obramowany z ikoną";
 
-"TextStyle.Checkbox.Title" = "Checkbox";
-"TextStyle.Checkbox.Subtitle" = "Create and track task with to-do list";
+"TextStyle.Checkbox.Title" = "Pole wyboru";
+"TextStyle.Checkbox.Subtitle" = "Tworzenie i śledzenie zadań za pomocą listy rzeczy do zrobienia";
 
-"TextStyle.Bulleted.Title" = "Bulleted";
-"TextStyle.Bulleted.Subtitle" = "Simple list";
+"TextStyle.Bulleted.Title" = "Wypunktowane";
+"TextStyle.Bulleted.Subtitle" = "Prosta lista";
 
-"TextStyle.Numbered.Title" = "Numbered list";
-"TextStyle.Numbered.Subtitle" = "Numbered list";
+"TextStyle.Numbered.Title" = "Lista numerowana";
+"TextStyle.Numbered.Subtitle" = "Lista numerowana";
 
-"TextStyle.Toggle.Title" = "Toggle";
-"TextStyle.Toggle.Subtitle" = "Hide and show content inside";
+"TextStyle.Toggle.Title" = "Przełączanie";
+"TextStyle.Toggle.Subtitle" = "Ukrywanie i pokazywanie zawartości wewnątrz";
 
-"TextStyle.Bold.Title" = "Bold";
-"TextStyle.Italic.Title" = "Italic";
-"TextStyle.Strikethrough.Title" = "Strikethrough";
-"TextStyle.Code.Title" = "Code";
+"TextStyle.Bold.Title" = "Pogrubienie";
+"TextStyle.Italic.Title" = "Kursywa";
+"TextStyle.Strikethrough.Title" = "Przekreślenie";
+"TextStyle.Code.Title" = "Kod";
 "TextStyle.Link.Title" = "Link";
 
 // MARK: - Block Text
-"BlockText.Content.Placeholder" = "Untitled";
+"BlockText.Content.Placeholder" = "Bez nazwy";
 
-"BlockText.ContentType.Title.Placeholder" = "Untitled";
-"BlockText.ContentType.Description.Placeholder" = "Add a description";
-"BlockText.ContentType.Toggle.Placeholder" = "Toggle block";
-"BlockText.ContentType.Bulleted.Placeholder" = "Bulleted list item";
-"BlockText.ContentType.Checkbox.Placeholder" = "Checkbox";
-"BlockText.ContentType.Numbered.Placeholder" = "Numbered list item";
-"BlockText.ContentType.Quote.Placeholder" = "Highlighted text";
-"BlockText.ContentType.Header.Placeholder" = "Title";
-"BlockText.ContentType.Header2.Placeholder" = "Heading";
-"BlockText.ContentType.Header3.Placeholder" = "Subheading";
+"BlockText.ContentType.Title.Placeholder" = "Bez nazwy";
+"BlockText.ContentType.Description.Placeholder" = "Dodaj opis";
+"BlockText.ContentType.Toggle.Placeholder" = "Przełącz blok";
+"BlockText.ContentType.Bulleted.Placeholder" = "Wypunktowana lista";
+"BlockText.ContentType.Checkbox.Placeholder" = "Pole wyboru";
+"BlockText.ContentType.Numbered.Placeholder" = "Lista numerowana";
+"BlockText.ContentType.Quote.Placeholder" = "Podświetlony tekst";
+"BlockText.ContentType.Header.Placeholder" = "Tytuł";
+"BlockText.ContentType.Header2.Placeholder" = "Nagłówek";
+"BlockText.ContentType.Header3.Placeholder" = "Podtytuł";
 
 // MARK: - Block Link
 
-"BlockLink.PreviewSettings.IconSize.None" = "None";
-"BlockLink.PreviewSettings.IconSize.Small" = "Small";
-"BlockLink.PreviewSettings.IconSize.Medium" = "Medium";
+"BlockLink.PreviewSettings.IconSize.None" = "Brak";
+"BlockLink.PreviewSettings.IconSize.Small" = "Mały";
+"BlockLink.PreviewSettings.IconSize.Medium" = "Średni";
 
-"BlockLink.PreviewSettings.Layout.Card.Title" = "Card";
-"BlockLink.PreviewSettings.Layout.Text.Title" = "Text";
+"BlockLink.PreviewSettings.Layout.Card.Title" = "Karta";
+"BlockLink.PreviewSettings.Layout.Text.Title" = "Tekst";
 
 // MARK: - Settings
-"Settings.Title" = "Personal Space";
-"Settings.SpaceName" = "Space name";
+"Settings.Title" = "Ustawienia";
+"Settings.SpaceName" = "Nazwa przestrzeni";
 
 // MARK: - Object
-"Object.Title.Placeholder" = "Untitled";
-"Object.Deleted.Placeholder" = "Deleted object";
+"Object.Title.Placeholder" = "Bez nazwy";
+"Object.Deleted.Placeholder" = "Usunięte obiekty";
 
 // MARK: - Relation
-"Featured relations" = "Featured relations";
-"Create relation" = "Create relation ‘%@’";
-"Relation.View.Hint.Empty" = "empty";
-"Relation.MyRelations" = "My relations";
-"Relation.AddedToLibrary" = "Relation ‘%@’ added to your library";
-"Relation.Deleted" = "Deleted relation";
-"Relation.From.Type" = "From type %@";
+"Featured relations" = "Polecane relacje";
+"Create relation" = "Utwórz relację '%@'";
+"Relation.View.Hint.Empty" = "pusty";
+"Relation.MyRelations" = "Moje relacje";
+"Relation.AddedToLibrary" = "Relacja %@ została dodana do Twojej biblioteki";
+"Relation.Deleted" = "Usunięta relacja";
+"Relation.From.Type" = "Z typu %@";
 
-"Relation.Format.Object.Title" = "Object";
-"Relation.Format.Text.Title" = "Text";
-"Relation.Format.Number.Title" = "Number";
+"Relation.Format.Object.Title" = "Obiekt";
+"Relation.Format.Text.Title" = "Tekst";
+"Relation.Format.Number.Title" = "Liczba";
 "Relation.Format.Status.Title" = "Status";
 "Relation.Format.Tag.Title" = "Tag";
-"Relation.Format.Date.Title" = "Date";
-"Relation.Format.FileMedia.Title" = "File & Media";
-"Relation.Format.Checkbox.Title" = "Checkbox";
-"Relation.Format.Url.Title" = "URL";
+"Relation.Format.Date.Title" = "Data";
+"Relation.Format.FileMedia.Title" = "Plik i media";
+"Relation.Format.Checkbox.Title" = "Pole wyboru";
+"Relation.Format.Url.Title" = "Adres URL";
 "Relation.Format.Email.Title" = "Email";
-"Relation.Format.Phone.Title" = "Phone number";
+"Relation.Format.Phone.Title" = "Numer telefonu";
 
 // MARK: - Mention
-"Mention.Subtitle.Placeholder" = "Object";
+"Mention.Subtitle.Placeholder" = "Obiekt";
 
-"None" = "None";
-"Callout" = "Callout";
-"Toggle empty. Tap to create block." = "Toggle empty. Tap to create block.";
-"Loading, please wait" = "Loading, please wait";
-"Done" = "Done";
-"Style" = "Style";
-"Color" = "Color";
-"Background" = "Background";
-"Other" = "Other";
-"Media" = "Media";
-"Alignment" = "Alignment";
-"Actions" = "Actions";
-"Relations" = "Relations";
-"Objects" = "Objects";
-"Delete" = "Delete";
-"Duplicate" = "Duplicate";
-"Copy" = "Copy";
-"Preview" = "Preview";
+"None" = "Brak";
+"Callout" = "Wezwanie";
+"Toggle empty. Tap to create block." = "Przełącz pusty. Dotknij, aby utworzyć blok.";
+"Loading, please wait" = "Ładowanie, proszę czekać";
+"Done" = "Gotowe";
+"Style" = "Wygląd";
+"Color" = "Kolor";
+"Background" = "Tło";
+"Other" = "Inne";
+"Media" = "Multimedia";
+"Alignment" = "Położenie";
+"Actions" = "Akcje";
+"Relations" = "Relacje";
+"Objects" = "Obiekty";
+"Delete" = "Usuń";
+"Duplicate" = "Duplikuj";
+"Copy" = "Kopiuj";
+"Preview" = "Podgląd";
 "View" = "View";
-"Paste" = "Paste";
-"Move" = "Move";
-"Move to" = "Move to";
-"Back" = "Back";
-"File block subtitle" = "Store file in original state";
-"Picture block subtitle" = "Upload and enrich the page with image";
-"Video block subtitle" = "Upload playable video";
-"Bookmark block subtitle" = "Save your favorite link with summary";
+"Paste" = "Wklej";
+"Move" = "Przenieś";
+"Move to" = "Przenieś do";
+"Back" = "Wstecz";
+"File block subtitle" = "Zachowaj plik w oryginalnym formacie";
+"Picture block subtitle" = "Prześlij i wzbogacaj stronę obrazkiem";
+"Video block subtitle" = "Prześlij odtwarzalne wideo";
+"Bookmark block subtitle" = "Zapisz swój ulubiony link z podsumowaniem";
 "Code block subtitle" = "Capture code snippet";
-"Align right" = "Align right";
-"Align left" = "Align left";
-"Align center" = "Align center";
-"Black" = "Black";
-"Amber" = "Amber";
-"Red" = "Red";
-"Pink" = "Pink";
-"Purple" = "Purple";
-"Blue" = "Blue";
-"Teal" = "Teal";
-"Green" = "Green";
-"Default background" = "Default background";
-"Amber background" = "Amber background";
-"Red background" = "Red background";
-"Pink background" = "Pink background";
-"Purple background" = "Purple background";
-"Blue background" = "Blue background";
-"Green background" = "Green background";
-"Create new object" = "Create new object";
-"Cancel" = "Cancel";
-"Paste or type URL" = "Paste or type URL";
-"No items match filter" = "No items match filter";
+"Align right" = "Wyrównaj do prawej";
+"Align left" = "Wyrównaj do lewej";
+"Align center" = "Wyrównaj do środka";
+"Black" = "Czarny";
+"Amber" = "Bursztynowy";
+"Red" = "Czerwony";
+"Pink" = "Różowy";
+"Purple" = "Fioletowy";
+"Blue" = "Niebieski";
+"Teal" = "Morski";
+"Green" = "Zielony";
+"Default background" = "Domyślne tło";
+"Amber background" = "Bursztynowe tło";
+"Red background" = "Czerwone tło";
+"Pink background" = "Różowe tło";
+"Purple background" = "Fioletowe tło";
+"Blue background" = "Niebieskie tło";
+"Green background" = "Zielone tło";
+"Create new object" = "Utwórz nowy obiekt";
+"Cancel" = "Anuluj";
+"Paste or type URL" = "Wklej lub wpisz adres URL";
+"No items match filter" = "Brak elementów pasujących do filtru";
 "Unsupported block" = "Unsupported block";
-"Name" = "Name";
-"Description" = "Description";
-"Paste processing..." = "Paste processing...";
-"Anytype Library" = "Anytype Library";
-"Copied" = "Copied";
+"Name" = "Nazwa";
+"Description" = "Opis";
+"Paste processing..." = "Wklej przetwarzanie...";
+"Anytype Library" = "Biblioteka Anytype";
+"Copied" = "Skopiowano";
 
 // Home
-"Favorites" = "Favorites";
-"Recent" = "Recent";
-"Bin" = "Bin";
+"Favorites" = "Ulubione";
+"Recent" = "Ostatnie";
+"Bin" = "Kosz";
 
 // Settings
-"Wallpaper" = "Wallpaper";
-"Log out" = "Log out";
+"Wallpaper" = "Tło";
+"Log out" = "Wyloguj się";
 
 // Action
-"Restore" = "Restore";
+"Restore" = "Przywróć";
 
 // Keychain screen
-"Keychain.Recovery phrase" = "Recovery phrase";
-"Keychain.Recovery phrase copied to clipboard" = "Recovery phrase copied";
+"Keychain.Recovery phrase" = "Fraza odzyskiwania";
+"Keychain.Recovery phrase copied to clipboard" = "Fraza odzyskiwania skopiowana";
 "Keychain.Recovery phrase description" = "You will need it to sign in. Keep it in a safe place. If you lose it, you can no longer access your account.";
 "Keychain.Save keychain alert part 1" = "If you lose the recovery phrase and get logged out you will not be able to ";
 "Keychain.Save keychain alert part 2" = "ever access your data again";
@@ -178,17 +178,17 @@
 "Keychain.SeedPhrasePlaceholder" = "witch collapse practice feed shame open despair creek road again ice least lake tree young address brain despair";
 
 // Auth
-"Sign up" = "Sign up";
-"Login" = "Login";
-"Create" = "Create";
-"Scan QR code" = "Scan QR code";
+"Sign up" = "Zarejestruj się";
+"Login" = "Zaloguj się";
+"Create" = "Utwórz";
+"Scan QR code" = "Skanuj kod QR";
 "Auth.CameraPermissionTitle" = "Please allow access";
 "Restore secret phrase from keychain" = "Restore Recovery Phrase from the keychain";
 "Auth.LogIn" = "I already have one";
 "Auth.Join" = "Generate new account";
 "Auth.Welcome.Subtitle" = "Anytype is your safe space to write, plan, think and organise everything that matters to you.";
 "Auth.Caption.Privacy.Text" = "By continuing you agree to [Terms of Use](%@) and [Privacy Policy](%@)";
-"Auth.Next" = "Next";
+"Auth.Next" = "Dalej";
 
 "Account recover error" = "Account recover error, try again";
 "Account recover error no internet" = "Account recover error, probably no internet connection";
@@ -206,10 +206,10 @@
 "Auth.JoinFlow.Key.Description" = "It’s a novel way of authentication that gives you full ownership over your account and data.";
 "Auth.JoinFlow.Key.TextField.Placeholder" = "Type your recovery phrase";
 "Auth.JoinFlow.Key.Button.Show.Title" = "Show Recovery Phrase";
-"Auth.JoinFlow.Key.Button.Saved.Title" = "Go to the app";
-"Auth.JoinFlow.Key.Button.Later.Title" = "Skip";
-"Auth.JoinFlow.Key.Button.Copy.Title" = "Copy to clipboard";
-"Auth.JoinFlow.Key.Button.Info.Title" = "Read more";
+"Auth.JoinFlow.Key.Button.Saved.Title" = "Przejdź do aplikacji";
+"Auth.JoinFlow.Key.Button.Later.Title" = "Pomiń";
+"Auth.JoinFlow.Key.Button.Copy.Title" = "Skopiuj do schowka";
+"Auth.JoinFlow.Key.Button.Info.Title" = "Zobacz więcej";
 "Auth.JoinFlow.Key.Button.Tip.Title" = "You can find Recovery Phrase later in Anytype settings";
 
 "Auth.JoinFlow.Key.ReadMore.Title" = "What is Recovery Phrase?";
@@ -220,61 +220,61 @@
 "Auth.JoinFlow.Key.ReadMore.Instruction.Option1.Title" = "The easiest way to store your Recovery Phrase is to save it in your password manager.";
 "Auth.JoinFlow.Key.ReadMore.Instruction.Option2.Title" = "The most secure way is to write it down on paper and keep it offline, in a safe and secure place.";
 
-"Auth.JoinFlow.Soul.Title" = "Set a name for new identity";
-"Auth.JoinFlow.Soul.Description" = "First, choose a name to use inside Anytype.";
-"Auth.JoinFlow.Soul.Placeholder" = "Untitled";
+"Auth.JoinFlow.Soul.Title" = "Choose your name";
+"Auth.JoinFlow.Soul.Description" = "This is how you will appear in the app.";
+"Auth.JoinFlow.Soul.Placeholder" = "Bez nazwy";
 
 "Auth.JoinFlow.Creating.Soul.Title" = "Generating new account";
 "Auth.JoinFlow.Setting.Space.Title" = "Setting up your personal space";
-"Auth.JoinFlow.Personal.Space.Title" = "Personal Space";
+"Auth.JoinFlow.Personal.Space.Title" = "Ustawienia";
 
 // Auth - Login flow
 "Auth.LoginFlow.Use.Keychain.Title" = "Use keychain";
 "Auth.LoginFlow.Or" = "OR";
 "Auth.LoginFlow.Textfield.Placeholder" = "Type your recovery phrase";
-"Auth.LoginFlow.Enter.Button.Title" = "Login";
+"Auth.LoginFlow.Enter.Button.Title" = "Zaloguj się";
 "Auth.LoginFlow.Entering.Void.Title" = "Entering the Void";
 
 // Object settings
 
 "Icon" = "Icon";
 "Emoji or image for object" = "Emoji or image for object";
-"Cover" = "Cover";
-"Background picture" = "Background picture";
-"Layout" = "Layout";
-"Arrangement of objects on a canvas" = "Arrangement of objects on a canvas";
+"Cover" = "Okładka";
+"Background picture" = "Zdjęcie w tle";
+"Layout" = "Układ";
+"Arrangement of objects on a canvas" = "Układ obiektów na płótnie";
 
-"Search" = "Search";
+"Search" = "Szukaj";
 "There is no emoji named" = "There is no emoji named";
-"Try to find a new one or upload your image" = "Try to find a new one or upload your image";
+"Try to find a new one or upload your image" = "Spróbuj znaleźć nowy lub załaduj swój obraz";
 
 "Emoji" = "Emoji";
-"Random" = "Random";
-"Upload" = "Upload";
-"Change icon" = "Change icon";
-"Change cover" = "Change cover";
-"Remove" = "Remove";
+"Random" = "Losowe";
+"Upload" = "Prześlij";
+"Change icon" = "Zmień ikonę";
+"Change cover" = "Zmień okładkę";
+"Remove" = "Usuń";
 
-"Solid colors" = "Solid colors";
-"Gradients" = "Gradients";
-"Gallery" = "Gallery";
+"Solid colors" = "Jednolite kolory";
+"Gradients" = "Gradient";
+"Gallery" = "Galeria";
 
-"Remove photo" = "Remove photo";
-"Basic" = "Basic";
-"Profile" = "Profile";
-"Task" = "Task";
-"Note" = "Note";
-"Choose layout type" = "Choose layout type";
+"Remove photo" = "Usuń zdjęcie";
+"Basic" = "Podstawowy";
+"Profile" = "Profil";
+"Task" = "Zadanie";
+"Note" = "Notatka";
+"Choose layout type" = "Wybierz rodzaj układu";
 
-"Undo typing" = "Undo typing";
-"Undo" = "Undo";
-"Actions.LinkItself" = "Link to";
-"Actions.MakeAsTemplate" = "Make template";
-"Actions.TemplateMakeDefault" = "Set as default";
+"Undo typing" = "Cofnij wpisywanie";
+"Undo" = "Cofnij";
+"Actions.LinkItself" = "Łącze do";
+"Actions.MakeAsTemplate" = "Utwórz szablon";
+"Actions.TemplateMakeDefault" = "Ustaw jako domyślny";
 
 // Object Type
-"Set" = "Set";
-"Collection" = "Collection";
+"Set" = "Ustaw";
+"Collection" = "Kolekcja";
 
 "Editor.MovingState.ScrollToSelectedPlace" = "Scroll to select a place";
 
@@ -283,11 +283,11 @@
 "Editor.LinkToObject.SearchPlaceholder" = "Paste link or search objects";
 "Editor.LinkToObject.PasteFromClipboard" = "Paste from clipboard";
 "Editor.LinkToObject.LinkedTo" = "Linked to";
-"Editor.LinkToObject.CopyLink" = "Copy link";
-"Editor.LinkToObject.RemoveLink" = "Remove link";
+"Editor.LinkToObject.CopyLink" = "Kopiuj link";
+"Editor.LinkToObject.RemoveLink" = "Usuń link";
 
 // MARK: - Main search
-"There is no object named" = "There is no object named %@";
+"There is no object named" = "Nie ma obiektu o nazwie %@";
 "There is no type named" = "There is no type named %@";
 "Create a new one or search for something else" = "Create a new one or search for something else";
 
@@ -296,7 +296,7 @@
 "Home.Snackbar.Library" = "Library is available in desktop app";
 
 // MARK: - Alerts
-"Alert.CameraPermissions.Settings" = "Settings";
+"Alert.CameraPermissions.Settings" = "Ustawienia";
 "Alert.CameraPermissions.GoToSettings" = "Anytype needs access to your camera to scan QR codes.\n\nPlease, go to your device's Settings -> Privacy -> Camera and set Anytype to ON";
 
 // MARK: - Deletion
@@ -307,25 +307,19 @@
 
 
 // MARK: - Templates
-"Alert.Templates_Available.Title" = "This type has %d templates";
-"Alert.Templates_Available.Description" = "Swipe down to skip";
-"Alert.Templates_Available.Button" = "Show";
+"TemplateSelection.Available.Title" = "This type has %d templates";
 "TemplatePicker.ChooseTemplate" = "Choose template";
-"TemplatePicker.Buttons.Skip" = "Skip";
 "TemplatePicker.Buttons.UseTemplate" = "Use template";
 "TemplateSelection.SelectTemplate" = "Select template";
-"TemplateSelection.blankTemplate" = "Blank";
+"TemplateSelection.blankTemplate" = "Puste";
 "TemplateSelection.Template.Subtitle" = "Template";
 "TemplateSelection.ObjectType.Subtitle" = "Object type";
-"TemplateSelection.ObjectType.NoTemplates.Title" = "This type doesn’t support templates";
 
-"TemplateOptions.Alert.SetAsDefault" = "Set as default for this view";
 "TemplateOptions.Alert.EditTemplate" = "Edit template";
-"TemplateOptions.Alert.Duplicate" = "Duplicate";
-"TemplateOptions.Alert.Delete" = "Delete";
+"TemplateOptions.Alert.Duplicate" = "Duplikuj";
+"TemplateOptions.Alert.Delete" = "Usuń";
 
 "TemplateEditing.Title" = "Edit template";
-"TemplateEditing.SelectButtonTitle" = "Select template";
 
 "Templates.Popup.WasAddedTo" = "New template was added to the type";
 "Templates.Popup.Duplicated" = "The template was duplicated";
@@ -340,7 +334,7 @@
 "Move To Bin" = "Move To Bin";
 
 
-"LinkAppearance.Description.None.Title" = "None";
+"LinkAppearance.Description.None.Title" = "Brak";
 "LinkAppearance.Description.Object.Title" = "Object description";
 "LinkAppearance.Description.Content.Title" = "Content preview";
 "LinkAppearance.ObjectType.Title" = "Object type";
@@ -373,79 +367,77 @@
 "EditSet.Popup.Filter.Condition.Date.Equal" = "Is";
 "EditSet.Popup.Filter.Condition.Date.After" = "Is after";
 "EditSet.Popup.Filter.Condition.Date.Before" = "Is before";
-"EditSet.Popup.Filter.Condition.Date.OnOrAfter" = "Is on or after";
-"EditSet.Popup.Filter.Condition.Date.OnOrBefore" = "Is on or before";
-"EditSet.Popup.Filter.Condition.Date.In" = "Is within";
+"EditSet.Popup.Filter.Condition.Date.OnOrAfter" = "Jest w trakcie lub po";
+"EditSet.Popup.Filter.Condition.Date.OnOrBefore" = "Jest w trakcie lub przed";
+"EditSet.Popup.Filter.Condition.Date.In" = "Jest wewnątrz";
 
-"EditSet.Popup.Filter.Condition.Selected.In" = "Has any of";
-"EditSet.Popup.Filter.Condition.Selected.AllIn" = "Has all of";
-"EditSet.Popup.Filter.Condition.Selected.NotIn" = "Has none of";
-"EditSet.Popup.Filter.Condition.Selected.Equal" = "Is exactly";
+"EditSet.Popup.Filter.Condition.Selected.In" = "Ma którykolwiek z";
+"EditSet.Popup.Filter.Condition.Selected.AllIn" = "Ma wszystkie";
+"EditSet.Popup.Filter.Condition.Selected.NotIn" = "Nie ma nic z";
+"EditSet.Popup.Filter.Condition.Selected.Equal" = "Jest dokładnie";
 
 "EditSet.Popup.Filter.Condition.Checkbox.Equal" = "Is";
 "EditSet.Popup.Filter.Condition.Checkbox.NotEqual" = "Is not";
 
-"EditSet.Popup.Filter.Condition.General.Empty" = "Is empty";
-"EditSet.Popup.Filter.Condition.General.NotEmpty" = "Is not empty";
-"EditSet.Popup.Filter.Condition.General.None" = "All";
+"EditSet.Popup.Filter.Condition.General.Empty" = "Jest puste";
+"EditSet.Popup.Filter.Condition.General.NotEmpty" = "Nie jest puste";
+"EditSet.Popup.Filter.Condition.General.None" = "Wszystkie";
 
-"EditSet.Popup.Filter.Value.Checked" = "Checked";
-"EditSet.Popup.Filter.Value.Unchecked" = "Unchecked";
+"EditSet.Popup.Filter.Value.Checked" = "Zaznaczone";
+"EditSet.Popup.Filter.Value.Unchecked" = "Odznaczone";
 
-"EditSet.Popup.Filter.Date.Option.Today" = "Today";
-"EditSet.Popup.Filter.Date.Option.Yesterday" = "Yesterday";
-"EditSet.Popup.Filter.Date.Option.Tomorrow" = "Tomorrow";
-"EditSet.Popup.Filter.Date.Option.LastWeek" = "Last week";
-"EditSet.Popup.Filter.Date.Option.CurrentWeek" = "Current week";
-"EditSet.Popup.Filter.Date.Option.NextWeek" = "Next week";
-"EditSet.Popup.Filter.Date.Option.LastMonth" = "Last month";
-"EditSet.Popup.Filter.Date.Option.CurrentMonth" = "Current month";
-"EditSet.Popup.Filter.Date.Option.NextMonth" = "Next month";
-"EditSet.Popup.Filter.Date.Option.NumberOfDaysAgo" = "Number of days ago";
-"EditSet.Popup.Filter.Date.Option.NumberOfDaysFromNow" = "Number of days from now";
-"EditSet.Popup.Filter.Date.Option.ExactDate" = "Exact date";
+"EditSet.Popup.Filter.Date.Option.Today" = "Dzisiaj";
+"EditSet.Popup.Filter.Date.Option.Yesterday" = "Wczoraj";
+"EditSet.Popup.Filter.Date.Option.Tomorrow" = "Jutro";
+"EditSet.Popup.Filter.Date.Option.LastWeek" = "Ostatni tydzień";
+"EditSet.Popup.Filter.Date.Option.CurrentWeek" = "Bieżący tydzień";
+"EditSet.Popup.Filter.Date.Option.NextWeek" = "Następny tydzień";
+"EditSet.Popup.Filter.Date.Option.LastMonth" = "W ostatnim miesiącu";
+"EditSet.Popup.Filter.Date.Option.CurrentMonth" = "Aktualny miesiąc";
+"EditSet.Popup.Filter.Date.Option.NextMonth" = "Następny miesiąc";
+"EditSet.Popup.Filter.Date.Option.NumberOfDaysAgo" = "Liczba dni temu";
+"EditSet.Popup.Filter.Date.Option.NumberOfDaysFromNow" = "Liczba dni od teraz";
+"EditSet.Popup.Filter.Date.Option.ExactDate" = "Dokładna data";
 
-"EditSet.Popup.Filter.Date.Option.NumberOfDaysAgo.Short" = "%@ days ago";
-"EditSet.Popup.Filter.Date.Option.NumberOfDaysFromNow.Short" = "%@ days from now";
+"EditSet.Popup.Filter.Date.Option.NumberOfDaysAgo.Short" = "%@ dni temu";
+"EditSet.Popup.Filter.Date.Option.NumberOfDaysFromNow.Short" = "%@ dni od dziś";
 
 // MARK: - Sets. Create object
-"Set.Create.ObjectTitle.Placeholder" = "Untitled";
+"Set.Create.ObjectTitle.Placeholder" = "Bez nazwy";
 
 // MARK: - Sets: Featured relations
-"Set.FeaturedRelations.Query" = "Query";
-"Set.FeaturedRelations.RelationsList" = "Relations:";
-"Set.FeaturedRelations.Relation" = "Relation:";
-"Set.FeaturedRelations.Type" = "Type:";
+"Set.FeaturedRelations.Query" = "Pytanie";
+"Set.FeaturedRelations.RelationsList" = "Relacje:";
+"Set.FeaturedRelations.Relation" = "Relacja:";
+"Set.FeaturedRelations.Type" = "Typy:";
 
 // MARK: - Sets: Filters search
-"Set.Button.Title.Apply" = "Apply";
+"Set.Button.Title.Apply" = "Zastosuj";
 
 // MARK: - Set.Bookmarks
-"Set.Bookmark.Create.Placeholder" = "Paste link";
-"Set.Bookmark.Error.Title" = "Oops - something went wrong";
-"Set.Bookmark.Error.Message" = "Please try again";
+"Set.Bookmark.Create.Placeholder" = "Wkleić link";
+"Set.Bookmark.Error.Title" = "Ups - coś poszło nie tak";
+"Set.Bookmark.Error.Message" = "Proszę spróbuj ponownie";
 
 // MARK: - Sets: View Settings
-"Set.View.Settings.ImageFit.Title" = "Fit image";
-"Set.View.Settings.CardSize.Title" = "Card size";
-"Set.View.Settings.CardSize.Small.Title" = "Small";
-"Set.View.Settings.CardSize.Large.Title" = "Large";
-"Set.View.Settings.ImagePreview.Title" = "Image preview";
+"Set.View.Settings.ImageFit.Title" = "Dopasuj zdjęcie";
+"Set.View.Settings.CardSize.Title" = "Rozmiar karty";
+"Set.View.Settings.CardSize.Small.Title" = "Mały";
+"Set.View.Settings.CardSize.Large.Title" = "Duży";
+"Set.View.Settings.ImagePreview.Title" = "Podgląd obrazu";
 "Set.View.Settings.GroupBy.Title" = "Group by";
 "Set.View.Settings.GroupBackgroundColors.Title" = "Color columns";
-"Set.View.Settings.DefaultObject.Title" = "Default object";
-"Set.View.Settings.DefaultTemplate.Title" = "Default template";
 
 "Set.View.Settings.NoRelations.Placeholder" = "No relations";
-"Set.View.Settings.NoFilters.Placeholder" = "No filters";
-"Set.View.Settings.NoSorts.Placeholder" = "No sorts";
-"Set.View.Settings.Objects.Applied.Title" = "%d applied";
+"Set.View.Settings.NoFilters.Placeholder" = "Brak filtrów";
+"Set.View.Settings.NoSorts.Placeholder" = "Brak sortowania";
+"Set.View.Settings.Objects.Applied.Title" = "%d stosowane";
 
 // MARK: - Sets: Kanban
-"Set.View.Kanban.Column.Title.Uncategorized" = "Uncategorized";
-"Set.View.Kanban.Column.Title.Checked" = "%@ is checked";
-"Set.View.Kanban.Column.Title.Unchecked" = "%@ is unchecked";
-"Set.View.Kanban.Column.Paging.Title.ShowMore" = "Show more objects";
+"Set.View.Kanban.Column.Title.Uncategorized" = "Bez kategorii";
+"Set.View.Kanban.Column.Title.Checked" = "%@ jest zaznaczony";
+"Set.View.Kanban.Column.Title.Unchecked" = "%@ nie jest zaznaczony";
+"Set.View.Kanban.Column.Paging.Title.ShowMore" = "Pokaż więcej obiektów";
 "Set.View.Kanban.Column.Settings.Color.Title" = "Column color";
 "Set.View.Kanban.Column.Settings.Hide.Column.Title" = "Hide column";
 
@@ -504,56 +496,56 @@
 "New relation" = "New relation";
 "Non-existent object" = "Non-existent object";
 
-"Select all" = "Select all";
-"Unselect all" = "Unselect all";
-"Deselect all" = "Deselect all";
-"Shared" = "Shared";
-"Sets" = "Sets";
-"Collections" = "Collections";
+"Select all" = "Zaznacz wszystko";
+"Unselect all" = "Odznacz wszystko";
+"Deselect all" = "Odznacz wszystko";
+"Shared" = "Udostępnione";
+"Sets" = "Zbiory";
+"Collections" = "Kolekcje";
 "Default object type" = "Default object type";
-"Personalization" = "Personalization";
+"Personalization" = "Personalizacja";
 "Choose default object type" = "Choose default object type";
-"About" = "About";
-"Appearance" = "Appearance";
-"Change wallpaper" = "Change wallpaper";
-"Application icon" = "Application icon";
-"Mode" = "Mode";
+"About" = "O aplikacji";
+"Appearance" = "Wygląd";
+"Change wallpaper" = "Zmień tło";
+"Application icon" = "Ikona aplikacji";
+"Mode" = "Tryb";
 "copied to clipboard" = "%@ copied to clipboard";
 "Access to secret phrase from keychain" = "Access to secret phrase from keychain";
-"Back up your recovery phrase" = "Back up your recovery phrase";
-"Account" = "Account";
-"Access" = "Access";
-"Back up phrase" = "Back up phrase";
+"Back up your recovery phrase" = "Utwórz kopię swoich wyrazów ratunkowych";
+"Account" = "Konto";
+"Access" = "Dostęp";
+"Back up phrase" = "Kopia zapasowa frazy";
 "Removing cache" = "Removing cache";
 "Deletion error" = "Deletion error";
-"Start" = "Start";
+"Start" = "Rozpocznij";
 "On analytics" = "On analytics";
-"Select account error" = "Select account error";
-"Account deleted" = "Account deleted";
+"Select account error" = "Wybierz błąd konta";
+"Account deleted" = "Konto zostało usunięte";
 "Account.Select.Incompatible.Version.Error.Text" = "Unable to retrieve account data due to incompatible version on remote nodes. Please update Anytype to the latest version.";
-"Restore from keychain" = "Restore from keychain";
-"Edit" = "Edit";
-"In this object" = "In this object";
+"Restore from keychain" = "Przywróć z pęku kluczy";
+"Edit" = "Edytuj";
+"In this object" = "W tym obiekcie";
 "Other relations" = "Other relations";
-"Collection of objects" = "Collection of objects";
+"Collection of objects" = "Zbiór obiektów";
 "Designed to capture thoughts quickly" = "Designed to capture thoughts quickly";
 "Action-focused layout with a checkbox" = "Action-focused layout with a checkbox";
 "Standard layout for canvas blocks" = "Standard layout for canvas blocks";
 "List of related objects" = "List of related objects";
-"Lock" = "Lock";
-"Unlock" = "Unlock";
-"Favorite" = "Favorite";
-"Unfavorite" = "Unfavorite";
+"Lock" = "Zablokuj";
+"Unlock" = "Odblokuj";
+"Favorite" = "Dodaj do ulubionych";
+"Unfavorite" = "Usuń z ulubionych";
 "Unsplash" = "Unsplash";
-"Go back" = "Go back";
+"Go back" = "Wróć";
 "Backed up on one node at least" = "Backed up on one node at least";
 "Downloading or uploading data to some node" = "Downloading or uploading data to some node";
 "Anytype node is not connected" = "Anytype node is not connected";
 "Initializing sync" = "Initializing sync";
-"Not syncing" = "Not syncing";
-"Synced" = "Synced";
-"Syncing..." = "Syncing...";
-"No connection" = "No connection";
+"Not syncing" = "Brak synchronizacji";
+"Synced" = "Zsynchronizowano";
+"Syncing..." = "Synchronizowanie...";
+"No connection" = "Brak połączenia";
 "Preparing..." = "Preparing...";
 "Deleted" = "Deleted";
 "Download" = "Download";
@@ -573,9 +565,9 @@
 "File" = "File";
 "No related options here" = "No related options here. You can add some";
 "Empty" = "Empty";
-"Link to" = "Link to";
+"Link to" = "Łącze do";
 "Unknown" = "Unknown";
-"Settings" = "Settings";
+"Settings" = "Ustawienia";
 "Views" = "Views";
 "Filter" = "Filter";
 "Sort" = "Sort";
@@ -587,94 +579,96 @@
 "Preview layout" = "Preview layout";
 "Everywhere" = "Everywhere";
 "Exact day" = "Exact day";
-"Tomorrow" = "Tomorrow";
-"Yesterday" = "Yesterday";
-"Today" = "Today";
+"Tomorrow" = "Jutro";
+"Yesterday" = "Wczoraj";
+"Today" = "Dzisiaj";
 "No date" = "No date";
 "Clear" = "Clear";
-"Create option" = "Create option ‘%@’";
-"Add URL" = "Add URL";
+"Create option" = "Utwórz opcję '%@’";
+"Add URL" = "Dodaj URL";
 "Add email" = "Add email";
-"Add phone number" = "Add phone number";
-"Add number" = "Add number";
-"Add text" = "Add text";
+"Add phone number" = "Dodaj numer telefonu";
+"Add number" = "Dodaj numer";
+"Add text" = "Dodaj tekst";
 "Ok" = "Ok";
-"Error occurred. Please try again" = "Error occurred. Please try again";
-"Add" = "Add";
-"Companies, contacts, friends and family" = "Companies, contacts, friends and family";
-"Failed to sync, trying again..." = "Failed to sync, trying again...";
-"Sync.Status.Version.Outdated.Description" = "Version outdated. Please update Anytype";
-"This object doesn't exist" = "This object doesn't exist";
+"Error occurred. Please try again" = "Wystąpił błąd. spróbuj ponownie";
+"Add" = "Dodaj";
+"Companies, contacts, friends and family" = "Firmy, kontakty, przyjaciele i rodzina";
+"Failed to sync, trying again..." = "Synchronizacja nie powiodła się, próbuję ponownie...";
+"Sync.Status.Version.Outdated.Description" = "Wersja nieaktualna. Proszę zaktualizować Anytype";
+"This object doesn't exist" = "Ten obiekt nie istnieje";
 "Setting up encrypted storage\nPlease wait" = "Setting up encrypted storage\nPlease wait";
 "These objects will be deleted irrevocably" = "These objects will be deleted irrevocably. You can’t undo this action.";
-"Delete account" = "Delete account";
-"Cancel deletion" = "Cancel deletion";
-"Logout and clear data" = "Logout and clear data";
-"New" = "New";
+"Delete account" = "Usuń konto";
+"Cancel deletion" = "Anuluj usuwanie";
+"Logout and clear data" = "Wyloguj i wyczyść dane";
+"New" = "Nowy";
 
 // MARK: - DeletionAlert
-"DeletionAlert.title" = "Are you sure to delete account?";
+"DeletionAlert.title" = "Czy na pewno chcesz usunąć konto?";
 "DeletionAlert.description" = "You will be logged out on all other devices. You will have 30 days to recover it. Afterwards it will be deleted permanently";
 
 // MARK: - DataviewType
-"DataviewType.grid" = "Grid";
-"DataviewType.list" = "List";
-"DataviewType.gallery" = "Gallery";
+"DataviewType.grid" = "Siatka";
+"DataviewType.list" = "Lista";
+"DataviewType.gallery" = "Galeria";
 "DataviewType.kanban" = "Kanban";
+"DataviewType.calendar" = "Calendar";
 
 // MARK: - ObjectType
-"ObjectType.fallbackDescription" = "Blank canvas with no title";
-"ObjectType.SearchOrInstall" = "Search or install a new type";
-"ObjectType.MyTypes" = "My Types";
+"ObjectType.fallbackDescription" = "Puste płótno bez tytułu";
+"ObjectType.SearchOrInstall" = "Szukaj lub utwórz nowy typ";
+"ObjectType.Search" = "Search for Type";
+"ObjectType.MyTypes" = "Moje typy";
 "ObjectType.AddedToLibrary" = "Type ‘%@’ added to your library";
-"ObjectType.DeletedName" = "Deleted type";
+"ObjectType.DeletedName" = "Usunięty typ";
 
 // MARK: - QuickAction
 "QuickAction.create" = "Create %@";
 
 // MARK: - RedactedText
-"RedactedText.pageTitle" = "Wake up, Neo";
-"RedactedText.pageType" = "Red pill";
+"RedactedText.pageTitle" = "Obudź się, Neo";
+"RedactedText.pageType" = "Czerwona piguła";
 
 // MARK: - InterfaceStyle
-"InterfaceStyle.light" = "Light";
-"InterfaceStyle.dark" = "Dark";
-"InterfaceStyle.system" = "System";
+"InterfaceStyle.light" = "Jasny";
+"InterfaceStyle.dark" = "Ciemny";
+"InterfaceStyle.system" = "Systemowy";
 
 // MARK: Table of Contents
 "TalbeOfContents.Empty" = "Add headings to create a table of contents";
 
 // MARK: - Simple tables
 "SimpleTableMenu.Item.clearContents" = "Clear";
-"SimpleTableMenu.Item.color" = "Color";
-"SimpleTableMenu.Item.style" = "Style";
-"SimpleTableMenu.Item.clearStyle" = "Reset style";
+"SimpleTableMenu.Item.color" = "Kolor";
+"SimpleTableMenu.Item.style" = "Wygląd";
+"SimpleTableMenu.Item.clearStyle" = "Zresetuj styl";
 
-"SimpleTableMenu.Item.InsertLeft" = "Insert left";
-"SimpleTableMenu.Item.InsertRight" = "Insert right";
-"SimpleTableMenu.Item.MoveLeft" = "Move left";
-"SimpleTableMenu.Item.MoveRight" = "Move right";
-"SimpleTableMenu.Item.Duplicate" = "Duplicate";
-"SimpleTableMenu.Item.Delete" = "Delete";
+"SimpleTableMenu.Item.InsertLeft" = "Wstaw z lewej";
+"SimpleTableMenu.Item.InsertRight" = "Wstaw z prawej";
+"SimpleTableMenu.Item.MoveLeft" = "Przesuń w lewo";
+"SimpleTableMenu.Item.MoveRight" = "Przesuń w prawo";
+"SimpleTableMenu.Item.Duplicate" = "Duplikuj";
+"SimpleTableMenu.Item.Delete" = "Usuń";
 "SimpleTableMenu.Item.Sort" = "Sort";
 
-"SimpleTableMenu.Item.InsertAbove" = "Insert above";
-"SimpleTableMenu.Item.InsertBelow" = "Insert below";
-"SimpleTableMenu.Item.MoveUp" = "Move up";
-"SimpleTableMenu.Item.MoveDown" = "Move down";
+"SimpleTableMenu.Item.InsertAbove" = "Wstaw powyżej";
+"SimpleTableMenu.Item.InsertBelow" = "Wstaw poniżej";
+"SimpleTableMenu.Item.MoveUp" = "Przesuń w górę";
+"SimpleTableMenu.Item.MoveDown" = "Przesuń w dół";
 
-"DebugMenu.ToggleAuthor" = "Release: %@, %@";
+"DebugMenu.ToggleAuthor" = "Wydanie: %@, %@";
 
 // MARK: Link Past Actions
-"LinkPaste.text" = "Paste as text";
-"LinkPaste.link" = "Paste as link";
+"LinkPaste.text" = "Wklej jako tekst";
+"LinkPaste.link" = "Wklej jako link";
 "LinkPaste.bookmark" = "Create bookmark";
 
 // Relation Actions
 "RelationAction.CopyPhone" = "Copy phone numbler";
 "RelationAction.CopyEmail" = "Copy email";
-"RelationAction.CopyLink" = "Copy link";
-"RelationAction.Copied" = "Copied";
+"RelationAction.CopyLink" = "Kopiuj link";
+"RelationAction.Copied" = "Skopiowano";
 "RelationAction.ReloadingContent" = "Reloading content";
 "RelationAction.ReloadContent" = "Reload object content";
 "RelationAction.CallPhone" = "Call phone numbler";
@@ -685,10 +679,10 @@
 "SetViewTypesPicker.Title" = "Edit view";
 "SetViewTypesPicker.New.Title" = "New view";
 "SetViewTypesPicker.Section.Types.Title" = "View as";
-"SetViewTypesPicker.Settings.Duplicate.View" = "Duplicate";
+"SetViewTypesPicker.Settings.Duplicate.View" = "Duplikuj";
 "SetViewTypesPicker.Settings.Delete.View" = "Delete view";
 "SetViewTypesPicker.Settings.Textfield.Placeholder.New.View" = "New view";
-"SetViewTypesPicker.Settings.Textfield.Placeholder.Untitled" = "Untitled";
+"SetViewTypesPicker.Settings.Textfield.Placeholder.Untitled" = "Bez nazwy";
 
 // MARK: Select view picker
 "EditorSetViewPicker.View.Not.Supported.Title" = "Unsupported";
@@ -732,7 +726,7 @@
 "Widgets.Layout.Screen.Title" = "Widget type";
 "Widgets.Layout.Link.Title" = "Link";
 "Widgets.Layout.Tree.Title" = "Tree";
-"Widgets.Layout.List.Title" = "List";
+"Widgets.Layout.List.Title" = "Lista";
 "Widgets.Layout.CompactList.Title" = "Сompact list";
 "Widgets.Layout.Link.Description" = "Сompact version of the object";
 "Widgets.Layout.Tree.Description" = "Hierarchical structure of objects";
@@ -768,6 +762,12 @@
 "ClearCache.Success" = "Cache sucessfully cleared";
 "ClearCache.Error" = "Error, try again later";
 
+// MARK: - Settings
+"Settings.TitleLegacy" = "Ustawienia";
+"Settings.Title" = "Ustawienia";
+"Settings.SpaceName" = "Nazwa przestrzeni";
+"Settings.AccountAndAccess" = "Account and access";
+
 // MARK: - File Storage
 "FileStorage.Title" = "File storage";
 "FileStorage.Space.Title" = "Remote storage";
@@ -794,16 +794,47 @@
 "ClearCacheAlert.Title" = "Are you sure?";
 "ClearCacheAlert.Description" = "All media files stored in Anytype will be deleted from your current device. They can be downloaded again from a backup node or another device.";
 
+// MARK: - Spaces
+"Spaces.Accessibility.Public" = "Public";
+"Spaces.Accessibility.Private" = "Private";
+"Spaces.Search.Title" = "Szukaj spacji";
+
+// MARK: - Space Settings
+"SpaceSettings.Title" = "Space settings";
+"SpaceSettings.RemoteStorage" = "Remote storage";
+"SpaceSettings.Info" = "Space info";
+"SpaceSettings.NetworkId" = "Network ID";
+"SpaceSettings.DeleteAlert.Title" = "Delete ‘%@’ space";
+"SpaceSettings.DeleteAlert.Message" = "This space will be deleted irrevocably. You can’t undo this action.";
+"SpaceSettings.DeleteButton" = "Delete space";
+
+// MARK: - Space Create
+"SpaceCreate.Title" = "Create a space";
+
 // MARK: - Sharing
 "Sharing.Navigation.title" = "Add to Anytype";
-"Sharing.Navigation.LeftButton.Title" = "Cancel";
-"Sharing.Navigation.RightButton.Title" = "Done";
+"Sharing.Navigation.LeftButton.Title" = "Anuluj";
+"Sharing.Navigation.RightButton.Title" = "Gotowe";
 
 "Sharing.SaveAs" = "SAVE AS";
+"Sharing.SelectSpace" = "Przestrzeń";
 "Sharing.AddTo" = "Add to";
-"Sharing.LinkTo" = "Link to";
+"Sharing.LinkTo" = "Łącze do";
 
 "Sharing.URL.Bookmark" = "Bookmark object";
 "Sharing.URL.Text" = "Text block";
 "Sharing.Text.NoteObject" = "Note object";
 "Sharing.Text.TextBlock" = "Text block";
+
+// MARK: - Initial
+
+"Initial.UnstableMiddle.Title" = "Warning";
+"Initial.UnstableMiddle.Message" = "You launch app with a unstable middleware. Don't use your production account. Your account may be broken.";
+"Initial.UnstableMiddle.Title" = "Warning";
+"Initial.UnstableMiddle.Logout" = "Logout from current account";
+"Initial.UnstableMiddle.Continue" = "Continue with current account";
+"Initial.UnstableMiddle.WontUseProd" = "I won't be using my production account";
+
+// MARK: - Create tip
+"LongTapCreateTip.Title" = "Crete Objects with specific Type";
+"LongTapCreateTip.Message" = "Long tap on Create Object button to open menu with types";

@@ -102,16 +102,14 @@ final class HomeWidgetsRegistry: HomeWidgetsRegistryProtocol {
         
         var newProvidersCache: [ProviderCache] = []
         
-        if FeatureFlags.multiSpace {
-            newProvidersCache.append(
-                createProviderCache(
-                    source: spaceWidgetProviderAssembly,
-                    widgetBlockId: Constants.spaceWidgetId,
-                    info: nil,
-                    widgetObject: widgetObject
-                )
+        newProvidersCache.append(
+            createProviderCache(
+                source: spaceWidgetProviderAssembly,
+                widgetBlockId: Constants.spaceWidgetId,
+                info: nil,
+                widgetObject: widgetObject
             )
-        }
+        )
         
         let blockWidgets = blocks.compactMap { block -> ProviderCache? in
             guard let widgetInfo = widgetObject.widgetInfo(block: block),

@@ -43,6 +43,6 @@ struct CodeBlockViewModel: BlockViewModelProtocol {
 
 extension CodeBlockViewModel: CustomDebugStringConvertible {
     var debugDescription: String {
-        return "id: \(blockId)\ntext: \(anytypeText.attrString.string.prefix(10))...\ntype: \(info.content.type.style.description)"
+        return "id: \(blockId)\ntext: \(anytypeText.attrString.string.prefix(10))...\ntype: \(info.content.type.styleAnalyticsValue)"
     }
 }

@@ -29,29 +29,14 @@ final class SetViewSettingsListModuleAssembly: SetViewSettingsListModuleAssembly
     ) -> AnyView {
         let dataviewService = serviceLocator.dataviewService(
             objectId: setDocument.objectId,
-            blockId: setDocument.blockId
+            blockId: setDocument.inlineParameters?.blockId
         )
-        let setObjectCreationSettingsInteractor: SetObjectCreationSettingsInteractorProtocol?
-        if setDocument.isTypeSet() {
-            setObjectCreationSettingsInteractor = SetObjectCreationSettingsInteractor(
-                mode: .default,
-                setDocument: setDocument,
-                viewId: viewId,
-                objectTypesProvider: serviceLocator.objectTypeProvider(),
-                subscriptionService: TemplatesSubscriptionService(subscriptionService: serviceLocator.subscriptionService()),
-                dataviewService: dataviewService
-            )
-        } else {
-            setObjectCreationSettingsInteractor = nil
-        }
         return SetViewSettingsList(
             model: SetViewSettingsListModel(
                 setDocument: setDocument,
                 viewId: viewId,
                 mode: mode,
                 dataviewService: dataviewService,
-                templatesInteractor: self.serviceLocator.setTemplatesInteractor,
-                setObjectCreationSettingsInteractor: setObjectCreationSettingsInteractor,
                 output: output
             )
         ).eraseToAnyView()

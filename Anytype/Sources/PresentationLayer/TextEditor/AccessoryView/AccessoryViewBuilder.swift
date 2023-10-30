@@ -15,8 +15,7 @@ struct AccessoryViewBuilder {
         cursorManager: EditorCursorManager
     ) -> AccessoryViewStateManager {
         let mentionsView = MentionView(
-            documentId: document.objectId,
-            spaceId: document.spaceId,
+            document: document,
             frame: CGRect(origin: .zero, size: menuActionsViewSize)
         )
         
@@ -37,8 +36,6 @@ struct AccessoryViewBuilder {
             router: router,
             handler: actionHandler,
             searchService: ServiceLocator.shared.searchService(),
-            objectService: ServiceLocator.shared.objectActionsService(),
-            objectTypeProvider: ServiceLocator.shared.objectTypeProvider(),
             document: document
         )
         
@@ -76,16 +73,6 @@ struct AccessoryViewBuilder {
             changeTypeView: changeTypeView,
             document: document
         )
-
-        accessoryViewSwitcher.onDoneButton = {
-            guard let typeId = document.details?.type else { return }
-
-            router.showTemplatesPopupIfNeeded(
-                document: document,
-                templatesTypeId: typeId,
-                onShow: nil
-            )
-        }
 
         slashMenuViewModel.resetSlashMenuHandler = { [weak accessoryViewSwitcher] in
             accessoryViewSwitcher?.restoreDefaultState()

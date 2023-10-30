@@ -75,6 +75,10 @@ final class BlockActionHandlerMock: BlockActionHandlerProtocol {
         assertionFailure()
     }
     
+    func applyTemplate(objectId: String, templateId: String) async throws {
+        assertionFailure()
+    }
+    
     func delete(blockIds: [BlockId]) {
         assertionFailure()
     }
@@ -111,12 +115,12 @@ final class BlockActionHandlerMock: BlockActionHandlerProtocol {
         assertionFailure()
     }
     
-    func createPage(targetId: BlockId, spaceId: String, type: ObjectTypeId) -> BlockId? {
+    func createPage(targetId: BlockId, spaceId: String, typeUniqueKey: ObjectTypeUniqueKey, templateId: String) async throws -> BlockId? {
         assertionFailure()
         return nil
     }
     
-    func setObjectTypeId(_ objectTypeId: String) {
+    func setObjectType(type: Services.ObjectType) async throws {
         assertionFailure()
     }
     

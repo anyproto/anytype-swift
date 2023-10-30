@@ -14,8 +14,6 @@ final class ChangeTypeAccessoryViewModel {
     private let router: EditorRouterProtocol
     private let handler: BlockActionHandlerProtocol
     private let searchService: SearchServiceProtocol
-    private let objectService: ObjectActionsServiceProtocol
-    private let objectTypeProvider: ObjectTypeProviderProtocol
     private let document: BaseDocumentProtocol
     private lazy var searchItem = TypeItem.searchItem { [weak self] in self?.onSearchTap() }
 
@@ -25,15 +23,11 @@ final class ChangeTypeAccessoryViewModel {
         router: EditorRouterProtocol,
         handler: BlockActionHandlerProtocol,
         searchService: SearchServiceProtocol,
-        objectService: ObjectActionsServiceProtocol,
-        objectTypeProvider: ObjectTypeProviderProtocol,
         document: BaseDocumentProtocol
     ) {
         self.router = router
         self.handler = handler
         self.searchService = searchService
-        self.objectService = objectService
-        self.objectTypeProvider = objectTypeProvider
         self.document = document
 
         subscribeOnDocumentChanges()
@@ -56,7 +50,7 @@ final class ChangeTypeAccessoryViewModel {
                     shouldIncludeSets: true,
                     shouldIncludeCollections: true,
                     shouldIncludeBookmark: false,
-                    spaceId: document.spaceId
+                    spaceId: self?.document.spaceId ?? ""
                 ).map { type in
                     TypeItem(from: type, handler: { [weak self] in
                         self?.onTypeTap(type: ObjectType(details: type))
@@ -92,23 +86,12 @@ final class ChangeTypeAccessoryViewModel {
 
         Task { @MainActor in
             try await handler.setObjectType(type: type)
-            applyDefaultTemplateIfNeeded(typeId: type.id)
+            try await handler.applyTemplate(objectId: document.objectId, templateId: type.defaultTemplateId)
         }
     }
     
     private func logSelectObjectType(type: ObjectType) {
         AnytypeAnalytics.instance().logSelectObjectType(type.analyticsType)
-    }
-    
-    private func applyDefaultTemplateIfNeeded(typeId: String) {
-        Task { @MainActor in
-            let availableTemplates = try? await searchService.searchTemplates(for: typeId, spaceId: document.spaceId)
-            guard availableTemplates?.count == 1,
-                  let firstTemplate = availableTemplates?.first
-            else { return }
-            
-            try await objectService.applyTemplate(objectId: document.objectId, templateId: firstTemplate.id)
-        }
     }
 
     private func subscribeOnDocumentChanges() {

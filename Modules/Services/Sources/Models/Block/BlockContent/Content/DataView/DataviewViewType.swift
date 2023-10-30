@@ -5,6 +5,7 @@ public enum DataviewViewType: Hashable, CaseIterable {
     case gallery
     case list
     case kanban
+    case calendar
     
     public var asMiddleware: DataviewTypeEnum {
         switch self {
@@ -16,6 +17,8 @@ public enum DataviewViewType: Hashable, CaseIterable {
             return .gallery
         case .kanban:
             return .kanban
+        case .calendar:
+            return .calendar
         }
     }
     
@@ -23,7 +26,7 @@ public enum DataviewViewType: Hashable, CaseIterable {
         switch self {
         case .kanban:
             return FeatureFlags.setKanbanView
-        case .list, .gallery, .table:
+        case .list, .gallery, .table, .calendar:
             return false
         }
     }
@@ -34,6 +37,7 @@ public enum DataviewViewType: Hashable, CaseIterable {
         case .list: return "List"
         case .gallery: return "Gallery"
         case .kanban: return "Board"
+        case .calendar: return "Calendar"
         }
     }
 }
@@ -45,6 +49,7 @@ public extension DataviewTypeEnum {
         case .list: return .list
         case .gallery: return .gallery
         case .kanban: return .kanban
+        case .calendar: return .calendar
         case .UNRECOGNIZED: return nil
         }
     }

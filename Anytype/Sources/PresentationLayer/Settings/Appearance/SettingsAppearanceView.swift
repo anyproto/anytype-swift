@@ -12,9 +12,6 @@ struct SettingsAppearanceView: View {
             AnytypeText(Loc.appearance, style: .uxTitle1Semibold, color: .Text.primary)
             Spacer.fixedHeight(12)
             
-            if !FeatureFlags.multiSpaceSettings {
-                wallpaper
-            }
             appearanceType
             iconPicker
             
@@ -28,15 +25,6 @@ struct SettingsAppearanceView: View {
         }
     }
     
-    private var wallpaper: some View {
-        SettingsSectionItemView(
-            name: Loc.wallpaper,
-            imageAsset: .SettingsOld.setWallpaper,
-            onTap: { model.onWallpaperChangeTap() }
-        )
-        .padding(.horizontal, 20)
-    }
-
     private var appearanceType: some View {
         VStack(alignment: .center) {
             AnytypeText(Loc.mode, style: .caption1Medium, color: .Text.secondary)
@@ -122,8 +110,7 @@ struct SettingsAppearanceView_Previews: PreviewProvider {
         ZStack {
             Color.System.blue
             SettingsAppearanceView(model: SettingsAppearanceViewModel(
-                viewControllerProvider: DI.preview.uihelpersDI.viewControllerProvider(),
-                output: nil
+                viewControllerProvider: DI.preview.uihelpersDI.viewControllerProvider()
             ))
         }
     }

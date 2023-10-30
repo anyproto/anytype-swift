@@ -4,7 +4,7 @@ import SwiftUI
 struct SpaceCreateView: View {
     
     @StateObject var model: SpaceCreateViewModel
-    @Environment(\.presentationMode) @Binding var presentationMode
+    @Environment(\.dismiss) var dismiss
     
     var body: some View {
         VStack(spacing: 0) {
@@ -16,7 +16,7 @@ struct SpaceCreateView: View {
                         .focused(.constant(true))
                     
                     SectionHeaderView(title: Loc.type)
-                    SpaceTypeView(name: model.spaceType.fullName)
+                    SpaceTypeView(name: model.spaceType.name)
                 }
             }
             .safeAreaInset(edge: .bottom) {
@@ -28,7 +28,20 @@ struct SpaceCreateView: View {
             .padding(.horizontal, 20)
         }
         .onChange(of: model.dismiss) { _ in
-            presentationMode.dismiss()
+            dismiss()
+        }
+        .ignoreSafeAreaKeyboardLegacy()
+    }
+}
+
+private extension View {
+    // Fix glitch when user dismiss screen with opened keyboard
+    @available(iOS, deprecated: 16.4)
+    func ignoreSafeAreaKeyboardLegacy() -> some View {
+        if #available(iOS 16.4, *) {
+            return self
+        } else {
+            return self.ignoresSafeArea(.keyboard)
         }
     }
 }

@@ -28,7 +28,7 @@ final class SetSortsListModuleAssembly: SetSortsListModuleAssemblyProtocol {
     ) -> AnyView {
         let dataviewService = serviceLocator.dataviewService(
             objectId: setDocument.objectId,
-            blockId: setDocument.blockId
+            blockId: setDocument.inlineParameters?.blockId
         )
         return SetSortsListView(
             viewModel: SetSortsListViewModel(

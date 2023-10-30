@@ -174,19 +174,15 @@ final class DataviewService: DataviewServiceProtocol {
     
     func addRecord(
         typeUniqueKey: ObjectTypeUniqueKey?,
-        shouldSelectType: Bool,
         templateId: BlockId,
         spaceId: String,
         setFilters: [SetFilter],
         relationsDetails: [RelationDetails]
     ) async throws -> ObjectDetails {
-        var prefilledFields = prefilledFieldsBuilder.buildPrefilledFields(from: setFilters, relationsDetails: relationsDetails)
+        let prefilledFields = prefilledFieldsBuilder.buildPrefilledFields(from: setFilters, relationsDetails: relationsDetails)
         
         let internalFlags: [Anytype_Model_InternalFlag] = .builder {
             Anytype_Model_InternalFlag.with { $0.value = .editorSelectTemplate }
-            if shouldSelectType {
-                Anytype_Model_InternalFlag.with { $0.value = .editorSelectType }
-            }
         }
 
         let details: Google_Protobuf_Struct = .init(fields: prefilledFields)

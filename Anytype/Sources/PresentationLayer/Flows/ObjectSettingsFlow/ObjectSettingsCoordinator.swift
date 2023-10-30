@@ -25,6 +25,7 @@ final class ObjectSettingsCoordinator: ObjectSettingsCoordinatorProtocol,
     private let addNewRelationCoordinator: AddNewRelationCoordinatorProtocol
     private let searchModuleAssembly: SearchModuleAssemblyProtocol
     private let newSearchModuleAssembly: NewSearchModuleAssemblyProtocol
+    private let documentsProvider: DocumentsProviderProtocol
     
     private weak var output: ObjectSettingsCoordinatorOutput?
     
@@ -39,7 +40,8 @@ final class ObjectSettingsCoordinator: ObjectSettingsCoordinatorProtocol,
         relationValueCoordinator: RelationValueCoordinatorProtocol,
         addNewRelationCoordinator: AddNewRelationCoordinatorProtocol,
         searchModuleAssembly: SearchModuleAssemblyProtocol,
-        newSearchModuleAssembly: NewSearchModuleAssemblyProtocol
+        newSearchModuleAssembly: NewSearchModuleAssemblyProtocol,
+        documentsProvider: DocumentsProviderProtocol
     ) {
         self.navigationContext = navigationContext
         self.objectSettingsModuleAssembly = objectSettingsModuleAssembly
@@ -52,6 +54,7 @@ final class ObjectSettingsCoordinator: ObjectSettingsCoordinatorProtocol,
         self.addNewRelationCoordinator = addNewRelationCoordinator
         self.searchModuleAssembly = searchModuleAssembly
         self.newSearchModuleAssembly = newSearchModuleAssembly
+        self.documentsProvider = documentsProvider
     }
     
     func startFlow(
@@ -61,7 +64,7 @@ final class ObjectSettingsCoordinator: ObjectSettingsCoordinatorProtocol,
         objectSettingsHandler: @escaping (ObjectSettingsAction) -> Void
     ) {
         self.output = output
-        let document = BaseDocument(objectId: objectId)
+        let document = documentsProvider.document(objectId: objectId, forPreview: false)
         Task { @MainActor in
             do {
                 try await document.open()

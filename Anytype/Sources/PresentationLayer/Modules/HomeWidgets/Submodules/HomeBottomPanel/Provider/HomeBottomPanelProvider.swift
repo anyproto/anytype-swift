@@ -24,9 +24,9 @@ final class HomeBottomPanelProvider: HomeSubmoduleProviderProtocol {
     // MARK: - HomeSubmoduleProviderProtocol
     
     @MainActor
-    lazy var view: AnyView = {
+    var view: AnyView {
         return bottomPanelModuleAssembly.make(info: info, stateManager: stateManager, output: output)
-    }()
+    }
     
     lazy var componentId: String = {
         return UUID().uuidString

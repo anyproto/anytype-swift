@@ -8,18 +8,9 @@ struct FileStorageView: View {
     var body: some View {
         VStack(spacing: 0) {
             DragIndicator()
-            if FeatureFlags.multiSpaceSettings {
-                TitleView(title: Loc.FileStorage.Local.title)
-            } else {
-                TitleView(title: Loc.FileStorage.title)
-            }
+            TitleView(title: Loc.FileStorage.Local.title)
             ScrollView {
                 VStack(alignment: .leading, spacing: 0) {
-                    if !FeatureFlags.multiSpaceSettings {
-                        Spacer.fixedHeight(24)
-                        spaceBlock
-                        Spacer.fixedHeight(44)
-                    }
                     locaBlock
                 }
                 .padding(.horizontal, 20)
@@ -35,32 +26,7 @@ struct FileStorageView: View {
     }
     
     @ViewBuilder
-    private var spaceBlock: some View {
-        AnytypeText(Loc.FileStorage.Space.title, style: .uxTitle1Semibold, color: .Text.primary)
-        Spacer.fixedHeight(4)
-        AnytypeText(model.spaceInstruction, style: .uxCalloutRegular, color: .Text.primary)
-        if model.showGetMoreSpaceButton {
-            Spacer.fixedHeight(4)
-            AnytypeText(Loc.FileStorage.Space.getMore, style: .uxCalloutMedium, color: .System.red)
-                .onTapGesture {
-                    model.onTapGetMoreSpace()
-                }
-        }
-        Spacer.fixedHeight(16)
-        FileStorageInfoBlock(iconImage: model.spaceIcon, title: model.spaceName, description: model.spaceUsed, isWarning: model.spaceUsedWarning)
-        Spacer.fixedHeight(8)
-        LineProgressBar(percent: model.percentUsage, configuration: model.progressBarConfiguration)
-        Spacer.fixedHeight(20)
-        StandardButton(Loc.FileStorage.manageFiles, style: .secondarySmall) {
-            model.onTapManageFiles()
-        }
-    }
-    
-    @ViewBuilder
     private var locaBlock: some View {
-        if !FeatureFlags.multiSpaceSettings {
-            AnytypeText(Loc.FileStorage.Local.title, style: .uxTitle1Semibold, color: .Text.primary)
-        }
         Spacer.fixedHeight(4)
         AnytypeText(Loc.FileStorage.Local.instruction, style: .uxCalloutRegular, color: .Text.primary)
         Spacer.fixedHeight(16)

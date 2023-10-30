@@ -1,15 +1,12 @@
 import SwiftUI
 
 enum TemplateOptionAction: CaseIterable {
-    case setAsDefault
     case editTemplate
     case duplicate
     case delete
     
     var title: String {
         switch self {
-        case .setAsDefault:
-            return Loc.TemplateOptions.Alert.setAsDefault
         case .editTemplate:
             return Loc.TemplateOptions.Alert.editTemplate
         case .duplicate:

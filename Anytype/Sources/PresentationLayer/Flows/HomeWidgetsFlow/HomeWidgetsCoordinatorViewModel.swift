@@ -8,7 +8,7 @@ import NavigationBackport
 @MainActor
 final class HomeWidgetsCoordinatorViewModel: ObservableObject,
                                              HomeWidgetsModuleOutput, CommonWidgetModuleOutput,
-                                             HomeBottomPanelModuleOutput, SpaceSwitchModuleOutput,
+                                             HomeBottomPanelModuleOutput, EditorBrowserDelegate,
                                              HomeBottomNavigationPanelModuleOutput {
     
     // MARK: - DI
@@ -18,18 +18,17 @@ final class HomeWidgetsCoordinatorViewModel: ObservableObject,
     private let navigationContext: NavigationContextProtocol
     private let createWidgetCoordinatorAssembly: CreateWidgetCoordinatorAssemblyProtocol
     private let searchModuleAssembly: SearchModuleAssemblyProtocol
-    private let settingsCoordinator: SettingsCoordinatorProtocol
     private let newSearchModuleAssembly: NewSearchModuleAssemblyProtocol
     private let dashboardService: DashboardServiceProtocol
     private let appActionsStorage: AppActionStorage
     private let widgetTypeModuleAssembly: WidgetTypeModuleAssemblyProtocol
-    private let spaceSwitchModuleAssembly: SpaceSwitchModuleAssemblyProtocol
-    private let spaceCreateModuleAssembly: SpaceCreateModuleAssemblyProtocol
+    private let spaceSwitchCoordinatorAssembly: SpaceSwitchCoordinatorAssemblyProtocol
     private let spaceSettingsCoordinatorAssembly: SpaceSettingsCoordinatorAssemblyProtocol
     private let shareCoordinatorAssembly: ShareCoordinatorAssemblyProtocol
     private let editorCoordinatorAssembly: EditorCoordinatorAssemblyProtocol
     private let homeBottomNavigationPanelModuleAssembly: HomeBottomNavigationPanelModuleAssemblyProtocol
-    
+    private let objectTypeSearchModuleAssembly: ObjectTypeSearchModuleAssemblyProtocol
+
     // MARK: - State
     
     private var viewLoaded = false
@@ -41,10 +40,10 @@ final class HomeWidgetsCoordinatorViewModel: ObservableObject,
     @Published var showSpaceSwitch: Bool = false
     @Published var showCreateWidgetData: CreateWidgetCoordinatorModel?
     @Published var showSpaceSettings: Bool = false
-    @Published var showSpaceCreate: Bool = false
     @Published var showSharing: Bool = false
     @Published var editorPath = HomePath()
-    
+    @Published var showCreateObjectWithType: Bool = false
+
     @Published var info: AccountInfo? {
         didSet {
             // Prevent animation for first sync
@@ -66,41 +65,39 @@ final class HomeWidgetsCoordinatorViewModel: ObservableObject,
             }
         )
     }
-    
+
     init(
         homeWidgetsModuleAssembly: HomeWidgetsModuleAssemblyProtocol,
         activeWorkspaceStorage: ActiveWorkpaceStorageProtocol,
         navigationContext: NavigationContextProtocol,
         createWidgetCoordinatorAssembly: CreateWidgetCoordinatorAssemblyProtocol,
         searchModuleAssembly: SearchModuleAssemblyProtocol,
-        settingsCoordinator: SettingsCoordinatorProtocol,
         newSearchModuleAssembly: NewSearchModuleAssemblyProtocol,
         dashboardService: DashboardServiceProtocol,
         appActionsStorage: AppActionStorage,
         widgetTypeModuleAssembly: WidgetTypeModuleAssemblyProtocol,
-        spaceSwitchModuleAssembly: SpaceSwitchModuleAssemblyProtocol,
-        spaceCreateModuleAssembly: SpaceCreateModuleAssemblyProtocol,
+        spaceSwitchCoordinatorAssembly: SpaceSwitchCoordinatorAssemblyProtocol,
         spaceSettingsCoordinatorAssembly: SpaceSettingsCoordinatorAssemblyProtocol,
         shareCoordinatorAssembly: ShareCoordinatorAssemblyProtocol,
         editorCoordinatorAssembly: EditorCoordinatorAssemblyProtocol,
-        homeBottomNavigationPanelModuleAssembly: HomeBottomNavigationPanelModuleAssemblyProtocol
+        homeBottomNavigationPanelModuleAssembly: HomeBottomNavigationPanelModuleAssemblyProtocol,
+        objectTypeSearchModuleAssembly: ObjectTypeSearchModuleAssemblyProtocol
     ) {
         self.homeWidgetsModuleAssembly = homeWidgetsModuleAssembly
         self.activeWorkspaceStorage = activeWorkspaceStorage
         self.navigationContext = navigationContext
         self.createWidgetCoordinatorAssembly = createWidgetCoordinatorAssembly
         self.searchModuleAssembly = searchModuleAssembly
-        self.settingsCoordinator = settingsCoordinator
         self.newSearchModuleAssembly = newSearchModuleAssembly
         self.dashboardService = dashboardService
         self.appActionsStorage = appActionsStorage
         self.widgetTypeModuleAssembly = widgetTypeModuleAssembly
-        self.spaceSwitchModuleAssembly = spaceSwitchModuleAssembly
-        self.spaceCreateModuleAssembly = spaceCreateModuleAssembly
+        self.spaceSwitchCoordinatorAssembly = spaceSwitchCoordinatorAssembly
         self.spaceSettingsCoordinatorAssembly = spaceSettingsCoordinatorAssembly
         self.shareCoordinatorAssembly = shareCoordinatorAssembly
         self.editorCoordinatorAssembly = editorCoordinatorAssembly
         self.homeBottomNavigationPanelModuleAssembly = homeBottomNavigationPanelModuleAssembly
+        self.objectTypeSearchModuleAssembly = objectTypeSearchModuleAssembly
     }
 
     func onAppear() {
@@ -143,7 +140,7 @@ final class HomeWidgetsCoordinatorViewModel: ObservableObject,
     func homeBottomNavigationPanelModule() -> AnyView {
         return homeBottomNavigationPanelModuleAssembly.make(homePath: editorPath, output: self)
     }
-    
+
     func changeSourceModule(data: WidgetChangeSourceSearchModuleModel) -> AnyView {
         return newSearchModuleAssembly.widgetChangeSourceSearchModule(data: data)
     }
@@ -161,25 +158,32 @@ final class HomeWidgetsCoordinatorViewModel: ObservableObject,
     }
     
     func createSpaceSwitchModule() -> AnyView {
-        return spaceSwitchModuleAssembly.make(output: self)
+        return spaceSwitchCoordinatorAssembly.make()
     }
     
     func createSpaceSeetingsModule() -> AnyView {
         return spaceSettingsCoordinatorAssembly.make()
     }
-    
-    func createSpaceCreateModule() -> AnyView {
-        return spaceCreateModuleAssembly.make()
-    }
-    
+
     func createSharingModule() -> AnyView {
         return shareCoordinatorAssembly.make()
     }
-    
+
     func editorModule(data: EditorScreenData) -> AnyView {
         return editorCoordinatorAssembly.make(data: data)
     }
- 
+
+    func createObjectWithTypeModule() -> AnyView {
+        AnytypeAnalytics.instance().logOnboardingTooltip(tooltip: .selectType)
+        return objectTypeSearchModuleAssembly.objectTypeSearchForCreateObject(
+            spaceId: activeWorkspaceStorage.workspaceInfo.accountSpaceId
+        ) { [weak self] type in
+            AnytypeAnalytics.instance().logSelectObjectType(type.analyticsType, route: .longTap)
+            self?.showCreateObjectWithType = false
+            self?.createAndShowNewPage(type: type)
+        }
+    }
+
     // MARK: - HomeWidgetsModuleOutput
     
     // MARK: - CommonWidgetModuleOutput
@@ -220,11 +224,7 @@ final class HomeWidgetsCoordinatorViewModel: ObservableObject,
     }
     
     func onSpaceSelected() {
-        if FeatureFlags.multiSpaceSettings {
-            showSpaceSettings.toggle()
-        } else {
-            settingsCoordinator.startFlow()
-        }
+        showSpaceSettings.toggle()
     }
     
     // MARK: - HomeBottomPanelModuleOutput
@@ -255,44 +255,52 @@ final class HomeWidgetsCoordinatorViewModel: ObservableObject,
     func onCreateObjectSelected(screenData: EditorScreenData) {
         openObject(screenData: screenData)
     }
-    
-    func onSettingsSelected() {
-        settingsCoordinator.startFlow()
-    }
-    
+
     func onProfileSelected() {
         showSpaceSwitch.toggle()
     }
     
-    // MARK: - SpaceSwitchModuleOutput
+    // MARK: - EditorBrowserDelegate
     
-    func onCreateSpaceSelected() {
-        showSpaceCreate.toggle()
+    func onCreateObjectWithTypeSelected() {
+        showCreateObjectWithType.toggle()
     }
     
     // MARK: - HomeBottomNavigationPanelModuleOutput
-    
+
     func onHomeSelected() {
         editorPath.popToRoot()
     }
-    
+
     func onForwardSelected() {
         editorPath.pushFromHistory()
     }
-    
+
     func onBackwardSelected() {
         editorPath.pop()
     }
-    
+
     // MARK: - Private
     
     private func openObject(screenData: EditorScreenData) {
-        editorPath.push(screenData)
+        editorPath.push(screenData, delegate: self)
     }
     
     private func createAndShowNewPage() {
         Task {
-            guard let details = try? await dashboardService.createNewPage(spaceId: activeWorkspaceStorage.workspaceInfo.accountSpaceId) else { return }
+            let details = try await dashboardService.createNewPage(spaceId: activeWorkspaceStorage.workspaceInfo.accountSpaceId)
+            AnytypeAnalytics.instance().logCreateObject(objectType: details.analyticsType, route: .navigation, view: .home)
+            openObject(screenData: details.editorScreenData())
+        }
+    }
+
+    private func createAndShowNewPage(type: ObjectType) {
+        Task {
+            let details = try await dashboardService.createNewPage(
+                spaceId: activeWorkspaceStorage.workspaceInfo.accountSpaceId,
+                typeUniqueKey: type.uniqueKey,
+                templateId: type.defaultTemplateId
+            )
             AnytypeAnalytics.instance().logCreateObject(objectType: details.analyticsType, route: .navigation, view: .home)
             openObject(screenData: details.editorScreenData())
         }

@@ -10,13 +10,4 @@ extension SpaceAccessibility {
             return Loc.Spaces.Accessibility.public
         }
     }
-    
-    var fullName: String {
-        switch self {
-        case .private:
-            return Loc.Spaces.Accessibility.privateFull
-        case .public:
-            return Loc.Spaces.Accessibility.publicFull
-        }
-    }
 }

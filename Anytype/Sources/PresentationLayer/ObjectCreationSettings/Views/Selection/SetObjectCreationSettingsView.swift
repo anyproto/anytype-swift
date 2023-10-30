@@ -9,7 +9,6 @@ struct SetObjectCreationSettingsView: View {
 
     var body: some View {
         VStack {
-            Spacer.fixedHeight(8)
             navigation
             if model.canChangeObjectType {
                 objectTypeView
@@ -21,28 +20,37 @@ struct SetObjectCreationSettingsView: View {
 
     private var navigation: some View {
         ZStack {
-            AnytypeText(model.title, style: .uxTitle2Medium, color: .Text.primary)
-            HStack(spacing: 0) {
+            AnytypeText(Loc.createObject, style: .uxTitle1Semibold, color: .Text.primary)
+            if model.isTemplatesEditable {
+                navigationButtons
+            }
+        }
+        .frame(height: 48)
+    }
+    
+    private var navigationButtons: some View {
+        HStack(spacing: 0) {
+            if model.templates.count > 2 {
                 Button {
                     model.isEditingState.toggle()
                 } label: {
                     AnytypeText(
                         model.isEditingState ? Loc.done : Loc.edit,
-                        style: .calloutRegular,
+                        style: .bodyRegular,
                         color: .Button.active
                     )
                 }
-                Spacer()
-                Button {
-                    model.onAddTemplateTap()
-                } label: {
-                    Image(asset: .X32.plus)
-                        .tint(.Button.active)
-                }
             }
-            .padding(.leading, 16)
-            .padding(.trailing, 12)
+            Spacer()
+            Button {
+                model.onAddTemplateTap()
+            } label: {
+                Image(asset: .X32.plus)
+                    .tint(.Button.active)
+            }
         }
+        .padding(.leading, 16)
+        .padding(.trailing, 12)
     }
     
     private var objectTypeView: some View {
@@ -72,21 +80,8 @@ struct SetObjectCreationSettingsView: View {
             SectionHeaderView(title: Loc.TemplateSelection.Template.subtitle)
                 .padding(.horizontal, 16)
             Spacer.fixedHeight(4)
-            if model.isTemplatesAvailable {
-                templatesCollection
-            } else {
-                emptyTemplatesView
-            }
+            templatesCollection
         }
-    }
-    
-    private var emptyTemplatesView: some View {
-        VStack(spacing: 0) {
-            Spacer()
-            AnytypeText(Loc.TemplateSelection.ObjectType.NoTemplates.title, style: .uxCalloutRegular, color: .Text.secondary)
-            Spacer()
-        }
-        .frame(height: 232)
     }
     
     private var templatesCollection: some View {
@@ -116,7 +111,8 @@ struct SetObjectCreationSettingsView_Previews: PreviewProvider {
                 templatesService: TemplatesService(),
                 toastPresenter: ToastPresenter(
                     viewControllerProvider: ViewControllerProvider(sceneWindow: UIWindow()),
-                    keyboardHeightListener: KeyboardHeightListener()
+                    keyboardHeightListener: KeyboardHeightListener(),
+                    documentsProvider: ServiceLocator().documentsProvider
                 ),
                 onTemplateSelection: { _ in }
             )

@@ -9,15 +9,18 @@ final class ObjectSettingsCoordinatorAssembly: ObjectSettingsCoordinatorAssembly
     private let modulesDI: ModulesDIProtocol
     private let uiHelpersDI: UIHelpersDIProtocol
     private let coordinatorsDI: CoordinatorsDIProtocol
+    private let serviceLocator: ServiceLocator
     
     init(
         modulesDI: ModulesDIProtocol,
         uiHelpersDI: UIHelpersDIProtocol,
-        coordinatorsDI: CoordinatorsDIProtocol
+        coordinatorsDI: CoordinatorsDIProtocol,
+        serviceLocator: ServiceLocator
     ) {
         self.modulesDI = modulesDI
         self.uiHelpersDI = uiHelpersDI
         self.coordinatorsDI = coordinatorsDI
+        self.serviceLocator = serviceLocator
     }
     
     // MARK: - ObjectSettingsCoordinatorAssemblyProtocol
@@ -34,7 +37,8 @@ final class ObjectSettingsCoordinatorAssembly: ObjectSettingsCoordinatorAssembly
             relationValueCoordinator: coordinatorsDI.relationValue().make(),
             addNewRelationCoordinator: coordinatorsDI.addNewRelation().make(),
             searchModuleAssembly: modulesDI.search(),
-            newSearchModuleAssembly: modulesDI.newSearch()
+            newSearchModuleAssembly: modulesDI.newSearch(),
+            documentsProvider: serviceLocator.documentsProvider
         )
     }
 }

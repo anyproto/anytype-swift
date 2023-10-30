@@ -7,10 +7,7 @@ protocol PageRepositoryProtocol: AnyObject {
     func createDefaultPage(
         name: String,
         shouldDeleteEmptyObject: Bool,
-        shouldSelectType: Bool,
-        shouldSelectTemplate: Bool,
-        spaceId: String,
-        templateId: String?
+        spaceId: String
     ) async throws -> ObjectDetails
     
     func createPage(
@@ -29,18 +26,12 @@ extension PageRepositoryProtocol {
     func createDefaultPage(
         name: String,
         shouldDeleteEmptyObject: Bool = false,
-        shouldSelectType: Bool = false,
-        shouldSelectTemplate: Bool = false,
-        spaceId: String,
-        templateId: String? = nil
+        spaceId: String
     ) async throws -> ObjectDetails {
         try await createDefaultPage(
             name: name,
             shouldDeleteEmptyObject: shouldDeleteEmptyObject,
-            shouldSelectType: shouldSelectType,
-            shouldSelectTemplate: shouldSelectTemplate,
-            spaceId: spaceId,
-            templateId: templateId
+            spaceId: spaceId
         )
     }
 }
@@ -79,20 +70,17 @@ final class PageRepository: PageRepositoryProtocol {
     func createDefaultPage(
         name: String,
         shouldDeleteEmptyObject: Bool,
-        shouldSelectType: Bool,
-        shouldSelectTemplate: Bool,
-        spaceId: String,
-        templateId: String? = nil
+        spaceId: String
     ) async throws -> ObjectDetails {
         let defaultObjectType = try objectTypeProvider.defaultObjectType(spaceId: spaceId)
         return try await pageService.createPage(
             name: name,
             typeUniqueKey: defaultObjectType.uniqueKey,
             shouldDeleteEmptyObject: shouldDeleteEmptyObject,
-            shouldSelectType: shouldSelectType,
-            shouldSelectTemplate: shouldSelectTemplate,
+            shouldSelectType: true,
+            shouldSelectTemplate: true,
             spaceId: spaceId,
-            templateId: templateId
+            templateId: defaultObjectType.defaultTemplateId
         )
     }
 }

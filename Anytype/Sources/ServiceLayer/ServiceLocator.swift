@@ -11,16 +11,19 @@ final class ServiceLocator {
     let textService = TextService()
     let templatesService = TemplatesService()
     let sharedContentManager: SharedContentManagerProtocol = SharedContentManager()
-    lazy private(set) var setTemplatesInteractor = SetTemplatesInteractor(templatesService: templatesService, objecTypeProvider: objectTypeProvider())
     lazy private(set) var sharedContentInteractor: SharedContentInteractorProtocol = SharedContentInteractor(
         listService: blockListService(),
         bookmarkService: bookmarkService(),
         objectActionsService: objectActionsService(),
         blockActionService: blockActionsServiceSingle(),
-        pageRepository: pageRepository(),
-        activeWorkpaceStorage: activeWorkspaceStorage()
+        pageRepository: pageRepository()
     )
+
     lazy private(set) var unsplashService: UnsplashServiceProtocol = UnsplashService()
+    lazy private(set) var documentsProvider: DocumentsProviderProtocol = DocumentsProvider(
+        relationDetailsStorage: relationDetailsStorage(),
+        objectTypeProvider: objectTypeProvider()
+    )
     
     // MARK: - Services
     
@@ -56,14 +59,15 @@ final class ServiceLocator {
         middlewareConfigurationProvider: middlewareConfigurationProvider(),
         blockWidgetExpandedService: blockWidgetExpandedService(),
         relationDetailsStorage: relationDetailsStorage(),
-        workspacesStorage: workspaceStorage()
+        workspacesStorage: workspaceStorage(),
+        activeWorkpaceStorage: activeWorkspaceStorage()
     )
     func loginStateService() -> LoginStateServiceProtocol {
         return _loginStateService
     }
     
     func dashboardService() -> DashboardServiceProtocol {
-        DashboardService(searchService: searchService(), pageService: pageRepository(), objectTypeProvider: objectTypeProvider())
+        DashboardService(searchService: searchService(), pageService: pageRepository())
     }
     
     func blockActionsServiceSingle() -> BlockActionsServiceSingleProtocol {
@@ -84,13 +88,6 @@ final class ServiceLocator {
     
     func detailsService(objectId: BlockId) -> DetailsServiceProtocol {
         DetailsService(objectId: objectId, service: objectActionsService(), fileService: fileService())
-    }
-    
-    func subscriptionService() -> SubscriptionsServiceProtocol {
-        SubscriptionsService(
-            toggler: subscriptionToggler(),
-            storage: ObjectDetailsStorage()
-        )
     }
     
     func bookmarkService() -> BookmarkServiceProtocol {
@@ -120,7 +117,7 @@ final class ServiceLocator {
     
     // Sigletone
     private lazy var _relationDetailsStorage = RelationDetailsStorage(
-        subscriptionsService: subscriptionService(),
+        subscriptionStorageProvider: subscriptionStorageProvider(),
         subscriptionDataBuilder: RelationSubscriptionDataBuilder(accountManager: accountManager())
     )
     func relationDetailsStorage() -> RelationDetailsStorageProtocol {
@@ -156,15 +153,16 @@ final class ServiceLocator {
     
     func recentSubscriptionService() -> RecentSubscriptionServiceProtocol {
         return RecentSubscriptionService(
-            subscriptionService: subscriptionService(),
+            subscriptionStorageProvider: subscriptionStorageProvider(),
             activeWorkspaceStorage: activeWorkspaceStorage(),
-            objectTypeProvider: objectTypeProvider()
+            objectTypeProvider: objectTypeProvider(),
+            workspacesStorage: workspaceStorage()
         )
     }
     
     func setsSubscriptionService() -> SetsSubscriptionServiceProtocol {
         return SetsSubscriptionService(
-            subscriptionService: subscriptionService(),
+            subscriptionStorageProvider: subscriptionStorageProvider(),
             activeWorkspaceStorage: activeWorkspaceStorage(),
             objectTypeProvider: objectTypeProvider()
         )
@@ -172,7 +170,7 @@ final class ServiceLocator {
     
     func collectionsSubscriptionService() -> CollectionsSubscriptionServiceProtocol {
         return CollectionsSubscriptionService(
-            subscriptionService: subscriptionService(),
+            subscriptionStorageProvider: subscriptionStorageProvider(),
             activeWorkspaceStorage: activeWorkspaceStorage(),
             objectTypeProvider: objectTypeProvider()
         )
@@ -180,7 +178,7 @@ final class ServiceLocator {
     
     func binSubscriptionService() -> BinSubscriptionServiceProtocol {
         return BinSubscriptionService(
-            subscriptionService: subscriptionService(),
+            subscriptionStorageProvider: subscriptionStorageProvider(),
             activeWorkspaceStorage: activeWorkspaceStorage()
         )
     }
@@ -188,12 +186,15 @@ final class ServiceLocator {
     func treeSubscriptionManager() -> TreeSubscriptionManagerProtocol {
         return TreeSubscriptionManager(
             subscriptionDataBuilder: TreeSubscriptionDataBuilder(),
-            subscriptionService: subscriptionService()
+            subscriptionStorageProvider: subscriptionStorageProvider()
         )
     }
     
     func filesSubscriptionManager() -> FilesSubscriptionServiceProtocol {
-        return FilesSubscriptionService(subscriptionService: subscriptionService(), activeWorkspaceStorage: activeWorkspaceStorage())
+        return FilesSubscriptionService(
+            subscriptionStorageProvider: subscriptionStorageProvider(),
+            activeWorkspaceStorage: activeWorkspaceStorage()
+        )
     }
     
     private lazy var _middlewareConfigurationProvider = MiddlewareConfigurationProvider()
@@ -201,8 +202,8 @@ final class ServiceLocator {
         return _middlewareConfigurationProvider
     }
     
-    private lazy var _documentService = DocumentService(relationDetailsStorage: relationDetailsStorage(), objectTypeProvider: objectTypeProvider())
-    func documentService() -> DocumentServiceProtocol {
+    private lazy var _documentService = OpenedDocumentsProvider(documentsProvider: documentsProvider)
+    func documentService() -> OpenedDocumentsProviderProtocol {
         return _documentService
     }
     
@@ -233,7 +234,10 @@ final class ServiceLocator {
     }
     
     func singleObjectSubscriptionService() -> SingleObjectSubscriptionServiceProtocol {
-        SingleObjectSubscriptionService(subscriptionService: subscriptionService(), subscriotionBuilder: objectsCommonSubscriptionDataBuilder())
+        SingleObjectSubscriptionService(
+            subscriptionStorageProvider: subscriptionStorageProvider(),
+            subscriotionBuilder: objectsCommonSubscriptionDataBuilder()
+        )
     }
     
     func fileLimitsStorage() -> FileLimitsStorageProtocol {
@@ -292,7 +296,7 @@ final class ServiceLocator {
     }
 
     private lazy var _workspaceStorage = WorkspacesStorage(
-        subscriptionsService: subscriptionService(),
+        subscriptionStorageProvider: subscriptionStorageProvider(),
         subscriptionBuilder: WorkspacesSubscriptionBuilder()
     )
     func workspaceStorage() -> WorkspacesStorageProtocol {
@@ -301,6 +305,15 @@ final class ServiceLocator {
     
     func quickActionShortcutBuilder() -> QuickActionShortcutBuilderProtocol {
         return QuickActionShortcutBuilder(activeWorkspaceStorage: activeWorkspaceStorage(), objectTypeProvider: objectTypeProvider())
+    }
+    
+    private lazy var _subscriptionStorageProvider = SubscriptionStorageProvider(toggler: subscriptionToggler())
+    func subscriptionStorageProvider() -> SubscriptionStorageProviderProtocol {
+        return _subscriptionStorageProvider
+    }
+    
+    func templatesSubscription() -> TemplatesSubscriptionServiceProtocol {
+        TemplatesSubscriptionService(subscriptionStorageProvider: subscriptionStorageProvider())
     }
     
     // MARK: - Private

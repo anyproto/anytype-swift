@@ -16,10 +16,12 @@ enum AnalyticsEventsName {
     static let screenOnboarding = "ScreenOnboarding"
     static let clickOnboarding = "ClickOnboarding"
     static let clickLogin = "ClickLogin"
+    static let onboardingSkipName = "ScreenOnboardingSkipName"
 
     // Block events
     static let blockCreate = "CreateBlock"
     static let blockDelete = "DeleteBlock"
+    static let createLink = "CreateLink"
 
     static let blockListDuplicate = "DuplicateBlock"
     static let blockListSetAlign = "ChangeBlockAlign"
@@ -121,6 +123,8 @@ enum AnalyticsEventsName {
     static let searchResult = "SearchResult"
     static let objectRelationShow = "ScreenObjectRelation"
 
+    static let onboardingTooltip = "OnboardingTooltip"
+    
     // Navigation events
     static let goBack = "HistoryBack"
     static let goForward = "HistoryForward"
@@ -373,4 +377,18 @@ enum ClickLoginButton: String {
 
 enum TableBlockType: String {
     case simpleTableBlock = "table"
+}
+
+enum AnalyticsDefaultObjectTypeChangeRoute: String {
+    case settings = "Settings"
+    case set = "Set"
+    case collection = "Collection"
+}
+
+enum SelectObjectTypeRoute: String {
+    case longTap = "LongTap"
+}
+
+enum OnboardingTooltip: String {
+    case selectType = "SelectType"
 }

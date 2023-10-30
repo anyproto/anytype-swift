@@ -1,6 +1,7 @@
 import Foundation
 import SwiftUI
 
+@MainActor
 protocol WidgetObjectListModuleAssemblyProtocol: AnyObject {
     func makeFavorites(output: WidgetObjectListCommonModuleOutput?) -> AnyView
     func makerecentEdit(output: WidgetObjectListCommonModuleOutput?) -> AnyView
@@ -11,12 +12,13 @@ protocol WidgetObjectListModuleAssemblyProtocol: AnyObject {
     func makeFiles() -> AnyView
 }
 
+@MainActor
 final class WidgetObjectListModuleAssembly: WidgetObjectListModuleAssemblyProtocol {
     
     private let serviceLocator: ServiceLocator
     private let uiHelpersDI: UIHelpersDIProtocol
     
-    init(serviceLocator: ServiceLocator, uiHelpersDI: UIHelpersDIProtocol) {
+    nonisolated init(serviceLocator: ServiceLocator, uiHelpersDI: UIHelpersDIProtocol) {
         self.serviceLocator = serviceLocator
         self.uiHelpersDI = uiHelpersDI
     }

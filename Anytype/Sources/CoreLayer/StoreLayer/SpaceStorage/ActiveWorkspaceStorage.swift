@@ -8,6 +8,7 @@ protocol ActiveWorkpaceStorageProtocol: AnyObject {
     var workspaceInfo: AccountInfo { get }
     var workspaceInfoPublisher: AnyPublisher<AccountInfo, Never> { get }
     func setActiveSpace(spaceId: String) async throws
+    func setupActiveSpace() async
 }
 
 final class ActiveWorkspaceStorage: ActiveWorkpaceStorageProtocol {
@@ -31,9 +32,6 @@ final class ActiveWorkspaceStorage: ActiveWorkpaceStorageProtocol {
         self.accountManager = accountManager
         self.workspaceService = workspaceService
         self.workspaceInfo = accountManager.account.info
-        Task {
-            await setupActiveSpace()
-        }
     }
     
     var workspaceInfoPublisher: AnyPublisher<AccountInfo, Never> {
@@ -41,16 +39,14 @@ final class ActiveWorkspaceStorage: ActiveWorkpaceStorageProtocol {
     }
     
     func setActiveSpace(spaceId: String) async throws {
-        let info = try await workspaceService.workspaceInfo(spaceId: spaceId)
+        let info = try await workspaceService.workspaceOpen(spaceId: spaceId)
         workspaceInfo = info
         activeSpaceId = spaceId
     }
     
-    // MARK: - Private
-    
-    private func setupActiveSpace() async {
+    func setupActiveSpace() async {
         do {
-            let info = try await workspaceService.workspaceInfo(spaceId: activeSpaceId)
+            let info = try await workspaceService.workspaceOpen(spaceId: activeSpaceId)
             workspaceInfo = info
         } catch {
             resetActiveSpace()
@@ -58,9 +54,12 @@ final class ActiveWorkspaceStorage: ActiveWorkpaceStorageProtocol {
         startSubscriotion()
     }
     
+    
+    // MARK: - Private
+    
     private func startSubscriotion() {
         workspaceSubscription = workspaceStorage.workspsacesPublisher
-            .map { $0.map(\.spaceId) }
+            .map { $0.map(\.targetSpaceId) }
             .receiveOnMain()
             .sink { [weak self] spaceIds in
                 guard let self else { return }
@@ -71,7 +70,8 @@ final class ActiveWorkspaceStorage: ActiveWorkpaceStorageProtocol {
     }
     
     private func resetActiveSpace() {
-        workspaceInfo = accountManager.account.info
-        activeSpaceId = workspaceInfo.accountSpaceId
+        Task {
+            try await setActiveSpace(spaceId: accountManager.account.info.accountSpaceId)
+        }
     }
 }

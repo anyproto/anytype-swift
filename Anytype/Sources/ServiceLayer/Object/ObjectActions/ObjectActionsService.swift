@@ -82,6 +82,7 @@ final class ObjectActionsService: ObjectActionsServiceProtocol {
         targetId: BlockId,
         spaceId: String,
         details: [BundledDetails],
+        typeUniqueKey: ObjectTypeUniqueKey,
         position: BlockPosition,
         templateId: String
     ) async throws -> BlockId {
@@ -92,13 +93,19 @@ final class ObjectActionsService: ObjectActionsServiceProtocol {
         }
         let protobufStruct = Google_Protobuf_Struct(fields: protobufDetails)
         
+        let internalFlags: [Anytype_Model_InternalFlag] = .builder {
+            Anytype_Model_InternalFlag.with { $0.value = .editorSelectTemplate }
+        }
+        
         let response = try await ClientCommands.blockLinkCreateWithObject(.with {
             $0.contextID = contextId
             $0.details = protobufStruct
             $0.templateID = templateId
             $0.targetID = targetId
             $0.position = position.asMiddleware
+            $0.internalFlags = internalFlags
             $0.spaceID = spaceId
+            $0.objectTypeUniqueKey = typeUniqueKey.value
         }).invoke()
         
         return response.targetID

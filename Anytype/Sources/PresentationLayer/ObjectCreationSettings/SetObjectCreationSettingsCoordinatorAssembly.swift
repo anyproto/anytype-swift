@@ -4,10 +4,7 @@ import AnytypeCore
 
 protocol SetObjectCreationSettingsCoordinatorAssemblyProtocol {
     @MainActor
-    func make(
-        with mode: SetObjectCreationSettingsMode,
-        navigationContext: NavigationContextProtocol?
-    ) -> SetObjectCreationSettingsCoordinator
+    func make(with navigationContext: NavigationContextProtocol?) -> SetObjectCreationSettingsCoordinator
 }
 
 final class SetObjectCreationSettingsCoordinatorAssembly: SetObjectCreationSettingsCoordinatorAssemblyProtocol {
@@ -29,9 +26,8 @@ final class SetObjectCreationSettingsCoordinatorAssembly: SetObjectCreationSetti
     // MARK: - SetViewPickerCoordinatorAssemblyProtocol
     
     @MainActor
-    func make(with mode: SetObjectCreationSettingsMode, navigationContext: NavigationContextProtocol?) -> SetObjectCreationSettingsCoordinator {
+    func make(with navigationContext: NavigationContextProtocol?) -> SetObjectCreationSettingsCoordinator {
         SetObjectCreationSettingsCoordinator(
-            mode: mode,
             navigationContext: navigationContext ?? uiHelpersDI.commonNavigationContext(),
             setObjectCreationSettingsAssembly: modulesDI.setObjectCreationSettings(),
             newSearchModuleAssembly: modulesDI.newSearch(),

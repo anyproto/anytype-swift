@@ -9,7 +9,7 @@ struct SpaceSwitchView: View {
     }
     
     @StateObject var model: SpaceSwitchViewModel
-    @Environment(\.presentationMode) @Binding var presentationMode
+    @Environment(\.dismiss) var dismiss
     
     @State private var headerSize: CGSize = .zero
     @State private var spacingBetweenItems: CGFloat = 0
@@ -74,7 +74,12 @@ struct SpaceSwitchView: View {
             self.externalSpacing = externalSpacing
         }
         .onChange(of: model.dismiss) { _ in
-            presentationMode.dismiss()
+            dismiss()
+        }
+        .anytypeSheet(item: $model.spaceViewForDelete) { space in
+            FloaterAlertView.deleteSpaceAlert(spaceName: space.title) {
+                model.onDeleteConfirmationTap(space: space)
+            }
         }
     }
     
@@ -86,12 +91,11 @@ struct SpaceSwitchView: View {
             }
             if model.createSpaceAvailable {
                 SpacePlusRow() {
-                    model.onTapAddSpace()
+                    model.onAddSpaceTap()
                 }
             }
         }
         .padding([.top], headerSize.height + 6)
-        .animation(.default, value: model.rows.count)
     }
 
     private var header: some View {
@@ -102,15 +106,14 @@ struct SpaceSwitchView: View {
             AnytypeText(model.profileName, style: .heading, color: .Text.white)
                 .lineLimit(1)
             Spacer()
-            Button {
-                model.onTapProfile()
-            } label: {
-                Image(asset: .Dashboard.settings)
-                    .foregroundColor(.Button.white)
-            }
+            Image(asset: .Dashboard.settings)
+                .foregroundColor(.Button.white)
         }
         .frame(height: 68)
+        .fixTappableArea()
+        .onTapGesture {
+            model.onProfileTap()
+        }
         .padding(.horizontal, externalSpacing)
     }
 }
-

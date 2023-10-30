@@ -1,4 +1,4 @@
-"NSFaceIDUsageDescription" = "Face ID is used to retrieve your Recovery Phrase securely stored in the keychain";
-"NSCameraUsageDescription" = "Camera is used to scan QR codes for a secure and convenient login experience";
-"NSLocalNetworkUsageDescription" = "Local network access is used to synchronize data directly between your nearby devices";
-"NSPhotoLibraryAddUsageDescription" = "Access is needed to save selected images to your library";
+"NSFaceIDUsageDescription" = " ID wajah digunakan untuk mengembalikan Tahap Pemulihan secara aman tersimpan di dalam rantai kunci";
+"NSCameraUsageDescription" = "Kamera digunakan untuk memindai kode QR untuk pengalaman masuk yang aman dan nyaman";
+"NSLocalNetworkUsageDescription" = "Akses jaringan lokal digunakan untuk menghubungkan data secara langsung diantara perangkat terdekatmu";
+"NSPhotoLibraryAddUsageDescription" = "Izin dibutuhkan untuk menyimpan gambar terpilih ke perpustakaanmu";

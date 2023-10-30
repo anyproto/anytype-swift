@@ -28,18 +28,6 @@ public extension FeatureDescription {
         defaultValue: false
     )
     
-    static let multiSpace = FeatureDescription(
-        title: "Multi spaces - switch space - IOS-1568",
-        type: .feature(author: "m@anytype.io", releaseVersion: "0.25.0"),
-        defaultValue: false
-    )
-    
-    static let multiSpaceSettings = FeatureDescription(
-        title: "Multi spaces - settings - IOS-1568",
-        type: .feature(author: "m@anytype.io", releaseVersion: "0.25.0"),
-        defaultValue: false
-    )
-
     static let newCodeLanguages = FeatureDescription(
         title: "New code languages - IOS-987",
         type: .feature(author: "m@anytype.io", releaseVersion: "0.26.0"),
@@ -50,6 +38,18 @@ public extension FeatureDescription {
         title: "New Set settings",
         type: .feature(author: "joe_pusya@anytype.io", releaseVersion: "0.26.0"),
         defaultValue: true
+    )
+    
+    static let ipadIncreaseWidth = FeatureDescription(
+        title: "iPad width",
+        type: .feature(author: "m@anytype.io", releaseVersion: "0.26.0"),
+        defaultValue: true
+    )
+    
+    static let selectTypeByLongTap = FeatureDescription(
+        title: "Object creation flow updates - MVP - IOS-1796",
+        type: .feature(author: "m@anytype.io", releaseVersion: "0.26.0"),
+        defaultValue: false
     )
     
     // MARK: - Debug
@@ -86,5 +86,19 @@ public extension FeatureDescription {
         type: .debug,
         defaultValue: false,
         debugValue: CoreEnvironment.isSimulator
+    )
+    
+    static let resetTips = FeatureDescription(
+        title: "Reset tips 💭 on launch",
+        type: .debug,
+        defaultValue: false,
+        debugValue: false
+    )
+    
+    static let showAllTips = FeatureDescription(
+        title: "Show all tips 💭 for testing (ignore rules)",
+        type: .debug,
+        defaultValue: false,
+        debugValue: false
     )
 }

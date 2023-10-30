@@ -5,7 +5,7 @@
     <key>Are you sure you want to delete</key>
     <dict>
       <key>NSStringLocalizedFormatKey</key>
-      <string>Are you sure you want to delete %#@object@?</string>
+      <string>Ești sigur că vrei să ștergi  %#@object@?</string>
       <key>object</key>
       <dict>
         <key>NSStringFormatSpecTypeKey</key>
@@ -13,17 +13,17 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>d</string>
         <key>one</key>
-        <string>%d object</string>
+        <string>Obiect %d</string>
         <key>few</key>
-        <string>%d objects</string>
+        <string>Obiecte %d</string>
         <key>other</key>
-        <string>%d objects</string>
+        <string>%d obiecte</string>
       </dict>
     </dict>
     <key>Object selected</key>
     <dict>
       <key>NSStringLocalizedFormatKey</key>
-      <string>%#@object@ selected</string>
+      <string>%#@object@ selectat</string>
       <key>object</key>
       <dict>
         <key>NSStringFormatSpecTypeKey</key>
@@ -31,11 +31,11 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>d</string>
         <key>one</key>
-        <string>%d object</string>
+        <string>Obiect %d</string>
         <key>few</key>
-        <string>%d objects</string>
+        <string>Obiecte %d</string>
         <key>other</key>
-        <string>%d objects</string>
+        <string>%d obiecte</string>
       </dict>
     </dict>
     <key>Selected blocks</key>
@@ -49,7 +49,7 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>d</string>
         <key>one</key>
-        <string>%d selected block</string>
+        <string>Bloc %d selectat</string>
         <key>few</key>
         <string>%d selected blocks</string>
         <key>other</key>
@@ -59,7 +59,7 @@
     <key>Days to deletion account</key>
     <dict>
       <key>NSStringLocalizedFormatKey</key>
-      <string>This account will be deleted %#@days@</string>
+      <string>Acest cont va fi șters %#@days@</string>
       <key>days</key>
       <dict>
         <key>NSStringFormatSpecTypeKey</key>
@@ -67,7 +67,7 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>d</string>
         <key>one</key>
-        <string>tomorrow</string>
+        <string>mâine</string>
         <key>few</key>
         <string>in %d days</string>
         <key>other</key>
@@ -85,7 +85,7 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>d</string>
         <key>one</key>
-        <string>One object deleted</string>
+        <string>Un obiect şters</string>
         <key>few</key>
         <string>%d objects deleted</string>
         <key>other</key>

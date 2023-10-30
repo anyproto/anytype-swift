@@ -3,6 +3,7 @@ import Services
 import AnytypeCore
 
 protocol WorkspacesSubscriptionBuilderProtocol: AnyObject {
+    var subscriptionId: String { get }
     func build() -> SubscriptionData
 }
 
@@ -14,22 +15,23 @@ final class WorkspacesSubscriptionBuilder: WorkspacesSubscriptionBuilderProtocol
     
     // MARK: - WorkspacesSubscriptionBuilderProtocol
     
+    var subscriptionId: String {
+        Constants.spacesSubId
+    }
+    
     func build() -> SubscriptionData {
         let sort = SearchHelper.sort(
-            relation: BundledRelationKey.createdDate,
-            type: .asc
+            relation: BundledRelationKey.lastOpenedDate,
+            type: .desc
         )
         
         let filters = [
-            SearchHelper.layoutFilter([.space])
+            SearchHelper.layoutFilter([.spaceView]),
+            SearchHelper.isArchivedFilter(isArchived: false),
+            SearchHelper.isDeletedFilter(isDeleted: false),
+            SearchHelper.spaceAccountStatusExcludeFilter(.spaceDeleted),
+            SearchHelper.spaceLocalStatusFilter(.ok)
         ]
-        
-        let keys: [BundledRelationKey] = .builder {
-            BundledRelationKey.id
-            BundledRelationKey.spaceId
-            BundledRelationKey.titleKeys
-            BundledRelationKey.objectIconImageKeys
-        }.uniqued()
         
         return .search(
             SubscriptionData.Search(
@@ -38,7 +40,7 @@ final class WorkspacesSubscriptionBuilder: WorkspacesSubscriptionBuilderProtocol
                 filters: filters,
                 limit: 0,
                 offset: 0,
-                keys: keys.map(\.rawValue)
+                keys: SpaceView.subscriptionKeys.map(\.rawValue)
             )
         )
     }

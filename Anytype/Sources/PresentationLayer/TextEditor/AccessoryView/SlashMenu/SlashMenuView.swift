@@ -1,5 +1,6 @@
 import UIKit
 import Services
+import AnytypeCore
 
 final class SlashMenuView: DismissableInputAccessoryView {
     
@@ -21,7 +22,11 @@ final class SlashMenuView: DismissableInputAccessoryView {
     
     private func setup() {
         addSubview(navigationController.view) {
-            $0.pinToSuperviewPreservingReadability(excluding: [.top])
+            if FeatureFlags.ipadIncreaseWidth {
+                $0.pinToSuperview(excluding: [.top])
+            } else {
+                $0.pinToSuperviewPreservingReadability(excluding: [.top])
+            }
             $0.top.equal(to: topSeparator?.bottomAnchor ?? topAnchor)
         }
     }

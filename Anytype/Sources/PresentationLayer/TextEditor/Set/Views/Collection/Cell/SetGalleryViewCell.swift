@@ -18,19 +18,19 @@ struct SetGalleryViewCell: View {
         VStack(alignment: .leading, spacing: Constants.bottomCoverSpacing) {
             coverContent
             VStack(alignment: .leading, spacing: 0) {
-                 TitleWithIconView(
+                TitleWithIconView(
                     icon: configuration.icon,
                     showIcon: configuration.showIcon,
                     title: configuration.title,
                     style: .gallery,
                     onIconTap: configuration.onIconTap
-                 )
-                if configuration.minHeight.isNotNil {
-                    Spacer(minLength: 0)
-                } else {
-                    Spacer.fixedHeight(4)
-                }
+                )
+                
+                Spacer.fixedHeight(4)
+                
                 relations
+                
+                Spacer(minLength: 0)
             }
             .padding(.top, configuration.hasCover && configuration.coverType.isNotNil ? 0 : Constants.contentPadding )
             .padding([.leading, .trailing, .bottom], Constants.contentPadding)

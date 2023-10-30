@@ -14,41 +14,6 @@ public enum BlockContentType: Hashable {
     case tableColumn
     case tableRow
     case widget(BlockWidget.Layout)
-
-    public var style: String {
-        switch self {
-        case let .smartblock(style):
-            return String(describing: style)
-        case let .text(style):
-            return String(describing: style)
-        case let .file(style):
-            return String(describing: style)
-        case let .divider(style):
-            return String(describing: style)
-        case let .bookmark(style):
-            return String(describing: style)
-        case let .link(appearance):
-            return String(describing: appearance)
-        case let .layout(style):
-            return String(describing: style)
-        case .featuredRelations:
-            return "featuredRelations"
-        case let .relation(key):
-            return "relationBlock \(key)"
-        case .dataView:
-            return "dataView"
-        case .tableOfContents:
-            return "tableOfContents"
-        case .table:
-            return "table"
-        case .tableColumn:
-            return "tableColumn"
-        case .tableRow:
-            return "tableRow"
-        case let .widget(layout):
-            return "Widget \(String(describing: layout))"
-        }
-    }
 }
 
 extension BlockContentType {

@@ -18,8 +18,7 @@ struct SoulView: View {
                     model.onNextAction()
                 }
             )
-            .colorScheme(model.inputText.isEmpty ? .dark : .light)
-            .disabled(model.inputText.isEmpty)
+            .colorScheme(.light)
         }
         .onAppear {
             model.onAppear()
@@ -31,7 +30,17 @@ struct SoulView: View {
             AnytypeText(Loc.Auth.JoinFlow.Soul.title, style: .heading, color: .Auth.inputText)
                 .multilineTextAlignment(.center)
             
-            Spacer.fixedHeight(26)
+            Spacer.fixedHeight(12)
+            
+            AnytypeText(
+                Loc.Auth.JoinFlow.Soul.description,
+                style: .calloutRegular,
+                color: .Auth.body
+            )
+                .multilineTextAlignment(.center)
+                .padding(.horizontal, 30)
+            
+            Spacer.fixedHeight(16)
             
             input
         }
@@ -64,7 +73,12 @@ struct JoinFlowInputView_Previews: PreviewProvider {
                 state: JoinFlowState(),
                 output: nil,
                 accountManager: DI.preview.serviceLocator.accountManager(),
-                objectActionsService: DI.preview.serviceLocator.objectActionsService()
+                objectActionsService: DI.preview.serviceLocator.objectActionsService(),
+                authService: DI.preview.serviceLocator.authService(),
+                seedService: DI.preview.serviceLocator.seedService(),
+                usecaseService: DI.preview.serviceLocator.usecaseService(),
+                workspaceService: DI.preview.serviceLocator.workspaceService(),
+                activeWorkspaceStorage: DI.preview.serviceLocator.activeWorkspaceStorage()
             )
         )
     }

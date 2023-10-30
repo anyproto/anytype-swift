@@ -43,12 +43,6 @@ extension BundledRelationsValueProvider {
         return layout
     }
     
-    public var internalFlagsWithoutTemplates: [Int] {
-        internalFlags.filter {
-            $0 != Anytype_Model_InternalFlag.Value.editorSelectTemplate.rawValue
-        }
-    }
-    
     public var isSelectTemplate: Bool {
         let flag = Anytype_Model_InternalFlag.Value.editorSelectTemplate.rawValue
         return internalFlags.contains(flag)
@@ -73,5 +67,10 @@ extension BundledRelationsValueProvider {
     
     public var uniqueKeyValue: ObjectTypeUniqueKey {
         return ObjectTypeUniqueKey(value: uniqueKey)
+    }
+    
+    public var spaceAccountStatusMiddlewareValue: Anytype_Model_SpaceStatus? {
+        guard let spaceAccountStatus else { return nil }
+        return Anytype_Model_SpaceStatus(rawValue: spaceAccountStatus)
     }
 }

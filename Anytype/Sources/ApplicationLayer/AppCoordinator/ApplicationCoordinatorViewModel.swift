@@ -141,11 +141,7 @@ final class ApplicationCoordinatorViewModel: ObservableObject {
     // MARK: - Process
     
     private func initialProcess() {
-        if UserDefaultsConfig.usersId.isNotEmpty {
-            applicationStateService.state = .login
-        } else {
-            applicationStateService.state = .auth
-        }
+        windowManager.showInitialWindow()
     }
     
     private func loginProcess() {

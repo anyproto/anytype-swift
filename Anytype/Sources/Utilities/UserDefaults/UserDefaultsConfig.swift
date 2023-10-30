@@ -24,6 +24,9 @@ struct UserDefaultsConfig {
     @UserDefault("UserData.RowsPerPageInGroupedSet", defaultValue: 20)
     static var rowsPerPageInGroupedSet: Int
     
+    @UserDefault("showUnstableMiddlewareError", defaultValue: true)
+    public static var showUnstableMiddlewareError: Bool
+    
 }
 
 extension UserDefaultsConfig {
@@ -31,6 +34,7 @@ extension UserDefaultsConfig {
     static func cleanStateAfterLogout() {
         usersId = ""
         lastOpenedPage = nil
+        showUnstableMiddlewareError = true
     }
     
 }

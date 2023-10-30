@@ -1,6 +1,7 @@
 import ProtobufMessages
 import SwiftProtobuf
 import Services
+import Foundation
 
 class SearchHelper {
     static func sort(relation: BundledRelationKey, type: DataviewSort.TypeEnum) -> DataviewSort {
@@ -64,6 +65,16 @@ class SearchHelper {
         filter.condition = .notEmpty
         filter.value = nil
         filter.relationKey = BundledRelationKey.lastOpenedDate.rawValue
+        filter.operator = .and
+        
+        return filter
+    }
+    
+    static func lastModifiedDateFrom(_ date: Date) -> DataviewFilter {
+        var filter = DataviewFilter()
+        filter.condition = .greaterOrEqual
+        filter.value = date.timeIntervalSince1970.protobufValue
+        filter.relationKey = BundledRelationKey.lastModifiedDate.rawValue
         filter.operator = .and
         
         return filter
@@ -217,6 +228,26 @@ class SearchHelper {
         filter.condition = .equal
         filter.value = value.protobufValue
         filter.relationKey = BundledRelationKey.relationReadonlyValue.rawValue
+        filter.operator = .and
+        
+        return filter
+    }
+    
+    static func spaceAccountStatusExcludeFilter(_ status: SpaceStatus) -> DataviewFilter {
+        var filter = DataviewFilter()
+        filter.condition = .notEqual
+        filter.value = status.toMiddleware.rawValue.protobufValue
+        filter.relationKey = BundledRelationKey.spaceAccountStatus.rawValue
+        filter.operator = .and
+        
+        return filter
+    }
+    
+    static func spaceLocalStatusFilter(_ status: SpaceStatus) -> DataviewFilter {
+        var filter = DataviewFilter()
+        filter.condition = .equal
+        filter.value = status.toMiddleware.rawValue.protobufValue
+        filter.relationKey = BundledRelationKey.spaceLocalStatus.rawValue
         filter.operator = .and
         
         return filter

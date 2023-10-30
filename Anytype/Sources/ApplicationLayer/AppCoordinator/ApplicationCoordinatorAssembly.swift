@@ -12,7 +12,7 @@ final class ApplicationCoordinatorAssembly: ApplicationCoordinatorAssemblyProtoc
     private let coordinatorsDI: CoordinatorsDIProtocol
     private let uiHelpersDI: UIHelpersDIProtocol
     private let modulesDI: ModulesDIProtocol
-    
+
     init(
         serviceLocator: ServiceLocator,
         coordinatorsDI: CoordinatorsDIProtocol,

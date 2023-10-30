@@ -1,29 +1,15 @@
 import Services
 
 protocol EditorPageTemplatesHandlerProtocol {
-    func didAppeared(with type: String?)
-    func needShowTemplates(for document: BaseDocumentProtocol) -> Bool
-    func onTemplatesShow()
+    func shouldRestartSubscription(objectType: String) -> Bool
 }
 
 final class EditorPageTemplatesHandler: EditorPageTemplatesHandlerProtocol {
-    private var didShowTemplatesForType = false
     private var currentType: String?
     
-    func didAppeared(with type: String?) {
-        currentType = type
-    }
-    
-    func needShowTemplates(for document: BaseDocumentProtocol) -> Bool {
-        if currentType != document.details?.type {
-            currentType = document.details?.type
-            didShowTemplatesForType = false
-        }
-        
-        return !didShowTemplatesForType
-    }
-    
-    func onTemplatesShow() {
-        didShowTemplatesForType = true
+    func shouldRestartSubscription(objectType: String) -> Bool {
+        guard currentType != objectType else { return false }
+        currentType = objectType
+        return true
     }
 }

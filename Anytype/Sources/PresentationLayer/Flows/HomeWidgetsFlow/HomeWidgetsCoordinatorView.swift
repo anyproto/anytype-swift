@@ -55,15 +55,15 @@ struct HomeWidgetsCoordinatorView: View {
         }
         .sheet(isPresented: $model.showSpaceSwitch) {
             model.createSpaceSwitchModule()
-                .sheet(isPresented: $model.showSpaceCreate) {
-                    model.createSpaceCreateModule()
-                }
         }
         .sheet(isPresented: $model.showSpaceSettings) {
             model.createSpaceSeetingsModule()
         }
         .sheet(isPresented: $model.showSharing) {
             model.createSharingModule()
+        }
+        .sheet(isPresented: $model.showCreateObjectWithType) {
+            model.createObjectWithTypeModule()
         }
     }
 }

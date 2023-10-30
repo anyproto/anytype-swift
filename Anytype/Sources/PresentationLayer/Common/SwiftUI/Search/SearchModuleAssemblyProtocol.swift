@@ -5,4 +5,8 @@ protocol SearchModuleAssemblyProtocol {
     func makeObjectSearch(
         data: SearchModuleModel
     ) -> AnyView
+    
+    func makeSpaceSearch(
+        data: SearchSpaceModel
+    ) -> AnyView
 }

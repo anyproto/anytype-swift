@@ -6,55 +6,96 @@ struct TemplatePickerView: View {
     @State private var index: Int = 0
 
     var body: some View {
-        Spacer
-            .fixedHeight(8)
-        HStack(spacing: 4) {
-            ForEach(viewModel.items) {
-                storyIndicatorView(isSelected: $0.id == viewModel.items[index].id)
-            }
+        NavigationView {
+            content
         }
-        .padding([.horizontal], 16)
-        Spacer.fixedHeight(11)
-        AnytypeText(Loc.TemplatePicker.chooseTemplate, style: .caption1Medium, color: .primary)
-            .frame(alignment: .center)
-
-        TabView(selection: $index) {
-            ForEach(viewModel.items) { item in
-                VStack() {
-                    item.viewController
-                    Spacer()
+        .navigationViewStyle(.stack)
+    }
+    
+    private var content: some View {
+        VStack(spacing: 0) {
+            Spacer.fixedHeight(6)
+            
+            HStack(spacing: 4) {
+                ForEach(viewModel.items) {
+                    storyIndicatorView(isSelected: $0.id == viewModel.items[index].id)
                 }
-                .frame(maxHeight: .infinity)
-                .tag(item.id)
+            }
+            .padding([.horizontal], 16)
+            
+            Spacer.fixedHeight(6)
+            
+            TabView(selection: $index) {
+                ForEach(viewModel.items) { item in
+                    VStack(spacing: 0) {
+                        switch item {
+                        case .blank:
+                            blankView
+                        case let .template(model):
+                            model.viewController
+                        }
+                        Spacer()
+                    }
+                    .frame(maxHeight: .infinity)
+                    .tag(item.id)
+                }
+            }
+            .tabViewStyle(.page(indexDisplayMode: .never))
+            .frame(maxHeight: .infinity)
+            .onChange(of: index) { tab in
+                viewModel.onTabChange(selectedTab: tab)
+            }
+            
+            button
+        }
+        .navigationBarTitleDisplayMode(.inline)
+        .toolbar {
+            ToolbarItem(placement: .navigationBarLeading) {
+                closeButton
+            }
+            ToolbarItem(placement: .principal) {
+                AnytypeText(
+                    Loc.TemplateSelection.Available.title(viewModel.items.count),
+                    style: .caption1Medium,
+                    color: .Text.primary
+                )
             }
         }
-        .tabViewStyle(.page(indexDisplayMode: .never))
-        .frame(maxHeight: .infinity)
-        .onChange(of: index) { tab in
-            viewModel.onTabChange(selectedTab: tab)
+    }
+    
+    private var blankView: some View {
+        VStack(spacing: 0) {
+            Spacer.fixedHeight(125)
+            HStack {
+                AnytypeText(Loc.TemplateSelection.blankTemplate, style: .title, color: .Text.primary)
+                Spacer()
+            }
         }
-
-        buttons
+        .padding([.horizontal], 20)
     }
 
-    func storyIndicatorView(isSelected: Bool) -> some View {
+    private func storyIndicatorView(isSelected: Bool) -> some View {
         Spacer
             .fixedHeight(4)
             .background(isSelected ? Color.Text.primary : Color.Stroke.primary)
             .cornerRadius(2)
-            .frame(maxWidth: .infinity)
+            .frame(maxWidth: 20)
     }
 
-    var buttons: some View {
-        HStack(spacing: 10) {
-            StandardButton(Loc.TemplatePicker.Buttons.skip, style: .secondaryLarge) { [weak viewModel] in
-                viewModel?.onSkipButton()
-            }
-            StandardButton(Loc.TemplatePicker.Buttons.useTemplate, style: .primaryLarge) { [weak viewModel] in
-                viewModel?.onApplyButton()
-            }
+    private var button: some View {
+        StandardButton(Loc.TemplateSelection.selectTemplate, style: .primaryLarge) { [weak viewModel] in
+            viewModel?.onApplyButton()
         }
-        .padding([.horizontal], 19)
-        .padding([.bottom], 16)
+        .padding([.horizontal], 20)
+        .padding([.bottom], 10)
+    }
+    
+    private var closeButton: some View {
+        Button {
+            viewModel.onCloseButton()
+        } label: {
+            Image(asset: .X24.close)
+                .foregroundColor(.Button.active)
+        }
     }
 }

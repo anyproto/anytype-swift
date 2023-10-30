@@ -8,16 +8,17 @@ struct ObjectIconPicker: View {
     var body: some View {
         Group {
             switch viewModel.detailsLayout {
-            case .basic, .set, .collection, .space, .file, .image, .objectType:
+            case .basic, .set, .collection, .file, .image, .objectType:
                 ObjectBasicIconPicker(
                     viewModel: viewModel,
                     onDismiss: dismissHandler.onDismiss
                 )
-            case .profile:
+            case .space, .spaceView, .profile:
                 ObjectProfileIconPicker(viewModel: viewModel, onDismiss: dismissHandler.onDismiss)
             case nil:
                 EmptyView()
-            case .todo, .note, .bookmark, .unknown, .relation, .relationOption, .dashboard, .relationOptionList, .database:
+            case .todo, .note, .bookmark, .unknown, .relation, .relationOption, .dashboard, .relationOptionList,
+                    .database, .audio, .video, .date:
                 EmptyView()
                     .onAppear {
                         anytypeAssertionFailure("Not supported layout")

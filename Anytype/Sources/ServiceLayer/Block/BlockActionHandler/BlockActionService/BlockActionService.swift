@@ -46,7 +46,6 @@ final class BlockActionService: BlockActionServiceProtocol {
     }
 
     func add(info: BlockInformation, targetBlockId: BlockId, position: BlockPosition, setFocus: Bool) {
-        AnytypeAnalytics.instance().logCreateBlock(type: info.content.description, style: info.content.type.style)
         Task {
             guard let blockId = try await singleService
                 .add(contextId: documentId, targetId: targetBlockId, info: info, position: position) else { return }
@@ -88,14 +87,15 @@ final class BlockActionService: BlockActionServiceProtocol {
         }
     }
 
-    func createPage(targetId: BlockId, spaceId: String, typeUniqueKey: ObjectTypeUniqueKey, position: BlockPosition) async throws -> BlockId {
+    func createPage(targetId: BlockId, spaceId: String, typeUniqueKey: ObjectTypeUniqueKey, position: BlockPosition, templateId: String) async throws -> BlockId {
         try await objectActionService.createPage(
             contextId: documentId,
             targetId: targetId,
             spaceId: spaceId,
-            details: [.name(""), .typeUniqueKey(typeUniqueKey)],
+            details: [.name("")],
+            typeUniqueKey: typeUniqueKey,
             position: position,
-            templateId: ""
+            templateId: templateId
         )
     }
 
@@ -160,7 +160,6 @@ final class BlockActionService: BlockActionServiceProtocol {
     
     func setObjectType(type: ObjectType) async throws {
         try await objectActionService.setObjectType(objectId: documentId, typeUniqueKey: type.uniqueKey)
-        AnytypeAnalytics.instance().logObjectTypeChange(type.analyticsType)
     }
 
     func setObjectSetType() async throws {

@@ -1,5 +1,6 @@
 import UIKit
 import Combine
+import AnytypeCore
 
 class ChangeTypeAccessoryView: UIView {
     // https://www.figma.com/file/TupCOWb8sC9NcjtSToWIkS/Mobile---main?node-id=5309%3A1717
@@ -38,7 +39,11 @@ class ChangeTypeAccessoryView: UIView {
         backgroundColor = .Background.primary
 
         addSubview(stackView) {
-            $0.pinToSuperviewPreservingReadability(excluding: [.bottom])
+            if FeatureFlags.ipadIncreaseWidth {
+                $0.pinToSuperview(excluding: [.bottom])
+            } else {
+                $0.pinToSuperviewPreservingReadability(excluding: [.bottom])
+            }
         }
 
         topView.addSubview(doneButton) {

@@ -21,6 +21,8 @@ final class SpaceSwitchModileAssembly: SpaceSwitchModuleAssemblyProtocol {
             workspacesStorage: self.serviceLocator.workspaceStorage(),
             activeWorkspaceStorage: self.serviceLocator.activeWorkspaceStorage(),
             subscriptionService: self.serviceLocator.singleObjectSubscriptionService(),
+            accountManager: self.serviceLocator.accountManager(),
+            workspaceService: self.serviceLocator.workspaceService(),
             output: output
         )).eraseToAnyView()
     }

@@ -6,16 +6,12 @@ import AnytypeCore
 class SetDocument: SetDocumentProtocol {
     let document: BaseDocumentProtocol
     
-    var objectId: Services.BlockId {
-        document.objectId
-    }
+    var objectId: Services.BlockId { document.objectId }
     
     var spaceId: String { document.spaceId }
     
-    var targetObjectID: String?
-    
     var details: ObjectDetails? {
-        if let targetObjectID {
+        if let targetObjectID = inlineParameters?.targetObjectID {
             return document.detailsStorage.get(id: targetObjectID)
         } else {
             return document.details
@@ -30,10 +26,12 @@ class SetDocument: SetDocumentProtocol {
         document.updatePublisher
     }
     
+    var forPreview: Bool { document.forPreview }
+    
     var dataviews: [BlockDataview] {
         return document.children.compactMap { info -> BlockDataview? in
             if case .dataView(let data) = info.content {
-                if let blockId {
+                if let blockId = inlineParameters?.blockId {
                     return info.id == blockId ? data : nil
                 } else {
                     return data
@@ -76,7 +74,7 @@ class SetDocument: SetDocumentProtocol {
     @Published var activeViewSorts: [SetSort] = []
     @Published var activeViewFilters: [SetFilter] = []
     
-    let blockId: BlockId?
+    let inlineParameters: EditorInlineSetObject?
     
     private var subscriptions = [AnyCancellable]()
     private let relationDetailsStorage: RelationDetailsStorageProtocol
@@ -85,15 +83,13 @@ class SetDocument: SetDocumentProtocol {
     
     init(
         document: BaseDocumentProtocol,
-        blockId: BlockId?,
-        targetObjectID: String?,
+        inlineParameters: EditorInlineSetObject?,
         relationDetailsStorage: RelationDetailsStorageProtocol,
-        objectTypeProvider: ObjectTypeProviderProtocol)
-    {
+        objectTypeProvider: ObjectTypeProviderProtocol
+    ) {
         self.document = document
+        self.inlineParameters = inlineParameters
         self.relationDetailsStorage = relationDetailsStorage
-        self.targetObjectID = targetObjectID
-        self.blockId = blockId
         self.dataBuilder = SetContentViewDataBuilder(
             relationsBuilder: RelationsBuilder(),
             detailsStorage: document.detailsStorage,
@@ -189,7 +185,7 @@ class SetDocument: SetDocumentProtocol {
     }
     
     func defaultObjectTypeForView(_ view: DataviewView) throws -> ObjectType {
-        if let viewDefaulTypeId = view.defaultObjectTypeID {
+        if let viewDefaulTypeId = view.defaultObjectTypeID, viewDefaulTypeId.isNotEmpty {
             return try objectTypeProvider.objectType(id: viewDefaulTypeId)
         }
         return try objectTypeProvider.objectType(uniqueKey: .page, spaceId: spaceId)
@@ -285,7 +281,7 @@ class SetDocument: SetDocumentProtocol {
     }
     
     private func updateDataview(with activeViewId: BlockId) {
-        document.infoContainer.updateDataview(blockId: blockId ?? SetConstants.dataviewBlockId) { dataView in
+        document.infoContainer.updateDataview(blockId: inlineParameters?.blockId ?? SetConstants.dataviewBlockId) { dataView in
             dataView.updated(activeViewId: activeViewId)
         }
     }

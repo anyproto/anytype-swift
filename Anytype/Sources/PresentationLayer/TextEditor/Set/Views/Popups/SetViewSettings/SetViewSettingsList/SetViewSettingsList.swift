@@ -6,7 +6,7 @@ struct SetViewSettingsList: View {
     
     var body: some View {
         VStack(spacing: 0) {
-            Spacer.fixedHeight(8)
+            DragIndicator()
             TitleView(
                 title: model.mode.title,
                 rightButton: {
@@ -18,7 +18,7 @@ struct SetViewSettingsList: View {
             content
         }
         .background(Color.Background.secondary)
-        .frame(maxHeight: 401)
+        .frame(maxHeight: 358)
     }
     
     private var content: some View {
@@ -128,6 +128,7 @@ struct SetViewSettingsList: View {
             presentationMode.dismiss()
             model.deleteView()
         }
+        .background(Color.Background.secondary)
     }
     
     private var duplicateButton: some View {
@@ -135,5 +136,6 @@ struct SetViewSettingsList: View {
             presentationMode.dismiss()
             model.duplicateView()
         }
+        .background(Color.Background.secondary)
     }
 }

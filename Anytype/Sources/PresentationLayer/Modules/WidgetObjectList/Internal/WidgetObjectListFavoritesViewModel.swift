@@ -2,6 +2,7 @@ import Foundation
 import Services
 import Combine
 
+@MainActor
 final class WidgetObjectListFavoritesViewModel: WidgetObjectListInternalViewModelProtocol {
     
     private enum Constants {
@@ -29,7 +30,7 @@ final class WidgetObjectListFavoritesViewModel: WidgetObjectListInternalViewMode
     init(
         favoriteSubscriptionService: FavoriteSubscriptionServiceProtocol,
         activeWorkspaceStorage: ActiveWorkpaceStorageProtocol,
-        documentService: DocumentServiceProtocol,
+        documentService: OpenedDocumentsProviderProtocol,
         objectActionService: ObjectActionsServiceProtocol
     ) {
         self.favoriteSubscriptionService = favoriteSubscriptionService

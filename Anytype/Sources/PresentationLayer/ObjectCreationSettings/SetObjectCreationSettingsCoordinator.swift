@@ -19,7 +19,6 @@ protocol SetObjectCreationSettingsCoordinatorProtocol: AnyObject {
 }
 
 final class SetObjectCreationSettingsCoordinator: SetObjectCreationSettingsCoordinatorProtocol {
-    private let mode: SetObjectCreationSettingsMode
     private let navigationContext: NavigationContextProtocol
     private let setObjectCreationSettingsAssembly: SetObjectCreationSettingsModuleAssemblyProtocol
     private let newSearchModuleAssembly: NewSearchModuleAssemblyProtocol
@@ -27,13 +26,11 @@ final class SetObjectCreationSettingsCoordinator: SetObjectCreationSettingsCoord
     private var handler: TemplateSelectionObjectSettingsHandler?
     
     init(
-        mode: SetObjectCreationSettingsMode,
         navigationContext: NavigationContextProtocol,
         setObjectCreationSettingsAssembly: SetObjectCreationSettingsModuleAssemblyProtocol,
         newSearchModuleAssembly: NewSearchModuleAssemblyProtocol,
         objectSettingCoordinator: ObjectSettingsCoordinatorProtocol
     ) {
-        self.mode = mode
         self.navigationContext = navigationContext
         self.setObjectCreationSettingsAssembly = setObjectCreationSettingsAssembly
         self.newSearchModuleAssembly = newSearchModuleAssembly
@@ -46,17 +43,11 @@ final class SetObjectCreationSettingsCoordinator: SetObjectCreationSettingsCoord
         onTemplateSelection: @escaping (ObjectCreationSetting) -> ()
     ) {
         let view = setObjectCreationSettingsAssembly.build(
-            mode: mode,
             setDocument: setDocument,
             viewId: viewId,
             onTemplateSelection: { [weak self] setting in
                 guard let self else { return }
-                switch mode {
-                case .creation:
-                    navigationContext.dismissTopPresented(animated: true) {
-                        onTemplateSelection(setting)
-                    }
-                case .default:
+                navigationContext.dismissTopPresented(animated: true) {
                     onTemplateSelection(setting)
                 }
             }
@@ -66,8 +57,8 @@ final class SetObjectCreationSettingsCoordinator: SetObjectCreationSettingsCoord
         view.model.onObjectTypesSearchAction = { [weak self, weak model] in
             self?.showTypesSearch(
                 setDocument: setDocument,
-                onSelect: { objectTypeId in
-                    model?.setObjectTypeId(objectTypeId)
+                onSelect: { objectType in
+                    model?.setObjectType(objectType)
                 }
             )
         }
@@ -82,19 +73,18 @@ final class SetObjectCreationSettingsCoordinator: SetObjectCreationSettingsCoord
                 }
             )
         }
-        
-        let floatingPanelStyle = mode == .creation
+
         let viewModel = AnytypePopupViewModel(
             contentView: view,
             popupLayout: .constantHeight(
                 height: SetObjectCreationSettingsView.height,
-                floatingPanelStyle: floatingPanelStyle,
+                floatingPanelStyle: true,
                 needBottomInset: false)
         )
         let popup = AnytypePopup(
             viewModel: viewModel,
-            floatingPanelStyle: floatingPanelStyle,
-            configuration: .init(isGrabberVisible: false, dismissOnBackdropView: true, skipThroughGestures: false)
+            floatingPanelStyle: true,
+            configuration: .init(isGrabberVisible: true, dismissOnBackdropView: true, skipThroughGestures: false)
         )
         navigationContext.present(popup)
     }
@@ -104,50 +94,44 @@ final class SetObjectCreationSettingsCoordinator: SetObjectCreationSettingsCoord
         onTemplateSelection: @escaping (ObjectCreationSetting) -> Void,
         onSetAsDefaultTempalte: @escaping (BlockId) -> Void
     ) {
-//        let editorPage = editorAssembly.buildPageModule(browser: nil, data: .init(
-//            objectId: setting.templateId,
-//            spaceId: setting.spaceId,
-//            isSupportedForEdit: true,
-//            isOpenedForPreview: false,
-//            usecase: .templateEditing
-//        ))
-//       
-//        let viewModel = editorPage.0.viewModel
-//        handler = TemplateSelectionObjectSettingsHandler(useAsTemplateAction: onSetAsDefaultTempalte)
-//        let editingTemplateViewController = TemplateEditingViewController(
-//            editorViewController: editorPage.0,
-//            onSettingsTap: { [weak self, weak viewModel] in
-//                guard let self = self, let handler = self.handler else { return }
-//                
-//                self.objectSettingCoordinator.startFlow(
-//                    objectId: setting.templateId,
-//                    delegate: handler,
-//                    output: nil,
-//                    objectSettingsHandler: {
-//                        viewModel?.handleSettingsAction(action: $0)
-//                    }
-//                )
-//            }, onSelectTemplateTap: { [weak self] in
-//                guard let self else { return }
-//                switch mode {
-//                case .creation:
-//                    navigationContext.dismissAllPresented(animated: true) {
-//                        onTemplateSelection(setting)
-//                    }
-//                case .default:
-//                    navigationContext.dismissTopPresented(animated: true) {
-//                        onTemplateSelection(setting)
-//                    }
-//                }
-//            }
-//        )
-//
-//        navigationContext.present(editingTemplateViewController)
+        let editorPage = editorAssembly.buildPageModule(browser: nil, data: .init(
+            objectId: setting.templateId,
+            spaceId: setting.spaceId,
+            isSupportedForEdit: true,
+            isOpenedForPreview: false,
+            usecase: .templateEditing
+        ))
+       
+        let viewModel = editorPage.0.viewModel
+        handler = TemplateSelectionObjectSettingsHandler(useAsTemplateAction: onSetAsDefaultTempalte)
+        let editingTemplateViewController = TemplateEditingViewController(
+            editorViewController: editorPage.0,
+            onSettingsTap: { [weak self, weak viewModel] in
+                guard let self = self, let handler = self.handler else { return }
+                
+                self.objectSettingCoordinator.startFlow(
+                    objectId: setting.templateId,
+                    delegate: handler,
+                    output: nil,
+                    objectSettingsHandler: {
+                        viewModel?.handleSettingsAction(action: $0)
+                    }
+                )
+            }, onSelectTemplateTap: { [weak self] in
+                guard let self else { return }
+                navigationContext.dismissAllPresented(animated: true) {
+                    onSetAsDefaultTempalte(setting.templateId)
+                    onTemplateSelection(setting)
+                }
+            }
+        )
+
+        navigationContext.present(editingTemplateViewController)
     }
     
     private func showTypesSearch(
         setDocument: SetDocumentProtocol,
-        onSelect: @escaping (BlockId) -> ()
+        onSelect: @escaping (ObjectType) -> ()
     ) {
         let view = newSearchModuleAssembly.objectTypeSearchModule(
             title: Loc.changeType,
@@ -156,7 +140,7 @@ final class SetObjectCreationSettingsCoordinator: SetObjectCreationSettingsCoord
             showSetAndCollection: true
         ) { [weak self] type in
             self?.navigationContext.dismissTopPresented()
-            onSelect(type.id)
+            onSelect(type)
         }
 
         navigationContext.presentSwiftUIView(view: view)

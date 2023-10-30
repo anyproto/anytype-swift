@@ -36,12 +36,14 @@ final class ObjectActionsViewModel: ObservableObject {
     private let service: ObjectActionsServiceProtocol
     private let blockActionsService: BlockActionsServiceSingleProtocol
     private let templatesService: TemplatesServiceProtocol
+    private let documentsProvider: DocumentsProviderProtocol
     
     init(
         objectId: BlockId,
         service: ObjectActionsServiceProtocol,
         blockActionsService: BlockActionsServiceSingleProtocol,
         templatesService: TemplatesServiceProtocol,
+        documentsProvider: DocumentsProviderProtocol,
         undoRedoAction: @escaping () -> (),
         openPageAction: @escaping (_ screenData: EditorScreenData) -> (),
         closeEditorAction: @escaping () -> ()
@@ -50,6 +52,7 @@ final class ObjectActionsViewModel: ObservableObject {
         self.service = service
         self.blockActionsService = blockActionsService
         self.templatesService = templatesService
+        self.documentsProvider = documentsProvider
         self.undoRedoAction = undoRedoAction
         self.openPageAction = openPageAction
         self.closeEditorAction = closeEditorAction
@@ -98,12 +101,11 @@ final class ObjectActionsViewModel: ObservableObject {
     func linkItselfAction() {
         guard let currentObjectId = details?.id else { return }
 
-
         let onObjectSelection: (BlockId) -> Void = { objectId in
             Task { @MainActor [weak self] in
                 guard let self = self else { return }
-                let targetDocument = BaseDocument(objectId: objectId)
-                try? await targetDocument.open()
+                let targetDocument = documentsProvider.document(objectId: objectId, forPreview: true)
+                try? await targetDocument.openForPreview()
                 guard let id = targetDocument.children.last?.id,
                       let details = targetDocument.details else { return }
 
@@ -116,7 +118,7 @@ final class ObjectActionsViewModel: ObservableObject {
                     AnytypeAnalytics.instance().logLinkToObject(type: .collection)
                 } else {
                     let info = BlockInformation.emptyLink(targetId: currentObjectId)
-                    AnytypeAnalytics.instance().logCreateBlock(type: info.content.description, style: info.content.type.style)
+                    AnytypeAnalytics.instance().logCreateBlock(type: info.content.type)
                     let _ = try await self.blockActionsService.add(
                         contextId: objectId,
                         targetId: id,

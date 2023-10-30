@@ -2,599 +2,591 @@
 "StyleMenu.Color.TextColor.Placeholder" = "A";
 
 // MARK: Text Style in Slash and Style menu
-"TextStyle.Text.Title" = "Text";
-"TextStyle.Text.Subtitle" = "Just start writing with a plain text";
+"TextStyle.Text.Title" = "Metin";
+"TextStyle.Text.Subtitle" = "Düz bir metinle yazmaya başlayın";
 
-"TextStyle.Title.Title" = "Title";
-"TextStyle.Title.Subtitle" = "Big section heading";
+"TextStyle.Title.Title" = "Başlık";
+"TextStyle.Title.Subtitle" = "Büyük bölüm başlığı";
 
-"TextStyle.Heading.Title" = "Heading";
-"TextStyle.Heading.Subtitle" = "Medium headline";
+"TextStyle.Heading.Title" = "Başlık";
+"TextStyle.Heading.Subtitle" = "Orta başlık";
 
-"TextStyle.Subheading.Title" = "Subheading";
-"TextStyle.Subheading.Subtitle" = "Small headline";
+"TextStyle.Subheading.Title" = "Alt başlık";
+"TextStyle.Subheading.Subtitle" = "Küçük başlık";
 
-"TextStyle.Highlighted.Title" = "Highlighted";
-"TextStyle.Highlighted.Subtitle" = "Spotlight, that needs special attention";
+"TextStyle.Highlighted.Title" = "Vurgulanan";
+"TextStyle.Highlighted.Subtitle" = "Özel dikkat gerektiren bir bölge";
 
 "TextStyle.Callout.Title" = "Callout";
-"TextStyle.Callout.Subtitle" = "Bordered text with icon";
+"TextStyle.Callout.Subtitle" = "Simgeli kenarlıklı metin";
 
-"TextStyle.Checkbox.Title" = "Checkbox";
-"TextStyle.Checkbox.Subtitle" = "Create and track task with to-do list";
+"TextStyle.Checkbox.Title" = "Onay kutusu";
+"TextStyle.Checkbox.Subtitle" = "Yapılacaklar listesiyle görev oluşturun ve takip edin";
 
-"TextStyle.Bulleted.Title" = "Bulleted";
-"TextStyle.Bulleted.Subtitle" = "Simple list";
+"TextStyle.Bulleted.Title" = "Madde işaretli";
+"TextStyle.Bulleted.Subtitle" = "Basit Liste";
 
-"TextStyle.Numbered.Title" = "Numbered list";
-"TextStyle.Numbered.Subtitle" = "Numbered list";
+"TextStyle.Numbered.Title" = "Numaralı liste";
+"TextStyle.Numbered.Subtitle" = "Numaralı liste";
 
-"TextStyle.Toggle.Title" = "Toggle";
-"TextStyle.Toggle.Subtitle" = "Hide and show content inside";
+"TextStyle.Toggle.Title" = "Aç/Kapat";
+"TextStyle.Toggle.Subtitle" = "İçerideki içeriği gizle ve göster";
 
-"TextStyle.Bold.Title" = "Bold";
-"TextStyle.Italic.Title" = "Italic";
-"TextStyle.Strikethrough.Title" = "Strikethrough";
-"TextStyle.Code.Title" = "Code";
-"TextStyle.Link.Title" = "Link";
+"TextStyle.Bold.Title" = "Kalın";
+"TextStyle.Italic.Title" = "İtalik";
+"TextStyle.Strikethrough.Title" = "Üstü çizili";
+"TextStyle.Code.Title" = "Kod";
+"TextStyle.Link.Title" = "Bağlantı";
 
 // MARK: - Block Text
-"BlockText.Content.Placeholder" = "Untitled";
+"BlockText.Content.Placeholder" = "Başlıksız";
 
-"BlockText.ContentType.Title.Placeholder" = "Untitled";
-"BlockText.ContentType.Description.Placeholder" = "Add a description";
+"BlockText.ContentType.Title.Placeholder" = "Başlıksız";
+"BlockText.ContentType.Description.Placeholder" = "Açıklama ekle";
 "BlockText.ContentType.Toggle.Placeholder" = "Toggle block";
-"BlockText.ContentType.Bulleted.Placeholder" = "Bulleted list item";
-"BlockText.ContentType.Checkbox.Placeholder" = "Checkbox";
+"BlockText.ContentType.Bulleted.Placeholder" = "Madde işaretli liste öğesi";
+"BlockText.ContentType.Checkbox.Placeholder" = "Onay kutusu";
 "BlockText.ContentType.Numbered.Placeholder" = "Numbered list item";
-"BlockText.ContentType.Quote.Placeholder" = "Highlighted text";
-"BlockText.ContentType.Header.Placeholder" = "Title";
-"BlockText.ContentType.Header2.Placeholder" = "Heading";
-"BlockText.ContentType.Header3.Placeholder" = "Subheading";
+"BlockText.ContentType.Quote.Placeholder" = "Vurgulu metin";
+"BlockText.ContentType.Header.Placeholder" = "Başlık";
+"BlockText.ContentType.Header2.Placeholder" = "Başlık";
+"BlockText.ContentType.Header3.Placeholder" = "Alt başlık";
 
 // MARK: - Block Link
 
-"BlockLink.PreviewSettings.IconSize.None" = "None";
-"BlockLink.PreviewSettings.IconSize.Small" = "Small";
-"BlockLink.PreviewSettings.IconSize.Medium" = "Medium";
+"BlockLink.PreviewSettings.IconSize.None" = "Hiçbiri";
+"BlockLink.PreviewSettings.IconSize.Small" = "Küçük";
+"BlockLink.PreviewSettings.IconSize.Medium" = "Orta";
 
-"BlockLink.PreviewSettings.Layout.Card.Title" = "Card";
-"BlockLink.PreviewSettings.Layout.Text.Title" = "Text";
+"BlockLink.PreviewSettings.Layout.Card.Title" = "Kart";
+"BlockLink.PreviewSettings.Layout.Text.Title" = "Metin";
 
 // MARK: - Settings
-"Settings.Title" = "Personal Space";
-"Settings.SpaceName" = "Space name";
+"Settings.Title" = "Ayarlar";
+"Settings.SpaceName" = "Alan Adı";
 
 // MARK: - Object
-"Object.Title.Placeholder" = "Untitled";
-"Object.Deleted.Placeholder" = "Deleted object";
+"Object.Title.Placeholder" = "Başlıksız";
+"Object.Deleted.Placeholder" = "Silinen nesne";
 
 // MARK: - Relation
-"Featured relations" = "Featured relations";
-"Create relation" = "Create relation ‘%@’";
-"Relation.View.Hint.Empty" = "empty";
-"Relation.MyRelations" = "My relations";
-"Relation.AddedToLibrary" = "Relation ‘%@’ added to your library";
-"Relation.Deleted" = "Deleted relation";
-"Relation.From.Type" = "From type %@";
+"Featured relations" = "Öne Çıkan Bağıntılar";
+"Create relation" = "Bağıntı oluştur %@’";
+"Relation.View.Hint.Empty" = "boş";
+"Relation.MyRelations" = "Bağıntılarım";
+"Relation.AddedToLibrary" = "%@ bağıntısı kitaplığınıza eklendi";
+"Relation.Deleted" = "Kaldırılmış Bağıntı";
+"Relation.From.Type" = "%@ türünden";
 
-"Relation.Format.Object.Title" = "Object";
-"Relation.Format.Text.Title" = "Text";
-"Relation.Format.Number.Title" = "Number";
-"Relation.Format.Status.Title" = "Status";
-"Relation.Format.Tag.Title" = "Tag";
-"Relation.Format.Date.Title" = "Date";
-"Relation.Format.FileMedia.Title" = "File & Media";
-"Relation.Format.Checkbox.Title" = "Checkbox";
+"Relation.Format.Object.Title" = "Nesne";
+"Relation.Format.Text.Title" = "Metin";
+"Relation.Format.Number.Title" = "Sayı";
+"Relation.Format.Status.Title" = "Durum";
+"Relation.Format.Tag.Title" = "Etiket";
+"Relation.Format.Date.Title" = "Tarih";
+"Relation.Format.FileMedia.Title" = "Dosya & Medya";
+"Relation.Format.Checkbox.Title" = "Onay kutusu";
 "Relation.Format.Url.Title" = "URL";
-"Relation.Format.Email.Title" = "Email";
-"Relation.Format.Phone.Title" = "Phone number";
+"Relation.Format.Email.Title" = "E-Posta";
+"Relation.Format.Phone.Title" = "Telefon numarası";
 
 // MARK: - Mention
-"Mention.Subtitle.Placeholder" = "Object";
+"Mention.Subtitle.Placeholder" = "Nesne";
 
-"None" = "None";
+"None" = "Hiçbiri";
 "Callout" = "Callout";
 "Toggle empty. Tap to create block." = "Toggle empty. Tap to create block.";
-"Loading, please wait" = "Loading, please wait";
-"Done" = "Done";
-"Style" = "Style";
-"Color" = "Color";
-"Background" = "Background";
-"Other" = "Other";
-"Media" = "Media";
-"Alignment" = "Alignment";
-"Actions" = "Actions";
-"Relations" = "Relations";
-"Objects" = "Objects";
-"Delete" = "Delete";
-"Duplicate" = "Duplicate";
-"Copy" = "Copy";
-"Preview" = "Preview";
-"View" = "View";
-"Paste" = "Paste";
-"Move" = "Move";
-"Move to" = "Move to";
-"Back" = "Back";
-"File block subtitle" = "Store file in original state";
-"Picture block subtitle" = "Upload and enrich the page with image";
-"Video block subtitle" = "Upload playable video";
-"Bookmark block subtitle" = "Save your favorite link with summary";
-"Code block subtitle" = "Capture code snippet";
-"Align right" = "Align right";
-"Align left" = "Align left";
-"Align center" = "Align center";
-"Black" = "Black";
-"Amber" = "Amber";
-"Red" = "Red";
-"Pink" = "Pink";
-"Purple" = "Purple";
-"Blue" = "Blue";
-"Teal" = "Teal";
-"Green" = "Green";
-"Default background" = "Default background";
-"Amber background" = "Amber background";
-"Red background" = "Red background";
-"Pink background" = "Pink background";
-"Purple background" = "Purple background";
-"Blue background" = "Blue background";
-"Green background" = "Green background";
-"Create new object" = "Create new object";
-"Cancel" = "Cancel";
-"Paste or type URL" = "Paste or type URL";
-"No items match filter" = "No items match filter";
-"Unsupported block" = "Unsupported block";
-"Name" = "Name";
-"Description" = "Description";
-"Paste processing..." = "Paste processing...";
-"Anytype Library" = "Anytype Library";
-"Copied" = "Copied";
+"Loading, please wait" = "Yükleniyor, lütfen bekleyin";
+"Done" = "Bitti";
+"Style" = "Stil";
+"Color" = "Renk";
+"Background" = "Arkaplan";
+"Other" = "Diğer";
+"Media" = "Medya";
+"Alignment" = "Hizalama";
+"Actions" = "Eylemler";
+"Relations" = "Bağıntılar";
+"Objects" = "Nesneler";
+"Delete" = "Sil";
+"Duplicate" = "Çoğalt";
+"Copy" = "Kopyala";
+"Preview" = "Önizleme";
+"View" = "Görüntüle";
+"Paste" = "Yapıştır";
+"Move" = "Taşı";
+"Move to" = "Şuraya taşı";
+"Back" = "Geri";
+"File block subtitle" = "Dosyayı orijinal halinde sakla";
+"Picture block subtitle" = "Resim yükle ve sayfayı zenginleştir";
+"Video block subtitle" = "Oynatılabilir video yükle";
+"Bookmark block subtitle" = "Favori bağlantınızı özetiyle kaydedin";
+"Code block subtitle" = "Kod kesitini yakala";
+"Align right" = "Sağa hizala";
+"Align left" = "Sola hizala";
+"Align center" = "Ortaya hizala";
+"Black" = "Siyah";
+"Amber" = "Koyu sarı";
+"Red" = "Kırmızı";
+"Pink" = "Pembe";
+"Purple" = "Mor";
+"Blue" = "Mavi";
+"Teal" = "Camgöbeği";
+"Green" = "Yeşil";
+"Default background" = "Varsayılan arka plan";
+"Amber background" = "Koyu sarı arkaplan";
+"Red background" = "Kırmızı arkaplan";
+"Pink background" = "Pembe arkaplan";
+"Purple background" = "Mor arkaplan";
+"Blue background" = "Mavi arkaplan";
+"Green background" = "Yeşil arkaplan";
+"Create new object" = "Yeni nesne oluştur";
+"Cancel" = "İptal";
+"Paste or type URL" = "Bir adres yazın ya da yapıştırın";
+"No items match filter" = "Filtreyle eşleşen öge yok";
+"Unsupported block" = "Desteklenmeyen blok";
+"Name" = "İsim";
+"Description" = "Açıklama";
+"Paste processing..." = "Yapıştırma işleniyor...";
+"Anytype Library" = "Anytype Kütüphanesi";
+"Copied" = "Kopyalandı";
 
 // Home
-"Favorites" = "Favorites";
-"Recent" = "Recent";
-"Bin" = "Bin";
+"Favorites" = "Favoriler";
+"Recent" = "Son";
+"Bin" = "Çöp Kutusu";
 
 // Settings
-"Wallpaper" = "Wallpaper";
-"Log out" = "Log out";
+"Wallpaper" = "Duvar Kağıdı";
+"Log out" = "Çıkış Yap";
 
 // Action
-"Restore" = "Restore";
+"Restore" = "Geri Yükle";
 
 // Keychain screen
-"Keychain.Recovery phrase" = "Recovery phrase";
-"Keychain.Recovery phrase copied to clipboard" = "Recovery phrase copied";
-"Keychain.Recovery phrase description" = "You will need it to sign in. Keep it in a safe place. If you lose it, you can no longer access your account.";
-"Keychain.Save keychain alert part 1" = "If you lose the recovery phrase and get logged out you will not be able to ";
-"Keychain.Save keychain alert part 2" = "ever access your data again";
-"Keychain.Save keychain alert part 3" = ".\nSave this recovery phrase outside of Anytype for data recovery.\nWe recommend using a secure data vault, password manager or piece of paper in the safe.";
-"Keychain.Don’t forget to save your recovery phrase" = "Don’t forget to save your recovery phrase";
-"Keychain.Show and copy phrase" = "Show and copy phrase";
-"Keychain.Have you backed up your recovery phrase?" = "Have you backed up your recovery phrase?";
+"Keychain.Recovery phrase" = "Kurtarma dizilimi";
+"Keychain.Recovery phrase copied to clipboard" = "Kurtarma dizilimi kopyalandı";
+"Keychain.Recovery phrase description" = "Giriş yapmak için ihtiyacın olacak. Güvenli bir yerde tut. Eğer kaybedersen hesabına erişemeyeceksin.";
+"Keychain.Save keychain alert part 1" = "Eğer kurtarma dizilimini kaybedersen ve hesabından çıkış yapılırsa";
+"Keychain.Save keychain alert part 2" = "bilgilerine asla ulaşamayacaksın";
+"Keychain.Save keychain alert part 3" = ".\nBilgilerini kurtarmak için kurtarma dizilimini Anytype dışında bir yerde sakla.\nGüvenilir bir veri yedekleme sistemi, şifre yönetici programları ya da kağıt üstünde saklamanı öneririz.";
+"Keychain.Don’t forget to save your recovery phrase" = "Kurtarma dizilimini kaydetmeyi unutma";
+"Keychain.Show and copy phrase" = "İfadeyi göster ve kopyala";
+"Keychain.Have you backed up your recovery phrase?" = "Kurtarma dizilimini yedekledin mi?";
 "Keychain.Error.String to Data conversion error" = "String to Data conversion error";
 "Keychain.Error.Data to String conversion error" = "Data to String conversion error";
-"Keychain.Error.Unknown Keychain Error" = "Unknown Keychain Error";
+"Keychain.Error.Unknown Keychain Error" = "Bilinmeyen Keychain hatası";
 "Keychain.SeedPhrasePlaceholder" = "witch collapse practice feed shame open despair creek road again ice least lake tree young address brain despair";
 
 // Auth
-"Sign up" = "Sign up";
-"Login" = "Login";
-"Create" = "Create";
-"Scan QR code" = "Scan QR code";
-"Auth.CameraPermissionTitle" = "Please allow access";
+"Sign up" = "Kayıt ol";
+"Login" = "Giriş";
+"Create" = "Oluştur";
+"Scan QR code" = "QR kodunu tara";
+"Auth.CameraPermissionTitle" = "Lütfen erişime izin ver";
 "Restore secret phrase from keychain" = "Restore Recovery Phrase from the keychain";
-"Auth.LogIn" = "I already have one";
-"Auth.Join" = "Generate new account";
-"Auth.Welcome.Subtitle" = "Anytype is your safe space to write, plan, think and organise everything that matters to you.";
-"Auth.Caption.Privacy.Text" = "By continuing you agree to [Terms of Use](%@) and [Privacy Policy](%@)";
-"Auth.Next" = "Next";
+"Auth.LogIn" = "Zaten sahibim";
+"Auth.Join" = "Yeni hesap oluştur";
+"Auth.Welcome.Subtitle" = "Anytype, önem verdiğin her şeyi yazman, planlaman, düşünmen ve organize etmen için güvenilir bir alandır.";
+"Auth.Caption.Privacy.Text" = "Devam ederek [Kullanım Şartlarımızı](%@) ve [Gizlilik Politikalarımızı](%@) kabul etmiş olursun";
+"Auth.Next" = "Sonraki";
 
-"Account recover error" = "Account recover error, try again";
-"Account recover error no internet" = "Account recover error, probably no internet connection";
+"Account recover error" = "Hesap kurtarma hatası, yeniden deneyin";
+"Account recover error no internet" = "Hesap kurtarma hatası, muhtemel bağlantı kesikliği";
 
 // Auth Errors
-"Error creating wallet" = "Error creating wallet";
+"Error creating wallet" = "Cüzdan oluşturma hatası";
 "Error select account" = "Error select account";
 "Error wallet recover account" = "Error wallet recover account";
 
-"Search for language" = "Search for language";
+"Search for language" = "Dil ara";
 
 // Auth - Join flow
 
-"Auth.JoinFlow.Key.Title" = "Save your Recovery Phrase";
+"Auth.JoinFlow.Key.Title" = "Kurtarma Dizilimini kaydet";
 "Auth.JoinFlow.Key.Description" = "It’s a novel way of authentication that gives you full ownership over your account and data.";
-"Auth.JoinFlow.Key.TextField.Placeholder" = "Type your recovery phrase";
-"Auth.JoinFlow.Key.Button.Show.Title" = "Show Recovery Phrase";
-"Auth.JoinFlow.Key.Button.Saved.Title" = "Go to the app";
-"Auth.JoinFlow.Key.Button.Later.Title" = "Skip";
-"Auth.JoinFlow.Key.Button.Copy.Title" = "Copy to clipboard";
-"Auth.JoinFlow.Key.Button.Info.Title" = "Read more";
-"Auth.JoinFlow.Key.Button.Tip.Title" = "You can find Recovery Phrase later in Anytype settings";
+"Auth.JoinFlow.Key.TextField.Placeholder" = "Kurtarma dizilimini gir";
+"Auth.JoinFlow.Key.Button.Show.Title" = "Kurtarma Dizilimini göster";
+"Auth.JoinFlow.Key.Button.Saved.Title" = "Uygulamaya git";
+"Auth.JoinFlow.Key.Button.Later.Title" = "Atla";
+"Auth.JoinFlow.Key.Button.Copy.Title" = "Panoya kopyala";
+"Auth.JoinFlow.Key.Button.Info.Title" = "Devamını oku";
+"Auth.JoinFlow.Key.Button.Tip.Title" = "Kurtarma Dizilimini daha sonra Anytype ayarlarında bulabilirsin.";
 
-"Auth.JoinFlow.Key.ReadMore.Title" = "What is Recovery Phrase?";
+"Auth.JoinFlow.Key.ReadMore.Title" = "Kurtarma Dizilimi nedir?";
 "Auth.JoinFlow.Key.ReadMore.Option1.Title" = "Recovery Phrase is a random combination of 12 words from which your account is magically generated on this device.";
-"Auth.JoinFlow.Key.ReadMore.Option2.Title" = "Whomever knows Recovery Phrase, owns the account. **At this moment, you are the only person in the world who knows it.**";
-"Auth.JoinFlow.Key.ReadMore.Option3.Title" = "That's why it's essential to keep Recovery Phrase safe. As the sole owner, nobody can help you if it's lost.";
-"Auth.JoinFlow.Key.ReadMore.Instruction.Title" = "How to save my phrase?";
-"Auth.JoinFlow.Key.ReadMore.Instruction.Option1.Title" = "The easiest way to store your Recovery Phrase is to save it in your password manager.";
-"Auth.JoinFlow.Key.ReadMore.Instruction.Option2.Title" = "The most secure way is to write it down on paper and keep it offline, in a safe and secure place.";
+"Auth.JoinFlow.Key.ReadMore.Option2.Title" = "Kurtarma Dizilimini bilen her kimse hesabın sahibi olur. **Şu anda, bunu bilen dünyadaki tek kişi sensin.**";
+"Auth.JoinFlow.Key.ReadMore.Option3.Title" = "İşte bu yüzden Kurtarma Dizilimini güvenli tutman çok önemli. Tek sahibi sen olduğun için kaybedersen kimse yardımcı olamaz.";
+"Auth.JoinFlow.Key.ReadMore.Instruction.Title" = "Dizilimimi nasıl kaydederim?";
+"Auth.JoinFlow.Key.ReadMore.Instruction.Option1.Title" = "Kurtarma Dizilimini saklamanın en kolay yolu şifre yöneticisinde kaydetmektir.";
+"Auth.JoinFlow.Key.ReadMore.Instruction.Option2.Title" = "En güvenli yol ise kağıt üstüne yazarak internet üstünde olmayan bir yerde, güvenli ve emin bir yerde saklamaktır.";
 
-"Auth.JoinFlow.Soul.Title" = "Set a name for new identity";
-"Auth.JoinFlow.Soul.Description" = "First, choose a name to use inside Anytype.";
-"Auth.JoinFlow.Soul.Placeholder" = "Untitled";
+"Auth.JoinFlow.Soul.Title" = "Choose your name";
+"Auth.JoinFlow.Soul.Description" = "Uygulamada bu şekilde görüneceksiniz.";
+"Auth.JoinFlow.Soul.Placeholder" = "Başlıksız";
 
 "Auth.JoinFlow.Creating.Soul.Title" = "Generating new account";
 "Auth.JoinFlow.Setting.Space.Title" = "Setting up your personal space";
-"Auth.JoinFlow.Personal.Space.Title" = "Personal Space";
+"Auth.JoinFlow.Personal.Space.Title" = "Ayarlar";
 
 // Auth - Login flow
 "Auth.LoginFlow.Use.Keychain.Title" = "Use keychain";
-"Auth.LoginFlow.Or" = "OR";
-"Auth.LoginFlow.Textfield.Placeholder" = "Type your recovery phrase";
-"Auth.LoginFlow.Enter.Button.Title" = "Login";
-"Auth.LoginFlow.Entering.Void.Title" = "Entering the Void";
+"Auth.LoginFlow.Or" = "YA DA";
+"Auth.LoginFlow.Textfield.Placeholder" = "Kurtarma dizilimini gir";
+"Auth.LoginFlow.Enter.Button.Title" = "Giriş";
+"Auth.LoginFlow.Entering.Void.Title" = "Hiçliğe giriliyor";
 
 // Object settings
 
-"Icon" = "Icon";
-"Emoji or image for object" = "Emoji or image for object";
-"Cover" = "Cover";
-"Background picture" = "Background picture";
-"Layout" = "Layout";
+"Icon" = "İkon";
+"Emoji or image for object" = "Nesne için emoji ya da resim";
+"Cover" = "Kapak";
+"Background picture" = "Arka plan resmi";
+"Layout" = "Düzen";
 "Arrangement of objects on a canvas" = "Arrangement of objects on a canvas";
 
-"Search" = "Search";
-"There is no emoji named" = "There is no emoji named";
-"Try to find a new one or upload your image" = "Try to find a new one or upload your image";
+"Search" = "Ara";
+"There is no emoji named" = "isimli emoji yok";
+"Try to find a new one or upload your image" = "Yeni bir tane bulmaya çalış ya da kendi resmini yükle";
 
 "Emoji" = "Emoji";
-"Random" = "Random";
-"Upload" = "Upload";
-"Change icon" = "Change icon";
-"Change cover" = "Change cover";
-"Remove" = "Remove";
+"Random" = "Rastgele";
+"Upload" = "Yükle";
+"Change icon" = "Simgeyi değiştir";
+"Change cover" = "Kapağı değiştir";
+"Remove" = "Kaldır";
 
-"Solid colors" = "Solid colors";
-"Gradients" = "Gradients";
-"Gallery" = "Gallery";
+"Solid colors" = "Düz renkler";
+"Gradients" = "Gradyanlar";
+"Gallery" = "Galeri";
 
-"Remove photo" = "Remove photo";
-"Basic" = "Basic";
-"Profile" = "Profile";
-"Task" = "Task";
-"Note" = "Note";
-"Choose layout type" = "Choose layout type";
+"Remove photo" = "Fotoğrafı kaldır";
+"Basic" = "Temel";
+"Profile" = "Profil";
+"Task" = "Görev";
+"Note" = "Not";
+"Choose layout type" = "Düzen türü seçin";
 
-"Undo typing" = "Undo typing";
-"Undo" = "Undo";
-"Actions.LinkItself" = "Link to";
-"Actions.MakeAsTemplate" = "Make template";
-"Actions.TemplateMakeDefault" = "Set as default";
+"Undo typing" = "Yazıyı geri al";
+"Undo" = "Geri al";
+"Actions.LinkItself" = "Şuna bağla";
+"Actions.MakeAsTemplate" = "Şablon Oluştur";
+"Actions.TemplateMakeDefault" = "Varsayılan olarak ayarla";
 
 // Object Type
-"Set" = "Set";
-"Collection" = "Collection";
+"Set" = "Ayarla";
+"Collection" = "Koleksiyon";
 
-"Editor.MovingState.ScrollToSelectedPlace" = "Scroll to select a place";
+"Editor.MovingState.ScrollToSelectedPlace" = "Yer seçmek için kaydır";
 
 // MARK: - Link to search
 
-"Editor.LinkToObject.SearchPlaceholder" = "Paste link or search objects";
-"Editor.LinkToObject.PasteFromClipboard" = "Paste from clipboard";
-"Editor.LinkToObject.LinkedTo" = "Linked to";
-"Editor.LinkToObject.CopyLink" = "Copy link";
-"Editor.LinkToObject.RemoveLink" = "Remove link";
+"Editor.LinkToObject.SearchPlaceholder" = "Bağlantıyı yapıştır veya nesneleri ara";
+"Editor.LinkToObject.PasteFromClipboard" = "Panodan yapıştır";
+"Editor.LinkToObject.LinkedTo" = "Şuraya bağlı:";
+"Editor.LinkToObject.CopyLink" = "Bağlantıyı kopyala";
+"Editor.LinkToObject.RemoveLink" = "Bağlantıyı kaldır";
 
 // MARK: - Main search
-"There is no object named" = "There is no object named %@";
-"There is no type named" = "There is no type named %@";
-"Create a new one or search for something else" = "Create a new one or search for something else";
+"There is no object named" = "%@ isimli nesne yok";
+"There is no type named" = "%@ adlı tür yok";
+"Create a new one or search for something else" = "Yeni oluşturun ya da başka bir şey arayın";
 
 // MARK: - Home
 
-"Home.Snackbar.Library" = "Library is available in desktop app";
+"Home.Snackbar.Library" = "Kütüphane masaüstü uygulamasında mevcuttur";
 
 // MARK: - Alerts
-"Alert.CameraPermissions.Settings" = "Settings";
-"Alert.CameraPermissions.GoToSettings" = "Anytype needs access to your camera to scan QR codes.\n\nPlease, go to your device's Settings -> Privacy -> Camera and set Anytype to ON";
+"Alert.CameraPermissions.Settings" = "Ayarlar";
+"Alert.CameraPermissions.GoToSettings" = "QR kodunu taramak için Anytype'ın kameranıza erişmesi gerekir.\n\nLütfen cihazınızın Ayarlar -> Gizlilik -> Kamera bölümüne gidin ve Anytype'a kamera izni verin.";
 
 // MARK: - Deletion
-"Pending deletion text" = "We're sorry to see you go. You have 30 days to cancel this request. After 30 days, your encrypted account data is permanently removed from the backup node.";
+"Pending deletion text" = "Gitmene üzüldük. Bu isteği iptal etmek için 30 günün var. 30 gün sonrasında şifrelenmiş hesap bilgilerin yedekleme düğümünden tamamen silinir.";
 
 // MARK: - Object Settings
-"Undo/Redo" = "Undo/Redo";
+"Undo/Redo" = "Geri Al/Yinele";
 
 
 // MARK: - Templates
-"Alert.Templates_Available.Title" = "This type has %d templates";
-"Alert.Templates_Available.Description" = "Swipe down to skip";
-"Alert.Templates_Available.Button" = "Show";
-"TemplatePicker.ChooseTemplate" = "Choose template";
-"TemplatePicker.Buttons.Skip" = "Skip";
-"TemplatePicker.Buttons.UseTemplate" = "Use template";
-"TemplateSelection.SelectTemplate" = "Select template";
-"TemplateSelection.blankTemplate" = "Blank";
-"TemplateSelection.Template.Subtitle" = "Template";
-"TemplateSelection.ObjectType.Subtitle" = "Object type";
-"TemplateSelection.ObjectType.NoTemplates.Title" = "This type doesn’t support templates";
+"TemplateSelection.Available.Title" = "Bu türün %d tane şablonu var";
+"TemplatePicker.ChooseTemplate" = "Şablon seç";
+"TemplatePicker.Buttons.UseTemplate" = "Şablonu kullan";
+"TemplateSelection.SelectTemplate" = "Şablon seç";
+"TemplateSelection.blankTemplate" = "Boş";
+"TemplateSelection.Template.Subtitle" = "Şablon";
+"TemplateSelection.ObjectType.Subtitle" = "Nesne türü";
 
-"TemplateOptions.Alert.SetAsDefault" = "Set as default for this view";
-"TemplateOptions.Alert.EditTemplate" = "Edit template";
-"TemplateOptions.Alert.Duplicate" = "Duplicate";
-"TemplateOptions.Alert.Delete" = "Delete";
+"TemplateOptions.Alert.EditTemplate" = "Şablonu düzenle";
+"TemplateOptions.Alert.Duplicate" = "Çoğalt";
+"TemplateOptions.Alert.Delete" = "Sil";
 
-"TemplateEditing.Title" = "Edit template";
-"TemplateEditing.SelectButtonTitle" = "Select template";
+"TemplateEditing.Title" = "Şablonu düzenle";
 
-"Templates.Popup.WasAddedTo" = "New template was added to the type";
-"Templates.Popup.Duplicated" = "The template was duplicated";
-"Templates.Popup.Removed" = "The template was removed";
-"Templates.Popup.Default" = "The template was set as default";
+"Templates.Popup.WasAddedTo" = "Bu türe yeni bir şablon eklendi";
+"Templates.Popup.Duplicated" = "Şablon çoğaltıldı";
+"Templates.Popup.Removed" = "Şablon kaldırıldı";
+"Templates.Popup.Default" = "Şablon varsayılan olarak ayarlandı";
 
-"To Bin" = "To Bin";
+"To Bin" = "Çöp kutusuna";
 
 // MARK: - Context Menu
-"Remove From Favorite" = "Remove From Favorite";
-"Add To Favorite" = "Add To Favorite";
-"Move To Bin" = "Move To Bin";
+"Remove From Favorite" = "Favoriden Kaldır";
+"Add To Favorite" = "Favoriye Ekle";
+"Move To Bin" = "Çöpe taşı";
 
 
-"LinkAppearance.Description.None.Title" = "None";
-"LinkAppearance.Description.Object.Title" = "Object description";
-"LinkAppearance.Description.Content.Title" = "Content preview";
-"LinkAppearance.ObjectType.Title" = "Object type";
+"LinkAppearance.Description.None.Title" = "Hiçbiri";
+"LinkAppearance.Description.Object.Title" = "Nesne açıklaması";
+"LinkAppearance.Description.Content.Title" = "İçerik önizlemesi";
+"LinkAppearance.ObjectType.Title" = "Nesne türü";
 
 // MARK: - Sets: Sorts
-"EditSet.Popup.Sorts.NavigationView.Title" = "Sorts";
-"EditSet.Popup.Sorts.EmptyView.Title" = "No sorts here. You can add some";
-"EditSet.Popup.Sort.Types.Ascending" = "Ascending";
-"EditSet.Popup.Sort.Types.Descending" = "Descending";
-"EditSet.Popup.Sort.Add.SearchPlaceholder" = "Сhoose a relation to sort";
+"EditSet.Popup.Sorts.NavigationView.Title" = "Sıralamalar";
+"EditSet.Popup.Sorts.EmptyView.Title" = "Burada sıralama yok. Kendin ekleyebilirsin";
+"EditSet.Popup.Sort.Types.Ascending" = "Artan";
+"EditSet.Popup.Sort.Types.Descending" = "Azalan";
+"EditSet.Popup.Sort.Add.SearchPlaceholder" = "Sıralamak için bir bağıntı seç";
 
 // MARK: - Sets: Filters
-"EditSet.Popup.Filters.NavigationView.Title" = "Filters";
-"EditSet.Popup.Filters.EmptyView.Title" = "No filters here. You can add some";
-"EditSet.Popup.Filters.TextView.Placeholder" = "Value";
+"EditSet.Popup.Filters.NavigationView.Title" = "Filtreler";
+"EditSet.Popup.Filters.EmptyView.Title" = "Burada filtre yok. Kendin ekleyebilirsin";
+"EditSet.Popup.Filters.TextView.Placeholder" = "Değer";
 
 // MARK: - Sets: Filters.Conditions
-"EditSet.Popup.Filter.Condition.Text.Equal" = "Is";
-"EditSet.Popup.Filter.Condition.Text.NotEqual" = "Is not";
-"EditSet.Popup.Filter.Condition.Text.Like" = "Contains";
-"EditSet.Popup.Filter.Condition.Text.NotLike" = "Doesn't contain";
+"EditSet.Popup.Filter.Condition.Text.Equal" = "eşit";
+"EditSet.Popup.Filter.Condition.Text.NotEqual" = "değil";
+"EditSet.Popup.Filter.Condition.Text.Like" = "İçerir";
+"EditSet.Popup.Filter.Condition.Text.NotLike" = "İçermez";
 
-"EditSet.Popup.Filter.Condition.Number.Equal" = "Is equal to";
-"EditSet.Popup.Filter.Condition.Number.NotEqual" = "Is not equal to";
+"EditSet.Popup.Filter.Condition.Number.Equal" = "Eşittir";
+"EditSet.Popup.Filter.Condition.Number.NotEqual" = "Eşit değildir";
 "EditSet.Popup.Filter.Condition.Number.Greater" = "Is greater than";
 "EditSet.Popup.Filter.Condition.Number.Less" = "Is less than";
 "EditSet.Popup.Filter.Condition.Number.GreaterOrEqual" = "Is greater than or equal to";
 "EditSet.Popup.Filter.Condition.Number.LessOrEqual" = "Is less than or equal to";
 
-"EditSet.Popup.Filter.Condition.Date.Equal" = "Is";
+"EditSet.Popup.Filter.Condition.Date.Equal" = "eşit";
 "EditSet.Popup.Filter.Condition.Date.After" = "Is after";
-"EditSet.Popup.Filter.Condition.Date.Before" = "Is before";
-"EditSet.Popup.Filter.Condition.Date.OnOrAfter" = "Is on or after";
-"EditSet.Popup.Filter.Condition.Date.OnOrBefore" = "Is on or before";
-"EditSet.Popup.Filter.Condition.Date.In" = "Is within";
+"EditSet.Popup.Filter.Condition.Date.Before" = "öncesinde";
+"EditSet.Popup.Filter.Condition.Date.OnOrAfter" = "tarihinde veya sonrasında";
+"EditSet.Popup.Filter.Condition.Date.OnOrBefore" = "tarihinde veya öncesinde";
+"EditSet.Popup.Filter.Condition.Date.In" = "içinde";
 
-"EditSet.Popup.Filter.Condition.Selected.In" = "Has any of";
-"EditSet.Popup.Filter.Condition.Selected.AllIn" = "Has all of";
-"EditSet.Popup.Filter.Condition.Selected.NotIn" = "Has none of";
-"EditSet.Popup.Filter.Condition.Selected.Equal" = "Is exactly";
+"EditSet.Popup.Filter.Condition.Selected.In" = "Herhangi:";
+"EditSet.Popup.Filter.Condition.Selected.AllIn" = "Tümü:";
+"EditSet.Popup.Filter.Condition.Selected.NotIn" = "Hiçbiri:";
+"EditSet.Popup.Filter.Condition.Selected.Equal" = "tam olarak";
 
-"EditSet.Popup.Filter.Condition.Checkbox.Equal" = "Is";
-"EditSet.Popup.Filter.Condition.Checkbox.NotEqual" = "Is not";
+"EditSet.Popup.Filter.Condition.Checkbox.Equal" = "eşit";
+"EditSet.Popup.Filter.Condition.Checkbox.NotEqual" = "değil";
 
-"EditSet.Popup.Filter.Condition.General.Empty" = "Is empty";
-"EditSet.Popup.Filter.Condition.General.NotEmpty" = "Is not empty";
-"EditSet.Popup.Filter.Condition.General.None" = "All";
+"EditSet.Popup.Filter.Condition.General.Empty" = "boş";
+"EditSet.Popup.Filter.Condition.General.NotEmpty" = "boş değil";
+"EditSet.Popup.Filter.Condition.General.None" = "Hepsi";
 
-"EditSet.Popup.Filter.Value.Checked" = "Checked";
-"EditSet.Popup.Filter.Value.Unchecked" = "Unchecked";
+"EditSet.Popup.Filter.Value.Checked" = "İşaretli";
+"EditSet.Popup.Filter.Value.Unchecked" = "İşaretsiz";
 
-"EditSet.Popup.Filter.Date.Option.Today" = "Today";
-"EditSet.Popup.Filter.Date.Option.Yesterday" = "Yesterday";
-"EditSet.Popup.Filter.Date.Option.Tomorrow" = "Tomorrow";
-"EditSet.Popup.Filter.Date.Option.LastWeek" = "Last week";
-"EditSet.Popup.Filter.Date.Option.CurrentWeek" = "Current week";
-"EditSet.Popup.Filter.Date.Option.NextWeek" = "Next week";
-"EditSet.Popup.Filter.Date.Option.LastMonth" = "Last month";
-"EditSet.Popup.Filter.Date.Option.CurrentMonth" = "Current month";
-"EditSet.Popup.Filter.Date.Option.NextMonth" = "Next month";
-"EditSet.Popup.Filter.Date.Option.NumberOfDaysAgo" = "Number of days ago";
-"EditSet.Popup.Filter.Date.Option.NumberOfDaysFromNow" = "Number of days from now";
-"EditSet.Popup.Filter.Date.Option.ExactDate" = "Exact date";
+"EditSet.Popup.Filter.Date.Option.Today" = "Bugün";
+"EditSet.Popup.Filter.Date.Option.Yesterday" = "Dün";
+"EditSet.Popup.Filter.Date.Option.Tomorrow" = "Yarın";
+"EditSet.Popup.Filter.Date.Option.LastWeek" = "Geçen hafta";
+"EditSet.Popup.Filter.Date.Option.CurrentWeek" = "Bu hafta";
+"EditSet.Popup.Filter.Date.Option.NextWeek" = "Gelecek hafta";
+"EditSet.Popup.Filter.Date.Option.LastMonth" = "Geçen ay";
+"EditSet.Popup.Filter.Date.Option.CurrentMonth" = "Bu ay";
+"EditSet.Popup.Filter.Date.Option.NextMonth" = "Gelecek ay";
+"EditSet.Popup.Filter.Date.Option.NumberOfDaysAgo" = "gün önce";
+"EditSet.Popup.Filter.Date.Option.NumberOfDaysFromNow" = "gün sonra";
+"EditSet.Popup.Filter.Date.Option.ExactDate" = "Tam tarih";
 
-"EditSet.Popup.Filter.Date.Option.NumberOfDaysAgo.Short" = "%@ days ago";
-"EditSet.Popup.Filter.Date.Option.NumberOfDaysFromNow.Short" = "%@ days from now";
+"EditSet.Popup.Filter.Date.Option.NumberOfDaysAgo.Short" = "%@ gün önce";
+"EditSet.Popup.Filter.Date.Option.NumberOfDaysFromNow.Short" = "%@ gün sonra";
 
 // MARK: - Sets. Create object
-"Set.Create.ObjectTitle.Placeholder" = "Untitled";
+"Set.Create.ObjectTitle.Placeholder" = "Başlıksız";
 
 // MARK: - Sets: Featured relations
-"Set.FeaturedRelations.Query" = "Query";
-"Set.FeaturedRelations.RelationsList" = "Relations:";
-"Set.FeaturedRelations.Relation" = "Relation:";
-"Set.FeaturedRelations.Type" = "Type:";
+"Set.FeaturedRelations.Query" = "Sorgu";
+"Set.FeaturedRelations.RelationsList" = "Bağıntılar:";
+"Set.FeaturedRelations.Relation" = "Bağıntı:";
+"Set.FeaturedRelations.Type" = "Tür:";
 
 // MARK: - Sets: Filters search
-"Set.Button.Title.Apply" = "Apply";
+"Set.Button.Title.Apply" = "Uygula";
 
 // MARK: - Set.Bookmarks
-"Set.Bookmark.Create.Placeholder" = "Paste link";
-"Set.Bookmark.Error.Title" = "Oops - something went wrong";
-"Set.Bookmark.Error.Message" = "Please try again";
+"Set.Bookmark.Create.Placeholder" = "Linki yapıştır";
+"Set.Bookmark.Error.Title" = "Oops - bir şeyler ters gitti";
+"Set.Bookmark.Error.Message" = "Lütfen tekrar dene";
 
 // MARK: - Sets: View Settings
-"Set.View.Settings.ImageFit.Title" = "Fit image";
-"Set.View.Settings.CardSize.Title" = "Card size";
-"Set.View.Settings.CardSize.Small.Title" = "Small";
-"Set.View.Settings.CardSize.Large.Title" = "Large";
-"Set.View.Settings.ImagePreview.Title" = "Image preview";
-"Set.View.Settings.GroupBy.Title" = "Group by";
-"Set.View.Settings.GroupBackgroundColors.Title" = "Color columns";
-"Set.View.Settings.DefaultObject.Title" = "Default object";
-"Set.View.Settings.DefaultTemplate.Title" = "Default template";
+"Set.View.Settings.ImageFit.Title" = "Resmi sığdır";
+"Set.View.Settings.CardSize.Title" = "Kart boyutu";
+"Set.View.Settings.CardSize.Small.Title" = "Küçük";
+"Set.View.Settings.CardSize.Large.Title" = "Büyük";
+"Set.View.Settings.ImagePreview.Title" = "Resim önizlemesi";
+"Set.View.Settings.GroupBy.Title" = "Grupla";
+"Set.View.Settings.GroupBackgroundColors.Title" = "Sütunları renklendir";
 
-"Set.View.Settings.NoRelations.Placeholder" = "No relations";
-"Set.View.Settings.NoFilters.Placeholder" = "No filters";
-"Set.View.Settings.NoSorts.Placeholder" = "No sorts";
-"Set.View.Settings.Objects.Applied.Title" = "%d applied";
+"Set.View.Settings.NoRelations.Placeholder" = "İlişkiler yok";
+"Set.View.Settings.NoFilters.Placeholder" = "Filtreler yok";
+"Set.View.Settings.NoSorts.Placeholder" = "Sıralamalar yok";
+"Set.View.Settings.Objects.Applied.Title" = "%d uygulandı";
 
 // MARK: - Sets: Kanban
-"Set.View.Kanban.Column.Title.Uncategorized" = "Uncategorized";
-"Set.View.Kanban.Column.Title.Checked" = "%@ is checked";
+"Set.View.Kanban.Column.Title.Uncategorized" = "Kategorisiz";
+"Set.View.Kanban.Column.Title.Checked" = "%@ kontrol edildi";
 "Set.View.Kanban.Column.Title.Unchecked" = "%@ is unchecked";
-"Set.View.Kanban.Column.Paging.Title.ShowMore" = "Show more objects";
-"Set.View.Kanban.Column.Settings.Color.Title" = "Column color";
-"Set.View.Kanban.Column.Settings.Hide.Column.Title" = "Hide column";
+"Set.View.Kanban.Column.Paging.Title.ShowMore" = "Daha fazla nesne göster";
+"Set.View.Kanban.Column.Settings.Color.Title" = "Sütun rengi";
+"Set.View.Kanban.Column.Settings.Hide.Column.Title" = "Sütunu gizle";
 
 // MARK: - Sets: empty view
-"Set.View.Empty.Title" = "No query selected";
+"Set.View.Empty.Title" = "Sorgu seçilmedi";
 "Set.View.Empty.Subtitle" = "Add search query to aggregate objects with equal types and relations in a live mode";
 
 // MARK: - Set source type
-"Set.SourceType.SelectQuery" = "Select query";
-"Set.SourceType.Cancel.Toast.Title" = "This query can be changed on desktop only";
+"Set.SourceType.SelectQuery" = "Sorgu seç";
+"Set.SourceType.Cancel.Toast.Title" = "Bu sorgu sadece masaüstünde değiştirilebilir";
 
 // MARK: - Set: Type context menu
-"Set.TypeRelation.ContextMenu.TurnIntoCollection" = "Turn Set into Collection";
-"Set.TypeRelation.ContextMenu.ChangeQuery" = "Change query";
+"Set.TypeRelation.ContextMenu.TurnIntoCollection" = "Kümeyi Koleksiyona dönüştür";
+"Set.TypeRelation.ContextMenu.ChangeQuery" = "Sorguyu değiştir";
 
 // MARK: - Collection: empty view
-"Collection.View.Empty.Title" = "No objects";
-"Collection.View.Empty.Subtitle" = "Create first object to continue";
-"Collection.View.Empty.Button.Title" = "Create object";
+"Collection.View.Empty.Title" = "Nesne yok";
+"Collection.View.Empty.Subtitle" = "Devam etmek için ilk nesneyi oluştur";
+"Collection.View.Empty.Button.Title" = "Nesne oluştur";
 
 // MARK: Slash Menu
-"SlashMenu.DotsDivider" = "Dots divider";
-"SlashMenu.LineDivider" = "Line divider";
-"SlashMenu.TableOfContents" = "Table of contents";
-"SlashMenu.Table" = "Table";
+"SlashMenu.DotsDivider" = "Nokta ayırıcı";
+"SlashMenu.LineDivider" = "Çizgi ayırıcı";
+"SlashMenu.TableOfContents" = "İçindekiler";
+"SlashMenu.Table" = "Tablo";
 
-"Unknown error" = "Unknown error";
-"Account is deleted" = "Account is deleted";
-"Add phone" = "Add phone";
-"Nothing to redo" = "Nothing to redo";
-"Nothing to undo" = "Nothing to undo";
-"Progress..." = "Progress...";
-"Grey" = "Grey";
-"Sky" = "Sky";
-"Yellow" = "Yellow";
-"Grey background" = "Grey background";
-"Teal background" = "Teal background";
-"Sky background" = "Sky background";
-"Yellow background" = "Yellow background";
-"Enter value" = "Enter value";
-"Select object" = "Select object";
-"Select file" = "Select file";
-"Select tag" = "Select tag";
-"Select status" = "Select status";
-"Select date" = "Select date";
-"Add email" = "Add email";
-"Add link" = "Add link";
-"Enter number" = "Enter number";
-"Enter text" = "Enter text";
-"Unsupported value" = "Unsupported value";
-"Select relation type" = "Select relation type";
+"Unknown error" = "Bilinmeyen hata";
+"Account is deleted" = "Hesap silindi";
+"Add phone" = "Telefon ekle";
+"Nothing to redo" = "Yinelenecek bir şey yok";
+"Nothing to undo" = "Geri alınacak bir şey yok";
+"Progress..." = "İlerleme...";
+"Grey" = "Gri";
+"Sky" = "Gök Mavisi";
+"Yellow" = "Sarı";
+"Grey background" = "Gri arkaplan";
+"Teal background" = "Camgöbeği arkaplan";
+"Sky background" = "Gök mavisi arkaplan";
+"Yellow background" = "Sarı arkaplan";
+"Enter value" = "Değeri gir";
+"Select object" = "Nesne seç";
+"Select file" = "Dosya seç";
+"Select tag" = "Etiket seç";
+"Select status" = "Durum seç";
+"Select date" = "Tarih seç";
+"Add email" = "E-posta ekle";
+"Add link" = "Bağlantı ekle";
+"Enter number" = "Numara gir";
+"Enter text" = "Metin gir";
+"Unsupported value" = "Desteklenmeyen değer";
+"Select relation type" = "Bağıntı türünü seç";
 
-"Limit object types" = "Limit object types";
-"Type" = "Type";
-"No name" = "No name";
-"New relation" = "New relation";
-"Non-existent object" = "Non-existent object";
+"Limit object types" = "Nesne türlerini sınırla";
+"Type" = "Tür";
+"No name" = "Ad yok";
+"New relation" = "Yeni bağıntı";
+"Non-existent object" = "Var olmayan nesne";
 
-"Select all" = "Select all";
-"Unselect all" = "Unselect all";
-"Deselect all" = "Deselect all";
-"Shared" = "Shared";
-"Sets" = "Sets";
-"Collections" = "Collections";
-"Default object type" = "Default object type";
-"Personalization" = "Personalization";
-"Choose default object type" = "Choose default object type";
-"About" = "About";
-"Appearance" = "Appearance";
-"Change wallpaper" = "Change wallpaper";
-"Application icon" = "Application icon";
+"Select all" = "Tümünü seç";
+"Unselect all" = "Bütün seçimleri iptal et";
+"Deselect all" = "Tüm seçimi kaldır";
+"Shared" = "Paylaşılan";
+"Sets" = "Küme";
+"Collections" = "Koleksiyonlar";
+"Default object type" = "Varsayılan nesne türü";
+"Personalization" = "Kişiselleştirme";
+"Choose default object type" = "Varsayılan nesne türü seç";
+"About" = "Hakkında";
+"Appearance" = "Görünüm";
+"Change wallpaper" = "Duvar kağıdını değiştir";
+"Application icon" = "Uygulama simgesi";
 "Mode" = "Mode";
-"copied to clipboard" = "%@ copied to clipboard";
+"copied to clipboard" = "%@ panoya kopyalandı";
 "Access to secret phrase from keychain" = "Access to secret phrase from keychain";
-"Back up your recovery phrase" = "Back up your recovery phrase";
-"Account" = "Account";
-"Access" = "Access";
-"Back up phrase" = "Back up phrase";
+"Back up your recovery phrase" = "Kurtarma dizilimini yedekle";
+"Account" = "Hesap";
+"Access" = "Erişim";
+"Back up phrase" = "İfadeyi yedekle";
 "Removing cache" = "Removing cache";
-"Deletion error" = "Deletion error";
-"Start" = "Start";
+"Deletion error" = "Silme hatası";
+"Start" = "Başla";
 "On analytics" = "On analytics";
 "Select account error" = "Select account error";
-"Account deleted" = "Account deleted";
+"Account deleted" = "Hesap silindi";
 "Account.Select.Incompatible.Version.Error.Text" = "Unable to retrieve account data due to incompatible version on remote nodes. Please update Anytype to the latest version.";
 "Restore from keychain" = "Restore from keychain";
-"Edit" = "Edit";
-"In this object" = "In this object";
-"Other relations" = "Other relations";
-"Collection of objects" = "Collection of objects";
-"Designed to capture thoughts quickly" = "Designed to capture thoughts quickly";
+"Edit" = "Düzenle";
+"In this object" = "Bu nesnede";
+"Other relations" = "Diğer bağıntılar";
+"Collection of objects" = "Nesnelerin koleksiyonu";
+"Designed to capture thoughts quickly" = "Düşünceleri hızlıca yakalamak için tasarlandı";
 "Action-focused layout with a checkbox" = "Action-focused layout with a checkbox";
 "Standard layout for canvas blocks" = "Standard layout for canvas blocks";
 "List of related objects" = "List of related objects";
-"Lock" = "Lock";
-"Unlock" = "Unlock";
-"Favorite" = "Favorite";
-"Unfavorite" = "Unfavorite";
+"Lock" = "Kilitle";
+"Unlock" = "Kilidi aç";
+"Favorite" = "Favorilere Ekle";
+"Unfavorite" = "Favorilerden Çıkar";
 "Unsplash" = "Unsplash";
-"Go back" = "Go back";
+"Go back" = "Geri git";
 "Backed up on one node at least" = "Backed up on one node at least";
 "Downloading or uploading data to some node" = "Downloading or uploading data to some node";
 "Anytype node is not connected" = "Anytype node is not connected";
-"Initializing sync" = "Initializing sync";
-"Not syncing" = "Not syncing";
-"Synced" = "Synced";
-"Syncing..." = "Syncing...";
-"No connection" = "No connection";
-"Preparing..." = "Preparing...";
-"Deleted" = "Deleted";
+"Initializing sync" = "Senkronizasyon başlatılıyor";
+"Not syncing" = "Senkronize edilmiyor";
+"Synced" = "Senkronize edildi";
+"Syncing..." = "Senkronize ediliyor...";
+"No connection" = "Bağlantı yok";
+"Preparing..." = "Hazırlanıyor...";
+"Deleted" = "Silindi";
 "Download" = "Download";
 "Open object" = "Open object";
 "Open source" = "Open source";
 "Into object" = "Into object";
-"Add below" = "Add below";
-"Change type" = "Change type";
+"Add below" = "Aşağıya ekleyin";
+"Change type" = "Türü değiştir";
 "Link to existing object" = "Link to existing object";
 "Link to object" = "Link to object";
-"Upload playable audio" = "Upload playable audio";
-"Code snippet" = "Code snippet";
+"Upload playable audio" = "Oynatılabilir ses yükle";
+"Code snippet" = "Kod parçacığı";
 "Bookmark" = "Bookmark";
 "Audio" = "Audio";
 "Video" = "Video";
 "Picture" = "Picture";
-"File" = "File";
+"File" = "Dosya";
 "No related options here" = "No related options here. You can add some";
-"Empty" = "Empty";
-"Link to" = "Link to";
-"Unknown" = "Unknown";
-"Settings" = "Settings";
+"Empty" = "Boş";
+"Link to" = "Şuna bağla";
+"Unknown" = "Bilinmeyen";
+"Settings" = "Ayarlar";
 "Views" = "Views";
-"Filter" = "Filter";
-"Sort" = "Sort";
-"View" = "View";
+"Filter" = "Filtre";
+"Sort" = "Sırala";
+"View" = "Görüntüle";
 "Home" = "Home";
 "Highlight" = "Highlight";
-"Create object" = "Create object";
-"Web pages" = "Web pages";
-"Preview layout" = "Preview layout";
+"Create object" = "Nesne oluştur";
+"Web pages" = "Web sayfaları";
+"Preview layout" = "Önizleme düzeni";
 "Everywhere" = "Everywhere";
-"Exact day" = "Exact day";
-"Tomorrow" = "Tomorrow";
-"Yesterday" = "Yesterday";
-"Today" = "Today";
-"No date" = "No date";
-"Clear" = "Clear";
+"Exact day" = "Tam tarih";
+"Tomorrow" = "Yarın";
+"Yesterday" = "Dün";
+"Today" = "Bugün";
+"No date" = "Tarih yok";
+"Clear" = "Temizle";
 "Create option" = "Create option ‘%@’";
 "Add URL" = "Add URL";
-"Add email" = "Add email";
+"Add email" = "E-posta ekle";
 "Add phone number" = "Add phone number";
 "Add number" = "Add number";
 "Add text" = "Add text";
@@ -619,12 +611,14 @@
 // MARK: - DataviewType
 "DataviewType.grid" = "Grid";
 "DataviewType.list" = "List";
-"DataviewType.gallery" = "Gallery";
+"DataviewType.gallery" = "Galeri";
 "DataviewType.kanban" = "Kanban";
+"DataviewType.calendar" = "Calendar";
 
 // MARK: - ObjectType
 "ObjectType.fallbackDescription" = "Blank canvas with no title";
 "ObjectType.SearchOrInstall" = "Search or install a new type";
+"ObjectType.Search" = "Tür ara";
 "ObjectType.MyTypes" = "My Types";
 "ObjectType.AddedToLibrary" = "Type ‘%@’ added to your library";
 "ObjectType.DeletedName" = "Deleted type";
@@ -645,18 +639,18 @@
 "TalbeOfContents.Empty" = "Add headings to create a table of contents";
 
 // MARK: - Simple tables
-"SimpleTableMenu.Item.clearContents" = "Clear";
-"SimpleTableMenu.Item.color" = "Color";
-"SimpleTableMenu.Item.style" = "Style";
+"SimpleTableMenu.Item.clearContents" = "Temizle";
+"SimpleTableMenu.Item.color" = "Renk";
+"SimpleTableMenu.Item.style" = "Stil";
 "SimpleTableMenu.Item.clearStyle" = "Reset style";
 
 "SimpleTableMenu.Item.InsertLeft" = "Insert left";
 "SimpleTableMenu.Item.InsertRight" = "Insert right";
 "SimpleTableMenu.Item.MoveLeft" = "Move left";
 "SimpleTableMenu.Item.MoveRight" = "Move right";
-"SimpleTableMenu.Item.Duplicate" = "Duplicate";
-"SimpleTableMenu.Item.Delete" = "Delete";
-"SimpleTableMenu.Item.Sort" = "Sort";
+"SimpleTableMenu.Item.Duplicate" = "Çoğalt";
+"SimpleTableMenu.Item.Delete" = "Sil";
+"SimpleTableMenu.Item.Sort" = "Sırala";
 
 "SimpleTableMenu.Item.InsertAbove" = "Insert above";
 "SimpleTableMenu.Item.InsertBelow" = "Insert below";
@@ -673,8 +667,8 @@
 // Relation Actions
 "RelationAction.CopyPhone" = "Copy phone numbler";
 "RelationAction.CopyEmail" = "Copy email";
-"RelationAction.CopyLink" = "Copy link";
-"RelationAction.Copied" = "Copied";
+"RelationAction.CopyLink" = "Bağlantıyı kopyala";
+"RelationAction.Copied" = "Kopyalandı";
 "RelationAction.ReloadingContent" = "Reloading content";
 "RelationAction.ReloadContent" = "Reload object content";
 "RelationAction.CallPhone" = "Call phone numbler";
@@ -685,10 +679,10 @@
 "SetViewTypesPicker.Title" = "Edit view";
 "SetViewTypesPicker.New.Title" = "New view";
 "SetViewTypesPicker.Section.Types.Title" = "View as";
-"SetViewTypesPicker.Settings.Duplicate.View" = "Duplicate";
+"SetViewTypesPicker.Settings.Duplicate.View" = "Çoğalt";
 "SetViewTypesPicker.Settings.Delete.View" = "Delete view";
 "SetViewTypesPicker.Settings.Textfield.Placeholder.New.View" = "New view";
-"SetViewTypesPicker.Settings.Textfield.Placeholder.Untitled" = "Untitled";
+"SetViewTypesPicker.Settings.Textfield.Placeholder.Untitled" = "Başlıksız";
 
 // MARK: Select view picker
 "EditorSetViewPicker.View.Not.Supported.Title" = "Unsupported";
@@ -730,7 +724,7 @@
 "Widgets.Actions.EmptyBin" = "Empty Bin";
 "Widgets.Actions.AddBelow" = "Add Below";
 "Widgets.Layout.Screen.Title" = "Widget type";
-"Widgets.Layout.Link.Title" = "Link";
+"Widgets.Layout.Link.Title" = "Bağlantı";
 "Widgets.Layout.Tree.Title" = "Tree";
 "Widgets.Layout.List.Title" = "List";
 "Widgets.Layout.CompactList.Title" = "Сompact list";
@@ -768,6 +762,12 @@
 "ClearCache.Success" = "Cache sucessfully cleared";
 "ClearCache.Error" = "Error, try again later";
 
+// MARK: - Settings
+"Settings.TitleLegacy" = "Ayarlar";
+"Settings.Title" = "Ayarlar";
+"Settings.SpaceName" = "Alan Adı";
+"Settings.AccountAndAccess" = "Hesap ve erişim";
+
 // MARK: - File Storage
 "FileStorage.Title" = "File storage";
 "FileStorage.Space.Title" = "Remote storage";
@@ -794,16 +794,47 @@
 "ClearCacheAlert.Title" = "Are you sure?";
 "ClearCacheAlert.Description" = "All media files stored in Anytype will be deleted from your current device. They can be downloaded again from a backup node or another device.";
 
+// MARK: - Spaces
+"Spaces.Accessibility.Public" = "Genel";
+"Spaces.Accessibility.Private" = "Özel";
+"Spaces.Search.Title" = "Search spaces";
+
+// MARK: - Space Settings
+"SpaceSettings.Title" = "Alan ayarları";
+"SpaceSettings.RemoteStorage" = "Remote storage";
+"SpaceSettings.Info" = "Alan bilgisi";
+"SpaceSettings.NetworkId" = "Network ID";
+"SpaceSettings.DeleteAlert.Title" = "Delete ‘%@’ space";
+"SpaceSettings.DeleteAlert.Message" = "This space will be deleted irrevocably. You can’t undo this action.";
+"SpaceSettings.DeleteButton" = "Delete space";
+
+// MARK: - Space Create
+"SpaceCreate.Title" = "Alan oluştur";
+
 // MARK: - Sharing
 "Sharing.Navigation.title" = "Add to Anytype";
-"Sharing.Navigation.LeftButton.Title" = "Cancel";
-"Sharing.Navigation.RightButton.Title" = "Done";
+"Sharing.Navigation.LeftButton.Title" = "İptal";
+"Sharing.Navigation.RightButton.Title" = "Bitti";
 
 "Sharing.SaveAs" = "SAVE AS";
+"Sharing.SelectSpace" = "Space";
 "Sharing.AddTo" = "Add to";
-"Sharing.LinkTo" = "Link to";
+"Sharing.LinkTo" = "Şuna bağla";
 
 "Sharing.URL.Bookmark" = "Bookmark object";
-"Sharing.URL.Text" = "Text block";
+"Sharing.URL.Text" = "Metin bloğu";
 "Sharing.Text.NoteObject" = "Note object";
-"Sharing.Text.TextBlock" = "Text block";
+"Sharing.Text.TextBlock" = "Metin bloğu";
+
+// MARK: - Initial
+
+"Initial.UnstableMiddle.Title" = "Warning";
+"Initial.UnstableMiddle.Message" = "You launch app with a unstable middleware. Don't use your production account. Your account may be broken.";
+"Initial.UnstableMiddle.Title" = "Warning";
+"Initial.UnstableMiddle.Logout" = "Logout from current account";
+"Initial.UnstableMiddle.Continue" = "Continue with current account";
+"Initial.UnstableMiddle.WontUseProd" = "I won't be using my production account";
+
+// MARK: - Create tip
+"LongTapCreateTip.Title" = "Crete Objects with specific Type";
+"LongTapCreateTip.Message" = "Long tap on Create Object button to open menu with types";
