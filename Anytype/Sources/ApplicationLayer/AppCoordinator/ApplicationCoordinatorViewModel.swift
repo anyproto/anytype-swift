@@ -17,6 +17,7 @@ final class ApplicationCoordinatorViewModel: ObservableObject {
     private let authCoordinatorAssembly: AuthCoordinatorAssemblyProtocol
     private let homeWidgetsCoordinatorAssembly: HomeWidgetsCoordinatorAssemblyProtocol
     private let deleteAccountModuleAssembly: DeleteAccountModuleAssemblyProtocol
+    private let initialCoordinatorAssembly: InitialCoordinatorAssemblyProtocol
     
     private var authCoordinator: AuthCoordinatorProtocol?
 
@@ -36,7 +37,8 @@ final class ApplicationCoordinatorViewModel: ObservableObject {
         fileErrorEventHandler: FileErrorEventHandlerProtocol,
         authCoordinatorAssembly: AuthCoordinatorAssemblyProtocol,
         homeWidgetsCoordinatorAssembly: HomeWidgetsCoordinatorAssemblyProtocol,
-        deleteAccountModuleAssembly: DeleteAccountModuleAssemblyProtocol
+        deleteAccountModuleAssembly: DeleteAccountModuleAssemblyProtocol,
+        initialCoordinatorAssembly: InitialCoordinatorAssemblyProtocol
     ) {
         self.authService = authService
         self.accountEventHandler = accountEventHandler
@@ -47,11 +49,16 @@ final class ApplicationCoordinatorViewModel: ObservableObject {
         self.authCoordinatorAssembly = authCoordinatorAssembly
         self.homeWidgetsCoordinatorAssembly = homeWidgetsCoordinatorAssembly
         self.deleteAccountModuleAssembly = deleteAccountModuleAssembly
+        self.initialCoordinatorAssembly = initialCoordinatorAssembly
     }
     
     func onAppear() {
         runAtFirstLaunch()
         startObserve()
+    }
+    
+    func initialView() -> AnyView {
+        return initialCoordinatorAssembly.make()
     }
     
     func authView() -> AnyView {
@@ -126,7 +133,7 @@ final class ApplicationCoordinatorViewModel: ObservableObject {
         self.applicationState = applicationState
         switch applicationState {
         case .initial:
-            initialProcess()
+            break
         case .login:
             loginProcess()
         case .home:
@@ -139,10 +146,6 @@ final class ApplicationCoordinatorViewModel: ObservableObject {
     }
     
     // MARK: - Process
-    
-    private func initialProcess() {
-        windowManager.showInitialWindow()
-    }
     
     private func loginProcess() {
         let userId = UserDefaultsConfig.usersId

@@ -6,14 +6,14 @@ import AnytypeCore
 
 final class TemplatesCoordinator {
     private weak var rootViewController: UIViewController?
-    private let editorPageAssembly: EditorAssembly
+//    private let editorPageAssembly: EditorAssembly
 
     init(
         rootViewController: UIViewController,
         editorPageAssembly: EditorPageModuleAssemblyProtocol
     ) {
         self.rootViewController = rootViewController
-        self.editorPageAssembly = editorPageAssembly
+//        self.editorPageAssembly = editorPageAssembly
     }
 
     @MainActor
@@ -21,39 +21,39 @@ final class TemplatesCoordinator {
         document: BaseDocumentProtocol,
         availableTemplates: [ObjectDetails]
     ) {
-        guard let rootViewController = rootViewController else {
-            return
-        }
-
-        var items = availableTemplates.enumerated().map { info -> TemplatePickerViewModel.Item in
-            let item = info.element
-            let data = item.editorScreenData(isOpenedForPreview: true)
-            // TODO: Navigation: Check and fix it
-            let editorController = EmptyView().eraseToAnyView()//editorPageAssembly.make(data: data, output: nil)
-
-            return .template(
-                .init(
-                    id: info.offset + 1,
-                    viewController: editorController,
-                    object: item
-                )
-            )
-        }
-        items.insert(.blank(0), at: 0)
-
-        let picker = TemplatePickerView(
-            viewModel: .init(
-                items: items,
-                document: document,
-                objectService: ServiceLocator.shared.objectActionsService(),
-                onClose: { [weak rootViewController] in
-                    rootViewController?.dismiss(animated: true, completion: nil)
-                }
-            )
-        )
-        let hostViewController = UIHostingController(rootView: picker)
-
-        hostViewController.modalPresentationStyle = .fullScreen
-        rootViewController.present(hostViewController, animated: true, completion: nil)
+//        guard let rootViewController = rootViewController else {
+//            return
+//        }
+//
+//        var items = availableTemplates.enumerated().map { info -> TemplatePickerViewModel.Item in
+//            let item = info.element
+//            let data = item.editorScreenData(isOpenedForPreview: true)
+//            // TODO: Navigation: Check and fix it
+//            let editorController = EmptyView().eraseToAnyView()//editorPageAssembly.make(data: data, output: nil)
+//
+//            return .template(
+//                .init(
+//                    id: info.offset + 1,
+//                    viewController: editorController,
+//                    object: item
+//                )
+//            )
+//        }
+//        items.insert(.blank(0), at: 0)
+//
+//        let picker = TemplatePickerView(
+//            viewModel: .init(
+//                items: items,
+//                document: document,
+//                objectService: ServiceLocator.shared.objectActionsService(),
+//                onClose: { [weak rootViewController] in
+//                    rootViewController?.dismiss(animated: true, completion: nil)
+//                }
+//            )
+//        )
+//        let hostViewController = UIHostingController(rootView: picker)
+//
+//        hostViewController.modalPresentationStyle = .fullScreen
+//        rootViewController.present(hostViewController, animated: true, completion: nil)
     }
 }

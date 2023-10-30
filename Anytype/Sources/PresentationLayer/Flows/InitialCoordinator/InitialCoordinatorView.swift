@@ -6,7 +6,7 @@ struct InitialCoordinatorView: View {
     @StateObject var model: InitialCoordinatorViewModel
     
     var body: some View {
-        EmptyView()
+        Color.white
             .onAppear {
                 model.onAppear()
             }

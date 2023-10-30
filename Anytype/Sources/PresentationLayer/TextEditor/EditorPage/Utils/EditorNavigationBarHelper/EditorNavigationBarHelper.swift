@@ -97,7 +97,7 @@ extension EditorNavigationBarHelper: EditorNavigationBarHelperProtocol {
             self?.updateNavigationBarAppearanceBasedOnContentOffset(scrollView.contentOffset.y + scrollView.contentInset.top)
         }
 
-        controller?.navigationController?.setNavigationBarHidden(false, animated: true)
+//        controller?.navigationController?.setNavigationBarHidden(false, animated: true)
     }
     
     func handleViewWillDisappear() {

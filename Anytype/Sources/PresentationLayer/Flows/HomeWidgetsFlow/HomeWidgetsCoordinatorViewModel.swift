@@ -8,8 +8,7 @@ import NavigationBackport
 @MainActor
 final class HomeWidgetsCoordinatorViewModel: ObservableObject,
                                              HomeWidgetsModuleOutput, CommonWidgetModuleOutput,
-                                             HomeBottomPanelModuleOutput, EditorBrowserDelegate,
-                                             HomeBottomNavigationPanelModuleOutput {
+                                             HomeBottomPanelModuleOutput, HomeBottomNavigationPanelModuleOutput {
     
     // MARK: - DI
     
@@ -283,7 +282,8 @@ final class HomeWidgetsCoordinatorViewModel: ObservableObject,
     // MARK: - Private
     
     private func openObject(screenData: EditorScreenData) {
-        editorPath.push(screenData, delegate: self)
+//        editorPath.push(screenData, delegate: self)
+        editorPath.push(screenData)
     }
     
     private func createAndShowNewPage() {

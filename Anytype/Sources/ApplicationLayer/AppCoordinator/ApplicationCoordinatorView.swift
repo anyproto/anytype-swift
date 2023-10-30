@@ -23,7 +23,11 @@ struct ApplicationCoordinatorView: View {
     var applicationView: some View {
         switch model.applicationState {
         case .initial:
-            EmptyView()
+            model.initialView()
+//            Color.white
+//                .onAppear {
+//                    print("123123123")
+//                }
         case .auth:
             model.authView()
                 .preferredColorScheme(.dark)

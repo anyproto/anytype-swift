@@ -723,8 +723,8 @@ internal enum Loc {
         internal static let description = Loc.tr("Localizable", "Auth.JoinFlow.Soul.Description", fallback: "This is how you will appear in the app.")
         /// Untitled
         internal static let placeholder = Loc.tr("Localizable", "Auth.JoinFlow.Soul.Placeholder", fallback: "Untitled")
-        /// Set your name
-        internal static let title = Loc.tr("Localizable", "Auth.JoinFlow.Soul.Title", fallback: "Set your name")
+        /// Choose your name
+        internal static let title = Loc.tr("Localizable", "Auth.JoinFlow.Soul.Title", fallback: "Choose your name")
       }
     }
     internal enum LoginFlow {

@@ -37,13 +37,10 @@ final class EditorSetModuleAssembly: EditorSetModuleAssemblyProtocol {
     
     @MainActor
     private func setModel(data: EditorSetObject, output: EditorSetModuleOutput?) -> EditorSetViewModel {
-        let document = BaseDocument(objectId: data.objectId)
-        let setDocument = SetDocument(
-            document: document,
-            blockId: data.inline?.blockId,
-            targetObjectID: data.inline?.targetObjectID,
-            relationDetailsStorage: serviceLocator.relationDetailsStorage(),
-            objectTypeProvider: serviceLocator.objectTypeProvider()
+        let setDocument = serviceLocator.documentsProvider.setDocument(
+            objectId: data.objectId,
+            forPreview: !data.isSupportedForEdit,
+            inlineParameters: data.inline
         )
         let dataviewService = serviceLocator.dataviewService(objectId: data.objectId, blockId: data.inline?.blockId)
         
@@ -56,13 +53,13 @@ final class EditorSetModuleAssembly: EditorSetModuleAssemblyProtocol {
                 shouldShowTemplateSelection: false,
                 usecase: .editor
             ),
-            interactor: serviceLocator.objectHeaderInteractor(objectId: setDocument.targetObjectID ?? setDocument.objectId)
+            interactor: serviceLocator.objectHeaderInteractor(objectId: setDocument.inlineParameters?.targetObjectID ?? setDocument.objectId)
         )
         
         let model = EditorSetViewModel(
             setDocument: setDocument,
             headerViewModel: headerModel,
-            subscriptionService: serviceLocator.subscriptionService(),
+            subscriptionStorageProvider: serviceLocator.subscriptionStorageProvider(),
             dataviewService: dataviewService,
             searchService: serviceLocator.searchService(),
             detailsService: detailsService,
@@ -71,7 +68,6 @@ final class EditorSetModuleAssembly: EditorSetModuleAssemblyProtocol {
             groupsSubscriptionsHandler: serviceLocator.groupsSubscriptionsHandler(),
             setSubscriptionDataBuilder: SetSubscriptionDataBuilder(activeWorkspaceStorage: serviceLocator.activeWorkspaceStorage()),
             objectTypeProvider: serviceLocator.objectTypeProvider(),
-            setTemplatesInteractor: serviceLocator.setTemplatesInteractor,
             output: output
         )
 
@@ -93,10 +89,7 @@ final class EditorSetModuleAssembly: EditorSetModuleAssemblyProtocol {
             setViewPickerCoordinatorAssembly: coordinatorsDI.setViewPicker(),
             toastPresenter: uiHelpersDI.toastPresenter(),
             alertHelper: AlertHelper(viewController: nil),
-            setObjectCreationSettingsCoordinator: coordinatorsDI.setObjectCreationSettings().make(
-                with: .creation,
-                navigationContext: uiHelpersDI.commonNavigationContext()
-            ),
+            setObjectCreationSettingsCoordinator: coordinatorsDI.setObjectCreationSettings().make(with: uiHelpersDI.commonNavigationContext()),
             output: output
         )
         

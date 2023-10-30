@@ -39,7 +39,8 @@ final class ApplicationCoordinatorAssembly: ApplicationCoordinatorAssemblyProtoc
                 fileErrorEventHandler: self.serviceLocator.fileErrorEventHandler(),
                 authCoordinatorAssembly: self.coordinatorsDI.authorization(),
                 homeWidgetsCoordinatorAssembly: self.coordinatorsDI.homeWidgets(),
-                deleteAccountModuleAssembly: self.modulesDI.deleteAccount()
+                deleteAccountModuleAssembly: self.modulesDI.deleteAccount(),
+                initialCoordinatorAssembly: self.coordinatorsDI.initial()
             )
         ).eraseToAnyView()
     }

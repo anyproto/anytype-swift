@@ -7,16 +7,13 @@ import AnytypeCore
 @MainActor
 final class HomeBottomNavigationPanelViewModel: ObservableObject {
     
-    private enum Constants {
-        static let subId = "HomeBottomNavigationProfile"
-    }
-
     // MARK: - Private properties
     
     private let activeWorkpaceStorage: ActiveWorkpaceStorageProtocol
     private let subscriptionService: SingleObjectSubscriptionServiceProtocol
     private let dashboardService: DashboardServiceProtocol
     private weak var output: HomeBottomNavigationPanelModuleOutput?
+    private let subId = "HomeBottomNavigationProfile-\(UUID().uuidString)"
     
     // MARK: - Public properties
     
@@ -63,15 +60,14 @@ final class HomeBottomNavigationPanelViewModel: ObservableObject {
     // MARK: - Private
     
     private func setupDataSubscription() {
-        subscriptionService.stopSubscription(subIdPrefix: Constants.subId)
-        
-        subscriptionService.startSubscription(
-            subIdPrefix: Constants.subId,
-            objectId: activeWorkpaceStorage.workspaceInfo.profileObjectID
-        ) { [weak self] details in
-            self?.handleProfileDetails(details: details)
+        Task {
+            await subscriptionService.startSubscription(
+                subId: subId,
+                objectId: activeWorkpaceStorage.workspaceInfo.profileObjectID
+            ) { [weak self] details in
+                self?.handleProfileDetails(details: details)
+            }
         }
-        
     }
     
     private func handleProfileDetails(details: ObjectDetails) {

@@ -145,7 +145,6 @@ final class EditorSetViewModel: ObservableObject {
         groupsSubscriptionsHandler: GroupsSubscriptionsHandlerProtocol,
         setSubscriptionDataBuilder: SetSubscriptionDataBuilderProtocol,
         objectTypeProvider: ObjectTypeProviderProtocol,
-        setTemplatesInteractor: SetTemplatesInteractorProtocol,
         output: EditorSetModuleOutput?
     ) {
         self.setDocument = setDocument
@@ -882,7 +881,6 @@ extension EditorSetViewModel {
         groupsSubscriptionsHandler: DI.preview.serviceLocator.groupsSubscriptionsHandler(),
         setSubscriptionDataBuilder: SetSubscriptionDataBuilder(activeWorkspaceStorage: DI.preview.serviceLocator.activeWorkspaceStorage()),
         objectTypeProvider: DI.preview.serviceLocator.objectTypeProvider(),
-        setTemplatesInteractor: DI.preview.serviceLocator.setTemplatesInteractor,
         output: nil
     )
 }
