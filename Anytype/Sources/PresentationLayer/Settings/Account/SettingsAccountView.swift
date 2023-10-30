@@ -16,7 +16,7 @@ struct SettingsAccountView: View {
         }
         .padding(.horizontal, 20)
         .onAppear {
-            AnytypeAnalytics.instance().logEvent(AnalyticsEventsName.accountSettingsShow)
+            AnytypeAnalytics.instance().logScreenSettingsAccountAccess()
         }
     }
     

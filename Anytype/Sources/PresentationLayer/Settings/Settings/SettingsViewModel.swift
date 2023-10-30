@@ -39,7 +39,7 @@ final class SettingsViewModel: ObservableObject {
     }
     
     func onAppear() {
-        AnytypeAnalytics.instance().logEvent(AnalyticsEventsName.settingsShow)
+        AnytypeAnalytics.instance().logScreenSettingsAccount()
     }
     
     func onAccountDataTap() {

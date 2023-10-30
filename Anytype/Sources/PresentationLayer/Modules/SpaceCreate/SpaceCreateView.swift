@@ -27,6 +27,9 @@ struct SpaceCreateView: View {
             }
             .padding(.horizontal, 20)
         }
+        .onAppear {
+            model.onAppear()
+        }
         .onChange(of: model.dismiss) { _ in
             dismiss()
         }
