@@ -585,6 +585,7 @@
 		2AAA09042AEAB71900A446B8 /* SpaceSwitchCoordinatorViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AAA09012AEAB71900A446B8 /* SpaceSwitchCoordinatorViewModel.swift */; };
 		2AAA09052AEAB71900A446B8 /* SpaceSwitchCoordinatorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AAA09022AEAB71900A446B8 /* SpaceSwitchCoordinatorView.swift */; };
 		2AAA09062AEAB71900A446B8 /* SpaceSwitchCoordinatorAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AAA09032AEAB71900A446B8 /* SpaceSwitchCoordinatorAssembly.swift */; };
+		2AAA09AD2AEBF2D200A446B8 /* BlockContentType+Analytics.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AAA09AC2AEBF2D200A446B8 /* BlockContentType+Analytics.swift */; };
 		2AAE455828A5307C00E538C8 /* BlockBookmark+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AAE455728A5307C00E538C8 /* BlockBookmark+Extensions.swift */; };
 		2AAF34372954C86800921320 /* TreeWidgetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AAF34362954C86800921320 /* TreeWidgetView.swift */; };
 		2AAF343C29559BF700921320 /* TreeWidgetViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AAF343B29559BF700921320 /* TreeWidgetViewModel.swift */; };
@@ -2196,6 +2197,7 @@
 		2AAA09012AEAB71900A446B8 /* SpaceSwitchCoordinatorViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SpaceSwitchCoordinatorViewModel.swift; sourceTree = "<group>"; };
 		2AAA09022AEAB71900A446B8 /* SpaceSwitchCoordinatorView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SpaceSwitchCoordinatorView.swift; sourceTree = "<group>"; };
 		2AAA09032AEAB71900A446B8 /* SpaceSwitchCoordinatorAssembly.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SpaceSwitchCoordinatorAssembly.swift; sourceTree = "<group>"; };
+		2AAA09AC2AEBF2D200A446B8 /* BlockContentType+Analytics.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "BlockContentType+Analytics.swift"; sourceTree = "<group>"; };
 		2AAE455728A5307C00E538C8 /* BlockBookmark+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "BlockBookmark+Extensions.swift"; sourceTree = "<group>"; };
 		2AAF34362954C86800921320 /* TreeWidgetView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TreeWidgetView.swift; sourceTree = "<group>"; };
 		2AAF343B29559BF700921320 /* TreeWidgetViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TreeWidgetViewModel.swift; sourceTree = "<group>"; };
@@ -5697,6 +5699,7 @@
 				2A39F3CA29ED97F2005DE8F5 /* BlockTextStyle+Analytics.swift */,
 				2A39F3CC29ED9A7E005DE8F5 /* LayoutAlignment+Analytics.swift */,
 				2A1D2B3D2A42CD0300B07596 /* UIUserInterfaceStyle+Analytics.swift */,
+				2AAA09AC2AEBF2D200A446B8 /* BlockContentType+Analytics.swift */,
 			);
 			path = Converters;
 			sourceTree = "<group>";
@@ -10442,6 +10445,7 @@
 				3DDD3D1426AED74E00B5673A /* CodeLanguage.swift in Sources */,
 				12D15D1E27F5F6C000D22086 /* RelationOptionsSearchModuleBuilderProtocol.swift in Sources */,
 				3D30418527ECBBDB00FFE0EB /* AnytypeToggle.swift in Sources */,
+				2AAA09AD2AEBF2D200A446B8 /* BlockContentType+Analytics.swift in Sources */,
 				2E5E0662298AD693004A98CE /* SetHeaderSettingsViewModel.swift in Sources */,
 				5398C4342804D63B00983C79 /* WaitingPopupView.swift in Sources */,
 				3D30412A27E8D12800FFE0EB /* EditorSetSettingsView.swift in Sources */,

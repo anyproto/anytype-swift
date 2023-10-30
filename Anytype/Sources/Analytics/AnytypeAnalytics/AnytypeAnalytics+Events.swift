@@ -128,6 +128,10 @@ extension AnytypeAnalytics {
         }
     }
 
+    func logCreateBlock(type: BlockContentType) {
+        logCreateBlock(type: type.analyticsValue, style: type.styleAnalyticsValue)
+    }
+    
     func logCreateBlock(type: String, style: String? = nil) {
         var props = [String: String]()
         props[AnalyticsEventsPropertiesKey.type] = type
