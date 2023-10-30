@@ -1,4 +1,4 @@
-"NSFaceIDUsageDescription" = "Face ID is used to retrieve your Recovery Phrase securely stored in the keychain";
-"NSCameraUsageDescription" = "Camera is used to scan QR codes for a secure and convenient login experience";
-"NSLocalNetworkUsageDescription" = "Local network access is used to synchronize data directly between your nearby devices";
-"NSPhotoLibraryAddUsageDescription" = "Access is needed to save selected images to your library";
+"NSFaceIDUsageDescription" = "Face ID 用於擷取安全儲存在鑰匙圈中的復原短語";
+"NSCameraUsageDescription" = "採用攝影機掃描二維碼，安全便捷的登入體驗";
+"NSLocalNetworkUsageDescription" = "本地網路存取用於直接在附近的設備之間同步數據";
+"NSPhotoLibraryAddUsageDescription" = "需要存取權限才能將選定的圖像儲存到您的庫中";
