@@ -184,8 +184,8 @@
 "Scan QR code" = "Skann QR-kode";
 "Auth.CameraPermissionTitle" = "Vennligst tillat tilgang";
 "Restore secret phrase from keychain" = "Gjenopprett gjenopprettingsfrasen fra nøkkelringen";
-"Auth.LogIn" = "Jeg har allerede en";
-"Auth.Join" = "Generer ny konto";
+"Auth.LogIn" = "Log In";
+"Auth.Join" = "Create New Account";
 "Auth.Welcome.Subtitle" = "Anytype er ditt sikre sted å skrive, planlegge, tenke og organisere alt som betyr for deg.";
 "Auth.Caption.Privacy.Text" = "Ved å fortsette godtar du [Brukervilkårene](%@) og [Personvernerklæringen](%@)";
 "Auth.Next" = "Neste";
