@@ -70,6 +70,7 @@ final class AuthService: AuthServiceProtocol {
             let analyticsId = response.account.info.analyticsID
             AnytypeAnalytics.instance().setUserId(analyticsId)
             AnytypeAnalytics.instance().logAccountCreate(analyticsId: analyticsId, middleTime: middleTime)
+            AnytypeAnalytics.instance().logCreateSpace()
             appErrorLoggerConfiguration.setUserId(analyticsId)
             
             let account = response.account.asModel

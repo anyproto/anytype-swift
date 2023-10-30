@@ -105,7 +105,7 @@ enum AnalyticsEventsName {
 
     static let wallpaperSettingsShow = "ScreenSettingsWallpaper"
     static let screenSettingsAccount = "ScreenSettingsAccount"
-    static let screenKeychain = "ScreenKeychain"
+    static let screenSettingsAccountAccess = "ScreenSettingsAccountAccess"
     static let screenSettingsPersonal = "ScreenSettingsPersonal"
     static let appearanceSettingsShow = "ScreenSettingsAppearance"
     static let menuHelp = "MenuHelp"

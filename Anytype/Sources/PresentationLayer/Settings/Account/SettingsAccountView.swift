@@ -16,7 +16,7 @@ struct SettingsAccountView: View {
         }
         .padding(.horizontal, 20)
         .onAppear {
-            AnytypeAnalytics.instance().logScreenKeychain()
+            AnytypeAnalytics.instance().logScreenSettingsAccountAccess()
         }
     }
     

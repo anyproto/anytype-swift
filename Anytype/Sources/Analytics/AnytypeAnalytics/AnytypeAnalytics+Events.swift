@@ -722,7 +722,7 @@ extension AnytypeAnalytics {
         logEvent(AnalyticsEventsName.screenSettingsAccount)
     }
     
-    func logScreenKeychain() {
-        logEvent(AnalyticsEventsName.screenKeychain)
+    func logScreenSettingsAccountAccess() {
+        logEvent(AnalyticsEventsName.screenSettingsAccountAccess)
     }
 }
