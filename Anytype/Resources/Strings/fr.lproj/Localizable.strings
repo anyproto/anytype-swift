@@ -184,8 +184,8 @@
 "Scan QR code" = "Scanner un QR code";
 "Auth.CameraPermissionTitle" = "Veuillez autoriser l'accès";
 "Restore secret phrase from keychain" = "Restaurer la phrase de récupération à partir du trousseau";
-"Auth.LogIn" = "J'en ai déjà un";
-"Auth.Join" = "Générer un nouveau compte";
+"Auth.LogIn" = "Log In";
+"Auth.Join" = "Create New Account";
 "Auth.Welcome.Subtitle" = "Anytype est votre lieu sûr pour écrire, planifier, penser et organiser tout ce qui compte pour vous.";
 "Auth.Caption.Privacy.Text" = "En continuant, vous acceptez [Conditions d'utilisation](%@) et [Politique de confidentialité](%@)";
 "Auth.Next" = "Suivant";
