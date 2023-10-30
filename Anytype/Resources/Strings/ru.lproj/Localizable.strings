@@ -220,7 +220,7 @@
 "Auth.JoinFlow.Key.ReadMore.Instruction.Option1.Title" = "Самый простой способ хранить вашу фразу восстановления - сохранить ее в вашем менеджере паролей.";
 "Auth.JoinFlow.Key.ReadMore.Instruction.Option2.Title" = "Самый безопасный способ - записать ее на бумаге и оставить бумагу в безопасном месте.";
 
-"Auth.JoinFlow.Soul.Title" = "Установите ваше имя";
+"Auth.JoinFlow.Soul.Title" = "Choose your name";
 "Auth.JoinFlow.Soul.Description" = "Так вы будете отображаться в приложении.";
 "Auth.JoinFlow.Soul.Placeholder" = "Без названия";
 
@@ -613,6 +613,7 @@
 "DataviewType.list" = "Список";
 "DataviewType.gallery" = "Галерея";
 "DataviewType.kanban" = "Канбан";
+"DataviewType.calendar" = "Calendar";
 
 // MARK: - ObjectType
 "ObjectType.fallbackDescription" = "Пустой холст без заголовка";

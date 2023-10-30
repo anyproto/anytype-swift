@@ -220,7 +220,7 @@
 "Auth.JoinFlow.Key.ReadMore.Instruction.Option1.Title" = "Der einfachste Weg, Ihre Wiederherstellungsphrase zu speichern, ist die Speicherung in Ihrem Passwort-Manager.";
 "Auth.JoinFlow.Key.ReadMore.Instruction.Option2.Title" = "Am sichersten ist es, sie auf Papier aufzuschreiben und offline, an einem sicheren Ort.";
 
-"Auth.JoinFlow.Soul.Title" = "Gib deinen Namen ein";
+"Auth.JoinFlow.Soul.Title" = "Choose your name";
 "Auth.JoinFlow.Soul.Description" = "So wirst du in der App erscheinen.";
 "Auth.JoinFlow.Soul.Placeholder" = "Unbenannt";
 
@@ -287,8 +287,8 @@
 "Editor.LinkToObject.RemoveLink" = "Link entfernen";
 
 // MARK: - Main search
-"There is no object named" = "There is no object named %@";
-"There is no type named" = "There is no type named %@";
+"There is no object named" = "Es gibt kein Objekt mit dem Namen %@";
+"There is no type named" = "Es gibt keinen Typ mit dem Namen %@";
 "Create a new one or search for something else" = "Create a new one or search for something else";
 
 // MARK: - Home
@@ -296,14 +296,14 @@
 "Home.Snackbar.Library" = "Library is available in desktop app";
 
 // MARK: - Alerts
-"Alert.CameraPermissions.Settings" = "Settings";
+"Alert.CameraPermissions.Settings" = "Einstellungen";
 "Alert.CameraPermissions.GoToSettings" = "Anytype needs access to your camera to scan QR codes.\n\nPlease, go to your device's Settings -> Privacy -> Camera and set Anytype to ON";
 
 // MARK: - Deletion
-"Pending deletion text" = "We're sorry to see you go. You have 30 days to cancel this request. After 30 days, your encrypted account data is permanently removed from the backup node.";
+"Pending deletion text" = "Es tut uns leid, dass du gehst. Du hast 30 Tage Zeit, um diese Anfrage abzubrechen. Nach 30 Tagen werden deine verschlüsselten Kontodaten permanent aus dem Backup-Knoten entfernt.";
 
 // MARK: - Object Settings
-"Undo/Redo" = "Undo/Redo";
+"Undo/Redo" = "Rückgängig/Wiederholen";
 
 
 // MARK: - Templates
@@ -326,12 +326,12 @@
 "Templates.Popup.Removed" = "The template was removed";
 "Templates.Popup.Default" = "The template was set as default";
 
-"To Bin" = "To Bin";
+"To Bin" = "Zum Papierkorb";
 
 // MARK: - Context Menu
-"Remove From Favorite" = "Remove From Favorite";
-"Add To Favorite" = "Add To Favorite";
-"Move To Bin" = "Move To Bin";
+"Remove From Favorite" = "Aus den Favoriten entfernen";
+"Add To Favorite" = "Zu den Favoriten hinzufügen";
+"Move To Bin" = "In den Papierkorb verschieben";
 
 
 "LinkAppearance.Description.None.Title" = "Keine";
@@ -567,7 +567,7 @@
 "Empty" = "Empty";
 "Link to" = "Link zu";
 "Unknown" = "Unknown";
-"Settings" = "Settings";
+"Settings" = "Einstellungen";
 "Views" = "Views";
 "Filter" = "Filter";
 "Sort" = "Sort";
@@ -613,6 +613,7 @@
 "DataviewType.list" = "List";
 "DataviewType.gallery" = "Galerie";
 "DataviewType.kanban" = "Kanban";
+"DataviewType.calendar" = "Calendar";
 
 // MARK: - ObjectType
 "ObjectType.fallbackDescription" = "Blank canvas with no title";
@@ -763,7 +764,7 @@
 
 // MARK: - Settings
 "Settings.TitleLegacy" = "Settings";
-"Settings.Title" = "Settings";
+"Settings.Title" = "Einstellungen";
 "Settings.SpaceName" = "Space-Name";
 "Settings.AccountAndAccess" = "Account and access";
 

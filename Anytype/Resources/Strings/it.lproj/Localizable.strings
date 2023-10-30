@@ -220,7 +220,7 @@
 "Auth.JoinFlow.Key.ReadMore.Instruction.Option1.Title" = "Il modo più semplice per memorizzare la tua Frase di Recupero è quello di salvarla nel tuo gestore di password.";
 "Auth.JoinFlow.Key.ReadMore.Instruction.Option2.Title" = "Il modo più sicuro è scriverlo su carta e tenerlo offline, in un luogo sicuro.";
 
-"Auth.JoinFlow.Soul.Title" = "Imposta il tuo nome";
+"Auth.JoinFlow.Soul.Title" = "Choose your name";
 "Auth.JoinFlow.Soul.Description" = "Ecco come apparirai nell'app.";
 "Auth.JoinFlow.Soul.Placeholder" = "Senza titolo";
 
@@ -280,7 +280,7 @@
 
 // MARK: - Link to search
 
-"Editor.LinkToObject.SearchPlaceholder" = "Paste link or search objects";
+"Editor.LinkToObject.SearchPlaceholder" = "Incolla collegamento o cerca oggetti";
 "Editor.LinkToObject.PasteFromClipboard" = "Paste from clipboard";
 "Editor.LinkToObject.LinkedTo" = "Collegato a";
 "Editor.LinkToObject.CopyLink" = "Copia collegamento";
@@ -613,6 +613,7 @@
 "DataviewType.list" = "List";
 "DataviewType.gallery" = "Galleria";
 "DataviewType.kanban" = "Kanban";
+"DataviewType.calendar" = "Calendario";
 
 // MARK: - ObjectType
 "ObjectType.fallbackDescription" = "Blank canvas with no title";
