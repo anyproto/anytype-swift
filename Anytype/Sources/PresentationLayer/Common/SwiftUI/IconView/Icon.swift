@@ -7,7 +7,6 @@ enum Icon: Hashable, Equatable {
     // Container
     case cycle(Icon.Content)
     case square(Icon.Content)
-    case squareDynamic(Icon.Content)
     case squircle(Icon.Content)
     
     // Without Container

@@ -437,7 +437,6 @@
 		2A5BA75F2A17C2A10049B3B4 /* AnytypeErrorLoggerConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A5BA75E2A17C2A10049B3B4 /* AnytypeErrorLoggerConfiguration.swift */; };
 		2A5BC4B72A78F5C7004FAABF /* CircleIconPainter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A5BC4B62A78F5C7004FAABF /* CircleIconPainter.swift */; };
 		2A5BC4BA2A78F61E004FAABF /* SquareIconPainter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A5BC4B92A78F61E004FAABF /* SquareIconPainter.swift */; };
-		2A5BC4BC2A78F7FE004FAABF /* SquareDynamicIconPainter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A5BC4BB2A78F7FE004FAABF /* SquareDynamicIconPainter.swift */; };
 		2A5BC4BE2A78F9D9004FAABF /* SquircleIconPainter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A5BC4BD2A78F9D9004FAABF /* SquircleIconPainter.swift */; };
 		2A5BC4C22A78FAC7004FAABF /* AssetIconPainter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A5BC4C02A78FAC7004FAABF /* AssetIconPainter.swift */; };
 		2A5BC4C32A78FAC7004FAABF /* CharIconPainter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A5BC4C12A78FAC7004FAABF /* CharIconPainter.swift */; };
@@ -2061,7 +2060,6 @@
 		2A5BA75E2A17C2A10049B3B4 /* AnytypeErrorLoggerConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnytypeErrorLoggerConfiguration.swift; sourceTree = "<group>"; };
 		2A5BC4B62A78F5C7004FAABF /* CircleIconPainter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CircleIconPainter.swift; sourceTree = "<group>"; };
 		2A5BC4B92A78F61E004FAABF /* SquareIconPainter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SquareIconPainter.swift; sourceTree = "<group>"; };
-		2A5BC4BB2A78F7FE004FAABF /* SquareDynamicIconPainter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SquareDynamicIconPainter.swift; sourceTree = "<group>"; };
 		2A5BC4BD2A78F9D9004FAABF /* SquircleIconPainter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SquircleIconPainter.swift; sourceTree = "<group>"; };
 		2A5BC4C02A78FAC7004FAABF /* AssetIconPainter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AssetIconPainter.swift; sourceTree = "<group>"; };
 		2A5BC4C12A78FAC7004FAABF /* CharIconPainter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CharIconPainter.swift; sourceTree = "<group>"; };
@@ -5348,7 +5346,6 @@
 			children = (
 				2A5BC4B62A78F5C7004FAABF /* CircleIconPainter.swift */,
 				2A5BC4B92A78F61E004FAABF /* SquareIconPainter.swift */,
-				2A5BC4BB2A78F7FE004FAABF /* SquareDynamicIconPainter.swift */,
 				2A5BC4BD2A78F9D9004FAABF /* SquircleIconPainter.swift */,
 			);
 			path = Container;
@@ -11022,7 +11019,6 @@
 				2E0797BC2A0965FD006F0FD7 /* JoinFlowCoordinatorAssembly.swift in Sources */,
 				0A74E4FB23A90E8C00B6C406 /* AuthService.swift in Sources */,
 				53F80F0527BD8DAD00E9E12A /* ObjectListRelationViewUIKit.swift in Sources */,
-				2A5BC4BC2A78F7FE004FAABF /* SquareDynamicIconPainter.swift in Sources */,
 				3D3A182A2733E946000D0842 /* MarkdownListener.swift in Sources */,
 				2A6693752A7104EA007747DD /* StaticImageGuideline.swift in Sources */,
 				2A03039A28ABAA99002EFC46 /* TextRelationCopyActionViewModel.swift in Sources */,

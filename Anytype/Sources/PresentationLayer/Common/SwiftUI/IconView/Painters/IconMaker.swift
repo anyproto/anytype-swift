@@ -99,7 +99,7 @@ final class IconMaker {
             case .space(let space):
                 switch space {
                 case .character(let c):
-                    return SquareDynamicIconPainter(contentPainter: contentPainter(.char(String(c))))
+                    return SquareIconPainter(contentPainter: contentPainter(.char(String(c))))
                 case .gradient(let gradientId):
                     return SquareGradientIconPainter(gradientId: gradientId.rawValue)
                 }
@@ -107,7 +107,7 @@ final class IconMaker {
                 return checked ? contentPainter(.asset(.TaskLayout.done)) : contentPainter(.asset(.TaskLayout.empty))
             case .placeholder(let c):
                 let char = c.map { String($0) } ?? ""
-                return SquareDynamicIconPainter(contentPainter: contentPainter(.char(char)))
+                return SquareIconPainter(contentPainter: contentPainter(.char(char)))
             }
         case .asset(let imageAsset):
             return contentPainter(.asset(imageAsset))
@@ -117,8 +117,6 @@ final class IconMaker {
             return SquareIconPainter(contentPainter: contentPainter(content))
         case .cycle(let content):
             return CircleIconPainter(contentPainter: contentPainter(content))
-        case .squareDynamic(let content):
-            return SquareDynamicIconPainter(contentPainter: contentPainter(content))
         case .squircle(let content):
             return SquircleIconPainter(contentPainter: contentPainter((content)))
         }
