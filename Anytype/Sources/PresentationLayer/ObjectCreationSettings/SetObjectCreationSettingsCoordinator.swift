@@ -69,7 +69,10 @@ final class SetObjectCreationSettingsCoordinator: SetObjectCreationSettingsCoord
         view.model.templateEditingHandler = { [weak self, weak model, weak navigationContext] setting in
             self?.showTemplateEditing(
                 setting: setting,
-                onTemplateSelection: onTemplateSelection,
+                onTemplateSelection: { setting in
+                    model?.setTemplateAsDefault(templateId: setting.templateId, showMessage: false)
+                    onTemplateSelection(setting)
+                },
                 onSetAsDefaultTempalte: { templateId in
                     model?.setTemplateAsDefault(templateId: templateId, showMessage: true)
                     navigationContext?.dismissTopPresented(animated: true, completion: nil)
@@ -123,7 +126,6 @@ final class SetObjectCreationSettingsCoordinator: SetObjectCreationSettingsCoord
             }, onSelectTemplateTap: { [weak self] in
                 guard let self else { return }
                 navigationContext.dismissAllPresented(animated: true) {
-                    onSetAsDefaultTempalte(setting.templateId)
                     onTemplateSelection(setting)
                 }
             }

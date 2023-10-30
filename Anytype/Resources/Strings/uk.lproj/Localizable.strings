@@ -220,8 +220,7 @@
 "Auth.JoinFlow.Key.ReadMore.Instruction.Option1.Title" = "Найпростіший спосіб зберегти вашу фразу відновлення - це зберегти її у вашому менеджері паролів.";
 "Auth.JoinFlow.Key.ReadMore.Instruction.Option2.Title" = "Найнадійніший спосіб - записати його на папері й зберігати в надійному і безпечному місці.";
 
-"Auth.JoinFlow.Soul.Title" = "Встановіть ваше ім'я
-";
+"Auth.JoinFlow.Soul.Title" = "Choose your name";
 "Auth.JoinFlow.Soul.Description" = "Так ви будете відображатися в застосунку.";
 "Auth.JoinFlow.Soul.Placeholder" = "Без назви";
 
@@ -614,6 +613,7 @@
 "DataviewType.list" = "Список";
 "DataviewType.gallery" = "Галерея";
 "DataviewType.kanban" = "Канбан";
+"DataviewType.calendar" = "Календар";
 
 // MARK: - ObjectType
 "ObjectType.fallbackDescription" = "Порожнє полотно без заголовка";

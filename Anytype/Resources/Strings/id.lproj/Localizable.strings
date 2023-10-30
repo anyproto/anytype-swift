@@ -5,7 +5,7 @@
 "TextStyle.Text.Title" = "Teks";
 "TextStyle.Text.Subtitle" = "Mulailah dengan menulis teks";
 
-"TextStyle.Title.Title" = "Tajuk 1";
+"TextStyle.Title.Title" = "Judul";
 "TextStyle.Title.Subtitle" = "Tajuk ukuran besar";
 
 "TextStyle.Heading.Title" = "Tajuk 2";
@@ -48,7 +48,7 @@
 "BlockText.ContentType.Checkbox.Placeholder" = "Kotak centang";
 "BlockText.ContentType.Numbered.Placeholder" = "Daftar urut";
 "BlockText.ContentType.Quote.Placeholder" = "Teks tersorot";
-"BlockText.ContentType.Header.Placeholder" = "Tajuk 1";
+"BlockText.ContentType.Header.Placeholder" = "Judul";
 "BlockText.ContentType.Header2.Placeholder" = "Tajuk 2";
 "BlockText.ContentType.Header3.Placeholder" = "Tajuk 3";
 
@@ -220,7 +220,7 @@
 "Auth.JoinFlow.Key.ReadMore.Instruction.Option1.Title" = "Cara paling mudah untuk menyimpan Frasa Pemulihan adalah dengan meyimpannya di manajer kata sandi.";
 "Auth.JoinFlow.Key.ReadMore.Instruction.Option2.Title" = "Sedangkan, cara yang paling aman adalah dengan menuliskannya pada secarik kertas dan menyimpan kertas itu di tempat yang aman.";
 
-"Auth.JoinFlow.Soul.Title" = "Siapa namamu?";
+"Auth.JoinFlow.Soul.Title" = "Pilih namamu";
 "Auth.JoinFlow.Soul.Description" = "Beginilah penampilanmu di dalam aplikasi.";
 "Auth.JoinFlow.Soul.Placeholder" = "Nirjudul";
 
@@ -613,6 +613,7 @@
 "DataviewType.list" = "Daftar";
 "DataviewType.gallery" = "Galeri";
 "DataviewType.kanban" = "Kanban";
+"DataviewType.calendar" = "Kalender";
 
 // MARK: - ObjectType
 "ObjectType.fallbackDescription" = "Kanvas kosong tanpa judul";
@@ -776,22 +777,22 @@
 "FileStorage.Space.Mail.Subject" = "Dapatkan penyimpanan lebih, akun %@";
 "FileStorage.Space.Mail.Body" = "Hi, Anytype team. I am reaching out to request an increase in my file storage capacity as I have run out of storage. My current limits is %@. My account id is %@. Cheers, %@.";
 "FileStorage.Local.Title" = "Penyimpanan lokal";
-"FileStorage.Local.Instruction" = "In order to save space on your local device, you can offload all your files to our encrypted backup node. The files will be loaded back when you open them.";
-"FileStorage.Local.Used" = "%@ used";
-"FileStorage.OffloadTitle" = "Offload files";
-"FileStorage.ManageFiles" = "Manage files";
-"FileStorage.LimitError" = "You exceeded file limit upload";
+"FileStorage.Local.Instruction" = "Untuk menghemat penyimpanan ruang pada perangkat lokal, anda dapat melepaskan semua berkas ke simpul cadangan terenkripsi kami. Berkas - berkas akan diunduh kembali saat kamu membuka mereka. ";
+"FileStorage.Local.Used" = "%@ digunakan";
+"FileStorage.OffloadTitle" = "Melepaskan berkas";
+"FileStorage.ManageFiles" = "Mengatur berkas";
+"FileStorage.LimitError" = "Kamu melewati batas unggah berkas";
 
 // MARK: - Files List
-"FilesList.Title" = "Synced files";
-"FilesList.ForceDelete.Title" = "Are you sure you want to permanently delete the files?";
+"FilesList.Title" = "Berkas tersinkronkan";
+"FilesList.ForceDelete.Title" = "Apakah kamu yakin ingin menghapus berkas secara permanen?";
 
 // MARK: - Widget object list
-"WidgetObjectList.ForceDelete.Message" = "You can’t undo this action.";
+"WidgetObjectList.ForceDelete.Message" = "Kamu tidak bisa membatalkan tindakan ini";
 
 // MARK: - Cpear cache alert
-"ClearCacheAlert.Title" = "Are you sure?";
-"ClearCacheAlert.Description" = "All media files stored in Anytype will be deleted from your current device. They can be downloaded again from a backup node or another device.";
+"ClearCacheAlert.Title" = "Apakah kamu yakin?";
+"ClearCacheAlert.Description" = "Semua berkas media yang tersimpan di Anytype akan dihapus dari perangkatmu saat ini. Berkas - berkas ini dapat di unduh kembali dari sebuah simpul cadangan atau perangkat yang lain.";
 
 // MARK: - Spaces
 "Spaces.Accessibility.Public" = "Publik";
@@ -803,7 +804,7 @@
 "SpaceSettings.RemoteStorage" = "Penyimpanan jarak jauh";
 "SpaceSettings.Info" = "Info ruang";
 "SpaceSettings.NetworkId" = "ID Jaringan";
-"SpaceSettings.DeleteAlert.Title" = "Delete ‘%@’ space";
+"SpaceSettings.DeleteAlert.Title" = "Hapus '%@' ruang";
 "SpaceSettings.DeleteAlert.Message" = "Ruang ini akan dihapus secara permanen. Kamu tidak bisa membatalkan tindakan ini.";
 "SpaceSettings.DeleteButton" = "Hapus ruang";
 
@@ -811,19 +812,19 @@
 "SpaceCreate.Title" = "Buat ruang";
 
 // MARK: - Sharing
-"Sharing.Navigation.title" = "Add to Anytype";
+"Sharing.Navigation.title" = "Tambah ke Anytype";
 "Sharing.Navigation.LeftButton.Title" = "Batal";
 "Sharing.Navigation.RightButton.Title" = "Selesai";
 
-"Sharing.SaveAs" = "SAVE AS";
+"Sharing.SaveAs" = "SIMPAN SEBAGAI";
 "Sharing.SelectSpace" = "Ruang";
-"Sharing.AddTo" = "Add to";
+"Sharing.AddTo" = "Tambah ke ";
 "Sharing.LinkTo" = "Tautkan ke";
 
-"Sharing.URL.Bookmark" = "Bookmark object";
-"Sharing.URL.Text" = "Text block";
-"Sharing.Text.NoteObject" = "Note object";
-"Sharing.Text.TextBlock" = "Text block";
+"Sharing.URL.Bookmark" = "Tandai objek";
+"Sharing.URL.Text" = "Blok teks";
+"Sharing.Text.NoteObject" = "Catatan objek";
+"Sharing.Text.TextBlock" = "Blok teks";
 
 // MARK: - Initial
 
@@ -832,7 +833,7 @@
 "Initial.UnstableMiddle.Title" = "Peringatan";
 "Initial.UnstableMiddle.Logout" = "Keluar dari akun ini";
 "Initial.UnstableMiddle.Continue" = "Lanjutkan dengan akun ini";
-"Initial.UnstableMiddle.WontUseProd" = "I won't be using my production account";
+"Initial.UnstableMiddle.WontUseProd" = "Saya tidak akan menggunakan akun produksi saya";
 
 // MARK: - Create tip
 "LongTapCreateTip.Title" = "Buat Objek dengan Tipe tertentu";

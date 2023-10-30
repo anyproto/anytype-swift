@@ -18,7 +18,7 @@ extension SingleObjectSubscriptionServiceProtocol {
     }
 }
 
-final class SingleObjectSubscriptionService: SingleObjectSubscriptionServiceProtocol {
+actor SingleObjectSubscriptionService: SingleObjectSubscriptionServiceProtocol {
     
     // MARK: - DI
     

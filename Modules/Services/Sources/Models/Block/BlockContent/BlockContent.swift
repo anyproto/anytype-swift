@@ -1,6 +1,6 @@
 import Foundation
 
-public enum BlockContent: Hashable, CustomStringConvertible {
+public enum BlockContent: Hashable {
     case smartblock(BlockSmartblock)
     case text(BlockText)
     case file(BlockFile)
@@ -52,43 +52,6 @@ public enum BlockContent: Hashable, CustomStringConvertible {
             return .widget(widget.layout)
         case .unsupported:
             return .text(.text)
-        }
-    }
-
-    public var description: String {
-        switch self {
-        case .smartblock:
-            return "smartblock"
-        case .text:
-            return "text"
-        case .file:
-            return "file"
-        case .divider:
-            return "divider"
-        case .bookmark:
-            return "bookmark"
-        case .link:
-            return "link"
-        case .layout:
-            return "layout"
-        case .featuredRelations:
-            return "featuredRelations"
-        case .relation:
-            return "relationBlock"
-        case .dataView:
-            return "dataView"
-        case .tableOfContents:
-            return "tableOfContents"
-        case .table:
-            return "table"
-        case .tableColumn:
-            return "tableColumn"
-        case .tableRow:
-            return "tableRow"
-        case .widget:
-            return "widget"
-        case .unsupported:
-            return "unknown"
         }
     }
 }

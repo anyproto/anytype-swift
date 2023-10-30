@@ -9,7 +9,10 @@ platform :ios do
     )
 
     xcodeproj = ENV["APP_PROJECT"]
-    
+   
+    if ENV["CI"] == "true"
+      setup_ci
+    end
     match(readonly: true)
     set_api_key
 

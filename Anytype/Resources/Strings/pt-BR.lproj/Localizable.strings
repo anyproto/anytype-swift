@@ -220,7 +220,7 @@
 "Auth.JoinFlow.Key.ReadMore.Instruction.Option1.Title" = "A maneira mais fácil de armazenar sua Frase de Recuperação é salvá-la em seu gerenciador de senhas.";
 "Auth.JoinFlow.Key.ReadMore.Instruction.Option2.Title" = "A forma mais segura é escrevê-la no papel e mantê-la fora do dispositivo, num lugar seguro e seguro.";
 
-"Auth.JoinFlow.Soul.Title" = "Defina seu nome";
+"Auth.JoinFlow.Soul.Title" = "Choose your name";
 "Auth.JoinFlow.Soul.Description" = "É assim que você aparecerá no aplicativo.";
 "Auth.JoinFlow.Soul.Placeholder" = "Sem título";
 
@@ -613,6 +613,7 @@
 "DataviewType.list" = "Lista";
 "DataviewType.gallery" = "Galeria";
 "DataviewType.kanban" = "Kanban";
+"DataviewType.calendar" = "Calendar";
 
 // MARK: - ObjectType
 "ObjectType.fallbackDescription" = "Tela em branco sem título";

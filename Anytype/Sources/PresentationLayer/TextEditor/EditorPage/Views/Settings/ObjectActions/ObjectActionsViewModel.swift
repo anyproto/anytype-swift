@@ -118,7 +118,7 @@ final class ObjectActionsViewModel: ObservableObject {
                     AnytypeAnalytics.instance().logLinkToObject(type: .collection)
                 } else {
                     let info = BlockInformation.emptyLink(targetId: currentObjectId)
-                    AnytypeAnalytics.instance().logCreateBlock(type: info.content.description, style: info.content.type.style)
+                    AnytypeAnalytics.instance().logCreateBlock(type: info.content.type)
                     let _ = try await self.blockActionsService.add(
                         contextId: objectId,
                         targetId: id,

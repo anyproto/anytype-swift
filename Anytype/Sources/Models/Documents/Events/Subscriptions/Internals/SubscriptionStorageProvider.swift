@@ -14,11 +14,12 @@ final class SubscriptionStorageProvider: SubscriptionStorageProviderProtocol {
     private let toggler: SubscriptionTogglerProtocol
     
     private let lock = NSLock()
-    private var subscriptionCache = NSMapTable<NSString, SubscriptionStorage>.strongToWeakObjects()
+    // NSMapTable<NSString, SubscriptionStorage>.strongToWeakObjects() crashed on objc_loadWeakRetained method for iphone se 1 gen ios 15
+    private var subscriptionCache = [String: Weak<SubscriptionStorage>]()
     
     // MARK: - Public properties
     
-    nonisolated init(toggler: SubscriptionTogglerProtocol) {
+    init(toggler: SubscriptionTogglerProtocol) {
         self.toggler = toggler
     }
     
@@ -27,13 +28,13 @@ final class SubscriptionStorageProvider: SubscriptionStorageProviderProtocol {
         lock.lock()
         defer { lock.unlock() }
         
-        if let storage = subscriptionCache.object(forKey: subId as NSString) {
+        if let storage = subscriptionCache[subId]?.value {
             anytypeAssertionFailure("Subscription storage already created", info: ["sub id": subId])
             return storage
         }
         
         let storage = SubscriptionStorage(subId: subId, detailsStorage: ObjectDetailsStorage(), toggler: toggler)
-        subscriptionCache.setObject(storage, forKey: subId as NSString)
+        subscriptionCache[subId] = Weak(value: storage)
         return storage
     }
 }
