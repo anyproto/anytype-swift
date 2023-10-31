@@ -32,7 +32,6 @@ class ToastPresenter: ToastPresenterProtocol {
     private let keyboardHeightListener: KeyboardHeightListener
     private let documentsProvider: DocumentsProviderProtocol
     private var cancellable: AnyCancellable?
-    private lazy var toastView = ToastView(frame: .zero)
 
     init(
         viewControllerProvider: ViewControllerProviderProtocol,
@@ -63,6 +62,7 @@ class ToastPresenter: ToastPresenterProtocol {
     func show(message: NSAttributedString, mode: ToastPresenterMode) {
         let attributedMessage = NSMutableAttributedString(attributedString: message)
         
+        let toastView = ToastView(frame: .zero)
         toastView.setMessage(attributedMessage)
         
         var attributes = EKAttributes()
@@ -71,10 +71,9 @@ class ToastPresenter: ToastPresenterProtocol {
         attributes.entranceAnimation = .init(fade: EKAttributes.Animation.RangeAnimation(from: 0, to: 1, duration: 0.4))
         attributes.exitAnimation = .init(fade: EKAttributes.Animation.RangeAnimation(from: 0, to: 1, duration: 0.4))
         attributes.positionConstraints.size = .init(width: .offset(value: 16), height: .intrinsic)
-        attributes.positionConstraints.verticalOffset = verticalOffset(using: mode)
+        attributes.positionConstraints.verticalOffset = verticalOffset(using: mode, toastView: toastView)
         attributes.position = .bottom
         attributes.shadow = .active(with: .init(color: .black, opacity: 0.2, radius: 5, offset: .zero))
-        attributes.statusBar = .currentStatusBar
         attributes.precedence = .enqueue(priority: .normal)
         
         SwiftEntryKit.display(entry: toastView, using: attributes)
@@ -112,7 +111,7 @@ class ToastPresenter: ToastPresenterProtocol {
         )
     }
     
-    private func verticalOffset(using mode: ToastPresenterMode) -> CGFloat {
+    private func verticalOffset(using mode: ToastPresenterMode, toastView: ToastView) -> CGFloat {
         guard let view = viewControllerProvider.rootViewController?.view else {
             return .zero
         }
@@ -125,11 +124,15 @@ class ToastPresenter: ToastPresenterProtocol {
         
             bottomModeOffset = containerViewController?.bottomToastOffset ?? 0
             
+            let bottomSafeArea = viewControllerProvider.window?.safeAreaInsets.bottom ?? 0
+            let inset = max(keyboardHeightListener.currentKeyboardFrame.height - bottomModeOffset - bottomSafeArea, 0)
+            toastView.updateBottomInset(inset)
+            
             cancellable = keyboardHeightListener.animationChangePublisher.sink { [weak self] animation in
                 let bottomSafeArea = self?.viewControllerProvider.window?.safeAreaInsets.bottom ?? 0
                 let inset = max(animation.rect.height - bottomModeOffset - bottomSafeArea, 0)
                 UIView.animate(withDuration: animation.duration, delay: 0, options: animation.options) {
-                    self?.toastView.updateBottomInset(inset)
+                    toastView.updateBottomInset(inset)
                 }
             }
         case .aboveView(let aboveView):
