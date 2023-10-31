@@ -184,8 +184,8 @@
 "Scan QR code" = "Skann QR-kode";
 "Auth.CameraPermissionTitle" = "Vennligst tillat tilgang";
 "Restore secret phrase from keychain" = "Gjenopprett gjenopprettingsfrasen fra nøkkelringen";
-"Auth.LogIn" = "Log In";
-"Auth.Join" = "Create New Account";
+"Auth.LogIn" = "Logg inn";
+"Auth.Join" = "Opprett ny konto";
 "Auth.Welcome.Subtitle" = "Anytype er ditt sikre sted å skrive, planlegge, tenke og organisere alt som betyr for deg.";
 "Auth.Caption.Privacy.Text" = "Ved å fortsette godtar du [Brukervilkårene](%@) og [Personvernerklæringen](%@)";
 "Auth.Next" = "Neste";
@@ -220,7 +220,7 @@
 "Auth.JoinFlow.Key.ReadMore.Instruction.Option1.Title" = "Den enkleste måten å lagre gjenopprettingsfrasen er å lagre den i passordbehandleren.";
 "Auth.JoinFlow.Key.ReadMore.Instruction.Option2.Title" = "Den sikreste måten er å skrive den ned på papir og oppbevare den offline, på et trygt og sikkert sted.";
 
-"Auth.JoinFlow.Soul.Title" = "Choose your name";
+"Auth.JoinFlow.Soul.Title" = "Velg ditt navn";
 "Auth.JoinFlow.Soul.Description" = "Slik vises du i appen.";
 "Auth.JoinFlow.Soul.Placeholder" = "Uten tittel";
 
