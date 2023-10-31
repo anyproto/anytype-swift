@@ -447,6 +447,7 @@ final class EditorRouter: NSObject, EditorRouterProtocol, ObjectSettingsCoordina
         )
     }
     
+    @MainActor
     func showOpenDocumentError(error: Error) {
         let alert = AlertsFactory.objectOpenErrorAlert(error: error) { [weak self] in
             self?.closeEditor()

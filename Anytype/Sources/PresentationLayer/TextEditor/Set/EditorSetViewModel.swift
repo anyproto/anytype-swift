@@ -175,7 +175,7 @@ final class EditorSetViewModel: ObservableObject {
                 await self.onDataviewUpdate()
                 self.logModuleScreen()
             } catch {
-                self.router?.closeEditor()
+                self.router?.showOpenDocumentError(error: error)
             }
         }
     }

@@ -81,5 +81,6 @@ protocol EditorRouterProtocol:
     @MainActor
     func showTemplatesPicker(availableTemplates: [ObjectDetails])
     
+    @MainActor
     func showOpenDocumentError(error: Error)
 }
