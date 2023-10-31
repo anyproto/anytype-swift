@@ -12,20 +12,29 @@ struct SpaceRowModel: Identifiable {
 
 struct SpaceRowView: View {
     
+    private enum Constants {
+        static let lineWidth: CGFloat = 3
+    }
+    
     static let width: CGFloat = 96
     
     let model: SpaceRowModel
     
     var body: some View {
         VStack {
-            IconView(icon: model.icon)
-                .frame(width: Self.width, height: 96)
-                .cornerRadius(8)
-                .shadow(color: .Shadow.primary, radius: 20)
-                .if(model.isSelected) {
-                    $0.border(8, color: .Text.white, lineWidth: 3)
+            ZStack {
+                ZStack {
+                    // Outer border
+                    if model.isSelected {
+                        Color.Text.white
+                            .cornerRadius(4)
+                    }
+                    IconView(icon: model.icon)
+                        .frame(width: Self.width, height: Self.width)
+                        .shadow(color: .Shadow.primary, radius: 20)
                 }
-                .contentShape(.contextMenuPreview, RoundedRectangle(cornerRadius: 8))
+                .frame(width: Self.width + additionalSize, height: Self.width + additionalSize)
+                .contentShape(.contextMenuPreview, RoundedRectangle(cornerRadius: 2))
                 .contextMenu {
                     if let onDelete = model.onDelete {
                         Button(Loc.SpaceSettings.deleteButton, role: .destructive) {
@@ -33,6 +42,8 @@ struct SpaceRowView: View {
                         }
                     }
                 }
+            }
+            .frame(width: Self.width, height: Self.width)
             Spacer()
             AnytypeText(model.title, style: .caption1Medium, color: .Text.white)
         }
@@ -42,5 +53,9 @@ struct SpaceRowView: View {
                 model.onTap()
             }
         }
+    }
+    
+    private var additionalSize: CGFloat {
+        return model.isSelected ? Constants.lineWidth * 2.0 : 0
     }
 }

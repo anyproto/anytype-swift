@@ -34,7 +34,7 @@ struct ObjectIconImageGuidelineSet {
             return staticImageGuideline
         case .image:
             return staticImageGuideline
-        case .square, .squareDynamic, .cycle, .squircle:
+        case .square, .cycle, .squircle:
             return nil
         }
     }

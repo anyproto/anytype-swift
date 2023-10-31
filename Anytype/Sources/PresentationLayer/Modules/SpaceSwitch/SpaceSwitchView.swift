@@ -12,15 +12,15 @@ struct SpaceSwitchView: View {
     @Environment(\.dismiss) var dismiss
     
     @State private var headerSize: CGSize = .zero
-    @State private var spacingBetweenItems: CGFloat = 0
-    @State private var externalSpacing: CGFloat = 0
+    @State private var size: CGSize = .zero
     
     private var columns: [GridItem] {
-        [
-            GridItem(.fixed(Constants.itemWidth), spacing: spacingBetweenItems, alignment: .top),
-            GridItem(.fixed(Constants.itemWidth), spacing: spacingBetweenItems, alignment: .top),
-            GridItem(.fixed(Constants.itemWidth), spacing: spacingBetweenItems, alignment: .top)
-        ]
+        var freeSizeForContent = size.width - Constants.minExternalSpacing * 2
+        let count = calculateCountItems(itemSize: Constants.itemWidth, spacing: Constants.maxInternalSpacing, freeWidth: freeSizeForContent)
+        let freeSizeForSpacing = freeSizeForContent - Constants.itemWidth * CGFloat(count) - Constants.maxInternalSpacing * CGFloat(count - 1)
+        let additionalSpacing = freeSizeForSpacing / CGFloat(count + 1)
+        let item = GridItem(.fixed(Constants.itemWidth), spacing:  Constants.maxInternalSpacing + additionalSpacing, alignment: .top)
+        return Array(repeating: item, count: count)
     }
     
     var body: some View {
@@ -64,14 +64,7 @@ struct SpaceSwitchView: View {
                 }
         }
         .readSize { newSize in
-            let allSpacing = newSize.width - CGFloat(columns.count) * Constants.itemWidth
-            let countBetweenSpacing = CGFloat(columns.count - 1)
-            let freeSpacing = max(allSpacing - Constants.minExternalSpacing * 2, 0)
-            let preferredSpacingBetweenItems = freeSpacing * (1 / countBetweenSpacing)
-            let spacingBetweenItems = min(preferredSpacingBetweenItems, Constants.maxInternalSpacing)
-            let externalSpacing = (allSpacing - spacingBetweenItems * countBetweenSpacing) * 0.5
-            self.spacingBetweenItems = spacingBetweenItems
-            self.externalSpacing = externalSpacing
+            self.size = newSize
         }
         .onChange(of: model.dismiss) { _ in
             dismiss()
@@ -114,6 +107,16 @@ struct SpaceSwitchView: View {
         .onTapGesture {
             model.onProfileTap()
         }
-        .padding(.horizontal, externalSpacing)
+        .padding(.horizontal, Constants.minExternalSpacing)
+    }
+    
+    private func calculateCountItems(itemSize: CGFloat, spacing: CGFloat, freeWidth: CGFloat) -> Int {
+        if itemSize + spacing < freeWidth {
+            return calculateCountItems(itemSize: itemSize, spacing: spacing, freeWidth: freeWidth - itemSize - spacing) + 1
+        } else if itemSize < freeWidth {
+            return 1
+        } else {
+            return 0
+        }
     }
 }
