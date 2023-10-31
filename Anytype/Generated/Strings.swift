@@ -276,8 +276,8 @@ internal enum Loc {
   internal static let lock = Loc.tr("Localizable", "Lock", fallback: "Lock")
   /// Log out
   internal static let logOut = Loc.tr("Localizable", "Log out", fallback: "Log out")
-  /// Login
-  internal static let login = Loc.tr("Localizable", "Login", fallback: "Login")
+  /// Log In
+  internal static let login = Loc.tr("Localizable", "Login", fallback: "Log In")
   /// Logout and clear data
   internal static let logoutAndClearData = Loc.tr("Localizable", "Logout and clear data", fallback: "Logout and clear data")
   /// Media
