@@ -248,7 +248,7 @@ extension EditorPageViewModel {
                     blocksStateManager.checkOpenedState()
                 }
             } catch {
-                router.closeEditor()
+                router.showOpenDocumentError(error: error)
             }
             
             if let objectDetails = document.details {

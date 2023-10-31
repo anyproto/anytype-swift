@@ -124,6 +124,8 @@ internal enum Loc {
   internal static let chooseLayoutType = Loc.tr("Localizable", "Choose layout type", fallback: "Choose layout type")
   /// Clear
   internal static let clear = Loc.tr("Localizable", "Clear", fallback: "Clear")
+  /// Close
+  internal static let close = Loc.tr("Localizable", "Close", fallback: "Close")
   /// Capture code snippet
   internal static let codeBlockSubtitle = Loc.tr("Localizable", "Code block subtitle", fallback: "Capture code snippet")
   /// Code snippet
@@ -208,6 +210,8 @@ internal enum Loc {
   internal static let enterText = Loc.tr("Localizable", "Enter text", fallback: "Enter text")
   /// Enter value
   internal static let enterValue = Loc.tr("Localizable", "Enter value", fallback: "Enter value")
+  /// Error
+  internal static let error = Loc.tr("Localizable", "Error", fallback: "Error")
   /// Error creating wallet
   internal static let errorCreatingWallet = Loc.tr("Localizable", "Error creating wallet", fallback: "Error creating wallet")
   /// Error select account
@@ -1114,6 +1118,14 @@ internal enum Loc {
           internal static let title = Loc.tr("Localizable", "EditorSetViewPicker.View.Not.Supported.Title", fallback: "Unsupported")
         }
       }
+    }
+  }
+  internal enum Error {
+    internal enum AnytypeNeedsUpgrate {
+      /// This object was modified in a newer version of Anytype. Please update the app to open it on this device
+      internal static let message = Loc.tr("Localizable", "Error.AnytypeNeedsUpgrate.Message", fallback: "This object was modified in a newer version of Anytype. Please update the app to open it on this device")
+      /// Update Your App
+      internal static let title = Loc.tr("Localizable", "Error.AnytypeNeedsUpgrate.Title", fallback: "Update Your App")
     }
   }
   internal enum ErrorOccurred {
