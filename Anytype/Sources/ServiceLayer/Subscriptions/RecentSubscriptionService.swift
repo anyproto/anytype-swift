@@ -49,6 +49,7 @@ final class RecentSubscriptionService: RecentSubscriptionServiceProtocol {
             SearchHelper.isArchivedFilter(isArchived: false)
             SearchHelper.spaceId(activeWorkspaceStorage.workspaceInfo.accountSpaceId)
             SearchHelper.layoutFilter(DetailsLayout.visibleLayouts)
+            SearchHelper.templateScheme(include: false)
             makeDateFilter(type: type)
         }
         
