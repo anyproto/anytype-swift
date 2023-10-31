@@ -184,8 +184,8 @@
 "Scan QR code" = "扫描二维码";
 "Auth.CameraPermissionTitle" = "请允许访问";
 "Restore secret phrase from keychain" = "从钥匙串恢复恢复短语";
-"Auth.LogIn" = "登录";
-"Auth.Join" = "加入";
+"Auth.LogIn" = "Log In";
+"Auth.Join" = "Create New Account";
 "Auth.Welcome.Subtitle" = "Anytype 是您编写、计划、思考和组织集于一身，对您重要的安全空间。";
 "Auth.Caption.Privacy.Text" = "继续即表示您同意 [使用条款](%@) 和 [隐私策略](%@)";
 "Auth.Next" = "下一步";
