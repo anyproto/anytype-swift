@@ -316,6 +316,14 @@ final class ServiceLocator {
         TemplatesSubscriptionService(subscriptionStorageProvider: subscriptionStorageProvider())
     }
     
+    func setObjectCreationHandler(objectId: BlockId, blockId: BlockId?) -> SetObjectCreationHandlerProtocol {
+        SetObjectCreationHandler(
+            objectTypeProvider: objectTypeProvider(),
+            dataviewService: dataviewService(objectId: objectId, blockId: blockId),
+            objectActionsService: objectActionsService()
+        )
+    }
+    
     // MARK: - Private
     
     private func subscriptionToggler() -> SubscriptionTogglerProtocol {
