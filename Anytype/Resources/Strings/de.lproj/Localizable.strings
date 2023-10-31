@@ -179,7 +179,7 @@
 
 // Auth
 "Sign up" = "Registrieren";
-"Login" = "Anmelden";
+"Login" = "Log In";
 "Create" = "Erstellen";
 "Scan QR code" = "QR-Code scannen";
 "Auth.CameraPermissionTitle" = "Bitte Zugriff erlauben";
