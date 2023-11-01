@@ -6,8 +6,8 @@ extension SpaceAccessibility {
         switch self {
         case .private:
             return Loc.Spaces.Accessibility.private
-        case .public:
-            return Loc.Spaces.Accessibility.public
+        case .personal:
+            return Loc.Spaces.Accessibility.personal
         }
     }
 }

@@ -1698,6 +1698,8 @@ internal enum Loc {
   }
   internal enum Spaces {
     internal enum Accessibility {
+      /// Personal
+      internal static let personal = Loc.tr("Localizable", "Spaces.Accessibility.Personal", fallback: "Personal")
       /// Private
       internal static let `private` = Loc.tr("Localizable", "Spaces.Accessibility.Private", fallback: "Private")
       /// Public
