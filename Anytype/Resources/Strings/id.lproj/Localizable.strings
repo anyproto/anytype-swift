@@ -184,8 +184,8 @@
 "Scan QR code" = "Pindai kode QR";
 "Auth.CameraPermissionTitle" = "Tolong izinkan akses";
 "Restore secret phrase from keychain" = "Mengembalikan Tahap Pemulihan dari rantai kunci";
-"Auth.LogIn" = "Log In";
-"Auth.Join" = "Create New Account";
+"Auth.LogIn" = "Masuk";
+"Auth.Join" = "Buat Akun Baru";
 "Auth.Welcome.Subtitle" = "Anytype adalah tempat aman bagimu untuk menulis, berpikir, merencanakan, dan mengorganisasikan apa pun yang penting bagimu.";
 "Auth.Caption.Privacy.Text" = "Dengan melanjutkan, kamu menyetujui [Syarat Penggunaan](%@) dan [Kebijakan Privasi](%@)";
 "Auth.Next" = "Lanjut";
@@ -775,7 +775,7 @@
 "FileStorage.Space.Used" = "%@ dari %@ digunakan";
 "FileStorage.Space.GetMore" = "Dapatkan ruang tambahan";
 "FileStorage.Space.Mail.Subject" = "Dapatkan penyimpanan lebih, akun %@";
-"FileStorage.Space.Mail.Body" = "Hi, Anytype team. I am reaching out to request an increase in my file storage capacity as I have run out of storage. My current limits is %@. My account id is %@. Cheers, %@.";
+"FileStorage.Space.Mail.Body" = "Halo, tim Anytype. Aku ingin menambahkan kapasitas penyimpanan berkasku karena kehabisan ruangan. Batasku saat ini adalah %@. ID akunku adalah %@. Salam sejahtera, %@.";
 "FileStorage.Local.Title" = "Penyimpanan lokal";
 "FileStorage.Local.Instruction" = "Untuk menghemat penyimpanan ruang pada perangkat lokal, anda dapat melepaskan semua berkas ke simpul cadangan terenkripsi kami. Berkas - berkas akan diunduh kembali saat kamu membuka mereka. ";
 "FileStorage.Local.Used" = "%@ digunakan";
@@ -829,7 +829,7 @@
 // MARK: - Initial
 
 "Initial.UnstableMiddle.Title" = "Peringatan";
-"Initial.UnstableMiddle.Message" = "You launch app with a unstable middleware. Don't use your production account. Your account may be broken.";
+"Initial.UnstableMiddle.Message" = "Kamu meluncurkan aplikasi dengan perangkat tengah yang tidak stabil. Jangan pakai akun produksimu. Akunmu bisa rusak.";
 "Initial.UnstableMiddle.Title" = "Peringatan";
 "Initial.UnstableMiddle.Logout" = "Keluar dari akun ini";
 "Initial.UnstableMiddle.Continue" = "Lanjutkan dengan akun ini";

@@ -179,7 +179,7 @@
 
 // Auth
 "Sign up" = "Kayıt ol";
-"Login" = "Giriş";
+"Login" = "Log In";
 "Create" = "Oluştur";
 "Scan QR code" = "QR kodunu tara";
 "Auth.CameraPermissionTitle" = "Lütfen erişime izin ver";

@@ -179,13 +179,13 @@
 
 // Auth
 "Sign up" = "Inscription";
-"Login" = "Connexion";
+"Login" = "Se connecter";
 "Create" = "Créer";
 "Scan QR code" = "Scanner un QR code";
 "Auth.CameraPermissionTitle" = "Veuillez autoriser l'accès";
 "Restore secret phrase from keychain" = "Restaurer la phrase de récupération à partir du trousseau";
-"Auth.LogIn" = "Log In";
-"Auth.Join" = "Create New Account";
+"Auth.LogIn" = "Se connecter";
+"Auth.Join" = "Créer un nouveau compte";
 "Auth.Welcome.Subtitle" = "Anytype est votre lieu sûr pour écrire, planifier, penser et organiser tout ce qui compte pour vous.";
 "Auth.Caption.Privacy.Text" = "En continuant, vous acceptez [Conditions d'utilisation](%@) et [Politique de confidentialité](%@)";
 "Auth.Next" = "Suivant";

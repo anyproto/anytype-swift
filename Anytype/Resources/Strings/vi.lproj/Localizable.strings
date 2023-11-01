@@ -180,7 +180,7 @@
 
 // Auth
 "Sign up" = "Đăng ký";
-"Login" = "Đăng nhập";
+"Login" = "Log In";
 "Create" = "Tạo";
 "Scan QR code" = "Quét mã QR";
 "Auth.CameraPermissionTitle" = "Hãy cho phép truy cập";

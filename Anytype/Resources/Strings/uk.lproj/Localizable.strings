@@ -179,7 +179,7 @@
 
 // Auth
 "Sign up" = "Зареєструватись";
-"Login" = "Вхід";
+"Login" = "Log In";
 "Create" = "Створити";
 "Scan QR code" = "Сканувати QR-код";
 "Auth.CameraPermissionTitle" = "Будь ласка, дозвольте доступ";
