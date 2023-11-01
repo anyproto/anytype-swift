@@ -1328,6 +1328,7 @@ public struct Anytype_Rpc {
             case unknownError // = 1
             case badInput // = 2
             case accountIsAlreadyDeleted // = 101
+            case unableToConnect // = 102
             case UNRECOGNIZED(Int)
 
             public init() {
@@ -1340,6 +1341,7 @@ public struct Anytype_Rpc {
               case 1: self = .unknownError
               case 2: self = .badInput
               case 101: self = .accountIsAlreadyDeleted
+              case 102: self = .unableToConnect
               default: self = .UNRECOGNIZED(rawValue)
               }
             }
@@ -1350,6 +1352,7 @@ public struct Anytype_Rpc {
               case .unknownError: return 1
               case .badInput: return 2
               case .accountIsAlreadyDeleted: return 101
+              case .unableToConnect: return 102
               case .UNRECOGNIZED(let i): return i
               }
             }
@@ -1432,6 +1435,7 @@ public struct Anytype_Rpc {
             case unknownError // = 1
             case badInput // = 2
             case accountIsActive // = 101
+            case unableToConnect // = 102
             case UNRECOGNIZED(Int)
 
             public init() {
@@ -1444,6 +1448,7 @@ public struct Anytype_Rpc {
               case 1: self = .unknownError
               case 2: self = .badInput
               case 101: self = .accountIsActive
+              case 102: self = .unableToConnect
               default: self = .UNRECOGNIZED(rawValue)
               }
             }
@@ -1454,6 +1459,7 @@ public struct Anytype_Rpc {
               case .unknownError: return 1
               case .badInput: return 2
               case .accountIsActive: return 101
+              case .unableToConnect: return 102
               case .UNRECOGNIZED(let i): return i
               }
             }
@@ -23656,6 +23662,7 @@ extension Anytype_Rpc.Account.Delete.Response.Error.Code: CaseIterable {
     .unknownError,
     .badInput,
     .accountIsAlreadyDeleted,
+    .unableToConnect,
   ]
 }
 
@@ -23666,6 +23673,7 @@ extension Anytype_Rpc.Account.RevertDeletion.Response.Error.Code: CaseIterable {
     .unknownError,
     .badInput,
     .accountIsActive,
+    .unableToConnect,
   ]
 }
 
@@ -28659,6 +28667,7 @@ extension Anytype_Rpc.Account.Delete.Response.Error.Code: SwiftProtobuf._ProtoNa
     1: .same(proto: "UNKNOWN_ERROR"),
     2: .same(proto: "BAD_INPUT"),
     101: .same(proto: "ACCOUNT_IS_ALREADY_DELETED"),
+    102: .same(proto: "UNABLE_TO_CONNECT"),
   ]
 }
 
@@ -28786,6 +28795,7 @@ extension Anytype_Rpc.Account.RevertDeletion.Response.Error.Code: SwiftProtobuf.
     1: .same(proto: "UNKNOWN_ERROR"),
     2: .same(proto: "BAD_INPUT"),
     101: .same(proto: "ACCOUNT_IS_ACTIVE"),
+    102: .same(proto: "UNABLE_TO_CONNECT"),
   ]
 }
 
