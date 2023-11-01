@@ -20,7 +20,7 @@ final class ActiveWorkspaceStorage: ActiveWorkpaceStorageProtocol {
     private let workspaceService: WorkspaceServiceProtocol
     
     // MARK: - State
-    
+    private var lock = NSLock()
     private var workspaceSubscription: AnyCancellable?
     @UserDefault("activeSpaceId", defaultValue: "")
     private var activeSpaceId: String
@@ -39,6 +39,9 @@ final class ActiveWorkspaceStorage: ActiveWorkpaceStorageProtocol {
     }
     
     func setActiveSpace(spaceId: String) async throws {
+        lock.lock()
+        defer { lock.unlock() }
+        guard activeSpaceId != spaceId else { return }
         let info = try await workspaceService.workspaceOpen(spaceId: spaceId)
         AnytypeAnalytics.instance().logSwitchSpace()
         workspaceInfo = info
