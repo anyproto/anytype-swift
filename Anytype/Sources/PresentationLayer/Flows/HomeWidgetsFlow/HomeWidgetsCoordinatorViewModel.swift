@@ -270,7 +270,12 @@ final class HomeWidgetsCoordinatorViewModel: ObservableObject,
         case .createObject:
             createAndShowNewPage()
         case .showSharingExtension:
-            showSharing.toggle()
+            showSharing = true
+        case .spaceSelection:
+            // TODO: Add editor pop all
+            navigationContext.dismissAllPresented(animated: true, completion: { [weak self] in
+                self?.showSpaceSwitch = true
+            })
         }
     }
 }
