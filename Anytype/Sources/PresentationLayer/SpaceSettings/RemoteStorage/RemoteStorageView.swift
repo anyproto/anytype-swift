@@ -36,11 +36,17 @@ struct RemoteStorageView: View {
                     model.onTapGetMoreSpace()
                 }
         }
-        Spacer.fixedHeight(16)
-        FileStorageInfoBlock(iconImage: model.spaceIcon, title: model.spaceName, description: model.spaceUsed, isWarning: model.spaceUsedWarning)
-        Spacer.fixedHeight(8)
-        LineProgressBar(percent: model.percentUsage, configuration: model.progressBarConfiguration)
         Spacer.fixedHeight(20)
+        AnytypeText(model.spaceUsed, style: .relation3Regular, color: .Text.secondary)
+//        FileStorageInfoBlock(iconImage: model.spaceIcon, title: model.spaceName, description: model.spaceUsed, isWarning: model.spaceUsedWarning)
+        Spacer.fixedHeight(8)
+//        LineProgressBar(percent: model.percentUsage, configuration: model.progressBarConfiguration)
+        SegmentLine(items: [
+            SegmentItem(color: .System.amber125, value: 64, legend: "Anton’s space | 64 MB"),
+            SegmentItem(color: .System.amber50, value: 323, legend: "Other spaces | 323 MB"),
+            SegmentItem(color: .Stroke.tertiary, value: 652, legend: "Free | 652 MB")
+        ])
+        Spacer.fixedHeight(16)
         StandardButton(Loc.FileStorage.manageFiles, style: .secondarySmall) {
             model.onTapManageFiles()
         }
