@@ -187,7 +187,7 @@
 "Auth.LogIn" = "Iniciar sesión";
 "Auth.Join" = "Crear cuenta nueva";
 "Auth.Welcome.Subtitle" = "Cualquier tipo es tu espacio seguro para escribir, planear, pensar y organizar todo lo que te importe.";
-"Auth.Caption.Privacy.Text" = "Al continuar aceptas las [Condiciones de uso] (%@) y la [Política de privacidad] (%@)";
+"Auth.Caption.Privacy.Text" = "Al continuar aceptas las [Condiciones de uso](%@) y la [Política de privacidad](%@)";
 "Auth.Next" = "Siguiente";
 
 "Account recover error" = "Error al recuperar la cuenta, inténtelo de nuevo";

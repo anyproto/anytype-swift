@@ -220,7 +220,7 @@
 "Auth.JoinFlow.Key.ReadMore.Instruction.Option1.Title" = "保存恢复短语的最简单方法是将其保存在您的密码管理器中。";
 "Auth.JoinFlow.Key.ReadMore.Instruction.Option2.Title" = "最可靠的方法是现实中在纸面上写下，并放在一个安全可靠的地方。";
 
-"Auth.JoinFlow.Soul.Title" = "Choose your name";
+"Auth.JoinFlow.Soul.Title" = "选择名称";
 "Auth.JoinFlow.Soul.Description" = "这将是您在应用中的显示方式。";
 "Auth.JoinFlow.Soul.Placeholder" = "无标题";
 
@@ -613,7 +613,7 @@
 "DataviewType.list" = "列表";
 "DataviewType.gallery" = "相簿";
 "DataviewType.kanban" = "看板";
-"DataviewType.calendar" = "Calendar";
+"DataviewType.calendar" = "日历";
 
 // MARK: - ObjectType
 "ObjectType.fallbackDescription" = "没有标题的空白画布";
