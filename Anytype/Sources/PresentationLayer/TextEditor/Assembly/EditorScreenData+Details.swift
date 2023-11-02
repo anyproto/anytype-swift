@@ -4,13 +4,12 @@ import Services
 // MARK: - Init helpers
 
 extension EditorScreenData {
-    init(details: ObjectDetails, isOpenedForPreview: Bool = false, shouldShowTemplatesOptions: Bool = true) {
+    init(details: ObjectDetails, isOpenedForPreview: Bool = false) {
         switch details.editorViewType {
         case .page:
             self = .page(EditorPageObject(
                 details: details,
-                isOpenedForPreview: isOpenedForPreview,
-                shouldShowTemplatesOptions: shouldShowTemplatesOptions
+                isOpenedForPreview: isOpenedForPreview
             ))
         case .set:
             self = .set(EditorSetObject(details: details))
@@ -22,14 +21,12 @@ extension EditorPageObject {
     init(
         details: ObjectDetails,
         isOpenedForPreview: Bool = false,
-        shouldShowTemplatesOptions: Bool = true,
         usecase: ObjectHeaderEmptyData.ObjectHeaderEmptyUsecase = .editor
     ) {
         self.objectId = details.id
         self.spaceId = details.spaceId
         self.isSupportedForEdit = details.isSupportedForEdit
         self.isOpenedForPreview = isOpenedForPreview
-        self.shouldShowTemplatesOptions = shouldShowTemplatesOptions
         self.usecase = usecase
     }
 }
@@ -44,11 +41,8 @@ extension EditorSetObject {
 }
 
 extension ObjectDetails {
-    func editorScreenData(
-        isOpenedForPreview: Bool = false,
-        shouldShowTemplatesOptions: Bool = true
-    ) -> EditorScreenData {
-        return EditorScreenData(details: self, shouldShowTemplatesOptions: shouldShowTemplatesOptions)
+    func editorScreenData() -> EditorScreenData {
+        return EditorScreenData(details: self)
     }
 }
 

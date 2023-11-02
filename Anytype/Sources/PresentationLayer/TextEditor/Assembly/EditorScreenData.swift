@@ -17,7 +17,6 @@ struct EditorPageObject: Hashable, Codable {
     let spaceId: String
     let isSupportedForEdit: Bool
     let isOpenedForPreview: Bool
-    let shouldShowTemplatesOptions: Bool
     let usecase: ObjectHeaderEmptyData.ObjectHeaderEmptyUsecase
     
     init(
@@ -25,14 +24,12 @@ struct EditorPageObject: Hashable, Codable {
         spaceId: String,
         isSupportedForEdit: Bool,
         isOpenedForPreview: Bool,
-        shouldShowTemplatesOptions: Bool = true,
         usecase: ObjectHeaderEmptyData.ObjectHeaderEmptyUsecase = .editor
     ) {
         self.objectId = objectId
         self.spaceId = spaceId
         self.isSupportedForEdit = isSupportedForEdit
         self.isOpenedForPreview = isOpenedForPreview
-        self.shouldShowTemplatesOptions = shouldShowTemplatesOptions
         self.usecase = usecase
     }
 }

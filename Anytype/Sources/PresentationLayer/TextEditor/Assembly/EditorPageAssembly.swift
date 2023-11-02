@@ -75,7 +75,6 @@ final class EditorAssembly {
             document: setDocument,
             configuration: .init(
                 isOpenedForPreview: false,
-                shouldShowTemplateSelection: false,
                 usecase: .editor
             ),
             interactor: serviceLocator.objectHeaderInteractor(objectId: setDocument.inlineParameters?.targetObjectID ?? setDocument.objectId)
@@ -190,7 +189,6 @@ final class EditorAssembly {
             bottomNavigationManager: bottomNavigationManager,
             configuration: EditorPageViewModelConfiguration(
                 isOpenedForPreview: data.isOpenedForPreview,
-                shouldShowTemplateSelection: data.shouldShowTemplatesOptions,
                 usecase: data.usecase
             )
         )

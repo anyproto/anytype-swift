@@ -1,7 +1,10 @@
 import Foundation
 
 protocol EditorBrowserCoordinatorProtocol: AnyObject {
+    @MainActor
     func startFlow(data: EditorScreenData, delegate: EditorBrowserDelegate?)
+    @MainActor
+    func dismissAllPages()
 }
 
 final class EditorBrowserCoordinator: EditorBrowserCoordinatorProtocol, EditorPageOpenRouterProtocol {
@@ -30,6 +33,11 @@ final class EditorBrowserCoordinator: EditorBrowserCoordinatorProtocol, EditorPa
     @MainActor
     func startFlow(data: EditorScreenData, delegate: EditorBrowserDelegate?) {
         showPage(data: data, delegate: delegate)
+    }
+    
+    @MainActor
+    func dismissAllPages() {
+        navigationContext.pop(animated: true)
     }
     
     // MARK: - EditorPageOpenRouterProtocol
