@@ -464,7 +464,9 @@
 "SlashMenu.TableOfContents" = "Índice de contenidos";
 "SlashMenu.Table" = "Tabla";
 
+"Error" = "Error";
 "Unknown error" = "Error desconocido";
+"Close" = "Close";
 "Account is deleted" = "Se ha eliminado la cuenta";
 "Add phone" = "Añadir teléfono";
 "Nothing to redo" = "No hay nada que rehacer";
@@ -797,6 +799,7 @@
 // MARK: - Spaces
 "Spaces.Accessibility.Public" = "Público";
 "Spaces.Accessibility.Private" = "Privado";
+"Spaces.Accessibility.Personal" = "Personal";
 "Spaces.Search.Title" = "Buscar espacios";
 
 // MARK: - Space Settings
@@ -838,3 +841,7 @@
 // MARK: - Create tip
 "LongTapCreateTip.Title" = "Objetos de Creta con tipo específico";
 "LongTapCreateTip.Message" = "Pulsación larga en el botón Crear objeto para abrir el menú con tipos";
+
+// MARK: - Error
+"Error.AnytypeNeedsUpgrate.Title" = "Update Your App";
+"Error.AnytypeNeedsUpgrate.Message" = "This object was modified in a newer version of Anytype. Please update the app to open it on this device";
