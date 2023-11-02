@@ -213,8 +213,7 @@ final class EditorPageViewModel: EditorPageViewModelProtocol {
     
     private func handleTemplatesIfNeeded() {
         Task { @MainActor in
-            guard !document.isLocked, configuration.shouldShowTemplateSelection,
-                  let details = document.details, details.isSelectTemplate else {
+            guard !document.isLocked, let details = document.details, details.isSelectTemplate else {
                 await templatesSubscriptionService.stopSubscription()
                 viewInput?.update(details: document.details, templatesCount: 0)
                 return
