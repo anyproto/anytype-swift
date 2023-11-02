@@ -186,7 +186,7 @@ final class EditorSetRouter: EditorSetRouterProtocol, ObjectSettingsCoordinatorO
     func showCreateObject(details: ObjectDetails) {
         let moduleViewController = createObjectModuleAssembly.makeCreateObject(objectId: details.id) { [weak self] in
             self?.navigationContext.dismissTopPresented()
-            self?.showPage(data: details.editorScreenData(shouldShowTemplatesOptions: !FeatureFlags.setTemplateSelection))
+            self?.showPage(data: details.editorScreenData())
         } closeAction: { [weak self] in
             self?.navigationContext.dismissTopPresented()
         }

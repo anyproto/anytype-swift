@@ -564,7 +564,7 @@ extension EditorRouter: ObjectSettingsModuleDelegate {
                         return
                     }
                     
-                    self?.openObject(screenData: .init(details: objectDetails, shouldShowTemplatesOptions: false))
+                    self?.openObject(screenData: .init(details: objectDetails))
                 } catch {
                     print(error.localizedDescription)
                 }

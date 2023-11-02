@@ -830,10 +830,8 @@ extension EditorSetViewModel {
         }
     }
     
-   private func openObject(details: ObjectDetails) {
-       router?.showPage(
-        data: details.editorScreenData(shouldShowTemplatesOptions: !FeatureFlags.setTemplateSelection)
-       )
+    private func openObject(details: ObjectDetails) {
+        router?.showPage(data: details.editorScreenData())
     }
     
     private func createBookmarkObject() {
@@ -853,7 +851,6 @@ extension EditorSetViewModel {
             document: MockBaseDocument(),
             configuration: .init(
                 isOpenedForPreview: false,
-                shouldShowTemplateSelection: false,
                 usecase: .editor
             ),
             interactor: DI.preview.serviceLocator.objectHeaderInteractor(objectId: "objectId")
