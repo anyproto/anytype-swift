@@ -464,7 +464,9 @@
 "SlashMenu.TableOfContents" = "目录";
 "SlashMenu.Table" = "表格";
 
+"Error" = "Error";
 "Unknown error" = "未知错误";
+"Close" = "Close";
 "Account is deleted" = "帐户已删除";
 "Add phone" = "添加电话号";
 "Nothing to redo" = "无需重做";
@@ -797,6 +799,7 @@
 // MARK: - Spaces
 "Spaces.Accessibility.Public" = "公共";
 "Spaces.Accessibility.Private" = "私人";
+"Spaces.Accessibility.Personal" = "Personal";
 "Spaces.Search.Title" = "搜索空间";
 
 // MARK: - Space Settings
@@ -838,3 +841,7 @@
 // MARK: - Create tip
 "LongTapCreateTip.Title" = "创建带有特定类型的对象";
 "LongTapCreateTip.Message" = "长按创建对象按钮以打开带类型的菜单";
+
+// MARK: - Error
+"Error.AnytypeNeedsUpgrate.Title" = "Update Your App";
+"Error.AnytypeNeedsUpgrate.Message" = "This object was modified in a newer version of Anytype. Please update the app to open it on this device";
