@@ -464,7 +464,9 @@
 "SlashMenu.TableOfContents" = "Daftar isi";
 "SlashMenu.Table" = "Tabel";
 
+"Error" = "Galat";
 "Unknown error" = "Kesalahan tak dikenal";
+"Close" = "Tutup";
 "Account is deleted" = "Akun terhapus";
 "Add phone" = "Tambahkan telepon";
 "Nothing to redo" = "Tidak ada yang dibatalkan";
@@ -797,6 +799,7 @@
 // MARK: - Spaces
 "Spaces.Accessibility.Public" = "Publik";
 "Spaces.Accessibility.Private" = "Pribadi";
+"Spaces.Accessibility.Personal" = "Pribadi";
 "Spaces.Search.Title" = "Cari ruang";
 
 // MARK: - Space Settings
@@ -838,3 +841,7 @@
 // MARK: - Create tip
 "LongTapCreateTip.Title" = "Buat Objek dengan Tipe tertentu";
 "LongTapCreateTip.Message" = "Tekan lama tombol Buat Objek untuk membuka menu dengan Tipe";
+
+// MARK: - Error
+"Error.AnytypeNeedsUpgrate.Title" = "Perbarui Aplikasimu";
+"Error.AnytypeNeedsUpgrate.Message" = "Objek ini telah diubah pada versi terbaru Anytype. Perbaruilah aplikasimu untuk membuka objek ini di perangkat ini.";
