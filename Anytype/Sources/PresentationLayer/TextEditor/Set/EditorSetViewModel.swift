@@ -126,7 +126,7 @@ final class EditorSetViewModel: ObservableObject {
     private let textService: TextServiceProtocol
     private let groupsSubscriptionsHandler: GroupsSubscriptionsHandlerProtocol
     private let setSubscriptionDataBuilder: SetSubscriptionDataBuilderProtocol
-    private let objectCreationHandler: SetObjectCreationHandlerProtocol
+    private let objectCreationHelper: SetObjectCreationHelperProtocol
     private var subscriptions = [AnyCancellable]()
     private var subscriptionStorages = [String: SubscriptionStorageProtocol]()
     private var titleSubscription: AnyCancellable?
@@ -142,7 +142,7 @@ final class EditorSetViewModel: ObservableObject {
         textService: TextServiceProtocol,
         groupsSubscriptionsHandler: GroupsSubscriptionsHandlerProtocol,
         setSubscriptionDataBuilder: SetSubscriptionDataBuilderProtocol,
-        objectCreationHandler: SetObjectCreationHandlerProtocol
+        objectCreationHelper: SetObjectCreationHelperProtocol
     ) {
         self.setDocument = setDocument
         self.headerModel = headerViewModel
@@ -154,7 +154,7 @@ final class EditorSetViewModel: ObservableObject {
         self.textService = textService
         self.groupsSubscriptionsHandler = groupsSubscriptionsHandler
         self.setSubscriptionDataBuilder = setSubscriptionDataBuilder
-        self.objectCreationHandler = objectCreationHandler
+        self.objectCreationHelper = objectCreationHelper
         self.titleString = setDocument.details?.pageCellTitle ?? ""
     }
     
@@ -540,7 +540,7 @@ final class EditorSetViewModel: ObservableObject {
     }
     
     func createObject(setting: ObjectCreationSetting? = nil) {
-        objectCreationHandler.createObject(for: setDocument, setting: setting) { [weak self] details in
+        objectCreationHelper.createObject(for: setDocument, setting: setting) { [weak self] details in
             self?.handleCreatedObjectIfNeeded(details)
         }
     }
@@ -801,6 +801,6 @@ extension EditorSetViewModel {
         textService: TextService(),
         groupsSubscriptionsHandler: DI.preview.serviceLocator.groupsSubscriptionsHandler(),
         setSubscriptionDataBuilder: SetSubscriptionDataBuilder(activeWorkspaceStorage: DI.preview.serviceLocator.activeWorkspaceStorage()),
-        objectCreationHandler: DI.preview.serviceLocator.setObjectCreationHandler(objectId: "objectId", blockId: "blockId")
+        objectCreationHelper: DI.preview.serviceLocator.setObjectCreationHelper(objectId: "objectId", blockId: "blockId")
     )
 }

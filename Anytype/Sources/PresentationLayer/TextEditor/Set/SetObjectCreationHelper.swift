@@ -1,10 +1,10 @@
 import Services
 
-protocol SetObjectCreationHandlerProtocol {
+protocol SetObjectCreationHelperProtocol {
     func createObject(for setDocument: SetDocumentProtocol, setting: ObjectCreationSetting?, completion: @escaping ((_ details: ObjectDetails?) -> Void))
 }
 
-final class SetObjectCreationHandler: SetObjectCreationHandlerProtocol {
+final class SetObjectCreationHelper: SetObjectCreationHelperProtocol {
     
     private let dataviewService: DataviewServiceProtocol
     private let objectTypeProvider: ObjectTypeProviderProtocol
@@ -106,5 +106,11 @@ final class SetObjectCreationHandler: SetObjectCreationHandlerProtocol {
             )
             completion?(details)
         }
+    }
+}
+
+extension SetObjectCreationHelperProtocol {
+    func createObject(for setDocument: SetDocumentProtocol, completion: @escaping ((_ details: ObjectDetails?) -> Void)) {
+        createObject(for: setDocument, setting: nil, completion: completion)
     }
 }

@@ -901,7 +901,7 @@
 		2E9EFE72285B62E500C8E47A /* SetFilter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E9EFE71285B62E500C8E47A /* SetFilter.swift */; };
 		2EA098A72A697511009182C0 /* SubscriptionData+Info.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EA098A62A697511009182C0 /* SubscriptionData+Info.swift */; };
 		2EA0F4912936629E003225BA /* GroupsSubscribeResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EA0F4902936629E003225BA /* GroupsSubscribeResult.swift */; };
-		2EA18B092AF132A10096B137 /* SetObjectCreationHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EA18B082AF132A10096B137 /* SetObjectCreationHandler.swift */; };
+		2EA18B092AF132A10096B137 /* SetObjectCreationHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EA18B082AF132A10096B137 /* SetObjectCreationHelper.swift */; };
 		2EA2B7D42AB2113B00F1F49F /* SetViewSettingsListMode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EA2B7D32AB2113B00F1F49F /* SetViewSettingsListMode.swift */; };
 		2EAA13FB2AA63918000A712A /* SetRelationsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EAA13EB2AA63918000A712A /* SetRelationsView.swift */; };
 		2EAA13FC2AA63918000A712A /* SetViewSettingsImagePreviewModuleAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EAA13ED2AA63918000A712A /* SetViewSettingsImagePreviewModuleAssembly.swift */; };
@@ -2525,7 +2525,7 @@
 		2E9EFE71285B62E500C8E47A /* SetFilter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetFilter.swift; sourceTree = "<group>"; };
 		2EA098A62A697511009182C0 /* SubscriptionData+Info.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SubscriptionData+Info.swift"; sourceTree = "<group>"; };
 		2EA0F4902936629E003225BA /* GroupsSubscribeResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupsSubscribeResult.swift; sourceTree = "<group>"; };
-		2EA18B082AF132A10096B137 /* SetObjectCreationHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetObjectCreationHandler.swift; sourceTree = "<group>"; };
+		2EA18B082AF132A10096B137 /* SetObjectCreationHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetObjectCreationHelper.swift; sourceTree = "<group>"; };
 		2EA2B7D32AB2113B00F1F49F /* SetViewSettingsListMode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetViewSettingsListMode.swift; sourceTree = "<group>"; };
 		2EAA13EB2AA63918000A712A /* SetRelationsView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SetRelationsView.swift; sourceTree = "<group>"; };
 		2EAA13ED2AA63918000A712A /* SetViewSettingsImagePreviewModuleAssembly.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SetViewSettingsImagePreviewModuleAssembly.swift; sourceTree = "<group>"; };
@@ -7894,7 +7894,7 @@
 				3D8D41B8274287A900F8EBF3 /* EditorSetHostingController.swift */,
 				3D8D41BA274297FF00F8EBF3 /* EditorSetViewModel.swift */,
 				3D7F718027A088B7003FE893 /* EditorSetViewModel+Pagination.swift */,
-				2EA18B082AF132A10096B137 /* SetObjectCreationHandler.swift */,
+				2EA18B082AF132A10096B137 /* SetObjectCreationHelper.swift */,
 			);
 			path = Set;
 			sourceTree = "<group>";
@@ -10424,7 +10424,7 @@
 				538AE50F272C57300071DB0D /* LinkToObjectSearchViewModel.swift in Sources */,
 				2A5A898C29C8650600C170D6 /* SettingsAccountView.swift in Sources */,
 				2EB97A1B28B64CDC002BBB39 /* SetListViewCell.swift in Sources */,
-				2EA18B092AF132A10096B137 /* SetObjectCreationHandler.swift in Sources */,
+				2EA18B092AF132A10096B137 /* SetObjectCreationHelper.swift in Sources */,
 				2A6693852A71168B007747DD /* Kingfisher+Async.swift in Sources */,
 				5356072726E61A0F001464A4 /* UnsupportedBlockView.swift in Sources */,
 				1244793127DC575D00581174 /* ListRowConfiguration.swift in Sources */,

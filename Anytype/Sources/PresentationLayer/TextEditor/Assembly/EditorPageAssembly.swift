@@ -92,7 +92,7 @@ final class EditorAssembly {
             textService: serviceLocator.textService,
             groupsSubscriptionsHandler: serviceLocator.groupsSubscriptionsHandler(),
             setSubscriptionDataBuilder: SetSubscriptionDataBuilder(activeWorkspaceStorage: serviceLocator.activeWorkspaceStorage()),
-            objectCreationHandler: serviceLocator.setObjectCreationHandler(objectId: data.objectId, blockId: data.inline?.blockId)
+            objectCreationHelper: serviceLocator.setObjectCreationHelper(objectId: data.objectId, blockId: data.inline?.blockId)
         )
         let controller = EditorSetHostingController(objectId: data.objectId, model: model)
         let navigationContext = NavigationContext(rootViewController: browser ?? controller)

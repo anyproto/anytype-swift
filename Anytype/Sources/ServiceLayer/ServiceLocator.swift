@@ -316,8 +316,8 @@ final class ServiceLocator {
         TemplatesSubscriptionService(subscriptionStorageProvider: subscriptionStorageProvider())
     }
     
-    func setObjectCreationHandler(objectId: BlockId, blockId: BlockId?) -> SetObjectCreationHandlerProtocol {
-        SetObjectCreationHandler(
+    func setObjectCreationHelper(objectId: BlockId, blockId: BlockId?) -> SetObjectCreationHelperProtocol {
+        SetObjectCreationHelper(
             objectTypeProvider: objectTypeProvider(),
             dataviewService: dataviewService(objectId: objectId, blockId: blockId),
             objectActionsService: objectActionsService()
