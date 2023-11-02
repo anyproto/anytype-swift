@@ -3,8 +3,9 @@ import TipKit
 
 @available(iOS 17.0, *)
 struct HomeCreateObjectTip: Tip {
-
-    static let objectChangeType: Event = Event(id: "objectChangeType")
+    
+    @Parameter
+    static var objectTpeChanged: Bool = false
     
     var title: Text {
         Text(Loc.LongTapCreateTip.title)
@@ -20,8 +21,8 @@ struct HomeCreateObjectTip: Tip {
     
     var rules: [Rule] {
         [
-            #Rule(Self.objectChangeType) {
-                $0.donations.count > 0
+            #Rule(Self.$objectTpeChanged) {
+                $0 == true
             }
         ]
     }
@@ -30,7 +31,7 @@ struct HomeCreateObjectTip: Tip {
 @available(iOS 17.0, *)
 fileprivate struct HomeCreateObjectTipModifier: ViewModifier {
     
-    private let tip = HomeCreateObjectTip()
+    var tip = HomeCreateObjectTip()
     
     func body(content: Content) -> some View {
         content
@@ -40,7 +41,7 @@ fileprivate struct HomeCreateObjectTipModifier: ViewModifier {
 
 extension View {
     func popoverHomeCreateObjectTip() -> some View {
-        if #available(iOS 17, *) {
+        if #available(iOS 17.0, *) {
             return self.modifier(HomeCreateObjectTipModifier())
         } else {
             return self

@@ -27,8 +27,11 @@ platform :ios do
     increment_version_number(version_number: version)
     increment_build_number(build_number: build_number, xcodeproj: xcodeproj)
 
+    commit = last_git_commit
+    short_hash = commit[:abbreviated_commit_hash]
+    
     add_badge(
-      shield: "#{version}-#{build_number}-blue",
+      shield: "#{short_hash}-#{version}(#{build_number})-blue",
       no_badge: true
     )
 
