@@ -7,7 +7,7 @@ final class TemplateEditingViewController: UIViewController {
     private let settingsButton = UIButton()
     private let editorViewController: UIViewController
     private let onSettingsTap: () -> Void
-    private let onSelectTemplateTap: () -> Void
+    private let onSelectTemplateTap: (() -> Void)?
     
     private lazy var keyboardHelper = KeyboardEventsListnerHelper(
         didShowAction: { [weak selectTemplateButton] _ in
@@ -21,7 +21,7 @@ final class TemplateEditingViewController: UIViewController {
             Loc.TemplateSelection.selectTemplate,
             style: .primaryLarge,
             action: { [weak self] in
-                self?.onSelectTemplateTap()
+                self?.onSelectTemplateTap?()
             }
         ).asUIView()
     }()
@@ -36,7 +36,7 @@ final class TemplateEditingViewController: UIViewController {
     init(
         editorViewController: UIViewController,
         onSettingsTap: @escaping () -> Void,
-        onSelectTemplateTap: @escaping () -> Void
+        onSelectTemplateTap: (() -> Void)?
     ) {
         self.editorViewController = editorViewController
         self.onSettingsTap = onSettingsTap
@@ -56,10 +56,6 @@ final class TemplateEditingViewController: UIViewController {
     
         setupLayout()
         setupView()
-    }
-    
-    private func didSelectPrimaryButton() {
-        onSelectTemplateTap()
     }
     
     @objc
@@ -109,29 +105,31 @@ final class TemplateEditingViewController: UIViewController {
             $0.top.equal(to: fakeNavigationView.bottomAnchor)
         }
         
-        view.addSubview(selectTemplateButton) {
-            if FeatureFlags.ipadIncreaseWidth {
-                $0.pinToSuperview(
-                    excluding: [.top],
-                    insets: .init(
-                        top: 0,
-                        left: 20,
-                        bottom: view.safeAreaInsets.bottom + 35,
-                        right: 20
+        if onSelectTemplateTap.isNotNil {
+            view.addSubview(selectTemplateButton) {
+                if FeatureFlags.ipadIncreaseWidth {
+                    $0.pinToSuperview(
+                        excluding: [.top],
+                        insets: .init(
+                            top: 0,
+                            left: 20,
+                            bottom: view.safeAreaInsets.bottom + 35,
+                            right: 20
+                        )
                     )
-                )
-            } else {
-                $0.pinToSuperviewPreservingReadability(
-                    excluding: [.top],
-                    insets: .init(
-                        top: 0,
-                        left: 20,
-                        bottom: view.safeAreaInsets.bottom + 35,
-                        right: 20
+                } else {
+                    $0.pinToSuperviewPreservingReadability(
+                        excluding: [.top],
+                        insets: .init(
+                            top: 0,
+                            left: 20,
+                            bottom: view.safeAreaInsets.bottom + 35,
+                            right: 20
+                        )
                     )
-                )
+                }
+                $0.height.equal(to: StandardButtonStyle.primaryLarge.config.height)
             }
-            $0.height.equal(to: StandardButtonStyle.primaryLarge.config.height)
         }
     }
 }

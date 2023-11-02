@@ -174,7 +174,6 @@ final class EditorAssembly {
             newSearchModuleAssembly: modulesDI.newSearch(),
             textIconPickerModuleAssembly: modulesDI.textIconPicker(),
             alertHelper: AlertHelper(viewController: controller),
-            pageService: serviceLocator.pageRepository(),
             templateService: serviceLocator.templatesService
         )
 
