@@ -13,8 +13,9 @@ protocol SetObjectCreationSettingsCoordinatorProtocol: AnyObject {
     
     func showTemplateEditing(
         setting: ObjectCreationSetting,
-        onTemplateSelection: @escaping (ObjectCreationSetting) -> Void,
-        onSetAsDefaultTempalte: @escaping (BlockId) -> Void
+        onTemplateSelection: (() -> Void)?,
+        onSetAsDefaultTempalte: @escaping (BlockId) -> Void,
+        completion: (() -> Void)?
     )
 }
 
@@ -69,14 +70,17 @@ final class SetObjectCreationSettingsCoordinator: SetObjectCreationSettingsCoord
         view.model.templateEditingHandler = { [weak self, weak model, weak navigationContext] setting in
             self?.showTemplateEditing(
                 setting: setting,
-                onTemplateSelection: { setting in
-                    model?.setTemplateAsDefault(templateId: setting.templateId, showMessage: false)
-                    onTemplateSelection(setting)
+                onTemplateSelection: {
+                    navigationContext?.dismissAllPresented(animated: true) {
+                        model?.setTemplateAsDefault(templateId: setting.templateId, showMessage: false)
+                        onTemplateSelection(setting)
+                    }
                 },
                 onSetAsDefaultTempalte: { templateId in
                     model?.setTemplateAsDefault(templateId: templateId, showMessage: true)
                     navigationContext?.dismissTopPresented(animated: true, completion: nil)
-                }
+                },
+                completion: nil
             )
         }
         
@@ -97,8 +101,9 @@ final class SetObjectCreationSettingsCoordinator: SetObjectCreationSettingsCoord
     
     func showTemplateEditing(
         setting: ObjectCreationSetting,
-        onTemplateSelection: @escaping (ObjectCreationSetting) -> Void,
-        onSetAsDefaultTempalte: @escaping (BlockId) -> Void
+        onTemplateSelection: (() -> Void)?,
+        onSetAsDefaultTempalte: @escaping (BlockId) -> Void,
+        completion: (() -> Void)?
     ) {
         let editorPage = editorAssembly.buildPageModule(browser: nil, data: .init(
             objectId: setting.templateId,
@@ -123,15 +128,11 @@ final class SetObjectCreationSettingsCoordinator: SetObjectCreationSettingsCoord
                         viewModel?.handleSettingsAction(action: $0)
                     }
                 )
-            }, onSelectTemplateTap: { [weak self] in
-                guard let self else { return }
-                navigationContext.dismissAllPresented(animated: true) {
-                    onTemplateSelection(setting)
-                }
-            }
+            }, 
+            onSelectTemplateTap: onTemplateSelection
         )
 
-        navigationContext.present(editingTemplateViewController)
+        navigationContext.present(editingTemplateViewController, completion: completion)
     }
     
     private func showTypesSearch(

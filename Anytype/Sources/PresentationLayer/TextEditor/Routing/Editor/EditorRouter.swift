@@ -27,7 +27,6 @@ final class EditorRouter: NSObject, EditorRouterProtocol, ObjectSettingsCoordina
     private let newSearchModuleAssembly: NewSearchModuleAssemblyProtocol
     private let textIconPickerModuleAssembly: TextIconPickerModuleAssemblyProtocol
     private let alertHelper: AlertHelper
-    private let pageService: PageRepositoryProtocol
     private let templateService: TemplatesServiceProtocol
     
     init(
@@ -51,7 +50,6 @@ final class EditorRouter: NSObject, EditorRouterProtocol, ObjectSettingsCoordina
         newSearchModuleAssembly: NewSearchModuleAssemblyProtocol,
         textIconPickerModuleAssembly: TextIconPickerModuleAssemblyProtocol,
         alertHelper: AlertHelper,
-        pageService: PageRepositoryProtocol,
         templateService: TemplatesServiceProtocol
     ) {
         self.rootController = rootController
@@ -75,7 +73,6 @@ final class EditorRouter: NSObject, EditorRouterProtocol, ObjectSettingsCoordina
         self.newSearchModuleAssembly = newSearchModuleAssembly
         self.textIconPickerModuleAssembly = textIconPickerModuleAssembly
         self.alertHelper = alertHelper
-        self.pageService = pageService
         self.templateService = templateService
     }
 
@@ -549,29 +546,20 @@ extension EditorRouter: ObjectSettingsModuleDelegate {
     func didCreateTemplate(templateId: BlockId) {
         guard let objectType = document.details?.objectType else { return }
         let setting = ObjectCreationSetting(objectTypeId: objectType.id, spaceId: document.spaceId, templateId: templateId)
-        setObjectCreationSettingsCoordinator.showTemplateEditing(setting: setting) { [weak self] setting in
-            Task { @MainActor [weak self] in
-                do {
-                    guard let objectDetails = try await self?.pageService.createPage(
-                            name: "",
-                            typeUniqueKey: objectType.uniqueKey,
-                            shouldDeleteEmptyObject: true,
-                            shouldSelectType: false,
-                            shouldSelectTemplate: false,
-                            spaceId: objectType.spaceId,
-                            templateId: setting.templateId
-                          ) else {
-                        return
-                    }
-                    
-                    self?.openObject(screenData: .init(details: objectDetails))
-                } catch {
-                    print(error.localizedDescription)
-                }
+        setObjectCreationSettingsCoordinator.showTemplateEditing(
+            setting: setting,
+            onTemplateSelection: nil,
+            onSetAsDefaultTempalte: { [weak self] templateId in
+                self?.didTapUseTemplateAsDefault(templateId: templateId)
+            }, 
+            completion: { [weak self] in
+                self?.toastPresenter.showObjectCompositeAlert(
+                    prefixText: Loc.Templates.Popup.wasAddedTo,
+                    objectId: objectType.id,
+                    tapHandler: { }
+                )
             }
-        } onSetAsDefaultTempalte: { [weak self] templateId in
-            self?.didTapUseTemplateAsDefault(templateId: templateId)
-        }
+        )
     }
     
     func didTapUseTemplateAsDefault(templateId: BlockId) {
