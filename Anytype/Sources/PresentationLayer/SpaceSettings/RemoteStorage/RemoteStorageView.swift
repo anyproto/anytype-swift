@@ -39,7 +39,9 @@ struct RemoteStorageView: View {
         Spacer.fixedHeight(20)
         AnytypeText(model.spaceUsed, style: .relation3Regular, color: .Text.secondary)
         Spacer.fixedHeight(8)
-        SegmentLine(items: model.segmentItems)
+        SegmentLine(items: model.segmentLineItems)
+        Spacer.fixedHeight(16)
+        SegmentLegend(items: model.segmentLegendItems)
         Spacer.fixedHeight(16)
         StandardButton(Loc.FileStorage.manageFiles, style: .secondarySmall) {
             model.onTapManageFiles()

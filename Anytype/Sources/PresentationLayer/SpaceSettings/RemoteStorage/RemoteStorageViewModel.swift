@@ -18,6 +18,7 @@ final class RemoteStorageViewModel: ObservableObject {
     private let subscriptionService: SingleObjectSubscriptionServiceProtocol
     private let fileLimitsStorage: FileLimitsStorageProtocol
     private let documentProvider: DocumentsProviderProtocol
+    private let workspacesStorage: WorkspacesStorageProtocol
     private weak var output: RemoteStorageModuleOutput?
     private var subscriptions = [AnyCancellable]()
     private let subSpaceId = "RemoteStorageViewModel-Space-\(UUID())"
@@ -30,7 +31,8 @@ final class RemoteStorageViewModel: ObservableObject {
     @Published var spaceUsed: String = ""
     @Published var contentLoaded: Bool = false
     @Published var showGetMoreSpaceButton: Bool = false
-    @Published var segmentItems: [SegmentItem] = []
+    @Published var segmentLineItems: [SegmentLineItem] = []
+    @Published var segmentLegendItems: [SegmentLegendItem] = []
     
     init(
         accountManager: AccountManagerProtocol,
@@ -38,6 +40,7 @@ final class RemoteStorageViewModel: ObservableObject {
         subscriptionService: SingleObjectSubscriptionServiceProtocol,
         fileLimitsStorage: FileLimitsStorageProtocol,
         documentProvider: DocumentsProviderProtocol,
+        workspacesStorage: WorkspacesStorageProtocol,
         output: RemoteStorageModuleOutput?
     ) {
         self.accountManager = accountManager
@@ -45,6 +48,7 @@ final class RemoteStorageViewModel: ObservableObject {
         self.subscriptionService = subscriptionService
         self.fileLimitsStorage = fileLimitsStorage
         self.documentProvider = documentProvider
+        self.workspacesStorage = workspacesStorage
         self.output = output
         setupPlaceholderState()
         Task {
@@ -115,37 +119,63 @@ final class RemoteStorageViewModel: ObservableObject {
         
         let spaceId = activeWorkspaceStorage.workspaceInfo.accountSpaceId
         
-        var segmentItems = [SegmentItem]()
+        var segmentLineItems = [SegmentLineItem]()
+        var segmentLegendItems = [SegmentLegendItem]()
         
-        if let spaceView = activeWorkspaceStorage.spaceView(),
-            let spaceUsage = nodeUsage.spaces.first(where: { $0.spaceID == spaceId }) {
-            segmentItems.append(
-                SegmentItem(
+        if let spaceView = activeWorkspaceStorage.spaceView() {
+            let spaceBytesUsage = nodeUsage.spaces.first(where: { $0.spaceID == spaceId })?.bytesUsage ?? 0
+            
+            segmentLineItems.append(
+                SegmentLineItem(
                     color: .System.amber125,
-                    value: Double(spaceUsage.bytesUsage) / Double(bytesLimit),
-                    legend: Loc.FileStorage.LimitLegend.current(spaceView.name, byteCountFormatter.string(fromByteCount: spaceUsage.bytesUsage))
+                    value: Double(spaceBytesUsage) / Double(bytesLimit)
+                )
+            )
+            
+            segmentLegendItems.append(
+                SegmentLegendItem(
+                    color: .System.amber125,
+                    legend: Loc.FileStorage.LimitLegend.current(spaceView.name, byteCountFormatter.string(fromByteCount: spaceBytesUsage))
                 )
             )
         }
-    
-        let otherUsageBytes = nodeUsage.spaces.filter { $0.spaceID != spaceId }.reduce(Int64(0), { $0 + $1.bytesUsage })
         
-        segmentItems.append(
-            SegmentItem(
+        let otherSpaces = workspacesStorage.workspaces.filter { $0.targetSpaceId != spaceId }
+        
+        let otherSegments = otherSpaces.map { spaceView in
+            let spaceBytesUsage = nodeUsage.spaces.first(where: { $0.spaceID == spaceView.targetSpaceId })?.bytesUsage ?? 0
+            return SegmentLineItem(
                 color: .System.amber50,
-                value: Double(otherUsageBytes) / Double(bytesLimit),
+                value: Double(spaceBytesUsage) / Double(bytesLimit)
+            )
+        }
+        
+        segmentLineItems.append(contentsOf: otherSegments)
+        
+        let otherUsageBytes = nodeUsage.spaces.reduce(Int64(0), { $0 + $1.bytesUsage })
+        
+        segmentLegendItems.append(
+            SegmentLegendItem(
+                color: .System.amber50,
                 legend: Loc.FileStorage.LimitLegend.other(byteCountFormatter.string(fromByteCount: otherUsageBytes))
             )
         )
         
-        segmentItems.append(
-            SegmentItem(
+        segmentLineItems.append(
+            SegmentLineItem(
                 color: .Stroke.tertiary,
-                value: Double(nodeUsage.node.bytesLeft) / Double(bytesLimit),
+                value: Double(nodeUsage.node.bytesLeft) / Double(bytesLimit)
+            )
+        )
+        
+        segmentLegendItems.append(
+            SegmentLegendItem(
+                color: .Stroke.tertiary,
                 legend: Loc.FileStorage.LimitLegend.free(byteCountFormatter.string(fromByteCount: nodeUsage.node.bytesLeft))
             )
         )
         
-        self.segmentItems = segmentItems
+        self.segmentLineItems = segmentLineItems
+        self.segmentLegendItems = segmentLegendItems
     }
 }
