@@ -1,5 +1,6 @@
 import Foundation
 
+// TODO: Delete
 struct FileLimits {
     var filesCount: Int64
     var cidsCount: Int64

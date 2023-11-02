@@ -126,6 +126,11 @@ final class FileActionsService: FileActionsServiceProtocol {
         )
     }
     
+    func nodeUsage() async throws -> NodeUsageInfo {
+        let result = try await ClientCommands.fileNodeUsage().invoke()
+        return NodeUsageInfo(from: result)
+    }
+    
     // MARK: - Private
     
     private func tempDirectoryPath() -> URL {

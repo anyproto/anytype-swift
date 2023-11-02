@@ -25,5 +25,7 @@ protocol FileActionsServiceProtocol {
     
     func spaceUsage(spaceId: String) async throws -> FileLimits
     
+    func nodeUsage() async throws -> NodeUsageInfo
+    
     func clearCache() async throws
 }

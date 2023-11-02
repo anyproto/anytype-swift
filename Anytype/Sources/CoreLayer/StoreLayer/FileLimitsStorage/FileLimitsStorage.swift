@@ -4,7 +4,7 @@ import Combine
 
 protocol FileLimitsStorageProtocol: AnyObject {
     func setupSpaceId(spaceId: String)
-    var limits: AnyPublisher<FileLimits, Never> { get }
+    var nodeUsage: AnyPublisher<NodeUsageInfo, Never> { get }
 }
 
 actor FileLimitsStorage: FileLimitsStorageProtocol {
@@ -16,14 +16,14 @@ actor FileLimitsStorage: FileLimitsStorageProtocol {
     // MARK: - State
     
     private var subscriptions = [AnyCancellable]()
-    private var data: CurrentValueSubject<FileLimits?, Never>
+    private var data: CurrentValueSubject<NodeUsageInfo?, Never>
     private var spaceId: String?
-    nonisolated let limits: AnyPublisher<FileLimits, Never>
+    nonisolated let nodeUsage: AnyPublisher<NodeUsageInfo, Never>
     
     init(fileService: FileActionsServiceProtocol) {
         self.fileService = fileService
         self.data = CurrentValueSubject(nil)
-        self.limits = data.compactMap { $0 }.eraseToAnyPublisher()
+        self.nodeUsage = data.compactMap { $0 }.eraseToAnyPublisher()
     }
     
     // MARK: - Private
@@ -38,8 +38,8 @@ actor FileLimitsStorage: FileLimitsStorageProtocol {
     private func setupInitialState(spaceId newSpaceId: String) async throws {
         stopSubscription()
         spaceId = newSpaceId
-        let limits = try await fileService.spaceUsage(spaceId: newSpaceId)
-        data.value = limits
+        let nodeUsage = try await fileService.nodeUsage()
+        data.value = nodeUsage
         setupSubscription()
     }
     
@@ -57,9 +57,10 @@ actor FileLimitsStorage: FileLimitsStorageProtocol {
         for event in events.middlewareEvents {
             switch event.value {
             case let .fileLocalUsage(eventData):
-                data.value?.localBytesUsage = Int64(clamping: eventData.localBytesUsage)
+                data.value?.node.localBytesUsage = Int64(clamping: eventData.localBytesUsage)
             case let .fileSpaceUsage(eventData):
-                data.value?.bytesUsage = Int64(clamping: eventData.bytesUsage)
+                guard let spaceIndex = data.value?.spaces.firstIndex(where: { $0.spaceID == eventData.spaceID }) else { return }
+                data.value?.spaces[spaceIndex].bytesUsage = Int64(clamping: eventData.bytesUsage)
             default:
                 break
             }

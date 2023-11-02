@@ -491,6 +491,9 @@
 		2A6ED170285B452600AAA21C /* SwiftProtobuf in Frameworks */ = {isa = PBXBuildFile; productRef = 2A6ED16F285B452600AAA21C /* SwiftProtobuf */; };
 		2A6F5046288A8F0B00ED6E2E /* ImageAssets.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A6F5045288A8F0B00ED6E2E /* ImageAssets.swift */; };
 		2A6F5048288A9AB600ED6E2E /* Image+Create.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A6F5047288A9AB600ED6E2E /* Image+Create.swift */; };
+		2A7208B02AF3A8AD006D88CF /* NodeUsage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A7208AF2AF3A8AD006D88CF /* NodeUsage.swift */; };
+		2A7208B22AF3A92B006D88CF /* SpaceUsage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A7208B12AF3A92B006D88CF /* SpaceUsage.swift */; };
+		2A7208B42AF3A965006D88CF /* NodeUsageInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A7208B32AF3A965006D88CF /* NodeUsageInfo.swift */; };
 		2A730A732940BE7A00E51335 /* NewSearchCreateButtonModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A730A722940BE7A00E51335 /* NewSearchCreateButtonModel.swift */; };
 		2A730A762940C10000E51335 /* SearchObjectRowView+Init.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A730A752940C10000E51335 /* SearchObjectRowView+Init.swift */; };
 		2A733A8B294080B300B7D27C /* RelationsSearchViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A733A8A294080B300B7D27C /* RelationsSearchViewModel.swift */; };
@@ -2110,6 +2113,9 @@
 		2A6ED164285B449700AAA21C /* AnytypeCore */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = AnytypeCore; path = Modules/AnytypeCore; sourceTree = "<group>"; };
 		2A6F5045288A8F0B00ED6E2E /* ImageAssets.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageAssets.swift; sourceTree = "<group>"; };
 		2A6F5047288A9AB600ED6E2E /* Image+Create.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Image+Create.swift"; sourceTree = "<group>"; };
+		2A7208AF2AF3A8AD006D88CF /* NodeUsage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NodeUsage.swift; sourceTree = "<group>"; };
+		2A7208B12AF3A92B006D88CF /* SpaceUsage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpaceUsage.swift; sourceTree = "<group>"; };
+		2A7208B32AF3A965006D88CF /* NodeUsageInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NodeUsageInfo.swift; sourceTree = "<group>"; };
 		2A730A722940BE7A00E51335 /* NewSearchCreateButtonModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewSearchCreateButtonModel.swift; sourceTree = "<group>"; };
 		2A730A752940C10000E51335 /* SearchObjectRowView+Init.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SearchObjectRowView+Init.swift"; sourceTree = "<group>"; };
 		2A733A8A294080B300B7D27C /* RelationsSearchViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RelationsSearchViewModel.swift; sourceTree = "<group>"; };
@@ -5472,6 +5478,18 @@
 			path = Internal;
 			sourceTree = "<group>";
 		};
+		2A7208B52AF3B082006D88CF /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				2AC3F9472A1394D9005EFEE9 /* FileLimits.swift */,
+				2AF109572A03C56600EDDE26 /* NSItemProvider+Async.swift */,
+				2A7208AF2AF3A8AD006D88CF /* NodeUsage.swift */,
+				2A7208B12AF3A92B006D88CF /* SpaceUsage.swift */,
+				2A7208B32AF3A965006D88CF /* NodeUsageInfo.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
 		2A730A712940BBF100E51335 /* List */ = {
 			isa = PBXGroup;
 			children = (
@@ -6870,10 +6888,9 @@
 		3D07ECD1261B501E00C007E2 /* File */ = {
 			isa = PBXGroup;
 			children = (
-				2AC3F9472A1394D9005EFEE9 /* FileLimits.swift */,
+				2A7208B52AF3B082006D88CF /* Models */,
 				0ACDB07B255AA40900B8B0D8 /* FileActionsServiceProtocol.swift */,
 				0AD7695825D5908E00669F8C /* FileActionsService.swift */,
-				2AF109572A03C56600EDDE26 /* NSItemProvider+Async.swift */,
 			);
 			path = File;
 			sourceTree = "<group>";
@@ -10019,6 +10036,7 @@
 				2A28D0522980031300E55E15 /* WidgetContainerContentViewModelProtocol.swift in Sources */,
 				3DB3EC642754FFF1002781DA /* DashboardLoadingAlert.swift in Sources */,
 				2A39F3C929ED96AB005DE8F5 /* MarkupType+Analytics.swift in Sources */,
+				2A7208B42AF3A965006D88CF /* NodeUsageInfo.swift in Sources */,
 				EA2F0D6D264EBA1B0039C1CB /* TextChangeType.swift in Sources */,
 				2E52DE672A1CDF3D00F16815 /* LineProgressBar.swift in Sources */,
 				2A8A2DD52AB9A14300105549 /* ShareCoordinatorAssembly.swift in Sources */,
@@ -10246,6 +10264,7 @@
 				3D2F9C22271EAEAE0043C326 /* BlockBuilder.swift in Sources */,
 				5396534F2600D1B100A74C11 /* TextBlockLayoutManager.swift in Sources */,
 				EAC5FD512657DC97006BB24E /* KeyboardState.swift in Sources */,
+				2A7208B22AF3A92B006D88CF /* SpaceUsage.swift in Sources */,
 				1215E8BB26A8654C0089AF7E /* AnalyticsConfigurator.swift in Sources */,
 				2E1C80E52A2F6EF000217C47 /* AboutApp.swift in Sources */,
 				2AFF7ACA299D1ACA00B7746B /* ListSectionBigHeaderView.swift in Sources */,
@@ -11017,6 +11036,7 @@
 				EA3D1E4F26CFC0E5001A31D9 /* TextViewAttributeSelectionInteraction.swift in Sources */,
 				2EAA13FE2AA63918000A712A /* SetViewSettingsImagePreviewRowConfiguration.swift in Sources */,
 				2E0797BC2A0965FD006F0FD7 /* JoinFlowCoordinatorAssembly.swift in Sources */,
+				2A7208B02AF3A8AD006D88CF /* NodeUsage.swift in Sources */,
 				0A74E4FB23A90E8C00B6C406 /* AuthService.swift in Sources */,
 				53F80F0527BD8DAD00E9E12A /* ObjectListRelationViewUIKit.swift in Sources */,
 				3D3A182A2733E946000D0842 /* MarkdownListener.swift in Sources */,

@@ -24,7 +24,7 @@ final class RemoteStorageViewModel: ObservableObject {
     
     private let byteCountFormatter = ByteCountFormatter.fileFormatter
     
-    private var limits: FileLimits?
+    private var nodeUsage: NodeUsageInfo?
     
     @Published var spaceInstruction: String = ""
     @Published var spaceName: String = ""
@@ -65,7 +65,7 @@ final class RemoteStorageViewModel: ObservableObject {
     }
     
     func onTapGetMoreSpace() {
-        guard let limits else { return }
+        guard let nodeUsage else { return }
         AnytypeAnalytics.instance().logGetMoreSpace()
         Task { @MainActor in
             let profileDocument = documentProvider.document(
@@ -73,7 +73,7 @@ final class RemoteStorageViewModel: ObservableObject {
                 forPreview: true
             )
             try await profileDocument.openForPreview()
-            let limit = byteCountFormatter.string(fromByteCount: limits.bytesLimit)
+            let limit = byteCountFormatter.string(fromByteCount: nodeUsage.node.bytesLimit)
             let mailLink = MailUrl(
                 to: Constants.mailTo,
                 subject: Loc.FileStorage.Space.Mail.subject(accountManager.account.id),
@@ -88,16 +88,16 @@ final class RemoteStorageViewModel: ObservableObject {
     
     private func setupSubscription() async {
         fileLimitsStorage.setupSpaceId(spaceId: activeWorkspaceStorage.workspaceInfo.accountSpaceId)
-        fileLimitsStorage.limits
+        fileLimitsStorage.nodeUsage
             .receiveOnMain()
-            .sink { [weak self] limits in
+            .sink { [weak self] nodeUsage in
                 // Some times middleware responds with big delay.
                 // If middle upload a lot of files, read operation blocked.
                 // May be fixed in feature.
                 // Slack discussion https://anytypeio.slack.com/archives/C04QVG8V15K/p1684399017487419?thread_ts=1684244283.014759&cid=C04QVG8V15K
                 self?.contentLoaded = true
-                self?.limits = limits
-                self?.updateView(limits: limits)
+                self?.nodeUsage = nodeUsage
+                self?.updateView(nodeUsage: nodeUsage)
             }
             .store(in: &subscriptions)
             
@@ -112,7 +112,7 @@ final class RemoteStorageViewModel: ObservableObject {
     
     private func setupPlaceholderState() {
         handleSpaceDetails(details: ObjectDetails(id: ""))
-        updateView(limits: .zero)
+        updateView(nodeUsage: .zero)
     }
     
     private func handleSpaceDetails(details: ObjectDetails) {
@@ -120,10 +120,10 @@ final class RemoteStorageViewModel: ObservableObject {
         spaceName = details.name.isNotEmpty ? details.name : Loc.Object.Title.placeholder
     }
     
-    private func updateView(limits: FileLimits) {
-        let bytesUsed = limits.bytesUsage
-        let bytesLimit = limits.bytesLimit
-        let localBytesUsage = limits.localBytesUsage
+    private func updateView(nodeUsage: NodeUsageInfo) {
+        let bytesUsed = nodeUsage.node.bytesUsage
+        let bytesLimit = nodeUsage.node.bytesLimit
+        let localBytesUsage = nodeUsage.node.localBytesUsage
         
         let used = byteCountFormatter.string(fromByteCount: bytesUsed)
         let limit = byteCountFormatter.string(fromByteCount: bytesLimit)
