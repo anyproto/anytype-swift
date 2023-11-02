@@ -9,6 +9,7 @@ protocol ActiveWorkpaceStorageProtocol: AnyObject {
     var workspaceInfoPublisher: AnyPublisher<AccountInfo, Never> { get }
     func setActiveSpace(spaceId: String) async throws
     func setupActiveSpace() async
+    func spaceView() -> SpaceView?
 }
 
 final class ActiveWorkspaceStorage: ActiveWorkpaceStorageProtocol {
@@ -55,6 +56,9 @@ final class ActiveWorkspaceStorage: ActiveWorkpaceStorageProtocol {
         startSubscriotion()
     }
     
+    func spaceView() -> SpaceView? {
+        return workspaceStorage.spaceView(id: workspaceInfo.spaceViewId)
+    }
     
     // MARK: - Private
     

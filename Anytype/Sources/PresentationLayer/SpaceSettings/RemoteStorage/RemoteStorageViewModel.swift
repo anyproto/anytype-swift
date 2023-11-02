@@ -27,14 +27,10 @@ final class RemoteStorageViewModel: ObservableObject {
     private var nodeUsage: NodeUsageInfo?
     
     @Published var spaceInstruction: String = ""
-    @Published var spaceName: String = ""
-    @Published var percentUsage: Double = 0
-    @Published var spaceIcon: Icon?
     @Published var spaceUsed: String = ""
-    @Published var spaceUsedWarning: Bool = false
     @Published var contentLoaded: Bool = false
     @Published var showGetMoreSpaceButton: Bool = false
-    let progressBarConfiguration = LineProgressBarConfiguration.fileStorage
+    @Published var segmentItems: [SegmentItem] = []
     
     init(
         accountManager: AccountManagerProtocol,
@@ -99,39 +95,57 @@ final class RemoteStorageViewModel: ObservableObject {
                 self?.updateView(nodeUsage: nodeUsage)
             }
             .store(in: &subscriptions)
-            
-        
-        await subscriptionService.startSubscription(
-            subId: subSpaceId,
-            objectId: activeWorkspaceStorage.workspaceInfo.spaceViewId
-        ) { [weak self] details in
-            self?.handleSpaceDetails(details: details)
-        }
     }
     
     private func setupPlaceholderState() {
-        handleSpaceDetails(details: ObjectDetails(id: ""))
         updateView(nodeUsage: .zero)
-    }
-    
-    private func handleSpaceDetails(details: ObjectDetails) {
-        spaceIcon = details.objectIconImage
-        spaceName = details.name.isNotEmpty ? details.name : Loc.Object.Title.placeholder
     }
     
     private func updateView(nodeUsage: NodeUsageInfo) {
         let bytesUsed = nodeUsage.node.bytesUsage
         let bytesLimit = nodeUsage.node.bytesLimit
-        let localBytesUsage = nodeUsage.node.localBytesUsage
         
         let used = byteCountFormatter.string(fromByteCount: bytesUsed)
         let limit = byteCountFormatter.string(fromByteCount: bytesLimit)
         
         spaceInstruction = Loc.FileStorage.Space.instruction(limit)
         spaceUsed = Loc.FileStorage.Space.used(used, limit)
-        percentUsage = Double(bytesUsed) / Double(bytesLimit)
-        spaceUsedWarning = percentUsage >= Constants.warningPercent
-        let localPercentUsage = Double(localBytesUsage) / Double(bytesLimit)
-        showGetMoreSpaceButton = percentUsage >= Constants.warningPercent || localPercentUsage >= Constants.warningPercent
+        let percentUsage = Double(bytesUsed) / Double(bytesLimit)
+        showGetMoreSpaceButton = percentUsage >= Constants.warningPercent
+        
+        let spaceId = activeWorkspaceStorage.workspaceInfo.accountSpaceId
+        
+        var segmentItems = [SegmentItem]()
+        
+        if let spaceView = activeWorkspaceStorage.spaceView(),
+            let spaceUsage = nodeUsage.spaces.first(where: { $0.spaceID == spaceId }) {
+            segmentItems.append(
+                SegmentItem(
+                    color: .System.amber125,
+                    value: Double(spaceUsage.bytesUsage) / Double(bytesLimit),
+                    legend: Loc.FileStorage.LimitLegend.current(spaceView.name, byteCountFormatter.string(fromByteCount: spaceUsage.bytesUsage))
+                )
+            )
+        }
+    
+        let otherUsageBytes = nodeUsage.spaces.filter { $0.spaceID != spaceId }.reduce(Int64(0), { $0 + $1.bytesUsage })
+        
+        segmentItems.append(
+            SegmentItem(
+                color: .System.amber50,
+                value: Double(otherUsageBytes) / Double(bytesLimit),
+                legend: Loc.FileStorage.LimitLegend.other(byteCountFormatter.string(fromByteCount: otherUsageBytes))
+            )
+        )
+        
+        segmentItems.append(
+            SegmentItem(
+                color: .Stroke.tertiary,
+                value: Double(nodeUsage.node.bytesLeft) / Double(bytesLimit),
+                legend: Loc.FileStorage.LimitLegend.free(byteCountFormatter.string(fromByteCount: nodeUsage.node.bytesLeft))
+            )
+        )
+        
+        self.segmentItems = segmentItems
     }
 }
