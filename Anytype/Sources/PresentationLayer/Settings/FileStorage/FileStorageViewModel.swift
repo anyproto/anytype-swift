@@ -7,9 +7,7 @@ import AnytypeCore
 @MainActor
 final class FileStorageViewModel: ObservableObject {
     
-    private let activeWorkspaceStorage: ActiveWorkpaceStorageProtocol
     private let fileLimitsStorage: FileLimitsStorageProtocol
-    private let documentsProvider: DocumentsProviderProtocol
     private weak var output: FileStorageModuleOutput?
     private var subscriptions = [AnyCancellable]()
     
@@ -23,14 +21,10 @@ final class FileStorageViewModel: ObservableObject {
     @Published var contentLoaded: Bool = false
     
     init(
-        activeWorkspaceStorage: ActiveWorkpaceStorageProtocol,
         fileLimitsStorage: FileLimitsStorageProtocol,
-        documentsProvider: DocumentsProviderProtocol,
         output: FileStorageModuleOutput?
     ) {
-        self.activeWorkspaceStorage = activeWorkspaceStorage
         self.fileLimitsStorage = fileLimitsStorage
-        self.documentsProvider = documentsProvider
         self.output = output
         setupPlaceholderState()
         Task {
@@ -49,7 +43,6 @@ final class FileStorageViewModel: ObservableObject {
     // MARK: - Private
     
     private func setupSubscription() async {
-        fileLimitsStorage.setupSpaceId(spaceId: activeWorkspaceStorage.workspaceInfo.accountSpaceId)
         fileLimitsStorage.nodeUsage
             .receiveOnMain()
             .sink { [weak self] nodeUsage in

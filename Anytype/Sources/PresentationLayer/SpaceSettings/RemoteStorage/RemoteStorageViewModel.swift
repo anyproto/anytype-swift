@@ -87,7 +87,6 @@ final class RemoteStorageViewModel: ObservableObject {
     // MARK: - Private
     
     private func setupSubscription() async {
-        fileLimitsStorage.setupSpaceId(spaceId: activeWorkspaceStorage.workspaceInfo.accountSpaceId)
         fileLimitsStorage.nodeUsage
             .receiveOnMain()
             .sink { [weak self] nodeUsage in

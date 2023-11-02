@@ -23,8 +23,6 @@ protocol FileActionsServiceProtocol {
     func uploadDataAt(source: FileUploadingSource, contextID: BlockId, blockID: BlockId) async throws
     func uploadImage(spaceId: String, source: FileUploadingSource) async throws -> Hash
     
-    func spaceUsage(spaceId: String) async throws -> FileLimits
-    
     func nodeUsage() async throws -> NodeUsageInfo
     
     func clearCache() async throws
