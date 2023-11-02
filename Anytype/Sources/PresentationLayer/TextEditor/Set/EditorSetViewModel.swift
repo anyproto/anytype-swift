@@ -753,14 +753,6 @@ extension EditorSetViewModel {
         return groupOrder.updated(viewGroups: viewGroups)
     }
     
-    private func handleCreatedObject(details: ObjectDetails) {
-        if details.layoutValue == .note {
-            openObject(details: details)
-        } else {
-            router?.showCreateObject(details: details)
-        }
-    }
-    
    private func openObject(details: ObjectDetails) {
        router?.showPage(
         data: details.editorScreenData(shouldShowTemplatesOptions: !FeatureFlags.setTemplateSelection)
