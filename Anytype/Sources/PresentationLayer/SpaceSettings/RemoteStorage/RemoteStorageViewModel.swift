@@ -152,7 +152,7 @@ final class RemoteStorageViewModel: ObservableObject {
         
         segmentLineItems.append(contentsOf: otherSegments)
         
-        let otherUsageBytes = nodeUsage.spaces.reduce(Int64(0), { $0 + $1.bytesUsage })
+        let otherUsageBytes = nodeUsage.spaces.filter { $0.spaceID != spaceId }.reduce(Int64(0), { $0 + $1.bytesUsage })
         
         segmentLegendItems.append(
             SegmentLegendItem(
