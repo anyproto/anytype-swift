@@ -20,71 +20,87 @@ final class SetObjectCreationHelper: SetObjectCreationHelperProtocol {
         self.objectActionsService = objectActionsService
     }
     
+    // MARK: - SetObjectCreationHelperProtocol
+    
     func createObject(
         for setDocument: SetDocumentProtocol,
         setting: ObjectCreationSetting?,
         completion: @escaping ((_ details: ObjectDetails?) -> Void)
     ) {
-        guard !setDocument.isBookmarksSet() else {
+        if isBookmarkObject(setDocument: setDocument, setting: setting) {
             completion(nil)
-            return
-        }
-        
-        if setDocument.isCollection() {
-            let settingsObjectType = setting.map { try? objectTypeProvider.objectType(id: $0.objectTypeId) }
-            let objectType = settingsObjectType ?? (try? setDocument.defaultObjectTypeForActiveView())
-            let templateId = setting?.templateId ?? defaultTemplateId(for: objectType, setDocument: setDocument)
-            
-            createObject(
-                setDocument: setDocument,
-                type: objectType,
-                relationsDetails: [],
-                templateId: templateId,
-                completion: { details in
-                    Task { @MainActor [weak self] in
-                        try await self?.objectActionsService.addObjectsToCollection(
-                            contextId: setDocument.objectId,
-                            objectIds: [details.id]
-                        )
-                        completion(details)
-                    }
-                }
-            )
+        } else if setDocument.isCollection() {
+            createObjectForCollection(for: setDocument, setting: setting, completion: completion)
         } else if setDocument.isRelationsSet() {
-            let relationsDetails = setDocument.dataViewRelationsDetails.filter { detail in
-                guard let source = setDocument.details?.setOf else { return false }
-                return source.contains(detail.id)
-            }
-            let settingsObjectType = setting.map { try? objectTypeProvider.objectType(id: $0.objectTypeId) }
-            let objectType = settingsObjectType ?? (try? setDocument.defaultObjectTypeForActiveView())
-            let templateId = setting?.templateId ?? defaultTemplateId(for: objectType, setDocument: setDocument)
-            createObject(
-                setDocument: setDocument,
-                type: objectType,
-                relationsDetails: relationsDetails,
-                templateId: templateId,
-                completion: completion
-            )
+            createObjectForRelationSet(for: setDocument, setting: setting, completion: completion)
         } else {
-            let objectTypeId = setDocument.details?.setOf.first ?? ""
-            let objectType = try? objectTypeProvider.objectType(id: objectTypeId)
-            let templateId = setting?.templateId ?? defaultTemplateId(for: objectType, setDocument: setDocument)
-            createObject(
-                setDocument: setDocument,
-                type: objectType,
-                relationsDetails: [],
-                templateId: templateId,
-                completion: completion
-            )
+            createObjectForRegularSet(for: setDocument, setting: setting, completion: completion)
         }
     }
     
-    private func defaultTemplateId(for objectType: ObjectType?, setDocument: SetDocumentProtocol) -> String {
-        if let defaultTemplateId = setDocument.activeView.defaultTemplateID, defaultTemplateId.isNotEmpty {
-            return defaultTemplateId
-        } else {
-            return objectType?.defaultTemplateId ?? ""
+    // MARK: - Private
+    
+    private func createObjectForCollection(
+        for setDocument: SetDocumentProtocol,
+        setting: ObjectCreationSetting?,
+        completion: @escaping ((_ details: ObjectDetails?) -> Void)
+    ) {
+        let objectType = objectType(for: setDocument, setting: setting)
+        let templateId = setting?.templateId ?? defaultTemplateId(for: objectType, setDocument: setDocument)
+        
+        createObject(
+            setDocument: setDocument,
+            type: objectType,
+            relationsDetails: [],
+            templateId: templateId,
+            completion: { details in
+                Task { @MainActor [weak self] in
+                    try await self?.objectActionsService.addObjectsToCollection(
+                        contextId: setDocument.objectId,
+                        objectIds: [details.id]
+                    )
+                    completion(details)
+                }
+            }
+        )
+    }
+    
+    private func createObjectForRelationSet(
+        for setDocument: SetDocumentProtocol,
+        setting: ObjectCreationSetting?,
+        completion: @escaping ((_ details: ObjectDetails?) -> Void)
+    ) {
+        let relationsDetails = setDocument.dataViewRelationsDetails.filter { detail in
+            guard let source = setDocument.details?.setOf else { return false }
+            return source.contains(detail.id)
         }
+        let objectType = objectType(for: setDocument, setting: setting)
+        let templateId = setting?.templateId ?? defaultTemplateId(for: objectType, setDocument: setDocument)
+        
+        createObject(
+            setDocument: setDocument,
+            type: objectType,
+            relationsDetails: relationsDetails,
+            templateId: templateId,
+            completion: completion
+        )
+    }
+    
+    private func createObjectForRegularSet(
+        for setDocument: SetDocumentProtocol,
+        setting: ObjectCreationSetting?,
+        completion: @escaping ((_ details: ObjectDetails?) -> Void)
+    ) {
+        let objectTypeId = setDocument.details?.setOf.first ?? ""
+        let objectType = try? objectTypeProvider.objectType(id: objectTypeId)
+        let templateId = setting?.templateId ?? defaultTemplateId(for: objectType, setDocument: setDocument)
+        createObject(
+            setDocument: setDocument,
+            type: objectType,
+            relationsDetails: [],
+            templateId: templateId,
+            completion: completion
+        )
     }
     
     private func createObject(
@@ -105,6 +121,32 @@ final class SetObjectCreationHelper: SetObjectCreationHelperProtocol {
                 relationsDetails: relationsDetails
             )
             completion?(details)
+        }
+    }
+    
+    private func isBookmarkObject(setDocument: SetDocumentProtocol, setting: ObjectCreationSetting?) -> Bool {
+        if setDocument.isBookmarksSet() {
+            return true
+        }
+        
+        if let objectType = objectType(for: setDocument, setting: setting) {
+            return objectType.recommendedLayout == .bookmark
+        }
+        
+        return false
+    }
+    
+    private func objectType(for setDocument: SetDocumentProtocol, setting: ObjectCreationSetting?) -> ObjectType? {
+        let settingsObjectType = setting.map { try? objectTypeProvider.objectType(id: $0.objectTypeId) }
+        let objectType = settingsObjectType ?? (try? setDocument.defaultObjectTypeForActiveView())
+        return objectType
+    }
+    
+    private func defaultTemplateId(for objectType: ObjectType?, setDocument: SetDocumentProtocol) -> String {
+        if let defaultTemplateId = setDocument.activeView.defaultTemplateID, defaultTemplateId.isNotEmpty {
+            return defaultTemplateId
+        } else {
+            return objectType?.defaultTemplateId ?? ""
         }
     }
 }
