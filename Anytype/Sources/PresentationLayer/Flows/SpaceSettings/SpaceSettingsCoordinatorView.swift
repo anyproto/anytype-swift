@@ -4,6 +4,7 @@ import SwiftUI
 struct SpaceSettingsCoordinatorView: View {
     
     @StateObject var model: SpaceSettingsCoordinatorViewModel
+    @Environment(\.dismiss) var dismiss
     
     var body: some View {
         model.settingsModule()
@@ -15,6 +16,9 @@ struct SpaceSettingsCoordinatorView: View {
                 .sheet(isPresented: $model.showWallpaperPicker) {
                     model.wallpaperModule()
                 }
+        }
+        .onChange(of: model.dismiss) { _ in
+            dismiss()
         }
     }
 }

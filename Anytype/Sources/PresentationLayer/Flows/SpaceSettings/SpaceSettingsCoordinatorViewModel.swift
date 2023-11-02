@@ -1,5 +1,6 @@
 import Foundation
 import SwiftUI
+import Combine
 
 @MainActor
 final class SpaceSettingsCoordinatorViewModel: ObservableObject, SpaceSettingsModuleOutput, RemoteStorageModuleOutput, PersonalizationModuleOutput {
@@ -20,6 +21,10 @@ final class SpaceSettingsCoordinatorViewModel: ObservableObject, SpaceSettingsMo
     @Published var showRemoteStorage = false
     @Published var showPersonalization = false
     @Published var showWallpaperPicker = false
+    @Published var dismiss = false
+    
+    private var accountSpaceId: String
+    private var subscriptions = [AnyCancellable]()
     
     init(
         spaceSettingsModuleAssembly: SpaceSettingsModuleAssemblyProtocol,
@@ -47,6 +52,8 @@ final class SpaceSettingsCoordinatorViewModel: ObservableObject, SpaceSettingsMo
         self.objectTypeProvider = objectTypeProvider
         self.urlOpener = urlOpener
         self.documentService = documentService
+        self.accountSpaceId = activeWorkspaceStorage.workspaceInfo.accountSpaceId
+        startSubscriptions()
     }
     
     func settingsModule() -> AnyView {
@@ -58,11 +65,11 @@ final class SpaceSettingsCoordinatorViewModel: ObservableObject, SpaceSettingsMo
     }
     
     func personalizationModule() -> AnyView {
-        return personalizationModuleAssembly.make(spaceId: activeWorkspaceStorage.workspaceInfo.accountSpaceId, output: self)
+        return personalizationModuleAssembly.make(spaceId: accountSpaceId, output: self)
     }
     
     func wallpaperModule() -> AnyView {
-        return wallpaperPickerModuleAssembly.make(spaceId: activeWorkspaceStorage.workspaceInfo.accountSpaceId)
+        return wallpaperPickerModuleAssembly.make(spaceId: accountSpaceId)
     }
     
     // MARK: - SpaceSettingsModuleOutput
@@ -108,5 +115,26 @@ final class SpaceSettingsCoordinatorViewModel: ObservableObject, SpaceSettingsMo
     
     func onWallpaperChangeSelected() {
         showWallpaperPicker.toggle()
+    }
+    
+    // MARK: - Private
+    
+    private func startSubscriptions() {
+        activeWorkspaceStorage.workspaceInfoPublisher
+            .receiveOnMain()
+            .sink { [weak self] info in
+                guard let self else { return }
+                if info.accountSpaceId != accountSpaceId {
+                    dismissAll()
+                }
+            }
+            .store(in: &subscriptions)
+    }
+    
+    private func dismissAll() {
+        showRemoteStorage = false
+        showPersonalization = false
+        showWallpaperPicker = false
+        dismiss.toggle()
     }
 }
