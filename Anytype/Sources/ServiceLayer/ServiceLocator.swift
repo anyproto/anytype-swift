@@ -155,8 +155,7 @@ final class ServiceLocator {
         return RecentSubscriptionService(
             subscriptionStorageProvider: subscriptionStorageProvider(),
             activeWorkspaceStorage: activeWorkspaceStorage(),
-            objectTypeProvider: objectTypeProvider(),
-            workspacesStorage: workspaceStorage()
+            objectTypeProvider: objectTypeProvider()
         )
     }
     
