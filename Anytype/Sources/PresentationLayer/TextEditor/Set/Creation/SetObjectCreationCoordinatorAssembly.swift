@@ -4,7 +4,8 @@ import SwiftUI
 
 protocol SetObjectCreationCoordinatorAssemblyProtocol {
     func make(
-        setDocument: SetDocumentProtocol,
+        objectId: String,
+        blockId: String?,
         browser: EditorBrowserController?
     ) -> SetObjectCreationCoordinatorProtocol
 }
@@ -31,15 +32,15 @@ final class SetObjectCreationCoordinatorAssembly: SetObjectCreationCoordinatorAs
     // MARK: - SetObjectCreationCoordinatorAssemblyProtocol
     
     func make(
-        setDocument: SetDocumentProtocol,
+        objectId: String,
+        blockId: String?,
         browser: EditorBrowserController?
     ) -> SetObjectCreationCoordinatorProtocol {
         SetObjectCreationCoordinator(
-            setDocument: setDocument,
             navigationContext: uiHelpersDI.commonNavigationContext(),
             editorPageCoordinator: coordinatorsDI.editorPage().make(browserController: browser),
             toastPresenter: uiHelpersDI.toastPresenter(using: browser),
-            objectCreationHelper: serviceLocator.setObjectCreationHelper(objectId: setDocument.objectId, blockId: nil),
+            objectCreationHelper: serviceLocator.setObjectCreationHelper(objectId: objectId, blockId: blockId),
             createObjectModuleAssembly: modulesDI.createObject()
         )
     }

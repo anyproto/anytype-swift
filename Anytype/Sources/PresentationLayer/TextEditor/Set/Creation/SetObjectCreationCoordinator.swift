@@ -1,12 +1,11 @@
 import Services
 
 protocol SetObjectCreationCoordinatorProtocol {
-    func startCreateObject(setting: ObjectCreationSetting?)
+    func startCreateObject(setDocument: SetDocumentProtocol, setting: ObjectCreationSetting?)
 }
 
 final class SetObjectCreationCoordinator: SetObjectCreationCoordinatorProtocol {
     
-    private let setDocument: SetDocumentProtocol
     private let navigationContext: NavigationContextProtocol
     private let editorPageCoordinator: EditorPageCoordinatorProtocol
     private let toastPresenter: ToastPresenterProtocol
@@ -14,14 +13,12 @@ final class SetObjectCreationCoordinator: SetObjectCreationCoordinatorProtocol {
     private let createObjectModuleAssembly: CreateObjectModuleAssemblyProtocol
     
     init(
-        setDocument: SetDocumentProtocol,
         navigationContext: NavigationContextProtocol,
         editorPageCoordinator: EditorPageCoordinatorProtocol,
         toastPresenter: ToastPresenterProtocol,
         objectCreationHelper: SetObjectCreationHelperProtocol,
         createObjectModuleAssembly: CreateObjectModuleAssemblyProtocol
     ) {
-        self.setDocument = setDocument
         self.navigationContext = navigationContext
         self.editorPageCoordinator = editorPageCoordinator
         self.toastPresenter = toastPresenter
@@ -29,13 +26,13 @@ final class SetObjectCreationCoordinator: SetObjectCreationCoordinatorProtocol {
         self.createObjectModuleAssembly = createObjectModuleAssembly
     }
     
-    func startCreateObject(setting: ObjectCreationSetting?) {
+    func startCreateObject(setDocument: SetDocumentProtocol, setting: ObjectCreationSetting?) {
         objectCreationHelper.createObject(for: setDocument, setting: setting) { [weak self] details in
-            self?.handleCreatedObjectIfNeeded(details)
+            self?.handleCreatedObjectIfNeeded(details, setDocument: setDocument)
         }
     }
     
-    private func handleCreatedObjectIfNeeded(_ details: ObjectDetails?) {
+    private func handleCreatedObjectIfNeeded(_ details: ObjectDetails?, setDocument: SetDocumentProtocol) {
         if let details {
             showCreateObject(details: details)
             AnytypeAnalytics.instance().logCreateObject(
@@ -43,7 +40,7 @@ final class SetObjectCreationCoordinator: SetObjectCreationCoordinatorProtocol {
                 route: setDocument.isCollection() ? .collection : .set
             )
         } else {
-            showCreateBookmarkObject()
+            showCreateBookmarkObject(setDocument: setDocument)
         }
     }
     
@@ -58,7 +55,7 @@ final class SetObjectCreationCoordinator: SetObjectCreationCoordinatorProtocol {
         navigationContext.present(moduleViewController)
     }
     
-    private func showCreateBookmarkObject() {
+    private func showCreateBookmarkObject(setDocument: SetDocumentProtocol) {
         let moduleViewController = createObjectModuleAssembly.makeCreateBookmark(
             spaceId: setDocument.spaceId,
             collectionId: setDocument.isCollection() ? setDocument.objectId : nil,
@@ -79,7 +76,7 @@ final class SetObjectCreationCoordinator: SetObjectCreationCoordinatorProtocol {
 }
 
 extension SetObjectCreationCoordinatorProtocol {
-    func startCreateObject() {
-        startCreateObject(setting: nil)
+    func startCreateObject(setDocument: SetDocumentProtocol) {
+        startCreateObject(setDocument: setDocument, setting: nil)
     }
 }

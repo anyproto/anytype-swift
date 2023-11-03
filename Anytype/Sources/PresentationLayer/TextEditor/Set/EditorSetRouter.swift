@@ -186,7 +186,7 @@ final class EditorSetRouter: EditorSetRouterProtocol, ObjectSettingsCoordinatorO
     }
     
     func showCreateObject(setting: ObjectCreationSetting?) {
-        setObjectCreationCoordinator.startCreateObject(setting: setting)
+        setObjectCreationCoordinator.startCreateObject(setDocument: setDocument, setting: setting)
     }
     
     func showRelationSearch(relationsDetails: [RelationDetails], onSelect: @escaping (RelationDetails) -> Void) {

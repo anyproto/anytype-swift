@@ -94,6 +94,12 @@ final class EditorAssembly {
         )
         let controller = EditorSetHostingController(objectId: data.objectId, model: model)
         let navigationContext = NavigationContext(rootViewController: browser ?? controller)
+        
+        let setObjectCreationCoordinator = coordinatorsDI.setObjectCreation().make(
+            objectId: data.objectId,
+            blockId: data.inline?.blockId,
+            browser: browser
+        )
 
         let router = EditorSetRouter(
             setDocument: setDocument,
@@ -104,7 +110,7 @@ final class EditorAssembly {
             editorPageCoordinator: coordinatorsDI.editorPage().make(browserController: browser),
             objectSettingCoordinator: coordinatorsDI.objectSettings().make(browserController: browser),
             relationValueCoordinator: coordinatorsDI.relationValue().make(), 
-            setObjectCreationCoordinator: coordinatorsDI.setObjectCreation().make(setDocument: setDocument, browser: browser),
+            setObjectCreationCoordinator: setObjectCreationCoordinator,
             objectCoverPickerModuleAssembly: modulesDI.objectCoverPicker(),
             objectIconPickerModuleAssembly: modulesDI.objectIconPicker(),
             setViewSettingsCoordinatorAssembly: coordinatorsDI.setViewSettings(),
