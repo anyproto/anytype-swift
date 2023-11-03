@@ -1423,10 +1423,8 @@ internal enum Loc {
         internal static let placeholder = Loc.tr("Localizable", "Set.Bookmark.Create.Placeholder", fallback: "Paste link")
       }
       internal enum Error {
-        /// Please try again
-        internal static let message = Loc.tr("Localizable", "Set.Bookmark.Error.Message", fallback: "Please try again")
-        /// Oops - something went wrong
-        internal static let title = Loc.tr("Localizable", "Set.Bookmark.Error.Title", fallback: "Oops - something went wrong")
+        /// Oops - something went wrong. Please try again
+        internal static let message = Loc.tr("Localizable", "Set.Bookmark.Error.Message", fallback: "Oops - something went wrong. Please try again")
       }
     }
     internal enum Button {
