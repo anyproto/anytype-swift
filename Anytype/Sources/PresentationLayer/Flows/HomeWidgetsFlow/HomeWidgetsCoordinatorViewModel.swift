@@ -90,6 +90,9 @@ final class HomeWidgetsCoordinatorViewModel: ObservableObject,
             .workspaceInfoPublisher
             .receiveOnMain()
             .sink { [weak self] info in
+                if self?.info != nil, self?.info != info {
+                    self?.editorBrowserCoordinator.dismissAllPages()
+                }
                 self?.info = info
             }
             .store(in: &subscriptions)

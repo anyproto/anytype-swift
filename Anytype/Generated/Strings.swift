@@ -124,6 +124,8 @@ internal enum Loc {
   internal static let chooseLayoutType = Loc.tr("Localizable", "Choose layout type", fallback: "Choose layout type")
   /// Clear
   internal static let clear = Loc.tr("Localizable", "Clear", fallback: "Clear")
+  /// Close
+  internal static let close = Loc.tr("Localizable", "Close", fallback: "Close")
   /// Capture code snippet
   internal static let codeBlockSubtitle = Loc.tr("Localizable", "Code block subtitle", fallback: "Capture code snippet")
   /// Code snippet
@@ -208,6 +210,8 @@ internal enum Loc {
   internal static let enterText = Loc.tr("Localizable", "Enter text", fallback: "Enter text")
   /// Enter value
   internal static let enterValue = Loc.tr("Localizable", "Enter value", fallback: "Enter value")
+  /// Error
+  internal static let error = Loc.tr("Localizable", "Error", fallback: "Error")
   /// Error creating wallet
   internal static let errorCreatingWallet = Loc.tr("Localizable", "Error creating wallet", fallback: "Error creating wallet")
   /// Error select account
@@ -1116,6 +1120,14 @@ internal enum Loc {
       }
     }
   }
+  internal enum Error {
+    internal enum AnytypeNeedsUpgrate {
+      /// This object was modified in a newer version of Anytype. Please update the app to open it on this device
+      internal static let message = Loc.tr("Localizable", "Error.AnytypeNeedsUpgrate.Message", fallback: "This object was modified in a newer version of Anytype. Please update the app to open it on this device")
+      /// Update Your App
+      internal static let title = Loc.tr("Localizable", "Error.AnytypeNeedsUpgrate.Title", fallback: "Update Your App")
+    }
+  }
   internal enum ErrorOccurred {
     /// Error occurred. Please try again
     internal static let pleaseTryAgain = Loc.tr("Localizable", "Error occurred. Please try again", fallback: "Error occurred. Please try again")
@@ -1712,6 +1724,8 @@ internal enum Loc {
   }
   internal enum Spaces {
     internal enum Accessibility {
+      /// Personal
+      internal static let personal = Loc.tr("Localizable", "Spaces.Accessibility.Personal", fallback: "Personal")
       /// Private
       internal static let `private` = Loc.tr("Localizable", "Spaces.Accessibility.Private", fallback: "Private")
       /// Public

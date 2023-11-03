@@ -464,7 +464,9 @@
 "SlashMenu.TableOfContents" = "Tabela de conteúdos";
 "SlashMenu.Table" = "Tabela";
 
+"Error" = "Error";
 "Unknown error" = "Erro desconhecido";
+"Close" = "Close";
 "Account is deleted" = "A conta foi removida";
 "Add phone" = "Adicionar telefone";
 "Nothing to redo" = "Nada para refazer";
@@ -797,6 +799,7 @@
 // MARK: - Spaces
 "Spaces.Accessibility.Public" = "Público";
 "Spaces.Accessibility.Private" = "Privado";
+"Spaces.Accessibility.Personal" = "Personal";
 "Spaces.Search.Title" = "Pesquisar Espaços";
 
 // MARK: - Space Settings
@@ -838,3 +841,7 @@
 // MARK: - Create tip
 "LongTapCreateTip.Title" = "Criar objetos com tipo específico";
 "LongTapCreateTip.Message" = "Toque longo no botão Criar Objeto para abrir o menu com os tipos";
+
+// MARK: - Error
+"Error.AnytypeNeedsUpgrate.Title" = "Update Your App";
+"Error.AnytypeNeedsUpgrate.Message" = "This object was modified in a newer version of Anytype. Please update the app to open it on this device";

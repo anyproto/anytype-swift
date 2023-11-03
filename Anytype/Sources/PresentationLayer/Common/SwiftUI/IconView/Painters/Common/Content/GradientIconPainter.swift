@@ -32,13 +32,17 @@ final class GradientIdIconPainter: IconPainter {
             anytypeAssertionFailure("Gradient not created")
             return
         }
-        
+
+        let circlePath = CGPath(ellipseIn: bounds, transform: nil)
+        context.addPath(circlePath)
+        context.clip()
+
         context.drawRadialGradient(
             gradient,
             startCenter: CGPoint(x: bounds.midX, y: bounds.midY),
             startRadius: 0,
             endCenter: CGPoint(x: bounds.midX, y: bounds.midY),
-            endRadius: bounds.width * 0.5,
+            endRadius: bounds.width * 0.51,
             options: []
         )
     }

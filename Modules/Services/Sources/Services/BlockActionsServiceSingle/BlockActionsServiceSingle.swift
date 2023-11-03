@@ -8,11 +8,15 @@ public final class BlockActionsServiceSingle: BlockActionsServiceSingleProtocol 
     public init() {}
     
     public func open(contextId: String) async throws -> ObjectViewModel {
-        let result = try await ClientCommands.objectOpen(.with {
-            $0.contextID = contextId
-            $0.objectID = contextId
-        }).invoke()
-        return result.objectView
+        do {
+            let result = try await ClientCommands.objectOpen(.with {
+                $0.contextID = contextId
+                $0.objectID = contextId
+            }).invoke()
+            return result.objectView
+        } catch let error as Anytype_Rpc.Object.Open.Response.Error {
+            throw ObjectOpenError(error: error)
+        }
     }
 
     public func openForPreview(contextId: String) async throws -> ObjectViewModel {

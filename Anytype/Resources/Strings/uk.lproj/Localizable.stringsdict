@@ -13,8 +13,7 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>d</string>
         <key>one</key>
-        <string>%d об'єкт
-</string>
+        <string>%d об'єкт</string>
         <key>few</key>
         <string>%d об'єкти</string>
         <key>many</key>
@@ -34,8 +33,7 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>d</string>
         <key>one</key>
-        <string>%d об'єкт
-</string>
+        <string>%d об'єкт</string>
         <key>few</key>
         <string>%d об'єкти</string>
         <key>many</key>

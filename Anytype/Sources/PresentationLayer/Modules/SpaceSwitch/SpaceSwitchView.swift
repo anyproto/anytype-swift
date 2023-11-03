@@ -15,7 +15,7 @@ struct SpaceSwitchView: View {
     @State private var size: CGSize = .zero
     
     private var columns: [GridItem] {
-        var freeSizeForContent = size.width - Constants.minExternalSpacing * 2
+        let freeSizeForContent = size.width - Constants.minExternalSpacing * 2
         let count = calculateCountItems(itemSize: Constants.itemWidth, spacing: Constants.maxInternalSpacing, freeWidth: freeSizeForContent)
         let freeSizeForSpacing = freeSizeForContent - Constants.itemWidth * CGFloat(count) - Constants.maxInternalSpacing * CGFloat(count - 1)
         let additionalSpacing = freeSizeForSpacing / CGFloat(count + 1)
@@ -26,19 +26,15 @@ struct SpaceSwitchView: View {
     var body: some View {
         if #available(iOS 16.4, *) {
             contentContainer
-                .background(Color.ModalScreen.backgroundWithBlur)
                 .presentationDetents([.height(380), .large])
                 .presentationDragIndicator(.hidden)
-                .presentationBackground(.ultraThinMaterial)
                 .presentationCornerRadius(16)
         } else if #available(iOS 16.0, *) {
             contentContainer
-                .background(Color.ModalScreen.background)
                 .presentationDetents([.height(380), .large])
                 .presentationDragIndicator(.hidden)
         } else {
             contentContainer
-                .background(Color.ModalScreen.background)
         }
     }
     
@@ -63,6 +59,9 @@ struct SpaceSwitchView: View {
                     headerSize = size
                 }
         }
+        .background(Color.ModalScreen.backgroundWithBlur)
+        .background(.ultraThinMaterial)
+        .disablePresentationBackground()
         .readSize { newSize in
             self.size = newSize
         }
@@ -113,7 +112,7 @@ struct SpaceSwitchView: View {
     private func calculateCountItems(itemSize: CGFloat, spacing: CGFloat, freeWidth: CGFloat) -> Int {
         if itemSize + spacing < freeWidth {
             return calculateCountItems(itemSize: itemSize, spacing: spacing, freeWidth: freeWidth - itemSize - spacing) + 1
-        } else if itemSize < freeWidth {
+        } else if itemSize <= freeWidth {
             return 1
         } else {
             return 0

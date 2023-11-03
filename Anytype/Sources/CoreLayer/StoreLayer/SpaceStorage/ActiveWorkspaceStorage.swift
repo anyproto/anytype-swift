@@ -10,9 +10,10 @@ protocol ActiveWorkpaceStorageProtocol: AnyObject {
     func setActiveSpace(spaceId: String) async throws
     func setupActiveSpace() async
     func spaceView() -> SpaceView?
+    func clearActiveSpace() async
 }
 
-final class ActiveWorkspaceStorage: ActiveWorkpaceStorageProtocol {
+actor ActiveWorkspaceStorage: ActiveWorkpaceStorageProtocol {
     
     // MARK: - DI
     
@@ -21,43 +22,53 @@ final class ActiveWorkspaceStorage: ActiveWorkpaceStorageProtocol {
     private let workspaceService: WorkspaceServiceProtocol
     
     // MARK: - State
-    
     private var workspaceSubscription: AnyCancellable?
     @UserDefault("activeSpaceId", defaultValue: "")
     private var activeSpaceId: String
-    @Published
-    private(set) var workspaceInfo: AccountInfo
+    nonisolated let workspaceInfoSubject: CurrentValueSubject<AccountInfo, Never>
     
     init(workspaceStorage: WorkspacesStorageProtocol, accountManager: AccountManagerProtocol, workspaceService: WorkspaceServiceProtocol) {
         self.workspaceStorage = workspaceStorage
         self.accountManager = accountManager
         self.workspaceService = workspaceService
-        self.workspaceInfo = accountManager.account.info
+        self.workspaceInfoSubject = CurrentValueSubject(accountManager.account.info)
     }
     
-    var workspaceInfoPublisher: AnyPublisher<AccountInfo, Never> {
-        return $workspaceInfo.removeDuplicates().eraseToAnyPublisher()
+    nonisolated var workspaceInfo: AccountInfo {
+        workspaceInfoSubject.value
+    }
+    
+    nonisolated var workspaceInfoPublisher: AnyPublisher<AccountInfo, Never> {
+        return workspaceInfoSubject.removeDuplicates().eraseToAnyPublisher()
     }
     
     func setActiveSpace(spaceId: String) async throws {
+        guard activeSpaceId != spaceId else { return }
         let info = try await workspaceService.workspaceOpen(spaceId: spaceId)
         AnytypeAnalytics.instance().logSwitchSpace()
-        workspaceInfo = info
+        workspaceInfoSubject.send(info)
         activeSpaceId = spaceId
     }
     
     func setupActiveSpace() async {
         do {
+            if activeSpaceId.isEmpty {
+                activeSpaceId = accountManager.account.info.accountSpaceId
+            }
             let info = try await workspaceService.workspaceOpen(spaceId: activeSpaceId)
-            workspaceInfo = info
+            workspaceInfoSubject.send(info)
         } catch {
-            resetActiveSpace()
+            await resetActiveSpace()
         }
         startSubscriotion()
     }
     
     func spaceView() -> SpaceView? {
         return workspaceStorage.spaceView(id: workspaceInfo.spaceViewId)
+    }
+    
+    func clearActiveSpace() async {
+        activeSpaceId = ""
     }
     
     // MARK: - Private
@@ -68,15 +79,19 @@ final class ActiveWorkspaceStorage: ActiveWorkpaceStorageProtocol {
             .receiveOnMain()
             .sink { [weak self] spaceIds in
                 guard let self else { return }
-                if !spaceIds.contains(activeSpaceId) {
-                    resetActiveSpace()
+                Task {
+                    await self.handleSpaces(spaceIds: spaceIds)
                 }
             }
     }
     
-    private func resetActiveSpace() {
-        Task {
-            try await setActiveSpace(spaceId: accountManager.account.info.accountSpaceId)
+    private func handleSpaces(spaceIds: [String]) async {
+        if !spaceIds.contains(activeSpaceId) {
+            await resetActiveSpace()
         }
+    }
+    
+    private func resetActiveSpace() async {
+        try? await setActiveSpace(spaceId: accountManager.account.info.accountSpaceId)
     }
 }
