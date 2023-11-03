@@ -608,6 +608,7 @@
 		2AB511AE29093CB4005D0A91 /* InlineMarkdownListenerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AB511AD29093CB4005D0A91 /* InlineMarkdownListenerTests.swift */; };
 		2AB522082A14D0E7007DEE53 /* FileErrorEventHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AB522072A14D0E7007DEE53 /* FileErrorEventHandler.swift */; };
 		2AB7AAEB2AF51D0C00ED3E02 /* View+PresentationBackground.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AB7AAEA2AF51D0C00ED3E02 /* View+PresentationBackground.swift */; };
+		2AB7AAED2AF537AB00ED3E02 /* RemoteStorageSegmentInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AB7AAEC2AF537AB00ED3E02 /* RemoteStorageSegmentInfo.swift */; };
 		2ABA0E07283BC420008369DC /* BlockObjectsSearchInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2ABA0E06283BC420008369DC /* BlockObjectsSearchInteractor.swift */; };
 		2ABAF2B92938E58E003C4730 /* CodeLanguageLegacyListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2ABAF2B82938E58E003C4730 /* CodeLanguageLegacyListViewModel.swift */; };
 		2ABAF2BB2938E5FA003C4730 /* CodeLanguageModuleAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2ABAF2BA2938E5FA003C4730 /* CodeLanguageModuleAssembly.swift */; };
@@ -2237,6 +2238,7 @@
 		2AB511AD29093CB4005D0A91 /* InlineMarkdownListenerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = InlineMarkdownListenerTests.swift; path = AnyTypeTests/Markdown/InlineMarkdownListenerTests.swift; sourceTree = SOURCE_ROOT; };
 		2AB522072A14D0E7007DEE53 /* FileErrorEventHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileErrorEventHandler.swift; sourceTree = "<group>"; };
 		2AB7AAEA2AF51D0C00ED3E02 /* View+PresentationBackground.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "View+PresentationBackground.swift"; sourceTree = "<group>"; };
+		2AB7AAEC2AF537AB00ED3E02 /* RemoteStorageSegmentInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemoteStorageSegmentInfo.swift; sourceTree = "<group>"; };
 		2ABA0E06283BC420008369DC /* BlockObjectsSearchInteractor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BlockObjectsSearchInteractor.swift; sourceTree = "<group>"; };
 		2ABAF2B82938E58E003C4730 /* CodeLanguageLegacyListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CodeLanguageLegacyListViewModel.swift; sourceTree = "<group>"; };
 		2ABAF2BA2938E5FA003C4730 /* CodeLanguageModuleAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CodeLanguageModuleAssembly.swift; sourceTree = "<group>"; };
@@ -5206,6 +5208,7 @@
 				2A377E422A82700C00EA856B /* RemoteStorageViewModel.swift */,
 				2A377E442A82701700EA856B /* RemoteStorageModuleAssembly.swift */,
 				2A377E462A82703500EA856B /* RemoteStorageModuleOutput.swift */,
+				2AB7AAEC2AF537AB00ED3E02 /* RemoteStorageSegmentInfo.swift */,
 			);
 			path = RemoteStorage;
 			sourceTree = "<group>";
@@ -9989,6 +9992,7 @@
 				1223C9002726BE1C00C34616 /* FeaturedRelationBlockView.swift in Sources */,
 				2EB3F0212A9D1B5D00B79A3F /* SetFiltersTextViewModuleAssembly.swift in Sources */,
 				EA43DD6826B1A33000E66878 /* NSAttributedString+Markup.swift in Sources */,
+				2AB7AAED2AF537AB00ED3E02 /* RemoteStorageSegmentInfo.swift in Sources */,
 				2AF109562A02639700EDDE26 /* FileIconBuilder.swift in Sources */,
 				2AF109582A03C56600EDDE26 /* NSItemProvider+Async.swift in Sources */,
 				3D93D55D270AFE1400614E29 /* EditorBrowserController.swift in Sources */,

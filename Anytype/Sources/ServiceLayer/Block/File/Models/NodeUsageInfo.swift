@@ -14,7 +14,7 @@ extension NodeUsageInfo {
 }
 
 extension NodeUsageInfo {
-    static var zero: NodeUsageInfo {
-        NodeUsageInfo(node: NodeUsage(filesCount: 0, cidsCount: 0, bytesUsage: 0, bytesLeft: 0, bytesLimit: 0, localBytesUsage: 0), spaces: [])
+    static var placeholder: NodeUsageInfo {
+        NodeUsageInfo(node: NodeUsage(filesCount: 0, cidsCount: 0, bytesUsage: 0, bytesLeft: 0, bytesLimit: 10, localBytesUsage: 0), spaces: [])
     }
 }

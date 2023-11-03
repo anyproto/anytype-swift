@@ -12,7 +12,22 @@ struct RemoteStorageView: View {
             ScrollView {
                 VStack(alignment: .leading, spacing: 0) {
                     Spacer.fixedHeight(10)
-                    spaceBlock
+                    AnytypeText(model.spaceInstruction, style: .uxCalloutRegular, color: .Text.primary)
+                    if model.showGetMoreSpaceButton {
+                        Spacer.fixedHeight(4)
+                        AnytypeText(Loc.FileStorage.Space.getMore, style: .uxCalloutMedium, color: .System.red)
+                            .onTapGesture {
+                                model.onTapGetMoreSpace()
+                            }
+                    }
+                    Spacer.fixedHeight(20)
+                    AnytypeText(model.spaceUsed, style: .relation3Regular, color: .Text.secondary)
+                    Spacer.fixedHeight(8)
+                    RemoteStorageSegment(model: model.segmentInfo)
+                    Spacer.fixedHeight(16)
+                    StandardButton(Loc.FileStorage.manageFiles, style: .secondarySmall) {
+                        model.onTapManageFiles()
+                    }
                 }
                 .padding(.horizontal, 20)
             }
@@ -23,28 +38,6 @@ struct RemoteStorageView: View {
         }
         .onAppear {
             model.onAppear()
-        }
-    }
-    
-    @ViewBuilder
-    private var spaceBlock: some View {
-        AnytypeText(model.spaceInstruction, style: .uxCalloutRegular, color: .Text.primary)
-        if model.showGetMoreSpaceButton {
-            Spacer.fixedHeight(4)
-            AnytypeText(Loc.FileStorage.Space.getMore, style: .uxCalloutMedium, color: .System.red)
-                .onTapGesture {
-                    model.onTapGetMoreSpace()
-                }
-        }
-        Spacer.fixedHeight(20)
-        AnytypeText(model.spaceUsed, style: .relation3Regular, color: .Text.secondary)
-        Spacer.fixedHeight(8)
-        SegmentLine(items: model.segmentLineItems)
-        Spacer.fixedHeight(16)
-        SegmentLegend(items: model.segmentLegendItems)
-        Spacer.fixedHeight(16)
-        StandardButton(Loc.FileStorage.manageFiles, style: .secondarySmall) {
-            model.onTapManageFiles()
         }
     }
 }

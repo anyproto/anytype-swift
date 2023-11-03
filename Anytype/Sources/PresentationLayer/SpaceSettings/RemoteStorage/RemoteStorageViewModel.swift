@@ -31,8 +31,7 @@ final class RemoteStorageViewModel: ObservableObject {
     @Published var spaceUsed: String = ""
     @Published var contentLoaded: Bool = false
     @Published var showGetMoreSpaceButton: Bool = false
-    @Published var segmentLineItems: [SegmentLineItem] = []
-    @Published var segmentLegendItems: [SegmentLegendItem] = []
+    @Published var segmentInfo = RemoteStorageSegmentInfo()
     
     init(
         accountManager: AccountManagerProtocol,
@@ -102,7 +101,7 @@ final class RemoteStorageViewModel: ObservableObject {
     }
     
     private func setupPlaceholderState() {
-        updateView(nodeUsage: .zero)
+        updateView(nodeUsage: .placeholder)
     }
     
     private func updateView(nodeUsage: NodeUsageInfo) {
@@ -119,63 +118,29 @@ final class RemoteStorageViewModel: ObservableObject {
         
         let spaceId = activeWorkspaceStorage.workspaceInfo.accountSpaceId
         
-        var segmentLineItems = [SegmentLineItem]()
-        var segmentLegendItems = [SegmentLegendItem]()
+        var segmentInfo = RemoteStorageSegmentInfo()
         
         if let spaceView = activeWorkspaceStorage.spaceView() {
             let spaceBytesUsage = nodeUsage.spaces.first(where: { $0.spaceID == spaceId })?.bytesUsage ?? 0
-            
-            segmentLineItems.append(
-                SegmentLineItem(
-                    color: .System.amber125,
-                    value: Double(spaceBytesUsage) / Double(bytesLimit)
-                )
-            )
-            
-            segmentLegendItems.append(
-                SegmentLegendItem(
-                    color: .System.amber125,
-                    legend: Loc.FileStorage.LimitLegend.current(spaceView.name, byteCountFormatter.string(fromByteCount: spaceBytesUsage))
-                )
-            )
+            segmentInfo.currentUsage = Double(spaceBytesUsage) / Double(bytesLimit)
+            segmentInfo.currentLegend = Loc.FileStorage.LimitLegend.current(spaceView.name, byteCountFormatter.string(fromByteCount: spaceBytesUsage))
         }
-        
+       
         let otherSpaces = workspacesStorage.workspaces.filter { $0.targetSpaceId != spaceId }
         
-        let otherSegments = otherSpaces.map { spaceView in
-            let spaceBytesUsage = nodeUsage.spaces.first(where: { $0.spaceID == spaceView.targetSpaceId })?.bytesUsage ?? 0
-            return SegmentLineItem(
-                color: .System.amber50,
-                value: Double(spaceBytesUsage) / Double(bytesLimit)
-            )
+        if otherSpaces.isNotEmpty {
+            segmentInfo.otherUsages = otherSpaces.map { spaceView in
+                let spaceBytesUsage = nodeUsage.spaces.first(where: { $0.spaceID == spaceView.targetSpaceId })?.bytesUsage ?? 0
+                return  Double(spaceBytesUsage) / Double(bytesLimit)
+            }
+            
+            let otherUsageBytes = nodeUsage.spaces.filter { $0.spaceID != spaceId }.reduce(Int64(0), { $0 + $1.bytesUsage })
+            segmentInfo.otherLegend = Loc.FileStorage.LimitLegend.other(byteCountFormatter.string(fromByteCount: otherUsageBytes))
         }
         
-        segmentLineItems.append(contentsOf: otherSegments)
+        segmentInfo.free = Double(nodeUsage.node.bytesLeft) / Double(bytesLimit)
+        segmentInfo.freeLegend = Loc.FileStorage.LimitLegend.free(byteCountFormatter.string(fromByteCount: nodeUsage.node.bytesLeft))
         
-        let otherUsageBytes = nodeUsage.spaces.filter { $0.spaceID != spaceId }.reduce(Int64(0), { $0 + $1.bytesUsage })
-        
-        segmentLegendItems.append(
-            SegmentLegendItem(
-                color: .System.amber50,
-                legend: Loc.FileStorage.LimitLegend.other(byteCountFormatter.string(fromByteCount: otherUsageBytes))
-            )
-        )
-        
-        segmentLineItems.append(
-            SegmentLineItem(
-                color: .Stroke.tertiary,
-                value: Double(nodeUsage.node.bytesLeft) / Double(bytesLimit)
-            )
-        )
-        
-        segmentLegendItems.append(
-            SegmentLegendItem(
-                color: .Stroke.tertiary,
-                legend: Loc.FileStorage.LimitLegend.free(byteCountFormatter.string(fromByteCount: nodeUsage.node.bytesLeft))
-            )
-        )
-        
-        self.segmentLineItems = segmentLineItems
-        self.segmentLegendItems = segmentLegendItems
+        self.segmentInfo = segmentInfo
     }
 }

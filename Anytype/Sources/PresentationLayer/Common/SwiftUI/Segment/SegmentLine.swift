@@ -17,12 +17,12 @@ struct SegmentLine: View {
             
             let freeWidth = reader.size.width - CGFloat(items.count - 1) * 2.0
             let values = items.reduce(0, { $0 + $1.value})
-            let oneValueWidth = freeWidth / min(values, 1)
+            let oneValueWidth = freeWidth / max(values, 1)
             
             HStack(spacing: 2) {
                 ForEach(items, id:\.self) { item in
                     item.color
-                        .frame(width: max(item.value * oneValueWidth, 3))
+                        .frame(width: max(item.value * oneValueWidth, 4))
                         .cornerRadius(5, style: .continuous)
                 }
             }

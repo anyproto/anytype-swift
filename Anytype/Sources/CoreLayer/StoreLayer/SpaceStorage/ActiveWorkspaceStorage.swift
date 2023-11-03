@@ -63,7 +63,7 @@ actor ActiveWorkspaceStorage: ActiveWorkpaceStorageProtocol {
         startSubscriotion()
     }
     
-    func spaceView() -> SpaceView? {
+    nonisolated func spaceView() -> SpaceView? {
         return workspaceStorage.spaceView(id: workspaceInfo.spaceViewId)
     }
     

@@ -58,7 +58,7 @@ final class FileStorageViewModel: ObservableObject {
     }
     
     private func setupPlaceholderState() {
-        updateView(nodeUsage: .zero)
+        updateView(nodeUsage: .placeholder)
     }
     
     private func updateView(nodeUsage: NodeUsageInfo) {
