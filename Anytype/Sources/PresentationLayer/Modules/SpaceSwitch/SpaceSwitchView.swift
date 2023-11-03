@@ -113,7 +113,7 @@ struct SpaceSwitchView: View {
     private func calculateCountItems(itemSize: CGFloat, spacing: CGFloat, freeWidth: CGFloat) -> Int {
         if itemSize + spacing < freeWidth {
             return calculateCountItems(itemSize: itemSize, spacing: spacing, freeWidth: freeWidth - itemSize - spacing) + 1
-        } else if itemSize < freeWidth {
+        } else if itemSize <= freeWidth {
             return 1
         } else {
             return 0

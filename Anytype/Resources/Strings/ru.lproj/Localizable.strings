@@ -179,7 +179,7 @@
 
 // Auth
 "Sign up" = "Зарегистрироваться";
-"Login" = "Войти";
+"Login" = "Log In";
 "Create" = "Создать";
 "Scan QR code" = "Сканировать QR-код";
 "Auth.CameraPermissionTitle" = "Пожалуйста, разрешите доступ";
@@ -464,7 +464,9 @@
 "SlashMenu.TableOfContents" = "Содержание";
 "SlashMenu.Table" = "Таблица";
 
+"Error" = "Error";
 "Unknown error" = "Неизвестная ошибка";
+"Close" = "Close";
 "Account is deleted" = "Аккаунт был удален";
 "Add phone" = "Добавить номер телефона";
 "Nothing to redo" = "Нет действий для повтора";
@@ -797,6 +799,7 @@
 // MARK: - Spaces
 "Spaces.Accessibility.Public" = "Public";
 "Spaces.Accessibility.Private" = "Private";
+"Spaces.Accessibility.Personal" = "Personal";
 "Spaces.Search.Title" = "Search spaces";
 
 // MARK: - Space Settings
@@ -838,3 +841,7 @@
 // MARK: - Create tip
 "LongTapCreateTip.Title" = "Crete Objects with specific Type";
 "LongTapCreateTip.Message" = "Long tap on Create Object button to open menu with types";
+
+// MARK: - Error
+"Error.AnytypeNeedsUpgrate.Title" = "Update Your App";
+"Error.AnytypeNeedsUpgrate.Message" = "This object was modified in a newer version of Anytype. Please update the app to open it on this device";

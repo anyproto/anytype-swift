@@ -21,8 +21,7 @@ extension SpaceView: DetailsModel {
         self.targetSpaceId = details.targetSpaceId
         self.createdDate = details.createdDate
         self.accountStatus = try? SpaceStatus(from: details.spaceAccountStatusMiddlewareValue)
-        // Doesn't work on middleware side
-        self.spaceAccessibility = .private
+        self.spaceAccessibility = details.spaceAccessibilityValue
     }
     
     static var subscriptionKeys: [BundledRelationKey] = .builder {
@@ -32,6 +31,7 @@ extension SpaceView: DetailsModel {
         BundledRelationKey.objectIconImageKeys
         BundledRelationKey.targetSpaceId
         BundledRelationKey.createdDate
+        BundledRelationKey.spaceAccessibility
         BundledRelationKey.spaceAccountStatus
     }
 }

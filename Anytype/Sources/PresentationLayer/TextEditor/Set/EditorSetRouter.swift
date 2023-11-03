@@ -59,6 +59,9 @@ protocol EditorSetRouterProtocol:
         viewId: String,
         onTemplateSelection: @escaping (ObjectCreationSetting) -> ()
     )
+    
+    @MainActor
+    func showOpenDocumentError(error: Error)
 }
 
 final class EditorSetRouter: EditorSetRouterProtocol, ObjectSettingsCoordinatorOutput {
@@ -183,7 +186,7 @@ final class EditorSetRouter: EditorSetRouterProtocol, ObjectSettingsCoordinatorO
     func showCreateObject(details: ObjectDetails) {
         let moduleViewController = createObjectModuleAssembly.makeCreateObject(objectId: details.id) { [weak self] in
             self?.navigationContext.dismissTopPresented()
-            self?.showPage(data: details.editorScreenData(shouldShowTemplatesOptions: !FeatureFlags.setTemplateSelection))
+            self?.showPage(data: details.editorScreenData())
         } closeAction: { [weak self] in
             self?.navigationContext.dismissTopPresented()
         }
@@ -385,7 +388,7 @@ final class EditorSetRouter: EditorSetRouterProtocol, ObjectSettingsCoordinatorO
     }
     
     func closeEditor() {
-        navigationContext.pop(animated: true)
+        rootController?.pop()
     }
     
     func showRelationValueEditingView(key: String) {
@@ -425,6 +428,14 @@ final class EditorSetRouter: EditorSetRouterProtocol, ObjectSettingsCoordinatorO
             viewId: viewId,
             onTemplateSelection: onTemplateSelection
         )
+    }
+    
+    @MainActor
+    func showOpenDocumentError(error: Error) {
+        let alert = AlertsFactory.objectOpenErrorAlert(error: error) { [weak self] in
+            self?.closeEditor()
+        }
+        navigationContext.present(alert)
     }
     
     // MARK: - Private

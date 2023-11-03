@@ -180,7 +180,7 @@
 
 // Auth
 "Sign up" = "Đăng ký";
-"Login" = "Đăng nhập";
+"Login" = "Log In";
 "Create" = "Tạo";
 "Scan QR code" = "Quét mã QR";
 "Auth.CameraPermissionTitle" = "Hãy cho phép truy cập";
@@ -465,7 +465,9 @@
 "SlashMenu.TableOfContents" = "Mục lục";
 "SlashMenu.Table" = "Bảng";
 
+"Error" = "Error";
 "Unknown error" = "Lỗi không xác định";
+"Close" = "Close";
 "Account is deleted" = "Tài khoản đã bị xóa";
 "Add phone" = "Thêm số điện thoại";
 "Nothing to redo" = "Nothing to redo";
@@ -798,6 +800,7 @@
 // MARK: - Spaces
 "Spaces.Accessibility.Public" = "Public";
 "Spaces.Accessibility.Private" = "Private";
+"Spaces.Accessibility.Personal" = "Personal";
 "Spaces.Search.Title" = "Search spaces";
 
 // MARK: - Space Settings
@@ -839,3 +842,7 @@
 // MARK: - Create tip
 "LongTapCreateTip.Title" = "Crete Objects with specific Type";
 "LongTapCreateTip.Message" = "Long tap on Create Object button to open menu with types";
+
+// MARK: - Error
+"Error.AnytypeNeedsUpgrate.Title" = "Update Your App";
+"Error.AnytypeNeedsUpgrate.Message" = "This object was modified in a newer version of Anytype. Please update the app to open it on this device";

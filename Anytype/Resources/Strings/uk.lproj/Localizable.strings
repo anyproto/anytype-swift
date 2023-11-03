@@ -179,7 +179,7 @@
 
 // Auth
 "Sign up" = "Зареєструватись";
-"Login" = "Вхід";
+"Login" = "Log In";
 "Create" = "Створити";
 "Scan QR code" = "Сканувати QR-код";
 "Auth.CameraPermissionTitle" = "Будь ласка, дозвольте доступ";
@@ -464,7 +464,9 @@
 "SlashMenu.TableOfContents" = "Зміст";
 "SlashMenu.Table" = "Таблиця";
 
+"Error" = "Error";
 "Unknown error" = "Невідома помилка";
+"Close" = "Close";
 "Account is deleted" = "Обліковий запис було видалено";
 "Add phone" = "Додайте номер телефону";
 "Nothing to redo" = "Немає дій для повторення";
@@ -798,6 +800,7 @@
 // MARK: - Spaces
 "Spaces.Accessibility.Public" = "Публічний";
 "Spaces.Accessibility.Private" = "Приватний";
+"Spaces.Accessibility.Personal" = "Personal";
 "Spaces.Search.Title" = "Пошук просторів";
 
 // MARK: - Space Settings
@@ -839,3 +842,7 @@
 // MARK: - Create tip
 "LongTapCreateTip.Title" = "Створення об'єктів з певним типом";
 "LongTapCreateTip.Message" = "Натисніть і утримуйте кнопку Створити об'єкт, щоб відкрити меню типів об'єктів";
+
+// MARK: - Error
+"Error.AnytypeNeedsUpgrate.Title" = "Update Your App";
+"Error.AnytypeNeedsUpgrate.Message" = "This object was modified in a newer version of Anytype. Please update the app to open it on this device";
