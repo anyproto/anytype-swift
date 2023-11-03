@@ -2,11 +2,13 @@ import Foundation
 import ProtobufMessages
 import Combine
 
+@MainActor
 protocol FileLimitsStorageProtocol: AnyObject {
     var nodeUsage: AnyPublisher<NodeUsageInfo, Never> { get }
 }
 
-actor FileLimitsStorage: FileLimitsStorageProtocol {
+@MainActor
+final class FileLimitsStorage: FileLimitsStorageProtocol {
     
     // MAKR: - DI
     
@@ -16,9 +18,9 @@ actor FileLimitsStorage: FileLimitsStorageProtocol {
     
     private var subscriptions = [AnyCancellable]()
     private var data: CurrentValueSubject<NodeUsageInfo?, Never>
-    nonisolated let nodeUsage: AnyPublisher<NodeUsageInfo, Never>
+    let nodeUsage: AnyPublisher<NodeUsageInfo, Never>
     
-    init(fileService: FileActionsServiceProtocol) {
+    nonisolated init(fileService: FileActionsServiceProtocol) {
         self.fileService = fileService
         self.data = CurrentValueSubject(nil)
         self.nodeUsage = data.compactMap { $0 }.eraseToAnyPublisher()
@@ -38,7 +40,9 @@ actor FileLimitsStorage: FileLimitsStorageProtocol {
     
     private func setupSubscription() {
         EventBunchSubscribtion.default.addHandler { [weak self] events in
-            await self?.handle(events: events)
+            Task { @MainActor [weak self] in
+                self?.handle(events: events)
+            }
         }.store(in: &subscriptions)
     }
     
