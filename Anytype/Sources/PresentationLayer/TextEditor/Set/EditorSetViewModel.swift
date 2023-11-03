@@ -126,7 +126,6 @@ final class EditorSetViewModel: ObservableObject {
     private let textService: TextServiceProtocol
     private let groupsSubscriptionsHandler: GroupsSubscriptionsHandlerProtocol
     private let setSubscriptionDataBuilder: SetSubscriptionDataBuilderProtocol
-    private let objectCreationHelper: SetObjectCreationHelperProtocol
     private var subscriptions = [AnyCancellable]()
     private var subscriptionStorages = [String: SubscriptionStorageProtocol]()
     private var titleSubscription: AnyCancellable?
@@ -141,8 +140,7 @@ final class EditorSetViewModel: ObservableObject {
         objectActionsService: ObjectActionsServiceProtocol,
         textService: TextServiceProtocol,
         groupsSubscriptionsHandler: GroupsSubscriptionsHandlerProtocol,
-        setSubscriptionDataBuilder: SetSubscriptionDataBuilderProtocol,
-        objectCreationHelper: SetObjectCreationHelperProtocol
+        setSubscriptionDataBuilder: SetSubscriptionDataBuilderProtocol
     ) {
         self.setDocument = setDocument
         self.headerModel = headerViewModel
@@ -154,7 +152,6 @@ final class EditorSetViewModel: ObservableObject {
         self.textService = textService
         self.groupsSubscriptionsHandler = groupsSubscriptionsHandler
         self.setSubscriptionDataBuilder = setSubscriptionDataBuilder
-        self.objectCreationHelper = objectCreationHelper
         self.titleString = setDocument.details?.pageCellTitle ?? ""
     }
     
@@ -539,30 +536,16 @@ final class EditorSetViewModel: ObservableObject {
         )
     }
     
-    func createObject(setting: ObjectCreationSetting? = nil) {
-        objectCreationHelper.createObject(for: setDocument, setting: setting) { [weak self] details in
-            self?.handleCreatedObjectIfNeeded(details)
-        }
-    }
-    
-    private func handleCreatedObjectIfNeeded(_ details: ObjectDetails?) {
-        if let details {
-            router?.showCreateObject(details: details)
-            AnytypeAnalytics.instance().logCreateObject(
-                objectType: details.analyticsType,
-                route: setDocument.isCollection() ? .collection : .set
-            )
-        } else {
-            createBookmarkObject()
-        }
-    }
-    
     func onEmptyStateButtonTap() {
         if setDocument.isCollection() {
             createObject()
         } else {
             showSetOfTypeSelection()
         }
+    }
+    
+    private func createObject(setting: ObjectCreationSetting? = nil) {
+        router?.showCreateObject(setting: setting)
     }
     
     private func defaultSubscriptionDetailsStorage(file: StaticString = #file, function: String = #function, line: UInt = #line) -> ObjectDetailsStorage? {
@@ -756,10 +739,6 @@ extension EditorSetViewModel {
    private func openObject(details: ObjectDetails) {
        router?.showPage(data: details.editorScreenData())
     }
-    
-    private func createBookmarkObject() {
-        router?.showCreateBookmarkObject()
-    }
 }
 
 extension EditorSetViewModel {
@@ -789,7 +768,6 @@ extension EditorSetViewModel {
         objectActionsService: DI.preview.serviceLocator.objectActionsService(),
         textService: TextService(),
         groupsSubscriptionsHandler: DI.preview.serviceLocator.groupsSubscriptionsHandler(),
-        setSubscriptionDataBuilder: SetSubscriptionDataBuilder(activeWorkspaceStorage: DI.preview.serviceLocator.activeWorkspaceStorage()),
-        objectCreationHelper: DI.preview.serviceLocator.setObjectCreationHelper(objectId: "objectId", blockId: "blockId")
+        setSubscriptionDataBuilder: SetSubscriptionDataBuilder(activeWorkspaceStorage: DI.preview.serviceLocator.activeWorkspaceStorage())
     )
 }

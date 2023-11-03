@@ -90,8 +90,7 @@ final class EditorAssembly {
             objectActionsService: serviceLocator.objectActionsService(),
             textService: serviceLocator.textService,
             groupsSubscriptionsHandler: serviceLocator.groupsSubscriptionsHandler(),
-            setSubscriptionDataBuilder: SetSubscriptionDataBuilder(activeWorkspaceStorage: serviceLocator.activeWorkspaceStorage()),
-            objectCreationHelper: serviceLocator.setObjectCreationHelper(objectId: data.objectId, blockId: data.inline?.blockId)
+            setSubscriptionDataBuilder: SetSubscriptionDataBuilder(activeWorkspaceStorage: serviceLocator.activeWorkspaceStorage())
         )
         let controller = EditorSetHostingController(objectId: data.objectId, model: model)
         let navigationContext = NavigationContext(rootViewController: browser ?? controller)
@@ -104,7 +103,8 @@ final class EditorAssembly {
             newSearchModuleAssembly: modulesDI.newSearch(),
             editorPageCoordinator: coordinatorsDI.editorPage().make(browserController: browser),
             objectSettingCoordinator: coordinatorsDI.objectSettings().make(browserController: browser),
-            relationValueCoordinator: coordinatorsDI.relationValue().make(),
+            relationValueCoordinator: coordinatorsDI.relationValue().make(), 
+            setObjectCreationCoordinator: coordinatorsDI.setObjectCreation().make(setDocument: setDocument, browser: browser),
             objectCoverPickerModuleAssembly: modulesDI.objectCoverPicker(),
             objectIconPickerModuleAssembly: modulesDI.objectIconPicker(),
             setViewSettingsCoordinatorAssembly: coordinatorsDI.setViewSettings(),

@@ -17,8 +17,7 @@ protocol EditorSetRouterProtocol:
     func setNavigationViewHidden(_ isHidden: Bool, animated: Bool)
     func showViewPicker(subscriptionDetailsStorage: ObjectDetailsStorage, showViewTypes: @escaping RoutingAction<DataviewView?>)
     
-    func showCreateObject(details: ObjectDetails)
-    func showCreateBookmarkObject()
+    func showCreateObject(setting: ObjectCreationSetting?)
     
     func showRelationSearch(relationsDetails: [RelationDetails], onSelect: @escaping (RelationDetails) -> Void)
     func showViewTypes(
@@ -76,6 +75,7 @@ final class EditorSetRouter: EditorSetRouterProtocol, ObjectSettingsCoordinatorO
     private let editorPageCoordinator: EditorPageCoordinatorProtocol
     private let objectSettingCoordinator: ObjectSettingsCoordinatorProtocol
     private let relationValueCoordinator: RelationValueCoordinatorProtocol
+    private let setObjectCreationCoordinator: SetObjectCreationCoordinatorProtocol
     private let objectCoverPickerModuleAssembly: ObjectCoverPickerModuleAssemblyProtocol
     private let objectIconPickerModuleAssembly: ObjectIconPickerModuleAssemblyProtocol
     private let setViewSettingsCoordinatorAssembly: SetViewSettingsCoordinatorAssemblyProtocol
@@ -102,6 +102,7 @@ final class EditorSetRouter: EditorSetRouterProtocol, ObjectSettingsCoordinatorO
         editorPageCoordinator: EditorPageCoordinatorProtocol,
         objectSettingCoordinator: ObjectSettingsCoordinatorProtocol,
         relationValueCoordinator: RelationValueCoordinatorProtocol,
+        setObjectCreationCoordinator: SetObjectCreationCoordinatorProtocol,
         objectCoverPickerModuleAssembly: ObjectCoverPickerModuleAssemblyProtocol,
         objectIconPickerModuleAssembly: ObjectIconPickerModuleAssemblyProtocol,
         setViewSettingsCoordinatorAssembly: SetViewSettingsCoordinatorAssemblyProtocol,
@@ -123,6 +124,7 @@ final class EditorSetRouter: EditorSetRouterProtocol, ObjectSettingsCoordinatorO
         self.editorPageCoordinator = editorPageCoordinator
         self.objectSettingCoordinator = objectSettingCoordinator
         self.relationValueCoordinator = relationValueCoordinator
+        self.setObjectCreationCoordinator = setObjectCreationCoordinator
         self.objectCoverPickerModuleAssembly = objectCoverPickerModuleAssembly
         self.objectIconPickerModuleAssembly = objectIconPickerModuleAssembly
         self.setViewSettingsCoordinatorAssembly = setViewSettingsCoordinatorAssembly
@@ -183,33 +185,8 @@ final class EditorSetRouter: EditorSetRouterProtocol, ObjectSettingsCoordinatorO
         navigationContext.presentSwiftUISheetView(view: view)
     }
     
-    func showCreateObject(details: ObjectDetails) {
-        let moduleViewController = createObjectModuleAssembly.makeCreateObject(objectId: details.id) { [weak self] in
-            self?.navigationContext.dismissTopPresented()
-            self?.showPage(data: details.editorScreenData())
-        } closeAction: { [weak self] in
-            self?.navigationContext.dismissTopPresented()
-        }
-        
-        navigationContext.present(moduleViewController)
-    }
-    
-    func showCreateBookmarkObject() {
-        let moduleViewController = createObjectModuleAssembly.makeCreateBookmark(
-            spaceId: setDocument.spaceId, 
-            collectionId: setDocument.isCollection() ? setDocument.objectId : nil,
-            closeAction: { [weak self] details in
-                self?.navigationContext.dismissTopPresented(animated: true) {
-                    guard details.isNil else { return }
-                    self?.alertHelper.showToast(
-                        title: Loc.Set.Bookmark.Error.title,
-                        message: Loc.Set.Bookmark.Error.message
-                    )
-                }
-            }
-        )
-        
-        navigationContext.present(moduleViewController)
+    func showCreateObject(setting: ObjectCreationSetting?) {
+        setObjectCreationCoordinator.startCreateObject(setting: setting)
     }
     
     func showRelationSearch(relationsDetails: [RelationDetails], onSelect: @escaping (RelationDetails) -> Void) {
