@@ -754,30 +754,11 @@ extension EditorSetViewModel {
     }
     
    private func openObject(details: ObjectDetails) {
-       router?.showPage(
-        data: details.editorScreenData(shouldShowTemplatesOptions: !FeatureFlags.setTemplateSelection)
-       )
+       router?.showPage(data: details.editorScreenData())
     }
     
     private func createBookmarkObject() {
-        router?.showCreateBookmarkObject { [weak self] details in
-            guard let self, let details else { return }
-            addObjectToCollectionIfNeeded(details)
-            AnytypeAnalytics.instance().logCreateObject(
-                objectType: details.analyticsType,
-                route: setDocument.isCollection() ? .collection : .set
-            )
-        }
-    }
-    
-    private func addObjectToCollectionIfNeeded(_ details: ObjectDetails) {
-        guard setDocument.isCollection() else { return }
-        Task {
-            try await objectActionsService.addObjectsToCollection(
-                contextId: setDocument.objectId,
-                objectIds: [details.id]
-            )
-        }
+        router?.showCreateBookmarkObject()
     }
 }
 

@@ -18,7 +18,7 @@ protocol EditorSetRouterProtocol:
     func showViewPicker(subscriptionDetailsStorage: ObjectDetailsStorage, showViewTypes: @escaping RoutingAction<DataviewView?>)
     
     func showCreateObject(details: ObjectDetails)
-    func showCreateBookmarkObject(completion: @escaping (ObjectDetails?) -> Void)
+    func showCreateBookmarkObject()
     
     func showRelationSearch(relationsDetails: [RelationDetails], onSelect: @escaping (RelationDetails) -> Void)
     func showViewTypes(
@@ -194,9 +194,10 @@ final class EditorSetRouter: EditorSetRouterProtocol, ObjectSettingsCoordinatorO
         navigationContext.present(moduleViewController)
     }
     
-    func showCreateBookmarkObject(completion: @escaping (ObjectDetails?) -> Void) {
+    func showCreateBookmarkObject() {
         let moduleViewController = createObjectModuleAssembly.makeCreateBookmark(
-            spaceId: setDocument.spaceId,
+            spaceId: setDocument.spaceId, 
+            collectionId: setDocument.isCollection() ? setDocument.objectId : nil,
             closeAction: { [weak self] details in
                 self?.navigationContext.dismissTopPresented(animated: true) {
                     guard details.isNil else { return }
@@ -205,7 +206,6 @@ final class EditorSetRouter: EditorSetRouterProtocol, ObjectSettingsCoordinatorO
                         message: Loc.Set.Bookmark.Error.message
                     )
                 }
-                completion(details)
             }
         )
         

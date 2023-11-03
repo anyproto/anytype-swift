@@ -6823,6 +6823,14 @@
 			path = KeyPhraseView;
 			sourceTree = "<group>";
 		};
+		2EE36CD42AF5316F0043AA8D /* Creation */ = {
+			isa = PBXGroup;
+			children = (
+				2EA18B082AF132A10096B137 /* SetObjectCreationHelper.swift */,
+			);
+			path = Creation;
+			sourceTree = "<group>";
+		};
 		2EEFEADD2A93C3B400AD5CDC /* SheetView */ = {
 			isa = PBXGroup;
 			children = (
@@ -7888,6 +7896,7 @@
 		3DAE1CAB273EA1F2009A72F3 /* Set */ = {
 			isa = PBXGroup;
 			children = (
+				2EE36CD42AF5316F0043AA8D /* Creation */,
 				2AE906F0297043A60044A10A /* EditorSetRouter.swift */,
 				2E8387BE291A521900506766 /* EditorSetViewModel+DragAndDropDelegate.swift */,
 				2AA0209328D3521E00321A66 /* Subscriptions */,
@@ -7897,7 +7906,6 @@
 				3D8D41B8274287A900F8EBF3 /* EditorSetHostingController.swift */,
 				3D8D41BA274297FF00F8EBF3 /* EditorSetViewModel.swift */,
 				3D7F718027A088B7003FE893 /* EditorSetViewModel+Pagination.swift */,
-				2EA18B082AF132A10096B137 /* SetObjectCreationHelper.swift */,
 			);
 			path = Set;
 			sourceTree = "<group>";
