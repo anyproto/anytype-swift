@@ -785,6 +785,9 @@
 "FileStorage.OffloadTitle" = "San tập tin";
 "FileStorage.ManageFiles" = "Quản lý tập tin";
 "FileStorage.LimitError" = "Bạn đã vượt quá giới hạn tải lên";
+"FileStorage.LimitLegend.Current" = "%@ | %@";
+"FileStorage.LimitLegend.Other" = "Other spaces | %@";
+"FileStorage.LimitLegend.Free" = "Free | %@";
 
 // MARK: - Files List
 "FilesList.Title" = "Các tệp đã đồng bộ";
