@@ -179,13 +179,13 @@
 
 // Auth
 "Sign up" = "Registrieren";
-"Login" = "Log In";
+"Login" = "Anmelden";
 "Create" = "Erstellen";
 "Scan QR code" = "QR-Code scannen";
 "Auth.CameraPermissionTitle" = "Bitte Zugriff erlauben";
 "Restore secret phrase from keychain" = "Stelle die Wiederherstellungsphrase aus dem Schlüsselbund wieder her";
-"Auth.LogIn" = "Log In";
-"Auth.Join" = "Create New Account";
+"Auth.LogIn" = "Anmelden";
+"Auth.Join" = "Neues Konto erstellen";
 "Auth.Welcome.Subtitle" = "Anytype ist dein sicherer Ort zum Schreiben, Planen, Denken und Organisieren von allem, was dir wichtig ist.";
 "Auth.Caption.Privacy.Text" = "Durch Fortfahren stimmst du den [Nutzungsbedingungen](%@) und [Datenschutzrichtlinie](%@ ) zu";
 "Auth.Next" = "Weiter";
@@ -196,7 +196,7 @@
 // Auth Errors
 "Error creating wallet" = "Fehler beim Erstellen der Wallet";
 "Error select account" = "Fehler bei der Kontoauswahl";
-"Error wallet recover account" = "Error wallet recover account";
+"Error wallet recover account" = "Fehler bei Wallet-Wiederherstellung";
 
 "Search for language" = "Sprache suchen";
 
@@ -220,7 +220,7 @@
 "Auth.JoinFlow.Key.ReadMore.Instruction.Option1.Title" = "Der einfachste Weg, Ihre Wiederherstellungsphrase zu speichern, ist die Speicherung in Ihrem Passwort-Manager.";
 "Auth.JoinFlow.Key.ReadMore.Instruction.Option2.Title" = "Am sichersten ist es, sie auf Papier aufzuschreiben und offline, an einem sicheren Ort.";
 
-"Auth.JoinFlow.Soul.Title" = "Choose your name";
+"Auth.JoinFlow.Soul.Title" = "Wähle deinen Namen";
 "Auth.JoinFlow.Soul.Description" = "So wirst du in der App erscheinen.";
 "Auth.JoinFlow.Soul.Placeholder" = "Unbenannt";
 
@@ -246,7 +246,7 @@
 
 "Search" = "Suchen";
 "There is no emoji named" = "There is no emoji named";
-"Try to find a new one or upload your image" = "Try to find a new one or upload your image";
+"Try to find a new one or upload your image" = "Versuche ein neues zu finden oder lade dein Bild hoch";
 
 "Emoji" = "Emoji";
 "Random" = "Zufällig";
@@ -289,11 +289,11 @@
 // MARK: - Main search
 "There is no object named" = "Es gibt kein Objekt mit dem Namen %@";
 "There is no type named" = "Es gibt keinen Typ mit dem Namen %@";
-"Create a new one or search for something else" = "Create a new one or search for something else";
+"Create a new one or search for something else" = "Erstelle ein neues oder suche nach etwas anderem";
 
 // MARK: - Home
 
-"Home.Snackbar.Library" = "Library is available in desktop app";
+"Home.Snackbar.Library" = "Bibliothek ist in der Desktop-App verfügbar";
 
 // MARK: - Alerts
 "Alert.CameraPermissions.Settings" = "Einstellungen";
@@ -307,10 +307,10 @@
 
 
 // MARK: - Templates
-"TemplateSelection.Available.Title" = "This type has %d templates";
-"TemplatePicker.ChooseTemplate" = "Choose template";
-"TemplatePicker.Buttons.UseTemplate" = "Use template";
-"TemplateSelection.SelectTemplate" = "Select template";
+"TemplateSelection.Available.Title" = "Dieser Typ hat %d Vorlagen";
+"TemplatePicker.ChooseTemplate" = "Vorlage wählen";
+"TemplatePicker.Buttons.UseTemplate" = "Vorlage verwenden";
+"TemplateSelection.SelectTemplate" = "Vorlage auswählen";
 "TemplateSelection.blankTemplate" = "Blank";
 "TemplateSelection.Template.Subtitle" = "Template";
 "TemplateSelection.ObjectType.Subtitle" = "Objekttyp";
@@ -784,6 +784,9 @@
 "FileStorage.OffloadTitle" = "Offload files";
 "FileStorage.ManageFiles" = "Manage files";
 "FileStorage.LimitError" = "You exceeded file limit upload";
+"FileStorage.LimitLegend.Current" = "%@ | %@";
+"FileStorage.LimitLegend.Other" = "Other spaces | %@";
+"FileStorage.LimitLegend.Free" = "Free | %@";
 
 // MARK: - Files List
 "FilesList.Title" = "Synced files";
