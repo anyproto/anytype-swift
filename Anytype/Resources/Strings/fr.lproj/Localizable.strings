@@ -18,7 +18,7 @@
 "TextStyle.Highlighted.Subtitle" = "Mise en avant, qui nécessite une attention particulière";
 
 "TextStyle.Callout.Title" = "Encadré";
-"TextStyle.Callout.Subtitle" = "Bordered text with icon";
+"TextStyle.Callout.Subtitle" = "Texte bordé avec icône";
 
 "TextStyle.Checkbox.Title" = "Case à cocher";
 "TextStyle.Checkbox.Subtitle" = "Créer et suivre des tâches avec une liste de tâches";
@@ -29,7 +29,7 @@
 "TextStyle.Numbered.Title" = "Liste numérotée";
 "TextStyle.Numbered.Subtitle" = "Liste numérotée";
 
-"TextStyle.Toggle.Title" = "Toggle";
+"TextStyle.Toggle.Title" = "Bascule";
 "TextStyle.Toggle.Subtitle" = "Cacher et afficher le contenu à l'intérieur";
 
 "TextStyle.Bold.Title" = "Gras";
@@ -111,7 +111,7 @@
 "Duplicate" = "Dupliquer";
 "Copy" = "Copier";
 "Preview" = "Aperçu";
-"View" = "View";
+"View" = "Vue";
 "Paste" = "Coller";
 "Move" = "Déplacer";
 "Move to" = "Déplacer vers";
@@ -221,7 +221,7 @@
 "Auth.JoinFlow.Key.ReadMore.Instruction.Option2.Title" = "Le moyen le plus sûr est de l'écrire sur papier et de le garder dans un endroit sûr et sécurisé.";
 
 "Auth.JoinFlow.Soul.Title" = "Choisissez votre nom";
-"Auth.JoinFlow.Soul.Description" = "This is how you will appear in the app.";
+"Auth.JoinFlow.Soul.Description" = "C'est ainsi que vous allez apparaître dans l'application.";
 "Auth.JoinFlow.Soul.Placeholder" = "Sans titre";
 
 "Auth.JoinFlow.Creating.Soul.Title" = "Génération d'un nouveau compte";
@@ -233,7 +233,7 @@
 "Auth.LoginFlow.Or" = "OU";
 "Auth.LoginFlow.Textfield.Placeholder" = "Saisissez votre phrase de récupération";
 "Auth.LoginFlow.Enter.Button.Title" = "Connexion";
-"Auth.LoginFlow.Entering.Void.Title" = "Entering the Void";
+"Auth.LoginFlow.Entering.Void.Title" = "Entrer dans le Vide";
 
 // Object settings
 
@@ -266,8 +266,8 @@
 "Note" = "Note";
 "Choose layout type" = "Choisir une mise en page";
 
-"Undo typing" = "Undo typing";
-"Undo" = "Undo";
+"Undo typing" = "Annuler la frappe";
+"Undo" = "Annuler";
 "Actions.LinkItself" = "Link to";
 "Actions.MakeAsTemplate" = "Make template";
 "Actions.TemplateMakeDefault" = "Définir par défaut";
@@ -464,9 +464,9 @@
 "SlashMenu.TableOfContents" = "Table of contents";
 "SlashMenu.Table" = "Table";
 
-"Error" = "Error";
+"Error" = "Erreur";
 "Unknown error" = "Unknown error";
-"Close" = "Close";
+"Close" = "Fermer";
 "Account is deleted" = "Account is deleted";
 "Add phone" = "Add phone";
 "Nothing to redo" = "Nothing to redo";
@@ -573,7 +573,7 @@
 "Views" = "Views";
 "Filter" = "Filter";
 "Sort" = "Sort";
-"View" = "View";
+"View" = "Vue";
 "Home" = "Home";
 "Highlight" = "Highlight";
 "Create object" = "Create object";
@@ -784,6 +784,9 @@
 "FileStorage.OffloadTitle" = "Offload files";
 "FileStorage.ManageFiles" = "Manage files";
 "FileStorage.LimitError" = "You exceeded file limit upload";
+"FileStorage.LimitLegend.Current" = "%@ | %@";
+"FileStorage.LimitLegend.Other" = "Autres espaces | %@";
+"FileStorage.LimitLegend.Free" = "Gratuit | %@";
 
 // MARK: - Files List
 "FilesList.Title" = "Synced files";
@@ -799,7 +802,7 @@
 // MARK: - Spaces
 "Spaces.Accessibility.Public" = "Public";
 "Spaces.Accessibility.Private" = "Private";
-"Spaces.Accessibility.Personal" = "Personal";
+"Spaces.Accessibility.Personal" = "Personnel";
 "Spaces.Search.Title" = "Rechercher des espaces";
 
 // MARK: - Space Settings
@@ -843,5 +846,5 @@
 "LongTapCreateTip.Message" = "Appuyez longuement sur le bouton Créer un objet pour ouvrir le menu avec les types";
 
 // MARK: - Error
-"Error.AnytypeNeedsUpgrate.Title" = "Update Your App";
-"Error.AnytypeNeedsUpgrate.Message" = "This object was modified in a newer version of Anytype. Please update the app to open it on this device";
+"Error.AnytypeNeedsUpgrate.Title" = "Mettez à jour votre application";
+"Error.AnytypeNeedsUpgrate.Message" = "Cet objet a été modifié dans une version plus récente de Anytype. Veuillez mettre à jour l'application pour l'ouvrir sur cet appareil";
