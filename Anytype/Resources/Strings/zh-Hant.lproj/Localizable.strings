@@ -103,11 +103,11 @@
 "Background" = "Background";
 "Other" = "Other";
 "Media" = "Media";
-"Alignment" = "Alignment";
+"Alignment" = "對齊";
 "Actions" = "Actions";
 "Relations" = "Relations";
 "Objects" = "Objects";
-"Delete" = "Delete";
+"Delete" = "刪除";
 "Duplicate" = "Duplicate";
 "Copy" = "複製";
 "Preview" = "預覽";
@@ -212,12 +212,12 @@
 "Auth.JoinFlow.Key.Button.Info.Title" = "Read more";
 "Auth.JoinFlow.Key.Button.Tip.Title" = "You can find Recovery Phrase later in Anytype settings";
 
-"Auth.JoinFlow.Key.ReadMore.Title" = "What is Recovery Phrase?";
+"Auth.JoinFlow.Key.ReadMore.Title" = "顯示恢復短語?";
 "Auth.JoinFlow.Key.ReadMore.Option1.Title" = "Recovery Phrase is a random combination of 12 words from which your account is magically generated on this device.";
-"Auth.JoinFlow.Key.ReadMore.Option2.Title" = "Whomever knows Recovery Phrase, owns the account. **At this moment, you are the only person in the world who knows it.**";
-"Auth.JoinFlow.Key.ReadMore.Option3.Title" = "That's why it's essential to keep Recovery Phrase safe. As the sole owner, nobody can help you if it's lost.";
-"Auth.JoinFlow.Key.ReadMore.Instruction.Title" = "How to save my phrase?";
-"Auth.JoinFlow.Key.ReadMore.Instruction.Option1.Title" = "The easiest way to store your Recovery Phrase is to save it in your password manager.";
+"Auth.JoinFlow.Key.ReadMore.Option2.Title" = "知道恢復短語的人擁有該帳戶。 此時此刻，你是世界上唯一知道的人。";
+"Auth.JoinFlow.Key.ReadMore.Option3.Title" = "因此，確保您的恢復短語安全至關重要。 作為唯一的所有者，如果丟失，沒有人可以幫助您。";
+"Auth.JoinFlow.Key.ReadMore.Instruction.Title" = "如何保存我的恢復短語？";
+"Auth.JoinFlow.Key.ReadMore.Instruction.Option1.Title" = "保存恢復短語的最簡單方式是將其保存在您的密碼管理器中。";
 "Auth.JoinFlow.Key.ReadMore.Instruction.Option2.Title" = "The most secure way is to write it down on paper and keep it offline, in a safe and secure place.";
 
 "Auth.JoinFlow.Soul.Title" = "Choose your name";
@@ -317,7 +317,7 @@
 
 "TemplateOptions.Alert.EditTemplate" = "Edit template";
 "TemplateOptions.Alert.Duplicate" = "Duplicate";
-"TemplateOptions.Alert.Delete" = "Delete";
+"TemplateOptions.Alert.Delete" = "刪除";
 
 "TemplateEditing.Title" = "Edit template";
 
@@ -651,7 +651,7 @@
 "SimpleTableMenu.Item.MoveLeft" = "Move left";
 "SimpleTableMenu.Item.MoveRight" = "Move right";
 "SimpleTableMenu.Item.Duplicate" = "Duplicate";
-"SimpleTableMenu.Item.Delete" = "Delete";
+"SimpleTableMenu.Item.Delete" = "刪除";
 "SimpleTableMenu.Item.Sort" = "Sort";
 
 "SimpleTableMenu.Item.InsertAbove" = "Insert above";
