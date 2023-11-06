@@ -290,7 +290,7 @@ final class EditorAssembly {
         
         let blockDelegate = BlockDelegateImpl(
             viewInput: viewInput,
-            accessoryState: accessoryState,
+            accessoryState: accessoryState.0,
             cursorManager: cursorManager
         )
         let headerModel = ObjectHeaderViewModel(
@@ -339,7 +339,7 @@ final class EditorAssembly {
         
         let editorPageTemplatesHandler = EditorPageTemplatesHandler()
         
-        return EditorPageViewModel(
+        let viewModel = EditorPageViewModel(
             document: document,
             viewInput: viewInput,
             blockDelegate: blockDelegate,
@@ -358,6 +358,12 @@ final class EditorAssembly {
             configuration: configuration,
             templatesSubscriptionService: serviceLocator.templatesSubscription()
         )
+        
+        accessoryState.1.onTypeTap = { [weak viewModel] in
+            viewModel?.onChangeType(type: $0)
+        }
+        
+        return viewModel
     }
 
     private func buildBlocksSelectionOverlayView(

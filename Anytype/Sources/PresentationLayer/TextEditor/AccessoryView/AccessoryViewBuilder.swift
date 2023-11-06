@@ -13,7 +13,7 @@ struct AccessoryViewBuilder {
         pageService: PageRepositoryProtocol,
         linkToObjectCoordinator: LinkToObjectCoordinatorProtocol,
         cursorManager: EditorCursorManager
-    ) -> AccessoryViewStateManager {
+    ) -> (AccessoryViewStateManager, ChangeTypeAccessoryViewModel) {
         let mentionsView = MentionView(
             document: document,
             frame: CGRect(origin: .zero, size: menuActionsViewSize)
@@ -84,7 +84,7 @@ struct AccessoryViewBuilder {
         mentionsView.delegate = stateManager
         cursorModeAccessoryView.setDelegate(stateManager)
 
-        return stateManager
+        return (stateManager, changeTypeViewModel)
     }
     
     private static let menuActionsViewSize = CGSize(
