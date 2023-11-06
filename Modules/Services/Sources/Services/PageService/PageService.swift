@@ -9,6 +9,7 @@ public protocol PageServiceProtocol: AnyObject {
         shouldSelectType: Bool,
         shouldSelectTemplate: Bool,
         spaceId: String,
+        origin: ObjectOrigin,
         templateId: String?
     ) async throws -> ObjectDetails
 }
@@ -23,11 +24,13 @@ public final class PageService: PageServiceProtocol {
         shouldSelectType: Bool,
         shouldSelectTemplate: Bool,
         spaceId: String,
+        origin: ObjectOrigin,
         templateId: String? = nil
     ) async throws -> ObjectDetails {
         let details = Google_Protobuf_Struct(
             fields: [
-                BundledRelationKey.name.rawValue: name.protobufValue
+                BundledRelationKey.name.rawValue: name.protobufValue,
+                BundledRelationKey.origin.rawValue: origin.rawValue.protobufValue
             ]
         )
         
