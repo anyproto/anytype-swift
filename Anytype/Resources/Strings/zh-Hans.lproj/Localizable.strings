@@ -464,9 +464,9 @@
 "SlashMenu.TableOfContents" = "目录";
 "SlashMenu.Table" = "表格";
 
-"Error" = "Error";
+"Error" = "错误";
 "Unknown error" = "未知错误";
-"Close" = "Close";
+"Close" = "关闭";
 "Account is deleted" = "帐户已删除";
 "Add phone" = "添加电话号";
 "Nothing to redo" = "无需重做";
@@ -784,6 +784,9 @@
 "FileStorage.OffloadTitle" = "卸载文件";
 "FileStorage.ManageFiles" = "管理文件";
 "FileStorage.LimitError" = "您超出了上传的文件限制";
+"FileStorage.LimitLegend.Current" = "%@ | %@";
+"FileStorage.LimitLegend.Other" = "其他空间 | %@";
+"FileStorage.LimitLegend.Free" = "可用空间 | %@";
 
 // MARK: - Files List
 "FilesList.Title" = "已同步的文件";
@@ -799,7 +802,7 @@
 // MARK: - Spaces
 "Spaces.Accessibility.Public" = "公共";
 "Spaces.Accessibility.Private" = "私人";
-"Spaces.Accessibility.Personal" = "Personal";
+"Spaces.Accessibility.Personal" = "个人";
 "Spaces.Search.Title" = "搜索空间";
 
 // MARK: - Space Settings
@@ -843,5 +846,5 @@
 "LongTapCreateTip.Message" = "长按创建对象按钮以打开带类型的菜单";
 
 // MARK: - Error
-"Error.AnytypeNeedsUpgrate.Title" = "Update Your App";
-"Error.AnytypeNeedsUpgrate.Message" = "This object was modified in a newer version of Anytype. Please update the app to open it on this device";
+"Error.AnytypeNeedsUpgrate.Title" = "更新应用";
+"Error.AnytypeNeedsUpgrate.Message" = "此对象已在更高版本的 Anytype 编辑过，请更新此设备的应用以打开它";
