@@ -785,8 +785,8 @@
 "FileStorage.ManageFiles" = "Administrer filer";
 "FileStorage.LimitError" = "Du overskred filopplastingsgrensen";
 "FileStorage.LimitLegend.Current" = "%@ | %@";
-"FileStorage.LimitLegend.Other" = "Other spaces | %@";
-"FileStorage.LimitLegend.Free" = "Free | %@";
+"FileStorage.LimitLegend.Other" = "Andre rom | %@";
+"FileStorage.LimitLegend.Free" = "Ledig | %@";
 
 // MARK: - Files List
 "FilesList.Title" = "Synkroniserte filer";
