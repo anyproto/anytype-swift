@@ -36,9 +36,7 @@ final class MockBaseDocument: BaseDocumentProtocol {
     var parsedRelationsPublisher: AnyPublisher<ParsedRelations, Never> { .empty() }
     
     var syncPublisher: AnyPublisher<Void, Never> { .empty() }
-    
-    func resetSubscriptions() { }
-    
+        
     var details: Services.ObjectDetails? { nil }
     
     var detailsPublisher: AnyPublisher<Services.ObjectDetails, Never> { .empty() }

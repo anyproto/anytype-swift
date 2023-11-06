@@ -1336,6 +1336,7 @@
 		53FF7CB826FCDB4B00A5A592 /* ObjectActionsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53FF7CB726FCDB4B00A5A592 /* ObjectActionsView.swift */; };
 		53FF7CBC26FDD36200A5A592 /* ObjectActionsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53FF7CBB26FDD36200A5A592 /* ObjectActionsViewModel.swift */; };
 		53FF7CBE26FDD37D00A5A592 /* ObjectAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53FF7CBD26FDD37D00A5A592 /* ObjectAction.swift */; };
+		860B8F8F2AF8D7EE00000811 /* EditorPageViewModel+ChangeType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 860B8F8E2AF8D7EE00000811 /* EditorPageViewModel+ChangeType.swift */; };
 		861E75F62A5C03E400F18552 /* EditableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 861E75F52A5C03E400F18552 /* EditableView.swift */; };
 		862065532AB1A991006E539B /* DocumentsProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 862065522AB1A991006E539B /* DocumentsProvider.swift */; };
 		862065552AB1E94D006E539B /* MockBaseDocument.swift in Sources */ = {isa = PBXBuildFile; fileRef = 862065542AB1E94D006E539B /* MockBaseDocument.swift */; };
@@ -2963,6 +2964,7 @@
 		53FF7CB726FCDB4B00A5A592 /* ObjectActionsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObjectActionsView.swift; sourceTree = "<group>"; };
 		53FF7CBB26FDD36200A5A592 /* ObjectActionsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObjectActionsViewModel.swift; sourceTree = "<group>"; };
 		53FF7CBD26FDD37D00A5A592 /* ObjectAction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObjectAction.swift; sourceTree = "<group>"; };
+		860B8F8E2AF8D7EE00000811 /* EditorPageViewModel+ChangeType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "EditorPageViewModel+ChangeType.swift"; sourceTree = "<group>"; };
 		861E75F52A5C03E400F18552 /* EditableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditableView.swift; sourceTree = "<group>"; };
 		862065522AB1A991006E539B /* DocumentsProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DocumentsProvider.swift; sourceTree = "<group>"; };
 		862065542AB1E94D006E539B /* MockBaseDocument.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockBaseDocument.swift; sourceTree = "<group>"; };
@@ -3737,6 +3739,7 @@
 				C93793EF275614370016A26D /* EditorPageController+DragNDrop.swift */,
 				3D44984426D53D61005A3E06 /* EditorPageViewModelProtocol.swift */,
 				0A0965CB25BEF5B000C004BD /* EditorPageViewModel.swift */,
+				860B8F8E2AF8D7EE00000811 /* EditorPageViewModel+ChangeType.swift */,
 				8624C8602A6E577E0065CBC0 /* EditorPageViewModelConfiguration.swift */,
 				C9C0A99D274FB04E0002FA30 /* EditorPageBlocksStateManager.swift */,
 			);
@@ -9930,6 +9933,7 @@
 				2AFFFB8A2926670E00A487E1 /* ObjectLayoutPickerModuleAssembly.swift in Sources */,
 				531629372632BD0B000D6780 /* StylePanelLayout.swift in Sources */,
 				2EAA14042AA63918000A712A /* SetViewSettingsRelation.swift in Sources */,
+				860B8F8F2AF8D7EE00000811 /* EditorPageViewModel+ChangeType.swift in Sources */,
 				C9A7528328E3297000235BDE /* SharedContants.swift in Sources */,
 				C9A7528328E3297000235BDE /* SharedContants.swift in Sources */,
 				12D15D2027F5F78500D22086 /* TagsOptionsSearchModuleBuilder.swift in Sources */,

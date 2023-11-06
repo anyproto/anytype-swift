@@ -33,6 +33,4 @@ protocol BaseDocumentProtocol: AnyObject, BaseDocumentGeneralProtocol {
     var parsedRelationsPublisher: AnyPublisher<ParsedRelations, Never> { get }
     
     var syncPublisher: AnyPublisher<Void, Never> { get }
-    
-    func resetSubscriptions()
 }

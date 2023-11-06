@@ -141,11 +141,6 @@ final class BaseDocument: BaseDocumentProtocol {
         isOpened = false
     }
     
-    func resetSubscriptions() {
-        subscriptions = []
-        eventsListener.stopListening()
-    }
-    
     var children: [BlockInformation] {
         guard let model = infoContainer.get(id: objectId) else {
             return []
