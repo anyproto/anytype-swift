@@ -784,6 +784,9 @@
 "FileStorage.OffloadTitle" = "Descarregar arquivos";
 "FileStorage.ManageFiles" = "Gerenciar arquivos";
 "FileStorage.LimitError" = "Você excedeu o limite de upload";
+"FileStorage.LimitLegend.Current" = "%@ | %@";
+"FileStorage.LimitLegend.Other" = "Other spaces | %@";
+"FileStorage.LimitLegend.Free" = "Free | %@";
 
 // MARK: - Files List
 "FilesList.Title" = "Arquivos sincronizados";

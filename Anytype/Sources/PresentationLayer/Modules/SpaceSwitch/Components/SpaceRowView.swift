@@ -23,6 +23,11 @@ struct SpaceRowView: View {
     var body: some View {
         VStack {
             ZStack {
+                // Fix shadow for contextMenu
+                Color.black
+                    .cornerRadius(2)
+                    .frame(width: Self.width, height: Self.width)
+                    .shadow(color: .Shadow.primary, radius: 20)
                 ZStack {
                     // Outer border
                     if model.isSelected {
@@ -31,7 +36,6 @@ struct SpaceRowView: View {
                     }
                     IconView(icon: model.icon)
                         .frame(width: Self.width, height: Self.width)
-                        .shadow(color: .Shadow.primary, radius: 20)
                 }
                 .frame(width: Self.width + additionalSize, height: Self.width + additionalSize)
                 .contentShape(.contextMenuPreview, RoundedRectangle(cornerRadius: 2))

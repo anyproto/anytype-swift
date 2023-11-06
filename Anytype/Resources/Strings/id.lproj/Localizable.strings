@@ -784,6 +784,9 @@
 "FileStorage.OffloadTitle" = "Melepaskan berkas";
 "FileStorage.ManageFiles" = "Mengatur berkas";
 "FileStorage.LimitError" = "Kamu melewati batas unggah berkas";
+"FileStorage.LimitLegend.Current" = "%@ | %@";
+"FileStorage.LimitLegend.Other" = "Ruang lain | %@";
+"FileStorage.LimitLegend.Free" = "Free | %@";
 
 // MARK: - Files List
 "FilesList.Title" = "Berkas tersinkronkan";

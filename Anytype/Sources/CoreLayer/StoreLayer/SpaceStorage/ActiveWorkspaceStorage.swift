@@ -9,6 +9,7 @@ protocol ActiveWorkpaceStorageProtocol: AnyObject {
     var workspaceInfoPublisher: AnyPublisher<AccountInfo, Never> { get }
     func setActiveSpace(spaceId: String) async throws
     func setupActiveSpace() async
+    func spaceView() -> SpaceView?
     func clearActiveSpace() async
 }
 
@@ -60,6 +61,10 @@ actor ActiveWorkspaceStorage: ActiveWorkpaceStorageProtocol {
             await resetActiveSpace()
         }
         startSubscriotion()
+    }
+    
+    nonisolated func spaceView() -> SpaceView? {
+        return workspaceStorage.spaceView(id: workspaceInfo.spaceViewId)
     }
     
     func clearActiveSpace() async {

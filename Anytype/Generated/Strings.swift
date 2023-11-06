@@ -1141,6 +1141,20 @@ internal enum Loc {
     internal static let offloadTitle = Loc.tr("Localizable", "FileStorage.OffloadTitle", fallback: "Offload files")
     /// File storage
     internal static let title = Loc.tr("Localizable", "FileStorage.Title", fallback: "File storage")
+    internal enum LimitLegend {
+      /// %@ | %@
+      internal static func current(_ p1: Any, _ p2: Any) -> String {
+        return Loc.tr("Localizable", "FileStorage.LimitLegend.Current", String(describing: p1), String(describing: p2), fallback: "%@ | %@")
+      }
+      /// Free | %@
+      internal static func free(_ p1: Any) -> String {
+        return Loc.tr("Localizable", "FileStorage.LimitLegend.Free", String(describing: p1), fallback: "Free | %@")
+      }
+      /// Other spaces | %@
+      internal static func other(_ p1: Any) -> String {
+        return Loc.tr("Localizable", "FileStorage.LimitLegend.Other", String(describing: p1), fallback: "Other spaces | %@")
+      }
+    }
     internal enum Local {
       /// In order to save space on your local device, you can offload all your files to our encrypted backup node. The files will be loaded back when you open them.
       internal static let instruction = Loc.tr("Localizable", "FileStorage.Local.Instruction", fallback: "In order to save space on your local device, you can offload all your files to our encrypted backup node. The files will be loaded back when you open them.")
