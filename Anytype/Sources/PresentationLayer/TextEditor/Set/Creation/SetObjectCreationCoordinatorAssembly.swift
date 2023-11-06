@@ -45,3 +45,9 @@ final class SetObjectCreationCoordinatorAssembly: SetObjectCreationCoordinatorAs
         )
     }
 }
+
+extension SetObjectCreationCoordinatorAssemblyProtocol {
+    func make(objectId: String, browser: EditorBrowserController?) -> SetObjectCreationCoordinatorProtocol {
+        make(objectId: objectId, blockId: nil, browser: browser)
+    }
+}
