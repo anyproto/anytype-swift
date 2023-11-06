@@ -60,11 +60,13 @@ final class SharedContentInteractor: SharedContentInteractorProtocol {
                         try await objectActionsService.addObjectsToCollection(contextId: objectDetails.id, objectIds: [newBookmark.id])
                     } else {
                         let lastBlockInDocument = try await listService.lastBlockId(from: objectDetails.id)
-                        try await bookmarkService.createAndFetchBookmark(
-                            contextID: objectDetails.id,
-                            targetID: lastBlockInDocument,
-                            position: .bottom,
-                            url: url.absoluteString
+                        let bookmarkObject = try await createBookmarkObject(url: url, spaceId: space.targetSpaceId)
+                        let bookmarkBlock = BlockInformation.bookmark(targetId: bookmarkObject.id)
+                        _ = try await blockActionService.add(
+                            contextId: objectDetails.id,
+                            targetId: lastBlockInDocument,
+                            info: bookmarkBlock,
+                            position: .bottom
                         )
                     }
                 }
@@ -80,7 +82,8 @@ final class SharedContentInteractor: SharedContentInteractorProtocol {
     private func createBookmarkObject(url: URL, spaceId: BlockId) async throws -> ObjectDetails {
         let newBookmark = try await bookmarkService.createBookmarkObject(
             spaceId: spaceId,
-            url: url.absoluteString
+            url: url.absoluteString,
+            origin: .sharingExtension
         )
         try await bookmarkService.fetchBookmarkContent(bookmarkId: newBookmark.id, url: url.absoluteString)
         
@@ -102,6 +105,7 @@ final class SharedContentInteractor: SharedContentInteractorProtocol {
                     shouldSelectType: false,
                     shouldSelectTemplate: false,
                     spaceId: space.targetSpaceId,
+                    origin: .sharingExtension,
                     templateId: nil
                 )
                 let lastBlockInDocument = try await listService.lastBlockId(from: newObject.id)
@@ -142,7 +146,7 @@ final class SharedContentInteractor: SharedContentInteractorProtocol {
                 )
             }
         }
-        }
+    }
 }
 
 private extension NSAttributedString {
