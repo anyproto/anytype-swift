@@ -69,6 +69,7 @@ actor ActiveWorkspaceStorage: ActiveWorkpaceStorageProtocol {
     
     func clearActiveSpace() async {
         activeSpaceId = ""
+        workspaceInfoSubject.send(.empty)
     }
     
     // MARK: - Private
