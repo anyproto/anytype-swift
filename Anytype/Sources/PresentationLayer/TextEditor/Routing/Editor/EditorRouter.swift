@@ -12,7 +12,7 @@ final class EditorRouter: NSObject, EditorRouterProtocol, ObjectSettingsCoordina
     private let fileCoordinator: FileDownloadingCoordinator
     private let addNewRelationCoordinator: AddNewRelationCoordinatorProtocol
     private let document: BaseDocumentProtocol
-    private let templatesCoordinator: TemplatesCoordinator
+    private let templatesCoordinator: TemplatesCoordinatorProtocol
     private let setObjectCreationSettingsCoordinator: SetObjectCreationSettingsCoordinatorProtocol
     private let urlOpener: URLOpenerProtocol
     private let relationValueCoordinator: RelationValueCoordinatorProtocol
@@ -35,7 +35,7 @@ final class EditorRouter: NSObject, EditorRouterProtocol, ObjectSettingsCoordina
         navigationContext: NavigationContextProtocol,
         document: BaseDocumentProtocol,
         addNewRelationCoordinator: AddNewRelationCoordinatorProtocol,
-        templatesCoordinator: TemplatesCoordinator,
+        templatesCoordinator: TemplatesCoordinatorProtocol,
         setObjectCreationSettingsCoordinator: SetObjectCreationSettingsCoordinatorProtocol,
         urlOpener: URLOpenerProtocol,
         relationValueCoordinator: RelationValueCoordinatorProtocol,
@@ -437,11 +437,8 @@ final class EditorRouter: NSObject, EditorRouterProtocol, ObjectSettingsCoordina
     }
     
     @MainActor
-    func showTemplatesPicker(availableTemplates: [ObjectDetails]) {
-        templatesCoordinator.showTemplatesPicker(
-            document: document,
-            availableTemplates: availableTemplates
-        )
+    func showTemplatesPicker() {
+        templatesCoordinator.showTemplatesPicker(document: document)
     }
     
     @MainActor

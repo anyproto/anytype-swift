@@ -2,7 +2,7 @@ import Foundation
 import UIKit
 
 protocol TemplatesCoordinatorAssemblyProtocol: AnyObject {
-    func make(viewController: UIViewController) -> TemplatesCoordinator
+    func make(viewController: UIViewController) -> TemplatesCoordinatorProtocol
 }
 
 final class TemplatesCoordinatorAssembly: TemplatesCoordinatorAssemblyProtocol {
@@ -20,7 +20,7 @@ final class TemplatesCoordinatorAssembly: TemplatesCoordinatorAssemblyProtocol {
     
     // MARK: - TemplatesCoordinatorAssemblyProtocol
     
-    func make(viewController: UIViewController) -> TemplatesCoordinator {
+    func make(viewController: UIViewController) -> TemplatesCoordinatorProtocol {
         return TemplatesCoordinator(
             rootViewController: viewController,
             editorPageAssembly: coordinatorsDI.editor(), 

@@ -1,9 +1,7 @@
 import SwiftUI
 
 struct TemplatePickerView: View {
-    let viewModel: TemplatePickerViewModel
-
-    @State private var index: Int = 0
+    @StateObject var viewModel: TemplatePickerViewModel
 
     var body: some View {
         NavigationView {
@@ -18,14 +16,14 @@ struct TemplatePickerView: View {
             
             HStack(spacing: 4) {
                 ForEach(viewModel.items) {
-                    storyIndicatorView(isSelected: $0.id == viewModel.items[index].id)
+                    storyIndicatorView(isSelected: $0.id == viewModel.selectedItem().id)
                 }
             }
             .padding([.horizontal], 16)
             
             Spacer.fixedHeight(6)
             
-            TabView(selection: $index) {
+            TabView(selection: $viewModel.selectedTab) {
                 ForEach(viewModel.items) { item in
                     VStack(spacing: 0) {
                         switch item {
@@ -42,9 +40,6 @@ struct TemplatePickerView: View {
             }
             .tabViewStyle(.page(indexDisplayMode: .never))
             .frame(maxHeight: .infinity)
-            .onChange(of: index) { tab in
-                viewModel.onTabChange(selectedTab: tab)
-            }
             
             button
         }

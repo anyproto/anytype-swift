@@ -4,7 +4,11 @@ import Combine
 import Services
 import AnytypeCore
 
-final class TemplatesCoordinator {
+protocol TemplatesCoordinatorProtocol {
+    func showTemplatesPicker(document: BaseDocumentProtocol)
+}
+
+final class TemplatesCoordinator: TemplatesCoordinatorProtocol {
     private weak var rootViewController: UIViewController?
     private let editorPageAssembly: EditorAssembly
     private let objectSettingCoordinator: ObjectSettingsCoordinatorProtocol
@@ -21,41 +25,16 @@ final class TemplatesCoordinator {
     }
 
     @MainActor
-    func showTemplatesPicker(
-        document: BaseDocumentProtocol,
-        availableTemplates: [ObjectDetails]
-    ) {
-        guard let rootViewController = rootViewController else {
-            return
-        }
-
-        var items = availableTemplates.enumerated().map { info -> TemplatePickerViewModel.Item in
-            let item = info.element
-            let editorController = editorPageAssembly.buildPageModule(browser: nil, data: .init(
-                objectId: item.id,
-                spaceId: item.spaceId,
-                isSupportedForEdit: true,
-                isOpenedForPreview: false,
-                usecase: .templateEditing
-            )).0
-            return .template(
-                .init(
-                    id: info.offset + 1,
-                    viewController: GenericUIKitToSwiftUIView(viewController: editorController),
-                    viewModel: editorController.viewModel,
-                    object: item
-                )
-            )
-        }
-        
-        items.insert(.blank(0), at: 0)
+    func showTemplatesPicker(document: BaseDocumentProtocol) {
+        guard let rootViewController else { return }
 
         handler = TemplateSelectionObjectSettingsHandler(useAsTemplateAction: { _ in })
         let picker = TemplatePickerView(
             viewModel: .init(
-                items: items,
+                output: self,
                 document: document,
-                objectService: ServiceLocator.shared.objectActionsService(),
+                objectService: ServiceLocator.shared.objectActionsService(), 
+                templatesSubscriptionService: ServiceLocator.shared.templatesSubscription(),
                 onClose: { [weak rootViewController] in
                     rootViewController?.dismiss(animated: true, completion: nil)
                 }, 
@@ -73,8 +52,23 @@ final class TemplatesCoordinator {
             )
         )
         let hostViewController = UIHostingController(rootView: picker)
-
         hostViewController.modalPresentationStyle = .fullScreen
         rootViewController.present(hostViewController, animated: true, completion: nil)
+    }
+}
+
+extension TemplatesCoordinator: TemplatePickerViewModuleOutput {
+    func onTemplatesChanged(_ templates: [ObjectDetails], completion: ([TemplatePickerModel]) -> Void) {
+        let editorsViews = templates.map { template in
+            let editorController = editorPageAssembly.buildPageModule(browser: nil, data: .init(
+                objectId: template.id,
+                spaceId: template.spaceId,
+                isSupportedForEdit: true,
+                isOpenedForPreview: false,
+                usecase: .templateEditing
+            )).0
+            return TemplatePickerModel(template: template, editorController: editorController)
+        }
+        completion(editorsViews)
     }
 }
