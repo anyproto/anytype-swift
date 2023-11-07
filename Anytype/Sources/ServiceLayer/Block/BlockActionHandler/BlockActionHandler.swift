@@ -59,9 +59,10 @@ final class BlockActionHandler: BlockActionHandlerProtocol {
         try await service.upload(blockId: blockId, filePath: filePath)
     }
     
+    @MainActor
     func setObjectType(type: ObjectType) async throws {
-        if #available(iOS 17, *) {
-            await HomeCreateObjectTip.objectChangeType.donate()
+        if #available(iOS 17.0, *) {
+            HomeCreateObjectTip.objectTpeChanged = true
         }
         try await service.setObjectType(type: type)
     }

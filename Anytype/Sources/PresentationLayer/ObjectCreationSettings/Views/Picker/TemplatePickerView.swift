@@ -70,7 +70,10 @@ struct TemplatePickerView: View {
         VStack(spacing: 0) {
             Spacer.fixedHeight(125)
             HStack {
-                AnytypeText(Loc.TemplateSelection.blankTemplate, style: .title, color: .Text.primary)
+                VStack(alignment: .leading, spacing: 8) {
+                    AnytypeText(Loc.BlockText.ContentType.Title.placeholder, style: .title, color: .Text.secondary)
+                    AnytypeText(Loc.TemplateSelection.Template.subtitle, style: .relation2Regular, color: .Text.secondary)
+                }
                 Spacer()
             }
         }

@@ -3,7 +3,7 @@
 
 // MARK: Text Style in Slash and Style menu
 "TextStyle.Text.Title" = "Text";
-"TextStyle.Text.Subtitle" = "Just start writing with a plain text";
+"TextStyle.Text.Subtitle" = "開始用純文字編寫";
 
 "TextStyle.Title.Title" = "Title";
 "TextStyle.Title.Subtitle" = "Big section heading";
@@ -12,13 +12,13 @@
 "TextStyle.Heading.Subtitle" = "中等大小的標題";
 
 "TextStyle.Subheading.Title" = "Subheading";
-"TextStyle.Subheading.Subtitle" = "Small headline";
+"TextStyle.Subheading.Subtitle" = "小標題";
 
-"TextStyle.Highlighted.Title" = "Highlighted";
-"TextStyle.Highlighted.Subtitle" = "Spotlight, that needs special attention";
+"TextStyle.Highlighted.Title" = "螢光筆";
+"TextStyle.Highlighted.Subtitle" = "高亮文本，需要特別關注";
 
 "TextStyle.Callout.Title" = "Callout";
-"TextStyle.Callout.Subtitle" = "Bordered text with icon";
+"TextStyle.Callout.Subtitle" = "帶有圖示的邊框文本";
 
 "TextStyle.Checkbox.Title" = "Checkbox";
 "TextStyle.Checkbox.Subtitle" = "Create and track task with to-do list";
@@ -75,20 +75,20 @@
 "Relation.View.Hint.Empty" = "empty";
 "Relation.MyRelations" = "My relations";
 "Relation.AddedToLibrary" = "Relation ‘%@’ added to your library";
-"Relation.Deleted" = "Deleted relation";
-"Relation.From.Type" = "From type %@";
+"Relation.Deleted" = "已刪除的關聯";
+"Relation.From.Type" = "來自類別 %@";
 
 "Relation.Format.Object.Title" = "Object";
 "Relation.Format.Text.Title" = "Text";
-"Relation.Format.Number.Title" = "Number";
-"Relation.Format.Status.Title" = "Status";
-"Relation.Format.Tag.Title" = "Tag";
-"Relation.Format.Date.Title" = "Date";
-"Relation.Format.FileMedia.Title" = "File & Media";
+"Relation.Format.Number.Title" = "數字";
+"Relation.Format.Status.Title" = "狀態";
+"Relation.Format.Tag.Title" = "標籤";
+"Relation.Format.Date.Title" = "日期";
+"Relation.Format.FileMedia.Title" = "檔案與媒體";
 "Relation.Format.Checkbox.Title" = "Checkbox";
 "Relation.Format.Url.Title" = "URL";
-"Relation.Format.Email.Title" = "Email";
-"Relation.Format.Phone.Title" = "Phone number";
+"Relation.Format.Email.Title" = "電子信箱";
+"Relation.Format.Phone.Title" = "電話號碼";
 
 // MARK: - Mention
 "Mention.Subtitle.Placeholder" = "Object";
@@ -103,46 +103,46 @@
 "Background" = "Background";
 "Other" = "Other";
 "Media" = "Media";
-"Alignment" = "Alignment";
+"Alignment" = "對齊";
 "Actions" = "Actions";
 "Relations" = "Relations";
 "Objects" = "Objects";
-"Delete" = "Delete";
+"Delete" = "刪除";
 "Duplicate" = "Duplicate";
-"Copy" = "Copy";
-"Preview" = "Preview";
-"View" = "View";
-"Paste" = "Paste";
-"Move" = "Move";
-"Move to" = "Move to";
-"Back" = "Back";
-"File block subtitle" = "Store file in original state";
-"Picture block subtitle" = "Upload and enrich the page with image";
-"Video block subtitle" = "Upload playable video";
+"Copy" = "複製";
+"Preview" = "預覽";
+"View" = "檢視";
+"Paste" = "貼上";
+"Move" = "移動";
+"Move to" = "移動至";
+"Back" = "返回";
+"File block subtitle" = "以原始狀態儲存文件";
+"Picture block subtitle" = "上傳並用圖像豐富頁面";
+"Video block subtitle" = "上傳可播放的影片";
 "Bookmark block subtitle" = "Save your favorite link with summary";
-"Code block subtitle" = "Capture code snippet";
-"Align right" = "Align right";
-"Align left" = "Align left";
-"Align center" = "Align center";
-"Black" = "Black";
-"Amber" = "Amber";
-"Red" = "Red";
-"Pink" = "Pink";
-"Purple" = "Purple";
-"Blue" = "Blue";
-"Teal" = "Teal";
-"Green" = "Green";
-"Default background" = "Default background";
-"Amber background" = "Amber background";
-"Red background" = "Red background";
-"Pink background" = "Pink background";
-"Purple background" = "Purple background";
-"Blue background" = "Blue background";
-"Green background" = "Green background";
-"Create new object" = "Create new object";
-"Cancel" = "Cancel";
-"Paste or type URL" = "Paste or type URL";
-"No items match filter" = "No items match filter";
+"Code block subtitle" = "可以突出顯示代碼的文字區塊";
+"Align right" = "靠右";
+"Align left" = "靠左";
+"Align center" = "置中";
+"Black" = "黑色";
+"Amber" = "琥珀色";
+"Red" = "紅色";
+"Pink" = "粉紅色";
+"Purple" = "紫色";
+"Blue" = "藍色";
+"Teal" = "青色";
+"Green" = "綠色";
+"Default background" = "預設背景";
+"Amber background" = "琥珀色背景";
+"Red background" = "紅色背景";
+"Pink background" = "粉紅色背景";
+"Purple background" = "紫色背景";
+"Blue background" = "藍色背景";
+"Green background" = "綠色背景";
+"Create new object" = "建立新object";
+"Cancel" = "取消";
+"Paste or type URL" = "貼上或輸入 URL";
+"No items match filter" = "沒有符合過濾條件的項目";
 "Unsupported block" = "Unsupported block";
 "Name" = "Name";
 "Description" = "Description";
@@ -179,13 +179,13 @@
 
 // Auth
 "Sign up" = "Sign up";
-"Login" = "Login";
+"Login" = "Log In";
 "Create" = "Create";
 "Scan QR code" = "Scan QR code";
 "Auth.CameraPermissionTitle" = "Please allow access";
 "Restore secret phrase from keychain" = "Restore Recovery Phrase from the keychain";
-"Auth.LogIn" = "I already have one";
-"Auth.Join" = "Generate new account";
+"Auth.LogIn" = "Log In";
+"Auth.Join" = "Create New Account";
 "Auth.Welcome.Subtitle" = "Anytype is your safe space to write, plan, think and organise everything that matters to you.";
 "Auth.Caption.Privacy.Text" = "By continuing you agree to [Terms of Use](%@) and [Privacy Policy](%@)";
 "Auth.Next" = "Next";
@@ -212,12 +212,12 @@
 "Auth.JoinFlow.Key.Button.Info.Title" = "Read more";
 "Auth.JoinFlow.Key.Button.Tip.Title" = "You can find Recovery Phrase later in Anytype settings";
 
-"Auth.JoinFlow.Key.ReadMore.Title" = "What is Recovery Phrase?";
+"Auth.JoinFlow.Key.ReadMore.Title" = "顯示恢復短語?";
 "Auth.JoinFlow.Key.ReadMore.Option1.Title" = "Recovery Phrase is a random combination of 12 words from which your account is magically generated on this device.";
-"Auth.JoinFlow.Key.ReadMore.Option2.Title" = "Whomever knows Recovery Phrase, owns the account. **At this moment, you are the only person in the world who knows it.**";
-"Auth.JoinFlow.Key.ReadMore.Option3.Title" = "That's why it's essential to keep Recovery Phrase safe. As the sole owner, nobody can help you if it's lost.";
-"Auth.JoinFlow.Key.ReadMore.Instruction.Title" = "How to save my phrase?";
-"Auth.JoinFlow.Key.ReadMore.Instruction.Option1.Title" = "The easiest way to store your Recovery Phrase is to save it in your password manager.";
+"Auth.JoinFlow.Key.ReadMore.Option2.Title" = "知道恢復短語的人擁有該帳戶。 此時此刻，你是世界上唯一知道的人。";
+"Auth.JoinFlow.Key.ReadMore.Option3.Title" = "因此，確保您的恢復短語安全至關重要。 作為唯一的所有者，如果丟失，沒有人可以幫助您。";
+"Auth.JoinFlow.Key.ReadMore.Instruction.Title" = "如何保存我的恢復短語？";
+"Auth.JoinFlow.Key.ReadMore.Instruction.Option1.Title" = "保存恢復短語的最簡單方式是將其保存在您的密碼管理器中。";
 "Auth.JoinFlow.Key.ReadMore.Instruction.Option2.Title" = "The most secure way is to write it down on paper and keep it offline, in a safe and secure place.";
 
 "Auth.JoinFlow.Soul.Title" = "Choose your name";
@@ -317,7 +317,7 @@
 
 "TemplateOptions.Alert.EditTemplate" = "Edit template";
 "TemplateOptions.Alert.Duplicate" = "Duplicate";
-"TemplateOptions.Alert.Delete" = "Delete";
+"TemplateOptions.Alert.Delete" = "刪除";
 
 "TemplateEditing.Title" = "Edit template";
 
@@ -464,7 +464,9 @@
 "SlashMenu.TableOfContents" = "Table of contents";
 "SlashMenu.Table" = "Table";
 
+"Error" = "Error";
 "Unknown error" = "Unknown error";
+"Close" = "Close";
 "Account is deleted" = "Account is deleted";
 "Add phone" = "Add phone";
 "Nothing to redo" = "Nothing to redo";
@@ -571,7 +573,7 @@
 "Views" = "Views";
 "Filter" = "Filter";
 "Sort" = "Sort";
-"View" = "View";
+"View" = "檢視";
 "Home" = "Home";
 "Highlight" = "Highlight";
 "Create object" = "Create object";
@@ -649,7 +651,7 @@
 "SimpleTableMenu.Item.MoveLeft" = "Move left";
 "SimpleTableMenu.Item.MoveRight" = "Move right";
 "SimpleTableMenu.Item.Duplicate" = "Duplicate";
-"SimpleTableMenu.Item.Delete" = "Delete";
+"SimpleTableMenu.Item.Delete" = "刪除";
 "SimpleTableMenu.Item.Sort" = "Sort";
 
 "SimpleTableMenu.Item.InsertAbove" = "Insert above";
@@ -782,6 +784,9 @@
 "FileStorage.OffloadTitle" = "Offload files";
 "FileStorage.ManageFiles" = "Manage files";
 "FileStorage.LimitError" = "You exceeded file limit upload";
+"FileStorage.LimitLegend.Current" = "%@ | %@";
+"FileStorage.LimitLegend.Other" = "Other spaces | %@";
+"FileStorage.LimitLegend.Free" = "Free | %@";
 
 // MARK: - Files List
 "FilesList.Title" = "Synced files";
@@ -797,6 +802,7 @@
 // MARK: - Spaces
 "Spaces.Accessibility.Public" = "Public";
 "Spaces.Accessibility.Private" = "Private";
+"Spaces.Accessibility.Personal" = "Personal";
 "Spaces.Search.Title" = "Search spaces";
 
 // MARK: - Space Settings
@@ -813,7 +819,7 @@
 
 // MARK: - Sharing
 "Sharing.Navigation.title" = "Add to Anytype";
-"Sharing.Navigation.LeftButton.Title" = "Cancel";
+"Sharing.Navigation.LeftButton.Title" = "取消";
 "Sharing.Navigation.RightButton.Title" = "Done";
 
 "Sharing.SaveAs" = "SAVE AS";
@@ -838,3 +844,7 @@
 // MARK: - Create tip
 "LongTapCreateTip.Title" = "Crete Objects with specific Type";
 "LongTapCreateTip.Message" = "Long tap on Create Object button to open menu with types";
+
+// MARK: - Error
+"Error.AnytypeNeedsUpgrate.Title" = "Update Your App";
+"Error.AnytypeNeedsUpgrate.Message" = "This object was modified in a newer version of Anytype. Please update the app to open it on this device";

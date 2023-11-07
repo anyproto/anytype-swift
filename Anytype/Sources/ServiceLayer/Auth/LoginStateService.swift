@@ -42,6 +42,7 @@ final class LoginStateService: LoginStateServiceProtocol {
     func setupStateAfterLoginOrAuth(account: AccountData) async {
         middlewareConfigurationProvider.setupConfiguration(account: account)
         await startSubscriptions()
+        await activeWorkpaceStorage.setupActiveSpace()
     }
     
     func setupStateAfterAuth() {
@@ -52,6 +53,7 @@ final class LoginStateService: LoginStateServiceProtocol {
         isFirstLaunchAfterRegistration = true
         middlewareConfigurationProvider.setupConfiguration(account: account)
         await startSubscriptions()
+        await activeWorkpaceStorage.setupActiveSpace()
     }
     
     func cleanStateAfterLogout() async {
@@ -59,13 +61,13 @@ final class LoginStateService: LoginStateServiceProtocol {
         blockWidgetExpandedService.clearData()
         middlewareConfigurationProvider.removeCachedConfiguration()
         await stopSubscriptions()
+        await activeWorkpaceStorage.clearActiveSpace()
     }
     
     // MARK: - Private
     
     private func startSubscriptions() async {
         await workspacesStorage.startSubscription()
-        await activeWorkpaceStorage.setupActiveSpace()
         await relationDetailsStorage.startSubscription()
         await objectTypeProvider.startSubscription()
     }

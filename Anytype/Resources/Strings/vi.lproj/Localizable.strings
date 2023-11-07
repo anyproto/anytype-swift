@@ -180,13 +180,13 @@
 
 // Auth
 "Sign up" = "Đăng ký";
-"Login" = "Đăng nhập";
+"Login" = "Log In";
 "Create" = "Tạo";
 "Scan QR code" = "Quét mã QR";
 "Auth.CameraPermissionTitle" = "Hãy cho phép truy cập";
 "Restore secret phrase from keychain" = "Restore Recovery Phrase from the keychain";
-"Auth.LogIn" = "Tôi đã có một cái";
-"Auth.Join" = "Khởi tạo tài khoản mới";
+"Auth.LogIn" = "Log In";
+"Auth.Join" = "Create New Account";
 "Auth.Welcome.Subtitle" = "Anytype is your safe space to write, plan, think and organise everything that matters to you.";
 "Auth.Caption.Privacy.Text" = "By continuing you agree to [Terms of Use](%@) and [Privacy Policy](%@)";
 "Auth.Next" = "Tiếp";
@@ -465,7 +465,9 @@
 "SlashMenu.TableOfContents" = "Mục lục";
 "SlashMenu.Table" = "Bảng";
 
+"Error" = "Error";
 "Unknown error" = "Lỗi không xác định";
+"Close" = "Close";
 "Account is deleted" = "Tài khoản đã bị xóa";
 "Add phone" = "Thêm số điện thoại";
 "Nothing to redo" = "Nothing to redo";
@@ -783,6 +785,9 @@
 "FileStorage.OffloadTitle" = "San tập tin";
 "FileStorage.ManageFiles" = "Quản lý tập tin";
 "FileStorage.LimitError" = "Bạn đã vượt quá giới hạn tải lên";
+"FileStorage.LimitLegend.Current" = "%@ | %@";
+"FileStorage.LimitLegend.Other" = "Other spaces | %@";
+"FileStorage.LimitLegend.Free" = "Free | %@";
 
 // MARK: - Files List
 "FilesList.Title" = "Các tệp đã đồng bộ";
@@ -798,6 +803,7 @@
 // MARK: - Spaces
 "Spaces.Accessibility.Public" = "Public";
 "Spaces.Accessibility.Private" = "Private";
+"Spaces.Accessibility.Personal" = "Personal";
 "Spaces.Search.Title" = "Search spaces";
 
 // MARK: - Space Settings
@@ -839,3 +845,7 @@
 // MARK: - Create tip
 "LongTapCreateTip.Title" = "Crete Objects with specific Type";
 "LongTapCreateTip.Message" = "Long tap on Create Object button to open menu with types";
+
+// MARK: - Error
+"Error.AnytypeNeedsUpgrate.Title" = "Update Your App";
+"Error.AnytypeNeedsUpgrate.Message" = "This object was modified in a newer version of Anytype. Please update the app to open it on this device";

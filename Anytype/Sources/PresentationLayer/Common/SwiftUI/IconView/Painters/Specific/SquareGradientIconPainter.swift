@@ -23,7 +23,7 @@ final class SquareGradientIconPainter: IconPainter {
         
         context.saveGState()
         
-        let path = UIBezierPath(roundedRect: bounds, cornerRadius: side * (1/12)).cgPath
+        let path = UIBezierPath(roundedRect: bounds, cornerRadius: 2).cgPath
         context.addPath(path)
         context.clip()
         

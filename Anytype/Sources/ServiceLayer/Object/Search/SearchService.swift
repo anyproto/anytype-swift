@@ -332,6 +332,7 @@ private extension SearchService {
     private func buildFilters(isArchived: Bool, spaceId: String, layouts: [DetailsLayout]) -> [DataviewFilter] {
         var filters = buildFilters(isArchived: isArchived, spaceId: spaceId)
         filters.append(SearchHelper.layoutFilter(layouts))
+        filters.append(SearchHelper.templateScheme(include: false))
         return filters
     }
 }

@@ -196,7 +196,7 @@ class SearchHelper {
         [
             isArchivedFilter(isArchived: false),
             isDeletedFilter(isDeleted: false),
-            templateScheme(),
+            templateScheme(include: true),
             templateTypeFilter(type: type),
             spaceId(spaceIdValue)
         ]
@@ -253,6 +253,15 @@ class SearchHelper {
         return filter
     }
     
+    static func templateScheme(include: Bool) -> DataviewFilter {
+        var filter = DataviewFilter()
+        filter.condition = include ? .equal : .notEqual
+        filter.relationKey = "\(BundledRelationKey.type.rawValue).\(BundledRelationKey.uniqueKey.rawValue)"
+        filter.value = ObjectTypeUniqueKey.template.value.protobufValue
+
+        return filter
+    }
+    
     // MARK: - Private
 
     private static func templateTypeFilter(type: String) -> DataviewFilter {
@@ -263,14 +272,4 @@ class SearchHelper {
 
         return filter
     }
-
-    private static func templateScheme() -> DataviewFilter {
-        var filter = DataviewFilter()
-        filter.condition = .equal
-        filter.relationKey = "\(BundledRelationKey.type.rawValue).\(BundledRelationKey.uniqueKey.rawValue)"
-        filter.value = ObjectTypeUniqueKey.template.value.protobufValue
-
-        return filter
-    }
-    
 }

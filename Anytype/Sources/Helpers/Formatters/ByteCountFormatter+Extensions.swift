@@ -5,7 +5,7 @@ extension ByteCountFormatter {
         let formatter = ByteCountFormatter.init()
         formatter.allowedUnits = .useAll
         formatter.allowsNonnumericFormatting = true
-        formatter.countStyle = .decimal
+        formatter.countStyle = .binary
         return formatter
     }()
 }

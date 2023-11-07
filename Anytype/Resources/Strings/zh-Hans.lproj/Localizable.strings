@@ -185,7 +185,7 @@
 "Auth.CameraPermissionTitle" = "请允许访问";
 "Restore secret phrase from keychain" = "从钥匙串恢复恢复短语";
 "Auth.LogIn" = "登录";
-"Auth.Join" = "加入";
+"Auth.Join" = "创建新账户";
 "Auth.Welcome.Subtitle" = "Anytype 是您编写、计划、思考和组织集于一身，对您重要的安全空间。";
 "Auth.Caption.Privacy.Text" = "继续即表示您同意 [使用条款](%@) 和 [隐私策略](%@)";
 "Auth.Next" = "下一步";
@@ -220,7 +220,7 @@
 "Auth.JoinFlow.Key.ReadMore.Instruction.Option1.Title" = "保存恢复短语的最简单方法是将其保存在您的密码管理器中。";
 "Auth.JoinFlow.Key.ReadMore.Instruction.Option2.Title" = "最可靠的方法是现实中在纸面上写下，并放在一个安全可靠的地方。";
 
-"Auth.JoinFlow.Soul.Title" = "Choose your name";
+"Auth.JoinFlow.Soul.Title" = "选择名称";
 "Auth.JoinFlow.Soul.Description" = "这将是您在应用中的显示方式。";
 "Auth.JoinFlow.Soul.Placeholder" = "无标题";
 
@@ -464,7 +464,9 @@
 "SlashMenu.TableOfContents" = "目录";
 "SlashMenu.Table" = "表格";
 
+"Error" = "错误";
 "Unknown error" = "未知错误";
+"Close" = "关闭";
 "Account is deleted" = "帐户已删除";
 "Add phone" = "添加电话号";
 "Nothing to redo" = "无需重做";
@@ -613,7 +615,7 @@
 "DataviewType.list" = "列表";
 "DataviewType.gallery" = "相簿";
 "DataviewType.kanban" = "看板";
-"DataviewType.calendar" = "Calendar";
+"DataviewType.calendar" = "日历";
 
 // MARK: - ObjectType
 "ObjectType.fallbackDescription" = "没有标题的空白画布";
@@ -782,6 +784,9 @@
 "FileStorage.OffloadTitle" = "卸载文件";
 "FileStorage.ManageFiles" = "管理文件";
 "FileStorage.LimitError" = "您超出了上传的文件限制";
+"FileStorage.LimitLegend.Current" = "%@ | %@";
+"FileStorage.LimitLegend.Other" = "其他空间 | %@";
+"FileStorage.LimitLegend.Free" = "可用空间 | %@";
 
 // MARK: - Files List
 "FilesList.Title" = "已同步的文件";
@@ -797,6 +802,7 @@
 // MARK: - Spaces
 "Spaces.Accessibility.Public" = "公共";
 "Spaces.Accessibility.Private" = "私人";
+"Spaces.Accessibility.Personal" = "个人";
 "Spaces.Search.Title" = "搜索空间";
 
 // MARK: - Space Settings
@@ -838,3 +844,7 @@
 // MARK: - Create tip
 "LongTapCreateTip.Title" = "创建带有特定类型的对象";
 "LongTapCreateTip.Message" = "长按创建对象按钮以打开带类型的菜单";
+
+// MARK: - Error
+"Error.AnytypeNeedsUpgrate.Title" = "更新应用";
+"Error.AnytypeNeedsUpgrate.Message" = "此对象已在更高版本的 Anytype 编辑过，请更新此设备的应用以打开它";
