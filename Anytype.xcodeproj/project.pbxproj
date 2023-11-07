@@ -908,6 +908,7 @@
 		2E9EFE72285B62E500C8E47A /* SetFilter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E9EFE71285B62E500C8E47A /* SetFilter.swift */; };
 		2EA098A72A697511009182C0 /* SubscriptionData+Info.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EA098A62A697511009182C0 /* SubscriptionData+Info.swift */; };
 		2EA0F4912936629E003225BA /* GroupsSubscribeResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EA0F4902936629E003225BA /* GroupsSubscribeResult.swift */; };
+		2EA18B092AF132A10096B137 /* SetObjectCreationHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EA18B082AF132A10096B137 /* SetObjectCreationHelper.swift */; };
 		2EA2B7D42AB2113B00F1F49F /* SetViewSettingsListMode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EA2B7D32AB2113B00F1F49F /* SetViewSettingsListMode.swift */; };
 		2EAA13FB2AA63918000A712A /* SetRelationsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EAA13EB2AA63918000A712A /* SetRelationsView.swift */; };
 		2EAA13FC2AA63918000A712A /* SetViewSettingsImagePreviewModuleAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EAA13ED2AA63918000A712A /* SetViewSettingsImagePreviewModuleAssembly.swift */; };
@@ -978,6 +979,8 @@
 		2EDC2B062A13E4E00065E009 /* KeyPhraseViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EDC2B052A13E4E00065E009 /* KeyPhraseViewModel.swift */; };
 		2EDC2B082A13E5E00065E009 /* KeyPhraseViewModuleAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EDC2B072A13E5E00065E009 /* KeyPhraseViewModuleAssembly.swift */; };
 		2EE10C7428ACFCF100F41D50 /* LightDimmingButtonStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EE10C7328ACFCF100F41D50 /* LightDimmingButtonStyle.swift */; };
+		2EE36CD62AF532B70043AA8D /* SetObjectCreationCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EE36CD52AF532B70043AA8D /* SetObjectCreationCoordinator.swift */; };
+		2EE36CD82AF535C30043AA8D /* SetObjectCreationCoordinatorAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EE36CD72AF535C30043AA8D /* SetObjectCreationCoordinatorAssembly.swift */; };
 		2EE622FC29F2F57D004DBF3E /* SetItemProviderObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EE622FB29F2F57D004DBF3E /* SetItemProviderObject.swift */; };
 		2EEFEADC2A93C39100AD5CDC /* SheetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EEFEADB2A93C39100AD5CDC /* SheetView.swift */; };
 		2EEFEADF2A93C41100AD5CDC /* UISheetController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EEFEADE2A93C41100AD5CDC /* UISheetController.swift */; };
@@ -2538,6 +2541,7 @@
 		2E9EFE71285B62E500C8E47A /* SetFilter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetFilter.swift; sourceTree = "<group>"; };
 		2EA098A62A697511009182C0 /* SubscriptionData+Info.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SubscriptionData+Info.swift"; sourceTree = "<group>"; };
 		2EA0F4902936629E003225BA /* GroupsSubscribeResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupsSubscribeResult.swift; sourceTree = "<group>"; };
+		2EA18B082AF132A10096B137 /* SetObjectCreationHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetObjectCreationHelper.swift; sourceTree = "<group>"; };
 		2EA2B7D32AB2113B00F1F49F /* SetViewSettingsListMode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetViewSettingsListMode.swift; sourceTree = "<group>"; };
 		2EAA13EB2AA63918000A712A /* SetRelationsView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SetRelationsView.swift; sourceTree = "<group>"; };
 		2EAA13ED2AA63918000A712A /* SetViewSettingsImagePreviewModuleAssembly.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SetViewSettingsImagePreviewModuleAssembly.swift; sourceTree = "<group>"; };
@@ -2608,6 +2612,8 @@
 		2EDC2B052A13E4E00065E009 /* KeyPhraseViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyPhraseViewModel.swift; sourceTree = "<group>"; };
 		2EDC2B072A13E5E00065E009 /* KeyPhraseViewModuleAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyPhraseViewModuleAssembly.swift; sourceTree = "<group>"; };
 		2EE10C7328ACFCF100F41D50 /* LightDimmingButtonStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LightDimmingButtonStyle.swift; sourceTree = "<group>"; };
+		2EE36CD52AF532B70043AA8D /* SetObjectCreationCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetObjectCreationCoordinator.swift; sourceTree = "<group>"; };
+		2EE36CD72AF535C30043AA8D /* SetObjectCreationCoordinatorAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetObjectCreationCoordinatorAssembly.swift; sourceTree = "<group>"; };
 		2EE622FB29F2F57D004DBF3E /* SetItemProviderObject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetItemProviderObject.swift; sourceTree = "<group>"; };
 		2EEFEADB2A93C39100AD5CDC /* SheetView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SheetView.swift; sourceTree = "<group>"; };
 		2EEFEADE2A93C41100AD5CDC /* UISheetController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UISheetController.swift; sourceTree = "<group>"; };
@@ -6854,6 +6860,16 @@
 			path = KeyPhraseView;
 			sourceTree = "<group>";
 		};
+		2EE36CD42AF5316F0043AA8D /* Creation */ = {
+			isa = PBXGroup;
+			children = (
+				2EA18B082AF132A10096B137 /* SetObjectCreationHelper.swift */,
+				2EE36CD52AF532B70043AA8D /* SetObjectCreationCoordinator.swift */,
+				2EE36CD72AF535C30043AA8D /* SetObjectCreationCoordinatorAssembly.swift */,
+			);
+			path = Creation;
+			sourceTree = "<group>";
+		};
 		2EEFEADD2A93C3B400AD5CDC /* SheetView */ = {
 			isa = PBXGroup;
 			children = (
@@ -7919,6 +7935,7 @@
 		3DAE1CAB273EA1F2009A72F3 /* Set */ = {
 			isa = PBXGroup;
 			children = (
+				2EE36CD42AF5316F0043AA8D /* Creation */,
 				2AE906F0297043A60044A10A /* EditorSetRouter.swift */,
 				2E8387BE291A521900506766 /* EditorSetViewModel+DragAndDropDelegate.swift */,
 				2AA0209328D3521E00321A66 /* Subscriptions */,
@@ -10463,6 +10480,7 @@
 				538AE50F272C57300071DB0D /* LinkToObjectSearchViewModel.swift in Sources */,
 				2A5A898C29C8650600C170D6 /* SettingsAccountView.swift in Sources */,
 				2EB97A1B28B64CDC002BBB39 /* SetListViewCell.swift in Sources */,
+				2EA18B092AF132A10096B137 /* SetObjectCreationHelper.swift in Sources */,
 				2A6693852A71168B007747DD /* Kingfisher+Async.swift in Sources */,
 				5356072726E61A0F001464A4 /* UnsupportedBlockView.swift in Sources */,
 				1244793127DC575D00581174 /* ListRowConfiguration.swift in Sources */,
@@ -10699,6 +10717,7 @@
 				3D07ED6C261F49ED00C007E2 /* DividerBlockViewModel.swift in Sources */,
 				2A2B33272A7B9A40004BD906 /* SpaceSwitchModuleAssembly.swift in Sources */,
 				2EAA14052AA63918000A712A /* SetRelationsViewModuleAssembly.swift in Sources */,
+				2EE36CD82AF535C30043AA8D /* SetObjectCreationCoordinatorAssembly.swift in Sources */,
 				2EA2B7D42AB2113B00F1F49F /* SetViewSettingsListMode.swift in Sources */,
 				53FF7C4E26F7DB3C00A5A592 /* AnytypeSharedAudioplayer.swift in Sources */,
 				3D8D41B62742840000F8EBF3 /* DocumentDetaisProvider.swift in Sources */,
@@ -10942,6 +10961,7 @@
 				3D40C00C273FD77A0001E336 /* SetTableView.swift in Sources */,
 				2A8395682AF3ECDD004EE41F /* SegmentLegend.swift in Sources */,
 				12426A2C26DD006500693B1F /* ImageMetadata.swift in Sources */,
+				2EE36CD62AF532B70043AA8D /* SetObjectCreationCoordinator.swift in Sources */,
 				125B6EC926F235F400BCD7D6 /* MentionView.swift in Sources */,
 				53FF7CBC26FDD36200A5A592 /* ObjectActionsViewModel.swift in Sources */,
 				2A5BC4B72A78F5C7004FAABF /* CircleIconPainter.swift in Sources */,
