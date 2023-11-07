@@ -63,7 +63,7 @@ struct TemplatePickerView: View {
     
     private var blankView: some View {
         VStack(spacing: 0) {
-            Spacer.fixedHeight(125)
+            Spacer.fixedHeight(32)
             HStack {
                 VStack(alignment: .leading, spacing: 8) {
                     AnytypeText(Loc.BlockText.ContentType.Title.placeholder, style: .title, color: .Text.secondary)
