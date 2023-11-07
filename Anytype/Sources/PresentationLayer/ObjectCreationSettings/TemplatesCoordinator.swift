@@ -5,7 +5,10 @@ import Services
 import AnytypeCore
 
 protocol TemplatesCoordinatorProtocol {
-    func showTemplatesPicker(document: BaseDocumentProtocol)
+    func showTemplatesPicker(
+        document: BaseDocumentProtocol,
+        onSetAsDefaultTempalte: @escaping (BlockId) -> Void
+    )
 }
 
 final class TemplatesCoordinator: TemplatesCoordinatorProtocol {
@@ -25,10 +28,13 @@ final class TemplatesCoordinator: TemplatesCoordinatorProtocol {
     }
 
     @MainActor
-    func showTemplatesPicker(document: BaseDocumentProtocol) {
+    func showTemplatesPicker(
+        document: BaseDocumentProtocol,
+        onSetAsDefaultTempalte: @escaping (BlockId) -> Void
+    ) {
         guard let rootViewController else { return }
 
-        handler = TemplateSelectionObjectSettingsHandler(useAsTemplateAction: { _ in })
+        handler = TemplateSelectionObjectSettingsHandler(useAsTemplateAction: onSetAsDefaultTempalte)
         let picker = TemplatePickerView(
             viewModel: .init(
                 output: self,
