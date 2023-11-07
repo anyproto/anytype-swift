@@ -416,8 +416,7 @@
 
 // MARK: - Set.Bookmarks
 "Set.Bookmark.Create.Placeholder" = "Link einfügen";
-"Set.Bookmark.Error.Title" = "Oops, etwas ist schief gelaufen";
-"Set.Bookmark.Error.Message" = "Bitte versuchen Sie es noch einmal";
+"Set.Bookmark.Error.Message" = "Hoppla! Irgendetwas ist schiefgelaufen. Bitte versuchen sie es nochmal.";
 
 // MARK: - Sets: View Settings
 "Set.View.Settings.ImageFit.Title" = "Bild einpassen";
@@ -553,7 +552,7 @@
 "Download" = "Herunterladen";
 "Open object" = "Objekt öffnen";
 "Open source" = "Quelle öffnen";
-"Into object" = "Into object";
+"Into object" = "In ein Objekt";
 "Add below" = "Unten hinzufügen";
 "Change type" = "Typ ändern";
 "Link to existing object" = "Link zu vorhandenem Objekt";
@@ -673,7 +672,7 @@
 "RelationAction.Copied" = "Kopiert";
 "RelationAction.ReloadingContent" = "Inhalt wird neu geladen";
 "RelationAction.ReloadContent" = "Objektinhalt neu laden";
-"RelationAction.CallPhone" = "Call phone numbler";
+"RelationAction.CallPhone" = "Telefonnummer anrufen";
 "RelationAction.SendEmail" = "E-Mail senden";
 "RelationAction.OpenLink" = "Link öffnen";
 
@@ -732,68 +731,69 @@
 "Widgets.Layout.CompactList.Title" = "Kompakte Liste";
 "Widgets.Layout.Link.Description" = "Kompakte Version des Objekts";
 "Widgets.Layout.Tree.Description" = "Hierarchische Struktur von Objekten";
-"Widgets.Layout.List.Description" = "Widget with list view of set object";
-"Widgets.Layout.CompactList.Description" = "Widget with list view of set object";
-"Widgets.Empty.Title" = "This data view contains no objects";
-"Widgets.Library.RecentlyEdited.Name" = "Recently edited";
-"Widgets.Library.RecentlyOpened.Name" = "Recently opened";
-"Widgets.Library.RecentlyOpened.Description" = "On this device";
+"Widgets.Layout.List.Description" = "Widget mit Listenansicht für ein bestimmtes Objekt";
+"Widgets.Layout.CompactList.Description" = "Widget mit Listenansicht für ein bestimmtes Objekt";
+"Widgets.Empty.Title" = "Diese Datenansicht enthält keine Objekte";
+"Widgets.Library.RecentlyEdited.Name" = "Zuletzt bearbeitet";
+"Widgets.Library.RecentlyOpened.Name" = "Zuletzt geöffnet";
+"Widgets.Library.RecentlyOpened.Description" = "Auf diesem Gerät";
 
 // MARK: - About
-"About.AppVersion" = "App version: %@";
-"About.BuildNumber" = "Build number: %@";
-"About.Library" = "Library version: %@";
-"About.accountId" = "Account ID: %@";
-"About.analyticsId" = "Analytics ID: %@";
-"About.deviceId" = "Device ID: %@";
-"About.Device" = "Device: %@";
-"About.OSVersion" = "OS version: %@";
-"About.HelpCommunity" = "Help & Community";
-"About.WhatsNew" = "What’s New";
-"About.AnytypeCommunity" = "Anytype Community";
-"About.HelpTutorials" = "Help & Tutorials";
-"About.ContactUs" = "Contact Us";
-"About.Legal" = "Legal";
-"About.TermsOfUse" = "Terms of Use";
-"About.PrivacyPolicy" = "Privacy Policy";
-"About.TechInfo" = "Tech Info";
-"About.Mail.Subject" = "Support request, Account ID %@";
-"About.Mail.Body" = "\n\nTechnical information\n%@";
+"About.AppVersion" = "App-Version: %@";
+"About.BuildNumber" = "Build Nummer: %@";
+"About.Library" = "Bibliotheksversion: %@";
+"About.accountId" = "Konto-ID: %@";
+"About.analyticsId" = "Analytics-ID: %@";
+"About.deviceId" = "Geräte-ID: %@
+";
+"About.Device" = "Gerät: %@";
+"About.OSVersion" = "Betriebssystem-Version: %@";
+"About.HelpCommunity" = "Hilfe & Gemeinschaft";
+"About.WhatsNew" = "Was ist neu";
+"About.AnytypeCommunity" = "Anytype Gemeinschaft";
+"About.HelpTutorials" = "Hilfe & Anleitungen";
+"About.ContactUs" = "Kontaktieren Sie uns";
+"About.Legal" = "Impressum";
+"About.TermsOfUse" = "Nutzungsbedingungen";
+"About.PrivacyPolicy" = "Datenschutzerklärung";
+"About.TechInfo" = "Technische Info";
+"About.Mail.Subject" = "Supportanfrage, Konto-ID %@";
+"About.Mail.Body" = "\n\nTechnische Informationen\n%@";
 
 // MARK: - Cache
-"ClearCache.Success" = "Cache sucessfully cleared";
-"ClearCache.Error" = "Error, try again later";
+"ClearCache.Success" = "Cache erfolgreich gelöscht";
+"ClearCache.Error" = "Fehler. Versuchen Sie es später noch einmal";
 
 // MARK: - Settings
 "Settings.TitleLegacy" = "Settings";
 "Settings.Title" = "Einstellungen";
 "Settings.SpaceName" = "Space-Name";
-"Settings.AccountAndAccess" = "Account and access";
+"Settings.AccountAndAccess" = "Konto und Zugriff";
 
 // MARK: - File Storage
-"FileStorage.Title" = "File storage";
-"FileStorage.Space.Title" = "Remote storage";
-"FileStorage.Space.Instruction" = "You can store up to %@ of your files on our encrypted backup node for free. If you reach the limit, files will be stored only locally.";
-"FileStorage.Space.Used" = "%@ of %@ used";
-"FileStorage.Space.GetMore" = "Get more space";
-"FileStorage.Space.Mail.Subject" = "Get more storage, account %@";
-"FileStorage.Space.Mail.Body" = "Hi, Anytype team. I am reaching out to request an increase in my file storage capacity as I have run out of storage. My current limits is %@. My account id is %@. Cheers, %@.";
-"FileStorage.Local.Title" = "Local storage";
-"FileStorage.Local.Instruction" = "In order to save space on your local device, you can offload all your files to our encrypted backup node. The files will be loaded back when you open them.";
-"FileStorage.Local.Used" = "%@ used";
-"FileStorage.OffloadTitle" = "Offload files";
-"FileStorage.ManageFiles" = "Manage files";
-"FileStorage.LimitError" = "You exceeded file limit upload";
+"FileStorage.Title" = "Dateispeicher";
+"FileStorage.Space.Title" = "Externer Speicher";
+"FileStorage.Space.Instruction" = "Du kannst bis zu %@ deiner Dateien auf unserem verschlüsselten Backup-Knoten kostenlos speichern. Wenn das Limit erreicht wurde, werden Dateien nur noch lokal gespeichert.";
+"FileStorage.Space.Used" = "%@ von %@ verwendet";
+"FileStorage.Space.GetMore" = "Speicherplatz erweitern";
+"FileStorage.Space.Mail.Subject" = "Mehr Speicherplatz erhalten, Konto %@";
+"FileStorage.Space.Mail.Body" = "Hallo, Anytype Team. Ich bitte nach einer Erweiterung meiner Speicherkapazität, da mir der Speicher ausgegangen ist. Meine aktuellen Limits sind %@. Meine Konto-ID ist %@. Grüße, %@.";
+"FileStorage.Local.Title" = "Lokaler Speicher";
+"FileStorage.Local.Instruction" = "Um Platz auf deinem Gerät zu sparen, können alle deine Dateien auf unseren verschlüsselten Backup-Knoten ausgelagert werden. Die Dateien werden beim Öffnen dann wieder heruntergeladen.";
+"FileStorage.Local.Used" = "%@ verwendet";
+"FileStorage.OffloadTitle" = "Dateien abladen";
+"FileStorage.ManageFiles" = "Dateien verwalten";
+"FileStorage.LimitError" = "Sie haben das Uploadlimit überschritten";
 "FileStorage.LimitLegend.Current" = "%@ | %@";
-"FileStorage.LimitLegend.Other" = "Other spaces | %@";
-"FileStorage.LimitLegend.Free" = "Free | %@";
+"FileStorage.LimitLegend.Other" = "Andere Spaces | %@";
+"FileStorage.LimitLegend.Free" = "Kostenlos | %@";
 
 // MARK: - Files List
-"FilesList.Title" = "Synced files";
-"FilesList.ForceDelete.Title" = "Are you sure you want to permanently delete the files?";
+"FilesList.Title" = "Synchronisierte Dateien";
+"FilesList.ForceDelete.Title" = "Möchten Sie die Dateien wirklich unwiderruflich löschen?";
 
 // MARK: - Widget object list
-"WidgetObjectList.ForceDelete.Message" = "You can’t undo this action.";
+"WidgetObjectList.ForceDelete.Message" = "Diese Aktion kann nicht rückgängig gemacht werden.";
 
 // MARK: - Cpear cache alert
 "ClearCacheAlert.Title" = "Sind Sie sicher?";
@@ -807,7 +807,7 @@
 
 // MARK: - Space Settings
 "SpaceSettings.Title" = "Space-Einstellungen";
-"SpaceSettings.RemoteStorage" = "Remote storage";
+"SpaceSettings.RemoteStorage" = "Externer Speicher";
 "SpaceSettings.Info" = "Space-Info";
 "SpaceSettings.NetworkId" = "Netzwerk-ID";
 "SpaceSettings.DeleteAlert.Title" = "Space '%@' löschen";
