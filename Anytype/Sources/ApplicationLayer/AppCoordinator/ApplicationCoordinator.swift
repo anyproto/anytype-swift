@@ -62,6 +62,8 @@ final class ApplicationCoordinator: ApplicationCoordinatorProtocol {
             AppActionStorage.shared.action = .createObject
         case URLConstants.sharingExtenstionURL:
             AppActionStorage.shared.action = .showSharingExtension
+        case URLConstants.spaceSelectionURL:
+            AppActionStorage.shared.action = .spaceSelection
         default:
             break
         }
