@@ -39,7 +39,7 @@ actor ActiveWorkspaceStorage: ActiveWorkpaceStorageProtocol {
     }
     
     nonisolated var workspaceInfoPublisher: AnyPublisher<AccountInfo, Never> {
-        return workspaceInfoSubject.removeDuplicates().eraseToAnyPublisher()
+        return workspaceInfoSubject.removeDuplicates().filter { $0 != .empty }.eraseToAnyPublisher()
     }
     
     func setActiveSpace(spaceId: String) async throws {
