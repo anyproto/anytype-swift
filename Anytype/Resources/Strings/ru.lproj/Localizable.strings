@@ -416,8 +416,7 @@
 
 // MARK: - Set.Bookmarks
 "Set.Bookmark.Create.Placeholder" = "Вставить ссылку";
-"Set.Bookmark.Error.Title" = "Ой, что-то пошло не так";
-"Set.Bookmark.Error.Message" = "Пожалуйста, попробуйте еще раз";
+"Set.Bookmark.Error.Message" = "Ой, что-то пошло не так. Повторите попытку.";
 
 // MARK: - Sets: View Settings
 "Set.View.Settings.ImageFit.Title" = "Подогнать изображение";
