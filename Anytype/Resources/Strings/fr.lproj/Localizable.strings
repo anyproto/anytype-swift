@@ -416,7 +416,7 @@
 
 // MARK: - Set.Bookmarks
 "Set.Bookmark.Create.Placeholder" = "Coller le lien";
-"Set.Bookmark.Error.Message" = "Oops - something went wrong. Please try again";
+"Set.Bookmark.Error.Message" = "Oups, une erreur s’est produite. Veuillez réessayer.";
 
 // MARK: - Sets: View Settings
 "Set.View.Settings.ImageFit.Title" = "Ajuster l'image";
