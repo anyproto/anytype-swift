@@ -147,7 +147,9 @@ final class SetObjectCreationSettingsInteractor: SetObjectCreationSettingsIntera
     private func updateObjectTypes() {
         let objectTypes = objectTypesProvider.objectTypes(spaceId: setDocument.spaceId).filter {
             guard let recommendedLayout = $0.recommendedLayout else { return false }
-            return !$0.isArchived && DetailsLayout.visibleLayouts.contains(recommendedLayout)
+            return !$0.isArchived &&
+            DetailsLayout.visibleLayouts.contains(recommendedLayout) &&
+            $0.uniqueKey != ObjectTypeUniqueKey.template
         }
         self.objectTypes = objectTypes.reordered(
             by: [
