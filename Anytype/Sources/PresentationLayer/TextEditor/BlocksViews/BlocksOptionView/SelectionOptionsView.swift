@@ -16,7 +16,7 @@ struct SelectionOptionsView: View {
                             title: item.title
                         )
                     }
-                    .frame(width: 68, height: 100)
+                    .frame(width: 72, height: 100)
                 }
             }
             .padding(.horizontal, 8)

@@ -59,6 +59,10 @@ struct TemplatePickerView: View {
                 settingsButton
             }
         }
+        .anytypeSheet(isPresented: $viewModel.showBlankSettings) {
+            viewModel.blankSettingsView()?
+                .frame(height: 100)
+        }
     }
     
     private var blankView: some View {

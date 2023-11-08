@@ -1,43 +1,44 @@
 import Services
 import Combine
-
-struct TemplatePickerModel {
-    let template: ObjectDetails
-    let editorController: EditorPageController
-}
+import SwiftUI
 
 @MainActor
 protocol TemplatePickerViewModuleOutput: AnyObject {
-    func onTemplatesChanged(_ templates: [ObjectDetails], completion: ([TemplatePickerModel]) -> Void)
+    func onTemplatesChanged(_ templates: [ObjectDetails], completion: ([TemplatePickerData]) -> Void)
+    func onTemplateSettingsTap(_ model: TemplatePickerViewModel.Item.TemplateModel)
+    func selectionOptionsView(_ provider: OptionsItemProvider) -> AnyView
+    func setAsDefaultBlankTemplate()
+    func onClose()
 }
 
 @MainActor
-final class TemplatePickerViewModel: ObservableObject {
+final class TemplatePickerViewModel: ObservableObject, OptionsItemProvider {    
     @Published var items = [Item]()
     @Published var selectedTab = 0
+    @Published var showBlankSettings = false
     private var templatesDetails = [ObjectDetails]()
     private let document: BaseDocumentProtocol
     private let objectService: ObjectActionsServiceProtocol
     private let templatesSubscriptionService: TemplatesSubscriptionServiceProtocol
-    private let onClose: () -> Void
-    private let onSettingsTap: (TemplatePickerViewModel.Item.TemplateModel) -> Void
     
     private weak var output: TemplatePickerViewModuleOutput?
+    
+    // MARK: - OptionsItemProvider
+    
+    var optionsPublisher: AnyPublisher<[SelectionOptionsItemViewModel], Never> { $options.eraseToAnyPublisher() }
+    @Published var options = [SelectionOptionsItemViewModel]()
 
     init(
         output: TemplatePickerViewModuleOutput?,
         document: BaseDocumentProtocol,
         objectService: ObjectActionsServiceProtocol,
-        templatesSubscriptionService: TemplatesSubscriptionServiceProtocol,
-        onClose: @escaping () -> Void,
-        onSettingsTap: @escaping (TemplatePickerViewModel.Item.TemplateModel) -> Void
+        templatesSubscriptionService: TemplatesSubscriptionServiceProtocol
     ) {
         self.output = output
         self.document = document
         self.objectService = objectService
         self.templatesSubscriptionService = templatesSubscriptionService
-        self.onClose = onClose
-        self.onSettingsTap = onSettingsTap
+        self.options = buildBlankOptions()
         self.loadTemplates()
     }
 
@@ -45,22 +46,42 @@ final class TemplatePickerViewModel: ObservableObject {
         let templateId = selectedTemplateId()
         Task { @MainActor in
             try await objectService.applyTemplate(objectId: document.objectId, templateId: templateId)
-            onClose()
+            output?.onClose()
         }
     }
 
     func onCloseButtonTap() {
-        onClose()
+        output?.onClose()
     }
     
     func onSettingsButtonTap() {
-        guard let model = templateModel() else { return }
-        onSettingsTap(model)
+        if let model = templateModel() {
+            output?.onTemplateSettingsTap(model)
+        } else {
+            showBlankSettings.toggle()
+        }
+    }
+    
+    func blankSettingsView() -> AnyView? {
+        output?.selectionOptionsView(self)
     }
     
     func selectedItem() -> Item {
         let index = selectedTab >= items.count ? items.count - 1 : selectedTab
         return items[index]
+    }
+    
+    private func buildBlankOptions() -> [SelectionOptionsItemViewModel] {
+        BlankTemplateSetting.allCases.map { setting in
+            SelectionOptionsItemViewModel(
+                id: UUID().uuidString,
+                title: setting.title,
+                imageAsset: setting.imageAsset,
+                action: { [weak self] in
+                    self?.output?.setAsDefaultBlankTemplate()
+                }
+            )
+        }
     }
     
     private func loadTemplates() {

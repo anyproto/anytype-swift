@@ -546,8 +546,8 @@ extension EditorRouter: ObjectSettingsModuleDelegate {
     
     @MainActor
     func didCreateTemplate(templateId: BlockId) {
-        guard let objectType = document.details?.objectType else { return }
-        let setting = ObjectCreationSetting(objectTypeId: objectType.id, spaceId: document.spaceId, templateId: templateId)
+        guard let objectTypeId = document.details?.objectType.id else { return }
+        let setting = ObjectCreationSetting(objectTypeId: objectTypeId, spaceId: document.spaceId, templateId: templateId)
         setObjectCreationSettingsCoordinator.showTemplateEditing(
             setting: setting,
             onTemplateSelection: nil,
@@ -557,7 +557,7 @@ extension EditorRouter: ObjectSettingsModuleDelegate {
             completion: { [weak self] in
                 self?.toastPresenter.showObjectCompositeAlert(
                     prefixText: Loc.Templates.Popup.wasAddedTo,
-                    objectId: objectType.id,
+                    objectId: objectTypeId,
                     tapHandler: { }
                 )
             }
@@ -565,8 +565,9 @@ extension EditorRouter: ObjectSettingsModuleDelegate {
     }
     
     func didTapUseTemplateAsDefault(templateId: BlockId) {
+        guard let objectTypeId = document.details?.objectType.id else { return }
         Task { @MainActor in
-            try? await templateService.setTemplateAsDefaultForType(templateId: templateId)
+            try? await templateService.setTemplateAsDefaultForType(objectTypeId: objectTypeId, templateId: templateId)
             navigationContext.dismissTopPresented(animated: true, completion: nil)
             toastPresenter.show(message: Loc.Templates.Popup.default)
         }

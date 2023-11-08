@@ -6,7 +6,7 @@ public protocol TemplatesServiceProtocol {
     func createTemplateFromObjectType(objectTypeId: BlockId) async throws -> BlockId
     func createTemplateFromObject(objectId: BlockId) async throws -> BlockId
     func deleteTemplate(templateId: BlockId) async throws
-    func setTemplateAsDefaultForType(templateId: BlockId) async throws
+    func setTemplateAsDefaultForType(objectTypeId: BlockId, templateId: BlockId) async throws
 }
 
 public final class TemplatesService: TemplatesServiceProtocol {
@@ -50,12 +50,9 @@ public final class TemplatesService: TemplatesServiceProtocol {
         }).invoke()
     }
     
-    public func setTemplateAsDefaultForType(templateId: BlockId) async throws {
-        let templateDetails = try await objectDetails(objectId: templateId)
-        let typeDetails = try await objectDetails(objectId: templateDetails.targetObjectType)
-
+    public func setTemplateAsDefaultForType(objectTypeId: BlockId, templateId: BlockId) async throws {
         _ = try await ClientCommands.objectSetDetails(.with {
-            $0.contextID = typeDetails.id
+            $0.contextID = objectTypeId
             
             $0.details = [
                 Anytype_Rpc.Object.SetDetails.Detail.with {

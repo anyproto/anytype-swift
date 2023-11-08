@@ -40,21 +40,7 @@ final class TemplatesCoordinator: TemplatesCoordinatorProtocol {
                 output: self,
                 document: document,
                 objectService: ServiceLocator.shared.objectActionsService(), 
-                templatesSubscriptionService: ServiceLocator.shared.templatesSubscription(),
-                onClose: { [weak rootViewController] in
-                    rootViewController?.dismiss(animated: true, completion: nil)
-                }, 
-                onSettingsTap: { [weak self] model in
-                    guard let self, let handler else { return }
-                    self.objectSettingCoordinator.startFlow(
-                        objectId: model.object.id,
-                        delegate: handler,
-                        output: nil,
-                        objectSettingsHandler: {
-                            model.viewModel.handleSettingsAction(action: $0)
-                        }
-                    )
-                }
+                templatesSubscriptionService: ServiceLocator.shared.templatesSubscription()
             )
         )
         let hostViewController = UIHostingController(rootView: picker)
@@ -64,7 +50,7 @@ final class TemplatesCoordinator: TemplatesCoordinatorProtocol {
 }
 
 extension TemplatesCoordinator: TemplatePickerViewModuleOutput {
-    func onTemplatesChanged(_ templates: [ObjectDetails], completion: ([TemplatePickerModel]) -> Void) {
+    func onTemplatesChanged(_ templates: [ObjectDetails], completion: ([TemplatePickerData]) -> Void) {
         let editorsViews = templates.map { template in
             let editorController = editorPageAssembly.buildPageModule(browser: nil, data: .init(
                 objectId: template.id,
@@ -73,8 +59,33 @@ extension TemplatesCoordinator: TemplatePickerViewModuleOutput {
                 isOpenedForPreview: false,
                 usecase: .templateEditing
             )).0
-            return TemplatePickerModel(template: template, editorController: editorController)
+            return TemplatePickerData(template: template, editorController: editorController)
         }
         completion(editorsViews)
+    }
+    
+    func selectionOptionsView(_ provider: OptionsItemProvider) -> AnyView {
+        SelectionOptionsView(viewModel: SelectionOptionsViewModel(itemProvider: provider))
+            .eraseToAnyView()
+    }
+    
+    func onTemplateSettingsTap(_ model: TemplatePickerViewModel.Item.TemplateModel) {
+        guard let handler else { return }
+        objectSettingCoordinator.startFlow(
+            objectId: model.object.id,
+            delegate: handler,
+            output: nil,
+            objectSettingsHandler: {
+                model.viewModel.handleSettingsAction(action: $0)
+            }
+        )
+    }
+    
+    func setAsDefaultBlankTemplate() {
+        handler?.useAsTemplateAction(TemplateType.blank.id)
+    }
+    
+    func onClose() {
+        rootViewController?.dismiss(animated: true, completion: nil)
     }
 }
