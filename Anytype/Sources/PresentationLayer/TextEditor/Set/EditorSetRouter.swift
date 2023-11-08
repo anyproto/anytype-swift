@@ -12,11 +12,10 @@ protocol EditorSetRouterProtocol:
     func showSetSettings(subscriptionDetailsStorage: ObjectDetailsStorage)
     func showSetSettingsLegacy(onSettingTap: @escaping (EditorSetSetting) -> Void)
     func dismissSetSettingsIfNeeded()
-    
+
     func showViewPicker(subscriptionDetailsStorage: ObjectDetailsStorage, showViewTypes: @escaping RoutingAction<DataviewView?>)
     
-    func showCreateObject(details: ObjectDetails)
-    func showCreateBookmarkObject()
+    func showCreateObject(setting: ObjectCreationSetting?)
     
     func showRelationSearch(relationsDetails: [RelationDetails], onSelect: @escaping (RelationDetails) -> Void)
     func showViewTypes(
@@ -42,7 +41,7 @@ protocol EditorSetRouterProtocol:
     
     func showSettings(actionHandler: @escaping (ObjectSettingsAction) -> Void)
     func showQueries(selectedObjectId: BlockId?, onSelect: @escaping (BlockId) -> ())
-    
+
     func showRelationValueEditingView(key: String)
     func showRelationValueEditingView(objectDetails: ObjectDetails, relation: Relation)
     
@@ -54,6 +53,9 @@ protocol EditorSetRouterProtocol:
         viewId: String,
         onTemplateSelection: @escaping (ObjectCreationSetting) -> ()
     )
+
+    @MainActor
+    func showOpenDocumentError(error: Error)
 }
 
 final class EditorSetRouter: EditorSetRouterProtocol, ObjectSettingsCoordinatorOutput {
@@ -66,6 +68,7 @@ final class EditorSetRouter: EditorSetRouterProtocol, ObjectSettingsCoordinatorO
     private let newSearchModuleAssembly: NewSearchModuleAssemblyProtocol
     private let objectSettingCoordinator: ObjectSettingsCoordinatorProtocol
     private let relationValueCoordinator: RelationValueCoordinatorProtocol
+    private let setObjectCreationCoordinator: SetObjectCreationCoordinatorProtocol
     private let objectCoverPickerModuleAssembly: ObjectCoverPickerModuleAssemblyProtocol
     private let objectIconPickerModuleAssembly: ObjectIconPickerModuleAssemblyProtocol
     private let setViewSettingsCoordinatorAssembly: SetViewSettingsCoordinatorAssemblyProtocol
@@ -79,7 +82,7 @@ final class EditorSetRouter: EditorSetRouterProtocol, ObjectSettingsCoordinatorO
     private let alertHelper: AlertHelper
     private let setObjectCreationSettingsCoordinator: SetObjectCreationSettingsCoordinatorProtocol
     private var output: EditorSetModuleOutput?
-    
+
     // MARK: - State
     
     private weak var currentSetSettingsPopup: AnytypePopup?
@@ -91,6 +94,7 @@ final class EditorSetRouter: EditorSetRouterProtocol, ObjectSettingsCoordinatorO
         newSearchModuleAssembly: NewSearchModuleAssemblyProtocol,
         objectSettingCoordinator: ObjectSettingsCoordinatorProtocol,
         relationValueCoordinator: RelationValueCoordinatorProtocol,
+        setObjectCreationCoordinator: SetObjectCreationCoordinatorProtocol,
         objectCoverPickerModuleAssembly: ObjectCoverPickerModuleAssemblyProtocol,
         objectIconPickerModuleAssembly: ObjectIconPickerModuleAssemblyProtocol,
         setViewSettingsCoordinatorAssembly: SetViewSettingsCoordinatorAssemblyProtocol,
@@ -111,6 +115,7 @@ final class EditorSetRouter: EditorSetRouterProtocol, ObjectSettingsCoordinatorO
         self.newSearchModuleAssembly = newSearchModuleAssembly
         self.objectSettingCoordinator = objectSettingCoordinator
         self.relationValueCoordinator = relationValueCoordinator
+        self.setObjectCreationCoordinator = setObjectCreationCoordinator
         self.objectCoverPickerModuleAssembly = objectCoverPickerModuleAssembly
         self.objectIconPickerModuleAssembly = objectIconPickerModuleAssembly
         self.setViewSettingsCoordinatorAssembly = setViewSettingsCoordinatorAssembly
@@ -154,7 +159,7 @@ final class EditorSetRouter: EditorSetRouterProtocol, ObjectSettingsCoordinatorO
     func dismissSetSettingsIfNeeded() {
         currentSetSettingsPopup?.dismiss(animated: false)
     }
-    
+
     @MainActor
     func showViewPicker(
         subscriptionDetailsStorage: ObjectDetailsStorage,
@@ -168,36 +173,8 @@ final class EditorSetRouter: EditorSetRouterProtocol, ObjectSettingsCoordinatorO
         navigationContext.presentSwiftUISheetView(view: view)
     }
     
-    func showCreateObject(details: ObjectDetails) {
-        let moduleViewController = createObjectModuleAssembly.makeCreateObject(objectId: details.id) { [weak self] in
-            self?.navigationContext.dismissTopPresented()
-            self?.showPage(data: details.editorScreenData(shouldShowTemplatesOptions: !FeatureFlags.setTemplateSelection))
-        } closeAction: { [weak self] in
-            self?.navigationContext.dismissTopPresented()
-        }
-        
-        navigationContext.present(moduleViewController)
-    }
-    
-    func showCreateBookmarkObject() {
-        let moduleViewController = createObjectModuleAssembly.makeCreateBookmark(
-            spaceId: setDocument.spaceId,
-            closeAction: { [weak self] details in
-                if let details, let self {
-                    AnytypeAnalytics.instance().logCreateObject(objectType: details.analyticsType, route: setDocument.isCollection() ? .collection : .set)
-                }
-                
-                self?.navigationContext.dismissTopPresented(animated: true) {
-                    guard details.isNil else { return }
-                    self?.alertHelper.showToast(
-                        title: Loc.Set.Bookmark.Error.title,
-                        message: Loc.Set.Bookmark.Error.message
-                    )
-                }
-            }
-        )
-        
-        navigationContext.present(moduleViewController)
+    func showCreateObject(setting: ObjectCreationSetting?) {
+        setObjectCreationCoordinator.startCreateObject(setDocument: setDocument, setting: setting)
     }
     
     func showRelationSearch(relationsDetails: [RelationDetails], onSelect: @escaping (RelationDetails) -> Void) {
@@ -418,6 +395,14 @@ final class EditorSetRouter: EditorSetRouterProtocol, ObjectSettingsCoordinatorO
         )
     }
     
+    @MainActor
+    func showOpenDocumentError(error: Error) {
+        let alert = AlertsFactory.objectOpenErrorAlert(error: error) { [weak self] in
+            self?.closeEditor()
+        }
+        navigationContext.present(alert)
+    }
+
     // MARK: - Private
     
     private func showTypesSearch(

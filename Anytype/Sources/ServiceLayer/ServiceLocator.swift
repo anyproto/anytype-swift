@@ -155,8 +155,7 @@ final class ServiceLocator {
         return RecentSubscriptionService(
             subscriptionStorageProvider: subscriptionStorageProvider(),
             activeWorkspaceStorage: activeWorkspaceStorage(),
-            objectTypeProvider: objectTypeProvider(),
-            workspacesStorage: workspaceStorage()
+            objectTypeProvider: objectTypeProvider()
         )
     }
     
@@ -314,6 +313,14 @@ final class ServiceLocator {
     
     func templatesSubscription() -> TemplatesSubscriptionServiceProtocol {
         TemplatesSubscriptionService(subscriptionStorageProvider: subscriptionStorageProvider())
+    }
+    
+    func setObjectCreationHelper(objectId: BlockId, blockId: BlockId?) -> SetObjectCreationHelperProtocol {
+        SetObjectCreationHelper(
+            objectTypeProvider: objectTypeProvider(),
+            dataviewService: dataviewService(objectId: objectId, blockId: blockId),
+            objectActionsService: objectActionsService()
+        )
     }
     
     // MARK: - Private

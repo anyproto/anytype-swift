@@ -27,7 +27,7 @@ final class EditorPageModuleAssembly: EditorPageModuleAssemblyProtocol {
         self.modulesDI = modulesDI
         self.uiHelpersDI = uiHelpersDI
     }
-    
+
     // MARK: - EditorPageModuleAssemblyProtocol
 
     @MainActor
@@ -79,7 +79,6 @@ final class EditorPageModuleAssembly: EditorPageModuleAssemblyProtocol {
             newSearchModuleAssembly: modulesDI.newSearch(),
             textIconPickerModuleAssembly: modulesDI.textIconPicker(),
             alertHelper: AlertHelper(viewController: controller),
-            pageService: serviceLocator.pageRepository(),
             templateService: serviceLocator.templatesService,
             output: output
         )
@@ -96,7 +95,6 @@ final class EditorPageModuleAssembly: EditorPageModuleAssemblyProtocol {
             bottomNavigationManager: bottomNavigationManager,
             configuration: EditorPageViewModelConfiguration(
                 isOpenedForPreview: data.isOpenedForPreview,
-                shouldShowTemplateSelection: data.shouldShowTemplatesOptions,
                 usecase: data.usecase
             ),
             output: output
@@ -201,7 +199,7 @@ final class EditorPageModuleAssembly: EditorPageModuleAssemblyProtocol {
         
         let blockDelegate = BlockDelegateImpl(
             viewInput: viewInput,
-            accessoryState: accessoryState,
+            accessoryState: accessoryState.0,
             cursorManager: cursorManager
         )
         let headerModel = ObjectHeaderViewModel(
@@ -250,7 +248,7 @@ final class EditorPageModuleAssembly: EditorPageModuleAssemblyProtocol {
         
         let editorPageTemplatesHandler = EditorPageTemplatesHandler()
         
-        return EditorPageViewModel(
+        let viewModel = EditorPageViewModel(
             document: document,
             viewController: controller,
             viewInput: viewInput,
@@ -270,6 +268,12 @@ final class EditorPageModuleAssembly: EditorPageModuleAssemblyProtocol {
             configuration: configuration,
             templatesSubscriptionService: serviceLocator.templatesSubscription()
         )
+
+        accessoryState.1.onTypeTap = { [weak viewModel] in
+            viewModel?.onChangeType(type: $0)
+        }
+
+        return viewModel
     }
 
     private func buildBlocksSelectionOverlayView(

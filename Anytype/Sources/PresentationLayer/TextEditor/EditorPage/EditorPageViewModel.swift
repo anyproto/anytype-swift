@@ -30,15 +30,15 @@ final class EditorPageViewModel: EditorPageViewModelProtocol, EditorBottomNaviga
     private let templatesSubscriptionService: TemplatesSubscriptionServiceProtocol
     private var availableTemplates = [ObjectDetails]()
     
-    private lazy var subscriptions = [AnyCancellable]()
+    lazy var subscriptions = [AnyCancellable]()
 
     private let blockActionsService: BlockActionsServiceSingleProtocol
 
     var viewController: UIViewController
-    
+
     @Published var bottomPanelHidden: Bool = false
     @Published var dismiss = false
-    
+
     // MARK: - Initialization
     init(
         document: BaseDocumentProtocol,
@@ -221,8 +221,7 @@ final class EditorPageViewModel: EditorPageViewModelProtocol, EditorBottomNaviga
     
     private func handleTemplatesIfNeeded() {
         Task { @MainActor in
-            guard !document.isLocked, configuration.shouldShowTemplateSelection,
-                  let details = document.details, details.isSelectTemplate else {
+            guard !document.isLocked, let details = document.details, details.isSelectTemplate else {
                 await templatesSubscriptionService.stopSubscription()
                 viewInput?.update(details: document.details, templatesCount: 0)
                 return
@@ -256,7 +255,8 @@ extension EditorPageViewModel {
                     blocksStateManager.checkOpenedState()
                 }
             } catch {
-                dismiss.toggle()
+//                 dismiss.toggle()
+                router.showOpenDocumentError(error: error)
             }
             
             if let objectDetails = document.details {
@@ -287,9 +287,9 @@ extension EditorPageViewModel {
             )
         )
     }
-    
+
     // MARK: - EditorBottomNavigationManagerOutput
-    
+
     func setHomeBottomPanelHidden(_ hidden: Bool) {
         bottomPanelHidden = hidden
     }

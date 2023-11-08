@@ -29,6 +29,7 @@ protocol CoordinatorsDIProtocol: AnyObject {
     func setObjectCreationSettings() -> SetObjectCreationSettingsCoordinatorAssemblyProtocol
     func initial() -> InitialCoordinatorAssemblyProtocol
     func spaceSwitch() -> SpaceSwitchCoordinatorAssemblyProtocol
+    func setObjectCreation() -> SetObjectCreationCoordinatorAssemblyProtocol
     
     // Now like a coordinator. Migrate to isolated modules
     func editorPageModule() -> EditorPageModuleAssemblyProtocol

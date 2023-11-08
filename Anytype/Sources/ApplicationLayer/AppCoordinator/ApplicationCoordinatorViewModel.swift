@@ -6,7 +6,7 @@ import NavigationBackport
 
 @MainActor
 final class ApplicationCoordinatorViewModel: ObservableObject {
-    
+
     private let authService: AuthServiceProtocol
     private let accountEventHandler: AccountEventHandlerProtocol
     private let applicationStateService: ApplicationStateServiceProtocol
@@ -18,7 +18,7 @@ final class ApplicationCoordinatorViewModel: ObservableObject {
     private let homeWidgetsCoordinatorAssembly: HomeWidgetsCoordinatorAssemblyProtocol
     private let deleteAccountModuleAssembly: DeleteAccountModuleAssemblyProtocol
     private let initialCoordinatorAssembly: InitialCoordinatorAssemblyProtocol
-    
+
     private var authCoordinator: AuthCoordinatorProtocol?
 
     // MARK: - State
@@ -60,7 +60,7 @@ final class ApplicationCoordinatorViewModel: ObservableObject {
     func initialView() -> AnyView {
         return initialCoordinatorAssembly.make()
     }
-    
+
     func authView() -> AnyView {
         if let authCoordinator {
             return authCoordinator.startFlow()
@@ -69,11 +69,11 @@ final class ApplicationCoordinatorViewModel: ObservableObject {
         self.authCoordinator = coordinator
         return coordinator.startFlow()
     }
-    
+
     func homeView() -> AnyView {
         return homeWidgetsCoordinatorAssembly.make()
     }
-    
+
     func deleteAccount() -> AnyView? {
         if case let .pendingDeletion(deadline) = accountManager.account.status {
             return deleteAccountModuleAssembly.make(deadline: deadline)
@@ -81,9 +81,9 @@ final class ApplicationCoordinatorViewModel: ObservableObject {
             applicationStateService.state = .initial
             return nil
         }
-    
+
     }
-    
+
     // MARK: - Subscription
 
     private func startObserve() {
@@ -146,14 +146,14 @@ final class ApplicationCoordinatorViewModel: ObservableObject {
     }
     
     // MARK: - Process
-    
+
     private func loginProcess() {
         let userId = UserDefaultsConfig.usersId
         guard userId.isNotEmpty else {
             applicationStateService.state = .auth
             return
         }
-        
+
         Task { @MainActor in
             do {
                 let seed = try seedService.obtainSeed()
@@ -173,7 +173,7 @@ final class ApplicationCoordinatorViewModel: ObservableObject {
             }
         }
     }
-    
+
     private func handleFileLimitReachedError() {
         toastBarData = ToastBarData(text: Loc.FileStorage.limitError, showSnackBar: true, messageType: .none)
     }

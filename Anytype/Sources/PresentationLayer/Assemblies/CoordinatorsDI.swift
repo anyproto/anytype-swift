@@ -153,4 +153,13 @@ final class CoordinatorsDI: CoordinatorsDIProtocol {
     func spaceSwitch() -> SpaceSwitchCoordinatorAssemblyProtocol {
         SpaceSwitchCoordinatorAssembly(modulesDI: modulesDI, coordinatorsDI: self)
     }
+    
+    func setObjectCreation() -> SetObjectCreationCoordinatorAssemblyProtocol {
+        SetObjectCreationCoordinatorAssembly(
+            serviceLocator: serviceLocator,
+            modulesDI: modulesDI,
+            uiHelpersDI: uiHelpersDI,
+            coordinatorsDI: self
+        )
+    }
 }

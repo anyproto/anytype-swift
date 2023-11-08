@@ -4400,6 +4400,8 @@ public struct Anytype_Event {
 
       public var bytesUsage: UInt64 = 0
 
+      public var spaceID: String = String()
+
       public var unknownFields = SwiftProtobuf.UnknownStorage()
 
       public init() {}
@@ -12685,6 +12687,7 @@ extension Anytype_Event.File.SpaceUsage: SwiftProtobuf.Message, SwiftProtobuf._M
   public static let protoMessageName: String = Anytype_Event.File.protoMessageName + ".SpaceUsage"
   public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
     1: .same(proto: "bytesUsage"),
+    2: .same(proto: "spaceId"),
   ]
 
   public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
@@ -12694,6 +12697,7 @@ extension Anytype_Event.File.SpaceUsage: SwiftProtobuf.Message, SwiftProtobuf._M
       // enabled. https://github.com/apple/swift-protobuf/issues/1034
       switch fieldNumber {
       case 1: try { try decoder.decodeSingularUInt64Field(value: &self.bytesUsage) }()
+      case 2: try { try decoder.decodeSingularStringField(value: &self.spaceID) }()
       default: break
       }
     }
@@ -12703,11 +12707,15 @@ extension Anytype_Event.File.SpaceUsage: SwiftProtobuf.Message, SwiftProtobuf._M
     if self.bytesUsage != 0 {
       try visitor.visitSingularUInt64Field(value: self.bytesUsage, fieldNumber: 1)
     }
+    if !self.spaceID.isEmpty {
+      try visitor.visitSingularStringField(value: self.spaceID, fieldNumber: 2)
+    }
     try unknownFields.traverse(visitor: &visitor)
   }
 
   public static func ==(lhs: Anytype_Event.File.SpaceUsage, rhs: Anytype_Event.File.SpaceUsage) -> Bool {
     if lhs.bytesUsage != rhs.bytesUsage {return false}
+    if lhs.spaceID != rhs.spaceID {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }

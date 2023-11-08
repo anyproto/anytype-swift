@@ -18,23 +18,20 @@ final class RemoteStorageViewModel: ObservableObject {
     private let subscriptionService: SingleObjectSubscriptionServiceProtocol
     private let fileLimitsStorage: FileLimitsStorageProtocol
     private let documentProvider: DocumentsProviderProtocol
+    private let workspacesStorage: WorkspacesStorageProtocol
     private weak var output: RemoteStorageModuleOutput?
     private var subscriptions = [AnyCancellable]()
     private let subSpaceId = "RemoteStorageViewModel-Space-\(UUID())"
     
     private let byteCountFormatter = ByteCountFormatter.fileFormatter
     
-    private var limits: FileLimits?
+    private var nodeUsage: NodeUsageInfo?
     
     @Published var spaceInstruction: String = ""
-    @Published var spaceName: String = ""
-    @Published var percentUsage: Double = 0
-    @Published var spaceIcon: Icon?
     @Published var spaceUsed: String = ""
-    @Published var spaceUsedWarning: Bool = false
     @Published var contentLoaded: Bool = false
     @Published var showGetMoreSpaceButton: Bool = false
-    let progressBarConfiguration = LineProgressBarConfiguration.fileStorage
+    @Published var segmentInfo = RemoteStorageSegmentInfo()
     
     init(
         accountManager: AccountManagerProtocol,
@@ -42,6 +39,7 @@ final class RemoteStorageViewModel: ObservableObject {
         subscriptionService: SingleObjectSubscriptionServiceProtocol,
         fileLimitsStorage: FileLimitsStorageProtocol,
         documentProvider: DocumentsProviderProtocol,
+        workspacesStorage: WorkspacesStorageProtocol,
         output: RemoteStorageModuleOutput?
     ) {
         self.accountManager = accountManager
@@ -49,6 +47,7 @@ final class RemoteStorageViewModel: ObservableObject {
         self.subscriptionService = subscriptionService
         self.fileLimitsStorage = fileLimitsStorage
         self.documentProvider = documentProvider
+        self.workspacesStorage = workspacesStorage
         self.output = output
         setupPlaceholderState()
         Task {
@@ -65,7 +64,7 @@ final class RemoteStorageViewModel: ObservableObject {
     }
     
     func onTapGetMoreSpace() {
-        guard let limits else { return }
+        guard let nodeUsage else { return }
         AnytypeAnalytics.instance().logGetMoreSpace()
         Task { @MainActor in
             let profileDocument = documentProvider.document(
@@ -73,7 +72,7 @@ final class RemoteStorageViewModel: ObservableObject {
                 forPreview: true
             )
             try await profileDocument.openForPreview()
-            let limit = byteCountFormatter.string(fromByteCount: limits.bytesLimit)
+            let limit = byteCountFormatter.string(fromByteCount: nodeUsage.node.bytesLimit)
             let mailLink = MailUrl(
                 to: Constants.mailTo,
                 subject: Loc.FileStorage.Space.Mail.subject(accountManager.account.id),
@@ -87,52 +86,61 @@ final class RemoteStorageViewModel: ObservableObject {
     // MARK: - Private
     
     private func setupSubscription() async {
-        fileLimitsStorage.setupSpaceId(spaceId: activeWorkspaceStorage.workspaceInfo.accountSpaceId)
-        fileLimitsStorage.limits
+        fileLimitsStorage.nodeUsage
             .receiveOnMain()
-            .sink { [weak self] limits in
+            .sink { [weak self] nodeUsage in
                 // Some times middleware responds with big delay.
                 // If middle upload a lot of files, read operation blocked.
                 // May be fixed in feature.
                 // Slack discussion https://anytypeio.slack.com/archives/C04QVG8V15K/p1684399017487419?thread_ts=1684244283.014759&cid=C04QVG8V15K
                 self?.contentLoaded = true
-                self?.limits = limits
-                self?.updateView(limits: limits)
+                self?.nodeUsage = nodeUsage
+                self?.updateView(nodeUsage: nodeUsage)
             }
             .store(in: &subscriptions)
-            
-        
-        await subscriptionService.startSubscription(
-            subId: subSpaceId,
-            objectId: activeWorkspaceStorage.workspaceInfo.spaceViewId
-        ) { [weak self] details in
-            self?.handleSpaceDetails(details: details)
-        }
     }
     
     private func setupPlaceholderState() {
-        handleSpaceDetails(details: ObjectDetails(id: ""))
-        updateView(limits: .zero)
+        updateView(nodeUsage: .placeholder)
     }
     
-    private func handleSpaceDetails(details: ObjectDetails) {
-        spaceIcon = details.objectIconImage
-        spaceName = details.name.isNotEmpty ? details.name : Loc.Object.Title.placeholder
-    }
-    
-    private func updateView(limits: FileLimits) {
-        let bytesUsed = limits.bytesUsage
-        let bytesLimit = limits.bytesLimit
-        let localBytesUsage = limits.localBytesUsage
+    private func updateView(nodeUsage: NodeUsageInfo) {
+        let bytesUsed = nodeUsage.node.bytesUsage
+        let bytesLimit = nodeUsage.node.bytesLimit
         
         let used = byteCountFormatter.string(fromByteCount: bytesUsed)
         let limit = byteCountFormatter.string(fromByteCount: bytesLimit)
         
         spaceInstruction = Loc.FileStorage.Space.instruction(limit)
         spaceUsed = Loc.FileStorage.Space.used(used, limit)
-        percentUsage = Double(bytesUsed) / Double(bytesLimit)
-        spaceUsedWarning = percentUsage >= Constants.warningPercent
-        let localPercentUsage = Double(localBytesUsage) / Double(bytesLimit)
-        showGetMoreSpaceButton = percentUsage >= Constants.warningPercent || localPercentUsage >= Constants.warningPercent
+        let percentUsage = Double(bytesUsed) / Double(bytesLimit)
+        showGetMoreSpaceButton = percentUsage >= Constants.warningPercent
+        
+        let spaceId = activeWorkspaceStorage.workspaceInfo.accountSpaceId
+        
+        var segmentInfo = RemoteStorageSegmentInfo()
+        
+        if let spaceView = activeWorkspaceStorage.spaceView() {
+            let spaceBytesUsage = nodeUsage.spaces.first(where: { $0.spaceID == spaceId })?.bytesUsage ?? 0
+            segmentInfo.currentUsage = Double(spaceBytesUsage) / Double(bytesLimit)
+            segmentInfo.currentLegend = Loc.FileStorage.LimitLegend.current(spaceView.name, byteCountFormatter.string(fromByteCount: spaceBytesUsage))
+        }
+       
+        let otherSpaces = workspacesStorage.workspaces.filter { $0.targetSpaceId != spaceId }
+        
+        if otherSpaces.isNotEmpty {
+            segmentInfo.otherUsages = otherSpaces.map { spaceView in
+                let spaceBytesUsage = nodeUsage.spaces.first(where: { $0.spaceID == spaceView.targetSpaceId })?.bytesUsage ?? 0
+                return  Double(spaceBytesUsage) / Double(bytesLimit)
+            }
+            
+            let otherUsageBytes = nodeUsage.spaces.filter { $0.spaceID != spaceId }.reduce(Int64(0), { $0 + $1.bytesUsage })
+            segmentInfo.otherLegend = Loc.FileStorage.LimitLegend.other(byteCountFormatter.string(fromByteCount: otherUsageBytes))
+        }
+        
+        segmentInfo.free = Double(nodeUsage.node.bytesLeft) / Double(bytesLimit)
+        segmentInfo.freeLegend = Loc.FileStorage.LimitLegend.free(byteCountFormatter.string(fromByteCount: nodeUsage.node.bytesLeft))
+        
+        self.segmentInfo = segmentInfo
     }
 }

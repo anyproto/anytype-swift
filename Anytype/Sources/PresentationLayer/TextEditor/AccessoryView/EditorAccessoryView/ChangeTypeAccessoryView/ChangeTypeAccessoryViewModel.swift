@@ -9,6 +9,7 @@ final class ChangeTypeAccessoryViewModel {
     @Published private(set) var isTypesViewVisible: Bool = false
     @Published private(set) var supportedTypes = [TypeItem]()
     var onDoneButtonTap: (() -> Void)?
+    var onTypeTap: ((ObjectType) -> Void)?
 
     private var allSupportedTypes = [TypeItem]()
     private let router: EditorRouterProtocol
@@ -63,31 +64,7 @@ final class ChangeTypeAccessoryViewModel {
 
     private func onTypeTap(type: ObjectType) {
         defer { logSelectObjectType(type: type) }
-        
-        if type.recommendedLayout == .set {
-            Task { @MainActor in
-                document.resetSubscriptions() // to avoid glytch with premature document update
-                try await handler.setObjectSetType()
-                try await document.close()
-                router.replaceCurrentPage(with: .set(.init(objectId: document.objectId, spaceId: document.spaceId, isSupportedForEdit: true)))
-            }
-            return
-        }
-        
-        if type.recommendedLayout == .collection {
-            Task { @MainActor in
-                document.resetSubscriptions() // to avoid glytch with premature document update
-                try await handler.setObjectCollectionType()
-                try await document.close()
-                router.replaceCurrentPage(with: .set(.init(objectId: document.objectId, spaceId: document.spaceId, isSupportedForEdit: true)))
-            }
-            return
-        }
-
-        Task { @MainActor in
-            try await handler.setObjectType(type: type)
-            try await handler.applyTemplate(objectId: document.objectId, templateId: type.defaultTemplateId)
-        }
+        onTypeTap?(type)
     }
     
     private func logSelectObjectType(type: ObjectType) {

@@ -1,11 +1,12 @@
 import Foundation
 import Services
 
+@MainActor
 final class SetSubscriptionDataBuilder: SetSubscriptionDataBuilderProtocol {
     
     private let activeWorkspaceStorage: ActiveWorkpaceStorageProtocol
     
-    init(activeWorkspaceStorage: ActiveWorkpaceStorageProtocol) {
+    nonisolated init(activeWorkspaceStorage: ActiveWorkpaceStorageProtocol) {
         self.activeWorkspaceStorage = activeWorkspaceStorage
     }
     

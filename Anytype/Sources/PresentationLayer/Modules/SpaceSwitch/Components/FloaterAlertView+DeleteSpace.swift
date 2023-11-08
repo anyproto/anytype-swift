@@ -5,8 +5,13 @@ extension FloaterAlertView {
         FloaterAlertView(
             title: Loc.SpaceSettings.DeleteAlert.title(spaceName),
             description: Loc.SpaceSettings.DeleteAlert.message,
-            leftButtonData: StandardButtonModel(text: Loc.back, style: .secondaryLarge, action: { }),
-            rightButtonData: StandardButtonModel(text: Loc.delete, style: .warningLarge, action: { onDelete() }),
+            leftButtonData: StandardButtonModel(text: Loc.back, style: .secondaryLarge, action: {
+                AnytypeAnalytics.instance().logClickDeleteSpaceWarning(type: .cancel)
+            }),
+            rightButtonData: StandardButtonModel(text: Loc.delete, style: .warningLarge, action: {
+                AnytypeAnalytics.instance().logClickDeleteSpaceWarning(type: .delete)
+                onDelete()
+            }),
             dismissAfterLeftTap: true,
             dismissAfterRightTap: true
         )

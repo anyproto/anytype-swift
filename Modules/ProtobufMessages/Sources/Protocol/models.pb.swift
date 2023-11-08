@@ -259,6 +259,70 @@ extension Anytype_Model_RelationFormat: CaseIterable {
 
 #endif  // swift(>=4.2)
 
+public enum Anytype_Model_ObjectOrigin: SwiftProtobuf.Enum {
+  public typealias RawValue = Int
+  case none // = 0
+  case clipboard // = 1
+  case dragAndDrop // = 2
+  case `import` // = 3
+  case webclipper // = 4
+  case sharingExtension // = 5
+  case usecase // = 6
+  case builtin // = 7
+  case UNRECOGNIZED(Int)
+
+  public init() {
+    self = .none
+  }
+
+  public init?(rawValue: Int) {
+    switch rawValue {
+    case 0: self = .none
+    case 1: self = .clipboard
+    case 2: self = .dragAndDrop
+    case 3: self = .import
+    case 4: self = .webclipper
+    case 5: self = .sharingExtension
+    case 6: self = .usecase
+    case 7: self = .builtin
+    default: self = .UNRECOGNIZED(rawValue)
+    }
+  }
+
+  public var rawValue: Int {
+    switch self {
+    case .none: return 0
+    case .clipboard: return 1
+    case .dragAndDrop: return 2
+    case .import: return 3
+    case .webclipper: return 4
+    case .sharingExtension: return 5
+    case .usecase: return 6
+    case .builtin: return 7
+    case .UNRECOGNIZED(let i): return i
+    }
+  }
+
+}
+
+#if swift(>=4.2)
+
+extension Anytype_Model_ObjectOrigin: CaseIterable {
+  // The compiler won't synthesize support with the UNRECOGNIZED case.
+  public static let allCases: [Anytype_Model_ObjectOrigin] = [
+    .none,
+    .clipboard,
+    .dragAndDrop,
+    .import,
+    .webclipper,
+    .sharingExtension,
+    .usecase,
+    .builtin,
+  ]
+}
+
+#endif  // swift(>=4.2)
+
 public enum Anytype_Model_SpaceStatus: SwiftProtobuf.Enum {
   public typealias RawValue = Int
 
@@ -3849,6 +3913,7 @@ public struct Anytype_Model_Metadata {
 #if swift(>=5.5) && canImport(_Concurrency)
 extension Anytype_Model_SmartBlockType: @unchecked Sendable {}
 extension Anytype_Model_RelationFormat: @unchecked Sendable {}
+extension Anytype_Model_ObjectOrigin: @unchecked Sendable {}
 extension Anytype_Model_SpaceStatus: @unchecked Sendable {}
 extension Anytype_Model_SmartBlockSnapshotBase: @unchecked Sendable {}
 extension Anytype_Model_Block: @unchecked Sendable {}
@@ -3998,6 +4063,19 @@ extension Anytype_Model_RelationFormat: SwiftProtobuf._ProtoNameProviding {
     11: .same(proto: "tag"),
     100: .same(proto: "object"),
     101: .same(proto: "relations"),
+  ]
+}
+
+extension Anytype_Model_ObjectOrigin: SwiftProtobuf._ProtoNameProviding {
+  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    0: .same(proto: "none"),
+    1: .same(proto: "clipboard"),
+    2: .same(proto: "dragAndDrop"),
+    3: .same(proto: "import"),
+    4: .same(proto: "webclipper"),
+    5: .same(proto: "sharingExtension"),
+    6: .same(proto: "usecase"),
+    7: .same(proto: "builtin"),
   ]
 }
 

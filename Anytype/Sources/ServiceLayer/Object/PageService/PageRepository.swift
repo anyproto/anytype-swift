@@ -17,6 +17,7 @@ protocol PageRepositoryProtocol: AnyObject {
         shouldSelectType: Bool,
         shouldSelectTemplate: Bool,
         spaceId: String,
+        origin: ObjectOrigin,
         templateId: String?
     ) async throws -> ObjectDetails
 }
@@ -54,6 +55,7 @@ final class PageRepository: PageRepositoryProtocol {
         shouldSelectType: Bool,
         shouldSelectTemplate: Bool,
         spaceId: String,
+        origin: ObjectOrigin,
         templateId: String? = nil
     ) async throws -> ObjectDetails {
         try await pageService.createPage(
@@ -63,6 +65,7 @@ final class PageRepository: PageRepositoryProtocol {
             shouldSelectType: shouldSelectType,
             shouldSelectTemplate: shouldSelectTemplate,
             spaceId: spaceId,
+            origin: origin,
             templateId: templateId
         )
     }
@@ -80,6 +83,7 @@ final class PageRepository: PageRepositoryProtocol {
             shouldSelectType: true,
             shouldSelectTemplate: true,
             spaceId: spaceId,
+            origin: .none,
             templateId: defaultObjectType.defaultTemplateId
         )
     }

@@ -54,6 +54,9 @@ struct SpaceSettingsView: View {
             .padding(.horizontal, 20)
         }
         .snackbar(toastBarData: $model.snackBarData)
+        .onAppear {
+            model.onAppear()
+        }
         .onChange(of: model.dismiss) { _ in
             dismiss()
         }

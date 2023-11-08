@@ -18,6 +18,7 @@ struct MarkupItem: Identifiable, Equatable {
     }
 }
 
+@MainActor
 final class MarkupAccessoryViewModel: ObservableObject {
     let markupItems: [MarkupItem] = MarkupItem.allItems
 

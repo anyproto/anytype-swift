@@ -3,6 +3,7 @@ import Services
 import Combine
 import AnytypeCore
 
+@MainActor
 protocol RecentSubscriptionServiceProtocol: AnyObject {
     func startSubscription(
         type: RecentWidgetType,
@@ -12,6 +13,7 @@ protocol RecentSubscriptionServiceProtocol: AnyObject {
     func stopSubscription() async
 }
 
+@MainActor
 final class RecentSubscriptionService: RecentSubscriptionServiceProtocol {
     
     private enum Constants {
@@ -21,19 +23,16 @@ final class RecentSubscriptionService: RecentSubscriptionServiceProtocol {
     private let subscriptionStorage: SubscriptionStorageProtocol
     private let objectTypeProvider: ObjectTypeProviderProtocol
     private let activeWorkspaceStorage: ActiveWorkpaceStorageProtocol
-    private let workspacesStorage: WorkspacesStorageProtocol
     private let subscriptionId = "Recent-\(UUID().uuidString)"
     
-    init(
+    nonisolated init(
         subscriptionStorageProvider: SubscriptionStorageProviderProtocol,
         activeWorkspaceStorage: ActiveWorkpaceStorageProtocol,
-        objectTypeProvider: ObjectTypeProviderProtocol,
-        workspacesStorage: WorkspacesStorageProtocol
+        objectTypeProvider: ObjectTypeProviderProtocol
     ) {
         self.subscriptionStorage = subscriptionStorageProvider.createSubscriptionStorage(subId: subscriptionId)
         self.activeWorkspaceStorage = activeWorkspaceStorage
         self.objectTypeProvider = objectTypeProvider
-        self.workspacesStorage = workspacesStorage
     }
     
     func startSubscription(
@@ -49,6 +48,7 @@ final class RecentSubscriptionService: RecentSubscriptionServiceProtocol {
             SearchHelper.isArchivedFilter(isArchived: false)
             SearchHelper.spaceId(activeWorkspaceStorage.workspaceInfo.accountSpaceId)
             SearchHelper.layoutFilter(DetailsLayout.visibleLayouts)
+            SearchHelper.templateScheme(include: false)
             makeDateFilter(type: type)
         }
         
@@ -99,7 +99,7 @@ final class RecentSubscriptionService: RecentSubscriptionServiceProtocol {
     private func makeDateFilter(type: RecentWidgetType) -> DataviewFilter? {
         switch type {
         case .recentEdit:
-            guard let spaceView = workspacesStorage.workspaces.first(where: { $0.id == activeWorkspaceStorage.workspaceInfo.spaceViewId }),
+            guard let spaceView = activeWorkspaceStorage.spaceView(),
                   let createdDate = spaceView.createdDate else { return nil }
             return SearchHelper.lastModifiedDateFrom(createdDate.addingTimeInterval(60))
         case .recentOpen:

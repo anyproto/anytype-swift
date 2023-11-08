@@ -166,12 +166,12 @@
 "Keychain.Recovery phrase" = "Fraza odzyskiwania";
 "Keychain.Recovery phrase copied to clipboard" = "Fraza odzyskiwania skopiowana";
 "Keychain.Recovery phrase description" = "You will need it to sign in. Keep it in a safe place. If you lose it, you can no longer access your account.";
-"Keychain.Save keychain alert part 1" = "If you lose the recovery phrase and get logged out you will not be able to ";
-"Keychain.Save keychain alert part 2" = "ever access your data again";
-"Keychain.Save keychain alert part 3" = ".\nSave this recovery phrase outside of Anytype for data recovery.\nWe recommend using a secure data vault, password manager or piece of paper in the safe.";
-"Keychain.Don’t forget to save your recovery phrase" = "Don’t forget to save your recovery phrase";
-"Keychain.Show and copy phrase" = "Show and copy phrase";
-"Keychain.Have you backed up your recovery phrase?" = "Have you backed up your recovery phrase?";
+"Keychain.Save keychain alert part 1" = "Jeśli stracisz frazę odzyskiwania i zostaniesz wylogowany nie będziesz w stanie ";
+"Keychain.Save keychain alert part 2" = "odzyskać swoich danych";
+"Keychain.Save keychain alert part 3" = ".\nZapisz tę frazę odzyskiwania poza Anytype na wypadek potrzeby odzyskiwania danych.\nZalecamy używanie bezpiecznego sejfu danych, menedżera haseł lub zapisanie hasła na papierze i przechowywanie go w bezpiecznym miejscu.";
+"Keychain.Don’t forget to save your recovery phrase" = "Nie zapomnij zapisać swojej frazy odzyskiwania";
+"Keychain.Show and copy phrase" = "Pokaż i skopiuj frazę";
+"Keychain.Have you backed up your recovery phrase?" = " Czy zapisałeś swoją frazę odzyskiwania";
 "Keychain.Error.String to Data conversion error" = "String to Data conversion error";
 "Keychain.Error.Data to String conversion error" = "Data to String conversion error";
 "Keychain.Error.Unknown Keychain Error" = "Unknown Keychain Error";
@@ -184,10 +184,10 @@
 "Scan QR code" = "Skanuj kod QR";
 "Auth.CameraPermissionTitle" = "Please allow access";
 "Restore secret phrase from keychain" = "Restore Recovery Phrase from the keychain";
-"Auth.LogIn" = "I already have one";
-"Auth.Join" = "Generate new account";
-"Auth.Welcome.Subtitle" = "Anytype is your safe space to write, plan, think and organise everything that matters to you.";
-"Auth.Caption.Privacy.Text" = "By continuing you agree to [Terms of Use](%@) and [Privacy Policy](%@)";
+"Auth.LogIn" = "Zaloguj się";
+"Auth.Join" = "Utwórz nowe konto";
+"Auth.Welcome.Subtitle" = "Anytype jest Twoim bezpiecznym miejscem do pisania, planowania, myślenia i organizowania wszystkiego, co jest dla Ciebie ważne.";
+"Auth.Caption.Privacy.Text" = "Kontynuując, zgadzasz się na [Warunki użytkowania](%@) i [Politykę prywatności](%@)";
 "Auth.Next" = "Dalej";
 
 "Account recover error" = "Account recover error, try again";
@@ -198,25 +198,25 @@
 "Error select account" = "Error select account";
 "Error wallet recover account" = "Error wallet recover account";
 
-"Search for language" = "Search for language";
+"Search for language" = "Wyszukaj język";
 
 // Auth - Join flow
 
 "Auth.JoinFlow.Key.Title" = "Save your Recovery Phrase";
-"Auth.JoinFlow.Key.Description" = "It’s a novel way of authentication that gives you full ownership over your account and data.";
-"Auth.JoinFlow.Key.TextField.Placeholder" = "Type your recovery phrase";
-"Auth.JoinFlow.Key.Button.Show.Title" = "Show Recovery Phrase";
+"Auth.JoinFlow.Key.Description" = "To nowatorski sposób uwierzytelniania, który składa na Twoje ręce pełnię władzy nad Twoim kontem i Twoimi danymi.";
+"Auth.JoinFlow.Key.TextField.Placeholder" = "Wpisz swoją frazę odzyskiwania";
+"Auth.JoinFlow.Key.Button.Show.Title" = "Pokaż Frazę Odzyskiwania";
 "Auth.JoinFlow.Key.Button.Saved.Title" = "Przejdź do aplikacji";
 "Auth.JoinFlow.Key.Button.Later.Title" = "Pomiń";
 "Auth.JoinFlow.Key.Button.Copy.Title" = "Skopiuj do schowka";
 "Auth.JoinFlow.Key.Button.Info.Title" = "Zobacz więcej";
-"Auth.JoinFlow.Key.Button.Tip.Title" = "You can find Recovery Phrase later in Anytype settings";
+"Auth.JoinFlow.Key.Button.Tip.Title" = "Frazę Odzyskiwania będzie można znaleźć w ustawieniach Anytype";
 
-"Auth.JoinFlow.Key.ReadMore.Title" = "What is Recovery Phrase?";
-"Auth.JoinFlow.Key.ReadMore.Option1.Title" = "Recovery Phrase is a random combination of 12 words from which your account is magically generated on this device.";
-"Auth.JoinFlow.Key.ReadMore.Option2.Title" = "Whomever knows Recovery Phrase, owns the account. **At this moment, you are the only person in the world who knows it.**";
-"Auth.JoinFlow.Key.ReadMore.Option3.Title" = "That's why it's essential to keep Recovery Phrase safe. As the sole owner, nobody can help you if it's lost.";
-"Auth.JoinFlow.Key.ReadMore.Instruction.Title" = "How to save my phrase?";
+"Auth.JoinFlow.Key.ReadMore.Title" = "Czym jest Fraza Odzyskiwania?";
+"Auth.JoinFlow.Key.ReadMore.Option1.Title" = "Fraza Odzyskiwania jest losową kombinacją 12 słów, z których utkane jest zaklęcie magicznie generujące Twoje konto na tym urządzeniu";
+"Auth.JoinFlow.Key.ReadMore.Option2.Title" = "Ktokolwiek zna Frazę Odzyskiwania — posiada to konto. **W tym momencie jesteś jedyną osobą na świecie, która ją zna**";
+"Auth.JoinFlow.Key.ReadMore.Option3.Title" = "Dlatego jest niezmiernie istotne, aby zachować Frazę Odzyskiwania w bezpiecznym miejscu. Jako jedyny posiadacz konta, nikt nie jest w stanie Ci pomóc, jeśli zostanie stracona. ";
+"Auth.JoinFlow.Key.ReadMore.Instruction.Title" = "Jak zachować moją Frazę Odzyskiwania? ";
 "Auth.JoinFlow.Key.ReadMore.Instruction.Option1.Title" = "The easiest way to store your Recovery Phrase is to save it in your password manager.";
 "Auth.JoinFlow.Key.ReadMore.Instruction.Option2.Title" = "The most secure way is to write it down on paper and keep it offline, in a safe and secure place.";
 
@@ -231,7 +231,7 @@
 // Auth - Login flow
 "Auth.LoginFlow.Use.Keychain.Title" = "Use keychain";
 "Auth.LoginFlow.Or" = "OR";
-"Auth.LoginFlow.Textfield.Placeholder" = "Type your recovery phrase";
+"Auth.LoginFlow.Textfield.Placeholder" = "Wpisz swoją frazę odzyskiwania";
 "Auth.LoginFlow.Enter.Button.Title" = "Zaloguj się";
 "Auth.LoginFlow.Entering.Void.Title" = "Entering the Void";
 
@@ -416,8 +416,7 @@
 
 // MARK: - Set.Bookmarks
 "Set.Bookmark.Create.Placeholder" = "Wkleić link";
-"Set.Bookmark.Error.Title" = "Ups - coś poszło nie tak";
-"Set.Bookmark.Error.Message" = "Proszę spróbuj ponownie";
+"Set.Bookmark.Error.Message" = "Oops - something went wrong. Please try again";
 
 // MARK: - Sets: View Settings
 "Set.View.Settings.ImageFit.Title" = "Dopasuj zdjęcie";
@@ -464,7 +463,9 @@
 "SlashMenu.TableOfContents" = "Table of contents";
 "SlashMenu.Table" = "Table";
 
+"Error" = "Error";
 "Unknown error" = "Unknown error";
+"Close" = "Close";
 "Account is deleted" = "Account is deleted";
 "Add phone" = "Add phone";
 "Nothing to redo" = "Nothing to redo";
@@ -591,7 +592,7 @@
 "Add number" = "Dodaj numer";
 "Add text" = "Dodaj tekst";
 "Ok" = "Ok";
-"Error occurred. Please try again" = "Wystąpił błąd. spróbuj ponownie";
+"Error occurred. Please try again" = "Wystąpił błąd. Spróbuj ponownie";
 "Add" = "Dodaj";
 "Companies, contacts, friends and family" = "Firmy, kontakty, przyjaciele i rodzina";
 "Failed to sync, trying again..." = "Synchronizacja nie powiodła się, próbuję ponownie...";
@@ -782,6 +783,9 @@
 "FileStorage.OffloadTitle" = "Offload files";
 "FileStorage.ManageFiles" = "Manage files";
 "FileStorage.LimitError" = "You exceeded file limit upload";
+"FileStorage.LimitLegend.Current" = "%@ | %@";
+"FileStorage.LimitLegend.Other" = "Other spaces | %@";
+"FileStorage.LimitLegend.Free" = "Free | %@";
 
 // MARK: - Files List
 "FilesList.Title" = "Synced files";
@@ -797,6 +801,7 @@
 // MARK: - Spaces
 "Spaces.Accessibility.Public" = "Public";
 "Spaces.Accessibility.Private" = "Private";
+"Spaces.Accessibility.Personal" = "Personal";
 "Spaces.Search.Title" = "Szukaj spacji";
 
 // MARK: - Space Settings
@@ -838,3 +843,7 @@
 // MARK: - Create tip
 "LongTapCreateTip.Title" = "Crete Objects with specific Type";
 "LongTapCreateTip.Message" = "Long tap on Create Object button to open menu with types";
+
+// MARK: - Error
+"Error.AnytypeNeedsUpgrate.Title" = "Update Your App";
+"Error.AnytypeNeedsUpgrate.Message" = "This object was modified in a newer version of Anytype. Please update the app to open it on this device";

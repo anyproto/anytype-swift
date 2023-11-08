@@ -28,12 +28,7 @@ final class DashboardLogoutAlertModel: ObservableObject {
     
     func onLogoutTap() {
         isLogoutInProgress = true
-        AnytypeAnalytics.instance().logEvent(
-            AnalyticsEventsName.logout,
-            withEventProperties: [
-                AnalyticsEventsPropertiesKey.route: AnalyticsEventsName.settingsShow
-            ]
-        )
+        AnytypeAnalytics.instance().logEvent(AnalyticsEventsName.logout)
 
         authService.logout(removeData: false) { [weak self] isSuccess in
             guard isSuccess else {

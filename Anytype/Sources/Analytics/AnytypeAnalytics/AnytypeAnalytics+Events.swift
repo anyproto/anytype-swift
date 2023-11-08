@@ -689,4 +689,40 @@ extension AnytypeAnalytics {
     func logCreateLink() {
         logEvent(AnalyticsEventsName.createLink)
     }
+    
+    func logScreenSettingsSpaceCreate() {
+        logEvent(AnalyticsEventsName.screenSettingsSpaceCreate)
+    }
+    
+    func logCreateSpace() {
+        logEvent(AnalyticsEventsName.createSpace)
+    }
+    
+    func logSwitchSpace() {
+        logEvent(AnalyticsEventsName.switchSpace)
+    }
+    
+    func logClickDeleteSpace(route: ClickDeleteSpaceRoute) {
+        logEvent(AnalyticsEventsName.clickDeleteSpace, withEventProperties: [AnalyticsEventsPropertiesKey.route: route.rawValue])
+    }
+    
+    func logClickDeleteSpaceWarning(type: ClickDeleteSpaceWarningType) {
+        logEvent(AnalyticsEventsName.clickDeleteSpaceWarning, withEventProperties: [AnalyticsEventsPropertiesKey.type: type.rawValue])
+    }
+    
+    func logDeleteSpace(type: DeleteSpaceType) {
+        logEvent(AnalyticsEventsName.deleteSpace, withEventProperties: [AnalyticsEventsPropertiesKey.type: type.rawValue])
+    }
+    
+    func logScreenSettingsSpaceIndex() {
+        logEvent(AnalyticsEventsName.screenSettingsSpaceIndex)
+    }
+    
+    func logScreenSettingsAccount() {
+        logEvent(AnalyticsEventsName.screenSettingsAccount)
+    }
+    
+    func logScreenSettingsAccountAccess() {
+        logEvent(AnalyticsEventsName.screenSettingsAccountAccess)
+    }
 }

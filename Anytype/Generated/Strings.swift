@@ -124,6 +124,8 @@ internal enum Loc {
   internal static let chooseLayoutType = Loc.tr("Localizable", "Choose layout type", fallback: "Choose layout type")
   /// Clear
   internal static let clear = Loc.tr("Localizable", "Clear", fallback: "Clear")
+  /// Close
+  internal static let close = Loc.tr("Localizable", "Close", fallback: "Close")
   /// Capture code snippet
   internal static let codeBlockSubtitle = Loc.tr("Localizable", "Code block subtitle", fallback: "Capture code snippet")
   /// Code snippet
@@ -208,6 +210,8 @@ internal enum Loc {
   internal static let enterText = Loc.tr("Localizable", "Enter text", fallback: "Enter text")
   /// Enter value
   internal static let enterValue = Loc.tr("Localizable", "Enter value", fallback: "Enter value")
+  /// Error
+  internal static let error = Loc.tr("Localizable", "Error", fallback: "Error")
   /// Error creating wallet
   internal static let errorCreatingWallet = Loc.tr("Localizable", "Error creating wallet", fallback: "Error creating wallet")
   /// Error select account
@@ -276,8 +280,8 @@ internal enum Loc {
   internal static let lock = Loc.tr("Localizable", "Lock", fallback: "Lock")
   /// Log out
   internal static let logOut = Loc.tr("Localizable", "Log out", fallback: "Log out")
-  /// Login
-  internal static let login = Loc.tr("Localizable", "Login", fallback: "Login")
+  /// Log In
+  internal static let login = Loc.tr("Localizable", "Login", fallback: "Log In")
   /// Logout and clear data
   internal static let logoutAndClearData = Loc.tr("Localizable", "Logout and clear data", fallback: "Logout and clear data")
   /// Media
@@ -621,10 +625,10 @@ internal enum Loc {
   internal enum Auth {
     /// Please allow access
     internal static let cameraPermissionTitle = Loc.tr("Localizable", "Auth.CameraPermissionTitle", fallback: "Please allow access")
-    /// Generate new account
-    internal static let join = Loc.tr("Localizable", "Auth.Join", fallback: "Generate new account")
-    /// I already have one
-    internal static let logIn = Loc.tr("Localizable", "Auth.LogIn", fallback: "I already have one")
+    /// Create New Account
+    internal static let join = Loc.tr("Localizable", "Auth.Join", fallback: "Create New Account")
+    /// Log In
+    internal static let logIn = Loc.tr("Localizable", "Auth.LogIn", fallback: "Log In")
     /// Next
     internal static let next = Loc.tr("Localizable", "Auth.Next", fallback: "Next")
     internal enum Caption {
@@ -1116,6 +1120,14 @@ internal enum Loc {
       }
     }
   }
+  internal enum Error {
+    internal enum AnytypeNeedsUpgrate {
+      /// This object was modified in a newer version of Anytype. Please update the app to open it on this device
+      internal static let message = Loc.tr("Localizable", "Error.AnytypeNeedsUpgrate.Message", fallback: "This object was modified in a newer version of Anytype. Please update the app to open it on this device")
+      /// Update Your App
+      internal static let title = Loc.tr("Localizable", "Error.AnytypeNeedsUpgrate.Title", fallback: "Update Your App")
+    }
+  }
   internal enum ErrorOccurred {
     /// Error occurred. Please try again
     internal static let pleaseTryAgain = Loc.tr("Localizable", "Error occurred. Please try again", fallback: "Error occurred. Please try again")
@@ -1129,6 +1141,20 @@ internal enum Loc {
     internal static let offloadTitle = Loc.tr("Localizable", "FileStorage.OffloadTitle", fallback: "Offload files")
     /// File storage
     internal static let title = Loc.tr("Localizable", "FileStorage.Title", fallback: "File storage")
+    internal enum LimitLegend {
+      /// %@ | %@
+      internal static func current(_ p1: Any, _ p2: Any) -> String {
+        return Loc.tr("Localizable", "FileStorage.LimitLegend.Current", String(describing: p1), String(describing: p2), fallback: "%@ | %@")
+      }
+      /// Free | %@
+      internal static func free(_ p1: Any) -> String {
+        return Loc.tr("Localizable", "FileStorage.LimitLegend.Free", String(describing: p1), fallback: "Free | %@")
+      }
+      /// Other spaces | %@
+      internal static func other(_ p1: Any) -> String {
+        return Loc.tr("Localizable", "FileStorage.LimitLegend.Other", String(describing: p1), fallback: "Other spaces | %@")
+      }
+    }
     internal enum Local {
       /// In order to save space on your local device, you can offload all your files to our encrypted backup node. The files will be loaded back when you open them.
       internal static let instruction = Loc.tr("Localizable", "FileStorage.Local.Instruction", fallback: "In order to save space on your local device, you can offload all your files to our encrypted backup node. The files will be loaded back when you open them.")
@@ -1411,10 +1437,8 @@ internal enum Loc {
         internal static let placeholder = Loc.tr("Localizable", "Set.Bookmark.Create.Placeholder", fallback: "Paste link")
       }
       internal enum Error {
-        /// Please try again
-        internal static let message = Loc.tr("Localizable", "Set.Bookmark.Error.Message", fallback: "Please try again")
-        /// Oops - something went wrong
-        internal static let title = Loc.tr("Localizable", "Set.Bookmark.Error.Title", fallback: "Oops - something went wrong")
+        /// Oops - something went wrong. Please try again
+        internal static let message = Loc.tr("Localizable", "Set.Bookmark.Error.Message", fallback: "Oops - something went wrong. Please try again")
       }
     }
     internal enum Button {
@@ -1698,6 +1722,8 @@ internal enum Loc {
   }
   internal enum Spaces {
     internal enum Accessibility {
+      /// Personal
+      internal static let personal = Loc.tr("Localizable", "Spaces.Accessibility.Personal", fallback: "Personal")
       /// Private
       internal static let `private` = Loc.tr("Localizable", "Spaces.Accessibility.Private", fallback: "Private")
       /// Public

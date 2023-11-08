@@ -68,15 +68,21 @@ final class SpaceSettingsViewModel: ObservableObject {
     }
     
     func onDeleteTap() {
+        AnytypeAnalytics.instance().logClickDeleteSpace(route: .settings)
         showSpaceDeleteAlert.toggle()
     }
     
     func onDeleteConfirmationTap() {
         guard let spaceView else { return }
         Task {
+            AnytypeAnalytics.instance().logDeleteSpace(type: .private)
             try await workspaceService.deleteSpace(spaceId: spaceView.targetSpaceId)
             dismiss.toggle()
         }
+    }
+    
+    func onAppear() {
+        AnytypeAnalytics.instance().logScreenSettingsSpaceIndex()
     }
     
     // MARK: - Private

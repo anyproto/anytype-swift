@@ -107,6 +107,9 @@ final class HomeWidgetsCoordinatorViewModel: ObservableObject,
             .workspaceInfoPublisher
             .receiveOnMain()
             .sink { [weak self] info in
+                if self?.info != nil, self?.info != info {
+                    self?.editorBrowserCoordinator.dismissAllPages()
+                }
                 self?.info = info
             }
             .store(in: &subscriptions)
@@ -311,7 +314,12 @@ final class HomeWidgetsCoordinatorViewModel: ObservableObject,
         case .createObject:
             createAndShowNewPage()
         case .showSharingExtension:
-            showSharing.toggle()
+            showSharing = true
+        case .spaceSelection:
+            navigationContext.dismissAllPresented(animated: true, completion: { [weak self] in
+                self?.editorBrowserCoordinator.dismissAllPages()
+                self?.showSpaceSwitch = true
+            })
         }
     }
 }

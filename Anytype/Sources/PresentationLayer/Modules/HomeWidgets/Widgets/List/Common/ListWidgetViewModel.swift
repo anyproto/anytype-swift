@@ -124,7 +124,7 @@ final class ListWidgetViewModel: WidgetContainerContentViewModelProtocol, Observ
             headerItems = dataviewState?.dataview.map { dataView in
                 ListWidgetHeaderItem.Model(
                     dataviewId: dataView.id,
-                    title: dataView.name,
+                    title: dataView.nameWithPlaceholder,
                     isSelected: dataView.id == dataviewState?.activeViewId,
                     onTap: { [weak self] in
                         self?.internalHeaderModel?.onActiveViewTap(dataView.id)

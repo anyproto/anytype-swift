@@ -3,6 +3,7 @@ import Services
 import Combine
 import AnytypeCore
 
+@MainActor
 protocol FilesSubscriptionServiceProtocol: AnyObject {
     func startSubscription(
         syncStatus: FileSyncStatus,
@@ -12,6 +13,7 @@ protocol FilesSubscriptionServiceProtocol: AnyObject {
     func stopSubscription() async
 }
 
+@MainActor
 final class FilesSubscriptionService: FilesSubscriptionServiceProtocol {
     
     private enum Constants {
@@ -22,7 +24,7 @@ final class FilesSubscriptionService: FilesSubscriptionServiceProtocol {
     private let activeWorkspaceStorage: ActiveWorkpaceStorageProtocol
     private let subscriptionId = "Files-\(UUID().uuidString)"
     
-    init(
+    nonisolated init(
         subscriptionStorageProvider: SubscriptionStorageProviderProtocol,
         activeWorkspaceStorage: ActiveWorkpaceStorageProtocol
     ) {

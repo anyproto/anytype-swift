@@ -14,6 +14,7 @@ struct SimpleTableDependenciesContainer {
     let cacheContainer: SimpleTableHeightCacheContainer
 }
 
+@MainActor
 final class SimpleTableDependenciesBuilder {
     let cursorManager: EditorCursorManager
     
@@ -92,7 +93,7 @@ final class SimpleTableDependenciesBuilder {
 
         let simpleTablesBlockDelegate = BlockDelegateImpl(
             viewInput: viewInput,
-            accessoryState: simpleTablesAccessoryState,
+            accessoryState: simpleTablesAccessoryState.0,
             cursorManager: cursorManager
         )
 

@@ -184,8 +184,8 @@
 "Scan QR code" = "Pindai kode QR";
 "Auth.CameraPermissionTitle" = "Tolong izinkan akses";
 "Restore secret phrase from keychain" = "Mengembalikan Tahap Pemulihan dari rantai kunci";
-"Auth.LogIn" = "Aku sudah punya";
-"Auth.Join" = "Buat akun baru";
+"Auth.LogIn" = "Masuk";
+"Auth.Join" = "Buat Akun Baru";
 "Auth.Welcome.Subtitle" = "Anytype adalah tempat aman bagimu untuk menulis, berpikir, merencanakan, dan mengorganisasikan apa pun yang penting bagimu.";
 "Auth.Caption.Privacy.Text" = "Dengan melanjutkan, kamu menyetujui [Syarat Penggunaan](%@) dan [Kebijakan Privasi](%@)";
 "Auth.Next" = "Lanjut";
@@ -416,8 +416,7 @@
 
 // MARK: - Set.Bookmarks
 "Set.Bookmark.Create.Placeholder" = "Tempelkan tautan";
-"Set.Bookmark.Error.Title" = "Ups, ada yang salah";
-"Set.Bookmark.Error.Message" = "Silakan coba lagi";
+"Set.Bookmark.Error.Message" = "Ups - terjadi kesalahan. Silakan coba lagi";
 
 // MARK: - Sets: View Settings
 "Set.View.Settings.ImageFit.Title" = "Paskan gambar";
@@ -464,7 +463,9 @@
 "SlashMenu.TableOfContents" = "Daftar isi";
 "SlashMenu.Table" = "Tabel";
 
+"Error" = "Galat";
 "Unknown error" = "Kesalahan tak dikenal";
+"Close" = "Tutup";
 "Account is deleted" = "Akun terhapus";
 "Add phone" = "Tambahkan telepon";
 "Nothing to redo" = "Tidak ada yang dibatalkan";
@@ -775,13 +776,16 @@
 "FileStorage.Space.Used" = "%@ dari %@ digunakan";
 "FileStorage.Space.GetMore" = "Dapatkan ruang tambahan";
 "FileStorage.Space.Mail.Subject" = "Dapatkan penyimpanan lebih, akun %@";
-"FileStorage.Space.Mail.Body" = "Hi, Anytype team. I am reaching out to request an increase in my file storage capacity as I have run out of storage. My current limits is %@. My account id is %@. Cheers, %@.";
+"FileStorage.Space.Mail.Body" = "Halo, tim Anytype. Aku ingin menambahkan kapasitas penyimpanan berkasku karena kehabisan ruangan. Batasku saat ini adalah %@. ID akunku adalah %@. Salam sejahtera, %@.";
 "FileStorage.Local.Title" = "Penyimpanan lokal";
 "FileStorage.Local.Instruction" = "Untuk menghemat penyimpanan ruang pada perangkat lokal, anda dapat melepaskan semua berkas ke simpul cadangan terenkripsi kami. Berkas - berkas akan diunduh kembali saat kamu membuka mereka. ";
 "FileStorage.Local.Used" = "%@ digunakan";
 "FileStorage.OffloadTitle" = "Melepaskan berkas";
 "FileStorage.ManageFiles" = "Mengatur berkas";
 "FileStorage.LimitError" = "Kamu melewati batas unggah berkas";
+"FileStorage.LimitLegend.Current" = "%@ | %@";
+"FileStorage.LimitLegend.Other" = "Ruang lain | %@";
+"FileStorage.LimitLegend.Free" = "Free | %@";
 
 // MARK: - Files List
 "FilesList.Title" = "Berkas tersinkronkan";
@@ -797,6 +801,7 @@
 // MARK: - Spaces
 "Spaces.Accessibility.Public" = "Publik";
 "Spaces.Accessibility.Private" = "Pribadi";
+"Spaces.Accessibility.Personal" = "Pribadi";
 "Spaces.Search.Title" = "Cari ruang";
 
 // MARK: - Space Settings
@@ -829,7 +834,7 @@
 // MARK: - Initial
 
 "Initial.UnstableMiddle.Title" = "Peringatan";
-"Initial.UnstableMiddle.Message" = "You launch app with a unstable middleware. Don't use your production account. Your account may be broken.";
+"Initial.UnstableMiddle.Message" = "Kamu meluncurkan aplikasi dengan perangkat tengah yang tidak stabil. Jangan pakai akun produksimu. Akunmu bisa rusak.";
 "Initial.UnstableMiddle.Title" = "Peringatan";
 "Initial.UnstableMiddle.Logout" = "Keluar dari akun ini";
 "Initial.UnstableMiddle.Continue" = "Lanjutkan dengan akun ini";
@@ -838,3 +843,7 @@
 // MARK: - Create tip
 "LongTapCreateTip.Title" = "Buat Objek dengan Tipe tertentu";
 "LongTapCreateTip.Message" = "Tekan lama tombol Buat Objek untuk membuka menu dengan Tipe";
+
+// MARK: - Error
+"Error.AnytypeNeedsUpgrate.Title" = "Perbarui Aplikasimu";
+"Error.AnytypeNeedsUpgrate.Message" = "Objek ini telah diubah pada versi terbaru Anytype. Perbaruilah aplikasimu untuk membuka objek ini di perangkat ini.";
