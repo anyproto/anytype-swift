@@ -416,8 +416,7 @@
 
 // MARK: - Set.Bookmarks
 "Set.Bookmark.Create.Placeholder" = "Incolla link";
-"Set.Bookmark.Error.Title" = "Oops - qualcosa è andato storto";
-"Set.Bookmark.Error.Message" = "Riprova";
+"Set.Bookmark.Error.Message" = "Oops - something went wrong. Please try again";
 
 // MARK: - Sets: View Settings
 "Set.View.Settings.ImageFit.Title" = "Adatta immagine";
@@ -508,23 +507,23 @@
 "Personalization" = "Personalization";
 "Choose default object type" = "Choose default object type";
 "About" = "About";
-"Appearance" = "Appearance";
-"Change wallpaper" = "Change wallpaper";
+"Appearance" = "Aspetto";
+"Change wallpaper" = "Cambia sfondo";
 "Application icon" = "Application icon";
-"Mode" = "Mode";
+"Mode" = "Modalità";
 "copied to clipboard" = "%@ copied to clipboard";
 "Access to secret phrase from keychain" = "Access to secret phrase from keychain";
-"Back up your recovery phrase" = "Back up your recovery phrase";
+"Back up your recovery phrase" = "Esegui il backup della tua frase di recupero";
 "Account" = "Account";
-"Access" = "Access";
+"Access" = "Accesso";
 "Back up phrase" = "Back up phrase";
 "Removing cache" = "Removing cache";
 "Deletion error" = "Deletion error";
 "Start" = "Start";
 "On analytics" = "On analytics";
 "Select account error" = "Select account error";
-"Account deleted" = "Account deleted";
-"Account.Select.Incompatible.Version.Error.Text" = "Unable to retrieve account data due to incompatible version on remote nodes. Please update Anytype to the latest version.";
+"Account deleted" = "Account eliminato";
+"Account.Select.Incompatible.Version.Error.Text" = "Impossibile recuperare i dati dell'account a causa di una versione incompatibile sui nodi remoti. Si prega di aggiornare Anytype all'ultima versione.";
 "Restore from keychain" = "Restore from keychain";
 "Edit" = "Edit";
 "In this object" = "In this object";
@@ -533,42 +532,42 @@
 "Designed to capture thoughts quickly" = "Designed to capture thoughts quickly";
 "Action-focused layout with a checkbox" = "Action-focused layout with a checkbox";
 "Standard layout for canvas blocks" = "Standard layout for canvas blocks";
-"List of related objects" = "List of related objects";
-"Lock" = "Lock";
-"Unlock" = "Unlock";
-"Favorite" = "Favorite";
-"Unfavorite" = "Unfavorite";
+"List of related objects" = "Elenco degli oggetti correlati";
+"Lock" = "Blocca";
+"Unlock" = "Sblocca";
+"Favorite" = "Preferito";
+"Unfavorite" = "Rimuovi da Preferiti";
 "Unsplash" = "Unsplash";
-"Go back" = "Go back";
-"Backed up on one node at least" = "Backed up on one node at least";
-"Downloading or uploading data to some node" = "Downloading or uploading data to some node";
-"Anytype node is not connected" = "Anytype node is not connected";
-"Initializing sync" = "Initializing sync";
-"Not syncing" = "Not syncing";
-"Synced" = "Synced";
-"Syncing..." = "Syncing...";
+"Go back" = "Indietro";
+"Backed up on one node at least" = "Salvato su almeno un nodo";
+"Downloading or uploading data to some node" = "Scaricamento o caricamento dati su qualche nodo";
+"Anytype node is not connected" = "Nodo di Anytype non connesso";
+"Initializing sync" = "Inizializzazione sincronizzazione";
+"Not syncing" = "Sincronizzazione non attiva";
+"Synced" = "Sincronizzato";
+"Syncing..." = "Sincronizzazione...";
 "No connection" = "Nessuna connessione";
 "Preparing..." = "In preparazione...";
 "Deleted" = "Eliminato";
 "Download" = "Scarica";
 "Open object" = "Apri oggetto";
 "Open source" = "Apri fonte";
-"Into object" = "Into object";
-"Add below" = "Add below";
+"Into object" = "Nell'oggetto";
+"Add below" = "Aggiungi sotto";
 "Change type" = "Cambia tipo";
 "Link to existing object" = "Collega a un oggetto esistente";
 "Link to object" = "Collega a oggetto";
-"Upload playable audio" = "Upload playable audio";
+"Upload playable audio" = "Carica un audio riproducibile";
 "Code snippet" = "Frammento di codice";
 "Bookmark" = "Segnalibro";
 "Audio" = "Audio";
 "Video" = "Video";
 "Picture" = "Immagine";
 "File" = "File";
-"No related options here" = "No related options here. You can add some";
+"No related options here" = "Nessuna opzione correlata qui. Puoi aggiungerne alcune";
 "Empty" = "Vuoto";
 "Link to" = "Collega a";
-"Unknown" = "Unknown";
+"Unknown" = "Sconosciuto";
 "Settings" = "Impostazioni";
 "Views" = "Viste";
 "Filter" = "Filtro";
@@ -578,15 +577,15 @@
 "Highlight" = "Evidenzia";
 "Create object" = "Crea oggetto";
 "Web pages" = "Pagine Web";
-"Preview layout" = "Preview layout";
+"Preview layout" = "Anteprima di layout";
 "Everywhere" = "Ovunque";
 "Exact day" = "Giorno esatto";
 "Tomorrow" = "Domani";
 "Yesterday" = "Ieri";
 "Today" = "Oggi";
 "No date" = "Nessuna data";
-"Clear" = "Clear";
-"Create option" = "Create option ‘%@’";
+"Clear" = "Cancella";
+"Create option" = "Crea opzione ‘%@’";
 "Add URL" = "Aggiungi URL";
 "Add email" = "Aggiungi email";
 "Add phone number" = "Aggiungi numero di telefono";
@@ -600,61 +599,61 @@
 "Sync.Status.Version.Outdated.Description" = "Versione obsoleta. Si prega di aggiornare Anytype";
 "This object doesn't exist" = "Questo oggetto non esiste";
 "Setting up encrypted storage\nPlease wait" = "Impostazione dello storage crittografato\nAttendere prego";
-"These objects will be deleted irrevocably" = "These objects will be deleted irrevocably. You can’t undo this action.";
-"Delete account" = "Delete account";
-"Cancel deletion" = "Cancel deletion";
-"Logout and clear data" = "Logout and clear data";
-"New" = "New";
+"These objects will be deleted irrevocably" = "Questi oggetti verranno eliminati irrevocabilmente. Non è possibile annullare questa azione.";
+"Delete account" = "Elimina account";
+"Cancel deletion" = "Annulla eliminazione";
+"Logout and clear data" = "Esci e cancella i dati";
+"New" = "Nuovo";
 
 // MARK: - DeletionAlert
-"DeletionAlert.title" = "Are you sure to delete account?";
-"DeletionAlert.description" = "You will be logged out on all other devices. You will have 30 days to recover it. Afterwards it will be deleted permanently";
+"DeletionAlert.title" = "Sei sicuro di voler eliminare l'account?";
+"DeletionAlert.description" = "Sarai disconnesso su tutti gli altri dispositivi. Avrai 30 giorni per recuperarlo. In seguito verrà eliminato definitivamente";
 
 // MARK: - DataviewType
-"DataviewType.grid" = "Grid";
-"DataviewType.list" = "List";
+"DataviewType.grid" = "Griglia";
+"DataviewType.list" = "Lista";
 "DataviewType.gallery" = "Galleria";
 "DataviewType.kanban" = "Kanban";
 "DataviewType.calendar" = "Calendario";
 
 // MARK: - ObjectType
-"ObjectType.fallbackDescription" = "Blank canvas with no title";
-"ObjectType.SearchOrInstall" = "Search or install a new type";
+"ObjectType.fallbackDescription" = "Tela vuota senza titolo";
+"ObjectType.SearchOrInstall" = "Cerca o crea un nuovo tipo";
 "ObjectType.Search" = "Cerca per Tipo";
-"ObjectType.MyTypes" = "My Types";
-"ObjectType.AddedToLibrary" = "Type ‘%@’ added to your library";
-"ObjectType.DeletedName" = "Deleted type";
+"ObjectType.MyTypes" = "I miei Tipi";
+"ObjectType.AddedToLibrary" = "Tipo ‘%@’ aggiunto alla tua libreria";
+"ObjectType.DeletedName" = "Tipo eliminato";
 
 // MARK: - QuickAction
-"QuickAction.create" = "Create %@";
+"QuickAction.create" = "Crea %@";
 
 // MARK: - RedactedText
-"RedactedText.pageTitle" = "Wake up, Neo";
-"RedactedText.pageType" = "Red pill";
+"RedactedText.pageTitle" = "Svegliati, Neo";
+"RedactedText.pageType" = "Pillola rossa";
 
 // MARK: - InterfaceStyle
-"InterfaceStyle.light" = "Light";
-"InterfaceStyle.dark" = "Dark";
-"InterfaceStyle.system" = "System";
+"InterfaceStyle.light" = "Chiaro";
+"InterfaceStyle.dark" = "Scuro";
+"InterfaceStyle.system" = "Sistema";
 
 // MARK: Table of Contents
-"TalbeOfContents.Empty" = "Add headings to create a table of contents";
+"TalbeOfContents.Empty" = "Aggiungi intestazioni per creare una tabella di contenuti";
 
 // MARK: - Simple tables
-"SimpleTableMenu.Item.clearContents" = "Clear";
+"SimpleTableMenu.Item.clearContents" = "Cancella";
 "SimpleTableMenu.Item.color" = "Colore";
 "SimpleTableMenu.Item.style" = "Stile";
-"SimpleTableMenu.Item.clearStyle" = "Reset style";
+"SimpleTableMenu.Item.clearStyle" = "Ripristina stile";
 
-"SimpleTableMenu.Item.InsertLeft" = "Insert left";
-"SimpleTableMenu.Item.InsertRight" = "Insert right";
-"SimpleTableMenu.Item.MoveLeft" = "Move left";
-"SimpleTableMenu.Item.MoveRight" = "Move right";
+"SimpleTableMenu.Item.InsertLeft" = "Inserisci a sinistra";
+"SimpleTableMenu.Item.InsertRight" = "Inserisci a destra";
+"SimpleTableMenu.Item.MoveLeft" = "Sposta a sinistra";
+"SimpleTableMenu.Item.MoveRight" = "Sposta a destra";
 "SimpleTableMenu.Item.Duplicate" = "Duplica";
 "SimpleTableMenu.Item.Delete" = "Elimina";
 "SimpleTableMenu.Item.Sort" = "Ordina";
 
-"SimpleTableMenu.Item.InsertAbove" = "Insert above";
+"SimpleTableMenu.Item.InsertAbove" = "Inserisci sopra";
 "SimpleTableMenu.Item.InsertBelow" = "Insert below";
 "SimpleTableMenu.Item.MoveUp" = "Move up";
 "SimpleTableMenu.Item.MoveDown" = "Move down";
@@ -728,41 +727,41 @@
 "Widgets.Layout.Screen.Title" = "Widget type";
 "Widgets.Layout.Link.Title" = "Collegamento";
 "Widgets.Layout.Tree.Title" = "Tree";
-"Widgets.Layout.List.Title" = "List";
+"Widgets.Layout.List.Title" = "Lista";
 "Widgets.Layout.CompactList.Title" = "Сompact list";
 "Widgets.Layout.Link.Description" = "Сompact version of the object";
 "Widgets.Layout.Tree.Description" = "Hierarchical structure of objects";
 "Widgets.Layout.List.Description" = "Widget with list view of set object";
 "Widgets.Layout.CompactList.Description" = "Widget with list view of set object";
-"Widgets.Empty.Title" = "This data view contains no objects";
-"Widgets.Library.RecentlyEdited.Name" = "Recently edited";
-"Widgets.Library.RecentlyOpened.Name" = "Recently opened";
-"Widgets.Library.RecentlyOpened.Description" = "On this device";
+"Widgets.Empty.Title" = "Questa vista dati non contiene oggetti";
+"Widgets.Library.RecentlyEdited.Name" = "Modificati di recente";
+"Widgets.Library.RecentlyOpened.Name" = "Aperti di recente";
+"Widgets.Library.RecentlyOpened.Description" = "Su questo dispositivo";
 
 // MARK: - About
-"About.AppVersion" = "App version: %@";
-"About.BuildNumber" = "Build number: %@";
-"About.Library" = "Library version: %@";
-"About.accountId" = "Account ID: %@";
-"About.analyticsId" = "Analytics ID: %@";
-"About.deviceId" = "Device ID: %@";
-"About.Device" = "Device: %@";
-"About.OSVersion" = "OS version: %@";
-"About.HelpCommunity" = "Help & Community";
-"About.WhatsNew" = "What’s New";
-"About.AnytypeCommunity" = "Anytype Community";
-"About.HelpTutorials" = "Help & Tutorials";
-"About.ContactUs" = "Contact Us";
-"About.Legal" = "Legal";
-"About.TermsOfUse" = "Terms of Use";
-"About.PrivacyPolicy" = "Privacy Policy";
-"About.TechInfo" = "Tech Info";
-"About.Mail.Subject" = "Support request, Account ID %@";
-"About.Mail.Body" = "\n\nTechnical information\n%@";
+"About.AppVersion" = "Versione applicazione: %@";
+"About.BuildNumber" = "Numero di build: %@";
+"About.Library" = "Versione della libraria: %@";
+"About.accountId" = "ID Account: %@";
+"About.analyticsId" = "ID Analytics: %@";
+"About.deviceId" = "ID Dispositivo: %@";
+"About.Device" = "Dispositivo: %@";
+"About.OSVersion" = "Versione OS: %@";
+"About.HelpCommunity" = "Aiuto & Community";
+"About.WhatsNew" = "Novità";
+"About.AnytypeCommunity" = "Community di Anytype";
+"About.HelpTutorials" = "Aiuto & Tutorials";
+"About.ContactUs" = "Contattaci";
+"About.Legal" = "Info legali";
+"About.TermsOfUse" = "Termini d'Uso";
+"About.PrivacyPolicy" = "Informativa sulla Privacy";
+"About.TechInfo" = "Informazioni tecniche";
+"About.Mail.Subject" = "Richiesta di supporto, ID Account %@";
+"About.Mail.Body" = "\n\nInformazioni tecniche\n%@";
 
 // MARK: - Cache
-"ClearCache.Success" = "Cache sucessfully cleared";
-"ClearCache.Error" = "Error, try again later";
+"ClearCache.Success" = "Cache cancellata con successo";
+"ClearCache.Error" = "Errore, riprova più tardi";
 
 // MARK: - Settings
 "Settings.TitleLegacy" = "Impostazioni";
@@ -771,22 +770,25 @@
 "Settings.AccountAndAccess" = "Account e accesso";
 
 // MARK: - File Storage
-"FileStorage.Title" = "File storage";
-"FileStorage.Space.Title" = "Remote storage";
-"FileStorage.Space.Instruction" = "You can store up to %@ of your files on our encrypted backup node for free. If you reach the limit, files will be stored only locally.";
-"FileStorage.Space.Used" = "%@ of %@ used";
-"FileStorage.Space.GetMore" = "Get more space";
-"FileStorage.Space.Mail.Subject" = "Get more storage, account %@";
-"FileStorage.Space.Mail.Body" = "Hi, Anytype team. I am reaching out to request an increase in my file storage capacity as I have run out of storage. My current limits is %@. My account id is %@. Cheers, %@.";
-"FileStorage.Local.Title" = "Local storage";
+"FileStorage.Title" = "Archiviazione file";
+"FileStorage.Space.Title" = "Archiviazione remota";
+"FileStorage.Space.Instruction" = "Puoi archiviare fino a %@ dei tuoi file sul nostro nodo di backup crittografato gratuitamente. Se raggiungi il limite, i file verranno archiviati solo in locale.";
+"FileStorage.Space.Used" = "%@ di %@ utilizzato";
+"FileStorage.Space.GetMore" = "Ottieni più spazio";
+"FileStorage.Space.Mail.Subject" = "Ottieni più archiviazione, account %@";
+"FileStorage.Space.Mail.Body" = "Ciao, Anytype team. Vi contatto per richiedere un aumento della capacità di archiviazione dei miei file poiché ho esaurito lo spazio disponibile. Il mio limite attuale è di %@. Il mio ID dell'account è %@. Grazie, %@.";
+"FileStorage.Local.Title" = "Archiviazione locale";
 "FileStorage.Local.Instruction" = "In order to save space on your local device, you can offload all your files to our encrypted backup node. The files will be loaded back when you open them.";
-"FileStorage.Local.Used" = "%@ used";
+"FileStorage.Local.Used" = "%@ utilizzati";
 "FileStorage.OffloadTitle" = "Offload files";
-"FileStorage.ManageFiles" = "Manage files";
+"FileStorage.ManageFiles" = "Gestione file";
 "FileStorage.LimitError" = "You exceeded file limit upload";
+"FileStorage.LimitLegend.Current" = "%@ | %@";
+"FileStorage.LimitLegend.Other" = "Other spaces | %@";
+"FileStorage.LimitLegend.Free" = "Free | %@";
 
 // MARK: - Files List
-"FilesList.Title" = "Synced files";
+"FilesList.Title" = "File sincronizzati";
 "FilesList.ForceDelete.Title" = "Are you sure you want to permanently delete the files?";
 
 // MARK: - Widget object list
@@ -799,17 +801,17 @@
 // MARK: - Spaces
 "Spaces.Accessibility.Public" = "Pubblico";
 "Spaces.Accessibility.Private" = "Privato";
-"Spaces.Accessibility.Personal" = "Personal";
-"Spaces.Search.Title" = "Search spaces";
+"Spaces.Accessibility.Personal" = "Personale";
+"Spaces.Search.Title" = "Cerca spazi";
 
 // MARK: - Space Settings
 "SpaceSettings.Title" = "Impostazioni dello Spazio";
-"SpaceSettings.RemoteStorage" = "Remote storage";
+"SpaceSettings.RemoteStorage" = "Archiviazione remota";
 "SpaceSettings.Info" = "Informazioni sullo Spazio";
-"SpaceSettings.NetworkId" = "Network ID";
-"SpaceSettings.DeleteAlert.Title" = "Delete ‘%@’ space";
-"SpaceSettings.DeleteAlert.Message" = "This space will be deleted irrevocably. You can’t undo this action.";
-"SpaceSettings.DeleteButton" = "Delete space";
+"SpaceSettings.NetworkId" = "ID della rete";
+"SpaceSettings.DeleteAlert.Title" = "Elimina spazio ‘%@’ ";
+"SpaceSettings.DeleteAlert.Message" = "Questo spazio verrà eliminato irrevocabilmente. Non è possibile annullare questa azione.";
+"SpaceSettings.DeleteButton" = "Elimina spazio";
 
 // MARK: - Space Create
 "SpaceCreate.Title" = "Crea uno spazio";

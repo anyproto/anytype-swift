@@ -417,8 +417,7 @@
 
 // MARK: - Set.Bookmarks
 "Set.Bookmark.Create.Placeholder" = "Dán link";
-"Set.Bookmark.Error.Title" = "Ối giời - đã xảy ra lỗi";
-"Set.Bookmark.Error.Message" = "Vui lòng thử lại";
+"Set.Bookmark.Error.Message" = "Oops - something went wrong. Please try again";
 
 // MARK: - Sets: View Settings
 "Set.View.Settings.ImageFit.Title" = "Fit image";
@@ -785,6 +784,9 @@
 "FileStorage.OffloadTitle" = "San tập tin";
 "FileStorage.ManageFiles" = "Quản lý tập tin";
 "FileStorage.LimitError" = "Bạn đã vượt quá giới hạn tải lên";
+"FileStorage.LimitLegend.Current" = "%@ | %@";
+"FileStorage.LimitLegend.Other" = "Other spaces | %@";
+"FileStorage.LimitLegend.Free" = "Free | %@";
 
 // MARK: - Files List
 "FilesList.Title" = "Các tệp đã đồng bộ";
