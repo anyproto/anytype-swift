@@ -1,0 +1,31 @@
+{
+  "configurations" : [
+    {
+      "id" : "691FE25E-1144-4473-B5EE-0C024AEC9250",
+      "name" : "Configuration 1",
+      "options" : {
+
+      }
+    }
+  ],
+  "defaultOptions" : {
+    "codeCoverage" : false,
+    "language" : "en",
+    "region" : "US",
+    "targetForVariableExpansion" : {
+      "containerPath" : "container:Anytype.xcodeproj",
+      "identifier" : "0303ECFA22D8EDAA005C552B",
+      "name" : "Anytype"
+    }
+  },
+  "testTargets" : [
+    {
+      "target" : {
+        "containerPath" : "container:Anytype.xcodeproj",
+        "identifier" : "03C5C53F22DFD90C00DD91DE",
+        "name" : "AnytypeTests"
+      }
+    }
+  ],
+  "version" : 1
+}

@@ -1424,6 +1424,14 @@ internal enum Loc {
     /// Send email
     internal static let sendEmail = Loc.tr("Localizable", "RelationAction.SendEmail", fallback: "Send email")
   }
+  internal enum RelativeFormatter {
+    /// Previous 30 days
+    internal static let days30 = Loc.tr("Localizable", "RelativeFormatter.days30", fallback: "Previous 30 days")
+    /// Previous 7 days
+    internal static let days7 = Loc.tr("Localizable", "RelativeFormatter.days7", fallback: "Previous 7 days")
+    /// Older
+    internal static let older = Loc.tr("Localizable", "RelativeFormatter.older", fallback: "Older")
+  }
   internal enum Scanner {
     internal enum Error {
       /// Scanning not supported
