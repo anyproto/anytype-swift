@@ -74,7 +74,7 @@
 "Create relation" = "创建关联 ‘%@’";
 "Relation.View.Hint.Empty" = "空的";
 "Relation.MyRelations" = "我的关联";
-"Relation.AddedToLibrary" = "名称为 ‘%@’ 关联已添加到您的库";
+"Relation.AddedToLibrary" = "关联“%@”已添加到您的文库";
 "Relation.Deleted" = "已删除的关联";
 "Relation.From.Type" = "来自 %@ 类型";
 
