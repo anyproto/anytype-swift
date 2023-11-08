@@ -25,6 +25,7 @@ struct SearchDataSection<SearchData: SearchDataProtocol>: Identifiable {
     let sectionName: String
 }
 
+@MainActor
 protocol SearchViewModelProtocol: ObservableObject {
     associatedtype SearchDataType: SearchDataProtocol
 

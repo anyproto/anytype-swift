@@ -3,6 +3,7 @@ import Services
 import Combine
 import AnytypeCore
 
+@MainActor
 protocol RecentSubscriptionServiceProtocol: AnyObject {
     func startSubscription(
         type: RecentWidgetType,
@@ -12,6 +13,7 @@ protocol RecentSubscriptionServiceProtocol: AnyObject {
     func stopSubscription() async
 }
 
+@MainActor
 final class RecentSubscriptionService: RecentSubscriptionServiceProtocol {
     
     private enum Constants {
@@ -23,7 +25,7 @@ final class RecentSubscriptionService: RecentSubscriptionServiceProtocol {
     private let activeWorkspaceStorage: ActiveWorkpaceStorageProtocol
     private let subscriptionId = "Recent-\(UUID().uuidString)"
     
-    init(
+    nonisolated init(
         subscriptionStorageProvider: SubscriptionStorageProviderProtocol,
         activeWorkspaceStorage: ActiveWorkpaceStorageProtocol,
         objectTypeProvider: ObjectTypeProviderProtocol
