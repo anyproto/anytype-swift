@@ -3,6 +3,7 @@ import Services
 import Combine
 import AnytypeCore
 
+@MainActor
 protocol CollectionsSubscriptionServiceProtocol: AnyObject {
     func startSubscription(
         objectLimit: Int?,
@@ -11,6 +12,7 @@ protocol CollectionsSubscriptionServiceProtocol: AnyObject {
     func stopSubscription() async
 }
 
+@MainActor
 final class CollectionsSubscriptionService: CollectionsSubscriptionServiceProtocol {
     
     private enum Constants {
@@ -22,7 +24,7 @@ final class CollectionsSubscriptionService: CollectionsSubscriptionServiceProtoc
     private let activeWorkspaceStorage: ActiveWorkpaceStorageProtocol
     private let subscriptionId = "Collections-\(UUID().uuidString)"
     
-    init(
+    nonisolated init(
         subscriptionStorageProvider: SubscriptionStorageProviderProtocol,
         activeWorkspaceStorage: ActiveWorkpaceStorageProtocol,
         objectTypeProvider: ObjectTypeProviderProtocol

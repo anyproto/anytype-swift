@@ -4,6 +4,7 @@ import AnytypeCore
 import Services
 
 // Storage for store active space id for each screen.
+@MainActor
 protocol ActiveWorkpaceStorageProtocol: AnyObject {
     var workspaceInfo: AccountInfo { get }
     var workspaceInfoPublisher: AnyPublisher<AccountInfo, Never> { get }
@@ -13,7 +14,8 @@ protocol ActiveWorkpaceStorageProtocol: AnyObject {
     func clearActiveSpace() async
 }
 
-actor ActiveWorkspaceStorage: ActiveWorkpaceStorageProtocol {
+@MainActor
+final class ActiveWorkspaceStorage: ActiveWorkpaceStorageProtocol {
     
     // MARK: - DI
     
@@ -25,20 +27,24 @@ actor ActiveWorkspaceStorage: ActiveWorkpaceStorageProtocol {
     private var workspaceSubscription: AnyCancellable?
     @UserDefault("activeSpaceId", defaultValue: "")
     private var activeSpaceId: String
-    nonisolated let workspaceInfoSubject: CurrentValueSubject<AccountInfo, Never>
+    let workspaceInfoSubject: CurrentValueSubject<AccountInfo, Never>
     
-    init(workspaceStorage: WorkspacesStorageProtocol, accountManager: AccountManagerProtocol, workspaceService: WorkspaceServiceProtocol) {
+    nonisolated init(
+        workspaceStorage: WorkspacesStorageProtocol,
+        accountManager: AccountManagerProtocol,
+        workspaceService: WorkspaceServiceProtocol
+    ) {
         self.workspaceStorage = workspaceStorage
         self.accountManager = accountManager
         self.workspaceService = workspaceService
         self.workspaceInfoSubject = CurrentValueSubject(accountManager.account.info)
     }
     
-    nonisolated var workspaceInfo: AccountInfo {
+    var workspaceInfo: AccountInfo {
         workspaceInfoSubject.value
     }
     
-    nonisolated var workspaceInfoPublisher: AnyPublisher<AccountInfo, Never> {
+    var workspaceInfoPublisher: AnyPublisher<AccountInfo, Never> {
         return workspaceInfoSubject.removeDuplicates().filter { $0 != .empty }.eraseToAnyPublisher()
     }
     
@@ -63,7 +69,7 @@ actor ActiveWorkspaceStorage: ActiveWorkpaceStorageProtocol {
         startSubscriotion()
     }
     
-    nonisolated func spaceView() -> SpaceView? {
+    func spaceView() -> SpaceView? {
         return workspaceStorage.spaceView(id: workspaceInfo.spaceViewId)
     }
     

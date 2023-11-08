@@ -3,6 +3,7 @@ import Services
 import AnytypeCore
 
 struct AccessoryViewBuilder {
+    @MainActor
     static func accessoryState(
         actionHandler: BlockActionHandlerProtocol,
         router: EditorRouterProtocol,

@@ -2,11 +2,12 @@ import Foundation
 import Services
 import SwiftUI
 
+@MainActor
 final class SearchModuleAssembly: SearchModuleAssemblyProtocol {
     
     private let serviceLocator: ServiceLocator
     
-    init(serviceLocator: ServiceLocator) {
+    nonisolated init(serviceLocator: ServiceLocator) {
         self.serviceLocator = serviceLocator
     }
     

@@ -14,6 +14,7 @@ struct SimpleTableDependenciesContainer {
     let cacheContainer: SimpleTableHeightCacheContainer
 }
 
+@MainActor
 final class SimpleTableDependenciesBuilder {
     let cursorManager: EditorCursorManager
     
