@@ -23,9 +23,10 @@ struct ObjectActionRow: View {
                             setting.title,
                             style: .caption2Regular,
                             color: .Text.secondary
-                        ).fixedSize()
-                            .lineLimit(1)
-                            .frame(maxWidth: .infinity)
+                        )
+                        .lineLimit(1)
+                        .frame(maxWidth: 72)
+                        .fixedSize()
                     }
             }
         }
