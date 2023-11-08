@@ -149,7 +149,7 @@ final class SetObjectWidgetInternalViewModel: CommonWidgetInternalViewModel, Wid
     }
     
     private func updateDataviewState() {
-        guard let setDocument, let activeViewId else {
+        guard let setDocument, let activeViewId, setDocument.dataView.views.count > 1 else {
             dataview = nil
             return
         }

@@ -3,6 +3,7 @@ import Services
 import Combine
 import AnytypeCore
 
+@MainActor
 protocol BinSubscriptionServiceProtocol: AnyObject {
     func startSubscription(
         objectLimit: Int?,
@@ -11,6 +12,7 @@ protocol BinSubscriptionServiceProtocol: AnyObject {
     func stopSubscription() async
 }
 
+@MainActor
 final class BinSubscriptionService: BinSubscriptionServiceProtocol {
     
     private enum Constants {
@@ -21,7 +23,7 @@ final class BinSubscriptionService: BinSubscriptionServiceProtocol {
     private let activeWorkspaceStorage: ActiveWorkpaceStorageProtocol
     private let subscriptionId = "Bin-\(UUID().uuidString)"
     
-    init(
+    nonisolated init(
         subscriptionStorageProvider: SubscriptionStorageProviderProtocol,
         activeWorkspaceStorage: ActiveWorkpaceStorageProtocol
     ) {

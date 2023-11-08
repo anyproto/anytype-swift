@@ -416,8 +416,7 @@
 
 // MARK: - Set.Bookmarks
 "Set.Bookmark.Create.Placeholder" = "Lim inn lenke";
-"Set.Bookmark.Error.Title" = "Oops, noe gikk galt";
-"Set.Bookmark.Error.Message" = "Vennligst prøv igjen";
+"Set.Bookmark.Error.Message" = "Oops - noe gikk galt. Vennligst prøv igjen";
 
 // MARK: - Sets: View Settings
 "Set.View.Settings.ImageFit.Title" = "Tilpass bilde";

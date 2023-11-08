@@ -88,7 +88,7 @@ extension DownloadableImageViewWrapper: DownloadableImageViewWrapperProtocol {
                 !error.isTaskCancelled,
                 !error.isImageSettingError,
                 error.errorCode != 500,
-                error.errorCode != 404
+                !error.isInvalidResponseStatusCode(404)
             else { return }
  
             anytypeAssertionFailure(error.localizedDescription)

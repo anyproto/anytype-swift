@@ -635,6 +635,7 @@
 		2AC906DC29B6276A00209E39 /* ListWidgetModuleAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AC906DB29B6276A00209E39 /* ListWidgetModuleAssembly.swift */; };
 		2AC906DF29B6289A00209E39 /* RecentListWidgetModuleAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AC906DD29B6289A00209E39 /* RecentListWidgetModuleAssembly.swift */; };
 		2AC906E029B6289A00209E39 /* FavoriteListWidgetModuleAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AC906DE29B6289A00209E39 /* FavoriteListWidgetModuleAssembly.swift */; };
+		2ACD26B72AFB9A1B00B19E50 /* DataviewView+View.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2ACD26B62AFB9A1B00B19E50 /* DataviewView+View.swift */; };
 		2ACD86F229C2181B0082E861 /* NewSearchErrorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2ACD86F129C2181B0082E861 /* NewSearchErrorView.swift */; };
 		2ACD86F429C309AA0082E861 /* WidgetTypeChangeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2ACD86F329C309AA0082E861 /* WidgetTypeChangeViewModel.swift */; };
 		2ACD86F629C316C90082E861 /* BlockWidgetInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2ACD86F529C316C90082E861 /* BlockWidgetInfo.swift */; };
@@ -1340,6 +1341,7 @@
 		53FF7CB826FCDB4B00A5A592 /* ObjectActionsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53FF7CB726FCDB4B00A5A592 /* ObjectActionsView.swift */; };
 		53FF7CBC26FDD36200A5A592 /* ObjectActionsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53FF7CBB26FDD36200A5A592 /* ObjectActionsViewModel.swift */; };
 		53FF7CBE26FDD37D00A5A592 /* ObjectAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53FF7CBD26FDD37D00A5A592 /* ObjectAction.swift */; };
+		860B8F8F2AF8D7EE00000811 /* EditorPageViewModel+ChangeType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 860B8F8E2AF8D7EE00000811 /* EditorPageViewModel+ChangeType.swift */; };
 		861E75F62A5C03E400F18552 /* EditableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 861E75F52A5C03E400F18552 /* EditableView.swift */; };
 		862065532AB1A991006E539B /* DocumentsProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 862065522AB1A991006E539B /* DocumentsProvider.swift */; };
 		862065552AB1E94D006E539B /* MockBaseDocument.swift in Sources */ = {isa = PBXBuildFile; fileRef = 862065542AB1E94D006E539B /* MockBaseDocument.swift */; };
@@ -2269,6 +2271,7 @@
 		2AC906DB29B6276A00209E39 /* ListWidgetModuleAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListWidgetModuleAssembly.swift; sourceTree = "<group>"; };
 		2AC906DD29B6289A00209E39 /* RecentListWidgetModuleAssembly.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RecentListWidgetModuleAssembly.swift; sourceTree = "<group>"; };
 		2AC906DE29B6289A00209E39 /* FavoriteListWidgetModuleAssembly.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FavoriteListWidgetModuleAssembly.swift; sourceTree = "<group>"; };
+		2ACD26B62AFB9A1B00B19E50 /* DataviewView+View.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DataviewView+View.swift"; sourceTree = "<group>"; };
 		2ACD86F129C2181B0082E861 /* NewSearchErrorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewSearchErrorView.swift; sourceTree = "<group>"; };
 		2ACD86F329C309AA0082E861 /* WidgetTypeChangeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WidgetTypeChangeViewModel.swift; sourceTree = "<group>"; };
 		2ACD86F529C316C90082E861 /* BlockWidgetInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlockWidgetInfo.swift; sourceTree = "<group>"; };
@@ -2971,6 +2974,7 @@
 		53FF7CB726FCDB4B00A5A592 /* ObjectActionsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObjectActionsView.swift; sourceTree = "<group>"; };
 		53FF7CBB26FDD36200A5A592 /* ObjectActionsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObjectActionsViewModel.swift; sourceTree = "<group>"; };
 		53FF7CBD26FDD37D00A5A592 /* ObjectAction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObjectAction.swift; sourceTree = "<group>"; };
+		860B8F8E2AF8D7EE00000811 /* EditorPageViewModel+ChangeType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "EditorPageViewModel+ChangeType.swift"; sourceTree = "<group>"; };
 		861E75F52A5C03E400F18552 /* EditableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditableView.swift; sourceTree = "<group>"; };
 		862065522AB1A991006E539B /* DocumentsProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DocumentsProvider.swift; sourceTree = "<group>"; };
 		862065542AB1E94D006E539B /* MockBaseDocument.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockBaseDocument.swift; sourceTree = "<group>"; };
@@ -3745,6 +3749,7 @@
 				C93793EF275614370016A26D /* EditorPageController+DragNDrop.swift */,
 				3D44984426D53D61005A3E06 /* EditorPageViewModelProtocol.swift */,
 				0A0965CB25BEF5B000C004BD /* EditorPageViewModel.swift */,
+				860B8F8E2AF8D7EE00000811 /* EditorPageViewModel+ChangeType.swift */,
 				8624C8602A6E577E0065CBC0 /* EditorPageViewModelConfiguration.swift */,
 				C9C0A99D274FB04E0002FA30 /* EditorPageBlocksStateManager.swift */,
 			);
@@ -7288,6 +7293,7 @@
 				2EC9425E2900351C00DE91E4 /* DataviewGroup+Filter.swift */,
 				2E8387C0291A897700506766 /* BlockDataview+Group.swift */,
 				2E0D0F702938CFE200674D3F /* DataviewGroupOrder+Update.swift */,
+				2ACD26B62AFB9A1B00B19E50 /* DataviewView+View.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -9950,6 +9956,7 @@
 				2AFFFB8A2926670E00A487E1 /* ObjectLayoutPickerModuleAssembly.swift in Sources */,
 				531629372632BD0B000D6780 /* StylePanelLayout.swift in Sources */,
 				2EAA14042AA63918000A712A /* SetViewSettingsRelation.swift in Sources */,
+				860B8F8F2AF8D7EE00000811 /* EditorPageViewModel+ChangeType.swift in Sources */,
 				C9A7528328E3297000235BDE /* SharedContants.swift in Sources */,
 				C9A7528328E3297000235BDE /* SharedContants.swift in Sources */,
 				12D15D2027F5F78500D22086 /* TagsOptionsSearchModuleBuilder.swift in Sources */,
@@ -10735,6 +10742,7 @@
 				2ECB343D2A98FFB500E0F9BB /* SetFiltersListModuleAssembly.swift in Sources */,
 				3D44984026D53A89005A3E06 /* ObjectHeader+Mutation.swift in Sources */,
 				125B6ECE26F235F400BCD7D6 /* DismissableInputAccessoryView.swift in Sources */,
+				2ACD26B72AFB9A1B00B19E50 /* DataviewView+View.swift in Sources */,
 				2E8E8D162A262D2E009BC3B0 /* CreatingSoulView.swift in Sources */,
 				3D24913427BD271900821595 /* LocalEvent.swift in Sources */,
 				127240D72846249600C6F8E2 /* NewSearchViewState.swift in Sources */,
@@ -11374,7 +11382,7 @@
 				CODE_SIGN_ENTITLEMENTS = Anytype/Anytype.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 2;
+				CURRENT_PROJECT_VERSION = 3;
 				DEVELOPMENT_ASSET_PATHS = "Anytype/Resources/Preview\\ Content";
 				DEVELOPMENT_TEAM = J3NXTX3T5S;
 				ENABLE_BITCODE = NO;
@@ -11418,7 +11426,7 @@
 				CODE_SIGN_ENTITLEMENTS = Anytype/Anytype.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Distribution";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 2;
+				CURRENT_PROJECT_VERSION = 3;
 				DEVELOPMENT_ASSET_PATHS = "Anytype/Resources/Preview\\ Content";
 				DEVELOPMENT_TEAM = J3NXTX3T5S;
 				ENABLE_BITCODE = NO;
@@ -11572,7 +11580,7 @@
 				CODE_SIGN_ENTITLEMENTS = Anytype/Anytype.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Distribution";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 2;
+				CURRENT_PROJECT_VERSION = 3;
 				DEVELOPMENT_ASSET_PATHS = "Anytype/Resources/Preview\\ Content";
 				DEVELOPMENT_TEAM = J3NXTX3T5S;
 				ENABLE_BITCODE = NO;
@@ -11638,7 +11646,7 @@
 				CODE_SIGN_ENTITLEMENTS = AnytypeShareExtension/AnytypeShareExtension.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 2;
+				CURRENT_PROJECT_VERSION = 3;
 				DEVELOPMENT_TEAM = "";
 				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = J3NXTX3T5S;
 				GENERATE_INFOPLIST_FILE = YES;
@@ -11670,7 +11678,7 @@
 				CODE_SIGN_ENTITLEMENTS = AnytypeShareExtension/AnytypeShareExtension.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Distribution";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 2;
+				CURRENT_PROJECT_VERSION = 3;
 				DEVELOPMENT_TEAM = "";
 				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = J3NXTX3T5S;
 				GENERATE_INFOPLIST_FILE = YES;
@@ -11703,7 +11711,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Distribution";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 2;
+				CURRENT_PROJECT_VERSION = 3;
 				DEVELOPMENT_TEAM = "";
 				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = J3NXTX3T5S;
 				GENERATE_INFOPLIST_FILE = YES;
@@ -11737,7 +11745,7 @@
 				CODE_SIGN_IDENTITY = "Apple Development";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 2;
+				CURRENT_PROJECT_VERSION = 3;
 				DEVELOPMENT_TEAM = "";
 				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = J3NXTX3T5S;
 				GENERATE_INFOPLIST_FILE = YES;
@@ -11771,7 +11779,7 @@
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
 				CODE_SIGN_IDENTITY = "iPhone Distribution";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 2;
+				CURRENT_PROJECT_VERSION = 3;
 				DEVELOPMENT_TEAM = "";
 				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = J3NXTX3T5S;
 				GENERATE_INFOPLIST_FILE = YES;
@@ -11805,7 +11813,7 @@
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
 				CODE_SIGN_IDENTITY = "iPhone Distribution";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 2;
+				CURRENT_PROJECT_VERSION = 3;
 				DEVELOPMENT_TEAM = "";
 				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = J3NXTX3T5S;
 				GENERATE_INFOPLIST_FILE = YES;

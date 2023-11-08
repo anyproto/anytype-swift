@@ -3,6 +3,7 @@ import FloatingPanel
 import Services
 import UIKit
 
+@MainActor
 final class BottomSheetsFactory {
     static func createStyleBottomSheet(
         parentViewController: UIViewController,

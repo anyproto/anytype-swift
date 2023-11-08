@@ -167,6 +167,7 @@ final class EditorRouter: NSObject, EditorRouterProtocol, ObjectSettingsCoordina
         }
     }
     
+    @MainActor
     func showStyleMenu(
         informations: [BlockInformation],
         restrictions: BlockRestrictions,
@@ -259,6 +260,7 @@ final class EditorRouter: NSObject, EditorRouterProtocol, ObjectSettingsCoordina
         navigationContext.present(moduleView)
     }
     
+    @MainActor
     func showSearch(onSelect: @escaping (EditorScreenData) -> ()) {
         let module = searchModuleAssembly.makeObjectSearch(
             data: SearchModuleModel(
@@ -397,6 +399,7 @@ final class EditorRouter: NSObject, EditorRouterProtocol, ObjectSettingsCoordina
         UISelectionFeedbackGenerator().selectionChanged()
     }
 
+    @MainActor
     func showMarkupBottomSheet(
         selectedBlockIds: [BlockId],
         viewDidClose: @escaping () -> Void

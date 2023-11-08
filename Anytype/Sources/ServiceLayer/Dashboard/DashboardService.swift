@@ -33,6 +33,7 @@ final class DashboardService: DashboardServiceProtocol {
             shouldSelectType: false,
             shouldSelectTemplate: true,
             spaceId: spaceId,
+            origin: .none,
             templateId: templateId
         )
         return details
