@@ -6,7 +6,7 @@ platform :ios do
   desc "Runs all the tests"
     scan(
       devices: ["iPhone 14"], 
-      scheme: "AnytypeTests",
+      scheme: "Anytype",
       slack_url: ENV['SLACK_URL_BUILD_TESTS'],
       skip_slack: options[:skip_notify] || false,
       slack_only_on_failure: true,
