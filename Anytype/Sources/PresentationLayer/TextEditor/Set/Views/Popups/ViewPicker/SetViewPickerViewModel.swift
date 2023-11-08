@@ -63,7 +63,7 @@ final class SetViewPickerViewModel: ObservableObject {
     
     private func updateRows(with dataView: BlockDataview) {
         rows = dataView.views.map { view in
-            let name = view.name.isNotEmpty ? view.name : Loc.SetViewTypesPicker.Settings.Textfield.Placeholder.untitled
+            let name = view.nameWithPlaceholder
             return SetViewRowConfiguration(
                 id: view.id,
                 name: name,
