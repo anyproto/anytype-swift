@@ -16,7 +16,6 @@ final class TemplatePickerViewModel: ObservableObject, OptionsItemProvider {
     @Published var items = [Item]()
     @Published var selectedTab = 0
     @Published var showBlankSettings = false
-    private var templatesDetails = [ObjectDetails]()
     private let document: BaseDocumentProtocol
     private let objectService: ObjectActionsServiceProtocol
     private let templatesSubscriptionService: TemplatesSubscriptionServiceProtocol
@@ -90,16 +89,14 @@ final class TemplatePickerViewModel: ObservableObject, OptionsItemProvider {
             await templatesSubscriptionService.startSubscription(
                 objectType: objectTypeId,
                 spaceId: document.spaceId
-            ) { [weak self] details in
-                guard let self else { return }
-                templatesDetails = details
-                updateItems()
+            ) { [weak self] templates in
+                self?.updateItems(with: templates)
             }
         }
     }
     
-    private func updateItems() {
-        output?.onTemplatesChanged(templatesDetails, completion: { [weak self] models in
+    private func updateItems(with templates: [ObjectDetails]) {
+        output?.onTemplatesChanged(templates, completion: { [weak self] models in
             guard let self else { return }
             var updatedItems = models.enumerated().map { info -> TemplatePickerViewModel.Item in
                 let model = info.element
