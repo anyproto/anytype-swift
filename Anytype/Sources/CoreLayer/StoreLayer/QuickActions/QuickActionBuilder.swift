@@ -2,17 +2,19 @@ import Foundation
 import UIKit
 import AnytypeCore
 
+@MainActor
 protocol QuickActionShortcutBuilderProtocol {
     func buildShortcutItem(action: QuickAction) -> UIApplicationShortcutItem?
     func buildAction(shortcutItem: UIApplicationShortcutItem) -> QuickAction?
 }
 
+@MainActor
 final class QuickActionShortcutBuilder: QuickActionShortcutBuilderProtocol {
     
     private let activeWorkspaceStorage: ActiveWorkpaceStorageProtocol
     private let objectTypeProvider: ObjectTypeProviderProtocol
     
-    init(
+    nonisolated init(
         activeWorkspaceStorage: ActiveWorkpaceStorageProtocol,
         objectTypeProvider: ObjectTypeProviderProtocol
     ) {

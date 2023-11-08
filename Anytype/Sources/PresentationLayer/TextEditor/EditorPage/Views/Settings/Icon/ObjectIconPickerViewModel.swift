@@ -48,7 +48,7 @@ final class ObjectIconPickerViewModel: ObservableObject, ObjectIconPickerViewMod
     
     private func makeIsRemoveEnabled() -> Bool {
         switch detailsLayout {
-        case .basic:
+        case .basic, .set, .collection:
             return true
         case .profile, .space, .spaceView:
             guard let details = document.details else { return false }

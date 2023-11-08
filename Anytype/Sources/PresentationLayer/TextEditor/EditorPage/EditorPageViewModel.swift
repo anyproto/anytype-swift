@@ -30,7 +30,7 @@ final class EditorPageViewModel: EditorPageViewModelProtocol {
     private let templatesSubscriptionService: TemplatesSubscriptionServiceProtocol
     private var availableTemplates = [ObjectDetails]()
     
-    private lazy var subscriptions = [AnyCancellable]()
+    lazy var subscriptions = [AnyCancellable]()
 
     private let blockActionsService: BlockActionsServiceSingleProtocol
 

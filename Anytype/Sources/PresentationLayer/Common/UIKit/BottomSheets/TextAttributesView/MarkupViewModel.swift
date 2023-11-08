@@ -3,6 +3,7 @@ import Services
 import Foundation
 import Combine
 
+@MainActor
 final class MarkupViewModel: MarkupViewModelProtocol {
     weak var view: MarkupViewProtocol?
 

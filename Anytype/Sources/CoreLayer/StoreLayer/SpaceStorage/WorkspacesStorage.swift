@@ -2,6 +2,7 @@ import Foundation
 import Combine
 import Services
 
+@MainActor
 protocol WorkspacesStorageProtocol: AnyObject {
     var workspaces: [SpaceView] { get }
     var workspsacesPublisher: AnyPublisher<[SpaceView], Never> { get }
@@ -10,6 +11,7 @@ protocol WorkspacesStorageProtocol: AnyObject {
     func spaceView(id: String) -> SpaceView?
 }
 
+@MainActor
 final class WorkspacesStorage: WorkspacesStorageProtocol {
     
     // MARK: - DI
@@ -22,7 +24,10 @@ final class WorkspacesStorage: WorkspacesStorageProtocol {
     @Published private(set) var workspaces: [SpaceView] = []
     var workspsacesPublisher: AnyPublisher<[SpaceView], Never> { $workspaces.eraseToAnyPublisher() }
     
-    init(subscriptionStorageProvider: SubscriptionStorageProviderProtocol, subscriptionBuilder: WorkspacesSubscriptionBuilderProtocol) {
+    nonisolated init(
+        subscriptionStorageProvider: SubscriptionStorageProviderProtocol,
+        subscriptionBuilder: WorkspacesSubscriptionBuilderProtocol
+    ) {
         self.subscriptionStorage = subscriptionStorageProvider.createSubscriptionStorage(subId: subscriptionBuilder.subscriptionId)
         self.subscriptionBuilder = subscriptionBuilder
     }

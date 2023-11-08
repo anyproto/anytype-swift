@@ -2,6 +2,7 @@ import Foundation
 import SwiftUI
 import Combine
 
+@MainActor
 final class SpaceSearchViewModel: SearchViewModelProtocol {
     @Published var searchData = [SearchDataSection<SpaceView>]()
     var onSelect: (SpaceView) -> ()

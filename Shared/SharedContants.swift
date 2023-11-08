@@ -9,6 +9,7 @@ enum URLConstants {
     
     static let createObjectURL = URL(string: urlScheme + "create-object")
     static let sharingExtenstionURL = URL(string: urlScheme + "sharing-extension")
+    static let spaceSelectionURL = URL(string: urlScheme + "space-selection")
 }
 
 enum TargetsConstants {

@@ -16,7 +16,9 @@ final class AnytypeImageDownloader {
             case .success(let imageResult):
                 completionHandler(imageResult.image, imageResult.data())
             case .failure(let error):
-                anytypeAssertionFailure(error.localizedDescription)
+                if !error.isInvalidResponseStatusCode(404) {
+                    anytypeAssertionFailure(error.localizedDescription)
+                }
                 completionHandler(nil, nil)
             }
         }

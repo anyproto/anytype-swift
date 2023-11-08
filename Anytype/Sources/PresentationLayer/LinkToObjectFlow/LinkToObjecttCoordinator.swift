@@ -3,6 +3,7 @@ import UIKit
 import Services
 import AnytypeCore
 
+@MainActor
 protocol LinkToObjectCoordinatorProtocol: AnyObject {
     func startFlow(
         spaceId: String,
@@ -14,6 +15,7 @@ protocol LinkToObjectCoordinatorProtocol: AnyObject {
     )
 }
 
+@MainActor
 final class LinkToObjectCoordinator: LinkToObjectCoordinatorProtocol {
     
     private let navigationContext: NavigationContextProtocol
@@ -22,7 +24,7 @@ final class LinkToObjectCoordinator: LinkToObjectCoordinatorProtocol {
     private let editorPageCoordinator: EditorPageCoordinatorProtocol
     private let searchService: SearchServiceProtocol
     
-    init(
+    nonisolated init(
         navigationContext: NavigationContextProtocol,
         pageService: PageRepositoryProtocol,
         urlOpener: URLOpenerProtocol,
