@@ -416,8 +416,7 @@
 
 // MARK: - Set.Bookmarks
 "Set.Bookmark.Create.Placeholder" = "Pegar enlace";
-"Set.Bookmark.Error.Title" = "Vaya, algo ha salido mal.";
-"Set.Bookmark.Error.Message" = "Por favor, inténtelo de nuevo";
+"Set.Bookmark.Error.Message" = "Oops, algo anduvo mal. Por favor inténtelo de nuevo.";
 
 // MARK: - Sets: View Settings
 "Set.View.Settings.ImageFit.Title" = "Ajustar imagen";
