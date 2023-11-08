@@ -7,20 +7,20 @@ protocol SetObjectCreationCoordinatorProtocol {
 final class SetObjectCreationCoordinator: SetObjectCreationCoordinatorProtocol {
     
     private let navigationContext: NavigationContextProtocol
-    private let editorPageCoordinator: EditorPageCoordinatorProtocol
+//    private let editorPageCoordinator: EditorPageCoordinatorProtocol
     private let toastPresenter: ToastPresenterProtocol
     private let objectCreationHelper: SetObjectCreationHelperProtocol
     private let createObjectModuleAssembly: CreateObjectModuleAssemblyProtocol
     
     init(
         navigationContext: NavigationContextProtocol,
-        editorPageCoordinator: EditorPageCoordinatorProtocol,
+//        editorPageCoordinator: EditorPageCoordinatorProtocol,
         toastPresenter: ToastPresenterProtocol,
         objectCreationHelper: SetObjectCreationHelperProtocol,
         createObjectModuleAssembly: CreateObjectModuleAssemblyProtocol
     ) {
         self.navigationContext = navigationContext
-        self.editorPageCoordinator = editorPageCoordinator
+//        self.editorPageCoordinator = editorPageCoordinator
         self.toastPresenter = toastPresenter
         self.objectCreationHelper = objectCreationHelper
         self.createObjectModuleAssembly = createObjectModuleAssembly
@@ -71,7 +71,7 @@ final class SetObjectCreationCoordinator: SetObjectCreationCoordinatorProtocol {
     }
     
     private func showPage(data: EditorScreenData) {
-        editorPageCoordinator.startFlow(data: data, replaceCurrentPage: false)
+//        editorPageCoordinator.startFlow(data: data, replaceCurrentPage: false)
     }
 }
 

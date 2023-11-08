@@ -5,8 +5,8 @@ import SwiftUI
 protocol SetObjectCreationCoordinatorAssemblyProtocol {
     func make(
         objectId: String,
-        blockId: String?,
-        browser: EditorBrowserController?
+        blockId: String?//,
+//        browser: EditorBrowserController?
     ) -> SetObjectCreationCoordinatorProtocol
 }
 
@@ -33,13 +33,13 @@ final class SetObjectCreationCoordinatorAssembly: SetObjectCreationCoordinatorAs
     
     func make(
         objectId: String,
-        blockId: String?,
-        browser: EditorBrowserController?
+        blockId: String?//,
+//        browser: EditorBrowserController?
     ) -> SetObjectCreationCoordinatorProtocol {
         SetObjectCreationCoordinator(
             navigationContext: uiHelpersDI.commonNavigationContext(),
-            editorPageCoordinator: coordinatorsDI.editorPage().make(browserController: browser),
-            toastPresenter: uiHelpersDI.toastPresenter(using: browser),
+//            editorPageCoordinator: coordinatorsDI.editorPage().make(browserController: browser),
+            toastPresenter: uiHelpersDI.toastPresenter(),
             objectCreationHelper: serviceLocator.setObjectCreationHelper(objectId: objectId, blockId: blockId),
             createObjectModuleAssembly: modulesDI.createObject()
         )
@@ -47,7 +47,7 @@ final class SetObjectCreationCoordinatorAssembly: SetObjectCreationCoordinatorAs
 }
 
 extension SetObjectCreationCoordinatorAssemblyProtocol {
-    func make(objectId: String, browser: EditorBrowserController?) -> SetObjectCreationCoordinatorProtocol {
-        make(objectId: objectId, blockId: nil, browser: browser)
+    func make(objectId: String/*, browser: EditorBrowserController?*/) -> SetObjectCreationCoordinatorProtocol {
+        make(objectId: objectId, blockId: nil)//, browser: browser)
     }
 }

@@ -102,34 +102,34 @@ final class SetObjectCreationSettingsCoordinator: SetObjectCreationSettingsCoord
         onSetAsDefaultTempalte: @escaping (BlockId) -> Void,
         completion: (() -> Void)?
     ) {
-        let editorPage = editorAssembly.buildPageModule(browser: nil, data: .init(
-            objectId: setting.templateId,
-            spaceId: setting.spaceId,
-            isSupportedForEdit: true,
-            isOpenedForPreview: false,
-            usecase: .templateEditing
-        ))
-       
-        let viewModel = editorPage.0.viewModel
-        handler = TemplateSelectionObjectSettingsHandler(useAsTemplateAction: onSetAsDefaultTempalte)
-        let editingTemplateViewController = TemplateEditingViewController(
-            editorViewController: editorPage.0,
-            onSettingsTap: { [weak self, weak viewModel] in
-                guard let self = self, let handler = self.handler else { return }
-                
-                self.objectSettingCoordinator.startFlow(
-                    objectId: setting.templateId,
-                    delegate: handler,
-                    output: nil,
-                    objectSettingsHandler: {
-                        viewModel?.handleSettingsAction(action: $0)
-                    }
-                )
-            },
-            onSelectTemplateTap: onTemplateSelection
-        )
-
-        navigationContext.present(editingTemplateViewController, completion: completion)
+//        let editorPage = editorAssembly.buildPageModule(browser: nil, data: .init(
+//            objectId: setting.templateId,
+//            spaceId: setting.spaceId,
+//            isSupportedForEdit: true,
+//            isOpenedForPreview: false,
+//            usecase: .templateEditing
+//        ))
+//       
+//        let viewModel = editorPage.0.viewModel
+//        handler = TemplateSelectionObjectSettingsHandler(useAsTemplateAction: onSetAsDefaultTempalte)
+//        let editingTemplateViewController = TemplateEditingViewController(
+//            editorViewController: editorPage.0,
+//            onSettingsTap: { [weak self, weak viewModel] in
+//                guard let self = self, let handler = self.handler else { return }
+//                
+//                self.objectSettingCoordinator.startFlow(
+//                    objectId: setting.templateId,
+//                    delegate: handler,
+//                    output: nil,
+//                    objectSettingsHandler: {
+//                        viewModel?.handleSettingsAction(action: $0)
+//                    }
+//                )
+//            },
+//            onSelectTemplateTap: onTemplateSelection
+//        )
+//
+//        navigationContext.present(editingTemplateViewController, completion: completion)
     }
     
     private func showTypesSearch(

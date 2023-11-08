@@ -50,7 +50,6 @@ final class EditorSetModuleAssembly: EditorSetModuleAssemblyProtocol {
             document: setDocument,
             configuration: .init(
                 isOpenedForPreview: false,
-                shouldShowTemplateSelection: false,
                 usecase: .editor
             ),
             interactor: serviceLocator.objectHeaderInteractor(objectId: setDocument.inlineParameters?.targetObjectID ?? setDocument.objectId)
@@ -71,13 +70,19 @@ final class EditorSetModuleAssembly: EditorSetModuleAssemblyProtocol {
             output: output
         )
 
+        let setObjectCreationCoordinator = coordinatorsDI.setObjectCreation().make(
+            objectId: data.objectId,
+            blockId: data.inline?.blockId
+        )
+        
         let router = EditorSetRouter(
             setDocument: setDocument,
             navigationContext: uiHelpersDI.commonNavigationContext(),
             createObjectModuleAssembly: modulesDI.createObject(),
             newSearchModuleAssembly: modulesDI.newSearch(),
             objectSettingCoordinator: coordinatorsDI.objectSettings().make(),
-            relationValueCoordinator: coordinatorsDI.relationValue().make(),
+            relationValueCoordinator: coordinatorsDI.relationValue().make(), 
+            setObjectCreationCoordinator: setObjectCreationCoordinator,
             objectCoverPickerModuleAssembly: modulesDI.objectCoverPicker(),
             objectIconPickerModuleAssembly: modulesDI.objectIconPicker(),
             setViewSettingsCoordinatorAssembly: coordinatorsDI.setViewSettings(),

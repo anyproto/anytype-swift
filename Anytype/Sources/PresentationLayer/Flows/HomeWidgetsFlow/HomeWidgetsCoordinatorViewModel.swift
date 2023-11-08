@@ -108,7 +108,7 @@ final class HomeWidgetsCoordinatorViewModel: ObservableObject,
             .receiveOnMain()
             .sink { [weak self] info in
                 if self?.info != nil, self?.info != info {
-                    self?.editorBrowserCoordinator.dismissAllPages()
+//                    self?.editorBrowserCoordinator.dismissAllPagesg()
                 }
                 self?.info = info
             }
@@ -127,11 +127,11 @@ final class HomeWidgetsCoordinatorViewModel: ObservableObject,
         // Transaction with disablesAnimations doesnt work
         // From ios 16, delete restoreLastOpenPage and use init for restore state. Read restoreLastOpenPage comment.
         // setAnimationsEnabled will be not needed
-        UINavigationBar.setAnimationsEnabled(false)
-        editorPath.restoreLastOpenPage()
-        DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
-            UINavigationBar.setAnimationsEnabled(true)
-        }
+//        UINavigationBar.setAnimationsEnabled(false)
+//        editorPath.restoreLastOpenPage()
+//        DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+//            UINavigationBar.setAnimationsEnabled(true)
+//        }
     }
     
     func homeWidgetsModule() -> AnyView? {
@@ -317,7 +317,7 @@ final class HomeWidgetsCoordinatorViewModel: ObservableObject,
             showSharing = true
         case .spaceSelection:
             navigationContext.dismissAllPresented(animated: true, completion: { [weak self] in
-                self?.editorBrowserCoordinator.dismissAllPages()
+//                self?.editorBrowserCoordinator.dismissAllPages()
                 self?.showSpaceSwitch = true
             })
         }
