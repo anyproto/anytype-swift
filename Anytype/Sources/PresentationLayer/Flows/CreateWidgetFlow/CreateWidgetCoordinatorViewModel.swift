@@ -53,8 +53,17 @@ final class CreateWidgetCoordinatorViewModel: ObservableObject {
             position: data.position,
             context: data.context,
             onFinish: { [weak self] in
+                self?.dismissForLegacyOS()
                 self?.dismiss.toggle()
             }
         )
+    }
+    
+    @available(iOS, deprecated: 16.4)
+    private func dismissForLegacyOS() {
+        if #available(iOS 16.4, *) {
+        } else {
+            showWidgetTypeData = nil
+        }
     }
 }
