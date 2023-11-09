@@ -1,6 +1,7 @@
 import Foundation
 import SwiftUI
 
+// TODO: Delete it
 struct HomeBottomPanelView: View {
     
     @StateObject var model: HomeBottomPanelViewModel
