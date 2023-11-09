@@ -149,7 +149,7 @@ final class SetObjectCreationSettingsInteractor: SetObjectCreationSettingsIntera
             guard let recommendedLayout = $0.recommendedLayout else { return false }
             return !$0.isArchived &&
             DetailsLayout.visibleLayouts.contains(recommendedLayout) &&
-            $0.uniqueKey != ObjectTypeUniqueKey.template
+            !$0.isTemplateType
         }
         self.objectTypes = objectTypes.reordered(
             by: [
