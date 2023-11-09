@@ -79,7 +79,7 @@ final class SetObjectCreationSettingsViewModel: ObservableObject {
     }
     
     func onTemplateSelect(objectTypeId: BlockId, templateId: BlockId) {
-        setTemplateAsDefault(templateId: templateId, showMessage: false)
+        setTemplateAsDefault(templateId: templateId)
         onTemplateSelection(
             ObjectCreationSetting(
                 objectTypeId: objectTypeId,
@@ -116,13 +116,10 @@ final class SetObjectCreationSettingsViewModel: ObservableObject {
         setObjectTypeAsDefault(objectType: objectType)
     }
     
-    func setTemplateAsDefault(templateId: BlockId, showMessage: Bool) {
+    func setTemplateAsDefault(templateId: BlockId) {
         Task {
             do {
                 try await interactor.setDefaultTemplate(templateId: templateId)
-                if showMessage {
-                    toastPresenter.show(message: Loc.Templates.Popup.default)
-                }
             }
         }
     }
