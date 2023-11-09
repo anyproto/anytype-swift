@@ -122,7 +122,11 @@ final class SetObjectCreationSettingsInteractor: SetObjectCreationSettingsIntera
             if defaultTemplateId != dataView.defaultTemplateID {
                 defaultTemplateId = dataView.defaultTemplateID ?? .empty
             }
-            updateDefaultObjectTypeIdIfNeeded()
+            
+            let defaultObjectTypeId = try? setDocument.defaultObjectTypeForView(dataView).id
+            if !setDocument.isTypeSet(), let defaultObjectTypeId, objectTypeId != defaultObjectTypeId {
+                updateState(with: defaultObjectTypeId)
+            }
         }.store(in: &cancellables)
         
         setDocument.detailsPublisher.sink { [weak self] details in
@@ -136,16 +140,8 @@ final class SetObjectCreationSettingsInteractor: SetObjectCreationSettingsIntera
     
         objectTypesProvider.syncPublisher.sink { [weak self] in
             self?.updateObjectTypes()
-            self?.updateDefaultObjectTypeIdIfNeeded()
             self?.updateTypeDefaultTemplateId()
         }.store(in: &cancellables)
-    }
-    
-    private func updateDefaultObjectTypeIdIfNeeded() {
-        let defaultObjectTypeId = try? setDocument.defaultObjectTypeForView(dataView).id
-        if !setDocument.isTypeSet(), let defaultObjectTypeId, objectTypeId != defaultObjectTypeId {
-            updateState(with: defaultObjectTypeId)
-        }
     }
     
     private func updateObjectTypes() {
