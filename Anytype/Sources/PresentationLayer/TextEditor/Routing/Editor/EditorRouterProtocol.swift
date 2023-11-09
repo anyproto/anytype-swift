@@ -79,7 +79,7 @@ protocol EditorRouterProtocol:
     func showFailureToast(message: String)
     
     @MainActor
-    func showTemplatesPicker(availableTemplates: [ObjectDetails])
+    func showTemplatesPicker()
     
     @MainActor
     func showOpenDocumentError(error: Error)

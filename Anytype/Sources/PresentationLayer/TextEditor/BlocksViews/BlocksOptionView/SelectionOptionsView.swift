@@ -16,7 +16,9 @@ struct SelectionOptionsView: View {
                             title: item.title
                         )
                     }
-                    .frame(width: 68, height: 100)
+                    .frame(height: 100)
+                    .frame(minWidth: 68, maxWidth: 72)
+                    .fixedSize()
                 }
             }
             .padding(.horizontal, 8)
