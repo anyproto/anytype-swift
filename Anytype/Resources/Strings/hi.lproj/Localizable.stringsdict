@@ -5,7 +5,7 @@
     <key>Are you sure you want to delete</key>
     <dict>
       <key>NSStringLocalizedFormatKey</key>
-      <string>Are you sure you want to delete %#@object@?</string>
+      <string>क्या आप वाकई हटाना चाहते हैं  %#@object@?</string>
       <key>object</key>
       <dict>
         <key>NSStringFormatSpecTypeKey</key>
@@ -13,7 +13,8 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>d</string>
         <key>one</key>
-        <string>%d object</string>
+        <string>%d वस्तु
+</string>
         <key>other</key>
         <string>%d objects</string>
       </dict>
@@ -21,7 +22,7 @@
     <key>Object selected</key>
     <dict>
       <key>NSStringLocalizedFormatKey</key>
-      <string>%#@object@ selected</string>
+      <string>%#@object@ चयनित</string>
       <key>object</key>
       <dict>
         <key>NSStringFormatSpecTypeKey</key>
@@ -29,7 +30,8 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>d</string>
         <key>one</key>
-        <string>%d object</string>
+        <string>%d वस्तु
+</string>
         <key>other</key>
         <string>%d objects</string>
       </dict>
@@ -45,7 +47,7 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>d</string>
         <key>one</key>
-        <string>%d selected block</string>
+        <string>%d चयनित ब्लॉक</string>
         <key>other</key>
         <string>%d selected blocks</string>
       </dict>
@@ -53,7 +55,7 @@
     <key>Days to deletion account</key>
     <dict>
       <key>NSStringLocalizedFormatKey</key>
-      <string>This account will be deleted %#@days@</string>
+      <string>यह खाता %#@days@  दिनों में हटा दिया जाएगा </string>
       <key>days</key>
       <dict>
         <key>NSStringFormatSpecTypeKey</key>
@@ -61,7 +63,7 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>d</string>
         <key>one</key>
-        <string>tomorrow</string>
+        <string>कल</string>
         <key>other</key>
         <string>in %d days</string>
       </dict>
@@ -77,7 +79,7 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>d</string>
         <key>one</key>
-        <string>One object deleted</string>
+        <string>एक ऑब्जेक्ट हटा दिया गया</string>
         <key>other</key>
         <string>%d objects deleted</string>
       </dict>
