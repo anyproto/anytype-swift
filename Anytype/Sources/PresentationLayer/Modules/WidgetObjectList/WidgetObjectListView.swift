@@ -9,13 +9,6 @@ struct WidgetObjectListView: View {
     
     @StateObject var model: WidgetObjectListViewModel
     @State private var searchText: String = ""
-    // TODO: Navigation: Delete edit mode configurataion
-    @State private var editMode: EditMode = .active
-    
-//    init(model: WidgetObjectListViewModel) {
-//        self.model = model
-//        self._editMode = State(initialValue: (model.editModel == .editOnly) ? .active : .inactive)
-//    }
     
     var body: some View {
         ZStack(alignment: .bottom) {
@@ -42,10 +35,10 @@ struct WidgetObjectListView: View {
             model.onDisappear()
         }
         .onChange(of: searchText) { model.didAskToSearch(text: $0) }
-        .onChange(of: editMode) { _ in model.onSwitchEditMode() }
+        .onChange(of: model.viewEditMode) { _ in model.onSwitchEditMode() }
         .navigationBarTitle("")
         .navigationBarHidden(true)
-        .environment(\.editMode, $editMode)
+        .environment(\.editMode, $model.viewEditMode)
         .homeBottomPanelHidden(model.homeBottomPanelHiddel)
     }
     

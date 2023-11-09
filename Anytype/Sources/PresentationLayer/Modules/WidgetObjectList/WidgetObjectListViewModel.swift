@@ -3,6 +3,7 @@ import Combine
 import Services
 import UIKit
 import AnytypeCore
+import SwiftUI
 
 enum WidgetObjectListData {
     case list([ListSectionData<String?, WidgetObjectListRowModel>])
@@ -31,6 +32,7 @@ final class WidgetObjectListViewModel: ObservableObject, OptionsItemProvider, Wi
     @Published private(set) var homeBottomPanelHiddel: Bool = false
     var contentIsNotEmpty: Bool { rowDetails.contains { $0.details.isNotEmpty } }
     var isSheet: Bool
+    @Published var viewEditMode: EditMode
     
     private var rowDetails: [WidgetObjectListDetailsData] = []
     private var searchText: String?
@@ -58,6 +60,7 @@ final class WidgetObjectListViewModel: ObservableObject, OptionsItemProvider, Wi
         self.alertOpener = alertOpener
         self.output = output
         self.isSheet = isSheet
+        self.viewEditMode = (internalModel.editMode == .editOnly) ? .active : .inactive
         internalModel.rowDetailsPublisher
             .receiveOnMain()
             .sink { [weak self] data in
