@@ -123,7 +123,7 @@ final class SetObjectCreationSettingsCoordinator: SetObjectCreationSettingsCoord
                 self.objectSettingCoordinator.startFlow(
                     objectId: setting.templateId,
                     delegate: handler,
-                    output: nil,
+                    output: self,
                     objectSettingsHandler: {
                         viewModel?.handleSettingsAction(action: $0)
                     }
@@ -151,6 +151,12 @@ final class SetObjectCreationSettingsCoordinator: SetObjectCreationSettingsCoord
         }
 
         navigationContext.presentSwiftUIView(view: view)
+    }
+}
+
+extension SetObjectCreationSettingsCoordinator: ObjectSettingsCoordinatorOutput {
+    func closeEditor() {
+        navigationContext.dismissTopPresented(animated: true, completion: nil)
     }
 }
 
