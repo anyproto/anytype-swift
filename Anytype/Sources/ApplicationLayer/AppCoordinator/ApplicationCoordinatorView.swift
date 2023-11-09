@@ -17,17 +17,11 @@ struct ApplicationCoordinatorView: View {
         .snackbar(toastBarData: $model.toastBarData)
     }
     
-    // TODO: Navigation: Fix states
-    
     @ViewBuilder
     var applicationView: some View {
         switch model.applicationState {
         case .initial:
             model.initialView()
-//            Color.white
-//                .onAppear {
-//                    print("123123123")
-//                }
         case .auth:
             model.authView()
                 .preferredColorScheme(.dark)
@@ -36,7 +30,7 @@ struct ApplicationCoordinatorView: View {
         case .home:
             model.homeView()
         case .delete:
-            EmptyView()
+            model.deleteAccount()
         }
     }
 }

@@ -108,7 +108,7 @@ final class HomeWidgetsCoordinatorViewModel: ObservableObject,
             .receiveOnMain()
             .sink { [weak self] info in
                 if self?.info != nil, self?.info != info {
-//                    self?.editorBrowserCoordinator.dismissAllPagesg()
+                    self?.editorPath.popToRoot()
                 }
                 self?.info = info
             }
@@ -317,7 +317,7 @@ final class HomeWidgetsCoordinatorViewModel: ObservableObject,
             showSharing = true
         case .spaceSelection:
             navigationContext.dismissAllPresented(animated: true, completion: { [weak self] in
-//                self?.editorBrowserCoordinator.dismissAllPages()
+                self?.editorPath.popToRoot()
                 self?.showSpaceSwitch = true
             })
         }

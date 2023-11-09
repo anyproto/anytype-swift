@@ -503,6 +503,8 @@
 		2A733A8D294082C200B7D27C /* RelationsSearchInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A733A8C294082C200B7D27C /* RelationsSearchInteractor.swift */; };
 		2A7466AA2A9DFDF400D73F63 /* ObjectSettingsCoordinatorOutput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A7466A92A9DFDF400D73F63 /* ObjectSettingsCoordinatorOutput.swift */; };
 		2A771F302AD6F0D8000ED2D4 /* SubscriptionUpdate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A771F2F2AD6F0D8000ED2D4 /* SubscriptionUpdate.swift */; };
+		2A785B452AFCDDB30020297E /* EditorCoordinatorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A785B442AFCDDB30020297E /* EditorCoordinatorView.swift */; };
+		2A785B472AFCDDED0020297E /* EditorCoordinatorViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A785B462AFCDDED0020297E /* EditorCoordinatorViewModel.swift */; };
 		2A794B422AD53D3A00BA160F /* SubscriptionStorageProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A794B412AD53D3A00BA160F /* SubscriptionStorageProvider.swift */; };
 		2A794B442AD53D4400BA160F /* SubscriptionStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A794B432AD53D4400BA160F /* SubscriptionStorage.swift */; };
 		2A7BD6E628D85993008B735C /* RelationSubscriptionDataBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A7BD6E528D85993008B735C /* RelationSubscriptionDataBuilder.swift */; };
@@ -2146,6 +2148,8 @@
 		2A733A8C294082C200B7D27C /* RelationsSearchInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RelationsSearchInteractor.swift; sourceTree = "<group>"; };
 		2A7466A92A9DFDF400D73F63 /* ObjectSettingsCoordinatorOutput.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObjectSettingsCoordinatorOutput.swift; sourceTree = "<group>"; };
 		2A771F2F2AD6F0D8000ED2D4 /* SubscriptionUpdate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubscriptionUpdate.swift; sourceTree = "<group>"; };
+		2A785B442AFCDDB30020297E /* EditorCoordinatorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditorCoordinatorView.swift; sourceTree = "<group>"; };
+		2A785B462AFCDDED0020297E /* EditorCoordinatorViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditorCoordinatorViewModel.swift; sourceTree = "<group>"; };
 		2A794B412AD53D3A00BA160F /* SubscriptionStorageProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubscriptionStorageProvider.swift; sourceTree = "<group>"; };
 		2A794B432AD53D4400BA160F /* SubscriptionStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubscriptionStorage.swift; sourceTree = "<group>"; };
 		2A7BD6E528D85993008B735C /* RelationSubscriptionDataBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RelationSubscriptionDataBuilder.swift; sourceTree = "<group>"; };
@@ -5614,6 +5618,8 @@
 			isa = PBXGroup;
 			children = (
 				2A80D0492ABADD4600DB0513 /* EditorCoordinatorAssembly.swift */,
+				2A785B442AFCDDB30020297E /* EditorCoordinatorView.swift */,
+				2A785B462AFCDDED0020297E /* EditorCoordinatorViewModel.swift */,
 			);
 			path = EditorFlow;
 			sourceTree = "<group>";
@@ -10259,6 +10265,7 @@
 				530A542A269FB8FF009016AE /* AnalyticsConstants.swift in Sources */,
 				3D513F0F27956E2B007850D5 /* SetViewPicker.swift in Sources */,
 				12A7B6C426C3E47200544037 /* CoverGradient.swift in Sources */,
+				2A785B472AFCDDED0020297E /* EditorCoordinatorViewModel.swift in Sources */,
 				3DBE2404262F04AA0065E9B6 /* Binding+OnChange.swift in Sources */,
 				2A39DC4D29FBC6DF003C43A9 /* FileStorageInfoBlock.swift in Sources */,
 				2A6C75C629FC16D2002BD440 /* FileStorageModuleOutput.swift in Sources */,
@@ -10329,6 +10336,7 @@
 				2E2A22F92A9E448B00745D78 /* SetLayoutSettingsViewModel.swift in Sources */,
 				2A1F4CBB29B88DBE004516F6 /* SentryNonFatalLogger.swift in Sources */,
 				2E0797B82A0964BC006F0FD7 /* JoinFlowModuleAssembly.swift in Sources */,
+				2A785B452AFCDDB30020297E /* EditorCoordinatorView.swift in Sources */,
 				12C2A5982757A6D600311854 /* StatusRelationDetailsView.swift in Sources */,
 				125683F627E09380003A8251 /* SelectionIndicatorViewModelBuilder.swift in Sources */,
 				12C2A5652754E13D00311854 /* DateRelationDetailsViewModel.swift in Sources */,

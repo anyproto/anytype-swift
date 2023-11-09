@@ -1,7 +1,6 @@
 import SwiftUI
 import Services
 import AnytypeCore
-import Combine
 
 final class LinkToObjectSearchViewModel: SearchViewModelProtocol {
     enum SearchKind {
@@ -27,7 +26,7 @@ final class LinkToObjectSearchViewModel: SearchViewModelProtocol {
     @Published var searchData: [SearchDataSection<SearchDataType>] = []
     
     var onSelect: (SearchDataType) -> ()
-    var searchTask: AnyCancellable?
+    var searchTask: Task<(), Never>?
 
     var placeholder: String { Loc.Editor.LinkToObject.searchPlaceholder }
 
@@ -49,16 +48,9 @@ final class LinkToObjectSearchViewModel: SearchViewModelProtocol {
         searchTask?.cancel()
         searchData.removeAll()
         
-        if let currentLink = currentLink, text.isEmpty {
-            searchTask = Task { @MainActor in
-                let result = try await buildExistingLinkSections(currentLink: currentLink)
-                searchData = result
-            }.cancellable()
-        } else {
-            searchTask = Task { @MainActor [weak self, spaceId] in
-                guard let result = try await self?.searchService.search(text: text, spaceId: spaceId) else { return }
-                self?.handleSearch(result: result, text: text)
-            }.cancellable()
+        searchTask = Task { @MainActor [weak self, spaceId] in
+            guard let result = try? await self?.searchService.search(text: text, spaceId: spaceId) else { return }
+            self?.handleSearch(result: result, text: text)
         }
     }
     
