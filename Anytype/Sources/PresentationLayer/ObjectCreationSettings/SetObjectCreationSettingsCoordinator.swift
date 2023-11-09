@@ -77,8 +77,9 @@ final class SetObjectCreationSettingsCoordinator: SetObjectCreationSettingsCoord
                     }
                 },
                 onSetAsDefaultTempalte: { templateId in
-                    model?.setTemplateAsDefault(templateId: templateId, showMessage: true)
-                    navigationContext?.dismissTopPresented(animated: true, completion: nil)
+                    navigationContext?.dismissTopPresented(animated: true, completion: {
+                        model?.setTemplateAsDefaultForType(templateId: templateId)
+                    })
                 },
                 completion: nil
             )
