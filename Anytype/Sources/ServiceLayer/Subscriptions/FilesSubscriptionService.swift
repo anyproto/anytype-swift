@@ -47,8 +47,8 @@ final class FilesSubscriptionService: FilesSubscriptionServiceProtocol {
         
         let filters = [
             SearchHelper.notHiddenFilter(),
+            SearchHelper.isDeletedFilter(isDeleted: false),
             SearchHelper.spaceId(activeWorkspaceStorage.workspaceInfo.accountSpaceId),
-            SearchHelper.layoutFilter([DetailsLayout.file, DetailsLayout.image]),
             SearchHelper.fileSyncStatus(syncStatus)
         ]
         
