@@ -3,9 +3,22 @@ import AnytypeCore
 import SwiftUI
 import NavigationBackport
 
+final class NavigationExecutionChecker {
+    private var oldExecutionDate = Date(timeIntervalSince1970: 0)
+    
+    func execute() -> Bool {
+        let canExecute = Date().timeIntervalSince(oldExecutionDate) > 0.7
+        if canExecute {
+            oldExecutionDate = Date()
+        }
+        return canExecute
+    }
+}
+
 struct HomePath {
     
     private var forwardPath: [AnyHashable] = []
+    private var checker = NavigationExecutionChecker()
     
     fileprivate var path: [AnyHashable] = [] {
         didSet { didChangePath(newPath: path, oldPath: oldValue) }
@@ -20,22 +33,27 @@ struct HomePath {
     mutating func restoreLastOpenPage() {
         if let page = UserDefaultsConfig.lastOpenedPage {
             path.push(page)
+            _ = checker.execute()
         }
     }
     
     mutating func push(_ item: AnyHashable) {
+        guard checker.execute() else { return }
         path.push(item)
     }
     
     mutating func pop() {
+        guard checker.execute() else { return }
         _ = path.popLast()
     }
     
     mutating func popToRoot() {
+        guard checker.execute() else { return }
         path.removeAll()
     }
     
     mutating func replaceLast(_ item: AnyHashable) {
+        guard checker.execute() else { return }
         guard path.count > 0 else {
             anytypeAssertionFailure("Path is 0")
             return
@@ -44,6 +62,7 @@ struct HomePath {
     }
     
     mutating func pushFromHistory() {
+        guard checker.execute() else { return }
         guard let item = forwardPath.first else { return }
         path.push(item)
     }
