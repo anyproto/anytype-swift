@@ -72,13 +72,14 @@ final class SetObjectCreationSettingsCoordinator: SetObjectCreationSettingsCoord
                 setting: setting,
                 onTemplateSelection: {
                     navigationContext?.dismissAllPresented(animated: true) {
-                        model?.setTemplateAsDefault(templateId: setting.templateId, showMessage: false)
+                        model?.setTemplateAsDefault(templateId: setting.templateId)
                         onTemplateSelection(setting)
                     }
                 },
                 onSetAsDefaultTempalte: { templateId in
-                    model?.setTemplateAsDefault(templateId: templateId, showMessage: true)
-                    navigationContext?.dismissTopPresented(animated: true, completion: nil)
+                    navigationContext?.dismissTopPresented(animated: true, completion: {
+                        model?.setTemplateAsDefaultForType(templateId: templateId)
+                    })
                 },
                 completion: nil
             )
