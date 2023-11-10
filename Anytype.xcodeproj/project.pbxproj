@@ -410,6 +410,7 @@
 		2A4063672A5DB55600ECEA79 /* PasteboardFile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A4063662A5DB55600ECEA79 /* PasteboardFile.swift */; };
 		2A4373722906808700A1C4D6 /* InlineMarkdownListener.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A4373712906808700A1C4D6 /* InlineMarkdownListener.swift */; };
 		2A43EAC72A98A18500DA4AAE /* QuickActionBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A43EAC62A98A18500DA4AAE /* QuickActionBuilder.swift */; };
+		2A475F172AFE47BE00E8C6D5 /* AnytypeNavigationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A475F162AFE47BE00E8C6D5 /* AnytypeNavigationView.swift */; };
 		2A4919A929530B0F00FCEAC9 /* HomeSubmoduleProviderProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A4919A829530B0F00FCEAC9 /* HomeSubmoduleProviderProtocol.swift */; };
 		2A4919AC29530B5700FCEAC9 /* LinkWidgetViewContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A4919AB29530B5700FCEAC9 /* LinkWidgetViewContainer.swift */; };
 		2A4919AE295333CF00FCEAC9 /* Color+ComponentColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A4919AD295333CF00FCEAC9 /* Color+ComponentColor.swift */; };
@@ -2060,6 +2061,7 @@
 		2A4063662A5DB55600ECEA79 /* PasteboardFile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PasteboardFile.swift; sourceTree = "<group>"; };
 		2A4373712906808700A1C4D6 /* InlineMarkdownListener.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InlineMarkdownListener.swift; sourceTree = "<group>"; };
 		2A43EAC62A98A18500DA4AAE /* QuickActionBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuickActionBuilder.swift; sourceTree = "<group>"; };
+		2A475F162AFE47BE00E8C6D5 /* AnytypeNavigationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnytypeNavigationView.swift; sourceTree = "<group>"; };
 		2A4919A829530B0F00FCEAC9 /* HomeSubmoduleProviderProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeSubmoduleProviderProtocol.swift; sourceTree = "<group>"; };
 		2A4919AB29530B5700FCEAC9 /* LinkWidgetViewContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LinkWidgetViewContainer.swift; sourceTree = "<group>"; };
 		2A4919AD295333CF00FCEAC9 /* Color+ComponentColor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Color+ComponentColor.swift"; sourceTree = "<group>"; };
@@ -5755,6 +5757,7 @@
 				2AD1FCC02AB8466C00CEBE1E /* SetBottomPanelHidenEnvironment.swift */,
 				2A29873B2ACC087B009E8787 /* PageNavigationEnvironment.swift */,
 				2ADF00922ACF0040000D01F8 /* HomePath.swift */,
+				2A475F162AFE47BE00E8C6D5 /* AnytypeNavigationView.swift */,
 			);
 			path = HomeWidgetsFlow;
 			sourceTree = "<group>";
@@ -10502,6 +10505,7 @@
 				531F0DE8283C44A2000A0B31 /* CreateObjectViewModel.swift in Sources */,
 				C97B5D6627F49F6100EA7E33 /* CellBlockConfiguration.swift in Sources */,
 				2E0797B32A0940F8006F0FD7 /* JoinFlowView.swift in Sources */,
+				2A475F172AFE47BE00E8C6D5 /* AnytypeNavigationView.swift in Sources */,
 				3D5A41802704543300F1F6A1 /* SearchCell.swift in Sources */,
 				EA3D1E6426D0091C001A31D9 /* MentionAttributeSelectionHandler.swift in Sources */,
 				2E9EFE72285B62E500C8E47A /* SetFilter.swift in Sources */,
