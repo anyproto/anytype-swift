@@ -168,7 +168,7 @@
 "Keychain.Recovery phrase description" = "Ne avrai bisogno per accedere. Conservala in un luogo sicuro. In caso di smarrimento, perderai l'accesso al tuo account.";
 "Keychain.Save keychain alert part 1" = "Se perdi la frase di recupero e vieni disconnesso, non sarai più in grado di ";
 "Keychain.Save keychain alert part 2" = "accedere ai tuoi dati";
-"Keychain.Save keychain alert part 3" = ".\nSave this recovery phrase outside of Anytype for data recovery.\nWe recommend using a secure data vault, password manager or piece of paper in the safe.";
+"Keychain.Save keychain alert part 3" = ".\nSalva questa frase di recupero al di fuori di Anytype per il recupero dati.\nConsigliamo di utilizzare una cassaforte dati sicura, un gestore delle password o un pezzo di carta conservato in modo sicuro";
 "Keychain.Don’t forget to save your recovery phrase" = "Non dimenticare di salvare la tua frase di recupero";
 "Keychain.Show and copy phrase" = "Mostra e copia frase";
 "Keychain.Have you backed up your recovery phrase?" = "Hai effettuato il backup della tua frase di recupero?";
@@ -179,13 +179,13 @@
 
 // Auth
 "Sign up" = "Registrati";
-"Login" = "Log In";
+"Login" = "Accedi";
 "Create" = "Crea";
 "Scan QR code" = "Scansiona codice QR";
 "Auth.CameraPermissionTitle" = "Per favore, consenti l’accesso";
 "Restore secret phrase from keychain" = "Ripristina la Frase di Recupero dal Portachiavi";
-"Auth.LogIn" = "Log In";
-"Auth.Join" = "Create New Account";
+"Auth.LogIn" = "Accedi";
+"Auth.Join" = "Crea Nuovo Account";
 "Auth.Welcome.Subtitle" = "Anytype è il tuo spazio sicuro per scrivere, pianificare, pensare e organizzare tutto ciò che conta per te.";
 "Auth.Caption.Privacy.Text" = "Continuando accetti i [Termini d'uso](%@) e [Informativa sulla privacy](%@)";
 "Auth.Next" = "Avanti";
@@ -209,18 +209,18 @@
 "Auth.JoinFlow.Key.Button.Saved.Title" = "Vai all'app";
 "Auth.JoinFlow.Key.Button.Later.Title" = "Salta";
 "Auth.JoinFlow.Key.Button.Copy.Title" = "Copia negli appunti";
-"Auth.JoinFlow.Key.Button.Info.Title" = "Read more";
-"Auth.JoinFlow.Key.Button.Tip.Title" = "You can find Recovery Phrase later in Anytype settings";
+"Auth.JoinFlow.Key.Button.Info.Title" = "Leggi altro";
+"Auth.JoinFlow.Key.Button.Tip.Title" = "È possibile trovare la Frase di Recupero più tardi nelle impostazioni di Anytype";
 
-"Auth.JoinFlow.Key.ReadMore.Title" = "What is Recovery Phrase?";
-"Auth.JoinFlow.Key.ReadMore.Option1.Title" = "Recovery Phrase is a random combination of 12 words from which your account is magically generated on this device.";
-"Auth.JoinFlow.Key.ReadMore.Option2.Title" = "Whomever knows Recovery Phrase, owns the account. **At this moment, you are the only person in the world who knows it.**";
-"Auth.JoinFlow.Key.ReadMore.Option3.Title" = "That's why it's essential to keep Recovery Phrase safe. As the sole owner, nobody can help you if it's lost.";
+"Auth.JoinFlow.Key.ReadMore.Title" = "Che cos’è la Frase di Recupero?";
+"Auth.JoinFlow.Key.ReadMore.Option1.Title" = "La Frase di Recupero è una combinazione casuale di 12 parole da cui il tuo account viene magicamente generato su questo dispositivo";
+"Auth.JoinFlow.Key.ReadMore.Option2.Title" = "Chi conosce la tua Frase di Recupero, possiede l'account. **In questo momento, sei l'unica persona al mondo che la conosce.**";
+"Auth.JoinFlow.Key.ReadMore.Option3.Title" = "Ecco perché è essenziale mantenere la Frase di Recupero al sicuro. Come unico proprietario, nessuno può aiutarti se la perdi.";
 "Auth.JoinFlow.Key.ReadMore.Instruction.Title" = "Come salvare la mia frase?";
 "Auth.JoinFlow.Key.ReadMore.Instruction.Option1.Title" = "Il modo più semplice per memorizzare la tua Frase di Recupero è quello di salvarla nel tuo gestore di password.";
 "Auth.JoinFlow.Key.ReadMore.Instruction.Option2.Title" = "Il modo più sicuro è scriverlo su carta e tenerlo offline, in un luogo sicuro.";
 
-"Auth.JoinFlow.Soul.Title" = "Choose your name";
+"Auth.JoinFlow.Soul.Title" = "Scegli il tuo nome";
 "Auth.JoinFlow.Soul.Description" = "Ecco come apparirai nell'app.";
 "Auth.JoinFlow.Soul.Placeholder" = "Senza titolo";
 
@@ -241,7 +241,7 @@
 "Emoji or image for object" = "Emoji o immagine per l'oggetto";
 "Cover" = "Copertina";
 "Background picture" = "Immagine di sfondo";
-"Layout" = "Layout";
+"Layout" = "Disposizione";
 "Arrangement of objects on a canvas" = "Disposizione degli oggetti su una tela";
 
 "Search" = "Cerca";
@@ -266,7 +266,7 @@
 "Note" = "Nota";
 "Choose layout type" = "Scegli il tipo di layout";
 
-"Undo typing" = "Undo typing";
+"Undo typing" = "Annulla la digitazione";
 "Undo" = "Annulla";
 "Actions.LinkItself" = "Collega a";
 "Actions.MakeAsTemplate" = "Crea modello";
@@ -276,12 +276,12 @@
 "Set" = "Insieme";
 "Collection" = "Collezione";
 
-"Editor.MovingState.ScrollToSelectedPlace" = "Scroll to select a place";
+"Editor.MovingState.ScrollToSelectedPlace" = "Scorri per selezionare un luogo";
 
 // MARK: - Link to search
 
 "Editor.LinkToObject.SearchPlaceholder" = "Incolla collegamento o cerca oggetti";
-"Editor.LinkToObject.PasteFromClipboard" = "Paste from clipboard";
+"Editor.LinkToObject.PasteFromClipboard" = "Incolla dagli appunti";
 "Editor.LinkToObject.LinkedTo" = "Collegato a";
 "Editor.LinkToObject.CopyLink" = "Copia collegamento";
 "Editor.LinkToObject.RemoveLink" = "Rimuovi collegamento";
@@ -420,7 +420,7 @@
 
 // MARK: - Sets: View Settings
 "Set.View.Settings.ImageFit.Title" = "Adatta immagine";
-"Set.View.Settings.CardSize.Title" = "Card size";
+"Set.View.Settings.CardSize.Title" = "Dimensione della Card";
 "Set.View.Settings.CardSize.Small.Title" = "Piccolo";
 "Set.View.Settings.CardSize.Large.Title" = "Grande";
 "Set.View.Settings.ImagePreview.Title" = "Anteprima immagine";
@@ -463,14 +463,14 @@
 "SlashMenu.TableOfContents" = "Sommario";
 "SlashMenu.Table" = "Tabella";
 
-"Error" = "Error";
+"Error" = "Errore";
 "Unknown error" = "Errore sconosciuto";
-"Close" = "Close";
+"Close" = "Chiudi";
 "Account is deleted" = "L'account è stato eliminato";
 "Add phone" = "Aggiungi telefono";
 "Nothing to redo" = "Nulla da ripristinare";
 "Nothing to undo" = "Niente da annullare";
-"Progress..." = "Progress...";
+"Progress..." = "Progresso...";
 "Grey" = "Grigio";
 "Sky" = "Azzurro";
 "Yellow" = "Giallo";
@@ -501,35 +501,35 @@
 "Unselect all" = "Deseleziona tutto";
 "Deselect all" = "Deseleziona tutto";
 "Shared" = "Condiviso";
-"Sets" = "Sets";
-"Collections" = "Collections";
-"Default object type" = "Default object type";
-"Personalization" = "Personalization";
-"Choose default object type" = "Choose default object type";
-"About" = "About";
+"Sets" = "Insiemi";
+"Collections" = "Collezioni";
+"Default object type" = "Tipo di oggetto predefinito";
+"Personalization" = "Personalizzazione";
+"Choose default object type" = "Scegli il tipo di oggetto predefinito";
+"About" = "Informazioni ";
 "Appearance" = "Aspetto";
 "Change wallpaper" = "Cambia sfondo";
-"Application icon" = "Application icon";
+"Application icon" = "Icona dell'applicazione";
 "Mode" = "Modalità";
-"copied to clipboard" = "%@ copied to clipboard";
-"Access to secret phrase from keychain" = "Access to secret phrase from keychain";
+"copied to clipboard" = "%@ copiato negli appunti";
+"Access to secret phrase from keychain" = "Accesso alla frase segreta dal portachiavi";
 "Back up your recovery phrase" = "Esegui il backup della tua frase di recupero";
 "Account" = "Account";
 "Access" = "Accesso";
-"Back up phrase" = "Back up phrase";
-"Removing cache" = "Removing cache";
-"Deletion error" = "Deletion error";
-"Start" = "Start";
+"Back up phrase" = "Frase di backup";
+"Removing cache" = "Rimozione della cache";
+"Deletion error" = "Errore di cancellazione";
+"Start" = "Avvia";
 "On analytics" = "On analytics";
 "Select account error" = "Select account error";
 "Account deleted" = "Account eliminato";
 "Account.Select.Incompatible.Version.Error.Text" = "Impossibile recuperare i dati dell'account a causa di una versione incompatibile sui nodi remoti. Si prega di aggiornare Anytype all'ultima versione.";
-"Restore from keychain" = "Restore from keychain";
-"Edit" = "Edit";
-"In this object" = "In this object";
-"Other relations" = "Other relations";
-"Collection of objects" = "Collection of objects";
-"Designed to capture thoughts quickly" = "Designed to capture thoughts quickly";
+"Restore from keychain" = "Ripristina dal portachiavi";
+"Edit" = "Modifica";
+"In this object" = "In questo oggetto";
+"Other relations" = "Altre relazioni";
+"Collection of objects" = "Collezione di oggetti";
+"Designed to capture thoughts quickly" = "Progettato per catturare rapidamente i pensieri";
 "Action-focused layout with a checkbox" = "Action-focused layout with a checkbox";
 "Standard layout for canvas blocks" = "Standard layout for canvas blocks";
 "List of related objects" = "Elenco degli oggetti correlati";
@@ -849,6 +849,6 @@
 "Error.AnytypeNeedsUpgrate.Message" = "This object was modified in a newer version of Anytype. Please update the app to open it on this device";
 
 // MARK: - Relative date formatter
-"RelativeFormatter.days7" = "Previous 7 days";
-"RelativeFormatter.days30" = "Previous 30 days";
-"RelativeFormatter.older" = "Older";
+"RelativeFormatter.days7" = "Ultimi 7 giorni";
+"RelativeFormatter.days30" = "Ultimi 30 giorni";
+"RelativeFormatter.older" = "Meno recenti";
