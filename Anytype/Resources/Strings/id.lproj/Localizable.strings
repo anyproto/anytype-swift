@@ -849,6 +849,6 @@
 "Error.AnytypeNeedsUpgrate.Message" = "Objek ini telah diubah pada versi terbaru Anytype. Perbaruilah aplikasimu untuk membuka objek ini di perangkat ini.";
 
 // MARK: - Relative date formatter
-"RelativeFormatter.days7" = "Previous 7 days";
-"RelativeFormatter.days30" = "Previous 30 days";
-"RelativeFormatter.older" = "Older";
+"RelativeFormatter.days7" = "7 hari terakhir";
+"RelativeFormatter.days30" = "30 hari terakhir";
+"RelativeFormatter.older" = "Lebih lama";
