@@ -270,7 +270,7 @@
 "Undo" = "Angre";
 "Actions.LinkItself" = "Koble til";
 "Actions.MakeAsTemplate" = "Lag mal";
-"Actions.TemplateMakeDefault" = "Bruk som standard";
+"Actions.TemplateMakeDefault" = "Make default";
 
 // Object Type
 "Set" = "Sett";
@@ -464,9 +464,9 @@
 "SlashMenu.TableOfContents" = "Innholdsfortegnelse";
 "SlashMenu.Table" = "Tabell";
 
-"Error" = "Error";
+"Error" = "Feil";
 "Unknown error" = "Ukjent feil";
-"Close" = "Close";
+"Close" = "Lukk";
 "Account is deleted" = "Konto er slettet";
 "Add phone" = "Legg til telefon";
 "Nothing to redo" = "Ingenting å gjenta";
@@ -784,6 +784,9 @@
 "FileStorage.OffloadTitle" = "Slett lokale filer";
 "FileStorage.ManageFiles" = "Administrer filer";
 "FileStorage.LimitError" = "Du overskred filopplastingsgrensen";
+"FileStorage.LimitLegend.Current" = "%@ | %@";
+"FileStorage.LimitLegend.Other" = "Andre rom | %@";
+"FileStorage.LimitLegend.Free" = "Ledig | %@";
 
 // MARK: - Files List
 "FilesList.Title" = "Synkroniserte filer";
@@ -799,7 +802,7 @@
 // MARK: - Spaces
 "Spaces.Accessibility.Public" = "Offentlig";
 "Spaces.Accessibility.Private" = "Privat";
-"Spaces.Accessibility.Personal" = "Personal";
+"Spaces.Accessibility.Personal" = "Personlig";
 "Spaces.Search.Title" = "Søk etter rom";
 
 // MARK: - Space Settings
@@ -843,5 +846,5 @@
 "LongTapCreateTip.Message" = "Trykk og hold på Opprett objektknapp for å åpne meny med typer";
 
 // MARK: - Error
-"Error.AnytypeNeedsUpgrate.Title" = "Update Your App";
-"Error.AnytypeNeedsUpgrate.Message" = "This object was modified in a newer version of Anytype. Please update the app to open it on this device";
+"Error.AnytypeNeedsUpgrate.Title" = "Oppdater din app";
+"Error.AnytypeNeedsUpgrate.Message" = "Dette objektet ble endret i en nyere versjon av Anytype. Oppdater appen for å åpne det på denne enheten";
