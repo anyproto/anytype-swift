@@ -36,13 +36,14 @@ struct HomeWidgetsCoordinatorView: View {
                 AnytypeNavigationView(path: $model.editorPath) { builder in
                     builder.appendBuilder(for: AccountInfo.self) { info in
                         model.homeWidgetsModule(info: info)
+                            .fixNavigationBarGesture()
                     }
                     builder.appendBuilder(for: EditorScreenData.self) { data in
                         model.editorModule(data: data)
                     }
                 }
                 .ignoresSafeArea(.all)
-                .fixNavigationBarGesture()
+//                .fixNavigationBarGesture()
 //                    .anytypeNavigationDestination(for: String.self) { _ in
 //                        model.homeWidgetsModule()
 //                    }
