@@ -169,13 +169,13 @@ final class SearchService: ObservableObject, SearchServiceProtocol {
             relation: BundledRelationKey.lastOpenedDate,
             type: .desc
         )
-        
+        let spaceIds = [spaceId, accountManager.account.info.techSpaceId]
         let filters: [DataviewFilter] = .builder {
             SearchHelper.excludedIdsFilter(excludedObjectIds)
             if typeIds.isEmpty {
-                buildFilters(isArchived: false, spaceId: spaceId, layouts: DetailsLayout.visibleLayouts)
+                buildFilters(isArchived: false, spaceIds: spaceIds, layouts: DetailsLayout.visibleLayouts)
             } else {
-                buildFilters(isArchived: false, spaceId: spaceId)
+                buildFilters(isArchived: false, spaceIds: spaceIds)
                 SearchHelper.typeFilter(typeIds: typeIds)
             }
         }
@@ -198,9 +198,9 @@ final class SearchService: ObservableObject, SearchServiceProtocol {
             relation: sortRelationKey ?? .lastOpenedDate,
             type: .desc
         )
-        
+        let spaceIds = [spaceId, accountManager.account.info.techSpaceId]
         let filters: [DataviewFilter] = .builder {
-            buildFilters(isArchived: false, spaceId: spaceId, layouts: DetailsLayout.visibleLayouts)
+            buildFilters(isArchived: false, spaceIds: spaceIds, layouts: DetailsLayout.visibleLayouts)
             SearchHelper.excludedIdsFilter(excludedObjectIds)
             SearchHelper.excludedLayoutFilter(excludedLayouts)
         }
