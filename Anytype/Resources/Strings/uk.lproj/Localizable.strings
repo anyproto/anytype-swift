@@ -270,7 +270,7 @@
 "Undo" = "Повернути";
 "Actions.LinkItself" = "Зв'язати з";
 "Actions.MakeAsTemplate" = "Створити шаблон";
-"Actions.TemplateMakeDefault" = "Встановити за замовчуванням";
+"Actions.TemplateMakeDefault" = "Make default";
 
 // Object Type
 "Set" = "Набір";
@@ -785,6 +785,9 @@
 "FileStorage.OffloadTitle" = "Вивантажити файли";
 "FileStorage.ManageFiles" = "Керування файлами";
 "FileStorage.LimitError" = "Перевищено ліміт завантаження файлів";
+"FileStorage.LimitLegend.Current" = "%@ | %@";
+"FileStorage.LimitLegend.Other" = "Other spaces | %@";
+"FileStorage.LimitLegend.Free" = "Free | %@";
 
 // MARK: - Files List
 "FilesList.Title" = "Синхронізовані файли";

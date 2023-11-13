@@ -74,7 +74,7 @@
 "Create relation" = "创建关联 ‘%@’";
 "Relation.View.Hint.Empty" = "空的";
 "Relation.MyRelations" = "我的关联";
-"Relation.AddedToLibrary" = "名称为 ‘%@’ 关联已添加到您的库";
+"Relation.AddedToLibrary" = "关联“%@”已添加到您的文库";
 "Relation.Deleted" = "已删除的关联";
 "Relation.From.Type" = "来自 %@ 类型";
 
@@ -206,7 +206,7 @@
 "Auth.JoinFlow.Key.Description" = "要登录您的帐户，您需要一个恢复短语。它是12个随机单词，就像所有数据的主密码。立即保存或稍后在设置中保存恢复短语。";
 "Auth.JoinFlow.Key.TextField.Placeholder" = "输入恢复短语";
 "Auth.JoinFlow.Key.Button.Show.Title" = "显示恢复短语";
-"Auth.JoinFlow.Key.Button.Saved.Title" = "输入您的共享空间";
+"Auth.JoinFlow.Key.Button.Saved.Title" = "进入应用";
 "Auth.JoinFlow.Key.Button.Later.Title" = "以后再做吧";
 "Auth.JoinFlow.Key.Button.Copy.Title" = "复制到剪贴板";
 "Auth.JoinFlow.Key.Button.Info.Title" = "了解更多";
@@ -270,7 +270,7 @@
 "Undo" = "撤消";
 "Actions.LinkItself" = "链接到";
 "Actions.MakeAsTemplate" = "制作模板";
-"Actions.TemplateMakeDefault" = "设置为默认";
+"Actions.TemplateMakeDefault" = "Make default";
 
 // Object Type
 "Set" = "集合";
@@ -464,9 +464,9 @@
 "SlashMenu.TableOfContents" = "目录";
 "SlashMenu.Table" = "表格";
 
-"Error" = "Error";
+"Error" = "错误";
 "Unknown error" = "未知错误";
-"Close" = "Close";
+"Close" = "关闭";
 "Account is deleted" = "帐户已删除";
 "Add phone" = "添加电话号";
 "Nothing to redo" = "无需重做";
@@ -512,7 +512,7 @@
 "Change wallpaper" = "更换壁纸";
 "Application icon" = "应用程序图标";
 "Mode" = "模式";
-"copied to clipboard" = "%@ 复制到剪贴板";
+"copied to clipboard" = "%@ 已复制到剪贴板";
 "Access to secret phrase from keychain" = "从钥匙串访问秘密短语";
 "Back up your recovery phrase" = "备份恢复短语";
 "Account" = "帐户";
@@ -553,8 +553,8 @@
 "Download" = "下载";
 "Open object" = "打开对象";
 "Open source" = "开放源代码";
-"Into object" = "进入对象";
-"Add below" = "添加到下面";
+"Into object" = "转为对象";
+"Add below" = "在下面添加";
 "Change type" = "更改类型";
 "Link to existing object" = "链接到现有对象";
 "Link to object" = "链接到对象";
@@ -779,11 +779,14 @@
 "FileStorage.Space.Mail.Subject" = " %@ 帐户，获取更多存储空间";
 "FileStorage.Space.Mail.Body" = "Hi, Anytype team. I am reaching out to request an increase in my file storage capacity as I have run out of storage. My current limits is %@. My account id is %@. Cheers, %@.";
 "FileStorage.Local.Title" = "本地存储";
-"FileStorage.Local.Instruction" = "为了节省本地设备上的空间，您可以将所有文件卸载到我们的加密备份节点。打开文件时，文件将被加载回去。";
+"FileStorage.Local.Instruction" = "为了节省本地设备上的空间，您可以将所有文件卸载到我们的加密备份节点。打开文件时，文件将被重新加载。";
 "FileStorage.Local.Used" = "%@ 已使用";
 "FileStorage.OffloadTitle" = "卸载文件";
 "FileStorage.ManageFiles" = "管理文件";
 "FileStorage.LimitError" = "您超出了上传的文件限制";
+"FileStorage.LimitLegend.Current" = "%@ | %@";
+"FileStorage.LimitLegend.Other" = "其他空间 | %@";
+"FileStorage.LimitLegend.Free" = "可用空间 | %@";
 
 // MARK: - Files List
 "FilesList.Title" = "已同步的文件";
@@ -799,7 +802,7 @@
 // MARK: - Spaces
 "Spaces.Accessibility.Public" = "公共";
 "Spaces.Accessibility.Private" = "私人";
-"Spaces.Accessibility.Personal" = "Personal";
+"Spaces.Accessibility.Personal" = "个人";
 "Spaces.Search.Title" = "搜索空间";
 
 // MARK: - Space Settings
@@ -843,5 +846,5 @@
 "LongTapCreateTip.Message" = "长按创建对象按钮以打开带类型的菜单";
 
 // MARK: - Error
-"Error.AnytypeNeedsUpgrate.Title" = "Update Your App";
-"Error.AnytypeNeedsUpgrate.Message" = "This object was modified in a newer version of Anytype. Please update the app to open it on this device";
+"Error.AnytypeNeedsUpgrate.Title" = "更新应用";
+"Error.AnytypeNeedsUpgrate.Message" = "此对象已在更高版本的 Anytype 编辑过，请更新此设备的应用以打开它";

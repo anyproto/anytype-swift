@@ -270,7 +270,7 @@
 "Undo" = "Undo";
 "Actions.LinkItself" = "Link to";
 "Actions.MakeAsTemplate" = "Make template";
-"Actions.TemplateMakeDefault" = "Set as default";
+"Actions.TemplateMakeDefault" = "Make default";
 
 // Object Type
 "Set" = "Set";
@@ -784,6 +784,9 @@
 "FileStorage.OffloadTitle" = "Offload files";
 "FileStorage.ManageFiles" = "Manage files";
 "FileStorage.LimitError" = "You exceeded file limit upload";
+"FileStorage.LimitLegend.Current" = "%@ | %@";
+"FileStorage.LimitLegend.Other" = "Other spaces | %@";
+"FileStorage.LimitLegend.Free" = "Free | %@";
 
 // MARK: - Files List
 "FilesList.Title" = "Synced files";

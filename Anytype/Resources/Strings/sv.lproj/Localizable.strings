@@ -270,7 +270,7 @@
 "Undo" = "Ångra";
 "Actions.LinkItself" = "Link to";
 "Actions.MakeAsTemplate" = "Make template";
-"Actions.TemplateMakeDefault" = "Set as default";
+"Actions.TemplateMakeDefault" = "Make default";
 
 // Object Type
 "Set" = "Set";
@@ -466,7 +466,7 @@
 
 "Error" = "Error";
 "Unknown error" = "Okänt fel";
-"Close" = "Close";
+"Close" = "Stäng";
 "Account is deleted" = "Account is deleted";
 "Add phone" = "Lägg till telefon";
 "Nothing to redo" = "Nothing to redo";
@@ -784,6 +784,9 @@
 "FileStorage.OffloadTitle" = "Offload files";
 "FileStorage.ManageFiles" = "Hantera filer";
 "FileStorage.LimitError" = "You exceeded file limit upload";
+"FileStorage.LimitLegend.Current" = "%@ | %@";
+"FileStorage.LimitLegend.Other" = "Other spaces | %@";
+"FileStorage.LimitLegend.Free" = "Free | %@";
 
 // MARK: - Files List
 "FilesList.Title" = "Synced files";
