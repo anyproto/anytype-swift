@@ -849,6 +849,6 @@
 "Error.AnytypeNeedsUpgrate.Message" = "此对象已在更高版本的 Anytype 编辑过，请更新此设备的应用以打开它";
 
 // MARK: - Relative date formatter
-"RelativeFormatter.days7" = "Previous 7 days";
-"RelativeFormatter.days30" = "Previous 30 days";
-"RelativeFormatter.older" = "Older";
+"RelativeFormatter.days7" = "过去 7 天";
+"RelativeFormatter.days30" = "过去 30 天";
+"RelativeFormatter.older" = "较早的";
