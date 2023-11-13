@@ -41,6 +41,7 @@ final class HomeWidgetsCoordinatorViewModel: ObservableObject,
     @Published var showSpaceSettings: Bool = false
     @Published var showSharing: Bool = false
     @Published var editorPath = HomePath()
+//    @Published var path = AnytypeNavigationPath()
     @Published var showCreateObjectWithType: Bool = false
 
     @Published var info: AccountInfo? {
@@ -57,10 +58,13 @@ final class HomeWidgetsCoordinatorViewModel: ObservableObject,
         PageNavigation(
             push: { [weak self] data in
                 self?.editorPath.push(data)
+//                self?.path.push(data)
             }, pop: { [weak self] in
                 self?.editorPath.pop()
+//                self?.path.pop()
             }, replace: { [weak self] data in
                 self?.editorPath.replaceLast(data)
+//                self?.path.replaceLast(data)
             }
         )
     }
@@ -111,6 +115,7 @@ final class HomeWidgetsCoordinatorViewModel: ObservableObject,
                     self?.editorPath.popToRoot()
                 }
                 self?.info = info
+                self?.editorPath.replaceAll(info)
             }
             .store(in: &subscriptions)
         
@@ -134,8 +139,8 @@ final class HomeWidgetsCoordinatorViewModel: ObservableObject,
 //        }
     }
     
-    func homeWidgetsModule() -> AnyView? {
-        guard let info else { return nil }
+    func homeWidgetsModule(info: AccountInfo) -> AnyView? {
+//        guard let info else { return nil }
         return homeWidgetsModuleAssembly.make(info: info, output: self, widgetOutput: self, bottomPanelOutput: self)
     }
     
@@ -287,6 +292,7 @@ final class HomeWidgetsCoordinatorViewModel: ObservableObject,
     private func openObject(screenData: EditorScreenData) {
 //        editorPath.push(screenData, delegate: self)
         editorPath.push(screenData)
+//        path.push(screenData)
     }
     
     private func createAndShowNewPage() {

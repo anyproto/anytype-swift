@@ -7,11 +7,12 @@ final class NavigationExecutionChecker {
     private var oldExecutionDate = Date(timeIntervalSince1970: 0)
     
     func execute() -> Bool {
-        let canExecute = Date().timeIntervalSince(oldExecutionDate) > 0.7
-        if canExecute {
-            oldExecutionDate = Date()
-        }
-        return canExecute
+        return true
+//        let canExecute = Date().timeIntervalSince(oldExecutionDate) > 0.7
+//        if canExecute {
+//            oldExecutionDate = Date()
+//        }
+//        return canExecute
     }
 }
 
@@ -43,13 +44,13 @@ struct HomePath {
     }
     
     mutating func pop() {
-        guard checker.execute() else { return }
+        guard checker.execute(), path.count > 1 else { return }
         _ = path.popLast()
     }
     
     mutating func popToRoot() {
-        guard checker.execute() else { return }
-        path.removeAll()
+        guard checker.execute(), let first = path.first else { return }
+        path = [first]
     }
     
     mutating func replaceLast(_ item: AnyHashable) {
@@ -65,6 +66,10 @@ struct HomePath {
         guard checker.execute() else { return }
         guard let item = forwardPath.first else { return }
         path.push(item)
+    }
+    
+    mutating func replaceAll(_ item: AnyHashable) {
+        path = [item]
     }
     
     func hasForwardPath() -> Bool {
@@ -100,5 +105,16 @@ extension NBNavigationStack where Data == AnyHashable {
             set: { path.wrappedValue.path = $0 }
         )
         self.init(path: path, root: root)
+    }
+}
+
+extension AnytypeNavigationView {
+
+    init(path homePath: Binding<HomePath>, moduleSetup: @escaping (_ builder: AnytypeDestinationBuilderHolder) -> Void) {
+        let path = Binding(
+            get: { homePath.wrappedValue.path },
+            set: { homePath.wrappedValue.path = $0 }
+        )
+        self.init(path: path, moduleSetup: moduleSetup)
     }
 }
