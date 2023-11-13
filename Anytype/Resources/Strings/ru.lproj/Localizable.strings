@@ -179,13 +179,13 @@
 
 // Auth
 "Sign up" = "Зарегистрироваться";
-"Login" = "Log In";
+"Login" = "Войти";
 "Create" = "Создать";
 "Scan QR code" = "Сканировать QR-код";
 "Auth.CameraPermissionTitle" = "Пожалуйста, разрешите доступ";
 "Restore secret phrase from keychain" = "Восстановить фразу восстановления из связки ключей";
-"Auth.LogIn" = "Log In";
-"Auth.Join" = "Create New Account";
+"Auth.LogIn" = "Войти";
+"Auth.Join" = "Создать новую учетную запись";
 "Auth.Welcome.Subtitle" = "Anytype - это безопасное место для записи мыслей и заметок, планирования и организации всего что важно для вас.";
 "Auth.Caption.Privacy.Text" = "Продолжая, вы соглашаетесь с нашими [условиями пользования](%@) и [политикой конфиденциальности](%@) ";
 "Auth.Next" = "Далее";
@@ -220,7 +220,7 @@
 "Auth.JoinFlow.Key.ReadMore.Instruction.Option1.Title" = "Самый простой способ хранить вашу фразу восстановления - сохранить ее в вашем менеджере паролей.";
 "Auth.JoinFlow.Key.ReadMore.Instruction.Option2.Title" = "Самый безопасный способ - записать ее на бумаге и оставить бумагу в безопасном месте.";
 
-"Auth.JoinFlow.Soul.Title" = "Choose your name";
+"Auth.JoinFlow.Soul.Title" = "Выберете имя";
 "Auth.JoinFlow.Soul.Description" = "Так вы будете отображаться в приложении.";
 "Auth.JoinFlow.Soul.Placeholder" = "Без названия";
 
@@ -270,7 +270,7 @@
 "Undo" = "Отменить";
 "Actions.LinkItself" = "Связать с";
 "Actions.MakeAsTemplate" = "Создать шаблон";
-"Actions.TemplateMakeDefault" = "Установить по умолчанию";
+"Actions.TemplateMakeDefault" = "Make default";
 
 // Object Type
 "Set" = "Набор";
@@ -357,34 +357,34 @@
 "EditSet.Popup.Filter.Condition.Text.Like" = "Содержит";
 "EditSet.Popup.Filter.Condition.Text.NotLike" = "Не содержит";
 
-"EditSet.Popup.Filter.Condition.Number.Equal" = "Is equal to";
-"EditSet.Popup.Filter.Condition.Number.NotEqual" = "Is not equal to";
-"EditSet.Popup.Filter.Condition.Number.Greater" = "Is greater than";
-"EditSet.Popup.Filter.Condition.Number.Less" = "Is less than";
-"EditSet.Popup.Filter.Condition.Number.GreaterOrEqual" = "Is greater than or equal to";
-"EditSet.Popup.Filter.Condition.Number.LessOrEqual" = "Is less than or equal to";
+"EditSet.Popup.Filter.Condition.Number.Equal" = "Равно";
+"EditSet.Popup.Filter.Condition.Number.NotEqual" = "Не равно";
+"EditSet.Popup.Filter.Condition.Number.Greater" = "Больше чем";
+"EditSet.Popup.Filter.Condition.Number.Less" = "Меньше чем";
+"EditSet.Popup.Filter.Condition.Number.GreaterOrEqual" = "Больше или равно";
+"EditSet.Popup.Filter.Condition.Number.LessOrEqual" = "Меньше или равно";
 
 "EditSet.Popup.Filter.Condition.Date.Equal" = "Является";
-"EditSet.Popup.Filter.Condition.Date.After" = "Is after";
-"EditSet.Popup.Filter.Condition.Date.Before" = "Is before";
-"EditSet.Popup.Filter.Condition.Date.OnOrAfter" = "Is on or after";
-"EditSet.Popup.Filter.Condition.Date.OnOrBefore" = "Is on or before";
-"EditSet.Popup.Filter.Condition.Date.In" = "Is within";
+"EditSet.Popup.Filter.Condition.Date.After" = "После";
+"EditSet.Popup.Filter.Condition.Date.Before" = "До";
+"EditSet.Popup.Filter.Condition.Date.OnOrAfter" = "Совпадает или после";
+"EditSet.Popup.Filter.Condition.Date.OnOrBefore" = "Совпадает или до";
+"EditSet.Popup.Filter.Condition.Date.In" = "Находится в пределах";
 
-"EditSet.Popup.Filter.Condition.Selected.In" = "Has any of";
-"EditSet.Popup.Filter.Condition.Selected.AllIn" = "Has all of";
-"EditSet.Popup.Filter.Condition.Selected.NotIn" = "Has none of";
-"EditSet.Popup.Filter.Condition.Selected.Equal" = "Is exactly";
+"EditSet.Popup.Filter.Condition.Selected.In" = "Имеет любой из";
+"EditSet.Popup.Filter.Condition.Selected.AllIn" = "Имеет все из";
+"EditSet.Popup.Filter.Condition.Selected.NotIn" = "Нет ни одного из";
+"EditSet.Popup.Filter.Condition.Selected.Equal" = "Точно соответствует";
 
 "EditSet.Popup.Filter.Condition.Checkbox.Equal" = "Является";
 "EditSet.Popup.Filter.Condition.Checkbox.NotEqual" = "Не является";
 
-"EditSet.Popup.Filter.Condition.General.Empty" = "Is empty";
-"EditSet.Popup.Filter.Condition.General.NotEmpty" = "Is not empty";
-"EditSet.Popup.Filter.Condition.General.None" = "All";
+"EditSet.Popup.Filter.Condition.General.Empty" = "Пустое";
+"EditSet.Popup.Filter.Condition.General.NotEmpty" = "Не пустое";
+"EditSet.Popup.Filter.Condition.General.None" = "Все";
 
-"EditSet.Popup.Filter.Value.Checked" = "Checked";
-"EditSet.Popup.Filter.Value.Unchecked" = "Unchecked";
+"EditSet.Popup.Filter.Value.Checked" = "Отмечено";
+"EditSet.Popup.Filter.Value.Unchecked" = "Не отмечено";
 
 "EditSet.Popup.Filter.Date.Option.Today" = "Сегодня";
 "EditSet.Popup.Filter.Date.Option.Yesterday" = "Вчера";
@@ -399,8 +399,8 @@
 "EditSet.Popup.Filter.Date.Option.NumberOfDaysFromNow" = "Количество дней с этого момента";
 "EditSet.Popup.Filter.Date.Option.ExactDate" = "Точная дата";
 
-"EditSet.Popup.Filter.Date.Option.NumberOfDaysAgo.Short" = "%@ days ago";
-"EditSet.Popup.Filter.Date.Option.NumberOfDaysFromNow.Short" = "%@ days from now";
+"EditSet.Popup.Filter.Date.Option.NumberOfDaysAgo.Short" = "%@ дней назад";
+"EditSet.Popup.Filter.Date.Option.NumberOfDaysFromNow.Short" = "%@ дней с настоящего времени";
 
 // MARK: - Sets. Create object
 "Set.Create.ObjectTitle.Placeholder" = "Без названия";
@@ -420,26 +420,26 @@
 "Set.Bookmark.Error.Message" = "Please try again";
 
 // MARK: - Sets: View Settings
-"Set.View.Settings.ImageFit.Title" = "Fit image";
-"Set.View.Settings.CardSize.Title" = "Card size";
+"Set.View.Settings.ImageFit.Title" = "Подогнать изображение";
+"Set.View.Settings.CardSize.Title" = "Размер карточки";
 "Set.View.Settings.CardSize.Small.Title" = "Маленький";
-"Set.View.Settings.CardSize.Large.Title" = "Large";
-"Set.View.Settings.ImagePreview.Title" = "Image preview";
-"Set.View.Settings.GroupBy.Title" = "Group by";
-"Set.View.Settings.GroupBackgroundColors.Title" = "Color columns";
+"Set.View.Settings.CardSize.Large.Title" = "Большой";
+"Set.View.Settings.ImagePreview.Title" = "Предпросмотр изображения";
+"Set.View.Settings.GroupBy.Title" = "Группировать по";
+"Set.View.Settings.GroupBackgroundColors.Title" = "Цветные столбцы";
 
 "Set.View.Settings.NoRelations.Placeholder" = "Нет свойств";
-"Set.View.Settings.NoFilters.Placeholder" = "No filters";
-"Set.View.Settings.NoSorts.Placeholder" = "No sorts";
-"Set.View.Settings.Objects.Applied.Title" = "%d applied";
+"Set.View.Settings.NoFilters.Placeholder" = "Нет фильтров";
+"Set.View.Settings.NoSorts.Placeholder" = "Нет сортировок";
+"Set.View.Settings.Objects.Applied.Title" = "%d применено";
 
 // MARK: - Sets: Kanban
-"Set.View.Kanban.Column.Title.Uncategorized" = "Uncategorized";
-"Set.View.Kanban.Column.Title.Checked" = "%@ is checked";
-"Set.View.Kanban.Column.Title.Unchecked" = "%@ is unchecked";
-"Set.View.Kanban.Column.Paging.Title.ShowMore" = "Show more objects";
-"Set.View.Kanban.Column.Settings.Color.Title" = "Column color";
-"Set.View.Kanban.Column.Settings.Hide.Column.Title" = "Hide column";
+"Set.View.Kanban.Column.Title.Uncategorized" = "Без категории";
+"Set.View.Kanban.Column.Title.Checked" = "%@ отмечено";
+"Set.View.Kanban.Column.Title.Unchecked" = "%@ не отмечено";
+"Set.View.Kanban.Column.Paging.Title.ShowMore" = "Показать больше объектов";
+"Set.View.Kanban.Column.Settings.Color.Title" = "Цвет столбца";
+"Set.View.Kanban.Column.Settings.Hide.Column.Title" = "Скрыть столбец";
 
 // MARK: - Sets: empty view
 "Set.View.Empty.Title" = "Не выбрано ни одного запроса";
@@ -464,9 +464,9 @@
 "SlashMenu.TableOfContents" = "Содержание";
 "SlashMenu.Table" = "Таблица";
 
-"Error" = "Error";
+"Error" = "Ошибка";
 "Unknown error" = "Неизвестная ошибка";
-"Close" = "Close";
+"Close" = "Закрыть";
 "Account is deleted" = "Аккаунт был удален";
 "Add phone" = "Добавить номер телефона";
 "Nothing to redo" = "Нет действий для повтора";
@@ -514,11 +514,11 @@
 "Mode" = "Режим";
 "copied to clipboard" = "Скопирован(о) в буфер обмена: %@";
 "Access to secret phrase from keychain" = "Access to secret phrase from keychain";
-"Back up your recovery phrase" = "Back up your recovery phrase";
-"Account" = "Account";
-"Access" = "Access";
-"Back up phrase" = "Back up phrase";
-"Removing cache" = "Removing cache";
+"Back up your recovery phrase" = "Создайте резервную копию фразы восстановления";
+"Account" = "Учетная запись";
+"Access" = "Доступ";
+"Back up phrase" = "Фраза восстановления";
+"Removing cache" = "Удаление кэша";
 "Deletion error" = "Deletion error";
 "Start" = "Start";
 "On analytics" = "On analytics";
@@ -646,64 +646,64 @@
 "SimpleTableMenu.Item.style" = "Внешний вид";
 "SimpleTableMenu.Item.clearStyle" = "Reset style";
 
-"SimpleTableMenu.Item.InsertLeft" = "Insert left";
-"SimpleTableMenu.Item.InsertRight" = "Insert right";
-"SimpleTableMenu.Item.MoveLeft" = "Move left";
-"SimpleTableMenu.Item.MoveRight" = "Move right";
+"SimpleTableMenu.Item.InsertLeft" = "Вставить слева";
+"SimpleTableMenu.Item.InsertRight" = "Вставить справа";
+"SimpleTableMenu.Item.MoveLeft" = "Сдвинуть влево";
+"SimpleTableMenu.Item.MoveRight" = "Сдвинуть вправо";
 "SimpleTableMenu.Item.Duplicate" = "Дублировать";
 "SimpleTableMenu.Item.Delete" = "Удалить";
 "SimpleTableMenu.Item.Sort" = "Сортировка";
 
-"SimpleTableMenu.Item.InsertAbove" = "Insert above";
-"SimpleTableMenu.Item.InsertBelow" = "Insert below";
-"SimpleTableMenu.Item.MoveUp" = "Move up";
-"SimpleTableMenu.Item.MoveDown" = "Move down";
+"SimpleTableMenu.Item.InsertAbove" = "Вставить выше";
+"SimpleTableMenu.Item.InsertBelow" = "Вставить ниже";
+"SimpleTableMenu.Item.MoveUp" = "Сдвинуть вверх";
+"SimpleTableMenu.Item.MoveDown" = "Сдвинуть вниз";
 
-"DebugMenu.ToggleAuthor" = "Release: %@, %@";
+"DebugMenu.ToggleAuthor" = "Версия: %@, %@";
 
 // MARK: Link Past Actions
-"LinkPaste.text" = "Paste as text";
-"LinkPaste.link" = "Paste as link";
-"LinkPaste.bookmark" = "Create bookmark";
+"LinkPaste.text" = "Вставить как текст";
+"LinkPaste.link" = "Вставить как ссылку";
+"LinkPaste.bookmark" = "Создать закладку";
 
 // Relation Actions
 "RelationAction.CopyPhone" = "Copy phone numbler";
-"RelationAction.CopyEmail" = "Copy email";
+"RelationAction.CopyEmail" = "Скопировать адрес электронной почты";
 "RelationAction.CopyLink" = "Скопировать ссылку";
 "RelationAction.Copied" = "Скопировано";
-"RelationAction.ReloadingContent" = "Reloading content";
-"RelationAction.ReloadContent" = "Reload object content";
-"RelationAction.CallPhone" = "Call phone numbler";
-"RelationAction.SendEmail" = "Send email";
-"RelationAction.OpenLink" = "Open link";
+"RelationAction.ReloadingContent" = "Перезагрузка содержимого";
+"RelationAction.ReloadContent" = "Перезагрузить содержимое объекта";
+"RelationAction.CallPhone" = "Позвонить в номер телефона";
+"RelationAction.SendEmail" = "Отправить электронное письмо";
+"RelationAction.OpenLink" = "Открыть ссылку";
 
 // MARK: Edit view type
-"SetViewTypesPicker.Title" = "Edit view";
-"SetViewTypesPicker.New.Title" = "New view";
-"SetViewTypesPicker.Section.Types.Title" = "View as";
+"SetViewTypesPicker.Title" = "Редактировать вид";
+"SetViewTypesPicker.New.Title" = "Новый вид";
+"SetViewTypesPicker.Section.Types.Title" = "Просмотреть как";
 "SetViewTypesPicker.Settings.Duplicate.View" = "Дублировать";
-"SetViewTypesPicker.Settings.Delete.View" = "Delete view";
-"SetViewTypesPicker.Settings.Textfield.Placeholder.New.View" = "New view";
+"SetViewTypesPicker.Settings.Delete.View" = "Удалить вид";
+"SetViewTypesPicker.Settings.Textfield.Placeholder.New.View" = "Новый вид";
 "SetViewTypesPicker.Settings.Textfield.Placeholder.Untitled" = "Без названия";
 
 // MARK: Select view picker
-"EditorSetViewPicker.View.Not.Supported.Title" = "Unsupported";
+"EditorSetViewPicker.View.Not.Supported.Title" = "Не поддерживается";
 
 // BlockContent
-"Content.File.Upload" = "Upload a file";
-"Content.Audio.Upload" = "Upload audio";
-"Content.Video.Upload" = "Upload a video";
-"Content.Picture.Upload" = "Upload a picture";
-"Content.Common.Uploading" = "Uploading...";
-"Content.Common.Error" = "Something went wrong, try again";
-"Content.Bookmark.Add" = "Add a web bookmark";
-"Content.Bookmark.Loading" = "Loading, please wait...";
+"Content.File.Upload" = "Загрузить файл";
+"Content.Audio.Upload" = "Загрузить аудио";
+"Content.Video.Upload" = "Загрузить видео";
+"Content.Picture.Upload" = "Загрузить изображение";
+"Content.Common.Uploading" = "Загрузка...";
+"Content.Common.Error" = "Что-то пошло не так, попробуйте еще раз";
+"Content.Bookmark.Add" = "Добавить веб-закладку";
+"Content.Bookmark.Loading" = "Загружается, подождите...";
 "Content.DataView.InlineSet.Subtitle" = "Встроенный набор";
-"Content.DataView.InlineCollection.Subtitle" = "Inline collection";
-"Content.DataView.InlineSet.NoSource" = "No source";
-"Content.DataView.InlineSet.NoData" = "No data";
-"Content.DataView.InlineSet.Untitled" = "Untitled set";
-"Content.DataView.InlineCollection.Untitled" = "Untitled collection";
+"Content.DataView.InlineCollection.Subtitle" = "Встроенная коллекция";
+"Content.DataView.InlineSet.NoSource" = "Нет источника";
+"Content.DataView.InlineSet.NoData" = "Нет данных";
+"Content.DataView.InlineSet.Untitled" = "Набор без названия";
+"Content.DataView.InlineCollection.Untitled" = "Коллекция без названия";
 "Content.DataView.InlineSet.Toast.Failure" = "This inline set doesn’t have a source";
 
 // MARK: - Widget extension
@@ -784,6 +784,9 @@
 "FileStorage.OffloadTitle" = "Offload files";
 "FileStorage.ManageFiles" = "Manage files";
 "FileStorage.LimitError" = "You exceeded file limit upload";
+"FileStorage.LimitLegend.Current" = "%@ | %@";
+"FileStorage.LimitLegend.Other" = "Other spaces | %@";
+"FileStorage.LimitLegend.Free" = "Free | %@";
 
 // MARK: - Files List
 "FilesList.Title" = "Synced files";
