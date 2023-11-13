@@ -213,6 +213,17 @@ class SearchHelper {
         return filter
     }
     
+    static func spaceIds(_ spaceIds: [String]) -> DataviewFilter {
+        var filter = DataviewFilter()
+        filter.condition = .in
+        filter.value = spaceIds.protobufValue
+        
+        filter.relationKey = BundledRelationKey.spaceId.rawValue
+        filter.operator = .and
+        
+        return filter
+    }
+    
     static func fileSyncStatus(_ status: FileSyncStatus) -> DataviewFilter {
         var filter = DataviewFilter()
         filter.condition = .equal
