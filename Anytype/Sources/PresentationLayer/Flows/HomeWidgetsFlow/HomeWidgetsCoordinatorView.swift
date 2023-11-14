@@ -6,33 +6,11 @@ import Services
 struct HomeWidgetsCoordinatorView: View {
     
     @StateObject var model: HomeWidgetsCoordinatorViewModel
-//    @State private var backgroundOpacity = 0.0
     
     var body: some View {
         HomeBottomPanelContainer(
             path: $model.editorPath,
             content: {
-//                NBNavigationStack(path: $model.editorPath) {
-////                    ZStack {
-////                        Color.Text.primary
-////                            .opacity(backgroundOpacity)
-////                            .ignoresSafeArea()
-////                            .onChange(of: model.homeAnimationId) { newValue in
-////                                backgroundOpacity = 0
-////                                withAnimation(.easeInOut(duration: 0.2)) {
-////                                    backgroundOpacity = 0.5
-////                                }
-////                            }
-//                        model.homeWidgetsModule()
-////                            .transition(.asymmetric(insertion: .move(edge: .trailing), removal: .offset(x: -100)))
-////                            .animation(.easeInOut(duration: 0.35), value: model.homeAnimationId)
-////                    }
-//                    .nbNavigationDestination(for: EditorScreenData.self) { data in
-//                        model.editorModule(data: data)
-//                    }
-//                    .fixNavigationBarGesture()
-//                }
-                
                 AnytypeNavigationView(path: $model.editorPath) { builder in
                     builder.appendBuilder(for: AccountInfo.self) { info in
                         model.homeWidgetsModule(info: info)
@@ -43,14 +21,9 @@ struct HomeWidgetsCoordinatorView: View {
                     }
                 }
                 .ignoresSafeArea(.all)
-//                .fixNavigationBarGesture()
-//                    .anytypeNavigationDestination(for: String.self) { _ in
-//                        model.homeWidgetsModule()
-//                    }
             },
             bottomPanel: {
                 model.homeBottomNavigationPanelModule()
-//                bottomPanel
             }
         )
         .onAppear {

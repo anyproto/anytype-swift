@@ -1,5 +1,6 @@
 import Foundation
 
+// TODO: Refactoring this
 @MainActor
 protocol HomeBottomPanelModuleOutput: AnyObject {
     func onCreateWidgetSelected(context: AnalyticsWidgetContext)

@@ -24,18 +24,21 @@ final class SetObjectCreationSettingsCoordinator: SetObjectCreationSettingsCoord
     private let setObjectCreationSettingsAssembly: SetObjectCreationSettingsModuleAssemblyProtocol
     private let newSearchModuleAssembly: NewSearchModuleAssemblyProtocol
     private let objectSettingCoordinator: ObjectSettingsCoordinatorProtocol
+    private let editorPageCoordinatorAssembly: EditorPageCoordinatorAssemblyProtocol
     private var handler: TemplateSelectionObjectSettingsHandler?
     
     init(
         navigationContext: NavigationContextProtocol,
         setObjectCreationSettingsAssembly: SetObjectCreationSettingsModuleAssemblyProtocol,
         newSearchModuleAssembly: NewSearchModuleAssemblyProtocol,
-        objectSettingCoordinator: ObjectSettingsCoordinatorProtocol
+        objectSettingCoordinator: ObjectSettingsCoordinatorProtocol,
+        editorPageCoordinatorAssembly: EditorPageCoordinatorAssemblyProtocol
     ) {
         self.navigationContext = navigationContext
         self.setObjectCreationSettingsAssembly = setObjectCreationSettingsAssembly
         self.newSearchModuleAssembly = newSearchModuleAssembly
         self.objectSettingCoordinator = objectSettingCoordinator
+        self.editorPageCoordinatorAssembly = editorPageCoordinatorAssembly
     }
     
     func showSetObjectCreationSettings(
@@ -102,6 +105,14 @@ final class SetObjectCreationSettingsCoordinator: SetObjectCreationSettingsCoord
         onSetAsDefaultTempalte: @escaping (BlockId) -> Void,
         completion: (() -> Void)?
     ) {
+        let editor = editorPageCoordinatorAssembly.make(data: .init(
+            objectId: setting.templateId,
+            spaceId: setting.spaceId,
+            isSupportedForEdit: true,
+            isOpenedForPreview: false,
+            usecase: .templateEditing
+        ))
+        
 //        let editorPage = editorAssembly.buildPageModule(browser: nil, data: .init(
 //            objectId: setting.templateId,
 //            spaceId: setting.spaceId,
@@ -109,7 +120,7 @@ final class SetObjectCreationSettingsCoordinator: SetObjectCreationSettingsCoord
 //            isOpenedForPreview: false,
 //            usecase: .templateEditing
 //        ))
-//       
+       
 //        let viewModel = editorPage.0.viewModel
 //        handler = TemplateSelectionObjectSettingsHandler(useAsTemplateAction: onSetAsDefaultTempalte)
 //        let editingTemplateViewController = TemplateEditingViewController(
@@ -128,8 +139,8 @@ final class SetObjectCreationSettingsCoordinator: SetObjectCreationSettingsCoord
 //            },
 //            onSelectTemplateTap: onTemplateSelection
 //        )
-//
-//        navigationContext.present(editingTemplateViewController, completion: completion)
+
+        navigationContext.present(editor, completion: completion)
     }
     
     private func showTypesSearch(
