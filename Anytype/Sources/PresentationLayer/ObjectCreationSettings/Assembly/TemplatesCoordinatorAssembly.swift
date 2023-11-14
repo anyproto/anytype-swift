@@ -23,8 +23,8 @@ final class TemplatesCoordinatorAssembly: TemplatesCoordinatorAssemblyProtocol {
     func make(viewController: UIViewController) -> TemplatesCoordinatorProtocol {
         return TemplatesCoordinator(
             rootViewController: viewController,
-            editorPageAssembly: coordinatorsDI.editor(), 
-            objectSettingCoordinator: coordinatorsDI.objectSettings().make(browserController: nil)
+//            editorPageAssembly: coordinatorsDI.editor(), 
+            objectSettingCoordinator: coordinatorsDI.objectSettings().make()
         )
     }
 }

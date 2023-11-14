@@ -13,17 +13,17 @@ protocol TemplatesCoordinatorProtocol {
 
 final class TemplatesCoordinator: TemplatesCoordinatorProtocol {
     private weak var rootViewController: UIViewController?
-    private let editorPageAssembly: EditorAssembly
+//    private let editorPageAssembly: EditorAssembly
     private let objectSettingCoordinator: ObjectSettingsCoordinatorProtocol
     private var handler: TemplateSelectionObjectSettingsHandler?
 
     init(
         rootViewController: UIViewController,
-        editorPageAssembly: EditorAssembly,
+//        editorPageAssembly: EditorAssembly,
         objectSettingCoordinator: ObjectSettingsCoordinatorProtocol
     ) {
         self.rootViewController = rootViewController
-        self.editorPageAssembly = editorPageAssembly
+//        self.editorPageAssembly = editorPageAssembly
         self.objectSettingCoordinator = objectSettingCoordinator
     }
 
@@ -51,17 +51,17 @@ final class TemplatesCoordinator: TemplatesCoordinatorProtocol {
 
 extension TemplatesCoordinator: TemplatePickerViewModuleOutput {
     func onTemplatesChanged(_ templates: [ObjectDetails], completion: ([TemplatePickerData]) -> Void) {
-        let editorsViews = templates.map { template in
-            let editorController = editorPageAssembly.buildPageModule(browser: nil, data: .init(
-                objectId: template.id,
-                spaceId: template.spaceId,
-                isSupportedForEdit: true,
-                isOpenedForPreview: false,
-                usecase: .templateEditing
-            )).0
-            return TemplatePickerData(template: template, editorController: editorController)
-        }
-        completion(editorsViews)
+//        let editorsViews = templates.map { template in
+//            let editorController = editorPageAssembly.buildPageModule(browser: nil, data: .init(
+//                objectId: template.id,
+//                spaceId: template.spaceId,
+//                isSupportedForEdit: true,
+//                isOpenedForPreview: false,
+//                usecase: .templateEditing
+//            )).0
+//            return TemplatePickerData(template: template, editorController: editorController)
+//        }
+//        completion(editorsViews)
     }
     
     func selectionOptionsView(_ provider: OptionsItemProvider) -> AnyView {
