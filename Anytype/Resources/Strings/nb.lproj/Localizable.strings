@@ -270,7 +270,7 @@
 "Undo" = "Angre";
 "Actions.LinkItself" = "Koble til";
 "Actions.MakeAsTemplate" = "Lag mal";
-"Actions.TemplateMakeDefault" = "Make default";
+"Actions.TemplateMakeDefault" = "Bruk som standard";
 
 // Object Type
 "Set" = "Sett";
@@ -416,8 +416,7 @@
 
 // MARK: - Set.Bookmarks
 "Set.Bookmark.Create.Placeholder" = "Lim inn lenke";
-"Set.Bookmark.Error.Title" = "Oops, noe gikk galt";
-"Set.Bookmark.Error.Message" = "Vennligst prøv igjen";
+"Set.Bookmark.Error.Message" = "Oops - noe gikk galt. Vennligst prøv igjen";
 
 // MARK: - Sets: View Settings
 "Set.View.Settings.ImageFit.Title" = "Tilpass bilde";
@@ -848,3 +847,8 @@
 // MARK: - Error
 "Error.AnytypeNeedsUpgrate.Title" = "Oppdater din app";
 "Error.AnytypeNeedsUpgrate.Message" = "Dette objektet ble endret i en nyere versjon av Anytype. Oppdater appen for å åpne det på denne enheten";
+
+// MARK: - Relative date formatter
+"RelativeFormatter.days7" = "Siste 7 dager";
+"RelativeFormatter.days30" = "Siste 30 dager";
+"RelativeFormatter.older" = "Eldre";

@@ -416,8 +416,7 @@
 
 // MARK: - Set.Bookmarks
 "Set.Bookmark.Create.Placeholder" = "Tempelkan tautan";
-"Set.Bookmark.Error.Title" = "Ups, ada yang salah";
-"Set.Bookmark.Error.Message" = "Silakan coba lagi";
+"Set.Bookmark.Error.Message" = "Ups - terjadi kesalahan. Silakan coba lagi";
 
 // MARK: - Sets: View Settings
 "Set.View.Settings.ImageFit.Title" = "Paskan gambar";
@@ -848,3 +847,8 @@
 // MARK: - Error
 "Error.AnytypeNeedsUpgrate.Title" = "Perbarui Aplikasimu";
 "Error.AnytypeNeedsUpgrate.Message" = "Objek ini telah diubah pada versi terbaru Anytype. Perbaruilah aplikasimu untuk membuka objek ini di perangkat ini.";
+
+// MARK: - Relative date formatter
+"RelativeFormatter.days7" = "7 hari terakhir";
+"RelativeFormatter.days30" = "30 hari terakhir";
+"RelativeFormatter.older" = "Lebih lama";

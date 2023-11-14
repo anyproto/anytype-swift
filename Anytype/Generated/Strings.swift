@@ -1424,6 +1424,14 @@ internal enum Loc {
     /// Send email
     internal static let sendEmail = Loc.tr("Localizable", "RelationAction.SendEmail", fallback: "Send email")
   }
+  internal enum RelativeFormatter {
+    /// Previous 30 days
+    internal static let days30 = Loc.tr("Localizable", "RelativeFormatter.days30", fallback: "Previous 30 days")
+    /// Previous 7 days
+    internal static let days7 = Loc.tr("Localizable", "RelativeFormatter.days7", fallback: "Previous 7 days")
+    /// Older
+    internal static let older = Loc.tr("Localizable", "RelativeFormatter.older", fallback: "Older")
+  }
   internal enum Scanner {
     internal enum Error {
       /// Scanning not supported
@@ -1437,10 +1445,8 @@ internal enum Loc {
         internal static let placeholder = Loc.tr("Localizable", "Set.Bookmark.Create.Placeholder", fallback: "Paste link")
       }
       internal enum Error {
-        /// Please try again
-        internal static let message = Loc.tr("Localizable", "Set.Bookmark.Error.Message", fallback: "Please try again")
-        /// Oops - something went wrong
-        internal static let title = Loc.tr("Localizable", "Set.Bookmark.Error.Title", fallback: "Oops - something went wrong")
+        /// Oops - something went wrong. Please try again
+        internal static let message = Loc.tr("Localizable", "Set.Bookmark.Error.Message", fallback: "Oops - something went wrong. Please try again")
       }
     }
     internal enum Button {

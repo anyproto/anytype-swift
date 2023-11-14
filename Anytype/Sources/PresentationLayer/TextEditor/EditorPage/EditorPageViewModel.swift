@@ -28,7 +28,6 @@ final class EditorPageViewModel: EditorPageViewModelProtocol {
     private let configuration: EditorPageViewModelConfiguration
     
     private let templatesSubscriptionService: TemplatesSubscriptionServiceProtocol
-    private var availableTemplates = [ObjectDetails]()
     
     lazy var subscriptions = [AnyCancellable]()
 
@@ -227,8 +226,7 @@ final class EditorPageViewModel: EditorPageViewModelProtocol {
                 spaceId: document.spaceId
             ) { [weak self] details in
                 guard let self else { return }
-                availableTemplates = details
-                viewInput?.update(details: document.details, templatesCount: availableTemplates.count)
+                viewInput?.update(details: document.details, templatesCount: details.count)
             }
         }
     }
@@ -324,7 +322,7 @@ extension EditorPageViewModel {
     
     @MainActor
     func showTemplates() {
-        router.showTemplatesPicker(availableTemplates: availableTemplates)
+        router.showTemplatesPicker()
     }
 }
 

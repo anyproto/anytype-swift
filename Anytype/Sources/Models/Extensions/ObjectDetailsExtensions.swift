@@ -147,4 +147,8 @@ extension BundledRelationsValueProvider {
     var isTemplateType: Bool {
         objectType.isTemplateType
     }
+    
+    var canCreateObject: Bool {
+        setOf.first { $0.isNotEmpty } != nil || isCollection
+    }
 }

@@ -270,7 +270,7 @@
 "Undo" = "撤消";
 "Actions.LinkItself" = "链接到";
 "Actions.MakeAsTemplate" = "制作模板";
-"Actions.TemplateMakeDefault" = "Make default";
+"Actions.TemplateMakeDefault" = "设置为默认";
 
 // Object Type
 "Set" = "集合";
@@ -416,8 +416,7 @@
 
 // MARK: - Set.Bookmarks
 "Set.Bookmark.Create.Placeholder" = "粘贴链接";
-"Set.Bookmark.Error.Title" = "哎呀 - 出问题了";
-"Set.Bookmark.Error.Message" = "请重试";
+"Set.Bookmark.Error.Message" = "噢不 - 出现了一些问题。请重试";
 
 // MARK: - Sets: View Settings
 "Set.View.Settings.ImageFit.Title" = "图像自适应";
@@ -848,3 +847,8 @@
 // MARK: - Error
 "Error.AnytypeNeedsUpgrate.Title" = "更新应用";
 "Error.AnytypeNeedsUpgrate.Message" = "此对象已在更高版本的 Anytype 编辑过，请更新此设备的应用以打开它";
+
+// MARK: - Relative date formatter
+"RelativeFormatter.days7" = "过去 7 天";
+"RelativeFormatter.days30" = "过去 30 天";
+"RelativeFormatter.older" = "较早的";

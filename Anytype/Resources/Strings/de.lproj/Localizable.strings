@@ -270,7 +270,7 @@
 "Undo" = "Rückgängig";
 "Actions.LinkItself" = "Link zu";
 "Actions.MakeAsTemplate" = "Vorlage erstellen";
-"Actions.TemplateMakeDefault" = "Make default";
+"Actions.TemplateMakeDefault" = "Als Standard festlegen";
 
 // Object Type
 "Set" = "Set";
@@ -416,8 +416,7 @@
 
 // MARK: - Set.Bookmarks
 "Set.Bookmark.Create.Placeholder" = "Link einfügen";
-"Set.Bookmark.Error.Title" = "Oops - something went wrong";
-"Set.Bookmark.Error.Message" = "Please try again";
+"Set.Bookmark.Error.Message" = "Hoppla! Irgendetwas ist schiefgelaufen. Bitte versuchen sie es nochmal.";
 
 // MARK: - Sets: View Settings
 "Set.View.Settings.ImageFit.Title" = "Bild einpassen";
@@ -849,3 +848,8 @@
 // MARK: - Error
 "Error.AnytypeNeedsUpgrate.Title" = "Aktualisieren Sie Ihre App";
 "Error.AnytypeNeedsUpgrate.Message" = "Dieses Objekt wurde in einer neueren Version von Anytype geändert. Bitte aktualisieren Sie die App, um es auf diesem Gerät zu öffnen";
+
+// MARK: - Relative date formatter
+"RelativeFormatter.days7" = "Previous 7 days";
+"RelativeFormatter.days30" = "Previous 30 days";
+"RelativeFormatter.older" = "Older";

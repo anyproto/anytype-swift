@@ -12,7 +12,7 @@ final class EditorRouter: NSObject, EditorRouterProtocol, ObjectSettingsCoordina
     private let fileCoordinator: FileDownloadingCoordinator
     private let addNewRelationCoordinator: AddNewRelationCoordinatorProtocol
     private let document: BaseDocumentProtocol
-    private let templatesCoordinator: TemplatesCoordinator
+    private let templatesCoordinator: TemplatesCoordinatorProtocol
     private let setObjectCreationSettingsCoordinator: SetObjectCreationSettingsCoordinatorProtocol
     private let urlOpener: URLOpenerProtocol
     private let relationValueCoordinator: RelationValueCoordinatorProtocol
@@ -35,7 +35,7 @@ final class EditorRouter: NSObject, EditorRouterProtocol, ObjectSettingsCoordina
         navigationContext: NavigationContextProtocol,
         document: BaseDocumentProtocol,
         addNewRelationCoordinator: AddNewRelationCoordinatorProtocol,
-        templatesCoordinator: TemplatesCoordinator,
+        templatesCoordinator: TemplatesCoordinatorProtocol,
         setObjectCreationSettingsCoordinator: SetObjectCreationSettingsCoordinatorProtocol,
         urlOpener: URLOpenerProtocol,
         relationValueCoordinator: RelationValueCoordinatorProtocol,
@@ -440,10 +440,12 @@ final class EditorRouter: NSObject, EditorRouterProtocol, ObjectSettingsCoordina
     }
     
     @MainActor
-    func showTemplatesPicker(availableTemplates: [ObjectDetails]) {
+    func showTemplatesPicker() {
         templatesCoordinator.showTemplatesPicker(
             document: document,
-            availableTemplates: availableTemplates
+            onSetAsDefaultTempalte: { [weak self] templateId in
+                self?.didTapUseTemplateAsDefault(templateId: templateId)
+            }
         )
     }
     
@@ -547,8 +549,8 @@ extension EditorRouter: ObjectSettingsModuleDelegate {
     
     @MainActor
     func didCreateTemplate(templateId: BlockId) {
-        guard let objectType = document.details?.objectType else { return }
-        let setting = ObjectCreationSetting(objectTypeId: objectType.id, spaceId: document.spaceId, templateId: templateId)
+        guard let objectTypeId = document.details?.objectType.id else { return }
+        let setting = ObjectCreationSetting(objectTypeId: objectTypeId, spaceId: document.spaceId, templateId: templateId)
         setObjectCreationSettingsCoordinator.showTemplateEditing(
             setting: setting,
             onTemplateSelection: nil,
@@ -558,7 +560,7 @@ extension EditorRouter: ObjectSettingsModuleDelegate {
             completion: { [weak self] in
                 self?.toastPresenter.showObjectCompositeAlert(
                     prefixText: Loc.Templates.Popup.wasAddedTo,
-                    objectId: objectType.id,
+                    objectId: objectTypeId,
                     tapHandler: { }
                 )
             }
@@ -566,8 +568,9 @@ extension EditorRouter: ObjectSettingsModuleDelegate {
     }
     
     func didTapUseTemplateAsDefault(templateId: BlockId) {
+        guard let objectTypeId = document.details?.objectType.id else { return }
         Task { @MainActor in
-            try? await templateService.setTemplateAsDefaultForType(templateId: templateId)
+            try? await templateService.setTemplateAsDefaultForType(objectTypeId: objectTypeId, templateId: templateId)
             navigationContext.dismissTopPresented(animated: true, completion: nil)
             toastPresenter.show(message: Loc.Templates.Popup.default)
         }
