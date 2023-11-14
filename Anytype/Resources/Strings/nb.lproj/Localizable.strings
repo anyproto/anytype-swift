@@ -800,9 +800,9 @@
 "ClearCacheAlert.Description" = "Alle mediefiler lagret i Anytype vil bli slettet fra din nåværende enhet. De kan lastes ned igjen fra en backup-node eller en annen enhet.";
 
 // MARK: - Spaces
-"Spaces.Accessibility.Public" = "Offentlig";
-"Spaces.Accessibility.Private" = "Privat";
-"Spaces.Accessibility.Personal" = "Personlig";
+"Spaces.Accessibility.Public" = "Offentlig rom";
+"Spaces.Accessibility.Private" = "Privat rom";
+"Spaces.Accessibility.Personal" = "Innstillinger";
 "Spaces.Search.Title" = "Søk etter rom";
 
 // MARK: - Space Settings
