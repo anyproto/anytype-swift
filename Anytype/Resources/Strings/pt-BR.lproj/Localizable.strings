@@ -800,9 +800,9 @@
 "ClearCacheAlert.Description" = "Todos os arquivos de mídia armazenados no Anytype serão excluídos do seu dispositivo atual. Eles podem ser baixados novamente de um nó de backup ou de outro dispositivo.";
 
 // MARK: - Spaces
-"Spaces.Accessibility.Public" = "Público";
-"Spaces.Accessibility.Private" = "Privado";
-"Spaces.Accessibility.Personal" = "Personal";
+"Spaces.Accessibility.Public" = "Public Space";
+"Spaces.Accessibility.Private" = "Private Space";
+"Spaces.Accessibility.Personal" = "Configurações";
 "Spaces.Search.Title" = "Pesquisar Espaços";
 
 // MARK: - Space Settings

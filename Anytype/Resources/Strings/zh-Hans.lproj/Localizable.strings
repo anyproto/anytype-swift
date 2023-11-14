@@ -270,7 +270,7 @@
 "Undo" = "撤消";
 "Actions.LinkItself" = "链接到";
 "Actions.MakeAsTemplate" = "制作模板";
-"Actions.TemplateMakeDefault" = "Make default";
+"Actions.TemplateMakeDefault" = "设为默认";
 
 // Object Type
 "Set" = "集合";
@@ -800,9 +800,9 @@
 "ClearCacheAlert.Description" = "存储在 Anytype 中的所有媒体文件将从您当前的设备中删除。可以从备份节点或其他设备再次下载它们。";
 
 // MARK: - Spaces
-"Spaces.Accessibility.Public" = "公共";
-"Spaces.Accessibility.Private" = "私人";
-"Spaces.Accessibility.Personal" = "个人";
+"Spaces.Accessibility.Public" = "Public Space";
+"Spaces.Accessibility.Private" = "Private Space";
+"Spaces.Accessibility.Personal" = "设置";
 "Spaces.Search.Title" = "搜索空间";
 
 // MARK: - Space Settings

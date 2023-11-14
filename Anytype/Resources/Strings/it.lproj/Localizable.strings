@@ -800,9 +800,9 @@
 "ClearCacheAlert.Description" = "All media files stored in Anytype will be deleted from your current device. They can be downloaded again from a backup node or another device.";
 
 // MARK: - Spaces
-"Spaces.Accessibility.Public" = "Pubblico";
-"Spaces.Accessibility.Private" = "Privato";
-"Spaces.Accessibility.Personal" = "Personale";
+"Spaces.Accessibility.Public" = "Public Space";
+"Spaces.Accessibility.Private" = "Private Space";
+"Spaces.Accessibility.Personal" = "Impostazioni";
 "Spaces.Search.Title" = "Cerca spazi";
 
 // MARK: - Space Settings
