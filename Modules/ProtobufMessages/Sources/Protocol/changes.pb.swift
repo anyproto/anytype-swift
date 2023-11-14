@@ -241,6 +241,14 @@ public struct Anytype_Change {
       set {value = .storeSliceUpdate(newValue)}
     }
 
+    public var originalCreatedTimestampSet: Anytype_Change.OriginalCreatedTimestampSet {
+      get {
+        if case .originalCreatedTimestampSet(let v)? = value {return v}
+        return Anytype_Change.OriginalCreatedTimestampSet()
+      }
+      set {value = .originalCreatedTimestampSet(newValue)}
+    }
+
     public var unknownFields = SwiftProtobuf.UnknownStorage()
 
     public enum OneOf_Value: Equatable {
@@ -258,6 +266,7 @@ public struct Anytype_Change {
       case storeKeySet(Anytype_Change.StoreKeySet)
       case storeKeyUnset(Anytype_Change.StoreKeyUnset)
       case storeSliceUpdate(Anytype_Change.StoreSliceUpdate)
+      case originalCreatedTimestampSet(Anytype_Change.OriginalCreatedTimestampSet)
 
     #if !swift(>=4.1)
       public static func ==(lhs: Anytype_Change.Content.OneOf_Value, rhs: Anytype_Change.Content.OneOf_Value) -> Bool {
@@ -319,6 +328,10 @@ public struct Anytype_Change {
         }()
         case (.storeSliceUpdate, .storeSliceUpdate): return {
           guard case .storeSliceUpdate(let l) = lhs, case .storeSliceUpdate(let r) = rhs else { preconditionFailure() }
+          return l == r
+        }()
+        case (.originalCreatedTimestampSet, .originalCreatedTimestampSet): return {
+          guard case .originalCreatedTimestampSet(let l) = lhs, case .originalCreatedTimestampSet(let r) = rhs else { preconditionFailure() }
           return l == r
         }()
         default: return false
@@ -631,6 +644,18 @@ public struct Anytype_Change {
     public init() {}
   }
 
+  public struct OriginalCreatedTimestampSet {
+    // SwiftProtobuf.Message conformance is added in an extension below. See the
+    // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+    // methods supported on all messages.
+
+    public var ts: Int64 = 0
+
+    public var unknownFields = SwiftProtobuf.UnknownStorage()
+
+    public init() {}
+  }
+
   public init() {}
 
   fileprivate var _storage = _StorageClass.defaultInstance
@@ -660,6 +685,7 @@ extension Anytype_Change.StoreSliceUpdate.OneOf_Operation: @unchecked Sendable {
 extension Anytype_Change.StoreSliceUpdate.Add: @unchecked Sendable {}
 extension Anytype_Change.StoreSliceUpdate.Remove: @unchecked Sendable {}
 extension Anytype_Change.StoreSliceUpdate.Move: @unchecked Sendable {}
+extension Anytype_Change.OriginalCreatedTimestampSet: @unchecked Sendable {}
 #endif  // swift(>=5.5) && canImport(_Concurrency)
 
 // MARK: - Code below here is support for the SwiftProtobuf runtime.
@@ -893,6 +919,7 @@ extension Anytype_Change.Content: SwiftProtobuf.Message, SwiftProtobuf._MessageI
     107: .same(proto: "storeKeySet"),
     108: .same(proto: "storeKeyUnset"),
     109: .same(proto: "storeSliceUpdate"),
+    110: .same(proto: "originalCreatedTimestampSet"),
   ]
 
   public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
@@ -1083,6 +1110,19 @@ extension Anytype_Change.Content: SwiftProtobuf.Message, SwiftProtobuf._MessageI
           self.value = .storeSliceUpdate(v)
         }
       }()
+      case 110: try {
+        var v: Anytype_Change.OriginalCreatedTimestampSet?
+        var hadOneofValue = false
+        if let current = self.value {
+          hadOneofValue = true
+          if case .originalCreatedTimestampSet(let m) = current {v = m}
+        }
+        try decoder.decodeSingularMessageField(value: &v)
+        if let v = v {
+          if hadOneofValue {try decoder.handleConflictingOneOf()}
+          self.value = .originalCreatedTimestampSet(v)
+        }
+      }()
       default: break
       }
     }
@@ -1149,6 +1189,10 @@ extension Anytype_Change.Content: SwiftProtobuf.Message, SwiftProtobuf._MessageI
     case .storeSliceUpdate?: try {
       guard case .storeSliceUpdate(let v)? = self.value else { preconditionFailure() }
       try visitor.visitSingularMessageField(value: v, fieldNumber: 109)
+    }()
+    case .originalCreatedTimestampSet?: try {
+      guard case .originalCreatedTimestampSet(let v)? = self.value else { preconditionFailure() }
+      try visitor.visitSingularMessageField(value: v, fieldNumber: 110)
     }()
     case nil: break
     }
@@ -1843,6 +1887,38 @@ extension Anytype_Change.StoreSliceUpdate.Move: SwiftProtobuf.Message, SwiftProt
   public static func ==(lhs: Anytype_Change.StoreSliceUpdate.Move, rhs: Anytype_Change.StoreSliceUpdate.Move) -> Bool {
     if lhs.afterID != rhs.afterID {return false}
     if lhs.ids != rhs.ids {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    return true
+  }
+}
+
+extension Anytype_Change.OriginalCreatedTimestampSet: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = Anytype_Change.protoMessageName + ".OriginalCreatedTimestampSet"
+  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    1: .same(proto: "ts"),
+  ]
+
+  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let fieldNumber = try decoder.nextFieldNumber() {
+      // The use of inline closures is to circumvent an issue where the compiler
+      // allocates stack space for every case branch when no optimizations are
+      // enabled. https://github.com/apple/swift-protobuf/issues/1034
+      switch fieldNumber {
+      case 1: try { try decoder.decodeSingularInt64Field(value: &self.ts) }()
+      default: break
+      }
+    }
+  }
+
+  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    if self.ts != 0 {
+      try visitor.visitSingularInt64Field(value: self.ts, fieldNumber: 1)
+    }
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  public static func ==(lhs: Anytype_Change.OriginalCreatedTimestampSet, rhs: Anytype_Change.OriginalCreatedTimestampSet) -> Bool {
+    if lhs.ts != rhs.ts {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
