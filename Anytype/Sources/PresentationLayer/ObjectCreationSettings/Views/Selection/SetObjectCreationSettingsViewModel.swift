@@ -127,7 +127,7 @@ final class SetObjectCreationSettingsViewModel: ObservableObject {
     func setTemplateAsDefaultForType(templateId: BlockId) {
         Task {
             do {
-                try await templatesService.setTemplateAsDefaultForType(templateId: templateId)
+                try await templatesService.setTemplateAsDefaultForType(objectTypeId: interactor.objectTypeId, templateId: templateId)
                 toastPresenter.show(message: Loc.Templates.Popup.default)
             }
         }
