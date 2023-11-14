@@ -847,3 +847,8 @@
 // MARK: - Error
 "Error.AnytypeNeedsUpgrate.Title" = "Actualiza tu aplicación";
 "Error.AnytypeNeedsUpgrate.Message" = "Este objeto fue modificado en una versión más reciente de Anytype. Actualice la aplicación para abrirlo en este dispositivo";
+
+// MARK: - Relative date formatter
+"RelativeFormatter.days7" = "Últimos 7 días";
+"RelativeFormatter.days30" = "Últimos 30 días";
+"RelativeFormatter.older" = "Más antiguo";
