@@ -270,7 +270,7 @@
 "Undo" = "Annulla";
 "Actions.LinkItself" = "Collega a";
 "Actions.MakeAsTemplate" = "Crea modello";
-"Actions.TemplateMakeDefault" = "Imposta come predefinito";
+"Actions.TemplateMakeDefault" = "Make default";
 
 // Object Type
 "Set" = "Insieme";

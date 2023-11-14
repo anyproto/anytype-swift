@@ -270,7 +270,7 @@
 "Undo" = "Повернути";
 "Actions.LinkItself" = "Зв'язати з";
 "Actions.MakeAsTemplate" = "Створити шаблон";
-"Actions.TemplateMakeDefault" = "Встановити за замовчуванням";
+"Actions.TemplateMakeDefault" = "Make default";
 
 // Object Type
 "Set" = "Набір";

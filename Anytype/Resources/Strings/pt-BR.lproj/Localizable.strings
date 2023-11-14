@@ -270,7 +270,7 @@
 "Undo" = "Desfazer";
 "Actions.LinkItself" = "Vincular a";
 "Actions.MakeAsTemplate" = "Fazer modelo";
-"Actions.TemplateMakeDefault" = "Definir como padrão";
+"Actions.TemplateMakeDefault" = "Make default";
 
 // Object Type
 "Set" = "Conjunto";

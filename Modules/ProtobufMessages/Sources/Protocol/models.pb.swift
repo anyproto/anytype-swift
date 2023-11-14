@@ -446,8 +446,11 @@ public struct Anytype_Model_SmartBlockSnapshotBase {
 
   public var relationLinks: [Anytype_Model_RelationLink] = []
 
-  /// this field is not passing to the crdt changes and can be only set in the snapshot
+  /// only used for pb backup purposes, ignored in other cases
   public var key: String = String()
+
+  /// ignored in import/export in favor of createdDate relation. Used to store original user-side object creation timestamp
+  public var originalCreatedTimestamp: Int64 = 0
 
   public var unknownFields = SwiftProtobuf.UnknownStorage()
 
@@ -4104,6 +4107,7 @@ extension Anytype_Model_SmartBlockSnapshotBase: SwiftProtobuf.Message, SwiftProt
     8: .same(proto: "removedCollectionKeys"),
     7: .same(proto: "relationLinks"),
     9: .same(proto: "key"),
+    10: .same(proto: "originalCreatedTimestamp"),
   ]
 
   public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
@@ -4121,6 +4125,7 @@ extension Anytype_Model_SmartBlockSnapshotBase: SwiftProtobuf.Message, SwiftProt
       case 7: try { try decoder.decodeRepeatedMessageField(value: &self.relationLinks) }()
       case 8: try { try decoder.decodeRepeatedStringField(value: &self.removedCollectionKeys) }()
       case 9: try { try decoder.decodeSingularStringField(value: &self.key) }()
+      case 10: try { try decoder.decodeSingularInt64Field(value: &self.originalCreatedTimestamp) }()
       default: break
       }
     }
@@ -4158,6 +4163,9 @@ extension Anytype_Model_SmartBlockSnapshotBase: SwiftProtobuf.Message, SwiftProt
     if !self.key.isEmpty {
       try visitor.visitSingularStringField(value: self.key, fieldNumber: 9)
     }
+    if self.originalCreatedTimestamp != 0 {
+      try visitor.visitSingularInt64Field(value: self.originalCreatedTimestamp, fieldNumber: 10)
+    }
     try unknownFields.traverse(visitor: &visitor)
   }
 
@@ -4171,6 +4179,7 @@ extension Anytype_Model_SmartBlockSnapshotBase: SwiftProtobuf.Message, SwiftProt
     if lhs.removedCollectionKeys != rhs.removedCollectionKeys {return false}
     if lhs.relationLinks != rhs.relationLinks {return false}
     if lhs.key != rhs.key {return false}
+    if lhs.originalCreatedTimestamp != rhs.originalCreatedTimestamp {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }

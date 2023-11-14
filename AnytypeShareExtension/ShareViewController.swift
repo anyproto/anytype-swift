@@ -134,8 +134,9 @@ class ShareViewController: SLComposeServiceViewController {
             ) else {
                 fatalError()
             }
-            containerURL.append(path: "Library/Caches")
-            containerURL.append(path: imageURL.lastPathComponent)
+            containerURL = containerURL
+                .appendingPathComponent("Library/Caches")
+                .appendingPathComponent(imageURL.lastPathComponent)
             
             do {
                 try FileManager.default.copyItem(at: imageURL, to: containerURL)

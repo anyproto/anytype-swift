@@ -41,7 +41,11 @@ final class SearchService: ObservableObject, SearchServiceProtocol {
         static let defaultLimit = 100
     }
     
-    init() {}
+    private let accountManager: AccountManagerProtocol
+    
+    init(accountManager: AccountManagerProtocol) {
+        self.accountManager = accountManager
+    }
     
     // MARK: - SearchServiceProtocol
     
@@ -55,8 +59,9 @@ final class SearchService: ObservableObject, SearchServiceProtocol {
             type: .desc
         )
         
+        let spaceIds = [spaceId, accountManager.account.info.techSpaceId]
         let filters: [DataviewFilter] = .builder {
-            buildFilters(isArchived: false, spaceId: spaceId, layouts: DetailsLayout.visibleLayouts)
+            buildFilters(isArchived: false, spaceIds: spaceIds, layouts: DetailsLayout.visibleLayouts)
             SearchHelper.excludedIdsFilter(excludedObjectIds)
         }
         
@@ -164,13 +169,13 @@ final class SearchService: ObservableObject, SearchServiceProtocol {
             relation: BundledRelationKey.lastOpenedDate,
             type: .desc
         )
-        
+        let spaceIds = [spaceId, accountManager.account.info.techSpaceId]
         let filters: [DataviewFilter] = .builder {
             SearchHelper.excludedIdsFilter(excludedObjectIds)
             if typeIds.isEmpty {
-                buildFilters(isArchived: false, spaceId: spaceId, layouts: DetailsLayout.visibleLayouts)
+                buildFilters(isArchived: false, spaceIds: spaceIds, layouts: DetailsLayout.visibleLayouts)
             } else {
-                buildFilters(isArchived: false, spaceId: spaceId)
+                buildFilters(isArchived: false, spaceIds: spaceIds)
                 SearchHelper.typeFilter(typeIds: typeIds)
             }
         }
@@ -193,9 +198,9 @@ final class SearchService: ObservableObject, SearchServiceProtocol {
             relation: sortRelationKey ?? .lastOpenedDate,
             type: .desc
         )
-        
+        let spaceIds = [spaceId, accountManager.account.info.techSpaceId]
         let filters: [DataviewFilter] = .builder {
-            buildFilters(isArchived: false, spaceId: spaceId, layouts: DetailsLayout.visibleLayouts)
+            buildFilters(isArchived: false, spaceIds: spaceIds, layouts: DetailsLayout.visibleLayouts)
             SearchHelper.excludedIdsFilter(excludedObjectIds)
             SearchHelper.excludedLayoutFilter(excludedLayouts)
         }
@@ -278,7 +283,8 @@ final class SearchService: ObservableObject, SearchServiceProtocol {
             type: .desc
         )
         
-        let filters = buildFilters(isArchived: false, spaceId: spaceId, layouts: layouts)
+        let spaceIds = [spaceId, accountManager.account.info.techSpaceId]
+        let filters = buildFilters(isArchived: false, spaceIds: spaceIds, layouts: layouts)
         
         return try await search(filters: filters, sorts: [sort], fullText: text, limit: Constants.defaultLimit)
     }
@@ -321,18 +327,26 @@ private extension SearchService {
         return response.records.asDetais
     }
     
-    private func buildFilters(isArchived: Bool, spaceId: String) -> [DataviewFilter] {
+    private func buildFilters(isArchived: Bool, spaceIds: [String]) -> [DataviewFilter] {
         [
             SearchHelper.notHiddenFilter(),
             SearchHelper.isArchivedFilter(isArchived: isArchived),
-            SearchHelper.spaceId(spaceId)
+            SearchHelper.spaceIds(spaceIds)
         ]
     }
     
-    private func buildFilters(isArchived: Bool, spaceId: String, layouts: [DetailsLayout]) -> [DataviewFilter] {
-        var filters = buildFilters(isArchived: isArchived, spaceId: spaceId)
+    private func buildFilters(isArchived: Bool, spaceId: String) -> [DataviewFilter] {
+        buildFilters(isArchived: isArchived, spaceIds: [spaceId])
+    }
+    
+    private func buildFilters(isArchived: Bool, spaceIds: [String], layouts: [DetailsLayout]) -> [DataviewFilter] {
+        var filters = buildFilters(isArchived: isArchived, spaceIds: spaceIds)
         filters.append(SearchHelper.layoutFilter(layouts))
         filters.append(SearchHelper.templateScheme(include: false))
         return filters
+    }
+    
+    private func buildFilters(isArchived: Bool, spaceId: String, layouts: [DetailsLayout]) -> [DataviewFilter] {
+        buildFilters(isArchived: isArchived, spaceIds: [spaceId], layouts: layouts)
     }
 }

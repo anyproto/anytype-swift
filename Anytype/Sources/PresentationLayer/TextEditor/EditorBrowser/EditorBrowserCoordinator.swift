@@ -5,6 +5,8 @@ protocol EditorBrowserCoordinatorProtocol: AnyObject {
     func startFlow(data: EditorScreenData, delegate: EditorBrowserDelegate?)
     @MainActor
     func dismissAllPages()
+    @MainActor
+    func isEmpty() -> Bool
 }
 
 final class EditorBrowserCoordinator: EditorBrowserCoordinatorProtocol, EditorPageOpenRouterProtocol {
@@ -38,6 +40,11 @@ final class EditorBrowserCoordinator: EditorBrowserCoordinatorProtocol, EditorPa
     @MainActor
     func dismissAllPages() {
         navigationContext.pop(animated: true)
+    }
+    
+    @MainActor
+    func isEmpty() -> Bool {
+        browserController.isNil
     }
     
     // MARK: - EditorPageOpenRouterProtocol

@@ -609,8 +609,8 @@ internal enum Loc {
     internal static let linkItself = Loc.tr("Localizable", "Actions.LinkItself", fallback: "Link to")
     /// Make template
     internal static let makeAsTemplate = Loc.tr("Localizable", "Actions.MakeAsTemplate", fallback: "Make template")
-    /// Set as default
-    internal static let templateMakeDefault = Loc.tr("Localizable", "Actions.TemplateMakeDefault", fallback: "Set as default")
+    /// Make default
+    internal static let templateMakeDefault = Loc.tr("Localizable", "Actions.TemplateMakeDefault", fallback: "Make default")
   }
   internal enum Alert {
     internal enum CameraPermissions {
@@ -1730,12 +1730,12 @@ internal enum Loc {
   }
   internal enum Spaces {
     internal enum Accessibility {
-      /// Personal
-      internal static let personal = Loc.tr("Localizable", "Spaces.Accessibility.Personal", fallback: "Personal")
-      /// Private
-      internal static let `private` = Loc.tr("Localizable", "Spaces.Accessibility.Private", fallback: "Private")
-      /// Public
-      internal static let `public` = Loc.tr("Localizable", "Spaces.Accessibility.Public", fallback: "Public")
+      /// Personal Space
+      internal static let personal = Loc.tr("Localizable", "Spaces.Accessibility.Personal", fallback: "Personal Space")
+      /// Private Space
+      internal static let `private` = Loc.tr("Localizable", "Spaces.Accessibility.Private", fallback: "Private Space")
+      /// Public Space
+      internal static let `public` = Loc.tr("Localizable", "Spaces.Accessibility.Public", fallback: "Public Space")
     }
     internal enum Search {
       /// Search spaces

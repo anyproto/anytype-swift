@@ -270,7 +270,7 @@
 "Undo" = "Geri al";
 "Actions.LinkItself" = "Şuna bağla";
 "Actions.MakeAsTemplate" = "Şablon Oluştur";
-"Actions.TemplateMakeDefault" = "Varsayılan olarak ayarla";
+"Actions.TemplateMakeDefault" = "Make default";
 
 // Object Type
 "Set" = "Ayarla";

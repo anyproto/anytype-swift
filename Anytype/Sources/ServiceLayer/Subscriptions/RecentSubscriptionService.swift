@@ -101,7 +101,7 @@ final class RecentSubscriptionService: RecentSubscriptionServiceProtocol {
         case .recentEdit:
             guard let spaceView = activeWorkspaceStorage.spaceView(),
                   let createdDate = spaceView.createdDate else { return nil }
-            return SearchHelper.lastModifiedDateFrom(createdDate.addingTimeInterval(60))
+            return SearchHelper.lastModifiedDateFrom(createdDate.addingTimeInterval(3))
         case .recentOpen:
             return SearchHelper.lastOpenedDateNotNilFilter()
         }

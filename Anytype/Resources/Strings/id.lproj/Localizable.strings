@@ -270,7 +270,7 @@
 "Undo" = "Urungkan";
 "Actions.LinkItself" = "Tautkan ke";
 "Actions.MakeAsTemplate" = "Buat templat";
-"Actions.TemplateMakeDefault" = "Atur sebagai bawaan";
+"Actions.TemplateMakeDefault" = "Make default";
 
 // Object Type
 "Set" = "Set";

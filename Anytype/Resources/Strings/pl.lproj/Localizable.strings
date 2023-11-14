@@ -270,7 +270,7 @@
 "Undo" = "Cofnij";
 "Actions.LinkItself" = "Łącze do";
 "Actions.MakeAsTemplate" = "Utwórz szablon";
-"Actions.TemplateMakeDefault" = "Ustaw jako domyślny";
+"Actions.TemplateMakeDefault" = "Make default";
 
 // Object Type
 "Set" = "Ustaw";

@@ -30,7 +30,7 @@ struct SetObjectCreationSettingsView: View {
     
     private var navigationButtons: some View {
         HStack(spacing: 0) {
-            if model.templates.count > 2 {
+            if model.templates.count > 2 || model.isEditingState {
                 Button {
                     model.isEditingState.toggle()
                 } label: {
