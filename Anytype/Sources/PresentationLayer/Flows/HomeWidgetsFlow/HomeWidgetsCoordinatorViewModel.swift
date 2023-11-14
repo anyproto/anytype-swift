@@ -25,6 +25,7 @@ final class HomeWidgetsCoordinatorViewModel: ObservableObject,
     private let spaceSettingsCoordinatorAssembly: SpaceSettingsCoordinatorAssemblyProtocol
     private let shareCoordinatorAssembly: ShareCoordinatorAssemblyProtocol
     private let objectTypeSearchModuleAssembly: ObjectTypeSearchModuleAssemblyProtocol
+    private let workspacesStorage: WorkspacesStorageProtocol
     
     // MARK: - State
     
@@ -40,14 +41,7 @@ final class HomeWidgetsCoordinatorViewModel: ObservableObject,
     @Published var showSharing: Bool = false
     @Published var showCreateObjectWithType: Bool = false
     
-    @Published var info: AccountInfo? {
-        didSet {
-            // Prevent animation for first sync
-            if oldValue.isNotNil {
-                homeAnimationId = UUID()
-            }
-        }
-    }
+    @Published var info: AccountInfo?
     @Published var homeAnimationId = UUID()
     
     init(
@@ -64,7 +58,8 @@ final class HomeWidgetsCoordinatorViewModel: ObservableObject,
         spaceSwitchCoordinatorAssembly: SpaceSwitchCoordinatorAssemblyProtocol,
         spaceSettingsCoordinatorAssembly: SpaceSettingsCoordinatorAssemblyProtocol,
         shareCoordinatorAssembly: ShareCoordinatorAssemblyProtocol,
-        objectTypeSearchModuleAssembly: ObjectTypeSearchModuleAssemblyProtocol
+        objectTypeSearchModuleAssembly: ObjectTypeSearchModuleAssemblyProtocol,
+        workspacesStorage: WorkspacesStorageProtocol
     ) {
         self.homeWidgetsModuleAssembly = homeWidgetsModuleAssembly
         self.activeWorkspaceStorage = activeWorkspaceStorage
@@ -80,6 +75,7 @@ final class HomeWidgetsCoordinatorViewModel: ObservableObject,
         self.spaceSettingsCoordinatorAssembly = spaceSettingsCoordinatorAssembly
         self.shareCoordinatorAssembly = shareCoordinatorAssembly
         self.objectTypeSearchModuleAssembly = objectTypeSearchModuleAssembly
+        self.workspacesStorage = workspacesStorage
     }
 
     func onAppear() {
@@ -89,11 +85,16 @@ final class HomeWidgetsCoordinatorViewModel: ObservableObject,
         activeWorkspaceStorage
             .workspaceInfoPublisher
             .receiveOnMain()
-            .sink { [weak self] info in
-                if self?.info != nil, self?.info != info {
-                    self?.editorBrowserCoordinator.dismissAllPages()
+            .sink { [weak self] newInfo in
+                guard let self else { return }
+                if info.isNotNil, editorBrowserCoordinator.isEmpty() {
+                    homeAnimationId = UUID()
                 }
-                self?.info = info
+                if let oldInfo = info, oldInfo != newInfo,
+                    workspacesStorage.spaceView(id: oldInfo.spaceViewId).isNil {
+                    editorBrowserCoordinator.dismissAllPages()
+                }
+                info = newInfo
             }
             .store(in: &subscriptions)
         

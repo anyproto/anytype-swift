@@ -356,7 +356,8 @@ final class EditorAssembly {
             editorPageTemplatesHandler: editorPageTemplatesHandler,
             accountManager: serviceLocator.accountManager(),
             configuration: configuration,
-            templatesSubscriptionService: serviceLocator.templatesSubscription()
+            templatesSubscriptionService: serviceLocator.templatesSubscription(),
+            activeWorkpaceStorage: serviceLocator.activeWorkspaceStorage()
         )
         
         accessoryState.1.onTypeTap = { [weak viewModel] in
