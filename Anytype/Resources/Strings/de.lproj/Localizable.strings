@@ -270,7 +270,7 @@
 "Undo" = "Rückgängig";
 "Actions.LinkItself" = "Link zu";
 "Actions.MakeAsTemplate" = "Vorlage erstellen";
-"Actions.TemplateMakeDefault" = "Als Standard festlegen";
+"Actions.TemplateMakeDefault" = "Make default";
 
 // Object Type
 "Set" = "Set";
@@ -800,9 +800,9 @@
 "ClearCacheAlert.Description" = "Alle in Anytype gespeicherten Medien werden von Ihrem aktuellen Gerät gelöscht. Sie können sie von einem Backup-Knoten oder einem anderen Gerät wieder herunterladen.";
 
 // MARK: - Spaces
-"Spaces.Accessibility.Public" = "Öffentlich";
-"Spaces.Accessibility.Private" = "Privat";
-"Spaces.Accessibility.Personal" = "Persönlich";
+"Spaces.Accessibility.Public" = "Public Space";
+"Spaces.Accessibility.Private" = "Private Space";
+"Spaces.Accessibility.Personal" = "Settings";
 "Spaces.Search.Title" = "Spaces suchen";
 
 // MARK: - Space Settings
