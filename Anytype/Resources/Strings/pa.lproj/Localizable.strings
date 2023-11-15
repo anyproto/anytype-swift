@@ -270,7 +270,7 @@
 "Undo" = "Undo";
 "Actions.LinkItself" = "Link to";
 "Actions.MakeAsTemplate" = "Make template";
-"Actions.TemplateMakeDefault" = "Set as default";
+"Actions.TemplateMakeDefault" = "Make default";
 
 // Object Type
 "Set" = "Set";
@@ -799,9 +799,9 @@
 "ClearCacheAlert.Description" = "All media files stored in Anytype will be deleted from your current device. They can be downloaded again from a backup node or another device.";
 
 // MARK: - Spaces
-"Spaces.Accessibility.Public" = "Public";
-"Spaces.Accessibility.Private" = "Private";
-"Spaces.Accessibility.Personal" = "Personal";
+"Spaces.Accessibility.Public" = "Public Space";
+"Spaces.Accessibility.Private" = "Private Space";
+"Spaces.Accessibility.Personal" = "Personal Space";
 "Spaces.Search.Title" = "Search spaces";
 
 // MARK: - Space Settings
