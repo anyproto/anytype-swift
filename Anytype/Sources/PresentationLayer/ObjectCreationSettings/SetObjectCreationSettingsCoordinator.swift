@@ -23,21 +23,20 @@ final class SetObjectCreationSettingsCoordinator: SetObjectCreationSettingsCoord
     private let navigationContext: NavigationContextProtocol
     private let setObjectCreationSettingsAssembly: SetObjectCreationSettingsModuleAssemblyProtocol
     private let newSearchModuleAssembly: NewSearchModuleAssemblyProtocol
-    private let objectSettingCoordinator: ObjectSettingsCoordinatorProtocol
     private let editorPageCoordinatorAssembly: EditorPageCoordinatorAssemblyProtocol
     private var handler: TemplateSelectionObjectSettingsHandler?
+    
+    private var editorModuleInput: EditorPageModuleInput?
     
     init(
         navigationContext: NavigationContextProtocol,
         setObjectCreationSettingsAssembly: SetObjectCreationSettingsModuleAssemblyProtocol,
         newSearchModuleAssembly: NewSearchModuleAssemblyProtocol,
-        objectSettingCoordinator: ObjectSettingsCoordinatorProtocol,
         editorPageCoordinatorAssembly: EditorPageCoordinatorAssemblyProtocol
     ) {
         self.navigationContext = navigationContext
         self.setObjectCreationSettingsAssembly = setObjectCreationSettingsAssembly
         self.newSearchModuleAssembly = newSearchModuleAssembly
-        self.objectSettingCoordinator = objectSettingCoordinator
         self.editorPageCoordinatorAssembly = editorPageCoordinatorAssembly
     }
     
@@ -105,42 +104,31 @@ final class SetObjectCreationSettingsCoordinator: SetObjectCreationSettingsCoord
         onSetAsDefaultTempalte: @escaping (BlockId) -> Void,
         completion: (() -> Void)?
     ) {
-        let editor = editorPageCoordinatorAssembly.make(data: .init(
-            objectId: setting.templateId,
-            spaceId: setting.spaceId,
-            isSupportedForEdit: true,
-            isOpenedForPreview: false,
-            usecase: .templateEditing
-        ))
+        let editorView = editorPageCoordinatorAssembly.make(
+            data: EditorPageObject(
+                objectId: setting.templateId,
+                spaceId: setting.spaceId,
+                isSupportedForEdit: true,
+                isOpenedForPreview: false,
+                usecase: .templateEditing
+            ), 
+            showHeader: false,
+            setupEditorInput: { [weak self] input, _ in
+                self?.editorModuleInput = input
+            }
+        )
         
-//        let editorPage = editorAssembly.buildPageModule(browser: nil, data: .init(
-//            objectId: setting.templateId,
-//            spaceId: setting.spaceId,
-//            isSupportedForEdit: true,
-//            isOpenedForPreview: false,
-//            usecase: .templateEditing
-//        ))
-       
-//        let viewModel = editorPage.0.viewModel
-//        handler = TemplateSelectionObjectSettingsHandler(useAsTemplateAction: onSetAsDefaultTempalte)
-//        let editingTemplateViewController = TemplateEditingViewController(
-//            editorViewController: editorPage.0,
-//            onSettingsTap: { [weak self, weak viewModel] in
-//                guard let self = self, let handler = self.handler else { return }
-//                
-//                self.objectSettingCoordinator.startFlow(
-//                    objectId: setting.templateId,
-//                    delegate: handler,
-//                    output: nil,
-//                    objectSettingsHandler: {
-//                        viewModel?.handleSettingsAction(action: $0)
-//                    }
-//                )
-//            },
-//            onSelectTemplateTap: onTemplateSelection
-//        )
+        handler = TemplateSelectionObjectSettingsHandler(useAsTemplateAction: onSetAsDefaultTempalte)
+        let editingTemplateViewController = TemplateEditingViewController(
+            editorViewController: UIHostingController(rootView: editorView),
+            onSettingsTap: { [weak self] in
+                guard let self = self, let handler = self.handler else { return }
+                editorModuleInput?.showSettings(delegate: handler)
+            },
+            onSelectTemplateTap: onTemplateSelection
+        )
 
-        navigationContext.present(editor, completion: completion)
+        navigationContext.present(editingTemplateViewController, completion: completion)
     }
     
     private func showTypesSearch(

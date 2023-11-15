@@ -67,7 +67,7 @@ final class EditorPageController: UIViewController {
 
     private let blocksSelectionOverlayView: BlocksSelectionOverlayView
     private let navigationBarView = EditorNavigationBarView()
-    
+    private let showHeader: Bool
     var viewModel: EditorPageViewModelProtocol! {
         didSet {
             viewModel.setupSubscriptions()
@@ -76,17 +76,19 @@ final class EditorPageController: UIViewController {
 
     private var selectingRangeEditorItem: EditorItem?
     private var selectingRangeTextView: UITextView?
-
+    
     private var cancellables = [AnyCancellable]()
     
     // MARK: - Initializers
     init(
         blocksSelectionOverlayView: BlocksSelectionOverlayView,
-        bottomNavigationManager: EditorBottomNavigationManagerProtocol
+        bottomNavigationManager: EditorBottomNavigationManagerProtocol,
+        showHeader: Bool
     ) {
         self.blocksSelectionOverlayView = blocksSelectionOverlayView
         self.bottomNavigationManager = bottomNavigationManager
-
+        self.showHeader = showHeader
+        
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -496,15 +498,15 @@ private extension EditorPageController {
         view.addSubview(blocksSelectionOverlayView) {
             $0.pinToSuperview()
         }
-        
-        view.addSubview(navigationBarView) {
-            $0.pinToSuperview(excluding: [.bottom])
-            $0.bottom.equal(to: view.safeAreaLayoutGuide.topAnchor)
-//            $0.height.equal(to: view.safeAreaLayoutGuide.topAnchor)
-//            $0.top.equal(to: view.safeAreaLayoutGuide.topAnchor)
-//            $0.height.equal(to: 44)
+        if showHeader {
+            view.addSubview(navigationBarView) {
+                $0.pinToSuperview(excluding: [.bottom])
+                $0.bottom.equal(to: view.safeAreaLayoutGuide.topAnchor)
+                //            $0.height.equal(to: view.safeAreaLayoutGuide.topAnchor)
+                //            $0.top.equal(to: view.safeAreaLayoutGuide.topAnchor)
+                //            $0.height.equal(to: 44)
+            }
         }
-
         blocksSelectionOverlayView.isHidden = true
     }
 

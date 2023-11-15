@@ -38,7 +38,7 @@ final class EditorCoordinatorViewModel: ObservableObject, WidgetObjectListCommon
         case .bin:
             return widgetObjectListModuleAssembly.makeBin(output: self)
         case .page(let data):
-            return editorPageCoordinatorAssembly.make(data: data)
+            return editorPageCoordinatorAssembly.make(data: data, showHeader: true, setupEditorInput: { _, _ in })
         case .set(let data):
             return editorSetCoordinatorAssembly.make(data: data)
         }

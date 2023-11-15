@@ -36,8 +36,7 @@ final class EditorNavigationBarView: UIView {
             titleContainer.removeAllSubviews()
             if let titleView {
                 titleContainer.addSubview(titleView) {
-                    $0.pinToSuperview(excluding: [.left, .right])
-                    $0.center(in: titleContainer)
+                    $0.pinToSuperview()
                 }
             }
         }

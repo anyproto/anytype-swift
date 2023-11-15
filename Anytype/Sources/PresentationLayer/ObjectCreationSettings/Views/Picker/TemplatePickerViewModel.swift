@@ -103,8 +103,7 @@ final class TemplatePickerViewModel: ObservableObject, OptionsItemProvider {
                 return .template(
                     .init(
                         id: info.offset + 1,
-                        viewController: GenericUIKitToSwiftUIView(viewController: model.editorController),
-                        viewModel: model.editorController.viewModel,
+                        view: model.editorView,
                         object: model.template
                     )
                 )
@@ -160,8 +159,7 @@ extension TemplatePickerViewModel {
 
         struct TemplateModel {
             let id: Int
-            let viewController: GenericUIKitToSwiftUIView
-            let viewModel: EditorPageViewModelProtocol
+            let view: AnyView
             let object: ObjectDetails
         }
     }

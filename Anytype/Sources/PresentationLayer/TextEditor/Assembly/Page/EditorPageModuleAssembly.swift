@@ -2,9 +2,22 @@ import Foundation
 import SwiftUI
 import Services
 
+@MainActor
+protocol EditorPageModuleInput {
+    func showSettings(delegate: ObjectSettingsModuleDelegate)
+}
+
+struct EditorPageModuleInputContainer: EditorPageModuleInput {
+    weak var model: EditorPageViewModel?
+    
+    func showSettings(delegate: ObjectSettingsModuleDelegate) {
+        model?.showSettings(delegate: delegate)
+    }
+}
+
+@MainActor
 protocol EditorPageModuleAssemblyProtocol: AnyObject {
-    @MainActor
-    func make(data: EditorPageObject, output: EditorPageModuleOutput?) -> AnyView
+    func make(data: EditorPageObject, output: EditorPageModuleOutput?, showHeader: Bool) -> AnyView
 }
 
 @MainActor
@@ -30,16 +43,15 @@ final class EditorPageModuleAssembly: EditorPageModuleAssemblyProtocol {
 
     // MARK: - EditorPageModuleAssemblyProtocol
 
-    @MainActor
-    func make(data: EditorPageObject, output: EditorPageModuleOutput?) -> AnyView {
-        return EditorPageView(model: self.buildViewModel(data: data, output: output))
-            .eraseToAnyView()
+    func make(data: EditorPageObject, output: EditorPageModuleOutput?, showHeader: Bool) -> AnyView {
+        return EditorPageView(
+            model: self.buildViewModel(data: data, output: output, showHeader: showHeader)
+        ).eraseToAnyView()
     }
     
     // MARK: - Private
     
-    @MainActor
-    private func buildViewModel(data: EditorPageObject, output: EditorPageModuleOutput?) -> EditorPageViewModel {
+    private func buildViewModel(data: EditorPageObject, output: EditorPageModuleOutput?, showHeader: Bool) -> EditorPageViewModel {
         let simpleTableMenuViewModel = SimpleTableMenuViewModel()
         let blocksOptionViewModel = SelectionOptionsViewModel(itemProvider: nil)
 
@@ -52,7 +64,8 @@ final class EditorPageModuleAssembly: EditorPageModuleAssemblyProtocol {
         
         let controller = EditorPageController(
             blocksSelectionOverlayView: blocksSelectionOverlayView,
-            bottomNavigationManager: bottomNavigationManager
+            bottomNavigationManager: bottomNavigationManager,
+            showHeader: showHeader
         )
 
         let document = serviceLocator.documentService().document(
@@ -266,7 +279,8 @@ final class EditorPageModuleAssembly: EditorPageModuleAssemblyProtocol {
             editorPageTemplatesHandler: editorPageTemplatesHandler,
             accountManager: serviceLocator.accountManager(),
             configuration: configuration,
-            templatesSubscriptionService: serviceLocator.templatesSubscription()
+            templatesSubscriptionService: serviceLocator.templatesSubscription(),
+            output: output
         )
 
         accessoryState.1.onTypeTap = { [weak viewModel] in

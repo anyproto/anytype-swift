@@ -9,7 +9,6 @@ struct EditorPageView: View {
     var body: some View {
         GenericUIKitToSwiftUIView(viewController: model.viewController)
             .anytypeStatusBar(style: .default)
-            .navigationBarHidden(true)
             .homeBottomPanelHidden(model.bottomPanelHidden)
             .onChange(of: model.dismiss) { _ in
                 dismiss()

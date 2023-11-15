@@ -26,7 +26,7 @@ final class EditorPageViewModel: EditorPageViewModelProtocol, EditorBottomNaviga
     private let editorPageTemplatesHandler: EditorPageTemplatesHandlerProtocol
     private let accountManager: AccountManagerProtocol
     private let configuration: EditorPageViewModelConfiguration
-    
+    private weak var output: EditorPageModuleOutput?
     private let templatesSubscriptionService: TemplatesSubscriptionServiceProtocol
     
     lazy var subscriptions = [AnyCancellable]()
@@ -58,7 +58,8 @@ final class EditorPageViewModel: EditorPageViewModelProtocol, EditorBottomNaviga
         editorPageTemplatesHandler: EditorPageTemplatesHandlerProtocol,
         accountManager: AccountManagerProtocol,
         configuration: EditorPageViewModelConfiguration,
-        templatesSubscriptionService: TemplatesSubscriptionServiceProtocol
+        templatesSubscriptionService: TemplatesSubscriptionServiceProtocol,
+        output: EditorPageModuleOutput?
     ) {
         self.viewController = viewController
         self.viewInput = viewInput
@@ -78,7 +79,8 @@ final class EditorPageViewModel: EditorPageViewModelProtocol, EditorBottomNaviga
         self.accountManager = accountManager
         self.configuration = configuration
         self.templatesSubscriptionService = templatesSubscriptionService
-
+        self.output = output
+        
         setupLoadingState()
     }
 
@@ -102,6 +104,12 @@ final class EditorPageViewModel: EditorPageViewModelProtocol, EditorBottomNaviga
             changes: nil,
             allModels: [shimmeringBlockViewModel]
         )
+    }
+    
+    func showSettings(delegate: ObjectSettingsModuleDelegate) {
+        router.showSettings(delegate: delegate) { [weak self] action in
+            self?.handleSettingsAction(action: action)
+        }
     }
     
     private func handleUpdate(updateResult: DocumentUpdate) {
@@ -260,6 +268,8 @@ extension EditorPageViewModel {
             if let objectDetails = document.details {
                 AnytypeAnalytics.instance().logShowObject(type: objectDetails.analyticsType, layout: objectDetails.layoutValue)
             }
+            
+            output?.setModuleInput(input: EditorPageModuleInputContainer(model: self), objectId: document.objectId)
         }
     }
     

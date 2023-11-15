@@ -357,6 +357,15 @@ final class EditorRouter: NSObject, EditorRouterProtocol, ObjectSettingsCoordina
         )
     }
     
+    func showSettings(delegate: ObjectSettingsModuleDelegate, actionHandler: @escaping (ObjectSettingsAction) -> Void) {
+        objectSettingCoordinator.startFlow(
+            objectId: document.objectId,
+            delegate: delegate,
+            output: nil,
+            objectSettingsHandler: actionHandler
+        )
+    }
+    
     func showCoverPicker(
         document: BaseDocumentGeneralProtocol,
         onCoverAction: @escaping (ObjectCoverPickerAction) -> Void
