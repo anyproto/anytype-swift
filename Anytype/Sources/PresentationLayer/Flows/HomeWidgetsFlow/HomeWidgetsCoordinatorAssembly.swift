@@ -51,7 +51,8 @@ final class HomeWidgetsCoordinatorAssembly: HomeWidgetsCoordinatorAssemblyProtoc
             shareCoordinatorAssembly: coordinatorsID.share(),
             editorCoordinatorAssembly: coordinatorsID.editor(),
             homeBottomNavigationPanelModuleAssembly: modulesDI.homeBottomNavigationPanel(),
-            objectTypeSearchModuleAssembly: modulesDI.objectTypeSearch()
+            objectTypeSearchModuleAssembly: modulesDI.objectTypeSearch(),
+            workspacesStorage: serviceLocator.workspaceStorage()
         )
     }
 }

@@ -12,6 +12,7 @@ public struct AccountInfo: Equatable, Hashable {
     public let analyticsId: String
     public let deviceId: String
     public let networkId: String
+    public let techSpaceId: String
 }
 
 public extension AccountInfo {
@@ -25,7 +26,8 @@ public extension AccountInfo {
         widgetsId: "",
         analyticsId: "",
         deviceId: "",
-        networkId: ""
+        networkId: "",
+        techSpaceId: ""
     )
 }
 
@@ -41,7 +43,8 @@ extension Anytype_Model_Account.Info {
             widgetsId: widgetsID,
             analyticsId: analyticsID,
             deviceId: deviceID,
-            networkId: networkID
+            networkId: networkID,
+            techSpaceId: techSpaceID
         )
     }
 }

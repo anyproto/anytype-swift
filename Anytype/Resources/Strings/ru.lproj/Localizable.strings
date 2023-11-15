@@ -270,7 +270,7 @@
 "Undo" = "Отменить";
 "Actions.LinkItself" = "Связать с";
 "Actions.MakeAsTemplate" = "Создать шаблон";
-"Actions.TemplateMakeDefault" = "Установить по умолчанию";
+"Actions.TemplateMakeDefault" = "Make default";
 
 // Object Type
 "Set" = "Набор";

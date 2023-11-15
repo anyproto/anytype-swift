@@ -82,3 +82,9 @@ extension ObjectType {
     }
     
 }
+
+extension ObjectType {
+    public var isTemplateType: Bool {
+        uniqueKey == .template
+    }
+}

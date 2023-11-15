@@ -71,13 +71,14 @@ final class SetObjectCreationSettingsCoordinator: SetObjectCreationSettingsCoord
                 setting: setting,
                 onTemplateSelection: {
                     navigationContext?.dismissAllPresented(animated: true) {
-                        model?.setTemplateAsDefault(templateId: setting.templateId, showMessage: false)
+                        model?.setTemplateAsDefault(templateId: setting.templateId)
                         onTemplateSelection(setting)
                     }
                 },
                 onSetAsDefaultTempalte: { templateId in
-                    model?.setTemplateAsDefault(templateId: templateId, showMessage: true)
-                    navigationContext?.dismissTopPresented(animated: true, completion: nil)
+                    navigationContext?.dismissTopPresented(animated: true, completion: {
+                        model?.setTemplateAsDefaultForType(templateId: templateId)
+                    })
                 },
                 completion: nil
             )
@@ -123,7 +124,7 @@ final class SetObjectCreationSettingsCoordinator: SetObjectCreationSettingsCoord
             editorViewController: UIHostingController(rootView: editorView),
             onSettingsTap: { [weak self] in
                 guard let self = self, let handler = self.handler else { return }
-                editorModuleInput?.showSettings(delegate: handler)
+                editorModuleInput?.showSettings(delegate: handler, output: self)
             },
             onSelectTemplateTap: onTemplateSelection
         )
@@ -146,6 +147,12 @@ final class SetObjectCreationSettingsCoordinator: SetObjectCreationSettingsCoord
         }
 
         navigationContext.presentSwiftUIView(view: view)
+    }
+}
+
+extension SetObjectCreationSettingsCoordinator: ObjectSettingsCoordinatorOutput {
+    func closeEditor() {
+        navigationContext.dismissTopPresented(animated: true, completion: nil)
     }
 }
 

@@ -27,7 +27,8 @@ final class HomeWidgetsCoordinatorViewModel: ObservableObject,
     private let editorCoordinatorAssembly: EditorCoordinatorAssemblyProtocol
     private let homeBottomNavigationPanelModuleAssembly: HomeBottomNavigationPanelModuleAssemblyProtocol
     private let objectTypeSearchModuleAssembly: ObjectTypeSearchModuleAssemblyProtocol
-
+    private let workspacesStorage: WorkspacesStorageProtocol
+    
     // MARK: - State
     
     private var viewLoaded = false
@@ -42,15 +43,8 @@ final class HomeWidgetsCoordinatorViewModel: ObservableObject,
     @Published var showSharing: Bool = false
     @Published var editorPath = HomePath()
     @Published var showCreateObjectWithType: Bool = false
-
-    @Published var info: AccountInfo? {
-        didSet {
-            // Prevent animation for first sync
-            if oldValue.isNotNil {
-                homeAnimationId = UUID()
-            }
-        }
-    }
+    
+    @Published var info: AccountInfo?
     @Published var homeAnimationId = UUID()
     
     var pageNavigation: PageNavigation {
@@ -80,7 +74,8 @@ final class HomeWidgetsCoordinatorViewModel: ObservableObject,
         shareCoordinatorAssembly: ShareCoordinatorAssemblyProtocol,
         editorCoordinatorAssembly: EditorCoordinatorAssemblyProtocol,
         homeBottomNavigationPanelModuleAssembly: HomeBottomNavigationPanelModuleAssemblyProtocol,
-        objectTypeSearchModuleAssembly: ObjectTypeSearchModuleAssemblyProtocol
+        objectTypeSearchModuleAssembly: ObjectTypeSearchModuleAssemblyProtocol,
+        workspacesStorage: WorkspacesStorageProtocol
     ) {
         self.homeWidgetsModuleAssembly = homeWidgetsModuleAssembly
         self.activeWorkspaceStorage = activeWorkspaceStorage
@@ -97,6 +92,7 @@ final class HomeWidgetsCoordinatorViewModel: ObservableObject,
         self.editorCoordinatorAssembly = editorCoordinatorAssembly
         self.homeBottomNavigationPanelModuleAssembly = homeBottomNavigationPanelModuleAssembly
         self.objectTypeSearchModuleAssembly = objectTypeSearchModuleAssembly
+        self.workspacesStorage = workspacesStorage
     }
 
     func onAppear() {
@@ -106,12 +102,24 @@ final class HomeWidgetsCoordinatorViewModel: ObservableObject,
         activeWorkspaceStorage
             .workspaceInfoPublisher
             .receiveOnMain()
+
             .sink { [weak self] info in
                 if self?.info != nil, self?.info != info {
                     self?.editorPath.popToRoot()
                 }
                 self?.info = info
                 self?.editorPath.replaceAll(info)
+
+            .sink { [weak self] newInfo in
+                guard let self else { return }
+                if info.isNotNil, editorBrowserCoordinator.isEmpty() {
+                    homeAnimationId = UUID()
+                }
+                if let oldInfo = info, oldInfo != newInfo,
+                    workspacesStorage.spaceView(id: oldInfo.spaceViewId).isNil {
+                    editorBrowserCoordinator.dismissAllPages()
+                }
+                info = newInfo
             }
             .store(in: &subscriptions)
         

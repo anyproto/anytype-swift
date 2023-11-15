@@ -32,6 +32,7 @@ final class EditorPageViewModel: EditorPageViewModelProtocol, EditorBottomNaviga
     lazy var subscriptions = [AnyCancellable]()
 
     private let blockActionsService: BlockActionsServiceSingleProtocol
+    private let activeWorkpaceStorage: ActiveWorkpaceStorageProtocol
 
     var viewController: UIViewController
 
@@ -59,6 +60,7 @@ final class EditorPageViewModel: EditorPageViewModelProtocol, EditorBottomNaviga
         accountManager: AccountManagerProtocol,
         configuration: EditorPageViewModelConfiguration,
         templatesSubscriptionService: TemplatesSubscriptionServiceProtocol,
+        activeWorkpaceStorage: ActiveWorkpaceStorageProtocol,
         output: EditorPageModuleOutput?
     ) {
         self.viewController = viewController
@@ -79,7 +81,9 @@ final class EditorPageViewModel: EditorPageViewModelProtocol, EditorBottomNaviga
         self.accountManager = accountManager
         self.configuration = configuration
         self.templatesSubscriptionService = templatesSubscriptionService
+        self.activeWorkpaceStorage = activeWorkpaceStorage
         self.output = output
+        self.activeWorkpaceStorage = activeWorkpaceStorage
         
         setupLoadingState()
     }
@@ -277,6 +281,9 @@ extension EditorPageViewModel {
 
     func viewDidAppear() {
         cursorManager.didAppeared(with: modelsHolder.items, type: document.details?.type)
+        Task {
+            try await activeWorkpaceStorage.setActiveSpace(spaceId: document.spaceId)
+        }
     }
 
     func viewWillDisappear() {}

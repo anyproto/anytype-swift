@@ -122,11 +122,7 @@ final class SetObjectCreationSettingsInteractor: SetObjectCreationSettingsIntera
             if defaultTemplateId != dataView.defaultTemplateID {
                 defaultTemplateId = dataView.defaultTemplateID ?? .empty
             }
-            
-            let defaultObjectTypeId = try? setDocument.defaultObjectTypeForView(dataView).id
-            if !setDocument.isTypeSet(), let defaultObjectTypeId, objectTypeId != defaultObjectTypeId {
-                updateState(with: defaultObjectTypeId)
-            }
+            updateDefaultObjectTypeIdIfNeeded()
         }.store(in: &cancellables)
         
         setDocument.detailsPublisher.sink { [weak self] details in
@@ -140,14 +136,24 @@ final class SetObjectCreationSettingsInteractor: SetObjectCreationSettingsIntera
     
         objectTypesProvider.syncPublisher.sink { [weak self] in
             self?.updateObjectTypes()
+            self?.updateDefaultObjectTypeIdIfNeeded()
             self?.updateTypeDefaultTemplateId()
         }.store(in: &cancellables)
+    }
+    
+    private func updateDefaultObjectTypeIdIfNeeded() {
+        let defaultObjectTypeId = try? setDocument.defaultObjectTypeForView(dataView).id
+        if !setDocument.isTypeSet(), let defaultObjectTypeId, objectTypeId != defaultObjectTypeId {
+            updateState(with: defaultObjectTypeId)
+        }
     }
     
     private func updateObjectTypes() {
         let objectTypes = objectTypesProvider.objectTypes(spaceId: setDocument.spaceId).filter {
             guard let recommendedLayout = $0.recommendedLayout else { return false }
-            return !$0.isArchived && DetailsLayout.visibleLayouts.contains(recommendedLayout)
+            return !$0.isArchived &&
+            DetailsLayout.visibleLayouts.contains(recommendedLayout) &&
+            !$0.isTemplateType
         }
         self.objectTypes = objectTypes.reordered(
             by: [

@@ -271,7 +271,7 @@
 "Undo" = "Hoàn tác";
 "Actions.LinkItself" = "Liên kết đến";
 "Actions.MakeAsTemplate" = "Biến thành mẫu";
-"Actions.TemplateMakeDefault" = "Đặt làm mặc định";
+"Actions.TemplateMakeDefault" = "Make default";
 
 // Object Type
 "Set" = "Tập";
