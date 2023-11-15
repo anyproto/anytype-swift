@@ -800,9 +800,9 @@
 "ClearCacheAlert.Description" = "Mọi tập tin đa phương tiện được lưu trong Anytype sẽ bị xoá khỏi thiết bị hiện tại của bạn. Chúng có thể được tải lại từ một điểm sao lưu hoặc một thiết bị khác.";
 
 // MARK: - Spaces
-"Spaces.Accessibility.Public" = "Public";
-"Spaces.Accessibility.Private" = "Private";
-"Spaces.Accessibility.Personal" = "Personal";
+"Spaces.Accessibility.Public" = "Public Space";
+"Spaces.Accessibility.Private" = "Private Space";
+"Spaces.Accessibility.Personal" = "Cài đặt";
 "Spaces.Search.Title" = "Search spaces";
 
 // MARK: - Space Settings
