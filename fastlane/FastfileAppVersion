@@ -42,6 +42,10 @@ platform :ios do
     )
   end
 
+  lane :increment_build do
+    increment_build_number(xcodeproj:  ENV["APP_PROJECT"])
+  end
+
   # Private lane
   
   private_lane :bump_app_version_number do |options|
