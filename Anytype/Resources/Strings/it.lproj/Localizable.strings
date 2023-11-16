@@ -96,7 +96,7 @@
 "None" = "Nessuno";
 "Callout" = "Richiamo";
 "Toggle empty. Tap to create block." = "Interruttore vuoto. Tocca per creare un blocco.";
-"Loading, please wait" = "Loading, please wait";
+"Loading, please wait" = "Caricamento in corso, attendere prego";
 "Done" = "Fatto";
 "Style" = "Stile";
 "Color" = "Colore";
@@ -287,8 +287,8 @@
 "Editor.LinkToObject.RemoveLink" = "Rimuovi collegamento";
 
 // MARK: - Main search
-"There is no object named" = "There is no object named %@";
-"There is no type named" = "There is no type named %@";
+"There is no object named" = "Non c'è nessun oggetto denominato %@";
+"There is no type named" = "Non c'è nessun tipo denominato %@";
 "Create a new one or search for something else" = "Creane uno nuovo o cerca qualcos'altro";
 
 // MARK: - Home
@@ -431,7 +431,7 @@
 "Set.View.Settings.NoRelations.Placeholder" = "Nessuna relazione";
 "Set.View.Settings.NoFilters.Placeholder" = "Nessun filtro";
 "Set.View.Settings.NoSorts.Placeholder" = "Nessun ordinamento";
-"Set.View.Settings.Objects.Applied.Title" = "%d applied";
+"Set.View.Settings.Objects.Applied.Title" = "%d applicato";
 
 // MARK: - Sets: Kanban
 "Set.View.Kanban.Column.Title.Uncategorized" = "Senza categoria";
@@ -443,11 +443,11 @@
 
 // MARK: - Sets: empty view
 "Set.View.Empty.Title" = "Nessuna query selezionata";
-"Set.View.Empty.Subtitle" = "Add search query to aggregate objects with equal types and relations in a live mode";
+"Set.View.Empty.Subtitle" = "Aggiungi una query di ricerca per aggregare gli Oggetti con Tipi e Relazioni uguali in modalità live";
 
 // MARK: - Set source type
 "Set.SourceType.SelectQuery" = "Seleziona query";
-"Set.SourceType.Cancel.Toast.Title" = "This query can be changed on desktop only";
+"Set.SourceType.Cancel.Toast.Title" = "Questa query può essere modificata solo su desktop";
 
 // MARK: - Set: Type context menu
 "Set.TypeRelation.ContextMenu.TurnIntoCollection" = "Trasforma Insieme in Collezione";
@@ -522,7 +522,7 @@
 "Deletion error" = "Errore di cancellazione";
 "Start" = "Avvia";
 "On analytics" = "On analytics";
-"Select account error" = "Select account error";
+"Select account error" = "Errore nella selezione dell'account";
 "Account deleted" = "Account eliminato";
 "Account.Select.Incompatible.Version.Error.Text" = "Impossibile recuperare i dati dell'account a causa di una versione incompatibile sui nodi remoti. Si prega di aggiornare Anytype all'ultima versione.";
 "Restore from keychain" = "Ripristina dal portachiavi";
@@ -531,8 +531,8 @@
 "Other relations" = "Altre relazioni";
 "Collection of objects" = "Collezione di oggetti";
 "Designed to capture thoughts quickly" = "Progettato per catturare rapidamente i pensieri";
-"Action-focused layout with a checkbox" = "Action-focused layout with a checkbox";
-"Standard layout for canvas blocks" = "Standard layout for canvas blocks";
+"Action-focused layout with a checkbox" = "Layout focalizzato sull'azione con casella di controllo";
+"Standard layout for canvas blocks" = "Layout standard per i blocchi di canvas";
 "List of related objects" = "Elenco degli oggetti correlati";
 "Lock" = "Blocca";
 "Unlock" = "Sblocca";
@@ -655,85 +655,85 @@
 "SimpleTableMenu.Item.Sort" = "Ordina";
 
 "SimpleTableMenu.Item.InsertAbove" = "Inserisci sopra";
-"SimpleTableMenu.Item.InsertBelow" = "Insert below";
-"SimpleTableMenu.Item.MoveUp" = "Move up";
-"SimpleTableMenu.Item.MoveDown" = "Move down";
+"SimpleTableMenu.Item.InsertBelow" = "Inserisci sotto";
+"SimpleTableMenu.Item.MoveUp" = "Sposta in alto";
+"SimpleTableMenu.Item.MoveDown" = "Sposta in basso";
 
 "DebugMenu.ToggleAuthor" = "Release: %@, %@";
 
 // MARK: Link Past Actions
-"LinkPaste.text" = "Paste as text";
-"LinkPaste.link" = "Paste as link";
-"LinkPaste.bookmark" = "Create bookmark";
+"LinkPaste.text" = "Incolla come testo";
+"LinkPaste.link" = "Incolla come collegamento";
+"LinkPaste.bookmark" = "Crea segnalibro";
 
 // Relation Actions
 "RelationAction.CopyPhone" = "Copia numero di telefono";
-"RelationAction.CopyEmail" = "Copy email";
+"RelationAction.CopyEmail" = "Copia email";
 "RelationAction.CopyLink" = "Copia collegamento";
 "RelationAction.Copied" = "Copiato";
-"RelationAction.ReloadingContent" = "Reloading content";
-"RelationAction.ReloadContent" = "Reload object content";
+"RelationAction.ReloadingContent" = "Ricaricamento contenuto";
+"RelationAction.ReloadContent" = "Ricarica contenuto dell'oggetto";
 "RelationAction.CallPhone" = "Chiama numero di telefono";
-"RelationAction.SendEmail" = "Send email";
-"RelationAction.OpenLink" = "Open link";
+"RelationAction.SendEmail" = "Invia email";
+"RelationAction.OpenLink" = "Apri collegamento";
 
 // MARK: Edit view type
-"SetViewTypesPicker.Title" = "Edit view";
-"SetViewTypesPicker.New.Title" = "New view";
-"SetViewTypesPicker.Section.Types.Title" = "View as";
+"SetViewTypesPicker.Title" = "Modifica vista";
+"SetViewTypesPicker.New.Title" = "Nuova vista";
+"SetViewTypesPicker.Section.Types.Title" = "Visualizza come";
 "SetViewTypesPicker.Settings.Duplicate.View" = "Duplica";
-"SetViewTypesPicker.Settings.Delete.View" = "Delete view";
-"SetViewTypesPicker.Settings.Textfield.Placeholder.New.View" = "New view";
+"SetViewTypesPicker.Settings.Delete.View" = "Elimina vista";
+"SetViewTypesPicker.Settings.Textfield.Placeholder.New.View" = "Nuova vista";
 "SetViewTypesPicker.Settings.Textfield.Placeholder.Untitled" = "Senza titolo";
 
 // MARK: Select view picker
-"EditorSetViewPicker.View.Not.Supported.Title" = "Unsupported";
+"EditorSetViewPicker.View.Not.Supported.Title" = "Non supportato";
 
 // BlockContent
-"Content.File.Upload" = "Upload a file";
-"Content.Audio.Upload" = "Upload audio";
-"Content.Video.Upload" = "Upload a video";
-"Content.Picture.Upload" = "Upload a picture";
-"Content.Common.Uploading" = "Uploading...";
-"Content.Common.Error" = "Something went wrong, try again";
-"Content.Bookmark.Add" = "Add a web bookmark";
-"Content.Bookmark.Loading" = "Loading, please wait...";
-"Content.DataView.InlineSet.Subtitle" = "Inline set";
-"Content.DataView.InlineCollection.Subtitle" = "Inline collection";
-"Content.DataView.InlineSet.NoSource" = "No source";
-"Content.DataView.InlineSet.NoData" = "No data";
-"Content.DataView.InlineSet.Untitled" = "Untitled set";
-"Content.DataView.InlineCollection.Untitled" = "Untitled collection";
-"Content.DataView.InlineSet.Toast.Failure" = "This inline set doesn’t have a source";
+"Content.File.Upload" = "Carica un file";
+"Content.Audio.Upload" = "Carica audio";
+"Content.Video.Upload" = "Carica un video";
+"Content.Picture.Upload" = "Carica una foto";
+"Content.Common.Uploading" = "Caricamento...";
+"Content.Common.Error" = "Qualcosa è andato storto, riprova";
+"Content.Bookmark.Add" = "Aggiungi un segnalibro web";
+"Content.Bookmark.Loading" = "Caricamento in corso, attendere prego...";
+"Content.DataView.InlineSet.Subtitle" = "Insieme in linea";
+"Content.DataView.InlineCollection.Subtitle" = "Collezione in linea";
+"Content.DataView.InlineSet.NoSource" = "Nessuna fonte";
+"Content.DataView.InlineSet.NoData" = "Nessun dato";
+"Content.DataView.InlineSet.Untitled" = "Insieme senza titolo";
+"Content.DataView.InlineCollection.Untitled" = "Collezione senza titolo";
+"Content.DataView.InlineSet.Toast.Failure" = "Questo insieme in linea non ha una fonte.";
 
 // MARK: - Widget extension
-"WidgetExtension.LockScreen.Title" = "New object";
-"WidgetExtension.LockScreen.Description" = "Create a new object on the fly";
+"WidgetExtension.LockScreen.Title" = "Nuovo oggetto";
+"WidgetExtension.LockScreen.Description" = "Crea un nuovo oggetto al volo";
 
 // MARK: - Toast
-"Editor.Toast.LinkedTo" = "linked to";
-"Editor.Toast.MovedTo" = "Block moved to";
+"Editor.Toast.LinkedTo" = "collegato a";
+"Editor.Toast.MovedTo" = "Blocco spostato in";
 
 // MARK: - Scanner
-"Scanner.Error.Scanning not supported" = "Scanning not supported";
+"Scanner.Error.Scanning not supported" = "Scansione non supportata";
 
 // MARK: - Widgets
-"Widgets.SourceSearch" = "Widget source";
-"Widgets.Actions.ChangeSource" = "Change Source";
+"Widgets.SourceSearch" = "Fonte del widget";
+"Widgets.Actions.ChangeSource" = "Cambia fonte";
 "Widgets.Actions.ChangeWidgetType" = "Change Widget Type";
 "Widgets.Actions.RemoveWidget" = "Remove Widget";
 "Widgets.Actions.EditWidgets" = "Edit Widgets";
 "Widgets.Actions.EmptyBin" = "Empty Bin";
 "Widgets.Actions.AddBelow" = "Add Below";
-"Widgets.Layout.Screen.Title" = "Widget type";
+"Widgets.Layout.Screen.Title" = "Tipo di widget";
 "Widgets.Layout.Link.Title" = "Collegamento";
-"Widgets.Layout.Tree.Title" = "Tree";
+"Widgets.Layout.Tree.Title" = "Albero";
 "Widgets.Layout.List.Title" = "Lista";
-"Widgets.Layout.CompactList.Title" = "Сompact list";
-"Widgets.Layout.Link.Description" = "Сompact version of the object";
-"Widgets.Layout.Tree.Description" = "Hierarchical structure of objects";
-"Widgets.Layout.List.Description" = "Widget with list view of set object";
-"Widgets.Layout.CompactList.Description" = "Widget with list view of set object";
+"Widgets.Layout.CompactList.Title" = "Lista compatta";
+"Widgets.Layout.Link.Description" = "Versione compatta dell'oggetto";
+"Widgets.Layout.Tree.Description" = "Struttura gerarchica degli oggetti";
+"Widgets.Layout.List.Description" = "Widget con vista elenco dell'oggetto impostato";
+"Widgets.Layout.CompactList.Description" = "Widget con vista elenco dell'oggetto impostato";
 "Widgets.Empty.Title" = "Questa vista dati non contiene oggetti";
 "Widgets.Library.RecentlyEdited.Name" = "Modificati di recente";
 "Widgets.Library.RecentlyOpened.Name" = "Aperti di recente";
@@ -779,18 +779,18 @@
 "FileStorage.Space.Mail.Subject" = "Ottieni più archiviazione, account %@";
 "FileStorage.Space.Mail.Body" = "Ciao, Anytype team. Vi contatto per richiedere un aumento della capacità di archiviazione dei miei file poiché ho esaurito lo spazio disponibile. Il mio limite attuale è di %@. Il mio ID dell'account è %@. Grazie, %@.";
 "FileStorage.Local.Title" = "Archiviazione locale";
-"FileStorage.Local.Instruction" = "In order to save space on your local device, you can offload all your files to our encrypted backup node. The files will be loaded back when you open them.";
+"FileStorage.Local.Instruction" = "Per risparmiare spazio sul tuo dispositivo locale, puoi liberare tutti i tuoi file trasferendoli al nostro nodo di backup criptato. I file verranno ricaricati quando li apri";
 "FileStorage.Local.Used" = "%@ utilizzati";
-"FileStorage.OffloadTitle" = "Offload files";
+"FileStorage.OffloadTitle" = "Libera file";
 "FileStorage.ManageFiles" = "Gestione file";
-"FileStorage.LimitError" = "You exceeded file limit upload";
+"FileStorage.LimitError" = "Hai superato il limite di caricamento dei file";
 "FileStorage.LimitLegend.Current" = "%@ | %@";
 "FileStorage.LimitLegend.Other" = "Other spaces | %@";
 "FileStorage.LimitLegend.Free" = "Free | %@";
 
 // MARK: - Files List
 "FilesList.Title" = "File sincronizzati";
-"FilesList.ForceDelete.Title" = "Are you sure you want to permanently delete the files?";
+"FilesList.ForceDelete.Title" = "Sei sicuro di voler eliminare definitivamente i file?";
 
 // MARK: - Widget object list
 "WidgetObjectList.ForceDelete.Message" = "You can’t undo this action.";
@@ -800,8 +800,8 @@
 "ClearCacheAlert.Description" = "All media files stored in Anytype will be deleted from your current device. They can be downloaded again from a backup node or another device.";
 
 // MARK: - Spaces
-"Spaces.Accessibility.Public" = "Public Space";
-"Spaces.Accessibility.Private" = "Private Space";
+"Spaces.Accessibility.Public" = "Spazio pubblico";
+"Spaces.Accessibility.Private" = "Spazio privato";
 "Spaces.Accessibility.Personal" = "Impostazioni";
 "Spaces.Search.Title" = "Cerca spazi";
 
