@@ -8,6 +8,7 @@ struct HomeBottomPanelContainer<Content: View, BottomContent: View>: View {
     private var content: Content
     private var bottomPanel: BottomContent
     @Binding private var path: HomePath
+    @State private var bottomSize: CGSize = .zero
     
     init(path: Binding<HomePath>, @ViewBuilder content: () -> Content, @ViewBuilder bottomPanel: () -> BottomContent) {
         self._path = path
@@ -17,24 +18,25 @@ struct HomeBottomPanelContainer<Content: View, BottomContent: View>: View {
     
     var body: some View {
         content
-        .onChange(of: path.count) { newValue in
-            print("on change count - false")
-            bottomPanelHidden = false
-        }
-        .safeAreaInset(edge: .bottom) {
-            if !bottomPanelHidden {
-                VStack(spacing: 0) {
-                    bottomPanel
-                    Spacer.fixedHeight(32)
-                }
-                .transition(.move(edge: .bottom))
+            .anytypeNavigationPanelSize(bottomSize)
+            .onChange(of: path.count) { newValue in
+                print("on change count - false")
+                bottomPanelHidden = false
             }
-        }
-        .setHomeBottomPanelHiddenHandler { newValue in
-            print("setBottomPanelHidden - \(newValue)")
-            bottomPanelHidden = newValue
-        }
-        .ignoresSafeArea(bottomPanelHidden ? .keyboard : .all) // TODO: Check in subviews
-        .animation(.default, value: bottomPanelHidden)
+            .safeAreaInset(edge: .bottom) {
+                if !bottomPanelHidden {
+                    bottomPanel
+                        .readSize {
+                            bottomSize = $0
+                        }
+                        .transition(.move(edge: .bottom))
+                }
+            }
+            .setHomeBottomPanelHiddenHandler { newValue in
+                print("setBottomPanelHidden - \(newValue)")
+                bottomPanelHidden = newValue
+            }
+            .ignoresSafeArea(.keyboard)
+            .animation(.default, value: bottomPanelHidden)
     }
 }

@@ -19,7 +19,6 @@ struct HomeWidgetsCoordinatorView: View {
                         model.editorModule(data: data)
                     }
                 }
-                .ignoresSafeArea(.all)
             },
             bottomPanel: {
                 model.homeBottomNavigationPanelModule()

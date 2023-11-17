@@ -2,11 +2,6 @@ import SwiftUI
 
 struct WidgetObjectListView: View {
     
-    // TODO: Navigation delete it and using safe area
-    enum Constants {
-        static let navigationHeight: CGFloat = 48
-    }
-    
     @StateObject var model: WidgetObjectListViewModel
     @State private var searchText: String = ""
     
@@ -22,9 +17,6 @@ struct WidgetObjectListView: View {
                 SearchBar(text: $searchText, focused: false, placeholder: Loc.search)
                 content
             }
-            .safeAreaInset(edge: .bottom, content: {
-                Spacer.fixedHeight(Constants.navigationHeight) // Navigation bottom panel offset
-            })
             optionsView
         }
         .ignoresSafeArea(.keyboard)
@@ -69,7 +61,7 @@ struct WidgetObjectListView: View {
                     }
                 }
             }
-            Spacer.fixedHeight(130 - Constants.navigationHeight) // Additional space for action view
+            AnytypeNavigationSpacer(minHeight: 130)
         }
         .hideScrollIndicatorLegacy()
         .hideKeyboardOnScrollLegacy()

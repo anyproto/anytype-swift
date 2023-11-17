@@ -21,6 +21,7 @@ struct HomeWidgetsView: View {
                     }
                     .opacity(model.hideEditButton ? 0 : 1)
                     .animation(.default, value: model.hideEditButton)
+                    AnytypeNavigationSpacer()
                 }
                 .padding(.horizontal, 20)
                 .padding(.top, 12)
@@ -49,19 +50,5 @@ struct HomeWidgetsView: View {
         } dropFinish: { from, to in
             model.dropFinish(from: from, to: to)
         }
-        .iOS16navBarAdapter(.light)
     }
-}
-
-extension View {
-    func iOS16navBarAdapter(_ colorScheme: ColorScheme) -> some View {
-            if #available(iOS 16, *) {
-                return self
-//                    .toolbarBackground(Color.navigationBar, for: .navigationBar)
-//                    .toolbarBackground(.visible, for: .navigationBar)
-                    .toolbarColorScheme(colorScheme, for: .navigationBar)
-            } else {
-                return self
-            }
-        }
 }

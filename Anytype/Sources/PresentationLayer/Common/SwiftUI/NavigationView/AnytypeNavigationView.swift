@@ -1,7 +1,18 @@
 import Foundation
 import SwiftUI
 
-struct AnytypeNavigationView: UIViewControllerRepresentable {
+struct AnytypeNavigationView: View {
+    
+    @Binding var path: [AnyHashable]
+    let moduleSetup: (_ builder: AnytypeDestinationBuilderHolder) -> Void
+
+    var body: some View {
+        AnytypeNavigationViewRepresentable(path: $path, moduleSetup: moduleSetup)
+            .ignoresSafeArea()
+    }
+}
+
+struct AnytypeNavigationViewRepresentable: UIViewControllerRepresentable {
     
     @Binding var path: [AnyHashable]
     let moduleSetup: (_ builder: AnytypeDestinationBuilderHolder) -> Void

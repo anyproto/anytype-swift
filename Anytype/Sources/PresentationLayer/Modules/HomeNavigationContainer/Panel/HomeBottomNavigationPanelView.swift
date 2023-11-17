@@ -74,6 +74,7 @@ struct HomeBottomNavigationPanelView: View {
         .background(Color.white.opacity(0.05))
         .background(.ultraThinMaterial)
         .cornerRadius(16, style: .continuous)
+        .padding(.vertical, 10)
         .animation(.default, value: homeMode)
     }
     

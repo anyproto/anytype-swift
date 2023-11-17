@@ -3,7 +3,6 @@ import SwiftUI
 
 @MainActor
 protocol EditorCoordinatorAssemblyProtocol {
-    // TODO: Add object type checking for opening
     func make(data: EditorScreenData) -> AnyView
 }
 
@@ -31,4 +30,3 @@ final class EditorCoordinatorAssembly: EditorCoordinatorAssemblyProtocol {
         ).eraseToAnyView()
     }
 }
-
