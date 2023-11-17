@@ -62,7 +62,7 @@
 "BlockLink.PreviewSettings.Layout.Text.Title" = "Текст";
 
 // MARK: - Settings
-"Settings.Title" = "Налаштування";
+"Settings.Title" = "Особистий простір";
 "Settings.SpaceName" = "Назва простору";
 
 // MARK: - Object
@@ -226,7 +226,7 @@
 
 "Auth.JoinFlow.Creating.Soul.Title" = "Створення нового облікового запису";
 "Auth.JoinFlow.Setting.Space.Title" = "Налаштування вашого особистого простору";
-"Auth.JoinFlow.Personal.Space.Title" = "Налаштування";
+"Auth.JoinFlow.Personal.Space.Title" = "Особистий простір";
 
 // Auth - Login flow
 "Auth.LoginFlow.Use.Keychain.Title" = "Використотати в'язку ключів";
@@ -765,7 +765,7 @@
 "ClearCache.Error" = "Помилка, повторіть спробу пізніше";
 
 // MARK: - Settings
-"Settings.TitleLegacy" = "Налаштування";
+"Settings.TitleLegacy" = "Особистий простір";
 "Settings.Title" = "Налаштування";
 "Settings.SpaceName" = "Назва простору";
 "Settings.AccountAndAccess" = "Обліковий запис та доступ";
@@ -802,7 +802,7 @@
 // MARK: - Spaces
 "Spaces.Accessibility.Public" = "Public Space";
 "Spaces.Accessibility.Private" = "Private Space";
-"Spaces.Accessibility.Personal" = "Налаштування";
+"Spaces.Accessibility.Personal" = "Особистий простір";
 "Spaces.Search.Title" = "Пошук просторів";
 
 // MARK: - Space Settings
