@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+  <dict>
+    <key>Are you sure you want to delete</key>
+    <dict>
+      <key>NSStringLocalizedFormatKey</key>
+      <string>Czy na pewno chcesz usunąć  %#@object@?</string>
+      <key>object</key>
+      <dict>
+        <key>NSStringFormatSpecTypeKey</key>
+        <string>NSStringPluralRuleType</string>
+        <key>NSStringFormatValueTypeKey</key>
+        <string>d</string>
+        <key>one</key>
+        <string>%d obiekt</string>
+        <key>few</key>
+        <string>%d obiektów</string>
+        <key>many</key>
+        <string>%d obiektów</string>
+        <key>other</key>
+        <string>%d obiektów</string>
+      </dict>
+    </dict>
+    <key>Object selected</key>
+    <dict>
+      <key>NSStringLocalizedFormatKey</key>
+      <string>Wybrano %#@object@</string>
+      <key>object</key>
+      <dict>
+        <key>NSStringFormatSpecTypeKey</key>
+        <string>NSStringPluralRuleType</string>
+        <key>NSStringFormatValueTypeKey</key>
+        <string>d</string>
+        <key>one</key>
+        <string>%d obiekt</string>
+        <key>few</key>
+        <string>%d obiektów</string>
+        <key>many</key>
+        <string>%d obiektów</string>
+        <key>other</key>
+        <string>%d obiektów</string>
+      </dict>
+    </dict>
+    <key>Selected blocks</key>
+    <dict>
+      <key>NSStringLocalizedFormatKey</key>
+      <string>%#@object@</string>
+      <key>object</key>
+      <dict>
+        <key>NSStringFormatSpecTypeKey</key>
+        <string>NSStringPluralRuleType</string>
+        <key>NSStringFormatValueTypeKey</key>
+        <string>d</string>
+        <key>one</key>
+        <string>%d wybrany blok</string>
+        <key>few</key>
+        <string>%d wybrane bloki</string>
+        <key>many</key>
+        <string>%d wybranych bloków</string>
+        <key>other</key>
+        <string>%d wybranych bloków</string>
+      </dict>
+    </dict>
+    <key>Days to deletion account</key>
+    <dict>
+      <key>NSStringLocalizedFormatKey</key>
+      <string>To konto zostanie usunięte %#@days@</string>
+      <key>days</key>
+      <dict>
+        <key>NSStringFormatSpecTypeKey</key>
+        <string>NSStringPluralRuleType</string>
+        <key>NSStringFormatValueTypeKey</key>
+        <string>d</string>
+        <key>one</key>
+        <string>jutro</string>
+        <key>few</key>
+        <string>za %d dni</string>
+        <key>many</key>
+        <string>za %d dni</string>
+        <key>other</key>
+        <string>za %d dni</string>
+      </dict>
+    </dict>
+    <key>Widgets.Actions.BinConfirm</key>
+    <dict>
+      <key>NSStringLocalizedFormatKey</key>
+      <string>%#@object@</string>
+      <key>object</key>
+      <dict>
+        <key>NSStringFormatSpecTypeKey</key>
+        <string>NSStringPluralRuleType</string>
+        <key>NSStringFormatValueTypeKey</key>
+        <string>d</string>
+        <key>one</key>
+        <string>Usunięto jeden obiekt</string>
+        <key>few</key>
+        <string>%d usunięte obiekty</string>
+        <key>many</key>
+        <string>%d usuniętych obiektów</string>
+        <key>other</key>
+        <string>Usunięto %d obiektów</string>
+      </dict>
+    </dict>
+  </dict>
+</plist>

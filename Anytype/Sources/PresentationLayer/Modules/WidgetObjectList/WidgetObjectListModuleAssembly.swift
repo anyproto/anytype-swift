@@ -1,6 +1,7 @@
 import Foundation
 import SwiftUI
 
+@MainActor
 protocol WidgetObjectListModuleAssemblyProtocol: AnyObject {
     func makeFavorites(bottomPanelManager: BrowserBottomPanelManagerProtocol, output: WidgetObjectListCommonModuleOutput?) -> UIViewController
     func makerecentEdit(bottomPanelManager: BrowserBottomPanelManagerProtocol, output: WidgetObjectListCommonModuleOutput?) -> UIViewController
@@ -11,12 +12,13 @@ protocol WidgetObjectListModuleAssemblyProtocol: AnyObject {
     func makeFiles() -> UIViewController
 }
 
+@MainActor
 final class WidgetObjectListModuleAssembly: WidgetObjectListModuleAssemblyProtocol {
     
     private let serviceLocator: ServiceLocator
     private let uiHelpersDI: UIHelpersDIProtocol
     
-    init(serviceLocator: ServiceLocator, uiHelpersDI: UIHelpersDIProtocol) {
+    nonisolated init(serviceLocator: ServiceLocator, uiHelpersDI: UIHelpersDIProtocol) {
         self.serviceLocator = serviceLocator
         self.uiHelpersDI = uiHelpersDI
     }
@@ -26,7 +28,7 @@ final class WidgetObjectListModuleAssembly: WidgetObjectListModuleAssemblyProtoc
     func makeFavorites(bottomPanelManager: BrowserBottomPanelManagerProtocol, output: WidgetObjectListCommonModuleOutput?) -> UIViewController {
         let model = WidgetObjectListFavoritesViewModel(
             favoriteSubscriptionService: serviceLocator.favoriteSubscriptionService(),
-            accountManager: serviceLocator.accountManager(),
+            activeWorkspaceStorage: serviceLocator.activeWorkspaceStorage(),
             documentService: serviceLocator.documentService(),
             objectActionService: serviceLocator.objectActionsService()
         )

@@ -14,7 +14,6 @@ protocol AccessoryViewSwitcherProtocol {
 }
 
 final class AccessoryViewSwitcher: AccessoryViewSwitcherProtocol {
-    var onDoneButton: (() -> Void)?
 
     private(set) var activeView = AccessoryViewType.none
     private(set) var data: TextBlockDelegateData?
@@ -53,7 +52,7 @@ final class AccessoryViewSwitcher: AccessoryViewSwitcherProtocol {
         
         cursorModeAccessoryView.update(info: data.info, textView: data.textView, usecase: data.usecase)
         markupAccessoryView.update(info: data.info, textView: data.textView)
-        slashMenuView.update(info: data.info, relations: document.parsedRelations.installed)
+        slashMenuView.update(spaceId: document.spaceId, info: data.info, relations: document.parsedRelations.installed)
 
         cursorModeAccessoryView.isHidden = false
         if data.textView.selectedRange.length != .zero {
@@ -155,7 +154,6 @@ final class AccessoryViewSwitcher: AccessoryViewSwitcherProtocol {
         changeTypeView.viewModel.onDoneButtonTap = { [weak self] in
             self?.didChangeTypeDismissByUser = true
             self?.showDefaultView()
-            self?.onDoneButton?()
         }
 
         mentionsView.dismissHandler = dismiss

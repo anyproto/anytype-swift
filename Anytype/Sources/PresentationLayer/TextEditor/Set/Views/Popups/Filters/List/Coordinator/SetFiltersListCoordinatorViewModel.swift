@@ -13,6 +13,7 @@ final class SetFiltersListCoordinatorViewModel: ObservableObject, SetFiltersList
     @Published var filtersSearchData: FiltersSearchData?
     
     private let setDocument: SetDocumentProtocol
+    private let viewId: String
     private let subscriptionDetailsStorage: ObjectDetailsStorage
     private let setFiltersListModuleAssembly: SetFiltersListModuleAssemblyProtocol
     private let setFiltersSelectionCoordinatorAssembly: SetFiltersSelectionCoordinatorAssemblyProtocol
@@ -20,12 +21,14 @@ final class SetFiltersListCoordinatorViewModel: ObservableObject, SetFiltersList
     
     init(
         setDocument: SetDocumentProtocol,
+        viewId: String,
         subscriptionDetailsStorage: ObjectDetailsStorage,
         setFiltersListModuleAssembly: SetFiltersListModuleAssemblyProtocol,
         setFiltersSelectionCoordinatorAssembly: SetFiltersSelectionCoordinatorAssemblyProtocol,
         newSearchModuleAssembly: NewSearchModuleAssemblyProtocol
     ) {
         self.setDocument = setDocument
+        self.viewId = viewId
         self.subscriptionDetailsStorage = subscriptionDetailsStorage
         self.setFiltersListModuleAssembly = setFiltersListModuleAssembly
         self.setFiltersSelectionCoordinatorAssembly = setFiltersSelectionCoordinatorAssembly
@@ -35,6 +38,7 @@ final class SetFiltersListCoordinatorViewModel: ObservableObject, SetFiltersList
     func list() -> AnyView {
         setFiltersListModuleAssembly.make(
             with: setDocument,
+            viewId: viewId,
             subscriptionDetailsStorage: subscriptionDetailsStorage,
             output: self
         )
@@ -71,7 +75,8 @@ final class SetFiltersListCoordinatorViewModel: ObservableObject, SetFiltersList
     
     func setFiltersSelection(data: FiltersSelectionData) -> AnyView {
         setFiltersSelectionCoordinatorAssembly.make(
-            with: data.filter,
+            with: setDocument.spaceId,
+            filter: data.filter,
             completion: { [weak self] filter in
                 self?.filtersSelectionData = nil
                 data.completion(filter)

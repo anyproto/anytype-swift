@@ -434,7 +434,7 @@ private extension RelationsBuilder {
                 
                 return Relation.Object.Option(
                     id: objectDetail.id,
-                    icon: FeatureFlags.deleteObjectPlaceholder ? objectDetail.objectIconImage: objectDetail.objectIconImageWithPlaceholder,
+                    icon: objectDetail.objectIconImage,
                     title: objectDetail.title,
                     type: objectDetail.objectType.name,
                     isArchived: objectDetail.isArchived,
@@ -477,7 +477,7 @@ private extension RelationsBuilder {
             let objectOptions: [Relation.File.Option] = objectDetails.map { objectDetail in      
                 return Relation.File.Option(
                     id: objectDetail.id,
-                    icon: FeatureFlags.deleteObjectPlaceholder ? objectDetail.objectIconImage : objectDetail.objectIconImageWithPlaceholder,
+                    icon: objectDetail.objectIconImage,
                     title: objectDetail.title,
                     editorScreenData: objectDetail.editorScreenData()
                 )

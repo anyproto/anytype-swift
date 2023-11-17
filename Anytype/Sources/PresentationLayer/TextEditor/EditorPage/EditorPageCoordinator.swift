@@ -12,21 +12,25 @@ final class EditorPageCoordinator: EditorPageCoordinatorProtocol, WidgetObjectLi
     private let editorAssembly: EditorAssembly
     private let alertHelper: AlertHelper
     private let objectTypeProvider: ObjectTypeProviderProtocol
+    private let documentsProvider: DocumentsProviderProtocol
     
     init(
         browserController: EditorBrowserController?,
         editorAssembly: EditorAssembly,
         alertHelper: AlertHelper,
-        objectTypeProvider: ObjectTypeProviderProtocol
+        objectTypeProvider: ObjectTypeProviderProtocol,
+        documentsProvider: DocumentsProviderProtocol
     ) {
         self.browserController = browserController
         self.editorAssembly = editorAssembly
         self.alertHelper = alertHelper
         self.objectTypeProvider = objectTypeProvider
+        self.documentsProvider = documentsProvider
     }
     
     // MARK: - EditorPageCoordinatorProtocol
     
+    @MainActor
     func startFlow(data: EditorScreenData, replaceCurrentPage: Bool) {
         if !data.isSupportedForEdit {
             showUnsupportedTypeAlert(documentId: data.objectId)
@@ -48,6 +52,7 @@ final class EditorPageCoordinator: EditorPageCoordinatorProtocol, WidgetObjectLi
     
     // MARK: - WidgetObjectListCommonModuleOutput
     
+    @MainActor
     func onObjectSelected(screenData: EditorScreenData) {
         startFlow(data: screenData, replaceCurrentPage: false)
     }
@@ -56,12 +61,12 @@ final class EditorPageCoordinator: EditorPageCoordinatorProtocol, WidgetObjectLi
     
     private func showUnsupportedTypeAlert(documentId: String) {
         Task { @MainActor in
-            let document = BaseDocument(objectId: documentId, forPreview: true)
+            let document = documentsProvider.document(objectId: documentId, forPreview: true)
             try await document.openForPreview()
 
             guard let typeId = document.details?.type else { return }
             
-            let typeName = objectTypeProvider.objectType(id: typeId)?.name ?? Loc.unknown
+            let typeName = (try? objectTypeProvider.objectType(id: typeId))?.name ?? Loc.unknown
             
             alertHelper.showToast(
                 title: "Not supported type \"\(typeName)\"",

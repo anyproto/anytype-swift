@@ -8,6 +8,10 @@ public protocol BookmarkServiceProtocol {
         position: BlockPosition,
         url: String
     ) async throws
-    func createBookmarkObject(url: String) async throws -> ObjectDetails
+    func createBookmarkObject(
+        spaceId: String,
+        url: String,
+        origin: ObjectOrigin
+    ) async throws -> ObjectDetails
     func fetchBookmarkContent(bookmarkId: BlockId, url: String) async throws
 }

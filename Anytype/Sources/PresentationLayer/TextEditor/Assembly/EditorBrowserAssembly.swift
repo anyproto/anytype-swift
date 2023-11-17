@@ -12,13 +12,16 @@ final class EditorBrowserAssembly {
         self.serviceLocator = serviceLocator
     }
     
+    @MainActor
     func buildEditorBrowser(
         data: EditorScreenData,
         router: EditorPageOpenRouterProtocol? = nil,
+        delegate: EditorBrowserDelegate? = nil,
         addRoot: Bool = true
     ) -> EditorBrowserController {
-        let browser = EditorBrowserController(dashboardService: serviceLocator.dashboardService())
-
+        let browser = EditorBrowserController(dashboardService: serviceLocator.dashboardService(), activeWorkspaceStorage: serviceLocator.activeWorkspaceStorage())
+        browser.delegate = delegate
+        
         if addRoot {
             // Legacy logic. Delete with homeWidgets toggle
             let (page, moduleRouter) = coordinatorsDI.editor()

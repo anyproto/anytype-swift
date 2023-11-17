@@ -118,17 +118,10 @@ struct StandardButton: View {
     
     @ViewBuilder
     private func progressView(config: StandardButtonConfig.Style) -> some View {
-        if FeatureFlags.superNewButtonLoadingState {
-            if inProgress {
-                DotsView()
-                    .foregroundColor(config.textColor)
-                    .frame(width: style.config.loadingIndicatorSize.width, height: style.config.loadingIndicatorSize.height)
-            }
-        } else {
-            if inProgress {
-                ProgressView()
-                    .progressViewStyle(CircularProgressViewStyle(tint: config.textColor ?? .black))
-            }
+        if inProgress {
+            DotsView()
+                .foregroundColor(config.textColor)
+                .frame(width: style.config.loadingIndicatorSize.width, height: style.config.loadingIndicatorSize.height)
         }
     }
     

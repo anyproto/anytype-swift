@@ -12,6 +12,7 @@ final class AppConfigurator {
     
     private let configurators: [AppConfiguratorProtocol] = [
         EnvironmentConfiguration(),
+        ServerConfiguration(),
         NonFatalAlertConfigurator(),
         MiddlewareMerticsConfigurator(),
         MiddlewareHandlerConfigurator(),
@@ -20,7 +21,8 @@ final class AppConfigurator {
         KingfisherConfigurator(),
         AudioPlaybackConfigurator(),
         iCloudBackupConfigurator(),
-        ViewProvidersConfigurator()
+        ViewProvidersConfigurator(),
+        TipsConfiguration()
     ]
 
     func configure() {

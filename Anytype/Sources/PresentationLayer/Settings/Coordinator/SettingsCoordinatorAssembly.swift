@@ -30,7 +30,6 @@ final class SettingsCoordinatorAssembly: SettingsCoordinatorAssemblyProtocol {
             objectTypeProvider: serviceLocator.objectTypeProvider(),
             settingsModuleAssembly: modulesDI.settings(),
             debugMenuModuleAssembly: modulesDI.debugMenu(),
-            personalizationModuleAssembly: modulesDI.personalization(),
             newSearchModuleAssembly: modulesDI.newSearch(),
             appearanceModuleAssembly: modulesDI.settingsAppearance(),
             wallpaperPickerModuleAssembly: modulesDI.wallpaperPicker(),
@@ -40,9 +39,10 @@ final class SettingsCoordinatorAssembly: SettingsCoordinatorAssemblyProtocol {
             dashboardAlertsAssembly: modulesDI.dashboardAlerts(),
             objectIconPickerModuleAssembly: modulesDI.objectIconPicker(),
             fileStorageModuleAssembly: modulesDI.fileStorage(),
-            widgetObjectListModuleAssembly: modulesDI.widgetObjectList(),
             documentService: serviceLocator.documentService(),
-            urlOpener: uiHelpersDI.urlOpener()
+            urlOpener: uiHelpersDI.urlOpener(),
+            activeWorkspaceStorage: serviceLocator.activeWorkspaceStorage(),
+            serviceLocator: serviceLocator
         )
     }
 }

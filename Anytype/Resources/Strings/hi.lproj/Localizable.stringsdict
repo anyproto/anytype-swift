@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+  <dict>
+    <key>Are you sure you want to delete</key>
+    <dict>
+      <key>NSStringLocalizedFormatKey</key>
+      <string>क्या आप वाकई हटाना चाहते हैं  %#@object@?</string>
+      <key>object</key>
+      <dict>
+        <key>NSStringFormatSpecTypeKey</key>
+        <string>NSStringPluralRuleType</string>
+        <key>NSStringFormatValueTypeKey</key>
+        <string>d</string>
+        <key>one</key>
+        <string>%d वस्तु
+</string>
+        <key>other</key>
+        <string>%d objects</string>
+      </dict>
+    </dict>
+    <key>Object selected</key>
+    <dict>
+      <key>NSStringLocalizedFormatKey</key>
+      <string>%#@object@ चयनित</string>
+      <key>object</key>
+      <dict>
+        <key>NSStringFormatSpecTypeKey</key>
+        <string>NSStringPluralRuleType</string>
+        <key>NSStringFormatValueTypeKey</key>
+        <string>d</string>
+        <key>one</key>
+        <string>%d वस्तु
+</string>
+        <key>other</key>
+        <string>%d objects</string>
+      </dict>
+    </dict>
+    <key>Selected blocks</key>
+    <dict>
+      <key>NSStringLocalizedFormatKey</key>
+      <string>%#@object@</string>
+      <key>object</key>
+      <dict>
+        <key>NSStringFormatSpecTypeKey</key>
+        <string>NSStringPluralRuleType</string>
+        <key>NSStringFormatValueTypeKey</key>
+        <string>d</string>
+        <key>one</key>
+        <string>%d चयनित ब्लॉक</string>
+        <key>other</key>
+        <string>%d selected blocks</string>
+      </dict>
+    </dict>
+    <key>Days to deletion account</key>
+    <dict>
+      <key>NSStringLocalizedFormatKey</key>
+      <string>यह खाता %#@days@  दिनों में हटा दिया जाएगा </string>
+      <key>days</key>
+      <dict>
+        <key>NSStringFormatSpecTypeKey</key>
+        <string>NSStringPluralRuleType</string>
+        <key>NSStringFormatValueTypeKey</key>
+        <string>d</string>
+        <key>one</key>
+        <string>कल</string>
+        <key>other</key>
+        <string>in %d days</string>
+      </dict>
+    </dict>
+    <key>Widgets.Actions.BinConfirm</key>
+    <dict>
+      <key>NSStringLocalizedFormatKey</key>
+      <string>%#@object@</string>
+      <key>object</key>
+      <dict>
+        <key>NSStringFormatSpecTypeKey</key>
+        <string>NSStringPluralRuleType</string>
+        <key>NSStringFormatValueTypeKey</key>
+        <string>d</string>
+        <key>one</key>
+        <string>एक ऑब्जेक्ट हटा दिया गया</string>
+        <key>other</key>
+        <string>%d objects deleted</string>
+      </dict>
+    </dict>
+  </dict>
+</plist>

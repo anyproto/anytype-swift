@@ -26,7 +26,7 @@ protocol EditorRouterProtocol:
     
     func saveFile(fileURL: URL, type: FileContentType)
     
-    func showCodeLanguage(blockId: BlockId)
+    func showCodeLanguage(blockId: BlockId, selectedLanguage: CodeLanguage)
     
     func showStyleMenu(
         informations: [BlockInformation],
@@ -40,15 +40,15 @@ protocol EditorRouterProtocol:
         viewDidClose: @escaping () -> Void
     )
     
-    func showSettings()
+    func showSettings(actionHandler: @escaping (ObjectSettingsAction) -> Void)
     func showTextIconPicker(contextId: BlockId, objectId: BlockId)
     
     func showMoveTo(onSelect: @escaping (ObjectDetails) -> ())
     func showLinkTo(onSelect: @escaping (ObjectDetails) -> ())
     func showSearch(onSelect: @escaping (EditorScreenData) -> ())
 
-    func showTypes(selectedObjectId: BlockId?, onSelect: @escaping (BlockId) -> ())
-    func showTypesForEmptyObject(selectedObjectId: BlockId?, onSelect: @escaping (BlockId) -> ())
+    func showTypes(selectedObjectId: BlockId?, onSelect: @escaping (ObjectType) -> ())
+    func showTypesForEmptyObject(selectedObjectId: BlockId?, onSelect: @escaping (ObjectType) -> ())
     func showObjectPreview(
         blockLinkState: BlockLinkState,
         onSelect: @escaping (BlockLink.Appearance) -> Void
@@ -70,17 +70,6 @@ protocol EditorRouterProtocol:
     func presentSheet(_ vc: UIViewController)
     func presentFullscreen(_ vc: UIViewController)
     
-    func showTemplatesPopupIfNeeded(
-        document: BaseDocumentProtocol,
-        templatesTypeId: ObjectTypeId,
-        onShow: (() -> Void)?
-    )
-    func showTemplatesPopupWithTypeCheckIfNeeded(
-        document: BaseDocumentProtocol,
-        templatesTypeId: ObjectTypeId,
-        onShow: (() -> Void)?
-    )
-    
     func showColorPicker(
         onColorSelection: @escaping (ColorView.ColorItem) -> Void,
         selectedColor: UIColor?,
@@ -88,4 +77,10 @@ protocol EditorRouterProtocol:
     )
     
     func showFailureToast(message: String)
+    
+    @MainActor
+    func showTemplatesPicker(availableTemplates: [ObjectDetails])
+    
+    @MainActor
+    func showOpenDocumentError(error: Error)
 }

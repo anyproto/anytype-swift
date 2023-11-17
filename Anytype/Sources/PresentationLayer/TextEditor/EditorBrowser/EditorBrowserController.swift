@@ -19,21 +19,29 @@ protocol EditorPageOpenRouterProtocol: AnyObject {
     func showPage(data: EditorScreenData)
 }
 
+@MainActor
+protocol EditorBrowserDelegate: AnyObject {
+    func onCreateObjectWithTypeSelected()
+}
+
 final class EditorBrowserController: UIViewController, UINavigationControllerDelegate, EditorBrowser, EditorBrowserViewInputProtocol {
         
     var childNavigation: UINavigationController!
     weak var router: EditorPageOpenRouterProtocol!
-
+    weak var delegate: EditorBrowserDelegate?
+    
     private lazy var navigationView: EditorBottomNavigationView = createNavigationView()
     private var navigationViewBottomConstaint: NSLayoutConstraint?
     
     private let dashboardService: DashboardServiceProtocol
+    private let activeWorkspaceStorage: ActiveWorkpaceStorageProtocol
     private let stateManager = BrowserNavigationManager()
     private let browserView = EditorBrowserView()
     private var isNavigationViewHidden = false
     
-    init(dashboardService: DashboardServiceProtocol) {
+    init(dashboardService: DashboardServiceProtocol, activeWorkspaceStorage: ActiveWorkpaceStorageProtocol) {
         self.dashboardService = dashboardService
+        self.activeWorkspaceStorage = activeWorkspaceStorage
         super.init(nibName: nil, bundle: nil)
     }
 
@@ -46,13 +54,21 @@ final class EditorBrowserController: UIViewController, UINavigationControllerDel
         childNavigation.delegate = self
         
         view.addSubview(navigationView) {
-            $0.pinToSuperviewPreservingReadability(excluding: [.top, .bottom])
+            if FeatureFlags.ipadIncreaseWidth {
+                $0.pinToSuperview(excluding: [.top, .bottom])
+            } else {
+                $0.pinToSuperviewPreservingReadability(excluding: [.top, .bottom])
+            }
             navigationViewBottomConstaint = $0.bottom.equal(to: view.bottomAnchor)
         }
         
         embedChild(childNavigation, into: view)
         childNavigation.view.layoutUsing.anchors {
-            $0.pinToSuperviewPreservingReadability(excluding: [.bottom])
+            if FeatureFlags.ipadIncreaseWidth {
+                $0.pinToSuperview(excluding: [.bottom])
+            } else {
+                $0.pinToSuperviewPreservingReadability(excluding: [.bottom])
+            }
             $0.bottom.equal(to: view.bottomAnchor)
         }
 
@@ -115,12 +131,15 @@ final class EditorBrowserController: UIViewController, UINavigationControllerDel
             onCreateObjectTap: { [weak self] in
                 Task { @MainActor in
                     guard let self = self,
-                          let details = try? await self.dashboardService.createNewPage() else {
+                          let details = try? await self.dashboardService.createNewPage(spaceId: self.activeWorkspaceStorage.workspaceInfo.accountSpaceId) else {
                         return
                     }
                     AnytypeAnalytics.instance().logCreateObject(objectType: details.analyticsType, route: .navigation, view: .navbar)
                     self.router.showPage(data: details.editorScreenData())
                 }
+            },
+            onCreateObjectWithTypeTap: { [weak self] in
+                self?.delegate?.onCreateObjectWithTypeSelected()
             }
         )
     }

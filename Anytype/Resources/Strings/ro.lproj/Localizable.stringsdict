@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+  <dict>
+    <key>Are you sure you want to delete</key>
+    <dict>
+      <key>NSStringLocalizedFormatKey</key>
+      <string>Ești sigur că vrei să ștergi  %#@object@?</string>
+      <key>object</key>
+      <dict>
+        <key>NSStringFormatSpecTypeKey</key>
+        <string>NSStringPluralRuleType</string>
+        <key>NSStringFormatValueTypeKey</key>
+        <string>d</string>
+        <key>one</key>
+        <string>Obiect %d</string>
+        <key>few</key>
+        <string>Obiecte %d</string>
+        <key>other</key>
+        <string>%d obiecte</string>
+      </dict>
+    </dict>
+    <key>Object selected</key>
+    <dict>
+      <key>NSStringLocalizedFormatKey</key>
+      <string>%#@object@ selectat</string>
+      <key>object</key>
+      <dict>
+        <key>NSStringFormatSpecTypeKey</key>
+        <string>NSStringPluralRuleType</string>
+        <key>NSStringFormatValueTypeKey</key>
+        <string>d</string>
+        <key>one</key>
+        <string>Obiect %d</string>
+        <key>few</key>
+        <string>Obiecte %d</string>
+        <key>other</key>
+        <string>%d obiecte</string>
+      </dict>
+    </dict>
+    <key>Selected blocks</key>
+    <dict>
+      <key>NSStringLocalizedFormatKey</key>
+      <string>%#@object@</string>
+      <key>object</key>
+      <dict>
+        <key>NSStringFormatSpecTypeKey</key>
+        <string>NSStringPluralRuleType</string>
+        <key>NSStringFormatValueTypeKey</key>
+        <string>d</string>
+        <key>one</key>
+        <string>Bloc %d selectat</string>
+        <key>few</key>
+        <string>%d selected blocks</string>
+        <key>other</key>
+        <string>%d selected blocks</string>
+      </dict>
+    </dict>
+    <key>Days to deletion account</key>
+    <dict>
+      <key>NSStringLocalizedFormatKey</key>
+      <string>Acest cont va fi șters %#@days@</string>
+      <key>days</key>
+      <dict>
+        <key>NSStringFormatSpecTypeKey</key>
+        <string>NSStringPluralRuleType</string>
+        <key>NSStringFormatValueTypeKey</key>
+        <string>d</string>
+        <key>one</key>
+        <string>mâine</string>
+        <key>few</key>
+        <string>in %d days</string>
+        <key>other</key>
+        <string>in %d days</string>
+      </dict>
+    </dict>
+    <key>Widgets.Actions.BinConfirm</key>
+    <dict>
+      <key>NSStringLocalizedFormatKey</key>
+      <string>%#@object@</string>
+      <key>object</key>
+      <dict>
+        <key>NSStringFormatSpecTypeKey</key>
+        <string>NSStringPluralRuleType</string>
+        <key>NSStringFormatValueTypeKey</key>
+        <string>d</string>
+        <key>one</key>
+        <string>Un obiect şters</string>
+        <key>few</key>
+        <string>%d objects deleted</string>
+        <key>other</key>
+        <string>%d objects deleted</string>
+      </dict>
+    </dict>
+  </dict>
+</plist>

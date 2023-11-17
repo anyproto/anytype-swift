@@ -32,35 +32,13 @@ extension DetailsService: DetailsServiceProtocol {
         try await service.updateLayout(contextID: objectId, value: detailsLayout.rawValue)
     }
     
-    func setCover(source: FileUploadingSource) async throws {
-        await EventsBunch(
-            contextId: objectId,
-            localEvents: [.header(.coverUploading(.bundleImagePath("")))]
-        ).send()
+    func setCover(spaceId: String, source: FileUploadingSource) async throws {
         let data = try await fileService.createFileData(source: source)
-        await EventsBunch(
-            contextId: objectId,
-            localEvents: [.header(.coverUploading(.bundleImagePath(data.path)))]
-        ).send()
-        let imageHash = try await fileService.uploadImage(data: data)
+        let imageHash = try await fileService.uploadImage(spaceId: spaceId, data: data)
         try await setCover(imageHash: imageHash)
     }
     
     func setCover(imageHash: Hash) async throws {
         try await updateBundledDetails([.coverType(CoverType.uploadedImage), .coverId(imageHash.value)])
-    }
-    
-    func setObjectIcon(source: FileUploadingSource) async throws {
-        await EventsBunch(
-            contextId: objectId,
-            localEvents: [.header(.iconUploading(""))]
-        ).send()
-        let data = try await fileService.createFileData(source: source)
-        await EventsBunch(
-            contextId: objectId,
-            localEvents: [.header(.iconUploading(data.path))]
-        ).send()
-        let imageHash = try await fileService.uploadImage(data: data)
-        try await updateBundledDetails([.iconEmoji(""), .iconImageHash(imageHash)])
     }
 }

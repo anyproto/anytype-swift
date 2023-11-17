@@ -58,8 +58,8 @@ final class CodeBlockView: UIView, BlockContentView {
     }
 
     private func applyNewConfiguration(configuration: CodeBlockContentConfiguration) {
-        codeSelectButton.setText(configuration.codeLanguage.rawValue)
-        textStorage.language = configuration.codeLanguage.rawValue
+        codeSelectButton.setText(configuration.codeLanguage.title)
+        textStorage.language = configuration.codeLanguage.higlighterCode
         textStorage.highlightr.setTheme(to: traitCollection.userInterfaceStyle.themeName)
     
         textStorage.highlightr.highlight(configuration.anytypeText.attrString.string).flatMap {

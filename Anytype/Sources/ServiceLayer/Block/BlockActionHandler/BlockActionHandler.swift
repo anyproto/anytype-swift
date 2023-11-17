@@ -14,6 +14,7 @@ final class BlockActionHandler: BlockActionHandlerProtocol {
     private let keyboardHandler: KeyboardActionHandlerProtocol
     private let blockTableService: BlockTableServiceProtocol
     private let fileService: FileActionsServiceProtocol
+    private let objectService: ObjectActionsServiceProtocol
     
     init(
         document: BaseDocumentProtocol,
@@ -22,7 +23,8 @@ final class BlockActionHandler: BlockActionHandlerProtocol {
         listService: BlockListServiceProtocol,
         keyboardHandler: KeyboardActionHandlerProtocol,
         blockTableService: BlockTableServiceProtocol,
-        fileService: FileActionsServiceProtocol
+        fileService: FileActionsServiceProtocol,
+        objectService: ObjectActionsServiceProtocol
     ) {
         self.document = document
         self.markupChanger = markupChanger
@@ -31,12 +33,13 @@ final class BlockActionHandler: BlockActionHandlerProtocol {
         self.keyboardHandler = keyboardHandler
         self.blockTableService = blockTableService
         self.fileService = fileService
+        self.objectService = objectService
     }
 
     // MARK: - Service proxy
 
     func turnIntoPage(blockId: BlockId) async throws -> BlockId? {
-        try await service.turnIntoPage(blockId: blockId)
+        try await service.turnIntoPage(blockId: blockId, spaceId: document.spaceId)
     }
     
     func turnInto(_ style: BlockText.Style, blockId: BlockId) {
@@ -56,8 +59,12 @@ final class BlockActionHandler: BlockActionHandlerProtocol {
         try await service.upload(blockId: blockId, filePath: filePath)
     }
     
-    func setObjectTypeId(_ objectTypeId: String) async throws {
-        try await service.setObjectTypeId(objectTypeId)
+    @MainActor
+    func setObjectType(type: ObjectType) async throws {
+        if #available(iOS 17.0, *) {
+            HomeCreateObjectTip.objectTpeChanged = true
+        }
+        try await service.setObjectType(type: type)
     }
 
     func setObjectSetType() async throws {
@@ -66,6 +73,10 @@ final class BlockActionHandler: BlockActionHandlerProtocol {
     
     func setObjectCollectionType() async throws {
         try await service.setObjectCollectionType()
+    }
+    
+    func applyTemplate(objectId: String, templateId: String) async throws {
+        try await objectService.applyTemplate(objectId: objectId, templateId: templateId)
     }
     
     func setTextColor(_ color: BlockColor, blockIds: [BlockId]) {
@@ -116,13 +127,16 @@ final class BlockActionHandler: BlockActionHandlerProtocol {
     }
     
     func createEmptyBlock(parentId: BlockId) {
-        service.addChild(info: BlockInformation.emptyText, parentId: parentId)
+        let emptyBlock = BlockInformation.emptyText
+        AnytypeAnalytics.instance().logCreateBlock(type: emptyBlock.content.type)
+        service.addChild(info: emptyBlock, parentId: parentId)
     }
     
-    func addLink(targetId: BlockId, typeId: String, blockId: BlockId) {
-        let isBookmarkType = ObjectTypeId.bundled(.bookmark).rawValue == typeId
+    func addLink(targetDetails: ObjectDetails, blockId: BlockId) {
+        let isBookmarkType = targetDetails.layoutValue == .bookmark
+        AnytypeAnalytics.instance().logCreateLink()
         service.add(
-            info: isBookmarkType ? .bookmark(targetId: targetId) : .emptyLink(targetId: targetId),
+            info: isBookmarkType ? .bookmark(targetId: targetDetails.id) : .emptyLink(targetId: targetDetails.id),
             targetBlockId: blockId,
             position: .replace
         )
@@ -194,12 +208,14 @@ final class BlockActionHandler: BlockActionHandlerProtocol {
     }
     
     func changeTextForced(_ text: NSAttributedString, blockId: BlockId) {
+        let safeSendableText = SafeSendable(value: text)
+        
         Task {
             guard let info = document.infoContainer.get(id: blockId) else { return }
             
             guard case .text = info.content else { return }
             
-            let middlewareString = AttributedTextConverter.asMiddleware(attributedText: text)
+            let middlewareString = AttributedTextConverter.asMiddleware(attributedText: safeSendableText.value)
             
             await EventsBunch(
                 contextId: document.objectId,
@@ -211,10 +227,12 @@ final class BlockActionHandler: BlockActionHandlerProtocol {
     }
     
     func changeText(_ text: NSAttributedString, info: BlockInformation) {
+        let safeSendableText = SafeSendable(value: text)
+
         Task {
             guard case .text = info.content else { return }
             
-            let middlewareString = AttributedTextConverter.asMiddleware(attributedText: text)
+            let middlewareString = AttributedTextConverter.asMiddleware(attributedText: safeSendableText.value)
             
             await EventsBunch(
                 contextId: document.objectId,
@@ -254,7 +272,7 @@ final class BlockActionHandler: BlockActionHandlerProtocol {
         }
     }
     
-    func createPage(targetId: BlockId, type: ObjectTypeId) async throws -> BlockId? {
+    func createPage(targetId: BlockId, spaceId: String, typeUniqueKey: ObjectTypeUniqueKey, templateId: String) async throws -> BlockId? {
         guard let info = document.infoContainer.get(id: targetId) else { return nil }
         var position: BlockPosition
         if case .text(let blockText) = info.content, blockText.text.isEmpty {
@@ -262,18 +280,16 @@ final class BlockActionHandler: BlockActionHandlerProtocol {
         } else {
             position = .bottom
         }
-        
-        return try await service.createPage(targetId: targetId, type: type, position: position)
+        return try await service.createPage(targetId: targetId, spaceId: spaceId, typeUniqueKey: typeUniqueKey, position: position, templateId: templateId)
     }
-
 
     func createTable(
         blockId: BlockId,
         rowsCount: Int,
         columnsCount: Int,
-        blockText: NSAttributedString?
+        blockText: SafeSendable<NSAttributedString?>
     ) async throws -> BlockId {
-        guard let isTextAndEmpty = blockText?.string.isEmpty
+        guard let isTextAndEmpty = blockText.value?.string.isEmpty
                 ?? document.infoContainer.get(id: blockId)?.isTextAndEmpty else { return "" }
         
         let position: BlockPosition = isTextAndEmpty ? .replace : .bottom
@@ -302,7 +318,8 @@ final class BlockActionHandler: BlockActionHandlerProtocol {
             ?? document.infoContainer.get(id: blockId)?.isTextAndEmpty else { return }
         
         let position: BlockPosition = isTextAndEmpty ? .replace : (position ?? .bottom)
-
+        
+        AnytypeAnalytics.instance().logCreateBlock(type: newBlock.content.type)
         service.add(info: newBlock, targetBlockId: blockId, position: position)
     }
 

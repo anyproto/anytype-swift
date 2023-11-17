@@ -87,7 +87,8 @@ extension DownloadableImageViewWrapper: DownloadableImageViewWrapperProtocol {
                 case .failure(let error) = result,
                 !error.isTaskCancelled,
                 !error.isImageSettingError,
-                error.errorCode != 500
+                error.errorCode != 500,
+                !error.isInvalidResponseStatusCode(404)
             else { return }
  
             anytypeAssertionFailure(error.localizedDescription)

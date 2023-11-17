@@ -4,6 +4,7 @@ import Combine
 import Collections
 import AnytypeCore
 
+@MainActor
 final class WidgetObjectListRecentViewModel: WidgetObjectListInternalViewModelProtocol {
     
     // MARK: - DI
@@ -30,14 +31,18 @@ final class WidgetObjectListRecentViewModel: WidgetObjectListInternalViewModelPr
     // MARK: - WidgetObjectListInternalViewModelProtocol
     
     func onAppear() {
-        recentSubscriptionService.startSubscription(type: type, objectLimit: nil, update: { [weak self] _, update in
-            self?.details.applySubscriptionUpdate(update)
-            self?.updateRows()
-        })
+        Task {
+            await recentSubscriptionService.startSubscription(type: type, objectLimit: nil) { [weak self] details in
+                self?.details = details
+                self?.updateRows()
+            }
+        }
     }
     
     func onDisappear() {
-        recentSubscriptionService.stopSubscription()
+        Task {
+            await recentSubscriptionService.stopSubscription()
+        }
     }
     
     func subtitle(for details: ObjectDetails) -> String? {
@@ -56,14 +61,10 @@ final class WidgetObjectListRecentViewModel: WidgetObjectListInternalViewModelPr
     }
     
     private func sortValue(for details: ObjectDetails) -> Date? {
-        if FeatureFlags.recentEditWidget {
-            switch type {
-            case .recentEdit:
-                return details.lastModifiedDate
-            case .recentOpen:
-                return details.lastOpenedDate
-            }
-        } else {
+        switch type {
+        case .recentEdit:
+            return details.lastModifiedDate
+        case .recentOpen:
             return details.lastOpenedDate
         }
     }

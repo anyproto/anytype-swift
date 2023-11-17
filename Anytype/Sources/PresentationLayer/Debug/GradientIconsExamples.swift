@@ -1,4 +1,5 @@
 import SwiftUI
+import AnytypeCore
 
 struct GradientIconsExamples: View {
     
@@ -19,8 +20,6 @@ struct GradientIconsExamples: View {
             HStack(spacing: 0) {
                 AnytypeText("Space", style: .subheading, color: .Text.primary)
                     .frame(maxWidth: .infinity)
-                AnytypeText("Profile", style: .subheading, color: .Text.primary)
-                    .frame(maxWidth: .infinity)
             }
             ScrollView() {
                 VStack {
@@ -32,9 +31,6 @@ struct GradientIconsExamples: View {
                                 IconView(icon: .object(.space(.gradient(gradientId))))
                                     .frame(width: 96, height: 96)
                                 Spacer()
-                                IconView(icon: .object(.profile(.gradient(gradientId))))
-                                    .frame(width: 96, height: 96)
-                                Spacer()
                             }
                             .padding(.bottom, 12)
                             .newDivider()
@@ -43,6 +39,7 @@ struct GradientIconsExamples: View {
                 }
             }
         }
+        .background(.gray)
     }
 }
 

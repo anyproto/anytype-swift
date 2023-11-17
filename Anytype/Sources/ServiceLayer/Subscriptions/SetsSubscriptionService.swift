@@ -3,39 +3,41 @@ import Services
 import Combine
 import AnytypeCore
 
+@MainActor
 protocol SetsSubscriptionServiceProtocol: AnyObject {
     func startSubscription(
         objectLimit: Int?,
-        update: @escaping SubscriptionCallback
-    )
-    func stopSubscription()
+        update: @escaping ([ObjectDetails]) -> Void
+    ) async
+    func stopSubscription() async
 }
 
+@MainActor
 final class SetsSubscriptionService: SetsSubscriptionServiceProtocol {
     
     private enum Constants {
         static let limit = 100
     }
     
-    private let subscriptionService: SubscriptionsServiceProtocol
+    private let subscriptionStorage: SubscriptionStorageProtocol
     private let objectTypeProvider: ObjectTypeProviderProtocol
-    private let accountManager: AccountManagerProtocol
+    private let activeWorkspaceStorage: ActiveWorkpaceStorageProtocol
     private let subscriptionId = "Sets-\(UUID().uuidString)"
     
-    init(
-        subscriptionService: SubscriptionsServiceProtocol,
-        accountManager: AccountManagerProtocol,
+    nonisolated init(
+        subscriptionStorageProvider: SubscriptionStorageProviderProtocol,
+        activeWorkspaceStorage: ActiveWorkpaceStorageProtocol,
         objectTypeProvider: ObjectTypeProviderProtocol
     ) {
-        self.subscriptionService = subscriptionService
-        self.accountManager = accountManager
+        self.subscriptionStorage = subscriptionStorageProvider.createSubscriptionStorage(subId: subscriptionId)
+        self.activeWorkspaceStorage = activeWorkspaceStorage
         self.objectTypeProvider = objectTypeProvider
     }
     
     func startSubscription(
         objectLimit: Int?,
-        update: @escaping SubscriptionCallback
-    ) {
+        update: @escaping ([ObjectDetails]) -> Void
+    ) async {
         
         let sort = SearchHelper.sort(
             relation: BundledRelationKey.lastModifiedDate,
@@ -45,7 +47,7 @@ final class SetsSubscriptionService: SetsSubscriptionServiceProtocol {
         let filters = [
             SearchHelper.notHiddenFilter(),
             SearchHelper.isArchivedFilter(isArchived: false),
-            SearchHelper.workspaceId(accountManager.account.info.accountSpaceId),
+            SearchHelper.spaceId(activeWorkspaceStorage.workspaceInfo.accountSpaceId),
             SearchHelper.layoutFilter([DetailsLayout.set])
         ]
         
@@ -60,10 +62,12 @@ final class SetsSubscriptionService: SetsSubscriptionServiceProtocol {
             )
         )
         
-        subscriptionService.startSubscription(data: searchData, update: update)
+        try? await subscriptionStorage.startOrUpdateSubscription(data: searchData) { data in
+            update(data.items)
+        }
     }
     
-    func stopSubscription() {
-        subscriptionService.stopAllSubscriptions()
+    func stopSubscription() async {
+        try? await subscriptionStorage.stopSubscription()
     }
 }

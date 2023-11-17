@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+  <dict>
+    <key>Are you sure you want to delete</key>
+    <dict>
+      <key>NSStringLocalizedFormatKey</key>
+      <string>¿Está seguro de que quiere borrar %#@object@?</string>
+      <key>object</key>
+      <dict>
+        <key>NSStringFormatSpecTypeKey</key>
+        <string>NSStringPluralRuleType</string>
+        <key>NSStringFormatValueTypeKey</key>
+        <string>d</string>
+        <key>one</key>
+        <string>%d objeto</string>
+        <key>other</key>
+        <string>%d objetos</string>
+      </dict>
+    </dict>
+    <key>Object selected</key>
+    <dict>
+      <key>NSStringLocalizedFormatKey</key>
+      <string>%#@object@ seleccionado</string>
+      <key>object</key>
+      <dict>
+        <key>NSStringFormatSpecTypeKey</key>
+        <string>NSStringPluralRuleType</string>
+        <key>NSStringFormatValueTypeKey</key>
+        <string>d</string>
+        <key>one</key>
+        <string>%d objeto</string>
+        <key>other</key>
+        <string>%d objetos</string>
+      </dict>
+    </dict>
+    <key>Selected blocks</key>
+    <dict>
+      <key>NSStringLocalizedFormatKey</key>
+      <string>%#@object@</string>
+      <key>object</key>
+      <dict>
+        <key>NSStringFormatSpecTypeKey</key>
+        <string>NSStringPluralRuleType</string>
+        <key>NSStringFormatValueTypeKey</key>
+        <string>d</string>
+        <key>one</key>
+        <string>%d bloque seleccionado</string>
+        <key>other</key>
+        <string>%d bloques seleccionados</string>
+      </dict>
+    </dict>
+    <key>Days to deletion account</key>
+    <dict>
+      <key>NSStringLocalizedFormatKey</key>
+      <string>Esta cuenta será eliminada %#@days@</string>
+      <key>days</key>
+      <dict>
+        <key>NSStringFormatSpecTypeKey</key>
+        <string>NSStringPluralRuleType</string>
+        <key>NSStringFormatValueTypeKey</key>
+        <string>d</string>
+        <key>one</key>
+        <string>mañana</string>
+        <key>other</key>
+        <string>en %d días</string>
+      </dict>
+    </dict>
+    <key>Widgets.Actions.BinConfirm</key>
+    <dict>
+      <key>NSStringLocalizedFormatKey</key>
+      <string>%#@object@</string>
+      <key>object</key>
+      <dict>
+        <key>NSStringFormatSpecTypeKey</key>
+        <string>NSStringPluralRuleType</string>
+        <key>NSStringFormatValueTypeKey</key>
+        <string>d</string>
+        <key>one</key>
+        <string>Un objeto eliminado</string>
+        <key>other</key>
+        <string>%d elementos eliminados</string>
+      </dict>
+    </dict>
+  </dict>
+</plist>

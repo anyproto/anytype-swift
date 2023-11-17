@@ -1,4 +1,5 @@
 import ProtobufMessages
+import Services
 
 struct MiddlewareConfiguration: Hashable {
     let gatewayURL: String

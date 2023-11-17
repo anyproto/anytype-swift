@@ -58,8 +58,10 @@ final class TreeWidgetViewModel: ObservableObject, WidgetContainerContentViewMod
     }
     
     func startContentSubscription() {
-        internalModel.startContentSubscription()
-        updateLinksSubscriptionsAndTree()
+        Task {
+            await internalModel.startContentSubscription()
+            await updateLinksSubscriptionsAndTree()
+        }
     }
     
     func stopHeaderSubscription() {
@@ -69,8 +71,10 @@ final class TreeWidgetViewModel: ObservableObject, WidgetContainerContentViewMod
     }
     
     func stopContentSubscription() {
-        internalModel.stopContentSubscription()
-        subscriptionManager.stopAllSubscriptions()
+        Task {
+            await internalModel.stopContentSubscription()
+            await subscriptionManager.stopAllSubscriptions()
+        }
     }
     
     func onHeaderTap() {
@@ -84,13 +88,13 @@ final class TreeWidgetViewModel: ObservableObject, WidgetContainerContentViewMod
     private func onTapExpand(model: TreeWidgetRowViewModel) {
         expandedRowIds.append(ExpandedId(rowId: model.rowId, objectId: model.objectId))
         UISelectionFeedbackGenerator().selectionChanged()
-        updateLinksSubscriptionsAndTree()
+        Task { await updateLinksSubscriptionsAndTree() }
     }
     
     private func onTapCollapse(model: TreeWidgetRowViewModel) {
         expandedRowIds.removeAll { $0.rowId == model.rowId }
         UISelectionFeedbackGenerator().selectionChanged()
-        updateLinksSubscriptionsAndTree()
+        Task { await updateLinksSubscriptionsAndTree() }
     }
     
     private func setupAllSubscriptions() {
@@ -101,19 +105,19 @@ final class TreeWidgetViewModel: ObservableObject, WidgetContainerContentViewMod
         
         subscriptionManager.handler = { [weak self] details in
             self?.childSubscriptionData = details
-            self?.updateLinksSubscriptionsAndTree()
+            Task { await self?.updateLinksSubscriptionsAndTree() }
         }
         
         internalModel.detailsPublisher
             .receiveOnMain()
             .sink { [weak self] details in
                 self?.firstLevelSubscriptionData = details
-                self?.updateLinksSubscriptionsAndTree()
+                Task { await self?.updateLinksSubscriptionsAndTree() }
             }
             .store(in: &subscriptions)
     }
     
-    private func updateLinksSubscriptionsAndTree() {
+    private func updateLinksSubscriptionsAndTree() async {
         let expandedObjectIds = expandedRowIds.map(\.objectId)
         let firstLevelIds = firstLevelSubscriptionData?.map(\.id) ?? []
         
@@ -122,7 +126,8 @@ final class TreeWidgetViewModel: ObservableObject, WidgetContainerContentViewMod
             .flatMap(\.links)
             .filter { !firstLevelIds.contains($0) }
         
-        if !subscriptionManager.startOrUpdateSubscription(objectIds: childLinks) {
+        let updated = await subscriptionManager.startOrUpdateSubscription(objectIds: childLinks)
+        if !updated {
             updateTree()
         }
     }
@@ -186,12 +191,11 @@ final class TreeWidgetViewModel: ObservableObject, WidgetContainerContentViewMod
     }
     
     private func updateDone(details: ObjectDetails) {
-        guard
-            FeatureFlags.widgetTaskDone else { return }
         guard details.layoutValue == .todo else { return }
         
         Task {
             try await objectActionsService.updateBundledDetails(contextID: details.id, details: [.done(!details.done)])
+            UIImpactFeedbackGenerator(style: .rigid).impactOccurred()
         }
     }
 }

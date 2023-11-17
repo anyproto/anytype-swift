@@ -57,10 +57,13 @@ final class ApplicationCoordinator: ApplicationCoordinatorProtocol {
     }
     
     func handleDeeplink(url: URL) {
-        guard applicationStateService.state == .home else { return }
         switch url {
         case URLConstants.createObjectURL:
-            windowManager.createAndShowNewObject()
+            AppActionStorage.shared.action = .createObject
+        case URLConstants.sharingExtenstionURL:
+            AppActionStorage.shared.action = .showSharingExtension
+        case URLConstants.spaceSelectionURL:
+            AppActionStorage.shared.action = .spaceSelection
         default:
             break
         }
@@ -129,11 +132,7 @@ final class ApplicationCoordinator: ApplicationCoordinatorProtocol {
     // MARK: - Process
     
     private func initialProcess() {
-        if UserDefaultsConfig.usersId.isNotEmpty {
-            applicationStateService.state = .login
-        } else {
-            applicationStateService.state = .auth
-        }
+        windowManager.showInitialWindow()
     }
     
     private func loginProcess() {

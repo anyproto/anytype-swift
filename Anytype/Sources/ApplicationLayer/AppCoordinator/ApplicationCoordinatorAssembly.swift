@@ -29,9 +29,9 @@ final class ApplicationCoordinatorAssembly: ApplicationCoordinatorAssemblyProtoc
         let windowManager = WindowManager(
             viewControllerProvider: uiHelpersDI.viewControllerProvider(),
             authCoordinatorAssembly: coordinatorsDI.authorization(),
-            legacyAuthViewAssembly: coordinatorsDI.legacyAuthViewAssembly(),
             homeWidgetsCoordinatorAssembly: coordinatorsDI.homeWidgets(),
-            applicationStateService: serviceLocator.applicationStateService()
+            applicationStateService: serviceLocator.applicationStateService(),
+            initialCoordinatorAssembly: coordinatorsDI.initial()
         )
         
         return ApplicationCoordinator(

@@ -13,7 +13,7 @@ extension AnytypeAnalytics {
         )
     }
     
-    func logAccountSelect(analyticsId: String) {
+    func logAccountOpen(analyticsId: String) {
         logEvent(
             AnalyticsEventsName.openAccount,
             withEventProperties: [AnalyticsEventsPropertiesKey.accountId : analyticsId]
@@ -77,9 +77,12 @@ extension AnytypeAnalytics {
                  withEventProperties: [AnalyticsEventsPropertiesKey.type: context.rawValue])
     }
 
-    func logDefaultObjectTypeChange(_ type: AnalyticsObjectType) {
+    func logDefaultObjectTypeChange(_ type: AnalyticsObjectType, route: AnalyticsDefaultObjectTypeChangeRoute) {
         logEvent(AnalyticsEventsName.defaultObjectTypeChange,
-                 withEventProperties: [AnalyticsEventsPropertiesKey.objectType: type.analyticsId])
+                 withEventProperties: [
+                    AnalyticsEventsPropertiesKey.objectType: type.analyticsId,
+                    AnalyticsEventsPropertiesKey.route: route.rawValue
+                 ])
     }
 
     func logSelectTheme(_ userInterfaceStyle: UIUserInterfaceStyle) {
@@ -99,6 +102,16 @@ extension AnytypeAnalytics {
         logEvent(AnalyticsEventsName.objectTypeChange,
                  withEventProperties: [AnalyticsEventsPropertiesKey.objectType: type.analyticsId])
     }
+    
+    func logSelectObjectType(_ type: AnalyticsObjectType, route: SelectObjectTypeRoute? = nil) {
+        logEvent(
+            AnalyticsEventsName.selectObjectType,
+            withEventProperties: [
+                AnalyticsEventsPropertiesKey.objectType: type.analyticsId,
+                AnalyticsEventsPropertiesKey.route: route?.rawValue
+            ].compactMapValues { $0 }
+        )
+    }
 
     func logLayoutChange(_ layout: DetailsLayout) {
         logEvent(AnalyticsEventsName.changeLayout,
@@ -115,6 +128,10 @@ extension AnytypeAnalytics {
         }
     }
 
+    func logCreateBlock(type: BlockContentType) {
+        logCreateBlock(type: type.analyticsValue, style: type.styleAnalyticsValue)
+    }
+    
     func logCreateBlock(type: String, style: String? = nil) {
         var props = [String: String]()
         props[AnalyticsEventsPropertiesKey.type] = type
@@ -351,15 +368,6 @@ extension AnytypeAnalytics {
         )
     }
     
-    func logMigrationGoneWrong(type: AnalyticsEventsMigrationType?) {
-        logEvent(
-            AnalyticsEventsName.migrationGoneWrong,
-            withEventProperties: [
-                AnalyticsEventsPropertiesKey.type: type?.rawValue
-            ].compactMapValues { $0 }
-        )
-    }
-    
     func logEditWidget() {
         logEvent(AnalyticsEventsName.Widget.edit)
     }
@@ -507,8 +515,14 @@ extension AnytypeAnalytics {
         logEvent(AnalyticsEventsName.redo)
     }
     
-    func logDuplicateObject() {
-        logEvent(AnalyticsEventsName.duplicateObject)
+    func logDuplicateObject(count: Int, objectType: AnalyticsObjectType) {
+        logEvent(
+            AnalyticsEventsName.duplicateObject,
+            withEventProperties: [
+                AnalyticsEventsPropertiesKey.count: count,
+                AnalyticsEventsPropertiesKey.objectType: objectType.analyticsId,
+            ]
+        )
     }
     
     func logCopyBlock() {
@@ -612,6 +626,10 @@ extension AnytypeAnalytics {
         )
     }
     
+    func logOnboardingSkipName() {
+        logEvent(AnalyticsEventsName.onboardingSkipName)
+    }
+    
     func logTemplateSelection(objectType: AnalyticsObjectType?, route: AnalyticsEventsRouteKind) {
         logEvent(
             AnalyticsEventsName.selectTemplate,
@@ -622,13 +640,13 @@ extension AnytypeAnalytics {
         )
     }
     
-    func logChangeDefaultTemplate(objectType: AnalyticsObjectType, route: AnalyticsEventsRouteKind) {
+    func logChangeDefaultTemplate(objectType: AnalyticsObjectType?, route: AnalyticsEventsRouteKind) {
         logEvent(
             AnalyticsEventsName.changeDefaultTemplate,
             withEventProperties: [
-                AnalyticsEventsPropertiesKey.type: objectType.analyticsId,
+                AnalyticsEventsPropertiesKey.type: objectType?.analyticsId,
                 AnalyticsEventsPropertiesKey.route: route.rawValue
-            ]
+            ].compactMapValues { $0 }
         )
     }
     
@@ -659,5 +677,52 @@ extension AnytypeAnalytics {
                 AnalyticsEventsPropertiesKey.objectType: objectType.analyticsId
             ]
         )
+    }
+    
+    func logOnboardingTooltip(tooltip: OnboardingTooltip) {
+        logEvent(
+            AnalyticsEventsName.onboardingTooltip,
+            withEventProperties: [AnalyticsEventsPropertiesKey.id: tooltip.rawValue]
+        )
+    }
+    
+    func logCreateLink() {
+        logEvent(AnalyticsEventsName.createLink)
+    }
+    
+    func logScreenSettingsSpaceCreate() {
+        logEvent(AnalyticsEventsName.screenSettingsSpaceCreate)
+    }
+    
+    func logCreateSpace() {
+        logEvent(AnalyticsEventsName.createSpace)
+    }
+    
+    func logSwitchSpace() {
+        logEvent(AnalyticsEventsName.switchSpace)
+    }
+    
+    func logClickDeleteSpace(route: ClickDeleteSpaceRoute) {
+        logEvent(AnalyticsEventsName.clickDeleteSpace, withEventProperties: [AnalyticsEventsPropertiesKey.route: route.rawValue])
+    }
+    
+    func logClickDeleteSpaceWarning(type: ClickDeleteSpaceWarningType) {
+        logEvent(AnalyticsEventsName.clickDeleteSpaceWarning, withEventProperties: [AnalyticsEventsPropertiesKey.type: type.rawValue])
+    }
+    
+    func logDeleteSpace(type: DeleteSpaceType) {
+        logEvent(AnalyticsEventsName.deleteSpace, withEventProperties: [AnalyticsEventsPropertiesKey.type: type.rawValue])
+    }
+    
+    func logScreenSettingsSpaceIndex() {
+        logEvent(AnalyticsEventsName.screenSettingsSpaceIndex)
+    }
+    
+    func logScreenSettingsAccount() {
+        logEvent(AnalyticsEventsName.screenSettingsAccount)
+    }
+    
+    func logScreenSettingsAccountAccess() {
+        logEvent(AnalyticsEventsName.screenSettingsAccountAccess)
     }
 }

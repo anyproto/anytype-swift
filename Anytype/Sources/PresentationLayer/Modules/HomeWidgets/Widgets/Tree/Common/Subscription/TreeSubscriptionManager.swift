@@ -3,31 +3,30 @@ import Services
 
 protocol TreeSubscriptionManagerProtocol: AnyObject {
     var handler: ((_ child: [ObjectDetails]) -> Void)? { get set }
-    func startOrUpdateSubscription(objectIds: [String]) -> Bool
-    func stopAllSubscriptions()
+    func startOrUpdateSubscription(objectIds: [String]) async -> Bool
+    func stopAllSubscriptions() async
 }
 
 final class TreeSubscriptionManager: TreeSubscriptionManagerProtocol {
     
     private let subscriptionDataBuilder: TreeSubscriptionDataBuilderProtocol
-    private let subscriptionService: SubscriptionsServiceProtocol
+    private let subscriptionStorage: SubscriptionStorageProtocol
     private var objectIds: [String] = []
-    private var data: [ObjectDetails] = []
     private var subscriptionStarted: Bool = false
 
     var handler: ((_ child: [ObjectDetails]) -> Void)?
     
     init(
         subscriptionDataBuilder: TreeSubscriptionDataBuilderProtocol,
-        subscriptionService: SubscriptionsServiceProtocol
+        subscriptionStorageProvider: SubscriptionStorageProviderProtocol
     ) {
         self.subscriptionDataBuilder = subscriptionDataBuilder
-        self.subscriptionService = subscriptionService
+        self.subscriptionStorage = subscriptionStorageProvider.createSubscriptionStorage(subId: subscriptionDataBuilder.subscriptionId)
     }
     
     // MARK: - TreeSubscriptionDataBuilderProtocol
         
-    func startOrUpdateSubscription(objectIds newObjectIds: [String]) -> Bool {
+    func startOrUpdateSubscription(objectIds newObjectIds: [String]) async -> Bool {
         let newObjectIdsSet = Set(newObjectIds)
         let objectIdsSet = Set(objectIds)
         guard objectIdsSet != newObjectIdsSet || !subscriptionStarted else { return false }
@@ -36,31 +35,28 @@ final class TreeSubscriptionManager: TreeSubscriptionManagerProtocol {
         subscriptionStarted = true
         
         if newObjectIds.isEmpty {
-            subscriptionService.stopAllSubscriptions()
-            data.removeAll()
+            try? await subscriptionStorage.stopSubscription()
             handler?([])
             return true
         }
         
         let subscriptionData = subscriptionDataBuilder.build(objectIds: objectIds)
-        subscriptionService.startSubscription(data: subscriptionData) { [weak self] subId, update in
-            self?.handleEvent(subId: subId, update: update)
+        try? await subscriptionStorage.startOrUpdateSubscription(data: subscriptionData) { [weak self] data in
+            self?.handleStorage(data: data)
         }
         return true
     }
     
-    func stopAllSubscriptions() {
-        subscriptionService.stopAllSubscriptions()
-        data.removeAll()
+    func stopAllSubscriptions() async {
+        try? await subscriptionStorage.stopSubscription()
         objectIds.removeAll()
         subscriptionStarted = false
     }
     
     // MARK: - Private
     
-    private func handleEvent(subId: String, update: SubscriptionUpdate) {
-        data.applySubscriptionUpdate(update)
-        let result = data.filter(\.isNotDeletedAndSupportedForEdit)
+    private func handleStorage(data: SubscriptionStorageState) {
+        let result = data.items.filter(\.isNotDeletedAndSupportedForEdit)
         handler?(result)
     }
 }

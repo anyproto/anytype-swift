@@ -13,24 +13,31 @@ final class SetSortsListCoordinatorViewModel: ObservableObject, SetSortsListCoor
     @Published var sortTypesData: SortTypesData?
     
     private let setDocument: SetDocumentProtocol
+    private let viewId: String
     private let setSortsListModuleAssembly: SetSortsListModuleAssemblyProtocol
     private let newSearchModuleAssembly: NewSearchModuleAssemblyProtocol
     private let setSortTypesListModuleAssembly: SetSortTypesListModuleAssemblyProtocol
     
     init(
         setDocument: SetDocumentProtocol,
+        viewId: String,
         setSortsListModuleAssembly: SetSortsListModuleAssemblyProtocol,
         newSearchModuleAssembly: NewSearchModuleAssemblyProtocol,
         setSortTypesListModuleAssembly: SetSortTypesListModuleAssemblyProtocol
     ) {
         self.setDocument = setDocument
+        self.viewId = viewId
         self.setSortsListModuleAssembly = setSortsListModuleAssembly
         self.newSearchModuleAssembly = newSearchModuleAssembly
         self.setSortTypesListModuleAssembly = setSortTypesListModuleAssembly
     }
     
     func list() -> AnyView {
-        setSortsListModuleAssembly.make(with: setDocument, output: self)
+        setSortsListModuleAssembly.make(
+            with: setDocument,
+            viewId: viewId,
+            output: self
+        )
     }
     
     // MARK: - SetSortsListCoordinatorOutput

@@ -41,21 +41,25 @@ struct MediumPresentationDetentsViewModifier: ViewModifier {
     
     func body(content: Content) -> some View {
          if #available(iOS 16.4, *) {
-             content
+             bodyDetents(content: content)
                  .presentationDetents([.medium, .large])
                  .presentationDragIndicator(.hidden)
                  .presentationCornerRadius(16)
          } else if #available(iOS 16.0, *) {
-             content
+             bodyDetents(content: content)
                  .presentationDetents([.medium, .large])
                  .presentationDragIndicator(.hidden)
          } else {
-             VStack(spacing: 0) {
-                 content
-                 Spacer(minLength: 0)
-             }
+             bodyDetents(content: content)
          }
      }
+    
+    private func bodyDetents(content: Content) -> some View {
+        VStack(spacing: 0) {
+            content
+            Spacer(minLength: 0)
+        }
+    }
 }
 
 extension View {

@@ -20,6 +20,7 @@ All types of contributions are encouraged and valued. See the [Table of Contents
   - [Requesting Features](#requesting-features)
   - [Reporting Security Issues](#reporting-security-issues)
   - [Contributing Code](#contributing-code)
+  - [Localisation](#localisation)
 - [Contributors Recognition](#contributors-recognition)
 
 ## Code of Conduct
@@ -108,6 +109,10 @@ Basic rules for pull requests:
 - When neccesary, changes are documented in [`README.md`](../README.md) or suggestions are also made to [`tech-docs`](https://github.com/anyproto/tech-docs)
 
 All pull requests will be reviewed by the team.
+
+### Localisation
+
+You can help us translate Anytype by visiting our [Crowdin translation page](https://crowdin.com/project/anytype-mobile).
 
 ## Contributors Recognition
 

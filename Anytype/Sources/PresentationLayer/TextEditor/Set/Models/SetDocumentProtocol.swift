@@ -9,11 +9,9 @@ enum SetDocumentUpdate {
 protocol SetDocumentProtocol: BaseDocumentGeneralProtocol {
     var document: BaseDocumentProtocol { get }
     var objectId: BlockId { get }
-    var blockId: BlockId? { get }
-    var targetObjectID: String? { get }
+    var inlineParameters: EditorInlineSetObject? { get }
     var dataviews: [BlockDataview] { get }
     var dataViewRelationsDetails: [RelationDetails] { get }
-    var sortedRelations: [SetRelation] { get }
     var isObjectLocked: Bool { get }
     var analyticsType: AnalyticsObjectType { get }
     // TODO Refactor this
@@ -30,20 +28,24 @@ protocol SetDocumentProtocol: BaseDocumentGeneralProtocol {
     var activeView: DataviewView { get }
     var activeViewPublisher: AnyPublisher<DataviewView, Never> { get }
 
-    var sorts: [SetSort] { get }
-    var sortsPublisher: AnyPublisher<[SetSort], Never> { get }
+    var activeViewSorts: [SetSort] { get }
+    func sorts(for viewId: String) -> [SetSort]
     
-    var filters: [SetFilter] { get }
-    var filtersPublisher: AnyPublisher<[SetFilter], Never> { get }
+    var activeViewFilters: [SetFilter] { get }
+    func filters(for viewId: String) -> [SetFilter]
     
+    func view(by id: String) -> DataviewView
+    func sortedRelations(for viewId: String) -> [SetRelation]
     func canStartSubscription() -> Bool
-    func activeViewRelations(excludeRelations: [RelationDetails]) -> [RelationDetails]
+    func viewRelations(viewId: String, excludeRelations: [RelationDetails]) -> [RelationDetails]
     func objectOrderIds(for groupId: String) -> [String]
     func updateActiveViewId(_ id: BlockId)
+    func isTypeSet() -> Bool
     func isRelationsSet() -> Bool
     func isBookmarksSet() -> Bool
     func isCollection() -> Bool
-    
+    func defaultObjectTypeForActiveView() throws -> ObjectType
+    func defaultObjectTypeForView(_ view: DataviewView) throws -> ObjectType
     var syncPublisher: AnyPublisher<Void, Never> { get }
     
     @MainActor

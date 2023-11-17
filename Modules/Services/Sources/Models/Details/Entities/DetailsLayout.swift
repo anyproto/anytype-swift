@@ -16,6 +16,10 @@ public enum DetailsLayout: Int, CaseIterable, Codable {
     case relationOptionList = 12
     case relationOption = 13
     case collection = 14
+    case audio = 15
+    case video = 16
+    case date = 17
+    case spaceView = 18
     
     case database = 20
     

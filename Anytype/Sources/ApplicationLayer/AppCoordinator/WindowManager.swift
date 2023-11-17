@@ -8,59 +8,44 @@ final class WindowManager {
     
     private let viewControllerProvider: ViewControllerProviderProtocol
     private let authCoordinatorAssembly: AuthCoordinatorAssemblyProtocol
-    private let legacyAuthViewAssembly: LegacyAuthViewAssembly
     private let homeWidgetsCoordinatorAssembly: HomeWidgetsCoordinatorAssemblyProtocol
     private let applicationStateService: ApplicationStateServiceProtocol
+    private let initialCoordinatorAssembly: InitialCoordinatorAssemblyProtocol
     
     // MARK: - State
-    
-    private var homeWidgetsCoordinator: HomeWidgetsCoordinatorProtocol?
     
     private var authCoordinator: AuthCoordinatorProtocol?
     
     init(
         viewControllerProvider: ViewControllerProviderProtocol,
         authCoordinatorAssembly: AuthCoordinatorAssemblyProtocol,
-        legacyAuthViewAssembly: LegacyAuthViewAssembly,
         homeWidgetsCoordinatorAssembly: HomeWidgetsCoordinatorAssemblyProtocol,
-        applicationStateService: ApplicationStateServiceProtocol
+        applicationStateService: ApplicationStateServiceProtocol,
+        initialCoordinatorAssembly: InitialCoordinatorAssemblyProtocol
     ) {
         self.viewControllerProvider = viewControllerProvider
         self.authCoordinatorAssembly = authCoordinatorAssembly
-        self.legacyAuthViewAssembly = legacyAuthViewAssembly
         self.homeWidgetsCoordinatorAssembly = homeWidgetsCoordinatorAssembly
         self.applicationStateService = applicationStateService
+        self.initialCoordinatorAssembly = initialCoordinatorAssembly
     }
 
     @MainActor
     func showHomeWindow() {
-        let coordinator = homeWidgetsCoordinatorAssembly.make()
-        self.homeWidgetsCoordinator = coordinator
-        let homeView = coordinator.startFlow()
+        let homeView = homeWidgetsCoordinatorAssembly.make()
         startNewRootView(homeView)
-        coordinator.flowStarted()
     }
     
     @MainActor
     func showAuthWindow() {
-        if FeatureFlags.newAuthorization {
-            let coordinator = authCoordinatorAssembly.make()
-            self.authCoordinator = coordinator
-            let authView = coordinator.startFlow()
-            startNewRootView(authView, preferredColorScheme: .dark, disableBackSwipe: true)
-        } else {
-            let legacyAuthView = legacyAuthViewAssembly.createAuthView()
-            startNewRootView(legacyAuthView)
-        }
+        let coordinator = authCoordinatorAssembly.make()
+        self.authCoordinator = coordinator
+        let authView = coordinator.startFlow()
+        startNewRootView(authView, preferredColorScheme: .dark, disableBackSwipe: true)
     }
     
     func showLaunchWindow() {
         startNewRootView(LaunchView())
-    }
-
-    @MainActor
-    func createAndShowNewObject() {
-        homeWidgetsCoordinator?.createAndShowNewPage()
     }
     
     @MainActor
@@ -70,6 +55,11 @@ final class WindowManager {
                 viewModel: DeletedAccountViewModel(deadline: deadline, applicationStateService: applicationStateService)
             )
         )
+    }
+    
+    @MainActor
+    func showInitialWindow() {
+        startNewRootView(initialCoordinatorAssembly.make())
     }
     
     // MARK: - Private

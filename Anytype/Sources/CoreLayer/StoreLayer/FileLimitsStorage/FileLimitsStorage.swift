@@ -2,11 +2,13 @@ import Foundation
 import ProtobufMessages
 import Combine
 
+@MainActor
 protocol FileLimitsStorageProtocol: AnyObject {
-    var limits: AnyPublisher<FileLimits, Never> { get }
+    var nodeUsage: AnyPublisher<NodeUsageInfo, Never> { get }
 }
 
-actor FileLimitsStorage: FileLimitsStorageProtocol {
+@MainActor
+final class FileLimitsStorage: FileLimitsStorageProtocol {
     
     // MAKR: - DI
     
@@ -15,39 +17,47 @@ actor FileLimitsStorage: FileLimitsStorageProtocol {
     // MARK: - State
     
     private var subscriptions = [AnyCancellable]()
-    private var data: CurrentValueSubject<FileLimits?, Never>
-    nonisolated let limits: AnyPublisher<FileLimits, Never>
+    private var data: CurrentValueSubject<NodeUsageInfo?, Never>
+    let nodeUsage: AnyPublisher<NodeUsageInfo, Never>
     
-    init(fileService: FileActionsServiceProtocol) {
+    nonisolated init(fileService: FileActionsServiceProtocol) {
         self.fileService = fileService
         self.data = CurrentValueSubject(nil)
-        self.limits = data.compactMap { $0 }.eraseToAnyPublisher()
+        self.nodeUsage = data.compactMap { $0 }.eraseToAnyPublisher()
         Task {
             try await setupInitialState()
         }
     }
     
     // MARK: - Private
-    
+        
     private func setupInitialState() async throws {
-        let limits = try await fileService.spaceUsage()
-        data.value = limits
+        stopSubscription()
+        let nodeUsage = try await fileService.nodeUsage()
+        data.value = nodeUsage
         setupSubscription()
     }
     
     private func setupSubscription() {
         EventBunchSubscribtion.default.addHandler { [weak self] events in
-            await self?.handle(events: events)
+            Task { @MainActor [weak self] in
+                self?.handle(events: events)
+            }
         }.store(in: &subscriptions)
+    }
+    
+    private func stopSubscription() {
+        subscriptions.removeAll()
     }
     
     private func handle(events: EventsBunch) {
         for event in events.middlewareEvents {
             switch event.value {
             case let .fileLocalUsage(eventData):
-                data.value?.localBytesUsage = Int64(clamping: eventData.localBytesUsage)
+                data.value?.node.localBytesUsage = Int64(clamping: eventData.localBytesUsage)
             case let .fileSpaceUsage(eventData):
-                data.value?.bytesUsage = Int64(clamping: eventData.bytesUsage)
+                guard let spaceIndex = data.value?.spaces.firstIndex(where: { $0.spaceID == eventData.spaceID }) else { return }
+                data.value?.spaces[spaceIndex].bytesUsage = Int64(clamping: eventData.bytesUsage)
             default:
                 break
             }

@@ -3,7 +3,7 @@ import SwiftUI
 
 struct HomeBottomPanelView: View {
     
-    @ObservedObject var model: HomeBottomPanelViewModel
+    @StateObject var model: HomeBottomPanelViewModel
     
     var body: some View {
         VStack(spacing: 0) {
@@ -15,31 +15,44 @@ struct HomeBottomPanelView: View {
             }
             Spacer.fixedHeight(32)
         }
-        .animation(.default, value: model.buttonState)
+        .animation(.default, value: model.isEditState)
     }
 
     @ViewBuilder
     func normalButtons(_ buttons: [HomeBottomPanelViewModel.ImageButton]) -> some View {
         HStack(alignment: .center, spacing: 40) {
             ForEach(buttons, id:\.self) { button in
-                Button(action: button.onTap, label: {
-                    VStack {
-                        if let image = button.image {
-                            IconView(icon: image)
-                                .if(button.padding) {
-                                    $0.padding(EdgeInsets(side: 4))
-                                }
-                                .frame(width: 32, height: 32)
-                        }
+                VStack {
+                    if let image = button.image {
+                        IconView(icon: image)
+                            .if(button.padding) {
+                                $0.padding(EdgeInsets(side: 4))
+                            }
+                            .frame(width: 32, height: 32)
                     }
-                    .fixTappableArea()
-                    .frame(width: 32, height: 32)
-                })
+                }
+                .fixTappableArea()
+                .frame(width: 32, height: 32)
+                .onTapGesture {
+                    button.onTap()
+                }
+                .simultaneousGesture(
+                    LongPressGesture(minimumDuration: 0.3)
+                        .onEnded { _ in
+                            button.onLongTap?()
+                        }
+                )
+                .ifLet(button.tip) { view, tip in
+                    switch tip {
+                    case .createLogTapObject:
+                        view.popoverHomeCreateObjectTip()
+                    }
+                }
             }
         }
         .padding(.horizontal, 20)
         .padding(.vertical, 10)
-        .background(Color.Background.material)
+        .background(Color.Widget.bottomPanel)
         .background(.ultraThinMaterial)
         .cornerRadius(16, style: .continuous)
         .transition(.scale(scale: 0.8).combined(with: .opacity))
@@ -54,7 +67,7 @@ struct HomeBottomPanelView: View {
                         .frame(maxWidth: .infinity)
                 })
                 .frame(height: 52)
-                .background(Color.Background.material)
+                .background(Color.Widget.bottomPanel)
                 .background(.ultraThinMaterial)
                 .cornerRadius(14, style: .continuous)
             }

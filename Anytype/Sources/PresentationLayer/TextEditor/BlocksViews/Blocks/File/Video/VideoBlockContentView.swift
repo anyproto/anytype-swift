@@ -41,7 +41,6 @@ final class VideoBlockContentView: UIView, BlockContentView {
     }
     
     private func subscribeOnStatusChange(action: @escaping (VideoControlStatus?) -> Void) {
-        guard FeatureFlags.fixAudioSession else { return }
         cancellable = videoVC.player?.publisher(for: \.timeControlStatus)
             .sink { status in
                 switch status {

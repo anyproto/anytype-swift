@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+  <dict>
+    <key>Are you sure you want to delete</key>
+    <dict>
+      <key>NSStringLocalizedFormatKey</key>
+      <string>您确定要删除  %#@object@ 吗？</string>
+      <key>object</key>
+      <dict>
+        <key>NSStringFormatSpecTypeKey</key>
+        <string>NSStringPluralRuleType</string>
+        <key>NSStringFormatValueTypeKey</key>
+        <string>d</string>
+        <key>other</key>
+        <string>%d 个对象</string>
+      </dict>
+    </dict>
+    <key>Object selected</key>
+    <dict>
+      <key>NSStringLocalizedFormatKey</key>
+      <string>%#@object@ 已选择</string>
+      <key>object</key>
+      <dict>
+        <key>NSStringFormatSpecTypeKey</key>
+        <string>NSStringPluralRuleType</string>
+        <key>NSStringFormatValueTypeKey</key>
+        <string>d</string>
+        <key>other</key>
+        <string>%d 个对象</string>
+      </dict>
+    </dict>
+    <key>Selected blocks</key>
+    <dict>
+      <key>NSStringLocalizedFormatKey</key>
+      <string>%#@object@</string>
+      <key>object</key>
+      <dict>
+        <key>NSStringFormatSpecTypeKey</key>
+        <string>NSStringPluralRuleType</string>
+        <key>NSStringFormatValueTypeKey</key>
+        <string>d</string>
+        <key>other</key>
+        <string>%d 选定的块</string>
+      </dict>
+    </dict>
+    <key>Days to deletion account</key>
+    <dict>
+      <key>NSStringLocalizedFormatKey</key>
+      <string>该账号将被删除 %#@days@</string>
+      <key>days</key>
+      <dict>
+        <key>NSStringFormatSpecTypeKey</key>
+        <string>NSStringPluralRuleType</string>
+        <key>NSStringFormatValueTypeKey</key>
+        <string>d</string>
+        <key>other</key>
+        <string>明天
+
+在 %d 天内</string>
+      </dict>
+    </dict>
+    <key>Widgets.Actions.BinConfirm</key>
+    <dict>
+      <key>NSStringLocalizedFormatKey</key>
+      <string>%#@object@</string>
+      <key>object</key>
+      <dict>
+        <key>NSStringFormatSpecTypeKey</key>
+        <string>NSStringPluralRuleType</string>
+        <key>NSStringFormatValueTypeKey</key>
+        <string>d</string>
+        <key>other</key>
+        <string>删除了一个对象
+
+删除了 %d 个对象</string>
+      </dict>
+    </dict>
+  </dict>
+</plist>

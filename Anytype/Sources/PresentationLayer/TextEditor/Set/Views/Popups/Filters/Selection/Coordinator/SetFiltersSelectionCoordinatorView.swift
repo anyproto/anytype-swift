@@ -9,6 +9,7 @@ struct SetFiltersSelectionCoordinatorView: View {
             .sheet(item: $model.filterConditions) { data in
                 model.setFilterConditions(data: data)
                     .fitPresentationDetents()
+                    .background(Color.Background.secondary)
             }
     }
 }

@@ -1,12 +1,13 @@
 import Foundation
 import Services
 
+@MainActor
 final class SetSubscriptionDataBuilder: SetSubscriptionDataBuilderProtocol {
     
-    private let accountManager: AccountManagerProtocol
+    private let activeWorkspaceStorage: ActiveWorkpaceStorageProtocol
     
-    init(accountManager: AccountManagerProtocol) {
-        self.accountManager = accountManager
+    nonisolated init(activeWorkspaceStorage: ActiveWorkpaceStorageProtocol) {
+        self.activeWorkspaceStorage = activeWorkspaceStorage
     }
     
     // MARK: - SetSubscriptionDataBuilderProtocol
@@ -19,7 +20,7 @@ final class SetSubscriptionDataBuilder: SetSubscriptionDataBuilderProtocol {
         let offset = (data.currentPage - 1) * numberOfRowsPerPageInSubscriptions
         
         let defaultFilters = [
-            SearchHelper.workspaceId(accountManager.account.info.accountSpaceId)
+            SearchHelper.spaceId(activeWorkspaceStorage.workspaceInfo.accountSpaceId)
         ]
         
         let filters = data.filters + defaultFilters
@@ -57,6 +58,7 @@ final class SetSubscriptionDataBuilder: SetSubscriptionDataBuilderProtocol {
             BundledRelationKey.coverY
             BundledRelationKey.relationOptionColor
             BundledRelationKey.objectIconImageKeys
+            BundledRelationKey.spaceId
         }.uniqued().map(\.rawValue)
         
         keys.append(contentsOf: data.options.map { $0.key })

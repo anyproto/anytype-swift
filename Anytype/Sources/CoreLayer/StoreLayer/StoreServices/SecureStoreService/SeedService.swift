@@ -1,3 +1,4 @@
+import SecureService
 
 final class SeedService: SeedServiceProtocol {
     private let keychainStore: KeychainStoreProtocol

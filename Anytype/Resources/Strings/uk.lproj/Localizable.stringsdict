@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+  <dict>
+    <key>Are you sure you want to delete</key>
+    <dict>
+      <key>NSStringLocalizedFormatKey</key>
+      <string>Ви дійсно бажаєте видалити %#@object@?</string>
+      <key>object</key>
+      <dict>
+        <key>NSStringFormatSpecTypeKey</key>
+        <string>NSStringPluralRuleType</string>
+        <key>NSStringFormatValueTypeKey</key>
+        <string>d</string>
+        <key>one</key>
+        <string>%d об'єкт</string>
+        <key>few</key>
+        <string>%d об'єкти</string>
+        <key>many</key>
+        <string>%d об'єктів</string>
+        <key>other</key>
+        <string>%d об'єктів</string>
+      </dict>
+    </dict>
+    <key>Object selected</key>
+    <dict>
+      <key>NSStringLocalizedFormatKey</key>
+      <string>%#@object@ обрано</string>
+      <key>object</key>
+      <dict>
+        <key>NSStringFormatSpecTypeKey</key>
+        <string>NSStringPluralRuleType</string>
+        <key>NSStringFormatValueTypeKey</key>
+        <string>d</string>
+        <key>one</key>
+        <string>%d об'єкт</string>
+        <key>few</key>
+        <string>%d об'єкти</string>
+        <key>many</key>
+        <string>%d об'єктів</string>
+        <key>other</key>
+        <string>%d об'єктів</string>
+      </dict>
+    </dict>
+    <key>Selected blocks</key>
+    <dict>
+      <key>NSStringLocalizedFormatKey</key>
+      <string>%#@object@</string>
+      <key>object</key>
+      <dict>
+        <key>NSStringFormatSpecTypeKey</key>
+        <string>NSStringPluralRuleType</string>
+        <key>NSStringFormatValueTypeKey</key>
+        <string>d</string>
+        <key>one</key>
+        <string>%d вибраний блок</string>
+        <key>few</key>
+        <string>%d вибраних блоки</string>
+        <key>many</key>
+        <string>%d вибраних блоків</string>
+        <key>other</key>
+        <string>%d вибраних блоків</string>
+      </dict>
+    </dict>
+    <key>Days to deletion account</key>
+    <dict>
+      <key>NSStringLocalizedFormatKey</key>
+      <string>Цей обліковий запис буде видалено %#@days@</string>
+      <key>days</key>
+      <dict>
+        <key>NSStringFormatSpecTypeKey</key>
+        <string>NSStringPluralRuleType</string>
+        <key>NSStringFormatValueTypeKey</key>
+        <string>d</string>
+        <key>one</key>
+        <string>завтра</string>
+        <key>few</key>
+        <string>через %d днi</string>
+        <key>many</key>
+        <string>через %d днів</string>
+        <key>other</key>
+        <string>через %d днів</string>
+      </dict>
+    </dict>
+    <key>Widgets.Actions.BinConfirm</key>
+    <dict>
+      <key>NSStringLocalizedFormatKey</key>
+      <string>%#@object@</string>
+      <key>object</key>
+      <dict>
+        <key>NSStringFormatSpecTypeKey</key>
+        <string>NSStringPluralRuleType</string>
+        <key>NSStringFormatValueTypeKey</key>
+        <string>d</string>
+        <key>one</key>
+        <string>Один об'єкт видалено</string>
+        <key>few</key>
+        <string>%d об'єкти видалено</string>
+        <key>many</key>
+        <string>%d об'єктів видалено</string>
+        <key>other</key>
+        <string>%d об'єктів видалено</string>
+      </dict>
+    </dict>
+  </dict>
+</plist>

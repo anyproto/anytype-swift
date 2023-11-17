@@ -23,11 +23,7 @@ struct SearchObjectRowView: View {
             }
         }
         .frame(height: viewModel.style.rowHeight)
-        .if(FeatureFlags.deleteObjectPlaceholder, if: {
-            $0.newDivider()
-        }, else: {
-            $0.divider(leadingPadding: viewModel.style.leadingDividerPadding)
-        })
+        .newDivider()
         .padding(.horizontal, 20)
     }
     
@@ -90,15 +86,6 @@ extension SearchObjectRowView {
                     return CGSize(width: 48, height: 48)
                 case .compact:
                     return CGSize(width: 24, height: 24)
-                }
-            }
-            
-            var leadingDividerPadding: CGFloat {
-                switch self {
-                case .default:
-                    return 60
-                case .compact:
-                    return 0
                 }
             }
             

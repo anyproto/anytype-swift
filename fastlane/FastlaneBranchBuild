@@ -2,8 +2,6 @@ default_platform(:ios)
 
 platform :ios do
 
-  # Build from branch (only for local)
-
   lane :branch_build do |options| 
 
     ensure_git_status_clean(
@@ -11,18 +9,29 @@ platform :ios do
     )
 
     xcodeproj = ENV["APP_PROJECT"]
-    
+   
+    if ENV["CI"] == "true"
+      setup_ci
+    end
     match(readonly: true)
-    
+    set_api_key
+
     version = "0.0.1"
 
-    last_build = latest_testflight_build_number(version: version)
+    if ENV["CI"] == "true"
+      build_number = latest_testflight_build_number(version: "0.0.1") + 1
+    else
+      build_number = "0"
+    end
+
     increment_version_number(version_number: version)
-    build_number = last_build + 1
     increment_build_number(build_number: build_number, xcodeproj: xcodeproj)
 
+    commit = last_git_commit
+    short_hash = commit[:abbreviated_commit_hash]
+    
     add_badge(
-      shield: "#{version}-#{build_number}-blue",
+      shield: "#{short_hash}-#{version}(#{build_number})-blue",
       no_badge: true
     )
 
@@ -37,10 +46,14 @@ platform :ios do
       xcargs: ENV['BUILD_OPTIONS']
     )
 
-    upload_to_testflight(
-      skip_waiting_for_build_processing: true,
-      ipa: "./build/result/Anytype.ipa"
-    )
+    if ENV["CI"] == "true"
+      upload_to_testflight(skip_waiting_for_build_processing: true)
+    else
+      upload_to_testflight(
+        skip_waiting_for_build_processing: true,
+        ipa: "./build/result/Anytype.ipa"
+      )
+    end
 
     reset_git_repo(skip_clean: true)
 

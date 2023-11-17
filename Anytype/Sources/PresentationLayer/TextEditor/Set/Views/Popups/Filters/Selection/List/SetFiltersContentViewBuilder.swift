@@ -5,6 +5,7 @@ import UIKit
 import SwiftUI
 
 final class SetFiltersContentViewBuilder {
+    private let spaceId: String
     private let filter: SetFilter
     private let setFiltersSelectionHeaderModuleAssembly: SetFiltersSelectionHeaderModuleAssemblyProtocol
     private let newSearchModuleAssembly: NewSearchModuleAssemblyProtocol
@@ -13,6 +14,7 @@ final class SetFiltersContentViewBuilder {
     private let setFiltersCheckboxViewModuleAssembly: SetFiltersCheckboxViewModuleAssemblyProtocol
     
     init(
+        spaceId: String,
         filter: SetFilter,
         setFiltersSelectionHeaderModuleAssembly: SetFiltersSelectionHeaderModuleAssemblyProtocol,
         setFiltersDateCoordinatorAssembly: SetFiltersDateCoordinatorAssemblyProtocol,
@@ -20,6 +22,7 @@ final class SetFiltersContentViewBuilder {
         setFiltersTextViewModuleAssembly: SetFiltersTextViewModuleAssemblyProtocol,
         setFiltersCheckboxViewModuleAssembly: SetFiltersCheckboxViewModuleAssemblyProtocol
     ) {
+        self.spaceId = spaceId
         self.filter = filter
         self.setFiltersSelectionHeaderModuleAssembly = setFiltersSelectionHeaderModuleAssembly
         self.setFiltersDateCoordinatorAssembly = setFiltersDateCoordinatorAssembly
@@ -96,6 +99,7 @@ final class SetFiltersContentViewBuilder {
         return newSearchModuleAssembly.tagsSearchModule(
             style: .embedded,
             selectionMode: .multipleItems(preselectedIds: selectedTagIds),
+            spaceId: spaceId,
             relationKey: filter.relationDetails.key,
             selectedTagIds: [],
             onSelect: onSelect,
@@ -118,6 +122,7 @@ final class SetFiltersContentViewBuilder {
             return values.map { $0.stringValue }
         }()
         return newSearchModuleAssembly.objectsSearchModule(
+            spaceId: spaceId,
             style: .embedded,
             selectionMode: .multipleItems(preselectedIds: selectedObjectsIds),
             excludedObjectIds: [],
@@ -135,6 +140,7 @@ final class SetFiltersContentViewBuilder {
         return newSearchModuleAssembly.statusSearchModule(
             style: .embedded,
             selectionMode: .multipleItems(preselectedIds: selectedStatusesIds),
+            spaceId: spaceId,
             relationKey: filter.relationDetails.key,
             selectedStatusesIds: [],
             onSelect: onSelect,

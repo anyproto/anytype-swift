@@ -1,8 +1,13 @@
-import Foundation
+import Services
+import SwiftUI
 
+@MainActor
 protocol SearchModuleAssemblyProtocol {
     func makeObjectSearch(
-        title: String?,
-        onSelect: @escaping (ObjectSearchData) -> ()
-    ) -> SwiftUIModule
+        data: SearchModuleModel
+    ) -> AnyView
+    
+    func makeSpaceSearch(
+        data: SearchSpaceModel
+    ) -> AnyView
 }

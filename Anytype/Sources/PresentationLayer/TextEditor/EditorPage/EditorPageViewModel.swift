@@ -26,11 +26,14 @@ final class EditorPageViewModel: EditorPageViewModelProtocol {
     private let editorPageTemplatesHandler: EditorPageTemplatesHandlerProtocol
     private let accountManager: AccountManagerProtocol
     private let configuration: EditorPageViewModelConfiguration
-    @Published private var isAppear: Bool = false
     
-    private lazy var subscriptions = [AnyCancellable]()
+    private let templatesSubscriptionService: TemplatesSubscriptionServiceProtocol
+    private var availableTemplates = [ObjectDetails]()
+    
+    lazy var subscriptions = [AnyCancellable]()
 
     private let blockActionsService: BlockActionsServiceSingleProtocol
+    private let activeWorkpaceStorage: ActiveWorkpaceStorageProtocol
 
     // MARK: - Initialization
     init(
@@ -49,7 +52,9 @@ final class EditorPageViewModel: EditorPageViewModelProtocol {
         searchService: SearchServiceProtocol,
         editorPageTemplatesHandler: EditorPageTemplatesHandlerProtocol,
         accountManager: AccountManagerProtocol,
-        configuration: EditorPageViewModelConfiguration
+        configuration: EditorPageViewModelConfiguration,
+        templatesSubscriptionService: TemplatesSubscriptionServiceProtocol,
+        activeWorkpaceStorage: ActiveWorkpaceStorageProtocol
     ) {
         self.viewInput = viewInput
         self.document = document
@@ -67,6 +72,8 @@ final class EditorPageViewModel: EditorPageViewModelProtocol {
         self.editorPageTemplatesHandler = editorPageTemplatesHandler
         self.accountManager = accountManager
         self.configuration = configuration
+        self.templatesSubscriptionService = templatesSubscriptionService
+        self.activeWorkpaceStorage = activeWorkpaceStorage
 
         setupLoadingState()
     }
@@ -82,10 +89,6 @@ final class EditorPageViewModel: EditorPageViewModelProtocol {
             guard let headerModel = value else { return }
             self?.updateHeaderIfNeeded(headerModel: headerModel)
         }.store(in: &subscriptions)
-        
-        Publishers.CombineLatest(document.detailsPublisher, $isAppear)
-            .sink { [weak self] in self?.handleDeletionState(details: $0, isAppear: $1) }
-            .store(in: &subscriptions)
     }
 
     private func setupLoadingState() {
@@ -138,8 +141,6 @@ final class EditorPageViewModel: EditorPageViewModelProtocol {
 
             let items = blockBuilder.buildEditorItems(infos: models)
             modelsHolder.items = items
-        case .header:
-            break // supported in headerModel
         }
 
         if !configuration.isOpenedForPreview {
@@ -153,20 +154,10 @@ final class EditorPageViewModel: EditorPageViewModelProtocol {
         let blocksViewModels = blockBuilder.buildEditorItems(infos: models)
         
         handleGeneralUpdate(with: blocksViewModels)
-
+        handleTemplatesIfNeeded()
+        
         if !document.isLocked {
             cursorManager.handleGeneralUpdate(with: modelsHolder.items, type: document.details?.type)
-            handleTemplatesPopupShowing()
-        }
-    }
-    
-    private func handleDeletionState(details: ObjectDetails, isAppear: Bool) {
-        viewInput?.showDeletedScreen(details.isDeleted)
-        if !FeatureFlags.openBinObject, details.isArchived && isAppear {
-            // Waiting for the first responder automatic restoration and then close the screen
-            DispatchQueue.main.asyncAfter(deadline: .now() + 0.7) { [router] in
-                router.closeEditor()
-            }
         }
     }
 
@@ -219,23 +210,27 @@ final class EditorPageViewModel: EditorPageViewModelProtocol {
             return
         }
 
-        viewInput?.update(header: headerModel, details: document.details)
+        viewInput?.update(header: headerModel)
         modelsHolder.header = headerModel
     }
     
-    private func handleTemplatesPopupShowing() {
-        guard configuration.shouldShowTemplateSelection,
-              editorPageTemplatesHandler.needShowTemplates(for: document),
-              let type = document.details?.objectType else {
-            return
-        }
-        router.showTemplatesPopupWithTypeCheckIfNeeded(
-            document: document,
-            templatesTypeId: .dynamic(type.id),
-            onShow: { [weak self] in
-                self?.editorPageTemplatesHandler.onTemplatesShow()
+    private func handleTemplatesIfNeeded() {
+        Task { @MainActor in
+            guard !document.isLocked, let details = document.details, details.isSelectTemplate else {
+                await templatesSubscriptionService.stopSubscription()
+                viewInput?.update(details: document.details, templatesCount: 0)
+                return
             }
-        )
+            
+            await templatesSubscriptionService.startSubscription(
+                objectType: details.type,
+                spaceId: document.spaceId
+            ) { [weak self] details in
+                guard let self else { return }
+                availableTemplates = details
+                viewInput?.update(details: document.details, templatesCount: availableTemplates.count)
+            }
+        }
     }
 }
 
@@ -255,7 +250,7 @@ extension EditorPageViewModel {
                     blocksStateManager.checkOpenedState()
                 }
             } catch {
-                router.closeEditor()
+                router.showOpenDocumentError(error: error)
             }
             
             if let objectDetails = document.details {
@@ -268,16 +263,14 @@ extension EditorPageViewModel {
 
     func viewDidAppear() {
         cursorManager.didAppeared(with: modelsHolder.items, type: document.details?.type)
-        editorPageTemplatesHandler.didAppeared(with: document.details?.type)
-        isAppear = true
+        Task {
+            try await activeWorkpaceStorage.setActiveSpace(spaceId: document.spaceId)
+        }
     }
 
     func viewWillDisappear() {}
 
-    func viewDidDissapear() {
-        isAppear = false
-    }
-
+    func viewDidDissapear() {}
 
     func shakeMotionDidAppear() {
         router.showAlert(
@@ -310,20 +303,28 @@ extension EditorPageViewModel {
     func element(at: IndexPath) -> BlockViewModelProtocol? {
         modelsHolder.blockViewModel(at: at.row)
     }
+    
+    func handleSettingsAction(action: ObjectSettingsAction) {
+        switch action {
+        case .cover(let objectCoverPickerAction):
+            headerModel.handleCoverAction(action: objectCoverPickerAction)
+        case .icon(let objectIconPickerAction):
+            headerModel.handleIconAction(action: objectIconPickerAction)
+        }
+    }
 }
 
 extension EditorPageViewModel {
     
     func showSettings() {
-        router.showSettings()
+        router.showSettings { [weak self] action in
+            self?.handleSettingsAction(action: action)
+        }
     }
     
-    func showIconPicker() {
-        router.showIconPicker()
-    }
-    
-    func showCoverPicker() {
-        router.showCoverPicker()
+    @MainActor
+    func showTemplates() {
+        router.showTemplatesPicker(availableTemplates: availableTemplates)
     }
 }
 

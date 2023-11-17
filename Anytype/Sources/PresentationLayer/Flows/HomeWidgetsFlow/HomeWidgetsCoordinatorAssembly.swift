@@ -3,7 +3,7 @@ import SwiftUI
 
 protocol HomeWidgetsCoordinatorAssemblyProtocol {
     @MainActor
-    func make() -> HomeWidgetsCoordinatorProtocol
+    func make() -> AnyView
 }
 
 final class HomeWidgetsCoordinatorAssembly: HomeWidgetsCoordinatorAssemblyProtocol {
@@ -28,20 +28,30 @@ final class HomeWidgetsCoordinatorAssembly: HomeWidgetsCoordinatorAssemblyProtoc
     // MARK: - HomeWidgetsCoordinatorAssemblyProtocol
     
     @MainActor
-    func make() -> HomeWidgetsCoordinatorProtocol {
-        return HomeWidgetsCoordinator(
+    func make() -> AnyView {
+        return HomeWidgetsCoordinatorView(model: self.makeModel()).eraseToAnyView()
+    }
+    
+    // MARK: - Private func
+    
+    @MainActor
+    private func makeModel() -> HomeWidgetsCoordinatorViewModel {
+        HomeWidgetsCoordinatorViewModel(
             homeWidgetsModuleAssembly: modulesDI.homeWidgets(),
-            accountManager: serviceLocator.accountManager(),
+            activeWorkspaceStorage: serviceLocator.activeWorkspaceStorage(),
             navigationContext: uiHelpersDI.commonNavigationContext(),
-            createWidgetCoordinator: coordinatorsID.createWidget().make(),
+            createWidgetCoordinatorAssembly: coordinatorsID.createWidget(),
             editorBrowserCoordinator: coordinatorsID.editorBrowser().make(),
             searchModuleAssembly: modulesDI.search(),
-            settingsCoordinator: coordinatorsID.settings().make(),
             newSearchModuleAssembly: modulesDI.newSearch(),
             dashboardService: serviceLocator.dashboardService(),
-            dashboardAlertsAssembly: modulesDI.dashboardAlerts(),
-            quickActionsStorage: serviceLocator.quickActionStorage(),
-            widgetTypeModuleAssembly: modulesDI.widgetType()
+            appActionsStorage: serviceLocator.appActionStorage(),
+            widgetTypeModuleAssembly: modulesDI.widgetType(),
+            spaceSwitchCoordinatorAssembly: coordinatorsID.spaceSwitch(),
+            spaceSettingsCoordinatorAssembly: coordinatorsID.spaceSettings(),
+            shareCoordinatorAssembly: coordinatorsID.share(),
+            objectTypeSearchModuleAssembly: modulesDI.objectTypeSearch(),
+            workspacesStorage: serviceLocator.workspaceStorage()
         )
     }
 }

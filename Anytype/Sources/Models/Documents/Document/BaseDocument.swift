@@ -7,6 +7,7 @@ final class BaseDocument: BaseDocumentProtocol {
     var updatePublisher: AnyPublisher<DocumentUpdate, Never> { updateSubject.eraseToAnyPublisher() }
     let objectId: BlockId
     private(set) var isOpened = false
+    let forPreview: Bool
 
     let infoContainer: InfoContainerProtocol = InfoContainer()
     let relationLinksStorage: RelationLinksStorageProtocol = RelationLinksStorage()
@@ -21,7 +22,6 @@ final class BaseDocument: BaseDocumentProtocol {
     private let relationBuilder: RelationsBuilder
     private let relationDetailsStorage = ServiceLocator.shared.relationDetailsStorage()
     private let viewModelSetter: DocumentViewModelSetterProtocol
-    private let forPreview: Bool
     
     private var subscriptions = [AnyCancellable]()
     
@@ -38,9 +38,10 @@ final class BaseDocument: BaseDocumentProtocol {
     // All places, where parsedRelations used, should be subscribe on parsedRelationsPublisher.
     var parsedRelations: ParsedRelations {
         let objectRelationsDetails = relationDetailsStorage.relationsDetails(
-            for: relationLinksStorage.relationLinks
+            for: relationLinksStorage.relationLinks,
+            spaceId: spaceId
         )
-        let recommendedRelations = relationDetailsStorage.relationsDetails(for: details?.objectType.recommendedRelations ?? [])
+        let recommendedRelations = relationDetailsStorage.relationsDetails(for: details?.objectType.recommendedRelations ?? [], spaceId: spaceId)
         let typeRelationsDetails = recommendedRelations.filter { !objectRelationsDetails.contains($0) }
         return relationBuilder.parsedRelations(
             relationsDetails: objectRelationsDetails,
@@ -70,6 +71,7 @@ final class BaseDocument: BaseDocumentProtocol {
             .eraseToAnyPublisher()
     }
     
+    @available(*, deprecated, message: "Use `DocumentsProvider` instead")
     init(objectId: BlockId, forPreview: Bool = false) {
         self.objectId = objectId
         self.forPreview = forPreview
@@ -96,7 +98,7 @@ final class BaseDocument: BaseDocumentProtocol {
     }
     
     deinit {
-        guard !forPreview, isOpened else { return }
+        guard !forPreview, isOpened, UserDefaultsConfig.usersId.isNotEmpty else { return }
         Task.detached(priority: .userInitiated) { [blockActionsService, objectId] in
             try await blockActionsService.close(contextId: objectId)
         }
@@ -104,10 +106,14 @@ final class BaseDocument: BaseDocumentProtocol {
 
     // MARK: - BaseDocumentProtocol
     
+    var spaceId: String {
+        details?.spaceId ?? ""
+    }
+    
     @MainActor
     func open() async throws {
-        guard !isOpened else {
-            anytypeAssertionFailure("Try object open multiple times")
+        if isOpened {
+            updateSubject.send(.general)
             return
         }
         guard !forPreview else {
@@ -130,14 +136,9 @@ final class BaseDocument: BaseDocumentProtocol {
     
     @MainActor
     func close() async throws {
-        guard !forPreview, isOpened else { return }
+        guard !forPreview, isOpened, UserDefaultsConfig.usersId.isNotEmpty else { return }
         try await blockActionsService.close(contextId: objectId)
         isOpened = false
-    }
-    
-    func resetSubscriptions() {
-        subscriptions = []
-        eventsListener.stopListening()
     }
     
     var children: [BlockInformation] {

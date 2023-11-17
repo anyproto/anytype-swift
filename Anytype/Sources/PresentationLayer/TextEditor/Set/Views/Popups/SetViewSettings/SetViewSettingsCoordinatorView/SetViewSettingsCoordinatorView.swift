@@ -5,12 +5,13 @@ struct SetViewSettingsCoordinatorView: View {
     
     var body: some View {
         model.list()
-            .sheet(isPresented: $model.showObjects) {}
             .sheet(isPresented: $model.showLayouts) {
                 model.setLayoutSettings()
                     .mediumPresentationDetents()
             }
-            .sheet(isPresented: $model.showRelations) {}
+            .sheet(isPresented: $model.showRelations) {
+                model.relationsList()
+            }
             .sheet(isPresented: $model.showFilters) {
                 model.setFiltersList()
             }

@@ -1,5 +1,4 @@
 enum SetViewSettings: CaseIterable {
-    case defaultObject
     case layout
     case relations
     case filters
@@ -7,8 +6,6 @@ enum SetViewSettings: CaseIterable {
     
     var title: String {
         switch self {
-        case .defaultObject:
-            return Loc.Set.View.Settings.DefaultObject.title
         case .layout:
             return Loc.layout
         case .relations:
@@ -22,7 +19,7 @@ enum SetViewSettings: CaseIterable {
     
     var placeholder: String {
         switch self {
-        case .defaultObject, .layout:
+        case .layout:
             return ""
         case .relations:
             return Loc.Set.View.Settings.NoRelations.placeholder

@@ -7,14 +7,9 @@ import Services
 @MainActor
 final class SettingsViewModel: ObservableObject {
     
-    private enum Constants {
-        static let subSpaceId = "SettingsSpace"
-        static let subAccountId = "SettingsAccount"
-    }
-    
     // MARK: - DI
     
-    private let accountManager: AccountManagerProtocol
+    private let activeWorkspaceStorage: ActiveWorkpaceStorageProtocol
     private let subscriptionService: SingleObjectSubscriptionServiceProtocol
     private let objectActionsService: ObjectActionsServiceProtocol
     private weak var output: SettingsModuleOutput?
@@ -22,28 +17,29 @@ final class SettingsViewModel: ObservableObject {
     // MARK: - State
     
     private var subscriptions: [AnyCancellable] = []
-    private var dataLoaded: Bool = false
+    private var profileDataLoaded: Bool = false
+    private let subAccountId = "SettingsAccount-\(UUID().uuidString)"
     
-    @Published var spaceName: String = ""
-    @Published var spaceIcon: Icon?
-    @Published var profileIcon: Icon = .asset(.SettingsOld.accountAndData)
+    @Published var profileName: String = ""
+    @Published var profileIcon: Icon?
     
     init(
-        accountManager: AccountManagerProtocol,
+        activeWorkspaceStorage: ActiveWorkpaceStorageProtocol,
         subscriptionService: SingleObjectSubscriptionServiceProtocol,
         objectActionsService: ObjectActionsServiceProtocol,
         output: SettingsModuleOutput?
     ) {
-        self.accountManager = accountManager
+        self.activeWorkspaceStorage = activeWorkspaceStorage
         self.subscriptionService = subscriptionService
         self.objectActionsService = objectActionsService
         self.output = output
-        
-        setupSubscription()
+        Task {
+            await setupSubscription()
+        }
     }
     
     func onAppear() {
-        AnytypeAnalytics.instance().logEvent(AnalyticsEventsName.settingsShow)
+        AnytypeAnalytics.instance().logScreenSettingsAccount()
     }
     
     func onAccountDataTap() {
@@ -52,10 +48,6 @@ final class SettingsViewModel: ObservableObject {
     
     func onDebugMenuTap() {
         output?.onDebugMenuSelected()
-    }
-    
-    func onPersonalizationTap() {
-        output?.onPersonalizationSelected()
     }
     
     func onAppearanceTap() {
@@ -71,50 +63,39 @@ final class SettingsViewModel: ObservableObject {
     }
     
     func onChangeIconTap() {
-        output?.onChangeIconSelected(objectId: accountManager.account.info.accountSpaceId)
+        output?.onChangeIconSelected(objectId: activeWorkspaceStorage.workspaceInfo.profileObjectID)
     }
     
     // MARK: - Private
     
-    private func setupSubscription() {
-        subscriptionService.startSubscription(
-            subIdPrefix: Constants.subSpaceId,
-            objectId: accountManager.account.info.accountSpaceId
-        ) { [weak self] details in
-            self?.handleSpaceDetails(details: details)
-        }
-        
-        subscriptionService.startSubscription(
-            subIdPrefix: Constants.subAccountId,
-            objectId: accountManager.account.info.profileObjectID
-        ) { [weak self] details in
-            self?.handleProfileDetails(details: details)
-        }
+    private func setupSubscription() async {
+            await subscriptionService.startSubscription(
+                subId: subAccountId,
+                objectId: activeWorkspaceStorage.workspaceInfo.profileObjectID
+            ) { [weak self] details in
+                self?.handleProfileDetails(details: details)
+            }
     }
     
-    private func handleSpaceDetails(details: ObjectDetails) {
-        spaceIcon = details.objectIconImage
+    private func handleProfileDetails(details: ObjectDetails) {
+        profileIcon = details.objectIconImage
         
-        if !dataLoaded {
-            spaceName = details.name
-            dataLoaded = true
-            $spaceName
+        if !profileDataLoaded {
+            profileName = details.name
+            profileDataLoaded = true
+            $profileName
                 .delay(for: 0.3, scheduler: DispatchQueue.main)
                 .sink { [weak self] name in
-                    self?.updateSpaceName(name: name)
+                    self?.updateProfileName(name: name)
                 }
                 .store(in: &subscriptions)
         }
     }
     
-    private func handleProfileDetails(details: ObjectDetails) {
-        profileIcon = details.objectIconImage ?? .asset(.SettingsOld.accountAndData)
-    }
-    
-    private func updateSpaceName(name: String) {
+    private func updateProfileName(name: String) {
         Task {
             try await objectActionsService.updateBundledDetails(
-                contextID: accountManager.account.info.accountSpaceId,
+                contextID: activeWorkspaceStorage.workspaceInfo.profileObjectID,
                 details: [.name(name)]
             )
         }

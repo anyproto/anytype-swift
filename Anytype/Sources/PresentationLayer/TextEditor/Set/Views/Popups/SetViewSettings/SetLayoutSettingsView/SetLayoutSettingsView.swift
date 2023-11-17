@@ -5,12 +5,13 @@ struct SetLayoutSettingsView: View {
 
     var body: some View {
         VStack(spacing: 0) {
-            Spacer.fixedHeight(8)
+            DragIndicator()
             TitleView(title: Loc.layout)
             ScrollView(.vertical, showsIndicators: false) {
                 content
             }
         }
+        .background(Color.Background.secondary)
     }
     
     private var content: some View {
@@ -85,7 +86,7 @@ struct SetLayoutSettingsView: View {
         }
     }
     
-    private func valueSetting(with model: EditorSetViewSettingsValueItem) -> some View {
+    private func valueSetting(with model: SetViewSettingsValueItem) -> some View {
         Button {
             model.onTap()
         } label: {
@@ -94,7 +95,7 @@ struct SetLayoutSettingsView: View {
         .frame(height: 52)
     }
     
-    private func toggleSettings(with model: EditorSetViewSettingsToggleItem) -> some View {
+    private func toggleSettings(with model: SetViewSettingsToggleItem) -> some View {
         AnytypeToggle(
             title: model.title,
             font: .uxTitle2Regular,
@@ -105,7 +106,7 @@ struct SetLayoutSettingsView: View {
         .frame(height: 52)
     }
     
-    private func contextMenu(with model: EditorSetViewSettingsContextItem) -> some View {
+    private func contextMenu(with model: SetViewSettingsContextItem) -> some View {
         Menu {
             VStack(spacing: 0) {
                 ForEach(model.options) { option in

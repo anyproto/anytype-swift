@@ -45,7 +45,7 @@ final class CoordinatorsDI: CoordinatorsDIProtocol {
     }
     
     func objectSettings() -> ObjectSettingsCoordinatorAssemblyProtocol {
-        return ObjectSettingsCoordinatorAssembly(modulesDI: modulesDI, uiHelpersDI: uiHelpersDI, coordinatorsDI: self)
+        return ObjectSettingsCoordinatorAssembly(modulesDI: modulesDI, uiHelpersDI: uiHelpersDI, coordinatorsDI: self, serviceLocator: serviceLocator)
     }
     
     func addNewRelation() -> AddNewRelationCoordinatorAssemblyProtocol {
@@ -102,8 +102,8 @@ final class CoordinatorsDI: CoordinatorsDIProtocol {
         return LoginFlowCoordinatorAssembly(modulesDI: modulesDI, uiHelpersDI: uiHelpersDI)
     }
     
-    func legacyAuthViewAssembly() -> LegacyAuthViewAssembly {
-        return LegacyAuthViewAssembly(serviceLocator: serviceLocator)
+    func spaceSettings() -> SpaceSettingsCoordinatorAssemblyProtocol {
+        return SpaceSettingsCoordinatorAssembly(modulesDI: modulesDI, serviceLocator: serviceLocator, uiHelpersDI: uiHelpersDI)
     }
     
     func setViewSettings() -> SetViewSettingsCoordinatorAssemblyProtocol {
@@ -128,5 +128,29 @@ final class CoordinatorsDI: CoordinatorsDIProtocol {
     
     func setLayoutSettings() -> SetLayoutSettingsCoordinatorAssemblyProtocol {
         SetLayoutSettingsCoordinatorAssembly(modulesDI: modulesDI)
+    }
+    
+    func setRelations() -> SetRelationsCoordinatorAssemblyProtocol {
+        SetRelationsCoordinatorAssembly(modulesDI: modulesDI, coordinatorsDI: self)
+    }
+    
+    func setViewPicker() -> SetViewPickerCoordinatorAssemblyProtocol {
+        SetViewPickerCoordinatorAssembly(modulesDI: modulesDI, coordinatorsDI: self)
+    }
+    
+    func share() -> ShareCoordinatorAssemblyProtocol {
+        ShareCoordinatorAssembly(modulesDI: modulesDI, serviceLocator: serviceLocator)
+    }
+
+    func setObjectCreationSettings() -> SetObjectCreationSettingsCoordinatorAssemblyProtocol {
+        SetObjectCreationSettingsCoordinatorAssembly(modulesDI: modulesDI, uiHelpersDI: uiHelpersDI, coordinatorsDI: self)
+    }
+    
+    func initial() -> InitialCoordinatorAssemblyProtocol {
+        InitialCoordinatorAssembly(serviceLocator: serviceLocator)
+    }
+    
+    func spaceSwitch() -> SpaceSwitchCoordinatorAssemblyProtocol {
+        SpaceSwitchCoordinatorAssembly(modulesDI: modulesDI, coordinatorsDI: self)
     }
 }

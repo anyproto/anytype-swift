@@ -3,49 +3,52 @@ import Services
 import Combine
 import AnytypeCore
 
+@MainActor
 protocol RecentSubscriptionServiceProtocol: AnyObject {
     func startSubscription(
         type: RecentWidgetType,
         objectLimit: Int?,
-        update: @escaping SubscriptionCallback
-    )
-    func stopSubscription()
+        update: @escaping ([ObjectDetails]) -> Void
+    ) async
+    func stopSubscription() async
 }
 
+@MainActor
 final class RecentSubscriptionService: RecentSubscriptionServiceProtocol {
     
     private enum Constants {
         static let limit = 100
     }
     
-    private let subscriptionService: SubscriptionsServiceProtocol
+    private let subscriptionStorage: SubscriptionStorageProtocol
     private let objectTypeProvider: ObjectTypeProviderProtocol
-    private let accountManager: AccountManagerProtocol
+    private let activeWorkspaceStorage: ActiveWorkpaceStorageProtocol
     private let subscriptionId = "Recent-\(UUID().uuidString)"
     
-    init(
-        subscriptionService: SubscriptionsServiceProtocol,
-        accountManager: AccountManagerProtocol,
+    nonisolated init(
+        subscriptionStorageProvider: SubscriptionStorageProviderProtocol,
+        activeWorkspaceStorage: ActiveWorkpaceStorageProtocol,
         objectTypeProvider: ObjectTypeProviderProtocol
     ) {
-        self.subscriptionService = subscriptionService
-        self.accountManager = accountManager
+        self.subscriptionStorage = subscriptionStorageProvider.createSubscriptionStorage(subId: subscriptionId)
+        self.activeWorkspaceStorage = activeWorkspaceStorage
         self.objectTypeProvider = objectTypeProvider
     }
     
     func startSubscription(
         type: RecentWidgetType,
         objectLimit: Int?,
-        update: @escaping SubscriptionCallback
-    ) {
+        update: @escaping ([ObjectDetails]) -> Void
+    ) async {
         
         let sort = makeSort(type: type)
         
         let filters: [DataviewFilter] = .builder {
             SearchHelper.notHiddenFilter()
             SearchHelper.isArchivedFilter(isArchived: false)
-            SearchHelper.workspaceId(accountManager.account.info.accountSpaceId)
+            SearchHelper.spaceId(activeWorkspaceStorage.workspaceInfo.accountSpaceId)
             SearchHelper.layoutFilter(DetailsLayout.visibleLayouts)
+            SearchHelper.templateScheme(include: false)
             makeDateFilter(type: type)
         }
         
@@ -67,30 +70,25 @@ final class RecentSubscriptionService: RecentSubscriptionServiceProtocol {
             )
         )
         
-        subscriptionService.startSubscription(data: searchData, update: update)
+        try? await subscriptionStorage.startOrUpdateSubscription(data: searchData) { data in
+            update(data.items)
+        }
     }
     
-    func stopSubscription() {
-        subscriptionService.stopAllSubscriptions()
+    func stopSubscription() async {
+        try? await subscriptionStorage.stopSubscription()
     }
     
     // MARK: - Private
     
     private func makeSort(type: RecentWidgetType) -> DataviewSort {
-        if FeatureFlags.recentEditWidget {
-            switch type {
-            case .recentEdit:
-                return SearchHelper.sort(
-                    relation: BundledRelationKey.lastModifiedDate,
-                    type: .desc
-                )
-            case .recentOpen:
-                return SearchHelper.sort(
-                    relation: BundledRelationKey.lastOpenedDate,
-                    type: .desc
-                )
-            }
-        } else {
+        switch type {
+        case .recentEdit:
+            return SearchHelper.sort(
+                relation: BundledRelationKey.lastModifiedDate,
+                type: .desc
+            )
+        case .recentOpen:
             return SearchHelper.sort(
                 relation: BundledRelationKey.lastOpenedDate,
                 type: .desc
@@ -99,14 +97,12 @@ final class RecentSubscriptionService: RecentSubscriptionServiceProtocol {
     }
     
     private func makeDateFilter(type: RecentWidgetType) -> DataviewFilter? {
-        if FeatureFlags.recentEditWidget {
-            switch type {
-            case .recentEdit:
-                return nil
-            case .recentOpen:
-                return SearchHelper.lastOpenedDateNotNilFilter()
-            }
-        } else {
+        switch type {
+        case .recentEdit:
+            guard let spaceView = activeWorkspaceStorage.spaceView(),
+                  let createdDate = spaceView.createdDate else { return nil }
+            return SearchHelper.lastModifiedDateFrom(createdDate.addingTimeInterval(3))
+        case .recentOpen:
             return SearchHelper.lastOpenedDateNotNilFilter()
         }
     }

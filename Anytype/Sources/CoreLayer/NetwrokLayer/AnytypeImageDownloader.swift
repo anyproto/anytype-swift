@@ -16,7 +16,9 @@ final class AnytypeImageDownloader {
             case .success(let imageResult):
                 completionHandler(imageResult.image, imageResult.data())
             case .failure(let error):
-                anytypeAssertionFailure(error.localizedDescription)
+                if !error.isInvalidResponseStatusCode(404) {
+                    anytypeAssertionFailure(error.localizedDescription)
+                }
                 completionHandler(nil, nil)
             }
         }
@@ -26,6 +28,8 @@ final class AnytypeImageDownloader {
         do {
             return try await KingfisherManager.shared.retrieveImageAsync(with: url).image
         } catch is CancellationError {
+            return nil
+        } catch let error as KingfisherError where error.isInvalidResponseStatusCode(404) {
             return nil
         } catch {
             anytypeAssertionFailure(error.localizedDescription)

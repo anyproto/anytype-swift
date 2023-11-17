@@ -28,101 +28,28 @@ public extension FeatureDescription {
         defaultValue: false
     )
     
-    static let migrationGuide = FeatureDescription(
-        title: "Migration guide",
-        type: .feature(author: "m@anytype.io", releaseVersion: "0.22.0"),
-        defaultValue: true
-    )
-    
-    static let newAuthorization = FeatureDescription(
-        title: "New authorization",
-        type: .feature(author: "joe_pusya@anytype.io", releaseVersion: "0.23.0"),
-        defaultValue: true
-    )
-    
-    static let compactListWidget = FeatureDescription(
-        title: "Compact List widget",
-        type: .feature(author: "m@anytype.io", releaseVersion: "0.23.0"),
-        defaultValue: true
-    )
-    
-    static let getMoreSpace = FeatureDescription(
-        title: "Get more space - IOS-1307",
-        type: .feature(author: "m@anytype.io", releaseVersion: "0.23.0"),
-        defaultValue: true
-    )
-    
-    static let fixAVCaptureSessionError = FeatureDescription(
-        title: "Fix AVCaptureSession error",
-        type: .feature(author: "joe_pusya@anytype.io", releaseVersion: "0.23.0"),
-        defaultValue: true
-    )
-    
-    static let clearAccountDataOnDeletedStatus = FeatureDescription(
-        title: "Clear cccount data on deleted status",
-        type: .feature(author: "joe_pusya@anytype.io", releaseVersion: "0.23.0"),
-        defaultValue: true
-    )
-    
-    static let fixAudioSession = FeatureDescription(
-        title: "Fix AudioSession to avoid stop playing misic on the new onboarding",
-        type: .feature(author: "joe_pusya@anytype.io", releaseVersion: "0.23.0"),
-        defaultValue: true
-    )
-
-    static let deleteObjectPlaceholder = FeatureDescription(
-        title: "Delete object placeholder - IOS-960",
-        type: .feature(author: "m@anytype.io", releaseVersion: "0.23.0"),
-        defaultValue: true
-    )
-
-    static let showAllFilesInBin = FeatureDescription(
-        title: "Show all files in bin - IOS-1408",
-        type: .feature(author: "m@anytype.io", releaseVersion: "0.24.0"),
-        defaultValue: true
-    )
-
-    static let superNewButtonLoadingState = FeatureDescription(
-        title: "New Button loading state - IOS-1185",
-        type: .feature(author: "m@anytype.io", releaseVersion: "0.24.0"),
-        defaultValue: true
-    )
-    
-    static let validateRecoveryPhrase = FeatureDescription(
-        title: "Trim typed/inserted text in recovery phrase field",
-        type: .feature(author: "joe_pusya@anytype.io", releaseVersion: "0.24.0"),
-        defaultValue: true
-    )
-    
-    static let openBinObject = FeatureDescription(
-        title: "Open bin object - IOS-1605",
-        type: .feature(author: "m@anytype.io", releaseVersion: "0.25.0"),
-        defaultValue: true
-    )
-    
-    static let colorfulRecoveryPhrase = FeatureDescription(
-        title: "Colourful recovery phrase",
-        type: .feature(author: "joe_pusya@anytype.io", releaseVersion: "0.24.0"),
-        defaultValue: true
-    )
-    
-    static let recentEditWidget = FeatureDescription(
-        title: "Recent edit widget - IOS-1608",
-        type: .feature(author: "m@anytype.io", releaseVersion: "0.24.0"),
-        defaultValue: true
-    )
-    
-    static let widgetTaskDone = FeatureDescription(
-        title: "Widget task done - IOS-1577",
-        type: .feature(author: "m@anytype.io", releaseVersion: "0.25.0"),
+    static let newCodeLanguages = FeatureDescription(
+        title: "New code languages - IOS-987",
+        type: .feature(author: "m@anytype.io", releaseVersion: "0.26.0"),
         defaultValue: true
     )
     
     static let newSetSettings = FeatureDescription(
         title: "New Set settings",
-        type: .feature(author: "joe_pusya@anytype.io", releaseVersion: "0.25.0"),
-        defaultValue: false,
-        debugValue: false
+        type: .feature(author: "joe_pusya@anytype.io", releaseVersion: "0.26.0"),
+        defaultValue: true
+    )
+    
+    static let ipadIncreaseWidth = FeatureDescription(
+        title: "iPad width",
+        type: .feature(author: "m@anytype.io", releaseVersion: "0.26.0"),
+        defaultValue: true
+    )
+    
+    static let selectTypeByLongTap = FeatureDescription(
+        title: "Object creation flow updates - MVP - IOS-1796",
+        type: .feature(author: "m@anytype.io", releaseVersion: "0.26.0"),
+        defaultValue: true
     )
     
     // MARK: - Debug
@@ -159,5 +86,19 @@ public extension FeatureDescription {
         type: .debug,
         defaultValue: false,
         debugValue: CoreEnvironment.isSimulator
+    )
+    
+    static let resetTips = FeatureDescription(
+        title: "Reset tips 💭 on launch",
+        type: .debug,
+        defaultValue: false,
+        debugValue: false
+    )
+    
+    static let showAllTips = FeatureDescription(
+        title: "Show all tips 💭 for testing (ignore rules)",
+        type: .debug,
+        defaultValue: false,
+        debugValue: false
     )
 }

@@ -4,7 +4,8 @@ import UIKit
 /// Input data for document view
 protocol EditorPageViewInput: RelativePositionProvider {
     
-    func update(header: ObjectHeader, details: ObjectDetails?)
+    func update(header: ObjectHeader)
+    func update(details: ObjectDetails?, templatesCount: Int)
     func update(changes: CollectionDifference<EditorItem>?)
     func update(
         changes: CollectionDifference<EditorItem>?,
@@ -12,8 +13,6 @@ protocol EditorPageViewInput: RelativePositionProvider {
     )
     func update(syncStatus: SyncStatus)
         
-    func showDeletedScreen(_ show: Bool)
-
     /// Tells the delegate when editing of the text block begins
     func textBlockDidBeginEditing(firstResponderView: UIView)
 

@@ -13,7 +13,7 @@ final class BlockViewModelBuilder {
     private let subjectsHolder: FocusSubjectsHolder
     private let markdownListener: MarkdownListener
     private let simpleTableDependenciesBuilder: SimpleTableDependenciesBuilder
-    private let pageService: PageServiceProtocol
+    private let pageService: PageRepositoryProtocol
     private let detailsService: DetailsServiceProtocol
     private let audioSessionService: AudioSessionServiceProtocol
     private let infoContainer: InfoContainerProtocol
@@ -28,7 +28,7 @@ final class BlockViewModelBuilder {
         markdownListener: MarkdownListener,
         simpleTableDependenciesBuilder: SimpleTableDependenciesBuilder,
         subjectsHolder: FocusSubjectsHolder,
-        pageService: PageServiceProtocol,
+        pageService: PageRepositoryProtocol,
         detailsService: DetailsServiceProtocol,
         audioSessionService: AudioSessionServiceProtocol,
         infoContainer: InfoContainerProtocol,
@@ -78,20 +78,21 @@ final class BlockViewModelBuilder {
         case let .text(content):
             switch content.contentType {
             case .code:
+                let codeLanguage = CodeLanguage.create(
+                    middleware: info.fields[CodeBlockFields.FieldName.codeLanguage]?.stringValue
+                )
                 return CodeBlockViewModel(
                     info: info,
                     content: content,
                     anytypeText: content.anytypeText(document: document),
-                    codeLanguage: CodeLanguage.create(
-                        middleware: info.fields[CodeBlockFields.FieldName.codeLanguage]?.stringValue
-                    ),
+                    codeLanguage: codeLanguage,
                     becomeFirstResponder: { _ in },
                     textDidChange: { [weak self] block, textView in
                         self?.handler.changeText(textView.attributedText, info: info)
                         self?.delegate.textBlockSetNeedsLayout()
                     },
                     showCodeSelection: { [weak self] info in
-                        self?.router.showCodeLanguage(blockId: info.id)
+                        self?.router.showCodeLanguage(blockId: info.id, selectedLanguage: codeLanguage)
                     }
                 )
             default:
@@ -235,16 +236,17 @@ final class BlockViewModelBuilder {
             ) { [weak self] relation in
                 guard let self = self else { return }
 
-                let bookmarkFilter = self.document.details?.type != ObjectTypeId.bundled(.bookmark).rawValue
+                let bookmarkFilter = self.document.details?.layoutValue != .bookmark
+                let templateFilter = !(self.document.details?.isTemplateType ?? false)
                 let allowTypeChange = !self.document.objectRestrictions.objectRestriction.contains(.typechange)
                 
-                if relation.key == BundledRelationKey.type.rawValue && !self.document.isLocked && bookmarkFilter && allowTypeChange {
+                if relation.key == BundledRelationKey.type.rawValue && 
+                    !self.document.isLocked && bookmarkFilter &&
+                    allowTypeChange && templateFilter {
                     self.router.showTypes(
                         selectedObjectId: self.document.details?.type,
-                        onSelect: { [weak self] id in
-                            Task { [weak self] in
-                                try await self?.handler.setObjectTypeId(id)
-                            }
+                        onSelect: { [weak self] type in
+                            self?.typeSelected(type)
                         }
                     )
                 } else {
@@ -313,6 +315,17 @@ final class BlockViewModelBuilder {
             }
 
             return UnsupportedBlockViewModel(info: info)
+        }
+    }
+    
+    private func typeSelected(_ type: ObjectType) {
+        Task { [weak self] in
+            guard let self else { return }
+            try await handler.setObjectType(type: type)
+            AnytypeAnalytics.instance().logObjectTypeChange(type.analyticsType)
+            
+            guard let isSelectTemplate = document.details?.isSelectTemplate, isSelectTemplate else { return }
+            try await handler.applyTemplate(objectId: document.objectId, templateId: type.defaultTemplateId)
         }
     }
 

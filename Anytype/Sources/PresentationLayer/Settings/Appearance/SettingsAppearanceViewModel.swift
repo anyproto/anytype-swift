@@ -7,7 +7,6 @@ final class SettingsAppearanceViewModel: ObservableObject {
     // MARK: - Private
     
     private var viewControllerProvider: ViewControllerProviderProtocol
-    private weak var output: SettingsAppearanceModuleOutput?
     
     // MARK: - Public
     
@@ -21,13 +20,8 @@ final class SettingsAppearanceViewModel: ObservableObject {
     
     @Published var currentIcon = AppIconManager.shared.currentIcon
 
-    init(viewControllerProvider: ViewControllerProviderProtocol, output: SettingsAppearanceModuleOutput?) {
+    init(viewControllerProvider: ViewControllerProviderProtocol) {
         self.viewControllerProvider = viewControllerProvider
-        self.output = output
-    }
-    
-    func onWallpaperChangeTap() {
-        output?.onWallpaperChangeSelected()
     }
     
     func updateIcon(_ icon: AppIcon) {

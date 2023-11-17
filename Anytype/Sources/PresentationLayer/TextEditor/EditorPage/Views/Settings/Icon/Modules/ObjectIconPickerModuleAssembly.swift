@@ -3,7 +3,16 @@ import UIKit
 import SwiftUI
 
 protocol ObjectIconPickerModuleAssemblyProtocol {
-    func make(document: BaseDocumentGeneralProtocol, objectId: String) -> UIViewController
+    func make(
+        document: BaseDocumentGeneralProtocol,
+        onIconAction: @escaping (ObjectIconPickerAction) -> Void
+    ) -> UIViewController
+    
+    // MARK: - Specific
+    
+    func makeSpaceView(
+        document: BaseDocumentGeneralProtocol
+    ) -> UIViewController
 }
 
 final class ObjectIconPickerModuleAssembly: ObjectIconPickerModuleAssemblyProtocol {
@@ -16,12 +25,13 @@ final class ObjectIconPickerModuleAssembly: ObjectIconPickerModuleAssemblyProtoc
 
     // MARK: - ObjectIconPickerModuleAssemblyProtocol
     
-    func make(document: BaseDocumentGeneralProtocol, objectId: String) -> UIViewController {
+    func make(
+        document: BaseDocumentGeneralProtocol,
+        onIconAction: @escaping (ObjectIconPickerAction) -> Void
+    ) -> UIViewController {
         let viewModel = ObjectIconPickerViewModel(
             document: document,
-            objectId: objectId,
-            fileService: serviceLocator.fileService(),
-            detailsService: serviceLocator.detailsService(objectId: objectId)
+            onIconAction: onIconAction
         )
         
         let controller = UIHostingController(
@@ -35,5 +45,16 @@ final class ObjectIconPickerModuleAssembly: ObjectIconPickerModuleAssemblyProtoc
         )
         
         return controller
+    }
+    
+    func makeSpaceView(
+        document: BaseDocumentGeneralProtocol
+    ) -> UIViewController {
+        // TODO: Use space view
+        let internalViewModel = SpaceViewIconInternalViewModel(workspaceService: serviceLocator.workspaceService(), fileService: serviceLocator.fileService())
+        let module = make(document: document) { action in
+            internalViewModel.handleIconAction(spaceId: document.details?.targetSpaceId ?? "", action: action)
+        }
+        return module
     }
 }

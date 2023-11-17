@@ -1,4 +1,5 @@
 import AnytypeCore
+import Services
 
 protocol LoginStateServiceProtocol: AnyObject {
     var isFirstLaunchAfterRegistration: Bool { get }
@@ -6,7 +7,7 @@ protocol LoginStateServiceProtocol: AnyObject {
     func setupStateAfterLoginOrAuth(account: AccountData) async
     func setupStateAfterAuth()
     func setupStateAfterRegistration(account: AccountData) async
-    func cleanStateAfterLogout()
+    func cleanStateAfterLogout() async
 }
 
 final class LoginStateService: LoginStateServiceProtocol {
@@ -17,17 +18,23 @@ final class LoginStateService: LoginStateServiceProtocol {
     private let middlewareConfigurationProvider: MiddlewareConfigurationProviderProtocol
     private let blockWidgetExpandedService: BlockWidgetExpandedServiceProtocol
     private let relationDetailsStorage: RelationDetailsStorageProtocol
+    private let workspacesStorage: WorkspacesStorageProtocol
+    private let activeWorkpaceStorage: ActiveWorkpaceStorageProtocol
     
     init(
         objectTypeProvider: ObjectTypeProviderProtocol,
         middlewareConfigurationProvider: MiddlewareConfigurationProviderProtocol,
         blockWidgetExpandedService: BlockWidgetExpandedServiceProtocol,
-        relationDetailsStorage: RelationDetailsStorageProtocol
+        relationDetailsStorage: RelationDetailsStorageProtocol,
+        workspacesStorage: WorkspacesStorageProtocol,
+        activeWorkpaceStorage: ActiveWorkpaceStorageProtocol
     ) {
         self.objectTypeProvider = objectTypeProvider
         self.middlewareConfigurationProvider = middlewareConfigurationProvider
         self.blockWidgetExpandedService = blockWidgetExpandedService
         self.relationDetailsStorage = relationDetailsStorage
+        self.workspacesStorage = workspacesStorage
+        self.activeWorkpaceStorage = activeWorkpaceStorage
     }
     
     // MARK: - LoginStateServiceProtocol
@@ -35,6 +42,7 @@ final class LoginStateService: LoginStateServiceProtocol {
     func setupStateAfterLoginOrAuth(account: AccountData) async {
         middlewareConfigurationProvider.setupConfiguration(account: account)
         await startSubscriptions()
+        await activeWorkpaceStorage.setupActiveSpace()
     }
     
     func setupStateAfterAuth() {
@@ -43,27 +51,30 @@ final class LoginStateService: LoginStateServiceProtocol {
     
     func setupStateAfterRegistration(account: AccountData) async {
         isFirstLaunchAfterRegistration = true
-        UserDefaultsConfig.showKeychainAlert = !FeatureFlags.newAuthorization 
         middlewareConfigurationProvider.setupConfiguration(account: account)
         await startSubscriptions()
+        await activeWorkpaceStorage.setupActiveSpace()
     }
     
-    func cleanStateAfterLogout() {
+    func cleanStateAfterLogout() async {
         UserDefaultsConfig.cleanStateAfterLogout()
         blockWidgetExpandedService.clearData()
         middlewareConfigurationProvider.removeCachedConfiguration()
-        stopSubscriptions()
+        await stopSubscriptions()
+        await activeWorkpaceStorage.clearActiveSpace()
     }
     
     // MARK: - Private
     
     private func startSubscriptions() async {
+        await workspacesStorage.startSubscription()
         await relationDetailsStorage.startSubscription()
         await objectTypeProvider.startSubscription()
     }
     
-    private func stopSubscriptions() {
-        ServiceLocator.shared.relationDetailsStorage().stopSubscription()
-        objectTypeProvider.stopSubscription()
+    private func stopSubscriptions() async {
+        await workspacesStorage.stopSubscription()
+        await relationDetailsStorage.stopSubscription()
+        await objectTypeProvider.stopSubscription()
     }
 }

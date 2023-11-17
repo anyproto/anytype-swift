@@ -9,7 +9,6 @@ struct SettingsAccountView: View {
             header
             ScrollView(showsIndicators: false) {
                 VStack(spacing: 0) {
-                    profileBlock
                     accessBlock
                     accountBlock
                 }
@@ -17,21 +16,14 @@ struct SettingsAccountView: View {
         }
         .padding(.horizontal, 20)
         .onAppear {
-            AnytypeAnalytics.instance().logEvent(AnalyticsEventsName.accountSettingsShow)
+            AnytypeAnalytics.instance().logScreenSettingsAccountAccess()
         }
     }
     
     @ViewBuilder
     private var header: some View {
         DragIndicator()
-        TitleView(title: Loc.profile)
-    }
-    
-    @ViewBuilder
-    private var profileBlock: some View {
-        SettingsObjectHeader(name: $model.profileName, nameTitle: Loc.name, iconImage: model.profileIcon, onTap: {
-            model.onChangeIconTap()
-        })
+        TitleView(title: Loc.Settings.accountAndAccess)
     }
     
     @ViewBuilder

@@ -11,6 +11,7 @@ struct SetSortsListCoordinatorView: View {
             .sheet(item: $model.sortTypesData) { data in
                 model.setSortTypesList(data: data)
                     .fitPresentationDetents()
+                    .background(Color.Background.secondary)
             }
     }
 }

@@ -15,11 +15,12 @@ final class SetContentViewDataBuilder {
         self.relationDetailsStorage = relationDetailsStorage
     }
     
-    func sortedRelations(dataview: BlockDataview, view: DataviewView) -> [SetRelation] {
+    func sortedRelations(dataview: BlockDataview, view: DataviewView, spaceId: String) -> [SetRelation] {
+        let storageRelationsDetails = relationDetailsStorage.relationsDetails(for: dataview.relationLinks, spaceId: spaceId)
+            .filter { !$0.isHidden && !$0.isDeleted }
         let relations: [SetRelation] = view.options
             .compactMap { option in
-                let relationsDetails = relationDetailsStorage.relationsDetails(for: dataview.relationLinks)
-                    .filter { !$0.isHidden && !$0.isDeleted }
+                let relationsDetails = storageRelationsDetails
                     .first { $0.key == option.key }
                 guard let relationsDetails = relationsDetails else { return nil }
                 
@@ -32,7 +33,8 @@ final class SetContentViewDataBuilder {
     func activeViewRelations(
         dataViewRelationsDetails: [RelationDetails],
         view: DataviewView,
-        excludeRelations: [RelationDetails]
+        excludeRelations: [RelationDetails],
+        spaceId: String
     ) -> [RelationDetails] {
         view.options.compactMap { option in
             let relationDetails = dataViewRelationsDetails.first { relation in
@@ -52,13 +54,15 @@ final class SetContentViewDataBuilder {
         activeView: DataviewView,
         isObjectLocked: Bool,
         storage: ObjectDetailsStorage,
+        spaceId: String,
         onIconTap: @escaping (ObjectDetails) -> Void,
         onItemTap: @escaping (ObjectDetails) -> Void
     ) -> [SetContentViewItemConfiguration] {
         
         let relationsDetails = sortedRelations(
             dataview: dataView,
-            view: activeView
+            view: activeView,
+            spaceId: spaceId
         ).filter { $0.option.isVisible }.map(\.relationDetails)
 
         let items = items(
@@ -67,6 +71,7 @@ final class SetContentViewDataBuilder {
             dataView: dataView,
             activeView: activeView,
             isObjectLocked: isObjectLocked,
+            spaceId: spaceId,
             storage: storage
         )
         let minHeight = calculateMinHeight(activeView: activeView, items: items)
@@ -83,7 +88,7 @@ final class SetContentViewDataBuilder {
                 smallItemSize: activeView.cardSize == .small,
                 hasCover: hasCover,
                 coverFit: activeView.coverFit,
-                coverType: coverType(item.details, dataView: dataView, activeView: activeView),
+                coverType: coverType(item.details, dataView: dataView, activeView: activeView, spaceId: spaceId),
                 minHeight: minHeight,
                 onIconTap: {
                     onIconTap(item.details)
@@ -101,6 +106,7 @@ final class SetContentViewDataBuilder {
         dataView: BlockDataview,
         activeView: DataviewView,
         isObjectLocked: Bool,
+        spaceId: String,
         storage: ObjectDetailsStorage
     ) -> [SetContentViewItem] {
         details.map { details in
@@ -125,7 +131,7 @@ final class SetContentViewDataBuilder {
                 
                 return relation
             }
-            let coverType = coverType(details, dataView: dataView, activeView: activeView)
+            let coverType = coverType(details, dataView: dataView, activeView: activeView, spaceId: spaceId)
             return SetContentViewItem(
                 details: details,
                 relations: relations,
@@ -137,7 +143,8 @@ final class SetContentViewDataBuilder {
     private func coverType(
         _ details: ObjectDetails,
         dataView: BlockDataview,
-        activeView: DataviewView) -> ObjectHeaderCoverType?
+        activeView: DataviewView,
+        spaceId: String) -> ObjectHeaderCoverType?
     {
         guard activeView.type == .gallery else {
             return nil
@@ -146,16 +153,18 @@ final class SetContentViewDataBuilder {
            let documentCover = details.documentCover {
             return .cover(documentCover)
         } else {
-            return relationCoverType(details, dataView: dataView, activeView: activeView)
+            return relationCoverType(details, dataView: dataView, activeView: activeView, spaceId: spaceId)
         }
     }
     
     private func relationCoverType(
         _ details: ObjectDetails,
         dataView: BlockDataview,
-        activeView: DataviewView) -> ObjectHeaderCoverType?
+        activeView: DataviewView,
+        spaceId: String
+    ) -> ObjectHeaderCoverType?
     {
-        let relationDetails = relationDetailsStorage.relationsDetails(for: dataView.relationLinks)
+        let relationDetails = relationDetailsStorage.relationsDetails(for: dataView.relationLinks, spaceId: spaceId)
             .first { $0.format == .file && $0.key == activeView.coverRelationKey }
         
         guard let relationDetails = relationDetails else {

@@ -13,22 +13,16 @@ struct SettingsView: View {
             ScrollView(showsIndicators: false) {
                 VStack(spacing: 0) {
                     
-                    SettingsObjectHeader(name: $model.spaceName, nameTitle: Loc.Settings.spaceName, iconImage: model.spaceIcon, onTap: {
+                    SettingsObjectHeader(name: $model.profileName, nameTitle: Loc.name, iconImage: model.profileIcon, onTap: {
                         model.onChangeIconTap()
                     })
                     
                     SectionHeaderView(title: Loc.settings)
                     
                     SettingsSectionItemView(
-                        name: Loc.profile,
-                        iconImage: model.profileIcon,
+                        name: Loc.Settings.accountAndAccess,
+                        imageAsset: .Settings.keychainPhrase,
                         onTap: { model.onAccountDataTap() }
-                    )
-                    
-                    SettingsSectionItemView(
-                        name: Loc.personalization,
-                        imageAsset: .Settings.personalization,
-                        onTap: { model.onPersonalizationTap() }
                     )
                     
                     SettingsSectionItemView(
@@ -38,7 +32,7 @@ struct SettingsView: View {
                     )
                     
                     SettingsSectionItemView(
-                        name: Loc.FileStorage.title,
+                        name: Loc.FileStorage.Local.title,
                         imageAsset: .Settings.fileStorage,
                         onTap: { model.onFileStorageTap() }
                     )

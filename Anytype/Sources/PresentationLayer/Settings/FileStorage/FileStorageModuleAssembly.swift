@@ -21,8 +21,6 @@ final class FileStorageModuleAssembly: FileStorageModuleAssemblyProtocol {
     @MainActor
     func make(output: FileStorageModuleOutput?) -> AnyView {
         let model = FileStorageViewModel(
-            accountManager: serviceLocator.accountManager(),
-            subscriptionService: serviceLocator.singleObjectSubscriptionService(),
             fileLimitsStorage: serviceLocator.fileLimitsStorage(),
             output: output
         )

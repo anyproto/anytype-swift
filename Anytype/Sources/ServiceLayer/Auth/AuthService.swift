@@ -2,8 +2,8 @@ import Foundation
 import Combine
 import SwiftUI
 import ProtobufMessages
-import AnytypeCore
 import Services
+import AnytypeCore
 
 final class AuthService: AuthServiceProtocol {
     
@@ -37,7 +37,7 @@ final class AuthService: AuthServiceProtocol {
                 try await ClientCommands.accountStop(.with {
                     $0.removeData = removeData
                 }).invoke()
-                self?.loginStateService.cleanStateAfterLogout()
+                await self?.loginStateService.cleanStateAfterLogout()
                 onCompletion(true)
             } catch {
                 onCompletion(false)
@@ -54,7 +54,7 @@ final class AuthService: AuthServiceProtocol {
         return result.mnemonic
     }
 
-    func createAccount(name: String, imagePath: String) async throws {
+    func createAccount(name: String, imagePath: String) async throws -> AccountData {
         do {
             let start = CFAbsoluteTimeGetCurrent()
             
@@ -70,13 +70,17 @@ final class AuthService: AuthServiceProtocol {
             let analyticsId = response.account.info.analyticsID
             AnytypeAnalytics.instance().setUserId(analyticsId)
             AnytypeAnalytics.instance().logAccountCreate(analyticsId: analyticsId, middleTime: middleTime)
+            AnytypeAnalytics.instance().logCreateSpace()
             appErrorLoggerConfiguration.setUserId(analyticsId)
+            
+            let account = response.account.asModel
             
             UserDefaultsConfig.usersId = response.account.id
             
-            accountManager.account = response.account.asModel
+            accountManager.account = account
             
-            await loginStateService.setupStateAfterRegistration(account: accountManager.account)
+            await loginStateService.setupStateAfterRegistration(account: account)
+            return account
         } catch let responseError as Anytype_Rpc.Account.Create.Response.Error {
             throw responseError.asError ?? responseError
         }
@@ -124,7 +128,7 @@ final class AuthService: AuthServiceProtocol {
             
             let analyticsId = response.account.info.analyticsID
             AnytypeAnalytics.instance().setUserId(analyticsId)
-            AnytypeAnalytics.instance().logAccountSelect(analyticsId: analyticsId)
+            AnytypeAnalytics.instance().logAccountOpen(analyticsId: analyticsId)
             appErrorLoggerConfiguration.setUserId(analyticsId)
             
             guard let status = response.account.status.asModel else {
@@ -135,11 +139,7 @@ final class AuthService: AuthServiceProtocol {
             case .active, .pendingDeletion:
                 await setupAccountData(response.account.asModel)
             case .deleted:
-                if FeatureFlags.clearAccountDataOnDeletedStatus {
-                    loginStateService.cleanStateAfterLogout()
-                } else {
-                    await setupAccountData(response.account.asModel)
-                }
+                await loginStateService.cleanStateAfterLogout()
             }
             
             return status
@@ -155,9 +155,7 @@ final class AuthService: AuthServiceProtocol {
     }
     
     func deleteAccount() async throws -> AccountStatus {
-        let result = try await ClientCommands.accountDelete(.with {
-            $0.revert = false
-        }).invoke()
+        let result = try await ClientCommands.accountDelete().invoke()
         guard let model = result.status.asModel else {
             throw AuthServiceParsingError.undefinedModel
         }
@@ -166,9 +164,7 @@ final class AuthService: AuthServiceProtocol {
     }
     
     func restoreAccount() async throws -> AccountStatus {
-        let result = try await ClientCommands.accountDelete(.with {
-            $0.revert = true
-        }).invoke()
+        let result = try await ClientCommands.accountRevertDeletion().invoke()
         guard let model = result.status.asModel else {
             throw AuthServiceParsingError.undefinedModel
         }

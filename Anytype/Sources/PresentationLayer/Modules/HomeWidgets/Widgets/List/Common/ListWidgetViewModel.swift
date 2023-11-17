@@ -62,11 +62,15 @@ final class ListWidgetViewModel: WidgetContainerContentViewModelProtocol, Observ
     }
     
     func startContentSubscription() {
-        internalModel.startContentSubscription()
+        Task {
+            await internalModel.startContentSubscription()
+        }
     }
 
     func stopContentSubscription() {
-        internalModel.stopContentSubscription()
+        Task {
+            await internalModel.stopContentSubscription()
+        }
     }
     
     func onHeaderTap() {
@@ -131,11 +135,11 @@ final class ListWidgetViewModel: WidgetContainerContentViewModelProtocol, Observ
     }
     
     private func updateDone(details: ObjectDetails) {
-        guard FeatureFlags.widgetTaskDone else { return }
         guard details.layoutValue == .todo else { return }
         
         Task {
             try await objectActionsService.updateBundledDetails(contextID: details.id, details: [.done(!details.done)])
+            UIImpactFeedbackGenerator(style: .rigid).impactOccurred()
         }
     }
 }

@@ -11,6 +11,7 @@ struct SetFiltersTextView: View {
             button
         }
         .padding(.horizontal, 20)
+        .background(Color.Background.secondary)
     }
     
     var textField: some View {

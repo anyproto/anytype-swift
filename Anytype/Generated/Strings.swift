@@ -62,10 +62,6 @@ internal enum Loc {
   internal static let amber = Loc.tr("Localizable", "Amber", fallback: "Amber")
   /// Amber background
   internal static let amberBackground = Loc.tr("Localizable", "Amber background", fallback: "Amber background")
-  /// Understanding how people use Anytype helps us improve the product. This version of Anytype includes the analytics code that protects your privacy.
-  /// It doesn't record the actual document's content but still allows us to understand how you use Anytype.
-  /// Stay subscribed to our mailing list, as we will soon announce a new release that enables you to opt-out.
-  internal static let analyticsConstentText = Loc.tr("Localizable", "Analytics constent text", fallback: "Understanding how people use Anytype helps us improve the product. This version of Anytype includes the analytics code that protects your privacy.\nIt doesn't record the actual document's content but still allows us to understand how you use Anytype.\nStay subscribed to our mailing list, as we will soon announce a new release that enables you to opt-out.")
   /// Anytype Library
   internal static let anytypeLibrary = Loc.tr("Localizable", "Anytype Library", fallback: "Anytype Library")
   /// Anytype node is not connected
@@ -128,6 +124,8 @@ internal enum Loc {
   internal static let chooseLayoutType = Loc.tr("Localizable", "Choose layout type", fallback: "Choose layout type")
   /// Clear
   internal static let clear = Loc.tr("Localizable", "Clear", fallback: "Clear")
+  /// Close
+  internal static let close = Loc.tr("Localizable", "Close", fallback: "Close")
   /// Capture code snippet
   internal static let codeBlockSubtitle = Loc.tr("Localizable", "Code block subtitle", fallback: "Capture code snippet")
   /// Code snippet
@@ -212,8 +210,8 @@ internal enum Loc {
   internal static let enterText = Loc.tr("Localizable", "Enter text", fallback: "Enter text")
   /// Enter value
   internal static let enterValue = Loc.tr("Localizable", "Enter value", fallback: "Enter value")
-  /// Enter your name
-  internal static let enterYourName = Loc.tr("Localizable", "Enter your name", fallback: "Enter your name")
+  /// Error
+  internal static let error = Loc.tr("Localizable", "Error", fallback: "Error")
   /// Error creating wallet
   internal static let errorCreatingWallet = Loc.tr("Localizable", "Error creating wallet", fallback: "Error creating wallet")
   /// Error select account
@@ -282,8 +280,8 @@ internal enum Loc {
   internal static let lock = Loc.tr("Localizable", "Lock", fallback: "Lock")
   /// Log out
   internal static let logOut = Loc.tr("Localizable", "Log out", fallback: "Log out")
-  /// Login
-  internal static let login = Loc.tr("Localizable", "Login", fallback: "Login")
+  /// Log In
+  internal static let login = Loc.tr("Localizable", "Login", fallback: "Log In")
   /// Logout and clear data
   internal static let logoutAndClearData = Loc.tr("Localizable", "Logout and clear data", fallback: "Logout and clear data")
   /// Media
@@ -300,8 +298,6 @@ internal enum Loc {
   internal static let name = Loc.tr("Localizable", "Name", fallback: "Name")
   /// New
   internal static let new = Loc.tr("Localizable", "New", fallback: "New")
-  /// New profile
-  internal static let newProfile = Loc.tr("Localizable", "New profile", fallback: "New profile")
   /// New relation
   internal static let newRelation = Loc.tr("Localizable", "New relation", fallback: "New relation")
   /// No connection
@@ -340,10 +336,6 @@ internal enum Loc {
   internal static let openObject = Loc.tr("Localizable", "Open object", fallback: "Open object")
   /// Open source
   internal static let openSource = Loc.tr("Localizable", "Open source", fallback: "Open source")
-  /// or type your recovery phrase
-  internal static let orTypeYourRecoveryPhrase = Loc.tr("Localizable", "or type your recovery phrase", fallback: "or type your recovery phrase")
-  /// With Anytype you can write notes and documents, manage tasks and save important content from the web.
-  internal static let organizeEverythingDescription = Loc.tr("Localizable", "OrganizeEverythingDescription", fallback: "With Anytype you can write notes and documents, manage tasks and save important content from the web.")
   /// Other
   internal static let other = Loc.tr("Localizable", "Other", fallback: "Other")
   /// Other relations
@@ -437,8 +429,6 @@ internal enum Loc {
   /// Setting up encrypted storage
   /// Please wait
   internal static let settingUpEncryptedStoragePleaseWait = Loc.tr("Localizable", "Setting up encrypted storage\nPlease wait", fallback: "Setting up encrypted storage\nPlease wait")
-  /// Setting up the wallet
-  internal static let settingUpTheWallet = Loc.tr("Localizable", "Setting up the wallet", fallback: "Setting up the wallet")
   /// Settings
   internal static let settings = Loc.tr("Localizable", "Settings", fallback: "Settings")
   /// Shared
@@ -531,8 +521,6 @@ internal enum Loc {
   internal static let wallpaper = Loc.tr("Localizable", "Wallpaper", fallback: "Wallpaper")
   /// Web pages
   internal static let webPages = Loc.tr("Localizable", "Web pages", fallback: "Web pages")
-  /// Welcome to Anytype
-  internal static let welcomeToAnytype = Loc.tr("Localizable", "Welcome to Anytype", fallback: "Welcome to Anytype")
   /// Yellow
   internal static let yellow = Loc.tr("Localizable", "Yellow", fallback: "Yellow")
   /// Yellow background
@@ -621,36 +609,26 @@ internal enum Loc {
     internal static let linkItself = Loc.tr("Localizable", "Actions.LinkItself", fallback: "Link to")
     /// Make template
     internal static let makeAsTemplate = Loc.tr("Localizable", "Actions.MakeAsTemplate", fallback: "Make template")
-    /// Set as default
-    internal static let templateMakeDefault = Loc.tr("Localizable", "Actions.TemplateMakeDefault", fallback: "Set as default")
+    /// Make default
+    internal static let templateMakeDefault = Loc.tr("Localizable", "Actions.TemplateMakeDefault", fallback: "Make default")
   }
   internal enum Alert {
     internal enum CameraPermissions {
       /// Anytype needs access to your camera to scan QR codes.
       /// 
-      /// Please, go to your device's Settings -> Privacy -> Camera and set Anytype to ON
-      internal static let goToSettings = Loc.tr("Localizable", "Alert.CameraPermissions.GoToSettings", fallback: "Anytype needs access to your camera to scan QR codes.\n\nPlease, go to your device's Settings -> Privacy -> Camera and set Anytype to ON")
+      /// Please, go to your device's Settings -> Anytype and set Camera to ON
+      internal static let goToSettings = Loc.tr("Localizable", "Alert.CameraPermissions.GoToSettings", fallback: "Anytype needs access to your camera to scan QR codes.\n\nPlease, go to your device's Settings -> Anytype and set Camera to ON")
       /// Settings
       internal static let settings = Loc.tr("Localizable", "Alert.CameraPermissions.Settings", fallback: "Settings")
-    }
-    internal enum TemplatesAvailable {
-      /// Show
-      internal static let button = Loc.tr("Localizable", "Alert.Templates_Available.Button", fallback: "Show")
-      /// Swipe down to skip
-      internal static let description = Loc.tr("Localizable", "Alert.Templates_Available.Description", fallback: "Swipe down to skip")
-      /// This type has %d templates
-      internal static func title(_ p1: Int) -> String {
-        return Loc.tr("Localizable", "Alert.Templates_Available.Title", p1, fallback: "This type has %d templates")
-      }
     }
   }
   internal enum Auth {
     /// Please allow access
     internal static let cameraPermissionTitle = Loc.tr("Localizable", "Auth.CameraPermissionTitle", fallback: "Please allow access")
-    /// Generate new account
-    internal static let join = Loc.tr("Localizable", "Auth.Join", fallback: "Generate new account")
-    /// I already have one
-    internal static let logIn = Loc.tr("Localizable", "Auth.LogIn", fallback: "I already have one")
+    /// Create New Account
+    internal static let join = Loc.tr("Localizable", "Auth.Join", fallback: "Create New Account")
+    /// Log In
+    internal static let logIn = Loc.tr("Localizable", "Auth.LogIn", fallback: "Log In")
     /// Next
     internal static let next = Loc.tr("Localizable", "Auth.Next", fallback: "Next")
     internal enum Caption {
@@ -745,12 +723,12 @@ internal enum Loc {
         }
       }
       internal enum Soul {
-        /// First, choose a name to use inside Anytype.
-        internal static let description = Loc.tr("Localizable", "Auth.JoinFlow.Soul.Description", fallback: "First, choose a name to use inside Anytype.")
+        /// This is how you will appear in the app.
+        internal static let description = Loc.tr("Localizable", "Auth.JoinFlow.Soul.Description", fallback: "This is how you will appear in the app.")
         /// Untitled
         internal static let placeholder = Loc.tr("Localizable", "Auth.JoinFlow.Soul.Placeholder", fallback: "Untitled")
-        /// Set a name for new identity
-        internal static let title = Loc.tr("Localizable", "Auth.JoinFlow.Soul.Title", fallback: "Set a name for new identity")
+        /// Choose your name
+        internal static let title = Loc.tr("Localizable", "Auth.JoinFlow.Soul.Title", fallback: "Choose your name")
       }
     }
     internal enum LoginFlow {
@@ -933,6 +911,8 @@ internal enum Loc {
     }
   }
   internal enum DataviewType {
+    /// Calendar
+    internal static let calendar = Loc.tr("Localizable", "DataviewType.calendar", fallback: "Calendar")
     /// Gallery
     internal static let gallery = Loc.tr("Localizable", "DataviewType.gallery", fallback: "Gallery")
     /// Grid
@@ -1134,10 +1114,18 @@ internal enum Loc {
     internal enum View {
       internal enum Not {
         internal enum Supported {
-          /// not supported
-          internal static let title = Loc.tr("Localizable", "EditorSetViewPicker.View.Not.Supported.Title", fallback: "not supported")
+          /// Unsupported
+          internal static let title = Loc.tr("Localizable", "EditorSetViewPicker.View.Not.Supported.Title", fallback: "Unsupported")
         }
       }
+    }
+  }
+  internal enum Error {
+    internal enum AnytypeNeedsUpgrate {
+      /// This object was modified in a newer version of Anytype. Please update the app to open it on this device
+      internal static let message = Loc.tr("Localizable", "Error.AnytypeNeedsUpgrate.Message", fallback: "This object was modified in a newer version of Anytype. Please update the app to open it on this device")
+      /// Update Your App
+      internal static let title = Loc.tr("Localizable", "Error.AnytypeNeedsUpgrate.Title", fallback: "Update Your App")
     }
   }
   internal enum ErrorOccurred {
@@ -1153,6 +1141,20 @@ internal enum Loc {
     internal static let offloadTitle = Loc.tr("Localizable", "FileStorage.OffloadTitle", fallback: "Offload files")
     /// File storage
     internal static let title = Loc.tr("Localizable", "FileStorage.Title", fallback: "File storage")
+    internal enum LimitLegend {
+      /// %@ | %@
+      internal static func current(_ p1: Any, _ p2: Any) -> String {
+        return Loc.tr("Localizable", "FileStorage.LimitLegend.Current", String(describing: p1), String(describing: p2), fallback: "%@ | %@")
+      }
+      /// Free | %@
+      internal static func free(_ p1: Any) -> String {
+        return Loc.tr("Localizable", "FileStorage.LimitLegend.Free", String(describing: p1), fallback: "Free | %@")
+      }
+      /// Other spaces | %@
+      internal static func other(_ p1: Any) -> String {
+        return Loc.tr("Localizable", "FileStorage.LimitLegend.Other", String(describing: p1), fallback: "Other spaces | %@")
+      }
+    }
     internal enum Local {
       /// In order to save space on your local device, you can offload all your files to our encrypted backup node. The files will be loaded back when you open them.
       internal static let instruction = Loc.tr("Localizable", "FileStorage.Local.Instruction", fallback: "In order to save space on your local device, you can offload all your files to our encrypted backup node. The files will be loaded back when you open them.")
@@ -1200,6 +1202,20 @@ internal enum Loc {
     internal enum Snackbar {
       /// Library is available in desktop app
       internal static let library = Loc.tr("Localizable", "Home.Snackbar.Library", fallback: "Library is available in desktop app")
+    }
+  }
+  internal enum Initial {
+    internal enum UnstableMiddle {
+      /// Continue with current account
+      internal static let `continue` = Loc.tr("Localizable", "Initial.UnstableMiddle.Continue", fallback: "Continue with current account")
+      /// Logout from current account
+      internal static let logout = Loc.tr("Localizable", "Initial.UnstableMiddle.Logout", fallback: "Logout from current account")
+      /// You launch app with a unstable middleware. Don't use your production account. Your account may be broken.
+      internal static let message = Loc.tr("Localizable", "Initial.UnstableMiddle.Message", fallback: "You launch app with a unstable middleware. Don't use your production account. Your account may be broken.")
+      /// Warning
+      internal static let title = Loc.tr("Localizable", "Initial.UnstableMiddle.Title", fallback: "Warning")
+      /// I won't be using my production account
+      internal static let wontUseProd = Loc.tr("Localizable", "Initial.UnstableMiddle.WontUseProd", fallback: "I won't be using my production account")
     }
   }
   internal enum InterfaceStyle {
@@ -1270,34 +1286,16 @@ internal enum Loc {
     /// Paste as text
     internal static let text = Loc.tr("Localizable", "LinkPaste.text", fallback: "Paste as text")
   }
+  internal enum LongTapCreateTip {
+    /// Long tap on Create Object button to open menu with types
+    internal static let message = Loc.tr("Localizable", "LongTapCreateTip.Message", fallback: "Long tap on Create Object button to open menu with types")
+    /// Crete Objects with specific Type
+    internal static let title = Loc.tr("Localizable", "LongTapCreateTip.Title", fallback: "Crete Objects with specific Type")
+  }
   internal enum Mention {
     internal enum Subtitle {
       /// Object
       internal static let placeholder = Loc.tr("Localizable", "Mention.Subtitle.Placeholder", fallback: "Object")
-    }
-  }
-  internal enum MigrationGuide {
-    /// To use this version of the app, please choose the correct option below to migrate your account.
-    internal static let subtitle = Loc.tr("Localizable", "MigrationGuide.Subtitle", fallback: "To use this version of the app, please choose the correct option below to migrate your account.")
-    /// Almost there!
-    internal static let title = Loc.tr("Localizable", "MigrationGuide.Title", fallback: "Almost there!")
-    internal enum Completed {
-      /// Something might have gone wrong. Please visit our forum, read the migration instructions, and ask questions to our team.
-      internal static let description = Loc.tr("Localizable", "MigrationGuide.Completed.Description", fallback: "Something might have gone wrong. Please visit our forum, read the migration instructions, and ask questions to our team.")
-      /// Visit forum
-      internal static let forumButton = Loc.tr("Localizable", "MigrationGuide.Completed.ForumButton", fallback: "Visit forum")
-      /// I completed migration
-      internal static let title = Loc.tr("Localizable", "MigrationGuide.Completed.Title", fallback: "I completed migration")
-    }
-    internal enum DidntComplete {
-      /// Download the desktop app **here**
-      internal static let step1 = Loc.tr("Localizable", "MigrationGuide.DidntComplete.Step1", fallback: "Download the desktop app **here**")
-      /// Log in and update it to the latest version
-      internal static let step2 = Loc.tr("Localizable", "MigrationGuide.DidntComplete.Step2", fallback: "Log in and update it to the latest version")
-      /// Follow the migration instructions
-      internal static let step3 = Loc.tr("Localizable", "MigrationGuide.DidntComplete.Step3", fallback: "Follow the migration instructions")
-      /// I didn’t complete migration
-      internal static let title = Loc.tr("Localizable", "MigrationGuide.DidntComplete.Title", fallback: "I didn’t complete migration")
     }
   }
   internal enum Object {
@@ -1321,6 +1319,8 @@ internal enum Loc {
     internal static let fallbackDescription = Loc.tr("Localizable", "ObjectType.fallbackDescription", fallback: "Blank canvas with no title")
     /// My Types
     internal static let myTypes = Loc.tr("Localizable", "ObjectType.MyTypes", fallback: "My Types")
+    /// Search for Type
+    internal static let search = Loc.tr("Localizable", "ObjectType.Search", fallback: "Search for Type")
     /// Search or install a new type
     internal static let searchOrInstall = Loc.tr("Localizable", "ObjectType.SearchOrInstall", fallback: "Search or install a new type")
   }
@@ -1413,8 +1413,8 @@ internal enum Loc {
     internal static let copyEmail = Loc.tr("Localizable", "RelationAction.CopyEmail", fallback: "Copy email")
     /// Copy link
     internal static let copyLink = Loc.tr("Localizable", "RelationAction.CopyLink", fallback: "Copy link")
-    /// Copy phone numbler
-    internal static let copyPhone = Loc.tr("Localizable", "RelationAction.CopyPhone", fallback: "Copy phone numbler")
+    /// Copy phone number
+    internal static let copyPhone = Loc.tr("Localizable", "RelationAction.CopyPhone", fallback: "Copy phone number")
     /// Open link
     internal static let openLink = Loc.tr("Localizable", "RelationAction.OpenLink", fallback: "Open link")
     /// Reload object content
@@ -1537,10 +1537,6 @@ internal enum Loc {
             internal static let title = Loc.tr("Localizable", "Set.View.Settings.CardSize.Small.Title", fallback: "Small")
           }
         }
-        internal enum DefaultObject {
-          /// Default object
-          internal static let title = Loc.tr("Localizable", "Set.View.Settings.DefaultObject.Title", fallback: "Default object")
-        }
         internal enum GroupBackgroundColors {
           /// Color columns
           internal static let title = Loc.tr("Localizable", "Set.View.Settings.GroupBackgroundColors.Title", fallback: "Color columns")
@@ -1583,6 +1579,10 @@ internal enum Loc {
   internal enum SetViewTypesPicker {
     /// Edit view
     internal static let title = Loc.tr("Localizable", "SetViewTypesPicker.Title", fallback: "Edit view")
+    internal enum New {
+      /// New view
+      internal static let title = Loc.tr("Localizable", "SetViewTypesPicker.New.Title", fallback: "New view")
+    }
     internal enum Section {
       internal enum Types {
         /// View as
@@ -1611,15 +1611,47 @@ internal enum Loc {
     }
   }
   internal enum Settings {
+    /// Account and access
+    internal static let accountAndAccess = Loc.tr("Localizable", "Settings.AccountAndAccess", fallback: "Account and access")
     /// Space name
     internal static let spaceName = Loc.tr("Localizable", "Settings.SpaceName", fallback: "Space name")
+    /// Settings
+    internal static let title = Loc.tr("Localizable", "Settings.Title", fallback: "Settings")
     /// Personal Space
-    internal static let title = Loc.tr("Localizable", "Settings.Title", fallback: "Personal Space")
+    internal static let titleLegacy = Loc.tr("Localizable", "Settings.TitleLegacy", fallback: "Personal Space")
   }
-  internal enum SignUp {
-    internal enum InvintationCode {
-      /// Invitation code
-      internal static let placeholder = Loc.tr("Localizable", "SignUp.InvintationCode.Placeholder", fallback: "Invitation code")
+  internal enum Sharing {
+    /// Add to
+    internal static let addTo = Loc.tr("Localizable", "Sharing.AddTo", fallback: "Add to")
+    /// Link to
+    internal static let linkTo = Loc.tr("Localizable", "Sharing.LinkTo", fallback: "Link to")
+    /// SAVE AS
+    internal static let saveAs = Loc.tr("Localizable", "Sharing.SaveAs", fallback: "SAVE AS")
+    /// Space
+    internal static let selectSpace = Loc.tr("Localizable", "Sharing.SelectSpace", fallback: "Space")
+    internal enum Navigation {
+      /// Add to Anytype
+      internal static let title = Loc.tr("Localizable", "Sharing.Navigation.title", fallback: "Add to Anytype")
+      internal enum LeftButton {
+        /// Cancel
+        internal static let title = Loc.tr("Localizable", "Sharing.Navigation.LeftButton.Title", fallback: "Cancel")
+      }
+      internal enum RightButton {
+        /// Done
+        internal static let title = Loc.tr("Localizable", "Sharing.Navigation.RightButton.Title", fallback: "Done")
+      }
+    }
+    internal enum Text {
+      /// Note object
+      internal static let noteObject = Loc.tr("Localizable", "Sharing.Text.NoteObject", fallback: "Note object")
+      /// Text block
+      internal static let textBlock = Loc.tr("Localizable", "Sharing.Text.TextBlock", fallback: "Text block")
+    }
+    internal enum Url {
+      /// Bookmark object
+      internal static let bookmark = Loc.tr("Localizable", "Sharing.URL.Bookmark", fallback: "Bookmark object")
+      /// Text block
+      internal static let text = Loc.tr("Localizable", "Sharing.URL.Text", fallback: "Text block")
     }
   }
   internal enum SimpleTableMenu {
@@ -1666,6 +1698,44 @@ internal enum Loc {
     /// Table of contents
     internal static let tableOfContents = Loc.tr("Localizable", "SlashMenu.TableOfContents", fallback: "Table of contents")
   }
+  internal enum SpaceCreate {
+    /// Create a space
+    internal static let title = Loc.tr("Localizable", "SpaceCreate.Title", fallback: "Create a space")
+  }
+  internal enum SpaceSettings {
+    /// Delete space
+    internal static let deleteButton = Loc.tr("Localizable", "SpaceSettings.DeleteButton", fallback: "Delete space")
+    /// Space info
+    internal static let info = Loc.tr("Localizable", "SpaceSettings.Info", fallback: "Space info")
+    /// Network ID
+    internal static let networkId = Loc.tr("Localizable", "SpaceSettings.NetworkId", fallback: "Network ID")
+    /// Remote storage
+    internal static let remoteStorage = Loc.tr("Localizable", "SpaceSettings.RemoteStorage", fallback: "Remote storage")
+    /// Space settings
+    internal static let title = Loc.tr("Localizable", "SpaceSettings.Title", fallback: "Space settings")
+    internal enum DeleteAlert {
+      /// This space will be deleted irrevocably. You can’t undo this action.
+      internal static let message = Loc.tr("Localizable", "SpaceSettings.DeleteAlert.Message", fallback: "This space will be deleted irrevocably. You can’t undo this action.")
+      /// Delete ‘%@’ space
+      internal static func title(_ p1: Any) -> String {
+        return Loc.tr("Localizable", "SpaceSettings.DeleteAlert.Title", String(describing: p1), fallback: "Delete ‘%@’ space")
+      }
+    }
+  }
+  internal enum Spaces {
+    internal enum Accessibility {
+      /// Personal Space
+      internal static let personal = Loc.tr("Localizable", "Spaces.Accessibility.Personal", fallback: "Personal Space")
+      /// Private Space
+      internal static let `private` = Loc.tr("Localizable", "Spaces.Accessibility.Private", fallback: "Private Space")
+      /// Public Space
+      internal static let `public` = Loc.tr("Localizable", "Spaces.Accessibility.Public", fallback: "Public Space")
+    }
+    internal enum Search {
+      /// Search spaces
+      internal static let title = Loc.tr("Localizable", "Spaces.Search.Title", fallback: "Search spaces")
+    }
+  }
   internal enum StyleMenu {
     internal enum Color {
       internal enum TextColor {
@@ -1689,8 +1759,6 @@ internal enum Loc {
     internal static let empty = Loc.tr("Localizable", "TalbeOfContents.Empty", fallback: "Add headings to create a table of contents")
   }
   internal enum TemplateEditing {
-    /// Select template
-    internal static let selectButtonTitle = Loc.tr("Localizable", "TemplateEditing.SelectButtonTitle", fallback: "Select template")
     /// Edit template
     internal static let title = Loc.tr("Localizable", "TemplateEditing.Title", fallback: "Edit template")
   }
@@ -1702,16 +1770,12 @@ internal enum Loc {
       internal static let duplicate = Loc.tr("Localizable", "TemplateOptions.Alert.Duplicate", fallback: "Duplicate")
       /// Edit template
       internal static let editTemplate = Loc.tr("Localizable", "TemplateOptions.Alert.EditTemplate", fallback: "Edit template")
-      /// Set as default for this view
-      internal static let setAsDefault = Loc.tr("Localizable", "TemplateOptions.Alert.SetAsDefault", fallback: "Set as default for this view")
     }
   }
   internal enum TemplatePicker {
     /// Choose template
     internal static let chooseTemplate = Loc.tr("Localizable", "TemplatePicker.ChooseTemplate", fallback: "Choose template")
     internal enum Buttons {
-      /// Skip
-      internal static let skip = Loc.tr("Localizable", "TemplatePicker.Buttons.Skip", fallback: "Skip")
       /// Use template
       internal static let useTemplate = Loc.tr("Localizable", "TemplatePicker.Buttons.UseTemplate", fallback: "Use template")
     }
@@ -1721,6 +1785,32 @@ internal enum Loc {
     internal static let blankTemplate = Loc.tr("Localizable", "TemplateSelection.blankTemplate", fallback: "Blank")
     /// Select template
     internal static let selectTemplate = Loc.tr("Localizable", "TemplateSelection.SelectTemplate", fallback: "Select template")
+    internal enum Available {
+      /// This type has %d templates
+      internal static func title(_ p1: Int) -> String {
+        return Loc.tr("Localizable", "TemplateSelection.Available.Title", p1, fallback: "This type has %d templates")
+      }
+    }
+    internal enum ObjectType {
+      /// Object type
+      internal static let subtitle = Loc.tr("Localizable", "TemplateSelection.ObjectType.Subtitle", fallback: "Object type")
+    }
+    internal enum Template {
+      /// Template
+      internal static let subtitle = Loc.tr("Localizable", "TemplateSelection.Template.Subtitle", fallback: "Template")
+    }
+  }
+  internal enum Templates {
+    internal enum Popup {
+      /// The template was set as default
+      internal static let `default` = Loc.tr("Localizable", "Templates.Popup.Default", fallback: "The template was set as default")
+      /// The template was duplicated
+      internal static let duplicated = Loc.tr("Localizable", "Templates.Popup.Duplicated", fallback: "The template was duplicated")
+      /// The template was removed
+      internal static let removed = Loc.tr("Localizable", "Templates.Popup.Removed", fallback: "The template was removed")
+      /// New template was added to the type
+      internal static let wasAddedTo = Loc.tr("Localizable", "Templates.Popup.WasAddedTo", fallback: "New template was added to the type")
+    }
   }
   internal enum TextStyle {
     internal enum Bold {

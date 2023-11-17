@@ -81,12 +81,13 @@ final class FileActionsService: FileActionsServiceProtocol {
         }
     }
     
-    func uploadImage(data: FileData) async throws -> Hash {
+    func uploadImage(spaceId: String, data: FileData) async throws -> Hash {
         let result = try await ClientCommands.fileUpload(.with {
             $0.localPath = data.path
             $0.type = FileContentType.image.asMiddleware
             $0.disableEncryption = false
             $0.style = .auto
+            $0.spaceID = spaceId
         }).invoke()
         
         if data.isTemporary {
@@ -100,9 +101,9 @@ final class FileActionsService: FileActionsServiceProtocol {
         try await uploadDataAt(data: data, contextID: contextID, blockID: blockID)
     }
     
-    func uploadImage(source: FileUploadingSource) async throws -> Hash {
+    func uploadImage(spaceId: String, source: FileUploadingSource) async throws -> Hash {
         let data = try await createFileData(source: source)
-        return try await uploadImage(data: data)
+        return try await uploadImage(spaceId: spaceId, data: data)
     }
     
     func clearCache() async throws {
@@ -111,16 +112,9 @@ final class FileActionsService: FileActionsServiceProtocol {
         }).invoke()
     }
     
-    func spaceUsage() async throws -> FileLimits {
-        let result = try await ClientCommands.fileSpaceUsage().invoke()
-        return FileLimits(
-            filesCount: Int64(clamping: result.usage.filesCount),
-            cidsCount: Int64(clamping: result.usage.cidsCount),
-            bytesUsage: Int64(clamping: result.usage.bytesUsage),
-            bytesLeft: Int64(clamping: result.usage.bytesLeft),
-            bytesLimit: Int64(clamping: result.usage.bytesLimit),
-            localBytesUsage: Int64(clamping: result.usage.localBytesUsage)
-        )
+    func nodeUsage() async throws -> NodeUsageInfo {
+        let result = try await ClientCommands.fileNodeUsage().invoke()
+        return NodeUsageInfo(from: result)
     }
     
     // MARK: - Private

@@ -14,37 +14,40 @@ enum EditorScreenData: Hashable, Codable {
 
 struct EditorPageObject: Hashable, Codable {
     let objectId: String
+    let spaceId: String
     let isSupportedForEdit: Bool
     let isOpenedForPreview: Bool
-    let shouldShowTemplatesOptions: Bool
     let usecase: ObjectHeaderEmptyData.ObjectHeaderEmptyUsecase
     
     init(
         objectId: String,
+        spaceId: String,
         isSupportedForEdit: Bool,
         isOpenedForPreview: Bool,
-        shouldShowTemplatesOptions: Bool = true,
         usecase: ObjectHeaderEmptyData.ObjectHeaderEmptyUsecase = .editor
     ) {
         self.objectId = objectId
+        self.spaceId = spaceId
         self.isSupportedForEdit = isSupportedForEdit
         self.isOpenedForPreview = isOpenedForPreview
-        self.shouldShowTemplatesOptions = shouldShowTemplatesOptions
         self.usecase = usecase
     }
 }
 
 struct EditorSetObject: Hashable, Codable {
     let objectId: String
+    let spaceId: String
     var inline: EditorInlineSetObject?
     let isSupportedForEdit: Bool
     
     init(
         objectId: String,
+        spaceId: String,
         inline: EditorInlineSetObject? = nil,
         isSupportedForEdit: Bool
     ) {
         self.objectId = objectId
+        self.spaceId = spaceId
         self.inline = inline
         self.isSupportedForEdit = isSupportedForEdit
     }

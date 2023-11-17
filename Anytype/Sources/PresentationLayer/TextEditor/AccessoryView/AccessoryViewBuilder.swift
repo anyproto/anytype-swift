@@ -3,6 +3,7 @@ import Services
 import AnytypeCore
 
 struct AccessoryViewBuilder {
+    @MainActor
     static func accessoryState(
         actionHandler: BlockActionHandlerProtocol,
         router: EditorRouterProtocol,
@@ -10,11 +11,14 @@ struct AccessoryViewBuilder {
         document: BaseDocumentProtocol,
         onShowStyleMenu: @escaping RoutingAction<[BlockInformation]>,
         onBlockSelection: @escaping RoutingAction<BlockInformation>,
-        pageService: PageServiceProtocol,
+        pageService: PageRepositoryProtocol,
         linkToObjectCoordinator: LinkToObjectCoordinatorProtocol,
         cursorManager: EditorCursorManager
-    ) -> AccessoryViewStateManager {
-        let mentionsView = MentionView(documentId: document.objectId, frame: CGRect(origin: .zero, size: menuActionsViewSize))
+    ) -> (AccessoryViewStateManager, ChangeTypeAccessoryViewModel) {
+        let mentionsView = MentionView(
+            document: document,
+            frame: CGRect(origin: .zero, size: menuActionsViewSize)
+        )
         
         let cursorModeAccessoryViewModel = CursorModeAccessoryViewModel(
             handler: actionHandler,
@@ -33,7 +37,6 @@ struct AccessoryViewBuilder {
             router: router,
             handler: actionHandler,
             searchService: ServiceLocator.shared.searchService(),
-            objectService: ServiceLocator.shared.objectActionsService(),
             document: document
         )
         
@@ -72,16 +75,6 @@ struct AccessoryViewBuilder {
             document: document
         )
 
-        accessoryViewSwitcher.onDoneButton = {
-            guard let type = document.details?.objectType else { return }
-
-            router.showTemplatesPopupIfNeeded(
-                document: document,
-                templatesTypeId: .dynamic(type.id),
-                onShow: nil
-            )
-        }
-
         slashMenuViewModel.resetSlashMenuHandler = { [weak accessoryViewSwitcher] in
             accessoryViewSwitcher?.restoreDefaultState()
 
@@ -92,7 +85,7 @@ struct AccessoryViewBuilder {
         mentionsView.delegate = stateManager
         cursorModeAccessoryView.setDelegate(stateManager)
 
-        return stateManager
+        return (stateManager, changeTypeViewModel)
     }
     
     private static let menuActionsViewSize = CGSize(

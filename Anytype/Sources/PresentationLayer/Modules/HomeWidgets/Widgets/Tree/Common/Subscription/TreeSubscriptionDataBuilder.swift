@@ -2,12 +2,13 @@ import Foundation
 import Services
 
 protocol TreeSubscriptionDataBuilderProtocol {
+    var subscriptionId: String { get }
     func build(objectIds: [String]) -> SubscriptionData
 }
 
 final class TreeSubscriptionDataBuilder: TreeSubscriptionDataBuilderProtocol {
     
-    private let subscriptionId = "Tree-\(UUID().uuidString)"
+    let subscriptionId = "Tree-\(UUID().uuidString)"
     
     // MARK: - TreeSubscriptionDataBuilderProtocol
     

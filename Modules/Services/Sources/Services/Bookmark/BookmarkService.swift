@@ -27,14 +27,20 @@ public final class BookmarkService: BookmarkServiceProtocol {
         }).invoke()
     }
     
-    public func createBookmarkObject(url: String) async throws -> ObjectDetails {
+    public func createBookmarkObject(
+        spaceId: String,
+        url: String,
+        origin: ObjectOrigin
+    ) async throws -> ObjectDetails {
         let details = Google_Protobuf_Struct(
             fields: [
-                BundledRelationKey.source.rawValue: url.protobufValue
+                BundledRelationKey.source.rawValue: url.protobufValue,
+                BundledRelationKey.origin.rawValue: origin.rawValue.protobufValue
             ]
         )
         let result = try await ClientCommands.objectCreateBookmark(.with {
             $0.details = details
+            $0.spaceID = spaceId
         }).invoke()
         return try result.details.toDetails()
     }

@@ -75,6 +75,10 @@ final class BlockActionHandlerMock: BlockActionHandlerProtocol {
         assertionFailure()
     }
     
+    func applyTemplate(objectId: String, templateId: String) async throws {
+        assertionFailure()
+    }
+    
     func delete(blockIds: [BlockId]) {
         assertionFailure()
     }
@@ -95,7 +99,7 @@ final class BlockActionHandlerMock: BlockActionHandlerProtocol {
         assertionFailure()
     }
     
-    func addLink(targetId: BlockId, typeId: String, blockId: BlockId) {
+    func addLink(targetDetails: ObjectDetails, blockId: BlockId) {
         assertionFailure()
     }
     
@@ -111,12 +115,12 @@ final class BlockActionHandlerMock: BlockActionHandlerProtocol {
         assertionFailure()
     }
     
-    func createPage(targetId: BlockId, type: ObjectTypeId) -> BlockId? {
+    func createPage(targetId: BlockId, spaceId: String, typeUniqueKey: ObjectTypeUniqueKey, templateId: String) async throws -> BlockId? {
         assertionFailure()
         return nil
     }
     
-    func setObjectTypeId(_ objectTypeId: String) {
+    func setObjectType(type: Services.ObjectType) async throws {
         assertionFailure()
     }
     
@@ -188,7 +192,7 @@ final class BlockActionHandlerMock: BlockActionHandlerProtocol {
         assertionFailure()
     }
 
-    func createTable(blockId: Services.BlockId, rowsCount: Int, columnsCount: Int, blockText: NSAttributedString?) async throws -> Services.BlockId {
+    func createTable(blockId: Services.BlockId, rowsCount: Int, columnsCount: Int, blockText: AnytypeCore.SafeSendable<NSAttributedString?>) async throws -> Services.BlockId {
         fatalError()
     }
     

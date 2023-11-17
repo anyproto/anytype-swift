@@ -3,7 +3,7 @@ import SwiftUI
 
 protocol SettingsAppearanceModuleAssemblyProtocol: AnyObject {
     @MainActor
-    func make(output: SettingsAppearanceModuleOutput?) -> UIViewController
+    func make() -> UIViewController
 }
 
 final class SettingsAppearanceModuleAssembly: SettingsAppearanceModuleAssemblyProtocol {
@@ -17,8 +17,8 @@ final class SettingsAppearanceModuleAssembly: SettingsAppearanceModuleAssemblyPr
     // MARK: - SettingsAppearanceModuleAssemblyProtocol
     
     @MainActor
-    func make(output: SettingsAppearanceModuleOutput?) -> UIViewController {
-        let model = SettingsAppearanceViewModel(viewControllerProvider: uiHelpersDI.viewControllerProvider(), output: output)
+    func make() -> UIViewController {
+        let model = SettingsAppearanceViewModel(viewControllerProvider: uiHelpersDI.viewControllerProvider())
         let view = SettingsAppearanceView(model: model)
         return AnytypePopup(contentView: view, floatingPanelStyle: false)
     }

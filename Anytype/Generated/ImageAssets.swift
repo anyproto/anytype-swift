@@ -21,6 +21,12 @@ internal extension ImageAsset {
   static let ghost = ImageAsset.bundle(name: "ghost")
   static let logo = ImageAsset.bundle(name: "logo")
   static let noImage = ImageAsset.bundle(name: "no_image")
+  enum Dashboard {
+    static let add = ImageAsset.bundle(name: "Dashboard/Add")
+    static let empty = ImageAsset.bundle(name: "Dashboard/Empty")
+    static let search = ImageAsset.bundle(name: "Dashboard/Search")
+    static let settings = ImageAsset.bundle(name: "Dashboard/Settings")
+  }
   enum FileTypes {
     static let archive = ImageAsset.bundle(name: "FileTypes/Archive")
     static let audio = ImageAsset.bundle(name: "FileTypes/Audio")
@@ -113,6 +119,7 @@ internal extension ImageAsset {
     static let customizeView = ImageAsset.bundle(name: "x24/Customize View")
     static let database = ImageAsset.bundle(name: "x24/Database")
     static let date = ImageAsset.bundle(name: "x24/Date")
+    static let edit = ImageAsset.bundle(name: "x24/Edit")
     static let email = ImageAsset.bundle(name: "x24/Email")
     static let embed = ImageAsset.bundle(name: "x24/Embed")
     static let empty = ImageAsset.bundle(name: "x24/Empty")
@@ -129,6 +136,7 @@ internal extension ImageAsset {
     static let `open` = ImageAsset.bundle(name: "x24/Open")
     static let phoneNumber = ImageAsset.bundle(name: "x24/Phone Number")
     static let plus = ImageAsset.bundle(name: "x24/Plus")
+    static let privateSpace = ImageAsset.bundle(name: "x24/Private Space")
     static let relations = ImageAsset.bundle(name: "x24/Relations")
     static let removeRed = ImageAsset.bundle(name: "x24/Remove Red")
     static let replace = ImageAsset.bundle(name: "x24/Replace")
@@ -176,7 +184,6 @@ internal extension ImageAsset {
     static let download = ImageAsset.bundle(name: "x32/Download")
     static let dragDrop = ImageAsset.bundle(name: "x32/Drag & Drop")
     static let duplicate = ImageAsset.bundle(name: "x32/Duplicate")
-    static let edit = ImageAsset.bundle(name: "x32/Edit")
     static let empty = ImageAsset.bundle(name: "x32/Empty")
     static let export = ImageAsset.bundle(name: "x32/Export")
     enum Favorite {
@@ -288,9 +295,6 @@ internal extension ImageAsset {
   enum Emoji {
     }
   static let createNewObject = ImageAsset.bundle(name: "createNewObject")
-  enum Migration {
-    static let close = ImageAsset.bundle(name: "Migration/Close")
-  }
   static let linkToItself = ImageAsset.bundle(name: "link_to_itself")
   static let makeAsTemplate = ImageAsset.bundle(name: "make_as_template")
   static let templateMakeDefault = ImageAsset.bundle(name: "template_make_default")

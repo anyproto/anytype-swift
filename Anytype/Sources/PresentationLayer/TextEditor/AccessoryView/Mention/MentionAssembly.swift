@@ -1,15 +1,15 @@
 final class MentionAssembly {
     func controller(
-        documentId: String,
+        document: BaseDocumentProtocol,
         onMentionSelect: @escaping (MentionObject) -> Void,
         onDismiss: (() -> Void)?
     ) -> MentionsViewController {
         let mentionService = MentionObjectsService(searchService: ServiceLocator.shared.searchService())
         
         let viewModel = MentionsViewModel(
-            documentId: documentId,
+            document: document,
             mentionService: mentionService,
-            pageService: ServiceLocator.shared.pageService(),
+            pageService: ServiceLocator.shared.pageRepository(),
             onSelect: onMentionSelect
         )
         let controller = MentionsViewController(viewModel: viewModel, dismissAction: onDismiss)

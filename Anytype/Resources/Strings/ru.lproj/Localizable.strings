@@ -1,0 +1,850 @@
+// style menu
+"StyleMenu.Color.TextColor.Placeholder" = "А";
+
+// MARK: Text Style in Slash and Style menu
+"TextStyle.Text.Title" = "Текст";
+"TextStyle.Text.Subtitle" = "Просто начните писать с обычного текста";
+
+"TextStyle.Title.Title" = "Название";
+"TextStyle.Title.Subtitle" = "Заголовок большого раздела";
+
+"TextStyle.Heading.Title" = "Заголовок";
+"TextStyle.Heading.Subtitle" = "Средний заголовок";
+
+"TextStyle.Subheading.Title" = "Подзаголовок";
+"TextStyle.Subheading.Subtitle" = "Маленький заголовок";
+
+"TextStyle.Highlighted.Title" = "Выделенный";
+"TextStyle.Highlighted.Subtitle" = "Выделите то, что требует особого внимания";
+
+"TextStyle.Callout.Title" = "Врезка";
+"TextStyle.Callout.Subtitle" = "Выделенный рамкой текст со значком";
+
+"TextStyle.Checkbox.Title" = "Флажок";
+"TextStyle.Checkbox.Subtitle" = "Создавайте и отслеживайте задачу с помощью списка дел";
+
+"TextStyle.Bulleted.Title" = "Маркирован";
+"TextStyle.Bulleted.Subtitle" = "Простой список";
+
+"TextStyle.Numbered.Title" = "Нумерованный список";
+"TextStyle.Numbered.Subtitle" = "Нумерованный список";
+
+"TextStyle.Toggle.Title" = "Переключить";
+"TextStyle.Toggle.Subtitle" = "Скрыть и показать содержимое внутри";
+
+"TextStyle.Bold.Title" = "Жирный";
+"TextStyle.Italic.Title" = "Курсив";
+"TextStyle.Strikethrough.Title" = "Зачёркнутый";
+"TextStyle.Code.Title" = "Код";
+"TextStyle.Link.Title" = "Ссылка";
+
+// MARK: - Block Text
+"BlockText.Content.Placeholder" = "Без названия";
+
+"BlockText.ContentType.Title.Placeholder" = "Без названия";
+"BlockText.ContentType.Description.Placeholder" = "Добавить описание";
+"BlockText.ContentType.Toggle.Placeholder" = "Переключить блок";
+"BlockText.ContentType.Bulleted.Placeholder" = "Маркированный список";
+"BlockText.ContentType.Checkbox.Placeholder" = "Флажок";
+"BlockText.ContentType.Numbered.Placeholder" = "Нумерованный список";
+"BlockText.ContentType.Quote.Placeholder" = "Выделенный текст";
+"BlockText.ContentType.Header.Placeholder" = "Название";
+"BlockText.ContentType.Header2.Placeholder" = "Заголовок";
+"BlockText.ContentType.Header3.Placeholder" = "Подзаголовок";
+
+// MARK: - Block Link
+
+"BlockLink.PreviewSettings.IconSize.None" = "Нет";
+"BlockLink.PreviewSettings.IconSize.Small" = "Маленький";
+"BlockLink.PreviewSettings.IconSize.Medium" = "Средний";
+
+"BlockLink.PreviewSettings.Layout.Card.Title" = "Карточка";
+"BlockLink.PreviewSettings.Layout.Text.Title" = "Текст";
+
+// MARK: - Settings
+"Settings.Title" = "Настройки";
+"Settings.SpaceName" = "Название пространства";
+
+// MARK: - Object
+"Object.Title.Placeholder" = "Без названия";
+"Object.Deleted.Placeholder" = "Удаленный объект";
+
+// MARK: - Relation
+"Featured relations" = "Избранные свойства";
+"Create relation" = "Создать свойство ‘%@’";
+"Relation.View.Hint.Empty" = "пусто";
+"Relation.MyRelations" = "Мои свойства";
+"Relation.AddedToLibrary" = "Свойство ‘%@’ добавлено в вашу библиотеку";
+"Relation.Deleted" = "Удалённое свойство";
+"Relation.From.Type" = "Из типа %@";
+
+"Relation.Format.Object.Title" = "Объект";
+"Relation.Format.Text.Title" = "Текст";
+"Relation.Format.Number.Title" = "Число";
+"Relation.Format.Status.Title" = "Статус";
+"Relation.Format.Tag.Title" = "Метка";
+"Relation.Format.Date.Title" = "Дата";
+"Relation.Format.FileMedia.Title" = "Файл, медиафайл";
+"Relation.Format.Checkbox.Title" = "Флажок";
+"Relation.Format.Url.Title" = "Ссылка";
+"Relation.Format.Email.Title" = "E-mail";
+"Relation.Format.Phone.Title" = "Номер телефона";
+
+// MARK: - Mention
+"Mention.Subtitle.Placeholder" = "Объект";
+
+"None" = "Нет";
+"Callout" = "Врезка";
+"Toggle empty. Tap to create block." = "Пусто. Нажмите, чтобы создать блок.";
+"Loading, please wait" = "Подождите, выполняется загрузка";
+"Done" = "Готово";
+"Style" = "Внешний вид";
+"Color" = "Цвет";
+"Background" = "Фон";
+"Other" = "Прочее";
+"Media" = "Медиа-файлы";
+"Alignment" = "Выравнивание";
+"Actions" = "Действия";
+"Relations" = "Свойства";
+"Objects" = "Объекты";
+"Delete" = "Удалить";
+"Duplicate" = "Дублировать";
+"Copy" = "Копировать";
+"Preview" = "Предпросмотр";
+"View" = "Вид";
+"Paste" = "Вставить";
+"Move" = "Переместить";
+"Move to" = "Переместить в";
+"Back" = "Назад";
+"File block subtitle" = "Сохранить файл в исходном состоянии";
+"Picture block subtitle" = "Загрузите и дополните страницу изображением";
+"Video block subtitle" = "Загрузить воспроизводимое видео";
+"Bookmark block subtitle" = "Сохраните вашу любимую ссылку с кратким описанием";
+"Code block subtitle" = "Записать фрагмент кода";
+"Align right" = "Выровнять по правому краю";
+"Align left" = "Выровнять по левому краю";
+"Align center" = "Выровнять по центру";
+"Black" = "Чёрный";
+"Amber" = "Янтарный";
+"Red" = "Красный";
+"Pink" = "Розовый";
+"Purple" = "Фиолетовый";
+"Blue" = "Синий";
+"Teal" = "Бирюзовый";
+"Green" = "Зелёный";
+"Default background" = "Фон по умолчанию";
+"Amber background" = "Янтарный фон";
+"Red background" = "Красный фон";
+"Pink background" = "Розовый фон";
+"Purple background" = "Фиолетовый фон";
+"Blue background" = "Синий фон";
+"Green background" = "Зелёный фон";
+"Create new object" = "Создать новый объект";
+"Cancel" = "Отмена";
+"Paste or type URL" = "Вставить или ввести URL-адрес";
+"No items match filter" = "Нет элементов, соответствующих фильтру";
+"Unsupported block" = "Неподдерживаемый блок";
+"Name" = "Название";
+"Description" = "Описание";
+"Paste processing..." = "Обработка вставки...";
+"Anytype Library" = "Библиотека Anytype";
+"Copied" = "Скопировано";
+
+// Home
+"Favorites" = "Избранное";
+"Recent" = "Недавние";
+"Bin" = "Корзина";
+
+// Settings
+"Wallpaper" = "Обои";
+"Log out" = "Выйти";
+
+// Action
+"Restore" = "Восстановить";
+
+// Keychain screen
+"Keychain.Recovery phrase" = "Фраза для восстановления";
+"Keychain.Recovery phrase copied to clipboard" = "Фраза для восстановления скопирована";
+"Keychain.Recovery phrase description" = "Она понадобится вам для входа. Храните ее надежно. В случае потери, вы потеряете доступ к аккаунту.";
+"Keychain.Save keychain alert part 1" = "Если вы потеряете фразу восстановления и выйдите из системы, вы не сможете ";
+"Keychain.Save keychain alert part 2" = "снова получить доступ к вашим данным";
+"Keychain.Save keychain alert part 3" = ".\nСохраните фразу восстановления где-нибудь вне Anytype.\nМы рекомендуем использовать защищенное хранилище, менеджер паролей или лист бумаги.";
+"Keychain.Don’t forget to save your recovery phrase" = "Не забудьте сохранить вашу фразу восстановления";
+"Keychain.Show and copy phrase" = "Показать и скопировать фразу";
+"Keychain.Have you backed up your recovery phrase?" = "Вы сделали резервную копию вашей фразы восстановления?";
+"Keychain.Error.String to Data conversion error" = "Ошибка преобразования строки в данные";
+"Keychain.Error.Data to String conversion error" = "Ошибка преобразования данных в строку";
+"Keychain.Error.Unknown Keychain Error" = "Неизвестная ошибка Связки ключей";
+"Keychain.SeedPhrasePlaceholder" = "witch collapse practice feed shame open despair creek road again ice least lake tree young address brain despair";
+
+// Auth
+"Sign up" = "Зарегистрироваться";
+"Login" = "Войти";
+"Create" = "Создать";
+"Scan QR code" = "Сканировать QR-код";
+"Auth.CameraPermissionTitle" = "Пожалуйста, разрешите доступ";
+"Restore secret phrase from keychain" = "Восстановить фразу восстановления из связки ключей";
+"Auth.LogIn" = "Войти";
+"Auth.Join" = "Создать новую учетную запись";
+"Auth.Welcome.Subtitle" = "Anytype - это безопасное место для записи мыслей и заметок, планирования и организации всего что важно для вас.";
+"Auth.Caption.Privacy.Text" = "Продолжая, вы соглашаетесь с нашими [условиями пользования](%@) и [политикой конфиденциальности](%@) ";
+"Auth.Next" = "Далее";
+
+"Account recover error" = "Ошибка при восстановлении учетной записи, попробуйте снова";
+"Account recover error no internet" = "Ошибка при восстановлении учетной записи, возможно нет соединения с интернетом";
+
+// Auth Errors
+"Error creating wallet" = "Ошибка создания кошелька";
+"Error select account" = "Ошибка при выборе учетной записи";
+"Error wallet recover account" = "Ошибка восстановления аккаунта";
+
+"Search for language" = "Поиск языка";
+
+// Auth - Join flow
+
+"Auth.JoinFlow.Key.Title" = "Сохраните свою фразу восстановления";
+"Auth.JoinFlow.Key.Description" = "Это новый способ аутентификации, который дает вам право на полное владение вашим аккаунтом и данными";
+"Auth.JoinFlow.Key.TextField.Placeholder" = "Введите свою фразу восстановления";
+"Auth.JoinFlow.Key.Button.Show.Title" = "Показать фразу для восстановления";
+"Auth.JoinFlow.Key.Button.Saved.Title" = "Перейти в приложение";
+"Auth.JoinFlow.Key.Button.Later.Title" = "Пропустить";
+"Auth.JoinFlow.Key.Button.Copy.Title" = "Копировать в буфер обмена";
+"Auth.JoinFlow.Key.Button.Info.Title" = "Подробнее";
+"Auth.JoinFlow.Key.Button.Tip.Title" = "Вы можете найти фразу восстановления позже в настройках Anytype";
+
+"Auth.JoinFlow.Key.ReadMore.Title" = "Что такое фраза восстановления?";
+"Auth.JoinFlow.Key.ReadMore.Option1.Title" = "Фраза восстановления - это случайная комбинация из 12 слов. Волшебным образом из этих слов генерируется ваш аккаунт на устройстве.";
+"Auth.JoinFlow.Key.ReadMore.Option2.Title" = "Любой человек, знающий фразу восстановления, является владельцем аккаунта. **На данный момент вы единственный человек на земле, знающий ее.**";
+"Auth.JoinFlow.Key.ReadMore.Option3.Title" = "Очень важно держать вашу фразу восстановления в секрете. Никто не сможет вам помочь в случае ее утери.";
+"Auth.JoinFlow.Key.ReadMore.Instruction.Title" = "Как сохранить мою фразу?";
+"Auth.JoinFlow.Key.ReadMore.Instruction.Option1.Title" = "Самый простой способ хранить вашу фразу восстановления - сохранить ее в вашем менеджере паролей.";
+"Auth.JoinFlow.Key.ReadMore.Instruction.Option2.Title" = "Самый безопасный способ - записать ее на бумаге и оставить бумагу в безопасном месте.";
+
+"Auth.JoinFlow.Soul.Title" = "Выберете имя";
+"Auth.JoinFlow.Soul.Description" = "Так вы будете отображаться в приложении.";
+"Auth.JoinFlow.Soul.Placeholder" = "Без названия";
+
+"Auth.JoinFlow.Creating.Soul.Title" = "Создание нового аккаунта";
+"Auth.JoinFlow.Setting.Space.Title" = "Настройка вашего личного пространства";
+"Auth.JoinFlow.Personal.Space.Title" = "Настройки";
+
+// Auth - Login flow
+"Auth.LoginFlow.Use.Keychain.Title" = "Использовать связку ключей";
+"Auth.LoginFlow.Or" = "ИЛИ";
+"Auth.LoginFlow.Textfield.Placeholder" = "Введите свою фразу восстановления";
+"Auth.LoginFlow.Enter.Button.Title" = "Войти";
+"Auth.LoginFlow.Entering.Void.Title" = "Входим в пустоту";
+
+// Object settings
+
+"Icon" = "Иконка";
+"Emoji or image for object" = "Эмодзи или изображение для объекта";
+"Cover" = "Обложка";
+"Background picture" = "Фоновое изображение";
+"Layout" = "Макет";
+"Arrangement of objects on a canvas" = "Расположение объектов на холсте";
+
+"Search" = "Поиск";
+"There is no emoji named" = "Нет эмодзи с таким именем";
+"Try to find a new one or upload your image" = "Попробуйте найти новое или загрузите ваше изображение";
+
+"Emoji" = "Эмодзи";
+"Random" = "Случайно";
+"Upload" = "Загрузить";
+"Change icon" = "Изменить иконку";
+"Change cover" = "Изменить обложку";
+"Remove" = "Удалить";
+
+"Solid colors" = "Сплошные цвета";
+"Gradients" = "Градиенты";
+"Gallery" = "Галерея";
+
+"Remove photo" = "Удалить фото";
+"Basic" = "Базовый";
+"Profile" = "Профиль";
+"Task" = "Задача";
+"Note" = "Заметка";
+"Choose layout type" = "Выберите тип макета";
+
+"Undo typing" = "Отменить ввод";
+"Undo" = "Отменить";
+"Actions.LinkItself" = "Связать с";
+"Actions.MakeAsTemplate" = "Создать шаблон";
+"Actions.TemplateMakeDefault" = "Make default";
+
+// Object Type
+"Set" = "Набор";
+"Collection" = "Коллекция";
+
+"Editor.MovingState.ScrollToSelectedPlace" = "Прокрутите для выбора места";
+
+// MARK: - Link to search
+
+"Editor.LinkToObject.SearchPlaceholder" = "Вставить ссылку или найти объекты";
+"Editor.LinkToObject.PasteFromClipboard" = "Вставить из буфера обмена";
+"Editor.LinkToObject.LinkedTo" = "Привязан к";
+"Editor.LinkToObject.CopyLink" = "Скопировать ссылку";
+"Editor.LinkToObject.RemoveLink" = "Удалить ссылку";
+
+// MARK: - Main search
+"There is no object named" = "Нет объекта с именем %@";
+"There is no type named" = "Нет типа с именем %@";
+"Create a new one or search for something else" = "Создайте новый или найдите что-то другое";
+
+// MARK: - Home
+
+"Home.Snackbar.Library" = "Библиотека доступна в приложении для компьютера";
+
+// MARK: - Alerts
+"Alert.CameraPermissions.Settings" = "Настройки";
+"Alert.CameraPermissions.GoToSettings" = "Anytype нуждается в доступе к камере для сканирования QR-кодов.\n\nПожалуйста, перейдите в Настройки -> Конфиденциальность -> Камера и установите ползунок Anytype в режим ВКЛ";
+
+// MARK: - Deletion
+"Pending deletion text" = "Мы сожалеем, что вы уходите. У вас есть 30 дней, чтобы отменить этот запрос. После 30 дней зашифрованные данные вашего аккаунта удаляются навсегда из резервного узла.";
+
+// MARK: - Object Settings
+"Undo/Redo" = "Отменить/Повторить";
+
+
+// MARK: - Templates
+"TemplateSelection.Available.Title" = "Этот тип имеет %d шаблон(а/ов)";
+"TemplatePicker.ChooseTemplate" = "Выберите шаблон";
+"TemplatePicker.Buttons.UseTemplate" = "Использовать шаблон";
+"TemplateSelection.SelectTemplate" = "Выбрать шаблон";
+"TemplateSelection.blankTemplate" = "Пусто";
+"TemplateSelection.Template.Subtitle" = "Шаблон";
+"TemplateSelection.ObjectType.Subtitle" = "Тип объекта";
+
+"TemplateOptions.Alert.EditTemplate" = "Изменить шаблон";
+"TemplateOptions.Alert.Duplicate" = "Дублировать";
+"TemplateOptions.Alert.Delete" = "Удалить";
+
+"TemplateEditing.Title" = "Изменить шаблон";
+
+"Templates.Popup.WasAddedTo" = "Новый шаблон добавлен к типу";
+"Templates.Popup.Duplicated" = "Шаблон был скопирован";
+"Templates.Popup.Removed" = "Шаблон был удален";
+"Templates.Popup.Default" = "Шаблон был установлен по умолчанию";
+
+"To Bin" = "В корзину";
+
+// MARK: - Context Menu
+"Remove From Favorite" = "Удалить из избранного";
+"Add To Favorite" = "Добавить в избранное";
+"Move To Bin" = "Переместить в корзину";
+
+
+"LinkAppearance.Description.None.Title" = "Нет";
+"LinkAppearance.Description.Object.Title" = "Описание объекта";
+"LinkAppearance.Description.Content.Title" = "Предпросмотр контента";
+"LinkAppearance.ObjectType.Title" = "Тип объекта";
+
+// MARK: - Sets: Sorts
+"EditSet.Popup.Sorts.NavigationView.Title" = "Сортировки";
+"EditSet.Popup.Sorts.EmptyView.Title" = "Здесь нет сортировки. Вы можете добавить несколько";
+"EditSet.Popup.Sort.Types.Ascending" = "По возрастанию";
+"EditSet.Popup.Sort.Types.Descending" = "По убыванию";
+"EditSet.Popup.Sort.Add.SearchPlaceholder" = "Выберите свойство для сортировки";
+
+// MARK: - Sets: Filters
+"EditSet.Popup.Filters.NavigationView.Title" = "Фильтры";
+"EditSet.Popup.Filters.EmptyView.Title" = "Здесь нет фильтров. Вы можете добавить свои";
+"EditSet.Popup.Filters.TextView.Placeholder" = "Значение";
+
+// MARK: - Sets: Filters.Conditions
+"EditSet.Popup.Filter.Condition.Text.Equal" = "Является";
+"EditSet.Popup.Filter.Condition.Text.NotEqual" = "Не является";
+"EditSet.Popup.Filter.Condition.Text.Like" = "Содержит";
+"EditSet.Popup.Filter.Condition.Text.NotLike" = "Не содержит";
+
+"EditSet.Popup.Filter.Condition.Number.Equal" = "Равно";
+"EditSet.Popup.Filter.Condition.Number.NotEqual" = "Не равно";
+"EditSet.Popup.Filter.Condition.Number.Greater" = "Больше чем";
+"EditSet.Popup.Filter.Condition.Number.Less" = "Меньше чем";
+"EditSet.Popup.Filter.Condition.Number.GreaterOrEqual" = "Больше или равно";
+"EditSet.Popup.Filter.Condition.Number.LessOrEqual" = "Меньше или равно";
+
+"EditSet.Popup.Filter.Condition.Date.Equal" = "Является";
+"EditSet.Popup.Filter.Condition.Date.After" = "После";
+"EditSet.Popup.Filter.Condition.Date.Before" = "До";
+"EditSet.Popup.Filter.Condition.Date.OnOrAfter" = "Совпадает или после";
+"EditSet.Popup.Filter.Condition.Date.OnOrBefore" = "Совпадает или до";
+"EditSet.Popup.Filter.Condition.Date.In" = "Находится в пределах";
+
+"EditSet.Popup.Filter.Condition.Selected.In" = "Имеет любой из";
+"EditSet.Popup.Filter.Condition.Selected.AllIn" = "Имеет все из";
+"EditSet.Popup.Filter.Condition.Selected.NotIn" = "Нет ни одного из";
+"EditSet.Popup.Filter.Condition.Selected.Equal" = "Точно соответствует";
+
+"EditSet.Popup.Filter.Condition.Checkbox.Equal" = "Является";
+"EditSet.Popup.Filter.Condition.Checkbox.NotEqual" = "Не является";
+
+"EditSet.Popup.Filter.Condition.General.Empty" = "Пустое";
+"EditSet.Popup.Filter.Condition.General.NotEmpty" = "Не пустое";
+"EditSet.Popup.Filter.Condition.General.None" = "Все";
+
+"EditSet.Popup.Filter.Value.Checked" = "Отмечено";
+"EditSet.Popup.Filter.Value.Unchecked" = "Не отмечено";
+
+"EditSet.Popup.Filter.Date.Option.Today" = "Сегодня";
+"EditSet.Popup.Filter.Date.Option.Yesterday" = "Вчера";
+"EditSet.Popup.Filter.Date.Option.Tomorrow" = "Завтра";
+"EditSet.Popup.Filter.Date.Option.LastWeek" = "Прошлая неделя";
+"EditSet.Popup.Filter.Date.Option.CurrentWeek" = "Текущая неделя";
+"EditSet.Popup.Filter.Date.Option.NextWeek" = "Следующая неделя";
+"EditSet.Popup.Filter.Date.Option.LastMonth" = "Прошлый месяц";
+"EditSet.Popup.Filter.Date.Option.CurrentMonth" = "Текущий месяц";
+"EditSet.Popup.Filter.Date.Option.NextMonth" = "Следующий месяц";
+"EditSet.Popup.Filter.Date.Option.NumberOfDaysAgo" = "Количество дней назад";
+"EditSet.Popup.Filter.Date.Option.NumberOfDaysFromNow" = "Количество дней с этого момента";
+"EditSet.Popup.Filter.Date.Option.ExactDate" = "Точная дата";
+
+"EditSet.Popup.Filter.Date.Option.NumberOfDaysAgo.Short" = "%@ дней назад";
+"EditSet.Popup.Filter.Date.Option.NumberOfDaysFromNow.Short" = "%@ дней с настоящего времени";
+
+// MARK: - Sets. Create object
+"Set.Create.ObjectTitle.Placeholder" = "Без названия";
+
+// MARK: - Sets: Featured relations
+"Set.FeaturedRelations.Query" = "Запрос";
+"Set.FeaturedRelations.RelationsList" = "Свойства:";
+"Set.FeaturedRelations.Relation" = "Свойство:";
+"Set.FeaturedRelations.Type" = "Тип:";
+
+// MARK: - Sets: Filters search
+"Set.Button.Title.Apply" = "Применить";
+
+// MARK: - Set.Bookmarks
+"Set.Bookmark.Create.Placeholder" = "Вставить ссылку";
+"Set.Bookmark.Error.Title" = "Oops - something went wrong";
+"Set.Bookmark.Error.Message" = "Please try again";
+
+// MARK: - Sets: View Settings
+"Set.View.Settings.ImageFit.Title" = "Подогнать изображение";
+"Set.View.Settings.CardSize.Title" = "Размер карточки";
+"Set.View.Settings.CardSize.Small.Title" = "Маленький";
+"Set.View.Settings.CardSize.Large.Title" = "Большой";
+"Set.View.Settings.ImagePreview.Title" = "Предпросмотр изображения";
+"Set.View.Settings.GroupBy.Title" = "Группировать по";
+"Set.View.Settings.GroupBackgroundColors.Title" = "Цветные столбцы";
+
+"Set.View.Settings.NoRelations.Placeholder" = "Нет свойств";
+"Set.View.Settings.NoFilters.Placeholder" = "Нет фильтров";
+"Set.View.Settings.NoSorts.Placeholder" = "Нет сортировок";
+"Set.View.Settings.Objects.Applied.Title" = "%d применено";
+
+// MARK: - Sets: Kanban
+"Set.View.Kanban.Column.Title.Uncategorized" = "Без категории";
+"Set.View.Kanban.Column.Title.Checked" = "%@ отмечено";
+"Set.View.Kanban.Column.Title.Unchecked" = "%@ не отмечено";
+"Set.View.Kanban.Column.Paging.Title.ShowMore" = "Показать больше объектов";
+"Set.View.Kanban.Column.Settings.Color.Title" = "Цвет столбца";
+"Set.View.Kanban.Column.Settings.Hide.Column.Title" = "Скрыть столбец";
+
+// MARK: - Sets: empty view
+"Set.View.Empty.Title" = "Не выбрано ни одного запроса";
+"Set.View.Empty.Subtitle" = "Добавьте поисковый запрос для агрегирования объектов с одинаковыми типами и свойствами в режиме реального времени.";
+
+// MARK: - Set source type
+"Set.SourceType.SelectQuery" = "Выберите запрос";
+"Set.SourceType.Cancel.Toast.Title" = "Этот запрос может быть изменен только на компьютере";
+
+// MARK: - Set: Type context menu
+"Set.TypeRelation.ContextMenu.TurnIntoCollection" = "Превратить Множество в Коллекцию";
+"Set.TypeRelation.ContextMenu.ChangeQuery" = "Изменить запрос";
+
+// MARK: - Collection: empty view
+"Collection.View.Empty.Title" = "Нет объектов";
+"Collection.View.Empty.Subtitle" = "Создайте первый объект, чтобы продолжить";
+"Collection.View.Empty.Button.Title" = "Создать объект";
+
+// MARK: Slash Menu
+"SlashMenu.DotsDivider" = "Точечный разделитель";
+"SlashMenu.LineDivider" = "Линейный разделитель";
+"SlashMenu.TableOfContents" = "Содержание";
+"SlashMenu.Table" = "Таблица";
+
+"Error" = "Ошибка";
+"Unknown error" = "Неизвестная ошибка";
+"Close" = "Закрыть";
+"Account is deleted" = "Аккаунт был удален";
+"Add phone" = "Добавить номер телефона";
+"Nothing to redo" = "Нет действий для повтора";
+"Nothing to undo" = "Нет действий для отмены";
+"Progress..." = "Выполнение...";
+"Grey" = "Серый";
+"Sky" = "Небесный";
+"Yellow" = "Жёлтый";
+"Grey background" = "Серый фон";
+"Teal background" = "Бирюзовый фон";
+"Sky background" = "Небесный фон";
+"Yellow background" = "Жёлтый фон";
+"Enter value" = "Введите значение";
+"Select object" = "Выбрать объект";
+"Select file" = "Выбрать файл";
+"Select tag" = "Выбрать тег";
+"Select status" = "Выбрать статус";
+"Select date" = "Выбрать дату";
+"Add email" = "Добавить электронную почту";
+"Add link" = "Добавить ссылку";
+"Enter number" = "Введите число";
+"Enter text" = "Введите текст";
+"Unsupported value" = "Неподдерживаемое значение";
+"Select relation type" = "Выберите тип свойства";
+
+"Limit object types" = "Ограничить типы объектов";
+"Type" = "Тип";
+"No name" = "Без названия";
+"New relation" = "Новое свойство";
+"Non-existent object" = "Несуществующий объект";
+
+"Select all" = "Выбрать все";
+"Unselect all" = "Отменить выбор";
+"Deselect all" = "Снять выделение";
+"Shared" = "Общие";
+"Sets" = "Наборы";
+"Collections" = "Коллекции";
+"Default object type" = "Тип объекта по умолчанию";
+"Personalization" = "Персонализация";
+"Choose default object type" = "Выберите тип объекта по умолчанию";
+"About" = "О нас";
+"Appearance" = "Внешний вид";
+"Change wallpaper" = "Изменить обои";
+"Application icon" = "Значок приложения";
+"Mode" = "Режим";
+"copied to clipboard" = "Скопирован(о) в буфер обмена: %@";
+"Access to secret phrase from keychain" = "Access to secret phrase from keychain";
+"Back up your recovery phrase" = "Создайте резервную копию фразы восстановления";
+"Account" = "Учетная запись";
+"Access" = "Доступ";
+"Back up phrase" = "Фраза восстановления";
+"Removing cache" = "Удаление кэша";
+"Deletion error" = "Deletion error";
+"Start" = "Start";
+"On analytics" = "On analytics";
+"Select account error" = "Select account error";
+"Account deleted" = "Account deleted";
+"Account.Select.Incompatible.Version.Error.Text" = "Unable to retrieve account data due to incompatible version on remote nodes. Please update Anytype to the latest version.";
+"Restore from keychain" = "Restore from keychain";
+"Edit" = "Edit";
+"In this object" = "In this object";
+"Other relations" = "Другие свойства";
+"Collection of objects" = "Collection of objects";
+"Designed to capture thoughts quickly" = "Designed to capture thoughts quickly";
+"Action-focused layout with a checkbox" = "Action-focused layout with a checkbox";
+"Standard layout for canvas blocks" = "Standard layout for canvas blocks";
+"List of related objects" = "List of related objects";
+"Lock" = "Lock";
+"Unlock" = "Unlock";
+"Favorite" = "Favorite";
+"Unfavorite" = "Unfavorite";
+"Unsplash" = "Unsplash";
+"Go back" = "Go back";
+"Backed up on one node at least" = "Backed up on one node at least";
+"Downloading or uploading data to some node" = "Downloading or uploading data to some node";
+"Anytype node is not connected" = "Anytype node is not connected";
+"Initializing sync" = "Initializing sync";
+"Not syncing" = "Not syncing";
+"Synced" = "Synced";
+"Syncing..." = "Syncing...";
+"No connection" = "No connection";
+"Preparing..." = "Preparing...";
+"Deleted" = "Deleted";
+"Download" = "Download";
+"Open object" = "Open object";
+"Open source" = "Open source";
+"Into object" = "Into object";
+"Add below" = "Add below";
+"Change type" = "Change type";
+"Link to existing object" = "Link to existing object";
+"Link to object" = "Link to object";
+"Upload playable audio" = "Upload playable audio";
+"Code snippet" = "Code snippet";
+"Bookmark" = "Bookmark";
+"Audio" = "Audio";
+"Video" = "Video";
+"Picture" = "Picture";
+"File" = "Файл";
+"No related options here" = "No related options here. You can add some";
+"Empty" = "Пусто";
+"Link to" = "Связать с";
+"Unknown" = "Неизвестно";
+"Settings" = "Настройки";
+"Views" = "Представления";
+"Filter" = "Filter";
+"Sort" = "Сортировка";
+"View" = "Вид";
+"Home" = "Главная";
+"Highlight" = "Выделить";
+"Create object" = "Создать объект";
+"Web pages" = "Веб-страницы";
+"Preview layout" = "Предпросмотр макета";
+"Everywhere" = "Везде";
+"Exact day" = "Точная дата";
+"Tomorrow" = "Завтра";
+"Yesterday" = "Вчера";
+"Today" = "Сегодня";
+"No date" = "Нет даты";
+"Clear" = "Очистить";
+"Create option" = "Создать параметр '%@’";
+"Add URL" = "Добавить URL-адрес";
+"Add email" = "Добавить электронную почту";
+"Add phone number" = "Добавить номер телефона";
+"Add number" = "Добавить номер";
+"Add text" = "Добавить текст";
+"Ok" = "Ок";
+"Error occurred. Please try again" = "Произошла ошибка. Пожалуйста, попробуйте еще раз.";
+"Add" = "Добавить";
+"Companies, contacts, friends and family" = "Компании, контакты, друзья и семья";
+"Failed to sync, trying again..." = "Не удалось синхронизироваться, попробуйте еще раз...";
+"Sync.Status.Version.Outdated.Description" = "Версия устарела. Пожалуйста, обновите Anytype";
+"This object doesn't exist" = "Этого объекта не существует";
+"Setting up encrypted storage\nPlease wait" = "Настройка зашифрованного хранилища\nПожалуйста, подождите";
+"These objects will be deleted irrevocably" = "Элементы в корзине будут безвозвратно удалены. Вы не сможете отменить это действие.";
+"Delete account" = "Удалить аккаунт";
+"Cancel deletion" = "Отменить удаление";
+"Logout and clear data" = "Выйти и очистить данные";
+"New" = "Новый";
+
+// MARK: - DeletionAlert
+"DeletionAlert.title" = "Вы действительно хотите удалить аккаунт?";
+"DeletionAlert.description" = "Произойдет выход из вашего аккаунта на всех устройствах. У вас будет 30 дней, чтобы восстановить его. После этого он будет удален навсегда";
+
+// MARK: - DataviewType
+"DataviewType.grid" = "Сетка";
+"DataviewType.list" = "Список";
+"DataviewType.gallery" = "Галерея";
+"DataviewType.kanban" = "Канбан";
+"DataviewType.calendar" = "Calendar";
+
+// MARK: - ObjectType
+"ObjectType.fallbackDescription" = "Пустой холст без заголовка";
+"ObjectType.SearchOrInstall" = "Искать или создать новый тип";
+"ObjectType.Search" = "Поиск типа";
+"ObjectType.MyTypes" = "Мои типы";
+"ObjectType.AddedToLibrary" = "Свойство ‘%@’ добавлено в вашу библиотеку";
+"ObjectType.DeletedName" = "Удаленный тип";
+
+// MARK: - QuickAction
+"QuickAction.create" = "Создать %@";
+
+// MARK: - RedactedText
+"RedactedText.pageTitle" = "Проснись, Нео";
+"RedactedText.pageType" = "Красная таблетка";
+
+// MARK: - InterfaceStyle
+"InterfaceStyle.light" = "Светлый";
+"InterfaceStyle.dark" = "Тёмный";
+"InterfaceStyle.system" = "Системный";
+
+// MARK: Table of Contents
+"TalbeOfContents.Empty" = "Add headings to create a table of contents";
+
+// MARK: - Simple tables
+"SimpleTableMenu.Item.clearContents" = "Очистить";
+"SimpleTableMenu.Item.color" = "Цвет";
+"SimpleTableMenu.Item.style" = "Внешний вид";
+"SimpleTableMenu.Item.clearStyle" = "Reset style";
+
+"SimpleTableMenu.Item.InsertLeft" = "Вставить слева";
+"SimpleTableMenu.Item.InsertRight" = "Вставить справа";
+"SimpleTableMenu.Item.MoveLeft" = "Сдвинуть влево";
+"SimpleTableMenu.Item.MoveRight" = "Сдвинуть вправо";
+"SimpleTableMenu.Item.Duplicate" = "Дублировать";
+"SimpleTableMenu.Item.Delete" = "Удалить";
+"SimpleTableMenu.Item.Sort" = "Сортировка";
+
+"SimpleTableMenu.Item.InsertAbove" = "Вставить выше";
+"SimpleTableMenu.Item.InsertBelow" = "Вставить ниже";
+"SimpleTableMenu.Item.MoveUp" = "Сдвинуть вверх";
+"SimpleTableMenu.Item.MoveDown" = "Сдвинуть вниз";
+
+"DebugMenu.ToggleAuthor" = "Версия: %@, %@";
+
+// MARK: Link Past Actions
+"LinkPaste.text" = "Вставить как текст";
+"LinkPaste.link" = "Вставить как ссылку";
+"LinkPaste.bookmark" = "Создать закладку";
+
+// Relation Actions
+"RelationAction.CopyPhone" = "Copy phone numbler";
+"RelationAction.CopyEmail" = "Скопировать адрес электронной почты";
+"RelationAction.CopyLink" = "Скопировать ссылку";
+"RelationAction.Copied" = "Скопировано";
+"RelationAction.ReloadingContent" = "Перезагрузка содержимого";
+"RelationAction.ReloadContent" = "Перезагрузить содержимое объекта";
+"RelationAction.CallPhone" = "Позвонить в номер телефона";
+"RelationAction.SendEmail" = "Отправить электронное письмо";
+"RelationAction.OpenLink" = "Открыть ссылку";
+
+// MARK: Edit view type
+"SetViewTypesPicker.Title" = "Редактировать вид";
+"SetViewTypesPicker.New.Title" = "Новый вид";
+"SetViewTypesPicker.Section.Types.Title" = "Просмотреть как";
+"SetViewTypesPicker.Settings.Duplicate.View" = "Дублировать";
+"SetViewTypesPicker.Settings.Delete.View" = "Удалить вид";
+"SetViewTypesPicker.Settings.Textfield.Placeholder.New.View" = "Новый вид";
+"SetViewTypesPicker.Settings.Textfield.Placeholder.Untitled" = "Без названия";
+
+// MARK: Select view picker
+"EditorSetViewPicker.View.Not.Supported.Title" = "Не поддерживается";
+
+// BlockContent
+"Content.File.Upload" = "Загрузить файл";
+"Content.Audio.Upload" = "Загрузить аудио";
+"Content.Video.Upload" = "Загрузить видео";
+"Content.Picture.Upload" = "Загрузить изображение";
+"Content.Common.Uploading" = "Загрузка...";
+"Content.Common.Error" = "Что-то пошло не так, попробуйте еще раз";
+"Content.Bookmark.Add" = "Добавить веб-закладку";
+"Content.Bookmark.Loading" = "Загружается, подождите...";
+"Content.DataView.InlineSet.Subtitle" = "Встроенный набор";
+"Content.DataView.InlineCollection.Subtitle" = "Встроенная коллекция";
+"Content.DataView.InlineSet.NoSource" = "Нет источника";
+"Content.DataView.InlineSet.NoData" = "Нет данных";
+"Content.DataView.InlineSet.Untitled" = "Набор без названия";
+"Content.DataView.InlineCollection.Untitled" = "Коллекция без названия";
+"Content.DataView.InlineSet.Toast.Failure" = "This inline set doesn’t have a source";
+
+// MARK: - Widget extension
+"WidgetExtension.LockScreen.Title" = "New object";
+"WidgetExtension.LockScreen.Description" = "Create a new object on the fly";
+
+// MARK: - Toast
+"Editor.Toast.LinkedTo" = "linked to";
+"Editor.Toast.MovedTo" = "Block moved to";
+
+// MARK: - Scanner
+"Scanner.Error.Scanning not supported" = "Scanning not supported";
+
+// MARK: - Widgets
+"Widgets.SourceSearch" = "Widget source";
+"Widgets.Actions.ChangeSource" = "Change Source";
+"Widgets.Actions.ChangeWidgetType" = "Change Widget Type";
+"Widgets.Actions.RemoveWidget" = "Удалить виджет";
+"Widgets.Actions.EditWidgets" = "Редактировать виджеты";
+"Widgets.Actions.EmptyBin" = "Очистить корзину";
+"Widgets.Actions.AddBelow" = "Добавить ниже";
+"Widgets.Layout.Screen.Title" = "Тип виджета";
+"Widgets.Layout.Link.Title" = "Ссылка";
+"Widgets.Layout.Tree.Title" = "Дерево";
+"Widgets.Layout.List.Title" = "Список";
+"Widgets.Layout.CompactList.Title" = "Компактный список";
+"Widgets.Layout.Link.Description" = "Компактная версия объекта";
+"Widgets.Layout.Tree.Description" = "Иерархическая структура объектов";
+"Widgets.Layout.List.Description" = "Widget with list view of set object";
+"Widgets.Layout.CompactList.Description" = "Widget with list view of set object";
+"Widgets.Empty.Title" = "This data view contains no objects";
+"Widgets.Library.RecentlyEdited.Name" = "Недавно обновлено";
+"Widgets.Library.RecentlyOpened.Name" = "Недавно открытые";
+"Widgets.Library.RecentlyOpened.Description" = "На этом устройстве";
+
+// MARK: - About
+"About.AppVersion" = "Версия приложения: %@";
+"About.BuildNumber" = "Номер сборки: %@";
+"About.Library" = "Версия библиотеки: %@";
+"About.accountId" = "ID аккаунта: %@";
+"About.analyticsId" = "ID аналитики: %@";
+"About.deviceId" = "ID устройства: %@";
+"About.Device" = "Устройство: %@";
+"About.OSVersion" = "Версия ОС: %@";
+"About.HelpCommunity" = "Помощь и сообщество";
+"About.WhatsNew" = "Что нового";
+"About.AnytypeCommunity" = "Сообщество Anytype";
+"About.HelpTutorials" = "Справка и руководства";
+"About.ContactUs" = "Связаться с нами";
+"About.Legal" = "Правовая информация";
+"About.TermsOfUse" = "Условия использования";
+"About.PrivacyPolicy" = "Политика конфиденциальности";
+"About.TechInfo" = "Техническая информация";
+"About.Mail.Subject" = "Запрос на поддержку, ID аккаунта %@";
+"About.Mail.Body" = "\n\nТехническая информация\n%@";
+
+// MARK: - Cache
+"ClearCache.Success" = "Кэш успешно очищен";
+"ClearCache.Error" = "Ошибка, повторите попытку позже";
+
+// MARK: - Settings
+"Settings.TitleLegacy" = "Настройки";
+"Settings.Title" = "Настройки";
+"Settings.SpaceName" = "Название пространства";
+"Settings.AccountAndAccess" = "Учетная запись и доступ";
+
+// MARK: - File Storage
+"FileStorage.Title" = "Файловое хранилище";
+"FileStorage.Space.Title" = "Удалённое хранилище";
+"FileStorage.Space.Instruction" = "Вы можете бесплатно хранить до %@ ваших файлов на нашем узле резервного копирования. При достижении лимита файлы будут храниться только локально.";
+"FileStorage.Space.Used" = "%@ of %@ used";
+"FileStorage.Space.GetMore" = "Получить больше места для хранения";
+"FileStorage.Space.Mail.Subject" = "Get more storage, account %@";
+"FileStorage.Space.Mail.Body" = "Hi, Anytype team. I am reaching out to request an increase in my file storage capacity as I have run out of storage. My current limits is %@. My account id is %@. Cheers, %@.";
+"FileStorage.Local.Title" = "Local storage";
+"FileStorage.Local.Instruction" = "In order to save space on your local device, you can offload all your files to our encrypted backup node. The files will be loaded back when you open them.";
+"FileStorage.Local.Used" = "%@ used";
+"FileStorage.OffloadTitle" = "Offload files";
+"FileStorage.ManageFiles" = "Manage files";
+"FileStorage.LimitError" = "You exceeded file limit upload";
+"FileStorage.LimitLegend.Current" = "%@ | %@";
+"FileStorage.LimitLegend.Other" = "Other spaces | %@";
+"FileStorage.LimitLegend.Free" = "Free | %@";
+
+// MARK: - Files List
+"FilesList.Title" = "Synced files";
+"FilesList.ForceDelete.Title" = "Are you sure you want to permanently delete the files?";
+
+// MARK: - Widget object list
+"WidgetObjectList.ForceDelete.Message" = "You can’t undo this action.";
+
+// MARK: - Cpear cache alert
+"ClearCacheAlert.Title" = "Are you sure?";
+"ClearCacheAlert.Description" = "All media files stored in Anytype will be deleted from your current device. They can be downloaded again from a backup node or another device.";
+
+// MARK: - Spaces
+"Spaces.Accessibility.Public" = "Public Space";
+"Spaces.Accessibility.Private" = "Private Space";
+"Spaces.Accessibility.Personal" = "Настройки";
+"Spaces.Search.Title" = "Search spaces";
+
+// MARK: - Space Settings
+"SpaceSettings.Title" = "Space settings";
+"SpaceSettings.RemoteStorage" = "Удалённое хранилище";
+"SpaceSettings.Info" = "Space info";
+"SpaceSettings.NetworkId" = "Network ID";
+"SpaceSettings.DeleteAlert.Title" = "Delete ‘%@’ space";
+"SpaceSettings.DeleteAlert.Message" = "This space will be deleted irrevocably. You can’t undo this action.";
+"SpaceSettings.DeleteButton" = "Delete space";
+
+// MARK: - Space Create
+"SpaceCreate.Title" = "Create a space";
+
+// MARK: - Sharing
+"Sharing.Navigation.title" = "Add to Anytype";
+"Sharing.Navigation.LeftButton.Title" = "Отмена";
+"Sharing.Navigation.RightButton.Title" = "Готово";
+
+"Sharing.SaveAs" = "SAVE AS";
+"Sharing.SelectSpace" = "Space";
+"Sharing.AddTo" = "Add to";
+"Sharing.LinkTo" = "Связать с";
+
+"Sharing.URL.Bookmark" = "Bookmark object";
+"Sharing.URL.Text" = "Text block";
+"Sharing.Text.NoteObject" = "Note object";
+"Sharing.Text.TextBlock" = "Text block";
+
+// MARK: - Initial
+
+"Initial.UnstableMiddle.Title" = "Warning";
+"Initial.UnstableMiddle.Message" = "You launch app with a unstable middleware. Don't use your production account. Your account may be broken.";
+"Initial.UnstableMiddle.Title" = "Warning";
+"Initial.UnstableMiddle.Logout" = "Logout from current account";
+"Initial.UnstableMiddle.Continue" = "Continue with current account";
+"Initial.UnstableMiddle.WontUseProd" = "I won't be using my production account";
+
+// MARK: - Create tip
+"LongTapCreateTip.Title" = "Crete Objects with specific Type";
+"LongTapCreateTip.Message" = "Long tap on Create Object button to open menu with types";
+
+// MARK: - Error
+"Error.AnytypeNeedsUpgrate.Title" = "Update Your App";
+"Error.AnytypeNeedsUpgrate.Message" = "This object was modified in a newer version of Anytype. Please update the app to open it on this device";

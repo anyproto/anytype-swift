@@ -9,10 +9,6 @@ final class EditorPageController: UIViewController {
     let bottomNavigationManager: EditorBottomNavigationManagerProtocol
     private(set) weak var browserViewInput: EditorBrowserViewInputProtocol?
     private(set) lazy var dataSource = makeCollectionViewDataSource()
-    
-    private lazy var deletedScreen = EditorPageDeletedScreen(
-        onBackTap: viewModel.router.closeEditor
-    )
     private weak var firstResponderView: UIView?
 
     let collectionView: EditorCollectionView = {
@@ -44,6 +40,7 @@ final class EditorPageController: UIViewController {
         recognizer.cancelsTouchesInView = false
         return recognizer
     }()
+    private var shakeGestureStartDate: Date?
 
     @Published var offsetDidChanged: CGPoint = .zero
 
@@ -62,6 +59,9 @@ final class EditorPageController: UIViewController {
         },
         onDoneBarButtonItemTap:  { [weak viewModel] in
             viewModel?.blocksStateManager.didSelectEditingMode()
+        },
+        onTemplatesButtonTap: { [weak viewModel] in
+            viewModel?.showTemplates()
         }
     )
 
@@ -148,11 +148,11 @@ final class EditorPageController: UIViewController {
             performBlocksSelection(with: touch)
         case .editing:
             guard let selectingRangeEditorItem = selectingRangeEditorItem,
+                  selectingRangeEditorItem.canHandleTextRangeTouch,
                   let sourceTextIndexPath = dataSource.indexPath(for: selectingRangeEditorItem),
                   let cell = collectionView.cellForItem(at: sourceTextIndexPath) else {
                 return
             }
-
             let pointInCell = touch.location(in: cell)
             let isAscendingTouch = pointInCell.y > cell.center.y
             let threshold: CGFloat = isAscendingTouch ? Constants.selectingTextThreshold : -Constants.selectingTextThreshold
@@ -226,9 +226,20 @@ final class EditorPageController: UIViewController {
         super.motionBegan(motion, with: event)
 
         if motion == .motionShake {
-            viewModel.shakeMotionDidAppear()
-
-            UIImpactFeedbackGenerator(style: .heavy).impactOccurred()
+            shakeGestureStartDate = Date()
+        }
+    }
+    
+    override func motionEnded(_ motion: UIEvent.EventSubtype, with event: UIEvent?) {
+        if motion == .motionShake {
+            if let startDate = shakeGestureStartDate {
+                defer { shakeGestureStartDate = nil }
+                let timeInterval = Date().timeIntervalSince(startDate)
+                if timeInterval.rounded() >= Constants.shakeUndoTriggerDuration {
+                    viewModel.shakeMotionDidAppear()
+                    UIImpactFeedbackGenerator(style: .heavy).impactOccurred()
+                }
+            }
         }
     }
 
@@ -300,19 +311,16 @@ extension EditorPageController: EditorPageViewInput {
         return collectionView.convert(collectionView.bounds, to: view)
     }
 
-    func update(header: ObjectHeader, details: ObjectDetails?) {
+    func update(header: ObjectHeader) {
         var headerSnapshot = NSDiffableDataSourceSectionSnapshot<EditorItem>()
         headerSnapshot.append([.header(header)])
-        if #available(iOS 15.0, *) {
-            dataSource.apply(headerSnapshot, to: .header, animatingDifferences: true)
+        dataSource.apply(headerSnapshot, to: .header, animatingDifferences: true)
 
-        } else {
-            UIView.performWithoutAnimation {
-                dataSource.apply(headerSnapshot, to: .header, animatingDifferences: true)
-            }
-        }
-
-        navigationBarHelper.configureNavigationBar(using: header, details: details)
+        navigationBarHelper.configureNavigationBar(using: header)
+    }
+    
+    func update(details: ObjectDetails?, templatesCount: Int) {
+        navigationBarHelper.configureNavigationTitle(using: details, templatesCount: templatesCount)
     }
     
     func update(syncStatus: SyncStatus) {
@@ -396,12 +404,6 @@ extension EditorPageController: EditorPageViewInput {
         // For future changes
     }
 
-    func showDeletedScreen(_ show: Bool) {
-        navigationController?.setNavigationBarHidden(show, animated: false)
-        deletedScreen.isHidden = !show
-        if show { UIApplication.shared.hideKeyboard() }
-    }
-
     func blockDidFinishEditing(blockId: BlockId) {
         self.selectingRangeTextView = nil
         self.selectingRangeEditorItem = nil
@@ -483,11 +485,11 @@ private extension EditorPageController {
     
     func setupLayout() {
         view.addSubview(collectionView) {
-            $0.pinToSuperviewPreservingReadability()
-        }
-        
-        view.addSubview(deletedScreen) {
-            $0.pinToSuperviewPreservingReadability()
+            if FeatureFlags.ipadIncreaseWidth {
+                $0.pinToSuperview()
+            } else {
+                $0.pinToSuperviewPreservingReadability()
+            }
         }
 
         navigationBarHelper.addFakeNavigationBarBackgroundView(to: view)
@@ -497,8 +499,6 @@ private extension EditorPageController {
         }
 
         blocksSelectionOverlayView.isHidden = true
-
-        deletedScreen.isHidden = true
     }
 
     func reloadCell(for item: EditorItem) {
@@ -599,6 +599,7 @@ private extension EditorPageController {
     func createHeaderCellRegistration() -> UICollectionView.CellRegistration<EditorViewListCell, ObjectHeader> {
         .init { cell, _, item in
             cell.contentConfiguration = item.makeContentConfiguration(maxWidth: cell.bounds.width)
+            cell.backgroundConfiguration = UIBackgroundConfiguration.clear()
         }
     }
     
@@ -658,5 +659,6 @@ extension UICollectionView {
 
 private enum Constants {
     static let selectingTextThreshold: CGFloat = 30
+    static let shakeUndoTriggerDuration: CGFloat = 1
 }
 

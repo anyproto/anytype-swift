@@ -13,15 +13,15 @@ enum AnalyticsEventsName {
     static let logout = "LogOut"
     static let deleteAccount = "DeleteAccount"
     static let cancelDeletion = "CancelDeletion"
-    
-    // New auth events
     static let screenOnboarding = "ScreenOnboarding"
     static let clickOnboarding = "ClickOnboarding"
     static let clickLogin = "ClickLogin"
+    static let onboardingSkipName = "ScreenOnboardingSkipName"
 
     // Block events
     static let blockCreate = "CreateBlock"
     static let blockDelete = "DeleteBlock"
+    static let createLink = "CreateLink"
 
     static let blockListDuplicate = "DuplicateBlock"
     static let blockListSetAlign = "ChangeBlockAlign"
@@ -64,6 +64,7 @@ enum AnalyticsEventsName {
     static let objectListDelete = "RemoveCompletely"
     static let defaultObjectTypeChange = "DefaultTypeChange"
     static let objectTypeChange = "ChangeObjectType"
+    static let selectObjectType = "SelectObjectType"
     static let showObject = "ScreenObject"
     static let setLayoutAlign = "SetLayoutAlign"
     static let setIcon = "SetIcon"
@@ -100,11 +101,11 @@ enum AnalyticsEventsName {
     static let screenAuthRegistration = "ScreenAuthRegistration"
 
     static let homeShow = "ScreenHome"
-    static let settingsShow = "ScreenSettings"
     static let screenDeletion = "ScreenDeletion"
 
     static let wallpaperSettingsShow = "ScreenSettingsWallpaper"
-    static let accountSettingsShow = "ScreenSettingsAccount"
+    static let screenSettingsAccount = "ScreenSettingsAccount"
+    static let screenSettingsAccountAccess = "ScreenSettingsAccountAccess"
     static let screenSettingsPersonal = "ScreenSettingsPersonal"
     static let appearanceSettingsShow = "ScreenSettingsAppearance"
     static let menuHelp = "MenuHelp"
@@ -122,6 +123,8 @@ enum AnalyticsEventsName {
     static let searchResult = "SearchResult"
     static let objectRelationShow = "ScreenObjectRelation"
 
+    static let onboardingTooltip = "OnboardingTooltip"
+    
     // Navigation events
     static let goBack = "HistoryBack"
     static let goForward = "HistoryForward"
@@ -163,6 +166,15 @@ enum AnalyticsEventsName {
 
     // Migration
     static let migrationGoneWrong = "MigrationGoneWrong"
+    
+    // Space
+    static let screenSettingsSpaceCreate = "ScreenSettingsSpaceCreate"
+    static let createSpace = "CreateSpace"
+    static let switchSpace = "SwitchSpace"
+    static let clickDeleteSpace = "ClickDeleteSpace"
+    static let clickDeleteSpaceWarning = "ClickDeleteSpaceWarning"
+    static let deleteSpace = "DeleteSpace"
+    static let screenSettingsSpaceIndex = "ScreenSettingsSpaceIndex"
     
     // Keyboard bar actions
     enum KeyboardBarAction {
@@ -337,7 +349,7 @@ enum AnalyticsWidgetRoute: String {
     case inner = "Inner"
 }
 
-enum AnalyticsWidgetContext: String {
+enum AnalyticsWidgetContext: String, Hashable {
     case home = "Home"
     case editor = "Editor"
 }
@@ -374,4 +386,32 @@ enum ClickLoginButton: String {
 
 enum TableBlockType: String {
     case simpleTableBlock = "table"
+}
+
+enum AnalyticsDefaultObjectTypeChangeRoute: String {
+    case settings = "Settings"
+    case set = "Set"
+    case collection = "Collection"
+}
+
+enum SelectObjectTypeRoute: String {
+    case longTap = "LongTap"
+}
+
+enum OnboardingTooltip: String {
+    case selectType = "SelectType"
+}
+
+enum ClickDeleteSpaceRoute: String {
+    case navigation = "Navigation"
+    case settings = "Settings"
+}
+
+enum ClickDeleteSpaceWarningType: String {
+    case delete = "Delete"
+    case cancel = "Cancel"
+}
+
+enum DeleteSpaceType: String {
+    case `private` = "Private"
 }

@@ -11,9 +11,6 @@ protocol WidgetsSubmoduleDIProtocol {
     func favoriteTreeWidgetModuleAssembly() -> HomeWidgetCommonAssemblyProtocol
     func recentEditTreeWidgetModuleAssembly() -> HomeWidgetCommonAssemblyProtocol
     func recentOpenTreeWidgetModuleAssembly() -> HomeWidgetCommonAssemblyProtocol
-    // Delete with compactListWidget toggle
-    func setsTreeWidgetModuleAssembly() -> HomeWidgetCommonAssemblyProtocol
-    func collectionsTreeWidgetModuleAssembly() -> HomeWidgetCommonAssemblyProtocol
     // MARK: - List
     func listWidgetModuleAssembly() -> ListWidgetModuleAssemblyProtocol
     func setListWidgetModuleAssembly() -> HomeWidgetCommonAssemblyProtocol
@@ -32,6 +29,8 @@ protocol WidgetsSubmoduleDIProtocol {
     // MARK: - Link
     func linkWidgetModuleAssembly() -> HomeWidgetCommonAssemblyProtocol
     func binLinkWidgetModuleAssembly() -> HomeWidgetCommonAssemblyProtocol
+    // MARK: - Specific
+    func spaceWidgetModuleAssembly() -> HomeWidgetCommonAssemblyProtocol
     // MARK: - Bottom
     func bottomPanelProviderAssembly(output: HomeBottomPanelModuleOutput?) -> HomeBottomPanelProviderAssemblyProtocol
     func bottomPanelModuleAssembly() -> HomeBottomPanelModuleAssemblyProtocol
@@ -68,14 +67,6 @@ final class WidgetsSubmoduleDI: WidgetsSubmoduleDIProtocol {
             ),
             recentOpenTreeWidgetProviderAssembly: HomeWidgetCommonProviderAssembly(
                 widgetAssembly: recentOpenTreeWidgetModuleAssembly(),
-                output: widgetOutput
-            ),
-            setsTreeWidgetProviderAssembly: HomeWidgetCommonProviderAssembly(
-                widgetAssembly: setsTreeWidgetModuleAssembly(),
-                output: widgetOutput
-            ),
-            collectionsTreeWidgetProviderAssembly: HomeWidgetCommonProviderAssembly(
-                widgetAssembly: collectionsTreeWidgetModuleAssembly(),
                 output: widgetOutput
             ),
             setListWidgetProviderAssembly: HomeWidgetCommonProviderAssembly(
@@ -134,6 +125,10 @@ final class WidgetsSubmoduleDI: WidgetsSubmoduleDIProtocol {
                 widgetAssembly: binLinkWidgetModuleAssembly(),
                 output: widgetOutput
             ),
+            spaceWidgetProviderAssembly: HomeWidgetCommonProviderAssembly(
+                widgetAssembly: spaceWidgetModuleAssembly(),
+                output: widgetOutput
+            ),
             stateManager: stateManager
         )
     }
@@ -158,14 +153,6 @@ final class WidgetsSubmoduleDI: WidgetsSubmoduleDIProtocol {
     
     func recentOpenTreeWidgetModuleAssembly() -> HomeWidgetCommonAssemblyProtocol {
         return RecentTreeWidgetModuleAssembly(type: .recentOpen, serviceLocator: serviceLocator, widgetsSubmoduleDI: self)
-    }
-    
-    func setsTreeWidgetModuleAssembly() -> HomeWidgetCommonAssemblyProtocol {
-        return SetsTreeWidgetModuleAssembly(serviceLocator: serviceLocator, widgetsSubmoduleDI: self)
-    }
-    
-    func collectionsTreeWidgetModuleAssembly() -> HomeWidgetCommonAssemblyProtocol {
-        return CollectionsTreeWidgetModuleAssembly(serviceLocator: serviceLocator, widgetsSubmoduleDI: self)
     }
     
     // MARK: - List
@@ -232,6 +219,12 @@ final class WidgetsSubmoduleDI: WidgetsSubmoduleDIProtocol {
     
     func binLinkWidgetModuleAssembly() -> HomeWidgetCommonAssemblyProtocol {
         return BinLinkWidgetModuleAssembly(serviceLocator: serviceLocator, uiHelpersDI: uiHelpersDI)
+    }
+    
+    // MARK: - Specific
+    
+    func spaceWidgetModuleAssembly() -> HomeWidgetCommonAssemblyProtocol {
+        return SpaceWidgetModuleAssembly(serviceLocator: serviceLocator, uiHelpersDI: uiHelpersDI)
     }
     
     // MARK: - Bottom

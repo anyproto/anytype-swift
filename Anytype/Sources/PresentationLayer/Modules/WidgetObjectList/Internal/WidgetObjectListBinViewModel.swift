@@ -3,6 +3,7 @@ import Services
 import Combine
 import AnytypeCore
 
+@MainActor
 final class WidgetObjectListBinViewModel: WidgetObjectListInternalViewModelProtocol {
     
     // MARK: - DI
@@ -14,13 +15,7 @@ final class WidgetObjectListBinViewModel: WidgetObjectListInternalViewModelProto
     let title = Loc.bin
     let editorScreenData: EditorScreenData = .bin
     var rowDetailsPublisher: AnyPublisher<[WidgetObjectListDetailsData], Never> { $rowDetails.eraseToAnyPublisher()}
-    var editMode: WidgetObjectListEditMode {
-        if FeatureFlags.openBinObject {
-            return .normal(allowDnd: false)
-        } else {
-            return .editOnly
-        }
-    }
+    let editMode: WidgetObjectListEditMode = .normal(allowDnd: false)
     let availableMenuItems: [WidgetObjectListMenuItem] = [.restore, .delete]
     
     private var details: [ObjectDetails] = [] {
@@ -35,13 +30,17 @@ final class WidgetObjectListBinViewModel: WidgetObjectListInternalViewModelProto
     // MARK: - WidgetObjectListInternalViewModelProtocol
     
     func onAppear() {
-        binSubscriptionService.startSubscription(objectLimit: nil, update: { [weak self] _, update in
-            self?.details.applySubscriptionUpdate(update)
-        })
+        Task {
+            await binSubscriptionService.startSubscription(objectLimit: nil) { [weak self] details in
+                self?.details = details
+            }
+        }
     }
     
     func onDisappear() {
-        binSubscriptionService.stopSubscription()
+        Task {
+            await binSubscriptionService.stopSubscription()
+        }
     }
     
     func subtitle(for details: ObjectDetails) -> String? {

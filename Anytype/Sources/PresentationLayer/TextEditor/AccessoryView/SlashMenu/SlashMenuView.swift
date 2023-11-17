@@ -1,5 +1,6 @@
 import UIKit
 import Services
+import AnytypeCore
 
 final class SlashMenuView: DismissableInputAccessoryView {
     
@@ -21,19 +22,23 @@ final class SlashMenuView: DismissableInputAccessoryView {
     
     private func setup() {
         addSubview(navigationController.view) {
-            $0.pinToSuperviewPreservingReadability(excluding: [.top])
+            if FeatureFlags.ipadIncreaseWidth {
+                $0.pinToSuperview(excluding: [.top])
+            } else {
+                $0.pinToSuperviewPreservingReadability(excluding: [.top])
+            }
             $0.top.equal(to: topSeparator?.bottomAnchor ?? topAnchor)
         }
     }
     
-    func update(info: BlockInformation, relations: [Relation]) {
+    func update(spaceId: String, info: BlockInformation, relations: [Relation]) {
         searchMenuItemsTask?.cancel()
 
         viewModel.info = info
         let restrictions = BlockRestrictionsBuilder.build(contentType: info.content.type)
     
         Task { @MainActor [weak self] in
-            self?.menuItems = (try? await self?.itemsBuilder.slashMenuItems(resrictions: restrictions, relations: relations)) ?? []
+            self?.menuItems = (try? await self?.itemsBuilder.slashMenuItems(spaceId: spaceId, resrictions: restrictions, relations: relations)) ?? []
             self?.restoreDefaultState()
         }
     }
