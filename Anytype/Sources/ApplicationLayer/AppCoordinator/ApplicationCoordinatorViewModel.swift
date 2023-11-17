@@ -2,7 +2,6 @@ import SwiftUI
 import Combine
 import AnytypeCore
 import Services
-import NavigationBackport
 
 @MainActor
 final class ApplicationCoordinatorViewModel: ObservableObject {

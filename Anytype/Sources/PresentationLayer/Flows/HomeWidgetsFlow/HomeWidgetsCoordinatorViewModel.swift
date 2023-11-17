@@ -3,7 +3,6 @@ import SwiftUI
 import Combine
 import Services
 import AnytypeCore
-import NavigationBackport
 
 @MainActor
 final class HomeWidgetsCoordinatorViewModel: ObservableObject,

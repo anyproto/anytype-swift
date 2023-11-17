@@ -1,6 +1,5 @@
 import Foundation
 import SwiftUI
-import NavigationBackport
 import Services
 
 struct HomeWidgetsCoordinatorView: View {

@@ -1,6 +1,5 @@
 import Foundation
 import SwiftUI
-import NavigationBackport
 
 struct HomeBottomPanelContainer<Content: View, BottomContent: View>: View {
     

@@ -1,7 +1,6 @@
 import Foundation
 import AnytypeCore
 import SwiftUI
-import NavigationBackport
 
 struct HomePath {
     
@@ -19,12 +18,12 @@ struct HomePath {
     @available(iOS, deprecated: 16)
     mutating func restoreLastOpenPage() {
         if let page = UserDefaultsConfig.lastOpenedPage {
-            path.push(page)
+            path.append(page)
         }
     }
     
     mutating func push(_ item: AnyHashable) {
-        path.push(item)
+        path.append(item)
     }
     
     mutating func pop() {
@@ -47,7 +46,7 @@ struct HomePath {
     
     mutating func pushFromHistory() {
         guard let item = forwardPath.first else { return }
-        path.push(item)
+        path.append(item)
     }
     
     func hasForwardPath() -> Bool {
@@ -72,17 +71,6 @@ struct HomePath {
                 forwardPath.removeAll()
             }
         }
-    }
-}
-
-extension NBNavigationStack where Data == AnyHashable {
-
-    init(path: Binding<HomePath>, @ViewBuilder root: () -> Root) {
-        let path = Binding(
-            get: { path.wrappedValue.path },
-            set: { path.wrappedValue.path = $0 }
-        )
-        self.init(path: path, root: root)
     }
 }
 

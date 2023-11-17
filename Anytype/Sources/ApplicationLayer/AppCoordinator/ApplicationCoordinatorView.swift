@@ -1,11 +1,9 @@
 import Foundation
 import SwiftUI
-import NavigationBackport
 
 struct ApplicationCoordinatorView: View {
     
     @StateObject var model: ApplicationCoordinatorViewModel
-    @State private var screenScrollViewPosition: CGPoint = .zero
     
     var body: some View {
         Group {

@@ -64,15 +64,6 @@
       }
     },
     {
-      "identity" : "navigationbackport",
-      "kind" : "remoteSourceControl",
-      "location" : "https://github.com/johnpatrickmorgan/NavigationBackport.git",
-      "state" : {
-        "revision" : "fb860a404f8c0aabeca1016400e41ece5363a369",
-        "version" : "0.9.0"
-      }
-    },
-    {
       "identity" : "pulse",
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/kean/Pulse",
