@@ -56,7 +56,8 @@ struct WidgetObjectListView: View {
         PlainList {
             ForEach(sections) { section in
                 if let title = section.data, title.isNotEmpty {
-                    ListSectionBigHeaderView(title: title)
+                    ListSectionHeaderView(title: title)
+                        .padding(.horizontal, 20)
                 }
                 ForEach(section.rows, id: \.id) { row in
                     WidgetObjectListRowView(model: row)
