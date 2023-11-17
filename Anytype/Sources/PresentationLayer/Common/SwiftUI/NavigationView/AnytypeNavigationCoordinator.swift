@@ -3,15 +3,15 @@ import SwiftUI
 
 final class AnytypeNavigationCoordinator: NSObject, UINavigationControllerDelegate {
     
-    @Binding var path: [AnyHashable]
+    @Binding private(set) var path: [AnyHashable]
+    
+    let builder = AnytypeDestinationBuilderHolder()
+    var currentViewControllers = [UIHostingController<AnytypeNavigationViewBridge>]()
+    var numberOfTransactions: Int = 0
     
     init(path: Binding<[AnyHashable]>) {
         self._path = path
     }
-    
-    var builder = AnytypeDestinationBuilderHolder()
-    var currentViewControllers = [UIHostingController<AnytypeNavigationViewBridge>]()
-    var numberOfTransactions: Int = 0
     
     // MARK: - UINavigationControllerDelegate
     
