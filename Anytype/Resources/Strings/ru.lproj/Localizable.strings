@@ -62,7 +62,7 @@
 "BlockLink.PreviewSettings.Layout.Text.Title" = "Текст";
 
 // MARK: - Settings
-"Settings.Title" = "Настройки";
+"Settings.Title" = "Личное пространство";
 "Settings.SpaceName" = "Название пространства";
 
 // MARK: - Object
@@ -226,7 +226,7 @@
 
 "Auth.JoinFlow.Creating.Soul.Title" = "Создание нового аккаунта";
 "Auth.JoinFlow.Setting.Space.Title" = "Настройка вашего личного пространства";
-"Auth.JoinFlow.Personal.Space.Title" = "Настройки";
+"Auth.JoinFlow.Personal.Space.Title" = "Личное пространство";
 
 // Auth - Login flow
 "Auth.LoginFlow.Use.Keychain.Title" = "Использовать связку ключей";
@@ -764,7 +764,7 @@
 "ClearCache.Error" = "Ошибка, повторите попытку позже";
 
 // MARK: - Settings
-"Settings.TitleLegacy" = "Настройки";
+"Settings.TitleLegacy" = "Личное пространство";
 "Settings.Title" = "Настройки";
 "Settings.SpaceName" = "Название пространства";
 "Settings.AccountAndAccess" = "Учетная запись и доступ";
@@ -801,7 +801,7 @@
 // MARK: - Spaces
 "Spaces.Accessibility.Public" = "Public Space";
 "Spaces.Accessibility.Private" = "Private Space";
-"Spaces.Accessibility.Personal" = "Настройки";
+"Spaces.Accessibility.Personal" = "Личное пространство";
 "Spaces.Search.Title" = "Search spaces";
 
 // MARK: - Space Settings
