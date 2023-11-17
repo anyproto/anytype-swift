@@ -32,7 +32,6 @@ final class EditorPageViewModel: EditorPageViewModelProtocol, EditorBottomNaviga
     lazy var subscriptions = [AnyCancellable]()
 
     private let blockActionsService: BlockActionsServiceSingleProtocol
-    private let activeWorkpaceStorage: ActiveWorkpaceStorageProtocol
 
     var viewController: UIViewController
 
@@ -60,7 +59,6 @@ final class EditorPageViewModel: EditorPageViewModelProtocol, EditorBottomNaviga
         accountManager: AccountManagerProtocol,
         configuration: EditorPageViewModelConfiguration,
         templatesSubscriptionService: TemplatesSubscriptionServiceProtocol,
-        activeWorkpaceStorage: ActiveWorkpaceStorageProtocol,
         output: EditorPageModuleOutput?
     ) {
         self.viewController = viewController
@@ -81,9 +79,7 @@ final class EditorPageViewModel: EditorPageViewModelProtocol, EditorBottomNaviga
         self.accountManager = accountManager
         self.configuration = configuration
         self.templatesSubscriptionService = templatesSubscriptionService
-        self.activeWorkpaceStorage = activeWorkpaceStorage
         self.output = output
-        self.activeWorkpaceStorage = activeWorkpaceStorage
         
         setupLoadingState()
     }
@@ -110,8 +106,8 @@ final class EditorPageViewModel: EditorPageViewModelProtocol, EditorBottomNaviga
         )
     }
     
-    func showSettings(delegate: ObjectSettingsModuleDelegate) {
-        router.showSettings(delegate: delegate) { [weak self] action in
+    func showSettings(delegate: ObjectSettingsModuleDelegate, output: ObjectSettingsCoordinatorOutput?) {
+        router.showSettings(delegate: delegate, output: output) { [weak self] action in
             self?.handleSettingsAction(action: action)
         }
     }
@@ -265,7 +261,6 @@ extension EditorPageViewModel {
                     blocksStateManager.checkOpenedState()
                 }
             } catch {
-//                 dismiss.toggle()
                 router.showOpenDocumentError(error: error)
             }
             
@@ -281,9 +276,6 @@ extension EditorPageViewModel {
 
     func viewDidAppear() {
         cursorManager.didAppeared(with: modelsHolder.items, type: document.details?.type)
-        Task {
-            try await activeWorkpaceStorage.setActiveSpace(spaceId: document.spaceId)
-        }
     }
 
     func viewWillDisappear() {}

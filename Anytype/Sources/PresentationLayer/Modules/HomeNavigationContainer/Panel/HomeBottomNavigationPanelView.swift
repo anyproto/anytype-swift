@@ -14,7 +14,6 @@ struct HomeBottomNavigationPanelView: View {
     @ViewBuilder
     var buttons: some View {
         HStack(alignment: .center, spacing: 40) {
-            
             if homeMode {
                 Button {
                     model.onTapForward()
@@ -22,8 +21,7 @@ struct HomeBottomNavigationPanelView: View {
                     IconView(icon: .asset(.X32.Arrow.right))
                         .frame(width: 32, height: 32)
                 }
-                .id("transition1")
-                .transition(.scale.combined(with: .opacity))
+                .transition(.identity)
                 .disabled(!homePath.hasForwardPath())
             } else {
                 Button {
@@ -32,11 +30,9 @@ struct HomeBottomNavigationPanelView: View {
                     IconView(icon: .asset(.X32.Arrow.left))
                         .frame(width: 32, height: 32)
                 }
-                .id("transition2")
-                .transition(.scale.combined(with: .opacity))
+                .transition(.identity)
             }
             
-
             Button {
                 model.onTapNewObject()
             } label: {
@@ -51,7 +47,6 @@ struct HomeBottomNavigationPanelView: View {
                     IconView(icon: .asset(.X32.search))
                         .frame(width: 32, height: 32)
                 }
-                .id("transition3")
                 .transition(.scale.combined(with: .opacity))
             } else {
                 Button {
@@ -60,7 +55,6 @@ struct HomeBottomNavigationPanelView: View {
                     IconView(icon: .asset(.X32.dashboard))
                         .frame(width: 32, height: 32)
                 }
-                .id("transition4")
                 .transition(.scale.combined(with: .opacity))
             }
             

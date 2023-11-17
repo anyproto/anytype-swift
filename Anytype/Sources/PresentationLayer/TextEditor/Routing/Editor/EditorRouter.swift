@@ -357,11 +357,15 @@ final class EditorRouter: NSObject, EditorRouterProtocol, ObjectSettingsCoordina
         )
     }
     
-    func showSettings(delegate: ObjectSettingsModuleDelegate, actionHandler: @escaping (ObjectSettingsAction) -> Void) {
+    func showSettings(
+        delegate: ObjectSettingsModuleDelegate,
+        output: ObjectSettingsCoordinatorOutput?,
+        actionHandler: @escaping (ObjectSettingsAction) -> Void
+    ) {
         objectSettingCoordinator.startFlow(
             objectId: document.objectId,
             delegate: delegate,
-            output: nil,
+            output: output,
             objectSettingsHandler: actionHandler
         )
     }

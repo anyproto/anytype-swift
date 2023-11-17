@@ -28,11 +28,13 @@ final class HomeWidgetsCoordinatorViewModel: ObservableObject,
     private let homeBottomNavigationPanelModuleAssembly: HomeBottomNavigationPanelModuleAssemblyProtocol
     private let objectTypeSearchModuleAssembly: ObjectTypeSearchModuleAssemblyProtocol
     private let workspacesStorage: WorkspacesStorageProtocol
+    private let documentsProvider: DocumentsProviderProtocol
     
     // MARK: - State
     
     private var viewLoaded = false
     private var subscriptions = [AnyCancellable]()
+    private var paths = [String: HomePath]()
     
     @Published var showChangeSourceData: WidgetChangeSourceSearchModuleModel?
     @Published var showChangeTypeData: WidgetTypeModuleChangeModel?
@@ -44,13 +46,34 @@ final class HomeWidgetsCoordinatorViewModel: ObservableObject,
     @Published var editorPath = HomePath()
     @Published var showCreateObjectWithType: Bool = false
     
-    @Published var info: AccountInfo?
-    @Published var homeAnimationId = UUID()
+    private var currentSpaceId: String?
     
     var pageNavigation: PageNavigation {
         PageNavigation(
             push: { [weak self] data in
-                self?.editorPath.push(data)
+                Task { [weak self] in
+                    guard let self else { return }
+                    let document = documentsProvider.document(objectId: data.objectId, forPreview: true)
+                    try await document.openForPreview()
+                    let spaceId = document.spaceId
+                    if currentSpaceId != spaceId {
+                        if let currentSpaceId = currentSpaceId {
+                            paths[currentSpaceId] = editorPath
+                        }
+                        currentSpaceId = spaceId
+                        try await activeWorkspaceStorage.setActiveSpace(spaceId: spaceId)
+                        
+                        var path = paths[spaceId] ?? HomePath()
+                        if path.count == 0 {
+                            path.push(activeWorkspaceStorage.workspaceInfo)
+                        }
+                        
+                        path.push(data)
+                        editorPath = path
+                    } else {
+                        editorPath.push(data)
+                    }
+                }
             }, pop: { [weak self] in
                 self?.editorPath.pop()
             }, replace: { [weak self] data in
@@ -75,7 +98,8 @@ final class HomeWidgetsCoordinatorViewModel: ObservableObject,
         editorCoordinatorAssembly: EditorCoordinatorAssemblyProtocol,
         homeBottomNavigationPanelModuleAssembly: HomeBottomNavigationPanelModuleAssemblyProtocol,
         objectTypeSearchModuleAssembly: ObjectTypeSearchModuleAssemblyProtocol,
-        workspacesStorage: WorkspacesStorageProtocol
+        workspacesStorage: WorkspacesStorageProtocol,
+        documentsProvider: DocumentsProviderProtocol
     ) {
         self.homeWidgetsModuleAssembly = homeWidgetsModuleAssembly
         self.activeWorkspaceStorage = activeWorkspaceStorage
@@ -93,6 +117,7 @@ final class HomeWidgetsCoordinatorViewModel: ObservableObject,
         self.homeBottomNavigationPanelModuleAssembly = homeBottomNavigationPanelModuleAssembly
         self.objectTypeSearchModuleAssembly = objectTypeSearchModuleAssembly
         self.workspacesStorage = workspacesStorage
+        self.documentsProvider = documentsProvider
     }
 
     func onAppear() {
@@ -102,24 +127,37 @@ final class HomeWidgetsCoordinatorViewModel: ObservableObject,
         activeWorkspaceStorage
             .workspaceInfoPublisher
             .receiveOnMain()
-
-            .sink { [weak self] info in
-                if self?.info != nil, self?.info != info {
-                    self?.editorPath.popToRoot()
-                }
-                self?.info = info
-                self?.editorPath.replaceAll(info)
-
             .sink { [weak self] newInfo in
-                guard let self else { return }
-                if info.isNotNil, editorBrowserCoordinator.isEmpty() {
-                    homeAnimationId = UUID()
+                guard let self, currentSpaceId != newInfo.accountSpaceId else { return }
+                // Backup current
+                if let currentSpaceId = currentSpaceId {
+                    paths[currentSpaceId] = editorPath
                 }
-                if let oldInfo = info, oldInfo != newInfo,
-                    workspacesStorage.spaceView(id: oldInfo.spaceViewId).isNil {
-                    editorBrowserCoordinator.dismissAllPages()
+//                guard self?.info != info else { return }
+//                if self?.info != nil, self?.info != info {
+//                    UserDefaultsConfig.lastOpenedPage = nil
+//                    self?.editorPath.popToRoot()
+//                }
+                // Restore New
+                var path = paths[newInfo.accountSpaceId] ?? HomePath()
+                if path.count == 0 {
+                    path.push(newInfo)
                 }
-                info = newInfo
+//                info = newInfo
+                currentSpaceId = newInfo.accountSpaceId
+                editorPath = path
+//                editorPath.replaceAll(path)
+
+//            .sink { [weak self] newInfo in
+//                guard let self else { return }
+//                if info.isNotNil, editorBrowserCoordinator.isEmpty() {
+//                    homeAnimationId = UUID()
+//                }
+//                if let oldInfo = info, oldInfo != newInfo,
+//                    workspacesStorage.spaceView(id: oldInfo.spaceViewId).isNil {
+//                    editorBrowserCoordinator.dismissAllPages()
+//                }
+//                info = newInfo
             }
             .store(in: &subscriptions)
         
@@ -293,7 +331,8 @@ final class HomeWidgetsCoordinatorViewModel: ObservableObject,
     // MARK: - Private
     
     private func openObject(screenData: EditorScreenData) {
-        editorPath.push(screenData)
+//        editorPath.push(screenData)
+        pageNavigation.push(screenData)
     }
     
     private func createAndShowNewPage() {

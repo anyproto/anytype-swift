@@ -70,7 +70,7 @@ final class ActiveWorkspaceStorage: ActiveWorkpaceStorageProtocol {
     }
     
     func spaceView() -> SpaceView? {
-        return workspaceStorage.spaceView(id: workspaceInfo.spaceViewId)
+        return workspaceStorage.spaceView(spaceViewId: workspaceInfo.spaceViewId)
     }
     
     func clearActiveSpace() async {

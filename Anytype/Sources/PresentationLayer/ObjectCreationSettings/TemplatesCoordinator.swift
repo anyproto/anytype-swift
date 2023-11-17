@@ -76,7 +76,7 @@ extension TemplatesCoordinator: TemplatePickerViewModuleOutput {
     
     func onTemplateSettingsTap(_ model: TemplatePickerViewModel.Item.TemplateModel) {
         guard let handler else { return }
-        editorModuleInputs[model.object.id]?.showSettings(delegate: handler)
+        editorModuleInputs[model.object.id]?.showSettings(delegate: handler, output: nil)
     }
     
     func setAsDefaultBlankTemplate() {

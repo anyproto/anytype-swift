@@ -154,6 +154,8 @@ extension SetObjectCreationSettingsCoordinator: ObjectSettingsCoordinatorOutput 
     func closeEditor() {
         navigationContext.dismissTopPresented(animated: true, completion: nil)
     }
+    
+    func showPage(data: EditorScreenData) {}
 }
 
 final class TemplateSelectionObjectSettingsHandler: ObjectSettingsModuleDelegate {
