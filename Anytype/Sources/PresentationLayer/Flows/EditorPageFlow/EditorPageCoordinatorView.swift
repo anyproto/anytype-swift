@@ -4,7 +4,7 @@ import SwiftUI
 struct EditorPageCoordinatorView: View {
     
     @StateObject var model: EditorPageCoordinatorViewModel
-    @Environment(\.pageNavigation) var pageNavigation
+    @Environment(\.pageNavigation) private var pageNavigation
     @Environment(\.dismiss) private var dismiss
     
     var body: some View {
