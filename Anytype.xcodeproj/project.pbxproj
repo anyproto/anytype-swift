@@ -782,7 +782,6 @@
 		2AFF7AC2299CDA4B00B7746B /* WidgetObjectListBinViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AFF7AC1299CDA4B00B7746B /* WidgetObjectListBinViewModel.swift */; };
 		2AFF7AC4299CDA6900B7746B /* BinSubscriptionService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AFF7AC3299CDA6900B7746B /* BinSubscriptionService.swift */; };
 		2AFF7AC8299CFB9A00B7746B /* AnytypeRelativeDateTimeFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AFF7AC7299CFB9A00B7746B /* AnytypeRelativeDateTimeFormatter.swift */; };
-		2AFF7ACA299D1ACA00B7746B /* ListSectionBigHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AFF7AC9299D1ACA00B7746B /* ListSectionBigHeaderView.swift */; };
 		2AFF7ACC299D24C300B7746B /* DocumentViewModelSetter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AFF7ACB299D24C300B7746B /* DocumentViewModelSetter.swift */; };
 		2AFFFB822924DEE700A487E1 /* UndoRedoAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AFFFB812924DEE700A487E1 /* UndoRedoAssembly.swift */; };
 		2AFFFB842924DFC600A487E1 /* UIHelpersDI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AFFFB832924DFC600A487E1 /* UIHelpersDI.swift */; };
@@ -2446,7 +2445,6 @@
 		2AFF7AC1299CDA4B00B7746B /* WidgetObjectListBinViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WidgetObjectListBinViewModel.swift; sourceTree = "<group>"; };
 		2AFF7AC3299CDA6900B7746B /* BinSubscriptionService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BinSubscriptionService.swift; sourceTree = "<group>"; };
 		2AFF7AC7299CFB9A00B7746B /* AnytypeRelativeDateTimeFormatter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnytypeRelativeDateTimeFormatter.swift; sourceTree = "<group>"; };
-		2AFF7AC9299D1ACA00B7746B /* ListSectionBigHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListSectionBigHeaderView.swift; sourceTree = "<group>"; };
 		2AFF7ACB299D24C300B7746B /* DocumentViewModelSetter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DocumentViewModelSetter.swift; sourceTree = "<group>"; };
 		2AFFFB812924DEE700A487E1 /* UndoRedoAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UndoRedoAssembly.swift; sourceTree = "<group>"; };
 		2AFFFB832924DFC600A487E1 /* UIHelpersDI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIHelpersDI.swift; sourceTree = "<group>"; };
@@ -5582,7 +5580,6 @@
 			children = (
 				12636CF5276A0DC70084D35D /* ListCreateButton.swift */,
 				12636CF2276A0CF00084D35D /* ListSectionHeaderView.swift */,
-				2AFF7AC9299D1ACA00B7746B /* ListSectionBigHeaderView.swift */,
 				2A945D3D299E3E9D00C34C86 /* PlainList.swift */,
 				2AA8107929A3D329007DD64B /* ListSectionData.swift */,
 				2A8C00FC29C4C61300309C14 /* SectionHeaderView.swift */,
@@ -10425,7 +10422,6 @@
 				2A7208B22AF3A92B006D88CF /* SpaceUsage.swift in Sources */,
 				1215E8BB26A8654C0089AF7E /* AnalyticsConfigurator.swift in Sources */,
 				2E1C80E52A2F6EF000217C47 /* AboutApp.swift in Sources */,
-				2AFF7ACA299D1ACA00B7746B /* ListSectionBigHeaderView.swift in Sources */,
 				2A5B53B12A80DBA200BC993B /* SpaceSettingsView.swift in Sources */,
 				2AF4261A29AF50C900753B17 /* PersonalizationModuleOutput.swift in Sources */,
 				12136D5627996F3400262FE7 /* TextRelationDetailsService.swift in Sources */,
@@ -11516,7 +11512,7 @@
 				CODE_SIGN_ENTITLEMENTS = Anytype/Anytype.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 8;
+				CURRENT_PROJECT_VERSION = 11;
 				DEVELOPMENT_ASSET_PATHS = "Anytype/Resources/Preview\\ Content";
 				DEVELOPMENT_TEAM = J3NXTX3T5S;
 				ENABLE_BITCODE = NO;
@@ -11560,7 +11556,7 @@
 				CODE_SIGN_ENTITLEMENTS = Anytype/Anytype.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Distribution";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 8;
+				CURRENT_PROJECT_VERSION = 11;
 				DEVELOPMENT_ASSET_PATHS = "Anytype/Resources/Preview\\ Content";
 				DEVELOPMENT_TEAM = J3NXTX3T5S;
 				ENABLE_BITCODE = NO;
@@ -11714,7 +11710,7 @@
 				CODE_SIGN_ENTITLEMENTS = Anytype/Anytype.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Distribution";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 8;
+				CURRENT_PROJECT_VERSION = 11;
 				DEVELOPMENT_ASSET_PATHS = "Anytype/Resources/Preview\\ Content";
 				DEVELOPMENT_TEAM = J3NXTX3T5S;
 				ENABLE_BITCODE = NO;
@@ -11780,7 +11776,7 @@
 				CODE_SIGN_ENTITLEMENTS = AnytypeShareExtension/AnytypeShareExtension.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 8;
+				CURRENT_PROJECT_VERSION = 11;
 				DEVELOPMENT_TEAM = "";
 				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = J3NXTX3T5S;
 				GENERATE_INFOPLIST_FILE = YES;
@@ -11812,7 +11808,7 @@
 				CODE_SIGN_ENTITLEMENTS = AnytypeShareExtension/AnytypeShareExtension.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Distribution";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 8;
+				CURRENT_PROJECT_VERSION = 11;
 				DEVELOPMENT_TEAM = "";
 				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = J3NXTX3T5S;
 				GENERATE_INFOPLIST_FILE = YES;
@@ -11845,7 +11841,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Distribution";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 8;
+				CURRENT_PROJECT_VERSION = 11;
 				DEVELOPMENT_TEAM = "";
 				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = J3NXTX3T5S;
 				GENERATE_INFOPLIST_FILE = YES;
@@ -11879,7 +11875,7 @@
 				CODE_SIGN_IDENTITY = "Apple Development";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 8;
+				CURRENT_PROJECT_VERSION = 11;
 				DEVELOPMENT_TEAM = "";
 				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = J3NXTX3T5S;
 				GENERATE_INFOPLIST_FILE = YES;
@@ -11913,7 +11909,7 @@
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
 				CODE_SIGN_IDENTITY = "iPhone Distribution";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 8;
+				CURRENT_PROJECT_VERSION = 11;
 				DEVELOPMENT_TEAM = "";
 				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = J3NXTX3T5S;
 				GENERATE_INFOPLIST_FILE = YES;
@@ -11947,7 +11943,7 @@
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
 				CODE_SIGN_IDENTITY = "iPhone Distribution";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 8;
+				CURRENT_PROJECT_VERSION = 11;
 				DEVELOPMENT_TEAM = "";
 				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = J3NXTX3T5S;
 				GENERATE_INFOPLIST_FILE = YES;

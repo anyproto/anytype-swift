@@ -280,7 +280,6 @@ final class EditorPageModuleAssembly: EditorPageModuleAssemblyProtocol {
             accountManager: serviceLocator.accountManager(),
             configuration: configuration,
             templatesSubscriptionService: serviceLocator.templatesSubscription(),
-            activeWorkpaceStorage: serviceLocator.activeWorkspaceStorage(),
             output: output
         )
 

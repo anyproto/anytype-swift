@@ -800,9 +800,9 @@
 "ClearCacheAlert.Description" = "Всі медіафайли, що зберігаються в Anytype буде видалено з вашого поточного пристрою. Вони можуть бути завантажені знову з резервної копії вузла або з іншого пристрою.";
 
 // MARK: - Spaces
-"Spaces.Accessibility.Public" = "Публічний";
-"Spaces.Accessibility.Private" = "Приватний";
-"Spaces.Accessibility.Personal" = "Personal";
+"Spaces.Accessibility.Public" = "Public Space";
+"Spaces.Accessibility.Private" = "Private Space";
+"Spaces.Accessibility.Personal" = "Налаштування";
 "Spaces.Search.Title" = "Пошук просторів";
 
 // MARK: - Space Settings
