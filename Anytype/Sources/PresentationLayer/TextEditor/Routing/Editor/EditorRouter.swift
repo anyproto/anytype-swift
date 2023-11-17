@@ -555,8 +555,9 @@ extension EditorRouter: RelationValueCoordinatorOutput {
 
 extension EditorRouter: ObjectSettingsModuleDelegate {
     func didCreateLinkToItself(selfName: String, data: EditorScreenData) {
+        guard let objectId = data.objectId else { return }
         UIApplication.shared.hideKeyboard()
-        toastPresenter.showObjectName(selfName, middleAction: Loc.Editor.Toast.linkedTo, secondObjectId: data.objectId) { [weak self] in
+        toastPresenter.showObjectName(selfName, middleAction: Loc.Editor.Toast.linkedTo, secondObjectId: objectId) { [weak self] in
             self?.showPage(data: data)
         }
     }

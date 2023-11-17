@@ -12,7 +12,7 @@ protocol DocumentDetaisProvider {
 extension EditorPageController: DocumentDetaisProvider {
     
     var screenData: EditorScreenData {
-        .page(EditorPageObject(objectId: viewModel.document.objectId, spaceId: viewModel.document.spaceId, isSupportedForEdit: true, isOpenedForPreview: false))
+        .page(EditorPageObject(objectId: viewModel.document.objectId, spaceId: viewModel.document.spaceId, isOpenedForPreview: false))
     }
     
     var documentTitle: String? {

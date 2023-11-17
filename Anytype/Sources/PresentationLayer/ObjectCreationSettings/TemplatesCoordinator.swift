@@ -55,7 +55,6 @@ extension TemplatesCoordinator: TemplatePickerViewModuleOutput {
                 data: EditorPageObject(
                     objectId: template.id,
                     spaceId: template.spaceId,
-                    isSupportedForEdit: true,
                     isOpenedForPreview: false,
                     usecase: .templateEditing
                 ),

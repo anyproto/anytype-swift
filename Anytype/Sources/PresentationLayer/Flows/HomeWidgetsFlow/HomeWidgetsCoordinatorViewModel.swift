@@ -29,6 +29,7 @@ final class HomeWidgetsCoordinatorViewModel: ObservableObject,
     private let workspacesStorage: WorkspacesStorageProtocol
     private let documentsProvider: DocumentsProviderProtocol
     
+    
     // MARK: - State
     
     private var viewLoaded = false
@@ -52,8 +53,25 @@ final class HomeWidgetsCoordinatorViewModel: ObservableObject,
             push: { [weak self] data in
                 Task { [weak self] in
                     guard let self else { return }
-                    let document = documentsProvider.document(objectId: data.objectId, forPreview: true)
+                    guard let objectId = data.objectId else {
+                        editorPath.push(data)
+                        return
+                    }
+                    let document = documentsProvider.document(objectId: objectId, forPreview: true)
                     try await document.openForPreview()
+                    guard let details = document.details else {
+//                        alertHelper.showToast(title: Loc.error, message: Loc.unknownError)
+                        ToastPresenter.shared?.show(message: "\(Loc.error) - \(Loc.unknownError)")
+                        return
+                    }
+                    guard details.isSupportedForEdit else {
+                        ToastPresenter.shared?.show(message: "Not supported type \"\(details.objectType.name)\"")
+//                        alertHelper.showToast(
+//                            title: "Not supported type \"\(details.objectType.names)\"",
+//                            message: "You can open it via desktop"
+//                        )
+                        return
+                    }
                     let spaceId = document.spaceId
                     if currentSpaceId != spaceId {
                         if let currentSpaceId = currentSpaceId {
@@ -132,31 +150,13 @@ final class HomeWidgetsCoordinatorViewModel: ObservableObject,
                 if let currentSpaceId = currentSpaceId {
                     paths[currentSpaceId] = editorPath
                 }
-//                guard self?.info != info else { return }
-//                if self?.info != nil, self?.info != info {
-//                    UserDefaultsConfig.lastOpenedPage = nil
-//                    self?.editorPath.popToRoot()
-//                }
                 // Restore New
                 var path = paths[newInfo.accountSpaceId] ?? HomePath()
                 if path.count == 0 {
                     path.push(newInfo)
                 }
-//                info = newInfo
                 currentSpaceId = newInfo.accountSpaceId
                 editorPath = path
-//                editorPath.replaceAll(path)
-
-//            .sink { [weak self] newInfo in
-//                guard let self else { return }
-//                if info.isNotNil, editorBrowserCoordinator.isEmpty() {
-//                    homeAnimationId = UUID()
-//                }
-//                if let oldInfo = info, oldInfo != newInfo,
-//                    workspacesStorage.spaceView(id: oldInfo.spaceViewId).isNil {
-//                    editorBrowserCoordinator.dismissAllPages()
-//                }
-//                info = newInfo
             }
             .store(in: &subscriptions)
         

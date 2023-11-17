@@ -39,7 +39,7 @@ final class EditorSetModuleAssembly: EditorSetModuleAssemblyProtocol {
     private func setModel(data: EditorSetObject, output: EditorSetModuleOutput?) -> EditorSetViewModel {
         let setDocument = serviceLocator.documentsProvider.setDocument(
             objectId: data.objectId,
-            forPreview: !data.isSupportedForEdit,
+            forPreview: false,
             inlineParameters: data.inline
         )
         let dataviewService = serviceLocator.dataviewService(objectId: data.objectId, blockId: data.inline?.blockId)

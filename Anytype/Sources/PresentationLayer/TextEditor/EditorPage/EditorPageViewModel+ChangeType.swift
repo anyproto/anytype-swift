@@ -6,7 +6,7 @@ extension EditorPageViewModel {
             Task { @MainActor in
                 subscriptions.removeAll()
                 try await actionHandler.setObjectSetType()
-                router.replaceCurrentPage(with: .set(.init(objectId: document.objectId, spaceId: document.spaceId, isSupportedForEdit: true)))
+                router.replaceCurrentPage(with: .set(.init(objectId: document.objectId, spaceId: document.spaceId)))
             }
             return
         }
@@ -15,7 +15,7 @@ extension EditorPageViewModel {
             Task { @MainActor in
                 subscriptions.removeAll()
                 try await actionHandler.setObjectCollectionType()
-                router.replaceCurrentPage(with: .set(.init(objectId: document.objectId, spaceId: document.spaceId, isSupportedForEdit: true)))
+                router.replaceCurrentPage(with: .set(.init(objectId: document.objectId, spaceId: document.spaceId)))
             }
             return
         }

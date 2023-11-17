@@ -25,7 +25,6 @@ extension EditorPageObject {
     ) {
         self.objectId = details.identityProfileLink.isNotEmpty ? details.identityProfileLink : details.id
         self.spaceId = details.spaceId
-        self.isSupportedForEdit = details.isSupportedForEdit
         self.isOpenedForPreview = isOpenedForPreview
         self.usecase = usecase
     }
@@ -35,7 +34,6 @@ extension EditorSetObject {
     init(details: ObjectDetails) {
         self.objectId = details.id
         self.spaceId = details.spaceId
-        self.isSupportedForEdit = details.isSupportedForEdit
         self.inline = nil
     }
 }
@@ -49,21 +47,11 @@ extension ObjectDetails {
 // MARK: Read fields helpers
 
 extension EditorScreenData {
-    var isSupportedForEdit: Bool {
+   
+    var objectId: String? {
         switch self {
         case .favorites, .recentEdit, .recentOpen, .sets, .collections, .bin:
-            return true
-        case .page(let object):
-            return object.isSupportedForEdit
-        case .set(let object):
-            return object.isSupportedForEdit
-        }
-    }
-    
-    var objectId: String {
-        switch self {
-        case .favorites, .recentEdit, .recentOpen, .sets, .collections, .bin:
-            return ""
+            return nil
         case .page(let object):
             return object.objectId
         case .set(let object):

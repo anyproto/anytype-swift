@@ -703,7 +703,7 @@ extension EditorSetViewModel {
         Task { @MainActor in
             try await objectActionsService.setObjectCollectionType(objectId: objectId)
             try await setDocument.close()
-            output?.replaceEditorScreen(data: .set(EditorSetObject(objectId: objectId, spaceId: setDocument.spaceId, isSupportedForEdit: true)))
+            output?.replaceEditorScreen(data: .set(EditorSetObject(objectId: objectId, spaceId: setDocument.spaceId)))
         }
         AnytypeAnalytics.instance().logSetTurnIntoCollection()
     }
