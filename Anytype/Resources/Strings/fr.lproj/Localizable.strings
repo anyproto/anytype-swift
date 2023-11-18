@@ -268,7 +268,7 @@
 
 "Undo typing" = "Annuler la frappe";
 "Undo" = "Annuler";
-"Actions.LinkItself" = "Link to";
+"Actions.LinkItself" = "Lien vers";
 "Actions.MakeAsTemplate" = "Créer un modèle";
 "Actions.TemplateMakeDefault" = "Make default";
 
@@ -467,7 +467,7 @@
 "Unknown error" = "Erreur inconnue";
 "Close" = "Fermer";
 "Account is deleted" = "Le compte est supprimé";
-"Add phone" = "Add phone";
+"Add phone" = "Ajouter un téléphone";
 "Nothing to redo" = "Rien à rétablir";
 "Nothing to undo" = "Rien à annuler";
 "Progress..." = "Progression...";
@@ -491,7 +491,7 @@
 "Unsupported value" = "Valeur non prise en charge";
 "Select relation type" = "Sélectionner le type de relation";
 
-"Limit object types" = "Limit object types";
+"Limit object types" = "Limiter les types d'objet";
 "Type" = "Type";
 "No name" = "Sans nom";
 "New relation" = "Nouvelle relation";
@@ -508,7 +508,7 @@
 "Choose default object type" = "Choose default object type";
 "About" = "À propos";
 "Appearance" = "Apparence";
-"Change wallpaper" = "Change wallpaper";
+"Change wallpaper" = "Changer le fond d'écran";
 "Application icon" = "Icône de l'application";
 "Mode" = "Mode";
 "copied to clipboard" = "%@ copié dans le presse-papier";
@@ -533,8 +533,8 @@
 "Action-focused layout with a checkbox" = "Action-focused layout with a checkbox";
 "Standard layout for canvas blocks" = "Disposition standard pour les toiles";
 "List of related objects" = "Liste des objets liés";
-"Lock" = "Lock";
-"Unlock" = "Unlock";
+"Lock" = "Verrouiller";
+"Unlock" = "Déverouiller";
 "Favorite" = "Favoris";
 "Unfavorite" = "Retirer des favoris";
 "Unsplash" = "Unsplash";
@@ -555,9 +555,9 @@
 "Into object" = "En objet";
 "Add below" = "Ajouter en dessous";
 "Change type" = "Changer le type";
-"Link to existing object" = "Link to existing object";
-"Link to object" = "Link to object";
-"Upload playable audio" = "Upload playable audio";
+"Link to existing object" = "Lien vers un objet existant";
+"Link to object" = "Lien vers un objet";
+"Upload playable audio" = "Charger un fichier audio";
 "Code snippet" = "Extrait de code";
 "Bookmark" = "Marque-page";
 "Audio" = "Audio";
@@ -566,12 +566,12 @@
 "File" = "Fichier";
 "No related options here" = "No related options here. You can add some";
 "Empty" = "Vide";
-"Link to" = "Link to";
+"Link to" = "Lien vers";
 "Unknown" = "Inconnu";
 "Settings" = "Paramètres";
 "Views" = "Vues";
-"Filter" = "Filter";
-"Sort" = "Sort";
+"Filter" = "Filtre";
+"Sort" = "Trier";
 "View" = "Vue";
 "Home" = "Accueil";
 "Highlight" = "Surligner";
@@ -607,7 +607,7 @@
 
 // MARK: - DeletionAlert
 "DeletionAlert.title" = "Êtes-vous certain de vouloir supprimer le compte ?";
-"DeletionAlert.description" = "You will be logged out on all other devices. You will have 30 days to recover it. Afterwards it will be deleted permanently";
+"DeletionAlert.description" = "Vous serez déconnecté sur tous les autres appareils. Vous aurez 30 jours pour le récupérer. Ensuite, il sera supprimé définitivement";
 
 // MARK: - DataviewType
 "DataviewType.grid" = "Grille";
@@ -618,7 +618,7 @@
 
 // MARK: - ObjectType
 "ObjectType.fallbackDescription" = "Toile vierge sans titre";
-"ObjectType.SearchOrInstall" = "Search or install a new type";
+"ObjectType.SearchOrInstall" = "Rechercher ou créer un nouveau type";
 "ObjectType.Search" = "Rechercher un type";
 "ObjectType.MyTypes" = "Mes Types";
 "ObjectType.AddedToLibrary" = "Type ‘%@’ added to your library";
@@ -651,7 +651,7 @@
 "SimpleTableMenu.Item.MoveRight" = "Déplacer à droite";
 "SimpleTableMenu.Item.Duplicate" = "Dupliquer";
 "SimpleTableMenu.Item.Delete" = "Supprimer";
-"SimpleTableMenu.Item.Sort" = "Sort";
+"SimpleTableMenu.Item.Sort" = "Trier";
 
 "SimpleTableMenu.Item.InsertAbove" = "Insérer au-dessus";
 "SimpleTableMenu.Item.InsertBelow" = "Insérer en-dessous";
@@ -679,7 +679,7 @@
 // MARK: Edit view type
 "SetViewTypesPicker.Title" = "Modifier la vue";
 "SetViewTypesPicker.New.Title" = "Nouvelle vue";
-"SetViewTypesPicker.Section.Types.Title" = "View as";
+"SetViewTypesPicker.Section.Types.Title" = "Afficher en tant que";
 "SetViewTypesPicker.Settings.Duplicate.View" = "Dupliquer";
 "SetViewTypesPicker.Settings.Delete.View" = "Supprimer la vue";
 "SetViewTypesPicker.Settings.Textfield.Placeholder.New.View" = "Nouvelle vue";
@@ -799,8 +799,8 @@
 "ClearCacheAlert.Description" = "Tous les fichiers multimédias stockés dans Anytype seront supprimés de votre appareil actuel. Ils peuvent être téléchargés de nouveau à partir d'un nœud de sauvegarde ou d'un autre appareil.";
 
 // MARK: - Spaces
-"Spaces.Accessibility.Public" = "Public Space";
-"Spaces.Accessibility.Private" = "Private Space";
+"Spaces.Accessibility.Public" = "Espace Public";
+"Spaces.Accessibility.Private" = "Espace Privé";
 "Spaces.Accessibility.Personal" = "Paramètres";
 "Spaces.Search.Title" = "Rechercher des espaces";
 
@@ -824,7 +824,7 @@
 "Sharing.SaveAs" = "ENREGISTRER SOUS";
 "Sharing.SelectSpace" = "Espace";
 "Sharing.AddTo" = "Ajouter à";
-"Sharing.LinkTo" = "Link to";
+"Sharing.LinkTo" = "Lien vers";
 
 "Sharing.URL.Bookmark" = "Marquer l'objet";
 "Sharing.URL.Text" = "Bloc de texte";
