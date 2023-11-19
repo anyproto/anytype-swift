@@ -512,57 +512,57 @@
 "Application icon" = "Значок приложения";
 "Mode" = "Режим";
 "copied to clipboard" = "Скопирован(о) в буфер обмена: %@";
-"Access to secret phrase from keychain" = "Access to secret phrase from keychain";
+"Access to secret phrase from keychain" = "Доступ к секретной фразе из связки ключей";
 "Back up your recovery phrase" = "Создайте резервную копию фразы восстановления";
 "Account" = "Учетная запись";
 "Access" = "Доступ";
 "Back up phrase" = "Фраза восстановления";
 "Removing cache" = "Удаление кэша";
-"Deletion error" = "Deletion error";
-"Start" = "Start";
+"Deletion error" = "Ошибка удаления";
+"Start" = "Начать";
 "On analytics" = "On analytics";
-"Select account error" = "Select account error";
-"Account deleted" = "Account deleted";
-"Account.Select.Incompatible.Version.Error.Text" = "Unable to retrieve account data due to incompatible version on remote nodes. Please update Anytype to the latest version.";
-"Restore from keychain" = "Restore from keychain";
-"Edit" = "Edit";
-"In this object" = "In this object";
+"Select account error" = "Ошибка при выборе учетной записи";
+"Account deleted" = "Аккаунт удален";
+"Account.Select.Incompatible.Version.Error.Text" = "Не удается получить данные учетной записи из-за несовместимой версии на удаленных узлах. Пожалуйста, обновите Anytype до последней версии.";
+"Restore from keychain" = "Восстановить из связки ключей";
+"Edit" = "Изменить";
+"In this object" = "В этом объекте";
 "Other relations" = "Другие свойства";
-"Collection of objects" = "Collection of objects";
-"Designed to capture thoughts quickly" = "Designed to capture thoughts quickly";
+"Collection of objects" = "Коллекция объектов";
+"Designed to capture thoughts quickly" = "Создано для быстрой записи мыслей";
 "Action-focused layout with a checkbox" = "Action-focused layout with a checkbox";
 "Standard layout for canvas blocks" = "Standard layout for canvas blocks";
-"List of related objects" = "List of related objects";
+"List of related objects" = "Список связанных объектов";
 "Lock" = "Lock";
 "Unlock" = "Unlock";
 "Favorite" = "Favorite";
 "Unfavorite" = "Unfavorite";
 "Unsplash" = "Unsplash";
-"Go back" = "Go back";
-"Backed up on one node at least" = "Backed up on one node at least";
-"Downloading or uploading data to some node" = "Downloading or uploading data to some node";
-"Anytype node is not connected" = "Anytype node is not connected";
-"Initializing sync" = "Initializing sync";
-"Not syncing" = "Not syncing";
-"Synced" = "Synced";
-"Syncing..." = "Syncing...";
-"No connection" = "No connection";
-"Preparing..." = "Preparing...";
+"Go back" = "Вернуться";
+"Backed up on one node at least" = "Создана резервная копия по крайней мере на одном узле";
+"Downloading or uploading data to some node" = "Загрузка или выгрузка данных в узел";
+"Anytype node is not connected" = "Узел Anytype не подключен";
+"Initializing sync" = "Инициализация синхронизации";
+"Not syncing" = "Не синхронизируется";
+"Synced" = "Синхронизировано";
+"Syncing..." = "Синхронизация...";
+"No connection" = "Нет соединения";
+"Preparing..." = "Подготовка...";
 "Deleted" = "Deleted";
-"Download" = "Download";
-"Open object" = "Open object";
+"Download" = "Скачать";
+"Open object" = "Открыть объект";
 "Open source" = "Open source";
 "Into object" = "Into object";
-"Add below" = "Add below";
-"Change type" = "Change type";
+"Add below" = "Добавить ниже";
+"Change type" = "Изменить тип";
 "Link to existing object" = "Link to existing object";
 "Link to object" = "Link to object";
-"Upload playable audio" = "Upload playable audio";
-"Code snippet" = "Code snippet";
-"Bookmark" = "Bookmark";
-"Audio" = "Audio";
-"Video" = "Video";
-"Picture" = "Picture";
+"Upload playable audio" = "Загрузить воспроизводимое аудио";
+"Code snippet" = "Фрагмент кода";
+"Bookmark" = "Закладка";
+"Audio" = "Аудио";
+"Video" = "Видео";
+"Picture" = "Изображение";
 "File" = "Файл";
 "No related options here" = "No related options here. You can add some";
 "Empty" = "Пусто";
@@ -614,7 +614,7 @@
 "DataviewType.list" = "Список";
 "DataviewType.gallery" = "Галерея";
 "DataviewType.kanban" = "Канбан";
-"DataviewType.calendar" = "Calendar";
+"DataviewType.calendar" = "Календарь";
 
 // MARK: - ObjectType
 "ObjectType.fallbackDescription" = "Пустой холст без заголовка";
@@ -643,7 +643,7 @@
 "SimpleTableMenu.Item.clearContents" = "Очистить";
 "SimpleTableMenu.Item.color" = "Цвет";
 "SimpleTableMenu.Item.style" = "Внешний вид";
-"SimpleTableMenu.Item.clearStyle" = "Reset style";
+"SimpleTableMenu.Item.clearStyle" = "Сбросить стиль";
 
 "SimpleTableMenu.Item.InsertLeft" = "Вставить слева";
 "SimpleTableMenu.Item.InsertRight" = "Вставить справа";
@@ -706,7 +706,7 @@
 "Content.DataView.InlineSet.Toast.Failure" = "This inline set doesn’t have a source";
 
 // MARK: - Widget extension
-"WidgetExtension.LockScreen.Title" = "New object";
+"WidgetExtension.LockScreen.Title" = "Новый объект";
 "WidgetExtension.LockScreen.Description" = "Create a new object on the fly";
 
 // MARK: - Toast
@@ -714,12 +714,12 @@
 "Editor.Toast.MovedTo" = "Block moved to";
 
 // MARK: - Scanner
-"Scanner.Error.Scanning not supported" = "Scanning not supported";
+"Scanner.Error.Scanning not supported" = "Сканирование не поддерживается";
 
 // MARK: - Widgets
 "Widgets.SourceSearch" = "Widget source";
-"Widgets.Actions.ChangeSource" = "Change Source";
-"Widgets.Actions.ChangeWidgetType" = "Change Widget Type";
+"Widgets.Actions.ChangeSource" = "Изменить источник";
+"Widgets.Actions.ChangeWidgetType" = "Изменить тип виджета";
 "Widgets.Actions.RemoveWidget" = "Удалить виджет";
 "Widgets.Actions.EditWidgets" = "Редактировать виджеты";
 "Widgets.Actions.EmptyBin" = "Очистить корзину";
@@ -777,67 +777,67 @@
 "FileStorage.Space.GetMore" = "Получить больше места для хранения";
 "FileStorage.Space.Mail.Subject" = "Get more storage, account %@";
 "FileStorage.Space.Mail.Body" = "Hi, Anytype team. I am reaching out to request an increase in my file storage capacity as I have run out of storage. My current limits is %@. My account id is %@. Cheers, %@.";
-"FileStorage.Local.Title" = "Local storage";
-"FileStorage.Local.Instruction" = "In order to save space on your local device, you can offload all your files to our encrypted backup node. The files will be loaded back when you open them.";
+"FileStorage.Local.Title" = "Локальное хранилище";
+"FileStorage.Local.Instruction" = "Чтобы сохранить место на вашем локальном устройстве, вы можете выгрузить все ваши файлы в наш зашифрованный узел резервного копирования. Файлы будут загружены обратно, когда вы откроете их.";
 "FileStorage.Local.Used" = "%@ used";
-"FileStorage.OffloadTitle" = "Offload files";
-"FileStorage.ManageFiles" = "Manage files";
-"FileStorage.LimitError" = "You exceeded file limit upload";
+"FileStorage.OffloadTitle" = "Выгрузить файлы";
+"FileStorage.ManageFiles" = "Управление файлами";
+"FileStorage.LimitError" = "Вы превысили лимит загрузки файлов";
 "FileStorage.LimitLegend.Current" = "%@ | %@";
 "FileStorage.LimitLegend.Other" = "Other spaces | %@";
 "FileStorage.LimitLegend.Free" = "Free | %@";
 
 // MARK: - Files List
 "FilesList.Title" = "Synced files";
-"FilesList.ForceDelete.Title" = "Are you sure you want to permanently delete the files?";
+"FilesList.ForceDelete.Title" = "Вы действительно хотите безвозвратно удалить этот файл?";
 
 // MARK: - Widget object list
-"WidgetObjectList.ForceDelete.Message" = "You can’t undo this action.";
+"WidgetObjectList.ForceDelete.Message" = "Это действие необратимо.";
 
 // MARK: - Cpear cache alert
-"ClearCacheAlert.Title" = "Are you sure?";
-"ClearCacheAlert.Description" = "All media files stored in Anytype will be deleted from your current device. They can be downloaded again from a backup node or another device.";
+"ClearCacheAlert.Title" = "Вы уверены?";
+"ClearCacheAlert.Description" = "Все медиафайлы, сохраненные в Anytype, будут удалены с вашего текущего устройства. Их можно снова загрузить с резервного узла или другого устройства.";
 
 // MARK: - Spaces
 "Spaces.Accessibility.Public" = "Public Space";
-"Spaces.Accessibility.Private" = "Private Space";
+"Spaces.Accessibility.Private" = "Личное Пространство";
 "Spaces.Accessibility.Personal" = "Личное пространство";
-"Spaces.Search.Title" = "Search spaces";
+"Spaces.Search.Title" = "Поиск пространств";
 
 // MARK: - Space Settings
-"SpaceSettings.Title" = "Space settings";
+"SpaceSettings.Title" = "Настройки пространства";
 "SpaceSettings.RemoteStorage" = "Удалённое хранилище";
-"SpaceSettings.Info" = "Space info";
-"SpaceSettings.NetworkId" = "Network ID";
+"SpaceSettings.Info" = "Информация о пространстве";
+"SpaceSettings.NetworkId" = "ID сети";
 "SpaceSettings.DeleteAlert.Title" = "Delete ‘%@’ space";
-"SpaceSettings.DeleteAlert.Message" = "This space will be deleted irrevocably. You can’t undo this action.";
-"SpaceSettings.DeleteButton" = "Delete space";
+"SpaceSettings.DeleteAlert.Message" = "Это пространство будет удалено безвозвратно. Вы не сможете отменить это действие.";
+"SpaceSettings.DeleteButton" = "Удалить пространство";
 
 // MARK: - Space Create
-"SpaceCreate.Title" = "Create a space";
+"SpaceCreate.Title" = "Создать пространство";
 
 // MARK: - Sharing
-"Sharing.Navigation.title" = "Add to Anytype";
+"Sharing.Navigation.title" = "Добавить в Anytype";
 "Sharing.Navigation.LeftButton.Title" = "Отмена";
 "Sharing.Navigation.RightButton.Title" = "Готово";
 
-"Sharing.SaveAs" = "SAVE AS";
-"Sharing.SelectSpace" = "Space";
+"Sharing.SaveAs" = "СОХРАНИТЬ КАК";
+"Sharing.SelectSpace" = "Пространство";
 "Sharing.AddTo" = "Add to";
 "Sharing.LinkTo" = "Связать с";
 
 "Sharing.URL.Bookmark" = "Bookmark object";
-"Sharing.URL.Text" = "Text block";
+"Sharing.URL.Text" = "Текстовый блок";
 "Sharing.Text.NoteObject" = "Note object";
-"Sharing.Text.TextBlock" = "Text block";
+"Sharing.Text.TextBlock" = "Текстовый блок";
 
 // MARK: - Initial
 
-"Initial.UnstableMiddle.Title" = "Warning";
+"Initial.UnstableMiddle.Title" = "Внимание";
 "Initial.UnstableMiddle.Message" = "You launch app with a unstable middleware. Don't use your production account. Your account may be broken.";
-"Initial.UnstableMiddle.Title" = "Warning";
-"Initial.UnstableMiddle.Logout" = "Logout from current account";
-"Initial.UnstableMiddle.Continue" = "Continue with current account";
+"Initial.UnstableMiddle.Title" = "Внимание";
+"Initial.UnstableMiddle.Logout" = "Выйти из текущей учетной записи";
+"Initial.UnstableMiddle.Continue" = "Продолжить с текущей учетной записью";
 "Initial.UnstableMiddle.WontUseProd" = "I won't be using my production account";
 
 // MARK: - Create tip
@@ -845,10 +845,10 @@
 "LongTapCreateTip.Message" = "Long tap on Create Object button to open menu with types";
 
 // MARK: - Error
-"Error.AnytypeNeedsUpgrate.Title" = "Update Your App";
-"Error.AnytypeNeedsUpgrate.Message" = "This object was modified in a newer version of Anytype. Please update the app to open it on this device";
+"Error.AnytypeNeedsUpgrate.Title" = "Обновите приложение";
+"Error.AnytypeNeedsUpgrate.Message" = "Объект был изменен в более новой версии Anytype. Пожалуйста, обновите приложение, чтобы открыть его на этом устройстве";
 
 // MARK: - Relative date formatter
-"RelativeFormatter.days7" = "Previous 7 days";
-"RelativeFormatter.days30" = "Previous 30 days";
-"RelativeFormatter.older" = "Older";
+"RelativeFormatter.days7" = "За последние 7 дней";
+"RelativeFormatter.days30" = "За последние 30 дней";
+"RelativeFormatter.older" = "Раньше";
