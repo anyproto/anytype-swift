@@ -2,11 +2,11 @@ import Foundation
 import SwiftUI
 
 private struct SetHomeBottomPanelHidden: EnvironmentKey {
-    static let defaultValue: (Bool) -> Void = { _ in }
+    static let defaultValue = Binding.constant(true)
 }
 
 private extension EnvironmentValues {
-    var setHomeBottomPanelHidden: (Bool) -> Void {
+    var setHomeBottomPanelHidden: Binding<Bool> {
         get { self[SetHomeBottomPanelHidden.self] }
         set { self[SetHomeBottomPanelHidden.self] = newValue }
     }
@@ -15,15 +15,28 @@ private extension EnvironmentValues {
 private struct SetBottomViewModifier: ViewModifier {
     
     let hidden: Bool
-    @Environment(\.setHomeBottomPanelHidden) private var setBottomPanelHidden
+    let animated: Bool
+    @Environment(\.setHomeBottomPanelHidden) @Binding private var setBottomPanelHidden
     
     func body(content: Content) -> some View {
         content
             .onAppear {
-                setBottomPanelHidden(hidden)
+                if animated == false {
+                    setBottomPanelHidden = hidden
+                } else {
+                    withAnimation {
+                        setBottomPanelHidden = hidden
+                    }
+                }
             }
             .onChange(of: hidden, perform: { newValue in
-                setBottomPanelHidden(newValue)
+                if animated == false {
+                    setBottomPanelHidden = newValue
+                } else {
+                    withAnimation {
+                        setBottomPanelHidden = newValue
+                    }
+                }
             })
     }
 }
@@ -31,11 +44,11 @@ private struct SetBottomViewModifier: ViewModifier {
 
 extension View {
     
-    func setHomeBottomPanelHiddenHandler(_ handler: @escaping (Bool) -> Void) -> some View {
+    func setHomeBottomPanelHiddenHandler(_ handler: Binding<Bool>) -> some View {
         environment(\.setHomeBottomPanelHidden, handler)
     }
     
-    func homeBottomPanelHidden(_ hidden: Bool) -> some View {
-        modifier(SetBottomViewModifier(hidden: hidden))
+    func homeBottomPanelHidden(_ hidden: Bool, animated: Bool = true) -> some View {
+        modifier(SetBottomViewModifier(hidden: hidden, animated: animated))
     }
 }

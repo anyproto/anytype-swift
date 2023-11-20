@@ -31,7 +31,7 @@ struct WidgetObjectListView: View {
         .navigationBarTitle("")
         .navigationBarHidden(true)
         .environment(\.editMode, $model.viewEditMode)
-        .homeBottomPanelHidden(model.homeBottomPanelHiddel)
+        .homeBottomPanelHidden(model.homeBottomPanelHiddel, animated: false)
     }
     
     @ViewBuilder

@@ -8,7 +8,7 @@ protocol EditorBottomNavigationManagerProtocol: AnyObject {
 }
 
 protocol EditorBottomNavigationManagerOutput: AnyObject {
-    func setHomeBottomPanelHidden(_ hidden: Bool)
+    func setHomeBottomPanelHidden(_ hidden: Bool, animated: Bool)
 }
 
 final class EditorBottomNavigationManager: EditorBottomNavigationManagerProtocol {
@@ -44,19 +44,19 @@ final class EditorBottomNavigationManager: EditorBottomNavigationManagerProtocol
     // TODO: Add animation?
     private func updateNavigationVisibility(animated: Bool) {
         if isMultiselectActive {
-            output?.setHomeBottomPanelHidden(true)
+            output?.setHomeBottomPanelHidden(true, animated: animated)
             return
         }
         
         if isStyleViewActive {
-            output?.setHomeBottomPanelHidden(true)
+            output?.setHomeBottomPanelHidden(true, animated: animated)
             return
         }
 
         if scrollDirectionBottom {
-            output?.setHomeBottomPanelHidden(true)
+            output?.setHomeBottomPanelHidden(true, animated: animated)
         } else {
-            output?.setHomeBottomPanelHidden(false)
+            output?.setHomeBottomPanelHidden(false, animated: animated)
         }
     }
 }

@@ -36,6 +36,7 @@ final class EditorPageViewModel: EditorPageViewModelProtocol, EditorBottomNaviga
     var viewController: UIViewController
 
     @Published var bottomPanelHidden: Bool = false
+    @Published var bottomPanelHiddenAnimated: Bool = false
     @Published var dismiss = false
 
     // MARK: - Initialization
@@ -296,8 +297,9 @@ extension EditorPageViewModel {
 
     // MARK: - EditorBottomNavigationManagerOutput
 
-    func setHomeBottomPanelHidden(_ hidden: Bool) {
+    func setHomeBottomPanelHidden(_ hidden: Bool, animated: Bool) {
         bottomPanelHidden = hidden
+        bottomPanelHiddenAnimated = animated
     }
 }
 

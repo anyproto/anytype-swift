@@ -20,8 +20,9 @@ struct HomeBottomPanelContainer<Content: View, BottomContent: View>: View {
         content
             .anytypeNavigationPanelSize(bottomSize)
             .onChange(of: path.count) { newValue in
-                print("on change count - false")
-                bottomPanelHidden = false
+                withAnimation {
+                    bottomPanelHidden = false
+                }
             }
             .safeAreaInset(edge: .bottom) {
                 if !bottomPanelHidden {
@@ -32,11 +33,7 @@ struct HomeBottomPanelContainer<Content: View, BottomContent: View>: View {
                         .transition(.opacity)
                 }
             }
-            .setHomeBottomPanelHiddenHandler { newValue in
-                print("setBottomPanelHidden - \(newValue)")
-                bottomPanelHidden = newValue
-            }
+            .setHomeBottomPanelHiddenHandler($bottomPanelHidden)
             .ignoresSafeArea(.keyboard)
-            .animation(.default, value: bottomPanelHidden)
     }
 }
