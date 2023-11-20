@@ -28,7 +28,7 @@ struct EditorSetView: View {
         .onChange(of: model.dismiss) { _ in
             dismiss()
         }
-        .anytypeStatusBar(style: .darkContent)
+        .anytypeStatusBar(style: .default)
     }
     
     private var content: some View {
