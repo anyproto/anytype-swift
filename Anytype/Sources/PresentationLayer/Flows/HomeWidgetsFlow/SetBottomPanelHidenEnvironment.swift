@@ -13,28 +13,33 @@ private extension EnvironmentValues {
 }
 
 private struct SetBottomViewModifier: ViewModifier {
+ 
+    struct State: Equatable {
+        let hidden: Bool
+        let animated: Bool
+    }
     
-    let hidden: Bool
-    let animated: Bool
+    let state: State
+
     @Environment(\.setHomeBottomPanelHidden) @Binding private var setBottomPanelHidden
     
     func body(content: Content) -> some View {
         content
             .onAppear {
-                if animated == false {
-                    setBottomPanelHidden = hidden
+                if state.animated == false {
+                    setBottomPanelHidden = state.hidden
                 } else {
                     withAnimation {
-                        setBottomPanelHidden = hidden
+                        setBottomPanelHidden = state.hidden
                     }
                 }
             }
-            .onChange(of: hidden, perform: { newValue in
-                if animated == false {
-                    setBottomPanelHidden = newValue
+            .onChange(of: state, perform: { newValue in
+                if newValue.animated == false {
+                    setBottomPanelHidden = newValue.hidden
                 } else {
                     withAnimation {
-                        setBottomPanelHidden = newValue
+                        setBottomPanelHidden = newValue.hidden
                     }
                 }
             })
@@ -49,6 +54,6 @@ extension View {
     }
     
     func homeBottomPanelHidden(_ hidden: Bool, animated: Bool = true) -> some View {
-        modifier(SetBottomViewModifier(hidden: hidden, animated: animated))
+        modifier(SetBottomViewModifier(state: .init(hidden: hidden, animated: animated)))
     }
 }

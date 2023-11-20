@@ -36,7 +36,7 @@ final class EditorPageViewModel: EditorPageViewModelProtocol, EditorBottomNaviga
     var viewController: UIViewController
 
     @Published var bottomPanelHidden: Bool = false
-    @Published var bottomPanelHiddenAnimated: Bool = false
+    @Published var bottomPanelHiddenAnimated: Bool = true
     @Published var dismiss = false
 
     // MARK: - Initialization
