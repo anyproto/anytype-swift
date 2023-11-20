@@ -458,7 +458,7 @@ private extension EditorPageController {
     
     func setupView() {
         view.backgroundColor = .Background.primary
-        additionalSafeAreaInsets = UIEdgeInsets(top: 44, left: 0, bottom: 60, right: 0)
+        additionalSafeAreaInsets = UIEdgeInsets(top: 44, left: 0, bottom: 0, right: 0)
         setupCollectionView()
         
         setupInteractions()
