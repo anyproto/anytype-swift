@@ -177,8 +177,7 @@ final class EditorSetViewModel: ObservableObject {
                 await self.onDataviewUpdate()
                 self.logModuleScreen()
             } catch {
-                self.dismiss.toggle()
-//                self.router?.showOpenDocumentError(error: error)
+                self.router?.showOpenDocumentError(error: error)
             }
         }
     }
@@ -195,8 +194,7 @@ final class EditorSetViewModel: ObservableObject {
         Task {
             await startSubscriptionIfNeeded()
         }
-//        router?.setNavigationViewHidden(false, animated: true)
-//        isAppear = true
+        
     }
     
     func onWillDisappear() {

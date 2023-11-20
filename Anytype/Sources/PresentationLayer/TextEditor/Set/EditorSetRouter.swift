@@ -58,7 +58,7 @@ protocol EditorSetRouterProtocol:
     func showOpenDocumentError(error: Error)
 }
 
-final class EditorSetRouter: EditorSetRouterProtocol, ObjectSettingsCoordinatorOutput {
+final class EditorSetRouter: EditorSetRouterProtocol, ObjectSettingsCoordinatorOutput, SetObjectCreationCoordinatorOutput {
     
     // MARK: - DI
     
@@ -174,7 +174,7 @@ final class EditorSetRouter: EditorSetRouterProtocol, ObjectSettingsCoordinatorO
     }
     
     func showCreateObject(setting: ObjectCreationSetting?) {
-        setObjectCreationCoordinator.startCreateObject(setDocument: setDocument, setting: setting)
+        setObjectCreationCoordinator.startCreateObject(setDocument: setDocument, setting: setting, output: self)
     }
     
     func showRelationSearch(relationsDetails: [RelationDetails], onSelect: @escaping (RelationDetails) -> Void) {
@@ -401,6 +401,12 @@ final class EditorSetRouter: EditorSetRouterProtocol, ObjectSettingsCoordinatorO
             self?.closeEditor()
         }
         navigationContext.present(alert)
+    }
+    
+    // MARK: - SetObjectCreationCoordinatorOutput
+    
+    func showEditorScreen(data: EditorScreenData) {
+        showPage(data: data)
     }
 
     // MARK: - Private

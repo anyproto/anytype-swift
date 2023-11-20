@@ -1,31 +1,41 @@
 import Services
 
+@MainActor
 protocol SetObjectCreationCoordinatorProtocol {
-    func startCreateObject(setDocument: SetDocumentProtocol, setting: ObjectCreationSetting?)
+    func startCreateObject(
+        setDocument: SetDocumentProtocol,
+        setting: ObjectCreationSetting?,
+        output: SetObjectCreationCoordinatorOutput?
+    )
 }
 
+@MainActor
 final class SetObjectCreationCoordinator: SetObjectCreationCoordinatorProtocol {
     
     private let navigationContext: NavigationContextProtocol
     private let toastPresenter: ToastPresenterProtocol
     private let objectCreationHelper: SetObjectCreationHelperProtocol
     private let createObjectModuleAssembly: CreateObjectModuleAssemblyProtocol
+    private weak var output: SetObjectCreationCoordinatorOutput?
     
-    init(
+    nonisolated init(
         navigationContext: NavigationContextProtocol,
-//        editorPageCoordinator: EditorPageCoordinatorProtocol,
         toastPresenter: ToastPresenterProtocol,
         objectCreationHelper: SetObjectCreationHelperProtocol,
         createObjectModuleAssembly: CreateObjectModuleAssemblyProtocol
     ) {
         self.navigationContext = navigationContext
-//        self.editorPageCoordinator = editorPageCoordinator
         self.toastPresenter = toastPresenter
         self.objectCreationHelper = objectCreationHelper
         self.createObjectModuleAssembly = createObjectModuleAssembly
     }
     
-    func startCreateObject(setDocument: SetDocumentProtocol, setting: ObjectCreationSetting?) {
+    func startCreateObject(
+        setDocument: SetDocumentProtocol,
+        setting: ObjectCreationSetting?,
+        output: SetObjectCreationCoordinatorOutput?
+    ) {
+        self.output = output
         objectCreationHelper.createObject(for: setDocument, setting: setting) { [weak self] details in
             self?.handleCreatedObjectIfNeeded(details, setDocument: setDocument)
         }
@@ -70,12 +80,12 @@ final class SetObjectCreationCoordinator: SetObjectCreationCoordinatorProtocol {
     }
     
     private func showPage(data: EditorScreenData) {
-//        editorPageCoordinator.startFlow(data: data, replaceCurrentPage: false)
+        output?.showEditorScreen(data: data)
     }
 }
 
 extension SetObjectCreationCoordinatorProtocol {
-    func startCreateObject(setDocument: SetDocumentProtocol) {
-        startCreateObject(setDocument: setDocument, setting: nil)
+    func startCreateObject(setDocument: SetDocumentProtocol, output: SetObjectCreationCoordinatorOutput?) {
+        startCreateObject(setDocument: setDocument, setting: nil, output: output)
     }
 }
