@@ -29,7 +29,7 @@ struct HomeBottomPanelContainer<Content: View, BottomContent: View>: View {
                         .readSize {
                             bottomSize = $0
                         }
-                        .transition(.move(edge: .bottom))
+                        .transition(.opacity)
                 }
             }
             .setHomeBottomPanelHiddenHandler { newValue in
