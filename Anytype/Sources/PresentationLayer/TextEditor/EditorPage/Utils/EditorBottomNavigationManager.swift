@@ -15,7 +15,6 @@ final class EditorBottomNavigationManager: EditorBottomNavigationManagerProtocol
     
     // MARK: - DI
     
-//    private weak var browser: EditorBrowser?
     weak var output: EditorBottomNavigationManagerOutput?
     
     // MARK: - State
@@ -42,31 +41,21 @@ final class EditorBottomNavigationManager: EditorBottomNavigationManagerProtocol
         updateNavigationVisibility(animated: false)
     }
     
+    // TODO: Add animation?
     private func updateNavigationVisibility(animated: Bool) {
         if isMultiselectActive {
-//            browser?.setNavigationViewHidden(true, animated: animated)
-//            environmentBridge.setHomeBottomPanelHidden(true, animated: animated)
             output?.setHomeBottomPanelHidden(true)
             return
         }
         
         if isStyleViewActive {
-//            browser?.setNavigationViewHidden(true, animated: animated)
-//            environmentBridge.homeBottomPanelHidden = true
-//            environmentBridge.setHomeBottomPanelHidden(true, animated: animated)
             output?.setHomeBottomPanelHidden(true)
             return
         }
 
         if scrollDirectionBottom {
-//            browser?.setNavigationViewHidden(true, animated: animated)
-//            environmentBridge.homeBottomPanelHidden = true
-//            environmentBridge.setHomeBottomPanelHidden(true, animated: animated)
             output?.setHomeBottomPanelHidden(true)
         } else {
-//            browser?.setNavigationViewHidden(false, animated: animated)
-//            environmentBridge.homeBottomPanelHidden = false
-//            environmentBridge.setHomeBottomPanelHidden(false, animated: animated)
             output?.setHomeBottomPanelHidden(false)
         }
     }

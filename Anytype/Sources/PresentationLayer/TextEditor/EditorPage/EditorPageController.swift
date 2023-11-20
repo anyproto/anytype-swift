@@ -51,7 +51,6 @@ final class EditorPageController: UIViewController {
     }()
 
     private lazy var navigationBarHelper: EditorNavigationBarHelper = EditorNavigationBarHelper(
-//        viewController: self,
         navigationBarView: navigationBarView,
         onSettingsBarButtonItemTap: { [weak viewModel] in
             UISelectionFeedbackGenerator().selectionChanged()
@@ -493,8 +492,6 @@ private extension EditorPageController {
             }
         }
 
-//        navigationBarHelper.addFakeNavigationBarBackgroundView(to: view)
-
         view.addSubview(blocksSelectionOverlayView) {
             $0.pinToSuperview()
         }
@@ -502,9 +499,6 @@ private extension EditorPageController {
             view.addSubview(navigationBarView) {
                 $0.pinToSuperview(excluding: [.bottom])
                 $0.bottom.equal(to: view.safeAreaLayoutGuide.topAnchor)
-                //            $0.height.equal(to: view.safeAreaLayoutGuide.topAnchor)
-                //            $0.top.equal(to: view.safeAreaLayoutGuide.topAnchor)
-                //            $0.height.equal(to: 44)
             }
         }
         blocksSelectionOverlayView.isHidden = true

@@ -331,7 +331,6 @@
 		2A0BAD2F29E01E33005BC5D9 /* View+Focused.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A0BAD2E29E01E33005BC5D9 /* View+Focused.swift */; };
 		2A0BAD3129E020A3005BC5D9 /* Task+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A0BAD3029E020A3005BC5D9 /* Task+Extensions.swift */; };
 		2A0BAD3329E020D7005BC5D9 /* View+Autofocus.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A0BAD3229E020D7005BC5D9 /* View+Autofocus.swift */; };
-		2A0D05F12B037E6600FB3DEB /* TemplateEditingCoordinatorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A0D05F02B037E6600FB3DEB /* TemplateEditingCoordinatorView.swift */; };
 		2A12B77E2A6A754200CE1AFD /* GradientIconPainter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A12B77D2A6A754200CE1AFD /* GradientIconPainter.swift */; };
 		2A150BE028AA8E9700F2E569 /* TextRelationURLActionViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A150BDF28AA8E9700F2E569 /* TextRelationURLActionViewModel.swift */; };
 		2A176438283E2211002853D3 /* AnytypePopupProxy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A176437283E2211002853D3 /* AnytypePopupProxy.swift */; };
@@ -583,7 +582,6 @@
 		2A9D299028BCC11A00789AC7 /* NonExistentBlockView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A9D298F28BCC11A00789AC7 /* NonExistentBlockView.swift */; };
 		2A9D299228BCC16E00789AC7 /* NonExistentBlockContentConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A9D299128BCC16E00789AC7 /* NonExistentBlockContentConfiguration.swift */; };
 		2A9D299428BCC78900789AC7 /* NonExistentBlockViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A9D299328BCC78900789AC7 /* NonExistentBlockViewModel.swift */; };
-		2A9F53042B037CFB00361052 /* TemplateEditingCoordinatorAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A9F53032B037CFB00361052 /* TemplateEditingCoordinatorAssembly.swift */; };
 		2AA0209228D3502000321A66 /* Array+SubscriptionUpdate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AA0209128D3502000321A66 /* Array+SubscriptionUpdate.swift */; };
 		2AA0209528D3523000321A66 /* SetSubscriptionDataBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AA0209428D3523000321A66 /* SetSubscriptionDataBuilder.swift */; };
 		2AA0209728D3526700321A66 /* SetSubscriptionDataBuilderProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AA0209628D3526700321A66 /* SetSubscriptionDataBuilderProtocol.swift */; };
@@ -1140,7 +1138,6 @@
 		3D85FB5B2799B66E00E17BB2 /* EditorSetPaginationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D85FB5A2799B66E00E17BB2 /* EditorSetPaginationView.swift */; };
 		3D88217C26F3722600A41E75 /* BlockText+AnytypeText.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D88217B26F3722600A41E75 /* BlockText+AnytypeText.swift */; };
 		3D8A82D82656EDF400C4A9CD /* Popup.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D8A82D72656EDF400C4A9CD /* Popup.swift */; };
-		3D8D41B62742840000F8EBF3 /* DocumentDetaisProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D8D41B52742840000F8EBF3 /* DocumentDetaisProvider.swift */; };
 		3D8D41BB274297FF00F8EBF3 /* EditorSetViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D8D41BA274297FF00F8EBF3 /* EditorSetViewModel.swift */; };
 		3D8D41BE2743D32000F8EBF3 /* EditorScreenData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D8D41BD2743D32000F8EBF3 /* EditorScreenData.swift */; };
 		3D929B2B263302160063F1BE /* TypographyExample.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D929B2A263302160063F1BE /* TypographyExample.swift */; };
@@ -1987,7 +1984,6 @@
 		2A0BAD2E29E01E33005BC5D9 /* View+Focused.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "View+Focused.swift"; sourceTree = "<group>"; };
 		2A0BAD3029E020A3005BC5D9 /* Task+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Task+Extensions.swift"; sourceTree = "<group>"; };
 		2A0BAD3229E020D7005BC5D9 /* View+Autofocus.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "View+Autofocus.swift"; sourceTree = "<group>"; };
-		2A0D05F02B037E6600FB3DEB /* TemplateEditingCoordinatorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TemplateEditingCoordinatorView.swift; sourceTree = "<group>"; };
 		2A12B77D2A6A754200CE1AFD /* GradientIconPainter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GradientIconPainter.swift; sourceTree = "<group>"; };
 		2A1331462B03681D00E8F3A5 /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/Localizable.strings; sourceTree = "<group>"; };
 		2A1331472B03682100E8F3A5 /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.stringsdict; name = de; path = de.lproj/Localizable.stringsdict; sourceTree = "<group>"; };
@@ -2239,7 +2235,6 @@
 		2A9D298F28BCC11A00789AC7 /* NonExistentBlockView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NonExistentBlockView.swift; sourceTree = "<group>"; };
 		2A9D299128BCC16E00789AC7 /* NonExistentBlockContentConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NonExistentBlockContentConfiguration.swift; sourceTree = "<group>"; };
 		2A9D299328BCC78900789AC7 /* NonExistentBlockViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NonExistentBlockViewModel.swift; sourceTree = "<group>"; };
-		2A9F53032B037CFB00361052 /* TemplateEditingCoordinatorAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TemplateEditingCoordinatorAssembly.swift; sourceTree = "<group>"; };
 		2AA0209128D3502000321A66 /* Array+SubscriptionUpdate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Array+SubscriptionUpdate.swift"; sourceTree = "<group>"; };
 		2AA0209428D3523000321A66 /* SetSubscriptionDataBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetSubscriptionDataBuilder.swift; sourceTree = "<group>"; };
 		2AA0209628D3526700321A66 /* SetSubscriptionDataBuilderProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetSubscriptionDataBuilderProtocol.swift; sourceTree = "<group>"; };
@@ -2807,7 +2802,6 @@
 		3D85FB5A2799B66E00E17BB2 /* EditorSetPaginationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditorSetPaginationView.swift; sourceTree = "<group>"; };
 		3D88217B26F3722600A41E75 /* BlockText+AnytypeText.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "BlockText+AnytypeText.swift"; sourceTree = "<group>"; };
 		3D8A82D72656EDF400C4A9CD /* Popup.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Popup.swift; sourceTree = "<group>"; };
-		3D8D41B52742840000F8EBF3 /* DocumentDetaisProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DocumentDetaisProvider.swift; sourceTree = "<group>"; };
 		3D8D41BA274297FF00F8EBF3 /* EditorSetViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditorSetViewModel.swift; sourceTree = "<group>"; };
 		3D8D41BD2743D32000F8EBF3 /* EditorScreenData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditorScreenData.swift; sourceTree = "<group>"; };
 		3D929B2A263302160063F1BE /* TypographyExample.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TypographyExample.swift; sourceTree = "<group>"; };
@@ -7850,14 +7844,6 @@
 			path = BlockActionService;
 			sourceTree = "<group>";
 		};
-		3D8D41B7274284A200F8EBF3 /* SupportedPages */ = {
-			isa = PBXGroup;
-			children = (
-				3D8D41B52742840000F8EBF3 /* DocumentDetaisProvider.swift */,
-			);
-			path = SupportedPages;
-			sourceTree = "<group>";
-		};
 		3D8D41BC27429A2900F8EBF3 /* Assembly */ = {
 			isa = PBXGroup;
 			children = (
@@ -7938,7 +7924,6 @@
 		3D93D55B270AFDFE00614E29 /* EditorBrowser */ = {
 			isa = PBXGroup;
 			children = (
-				3D8D41B7274284A200F8EBF3 /* SupportedPages */,
 				2AA22F67289BF27500BBA174 /* EditorBrowserView.swift */,
 			);
 			path = EditorBrowser;
@@ -8883,8 +8868,6 @@
 			isa = PBXGroup;
 			children = (
 				867519E12A669146001C2346 /* TemplateEditingViewController.swift */,
-				2A9F53032B037CFB00361052 /* TemplateEditingCoordinatorAssembly.swift */,
-				2A0D05F02B037E6600FB3DEB /* TemplateEditingCoordinatorView.swift */,
 			);
 			path = Editing;
 			sourceTree = "<group>";
@@ -10057,7 +10040,6 @@
 				2EC9425128F97F5E00DE91E4 /* GroupsSubscribeServiceProtocol.swift in Sources */,
 				53856BCB2659B38F00CB1FAE /* CodeBlockViewModel.swift in Sources */,
 				2EAA14072AA63918000A712A /* SetRelationsViewModel.swift in Sources */,
-				2A9F53042B037CFB00361052 /* TemplateEditingCoordinatorAssembly.swift in Sources */,
 				2A35FF902AAF203C00D6006D /* CodeLanguageListViewModel.swift in Sources */,
 				2A03039828ABAA45002EFC46 /* TextRelationActionViewModelProtocol.swift in Sources */,
 				C91AFF11270C3E2F005F9386 /* ActivityViewController.swift in Sources */,
@@ -10354,7 +10336,6 @@
 				2AD239072A8A05BF00F7697A /* SpaceCreateView.swift in Sources */,
 				2AF4260F29AF47DB00753B17 /* AboutModuleAssembly.swift in Sources */,
 				2E975EC92874BBC5004DE574 /* SetViewRowConfiguration.swift in Sources */,
-				2A0D05F12B037E6600FB3DEB /* TemplateEditingCoordinatorView.swift in Sources */,
 				3D155270264D8DB800B0E976 /* SeedPhraseView.swift in Sources */,
 				3DA626532657ADA700942249 /* PopupExtension.swift in Sources */,
 				3D00F1CF278D7CB700863D7C /* ObjectSearchData.swift in Sources */,
@@ -10866,7 +10847,6 @@
 				2EE36CD82AF535C30043AA8D /* SetObjectCreationCoordinatorAssembly.swift in Sources */,
 				2EA2B7D42AB2113B00F1F49F /* SetViewSettingsListMode.swift in Sources */,
 				53FF7C4E26F7DB3C00A5A592 /* AnytypeSharedAudioplayer.swift in Sources */,
-				3D8D41B62742840000F8EBF3 /* DocumentDetaisProvider.swift in Sources */,
 				EA20CDD926122CCF00DBA9FE /* VideoBlockContentViewConfiguration.swift in Sources */,
 				C92DCD93272990FD00A03D91 /* ChangeTypeAccessoryViewModel.swift in Sources */,
 				2AE155932A31BDF50049C387 /* FavoriteCompactListWidgetModuleAssembly.swift in Sources */,

@@ -7,7 +7,6 @@ protocol SetObjectCreationCoordinatorProtocol {
 final class SetObjectCreationCoordinator: SetObjectCreationCoordinatorProtocol {
     
     private let navigationContext: NavigationContextProtocol
-//    private let editorPageCoordinator: EditorPageCoordinatorProtocol
     private let toastPresenter: ToastPresenterProtocol
     private let objectCreationHelper: SetObjectCreationHelperProtocol
     private let createObjectModuleAssembly: CreateObjectModuleAssemblyProtocol

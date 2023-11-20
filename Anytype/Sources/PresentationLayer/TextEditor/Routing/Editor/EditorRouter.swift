@@ -178,7 +178,6 @@ final class EditorRouter: NSObject, EditorRouterProtocol, ObjectSettingsCoordina
         let infos = informations.compactMap { document.infoContainer.get(id: $0.id) }
         guard
             let controller = viewController,
-//            let rootController = rootController,
             infos.isNotEmpty
         else { return }
         guard let controller = controller as? EditorPageController else {
@@ -194,10 +193,8 @@ final class EditorRouter: NSObject, EditorRouterProtocol, ObjectSettingsCoordina
             showMarkupMenu: { [weak controller, weak self] styleView, viewDidClose in
                 guard let self = self else { return }
                 guard let controller = controller else { return }
-//                guard let rootController = rootController else { return }
 
                 BottomSheetsFactory.showMarkupBottomSheet(
-//                    parentViewController: rootController,
                     parentViewController: controller,
                     styleView: styleView,
                     document: self.document,

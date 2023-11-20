@@ -1,11 +1,12 @@
 import Foundation
 import SwiftUI
 
+@MainActor
 protocol EditorSetModuleAssemblyProtocol: AnyObject {
-    @MainActor
     func make(data: EditorSetObject, output: EditorSetModuleOutput?) -> AnyView
 }
 
+@MainActor
 final class EditorSetModuleAssembly: EditorSetModuleAssemblyProtocol {
     
     private let serviceLocator: ServiceLocator
@@ -14,7 +15,7 @@ final class EditorSetModuleAssembly: EditorSetModuleAssemblyProtocol {
     private let modulesDI: ModulesDIProtocol
     private let uiHelpersDI: UIHelpersDIProtocol
     
-    init(
+    nonisolated init(
         serviceLocator: ServiceLocator,
         coordinatorsDI: CoordinatorsDIProtocol,
         modulesDI: ModulesDIProtocol,
@@ -28,14 +29,12 @@ final class EditorSetModuleAssembly: EditorSetModuleAssemblyProtocol {
     
     // MARK: - EditorSetModuleAssemblyProtocol
     
-    @MainActor
     func make(data: EditorSetObject, output: EditorSetModuleOutput?) -> AnyView {
         return EditorSetView(model: self.setModel(data: data, output: output)).eraseToAnyView()
     }
     
     // MARK: - Private
-    
-    @MainActor
+
     private func setModel(data: EditorSetObject, output: EditorSetModuleOutput?) -> EditorSetViewModel {
         let setDocument = serviceLocator.documentsProvider.setDocument(
             objectId: data.objectId,

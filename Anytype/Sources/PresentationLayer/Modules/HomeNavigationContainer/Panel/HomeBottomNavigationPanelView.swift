@@ -44,7 +44,9 @@ struct HomeBottomNavigationPanelView: View {
                         model.onTapCreateObjectWithType()
                     }
             )
-            .popoverHomeCreateObjectTip()
+            .if(homeMode) {
+                $0.popoverHomeCreateObjectTip()
+            }
             
             if homeMode {
                 Button {
