@@ -284,6 +284,8 @@ final class HomeWidgetsCoordinatorViewModel: ObservableObject,
         )
     }
     
+    // MARK: - HomeBottomNavigationPanelModuleOutput
+    
     func onSearchSelected() {
         AnytypeAnalytics.instance().logScreenSearch()
         showSearchData = SearchModuleModel(
@@ -306,14 +308,6 @@ final class HomeWidgetsCoordinatorViewModel: ObservableObject,
     func onProfileSelected() {
         showSpaceSwitch.toggle()
     }
-    
-    // MARK: - EditorBrowserDelegate
-    
-    func onCreateObjectWithTypeSelected() {
-        showCreateObjectWithType.toggle()
-    }
-    
-    // MARK: - HomeBottomNavigationPanelModuleOutput
 
     func onHomeSelected() {
         editorPath.popToRoot()
@@ -325,6 +319,10 @@ final class HomeWidgetsCoordinatorViewModel: ObservableObject,
 
     func onBackwardSelected() {
         editorPath.pop()
+    }
+    
+    func onCreateObjectWithTypeSelected() {
+        showCreateObjectWithType.toggle()
     }
 
     // MARK: - Private

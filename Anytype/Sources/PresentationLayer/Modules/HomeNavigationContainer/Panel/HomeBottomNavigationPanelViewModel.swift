@@ -56,6 +56,10 @@ final class HomeBottomNavigationPanelViewModel: ObservableObject {
     func onTapProfile() {
         output?.onProfileSelected()
     }
+    
+    func onTapCreateObjectWithType() {
+        output?.onCreateObjectWithTypeSelected()
+    }
         
     // MARK: - Private
     

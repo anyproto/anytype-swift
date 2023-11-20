@@ -8,7 +8,6 @@ struct HomeBottomNavigationPanelView: View {
     
     var body: some View {
         buttons
-//        .animation(.default, value: model.isEditState)
     }
 
     @ViewBuilder
@@ -39,6 +38,13 @@ struct HomeBottomNavigationPanelView: View {
                 IconView(icon: .asset( .X32.addNew))
                     .frame(width: 32, height: 32)
             }
+            .simultaneousGesture(
+                LongPressGesture(minimumDuration: 0.3)
+                    .onEnded { _ in
+                        model.onTapCreateObjectWithType()
+                    }
+            )
+            .popoverHomeCreateObjectTip()
             
             if homeMode {
                 Button {
