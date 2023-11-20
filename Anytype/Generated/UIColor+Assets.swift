@@ -103,6 +103,11 @@ extension UIColor {
       internal static let backgroundWithBlur = UIColor(asset: Asset.ModalScreen.backgroundWithBlur)
     }
     
+    // MARK: - Navigation
+    enum Navigation {
+      internal static let background = UIColor(asset: Asset.Navigation.background)
+    }
+    
     // MARK: - Shadow
     enum Shadow {
       internal static let primary = UIColor(asset: Asset.Shadow.primary)

@@ -76,10 +76,9 @@ struct HomeBottomNavigationPanelView: View {
                 .frame(width: 32, height: 32)
             }
         }
-        .foregroundStyle(.gray) // TODO: Use from design system
+        .foregroundStyle(Color.Navigation.background)
         .padding(.horizontal, 20)
         .padding(.vertical, 10)
-        .background(Color.white.opacity(0.05))
         .background(.ultraThinMaterial)
         .cornerRadius(16, style: .continuous)
         .padding(.vertical, 10)

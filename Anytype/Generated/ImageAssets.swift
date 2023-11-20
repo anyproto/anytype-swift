@@ -354,12 +354,10 @@ internal extension ImageAsset {
       static let list = ImageAsset.bundle(name: "Widget/Preview/list")
       static let tree = ImageAsset.bundle(name: "Widget/Preview/tree")
     }
-    static let add = ImageAsset.bundle(name: "Widget/add")
     static let bin = ImageAsset.bundle(name: "Widget/bin")
     static let collapse = ImageAsset.bundle(name: "Widget/collapse")
     static let collection = ImageAsset.bundle(name: "Widget/collection")
     static let dot = ImageAsset.bundle(name: "Widget/dot")
-    static let search = ImageAsset.bundle(name: "Widget/search")
     static let `set` = ImageAsset.bundle(name: "Widget/set")
     static let settings = ImageAsset.bundle(name: "Widget/settings")
     static let tick = ImageAsset.bundle(name: "Widget/tick")

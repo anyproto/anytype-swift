@@ -103,6 +103,11 @@ extension Color {
       internal static let backgroundWithBlur = Color(asset: Asset.ModalScreen.backgroundWithBlur)
     }
     
+    // MARK: - Navigation
+    enum Navigation {
+      internal static let background = Color(asset: Asset.Navigation.background)
+    }
+    
     // MARK: - Shadow
     enum Shadow {
       internal static let primary = Color(asset: Asset.Shadow.primary)

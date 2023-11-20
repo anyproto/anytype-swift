@@ -34,6 +34,7 @@ extension UIColor {
                 UIColor.Background.collectionInfo, 
                 UIColor.Button.collectionInfo, 
                 UIColor.ModalScreen.collectionInfo, 
+                UIColor.Navigation.collectionInfo, 
                 UIColor.Shadow.collectionInfo, 
                 UIColor.Stroke.collectionInfo, 
                 UIColor.Text.collectionInfo, 
@@ -168,6 +169,14 @@ extension UIColor.ModalScreen {
         colors: [
             ColorInfo(name: "background", color: UIColor.ModalScreen.background), 
             ColorInfo(name: "backgroundWithBlur", color: UIColor.ModalScreen.backgroundWithBlur)
+        ]
+    )
+}
+extension UIColor.Navigation {
+    static let collectionInfo = ColorCollectionInfo(
+        name: "Navigation",
+        colors: [
+            ColorInfo(name: "background", color: UIColor.Navigation.background)
         ]
     )
 }
