@@ -220,7 +220,7 @@
 "Auth.JoinFlow.Key.ReadMore.Instruction.Option1.Title" = "La forma más fácil de almacenar su frase de recuperación es guardarla en su gestor de contraseñas.";
 "Auth.JoinFlow.Key.ReadMore.Instruction.Option2.Title" = "La forma más segura de almacenarla es escribirla en papel y mantenerla fuera de línea, en un lugar seguro.";
 
-"Auth.JoinFlow.Soul.Title" = "Choose your name";
+"Auth.JoinFlow.Soul.Title" = "Elige el nombre de la sala";
 "Auth.JoinFlow.Soul.Description" = "Así es como aparecerá en la aplicación.";
 "Auth.JoinFlow.Soul.Placeholder" = "Sin título";
 
@@ -614,7 +614,7 @@
 "DataviewType.list" = "Lista";
 "DataviewType.gallery" = "Galeria";
 "DataviewType.kanban" = "Kanban";
-"DataviewType.calendar" = "Calendar";
+"DataviewType.calendar" = "Calendario";
 
 // MARK: - ObjectType
 "ObjectType.fallbackDescription" = "Lienzo en blanco sin título";

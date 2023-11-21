@@ -62,7 +62,7 @@
 "BlockLink.PreviewSettings.Layout.Text.Title" = "Text";
 
 // MARK: - Settings
-"Settings.Title" = "Settings";
+"Settings.Title" = "Persönlicher Space";
 "Settings.SpaceName" = "Space-Name";
 
 // MARK: - Object
@@ -226,7 +226,7 @@
 
 "Auth.JoinFlow.Creating.Soul.Title" = "Neues Konto erstellen";
 "Auth.JoinFlow.Setting.Space.Title" = "Einrichtung deines persönlichen Spaces";
-"Auth.JoinFlow.Personal.Space.Title" = "Settings";
+"Auth.JoinFlow.Personal.Space.Title" = "Persönlicher Space";
 
 // Auth - Login flow
 "Auth.LoginFlow.Use.Keychain.Title" = "Schlüsselbund verwenden";
@@ -765,7 +765,7 @@
 "ClearCache.Error" = "Fehler. Versuchen Sie es später noch einmal";
 
 // MARK: - Settings
-"Settings.TitleLegacy" = "Settings";
+"Settings.TitleLegacy" = "Persönlicher Space";
 "Settings.Title" = "Einstellungen";
 "Settings.SpaceName" = "Space-Name";
 "Settings.AccountAndAccess" = "Konto und Zugriff";
@@ -800,9 +800,9 @@
 "ClearCacheAlert.Description" = "Alle in Anytype gespeicherten Medien werden von Ihrem aktuellen Gerät gelöscht. Sie können sie von einem Backup-Knoten oder einem anderen Gerät wieder herunterladen.";
 
 // MARK: - Spaces
-"Spaces.Accessibility.Public" = "Public Space";
-"Spaces.Accessibility.Private" = "Private Space";
-"Spaces.Accessibility.Personal" = "Settings";
+"Spaces.Accessibility.Public" = "Öffentlicher Raum";
+"Spaces.Accessibility.Private" = "Privater Raum";
+"Spaces.Accessibility.Personal" = "Persönlicher Space";
 "Spaces.Search.Title" = "Spaces suchen";
 
 // MARK: - Space Settings
