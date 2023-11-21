@@ -104,33 +104,29 @@ final class ListWidgetViewModel: WidgetContainerContentViewModelProtocol, Observ
     }
     
     private func updateViewState() {
-        withAnimation {
-            rows = rowDetails?.map { details in
-                ListWidgetRowModel(
-                    details: details,
-                    onTap: { [weak self] in
-                        self?.output?.onObjectSelected(screenData: $0)
-                    },
-                    onIconTap: { [weak self] in
-                        self?.updateDone(details: details)
-                    }
-                )
-            }
+        rows = rowDetails?.map { details in
+            ListWidgetRowModel(
+                details: details,
+                onTap: { [weak self] in
+                    self?.output?.onObjectSelected(screenData: $0)
+                },
+                onIconTap: { [weak self] in
+                    self?.updateDone(details: details)
+                }
+            )
         }
     }
     
     private func updateHeader(dataviewState: WidgetDataviewState?) {
-        withAnimation {
-            headerItems = dataviewState?.dataview.map { dataView in
-                ListWidgetHeaderItem.Model(
-                    dataviewId: dataView.id,
-                    title: dataView.nameWithPlaceholder,
-                    isSelected: dataView.id == dataviewState?.activeViewId,
-                    onTap: { [weak self] in
-                        self?.internalHeaderModel?.onActiveViewTap(dataView.id)
-                    }
-                )
-            }
+        headerItems = dataviewState?.dataview.map { dataView in
+            ListWidgetHeaderItem.Model(
+                dataviewId: dataView.id,
+                title: dataView.nameWithPlaceholder,
+                isSelected: dataView.id == dataviewState?.activeViewId,
+                onTap: { [weak self] in
+                    self?.internalHeaderModel?.onActiveViewTap(dataView.id)
+                }
+            )
         }
     }
     

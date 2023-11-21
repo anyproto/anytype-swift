@@ -16,17 +16,18 @@ struct HomeWidgetsView: View {
                     ForEach(model.models) { rowModel in
                         rowModel.provider.view
                     }
-                    HomeEditButton(text: Loc.Widgets.Actions.editWidgets) {
-                        model.onEditButtonTap()
+                    if model.dataLoaded {
+                        HomeEditButton(text: Loc.Widgets.Actions.editWidgets) {
+                            model.onEditButtonTap()
+                        }
+                        .opacity(model.hideEditButton ? 0 : 1)
+                        .animation(.default, value: model.hideEditButton)
                     }
-                    .opacity(model.hideEditButton ? 0 : 1)
-                    .animation(.default, value: model.hideEditButton)
                     AnytypeNavigationSpacer()
                 }
                 .padding(.horizontal, 20)
                 .padding(.top, 12)
                 .opacity(model.dataLoaded ? 1 : 0)
-                .animation(.default.delay(0.3), value: model.dataLoaded)
                 .fitIPadToReadableContentGuide()
             }
             .animation(.default, value: model.models.count)
