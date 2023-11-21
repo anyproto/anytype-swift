@@ -1184,7 +1184,6 @@
 		3DB3EC69275513B8002781DA /* ProgressBarStub.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DB3EC68275513B8002781DA /* ProgressBarStub.swift */; };
 		3DB3EC6B275514E9002781DA /* ProgressBarWithAnimation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DB3EC6A275514E9002781DA /* ProgressBarWithAnimation.swift */; };
 		3DB3EC81275654BC002781DA /* SingleAxisGeometryReader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DB3EC7D275654BC002781DA /* SingleAxisGeometryReader.swift */; };
-		3DB3EC8427577596002781DA /* BrowserNavigationManagerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DB3EC8327577596002781DA /* BrowserNavigationManagerTests.swift */; };
 		3DB692B12697645C00149864 /* MiddlewareColorConverter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DB692B02697645C00149864 /* MiddlewareColorConverter.swift */; };
 		3DB6E247268B5F8900C303E5 /* BlockViewModelProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DB6E246268B5F8800C303E5 /* BlockViewModelProtocol.swift */; };
 		3DB92F85264BF69900E83276 /* View+CornerRadius.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DB92F84264BF69900E83276 /* View+CornerRadius.swift */; };
@@ -2847,7 +2846,6 @@
 		3DB3EC68275513B8002781DA /* ProgressBarStub.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProgressBarStub.swift; sourceTree = "<group>"; };
 		3DB3EC6A275514E9002781DA /* ProgressBarWithAnimation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProgressBarWithAnimation.swift; sourceTree = "<group>"; };
 		3DB3EC7D275654BC002781DA /* SingleAxisGeometryReader.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SingleAxisGeometryReader.swift; sourceTree = "<group>"; };
-		3DB3EC8327577596002781DA /* BrowserNavigationManagerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = BrowserNavigationManagerTests.swift; path = AnyTypeTests/Navigation/BrowserNavigationManagerTests.swift; sourceTree = SOURCE_ROOT; };
 		3DB692B02697645C00149864 /* MiddlewareColorConverter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = MiddlewareColorConverter.swift; path = Anytype/Sources/Models/Documents/Parsers/MiddlewareColorConverter.swift; sourceTree = SOURCE_ROOT; };
 		3DB6E246268B5F8800C303E5 /* BlockViewModelProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = BlockViewModelProtocol.swift; path = Anytype/Sources/PresentationLayer/TextEditor/BlocksViews/Base/BlockViewModelProtocol.swift; sourceTree = SOURCE_ROOT; };
 		3DB92F84264BF69900E83276 /* View+CornerRadius.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "View+CornerRadius.swift"; sourceTree = "<group>"; };
@@ -3676,7 +3674,6 @@
 				3D34F25227C3D14200990C49 /* Text */,
 				3DA46B65273BEB52007B7464 /* Mocks */,
 				3D7F718727A1B0BB003FE893 /* Pagination */,
-				3DB3EC8227577578002781DA /* Navigation */,
 				3DA46B5F273BEB05007B7464 /* Markdown */,
 				EA2640E026C40D1D006071BD /* AttributedStringParser */,
 				EA26403C26BC058E006071BD /* TextBlockApplyMarkup */,
@@ -8082,14 +8079,6 @@
 			path = ProgressBar;
 			sourceTree = "<group>";
 		};
-		3DB3EC8227577578002781DA /* Navigation */ = {
-			isa = PBXGroup;
-			children = (
-				3DB3EC8327577596002781DA /* BrowserNavigationManagerTests.swift */,
-			);
-			path = Navigation;
-			sourceTree = "<group>";
-		};
 		3DB7DCB3263AA5D100635E4C /* SwiftUI */ = {
 			isa = PBXGroup;
 			children = (
@@ -11245,7 +11234,6 @@
 				EA26404126BC05F3006071BD /* MarkStyleModifierTests.swift in Sources */,
 				3DA46B67273BEB60007B7464 /* BlockActionHandlerMock.swift in Sources */,
 				86947EFF2A56B91D00CD7335 /* XCTests+Eventually.swift in Sources */,
-				3DB3EC8427577596002781DA /* BrowserNavigationManagerTests.swift in Sources */,
 				3DA46B69273BECBB007B7464 /* BlockMarkupChangerMock.swift in Sources */,
 				2A4C7FFF2A823E2300201946 /* RelationDateFormatterTests.swift in Sources */,
 				3DA46B64273BEB1E007B7464 /* BeginingOfTextMarkdownListenerTests.swift in Sources */,

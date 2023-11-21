@@ -245,6 +245,7 @@ final class HomeWidgetsCoordinatorViewModel: ObservableObject,
     }
     
     func onCreateObjectSelected(screenData: EditorScreenData) {
+        UISelectionFeedbackGenerator().selectionChanged()
         openObject(screenData: screenData)
     }
 
@@ -265,6 +266,7 @@ final class HomeWidgetsCoordinatorViewModel: ObservableObject,
     }
     
     func onCreateObjectWithTypeSelected() {
+        UISelectionFeedbackGenerator().selectionChanged()
         showCreateObjectWithType.toggle()
     }
 
