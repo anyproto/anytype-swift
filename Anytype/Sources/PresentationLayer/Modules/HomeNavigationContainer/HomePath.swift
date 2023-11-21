@@ -13,15 +13,7 @@ struct HomePath {
     var count: Int {
         path.count
     }
-    
-    // From ios 16 delete NavigationBackport and restore path in init.
-    @available(iOS, deprecated: 16)
-    mutating func restoreLastOpenPage() {
-        if let page = UserDefaultsConfig.lastOpenedPage {
-            path.append(page)
-        }
-    }
-    
+        
     mutating func push(_ item: AnyHashable) {
         path.append(item)
     }
@@ -53,10 +45,13 @@ struct HomePath {
         return forwardPath.isNotEmpty
     }
     
+    var lastPathElement: AnyHashable? {
+        path.last
+    }
+    
     // MARK: - Private
     
     private mutating func didChangePath(newPath: [AnyHashable], oldPath: [AnyHashable]) {
-        UserDefaultsConfig.lastOpenedPage = newPath.last as? EditorScreenData
         
         if oldPath.count > newPath.count {
             // Pop

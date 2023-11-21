@@ -43,7 +43,9 @@ final class HomeWidgetsCoordinatorViewModel: ObservableObject,
     @Published var showCreateWidgetData: CreateWidgetCoordinatorModel?
     @Published var showSpaceSettings: Bool = false
     @Published var showSharing: Bool = false
-    @Published var editorPath = HomePath()
+    @Published var editorPath = HomePath() {
+        didSet { UserDefaultsConfig.lastOpenedPage = editorPath.lastPathElement as? EditorScreenData }
+    }
     @Published var showCreateObjectWithType: Bool = false
     
     private var currentSpaceId: String?
@@ -51,46 +53,7 @@ final class HomeWidgetsCoordinatorViewModel: ObservableObject,
     var pageNavigation: PageNavigation {
         PageNavigation(
             push: { [weak self] data in
-                Task { [weak self] in
-                    guard let self else { return }
-                    guard let objectId = data.objectId else {
-                        editorPath.push(data)
-                        return
-                    }
-                    let document = documentsProvider.document(objectId: objectId, forPreview: true)
-                    try await document.openForPreview()
-                    guard let details = document.details else {
-//                        alertHelper.showToast(title: Loc.error, message: Loc.unknownError)
-                        ToastPresenter.shared?.show(message: "\(Loc.error) - \(Loc.unknownError)")
-                        return
-                    }
-                    guard details.isSupportedForEdit else {
-                        ToastPresenter.shared?.show(message: "Not supported type \"\(details.objectType.name)\"")
-//                        alertHelper.showToast(
-//                            title: "Not supported type \"\(details.objectType.names)\"",
-//                            message: "You can open it via desktop"
-//                        )
-                        return
-                    }
-                    let spaceId = document.spaceId
-                    if currentSpaceId != spaceId {
-                        if let currentSpaceId = currentSpaceId {
-                            paths[currentSpaceId] = editorPath
-                        }
-                        currentSpaceId = spaceId
-                        try await activeWorkspaceStorage.setActiveSpace(spaceId: spaceId)
-                        
-                        var path = paths[spaceId] ?? HomePath()
-                        if path.count == 0 {
-                            path.push(activeWorkspaceStorage.workspaceInfo)
-                        }
-                        
-                        path.push(data)
-                        editorPath = path
-                    } else {
-                        editorPath.push(data)
-                    }
-                }
+                self?.push(data: data)
             }, pop: { [weak self] in
                 self?.editorPath.pop()
             }, replace: { [weak self] data in
@@ -145,18 +108,7 @@ final class HomeWidgetsCoordinatorViewModel: ObservableObject,
             .workspaceInfoPublisher
             .receiveOnMain()
             .sink { [weak self] newInfo in
-                guard let self, currentSpaceId != newInfo.accountSpaceId else { return }
-                // Backup current
-                if let currentSpaceId = currentSpaceId {
-                    paths[currentSpaceId] = editorPath
-                }
-                // Restore New
-                var path = paths[newInfo.accountSpaceId] ?? HomePath()
-                if path.count == 0 {
-                    path.push(newInfo)
-                }
-                currentSpaceId = newInfo.accountSpaceId
-                editorPath = path
+                self?.switchSpace(info: newInfo)
             }
             .store(in: &subscriptions)
         
@@ -168,16 +120,6 @@ final class HomeWidgetsCoordinatorViewModel: ObservableObject,
                 self?.appActionsStorage.action = nil
             }
             .store(in: &subscriptions)
-        
-        // Disable push
-        // Transaction with disablesAnimations doesnt work
-        // From ios 16, delete restoreLastOpenPage and use init for restore state. Read restoreLastOpenPage comment.
-        // setAnimationsEnabled will be not needed
-//        UINavigationBar.setAnimationsEnabled(false)
-//        editorPath.restoreLastOpenPage()
-//        DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
-//            UINavigationBar.setAnimationsEnabled(true)
-//        }
     }
     
     func homeWidgetsModule(info: AccountInfo) -> AnyView? {
@@ -328,8 +270,7 @@ final class HomeWidgetsCoordinatorViewModel: ObservableObject,
     // MARK: - Private
     
     private func openObject(screenData: EditorScreenData) {
-//        editorPath.push(screenData)
-        pageNavigation.push(screenData)
+        push(data: screenData)
     }
     
     private func createAndShowNewPage() {
@@ -363,6 +304,84 @@ final class HomeWidgetsCoordinatorViewModel: ObservableObject,
                 self?.editorPath.popToRoot()
                 self?.showSpaceSwitch = true
             })
+        }
+    }
+    
+    private func push(data: EditorScreenData) {
+        Task {
+            guard let objectId = data.objectId else {
+                editorPath.push(data)
+                return
+            }
+            let document = documentsProvider.document(objectId: objectId, forPreview: true)
+            try await document.openForPreview()
+            guard let details = document.details else {
+//                        alertHelper.showToast(title: Loc.error, message: Loc.unknownError)
+                ToastPresenter.shared?.show(message: "\(Loc.error) - \(Loc.unknownError)")
+                return
+            }
+            guard details.isSupportedForEdit else {
+                ToastPresenter.shared?.show(message: "Not supported type \"\(details.objectType.name)\"")
+//                        alertHelper.showToast(
+//                            title: "Not supported type \"\(details.objectType.names)\"",
+//                            message: "You can open it via desktop"
+//                        )
+                return
+            }
+            let spaceId = document.spaceId
+            if currentSpaceId != spaceId {
+                // Check space Is deleted
+                guard workspacesStorage.spaceView(spaceId: spaceId).isNotNil else { return }
+                
+                if let currentSpaceId = currentSpaceId {
+                    paths[currentSpaceId] = editorPath
+                }
+               
+                currentSpaceId = spaceId
+                try await activeWorkspaceStorage.setActiveSpace(spaceId: spaceId)
+                
+                var path = paths[spaceId] ?? HomePath()
+                if path.count == 0 {
+                    path.push(activeWorkspaceStorage.workspaceInfo)
+                }
+                
+                path.push(data)
+                editorPath = path
+            } else {
+                editorPath.push(data)
+            }
+        }
+    }
+    
+    private func switchSpace(info newInfo: AccountInfo) {
+        Task {
+            guard currentSpaceId != newInfo.accountSpaceId else { return }
+            // Backup current
+            if let currentSpaceId = currentSpaceId {
+                paths[currentSpaceId] = editorPath
+            }
+            // Restore New
+            var path = paths[newInfo.accountSpaceId] ?? HomePath()
+            if path.count == 0 {
+                path.push(newInfo)
+            }
+            // Restore last open page
+            if currentSpaceId.isNil, let lastOpenPage = UserDefaultsConfig.lastOpenedPage {
+                if let objectId = lastOpenPage.objectId {
+                    let document = documentsProvider.document(objectId: objectId, forPreview: true)
+                    try await document.openForPreview()
+                    // Check space is deleted or switched
+                    if document.spaceId == newInfo.accountSpaceId {
+                        path.push(lastOpenPage)
+                    }
+                } else {
+                    path.push(lastOpenPage)
+                }
+            }
+            
+            currentSpaceId = newInfo.accountSpaceId
+            editorPath = path
+            
         }
     }
 }
