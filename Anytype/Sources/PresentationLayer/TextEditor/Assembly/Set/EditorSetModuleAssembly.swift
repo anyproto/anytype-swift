@@ -92,7 +92,6 @@ final class EditorSetModuleAssembly: EditorSetModuleAssemblyProtocol {
             editorSetRelationsCoordinatorAssembly: coordinatorsDI.setRelations(),
             setViewPickerCoordinatorAssembly: coordinatorsDI.setViewPicker(),
             toastPresenter: uiHelpersDI.toastPresenter(),
-            alertHelper: AlertHelper(viewController: nil),
             setObjectCreationSettingsCoordinator: coordinatorsDI.setObjectCreationSettings().make(with: uiHelpersDI.commonNavigationContext()),
             output: output
         )

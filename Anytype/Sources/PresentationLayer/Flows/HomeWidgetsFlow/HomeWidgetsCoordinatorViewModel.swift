@@ -47,6 +47,7 @@ final class HomeWidgetsCoordinatorViewModel: ObservableObject,
         didSet { UserDefaultsConfig.lastOpenedPage = editorPath.lastPathElement as? EditorScreenData }
     }
     @Published var showCreateObjectWithType: Bool = false
+    @Published var toastBarData = ToastBarData.empty
     
     private var currentSpaceId: String?
     
@@ -316,16 +317,10 @@ final class HomeWidgetsCoordinatorViewModel: ObservableObject,
             let document = documentsProvider.document(objectId: objectId, forPreview: true)
             try await document.openForPreview()
             guard let details = document.details else {
-//                        alertHelper.showToast(title: Loc.error, message: Loc.unknownError)
-                ToastPresenter.shared?.show(message: "\(Loc.error) - \(Loc.unknownError)")
                 return
             }
             guard details.isSupportedForEdit else {
-                ToastPresenter.shared?.show(message: "Not supported type \"\(details.objectType.name)\"")
-//                        alertHelper.showToast(
-//                            title: "Not supported type \"\(details.objectType.names)\"",
-//                            message: "You can open it via desktop"
-//                        )
+                toastBarData = ToastBarData(text: Loc.openTypeError(details.objectType.name), showSnackBar: true, messageType: .none)
                 return
             }
             let spaceId = document.spaceId

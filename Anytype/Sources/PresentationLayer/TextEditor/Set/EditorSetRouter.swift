@@ -79,7 +79,6 @@ final class EditorSetRouter: EditorSetRouterProtocol, ObjectSettingsCoordinatorO
     private let editorSetRelationsCoordinatorAssembly: SetRelationsCoordinatorAssemblyProtocol
     private let setViewPickerCoordinatorAssembly: SetViewPickerCoordinatorAssemblyProtocol
     private let toastPresenter: ToastPresenterProtocol
-    private let alertHelper: AlertHelper
     private let setObjectCreationSettingsCoordinator: SetObjectCreationSettingsCoordinatorProtocol
     private var output: EditorSetModuleOutput?
 
@@ -105,7 +104,6 @@ final class EditorSetRouter: EditorSetRouterProtocol, ObjectSettingsCoordinatorO
         editorSetRelationsCoordinatorAssembly: SetRelationsCoordinatorAssemblyProtocol,
         setViewPickerCoordinatorAssembly: SetViewPickerCoordinatorAssemblyProtocol,
         toastPresenter: ToastPresenterProtocol,
-        alertHelper: AlertHelper,
         setObjectCreationSettingsCoordinator: SetObjectCreationSettingsCoordinatorProtocol,
         output: EditorSetModuleOutput?
     ) {
@@ -126,7 +124,6 @@ final class EditorSetRouter: EditorSetRouterProtocol, ObjectSettingsCoordinatorO
         self.editorSetRelationsCoordinatorAssembly = editorSetRelationsCoordinatorAssembly
         self.setViewPickerCoordinatorAssembly = setViewPickerCoordinatorAssembly
         self.toastPresenter = toastPresenter
-        self.alertHelper = alertHelper
         self.setObjectCreationSettingsCoordinator = setObjectCreationSettingsCoordinator
         self.output = output
     }

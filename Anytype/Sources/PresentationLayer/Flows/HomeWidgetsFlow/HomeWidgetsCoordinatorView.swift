@@ -28,6 +28,7 @@ struct HomeWidgetsCoordinatorView: View {
             model.onAppear()
         }
         .environment(\.pageNavigation, model.pageNavigation)
+        .snackbar(toastBarData: $model.toastBarData)
         .sheet(item: $model.showChangeSourceData) { data in
             model.changeSourceModule(data: data)
         }

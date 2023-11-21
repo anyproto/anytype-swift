@@ -91,7 +91,6 @@ final class EditorPageModuleAssembly: EditorPageModuleAssemblyProtocol {
             codeLanguageListModuleAssembly: modulesDI.codeLanguageList(),
             newSearchModuleAssembly: modulesDI.newSearch(),
             textIconPickerModuleAssembly: modulesDI.textIconPicker(),
-            alertHelper: AlertHelper(viewController: controller),
             templateService: serviceLocator.templatesService,
             output: output
         )

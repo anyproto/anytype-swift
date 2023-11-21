@@ -465,6 +465,7 @@
 
 "Error" = "Error";
 "Unknown error" = "Unknown error";
+"Open Type Error" = "Not supported type \"%@\". You can open it via desktop.";
 "Close" = "Close";
 "Account is deleted" = "Account is deleted";
 "Add phone" = "Add phone";

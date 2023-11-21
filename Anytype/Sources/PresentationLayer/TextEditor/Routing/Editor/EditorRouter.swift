@@ -24,7 +24,6 @@ final class EditorRouter: NSObject, EditorRouterProtocol, ObjectSettingsCoordina
     private let codeLanguageListModuleAssembly: CodeLanguageListModuleAssemblyProtocol
     private let newSearchModuleAssembly: NewSearchModuleAssemblyProtocol
     private let textIconPickerModuleAssembly: TextIconPickerModuleAssemblyProtocol
-    private let alertHelper: AlertHelper
     private let templateService: TemplatesServiceProtocol
     private weak var output: EditorPageModuleOutput?
 
@@ -46,7 +45,6 @@ final class EditorRouter: NSObject, EditorRouterProtocol, ObjectSettingsCoordina
         codeLanguageListModuleAssembly: CodeLanguageListModuleAssemblyProtocol,
         newSearchModuleAssembly: NewSearchModuleAssemblyProtocol,
         textIconPickerModuleAssembly: TextIconPickerModuleAssemblyProtocol,
-        alertHelper: AlertHelper,
         templateService: TemplatesServiceProtocol,
         output: EditorPageModuleOutput?
     ) {
@@ -68,7 +66,6 @@ final class EditorRouter: NSObject, EditorRouterProtocol, ObjectSettingsCoordina
         self.codeLanguageListModuleAssembly = codeLanguageListModuleAssembly
         self.newSearchModuleAssembly = newSearchModuleAssembly
         self.textIconPickerModuleAssembly = textIconPickerModuleAssembly
-        self.alertHelper = alertHelper
         self.templateService = templateService
         self.output = output
     }

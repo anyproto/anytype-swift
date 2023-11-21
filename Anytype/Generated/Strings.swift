@@ -336,6 +336,10 @@ internal enum Loc {
   internal static let openObject = Loc.tr("Localizable", "Open object", fallback: "Open object")
   /// Open source
   internal static let openSource = Loc.tr("Localizable", "Open source", fallback: "Open source")
+  /// Not supported type "%@". You can open it via desktop.
+  internal static func openTypeError(_ p1: Any) -> String {
+    return Loc.tr("Localizable", "Open Type Error", String(describing: p1), fallback: "Not supported type \"%@\". You can open it via desktop.")
+  }
   /// Other
   internal static let other = Loc.tr("Localizable", "Other", fallback: "Other")
   /// Other relations
