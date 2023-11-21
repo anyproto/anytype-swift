@@ -180,6 +180,7 @@ internal extension ImageAsset {
     static let color = ImageAsset.bundle(name: "x32/Color")
     static let copy = ImageAsset.bundle(name: "x32/Copy")
     static let dashboard = ImageAsset.bundle(name: "x32/Dashboard")
+    static let dashboardOld = ImageAsset.bundle(name: "x32/Dashboard_old")
     static let delete = ImageAsset.bundle(name: "x32/Delete")
     static let download = ImageAsset.bundle(name: "x32/Download")
     static let dragDrop = ImageAsset.bundle(name: "x32/Drag & Drop")
