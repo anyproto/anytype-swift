@@ -52,6 +52,7 @@ final class EditorPageController: UIViewController {
 
     private lazy var navigationBarHelper: EditorNavigationBarHelper = EditorNavigationBarHelper(
         navigationBarView: navigationBarView,
+        navigationBarBackgroundView: navigationBarBackgroundView,
         onSettingsBarButtonItemTap: { [weak viewModel] in
             UISelectionFeedbackGenerator().selectionChanged()
             viewModel?.showSettings()
@@ -66,6 +67,7 @@ final class EditorPageController: UIViewController {
 
     private let blocksSelectionOverlayView: BlocksSelectionOverlayView
     private let navigationBarView = EditorNavigationBarView()
+    private let navigationBarBackgroundView = UIView()
     private let showHeader: Bool
     var viewModel: EditorPageViewModelProtocol! {
         didSet {
@@ -458,7 +460,7 @@ private extension EditorPageController {
     
     func setupView() {
         view.backgroundColor = .Background.primary
-        additionalSafeAreaInsets = UIEdgeInsets(top: 44, left: 0, bottom: 0, right: 0)
+        navigationBarBackgroundView.backgroundColor = .Background.primary
         setupCollectionView()
         
         setupInteractions()
@@ -470,6 +472,7 @@ private extension EditorPageController {
         collectionView.delegate = self
         collectionView.dropDelegate = self
         collectionView.addGestureRecognizer(self.listViewTapGestureRecognizer)
+        collectionView.scrollIndicatorInsets = UIEdgeInsets(top: 44, left: 0, bottom: 0, right: 0)
     }
     
     func setupInteractions() {
@@ -495,9 +498,13 @@ private extension EditorPageController {
             $0.pinToSuperview()
         }
         if showHeader {
-            view.addSubview(navigationBarView) {
+            view.addSubview(navigationBarBackgroundView) {
                 $0.pinToSuperview(excluding: [.bottom])
-                $0.bottom.equal(to: view.safeAreaLayoutGuide.topAnchor)
+            }
+            view.addSubview(navigationBarView) {
+                $0.pinToSuperview(excluding: [.bottom, .top])
+                $0.top.equal(to: view.safeAreaLayoutGuide.topAnchor)
+                $0.bottom.equal(to: navigationBarBackgroundView.bottomAnchor)
             }
         }
         blocksSelectionOverlayView.isHidden = true

@@ -19,6 +19,7 @@ struct AnytypeNavigationViewRepresentable: UIViewControllerRepresentable {
 
     func makeUIViewController(context: Context) -> UINavigationController {
         let controller =  UINavigationController()
+        controller.setNavigationBarHidden(true, animated: false)
         controller.delegate = context.coordinator
         moduleSetup(context.coordinator.builder)
         return controller
