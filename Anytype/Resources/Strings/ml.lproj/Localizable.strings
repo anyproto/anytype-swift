@@ -55,10 +55,10 @@
 // MARK: - Block Link
 
 "BlockLink.PreviewSettings.IconSize.None" = "None";
-"BlockLink.PreviewSettings.IconSize.Small" = "Small";
-"BlockLink.PreviewSettings.IconSize.Medium" = "Medium";
+"BlockLink.PreviewSettings.IconSize.Small" = "ചെറുത്";
+"BlockLink.PreviewSettings.IconSize.Medium" = "ഇടത്തരം";
 
-"BlockLink.PreviewSettings.Layout.Card.Title" = "Card";
+"BlockLink.PreviewSettings.Layout.Card.Title" = "കാർഡ്";
 "BlockLink.PreviewSettings.Layout.Text.Title" = "Text";
 
 // MARK: - Settings
@@ -67,7 +67,7 @@
 
 // MARK: - Object
 "Object.Title.Placeholder" = "Untitled";
-"Object.Deleted.Placeholder" = "Deleted object";
+"Object.Deleted.Placeholder" = "ഡിലീറ്റ് ചെയ്ത ഒബ്ജക്റ്റ്";
 
 // MARK: - Relation
 "Featured relations" = "Featured relations";
@@ -78,29 +78,29 @@
 "Relation.Deleted" = "Deleted relation";
 "Relation.From.Type" = "From type %@";
 
-"Relation.Format.Object.Title" = "Object";
+"Relation.Format.Object.Title" = "ഒബ്ജക്റ്റ്";
 "Relation.Format.Text.Title" = "Text";
-"Relation.Format.Number.Title" = "Number";
-"Relation.Format.Status.Title" = "Status";
-"Relation.Format.Tag.Title" = "Tag";
-"Relation.Format.Date.Title" = "Date";
+"Relation.Format.Number.Title" = "നമ്പർ";
+"Relation.Format.Status.Title" = "സ്റ്റാറ്റസ്";
+"Relation.Format.Tag.Title" = "ടാഗ്";
+"Relation.Format.Date.Title" = "തീയതി";
 "Relation.Format.FileMedia.Title" = "File & Media";
 "Relation.Format.Checkbox.Title" = "Checkbox";
 "Relation.Format.Url.Title" = "URL";
-"Relation.Format.Email.Title" = "Email";
-"Relation.Format.Phone.Title" = "Phone number";
+"Relation.Format.Email.Title" = "ഇമെയിൽ";
+"Relation.Format.Phone.Title" = "ഫോൺ നമ്പർ";
 
 // MARK: - Mention
-"Mention.Subtitle.Placeholder" = "Object";
+"Mention.Subtitle.Placeholder" = "ഒബ്ജക്റ്റ്";
 
 "None" = "None";
 "Callout" = "Callout";
 "Toggle empty. Tap to create block." = "Toggle empty. Tap to create block.";
-"Loading, please wait" = "Loading, please wait";
-"Done" = "Done";
-"Style" = "Style";
-"Color" = "Color";
-"Background" = "Background";
+"Loading, please wait" = "ലോഡ് ചെയ്യുകയാണ്, ദയവായി കാത്തിരിക്കുക";
+"Done" = "കഴിഞ്ഞു";
+"Style" = "സ്റ്റൈൽ";
+"Color" = "കളർ";
+"Background" = "ബാക്ഗ്രൗണ്ട്";
 "Other" = "Other";
 "Media" = "Media";
 "Alignment" = "Alignment";
@@ -421,7 +421,7 @@
 // MARK: - Sets: View Settings
 "Set.View.Settings.ImageFit.Title" = "Fit image";
 "Set.View.Settings.CardSize.Title" = "Card size";
-"Set.View.Settings.CardSize.Small.Title" = "Small";
+"Set.View.Settings.CardSize.Small.Title" = "ചെറുത്";
 "Set.View.Settings.CardSize.Large.Title" = "Large";
 "Set.View.Settings.ImagePreview.Title" = "Image preview";
 "Set.View.Settings.GroupBy.Title" = "Group by";
@@ -641,8 +641,8 @@
 
 // MARK: - Simple tables
 "SimpleTableMenu.Item.clearContents" = "Clear";
-"SimpleTableMenu.Item.color" = "Color";
-"SimpleTableMenu.Item.style" = "Style";
+"SimpleTableMenu.Item.color" = "കളർ";
+"SimpleTableMenu.Item.style" = "സ്റ്റൈൽ";
 "SimpleTableMenu.Item.clearStyle" = "Reset style";
 
 "SimpleTableMenu.Item.InsertLeft" = "Insert left";
@@ -819,7 +819,7 @@
 // MARK: - Sharing
 "Sharing.Navigation.title" = "Add to Anytype";
 "Sharing.Navigation.LeftButton.Title" = "Cancel";
-"Sharing.Navigation.RightButton.Title" = "Done";
+"Sharing.Navigation.RightButton.Title" = "കഴിഞ്ഞു";
 
 "Sharing.SaveAs" = "SAVE AS";
 "Sharing.SelectSpace" = "Space";
