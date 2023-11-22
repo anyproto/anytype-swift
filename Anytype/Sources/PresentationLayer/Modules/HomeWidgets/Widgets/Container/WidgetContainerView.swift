@@ -17,29 +17,35 @@ struct WidgetContainerView<Content: View, ContentVM: WidgetContainerContentViewM
     var content: Content
         
     var body: some View {
-        LinkWidgetViewContainer(
-            title: contentModel.name,
-            icon: contentModel.icon,
-            isExpanded: $model.isExpanded,
-            dragId: contentModel.dragId,
-            isEditalbeMode: model.isEditState,
-            allowMenuContent: contentModel.menuItems.isNotEmpty,
-            allowContent: contentModel.allowContent,
-            headerAction: {
-                contentModel.onHeaderTap()
-            },
-            removeAction: removeAction(),
-            menu: {
-                menuItems
-            },
-            content: {
-                content
+        WidgetSwipeActionView(
+            isEnable: contentModel.allowCreateObject,
+            showTitle: model.isExpanded,
+            action: { contentModel.onCreateObjectTap() }
+        ) {
+            LinkWidgetViewContainer(
+                title: contentModel.name,
+                icon: contentModel.icon,
+                isExpanded: $model.isExpanded,
+                dragId: contentModel.dragId,
+                isEditalbeMode: model.isEditState,
+                allowMenuContent: contentModel.menuItems.isNotEmpty,
+                allowContent: contentModel.allowContent,
+                headerAction: {
+                    contentModel.onHeaderTap()
+                },
+                removeAction: removeAction(),
+                menu: {
+                    menuItems
+                },
+                content: {
+                    content
+                }
+            )
+            .contextMenu {
+                contextMenuItems
             }
-        )
-        .contextMenu {
-            contextMenuItems
+            .snackbar(toastBarData: $model.toastData)
         }
-        .snackbar(toastBarData: $model.toastData)
     }
     
     @ViewBuilder

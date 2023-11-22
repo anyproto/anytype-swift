@@ -30,6 +30,7 @@ final class ListWidgetViewModel: WidgetContainerContentViewModelProtocol, Observ
     @Published private(set) var rows: [ListWidgetRowModel]?
     let emptyTitle = Loc.Widgets.Empty.title
     let style: ListWidgetStyle
+    var allowCreateObject: Bool { internalModel.allowCreateObject }
     
     init(
         widgetBlockId: BlockId,
@@ -77,6 +78,10 @@ final class ListWidgetViewModel: WidgetContainerContentViewModelProtocol, Observ
         guard let screenData = internalModel.screenData() else { return }
         AnytypeAnalytics.instance().logSelectHomeTab(source: internalModel.analyticsSource())
         output?.onObjectSelected(screenData: screenData)
+    }
+    
+    func onCreateObjectTap() {
+        internalModel.onCreateObjectTap()
     }
     
     // MARK: - Private

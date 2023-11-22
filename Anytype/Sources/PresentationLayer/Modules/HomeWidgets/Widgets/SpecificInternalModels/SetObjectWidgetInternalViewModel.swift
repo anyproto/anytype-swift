@@ -12,6 +12,7 @@ final class SetObjectWidgetInternalViewModel: CommonWidgetInternalViewModel, Wid
     private let subscriptionStorage: SubscriptionStorageProtocol
     private let documentService: OpenedDocumentsProviderProtocol
     private let blockWidgetService: BlockWidgetServiceProtocol
+    private weak var output: CommonWidgetModuleOutput?
     private let subscriptionId = "SetWidget-\(UUID().uuidString)"
     
     // MARK: - State
@@ -31,6 +32,7 @@ final class SetObjectWidgetInternalViewModel: CommonWidgetInternalViewModel, Wid
     }
     var namePublisher: AnyPublisher<String, Never> { $name.eraseToAnyPublisher() }
     var dataviewPublisher: AnyPublisher<WidgetDataviewState?, Never> { $dataview.eraseToAnyPublisher() }
+    var allowCreateObject = true
     
     init(
         widgetBlockId: BlockId,
@@ -38,12 +40,14 @@ final class SetObjectWidgetInternalViewModel: CommonWidgetInternalViewModel, Wid
         setSubscriptionDataBuilder: SetSubscriptionDataBuilderProtocol,
         subscriptionStorageProvider: SubscriptionStorageProviderProtocol,
         documentService: OpenedDocumentsProviderProtocol,
-        blockWidgetService: BlockWidgetServiceProtocol
+        blockWidgetService: BlockWidgetServiceProtocol,
+        output: CommonWidgetModuleOutput?
     ) {
         self.setSubscriptionDataBuilder = setSubscriptionDataBuilder
         self.subscriptionStorage = subscriptionStorageProvider.createSubscriptionStorage(subId: subscriptionId)
         self.documentService = documentService
         self.blockWidgetService = blockWidgetService
+        self.output = output
         super.init(widgetBlockId: widgetBlockId, widgetObject: widgetObject)
     }
     
@@ -52,6 +56,7 @@ final class SetObjectWidgetInternalViewModel: CommonWidgetInternalViewModel, Wid
         widgetObject.widgetTargetDetailsPublisher(widgetBlockId: widgetBlockId)
             .receiveOnMain()
             .sink { [weak self] details in
+                self?.allowCreateObject = details.canCreateObject
                 self?.name = details.title
                 Task { await self?.updateSetDocument(objectId: details.id) }
             }
@@ -93,6 +98,11 @@ final class SetObjectWidgetInternalViewModel: CommonWidgetInternalViewModel, Wid
             try await blockWidgetService.setViewId(contextId: widgetObject.objectId, widgetBlockId: widgetBlockId, viewId: viewId)
         }
         UISelectionFeedbackGenerator().selectionChanged()
+    }
+    
+    func onCreateObjectTap() {
+        guard let setDocument else { return }
+        output?.onCreateObjectInSetDocument(setDocument: setDocument)
     }
     
     // MARK: - CommonWidgetInternalViewModel oveerides

@@ -1940,6 +1940,8 @@ internal enum Loc {
       internal static let editWidgets = Loc.tr("Localizable", "Widgets.Actions.EditWidgets", fallback: "Edit Widgets")
       /// Empty Bin
       internal static let emptyBin = Loc.tr("Localizable", "Widgets.Actions.EmptyBin", fallback: "Empty Bin")
+      /// New Object
+      internal static let newObject = Loc.tr("Localizable", "Widgets.Actions.NewObject", fallback: "New Object")
       /// Remove Widget
       internal static let removeWidget = Loc.tr("Localizable", "Widgets.Actions.RemoveWidget", fallback: "Remove Widget")
     }
