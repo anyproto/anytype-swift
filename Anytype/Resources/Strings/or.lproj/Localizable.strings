@@ -81,63 +81,63 @@
 "Relation.Format.Object.Title" = "ଅବଜେକ୍ଟ";
 "Relation.Format.Text.Title" = "ଲେଖା";
 "Relation.Format.Number.Title" = "ନମ୍ବର";
-"Relation.Format.Status.Title" = "Status";
-"Relation.Format.Tag.Title" = "Tag";
-"Relation.Format.Date.Title" = "Date";
-"Relation.Format.FileMedia.Title" = "File & Media";
+"Relation.Format.Status.Title" = "ସ୍ଥିତି";
+"Relation.Format.Tag.Title" = "ଟ୍ୟାଗ୍ କରନ୍ତୁ |";
+"Relation.Format.Date.Title" = "ତାରିଖ";
+"Relation.Format.FileMedia.Title" = "ଫାଇଲ୍ ଏବଂ ମିଡିଆ ";
 "Relation.Format.Checkbox.Title" = "ଚେକବାକ୍ସ";
 "Relation.Format.Url.Title" = "URL";
-"Relation.Format.Email.Title" = "Email";
-"Relation.Format.Phone.Title" = "Phone number";
+"Relation.Format.Email.Title" = "ଇମେଲ୍";
+"Relation.Format.Phone.Title" = "ଫୋନ୍ ନମ୍ବର";
 
 // MARK: - Mention
 "Mention.Subtitle.Placeholder" = "ଅବଜେକ୍ଟ";
 
 "None" = "କିଛି ନାହିଁ";
 "Callout" = "କଲ୍ ଆଉଟ୍";
-"Toggle empty. Tap to create block." = "Toggle empty. Tap to create block.";
-"Loading, please wait" = "Loading, please wait";
-"Done" = "Done";
-"Style" = "Style";
-"Color" = "Color";
-"Background" = "Background";
-"Other" = "Other";
-"Media" = "Media";
-"Alignment" = "Alignment";
-"Actions" = "Actions";
-"Relations" = "Relations";
-"Objects" = "Objects";
-"Delete" = "Delete";
-"Duplicate" = "Duplicate";
-"Copy" = "Copy";
-"Preview" = "Preview";
-"View" = "View";
-"Paste" = "Paste";
-"Move" = "Move";
-"Move to" = "Move to";
-"Back" = "Back";
-"File block subtitle" = "Store file in original state";
-"Picture block subtitle" = "Upload and enrich the page with image";
-"Video block subtitle" = "Upload playable video";
-"Bookmark block subtitle" = "Save your favorite link with summary";
-"Code block subtitle" = "Capture code snippet";
-"Align right" = "Align right";
-"Align left" = "Align left";
-"Align center" = "Align center";
-"Black" = "Black";
-"Amber" = "Amber";
-"Red" = "Red";
-"Pink" = "Pink";
-"Purple" = "Purple";
-"Blue" = "Blue";
-"Teal" = "Teal";
-"Green" = "Green";
-"Default background" = "Default background";
-"Amber background" = "Amber background";
-"Red background" = "Red background";
-"Pink background" = "Pink background";
-"Purple background" = "Purple background";
-"Blue background" = "Blue background";
+"Toggle empty. Tap to create block." = "ଖାଲି ଟୋଗଲ୍ କରନ୍ତୁ | ବ୍ଲକ ସୃଷ୍ଟି କରିବାକୁ ଟ୍ୟାପ୍ କରନ୍ତୁ |";
+"Loading, please wait" = "ଲୋଡି ହଉଛି, ଦୟାକରି ଅପେକ୍ଷା କରନ୍ତୁ |";
+"Done" = "ହେଲା";
+"Style" = "ଷ୍ଟାଇଲ";
+"Color" = "ରଙ୍ଗ";
+"Background" = "ପୃଷ୍ଠଭୂମି";
+"Other" = "ଅନ୍ୟାନ୍ୟ";
+"Media" = "ମିଡ଼ିଆ";
+"Alignment" = "ଶ୍ରେଣୀବଦ୍ଧତା ";
+"Actions" = "କାର୍ଯ୍ୟ";
+"Relations" = "ସମ୍ପର୍କ";
+"Objects" = "ଅବଜେକ୍ଟ";
+"Delete" = "ବିଲୋପ କରନ୍ତୁ";
+"Duplicate" = "ନକଲ";
+"Copy" = "କପି କରନ୍ତୁ";
+"Preview" = "ପ୍ରିଭିଉ";
+"View" = "ଦେଖନ୍ତୁ";
+"Paste" = "ପେଷ୍ଟ୍";
+"Move" = "ଘୁଞ୍ଚାନ୍ତୁ";
+"Move to" = "ଏଠାକୁ ସ୍ଥାନାନ୍ତର କରନ୍ତୁ";
+"Back" = "ପଛକୁ ଯାଅନ୍ତୁ";
+"File block subtitle" = "ଫାଇଲକୁ ମୂଳ ଅବସ୍ଥାରେ ଗଚ୍ଛିତ କରନ୍ତୁ";
+"Picture block subtitle" = "ପ୍ରତିଛବି ସହିତ ପୃଷ୍ଠା ଅପଲୋଡ୍ ଏବଂ ସମୃଦ୍ଧ କରନ୍ତୁ";
+"Video block subtitle" = "ଖେଳାଯିବାକୁ ଥିବା ଭିଡିଓ ଅପଲୋଡ୍ କରନ୍ତୁ";
+"Bookmark block subtitle" = "ସାରାଂଶ ସହିତ ଆପଣଙ୍କର ପ୍ରିୟ ଲିଙ୍କ୍ ସଞ୍ଚୟ କରନ୍ତୁ";
+"Code block subtitle" = "କୋଡ୍ ସ୍ନିପେଟ୍ କ୍ୟାପଚର୍ କରନ୍ତୁ";
+"Align right" = "ଡାହାଣକୁ ଆଲାଇନ୍ କରନ୍ତୁ";
+"Align left" = "ବାମକୁ ଆଲାଇନ୍ କରନ୍ତୁ";
+"Align center" = "କେନ୍ଦ୍ର ଆଲାଇନ୍ କରନ୍ତୁ";
+"Black" = "କଳା";
+"Amber" = "ଅମ୍ବର";
+"Red" = "ନାଲି";
+"Pink" = "ଗୋଲାପି";
+"Purple" = "ବାଇଗଣୀ";
+"Blue" = "ନୀଳ";
+"Teal" = "ଟିଲ";
+"Green" = "ସବୁଜ";
+"Default background" = "ଡିଫଲ୍ଟ ପୃଷ୍ଠଭୂମି";
+"Amber background" = "ଅମ୍ବର ପୃଷ୍ଠଭୂମି";
+"Red background" = "ଲାଲ୍ ପୃଷ୍ଠଭୂମି";
+"Pink background" = "ଗୋଲାପୀ ପୃଷ୍ଠଭୂମି";
+"Purple background" = "ବାଇଗଣୀ ପୃଷ୍ଠଭୂମି";
+"Blue background" = "ନୀଳ ପୃଷ୍ଠଭୂମି";
 "Green background" = "ସବୁଜ ପୃଷ୍ଠଭୂମି";
 "Create new object" = "ନୂଆ ଅବଜେକ୍ଟ ତିଆରି କରନ୍ତୁ";
 "Cancel" = "ବାତିଲ କରନ୍ତୁ ";
@@ -207,39 +207,39 @@
 "Auth.JoinFlow.Key.TextField.Placeholder" = "ଆପଣଙ୍କ ପୁନରୁଦ୍ଧାର ବାକ୍ୟ ସଞ୍ଚୟ କରନ୍ତୁ";
 "Auth.JoinFlow.Key.Button.Show.Title" = "ଆପଣଙ୍କ ପୁନରୁଦ୍ଧାର ବାକ୍ୟ ଦେଖନ୍ତୁ";
 "Auth.JoinFlow.Key.Button.Saved.Title" = "ଆପକୁ ଯାଅନ୍ତୁ";
-"Auth.JoinFlow.Key.Button.Later.Title" = "Skip";
-"Auth.JoinFlow.Key.Button.Copy.Title" = "Copy to clipboard";
-"Auth.JoinFlow.Key.Button.Info.Title" = "Read more";
-"Auth.JoinFlow.Key.Button.Tip.Title" = "You can find Recovery Phrase later in Anytype settings";
+"Auth.JoinFlow.Key.Button.Later.Title" = "ବାଦ୍ ଦିଅ";
+"Auth.JoinFlow.Key.Button.Copy.Title" = "କ୍ଲିପବୋର୍ଡକୁ କପି କରନ୍ତୁ";
+"Auth.JoinFlow.Key.Button.Info.Title" = "ଅଧିକ ପଢ";
+"Auth.JoinFlow.Key.Button.Tip.Title" = "ଆପଣ ଏନିଟାଇପ ସେଟିଂସମୂହରେ ପରେ ପୁନରୁଦ୍ଧାର ବାକ୍ୟାଂଶ ପାଇପାରିବେ |";
 
-"Auth.JoinFlow.Key.ReadMore.Title" = "What is Recovery Phrase?";
-"Auth.JoinFlow.Key.ReadMore.Option1.Title" = "Recovery Phrase is a random combination of 12 words from which your account is magically generated on this device.";
-"Auth.JoinFlow.Key.ReadMore.Option2.Title" = "Whomever knows Recovery Phrase, owns the account. **At this moment, you are the only person in the world who knows it.**";
-"Auth.JoinFlow.Key.ReadMore.Option3.Title" = "That's why it's essential to keep Recovery Phrase safe. As the sole owner, nobody can help you if it's lost.";
-"Auth.JoinFlow.Key.ReadMore.Instruction.Title" = "How to save my phrase?";
-"Auth.JoinFlow.Key.ReadMore.Instruction.Option1.Title" = "The easiest way to store your Recovery Phrase is to save it in your password manager.";
-"Auth.JoinFlow.Key.ReadMore.Instruction.Option2.Title" = "The most secure way is to write it down on paper and keep it offline, in a safe and secure place.";
+"Auth.JoinFlow.Key.ReadMore.Title" = "ପୁନରୁଦ୍ଧାର ବାକ୍ୟାଂଶ କ’ଣ?";
+"Auth.JoinFlow.Key.ReadMore.Option1.Title" = "ପୁନରୁଦ୍ଧାର ବାକ୍ୟାଂଶ ହେଉଛି ୧୨ ଶବ୍ଦର ଏକ ଅନିୟମିତ ମିଶ୍ରଣ ଯେଉଁଥିରୁ ଆପଣଙ୍କର ଡିଭାଇସ୍ ଏହି ଆକାଉଣ୍ଟରେ ଯାଦୁକରୀ ଭାବରେ ସୃଷ୍ଟି ହୋଇଥାଏ |";
+"Auth.JoinFlow.Key.ReadMore.Option2.Title" = "ଯିଏ ପୁନରୁଦ୍ଧାର ବାକ୍ୟାଂଶ ଜାଣେ, ଖାତାର ମାଲିକ | ** ଏହି ମୁହୂର୍ତ୍ତରେ, ତୁମେ ଦୁନିଆର ଏକମାତ୍ର ବ୍ୟକ୍ତି ଯିଏ ଏହାକୁ ଜାଣେ | **";
+"Auth.JoinFlow.Key.ReadMore.Option3.Title" = "ସେଥିପାଇଁ ପୁନରୁଦ୍ଧାର ବାକ୍ୟାଂଶକୁ ସୁରକ୍ଷିତ ରଖିବା ଜରୁରୀ | ଏକମାତ୍ର ମାଲିକ ଭାବରେ, ଯଦି ଏହା ହଜିଯାଏ ତେବେ କେହି ଆପଣଙ୍କୁ ସାହାଯ୍ୟ କରିପାରିବେ ନାହିଁ |";
+"Auth.JoinFlow.Key.ReadMore.Instruction.Title" = "ମୋର ବାକ୍ୟାଂଶ କିପରି ସଞ୍ଚୟ କରିବେ?";
+"Auth.JoinFlow.Key.ReadMore.Instruction.Option1.Title" = "ଆପଣଙ୍କର ପୁନରୁଦ୍ଧାର ଫ୍ରେଜ୍ ଗଚ୍ଛିତ କରିବାର ସହଜ ଉପାୟ ହେଉଛି ଏହାକୁ ଆପଣଙ୍କର ପାସୱାର୍ଡ ମ୍ୟାନେଜର୍ ରେ ସେଭ୍ କରିବା |";
+"Auth.JoinFlow.Key.ReadMore.Instruction.Option2.Title" = "ସବୁଠାରୁ ସୁରକ୍ଷିତ ଉପାୟ ହେଉଛି ଏହାକୁ କାଗଜରେ ଲେଖିବା ଏବଂ ଏହାକୁ ଅଫଲାଇନରେ, ଏକ ସୁରକ୍ଷିତ ଏବଂ ସୁରକ୍ଷିତ ସ୍ଥାନରେ ରଖିବା |";
 
-"Auth.JoinFlow.Soul.Title" = "Choose your name";
-"Auth.JoinFlow.Soul.Description" = "This is how you will appear in the app.";
+"Auth.JoinFlow.Soul.Title" = "ତୁମର ନାମ ବାଛ |";
+"Auth.JoinFlow.Soul.Description" = "ଏହିପରି ଆପଣ ଆପରେ ଦେଖାଯିବେ |";
 "Auth.JoinFlow.Soul.Placeholder" = "ଶୀର୍ଷକ ନଥିବା";
 
-"Auth.JoinFlow.Creating.Soul.Title" = "Generating new account";
-"Auth.JoinFlow.Setting.Space.Title" = "Setting up your personal space";
+"Auth.JoinFlow.Creating.Soul.Title" = "ନୂତନ ଖାତା ସୃଷ୍ଟି କରୁଛି";
+"Auth.JoinFlow.Setting.Space.Title" = "ଆପଣଙ୍କର ବ୍ୟକ୍ତିଗତ ସ୍ଥାନ ସେଟ୍ ଅପ୍ କରୁଛି";
 "Auth.JoinFlow.Personal.Space.Title" = "ବ୍ୟକ୍ତିଗତ ସ୍ଥାନ";
 
 // Auth - Login flow
-"Auth.LoginFlow.Use.Keychain.Title" = "Use keychain";
-"Auth.LoginFlow.Or" = "OR";
+"Auth.LoginFlow.Use.Keychain.Title" = "କିଚେନ ବ୍ୟବହାର କରନ୍ତୁ";
+"Auth.LoginFlow.Or" = "କିମ୍ବା";
 "Auth.LoginFlow.Textfield.Placeholder" = "ଆପଣଙ୍କ ପୁନରୁଦ୍ଧାର ବାକ୍ୟ ସଞ୍ଚୟ କରନ୍ତୁ";
-"Auth.LoginFlow.Enter.Button.Title" = "Login";
-"Auth.LoginFlow.Entering.Void.Title" = "Entering the Void";
+"Auth.LoginFlow.Enter.Button.Title" = "ଲଗିନ";
+"Auth.LoginFlow.Entering.Void.Title" = "ଶୂନ୍ୟସ୍ଥାନ ପ୍ରବେଶ କରୁଛି";
 
 // Object settings
 
-"Icon" = "Icon";
-"Emoji or image for object" = "Emoji or image for object";
-"Cover" = "Cover";
+"Icon" = "ଆଇକନ";
+"Emoji or image for object" = "ବସ୍ତୁ ପାଇଁ ଇମୋଜି କିମ୍ବା ପ୍ରତିଛବି";
+"Cover" = "କଭର";
 "Background picture" = "Background picture";
 "Layout" = "Layout";
 "Arrangement of objects on a canvas" = "Arrangement of objects on a canvas";
@@ -316,8 +316,8 @@
 "TemplateSelection.ObjectType.Subtitle" = "Object type";
 
 "TemplateOptions.Alert.EditTemplate" = "Edit template";
-"TemplateOptions.Alert.Duplicate" = "Duplicate";
-"TemplateOptions.Alert.Delete" = "Delete";
+"TemplateOptions.Alert.Duplicate" = "ନକଲ";
+"TemplateOptions.Alert.Delete" = "ବିଲୋପ କରନ୍ତୁ";
 
 "TemplateEditing.Title" = "Edit template";
 
@@ -572,7 +572,7 @@
 "Views" = "Views";
 "Filter" = "Filter";
 "Sort" = "Sort";
-"View" = "View";
+"View" = "ଦେଖନ୍ତୁ";
 "Home" = "Home";
 "Highlight" = "Highlight";
 "Create object" = "Create object";
@@ -641,16 +641,16 @@
 
 // MARK: - Simple tables
 "SimpleTableMenu.Item.clearContents" = "Clear";
-"SimpleTableMenu.Item.color" = "Color";
-"SimpleTableMenu.Item.style" = "Style";
+"SimpleTableMenu.Item.color" = "ରଙ୍ଗ";
+"SimpleTableMenu.Item.style" = "ଷ୍ଟାଇଲ";
 "SimpleTableMenu.Item.clearStyle" = "Reset style";
 
 "SimpleTableMenu.Item.InsertLeft" = "Insert left";
 "SimpleTableMenu.Item.InsertRight" = "Insert right";
 "SimpleTableMenu.Item.MoveLeft" = "Move left";
 "SimpleTableMenu.Item.MoveRight" = "Move right";
-"SimpleTableMenu.Item.Duplicate" = "Duplicate";
-"SimpleTableMenu.Item.Delete" = "Delete";
+"SimpleTableMenu.Item.Duplicate" = "ନକଲ";
+"SimpleTableMenu.Item.Delete" = "ବିଲୋପ କରନ୍ତୁ";
 "SimpleTableMenu.Item.Sort" = "Sort";
 
 "SimpleTableMenu.Item.InsertAbove" = "Insert above";
@@ -680,7 +680,7 @@
 "SetViewTypesPicker.Title" = "Edit view";
 "SetViewTypesPicker.New.Title" = "New view";
 "SetViewTypesPicker.Section.Types.Title" = "View as";
-"SetViewTypesPicker.Settings.Duplicate.View" = "Duplicate";
+"SetViewTypesPicker.Settings.Duplicate.View" = "ନକଲ";
 "SetViewTypesPicker.Settings.Delete.View" = "Delete view";
 "SetViewTypesPicker.Settings.Textfield.Placeholder.New.View" = "New view";
 "SetViewTypesPicker.Settings.Textfield.Placeholder.Untitled" = "ଶୀର୍ଷକ ନଥିବା";
@@ -819,7 +819,7 @@
 // MARK: - Sharing
 "Sharing.Navigation.title" = "Add to Anytype";
 "Sharing.Navigation.LeftButton.Title" = "ବାତିଲ କରନ୍ତୁ ";
-"Sharing.Navigation.RightButton.Title" = "Done";
+"Sharing.Navigation.RightButton.Title" = "ହେଲା";
 
 "Sharing.SaveAs" = "SAVE AS";
 "Sharing.SelectSpace" = "Space";
