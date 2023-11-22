@@ -2,10 +2,10 @@
 "StyleMenu.Color.TextColor.Placeholder" = "A";
 
 // MARK: Text Style in Slash and Style menu
-"TextStyle.Text.Title" = "Text";
-"TextStyle.Text.Subtitle" = "Just start writing with a plain text";
+"TextStyle.Text.Title" = "Tekst";
+"TextStyle.Text.Subtitle" = "Begin met schrijven";
 
-"TextStyle.Title.Title" = "Title";
+"TextStyle.Title.Title" = "Titel";
 "TextStyle.Title.Subtitle" = "Big section heading";
 
 "TextStyle.Heading.Title" = "Heading";
@@ -48,7 +48,7 @@
 "BlockText.ContentType.Checkbox.Placeholder" = "Checkbox";
 "BlockText.ContentType.Numbered.Placeholder" = "Numbered list item";
 "BlockText.ContentType.Quote.Placeholder" = "Highlighted text";
-"BlockText.ContentType.Header.Placeholder" = "Title";
+"BlockText.ContentType.Header.Placeholder" = "Titel";
 "BlockText.ContentType.Header2.Placeholder" = "Heading";
 "BlockText.ContentType.Header3.Placeholder" = "Subheading";
 
@@ -59,7 +59,7 @@
 "BlockLink.PreviewSettings.IconSize.Medium" = "Medium";
 
 "BlockLink.PreviewSettings.Layout.Card.Title" = "Card";
-"BlockLink.PreviewSettings.Layout.Text.Title" = "Text";
+"BlockLink.PreviewSettings.Layout.Text.Title" = "Tekst";
 
 // MARK: - Settings
 "Settings.Title" = "Settings";
@@ -79,7 +79,7 @@
 "Relation.From.Type" = "From type %@";
 
 "Relation.Format.Object.Title" = "Object";
-"Relation.Format.Text.Title" = "Text";
+"Relation.Format.Text.Title" = "Tekst";
 "Relation.Format.Number.Title" = "Number";
 "Relation.Format.Status.Title" = "Status";
 "Relation.Format.Tag.Title" = "Tag";
