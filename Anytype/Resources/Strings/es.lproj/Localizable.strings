@@ -270,7 +270,7 @@
 "Undo" = "Deshacer";
 "Actions.LinkItself" = "Vincular a";
 "Actions.MakeAsTemplate" = "Crear plantilla";
-"Actions.TemplateMakeDefault" = "Make default";
+"Actions.TemplateMakeDefault" = "Establecer como predeterminado";
 
 // Object Type
 "Set" = "Ajustar";
