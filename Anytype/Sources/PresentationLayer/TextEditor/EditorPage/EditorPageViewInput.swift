@@ -20,9 +20,6 @@ protocol EditorPageViewInput: RelativePositionProvider {
 
     func textBlockDidChangeText()
 
-    /// Tells the delegate when editing of the text block will begin
-    func textBlockWillBeginEditing()
-
     func blockDidFinishEditing(blockId: BlockId)
     
     func scrollToBlock(blockId: BlockId)

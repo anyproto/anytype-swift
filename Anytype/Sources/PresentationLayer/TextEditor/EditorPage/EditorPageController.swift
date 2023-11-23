@@ -388,7 +388,6 @@ extension EditorPageController: EditorPageViewInput {
         }
     }
     
-    func textBlockWillBeginEditing() { }
     func textBlockDidBeginEditing(firstResponderView: UIView) {
         self.firstResponderView = firstResponderView
     }
