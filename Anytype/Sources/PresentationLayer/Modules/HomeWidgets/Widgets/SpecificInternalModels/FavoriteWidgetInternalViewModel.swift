@@ -8,8 +8,7 @@ final class FavoriteWidgetInternalViewModel: CommonWidgetInternalViewModel, Widg
     // MARK: - DI
     
     private let favoriteSubscriptionService: FavoriteSubscriptionServiceProtocol
-    private let activeWorkspaceStorage: ActiveWorkpaceStorageProtocol
-    private let dashboardService: DashboardServiceProtocol
+    private let pageRepository: PageRepositoryProtocol
     private let objectActionsService: ObjectActionsServiceProtocol
     private weak var output: CommonWidgetModuleOutput?
     
@@ -29,14 +28,13 @@ final class FavoriteWidgetInternalViewModel: CommonWidgetInternalViewModel, Widg
         favoriteSubscriptionService: FavoriteSubscriptionServiceProtocol,
         activeWorkspaceStorage: ActiveWorkpaceStorageProtocol,
         documentService: OpenedDocumentsProviderProtocol,
-        dashboardService: DashboardServiceProtocol,
+        pageRepository: PageRepositoryProtocol,
         objectActionsService: ObjectActionsServiceProtocol,
         output: CommonWidgetModuleOutput?
     ) {
         self.favoriteSubscriptionService = favoriteSubscriptionService
-        self.activeWorkspaceStorage = activeWorkspaceStorage
         self.document = documentService.document(objectId: activeWorkspaceStorage.workspaceInfo.homeObjectID)
-        self.dashboardService = dashboardService
+        self.pageRepository = pageRepository
         self.objectActionsService = objectActionsService
         self.output = output
         super.init(widgetBlockId: widgetBlockId, widgetObject: widgetObject)
@@ -64,7 +62,7 @@ final class FavoriteWidgetInternalViewModel: CommonWidgetInternalViewModel, Widg
     
     func onCreateObjectTap() {
         Task {
-            let details = try await dashboardService.createNewPage(spaceId: activeWorkspaceStorage.workspaceInfo.accountSpaceId)
+            let details = try await pageRepository.createDefaultPage(name: "", shouldDeleteEmptyObject: true, spaceId: widgetObject.spaceId)
             try await objectActionsService.setFavorite(objectIds: [details.id], true)
             output?.onObjectSelected(screenData: details.editorScreenData())
         }

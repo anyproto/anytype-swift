@@ -27,7 +27,7 @@ final class FavoriteListWidgetModuleAssembly: HomeWidgetCommonAssemblyProtocol {
             favoriteSubscriptionService: serviceLocator.favoriteSubscriptionService(),
             activeWorkspaceStorage: serviceLocator.activeWorkspaceStorage(),
             documentService: serviceLocator.documentService(),
-            dashboardService: serviceLocator.dashboardService(),
+            pageRepository: serviceLocator.pageRepository(),
             objectActionsService: serviceLocator.objectActionsService(),
             output: output
         )
