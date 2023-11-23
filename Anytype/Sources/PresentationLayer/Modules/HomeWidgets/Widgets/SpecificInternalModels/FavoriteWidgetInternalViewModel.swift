@@ -8,6 +8,10 @@ final class FavoriteWidgetInternalViewModel: CommonWidgetInternalViewModel, Widg
     // MARK: - DI
     
     private let favoriteSubscriptionService: FavoriteSubscriptionServiceProtocol
+    private let activeWorkspaceStorage: ActiveWorkpaceStorageProtocol
+    private let dashboardService: DashboardServiceProtocol
+    private let objectActionsService: ObjectActionsServiceProtocol
+    private weak var output: CommonWidgetModuleOutput?
     
     // MARK: - State
     
@@ -17,16 +21,24 @@ final class FavoriteWidgetInternalViewModel: CommonWidgetInternalViewModel, Widg
     
     var detailsPublisher: AnyPublisher<[ObjectDetails]?, Never> { $details.eraseToAnyPublisher() }
     var namePublisher: AnyPublisher<String, Never> { $name.eraseToAnyPublisher() }
+    var allowCreateObject = true
     
     init(
         widgetBlockId: BlockId,
         widgetObject: BaseDocumentProtocol,
         favoriteSubscriptionService: FavoriteSubscriptionServiceProtocol,
         activeWorkspaceStorage: ActiveWorkpaceStorageProtocol,
-        documentService: OpenedDocumentsProviderProtocol
+        documentService: OpenedDocumentsProviderProtocol,
+        dashboardService: DashboardServiceProtocol,
+        objectActionsService: ObjectActionsServiceProtocol,
+        output: CommonWidgetModuleOutput?
     ) {
         self.favoriteSubscriptionService = favoriteSubscriptionService
+        self.activeWorkspaceStorage = activeWorkspaceStorage
         self.document = documentService.document(objectId: activeWorkspaceStorage.workspaceInfo.homeObjectID)
+        self.dashboardService = dashboardService
+        self.objectActionsService = objectActionsService
+        self.output = output
         super.init(widgetBlockId: widgetBlockId, widgetObject: widgetObject)
     }
     
@@ -48,6 +60,14 @@ final class FavoriteWidgetInternalViewModel: CommonWidgetInternalViewModel, Widg
     
     func analyticsSource() -> AnalyticsWidgetSource {
         return .favorites
+    }
+    
+    func onCreateObjectTap() {
+        Task {
+            let details = try await dashboardService.createNewPage(spaceId: activeWorkspaceStorage.workspaceInfo.accountSpaceId)
+            try await objectActionsService.setFavorite(objectIds: [details.id], true)
+            output?.onObjectSelected(screenData: details.editorScreenData())
+        }
     }
     
     // MARK: - CommonWidgetInternalViewModel oveerides

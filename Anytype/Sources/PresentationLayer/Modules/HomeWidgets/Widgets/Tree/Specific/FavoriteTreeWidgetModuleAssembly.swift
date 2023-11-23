@@ -26,7 +26,10 @@ final class FavoriteTreeWidgetModuleAssembly: HomeWidgetCommonAssemblyProtocol {
             widgetObject: widgetObject,
             favoriteSubscriptionService: serviceLocator.favoriteSubscriptionService(),
             activeWorkspaceStorage: serviceLocator.activeWorkspaceStorage(),
-            documentService: serviceLocator.documentService()
+            documentService: serviceLocator.documentService(),
+            dashboardService: serviceLocator.dashboardService(),
+            objectActionsService: serviceLocator.objectActionsService(),
+            output: output
         )
      
         return widgetsSubmoduleDI.treeWidgetModuleAssembly().make(
