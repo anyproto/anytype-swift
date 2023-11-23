@@ -58,7 +58,7 @@ final class SetsWidgetInternalViewModel: CommonWidgetInternalViewModel, WidgetIn
             let details = try await pageRepository.createPage(
                 name: "",
                 typeUniqueKey: .set,
-                shouldDeleteEmptyObject: false,
+                shouldDeleteEmptyObject: true,
                 shouldSelectType: false,
                 shouldSelectTemplate: false,
                 spaceId: widgetObject.spaceId,
