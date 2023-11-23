@@ -224,20 +224,20 @@
 "Auth.JoinFlow.Soul.Description" = "This is how you will appear in the app.";
 "Auth.JoinFlow.Soul.Placeholder" = "Bez nazwy";
 
-"Auth.JoinFlow.Creating.Soul.Title" = "Generating new account";
+"Auth.JoinFlow.Creating.Soul.Title" = "Tworzenie nowego konta";
 "Auth.JoinFlow.Setting.Space.Title" = "Setting up your personal space";
 "Auth.JoinFlow.Personal.Space.Title" = "Ustawienia";
 
 // Auth - Login flow
 "Auth.LoginFlow.Use.Keychain.Title" = "Use keychain";
-"Auth.LoginFlow.Or" = "OR";
+"Auth.LoginFlow.Or" = "LUB";
 "Auth.LoginFlow.Textfield.Placeholder" = "Wpisz swoją frazę odzyskiwania";
 "Auth.LoginFlow.Enter.Button.Title" = "Zaloguj się";
 "Auth.LoginFlow.Entering.Void.Title" = "Entering the Void";
 
 // Object settings
 
-"Icon" = "Icon";
+"Icon" = "Ikona";
 "Emoji or image for object" = "Emoji or image for object";
 "Cover" = "Okładka";
 "Background picture" = "Zdjęcie w tle";
@@ -276,12 +276,12 @@
 "Set" = "Ustaw";
 "Collection" = "Kolekcja";
 
-"Editor.MovingState.ScrollToSelectedPlace" = "Scroll to select a place";
+"Editor.MovingState.ScrollToSelectedPlace" = "Przewiń, aby wybrać miejsce";
 
 // MARK: - Link to search
 
 "Editor.LinkToObject.SearchPlaceholder" = "Paste link or search objects";
-"Editor.LinkToObject.PasteFromClipboard" = "Paste from clipboard";
+"Editor.LinkToObject.PasteFromClipboard" = "Wklej ze schowka";
 "Editor.LinkToObject.LinkedTo" = "Linked to";
 "Editor.LinkToObject.CopyLink" = "Kopiuj link";
 "Editor.LinkToObject.RemoveLink" = "Usuń link";
@@ -300,36 +300,36 @@
 "Alert.CameraPermissions.GoToSettings" = "Anytype needs access to your camera to scan QR codes.\n\nPlease, go to your device's Settings -> Privacy -> Camera and set Anytype to ON";
 
 // MARK: - Deletion
-"Pending deletion text" = "We're sorry to see you go. You have 30 days to cancel this request. After 30 days, your encrypted account data is permanently removed from the backup node.";
+"Pending deletion text" = "Przykro nam, że odchodzisz. Masz 30 dni na anulowanie tego żądania. Po 30 dniach zaszyfrowana kopia zapasowa Twoich danych zostanie trwale usunięta.";
 
 // MARK: - Object Settings
-"Undo/Redo" = "Undo/Redo";
+"Undo/Redo" = "Cofnij/Ponów";
 
 
 // MARK: - Templates
 "TemplateSelection.Available.Title" = "This type has %d templates";
-"TemplatePicker.ChooseTemplate" = "Choose template";
-"TemplatePicker.Buttons.UseTemplate" = "Use template";
-"TemplateSelection.SelectTemplate" = "Select template";
+"TemplatePicker.ChooseTemplate" = "Wybierz szablon";
+"TemplatePicker.Buttons.UseTemplate" = "Zastosuj szablon";
+"TemplateSelection.SelectTemplate" = "Zaznacz szablon";
 "TemplateSelection.blankTemplate" = "Puste";
-"TemplateSelection.Template.Subtitle" = "Template";
+"TemplateSelection.Template.Subtitle" = "Szablon";
 "TemplateSelection.ObjectType.Subtitle" = "Object type";
 
-"TemplateOptions.Alert.EditTemplate" = "Edit template";
+"TemplateOptions.Alert.EditTemplate" = "Edytuj szablon";
 "TemplateOptions.Alert.Duplicate" = "Duplikuj";
 "TemplateOptions.Alert.Delete" = "Usuń";
 
-"TemplateEditing.Title" = "Edit template";
+"TemplateEditing.Title" = "Edytuj szablon";
 
-"Templates.Popup.WasAddedTo" = "New template was added to the type";
-"Templates.Popup.Duplicated" = "The template was duplicated";
-"Templates.Popup.Removed" = "The template was removed";
-"Templates.Popup.Default" = "The template was set as default";
+"Templates.Popup.WasAddedTo" = "Nowy szablon został dodany do typu";
+"Templates.Popup.Duplicated" = "Szablon został zduplikowany";
+"Templates.Popup.Removed" = "Szablon został usunięty";
+"Templates.Popup.Default" = "Szablon został ustawiony jako domyślny";
 
-"To Bin" = "To Bin";
+"To Bin" = "Do kosza";
 
 // MARK: - Context Menu
-"Remove From Favorite" = "Remove From Favorite";
+"Remove From Favorite" = "Usuń z ulubionych";
 "Add To Favorite" = "Add To Favorite";
 "Move To Bin" = "Move To Bin";
 
@@ -358,15 +358,15 @@
 "EditSet.Popup.Filter.Condition.Text.NotLike" = "Doesn't contain";
 
 "EditSet.Popup.Filter.Condition.Number.Equal" = "Is equal to";
-"EditSet.Popup.Filter.Condition.Number.NotEqual" = "Is not equal to";
-"EditSet.Popup.Filter.Condition.Number.Greater" = "Is greater than";
-"EditSet.Popup.Filter.Condition.Number.Less" = "Is less than";
-"EditSet.Popup.Filter.Condition.Number.GreaterOrEqual" = "Is greater than or equal to";
-"EditSet.Popup.Filter.Condition.Number.LessOrEqual" = "Is less than or equal to";
+"EditSet.Popup.Filter.Condition.Number.NotEqual" = "Nie równa się";
+"EditSet.Popup.Filter.Condition.Number.Greater" = "Jest większe niż";
+"EditSet.Popup.Filter.Condition.Number.Less" = "Jest mniejsze niż";
+"EditSet.Popup.Filter.Condition.Number.GreaterOrEqual" = "Jest większe lub równe";
+"EditSet.Popup.Filter.Condition.Number.LessOrEqual" = "Jest mniejsze lub równe";
 
 "EditSet.Popup.Filter.Condition.Date.Equal" = "Is";
-"EditSet.Popup.Filter.Condition.Date.After" = "Is after";
-"EditSet.Popup.Filter.Condition.Date.Before" = "Is before";
+"EditSet.Popup.Filter.Condition.Date.After" = "Występuje po";
+"EditSet.Popup.Filter.Condition.Date.Before" = "Występuje przed";
 "EditSet.Popup.Filter.Condition.Date.OnOrAfter" = "Jest w trakcie lub po";
 "EditSet.Popup.Filter.Condition.Date.OnOrBefore" = "Jest w trakcie lub przed";
 "EditSet.Popup.Filter.Condition.Date.In" = "Jest wewnątrz";
@@ -416,7 +416,7 @@
 
 // MARK: - Set.Bookmarks
 "Set.Bookmark.Create.Placeholder" = "Wkleić link";
-"Set.Bookmark.Error.Message" = "Oops - something went wrong. Please try again";
+"Set.Bookmark.Error.Message" = "Ups - wystąpił problem. Spróbuj ponownie";
 
 // MARK: - Sets: View Settings
 "Set.View.Settings.ImageFit.Title" = "Dopasuj zdjęcie";
@@ -424,7 +424,7 @@
 "Set.View.Settings.CardSize.Small.Title" = "Mały";
 "Set.View.Settings.CardSize.Large.Title" = "Duży";
 "Set.View.Settings.ImagePreview.Title" = "Podgląd obrazu";
-"Set.View.Settings.GroupBy.Title" = "Group by";
+"Set.View.Settings.GroupBy.Title" = "Grupuj według";
 "Set.View.Settings.GroupBackgroundColors.Title" = "Color columns";
 
 "Set.View.Settings.NoRelations.Placeholder" = "No relations";
@@ -438,7 +438,7 @@
 "Set.View.Kanban.Column.Title.Unchecked" = "%@ nie jest zaznaczony";
 "Set.View.Kanban.Column.Paging.Title.ShowMore" = "Pokaż więcej obiektów";
 "Set.View.Kanban.Column.Settings.Color.Title" = "Column color";
-"Set.View.Kanban.Column.Settings.Hide.Column.Title" = "Hide column";
+"Set.View.Kanban.Column.Settings.Hide.Column.Title" = "Ukryj kolumnę";
 
 // MARK: - Sets: empty view
 "Set.View.Empty.Title" = "No query selected";
@@ -460,17 +460,17 @@
 // MARK: Slash Menu
 "SlashMenu.DotsDivider" = "Dots divider";
 "SlashMenu.LineDivider" = "Line divider";
-"SlashMenu.TableOfContents" = "Table of contents";
-"SlashMenu.Table" = "Table";
+"SlashMenu.TableOfContents" = "Spis treści";
+"SlashMenu.Table" = "Tabela";
 
-"Error" = "Error";
-"Unknown error" = "Unknown error";
-"Close" = "Close";
-"Account is deleted" = "Account is deleted";
+"Error" = "Błąd";
+"Unknown error" = "Nieznany błąd";
+"Close" = "Zamknij";
+"Account is deleted" = "Konto zostało usunięte";
 "Add phone" = "Add phone";
 "Nothing to redo" = "Nothing to redo";
 "Nothing to undo" = "Nothing to undo";
-"Progress..." = "Progress...";
+"Progress..." = "Postęp...";
 "Grey" = "Grey";
 "Sky" = "Sky";
 "Yellow" = "Yellow";
@@ -599,7 +599,7 @@
 "Sync.Status.Version.Outdated.Description" = "Wersja nieaktualna. Proszę zaktualizować Anytype";
 "This object doesn't exist" = "Ten obiekt nie istnieje";
 "Setting up encrypted storage\nPlease wait" = "Setting up encrypted storage\nPlease wait";
-"These objects will be deleted irrevocably" = "These objects will be deleted irrevocably. You can’t undo this action.";
+"These objects will be deleted irrevocably" = "Te obiekty zostaną nieodwracalnie usunięte. Tej akcji nie można cofnąć.";
 "Delete account" = "Usuń konto";
 "Cancel deletion" = "Anuluj usuwanie";
 "Logout and clear data" = "Wyloguj i wyczyść dane";
@@ -614,7 +614,7 @@
 "DataviewType.list" = "Lista";
 "DataviewType.gallery" = "Galeria";
 "DataviewType.kanban" = "Kanban";
-"DataviewType.calendar" = "Calendar";
+"DataviewType.calendar" = "Kalendarz";
 
 // MARK: - ObjectType
 "ObjectType.fallbackDescription" = "Puste płótno bez tytułu";

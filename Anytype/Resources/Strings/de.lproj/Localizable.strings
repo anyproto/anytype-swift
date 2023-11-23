@@ -512,7 +512,7 @@
 "Application icon" = "App-Symbol";
 "Mode" = "Modus";
 "copied to clipboard" = "%@ in die Zwischenanlage kopiert";
-"Access to secret phrase from keychain" = "Access to secret phrase from keychain";
+"Access to secret phrase from keychain" = "Zugriff auf die Passphrase von deinem Schlüsselbund";
 "Back up your recovery phrase" = "Erstelle ein Backup Ihrer Wiederherstellungsphrase";
 "Account" = "Konto";
 "Access" = "Zugriff";
@@ -524,7 +524,7 @@
 "Select account error" = "Konto auswählen Fehler";
 "Account deleted" = "Konto gelöscht";
 "Account.Select.Incompatible.Version.Error.Text" = "Kontodaten konnten wegen inkompatibler Version auf entfernten Knoten nicht abgerufen werden. Bitte aktualisieren Sie Anytype auf die neueste Version.";
-"Restore from keychain" = "Restore from keychain";
+"Restore from keychain" = "Von Schlüsselbund wiederherstellen";
 "Edit" = "Bearbeiten";
 "In this object" = "In diesem Objekt";
 "Other relations" = "Andere Relationen";
@@ -850,6 +850,6 @@
 "Error.AnytypeNeedsUpgrate.Message" = "Dieses Objekt wurde in einer neueren Version von Anytype geändert. Bitte aktualisieren Sie die App, um es auf diesem Gerät zu öffnen";
 
 // MARK: - Relative date formatter
-"RelativeFormatter.days7" = "Previous 7 days";
-"RelativeFormatter.days30" = "Previous 30 days";
-"RelativeFormatter.older" = "Older";
+"RelativeFormatter.days7" = "Letzte 7 Tage";
+"RelativeFormatter.days30" = "Letzte 30 Tage";
+"RelativeFormatter.older" = "Älter";
