@@ -8,6 +8,8 @@ final class ObjectWidgetInternalViewModel: CommonWidgetInternalViewModel, Widget
     // MARK: - DI
     
     private let subscriptionManager: TreeSubscriptionManagerProtocol
+    private let pageRepository: PageRepositoryProtocol
+    private weak var output: CommonWidgetModuleOutput?
     
     // MARK: - State
     
@@ -18,13 +20,18 @@ final class ObjectWidgetInternalViewModel: CommonWidgetInternalViewModel, Widget
     
     var detailsPublisher: AnyPublisher<[ObjectDetails]?, Never> { $details.eraseToAnyPublisher() }
     var namePublisher: AnyPublisher<String, Never> { $name.eraseToAnyPublisher() }
+    var allowCreateObject = true
     
     init(
         widgetBlockId: BlockId,
         widgetObject: BaseDocumentProtocol,
-        subscriptionManager: TreeSubscriptionManagerProtocol
+        subscriptionManager: TreeSubscriptionManagerProtocol,
+        pageRepository: PageRepositoryProtocol,
+        output: CommonWidgetModuleOutput?
     ) {
         self.subscriptionManager = subscriptionManager
+        self.pageRepository = pageRepository
+        self.output = output
         super.init(widgetBlockId: widgetBlockId, widgetObject: widgetObject)
     }
     
@@ -70,6 +77,13 @@ final class ObjectWidgetInternalViewModel: CommonWidgetInternalViewModel, Widget
     
     func analyticsSource() -> AnalyticsWidgetSource {
         return .object(type: linkedObjectDetails?.analyticsType ?? .object(typeId: ""))
+    }
+    
+    func onCreateObjectTap() {
+        Task {
+            let details = try await pageRepository.createDefaultPage(name: "", shouldDeleteEmptyObject: true, spaceId: widgetObject.spaceId)
+            output?.onObjectSelected(screenData: details.editorScreenData())
+        }
     }
     
     // MARK: - Private
