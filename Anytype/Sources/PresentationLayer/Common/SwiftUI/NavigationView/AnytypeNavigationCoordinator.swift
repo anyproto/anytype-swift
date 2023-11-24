@@ -4,16 +4,27 @@ import SwiftUI
 final class AnytypeNavigationCoordinator: NSObject, UINavigationControllerDelegate, UIGestureRecognizerDelegate {
     
     @Binding private(set) var path: [AnyHashable]
+    @Binding private(set) var pathChanging: Bool
     
     let builder = AnytypeDestinationBuilderHolder()
     var currentViewControllers = [UIHostingController<AnytypeNavigationViewBridge>]()
     var numberOfTransactions: Int = 0
     
-    init(path: Binding<[AnyHashable]>) {
+    init(path: Binding<[AnyHashable]>, pathChanging: Binding<Bool>) {
         self._path = path
+        self._pathChanging = pathChanging
     }
     
     // MARK: - UINavigationControllerDelegate
+    
+    func navigationController(_ navigationController: UINavigationController, willShow viewController: UIViewController, animated: Bool) {
+        pathChanging = true
+        navigationController.transitionCoordinator?.notifyWhenInteractionChanges { [weak self] transaction in
+            if transaction.isCancelled {
+                self?.pathChanging = false
+            }
+        }
+    }
     
     func navigationController(_ navigationController: UINavigationController, didShow viewController: UIViewController, animated: Bool) {
         if numberOfTransactions > 0 {
@@ -30,6 +41,7 @@ final class AnytypeNavigationCoordinator: NSObject, UINavigationControllerDelega
         }
         
         navigationController.interactivePopGestureRecognizer?.delegate = self
+        pathChanging = false
     }
     
     // MARK: - Gesture

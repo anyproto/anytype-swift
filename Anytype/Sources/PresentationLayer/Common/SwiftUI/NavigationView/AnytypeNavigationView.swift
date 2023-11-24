@@ -4,10 +4,12 @@ import SwiftUI
 struct AnytypeNavigationView: View {
     
     @Binding var path: [AnyHashable]
+    @Binding var pathChanging: Bool
+    
     let moduleSetup: (_ builder: AnytypeDestinationBuilderHolder) -> Void
 
     var body: some View {
-        AnytypeNavigationViewRepresentable(path: $path, moduleSetup: moduleSetup)
+        AnytypeNavigationViewRepresentable(path: $path, pathChanging: $pathChanging, moduleSetup: moduleSetup)
             .ignoresSafeArea()
     }
 }
@@ -15,6 +17,7 @@ struct AnytypeNavigationView: View {
 struct AnytypeNavigationViewRepresentable: UIViewControllerRepresentable {
     
     @Binding var path: [AnyHashable]
+    @Binding var pathChanging: Bool
     let moduleSetup: (_ builder: AnytypeDestinationBuilderHolder) -> Void
 
     func makeUIViewController(context: Context) -> UINavigationController {
@@ -26,7 +29,6 @@ struct AnytypeNavigationViewRepresentable: UIViewControllerRepresentable {
     }
     
     func updateUIViewController(_ controller: UINavigationController, context: Context) {
-        
         let builder = context.coordinator.builder
         let currentViewControllers = context.coordinator.currentViewControllers
         var viewControllers = [UIHostingController<AnytypeNavigationViewBridge>]()
@@ -51,6 +53,6 @@ struct AnytypeNavigationViewRepresentable: UIViewControllerRepresentable {
     }
     
     func makeCoordinator() -> AnytypeNavigationCoordinator {
-        return AnytypeNavigationCoordinator(path: _path)
+        return AnytypeNavigationCoordinator(path: _path, pathChanging: _pathChanging)
     }
 }

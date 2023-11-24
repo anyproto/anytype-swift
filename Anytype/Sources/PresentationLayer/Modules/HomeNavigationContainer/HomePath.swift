@@ -71,11 +71,11 @@ struct HomePath {
 
 extension AnytypeNavigationView {
 
-    init(path homePath: Binding<HomePath>, moduleSetup: @escaping (_ builder: AnytypeDestinationBuilderHolder) -> Void) {
+    init(path homePath: Binding<HomePath>, pathChanging: Binding<Bool>, moduleSetup: @escaping (_ builder: AnytypeDestinationBuilderHolder) -> Void) {
         let path = Binding(
             get: { homePath.wrappedValue.path },
             set: { homePath.wrappedValue.path = $0 }
         )
-        self.init(path: path, moduleSetup: moduleSetup)
+        self.init(path: path, pathChanging: pathChanging, moduleSetup: moduleSetup)
     }
 }

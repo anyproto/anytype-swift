@@ -48,6 +48,7 @@ final class HomeWidgetsCoordinatorViewModel: ObservableObject,
     }
     @Published var showCreateObjectWithType: Bool = false
     @Published var toastBarData = ToastBarData.empty
+    @Published var pathChanging: Bool = false
     
     private var currentSpaceId: String?
     
@@ -254,14 +255,17 @@ final class HomeWidgetsCoordinatorViewModel: ObservableObject,
     }
 
     func onHomeSelected() {
+        guard !pathChanging else { return }
         editorPath.popToRoot()
     }
 
     func onForwardSelected() {
+        guard !pathChanging else { return }
         editorPath.pushFromHistory()
     }
 
     func onBackwardSelected() {
+        guard !pathChanging else { return }
         editorPath.pop()
     }
     

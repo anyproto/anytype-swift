@@ -10,7 +10,7 @@ struct HomeWidgetsCoordinatorView: View {
         HomeBottomPanelContainer(
             path: $model.editorPath,
             content: {
-                AnytypeNavigationView(path: $model.editorPath) { builder in
+                AnytypeNavigationView(path: $model.editorPath, pathChanging: $model.pathChanging) { builder in
                     builder.appendBuilder(for: AccountInfo.self) { info in
                         model.homeWidgetsModule(info: info)
                     }
