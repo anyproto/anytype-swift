@@ -6,7 +6,7 @@ struct InitialCoordinatorView: View {
     @StateObject var model: InitialCoordinatorViewModel
     
     var body: some View {
-        Color.white
+        Color.black
             .onAppear {
                 model.onAppear()
             }
@@ -27,5 +27,6 @@ struct InitialCoordinatorView: View {
             } message: {
                 Text(Loc.Initial.UnstableMiddle.message)
             }
+            .ignoresSafeArea()
     }
 }
