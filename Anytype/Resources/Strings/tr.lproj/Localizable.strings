@@ -560,7 +560,7 @@
 "Upload playable audio" = "Oynatılabilir ses yükle";
 "Code snippet" = "Kod parçacığı";
 "Bookmark" = "Bookmark";
-"Audio" = "Audio";
+"Audio" = "Ses";
 "Video" = "Video";
 "Picture" = "Picture";
 "File" = "Dosya";
@@ -574,7 +574,7 @@
 "Sort" = "Sırala";
 "View" = "Görüntüle";
 "Home" = "Home";
-"Highlight" = "Highlight";
+"Highlight" = "Vurgula";
 "Create object" = "Nesne oluştur";
 "Web pages" = "Web sayfaları";
 "Preview layout" = "Önizleme düzeni";
@@ -586,14 +586,14 @@
 "No date" = "Tarih yok";
 "Clear" = "Temizle";
 "Create option" = "Create option ‘%@’";
-"Add URL" = "Add URL";
+"Add URL" = "URL Ekle";
 "Add email" = "E-posta ekle";
-"Add phone number" = "Add phone number";
-"Add number" = "Add number";
-"Add text" = "Add text";
-"Ok" = "Ok";
-"Error occurred. Please try again" = "Error occurred. Please try again";
-"Add" = "Add";
+"Add phone number" = "Telefon numarası ekle";
+"Add number" = "Numara ekle";
+"Add text" = "Metin ekle";
+"Ok" = "Tamam";
+"Error occurred. Please try again" = "Hata oluştu. Lütfen tekrar dene";
+"Add" = "Ekle";
 "Companies, contacts, friends and family" = "Companies, contacts, friends and family";
 "Failed to sync, trying again..." = "Failed to sync, trying again...";
 "Sync.Status.Version.Outdated.Description" = "Version outdated. Please update Anytype";
@@ -601,9 +601,9 @@
 "Setting up encrypted storage\nPlease wait" = "Setting up encrypted storage\nPlease wait";
 "These objects will be deleted irrevocably" = "These objects will be deleted irrevocably. You can’t undo this action.";
 "Delete account" = "Delete account";
-"Cancel deletion" = "Cancel deletion";
-"Logout and clear data" = "Logout and clear data";
-"New" = "New";
+"Cancel deletion" = "Silme işlemini iptal et";
+"Logout and clear data" = "Oturumu kapat ve verileri temizle";
+"New" = "Yeni";
 
 // MARK: - DeletionAlert
 "DeletionAlert.title" = "Are you sure to delete account?";
@@ -614,7 +614,7 @@
 "DataviewType.list" = "List";
 "DataviewType.gallery" = "Galeri";
 "DataviewType.kanban" = "Kanban";
-"DataviewType.calendar" = "Calendar";
+"DataviewType.calendar" = "Takvim";
 
 // MARK: - ObjectType
 "ObjectType.fallbackDescription" = "Blank canvas with no title";
@@ -633,8 +633,8 @@
 
 // MARK: - InterfaceStyle
 "InterfaceStyle.light" = "Light";
-"InterfaceStyle.dark" = "Dark";
-"InterfaceStyle.system" = "System";
+"InterfaceStyle.dark" = "Koyu";
+"InterfaceStyle.system" = "Sistem";
 
 // MARK: Table of Contents
 "TalbeOfContents.Empty" = "Add headings to create a table of contents";
@@ -647,15 +647,15 @@
 
 "SimpleTableMenu.Item.InsertLeft" = "Insert left";
 "SimpleTableMenu.Item.InsertRight" = "Insert right";
-"SimpleTableMenu.Item.MoveLeft" = "Move left";
-"SimpleTableMenu.Item.MoveRight" = "Move right";
+"SimpleTableMenu.Item.MoveLeft" = "Sola taşı";
+"SimpleTableMenu.Item.MoveRight" = "Sağa Taşı";
 "SimpleTableMenu.Item.Duplicate" = "Çoğalt";
 "SimpleTableMenu.Item.Delete" = "Sil";
 "SimpleTableMenu.Item.Sort" = "Sırala";
 
-"SimpleTableMenu.Item.InsertAbove" = "Insert above";
-"SimpleTableMenu.Item.InsertBelow" = "Insert below";
-"SimpleTableMenu.Item.MoveUp" = "Move up";
+"SimpleTableMenu.Item.InsertAbove" = "Yukarıya Ekle";
+"SimpleTableMenu.Item.InsertBelow" = "Aşağı ekle";
+"SimpleTableMenu.Item.MoveUp" = "Yukarı taşı";
 "SimpleTableMenu.Item.MoveDown" = "Move down";
 
 "DebugMenu.ToggleAuthor" = "Release: %@, %@";
@@ -752,9 +752,9 @@
 "About.AnytypeCommunity" = "Anytype Community";
 "About.HelpTutorials" = "Help & Tutorials";
 "About.ContactUs" = "Contact Us";
-"About.Legal" = "Legal";
-"About.TermsOfUse" = "Terms of Use";
-"About.PrivacyPolicy" = "Privacy Policy";
+"About.Legal" = "Yasal";
+"About.TermsOfUse" = "Kullanım Koşulları";
+"About.PrivacyPolicy" = "Gizlilik Politikası";
 "About.TechInfo" = "Tech Info";
 "About.Mail.Subject" = "Support request, Account ID %@";
 "About.Mail.Body" = "\n\nTechnical information\n%@";
@@ -851,4 +851,4 @@
 // MARK: - Relative date formatter
 "RelativeFormatter.days7" = "Previous 7 days";
 "RelativeFormatter.days30" = "Previous 30 days";
-"RelativeFormatter.older" = "Older";
+"RelativeFormatter.older" = "Daha eski";
