@@ -103,6 +103,7 @@ final class SetObjectWidgetInternalViewModel: CommonWidgetInternalViewModel, Wid
     func onCreateObjectTap() {
         guard let setDocument else { return }
         output?.onCreateObjectInSetDocument(setDocument: setDocument)
+        UISelectionFeedbackGenerator().selectionChanged()
     }
     
     // MARK: - CommonWidgetInternalViewModel oveerides

@@ -1,6 +1,7 @@
 import Foundation
 import Services
 import Combine
+import UIKit
 
 @MainActor
 final class FavoriteWidgetInternalViewModel: CommonWidgetInternalViewModel, WidgetInternalViewModelProtocol {
@@ -65,6 +66,7 @@ final class FavoriteWidgetInternalViewModel: CommonWidgetInternalViewModel, Widg
             let details = try await pageRepository.createDefaultPage(name: "", shouldDeleteEmptyObject: true, spaceId: widgetObject.spaceId)
             try await objectActionsService.setFavorite(objectIds: [details.id], true)
             output?.onObjectSelected(screenData: details.editorScreenData())
+            UISelectionFeedbackGenerator().selectionChanged()
         }
     }
     

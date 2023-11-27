@@ -1,6 +1,7 @@
 import Foundation
 import Services
 import Combine
+import UIKit
 
 @MainActor
 final class SetsWidgetInternalViewModel: CommonWidgetInternalViewModel, WidgetInternalViewModelProtocol {
@@ -66,6 +67,7 @@ final class SetsWidgetInternalViewModel: CommonWidgetInternalViewModel, WidgetIn
                 templateId: nil
             )
             output?.onObjectSelected(screenData: details.editorScreenData())
+            UISelectionFeedbackGenerator().selectionChanged()
         }
     }
     
