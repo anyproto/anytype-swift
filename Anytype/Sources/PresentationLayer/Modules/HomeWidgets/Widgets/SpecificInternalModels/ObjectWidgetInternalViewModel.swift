@@ -9,6 +9,8 @@ final class ObjectWidgetInternalViewModel: CommonWidgetInternalViewModel, Widget
     
     private let subscriptionManager: TreeSubscriptionManagerProtocol
     private let pageRepository: PageRepositoryProtocol
+    private let documentsProvider: DocumentsProviderProtocol
+    private let blockActionsService: BlockActionsServiceSingleProtocol
     private weak var output: CommonWidgetModuleOutput?
     
     // MARK: - State
@@ -27,10 +29,14 @@ final class ObjectWidgetInternalViewModel: CommonWidgetInternalViewModel, Widget
         widgetObject: BaseDocumentProtocol,
         subscriptionManager: TreeSubscriptionManagerProtocol,
         pageRepository: PageRepositoryProtocol,
+        documentsProvider: DocumentsProviderProtocol,
+        blockActionsService: BlockActionsServiceSingleProtocol,
         output: CommonWidgetModuleOutput?
     ) {
         self.subscriptionManager = subscriptionManager
         self.pageRepository = pageRepository
+        self.documentsProvider = documentsProvider
+        self.blockActionsService = blockActionsService
         self.output = output
         super.init(widgetBlockId: widgetBlockId, widgetObject: widgetObject)
     }
@@ -80,8 +86,20 @@ final class ObjectWidgetInternalViewModel: CommonWidgetInternalViewModel, Widget
     }
     
     func onCreateObjectTap() {
+        guard let linkedObjectDetails else { return }
         Task {
+            let document = documentsProvider.document(objectId: linkedObjectDetails.id, forPreview: true)
+            try await document.openForPreview()
+            guard let lastBlockId = document.children.last?.id else { return }
+                  
             let details = try await pageRepository.createDefaultPage(name: "", shouldDeleteEmptyObject: true, spaceId: widgetObject.spaceId)
+            let info = BlockInformation.emptyLink(targetId: details.id)
+            let _ = try await self.blockActionsService.add(
+                contextId: linkedObjectDetails.id,
+                targetId: lastBlockId,
+                info: info,
+                position: .bottom
+            )
             output?.onObjectSelected(screenData: details.editorScreenData())
         }
     }
@@ -90,7 +108,6 @@ final class ObjectWidgetInternalViewModel: CommonWidgetInternalViewModel, Widget
     
     private func updateLinksSubscriptions() async {
         guard let linkedObjectDetails, contentIsAppear else { return }
-        
         await _ = subscriptionManager.startOrUpdateSubscription(objectIds: linkedObjectDetails.links)
     }
 }
