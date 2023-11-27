@@ -43,7 +43,7 @@
 
 "BlockText.ContentType.Title.Placeholder" = "Naamloos";
 "BlockText.ContentType.Description.Placeholder" = "Voeg een beschrijving toe";
-"BlockText.ContentType.Toggle.Placeholder" = "Toggle block";
+"BlockText.ContentType.Toggle.Placeholder" = "Open/sluit blok";
 "BlockText.ContentType.Bulleted.Placeholder" = "Item van opsommingslijst";
 "BlockText.ContentType.Checkbox.Placeholder" = "Selectievak";
 "BlockText.ContentType.Numbered.Placeholder" = "Item van genummerde lijst";
@@ -166,35 +166,35 @@
 "Keychain.Recovery phrase" = "Herstelzin";
 "Keychain.Recovery phrase copied to clipboard" = "Herstelzin gekopieerd";
 "Keychain.Recovery phrase description" = "Je zal dit nodig hebben om in te loggen. Bewaar dit op een veilige plek. Als je dit verliest, heb je niet langer toegang tot je account.";
-"Keychain.Save keychain alert part 1" = "If you lose the recovery phrase and get logged out you will not be able to ";
-"Keychain.Save keychain alert part 2" = "ever access your data again";
+"Keychain.Save keychain alert part 1" = "Als je de herstelzin verliest, wordt je uitgelogd en kun je niet meer";
+"Keychain.Save keychain alert part 2" = "bij je gegevens komen";
 "Keychain.Save keychain alert part 3" = ".\nSave this recovery phrase outside of Anytype for data recovery.\nWe recommend using a secure data vault, password manager or piece of paper in the safe.";
-"Keychain.Don’t forget to save your recovery phrase" = "Don’t forget to save your recovery phrase";
-"Keychain.Show and copy phrase" = "Show and copy phrase";
-"Keychain.Have you backed up your recovery phrase?" = "Have you backed up your recovery phrase?";
-"Keychain.Error.String to Data conversion error" = "String to Data conversion error";
-"Keychain.Error.Data to String conversion error" = "Data to String conversion error";
-"Keychain.Error.Unknown Keychain Error" = "Unknown Keychain Error";
+"Keychain.Don’t forget to save your recovery phrase" = "Vergeet niet je herstelzin op te slaan";
+"Keychain.Show and copy phrase" = "Laat herstelzin zien en kopieer";
+"Keychain.Have you backed up your recovery phrase?" = "Heb je een back-up gemaakt van je herstelzin?";
+"Keychain.Error.String to Data conversion error" = "Tekst-naar-data conversiefout";
+"Keychain.Error.Data to String conversion error" = "Data-naar-tekst conversiefout";
+"Keychain.Error.Unknown Keychain Error" = "Onbekende fout door keychain";
 "Keychain.SeedPhrasePlaceholder" = "witch collapse practice feed shame open despair creek road again ice least lake tree young address brain despair";
 
 // Auth
-"Sign up" = "Sign up";
-"Login" = "Log In";
-"Create" = "Create";
+"Sign up" = "Aanmelden";
+"Login" = "Inloggen";
+"Create" = "Maak";
 "Scan QR code" = "Scan QR code";
-"Auth.CameraPermissionTitle" = "Please allow access";
-"Restore secret phrase from keychain" = "Restore Recovery Phrase from the keychain";
-"Auth.LogIn" = "Log In";
-"Auth.Join" = "Create New Account";
-"Auth.Welcome.Subtitle" = "Anytype is your safe space to write, plan, think and organise everything that matters to you.";
+"Auth.CameraPermissionTitle" = "Geef toegang";
+"Restore secret phrase from keychain" = "Herstel de herstelzin vanuit de keychain";
+"Auth.LogIn" = "Inloggen";
+"Auth.Join" = "Maak een nieuw account";
+"Auth.Welcome.Subtitle" = "Anytype is jouw veilige ruimte om te schrijven, te plannen, na te denken en te organiseren van de dingen die jij belangrijk vindt.";
 "Auth.Caption.Privacy.Text" = "By continuing you agree to [Terms of Use](%@) and [Privacy Policy](%@)";
-"Auth.Next" = "Next";
+"Auth.Next" = "Volgende";
 
-"Account recover error" = "Account recover error, try again";
-"Account recover error no internet" = "Account recover error, probably no internet connection";
+"Account recover error" = "Account herstellen ging fout, probeer het opnieuw";
+"Account recover error no internet" = "Account herstellen ging fout, waarschijnlijk geen internetverbinding";
 
 // Auth Errors
-"Error creating wallet" = "Error creating wallet";
+"Error creating wallet" = "Fout bij aanmaken wallet";
 "Error select account" = "Error select account";
 "Error wallet recover account" = "Error wallet recover account";
 
