@@ -4,8 +4,10 @@ import SwiftUI
 import Services
 
 protocol NewRelationModuleAssemblyProtocol {
+    @MainActor
     func make(
         document: BaseDocumentProtocol,
+        target: RelationsModuleTarget,
         searchText: String,
         output: NewRelationModuleOutput
     ) -> UIKitModule<NewRelationModuleInput>
@@ -23,17 +25,26 @@ final class NewRelationModuleAssembly: NewRelationModuleAssemblyProtocol {
     
     // MARK: - NewRelationModuleAssemblyProtocol
     
+    @MainActor
     func make(
         document: BaseDocumentProtocol,
+        target: RelationsModuleTarget,
         searchText: String,
         output: NewRelationModuleOutput
     ) -> UIKitModule<NewRelationModuleInput> {
+        
+        let relationsInteractor = RelationsInteractor(
+            relationsService: serviceLocator.relationService(objectId: document.objectId),
+            dataviewService:  serviceLocator.dataviewService(objectId: document.objectId, blockId: nil)
+        )
         let viewModel = NewRelationViewModel(
             name: searchText,
-            document: document,
+            document: document, 
+            target: target,
             service: RelationsService(objectId: document.objectId),
             toastPresenter: uiHelpersDI.toastPresenter(),
-            objectTypeProvider: serviceLocator.objectTypeProvider(),
+            objectTypeProvider: serviceLocator.objectTypeProvider(), 
+            relationsInteractor: relationsInteractor,
             output: output
         )
         let view = NewRelationView(viewModel: viewModel)

@@ -48,7 +48,6 @@ public final class RelationsService: RelationsServiceProtocol {
             $0.spaceID = spaceId
         }).invoke()
         
-        try await addRelations(relationKeys: [result.key])
         guard let objectDetails = try? ObjectDetails(protobufStruct: result.details) else {
             throw RelationServiceError.unableToCreateRelationFromObject
         }

@@ -147,6 +147,7 @@ final class ObjectSettingsCoordinator: ObjectSettingsCoordinatorProtocol,
     
     // MARK: - RelationsListModuleOutput
     
+    @MainActor
     func addNewRelationAction(document: BaseDocumentProtocol) {
         addNewRelationCoordinator.showAddNewRelationView(
             document: document,

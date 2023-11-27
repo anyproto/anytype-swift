@@ -1,6 +1,7 @@
 import Foundation
 
 protocol ObjectSettingsCoordinatorAssemblyProtocol {
+    @MainActor
     func make(browserController: EditorBrowserController?) -> ObjectSettingsCoordinatorProtocol
 }
 
@@ -25,6 +26,7 @@ final class ObjectSettingsCoordinatorAssembly: ObjectSettingsCoordinatorAssembly
     
     // MARK: - ObjectSettingsCoordinatorAssemblyProtocol
     
+    @MainActor
     func make(browserController: EditorBrowserController?) -> ObjectSettingsCoordinatorProtocol {
         ObjectSettingsCoordinator(
             navigationContext: uiHelpersDI.commonNavigationContext(),

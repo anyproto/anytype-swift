@@ -74,7 +74,7 @@ protocol NewSearchModuleAssemblyProtocol {
     func relationsSearchModule(
         document: BaseDocumentProtocol,
         excludedRelationsIds: [String],
-        target: RelationsSearchTarget,
+        target: RelationsModuleTarget,
         output: RelationSearchModuleOutput
     ) -> NewSearchView
     
