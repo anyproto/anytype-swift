@@ -842,11 +842,11 @@
 
 // MARK: - Create tip
 "LongTapCreateTip.Title" = "创建带有特定类型的对象";
-"LongTapCreateTip.Message" = "长按创建对象按钮以打开带类型的菜单";
+"LongTapCreateTip.Message" = "长按创建文档按钮以打开带类型的菜单";
 
 // MARK: - Error
 "Error.AnytypeNeedsUpgrate.Title" = "更新应用";
-"Error.AnytypeNeedsUpgrate.Message" = "此对象已在更高版本的 Anytype 编辑过，请更新此设备的应用以打开它";
+"Error.AnytypeNeedsUpgrate.Message" = "此文档已在更高版本的 Anytype 编辑过，请更新此设备的应用以打开它。";
 
 // MARK: - Relative date formatter
 "RelativeFormatter.days7" = "过去 7 天";
