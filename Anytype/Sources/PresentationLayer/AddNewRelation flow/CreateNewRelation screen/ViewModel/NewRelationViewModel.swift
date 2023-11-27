@@ -88,16 +88,16 @@ extension NewRelationViewModel {
     
     private func createRelation(relationDetails: RelationDetails) {
         Task {
-            let createRelation = try await relationsInteractor.createRelation(spaceId: document.spaceId, relation: relationDetails)
+            let createdRelation = try await relationsInteractor.createRelation(spaceId: document.spaceId, relation: relationDetails)
             
             switch target {
             case .object:
-                try await relationsInteractor.addRelationToObject(relation: createRelation)
+                try await relationsInteractor.addRelationToObject(relation: createdRelation)
             case .dataview(let activeViewId):
-                try await relationsInteractor.addRelationToDataview(relation: createRelation, activeViewId: activeViewId)
+                try await relationsInteractor.addRelationToDataview(relation: createdRelation, activeViewId: activeViewId)
             }
             
-            relationDetailsAdded(relationDetails: createRelation)
+            relationDetailsAdded(relationDetails: createdRelation)
         }
     }
     
