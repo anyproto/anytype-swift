@@ -10,6 +10,7 @@ struct WidgetSwipeActionView<Content: View>: View {
     
     @State private var dragOffsetX: CGFloat = 0
     @State private var dragState: DragState = .cancel
+    @GestureState private var dragGestureActive = false
     
     private let maxOffset: CGFloat = 130
     private let appyOffset: CGFloat = 110
@@ -68,8 +69,11 @@ struct WidgetSwipeActionView<Content: View>: View {
             content
                 .offset(x: -contentOffset)
         }
-        .gesture(
-            DragGesture(minimumDistance: 0, coordinateSpace: .local)
+        .highPriorityGesture(
+            DragGesture(minimumDistance: 10, coordinateSpace: .local)
+                .updating($dragGestureActive) { value, state, transaction in
+                    state = true
+                }
                 .onChanged { value in
                     // Only left
                     withAnimation(.linear(duration: 0.1)) {
@@ -87,6 +91,14 @@ struct WidgetSwipeActionView<Content: View>: View {
                     dragState = .cancel
                 }
         )
+        .onChange(of: dragGestureActive) { newIsActiveValue in
+            if newIsActiveValue == false {
+                withAnimation {
+                    dragOffsetX = 0
+                }
+                dragState = .cancel
+            }
+        }
     }
     
     private func impact() {
