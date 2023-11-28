@@ -534,9 +534,9 @@
 "Standard layout for canvas blocks" = "Standard layout for canvas blocks";
 "List of related objects" = "Список связанных объектов";
 "Lock" = "Lock";
-"Unlock" = "Unlock";
+"Unlock" = "Разблокировать";
 "Favorite" = "Favorite";
-"Unfavorite" = "Unfavorite";
+"Unfavorite" = "Удалить из избранного";
 "Unsplash" = "Unsplash";
 "Go back" = "Вернуться";
 "Backed up on one node at least" = "Создана резервная копия по крайней мере на одном узле";
@@ -548,10 +548,10 @@
 "Syncing..." = "Синхронизация...";
 "No connection" = "Нет соединения";
 "Preparing..." = "Подготовка...";
-"Deleted" = "Deleted";
+"Deleted" = "Удалено";
 "Download" = "Скачать";
 "Open object" = "Открыть объект";
-"Open source" = "Open source";
+"Open source" = "Открыть источник";
 "Into object" = "Into object";
 "Add below" = "Добавить ниже";
 "Change type" = "Изменить тип";
@@ -710,8 +710,8 @@
 "WidgetExtension.LockScreen.Description" = "Create a new object on the fly";
 
 // MARK: - Toast
-"Editor.Toast.LinkedTo" = "linked to";
-"Editor.Toast.MovedTo" = "Block moved to";
+"Editor.Toast.LinkedTo" = "связано с";
+"Editor.Toast.MovedTo" = "Блок перемещен в";
 
 // MARK: - Scanner
 "Scanner.Error.Scanning not supported" = "Сканирование не поддерживается";
@@ -773,9 +773,9 @@
 "FileStorage.Title" = "Файловое хранилище";
 "FileStorage.Space.Title" = "Удалённое хранилище";
 "FileStorage.Space.Instruction" = "Вы можете бесплатно хранить до %@ ваших файлов на нашем узле резервного копирования. При достижении лимита файлы будут храниться только локально.";
-"FileStorage.Space.Used" = "%@ of %@ used";
-"FileStorage.Space.GetMore" = "Получить больше места для хранения";
-"FileStorage.Space.Mail.Subject" = "Get more storage, account %@";
+"FileStorage.Space.Used" = "%@ из %@ используется";
+"FileStorage.Space.GetMore" = "Увеличить объем хранилища";
+"FileStorage.Space.Mail.Subject" = "Увеличить объем хранилища учетной записи %@";
 "FileStorage.Space.Mail.Body" = "Hi, Anytype team. I am reaching out to request an increase in my file storage capacity as I have run out of storage. My current limits is %@. My account id is %@. Cheers, %@.";
 "FileStorage.Local.Title" = "Локальное хранилище";
 "FileStorage.Local.Instruction" = "Чтобы сохранить место на вашем локальном устройстве, вы можете выгрузить все ваши файлы в наш зашифрованный узел резервного копирования. Файлы будут загружены обратно, когда вы откроете их.";
@@ -823,10 +823,10 @@
 
 "Sharing.SaveAs" = "СОХРАНИТЬ КАК";
 "Sharing.SelectSpace" = "Пространство";
-"Sharing.AddTo" = "Add to";
+"Sharing.AddTo" = "Добавить";
 "Sharing.LinkTo" = "Связать с";
 
-"Sharing.URL.Bookmark" = "Bookmark object";
+"Sharing.URL.Bookmark" = "Добавить в закладки";
 "Sharing.URL.Text" = "Текстовый блок";
 "Sharing.Text.NoteObject" = "Note object";
 "Sharing.Text.TextBlock" = "Текстовый блок";
