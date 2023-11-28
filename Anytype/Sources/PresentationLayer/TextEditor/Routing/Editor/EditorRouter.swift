@@ -278,7 +278,7 @@ final class EditorRouter: NSObject, EditorRouterProtocol, ObjectSettingsCoordina
         showTypesSearch(
             title: Loc.changeType,
             selectedObjectId: selectedObjectId,
-            showBookmark: false,
+            showBookmark: true,
             showSetAndCollection: false,
             onSelect: onSelect
         )
@@ -291,7 +291,7 @@ final class EditorRouter: NSObject, EditorRouterProtocol, ObjectSettingsCoordina
         showTypesSearch(
             title: Loc.changeType,
             selectedObjectId: selectedObjectId,
-            showBookmark: false,
+            showBookmark: true,
             showSetAndCollection: true,
             onSelect: onSelect
         )

@@ -151,7 +151,7 @@ extension NewSearchModuleAssemblyProtocol {
         spaceId: String,
         selectedObjectId: BlockId? = nil,
         excludedObjectTypeId: String? = nil,
-        showBookmark: Bool = false,
+        showBookmark: Bool,
         showSetAndCollection: Bool = false,
         browser: EditorBrowserController? = nil,
         onSelect: @escaping (_ type: ObjectType) -> Void
