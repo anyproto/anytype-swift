@@ -13,7 +13,6 @@ struct SetViewSettingsList: View {
                     settingsMenu
                 }
             )
-            .padding(.horizontal, 20)
             
             content
         }
