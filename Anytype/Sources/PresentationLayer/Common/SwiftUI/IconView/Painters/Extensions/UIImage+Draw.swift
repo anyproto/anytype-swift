@@ -8,13 +8,15 @@ extension UIImage {
     }
     
     func drawFit(in bounds: CGRect, maxSize: CGSize) {
+        let multiple = maxSize.width > bounds.width ? 1 - (maxSize.width - bounds.width) / maxSize.width : 1
+        
         let imageBounds = CGRect(
-            x: (bounds.maxX - maxSize.width) * 0.5,
-            y: (bounds.maxY - maxSize.height) * 0.5,
-            width: maxSize.width,
-            height: maxSize.height
+            x: (bounds.maxX - maxSize.width * multiple) * 0.5,
+            y: (bounds.maxY - maxSize.height * multiple) * 0.5,
+            width: maxSize.width * multiple,
+            height: maxSize.height * multiple
         )
         
-        draw(in: bounds.intersection(imageBounds))
+        draw(in: imageBounds)
     }
 }
