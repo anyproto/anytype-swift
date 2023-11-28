@@ -8,18 +8,14 @@ protocol SettingsCoordinatorProtocol: AnyObject {
 @MainActor
 final class SettingsCoordinator: SettingsCoordinatorProtocol, 
                                     SettingsModuleOutput,
-                                    PersonalizationModuleOutput,
                                     SettingsAccountModuleOutput,
                                     AboutModuleOutput,
                                     FileStorageModuleOutput {
     
     private let navigationContext: NavigationContextProtocol
-    private let objectTypeProvider: ObjectTypeProviderProtocol
     private let settingsModuleAssembly: SettingsModuleAssemblyProtocol
     private let debugMenuModuleAssembly: DebugMenuModuleAssemblyProtocol
-    private let newSearchModuleAssembly: NewSearchModuleAssemblyProtocol
     private let appearanceModuleAssembly: SettingsAppearanceModuleAssemblyProtocol
-    private let wallpaperPickerModuleAssembly: WallpaperPickerModuleAssemblyProtocol
     private let aboutModuleAssembly: AboutModuleAssemblyProtocol
     private let accountModuleAssembly: SettingsAccountModuleAssemblyProtocol
     private let keychainPhraseModuleAssembly: KeychainPhraseModuleAssemblyProtocol
@@ -33,12 +29,9 @@ final class SettingsCoordinator: SettingsCoordinatorProtocol,
     
     init(
         navigationContext: NavigationContextProtocol,
-        objectTypeProvider: ObjectTypeProviderProtocol,
         settingsModuleAssembly: SettingsModuleAssemblyProtocol,
         debugMenuModuleAssembly: DebugMenuModuleAssemblyProtocol,
-        newSearchModuleAssembly: NewSearchModuleAssemblyProtocol,
         appearanceModuleAssembly: SettingsAppearanceModuleAssemblyProtocol,
-        wallpaperPickerModuleAssembly: WallpaperPickerModuleAssemblyProtocol,
         aboutModuleAssembly: AboutModuleAssemblyProtocol,
         accountModuleAssembly: SettingsAccountModuleAssemblyProtocol,
         keychainPhraseModuleAssembly: KeychainPhraseModuleAssemblyProtocol,
@@ -51,12 +44,9 @@ final class SettingsCoordinator: SettingsCoordinatorProtocol,
         serviceLocator: ServiceLocator
     ) {
         self.navigationContext = navigationContext
-        self.objectTypeProvider = objectTypeProvider
         self.settingsModuleAssembly = settingsModuleAssembly
         self.debugMenuModuleAssembly = debugMenuModuleAssembly
-        self.newSearchModuleAssembly = newSearchModuleAssembly
         self.appearanceModuleAssembly = appearanceModuleAssembly
-        self.wallpaperPickerModuleAssembly = wallpaperPickerModuleAssembly
         self.aboutModuleAssembly = aboutModuleAssembly
         self.accountModuleAssembly = accountModuleAssembly
         self.keychainPhraseModuleAssembly = keychainPhraseModuleAssembly
@@ -107,25 +97,6 @@ final class SettingsCoordinator: SettingsCoordinatorProtocol,
         let module = objectIconPickerModuleAssembly.make(document: document) { action in
             interactor.handleIconAction(spaceId: document.spaceId, action: action)
         }
-        navigationContext.present(module)
-    }
-    
-    // MARK: - PersonalizationModuleOutput
-    
-    func onDefaultTypeSelected() {
-        let module = newSearchModuleAssembly.objectTypeSearchModule(
-            title: Loc.chooseDefaultObjectType,
-            spaceId: activeWorkspaceStorage.workspaceInfo.accountSpaceId,
-            showBookmark: false
-        ) { [weak self] type in
-            self?.objectTypeProvider.setDefaultObjectType(type: type, spaceId: type.spaceId)
-            self?.navigationContext.dismissTopPresented(animated: true)
-        }
-        navigationContext.present(module)
-    }
-    
-    func onWallpaperChangeSelected() {
-        let module = wallpaperPickerModuleAssembly.make(spaceId: activeWorkspaceStorage.workspaceInfo.accountSpaceId)
         navigationContext.present(module)
     }
     

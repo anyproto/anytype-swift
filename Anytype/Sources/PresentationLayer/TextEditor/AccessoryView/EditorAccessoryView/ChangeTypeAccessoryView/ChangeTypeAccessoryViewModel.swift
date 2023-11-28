@@ -50,7 +50,7 @@ final class ChangeTypeAccessoryViewModel {
                     filteringTypeId: nil,
                     shouldIncludeSets: true,
                     shouldIncludeCollections: true,
-                    shouldIncludeBookmark: false,
+                    shouldIncludeBookmark: true,
                     spaceId: self?.document.spaceId ?? ""
                 ).map { type in
                     TypeItem(from: type, handler: { [weak self] in
@@ -96,7 +96,7 @@ final class ChangeTypeAccessoryViewModel {
                 filteringTypeId: nil,
                 shouldIncludeSets: true,
                 shouldIncludeCollections: true,
-                shouldIncludeBookmark: false,
+                shouldIncludeBookmark: true,
                 spaceId: document.spaceId
             ).map { type in
                 TypeItem(from: type, handler: { [weak self] in

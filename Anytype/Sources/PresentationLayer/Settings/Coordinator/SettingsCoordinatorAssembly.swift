@@ -27,12 +27,9 @@ final class SettingsCoordinatorAssembly: SettingsCoordinatorAssemblyProtocol {
     func make() -> SettingsCoordinatorProtocol {
         return SettingsCoordinator(
             navigationContext: uiHelpersDI.commonNavigationContext(),
-            objectTypeProvider: serviceLocator.objectTypeProvider(),
             settingsModuleAssembly: modulesDI.settings(),
             debugMenuModuleAssembly: modulesDI.debugMenu(),
-            newSearchModuleAssembly: modulesDI.newSearch(),
             appearanceModuleAssembly: modulesDI.settingsAppearance(),
-            wallpaperPickerModuleAssembly: modulesDI.wallpaperPicker(),
             aboutModuleAssembly: modulesDI.about(),
             accountModuleAssembly: modulesDI.settingsAccount(),
             keychainPhraseModuleAssembly: modulesDI.keychainPhrase(),

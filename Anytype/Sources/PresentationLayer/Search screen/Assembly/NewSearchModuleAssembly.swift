@@ -184,7 +184,7 @@ final class NewSearchModuleAssembly: NewSearchModuleAssemblyProtocol {
             workspaceService: serviceLocator.workspaceService(),
             objectTypeProvider: serviceLocator.objectTypeProvider(),
             excludedObjectTypeId: nil,
-            showBookmark: false,
+            showBookmark: true,
             showSetAndCollection: false
         )
         
