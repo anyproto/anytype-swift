@@ -59,6 +59,8 @@ private extension ObjectAction {
             return Loc.Actions.templateMakeDefault
         case .delete:
             return Loc.delete
+        case .createWidget:
+            return Loc.Actions.CreateWidget.title
         }
     }
 
@@ -82,6 +84,8 @@ private extension ObjectAction {
             return .templateMakeDefault
         case .delete:
             return .X32.delete
+        case .createWidget:
+            return .X32.dashboard
         }
     }
 }

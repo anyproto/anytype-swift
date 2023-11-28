@@ -22,12 +22,7 @@ extension WidgetSource {
     var availableWidgetLayout: [BlockWidget.Layout] {
         switch self {
         case .object(let objectDetails):
-            switch objectDetails.editorViewType {
-            case .page:
-               return [.tree, .link]
-            case .set:
-                return [.compactList, .list, .link]
-            }
+            return objectDetails.availableWidgetLayout
         case .library(let library):
             switch library {
             case .favorite, .recent, .recentOpen:
@@ -35,6 +30,17 @@ extension WidgetSource {
             case .sets, .collections:
                 return [.compactList, .list]
             }
+        }
+    }
+}
+
+extension ObjectDetails {
+    var availableWidgetLayout: [BlockWidget.Layout] {
+        switch editorViewType {
+        case .page:
+           return [.tree, .link]
+        case .set:
+            return [.compactList, .list, .link]
         }
     }
 }
