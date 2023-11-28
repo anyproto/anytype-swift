@@ -18,7 +18,7 @@ struct WidgetContainerView<Content: View, ContentVM: WidgetContainerContentViewM
         
     var body: some View {
         WidgetSwipeActionView(
-            isEnable: contentModel.allowCreateObject,
+            isEnable: FeatureFlags.widgetsCreateObject ? contentModel.allowCreateObject : false,
             showTitle: model.isExpanded,
             action: { contentModel.onCreateObjectTap() }
         ) {
