@@ -44,12 +44,12 @@ struct SetLayoutSettingsView: View {
                 color: configuration.isSelected ? .System.amber100 : .Text.secondary
             )
         }
-        .frame(height: 106)
+        .frame(height: 96)
         .frame(maxWidth: .infinity)
         .overlay(
             RoundedRectangle(cornerRadius: 12)
                 .stroke(
-                    configuration.isSelected ? Color.System.amber50 : Color.Text.secondary,
+                    configuration.isSelected ? Color.System.amber50 : Color.Stroke.primary,
                     lineWidth: configuration.isSelected ? 2 : 0.5
                 )
         )
@@ -98,7 +98,7 @@ struct SetLayoutSettingsView: View {
     private func toggleSettings(with model: SetViewSettingsToggleItem) -> some View {
         AnytypeToggle(
             title: model.title,
-            font: .uxTitle2Regular,
+            font: .uxBodyRegular,
             isOn: model.isSelected
         ) {
             model.onChange($0)
@@ -113,7 +113,7 @@ struct SetLayoutSettingsView: View {
                     Button {
                         option.onTap()
                     } label: {
-                        AnytypeText(option.id, style: .uxCalloutRegular, color: .Text.primary)
+                        AnytypeText(option.id, style: .uxBodyRegular, color: .Text.primary)
                     }
                 }
             }
@@ -125,9 +125,9 @@ struct SetLayoutSettingsView: View {
     
     private func valueSettingContent(title: String, value: String, contextual: Bool) -> some View {
         HStack(spacing: 0) {
-            AnytypeText(title, style: .uxTitle2Regular, color: .Text.primary)
+            AnytypeText(title, style: .uxBodyRegular, color: .Text.primary)
             Spacer()
-            AnytypeText(value, style: .uxCalloutRegular, color: .Text.secondary)
+            AnytypeText(value, style: .uxBodyRegular, color: .Text.secondary)
             Spacer.fixedWidth(6)
             Image(asset: contextual ? .X18.Disclosure.down : .X18.Disclosure.right)
                 .foregroundColor(.Button.active)

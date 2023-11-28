@@ -103,7 +103,7 @@ struct SetViewSettingsList: View {
         let text = model.valueForSetting(setting)
         return AnytypeText(
             text,
-            style: .uxCalloutRegular,
+            style: .uxBodyRegular,
             color: setting.isPlaceholder(text) ? .Text.tertiary : .Text.secondary
         )
         .lineLimit(1)
