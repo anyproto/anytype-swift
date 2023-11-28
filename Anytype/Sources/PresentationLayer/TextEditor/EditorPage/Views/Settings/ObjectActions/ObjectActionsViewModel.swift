@@ -4,6 +4,7 @@ import Services
 import AnytypeCore
 import UIKit
 
+@MainActor
 final class ObjectActionsViewModel: ObservableObject {
     var onLinkItselfToObjectHandler: RoutingAction<EditorScreenData>?
     
@@ -22,7 +23,8 @@ final class ObjectActionsViewModel: ObservableObject {
     @Published var objectRestrictions: ObjectRestrictions = ObjectRestrictions()
     @Published var isLocked: Bool = false
     @Published var isArchived: Bool = false
-
+    @Published var toastData = ToastBarData.empty
+    
     var onLinkItselfAction: RoutingAction<(BlockId) -> Void>?
     var onNewTemplateCreation: RoutingAction<BlockId>?
     var onTemplateMakeDefault: RoutingAction<BlockId>?
@@ -37,6 +39,8 @@ final class ObjectActionsViewModel: ObservableObject {
     private let blockActionsService: BlockActionsServiceSingleProtocol
     private let templatesService: TemplatesServiceProtocol
     private let documentsProvider: DocumentsProviderProtocol
+    private let blockWidgetService: BlockWidgetServiceProtocol
+    private let activeWorkpaceStorage: ActiveWorkpaceStorageProtocol
     
     init(
         objectId: BlockId,
@@ -44,6 +48,9 @@ final class ObjectActionsViewModel: ObservableObject {
         blockActionsService: BlockActionsServiceSingleProtocol,
         templatesService: TemplatesServiceProtocol,
         documentsProvider: DocumentsProviderProtocol,
+        blockWidgetService: BlockWidgetServiceProtocol,
+        activeWorkpaceStorage: ActiveWorkpaceStorageProtocol,
+        
         undoRedoAction: @escaping () -> (),
         openPageAction: @escaping (_ screenData: EditorScreenData) -> (),
         closeEditorAction: @escaping () -> ()
@@ -53,6 +60,8 @@ final class ObjectActionsViewModel: ObservableObject {
         self.blockActionsService = blockActionsService
         self.templatesService = templatesService
         self.documentsProvider = documentsProvider
+        self.blockWidgetService = blockWidgetService
+        self.activeWorkpaceStorage = activeWorkpaceStorage
         self.undoRedoAction = undoRedoAction
         self.openPageAction = openPageAction
         self.closeEditorAction = closeEditorAction
@@ -156,6 +165,38 @@ final class ObjectActionsViewModel: ObservableObject {
             try await service.delete(objectIds: [details.id], route: .bin)
             dismissSheet()
             closeEditorAction()
+        }
+    }
+    
+    func createWidget() {
+        guard let details else { return }
+        
+        let info = activeWorkpaceStorage.workspaceInfo
+        
+        guard info.accountSpaceId == details.spaceId else {
+            anytypeAssertionFailure("Spaces are not equals")
+            return
+        }
+        guard let layout = details.availableWidgetLayout.first else {
+            anytypeAssertionFailure("Default layout not found")
+            return
+        }
+        Task {
+            let widgetObject = documentsProvider.document(objectId: info.widgetsId, forPreview: true)
+            try await widgetObject.openForPreview()
+            guard let first = widgetObject.children.first else {
+                anytypeAssertionFailure("First children not found")
+                return
+            }
+            try await blockWidgetService.createWidgetBlock(
+                contextId: info.widgetsId,
+                sourceId: details.id,
+                layout: layout,
+                limit: layout.limits.first ?? 0,
+                position: .above(widgetId: first.id)
+            )
+            toastData = ToastBarData(text: Loc.Actions.CreateWidget.success, showSnackBar: true, messageType: .success)
+            dismissSheet()
         }
     }
 }

@@ -3,6 +3,7 @@ import ProtobufMessages
 
 public enum WidgetPosition:  Equatable, Hashable {
     case end
+    case above(widgetId: String)
     case below(widgetId: String)
 }
 
@@ -12,7 +13,7 @@ extension WidgetPosition {
         switch self {
         case .end:
             return ""
-        case .below(let widgetId):
+        case .above(let widgetId), .below(let widgetId):
             return widgetId
         }
     }
@@ -21,6 +22,8 @@ extension WidgetPosition {
         switch self {
         case .end:
             return .none
+        case .above:
+            return .top
         case .below:
             return .bottom
         }
