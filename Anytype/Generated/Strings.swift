@@ -611,6 +611,12 @@ internal enum Loc {
     internal static let makeAsTemplate = Loc.tr("Localizable", "Actions.MakeAsTemplate", fallback: "Make template")
     /// Make default
     internal static let templateMakeDefault = Loc.tr("Localizable", "Actions.TemplateMakeDefault", fallback: "Make default")
+    internal enum CreateWidget {
+      /// New widget was created
+      internal static let success = Loc.tr("Localizable", "Actions.CreateWidget.Success", fallback: "New widget was created")
+      /// To widgets
+      internal static let title = Loc.tr("Localizable", "Actions.CreateWidget.Title", fallback: "To widgets")
+    }
   }
   internal enum Alert {
     internal enum CameraPermissions {

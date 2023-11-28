@@ -29,11 +29,14 @@ struct ObjectActionsView: View {
                             viewModel.makeTemplateAsDefault()
                         case .delete:
                             viewModel.deleteAction()
+                        case .createWidget:
+                            viewModel.createWidget()
                         }
                     }
                 }
             }.padding(.horizontal, 16)
         }
         .frame(height: 108)
+        .snackbar(toastBarData: $viewModel.toastData)
     }
 }

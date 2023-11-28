@@ -78,7 +78,7 @@ public struct Invocation<Request, Response> where Request: Message,
         let name: String
         if let data, !data.event.messages.isEmpty {
             let messageNames = (try? data.event.jsonUTF8Data())?.parseMessages() ?? ""
-            name = "\(message),Events:\(messageNames)"
+            name = "\(message)-Events:\(messageNames)"
         } else {
             name = message
         }

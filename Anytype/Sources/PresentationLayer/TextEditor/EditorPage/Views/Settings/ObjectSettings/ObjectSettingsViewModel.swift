@@ -19,6 +19,7 @@ protocol ObjectSettingsModelOutput: AnyObject, ObjectHeaderRouterProtocol {
     func closeEditorAction()
 }
 
+@MainActor
 final class ObjectSettingsViewModel: ObservableObject {
    
     var onDismiss: () -> Void = {} {
@@ -56,6 +57,8 @@ final class ObjectSettingsViewModel: ObservableObject {
         templatesService: TemplatesServiceProtocol,
         output: ObjectSettingsModelOutput,
         delegate: ObjectSettingsModuleDelegate,
+        blockWidgetService: BlockWidgetServiceProtocol,
+        activeWorkpaceStorage: ActiveWorkpaceStorageProtocol,
         settingsActionHandler: @escaping (ObjectSettingsAction) -> Void,
         documentsProvider: DocumentsProviderProtocol
     ) {
@@ -71,6 +74,8 @@ final class ObjectSettingsViewModel: ObservableObject {
             blockActionsService: blockActionsService,
             templatesService: templatesService,
             documentsProvider: documentsProvider,
+            blockWidgetService: blockWidgetService,
+            activeWorkpaceStorage: activeWorkpaceStorage,
             undoRedoAction: { [weak output] in
                 output?.undoRedoAction(document: document)
             },
