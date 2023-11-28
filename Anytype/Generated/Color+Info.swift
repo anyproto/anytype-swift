@@ -176,7 +176,8 @@ extension UIColor.Navigation {
     static let collectionInfo = ColorCollectionInfo(
         name: "Navigation",
         colors: [
-            ColorInfo(name: "background", color: UIColor.Navigation.background)
+            ColorInfo(name: "background", color: UIColor.Navigation.background), 
+            ColorInfo(name: "buttonActive", color: UIColor.Navigation.buttonActive)
         ]
     )
 }

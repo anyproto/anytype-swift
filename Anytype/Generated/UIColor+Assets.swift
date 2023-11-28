@@ -106,6 +106,7 @@ extension UIColor {
     // MARK: - Navigation
     enum Navigation {
       internal static let background = UIColor(asset: Asset.Navigation.background)
+      internal static let buttonActive = UIColor(asset: Asset.Navigation.buttonActive)
     }
     
     // MARK: - Shadow

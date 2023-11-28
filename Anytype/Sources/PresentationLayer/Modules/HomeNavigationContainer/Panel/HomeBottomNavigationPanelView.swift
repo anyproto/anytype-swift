@@ -17,8 +17,8 @@ struct HomeBottomNavigationPanelView: View {
                 Button {
                     model.onTapForward()
                 } label: {
-                    IconView(icon: .asset(.X32.Arrow.right))
-                        .frame(width: 32, height: 32)
+                    Image(asset: .X32.Arrow.right)
+                        .foregroundColor(.Navigation.buttonActive)
                 }
                 .transition(.identity)
                 .disabled(!homePath.hasForwardPath())
@@ -26,8 +26,8 @@ struct HomeBottomNavigationPanelView: View {
                 Button {
                     model.onTapBackward()
                 } label: {
-                    IconView(icon: .asset(.X32.Arrow.left))
-                        .frame(width: 32, height: 32)
+                    Image(asset: .X32.Arrow.left)
+                        .foregroundColor(.Navigation.buttonActive)
                 }
                 .transition(.identity)
             }
@@ -35,8 +35,8 @@ struct HomeBottomNavigationPanelView: View {
             Button {
                 model.onTapNewObject()
             } label: {
-                IconView(icon: .asset( .X32.addNew))
-                    .frame(width: 32, height: 32)
+                Image(asset: .X32.addNew)
+                    .foregroundColor(.Navigation.buttonActive)
             }
             .simultaneousGesture(
                 LongPressGesture(minimumDuration: 0.3)
@@ -52,16 +52,16 @@ struct HomeBottomNavigationPanelView: View {
                 Button {
                     model.onTapSearch()
                 } label: {
-                    IconView(icon: .asset(.X32.search))
-                        .frame(width: 32, height: 32)
+                    Image(asset: .X32.search)
+                        .foregroundColor(.Navigation.buttonActive)
                 }
                 .transition(.scale.combined(with: .opacity))
             } else {
                 Button {
                     model.onTapHome()
                 } label: {
-                    IconView(icon: .asset(.X32.dashboard))
-                        .frame(width: 32, height: 32)
+                    Image(asset: .X32.dashboard)
+                        .foregroundColor(.Navigation.buttonActive)
                 }
                 .transition(.scale.combined(with: .opacity))
             }
@@ -76,9 +76,9 @@ struct HomeBottomNavigationPanelView: View {
                 .frame(width: 32, height: 32)
             }
         }
-        .foregroundStyle(Color.Navigation.background)
         .padding(.horizontal, 20)
         .padding(.vertical, 10)
+        .background(Color.Navigation.background)
         .background(.ultraThinMaterial)
         .cornerRadius(16, style: .continuous)
         .padding(.vertical, 10)
