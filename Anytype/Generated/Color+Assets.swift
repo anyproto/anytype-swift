@@ -107,6 +107,7 @@ extension Color {
     enum Navigation {
       internal static let background = Color(asset: Asset.Navigation.background)
       internal static let buttonActive = Color(asset: Asset.Navigation.buttonActive)
+      internal static let buttonInactive = Color(asset: Asset.Navigation.buttonInactive)
     }
     
     // MARK: - Shadow

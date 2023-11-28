@@ -18,7 +18,7 @@ struct HomeBottomNavigationPanelView: View {
                     model.onTapForward()
                 } label: {
                     Image(asset: .X32.Arrow.right)
-                        .foregroundColor(.Navigation.buttonActive)
+                        .foregroundColor(homePath.hasForwardPath() ? .Navigation.buttonActive : .Navigation.buttonInactive)
                 }
                 .transition(.identity)
                 .disabled(!homePath.hasForwardPath())

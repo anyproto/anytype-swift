@@ -177,7 +177,8 @@ extension UIColor.Navigation {
         name: "Navigation",
         colors: [
             ColorInfo(name: "background", color: UIColor.Navigation.background), 
-            ColorInfo(name: "buttonActive", color: UIColor.Navigation.buttonActive)
+            ColorInfo(name: "buttonActive", color: UIColor.Navigation.buttonActive), 
+            ColorInfo(name: "buttonInactive", color: UIColor.Navigation.buttonInactive)
         ]
     )
 }
