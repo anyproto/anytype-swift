@@ -6,7 +6,7 @@ struct SelectionOptionsItemViewModel: Identifiable, Hashable {
     let title: String
     let imageAsset: ImageAsset
 
-    @EquatableNoop var action: () -> Void
+    @EquatableNoop var action: @MainActor () -> Void
 }
 
 protocol OptionsItemProvider: AnyObject {

@@ -95,7 +95,7 @@ struct EditorSetView: View {
             EditorSetEmptyView(
                 model: EditorSetEmptyViewModel(
                     mode: model.setDocument.isCollection() ? .collection : .set,
-                    onTap: model.onEmptyStateButtonTap
+                    onTap: { model.onEmptyStateButtonTap() }
                 )
             )
             .frame(width: tableHeaderSize.width)
