@@ -416,7 +416,7 @@
 
 // MARK: - Set.Bookmarks
 "Set.Bookmark.Create.Placeholder" = "Bağlantıyı yapıştır";
-"Set.Bookmark.Error.Message" = "Oops - something went wrong. Please try again";
+"Set.Bookmark.Error.Message" = "Hay aksi, bir şeyler ters gitti! Lütfen yeniden dene.";
 
 // MARK: - Sets: View Settings
 "Set.View.Settings.ImageFit.Title" = "Resmi sığdır";
@@ -510,7 +510,7 @@
 "Appearance" = "Görünüm";
 "Change wallpaper" = "Duvar kağıdını değiştir";
 "Application icon" = "Uygulama simgesi";
-"Mode" = "Mode";
+"Mode" = "Mod";
 "copied to clipboard" = "%@ panoya kopyalandı";
 "Access to secret phrase from keychain" = "Access to secret phrase from keychain";
 "Back up your recovery phrase" = "Kurtarma dizilimini yedekle";
@@ -549,9 +549,9 @@
 "No connection" = "Bağlantı yok";
 "Preparing..." = "Hazırlanıyor...";
 "Deleted" = "Silindi";
-"Download" = "Download";
+"Download" = "İndir";
 "Open object" = "Open object";
-"Open source" = "Open source";
+"Open source" = "Açık kaynak";
 "Into object" = "Into object";
 "Add below" = "Aşağıya ekleyin";
 "Change type" = "Türü değiştir";
@@ -562,7 +562,7 @@
 "Bookmark" = "Yer imi";
 "Audio" = "Ses";
 "Video" = "Video";
-"Picture" = "Picture";
+"Picture" = "Resim";
 "File" = "Dosya";
 "No related options here" = "No related options here. You can add some";
 "Empty" = "Boş";
@@ -600,18 +600,18 @@
 "This object doesn't exist" = "This object doesn't exist";
 "Setting up encrypted storage\nPlease wait" = "Setting up encrypted storage\nPlease wait";
 "These objects will be deleted irrevocably" = "These objects will be deleted irrevocably. You can’t undo this action.";
-"Delete account" = "Delete account";
+"Delete account" = "Hesabı sil";
 "Cancel deletion" = "Silme işlemini iptal et";
 "Logout and clear data" = "Oturumu kapat ve verileri temizle";
 "New" = "Yeni";
 
 // MARK: - DeletionAlert
 "DeletionAlert.title" = "Are you sure to delete account?";
-"DeletionAlert.description" = "You will be logged out on all other devices. You will have 30 days to recover it. Afterwards it will be deleted permanently";
+"DeletionAlert.description" = "Diğer tüm cihazlarınızdan çıkış yapılacak, ve 30 gün içinde hesabı kurtarabileceksiniz. Sonrasında, hesabınız tamamen silinecek.";
 
 // MARK: - DataviewType
-"DataviewType.grid" = "Grid";
-"DataviewType.list" = "List";
+"DataviewType.grid" = "Izgara";
+"DataviewType.list" = "Liste";
 "DataviewType.gallery" = "Galeri";
 "DataviewType.kanban" = "Kanban";
 "DataviewType.calendar" = "Takvim";
@@ -656,7 +656,7 @@
 "SimpleTableMenu.Item.InsertAbove" = "Yukarıya Ekle";
 "SimpleTableMenu.Item.InsertBelow" = "Aşağı ekle";
 "SimpleTableMenu.Item.MoveUp" = "Yukarı taşı";
-"SimpleTableMenu.Item.MoveDown" = "Move down";
+"SimpleTableMenu.Item.MoveDown" = "Aşağı taşı";
 
 "DebugMenu.ToggleAuthor" = "Release: %@, %@";
 
@@ -727,7 +727,7 @@
 "Widgets.Layout.Screen.Title" = "Widget tipi";
 "Widgets.Layout.Link.Title" = "Bağlantı";
 "Widgets.Layout.Tree.Title" = "Tree";
-"Widgets.Layout.List.Title" = "List";
+"Widgets.Layout.List.Title" = "Liste";
 "Widgets.Layout.CompactList.Title" = "Kompakt liste";
 "Widgets.Layout.Link.Description" = "Nesnenin kompakt hali";
 "Widgets.Layout.Tree.Description" = "Hierarchical structure of objects";
