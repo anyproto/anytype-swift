@@ -5,21 +5,18 @@ final class RelationsSearchInteractor {
     
     private let searchService: SearchServiceProtocol
     private let workspaceService: WorkspaceServiceProtocol
-    private let relationsService: RelationsServiceProtocol
-    private let dataviewService: DataviewServiceProtocol
+    private let relationsInteractor: RelationsInteractorProtocol
     private let relationDetailsStorage: RelationDetailsStorageProtocol
     
     init(
         searchService: SearchServiceProtocol,
         workspaceService: WorkspaceServiceProtocol,
-        relationsService: RelationsServiceProtocol,
-        dataviewService: DataviewServiceProtocol,
+        relationsInteractor: RelationsInteractorProtocol,
         relationDetailsStorage: RelationDetailsStorageProtocol
     ) {
         self.searchService = searchService
         self.workspaceService = workspaceService
-        self.relationsService = relationsService
-        self.dataviewService = dataviewService
+        self.relationsInteractor = relationsInteractor
         self.relationDetailsStorage = relationDetailsStorage
     }
     
@@ -38,12 +35,10 @@ final class RelationsSearchInteractor {
     }
     
     func addRelationToObject(relation: RelationDetails) async throws {
-        try await relationsService.addRelations(relationsDetails: [relation])
+        try await relationsInteractor.addRelationToObject(relation: relation)
     }
     
     func addRelationToDataview(relation: RelationDetails, activeViewId: String) async throws {
-        try await dataviewService.addRelation(relation)
-        let newOption = DataviewRelationOption(key: relation.key, isVisible: true)
-        try await dataviewService.addViewRelation(newOption.asMiddleware, viewId: activeViewId)
+        try await relationsInteractor.addRelationToDataview(relation: relation, activeViewId: activeViewId)
     }
 }

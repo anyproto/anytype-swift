@@ -262,19 +262,18 @@ final class NewSearchModuleAssembly: NewSearchModuleAssemblyProtocol {
     func relationsSearchModule(
         document: BaseDocumentProtocol,
         excludedRelationsIds: [String],
-        target: RelationsSearchTarget,
+        target: RelationsModuleTarget,
         output: RelationSearchModuleOutput
     ) -> NewSearchView {
         
+        let relationsInteractor = RelationsInteractor(
+            relationsService: serviceLocator.relationService(objectId: document.objectId),
+            dataviewService: serviceLocator.dataviewService(objectId: document.objectId, blockId: nil)
+        )
         let interactor = RelationsSearchInteractor(
             searchService: serviceLocator.searchService(),
             workspaceService: serviceLocator.workspaceService(),
-            relationsService: RelationsService(objectId: document.objectId),
-            dataviewService: DataviewService(
-                objectId: document.objectId,
-                blockId: nil,
-                prefilledFieldsBuilder: SetPrefilledFieldsBuilder()
-            ),
+            relationsInteractor: relationsInteractor,
             relationDetailsStorage: serviceLocator.relationDetailsStorage()
         )
         
@@ -292,7 +291,7 @@ final class NewSearchModuleAssembly: NewSearchModuleAssemblyProtocol {
             searchPlaceholder: "Search or create a new relation",
             style: .default,
             itemCreationMode: .available(action: { title in
-                output.didAskToShowCreateNewRelation(document: document, searchText: title)
+                output.didAskToShowCreateNewRelation(document: document, target: target, searchText: title)
             }),
             internalViewModel: internalViewModel
         )

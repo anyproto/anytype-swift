@@ -527,6 +527,7 @@ extension EditorRouter {
         relationValueCoordinator.startFlow(objectDetails: objectDetails, relation: relation, analyticsType: .block, output: self)
     }
 
+    @MainActor
     func showAddNewRelationView(
         document: BaseDocumentProtocol,
         onSelect: ((RelationDetails, _ isNew: Bool) -> Void)?

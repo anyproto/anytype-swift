@@ -2,6 +2,7 @@ import Foundation
 import UIKit
 
 protocol TemplatesCoordinatorAssemblyProtocol: AnyObject {
+    @MainActor
     func make(viewController: UIViewController) -> TemplatesCoordinatorProtocol
 }
 
@@ -20,6 +21,7 @@ final class TemplatesCoordinatorAssembly: TemplatesCoordinatorAssemblyProtocol {
     
     // MARK: - TemplatesCoordinatorAssemblyProtocol
     
+    @MainActor
     func make(viewController: UIViewController) -> TemplatesCoordinatorProtocol {
         return TemplatesCoordinator(
             rootViewController: viewController,
