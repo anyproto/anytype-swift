@@ -3,6 +3,16 @@
     {
       "filename" : "Kanban.Selected.pdf",
       "idiom" : "universal"
+    },
+    {
+      "appearances" : [
+        {
+          "appearance" : "luminosity",
+          "value" : "dark"
+        }
+      ],
+      "filename" : "Kanban.Selected.Dark.pdf",
+      "idiom" : "universal"
     }
   ],
   "info" : {
