@@ -118,15 +118,16 @@ struct SetViewSettingsList: View {
     
     private var settingsMenu: some View {
         Menu {
+            duplicateButton
             if model.canBeDeleted {
                 deleteButton
             }
-            duplicateButton
         } label: {
             Image(asset: .X24.more)
                 .foregroundColor(.Button.active)
                 .frame(width: 24, height: 24)
         }
+        .fixMenuOrder()
     }
     
     private var deleteButton: some View {
