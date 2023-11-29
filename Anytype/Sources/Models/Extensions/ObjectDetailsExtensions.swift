@@ -132,8 +132,12 @@ extension BundledRelationsValueProvider {
         return DetailsLayout.supportedForEditLayouts.contains(layoutValue)
     }
     
+    var isVisibleLayout: Bool {
+        return DetailsLayout.visibleLayouts.contains(layoutValue)
+    }
+    
     var isNotDeletedAndVisibleForEdit: Bool {
-        return !isDeleted && !isArchived && DetailsLayout.visibleLayouts.contains(layoutValue)
+        return !isDeleted && !isArchived && isVisibleLayout
     }
     
     var isNotDeletedAndSupportedForEdit: Bool {
