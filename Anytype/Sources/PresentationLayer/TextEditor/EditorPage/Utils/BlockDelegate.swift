@@ -3,8 +3,7 @@ import AnytypeCore
 import UIKit
 
 protocol BlockDelegate: AnyObject {
-    func willBeginEditing(data: TextBlockDelegateData)
-    func didBeginEditing(view: UIView)
+    func didBeginEditing(view: UIView, data: TextBlockDelegateData)
     func didEndEditing(data: TextBlockDelegateData)
 
     func textWillChange(changeType: TextChangeType)
@@ -32,13 +31,9 @@ final class BlockDelegateImpl: BlockDelegate {
         self.cursorManager = cursorManager
     }
 
-    func didBeginEditing(view: UIView) {
+    func didBeginEditing(view: UIView, data: TextBlockDelegateData) {
+        accessoryState.didBeginEditing(data: data)
         viewInput?.textBlockDidBeginEditing(firstResponderView: view)
-    }
-
-    func willBeginEditing(data: TextBlockDelegateData) {
-        viewInput?.textBlockWillBeginEditing()
-        accessoryState.willBeginEditing(data: data)
     }
     
     func didEndEditing(data: TextBlockDelegateData) {

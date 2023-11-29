@@ -21,11 +21,11 @@ struct IconView: View {
         .readSize { newSize in
             size = newSize
         }
-        .onChange(of: isEnable) { _ in
-            updateIcon()
+        .onChange(of: isEnable) { isEnable in
+            updateIcon(isEnable: isEnable)
         }
-        .onChange(of: size) { _ in
-            updateIcon()
+        .onChange(of: size) { size in
+            updateIcon(size: size)
         }
         .onChange(of: icon) { icon in
             // Icon field from struct contains old value
@@ -55,13 +55,14 @@ struct IconView: View {
             .resizable()
     }
     
-    private func updateIcon(_ newIcon: Icon? = nil) {
+    private func updateIcon(_ newIcon: Icon? = nil, size newSize: CGSize? = nil, isEnable newIsEnable: Bool? = nil) {
         task?.cancel()
-        guard let icon = newIcon ?? icon, let size else {
+        guard let icon = newIcon ?? icon, let size = newSize ?? size else {
             placeholderImage = nil
             image = nil
             return
         }
+        let isEnable = newIsEnable ?? isEnable
         let maker = IconMaker(icon: icon, size: size, iconContext: IconContext(isEnabled: isEnable))
         if let imageFromCache = maker.makeFromCache() {
             image = imageFromCache

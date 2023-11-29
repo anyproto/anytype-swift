@@ -25,17 +25,14 @@ struct TemplatePickerView: View {
             
             TabView(selection: $viewModel.selectedTab) {
                 ForEach(viewModel.items) { item in
-                    VStack(spacing: 0) {
                         switch item {
                         case .blank:
                             blankView
+                                .tag(item.id)
                         case let .template(model):
-                            model.viewController
+                            model.view
+                                .tag(item.id)
                         }
-                        Spacer()
-                    }
-                    .frame(maxHeight: .infinity)
-                    .tag(item.id)
                 }
             }
             .tabViewStyle(.page(indexDisplayMode: .never))
@@ -75,6 +72,7 @@ struct TemplatePickerView: View {
                 }
                 Spacer()
             }
+            Spacer()
         }
         .padding([.horizontal], 20)
     }

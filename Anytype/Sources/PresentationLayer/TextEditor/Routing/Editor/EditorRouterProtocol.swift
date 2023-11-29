@@ -8,7 +8,6 @@ protocol AttachmentRouterProtocol {
 
 protocol EditorRouterProtocol:
     AnyObject,
-    EditorPageOpenRouterProtocol,
     AttachmentRouterProtocol,
     ObjectHeaderRouterProtocol
 {
@@ -41,6 +40,11 @@ protocol EditorRouterProtocol:
     )
     
     func showSettings(actionHandler: @escaping (ObjectSettingsAction) -> Void)
+    func showSettings(
+        delegate: ObjectSettingsModuleDelegate,
+        output: ObjectSettingsCoordinatorOutput?,
+        actionHandler: @escaping (ObjectSettingsAction) -> Void
+    )
     func showTextIconPicker(contextId: BlockId, objectId: BlockId)
     
     func showMoveTo(onSelect: @escaping (ObjectDetails) -> ())
@@ -64,8 +68,6 @@ protocol EditorRouterProtocol:
 
     func showWaitingView(text: String)
     func hideWaitingView()
-    
-    func closeEditor()
     
     func presentSheet(_ vc: UIViewController)
     func presentFullscreen(_ vc: UIViewController)

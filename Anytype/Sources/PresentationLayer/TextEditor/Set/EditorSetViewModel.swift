@@ -11,7 +11,8 @@ final class EditorSetViewModel: ObservableObject {
     @Published var titleString: String
     @Published var loadingDocument = true
     @Published var featuredRelations = [Relation]()
-    
+    @Published var dismiss = false
+
     private var recordsDict: OrderedDictionary<String, [ObjectDetails]> = [:]
     private var groups: [DataviewGroup] = []
     
@@ -129,6 +130,7 @@ final class EditorSetViewModel: ObservableObject {
     private var subscriptions = [AnyCancellable]()
     private var subscriptionStorages = [String: SubscriptionStorageProtocol]()
     private var titleSubscription: AnyCancellable?
+    private let output: EditorSetModuleOutput?
 
     init(
         setDocument: SetDocumentProtocol,
@@ -140,7 +142,9 @@ final class EditorSetViewModel: ObservableObject {
         objectActionsService: ObjectActionsServiceProtocol,
         textService: TextServiceProtocol,
         groupsSubscriptionsHandler: GroupsSubscriptionsHandlerProtocol,
-        setSubscriptionDataBuilder: SetSubscriptionDataBuilderProtocol
+        setSubscriptionDataBuilder: SetSubscriptionDataBuilderProtocol,
+        objectTypeProvider: ObjectTypeProviderProtocol,
+        output: EditorSetModuleOutput?
     ) {
         self.setDocument = setDocument
         self.headerModel = headerViewModel
@@ -153,6 +157,7 @@ final class EditorSetViewModel: ObservableObject {
         self.groupsSubscriptionsHandler = groupsSubscriptionsHandler
         self.setSubscriptionDataBuilder = setSubscriptionDataBuilder
         self.titleString = setDocument.details?.pageCellTitle ?? ""
+        self.output = output
     }
     
     func setup(router: EditorSetRouterProtocol) {
@@ -189,7 +194,7 @@ final class EditorSetViewModel: ObservableObject {
         Task {
             await startSubscriptionIfNeeded()
         }
-        router?.setNavigationViewHidden(false, animated: true)
+        
     }
     
     func onWillDisappear() {
@@ -319,7 +324,7 @@ final class EditorSetViewModel: ObservableObject {
             try await groupsSubscriptionsHandler.stopAllSubscriptions()
             groups = try await startGroupsSubscription(with: data)
         }
-        
+
         let groupOrderUpdates = await checkGroupOrderUpdates()
             
         if forceUpdate || groupOrderUpdates || hasGroupDiff {
@@ -401,13 +406,13 @@ final class EditorSetViewModel: ObservableObject {
         
         let subscription = subscriptionStorages[data.identifier] ?? subscriptionStorageProvider.createSubscriptionStorage(subId: data.identifier)
         subscriptionStorages[data.identifier] = subscription
-        
+
         try? await subscription.startOrUpdateSubscription(data: data) { [weak self] state in
             guard let self else { return }
             updateData(with: subscriptionId, numberOfRowsPerPage: numberOfRowsPerPage, state: state)
         }
     }
-    
+
     private func updateData(with groupId: String, numberOfRowsPerPage: Int, state: SubscriptionStorageState) {
         let pagesCount = numberOfRowsPerPage > 0 ? Int(ceil(Float(state.total) / Float(numberOfRowsPerPage))) : 0
         updatePageCount(pagesCount, groupId: groupId, ignorePageLimit: activeView.type.hasGroups)
@@ -512,6 +517,7 @@ final class EditorSetViewModel: ObservableObject {
         }
     }
     
+    @MainActor
     private func itemTapped(_ details: ObjectDetails) {
         openObject(details: details)
     }
@@ -535,7 +541,7 @@ final class EditorSetViewModel: ObservableObject {
             }
         )
     }
-    
+
     func onEmptyStateButtonTap() {
         if setDocument.isCollection() {
             createObject()
@@ -547,7 +553,7 @@ final class EditorSetViewModel: ObservableObject {
     private func createObject(setting: ObjectCreationSetting? = nil) {
         router?.showCreateObject(setting: setting)
     }
-    
+
     private func defaultSubscriptionDetailsStorage(file: StaticString = #file, function: String = #function, line: UInt = #line) -> ObjectDetailsStorage? {
         let subscription = subscriptionStorages.values.first
         if subscription.isNil {
@@ -695,7 +701,7 @@ extension EditorSetViewModel {
         Task { @MainActor in
             try await objectActionsService.setObjectCollectionType(objectId: objectId)
             try await setDocument.close()
-            router?.replaceCurrentPage(with: .set(EditorSetObject(objectId: objectId, spaceId: setDocument.spaceId, isSupportedForEdit: true)))
+            output?.replaceEditorScreen(data: .set(EditorSetObject(objectId: objectId, spaceId: setDocument.spaceId)))
         }
         AnytypeAnalytics.instance().logSetTurnIntoCollection()
     }
@@ -736,8 +742,8 @@ extension EditorSetViewModel {
         return groupOrder.updated(viewGroups: viewGroups)
     }
     
-   private func openObject(details: ObjectDetails) {
-       router?.showPage(data: details.editorScreenData())
+    private func openObject(details: ObjectDetails) {
+        output?.showEditorScreen(data: details.editorScreenData())
     }
 }
 
@@ -768,6 +774,8 @@ extension EditorSetViewModel {
         objectActionsService: DI.preview.serviceLocator.objectActionsService(),
         textService: TextService(),
         groupsSubscriptionsHandler: DI.preview.serviceLocator.groupsSubscriptionsHandler(),
-        setSubscriptionDataBuilder: SetSubscriptionDataBuilder(activeWorkspaceStorage: DI.preview.serviceLocator.activeWorkspaceStorage())
+        setSubscriptionDataBuilder: SetSubscriptionDataBuilder(activeWorkspaceStorage: DI.preview.serviceLocator.activeWorkspaceStorage()),
+        objectTypeProvider: DI.preview.serviceLocator.objectTypeProvider(),
+        output: nil
     )
 }

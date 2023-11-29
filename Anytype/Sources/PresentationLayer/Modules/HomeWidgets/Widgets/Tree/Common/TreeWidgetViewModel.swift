@@ -135,7 +135,7 @@ final class TreeWidgetViewModel: ObservableObject, WidgetContainerContentViewMod
     private func updateTree() {
         guard let firstLevelSubscriptionData else { return }
         let links = firstLevelSubscriptionData.map { $0.id }
-        withAnimation {
+        withAnimation(rows.isNil ? nil : .default) {
             rows = buildRows(links: links, idPrefix: "", level: 0)
         }
     }

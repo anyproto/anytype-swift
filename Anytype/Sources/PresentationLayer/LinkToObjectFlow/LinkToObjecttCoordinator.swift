@@ -21,21 +21,21 @@ final class LinkToObjectCoordinator: LinkToObjectCoordinatorProtocol {
     private let navigationContext: NavigationContextProtocol
     private let pageService: PageRepositoryProtocol
     private let urlOpener: URLOpenerProtocol
-    private let editorPageCoordinator: EditorPageCoordinatorProtocol
     private let searchService: SearchServiceProtocol
+    private weak var output: LinkToObjectCoordinatorOutput?
     
     nonisolated init(
         navigationContext: NavigationContextProtocol,
         pageService: PageRepositoryProtocol,
         urlOpener: URLOpenerProtocol,
-        editorPageCoordinator: EditorPageCoordinatorProtocol,
-        searchService: SearchServiceProtocol
+        searchService: SearchServiceProtocol,
+        output: LinkToObjectCoordinatorOutput?
     ) {
         self.navigationContext = navigationContext
         self.pageService = pageService
         self.urlOpener = urlOpener
-        self.editorPageCoordinator = editorPageCoordinator
         self.searchService = searchService
+        self.output = output
     }
     
     // MARK: - LinkToObjectCoordinatorProtocol
@@ -67,7 +67,7 @@ final class LinkToObjectCoordinator: LinkToObjectCoordinatorProtocol {
                 self?.urlOpener.openUrl(url)
             case let .openObject(details):
                 willShowNextScreen?()
-                self?.editorPageCoordinator.startFlow(data: details.editorScreenData(), replaceCurrentPage: false)
+                self?.output?.showPage(data: details.editorScreenData())
             case .removeLink:
                 removeLink()
             case let .copyLink(url):

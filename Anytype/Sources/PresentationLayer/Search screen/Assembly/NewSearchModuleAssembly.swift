@@ -143,7 +143,6 @@ final class NewSearchModuleAssembly: NewSearchModuleAssemblyProtocol {
         excludedObjectTypeId: String?,
         showBookmark: Bool,
         showSetAndCollection: Bool,
-        browser: EditorBrowserController?,
         onSelect: @escaping (_ type: ObjectType) -> Void
     ) -> NewSearchView {
         let interactor = ObjectTypesSearchInteractor(
@@ -158,7 +157,7 @@ final class NewSearchModuleAssembly: NewSearchModuleAssemblyProtocol {
         
         let internalViewModel = ObjectTypesSearchViewModel(
             interactor: interactor,
-            toastPresenter: uiHelpersDI.toastPresenter(using: browser),
+            toastPresenter: uiHelpersDI.toastPresenter(),
             selectedObjectId: selectedObjectId,
             onSelect: onSelect
         )

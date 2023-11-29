@@ -26,15 +26,7 @@ final class CoordinatorsDI: CoordinatorsDIProtocol {
     func templates() -> TemplatesCoordinatorAssemblyProtocol {
         return TemplatesCoordinatorAssembly(serviceLocator: serviceLocator, coordinatorsDI: self)
     }
-    
-    func editorPage() -> EditorPageCoordinatorAssemblyProtocol {
-        return EditorPageCoordinatorAssembly(
-            serviceLocator: serviceLocator,
-            modulesDI: modulesDI,
-            coordinatorsID: self
-        )
-    }
-    
+
     func linkToObject() -> LinkToObjectCoordinatorAssemblyProtocol {
         return LinkToObjectCoordinatorAssembly(
             serviceLocator: serviceLocator,
@@ -69,21 +61,9 @@ final class CoordinatorsDI: CoordinatorsDIProtocol {
             uiHelpersDI: uiHelpersDI
         )
     }
-    
-    func browser() -> EditorBrowserAssembly {
-        return EditorBrowserAssembly(coordinatorsDI: self, serviceLocator: serviceLocator)
-    }
-    
-    func editor() -> EditorAssembly {
-        return EditorAssembly(serviceLocator: serviceLocator, coordinatorsDI: self, modulesDI: modulesDI, uiHelpersDI: uiHelpersDI)
-    }
-    
-    func editorBrowser() -> EditorBrowserModuleAssemblyProtocol {
-        return EditorBrowserModuleAssembly(uiHelpersDI: uiHelpersDI, coordinatorsID: self)
-    }
-    
+
     func application() -> ApplicationCoordinatorAssemblyProtocol {
-        return ApplicationCoordinatorAssembly(serviceLocator: serviceLocator, coordinatorsDI: self, uiHelpersDI: uiHelpersDI)
+        return ApplicationCoordinatorAssembly(serviceLocator: serviceLocator, coordinatorsDI: self, uiHelpersDI: uiHelpersDI, modulesDI: modulesDI)
     }
     
     func settings() -> SettingsCoordinatorAssemblyProtocol {
@@ -142,14 +122,34 @@ final class CoordinatorsDI: CoordinatorsDIProtocol {
         ShareCoordinatorAssembly(modulesDI: modulesDI, serviceLocator: serviceLocator)
     }
 
+    func editor() -> EditorCoordinatorAssemblyProtocol {
+        EditorCoordinatorAssembly(coordinatorsID: self, modulesDI: modulesDI)
+    }
+
+    func editorSet() -> EditorSetCoordinatorAssemblyProtocol {
+        EditorSetCoordinatorAssembly(coordinatorsID: self, modulesDI: modulesDI, serviceLocator: serviceLocator, uiHelpersDI: uiHelpersDI)
+    }
+
+    func editorPage() -> EditorPageCoordinatorAssemblyProtocol {
+        EditorPageCoordinatorAssembly(coordinatorsID: self, modulesDI: modulesDI, serviceLocator: serviceLocator, uiHelpersDI: uiHelpersDI)
+    }
+
     func setObjectCreationSettings() -> SetObjectCreationSettingsCoordinatorAssemblyProtocol {
         SetObjectCreationSettingsCoordinatorAssembly(modulesDI: modulesDI, uiHelpersDI: uiHelpersDI, coordinatorsDI: self)
     }
-    
+
+    func editorPageModule() -> EditorPageModuleAssemblyProtocol {
+        EditorPageModuleAssembly(serviceLocator: serviceLocator, coordinatorsDI: self, modulesDI: modulesDI, uiHelpersDI: uiHelpersDI)
+    }
+
+    func editorSetModule() -> EditorSetModuleAssemblyProtocol {
+        EditorSetModuleAssembly(serviceLocator: serviceLocator, coordinatorsDI: self, modulesDI: modulesDI, uiHelpersDI: uiHelpersDI)
+    }
+
     func initial() -> InitialCoordinatorAssemblyProtocol {
         InitialCoordinatorAssembly(serviceLocator: serviceLocator)
     }
-    
+
     func spaceSwitch() -> SpaceSwitchCoordinatorAssemblyProtocol {
         SpaceSwitchCoordinatorAssembly(modulesDI: modulesDI, coordinatorsDI: self)
     }

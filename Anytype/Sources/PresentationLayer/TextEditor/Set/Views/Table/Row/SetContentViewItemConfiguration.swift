@@ -15,7 +15,7 @@ struct SetContentViewItemConfiguration: Identifiable, Hashable {
     let coverType: ObjectHeaderCoverType?
     let minHeight: CGFloat?
     @EquatableNoop var onIconTap: () -> Void
-    @EquatableNoop var onItemTap: () -> Void
+    @EquatableNoop var onItemTap: @MainActor () -> Void
     
     init(
         id: BlockId,
@@ -30,7 +30,7 @@ struct SetContentViewItemConfiguration: Identifiable, Hashable {
         coverType: ObjectHeaderCoverType?,
         minHeight: CGFloat?,
         onIconTap: @escaping () -> Void,
-        onItemTap: @escaping () -> Void
+        onItemTap: @escaping @MainActor () -> Void
     ) {
         self.id = id
         self.title = title

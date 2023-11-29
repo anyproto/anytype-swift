@@ -47,7 +47,7 @@ final class LinkToObjectSearchViewModel: SearchViewModelProtocol {
     func search(text: String) {
         searchTask?.cancel()
         searchData.removeAll()
-
+        
         searchTask = Task { @MainActor [weak self, spaceId] in
             guard let result = try? await self?.searchService.search(text: text, spaceId: spaceId) else { return }
             self?.handleSearch(result: result, text: text)
