@@ -9,10 +9,12 @@ struct SelectionOptionsItemViewModel: Identifiable, Hashable {
     @EquatableNoop var action: @MainActor () -> Void
 }
 
+@MainActor
 protocol OptionsItemProvider: AnyObject {
     var optionsPublisher: AnyPublisher<[SelectionOptionsItemViewModel], Never> { get }
 }
 
+@MainActor
 final class SelectionOptionsViewModel: ObservableObject {
     @Published var items = [SelectionOptionsItemViewModel]()
     

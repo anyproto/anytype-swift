@@ -5,6 +5,7 @@ import os
 import Services
 import AnytypeCore
 
+@MainActor
 final class EditorPageViewModel: EditorPageViewModelProtocol {
     weak private(set) var viewInput: EditorPageViewInput?
 

@@ -21,6 +21,7 @@ extension EditorEditingState {
 }
 
 /// Blocks drag & drop protocol.
+@MainActor
 protocol EditorPageMovingManagerProtocol {
     func canPlaceDividerAtIndexPath(_ indexPath: IndexPath) -> Bool
     func canMoveItemsToObject(at indexPath: IndexPath) -> Bool
@@ -31,6 +32,7 @@ protocol EditorPageMovingManagerProtocol {
     func didSelectEditingMode()
 }
 
+@MainActor
 protocol EditorPageSelectionManagerProtocol {
     func canSelectBlock(at indexPath: IndexPath) -> Bool
     func didLongTap(at indexPath: IndexPath)
@@ -43,6 +45,7 @@ extension EditorPageSelectionManagerProtocol {
     func didSelectSelection(from indexPath: IndexPath) {}
 }
 
+@MainActor
 protocol EditorPageBlocksStateManagerProtocol: EditorPageSelectionManagerProtocol, EditorPageMovingManagerProtocol, AnyObject {
     func checkDocumentLockField()
     func checkOpenedState()
@@ -52,6 +55,7 @@ protocol EditorPageBlocksStateManagerProtocol: EditorPageSelectionManagerProtoco
     var editorSelectedBlocks: AnyPublisher<[BlockId], Never> { get }
 }
 
+@MainActor
 final class EditorPageBlocksStateManager: EditorPageBlocksStateManagerProtocol {
     private enum MovingDestination {
         case position(IndexPath)
