@@ -593,10 +593,10 @@
 		2AA1652829D474D40093DB12 /* FeatureFlagView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AA1652729D474D40093DB12 /* FeatureFlagView.swift */; };
 		2AA2291A29C45DC50047B245 /* VerticalScrollViewWithOverlayHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AA2291929C45DC50047B245 /* VerticalScrollViewWithOverlayHeader.swift */; };
 		2AA2291E29C47F4F0047B245 /* HomeTopShadow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AA2291D29C47F4F0047B245 /* HomeTopShadow.swift */; };
+		2AA42CF12B1737C800CA20D4 /* BottomAlertView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AA42CF02B1737C800CA20D4 /* BottomAlertView.swift */; };
 		2AA4C26D2A7026C600C2EC66 /* WorkspacesStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AA4C26C2A7026C600C2EC66 /* WorkspacesStorage.swift */; };
 		2AA4C26F2A70287100C2EC66 /* WorkspacesSubscriptionBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AA4C26E2A70287100C2EC66 /* WorkspacesSubscriptionBuilder.swift */; };
 		2AA4E51B29E8547B008632EB /* BlockWidgetLayout+Analytics.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AA4E51A29E8547B008632EB /* BlockWidgetLayout+Analytics.swift */; };
-		2AA7AF062AF1441D005CBD82 /* AlertsFactory+ObjectOpen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AA7AF052AF1441D005CBD82 /* AlertsFactory+ObjectOpen.swift */; };
 		2AA8107629A3BF90007DD64B /* WidgetObjectListMenuItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AA8107529A3BF90007DD64B /* WidgetObjectListMenuItem.swift */; };
 		2AA8107829A3BFE3007DD64B /* WidgetObjectListMenuBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AA8107729A3BFE3007DD64B /* WidgetObjectListMenuBuilder.swift */; };
 		2AA8107A29A3D329007DD64B /* ListSectionData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AA8107929A3D329007DD64B /* ListSectionData.swift */; };
@@ -680,6 +680,11 @@
 		2AD37D5829911FA50012409E /* WidgetObjectListSetsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AD37D5729911FA50012409E /* WidgetObjectListSetsViewModel.swift */; };
 		2AD37D5A299121D30012409E /* WidgetObjectListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AD37D59299121D30012409E /* WidgetObjectListViewModel.swift */; };
 		2AD37D5C299145370012409E /* WidgetObjectListRecentViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AD37D5B299145370012409E /* WidgetObjectListRecentViewModel.swift */; };
+		2AD5EFC42B17490200FAA908 /* ButtomAlertHeaderImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AD5EFC32B17490200FAA908 /* ButtomAlertHeaderImageView.swift */; };
+		2AD5EFC62B17492500FAA908 /* BottomAlertButtonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AD5EFC52B17492500FAA908 /* BottomAlertButtonView.swift */; };
+		2AD5EFC92B1753E400FAA908 /* DocumentUpdateAlertView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AD5EFC82B1753E400FAA908 /* DocumentUpdateAlertView.swift */; };
+		2AD5EFCB2B17559D00FAA908 /* DocumentCommonOpenErrorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AD5EFCA2B17559D00FAA908 /* DocumentCommonOpenErrorView.swift */; };
+		2AD5EFCD2B175B7700FAA908 /* View+BottomAlert.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AD5EFCC2B175B7700FAA908 /* View+BottomAlert.swift */; };
 		2AD6792C29812EE600339624 /* HomeBottomPanelModuleOutput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AD6792B29812EE600339624 /* HomeBottomPanelModuleOutput.swift */; };
 		2AD741292993DB27004BD223 /* BinLinkWidgetViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AD741242993DB27004BD223 /* BinLinkWidgetViewModel.swift */; };
 		2AD7412A2993DB27004BD223 /* BinLinkWidgetModuleAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AD741252993DB27004BD223 /* BinLinkWidgetModuleAssembly.swift */; };
@@ -2243,10 +2248,10 @@
 		2AA1652729D474D40093DB12 /* FeatureFlagView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeatureFlagView.swift; sourceTree = "<group>"; };
 		2AA2291929C45DC50047B245 /* VerticalScrollViewWithOverlayHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VerticalScrollViewWithOverlayHeader.swift; sourceTree = "<group>"; };
 		2AA2291D29C47F4F0047B245 /* HomeTopShadow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeTopShadow.swift; sourceTree = "<group>"; };
+		2AA42CF02B1737C800CA20D4 /* BottomAlertView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BottomAlertView.swift; sourceTree = "<group>"; };
 		2AA4C26C2A7026C600C2EC66 /* WorkspacesStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkspacesStorage.swift; sourceTree = "<group>"; };
 		2AA4C26E2A70287100C2EC66 /* WorkspacesSubscriptionBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkspacesSubscriptionBuilder.swift; sourceTree = "<group>"; };
 		2AA4E51A29E8547B008632EB /* BlockWidgetLayout+Analytics.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "BlockWidgetLayout+Analytics.swift"; sourceTree = "<group>"; };
-		2AA7AF052AF1441D005CBD82 /* AlertsFactory+ObjectOpen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AlertsFactory+ObjectOpen.swift"; sourceTree = "<group>"; };
 		2AA8107529A3BF90007DD64B /* WidgetObjectListMenuItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WidgetObjectListMenuItem.swift; sourceTree = "<group>"; };
 		2AA8107729A3BFE3007DD64B /* WidgetObjectListMenuBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WidgetObjectListMenuBuilder.swift; sourceTree = "<group>"; };
 		2AA8107929A3D329007DD64B /* ListSectionData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListSectionData.swift; sourceTree = "<group>"; };
@@ -2342,6 +2347,11 @@
 		2AD37D5729911FA50012409E /* WidgetObjectListSetsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WidgetObjectListSetsViewModel.swift; sourceTree = "<group>"; };
 		2AD37D59299121D30012409E /* WidgetObjectListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WidgetObjectListViewModel.swift; sourceTree = "<group>"; };
 		2AD37D5B299145370012409E /* WidgetObjectListRecentViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WidgetObjectListRecentViewModel.swift; sourceTree = "<group>"; };
+		2AD5EFC32B17490200FAA908 /* ButtomAlertHeaderImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ButtomAlertHeaderImageView.swift; sourceTree = "<group>"; };
+		2AD5EFC52B17492500FAA908 /* BottomAlertButtonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BottomAlertButtonView.swift; sourceTree = "<group>"; };
+		2AD5EFC82B1753E400FAA908 /* DocumentUpdateAlertView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DocumentUpdateAlertView.swift; sourceTree = "<group>"; };
+		2AD5EFCA2B17559D00FAA908 /* DocumentCommonOpenErrorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DocumentCommonOpenErrorView.swift; sourceTree = "<group>"; };
+		2AD5EFCC2B175B7700FAA908 /* View+BottomAlert.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "View+BottomAlert.swift"; sourceTree = "<group>"; };
 		2AD6792B29812EE600339624 /* HomeBottomPanelModuleOutput.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeBottomPanelModuleOutput.swift; sourceTree = "<group>"; };
 		2AD741242993DB27004BD223 /* BinLinkWidgetViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BinLinkWidgetViewModel.swift; sourceTree = "<group>"; };
 		2AD741252993DB27004BD223 /* BinLinkWidgetModuleAssembly.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BinLinkWidgetModuleAssembly.swift; sourceTree = "<group>"; };
@@ -6144,6 +6154,26 @@
 			path = SpaceCreate;
 			sourceTree = "<group>";
 		};
+		2AD5EFC22B1748CC00FAA908 /* Bottom */ = {
+			isa = PBXGroup;
+			children = (
+				2AD5EFCC2B175B7700FAA908 /* View+BottomAlert.swift */,
+				2AA42CF02B1737C800CA20D4 /* BottomAlertView.swift */,
+				2AD5EFC32B17490200FAA908 /* ButtomAlertHeaderImageView.swift */,
+				2AD5EFC52B17492500FAA908 /* BottomAlertButtonView.swift */,
+			);
+			path = Bottom;
+			sourceTree = "<group>";
+		};
+		2AD5EFC72B1753D400FAA908 /* Alerts */ = {
+			isa = PBXGroup;
+			children = (
+				2AD5EFC82B1753E400FAA908 /* DocumentUpdateAlertView.swift */,
+				2AD5EFCA2B17559D00FAA908 /* DocumentCommonOpenErrorView.swift */,
+			);
+			path = Alerts;
+			sourceTree = "<group>";
+		};
 		2AD7411F2993DB27004BD223 /* BinLink */ = {
 			isa = PBXGroup;
 			children = (
@@ -7298,6 +7328,7 @@
 		3D2F9C3A271F023A0043C326 /* Alerts */ = {
 			isa = PBXGroup;
 			children = (
+				2AD5EFC22B1748CC00FAA908 /* Bottom */,
 				3D2F9C3E271F024E0043C326 /* FloaterAlertView.swift */,
 				2A947B2F2A3093DD00119140 /* BottomAlert+Bin.swift */,
 				2E6F3E192A4C6828002F4278 /* AlertView.swift */,
@@ -7482,7 +7513,6 @@
 				C910809D274CB02400EFA11C /* DividerCursorController.swift */,
 				C955AF272886E84C00AF23B5 /* ResponderScrollViewHelper.swift */,
 				2E21599C28EC619E0042B205 /* EditorPageTemplatesHandler.swift */,
-				2AA7AF052AF1441D005CBD82 /* AlertsFactory+ObjectOpen.swift */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -8970,6 +9000,7 @@
 		C91989EA2811667F00CC6BEB /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				2AD5EFC72B1753D400FAA908 /* Alerts */,
 				C91989EB2811672A00CC6BEB /* UndoRedo */,
 			);
 			path = Views;
@@ -10053,6 +10084,7 @@
 				12DE405E264AE455007B5074 /* LayoutAnchor.swift in Sources */,
 				53EA4A782637637200968B8E /* StyleColorCellView.swift in Sources */,
 				12D15D2227F5F81F00D22086 /* ObjectsOptionsSearchModuleBuilder.swift in Sources */,
+				2AD5EFC92B1753E400FAA908 /* DocumentUpdateAlertView.swift in Sources */,
 				2ECB34312A97D01B00E0F9BB /* SetFiltersSelectionCoordinatorAssembly.swift in Sources */,
 				12870A2C26DE6A7400A6F46A /* ImageWidth.swift in Sources */,
 				03B55546230AD13A0070FDF3 /* ActivityIndicator.swift in Sources */,
@@ -10305,6 +10337,7 @@
 				2ECB342B2A97C95600E0F9BB /* SetFiltersSelectionHeaderModuleAssembly.swift in Sources */,
 				3DDD3D0E26AEB55700B5673A /* BlockFileView.swift in Sources */,
 				C96AFFD1284A385D0048B8EB /* SeparatorItemView.swift in Sources */,
+				2AD5EFC62B17492500FAA908 /* BottomAlertButtonView.swift in Sources */,
 				53FF7C6D26F8F8E400A5A592 /* iCloudBackupConfigurator.swift in Sources */,
 				53F80F1227BDA96E00E9E12A /* FileRelationViewUIKit.swift in Sources */,
 				3DAA6C90264A918F0029CD39 /* AnytypeText.swift in Sources */,
@@ -10396,6 +10429,7 @@
 				2AC906C129B5F8EF00209E39 /* WidgetInternalViewModelProtocol.swift in Sources */,
 				3D2F9C22271EAEAE0043C326 /* BlockBuilder.swift in Sources */,
 				5396534F2600D1B100A74C11 /* TextBlockLayoutManager.swift in Sources */,
+				2AD5EFCB2B17559D00FAA908 /* DocumentCommonOpenErrorView.swift in Sources */,
 				EAC5FD512657DC97006BB24E /* KeyboardState.swift in Sources */,
 				2A7208B22AF3A92B006D88CF /* SpaceUsage.swift in Sources */,
 				1215E8BB26A8654C0089AF7E /* AnalyticsConfigurator.swift in Sources */,
@@ -10439,7 +10473,6 @@
 				3DF6F628262EDA31000E05A5 /* DebugMenu.swift in Sources */,
 				2ACEAE4A2984115F00B467CE /* WidgetTypeRowView.swift in Sources */,
 				53F8211126529CC9003FEB0B /* TextViewManagingFocus.swift in Sources */,
-				2AA7AF062AF1441D005CBD82 /* AlertsFactory+ObjectOpen.swift in Sources */,
 				2AA8108829A66831007DD64B /* DragAndDropVerticalDelegate.swift in Sources */,
 				2AECFD37289939DE000E9CFB /* DIProtocol.swift in Sources */,
 				2A8A2DD32AB99B1800105549 /* ShareCoordinatorViewModel.swift in Sources */,
@@ -10596,6 +10629,7 @@
 				2AE7ECA4298816F30079F12B /* WidgetObjectListModuleAssembly.swift in Sources */,
 				2A4C79B029B8A17C003BB9D3 /* WidgetSourceSearchSelectInternalViewModel.swift in Sources */,
 				2E56F1382A0D43F400031167 /* LoopingPlayerUIView.swift in Sources */,
+				2AD5EFC42B17490200FAA908 /* ButtomAlertHeaderImageView.swift in Sources */,
 				3D93852026FB0B74001C137F /* PageRepository.swift in Sources */,
 				3D93852026FB0B74001C137F /* PageRepository.swift in Sources */,
 				2E0797C52A09678C006F0FD7 /* AuthModuleAssembly.swift in Sources */,
@@ -10695,6 +10729,7 @@
 				3D24912D27BD271900821595 /* EventsListenerProtocol.swift in Sources */,
 				2EA0F4912936629E003225BA /* GroupsSubscribeResult.swift in Sources */,
 				129C54D027FC79F900C390C7 /* RelationFormatsListView.swift in Sources */,
+				2AD5EFCD2B175B7700FAA908 /* View+BottomAlert.swift in Sources */,
 				1211AF7727F49A9300BACB88 /* DownloadableImageViewWrapper.swift in Sources */,
 				2E2D255E28880C8D00E3DFD1 /* SetFiltersSelectionViewModel.swift in Sources */,
 				2A0303A128ABD4C9002EFC46 /* SystemURLServiceProtocol.swift in Sources */,
@@ -11192,6 +11227,7 @@
 				3D3A182A2733E946000D0842 /* MarkdownListener.swift in Sources */,
 				2A6693752A7104EA007747DD /* StaticImageGuideline.swift in Sources */,
 				2A03039A28ABAA99002EFC46 /* TextRelationCopyActionViewModel.swift in Sources */,
+				2AA42CF12B1737C800CA20D4 /* BottomAlertView.swift in Sources */,
 				3D3040AD27DB5A7300FFE0EB /* AnytypePopupLayoutType.swift in Sources */,
 				2AF4C3E0295D837C00FD7153 /* ObjectTreeWidgetModuleAssembly.swift in Sources */,
 				2AFEED1B2A73B84100D7A45B /* WidgetChangeSourceSearchModuleModel.swift in Sources */,

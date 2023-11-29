@@ -88,6 +88,16 @@ extension Color {
       internal static let secondary = Color(asset: Asset.Background.secondary)
     }
     
+    // MARK: - BottomAlert
+    enum BottomAlert {
+      internal static let blueEnd = Color(asset: Asset.BottomAlert.blueEnd)
+      internal static let blueStart = Color(asset: Asset.BottomAlert.blueStart)
+      internal static let greenEnd = Color(asset: Asset.BottomAlert.greenEnd)
+      internal static let greenStart = Color(asset: Asset.BottomAlert.greenStart)
+      internal static let redEnd = Color(asset: Asset.BottomAlert.redEnd)
+      internal static let redStart = Color(asset: Asset.BottomAlert.redStart)
+    }
+    
     // MARK: - Button
     enum Button {
       internal static let accent = Color(asset: Asset.Button.accent)

@@ -12,7 +12,9 @@ final class EditorSetViewModel: ObservableObject {
     @Published var loadingDocument = true
     @Published var featuredRelations = [Relation]()
     @Published var dismiss = false
-
+    @Published var showUpdateAlert = false
+    @Published var showCommonOpenError = false
+    
     private var recordsDict: OrderedDictionary<String, [ObjectDetails]> = [:]
     private var groups: [DataviewGroup] = []
     
@@ -176,8 +178,10 @@ final class EditorSetViewModel: ObservableObject {
                 self.loadingDocument = false
                 await self.onDataviewUpdate()
                 self.logModuleScreen()
+            } catch ObjectOpenError.anytypeNeedsUpgrade {
+                showUpdateAlert = true
             } catch {
-                self.router?.showOpenDocumentError(error: error)
+                showCommonOpenError = true
             }
         }
     }

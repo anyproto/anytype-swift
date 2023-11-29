@@ -38,7 +38,9 @@ final class EditorPageViewModel: EditorPageViewModelProtocol, EditorBottomNaviga
     @Published var bottomPanelHidden: Bool = false
     @Published var bottomPanelHiddenAnimated: Bool = true
     @Published var dismiss = false
-
+    @Published var showUpdateAlert = false
+    @Published var showCommonOpenError = false
+    
     // MARK: - Initialization
     init(
         document: BaseDocumentProtocol,
@@ -260,8 +262,10 @@ extension EditorPageViewModel {
                     try await document.open()
                     blocksStateManager.checkOpenedState()
                 }
+            } catch ObjectOpenError.anytypeNeedsUpgrade {
+                showUpdateAlert = true
             } catch {
-                router.showOpenDocumentError(error: error)
+                showCommonOpenError = true
             }
             
             if let objectDetails = document.details {

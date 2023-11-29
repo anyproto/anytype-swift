@@ -2,17 +2,22 @@ import SwiftUI
 
 struct SheetView<Content: View>: View {
     @Environment(\.dismiss) private var dismiss
+    
+    let dismissByTap: Bool
     private var content: Content
       
-    init(@ViewBuilder content: @escaping () -> Content) {
+    init(dismissByTap: Bool = true, @ViewBuilder content: @escaping () -> Content) {
+        self.dismissByTap = dismissByTap
         self.content = content()
     }
       
     var body: some View {
         ZStack {
-            Color.clear
-                .contentShape(Rectangle())
-                .onTapGesture { dismiss() }
+            if dismissByTap {
+                Color.clear
+                    .contentShape(Rectangle())
+                    .onTapGesture { dismiss() }
+            }
             VStack(spacing: 0) {
                 Spacer()
                 contentView

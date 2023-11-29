@@ -14,5 +14,11 @@ struct EditorPageView: View {
             .onChange(of: model.dismiss) { _ in
                 dismiss()
             }
+            .anytypeBottomAlert(isPresented: $model.showUpdateAlert) {
+                DocumentUpdateAlertView { dismiss() }
+            }
+            .anytypeBottomAlert(isPresented: $model.showCommonOpenError) {
+                DocumentCommonOpenErrorView { dismiss() }
+            }
     }
 }

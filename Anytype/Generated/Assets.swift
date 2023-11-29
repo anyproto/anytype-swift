@@ -90,6 +90,14 @@ internal enum Asset {
     static let primary = ColorAsset(name: "Background/primary")
     static let secondary = ColorAsset(name: "Background/secondary")
   }
+  internal enum BottomAlert {
+    static let blueEnd = ColorAsset(name: "BottomAlert/blueEnd")
+    static let blueStart = ColorAsset(name: "BottomAlert/blueStart")
+    static let greenEnd = ColorAsset(name: "BottomAlert/greenEnd")
+    static let greenStart = ColorAsset(name: "BottomAlert/greenStart")
+    static let redEnd = ColorAsset(name: "BottomAlert/redEnd")
+    static let redStart = ColorAsset(name: "BottomAlert/redStart")
+  }
   internal enum Button {
     static let accent = ColorAsset(name: "Button/accent")
     static let active = ColorAsset(name: "Button/active")

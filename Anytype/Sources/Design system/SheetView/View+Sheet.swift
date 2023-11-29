@@ -4,11 +4,12 @@ import SwiftUI
 extension View {
     func anytypeSheet<Content>(
         isPresented: Binding<Bool>,
+        dismissByTap: Bool = true,
         @ViewBuilder content: @escaping () -> Content
     ) -> some View where Content : View {
         fullScreenCover(isPresented: isPresented) {
             SheetContainerView {
-                SheetView {
+                SheetView(dismissByTap: dismissByTap) {
                     content()
                 }
             }
@@ -17,11 +18,12 @@ extension View {
     
     public func anytypeSheet<Item, Content>(
         item: Binding<Item?>,
+        dismissByTap: Bool = true,
         @ViewBuilder content: @escaping (Item) -> Content
     ) -> some View where Item : Identifiable, Content : View {
         fullScreenCover(item: item) { item in
             SheetContainerView {
-                SheetView {
+                SheetView(dismissByTap: dismissByTap) {
                     content(item)
                 }
             }
