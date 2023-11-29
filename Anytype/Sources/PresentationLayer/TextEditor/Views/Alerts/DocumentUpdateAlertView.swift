@@ -22,6 +22,7 @@ struct DocumentUpdateAlertView: View {
             BottomAlertButton(text: Loc.Error.AnytypeNeedsUpgrate.confirm, style: .primary) {
                 guard let link = AppLinks.storeLink else { return }
                 openURL(link)
+                dismiss()
             }
         }
     }
