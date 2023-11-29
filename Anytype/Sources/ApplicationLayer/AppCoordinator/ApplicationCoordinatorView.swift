@@ -6,9 +6,7 @@ struct ApplicationCoordinatorView: View {
     @StateObject var model: ApplicationCoordinatorViewModel
     
     var body: some View {
-        Group {
-            applicationView
-        }
+        applicationView
         .onAppear {
             model.onAppear()
         }
