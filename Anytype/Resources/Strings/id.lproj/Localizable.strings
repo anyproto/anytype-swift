@@ -271,6 +271,8 @@
 "Actions.LinkItself" = "Tautkan ke";
 "Actions.MakeAsTemplate" = "Buat templat";
 "Actions.TemplateMakeDefault" = "Make default";
+"Actions.CreateWidget.Title" = "To widgets";
+"Actions.CreateWidget.Success" = "Gawai baru telah dibuat";
 
 // Object Type
 "Set" = "Set";
@@ -465,6 +467,7 @@
 
 "Error" = "Galat";
 "Unknown error" = "Kesalahan tak dikenal";
+"Open Type Error" = "Not supported type \"%@\". You can open it via desktop.";
 "Close" = "Tutup";
 "Account is deleted" = "Akun terhapus";
 "Add phone" = "Tambahkan telepon";

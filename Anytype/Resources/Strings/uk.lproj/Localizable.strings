@@ -271,6 +271,8 @@
 "Actions.LinkItself" = "Зв'язати з";
 "Actions.MakeAsTemplate" = "Створити шаблон";
 "Actions.TemplateMakeDefault" = "Make default";
+"Actions.CreateWidget.Title" = "To widgets";
+"Actions.CreateWidget.Success" = "New widget was created";
 
 // Object Type
 "Set" = "Набір";
@@ -465,6 +467,7 @@
 
 "Error" = "Error";
 "Unknown error" = "Невідома помилка";
+"Open Type Error" = "Not supported type \"%@\". You can open it via desktop.";
 "Close" = "Close";
 "Account is deleted" = "Обліковий запис було видалено";
 "Add phone" = "Додайте номер телефону";
