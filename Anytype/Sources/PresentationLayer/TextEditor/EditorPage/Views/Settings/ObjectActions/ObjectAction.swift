@@ -42,7 +42,7 @@ enum ObjectAction: Hashable, Identifiable {
             allCases.append(.archive(isArchived: details.isArchived))
         }
         
-        if !details.isTemplateType {
+        if details.isVisibleLayout, !details.isTemplateType {
             allCases.append(.createWidget)
         }
 
