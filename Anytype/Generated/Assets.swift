@@ -101,6 +101,11 @@ internal enum Asset {
     static let background = ColorAsset(name: "ModalScreen/background")
     static let backgroundWithBlur = ColorAsset(name: "ModalScreen/backgroundWithBlur")
   }
+  internal enum Navigation {
+    static let background = ColorAsset(name: "Navigation/background")
+    static let buttonActive = ColorAsset(name: "Navigation/buttonActive")
+    static let buttonInactive = ColorAsset(name: "Navigation/buttonInactive")
+  }
   internal enum Shadow {
     static let primary = ColorAsset(name: "Shadow/primary")
   }

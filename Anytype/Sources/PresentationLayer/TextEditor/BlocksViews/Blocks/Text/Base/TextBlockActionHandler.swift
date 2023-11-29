@@ -287,12 +287,10 @@ struct TextBlockActionHandler: TextBlockActionHandlerProtocol {
         blockDelegate?.textDidChange(data: blockDelegateData(textView: textView))
     }
 
-    private func textViewWillBeginEditing(textView: UITextView) {
-        blockDelegate?.willBeginEditing(data: blockDelegateData(textView: textView))
-    }
+    private func textViewWillBeginEditing(textView: UITextView) {}
 
     private func textViewDidBeginEditing(textView: UITextView) {
-        blockDelegate?.didBeginEditing(view: textView)
+        blockDelegate?.didBeginEditing(view: textView, data: blockDelegateData(textView: textView))
     }
 
     private func textViewDidEndEditing(textView: UITextView) {

@@ -63,7 +63,7 @@
 
 // MARK: - Settings
 "Settings.Title" = "ବ୍ୟକ୍ତିଗତ ସ୍ଥାନ";
-"Settings.SpaceName" = "Space name";
+"Settings.SpaceName" = "ସ୍ଥାନ ନାମ";
 
 // MARK: - Object
 "Object.Title.Placeholder" = "ଶୀର୍ଷକ ନଥିବା";
@@ -240,148 +240,150 @@
 "Icon" = "ଆଇକନ";
 "Emoji or image for object" = "ବସ୍ତୁ ପାଇଁ ଇମୋଜି କିମ୍ବା ପ୍ରତିଛବି";
 "Cover" = "କଭର";
-"Background picture" = "Background picture";
-"Layout" = "Layout";
-"Arrangement of objects on a canvas" = "Arrangement of objects on a canvas";
+"Background picture" = "ପୃଷ୍ଠଭୂମି ଚିତ୍ର |";
+"Layout" = "ଲେଆଉଟ୍‌";
+"Arrangement of objects on a canvas" = "ଏକ କାନଭାସରେ ଅବଜେକ୍ଟର ବ୍ୟବସ୍ଥା ";
 
-"Search" = "Search";
-"There is no emoji named" = "There is no emoji named";
-"Try to find a new one or upload your image" = "Try to find a new one or upload your image";
+"Search" = "ସନ୍ଧାନ";
+"There is no emoji named" = "କୌଣସି ଇମୋଜି ନାମିତ ନାହିଁ";
+"Try to find a new one or upload your image" = "ଏକ ନୂତନ ଖୋଜିବାକୁ ଚେଷ୍ଟା କରନ୍ତୁ କିମ୍ବା ଆପଣଙ୍କର ପ୍ରତିଛବି ଅପଲୋଡ୍ କରନ୍ତୁ ";
 
-"Emoji" = "Emoji";
-"Random" = "Random";
-"Upload" = "Upload";
-"Change icon" = "Change icon";
-"Change cover" = "Change cover";
-"Remove" = "Remove";
+"Emoji" = "ଇମୋଜି";
+"Random" = "ୟାଡୁୟାଡୁ";
+"Upload" = "ଅପଲୋଡ୍ କରନ୍ତୁ";
+"Change icon" = "ଆଇକନ୍ ପରିବର୍ତ୍ତନ କରନ୍ତୁ";
+"Change cover" = "କଭର ପରିବର୍ତ୍ତନ କରନ୍ତୁ";
+"Remove" = "କାଢନ୍ତୁ";
 
-"Solid colors" = "Solid colors";
-"Gradients" = "Gradients";
-"Gallery" = "Gallery";
+"Solid colors" = "କଠିନ ରଙ୍ଗ";
+"Gradients" = "ଗ୍ରେଡିଏଣ୍ଟ୍";
+"Gallery" = "ଗ୍ୟାଲେରୀ";
 
-"Remove photo" = "Remove photo";
-"Basic" = "Basic";
-"Profile" = "Profile";
-"Task" = "Task";
-"Note" = "Note";
-"Choose layout type" = "Choose layout type";
+"Remove photo" = "ଫଟୋ ହଟାନ୍ତୁ";
+"Basic" = "ବେଶିକ";
+"Profile" = "ପ୍ରୋଫାଇଲ୍";
+"Task" = "ଟାସ୍କ";
+"Note" = "ନୋଟ";
+"Choose layout type" = "ଲେଆଉଟ୍ ପ୍ରକାର ବାଛନ୍ତୁ";
 
-"Undo typing" = "Undo typing";
-"Undo" = "Undo";
-"Actions.LinkItself" = "Link to";
-"Actions.MakeAsTemplate" = "Make template";
+"Undo typing" = "ଟାଇପିଂ ପୂର୍ବବତ୍ କରନ୍ତୁ";
+"Undo" = "ପୂର୍ବବତ୍ କରନ୍ତୁ";
+"Actions.LinkItself" = "ଲିଙ୍କ୍ କରନ୍ତୁ";
+"Actions.MakeAsTemplate" = "ଟେମ୍ପଲେଟ୍ ପ୍ରସ୍ତୁତ କରନ୍ତୁ";
 "Actions.TemplateMakeDefault" = "Make default";
+"Actions.CreateWidget.Title" = "ୱିଜେଟ୍ ପାଇଁ";
+"Actions.CreateWidget.Success" = "ନୂତନ ୱିଜେଟ୍ ସୃଷ୍ଟି କରାଗଲା";
 
 // Object Type
-"Set" = "Set";
-"Collection" = "Collection";
+"Set" = "ସେଟ୍ କରନ୍ତୁ";
+"Collection" = "କଲେକ୍ସନ";
 
-"Editor.MovingState.ScrollToSelectedPlace" = "Scroll to select a place";
+"Editor.MovingState.ScrollToSelectedPlace" = "ଏକ ସ୍ଥାନ ବାଛିବା ପାଇଁ ସ୍କ୍ରୋଲ୍ କରନ୍ତୁ";
 
 // MARK: - Link to search
 
-"Editor.LinkToObject.SearchPlaceholder" = "Paste link or search objects";
-"Editor.LinkToObject.PasteFromClipboard" = "Paste from clipboard";
-"Editor.LinkToObject.LinkedTo" = "Linked to";
-"Editor.LinkToObject.CopyLink" = "Copy link";
-"Editor.LinkToObject.RemoveLink" = "Remove link";
+"Editor.LinkToObject.SearchPlaceholder" = "ଲିଙ୍କ୍ କିମ୍ବା ସନ୍ଧାନ ବସ୍ତୁଗୁଡିକ ଲେପନ କରନ୍ତୁ";
+"Editor.LinkToObject.PasteFromClipboard" = "କ୍ଲିପବୋର୍ଡରୁ ଲେପନ କରନ୍ତୁ";
+"Editor.LinkToObject.LinkedTo" = "ସହିତ ଲିଙ୍କ୍ ହୋଇଛି";
+"Editor.LinkToObject.CopyLink" = "ଲିଙ୍କ୍ କପି କରନ୍ତୁ";
+"Editor.LinkToObject.RemoveLink" = "ଲିଙ୍କ୍ ଅପସାରଣ କରନ୍ତୁ ";
 
 // MARK: - Main search
-"There is no object named" = "There is no object named %@";
-"There is no type named" = "There is no type named %@";
-"Create a new one or search for something else" = "Create a new one or search for something else";
+"There is no object named" = "%@ ନାମକ କୌ ଣସି ବସ୍ତୁ ନାହିଁ ";
+"There is no type named" = "%@ ନାମକ କୌଣସି ପ୍ରକାର ନାହିଁ";
+"Create a new one or search for something else" = "ଏକ ନୂତନ ସୃଷ୍ଟି କରନ୍ତୁ କିମ୍ବା ଅନ୍ୟ କିଛି ଖୋଜନ୍ତୁ";
 
 // MARK: - Home
 
-"Home.Snackbar.Library" = "Library is available in desktop app";
+"Home.Snackbar.Library" = "ଲାଇବ୍ରେରୀ ଡେସ୍କଟପ୍ ଆପରେ ଉପଲବ୍ଧ";
 
 // MARK: - Alerts
-"Alert.CameraPermissions.Settings" = "Settings";
-"Alert.CameraPermissions.GoToSettings" = "Anytype needs access to your camera to scan QR codes.\n\nPlease, go to your device's Settings -> Anytype and set Camera to ON";
+"Alert.CameraPermissions.Settings" = "ସେଟିଂସମୂହ";
+"Alert.CameraPermissions.GoToSettings" = "QR କୋଡ୍ ସ୍କାନ୍ କରିବା ପାଇଁ ଏନିଟାଇପ ଆପଣଙ୍କ କ୍ୟାମେରାକୁ ପ୍ରବେଶ ଆବଶ୍ୟକ କରେ | \n\n ଦୟାକରି, ଆପଣଙ୍କର ଡିଭାଇସର ସେଟିଂସମୂହ ->ଏନିଟାଇପ ଯାଆନ୍ତୁ ଏବଂ କ୍ୟାମେରା ଅନ୍ ସେଟ୍ କରନ୍ତୁ |";
 
 // MARK: - Deletion
-"Pending deletion text" = "We're sorry to see you go. You have 30 days to cancel this request. After 30 days, your encrypted account data is permanently removed from the backup node.";
+"Pending deletion text" = "ଆପଣଙ୍କ ଯିବା ଦେଖି ଆମେ ଦୁଖିତଃ | ଏହି ଅନୁରୋଧକୁ ବାତିଲ କରିବାକୁ ଆପଣଙ୍କର ୩୦ ଦିନ ଅଛି | ୩୦ ଦିନ ପରେ, ଆପଣଙ୍କର ଏନକ୍ରିପ୍ଟ ହୋଇଥିବା ଆକାଉଣ୍ଟ୍ ତଥ୍ୟ ବ୍ୟାକଅପ୍ ନୋଡରୁ ସ୍ଥାୟୀ ଭାବରେ ଅପସାରିତ ହୋଇଯିବ |";
 
 // MARK: - Object Settings
-"Undo/Redo" = "Undo/Redo";
+"Undo/Redo" = "ଅଣ୍ଡୁ/ରିଡୁ";
 
 
 // MARK: - Templates
 "TemplateSelection.Available.Title" = "This type has %d templates";
-"TemplatePicker.ChooseTemplate" = "Choose template";
-"TemplatePicker.Buttons.UseTemplate" = "Use template";
-"TemplateSelection.SelectTemplate" = "Select template";
-"TemplateSelection.blankTemplate" = "Blank";
-"TemplateSelection.Template.Subtitle" = "Template";
-"TemplateSelection.ObjectType.Subtitle" = "Object type";
+"TemplatePicker.ChooseTemplate" = "ଟେମ୍ପଲେଟ୍ ବାଛନ୍ତୁ";
+"TemplatePicker.Buttons.UseTemplate" = "ଟେମ୍ପଲେଟ ବ୍ୟବହାର କରନ୍ତୁ";
+"TemplateSelection.SelectTemplate" = "ଟେମ୍ପଲେଟ୍ ଚୟନ କରନ୍ତୁ";
+"TemplateSelection.blankTemplate" = "ଖାଲି";
+"TemplateSelection.Template.Subtitle" = "ଟେମ୍ପଲେଟ୍";
+"TemplateSelection.ObjectType.Subtitle" = "ବସ୍ତୁ ପ୍ରକାର";
 
-"TemplateOptions.Alert.EditTemplate" = "Edit template";
+"TemplateOptions.Alert.EditTemplate" = "ଟେମ୍ପଲେଟ୍ ସଂପାଦନ କରନ୍ତୁ";
 "TemplateOptions.Alert.Duplicate" = "ନକଲ";
 "TemplateOptions.Alert.Delete" = "ବିଲୋପ କରନ୍ତୁ";
 
-"TemplateEditing.Title" = "Edit template";
+"TemplateEditing.Title" = "ଟେମ୍ପଲେଟ୍ ସଂପାଦନ କରନ୍ତୁ";
 
-"Templates.Popup.WasAddedTo" = "New template was added to the type";
-"Templates.Popup.Duplicated" = "The template was duplicated";
-"Templates.Popup.Removed" = "The template was removed";
-"Templates.Popup.Default" = "The template was set as default";
+"Templates.Popup.WasAddedTo" = "ପ୍ରକାରରେ ନୂତନ ଟେମ୍ପଲେଟ୍ ଯୋଡାଗଲା";
+"Templates.Popup.Duplicated" = "ଟେମ୍ପଲେଟ୍ ନକଲ କରାଗଲା";
+"Templates.Popup.Removed" = "ଟେମ୍ପଲେଟ୍ କଢାଗଲା";
+"Templates.Popup.Default" = "ଟେମ୍ପଲେଟ୍ ଡିଫଲ୍ଟ ଭାବରେ ସେଟ୍ ହୋଇଛି";
 
-"To Bin" = "To Bin";
+"To Bin" = "ବିନ୍ କୁ";
 
 // MARK: - Context Menu
-"Remove From Favorite" = "Remove From Favorite";
-"Add To Favorite" = "Add To Favorite";
-"Move To Bin" = "Move To Bin";
+"Remove From Favorite" = "ପ୍ରିୟରୁ ଅପସାରଣ କରନ୍ତୁ";
+"Add To Favorite" = "ପ୍ରିୟକୁ ଯୋଡନ୍ତୁ";
+"Move To Bin" = "ବିନ୍ କୁ ପଠାନ୍ତୁ";
 
 
 "LinkAppearance.Description.None.Title" = "କିଛି ନାହିଁ";
-"LinkAppearance.Description.Object.Title" = "Object description";
-"LinkAppearance.Description.Content.Title" = "Content preview";
-"LinkAppearance.ObjectType.Title" = "Object type";
+"LinkAppearance.Description.Object.Title" = "ବସ୍ତୁ ବର୍ଣ୍ଣନା";
+"LinkAppearance.Description.Content.Title" = "ବିଷୟବସ୍ତୁ ପୂର୍ବାବଲୋକନ";
+"LinkAppearance.ObjectType.Title" = "ବସ୍ତୁ ପ୍ରକାର";
 
 // MARK: - Sets: Sorts
-"EditSet.Popup.Sorts.NavigationView.Title" = "Sorts";
-"EditSet.Popup.Sorts.EmptyView.Title" = "No sorts here. You can add some";
-"EditSet.Popup.Sort.Types.Ascending" = "Ascending";
-"EditSet.Popup.Sort.Types.Descending" = "Descending";
-"EditSet.Popup.Sort.Add.SearchPlaceholder" = "Сhoose a relation to sort";
+"EditSet.Popup.Sorts.NavigationView.Title" = "ସଜାଣି";
+"EditSet.Popup.Sorts.EmptyView.Title" = "ଏଠାରେ କୌଣସି ପ୍ରକାର ନାହିଁ | ଆପଣ କିଛି ଯୋଗ କରିପାରିବେ |";
+"EditSet.Popup.Sort.Types.Ascending" = "ଆରୋହଣ";
+"EditSet.Popup.Sort.Types.Descending" = "ଅବତରଣ";
+"EditSet.Popup.Sort.Add.SearchPlaceholder" = "ସର୍ଟ କରିବାକୁ ଏକ ସମ୍ପର୍କ ବାଛନ୍ତୁ";
 
 // MARK: - Sets: Filters
-"EditSet.Popup.Filters.NavigationView.Title" = "Filters";
-"EditSet.Popup.Filters.EmptyView.Title" = "No filters here. You can add some";
-"EditSet.Popup.Filters.TextView.Placeholder" = "Value";
+"EditSet.Popup.Filters.NavigationView.Title" = "ଫିଲ୍ଟର୍";
+"EditSet.Popup.Filters.EmptyView.Title" = "ଏଠାରେ କୌଣସି ଫିଲ୍ଟର ନାହିଁ | ଆପଣ କିଛି ଯୋଗ କରିପାରିବେ";
+"EditSet.Popup.Filters.TextView.Placeholder" = "ମୂଲ୍ୟ";
 
 // MARK: - Sets: Filters.Conditions
-"EditSet.Popup.Filter.Condition.Text.Equal" = "Is";
-"EditSet.Popup.Filter.Condition.Text.NotEqual" = "Is not";
-"EditSet.Popup.Filter.Condition.Text.Like" = "Contains";
-"EditSet.Popup.Filter.Condition.Text.NotLike" = "Doesn't contain";
+"EditSet.Popup.Filter.Condition.Text.Equal" = "ହେଉଛି";
+"EditSet.Popup.Filter.Condition.Text.NotEqual" = "ନୁହେଁ";
+"EditSet.Popup.Filter.Condition.Text.Like" = "ଧାରଣ କରେ";
+"EditSet.Popup.Filter.Condition.Text.NotLike" = "ଧାରଣ କରେ ନାହିଁ";
 
-"EditSet.Popup.Filter.Condition.Number.Equal" = "Is equal to";
-"EditSet.Popup.Filter.Condition.Number.NotEqual" = "Is not equal to";
-"EditSet.Popup.Filter.Condition.Number.Greater" = "Is greater than";
-"EditSet.Popup.Filter.Condition.Number.Less" = "Is less than";
-"EditSet.Popup.Filter.Condition.Number.GreaterOrEqual" = "Is greater than or equal to";
-"EditSet.Popup.Filter.Condition.Number.LessOrEqual" = "Is less than or equal to";
+"EditSet.Popup.Filter.Condition.Number.Equal" = "ସହିତ ସମାନ";
+"EditSet.Popup.Filter.Condition.Number.NotEqual" = "ସହିତ ସମାନ ନୁହେଁ";
+"EditSet.Popup.Filter.Condition.Number.Greater" = "ଏହାଠାରୁ ବଡ ଅଟେ";
+"EditSet.Popup.Filter.Condition.Number.Less" = "ଏହାଠାରୁ କମ୍ ଅଟେ";
+"EditSet.Popup.Filter.Condition.Number.GreaterOrEqual" = "ଏହାଠାରୁ ବଡ କିମ୍ବା ସମାନ";
+"EditSet.Popup.Filter.Condition.Number.LessOrEqual" = "ଏହାଠାରୁ କମ୍ କିମ୍ବା ସମାନ";
 
-"EditSet.Popup.Filter.Condition.Date.Equal" = "Is";
-"EditSet.Popup.Filter.Condition.Date.After" = "Is after";
-"EditSet.Popup.Filter.Condition.Date.Before" = "Is before";
-"EditSet.Popup.Filter.Condition.Date.OnOrAfter" = "Is on or after";
-"EditSet.Popup.Filter.Condition.Date.OnOrBefore" = "Is on or before";
-"EditSet.Popup.Filter.Condition.Date.In" = "Is within";
+"EditSet.Popup.Filter.Condition.Date.Equal" = "ହେଉଛି";
+"EditSet.Popup.Filter.Condition.Date.After" = "ପରେ";
+"EditSet.Popup.Filter.Condition.Date.Before" = "ପୂର୍ବରୁ ଅଛି";
+"EditSet.Popup.Filter.Condition.Date.OnOrAfter" = "ପୂର୍ବରୁ କିମ୍ବା ପରେ ଅଛି |";
+"EditSet.Popup.Filter.Condition.Date.OnOrBefore" = "ପରେ କିମ୍ବା ପୂର୍ବରୁ ଅଛି";
+"EditSet.Popup.Filter.Condition.Date.In" = "ଭିତରେ ଅଛି";
 
-"EditSet.Popup.Filter.Condition.Selected.In" = "Has any of";
-"EditSet.Popup.Filter.Condition.Selected.AllIn" = "Has all of";
-"EditSet.Popup.Filter.Condition.Selected.NotIn" = "Has none of";
-"EditSet.Popup.Filter.Condition.Selected.Equal" = "Is exactly";
+"EditSet.Popup.Filter.Condition.Selected.In" = "କୌଣସିଟି ଅଛି |";
+"EditSet.Popup.Filter.Condition.Selected.AllIn" = "ସମସ୍ତ ଅଛି";
+"EditSet.Popup.Filter.Condition.Selected.NotIn" = "କୌଣସିଟି ନାହିଁ";
+"EditSet.Popup.Filter.Condition.Selected.Equal" = "ଠିକ୍ ଅଛି";
 
-"EditSet.Popup.Filter.Condition.Checkbox.Equal" = "Is";
-"EditSet.Popup.Filter.Condition.Checkbox.NotEqual" = "Is not";
+"EditSet.Popup.Filter.Condition.Checkbox.Equal" = "ହେଉଛି";
+"EditSet.Popup.Filter.Condition.Checkbox.NotEqual" = "ନୁହେଁ";
 
-"EditSet.Popup.Filter.Condition.General.Empty" = "Is empty";
-"EditSet.Popup.Filter.Condition.General.NotEmpty" = "Is not empty";
-"EditSet.Popup.Filter.Condition.General.None" = "All";
+"EditSet.Popup.Filter.Condition.General.Empty" = "ଖାଲି ଅଛି";
+"EditSet.Popup.Filter.Condition.General.NotEmpty" = "ଖାଲି ନୁହେଁ";
+"EditSet.Popup.Filter.Condition.General.None" = "ସମସ୍ତ";
 
 "EditSet.Popup.Filter.Value.Checked" = "Checked";
 "EditSet.Popup.Filter.Value.Unchecked" = "Unchecked";
@@ -465,6 +467,7 @@
 
 "Error" = "Error";
 "Unknown error" = "Unknown error";
+"Open Type Error" = "Not supported type \"%@\". You can open it via desktop.";
 "Close" = "Close";
 "Account is deleted" = "Account is deleted";
 "Add phone" = "Add phone";
@@ -566,9 +569,9 @@
 "File" = "File";
 "No related options here" = "No related options here. You can add some";
 "Empty" = "Empty";
-"Link to" = "Link to";
+"Link to" = "ଲିଙ୍କ୍ କରନ୍ତୁ";
 "Unknown" = "Unknown";
-"Settings" = "Settings";
+"Settings" = "ସେଟିଂସମୂହ";
 "Views" = "Views";
 "Filter" = "Filter";
 "Sort" = "Sort";
@@ -612,7 +615,7 @@
 // MARK: - DataviewType
 "DataviewType.grid" = "Grid";
 "DataviewType.list" = "List";
-"DataviewType.gallery" = "Gallery";
+"DataviewType.gallery" = "ଗ୍ୟାଲେରୀ";
 "DataviewType.kanban" = "Kanban";
 "DataviewType.calendar" = "Calendar";
 
@@ -668,7 +671,7 @@
 // Relation Actions
 "RelationAction.CopyPhone" = "Copy phone number";
 "RelationAction.CopyEmail" = "Copy email";
-"RelationAction.CopyLink" = "Copy link";
+"RelationAction.CopyLink" = "ଲିଙ୍କ୍ କପି କରନ୍ତୁ";
 "RelationAction.Copied" = "କପି ହେଲା";
 "RelationAction.ReloadingContent" = "Reloading content";
 "RelationAction.ReloadContent" = "Reload object content";
@@ -765,8 +768,8 @@
 
 // MARK: - Settings
 "Settings.TitleLegacy" = "ବ୍ୟକ୍ତିଗତ ସ୍ଥାନ";
-"Settings.Title" = "Settings";
-"Settings.SpaceName" = "Space name";
+"Settings.Title" = "ସେଟିଂସମୂହ";
+"Settings.SpaceName" = "ସ୍ଥାନ ନାମ";
 "Settings.AccountAndAccess" = "Account and access";
 
 // MARK: - File Storage
@@ -824,7 +827,7 @@
 "Sharing.SaveAs" = "SAVE AS";
 "Sharing.SelectSpace" = "Space";
 "Sharing.AddTo" = "Add to";
-"Sharing.LinkTo" = "Link to";
+"Sharing.LinkTo" = "ଲିଙ୍କ୍ କରନ୍ତୁ";
 
 "Sharing.URL.Bookmark" = "Bookmark object";
 "Sharing.URL.Text" = "Text block";

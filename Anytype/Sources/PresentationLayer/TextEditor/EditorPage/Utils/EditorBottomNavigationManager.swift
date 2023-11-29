@@ -7,21 +7,21 @@ protocol EditorBottomNavigationManagerProtocol: AnyObject {
     func styleViewActive(_ active: Bool)
 }
 
+protocol EditorBottomNavigationManagerOutput: AnyObject {
+    func setHomeBottomPanelHidden(_ hidden: Bool, animated: Bool)
+}
+
 final class EditorBottomNavigationManager: EditorBottomNavigationManagerProtocol {
     
     // MARK: - DI
     
-    private weak var browser: EditorBrowser?
+    weak var output: EditorBottomNavigationManagerOutput?
     
     // MARK: - State
     
     private var isMultiselectActive = false
     private var scrollDirectionBottom = false
     private var isStyleViewActive = false
-    
-    init(browser: EditorBrowser?) {
-        self.browser = browser
-    }
     
     // MARK: -
     
@@ -41,21 +41,22 @@ final class EditorBottomNavigationManager: EditorBottomNavigationManagerProtocol
         updateNavigationVisibility(animated: false)
     }
     
+    // TODO: Add animation?
     private func updateNavigationVisibility(animated: Bool) {
         if isMultiselectActive {
-            browser?.setNavigationViewHidden(true, animated: animated)
+            output?.setHomeBottomPanelHidden(true, animated: animated)
             return
         }
         
         if isStyleViewActive {
-            browser?.setNavigationViewHidden(true, animated: animated)
+            output?.setHomeBottomPanelHidden(true, animated: animated)
             return
         }
 
         if scrollDirectionBottom {
-            browser?.setNavigationViewHidden(true, animated: animated)
+            output?.setHomeBottomPanelHidden(true, animated: animated)
         } else {
-            browser?.setNavigationViewHidden(false, animated: animated)
+            output?.setHomeBottomPanelHidden(false, animated: animated)
         }
     }
 }

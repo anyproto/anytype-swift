@@ -48,7 +48,7 @@ final class SlashMenuActionHandler {
                         .createPage(targetId: blockId, spaceId: object.spaceId, typeUniqueKey: object.uniqueKeyValue, templateId: object.defaultTemplateId)
                         .flatMap { objectId in
                             AnytypeAnalytics.instance().logCreateObject(objectType: object.analyticsType, route: .powertool)
-                            self?.router.showPage(data: .page(EditorPageObject(objectId: objectId, spaceId: object.spaceId, isSupportedForEdit: true, isOpenedForPreview: false)))
+                            self?.router.showPage(data: .page(EditorPageObject(objectId: objectId, spaceId: object.spaceId, isOpenedForPreview: false)))
                         }
                 }
             }

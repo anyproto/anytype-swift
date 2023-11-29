@@ -5,8 +5,7 @@ import SwiftUI
 import FloatingPanel
 import AnytypeCore
 
-final class EditorRouter: NSObject, EditorRouterProtocol, ObjectSettingsCoordinatorOutput {
-    private weak var rootController: EditorBrowserController?
+final class EditorRouter: NSObject, EditorRouterProtocol, ObjectSettingsCoordinatorOutput, LinkToObjectCoordinatorOutput {
     private weak var viewController: UIViewController?
     private let navigationContext: NavigationContextProtocol
     private let fileCoordinator: FileDownloadingCoordinator
@@ -16,8 +15,7 @@ final class EditorRouter: NSObject, EditorRouterProtocol, ObjectSettingsCoordina
     private let setObjectCreationSettingsCoordinator: SetObjectCreationSettingsCoordinatorProtocol
     private let urlOpener: URLOpenerProtocol
     private let relationValueCoordinator: RelationValueCoordinatorProtocol
-    private let editorPageCoordinator: EditorPageCoordinatorProtocol
-    private let linkToObjectCoordinator: LinkToObjectCoordinatorProtocol
+    private let linkToObjectCoordinatorAssembly: LinkToObjectCoordinatorAssemblyProtocol
     private let objectCoverPickerModuleAssembly: ObjectCoverPickerModuleAssemblyProtocol
     private let objectIconPickerModuleAssembly: ObjectIconPickerModuleAssemblyProtocol
     private let objectSettingCoordinator: ObjectSettingsCoordinatorProtocol
@@ -26,11 +24,10 @@ final class EditorRouter: NSObject, EditorRouterProtocol, ObjectSettingsCoordina
     private let codeLanguageListModuleAssembly: CodeLanguageListModuleAssemblyProtocol
     private let newSearchModuleAssembly: NewSearchModuleAssemblyProtocol
     private let textIconPickerModuleAssembly: TextIconPickerModuleAssemblyProtocol
-    private let alertHelper: AlertHelper
     private let templateService: TemplatesServiceProtocol
-    
+    private weak var output: EditorPageModuleOutput?
+
     init(
-        rootController: EditorBrowserController?,
         viewController: UIViewController,
         navigationContext: NavigationContextProtocol,
         document: BaseDocumentProtocol,
@@ -39,8 +36,7 @@ final class EditorRouter: NSObject, EditorRouterProtocol, ObjectSettingsCoordina
         setObjectCreationSettingsCoordinator: SetObjectCreationSettingsCoordinatorProtocol,
         urlOpener: URLOpenerProtocol,
         relationValueCoordinator: RelationValueCoordinatorProtocol,
-        editorPageCoordinator: EditorPageCoordinatorProtocol,
-        linkToObjectCoordinator: LinkToObjectCoordinatorProtocol,
+        linkToObjectCoordinatorAssembly: LinkToObjectCoordinatorAssemblyProtocol,
         objectCoverPickerModuleAssembly: ObjectCoverPickerModuleAssemblyProtocol,
         objectIconPickerModuleAssembly: ObjectIconPickerModuleAssemblyProtocol,
         objectSettingCoordinator: ObjectSettingsCoordinatorProtocol,
@@ -49,10 +45,9 @@ final class EditorRouter: NSObject, EditorRouterProtocol, ObjectSettingsCoordina
         codeLanguageListModuleAssembly: CodeLanguageListModuleAssemblyProtocol,
         newSearchModuleAssembly: NewSearchModuleAssemblyProtocol,
         textIconPickerModuleAssembly: TextIconPickerModuleAssemblyProtocol,
-        alertHelper: AlertHelper,
-        templateService: TemplatesServiceProtocol
+        templateService: TemplatesServiceProtocol,
+        output: EditorPageModuleOutput?
     ) {
-        self.rootController = rootController
         self.viewController = viewController
         self.navigationContext = navigationContext
         self.document = document
@@ -62,8 +57,7 @@ final class EditorRouter: NSObject, EditorRouterProtocol, ObjectSettingsCoordina
         self.setObjectCreationSettingsCoordinator = setObjectCreationSettingsCoordinator
         self.urlOpener = urlOpener
         self.relationValueCoordinator = relationValueCoordinator
-        self.editorPageCoordinator = editorPageCoordinator
-        self.linkToObjectCoordinator = linkToObjectCoordinator
+        self.linkToObjectCoordinatorAssembly = linkToObjectCoordinatorAssembly
         self.objectCoverPickerModuleAssembly = objectCoverPickerModuleAssembly
         self.objectIconPickerModuleAssembly = objectIconPickerModuleAssembly
         self.objectSettingCoordinator = objectSettingCoordinator
@@ -72,8 +66,8 @@ final class EditorRouter: NSObject, EditorRouterProtocol, ObjectSettingsCoordina
         self.codeLanguageListModuleAssembly = codeLanguageListModuleAssembly
         self.newSearchModuleAssembly = newSearchModuleAssembly
         self.textIconPickerModuleAssembly = textIconPickerModuleAssembly
-        self.alertHelper = alertHelper
         self.templateService = templateService
+        self.output = output
     }
 
     func showPage(objectId: String) {
@@ -87,11 +81,15 @@ final class EditorRouter: NSObject, EditorRouterProtocol, ObjectSettingsCoordina
     }
     
     func showPage(data: EditorScreenData) {
-        editorPageCoordinator.startFlow(data: data, replaceCurrentPage: false)
+        Task { @MainActor in
+            output?.showEditorScreen(data: data)
+        }
     }
 
     func replaceCurrentPage(with data: EditorScreenData) {
-        editorPageCoordinator.startFlow(data: data, replaceCurrentPage: true)
+        Task { @MainActor in
+            output?.replaceEditorScreen(data: data)
+        }
     }
     
     func showAlert(alertModel: AlertModel) {
@@ -177,7 +175,6 @@ final class EditorRouter: NSObject, EditorRouterProtocol, ObjectSettingsCoordina
         let infos = informations.compactMap { document.infoContainer.get(id: $0.id) }
         guard
             let controller = viewController,
-            let rootController = rootController,
             infos.isNotEmpty
         else { return }
         guard let controller = controller as? EditorPageController else {
@@ -186,22 +183,21 @@ final class EditorRouter: NSObject, EditorRouterProtocol, ObjectSettingsCoordina
         }
 
         let popup = BottomSheetsFactory.createStyleBottomSheet(
-            parentViewController: rootController,
+            parentViewController: controller,
             infos: infos,
             actionHandler: controller.viewModel.actionHandler,
             restrictions: restrictions,
-            showMarkupMenu: { [weak controller, weak rootController, weak self] styleView, viewDidClose in
+            showMarkupMenu: { [weak controller, weak self] styleView, viewDidClose in
                 guard let self = self else { return }
                 guard let controller = controller else { return }
-                guard let rootController = rootController else { return }
 
                 BottomSheetsFactory.showMarkupBottomSheet(
-                    parentViewController: rootController,
+                    parentViewController: controller,
                     styleView: styleView,
                     document: self.document,
                     blockIds: infos.map { $0.id },
                     actionHandler: controller.viewModel.actionHandler,
-                    linkToObjectCoordinator: self.linkToObjectCoordinator,
+                    linkToObjectCoordinator: self.linkToObjectCoordinatorAssembly.make(output: self),
                     viewDidClose: viewDidClose
                 )
             },
@@ -307,8 +303,9 @@ final class EditorRouter: NSObject, EditorRouterProtocol, ObjectSettingsCoordina
     }
     
     func closeEditor() {
-        guard let viewController else { return }
-        rootController?.popIfPresent(viewController)
+        Task { @MainActor in
+            output?.closeEditor()
+        }
     }
     
     func presentSheet(_ vc: UIViewController) {
@@ -354,6 +351,19 @@ final class EditorRouter: NSObject, EditorRouterProtocol, ObjectSettingsCoordina
         )
     }
     
+    func showSettings(
+        delegate: ObjectSettingsModuleDelegate,
+        output: ObjectSettingsCoordinatorOutput?,
+        actionHandler: @escaping (ObjectSettingsAction) -> Void
+    ) {
+        objectSettingCoordinator.startFlow(
+            objectId: document.objectId,
+            delegate: delegate,
+            output: output,
+            objectSettingsHandler: actionHandler
+        )
+    }
+    
     func showCoverPicker(
         document: BaseDocumentGeneralProtocol,
         onCoverAction: @escaping (ObjectCoverPickerAction) -> Void
@@ -378,7 +388,7 @@ final class EditorRouter: NSObject, EditorRouterProtocol, ObjectSettingsCoordina
         selectedColor: UIColor?,
         selectedBackgroundColor: UIColor?
     ) {
-        guard let rootController = rootController else { return }
+        guard let viewController = viewController else { return }
 
         let styleColorViewController = StyleColorViewController(
             selectedColor: selectedColor,
@@ -387,14 +397,14 @@ final class EditorRouter: NSObject, EditorRouterProtocol, ObjectSettingsCoordina
                 viewController.removeFromParentEmbed()
             }
 
-        rootController.embedChild(styleColorViewController)
+        viewController.embedChild(styleColorViewController)
 
-        styleColorViewController.view.pinAllEdges(to: rootController.view)
+        styleColorViewController.view.pinAllEdges(to: viewController.view)
         styleColorViewController.colorView.containerView.layoutUsing.anchors {
             $0.width.equal(to: 260)
             $0.height.equal(to: 176)
-            $0.centerX.equal(to: rootController.view.centerXAnchor, constant: 10)
-            $0.bottom.equal(to: rootController.view.bottomAnchor, constant: -50)
+            $0.centerX.equal(to: viewController.view.centerXAnchor, constant: 10)
+            $0.bottom.equal(to: viewController.view.bottomAnchor, constant: -50)
         }
         UISelectionFeedbackGenerator().selectionChanged()
     }
@@ -404,8 +414,7 @@ final class EditorRouter: NSObject, EditorRouterProtocol, ObjectSettingsCoordina
         selectedBlockIds: [BlockId],
         viewDidClose: @escaping () -> Void
     ) {
-        guard let controller = viewController,
-            let rootController = rootController else { return }
+        guard let controller = viewController else { return }
         guard let controller = controller as? EditorPageController else {
             anytypeAssertionFailure("Not supported type of controller", info: ["controller": "\(controller)"])
             return
@@ -415,7 +424,7 @@ final class EditorRouter: NSObject, EditorRouterProtocol, ObjectSettingsCoordina
             document: document,
             blockIds: selectedBlockIds,
             actionHandler: controller.viewModel.actionHandler,
-            linkToObjectCoordinator: linkToObjectCoordinator
+            linkToObjectCoordinator: linkToObjectCoordinatorAssembly.make(output: self)
         )
         let viewController = MarkupsViewController(
             viewModel: viewModel,
@@ -424,14 +433,14 @@ final class EditorRouter: NSObject, EditorRouterProtocol, ObjectSettingsCoordina
 
         viewModel.view = viewController
 
-        rootController.embedChild(viewController)
+        controller.embedChild(viewController)
 
-        viewController.view.pinAllEdges(to: rootController.view)
+        viewController.view.pinAllEdges(to: controller.view)
         viewController.containerShadowView.layoutUsing.anchors {
             $0.width.equal(to: 240)
             $0.height.equal(to: 158)
-            $0.centerX.equal(to: rootController.view.centerXAnchor, constant: 10)
-            $0.bottom.equal(to: rootController.view.bottomAnchor, constant: -50)
+            $0.centerX.equal(to: controller.view.centerXAnchor, constant: 10)
+            $0.bottom.equal(to: controller.view.bottomAnchor, constant: -50)
         }
     }
     
@@ -456,7 +465,7 @@ final class EditorRouter: NSObject, EditorRouterProtocol, ObjectSettingsCoordina
         }
         navigationContext.present(alert)
     }
-    
+
     // MARK: - Private
     
     private func showURLInputViewController(
@@ -481,8 +490,7 @@ final class EditorRouter: NSObject, EditorRouterProtocol, ObjectSettingsCoordina
             selectedObjectId: selectedObjectId,
             excludedObjectTypeId: document.details?.type,
             showBookmark: showBookmark,
-            showSetAndCollection: showSetAndCollection,
-            browser: rootController
+            showSetAndCollection: showSetAndCollection
         ) { [weak self] type in
             self?.navigationContext.dismissTopPresented()
             onSelect(type)
@@ -542,8 +550,9 @@ extension EditorRouter: RelationValueCoordinatorOutput {
 
 extension EditorRouter: ObjectSettingsModuleDelegate {
     func didCreateLinkToItself(selfName: String, data: EditorScreenData) {
+        guard let objectId = data.objectId else { return }
         UIApplication.shared.hideKeyboard()
-        toastPresenter.showObjectName(selfName, middleAction: Loc.Editor.Toast.linkedTo, secondObjectId: data.objectId) { [weak self] in
+        toastPresenter.showObjectName(selfName, middleAction: Loc.Editor.Toast.linkedTo, secondObjectId: objectId) { [weak self] in
             self?.showPage(data: data)
         }
     }
@@ -557,7 +566,7 @@ extension EditorRouter: ObjectSettingsModuleDelegate {
             onTemplateSelection: nil,
             onSetAsDefaultTempalte: { [weak self] templateId in
                 self?.didTapUseTemplateAsDefault(templateId: templateId)
-            }, 
+            },
             completion: { [weak self] in
                 self?.toastPresenter.showObjectCompositeAlert(
                     prefixText: Loc.Templates.Popup.wasAddedTo,

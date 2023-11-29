@@ -271,6 +271,8 @@
 "Actions.LinkItself" = "Lien vers";
 "Actions.MakeAsTemplate" = "Créer un modèle";
 "Actions.TemplateMakeDefault" = "Make default";
+"Actions.CreateWidget.Title" = "Vers les widgets";
+"Actions.CreateWidget.Success" = "Un nouveau widget a été créé";
 
 // Object Type
 "Set" = "Set";
@@ -465,6 +467,7 @@
 
 "Error" = "Erreur";
 "Unknown error" = "Erreur inconnue";
+"Open Type Error" = "Type non supporté \"%@\". Vous ne pouvez pas l'ouvrir avec l'application.";
 "Close" = "Fermer";
 "Account is deleted" = "Le compte est supprimé";
 "Add phone" = "Ajouter un téléphone";
