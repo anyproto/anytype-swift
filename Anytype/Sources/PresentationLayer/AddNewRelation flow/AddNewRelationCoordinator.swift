@@ -71,6 +71,7 @@ extension AddNewRelationCoordinator: AddNewRelationCoordinatorProtocol {
         target: RelationsModuleTarget,
         onCompletion: ((_ newRelationDetails: RelationDetails, _ isNew: Bool) -> Void)?
     ) -> NewSearchView {
+        self.document = document
         self.onCompletion = onCompletion
         return newSearchModuleAssembly.relationsSearchModule(
             document: document,
