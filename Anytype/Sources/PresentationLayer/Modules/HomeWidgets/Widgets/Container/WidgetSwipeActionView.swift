@@ -8,13 +8,17 @@ struct WidgetSwipeActionView<Content: View>: View {
         case success
     }
     
-    @State private var dragOffsetX: CGFloat = 0
-    @State private var dragState: DragState = .cancel
-    @GestureState private var dragGestureActive = false
+    // MARK: - Gesture Config
     
     private let maxOffset: CGFloat = 130
     private let appyOffset: CGFloat = 110
     private let cancelOffset: CGFloat = 100
+    
+    // MARK: - State
+    
+    @State private var dragOffsetX: CGFloat = 0
+    @State private var dragState: DragState = .cancel
+    @GestureState private var dragGestureActive = false
     
     private var percent: CGFloat {
         let extraPercent = max((dragOffsetX - maxOffset) * 0.0015, 0)
@@ -49,21 +53,23 @@ struct WidgetSwipeActionView<Content: View>: View {
     
     private var container: some View {
         ZStack {
-            ZStack(alignment: .trailing) {
-                Color.Text.primary.opacity(0.25)
+            if dragOffsetX > 0 {
+                ZStack(alignment: .trailing) {
+                    Color.Widget.actionsBackground
                         .cornerRadius(16, style: .continuous)
-            
-                VStack(spacing: 0) {
-                    Image(asset: .X32.plus)
-                        .foregroundColor(.Text.white)
-                    if showTitle {
-                        AnytypeText(Loc.Widgets.Actions.newObject, style: .caption2Medium, color: .Text.white)
+                    
+                    VStack(spacing: 0) {
+                        Image(asset: .X32.plus)
+                            .foregroundColor(.Text.white)
+                        if showTitle {
+                            AnytypeText(Loc.Widgets.Actions.newObject, style: .caption2Medium, color: .Text.white)
+                        }
                     }
+                    .frame(width: 96)
+                    .padding(.trailing, 18)
+                    .opacity(percent)
+                    .scaleEffect(CGSize(width: percent, height: percent))
                 }
-                .frame(width: 96)
-                .padding(.trailing, 18)
-                .opacity(percent)
-                .scaleEffect(CGSize(width: percent, height: percent))
             }
             
             content
