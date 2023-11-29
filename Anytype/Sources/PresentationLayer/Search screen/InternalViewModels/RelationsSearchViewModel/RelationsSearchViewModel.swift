@@ -19,7 +19,7 @@ final class RelationsSearchViewModel: NewInternalSearchViewModelProtocol {
     
     private let document: BaseDocumentProtocol
     private let excludedRelationsIds: [String]
-    private let target: RelationsSearchTarget
+    private let target: RelationsModuleTarget
     private let interactor: RelationsSearchInteractor
     private let toastPresenter: ToastPresenterProtocol
     private let onSelect: (_ relation: RelationDetails) -> Void
@@ -27,7 +27,7 @@ final class RelationsSearchViewModel: NewInternalSearchViewModelProtocol {
     init(
         document: BaseDocumentProtocol,
         excludedRelationsIds: [String],
-        target: RelationsSearchTarget,
+        target: RelationsModuleTarget,
         interactor: RelationsSearchInteractor,
         toastPresenter: ToastPresenterProtocol,
         onSelect: @escaping (_ relation: RelationDetails) -> Void

@@ -22,23 +22,22 @@ protocol SetObjectCreationSettingsCoordinatorProtocol: AnyObject {
 final class SetObjectCreationSettingsCoordinator: SetObjectCreationSettingsCoordinatorProtocol {
     private let navigationContext: NavigationContextProtocol
     private let setObjectCreationSettingsAssembly: SetObjectCreationSettingsModuleAssemblyProtocol
-    private let editorAssembly: EditorAssembly
     private let newSearchModuleAssembly: NewSearchModuleAssemblyProtocol
-    private let objectSettingCoordinator: ObjectSettingsCoordinatorProtocol
+    private let editorPageCoordinatorAssembly: EditorPageCoordinatorAssemblyProtocol
     private var handler: TemplateSelectionObjectSettingsHandler?
+    
+    private var editorModuleInput: EditorPageModuleInput?
     
     init(
         navigationContext: NavigationContextProtocol,
         setObjectCreationSettingsAssembly: SetObjectCreationSettingsModuleAssemblyProtocol,
-        editorAssembly: EditorAssembly,
         newSearchModuleAssembly: NewSearchModuleAssemblyProtocol,
-        objectSettingCoordinator: ObjectSettingsCoordinatorProtocol
+        editorPageCoordinatorAssembly: EditorPageCoordinatorAssemblyProtocol
     ) {
         self.navigationContext = navigationContext
         self.setObjectCreationSettingsAssembly = setObjectCreationSettingsAssembly
-        self.editorAssembly = editorAssembly
         self.newSearchModuleAssembly = newSearchModuleAssembly
-        self.objectSettingCoordinator = objectSettingCoordinator
+        self.editorPageCoordinatorAssembly = editorPageCoordinatorAssembly
     }
     
     func showSetObjectCreationSettings(
@@ -84,7 +83,7 @@ final class SetObjectCreationSettingsCoordinator: SetObjectCreationSettingsCoord
                 completion: nil
             )
         }
-        
+
         let viewModel = AnytypePopupViewModel(
             contentView: view,
             popupLayout: .constantHeight(
@@ -106,30 +105,26 @@ final class SetObjectCreationSettingsCoordinator: SetObjectCreationSettingsCoord
         onSetAsDefaultTempalte: @escaping (BlockId) -> Void,
         completion: (() -> Void)?
     ) {
-        let editorPage = editorAssembly.buildPageModule(browser: nil, data: .init(
-            objectId: setting.templateId,
-            spaceId: setting.spaceId,
-            isSupportedForEdit: true,
-            isOpenedForPreview: false,
-            usecase: .templateEditing
-        ))
-       
-        let viewModel = editorPage.0.viewModel
+        let editorView = editorPageCoordinatorAssembly.make(
+            data: EditorPageObject(
+                objectId: setting.templateId,
+                spaceId: setting.spaceId,
+                isOpenedForPreview: false,
+                usecase: .templateEditing
+            ), 
+            showHeader: false,
+            setupEditorInput: { [weak self] input, _ in
+                self?.editorModuleInput = input
+            }
+        )
+        
         handler = TemplateSelectionObjectSettingsHandler(useAsTemplateAction: onSetAsDefaultTempalte)
         let editingTemplateViewController = TemplateEditingViewController(
-            editorViewController: editorPage.0,
-            onSettingsTap: { [weak self, weak viewModel] in
+            editorViewController: UIHostingController(rootView: editorView),
+            onSettingsTap: { [weak self] in
                 guard let self = self, let handler = self.handler else { return }
-                
-                self.objectSettingCoordinator.startFlow(
-                    objectId: setting.templateId,
-                    delegate: handler,
-                    output: self,
-                    objectSettingsHandler: {
-                        viewModel?.handleSettingsAction(action: $0)
-                    }
-                )
-            }, 
+                editorModuleInput?.showSettings(delegate: handler, output: self)
+            },
             onSelectTemplateTap: onTemplateSelection
         )
 
@@ -144,8 +139,7 @@ final class SetObjectCreationSettingsCoordinator: SetObjectCreationSettingsCoord
             title: Loc.changeType,
             spaceId: setDocument.spaceId,
             showBookmark: true,
-            showSetAndCollection: true,
-            browser: nil
+            showSetAndCollection: true
         ) { [weak self] type in
             self?.navigationContext.dismissTopPresented()
             onSelect(type)
@@ -159,6 +153,8 @@ extension SetObjectCreationSettingsCoordinator: ObjectSettingsCoordinatorOutput 
     func closeEditor() {
         navigationContext.dismissTopPresented(animated: true, completion: nil)
     }
+    
+    func showPage(data: EditorScreenData) {}
 }
 
 final class TemplateSelectionObjectSettingsHandler: ObjectSettingsModuleDelegate {

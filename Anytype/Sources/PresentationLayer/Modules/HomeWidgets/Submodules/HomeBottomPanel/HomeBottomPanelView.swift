@@ -7,72 +7,31 @@ struct HomeBottomPanelView: View {
     
     var body: some View {
         VStack(spacing: 0) {
-            switch model.buttonState {
-            case let .normal(buttons):
-                normalButtons(buttons)
-            case let .edit(buttons):
-                editButtons(buttons)
+            if model.isEditState {
+                editButtons
             }
-            Spacer.fixedHeight(32)
         }
         .animation(.default, value: model.isEditState)
     }
-
-    @ViewBuilder
-    func normalButtons(_ buttons: [HomeBottomPanelViewModel.ImageButton]) -> some View {
-        HStack(alignment: .center, spacing: 40) {
-            ForEach(buttons, id:\.self) { button in
-                VStack {
-                    if let image = button.image {
-                        IconView(icon: image)
-                            .if(button.padding) {
-                                $0.padding(EdgeInsets(side: 4))
-                            }
-                            .frame(width: 32, height: 32)
-                    }
-                }
-                .fixTappableArea()
-                .frame(width: 32, height: 32)
-                .onTapGesture {
-                    button.onTap()
-                }
-                .simultaneousGesture(
-                    LongPressGesture(minimumDuration: 0.3)
-                        .onEnded { _ in
-                            button.onLongTap?()
-                        }
-                )
-                .ifLet(button.tip) { view, tip in
-                    switch tip {
-                    case .createLogTapObject:
-                        view.popoverHomeCreateObjectTip()
-                    }
-                }
-            }
+    
+    private var editButtons: some View {
+        HStack(alignment: .center, spacing: 10) {
+            makeButton(action: { model.onTapAdd() }, text: Loc.add)
+            makeButton(action: { model.onTapDone() }, text: Loc.done)
         }
-        .padding(.horizontal, 20)
+        .padding(.horizontal, 26)
         .padding(.vertical, 10)
-        .background(Color.Widget.bottomPanel)
-        .background(.ultraThinMaterial)
-        .cornerRadius(16, style: .continuous)
         .transition(.scale(scale: 0.8).combined(with: .opacity))
     }
     
-    @ViewBuilder
-    func editButtons(_ buttons: [HomeBottomPanelViewModel.TexButton]) -> some View {
-        HStack(alignment: .center, spacing: 10) {
-            ForEach(buttons, id:\.self) { button in
-                Button(action: button.onTap, label: {
-                    AnytypeText(button.text, style: .uxBodyRegular, color: .Text.white)
-                        .frame(maxWidth: .infinity)
-                })
-                .frame(height: 52)
-                .background(Color.Widget.bottomPanel)
-                .background(.ultraThinMaterial)
-                .cornerRadius(14, style: .continuous)
-            }
-        }
-        .padding(.horizontal, 26)
-        .transition(.scale(scale: 0.8).combined(with: .opacity))
+    private func makeButton(action: @escaping () -> Void, text: String) -> some View {
+        Button(action: action, label: {
+            AnytypeText(text, style: .uxBodyRegular, color: .Text.white)
+                .frame(maxWidth: .infinity)
+        })
+        .frame(height: 52)
+        .background(Color.Widget.bottomPanel)
+        .background(.ultraThinMaterial)
+        .cornerRadius(14, style: .continuous)
     }
 }

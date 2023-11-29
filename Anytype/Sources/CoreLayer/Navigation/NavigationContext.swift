@@ -35,9 +35,9 @@ extension NavigationContextProtocol {
         present(controller, animated: animated)
     }
     
-    func present<Content: View>(_ view: Content, animated: Bool = true) {
+    func present<Content: View>(_ view: Content, animated: Bool = true, completion: (() -> Void)? = nil) {
         let controller = UIHostingController(rootView: view)
-        present(controller, animated: animated)
+        present(controller, animated: animated, completion: completion)
     }
     
     func push(_ viewControllerToPresent: UIViewController) {

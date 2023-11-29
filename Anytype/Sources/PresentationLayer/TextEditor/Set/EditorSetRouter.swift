@@ -6,15 +6,13 @@ import SwiftUI
 
 protocol EditorSetRouterProtocol:
     AnyObject,
-    EditorPageOpenRouterProtocol,
     ObjectHeaderRouterProtocol
 {
     
     func showSetSettings(subscriptionDetailsStorage: ObjectDetailsStorage)
     func showSetSettingsLegacy(onSettingTap: @escaping (EditorSetSetting) -> Void)
     func dismissSetSettingsIfNeeded()
-    
-    func setNavigationViewHidden(_ isHidden: Bool, animated: Bool)
+
     func showViewPicker(subscriptionDetailsStorage: ObjectDetailsStorage, showViewTypes: @escaping RoutingAction<DataviewView?>)
     
     func showCreateObject(setting: ObjectCreationSetting?)
@@ -43,10 +41,7 @@ protocol EditorSetRouterProtocol:
     
     func showSettings(actionHandler: @escaping (ObjectSettingsAction) -> Void)
     func showQueries(selectedObjectId: BlockId?, onSelect: @escaping (BlockId) -> ())
-    
-    func closeEditor()
-    func showPage(data: EditorScreenData)
-    func replaceCurrentPage(with data: EditorScreenData)
+
     func showRelationValueEditingView(key: String)
     func showRelationValueEditingView(objectDetails: ObjectDetails, relation: Relation)
     
@@ -58,21 +53,19 @@ protocol EditorSetRouterProtocol:
         viewId: String,
         onTemplateSelection: @escaping (ObjectCreationSetting) -> ()
     )
-    
+
     @MainActor
     func showOpenDocumentError(error: Error)
 }
 
-final class EditorSetRouter: EditorSetRouterProtocol, ObjectSettingsCoordinatorOutput {
+final class EditorSetRouter: EditorSetRouterProtocol, ObjectSettingsCoordinatorOutput, SetObjectCreationCoordinatorOutput {
     
     // MARK: - DI
     
     private let setDocument: SetDocumentProtocol
-    private weak var rootController: EditorBrowserController?
     private let navigationContext: NavigationContextProtocol
     private let createObjectModuleAssembly: CreateObjectModuleAssemblyProtocol
     private let newSearchModuleAssembly: NewSearchModuleAssemblyProtocol
-    private let editorPageCoordinator: EditorPageCoordinatorProtocol
     private let objectSettingCoordinator: ObjectSettingsCoordinatorProtocol
     private let relationValueCoordinator: RelationValueCoordinatorProtocol
     private let setObjectCreationCoordinator: SetObjectCreationCoordinatorProtocol
@@ -86,20 +79,18 @@ final class EditorSetRouter: EditorSetRouterProtocol, ObjectSettingsCoordinatorO
     private let editorSetRelationsCoordinatorAssembly: SetRelationsCoordinatorAssemblyProtocol
     private let setViewPickerCoordinatorAssembly: SetViewPickerCoordinatorAssemblyProtocol
     private let toastPresenter: ToastPresenterProtocol
-    private let alertHelper: AlertHelper
     private let setObjectCreationSettingsCoordinator: SetObjectCreationSettingsCoordinatorProtocol
-    
+    private var output: EditorSetModuleOutput?
+
     // MARK: - State
     
     private weak var currentSetSettingsPopup: AnytypePopup?
     
     init(
         setDocument: SetDocumentProtocol,
-        rootController: EditorBrowserController?,
         navigationContext: NavigationContextProtocol,
         createObjectModuleAssembly: CreateObjectModuleAssemblyProtocol,
         newSearchModuleAssembly: NewSearchModuleAssemblyProtocol,
-        editorPageCoordinator: EditorPageCoordinatorProtocol,
         objectSettingCoordinator: ObjectSettingsCoordinatorProtocol,
         relationValueCoordinator: RelationValueCoordinatorProtocol,
         setObjectCreationCoordinator: SetObjectCreationCoordinatorProtocol,
@@ -113,15 +104,13 @@ final class EditorSetRouter: EditorSetRouterProtocol, ObjectSettingsCoordinatorO
         editorSetRelationsCoordinatorAssembly: SetRelationsCoordinatorAssemblyProtocol,
         setViewPickerCoordinatorAssembly: SetViewPickerCoordinatorAssemblyProtocol,
         toastPresenter: ToastPresenterProtocol,
-        alertHelper: AlertHelper,
-        setObjectCreationSettingsCoordinator: SetObjectCreationSettingsCoordinatorProtocol
+        setObjectCreationSettingsCoordinator: SetObjectCreationSettingsCoordinatorProtocol,
+        output: EditorSetModuleOutput?
     ) {
         self.setDocument = setDocument
-        self.rootController = rootController
         self.navigationContext = navigationContext
         self.createObjectModuleAssembly = createObjectModuleAssembly
         self.newSearchModuleAssembly = newSearchModuleAssembly
-        self.editorPageCoordinator = editorPageCoordinator
         self.objectSettingCoordinator = objectSettingCoordinator
         self.relationValueCoordinator = relationValueCoordinator
         self.setObjectCreationCoordinator = setObjectCreationCoordinator
@@ -135,8 +124,8 @@ final class EditorSetRouter: EditorSetRouterProtocol, ObjectSettingsCoordinatorO
         self.editorSetRelationsCoordinatorAssembly = editorSetRelationsCoordinatorAssembly
         self.setViewPickerCoordinatorAssembly = setViewPickerCoordinatorAssembly
         self.toastPresenter = toastPresenter
-        self.alertHelper = alertHelper
         self.setObjectCreationSettingsCoordinator = setObjectCreationSettingsCoordinator
+        self.output = output
     }
     
     // MARK: - EditorSetRouterProtocol
@@ -167,11 +156,7 @@ final class EditorSetRouter: EditorSetRouterProtocol, ObjectSettingsCoordinatorO
     func dismissSetSettingsIfNeeded() {
         currentSetSettingsPopup?.dismiss(animated: false)
     }
-    
-    func setNavigationViewHidden(_ isHidden: Bool, animated: Bool) {
-        rootController?.setNavigationViewHidden(isHidden, animated: animated)
-    }
-    
+
     @MainActor
     func showViewPicker(
         subscriptionDetailsStorage: ObjectDetailsStorage,
@@ -186,7 +171,7 @@ final class EditorSetRouter: EditorSetRouterProtocol, ObjectSettingsCoordinatorO
     }
     
     func showCreateObject(setting: ObjectCreationSetting?) {
-        setObjectCreationCoordinator.startCreateObject(setDocument: setDocument, setting: setting)
+        setObjectCreationCoordinator.startCreateObject(setDocument: setDocument, setting: setting, output: self)
     }
     
     func showRelationSearch(relationsDetails: [RelationDetails], onSelect: @escaping (RelationDetails) -> Void) {
@@ -365,7 +350,9 @@ final class EditorSetRouter: EditorSetRouterProtocol, ObjectSettingsCoordinatorO
     }
     
     func closeEditor() {
-        rootController?.pop()
+        Task { @MainActor in
+            output?.closeEditor()
+        }
     }
     
     func showRelationValueEditingView(key: String) {
@@ -383,11 +370,9 @@ final class EditorSetRouter: EditorSetRouterProtocol, ObjectSettingsCoordinatorO
     }
     
     func showPage(data: EditorScreenData) {
-        editorPageCoordinator.startFlow(data: data, replaceCurrentPage: false)
-    }
-    
-    func replaceCurrentPage(with data: EditorScreenData) {
-        editorPageCoordinator.startFlow(data: data, replaceCurrentPage: true)
+        Task { @MainActor in
+            output?.showEditorScreen(data: data)
+        }
     }
     
     func showFailureToast(message: String) {
@@ -415,6 +400,12 @@ final class EditorSetRouter: EditorSetRouterProtocol, ObjectSettingsCoordinatorO
         navigationContext.present(alert)
     }
     
+    // MARK: - SetObjectCreationCoordinatorOutput
+    
+    func showEditorScreen(data: EditorScreenData) {
+        showPage(data: data)
+    }
+
     // MARK: - Private
     
     private func showTypesSearch(
@@ -430,8 +421,7 @@ final class EditorSetRouter: EditorSetRouterProtocol, ObjectSettingsCoordinatorO
             selectedObjectId: selectedObjectId,
             excludedObjectTypeId: setDocument.details?.type,
             showBookmark: showBookmark,
-            showSetAndCollection: showSetAndCollection,
-            browser: rootController
+            showSetAndCollection: showSetAndCollection
         ) { [weak self] type in
             self?.navigationContext.dismissTopPresented()
             onSelect(type.id)
@@ -480,8 +470,9 @@ extension EditorSetRouter: ObjectSettingsModuleDelegate {
     }
     
     func didCreateLinkToItself(selfName: String, data: EditorScreenData) {
+        guard let objectId = data.objectId else { return }
         UIApplication.shared.hideKeyboard()
-        toastPresenter.showObjectName(selfName, middleAction: Loc.Editor.Toast.linkedTo, secondObjectId: data.objectId) { [weak self] in
+        toastPresenter.showObjectName(selfName, middleAction: Loc.Editor.Toast.linkedTo, secondObjectId: objectId) { [weak self] in
             self?.showPage(data: data)
         }
     }

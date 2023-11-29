@@ -103,8 +103,7 @@ final class TemplatePickerViewModel: ObservableObject, OptionsItemProvider {
                 return .template(
                     .init(
                         id: info.offset + 1,
-                        viewController: GenericUIKitToSwiftUIView(viewController: model.editorController),
-                        viewModel: model.editorController.viewModel,
+                        view: model.editorView,
                         object: model.template
                     )
                 )
@@ -148,7 +147,7 @@ extension TemplatePickerViewModel {
     enum Item: Identifiable {
         case blank(Int)
         case template(TemplateModel)
-        
+
         var id: Int {
             switch self {
             case let .blank(id):
@@ -157,11 +156,10 @@ extension TemplatePickerViewModel {
                 return model.id
             }
         }
-        
+
         struct TemplateModel {
             let id: Int
-            let viewController: GenericUIKitToSwiftUIView
-            let viewModel: EditorPageViewModelProtocol
+            let view: AnyView
             let object: ObjectDetails
         }
     }

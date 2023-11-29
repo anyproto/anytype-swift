@@ -272,6 +272,8 @@
 "Actions.LinkItself" = "Liên kết đến";
 "Actions.MakeAsTemplate" = "Biến thành mẫu";
 "Actions.TemplateMakeDefault" = "Make default";
+"Actions.CreateWidget.Title" = "To widgets";
+"Actions.CreateWidget.Success" = "New widget was created";
 
 // Object Type
 "Set" = "Tập";
@@ -466,6 +468,7 @@
 
 "Error" = "Error";
 "Unknown error" = "Lỗi không xác định";
+"Open Type Error" = "Not supported type \"%@\". You can open it via desktop.";
 "Close" = "Close";
 "Account is deleted" = "Tài khoản đã bị xóa";
 "Add phone" = "Thêm số điện thoại";

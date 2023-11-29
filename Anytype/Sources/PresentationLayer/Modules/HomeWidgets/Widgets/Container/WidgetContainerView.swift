@@ -34,20 +34,8 @@ struct WidgetContainerView<Content: View, ContentVM: WidgetContainerContentViewM
             },
             content: {
                 content
-                    .onAppear {
-                        model.onAppearContent()
-                    }
-                    .onDisappear {
-                        model.onDisappearContent()
-                    }
             }
         )
-        .onAppear {
-            model.onAppear()
-        }
-        .onDisappear {
-            model.onDisappear()
-        }
         .contextMenu {
             contextMenuItems
         }

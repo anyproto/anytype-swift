@@ -56,7 +56,7 @@ final class SetContentViewDataBuilder {
         storage: ObjectDetailsStorage,
         spaceId: String,
         onIconTap: @escaping (ObjectDetails) -> Void,
-        onItemTap: @escaping (ObjectDetails) -> Void
+        onItemTap: @escaping @MainActor (ObjectDetails) -> Void
     ) -> [SetContentViewItemConfiguration] {
         
         let relationsDetails = sortedRelations(

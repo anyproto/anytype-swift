@@ -104,7 +104,7 @@ final class ListWidgetViewModel: WidgetContainerContentViewModelProtocol, Observ
     }
     
     private func updateViewState() {
-        withAnimation {
+        withAnimation(rows.isNil ? nil : .default) {
             rows = rowDetails?.map { details in
                 ListWidgetRowModel(
                     details: details,
@@ -120,7 +120,7 @@ final class ListWidgetViewModel: WidgetContainerContentViewModelProtocol, Observ
     }
     
     private func updateHeader(dataviewState: WidgetDataviewState?) {
-        withAnimation {
+        withAnimation(headerItems.isNil ? nil : .default) {
             headerItems = dataviewState?.dataview.map { dataView in
                 ListWidgetHeaderItem.Model(
                     dataviewId: dataView.id,

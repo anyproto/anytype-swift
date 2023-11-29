@@ -7,7 +7,6 @@ import SwiftUI
 final class EditorPageController: UIViewController {
     
     let bottomNavigationManager: EditorBottomNavigationManagerProtocol
-    private(set) weak var browserViewInput: EditorBrowserViewInputProtocol?
     private(set) lazy var dataSource = makeCollectionViewDataSource()
     private weak var firstResponderView: UIView?
 
@@ -52,7 +51,8 @@ final class EditorPageController: UIViewController {
     }()
 
     private lazy var navigationBarHelper: EditorNavigationBarHelper = EditorNavigationBarHelper(
-        viewController: self,
+        navigationBarView: navigationBarView,
+        navigationBarBackgroundView: navigationBarBackgroundView,
         onSettingsBarButtonItemTap: { [weak viewModel] in
             UISelectionFeedbackGenerator().selectionChanged()
             viewModel?.showSettings()
@@ -66,7 +66,9 @@ final class EditorPageController: UIViewController {
     )
 
     private let blocksSelectionOverlayView: BlocksSelectionOverlayView
-    
+    private let navigationBarView = EditorNavigationBarView()
+    private let navigationBarBackgroundView = UIView()
+    private let showHeader: Bool
     var viewModel: EditorPageViewModelProtocol! {
         didSet {
             viewModel.setupSubscriptions()
@@ -75,19 +77,19 @@ final class EditorPageController: UIViewController {
 
     private var selectingRangeEditorItem: EditorItem?
     private var selectingRangeTextView: UITextView?
-
+    
     private var cancellables = [AnyCancellable]()
     
     // MARK: - Initializers
     init(
         blocksSelectionOverlayView: BlocksSelectionOverlayView,
         bottomNavigationManager: EditorBottomNavigationManagerProtocol,
-        browserViewInput: EditorBrowserViewInputProtocol?
+        showHeader: Bool
     ) {
         self.blocksSelectionOverlayView = blocksSelectionOverlayView
         self.bottomNavigationManager = bottomNavigationManager
-        self.browserViewInput = browserViewInput
-
+        self.showHeader = showHeader
+        
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -197,7 +199,6 @@ final class EditorPageController: UIViewController {
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         viewModel.viewDidAppear()
-        browserViewInput?.didShow(collectionView: collectionView)
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -387,7 +388,6 @@ extension EditorPageController: EditorPageViewInput {
         }
     }
     
-    func textBlockWillBeginEditing() { }
     func textBlockDidBeginEditing(firstResponderView: UIView) {
         self.firstResponderView = firstResponderView
     }
@@ -459,7 +459,7 @@ private extension EditorPageController {
     
     func setupView() {
         view.backgroundColor = .Background.primary
-        
+        navigationBarBackgroundView.backgroundColor = .Background.primary
         setupCollectionView()
         
         setupInteractions()
@@ -471,6 +471,7 @@ private extension EditorPageController {
         collectionView.delegate = self
         collectionView.dropDelegate = self
         collectionView.addGestureRecognizer(self.listViewTapGestureRecognizer)
+        collectionView.scrollIndicatorInsets = UIEdgeInsets(top: 44, left: 0, bottom: 0, right: 0)
     }
     
     func setupInteractions() {
@@ -492,12 +493,19 @@ private extension EditorPageController {
             }
         }
 
-        navigationBarHelper.addFakeNavigationBarBackgroundView(to: view)
-
         view.addSubview(blocksSelectionOverlayView) {
             $0.pinToSuperview()
         }
-
+        if showHeader {
+            view.addSubview(navigationBarBackgroundView) {
+                $0.pinToSuperview(excluding: [.bottom])
+            }
+            view.addSubview(navigationBarView) {
+                $0.pinToSuperview(excluding: [.bottom, .top])
+                $0.top.equal(to: view.safeAreaLayoutGuide.topAnchor)
+                $0.bottom.equal(to: navigationBarBackgroundView.bottomAnchor)
+            }
+        }
         blocksSelectionOverlayView.isHidden = true
     }
 
