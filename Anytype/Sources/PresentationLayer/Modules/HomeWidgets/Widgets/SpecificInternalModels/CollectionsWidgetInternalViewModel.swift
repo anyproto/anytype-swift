@@ -1,6 +1,7 @@
 import Foundation
 import Services
 import Combine
+import UIKit
 
 @MainActor
 final class CollectionsWidgetInternalViewModel: CommonWidgetInternalViewModel, WidgetInternalViewModelProtocol {
@@ -8,7 +9,9 @@ final class CollectionsWidgetInternalViewModel: CommonWidgetInternalViewModel, W
     // MARK: - DI
     
     private let subscriptionService: CollectionsSubscriptionServiceProtocol
-    
+    private let pageRepository: PageRepositoryProtocol
+    private weak var output: CommonWidgetModuleOutput?
+
     // MARK: - State
     
     @Published private var details: [ObjectDetails]?
@@ -16,13 +19,18 @@ final class CollectionsWidgetInternalViewModel: CommonWidgetInternalViewModel, W
     
     var detailsPublisher: AnyPublisher<[ObjectDetails]?, Never> { $details.eraseToAnyPublisher() }
     var namePublisher: AnyPublisher<String, Never> { $name.eraseToAnyPublisher() }
+    var allowCreateObject = true
     
     init(
         widgetBlockId: BlockId,
         widgetObject: BaseDocumentProtocol,
-        subscriptionService: CollectionsSubscriptionServiceProtocol
+        subscriptionService: CollectionsSubscriptionServiceProtocol,
+        pageRepository: PageRepositoryProtocol,
+        output: CommonWidgetModuleOutput?
     ) {
         self.subscriptionService = subscriptionService
+        self.pageRepository = pageRepository
+        self.output = output
         super.init(widgetBlockId: widgetBlockId, widgetObject: widgetObject)
     }
     
@@ -44,6 +52,23 @@ final class CollectionsWidgetInternalViewModel: CommonWidgetInternalViewModel, W
     
     func analyticsSource() -> AnalyticsWidgetSource {
         return .collections
+    }
+    
+    func onCreateObjectTap() {
+        Task {
+            let details = try await pageRepository.createPage(
+                name: "",
+                typeUniqueKey: .collection,
+                shouldDeleteEmptyObject: true,
+                shouldSelectType: false,
+                shouldSelectTemplate: false,
+                spaceId: widgetObject.spaceId,
+                origin: .none,
+                templateId: nil
+            )
+            output?.onObjectSelected(screenData: details.editorScreenData())
+            UISelectionFeedbackGenerator().selectionChanged()
+        }
     }
     
     // MARK: - CommonWidgetInternalViewModel oveerides

@@ -6,6 +6,7 @@ import Services
 protocol WidgetInternalViewModelProtocol: AnyObject {
     var detailsPublisher: AnyPublisher<[ObjectDetails]?, Never> { get }
     var namePublisher: AnyPublisher<String, Never> { get }
+    var allowCreateObject: Bool { get }
     
     func startHeaderSubscription()
     func stopHeaderSubscription()
@@ -13,4 +14,10 @@ protocol WidgetInternalViewModelProtocol: AnyObject {
     func stopContentSubscription() async
     func screenData() -> EditorScreenData?
     func analyticsSource() -> AnalyticsWidgetSource
+    func onCreateObjectTap()
+}
+
+extension WidgetInternalViewModelProtocol {
+    var allowCreateObject: Bool { false }
+    func onCreateObjectTap() {}
 }

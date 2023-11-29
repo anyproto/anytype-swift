@@ -217,6 +217,7 @@ extension UIColor.Widget {
     static let collectionInfo = ColorCollectionInfo(
         name: "Widget",
         colors: [
+            ColorInfo(name: "actionsBackground", color: UIColor.Widget.actionsBackground), 
             ColorInfo(name: "bottomPanel", color: UIColor.Widget.bottomPanel), 
             ColorInfo(name: "card", color: UIColor.Widget.card), 
             ColorInfo(name: "divider", color: UIColor.Widget.divider), 

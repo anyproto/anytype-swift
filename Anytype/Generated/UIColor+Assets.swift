@@ -134,6 +134,7 @@ extension UIColor {
     
     // MARK: - Widget
     enum Widget {
+      internal static let actionsBackground = UIColor(asset: Asset.Widget.actionsBackground)
       internal static let bottomPanel = UIColor(asset: Asset.Widget.bottomPanel)
       internal static let card = UIColor(asset: Asset.Widget.card)
       internal static let divider = UIColor(asset: Asset.Widget.divider)

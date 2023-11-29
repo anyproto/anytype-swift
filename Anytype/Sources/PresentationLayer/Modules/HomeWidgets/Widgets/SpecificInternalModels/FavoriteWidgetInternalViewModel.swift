@@ -1,6 +1,7 @@
 import Foundation
 import Services
 import Combine
+import UIKit
 
 @MainActor
 final class FavoriteWidgetInternalViewModel: CommonWidgetInternalViewModel, WidgetInternalViewModelProtocol {
@@ -8,6 +9,9 @@ final class FavoriteWidgetInternalViewModel: CommonWidgetInternalViewModel, Widg
     // MARK: - DI
     
     private let favoriteSubscriptionService: FavoriteSubscriptionServiceProtocol
+    private let pageRepository: PageRepositoryProtocol
+    private let objectActionsService: ObjectActionsServiceProtocol
+    private weak var output: CommonWidgetModuleOutput?
     
     // MARK: - State
     
@@ -17,16 +21,23 @@ final class FavoriteWidgetInternalViewModel: CommonWidgetInternalViewModel, Widg
     
     var detailsPublisher: AnyPublisher<[ObjectDetails]?, Never> { $details.eraseToAnyPublisher() }
     var namePublisher: AnyPublisher<String, Never> { $name.eraseToAnyPublisher() }
+    var allowCreateObject = true
     
     init(
         widgetBlockId: BlockId,
         widgetObject: BaseDocumentProtocol,
         favoriteSubscriptionService: FavoriteSubscriptionServiceProtocol,
         activeWorkspaceStorage: ActiveWorkpaceStorageProtocol,
-        documentService: OpenedDocumentsProviderProtocol
+        documentService: OpenedDocumentsProviderProtocol,
+        pageRepository: PageRepositoryProtocol,
+        objectActionsService: ObjectActionsServiceProtocol,
+        output: CommonWidgetModuleOutput?
     ) {
         self.favoriteSubscriptionService = favoriteSubscriptionService
         self.document = documentService.document(objectId: activeWorkspaceStorage.workspaceInfo.homeObjectID)
+        self.pageRepository = pageRepository
+        self.objectActionsService = objectActionsService
+        self.output = output
         super.init(widgetBlockId: widgetBlockId, widgetObject: widgetObject)
     }
     
@@ -48,6 +59,15 @@ final class FavoriteWidgetInternalViewModel: CommonWidgetInternalViewModel, Widg
     
     func analyticsSource() -> AnalyticsWidgetSource {
         return .favorites
+    }
+    
+    func onCreateObjectTap() {
+        Task {
+            let details = try await pageRepository.createDefaultPage(name: "", shouldDeleteEmptyObject: true, spaceId: widgetObject.spaceId)
+            try await objectActionsService.setFavorite(objectIds: [details.id], true)
+            output?.onObjectSelected(screenData: details.editorScreenData())
+            UISelectionFeedbackGenerator().selectionChanged()
+        }
     }
     
     // MARK: - CommonWidgetInternalViewModel oveerides
