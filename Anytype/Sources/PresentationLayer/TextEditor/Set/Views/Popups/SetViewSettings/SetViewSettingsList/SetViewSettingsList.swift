@@ -3,6 +3,7 @@ import SwiftUI
 struct SetViewSettingsList: View {
     @StateObject var model: SetViewSettingsListModel
     @Environment(\.presentationMode) @Binding private var presentationMode
+    @FocusState private var isFocused: Bool
     
     var body: some View {
         VStack(spacing: 0) {
@@ -43,7 +44,10 @@ struct SetViewSettingsList: View {
                 .padding(.horizontal, 16)
         }
         .overlay(
-            RoundedRectangle(cornerRadius: 10).stroke(Color.Stroke.primary, lineWidth: 1)
+            RoundedRectangle(cornerRadius: 10).stroke(
+                isFocused ? Color.System.amber50 : Color.Stroke.primary,
+                lineWidth: isFocused ? 2 : 1
+            )
         )
     }
     
@@ -61,7 +65,10 @@ struct SetViewSettingsList: View {
         )
         .foregroundColor(.Text.primary)
         .font(AnytypeFontBuilder.font(anytypeFont: .uxTitle1Semibold))
-        .focused($model.focused)
+        .focused($isFocused)
+        .task {
+            isFocused = model.shouldSetupFocus()
+        }
         
         Spacer.fixedHeight(10)
     }
