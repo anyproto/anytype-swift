@@ -21,7 +21,7 @@ struct BottomAlertView: View {
             Spacer.fixedHeight(7)
             AnytypeText(message, style: .bodyRegular, color: .Text.primary)
                 .multilineTextAlignment(.center)
-            Spacer.fixedHeight(20)
+            Spacer.fixedHeight(30)
             BottomAlertButtonView(buttons: buttons)
         }
         .padding(.top, 20)
