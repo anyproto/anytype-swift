@@ -22,7 +22,8 @@ final class ServiceLocator {
     lazy private(set) var unsplashService: UnsplashServiceProtocol = UnsplashService()
     lazy private(set) var documentsProvider: DocumentsProviderProtocol = DocumentsProvider(
         relationDetailsStorage: relationDetailsStorage(),
-        objectTypeProvider: objectTypeProvider()
+        objectTypeProvider: objectTypeProvider(),
+        blockActionsService: blockActionsServiceSingle()
     )
     
     // MARK: - Services
