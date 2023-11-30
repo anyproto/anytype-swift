@@ -29,10 +29,10 @@ struct EditorSetView: View {
             dismiss()
         }
         .anytypeStatusBar(style: .default)
-        .anytypeBottomAlert(isPresented: $model.showUpdateAlert) {
+        .anytypeSheet(isPresented: $model.showUpdateAlert, onDismiss: { dismiss() }) {
             DocumentUpdateAlertView { dismiss() }
         }
-        .anytypeBottomAlert(isPresented: $model.showCommonOpenError) {
+        .anytypeSheet(isPresented: $model.showCommonOpenError, onDismiss: { dismiss() }) {
             DocumentCommonOpenErrorView { dismiss() }
         }
     }

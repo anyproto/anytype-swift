@@ -14,10 +14,10 @@ struct EditorPageView: View {
             .onChange(of: model.dismiss) { _ in
                 dismiss()
             }
-            .anytypeBottomAlert(isPresented: $model.showUpdateAlert) {
+            .anytypeSheet(isPresented: $model.showUpdateAlert, onDismiss: { dismiss() }) {
                 DocumentUpdateAlertView { dismiss() }
             }
-            .anytypeBottomAlert(isPresented: $model.showCommonOpenError) {
+            .anytypeSheet(isPresented: $model.showCommonOpenError, onDismiss: { dismiss() }) {
                 DocumentCommonOpenErrorView { dismiss() }
             }
     }

@@ -11,6 +11,8 @@ struct BottomAlertView: View {
     
     var body: some View {
         VStack(spacing: 0) {
+            DragIndicator()
+            Spacer.fixedHeight(4)
             if let icon, let style {
                 ButtomAlertHeaderImageView(icon: icon, style: style)
                 Spacer.fixedHeight(15)
@@ -24,7 +26,6 @@ struct BottomAlertView: View {
             Spacer.fixedHeight(30)
             BottomAlertButtonView(buttons: buttons)
         }
-        .padding(.top, 20)
         .padding(.bottom, 10)
         .padding(.horizontal, 20)
         .background(Color.Background.secondary)
