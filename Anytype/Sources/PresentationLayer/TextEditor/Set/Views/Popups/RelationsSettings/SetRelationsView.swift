@@ -34,7 +34,7 @@ struct SetRelationsView: View {
                     .environment(\.editMode, $editMode)
             }
             ToolbarItem(placement: .principal) {
-                AnytypeText(FeatureFlags.newSetSettings ? Loc.relations : Loc.settings, style: .uxTitle1Semibold, color: .Text.primary)
+                AnytypeText(Loc.relations, style: .uxTitle1Semibold, color: .Text.primary)
             }
             ToolbarItem(placement: .navigationBarTrailing) {
                 Button(action: {

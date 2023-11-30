@@ -10,25 +10,13 @@ protocol EditorSetRouterProtocol:
 {
     
     func showSetSettings(subscriptionDetailsStorage: ObjectDetailsStorage)
-    func showSetSettingsLegacy(onSettingTap: @escaping (EditorSetSetting) -> Void)
-    func dismissSetSettingsIfNeeded()
-
-    func showViewPicker(subscriptionDetailsStorage: ObjectDetailsStorage, showViewTypes: @escaping RoutingAction<DataviewView?>)
+    
+    func showViewPicker(subscriptionDetailsStorage: ObjectDetailsStorage)
     
     func showCreateObject(setting: ObjectCreationSetting?)
     
     func showRelationSearch(relationsDetails: [RelationDetails], onSelect: @escaping (RelationDetails) -> Void)
-    func showViewTypes(
-        setDocument: SetDocumentProtocol,
-        activeView: DataviewView?,
-        dataviewService: DataviewServiceProtocol
-    )
-    
-    func showViewSettings(setDocument: SetDocumentProtocol)
-    func showSorts()
-    func showFilters(setDocument: SetDocumentProtocol, subscriptionDetailsStorage: ObjectDetailsStorage)
-    
-    func showCardSizes(size: DataviewViewSize, onSelect: @escaping (DataviewViewSize) -> Void)
+
     func showCovers(setDocument: SetDocumentProtocol, onSelect: @escaping (String) -> Void)
     
     func showGroupByRelations(onSelect: @escaping (String) -> Void)
@@ -81,10 +69,6 @@ final class EditorSetRouter: EditorSetRouterProtocol, ObjectSettingsCoordinatorO
     private let toastPresenter: ToastPresenterProtocol
     private let setObjectCreationSettingsCoordinator: SetObjectCreationSettingsCoordinatorProtocol
     private var output: EditorSetModuleOutput?
-
-    // MARK: - State
-    
-    private weak var currentSetSettingsPopup: AnytypePopup?
     
     init(
         setDocument: SetDocumentProtocol,
@@ -140,32 +124,12 @@ final class EditorSetRouter: EditorSetRouterProtocol, ObjectSettingsCoordinatorO
         )
         navigationContext.presentSwiftUISheetView(view: view)
     }
-    
-    func showSetSettingsLegacy(onSettingTap: @escaping (EditorSetSetting) -> Void) {
-        guard let currentSetSettingsPopup = currentSetSettingsPopup else {
-            showSetSettingsPopup(onSettingTap: onSettingTap)
-            return
-        }
-        currentSetSettingsPopup.dismiss(animated: false) {
-            DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) { [weak self] in
-                self?.showSetSettingsPopup(onSettingTap: onSettingTap)
-            }
-        }
-    }
-    
-    func dismissSetSettingsIfNeeded() {
-        currentSetSettingsPopup?.dismiss(animated: false)
-    }
 
     @MainActor
-    func showViewPicker(
-        subscriptionDetailsStorage: ObjectDetailsStorage,
-        showViewTypes: @escaping RoutingAction<DataviewView?>
-    ) {
+    func showViewPicker(subscriptionDetailsStorage: ObjectDetailsStorage) {
         let view = setViewPickerCoordinatorAssembly.make(
             with: setDocument,
-            subscriptionDetailsStorage: subscriptionDetailsStorage,
-            showViewTypes: showViewTypes
+            subscriptionDetailsStorage: subscriptionDetailsStorage
         )
         navigationContext.presentSwiftUISheetView(view: view)
     }
@@ -192,78 +156,6 @@ final class EditorSetRouter: EditorSetRouterProtocol, ObjectSettingsCoordinatorO
             }
         }
         navigationContext.present(vc)
-    }
-    
-    func showViewTypes(
-        setDocument: SetDocumentProtocol,
-        activeView: DataviewView?,
-        dataviewService: DataviewServiceProtocol
-    ) {
-        let viewModel = SetViewTypesPickerViewModel(
-            setDocument: setDocument,
-            activeView: activeView,
-            dataviewService: dataviewService,
-            relationDetailsStorage: ServiceLocator.shared.relationDetailsStorage()
-        )
-        let vc = UIHostingController(
-            rootView: SetViewTypesPicker(viewModel: viewModel)
-        )
-        if #available(iOS 15.0, *) {
-            if let sheet = vc.sheetPresentationController {
-                sheet.detents = [.large()]
-                sheet.selectedDetentIdentifier = .large
-            }
-        }
-        navigationContext.present(vc)
-    }
-
-    @MainActor
-    func showViewSettings(setDocument: SetDocumentProtocol) {
-        let view = editorSetRelationsCoordinatorAssembly.make(
-            with: setDocument,
-            viewId: setDocument.activeView.id
-        )
-        navigationContext.presentSwiftUIView(view: view)
-    }
-    
-    @MainActor
-    func showSorts() {
-        let view = setSortsListCoordinatorAssembly.make(
-            with: setDocument,
-            viewId: setDocument.activeView.id
-        )
-        let vc = UIHostingController(
-            rootView: view
-        )
-        presentSheet(vc, detents: [.large()], selectedDetentIdentifier: .large)
-    }
-    
-    @MainActor
-    func showFilters(setDocument: SetDocumentProtocol, subscriptionDetailsStorage: ObjectDetailsStorage) {
-        let view = setFiltersListCoordinatorAssembly.make(
-            with: setDocument,
-            viewId: setDocument.activeView.id,
-            subscriptionDetailsStorage: subscriptionDetailsStorage
-        )
-        let vc = UIHostingController(
-            rootView: view
-        )
-        presentSheet(vc, detents: [.large()], selectedDetentIdentifier: .large)
-    }
-    
-    @MainActor
-    func showCardSizes(size: DataviewViewSize, onSelect: @escaping (DataviewViewSize) -> Void) {
-        let view = CheckPopupView(
-            viewModel: SetViewSettingsCardSizeViewModel(
-                selectedSize: size,
-                onSelect: onSelect
-            )
-        )
-        presentSheet(
-            AnytypePopup(
-                contentView: view
-            )
-        )
     }
     
     @MainActor
@@ -440,20 +332,6 @@ final class EditorSetRouter: EditorSetRouterProtocol, ObjectSettingsCoordinatorO
             sheet.selectedDetentIdentifier = selectedDetentIdentifier
         }
         navigationContext.present(vc)
-    }
-    
-    private func showSetSettingsPopup(onSettingTap: @escaping (EditorSetSetting) -> Void) {
-        let popup = AnytypePopup(
-            viewModel: EditorSetSettingsViewModel(onSettingTap: onSettingTap),
-            floatingPanelStyle: true,
-            configuration: .init(
-                isGrabberVisible: true,
-                dismissOnBackdropView: false,
-                skipThroughGestures: true
-            )
-        )
-        currentSetSettingsPopup = popup
-        navigationContext.present(popup)
     }
 }
 
