@@ -33,10 +33,7 @@ actor SubscriptionStorage: SubscriptionStorageProtocol {
         self.subId = subId
         self.detailsStorage = detailsStorage
         self.toggler = toggler
-        subscription = EventBunchSubscribtion.default.addHandler { [weak self] events in
-            guard events.contextId.isEmpty else { return }
-            await self?.handle(events: events)
-        }
+        Task { await setupHandler() }
     }
     
     deinit {
@@ -78,6 +75,13 @@ actor SubscriptionStorage: SubscriptionStorageProtocol {
     }
     
     // MARK: - Private
+    
+    private func setupHandler() {
+        subscription = EventBunchSubscribtion.default.addHandler { [weak self] events in
+            guard events.contextId.isEmpty else { return }
+            await self?.handle(events: events)
+        }
+    }
     
     private func handle(events: EventsBunch) async {
         anytypeAssert(events.localEvents.isEmpty, "Local events with emplty objectId: \(events)")

@@ -64,7 +64,7 @@ final class MiddlewareEventConverter {
 
             let blockId = value.id
             let alignment = value.align
-            guard let modelAlignment = alignment.asBlockModel else {
+            guard alignment.asBlockModel.isNotNil else {
                 anytypeAssertionFailure("We cannot parse alignment", info: ["value": "\(value)"])
                 return .general
             }

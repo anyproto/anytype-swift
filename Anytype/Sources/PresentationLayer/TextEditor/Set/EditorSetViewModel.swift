@@ -513,7 +513,7 @@ final class EditorSetViewModel: ObservableObject {
                 contextID: details.id,
                 bundledDetails: [.done(!details.isDone)]
             )
-            await UIImpactFeedbackGenerator(style: .rigid).impactOccurred()
+            UIImpactFeedbackGenerator(style: .rigid).impactOccurred()
         }
     }
     

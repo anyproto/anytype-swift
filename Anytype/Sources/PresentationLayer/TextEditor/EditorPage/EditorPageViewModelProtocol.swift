@@ -2,6 +2,7 @@ import Foundation
 import Services
 import Combine
 
+@MainActor
 protocol EditorPageViewModelProtocol: AnyObject {
     var blocksStateManager: EditorPageBlocksStateManagerProtocol { get }
 

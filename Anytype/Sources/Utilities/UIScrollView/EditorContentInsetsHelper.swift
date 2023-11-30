@@ -1,7 +1,9 @@
 import UIKit
 import Combine
 
+@MainActor
 final class EditorContentInsetsHelper: KeyboardEventsListnerHelper {
+    @MainActor
     private struct EditorScrollViewConstants {
         static let bottomEditorInsets: CGFloat = 150
         static let movingInsents: UIEdgeInsets =

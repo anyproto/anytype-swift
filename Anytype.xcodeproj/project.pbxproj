@@ -10046,7 +10046,6 @@
 				2EAA14042AA63918000A712A /* SetViewSettingsRelation.swift in Sources */,
 				860B8F8F2AF8D7EE00000811 /* EditorPageViewModel+ChangeType.swift in Sources */,
 				C9A7528328E3297000235BDE /* SharedContants.swift in Sources */,
-				C9A7528328E3297000235BDE /* SharedContants.swift in Sources */,
 				12D15D2027F5F78500D22086 /* TagsOptionsSearchModuleBuilder.swift in Sources */,
 				2AD741352994F19B004BD223 /* ApplicationStateService.swift in Sources */,
 				2AAA09052AEAB71900A446B8 /* SpaceSwitchCoordinatorView.swift in Sources */,
@@ -10604,7 +10603,6 @@
 				2AE7ECA4298816F30079F12B /* WidgetObjectListModuleAssembly.swift in Sources */,
 				2A4C79B029B8A17C003BB9D3 /* WidgetSourceSearchSelectInternalViewModel.swift in Sources */,
 				2E56F1382A0D43F400031167 /* LoopingPlayerUIView.swift in Sources */,
-				3D93852026FB0B74001C137F /* PageRepository.swift in Sources */,
 				3D93852026FB0B74001C137F /* PageRepository.swift in Sources */,
 				2E0797C52A09678C006F0FD7 /* AuthModuleAssembly.swift in Sources */,
 				2A2B33352A7BE5E0004BD906 /* SpaceWidgetViewModel.swift in Sources */,
@@ -11515,7 +11513,7 @@
 				);
 				MARKETING_VERSION = 0.6.0;
 				OTHER_LDFLAGS = "-ObjC";
-				OTHER_SWIFT_FLAGS = "-Xfrontend -warn-long-expression-type-checking=30 -Xfrontend -warn-long-function-bodies=100 -Xfrontend -debug-time-function-bodies -enable-upcoming-feature ConciseMagicFile";
+				OTHER_SWIFT_FLAGS = "-enable-upcoming-feature ConciseMagicFile";
 				PRODUCT_BUNDLE_IDENTIFIER = io.anytype.app.dev;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "match Development io.anytype.app.dev";
@@ -11559,7 +11557,7 @@
 				);
 				MARKETING_VERSION = 0.6.0;
 				OTHER_LDFLAGS = "-ObjC";
-				OTHER_SWIFT_FLAGS = "-Xfrontend -warn-long-expression-type-checking=30 -Xfrontend -warn-long-function-bodies=100 -Xfrontend -debug-time-function-bodies -enable-upcoming-feature ConciseMagicFile";
+				OTHER_SWIFT_FLAGS = "-enable-upcoming-feature ConciseMagicFile";
 				PRODUCT_BUNDLE_IDENTIFIER = io.anytype.app;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "match AppStore io.anytype.app";
@@ -11713,7 +11711,7 @@
 				);
 				MARKETING_VERSION = 0.6.0;
 				OTHER_LDFLAGS = "-ObjC";
-				OTHER_SWIFT_FLAGS = "-Xfrontend -warn-long-expression-type-checking=30 -Xfrontend -warn-long-function-bodies=100 -Xfrontend -debug-time-function-bodies -enable-upcoming-feature ConciseMagicFile";
+				OTHER_SWIFT_FLAGS = "-enable-upcoming-feature ConciseMagicFile";
 				PRODUCT_BUNDLE_IDENTIFIER = io.anytype.app.dev;
 				PRODUCT_NAME = "Anytype Dev";
 				PROVISIONING_PROFILE_SPECIFIER = "match AppStore io.anytype.app.dev";

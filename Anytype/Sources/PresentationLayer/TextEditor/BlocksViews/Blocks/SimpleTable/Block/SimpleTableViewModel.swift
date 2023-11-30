@@ -2,6 +2,7 @@ import UIKit
 import Combine
 import Services
 
+@MainActor
 final class SimpleTableViewModel {
     let stateManager: SimpleTableStateManagerProtocol
     weak var dataSource: SpreadsheetViewDataSource? {
