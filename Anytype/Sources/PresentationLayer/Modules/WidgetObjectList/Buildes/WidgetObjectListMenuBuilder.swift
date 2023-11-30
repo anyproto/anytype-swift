@@ -22,7 +22,7 @@ final class WidgetObjectListMenuBuilder: WidgetObjectListMenuBuilderProtocol {
         let optionImage: ImageAsset
         let menuTitle: String
         let negative: Bool
-        let action: () -> Void
+        let action: @MainActor () -> Void
     }
     
     // MARK: - WidgetObjectListMenuBuilderProtocol

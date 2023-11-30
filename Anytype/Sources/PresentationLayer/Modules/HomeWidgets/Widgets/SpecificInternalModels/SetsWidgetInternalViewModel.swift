@@ -1,6 +1,7 @@
 import Foundation
 import Services
 import Combine
+import UIKit
 
 @MainActor
 final class SetsWidgetInternalViewModel: CommonWidgetInternalViewModel, WidgetInternalViewModelProtocol {
@@ -8,6 +9,8 @@ final class SetsWidgetInternalViewModel: CommonWidgetInternalViewModel, WidgetIn
     // MARK: - DI
     
     private let setsSubscriptionService: SetsSubscriptionServiceProtocol
+    private let pageRepository: PageRepositoryProtocol
+    private weak var output: CommonWidgetModuleOutput?
     
     // MARK: - State
     
@@ -16,13 +19,18 @@ final class SetsWidgetInternalViewModel: CommonWidgetInternalViewModel, WidgetIn
     
     var detailsPublisher: AnyPublisher<[ObjectDetails]?, Never> { $details.eraseToAnyPublisher() }
     var namePublisher: AnyPublisher<String, Never> { $name.eraseToAnyPublisher() }
+    var allowCreateObject = true
     
     init(
         widgetBlockId: BlockId,
         widgetObject: BaseDocumentProtocol,
-        setsSubscriptionService: SetsSubscriptionServiceProtocol
+        setsSubscriptionService: SetsSubscriptionServiceProtocol,
+        pageRepository: PageRepositoryProtocol,
+        output: CommonWidgetModuleOutput?
     ) {
         self.setsSubscriptionService = setsSubscriptionService
+        self.pageRepository = pageRepository
+        self.output = output
         super.init(widgetBlockId: widgetBlockId, widgetObject: widgetObject)
     }
     
@@ -44,6 +52,23 @@ final class SetsWidgetInternalViewModel: CommonWidgetInternalViewModel, WidgetIn
     
     func analyticsSource() -> AnalyticsWidgetSource {
         return .sets
+    }
+    
+    func onCreateObjectTap() {
+        Task {
+            let details = try await pageRepository.createPage(
+                name: "",
+                typeUniqueKey: .set,
+                shouldDeleteEmptyObject: true,
+                shouldSelectType: false,
+                shouldSelectTemplate: false,
+                spaceId: widgetObject.spaceId,
+                origin: .none,
+                templateId: nil
+            )
+            output?.onObjectSelected(screenData: details.editorScreenData())
+            UISelectionFeedbackGenerator().selectionChanged()
+        }
     }
     
     // MARK: - CommonWidgetInternalViewModel oveerides

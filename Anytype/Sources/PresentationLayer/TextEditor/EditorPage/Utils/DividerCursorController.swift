@@ -2,6 +2,7 @@ import UIKit
 import Combine
 import AnytypeCore
 
+@MainActor
 final class DividerCursorController {
     enum MovingMode {
         case none

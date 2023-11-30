@@ -5,7 +5,6 @@ import Services
 @MainActor
 final class SetViewSettingsListModel: ObservableObject {
     @Published var name = ""
-    @Published var focused = false
     @Published var layoutValue = SetViewSettings.layout.placeholder
     @Published var relationsValue = SetViewSettings.relations.placeholder
     @Published var filtersValue = SetViewSettings.filters.placeholder
@@ -37,9 +36,12 @@ final class SetViewSettingsListModel: ObservableObject {
         self.dataviewService = dataviewService
         self.output = output
         self.canBeDeleted = setDocument.dataView.views.count > 1
-        self.setupFocus()
         self.debounceNameChanges()
         self.setupSubscriptions()
+    }
+    
+    func shouldSetupFocus() -> Bool {
+        mode == .new
     }
     
     func onSettingTap(_ setting: SetViewSettings) {
@@ -106,10 +108,6 @@ final class SetViewSettingsListModel: ObservableObject {
         
         let filters = setDocument.filters(for: viewId)
         updateFiltersValue(filters)
-    }
-    
-    private func setupFocus() {
-        focused = mode == .new
     }
     
     private func debounceNameChanges() {

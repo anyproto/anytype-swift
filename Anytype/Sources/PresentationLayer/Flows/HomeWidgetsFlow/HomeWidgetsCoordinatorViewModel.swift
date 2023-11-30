@@ -7,7 +7,8 @@ import AnytypeCore
 @MainActor
 final class HomeWidgetsCoordinatorViewModel: ObservableObject,
                                              HomeWidgetsModuleOutput, CommonWidgetModuleOutput,
-                                             HomeBottomPanelModuleOutput, HomeBottomNavigationPanelModuleOutput {
+                                             HomeBottomPanelModuleOutput, HomeBottomNavigationPanelModuleOutput,
+                                             SetObjectCreationCoordinatorOutput {
     
     // MARK: - DI
     
@@ -28,13 +29,14 @@ final class HomeWidgetsCoordinatorViewModel: ObservableObject,
     private let objectTypeSearchModuleAssembly: ObjectTypeSearchModuleAssemblyProtocol
     private let workspacesStorage: WorkspacesStorageProtocol
     private let documentsProvider: DocumentsProviderProtocol
-    
+    private let setObjectCreationCoordinatorAssembly: SetObjectCreationCoordinatorAssemblyProtocol
     
     // MARK: - State
     
     private var viewLoaded = false
     private var subscriptions = [AnyCancellable]()
     private var paths = [String: HomePath]()
+    private var setObjectCreationCoordinator: SetObjectCreationCoordinatorProtocol?
     
     @Published var showChangeSourceData: WidgetChangeSourceSearchModuleModel?
     @Published var showChangeTypeData: WidgetTypeModuleChangeModel?
@@ -81,7 +83,8 @@ final class HomeWidgetsCoordinatorViewModel: ObservableObject,
         homeBottomNavigationPanelModuleAssembly: HomeBottomNavigationPanelModuleAssemblyProtocol,
         objectTypeSearchModuleAssembly: ObjectTypeSearchModuleAssemblyProtocol,
         workspacesStorage: WorkspacesStorageProtocol,
-        documentsProvider: DocumentsProviderProtocol
+        documentsProvider: DocumentsProviderProtocol,
+        setObjectCreationCoordinatorAssembly: SetObjectCreationCoordinatorAssemblyProtocol
     ) {
         self.homeWidgetsModuleAssembly = homeWidgetsModuleAssembly
         self.activeWorkspaceStorage = activeWorkspaceStorage
@@ -100,6 +103,7 @@ final class HomeWidgetsCoordinatorViewModel: ObservableObject,
         self.objectTypeSearchModuleAssembly = objectTypeSearchModuleAssembly
         self.workspacesStorage = workspacesStorage
         self.documentsProvider = documentsProvider
+        self.setObjectCreationCoordinatorAssembly = setObjectCreationCoordinatorAssembly
     }
 
     func onAppear() {
@@ -218,6 +222,11 @@ final class HomeWidgetsCoordinatorViewModel: ObservableObject,
         showSpaceSettings.toggle()
     }
     
+    func onCreateObjectInSetDocument(setDocument: SetDocumentProtocol) {
+        setObjectCreationCoordinator = setObjectCreationCoordinatorAssembly.make(objectId: setDocument.objectId)
+        setObjectCreationCoordinator?.startCreateObject(setDocument: setDocument, output: self)
+    }
+    
     // MARK: - HomeBottomPanelModuleOutput
     
     func onCreateWidgetSelected(context: AnalyticsWidgetContext) {
@@ -274,6 +283,12 @@ final class HomeWidgetsCoordinatorViewModel: ObservableObject,
         showCreateObjectWithType.toggle()
     }
 
+    // MARK: - SetObjectCreationCoordinatorOutput
+    
+    func showEditorScreen(data: EditorScreenData) {
+        push(data: data)
+    }
+    
     // MARK: - Private
     
     private func openObject(screenData: EditorScreenData) {

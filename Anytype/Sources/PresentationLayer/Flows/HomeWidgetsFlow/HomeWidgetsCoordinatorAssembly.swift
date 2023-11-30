@@ -53,7 +53,8 @@ final class HomeWidgetsCoordinatorAssembly: HomeWidgetsCoordinatorAssemblyProtoc
             homeBottomNavigationPanelModuleAssembly: modulesDI.homeBottomNavigationPanel(),
             objectTypeSearchModuleAssembly: modulesDI.objectTypeSearch(),
             workspacesStorage: serviceLocator.workspaceStorage(),
-            documentsProvider: serviceLocator.documentsProvider
+            documentsProvider: serviceLocator.documentsProvider,
+            setObjectCreationCoordinatorAssembly: coordinatorsID.setObjectCreation()
         )
     }
 }

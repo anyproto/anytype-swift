@@ -70,10 +70,10 @@ struct WidgetObjectListRowView: View {
     private func contextMenu() -> some View {
         if !isActiveEditMode {
             ForEach(model.menu) { menu in
-                if #available(iOS 15.0, *) {
-                    Button(menu.title, role: menu.negative ? .destructive : nil, action: menu.onTap)
-                } else {
-                    Button(menu.title, action: menu.onTap)
+                Button(menu.title, role: menu.negative ? .destructive : nil) {
+                    Task { @MainActor in
+                        model.onTap()
+                    }
                 }
             }
         }

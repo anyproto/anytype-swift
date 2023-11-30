@@ -1,12 +1,5 @@
-//
-//  DocumentsProvider.swift
-//  Anytype
-//
-//  Created by Dmitry Bilienko on 13.09.23.
-//  Copyright © 2023 Anytype. All rights reserved.
-//
-
 import Foundation
+import Services
 
 protocol DocumentsProviderProtocol {
     func document(objectId: String, forPreview: Bool) -> BaseDocumentProtocol
@@ -23,12 +16,18 @@ final class DocumentsProvider: DocumentsProviderProtocol {
     private let relationDetailsStorage: RelationDetailsStorageProtocol
     private let objectTypeProvider: ObjectTypeProviderProtocol
     
+    // MARK: DI for document
+    
+    private let blockActionsService: BlockActionsServiceSingleProtocol
+    
     init(
         relationDetailsStorage: RelationDetailsStorageProtocol,
-        objectTypeProvider: ObjectTypeProviderProtocol
+        objectTypeProvider: ObjectTypeProviderProtocol,
+        blockActionsService: BlockActionsServiceSingleProtocol
     ) {
         self.relationDetailsStorage = relationDetailsStorage
         self.objectTypeProvider = objectTypeProvider
+        self.blockActionsService = blockActionsService
     }
     
     func document(objectId: String, forPreview: Bool) -> BaseDocumentProtocol {
@@ -54,7 +53,7 @@ final class DocumentsProvider: DocumentsProviderProtocol {
     
     private func internalDocument(objectId: String, forPreview: Bool) -> BaseDocumentProtocol {
         if forPreview {
-            let document = BaseDocument(objectId: objectId, forPreview: forPreview)
+            let document = createBaseDocument(objectId: objectId, forPreview: forPreview)
             return document
         }
         
@@ -62,9 +61,18 @@ final class DocumentsProvider: DocumentsProviderProtocol {
             return value
         }
         
-        let document = BaseDocument(objectId: objectId, forPreview: forPreview)
+        let document = createBaseDocument(objectId: objectId, forPreview: forPreview)
         documentCache.setObject(document, forKey: objectId as NSString)
         
         return document
+    }
+    
+    private func createBaseDocument(objectId: String, forPreview: Bool) -> BaseDocumentProtocol {
+        return BaseDocument(
+            objectId: objectId,
+            forPreview: forPreview,
+            blockActionsService: blockActionsService,
+            relationDetailsStorage: relationDetailsStorage
+        )
     }
 }

@@ -20,7 +20,7 @@ final class BaseDocument: BaseDocumentProtocol {
     private let eventsListener: EventsListenerProtocol
     private let updateSubject = PassthroughSubject<DocumentUpdate, Never>()
     private let relationBuilder: RelationsBuilder
-    private let relationDetailsStorage = ServiceLocator.shared.relationDetailsStorage()
+    private let relationDetailsStorage: RelationDetailsStorageProtocol
     private let viewModelSetter: DocumentViewModelSetterProtocol
     
     private var subscriptions = [AnyCancellable]()
@@ -71,8 +71,12 @@ final class BaseDocument: BaseDocumentProtocol {
             .eraseToAnyPublisher()
     }
     
-    @available(*, deprecated, message: "Use `DocumentsProvider` instead")
-    init(objectId: BlockId, forPreview: Bool = false) {
+    init(
+        objectId: BlockId,
+        forPreview: Bool,
+        blockActionsService: BlockActionsServiceSingleProtocol,
+        relationDetailsStorage: RelationDetailsStorageProtocol
+    ) {
         self.objectId = objectId
         self.forPreview = forPreview
        
@@ -91,8 +95,9 @@ final class BaseDocument: BaseDocumentProtocol {
             infoContainer: infoContainer
         )
         
-        self.blockActionsService = ServiceLocator.shared.blockActionsServiceSingle()
+        self.blockActionsService = blockActionsService
         self.relationBuilder = RelationsBuilder()
+        self.relationDetailsStorage = relationDetailsStorage
         
         setup()
     }

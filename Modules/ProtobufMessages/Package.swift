@@ -1,4 +1,4 @@
-// swift-tools-version:5.6
+// swift-tools-version:5.9
 import PackageDescription
 
 let package = Package(
@@ -14,7 +14,7 @@ let package = Package(
     ],
     dependencies: [
         .package(url: "https://github.com/apple/swift-protobuf", revision: "1.21.0"),
-        .package(url: "git@github.com:anyproto/anytype-swift-codegen.git", revision: "0.0.12"),
+        .package(url: "https://github.com/anyproto/anytype-swift-codegen.git", revision: "0.0.12"),
         .package(url: "https://github.com/anyproto/SourceryGenPlugin.git", revision: "1.9.4")
     ],
     targets: [
@@ -30,7 +30,7 @@ let package = Package(
                 .linkedLibrary("resolv")
             ],
             plugins: [
-                .plugin(name: "ServiceGenPlugin", package: "AnytypeSwiftCodegen"),
+                .plugin(name: "ServiceGenPlugin", package: "anytype-swift-codegen"),
                 .plugin(name: "SourceryGenPlugin", package: "SourceryGenPlugin")
             ]
         ),
