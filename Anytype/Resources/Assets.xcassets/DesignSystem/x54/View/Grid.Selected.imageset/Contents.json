@@ -3,6 +3,16 @@
     {
       "filename" : "Grid.Selected.png",
       "idiom" : "universal"
+    },
+    {
+      "appearances" : [
+        {
+          "appearance" : "luminosity",
+          "value" : "dark"
+        }
+      ],
+      "filename" : "Grid.Selected.Dark.pdf",
+      "idiom" : "universal"
     }
   ],
   "info" : {
