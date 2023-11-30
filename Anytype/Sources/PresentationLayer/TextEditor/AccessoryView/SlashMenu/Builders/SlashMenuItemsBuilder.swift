@@ -70,8 +70,8 @@ struct SlashMenuItemsBuilder {
         guard let searchTypes = try? await searchService.searchObjectTypes(
             text: "",
             filteringTypeId: nil,
-            shouldIncludeSets: false,
-            shouldIncludeCollections: false,
+            shouldIncludeSets: true,
+            shouldIncludeCollections: true,
             shouldIncludeBookmark: false,
             spaceId: spaceId
         ) else {
