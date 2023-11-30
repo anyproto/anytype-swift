@@ -16,7 +16,8 @@ struct SetRelationsView: View {
     
     private var content: some View {
         PlainList {
-            listContent
+            relationsSection
+                .listRowInsets(.init(top: 0, leading: 20, bottom: 0, trailing: 20))
         }
         .environment(\.editMode, $editMode)
         
@@ -44,70 +45,6 @@ struct SetRelationsView: View {
                 }
             }
         }
-    }
-    
-    private var listContent: some View {
-        Group {
-            if !FeatureFlags.newSetSettings {
-                VStack(spacing: 0) {
-                    settingsSection
-                    ListSectionHeaderView(title: Loc.relations)
-                }
-            }
-            relationsSection
-        }
-        .listRowInsets(.init(top: 0, leading: 20, bottom: 0, trailing: 20))
-    }
-    
-    private var settingsSection: some View {
-        Group {
-            switch model.contentViewType {
-            case .collection(let type):
-                if type == .gallery {
-                    valueSetting(with: model.cardSizeSetting)
-                    toggleSettings(with: model.iconSetting)
-                    valueSetting(with: model.imagePreviewSetting)
-                    toggleSettings(with: model.coverFitSetting)
-                } else {
-                    toggleSettings(with: model.iconSetting)
-                }
-            case .kanban:
-                valueSetting(with: model.groupBySetting)
-                toggleSettings(with: model.groupBackgroundColorsSetting)
-                toggleSettings(with: model.iconSetting)
-            case .table:
-                toggleSettings(with: model.iconSetting)
-            }
-        }
-    }
-    
-    private func valueSetting(with model: SetViewSettingsValueItem) -> some View {
-        Button {
-            model.onTap()
-        } label: {
-            HStack(spacing: 0) {
-                AnytypeText(model.title, style: .uxBodyRegular, color: .Text.primary)
-                Spacer()
-                AnytypeText(model.value, style: .uxBodyRegular, color: .Text.secondary)
-                Spacer.fixedWidth(11)
-                Image(asset: .arrowForward)
-                    .renderingMode(.template)
-                    .foregroundColor(.Text.secondary)
-            }
-        }
-        .frame(height: 52)
-        .divider()
-    }
-    
-    private func toggleSettings(with model: SetViewSettingsToggleItem) -> some View {
-        AnytypeToggle(
-            title: model.title,
-            isOn: model.isSelected
-        ) {
-            model.onChange($0)
-        }
-        .frame(height: 52)
-        .divider()
     }
     
     private var relationsSection: some View {
