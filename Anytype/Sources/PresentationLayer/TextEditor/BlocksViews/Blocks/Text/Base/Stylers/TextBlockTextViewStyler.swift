@@ -46,7 +46,7 @@ final class TextBlockTextViewStyler {
     private static func setupText(in textView: CustomTextView, placeholer: String, textStyle: UIKitAnytypeText) {
         let attributes: [NSAttributedString.Key: Any] = [
             .font: textStyle.anytypeFont.uiKitFont,
-            .foregroundColor: UIColor.Text.secondary,
+            .foregroundColor: UIColor.Text.tertiary,
         ]
 
         textView.textView.update(placeholder: .init(string: placeholer, attributes: attributes))
