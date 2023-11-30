@@ -29,6 +29,11 @@ final class AnytypeAnalytics: AnytypeAnalyticsProtocol {
 
         // Enable sending automatic session events
         Amplitude.instance().trackingSessionEvents = true
+        
+        if let languageCode = NSLocale.current.languageCode,
+            let identify = AMPIdentify().set("interfaceLang", value: languageCode as NSString) {
+            Amplitude.instance().identify(identify)
+        }
     }
 
     static func instance() -> AnytypeAnalytics {
