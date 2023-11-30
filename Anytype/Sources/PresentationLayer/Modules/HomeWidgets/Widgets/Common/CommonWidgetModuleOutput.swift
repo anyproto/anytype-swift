@@ -7,4 +7,5 @@ protocol CommonWidgetModuleOutput: AnyObject {
     func onChangeWidgetType(widgetId: String, context: AnalyticsWidgetContext)
     func onAddBelowWidget(widgetId: String, context: AnalyticsWidgetContext)
     func onSpaceSelected()
+    func onCreateObjectInSetDocument(setDocument: SetDocumentProtocol)
 }

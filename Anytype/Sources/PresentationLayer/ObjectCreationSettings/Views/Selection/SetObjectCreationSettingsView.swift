@@ -22,13 +22,13 @@ struct SetObjectCreationSettingsView: View {
         ZStack {
             AnytypeText(Loc.createObject, style: .uxTitle1Semibold, color: .Text.primary)
             if model.isTemplatesEditable {
-                navigationButtons
+                navigationButton
             }
         }
         .frame(height: 48)
     }
     
-    private var navigationButtons: some View {
+    private var navigationButton: some View {
         HStack(spacing: 0) {
             if model.templates.count > 2 || model.isEditingState {
                 Button {
@@ -40,13 +40,7 @@ struct SetObjectCreationSettingsView: View {
                         color: .Button.active
                     )
                 }
-            }
-            Spacer()
-            Button {
-                model.onAddTemplateTap()
-            } label: {
-                Image(asset: .X32.plus)
-                    .tint(.Button.active)
+                Spacer()
             }
         }
         .padding(.leading, 16)

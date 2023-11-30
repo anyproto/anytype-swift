@@ -76,8 +76,7 @@ struct DataViewBlockViewModel: BlockViewModelProtocol {
                     EditorSetObject(
                         objectId: pageId,
                         spaceId: objectDetails.spaceId,
-                        inline: EditorInlineSetObject(blockId: info.id, targetObjectID: objectDetails.id),
-                        isSupportedForEdit: objectDetails.isSupportedForEdit
+                        inline: EditorInlineSetObject(blockId: info.id, targetObjectID: objectDetails.id)
                     )
                 )
             )

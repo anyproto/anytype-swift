@@ -26,7 +26,10 @@ final class FavoriteCompactListWidgetModuleAssembly: HomeWidgetCommonAssemblyPro
             widgetObject: widgetObject,
             favoriteSubscriptionService: serviceLocator.favoriteSubscriptionService(),
             activeWorkspaceStorage: serviceLocator.activeWorkspaceStorage(),
-            documentService: serviceLocator.documentService()
+            documentService: serviceLocator.documentService(),
+            pageRepository: serviceLocator.pageRepository(),
+            objectActionsService: serviceLocator.objectActionsService(),
+            output: output
         )
      
         return widgetsSubmoduleDI.listWidgetModuleAssembly().make(

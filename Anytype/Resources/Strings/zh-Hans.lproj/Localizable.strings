@@ -271,6 +271,8 @@
 "Actions.LinkItself" = "链接到";
 "Actions.MakeAsTemplate" = "制作模板";
 "Actions.TemplateMakeDefault" = "设为默认";
+"Actions.CreateWidget.Title" = "至小部件";
+"Actions.CreateWidget.Success" = "新小部件已创建";
 
 // Object Type
 "Set" = "集合";
@@ -465,6 +467,7 @@
 
 "Error" = "错误";
 "Unknown error" = "未知错误";
+"Open Type Error" = "不支持的类型 “%@”。您可以使用桌面端打开。";
 "Close" = "关闭";
 "Account is deleted" = "帐户已删除";
 "Add phone" = "添加电话号";

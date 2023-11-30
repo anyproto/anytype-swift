@@ -218,6 +218,12 @@ class SetDocument: SetDocumentProtocol {
             self?.onDocumentUpdate(update)
         }
         .store(in: &subscriptions)
+        
+        relationDetailsStorage.relationsDetailsPublisher.sink { [weak self] _ in
+            self?.updateDataViewRelations()
+            self?.triggerSync()
+        }
+        .store(in: &subscriptions)
     }
     
     private func onDocumentUpdate(_ data: DocumentUpdate) {
@@ -243,7 +249,7 @@ class SetDocument: SetDocumentProtocol {
         
         let shouldClearState = shouldClearState(prevActiveView: prevActiveView)
         updateSubject.send(.dataviewUpdated(clearState: shouldClearState))
-        sync = ()
+        triggerSync()
     }
     
     private func updateDataViewRelations() {
@@ -284,5 +290,9 @@ class SetDocument: SetDocumentProtocol {
         document.infoContainer.updateDataview(blockId: inlineParameters?.blockId ?? SetConstants.dataviewBlockId) { dataView in
             dataView.updated(activeViewId: activeViewId)
         }
+    }
+    
+    private func triggerSync() {
+        sync = ()
     }
 }

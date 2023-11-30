@@ -467,6 +467,7 @@
 
 "Error" = "Error";
 "Unknown error" = "Unknown error";
+"Open Type Error" = "Not supported type \"%@\". You can open it via desktop.";
 "Close" = "Close";
 "Account is deleted" = "Account is deleted";
 "Add phone" = "Add phone";
@@ -726,6 +727,7 @@
 "Widgets.Actions.EditWidgets" = "Edit Widgets";
 "Widgets.Actions.EmptyBin" = "Empty Bin";
 "Widgets.Actions.AddBelow" = "Add Below";
+"Widgets.Actions.NewObject" = "New Object";
 "Widgets.Layout.Screen.Title" = "Widget type";
 "Widgets.Layout.Link.Title" = "Link";
 "Widgets.Layout.Tree.Title" = "Tree";

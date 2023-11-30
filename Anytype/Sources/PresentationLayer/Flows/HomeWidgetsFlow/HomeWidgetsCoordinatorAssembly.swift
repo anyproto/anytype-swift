@@ -41,7 +41,6 @@ final class HomeWidgetsCoordinatorAssembly: HomeWidgetsCoordinatorAssemblyProtoc
             activeWorkspaceStorage: serviceLocator.activeWorkspaceStorage(),
             navigationContext: uiHelpersDI.commonNavigationContext(),
             createWidgetCoordinatorAssembly: coordinatorsID.createWidget(),
-            editorBrowserCoordinator: coordinatorsID.editorBrowser().make(),
             searchModuleAssembly: modulesDI.search(),
             newSearchModuleAssembly: modulesDI.newSearch(),
             dashboardService: serviceLocator.dashboardService(),
@@ -50,8 +49,12 @@ final class HomeWidgetsCoordinatorAssembly: HomeWidgetsCoordinatorAssemblyProtoc
             spaceSwitchCoordinatorAssembly: coordinatorsID.spaceSwitch(),
             spaceSettingsCoordinatorAssembly: coordinatorsID.spaceSettings(),
             shareCoordinatorAssembly: coordinatorsID.share(),
+            editorCoordinatorAssembly: coordinatorsID.editor(),
+            homeBottomNavigationPanelModuleAssembly: modulesDI.homeBottomNavigationPanel(),
             objectTypeSearchModuleAssembly: modulesDI.objectTypeSearch(),
-            workspacesStorage: serviceLocator.workspaceStorage()
+            workspacesStorage: serviceLocator.workspaceStorage(),
+            documentsProvider: serviceLocator.documentsProvider,
+            setObjectCreationCoordinatorAssembly: coordinatorsID.setObjectCreation()
         )
     }
 }

@@ -271,6 +271,8 @@
 "Actions.LinkItself" = "Vincular a";
 "Actions.MakeAsTemplate" = "Crear plantilla";
 "Actions.TemplateMakeDefault" = "Establecer como predeterminado";
+"Actions.CreateWidget.Title" = "A widgets";
+"Actions.CreateWidget.Success" = "Nuevo widget creado";
 
 // Object Type
 "Set" = "Ajustar";
@@ -465,6 +467,7 @@
 
 "Error" = "Error";
 "Unknown error" = "Error desconocido";
+"Open Type Error" = "No se admite el tipo \"%@\". Puede abrirlo desde el escritorio.";
 "Close" = "Cerrar";
 "Account is deleted" = "Se ha eliminado la cuenta";
 "Add phone" = "Añadir teléfono";

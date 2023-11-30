@@ -6,7 +6,7 @@ import Services
 import AnytypeCore
 
 @MainActor
-final class EditorPageViewModel: EditorPageViewModelProtocol {
+final class EditorPageViewModel: EditorPageViewModelProtocol, EditorBottomNavigationManagerOutput, ObservableObject {
     weak private(set) var viewInput: EditorPageViewInput?
 
     let blocksStateManager: EditorPageBlocksStateManagerProtocol
@@ -27,17 +27,23 @@ final class EditorPageViewModel: EditorPageViewModelProtocol {
     private let editorPageTemplatesHandler: EditorPageTemplatesHandlerProtocol
     private let accountManager: AccountManagerProtocol
     private let configuration: EditorPageViewModelConfiguration
-    
+    private weak var output: EditorPageModuleOutput?
     private let templatesSubscriptionService: TemplatesSubscriptionServiceProtocol
     
     lazy var subscriptions = [AnyCancellable]()
 
     private let blockActionsService: BlockActionsServiceSingleProtocol
-    private let activeWorkpaceStorage: ActiveWorkpaceStorageProtocol
+
+    var viewController: UIViewController
+
+    @Published var bottomPanelHidden: Bool = false
+    @Published var bottomPanelHiddenAnimated: Bool = true
+    @Published var dismiss = false
 
     // MARK: - Initialization
     init(
         document: BaseDocumentProtocol,
+        viewController: UIViewController,
         viewInput: EditorPageViewInput,
         blockDelegate: BlockDelegate,
         router: EditorRouterProtocol,
@@ -54,8 +60,9 @@ final class EditorPageViewModel: EditorPageViewModelProtocol {
         accountManager: AccountManagerProtocol,
         configuration: EditorPageViewModelConfiguration,
         templatesSubscriptionService: TemplatesSubscriptionServiceProtocol,
-        activeWorkpaceStorage: ActiveWorkpaceStorageProtocol
+        output: EditorPageModuleOutput?
     ) {
+        self.viewController = viewController
         self.viewInput = viewInput
         self.document = document
         self.router = router
@@ -73,8 +80,8 @@ final class EditorPageViewModel: EditorPageViewModelProtocol {
         self.accountManager = accountManager
         self.configuration = configuration
         self.templatesSubscriptionService = templatesSubscriptionService
-        self.activeWorkpaceStorage = activeWorkpaceStorage
-
+        self.output = output
+        
         setupLoadingState()
     }
 
@@ -98,6 +105,12 @@ final class EditorPageViewModel: EditorPageViewModelProtocol {
             changes: nil,
             allModels: [shimmeringBlockViewModel]
         )
+    }
+    
+    func showSettings(delegate: ObjectSettingsModuleDelegate, output: ObjectSettingsCoordinatorOutput?) {
+        router.showSettings(delegate: delegate, output: output) { [weak self] action in
+            self?.handleSettingsAction(action: action)
+        }
     }
     
     private func handleUpdate(updateResult: DocumentUpdate) {
@@ -255,6 +268,8 @@ extension EditorPageViewModel {
             if let objectDetails = document.details {
                 AnytypeAnalytics.instance().logShowObject(type: objectDetails.analyticsType, layout: objectDetails.layoutValue)
             }
+            
+            output?.setModuleInput(input: EditorPageModuleInputContainer(model: self), objectId: document.objectId)
         }
     }
     
@@ -262,9 +277,6 @@ extension EditorPageViewModel {
 
     func viewDidAppear() {
         cursorManager.didAppeared(with: modelsHolder.items, type: document.details?.type)
-        Task {
-            try await activeWorkpaceStorage.setActiveSpace(spaceId: document.spaceId)
-        }
     }
 
     func viewWillDisappear() {}
@@ -282,6 +294,13 @@ extension EditorPageViewModel {
                 }
             )
         )
+    }
+
+    // MARK: - EditorBottomNavigationManagerOutput
+
+    func setHomeBottomPanelHidden(_ hidden: Bool, animated: Bool) {
+        bottomPanelHidden = hidden
+        bottomPanelHiddenAnimated = animated
     }
 }
 

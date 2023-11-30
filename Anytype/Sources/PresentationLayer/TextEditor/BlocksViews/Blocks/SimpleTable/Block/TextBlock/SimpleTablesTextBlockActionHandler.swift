@@ -238,12 +238,10 @@ struct SimpleTablesTextBlockActionHandler: TextBlockActionHandlerProtocol {
         responderScrollViewHelper.textViewDidBeginEditing(textView: textView)
     }
 
-    private func textViewWillBeginEditing(textView: UITextView) {
-        blockDelegate?.willBeginEditing(data: blockDelegateData(textView: textView))
-    }
+    private func textViewWillBeginEditing(textView: UITextView) {}
 
     private func textViewDidBeginEditing(textView: UITextView) {
-        blockDelegate?.didBeginEditing(view: textView)
+        blockDelegate?.didBeginEditing(view: textView, data: blockDelegateData(textView: textView))
 
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
             responderScrollViewHelper.textViewDidBeginEditing(textView: textView)

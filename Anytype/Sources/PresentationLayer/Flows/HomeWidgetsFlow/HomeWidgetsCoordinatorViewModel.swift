@@ -7,7 +7,8 @@ import AnytypeCore
 @MainActor
 final class HomeWidgetsCoordinatorViewModel: ObservableObject,
                                              HomeWidgetsModuleOutput, CommonWidgetModuleOutput,
-                                             HomeBottomPanelModuleOutput, EditorBrowserDelegate {
+                                             HomeBottomPanelModuleOutput, HomeBottomNavigationPanelModuleOutput,
+                                             SetObjectCreationCoordinatorOutput {
     
     // MARK: - DI
     
@@ -15,7 +16,6 @@ final class HomeWidgetsCoordinatorViewModel: ObservableObject,
     private let activeWorkspaceStorage: ActiveWorkpaceStorageProtocol
     private let navigationContext: NavigationContextProtocol
     private let createWidgetCoordinatorAssembly: CreateWidgetCoordinatorAssemblyProtocol
-    private let editorBrowserCoordinator: EditorBrowserCoordinatorProtocol
     private let searchModuleAssembly: SearchModuleAssemblyProtocol
     private let newSearchModuleAssembly: NewSearchModuleAssemblyProtocol
     private let dashboardService: DashboardServiceProtocol
@@ -24,13 +24,19 @@ final class HomeWidgetsCoordinatorViewModel: ObservableObject,
     private let spaceSwitchCoordinatorAssembly: SpaceSwitchCoordinatorAssemblyProtocol
     private let spaceSettingsCoordinatorAssembly: SpaceSettingsCoordinatorAssemblyProtocol
     private let shareCoordinatorAssembly: ShareCoordinatorAssemblyProtocol
+    private let editorCoordinatorAssembly: EditorCoordinatorAssemblyProtocol
+    private let homeBottomNavigationPanelModuleAssembly: HomeBottomNavigationPanelModuleAssemblyProtocol
     private let objectTypeSearchModuleAssembly: ObjectTypeSearchModuleAssemblyProtocol
     private let workspacesStorage: WorkspacesStorageProtocol
+    private let documentsProvider: DocumentsProviderProtocol
+    private let setObjectCreationCoordinatorAssembly: SetObjectCreationCoordinatorAssemblyProtocol
     
     // MARK: - State
     
     private var viewLoaded = false
     private var subscriptions = [AnyCancellable]()
+    private var paths = [String: HomePath]()
+    private var setObjectCreationCoordinator: SetObjectCreationCoordinatorProtocol?
     
     @Published var showChangeSourceData: WidgetChangeSourceSearchModuleModel?
     @Published var showChangeTypeData: WidgetTypeModuleChangeModel?
@@ -39,17 +45,32 @@ final class HomeWidgetsCoordinatorViewModel: ObservableObject,
     @Published var showCreateWidgetData: CreateWidgetCoordinatorModel?
     @Published var showSpaceSettings: Bool = false
     @Published var showSharing: Bool = false
+    @Published var editorPath = HomePath() {
+        didSet { UserDefaultsConfig.lastOpenedPage = editorPath.lastPathElement as? EditorScreenData }
+    }
     @Published var showCreateObjectWithType: Bool = false
+    @Published var toastBarData = ToastBarData.empty
+    @Published var pathChanging: Bool = false
     
-    @Published var info: AccountInfo?
-    @Published var homeAnimationId = UUID()
+    private var currentSpaceId: String?
     
+    var pageNavigation: PageNavigation {
+        PageNavigation(
+            push: { [weak self] data in
+                self?.push(data: data)
+            }, pop: { [weak self] in
+                self?.editorPath.pop()
+            }, replace: { [weak self] data in
+                self?.editorPath.replaceLast(data)
+            }
+        )
+    }
+
     init(
         homeWidgetsModuleAssembly: HomeWidgetsModuleAssemblyProtocol,
         activeWorkspaceStorage: ActiveWorkpaceStorageProtocol,
         navigationContext: NavigationContextProtocol,
         createWidgetCoordinatorAssembly: CreateWidgetCoordinatorAssemblyProtocol,
-        editorBrowserCoordinator: EditorBrowserCoordinatorProtocol,
         searchModuleAssembly: SearchModuleAssemblyProtocol,
         newSearchModuleAssembly: NewSearchModuleAssemblyProtocol,
         dashboardService: DashboardServiceProtocol,
@@ -58,14 +79,17 @@ final class HomeWidgetsCoordinatorViewModel: ObservableObject,
         spaceSwitchCoordinatorAssembly: SpaceSwitchCoordinatorAssemblyProtocol,
         spaceSettingsCoordinatorAssembly: SpaceSettingsCoordinatorAssemblyProtocol,
         shareCoordinatorAssembly: ShareCoordinatorAssemblyProtocol,
+        editorCoordinatorAssembly: EditorCoordinatorAssemblyProtocol,
+        homeBottomNavigationPanelModuleAssembly: HomeBottomNavigationPanelModuleAssemblyProtocol,
         objectTypeSearchModuleAssembly: ObjectTypeSearchModuleAssemblyProtocol,
-        workspacesStorage: WorkspacesStorageProtocol
+        workspacesStorage: WorkspacesStorageProtocol,
+        documentsProvider: DocumentsProviderProtocol,
+        setObjectCreationCoordinatorAssembly: SetObjectCreationCoordinatorAssemblyProtocol
     ) {
         self.homeWidgetsModuleAssembly = homeWidgetsModuleAssembly
         self.activeWorkspaceStorage = activeWorkspaceStorage
         self.navigationContext = navigationContext
         self.createWidgetCoordinatorAssembly = createWidgetCoordinatorAssembly
-        self.editorBrowserCoordinator = editorBrowserCoordinator
         self.searchModuleAssembly = searchModuleAssembly
         self.newSearchModuleAssembly = newSearchModuleAssembly
         self.dashboardService = dashboardService
@@ -74,8 +98,12 @@ final class HomeWidgetsCoordinatorViewModel: ObservableObject,
         self.spaceSwitchCoordinatorAssembly = spaceSwitchCoordinatorAssembly
         self.spaceSettingsCoordinatorAssembly = spaceSettingsCoordinatorAssembly
         self.shareCoordinatorAssembly = shareCoordinatorAssembly
+        self.editorCoordinatorAssembly = editorCoordinatorAssembly
+        self.homeBottomNavigationPanelModuleAssembly = homeBottomNavigationPanelModuleAssembly
         self.objectTypeSearchModuleAssembly = objectTypeSearchModuleAssembly
         self.workspacesStorage = workspacesStorage
+        self.documentsProvider = documentsProvider
+        self.setObjectCreationCoordinatorAssembly = setObjectCreationCoordinatorAssembly
     }
 
     func onAppear() {
@@ -86,15 +114,7 @@ final class HomeWidgetsCoordinatorViewModel: ObservableObject,
             .workspaceInfoPublisher
             .receiveOnMain()
             .sink { [weak self] newInfo in
-                guard let self else { return }
-                if info.isNotNil, editorBrowserCoordinator.isEmpty() {
-                    homeAnimationId = UUID()
-                }
-                if let oldInfo = info, oldInfo != newInfo,
-                    workspacesStorage.spaceView(id: oldInfo.spaceViewId).isNil {
-                    editorBrowserCoordinator.dismissAllPages()
-                }
-                info = newInfo
+                self?.switchSpace(info: newInfo)
             }
             .store(in: &subscriptions)
         
@@ -106,19 +126,16 @@ final class HomeWidgetsCoordinatorViewModel: ObservableObject,
                 self?.appActionsStorage.action = nil
             }
             .store(in: &subscriptions)
-        
-        if let data = UserDefaultsConfig.lastOpenedPage {
-            UserDefaultsConfig.lastOpenedPage = nil
-            openObject(screenData: data)
-            return
-        }
     }
     
-    func homeWidgetsModule() -> AnyView? {
-        guard let info else { return nil }
+    func homeWidgetsModule(info: AccountInfo) -> AnyView? {
         return homeWidgetsModuleAssembly.make(info: info, output: self, widgetOutput: self, bottomPanelOutput: self)
     }
     
+    func homeBottomNavigationPanelModule() -> AnyView {
+        return homeBottomNavigationPanelModuleAssembly.make(homePath: editorPath, output: self)
+    }
+
     func changeSourceModule(data: WidgetChangeSourceSearchModuleModel) -> AnyView {
         return newSearchModuleAssembly.widgetChangeSourceSearchModule(data: data)
     }
@@ -142,11 +159,15 @@ final class HomeWidgetsCoordinatorViewModel: ObservableObject,
     func createSpaceSeetingsModule() -> AnyView {
         return spaceSettingsCoordinatorAssembly.make()
     }
-    
+
     func createSharingModule() -> AnyView {
         return shareCoordinatorAssembly.make()
     }
-    
+
+    func editorModule(data: EditorScreenData) -> AnyView {
+        return editorCoordinatorAssembly.make(data: data)
+    }
+
     func createObjectWithTypeModule() -> AnyView {
         AnytypeAnalytics.instance().logOnboardingTooltip(tooltip: .selectType)
         return objectTypeSearchModuleAssembly.objectTypeSearchForCreateObject(
@@ -157,7 +178,7 @@ final class HomeWidgetsCoordinatorViewModel: ObservableObject,
             self?.createAndShowNewPage(type: type)
         }
     }
- 
+
     // MARK: - HomeWidgetsModuleOutput
     
     // MARK: - CommonWidgetModuleOutput
@@ -201,6 +222,11 @@ final class HomeWidgetsCoordinatorViewModel: ObservableObject,
         showSpaceSettings.toggle()
     }
     
+    func onCreateObjectInSetDocument(setDocument: SetDocumentProtocol) {
+        setObjectCreationCoordinator = setObjectCreationCoordinatorAssembly.make(objectId: setDocument.objectId)
+        setObjectCreationCoordinator?.startCreateObject(setDocument: setDocument, output: self)
+    }
+    
     // MARK: - HomeBottomPanelModuleOutput
     
     func onCreateWidgetSelected(context: AnalyticsWidgetContext) {
@@ -210,6 +236,8 @@ final class HomeWidgetsCoordinatorViewModel: ObservableObject,
             context: context
         )
     }
+    
+    // MARK: - HomeBottomNavigationPanelModuleOutput
     
     func onSearchSelected() {
         AnytypeAnalytics.instance().logScreenSearch()
@@ -227,23 +255,44 @@ final class HomeWidgetsCoordinatorViewModel: ObservableObject,
     }
     
     func onCreateObjectSelected(screenData: EditorScreenData) {
+        UISelectionFeedbackGenerator().selectionChanged()
         openObject(screenData: screenData)
     }
-    
+
     func onProfileSelected() {
         showSpaceSwitch.toggle()
     }
-    
-    // MARK: - EditorBrowserDelegate
+
+    func onHomeSelected() {
+        guard !pathChanging else { return }
+        editorPath.popToRoot()
+    }
+
+    func onForwardSelected() {
+        guard !pathChanging else { return }
+        editorPath.pushFromHistory()
+    }
+
+    func onBackwardSelected() {
+        guard !pathChanging else { return }
+        editorPath.pop()
+    }
     
     func onCreateObjectWithTypeSelected() {
+        UISelectionFeedbackGenerator().selectionChanged()
         showCreateObjectWithType.toggle()
+    }
+
+    // MARK: - SetObjectCreationCoordinatorOutput
+    
+    func showEditorScreen(data: EditorScreenData) {
+        push(data: data)
     }
     
     // MARK: - Private
     
     private func openObject(screenData: EditorScreenData) {
-        editorBrowserCoordinator.startFlow(data: screenData, delegate: self)
+        push(data: screenData)
     }
     
     private func createAndShowNewPage() {
@@ -253,7 +302,7 @@ final class HomeWidgetsCoordinatorViewModel: ObservableObject,
             openObject(screenData: details.editorScreenData())
         }
     }
-    
+
     private func createAndShowNewPage(type: ObjectType) {
         Task {
             let details = try await dashboardService.createNewPage(
@@ -274,9 +323,81 @@ final class HomeWidgetsCoordinatorViewModel: ObservableObject,
             showSharing = true
         case .spaceSelection:
             navigationContext.dismissAllPresented(animated: true, completion: { [weak self] in
-                self?.editorBrowserCoordinator.dismissAllPages()
+                self?.editorPath.popToRoot()
                 self?.showSpaceSwitch = true
             })
+        }
+    }
+    
+    private func push(data: EditorScreenData) {
+        Task {
+            guard let objectId = data.objectId else {
+                editorPath.push(data)
+                return
+            }
+            let document = documentsProvider.document(objectId: objectId, forPreview: true)
+            try await document.openForPreview()
+            guard let details = document.details else {
+                return
+            }
+            guard details.isSupportedForEdit else {
+                toastBarData = ToastBarData(text: Loc.openTypeError(details.objectType.name), showSnackBar: true, messageType: .none)
+                return
+            }
+            let spaceId = document.spaceId
+            if currentSpaceId != spaceId {
+                // Check space Is deleted
+                guard workspacesStorage.spaceView(spaceId: spaceId).isNotNil else { return }
+                
+                if let currentSpaceId = currentSpaceId {
+                    paths[currentSpaceId] = editorPath
+                }
+               
+                currentSpaceId = spaceId
+                try await activeWorkspaceStorage.setActiveSpace(spaceId: spaceId)
+                
+                var path = paths[spaceId] ?? HomePath()
+                if path.count == 0 {
+                    path.push(activeWorkspaceStorage.workspaceInfo)
+                }
+                
+                path.push(data)
+                editorPath = path
+            } else {
+                editorPath.push(data)
+            }
+        }
+    }
+    
+    private func switchSpace(info newInfo: AccountInfo) {
+        Task {
+            guard currentSpaceId != newInfo.accountSpaceId else { return }
+            // Backup current
+            if let currentSpaceId = currentSpaceId {
+                paths[currentSpaceId] = editorPath
+            }
+            // Restore New
+            var path = paths[newInfo.accountSpaceId] ?? HomePath()
+            if path.count == 0 {
+                path.push(newInfo)
+            }
+            // Restore last open page
+            if currentSpaceId.isNil, let lastOpenPage = UserDefaultsConfig.lastOpenedPage {
+                if let objectId = lastOpenPage.objectId {
+                    let document = documentsProvider.document(objectId: objectId, forPreview: true)
+                    try await document.openForPreview()
+                    // Check space is deleted or switched
+                    if document.spaceId == newInfo.accountSpaceId {
+                        path.push(lastOpenPage)
+                    }
+                } else {
+                    path.push(lastOpenPage)
+                }
+            }
+            
+            currentSpaceId = newInfo.accountSpaceId
+            editorPath = path
+            
         }
     }
 }

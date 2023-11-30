@@ -28,8 +28,9 @@ final class SetListWidgetModuleAssembly: HomeWidgetCommonAssemblyProtocol {
                 activeWorkspaceStorage: serviceLocator.activeWorkspaceStorage()
             ),
             subscriptionStorageProvider: serviceLocator.subscriptionStorageProvider(),
-            documentService: serviceLocator.documentService(),
-            blockWidgetService: serviceLocator.blockWidgetService()
+            documentService: serviceLocator.documentsProvider,
+            blockWidgetService: serviceLocator.blockWidgetService(),
+            output: output
         )
      
         return widgetsSubmoduleDI.listWidgetModuleAssembly().make(

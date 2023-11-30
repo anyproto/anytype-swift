@@ -103,6 +103,13 @@ extension Color {
       internal static let backgroundWithBlur = Color(asset: Asset.ModalScreen.backgroundWithBlur)
     }
     
+    // MARK: - Navigation
+    enum Navigation {
+      internal static let background = Color(asset: Asset.Navigation.background)
+      internal static let buttonActive = Color(asset: Asset.Navigation.buttonActive)
+      internal static let buttonInactive = Color(asset: Asset.Navigation.buttonInactive)
+    }
+    
     // MARK: - Shadow
     enum Shadow {
       internal static let primary = Color(asset: Asset.Shadow.primary)
@@ -127,6 +134,7 @@ extension Color {
     
     // MARK: - Widget
     enum Widget {
+      internal static let actionsBackground = Color(asset: Asset.Widget.actionsBackground)
       internal static let bottomPanel = Color(asset: Asset.Widget.bottomPanel)
       internal static let card = Color(asset: Asset.Widget.card)
       internal static let divider = Color(asset: Asset.Widget.divider)

@@ -271,6 +271,8 @@
 "Actions.LinkItself" = "Łącze do";
 "Actions.MakeAsTemplate" = "Utwórz szablon";
 "Actions.TemplateMakeDefault" = "Ustaw jako domyślne";
+"Actions.CreateWidget.Title" = "To widgets";
+"Actions.CreateWidget.Success" = "New widget was created";
 
 // Object Type
 "Set" = "Ustaw";
@@ -465,6 +467,7 @@
 
 "Error" = "Błąd";
 "Unknown error" = "Nieznany błąd";
+"Open Type Error" = "Not supported type \"%@\". You can open it via desktop.";
 "Close" = "Zamknij";
 "Account is deleted" = "Konto zostało usunięte";
 "Add phone" = "Add phone";

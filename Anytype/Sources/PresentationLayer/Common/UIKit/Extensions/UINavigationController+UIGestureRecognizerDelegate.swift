@@ -1,8 +1,9 @@
 import UIKit
+import SwiftUI
 
 final class BaseNavigationController: UINavigationController, UIGestureRecognizerDelegate {
     var disableBackSwipe = false
-    
+
     override public func viewDidLoad() {
         super.viewDidLoad()
         interactivePopGestureRecognizer?.delegate = self

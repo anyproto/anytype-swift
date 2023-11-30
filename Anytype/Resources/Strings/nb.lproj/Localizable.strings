@@ -271,6 +271,8 @@
 "Actions.LinkItself" = "Koble til";
 "Actions.MakeAsTemplate" = "Lag mal";
 "Actions.TemplateMakeDefault" = "Make default";
+"Actions.CreateWidget.Title" = "Til widgets";
+"Actions.CreateWidget.Success" = "Ny widget ble opprettet";
 
 // Object Type
 "Set" = "Sett";
@@ -465,6 +467,7 @@
 
 "Error" = "Feil";
 "Unknown error" = "Ukjent feil";
+"Open Type Error" = "Not supported type \"%@\". You can open it via desktop.";
 "Close" = "Lukk";
 "Account is deleted" = "Konto er slettet";
 "Add phone" = "Legg til telefon";

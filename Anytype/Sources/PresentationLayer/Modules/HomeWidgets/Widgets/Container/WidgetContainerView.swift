@@ -17,41 +17,35 @@ struct WidgetContainerView<Content: View, ContentVM: WidgetContainerContentViewM
     var content: Content
         
     var body: some View {
-        LinkWidgetViewContainer(
-            title: contentModel.name,
-            icon: contentModel.icon,
-            isExpanded: $model.isExpanded,
-            dragId: contentModel.dragId,
-            isEditalbeMode: model.isEditState,
-            allowMenuContent: contentModel.menuItems.isNotEmpty,
-            allowContent: contentModel.allowContent,
-            headerAction: {
-                contentModel.onHeaderTap()
-            },
-            removeAction: removeAction(),
-            menu: {
-                menuItems
-            },
-            content: {
-                content
-                    .onAppear {
-                        model.onAppearContent()
-                    }
-                    .onDisappear {
-                        model.onDisappearContent()
-                    }
+        WidgetSwipeActionView(
+            isEnable: FeatureFlags.widgetsCreateObject ? contentModel.allowCreateObject : false,
+            showTitle: model.isExpanded,
+            action: { contentModel.onCreateObjectTap() }
+        ) {
+            LinkWidgetViewContainer(
+                title: contentModel.name,
+                icon: contentModel.icon,
+                isExpanded: $model.isExpanded,
+                dragId: contentModel.dragId,
+                isEditalbeMode: model.isEditState,
+                allowMenuContent: contentModel.menuItems.isNotEmpty,
+                allowContent: contentModel.allowContent,
+                headerAction: {
+                    contentModel.onHeaderTap()
+                },
+                removeAction: removeAction(),
+                menu: {
+                    menuItems
+                },
+                content: {
+                    content
+                }
+            )
+            .contextMenu {
+                contextMenuItems
             }
-        )
-        .onAppear {
-            model.onAppear()
+            .snackbar(toastBarData: $model.toastData)
         }
-        .onDisappear {
-            model.onDisappear()
-        }
-        .contextMenu {
-            contextMenuItems
-        }
-        .snackbar(toastBarData: $model.toastData)
     }
     
     @ViewBuilder

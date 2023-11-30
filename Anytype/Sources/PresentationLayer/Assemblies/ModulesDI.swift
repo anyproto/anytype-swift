@@ -237,7 +237,15 @@ final class ModulesDI: ModulesDIProtocol {
     func setViewPicker() -> SetViewPickerModuleAssemblyProtocol {
         SetViewPickerModuleAssembly(serviceLocator: serviceLocator)
     }
-    
+
+    func homeBottomNavigationPanel() -> HomeBottomNavigationPanelModuleAssemblyProtocol {
+        HomeBottomNavigationPanelModuleAssembly(serviceLocator: serviceLocator)
+    }
+
+    func deleteAccount() -> DeleteAccountModuleAssemblyProtocol {
+        DeleteAccountModuleAssembly(serviceLocator: serviceLocator)
+    }
+
     func objectTypeSearch() -> ObjectTypeSearchModuleAssemblyProtocol {
         ObjectTypeSearchModuleAssembly(uiHelpersDI: uiHelpersDI, serviceLocator: serviceLocator)
     }

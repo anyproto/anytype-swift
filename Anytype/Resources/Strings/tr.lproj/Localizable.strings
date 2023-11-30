@@ -271,6 +271,8 @@
 "Actions.LinkItself" = "Şuna bağla";
 "Actions.MakeAsTemplate" = "Şablon Oluştur";
 "Actions.TemplateMakeDefault" = "Make default";
+"Actions.CreateWidget.Title" = "To widgets";
+"Actions.CreateWidget.Success" = "New widget was created";
 
 // Object Type
 "Set" = "Ayarla";
@@ -465,6 +467,7 @@
 
 "Error" = "Hata";
 "Unknown error" = "Bilinmeyen hata";
+"Open Type Error" = "Not supported type \"%@\". You can open it via desktop.";
 "Close" = "Kapat";
 "Account is deleted" = "Hesap silindi";
 "Add phone" = "Telefon ekle";
