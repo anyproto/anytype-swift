@@ -727,6 +727,7 @@
 "Widgets.Actions.EditWidgets" = "Редагувати Віджети";
 "Widgets.Actions.EmptyBin" = "Очистити кошик";
 "Widgets.Actions.AddBelow" = "Додати знизу";
+"Widgets.Actions.NewObject" = "New Object";
 "Widgets.Layout.Screen.Title" = "Тип віджета";
 "Widgets.Layout.Link.Title" = "Посилання";
 "Widgets.Layout.Tree.Title" = "Дерево";
@@ -851,6 +852,7 @@
 // MARK: - Error
 "Error.AnytypeNeedsUpgrate.Title" = "Update Your App";
 "Error.AnytypeNeedsUpgrate.Message" = "This object was modified in a newer version of Anytype. Please update the app to open it on this device";
+"Error.AnytypeNeedsUpgrate.Confirm" = "Update";
 
 // MARK: - Relative date formatter
 "RelativeFormatter.days7" = "Previous 7 days";
