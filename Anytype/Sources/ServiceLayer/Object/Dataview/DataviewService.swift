@@ -8,14 +8,10 @@ final class DataviewService: DataviewServiceProtocol {
     enum Constants {
         static let dataview = "dataview"
     }
-
-    private let objectId: BlockId
-    private let blockId: BlockId
+    
     private let prefilledFieldsBuilder: SetPrefilledFieldsBuilderProtocol
     
-    init(objectId: BlockId, blockId: BlockId?, prefilledFieldsBuilder: SetPrefilledFieldsBuilderProtocol) {
-        self.objectId = objectId
-        self.blockId = blockId ?? SetConstants.dataviewBlockId
+    init(prefilledFieldsBuilder: SetPrefilledFieldsBuilderProtocol) {
         self.prefilledFieldsBuilder = prefilledFieldsBuilder
     }
     

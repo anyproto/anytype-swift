@@ -41,7 +41,6 @@ final class EditorSetModuleAssembly: EditorSetModuleAssemblyProtocol {
             forPreview: false,
             inlineParameters: data.inline
         )
-        let dataviewService = serviceLocator.dataviewService(objectId: data.objectId, blockId: data.inline?.blockId)
         
         let detailsService = serviceLocator.detailsService(objectId: data.objectId)
         
@@ -58,7 +57,7 @@ final class EditorSetModuleAssembly: EditorSetModuleAssemblyProtocol {
             setDocument: setDocument,
             headerViewModel: headerModel,
             subscriptionStorageProvider: serviceLocator.subscriptionStorageProvider(),
-            dataviewService: dataviewService,
+            dataviewService: serviceLocator.dataviewService(),
             searchService: serviceLocator.searchService(),
             detailsService: detailsService,
             objectActionsService: serviceLocator.objectActionsService(),
@@ -68,11 +67,6 @@ final class EditorSetModuleAssembly: EditorSetModuleAssemblyProtocol {
             objectTypeProvider: serviceLocator.objectTypeProvider(),
             output: output
         )
-
-        let setObjectCreationCoordinator = coordinatorsDI.setObjectCreation().make(
-            objectId: data.objectId,
-            blockId: data.inline?.blockId
-        )
         
         let router = EditorSetRouter(
             setDocument: setDocument,
@@ -81,7 +75,7 @@ final class EditorSetModuleAssembly: EditorSetModuleAssemblyProtocol {
             newSearchModuleAssembly: modulesDI.newSearch(),
             objectSettingCoordinator: coordinatorsDI.objectSettings().make(),
             relationValueCoordinator: coordinatorsDI.relationValue().make(), 
-            setObjectCreationCoordinator: setObjectCreationCoordinator,
+            setObjectCreationCoordinator: coordinatorsDI.setObjectCreation().make(),
             objectCoverPickerModuleAssembly: modulesDI.objectCoverPicker(),
             objectIconPickerModuleAssembly: modulesDI.objectIconPicker(),
             setViewSettingsCoordinatorAssembly: coordinatorsDI.setViewSettings(),

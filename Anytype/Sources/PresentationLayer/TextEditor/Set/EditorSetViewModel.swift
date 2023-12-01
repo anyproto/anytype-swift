@@ -770,7 +770,7 @@ extension EditorSetViewModel {
             interactor: DI.preview.serviceLocator.objectHeaderInteractor(objectId: "objectId")
         ),
         subscriptionStorageProvider: DI.preview.serviceLocator.subscriptionStorageProvider(),
-        dataviewService: DataviewService(objectId: "objectId", blockId: "blockId", prefilledFieldsBuilder: SetPrefilledFieldsBuilder()),
+        dataviewService: DI.preview.serviceLocator.dataviewService(),
         searchService: DI.preview.serviceLocator.searchService(),
         detailsService: DetailsService(
             objectId: "objectId",

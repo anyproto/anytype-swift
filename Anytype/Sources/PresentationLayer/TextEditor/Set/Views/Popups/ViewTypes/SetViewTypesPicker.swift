@@ -154,11 +154,7 @@ struct SetViewTypesPicker_Previews: PreviewProvider {
                     objectTypeProvider: DI.preview.serviceLocator.objectTypeProvider()
                 ),
                 activeView: DataviewView.empty,
-                dataviewService: DataviewService(
-                    objectId: "objectId",
-                    blockId: "blockId",
-                    prefilledFieldsBuilder: SetPrefilledFieldsBuilder()
-                ),
+                dataviewService: DI.preview.serviceLocator.dataviewService(),
                 relationDetailsStorage: DI.preview.serviceLocator.relationDetailsStorage()
             )
         )

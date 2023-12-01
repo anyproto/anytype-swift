@@ -23,14 +23,10 @@ final class SetViewPickerModuleAssembly: SetViewPickerModuleAssemblyProtocol {
         setDocument: SetDocumentProtocol,
         output: SetViewPickerCoordinatorOutput?
     ) -> AnyView {
-        let dataviewService = serviceLocator.dataviewService(
-            objectId: setDocument.objectId,
-            blockId: setDocument.inlineParameters?.blockId
-        )
         return SetViewPicker(
             viewModel: SetViewPickerViewModel(
                 setDocument: setDocument,
-                dataviewService: dataviewService,
+                dataviewService: self.serviceLocator.dataviewService(),
                 output: output
             )
         ).eraseToAnyView()

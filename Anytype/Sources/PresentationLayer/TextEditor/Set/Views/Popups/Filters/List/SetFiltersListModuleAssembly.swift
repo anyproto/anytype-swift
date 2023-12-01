@@ -28,15 +28,11 @@ final class SetFiltersListModuleAssembly: SetFiltersListModuleAssemblyProtocol {
         subscriptionDetailsStorage: ObjectDetailsStorage,
         output: SetFiltersListCoordinatorOutput?
     ) -> AnyView {
-        let dataviewService = serviceLocator.dataviewService(
-            objectId: setDocument.objectId,
-            blockId: setDocument.inlineParameters?.blockId
-        )
         return SetFiltersListView(
             viewModel: SetFiltersListViewModel(
                 setDocument: setDocument,
                 viewId: viewId,
-                dataviewService: dataviewService,
+                dataviewService: self.serviceLocator.dataviewService(),
                 output: output,
                 subscriptionDetailsStorage: subscriptionDetailsStorage
             )

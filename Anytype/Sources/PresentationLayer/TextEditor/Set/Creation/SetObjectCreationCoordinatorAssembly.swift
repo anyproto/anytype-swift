@@ -3,10 +3,7 @@ import UIKit
 import SwiftUI
 
 protocol SetObjectCreationCoordinatorAssemblyProtocol {
-    func make(
-        objectId: String,
-        blockId: String?
-    ) -> SetObjectCreationCoordinatorProtocol
+    func make() -> SetObjectCreationCoordinatorProtocol
 }
 
 final class SetObjectCreationCoordinatorAssembly: SetObjectCreationCoordinatorAssemblyProtocol {
@@ -30,21 +27,12 @@ final class SetObjectCreationCoordinatorAssembly: SetObjectCreationCoordinatorAs
     
     // MARK: - SetObjectCreationCoordinatorAssemblyProtocol
     
-    func make(
-        objectId: String,
-        blockId: String?
-    ) -> SetObjectCreationCoordinatorProtocol {
+    func make() -> SetObjectCreationCoordinatorProtocol {
         SetObjectCreationCoordinator(
             navigationContext: uiHelpersDI.commonNavigationContext(),
             toastPresenter: uiHelpersDI.toastPresenter(),
-            objectCreationHelper: serviceLocator.setObjectCreationHelper(objectId: objectId, blockId: blockId),
+            objectCreationHelper: serviceLocator.setObjectCreationHelper(),
             createObjectModuleAssembly: modulesDI.createObject()
         )
-    }
-}
-
-extension SetObjectCreationCoordinatorAssemblyProtocol {
-    func make(objectId: String) -> SetObjectCreationCoordinatorProtocol {
-        make(objectId: objectId, blockId: nil)
     }
 }
