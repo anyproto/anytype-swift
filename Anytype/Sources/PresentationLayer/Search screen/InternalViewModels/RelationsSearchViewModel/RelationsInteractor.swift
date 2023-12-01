@@ -29,8 +29,8 @@ final class RelationsInteractor: RelationsInteractorProtocol {
     }
     
     func addRelationToDataview(spaceId: BlockId, relation: RelationDetails, activeViewId: String) async throws {
-        try await dataviewService.addRelation(objectId: spaceId, blockId: nil, relationDetails: relation)
+        try await dataviewService.addRelation(objectId: spaceId, blockId: SetConstants.dataviewBlockId, relationDetails: relation)
         let newOption = DataviewRelationOption(key: relation.key, isVisible: true)
-        try await dataviewService.addViewRelation(objectId: spaceId, blockId: nil, relation: newOption.asMiddleware, viewId: activeViewId)
+        try await dataviewService.addViewRelation(objectId: spaceId, blockId: SetConstants.dataviewBlockId, relation: newOption.asMiddleware, viewId: activeViewId)
     }
 }

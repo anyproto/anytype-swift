@@ -59,7 +59,7 @@ extension SetFiltersListViewModel {
                 guard let self else { return }
                 try await dataviewService.removeFilters(
                     objectId: setDocument.objectId,
-                    blockId: setDocument.inlineParameters?.blockId,
+                    blockId: setDocument.blockId,
                     ids: [filter.filter.id],
                     viewId: viewId
                 )
@@ -144,7 +144,7 @@ extension SetFiltersListViewModel {
                 if filter.filter.id.isNotEmpty {
                     try await dataviewService.replaceFilter(
                         objectId: setDocument.objectId,
-                        blockId: setDocument.inlineParameters?.blockId,
+                        blockId: setDocument.blockId,
                         id: filter.filter.id,
                         filter: updatedFilter.filter,
                         viewId: viewId
@@ -158,7 +158,7 @@ extension SetFiltersListViewModel {
                 } else {
                     try await dataviewService.addFilter(
                         objectId: setDocument.objectId,
-                        blockId: setDocument.inlineParameters?.blockId,
+                        blockId: setDocument.blockId,
                         filter: updatedFilter.filter,
                         viewId: viewId
                     )

@@ -302,7 +302,7 @@ final class EditorSetViewModel: ObservableObject {
 
                 Task { @MainActor in
                     try? await self.textService.setText(
-                        contextId: self.setDocument.inlineParameters?.targetObjectID ?? self.objectId,
+                        contextId: self.setDocument.targetObjectId,
                         blockId: RelationKey.title.rawValue,
                         middlewareString: .init(text: newValue, marks: .init())
                     )
@@ -662,6 +662,7 @@ extension EditorSetViewModel {
             guard let self else { return }
             try await self.dataviewService.objectOrderUpdate(
                 objectId: setDocument.objectId,
+                blockId: setDocument.blockId,
                 viewId: self.activeView.id,
                 groupObjectIds: groupObjectIds
             )
@@ -716,6 +717,7 @@ extension EditorSetViewModel {
             guard let self else { return }
             try await self.dataviewService.groupOrderUpdate(
                 objectId: setDocument.objectId,
+                blockId: setDocument.blockId,
                 viewId: self.activeView.id,
                 groupOrder: updatedGroupOrder
             )

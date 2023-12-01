@@ -61,7 +61,7 @@ extension SetSortsListViewModel {
                 guard let self else { return }
                 try await dataviewService.removeSorts(
                     objectId: setDocument.objectId,
-                    blockId: setDocument.inlineParameters?.blockId,
+                    blockId: setDocument.blockId,
                     ids: [sort.sort.id],
                     viewId: viewId
                 )
@@ -78,7 +78,7 @@ extension SetSortsListViewModel {
             let sortIds = sorts.map { $0.sort.id }
             try await dataviewService.sortSorts(
                 objectId: setDocument.objectId,
-                blockId: setDocument.inlineParameters?.blockId,
+                blockId: setDocument.blockId,
                 ids: sortIds,
                 viewId: viewId
             )
@@ -95,7 +95,7 @@ extension SetSortsListViewModel {
             guard let self else { return }
             try await dataviewService.addSort(
                 objectId: setDocument.objectId,
-                blockId: setDocument.inlineParameters?.blockId,
+                blockId: setDocument.blockId,
                 sort: newSort, 
                 viewId: viewId
             )
@@ -130,7 +130,7 @@ extension SetSortsListViewModel {
             guard let self else { return }
             try await dataviewService.replaceSort(
                 objectId: setDocument.objectId,
-                blockId: setDocument.inlineParameters?.blockId,
+                blockId: setDocument.blockId,
                 id: setSort.sort.id,
                 sort: setSort.sort,
                 viewId: viewId

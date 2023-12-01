@@ -50,7 +50,7 @@ final class EditorSetModuleAssembly: EditorSetModuleAssemblyProtocol {
                 isOpenedForPreview: false,
                 usecase: .editor
             ),
-            interactor: serviceLocator.objectHeaderInteractor(objectId: setDocument.inlineParameters?.targetObjectID ?? setDocument.objectId)
+            interactor: serviceLocator.objectHeaderInteractor(objectId: setDocument.targetObjectId)
         )
         
         let model = EditorSetViewModel(

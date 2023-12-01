@@ -155,7 +155,7 @@ final class SetLayoutSettingsViewModel: ObservableObject {
         Task {
             try await dataviewService.updateView(
                 objectId: setDocument.objectId,
-                blockId: setDocument.inlineParameters?.blockId,
+                blockId: setDocument.blockId,
                 view: activeView
             )
         }
