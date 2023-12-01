@@ -25,7 +25,7 @@ final class CharIconPainter: IconPainter {
     let text: String
     
     init(text: String) {
-        self.text = String(text.prefix(1))
+        self.text = String(text.prefix(1).uppercased())
     }
     
     // IconPainter
