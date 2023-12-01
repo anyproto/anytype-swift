@@ -727,6 +727,7 @@
 "Widgets.Actions.EditWidgets" = "Editar widgets";
 "Widgets.Actions.EmptyBin" = "Lixeira Limpa";
 "Widgets.Actions.AddBelow" = "Adicionar abaixo";
+"Widgets.Actions.NewObject" = "Novo Objeto";
 "Widgets.Layout.Screen.Title" = "Tipo de widget";
 "Widgets.Layout.Link.Title" = "Link";
 "Widgets.Layout.Tree.Title" = "Árvore";
@@ -850,6 +851,7 @@
 // MARK: - Error
 "Error.AnytypeNeedsUpgrate.Title" = "Atualizar seu aplicativo!";
 "Error.AnytypeNeedsUpgrate.Message" = "Este objeto foi atualizado em uma nova versão do Anytype. Por favor, atualize o aplicativo para abri-lo neste dispositivo";
+"Error.AnytypeNeedsUpgrate.Confirm" = "Update";
 
 // MARK: - Relative date formatter
 "RelativeFormatter.days7" = "Últimos 7 dias";
