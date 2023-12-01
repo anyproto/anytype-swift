@@ -20,8 +20,7 @@ protocol EditorSetRouterProtocol:
     func showRelationSearch(relationsDetails: [RelationDetails], onSelect: @escaping (RelationDetails) -> Void)
     func showViewTypes(
         setDocument: SetDocumentProtocol,
-        activeView: DataviewView?,
-        dataviewService: DataviewServiceProtocol
+        activeView: DataviewView?
     )
     
     func showViewSettings(setDocument: SetDocumentProtocol)
@@ -193,13 +192,12 @@ final class EditorSetRouter: EditorSetRouterProtocol, ObjectSettingsCoordinatorO
     
     func showViewTypes(
         setDocument: SetDocumentProtocol,
-        activeView: DataviewView?,
-        dataviewService: DataviewServiceProtocol
+        activeView: DataviewView?
     ) {
         let viewModel = SetViewTypesPickerViewModel(
             setDocument: setDocument,
             activeView: activeView,
-            dataviewService: dataviewService,
+            dataviewService: ServiceLocator.shared.dataviewService(),
             relationDetailsStorage: ServiceLocator.shared.relationDetailsStorage()
         )
         let vc = UIHostingController(

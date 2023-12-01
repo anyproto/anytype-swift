@@ -626,8 +626,7 @@ extension EditorSetViewModel {
     func showViewTypes(with activeView: DataviewView?) {
         router?.showViewTypes(
             setDocument: setDocument,
-            activeView: activeView,
-            dataviewService: dataviewService
+            activeView: activeView
         )
     }
 
