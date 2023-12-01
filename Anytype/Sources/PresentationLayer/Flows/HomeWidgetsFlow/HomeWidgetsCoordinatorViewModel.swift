@@ -381,17 +381,20 @@ final class HomeWidgetsCoordinatorViewModel: ObservableObject,
             if path.count == 0 {
                 path.push(newInfo)
             }
-            // Restore last open page
-            if currentSpaceId.isNil, let lastOpenPage = UserDefaultsConfig.lastOpenedPage {
-                if let objectId = lastOpenPage.objectId {
-                    let document = documentsProvider.document(objectId: objectId, forPreview: true)
-                    try await document.openForPreview()
-                    // Check space is deleted or switched
-                    if document.spaceId == newInfo.accountSpaceId {
+            
+            do {
+                // Restore last open page
+                if currentSpaceId.isNil, let lastOpenPage = UserDefaultsConfig.lastOpenedPage {
+                    if let objectId = lastOpenPage.objectId {
+                        let document = documentsProvider.document(objectId: objectId, forPreview: true)
+                        try await document.openForPreview()
+                        // Check space is deleted or switched
+                        if document.spaceId == newInfo.accountSpaceId {
+                            path.push(lastOpenPage)
+                        }
+                    } else {
                         path.push(lastOpenPage)
                     }
-                } else {
-                    path.push(lastOpenPage)
                 }
             }
             
