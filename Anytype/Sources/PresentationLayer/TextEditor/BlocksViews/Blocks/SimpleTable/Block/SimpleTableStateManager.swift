@@ -75,20 +75,16 @@ final class SimpleTableStateManager: SimpleTableStateManagerProtocol {
         selectionOptionHandler.onFinishSelection = { [weak self] in self?.resetToEditingMode() }
     }
 
-    func checkOpenedState() {}
-
-    func checkDocumentLockField() {
-        switch editingState {
-        case .editing, .readonly, .loading:
-            break
-        default:
-            return // Unable to change state while moving or selecting blocks
-        }
-        if document.isArchived {
+    func checkOpenedState() {
+        if !document.isOpened {
+            editingState = .loading
+        } else if document.isArchived {
             editingState = .readonly(state: .archived)
         } else if document.isLocked {
             editingState = .readonly(state: .locked)
-        } else if case .readonly = editingState, !document.isLocked, !document.isArchived {
+        } else if case .editing = editingState {
+            // nothing
+        } else {
             editingState = .editing
         }
     }
