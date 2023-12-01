@@ -153,7 +153,11 @@ final class SetLayoutSettingsViewModel: ObservableObject {
             AnytypeAnalytics.instance().logChangeViewType(type: selectedType.stringValue, objectType: setDocument.analyticsType)
         }
         Task {
-            try await dataviewService.updateView(activeView)
+            try await dataviewService.updateView(
+                objectId: setDocument.objectId,
+                blockId: setDocument.inlineParameters?.blockId,
+                view: activeView
+            )
         }
     }
     

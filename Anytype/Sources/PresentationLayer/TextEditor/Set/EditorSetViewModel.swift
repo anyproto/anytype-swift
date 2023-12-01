@@ -662,6 +662,7 @@ extension EditorSetViewModel {
         Task { [weak self] in
             guard let self else { return }
             try await self.dataviewService.objectOrderUpdate(
+                objectId: setDocument.objectId,
                 viewId: self.activeView.id,
                 groupObjectIds: groupObjectIds
             )
@@ -715,6 +716,7 @@ extension EditorSetViewModel {
         Task { [weak self] in
             guard let self else { return }
             try await self.dataviewService.groupOrderUpdate(
+                objectId: setDocument.objectId,
                 viewId: self.activeView.id,
                 groupOrder: updatedGroupOrder
             )

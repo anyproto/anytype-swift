@@ -73,7 +73,7 @@ final class SetViewSettingsListModel: ObservableObject {
     func deleteView() {
         Task { [weak self] in
             guard let self else { return }
-            try await dataviewService.deleteView(viewId)
+            try await dataviewService.deleteView(objectId: setDocument.objectId, blockId: setDocument.inlineParameters?.blockId, viewId: viewId)
             AnytypeAnalytics.instance().logRemoveView(objectType: setDocument.analyticsType)
         }
     }
@@ -82,7 +82,7 @@ final class SetViewSettingsListModel: ObservableObject {
         let source = setDocument.details?.setOf ?? []
         Task { [weak self] in
             guard let self else { return }
-            try await dataviewService.createView(view, source: source)
+            try await dataviewService.createView(objectId: setDocument.objectId, blockId: setDocument.inlineParameters?.blockId, view: view, source: source)
             AnytypeAnalytics.instance().logDuplicateView(
                 type: view.type.stringValue,
                 objectType: setDocument.analyticsType
@@ -125,7 +125,7 @@ final class SetViewSettingsListModel: ObservableObject {
     private func updateView(with name: String) {
         let newView = view.updated(name: name)
         Task {
-            try await dataviewService.updateView(newView)
+            try await dataviewService.updateView(objectId: setDocument.objectId, blockId: setDocument.inlineParameters?.blockId, view: newView)
         }
     }
     

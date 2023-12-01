@@ -1,30 +1,30 @@
 import Services
 
 protocol DataviewServiceProtocol {
-    func updateView(_ view: DataviewView) async throws
+    func updateView(objectId: BlockId, blockId: BlockId?, view: DataviewView) async throws
     
     // MARK: - Filters
-    func addFilter(_ filter: DataviewFilter, viewId: String) async throws
-    func removeFilters(_ ids: [String], viewId: String) async throws
-    func replaceFilter(_ id: String, with filter: DataviewFilter, viewId: String) async throws
+    func addFilter(objectId: BlockId, blockId: BlockId?, filter: DataviewFilter, viewId: String) async throws
+    func removeFilters(objectId: BlockId, blockId: BlockId?, ids: [String], viewId: String) async throws
+    func replaceFilter(objectId: BlockId, blockId: BlockId?, id: String, filter: DataviewFilter, viewId: String) async throws
     
     // MARK: - Sorts
-    func addSort(_ sort: DataviewSort, viewId: String) async throws
-    func removeSorts(_ ids: [String], viewId: String) async throws
-    func replaceSort(_ id: String, with sort: DataviewSort, viewId: String) async throws
-    func sortSorts(_ ids: [String], viewId: String) async throws
+    func addSort(objectId: BlockId, blockId: BlockId?, sort: DataviewSort, viewId: String) async throws
+    func removeSorts(objectId: BlockId, blockId: BlockId?, ids: [String], viewId: String) async throws
+    func replaceSort(objectId: BlockId, blockId: BlockId?, id: String, sort: DataviewSort, viewId: String) async throws
+    func sortSorts(objectId: BlockId, blockId: BlockId?, ids: [String], viewId: String) async throws
     
     // MARK: - Relations
-    func addViewRelation(_ relation: MiddlewareRelation, viewId: String) async throws
-    func removeViewRelations(_ keys: [String], viewId: String) async throws
-    func replaceViewRelation(_ key: String, with relation: MiddlewareRelation, viewId: String) async throws
-    func sortViewRelations(_ keys: [String], viewId: String) async throws
+    func addViewRelation(objectId: BlockId, blockId: BlockId?, relation: MiddlewareRelation, viewId: String) async throws
+    func removeViewRelations(objectId: BlockId, blockId: BlockId?, keys: [String], viewId: String) async throws
+    func replaceViewRelation(objectId: BlockId, blockId: BlockId?, key: String, with relation: MiddlewareRelation, viewId: String) async throws
+    func sortViewRelations(objectId: BlockId, blockId: BlockId?, keys: [String], viewId: String) async throws
     
     @discardableResult
-    func createView( _ view: DataviewView, source: [String]) async throws -> String
-    func deleteView(_ viewId: String) async throws
-    func addRelation(_ relationDetails: RelationDetails) async throws
-    func deleteRelation(relationKey: String) async throws
+    func createView(objectId: BlockId, blockId: BlockId?, view: DataviewView, source: [String]) async throws -> String
+    func deleteView(objectId: BlockId, blockId: BlockId?, viewId: String) async throws
+    func addRelation(objectId: BlockId, blockId: BlockId?, relationDetails: RelationDetails) async throws
+    func deleteRelation(objectId: BlockId, blockId: BlockId?, relationKey: String) async throws
     func addRecord(
         typeUniqueKey: ObjectTypeUniqueKey?,
         templateId: BlockId,
@@ -32,7 +32,7 @@ protocol DataviewServiceProtocol {
         setFilters: [SetFilter],
         relationsDetails: [RelationDetails]
     ) async throws -> ObjectDetails
-    func setPositionForView(_ viewId: String, position: Int) async throws
-    func objectOrderUpdate(viewId: String, groupObjectIds: [GroupObjectIds]) async throws
-    func groupOrderUpdate(viewId: String, groupOrder: DataviewGroupOrder) async throws
+    func setPositionForView(objectId: BlockId, viewId: String, position: Int) async throws
+    func objectOrderUpdate(objectId: BlockId, viewId: String, groupObjectIds: [GroupObjectIds]) async throws
+    func groupOrderUpdate(objectId: BlockId, viewId: String, groupOrder: DataviewGroupOrder) async throws
 }

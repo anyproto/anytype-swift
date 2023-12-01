@@ -59,7 +59,12 @@ extension SetSortsListViewModel {
             let sort = sorts[deleteIndex]
             Task { [weak self] in
                 guard let self else { return }
-                try await dataviewService.removeSorts([sort.sort.id], viewId: viewId)
+                try await dataviewService.removeSorts(
+                    objectId: setDocument.objectId,
+                    blockId: setDocument.inlineParameters?.blockId,
+                    ids: [sort.sort.id],
+                    viewId: viewId
+                )
                 AnytypeAnalytics.instance().logSortRemove(objectType: setDocument.analyticsType)
             }
         }
@@ -71,7 +76,12 @@ extension SetSortsListViewModel {
             var sorts = setDocument.sorts(for: viewId)
             sorts.move(fromOffsets: from, toOffset: to)
             let sortIds = sorts.map { $0.sort.id }
-            try await dataviewService.sortSorts(sortIds, viewId: viewId)
+            try await dataviewService.sortSorts(
+                objectId: setDocument.objectId,
+                blockId: setDocument.inlineParameters?.blockId,
+                ids: sortIds,
+                viewId: viewId
+            )
             AnytypeAnalytics.instance().logRepositionSort(objectType: setDocument.analyticsType)
         }
     }
@@ -83,7 +93,12 @@ extension SetSortsListViewModel {
         )
         Task { [weak self] in
             guard let self else { return }
-            try await dataviewService.addSort(newSort, viewId: viewId)
+            try await dataviewService.addSort(
+                objectId: setDocument.objectId,
+                blockId: setDocument.inlineParameters?.blockId,
+                sort: newSort, 
+                viewId: viewId
+            )
             AnytypeAnalytics.instance().logAddSort(objectType: setDocument.analyticsType)
         }
     }
@@ -114,8 +129,10 @@ extension SetSortsListViewModel {
         Task { [weak self] in
             guard let self else { return }
             try await dataviewService.replaceSort(
-                setSort.sort.id,
-                with: setSort.sort,
+                objectId: setDocument.objectId,
+                blockId: setDocument.inlineParameters?.blockId,
+                id: setSort.sort.id,
+                sort: setSort.sort,
                 viewId: viewId
             )
             AnytypeAnalytics.instance().logChangeSortValue(

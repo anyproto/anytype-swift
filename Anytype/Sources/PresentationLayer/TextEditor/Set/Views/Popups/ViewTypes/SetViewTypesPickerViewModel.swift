@@ -45,7 +45,7 @@ final class SetViewTypesPickerViewModel: ObservableObject {
     func deleteView() {
         guard let activeView = activeView else { return }
         Task {
-            try await dataviewService.deleteView(activeView.id)
+            try await dataviewService.deleteView(objectId: setDocument.objectId, blockId: setDocument.inlineParameters?.blockId, viewId: activeView.id)
             AnytypeAnalytics.instance().logRemoveView(objectType: setDocument.analyticsType)
         }
     }
@@ -53,7 +53,7 @@ final class SetViewTypesPickerViewModel: ObservableObject {
     func duplicateView() {
         guard let activeView = activeView else { return }
         Task {
-            try await dataviewService.createView(activeView, source: source)
+            try await dataviewService.createView(objectId: setDocument.objectId, blockId: setDocument.inlineParameters?.blockId, view: activeView, source: source)
             AnytypeAnalytics.instance().logDuplicateView(
                 type: activeView.type.stringValue,
                 objectType: setDocument.analyticsType
@@ -93,7 +93,7 @@ final class SetViewTypesPickerViewModel: ObservableObject {
             AnytypeAnalytics.instance().logChangeViewType(type: selectedType.stringValue, objectType: setDocument.analyticsType)
         }
         Task {
-            try await dataviewService.updateView(newView)
+            try await dataviewService.updateView(objectId: setDocument.objectId, blockId: setDocument.inlineParameters?.blockId, view: newView)
         }
     }
     
@@ -106,7 +106,7 @@ final class SetViewTypesPickerViewModel: ObservableObject {
                 sorts: [],
                 filters: []
             )
-            try await dataviewService.createView(newView, source: source)
+            try await dataviewService.createView(objectId: setDocument.objectId, blockId: setDocument.inlineParameters?.blockId, view: newView, source: source)
             AnytypeAnalytics.instance().logAddView(type: selectedType.stringValue, objectType: setDocument.analyticsType)
         }
     }

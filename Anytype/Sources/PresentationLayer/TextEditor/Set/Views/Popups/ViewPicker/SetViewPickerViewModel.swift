@@ -38,7 +38,7 @@ final class SetViewPickerViewModel: ObservableObject {
             let view = setDocument.dataView.views[viewFromIndex]
             let position = to > viewFromIndex ? to - 1 : to
             Task {
-                try await dataviewService.setPositionForView(view.id, position: position)
+                try await dataviewService.setPositionForView(objectId: setDocument.objectId, viewId: view.id, position: position)
                 AnytypeAnalytics.instance().logRepositionView(objectType: setDocument.analyticsType)
             }
         }
@@ -49,7 +49,7 @@ final class SetViewPickerViewModel: ObservableObject {
             guard deleteIndex < setDocument.dataView.views.count else { return }
             let view = setDocument.dataView.views[deleteIndex]
             Task {
-                try await dataviewService.deleteView(view.id)
+                try await dataviewService.deleteView(objectId: setDocument.objectId, blockId: setDocument.inlineParameters?.blockId, viewId: view.id)
                 AnytypeAnalytics.instance().logRemoveView(objectType: setDocument.analyticsType)
             }
         }
@@ -104,7 +104,12 @@ final class SetViewPickerViewModel: ObservableObject {
                 filters: []
             )
             let source = setDocument.details?.setOf ?? []
-            let viewId = try await dataviewService.createView(newView, source: source)
+            let viewId = try await dataviewService.createView(
+                objectId: setDocument.objectId,
+                blockId: setDocument.inlineParameters?.blockId,
+                view: newView,
+                source: source
+            )
             output?.onAddButtonTap(with: viewId)
             AnytypeAnalytics.instance().logAddView(
                 type: DataviewViewType.table.stringValue,

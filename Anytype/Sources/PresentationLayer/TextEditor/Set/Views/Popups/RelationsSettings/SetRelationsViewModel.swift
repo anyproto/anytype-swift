@@ -119,8 +119,17 @@ final class SetRelationsViewModel: ObservableObject {
             }
             Task {
                 let key = relation.relationDetails.key
-                try await dataviewService.deleteRelation(relationKey: key)
-                try await dataviewService.removeViewRelations([key], viewId: viewId)
+                try await dataviewService.deleteRelation(
+                    objectId: setDocument.objectId,
+                    blockId: setDocument.inlineParameters?.blockId,
+                    relationKey: key
+                )
+                try await dataviewService.removeViewRelations(
+                    objectId: setDocument.objectId,
+                    blockId: setDocument.inlineParameters?.blockId,
+                    keys: [key],
+                    viewId: viewId
+                )
             }
         }
     }
@@ -150,7 +159,12 @@ final class SetRelationsViewModel: ObservableObject {
             let keys = newOptions.map { $0.key }
             Task { [weak self] in
                 guard let self else { return }
-                try await dataviewService.sortViewRelations(keys, viewId: viewId)
+                try await dataviewService.sortViewRelations(
+                    objectId: setDocument.objectId,
+                    blockId: setDocument.inlineParameters?.blockId,
+                    keys: keys,
+                    viewId: viewId
+                )
             }
         }
     }
@@ -173,7 +187,9 @@ final class SetRelationsViewModel: ObservableObject {
         Task {
             let newOption = relation.option.updated(isVisible: isVisible).asMiddleware
             try await dataviewService.replaceViewRelation(
-                relation.option.key,
+                objectId: setDocument.objectId,
+                blockId: setDocument.inlineParameters?.blockId,
+                key: relation.option.key,
                 with: newOption,
                 viewId: viewId
             )
@@ -212,7 +228,11 @@ final class SetRelationsViewModel: ObservableObject {
     
     private func updateView(_ view: DataviewView) {
         Task {
-            try await dataviewService.updateView(view)
+            try await dataviewService.updateView(
+                objectId: setDocument.objectId,
+                blockId: setDocument.inlineParameters?.blockId,
+                view: view
+            )
         }
     }
     

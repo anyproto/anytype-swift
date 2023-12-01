@@ -101,13 +101,13 @@ final class SetObjectCreationSettingsInteractor: SetObjectCreationSettingsIntera
     
     func setDefaultObjectType(objectTypeId: BlockId) async throws {
         let updatedDataView = dataView.updated(defaultTemplateID: "", defaultObjectTypeID: objectTypeId)
-        try await dataviewService.updateView(updatedDataView)
+        try await dataviewService.updateView(objectId: setDocument.objectId, blockId: setDocument.inlineParameters?.blockId, view: updatedDataView)
     }
     
     func setDefaultTemplate(templateId: BlockId) async throws {
         guard dataView.defaultTemplateID != templateId else { return }
         let updatedDataView = dataView.updated(defaultTemplateID: templateId)
-        try await dataviewService.updateView(updatedDataView)
+        try await dataviewService.updateView(objectId: setDocument.objectId, blockId: setDocument.inlineParameters?.blockId, view: updatedDataView)
     }
     
     private func updateState(with objectTypeId: String) {
