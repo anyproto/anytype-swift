@@ -509,6 +509,7 @@
 		2A785B472AFCDDED0020297E /* EditorCoordinatorViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A785B462AFCDDED0020297E /* EditorCoordinatorViewModel.swift */; };
 		2A794B422AD53D3A00BA160F /* SubscriptionStorageProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A794B412AD53D3A00BA160F /* SubscriptionStorageProvider.swift */; };
 		2A794B442AD53D4400BA160F /* SubscriptionStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A794B432AD53D4400BA160F /* SubscriptionStorage.swift */; };
+		2A7B124E2B19CC5600E14578 /* GalleryUnavailableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A7B124D2B19CC5600E14578 /* GalleryUnavailableView.swift */; };
 		2A7BD6E628D85993008B735C /* RelationSubscriptionDataBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A7BD6E528D85993008B735C /* RelationSubscriptionDataBuilder.swift */; };
 		2A7BD6E828D8599D008B735C /* RelationSubscriptionDataBuilderProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A7BD6E728D8599D008B735C /* RelationSubscriptionDataBuilderProtocol.swift */; };
 		2A7BD6EB28D85B6B008B735C /* ObjectTypeSubscriptionDataBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A7BD6EA28D85B6B008B735C /* ObjectTypeSubscriptionDataBuilder.swift */; };
@@ -2173,6 +2174,7 @@
 		2A785B462AFCDDED0020297E /* EditorCoordinatorViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditorCoordinatorViewModel.swift; sourceTree = "<group>"; };
 		2A794B412AD53D3A00BA160F /* SubscriptionStorageProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubscriptionStorageProvider.swift; sourceTree = "<group>"; };
 		2A794B432AD53D4400BA160F /* SubscriptionStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubscriptionStorage.swift; sourceTree = "<group>"; };
+		2A7B124D2B19CC5600E14578 /* GalleryUnavailableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GalleryUnavailableView.swift; sourceTree = "<group>"; };
 		2A7BD6E528D85993008B735C /* RelationSubscriptionDataBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RelationSubscriptionDataBuilder.swift; sourceTree = "<group>"; };
 		2A7BD6E728D8599D008B735C /* RelationSubscriptionDataBuilderProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RelationSubscriptionDataBuilderProtocol.swift; sourceTree = "<group>"; };
 		2A7BD6EA28D85B6B008B735C /* ObjectTypeSubscriptionDataBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObjectTypeSubscriptionDataBuilder.swift; sourceTree = "<group>"; };
@@ -5604,6 +5606,14 @@
 			path = RelationsSearchViewModel;
 			sourceTree = "<group>";
 		};
+		2A7B124C2B19CC4700E14578 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				2A7B124D2B19CC5600E14578 /* GalleryUnavailableView.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
 		2A7BD6E428D85982008B735C /* Subscription */ = {
 			isa = PBXGroup;
 			children = (
@@ -5786,6 +5796,7 @@
 		2A9486592950A57B007A5586 /* HomeWidgetsFlow */ = {
 			isa = PBXGroup;
 			children = (
+				2A7B124C2B19CC4700E14578 /* Views */,
 				2A94865C2950A59D007A5586 /* HomeWidgetsCoordinatorAssembly.swift */,
 				2AFEED152A73AE8C00D7A45B /* HomeWidgetsCoordinatorView.swift */,
 				2AFEED172A73AEDB00D7A45B /* HomeWidgetsCoordinatorViewModel.swift */,
@@ -10006,6 +10017,7 @@
 				C96B6C9D27B0F33100C453EB /* BlocksFileEmptyViewConfiguration.swift in Sources */,
 				3D17023F2715D0D80079B65B /* EditorSyncStatusItem.swift in Sources */,
 				12EEC36E26A0903F00C3C4B1 /* EmojiGridView.swift in Sources */,
+				2A7B124E2B19CC5600E14578 /* GalleryUnavailableView.swift in Sources */,
 				1223C9022726BEB000C34616 /* FeaturedRelationsBlockContentConfiguration.swift in Sources */,
 				03D1516023FB4329004027CE /* DashboardServiceProtocol.swift in Sources */,
 				2AC906C329B5FA3300209E39 /* ObjectWidgetInternalViewModel.swift in Sources */,
@@ -11520,7 +11532,8 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
-				APP_URL_SCHEME = "com.dev-anytype";
+				APP_URL_SCHEME = "dev-anytype";
+				APP_URL_SCHEME_LEGACY = "com.dev-anytype";
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = YES;
 				CODE_SIGN_ENTITLEMENTS = Anytype/Anytype.entitlements;
@@ -11564,7 +11577,8 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
-				APP_URL_SCHEME = com.anytype;
+				APP_URL_SCHEME = anytype;
+				APP_URL_SCHEME_LEGACY = com.anytype;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = YES;
 				CODE_SIGN_ENTITLEMENTS = Anytype/Anytype.entitlements;
@@ -11718,7 +11732,8 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
-				APP_URL_SCHEME = "com.dev-anytype";
+				APP_URL_SCHEME = "dev-anytype";
+				APP_URL_SCHEME_LEGACY = "com.dev-anytype";
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = YES;
 				CODE_SIGN_ENTITLEMENTS = Anytype/Anytype.entitlements;

@@ -16,6 +16,7 @@ internal extension ImageAsset {
   static let authPhotoIcon = ImageAsset.bundle(name: "auth_photo_icon")
   static let theEverythingApp = ImageAsset.bundle(name: "the-everything-app")
   enum BottomAlert {
+    static let error = ImageAsset.bundle(name: "BottomAlert/error")
     static let update = ImageAsset.bundle(name: "BottomAlert/update")
   }
   static let arrowDown = ImageAsset.bundle(name: "arrowDown")
