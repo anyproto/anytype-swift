@@ -34,9 +34,8 @@ final class AnytypeAnalytics: AnytypeAnalyticsProtocol {
 
         // Enable sending automatic session events
         Amplitude.instance().trackingSessionEvents = true
-
-        let identifier = Locale.current.identifier.replacingOccurrences(of: "_", with: "-")
-        userProperties[Keys.interfaceLang] = identifier
+        
+        userProperties[Keys.interfaceLang] = Locale.current.languageCode
     }
 
     static func instance() -> AnytypeAnalytics {
