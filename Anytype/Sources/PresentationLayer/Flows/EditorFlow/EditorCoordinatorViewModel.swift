@@ -28,7 +28,7 @@ final class EditorCoordinatorViewModel: ObservableObject, WidgetObjectListCommon
         case .favorites:
             return widgetObjectListModuleAssembly.makeFavorites(output: self)
         case .recentEdit:
-            return widgetObjectListModuleAssembly.makeRecentOpen(output: self)
+            return widgetObjectListModuleAssembly.makeRecentEdit(output: self)
         case .recentOpen:
             return widgetObjectListModuleAssembly.makeRecentOpen(output: self)
         case .sets:
