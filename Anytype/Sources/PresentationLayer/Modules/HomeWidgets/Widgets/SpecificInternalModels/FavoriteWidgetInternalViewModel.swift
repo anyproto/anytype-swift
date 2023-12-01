@@ -64,6 +64,7 @@ final class FavoriteWidgetInternalViewModel: CommonWidgetInternalViewModel, Widg
     func onCreateObjectTap() {
         Task {
             let details = try await pageRepository.createDefaultPage(name: "", shouldDeleteEmptyObject: true, spaceId: widgetObject.spaceId)
+            AnytypeAnalytics.instance().logCreateObject(objectType: details.analyticsType, route: .widget)
             try await objectActionsService.setFavorite(objectIds: [details.id], true)
             output?.onObjectSelected(screenData: details.editorScreenData())
             UISelectionFeedbackGenerator().selectionChanged()
