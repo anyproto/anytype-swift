@@ -53,9 +53,6 @@ protocol EditorSetRouterProtocol:
         viewId: String,
         onTemplateSelection: @escaping (ObjectCreationSetting) -> ()
     )
-
-    @MainActor
-    func showOpenDocumentError(error: Error)
 }
 
 final class EditorSetRouter: EditorSetRouterProtocol, ObjectSettingsCoordinatorOutput, SetObjectCreationCoordinatorOutput {
@@ -390,14 +387,6 @@ final class EditorSetRouter: EditorSetRouterProtocol, ObjectSettingsCoordinatorO
             viewId: viewId,
             onTemplateSelection: onTemplateSelection
         )
-    }
-    
-    @MainActor
-    func showOpenDocumentError(error: Error) {
-        let alert = AlertsFactory.objectOpenErrorAlert(error: error) { [weak self] in
-            self?.closeEditor()
-        }
-        navigationContext.present(alert)
     }
     
     // MARK: - SetObjectCreationCoordinatorOutput

@@ -29,6 +29,12 @@ struct EditorSetView: View {
             dismiss()
         }
         .anytypeStatusBar(style: .default)
+        .anytypeSheet(isPresented: $model.showUpdateAlert, onDismiss: { dismiss() }) {
+            DocumentUpdateAlertView { dismiss() }
+        }
+        .anytypeSheet(isPresented: $model.showCommonOpenError, onDismiss: { dismiss() }) {
+            DocumentCommonOpenErrorView { dismiss() }
+        }
     }
     
     private var content: some View {

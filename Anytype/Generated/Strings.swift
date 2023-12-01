@@ -1132,6 +1132,8 @@ internal enum Loc {
   }
   internal enum Error {
     internal enum AnytypeNeedsUpgrate {
+      /// Update
+      internal static let confirm = Loc.tr("Localizable", "Error.AnytypeNeedsUpgrate.Confirm", fallback: "Update")
       /// This object was modified in a newer version of Anytype. Please update the app to open it on this device
       internal static let message = Loc.tr("Localizable", "Error.AnytypeNeedsUpgrate.Message", fallback: "This object was modified in a newer version of Anytype. Please update the app to open it on this device")
       /// Update Your App

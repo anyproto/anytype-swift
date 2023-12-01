@@ -111,7 +111,7 @@ final class WidgetObjectListViewModel: ObservableObject, OptionsItemProvider, Wi
     
     func delete(objectIds: [BlockId]) {
         AnytypeAnalytics.instance().logShowDeletionWarning(route: .bin)
-        let alert = BottomAlert.binConfirmation(count: objectIds.count) { [objectIds, weak self] in
+        let alert = BottomAlertLegacy.binConfirmation(count: objectIds.count) { [objectIds, weak self] in
             Task { [weak self] in
                 try? await self?.objectActionService.delete(objectIds: objectIds, route: .bin)
             }
@@ -122,11 +122,11 @@ final class WidgetObjectListViewModel: ObservableObject, OptionsItemProvider, Wi
     
     func forceDelete(objectIds: [BlockId]) {
         AnytypeAnalytics.instance().logShowDeletionWarning(route: .settings)
-        let alert = BottomAlert(
+        let alert = BottomAlertLegacy(
             title: internalModel.forceDeleteTitle,
             message: Loc.WidgetObjectList.ForceDelete.message,
-            leftButton: BottomAlertButton(title: Loc.cancel, action: { }),
-            rightButton: BottomAlertButton(title: Loc.delete, isDistructive: true, action: { [weak self] in
+            leftButton: BottomAlertButtonLegacy(title: Loc.cancel, action: { }),
+            rightButton: BottomAlertButtonLegacy(title: Loc.delete, isDistructive: true, action: { [weak self] in
                 self?.forceDeleteConfirmed(objectIds: objectIds)
             })
         )
