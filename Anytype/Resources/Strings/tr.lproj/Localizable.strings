@@ -17,7 +17,7 @@
 "TextStyle.Highlighted.Title" = "Vurgulanan";
 "TextStyle.Highlighted.Subtitle" = "Özel dikkat gerektiren bir bölge";
 
-"TextStyle.Callout.Title" = "Callout";
+"TextStyle.Callout.Title" = "Belirteç";
 "TextStyle.Callout.Subtitle" = "Simgeli kenarlıklı metin";
 
 "TextStyle.Checkbox.Title" = "Onay kutusu";
@@ -46,7 +46,7 @@
 "BlockText.ContentType.Toggle.Placeholder" = "Toggle block";
 "BlockText.ContentType.Bulleted.Placeholder" = "Madde işaretli liste öğesi";
 "BlockText.ContentType.Checkbox.Placeholder" = "Onay kutusu";
-"BlockText.ContentType.Numbered.Placeholder" = "Numbered list item";
+"BlockText.ContentType.Numbered.Placeholder" = "Numaralı liste ögesi";
 "BlockText.ContentType.Quote.Placeholder" = "Vurgulu metin";
 "BlockText.ContentType.Header.Placeholder" = "Başlık";
 "BlockText.ContentType.Header2.Placeholder" = "Başlık";
@@ -94,7 +94,7 @@
 "Mention.Subtitle.Placeholder" = "Nesne";
 
 "None" = "Hiçbiri";
-"Callout" = "Callout";
+"Callout" = "Belirteç";
 "Toggle empty. Tap to create block." = "Toggle empty. Tap to create block.";
 "Loading, please wait" = "Yükleniyor, lütfen bekleyin";
 "Done" = "Bitti";
@@ -270,7 +270,7 @@
 "Undo" = "Geri al";
 "Actions.LinkItself" = "Şuna bağla";
 "Actions.MakeAsTemplate" = "Şablon Oluştur";
-"Actions.TemplateMakeDefault" = "Make default";
+"Actions.TemplateMakeDefault" = "Varsayılan yap";
 "Actions.CreateWidget.Title" = "To widgets";
 "Actions.CreateWidget.Success" = "New widget was created";
 
@@ -361,8 +361,8 @@
 
 "EditSet.Popup.Filter.Condition.Number.Equal" = "Eşittir";
 "EditSet.Popup.Filter.Condition.Number.NotEqual" = "Eşit değildir";
-"EditSet.Popup.Filter.Condition.Number.Greater" = "Is greater than";
-"EditSet.Popup.Filter.Condition.Number.Less" = "Is less than";
+"EditSet.Popup.Filter.Condition.Number.Greater" = "Şundan daha fazla:";
+"EditSet.Popup.Filter.Condition.Number.Less" = "Şundan daha az:";
 "EditSet.Popup.Filter.Condition.Number.GreaterOrEqual" = "Is greater than or equal to";
 "EditSet.Popup.Filter.Condition.Number.LessOrEqual" = "Is less than or equal to";
 
@@ -576,7 +576,7 @@
 "Filter" = "Filtre";
 "Sort" = "Sırala";
 "View" = "Görüntüle";
-"Home" = "Home";
+"Home" = "Ana sayfa";
 "Highlight" = "Vurgula";
 "Create object" = "Nesne oluştur";
 "Web pages" = "Web sayfaları";
@@ -723,14 +723,15 @@
 "Widgets.SourceSearch" = "Widget source";
 "Widgets.Actions.ChangeSource" = "Change Source";
 "Widgets.Actions.ChangeWidgetType" = "Change Widget Type";
-"Widgets.Actions.RemoveWidget" = "Remove Widget";
-"Widgets.Actions.EditWidgets" = "Edit Widgets";
+"Widgets.Actions.RemoveWidget" = "Widget'ı kaldır";
+"Widgets.Actions.EditWidgets" = "Widgetları düzenle";
 "Widgets.Actions.EmptyBin" = "Çöp kutusunu boşalt";
 "Widgets.Actions.AddBelow" = "Aşağıya ekle";
-"Widgets.Actions.NewObject" = "New Object";
+"Widgets.Actions.NewObject" = "Yeni Nesne
+";
 "Widgets.Layout.Screen.Title" = "Widget tipi";
 "Widgets.Layout.Link.Title" = "Bağlantı";
-"Widgets.Layout.Tree.Title" = "Tree";
+"Widgets.Layout.Tree.Title" = "Dizin";
 "Widgets.Layout.List.Title" = "Liste";
 "Widgets.Layout.CompactList.Title" = "Kompakt liste";
 "Widgets.Layout.Link.Description" = "Nesnenin kompakt hali";
@@ -799,7 +800,7 @@
 "WidgetObjectList.ForceDelete.Message" = "Bu eylemi geri alamazsınız.";
 
 // MARK: - Cpear cache alert
-"ClearCacheAlert.Title" = "Are you sure?";
+"ClearCacheAlert.Title" = "Emin misin?";
 "ClearCacheAlert.Description" = "All media files stored in Anytype will be deleted from your current device. They can be downloaded again from a backup node or another device.";
 
 // MARK: - Spaces
@@ -837,11 +838,11 @@
 
 // MARK: - Initial
 
-"Initial.UnstableMiddle.Title" = "Warning";
+"Initial.UnstableMiddle.Title" = "Uyarı";
 "Initial.UnstableMiddle.Message" = "You launch app with a unstable middleware. Don't use your production account. Your account may be broken.";
-"Initial.UnstableMiddle.Title" = "Warning";
+"Initial.UnstableMiddle.Title" = "Uyarı";
 "Initial.UnstableMiddle.Logout" = "Logout from current account";
-"Initial.UnstableMiddle.Continue" = "Continue with current account";
+"Initial.UnstableMiddle.Continue" = "Mevcut hesapla devam et";
 "Initial.UnstableMiddle.WontUseProd" = "I won't be using my production account";
 
 // MARK: - Create tip
