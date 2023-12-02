@@ -851,7 +851,7 @@
 // MARK: - Error
 "Error.AnytypeNeedsUpgrate.Title" = "Oppdater din app";
 "Error.AnytypeNeedsUpgrate.Message" = "Dette objektet ble endret i en nyere versjon av Anytype. Oppdater appen for å åpne det på denne enheten";
-"Error.AnytypeNeedsUpgrate.Confirm" = "Update";
+"Error.AnytypeNeedsUpgrate.Confirm" = "Oppdater";
 
 // MARK: - Relative date formatter
 "RelativeFormatter.days7" = "Siste 7 dager";
