@@ -271,8 +271,8 @@
 "Actions.LinkItself" = "Collega a";
 "Actions.MakeAsTemplate" = "Crea modello";
 "Actions.TemplateMakeDefault" = "Make default";
-"Actions.CreateWidget.Title" = "To widgets";
-"Actions.CreateWidget.Success" = "New widget was created";
+"Actions.CreateWidget.Title" = "Ai widget";
+"Actions.CreateWidget.Success" = "È stato creato un nuovo widget";
 
 // Object Type
 "Set" = "Insieme";
@@ -467,7 +467,7 @@
 
 "Error" = "Errore";
 "Unknown error" = "Errore sconosciuto";
-"Open Type Error" = "Not supported type \"%@\". You can open it via desktop.";
+"Open Type Error" = "Tipo \"%@\" non supportato. Puoi aprirlo tramite desktop.";
 "Close" = "Chiudi";
 "Account is deleted" = "L'account è stato eliminato";
 "Add phone" = "Aggiungi telefono";
@@ -727,7 +727,7 @@
 "Widgets.Actions.EditWidgets" = "Edit Widgets";
 "Widgets.Actions.EmptyBin" = "Empty Bin";
 "Widgets.Actions.AddBelow" = "Add Below";
-"Widgets.Actions.NewObject" = "New Object";
+"Widgets.Actions.NewObject" = "Nuovo Oggetto";
 "Widgets.Layout.Screen.Title" = "Tipo di widget";
 "Widgets.Layout.Link.Title" = "Collegamento";
 "Widgets.Layout.Tree.Title" = "Albero";
