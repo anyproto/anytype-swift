@@ -2,13 +2,13 @@
 "StyleMenu.Color.TextColor.Placeholder" = "A";
 
 // MARK: Text Style in Slash and Style menu
-"TextStyle.Text.Title" = "Text";
+"TextStyle.Text.Title" = "ടെക്സ്റ്റ്";
 "TextStyle.Text.Subtitle" = "Just start writing with a plain text";
 
-"TextStyle.Title.Title" = "Title";
+"TextStyle.Title.Title" = "ടൈറ്റിൽ";
 "TextStyle.Title.Subtitle" = "Big section heading";
 
-"TextStyle.Heading.Title" = "Heading";
+"TextStyle.Heading.Title" = "ഹെഡിങ്";
 "TextStyle.Heading.Subtitle" = "Medium headline";
 
 "TextStyle.Subheading.Title" = "Subheading";
@@ -48,8 +48,8 @@
 "BlockText.ContentType.Checkbox.Placeholder" = "Checkbox";
 "BlockText.ContentType.Numbered.Placeholder" = "Numbered list item";
 "BlockText.ContentType.Quote.Placeholder" = "Highlighted text";
-"BlockText.ContentType.Header.Placeholder" = "Title";
-"BlockText.ContentType.Header2.Placeholder" = "Heading";
+"BlockText.ContentType.Header.Placeholder" = "ടൈറ്റിൽ";
+"BlockText.ContentType.Header2.Placeholder" = "ഹെഡിങ്";
 "BlockText.ContentType.Header3.Placeholder" = "Subheading";
 
 // MARK: - Block Link
@@ -59,7 +59,7 @@
 "BlockLink.PreviewSettings.IconSize.Medium" = "ഇടത്തരം";
 
 "BlockLink.PreviewSettings.Layout.Card.Title" = "കാർഡ്";
-"BlockLink.PreviewSettings.Layout.Text.Title" = "Text";
+"BlockLink.PreviewSettings.Layout.Text.Title" = "ടെക്സ്റ്റ്";
 
 // MARK: - Settings
 "Settings.Title" = "Settings";
@@ -79,7 +79,7 @@
 "Relation.From.Type" = "From type %@";
 
 "Relation.Format.Object.Title" = "ഒബ്ജക്റ്റ്";
-"Relation.Format.Text.Title" = "Text";
+"Relation.Format.Text.Title" = "ടെക്സ്റ്റ്";
 "Relation.Format.Number.Title" = "നമ്പർ";
 "Relation.Format.Status.Title" = "സ്റ്റാറ്റസ്";
 "Relation.Format.Tag.Title" = "ടാഗ്";
