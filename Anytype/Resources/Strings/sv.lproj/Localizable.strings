@@ -727,7 +727,7 @@
 "Widgets.Actions.EditWidgets" = "Edit Widgets";
 "Widgets.Actions.EmptyBin" = "Empty Bin";
 "Widgets.Actions.AddBelow" = "Add Below";
-"Widgets.Actions.NewObject" = "New Object";
+"Widgets.Actions.NewObject" = "Nytt objekt";
 "Widgets.Layout.Screen.Title" = "Widget type";
 "Widgets.Layout.Link.Title" = "Länk";
 "Widgets.Layout.Tree.Title" = "Tree";
