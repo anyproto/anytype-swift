@@ -45,6 +45,7 @@ final class HomeWidgetsCoordinatorViewModel: ObservableObject,
     @Published var showCreateWidgetData: CreateWidgetCoordinatorModel?
     @Published var showSpaceSettings: Bool = false
     @Published var showSharing: Bool = false
+    @Published var showGalleryImport: Bool = false
     @Published var editorPath = HomePath() {
         didSet { UserDefaultsConfig.lastOpenedPage = editorPath.lastPathElement as? EditorScreenData }
     }
@@ -322,10 +323,13 @@ final class HomeWidgetsCoordinatorViewModel: ObservableObject,
         case .showSharingExtension:
             showSharing = true
         case .spaceSelection:
-            navigationContext.dismissAllPresented(animated: true, completion: { [weak self] in
-                self?.editorPath.popToRoot()
+            navigationContext.dismissAllPresented(animated: true) { [weak self] in
                 self?.showSpaceSwitch = true
-            })
+            }
+        case .galleryImport:
+            navigationContext.dismissAllPresented(animated: true) { [weak self] in
+                self?.showGalleryImport = true
+            }
         }
     }
     

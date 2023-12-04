@@ -59,16 +59,23 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     }
 
     private func handleURLContext(openURLContexts: Set<UIOpenURLContext>) {
-        guard openURLContexts.count == 1, let context = openURLContexts.first else {
+        guard openURLContexts.count == 1, 
+                let context = openURLContexts.first,
+                var components = URLComponents(url: context.url, resolvingAgainstBaseURL: false) else {
             return
         }
-        switch context.url {
+        
+        components.query = nil
+        
+        switch components.url {
         case URLConstants.createObjectURL:
             AppActionStorage.shared.action = .createObject
         case URLConstants.sharingExtenstionURL:
             AppActionStorage.shared.action = .showSharingExtension
         case URLConstants.spaceSelectionURL:
             AppActionStorage.shared.action = .spaceSelection
+        case URLConstants.galleryImportURL:
+            AppActionStorage.shared.action = .galleryImport
         default:
             break
         }

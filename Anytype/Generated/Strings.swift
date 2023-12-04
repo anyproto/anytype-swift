@@ -1210,6 +1210,14 @@ internal enum Loc {
       internal static let title = Loc.tr("Localizable", "FilesList.ForceDelete.Title", fallback: "Are you sure you want to permanently delete the files?")
     }
   }
+  internal enum Gallery {
+    internal enum Unavailable {
+      /// Please use the desktop app for now
+      internal static let message = Loc.tr("Localizable", "Gallery.Unavailable.Message", fallback: "Please use the desktop app for now")
+      /// Gallery will be supported soon
+      internal static let title = Loc.tr("Localizable", "Gallery.Unavailable.Title", fallback: "Gallery will be supported soon")
+    }
+  }
   internal enum Home {
     internal enum Snackbar {
       /// Library is available in desktop app

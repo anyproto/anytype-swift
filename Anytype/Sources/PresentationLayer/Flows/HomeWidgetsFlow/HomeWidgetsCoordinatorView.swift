@@ -52,5 +52,8 @@ struct HomeWidgetsCoordinatorView: View {
         .sheet(isPresented: $model.showCreateObjectWithType) {
             model.createObjectWithTypeModule()
         }
+        .anytypeSheet(isPresented: $model.showGalleryImport) {
+            GalleryUnavailableView()
+        }
     }
 }
