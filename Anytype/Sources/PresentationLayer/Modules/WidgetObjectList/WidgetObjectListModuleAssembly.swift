@@ -4,7 +4,7 @@ import SwiftUI
 @MainActor
 protocol WidgetObjectListModuleAssemblyProtocol: AnyObject {
     func makeFavorites(output: WidgetObjectListCommonModuleOutput?) -> AnyView
-    func makerecentEdit(output: WidgetObjectListCommonModuleOutput?) -> AnyView
+    func makeRecentEdit(output: WidgetObjectListCommonModuleOutput?) -> AnyView
     func makeRecentOpen(output: WidgetObjectListCommonModuleOutput?) -> AnyView
     func makeSets(output: WidgetObjectListCommonModuleOutput?) -> AnyView
     func makeCollections(output: WidgetObjectListCommonModuleOutput?) -> AnyView
@@ -37,7 +37,7 @@ final class WidgetObjectListModuleAssembly: WidgetObjectListModuleAssemblyProtoc
         )
     }
     
-    func makerecentEdit(output: WidgetObjectListCommonModuleOutput?) -> AnyView {
+    func makeRecentEdit(output: WidgetObjectListCommonModuleOutput?) -> AnyView {
         return make(
             internalModel: WidgetObjectListRecentViewModel(
                 type: .recentEdit,
