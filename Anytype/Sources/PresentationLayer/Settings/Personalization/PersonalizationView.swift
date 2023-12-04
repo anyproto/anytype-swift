@@ -15,12 +15,12 @@ struct PersonalizationView: View {
             AnytypeRow(title: Loc.wallpaper, description: nil, action: { model.onWallpaperChangeTap() })
             Spacer.fixedHeight(20)
         }
-        .background(Color.Background.secondary)
         .cornerRadius(16, corners: .top)
         .onAppear {
             AnytypeAnalytics.instance().logScreenSettingsPersonal()
         }
         .fitPresentationDetents()
+        .background(Color.Background.secondary)
     }
 }
 
