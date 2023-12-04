@@ -262,7 +262,7 @@ final class ServiceLocator {
     }
     
     func dataviewService() -> DataviewServiceProtocol {
-        DataviewService(prefilledFieldsBuilder: SetPrefilledFieldsBuilder())
+        DataviewService()
     }
     
     
@@ -316,7 +316,8 @@ final class ServiceLocator {
         SetObjectCreationHelper(
             objectTypeProvider: objectTypeProvider(),
             dataviewService: dataviewService(),
-            objectActionsService: objectActionsService()
+            objectActionsService: objectActionsService(),
+            prefilledFieldsBuilder: SetPrefilledFieldsBuilder()
         )
     }
     

@@ -663,8 +663,7 @@ extension EditorSetViewModel {
             try await self.dataviewService.objectOrderUpdate(
                 objectId: setDocument.objectId,
                 blockId: setDocument.blockId,
-                viewId: self.activeView.id,
-                groupObjectIds: groupObjectIds
+                order: groupObjectIds.map { DataviewObjectOrder(viewID: self.activeView.id, groupID: $0.groupId, objectIds: $0.objectIds) }
             )
         }
     }

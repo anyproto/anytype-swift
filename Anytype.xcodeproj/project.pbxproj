@@ -1083,8 +1083,6 @@
 		3D30412927E8D12800FFE0EB /* EditorSetSettingsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D30412727E8D12800FFE0EB /* EditorSetSettingsViewModel.swift */; };
 		3D30412A27E8D12800FFE0EB /* EditorSetSettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D30412827E8D12800FFE0EB /* EditorSetSettingsView.swift */; };
 		3D30412C27E8D45C00FFE0EB /* EditorSetSetting.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D30412B27E8D45C00FFE0EB /* EditorSetSetting.swift */; };
-		3D30416D27EA5E9900FFE0EB /* DataviewService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D30416C27EA5E9900FFE0EB /* DataviewService.swift */; };
-		3D30416F27EA5EA700FFE0EB /* DataviewServiceProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D30416E27EA5EA600FFE0EB /* DataviewServiceProtocol.swift */; };
 		3D30417227EA689F00FFE0EB /* SetContentViewDataBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D30417127EA689F00FFE0EB /* SetContentViewDataBuilder.swift */; };
 		3D30418127EC878000FFE0EB /* SetRelation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D30418027EC877F00FFE0EB /* SetRelation.swift */; };
 		3D30418527ECBBDB00FFE0EB /* AnytypeToggle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D30418427ECBBDB00FFE0EB /* AnytypeToggle.swift */; };
@@ -2751,8 +2749,6 @@
 		3D30412727E8D12800FFE0EB /* EditorSetSettingsViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditorSetSettingsViewModel.swift; sourceTree = "<group>"; };
 		3D30412827E8D12800FFE0EB /* EditorSetSettingsView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditorSetSettingsView.swift; sourceTree = "<group>"; };
 		3D30412B27E8D45C00FFE0EB /* EditorSetSetting.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditorSetSetting.swift; sourceTree = "<group>"; };
-		3D30416C27EA5E9900FFE0EB /* DataviewService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataviewService.swift; sourceTree = "<group>"; };
-		3D30416E27EA5EA600FFE0EB /* DataviewServiceProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataviewServiceProtocol.swift; sourceTree = "<group>"; };
 		3D30417127EA689F00FFE0EB /* SetContentViewDataBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetContentViewDataBuilder.swift; sourceTree = "<group>"; };
 		3D30418027EC877F00FFE0EB /* SetRelation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetRelation.swift; sourceTree = "<group>"; };
 		3D30418427ECBBDB00FFE0EB /* AnytypeToggle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnytypeToggle.swift; sourceTree = "<group>"; };
@@ -7318,7 +7314,6 @@
 				2E0A57B82A3C7C6800359110 /* Usecase */,
 				2E98634B2937B55800304645 /* GroupsSubscriptionsHandler */,
 				2EC9424928F97F2A00DE91E4 /* GroupsSubscribeService */,
-				3D30416B27EA5E8A00FFE0EB /* Dataview */,
 				120E818226A04A23006FE84E /* Details */,
 				3DE8D5AE26CD76CF006F31C1 /* ObjectType */,
 				3D24F435269C92F700FA0F5F /* Search */,
@@ -7426,15 +7421,6 @@
 				3D30412627E8D0F300FFE0EB /* MainSettings */,
 			);
 			path = Popups;
-			sourceTree = "<group>";
-		};
-		3D30416B27EA5E8A00FFE0EB /* Dataview */ = {
-			isa = PBXGroup;
-			children = (
-				3D30416C27EA5E9900FFE0EB /* DataviewService.swift */,
-				3D30416E27EA5EA600FFE0EB /* DataviewServiceProtocol.swift */,
-			);
-			path = Dataview;
 			sourceTree = "<group>";
 		};
 		3D30417027EA688E00FFE0EB /* Models */ = {
@@ -10517,7 +10503,6 @@
 				2A5BC4BE2A78F9D9004FAABF /* SquircleIconPainter.swift in Sources */,
 				EA3D1DEE26CDAFBD001A31D9 /* BlockMarkupChangerProtocol.swift in Sources */,
 				122FFD43272BA7420069129A /* ObjectHeaderFilledState.swift in Sources */,
-				3D30416F27EA5EA700FFE0EB /* DataviewServiceProtocol.swift in Sources */,
 				EAC5FD4E2657DC6F006BB24E /* KeyboardEventsListenerHelper.swift in Sources */,
 				2E3E0DDE29F1F437009F68D8 /* View+KeyboardToolbar.swift in Sources */,
 				2A29FD2F2A701BDD007A8549 /* ActiveWorkspaceStorage.swift in Sources */,
@@ -10526,7 +10511,6 @@
 				2AFCEB3F29C8A76900841E13 /* WidgetObjectListCollectionsViewModel.swift in Sources */,
 				2AE906E9296FFE820044A10A /* TextIconPickerModuleAssembly.swift in Sources */,
 				2A85B0432AA637F100988ABD /* ApplicationCoordinatorViewModel.swift in Sources */,
-				3D30416D27EA5E9900FFE0EB /* DataviewService.swift in Sources */,
 				125683D527DF17CE003A8251 /* TagSearchRowView.swift in Sources */,
 				3DCEE135273C18FC00BC5565 /* BeginingOfTextMarkdown.swift in Sources */,
 				122898BD276F112D004B81B8 /* RelationObjectsRowView.swift in Sources */,

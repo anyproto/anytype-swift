@@ -1,6 +1,6 @@
-import Services
+import ProtobufMessages
 
-protocol DataviewServiceProtocol {
+public protocol DataviewServiceProtocol {
     func updateView(objectId: BlockId, blockId: BlockId, view: DataviewView) async throws
     
     // MARK: - Filters
@@ -29,10 +29,9 @@ protocol DataviewServiceProtocol {
         typeUniqueKey: ObjectTypeUniqueKey?,
         templateId: BlockId,
         spaceId: String,
-        setFilters: [SetFilter],
-        relationsDetails: [RelationDetails]
+        details: ObjectDetails
     ) async throws -> ObjectDetails
     func setPositionForView(objectId: BlockId, blockId: BlockId, viewId: String, position: Int) async throws
-    func objectOrderUpdate(objectId: BlockId, blockId: BlockId, viewId: String, groupObjectIds: [GroupObjectIds]) async throws
+    func objectOrderUpdate(objectId: BlockId, blockId: BlockId, order: [DataviewObjectOrder]) async throws
     func groupOrderUpdate(objectId: BlockId, blockId: BlockId, viewId: String, groupOrder: DataviewGroupOrder) async throws
 }
