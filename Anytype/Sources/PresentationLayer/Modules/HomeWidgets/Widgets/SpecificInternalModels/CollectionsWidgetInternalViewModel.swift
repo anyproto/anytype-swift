@@ -66,6 +66,7 @@ final class CollectionsWidgetInternalViewModel: CommonWidgetInternalViewModel, W
                 origin: .none,
                 templateId: nil
             )
+            AnytypeAnalytics.instance().logCreateObject(objectType: details.analyticsType, route: .widget)
             output?.onObjectSelected(screenData: details.editorScreenData())
             UISelectionFeedbackGenerator().selectionChanged()
         }

@@ -94,6 +94,7 @@ final class ObjectWidgetInternalViewModel: CommonWidgetInternalViewModel, Widget
             guard let lastBlockId = document.children.last?.id else { return }
                   
             let details = try await pageRepository.createDefaultPage(name: "", shouldDeleteEmptyObject: true, spaceId: widgetObject.spaceId)
+            AnytypeAnalytics.instance().logCreateObject(objectType: details.analyticsType, route: .widget)
             let info = BlockInformation.emptyLink(targetId: details.id)
             let _ = try await self.blockActionsService.add(
                 contextId: linkedObjectDetails.id,

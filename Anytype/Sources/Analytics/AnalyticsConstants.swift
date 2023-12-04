@@ -264,6 +264,7 @@ enum AnalyticsEventsRouteKind: String {
     case powertool = "Powertool"
     case turnInto = "TurnInto"
     case navigation = "Navigation"
+    case widget = "Widget"
 }
 
 enum AnalyticsEventsRouteView: String {
