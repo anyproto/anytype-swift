@@ -273,6 +273,7 @@ final class EditorPageController: UIViewController {
         case .readonly:
             view.endEditing(true)
             collectionView.isLocked = true
+            view.isUserInteractionEnabled = true
         case .simpleTablesSelection:
             bottomNavigationManager.multiselectActive(true)
             view.endEditing(true)
