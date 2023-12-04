@@ -53,6 +53,12 @@ public extension FeatureDescription {
         defaultValue: true
     )
     
+    static let setAndCollectionInSlashMenu = FeatureDescription(
+        title: "Set and Collection in slashMenu",
+        type: .feature(author: "joe_pusya@anytype.io", releaseVersion: "0.27.0"),
+        defaultValue: true
+    )
+    
     // MARK: - Debug
     
     static let rainbowViews = FeatureDescription(
