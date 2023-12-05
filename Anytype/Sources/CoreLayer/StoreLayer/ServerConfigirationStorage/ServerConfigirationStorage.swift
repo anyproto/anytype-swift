@@ -1,25 +1,35 @@
 import Foundation
 import AnytypeCore
+import Combine
 
-final class ServerConfigurationStorage {
+protocol ServerConfigurationStorageProtocol: AnyObject {
+    var installedConfigurationsPublisher: AnyPublisher<Void, Never> { get }
+    func addConfiguration(filePath: URL, setupAsCurrent: Bool) throws
+    func setupCurrentConfiguration(config: NetworkServerConfig)
+    func configurations() -> [NetworkServerConfig]
+    func currentConfiguration() -> NetworkServerConfig
+    func currentConfigurationPath() -> URL?
+}
+
+final class ServerConfigurationStorage: ServerConfigurationStorageProtocol {
 
     enum ServerError: Error {
         case badExtension
         case accessError
     }
     
-    static let shared = ServerConfigurationStorage()
-    
-    @UserDefault("serverFile", defaultValue: nil)
-    private var serverFile: String?
+    @UserDefault("serverConfig", defaultValue: .anytype)
+    private var serverConfig: NetworkServerConfig
     
     private enum Constants {
         static var configStorageFolde = "Servers"
+        static var pathExtension = "yml"
     }
     
     private let storagePath: URL
+    private let installedConfigurationsSubject = CurrentValueSubject<Void, Never>(())
     
-    private init() {
+    init() {
         let docDir = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first
         let storagePath = docDir?.appendingPathComponent(Constants.configStorageFolde)
         if storagePath.isNil {
@@ -29,44 +39,73 @@ final class ServerConfigurationStorage {
         validateServerFile()
     }
     
+    // MARK: - ServerConfigurationStorageProtocol
+    
+    var installedConfigurationsPublisher: AnyPublisher<Void, Never> {
+        return installedConfigurationsSubject.eraseToAnyPublisher()
+    }
+    
     func addConfiguration(filePath: URL, setupAsCurrent: Bool) throws {
-        guard filePath.pathExtension == "yml" else { throw ServerError.badExtension }
-        
-        guard filePath.startAccessingSecurityScopedResource() else { throw ServerError.accessError }
-        defer { filePath.stopAccessingSecurityScopedResource() }
-        
-        try? FileManager.default.createDirectory(at: storagePath, withIntermediateDirectories: false)
-        try FileManager.default.copyItem(at: filePath, to: storagePath.appendingPathComponent(filePath.lastPathComponent))
-        if setupAsCurrent {
-            setupCurrentConfiguration(fileName: filePath.lastPathComponent)
+        do {
+            guard filePath.pathExtension == Constants.pathExtension else { throw ServerError.badExtension }
+            
+            guard filePath.startAccessingSecurityScopedResource() else { throw ServerError.accessError }
+            defer { filePath.stopAccessingSecurityScopedResource() }
+            
+            try? FileManager.default.createDirectory(at: storagePath, withIntermediateDirectories: false)
+            let destination = storagePath.appendingPathComponent(filePath.lastPathComponent)
+            try? FileManager.default.removeItem(at: destination)
+            try FileManager.default.copyItem(at: filePath, to: destination)
+            if setupAsCurrent {
+                setupCurrentConfiguration(config: .file(filePath.lastPathComponent))
+            }
+            installedConfigurationsSubject.send(())
+        } catch {
+            anytypeAssertionFailure("Add configuration error", info: ["error": error.localizedDescription])
+            throw error
         }
     }
     
-    func setupCurrentConfiguration(fileName: String?) {
-        serverFile = fileName
-        validateServerFile()
+    func setupCurrentConfiguration(config: NetworkServerConfig) {
+        let configs = configurations()
+        if configs.contains(serverConfig) {
+            serverConfig = config
+        }
     }
     
-    func configurations() -> [String] {
-        guard let items = try? FileManager.default.contentsOfDirectory(at: storagePath, includingPropertiesForKeys: nil) else { return [] }
-        return items.map { $0.lastPathComponent }
+    func configurations() -> [NetworkServerConfig] {
+        return .builder {
+            NetworkServerConfig.anytype
+            NetworkServerConfig.localOnly
+            installedConfigurations()
+        }
     }
     
-    func currentConfiguration() -> String? {
-        return serverFile
+    func installedConfigurations() -> [NetworkServerConfig] {
+        return files().map { NetworkServerConfig.file($0) }
+    }
+    
+    func currentConfiguration() -> NetworkServerConfig {
+        return serverConfig
     }
     
     func currentConfigurationPath() -> URL? {
         guard let items = try? FileManager.default.contentsOfDirectory(at: storagePath, includingPropertiesForKeys: nil) else { return nil }
-        return items.first { $0.lastPathComponent == serverFile }
+        return items.first { .file($0.lastPathComponent) == serverConfig }
     }
     
     // MARK: - Private func
     
+    private func files() -> [String] {
+        guard let items = try? FileManager.default.contentsOfDirectory(at: storagePath, includingPropertiesForKeys: nil)
+            else { return [] }
+        return items.map(\.lastPathComponent)
+    }
+    
     private func validateServerFile() {
         let configs = configurations()
-        if let serverFile, !configs.contains(serverFile) {
-            self.serverFile = nil
+        if !configs.contains(serverConfig) {
+            self.serverConfig = .anytype
         }
     }
 }

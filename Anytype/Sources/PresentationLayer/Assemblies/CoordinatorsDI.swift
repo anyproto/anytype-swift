@@ -162,4 +162,8 @@ final class CoordinatorsDI: CoordinatorsDIProtocol {
             coordinatorsDI: self
         )
     }
+    
+    func serverConfiguration() -> ServerConfigurationCoordinatorAssemblyProtocol {
+        ServerConfigurationCoordinatorAssembly(modulesDI: modulesDI)
+    }
 }

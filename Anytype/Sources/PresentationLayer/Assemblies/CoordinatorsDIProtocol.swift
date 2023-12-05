@@ -30,6 +30,7 @@ protocol CoordinatorsDIProtocol: AnyObject {
     func initial() -> InitialCoordinatorAssemblyProtocol
     func spaceSwitch() -> SpaceSwitchCoordinatorAssemblyProtocol
     func setObjectCreation() -> SetObjectCreationCoordinatorAssemblyProtocol
+    func serverConfiguration() -> ServerConfigurationCoordinatorAssemblyProtocol
     
     // Now like a coordinator. Migrate to isolated modules
     func editorPageModule() -> EditorPageModuleAssemblyProtocol

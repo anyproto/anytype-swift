@@ -1,7 +1,7 @@
 import Foundation
 import SwiftUI
 
-struct ServerDocumentPicker: UIViewControllerRepresentable {
+struct YamlDocumentPicker: UIViewControllerRepresentable {
     
     var onSelect: (URL) -> Void
     
@@ -18,7 +18,6 @@ struct ServerDocumentPicker: UIViewControllerRepresentable {
     func makeCoordinator() -> ServerDocumentPickerCoordinator {
         ServerDocumentPickerCoordinator(onSelect: onSelect)
     }
-    
 }
 
 class ServerDocumentPickerCoordinator: NSObject, UIDocumentPickerDelegate {

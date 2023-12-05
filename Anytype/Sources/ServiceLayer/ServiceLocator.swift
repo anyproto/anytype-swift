@@ -43,7 +43,8 @@ final class ServiceLocator {
             localRepoService: localRepoService(),
             loginStateService: loginStateService(),
             accountManager: accountManager(),
-            appErrorLoggerConfiguration: appErrorLoggerConfiguration()
+            appErrorLoggerConfiguration: appErrorLoggerConfiguration(),
+            serverConfigurationStorage: serverConfigurationStorage()
         )
     }
     
@@ -322,6 +323,11 @@ final class ServiceLocator {
             dataviewService: dataviewService(objectId: objectId, blockId: blockId),
             objectActionsService: objectActionsService()
         )
+    }
+    
+    private lazy var _serverConfigurationStorage = ServerConfigurationStorage()
+    func serverConfigurationStorage() -> ServerConfigurationStorage {
+        return _serverConfigurationStorage
     }
     
     // MARK: - Private

@@ -20,7 +20,8 @@ struct AuthView: View {
     
     private var content: some View {
         VStack(alignment: .center, spacing: 0) {
-            Spacer.fixedHeight(80)
+            header
+            Spacer.fixedHeight(48)
             Spacer()
             greetings
             Spacer()
@@ -48,6 +49,21 @@ struct AuthView: View {
             AnytypeText(Loc.Auth.Welcome.subtitle, style: .uxCalloutRegular, color: .Auth.body)
                 .multilineTextAlignment(.center)
                 .padding(.horizontal, UIDevice.isPad ? 85 : 38)
+        }
+    }
+    
+    private var header: some View {
+        HStack {
+            Spacer()
+            Button {
+                model.showSettings.toggle()
+            } label: {
+                Image(asset: .Dashboard.settings)
+                    .foregroundColor(.Button.active)
+            }
+        }
+        .sheet(isPresented: $model.showSettings) {
+            model.onSettingsAction()
         }
     }
 

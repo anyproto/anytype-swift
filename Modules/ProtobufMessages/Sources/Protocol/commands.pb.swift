@@ -958,6 +958,43 @@ public struct Anytype_Rpc {
 
     public var unknownFields = SwiftProtobuf.UnknownStorage()
 
+    public enum NetworkMode: SwiftProtobuf.Enum {
+      public typealias RawValue = Int
+
+      /// use network config that embedded in binary
+      case defaultConfig // = 0
+
+      /// disable any-sync network and use only local p2p nodes
+      case localOnly // = 1
+
+      /// use config provided in networkConfigFilePath
+      case customConfig // = 2
+      case UNRECOGNIZED(Int)
+
+      public init() {
+        self = .defaultConfig
+      }
+
+      public init?(rawValue: Int) {
+        switch rawValue {
+        case 0: self = .defaultConfig
+        case 1: self = .localOnly
+        case 2: self = .customConfig
+        default: self = .UNRECOGNIZED(rawValue)
+        }
+      }
+
+      public var rawValue: Int {
+        switch self {
+        case .defaultConfig: return 0
+        case .localOnly: return 1
+        case .customConfig: return 2
+        case .UNRECOGNIZED(let i): return i
+        }
+      }
+
+    }
+
     public struct Config {
       // SwiftProtobuf.Message conformance is added in an extension below. See the
       // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
@@ -1024,6 +1061,12 @@ public struct Anytype_Rpc {
 
         /// Disable local network discovery
         public var disableLocalNetworkSync: Bool = false
+
+        /// optional, default is DefaultConfig
+        public var networkMode: Anytype_Rpc.Account.NetworkMode = .defaultConfig
+
+        /// config path for the custom network mode            }
+        public var networkCustomConfigFilePath: String = String()
 
         public var unknownFields = SwiftProtobuf.UnknownStorage()
 
@@ -1502,6 +1545,12 @@ public struct Anytype_Rpc {
         /// Disable local network discovery
         public var disableLocalNetworkSync: Bool = false
 
+        /// optional, default is DefaultConfig
+        public var networkMode: Anytype_Rpc.Account.NetworkMode = .defaultConfig
+
+        /// config path for the custom network mode
+        public var networkCustomConfigFilePath: String = String()
+
         public var unknownFields = SwiftProtobuf.UnknownStorage()
 
         public init() {}
@@ -1968,8 +2017,6 @@ public struct Anytype_Rpc {
         // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
         // methods supported on all messages.
 
-        public var timeZone: String = String()
-
         public var ipfsstorageAddr: String = String()
 
         public var unknownFields = SwiftProtobuf.UnknownStorage()
@@ -2266,6 +2313,108 @@ public struct Anytype_Rpc {
         public init() {}
 
         fileprivate var _error: Anytype_Rpc.Account.EnableLocalNetworkSync.Response.Error? = nil
+      }
+
+      public init() {}
+    }
+
+    public struct ChangeNetworkConfigAndRestart {
+      // SwiftProtobuf.Message conformance is added in an extension below. See the
+      // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+      // methods supported on all messages.
+
+      public var unknownFields = SwiftProtobuf.UnknownStorage()
+
+      public struct Request {
+        // SwiftProtobuf.Message conformance is added in an extension below. See the
+        // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+        // methods supported on all messages.
+
+        public var networkMode: Anytype_Rpc.Account.NetworkMode = .defaultConfig
+
+        public var networkCustomConfigFilePath: String = String()
+
+        public var unknownFields = SwiftProtobuf.UnknownStorage()
+
+        public init() {}
+      }
+
+      public struct Response {
+        // SwiftProtobuf.Message conformance is added in an extension below. See the
+        // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+        // methods supported on all messages.
+
+        public var error: Anytype_Rpc.Account.ChangeNetworkConfigAndRestart.Response.Error {
+          get {return _error ?? Anytype_Rpc.Account.ChangeNetworkConfigAndRestart.Response.Error()}
+          set {_error = newValue}
+        }
+        /// Returns true if `error` has been explicitly set.
+        public var hasError: Bool {return self._error != nil}
+        /// Clears the value of `error`. Subsequent reads from it will return its default value.
+        public mutating func clearError() {self._error = nil}
+
+        public var unknownFields = SwiftProtobuf.UnknownStorage()
+
+        public struct Error {
+          // SwiftProtobuf.Message conformance is added in an extension below. See the
+          // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+          // methods supported on all messages.
+
+          public var code: Anytype_Rpc.Account.ChangeNetworkConfigAndRestart.Response.Error.Code = .null
+
+          public var description_p: String = String()
+
+          public var unknownFields = SwiftProtobuf.UnknownStorage()
+
+          public enum Code: SwiftProtobuf.Enum {
+            public typealias RawValue = Int
+            case null // = 0
+            case unknownError // = 1
+            case badInput // = 2
+            case accountIsNotRunning // = 4
+            case configFileNotFound // = 100
+            case configFileInvalid // = 101
+            case accountFailedToStop // = 102
+            case UNRECOGNIZED(Int)
+
+            public init() {
+              self = .null
+            }
+
+            public init?(rawValue: Int) {
+              switch rawValue {
+              case 0: self = .null
+              case 1: self = .unknownError
+              case 2: self = .badInput
+              case 4: self = .accountIsNotRunning
+              case 100: self = .configFileNotFound
+              case 101: self = .configFileInvalid
+              case 102: self = .accountFailedToStop
+              default: self = .UNRECOGNIZED(rawValue)
+              }
+            }
+
+            public var rawValue: Int {
+              switch self {
+              case .null: return 0
+              case .unknownError: return 1
+              case .badInput: return 2
+              case .accountIsNotRunning: return 4
+              case .configFileNotFound: return 100
+              case .configFileInvalid: return 101
+              case .accountFailedToStop: return 102
+              case .UNRECOGNIZED(let i): return i
+              }
+            }
+
+          }
+
+          public init() {}
+        }
+
+        public init() {}
+
+        fileprivate var _error: Anytype_Rpc.Account.ChangeNetworkConfigAndRestart.Response.Error? = nil
       }
 
       public init() {}
@@ -7704,6 +7853,8 @@ public struct Anytype_Rpc {
 
         public var isMigration: Bool = false
 
+        public var isNewSpace: Bool = false
+
         public var unknownFields = SwiftProtobuf.UnknownStorage()
 
         public enum OneOf_Params: Equatable {
@@ -7898,7 +8049,39 @@ public struct Anytype_Rpc {
 
           public var noCollection: Bool = false
 
+          public var collectionTitle: String = String()
+
+          public var importType: Anytype_Rpc.Object.Import.Request.PbParams.TypeEnum = .space
+
           public var unknownFields = SwiftProtobuf.UnknownStorage()
+
+          public enum TypeEnum: SwiftProtobuf.Enum {
+            public typealias RawValue = Int
+            case space // = 0
+            case experience // = 1
+            case UNRECOGNIZED(Int)
+
+            public init() {
+              self = .space
+            }
+
+            public init?(rawValue: Int) {
+              switch rawValue {
+              case 0: self = .space
+              case 1: self = .experience
+              default: self = .UNRECOGNIZED(rawValue)
+              }
+            }
+
+            public var rawValue: Int {
+              switch self {
+              case .space: return 0
+              case .experience: return 1
+              case .UNRECOGNIZED(let i): return i
+              }
+            }
+
+          }
 
           public init() {}
         }
@@ -8015,6 +8198,7 @@ public struct Anytype_Rpc {
             case noObjectsToImport // = 5
             case importIsCanceled // = 6
             case limitOfRowsOrRelationsExceeded // = 7
+            case fileLoadError // = 8
             case UNRECOGNIZED(Int)
 
             public init() {
@@ -8030,6 +8214,7 @@ public struct Anytype_Rpc {
               case 5: self = .noObjectsToImport
               case 6: self = .importIsCanceled
               case 7: self = .limitOfRowsOrRelationsExceeded
+              case 8: self = .fileLoadError
               default: self = .UNRECOGNIZED(rawValue)
               }
             }
@@ -8043,6 +8228,7 @@ public struct Anytype_Rpc {
               case .noObjectsToImport: return 5
               case .importIsCanceled: return 6
               case .limitOfRowsOrRelationsExceeded: return 7
+              case .fileLoadError: return 8
               case .UNRECOGNIZED(let i): return i
               }
             }
@@ -8464,9 +8650,11 @@ public struct Anytype_Rpc {
 
         public var spaceID: String = String()
 
-        public var source: String = String()
+        public var url: String = String()
 
-        public var isLocal: Bool = false
+        public var title: String = String()
+
+        public var isNewSpace: Bool = false
 
         public var unknownFields = SwiftProtobuf.UnknownStorage()
 
@@ -23727,7 +23915,7 @@ public struct Anytype_Rpc {
 
 extension Anytype_Rpc.App.GetVersion.Response.Error.Code: CaseIterable {
   // The compiler won't synthesize support with the UNRECOGNIZED case.
-  public static let allCases: [Anytype_Rpc.App.GetVersion.Response.Error.Code] = [
+  public static var allCases: [Anytype_Rpc.App.GetVersion.Response.Error.Code] = [
     .null,
     .unknownError,
     .badInput,
@@ -23736,7 +23924,7 @@ extension Anytype_Rpc.App.GetVersion.Response.Error.Code: CaseIterable {
 
 extension Anytype_Rpc.App.SetDeviceState.Request.DeviceState: CaseIterable {
   // The compiler won't synthesize support with the UNRECOGNIZED case.
-  public static let allCases: [Anytype_Rpc.App.SetDeviceState.Request.DeviceState] = [
+  public static var allCases: [Anytype_Rpc.App.SetDeviceState.Request.DeviceState] = [
     .background,
     .foreground,
   ]
@@ -23744,7 +23932,7 @@ extension Anytype_Rpc.App.SetDeviceState.Request.DeviceState: CaseIterable {
 
 extension Anytype_Rpc.App.SetDeviceState.Response.Error.Code: CaseIterable {
   // The compiler won't synthesize support with the UNRECOGNIZED case.
-  public static let allCases: [Anytype_Rpc.App.SetDeviceState.Response.Error.Code] = [
+  public static var allCases: [Anytype_Rpc.App.SetDeviceState.Response.Error.Code] = [
     .null,
     .unknownError,
     .badInput,
@@ -23753,7 +23941,7 @@ extension Anytype_Rpc.App.SetDeviceState.Response.Error.Code: CaseIterable {
 
 extension Anytype_Rpc.App.Shutdown.Response.Error.Code: CaseIterable {
   // The compiler won't synthesize support with the UNRECOGNIZED case.
-  public static let allCases: [Anytype_Rpc.App.Shutdown.Response.Error.Code] = [
+  public static var allCases: [Anytype_Rpc.App.Shutdown.Response.Error.Code] = [
     .null,
     .unknownError,
     .badInput,
@@ -23762,7 +23950,7 @@ extension Anytype_Rpc.App.Shutdown.Response.Error.Code: CaseIterable {
 
 extension Anytype_Rpc.Space.Delete.Response.Error.Code: CaseIterable {
   // The compiler won't synthesize support with the UNRECOGNIZED case.
-  public static let allCases: [Anytype_Rpc.Space.Delete.Response.Error.Code] = [
+  public static var allCases: [Anytype_Rpc.Space.Delete.Response.Error.Code] = [
     .null,
     .unknownError,
     .badInput,
@@ -23773,7 +23961,7 @@ extension Anytype_Rpc.Space.Delete.Response.Error.Code: CaseIterable {
 
 extension Anytype_Rpc.Wallet.Create.Response.Error.Code: CaseIterable {
   // The compiler won't synthesize support with the UNRECOGNIZED case.
-  public static let allCases: [Anytype_Rpc.Wallet.Create.Response.Error.Code] = [
+  public static var allCases: [Anytype_Rpc.Wallet.Create.Response.Error.Code] = [
     .null,
     .unknownError,
     .badInput,
@@ -23783,7 +23971,7 @@ extension Anytype_Rpc.Wallet.Create.Response.Error.Code: CaseIterable {
 
 extension Anytype_Rpc.Wallet.Recover.Response.Error.Code: CaseIterable {
   // The compiler won't synthesize support with the UNRECOGNIZED case.
-  public static let allCases: [Anytype_Rpc.Wallet.Recover.Response.Error.Code] = [
+  public static var allCases: [Anytype_Rpc.Wallet.Recover.Response.Error.Code] = [
     .null,
     .unknownError,
     .badInput,
@@ -23793,7 +23981,7 @@ extension Anytype_Rpc.Wallet.Recover.Response.Error.Code: CaseIterable {
 
 extension Anytype_Rpc.Wallet.Convert.Response.Error.Code: CaseIterable {
   // The compiler won't synthesize support with the UNRECOGNIZED case.
-  public static let allCases: [Anytype_Rpc.Wallet.Convert.Response.Error.Code] = [
+  public static var allCases: [Anytype_Rpc.Wallet.Convert.Response.Error.Code] = [
     .null,
     .unknownError,
     .badInput,
@@ -23802,7 +23990,7 @@ extension Anytype_Rpc.Wallet.Convert.Response.Error.Code: CaseIterable {
 
 extension Anytype_Rpc.Wallet.CreateSession.Response.Error.Code: CaseIterable {
   // The compiler won't synthesize support with the UNRECOGNIZED case.
-  public static let allCases: [Anytype_Rpc.Wallet.CreateSession.Response.Error.Code] = [
+  public static var allCases: [Anytype_Rpc.Wallet.CreateSession.Response.Error.Code] = [
     .null,
     .unknownError,
     .badInput,
@@ -23811,16 +23999,25 @@ extension Anytype_Rpc.Wallet.CreateSession.Response.Error.Code: CaseIterable {
 
 extension Anytype_Rpc.Wallet.CloseSession.Response.Error.Code: CaseIterable {
   // The compiler won't synthesize support with the UNRECOGNIZED case.
-  public static let allCases: [Anytype_Rpc.Wallet.CloseSession.Response.Error.Code] = [
+  public static var allCases: [Anytype_Rpc.Wallet.CloseSession.Response.Error.Code] = [
     .null,
     .unknownError,
     .badInput,
   ]
 }
 
+extension Anytype_Rpc.Account.NetworkMode: CaseIterable {
+  // The compiler won't synthesize support with the UNRECOGNIZED case.
+  public static var allCases: [Anytype_Rpc.Account.NetworkMode] = [
+    .defaultConfig,
+    .localOnly,
+    .customConfig,
+  ]
+}
+
 extension Anytype_Rpc.Account.Create.Response.Error.Code: CaseIterable {
   // The compiler won't synthesize support with the UNRECOGNIZED case.
-  public static let allCases: [Anytype_Rpc.Account.Create.Response.Error.Code] = [
+  public static var allCases: [Anytype_Rpc.Account.Create.Response.Error.Code] = [
     .null,
     .unknownError,
     .badInput,
@@ -23834,7 +24031,7 @@ extension Anytype_Rpc.Account.Create.Response.Error.Code: CaseIterable {
 
 extension Anytype_Rpc.Account.Recover.Response.Error.Code: CaseIterable {
   // The compiler won't synthesize support with the UNRECOGNIZED case.
-  public static let allCases: [Anytype_Rpc.Account.Recover.Response.Error.Code] = [
+  public static var allCases: [Anytype_Rpc.Account.Recover.Response.Error.Code] = [
     .null,
     .unknownError,
     .badInput,
@@ -23844,7 +24041,7 @@ extension Anytype_Rpc.Account.Recover.Response.Error.Code: CaseIterable {
 
 extension Anytype_Rpc.Account.Delete.Response.Error.Code: CaseIterable {
   // The compiler won't synthesize support with the UNRECOGNIZED case.
-  public static let allCases: [Anytype_Rpc.Account.Delete.Response.Error.Code] = [
+  public static var allCases: [Anytype_Rpc.Account.Delete.Response.Error.Code] = [
     .null,
     .unknownError,
     .badInput,
@@ -23855,7 +24052,7 @@ extension Anytype_Rpc.Account.Delete.Response.Error.Code: CaseIterable {
 
 extension Anytype_Rpc.Account.RevertDeletion.Response.Error.Code: CaseIterable {
   // The compiler won't synthesize support with the UNRECOGNIZED case.
-  public static let allCases: [Anytype_Rpc.Account.RevertDeletion.Response.Error.Code] = [
+  public static var allCases: [Anytype_Rpc.Account.RevertDeletion.Response.Error.Code] = [
     .null,
     .unknownError,
     .badInput,
@@ -23866,7 +24063,7 @@ extension Anytype_Rpc.Account.RevertDeletion.Response.Error.Code: CaseIterable {
 
 extension Anytype_Rpc.Account.Select.Response.Error.Code: CaseIterable {
   // The compiler won't synthesize support with the UNRECOGNIZED case.
-  public static let allCases: [Anytype_Rpc.Account.Select.Response.Error.Code] = [
+  public static var allCases: [Anytype_Rpc.Account.Select.Response.Error.Code] = [
     .null,
     .unknownError,
     .badInput,
@@ -23884,7 +24081,7 @@ extension Anytype_Rpc.Account.Select.Response.Error.Code: CaseIterable {
 
 extension Anytype_Rpc.Account.Stop.Response.Error.Code: CaseIterable {
   // The compiler won't synthesize support with the UNRECOGNIZED case.
-  public static let allCases: [Anytype_Rpc.Account.Stop.Response.Error.Code] = [
+  public static var allCases: [Anytype_Rpc.Account.Stop.Response.Error.Code] = [
     .null,
     .unknownError,
     .badInput,
@@ -23896,7 +24093,7 @@ extension Anytype_Rpc.Account.Stop.Response.Error.Code: CaseIterable {
 
 extension Anytype_Rpc.Account.Move.Response.Error.Code: CaseIterable {
   // The compiler won't synthesize support with the UNRECOGNIZED case.
-  public static let allCases: [Anytype_Rpc.Account.Move.Response.Error.Code] = [
+  public static var allCases: [Anytype_Rpc.Account.Move.Response.Error.Code] = [
     .null,
     .unknownError,
     .badInput,
@@ -23911,7 +24108,7 @@ extension Anytype_Rpc.Account.Move.Response.Error.Code: CaseIterable {
 
 extension Anytype_Rpc.Account.ConfigUpdate.Timezones: CaseIterable {
   // The compiler won't synthesize support with the UNRECOGNIZED case.
-  public static let allCases: [Anytype_Rpc.Account.ConfigUpdate.Timezones] = [
+  public static var allCases: [Anytype_Rpc.Account.ConfigUpdate.Timezones] = [
     .gmt,
     .ect,
     .eet,
@@ -23945,7 +24142,7 @@ extension Anytype_Rpc.Account.ConfigUpdate.Timezones: CaseIterable {
 
 extension Anytype_Rpc.Account.ConfigUpdate.Response.Error.Code: CaseIterable {
   // The compiler won't synthesize support with the UNRECOGNIZED case.
-  public static let allCases: [Anytype_Rpc.Account.ConfigUpdate.Response.Error.Code] = [
+  public static var allCases: [Anytype_Rpc.Account.ConfigUpdate.Response.Error.Code] = [
     .null,
     .unknownError,
     .badInput,
@@ -23956,7 +24153,7 @@ extension Anytype_Rpc.Account.ConfigUpdate.Response.Error.Code: CaseIterable {
 
 extension Anytype_Rpc.Account.RecoverFromLegacyExport.Response.Error.Code: CaseIterable {
   // The compiler won't synthesize support with the UNRECOGNIZED case.
-  public static let allCases: [Anytype_Rpc.Account.RecoverFromLegacyExport.Response.Error.Code] = [
+  public static var allCases: [Anytype_Rpc.Account.RecoverFromLegacyExport.Response.Error.Code] = [
     .null,
     .unknownError,
     .badInput,
@@ -23966,7 +24163,7 @@ extension Anytype_Rpc.Account.RecoverFromLegacyExport.Response.Error.Code: CaseI
 
 extension Anytype_Rpc.Account.EnableLocalNetworkSync.Response.Error.Code: CaseIterable {
   // The compiler won't synthesize support with the UNRECOGNIZED case.
-  public static let allCases: [Anytype_Rpc.Account.EnableLocalNetworkSync.Response.Error.Code] = [
+  public static var allCases: [Anytype_Rpc.Account.EnableLocalNetworkSync.Response.Error.Code] = [
     .null,
     .unknownError,
     .badInput,
@@ -23974,9 +24171,22 @@ extension Anytype_Rpc.Account.EnableLocalNetworkSync.Response.Error.Code: CaseIt
   ]
 }
 
+extension Anytype_Rpc.Account.ChangeNetworkConfigAndRestart.Response.Error.Code: CaseIterable {
+  // The compiler won't synthesize support with the UNRECOGNIZED case.
+  public static var allCases: [Anytype_Rpc.Account.ChangeNetworkConfigAndRestart.Response.Error.Code] = [
+    .null,
+    .unknownError,
+    .badInput,
+    .accountIsNotRunning,
+    .configFileNotFound,
+    .configFileInvalid,
+    .accountFailedToStop,
+  ]
+}
+
 extension Anytype_Rpc.Workspace.GetCurrent.Response.Error.Code: CaseIterable {
   // The compiler won't synthesize support with the UNRECOGNIZED case.
-  public static let allCases: [Anytype_Rpc.Workspace.GetCurrent.Response.Error.Code] = [
+  public static var allCases: [Anytype_Rpc.Workspace.GetCurrent.Response.Error.Code] = [
     .null,
     .unknownError,
     .badInput,
@@ -23985,7 +24195,7 @@ extension Anytype_Rpc.Workspace.GetCurrent.Response.Error.Code: CaseIterable {
 
 extension Anytype_Rpc.Workspace.GetAll.Response.Error.Code: CaseIterable {
   // The compiler won't synthesize support with the UNRECOGNIZED case.
-  public static let allCases: [Anytype_Rpc.Workspace.GetAll.Response.Error.Code] = [
+  public static var allCases: [Anytype_Rpc.Workspace.GetAll.Response.Error.Code] = [
     .null,
     .unknownError,
     .badInput,
@@ -23994,7 +24204,7 @@ extension Anytype_Rpc.Workspace.GetAll.Response.Error.Code: CaseIterable {
 
 extension Anytype_Rpc.Workspace.Create.Response.Error.Code: CaseIterable {
   // The compiler won't synthesize support with the UNRECOGNIZED case.
-  public static let allCases: [Anytype_Rpc.Workspace.Create.Response.Error.Code] = [
+  public static var allCases: [Anytype_Rpc.Workspace.Create.Response.Error.Code] = [
     .null,
     .unknownError,
     .badInput,
@@ -24003,7 +24213,7 @@ extension Anytype_Rpc.Workspace.Create.Response.Error.Code: CaseIterable {
 
 extension Anytype_Rpc.Workspace.Open.Response.Error.Code: CaseIterable {
   // The compiler won't synthesize support with the UNRECOGNIZED case.
-  public static let allCases: [Anytype_Rpc.Workspace.Open.Response.Error.Code] = [
+  public static var allCases: [Anytype_Rpc.Workspace.Open.Response.Error.Code] = [
     .null,
     .unknownError,
     .badInput,
@@ -24012,7 +24222,7 @@ extension Anytype_Rpc.Workspace.Open.Response.Error.Code: CaseIterable {
 
 extension Anytype_Rpc.Workspace.Object.Add.Response.Error.Code: CaseIterable {
   // The compiler won't synthesize support with the UNRECOGNIZED case.
-  public static let allCases: [Anytype_Rpc.Workspace.Object.Add.Response.Error.Code] = [
+  public static var allCases: [Anytype_Rpc.Workspace.Object.Add.Response.Error.Code] = [
     .null,
     .unknownError,
     .badInput,
@@ -24021,7 +24231,7 @@ extension Anytype_Rpc.Workspace.Object.Add.Response.Error.Code: CaseIterable {
 
 extension Anytype_Rpc.Workspace.Object.ListAdd.Response.Error.Code: CaseIterable {
   // The compiler won't synthesize support with the UNRECOGNIZED case.
-  public static let allCases: [Anytype_Rpc.Workspace.Object.ListAdd.Response.Error.Code] = [
+  public static var allCases: [Anytype_Rpc.Workspace.Object.ListAdd.Response.Error.Code] = [
     .null,
     .unknownError,
     .badInput,
@@ -24030,7 +24240,7 @@ extension Anytype_Rpc.Workspace.Object.ListAdd.Response.Error.Code: CaseIterable
 
 extension Anytype_Rpc.Workspace.Object.ListRemove.Response.Error.Code: CaseIterable {
   // The compiler won't synthesize support with the UNRECOGNIZED case.
-  public static let allCases: [Anytype_Rpc.Workspace.Object.ListRemove.Response.Error.Code] = [
+  public static var allCases: [Anytype_Rpc.Workspace.Object.ListRemove.Response.Error.Code] = [
     .null,
     .unknownError,
     .badInput,
@@ -24039,7 +24249,7 @@ extension Anytype_Rpc.Workspace.Object.ListRemove.Response.Error.Code: CaseItera
 
 extension Anytype_Rpc.Workspace.SetInfo.Response.Error.Code: CaseIterable {
   // The compiler won't synthesize support with the UNRECOGNIZED case.
-  public static let allCases: [Anytype_Rpc.Workspace.SetInfo.Response.Error.Code] = [
+  public static var allCases: [Anytype_Rpc.Workspace.SetInfo.Response.Error.Code] = [
     .null,
     .unknownError,
     .badInput,
@@ -24048,7 +24258,7 @@ extension Anytype_Rpc.Workspace.SetInfo.Response.Error.Code: CaseIterable {
 
 extension Anytype_Rpc.Workspace.Select.Response.Error.Code: CaseIterable {
   // The compiler won't synthesize support with the UNRECOGNIZED case.
-  public static let allCases: [Anytype_Rpc.Workspace.Select.Response.Error.Code] = [
+  public static var allCases: [Anytype_Rpc.Workspace.Select.Response.Error.Code] = [
     .null,
     .unknownError,
     .badInput,
@@ -24057,7 +24267,7 @@ extension Anytype_Rpc.Workspace.Select.Response.Error.Code: CaseIterable {
 
 extension Anytype_Rpc.Workspace.Export.Response.Error.Code: CaseIterable {
   // The compiler won't synthesize support with the UNRECOGNIZED case.
-  public static let allCases: [Anytype_Rpc.Workspace.Export.Response.Error.Code] = [
+  public static var allCases: [Anytype_Rpc.Workspace.Export.Response.Error.Code] = [
     .null,
     .unknownError,
     .badInput,
@@ -24066,7 +24276,7 @@ extension Anytype_Rpc.Workspace.Export.Response.Error.Code: CaseIterable {
 
 extension Anytype_Rpc.Object.Open.Response.Error.Code: CaseIterable {
   // The compiler won't synthesize support with the UNRECOGNIZED case.
-  public static let allCases: [Anytype_Rpc.Object.Open.Response.Error.Code] = [
+  public static var allCases: [Anytype_Rpc.Object.Open.Response.Error.Code] = [
     .null,
     .unknownError,
     .badInput,
@@ -24077,7 +24287,7 @@ extension Anytype_Rpc.Object.Open.Response.Error.Code: CaseIterable {
 
 extension Anytype_Rpc.Object.Close.Response.Error.Code: CaseIterable {
   // The compiler won't synthesize support with the UNRECOGNIZED case.
-  public static let allCases: [Anytype_Rpc.Object.Close.Response.Error.Code] = [
+  public static var allCases: [Anytype_Rpc.Object.Close.Response.Error.Code] = [
     .null,
     .unknownError,
     .badInput,
@@ -24086,7 +24296,7 @@ extension Anytype_Rpc.Object.Close.Response.Error.Code: CaseIterable {
 
 extension Anytype_Rpc.Object.Show.Response.Error.Code: CaseIterable {
   // The compiler won't synthesize support with the UNRECOGNIZED case.
-  public static let allCases: [Anytype_Rpc.Object.Show.Response.Error.Code] = [
+  public static var allCases: [Anytype_Rpc.Object.Show.Response.Error.Code] = [
     .null,
     .unknownError,
     .badInput,
@@ -24097,7 +24307,7 @@ extension Anytype_Rpc.Object.Show.Response.Error.Code: CaseIterable {
 
 extension Anytype_Rpc.Object.Create.Response.Error.Code: CaseIterable {
   // The compiler won't synthesize support with the UNRECOGNIZED case.
-  public static let allCases: [Anytype_Rpc.Object.Create.Response.Error.Code] = [
+  public static var allCases: [Anytype_Rpc.Object.Create.Response.Error.Code] = [
     .null,
     .unknownError,
     .badInput,
@@ -24106,7 +24316,7 @@ extension Anytype_Rpc.Object.Create.Response.Error.Code: CaseIterable {
 
 extension Anytype_Rpc.Object.CreateBookmark.Response.Error.Code: CaseIterable {
   // The compiler won't synthesize support with the UNRECOGNIZED case.
-  public static let allCases: [Anytype_Rpc.Object.CreateBookmark.Response.Error.Code] = [
+  public static var allCases: [Anytype_Rpc.Object.CreateBookmark.Response.Error.Code] = [
     .null,
     .unknownError,
     .badInput,
@@ -24115,7 +24325,7 @@ extension Anytype_Rpc.Object.CreateBookmark.Response.Error.Code: CaseIterable {
 
 extension Anytype_Rpc.Object.CreateRelation.Response.Error.Code: CaseIterable {
   // The compiler won't synthesize support with the UNRECOGNIZED case.
-  public static let allCases: [Anytype_Rpc.Object.CreateRelation.Response.Error.Code] = [
+  public static var allCases: [Anytype_Rpc.Object.CreateRelation.Response.Error.Code] = [
     .null,
     .unknownError,
     .badInput,
@@ -24124,7 +24334,7 @@ extension Anytype_Rpc.Object.CreateRelation.Response.Error.Code: CaseIterable {
 
 extension Anytype_Rpc.Object.CreateRelationOption.Response.Error.Code: CaseIterable {
   // The compiler won't synthesize support with the UNRECOGNIZED case.
-  public static let allCases: [Anytype_Rpc.Object.CreateRelationOption.Response.Error.Code] = [
+  public static var allCases: [Anytype_Rpc.Object.CreateRelationOption.Response.Error.Code] = [
     .null,
     .unknownError,
     .badInput,
@@ -24133,7 +24343,7 @@ extension Anytype_Rpc.Object.CreateRelationOption.Response.Error.Code: CaseItera
 
 extension Anytype_Rpc.Object.CreateSet.Response.Error.Code: CaseIterable {
   // The compiler won't synthesize support with the UNRECOGNIZED case.
-  public static let allCases: [Anytype_Rpc.Object.CreateSet.Response.Error.Code] = [
+  public static var allCases: [Anytype_Rpc.Object.CreateSet.Response.Error.Code] = [
     .null,
     .unknownError,
     .badInput,
@@ -24143,7 +24353,7 @@ extension Anytype_Rpc.Object.CreateSet.Response.Error.Code: CaseIterable {
 
 extension Anytype_Rpc.Object.CreateObjectType.Response.Error.Code: CaseIterable {
   // The compiler won't synthesize support with the UNRECOGNIZED case.
-  public static let allCases: [Anytype_Rpc.Object.CreateObjectType.Response.Error.Code] = [
+  public static var allCases: [Anytype_Rpc.Object.CreateObjectType.Response.Error.Code] = [
     .null,
     .unknownError,
     .badInput,
@@ -24152,7 +24362,7 @@ extension Anytype_Rpc.Object.CreateObjectType.Response.Error.Code: CaseIterable 
 
 extension Anytype_Rpc.Object.BookmarkFetch.Response.Error.Code: CaseIterable {
   // The compiler won't synthesize support with the UNRECOGNIZED case.
-  public static let allCases: [Anytype_Rpc.Object.BookmarkFetch.Response.Error.Code] = [
+  public static var allCases: [Anytype_Rpc.Object.BookmarkFetch.Response.Error.Code] = [
     .null,
     .unknownError,
     .badInput,
@@ -24161,7 +24371,7 @@ extension Anytype_Rpc.Object.BookmarkFetch.Response.Error.Code: CaseIterable {
 
 extension Anytype_Rpc.Object.ToBookmark.Response.Error.Code: CaseIterable {
   // The compiler won't synthesize support with the UNRECOGNIZED case.
-  public static let allCases: [Anytype_Rpc.Object.ToBookmark.Response.Error.Code] = [
+  public static var allCases: [Anytype_Rpc.Object.ToBookmark.Response.Error.Code] = [
     .null,
     .unknownError,
     .badInput,
@@ -24170,7 +24380,7 @@ extension Anytype_Rpc.Object.ToBookmark.Response.Error.Code: CaseIterable {
 
 extension Anytype_Rpc.Object.Duplicate.Response.Error.Code: CaseIterable {
   // The compiler won't synthesize support with the UNRECOGNIZED case.
-  public static let allCases: [Anytype_Rpc.Object.Duplicate.Response.Error.Code] = [
+  public static var allCases: [Anytype_Rpc.Object.Duplicate.Response.Error.Code] = [
     .null,
     .unknownError,
     .badInput,
@@ -24179,7 +24389,7 @@ extension Anytype_Rpc.Object.Duplicate.Response.Error.Code: CaseIterable {
 
 extension Anytype_Rpc.Object.OpenBreadcrumbs.Response.Error.Code: CaseIterable {
   // The compiler won't synthesize support with the UNRECOGNIZED case.
-  public static let allCases: [Anytype_Rpc.Object.OpenBreadcrumbs.Response.Error.Code] = [
+  public static var allCases: [Anytype_Rpc.Object.OpenBreadcrumbs.Response.Error.Code] = [
     .null,
     .unknownError,
     .badInput,
@@ -24188,7 +24398,7 @@ extension Anytype_Rpc.Object.OpenBreadcrumbs.Response.Error.Code: CaseIterable {
 
 extension Anytype_Rpc.Object.SetBreadcrumbs.Response.Error.Code: CaseIterable {
   // The compiler won't synthesize support with the UNRECOGNIZED case.
-  public static let allCases: [Anytype_Rpc.Object.SetBreadcrumbs.Response.Error.Code] = [
+  public static var allCases: [Anytype_Rpc.Object.SetBreadcrumbs.Response.Error.Code] = [
     .null,
     .unknownError,
     .badInput,
@@ -24197,7 +24407,7 @@ extension Anytype_Rpc.Object.SetBreadcrumbs.Response.Error.Code: CaseIterable {
 
 extension Anytype_Rpc.Object.ShareByLink.Response.Error.Code: CaseIterable {
   // The compiler won't synthesize support with the UNRECOGNIZED case.
-  public static let allCases: [Anytype_Rpc.Object.ShareByLink.Response.Error.Code] = [
+  public static var allCases: [Anytype_Rpc.Object.ShareByLink.Response.Error.Code] = [
     .null,
     .unknownError,
     .badInput,
@@ -24206,7 +24416,7 @@ extension Anytype_Rpc.Object.ShareByLink.Response.Error.Code: CaseIterable {
 
 extension Anytype_Rpc.Object.Search.Response.Error.Code: CaseIterable {
   // The compiler won't synthesize support with the UNRECOGNIZED case.
-  public static let allCases: [Anytype_Rpc.Object.Search.Response.Error.Code] = [
+  public static var allCases: [Anytype_Rpc.Object.Search.Response.Error.Code] = [
     .null,
     .unknownError,
     .badInput,
@@ -24215,7 +24425,7 @@ extension Anytype_Rpc.Object.Search.Response.Error.Code: CaseIterable {
 
 extension Anytype_Rpc.Object.Graph.Edge.TypeEnum: CaseIterable {
   // The compiler won't synthesize support with the UNRECOGNIZED case.
-  public static let allCases: [Anytype_Rpc.Object.Graph.Edge.TypeEnum] = [
+  public static var allCases: [Anytype_Rpc.Object.Graph.Edge.TypeEnum] = [
     .link,
     .relation,
   ]
@@ -24223,7 +24433,7 @@ extension Anytype_Rpc.Object.Graph.Edge.TypeEnum: CaseIterable {
 
 extension Anytype_Rpc.Object.Graph.Response.Error.Code: CaseIterable {
   // The compiler won't synthesize support with the UNRECOGNIZED case.
-  public static let allCases: [Anytype_Rpc.Object.Graph.Response.Error.Code] = [
+  public static var allCases: [Anytype_Rpc.Object.Graph.Response.Error.Code] = [
     .null,
     .unknownError,
     .badInput,
@@ -24232,7 +24442,7 @@ extension Anytype_Rpc.Object.Graph.Response.Error.Code: CaseIterable {
 
 extension Anytype_Rpc.Object.SearchSubscribe.Response.Error.Code: CaseIterable {
   // The compiler won't synthesize support with the UNRECOGNIZED case.
-  public static let allCases: [Anytype_Rpc.Object.SearchSubscribe.Response.Error.Code] = [
+  public static var allCases: [Anytype_Rpc.Object.SearchSubscribe.Response.Error.Code] = [
     .null,
     .unknownError,
     .badInput,
@@ -24241,7 +24451,7 @@ extension Anytype_Rpc.Object.SearchSubscribe.Response.Error.Code: CaseIterable {
 
 extension Anytype_Rpc.Object.GroupsSubscribe.Response.Error.Code: CaseIterable {
   // The compiler won't synthesize support with the UNRECOGNIZED case.
-  public static let allCases: [Anytype_Rpc.Object.GroupsSubscribe.Response.Error.Code] = [
+  public static var allCases: [Anytype_Rpc.Object.GroupsSubscribe.Response.Error.Code] = [
     .null,
     .unknownError,
     .badInput,
@@ -24250,7 +24460,7 @@ extension Anytype_Rpc.Object.GroupsSubscribe.Response.Error.Code: CaseIterable {
 
 extension Anytype_Rpc.Object.SubscribeIds.Response.Error.Code: CaseIterable {
   // The compiler won't synthesize support with the UNRECOGNIZED case.
-  public static let allCases: [Anytype_Rpc.Object.SubscribeIds.Response.Error.Code] = [
+  public static var allCases: [Anytype_Rpc.Object.SubscribeIds.Response.Error.Code] = [
     .null,
     .unknownError,
     .badInput,
@@ -24259,7 +24469,7 @@ extension Anytype_Rpc.Object.SubscribeIds.Response.Error.Code: CaseIterable {
 
 extension Anytype_Rpc.Object.SearchUnsubscribe.Response.Error.Code: CaseIterable {
   // The compiler won't synthesize support with the UNRECOGNIZED case.
-  public static let allCases: [Anytype_Rpc.Object.SearchUnsubscribe.Response.Error.Code] = [
+  public static var allCases: [Anytype_Rpc.Object.SearchUnsubscribe.Response.Error.Code] = [
     .null,
     .unknownError,
     .badInput,
@@ -24268,7 +24478,7 @@ extension Anytype_Rpc.Object.SearchUnsubscribe.Response.Error.Code: CaseIterable
 
 extension Anytype_Rpc.Object.SetLayout.Response.Error.Code: CaseIterable {
   // The compiler won't synthesize support with the UNRECOGNIZED case.
-  public static let allCases: [Anytype_Rpc.Object.SetLayout.Response.Error.Code] = [
+  public static var allCases: [Anytype_Rpc.Object.SetLayout.Response.Error.Code] = [
     .null,
     .unknownError,
     .badInput,
@@ -24277,7 +24487,7 @@ extension Anytype_Rpc.Object.SetLayout.Response.Error.Code: CaseIterable {
 
 extension Anytype_Rpc.Object.SetIsFavorite.Response.Error.Code: CaseIterable {
   // The compiler won't synthesize support with the UNRECOGNIZED case.
-  public static let allCases: [Anytype_Rpc.Object.SetIsFavorite.Response.Error.Code] = [
+  public static var allCases: [Anytype_Rpc.Object.SetIsFavorite.Response.Error.Code] = [
     .null,
     .unknownError,
     .badInput,
@@ -24286,7 +24496,7 @@ extension Anytype_Rpc.Object.SetIsFavorite.Response.Error.Code: CaseIterable {
 
 extension Anytype_Rpc.Object.SetIsArchived.Response.Error.Code: CaseIterable {
   // The compiler won't synthesize support with the UNRECOGNIZED case.
-  public static let allCases: [Anytype_Rpc.Object.SetIsArchived.Response.Error.Code] = [
+  public static var allCases: [Anytype_Rpc.Object.SetIsArchived.Response.Error.Code] = [
     .null,
     .unknownError,
     .badInput,
@@ -24295,7 +24505,7 @@ extension Anytype_Rpc.Object.SetIsArchived.Response.Error.Code: CaseIterable {
 
 extension Anytype_Rpc.Object.SetSource.Response.Error.Code: CaseIterable {
   // The compiler won't synthesize support with the UNRECOGNIZED case.
-  public static let allCases: [Anytype_Rpc.Object.SetSource.Response.Error.Code] = [
+  public static var allCases: [Anytype_Rpc.Object.SetSource.Response.Error.Code] = [
     .null,
     .unknownError,
     .badInput,
@@ -24304,7 +24514,7 @@ extension Anytype_Rpc.Object.SetSource.Response.Error.Code: CaseIterable {
 
 extension Anytype_Rpc.Object.WorkspaceSetDashboard.Response.Error.Code: CaseIterable {
   // The compiler won't synthesize support with the UNRECOGNIZED case.
-  public static let allCases: [Anytype_Rpc.Object.WorkspaceSetDashboard.Response.Error.Code] = [
+  public static var allCases: [Anytype_Rpc.Object.WorkspaceSetDashboard.Response.Error.Code] = [
     .null,
     .unknownError,
     .badInput,
@@ -24313,7 +24523,7 @@ extension Anytype_Rpc.Object.WorkspaceSetDashboard.Response.Error.Code: CaseIter
 
 extension Anytype_Rpc.Object.SetObjectType.Response.Error.Code: CaseIterable {
   // The compiler won't synthesize support with the UNRECOGNIZED case.
-  public static let allCases: [Anytype_Rpc.Object.SetObjectType.Response.Error.Code] = [
+  public static var allCases: [Anytype_Rpc.Object.SetObjectType.Response.Error.Code] = [
     .null,
     .unknownError,
     .badInput,
@@ -24322,7 +24532,7 @@ extension Anytype_Rpc.Object.SetObjectType.Response.Error.Code: CaseIterable {
 
 extension Anytype_Rpc.Object.SetInternalFlags.Response.Error.Code: CaseIterable {
   // The compiler won't synthesize support with the UNRECOGNIZED case.
-  public static let allCases: [Anytype_Rpc.Object.SetInternalFlags.Response.Error.Code] = [
+  public static var allCases: [Anytype_Rpc.Object.SetInternalFlags.Response.Error.Code] = [
     .null,
     .unknownError,
     .badInput,
@@ -24331,7 +24541,7 @@ extension Anytype_Rpc.Object.SetInternalFlags.Response.Error.Code: CaseIterable 
 
 extension Anytype_Rpc.Object.SetDetails.Response.Error.Code: CaseIterable {
   // The compiler won't synthesize support with the UNRECOGNIZED case.
-  public static let allCases: [Anytype_Rpc.Object.SetDetails.Response.Error.Code] = [
+  public static var allCases: [Anytype_Rpc.Object.SetDetails.Response.Error.Code] = [
     .null,
     .unknownError,
     .badInput,
@@ -24340,7 +24550,7 @@ extension Anytype_Rpc.Object.SetDetails.Response.Error.Code: CaseIterable {
 
 extension Anytype_Rpc.Object.ToSet.Response.Error.Code: CaseIterable {
   // The compiler won't synthesize support with the UNRECOGNIZED case.
-  public static let allCases: [Anytype_Rpc.Object.ToSet.Response.Error.Code] = [
+  public static var allCases: [Anytype_Rpc.Object.ToSet.Response.Error.Code] = [
     .null,
     .unknownError,
     .badInput,
@@ -24349,7 +24559,7 @@ extension Anytype_Rpc.Object.ToSet.Response.Error.Code: CaseIterable {
 
 extension Anytype_Rpc.Object.ToCollection.Response.Error.Code: CaseIterable {
   // The compiler won't synthesize support with the UNRECOGNIZED case.
-  public static let allCases: [Anytype_Rpc.Object.ToCollection.Response.Error.Code] = [
+  public static var allCases: [Anytype_Rpc.Object.ToCollection.Response.Error.Code] = [
     .null,
     .unknownError,
     .badInput,
@@ -24358,7 +24568,7 @@ extension Anytype_Rpc.Object.ToCollection.Response.Error.Code: CaseIterable {
 
 extension Anytype_Rpc.Object.Undo.Response.Error.Code: CaseIterable {
   // The compiler won't synthesize support with the UNRECOGNIZED case.
-  public static let allCases: [Anytype_Rpc.Object.Undo.Response.Error.Code] = [
+  public static var allCases: [Anytype_Rpc.Object.Undo.Response.Error.Code] = [
     .null,
     .unknownError,
     .badInput,
@@ -24368,7 +24578,7 @@ extension Anytype_Rpc.Object.Undo.Response.Error.Code: CaseIterable {
 
 extension Anytype_Rpc.Object.Redo.Response.Error.Code: CaseIterable {
   // The compiler won't synthesize support with the UNRECOGNIZED case.
-  public static let allCases: [Anytype_Rpc.Object.Redo.Response.Error.Code] = [
+  public static var allCases: [Anytype_Rpc.Object.Redo.Response.Error.Code] = [
     .null,
     .unknownError,
     .badInput,
@@ -24378,7 +24588,7 @@ extension Anytype_Rpc.Object.Redo.Response.Error.Code: CaseIterable {
 
 extension Anytype_Rpc.Object.ListDuplicate.Response.Error.Code: CaseIterable {
   // The compiler won't synthesize support with the UNRECOGNIZED case.
-  public static let allCases: [Anytype_Rpc.Object.ListDuplicate.Response.Error.Code] = [
+  public static var allCases: [Anytype_Rpc.Object.ListDuplicate.Response.Error.Code] = [
     .null,
     .unknownError,
     .badInput,
@@ -24387,7 +24597,7 @@ extension Anytype_Rpc.Object.ListDuplicate.Response.Error.Code: CaseIterable {
 
 extension Anytype_Rpc.Object.ListDelete.Response.Error.Code: CaseIterable {
   // The compiler won't synthesize support with the UNRECOGNIZED case.
-  public static let allCases: [Anytype_Rpc.Object.ListDelete.Response.Error.Code] = [
+  public static var allCases: [Anytype_Rpc.Object.ListDelete.Response.Error.Code] = [
     .null,
     .unknownError,
     .badInput,
@@ -24396,7 +24606,7 @@ extension Anytype_Rpc.Object.ListDelete.Response.Error.Code: CaseIterable {
 
 extension Anytype_Rpc.Object.ListSetIsArchived.Response.Error.Code: CaseIterable {
   // The compiler won't synthesize support with the UNRECOGNIZED case.
-  public static let allCases: [Anytype_Rpc.Object.ListSetIsArchived.Response.Error.Code] = [
+  public static var allCases: [Anytype_Rpc.Object.ListSetIsArchived.Response.Error.Code] = [
     .null,
     .unknownError,
     .badInput,
@@ -24405,7 +24615,7 @@ extension Anytype_Rpc.Object.ListSetIsArchived.Response.Error.Code: CaseIterable
 
 extension Anytype_Rpc.Object.ListSetIsFavorite.Response.Error.Code: CaseIterable {
   // The compiler won't synthesize support with the UNRECOGNIZED case.
-  public static let allCases: [Anytype_Rpc.Object.ListSetIsFavorite.Response.Error.Code] = [
+  public static var allCases: [Anytype_Rpc.Object.ListSetIsFavorite.Response.Error.Code] = [
     .null,
     .unknownError,
     .badInput,
@@ -24414,7 +24624,7 @@ extension Anytype_Rpc.Object.ListSetIsFavorite.Response.Error.Code: CaseIterable
 
 extension Anytype_Rpc.Object.ListSetObjectType.Response.Error.Code: CaseIterable {
   // The compiler won't synthesize support with the UNRECOGNIZED case.
-  public static let allCases: [Anytype_Rpc.Object.ListSetObjectType.Response.Error.Code] = [
+  public static var allCases: [Anytype_Rpc.Object.ListSetObjectType.Response.Error.Code] = [
     .null,
     .unknownError,
     .badInput,
@@ -24423,7 +24633,7 @@ extension Anytype_Rpc.Object.ListSetObjectType.Response.Error.Code: CaseIterable
 
 extension Anytype_Rpc.Object.ApplyTemplate.Response.Error.Code: CaseIterable {
   // The compiler won't synthesize support with the UNRECOGNIZED case.
-  public static let allCases: [Anytype_Rpc.Object.ApplyTemplate.Response.Error.Code] = [
+  public static var allCases: [Anytype_Rpc.Object.ApplyTemplate.Response.Error.Code] = [
     .null,
     .unknownError,
     .badInput,
@@ -24432,7 +24642,7 @@ extension Anytype_Rpc.Object.ApplyTemplate.Response.Error.Code: CaseIterable {
 
 extension Anytype_Rpc.Object.ListExport.Format: CaseIterable {
   // The compiler won't synthesize support with the UNRECOGNIZED case.
-  public static let allCases: [Anytype_Rpc.Object.ListExport.Format] = [
+  public static var allCases: [Anytype_Rpc.Object.ListExport.Format] = [
     .markdown,
     .protobuf,
     .json,
@@ -24444,7 +24654,7 @@ extension Anytype_Rpc.Object.ListExport.Format: CaseIterable {
 
 extension Anytype_Rpc.Object.ListExport.Response.Error.Code: CaseIterable {
   // The compiler won't synthesize support with the UNRECOGNIZED case.
-  public static let allCases: [Anytype_Rpc.Object.ListExport.Response.Error.Code] = [
+  public static var allCases: [Anytype_Rpc.Object.ListExport.Response.Error.Code] = [
     .null,
     .unknownError,
     .badInput,
@@ -24453,7 +24663,7 @@ extension Anytype_Rpc.Object.ListExport.Response.Error.Code: CaseIterable {
 
 extension Anytype_Rpc.Object.Import.Request.Mode: CaseIterable {
   // The compiler won't synthesize support with the UNRECOGNIZED case.
-  public static let allCases: [Anytype_Rpc.Object.Import.Request.Mode] = [
+  public static var allCases: [Anytype_Rpc.Object.Import.Request.Mode] = [
     .allOrNothing,
     .ignoreErrors,
   ]
@@ -24461,7 +24671,7 @@ extension Anytype_Rpc.Object.Import.Request.Mode: CaseIterable {
 
 extension Anytype_Rpc.Object.Import.Request.TypeEnum: CaseIterable {
   // The compiler won't synthesize support with the UNRECOGNIZED case.
-  public static let allCases: [Anytype_Rpc.Object.Import.Request.TypeEnum] = [
+  public static var allCases: [Anytype_Rpc.Object.Import.Request.TypeEnum] = [
     .notion,
     .markdown,
     .external,
@@ -24472,9 +24682,17 @@ extension Anytype_Rpc.Object.Import.Request.TypeEnum: CaseIterable {
   ]
 }
 
+extension Anytype_Rpc.Object.Import.Request.PbParams.TypeEnum: CaseIterable {
+  // The compiler won't synthesize support with the UNRECOGNIZED case.
+  public static var allCases: [Anytype_Rpc.Object.Import.Request.PbParams.TypeEnum] = [
+    .space,
+    .experience,
+  ]
+}
+
 extension Anytype_Rpc.Object.Import.Request.CsvParams.Mode: CaseIterable {
   // The compiler won't synthesize support with the UNRECOGNIZED case.
-  public static let allCases: [Anytype_Rpc.Object.Import.Request.CsvParams.Mode] = [
+  public static var allCases: [Anytype_Rpc.Object.Import.Request.CsvParams.Mode] = [
     .collection,
     .table,
   ]
@@ -24482,7 +24700,7 @@ extension Anytype_Rpc.Object.Import.Request.CsvParams.Mode: CaseIterable {
 
 extension Anytype_Rpc.Object.Import.Response.Error.Code: CaseIterable {
   // The compiler won't synthesize support with the UNRECOGNIZED case.
-  public static let allCases: [Anytype_Rpc.Object.Import.Response.Error.Code] = [
+  public static var allCases: [Anytype_Rpc.Object.Import.Response.Error.Code] = [
     .null,
     .unknownError,
     .badInput,
@@ -24490,12 +24708,13 @@ extension Anytype_Rpc.Object.Import.Response.Error.Code: CaseIterable {
     .noObjectsToImport,
     .importIsCanceled,
     .limitOfRowsOrRelationsExceeded,
+    .fileLoadError,
   ]
 }
 
 extension Anytype_Rpc.Object.Import.Notion.ValidateToken.Response.Error.Code: CaseIterable {
   // The compiler won't synthesize support with the UNRECOGNIZED case.
-  public static let allCases: [Anytype_Rpc.Object.Import.Notion.ValidateToken.Response.Error.Code] = [
+  public static var allCases: [Anytype_Rpc.Object.Import.Notion.ValidateToken.Response.Error.Code] = [
     .null,
     .unknownError,
     .badInput,
@@ -24509,7 +24728,7 @@ extension Anytype_Rpc.Object.Import.Notion.ValidateToken.Response.Error.Code: Ca
 
 extension Anytype_Rpc.Object.ImportList.Response.Error.Code: CaseIterable {
   // The compiler won't synthesize support with the UNRECOGNIZED case.
-  public static let allCases: [Anytype_Rpc.Object.ImportList.Response.Error.Code] = [
+  public static var allCases: [Anytype_Rpc.Object.ImportList.Response.Error.Code] = [
     .null,
     .unknownError,
     .badInput,
@@ -24519,7 +24738,7 @@ extension Anytype_Rpc.Object.ImportList.Response.Error.Code: CaseIterable {
 
 extension Anytype_Rpc.Object.ImportList.ImportResponse.TypeEnum: CaseIterable {
   // The compiler won't synthesize support with the UNRECOGNIZED case.
-  public static let allCases: [Anytype_Rpc.Object.ImportList.ImportResponse.TypeEnum] = [
+  public static var allCases: [Anytype_Rpc.Object.ImportList.ImportResponse.TypeEnum] = [
     .notion,
     .markdown,
     .html,
@@ -24529,7 +24748,7 @@ extension Anytype_Rpc.Object.ImportList.ImportResponse.TypeEnum: CaseIterable {
 
 extension Anytype_Rpc.Object.ImportUseCase.Request.UseCase: CaseIterable {
   // The compiler won't synthesize support with the UNRECOGNIZED case.
-  public static let allCases: [Anytype_Rpc.Object.ImportUseCase.Request.UseCase] = [
+  public static var allCases: [Anytype_Rpc.Object.ImportUseCase.Request.UseCase] = [
     .empty,
     .skip,
     .personalProjects,
@@ -24541,7 +24760,7 @@ extension Anytype_Rpc.Object.ImportUseCase.Request.UseCase: CaseIterable {
 
 extension Anytype_Rpc.Object.ImportUseCase.Response.Error.Code: CaseIterable {
   // The compiler won't synthesize support with the UNRECOGNIZED case.
-  public static let allCases: [Anytype_Rpc.Object.ImportUseCase.Response.Error.Code] = [
+  public static var allCases: [Anytype_Rpc.Object.ImportUseCase.Response.Error.Code] = [
     .null,
     .unknownError,
     .badInput,
@@ -24550,7 +24769,7 @@ extension Anytype_Rpc.Object.ImportUseCase.Response.Error.Code: CaseIterable {
 
 extension Anytype_Rpc.Object.ImportExperience.Response.Error.Code: CaseIterable {
   // The compiler won't synthesize support with the UNRECOGNIZED case.
-  public static let allCases: [Anytype_Rpc.Object.ImportExperience.Response.Error.Code] = [
+  public static var allCases: [Anytype_Rpc.Object.ImportExperience.Response.Error.Code] = [
     .null,
     .unknownError,
     .badInput,
@@ -24559,7 +24778,7 @@ extension Anytype_Rpc.Object.ImportExperience.Response.Error.Code: CaseIterable 
 
 extension Anytype_Rpc.ObjectCollection.Add.Response.Error.Code: CaseIterable {
   // The compiler won't synthesize support with the UNRECOGNIZED case.
-  public static let allCases: [Anytype_Rpc.ObjectCollection.Add.Response.Error.Code] = [
+  public static var allCases: [Anytype_Rpc.ObjectCollection.Add.Response.Error.Code] = [
     .null,
     .unknownError,
     .badInput,
@@ -24568,7 +24787,7 @@ extension Anytype_Rpc.ObjectCollection.Add.Response.Error.Code: CaseIterable {
 
 extension Anytype_Rpc.ObjectCollection.Remove.Response.Error.Code: CaseIterable {
   // The compiler won't synthesize support with the UNRECOGNIZED case.
-  public static let allCases: [Anytype_Rpc.ObjectCollection.Remove.Response.Error.Code] = [
+  public static var allCases: [Anytype_Rpc.ObjectCollection.Remove.Response.Error.Code] = [
     .null,
     .unknownError,
     .badInput,
@@ -24577,7 +24796,7 @@ extension Anytype_Rpc.ObjectCollection.Remove.Response.Error.Code: CaseIterable 
 
 extension Anytype_Rpc.ObjectCollection.Sort.Response.Error.Code: CaseIterable {
   // The compiler won't synthesize support with the UNRECOGNIZED case.
-  public static let allCases: [Anytype_Rpc.ObjectCollection.Sort.Response.Error.Code] = [
+  public static var allCases: [Anytype_Rpc.ObjectCollection.Sort.Response.Error.Code] = [
     .null,
     .unknownError,
     .badInput,
@@ -24586,7 +24805,7 @@ extension Anytype_Rpc.ObjectCollection.Sort.Response.Error.Code: CaseIterable {
 
 extension Anytype_Rpc.ObjectRelation.Add.Response.Error.Code: CaseIterable {
   // The compiler won't synthesize support with the UNRECOGNIZED case.
-  public static let allCases: [Anytype_Rpc.ObjectRelation.Add.Response.Error.Code] = [
+  public static var allCases: [Anytype_Rpc.ObjectRelation.Add.Response.Error.Code] = [
     .null,
     .unknownError,
     .badInput,
@@ -24595,7 +24814,7 @@ extension Anytype_Rpc.ObjectRelation.Add.Response.Error.Code: CaseIterable {
 
 extension Anytype_Rpc.ObjectRelation.Delete.Response.Error.Code: CaseIterable {
   // The compiler won't synthesize support with the UNRECOGNIZED case.
-  public static let allCases: [Anytype_Rpc.ObjectRelation.Delete.Response.Error.Code] = [
+  public static var allCases: [Anytype_Rpc.ObjectRelation.Delete.Response.Error.Code] = [
     .null,
     .unknownError,
     .badInput,
@@ -24604,7 +24823,7 @@ extension Anytype_Rpc.ObjectRelation.Delete.Response.Error.Code: CaseIterable {
 
 extension Anytype_Rpc.ObjectRelation.ListAvailable.Response.Error.Code: CaseIterable {
   // The compiler won't synthesize support with the UNRECOGNIZED case.
-  public static let allCases: [Anytype_Rpc.ObjectRelation.ListAvailable.Response.Error.Code] = [
+  public static var allCases: [Anytype_Rpc.ObjectRelation.ListAvailable.Response.Error.Code] = [
     .null,
     .unknownError,
     .badInput,
@@ -24613,7 +24832,7 @@ extension Anytype_Rpc.ObjectRelation.ListAvailable.Response.Error.Code: CaseIter
 
 extension Anytype_Rpc.ObjectRelation.AddFeatured.Response.Error.Code: CaseIterable {
   // The compiler won't synthesize support with the UNRECOGNIZED case.
-  public static let allCases: [Anytype_Rpc.ObjectRelation.AddFeatured.Response.Error.Code] = [
+  public static var allCases: [Anytype_Rpc.ObjectRelation.AddFeatured.Response.Error.Code] = [
     .null,
     .unknownError,
     .badInput,
@@ -24622,7 +24841,7 @@ extension Anytype_Rpc.ObjectRelation.AddFeatured.Response.Error.Code: CaseIterab
 
 extension Anytype_Rpc.ObjectRelation.RemoveFeatured.Response.Error.Code: CaseIterable {
   // The compiler won't synthesize support with the UNRECOGNIZED case.
-  public static let allCases: [Anytype_Rpc.ObjectRelation.RemoveFeatured.Response.Error.Code] = [
+  public static var allCases: [Anytype_Rpc.ObjectRelation.RemoveFeatured.Response.Error.Code] = [
     .null,
     .unknownError,
     .badInput,
@@ -24631,7 +24850,7 @@ extension Anytype_Rpc.ObjectRelation.RemoveFeatured.Response.Error.Code: CaseIte
 
 extension Anytype_Rpc.ObjectType.Relation.Add.Response.Error.Code: CaseIterable {
   // The compiler won't synthesize support with the UNRECOGNIZED case.
-  public static let allCases: [Anytype_Rpc.ObjectType.Relation.Add.Response.Error.Code] = [
+  public static var allCases: [Anytype_Rpc.ObjectType.Relation.Add.Response.Error.Code] = [
     .null,
     .unknownError,
     .badInput,
@@ -24641,7 +24860,7 @@ extension Anytype_Rpc.ObjectType.Relation.Add.Response.Error.Code: CaseIterable 
 
 extension Anytype_Rpc.ObjectType.Relation.Remove.Response.Error.Code: CaseIterable {
   // The compiler won't synthesize support with the UNRECOGNIZED case.
-  public static let allCases: [Anytype_Rpc.ObjectType.Relation.Remove.Response.Error.Code] = [
+  public static var allCases: [Anytype_Rpc.ObjectType.Relation.Remove.Response.Error.Code] = [
     .null,
     .unknownError,
     .badInput,
@@ -24651,7 +24870,7 @@ extension Anytype_Rpc.ObjectType.Relation.Remove.Response.Error.Code: CaseIterab
 
 extension Anytype_Rpc.Relation.ListRemoveOption.Response.Error.Code: CaseIterable {
   // The compiler won't synthesize support with the UNRECOGNIZED case.
-  public static let allCases: [Anytype_Rpc.Relation.ListRemoveOption.Response.Error.Code] = [
+  public static var allCases: [Anytype_Rpc.Relation.ListRemoveOption.Response.Error.Code] = [
     .null,
     .unknownError,
     .badInput,
@@ -24661,7 +24880,7 @@ extension Anytype_Rpc.Relation.ListRemoveOption.Response.Error.Code: CaseIterabl
 
 extension Anytype_Rpc.Relation.Options.Response.Error.Code: CaseIterable {
   // The compiler won't synthesize support with the UNRECOGNIZED case.
-  public static let allCases: [Anytype_Rpc.Relation.Options.Response.Error.Code] = [
+  public static var allCases: [Anytype_Rpc.Relation.Options.Response.Error.Code] = [
     .null,
     .unknownError,
     .badInput,
@@ -24670,7 +24889,7 @@ extension Anytype_Rpc.Relation.Options.Response.Error.Code: CaseIterable {
 
 extension Anytype_Rpc.History.GetVersions.Response.Error.Code: CaseIterable {
   // The compiler won't synthesize support with the UNRECOGNIZED case.
-  public static let allCases: [Anytype_Rpc.History.GetVersions.Response.Error.Code] = [
+  public static var allCases: [Anytype_Rpc.History.GetVersions.Response.Error.Code] = [
     .null,
     .unknownError,
     .badInput,
@@ -24679,7 +24898,7 @@ extension Anytype_Rpc.History.GetVersions.Response.Error.Code: CaseIterable {
 
 extension Anytype_Rpc.History.ShowVersion.Response.Error.Code: CaseIterable {
   // The compiler won't synthesize support with the UNRECOGNIZED case.
-  public static let allCases: [Anytype_Rpc.History.ShowVersion.Response.Error.Code] = [
+  public static var allCases: [Anytype_Rpc.History.ShowVersion.Response.Error.Code] = [
     .null,
     .unknownError,
     .badInput,
@@ -24688,7 +24907,7 @@ extension Anytype_Rpc.History.ShowVersion.Response.Error.Code: CaseIterable {
 
 extension Anytype_Rpc.History.SetVersion.Response.Error.Code: CaseIterable {
   // The compiler won't synthesize support with the UNRECOGNIZED case.
-  public static let allCases: [Anytype_Rpc.History.SetVersion.Response.Error.Code] = [
+  public static var allCases: [Anytype_Rpc.History.SetVersion.Response.Error.Code] = [
     .null,
     .unknownError,
     .badInput,
@@ -24697,7 +24916,7 @@ extension Anytype_Rpc.History.SetVersion.Response.Error.Code: CaseIterable {
 
 extension Anytype_Rpc.File.Offload.Response.Error.Code: CaseIterable {
   // The compiler won't synthesize support with the UNRECOGNIZED case.
-  public static let allCases: [Anytype_Rpc.File.Offload.Response.Error.Code] = [
+  public static var allCases: [Anytype_Rpc.File.Offload.Response.Error.Code] = [
     .null,
     .unknownError,
     .badInput,
@@ -24707,7 +24926,7 @@ extension Anytype_Rpc.File.Offload.Response.Error.Code: CaseIterable {
 
 extension Anytype_Rpc.File.ListOffload.Response.Error.Code: CaseIterable {
   // The compiler won't synthesize support with the UNRECOGNIZED case.
-  public static let allCases: [Anytype_Rpc.File.ListOffload.Response.Error.Code] = [
+  public static var allCases: [Anytype_Rpc.File.ListOffload.Response.Error.Code] = [
     .null,
     .unknownError,
     .badInput,
@@ -24717,7 +24936,7 @@ extension Anytype_Rpc.File.ListOffload.Response.Error.Code: CaseIterable {
 
 extension Anytype_Rpc.File.Upload.Response.Error.Code: CaseIterable {
   // The compiler won't synthesize support with the UNRECOGNIZED case.
-  public static let allCases: [Anytype_Rpc.File.Upload.Response.Error.Code] = [
+  public static var allCases: [Anytype_Rpc.File.Upload.Response.Error.Code] = [
     .null,
     .unknownError,
     .badInput,
@@ -24726,7 +24945,7 @@ extension Anytype_Rpc.File.Upload.Response.Error.Code: CaseIterable {
 
 extension Anytype_Rpc.File.Download.Response.Error.Code: CaseIterable {
   // The compiler won't synthesize support with the UNRECOGNIZED case.
-  public static let allCases: [Anytype_Rpc.File.Download.Response.Error.Code] = [
+  public static var allCases: [Anytype_Rpc.File.Download.Response.Error.Code] = [
     .null,
     .unknownError,
     .badInput,
@@ -24735,7 +24954,7 @@ extension Anytype_Rpc.File.Download.Response.Error.Code: CaseIterable {
 
 extension Anytype_Rpc.File.Drop.Response.Error.Code: CaseIterable {
   // The compiler won't synthesize support with the UNRECOGNIZED case.
-  public static let allCases: [Anytype_Rpc.File.Drop.Response.Error.Code] = [
+  public static var allCases: [Anytype_Rpc.File.Drop.Response.Error.Code] = [
     .null,
     .unknownError,
     .badInput,
@@ -24744,7 +24963,7 @@ extension Anytype_Rpc.File.Drop.Response.Error.Code: CaseIterable {
 
 extension Anytype_Rpc.File.SpaceUsage.Response.Error.Code: CaseIterable {
   // The compiler won't synthesize support with the UNRECOGNIZED case.
-  public static let allCases: [Anytype_Rpc.File.SpaceUsage.Response.Error.Code] = [
+  public static var allCases: [Anytype_Rpc.File.SpaceUsage.Response.Error.Code] = [
     .null,
     .unknownError,
     .badInput,
@@ -24753,7 +24972,7 @@ extension Anytype_Rpc.File.SpaceUsage.Response.Error.Code: CaseIterable {
 
 extension Anytype_Rpc.File.NodeUsage.Response.Error.Code: CaseIterable {
   // The compiler won't synthesize support with the UNRECOGNIZED case.
-  public static let allCases: [Anytype_Rpc.File.NodeUsage.Response.Error.Code] = [
+  public static var allCases: [Anytype_Rpc.File.NodeUsage.Response.Error.Code] = [
     .null,
     .unknownError,
     .badInput,
@@ -24762,7 +24981,7 @@ extension Anytype_Rpc.File.NodeUsage.Response.Error.Code: CaseIterable {
 
 extension Anytype_Rpc.Navigation.Context: CaseIterable {
   // The compiler won't synthesize support with the UNRECOGNIZED case.
-  public static let allCases: [Anytype_Rpc.Navigation.Context] = [
+  public static var allCases: [Anytype_Rpc.Navigation.Context] = [
     .navigation,
     .moveTo,
     .linkTo,
@@ -24771,7 +24990,7 @@ extension Anytype_Rpc.Navigation.Context: CaseIterable {
 
 extension Anytype_Rpc.Navigation.ListObjects.Response.Error.Code: CaseIterable {
   // The compiler won't synthesize support with the UNRECOGNIZED case.
-  public static let allCases: [Anytype_Rpc.Navigation.ListObjects.Response.Error.Code] = [
+  public static var allCases: [Anytype_Rpc.Navigation.ListObjects.Response.Error.Code] = [
     .null,
     .unknownError,
     .badInput,
@@ -24780,7 +24999,7 @@ extension Anytype_Rpc.Navigation.ListObjects.Response.Error.Code: CaseIterable {
 
 extension Anytype_Rpc.Navigation.GetObjectInfoWithLinks.Response.Error.Code: CaseIterable {
   // The compiler won't synthesize support with the UNRECOGNIZED case.
-  public static let allCases: [Anytype_Rpc.Navigation.GetObjectInfoWithLinks.Response.Error.Code] = [
+  public static var allCases: [Anytype_Rpc.Navigation.GetObjectInfoWithLinks.Response.Error.Code] = [
     .null,
     .unknownError,
     .badInput,
@@ -24789,7 +25008,7 @@ extension Anytype_Rpc.Navigation.GetObjectInfoWithLinks.Response.Error.Code: Cas
 
 extension Anytype_Rpc.Template.CreateFromObject.Response.Error.Code: CaseIterable {
   // The compiler won't synthesize support with the UNRECOGNIZED case.
-  public static let allCases: [Anytype_Rpc.Template.CreateFromObject.Response.Error.Code] = [
+  public static var allCases: [Anytype_Rpc.Template.CreateFromObject.Response.Error.Code] = [
     .null,
     .unknownError,
     .badInput,
@@ -24798,7 +25017,7 @@ extension Anytype_Rpc.Template.CreateFromObject.Response.Error.Code: CaseIterabl
 
 extension Anytype_Rpc.Template.Clone.Response.Error.Code: CaseIterable {
   // The compiler won't synthesize support with the UNRECOGNIZED case.
-  public static let allCases: [Anytype_Rpc.Template.Clone.Response.Error.Code] = [
+  public static var allCases: [Anytype_Rpc.Template.Clone.Response.Error.Code] = [
     .null,
     .unknownError,
     .badInput,
@@ -24807,7 +25026,7 @@ extension Anytype_Rpc.Template.Clone.Response.Error.Code: CaseIterable {
 
 extension Anytype_Rpc.Template.ExportAll.Response.Error.Code: CaseIterable {
   // The compiler won't synthesize support with the UNRECOGNIZED case.
-  public static let allCases: [Anytype_Rpc.Template.ExportAll.Response.Error.Code] = [
+  public static var allCases: [Anytype_Rpc.Template.ExportAll.Response.Error.Code] = [
     .null,
     .unknownError,
     .badInput,
@@ -24816,7 +25035,7 @@ extension Anytype_Rpc.Template.ExportAll.Response.Error.Code: CaseIterable {
 
 extension Anytype_Rpc.LinkPreview.Response.Error.Code: CaseIterable {
   // The compiler won't synthesize support with the UNRECOGNIZED case.
-  public static let allCases: [Anytype_Rpc.LinkPreview.Response.Error.Code] = [
+  public static var allCases: [Anytype_Rpc.LinkPreview.Response.Error.Code] = [
     .null,
     .unknownError,
     .badInput,
@@ -24825,7 +25044,7 @@ extension Anytype_Rpc.LinkPreview.Response.Error.Code: CaseIterable {
 
 extension Anytype_Rpc.Unsplash.Search.Response.Error.Code: CaseIterable {
   // The compiler won't synthesize support with the UNRECOGNIZED case.
-  public static let allCases: [Anytype_Rpc.Unsplash.Search.Response.Error.Code] = [
+  public static var allCases: [Anytype_Rpc.Unsplash.Search.Response.Error.Code] = [
     .null,
     .unknownError,
     .badInput,
@@ -24835,7 +25054,7 @@ extension Anytype_Rpc.Unsplash.Search.Response.Error.Code: CaseIterable {
 
 extension Anytype_Rpc.Unsplash.Download.Response.Error.Code: CaseIterable {
   // The compiler won't synthesize support with the UNRECOGNIZED case.
-  public static let allCases: [Anytype_Rpc.Unsplash.Download.Response.Error.Code] = [
+  public static var allCases: [Anytype_Rpc.Unsplash.Download.Response.Error.Code] = [
     .null,
     .unknownError,
     .badInput,
@@ -24845,7 +25064,7 @@ extension Anytype_Rpc.Unsplash.Download.Response.Error.Code: CaseIterable {
 
 extension Anytype_Rpc.DownloadManifest.Response.Error.Code: CaseIterable {
   // The compiler won't synthesize support with the UNRECOGNIZED case.
-  public static let allCases: [Anytype_Rpc.DownloadManifest.Response.Error.Code] = [
+  public static var allCases: [Anytype_Rpc.DownloadManifest.Response.Error.Code] = [
     .null,
     .unknownError,
     .badInput,
@@ -24854,7 +25073,7 @@ extension Anytype_Rpc.DownloadManifest.Response.Error.Code: CaseIterable {
 
 extension Anytype_Rpc.Block.Replace.Response.Error.Code: CaseIterable {
   // The compiler won't synthesize support with the UNRECOGNIZED case.
-  public static let allCases: [Anytype_Rpc.Block.Replace.Response.Error.Code] = [
+  public static var allCases: [Anytype_Rpc.Block.Replace.Response.Error.Code] = [
     .null,
     .unknownError,
     .badInput,
@@ -24863,7 +25082,7 @@ extension Anytype_Rpc.Block.Replace.Response.Error.Code: CaseIterable {
 
 extension Anytype_Rpc.Block.Split.Request.Mode: CaseIterable {
   // The compiler won't synthesize support with the UNRECOGNIZED case.
-  public static let allCases: [Anytype_Rpc.Block.Split.Request.Mode] = [
+  public static var allCases: [Anytype_Rpc.Block.Split.Request.Mode] = [
     .bottom,
     .top,
     .inner,
@@ -24873,7 +25092,7 @@ extension Anytype_Rpc.Block.Split.Request.Mode: CaseIterable {
 
 extension Anytype_Rpc.Block.Split.Response.Error.Code: CaseIterable {
   // The compiler won't synthesize support with the UNRECOGNIZED case.
-  public static let allCases: [Anytype_Rpc.Block.Split.Response.Error.Code] = [
+  public static var allCases: [Anytype_Rpc.Block.Split.Response.Error.Code] = [
     .null,
     .unknownError,
     .badInput,
@@ -24882,7 +25101,7 @@ extension Anytype_Rpc.Block.Split.Response.Error.Code: CaseIterable {
 
 extension Anytype_Rpc.Block.Merge.Response.Error.Code: CaseIterable {
   // The compiler won't synthesize support with the UNRECOGNIZED case.
-  public static let allCases: [Anytype_Rpc.Block.Merge.Response.Error.Code] = [
+  public static var allCases: [Anytype_Rpc.Block.Merge.Response.Error.Code] = [
     .null,
     .unknownError,
     .badInput,
@@ -24891,7 +25110,7 @@ extension Anytype_Rpc.Block.Merge.Response.Error.Code: CaseIterable {
 
 extension Anytype_Rpc.Block.Copy.Response.Error.Code: CaseIterable {
   // The compiler won't synthesize support with the UNRECOGNIZED case.
-  public static let allCases: [Anytype_Rpc.Block.Copy.Response.Error.Code] = [
+  public static var allCases: [Anytype_Rpc.Block.Copy.Response.Error.Code] = [
     .null,
     .unknownError,
     .badInput,
@@ -24900,7 +25119,7 @@ extension Anytype_Rpc.Block.Copy.Response.Error.Code: CaseIterable {
 
 extension Anytype_Rpc.Block.Paste.Response.Error.Code: CaseIterable {
   // The compiler won't synthesize support with the UNRECOGNIZED case.
-  public static let allCases: [Anytype_Rpc.Block.Paste.Response.Error.Code] = [
+  public static var allCases: [Anytype_Rpc.Block.Paste.Response.Error.Code] = [
     .null,
     .unknownError,
     .badInput,
@@ -24909,7 +25128,7 @@ extension Anytype_Rpc.Block.Paste.Response.Error.Code: CaseIterable {
 
 extension Anytype_Rpc.Block.Cut.Response.Error.Code: CaseIterable {
   // The compiler won't synthesize support with the UNRECOGNIZED case.
-  public static let allCases: [Anytype_Rpc.Block.Cut.Response.Error.Code] = [
+  public static var allCases: [Anytype_Rpc.Block.Cut.Response.Error.Code] = [
     .null,
     .unknownError,
     .badInput,
@@ -24918,7 +25137,7 @@ extension Anytype_Rpc.Block.Cut.Response.Error.Code: CaseIterable {
 
 extension Anytype_Rpc.Block.Upload.Response.Error.Code: CaseIterable {
   // The compiler won't synthesize support with the UNRECOGNIZED case.
-  public static let allCases: [Anytype_Rpc.Block.Upload.Response.Error.Code] = [
+  public static var allCases: [Anytype_Rpc.Block.Upload.Response.Error.Code] = [
     .null,
     .unknownError,
     .badInput,
@@ -24927,7 +25146,7 @@ extension Anytype_Rpc.Block.Upload.Response.Error.Code: CaseIterable {
 
 extension Anytype_Rpc.Block.Download.Response.Error.Code: CaseIterable {
   // The compiler won't synthesize support with the UNRECOGNIZED case.
-  public static let allCases: [Anytype_Rpc.Block.Download.Response.Error.Code] = [
+  public static var allCases: [Anytype_Rpc.Block.Download.Response.Error.Code] = [
     .null,
     .unknownError,
     .badInput,
@@ -24936,7 +25155,7 @@ extension Anytype_Rpc.Block.Download.Response.Error.Code: CaseIterable {
 
 extension Anytype_Rpc.Block.Create.Response.Error.Code: CaseIterable {
   // The compiler won't synthesize support with the UNRECOGNIZED case.
-  public static let allCases: [Anytype_Rpc.Block.Create.Response.Error.Code] = [
+  public static var allCases: [Anytype_Rpc.Block.Create.Response.Error.Code] = [
     .null,
     .unknownError,
     .badInput,
@@ -24945,7 +25164,7 @@ extension Anytype_Rpc.Block.Create.Response.Error.Code: CaseIterable {
 
 extension Anytype_Rpc.Block.CreateWidget.Response.Error.Code: CaseIterable {
   // The compiler won't synthesize support with the UNRECOGNIZED case.
-  public static let allCases: [Anytype_Rpc.Block.CreateWidget.Response.Error.Code] = [
+  public static var allCases: [Anytype_Rpc.Block.CreateWidget.Response.Error.Code] = [
     .null,
     .unknownError,
     .badInput,
@@ -24954,7 +25173,7 @@ extension Anytype_Rpc.Block.CreateWidget.Response.Error.Code: CaseIterable {
 
 extension Anytype_Rpc.Block.ListDelete.Response.Error.Code: CaseIterable {
   // The compiler won't synthesize support with the UNRECOGNIZED case.
-  public static let allCases: [Anytype_Rpc.Block.ListDelete.Response.Error.Code] = [
+  public static var allCases: [Anytype_Rpc.Block.ListDelete.Response.Error.Code] = [
     .null,
     .unknownError,
     .badInput,
@@ -24963,7 +25182,7 @@ extension Anytype_Rpc.Block.ListDelete.Response.Error.Code: CaseIterable {
 
 extension Anytype_Rpc.Block.SetFields.Response.Error.Code: CaseIterable {
   // The compiler won't synthesize support with the UNRECOGNIZED case.
-  public static let allCases: [Anytype_Rpc.Block.SetFields.Response.Error.Code] = [
+  public static var allCases: [Anytype_Rpc.Block.SetFields.Response.Error.Code] = [
     .null,
     .unknownError,
     .badInput,
@@ -24972,7 +25191,7 @@ extension Anytype_Rpc.Block.SetFields.Response.Error.Code: CaseIterable {
 
 extension Anytype_Rpc.Block.ListSetAlign.Response.Error.Code: CaseIterable {
   // The compiler won't synthesize support with the UNRECOGNIZED case.
-  public static let allCases: [Anytype_Rpc.Block.ListSetAlign.Response.Error.Code] = [
+  public static var allCases: [Anytype_Rpc.Block.ListSetAlign.Response.Error.Code] = [
     .null,
     .unknownError,
     .badInput,
@@ -24981,7 +25200,7 @@ extension Anytype_Rpc.Block.ListSetAlign.Response.Error.Code: CaseIterable {
 
 extension Anytype_Rpc.Block.ListSetVerticalAlign.Response.Error.Code: CaseIterable {
   // The compiler won't synthesize support with the UNRECOGNIZED case.
-  public static let allCases: [Anytype_Rpc.Block.ListSetVerticalAlign.Response.Error.Code] = [
+  public static var allCases: [Anytype_Rpc.Block.ListSetVerticalAlign.Response.Error.Code] = [
     .null,
     .unknownError,
     .badInput,
@@ -24990,7 +25209,7 @@ extension Anytype_Rpc.Block.ListSetVerticalAlign.Response.Error.Code: CaseIterab
 
 extension Anytype_Rpc.Block.ListSetFields.Response.Error.Code: CaseIterable {
   // The compiler won't synthesize support with the UNRECOGNIZED case.
-  public static let allCases: [Anytype_Rpc.Block.ListSetFields.Response.Error.Code] = [
+  public static var allCases: [Anytype_Rpc.Block.ListSetFields.Response.Error.Code] = [
     .null,
     .unknownError,
     .badInput,
@@ -24999,7 +25218,7 @@ extension Anytype_Rpc.Block.ListSetFields.Response.Error.Code: CaseIterable {
 
 extension Anytype_Rpc.Block.ListDuplicate.Response.Error.Code: CaseIterable {
   // The compiler won't synthesize support with the UNRECOGNIZED case.
-  public static let allCases: [Anytype_Rpc.Block.ListDuplicate.Response.Error.Code] = [
+  public static var allCases: [Anytype_Rpc.Block.ListDuplicate.Response.Error.Code] = [
     .null,
     .unknownError,
     .badInput,
@@ -25008,7 +25227,7 @@ extension Anytype_Rpc.Block.ListDuplicate.Response.Error.Code: CaseIterable {
 
 extension Anytype_Rpc.Block.ListConvertToObjects.Response.Error.Code: CaseIterable {
   // The compiler won't synthesize support with the UNRECOGNIZED case.
-  public static let allCases: [Anytype_Rpc.Block.ListConvertToObjects.Response.Error.Code] = [
+  public static var allCases: [Anytype_Rpc.Block.ListConvertToObjects.Response.Error.Code] = [
     .null,
     .unknownError,
     .badInput,
@@ -25017,7 +25236,7 @@ extension Anytype_Rpc.Block.ListConvertToObjects.Response.Error.Code: CaseIterab
 
 extension Anytype_Rpc.Block.ListMoveToExistingObject.Response.Error.Code: CaseIterable {
   // The compiler won't synthesize support with the UNRECOGNIZED case.
-  public static let allCases: [Anytype_Rpc.Block.ListMoveToExistingObject.Response.Error.Code] = [
+  public static var allCases: [Anytype_Rpc.Block.ListMoveToExistingObject.Response.Error.Code] = [
     .null,
     .unknownError,
     .badInput,
@@ -25026,7 +25245,7 @@ extension Anytype_Rpc.Block.ListMoveToExistingObject.Response.Error.Code: CaseIt
 
 extension Anytype_Rpc.Block.ListMoveToNewObject.Response.Error.Code: CaseIterable {
   // The compiler won't synthesize support with the UNRECOGNIZED case.
-  public static let allCases: [Anytype_Rpc.Block.ListMoveToNewObject.Response.Error.Code] = [
+  public static var allCases: [Anytype_Rpc.Block.ListMoveToNewObject.Response.Error.Code] = [
     .null,
     .unknownError,
     .badInput,
@@ -25035,7 +25254,7 @@ extension Anytype_Rpc.Block.ListMoveToNewObject.Response.Error.Code: CaseIterabl
 
 extension Anytype_Rpc.Block.ListTurnInto.Response.Error.Code: CaseIterable {
   // The compiler won't synthesize support with the UNRECOGNIZED case.
-  public static let allCases: [Anytype_Rpc.Block.ListTurnInto.Response.Error.Code] = [
+  public static var allCases: [Anytype_Rpc.Block.ListTurnInto.Response.Error.Code] = [
     .null,
     .unknownError,
     .badInput,
@@ -25044,7 +25263,7 @@ extension Anytype_Rpc.Block.ListTurnInto.Response.Error.Code: CaseIterable {
 
 extension Anytype_Rpc.Block.ListSetBackgroundColor.Response.Error.Code: CaseIterable {
   // The compiler won't synthesize support with the UNRECOGNIZED case.
-  public static let allCases: [Anytype_Rpc.Block.ListSetBackgroundColor.Response.Error.Code] = [
+  public static var allCases: [Anytype_Rpc.Block.ListSetBackgroundColor.Response.Error.Code] = [
     .null,
     .unknownError,
     .badInput,
@@ -25053,7 +25272,7 @@ extension Anytype_Rpc.Block.ListSetBackgroundColor.Response.Error.Code: CaseIter
 
 extension Anytype_Rpc.Block.Export.Response.Error.Code: CaseIterable {
   // The compiler won't synthesize support with the UNRECOGNIZED case.
-  public static let allCases: [Anytype_Rpc.Block.Export.Response.Error.Code] = [
+  public static var allCases: [Anytype_Rpc.Block.Export.Response.Error.Code] = [
     .null,
     .unknownError,
     .badInput,
@@ -25062,7 +25281,7 @@ extension Anytype_Rpc.Block.Export.Response.Error.Code: CaseIterable {
 
 extension Anytype_Rpc.Block.SetCarriage.Response.Error.Code: CaseIterable {
   // The compiler won't synthesize support with the UNRECOGNIZED case.
-  public static let allCases: [Anytype_Rpc.Block.SetCarriage.Response.Error.Code] = [
+  public static var allCases: [Anytype_Rpc.Block.SetCarriage.Response.Error.Code] = [
     .null,
     .unknownError,
     .badInput,
@@ -25071,7 +25290,7 @@ extension Anytype_Rpc.Block.SetCarriage.Response.Error.Code: CaseIterable {
 
 extension Anytype_Rpc.BlockLatex.SetText.Response.Error.Code: CaseIterable {
   // The compiler won't synthesize support with the UNRECOGNIZED case.
-  public static let allCases: [Anytype_Rpc.BlockLatex.SetText.Response.Error.Code] = [
+  public static var allCases: [Anytype_Rpc.BlockLatex.SetText.Response.Error.Code] = [
     .null,
     .unknownError,
     .badInput,
@@ -25080,7 +25299,7 @@ extension Anytype_Rpc.BlockLatex.SetText.Response.Error.Code: CaseIterable {
 
 extension Anytype_Rpc.BlockText.SetText.Response.Error.Code: CaseIterable {
   // The compiler won't synthesize support with the UNRECOGNIZED case.
-  public static let allCases: [Anytype_Rpc.BlockText.SetText.Response.Error.Code] = [
+  public static var allCases: [Anytype_Rpc.BlockText.SetText.Response.Error.Code] = [
     .null,
     .unknownError,
     .badInput,
@@ -25089,7 +25308,7 @@ extension Anytype_Rpc.BlockText.SetText.Response.Error.Code: CaseIterable {
 
 extension Anytype_Rpc.BlockText.SetColor.Response.Error.Code: CaseIterable {
   // The compiler won't synthesize support with the UNRECOGNIZED case.
-  public static let allCases: [Anytype_Rpc.BlockText.SetColor.Response.Error.Code] = [
+  public static var allCases: [Anytype_Rpc.BlockText.SetColor.Response.Error.Code] = [
     .null,
     .unknownError,
     .badInput,
@@ -25098,7 +25317,7 @@ extension Anytype_Rpc.BlockText.SetColor.Response.Error.Code: CaseIterable {
 
 extension Anytype_Rpc.BlockText.SetMarks.Get.Response.Error.Code: CaseIterable {
   // The compiler won't synthesize support with the UNRECOGNIZED case.
-  public static let allCases: [Anytype_Rpc.BlockText.SetMarks.Get.Response.Error.Code] = [
+  public static var allCases: [Anytype_Rpc.BlockText.SetMarks.Get.Response.Error.Code] = [
     .null,
     .unknownError,
     .badInput,
@@ -25107,7 +25326,7 @@ extension Anytype_Rpc.BlockText.SetMarks.Get.Response.Error.Code: CaseIterable {
 
 extension Anytype_Rpc.BlockText.SetStyle.Response.Error.Code: CaseIterable {
   // The compiler won't synthesize support with the UNRECOGNIZED case.
-  public static let allCases: [Anytype_Rpc.BlockText.SetStyle.Response.Error.Code] = [
+  public static var allCases: [Anytype_Rpc.BlockText.SetStyle.Response.Error.Code] = [
     .null,
     .unknownError,
     .badInput,
@@ -25116,7 +25335,7 @@ extension Anytype_Rpc.BlockText.SetStyle.Response.Error.Code: CaseIterable {
 
 extension Anytype_Rpc.BlockText.SetChecked.Response.Error.Code: CaseIterable {
   // The compiler won't synthesize support with the UNRECOGNIZED case.
-  public static let allCases: [Anytype_Rpc.BlockText.SetChecked.Response.Error.Code] = [
+  public static var allCases: [Anytype_Rpc.BlockText.SetChecked.Response.Error.Code] = [
     .null,
     .unknownError,
     .badInput,
@@ -25125,7 +25344,7 @@ extension Anytype_Rpc.BlockText.SetChecked.Response.Error.Code: CaseIterable {
 
 extension Anytype_Rpc.BlockText.SetIcon.Response.Error.Code: CaseIterable {
   // The compiler won't synthesize support with the UNRECOGNIZED case.
-  public static let allCases: [Anytype_Rpc.BlockText.SetIcon.Response.Error.Code] = [
+  public static var allCases: [Anytype_Rpc.BlockText.SetIcon.Response.Error.Code] = [
     .null,
     .unknownError,
     .badInput,
@@ -25134,7 +25353,7 @@ extension Anytype_Rpc.BlockText.SetIcon.Response.Error.Code: CaseIterable {
 
 extension Anytype_Rpc.BlockText.ListSetStyle.Response.Error.Code: CaseIterable {
   // The compiler won't synthesize support with the UNRECOGNIZED case.
-  public static let allCases: [Anytype_Rpc.BlockText.ListSetStyle.Response.Error.Code] = [
+  public static var allCases: [Anytype_Rpc.BlockText.ListSetStyle.Response.Error.Code] = [
     .null,
     .unknownError,
     .badInput,
@@ -25143,7 +25362,7 @@ extension Anytype_Rpc.BlockText.ListSetStyle.Response.Error.Code: CaseIterable {
 
 extension Anytype_Rpc.BlockText.ListSetColor.Response.Error.Code: CaseIterable {
   // The compiler won't synthesize support with the UNRECOGNIZED case.
-  public static let allCases: [Anytype_Rpc.BlockText.ListSetColor.Response.Error.Code] = [
+  public static var allCases: [Anytype_Rpc.BlockText.ListSetColor.Response.Error.Code] = [
     .null,
     .unknownError,
     .badInput,
@@ -25152,7 +25371,7 @@ extension Anytype_Rpc.BlockText.ListSetColor.Response.Error.Code: CaseIterable {
 
 extension Anytype_Rpc.BlockText.ListSetMark.Response.Error.Code: CaseIterable {
   // The compiler won't synthesize support with the UNRECOGNIZED case.
-  public static let allCases: [Anytype_Rpc.BlockText.ListSetMark.Response.Error.Code] = [
+  public static var allCases: [Anytype_Rpc.BlockText.ListSetMark.Response.Error.Code] = [
     .null,
     .unknownError,
     .badInput,
@@ -25161,7 +25380,7 @@ extension Anytype_Rpc.BlockText.ListSetMark.Response.Error.Code: CaseIterable {
 
 extension Anytype_Rpc.BlockText.ListClearStyle.Response.Error.Code: CaseIterable {
   // The compiler won't synthesize support with the UNRECOGNIZED case.
-  public static let allCases: [Anytype_Rpc.BlockText.ListClearStyle.Response.Error.Code] = [
+  public static var allCases: [Anytype_Rpc.BlockText.ListClearStyle.Response.Error.Code] = [
     .null,
     .unknownError,
     .badInput,
@@ -25170,7 +25389,7 @@ extension Anytype_Rpc.BlockText.ListClearStyle.Response.Error.Code: CaseIterable
 
 extension Anytype_Rpc.BlockText.ListClearContent.Response.Error.Code: CaseIterable {
   // The compiler won't synthesize support with the UNRECOGNIZED case.
-  public static let allCases: [Anytype_Rpc.BlockText.ListClearContent.Response.Error.Code] = [
+  public static var allCases: [Anytype_Rpc.BlockText.ListClearContent.Response.Error.Code] = [
     .null,
     .unknownError,
     .badInput,
@@ -25179,7 +25398,7 @@ extension Anytype_Rpc.BlockText.ListClearContent.Response.Error.Code: CaseIterab
 
 extension Anytype_Rpc.BlockTable.Create.Response.Error.Code: CaseIterable {
   // The compiler won't synthesize support with the UNRECOGNIZED case.
-  public static let allCases: [Anytype_Rpc.BlockTable.Create.Response.Error.Code] = [
+  public static var allCases: [Anytype_Rpc.BlockTable.Create.Response.Error.Code] = [
     .null,
     .unknownError,
     .badInput,
@@ -25188,7 +25407,7 @@ extension Anytype_Rpc.BlockTable.Create.Response.Error.Code: CaseIterable {
 
 extension Anytype_Rpc.BlockTable.RowCreate.Response.Error.Code: CaseIterable {
   // The compiler won't synthesize support with the UNRECOGNIZED case.
-  public static let allCases: [Anytype_Rpc.BlockTable.RowCreate.Response.Error.Code] = [
+  public static var allCases: [Anytype_Rpc.BlockTable.RowCreate.Response.Error.Code] = [
     .null,
     .unknownError,
     .badInput,
@@ -25197,7 +25416,7 @@ extension Anytype_Rpc.BlockTable.RowCreate.Response.Error.Code: CaseIterable {
 
 extension Anytype_Rpc.BlockTable.RowSetHeader.Response.Error.Code: CaseIterable {
   // The compiler won't synthesize support with the UNRECOGNIZED case.
-  public static let allCases: [Anytype_Rpc.BlockTable.RowSetHeader.Response.Error.Code] = [
+  public static var allCases: [Anytype_Rpc.BlockTable.RowSetHeader.Response.Error.Code] = [
     .null,
     .unknownError,
     .badInput,
@@ -25206,7 +25425,7 @@ extension Anytype_Rpc.BlockTable.RowSetHeader.Response.Error.Code: CaseIterable 
 
 extension Anytype_Rpc.BlockTable.RowListFill.Response.Error.Code: CaseIterable {
   // The compiler won't synthesize support with the UNRECOGNIZED case.
-  public static let allCases: [Anytype_Rpc.BlockTable.RowListFill.Response.Error.Code] = [
+  public static var allCases: [Anytype_Rpc.BlockTable.RowListFill.Response.Error.Code] = [
     .null,
     .unknownError,
     .badInput,
@@ -25215,7 +25434,7 @@ extension Anytype_Rpc.BlockTable.RowListFill.Response.Error.Code: CaseIterable {
 
 extension Anytype_Rpc.BlockTable.RowListClean.Response.Error.Code: CaseIterable {
   // The compiler won't synthesize support with the UNRECOGNIZED case.
-  public static let allCases: [Anytype_Rpc.BlockTable.RowListClean.Response.Error.Code] = [
+  public static var allCases: [Anytype_Rpc.BlockTable.RowListClean.Response.Error.Code] = [
     .null,
     .unknownError,
     .badInput,
@@ -25224,7 +25443,7 @@ extension Anytype_Rpc.BlockTable.RowListClean.Response.Error.Code: CaseIterable 
 
 extension Anytype_Rpc.BlockTable.ColumnListFill.Response.Error.Code: CaseIterable {
   // The compiler won't synthesize support with the UNRECOGNIZED case.
-  public static let allCases: [Anytype_Rpc.BlockTable.ColumnListFill.Response.Error.Code] = [
+  public static var allCases: [Anytype_Rpc.BlockTable.ColumnListFill.Response.Error.Code] = [
     .null,
     .unknownError,
     .badInput,
@@ -25233,7 +25452,7 @@ extension Anytype_Rpc.BlockTable.ColumnListFill.Response.Error.Code: CaseIterabl
 
 extension Anytype_Rpc.BlockTable.ColumnCreate.Response.Error.Code: CaseIterable {
   // The compiler won't synthesize support with the UNRECOGNIZED case.
-  public static let allCases: [Anytype_Rpc.BlockTable.ColumnCreate.Response.Error.Code] = [
+  public static var allCases: [Anytype_Rpc.BlockTable.ColumnCreate.Response.Error.Code] = [
     .null,
     .unknownError,
     .badInput,
@@ -25242,7 +25461,7 @@ extension Anytype_Rpc.BlockTable.ColumnCreate.Response.Error.Code: CaseIterable 
 
 extension Anytype_Rpc.BlockTable.RowDelete.Response.Error.Code: CaseIterable {
   // The compiler won't synthesize support with the UNRECOGNIZED case.
-  public static let allCases: [Anytype_Rpc.BlockTable.RowDelete.Response.Error.Code] = [
+  public static var allCases: [Anytype_Rpc.BlockTable.RowDelete.Response.Error.Code] = [
     .null,
     .unknownError,
     .badInput,
@@ -25251,7 +25470,7 @@ extension Anytype_Rpc.BlockTable.RowDelete.Response.Error.Code: CaseIterable {
 
 extension Anytype_Rpc.BlockTable.ColumnDelete.Response.Error.Code: CaseIterable {
   // The compiler won't synthesize support with the UNRECOGNIZED case.
-  public static let allCases: [Anytype_Rpc.BlockTable.ColumnDelete.Response.Error.Code] = [
+  public static var allCases: [Anytype_Rpc.BlockTable.ColumnDelete.Response.Error.Code] = [
     .null,
     .unknownError,
     .badInput,
@@ -25260,7 +25479,7 @@ extension Anytype_Rpc.BlockTable.ColumnDelete.Response.Error.Code: CaseIterable 
 
 extension Anytype_Rpc.BlockTable.ColumnMove.Response.Error.Code: CaseIterable {
   // The compiler won't synthesize support with the UNRECOGNIZED case.
-  public static let allCases: [Anytype_Rpc.BlockTable.ColumnMove.Response.Error.Code] = [
+  public static var allCases: [Anytype_Rpc.BlockTable.ColumnMove.Response.Error.Code] = [
     .null,
     .unknownError,
     .badInput,
@@ -25269,7 +25488,7 @@ extension Anytype_Rpc.BlockTable.ColumnMove.Response.Error.Code: CaseIterable {
 
 extension Anytype_Rpc.BlockTable.RowDuplicate.Response.Error.Code: CaseIterable {
   // The compiler won't synthesize support with the UNRECOGNIZED case.
-  public static let allCases: [Anytype_Rpc.BlockTable.RowDuplicate.Response.Error.Code] = [
+  public static var allCases: [Anytype_Rpc.BlockTable.RowDuplicate.Response.Error.Code] = [
     .null,
     .unknownError,
     .badInput,
@@ -25278,7 +25497,7 @@ extension Anytype_Rpc.BlockTable.RowDuplicate.Response.Error.Code: CaseIterable 
 
 extension Anytype_Rpc.BlockTable.ColumnDuplicate.Response.Error.Code: CaseIterable {
   // The compiler won't synthesize support with the UNRECOGNIZED case.
-  public static let allCases: [Anytype_Rpc.BlockTable.ColumnDuplicate.Response.Error.Code] = [
+  public static var allCases: [Anytype_Rpc.BlockTable.ColumnDuplicate.Response.Error.Code] = [
     .null,
     .unknownError,
     .badInput,
@@ -25287,7 +25506,7 @@ extension Anytype_Rpc.BlockTable.ColumnDuplicate.Response.Error.Code: CaseIterab
 
 extension Anytype_Rpc.BlockTable.Expand.Response.Error.Code: CaseIterable {
   // The compiler won't synthesize support with the UNRECOGNIZED case.
-  public static let allCases: [Anytype_Rpc.BlockTable.Expand.Response.Error.Code] = [
+  public static var allCases: [Anytype_Rpc.BlockTable.Expand.Response.Error.Code] = [
     .null,
     .unknownError,
     .badInput,
@@ -25296,7 +25515,7 @@ extension Anytype_Rpc.BlockTable.Expand.Response.Error.Code: CaseIterable {
 
 extension Anytype_Rpc.BlockTable.Sort.Response.Error.Code: CaseIterable {
   // The compiler won't synthesize support with the UNRECOGNIZED case.
-  public static let allCases: [Anytype_Rpc.BlockTable.Sort.Response.Error.Code] = [
+  public static var allCases: [Anytype_Rpc.BlockTable.Sort.Response.Error.Code] = [
     .null,
     .unknownError,
     .badInput,
@@ -25305,7 +25524,7 @@ extension Anytype_Rpc.BlockTable.Sort.Response.Error.Code: CaseIterable {
 
 extension Anytype_Rpc.BlockFile.SetName.Response.Error.Code: CaseIterable {
   // The compiler won't synthesize support with the UNRECOGNIZED case.
-  public static let allCases: [Anytype_Rpc.BlockFile.SetName.Response.Error.Code] = [
+  public static var allCases: [Anytype_Rpc.BlockFile.SetName.Response.Error.Code] = [
     .null,
     .unknownError,
     .badInput,
@@ -25314,7 +25533,7 @@ extension Anytype_Rpc.BlockFile.SetName.Response.Error.Code: CaseIterable {
 
 extension Anytype_Rpc.BlockFile.CreateAndUpload.Response.Error.Code: CaseIterable {
   // The compiler won't synthesize support with the UNRECOGNIZED case.
-  public static let allCases: [Anytype_Rpc.BlockFile.CreateAndUpload.Response.Error.Code] = [
+  public static var allCases: [Anytype_Rpc.BlockFile.CreateAndUpload.Response.Error.Code] = [
     .null,
     .unknownError,
     .badInput,
@@ -25323,7 +25542,7 @@ extension Anytype_Rpc.BlockFile.CreateAndUpload.Response.Error.Code: CaseIterabl
 
 extension Anytype_Rpc.BlockFile.ListSetStyle.Response.Error.Code: CaseIterable {
   // The compiler won't synthesize support with the UNRECOGNIZED case.
-  public static let allCases: [Anytype_Rpc.BlockFile.ListSetStyle.Response.Error.Code] = [
+  public static var allCases: [Anytype_Rpc.BlockFile.ListSetStyle.Response.Error.Code] = [
     .null,
     .unknownError,
     .badInput,
@@ -25332,7 +25551,7 @@ extension Anytype_Rpc.BlockFile.ListSetStyle.Response.Error.Code: CaseIterable {
 
 extension Anytype_Rpc.BlockImage.SetName.Response.Error.Code: CaseIterable {
   // The compiler won't synthesize support with the UNRECOGNIZED case.
-  public static let allCases: [Anytype_Rpc.BlockImage.SetName.Response.Error.Code] = [
+  public static var allCases: [Anytype_Rpc.BlockImage.SetName.Response.Error.Code] = [
     .null,
     .unknownError,
     .badInput,
@@ -25341,7 +25560,7 @@ extension Anytype_Rpc.BlockImage.SetName.Response.Error.Code: CaseIterable {
 
 extension Anytype_Rpc.BlockImage.SetWidth.Response.Error.Code: CaseIterable {
   // The compiler won't synthesize support with the UNRECOGNIZED case.
-  public static let allCases: [Anytype_Rpc.BlockImage.SetWidth.Response.Error.Code] = [
+  public static var allCases: [Anytype_Rpc.BlockImage.SetWidth.Response.Error.Code] = [
     .null,
     .unknownError,
     .badInput,
@@ -25350,7 +25569,7 @@ extension Anytype_Rpc.BlockImage.SetWidth.Response.Error.Code: CaseIterable {
 
 extension Anytype_Rpc.BlockVideo.SetName.Response.Error.Code: CaseIterable {
   // The compiler won't synthesize support with the UNRECOGNIZED case.
-  public static let allCases: [Anytype_Rpc.BlockVideo.SetName.Response.Error.Code] = [
+  public static var allCases: [Anytype_Rpc.BlockVideo.SetName.Response.Error.Code] = [
     .null,
     .unknownError,
     .badInput,
@@ -25359,7 +25578,7 @@ extension Anytype_Rpc.BlockVideo.SetName.Response.Error.Code: CaseIterable {
 
 extension Anytype_Rpc.BlockVideo.SetWidth.Response.Error.Code: CaseIterable {
   // The compiler won't synthesize support with the UNRECOGNIZED case.
-  public static let allCases: [Anytype_Rpc.BlockVideo.SetWidth.Response.Error.Code] = [
+  public static var allCases: [Anytype_Rpc.BlockVideo.SetWidth.Response.Error.Code] = [
     .null,
     .unknownError,
     .badInput,
@@ -25368,7 +25587,7 @@ extension Anytype_Rpc.BlockVideo.SetWidth.Response.Error.Code: CaseIterable {
 
 extension Anytype_Rpc.BlockLink.CreateWithObject.Response.Error.Code: CaseIterable {
   // The compiler won't synthesize support with the UNRECOGNIZED case.
-  public static let allCases: [Anytype_Rpc.BlockLink.CreateWithObject.Response.Error.Code] = [
+  public static var allCases: [Anytype_Rpc.BlockLink.CreateWithObject.Response.Error.Code] = [
     .null,
     .unknownError,
     .badInput,
@@ -25377,7 +25596,7 @@ extension Anytype_Rpc.BlockLink.CreateWithObject.Response.Error.Code: CaseIterab
 
 extension Anytype_Rpc.BlockLink.ListSetAppearance.Response.Error.Code: CaseIterable {
   // The compiler won't synthesize support with the UNRECOGNIZED case.
-  public static let allCases: [Anytype_Rpc.BlockLink.ListSetAppearance.Response.Error.Code] = [
+  public static var allCases: [Anytype_Rpc.BlockLink.ListSetAppearance.Response.Error.Code] = [
     .null,
     .unknownError,
     .badInput,
@@ -25386,7 +25605,7 @@ extension Anytype_Rpc.BlockLink.ListSetAppearance.Response.Error.Code: CaseItera
 
 extension Anytype_Rpc.BlockRelation.SetKey.Response.Error.Code: CaseIterable {
   // The compiler won't synthesize support with the UNRECOGNIZED case.
-  public static let allCases: [Anytype_Rpc.BlockRelation.SetKey.Response.Error.Code] = [
+  public static var allCases: [Anytype_Rpc.BlockRelation.SetKey.Response.Error.Code] = [
     .null,
     .unknownError,
     .badInput,
@@ -25395,7 +25614,7 @@ extension Anytype_Rpc.BlockRelation.SetKey.Response.Error.Code: CaseIterable {
 
 extension Anytype_Rpc.BlockRelation.Add.Response.Error.Code: CaseIterable {
   // The compiler won't synthesize support with the UNRECOGNIZED case.
-  public static let allCases: [Anytype_Rpc.BlockRelation.Add.Response.Error.Code] = [
+  public static var allCases: [Anytype_Rpc.BlockRelation.Add.Response.Error.Code] = [
     .null,
     .unknownError,
     .badInput,
@@ -25404,7 +25623,7 @@ extension Anytype_Rpc.BlockRelation.Add.Response.Error.Code: CaseIterable {
 
 extension Anytype_Rpc.BlockBookmark.Fetch.Response.Error.Code: CaseIterable {
   // The compiler won't synthesize support with the UNRECOGNIZED case.
-  public static let allCases: [Anytype_Rpc.BlockBookmark.Fetch.Response.Error.Code] = [
+  public static var allCases: [Anytype_Rpc.BlockBookmark.Fetch.Response.Error.Code] = [
     .null,
     .unknownError,
     .badInput,
@@ -25413,7 +25632,7 @@ extension Anytype_Rpc.BlockBookmark.Fetch.Response.Error.Code: CaseIterable {
 
 extension Anytype_Rpc.BlockBookmark.CreateAndFetch.Response.Error.Code: CaseIterable {
   // The compiler won't synthesize support with the UNRECOGNIZED case.
-  public static let allCases: [Anytype_Rpc.BlockBookmark.CreateAndFetch.Response.Error.Code] = [
+  public static var allCases: [Anytype_Rpc.BlockBookmark.CreateAndFetch.Response.Error.Code] = [
     .null,
     .unknownError,
     .badInput,
@@ -25422,7 +25641,7 @@ extension Anytype_Rpc.BlockBookmark.CreateAndFetch.Response.Error.Code: CaseIter
 
 extension Anytype_Rpc.BlockDiv.ListSetStyle.Response.Error.Code: CaseIterable {
   // The compiler won't synthesize support with the UNRECOGNIZED case.
-  public static let allCases: [Anytype_Rpc.BlockDiv.ListSetStyle.Response.Error.Code] = [
+  public static var allCases: [Anytype_Rpc.BlockDiv.ListSetStyle.Response.Error.Code] = [
     .null,
     .unknownError,
     .badInput,
@@ -25431,7 +25650,7 @@ extension Anytype_Rpc.BlockDiv.ListSetStyle.Response.Error.Code: CaseIterable {
 
 extension Anytype_Rpc.BlockDataview.View.Create.Response.Error.Code: CaseIterable {
   // The compiler won't synthesize support with the UNRECOGNIZED case.
-  public static let allCases: [Anytype_Rpc.BlockDataview.View.Create.Response.Error.Code] = [
+  public static var allCases: [Anytype_Rpc.BlockDataview.View.Create.Response.Error.Code] = [
     .null,
     .unknownError,
     .badInput,
@@ -25440,7 +25659,7 @@ extension Anytype_Rpc.BlockDataview.View.Create.Response.Error.Code: CaseIterabl
 
 extension Anytype_Rpc.BlockDataview.View.Update.Response.Error.Code: CaseIterable {
   // The compiler won't synthesize support with the UNRECOGNIZED case.
-  public static let allCases: [Anytype_Rpc.BlockDataview.View.Update.Response.Error.Code] = [
+  public static var allCases: [Anytype_Rpc.BlockDataview.View.Update.Response.Error.Code] = [
     .null,
     .unknownError,
     .badInput,
@@ -25449,7 +25668,7 @@ extension Anytype_Rpc.BlockDataview.View.Update.Response.Error.Code: CaseIterabl
 
 extension Anytype_Rpc.BlockDataview.View.Delete.Response.Error.Code: CaseIterable {
   // The compiler won't synthesize support with the UNRECOGNIZED case.
-  public static let allCases: [Anytype_Rpc.BlockDataview.View.Delete.Response.Error.Code] = [
+  public static var allCases: [Anytype_Rpc.BlockDataview.View.Delete.Response.Error.Code] = [
     .null,
     .unknownError,
     .badInput,
@@ -25458,7 +25677,7 @@ extension Anytype_Rpc.BlockDataview.View.Delete.Response.Error.Code: CaseIterabl
 
 extension Anytype_Rpc.BlockDataview.View.SetPosition.Response.Error.Code: CaseIterable {
   // The compiler won't synthesize support with the UNRECOGNIZED case.
-  public static let allCases: [Anytype_Rpc.BlockDataview.View.SetPosition.Response.Error.Code] = [
+  public static var allCases: [Anytype_Rpc.BlockDataview.View.SetPosition.Response.Error.Code] = [
     .null,
     .unknownError,
     .badInput,
@@ -25467,7 +25686,7 @@ extension Anytype_Rpc.BlockDataview.View.SetPosition.Response.Error.Code: CaseIt
 
 extension Anytype_Rpc.BlockDataview.View.SetActive.Response.Error.Code: CaseIterable {
   // The compiler won't synthesize support with the UNRECOGNIZED case.
-  public static let allCases: [Anytype_Rpc.BlockDataview.View.SetActive.Response.Error.Code] = [
+  public static var allCases: [Anytype_Rpc.BlockDataview.View.SetActive.Response.Error.Code] = [
     .null,
     .unknownError,
     .badInput,
@@ -25476,7 +25695,7 @@ extension Anytype_Rpc.BlockDataview.View.SetActive.Response.Error.Code: CaseIter
 
 extension Anytype_Rpc.BlockDataview.Relation.Add.Response.Error.Code: CaseIterable {
   // The compiler won't synthesize support with the UNRECOGNIZED case.
-  public static let allCases: [Anytype_Rpc.BlockDataview.Relation.Add.Response.Error.Code] = [
+  public static var allCases: [Anytype_Rpc.BlockDataview.Relation.Add.Response.Error.Code] = [
     .null,
     .unknownError,
     .badInput,
@@ -25485,7 +25704,7 @@ extension Anytype_Rpc.BlockDataview.Relation.Add.Response.Error.Code: CaseIterab
 
 extension Anytype_Rpc.BlockDataview.Relation.Delete.Response.Error.Code: CaseIterable {
   // The compiler won't synthesize support with the UNRECOGNIZED case.
-  public static let allCases: [Anytype_Rpc.BlockDataview.Relation.Delete.Response.Error.Code] = [
+  public static var allCases: [Anytype_Rpc.BlockDataview.Relation.Delete.Response.Error.Code] = [
     .null,
     .unknownError,
     .badInput,
@@ -25494,7 +25713,7 @@ extension Anytype_Rpc.BlockDataview.Relation.Delete.Response.Error.Code: CaseIte
 
 extension Anytype_Rpc.BlockDataview.Relation.ListAvailable.Response.Error.Code: CaseIterable {
   // The compiler won't synthesize support with the UNRECOGNIZED case.
-  public static let allCases: [Anytype_Rpc.BlockDataview.Relation.ListAvailable.Response.Error.Code] = [
+  public static var allCases: [Anytype_Rpc.BlockDataview.Relation.ListAvailable.Response.Error.Code] = [
     .null,
     .unknownError,
     .badInput,
@@ -25503,7 +25722,7 @@ extension Anytype_Rpc.BlockDataview.Relation.ListAvailable.Response.Error.Code: 
 
 extension Anytype_Rpc.BlockDataview.SetSource.Response.Error.Code: CaseIterable {
   // The compiler won't synthesize support with the UNRECOGNIZED case.
-  public static let allCases: [Anytype_Rpc.BlockDataview.SetSource.Response.Error.Code] = [
+  public static var allCases: [Anytype_Rpc.BlockDataview.SetSource.Response.Error.Code] = [
     .null,
     .unknownError,
     .badInput,
@@ -25512,7 +25731,7 @@ extension Anytype_Rpc.BlockDataview.SetSource.Response.Error.Code: CaseIterable 
 
 extension Anytype_Rpc.BlockDataview.GroupOrder.Update.Response.Error.Code: CaseIterable {
   // The compiler won't synthesize support with the UNRECOGNIZED case.
-  public static let allCases: [Anytype_Rpc.BlockDataview.GroupOrder.Update.Response.Error.Code] = [
+  public static var allCases: [Anytype_Rpc.BlockDataview.GroupOrder.Update.Response.Error.Code] = [
     .null,
     .unknownError,
     .badInput,
@@ -25521,7 +25740,7 @@ extension Anytype_Rpc.BlockDataview.GroupOrder.Update.Response.Error.Code: CaseI
 
 extension Anytype_Rpc.BlockDataview.ObjectOrder.Update.Response.Error.Code: CaseIterable {
   // The compiler won't synthesize support with the UNRECOGNIZED case.
-  public static let allCases: [Anytype_Rpc.BlockDataview.ObjectOrder.Update.Response.Error.Code] = [
+  public static var allCases: [Anytype_Rpc.BlockDataview.ObjectOrder.Update.Response.Error.Code] = [
     .null,
     .unknownError,
     .badInput,
@@ -25530,7 +25749,7 @@ extension Anytype_Rpc.BlockDataview.ObjectOrder.Update.Response.Error.Code: Case
 
 extension Anytype_Rpc.BlockDataview.ObjectOrder.Move.Response.Error.Code: CaseIterable {
   // The compiler won't synthesize support with the UNRECOGNIZED case.
-  public static let allCases: [Anytype_Rpc.BlockDataview.ObjectOrder.Move.Response.Error.Code] = [
+  public static var allCases: [Anytype_Rpc.BlockDataview.ObjectOrder.Move.Response.Error.Code] = [
     .null,
     .unknownError,
     .badInput,
@@ -25539,7 +25758,7 @@ extension Anytype_Rpc.BlockDataview.ObjectOrder.Move.Response.Error.Code: CaseIt
 
 extension Anytype_Rpc.BlockDataview.CreateFromExistingObject.Response.Error.Code: CaseIterable {
   // The compiler won't synthesize support with the UNRECOGNIZED case.
-  public static let allCases: [Anytype_Rpc.BlockDataview.CreateFromExistingObject.Response.Error.Code] = [
+  public static var allCases: [Anytype_Rpc.BlockDataview.CreateFromExistingObject.Response.Error.Code] = [
     .null,
     .unknownError,
     .badInput,
@@ -25548,7 +25767,7 @@ extension Anytype_Rpc.BlockDataview.CreateFromExistingObject.Response.Error.Code
 
 extension Anytype_Rpc.BlockDataview.CreateBookmark.Response.Error.Code: CaseIterable {
   // The compiler won't synthesize support with the UNRECOGNIZED case.
-  public static let allCases: [Anytype_Rpc.BlockDataview.CreateBookmark.Response.Error.Code] = [
+  public static var allCases: [Anytype_Rpc.BlockDataview.CreateBookmark.Response.Error.Code] = [
     .null,
     .unknownError,
     .badInput,
@@ -25557,7 +25776,7 @@ extension Anytype_Rpc.BlockDataview.CreateBookmark.Response.Error.Code: CaseIter
 
 extension Anytype_Rpc.BlockDataview.Filter.Add.Response.Error.Code: CaseIterable {
   // The compiler won't synthesize support with the UNRECOGNIZED case.
-  public static let allCases: [Anytype_Rpc.BlockDataview.Filter.Add.Response.Error.Code] = [
+  public static var allCases: [Anytype_Rpc.BlockDataview.Filter.Add.Response.Error.Code] = [
     .null,
     .unknownError,
     .badInput,
@@ -25566,7 +25785,7 @@ extension Anytype_Rpc.BlockDataview.Filter.Add.Response.Error.Code: CaseIterable
 
 extension Anytype_Rpc.BlockDataview.Filter.Remove.Response.Error.Code: CaseIterable {
   // The compiler won't synthesize support with the UNRECOGNIZED case.
-  public static let allCases: [Anytype_Rpc.BlockDataview.Filter.Remove.Response.Error.Code] = [
+  public static var allCases: [Anytype_Rpc.BlockDataview.Filter.Remove.Response.Error.Code] = [
     .null,
     .unknownError,
     .badInput,
@@ -25575,7 +25794,7 @@ extension Anytype_Rpc.BlockDataview.Filter.Remove.Response.Error.Code: CaseItera
 
 extension Anytype_Rpc.BlockDataview.Filter.Replace.Response.Error.Code: CaseIterable {
   // The compiler won't synthesize support with the UNRECOGNIZED case.
-  public static let allCases: [Anytype_Rpc.BlockDataview.Filter.Replace.Response.Error.Code] = [
+  public static var allCases: [Anytype_Rpc.BlockDataview.Filter.Replace.Response.Error.Code] = [
     .null,
     .unknownError,
     .badInput,
@@ -25584,7 +25803,7 @@ extension Anytype_Rpc.BlockDataview.Filter.Replace.Response.Error.Code: CaseIter
 
 extension Anytype_Rpc.BlockDataview.Filter.Sort.Response.Error.Code: CaseIterable {
   // The compiler won't synthesize support with the UNRECOGNIZED case.
-  public static let allCases: [Anytype_Rpc.BlockDataview.Filter.Sort.Response.Error.Code] = [
+  public static var allCases: [Anytype_Rpc.BlockDataview.Filter.Sort.Response.Error.Code] = [
     .null,
     .unknownError,
     .badInput,
@@ -25593,7 +25812,7 @@ extension Anytype_Rpc.BlockDataview.Filter.Sort.Response.Error.Code: CaseIterabl
 
 extension Anytype_Rpc.BlockDataview.Sort.Add.Response.Error.Code: CaseIterable {
   // The compiler won't synthesize support with the UNRECOGNIZED case.
-  public static let allCases: [Anytype_Rpc.BlockDataview.Sort.Add.Response.Error.Code] = [
+  public static var allCases: [Anytype_Rpc.BlockDataview.Sort.Add.Response.Error.Code] = [
     .null,
     .unknownError,
     .badInput,
@@ -25602,7 +25821,7 @@ extension Anytype_Rpc.BlockDataview.Sort.Add.Response.Error.Code: CaseIterable {
 
 extension Anytype_Rpc.BlockDataview.Sort.Remove.Response.Error.Code: CaseIterable {
   // The compiler won't synthesize support with the UNRECOGNIZED case.
-  public static let allCases: [Anytype_Rpc.BlockDataview.Sort.Remove.Response.Error.Code] = [
+  public static var allCases: [Anytype_Rpc.BlockDataview.Sort.Remove.Response.Error.Code] = [
     .null,
     .unknownError,
     .badInput,
@@ -25611,7 +25830,7 @@ extension Anytype_Rpc.BlockDataview.Sort.Remove.Response.Error.Code: CaseIterabl
 
 extension Anytype_Rpc.BlockDataview.Sort.Replace.Response.Error.Code: CaseIterable {
   // The compiler won't synthesize support with the UNRECOGNIZED case.
-  public static let allCases: [Anytype_Rpc.BlockDataview.Sort.Replace.Response.Error.Code] = [
+  public static var allCases: [Anytype_Rpc.BlockDataview.Sort.Replace.Response.Error.Code] = [
     .null,
     .unknownError,
     .badInput,
@@ -25620,7 +25839,7 @@ extension Anytype_Rpc.BlockDataview.Sort.Replace.Response.Error.Code: CaseIterab
 
 extension Anytype_Rpc.BlockDataview.Sort.Sort.Response.Error.Code: CaseIterable {
   // The compiler won't synthesize support with the UNRECOGNIZED case.
-  public static let allCases: [Anytype_Rpc.BlockDataview.Sort.Sort.Response.Error.Code] = [
+  public static var allCases: [Anytype_Rpc.BlockDataview.Sort.Sort.Response.Error.Code] = [
     .null,
     .unknownError,
     .badInput,
@@ -25629,7 +25848,7 @@ extension Anytype_Rpc.BlockDataview.Sort.Sort.Response.Error.Code: CaseIterable 
 
 extension Anytype_Rpc.BlockDataview.ViewRelation.Add.Response.Error.Code: CaseIterable {
   // The compiler won't synthesize support with the UNRECOGNIZED case.
-  public static let allCases: [Anytype_Rpc.BlockDataview.ViewRelation.Add.Response.Error.Code] = [
+  public static var allCases: [Anytype_Rpc.BlockDataview.ViewRelation.Add.Response.Error.Code] = [
     .null,
     .unknownError,
     .badInput,
@@ -25638,7 +25857,7 @@ extension Anytype_Rpc.BlockDataview.ViewRelation.Add.Response.Error.Code: CaseIt
 
 extension Anytype_Rpc.BlockDataview.ViewRelation.Remove.Response.Error.Code: CaseIterable {
   // The compiler won't synthesize support with the UNRECOGNIZED case.
-  public static let allCases: [Anytype_Rpc.BlockDataview.ViewRelation.Remove.Response.Error.Code] = [
+  public static var allCases: [Anytype_Rpc.BlockDataview.ViewRelation.Remove.Response.Error.Code] = [
     .null,
     .unknownError,
     .badInput,
@@ -25647,7 +25866,7 @@ extension Anytype_Rpc.BlockDataview.ViewRelation.Remove.Response.Error.Code: Cas
 
 extension Anytype_Rpc.BlockDataview.ViewRelation.Replace.Response.Error.Code: CaseIterable {
   // The compiler won't synthesize support with the UNRECOGNIZED case.
-  public static let allCases: [Anytype_Rpc.BlockDataview.ViewRelation.Replace.Response.Error.Code] = [
+  public static var allCases: [Anytype_Rpc.BlockDataview.ViewRelation.Replace.Response.Error.Code] = [
     .null,
     .unknownError,
     .badInput,
@@ -25656,7 +25875,7 @@ extension Anytype_Rpc.BlockDataview.ViewRelation.Replace.Response.Error.Code: Ca
 
 extension Anytype_Rpc.BlockDataview.ViewRelation.Sort.Response.Error.Code: CaseIterable {
   // The compiler won't synthesize support with the UNRECOGNIZED case.
-  public static let allCases: [Anytype_Rpc.BlockDataview.ViewRelation.Sort.Response.Error.Code] = [
+  public static var allCases: [Anytype_Rpc.BlockDataview.ViewRelation.Sort.Response.Error.Code] = [
     .null,
     .unknownError,
     .badInput,
@@ -25665,7 +25884,7 @@ extension Anytype_Rpc.BlockDataview.ViewRelation.Sort.Response.Error.Code: CaseI
 
 extension Anytype_Rpc.BlockWidget.SetTargetId.Response.Error.Code: CaseIterable {
   // The compiler won't synthesize support with the UNRECOGNIZED case.
-  public static let allCases: [Anytype_Rpc.BlockWidget.SetTargetId.Response.Error.Code] = [
+  public static var allCases: [Anytype_Rpc.BlockWidget.SetTargetId.Response.Error.Code] = [
     .null,
     .unknownError,
     .badInput,
@@ -25674,7 +25893,7 @@ extension Anytype_Rpc.BlockWidget.SetTargetId.Response.Error.Code: CaseIterable 
 
 extension Anytype_Rpc.BlockWidget.SetLayout.Response.Error.Code: CaseIterable {
   // The compiler won't synthesize support with the UNRECOGNIZED case.
-  public static let allCases: [Anytype_Rpc.BlockWidget.SetLayout.Response.Error.Code] = [
+  public static var allCases: [Anytype_Rpc.BlockWidget.SetLayout.Response.Error.Code] = [
     .null,
     .unknownError,
     .badInput,
@@ -25683,7 +25902,7 @@ extension Anytype_Rpc.BlockWidget.SetLayout.Response.Error.Code: CaseIterable {
 
 extension Anytype_Rpc.BlockWidget.SetLimit.Response.Error.Code: CaseIterable {
   // The compiler won't synthesize support with the UNRECOGNIZED case.
-  public static let allCases: [Anytype_Rpc.BlockWidget.SetLimit.Response.Error.Code] = [
+  public static var allCases: [Anytype_Rpc.BlockWidget.SetLimit.Response.Error.Code] = [
     .null,
     .unknownError,
     .badInput,
@@ -25692,7 +25911,7 @@ extension Anytype_Rpc.BlockWidget.SetLimit.Response.Error.Code: CaseIterable {
 
 extension Anytype_Rpc.BlockWidget.SetViewId.Response.Error.Code: CaseIterable {
   // The compiler won't synthesize support with the UNRECOGNIZED case.
-  public static let allCases: [Anytype_Rpc.BlockWidget.SetViewId.Response.Error.Code] = [
+  public static var allCases: [Anytype_Rpc.BlockWidget.SetViewId.Response.Error.Code] = [
     .null,
     .unknownError,
     .badInput,
@@ -25701,7 +25920,7 @@ extension Anytype_Rpc.BlockWidget.SetViewId.Response.Error.Code: CaseIterable {
 
 extension Anytype_Rpc.Debug.TreeHeads.Response.Error.Code: CaseIterable {
   // The compiler won't synthesize support with the UNRECOGNIZED case.
-  public static let allCases: [Anytype_Rpc.Debug.TreeHeads.Response.Error.Code] = [
+  public static var allCases: [Anytype_Rpc.Debug.TreeHeads.Response.Error.Code] = [
     .null,
     .unknownError,
     .badInput,
@@ -25710,7 +25929,7 @@ extension Anytype_Rpc.Debug.TreeHeads.Response.Error.Code: CaseIterable {
 
 extension Anytype_Rpc.Debug.Tree.Response.Error.Code: CaseIterable {
   // The compiler won't synthesize support with the UNRECOGNIZED case.
-  public static let allCases: [Anytype_Rpc.Debug.Tree.Response.Error.Code] = [
+  public static var allCases: [Anytype_Rpc.Debug.Tree.Response.Error.Code] = [
     .null,
     .unknownError,
     .badInput,
@@ -25719,7 +25938,7 @@ extension Anytype_Rpc.Debug.Tree.Response.Error.Code: CaseIterable {
 
 extension Anytype_Rpc.Debug.SpaceSummary.Response.Error.Code: CaseIterable {
   // The compiler won't synthesize support with the UNRECOGNIZED case.
-  public static let allCases: [Anytype_Rpc.Debug.SpaceSummary.Response.Error.Code] = [
+  public static var allCases: [Anytype_Rpc.Debug.SpaceSummary.Response.Error.Code] = [
     .null,
     .unknownError,
     .badInput,
@@ -25728,7 +25947,7 @@ extension Anytype_Rpc.Debug.SpaceSummary.Response.Error.Code: CaseIterable {
 
 extension Anytype_Rpc.Debug.StackGoroutines.Response.Error.Code: CaseIterable {
   // The compiler won't synthesize support with the UNRECOGNIZED case.
-  public static let allCases: [Anytype_Rpc.Debug.StackGoroutines.Response.Error.Code] = [
+  public static var allCases: [Anytype_Rpc.Debug.StackGoroutines.Response.Error.Code] = [
     .null,
     .unknownError,
     .badInput,
@@ -25737,7 +25956,7 @@ extension Anytype_Rpc.Debug.StackGoroutines.Response.Error.Code: CaseIterable {
 
 extension Anytype_Rpc.Debug.ExportLocalstore.Response.Error.Code: CaseIterable {
   // The compiler won't synthesize support with the UNRECOGNIZED case.
-  public static let allCases: [Anytype_Rpc.Debug.ExportLocalstore.Response.Error.Code] = [
+  public static var allCases: [Anytype_Rpc.Debug.ExportLocalstore.Response.Error.Code] = [
     .null,
     .unknownError,
     .badInput,
@@ -25746,7 +25965,7 @@ extension Anytype_Rpc.Debug.ExportLocalstore.Response.Error.Code: CaseIterable {
 
 extension Anytype_Rpc.Debug.Subscriptions.Response.Error.Code: CaseIterable {
   // The compiler won't synthesize support with the UNRECOGNIZED case.
-  public static let allCases: [Anytype_Rpc.Debug.Subscriptions.Response.Error.Code] = [
+  public static var allCases: [Anytype_Rpc.Debug.Subscriptions.Response.Error.Code] = [
     .null,
     .unknownError,
     .badInput,
@@ -25755,7 +25974,7 @@ extension Anytype_Rpc.Debug.Subscriptions.Response.Error.Code: CaseIterable {
 
 extension Anytype_Rpc.Debug.OpenedObjects.Response.Error.Code: CaseIterable {
   // The compiler won't synthesize support with the UNRECOGNIZED case.
-  public static let allCases: [Anytype_Rpc.Debug.OpenedObjects.Response.Error.Code] = [
+  public static var allCases: [Anytype_Rpc.Debug.OpenedObjects.Response.Error.Code] = [
     .null,
     .unknownError,
     .badInput,
@@ -25764,7 +25983,7 @@ extension Anytype_Rpc.Debug.OpenedObjects.Response.Error.Code: CaseIterable {
 
 extension Anytype_Rpc.Debug.Ping.Response.Error.Code: CaseIterable {
   // The compiler won't synthesize support with the UNRECOGNIZED case.
-  public static let allCases: [Anytype_Rpc.Debug.Ping.Response.Error.Code] = [
+  public static var allCases: [Anytype_Rpc.Debug.Ping.Response.Error.Code] = [
     .null,
     .unknownError,
     .badInput,
@@ -25773,7 +25992,7 @@ extension Anytype_Rpc.Debug.Ping.Response.Error.Code: CaseIterable {
 
 extension Anytype_Rpc.Metrics.SetParameters.Response.Error.Code: CaseIterable {
   // The compiler won't synthesize support with the UNRECOGNIZED case.
-  public static let allCases: [Anytype_Rpc.Metrics.SetParameters.Response.Error.Code] = [
+  public static var allCases: [Anytype_Rpc.Metrics.SetParameters.Response.Error.Code] = [
     .null,
     .unknownError,
     .badInput,
@@ -25782,7 +26001,7 @@ extension Anytype_Rpc.Metrics.SetParameters.Response.Error.Code: CaseIterable {
 
 extension Anytype_Rpc.Log.Send.Request.Level: CaseIterable {
   // The compiler won't synthesize support with the UNRECOGNIZED case.
-  public static let allCases: [Anytype_Rpc.Log.Send.Request.Level] = [
+  public static var allCases: [Anytype_Rpc.Log.Send.Request.Level] = [
     .debug,
     .error,
     .fatal,
@@ -25794,7 +26013,7 @@ extension Anytype_Rpc.Log.Send.Request.Level: CaseIterable {
 
 extension Anytype_Rpc.Log.Send.Response.Error.Code: CaseIterable {
   // The compiler won't synthesize support with the UNRECOGNIZED case.
-  public static let allCases: [Anytype_Rpc.Log.Send.Response.Error.Code] = [
+  public static var allCases: [Anytype_Rpc.Log.Send.Response.Error.Code] = [
     .null,
     .unknownError,
     .badInput,
@@ -25803,7 +26022,7 @@ extension Anytype_Rpc.Log.Send.Response.Error.Code: CaseIterable {
 
 extension Anytype_Rpc.Process.Cancel.Response.Error.Code: CaseIterable {
   // The compiler won't synthesize support with the UNRECOGNIZED case.
-  public static let allCases: [Anytype_Rpc.Process.Cancel.Response.Error.Code] = [
+  public static var allCases: [Anytype_Rpc.Process.Cancel.Response.Error.Code] = [
     .null,
     .unknownError,
     .badInput,
@@ -25812,7 +26031,7 @@ extension Anytype_Rpc.Process.Cancel.Response.Error.Code: CaseIterable {
 
 extension Anytype_Rpc.GenericErrorResponse.Error.Code: CaseIterable {
   // The compiler won't synthesize support with the UNRECOGNIZED case.
-  public static let allCases: [Anytype_Rpc.GenericErrorResponse.Error.Code] = [
+  public static var allCases: [Anytype_Rpc.GenericErrorResponse.Error.Code] = [
     .null,
     .unknownError,
     .badInput,
@@ -25821,7 +26040,7 @@ extension Anytype_Rpc.GenericErrorResponse.Error.Code: CaseIterable {
 
 extension Anytype_Rpc.UserData.Dump.Response.Error.Code: CaseIterable {
   // The compiler won't synthesize support with the UNRECOGNIZED case.
-  public static let allCases: [Anytype_Rpc.UserData.Dump.Response.Error.Code] = [
+  public static var allCases: [Anytype_Rpc.UserData.Dump.Response.Error.Code] = [
     .null,
     .unknownError,
     .badInput,
@@ -25904,6 +26123,7 @@ extension Anytype_Rpc.Wallet.CloseSession.Response: @unchecked Sendable {}
 extension Anytype_Rpc.Wallet.CloseSession.Response.Error: @unchecked Sendable {}
 extension Anytype_Rpc.Wallet.CloseSession.Response.Error.Code: @unchecked Sendable {}
 extension Anytype_Rpc.Account: @unchecked Sendable {}
+extension Anytype_Rpc.Account.NetworkMode: @unchecked Sendable {}
 extension Anytype_Rpc.Account.Config: @unchecked Sendable {}
 extension Anytype_Rpc.Account.Create: @unchecked Sendable {}
 extension Anytype_Rpc.Account.Create.Request: @unchecked Sendable {}
@@ -25960,6 +26180,11 @@ extension Anytype_Rpc.Account.EnableLocalNetworkSync.Request: @unchecked Sendabl
 extension Anytype_Rpc.Account.EnableLocalNetworkSync.Response: @unchecked Sendable {}
 extension Anytype_Rpc.Account.EnableLocalNetworkSync.Response.Error: @unchecked Sendable {}
 extension Anytype_Rpc.Account.EnableLocalNetworkSync.Response.Error.Code: @unchecked Sendable {}
+extension Anytype_Rpc.Account.ChangeNetworkConfigAndRestart: @unchecked Sendable {}
+extension Anytype_Rpc.Account.ChangeNetworkConfigAndRestart.Request: @unchecked Sendable {}
+extension Anytype_Rpc.Account.ChangeNetworkConfigAndRestart.Response: @unchecked Sendable {}
+extension Anytype_Rpc.Account.ChangeNetworkConfigAndRestart.Response.Error: @unchecked Sendable {}
+extension Anytype_Rpc.Account.ChangeNetworkConfigAndRestart.Response.Error.Code: @unchecked Sendable {}
 extension Anytype_Rpc.Workspace: @unchecked Sendable {}
 extension Anytype_Rpc.Workspace.GetCurrent: @unchecked Sendable {}
 extension Anytype_Rpc.Workspace.GetCurrent.Request: @unchecked Sendable {}
@@ -26229,6 +26454,7 @@ extension Anytype_Rpc.Object.Import.Request.BookmarksParams: @unchecked Sendable
 extension Anytype_Rpc.Object.Import.Request.HtmlParams: @unchecked Sendable {}
 extension Anytype_Rpc.Object.Import.Request.TxtParams: @unchecked Sendable {}
 extension Anytype_Rpc.Object.Import.Request.PbParams: @unchecked Sendable {}
+extension Anytype_Rpc.Object.Import.Request.PbParams.TypeEnum: @unchecked Sendable {}
 extension Anytype_Rpc.Object.Import.Request.CsvParams: @unchecked Sendable {}
 extension Anytype_Rpc.Object.Import.Request.CsvParams.Mode: @unchecked Sendable {}
 extension Anytype_Rpc.Object.Import.Request.Snapshot: @unchecked Sendable {}
@@ -28381,6 +28607,14 @@ extension Anytype_Rpc.Account: SwiftProtobuf.Message, SwiftProtobuf._MessageImpl
   }
 }
 
+extension Anytype_Rpc.Account.NetworkMode: SwiftProtobuf._ProtoNameProviding {
+  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    0: .same(proto: "DefaultConfig"),
+    1: .same(proto: "LocalOnly"),
+    2: .same(proto: "CustomConfig"),
+  ]
+}
+
 extension Anytype_Rpc.Account.Config: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
   public static let protoMessageName: String = Anytype_Rpc.Account.protoMessageName + ".Config"
   public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
@@ -28468,6 +28702,8 @@ extension Anytype_Rpc.Account.Create.Request: SwiftProtobuf.Message, SwiftProtob
     3: .same(proto: "storePath"),
     4: .same(proto: "icon"),
     5: .same(proto: "disableLocalNetworkSync"),
+    6: .same(proto: "networkMode"),
+    7: .same(proto: "networkCustomConfigFilePath"),
   ]
 
   public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
@@ -28488,6 +28724,8 @@ extension Anytype_Rpc.Account.Create.Request: SwiftProtobuf.Message, SwiftProtob
       case 3: try { try decoder.decodeSingularStringField(value: &self.storePath) }()
       case 4: try { try decoder.decodeSingularInt64Field(value: &self.icon) }()
       case 5: try { try decoder.decodeSingularBoolField(value: &self.disableLocalNetworkSync) }()
+      case 6: try { try decoder.decodeSingularEnumField(value: &self.networkMode) }()
+      case 7: try { try decoder.decodeSingularStringField(value: &self.networkCustomConfigFilePath) }()
       default: break
       }
     }
@@ -28513,6 +28751,12 @@ extension Anytype_Rpc.Account.Create.Request: SwiftProtobuf.Message, SwiftProtob
     if self.disableLocalNetworkSync != false {
       try visitor.visitSingularBoolField(value: self.disableLocalNetworkSync, fieldNumber: 5)
     }
+    if self.networkMode != .defaultConfig {
+      try visitor.visitSingularEnumField(value: self.networkMode, fieldNumber: 6)
+    }
+    if !self.networkCustomConfigFilePath.isEmpty {
+      try visitor.visitSingularStringField(value: self.networkCustomConfigFilePath, fieldNumber: 7)
+    }
     try unknownFields.traverse(visitor: &visitor)
   }
 
@@ -28522,6 +28766,8 @@ extension Anytype_Rpc.Account.Create.Request: SwiftProtobuf.Message, SwiftProtob
     if lhs.storePath != rhs.storePath {return false}
     if lhs.icon != rhs.icon {return false}
     if lhs.disableLocalNetworkSync != rhs.disableLocalNetworkSync {return false}
+    if lhs.networkMode != rhs.networkMode {return false}
+    if lhs.networkCustomConfigFilePath != rhs.networkCustomConfigFilePath {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
@@ -29028,6 +29274,8 @@ extension Anytype_Rpc.Account.Select.Request: SwiftProtobuf.Message, SwiftProtob
     1: .same(proto: "id"),
     2: .same(proto: "rootPath"),
     3: .same(proto: "disableLocalNetworkSync"),
+    4: .same(proto: "networkMode"),
+    5: .same(proto: "networkCustomConfigFilePath"),
   ]
 
   public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
@@ -29039,6 +29287,8 @@ extension Anytype_Rpc.Account.Select.Request: SwiftProtobuf.Message, SwiftProtob
       case 1: try { try decoder.decodeSingularStringField(value: &self.id) }()
       case 2: try { try decoder.decodeSingularStringField(value: &self.rootPath) }()
       case 3: try { try decoder.decodeSingularBoolField(value: &self.disableLocalNetworkSync) }()
+      case 4: try { try decoder.decodeSingularEnumField(value: &self.networkMode) }()
+      case 5: try { try decoder.decodeSingularStringField(value: &self.networkCustomConfigFilePath) }()
       default: break
       }
     }
@@ -29054,6 +29304,12 @@ extension Anytype_Rpc.Account.Select.Request: SwiftProtobuf.Message, SwiftProtob
     if self.disableLocalNetworkSync != false {
       try visitor.visitSingularBoolField(value: self.disableLocalNetworkSync, fieldNumber: 3)
     }
+    if self.networkMode != .defaultConfig {
+      try visitor.visitSingularEnumField(value: self.networkMode, fieldNumber: 4)
+    }
+    if !self.networkCustomConfigFilePath.isEmpty {
+      try visitor.visitSingularStringField(value: self.networkCustomConfigFilePath, fieldNumber: 5)
+    }
     try unknownFields.traverse(visitor: &visitor)
   }
 
@@ -29061,6 +29317,8 @@ extension Anytype_Rpc.Account.Select.Request: SwiftProtobuf.Message, SwiftProtob
     if lhs.id != rhs.id {return false}
     if lhs.rootPath != rhs.rootPath {return false}
     if lhs.disableLocalNetworkSync != rhs.disableLocalNetworkSync {return false}
+    if lhs.networkMode != rhs.networkMode {return false}
+    if lhs.networkCustomConfigFilePath != rhs.networkCustomConfigFilePath {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
@@ -29499,7 +29757,6 @@ extension Anytype_Rpc.Account.ConfigUpdate.Timezones: SwiftProtobuf._ProtoNamePr
 extension Anytype_Rpc.Account.ConfigUpdate.Request: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
   public static let protoMessageName: String = Anytype_Rpc.Account.ConfigUpdate.protoMessageName + ".Request"
   public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
-    1: .same(proto: "timeZone"),
     2: .same(proto: "IPFSStorageAddr"),
   ]
 
@@ -29509,7 +29766,6 @@ extension Anytype_Rpc.Account.ConfigUpdate.Request: SwiftProtobuf.Message, Swift
       // allocates stack space for every case branch when no optimizations are
       // enabled. https://github.com/apple/swift-protobuf/issues/1034
       switch fieldNumber {
-      case 1: try { try decoder.decodeSingularStringField(value: &self.timeZone) }()
       case 2: try { try decoder.decodeSingularStringField(value: &self.ipfsstorageAddr) }()
       default: break
       }
@@ -29517,9 +29773,6 @@ extension Anytype_Rpc.Account.ConfigUpdate.Request: SwiftProtobuf.Message, Swift
   }
 
   public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
-    if !self.timeZone.isEmpty {
-      try visitor.visitSingularStringField(value: self.timeZone, fieldNumber: 1)
-    }
     if !self.ipfsstorageAddr.isEmpty {
       try visitor.visitSingularStringField(value: self.ipfsstorageAddr, fieldNumber: 2)
     }
@@ -29527,7 +29780,6 @@ extension Anytype_Rpc.Account.ConfigUpdate.Request: SwiftProtobuf.Message, Swift
   }
 
   public static func ==(lhs: Anytype_Rpc.Account.ConfigUpdate.Request, rhs: Anytype_Rpc.Account.ConfigUpdate.Request) -> Bool {
-    if lhs.timeZone != rhs.timeZone {return false}
     if lhs.ipfsstorageAddr != rhs.ipfsstorageAddr {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
@@ -29951,6 +30203,149 @@ extension Anytype_Rpc.Account.EnableLocalNetworkSync.Response.Error.Code: SwiftP
     1: .same(proto: "UNKNOWN_ERROR"),
     2: .same(proto: "BAD_INPUT"),
     4: .same(proto: "ACCOUNT_IS_NOT_RUNNING"),
+  ]
+}
+
+extension Anytype_Rpc.Account.ChangeNetworkConfigAndRestart: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = Anytype_Rpc.Account.protoMessageName + ".ChangeNetworkConfigAndRestart"
+  public static let _protobuf_nameMap = SwiftProtobuf._NameMap()
+
+  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let _ = try decoder.nextFieldNumber() {
+    }
+  }
+
+  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  public static func ==(lhs: Anytype_Rpc.Account.ChangeNetworkConfigAndRestart, rhs: Anytype_Rpc.Account.ChangeNetworkConfigAndRestart) -> Bool {
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    return true
+  }
+}
+
+extension Anytype_Rpc.Account.ChangeNetworkConfigAndRestart.Request: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = Anytype_Rpc.Account.ChangeNetworkConfigAndRestart.protoMessageName + ".Request"
+  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    1: .same(proto: "networkMode"),
+    2: .same(proto: "networkCustomConfigFilePath"),
+  ]
+
+  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let fieldNumber = try decoder.nextFieldNumber() {
+      // The use of inline closures is to circumvent an issue where the compiler
+      // allocates stack space for every case branch when no optimizations are
+      // enabled. https://github.com/apple/swift-protobuf/issues/1034
+      switch fieldNumber {
+      case 1: try { try decoder.decodeSingularEnumField(value: &self.networkMode) }()
+      case 2: try { try decoder.decodeSingularStringField(value: &self.networkCustomConfigFilePath) }()
+      default: break
+      }
+    }
+  }
+
+  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    if self.networkMode != .defaultConfig {
+      try visitor.visitSingularEnumField(value: self.networkMode, fieldNumber: 1)
+    }
+    if !self.networkCustomConfigFilePath.isEmpty {
+      try visitor.visitSingularStringField(value: self.networkCustomConfigFilePath, fieldNumber: 2)
+    }
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  public static func ==(lhs: Anytype_Rpc.Account.ChangeNetworkConfigAndRestart.Request, rhs: Anytype_Rpc.Account.ChangeNetworkConfigAndRestart.Request) -> Bool {
+    if lhs.networkMode != rhs.networkMode {return false}
+    if lhs.networkCustomConfigFilePath != rhs.networkCustomConfigFilePath {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    return true
+  }
+}
+
+extension Anytype_Rpc.Account.ChangeNetworkConfigAndRestart.Response: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = Anytype_Rpc.Account.ChangeNetworkConfigAndRestart.protoMessageName + ".Response"
+  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    2: .same(proto: "error"),
+  ]
+
+  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let fieldNumber = try decoder.nextFieldNumber() {
+      // The use of inline closures is to circumvent an issue where the compiler
+      // allocates stack space for every case branch when no optimizations are
+      // enabled. https://github.com/apple/swift-protobuf/issues/1034
+      switch fieldNumber {
+      case 2: try { try decoder.decodeSingularMessageField(value: &self._error) }()
+      default: break
+      }
+    }
+  }
+
+  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    // The use of inline closures is to circumvent an issue where the compiler
+    // allocates stack space for every if/case branch local when no optimizations
+    // are enabled. https://github.com/apple/swift-protobuf/issues/1034 and
+    // https://github.com/apple/swift-protobuf/issues/1182
+    try { if let v = self._error {
+      try visitor.visitSingularMessageField(value: v, fieldNumber: 2)
+    } }()
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  public static func ==(lhs: Anytype_Rpc.Account.ChangeNetworkConfigAndRestart.Response, rhs: Anytype_Rpc.Account.ChangeNetworkConfigAndRestart.Response) -> Bool {
+    if lhs._error != rhs._error {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    return true
+  }
+}
+
+extension Anytype_Rpc.Account.ChangeNetworkConfigAndRestart.Response.Error: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = Anytype_Rpc.Account.ChangeNetworkConfigAndRestart.Response.protoMessageName + ".Error"
+  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    1: .same(proto: "code"),
+    2: .same(proto: "description"),
+  ]
+
+  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let fieldNumber = try decoder.nextFieldNumber() {
+      // The use of inline closures is to circumvent an issue where the compiler
+      // allocates stack space for every case branch when no optimizations are
+      // enabled. https://github.com/apple/swift-protobuf/issues/1034
+      switch fieldNumber {
+      case 1: try { try decoder.decodeSingularEnumField(value: &self.code) }()
+      case 2: try { try decoder.decodeSingularStringField(value: &self.description_p) }()
+      default: break
+      }
+    }
+  }
+
+  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    if self.code != .null {
+      try visitor.visitSingularEnumField(value: self.code, fieldNumber: 1)
+    }
+    if !self.description_p.isEmpty {
+      try visitor.visitSingularStringField(value: self.description_p, fieldNumber: 2)
+    }
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  public static func ==(lhs: Anytype_Rpc.Account.ChangeNetworkConfigAndRestart.Response.Error, rhs: Anytype_Rpc.Account.ChangeNetworkConfigAndRestart.Response.Error) -> Bool {
+    if lhs.code != rhs.code {return false}
+    if lhs.description_p != rhs.description_p {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    return true
+  }
+}
+
+extension Anytype_Rpc.Account.ChangeNetworkConfigAndRestart.Response.Error.Code: SwiftProtobuf._ProtoNameProviding {
+  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    0: .same(proto: "NULL"),
+    1: .same(proto: "UNKNOWN_ERROR"),
+    2: .same(proto: "BAD_INPUT"),
+    4: .same(proto: "ACCOUNT_IS_NOT_RUNNING"),
+    100: .same(proto: "CONFIG_FILE_NOT_FOUND"),
+    101: .same(proto: "CONFIG_FILE_INVALID"),
+    102: .same(proto: "ACCOUNT_FAILED_TO_STOP"),
   ]
 }
 
@@ -37788,6 +38183,7 @@ extension Anytype_Rpc.Object.Import.Request: SwiftProtobuf.Message, SwiftProtobu
     11: .same(proto: "mode"),
     12: .same(proto: "noProgress"),
     13: .same(proto: "isMigration"),
+    15: .same(proto: "isNewSpace"),
   ]
 
   public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
@@ -37894,6 +38290,7 @@ extension Anytype_Rpc.Object.Import.Request: SwiftProtobuf.Message, SwiftProtobu
       case 12: try { try decoder.decodeSingularBoolField(value: &self.noProgress) }()
       case 13: try { try decoder.decodeSingularBoolField(value: &self.isMigration) }()
       case 14: try { try decoder.decodeSingularStringField(value: &self.spaceID) }()
+      case 15: try { try decoder.decodeSingularBoolField(value: &self.isNewSpace) }()
       default: break
       }
     }
@@ -37956,6 +38353,9 @@ extension Anytype_Rpc.Object.Import.Request: SwiftProtobuf.Message, SwiftProtobu
     if !self.spaceID.isEmpty {
       try visitor.visitSingularStringField(value: self.spaceID, fieldNumber: 14)
     }
+    if self.isNewSpace != false {
+      try visitor.visitSingularBoolField(value: self.isNewSpace, fieldNumber: 15)
+    }
     try unknownFields.traverse(visitor: &visitor)
   }
 
@@ -37968,6 +38368,7 @@ extension Anytype_Rpc.Object.Import.Request: SwiftProtobuf.Message, SwiftProtobu
     if lhs.mode != rhs.mode {return false}
     if lhs.noProgress != rhs.noProgress {return false}
     if lhs.isMigration != rhs.isMigration {return false}
+    if lhs.isNewSpace != rhs.isNewSpace {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
@@ -38157,6 +38558,8 @@ extension Anytype_Rpc.Object.Import.Request.PbParams: SwiftProtobuf.Message, Swi
   public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
     1: .same(proto: "path"),
     2: .same(proto: "noCollection"),
+    3: .same(proto: "collectionTitle"),
+    4: .same(proto: "importType"),
   ]
 
   public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
@@ -38167,6 +38570,8 @@ extension Anytype_Rpc.Object.Import.Request.PbParams: SwiftProtobuf.Message, Swi
       switch fieldNumber {
       case 1: try { try decoder.decodeRepeatedStringField(value: &self.path) }()
       case 2: try { try decoder.decodeSingularBoolField(value: &self.noCollection) }()
+      case 3: try { try decoder.decodeSingularStringField(value: &self.collectionTitle) }()
+      case 4: try { try decoder.decodeSingularEnumField(value: &self.importType) }()
       default: break
       }
     }
@@ -38179,15 +38584,30 @@ extension Anytype_Rpc.Object.Import.Request.PbParams: SwiftProtobuf.Message, Swi
     if self.noCollection != false {
       try visitor.visitSingularBoolField(value: self.noCollection, fieldNumber: 2)
     }
+    if !self.collectionTitle.isEmpty {
+      try visitor.visitSingularStringField(value: self.collectionTitle, fieldNumber: 3)
+    }
+    if self.importType != .space {
+      try visitor.visitSingularEnumField(value: self.importType, fieldNumber: 4)
+    }
     try unknownFields.traverse(visitor: &visitor)
   }
 
   public static func ==(lhs: Anytype_Rpc.Object.Import.Request.PbParams, rhs: Anytype_Rpc.Object.Import.Request.PbParams) -> Bool {
     if lhs.path != rhs.path {return false}
     if lhs.noCollection != rhs.noCollection {return false}
+    if lhs.collectionTitle != rhs.collectionTitle {return false}
+    if lhs.importType != rhs.importType {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
+}
+
+extension Anytype_Rpc.Object.Import.Request.PbParams.TypeEnum: SwiftProtobuf._ProtoNameProviding {
+  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    0: .same(proto: "SPACE"),
+    1: .same(proto: "EXPERIENCE"),
+  ]
 }
 
 extension Anytype_Rpc.Object.Import.Request.CsvParams: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
@@ -38384,6 +38804,7 @@ extension Anytype_Rpc.Object.Import.Response.Error.Code: SwiftProtobuf._ProtoNam
     5: .same(proto: "NO_OBJECTS_TO_IMPORT"),
     6: .same(proto: "IMPORT_IS_CANCELED"),
     7: .same(proto: "LIMIT_OF_ROWS_OR_RELATIONS_EXCEEDED"),
+    8: .same(proto: "FILE_LOAD_ERROR"),
   ]
 }
 
@@ -38891,8 +39312,9 @@ extension Anytype_Rpc.Object.ImportExperience.Request: SwiftProtobuf.Message, Sw
   public static let protoMessageName: String = Anytype_Rpc.Object.ImportExperience.protoMessageName + ".Request"
   public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
     1: .same(proto: "spaceId"),
-    2: .same(proto: "source"),
-    3: .same(proto: "isLocal"),
+    2: .same(proto: "url"),
+    3: .same(proto: "title"),
+    4: .same(proto: "isNewSpace"),
   ]
 
   public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
@@ -38902,8 +39324,9 @@ extension Anytype_Rpc.Object.ImportExperience.Request: SwiftProtobuf.Message, Sw
       // enabled. https://github.com/apple/swift-protobuf/issues/1034
       switch fieldNumber {
       case 1: try { try decoder.decodeSingularStringField(value: &self.spaceID) }()
-      case 2: try { try decoder.decodeSingularStringField(value: &self.source) }()
-      case 3: try { try decoder.decodeSingularBoolField(value: &self.isLocal) }()
+      case 2: try { try decoder.decodeSingularStringField(value: &self.url) }()
+      case 3: try { try decoder.decodeSingularStringField(value: &self.title) }()
+      case 4: try { try decoder.decodeSingularBoolField(value: &self.isNewSpace) }()
       default: break
       }
     }
@@ -38913,19 +39336,23 @@ extension Anytype_Rpc.Object.ImportExperience.Request: SwiftProtobuf.Message, Sw
     if !self.spaceID.isEmpty {
       try visitor.visitSingularStringField(value: self.spaceID, fieldNumber: 1)
     }
-    if !self.source.isEmpty {
-      try visitor.visitSingularStringField(value: self.source, fieldNumber: 2)
+    if !self.url.isEmpty {
+      try visitor.visitSingularStringField(value: self.url, fieldNumber: 2)
     }
-    if self.isLocal != false {
-      try visitor.visitSingularBoolField(value: self.isLocal, fieldNumber: 3)
+    if !self.title.isEmpty {
+      try visitor.visitSingularStringField(value: self.title, fieldNumber: 3)
+    }
+    if self.isNewSpace != false {
+      try visitor.visitSingularBoolField(value: self.isNewSpace, fieldNumber: 4)
     }
     try unknownFields.traverse(visitor: &visitor)
   }
 
   public static func ==(lhs: Anytype_Rpc.Object.ImportExperience.Request, rhs: Anytype_Rpc.Object.ImportExperience.Request) -> Bool {
     if lhs.spaceID != rhs.spaceID {return false}
-    if lhs.source != rhs.source {return false}
-    if lhs.isLocal != rhs.isLocal {return false}
+    if lhs.url != rhs.url {return false}
+    if lhs.title != rhs.title {return false}
+    if lhs.isNewSpace != rhs.isNewSpace {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }

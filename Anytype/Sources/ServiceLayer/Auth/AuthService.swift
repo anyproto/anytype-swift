@@ -16,6 +16,7 @@ final class AuthService: AuthServiceProtocol {
     private let loginStateService: LoginStateServiceProtocol
     private let accountManager: AccountManagerProtocol
     private let appErrorLoggerConfiguration: AppErrorLoggerConfigurationProtocol
+    private let serverConfigurationStorage: ServerConfigurationStorageProtocol
     
     private var subscriptions: [AnyCancellable] = []
     
@@ -23,12 +24,14 @@ final class AuthService: AuthServiceProtocol {
         localRepoService: LocalRepoServiceProtocol,
         loginStateService: LoginStateServiceProtocol,
         accountManager: AccountManagerProtocol,
-        appErrorLoggerConfiguration: AppErrorLoggerConfigurationProtocol
+        appErrorLoggerConfiguration: AppErrorLoggerConfigurationProtocol,
+        serverConfigurationStorage: ServerConfigurationStorageProtocol
     ) {
         self.rootPath = localRepoService.middlewareRepoPath
         self.loginStateService = loginStateService
         self.accountManager = accountManager
         self.appErrorLoggerConfiguration = appErrorLoggerConfiguration
+        self.serverConfigurationStorage = serverConfigurationStorage
     }
 
     func logout(removeData: Bool, onCompletion: @escaping (Bool) -> ()) {
@@ -63,6 +66,8 @@ final class AuthService: AuthServiceProtocol {
                 $0.avatar = .avatarLocalPath(imagePath)
                 $0.icon = Int64(GradientId.random.rawValue)
                 $0.disableLocalNetworkSync = true
+                $0.networkMode = serverConfigurationStorage.currentConfiguration().middlewareNetworkMode
+                $0.networkCustomConfigFilePath = serverConfigurationStorage.currentConfigurationPath()?.path ?? ""
             }).invoke()
     
             let middleTime = Int(((CFAbsoluteTimeGetCurrent() - start) * 1_000)) // milliseconds
@@ -124,6 +129,8 @@ final class AuthService: AuthServiceProtocol {
                 $0.id = id
                 $0.rootPath = rootPath
                 $0.disableLocalNetworkSync = true
+                $0.networkMode = serverConfigurationStorage.currentConfiguration().middlewareNetworkMode
+                $0.networkCustomConfigFilePath = serverConfigurationStorage.currentConfigurationPath()?.path ?? ""
             }).invoke()
             
             let analyticsId = response.account.info.analyticsID

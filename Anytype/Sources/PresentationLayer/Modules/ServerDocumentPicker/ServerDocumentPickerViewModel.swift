@@ -1,0 +1,27 @@
+import Foundation
+
+@MainActor
+final class ServerDocumentPickerViewModel: ObservableObject {
+    
+    // MARK: - DI
+    
+    private let storage: ServerConfigurationStorage
+    
+    // MARK: - State
+    
+    @Published var toast = ToastBarData.empty
+    @Published var dismiss: Bool = false
+   
+    init(storage: ServerConfigurationStorage) {
+        self.storage = storage
+    }
+    
+    func onSelectFile(url: URL) {
+        do {
+            try storage.addConfiguration(filePath: url, setupAsCurrent: true)
+        } catch {
+            toast = ToastBarData(text: Loc.error, showSnackBar: true, messageType: .failure)
+        }
+        dismiss.toggle()
+    }
+}

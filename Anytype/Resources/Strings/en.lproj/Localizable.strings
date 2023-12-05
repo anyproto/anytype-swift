@@ -857,3 +857,10 @@
 "RelativeFormatter.days7" = "Previous 7 days";
 "RelativeFormatter.days30" = "Previous 30 days";
 "RelativeFormatter.older" = "Older";
+
+// MARK: - Server
+"Server.Network" = "Network";
+"Server.Networks" = "Networks";
+"Server.AddServer" = "Add server";
+"Server.Anytype" = "Anytype";
+"Server.LocalOnly" = "Local-only";
