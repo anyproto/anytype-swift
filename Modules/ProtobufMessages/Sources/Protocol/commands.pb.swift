@@ -7704,6 +7704,8 @@ public struct Anytype_Rpc {
 
         public var isMigration: Bool = false
 
+        public var isNewSpace: Bool = false
+
         public var unknownFields = SwiftProtobuf.UnknownStorage()
 
         public enum OneOf_Params: Equatable {
@@ -7898,7 +7900,39 @@ public struct Anytype_Rpc {
 
           public var noCollection: Bool = false
 
+          public var collectionTitle: String = String()
+
+          public var importType: Anytype_Rpc.Object.Import.Request.PbParams.TypeEnum = .space
+
           public var unknownFields = SwiftProtobuf.UnknownStorage()
+
+          public enum TypeEnum: SwiftProtobuf.Enum {
+            public typealias RawValue = Int
+            case space // = 0
+            case experience // = 1
+            case UNRECOGNIZED(Int)
+
+            public init() {
+              self = .space
+            }
+
+            public init?(rawValue: Int) {
+              switch rawValue {
+              case 0: self = .space
+              case 1: self = .experience
+              default: self = .UNRECOGNIZED(rawValue)
+              }
+            }
+
+            public var rawValue: Int {
+              switch self {
+              case .space: return 0
+              case .experience: return 1
+              case .UNRECOGNIZED(let i): return i
+              }
+            }
+
+          }
 
           public init() {}
         }
@@ -8015,6 +8049,7 @@ public struct Anytype_Rpc {
             case noObjectsToImport // = 5
             case importIsCanceled // = 6
             case limitOfRowsOrRelationsExceeded // = 7
+            case fileLoadError // = 8
             case UNRECOGNIZED(Int)
 
             public init() {
@@ -8030,6 +8065,7 @@ public struct Anytype_Rpc {
               case 5: self = .noObjectsToImport
               case 6: self = .importIsCanceled
               case 7: self = .limitOfRowsOrRelationsExceeded
+              case 8: self = .fileLoadError
               default: self = .UNRECOGNIZED(rawValue)
               }
             }
@@ -8043,6 +8079,7 @@ public struct Anytype_Rpc {
               case .noObjectsToImport: return 5
               case .importIsCanceled: return 6
               case .limitOfRowsOrRelationsExceeded: return 7
+              case .fileLoadError: return 8
               case .UNRECOGNIZED(let i): return i
               }
             }
@@ -8464,9 +8501,11 @@ public struct Anytype_Rpc {
 
         public var spaceID: String = String()
 
-        public var source: String = String()
+        public var url: String = String()
 
-        public var isLocal: Bool = false
+        public var title: String = String()
+
+        public var isNewSpace: Bool = false
 
         public var unknownFields = SwiftProtobuf.UnknownStorage()
 
@@ -24472,6 +24511,14 @@ extension Anytype_Rpc.Object.Import.Request.TypeEnum: CaseIterable {
   ]
 }
 
+extension Anytype_Rpc.Object.Import.Request.PbParams.TypeEnum: CaseIterable {
+  // The compiler won't synthesize support with the UNRECOGNIZED case.
+  public static let allCases: [Anytype_Rpc.Object.Import.Request.PbParams.TypeEnum] = [
+    .space,
+    .experience,
+  ]
+}
+
 extension Anytype_Rpc.Object.Import.Request.CsvParams.Mode: CaseIterable {
   // The compiler won't synthesize support with the UNRECOGNIZED case.
   public static let allCases: [Anytype_Rpc.Object.Import.Request.CsvParams.Mode] = [
@@ -24490,6 +24537,7 @@ extension Anytype_Rpc.Object.Import.Response.Error.Code: CaseIterable {
     .noObjectsToImport,
     .importIsCanceled,
     .limitOfRowsOrRelationsExceeded,
+    .fileLoadError,
   ]
 }
 
@@ -26229,6 +26277,7 @@ extension Anytype_Rpc.Object.Import.Request.BookmarksParams: @unchecked Sendable
 extension Anytype_Rpc.Object.Import.Request.HtmlParams: @unchecked Sendable {}
 extension Anytype_Rpc.Object.Import.Request.TxtParams: @unchecked Sendable {}
 extension Anytype_Rpc.Object.Import.Request.PbParams: @unchecked Sendable {}
+extension Anytype_Rpc.Object.Import.Request.PbParams.TypeEnum: @unchecked Sendable {}
 extension Anytype_Rpc.Object.Import.Request.CsvParams: @unchecked Sendable {}
 extension Anytype_Rpc.Object.Import.Request.CsvParams.Mode: @unchecked Sendable {}
 extension Anytype_Rpc.Object.Import.Request.Snapshot: @unchecked Sendable {}
@@ -37788,6 +37837,7 @@ extension Anytype_Rpc.Object.Import.Request: SwiftProtobuf.Message, SwiftProtobu
     11: .same(proto: "mode"),
     12: .same(proto: "noProgress"),
     13: .same(proto: "isMigration"),
+    15: .same(proto: "isNewSpace"),
   ]
 
   public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
@@ -37894,6 +37944,7 @@ extension Anytype_Rpc.Object.Import.Request: SwiftProtobuf.Message, SwiftProtobu
       case 12: try { try decoder.decodeSingularBoolField(value: &self.noProgress) }()
       case 13: try { try decoder.decodeSingularBoolField(value: &self.isMigration) }()
       case 14: try { try decoder.decodeSingularStringField(value: &self.spaceID) }()
+      case 15: try { try decoder.decodeSingularBoolField(value: &self.isNewSpace) }()
       default: break
       }
     }
@@ -37956,6 +38007,9 @@ extension Anytype_Rpc.Object.Import.Request: SwiftProtobuf.Message, SwiftProtobu
     if !self.spaceID.isEmpty {
       try visitor.visitSingularStringField(value: self.spaceID, fieldNumber: 14)
     }
+    if self.isNewSpace != false {
+      try visitor.visitSingularBoolField(value: self.isNewSpace, fieldNumber: 15)
+    }
     try unknownFields.traverse(visitor: &visitor)
   }
 
@@ -37968,6 +38022,7 @@ extension Anytype_Rpc.Object.Import.Request: SwiftProtobuf.Message, SwiftProtobu
     if lhs.mode != rhs.mode {return false}
     if lhs.noProgress != rhs.noProgress {return false}
     if lhs.isMigration != rhs.isMigration {return false}
+    if lhs.isNewSpace != rhs.isNewSpace {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
@@ -38157,6 +38212,8 @@ extension Anytype_Rpc.Object.Import.Request.PbParams: SwiftProtobuf.Message, Swi
   public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
     1: .same(proto: "path"),
     2: .same(proto: "noCollection"),
+    3: .same(proto: "collectionTitle"),
+    4: .same(proto: "importType"),
   ]
 
   public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
@@ -38167,6 +38224,8 @@ extension Anytype_Rpc.Object.Import.Request.PbParams: SwiftProtobuf.Message, Swi
       switch fieldNumber {
       case 1: try { try decoder.decodeRepeatedStringField(value: &self.path) }()
       case 2: try { try decoder.decodeSingularBoolField(value: &self.noCollection) }()
+      case 3: try { try decoder.decodeSingularStringField(value: &self.collectionTitle) }()
+      case 4: try { try decoder.decodeSingularEnumField(value: &self.importType) }()
       default: break
       }
     }
@@ -38179,15 +38238,30 @@ extension Anytype_Rpc.Object.Import.Request.PbParams: SwiftProtobuf.Message, Swi
     if self.noCollection != false {
       try visitor.visitSingularBoolField(value: self.noCollection, fieldNumber: 2)
     }
+    if !self.collectionTitle.isEmpty {
+      try visitor.visitSingularStringField(value: self.collectionTitle, fieldNumber: 3)
+    }
+    if self.importType != .space {
+      try visitor.visitSingularEnumField(value: self.importType, fieldNumber: 4)
+    }
     try unknownFields.traverse(visitor: &visitor)
   }
 
   public static func ==(lhs: Anytype_Rpc.Object.Import.Request.PbParams, rhs: Anytype_Rpc.Object.Import.Request.PbParams) -> Bool {
     if lhs.path != rhs.path {return false}
     if lhs.noCollection != rhs.noCollection {return false}
+    if lhs.collectionTitle != rhs.collectionTitle {return false}
+    if lhs.importType != rhs.importType {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
+}
+
+extension Anytype_Rpc.Object.Import.Request.PbParams.TypeEnum: SwiftProtobuf._ProtoNameProviding {
+  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    0: .same(proto: "SPACE"),
+    1: .same(proto: "EXPERIENCE"),
+  ]
 }
 
 extension Anytype_Rpc.Object.Import.Request.CsvParams: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
@@ -38384,6 +38458,7 @@ extension Anytype_Rpc.Object.Import.Response.Error.Code: SwiftProtobuf._ProtoNam
     5: .same(proto: "NO_OBJECTS_TO_IMPORT"),
     6: .same(proto: "IMPORT_IS_CANCELED"),
     7: .same(proto: "LIMIT_OF_ROWS_OR_RELATIONS_EXCEEDED"),
+    8: .same(proto: "FILE_LOAD_ERROR"),
   ]
 }
 
@@ -38891,8 +38966,9 @@ extension Anytype_Rpc.Object.ImportExperience.Request: SwiftProtobuf.Message, Sw
   public static let protoMessageName: String = Anytype_Rpc.Object.ImportExperience.protoMessageName + ".Request"
   public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
     1: .same(proto: "spaceId"),
-    2: .same(proto: "source"),
-    3: .same(proto: "isLocal"),
+    2: .same(proto: "url"),
+    3: .same(proto: "title"),
+    4: .same(proto: "isNewSpace"),
   ]
 
   public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
@@ -38902,8 +38978,9 @@ extension Anytype_Rpc.Object.ImportExperience.Request: SwiftProtobuf.Message, Sw
       // enabled. https://github.com/apple/swift-protobuf/issues/1034
       switch fieldNumber {
       case 1: try { try decoder.decodeSingularStringField(value: &self.spaceID) }()
-      case 2: try { try decoder.decodeSingularStringField(value: &self.source) }()
-      case 3: try { try decoder.decodeSingularBoolField(value: &self.isLocal) }()
+      case 2: try { try decoder.decodeSingularStringField(value: &self.url) }()
+      case 3: try { try decoder.decodeSingularStringField(value: &self.title) }()
+      case 4: try { try decoder.decodeSingularBoolField(value: &self.isNewSpace) }()
       default: break
       }
     }
@@ -38913,19 +38990,23 @@ extension Anytype_Rpc.Object.ImportExperience.Request: SwiftProtobuf.Message, Sw
     if !self.spaceID.isEmpty {
       try visitor.visitSingularStringField(value: self.spaceID, fieldNumber: 1)
     }
-    if !self.source.isEmpty {
-      try visitor.visitSingularStringField(value: self.source, fieldNumber: 2)
+    if !self.url.isEmpty {
+      try visitor.visitSingularStringField(value: self.url, fieldNumber: 2)
     }
-    if self.isLocal != false {
-      try visitor.visitSingularBoolField(value: self.isLocal, fieldNumber: 3)
+    if !self.title.isEmpty {
+      try visitor.visitSingularStringField(value: self.title, fieldNumber: 3)
+    }
+    if self.isNewSpace != false {
+      try visitor.visitSingularBoolField(value: self.isNewSpace, fieldNumber: 4)
     }
     try unknownFields.traverse(visitor: &visitor)
   }
 
   public static func ==(lhs: Anytype_Rpc.Object.ImportExperience.Request, rhs: Anytype_Rpc.Object.ImportExperience.Request) -> Bool {
     if lhs.spaceID != rhs.spaceID {return false}
-    if lhs.source != rhs.source {return false}
-    if lhs.isLocal != rhs.isLocal {return false}
+    if lhs.url != rhs.url {return false}
+    if lhs.title != rhs.title {return false}
+    if lhs.isNewSpace != rhs.isNewSpace {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
