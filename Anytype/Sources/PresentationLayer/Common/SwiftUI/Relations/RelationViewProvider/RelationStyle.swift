@@ -20,12 +20,14 @@ struct FeaturedRelationSettings: Hashable {
     let prefix: String?
     let showIcon: Bool
     let error: Bool
+    let links: Relation.Object.Links?
     
-    init(allowMultiLine: Bool, prefix: String? = nil, showIcon: Bool = true, error: Bool = false) {
+    init(allowMultiLine: Bool, prefix: String? = nil, showIcon: Bool = true, error: Bool = false, links: Relation.Object.Links?) {
         self.allowMultiLine = allowMultiLine
         self.prefix = prefix
         self.showIcon = showIcon
         self.error = error
+        self.links = links
     }
 }
 
@@ -141,6 +143,15 @@ extension RelationStyle {
             return Constants.size18
         case .setCollection:
             return Constants.size16
+        }
+    }
+    
+    var links: Relation.Object.Links? {
+        switch self {
+        case .regular, .set, .filter, .setCollection, .kanbanHeader:
+            return nil
+        case .featuredRelationBlock(let settings):
+            return settings.links
         }
     }
 }

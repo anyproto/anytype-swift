@@ -22,8 +22,11 @@ extension Relation {
         var isDeletedValue: Bool {
             selectedObjects.contains(where: \.isDeleted)
         }
+        
+        var links: Links? {
+            Links(rawValue: key)
+        }
     }
-    
 }
 
 extension Relation.Object {
@@ -37,6 +40,24 @@ extension Relation.Object {
         let isArchived: Bool
         let isDeleted: Bool
         let editorScreenData: EditorScreenData?
+    }
+    
+}
+
+extension Relation.Object {
+    
+    enum Links: String {
+        case links
+        case backlinks
+        
+        func title(with count: Int) -> String {
+            switch self {
+            case .links:
+                return Loc.linksCount(count) + " " + Loc.Relation.LinksFrom.title
+            case .backlinks:
+                return Loc.linksCount(count) + " " + Loc.Relation.LinksTo.title
+            }
+        }
     }
     
 }

@@ -144,4 +144,13 @@ enum RelationItemModel: Hashable {
         case .unknown(let unknown): return unknown.isDeleted
         }
     }
+    
+    var links: Relation.Object.Links? {
+        switch self {
+        case .object(let object): 
+            return object.links
+        default: 
+            return nil
+        }
+    }
 }

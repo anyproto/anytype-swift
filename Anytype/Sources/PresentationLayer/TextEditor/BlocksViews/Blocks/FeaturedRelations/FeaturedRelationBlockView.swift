@@ -24,7 +24,13 @@ final class FeaturedRelationBlockView: UIView, BlockContentView {
         configuration.featuredRelations.forEach {
             let valueViewConfiguration = RelationValueViewConfiguration(
                 relation: $0,
-                style: .featuredRelationBlock(FeaturedRelationSettings(allowMultiLine: false, error: $0.isErrorState)),
+                style: .featuredRelationBlock(
+                    FeaturedRelationSettings(
+                        allowMultiLine: false,
+                        error: $0.isErrorState,
+                        links: $0.links
+                    )
+                ),
                 action: configuration.onRelationTap
             )
 

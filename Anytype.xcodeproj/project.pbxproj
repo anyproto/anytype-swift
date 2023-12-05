@@ -7054,6 +7054,14 @@
 			path = PhraseTextView;
 			sourceTree = "<group>";
 		};
+		2EFD5C1E2B1E3E3A00799ECB /* Object */ = {
+			isa = PBXGroup;
+			children = (
+				127EABF82739587400C731F2 /* ObjectRelationView.swift */,
+			);
+			path = Object;
+			sourceTree = "<group>";
+		};
 		2EFFEB9429A52537002F5859 /* SetDragAndDropView */ = {
 			isa = PBXGroup;
 			children = (
@@ -8489,11 +8497,11 @@
 		5386E3BC27B2C86D004D8221 /* SwiftUI */ = {
 			isa = PBXGroup;
 			children = (
+				2EFD5C1E2B1E3E3A00799ECB /* Object */,
 				12461BFA2767835200D47708 /* Tag */,
 				5386E3C127B3F63D004D8221 /* TextRelationViewSwiftUI.swift */,
 				127EABA22734FD6E00C731F2 /* CheckboxRelationView.swift */,
 				127EABB62735254500C731F2 /* StatusRelationView.swift */,
-				127EABF82739587400C731F2 /* ObjectRelationView.swift */,
 				12EB9B30277442BC00BA732F /* FileRelationView.swift */,
 			);
 			path = SwiftUI;

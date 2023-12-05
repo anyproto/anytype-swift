@@ -143,7 +143,8 @@ extension SetFullHeader {
                 allowMultiLine: false,
                 prefix: relation.setOfPrefix,
                 showIcon: relation.showIcon,
-                error: item.isErrorState
+                error: item.isErrorState, 
+                links: relation.links
             )
         )
         let contextMenuItems = model.contextMenuItems(for: relation)
