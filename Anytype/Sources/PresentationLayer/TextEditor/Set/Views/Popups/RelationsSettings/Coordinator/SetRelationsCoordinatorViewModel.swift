@@ -31,8 +31,7 @@ final class SetRelationsCoordinatorViewModel: ObservableObject, SetRelationsCoor
         setRelationsViewModuleAssembly.make(
             setDocument: setDocument,
             viewId: viewId,
-            output: self,
-            router: nil
+            output: self
         )
     }
     

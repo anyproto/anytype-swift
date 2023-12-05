@@ -5,7 +5,8 @@ protocol SetObjectCreationCoordinatorProtocol {
     func startCreateObject(
         setDocument: SetDocumentProtocol,
         setting: ObjectCreationSetting?,
-        output: SetObjectCreationCoordinatorOutput?
+        output: SetObjectCreationCoordinatorOutput?,
+        customAnalyticsRoute: AnalyticsEventsRouteKind?
     )
 }
 
@@ -17,6 +18,7 @@ final class SetObjectCreationCoordinator: SetObjectCreationCoordinatorProtocol {
     private let objectCreationHelper: SetObjectCreationHelperProtocol
     private let createObjectModuleAssembly: CreateObjectModuleAssemblyProtocol
     private weak var output: SetObjectCreationCoordinatorOutput?
+    private var customAnalyticsRoute: AnalyticsEventsRouteKind?
     
     nonisolated init(
         navigationContext: NavigationContextProtocol,
@@ -33,9 +35,11 @@ final class SetObjectCreationCoordinator: SetObjectCreationCoordinatorProtocol {
     func startCreateObject(
         setDocument: SetDocumentProtocol,
         setting: ObjectCreationSetting?,
-        output: SetObjectCreationCoordinatorOutput?
+        output: SetObjectCreationCoordinatorOutput?,
+        customAnalyticsRoute: AnalyticsEventsRouteKind?
     ) {
         self.output = output
+        self.customAnalyticsRoute = customAnalyticsRoute
         objectCreationHelper.createObject(for: setDocument, setting: setting) { [weak self] details in
             self?.handleCreatedObjectIfNeeded(details, setDocument: setDocument)
         }
@@ -46,7 +50,7 @@ final class SetObjectCreationCoordinator: SetObjectCreationCoordinatorProtocol {
             showCreateObject(details: details)
             AnytypeAnalytics.instance().logCreateObject(
                 objectType: details.analyticsType,
-                route: setDocument.isCollection() ? .collection : .set
+                route: customAnalyticsRoute ?? (setDocument.isCollection() ? .collection : .set)
             )
         } else {
             showCreateBookmarkObject(setDocument: setDocument)
@@ -85,7 +89,11 @@ final class SetObjectCreationCoordinator: SetObjectCreationCoordinatorProtocol {
 }
 
 extension SetObjectCreationCoordinatorProtocol {
-    func startCreateObject(setDocument: SetDocumentProtocol, output: SetObjectCreationCoordinatorOutput?) {
-        startCreateObject(setDocument: setDocument, setting: nil, output: output)
+    func startCreateObject(
+        setDocument: SetDocumentProtocol, 
+        output: SetObjectCreationCoordinatorOutput?,
+        customAnalyticsRoute: AnalyticsEventsRouteKind?
+    ) {
+        startCreateObject(setDocument: setDocument, setting: nil, output: output, customAnalyticsRoute: customAnalyticsRoute)
     }
 }

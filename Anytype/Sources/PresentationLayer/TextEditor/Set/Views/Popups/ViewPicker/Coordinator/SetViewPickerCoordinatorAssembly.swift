@@ -3,12 +3,10 @@ import Services
 import AnytypeCore
 
 protocol SetViewPickerCoordinatorAssemblyProtocol {
-    // TODO: Remove showViewTypes with FeatureFlags.newSetSettings
     @MainActor
     func make(
         with setDocument: SetDocumentProtocol,
-        subscriptionDetailsStorage: ObjectDetailsStorage,
-        showViewTypes: @escaping RoutingAction<DataviewView?>
+        subscriptionDetailsStorage: ObjectDetailsStorage
     ) -> AnyView
 }
 
@@ -27,16 +25,14 @@ final class SetViewPickerCoordinatorAssembly: SetViewPickerCoordinatorAssemblyPr
     @MainActor
     func make(
         with setDocument: SetDocumentProtocol,
-        subscriptionDetailsStorage: ObjectDetailsStorage,
-        showViewTypes: @escaping RoutingAction<DataviewView?>
+        subscriptionDetailsStorage: ObjectDetailsStorage
     ) -> AnyView {
         return SetViewPickerCoordinatorView(
             model: SetViewPickerCoordinatorViewModel(
                 setDocument: setDocument,
                 setViewPickerModuleAssembly: self.modulesDI.setViewPicker(),
                 setViewSettingsCoordinatorAssembly: self.coordinatorsDI.setViewSettings(),
-                subscriptionDetailsStorage: subscriptionDetailsStorage,
-                showViewTypes: showViewTypes
+                subscriptionDetailsStorage: subscriptionDetailsStorage
             )
         ).eraseToAnyView()
     }

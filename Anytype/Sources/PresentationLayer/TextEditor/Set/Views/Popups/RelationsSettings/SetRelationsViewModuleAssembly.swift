@@ -2,12 +2,10 @@ import SwiftUI
 
 protocol SetRelationsViewModuleAssemblyProtocol {
     @MainActor
-    // TODO: Remove router with FeatureFlags.newSetSettings
     func make(
         setDocument: SetDocumentProtocol,
         viewId: String,
-        output: SetRelationsCoordinatorOutput?,
-        router: EditorSetRouterProtocol?
+        output: SetRelationsCoordinatorOutput?
     ) -> AnyView
 }
 
@@ -25,16 +23,14 @@ final class SetRelationsViewModuleAssembly: SetRelationsViewModuleAssemblyProtoc
     func make(
         setDocument: SetDocumentProtocol,
         viewId: String,
-        output: SetRelationsCoordinatorOutput?,
-        router: EditorSetRouterProtocol?
+        output: SetRelationsCoordinatorOutput?
     ) -> AnyView {
         return SetRelationsView(
             model: SetRelationsViewModel(
                 setDocument: setDocument,
                 viewId: viewId,
                 dataviewService: self.serviceLocator.dataviewService(),
-                output: output,
-                router: router
+                output: output
             )
         ).eraseToAnyView()
     }

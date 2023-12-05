@@ -34,12 +34,6 @@ public extension FeatureDescription {
         defaultValue: true
     )
     
-    static let newSetSettings = FeatureDescription(
-        title: "New Set settings",
-        type: .feature(author: "joe_pusya@anytype.io", releaseVersion: "0.26.0"),
-        defaultValue: true
-    )
-    
     static let ipadIncreaseWidth = FeatureDescription(
         title: "iPad width",
         type: .feature(author: "m@anytype.io", releaseVersion: "0.26.0"),
@@ -56,6 +50,12 @@ public extension FeatureDescription {
     static let widgetsCreateObject = FeatureDescription(
         title: "Widgets - New object - IOS-1873",
         type: .feature(author: "m@anytype.io", releaseVersion: "0.27.0"),
+        defaultValue: true
+    )
+    
+    static let setAndCollectionInSlashMenu = FeatureDescription(
+        title: "Set and Collection in slashMenu",
+        type: .feature(author: "joe_pusya@anytype.io", releaseVersion: "0.27.0"),
         defaultValue: true
     )
     

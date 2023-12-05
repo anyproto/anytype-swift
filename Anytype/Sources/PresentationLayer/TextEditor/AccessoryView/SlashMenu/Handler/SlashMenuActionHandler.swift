@@ -46,9 +46,10 @@ final class SlashMenuActionHandler {
                     AnytypeAnalytics.instance().logCreateLink()
                     try await self?.actionHandler
                         .createPage(targetId: blockId, spaceId: object.spaceId, typeUniqueKey: object.uniqueKeyValue, templateId: object.defaultTemplateId)
-                        .flatMap { objectId in
+                        .flatMap { [weak self] objectId in
+                            guard let self else { return }
                             AnytypeAnalytics.instance().logCreateObject(objectType: object.analyticsType, route: .powertool)
-                            self?.router.showPage(data: .page(EditorPageObject(objectId: objectId, spaceId: object.spaceId, isOpenedForPreview: false)))
+                            router.showPage(data: editorScreenData(objectId: objectId, objectDetails: object))
                         }
                 }
             }
@@ -90,6 +91,15 @@ final class SlashMenuActionHandler {
     
     func changeText(_ text: NSAttributedString, info: BlockInformation) {
         actionHandler.changeTextForced(text, blockId: info.id)
+    }
+    
+    private func editorScreenData(objectId: String, objectDetails: ObjectDetails) -> EditorScreenData {
+        let objectType = ObjectType(details: objectDetails)
+        if objectType.isSetType || objectType.isCollectionType {
+            return .set(EditorSetObject(objectId: objectId, spaceId: objectType.spaceId))
+        } else {
+            return .page(EditorPageObject(objectId: objectId, spaceId: objectType.spaceId, isOpenedForPreview: false))
+        }
     }
     
     private func handleAlignment(_ alignment: SlashActionAlignment, blockIds: [BlockId]) {

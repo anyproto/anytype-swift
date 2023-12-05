@@ -159,7 +159,7 @@ final class EditorPageViewModel: EditorPageViewModelProtocol, EditorBottomNaviga
         }
 
         if !configuration.isOpenedForPreview {
-            blocksStateManager.checkDocumentLockField()
+            blocksStateManager.checkOpenedState()
         }
     }
     

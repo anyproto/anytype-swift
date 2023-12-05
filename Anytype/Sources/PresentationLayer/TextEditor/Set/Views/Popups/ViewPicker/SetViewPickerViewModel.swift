@@ -25,11 +25,7 @@ final class SetViewPickerViewModel: ObservableObject {
     }
     
     func addButtonTapped() {
-        if FeatureFlags.newSetSettings {
-            createView()
-        } else {
-            output?.onAddButtonTap()
-        }
+        createView()
     }
     
     func move(from: IndexSet, to: Int) {

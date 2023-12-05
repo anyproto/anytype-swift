@@ -201,10 +201,6 @@ final class EditorSetViewModel: ObservableObject {
         
     }
     
-    func onWillDisappear() {
-        router?.dismissSetSettingsIfNeeded()
-    }
-    
     func onDisappear() {
         Task {
             await stopAllSubscriptionStorages()
@@ -302,7 +298,7 @@ final class EditorSetViewModel: ObservableObject {
 
                 Task { @MainActor in
                     try? await self.textService.setText(
-                        contextId: self.setDocument.targetObjectId,
+                        contextId: self.setDocument.inlineParameters?.targetObjectID ?? self.objectId,
                         blockId: RelationKey.title.rawValue,
                         middlewareString: .init(text: newValue, marks: .init())
                     )
@@ -597,53 +593,12 @@ extension EditorSetViewModel {
     
     func showViewPicker() {
         guard let detailsStorage = defaultSubscriptionDetailsStorage() else { return }
-        router?.showViewPicker(subscriptionDetailsStorage: detailsStorage) { [weak self] activeView in
-            self?.showViewTypes(with: activeView)
-        }
+        router?.showViewPicker(subscriptionDetailsStorage: detailsStorage)
     }
     
     func showSetSettings() {
-        if FeatureFlags.newSetSettings {
-            guard let detailsStorage = defaultSubscriptionDetailsStorage() else { return }
-            router?.showSetSettings(subscriptionDetailsStorage: detailsStorage)
-        } else {
-            router?.showSetSettingsLegacy { [weak self] setting in
-                guard let self else { return }
-                switch setting {
-                case .view:
-                    self.showViewTypes(with: self.activeView)
-                case .settings:
-                    self.showViewSettings()
-                case .sort:
-                    self.showSorts()
-                case .filter:
-                    self.showFilters()
-                }
-            }
-        }
-    }
-    
-    func showViewTypes(with activeView: DataviewView?) {
-        router?.showViewTypes(
-            setDocument: setDocument,
-            activeView: activeView
-        )
-    }
-
-    func showViewSettings() {
-        router?.showViewSettings(setDocument: setDocument)
-    }
-    
-    func showSorts() {
-        router?.showSorts()
-    }
-    
-    func showFilters() {
         guard let detailsStorage = defaultSubscriptionDetailsStorage() else { return }
-        router?.showFilters(
-            setDocument: setDocument,
-            subscriptionDetailsStorage: detailsStorage
-        )
+        router?.showSetSettings(subscriptionDetailsStorage: detailsStorage)
     }
     
     func showObjectSettings() {
