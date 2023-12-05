@@ -1451,8 +1451,8 @@ internal enum Loc {
     }
   }
   internal enum Server {
-    /// Add server
-    internal static let addServer = Loc.tr("Localizable", "Server.AddServer", fallback: "Add server")
+    /// Add Self-hosted Network
+    internal static let addButton = Loc.tr("Localizable", "Server.AddButton", fallback: "Add Self-hosted Network")
     /// Anytype
     internal static let anytype = Loc.tr("Localizable", "Server.Anytype", fallback: "Anytype")
     /// Local-only

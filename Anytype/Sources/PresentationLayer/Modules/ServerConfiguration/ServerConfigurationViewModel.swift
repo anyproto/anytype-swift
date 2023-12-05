@@ -12,7 +12,7 @@ final class ServerConfigurationViewModel: ObservableObject {
     
     // MARK: - State
     
-    @Published var mainRow: ServerConfigurationRow?
+    @Published var mainRows: [ServerConfigurationRow] = []
     @Published var rows: [ServerConfigurationRow] = []
     
     private var subscriptions = [AnyCancellable]()
@@ -34,13 +34,8 @@ final class ServerConfigurationViewModel: ObservableObject {
     // MARK: - Private
     
     private func updateRows() {
-        
-        mainRow = makeRow(config: .anytype)
-        
-        var otherConfigs = storage.installedConfigurations()
-        otherConfigs.insert(.localOnly, at: 0)
-        
-        rows = otherConfigs.map { config in
+        mainRows = [makeRow(config: .anytype), makeRow(config: .localOnly)]
+        rows = storage.installedConfigurations().map { config in
             makeRow(config: config)
         }
     }

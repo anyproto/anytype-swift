@@ -13,24 +13,28 @@ struct ServerConfigurationView: View {
                 
                 ScrollView {
                     VStack(spacing: 0) {
-                        if let mainRow = model.mainRow {
-                            makeRow(row: mainRow)
-                                .cornerRadius(16, style: .continuous)
-                        }
-                        
-                        SectionHeaderView(title: Loc.Server.networks)
-                        
                         VStack(spacing: 0) {
-                            ForEach(0..<model.rows.count, id: \.self) { rowIndex in
-                                makeRow(row: model.rows[rowIndex])
+                            ForEach(0..<model.mainRows.count, id: \.self) { rowIndex in
+                                makeRow(row: model.mainRows[rowIndex])
                             }
                         }
                         .cornerRadius(16, style: .continuous)
+                        
+                        if model.rows.isNotEmpty {
+                            SectionHeaderView(title: Loc.Server.networks)
+                            
+                            VStack(spacing: 0) {
+                                ForEach(0..<model.rows.count, id: \.self) { rowIndex in
+                                    makeRow(row: model.rows[rowIndex])
+                                }
+                            }
+                            .cornerRadius(16, style: .continuous)
+                        }
                     }
                 }
                 .padding(.horizontal, 16)
                 
-                StandardButton(Loc.Server.addServer, style: .secondaryMedium) {
+                StandardButton(Loc.Server.addButton, style: .secondaryMedium) {
                     model.onTapAddServer()
                 }
                 .padding(16)
