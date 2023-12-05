@@ -25,15 +25,11 @@ final class SetRelationsViewModuleAssembly: SetRelationsViewModuleAssemblyProtoc
         viewId: String,
         output: SetRelationsCoordinatorOutput?
     ) -> AnyView {
-        let dataviewService = serviceLocator.dataviewService(
-            objectId: setDocument.objectId,
-            blockId: setDocument.inlineParameters?.blockId
-        )
         return SetRelationsView(
             model: SetRelationsViewModel(
                 setDocument: setDocument,
                 viewId: viewId,
-                dataviewService: dataviewService,
+                dataviewService: self.serviceLocator.dataviewService(),
                 output: output
             )
         ).eraseToAnyView()

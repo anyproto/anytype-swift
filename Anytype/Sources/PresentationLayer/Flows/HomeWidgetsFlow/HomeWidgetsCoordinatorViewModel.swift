@@ -224,7 +224,7 @@ final class HomeWidgetsCoordinatorViewModel: ObservableObject,
     }
     
     func onCreateObjectInSetDocument(setDocument: SetDocumentProtocol) {
-        setObjectCreationCoordinator = setObjectCreationCoordinatorAssembly.make(objectId: setDocument.objectId)
+        setObjectCreationCoordinator = setObjectCreationCoordinatorAssembly.make()
         setObjectCreationCoordinator?.startCreateObject(setDocument: setDocument, output: self, customAnalyticsRoute: .widget)
     }
     

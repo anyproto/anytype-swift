@@ -7,7 +7,8 @@ class SetDocument: SetDocumentProtocol {
     let document: BaseDocumentProtocol
     
     var objectId: Services.BlockId { document.objectId }
-    
+    var blockId: BlockId { inlineParameters?.blockId ?? SetConstants.dataviewBlockId }
+    var targetObjectId: BlockId { inlineParameters?.targetObjectID ?? objectId }
     var spaceId: String { document.spaceId }
     
     var details: ObjectDetails? {
@@ -287,7 +288,7 @@ class SetDocument: SetDocumentProtocol {
     }
     
     private func updateDataview(with activeViewId: BlockId) {
-        document.infoContainer.updateDataview(blockId: inlineParameters?.blockId ?? SetConstants.dataviewBlockId) { dataView in
+        document.infoContainer.updateDataview(blockId: blockId) { dataView in
             dataView.updated(activeViewId: activeViewId)
         }
     }

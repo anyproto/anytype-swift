@@ -616,8 +616,9 @@ extension EditorSetViewModel {
         Task { [weak self] in
             guard let self else { return }
             try await self.dataviewService.objectOrderUpdate(
-                viewId: self.activeView.id,
-                groupObjectIds: groupObjectIds
+                objectId: setDocument.objectId,
+                blockId: setDocument.blockId,
+                order: groupObjectIds.map { DataviewObjectOrder(viewID: self.activeView.id, groupID: $0.groupId, objectIds: $0.objectIds) }
             )
         }
     }
@@ -669,6 +670,8 @@ extension EditorSetViewModel {
         Task { [weak self] in
             guard let self else { return }
             try await self.dataviewService.groupOrderUpdate(
+                objectId: setDocument.objectId,
+                blockId: setDocument.blockId,
                 viewId: self.activeView.id,
                 groupOrder: updatedGroupOrder
             )
@@ -722,7 +725,7 @@ extension EditorSetViewModel {
             interactor: DI.preview.serviceLocator.objectHeaderInteractor(objectId: "objectId")
         ),
         subscriptionStorageProvider: DI.preview.serviceLocator.subscriptionStorageProvider(),
-        dataviewService: DataviewService(objectId: "objectId", blockId: "blockId", prefilledFieldsBuilder: SetPrefilledFieldsBuilder()),
+        dataviewService: DI.preview.serviceLocator.dataviewService(),
         searchService: DI.preview.serviceLocator.searchService(),
         detailsService: DetailsService(
             objectId: "objectId",

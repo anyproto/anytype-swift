@@ -27,16 +27,12 @@ final class SetViewSettingsListModuleAssembly: SetViewSettingsListModuleAssembly
         mode: SetViewSettingsMode,
         output: SetViewSettingsCoordinatorOutput?
     ) -> AnyView {
-        let dataviewService = serviceLocator.dataviewService(
-            objectId: setDocument.objectId,
-            blockId: setDocument.inlineParameters?.blockId
-        )
         return SetViewSettingsList(
             model: SetViewSettingsListModel(
                 setDocument: setDocument,
                 viewId: viewId,
                 mode: mode,
-                dataviewService: dataviewService,
+                dataviewService: self.serviceLocator.dataviewService(),
                 output: output
             )
         ).eraseToAnyView()

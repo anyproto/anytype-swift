@@ -261,12 +261,8 @@ final class ServiceLocator {
         CameraPermissionVerifier()
     }
     
-    func dataviewService(objectId: BlockId, blockId: BlockId?) -> DataviewServiceProtocol {
-        DataviewService(
-            objectId: objectId,
-            blockId: blockId,
-            prefilledFieldsBuilder: SetPrefilledFieldsBuilder()
-        )
+    func dataviewService() -> DataviewServiceProtocol {
+        DataviewService()
     }
     
     
@@ -316,11 +312,12 @@ final class ServiceLocator {
         TemplatesSubscriptionService(subscriptionStorageProvider: subscriptionStorageProvider())
     }
     
-    func setObjectCreationHelper(objectId: BlockId, blockId: BlockId?) -> SetObjectCreationHelperProtocol {
+    func setObjectCreationHelper() -> SetObjectCreationHelperProtocol {
         SetObjectCreationHelper(
             objectTypeProvider: objectTypeProvider(),
-            dataviewService: dataviewService(objectId: objectId, blockId: blockId),
-            objectActionsService: objectActionsService()
+            dataviewService: dataviewService(),
+            objectActionsService: objectActionsService(),
+            prefilledFieldsBuilder: SetPrefilledFieldsBuilder()
         )
     }
     

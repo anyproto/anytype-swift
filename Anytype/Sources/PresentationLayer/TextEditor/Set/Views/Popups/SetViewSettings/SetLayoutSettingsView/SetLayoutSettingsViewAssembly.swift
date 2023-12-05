@@ -25,16 +25,12 @@ final class SetLayoutSettingsViewAssembly: SetLayoutSettingsViewAssemblyProtocol
         viewId: String,
         output: SetLayoutSettingsCoordinatorOutput?
     ) -> AnyView {
-        let dataviewService = serviceLocator.dataviewService(
-            objectId: setDocument.objectId,
-            blockId: setDocument.inlineParameters?.blockId
-        )
         return SetLayoutSettingsView(
             model: SetLayoutSettingsViewModel(
                 setDocument: setDocument,
                 viewId: viewId,
                 output: output,
-                dataviewService: dataviewService
+                dataviewService: self.serviceLocator.dataviewService()
             )
         ).eraseToAnyView()
     }

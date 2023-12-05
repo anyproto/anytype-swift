@@ -88,14 +88,14 @@ final class RelationsSearchViewModel: NewInternalSearchViewModelProtocol {
     private func addRelation(relation: RelationDetails) {
         switch target {
         case .object:
-            Task { @MainActor [weak self] in
-                try await self?.interactor.addRelationToObject(relation: relation)
-                self?.onSelect(relation)
+            Task { @MainActor in
+                try await interactor.addRelationToObject(relation: relation)
+                onSelect(relation)
             }
         case .dataview(let activeViewId):
-            Task { @MainActor [weak self] in
-                try await self?.interactor.addRelationToDataview(relation: relation, activeViewId: activeViewId)
-                self?.onSelect(relation)
+            Task { @MainActor in
+                try await interactor.addRelationToDataview(spaceId: document.spaceId, relation: relation, activeViewId: activeViewId)
+                onSelect(relation)
             }
         }
     }

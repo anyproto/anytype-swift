@@ -9,15 +9,18 @@ final class SetObjectCreationHelper: SetObjectCreationHelperProtocol {
     private let dataviewService: DataviewServiceProtocol
     private let objectTypeProvider: ObjectTypeProviderProtocol
     private let objectActionsService: ObjectActionsServiceProtocol
+    private let prefilledFieldsBuilder: SetPrefilledFieldsBuilderProtocol
     
     init(
         objectTypeProvider: ObjectTypeProviderProtocol,
         dataviewService: DataviewServiceProtocol,
-        objectActionsService: ObjectActionsServiceProtocol
+        objectActionsService: ObjectActionsServiceProtocol,
+        prefilledFieldsBuilder: SetPrefilledFieldsBuilderProtocol
     ) {
         self.objectTypeProvider = objectTypeProvider
         self.dataviewService = dataviewService
         self.objectActionsService = objectActionsService
+        self.prefilledFieldsBuilder = prefilledFieldsBuilder
     }
     
     // MARK: - SetObjectCreationHelperProtocol
@@ -117,8 +120,7 @@ final class SetObjectCreationHelper: SetObjectCreationHelperProtocol {
                 typeUniqueKey: type?.uniqueKey,
                 templateId: templateId ?? "",
                 spaceId: setDocument.spaceId,
-                setFilters: setDocument.activeViewFilters,
-                relationsDetails: relationsDetails
+                details: prefilledFieldsBuilder.buildPrefilledFields(from: setDocument.activeViewFilters, relationsDetails: relationsDetails)
             )
             completion?(details)
         }

@@ -32,11 +32,7 @@ final class SetObjectCreationSettingsModuleAssembly: SetObjectCreationSettingsMo
                     viewId: viewId,
                     objectTypesProvider: serviceLocator.objectTypeProvider(),
                     subscriptionService: serviceLocator.templatesSubscription(),
-                    dataviewService: DataviewService(
-                        objectId: setDocument.objectId,
-                        blockId: nil,
-                        prefilledFieldsBuilder: SetPrefilledFieldsBuilder()
-                    )
+                    dataviewService: serviceLocator.dataviewService()
                 ),
                 setDocument: setDocument,
                 templatesService: serviceLocator.templatesService,
