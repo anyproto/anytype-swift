@@ -727,6 +727,7 @@
 "Widgets.Actions.EditWidgets" = "Редактировать виджеты";
 "Widgets.Actions.EmptyBin" = "Очистить корзину";
 "Widgets.Actions.AddBelow" = "Добавить ниже";
+"Widgets.Actions.NewObject" = "New Object";
 "Widgets.Layout.Screen.Title" = "Тип виджета";
 "Widgets.Layout.Link.Title" = "Ссылка";
 "Widgets.Layout.Tree.Title" = "Дерево";
@@ -850,6 +851,7 @@
 // MARK: - Error
 "Error.AnytypeNeedsUpgrate.Title" = "Обновите приложение";
 "Error.AnytypeNeedsUpgrate.Message" = "Объект был изменен в более новой версии Anytype. Пожалуйста, обновите приложение, чтобы открыть его на этом устройстве";
+"Error.AnytypeNeedsUpgrate.Confirm" = "Update";
 
 // MARK: - Relative date formatter
 "RelativeFormatter.days7" = "За последние 7 дней";
