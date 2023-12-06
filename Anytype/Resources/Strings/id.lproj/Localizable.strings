@@ -559,7 +559,7 @@
 "Add below" = "Tambah di bawah";
 "Change type" = "Ubah tipe";
 "Link to existing object" = "Tautkan ke objek yang telah ada";
-"Link to object" = "Tautkan ke objek";
+"Link to object" = "Tambahkan tautan";
 "Upload playable audio" = "Unggah audio yang dapat diputar";
 "Code snippet" = "Potongan kode";
 "Bookmark" = "Markah";
@@ -857,3 +857,7 @@
 "RelativeFormatter.days7" = "7 hari terakhir";
 "RelativeFormatter.days30" = "30 hari terakhir";
 "RelativeFormatter.older" = "Lebih lama";
+
+// MARK: - Gallery
+"Gallery.Unavailable.Title" = "Galeri sedang dalam pengembangan";
+"Gallery.Unavailable.Message" = "Please use the desktop app for now";
