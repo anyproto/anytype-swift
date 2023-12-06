@@ -559,7 +559,7 @@
 "Add below" = "Add below";
 "Change type" = "Change type";
 "Link to existing object" = "Link to existing object";
-"Link to object" = "Link to object";
+"Link to object" = "Add link";
 "Upload playable audio" = "Upload playable audio";
 "Code snippet" = "Code snippet";
 "Bookmark" = "Bookmark";
@@ -857,3 +857,7 @@
 "RelativeFormatter.days7" = "Previous 7 days";
 "RelativeFormatter.days30" = "Previous 30 days";
 "RelativeFormatter.older" = "Older";
+
+// MARK: - Gallery
+"Gallery.Unavailable.Title" = "ギャラリーはまもなくサポートされます";
+"Gallery.Unavailable.Message" = "現時点ではデスクトップアプリをご利用ください";
