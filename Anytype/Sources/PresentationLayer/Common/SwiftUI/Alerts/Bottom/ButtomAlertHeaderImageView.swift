@@ -20,11 +20,22 @@ enum BottomAlertHeaderBackgroundStyle {
 
 struct ButtomAlertHeaderImageView: View {
     
+    @Environment(\.colorScheme) var colorScheme
+    
     let icon: ImageAsset
     let style: BottomAlertHeaderBackgroundStyle
     
     var body: some View {
         ZStack {
+            gradient
+            Image(asset: icon)
+        }
+        .frame(height: 104)
+    }
+    
+    @ViewBuilder
+    private var gradient: some View {
+        if colorScheme == .light {
             GeometryReader { reader in
                 RadialGradient(
                     colors: style.gradient,
@@ -36,8 +47,6 @@ struct ButtomAlertHeaderImageView: View {
                 .scaleEffect(CGSize(width: reader.size.width / 104, height: 1.0))
                 .position(x: reader.frame(in: .local).midX, y: reader.frame(in: .local).midY)
             }
-            Image(asset: icon)
         }
-        .frame(height: 104)
     }
 }
