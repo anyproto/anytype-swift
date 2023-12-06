@@ -559,7 +559,7 @@
 "Add below" = "Aggiungi sotto";
 "Change type" = "Cambia tipo";
 "Link to existing object" = "Collega a un oggetto esistente";
-"Link to object" = "Collega a oggetto";
+"Link to object" = "Aggiungi link";
 "Upload playable audio" = "Carica un audio riproducibile";
 "Code snippet" = "Frammento di codice";
 "Bookmark" = "Segnalibro";
@@ -857,3 +857,7 @@
 "RelativeFormatter.days7" = "Ultimi 7 giorni";
 "RelativeFormatter.days30" = "Ultimi 30 giorni";
 "RelativeFormatter.older" = "Meno recenti";
+
+// MARK: - Gallery
+"Gallery.Unavailable.Title" = "La galleria sarà supportata presto";
+"Gallery.Unavailable.Message" = "Please use the desktop app for now";

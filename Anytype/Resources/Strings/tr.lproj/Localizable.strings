@@ -559,7 +559,7 @@
 "Add below" = "Aşağıya ekleyin";
 "Change type" = "Türü değiştir";
 "Link to existing object" = "Link to existing object";
-"Link to object" = "Link to object";
+"Link to object" = "Bağlantı ekle";
 "Upload playable audio" = "Oynatılabilir ses yükle";
 "Code snippet" = "Kod parçacığı";
 "Bookmark" = "Yer imi";
@@ -858,3 +858,7 @@
 "RelativeFormatter.days7" = "Previous 7 days";
 "RelativeFormatter.days30" = "Previous 30 days";
 "RelativeFormatter.older" = "Daha eski";
+
+// MARK: - Gallery
+"Gallery.Unavailable.Title" = "Gallery will be supported soon";
+"Gallery.Unavailable.Message" = "Please use the desktop app for now";
