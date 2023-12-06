@@ -560,7 +560,7 @@
 "Add below" = "Add below";
 "Change type" = "Đổi loại";
 "Link to existing object" = "Liên kết đến đối tượng đã có";
-"Link to object" = "Liên kết đến đối tượng";
+"Link to object" = "Thêm link";
 "Upload playable audio" = "Tải lên âm thanh chơi được";
 "Code snippet" = "Code snippet";
 "Bookmark" = "Dấu trang";
@@ -858,3 +858,7 @@
 "RelativeFormatter.days7" = "Previous 7 days";
 "RelativeFormatter.days30" = "Previous 30 days";
 "RelativeFormatter.older" = "Older";
+
+// MARK: - Gallery
+"Gallery.Unavailable.Title" = "Gallery will be supported soon";
+"Gallery.Unavailable.Message" = "Please use the desktop app for now";
