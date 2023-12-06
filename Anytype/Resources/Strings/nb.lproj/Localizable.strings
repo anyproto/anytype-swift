@@ -559,7 +559,7 @@
 "Add below" = "Legg til under";
 "Change type" = "Endre type";
 "Link to existing object" = "Lenke til eksisterende objekt";
-"Link to object" = "Lenke til objekt";
+"Link to object" = "Legg til lenke";
 "Upload playable audio" = "Last opp spillbar lyd";
 "Code snippet" = "Kodesnutt";
 "Bookmark" = "Bokmerke";
@@ -857,3 +857,7 @@
 "RelativeFormatter.days7" = "Siste 7 dager";
 "RelativeFormatter.days30" = "Siste 30 dager";
 "RelativeFormatter.older" = "Eldre";
+
+// MARK: - Gallery
+"Gallery.Unavailable.Title" = "Galleri vil bli støttet snart";
+"Gallery.Unavailable.Message" = "Vennligst bruk skrivebordsappen for nå";
