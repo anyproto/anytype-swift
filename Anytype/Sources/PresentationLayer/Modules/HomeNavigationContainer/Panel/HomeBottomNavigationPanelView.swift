@@ -32,21 +32,20 @@ struct HomeBottomNavigationPanelView: View {
                 .transition(.identity)
             }
             
-            Button {
-                model.onTapNewObject()
-            } label: {
-                Image(asset: .X32.addNew)
-                    .foregroundColor(.Navigation.buttonActive)
-            }
-            .simultaneousGesture(
-                LongPressGesture(minimumDuration: 0.3)
-                    .onEnded { _ in
-                        model.onTapCreateObjectWithType()
-                    }
-            )
-            .if(homeMode) {
-                $0.popoverHomeCreateObjectTip()
-            }
+            Image(asset: .X32.addNew)
+                .foregroundColor(.Navigation.buttonActive)
+                .onTapGesture {
+                    model.onTapNewObject()
+                }
+                .simultaneousGesture(
+                    LongPressGesture(minimumDuration: 0.3)
+                        .onEnded { _ in
+                            model.onTapCreateObjectWithType()
+                        }
+                )
+                .if(homeMode) {
+                    $0.popoverHomeCreateObjectTip()
+                }
             
             if homeMode {
                 Button {
