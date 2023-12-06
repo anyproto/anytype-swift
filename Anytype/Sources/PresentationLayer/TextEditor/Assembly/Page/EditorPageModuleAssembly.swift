@@ -45,13 +45,13 @@ final class EditorPageModuleAssembly: EditorPageModuleAssemblyProtocol {
 
     func make(data: EditorPageObject, output: EditorPageModuleOutput?, showHeader: Bool) -> AnyView {
         return EditorPageView(
-            model: self.buildViewModel(data: data, output: output, showHeader: showHeader)
+            stateModel: self.buildStateModel(data: data, output: output, showHeader: showHeader)
         ).eraseToAnyView()
     }
     
     // MARK: - Private
     
-    private func buildViewModel(data: EditorPageObject, output: EditorPageModuleOutput?, showHeader: Bool) -> EditorPageViewModel {
+    private func buildStateModel(data: EditorPageObject, output: EditorPageModuleOutput?, showHeader: Bool) -> EditorPageViewState {
         let simpleTableMenuViewModel = SimpleTableMenuViewModel()
         let blocksOptionViewModel = SelectionOptionsViewModel(itemProvider: nil)
 
@@ -96,7 +96,6 @@ final class EditorPageModuleAssembly: EditorPageModuleAssemblyProtocol {
         )
 
         let viewModel = buildViewModel(
-            controller: controller,
             scrollView: controller.collectionView,
             viewInput: controller,
             document: document,
@@ -116,11 +115,10 @@ final class EditorPageModuleAssembly: EditorPageModuleAssemblyProtocol {
 
         controller.viewModel = viewModel
         
-        return viewModel
+        return EditorPageViewState(viewController: controller, model: viewModel)
     }
     
     private func buildViewModel(
-        controller: UIViewController,
         scrollView: UIScrollView,
         viewInput: EditorPageViewInput,
         document: BaseDocumentProtocol,
@@ -262,7 +260,6 @@ final class EditorPageModuleAssembly: EditorPageModuleAssemblyProtocol {
         
         let viewModel = EditorPageViewModel(
             document: document,
-            viewController: controller,
             viewInput: viewInput,
             blockDelegate: blockDelegate,
             router: router,
