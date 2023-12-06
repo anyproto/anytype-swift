@@ -87,6 +87,7 @@ final class CreateObjectView: UIView {
                 .foregroundColor: UIColor.Text.secondary
             ]
         )
+        textField.returnKeyType = .done
         textField.delegate = self
         textField.addTarget(self, action: #selector(textDidChange(textField:)), for: .editingChanged)
     }
