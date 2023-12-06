@@ -559,7 +559,7 @@
 "Add below" = "Додати знизу";
 "Change type" = "Змінити тип";
 "Link to existing object" = "Зв'язати з наявним об'єктом";
-"Link to object" = "Зв'язати з об'єктом";
+"Link to object" = "Додайте посилання";
 "Upload playable audio" = "Завантажити відтворюване аудіо";
 "Code snippet" = "Фрагмент коду";
 "Bookmark" = "Закладка";
@@ -858,3 +858,7 @@
 "RelativeFormatter.days7" = "Previous 7 days";
 "RelativeFormatter.days30" = "Previous 30 days";
 "RelativeFormatter.older" = "Older";
+
+// MARK: - Gallery
+"Gallery.Unavailable.Title" = "Gallery will be supported soon";
+"Gallery.Unavailable.Message" = "Please use the desktop app for now";
