@@ -143,6 +143,7 @@ final class ApplicationCoordinatorViewModel: ObservableObject {
         case .auth:
             break
         case .delete:
+            // For legacy ios untill 16.4
             navigationContext.dismissAllPresented(animated: true)
         }
     }
