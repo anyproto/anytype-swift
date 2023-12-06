@@ -1,4 +1,5 @@
 import SwiftUI
+import AnytypeCore
 
 struct AuthView: View {
     
@@ -20,8 +21,12 @@ struct AuthView: View {
     
     private var content: some View {
         VStack(alignment: .center, spacing: 0) {
-            header
-            Spacer.fixedHeight(48)
+            if FeatureFlags.selfHosted {
+                header
+                Spacer.fixedHeight(48)
+            } else {
+                Spacer.fixedHeight(80)
+            }
             Spacer()
             greetings
             Spacer()
