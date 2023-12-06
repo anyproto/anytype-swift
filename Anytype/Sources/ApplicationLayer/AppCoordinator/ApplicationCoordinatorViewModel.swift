@@ -17,7 +17,8 @@ final class ApplicationCoordinatorViewModel: ObservableObject {
     private let homeWidgetsCoordinatorAssembly: HomeWidgetsCoordinatorAssemblyProtocol
     private let deleteAccountModuleAssembly: DeleteAccountModuleAssemblyProtocol
     private let initialCoordinatorAssembly: InitialCoordinatorAssemblyProtocol
-
+    private let navigationContext: NavigationContextProtocol
+    
     private var authCoordinator: AuthCoordinatorProtocol?
 
     // MARK: - State
@@ -37,7 +38,8 @@ final class ApplicationCoordinatorViewModel: ObservableObject {
         authCoordinatorAssembly: AuthCoordinatorAssemblyProtocol,
         homeWidgetsCoordinatorAssembly: HomeWidgetsCoordinatorAssemblyProtocol,
         deleteAccountModuleAssembly: DeleteAccountModuleAssemblyProtocol,
-        initialCoordinatorAssembly: InitialCoordinatorAssemblyProtocol
+        initialCoordinatorAssembly: InitialCoordinatorAssemblyProtocol,
+        navigationContext: NavigationContextProtocol
     ) {
         self.authService = authService
         self.accountEventHandler = accountEventHandler
@@ -49,6 +51,7 @@ final class ApplicationCoordinatorViewModel: ObservableObject {
         self.homeWidgetsCoordinatorAssembly = homeWidgetsCoordinatorAssembly
         self.deleteAccountModuleAssembly = deleteAccountModuleAssembly
         self.initialCoordinatorAssembly = initialCoordinatorAssembly
+        self.navigationContext = navigationContext
     }
     
     func onAppear() {
@@ -87,7 +90,7 @@ final class ApplicationCoordinatorViewModel: ObservableObject {
 
     private func startObserve() {
         Task { @MainActor [weak self, applicationStateService] in
-            for await state in applicationStateService.statePublisher.values {
+            for await state in applicationStateService.statePublisher.removeDuplicates().values {
                 guard let self = self else { return }
                 self.handleApplicationState(state)
             }
@@ -140,7 +143,7 @@ final class ApplicationCoordinatorViewModel: ObservableObject {
         case .auth:
             break
         case .delete:
-            break
+            navigationContext.dismissAllPresented(animated: true)
         }
     }
     
