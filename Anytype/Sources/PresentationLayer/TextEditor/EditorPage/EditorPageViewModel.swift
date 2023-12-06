@@ -34,7 +34,8 @@ final class EditorPageViewModel: EditorPageViewModelProtocol, EditorBottomNaviga
 
     private let blockActionsService: BlockActionsServiceSingleProtocol
 
-    var viewController: UIViewController
+    // TODO: Refactoring editor struct
+    weak var viewController: UIViewController?
 
     @Published var bottomPanelHidden: Bool = false
     @Published var bottomPanelHiddenAnimated: Bool = true
