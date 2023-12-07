@@ -59,6 +59,12 @@ public extension FeatureDescription {
         defaultValue: true
     )
     
+    static let setTextInFirstNoteBlock = FeatureDescription(
+        title: "Set text in first Note block when creating from the Set/Collection/Widget - IOS-1956",
+        type: .feature(author: "joe_pusya@anytype.io", releaseVersion: "0.27.0"),
+        defaultValue: true
+    )
+    
     // MARK: - Debug
     
     static let rainbowViews = FeatureDescription(

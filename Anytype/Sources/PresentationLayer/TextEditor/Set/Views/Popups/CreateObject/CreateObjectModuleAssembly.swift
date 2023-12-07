@@ -2,9 +2,12 @@ import Foundation
 import UIKit
 import Services
 
+@MainActor
 protocol CreateObjectModuleAssemblyProtocol {
+    
     func makeCreateObject(
         objectId: String,
+        blockId: String?,
         openToEditAction: @escaping () -> Void,
         closeAction: @escaping () -> Void
     ) -> UIViewController
@@ -16,24 +19,29 @@ protocol CreateObjectModuleAssemblyProtocol {
     ) -> UIViewController
 }
 
-
+@MainActor
 final class CreateObjectModuleAssembly: CreateObjectModuleAssemblyProtocol {
     
     private let serviceLocator: ServiceLocator
     
-    init(serviceLocator: ServiceLocator) {
+    nonisolated init(serviceLocator: ServiceLocator) {
         self.serviceLocator = serviceLocator
     }
     
     // MARK: - CreateObjectModuleAssemblyProtocol
     
+    @MainActor
     func makeCreateObject(
         objectId: String,
+        blockId: String?,
         openToEditAction: @escaping () -> Void,
         closeAction: @escaping () -> Void
     ) -> UIViewController {
         let viewModel = CreateObjectViewModel(
+            objectId: objectId,
+            blockId: blockId,
             relationService: serviceLocator.relationService(objectId: objectId),
+            textService: serviceLocator.textService,
             openToEditAction: openToEditAction,
             closeAction: closeAction
         )

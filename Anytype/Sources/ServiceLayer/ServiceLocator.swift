@@ -317,7 +317,8 @@ final class ServiceLocator {
             objectTypeProvider: objectTypeProvider(),
             dataviewService: dataviewService(),
             objectActionsService: objectActionsService(),
-            prefilledFieldsBuilder: SetPrefilledFieldsBuilder()
+            prefilledFieldsBuilder: SetPrefilledFieldsBuilder(), 
+            blockActionsService: blockActionsServiceSingle()
         )
     }
     

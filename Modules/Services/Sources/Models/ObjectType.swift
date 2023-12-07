@@ -95,4 +95,8 @@ extension ObjectType {
     public var isCollectionType: Bool {
         uniqueKey == .collection
     }
+    
+    public var isNoteType: Bool {
+        uniqueKey == .note
+    }
 }
