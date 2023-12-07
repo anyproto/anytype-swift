@@ -42,7 +42,8 @@ public final class BookmarkService: BookmarkServiceProtocol {
             $0.details = details
             $0.spaceID = spaceId
         }).invoke()
-        return try result.details.toDetails()
+        
+        return ObjectDetails(id: result.objectID)
     }
     
     public func fetchBookmarkContent(bookmarkId: BlockId, url: String) async throws {
