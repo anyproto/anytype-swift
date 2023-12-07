@@ -1,6 +1,6 @@
 import UIKit
 
-final class ObjectListRelationViewUIKit: UIView { // тут для эдитора
+final class ObjectListRelationViewUIKit: UIView {
     let options: [Relation.Object.Option]
     let hint: String
     let style: RelationStyle

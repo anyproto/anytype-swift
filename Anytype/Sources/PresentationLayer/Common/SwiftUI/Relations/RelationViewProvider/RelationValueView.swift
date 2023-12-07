@@ -58,11 +58,6 @@ struct RelationValueView: View {
                 TextRelationFactory.swiftUI(value: date.value?.text, hint: relation.hint, style: style)
             case .object(let object):
                 ObjectRelationView(options: object.selectedObjects, hint: relation.hint, style: style)
-//                if object.isBackLinks {
-//                    BacklinksRelationView(optionsCount: object.selectedObjects.count, style: style)
-//                } else {
-//                    ObjectRelationView(options: object.selectedObjects, hint: relation.hint, style: style)
-//                }
             case .checkbox(let checkbox):
                 CheckboxRelationView(isChecked: checkbox.value, style: style)
             case .url(let text):

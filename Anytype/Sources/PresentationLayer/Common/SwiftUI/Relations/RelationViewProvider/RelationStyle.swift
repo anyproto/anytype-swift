@@ -22,7 +22,7 @@ struct FeaturedRelationSettings: Hashable {
     let error: Bool
     let links: Relation.Object.Links?
     
-    init(allowMultiLine: Bool, prefix: String? = nil, showIcon: Bool = true, error: Bool = false, links: Relation.Object.Links?) {
+    init(allowMultiLine: Bool, prefix: String? = nil, showIcon: Bool = true, error: Bool = false, links: Relation.Object.Links? = nil) {
         self.allowMultiLine = allowMultiLine
         self.prefix = prefix
         self.showIcon = showIcon

@@ -58,7 +58,7 @@ struct CheckboxRelationView_Previews: PreviewProvider {
     static var previews: some View {
         CheckboxRelationView(
             isChecked: true,
-            style: .featuredRelationBlock(FeaturedRelationSettings(allowMultiLine: false, links: nil))
+            style: .featuredRelationBlock(FeaturedRelationSettings(allowMultiLine: false))
         )
     }
 }
