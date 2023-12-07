@@ -1,4 +1,5 @@
 import Services
+import AnytypeCore
 
 protocol SetObjectCreationHelperProtocol {
     func createObject(for setDocument: SetDocumentProtocol, setting: ObjectCreationSetting?, completion: @escaping ((_ details: ObjectDetails?, _ blockId: String?) -> Void))
@@ -125,7 +126,7 @@ final class SetObjectCreationHelper: SetObjectCreationHelperProtocol {
                 spaceId: setDocument.spaceId,
                 details: prefilledFieldsBuilder.buildPrefilledFields(from: setDocument.activeViewFilters, relationsDetails: relationsDetails)
             )
-            if type?.isNoteType ?? false {
+            if FeatureFlags.setTextInFirstNoteBlock && type?.isNoteType ?? false {
                 let model = try await blockActionsService.openForPreview(contextId: details.id)
                 let firstTextBlockId = model.blocks.first {
                     guard let content = $0.content else { return false }
