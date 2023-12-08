@@ -212,7 +212,9 @@ final class MiddlewareEventConverter {
                 .processDone,
                 .fileLimitReached,
                 .fileSpaceUsage,
-                .fileLocalUsage:
+                .fileLocalUsage,
+                .notificationSend,
+                .notificationUpdate:
             return nil
         }
     }
