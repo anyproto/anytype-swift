@@ -725,4 +725,18 @@ extension AnytypeAnalytics {
     func logScreenSettingsAccountAccess() {
         logEvent(AnalyticsEventsName.screenSettingsAccountAccess)
     }
+    
+    func logSelectNetwork(type: SelectNetworkType, route: SelectNetworkRoute) {
+        logEvent(
+            AnalyticsEventsName.selectNetwork,
+            withEventProperties: [
+                AnalyticsEventsPropertiesKey.type: type.rawValue,
+                AnalyticsEventsPropertiesKey.route: route.rawValue
+            ]
+        )
+    }
+    
+    func logUploadNetworkConfiguration() {
+        logEvent(AnalyticsEventsName.uploadNetworkConfiguration)
+    }
 }
