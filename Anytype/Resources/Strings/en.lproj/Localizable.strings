@@ -559,7 +559,7 @@
 "Add below" = "Add below";
 "Change type" = "Change type";
 "Link to existing object" = "Link to existing object";
-"Link to object" = "Link to object";
+"Link to object" = "Add link";
 "Upload playable audio" = "Upload playable audio";
 "Code snippet" = "Code snippet";
 "Bookmark" = "Bookmark";
@@ -864,3 +864,7 @@
 "Server.AddButton" = "Add Self-hosted Network";
 "Server.Anytype" = "Anytype";
 "Server.LocalOnly" = "Local-only";
+
+// MARK: - Gallery
+"Gallery.Unavailable.Title" = "Gallery will be supported soon";
+"Gallery.Unavailable.Message" = "Please use the desktop app for now";

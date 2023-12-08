@@ -4,7 +4,6 @@ import AnytypeCore
 
 @MainActor
 protocol SetViewPickerCoordinatorOutput: AnyObject {
-    func onAddButtonTap()
     func onAddButtonTap(with viewId: String)
     func onEditButtonTap(dataView: DataviewView)
 }
@@ -17,20 +16,17 @@ final class SetViewPickerCoordinatorViewModel: ObservableObject, SetViewPickerCo
     private let setViewPickerModuleAssembly: SetViewPickerModuleAssemblyProtocol
     private let setViewSettingsCoordinatorAssembly: SetViewSettingsCoordinatorAssemblyProtocol
     private let subscriptionDetailsStorage: ObjectDetailsStorage
-    private let showViewTypes: RoutingAction<DataviewView?>
     
     init(
         setDocument: SetDocumentProtocol,
         setViewPickerModuleAssembly: SetViewPickerModuleAssemblyProtocol,
         setViewSettingsCoordinatorAssembly: SetViewSettingsCoordinatorAssemblyProtocol,
-        subscriptionDetailsStorage: ObjectDetailsStorage,
-        showViewTypes: @escaping RoutingAction<DataviewView?>
+        subscriptionDetailsStorage: ObjectDetailsStorage
     ) {
         self.setDocument = setDocument
         self.setViewPickerModuleAssembly = setViewPickerModuleAssembly
         self.setViewSettingsCoordinatorAssembly = setViewSettingsCoordinatorAssembly
         self.subscriptionDetailsStorage = subscriptionDetailsStorage
-        self.showViewTypes = showViewTypes
     }
     
     func list() -> AnyView {
@@ -42,10 +38,6 @@ final class SetViewPickerCoordinatorViewModel: ObservableObject, SetViewPickerCo
     
     // MARK: - SetViewPickerCoordinatorOutput
     
-    func onAddButtonTap() {
-        showViewTypes(nil)
-    }
-    
     func onAddButtonTap(with viewId: String) {
         setSettingsData = SetSettingsData(
             viewId: viewId,
@@ -54,14 +46,10 @@ final class SetViewPickerCoordinatorViewModel: ObservableObject, SetViewPickerCo
     }
     
     func onEditButtonTap(dataView: DataviewView) {
-        if FeatureFlags.newSetSettings {
-            setSettingsData = SetSettingsData(
-                viewId: dataView.id,
-                mode: .edit
-            )
-        } else {
-            showViewTypes(dataView)
-        }
+        setSettingsData = SetSettingsData(
+            viewId: dataView.id,
+            mode: .edit
+        )
     }
     
     func setSettingsView(data: SetSettingsData) -> AnyView {

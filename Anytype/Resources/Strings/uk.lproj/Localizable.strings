@@ -559,7 +559,7 @@
 "Add below" = "Додати знизу";
 "Change type" = "Змінити тип";
 "Link to existing object" = "Зв'язати з наявним об'єктом";
-"Link to object" = "Зв'язати з об'єктом";
+"Link to object" = "Додайте посилання";
 "Upload playable audio" = "Завантажити відтворюване аудіо";
 "Code snippet" = "Фрагмент коду";
 "Bookmark" = "Закладка";
@@ -727,6 +727,7 @@
 "Widgets.Actions.EditWidgets" = "Редагувати Віджети";
 "Widgets.Actions.EmptyBin" = "Очистити кошик";
 "Widgets.Actions.AddBelow" = "Додати знизу";
+"Widgets.Actions.NewObject" = "New Object";
 "Widgets.Layout.Screen.Title" = "Тип віджета";
 "Widgets.Layout.Link.Title" = "Посилання";
 "Widgets.Layout.Tree.Title" = "Дерево";
@@ -851,8 +852,13 @@
 // MARK: - Error
 "Error.AnytypeNeedsUpgrate.Title" = "Update Your App";
 "Error.AnytypeNeedsUpgrate.Message" = "This object was modified in a newer version of Anytype. Please update the app to open it on this device";
+"Error.AnytypeNeedsUpgrate.Confirm" = "Update";
 
 // MARK: - Relative date formatter
 "RelativeFormatter.days7" = "Previous 7 days";
 "RelativeFormatter.days30" = "Previous 30 days";
 "RelativeFormatter.older" = "Older";
+
+// MARK: - Gallery
+"Gallery.Unavailable.Title" = "Gallery will be supported soon";
+"Gallery.Unavailable.Message" = "Please use the desktop app for now";

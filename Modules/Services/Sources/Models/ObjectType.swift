@@ -87,4 +87,16 @@ extension ObjectType {
     public var isTemplateType: Bool {
         uniqueKey == .template
     }
+    
+    public var isSetType: Bool {
+        uniqueKey == .set
+    }
+    
+    public var isCollectionType: Bool {
+        uniqueKey == .collection
+    }
+    
+    public var isNoteType: Bool {
+        uniqueKey == .note
+    }
 }

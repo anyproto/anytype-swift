@@ -467,7 +467,7 @@
 
 "Error" = "Galat";
 "Unknown error" = "Kesalahan tak dikenal";
-"Open Type Error" = "Not supported type \"%@\". You can open it via desktop.";
+"Open Type Error" = "Tipe \"%@\" tidak didukung. Kamu bisa membukanya di desktop.";
 "Close" = "Tutup";
 "Account is deleted" = "Akun terhapus";
 "Add phone" = "Tambahkan telepon";
@@ -559,7 +559,7 @@
 "Add below" = "Tambah di bawah";
 "Change type" = "Ubah tipe";
 "Link to existing object" = "Tautkan ke objek yang telah ada";
-"Link to object" = "Tautkan ke objek";
+"Link to object" = "Tambahkan tautan";
 "Upload playable audio" = "Unggah audio yang dapat diputar";
 "Code snippet" = "Potongan kode";
 "Bookmark" = "Markah";
@@ -727,6 +727,7 @@
 "Widgets.Actions.EditWidgets" = "Sunting widget";
 "Widgets.Actions.EmptyBin" = "Tempat sampah kosong";
 "Widgets.Actions.AddBelow" = "Tambah di bawah";
+"Widgets.Actions.NewObject" = "Objek Baru";
 "Widgets.Layout.Screen.Title" = "Jenis widget";
 "Widgets.Layout.Link.Title" = "Tautan";
 "Widgets.Layout.Tree.Title" = "Pohon";
@@ -850,8 +851,13 @@
 // MARK: - Error
 "Error.AnytypeNeedsUpgrate.Title" = "Perbarui Aplikasimu";
 "Error.AnytypeNeedsUpgrate.Message" = "Objek ini telah diubah pada versi terbaru Anytype. Perbaruilah aplikasimu untuk membuka objek ini di perangkat ini.";
+"Error.AnytypeNeedsUpgrate.Confirm" = "Perbarui";
 
 // MARK: - Relative date formatter
 "RelativeFormatter.days7" = "7 hari terakhir";
 "RelativeFormatter.days30" = "30 hari terakhir";
 "RelativeFormatter.older" = "Lebih lama";
+
+// MARK: - Gallery
+"Gallery.Unavailable.Title" = "Galeri sedang dalam pengembangan";
+"Gallery.Unavailable.Message" = "Please use the desktop app for now";

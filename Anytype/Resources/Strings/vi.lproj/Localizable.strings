@@ -560,7 +560,7 @@
 "Add below" = "Add below";
 "Change type" = "Đổi loại";
 "Link to existing object" = "Liên kết đến đối tượng đã có";
-"Link to object" = "Liên kết đến đối tượng";
+"Link to object" = "Thêm link";
 "Upload playable audio" = "Tải lên âm thanh chơi được";
 "Code snippet" = "Code snippet";
 "Bookmark" = "Dấu trang";
@@ -728,6 +728,7 @@
 "Widgets.Actions.EditWidgets" = "Edit Widgets";
 "Widgets.Actions.EmptyBin" = "Đổ rác";
 "Widgets.Actions.AddBelow" = "Add Below";
+"Widgets.Actions.NewObject" = "New Object";
 "Widgets.Layout.Screen.Title" = "Widget type";
 "Widgets.Layout.Link.Title" = "Liên kết";
 "Widgets.Layout.Tree.Title" = "Cây ";
@@ -851,8 +852,13 @@
 // MARK: - Error
 "Error.AnytypeNeedsUpgrate.Title" = "Update Your App";
 "Error.AnytypeNeedsUpgrate.Message" = "This object was modified in a newer version of Anytype. Please update the app to open it on this device";
+"Error.AnytypeNeedsUpgrate.Confirm" = "Update";
 
 // MARK: - Relative date formatter
 "RelativeFormatter.days7" = "Previous 7 days";
 "RelativeFormatter.days30" = "Previous 30 days";
 "RelativeFormatter.older" = "Older";
+
+// MARK: - Gallery
+"Gallery.Unavailable.Title" = "Gallery will be supported soon";
+"Gallery.Unavailable.Message" = "Please use the desktop app for now";

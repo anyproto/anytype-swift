@@ -10,6 +10,10 @@ import Amplitude
 
 final class AnytypeAnalytics: AnytypeAnalyticsProtocol {
 
+    private enum Keys {
+        static let interfaceLang = "interfaceLang"
+    }
+    
     var isEnabled: Bool = true
     var eventHandler: ((_ eventType: String, _ eventProperties: [AnyHashable : Any]?) -> Void)?
     
@@ -20,7 +24,8 @@ final class AnytypeAnalytics: AnytypeAnalyticsProtocol {
 
     private var eventsConfiguration: [String: EventConfigurtion] = [:]
     private var lastEvents: String = .empty
-
+    private var userProperties: [AnyHashable: Any] = [:]
+    
     private init() {
         // Disable IDFA for Amplitude
         if let trackingOptions = AMPTrackingOptions().disableIDFA() {
@@ -29,6 +34,8 @@ final class AnytypeAnalytics: AnytypeAnalyticsProtocol {
 
         // Enable sending automatic session events
         Amplitude.instance().trackingSessionEvents = true
+        
+        userProperties[Keys.interfaceLang] = Locale.current.languageCode
     }
 
     static func instance() -> AnytypeAnalytics {
@@ -60,7 +67,7 @@ final class AnytypeAnalytics: AnytypeAnalyticsProtocol {
         eventHandler?(eventType, eventProperties)
         
         guard isEnabled else { return }
-        Amplitude.instance().logEvent(eventType, withEventProperties: eventProperties)
+        Amplitude.instance().logEvent(eventType, withEventProperties: eventProperties, withUserProperties: userProperties)
     }
 
     func logEvent(_ eventType: String) {

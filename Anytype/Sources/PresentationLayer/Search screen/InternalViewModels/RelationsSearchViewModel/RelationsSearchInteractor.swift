@@ -38,7 +38,7 @@ final class RelationsSearchInteractor {
         try await relationsInteractor.addRelationToObject(relation: relation)
     }
     
-    func addRelationToDataview(relation: RelationDetails, activeViewId: String) async throws {
-        try await relationsInteractor.addRelationToDataview(relation: relation, activeViewId: activeViewId)
+    func addRelationToDataview(spaceId: String, relation: RelationDetails, activeViewId: String) async throws {
+        try await relationsInteractor.addRelationToDataview(spaceId: spaceId, relation: relation, activeViewId: activeViewId)
     }
 }

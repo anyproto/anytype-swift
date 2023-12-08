@@ -220,7 +220,7 @@
 "Auth.JoinFlow.Key.ReadMore.Instruction.Option1.Title" = "Самый простой способ хранить вашу фразу восстановления - сохранить ее в вашем менеджере паролей.";
 "Auth.JoinFlow.Key.ReadMore.Instruction.Option2.Title" = "Самый безопасный способ - записать ее на бумаге и оставить бумагу в безопасном месте.";
 
-"Auth.JoinFlow.Soul.Title" = "Выберете имя";
+"Auth.JoinFlow.Soul.Title" = "Выберите имя";
 "Auth.JoinFlow.Soul.Description" = "Так вы будете отображаться в приложении.";
 "Auth.JoinFlow.Soul.Placeholder" = "Без названия";
 
@@ -559,7 +559,7 @@
 "Add below" = "Добавить ниже";
 "Change type" = "Изменить тип";
 "Link to existing object" = "Link to existing object";
-"Link to object" = "Link to object";
+"Link to object" = "Добавить ссылку";
 "Upload playable audio" = "Загрузить воспроизводимое аудио";
 "Code snippet" = "Фрагмент кода";
 "Bookmark" = "Закладка";
@@ -727,6 +727,7 @@
 "Widgets.Actions.EditWidgets" = "Редактировать виджеты";
 "Widgets.Actions.EmptyBin" = "Очистить корзину";
 "Widgets.Actions.AddBelow" = "Добавить ниже";
+"Widgets.Actions.NewObject" = "New Object";
 "Widgets.Layout.Screen.Title" = "Тип виджета";
 "Widgets.Layout.Link.Title" = "Ссылка";
 "Widgets.Layout.Tree.Title" = "Дерево";
@@ -850,8 +851,13 @@
 // MARK: - Error
 "Error.AnytypeNeedsUpgrate.Title" = "Обновите приложение";
 "Error.AnytypeNeedsUpgrate.Message" = "Объект был изменен в более новой версии Anytype. Пожалуйста, обновите приложение, чтобы открыть его на этом устройстве";
+"Error.AnytypeNeedsUpgrate.Confirm" = "Update";
 
 // MARK: - Relative date formatter
 "RelativeFormatter.days7" = "За последние 7 дней";
 "RelativeFormatter.days30" = "За последние 30 дней";
 "RelativeFormatter.older" = "Раньше";
+
+// MARK: - Gallery
+"Gallery.Unavailable.Title" = "Gallery will be supported soon";
+"Gallery.Unavailable.Message" = "Please use the desktop app for now";

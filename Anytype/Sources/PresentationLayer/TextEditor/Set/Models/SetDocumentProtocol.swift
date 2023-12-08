@@ -9,6 +9,8 @@ enum SetDocumentUpdate {
 protocol SetDocumentProtocol: BaseDocumentGeneralProtocol {
     var document: BaseDocumentProtocol { get }
     var objectId: BlockId { get }
+    var blockId: BlockId { get }
+    var targetObjectId: BlockId { get }
     var inlineParameters: EditorInlineSetObject? { get }
     var dataviews: [BlockDataview] { get }
     var dataViewRelationsDetails: [RelationDetails] { get }

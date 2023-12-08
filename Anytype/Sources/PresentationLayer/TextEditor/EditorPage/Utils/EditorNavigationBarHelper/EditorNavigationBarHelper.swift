@@ -149,7 +149,12 @@ extension EditorNavigationBarHelper: EditorNavigationBarHelperProtocol {
             navigationBarView.rightButton = nil
             navigationBarTitleView.setIsReadonly(nil)
         case .readonly(let mode):
+            navigationBarView.titleView = navigationBarTitleView
+            navigationBarView.rightButton = settingsItem
+            navigationBarView.leftButton = syncStatusItem
+            lastMode.map { navigationBarTitleView.configure(model: $0) }
             navigationBarTitleView.setIsReadonly(mode)
+            updateNavigationBarAppearanceBasedOnContentOffset(currentScrollViewOffset)
         case let .simpleTablesSelection(_, selectedBlocks, _):
             navigationBarTitleView.setAlphaForSubviews(1)
             updateBarButtonItemsBackground(opacity: 1)

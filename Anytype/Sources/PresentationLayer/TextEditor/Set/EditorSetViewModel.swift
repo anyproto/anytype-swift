@@ -201,10 +201,6 @@ final class EditorSetViewModel: ObservableObject {
         
     }
     
-    func onWillDisappear() {
-        router?.dismissSetSettingsIfNeeded()
-    }
-    
     func onDisappear() {
         Task {
             await stopAllSubscriptionStorages()
@@ -597,54 +593,12 @@ extension EditorSetViewModel {
     
     func showViewPicker() {
         guard let detailsStorage = defaultSubscriptionDetailsStorage() else { return }
-        router?.showViewPicker(subscriptionDetailsStorage: detailsStorage) { [weak self] activeView in
-            self?.showViewTypes(with: activeView)
-        }
+        router?.showViewPicker(subscriptionDetailsStorage: detailsStorage)
     }
     
     func showSetSettings() {
-        if FeatureFlags.newSetSettings {
-            guard let detailsStorage = defaultSubscriptionDetailsStorage() else { return }
-            router?.showSetSettings(subscriptionDetailsStorage: detailsStorage)
-        } else {
-            router?.showSetSettingsLegacy { [weak self] setting in
-                guard let self else { return }
-                switch setting {
-                case .view:
-                    self.showViewTypes(with: self.activeView)
-                case .settings:
-                    self.showViewSettings()
-                case .sort:
-                    self.showSorts()
-                case .filter:
-                    self.showFilters()
-                }
-            }
-        }
-    }
-    
-    func showViewTypes(with activeView: DataviewView?) {
-        router?.showViewTypes(
-            setDocument: setDocument,
-            activeView: activeView,
-            dataviewService: dataviewService
-        )
-    }
-
-    func showViewSettings() {
-        router?.showViewSettings(setDocument: setDocument)
-    }
-    
-    func showSorts() {
-        router?.showSorts()
-    }
-    
-    func showFilters() {
         guard let detailsStorage = defaultSubscriptionDetailsStorage() else { return }
-        router?.showFilters(
-            setDocument: setDocument,
-            subscriptionDetailsStorage: detailsStorage
-        )
+        router?.showSetSettings(subscriptionDetailsStorage: detailsStorage)
     }
     
     func showObjectSettings() {
@@ -662,8 +616,9 @@ extension EditorSetViewModel {
         Task { [weak self] in
             guard let self else { return }
             try await self.dataviewService.objectOrderUpdate(
-                viewId: self.activeView.id,
-                groupObjectIds: groupObjectIds
+                objectId: setDocument.objectId,
+                blockId: setDocument.blockId,
+                order: groupObjectIds.map { DataviewObjectOrder(viewID: self.activeView.id, groupID: $0.groupId, objectIds: $0.objectIds) }
             )
         }
     }
@@ -715,6 +670,8 @@ extension EditorSetViewModel {
         Task { [weak self] in
             guard let self else { return }
             try await self.dataviewService.groupOrderUpdate(
+                objectId: setDocument.objectId,
+                blockId: setDocument.blockId,
                 viewId: self.activeView.id,
                 groupOrder: updatedGroupOrder
             )
@@ -768,7 +725,7 @@ extension EditorSetViewModel {
             interactor: DI.preview.serviceLocator.objectHeaderInteractor(objectId: "objectId")
         ),
         subscriptionStorageProvider: DI.preview.serviceLocator.subscriptionStorageProvider(),
-        dataviewService: DataviewService(objectId: "objectId", blockId: "blockId", prefilledFieldsBuilder: SetPrefilledFieldsBuilder()),
+        dataviewService: DI.preview.serviceLocator.dataviewService(),
         searchService: DI.preview.serviceLocator.searchService(),
         detailsService: DetailsService(
             objectId: "objectId",

@@ -1,0 +1,15 @@
+lane :set_amplitude_api_key_to_info_plist do |options|
+    set_info_plist_value(
+        path: "./Anytype/Supporting files/Info.plist", 
+        key: "AmplitudeApiKey", 
+        value: ENV["AMPLITUDE_API_KEY"]
+    )
+end
+
+lane :set_sentry_dsn_to_info_plist do |options|
+    set_info_plist_value(
+        path: "./Anytype/Supporting files/Info.plist", 
+        key: "SentryDSN",
+        value: ENV["SENTRY_DSN"]
+    )
+end

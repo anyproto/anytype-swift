@@ -559,7 +559,7 @@
 "Add below" = "在下面添加";
 "Change type" = "更改类型";
 "Link to existing object" = "链接到现有对象";
-"Link to object" = "链接到对象";
+"Link to object" = "添加链接";
 "Upload playable audio" = "上传可播放音频";
 "Code snippet" = "代码片段";
 "Bookmark" = "书签";
@@ -727,6 +727,7 @@
 "Widgets.Actions.EditWidgets" = "编辑小部件";
 "Widgets.Actions.EmptyBin" = "清空废纸篓";
 "Widgets.Actions.AddBelow" = "在下面添加";
+"Widgets.Actions.NewObject" = "新建对象";
 "Widgets.Layout.Screen.Title" = "小部件类型";
 "Widgets.Layout.Link.Title" = "链接";
 "Widgets.Layout.Tree.Title" = "树状图";
@@ -850,8 +851,13 @@
 // MARK: - Error
 "Error.AnytypeNeedsUpgrate.Title" = "更新应用";
 "Error.AnytypeNeedsUpgrate.Message" = "此文档已在更高版本的 Anytype 编辑过，请更新此设备的应用以打开它。";
+"Error.AnytypeNeedsUpgrate.Confirm" = "更新";
 
 // MARK: - Relative date formatter
 "RelativeFormatter.days7" = "过去 7 天";
 "RelativeFormatter.days30" = "过去 30 天";
 "RelativeFormatter.older" = "较早的";
+
+// MARK: - Gallery
+"Gallery.Unavailable.Title" = "即将支持画廊";
+"Gallery.Unavailable.Message" = "目前请使用桌面应用";

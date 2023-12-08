@@ -45,6 +45,7 @@ final class HomeWidgetsCoordinatorViewModel: ObservableObject,
     @Published var showCreateWidgetData: CreateWidgetCoordinatorModel?
     @Published var showSpaceSettings: Bool = false
     @Published var showSharing: Bool = false
+    @Published var showGalleryImport: Bool = false
     @Published var editorPath = HomePath() {
         didSet { UserDefaultsConfig.lastOpenedPage = editorPath.lastPathElement as? EditorScreenData }
     }
@@ -223,8 +224,8 @@ final class HomeWidgetsCoordinatorViewModel: ObservableObject,
     }
     
     func onCreateObjectInSetDocument(setDocument: SetDocumentProtocol) {
-        setObjectCreationCoordinator = setObjectCreationCoordinatorAssembly.make(objectId: setDocument.objectId)
-        setObjectCreationCoordinator?.startCreateObject(setDocument: setDocument, output: self)
+        setObjectCreationCoordinator = setObjectCreationCoordinatorAssembly.make()
+        setObjectCreationCoordinator?.startCreateObject(setDocument: setDocument, output: self, customAnalyticsRoute: .widget)
     }
     
     // MARK: - HomeBottomPanelModuleOutput
@@ -322,10 +323,13 @@ final class HomeWidgetsCoordinatorViewModel: ObservableObject,
         case .showSharingExtension:
             showSharing = true
         case .spaceSelection:
-            navigationContext.dismissAllPresented(animated: true, completion: { [weak self] in
-                self?.editorPath.popToRoot()
+            navigationContext.dismissAllPresented(animated: true) { [weak self] in
                 self?.showSpaceSwitch = true
-            })
+            }
+        case .galleryImport:
+            navigationContext.dismissAllPresented(animated: true) { [weak self] in
+                self?.showGalleryImport = true
+            }
         }
     }
     
@@ -381,17 +385,20 @@ final class HomeWidgetsCoordinatorViewModel: ObservableObject,
             if path.count == 0 {
                 path.push(newInfo)
             }
-            // Restore last open page
-            if currentSpaceId.isNil, let lastOpenPage = UserDefaultsConfig.lastOpenedPage {
-                if let objectId = lastOpenPage.objectId {
-                    let document = documentsProvider.document(objectId: objectId, forPreview: true)
-                    try await document.openForPreview()
-                    // Check space is deleted or switched
-                    if document.spaceId == newInfo.accountSpaceId {
+            
+            do {
+                // Restore last open page
+                if currentSpaceId.isNil, let lastOpenPage = UserDefaultsConfig.lastOpenedPage {
+                    if let objectId = lastOpenPage.objectId {
+                        let document = documentsProvider.document(objectId: objectId, forPreview: true)
+                        try await document.openForPreview()
+                        // Check space is deleted or switched
+                        if document.spaceId == newInfo.accountSpaceId {
+                            path.push(lastOpenPage)
+                        }
+                    } else {
                         path.push(lastOpenPage)
                     }
-                } else {
-                    path.push(lastOpenPage)
                 }
             }
             

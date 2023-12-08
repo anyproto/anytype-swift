@@ -270,8 +270,8 @@ internal enum Loc {
   internal static let linkTo = Loc.tr("Localizable", "Link to", fallback: "Link to")
   /// Link to existing object
   internal static let linkToExistingObject = Loc.tr("Localizable", "Link to existing object", fallback: "Link to existing object")
-  /// Link to object
-  internal static let linkToObject = Loc.tr("Localizable", "Link to object", fallback: "Link to object")
+  /// Add link
+  internal static let linkToObject = Loc.tr("Localizable", "Link to object", fallback: "Add link")
   /// List of related objects
   internal static let listOfRelatedObjects = Loc.tr("Localizable", "List of related objects", fallback: "List of related objects")
   /// Loading, please wait
@@ -1208,6 +1208,14 @@ internal enum Loc {
     internal enum ForceDelete {
       /// Are you sure you want to permanently delete the files?
       internal static let title = Loc.tr("Localizable", "FilesList.ForceDelete.Title", fallback: "Are you sure you want to permanently delete the files?")
+    }
+  }
+  internal enum Gallery {
+    internal enum Unavailable {
+      /// Please use the desktop app for now
+      internal static let message = Loc.tr("Localizable", "Gallery.Unavailable.Message", fallback: "Please use the desktop app for now")
+      /// Gallery will be supported soon
+      internal static let title = Loc.tr("Localizable", "Gallery.Unavailable.Title", fallback: "Gallery will be supported soon")
     }
   }
   internal enum Home {

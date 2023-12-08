@@ -35,7 +35,7 @@ final class NewRelationModuleAssembly: NewRelationModuleAssemblyProtocol {
         
         let relationsInteractor = RelationsInteractor(
             relationsService: serviceLocator.relationService(objectId: document.objectId),
-            dataviewService:  serviceLocator.dataviewService(objectId: document.objectId, blockId: nil)
+            dataviewService:  serviceLocator.dataviewService()
         )
         let viewModel = NewRelationViewModel(
             name: searchText,

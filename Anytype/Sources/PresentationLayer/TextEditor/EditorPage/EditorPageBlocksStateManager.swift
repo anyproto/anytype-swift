@@ -47,7 +47,6 @@ extension EditorPageSelectionManagerProtocol {
 
 @MainActor
 protocol EditorPageBlocksStateManagerProtocol: EditorPageSelectionManagerProtocol, EditorPageMovingManagerProtocol, AnyObject {
-    func checkDocumentLockField()
     func checkOpenedState()
     
     var editingState: EditorEditingState { get }
@@ -121,20 +120,20 @@ final class EditorPageBlocksStateManager: EditorPageBlocksStateManagerProtocol {
         setupEditingHandlers()
     }
 
-    func checkDocumentLockField() {
-        if document.isArchived {
+    func checkOpenedState() {
+        if !document.isOpened {
+            editingState = .loading
+        } else if document.isArchived {
             editingState = .readonly(state: .archived)
         } else if document.isLocked {
             editingState = .readonly(state: .locked)
-        } else if case .readonly = editingState, !document.isLocked, !document.isArchived {
+        } else if case .editing = editingState {
+            // nothing
+        } else {
             editingState = .editing
         }
     }
     
-    func checkOpenedState() {
-        editingState = document.isOpened ? .editing : .loading
-    }
-
     // MARK: - EditorPageSelectionManagerProtocol
 
     func canSelectBlock(at indexPath: IndexPath) -> Bool {

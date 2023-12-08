@@ -559,7 +559,7 @@
 "Add below" = "Agregar debajo";
 "Change type" = "Cambiar tipo";
 "Link to existing object" = "Enlazar a objeto existente";
-"Link to object" = "Enlazar a objeto";
+"Link to object" = "Añadir enlace";
 "Upload playable audio" = "Subir audio reproducible";
 "Code snippet" = "Fragmento de código";
 "Bookmark" = "Marcador";
@@ -727,6 +727,7 @@
 "Widgets.Actions.EditWidgets" = "Editar widgets";
 "Widgets.Actions.EmptyBin" = "Vaciar papelera";
 "Widgets.Actions.AddBelow" = "Añadir debajo";
+"Widgets.Actions.NewObject" = "Nuevo objeto";
 "Widgets.Layout.Screen.Title" = "Tipo de widget";
 "Widgets.Layout.Link.Title" = "Enlace";
 "Widgets.Layout.Tree.Title" = "Árbol";
@@ -850,8 +851,13 @@
 // MARK: - Error
 "Error.AnytypeNeedsUpgrate.Title" = "Actualiza tu aplicación";
 "Error.AnytypeNeedsUpgrate.Message" = "Este objeto fue modificado en una versión más reciente de Anytype. Actualice la aplicación para abrirlo en este dispositivo";
+"Error.AnytypeNeedsUpgrate.Confirm" = "Actualizar";
 
 // MARK: - Relative date formatter
 "RelativeFormatter.days7" = "Últimos 7 días";
 "RelativeFormatter.days30" = "Últimos 30 días";
 "RelativeFormatter.older" = "Más antiguo";
+
+// MARK: - Gallery
+"Gallery.Unavailable.Title" = "La galería será compatible pronto";
+"Gallery.Unavailable.Message" = "Por favor, use la aplicación de escritorio por ahora";

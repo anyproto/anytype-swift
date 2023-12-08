@@ -467,7 +467,7 @@
 
 "Error" = "Feil";
 "Unknown error" = "Ukjent feil";
-"Open Type Error" = "Not supported type \"%@\". You can open it via desktop.";
+"Open Type Error" = "Ikke støttet type \"%@\". Du kan åpne den i skrivebordsappen.";
 "Close" = "Lukk";
 "Account is deleted" = "Konto er slettet";
 "Add phone" = "Legg til telefon";
@@ -559,7 +559,7 @@
 "Add below" = "Legg til under";
 "Change type" = "Endre type";
 "Link to existing object" = "Lenke til eksisterende objekt";
-"Link to object" = "Lenke til objekt";
+"Link to object" = "Legg til lenke";
 "Upload playable audio" = "Last opp spillbar lyd";
 "Code snippet" = "Kodesnutt";
 "Bookmark" = "Bokmerke";
@@ -727,6 +727,7 @@
 "Widgets.Actions.EditWidgets" = "Endre widgets";
 "Widgets.Actions.EmptyBin" = "Tøm papirkurven";
 "Widgets.Actions.AddBelow" = "Legg til under";
+"Widgets.Actions.NewObject" = "Nytt objekt";
 "Widgets.Layout.Screen.Title" = "Widget-type";
 "Widgets.Layout.Link.Title" = "Lenke";
 "Widgets.Layout.Tree.Title" = "Tre";
@@ -850,8 +851,13 @@
 // MARK: - Error
 "Error.AnytypeNeedsUpgrate.Title" = "Oppdater din app";
 "Error.AnytypeNeedsUpgrate.Message" = "Dette objektet ble endret i en nyere versjon av Anytype. Oppdater appen for å åpne det på denne enheten";
+"Error.AnytypeNeedsUpgrate.Confirm" = "Oppdater";
 
 // MARK: - Relative date formatter
 "RelativeFormatter.days7" = "Siste 7 dager";
 "RelativeFormatter.days30" = "Siste 30 dager";
 "RelativeFormatter.older" = "Eldre";
+
+// MARK: - Gallery
+"Gallery.Unavailable.Title" = "Galleri vil bli støttet snart";
+"Gallery.Unavailable.Message" = "Vennligst bruk skrivebordsappen for nå";
