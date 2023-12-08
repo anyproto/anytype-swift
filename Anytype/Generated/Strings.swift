@@ -270,8 +270,8 @@ internal enum Loc {
   internal static let linkTo = Loc.tr("Localizable", "Link to", fallback: "Link to")
   /// Link to existing object
   internal static let linkToExistingObject = Loc.tr("Localizable", "Link to existing object", fallback: "Link to existing object")
-  /// Link to object
-  internal static let linkToObject = Loc.tr("Localizable", "Link to object", fallback: "Link to object")
+  /// Add link
+  internal static let linkToObject = Loc.tr("Localizable", "Link to object", fallback: "Add link")
   /// Plural format key: "%#@object@"
   internal static func linksCount(_ p1: Int) -> String {
     return Loc.tr("Localizable", "Links count", p1, fallback: "Plural format key: \"%#@object@\"")

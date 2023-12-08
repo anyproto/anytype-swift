@@ -1,7 +1,17 @@
 {
   "images" : [
     {
-      "filename" : "Group 3670.pdf",
+      "filename" : "Illustration-3.pdf",
+      "idiom" : "universal"
+    },
+    {
+      "appearances" : [
+        {
+          "appearance" : "luminosity",
+          "value" : "dark"
+        }
+      ],
+      "filename" : "Illustration-4.pdf",
       "idiom" : "universal"
     }
   ],

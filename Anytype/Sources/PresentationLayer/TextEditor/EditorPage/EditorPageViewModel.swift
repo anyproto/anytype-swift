@@ -34,8 +34,6 @@ final class EditorPageViewModel: EditorPageViewModelProtocol, EditorBottomNaviga
 
     private let blockActionsService: BlockActionsServiceSingleProtocol
 
-    var viewController: UIViewController
-
     @Published var bottomPanelHidden: Bool = false
     @Published var bottomPanelHiddenAnimated: Bool = true
     @Published var dismiss = false
@@ -45,7 +43,6 @@ final class EditorPageViewModel: EditorPageViewModelProtocol, EditorBottomNaviga
     // MARK: - Initialization
     init(
         document: BaseDocumentProtocol,
-        viewController: UIViewController,
         viewInput: EditorPageViewInput,
         blockDelegate: BlockDelegate,
         router: EditorRouterProtocol,
@@ -64,7 +61,6 @@ final class EditorPageViewModel: EditorPageViewModelProtocol, EditorBottomNaviga
         templatesSubscriptionService: TemplatesSubscriptionServiceProtocol,
         output: EditorPageModuleOutput?
     ) {
-        self.viewController = viewController
         self.viewInput = viewInput
         self.document = document
         self.router = router

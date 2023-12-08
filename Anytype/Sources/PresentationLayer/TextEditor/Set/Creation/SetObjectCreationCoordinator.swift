@@ -40,14 +40,14 @@ final class SetObjectCreationCoordinator: SetObjectCreationCoordinatorProtocol {
     ) {
         self.output = output
         self.customAnalyticsRoute = customAnalyticsRoute
-        objectCreationHelper.createObject(for: setDocument, setting: setting) { [weak self] details in
-            self?.handleCreatedObjectIfNeeded(details, setDocument: setDocument)
+        objectCreationHelper.createObject(for: setDocument, setting: setting) { [weak self] details, blockId in
+            self?.handleCreatedObjectIfNeeded(details, blockId: blockId, setDocument: setDocument)
         }
     }
     
-    private func handleCreatedObjectIfNeeded(_ details: ObjectDetails?, setDocument: SetDocumentProtocol) {
+    private func handleCreatedObjectIfNeeded(_ details: ObjectDetails?, blockId: String?, setDocument: SetDocumentProtocol) {
         if let details {
-            showCreateObject(details: details)
+            showCreateObject(details: details, blockId: blockId)
             AnytypeAnalytics.instance().logCreateObject(
                 objectType: details.analyticsType,
                 route: customAnalyticsRoute ?? (setDocument.isCollection() ? .collection : .set)
@@ -57,8 +57,8 @@ final class SetObjectCreationCoordinator: SetObjectCreationCoordinatorProtocol {
         }
     }
     
-    private func showCreateObject(details: ObjectDetails) {
-        let moduleViewController = createObjectModuleAssembly.makeCreateObject(objectId: details.id) { [weak self] in
+    private func showCreateObject(details: ObjectDetails, blockId: String?) {
+        let moduleViewController = createObjectModuleAssembly.makeCreateObject(objectId: details.id, blockId: blockId) { [weak self] in
             self?.navigationContext.dismissTopPresented()
             self?.showPage(data: details.editorScreenData())
         } closeAction: { [weak self] in
