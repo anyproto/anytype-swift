@@ -76,6 +76,7 @@ final class ActiveWorkspaceStorage: ActiveWorkpaceStorageProtocol {
     func clearActiveSpace() async {
         activeSpaceId = ""
         workspaceInfoSubject.send(.empty)
+        workspaceSubscription?.cancel()
     }
     
     // MARK: - Private
