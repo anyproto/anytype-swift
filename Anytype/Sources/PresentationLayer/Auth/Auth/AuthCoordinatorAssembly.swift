@@ -31,7 +31,8 @@ final class AuthCoordinatorAssembly: AuthCoordinatorAssemblyProtocol {
             authModuleAssembly: modulesDI.authorization(),
             debugMenuModuleAssembly: modulesDI.debugMenu(),
             joinFlowCoordinator: coordinatorsID.joinFlow().make(),
-            loginFlowCoordinator: coordinatorsID.loginFlow().make(),
+            loginFlowCoordinator: coordinatorsID.loginFlow().make(), 
+            serverConfigurationCoordinatorAssembly: coordinatorsID.serverConfiguration(),
             urlOpener: uiHelpersDI.urlOpener()
         )
     }

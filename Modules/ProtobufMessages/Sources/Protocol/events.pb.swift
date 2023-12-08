@@ -534,6 +534,22 @@ public struct Anytype_Event {
       set {value = .fileLocalUsage(newValue)}
     }
 
+    public var notificationSend: Anytype_Event.Notification.Send {
+      get {
+        if case .notificationSend(let v)? = value {return v}
+        return Anytype_Event.Notification.Send()
+      }
+      set {value = .notificationSend(newValue)}
+    }
+
+    public var notificationUpdate: Anytype_Event.Notification.Update {
+      get {
+        if case .notificationUpdate(let v)? = value {return v}
+        return Anytype_Event.Notification.Update()
+      }
+      set {value = .notificationUpdate(newValue)}
+    }
+
     public var unknownFields = SwiftProtobuf.UnknownStorage()
 
     public enum OneOf_Value: Equatable {
@@ -600,6 +616,8 @@ public struct Anytype_Event {
       case fileLimitReached(Anytype_Event.File.LimitReached)
       case fileSpaceUsage(Anytype_Event.File.SpaceUsage)
       case fileLocalUsage(Anytype_Event.File.LocalUsage)
+      case notificationSend(Anytype_Event.Notification.Send)
+      case notificationUpdate(Anytype_Event.Notification.Update)
 
     #if !swift(>=4.1)
       public static func ==(lhs: Anytype_Event.Message.OneOf_Value, rhs: Anytype_Event.Message.OneOf_Value) -> Bool {
@@ -845,6 +863,14 @@ public struct Anytype_Event {
         }()
         case (.fileLocalUsage, .fileLocalUsage): return {
           guard case .fileLocalUsage(let l) = lhs, case .fileLocalUsage(let r) = rhs else { preconditionFailure() }
+          return l == r
+        }()
+        case (.notificationSend, .notificationSend): return {
+          guard case .notificationSend(let l) = lhs, case .notificationSend(let r) = rhs else { preconditionFailure() }
+          return l == r
+        }()
+        case (.notificationUpdate, .notificationUpdate): return {
+          guard case .notificationUpdate(let l) = lhs, case .notificationUpdate(let r) = rhs else { preconditionFailure() }
           return l == r
         }()
         default: return false
@@ -1709,6 +1735,15 @@ public struct Anytype_Event {
         /// Clears the value of `text`. Subsequent reads from it will return its default value.
         public mutating func clearText() {self._text = nil}
 
+        public var processor: Anytype_Event.Block.Set.Latex.Processor {
+          get {return _processor ?? Anytype_Event.Block.Set.Latex.Processor()}
+          set {_processor = newValue}
+        }
+        /// Returns true if `processor` has been explicitly set.
+        public var hasProcessor: Bool {return self._processor != nil}
+        /// Clears the value of `processor`. Subsequent reads from it will return its default value.
+        public mutating func clearProcessor() {self._processor = nil}
+
         public var unknownFields = SwiftProtobuf.UnknownStorage()
 
         public struct Text {
@@ -1723,9 +1758,22 @@ public struct Anytype_Event {
           public init() {}
         }
 
+        public struct Processor {
+          // SwiftProtobuf.Message conformance is added in an extension below. See the
+          // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+          // methods supported on all messages.
+
+          public var value: Anytype_Model_Block.Content.Latex.Processor = .latex
+
+          public var unknownFields = SwiftProtobuf.UnknownStorage()
+
+          public init() {}
+        }
+
         public init() {}
 
         fileprivate var _text: Anytype_Event.Block.Set.Latex.Text? = nil
+        fileprivate var _processor: Anytype_Event.Block.Set.Latex.Processor? = nil
       }
 
       public struct Div {
@@ -3805,31 +3853,25 @@ public struct Anytype_Event {
         // methods supported on all messages.
 
         /// dataview block's id
-        public var id: String {
-          get {return _storage._id}
-          set {_uniqueStorage()._id = newValue}
-        }
+        public var id: String = String()
 
         /// relation key to update
-        public var relationKey: String {
-          get {return _storage._relationKey}
-          set {_uniqueStorage()._relationKey = newValue}
-        }
+        public var relationKey: String = String()
 
         public var relation: Anytype_Model_Relation {
-          get {return _storage._relation ?? Anytype_Model_Relation()}
-          set {_uniqueStorage()._relation = newValue}
+          get {return _relation ?? Anytype_Model_Relation()}
+          set {_relation = newValue}
         }
         /// Returns true if `relation` has been explicitly set.
-        public var hasRelation: Bool {return _storage._relation != nil}
+        public var hasRelation: Bool {return self._relation != nil}
         /// Clears the value of `relation`. Subsequent reads from it will return its default value.
-        public mutating func clearRelation() {_uniqueStorage()._relation = nil}
+        public mutating func clearRelation() {self._relation = nil}
 
         public var unknownFields = SwiftProtobuf.UnknownStorage()
 
         public init() {}
 
-        fileprivate var _storage = _StorageClass.defaultInstance
+        fileprivate var _relation: Anytype_Model_Relation? = nil
       }
 
       public struct RelationDelete {
@@ -4422,6 +4464,58 @@ public struct Anytype_Event {
     public init() {}
   }
 
+  public struct Notification {
+    // SwiftProtobuf.Message conformance is added in an extension below. See the
+    // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+    // methods supported on all messages.
+
+    public var unknownFields = SwiftProtobuf.UnknownStorage()
+
+    public struct Send {
+      // SwiftProtobuf.Message conformance is added in an extension below. See the
+      // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+      // methods supported on all messages.
+
+      public var notification: Anytype_Model_Notification {
+        get {return _notification ?? Anytype_Model_Notification()}
+        set {_notification = newValue}
+      }
+      /// Returns true if `notification` has been explicitly set.
+      public var hasNotification: Bool {return self._notification != nil}
+      /// Clears the value of `notification`. Subsequent reads from it will return its default value.
+      public mutating func clearNotification() {self._notification = nil}
+
+      public var unknownFields = SwiftProtobuf.UnknownStorage()
+
+      public init() {}
+
+      fileprivate var _notification: Anytype_Model_Notification? = nil
+    }
+
+    public struct Update {
+      // SwiftProtobuf.Message conformance is added in an extension below. See the
+      // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+      // methods supported on all messages.
+
+      public var notification: Anytype_Model_Notification {
+        get {return _notification ?? Anytype_Model_Notification()}
+        set {_notification = newValue}
+      }
+      /// Returns true if `notification` has been explicitly set.
+      public var hasNotification: Bool {return self._notification != nil}
+      /// Clears the value of `notification`. Subsequent reads from it will return its default value.
+      public mutating func clearNotification() {self._notification = nil}
+
+      public var unknownFields = SwiftProtobuf.UnknownStorage()
+
+      public init() {}
+
+      fileprivate var _notification: Anytype_Model_Notification? = nil
+    }
+
+    public init() {}
+  }
+
   public init() {}
 
   fileprivate var _initiator: Anytype_Model_Account? = nil
@@ -4679,6 +4773,7 @@ extension Anytype_Event.Block.Set.Text.IconEmoji: @unchecked Sendable {}
 extension Anytype_Event.Block.Set.Text.IconImage: @unchecked Sendable {}
 extension Anytype_Event.Block.Set.Latex: @unchecked Sendable {}
 extension Anytype_Event.Block.Set.Latex.Text: @unchecked Sendable {}
+extension Anytype_Event.Block.Set.Latex.Processor: @unchecked Sendable {}
 extension Anytype_Event.Block.Set.Div: @unchecked Sendable {}
 extension Anytype_Event.Block.Set.Div.Style: @unchecked Sendable {}
 extension Anytype_Event.Block.Set.File: @unchecked Sendable {}
@@ -4808,6 +4903,9 @@ extension Anytype_Event.File: @unchecked Sendable {}
 extension Anytype_Event.File.LimitReached: @unchecked Sendable {}
 extension Anytype_Event.File.SpaceUsage: @unchecked Sendable {}
 extension Anytype_Event.File.LocalUsage: @unchecked Sendable {}
+extension Anytype_Event.Notification: @unchecked Sendable {}
+extension Anytype_Event.Notification.Send: @unchecked Sendable {}
+extension Anytype_Event.Notification.Update: @unchecked Sendable {}
 extension Anytype_ResponseEvent: @unchecked Sendable {}
 extension Anytype_Model: @unchecked Sendable {}
 extension Anytype_Model.Process: @unchecked Sendable {}
@@ -4937,6 +5035,8 @@ extension Anytype_Event.Message: SwiftProtobuf.Message, SwiftProtobuf._MessageIm
     111: .same(proto: "fileLimitReached"),
     112: .same(proto: "fileSpaceUsage"),
     113: .same(proto: "fileLocalUsage"),
+    114: .same(proto: "notificationSend"),
+    115: .same(proto: "notificationUpdate"),
   ]
 
   public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
@@ -5621,6 +5721,32 @@ extension Anytype_Event.Message: SwiftProtobuf.Message, SwiftProtobuf._MessageIm
           self.value = .fileLocalUsage(v)
         }
       }()
+      case 114: try {
+        var v: Anytype_Event.Notification.Send?
+        var hadOneofValue = false
+        if let current = self.value {
+          hadOneofValue = true
+          if case .notificationSend(let m) = current {v = m}
+        }
+        try decoder.decodeSingularMessageField(value: &v)
+        if let v = v {
+          if hadOneofValue {try decoder.handleConflictingOneOf()}
+          self.value = .notificationSend(v)
+        }
+      }()
+      case 115: try {
+        var v: Anytype_Event.Notification.Update?
+        var hadOneofValue = false
+        if let current = self.value {
+          hadOneofValue = true
+          if case .notificationUpdate(let m) = current {v = m}
+        }
+        try decoder.decodeSingularMessageField(value: &v)
+        if let v = v {
+          if hadOneofValue {try decoder.handleConflictingOneOf()}
+          self.value = .notificationUpdate(v)
+        }
+      }()
       case 123: try {
         var v: Anytype_Event.Block.Dataview.RelationSet?
         var hadOneofValue = false
@@ -5943,6 +6069,14 @@ extension Anytype_Event.Message: SwiftProtobuf.Message, SwiftProtobuf._MessageIm
     case .fileLocalUsage?: try {
       guard case .fileLocalUsage(let v)? = self.value else { preconditionFailure() }
       try visitor.visitSingularMessageField(value: v, fieldNumber: 113)
+    }()
+    case .notificationSend?: try {
+      guard case .notificationSend(let v)? = self.value else { preconditionFailure() }
+      try visitor.visitSingularMessageField(value: v, fieldNumber: 114)
+    }()
+    case .notificationUpdate?: try {
+      guard case .notificationUpdate(let v)? = self.value else { preconditionFailure() }
+      try visitor.visitSingularMessageField(value: v, fieldNumber: 115)
     }()
     case .blockDataviewRelationSet?: try {
       guard case .blockDataviewRelationSet(let v)? = self.value else { preconditionFailure() }
@@ -7634,6 +7768,7 @@ extension Anytype_Event.Block.Set.Latex: SwiftProtobuf.Message, SwiftProtobuf._M
   public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
     1: .same(proto: "id"),
     2: .same(proto: "text"),
+    3: .same(proto: "processor"),
   ]
 
   public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
@@ -7644,6 +7779,7 @@ extension Anytype_Event.Block.Set.Latex: SwiftProtobuf.Message, SwiftProtobuf._M
       switch fieldNumber {
       case 1: try { try decoder.decodeSingularStringField(value: &self.id) }()
       case 2: try { try decoder.decodeSingularMessageField(value: &self._text) }()
+      case 3: try { try decoder.decodeSingularMessageField(value: &self._processor) }()
       default: break
       }
     }
@@ -7660,12 +7796,16 @@ extension Anytype_Event.Block.Set.Latex: SwiftProtobuf.Message, SwiftProtobuf._M
     try { if let v = self._text {
       try visitor.visitSingularMessageField(value: v, fieldNumber: 2)
     } }()
+    try { if let v = self._processor {
+      try visitor.visitSingularMessageField(value: v, fieldNumber: 3)
+    } }()
     try unknownFields.traverse(visitor: &visitor)
   }
 
   public static func ==(lhs: Anytype_Event.Block.Set.Latex, rhs: Anytype_Event.Block.Set.Latex) -> Bool {
     if lhs.id != rhs.id {return false}
     if lhs._text != rhs._text {return false}
+    if lhs._processor != rhs._processor {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
@@ -7697,6 +7837,38 @@ extension Anytype_Event.Block.Set.Latex.Text: SwiftProtobuf.Message, SwiftProtob
   }
 
   public static func ==(lhs: Anytype_Event.Block.Set.Latex.Text, rhs: Anytype_Event.Block.Set.Latex.Text) -> Bool {
+    if lhs.value != rhs.value {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    return true
+  }
+}
+
+extension Anytype_Event.Block.Set.Latex.Processor: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = Anytype_Event.Block.Set.Latex.protoMessageName + ".Processor"
+  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    1: .same(proto: "value"),
+  ]
+
+  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let fieldNumber = try decoder.nextFieldNumber() {
+      // The use of inline closures is to circumvent an issue where the compiler
+      // allocates stack space for every case branch when no optimizations are
+      // enabled. https://github.com/apple/swift-protobuf/issues/1034
+      switch fieldNumber {
+      case 1: try { try decoder.decodeSingularEnumField(value: &self.value) }()
+      default: break
+      }
+    }
+  }
+
+  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    if self.value != .latex {
+      try visitor.visitSingularEnumField(value: self.value, fieldNumber: 1)
+    }
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  public static func ==(lhs: Anytype_Event.Block.Set.Latex.Processor, rhs: Anytype_Event.Block.Set.Latex.Processor) -> Bool {
     if lhs.value != rhs.value {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
@@ -11571,77 +11743,41 @@ extension Anytype_Event.Block.Dataview.OldRelationSet: SwiftProtobuf.Message, Sw
     3: .same(proto: "relation"),
   ]
 
-  fileprivate class _StorageClass {
-    var _id: String = String()
-    var _relationKey: String = String()
-    var _relation: Anytype_Model_Relation? = nil
-
-    static let defaultInstance = _StorageClass()
-
-    private init() {}
-
-    init(copying source: _StorageClass) {
-      _id = source._id
-      _relationKey = source._relationKey
-      _relation = source._relation
-    }
-  }
-
-  fileprivate mutating func _uniqueStorage() -> _StorageClass {
-    if !isKnownUniquelyReferenced(&_storage) {
-      _storage = _StorageClass(copying: _storage)
-    }
-    return _storage
-  }
-
   public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
-    _ = _uniqueStorage()
-    try withExtendedLifetime(_storage) { (_storage: _StorageClass) in
-      while let fieldNumber = try decoder.nextFieldNumber() {
-        // The use of inline closures is to circumvent an issue where the compiler
-        // allocates stack space for every case branch when no optimizations are
-        // enabled. https://github.com/apple/swift-protobuf/issues/1034
-        switch fieldNumber {
-        case 1: try { try decoder.decodeSingularStringField(value: &_storage._id) }()
-        case 2: try { try decoder.decodeSingularStringField(value: &_storage._relationKey) }()
-        case 3: try { try decoder.decodeSingularMessageField(value: &_storage._relation) }()
-        default: break
-        }
+    while let fieldNumber = try decoder.nextFieldNumber() {
+      // The use of inline closures is to circumvent an issue where the compiler
+      // allocates stack space for every case branch when no optimizations are
+      // enabled. https://github.com/apple/swift-protobuf/issues/1034
+      switch fieldNumber {
+      case 1: try { try decoder.decodeSingularStringField(value: &self.id) }()
+      case 2: try { try decoder.decodeSingularStringField(value: &self.relationKey) }()
+      case 3: try { try decoder.decodeSingularMessageField(value: &self._relation) }()
+      default: break
       }
     }
   }
 
   public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
-    try withExtendedLifetime(_storage) { (_storage: _StorageClass) in
-      // The use of inline closures is to circumvent an issue where the compiler
-      // allocates stack space for every if/case branch local when no optimizations
-      // are enabled. https://github.com/apple/swift-protobuf/issues/1034 and
-      // https://github.com/apple/swift-protobuf/issues/1182
-      if !_storage._id.isEmpty {
-        try visitor.visitSingularStringField(value: _storage._id, fieldNumber: 1)
-      }
-      if !_storage._relationKey.isEmpty {
-        try visitor.visitSingularStringField(value: _storage._relationKey, fieldNumber: 2)
-      }
-      try { if let v = _storage._relation {
-        try visitor.visitSingularMessageField(value: v, fieldNumber: 3)
-      } }()
+    // The use of inline closures is to circumvent an issue where the compiler
+    // allocates stack space for every if/case branch local when no optimizations
+    // are enabled. https://github.com/apple/swift-protobuf/issues/1034 and
+    // https://github.com/apple/swift-protobuf/issues/1182
+    if !self.id.isEmpty {
+      try visitor.visitSingularStringField(value: self.id, fieldNumber: 1)
     }
+    if !self.relationKey.isEmpty {
+      try visitor.visitSingularStringField(value: self.relationKey, fieldNumber: 2)
+    }
+    try { if let v = self._relation {
+      try visitor.visitSingularMessageField(value: v, fieldNumber: 3)
+    } }()
     try unknownFields.traverse(visitor: &visitor)
   }
 
   public static func ==(lhs: Anytype_Event.Block.Dataview.OldRelationSet, rhs: Anytype_Event.Block.Dataview.OldRelationSet) -> Bool {
-    if lhs._storage !== rhs._storage {
-      let storagesAreEqual: Bool = withExtendedLifetime((lhs._storage, rhs._storage)) { (_args: (_StorageClass, _StorageClass)) in
-        let _storage = _args.0
-        let rhs_storage = _args.1
-        if _storage._id != rhs_storage._id {return false}
-        if _storage._relationKey != rhs_storage._relationKey {return false}
-        if _storage._relation != rhs_storage._relation {return false}
-        return true
-      }
-      if !storagesAreEqual {return false}
-    }
+    if lhs.id != rhs.id {return false}
+    if lhs.relationKey != rhs.relationKey {return false}
+    if lhs._relation != rhs._relation {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
@@ -12748,6 +12884,97 @@ extension Anytype_Event.File.LocalUsage: SwiftProtobuf.Message, SwiftProtobuf._M
 
   public static func ==(lhs: Anytype_Event.File.LocalUsage, rhs: Anytype_Event.File.LocalUsage) -> Bool {
     if lhs.localBytesUsage != rhs.localBytesUsage {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    return true
+  }
+}
+
+extension Anytype_Event.Notification: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = Anytype_Event.protoMessageName + ".Notification"
+  public static let _protobuf_nameMap = SwiftProtobuf._NameMap()
+
+  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let _ = try decoder.nextFieldNumber() {
+    }
+  }
+
+  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  public static func ==(lhs: Anytype_Event.Notification, rhs: Anytype_Event.Notification) -> Bool {
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    return true
+  }
+}
+
+extension Anytype_Event.Notification.Send: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = Anytype_Event.Notification.protoMessageName + ".Send"
+  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    1: .same(proto: "notification"),
+  ]
+
+  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let fieldNumber = try decoder.nextFieldNumber() {
+      // The use of inline closures is to circumvent an issue where the compiler
+      // allocates stack space for every case branch when no optimizations are
+      // enabled. https://github.com/apple/swift-protobuf/issues/1034
+      switch fieldNumber {
+      case 1: try { try decoder.decodeSingularMessageField(value: &self._notification) }()
+      default: break
+      }
+    }
+  }
+
+  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    // The use of inline closures is to circumvent an issue where the compiler
+    // allocates stack space for every if/case branch local when no optimizations
+    // are enabled. https://github.com/apple/swift-protobuf/issues/1034 and
+    // https://github.com/apple/swift-protobuf/issues/1182
+    try { if let v = self._notification {
+      try visitor.visitSingularMessageField(value: v, fieldNumber: 1)
+    } }()
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  public static func ==(lhs: Anytype_Event.Notification.Send, rhs: Anytype_Event.Notification.Send) -> Bool {
+    if lhs._notification != rhs._notification {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    return true
+  }
+}
+
+extension Anytype_Event.Notification.Update: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = Anytype_Event.Notification.protoMessageName + ".Update"
+  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    1: .same(proto: "notification"),
+  ]
+
+  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let fieldNumber = try decoder.nextFieldNumber() {
+      // The use of inline closures is to circumvent an issue where the compiler
+      // allocates stack space for every case branch when no optimizations are
+      // enabled. https://github.com/apple/swift-protobuf/issues/1034
+      switch fieldNumber {
+      case 1: try { try decoder.decodeSingularMessageField(value: &self._notification) }()
+      default: break
+      }
+    }
+  }
+
+  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    // The use of inline closures is to circumvent an issue where the compiler
+    // allocates stack space for every if/case branch local when no optimizations
+    // are enabled. https://github.com/apple/swift-protobuf/issues/1034 and
+    // https://github.com/apple/swift-protobuf/issues/1182
+    try { if let v = self._notification {
+      try visitor.visitSingularMessageField(value: v, fieldNumber: 1)
+    } }()
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  public static func ==(lhs: Anytype_Event.Notification.Update, rhs: Anytype_Event.Notification.Update) -> Bool {
+    if lhs._notification != rhs._notification {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }

@@ -59,4 +59,6 @@ protocol ModulesDIProtocol: AnyObject {
     func homeBottomNavigationPanel() -> HomeBottomNavigationPanelModuleAssemblyProtocol
     func deleteAccount() -> DeleteAccountModuleAssemblyProtocol
     func objectTypeSearch() -> ObjectTypeSearchModuleAssemblyProtocol
+    func serverConfiguration() -> ServerConfigurationModuleAssemblyProtocol
+    func serverDocumentPicker() -> ServerDocumentPickerModuleAssemblyProtocol
 }
