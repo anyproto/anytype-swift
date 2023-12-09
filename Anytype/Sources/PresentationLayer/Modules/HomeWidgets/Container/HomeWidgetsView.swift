@@ -1,8 +1,7 @@
 import Foundation
 import SwiftUI
 
-struct HomeWidgetsView: View {
-    
+struct HomeWidgetsView: View {    
     @StateObject var model: HomeWidgetsViewModel
     @State var dndState = DragState()
     

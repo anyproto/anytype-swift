@@ -24,6 +24,7 @@ final class EditorRouter: NSObject, EditorRouterProtocol, ObjectSettingsCoordina
     private let codeLanguageListModuleAssembly: CodeLanguageListModuleAssemblyProtocol
     private let newSearchModuleAssembly: NewSearchModuleAssemblyProtocol
     private let textIconPickerModuleAssembly: TextIconPickerModuleAssemblyProtocol
+    private let sharingTipCoordinator: SharingTipCoordinatorProtocol
     private let templateService: TemplatesServiceProtocol
     private weak var output: EditorPageModuleOutput?
 
@@ -45,6 +46,7 @@ final class EditorRouter: NSObject, EditorRouterProtocol, ObjectSettingsCoordina
         codeLanguageListModuleAssembly: CodeLanguageListModuleAssemblyProtocol,
         newSearchModuleAssembly: NewSearchModuleAssemblyProtocol,
         textIconPickerModuleAssembly: TextIconPickerModuleAssemblyProtocol,
+        sharingTipCoordinator: SharingTipCoordinatorProtocol,
         templateService: TemplatesServiceProtocol,
         output: EditorPageModuleOutput?
     ) {
@@ -67,7 +69,12 @@ final class EditorRouter: NSObject, EditorRouterProtocol, ObjectSettingsCoordina
         self.newSearchModuleAssembly = newSearchModuleAssembly
         self.textIconPickerModuleAssembly = textIconPickerModuleAssembly
         self.templateService = templateService
+        self.sharingTipCoordinator = sharingTipCoordinator
         self.output = output
+        
+        super.init()
+        
+        Task { @MainActor in sharingTipCoordinator.startObservingTips() }
     }
 
     func showPage(objectId: String) {

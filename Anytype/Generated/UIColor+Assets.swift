@@ -65,6 +65,13 @@ extension UIColor {
   
     // MARK: - Additional
     enum Additional {
+      
+      // MARK: - Indicator
+      enum Indicator {
+        internal static let selected = UIColor(asset: Asset.Additional.Indicator.selected)
+        internal static let unselected = UIColor(asset: Asset.Additional.Indicator.unselected)
+      }
+      internal static let gradient = UIColor(asset: Asset.Additional.gradient)
       internal static let separator = UIColor(asset: Asset.Additional.separator)
       internal static let space = UIColor(asset: Asset.Additional.space)
     }
