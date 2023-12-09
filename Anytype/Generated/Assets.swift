@@ -72,6 +72,11 @@ internal enum Asset {
     static let yellow = ColorAsset(name: "VeryLight/yellow")
   }
   internal enum Additional {
+    internal enum Indicator {
+      static let selected = ColorAsset(name: "Additional/Indicator/selected")
+      static let unselected = ColorAsset(name: "Additional/Indicator/unselected")
+    }
+    static let gradient = ColorAsset(name: "Additional/gradient")
     static let separator = ColorAsset(name: "Additional/separator")
     static let space = ColorAsset(name: "Additional/space")
   }

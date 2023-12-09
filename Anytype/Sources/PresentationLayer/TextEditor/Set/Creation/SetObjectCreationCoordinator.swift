@@ -74,7 +74,12 @@ final class SetObjectCreationCoordinator: SetObjectCreationCoordinatorProtocol {
             collectionId: setDocument.isCollection() ? setDocument.objectId : nil,
             closeAction: { [weak self] details in
                 self?.navigationContext.dismissTopPresented(animated: true) {
-                    guard details.isNil else { return }
+                    guard details.isNil else {
+                        if #available(iOS 17.0, *) {
+                            SharingTip.didCopyText = true
+                        }
+                        return
+                    }
                     self?.toastPresenter.showFailureAlert(message: Loc.Set.Bookmark.Error.message)
                 }
             }

@@ -108,6 +108,14 @@ internal extension ImageAsset {
     static let search = ImageAsset.bundle(name: "x18/Search")
     static let slashMenuArrow = ImageAsset.bundle(name: "x18/Slash Menu Arrow")
   }
+  enum X19 {
+    static let more = ImageAsset.bundle(name: "x19/more")
+    static let plus = ImageAsset.bundle(name: "x19/plus")
+    static let share = ImageAsset.bundle(name: "x19/share")
+  }
+  enum X22 {
+    static let close = ImageAsset.bundle(name: "x22/close")
+  }
   enum X24 {
     static let add = ImageAsset.bundle(name: "x24/Add")
     enum Arrow {
@@ -321,6 +329,11 @@ internal extension ImageAsset {
     }
     static let accountAndData = ImageAsset.bundle(name: "SettingsOld/account_and_data")
     static let setWallpaper = ImageAsset.bundle(name: "SettingsOld/set_wallpaper")
+  }
+  enum SharingTip {
+    static let step1 = ImageAsset.bundle(name: "SharingTip/step1")
+    static let step2 = ImageAsset.bundle(name: "SharingTip/step2")
+    static let step3 = ImageAsset.bundle(name: "SharingTip/step3")
   }
   enum Format {
     static let unknown = ImageAsset.bundle(name: "format/unknown")

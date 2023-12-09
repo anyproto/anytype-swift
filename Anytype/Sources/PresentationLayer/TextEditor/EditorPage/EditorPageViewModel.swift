@@ -29,7 +29,6 @@ final class EditorPageViewModel: EditorPageViewModelProtocol, EditorBottomNaviga
     private let configuration: EditorPageViewModelConfiguration
     private weak var output: EditorPageModuleOutput?
     private let templatesSubscriptionService: TemplatesSubscriptionServiceProtocol
-    
     lazy var subscriptions = [AnyCancellable]()
 
     private let blockActionsService: BlockActionsServiceSingleProtocol

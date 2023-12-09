@@ -122,6 +122,7 @@ extension UIColor.Additional {
     static let collectionInfo = ColorCollectionInfo(
         name: "Additional",
         colors: [
+            ColorInfo(name: "gradient", color: UIColor.Additional.gradient), 
             ColorInfo(name: "separator", color: UIColor.Additional.separator), 
             ColorInfo(name: "space", color: UIColor.Additional.space)
         ]

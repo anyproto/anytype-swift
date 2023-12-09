@@ -73,6 +73,8 @@ final class EditorPageModuleAssembly: EditorPageModuleAssemblyProtocol {
             forPreview: data.isOpenedForPreview
         )
         let navigationContext = NavigationContext(rootViewController: controller)
+        
+    
         let router = EditorRouter(
             viewController: controller,
             navigationContext: navigationContext,
@@ -91,6 +93,10 @@ final class EditorPageModuleAssembly: EditorPageModuleAssemblyProtocol {
             codeLanguageListModuleAssembly: modulesDI.codeLanguageList(),
             newSearchModuleAssembly: modulesDI.newSearch(),
             textIconPickerModuleAssembly: modulesDI.textIconPicker(),
+            sharingTipCoordinator: SharingTipCoordinator(
+                sharingTipAssembly: modulesDI.sharingTip(),
+                navigationContext: navigationContext
+            ),
             templateService: serviceLocator.templatesService,
             output: output
         )

@@ -67,7 +67,7 @@ final class EditorSetModuleAssembly: EditorSetModuleAssemblyProtocol {
             objectTypeProvider: serviceLocator.objectTypeProvider(),
             output: output
         )
-        
+
         let router = EditorSetRouter(
             setDocument: setDocument,
             navigationContext: uiHelpersDI.commonNavigationContext(),
@@ -85,6 +85,10 @@ final class EditorSetModuleAssembly: EditorSetModuleAssemblyProtocol {
             setViewSettingsGroupByModuleAssembly: modulesDI.setViewSettingsGroupByView(),
             editorSetRelationsCoordinatorAssembly: coordinatorsDI.setRelations(),
             setViewPickerCoordinatorAssembly: coordinatorsDI.setViewPicker(),
+            sharingTipCoordinator: SharingTipCoordinator(
+                sharingTipAssembly: modulesDI.sharingTip(),
+                navigationContext: uiHelpersDI.commonNavigationContext()
+            ),
             toastPresenter: uiHelpersDI.toastPresenter(),
             setObjectCreationSettingsCoordinator: coordinatorsDI.setObjectCreationSettings().make(with: uiHelpersDI.commonNavigationContext()),
             output: output

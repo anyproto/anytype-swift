@@ -63,6 +63,7 @@ final class EditorSetRouter: EditorSetRouterProtocol, ObjectSettingsCoordinatorO
     private let setViewSettingsGroupByModuleAssembly: SetViewSettingsGroupByModuleAssemblyProtocol
     private let editorSetRelationsCoordinatorAssembly: SetRelationsCoordinatorAssemblyProtocol
     private let setViewPickerCoordinatorAssembly: SetViewPickerCoordinatorAssemblyProtocol
+    private let sharingTipCoordinator: SharingTipCoordinatorProtocol
     private let toastPresenter: ToastPresenterProtocol
     private let setObjectCreationSettingsCoordinator: SetObjectCreationSettingsCoordinatorProtocol
     private var output: EditorSetModuleOutput?
@@ -84,6 +85,7 @@ final class EditorSetRouter: EditorSetRouterProtocol, ObjectSettingsCoordinatorO
         setViewSettingsGroupByModuleAssembly: SetViewSettingsGroupByModuleAssemblyProtocol,
         editorSetRelationsCoordinatorAssembly: SetRelationsCoordinatorAssemblyProtocol,
         setViewPickerCoordinatorAssembly: SetViewPickerCoordinatorAssemblyProtocol,
+        sharingTipCoordinator: SharingTipCoordinatorProtocol,
         toastPresenter: ToastPresenterProtocol,
         setObjectCreationSettingsCoordinator: SetObjectCreationSettingsCoordinatorProtocol,
         output: EditorSetModuleOutput?
@@ -104,11 +106,13 @@ final class EditorSetRouter: EditorSetRouterProtocol, ObjectSettingsCoordinatorO
         self.setViewSettingsGroupByModuleAssembly = setViewSettingsGroupByModuleAssembly
         self.editorSetRelationsCoordinatorAssembly = editorSetRelationsCoordinatorAssembly
         self.setViewPickerCoordinatorAssembly = setViewPickerCoordinatorAssembly
+        self.sharingTipCoordinator = sharingTipCoordinator
         self.toastPresenter = toastPresenter
         self.setObjectCreationSettingsCoordinator = setObjectCreationSettingsCoordinator
-        self.output = output
+        self.output = output 
+        
+        Task { @MainActor in sharingTipCoordinator.startObservingTips() }
     }
-    
     // MARK: - EditorSetRouterProtocol
     
     @MainActor
