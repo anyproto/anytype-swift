@@ -858,6 +858,13 @@
 "RelativeFormatter.days30" = "30 hari terakhir";
 "RelativeFormatter.older" = "Lebih lama";
 
+// MARK: - Server
+"Server.Network" = "Jaringan";
+"Server.Networks" = "Jaringan";
+"Server.AddButton" = "Tambahkan Jaringan Swaladen (Self-Host)";
+"Server.Anytype" = "Anytype";
+"Server.LocalOnly" = "Hanya Lokal";
+
 // MARK: - Gallery
 "Gallery.Unavailable.Title" = "Galeri sedang dalam pengembangan";
 "Gallery.Unavailable.Message" = "Please use the desktop app for now";
