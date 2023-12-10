@@ -858,6 +858,13 @@
 "RelativeFormatter.days30" = "30 jours précédents";
 "RelativeFormatter.older" = "Plus ancien";
 
+// MARK: - Server
+"Server.Network" = "Réseau";
+"Server.Networks" = "Réseaux";
+"Server.AddButton" = "Ajouter un réseau auto-hébergé";
+"Server.Anytype" = "Anytype";
+"Server.LocalOnly" = "Local seulement";
+
 // MARK: - Gallery
 "Gallery.Unavailable.Title" = "La galerie sera bientôt prise en charge";
 "Gallery.Unavailable.Message" = "Veuillez utiliser l'application de bureau pour le moment";
