@@ -176,6 +176,10 @@ enum AnalyticsEventsName {
     static let deleteSpace = "DeleteSpace"
     static let screenSettingsSpaceIndex = "ScreenSettingsSpaceIndex"
     
+    // Hosting
+    static let selectNetwork = "SelectNetwork"
+    static let uploadNetworkConfiguration = "UploadNetworkConfiguration"
+    
     // Keyboard bar actions
     enum KeyboardBarAction {
         static let slashMenu = "KeyboardBarSlashMenu"
@@ -415,4 +419,14 @@ enum ClickDeleteSpaceWarningType: String {
 
 enum DeleteSpaceType: String {
     case `private` = "Private"
+}
+
+enum SelectNetworkType: String {
+    case anytype = "Anytype"
+    case localOnly = "LocalOnly"
+    case selfHost = "SelfHost"
+}
+
+enum SelectNetworkRoute: String {
+    case onboarding = "Onboarding"
 }

@@ -12,6 +12,7 @@ final class AnytypeAnalytics: AnytypeAnalyticsProtocol {
 
     private enum Keys {
         static let interfaceLang = "interfaceLang"
+        static let networkId = "networkId"
     }
     
     var isEnabled: Bool = true
@@ -54,6 +55,10 @@ final class AnytypeAnalytics: AnytypeAnalyticsProtocol {
         Amplitude.instance().setUserId(userId)
     }
 
+    func setNetworkId(_ networkId: String) {
+        userProperties[Keys.networkId] = networkId
+    }
+    
     func logEvent(_ eventType: String, withEventProperties eventProperties: [AnyHashable : Any]?) {
         
         let eventConfiguration = eventsConfiguration[eventType]

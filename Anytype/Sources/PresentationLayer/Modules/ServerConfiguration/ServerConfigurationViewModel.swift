@@ -47,6 +47,7 @@ final class ServerConfigurationViewModel: ObservableObject {
             onTap: { [weak self] in
                 self?.storage.setupCurrentConfiguration(config: config)
                 self?.updateRows()
+                AnytypeAnalytics.instance().logSelectNetwork(type: config.analyticsType, route: .onboarding)
             }
         )
     }
