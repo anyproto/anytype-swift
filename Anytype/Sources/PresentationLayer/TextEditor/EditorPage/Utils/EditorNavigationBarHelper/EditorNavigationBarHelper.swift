@@ -13,7 +13,7 @@ final class EditorNavigationBarHelper {
     private let doneButton: UIButton
 
     private let settingsItem: UIEditorBarButtonItem
-    private let syncStatusItem = EditorSyncStatusItem(status: .unknown)
+    private let syncStatusItem = EditorSyncStatusItem(statusData: .empty)
 
     private var contentOffsetObservation: NSKeyValueObservation?
     
@@ -119,8 +119,8 @@ extension EditorNavigationBarHelper: EditorNavigationBarHelperProtocol {
         lastMode = mode
     }
     
-    func updateSyncStatus(_ status: SyncStatus) {
-        syncStatusItem.changeStatus(status)
+    func updateSyncStatusData(_ statusData: SyncStatusData) {
+        syncStatusItem.changeStatusData(statusData)
     }
 
     func editorEditingStateDidChange(_ state: EditorEditingState) {

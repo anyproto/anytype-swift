@@ -84,8 +84,6 @@ internal enum Loc {
   internal static let backUpPhrase = Loc.tr("Localizable", "Back up phrase", fallback: "Back up phrase")
   /// Back up your recovery phrase
   internal static let backUpYourRecoveryPhrase = Loc.tr("Localizable", "Back up your recovery phrase", fallback: "Back up your recovery phrase")
-  /// Backed up on one node at least
-  internal static let backedUpOnOneNodeAtLeast = Loc.tr("Localizable", "Backed up on one node at least", fallback: "Backed up on one node at least")
   /// Background
   internal static let background = Loc.tr("Localizable", "Background", fallback: "Background")
   /// Background picture
@@ -1817,6 +1815,26 @@ internal enum Loc {
           /// Version outdated. Please update Anytype
           internal static let description = Loc.tr("Localizable", "Sync.Status.Version.Outdated.Description", fallback: "Version outdated. Please update Anytype")
         }
+      }
+    }
+  }
+  internal enum SyncStatus {
+    internal enum Synced {
+      internal enum Anytype {
+        /// Backed up on Anytype Network
+        internal static let description = Loc.tr("Localizable", "SyncStatus.Synced.Anytype.Description", fallback: "Backed up on Anytype Network")
+      }
+      internal enum AnytypeStaging {
+        /// Backed up on Anytype Staging
+        internal static let description = Loc.tr("Localizable", "SyncStatus.Synced.AnytypeStaging.Description", fallback: "Backed up on Anytype Staging")
+      }
+      internal enum LocalOnly {
+        /// Local only
+        internal static let description = Loc.tr("Localizable", "SyncStatus.Synced.LocalOnly.Description", fallback: "Local only")
+      }
+      internal enum SelfHosted {
+        /// Backed up on Self-hosted Network
+        internal static let description = Loc.tr("Localizable", "SyncStatus.Synced.SelfHosted.Description", fallback: "Backed up on Self-hosted Network")
       }
     }
   }

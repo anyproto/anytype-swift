@@ -325,8 +325,8 @@ extension EditorPageController: EditorPageViewInput {
         navigationBarHelper.configureNavigationTitle(using: details, templatesCount: templatesCount)
     }
     
-    func update(syncStatus: SyncStatus) {
-        navigationBarHelper.updateSyncStatus(syncStatus)
+    func update(syncStatusData: SyncStatusData) {
+        navigationBarHelper.updateSyncStatusData(syncStatusData)
     }
 
     func update(changes: CollectionDifference<EditorItem>?) {

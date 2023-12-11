@@ -279,9 +279,9 @@ final class EditorPageModuleAssembly: EditorPageModuleAssemblyProtocol {
             objectActionsService: serviceLocator.objectActionsService(),
             searchService: serviceLocator.searchService(),
             editorPageTemplatesHandler: editorPageTemplatesHandler,
-            accountManager: serviceLocator.accountManager(),
             configuration: configuration,
             templatesSubscriptionService: serviceLocator.templatesSubscription(),
+            activeWorkspaceStorage: serviceLocator.activeWorkspaceStorage(),
             output: output
         )
 

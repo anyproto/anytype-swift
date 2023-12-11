@@ -18,23 +18,6 @@ extension SyncStatus {
         }
     }
     
-    var description: String {
-        switch self {
-        case .unknown:
-            return Loc.initializingSync
-        case .offline:
-            return Loc.anytypeNodeIsNotConnected
-        case .syncing:
-            return Loc.downloadingOrUploadingDataToSomeNode
-        case .synced:
-            return Loc.backedUpOnOneNodeAtLeast
-        case .failed:
-            return Loc.failedToSyncTryingAgain
-        case .incompatibleVersion:
-            return Loc.Sync.Status.Version.Outdated.description
-        }
-    }
-    
     var image: UIImage? {
         guard let color else { return nil }
         return ImageBuilder(
