@@ -77,6 +77,8 @@
 "Relation.AddedToLibrary" = "关联“%@”已添加到您的文库";
 "Relation.Deleted" = "已删除的关联";
 "Relation.From.Type" = "来自 %@ 类型";
+"Relation.LinksFrom.Title" = "从";
+"Relation.LinksTo.Title" = "到";
 
 "Relation.Format.Object.Title" = "对象";
 "Relation.Format.Text.Title" = "正文";
@@ -834,6 +836,14 @@
 "Sharing.URL.Text" = "文本块";
 "Sharing.Text.NoteObject" = "笔记对象";
 "Sharing.Text.TextBlock" = "文本块";
+
+// MARK: - Sharing tips
+"Sharing.Tip.Title" = "分享扩展";
+"Sharing.Tip.Button.title" = "显示分享菜单";
+
+"Sharing.Tip.Steps.1" = "单击 iOS 共享按钮";
+"Sharing.Tip.Steps.2" = "Scroll past the app and tap More";
+"Sharing.Tip.Steps.3" = "单击编辑来查找“Anytype”，然后点击";
 
 // MARK: - Initial
 
