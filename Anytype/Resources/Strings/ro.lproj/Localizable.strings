@@ -77,6 +77,8 @@
 "Relation.AddedToLibrary" = "Relația %@ a fost adăugată la biblioteca ta";
 "Relation.Deleted" = "Relație ștearsă";
 "Relation.From.Type" = "Din tipul %@";
+"Relation.LinksFrom.Title" = "from";
+"Relation.LinksTo.Title" = "to";
 
 "Relation.Format.Object.Title" = "Obiect";
 "Relation.Format.Text.Title" = "Text";
@@ -835,6 +837,14 @@
 "Sharing.Text.NoteObject" = "Note object";
 "Sharing.Text.TextBlock" = "Text block";
 
+// MARK: - Sharing tips
+"Sharing.Tip.Title" = "Share Extension";
+"Sharing.Tip.Button.title" = "Show share menu";
+
+"Sharing.Tip.Steps.1" = "Tap the iOS sharing button";
+"Sharing.Tip.Steps.2" = "Scroll past the app and tap More";
+"Sharing.Tip.Steps.3" = "Tap Edit to find “Anytype” and  tap";
+
 // MARK: - Initial
 
 "Initial.UnstableMiddle.Title" = "Warning";
@@ -857,6 +867,13 @@
 "RelativeFormatter.days7" = "Previous 7 days";
 "RelativeFormatter.days30" = "Previous 30 days";
 "RelativeFormatter.older" = "Older";
+
+// MARK: - Server
+"Server.Network" = "Network";
+"Server.Networks" = "Networks";
+"Server.AddButton" = "Add Self-hosted Network";
+"Server.Anytype" = "Anytype";
+"Server.LocalOnly" = "Local-only";
 
 // MARK: - Gallery
 "Gallery.Unavailable.Title" = "Gallery will be supported soon";

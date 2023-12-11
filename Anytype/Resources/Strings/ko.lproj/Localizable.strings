@@ -77,6 +77,8 @@
 "Relation.AddedToLibrary" = "라이브러리에 '%@' 관계 추가됨";
 "Relation.Deleted" = "삭제된 관계";
 "Relation.From.Type" = "%@ 유형으로 부터";
+"Relation.LinksFrom.Title" = "from";
+"Relation.LinksTo.Title" = "to";
 
 "Relation.Format.Object.Title" = "개체";
 "Relation.Format.Text.Title" = "텍스트";
@@ -834,6 +836,14 @@
 "Sharing.URL.Text" = "Text block";
 "Sharing.Text.NoteObject" = "Note object";
 "Sharing.Text.TextBlock" = "Text block";
+
+// MARK: - Sharing tips
+"Sharing.Tip.Title" = "Share Extension";
+"Sharing.Tip.Button.title" = "Show share menu";
+
+"Sharing.Tip.Steps.1" = "Tap the iOS sharing button";
+"Sharing.Tip.Steps.2" = "Scroll past the app and tap More";
+"Sharing.Tip.Steps.3" = "Tap Edit to find “Anytype” and  tap";
 
 // MARK: - Initial
 

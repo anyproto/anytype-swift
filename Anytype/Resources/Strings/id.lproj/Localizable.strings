@@ -77,6 +77,8 @@
 "Relation.AddedToLibrary" = "Relasi ‘%@’ ditambahkan ke pustakamu";
 "Relation.Deleted" = "Relasi terhapus";
 "Relation.From.Type" = "Dari tipe %@";
+"Relation.LinksFrom.Title" = "dari";
+"Relation.LinksTo.Title" = "ke";
 
 "Relation.Format.Object.Title" = "Objek";
 "Relation.Format.Text.Title" = "Teks";
@@ -834,6 +836,14 @@
 "Sharing.URL.Text" = "Blok teks";
 "Sharing.Text.NoteObject" = "Catatan objek";
 "Sharing.Text.TextBlock" = "Blok teks";
+
+// MARK: - Sharing tips
+"Sharing.Tip.Title" = "Bagikan Ekstensi";
+"Sharing.Tip.Button.title" = "Tampilan menu berbagi";
+
+"Sharing.Tip.Steps.1" = "Ketuk tombol berbagi iOS";
+"Sharing.Tip.Steps.2" = "Scroll past the app and tap More";
+"Sharing.Tip.Steps.3" = "Tap Edit to find “Anytype” and  tap";
 
 // MARK: - Initial
 
