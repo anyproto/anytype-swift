@@ -82,6 +82,9 @@ internal enum Asset {
     static let dotSelected = ColorAsset(name: "Auth/dotSelected")
     static let input = ColorAsset(name: "Auth/input")
     static let inputText = ColorAsset(name: "Auth/inputText")
+    static let modalBackground = ColorAsset(name: "Auth/modalBackground")
+    static let modalContent = ColorAsset(name: "Auth/modalContent")
+    static let text = ColorAsset(name: "Auth/text")
   }
   internal enum Background {
     static let black = ColorAsset(name: "Background/black")

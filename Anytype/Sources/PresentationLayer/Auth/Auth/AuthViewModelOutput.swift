@@ -6,4 +6,5 @@ protocol AuthViewModelOutput: AnyObject {
     func onLoginAction() -> AnyView
     func onDebugMenuAction() -> AnyView
     func onUrlAction(_ url: URL)
+    func onSettingsAction() -> AnyView
 }

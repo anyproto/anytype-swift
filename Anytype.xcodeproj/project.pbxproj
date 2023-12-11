@@ -509,6 +509,11 @@
 		2A785B472AFCDDED0020297E /* EditorCoordinatorViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A785B462AFCDDED0020297E /* EditorCoordinatorViewModel.swift */; };
 		2A794B422AD53D3A00BA160F /* SubscriptionStorageProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A794B412AD53D3A00BA160F /* SubscriptionStorageProvider.swift */; };
 		2A794B442AD53D4400BA160F /* SubscriptionStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A794B432AD53D4400BA160F /* SubscriptionStorage.swift */; };
+		2A7BC27B2B1DE54700EB96EB /* NetworkServerConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A7BC27A2B1DE54700EB96EB /* NetworkServerConfig.swift */; };
+		2A7BC27D2B1DF25F00EB96EB /* NetworkServerConfig+View.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A7BC27C2B1DF25F00EB96EB /* NetworkServerConfig+View.swift */; };
+		2A7BC27F2B1E2C4700EB96EB /* ServerConfigurationViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A7BC27E2B1E2C4700EB96EB /* ServerConfigurationViewModel.swift */; };
+		2A7BC2812B1E2C7100EB96EB /* ServerConfigurationRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A7BC2802B1E2C7100EB96EB /* ServerConfigurationRow.swift */; };
+		2A7BC2832B1E2DA400EB96EB /* ServerConfigurationModuleAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A7BC2822B1E2DA400EB96EB /* ServerConfigurationModuleAssembly.swift */; };
 		2A7B124E2B19CC5600E14578 /* GalleryUnavailableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A7B124D2B19CC5600E14578 /* GalleryUnavailableView.swift */; };
 		2A7BD6E628D85993008B735C /* RelationSubscriptionDataBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A7BD6E528D85993008B735C /* RelationSubscriptionDataBuilder.swift */; };
 		2A7BD6E828D8599D008B735C /* RelationSubscriptionDataBuilderProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A7BD6E728D8599D008B735C /* RelationSubscriptionDataBuilderProtocol.swift */; };
@@ -528,8 +533,7 @@
 		2A80D0622ABAFE9200DB0513 /* EditorNavigationBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A80D0612ABAFE9200DB0513 /* EditorNavigationBarView.swift */; };
 		2A816AC72AD7DC1700975BCA /* ServerConfigirationStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A816AC62AD7DC1700975BCA /* ServerConfigirationStorage.swift */; };
 		2A816AC92AD7DFC700975BCA /* ServerConfigurationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A816AC82AD7DFC700975BCA /* ServerConfigurationView.swift */; };
-		2A816ACC2AD7E31F00975BCA /* ServerDocumentPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A816ACB2AD7E31F00975BCA /* ServerDocumentPicker.swift */; };
-		2A816ACE2AD7EDB300975BCA /* ServerConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A816ACD2AD7EDB300975BCA /* ServerConfiguration.swift */; };
+		2A816ACC2AD7E31F00975BCA /* YamlDocumentPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A816ACB2AD7E31F00975BCA /* YamlDocumentPicker.swift */; };
 		2A816AD12AD8069400975BCA /* SpaceView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A816AD02AD8069400975BCA /* SpaceView.swift */; };
 		2A816AD42AD840F500975BCA /* SpaceViewIconInternalViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A816AD32AD840F500975BCA /* SpaceViewIconInternalViewModel.swift */; };
 		2A8302B52B075892002D6655 /* AnytypeNavigationViewBridge.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A8302B42B075892002D6655 /* AnytypeNavigationViewBridge.swift */; };
@@ -730,6 +734,13 @@
 		2AE7ECA2298816F30079F12B /* WidgetObjectListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AE7EC9F298816F30079F12B /* WidgetObjectListView.swift */; };
 		2AE7ECA3298816F30079F12B /* WidgetObjectListInternalViewModelProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AE7ECA0298816F30079F12B /* WidgetObjectListInternalViewModelProtocol.swift */; };
 		2AE7ECA4298816F30079F12B /* WidgetObjectListModuleAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AE7ECA1298816F30079F12B /* WidgetObjectListModuleAssembly.swift */; };
+		2AE85FE92B1F490F00268E9D /* ServerConfigurationCoordinatorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AE85FE82B1F490F00268E9D /* ServerConfigurationCoordinatorView.swift */; };
+		2AE85FEB2B1F491900268E9D /* ServerConfigurationCoordinatorViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AE85FEA2B1F491900268E9D /* ServerConfigurationCoordinatorViewModel.swift */; };
+		2AE85FED2B1F4A0C00268E9D /* ServerConfigurationCoordinatorAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AE85FEC2B1F4A0C00268E9D /* ServerConfigurationCoordinatorAssembly.swift */; };
+		2AE85FEF2B1F4BD800268E9D /* ServerDocumentPickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AE85FEE2B1F4BD800268E9D /* ServerDocumentPickerView.swift */; };
+		2AE85FF12B1F4BFA00268E9D /* ServerDocumentPickerViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AE85FF02B1F4BFA00268E9D /* ServerDocumentPickerViewModel.swift */; };
+		2AE85FF32B1F4D8A00268E9D /* ServerDocumentPickerModuleAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AE85FF22B1F4D8A00268E9D /* ServerDocumentPickerModuleAssembly.swift */; };
+		2AE85FF52B1F4ED500268E9D /* ServerConfigurationModuleOutput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AE85FF42B1F4ED500268E9D /* ServerConfigurationModuleOutput.swift */; };
 		2AE85FF72B20D85900268E9D /* EditorPageViewState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AE85FF62B20D85900268E9D /* EditorPageViewState.swift */; };
 		2AE906E9296FFE820044A10A /* TextIconPickerModuleAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AE906E8296FFE820044A10A /* TextIconPickerModuleAssembly.swift */; };
 		2AE906F1297043A60044A10A /* EditorSetRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AE906F0297043A60044A10A /* EditorSetRouter.swift */; };
@@ -2173,6 +2184,11 @@
 		2A785B462AFCDDED0020297E /* EditorCoordinatorViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditorCoordinatorViewModel.swift; sourceTree = "<group>"; };
 		2A794B412AD53D3A00BA160F /* SubscriptionStorageProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubscriptionStorageProvider.swift; sourceTree = "<group>"; };
 		2A794B432AD53D4400BA160F /* SubscriptionStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubscriptionStorage.swift; sourceTree = "<group>"; };
+		2A7BC27A2B1DE54700EB96EB /* NetworkServerConfig.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkServerConfig.swift; sourceTree = "<group>"; };
+		2A7BC27C2B1DF25F00EB96EB /* NetworkServerConfig+View.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NetworkServerConfig+View.swift"; sourceTree = "<group>"; };
+		2A7BC27E2B1E2C4700EB96EB /* ServerConfigurationViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServerConfigurationViewModel.swift; sourceTree = "<group>"; };
+		2A7BC2802B1E2C7100EB96EB /* ServerConfigurationRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServerConfigurationRow.swift; sourceTree = "<group>"; };
+		2A7BC2822B1E2DA400EB96EB /* ServerConfigurationModuleAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServerConfigurationModuleAssembly.swift; sourceTree = "<group>"; };
 		2A7B124D2B19CC5600E14578 /* GalleryUnavailableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GalleryUnavailableView.swift; sourceTree = "<group>"; };
 		2A7BD6E528D85993008B735C /* RelationSubscriptionDataBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RelationSubscriptionDataBuilder.swift; sourceTree = "<group>"; };
 		2A7BD6E728D8599D008B735C /* RelationSubscriptionDataBuilderProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RelationSubscriptionDataBuilderProtocol.swift; sourceTree = "<group>"; };
@@ -2192,8 +2208,7 @@
 		2A80D0612ABAFE9200DB0513 /* EditorNavigationBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditorNavigationBarView.swift; sourceTree = "<group>"; };
 		2A816AC62AD7DC1700975BCA /* ServerConfigirationStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServerConfigirationStorage.swift; sourceTree = "<group>"; };
 		2A816AC82AD7DFC700975BCA /* ServerConfigurationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServerConfigurationView.swift; sourceTree = "<group>"; };
-		2A816ACB2AD7E31F00975BCA /* ServerDocumentPicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServerDocumentPicker.swift; sourceTree = "<group>"; };
-		2A816ACD2AD7EDB300975BCA /* ServerConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServerConfiguration.swift; sourceTree = "<group>"; };
+		2A816ACB2AD7E31F00975BCA /* YamlDocumentPicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YamlDocumentPicker.swift; sourceTree = "<group>"; };
 		2A816AD02AD8069400975BCA /* SpaceView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpaceView.swift; sourceTree = "<group>"; };
 		2A816AD32AD840F500975BCA /* SpaceViewIconInternalViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpaceViewIconInternalViewModel.swift; sourceTree = "<group>"; };
 		2A8302B42B075892002D6655 /* AnytypeNavigationViewBridge.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnytypeNavigationViewBridge.swift; sourceTree = "<group>"; };
@@ -2398,6 +2413,13 @@
 		2AE7EC9F298816F30079F12B /* WidgetObjectListView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WidgetObjectListView.swift; sourceTree = "<group>"; };
 		2AE7ECA0298816F30079F12B /* WidgetObjectListInternalViewModelProtocol.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WidgetObjectListInternalViewModelProtocol.swift; sourceTree = "<group>"; };
 		2AE7ECA1298816F30079F12B /* WidgetObjectListModuleAssembly.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WidgetObjectListModuleAssembly.swift; sourceTree = "<group>"; };
+		2AE85FE82B1F490F00268E9D /* ServerConfigurationCoordinatorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServerConfigurationCoordinatorView.swift; sourceTree = "<group>"; };
+		2AE85FEA2B1F491900268E9D /* ServerConfigurationCoordinatorViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServerConfigurationCoordinatorViewModel.swift; sourceTree = "<group>"; };
+		2AE85FEC2B1F4A0C00268E9D /* ServerConfigurationCoordinatorAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServerConfigurationCoordinatorAssembly.swift; sourceTree = "<group>"; };
+		2AE85FEE2B1F4BD800268E9D /* ServerDocumentPickerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServerDocumentPickerView.swift; sourceTree = "<group>"; };
+		2AE85FF02B1F4BFA00268E9D /* ServerDocumentPickerViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServerDocumentPickerViewModel.swift; sourceTree = "<group>"; };
+		2AE85FF22B1F4D8A00268E9D /* ServerDocumentPickerModuleAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServerDocumentPickerModuleAssembly.swift; sourceTree = "<group>"; };
+		2AE85FF42B1F4ED500268E9D /* ServerConfigurationModuleOutput.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServerConfigurationModuleOutput.swift; sourceTree = "<group>"; };
 		2AE85FF62B20D85900268E9D /* EditorPageViewState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditorPageViewState.swift; sourceTree = "<group>"; };
 		2AE906E8296FFE820044A10A /* TextIconPickerModuleAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextIconPickerModuleAssembly.swift; sourceTree = "<group>"; };
 		2AE906F0297043A60044A10A /* EditorSetRouter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditorSetRouter.swift; sourceTree = "<group>"; };
@@ -4069,7 +4091,6 @@
 				53FF7C6C26F8F8E400A5A592 /* iCloudBackupConfigurator.swift */,
 				2E9B46612A4F2723000541EA /* MiddlewareMerticsConfigurator.swift */,
 				2A5BC4C82A791AED004FAABF /* ViewProvidersConfigurator.swift */,
-				2A816ACD2AD7EDB300975BCA /* ServerConfiguration.swift */,
 				2A081A2D2AE7B3CF0040178D /* TipsConfiguration.swift */,
 			);
 			path = Configurators;
@@ -5633,6 +5654,7 @@
 		2A7DCDDB292E4A4E001919B4 /* Flows */ = {
 			isa = PBXGroup;
 			children = (
+				2AE85FE72B1F48D700268E9D /* ServerConfiguration */,
 				2A80D0452ABADCC700DB0513 /* EditorSetFlow */,
 				2A80D0442ABADCBC00DB0513 /* EditorPageFlow */,
 				2A80D0432ABADCA800DB0513 /* EditorFlow */,
@@ -5681,6 +5703,7 @@
 			isa = PBXGroup;
 			children = (
 				2A816AC62AD7DC1700975BCA /* ServerConfigirationStorage.swift */,
+				2A7BC27A2B1DE54700EB96EB /* NetworkServerConfig.swift */,
 			);
 			path = ServerConfigirationStorage;
 			sourceTree = "<group>";
@@ -5689,7 +5712,11 @@
 			isa = PBXGroup;
 			children = (
 				2A816AC82AD7DFC700975BCA /* ServerConfigurationView.swift */,
-				2A816ACB2AD7E31F00975BCA /* ServerDocumentPicker.swift */,
+				2A7BC27E2B1E2C4700EB96EB /* ServerConfigurationViewModel.swift */,
+				2A7BC27C2B1DF25F00EB96EB /* NetworkServerConfig+View.swift */,
+				2A7BC2802B1E2C7100EB96EB /* ServerConfigurationRow.swift */,
+				2A7BC2822B1E2DA400EB96EB /* ServerConfigurationModuleAssembly.swift */,
+				2AE85FF42B1F4ED500268E9D /* ServerConfigurationModuleOutput.swift */,
 			);
 			path = ServerConfiguration;
 			sourceTree = "<group>";
@@ -5995,6 +6022,7 @@
 		2ABAF2B62938E53A003C4730 /* Modules */ = {
 			isa = PBXGroup;
 			children = (
+				2AE85FE42B1F48B700268E9D /* ServerDocumentPicker */,
 				2AF205B52ABD874C0027F3EA /* HomeNavigationContainer */,
 				2AD239052A8A05AC00F7697A /* SpaceCreate */,
 				2A2B33252A7B9A01004BD906 /* SpaceSwitch */,
@@ -6002,6 +6030,7 @@
 				2ACEAE422984015700B467CE /* WidgetType */,
 				2A9486522950A399007A5586 /* HomeWidgets */,
 				2ABAF2B72938E548003C4730 /* CodeLanguage */,
+				2A816ACA2AD7E30D00975BCA /* ServerConfiguration */,
 			);
 			path = Modules;
 			sourceTree = "<group>";
@@ -6297,6 +6326,27 @@
 				2AD37D59299121D30012409E /* WidgetObjectListViewModel.swift */,
 			);
 			path = WidgetObjectList;
+			sourceTree = "<group>";
+		};
+		2AE85FE42B1F48B700268E9D /* ServerDocumentPicker */ = {
+			isa = PBXGroup;
+			children = (
+				2A816ACB2AD7E31F00975BCA /* YamlDocumentPicker.swift */,
+				2AE85FEE2B1F4BD800268E9D /* ServerDocumentPickerView.swift */,
+				2AE85FF02B1F4BFA00268E9D /* ServerDocumentPickerViewModel.swift */,
+				2AE85FF22B1F4D8A00268E9D /* ServerDocumentPickerModuleAssembly.swift */,
+			);
+			path = ServerDocumentPicker;
+			sourceTree = "<group>";
+		};
+		2AE85FE72B1F48D700268E9D /* ServerConfiguration */ = {
+			isa = PBXGroup;
+			children = (
+				2AE85FE82B1F490F00268E9D /* ServerConfigurationCoordinatorView.swift */,
+				2AE85FEA2B1F491900268E9D /* ServerConfigurationCoordinatorViewModel.swift */,
+				2AE85FEC2B1F4A0C00268E9D /* ServerConfigurationCoordinatorAssembly.swift */,
+			);
+			path = ServerConfiguration;
 			sourceTree = "<group>";
 		};
 		2AE906E7296FFE720044A10A /* Modules */ = {
@@ -9009,7 +9059,6 @@
 		C91AFEEB270B4C9C005F9386 /* Debug */ = {
 			isa = PBXGroup;
 			children = (
-				2A816ACA2AD7E30D00975BCA /* ServerConfiguration */,
 				0A996BAD23EDBC09000FDC9C /* FeatureFlags */,
 				1247BCA627FF3827005F2DB4 /* FeedbackGeneratorExamplesView.swift */,
 				1247BCAB27FF3A0C005F2DB4 /* FeedbackGeneratorExample.swift */,
@@ -9764,7 +9813,6 @@
 				2AA8108029A3D8E8007DD64B /* WidgetObjectListRowModel.swift in Sources */,
 				2A4373722906808700A1C4D6 /* InlineMarkdownListener.swift in Sources */,
 				3DAE1CB0273EA208009A72F3 /* EditorSetView.swift in Sources */,
-				2A816ACE2AD7EDB300975BCA /* ServerConfiguration.swift in Sources */,
 				53D408CA27F1D3AB00495335 /* UIPasteboardExtension.swift in Sources */,
 				3D24913527BD271900821595 /* EventsBunch.swift in Sources */,
 				2E0797C62A09678C006F0FD7 /* AuthCoordinatorAssembly.swift in Sources */,
@@ -9793,6 +9841,7 @@
 				2A8C00FB29C4ADE500309C14 /* SettingsTextField.swift in Sources */,
 				2AE671DE2901896400118F56 /* UIView+DynamicBorderColor.swift in Sources */,
 				2AFD69D92987BC5B0006D792 /* WidgetTypeCreateObjectViewModel.swift in Sources */,
+				2AE85FEF2B1F4BD800268E9D /* ServerDocumentPickerView.swift in Sources */,
 				2AE1559A2A31C6170049C387 /* ListWidgetCompactRow.swift in Sources */,
 				8624C8612A6E577E0065CBC0 /* EditorPageViewModelConfiguration.swift in Sources */,
 				2A8A2DCA2AB9956000105549 /* AppAction.swift in Sources */,
@@ -9856,6 +9905,7 @@
 				2A17643A283E2245002853D3 /* ContentUrlBuilder.swift in Sources */,
 				129C54C927FC4EA200C390C7 /* NewRelationView.swift in Sources */,
 				2AA0209528D3523000321A66 /* SetSubscriptionDataBuilder.swift in Sources */,
+				2AE85FEB2B1F491900268E9D /* ServerConfigurationCoordinatorViewModel.swift in Sources */,
 				12426A2A26DCFA1300693B1F /* KFScalingType.swift in Sources */,
 				2E4758922A1BC54F00A6FEB9 /* JoinFlowState.swift in Sources */,
 				EA57F41C26B99937007D4292 /* MarkupViewModel.swift in Sources */,
@@ -9959,6 +10009,7 @@
 				2A30735128AD04D7003673DF /* TopAlertView.swift in Sources */,
 				3DDD3D0F26AEB55700B5673A /* BlockFile+MediaData.swift in Sources */,
 				3DB1CA0B27293156000D2779 /* MiddlewareConfiguration.swift in Sources */,
+				2AE85FED2B1F4A0C00268E9D /* ServerConfigurationCoordinatorAssembly.swift in Sources */,
 				2AA4E51B29E8547B008632EB /* BlockWidgetLayout+Analytics.swift in Sources */,
 				2ADF94D429CDAFB000F6FFCC /* EnvironmentConfiguration.swift in Sources */,
 				2E7C4471289842E10062287C /* DataviewFilter+Update.swift in Sources */,
@@ -10068,6 +10119,7 @@
 				2A081A2E2AE7B3CF0040178D /* TipsConfiguration.swift in Sources */,
 				2ACD86F629C316C90082E861 /* BlockWidgetInfo.swift in Sources */,
 				8673528B2AA8BC00003F92DC /* URL+Middleware.swift in Sources */,
+				2A7BC27F2B1E2C4700EB96EB /* ServerConfigurationViewModel.swift in Sources */,
 				2A7208B72AF3B67D006D88CF /* SegmentLine.swift in Sources */,
 				866B43082ABAE4C10028DDAE /* ObjectHeaderInteractor.swift in Sources */,
 				2A6693712A7104EA007747DD /* SpaceIconImageGuideline.swift in Sources */,
@@ -10231,7 +10283,7 @@
 				0A2ADCE62496C72A00FA135D /* ObjectActionsServiceProtocol.swift in Sources */,
 				2AB2C22428AD23FD000191F8 /* AlertOpenerProtocol.swift in Sources */,
 				2A0BAD3129E020A3005BC5D9 /* Task+Extensions.swift in Sources */,
-				2A816ACC2AD7E31F00975BCA /* ServerDocumentPicker.swift in Sources */,
+				2A816ACC2AD7E31F00975BCA /* YamlDocumentPicker.swift in Sources */,
 				2A947B422A30E3EC00119140 /* ListWidgetRowModel.swift in Sources */,
 				1256840427E0C606003A8251 /* NewSearchViewModel+ItemCreationMode.swift in Sources */,
 				EAADB1AE2678D5FB004B0AF2 /* NSLayoutManager+Convenience.swift in Sources */,
@@ -10398,6 +10450,7 @@
 				3DCC549226D3B568002517AC /* BlockBookmarkOnlyUrlConfiguration.swift in Sources */,
 				2A6E04A6298D05AF0023B33D /* OpenedDocumentsProvider.swift in Sources */,
 				129C54D227FC7A2800C390C7 /* RelationFormatsListViewModel.swift in Sources */,
+				2AE85FF52B1F4ED500268E9D /* ServerConfigurationModuleOutput.swift in Sources */,
 				2A2B33372A7BE5E8004BD906 /* SpaceWidgetView.swift in Sources */,
 				125B6ED026F235F400BCD7D6 /* SlashMenuAssembly.swift in Sources */,
 				2AFF7AC2299CDA4B00B7746B /* WidgetObjectListBinViewModel.swift in Sources */,
@@ -10415,6 +10468,7 @@
 				2A673C1329B0BD2100E3D672 /* DebugMenuModuleAssembly.swift in Sources */,
 				2AF4C3DE295D82A700FD7153 /* WidgetsSubmoduleDI.swift in Sources */,
 				2E1146D2293125610057C753 /* SetKanbanColumnSettingsView.swift in Sources */,
+				2A7BC2812B1E2C7100EB96EB /* ServerConfigurationRow.swift in Sources */,
 				C961582027AC2AD400AE8848 /* FocusSubjectsHolder.swift in Sources */,
 				2AECFD4028993C77000E9CFB /* RelationValueCoordinatorProtocol.swift in Sources */,
 				1247BC8727FEE504005F2DB4 /* MultiselectObjectTypesSearchViewModel.swift in Sources */,
@@ -10761,6 +10815,7 @@
 				2A2C330528928A7C008BC326 /* RelationValueCoordinatorAssembly.swift in Sources */,
 				2AC429A629B784280002AD05 /* BaseDocumentProtocol+Home.swift in Sources */,
 				2AA8108E29A6697A007DD64B /* HomeWidgetSubmoduleModel.swift in Sources */,
+				2A7BC27B2B1DE54700EB96EB /* NetworkServerConfig.swift in Sources */,
 				2EC7FB9F2A5EF7FD00491F99 /* LoginLoadingRoute.swift in Sources */,
 				535E02A8274FE5A600E1AF8C /* RelationBlockContentConfiguration.swift in Sources */,
 				12C8440726FCEC1800D64B8D /* ObjectHeaderFilledConfiguration.swift in Sources */,
@@ -10841,6 +10896,7 @@
 				2EAA14052AA63918000A712A /* SetRelationsViewModuleAssembly.swift in Sources */,
 				2EE36CD82AF535C30043AA8D /* SetObjectCreationCoordinatorAssembly.swift in Sources */,
 				2EA2B7D42AB2113B00F1F49F /* SetViewSettingsListMode.swift in Sources */,
+				2AE85FE92B1F490F00268E9D /* ServerConfigurationCoordinatorView.swift in Sources */,
 				53FF7C4E26F7DB3C00A5A592 /* AnytypeSharedAudioplayer.swift in Sources */,
 				EA20CDD926122CCF00DBA9FE /* VideoBlockContentViewConfiguration.swift in Sources */,
 				C92DCD93272990FD00A03D91 /* ChangeTypeAccessoryViewModel.swift in Sources */,
@@ -10885,6 +10941,7 @@
 				2AF4261829AF50AD00753B17 /* PersonalizationModuleAssembly.swift in Sources */,
 				12F14CD02758D09F00B976B5 /* RelationEditingViewModelBuilder.swift in Sources */,
 				2AB522082A14D0E7007DEE53 /* FileErrorEventHandler.swift in Sources */,
+				2AE85FF32B1F4D8A00268E9D /* ServerDocumentPickerModuleAssembly.swift in Sources */,
 				2E52DE6C2A1CE77100F16815 /* SoulViewModuleAssembly.swift in Sources */,
 				2AE155922A31BDF50049C387 /* RecentCompactListWidgetModuleAssembly.swift in Sources */,
 				3D932D5826317EFC00C7D1EA /* BaseFilePickerViewModel.swift in Sources */,
@@ -10960,6 +11017,7 @@
 				C9C536AD276C9040003CD3F3 /* Color+Assets.swift in Sources */,
 				C9A59DEF27E0F4D30063D3E1 /* TextBlockLeadingView.swift in Sources */,
 				2E98634F2937B55800304645 /* GroupsSubscription.swift in Sources */,
+				2A7BC27D2B1DF25F00EB96EB /* NetworkServerConfig+View.swift in Sources */,
 				3D5A414B2702E80700F1F6A1 /* SlashMenuActionHandler.swift in Sources */,
 				12C8440226FCE92200D64B8D /* ObjectHeaderEmptyConfiguration.swift in Sources */,
 				3D8D41BB274297FF00F8EBF3 /* EditorSetViewModel.swift in Sources */,
@@ -11137,6 +11195,7 @@
 				2AA8108329A3E0E3007DD64B /* WidgetObjectListMenuOutput.swift in Sources */,
 				2A4E5C8A296C0BAD002BB71B /* HomeBottomPanelView.swift in Sources */,
 				2EC46DDB2AC1B9EA00DEA4BD /* SetObjectCreationSettingsCoordinatorAssembly.swift in Sources */,
+				2A7BC2832B1E2DA400EB96EB /* ServerConfigurationModuleAssembly.swift in Sources */,
 				53FF7CBE26FDD37D00A5A592 /* ObjectAction.swift in Sources */,
 				2A150BE028AA8E9700F2E569 /* TextRelationURLActionViewModel.swift in Sources */,
 				8637768F2A6668680040308E /* TemplatePreviewModel.swift in Sources */,
@@ -11163,6 +11222,7 @@
 				EA57F3D126B83DDF007D4292 /* AttributeState.swift in Sources */,
 				53A4633726287B970097C25E /* ImageExetension.swift in Sources */,
 				535FDE2B27E9C6A60098DBFA /* PasteboardMiddleService.swift in Sources */,
+				2AE85FF12B1F4BFA00268E9D /* ServerDocumentPickerViewModel.swift in Sources */,
 				3D1702412715D22B0079B65B /* SyncStatus+Editor.swift in Sources */,
 				2A1F94722978221400E25782 /* SetListWidgetModuleAssembly.swift in Sources */,
 				3D5A415E2703132800F1F6A1 /* SlashActionStyle.swift in Sources */,
@@ -11509,7 +11569,7 @@
 				CODE_SIGN_ENTITLEMENTS = Anytype/Anytype.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 27;
+				CURRENT_PROJECT_VERSION = 29;
 				DEVELOPMENT_ASSET_PATHS = "Anytype/Resources/Preview\\ Content";
 				DEVELOPMENT_TEAM = J3NXTX3T5S;
 				ENABLE_BITCODE = NO;
@@ -11554,7 +11614,7 @@
 				CODE_SIGN_ENTITLEMENTS = Anytype/Anytype.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Distribution";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 27;
+				CURRENT_PROJECT_VERSION = 29;
 				DEVELOPMENT_ASSET_PATHS = "Anytype/Resources/Preview\\ Content";
 				DEVELOPMENT_TEAM = J3NXTX3T5S;
 				ENABLE_BITCODE = NO;
@@ -11709,7 +11769,7 @@
 				CODE_SIGN_ENTITLEMENTS = Anytype/Anytype.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Distribution";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 27;
+				CURRENT_PROJECT_VERSION = 29;
 				DEVELOPMENT_ASSET_PATHS = "Anytype/Resources/Preview\\ Content";
 				DEVELOPMENT_TEAM = J3NXTX3T5S;
 				ENABLE_BITCODE = NO;
@@ -11775,7 +11835,7 @@
 				CODE_SIGN_ENTITLEMENTS = AnytypeShareExtension/AnytypeShareExtension.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 27;
+				CURRENT_PROJECT_VERSION = 29;
 				DEVELOPMENT_TEAM = "";
 				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = J3NXTX3T5S;
 				GENERATE_INFOPLIST_FILE = YES;
@@ -11807,7 +11867,7 @@
 				CODE_SIGN_ENTITLEMENTS = AnytypeShareExtension/AnytypeShareExtension.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Distribution";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 27;
+				CURRENT_PROJECT_VERSION = 29;
 				DEVELOPMENT_TEAM = "";
 				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = J3NXTX3T5S;
 				GENERATE_INFOPLIST_FILE = YES;
@@ -11840,7 +11900,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Distribution";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 27;
+				CURRENT_PROJECT_VERSION = 29;
 				DEVELOPMENT_TEAM = "";
 				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = J3NXTX3T5S;
 				GENERATE_INFOPLIST_FILE = YES;
@@ -11874,7 +11934,7 @@
 				CODE_SIGN_IDENTITY = "Apple Development";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 27;
+				CURRENT_PROJECT_VERSION = 29;
 				DEVELOPMENT_TEAM = "";
 				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = J3NXTX3T5S;
 				GENERATE_INFOPLIST_FILE = YES;
@@ -11908,7 +11968,7 @@
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
 				CODE_SIGN_IDENTITY = "iPhone Distribution";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 27;
+				CURRENT_PROJECT_VERSION = 29;
 				DEVELOPMENT_TEAM = "";
 				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = J3NXTX3T5S;
 				GENERATE_INFOPLIST_FILE = YES;
@@ -11942,7 +12002,7 @@
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
 				CODE_SIGN_IDENTITY = "iPhone Distribution";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 27;
+				CURRENT_PROJECT_VERSION = 29;
 				DEVELOPMENT_TEAM = "";
 				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = J3NXTX3T5S;
 				GENERATE_INFOPLIST_FILE = YES;

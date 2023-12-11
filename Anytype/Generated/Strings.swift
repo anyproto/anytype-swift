@@ -1470,6 +1470,18 @@ internal enum Loc {
       internal static let scanningNotSupported = Loc.tr("Localizable", "Scanner.Error.Scanning not supported", fallback: "Scanning not supported")
     }
   }
+  internal enum Server {
+    /// Add Self-hosted Network
+    internal static let addButton = Loc.tr("Localizable", "Server.AddButton", fallback: "Add Self-hosted Network")
+    /// Anytype
+    internal static let anytype = Loc.tr("Localizable", "Server.Anytype", fallback: "Anytype")
+    /// Local-only
+    internal static let localOnly = Loc.tr("Localizable", "Server.LocalOnly", fallback: "Local-only")
+    /// Network
+    internal static let network = Loc.tr("Localizable", "Server.Network", fallback: "Network")
+    /// Networks
+    internal static let networks = Loc.tr("Localizable", "Server.Networks", fallback: "Networks")
+  }
   internal enum Set {
     internal enum Bookmark {
       internal enum Create {
