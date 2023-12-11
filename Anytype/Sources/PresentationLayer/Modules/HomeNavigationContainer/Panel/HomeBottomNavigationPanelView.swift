@@ -1,5 +1,6 @@
 import Foundation
 import SwiftUI
+import AnytypeCore
 
 struct HomeBottomNavigationPanelView: View {
     
@@ -13,24 +14,8 @@ struct HomeBottomNavigationPanelView: View {
     @ViewBuilder
     var buttons: some View {
         HStack(alignment: .center, spacing: 40) {
-            if homeMode {
-                Button {
-                    model.onTapForward()
-                } label: {
-                    Image(asset: .X32.Arrow.right)
-                        .foregroundColor(homePath.hasForwardPath() ? .Navigation.buttonActive : .Navigation.buttonInactive)
-                }
-                .transition(.identity)
-                .disabled(!homePath.hasForwardPath())
-            } else {
-                Button {
-                    model.onTapBackward()
-                } label: {
-                    Image(asset: .X32.Arrow.left)
-                        .foregroundColor(.Navigation.buttonActive)
-                }
-                .transition(.identity)
-            }
+            
+            navigationButton
             
             Image(asset: .X32.addNew)
                 .foregroundColor(.Navigation.buttonActive)
@@ -82,6 +67,47 @@ struct HomeBottomNavigationPanelView: View {
         .cornerRadius(16, style: .continuous)
         .padding(.vertical, 10)
         .animation(.default, value: homeMode)
+    }
+    
+    @ViewBuilder
+    private var navigationButton: some View {
+        if FeatureFlags.bottomNavigationAlwaysBackButton {
+            Button {
+                if homeMode {
+                    model.onTapForward()
+                } else {
+                    model.onTapBackward()
+                }
+            } label: {
+                Image(asset: .X32.Arrow.left)
+                    .foregroundColor(navigationButtonDisabled ? .Navigation.buttonInactive : .Navigation.buttonActive)
+            }
+            .transition(.identity)
+            .disabled(navigationButtonDisabled)
+        } else {
+            if homeMode {
+                Button {
+                    model.onTapForward()
+                } label: {
+                    Image(asset: .X32.Arrow.right)
+                        .foregroundColor(homePath.hasForwardPath() ? .Navigation.buttonActive : .Navigation.buttonInactive)
+                }
+                .transition(.identity)
+                .disabled(!homePath.hasForwardPath())
+            } else {
+                Button {
+                    model.onTapBackward()
+                } label: {
+                    Image(asset: .X32.Arrow.left)
+                        .foregroundColor(.Navigation.buttonActive)
+                }
+                .transition(.identity)
+            }
+        }
+    }
+    
+    private var navigationButtonDisabled: Bool {
+        homeMode && !homePath.hasForwardPath()
     }
     
     private var homeMode: Bool {
