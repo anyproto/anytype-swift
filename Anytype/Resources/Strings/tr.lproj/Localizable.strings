@@ -77,6 +77,8 @@
 "Relation.AddedToLibrary" = "%@ bağıntısı kitaplığınıza eklendi";
 "Relation.Deleted" = "Kaldırılmış Bağıntı";
 "Relation.From.Type" = "%@ türünden";
+"Relation.LinksFrom.Title" = "from";
+"Relation.LinksTo.Title" = "to";
 
 "Relation.Format.Object.Title" = "Nesne";
 "Relation.Format.Text.Title" = "Metin";
@@ -835,6 +837,14 @@
 "Sharing.URL.Text" = "Metin bloğu";
 "Sharing.Text.NoteObject" = "Note object";
 "Sharing.Text.TextBlock" = "Metin bloğu";
+
+// MARK: - Sharing tips
+"Sharing.Tip.Title" = "Share Extension";
+"Sharing.Tip.Button.title" = "Show share menu";
+
+"Sharing.Tip.Steps.1" = "Tap the iOS sharing button";
+"Sharing.Tip.Steps.2" = "Scroll past the app and tap More";
+"Sharing.Tip.Steps.3" = "Tap Edit to find “Anytype” and  tap";
 
 // MARK: - Initial
 
