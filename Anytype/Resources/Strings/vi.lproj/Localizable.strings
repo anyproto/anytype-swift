@@ -77,6 +77,8 @@
 "Relation.AddedToLibrary" = "Liên hệ '%@' đã được thêm vào thư viện của bạn";
 "Relation.Deleted" = "Liên hệ đã xoá";
 "Relation.From.Type" = "Của loại '%@'";
+"Relation.LinksFrom.Title" = "from";
+"Relation.LinksTo.Title" = "to";
 
 "Relation.Format.Object.Title" = "Đối tượng";
 "Relation.Format.Text.Title" = "Văn bản";
@@ -835,6 +837,14 @@
 "Sharing.URL.Text" = "Text block";
 "Sharing.Text.NoteObject" = "Note object";
 "Sharing.Text.TextBlock" = "Text block";
+
+// MARK: - Sharing tips
+"Sharing.Tip.Title" = "Share Extension";
+"Sharing.Tip.Button.title" = "Show share menu";
+
+"Sharing.Tip.Steps.1" = "Tap the iOS sharing button";
+"Sharing.Tip.Steps.2" = "Scroll past the app and tap More";
+"Sharing.Tip.Steps.3" = "Tap Edit to find “Anytype” and  tap";
 
 // MARK: - Initial
 
