@@ -77,6 +77,8 @@
 "Relation.AddedToLibrary" = "Relation \"%@\" wurde zur Bibliothek hinzugefügt";
 "Relation.Deleted" = "Gelöschte Relation";
 "Relation.From.Type" = "Vom Typ \"%@\"";
+"Relation.LinksFrom.Title" = "from";
+"Relation.LinksTo.Title" = "to";
 
 "Relation.Format.Object.Title" = "Objekt";
 "Relation.Format.Text.Title" = "Text";
@@ -271,8 +273,8 @@
 "Actions.LinkItself" = "Link zu";
 "Actions.MakeAsTemplate" = "Vorlage erstellen";
 "Actions.TemplateMakeDefault" = "Als Standard festlegen";
-"Actions.CreateWidget.Title" = "To widgets";
-"Actions.CreateWidget.Success" = "New widget was created";
+"Actions.CreateWidget.Title" = "Zu Widgets";
+"Actions.CreateWidget.Success" = "Neues Widget wurde erstellt";
 
 // Object Type
 "Set" = "Set";
@@ -409,8 +411,8 @@
 
 // MARK: - Sets: Featured relations
 "Set.FeaturedRelations.Query" = "Abfrage";
-"Set.FeaturedRelations.RelationsList" = "Relationen:";
-"Set.FeaturedRelations.Relation" = "Relation:";
+"Set.FeaturedRelations.RelationsList" = "Beziehungen:";
+"Set.FeaturedRelations.Relation" = "Beziehung:";
 "Set.FeaturedRelations.Type" = "Typ:";
 
 // MARK: - Sets: Filters search
@@ -467,7 +469,7 @@
 
 "Error" = "Fehler";
 "Unknown error" = "Unbekannter Fehler";
-"Open Type Error" = "Not supported type \"%@\". You can open it via desktop.";
+"Open Type Error" = "Nicht unterstützter Typ „%@“. Sie können ihn über den Desktop öffnen.";
 "Close" = "Schließen";
 "Account is deleted" = "Konto ist Gelöscht";
 "Add phone" = "Telefon hinzufügen";
@@ -727,7 +729,7 @@
 "Widgets.Actions.EditWidgets" = "Widgets bearbeiten";
 "Widgets.Actions.EmptyBin" = "Behälter leeren";
 "Widgets.Actions.AddBelow" = "Unten hinzufügen";
-"Widgets.Actions.NewObject" = "New Object";
+"Widgets.Actions.NewObject" = "Neues Objekt";
 "Widgets.Layout.Screen.Title" = "Widget-Typ";
 "Widgets.Layout.Link.Title" = "Link";
 "Widgets.Layout.Tree.Title" = "Strukturbaum";
@@ -836,6 +838,14 @@
 "Sharing.Text.NoteObject" = "Notiz-Objekt";
 "Sharing.Text.TextBlock" = "Textblock";
 
+// MARK: - Sharing tips
+"Sharing.Tip.Title" = "Share Extension";
+"Sharing.Tip.Button.title" = "Show share menu";
+
+"Sharing.Tip.Steps.1" = "Tap the iOS sharing button";
+"Sharing.Tip.Steps.2" = "Scroll past the app and tap More";
+"Sharing.Tip.Steps.3" = "Tap Edit to find “Anytype” and  tap";
+
 // MARK: - Initial
 
 "Initial.UnstableMiddle.Title" = "Warnung";
@@ -860,12 +870,12 @@
 "RelativeFormatter.older" = "Älter";
 
 // MARK: - Server
-"Server.Network" = "Network";
-"Server.Networks" = "Networks";
-"Server.AddButton" = "Add Self-hosted Network";
+"Server.Network" = "Netzwerk";
+"Server.Networks" = "Netzwerke";
+"Server.AddButton" = "Selbstgehostetes Netzwerk hinzufügen";
 "Server.Anytype" = "Anytype";
-"Server.LocalOnly" = "Local-only";
+"Server.LocalOnly" = "Nur lokal";
 
 // MARK: - Gallery
-"Gallery.Unavailable.Title" = "Gallery will be supported soon";
-"Gallery.Unavailable.Message" = "Please use the desktop app for now";
+"Gallery.Unavailable.Title" = "Galerie wird bald unterstützt";
+"Gallery.Unavailable.Message" = "Bitte verwende die Desktop-App vorläufig";
