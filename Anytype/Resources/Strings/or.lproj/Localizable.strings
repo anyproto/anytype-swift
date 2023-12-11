@@ -77,6 +77,8 @@
 "Relation.AddedToLibrary" = "ଆପଣଙ୍କ ଲାଇବ୍ରେରୀକୁ ସମ୍ପର୍କ '%@' ଯୋଡାଯାଇଛି";
 "Relation.Deleted" = "ବିଲୋପ ହୋଇଥିବା ସମ୍ପର୍କ";
 "Relation.From.Type" = "%@ ପ୍ରକାରରୁ";
+"Relation.LinksFrom.Title" = "from";
+"Relation.LinksTo.Title" = "to";
 
 "Relation.Format.Object.Title" = "ଅବଜେକ୍ଟ";
 "Relation.Format.Text.Title" = "ଲେଖା";
@@ -834,6 +836,14 @@
 "Sharing.URL.Text" = "Text block";
 "Sharing.Text.NoteObject" = "Note object";
 "Sharing.Text.TextBlock" = "Text block";
+
+// MARK: - Sharing tips
+"Sharing.Tip.Title" = "Share Extension";
+"Sharing.Tip.Button.title" = "Show share menu";
+
+"Sharing.Tip.Steps.1" = "Tap the iOS sharing button";
+"Sharing.Tip.Steps.2" = "Scroll past the app and tap More";
+"Sharing.Tip.Steps.3" = "Tap Edit to find “Anytype” and  tap";
 
 // MARK: - Initial
 
