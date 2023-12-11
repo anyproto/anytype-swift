@@ -397,6 +397,7 @@ enum AnalyticsDefaultObjectTypeChangeRoute: String {
 
 enum SelectObjectTypeRoute: String {
     case longTap = "LongTap"
+    case navigation = "Navigation"
 }
 
 enum OnboardingTooltip: String {
