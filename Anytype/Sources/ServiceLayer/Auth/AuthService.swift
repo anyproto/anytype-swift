@@ -76,6 +76,7 @@ final class AuthService: AuthServiceProtocol {
             
             let analyticsId = response.account.info.analyticsID
             AnytypeAnalytics.instance().setUserId(analyticsId)
+            AnytypeAnalytics.instance().setNetworkId(response.account.info.networkID)
             AnytypeAnalytics.instance().logAccountCreate(analyticsId: analyticsId, middleTime: middleTime)
             AnytypeAnalytics.instance().logCreateSpace()
             appErrorLoggerConfiguration.setUserId(analyticsId)
@@ -139,6 +140,7 @@ final class AuthService: AuthServiceProtocol {
             
             let analyticsId = response.account.info.analyticsID
             AnytypeAnalytics.instance().setUserId(analyticsId)
+            AnytypeAnalytics.instance().setNetworkId(response.account.info.networkID)
             AnytypeAnalytics.instance().logAccountOpen(analyticsId: analyticsId)
             appErrorLoggerConfiguration.setUserId(analyticsId)
             
