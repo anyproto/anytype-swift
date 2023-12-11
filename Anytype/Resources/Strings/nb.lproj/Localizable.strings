@@ -77,6 +77,8 @@
 "Relation.AddedToLibrary" = "Relasjonen ’%@’ har blitt lagt til i biblioteket ditt";
 "Relation.Deleted" = "Slettet relasjon";
 "Relation.From.Type" = "Fra type %@";
+"Relation.LinksFrom.Title" = "from";
+"Relation.LinksTo.Title" = "to";
 
 "Relation.Format.Object.Title" = "Objekt";
 "Relation.Format.Text.Title" = "Tekst";
@@ -834,6 +836,14 @@
 "Sharing.URL.Text" = "Tekstblokk";
 "Sharing.Text.NoteObject" = "Notatobjekt";
 "Sharing.Text.TextBlock" = "Tekstblokk";
+
+// MARK: - Sharing tips
+"Sharing.Tip.Title" = "Share Extension";
+"Sharing.Tip.Button.title" = "Show share menu";
+
+"Sharing.Tip.Steps.1" = "Tap the iOS sharing button";
+"Sharing.Tip.Steps.2" = "Scroll past the app and tap More";
+"Sharing.Tip.Steps.3" = "Tap Edit to find “Anytype” and  tap";
 
 // MARK: - Initial
 
