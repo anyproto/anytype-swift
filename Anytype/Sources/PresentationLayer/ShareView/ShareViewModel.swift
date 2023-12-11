@@ -28,6 +28,10 @@ final class ShareViewModel: ObservableObject {
             self?.sharedContentSaveOption = option
             self?.isSaveButtonAvailable = option.isSaveButtonAvailable
         }
+        
+        if #available(iOS 17.0, *) {
+            SharingTip().invalidate(reason: .actionPerformed)
+        }
     }
     
     func tapClose() {

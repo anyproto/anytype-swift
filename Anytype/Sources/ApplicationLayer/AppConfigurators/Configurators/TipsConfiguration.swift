@@ -8,6 +8,7 @@ final class TipsConfiguration: AppConfiguratorProtocol {
         if #available(iOS 17.0, *) {
             do {
                 if FeatureFlags.resetTips {
+                    SharingTip.didCopyText = false
                     try Tips.resetDatastore()
                 }
                 if FeatureFlags.showAllTips {

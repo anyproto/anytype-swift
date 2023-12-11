@@ -1697,6 +1697,22 @@ internal enum Loc {
       /// Text block
       internal static let textBlock = Loc.tr("Localizable", "Sharing.Text.TextBlock", fallback: "Text block")
     }
+    internal enum Tip {
+      /// Share Extension
+      internal static let title = Loc.tr("Localizable", "Sharing.Tip.Title", fallback: "Share Extension")
+      internal enum Button {
+        /// Show share menu
+        internal static let title = Loc.tr("Localizable", "Sharing.Tip.Button.title", fallback: "Show share menu")
+      }
+      internal enum Steps {
+        /// Tap the iOS sharing button
+        internal static let _1 = Loc.tr("Localizable", "Sharing.Tip.Steps.1", fallback: "Tap the iOS sharing button")
+        /// Scroll past the app and tap More
+        internal static let _2 = Loc.tr("Localizable", "Sharing.Tip.Steps.2", fallback: "Scroll past the app and tap More")
+        /// Tap Edit to find “Anytype” and  tap
+        internal static let _3 = Loc.tr("Localizable", "Sharing.Tip.Steps.3", fallback: "Tap Edit to find “Anytype” and  tap")
+      }
+    }
     internal enum Url {
       /// Bookmark object
       internal static let bookmark = Loc.tr("Localizable", "Sharing.URL.Bookmark", fallback: "Bookmark object")
