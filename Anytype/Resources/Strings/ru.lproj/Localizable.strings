@@ -77,6 +77,8 @@
 "Relation.AddedToLibrary" = "Свойство ‘%@’ добавлено в вашу библиотеку";
 "Relation.Deleted" = "Удалённое свойство";
 "Relation.From.Type" = "Из типа %@";
+"Relation.LinksFrom.Title" = "from";
+"Relation.LinksTo.Title" = "to";
 
 "Relation.Format.Object.Title" = "Объект";
 "Relation.Format.Text.Title" = "Текст";
@@ -834,6 +836,14 @@
 "Sharing.URL.Text" = "Текстовый блок";
 "Sharing.Text.NoteObject" = "Note object";
 "Sharing.Text.TextBlock" = "Текстовый блок";
+
+// MARK: - Sharing tips
+"Sharing.Tip.Title" = "Share Extension";
+"Sharing.Tip.Button.title" = "Show share menu";
+
+"Sharing.Tip.Steps.1" = "Tap the iOS sharing button";
+"Sharing.Tip.Steps.2" = "Scroll past the app and tap More";
+"Sharing.Tip.Steps.3" = "Tap Edit to find “Anytype” and  tap";
 
 // MARK: - Initial
 
