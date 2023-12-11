@@ -858,6 +858,13 @@
 "RelativeFormatter.days30" = "Últimos 30 dias";
 "RelativeFormatter.older" = "Mais antigo";
 
+// MARK: - Server
+"Server.Network" = "Network";
+"Server.Networks" = "Networks";
+"Server.AddButton" = "Add Self-hosted Network";
+"Server.Anytype" = "Anytype";
+"Server.LocalOnly" = "Local-only";
+
 // MARK: - Gallery
 "Gallery.Unavailable.Title" = "Gallery will be supported soon";
 "Gallery.Unavailable.Message" = "Please use the desktop app for now";

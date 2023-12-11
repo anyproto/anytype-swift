@@ -858,6 +858,13 @@
 "RelativeFormatter.days30" = "Últimos 30 días";
 "RelativeFormatter.older" = "Más antiguo";
 
+// MARK: - Server
+"Server.Network" = "Red";
+"Server.Networks" = "Redes";
+"Server.AddButton" = "Añadir red autoalojada";
+"Server.Anytype" = "Anytype";
+"Server.LocalOnly" = "Sólo local";
+
 // MARK: - Gallery
 "Gallery.Unavailable.Title" = "La galería será compatible pronto";
 "Gallery.Unavailable.Message" = "Por favor, use la aplicación de escritorio por ahora";

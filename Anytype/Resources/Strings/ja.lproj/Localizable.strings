@@ -858,6 +858,13 @@
 "RelativeFormatter.days30" = "Previous 30 days";
 "RelativeFormatter.older" = "Older";
 
+// MARK: - Server
+"Server.Network" = "ネットワーク";
+"Server.Networks" = "ネットワーク設定";
+"Server.AddButton" = "Add Self-hosted Network";
+"Server.Anytype" = "Anytype";
+"Server.LocalOnly" = "Local-only";
+
 // MARK: - Gallery
 "Gallery.Unavailable.Title" = "ギャラリーはまもなくサポートされます";
 "Gallery.Unavailable.Message" = "現時点ではデスクトップアプリをご利用ください";
