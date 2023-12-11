@@ -272,6 +272,10 @@ internal enum Loc {
   internal static let linkToExistingObject = Loc.tr("Localizable", "Link to existing object", fallback: "Link to existing object")
   /// Add link
   internal static let linkToObject = Loc.tr("Localizable", "Link to object", fallback: "Add link")
+  /// Plural format key: "%#@object@"
+  internal static func linksCount(_ p1: Int) -> String {
+    return Loc.tr("Localizable", "Links count", p1, fallback: "Plural format key: \"%#@object@\"")
+  }
   /// List of related objects
   internal static let listOfRelatedObjects = Loc.tr("Localizable", "List of related objects", fallback: "List of related objects")
   /// Loading, please wait
@@ -1416,6 +1420,14 @@ internal enum Loc {
       internal static func type(_ p1: Any) -> String {
         return Loc.tr("Localizable", "Relation.From.Type", String(describing: p1), fallback: "From type %@")
       }
+    }
+    internal enum LinksFrom {
+      /// from
+      internal static let title = Loc.tr("Localizable", "Relation.LinksFrom.Title", fallback: "from")
+    }
+    internal enum LinksTo {
+      /// to
+      internal static let title = Loc.tr("Localizable", "Relation.LinksTo.Title", fallback: "to")
     }
     internal enum View {
       internal enum Hint {

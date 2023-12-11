@@ -7,15 +7,25 @@ struct ObjectRelationView: View {
     let style: RelationStyle
     
     var body: some View {
-        if options.isNotEmpty {
-            if maxOptions > 0 {
-                moreObjectsView
-            } else {
-                objectsList
-            }
-        } else {
+        if let links = style.links {
+            let title = links.title(with: options.count)
+            linksView(with: title)
+        } else if options.isEmpty {
             RelationsListRowPlaceholderView(hint: hint, style: style)
+        } else if maxOptions > 0 {
+            moreObjectsView
+        } else {
+            objectsList
         }
+    }
+    
+    private func linksView(with title: String) -> some View {
+        AnytypeText(
+            title,
+            style: style.font,
+            color: .Text.secondary
+        )
+        .lineLimit(1)
     }
     
     private var objectsList: some View {
