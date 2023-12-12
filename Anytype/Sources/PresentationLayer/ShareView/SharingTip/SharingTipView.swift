@@ -13,6 +13,7 @@ struct SharingTipView: View {
         }
         .onAppear {
             setupAppearance()
+            AnytypeAnalytics.instance().logOnboardingTooltip(tooltip: .sharingExtension)
         }
     }
     
@@ -83,7 +84,7 @@ struct SharingTipView: View {
         VStack {
             Image(asset: image)
                 .resizable()
-                .aspectRatio(0.494, contentMode: .fit)
+                .aspectRatio(contentMode: .fit)
                 .tag(tag)
             Spacer.fixedHeight(36)
         }

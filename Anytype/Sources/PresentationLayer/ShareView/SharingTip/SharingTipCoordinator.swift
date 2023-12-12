@@ -38,9 +38,7 @@ final class SharingTipCoordinator: SharingTipCoordinatorProtocol {
                     self?.navigationContext.dismissTopPresented(animated: true)
                 },
                 onShareURL:  { [weak self] url in
-                    self?.navigationContext.dismissTopPresented(animated: true) {
-                        self?.shareURL(url: url)
-                    }
+                    self?.shareURL(url: url)
                 }
             ) else {
                 return
