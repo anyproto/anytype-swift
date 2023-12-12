@@ -64,8 +64,6 @@ internal enum Loc {
   internal static let amberBackground = Loc.tr("Localizable", "Amber background", fallback: "Amber background")
   /// Anytype Library
   internal static let anytypeLibrary = Loc.tr("Localizable", "Anytype Library", fallback: "Anytype Library")
-  /// Anytype node is not connected
-  internal static let anytypeNodeIsNotConnected = Loc.tr("Localizable", "Anytype node is not connected", fallback: "Anytype node is not connected")
   /// Appearance
   internal static let appearance = Loc.tr("Localizable", "Appearance", fallback: "Appearance")
   /// Application icon
@@ -312,6 +310,8 @@ internal enum Loc {
   internal static let noName = Loc.tr("Localizable", "No name", fallback: "No name")
   /// No related options here. You can add some
   internal static let noRelatedOptionsHere = Loc.tr("Localizable", "No related options here", fallback: "No related options here. You can add some")
+  /// Node is not connected
+  internal static let nodeIsNotConnected = Loc.tr("Localizable", "Node is not connected", fallback: "Node is not connected")
   /// Non-existent object
   internal static let nonExistentObject = Loc.tr("Localizable", "Non-existent object", fallback: "Non-existent object")
   /// None
@@ -1819,6 +1819,12 @@ internal enum Loc {
     }
   }
   internal enum SyncStatus {
+    internal enum LocalOnly {
+      /// Local only
+      internal static let description = Loc.tr("Localizable", "SyncStatus.LocalOnly.Description", fallback: "Local only")
+      /// Local-only
+      internal static let title = Loc.tr("Localizable", "SyncStatus.LocalOnly.Title", fallback: "Local-only")
+    }
     internal enum Synced {
       internal enum Anytype {
         /// Backed up on Anytype Network
@@ -1827,10 +1833,6 @@ internal enum Loc {
       internal enum AnytypeStaging {
         /// Backed up on Anytype Staging
         internal static let description = Loc.tr("Localizable", "SyncStatus.Synced.AnytypeStaging.Description", fallback: "Backed up on Anytype Staging")
-      }
-      internal enum LocalOnly {
-        /// Local only
-        internal static let description = Loc.tr("Localizable", "SyncStatus.Synced.LocalOnly.Description", fallback: "Local only")
       }
       internal enum SelfHosted {
         /// Backed up on Self-hosted Network

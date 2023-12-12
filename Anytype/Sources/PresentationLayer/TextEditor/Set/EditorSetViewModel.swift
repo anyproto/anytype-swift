@@ -29,7 +29,7 @@ final class EditorSetViewModel: ObservableObject {
     @Published var configurationsDict: OrderedDictionary<String, [SetContentViewItemConfiguration]> = [:]
     @Published var pagitationDataDict: OrderedDictionary<String, EditorSetPaginationData> = [:]
     
-    @Published var syncStatusData = SyncStatusData.empty
+    @Published var syncStatusData: SyncStatusData
     
     var isUpdating = false
 
@@ -163,6 +163,7 @@ final class EditorSetViewModel: ObservableObject {
         self.titleString = setDocument.details?.pageCellTitle ?? ""
         self.activeWorkspaceStorage = activeWorkspaceStorage
         self.output = output
+        self.syncStatusData = SyncStatusData(status: .unknown, networkId: activeWorkspaceStorage.workspaceInfo.networkId)
     }
     
     func setup(router: EditorSetRouterProtocol) {

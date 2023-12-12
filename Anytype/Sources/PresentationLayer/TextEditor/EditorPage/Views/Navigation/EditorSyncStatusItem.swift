@@ -80,7 +80,7 @@ final class EditorSyncStatusItem: UIView {
         updateTitle()
         var configuration = button.configuration
         
-        configuration?.image = statusData.status.image
+        configuration?.image = statusData.image
         button.menu = UIMenu(title: "", children: [ UIAction(title: statusData.description) { _ in } ] )
         
         button.configuration = configuration
@@ -97,7 +97,7 @@ final class EditorSyncStatusItem: UIView {
         button.setTitleColor(state.hiddableTextColor, for: .normal)
 
         configuration?.attributedTitle = buttonAttributedString(
-            with: state.textIsHidden ? nil : statusData.status.title,
+            with: state.textIsHidden ? nil : statusData.title,
             textColor: state.hiddableTextColor
         )
         
