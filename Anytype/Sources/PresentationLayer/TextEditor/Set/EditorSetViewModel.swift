@@ -29,7 +29,7 @@ final class EditorSetViewModel: ObservableObject {
     @Published var configurationsDict: OrderedDictionary<String, [SetContentViewItemConfiguration]> = [:]
     @Published var pagitationDataDict: OrderedDictionary<String, EditorSetPaginationData> = [:]
     
-    @Published var syncStatus: SyncStatus = .unknown
+    @Published var syncStatusData: SyncStatusData
     
     var isUpdating = false
 
@@ -131,6 +131,7 @@ final class EditorSetViewModel: ObservableObject {
     private let setSubscriptionDataBuilder: SetSubscriptionDataBuilderProtocol
     private var subscriptions = [AnyCancellable]()
     private var subscriptionStorages = [String: SubscriptionStorageProtocol]()
+    private let activeWorkspaceStorage: ActiveWorkpaceStorageProtocol
     private var titleSubscription: AnyCancellable?
     private let output: EditorSetModuleOutput?
 
@@ -146,6 +147,7 @@ final class EditorSetViewModel: ObservableObject {
         groupsSubscriptionsHandler: GroupsSubscriptionsHandlerProtocol,
         setSubscriptionDataBuilder: SetSubscriptionDataBuilderProtocol,
         objectTypeProvider: ObjectTypeProviderProtocol,
+        activeWorkspaceStorage: ActiveWorkpaceStorageProtocol,
         output: EditorSetModuleOutput?
     ) {
         self.setDocument = setDocument
@@ -159,7 +161,9 @@ final class EditorSetViewModel: ObservableObject {
         self.groupsSubscriptionsHandler = groupsSubscriptionsHandler
         self.setSubscriptionDataBuilder = setSubscriptionDataBuilder
         self.titleString = setDocument.details?.pageCellTitle ?? ""
+        self.activeWorkspaceStorage = activeWorkspaceStorage
         self.output = output
+        self.syncStatusData = SyncStatusData(status: .unknown, networkId: activeWorkspaceStorage.workspaceInfo.networkId)
     }
     
     func setup(router: EditorSetRouterProtocol) {
@@ -254,7 +258,10 @@ final class EditorSetViewModel: ObservableObject {
         case .dataviewUpdated(clearState: let clearState):
             await onDataviewUpdate(clearState: clearState)
         case .syncStatus(let status):
-            syncStatus = status
+            syncStatusData = SyncStatusData(
+                status: status,
+                networkId: activeWorkspaceStorage.workspaceInfo.networkId
+            )
         }
     }
     
@@ -736,7 +743,8 @@ extension EditorSetViewModel {
         textService: TextService(),
         groupsSubscriptionsHandler: DI.preview.serviceLocator.groupsSubscriptionsHandler(),
         setSubscriptionDataBuilder: SetSubscriptionDataBuilder(activeWorkspaceStorage: DI.preview.serviceLocator.activeWorkspaceStorage()),
-        objectTypeProvider: DI.preview.serviceLocator.objectTypeProvider(),
+        objectTypeProvider: DI.preview.serviceLocator.objectTypeProvider(), 
+        activeWorkspaceStorage: DI.preview.serviceLocator.activeWorkspaceStorage(),
         output: nil
     )
 }

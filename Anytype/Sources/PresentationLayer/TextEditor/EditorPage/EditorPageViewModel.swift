@@ -25,10 +25,10 @@ final class EditorPageViewModel: EditorPageViewModelProtocol, EditorBottomNaviga
     private let blockBuilder: BlockViewModelBuilder
     private let headerModel: ObjectHeaderViewModel
     private let editorPageTemplatesHandler: EditorPageTemplatesHandlerProtocol
-    private let accountManager: AccountManagerProtocol
     private let configuration: EditorPageViewModelConfiguration
-    private weak var output: EditorPageModuleOutput?
     private let templatesSubscriptionService: TemplatesSubscriptionServiceProtocol
+    private let activeWorkspaceStorage: ActiveWorkpaceStorageProtocol
+    private weak var output: EditorPageModuleOutput?
     lazy var subscriptions = [AnyCancellable]()
 
     private let blockActionsService: BlockActionsServiceSingleProtocol
@@ -55,9 +55,9 @@ final class EditorPageViewModel: EditorPageViewModelProtocol, EditorBottomNaviga
         objectActionsService: ObjectActionsServiceProtocol,
         searchService: SearchServiceProtocol,
         editorPageTemplatesHandler: EditorPageTemplatesHandlerProtocol,
-        accountManager: AccountManagerProtocol,
         configuration: EditorPageViewModelConfiguration,
         templatesSubscriptionService: TemplatesSubscriptionServiceProtocol,
+        activeWorkspaceStorage: ActiveWorkpaceStorageProtocol,
         output: EditorPageModuleOutput?
     ) {
         self.viewInput = viewInput
@@ -74,9 +74,9 @@ final class EditorPageViewModel: EditorPageViewModelProtocol, EditorBottomNaviga
         self.objectActionsService = objectActionsService
         self.searchService = searchService
         self.editorPageTemplatesHandler = editorPageTemplatesHandler
-        self.accountManager = accountManager
         self.configuration = configuration
         self.templatesSubscriptionService = templatesSubscriptionService
+        self.activeWorkspaceStorage = activeWorkspaceStorage
         self.output = output
         
         setupLoadingState()
@@ -145,7 +145,12 @@ final class EditorPageViewModel: EditorPageViewModelProtocol, EditorBottomNaviga
 
             updateCursorIfNeeded()
         case .syncStatus(let status):
-            viewInput?.update(syncStatus: status)
+            viewInput?.update(
+                syncStatusData: SyncStatusData(
+                    status: status,
+                    networkId: activeWorkspaceStorage.workspaceInfo.networkId
+                )
+            )
         case .dataSourceUpdate:
             let models = document.children
 

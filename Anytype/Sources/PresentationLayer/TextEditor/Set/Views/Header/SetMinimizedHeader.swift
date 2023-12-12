@@ -54,7 +54,7 @@ struct SetMinimizedHeader: View {
     
     private var syncsStatusItem: some View {
         SwiftUIEditorSyncStatusItem(
-            status: model.syncStatus,
+            statusData: model.syncStatusData,
             state: EditorBarItemState(
                 haveBackground: model.hasTargetObjectId ? false : model.details?.documentCover.isNotNil ?? false,
                 opacity: syncStatusItemOpacity
