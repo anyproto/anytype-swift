@@ -78,7 +78,7 @@
 "Relation.Deleted" = "Gelöschte Relation";
 "Relation.From.Type" = "Vom Typ \"%@\"";
 "Relation.LinksFrom.Title" = "from";
-"Relation.LinksTo.Title" = "to";
+"Relation.LinksTo.Title" = "zu";
 
 "Relation.Format.Object.Title" = "Objekt";
 "Relation.Format.Text.Title" = "Text";
@@ -839,10 +839,10 @@
 "Sharing.Text.TextBlock" = "Textblock";
 
 // MARK: - Sharing tips
-"Sharing.Tip.Title" = "Share Extension";
-"Sharing.Tip.Button.title" = "Show share menu";
+"Sharing.Tip.Title" = "Erweiterung teilen";
+"Sharing.Tip.Button.title" = "Freigabemenü anzeigen";
 
-"Sharing.Tip.Steps.1" = "Tap the iOS sharing button";
+"Sharing.Tip.Steps.1" = "Tippen Sie auf den iOS-Sharing-Button";
 "Sharing.Tip.Steps.2" = "Scroll past the app and tap More";
 "Sharing.Tip.Steps.3" = "Tap Edit to find “Anytype” and  tap";
 
