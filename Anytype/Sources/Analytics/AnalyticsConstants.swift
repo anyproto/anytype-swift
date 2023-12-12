@@ -124,6 +124,7 @@ enum AnalyticsEventsName {
     static let objectRelationShow = "ScreenObjectRelation"
 
     static let onboardingTooltip = "OnboardingTooltip"
+    static let clickOnboardingTooltip = "ClickOnboardingTooltip"
     
     // Navigation events
     static let goBack = "HistoryBack"
@@ -269,6 +270,7 @@ enum AnalyticsEventsRouteKind: String {
     case turnInto = "TurnInto"
     case navigation = "Navigation"
     case widget = "Widget"
+    case sharingExtension = "SharingExtension"
 }
 
 enum AnalyticsEventsRouteView: String {
@@ -405,6 +407,7 @@ enum SelectObjectTypeRoute: String {
 
 enum OnboardingTooltip: String {
     case selectType = "SelectType"
+    case sharingExtension = "SharingExtension"
 }
 
 enum ClickDeleteSpaceRoute: String {
@@ -429,4 +432,9 @@ enum SelectNetworkType: String {
 
 enum SelectNetworkRoute: String {
     case onboarding = "Onboarding"
+}
+
+enum ClickOnboardingTooltipType: String {
+    case showShareMenu = "ShareMenu"
+    case close = "Close"
 }

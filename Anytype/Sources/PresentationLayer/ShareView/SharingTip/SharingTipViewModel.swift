@@ -13,10 +13,12 @@ final class SharingTipViewModel: ObservableObject {
     }
     
     func tapClose() {
+        AnytypeAnalytics.instance().logClickOnboardingTooltip(tooltip: .sharingExtension, type: .close)
         onClose?(())
     }
     
     func tapShowShareMenu() {
+        AnytypeAnalytics.instance().logClickOnboardingTooltip(tooltip: .sharingExtension, type: .showShareMenu)
         sharingTip.invalidate(reason: .tipClosed)
         
         guard let url = URL(string: "https://anytype.io") else {
