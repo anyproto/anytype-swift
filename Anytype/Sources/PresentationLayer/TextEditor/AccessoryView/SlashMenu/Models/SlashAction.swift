@@ -47,8 +47,8 @@ enum SlashAction {
                 return .titleSubtitleDisplayData(
                     SlashMenuItemDisplayData(
                         iconData: .asset(.X40.linkToExistingObject),
-                        title: Loc.linkToObject,
-                        subtitle: Loc.linkToExistingObject
+                        title: Loc.addLink,
+                        subtitle: Loc.SlashMenu.LinkTo.description
                     )
                 )
             case .objectType(let objectType):

@@ -564,8 +564,7 @@
 "Into object" = "Into object";
 "Add below" = "Add below";
 "Change type" = "Change type";
-"Link to existing object" = "Link to existing object";
-"Link to object" = "Add link";
+"SlashMenu.LinkTo.Description" = "Create link to another object";
 "Upload playable audio" = "Upload playable audio";
 "Code snippet" = "Code snippet";
 "Bookmark" = "Bookmark";
