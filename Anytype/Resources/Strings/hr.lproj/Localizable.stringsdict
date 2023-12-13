@@ -13,9 +13,11 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>d</string>
         <key>one</key>
-        <string>%d objekt</string>
+        <string>%d object</string>
+        <key>few</key>
+        <string>%d objects</string>
         <key>other</key>
-        <string>%d objekt</string>
+        <string>%d objects</string>
       </dict>
     </dict>
     <key>Object selected</key>
@@ -29,9 +31,11 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>d</string>
         <key>one</key>
-        <string>%d objekt</string>
+        <string>%d object</string>
+        <key>few</key>
+        <string>%d objects</string>
         <key>other</key>
-        <string>%d objekt</string>
+        <string>%d objects</string>
       </dict>
     </dict>
     <key>Selected blocks</key>
@@ -46,6 +50,8 @@
         <string>d</string>
         <key>one</key>
         <string>%d selected block</string>
+        <key>few</key>
+        <string>%d selected blocks</string>
         <key>other</key>
         <string>%d selected blocks</string>
       </dict>
@@ -61,9 +67,11 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>d</string>
         <key>one</key>
-        <string>%d länk</string>
+        <string>%d link</string>
+        <key>few</key>
+        <string>%d links</string>
         <key>other</key>
-        <string>%d länkar</string>
+        <string>%d links</string>
       </dict>
     </dict>
     <key>Days to deletion account</key>
@@ -78,6 +86,8 @@
         <string>d</string>
         <key>one</key>
         <string>tomorrow</string>
+        <key>few</key>
+        <string>in %d days</string>
         <key>other</key>
         <string>in %d days</string>
       </dict>
@@ -94,6 +104,8 @@
         <string>d</string>
         <key>one</key>
         <string>One object deleted</string>
+        <key>few</key>
+        <string>%d objects deleted</string>
         <key>other</key>
         <string>%d objects deleted</string>
       </dict>
