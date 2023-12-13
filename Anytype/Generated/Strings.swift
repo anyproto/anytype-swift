@@ -264,10 +264,6 @@ internal enum Loc {
   internal static let limitObjectTypes = Loc.tr("Localizable", "Limit object types", fallback: "Limit object types")
   /// Link to
   internal static let linkTo = Loc.tr("Localizable", "Link to", fallback: "Link to")
-  /// Link to existing object
-  internal static let linkToExistingObject = Loc.tr("Localizable", "Link to existing object", fallback: "Link to existing object")
-  /// Add link
-  internal static let linkToObject = Loc.tr("Localizable", "Link to object", fallback: "Add link")
   /// Plural format key: "%#@object@"
   internal static func linksCount(_ p1: Int) -> String {
     return Loc.tr("Localizable", "Links count", p1, fallback: "Plural format key: \"%#@object@\"")
@@ -1761,6 +1757,10 @@ internal enum Loc {
     internal static let table = Loc.tr("Localizable", "SlashMenu.Table", fallback: "Table")
     /// Table of contents
     internal static let tableOfContents = Loc.tr("Localizable", "SlashMenu.TableOfContents", fallback: "Table of contents")
+    internal enum LinkTo {
+      /// Create link to another object
+      internal static let description = Loc.tr("Localizable", "SlashMenu.LinkTo.Description", fallback: "Create link to another object")
+    }
   }
   internal enum SpaceCreate {
     /// Create a space
