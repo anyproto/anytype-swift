@@ -1,6 +1,7 @@
 import Foundation
 import Logger
 import ProtobufMessages
+import AnytypeCore
 
 final class MiddlewareHandlerConfigurator: AppConfiguratorProtocol {
     
@@ -10,10 +11,26 @@ final class MiddlewareHandlerConfigurator: AppConfiguratorProtocol {
         InvocationSettings.handler = invocationHandler
         
         #if DEBUG
-            invocationHandler.enableLogger = true
-            EventLogger.setupLgger()
+            enableRemoteLogger()
         #else
-            EventLogger.disableRemoteLogger()
+            tuneRemoteLogger()
         #endif
+    }
+    
+    private func enableRemoteLogger() {
+        invocationHandler.enableLogger = true
+        EventLogger.setupLgger()
+    }
+    
+    private func disableRemoteLogger() {
+        EventLogger.disableRemoteLogger()
+    }
+    
+    private func tuneRemoteLogger() {
+        if FeatureFlags.remoteLoggingForAnytype {
+            enableRemoteLogger()
+        } else {
+            disableRemoteLogger()
+        }
     }
 }
