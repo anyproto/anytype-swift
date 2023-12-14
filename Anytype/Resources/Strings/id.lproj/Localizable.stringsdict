@@ -55,7 +55,9 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>d</string>
         <key>other</key>
-        <string>%d links</string>
+        <string>%d tautan
+
+%d tautan - tautan</string>
       </dict>
     </dict>
     <key>Days to deletion account</key>
