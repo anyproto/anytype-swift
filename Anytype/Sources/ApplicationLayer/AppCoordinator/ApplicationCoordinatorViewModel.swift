@@ -142,7 +142,11 @@ final class ApplicationCoordinatorViewModel: ObservableObject {
         self.applicationState = applicationState
         switch applicationState {
         case .initial:
-            break
+            if #available(iOS 16.4, *) {
+                break
+            } else {
+                navigationContext.dismissAllPresented(animated: true)
+            }
         case .login:
             loginProcess()
         case .home:
