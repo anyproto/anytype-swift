@@ -17,14 +17,18 @@ struct DateRelationDetailsRowView: View {
     }
     
     private var content: some View {
-        Button {
-            onTap()
-        } label: {
-            HStack(spacing: 0) {
-                AnytypeText(value.title, style: .uxBodyRegular, color: .Text.primary)
-                Spacer()
-                
-                if isSelected {
+        ZStack {
+            Button {
+                onTap()
+            } label: {
+                HStack(spacing: 0) {
+                    AnytypeText(value.title, style: .uxBodyRegular, color: .Text.primary)
+                    Spacer()
+                }
+            }
+            if isSelected {
+                HStack {
+                    Spacer()
                     if value == .exactDay {
                         DatePicker("", selection: $date, displayedComponents: .date)
                             .datePickerStyle(.compact)
@@ -32,13 +36,11 @@ struct DateRelationDetailsRowView: View {
                             .accentColor(Color.System.amber100)
                         Spacer.fixedWidth(4)
                     }
-                    
                     Image(asset: .X24.tick).foregroundColor(.Text.secondary)
                 }
             }
         }
     }
-    
 }
 
 struct DateRelationRowView_Previews: PreviewProvider {
