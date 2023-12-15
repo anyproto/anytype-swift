@@ -544,9 +544,13 @@
 "Unfavorite" = "Unfavorite";
 "Unsplash" = "Unsplash";
 "Go back" = "Go back";
-"Backed up on one node at least" = "Backed up on one node at least";
+"SyncStatus.LocalOnly.Title" = "Local-only";
+"SyncStatus.LocalOnly.Description" = "ローカルのみ";
+"SyncStatus.Synced.Anytype.Description" = "Anytype Networkへのバックアップ";
+"SyncStatus.Synced.AnytypeStaging.Description" = "Anytypeステージ環境へのバックアップ";
+"SyncStatus.Synced.SelfHosted.Description" = "セルフホストネットワークでのバックアップ";
 "Downloading or uploading data to some node" = "Downloading or uploading data to some node";
-"Anytype node is not connected" = "Anytype node is not connected";
+"Node is not connected" = "Node is not connected";
 "Initializing sync" = "Initializing sync";
 "Not syncing" = "Not syncing";
 "Synced" = "Synced";
@@ -560,8 +564,7 @@
 "Into object" = "Into object";
 "Add below" = "Add below";
 "Change type" = "Change type";
-"Link to existing object" = "Link to existing object";
-"Link to object" = "Add link";
+"SlashMenu.LinkTo.Description" = "Create link to another object";
 "Upload playable audio" = "Upload playable audio";
 "Code snippet" = "Code snippet";
 "Bookmark" = "Bookmark";
