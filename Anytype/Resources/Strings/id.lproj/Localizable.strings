@@ -544,9 +544,13 @@
 "Unfavorite" = "Batal favorit";
 "Unsplash" = "Unsplash";
 "Go back" = "Kembali";
-"Backed up on one node at least" = "Tercadangkan di minimal satu simpul";
+"SyncStatus.LocalOnly.Title" = "Hanya Lokal";
+"SyncStatus.LocalOnly.Description" = "Hanya lokal";
+"SyncStatus.Synced.Anytype.Description" = "Tercadangkan ke Jaringan Anytype";
+"SyncStatus.Synced.AnytypeStaging.Description" = "Backed up on Anytype Staging";
+"SyncStatus.Synced.SelfHosted.Description" = "Tercadangkan ke Jaringan Swaladen";
 "Downloading or uploading data to some node" = "Mengunduh atau mengunggah data ke simpul";
-"Anytype node is not connected" = "Simpul Anytype tidak terhubung";
+"Node is not connected" = "Node is not connected";
 "Initializing sync" = "Memulai sinkron";
 "Not syncing" = "Tidak menyinkron";
 "Synced" = "Tersinkron";
@@ -560,8 +564,7 @@
 "Into object" = "Di dalam objek";
 "Add below" = "Tambah di bawah";
 "Change type" = "Ubah tipe";
-"Link to existing object" = "Tautkan ke objek yang telah ada";
-"Link to object" = "Tambahkan tautan";
+"SlashMenu.LinkTo.Description" = "Buat tautan ke objek lain";
 "Upload playable audio" = "Unggah audio yang dapat diputar";
 "Code snippet" = "Potongan kode";
 "Bookmark" = "Markah";
