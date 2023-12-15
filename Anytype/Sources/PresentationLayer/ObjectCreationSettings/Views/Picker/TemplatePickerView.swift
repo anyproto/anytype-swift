@@ -23,20 +23,7 @@ struct TemplatePickerView: View {
             
             Spacer.fixedHeight(6)
             
-            TabView(selection: $viewModel.selectedTab) {
-                ForEach(viewModel.items) { item in
-                        switch item {
-                        case .blank:
-                            blankView
-                                .tag(item.id)
-                        case let .template(model):
-                            model.view
-                                .tag(item.id)
-                        }
-                }
-            }
-            .tabViewStyle(.page(indexDisplayMode: .never))
-            .frame(maxHeight: .infinity)
+            contentView
             
             button
         }
@@ -59,6 +46,29 @@ struct TemplatePickerView: View {
         .anytypeSheet(isPresented: $viewModel.showBlankSettings) {
             viewModel.blankSettingsView()?
                 .frame(height: 100)
+        }
+    }
+    
+    @ViewBuilder
+    private var contentView: some View {
+        // This if for legacy ios untill 16.4
+        if viewModel.items.isNotEmpty {
+            TabView(selection: $viewModel.selectedTab) {
+                ForEach(viewModel.items) { item in
+                        switch item {
+                        case .blank:
+                            blankView
+                                .tag(item.id)
+                        case let .template(model):
+                            model.view
+                                .tag(item.id)
+                        }
+                }
+            }
+            .tabViewStyle(.page(indexDisplayMode: .never))
+            .frame(maxHeight: .infinity)
+        } else {
+            Spacer()
         }
     }
     
