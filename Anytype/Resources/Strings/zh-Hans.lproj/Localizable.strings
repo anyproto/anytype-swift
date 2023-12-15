@@ -544,9 +544,13 @@
 "Unfavorite" = "取消收藏";
 "Unsplash" = "Unsplash 图库";
 "Go back" = "回到";
-"Backed up on one node at least" = "至少在一个节点上备份";
+"SyncStatus.LocalOnly.Title" = "仅本地";
+"SyncStatus.LocalOnly.Description" = "仅本地";
+"SyncStatus.Synced.Anytype.Description" = "备份到 Anytype 网络";
+"SyncStatus.Synced.AnytypeStaging.Description" = "Backed up on Anytype Staging";
+"SyncStatus.Synced.SelfHosted.Description" = "备份到自托管网络";
 "Downloading or uploading data to some node" = "向某个节点下载或上传数据";
-"Anytype node is not connected" = "Anytype 节点未连接";
+"Node is not connected" = "Node is not connected";
 "Initializing sync" = "初始化同步中";
 "Not syncing" = "尚未同步";
 "Synced" = "已同步";
@@ -560,8 +564,7 @@
 "Into object" = "转为对象";
 "Add below" = "在下面添加";
 "Change type" = "更改类型";
-"Link to existing object" = "链接到现有对象";
-"Link to object" = "添加链接";
+"SlashMenu.LinkTo.Description" = "创建链接到另一个对象";
 "Upload playable audio" = "上传可播放音频";
 "Code snippet" = "代码片段";
 "Bookmark" = "书签";
