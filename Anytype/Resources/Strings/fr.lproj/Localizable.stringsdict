@@ -61,7 +61,7 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>d</string>
         <key>one</key>
-        <string>%d link</string>
+        <string>%d lien</string>
         <key>other</key>
         <string>%d links</string>
       </dict>

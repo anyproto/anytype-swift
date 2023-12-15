@@ -273,7 +273,7 @@
 "Actions.LinkItself" = "Tautkan ke";
 "Actions.MakeAsTemplate" = "Buat templat";
 "Actions.TemplateMakeDefault" = "Make default";
-"Actions.CreateWidget.Title" = "To widgets";
+"Actions.CreateWidget.Title" = "Ke widget";
 "Actions.CreateWidget.Success" = "Gawai baru telah dibuat";
 
 // Object Type
@@ -791,7 +791,7 @@
 "FileStorage.LimitError" = "Kamu melewati batas unggah berkas";
 "FileStorage.LimitLegend.Current" = "%@ | %@";
 "FileStorage.LimitLegend.Other" = "Ruang lain | %@";
-"FileStorage.LimitLegend.Free" = "Free | %@";
+"FileStorage.LimitLegend.Free" = "Bebas | %@";
 
 // MARK: - Files List
 "FilesList.Title" = "Berkas tersinkronkan";
@@ -842,8 +842,8 @@
 "Sharing.Tip.Button.title" = "Tampilan menu berbagi";
 
 "Sharing.Tip.Steps.1" = "Ketuk tombol berbagi iOS";
-"Sharing.Tip.Steps.2" = "Scroll past the app and tap More";
-"Sharing.Tip.Steps.3" = "Tap Edit to find “Anytype” and  tap";
+"Sharing.Tip.Steps.2" = "Gulir melewati aplikasi dan ketuk Lainnya";
+"Sharing.Tip.Steps.3" = "Ketuk Sunting untuk menemukan \"Anytype\" dan ketuk";
 
 // MARK: - Initial
 
@@ -877,4 +877,4 @@
 
 // MARK: - Gallery
 "Gallery.Unavailable.Title" = "Galeri sedang dalam pengembangan";
-"Gallery.Unavailable.Message" = "Please use the desktop app for now";
+"Gallery.Unavailable.Message" = "Tolong gunakan aplikasi desktop untuk sekarang";

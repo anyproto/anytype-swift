@@ -5,29 +5,33 @@
     <key>Are you sure you want to delete</key>
     <dict>
       <key>NSStringLocalizedFormatKey</key>
-      <string>Apakah kamu yakin ingin menghapus %#@object@?</string>
+      <string>Are you sure you want to delete %#@object@?</string>
       <key>object</key>
       <dict>
         <key>NSStringFormatSpecTypeKey</key>
         <string>NSStringPluralRuleType</string>
         <key>NSStringFormatValueTypeKey</key>
         <string>d</string>
+        <key>one</key>
+        <string>%d object</string>
         <key>other</key>
-        <string>%d objek</string>
+        <string>%d objects</string>
       </dict>
     </dict>
     <key>Object selected</key>
     <dict>
       <key>NSStringLocalizedFormatKey</key>
-      <string>%#@object@ dipilih</string>
+      <string>%#@object@ selected</string>
       <key>object</key>
       <dict>
         <key>NSStringFormatSpecTypeKey</key>
         <string>NSStringPluralRuleType</string>
         <key>NSStringFormatValueTypeKey</key>
         <string>d</string>
+        <key>one</key>
+        <string>%d object</string>
         <key>other</key>
-        <string>%d objek</string>
+        <string>%d objects</string>
       </dict>
     </dict>
     <key>Selected blocks</key>
@@ -40,8 +44,10 @@
         <string>NSStringPluralRuleType</string>
         <key>NSStringFormatValueTypeKey</key>
         <string>d</string>
+        <key>one</key>
+        <string>%d selected block</string>
         <key>other</key>
-        <string>%d blok terpilih</string>
+        <string>%d selected blocks</string>
       </dict>
     </dict>
     <key>Links count</key>
@@ -54,24 +60,26 @@
         <string>NSStringPluralRuleType</string>
         <key>NSStringFormatValueTypeKey</key>
         <string>d</string>
+        <key>one</key>
+        <string>%d link</string>
         <key>other</key>
-        <string>%d tautan
-
-%d tautan - tautan</string>
+        <string>%d links</string>
       </dict>
     </dict>
     <key>Days to deletion account</key>
     <dict>
       <key>NSStringLocalizedFormatKey</key>
-      <string>Akun ini akan dihapus %#@days@</string>
+      <string>This account will be deleted %#@days@</string>
       <key>days</key>
       <dict>
         <key>NSStringFormatSpecTypeKey</key>
         <string>NSStringPluralRuleType</string>
         <key>NSStringFormatValueTypeKey</key>
         <string>d</string>
+        <key>one</key>
+        <string>tomorrow</string>
         <key>other</key>
-        <string>%d hari lagi</string>
+        <string>in %d days</string>
       </dict>
     </dict>
     <key>Widgets.Actions.BinConfirm</key>
@@ -84,8 +92,10 @@
         <string>NSStringPluralRuleType</string>
         <key>NSStringFormatValueTypeKey</key>
         <string>d</string>
+        <key>one</key>
+        <string>One object deleted</string>
         <key>other</key>
-        <string>%d objek dihapus</string>
+        <string>%d objects deleted</string>
       </dict>
     </dict>
   </dict>

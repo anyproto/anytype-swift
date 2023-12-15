@@ -77,8 +77,8 @@
 "Relation.AddedToLibrary" = "La relation %@ a été ajoutée à votre bibliothèque";
 "Relation.Deleted" = "Relation supprimée";
 "Relation.From.Type" = "À partir du type %@";
-"Relation.LinksFrom.Title" = "from";
-"Relation.LinksTo.Title" = "to";
+"Relation.LinksFrom.Title" = "depuis";
+"Relation.LinksTo.Title" = "à";
 
 "Relation.Format.Object.Title" = "Objet";
 "Relation.Format.Text.Title" = "Texte";
@@ -838,12 +838,12 @@
 "Sharing.Text.TextBlock" = "Bloc de texte";
 
 // MARK: - Sharing tips
-"Sharing.Tip.Title" = "Share Extension";
-"Sharing.Tip.Button.title" = "Show share menu";
+"Sharing.Tip.Title" = "Extension de partage";
+"Sharing.Tip.Button.title" = "Afficher le menu de partage";
 
-"Sharing.Tip.Steps.1" = "Tap the iOS sharing button";
-"Sharing.Tip.Steps.2" = "Scroll past the app and tap More";
-"Sharing.Tip.Steps.3" = "Tap Edit to find “Anytype” and  tap";
+"Sharing.Tip.Steps.1" = "Appuyez sur le bouton de partage iOS";
+"Sharing.Tip.Steps.2" = "Défiler au-delà de l'application et appuyez sur Plus";
+"Sharing.Tip.Steps.3" = "Appuyez sur Modifier pour trouver « Anytype » et appuyez";
 
 // MARK: - Initial
 
