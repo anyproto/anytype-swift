@@ -87,12 +87,18 @@ struct DebugMenu: View {
                     showObjectIcons.toggle()
                 }
             }
-            
             StandardButton("Feedback Generator 🃏", style: .secondaryLarge) {
                 UIImpactFeedbackGenerator(style: .heavy).impactOccurred()
                 showFeedbackGenerators.toggle()
             }
-
+            StandardButton("Export Localstore 📁", style: .secondaryLarge) {
+                UIImpactFeedbackGenerator(style: .heavy).impactOccurred()
+                model.getLocalStoreData()
+            }
+            StandardButton("Debug stack Goroutines 💤", style: .secondaryLarge) {
+                UIImpactFeedbackGenerator(style: .heavy).impactOccurred()
+                model.getGoroutinesData()
+            }
             StandardButton(
                 "Remove Recovery Phrase from device",
                 inProgress: model.isRemovingRecoveryPhraseInProgress,
@@ -110,6 +116,12 @@ struct DebugMenu: View {
         .sheet(isPresented: $showControls) { ControlsExample() }
         .sheet(isPresented: $showColors) { ColorsExample() }
         .sheet(isPresented: $showObjectIcons) { ObjectIconExample() }
+        .sheet(item: $model.localStoreURL) { url in
+            ActivityViewController(activityItems: [url], applicationActivities: nil)
+        }
+        .sheet(item: $model.stackGoroutinesURL) { url in
+            ActivityViewController(activityItems: [url], applicationActivities: nil)
+        }
     }
     
     var toggles: some View {
@@ -130,4 +142,8 @@ struct DebugMenu: View {
         .padding(.horizontal, 20)
         .background(UIColor.systemGroupedBackground.suColor)
     }
+}
+
+extension URL: Identifiable {
+    public var id: String { absoluteString }
 }
