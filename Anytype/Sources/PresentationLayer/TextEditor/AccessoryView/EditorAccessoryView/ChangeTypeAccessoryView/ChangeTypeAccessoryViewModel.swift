@@ -48,7 +48,7 @@ final class ChangeTypeAccessoryViewModel {
     }
     
     private func logSelectObjectType(type: ObjectType) {
-        AnytypeAnalytics.instance().logSelectObjectType(type.analyticsType)
+        AnytypeAnalytics.instance().logSelectObjectType(type.analyticsType, route: .navigation)
     }
 
     private func subscribeOnDocumentChanges() {

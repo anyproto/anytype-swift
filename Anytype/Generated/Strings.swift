@@ -64,8 +64,6 @@ internal enum Loc {
   internal static let amberBackground = Loc.tr("Localizable", "Amber background", fallback: "Amber background")
   /// Anytype Library
   internal static let anytypeLibrary = Loc.tr("Localizable", "Anytype Library", fallback: "Anytype Library")
-  /// Anytype node is not connected
-  internal static let anytypeNodeIsNotConnected = Loc.tr("Localizable", "Anytype node is not connected", fallback: "Anytype node is not connected")
   /// Appearance
   internal static let appearance = Loc.tr("Localizable", "Appearance", fallback: "Appearance")
   /// Application icon
@@ -84,8 +82,6 @@ internal enum Loc {
   internal static let backUpPhrase = Loc.tr("Localizable", "Back up phrase", fallback: "Back up phrase")
   /// Back up your recovery phrase
   internal static let backUpYourRecoveryPhrase = Loc.tr("Localizable", "Back up your recovery phrase", fallback: "Back up your recovery phrase")
-  /// Backed up on one node at least
-  internal static let backedUpOnOneNodeAtLeast = Loc.tr("Localizable", "Backed up on one node at least", fallback: "Backed up on one node at least")
   /// Background
   internal static let background = Loc.tr("Localizable", "Background", fallback: "Background")
   /// Background picture
@@ -268,10 +264,6 @@ internal enum Loc {
   internal static let limitObjectTypes = Loc.tr("Localizable", "Limit object types", fallback: "Limit object types")
   /// Link to
   internal static let linkTo = Loc.tr("Localizable", "Link to", fallback: "Link to")
-  /// Link to existing object
-  internal static let linkToExistingObject = Loc.tr("Localizable", "Link to existing object", fallback: "Link to existing object")
-  /// Add link
-  internal static let linkToObject = Loc.tr("Localizable", "Link to object", fallback: "Add link")
   /// Plural format key: "%#@object@"
   internal static func linksCount(_ p1: Int) -> String {
     return Loc.tr("Localizable", "Links count", p1, fallback: "Plural format key: \"%#@object@\"")
@@ -314,6 +306,8 @@ internal enum Loc {
   internal static let noName = Loc.tr("Localizable", "No name", fallback: "No name")
   /// No related options here. You can add some
   internal static let noRelatedOptionsHere = Loc.tr("Localizable", "No related options here", fallback: "No related options here. You can add some")
+  /// Node is not connected
+  internal static let nodeIsNotConnected = Loc.tr("Localizable", "Node is not connected", fallback: "Node is not connected")
   /// Non-existent object
   internal static let nonExistentObject = Loc.tr("Localizable", "Non-existent object", fallback: "Non-existent object")
   /// None
@@ -1763,6 +1757,10 @@ internal enum Loc {
     internal static let table = Loc.tr("Localizable", "SlashMenu.Table", fallback: "Table")
     /// Table of contents
     internal static let tableOfContents = Loc.tr("Localizable", "SlashMenu.TableOfContents", fallback: "Table of contents")
+    internal enum LinkTo {
+      /// Create link to another object
+      internal static let description = Loc.tr("Localizable", "SlashMenu.LinkTo.Description", fallback: "Create link to another object")
+    }
   }
   internal enum SpaceCreate {
     /// Create a space
@@ -1817,6 +1815,28 @@ internal enum Loc {
           /// Version outdated. Please update Anytype
           internal static let description = Loc.tr("Localizable", "Sync.Status.Version.Outdated.Description", fallback: "Version outdated. Please update Anytype")
         }
+      }
+    }
+  }
+  internal enum SyncStatus {
+    internal enum LocalOnly {
+      /// Local only
+      internal static let description = Loc.tr("Localizable", "SyncStatus.LocalOnly.Description", fallback: "Local only")
+      /// Local-only
+      internal static let title = Loc.tr("Localizable", "SyncStatus.LocalOnly.Title", fallback: "Local-only")
+    }
+    internal enum Synced {
+      internal enum Anytype {
+        /// Backed up on Anytype Network
+        internal static let description = Loc.tr("Localizable", "SyncStatus.Synced.Anytype.Description", fallback: "Backed up on Anytype Network")
+      }
+      internal enum AnytypeStaging {
+        /// Backed up on Anytype Staging
+        internal static let description = Loc.tr("Localizable", "SyncStatus.Synced.AnytypeStaging.Description", fallback: "Backed up on Anytype Staging")
+      }
+      internal enum SelfHosted {
+        /// Backed up on Self-hosted Network
+        internal static let description = Loc.tr("Localizable", "SyncStatus.Synced.SelfHosted.Description", fallback: "Backed up on Self-hosted Network")
       }
     }
   }

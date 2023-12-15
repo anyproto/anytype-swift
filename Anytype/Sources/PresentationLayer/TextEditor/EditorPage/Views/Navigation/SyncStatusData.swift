@@ -1,10 +1,13 @@
 import Services
 import UIKit
-import Kingfisher
 
-extension SyncStatus {
+struct SyncStatusData {
+    let status: SyncStatus
+    let networkId: String
+    
     var title: String {
-        switch self {
+        guard networkId.isNotEmpty else { return Loc.SyncStatus.LocalOnly.title }
+        switch status {
         case .unknown:
             return Loc.preparing
         case .offline:
@@ -19,15 +22,16 @@ extension SyncStatus {
     }
     
     var description: String {
-        switch self {
+        guard networkId.isNotEmpty else { return Loc.SyncStatus.LocalOnly.description }
+        switch status {
         case .unknown:
             return Loc.initializingSync
         case .offline:
-            return Loc.anytypeNodeIsNotConnected
+            return Loc.nodeIsNotConnected
         case .syncing:
             return Loc.downloadingOrUploadingDataToSomeNode
         case .synced:
-            return Loc.backedUpOnOneNodeAtLeast
+            return syncedDescription
         case .failed:
             return Loc.failedToSyncTryingAgain
         case .incompatibleVersion:
@@ -43,11 +47,12 @@ extension SyncStatus {
                 radius: .point(5)
             )
         )
-            .setImageColor(color).build()
+        .setImageColor(color).build()
     }
     
     private var color: UIColor? {
-        switch self {
+        guard networkId.isNotEmpty else { return nil }
+        switch status {
         case .failed, .incompatibleVersion:
             return UIColor.System.red
         case .syncing:
@@ -59,4 +64,20 @@ extension SyncStatus {
         }
     }
     
+    private var syncedDescription: String {
+        if networkId == Constants.anytypeNetworkId {
+            return Loc.SyncStatus.Synced.Anytype.description
+        } else if networkId == Constants.anytypeStagingNetworkId {
+            return Loc.SyncStatus.Synced.AnytypeStaging.description
+        } else {
+            return Loc.SyncStatus.Synced.SelfHosted.description
+        }
+    }
+}
+
+extension SyncStatusData {
+    enum Constants {
+        static let anytypeNetworkId = "N83gJpVd9MuNRZAuJLZ7LiMntTThhPc6DtzWWVjb1M3PouVU"
+        static let anytypeStagingNetworkId = "N9DU6hLkTAbvcpji3TCKPPd3UQWKGyzUxGmgJEyvhByqAjfD"
+    }
 }

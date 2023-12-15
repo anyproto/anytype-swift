@@ -236,11 +236,10 @@ final class BlockViewModelBuilder {
             ) { [weak self] relation in
                 guard let self = self else { return }
 
-                let templateFilter = !(self.document.details?.isTemplateType ?? false)
                 let allowTypeChange = !self.document.objectRestrictions.objectRestriction.contains(.typechange)
                 
                 if relation.key == BundledRelationKey.type.rawValue && 
-                    !self.document.isLocked && allowTypeChange && templateFilter {
+                    !self.document.isLocked && allowTypeChange {
                     self.router.showTypes(
                         selectedObjectId: self.document.details?.type,
                         onSelect: { [weak self] type in

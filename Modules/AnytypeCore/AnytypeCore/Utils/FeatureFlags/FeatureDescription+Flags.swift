@@ -71,6 +71,12 @@ public extension FeatureDescription {
         defaultValue: true
     )
     
+    static let bottomNavigationAlwaysBackButton = FeatureDescription(
+        title: "[Back] in Bottom menu - IOS-2087",
+        type: .feature(author: "joe_pusya@anytype.io", releaseVersion: "0.27.0"),
+        defaultValue: true
+    )
+    
     // MARK: - Debug
     
     static let rainbowViews = FeatureDescription(
@@ -116,6 +122,13 @@ public extension FeatureDescription {
     
     static let showAllTips = FeatureDescription(
         title: "Show all tips 💭 for testing (ignore rules)",
+        type: .debug,
+        defaultValue: false,
+        debugValue: false
+    )
+    
+    static let remoteLoggingForAnytype = FeatureDescription(
+        title: "Enable remote logging for Anytype prod app",
         type: .debug,
         defaultValue: false,
         debugValue: false

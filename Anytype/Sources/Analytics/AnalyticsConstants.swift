@@ -124,6 +124,7 @@ enum AnalyticsEventsName {
     static let objectRelationShow = "ScreenObjectRelation"
 
     static let onboardingTooltip = "OnboardingTooltip"
+    static let clickOnboardingTooltip = "ClickOnboardingTooltip"
     
     // Navigation events
     static let goBack = "HistoryBack"
@@ -175,6 +176,10 @@ enum AnalyticsEventsName {
     static let clickDeleteSpaceWarning = "ClickDeleteSpaceWarning"
     static let deleteSpace = "DeleteSpace"
     static let screenSettingsSpaceIndex = "ScreenSettingsSpaceIndex"
+    
+    // Hosting
+    static let selectNetwork = "SelectNetwork"
+    static let uploadNetworkConfiguration = "UploadNetworkConfiguration"
     
     // Keyboard bar actions
     enum KeyboardBarAction {
@@ -265,6 +270,7 @@ enum AnalyticsEventsRouteKind: String {
     case turnInto = "TurnInto"
     case navigation = "Navigation"
     case widget = "Widget"
+    case sharingExtension = "SharingExtension"
 }
 
 enum AnalyticsEventsRouteView: String {
@@ -397,10 +403,12 @@ enum AnalyticsDefaultObjectTypeChangeRoute: String {
 
 enum SelectObjectTypeRoute: String {
     case longTap = "LongTap"
+    case navigation = "Navigation"
 }
 
 enum OnboardingTooltip: String {
     case selectType = "SelectType"
+    case sharingExtension = "SharingExtension"
 }
 
 enum ClickDeleteSpaceRoute: String {
@@ -415,4 +423,19 @@ enum ClickDeleteSpaceWarningType: String {
 
 enum DeleteSpaceType: String {
     case `private` = "Private"
+}
+
+enum SelectNetworkType: String {
+    case anytype = "Anytype"
+    case localOnly = "LocalOnly"
+    case selfHost = "SelfHost"
+}
+
+enum SelectNetworkRoute: String {
+    case onboarding = "Onboarding"
+}
+
+enum ClickOnboardingTooltipType: String {
+    case showShareMenu = "ShareMenu"
+    case close = "Close"
 }

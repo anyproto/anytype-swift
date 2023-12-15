@@ -174,7 +174,6 @@ final class HomeWidgetsCoordinatorViewModel: ObservableObject,
         return objectTypeSearchModuleAssembly.objectTypeSearchForCreateObject(
             spaceId: activeWorkspaceStorage.workspaceInfo.accountSpaceId
         ) { [weak self] type in
-            AnytypeAnalytics.instance().logSelectObjectType(type.analyticsType, route: .longTap)
             self?.showCreateObjectWithType = false
             self?.createAndShowNewPage(type: type)
         }
@@ -312,6 +311,7 @@ final class HomeWidgetsCoordinatorViewModel: ObservableObject,
                 templateId: type.defaultTemplateId
             )
             AnytypeAnalytics.instance().logCreateObject(objectType: details.analyticsType, route: .navigation, view: .home)
+            AnytypeAnalytics.instance().logSelectObjectType(type.analyticsType, route: .longTap)
             openObject(screenData: details.editorScreenData())
         }
     }

@@ -40,7 +40,8 @@ final class ApplicationCoordinatorAssembly: ApplicationCoordinatorAssemblyProtoc
                 authCoordinatorAssembly: self.coordinatorsDI.authorization(),
                 homeWidgetsCoordinatorAssembly: self.coordinatorsDI.homeWidgets(),
                 deleteAccountModuleAssembly: self.modulesDI.deleteAccount(),
-                initialCoordinatorAssembly: self.coordinatorsDI.initial(),
+                initialCoordinatorAssembly: self.coordinatorsDI.initial(), 
+                debugMenuModuleAssembly: self.modulesDI.debugMenu(),
                 navigationContext: self.uiHelpersDI.commonNavigationContext()
             )
         ).eraseToAnyView()
