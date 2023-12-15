@@ -99,6 +99,10 @@ struct DebugMenu: View {
                 UIImpactFeedbackGenerator(style: .heavy).impactOccurred()
                 model.getGoroutinesData()
             }
+            StandardButton("Export full directory 🤐", style: .secondaryLarge) {
+                UIImpactFeedbackGenerator(style: .heavy).impactOccurred()
+                model.zipWorkingDirectory()
+            }
             StandardButton(
                 "Remove Recovery Phrase from device",
                 inProgress: model.isRemovingRecoveryPhraseInProgress,
@@ -120,6 +124,9 @@ struct DebugMenu: View {
             ActivityViewController(activityItems: [url], applicationActivities: nil)
         }
         .sheet(item: $model.stackGoroutinesURL) { url in
+            ActivityViewController(activityItems: [url], applicationActivities: nil)
+        }
+        .sheet(item: $model.workingDirectoryURL) { url in
             ActivityViewController(activityItems: [url], applicationActivities: nil)
         }
     }

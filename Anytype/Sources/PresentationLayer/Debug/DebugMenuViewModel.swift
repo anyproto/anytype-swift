@@ -8,6 +8,7 @@ final class DebugMenuViewModel: ObservableObject {
     @Published private(set) var isRemovingRecoveryPhraseInProgress = false
     @Published var localStoreURL: URL?
     @Published var stackGoroutinesURL: URL?
+    @Published var workingDirectoryURL: URL?
     @Published private(set) var flags = [FeatureFlagSection]()
     
     private let debugService = DebugService()
@@ -57,6 +58,23 @@ final class DebugMenuViewModel: ObservableObject {
             } catch {
                 anytypeAssertionFailure("Can't export stackGoroutines")
             }
+        }
+    }
+    
+    func zipWorkingDirectory() {
+        LocalAuthService().auth(reason: "Zip working directory") { [weak self] didComplete in
+            guard didComplete, let self else {
+                return
+            }
+            let workingDirectory = LocalRepoService().middlewareRepoPath
+            guard let zipURL = compressFilesToZip(
+                directoryPath: URL(fileURLWithPath: workingDirectory),
+                zipFileName: "workingDirectory.zip"
+            ) else {
+                return
+            }
+            
+            workingDirectoryURL = zipURL
         }
     }
     
