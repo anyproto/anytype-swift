@@ -77,12 +77,6 @@ public extension FeatureDescription {
         defaultValue: true
     )
     
-    static let fixLogOut = FeatureDescription(
-        title: "Spaces menu was not closed when logging out - IOS-2099",
-        type: .feature(author: "joe_pusya@anytype.io", releaseVersion: "0.27.0"),
-        defaultValue: true
-    )
-    
     // MARK: - Debug
     
     static let rainbowViews = FeatureDescription(
