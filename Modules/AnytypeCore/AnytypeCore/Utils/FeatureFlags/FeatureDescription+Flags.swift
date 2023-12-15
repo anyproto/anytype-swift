@@ -126,11 +126,4 @@ public extension FeatureDescription {
         defaultValue: false,
         debugValue: false
     )
-    
-    static let remoteLoggingForAnytype = FeatureDescription(
-        title: "Enable remote logging for Anytype prod app",
-        type: .debug,
-        defaultValue: false,
-        debugValue: false
-    )
 }
