@@ -21,6 +21,7 @@ final class BaseDocument: BaseDocumentProtocol {
     private let updateSubject = PassthroughSubject<DocumentUpdate, Never>()
     private let relationBuilder: RelationsBuilder
     private let relationDetailsStorage: RelationDetailsStorageProtocol
+    private let objectTypeProvider: ObjectTypeProviderProtocol
     private let viewModelSetter: DocumentViewModelSetterProtocol
     
     private var subscriptions = [AnyCancellable]()
@@ -75,7 +76,8 @@ final class BaseDocument: BaseDocumentProtocol {
         objectId: BlockId,
         forPreview: Bool,
         blockActionsService: BlockActionsServiceSingleProtocol,
-        relationDetailsStorage: RelationDetailsStorageProtocol
+        relationDetailsStorage: RelationDetailsStorageProtocol,
+        objectTypeProvider: ObjectTypeProviderProtocol
     ) {
         self.objectId = objectId
         self.forPreview = forPreview
@@ -98,6 +100,7 @@ final class BaseDocument: BaseDocumentProtocol {
         self.blockActionsService = blockActionsService
         self.relationBuilder = RelationsBuilder()
         self.relationDetailsStorage = relationDetailsStorage
+        self.objectTypeProvider = objectTypeProvider
         
         setup()
     }
@@ -180,10 +183,11 @@ final class BaseDocument: BaseDocumentProtocol {
         }
         
         Publishers
-            .CombineLatest(
+            .CombineLatest3(
                 relationDetailsStorage.relationsDetailsPublisher,
                 // Depends on different objects: relation options and relation objects
                 // Subscriptions for each object will be complicated. Subscribes to any document updates.
+                objectTypeProvider.syncPublisher,
                 updatePublisher
             )
             .map { [weak self] _ -> ParsedRelations in
