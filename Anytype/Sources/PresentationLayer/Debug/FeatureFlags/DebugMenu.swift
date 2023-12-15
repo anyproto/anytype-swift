@@ -95,6 +95,10 @@ struct DebugMenu: View {
                 UIImpactFeedbackGenerator(style: .heavy).impactOccurred()
                 model.getLocalStoreData()
             }
+            StandardButton("Debug stack Goroutines 💤", style: .secondaryLarge) {
+                UIImpactFeedbackGenerator(style: .heavy).impactOccurred()
+                model.getGoroutinesData()
+            }
             StandardButton(
                 "Remove Recovery Phrase from device",
                 inProgress: model.isRemovingRecoveryPhraseInProgress,
@@ -113,7 +117,10 @@ struct DebugMenu: View {
         .sheet(isPresented: $showColors) { ColorsExample() }
         .sheet(isPresented: $showObjectIcons) { ObjectIconExample() }
         .sheet(item: $model.localStoreURL) { url in
-            ActivityViewController(activityItems: [url], applicationActivities: nil).eraseToAnyView()
+            ActivityViewController(activityItems: [url], applicationActivities: nil)
+        }
+        .sheet(item: $model.stackGoroutinesURL) { url in
+            ActivityViewController(activityItems: [url], applicationActivities: nil)
         }
     }
     

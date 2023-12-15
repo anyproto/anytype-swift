@@ -7,7 +7,10 @@ final class DebugMenuViewModel: ObservableObject {
     
     @Published private(set) var isRemovingRecoveryPhraseInProgress = false
     @Published var localStoreURL: URL?
+    @Published var stackGoroutinesURL: URL?
     @Published private(set) var flags = [FeatureFlagSection]()
+    
+    private let debugService = DebugService()
     
     init() {
         updateFlags()
@@ -30,8 +33,6 @@ final class DebugMenuViewModel: ObservableObject {
     }
     
     func getLocalStoreData() {
-        let debugService = DebugService()
-        
         Task { @MainActor in
             do {
                 let path = try await debugService.exportLocalStore()
@@ -41,6 +42,20 @@ final class DebugMenuViewModel: ObservableObject {
                 self.localStoreURL = zipURL
             } catch {
                 anytypeAssertionFailure("Can't export localstore")
+            }
+        }
+    }
+    
+    func getGoroutinesData() {
+        Task { @MainActor in
+            do {
+                let path = try await debugService.exportStackGoroutines()
+                guard let zipURL = compressFilesToZip(directoryPath: URL(fileURLWithPath: path), zipFileName: "stackGoroutines.zip") else {
+                    return
+                }
+                self.stackGoroutinesURL = zipURL
+            } catch {
+                anytypeAssertionFailure("Can't export stackGoroutines")
             }
         }
     }
