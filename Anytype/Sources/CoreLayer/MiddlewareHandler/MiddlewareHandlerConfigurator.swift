@@ -13,7 +13,7 @@ final class MiddlewareHandlerConfigurator: AppConfiguratorProtocol {
         #if DEBUG
             enableRemoteLogger()
         #else
-            tuneRemoteLogger()
+            disableRemoteLogger()
         #endif
     }
     
@@ -24,13 +24,5 @@ final class MiddlewareHandlerConfigurator: AppConfiguratorProtocol {
     
     private func disableRemoteLogger() {
         EventLogger.disableRemoteLogger()
-    }
-    
-    private func tuneRemoteLogger() {
-        if FeatureFlags.remoteLoggingForAnytype {
-            enableRemoteLogger()
-        } else {
-            disableRemoteLogger()
-        }
     }
 }
