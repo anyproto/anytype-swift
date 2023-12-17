@@ -550,7 +550,7 @@
 "SyncStatus.Synced.AnytypeStaging.Description" = "Backed up on Anytype Staging";
 "SyncStatus.Synced.SelfHosted.Description" = "Tercadangkan ke Jaringan Swaladen";
 "Downloading or uploading data to some node" = "Mengunduh atau mengunggah data ke simpul";
-"Node is not connected" = "Node is not connected";
+"Node is not connected" = "Simpul tidak terhubung";
 "Initializing sync" = "Memulai sinkron";
 "Not syncing" = "Tidak menyinkron";
 "Synced" = "Tersinkron";
