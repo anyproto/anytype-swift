@@ -77,7 +77,7 @@
 "Relation.AddedToLibrary" = "Relation \"%@\" wurde zur Bibliothek hinzugefügt";
 "Relation.Deleted" = "Gelöschte Relation";
 "Relation.From.Type" = "Vom Typ \"%@\"";
-"Relation.LinksFrom.Title" = "from";
+"Relation.LinksFrom.Title" = "von";
 "Relation.LinksTo.Title" = "zu";
 
 "Relation.Format.Object.Title" = "Objekt";
@@ -545,12 +545,12 @@
 "Unsplash" = "Unsplash";
 "Go back" = "Zurückgehen";
 "SyncStatus.LocalOnly.Title" = "Nur lokal";
-"SyncStatus.LocalOnly.Description" = "Local only";
-"SyncStatus.Synced.Anytype.Description" = "Backed up on Anytype Network";
+"SyncStatus.LocalOnly.Description" = "Nur lokal";
+"SyncStatus.Synced.Anytype.Description" = "Im Anytype-Netzwerk gesichert";
 "SyncStatus.Synced.AnytypeStaging.Description" = "Backed up on Anytype Staging";
-"SyncStatus.Synced.SelfHosted.Description" = "Backed up on Self-hosted Network";
+"SyncStatus.Synced.SelfHosted.Description" = "Im selbst gehosteten Netzwerk gesichert";
 "Downloading or uploading data to some node" = "Herunterladen oder Hochladen von Daten zu einem Knoten";
-"Node is not connected" = "Node is not connected";
+"Node is not connected" = "Knoten ist nicht verbunden";
 "Initializing sync" = "Initialisiere Synchronisation";
 "Not syncing" = "Nicht synchronisiert";
 "Synced" = "Synchronisiert";
@@ -564,7 +564,7 @@
 "Into object" = "In ein Objekt";
 "Add below" = "Unten hinzufügen";
 "Change type" = "Typ ändern";
-"SlashMenu.LinkTo.Description" = "Create link to another object";
+"SlashMenu.LinkTo.Description" = "Link zu einem anderen Objekt erstellen";
 "Upload playable audio" = "Audio hochladen";
 "Code snippet" = "Code-Ausschnitt";
 "Bookmark" = "Lesezeichen";
@@ -846,7 +846,7 @@
 "Sharing.Tip.Button.title" = "Freigabemenü anzeigen";
 
 "Sharing.Tip.Steps.1" = "Tippen Sie auf den iOS-Sharing-Button";
-"Sharing.Tip.Steps.2" = "Scroll past the app and tap More";
+"Sharing.Tip.Steps.2" = "Scrolle über die App hinaus und tippe auf Mehr";
 "Sharing.Tip.Steps.3" = "Tap Edit to find “Anytype” and  tap";
 
 // MARK: - Initial
