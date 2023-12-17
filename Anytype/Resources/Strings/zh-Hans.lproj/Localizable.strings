@@ -550,7 +550,7 @@
 "SyncStatus.Synced.AnytypeStaging.Description" = "Backed up on Anytype Staging";
 "SyncStatus.Synced.SelfHosted.Description" = "备份到自托管网络";
 "Downloading or uploading data to some node" = "向某个节点下载或上传数据";
-"Node is not connected" = "Node is not connected";
+"Node is not connected" = "节点未连接";
 "Initializing sync" = "初始化同步中";
 "Not syncing" = "尚未同步";
 "Synced" = "已同步";
