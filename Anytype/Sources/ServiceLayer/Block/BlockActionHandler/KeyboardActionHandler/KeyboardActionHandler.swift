@@ -49,6 +49,7 @@ final class KeyboardActionHandler: KeyboardActionHandlerProtocol {
         case .enterForEmpty:
             if text.contentType.isList {
                 service.turnInto(.text, blockId: info.id)
+                logChangeBlockTextStyle()
                 return
             }
             
@@ -94,6 +95,7 @@ final class KeyboardActionHandler: KeyboardActionHandlerProtocol {
     private func onDelete(text: BlockText, info: BlockInformation, parent: BlockInformation) async {
         if text.contentType.isList || text.contentType == .quote || text.contentType == .callout {
             service.turnInto(.text, blockId: info.id)
+            logChangeBlockTextStyle()
             return
         }
         
@@ -118,6 +120,7 @@ final class KeyboardActionHandler: KeyboardActionHandlerProtocol {
     private func enterForEmpty(text: BlockText, info: BlockInformation) {
         if text.contentType != .text {
             service.turnInto(.text, blockId: info.id)
+            logChangeBlockTextStyle()
             return
         }
         
@@ -159,6 +162,10 @@ final class KeyboardActionHandler: KeyboardActionHandlerProtocol {
                 newBlockContentType: type
             )
         }
+    }
+    
+    private func logChangeBlockTextStyle() {
+        AnytypeAnalytics.instance().logChangeBlockStyle(.text)
     }
 }
 

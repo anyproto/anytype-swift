@@ -22,9 +22,7 @@ final class TextService: TextServiceProtocol {
         }).invoke()
     }
     
-    func setStyle(contextId: BlockId, blockId: BlockId, style: Style) async throws {
-        AnytypeAnalytics.instance().logChangeBlockStyle(style)
-        
+    func setStyle(contextId: BlockId, blockId: BlockId, style: Style) async throws {        
         _ = try await ClientCommands.blockTextSetStyle(.with {
             $0.contextID = contextId
             $0.blockID = blockId
