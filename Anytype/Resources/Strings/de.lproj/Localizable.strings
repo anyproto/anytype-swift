@@ -547,7 +547,7 @@
 "SyncStatus.LocalOnly.Title" = "Nur lokal";
 "SyncStatus.LocalOnly.Description" = "Nur lokal";
 "SyncStatus.Synced.Anytype.Description" = "Im Anytype-Netzwerk gesichert";
-"SyncStatus.Synced.AnytypeStaging.Description" = "Backed up on Anytype Staging";
+"SyncStatus.Synced.AnytypeStaging.Description" = "In Anytype Staging gesichert";
 "SyncStatus.Synced.SelfHosted.Description" = "Im selbst gehosteten Netzwerk gesichert";
 "Downloading or uploading data to some node" = "Herunterladen oder Hochladen von Daten zu einem Knoten";
 "Node is not connected" = "Knoten ist nicht verbunden";
