@@ -36,9 +36,6 @@ final class TextService: TextServiceProtocol {
     }
     
     func split(contextId: BlockId, blockId: BlockId, range: NSRange, style: Style, mode: SplitMode) async throws -> BlockId {
-        let textContentType = BlockContent.text(.empty(contentType: style)).type.analyticsValue
-        AnytypeAnalytics.instance().logCreateBlock(type: textContentType, style: String(describing: style))
-
         let response = try await ClientCommands.blockSplit(.with {
             $0.contextID = contextId
             $0.blockID = blockId

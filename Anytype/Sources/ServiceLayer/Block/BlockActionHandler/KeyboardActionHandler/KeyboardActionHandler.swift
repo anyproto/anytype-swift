@@ -63,16 +63,18 @@ final class KeyboardActionHandler: KeyboardActionHandlerProtocol {
                     range: NSRange(location: 0, length: 0),
                     newBlockContentType: .text
                 )
+                logCreateBlock(with: .text)
             }
         case let .enterInside(string, range):
-            
+            let newBlockContentType = contentTypeForSplit(text.contentType, blockId: info.id)
             service.split(
                 string,
                 blockId: info.id,
                 mode: splitMode(info),
                 range: range,
-                newBlockContentType: contentTypeForSplit(text.contentType, blockId: info.id)
+                newBlockContentType: newBlockContentType
             )
+            logCreateBlock(with: newBlockContentType)
 
         case let .enterAtTheEnd(string, range):
             guard string.string.isNotEmpty else {
@@ -84,6 +86,7 @@ final class KeyboardActionHandler: KeyboardActionHandlerProtocol {
             
         case let .enterAtTheBegining(_, range):
             service.split(currentString, blockId: info.id, mode: .bottom, range: range, newBlockContentType: text.contentType)
+            logCreateBlock(with: text.contentType)
         case .delete:
             Task {
                 await onDelete(text: text, info: info, parent: parent)
@@ -161,11 +164,17 @@ final class KeyboardActionHandler: KeyboardActionHandlerProtocol {
                 range: range,
                 newBlockContentType: type
             )
+            logCreateBlock(with: type)
         }
     }
     
     private func logChangeBlockTextStyle() {
         AnytypeAnalytics.instance().logChangeBlockStyle(.text)
+    }
+    
+    private func logCreateBlock(with style: BlockText.Style) {
+        let textContentType = BlockContent.text(.empty(contentType: style)).type.analyticsValue
+        AnytypeAnalytics.instance().logCreateBlock(type: textContentType, style: String(describing: style))
     }
 }
 
