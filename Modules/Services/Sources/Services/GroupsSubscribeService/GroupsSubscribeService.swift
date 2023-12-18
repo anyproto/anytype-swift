@@ -1,9 +1,10 @@
-import Services
 import ProtobufMessages
 
-final class GroupsSubscribeService: GroupsSubscribeServiceProtocol {
+public final class GroupsSubscribeService: GroupsSubscribeServiceProtocol {
     
-    func startSubscription(
+    public init() {}
+    
+    public func startSubscription(
         id: String,
         relationKey: String,
         filters: [DataviewFilter],
@@ -20,7 +21,7 @@ final class GroupsSubscribeService: GroupsSubscribeServiceProtocol {
         return GroupsSubscribeResult(subscriptionId: response.subID, groups: response.groups)
     }
     
-    func stopSubscription(id: String) async throws {
+    public func stopSubscription(id: String) async throws {
         _ = try await ClientCommands.objectSearchUnsubscribe(.with {
             $0.subIds = [id]
         }).invoke()
