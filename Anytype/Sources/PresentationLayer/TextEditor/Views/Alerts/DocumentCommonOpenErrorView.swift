@@ -10,7 +10,7 @@ struct DocumentCommonOpenErrorView: View {
     var body: some View {
         BottomAlertView(
             title: Loc.error,
-            message: Loc.unknownError
+            message: Loc.CommonOpenErrorView.message
         ) {
             BottomAlertButton(text: Loc.close, style: .secondary, loading: false) {
                 dismiss()
