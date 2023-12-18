@@ -9,7 +9,7 @@ final class TextIconPickerViewModel: ObservableObject, ObjectIconPickerViewModel
     let isRemoveButtonAvailable: Bool = false
 
     private let fileService: FileActionsServiceProtocol
-    private let textService: TextServiceProtocol
+    private let textServiceHandler: TextServiceProtocol
     private let contextId: BlockId
     private let objectId: BlockId
     private let spaceId: String
@@ -17,13 +17,13 @@ final class TextIconPickerViewModel: ObservableObject, ObjectIconPickerViewModel
 
     init(
         fileService: FileActionsServiceProtocol,
-        textService: TextServiceProtocol,
+        textServiceHandler: TextServiceProtocol,
         contextId: BlockId,
         objectId: BlockId,
         spaceId: String
     ) {
         self.fileService = fileService
-        self.textService = textService
+        self.textServiceHandler = textServiceHandler
         self.contextId = contextId
         self.objectId = objectId
         self.spaceId = spaceId
@@ -32,7 +32,7 @@ final class TextIconPickerViewModel: ObservableObject, ObjectIconPickerViewModel
 
     func setEmoji(_ emojiUnicode: String)  {
         Task {
-            try await textService.setTextIcon(
+            try await textServiceHandler.setTextIcon(
                 contextId: contextId,
                 blockId: objectId,
                 imageHash: "",
@@ -45,7 +45,7 @@ final class TextIconPickerViewModel: ObservableObject, ObjectIconPickerViewModel
         let safeSendableItemProvider = SafeSendable(value: itemProvider)
         Task {
             let hash = try await fileService.uploadImage(spaceId: spaceId, source: .itemProvider(safeSendableItemProvider.value))
-            try await textService.setTextIcon(
+            try await textServiceHandler.setTextIcon(
                 contextId: contextId,
                 blockId: objectId,
                 imageHash: hash.value,

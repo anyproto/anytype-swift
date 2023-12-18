@@ -1,10 +1,8 @@
 import Foundation
 import Combine
-import UIKit
-import Services
 import ProtobufMessages
 
-protocol TextServiceProtocol {
+public protocol TextServiceProtocol {
     typealias Style = BlockText.Style
     typealias SplitMode = Anytype_Rpc.Block.Split.Request.Mode
     

@@ -41,7 +41,7 @@ final class CreateObjectModuleAssembly: CreateObjectModuleAssemblyProtocol {
             objectId: objectId,
             blockId: blockId,
             relationService: serviceLocator.relationService(objectId: objectId),
-            textService: serviceLocator.textService,
+            textServiceHandler: serviceLocator.textServiceHandler(),
             openToEditAction: openToEditAction,
             closeAction: closeAction
         )
