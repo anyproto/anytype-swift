@@ -550,7 +550,7 @@
 "SyncStatus.Synced.AnytypeStaging.Description" = "Backed up on Anytype Staging";
 "SyncStatus.Synced.SelfHosted.Description" = "Backed up on Self-hosted Network";
 "Downloading or uploading data to some node" = "Descargando o subiendo datos a algún nodo";
-"Node is not connected" = "Node is not connected";
+"Node is not connected" = "El nodo no está conectado";
 "Initializing sync" = "Inicializando la sincronización";
 "Not syncing" = "No sincronizado";
 "Synced" = "Sincronizado";
