@@ -26,6 +26,7 @@ final class SettingsCoordinator: SettingsCoordinatorProtocol,
     private let urlOpener: URLOpenerProtocol
     private let activeWorkspaceStorage: ActiveWorkpaceStorageProtocol
     private let serviceLocator: ServiceLocator
+    private let applicationStateService: ApplicationStateServiceProtocol
     
     init(
         navigationContext: NavigationContextProtocol,
@@ -57,6 +58,7 @@ final class SettingsCoordinator: SettingsCoordinatorProtocol,
         self.urlOpener = urlOpener
         self.activeWorkspaceStorage = activeWorkspaceStorage
         self.serviceLocator = serviceLocator
+        self.applicationStateService = serviceLocator.applicationStateService()
     }
     
     func startFlow() {
@@ -116,7 +118,9 @@ final class SettingsCoordinator: SettingsCoordinatorProtocol,
                 self.navigationContext.present(module)
             },
             onLogout: { [weak self] in
-                self?.navigationContext.dismissAllPresented(animated: false)
+                self?.navigationContext.dismissAllPresented(animated: true, completion: { 
+                    self?.applicationStateService.state = .initial
+                })
             })
         navigationContext.present(module)
     }

@@ -28,7 +28,6 @@ final class DashboardAlertsAssembly: DashboardAlertsAssemblyProtocol {
     func logoutAlert(onBackup: @escaping () -> Void, onLogout: @escaping () -> Void) -> UIViewController {
         let model = DashboardLogoutAlertModel(
             authService: serviceLocator.authService(),
-            applicationStateService: serviceLocator.applicationStateService(),
             onBackup: onBackup, 
             onLogout: onLogout
         )
