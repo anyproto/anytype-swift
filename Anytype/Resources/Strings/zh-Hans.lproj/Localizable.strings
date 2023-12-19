@@ -547,7 +547,7 @@
 "SyncStatus.LocalOnly.Title" = "仅本地";
 "SyncStatus.LocalOnly.Description" = "仅本地";
 "SyncStatus.Synced.Anytype.Description" = "备份到 Anytype 网络";
-"SyncStatus.Synced.AnytypeStaging.Description" = "Backed up on Anytype Staging";
+"SyncStatus.Synced.AnytypeStaging.Description" = "备份到 Anytype Staging";
 "SyncStatus.Synced.SelfHosted.Description" = "备份到自托管网络";
 "Downloading or uploading data to some node" = "向某个节点下载或上传数据";
 "Node is not connected" = "节点未连接";
@@ -845,7 +845,7 @@
 "Sharing.Tip.Button.title" = "显示分享菜单";
 
 "Sharing.Tip.Steps.1" = "单击 iOS 共享按钮";
-"Sharing.Tip.Steps.2" = "Scroll past the app and tap More";
+"Sharing.Tip.Steps.2" = "滚动过该应用并点击“更多”";
 "Sharing.Tip.Steps.3" = "单击编辑来查找“Anytype”，然后点击";
 
 // MARK: - Initial
