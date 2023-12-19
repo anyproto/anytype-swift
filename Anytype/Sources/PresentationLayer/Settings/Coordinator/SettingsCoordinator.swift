@@ -108,12 +108,16 @@ final class SettingsCoordinator: SettingsCoordinatorProtocol,
     }
     
     func onLogoutSelected() {
-        let module = dashboardAlertsAssembly.logoutAlert(onBackup: { [weak self] in
-            guard let self = self else { return }
-            self.navigationContext.dismissTopPresented()
-            let module = self.keychainPhraseModuleAssembly.make(context: .logout)
-            self.navigationContext.present(module)
-        })
+        let module = dashboardAlertsAssembly.logoutAlert(
+            onBackup: { [weak self] in
+                guard let self = self else { return }
+                self.navigationContext.dismissTopPresented()
+                let module = self.keychainPhraseModuleAssembly.make(context: .logout)
+                self.navigationContext.present(module)
+            },
+            onLogout: { [weak self] in
+                self?.navigationContext.dismissAllPresented()
+            })
         navigationContext.present(module)
     }
     

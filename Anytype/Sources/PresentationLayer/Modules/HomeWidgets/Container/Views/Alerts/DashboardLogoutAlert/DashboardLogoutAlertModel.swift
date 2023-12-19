@@ -11,15 +11,18 @@ final class DashboardLogoutAlertModel: ObservableObject {
     private let authService: AuthServiceProtocol
     private let applicationStateService: ApplicationStateServiceProtocol
     private let onBackup: () -> Void
+    private let onLogout: () -> Void
     
     init(
         authService: AuthServiceProtocol,
         applicationStateService: ApplicationStateServiceProtocol,
-        onBackup: @escaping () -> Void
+        onBackup: @escaping () -> Void,
+        onLogout: @escaping () -> Void
     ) {
         self.authService = authService
         self.applicationStateService = applicationStateService
         self.onBackup = onBackup
+        self.onLogout = onLogout
     }
     
     func onBackupTap() {
@@ -37,6 +40,7 @@ final class DashboardLogoutAlertModel: ObservableObject {
             }
             
             UINotificationFeedbackGenerator().notificationOccurred(.success)
+            self?.onLogout()
             self?.applicationStateService.state = .initial
         }
     }
