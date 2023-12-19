@@ -116,7 +116,7 @@ final class SettingsCoordinator: SettingsCoordinatorProtocol,
                 self.navigationContext.present(module)
             },
             onLogout: { [weak self] in
-                self?.navigationContext.dismissAllPresented()
+                self?.navigationContext.dismissAllPresented(animated: false)
             })
         navigationContext.present(module)
     }
