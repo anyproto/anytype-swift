@@ -3,7 +3,7 @@ import SwiftUI
 
 protocol DashboardAlertsAssemblyProtocol: AnyObject {    
     @MainActor
-    func logoutAlert(onBackup: @escaping () -> Void) -> UIViewController
+    func logoutAlert(onBackup: @escaping () -> Void, onLogout: @escaping () -> Void) -> UIViewController
     
     @MainActor
     func accountDeletionAlert() -> UIViewController
@@ -25,11 +25,11 @@ final class DashboardAlertsAssembly: DashboardAlertsAssemblyProtocol {
     // MARK: - DashboardAlertsAssemblyProtocol
     
     @MainActor
-    func logoutAlert(onBackup: @escaping () -> Void) -> UIViewController {
+    func logoutAlert(onBackup: @escaping () -> Void, onLogout: @escaping () -> Void) -> UIViewController {
         let model = DashboardLogoutAlertModel(
             authService: serviceLocator.authService(),
-            applicationStateService: serviceLocator.applicationStateService(),
-            onBackup: onBackup
+            onBackup: onBackup, 
+            onLogout: onLogout
         )
         let view = DashboardLogoutAlert(model: model)
         return popup(view: view)
