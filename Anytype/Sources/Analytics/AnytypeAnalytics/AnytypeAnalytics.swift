@@ -28,7 +28,7 @@ final class AnytypeAnalytics: AnytypeAnalyticsProtocol {
     private var userProperties: [AnyHashable: Any] = [:]
     
     private init() {
-        // Disable IDFA for Amplitude
+        // Disable IDFA/IPAddress for Amplitude
         if let trackingOptions = AMPTrackingOptions().disableIDFA().disableIPAddress(){
             Amplitude.instance().setTrackingOptions(trackingOptions)
         }
