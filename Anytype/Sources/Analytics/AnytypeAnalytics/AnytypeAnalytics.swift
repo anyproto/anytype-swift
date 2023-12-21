@@ -29,7 +29,7 @@ final class AnytypeAnalytics: AnytypeAnalyticsProtocol {
     
     private init() {
         // Disable IDFA for Amplitude
-        if let trackingOptions = AMPTrackingOptions().disableIDFA() {
+        if let trackingOptions = AMPTrackingOptions().disableIDFA().disableIPAddress(){
             Amplitude.instance().setTrackingOptions(trackingOptions)
         }
 
