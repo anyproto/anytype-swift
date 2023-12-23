@@ -77,8 +77,8 @@
 "Relation.AddedToLibrary" = "Relação \"%@\" adicionada à biblioteca";
 "Relation.Deleted" = "Relação apagada";
 "Relation.From.Type" = "Do tipo \"%@\"";
-"Relation.LinksFrom.Title" = "from";
-"Relation.LinksTo.Title" = "to";
+"Relation.LinksFrom.Title" = "de";
+"Relation.LinksTo.Title" = "para";
 
 "Relation.Format.Object.Title" = "Objeto";
 "Relation.Format.Text.Title" = "Texto";
@@ -274,7 +274,7 @@
 "Actions.MakeAsTemplate" = "Fazer modelo";
 "Actions.TemplateMakeDefault" = "Make default";
 "Actions.CreateWidget.Title" = "To widgets";
-"Actions.CreateWidget.Success" = "New widget was created";
+"Actions.CreateWidget.Success" = "Um novo widget foi criado";
 
 // Object Type
 "Set" = "Conjunto";
@@ -469,7 +469,7 @@
 
 "Error" = "Erro";
 "Unknown error" = "Erro desconhecido";
-"Open Type Error" = "Not supported type \"%@\". You can open it via desktop.";
+"Open Type Error" = "Tipo \"%@\" não suportado. Você pode abri-lo no desktop.";
 "Close" = "Fechar";
 "Account is deleted" = "A conta foi removida";
 "Add phone" = "Adicionar telefone";
@@ -550,7 +550,7 @@
 "SyncStatus.Synced.AnytypeStaging.Description" = "Backed up on Anytype Staging";
 "SyncStatus.Synced.SelfHosted.Description" = "Backed up on Self-hosted Network";
 "Downloading or uploading data to some node" = "Baixando ou carregando dados para algum nó";
-"Node is not connected" = "Node is not connected";
+"Node is not connected" = "O nó não está conectado";
 "Initializing sync" = "Iniciando sincronização";
 "Not syncing" = "Sincronização desativada";
 "Synced" = "Sincronizado";
@@ -841,10 +841,10 @@
 "Sharing.Text.TextBlock" = "Bloco de texto";
 
 // MARK: - Sharing tips
-"Sharing.Tip.Title" = "Share Extension";
-"Sharing.Tip.Button.title" = "Show share menu";
+"Sharing.Tip.Title" = "Compartilhar extensão";
+"Sharing.Tip.Button.title" = "Mostrar menu de compartilhamento";
 
-"Sharing.Tip.Steps.1" = "Tap the iOS sharing button";
+"Sharing.Tip.Steps.1" = "Toque no botão de compartilhamento do iOS";
 "Sharing.Tip.Steps.2" = "Scroll past the app and tap More";
 "Sharing.Tip.Steps.3" = "Tap Edit to find “Anytype” and  tap";
 
@@ -874,7 +874,7 @@
 // MARK: - Server
 "Server.Network" = "Rede";
 "Server.Networks" = "Redes";
-"Server.AddButton" = "Add Self-hosted Network";
+"Server.AddButton" = "Adicionar Rede Auto-hospedada";
 "Server.Anytype" = "Anytype";
 "Server.LocalOnly" = "Local-only";
 
