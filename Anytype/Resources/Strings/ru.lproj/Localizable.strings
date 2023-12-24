@@ -272,7 +272,7 @@
 "Undo" = "Отменить";
 "Actions.LinkItself" = "Связать с";
 "Actions.MakeAsTemplate" = "Создать шаблон";
-"Actions.TemplateMakeDefault" = "Make default";
+"Actions.TemplateMakeDefault" = "Установить по умолчанию";
 "Actions.CreateWidget.Title" = "В виджеты";
 "Actions.CreateWidget.Success" = "Создан новый виджет";
 
