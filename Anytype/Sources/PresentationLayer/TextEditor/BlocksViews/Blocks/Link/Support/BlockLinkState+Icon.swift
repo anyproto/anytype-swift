@@ -2,62 +2,6 @@ import UIKit
 import Services
 import AnytypeCore
 
-extension BlockLinkState {
-
-    @MainActor
-    func applyTitleState(
-        on label: AnytypeLabel,
-        font: AnytypeFont,
-        iconIntendHidden: Bool = false
-    ) {
-//        let attributes: [NSAttributedString.Key : Any] = [
-//            .foregroundColor: titleColor,
-//            .font: font.uiKitFont
-//        ]
-//        if archived, let ghostImage = UIImage(asset: .ghost) {
-//
-//            let attributedString = NSAttributedString.imageFirstComposite(
-//                image: ghostImage,
-//                text: titleText,
-//                attributes: attributes
-//            )
-//
-//            label.setText(attributedString)
-//            return 
-//        }
-//        
-//        guard let icon, iconSize.hasIcon, !iconIntendHidden else {
-//            let attributedString = NSAttributedString(
-//                string: titleText,
-//                attributes: attributes
-//            )
-//
-//            label.setText(attributedString)
-//            return
-//        }
-//
-//        let painter = IconMaker(icon: icon, size: imageSize)
-//        let placeholder = painter.makePlaceholder()
-//        let attributedText = NSAttributedString.imageFirstComposite(
-//            image: placeholder,
-//            text: titleText,
-//            attributes: attributes
-//        )
-//        label.setText(attributedText)
-//        Task { @MainActor in
-//            
-//            let image = await painter.make()
-//            
-//            let attributedText = NSAttributedString.imageFirstComposite(
-//                image: image,
-//                text: titleText,
-//                attributes: attributes
-//            )
-//            label.setText(attributedText)
-//        }
-    }
-}
-
 extension NSAttributedString {
     static func imageFirstComposite(
         image: UIImage,

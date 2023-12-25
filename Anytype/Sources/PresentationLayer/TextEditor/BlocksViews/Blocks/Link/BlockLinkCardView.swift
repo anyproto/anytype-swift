@@ -40,12 +40,7 @@ final class BlockLinkCardView: UIView, BlockContentView {
     // MARK: - Configuration updates
 
     func update(with configuration: BlockLinkCardConfiguration) {
-//        configuration.state.applyTitleState(
-//            on: titleLabel,
-//            font: configuration.state.textTitleFont,
-//            iconIntendHidden: configuration.state.iconSize == .medium
-//        )
-
+        
         titleLabel.textColor = configuration.state.titleColor
         titleLabel.setText(configuration.state.title)
 
