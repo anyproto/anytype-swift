@@ -1,7 +1,7 @@
 import ProtobufMessages
 import Foundation
 
-extension NSRange {
+public extension NSRange {
     init(_ range: Anytype_Model_Range) {
         self.init(
             location: Int(range.from),

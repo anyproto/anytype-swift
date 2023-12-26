@@ -9,9 +9,11 @@ final class PasteboardService: PasteboardServiceProtocol {
     
     private var tasks = [AnyCancellable]()
 
-    init(document: BaseDocumentProtocol,
-         pasteboardHelper: PasteboardHelper,
-         pasteboardMiddlewareService: PasteboardMiddlewareServiceProtocol) {
+    init(
+        document: BaseDocumentProtocol,
+        pasteboardHelper: PasteboardHelper,
+        pasteboardMiddlewareService: PasteboardMiddlewareServiceProtocol
+    ) {
         self.document = document
         self.pasteboardMiddlewareService = pasteboardMiddlewareService
         self.pasteboardHelper = pasteboardHelper
@@ -46,6 +48,7 @@ final class PasteboardService: PasteboardServiceProtocol {
         DispatchQueue.main.asyncAfter(deadline: .now() + Constants.longOperationTime, execute: workItem)
         
         let task = PasteboardTask(
+            objectId: document.objectId,
             pasteboardHelper: pasteboardHelper,
             pasteboardMiddlewareService: pasteboardMiddlewareService,
             context: context
@@ -64,13 +67,19 @@ final class PasteboardService: PasteboardServiceProtocol {
     }
     
     func copy(blocksIds: [BlockId], selectedTextRange: NSRange) async throws {
-        if let result = try await pasteboardMiddlewareService.copy(blocksIds: blocksIds, selectedTextRange: selectedTextRange) {
+        let blockInformations = blocksIds.compactMap { document.infoContainer.get(id: $0) }
+        if let result = try await pasteboardMiddlewareService.copy(
+            blockInformations: blockInformations,
+            objectId: document.objectId,
+            selectedTextRange: selectedTextRange
+        ) {
             pasteboardHelper.setItems(textSlot: result.textSlot, htmlSlot: result.htmlSlot, blocksSlots: result.blockSlot)
         }
     }
     
     func cut(blocksIds: [BlockId], selectedTextRange: NSRange) async throws {
-        if let result = try await pasteboardMiddlewareService.cut(blocksIds: blocksIds, selectedTextRange: selectedTextRange) {
+        let blockInformations = blocksIds.compactMap { document.infoContainer.get(id: $0) }
+        if let result = try await pasteboardMiddlewareService.cut(blockInformations: blockInformations, objectId: document.objectId, selectedTextRange: selectedTextRange) {
             pasteboardHelper.setItems(textSlot: result.textSlot, htmlSlot: result.htmlSlot, blocksSlots: result.blockSlot)
         }
     }
