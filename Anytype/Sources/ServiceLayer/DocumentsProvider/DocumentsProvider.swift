@@ -72,7 +72,8 @@ final class DocumentsProvider: DocumentsProviderProtocol {
             objectId: objectId,
             forPreview: forPreview,
             blockActionsService: blockActionsService,
-            relationDetailsStorage: relationDetailsStorage
+            relationDetailsStorage: relationDetailsStorage, 
+            objectTypeProvider: objectTypeProvider
         )
     }
 }

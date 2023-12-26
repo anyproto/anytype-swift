@@ -866,6 +866,10 @@ internal enum Loc {
       }
     }
   }
+  internal enum CommonOpenErrorView {
+    /// No data found
+    internal static let message = Loc.tr("Localizable", "CommonOpenErrorView.Message", fallback: "No data found")
+  }
   internal enum Content {
     internal enum Audio {
       /// Upload audio
