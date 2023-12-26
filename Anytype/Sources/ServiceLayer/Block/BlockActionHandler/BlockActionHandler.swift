@@ -43,6 +43,8 @@ final class BlockActionHandler: BlockActionHandlerProtocol {
     }
     
     func turnInto(_ style: BlockText.Style, blockId: BlockId) {
+        defer { AnytypeAnalytics.instance().logChangeBlockStyle(style) }
+        
         switch style {
         case .toggle:
             if let blockInformation = document.infoContainer.get(id: blockId),

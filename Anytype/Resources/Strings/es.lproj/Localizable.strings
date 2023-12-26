@@ -544,9 +544,13 @@
 "Unfavorite" = "Eliminar favorito";
 "Unsplash" = "Unsplash";
 "Go back" = "Volver";
-"Backed up on one node at least" = "Respaldado en al menos un nodo";
+"SyncStatus.LocalOnly.Title" = "Sólo local";
+"SyncStatus.LocalOnly.Description" = "Local only";
+"SyncStatus.Synced.Anytype.Description" = "Backed up on Anytype Network";
+"SyncStatus.Synced.AnytypeStaging.Description" = "Backed up on Anytype Staging";
+"SyncStatus.Synced.SelfHosted.Description" = "Backed up on Self-hosted Network";
 "Downloading or uploading data to some node" = "Descargando o subiendo datos a algún nodo";
-"Anytype node is not connected" = "Nodo de Anytype no está conectado";
+"Node is not connected" = "El nodo no está conectado";
 "Initializing sync" = "Inicializando la sincronización";
 "Not syncing" = "No sincronizado";
 "Synced" = "Sincronizado";
@@ -560,8 +564,7 @@
 "Into object" = "Objeto de nota";
 "Add below" = "Agregar debajo";
 "Change type" = "Cambiar tipo";
-"Link to existing object" = "Enlazar a objeto existente";
-"Link to object" = "Añadir enlace";
+"SlashMenu.LinkTo.Description" = "Create link to another object";
 "Upload playable audio" = "Subir audio reproducible";
 "Code snippet" = "Fragmento de código";
 "Bookmark" = "Marcador";

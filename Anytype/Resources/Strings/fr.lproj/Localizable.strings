@@ -43,7 +43,7 @@
 
 "BlockText.ContentType.Title.Placeholder" = "Sans titre";
 "BlockText.ContentType.Description.Placeholder" = "Ajouter une description";
-"BlockText.ContentType.Toggle.Placeholder" = "Toggle block";
+"BlockText.ContentType.Toggle.Placeholder" = "Bloc dépliable";
 "BlockText.ContentType.Bulleted.Placeholder" = "Élément de liste à puces";
 "BlockText.ContentType.Checkbox.Placeholder" = "Case à cocher";
 "BlockText.ContentType.Numbered.Placeholder" = "Élément de liste numérotée";
@@ -77,8 +77,8 @@
 "Relation.AddedToLibrary" = "La relation %@ a été ajoutée à votre bibliothèque";
 "Relation.Deleted" = "Relation supprimée";
 "Relation.From.Type" = "À partir du type %@";
-"Relation.LinksFrom.Title" = "from";
-"Relation.LinksTo.Title" = "to";
+"Relation.LinksFrom.Title" = "depuis";
+"Relation.LinksTo.Title" = "à";
 
 "Relation.Format.Object.Title" = "Objet";
 "Relation.Format.Text.Title" = "Texte";
@@ -424,7 +424,7 @@
 
 // MARK: - Sets: View Settings
 "Set.View.Settings.ImageFit.Title" = "Ajuster l'image";
-"Set.View.Settings.CardSize.Title" = "Card size";
+"Set.View.Settings.CardSize.Title" = "Taille de la carte";
 "Set.View.Settings.CardSize.Small.Title" = "Petit";
 "Set.View.Settings.CardSize.Large.Title" = "Large";
 "Set.View.Settings.ImagePreview.Title" = "Aperçu de l'image";
@@ -510,7 +510,7 @@
 "Collections" = "Collections";
 "Default object type" = "Type d'objet par défaut";
 "Personalization" = "Personnalisation";
-"Choose default object type" = "Choose default object type";
+"Choose default object type" = "Choisir le type d'objet par défaut";
 "About" = "À propos";
 "Appearance" = "Apparence";
 "Change wallpaper" = "Changer le fond d'écran";
@@ -521,7 +521,7 @@
 "Back up your recovery phrase" = "Sauvegardez votre phrase de récupération";
 "Account" = "Compte";
 "Access" = "Accès";
-"Back up phrase" = "Back up phrase";
+"Back up phrase" = "Phrase de sauvegarde";
 "Removing cache" = "Suppression du cache";
 "Deletion error" = "Erreur lors de la suppression";
 "Start" = "Commencer";
@@ -544,9 +544,13 @@
 "Unfavorite" = "Retirer des favoris";
 "Unsplash" = "Unsplash";
 "Go back" = "Retour";
-"Backed up on one node at least" = "Sauvegardé sur au moins un nœud";
+"SyncStatus.LocalOnly.Title" = "Local seulement";
+"SyncStatus.LocalOnly.Description" = "Local seulement";
+"SyncStatus.Synced.Anytype.Description" = "Sauvegardé sur le réseau Anytype ";
+"SyncStatus.Synced.AnytypeStaging.Description" = "Sauvegardé sur le réseau Anytype de pré-production";
+"SyncStatus.Synced.SelfHosted.Description" = "Sauvegarder vers votre réseau auto-hébergé";
 "Downloading or uploading data to some node" = "Téléchargement ou envoi de données vers un nœud";
-"Anytype node is not connected" = "Le nœud Anytype n'est pas connecté";
+"Node is not connected" = "Node is not connected";
 "Initializing sync" = "Initialisation de la synchronisation";
 "Not syncing" = "Non synchronisé";
 "Synced" = "Synchronisé";
@@ -560,8 +564,7 @@
 "Into object" = "En objet";
 "Add below" = "Ajouter en dessous";
 "Change type" = "Changer le type";
-"Link to existing object" = "Lien vers un objet existant";
-"Link to object" = "Ajouter un lien";
+"SlashMenu.LinkTo.Description" = "Créer un lien vers un autre objet";
 "Upload playable audio" = "Charger un fichier audio";
 "Code snippet" = "Extrait de code";
 "Bookmark" = "Marque-page";
@@ -700,7 +703,7 @@
 "Content.Picture.Upload" = "Importer une image";
 "Content.Common.Uploading" = "Envoi en cours...";
 "Content.Common.Error" = "Une erreur s’est produite, réessayez";
-"Content.Bookmark.Add" = "Add a web bookmark";
+"Content.Bookmark.Add" = "Ajouter un signet web";
 "Content.Bookmark.Loading" = " Chargement, veuillez patienter... ";
 "Content.DataView.InlineSet.Subtitle" = "Set intégré";
 "Content.DataView.InlineCollection.Subtitle" = "Collection intégrée";
@@ -722,7 +725,7 @@
 "Scanner.Error.Scanning not supported" = "Scan non pris en charge";
 
 // MARK: - Widgets
-"Widgets.SourceSearch" = "Widget source";
+"Widgets.SourceSearch" = "Source du widget";
 "Widgets.Actions.ChangeSource" = "Changer la Source";
 "Widgets.Actions.ChangeWidgetType" = "Modifier le type de widget";
 "Widgets.Actions.RemoveWidget" = "Supprimer le Widget";
@@ -739,7 +742,7 @@
 "Widgets.Layout.Tree.Description" = "Arborescence des objets";
 "Widgets.Layout.List.Description" = "Widget with list view of set object";
 "Widgets.Layout.CompactList.Description" = "Widget with list view of set object";
-"Widgets.Empty.Title" = "This data view contains no objects";
+"Widgets.Empty.Title" = "Cette vue de données ne contient aucun objet";
 "Widgets.Library.RecentlyEdited.Name" = "Récemment modifié";
 "Widgets.Library.RecentlyOpened.Name" = "Récemment ouvert";
 "Widgets.Library.RecentlyOpened.Description" = "Sur cet appareil";
@@ -838,12 +841,12 @@
 "Sharing.Text.TextBlock" = "Bloc de texte";
 
 // MARK: - Sharing tips
-"Sharing.Tip.Title" = "Share Extension";
-"Sharing.Tip.Button.title" = "Show share menu";
+"Sharing.Tip.Title" = "Extension de partage";
+"Sharing.Tip.Button.title" = "Afficher le menu de partage";
 
-"Sharing.Tip.Steps.1" = "Tap the iOS sharing button";
-"Sharing.Tip.Steps.2" = "Scroll past the app and tap More";
-"Sharing.Tip.Steps.3" = "Tap Edit to find “Anytype” and  tap";
+"Sharing.Tip.Steps.1" = "Appuyez sur le bouton de partage iOS";
+"Sharing.Tip.Steps.2" = "Défiler au-delà de l'application et appuyez sur Plus";
+"Sharing.Tip.Steps.3" = "Appuyez sur Modifier pour trouver « Anytype » et appuyez";
 
 // MARK: - Initial
 

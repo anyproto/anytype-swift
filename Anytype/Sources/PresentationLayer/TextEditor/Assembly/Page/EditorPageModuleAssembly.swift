@@ -148,7 +148,8 @@ final class EditorPageModuleAssembly: EditorPageModuleAssemblyProtocol {
             documentId: document.objectId,
             listService: listService,
             singleService: serviceLocator.blockActionsServiceSingle(),
-            objectActionService: serviceLocator.objectActionsService(),
+            objectActionService: serviceLocator.objectActionsService(), 
+            textServiceHandler: serviceLocator.textServiceHandler(),
             modelsHolder: modelsHolder,
             bookmarkService: serviceLocator.bookmarkService(),
             cursorManager: cursorManager,
@@ -175,7 +176,7 @@ final class EditorPageModuleAssembly: EditorPageModuleAssemblyProtocol {
             objectService: serviceLocator.objectActionsService()
         )
 
-        let pasteboardMiddlewareService = PasteboardMiddleService(document: document)
+        let pasteboardMiddlewareService = PasteboardMiddleService()
         let pasteboardHelper = PasteboardHelper()
         let pasteboardService = PasteboardService(document: document,
                                                   pasteboardHelper: pasteboardHelper,

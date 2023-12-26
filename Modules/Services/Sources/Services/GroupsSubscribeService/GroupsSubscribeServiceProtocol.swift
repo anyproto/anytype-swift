@@ -1,6 +1,4 @@
-import Services
-
-protocol GroupsSubscribeServiceProtocol {
+public protocol GroupsSubscribeServiceProtocol {
     func startSubscription(
         id: String,
         relationKey: String,

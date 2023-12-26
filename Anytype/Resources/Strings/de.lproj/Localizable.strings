@@ -77,8 +77,8 @@
 "Relation.AddedToLibrary" = "Relation \"%@\" wurde zur Bibliothek hinzugefügt";
 "Relation.Deleted" = "Gelöschte Relation";
 "Relation.From.Type" = "Vom Typ \"%@\"";
-"Relation.LinksFrom.Title" = "from";
-"Relation.LinksTo.Title" = "to";
+"Relation.LinksFrom.Title" = "von";
+"Relation.LinksTo.Title" = "zu";
 
 "Relation.Format.Object.Title" = "Objekt";
 "Relation.Format.Text.Title" = "Text";
@@ -544,9 +544,13 @@
 "Unfavorite" = "Aus Favoriten entfernen";
 "Unsplash" = "Unsplash";
 "Go back" = "Zurückgehen";
-"Backed up on one node at least" = "Auf mindestens einem Knoten gesichert";
+"SyncStatus.LocalOnly.Title" = "Nur lokal";
+"SyncStatus.LocalOnly.Description" = "Nur lokal";
+"SyncStatus.Synced.Anytype.Description" = "Im Anytype-Netzwerk gesichert";
+"SyncStatus.Synced.AnytypeStaging.Description" = "In Anytype Staging gesichert";
+"SyncStatus.Synced.SelfHosted.Description" = "Im selbst gehosteten Netzwerk gesichert";
 "Downloading or uploading data to some node" = "Herunterladen oder Hochladen von Daten zu einem Knoten";
-"Anytype node is not connected" = "Anytype Knoten ist nicht verbunden";
+"Node is not connected" = "Knoten ist nicht verbunden";
 "Initializing sync" = "Initialisiere Synchronisation";
 "Not syncing" = "Nicht synchronisiert";
 "Synced" = "Synchronisiert";
@@ -560,8 +564,7 @@
 "Into object" = "In ein Objekt";
 "Add below" = "Unten hinzufügen";
 "Change type" = "Typ ändern";
-"Link to existing object" = "Link zu vorhandenem Objekt";
-"Link to object" = "Link hinzufügen";
+"SlashMenu.LinkTo.Description" = "Link zu einem anderen Objekt erstellen";
 "Upload playable audio" = "Audio hochladen";
 "Code snippet" = "Code-Ausschnitt";
 "Bookmark" = "Lesezeichen";
@@ -839,11 +842,11 @@
 "Sharing.Text.TextBlock" = "Textblock";
 
 // MARK: - Sharing tips
-"Sharing.Tip.Title" = "Share Extension";
-"Sharing.Tip.Button.title" = "Show share menu";
+"Sharing.Tip.Title" = "Erweiterung teilen";
+"Sharing.Tip.Button.title" = "Freigabemenü anzeigen";
 
-"Sharing.Tip.Steps.1" = "Tap the iOS sharing button";
-"Sharing.Tip.Steps.2" = "Scroll past the app and tap More";
+"Sharing.Tip.Steps.1" = "Tippen Sie auf den iOS-Sharing-Button";
+"Sharing.Tip.Steps.2" = "Scrolle über die App hinaus und tippe auf Mehr";
 "Sharing.Tip.Steps.3" = "Tap Edit to find “Anytype” and  tap";
 
 // MARK: - Initial

@@ -544,9 +544,13 @@
 "Unfavorite" = "Fjern fra favoritter";
 "Unsplash" = "Unsplash";
 "Go back" = "Gå tilbake";
-"Backed up on one node at least" = "Sikkerhetskopiert på minst én node";
+"SyncStatus.LocalOnly.Title" = "Local-only";
+"SyncStatus.LocalOnly.Description" = "Kun lokalt";
+"SyncStatus.Synced.Anytype.Description" = "Backed up on Anytype Network";
+"SyncStatus.Synced.AnytypeStaging.Description" = "Backed up on Anytype Staging";
+"SyncStatus.Synced.SelfHosted.Description" = "Backed up on Self-hosted Network";
 "Downloading or uploading data to some node" = "Laster ned eller laster opp data til en node";
-"Anytype node is not connected" = "Anytype-noden er ikke tilkoblet";
+"Node is not connected" = "Node is not connected";
 "Initializing sync" = "Initialiserer synkronisering";
 "Not syncing" = "Synkroniserer ikke";
 "Synced" = "Synkronisert";
@@ -560,8 +564,7 @@
 "Into object" = "Inn i objektet";
 "Add below" = "Legg til under";
 "Change type" = "Endre type";
-"Link to existing object" = "Lenke til eksisterende objekt";
-"Link to object" = "Legg til lenke";
+"SlashMenu.LinkTo.Description" = "Create link to another object";
 "Upload playable audio" = "Last opp spillbar lyd";
 "Code snippet" = "Kodesnutt";
 "Bookmark" = "Bokmerke";

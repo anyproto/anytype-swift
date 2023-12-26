@@ -77,8 +77,8 @@
 "Relation.AddedToLibrary" = "Relazione ‘%@’ aggiunta alla tua libreria";
 "Relation.Deleted" = "Relazione eliminata";
 "Relation.From.Type" = "Dal tipo %@";
-"Relation.LinksFrom.Title" = "from";
-"Relation.LinksTo.Title" = "to";
+"Relation.LinksFrom.Title" = "da";
+"Relation.LinksTo.Title" = "a";
 
 "Relation.Format.Object.Title" = "Oggetto";
 "Relation.Format.Text.Title" = "Testo";
@@ -544,9 +544,13 @@
 "Unfavorite" = "Rimuovi da Preferiti";
 "Unsplash" = "Unsplash";
 "Go back" = "Indietro";
-"Backed up on one node at least" = "Salvato su almeno un nodo";
+"SyncStatus.LocalOnly.Title" = "Solo-locale";
+"SyncStatus.LocalOnly.Description" = "Solo Locale";
+"SyncStatus.Synced.Anytype.Description" = "Backup effettuato sulla Rete Anytype";
+"SyncStatus.Synced.AnytypeStaging.Description" = "Backup effettuato su Anytype Staging";
+"SyncStatus.Synced.SelfHosted.Description" = "Backup effettuato su Rete Self-hosted";
 "Downloading or uploading data to some node" = "Scaricamento o caricamento dati su qualche nodo";
-"Anytype node is not connected" = "Nodo di Anytype non connesso";
+"Node is not connected" = "Il nodo non è connesso";
 "Initializing sync" = "Inizializzazione sincronizzazione";
 "Not syncing" = "Sincronizzazione non attiva";
 "Synced" = "Sincronizzato";
@@ -560,8 +564,7 @@
 "Into object" = "Nell'oggetto";
 "Add below" = "Aggiungi sotto";
 "Change type" = "Cambia tipo";
-"Link to existing object" = "Collega a un oggetto esistente";
-"Link to object" = "Aggiungi link";
+"SlashMenu.LinkTo.Description" = "Crea collegamento a un altro oggetto";
 "Upload playable audio" = "Carica un audio riproducibile";
 "Code snippet" = "Frammento di codice";
 "Bookmark" = "Segnalibro";
@@ -838,12 +841,12 @@
 "Sharing.Text.TextBlock" = "Text block";
 
 // MARK: - Sharing tips
-"Sharing.Tip.Title" = "Share Extension";
-"Sharing.Tip.Button.title" = "Show share menu";
+"Sharing.Tip.Title" = "Condividi Estensione";
+"Sharing.Tip.Button.title" = "Mostra menu di condivisione";
 
-"Sharing.Tip.Steps.1" = "Tap the iOS sharing button";
-"Sharing.Tip.Steps.2" = "Scroll past the app and tap More";
-"Sharing.Tip.Steps.3" = "Tap Edit to find “Anytype” and  tap";
+"Sharing.Tip.Steps.1" = "Tocca il pulsante di condivisione iOS";
+"Sharing.Tip.Steps.2" = "Scorri oltre l'app e tocca Altro";
+"Sharing.Tip.Steps.3" = "Tocca Modifica per trovare “Anytype” e tocca";
 
 // MARK: - Initial
 
@@ -869,12 +872,12 @@
 "RelativeFormatter.older" = "Meno recenti";
 
 // MARK: - Server
-"Server.Network" = "Network";
-"Server.Networks" = "Networks";
-"Server.AddButton" = "Add Self-hosted Network";
+"Server.Network" = "Rete";
+"Server.Networks" = "Reti";
+"Server.AddButton" = "Aggiungi Rete Self-hosted";
 "Server.Anytype" = "Anytype";
-"Server.LocalOnly" = "Local-only";
+"Server.LocalOnly" = "Solo-locale";
 
 // MARK: - Gallery
 "Gallery.Unavailable.Title" = "La galleria sarà supportata presto";
-"Gallery.Unavailable.Message" = "Please use the desktop app for now";
+"Gallery.Unavailable.Message" = "Per favore usa l'applicazione desktop per ora";

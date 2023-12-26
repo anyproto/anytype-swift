@@ -5,7 +5,7 @@
     <key>Are you sure you want to delete</key>
     <dict>
       <key>NSStringLocalizedFormatKey</key>
-      <string>Are you sure you want to delete %#@object@?</string>
+      <string>Вы уверены, что хотите удалить  %#@object@?</string>
       <key>object</key>
       <dict>
         <key>NSStringFormatSpecTypeKey</key>
@@ -13,19 +13,19 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>d</string>
         <key>one</key>
-        <string>%d object</string>
+        <string>%d объект</string>
         <key>few</key>
-        <string>%d objects</string>
+        <string>%d объектов</string>
         <key>many</key>
-        <string>%d objects</string>
+        <string>%d объектов</string>
         <key>other</key>
-        <string>%d objects</string>
+        <string>объекты: %d</string>
       </dict>
     </dict>
     <key>Object selected</key>
     <dict>
       <key>NSStringLocalizedFormatKey</key>
-      <string>%#@object@ selected</string>
+      <string>%#@object@ выбран</string>
       <key>object</key>
       <dict>
         <key>NSStringFormatSpecTypeKey</key>
@@ -33,13 +33,13 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>d</string>
         <key>one</key>
-        <string>%d object</string>
+        <string>%d объект</string>
         <key>few</key>
-        <string>%d objects</string>
+        <string>%d объектов</string>
         <key>many</key>
-        <string>%d objects</string>
+        <string>%d объектов</string>
         <key>other</key>
-        <string>%d objects</string>
+        <string>объекты: %d</string>
       </dict>
     </dict>
     <key>Selected blocks</key>
@@ -53,7 +53,7 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>d</string>
         <key>one</key>
-        <string>%d selected block</string>
+        <string>%d выбранный блок</string>
         <key>few</key>
         <string>%d selected blocks</string>
         <key>many</key>
@@ -73,19 +73,19 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>d</string>
         <key>one</key>
-        <string>%d link</string>
+        <string>%d ссылка</string>
         <key>few</key>
         <string>%d links</string>
         <key>many</key>
         <string>%d links</string>
         <key>other</key>
-        <string>%d links</string>
+        <string>%d ссылки</string>
       </dict>
     </dict>
     <key>Days to deletion account</key>
     <dict>
       <key>NSStringLocalizedFormatKey</key>
-      <string>This account will be deleted %#@days@</string>
+      <string>Этот аккаунт будет удален %#@days@</string>
       <key>days</key>
       <dict>
         <key>NSStringFormatSpecTypeKey</key>
@@ -93,13 +93,13 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>d</string>
         <key>one</key>
-        <string>tomorrow</string>
+        <string>завтра</string>
         <key>few</key>
-        <string>in %d days</string>
+        <string>через %d дней</string>
         <key>many</key>
-        <string>in %d days</string>
+        <string>через %d дней</string>
         <key>other</key>
-        <string>in %d days</string>
+        <string>через %d дня</string>
       </dict>
     </dict>
     <key>Widgets.Actions.BinConfirm</key>
@@ -113,13 +113,13 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>d</string>
         <key>one</key>
-        <string>One object deleted</string>
+        <string>Один объект удален</string>
         <key>few</key>
         <string>%d objects deleted</string>
         <key>many</key>
         <string>%d objects deleted</string>
         <key>other</key>
-        <string>%d objects deleted</string>
+        <string>%d объектов удалено</string>
       </dict>
     </dict>
   </dict>
