@@ -77,6 +77,8 @@
 "Relation.AddedToLibrary" = "La relation %@ a été ajoutée à votre bibliothèque";
 "Relation.Deleted" = "Relation supprimée";
 "Relation.From.Type" = "À partir du type %@";
+"Relation.LinksFrom.Title" = "from";
+"Relation.LinksTo.Title" = "to";
 
 "Relation.Format.Object.Title" = "Objet";
 "Relation.Format.Text.Title" = "Texte";
@@ -268,9 +270,11 @@
 
 "Undo typing" = "Annuler la frappe";
 "Undo" = "Annuler";
-"Actions.LinkItself" = "Link to";
+"Actions.LinkItself" = "Lien vers";
 "Actions.MakeAsTemplate" = "Créer un modèle";
 "Actions.TemplateMakeDefault" = "Make default";
+"Actions.CreateWidget.Title" = "Vers les widgets";
+"Actions.CreateWidget.Success" = "Un nouveau widget a été créé";
 
 // Object Type
 "Set" = "Set";
@@ -416,8 +420,7 @@
 
 // MARK: - Set.Bookmarks
 "Set.Bookmark.Create.Placeholder" = "Coller le lien";
-"Set.Bookmark.Error.Title" = "Oups, une erreur c'est produite !";
-"Set.Bookmark.Error.Message" = "Veuillez réessayer";
+"Set.Bookmark.Error.Message" = "Oups, une erreur s’est produite. Veuillez réessayer.";
 
 // MARK: - Sets: View Settings
 "Set.View.Settings.ImageFit.Title" = "Ajuster l'image";
@@ -466,9 +469,10 @@
 
 "Error" = "Erreur";
 "Unknown error" = "Erreur inconnue";
+"Open Type Error" = "Type non supporté \"%@\". Vous ne pouvez pas l'ouvrir avec l'application.";
 "Close" = "Fermer";
 "Account is deleted" = "Le compte est supprimé";
-"Add phone" = "Add phone";
+"Add phone" = "Ajouter un téléphone";
 "Nothing to redo" = "Rien à rétablir";
 "Nothing to undo" = "Rien à annuler";
 "Progress..." = "Progression...";
@@ -492,7 +496,7 @@
 "Unsupported value" = "Valeur non prise en charge";
 "Select relation type" = "Sélectionner le type de relation";
 
-"Limit object types" = "Limit object types";
+"Limit object types" = "Limiter les types d'objet";
 "Type" = "Type";
 "No name" = "Sans nom";
 "New relation" = "Nouvelle relation";
@@ -509,7 +513,7 @@
 "Choose default object type" = "Choose default object type";
 "About" = "À propos";
 "Appearance" = "Apparence";
-"Change wallpaper" = "Change wallpaper";
+"Change wallpaper" = "Changer le fond d'écran";
 "Application icon" = "Icône de l'application";
 "Mode" = "Mode";
 "copied to clipboard" = "%@ copié dans le presse-papier";
@@ -534,8 +538,8 @@
 "Action-focused layout with a checkbox" = "Action-focused layout with a checkbox";
 "Standard layout for canvas blocks" = "Disposition standard pour les toiles";
 "List of related objects" = "Liste des objets liés";
-"Lock" = "Lock";
-"Unlock" = "Unlock";
+"Lock" = "Verrouiller";
+"Unlock" = "Déverouiller";
 "Favorite" = "Favoris";
 "Unfavorite" = "Retirer des favoris";
 "Unsplash" = "Unsplash";
@@ -556,9 +560,9 @@
 "Into object" = "En objet";
 "Add below" = "Ajouter en dessous";
 "Change type" = "Changer le type";
-"Link to existing object" = "Link to existing object";
-"Link to object" = "Link to object";
-"Upload playable audio" = "Upload playable audio";
+"Link to existing object" = "Lien vers un objet existant";
+"Link to object" = "Ajouter un lien";
+"Upload playable audio" = "Charger un fichier audio";
 "Code snippet" = "Extrait de code";
 "Bookmark" = "Marque-page";
 "Audio" = "Audio";
@@ -567,12 +571,12 @@
 "File" = "Fichier";
 "No related options here" = "No related options here. You can add some";
 "Empty" = "Vide";
-"Link to" = "Link to";
+"Link to" = "Lien vers";
 "Unknown" = "Inconnu";
 "Settings" = "Paramètres";
 "Views" = "Vues";
-"Filter" = "Filter";
-"Sort" = "Sort";
+"Filter" = "Filtre";
+"Sort" = "Trier";
 "View" = "Vue";
 "Home" = "Accueil";
 "Highlight" = "Surligner";
@@ -608,7 +612,7 @@
 
 // MARK: - DeletionAlert
 "DeletionAlert.title" = "Êtes-vous certain de vouloir supprimer le compte ?";
-"DeletionAlert.description" = "You will be logged out on all other devices. You will have 30 days to recover it. Afterwards it will be deleted permanently";
+"DeletionAlert.description" = "Vous serez déconnecté sur tous les autres appareils. Vous aurez 30 jours pour le récupérer. Ensuite, il sera supprimé définitivement";
 
 // MARK: - DataviewType
 "DataviewType.grid" = "Grille";
@@ -619,7 +623,7 @@
 
 // MARK: - ObjectType
 "ObjectType.fallbackDescription" = "Toile vierge sans titre";
-"ObjectType.SearchOrInstall" = "Search or install a new type";
+"ObjectType.SearchOrInstall" = "Rechercher ou créer un nouveau type";
 "ObjectType.Search" = "Rechercher un type";
 "ObjectType.MyTypes" = "Mes Types";
 "ObjectType.AddedToLibrary" = "Type ‘%@’ added to your library";
@@ -652,7 +656,7 @@
 "SimpleTableMenu.Item.MoveRight" = "Déplacer à droite";
 "SimpleTableMenu.Item.Duplicate" = "Dupliquer";
 "SimpleTableMenu.Item.Delete" = "Supprimer";
-"SimpleTableMenu.Item.Sort" = "Sort";
+"SimpleTableMenu.Item.Sort" = "Trier";
 
 "SimpleTableMenu.Item.InsertAbove" = "Insérer au-dessus";
 "SimpleTableMenu.Item.InsertBelow" = "Insérer en-dessous";
@@ -680,7 +684,7 @@
 // MARK: Edit view type
 "SetViewTypesPicker.Title" = "Modifier la vue";
 "SetViewTypesPicker.New.Title" = "Nouvelle vue";
-"SetViewTypesPicker.Section.Types.Title" = "View as";
+"SetViewTypesPicker.Section.Types.Title" = "Afficher en tant que";
 "SetViewTypesPicker.Settings.Duplicate.View" = "Dupliquer";
 "SetViewTypesPicker.Settings.Delete.View" = "Supprimer la vue";
 "SetViewTypesPicker.Settings.Textfield.Placeholder.New.View" = "Nouvelle vue";
@@ -725,6 +729,7 @@
 "Widgets.Actions.EditWidgets" = "Modifier les widgets";
 "Widgets.Actions.EmptyBin" = "Vider la poubelle";
 "Widgets.Actions.AddBelow" = "Ajouter en dessous";
+"Widgets.Actions.NewObject" = "Nouvel Objet";
 "Widgets.Layout.Screen.Title" = "Type de widget";
 "Widgets.Layout.Link.Title" = "Lien";
 "Widgets.Layout.Tree.Title" = "Arborescence";
@@ -800,8 +805,8 @@
 "ClearCacheAlert.Description" = "Tous les fichiers multimédias stockés dans Anytype seront supprimés de votre appareil actuel. Ils peuvent être téléchargés de nouveau à partir d'un nœud de sauvegarde ou d'un autre appareil.";
 
 // MARK: - Spaces
-"Spaces.Accessibility.Public" = "Public Space";
-"Spaces.Accessibility.Private" = "Private Space";
+"Spaces.Accessibility.Public" = "Espace Public";
+"Spaces.Accessibility.Private" = "Espace Privé";
 "Spaces.Accessibility.Personal" = "Paramètres";
 "Spaces.Search.Title" = "Rechercher des espaces";
 
@@ -825,12 +830,20 @@
 "Sharing.SaveAs" = "ENREGISTRER SOUS";
 "Sharing.SelectSpace" = "Espace";
 "Sharing.AddTo" = "Ajouter à";
-"Sharing.LinkTo" = "Link to";
+"Sharing.LinkTo" = "Lien vers";
 
 "Sharing.URL.Bookmark" = "Marquer l'objet";
 "Sharing.URL.Text" = "Bloc de texte";
 "Sharing.Text.NoteObject" = "Objet Note";
 "Sharing.Text.TextBlock" = "Bloc de texte";
+
+// MARK: - Sharing tips
+"Sharing.Tip.Title" = "Share Extension";
+"Sharing.Tip.Button.title" = "Show share menu";
+
+"Sharing.Tip.Steps.1" = "Tap the iOS sharing button";
+"Sharing.Tip.Steps.2" = "Scroll past the app and tap More";
+"Sharing.Tip.Steps.3" = "Tap Edit to find “Anytype” and  tap";
 
 // MARK: - Initial
 
@@ -848,3 +861,20 @@
 // MARK: - Error
 "Error.AnytypeNeedsUpgrate.Title" = "Mettez à jour votre application";
 "Error.AnytypeNeedsUpgrate.Message" = "Cet objet a été modifié dans une version plus récente de Anytype. Veuillez mettre à jour l'application pour l'ouvrir sur cet appareil";
+"Error.AnytypeNeedsUpgrate.Confirm" = "Update";
+
+// MARK: - Relative date formatter
+"RelativeFormatter.days7" = "7 jours précédents";
+"RelativeFormatter.days30" = "30 jours précédents";
+"RelativeFormatter.older" = "Plus ancien";
+
+// MARK: - Server
+"Server.Network" = "Réseau";
+"Server.Networks" = "Réseaux";
+"Server.AddButton" = "Ajouter un réseau auto-hébergé";
+"Server.Anytype" = "Anytype";
+"Server.LocalOnly" = "Local seulement";
+
+// MARK: - Gallery
+"Gallery.Unavailable.Title" = "La galerie sera bientôt prise en charge";
+"Gallery.Unavailable.Message" = "Veuillez utiliser l'application de bureau pour le moment";

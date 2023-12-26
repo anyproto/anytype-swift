@@ -11,6 +11,9 @@ final class EditorSetViewModel: ObservableObject {
     @Published var titleString: String
     @Published var loadingDocument = true
     @Published var featuredRelations = [Relation]()
+    @Published var dismiss = false
+    @Published var showUpdateAlert = false
+    @Published var showCommonOpenError = false
     
     private var recordsDict: OrderedDictionary<String, [ObjectDetails]> = [:]
     private var groups: [DataviewGroup] = []
@@ -26,7 +29,7 @@ final class EditorSetViewModel: ObservableObject {
     @Published var configurationsDict: OrderedDictionary<String, [SetContentViewItemConfiguration]> = [:]
     @Published var pagitationDataDict: OrderedDictionary<String, EditorSetPaginationData> = [:]
     
-    @Published var syncStatus: SyncStatus = .unknown
+    @Published var syncStatusData: SyncStatusData
     
     var isUpdating = false
 
@@ -126,10 +129,11 @@ final class EditorSetViewModel: ObservableObject {
     private let textService: TextServiceProtocol
     private let groupsSubscriptionsHandler: GroupsSubscriptionsHandlerProtocol
     private let setSubscriptionDataBuilder: SetSubscriptionDataBuilderProtocol
-    private let objectTypeProvider: ObjectTypeProviderProtocol
     private var subscriptions = [AnyCancellable]()
     private var subscriptionStorages = [String: SubscriptionStorageProtocol]()
+    private let activeWorkspaceStorage: ActiveWorkpaceStorageProtocol
     private var titleSubscription: AnyCancellable?
+    private let output: EditorSetModuleOutput?
 
     init(
         setDocument: SetDocumentProtocol,
@@ -142,7 +146,9 @@ final class EditorSetViewModel: ObservableObject {
         textService: TextServiceProtocol,
         groupsSubscriptionsHandler: GroupsSubscriptionsHandlerProtocol,
         setSubscriptionDataBuilder: SetSubscriptionDataBuilderProtocol,
-        objectTypeProvider: ObjectTypeProviderProtocol
+        objectTypeProvider: ObjectTypeProviderProtocol,
+        activeWorkspaceStorage: ActiveWorkpaceStorageProtocol,
+        output: EditorSetModuleOutput?
     ) {
         self.setDocument = setDocument
         self.headerModel = headerViewModel
@@ -154,8 +160,10 @@ final class EditorSetViewModel: ObservableObject {
         self.textService = textService
         self.groupsSubscriptionsHandler = groupsSubscriptionsHandler
         self.setSubscriptionDataBuilder = setSubscriptionDataBuilder
-        self.objectTypeProvider = objectTypeProvider
         self.titleString = setDocument.details?.pageCellTitle ?? ""
+        self.activeWorkspaceStorage = activeWorkspaceStorage
+        self.output = output
+        self.syncStatusData = SyncStatusData(status: .unknown, networkId: activeWorkspaceStorage.workspaceInfo.networkId)
     }
     
     func setup(router: EditorSetRouterProtocol) {
@@ -174,8 +182,10 @@ final class EditorSetViewModel: ObservableObject {
                 self.loadingDocument = false
                 await self.onDataviewUpdate()
                 self.logModuleScreen()
+            } catch ObjectOpenError.anytypeNeedsUpgrade {
+                showUpdateAlert = true
             } catch {
-                self.router?.showOpenDocumentError(error: error)
+                showCommonOpenError = true
             }
         }
     }
@@ -192,11 +202,7 @@ final class EditorSetViewModel: ObservableObject {
         Task {
             await startSubscriptionIfNeeded()
         }
-        router?.setNavigationViewHidden(false, animated: true)
-    }
-    
-    func onWillDisappear() {
-        router?.dismissSetSettingsIfNeeded()
+        
     }
     
     func onDisappear() {
@@ -252,7 +258,10 @@ final class EditorSetViewModel: ObservableObject {
         case .dataviewUpdated(clearState: let clearState):
             await onDataviewUpdate(clearState: clearState)
         case .syncStatus(let status):
-            syncStatus = status
+            syncStatusData = SyncStatusData(
+                status: status,
+                networkId: activeWorkspaceStorage.workspaceInfo.networkId
+            )
         }
     }
     
@@ -322,7 +331,7 @@ final class EditorSetViewModel: ObservableObject {
             try await groupsSubscriptionsHandler.stopAllSubscriptions()
             groups = try await startGroupsSubscription(with: data)
         }
-        
+
         let groupOrderUpdates = await checkGroupOrderUpdates()
             
         if forceUpdate || groupOrderUpdates || hasGroupDiff {
@@ -404,13 +413,13 @@ final class EditorSetViewModel: ObservableObject {
         
         let subscription = subscriptionStorages[data.identifier] ?? subscriptionStorageProvider.createSubscriptionStorage(subId: data.identifier)
         subscriptionStorages[data.identifier] = subscription
-        
+
         try? await subscription.startOrUpdateSubscription(data: data) { [weak self] state in
             guard let self else { return }
             updateData(with: subscriptionId, numberOfRowsPerPage: numberOfRowsPerPage, state: state)
         }
     }
-    
+
     private func updateData(with groupId: String, numberOfRowsPerPage: Int, state: SubscriptionStorageState) {
         let pagesCount = numberOfRowsPerPage > 0 ? Int(ceil(Float(state.total) / Float(numberOfRowsPerPage))) : 0
         updatePageCount(pagesCount, groupId: groupId, ignorePageLimit: activeView.type.hasGroups)
@@ -511,10 +520,11 @@ final class EditorSetViewModel: ObservableObject {
                 contextID: details.id,
                 bundledDetails: [.done(!details.isDone)]
             )
-            await UIImpactFeedbackGenerator(style: .rigid).impactOccurred()
+            UIImpactFeedbackGenerator(style: .rigid).impactOccurred()
         }
     }
     
+    @MainActor
     private func itemTapped(_ details: ObjectDetails) {
         openObject(details: details)
     }
@@ -538,73 +548,7 @@ final class EditorSetViewModel: ObservableObject {
             }
         )
     }
-    
-    func createObject() {
-        createObject(setting: nil)
-    }
-    
-    func createObject(setting: ObjectCreationSetting?) {
-        if setDocument.isCollection() {
-            let settingsObjectType = setting.map { try? objectTypeProvider.objectType(id: $0.objectTypeId) }
-            let objectType = settingsObjectType ?? (try? setDocument.defaultObjectTypeForActiveView())
-            let templateId = setting?.templateId ?? defaultTemplateId(for: objectType)
-            
-            createObject(
-                type: objectType,
-                relationsDetails: [],
-                templateId: templateId,
-                completion: { details in
-                    Task { @MainActor [weak self] in
-                        guard let self else { return }
-                        try await self.objectActionsService.addObjectsToCollection(
-                            contextId: self.setDocument.objectId,
-                            objectIds: [details.id]
-                        )
-                        self.openObject(details: details)
-                    }
-                }
-            )
-        } else if setDocument.isBookmarksSet() {
-            createBookmarkObject()
-        } else if setDocument.isRelationsSet() {
-            let relationsDetails = setDocument.dataViewRelationsDetails.filter { [weak self] detail in
-                guard let source = self?.details?.setOf else { return false }
-                return source.contains(detail.id)
-            }
-            let settingsObjectType = setting.map { try? objectTypeProvider.objectType(id: $0.objectTypeId) }
-            let objectType = settingsObjectType ?? (try? setDocument.defaultObjectTypeForActiveView())
-            let templateId = setting?.templateId ?? defaultTemplateId(for: objectType)
-            createObject(
-                type: objectType,
-                relationsDetails: relationsDetails,
-                templateId: templateId,
-                completion: { [weak self] details in
-                    self?.openObject(details: details)
-                }
-            )
-        } else {
-            let objectTypeId = details?.setOf.first ?? ""
-            let objectType = try? objectTypeProvider.objectType(id: objectTypeId)
-            let templateId = setting?.templateId ?? defaultTemplateId(for: objectType)
-            createObject(
-                type: objectType,
-                relationsDetails: [],
-                templateId: templateId,
-                completion: { [weak self] details in
-                    self?.handleCreatedObject(details: details)
-                }
-            )
-        }
-    }
-    
-    private func defaultTemplateId(for objectType: ObjectType?) -> String {
-        if let defaultTemplateId = activeView.defaultTemplateID, defaultTemplateId.isNotEmpty {
-            return defaultTemplateId
-        } else {
-            return objectType?.defaultTemplateId ?? ""
-        }
-    }
-    
+
     func onEmptyStateButtonTap() {
         if setDocument.isCollection() {
             createObject()
@@ -613,27 +557,10 @@ final class EditorSetViewModel: ObservableObject {
         }
     }
     
-    private func createObject(
-        type: ObjectType?,
-        relationsDetails: [RelationDetails],
-        templateId: BlockId?,
-        completion: ((_ details: ObjectDetails) -> Void)?
-    ) {
-        Task { @MainActor [weak self] in
-            guard let self else { return }
-            
-            let details = try await self.dataviewService.addRecord(
-                typeUniqueKey: type?.uniqueKey,
-                templateId: templateId ?? "",
-                spaceId: setDocument.spaceId,
-                setFilters: self.setDocument.activeViewFilters,
-                relationsDetails: relationsDetails
-            )
-            AnytypeAnalytics.instance().logCreateObject(objectType: details.analyticsType, route: setDocument.isCollection() ? .collection : .set)
-            completion?(details)
-        }
+    private func createObject(setting: ObjectCreationSetting? = nil) {
+        router?.showCreateObject(setting: setting)
     }
-    
+
     private func defaultSubscriptionDetailsStorage(file: StaticString = #file, function: String = #function, line: UInt = #line) -> ObjectDetailsStorage? {
         let subscription = subscriptionStorages.values.first
         if subscription.isNil {
@@ -673,54 +600,12 @@ extension EditorSetViewModel {
     
     func showViewPicker() {
         guard let detailsStorage = defaultSubscriptionDetailsStorage() else { return }
-        router?.showViewPicker(subscriptionDetailsStorage: detailsStorage) { [weak self] activeView in
-            self?.showViewTypes(with: activeView)
-        }
+        router?.showViewPicker(subscriptionDetailsStorage: detailsStorage)
     }
     
     func showSetSettings() {
-        if FeatureFlags.newSetSettings {
-            guard let detailsStorage = defaultSubscriptionDetailsStorage() else { return }
-            router?.showSetSettings(subscriptionDetailsStorage: detailsStorage)
-        } else {
-            router?.showSetSettingsLegacy { [weak self] setting in
-                guard let self else { return }
-                switch setting {
-                case .view:
-                    self.showViewTypes(with: self.activeView)
-                case .settings:
-                    self.showViewSettings()
-                case .sort:
-                    self.showSorts()
-                case .filter:
-                    self.showFilters()
-                }
-            }
-        }
-    }
-    
-    func showViewTypes(with activeView: DataviewView?) {
-        router?.showViewTypes(
-            setDocument: setDocument,
-            activeView: activeView,
-            dataviewService: dataviewService
-        )
-    }
-
-    func showViewSettings() {
-        router?.showViewSettings(setDocument: setDocument)
-    }
-    
-    func showSorts() {
-        router?.showSorts()
-    }
-    
-    func showFilters() {
         guard let detailsStorage = defaultSubscriptionDetailsStorage() else { return }
-        router?.showFilters(
-            setDocument: setDocument,
-            subscriptionDetailsStorage: detailsStorage
-        )
+        router?.showSetSettings(subscriptionDetailsStorage: detailsStorage)
     }
     
     func showObjectSettings() {
@@ -738,8 +623,9 @@ extension EditorSetViewModel {
         Task { [weak self] in
             guard let self else { return }
             try await self.dataviewService.objectOrderUpdate(
-                viewId: self.activeView.id,
-                groupObjectIds: groupObjectIds
+                objectId: setDocument.objectId,
+                blockId: setDocument.blockId,
+                order: groupObjectIds.map { DataviewObjectOrder(viewID: self.activeView.id, groupID: $0.groupId, objectIds: $0.objectIds) }
             )
         }
     }
@@ -781,7 +667,7 @@ extension EditorSetViewModel {
         Task { @MainActor in
             try await objectActionsService.setObjectCollectionType(objectId: objectId)
             try await setDocument.close()
-            router?.replaceCurrentPage(with: .set(EditorSetObject(objectId: objectId, spaceId: setDocument.spaceId, isSupportedForEdit: true)))
+            output?.replaceEditorScreen(data: .set(EditorSetObject(objectId: objectId, spaceId: setDocument.spaceId)))
         }
         AnytypeAnalytics.instance().logSetTurnIntoCollection()
     }
@@ -791,6 +677,8 @@ extension EditorSetViewModel {
         Task { [weak self] in
             guard let self else { return }
             try await self.dataviewService.groupOrderUpdate(
+                objectId: setDocument.objectId,
+                blockId: setDocument.blockId,
                 viewId: self.activeView.id,
                 groupOrder: updatedGroupOrder
             )
@@ -822,20 +710,8 @@ extension EditorSetViewModel {
         return groupOrder.updated(viewGroups: viewGroups)
     }
     
-    private func handleCreatedObject(details: ObjectDetails) {
-        if details.layoutValue == .note {
-            openObject(details: details)
-        } else {
-            router?.showCreateObject(details: details)
-        }
-    }
-    
     private func openObject(details: ObjectDetails) {
-        router?.showPage(data: details.editorScreenData())
-    }
-    
-    private func createBookmarkObject() {
-        router?.showCreateBookmarkObject()
+        output?.showEditorScreen(data: details.editorScreenData())
     }
 }
 
@@ -856,7 +732,7 @@ extension EditorSetViewModel {
             interactor: DI.preview.serviceLocator.objectHeaderInteractor(objectId: "objectId")
         ),
         subscriptionStorageProvider: DI.preview.serviceLocator.subscriptionStorageProvider(),
-        dataviewService: DataviewService(objectId: "objectId", blockId: "blockId", prefilledFieldsBuilder: SetPrefilledFieldsBuilder()),
+        dataviewService: DI.preview.serviceLocator.dataviewService(),
         searchService: DI.preview.serviceLocator.searchService(),
         detailsService: DetailsService(
             objectId: "objectId",
@@ -867,6 +743,8 @@ extension EditorSetViewModel {
         textService: TextService(),
         groupsSubscriptionsHandler: DI.preview.serviceLocator.groupsSubscriptionsHandler(),
         setSubscriptionDataBuilder: SetSubscriptionDataBuilder(activeWorkspaceStorage: DI.preview.serviceLocator.activeWorkspaceStorage()),
-        objectTypeProvider: DI.preview.serviceLocator.objectTypeProvider()
+        objectTypeProvider: DI.preview.serviceLocator.objectTypeProvider(), 
+        activeWorkspaceStorage: DI.preview.serviceLocator.activeWorkspaceStorage(),
+        output: nil
     )
 }

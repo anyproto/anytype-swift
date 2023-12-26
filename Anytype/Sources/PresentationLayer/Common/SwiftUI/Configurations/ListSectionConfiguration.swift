@@ -27,14 +27,4 @@ extension ListSectionConfiguration {
                 .eraseToAnyView()
         })
     }
-    
-    static func bigHeader(id: String, title: String?, rows: [ListRowConfiguration]) -> Self {
-        ListSectionConfiguration(id: id, rows: rows, viewBuilder: {
-            if let title, title.isNotEmpty {
-                return ListSectionBigHeaderView(title: title).eraseToAnyView()
-            } else {
-                return EmptyView().eraseToAnyView()
-            }
-        })
-    }
 }

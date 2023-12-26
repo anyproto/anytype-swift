@@ -6,13 +6,15 @@ struct SelectionOptionsItemViewModel: Identifiable, Hashable {
     let title: String
     let imageAsset: ImageAsset
 
-    @EquatableNoop var action: () -> Void
+    @EquatableNoop var action: @MainActor () -> Void
 }
 
+@MainActor
 protocol OptionsItemProvider: AnyObject {
     var optionsPublisher: AnyPublisher<[SelectionOptionsItemViewModel], Never> { get }
 }
 
+@MainActor
 final class SelectionOptionsViewModel: ObservableObject {
     @Published var items = [SelectionOptionsItemViewModel]()
     

@@ -51,11 +51,10 @@ final class HomeWidgetsViewModel: ObservableObject {
         self.activeWorkspaceStorage = activeWorkspaceStorage
         self.output = output
         subscribeOnWallpaper(info: info)
-    }
-    
-    func onAppear() {
         setupInitialState()
     }
+    
+    func onAppear() {}
     
     func onDisappear() {}
     

@@ -2,6 +2,7 @@ import UIKit
 import Combine
 import Services
 
+@MainActor
 final class SimpleTableViewModel {
     let stateManager: SimpleTableStateManagerProtocol
     weak var dataSource: SpreadsheetViewDataSource? {
@@ -33,7 +34,7 @@ final class SimpleTableViewModel {
         self.cursorManager = cursorManager
 
         forceUpdate(shouldApplyFocus: false)
-        stateManager.checkDocumentLockField()
+        stateManager.checkOpenedState()
         setupHandlers()
     }
 
@@ -70,7 +71,7 @@ final class SimpleTableViewModel {
             dataSource?.allModels = cells
         }
 
-        stateManager.checkDocumentLockField()
+        stateManager.checkOpenedState()
     }
 
     private func updateDifference(newItems: [[EditorItem]]) {

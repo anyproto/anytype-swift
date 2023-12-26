@@ -1,16 +1,16 @@
 import Foundation
 import SwiftUI
 
-extension BottomAlert {
+extension BottomAlertLegacy {
     static func binConfirmation(
         count: Int,
         onConfirm: @escaping () -> Void
     ) -> Self {
-        BottomAlert(
+        BottomAlertLegacy(
             title: Loc.areYouSureYouWantToDelete(count),
             message: Loc.theseObjectsWillBeDeletedIrrevocably,
-            leftButton: BottomAlertButton(title: Loc.cancel, isDistructive: false, action: {}),
-            rightButton: BottomAlertButton(title: Loc.delete, isDistructive: true, action: {
+            leftButton: BottomAlertButtonLegacy(title: Loc.cancel, isDistructive: false, action: {}),
+            rightButton: BottomAlertButtonLegacy(title: Loc.delete, isDistructive: true, action: {
                 onConfirm()
             })
         )

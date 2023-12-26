@@ -4,9 +4,10 @@ import SwiftUI
 extension View {
     func anytypeSheet<Content>(
         isPresented: Binding<Bool>,
+        onDismiss: (() -> Void)? = nil,
         @ViewBuilder content: @escaping () -> Content
     ) -> some View where Content : View {
-        fullScreenCover(isPresented: isPresented) {
+        fullScreenCover(isPresented: isPresented, onDismiss: onDismiss) {
             SheetContainerView {
                 SheetView {
                     content()
@@ -17,9 +18,10 @@ extension View {
     
     public func anytypeSheet<Item, Content>(
         item: Binding<Item?>,
+        onDismiss: (() -> Void)? = nil,
         @ViewBuilder content: @escaping (Item) -> Content
     ) -> some View where Item : Identifiable, Content : View {
-        fullScreenCover(item: item) { item in
+        fullScreenCover(item: item, onDismiss: onDismiss) { item in
             SheetContainerView {
                 SheetView {
                     content(item)

@@ -24,7 +24,9 @@ final class CollectionsListWidgetModuleAssembly: HomeWidgetCommonAssemblyProtoco
         let model = CollectionsWidgetInternalViewModel(
             widgetBlockId: widgetBlockId,
             widgetObject: widgetObject,
-            subscriptionService: serviceLocator.collectionsSubscriptionService()
+            subscriptionService: serviceLocator.collectionsSubscriptionService(),
+            pageRepository: serviceLocator.pageRepository(),
+            output: output
         )
      
         return widgetsSubmoduleDI.listWidgetModuleAssembly().make(

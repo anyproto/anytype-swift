@@ -32,8 +32,10 @@ extension UIColor {
                 UIColor.Additional.collectionInfo, 
                 UIColor.Auth.collectionInfo, 
                 UIColor.Background.collectionInfo, 
+                UIColor.BottomAlert.collectionInfo, 
                 UIColor.Button.collectionInfo, 
                 UIColor.ModalScreen.collectionInfo, 
+                UIColor.Navigation.collectionInfo, 
                 UIColor.Shadow.collectionInfo, 
                 UIColor.Stroke.collectionInfo, 
                 UIColor.Text.collectionInfo, 
@@ -120,6 +122,7 @@ extension UIColor.Additional {
     static let collectionInfo = ColorCollectionInfo(
         name: "Additional",
         colors: [
+            ColorInfo(name: "gradient", color: UIColor.Additional.gradient), 
             ColorInfo(name: "separator", color: UIColor.Additional.separator), 
             ColorInfo(name: "space", color: UIColor.Additional.space)
         ]
@@ -134,7 +137,10 @@ extension UIColor.Auth {
             ColorInfo(name: "dot", color: UIColor.Auth.dot), 
             ColorInfo(name: "dotSelected", color: UIColor.Auth.dotSelected), 
             ColorInfo(name: "input", color: UIColor.Auth.input), 
-            ColorInfo(name: "inputText", color: UIColor.Auth.inputText)
+            ColorInfo(name: "inputText", color: UIColor.Auth.inputText), 
+            ColorInfo(name: "modalBackground", color: UIColor.Auth.modalBackground), 
+            ColorInfo(name: "modalContent", color: UIColor.Auth.modalContent), 
+            ColorInfo(name: "text", color: UIColor.Auth.text)
         ]
     )
 }
@@ -147,6 +153,19 @@ extension UIColor.Background {
             ColorInfo(name: "material", color: UIColor.Background.material), 
             ColorInfo(name: "primary", color: UIColor.Background.primary), 
             ColorInfo(name: "secondary", color: UIColor.Background.secondary)
+        ]
+    )
+}
+extension UIColor.BottomAlert {
+    static let collectionInfo = ColorCollectionInfo(
+        name: "BottomAlert",
+        colors: [
+            ColorInfo(name: "blueEnd", color: UIColor.BottomAlert.blueEnd), 
+            ColorInfo(name: "blueStart", color: UIColor.BottomAlert.blueStart), 
+            ColorInfo(name: "greenEnd", color: UIColor.BottomAlert.greenEnd), 
+            ColorInfo(name: "greenStart", color: UIColor.BottomAlert.greenStart), 
+            ColorInfo(name: "redEnd", color: UIColor.BottomAlert.redEnd), 
+            ColorInfo(name: "redStart", color: UIColor.BottomAlert.redStart)
         ]
     )
 }
@@ -168,6 +187,16 @@ extension UIColor.ModalScreen {
         colors: [
             ColorInfo(name: "background", color: UIColor.ModalScreen.background), 
             ColorInfo(name: "backgroundWithBlur", color: UIColor.ModalScreen.backgroundWithBlur)
+        ]
+    )
+}
+extension UIColor.Navigation {
+    static let collectionInfo = ColorCollectionInfo(
+        name: "Navigation",
+        colors: [
+            ColorInfo(name: "background", color: UIColor.Navigation.background), 
+            ColorInfo(name: "buttonActive", color: UIColor.Navigation.buttonActive), 
+            ColorInfo(name: "buttonInactive", color: UIColor.Navigation.buttonInactive)
         ]
     )
 }
@@ -206,6 +235,7 @@ extension UIColor.Widget {
     static let collectionInfo = ColorCollectionInfo(
         name: "Widget",
         colors: [
+            ColorInfo(name: "actionsBackground", color: UIColor.Widget.actionsBackground), 
             ColorInfo(name: "bottomPanel", color: UIColor.Widget.bottomPanel), 
             ColorInfo(name: "card", color: UIColor.Widget.card), 
             ColorInfo(name: "divider", color: UIColor.Widget.divider), 

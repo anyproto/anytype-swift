@@ -77,6 +77,8 @@
 "Relation.AddedToLibrary" = "Relazione ‘%@’ aggiunta alla tua libreria";
 "Relation.Deleted" = "Relazione eliminata";
 "Relation.From.Type" = "Dal tipo %@";
+"Relation.LinksFrom.Title" = "from";
+"Relation.LinksTo.Title" = "to";
 
 "Relation.Format.Object.Title" = "Oggetto";
 "Relation.Format.Text.Title" = "Testo";
@@ -271,6 +273,8 @@
 "Actions.LinkItself" = "Collega a";
 "Actions.MakeAsTemplate" = "Crea modello";
 "Actions.TemplateMakeDefault" = "Make default";
+"Actions.CreateWidget.Title" = "Ai widget";
+"Actions.CreateWidget.Success" = "È stato creato un nuovo widget";
 
 // Object Type
 "Set" = "Insieme";
@@ -416,8 +420,7 @@
 
 // MARK: - Set.Bookmarks
 "Set.Bookmark.Create.Placeholder" = "Incolla link";
-"Set.Bookmark.Error.Title" = "Oops - qualcosa è andato storto";
-"Set.Bookmark.Error.Message" = "Riprova";
+"Set.Bookmark.Error.Message" = "Oops - qualcosa è andato storto. Riprova";
 
 // MARK: - Sets: View Settings
 "Set.View.Settings.ImageFit.Title" = "Adatta immagine";
@@ -466,6 +469,7 @@
 
 "Error" = "Errore";
 "Unknown error" = "Errore sconosciuto";
+"Open Type Error" = "Tipo \"%@\" non supportato. Puoi aprirlo tramite desktop.";
 "Close" = "Chiudi";
 "Account is deleted" = "L'account è stato eliminato";
 "Add phone" = "Aggiungi telefono";
@@ -557,7 +561,7 @@
 "Add below" = "Aggiungi sotto";
 "Change type" = "Cambia tipo";
 "Link to existing object" = "Collega a un oggetto esistente";
-"Link to object" = "Collega a oggetto";
+"Link to object" = "Aggiungi link";
 "Upload playable audio" = "Carica un audio riproducibile";
 "Code snippet" = "Frammento di codice";
 "Bookmark" = "Segnalibro";
@@ -725,6 +729,7 @@
 "Widgets.Actions.EditWidgets" = "Edit Widgets";
 "Widgets.Actions.EmptyBin" = "Empty Bin";
 "Widgets.Actions.AddBelow" = "Add Below";
+"Widgets.Actions.NewObject" = "Nuovo Oggetto";
 "Widgets.Layout.Screen.Title" = "Tipo di widget";
 "Widgets.Layout.Link.Title" = "Collegamento";
 "Widgets.Layout.Tree.Title" = "Albero";
@@ -832,6 +837,14 @@
 "Sharing.Text.NoteObject" = "Note object";
 "Sharing.Text.TextBlock" = "Text block";
 
+// MARK: - Sharing tips
+"Sharing.Tip.Title" = "Share Extension";
+"Sharing.Tip.Button.title" = "Show share menu";
+
+"Sharing.Tip.Steps.1" = "Tap the iOS sharing button";
+"Sharing.Tip.Steps.2" = "Scroll past the app and tap More";
+"Sharing.Tip.Steps.3" = "Tap Edit to find “Anytype” and  tap";
+
 // MARK: - Initial
 
 "Initial.UnstableMiddle.Title" = "Warning";
@@ -848,3 +861,20 @@
 // MARK: - Error
 "Error.AnytypeNeedsUpgrate.Title" = "Update Your App";
 "Error.AnytypeNeedsUpgrate.Message" = "This object was modified in a newer version of Anytype. Please update the app to open it on this device";
+"Error.AnytypeNeedsUpgrate.Confirm" = "Update";
+
+// MARK: - Relative date formatter
+"RelativeFormatter.days7" = "Ultimi 7 giorni";
+"RelativeFormatter.days30" = "Ultimi 30 giorni";
+"RelativeFormatter.older" = "Meno recenti";
+
+// MARK: - Server
+"Server.Network" = "Network";
+"Server.Networks" = "Networks";
+"Server.AddButton" = "Add Self-hosted Network";
+"Server.Anytype" = "Anytype";
+"Server.LocalOnly" = "Local-only";
+
+// MARK: - Gallery
+"Gallery.Unavailable.Title" = "La galleria sarà supportata presto";
+"Gallery.Unavailable.Message" = "Please use the desktop app for now";

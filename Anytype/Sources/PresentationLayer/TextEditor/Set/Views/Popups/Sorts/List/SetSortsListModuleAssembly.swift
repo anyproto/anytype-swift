@@ -26,15 +26,11 @@ final class SetSortsListModuleAssembly: SetSortsListModuleAssemblyProtocol {
         viewId: String,
         output: SetSortsListCoordinatorOutput?
     ) -> AnyView {
-        let dataviewService = serviceLocator.dataviewService(
-            objectId: setDocument.objectId,
-            blockId: setDocument.inlineParameters?.blockId
-        )
         return SetSortsListView(
             viewModel: SetSortsListViewModel(
                 setDocument: setDocument,
                 viewId: viewId,
-                dataviewService: dataviewService,
+                dataviewService: self.serviceLocator.dataviewService(),
                 output: output
             )
         ).eraseToAnyView()

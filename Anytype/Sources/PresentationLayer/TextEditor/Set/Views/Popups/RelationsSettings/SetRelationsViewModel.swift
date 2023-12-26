@@ -7,79 +7,15 @@ import Combine
 
 @MainActor
 final class SetRelationsViewModel: ObservableObject {
-    @Published var contentViewType: SetContentViewType = .table
+    @Published var view: DataviewView = .empty
     
     private let setDocument: SetDocumentProtocol
     private let viewId: String
     private let dataviewService: DataviewServiceProtocol
-    // TODO: Remove router with FeatureFlags.newSetSettings
-    private let router: EditorSetRouterProtocol?
     
     private weak var output: SetRelationsCoordinatorOutput?
     
     private var cancellable: Cancellable?
-    
-    private var view: DataviewView = .empty
-    
-    var cardSizeSetting: SetViewSettingsValueItem {
-        SetViewSettingsValueItem(
-            title: Loc.Set.View.Settings.CardSize.title,
-            value: view.cardSize.value,
-            onTap: { [weak self] in
-                self?.showCardSizes()
-            }
-        )
-    }
-    
-    var iconSetting: SetViewSettingsToggleItem {
-        SetViewSettingsToggleItem(
-            title: Loc.icon,
-            isSelected: !view.hideIcon,
-            onChange: { [weak self] show in
-                self?.onShowIconChange(show)
-            }
-        )
-    }
-    
-    var imagePreviewSetting: SetViewSettingsValueItem {
-        SetViewSettingsValueItem(
-            title: Loc.Set.View.Settings.ImagePreview.title,
-            value: imagePreviewValue(),
-            onTap: { [weak self] in
-                self?.showCovers()
-            }
-        )
-    }
-    
-    var coverFitSetting: SetViewSettingsToggleItem {
-        SetViewSettingsToggleItem(
-            title: Loc.Set.View.Settings.ImageFit.title,
-            isSelected: view.coverFit,
-            onChange: { [weak self] fit in
-                self?.onCoverFitChange(fit)
-            }
-        )
-    }
-    
-    var groupBySetting: SetViewSettingsValueItem {
-        SetViewSettingsValueItem(
-            title: Loc.Set.View.Settings.GroupBy.title,
-            value: groupByValue(with: view.groupRelationKey),
-            onTap: { [weak self] in
-                self?.showGroupByRelations()
-            }
-        )
-    }
-    
-    var groupBackgroundColorsSetting: SetViewSettingsToggleItem {
-        SetViewSettingsToggleItem(
-            title: Loc.Set.View.Settings.GroupBackgroundColors.title,
-            isSelected: view.groupBackgroundColors,
-            onChange: { [weak self] colored in
-                self?.onGroupBackgroundColorsChange(colored)
-            }
-        )
-    }
     
     var relations: [SetViewSettingsRelation] {
         setDocument.sortedRelations(for: viewId).map { relation in
@@ -100,14 +36,12 @@ final class SetRelationsViewModel: ObservableObject {
         setDocument: SetDocumentProtocol,
         viewId: String,
         dataviewService: DataviewServiceProtocol,
-        output: SetRelationsCoordinatorOutput?,
-        router: EditorSetRouterProtocol?
+        output: SetRelationsCoordinatorOutput?
     ) {
         self.setDocument = setDocument
         self.viewId = viewId
         self.dataviewService = dataviewService
         self.output = output
-        self.router = router
         self.setup()
     }
     
@@ -119,8 +53,17 @@ final class SetRelationsViewModel: ObservableObject {
             }
             Task {
                 let key = relation.relationDetails.key
-                try await dataviewService.deleteRelation(relationKey: key)
-                try await dataviewService.removeViewRelations([key], viewId: viewId)
+                try await dataviewService.deleteRelation(
+                    objectId: setDocument.objectId,
+                    blockId: setDocument.blockId,
+                    relationKey: key
+                )
+                try await dataviewService.removeViewRelations(
+                    objectId: setDocument.objectId,
+                    blockId: setDocument.blockId,
+                    keys: [key],
+                    viewId: viewId
+                )
             }
         }
     }
@@ -150,7 +93,12 @@ final class SetRelationsViewModel: ObservableObject {
             let keys = newOptions.map { $0.key }
             Task { [weak self] in
                 guard let self else { return }
-                try await dataviewService.sortViewRelations(keys, viewId: viewId)
+                try await dataviewService.sortViewRelations(
+                    objectId: setDocument.objectId,
+                    blockId: setDocument.blockId,
+                    keys: keys,
+                    viewId: viewId
+                )
             }
         }
     }
@@ -165,7 +113,6 @@ final class SetRelationsViewModel: ObservableObject {
         cancellable = setDocument.syncPublisher.sink {  [weak self] in
             guard let self else { return }
             view = setDocument.view(by: viewId)
-            contentViewType = view.type.setContentViewType
         }
     }
     
@@ -173,99 +120,12 @@ final class SetRelationsViewModel: ObservableObject {
         Task {
             let newOption = relation.option.updated(isVisible: isVisible).asMiddleware
             try await dataviewService.replaceViewRelation(
-                relation.option.key,
+                objectId: setDocument.objectId,
+                blockId: setDocument.blockId,
+                key: relation.option.key,
                 with: newOption,
                 viewId: viewId
             )
-        }
-    }
-    
-    private func onShowIconChange(_ show: Bool) {
-        let newView = view.updated(hideIcon: !show)
-        updateView(newView)
-    }
-    
-    private func onImagePreviewChange(_ key: String) {
-        let newView = view.updated(coverRelationKey: key)
-        updateView(newView)
-    }
-    
-    private func onCoverFitChange(_ fit: Bool) {
-        let newView = view.updated(coverFit: fit)
-        updateView(newView)
-    }
-    
-    private func onGroupBackgroundColorsChange(_ colored: Bool) {
-        let newView = view.updated(groupBackgroundColors: colored)
-        updateView(newView)
-    }
-    
-    private func onGroupBySettingChange(_ key: String) {
-        let newView = view.updated(groupRelationKey: key)
-        updateView(newView)
-    }
-    
-    private func onCardSizeChange(_ size: DataviewViewSize) {
-        let newView = view.updated(cardSize: size)
-        updateView(newView)
-    }
-    
-    private func updateView(_ view: DataviewView) {
-        Task {
-            try await dataviewService.updateView(view)
-        }
-    }
-    
-    private func imagePreviewValue() -> String {
-        imagePreviewValueFromCovers() ?? imagePreviewValueFromRelations() ?? ""
-    }
-    
-    private func imagePreviewValueFromCovers() -> String? {
-        SetViewSettingsImagePreviewCover.allCases.first { cover in
-            return cover.rawValue == view.coverRelationKey
-        }?.title
-    }
-    
-    private func imagePreviewValueFromRelations() -> String? {
-        setDocument.dataViewRelationsDetails.first { relationDetails in
-            return relationDetails.key == view.coverRelationKey
-        }?.name
-    }
-    
-    private func mappedCardSize() -> DataviewViewSize {
-        if view.cardSize == .medium {
-            return .large
-        }
-        return view.cardSize
-    }
-    
-    private func groupByValue(with key: String) -> String {
-        setDocument.dataViewRelationsDetails.first { relation in
-            relation.key == key
-        }?.name ?? key
-    }
-    
-    private func showCardSizes() {
-        router?.showCardSizes(
-            size: mappedCardSize(),
-            onSelect: { [weak self] size in
-                self?.onCardSizeChange(size)
-            }
-        )
-    }
-    
-    private func showCovers() {
-        router?.showCovers(
-            setDocument: setDocument,
-            onSelect: { [weak self] key in
-                self?.onImagePreviewChange(key)
-            }
-        )
-    }
-    
-    private func showGroupByRelations() {
-        router?.showGroupByRelations { [weak self] key in
-            self?.onGroupBySettingChange(key)
         }
     }
 }

@@ -1,6 +1,7 @@
 import Foundation
 
 protocol AddNewRelationCoordinatorAssemblyProtocol {
+    @MainActor
     func make() -> AddNewRelationCoordinatorProtocol
 }
 
@@ -14,6 +15,7 @@ final class AddNewRelationCoordinatorAssembly: AddNewRelationCoordinatorAssembly
         self.modulesDI = modulesDI
     }
     
+    @MainActor
     func make() -> AddNewRelationCoordinatorProtocol {
         return AddNewRelationCoordinator(
             navigationContext: uiHelpersDI.commonNavigationContext(),

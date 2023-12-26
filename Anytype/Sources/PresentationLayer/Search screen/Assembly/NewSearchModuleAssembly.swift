@@ -143,7 +143,6 @@ final class NewSearchModuleAssembly: NewSearchModuleAssemblyProtocol {
         excludedObjectTypeId: String?,
         showBookmark: Bool,
         showSetAndCollection: Bool,
-        browser: EditorBrowserController?,
         onSelect: @escaping (_ type: ObjectType) -> Void
     ) -> NewSearchView {
         let interactor = ObjectTypesSearchInteractor(
@@ -158,7 +157,7 @@ final class NewSearchModuleAssembly: NewSearchModuleAssemblyProtocol {
         
         let internalViewModel = ObjectTypesSearchViewModel(
             interactor: interactor,
-            toastPresenter: uiHelpersDI.toastPresenter(using: browser),
+            toastPresenter: uiHelpersDI.toastPresenter(),
             selectedObjectId: selectedObjectId,
             onSelect: onSelect
         )
@@ -184,7 +183,7 @@ final class NewSearchModuleAssembly: NewSearchModuleAssemblyProtocol {
             workspaceService: serviceLocator.workspaceService(),
             objectTypeProvider: serviceLocator.objectTypeProvider(),
             excludedObjectTypeId: nil,
-            showBookmark: false,
+            showBookmark: true,
             showSetAndCollection: false
         )
         
@@ -263,19 +262,18 @@ final class NewSearchModuleAssembly: NewSearchModuleAssemblyProtocol {
     func relationsSearchModule(
         document: BaseDocumentProtocol,
         excludedRelationsIds: [String],
-        target: RelationsSearchTarget,
+        target: RelationsModuleTarget,
         output: RelationSearchModuleOutput
     ) -> NewSearchView {
         
+        let relationsInteractor = RelationsInteractor(
+            relationsService: serviceLocator.relationService(objectId: document.objectId),
+            dataviewService: serviceLocator.dataviewService()
+        )
         let interactor = RelationsSearchInteractor(
             searchService: serviceLocator.searchService(),
             workspaceService: serviceLocator.workspaceService(),
-            relationsService: RelationsService(objectId: document.objectId),
-            dataviewService: DataviewService(
-                objectId: document.objectId,
-                blockId: nil,
-                prefilledFieldsBuilder: SetPrefilledFieldsBuilder()
-            ),
+            relationsInteractor: relationsInteractor,
             relationDetailsStorage: serviceLocator.relationDetailsStorage()
         )
         
@@ -293,7 +291,7 @@ final class NewSearchModuleAssembly: NewSearchModuleAssemblyProtocol {
             searchPlaceholder: "Search or create a new relation",
             style: .default,
             itemCreationMode: .available(action: { title in
-                output.didAskToShowCreateNewRelation(document: document, searchText: title)
+                output.didAskToShowCreateNewRelation(document: document, target: target, searchText: title)
             }),
             internalViewModel: internalViewModel
         )

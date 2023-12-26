@@ -27,8 +27,6 @@ final class WidgetContainerViewModel<ContentVM: WidgetContainerContentViewModelP
     }
     @Published var isEditState: Bool = false
     @Published var toastData = ToastBarData.empty
-    private var headerSubscriptionStarted = false
-    private var contentSubscriptionStarted = false
     
     init(
         widgetBlockId: BlockId,
@@ -59,11 +57,8 @@ final class WidgetContainerViewModel<ContentVM: WidgetContainerContentViewModelP
             .receiveOnMain()
             .assign(to: &$isEditState)
         
-        // Call show notifications for prepare first state
-        onAppear()
-        if isExpanded {
-            onAppearContent()
-        }
+        contentModel.startHeaderSubscription()
+        contentModel.startContentSubscription()
     }
     
     // MARK: - Actions
@@ -112,7 +107,7 @@ final class WidgetContainerViewModel<ContentVM: WidgetContainerContentViewModelP
                return
            }
            AnytypeAnalytics.instance().logShowDeletionWarning(route: .bin)
-           let alert = BottomAlert.binConfirmation(count: binIds.count) { [binIds, weak self] in
+           let alert = BottomAlertLegacy.binConfirmation(count: binIds.count) { [binIds, weak self] in
                Task { [weak self] in
                    try await self?.objectActionsService.delete(objectIds: binIds, route: .bin)
                    self?.toastData = ToastBarData(text: Loc.Widgets.Actions.binConfirm(binIds.count), showSnackBar: true)
@@ -121,32 +116,6 @@ final class WidgetContainerViewModel<ContentVM: WidgetContainerContentViewModelP
            alertOpener.showFloatAlert(model: alert)
         }
         UISelectionFeedbackGenerator().selectionChanged()
-    }
-    
-    // MARK: - Lifecycle
-    
-    func onAppear() {
-        if !headerSubscriptionStarted {
-            headerSubscriptionStarted = true
-            contentModel.startHeaderSubscription()
-        }
-    }
-    
-    func onDisappear() {
-        headerSubscriptionStarted = false
-        contentModel.stopHeaderSubscription()
-    }
-    
-    func onAppearContent() {
-        if !contentSubscriptionStarted {
-            contentSubscriptionStarted = true
-            contentModel.startContentSubscription()
-        }
-    }
-    
-    func onDisappearContent() {
-        contentSubscriptionStarted = false
-        contentModel.stopContentSubscription()
     }
     
     // MARK: - Private

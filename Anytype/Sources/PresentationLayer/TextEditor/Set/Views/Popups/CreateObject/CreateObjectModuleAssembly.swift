@@ -2,44 +2,58 @@ import Foundation
 import UIKit
 import Services
 
+@MainActor
 protocol CreateObjectModuleAssemblyProtocol {
+    
     func makeCreateObject(
         objectId: String,
+        blockId: String?,
         openToEditAction: @escaping () -> Void,
         closeAction: @escaping () -> Void
     ) -> UIViewController
     
-    func makeCreateBookmark(spaceId: String, closeAction: @escaping (_ details: ObjectDetails?) -> Void) -> UIViewController
+    func makeCreateBookmark(
+        spaceId: String,
+        collectionId: String?,
+        closeAction: @escaping (_ details: ObjectDetails?) -> Void
+    ) -> UIViewController
 }
 
-
+@MainActor
 final class CreateObjectModuleAssembly: CreateObjectModuleAssemblyProtocol {
     
     private let serviceLocator: ServiceLocator
     
-    init(serviceLocator: ServiceLocator) {
+    nonisolated init(serviceLocator: ServiceLocator) {
         self.serviceLocator = serviceLocator
     }
     
     // MARK: - CreateObjectModuleAssemblyProtocol
     
+    @MainActor
     func makeCreateObject(
         objectId: String,
+        blockId: String?,
         openToEditAction: @escaping () -> Void,
         closeAction: @escaping () -> Void
     ) -> UIViewController {
         let viewModel = CreateObjectViewModel(
+            objectId: objectId,
+            blockId: blockId,
             relationService: serviceLocator.relationService(objectId: objectId),
+            textService: serviceLocator.textService,
             openToEditAction: openToEditAction,
             closeAction: closeAction
         )
         return make(viewModel: viewModel)
     }
     
-    func makeCreateBookmark(spaceId: String, closeAction: @escaping (_ details: ObjectDetails?) -> Void) -> UIViewController {
+    func makeCreateBookmark(spaceId: String, collectionId: String?, closeAction: @escaping (_ details: ObjectDetails?) -> Void) -> UIViewController {
         let viewModel = CreateBookmarkViewModel(
             spaceId: spaceId,
+            collectionId: collectionId,
             bookmarkService: serviceLocator.bookmarkService(),
+            objectActionsService: serviceLocator.objectActionsService(),
             closeAction: closeAction
         )
         return make(viewModel: viewModel)

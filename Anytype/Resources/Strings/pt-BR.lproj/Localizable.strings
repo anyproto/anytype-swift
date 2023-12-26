@@ -77,6 +77,8 @@
 "Relation.AddedToLibrary" = "Relação \"%@\" adicionada à biblioteca";
 "Relation.Deleted" = "Relação apagada";
 "Relation.From.Type" = "Do tipo \"%@\"";
+"Relation.LinksFrom.Title" = "from";
+"Relation.LinksTo.Title" = "to";
 
 "Relation.Format.Object.Title" = "Objeto";
 "Relation.Format.Text.Title" = "Texto";
@@ -271,6 +273,8 @@
 "Actions.LinkItself" = "Vincular a";
 "Actions.MakeAsTemplate" = "Fazer modelo";
 "Actions.TemplateMakeDefault" = "Make default";
+"Actions.CreateWidget.Title" = "To widgets";
+"Actions.CreateWidget.Success" = "New widget was created";
 
 // Object Type
 "Set" = "Conjunto";
@@ -416,8 +420,7 @@
 
 // MARK: - Set.Bookmarks
 "Set.Bookmark.Create.Placeholder" = "Colar link";
-"Set.Bookmark.Error.Title" = "Oops - algo deu errado";
-"Set.Bookmark.Error.Message" = "Por favor, tente novamente";
+"Set.Bookmark.Error.Message" = "Opa! Algo deu errado. Por favor, tente novamente.";
 
 // MARK: - Sets: View Settings
 "Set.View.Settings.ImageFit.Title" = "Ajustar imagem";
@@ -464,9 +467,10 @@
 "SlashMenu.TableOfContents" = "Tabela de conteúdos";
 "SlashMenu.Table" = "Tabela";
 
-"Error" = "Error";
+"Error" = "Erro";
 "Unknown error" = "Erro desconhecido";
-"Close" = "Close";
+"Open Type Error" = "Not supported type \"%@\". You can open it via desktop.";
+"Close" = "Fechar";
 "Account is deleted" = "A conta foi removida";
 "Add phone" = "Adicionar telefone";
 "Nothing to redo" = "Nada para refazer";
@@ -517,7 +521,7 @@
 "Back up your recovery phrase" = "Salve sua frase de recuperação";
 "Account" = "Conta";
 "Access" = "Acesso";
-"Back up phrase" = "Back up phrase";
+"Back up phrase" = "Frase de recuperação";
 "Removing cache" = "Removendo o cache";
 "Deletion error" = "Erro ao excluir";
 "Start" = "Começar";
@@ -553,11 +557,11 @@
 "Download" = "Baixar";
 "Open object" = "Abrir objeto";
 "Open source" = "Código aberto";
-"Into object" = "Into object";
+"Into object" = "Neste objeto";
 "Add below" = "Adicionar abaixo";
 "Change type" = "Alterar tipo";
 "Link to existing object" = "Vincular a objeto existente";
-"Link to object" = "Vincular a um objeto";
+"Link to object" = "Adicionar link";
 "Upload playable audio" = "Carregar áudio reproduzível";
 "Code snippet" = "Trecho de código";
 "Bookmark" = "Marcador";
@@ -725,6 +729,7 @@
 "Widgets.Actions.EditWidgets" = "Editar widgets";
 "Widgets.Actions.EmptyBin" = "Lixeira Limpa";
 "Widgets.Actions.AddBelow" = "Adicionar abaixo";
+"Widgets.Actions.NewObject" = "Novo Objeto";
 "Widgets.Layout.Screen.Title" = "Tipo de widget";
 "Widgets.Layout.Link.Title" = "Link";
 "Widgets.Layout.Tree.Title" = "Árvore";
@@ -785,8 +790,8 @@
 "FileStorage.ManageFiles" = "Gerenciar arquivos";
 "FileStorage.LimitError" = "Você excedeu o limite de upload";
 "FileStorage.LimitLegend.Current" = "%@ | %@";
-"FileStorage.LimitLegend.Other" = "Other spaces | %@";
-"FileStorage.LimitLegend.Free" = "Free | %@";
+"FileStorage.LimitLegend.Other" = "Outros espaços | %@";
+"FileStorage.LimitLegend.Free" = "Gratuito | %@";
 
 // MARK: - Files List
 "FilesList.Title" = "Arquivos sincronizados";
@@ -800,8 +805,8 @@
 "ClearCacheAlert.Description" = "Todos os arquivos de mídia armazenados no Anytype serão excluídos do seu dispositivo atual. Eles podem ser baixados novamente de um nó de backup ou de outro dispositivo.";
 
 // MARK: - Spaces
-"Spaces.Accessibility.Public" = "Public Space";
-"Spaces.Accessibility.Private" = "Private Space";
+"Spaces.Accessibility.Public" = "Espaço Público";
+"Spaces.Accessibility.Private" = "Espaço Privado";
 "Spaces.Accessibility.Personal" = "Configurações";
 "Spaces.Search.Title" = "Pesquisar Espaços";
 
@@ -832,6 +837,14 @@
 "Sharing.Text.NoteObject" = "Objeto nota";
 "Sharing.Text.TextBlock" = "Bloco de texto";
 
+// MARK: - Sharing tips
+"Sharing.Tip.Title" = "Share Extension";
+"Sharing.Tip.Button.title" = "Show share menu";
+
+"Sharing.Tip.Steps.1" = "Tap the iOS sharing button";
+"Sharing.Tip.Steps.2" = "Scroll past the app and tap More";
+"Sharing.Tip.Steps.3" = "Tap Edit to find “Anytype” and  tap";
+
 // MARK: - Initial
 
 "Initial.UnstableMiddle.Title" = "Aviso";
@@ -846,5 +859,22 @@
 "LongTapCreateTip.Message" = "Toque longo no botão Criar Objeto para abrir o menu com os tipos";
 
 // MARK: - Error
-"Error.AnytypeNeedsUpgrate.Title" = "Update Your App";
-"Error.AnytypeNeedsUpgrate.Message" = "This object was modified in a newer version of Anytype. Please update the app to open it on this device";
+"Error.AnytypeNeedsUpgrate.Title" = "Atualizar seu aplicativo!";
+"Error.AnytypeNeedsUpgrate.Message" = "Este objeto foi atualizado em uma nova versão do Anytype. Por favor, atualize o aplicativo para abri-lo neste dispositivo";
+"Error.AnytypeNeedsUpgrate.Confirm" = "Update";
+
+// MARK: - Relative date formatter
+"RelativeFormatter.days7" = "Últimos 7 dias";
+"RelativeFormatter.days30" = "Últimos 30 dias";
+"RelativeFormatter.older" = "Mais antigo";
+
+// MARK: - Server
+"Server.Network" = "Network";
+"Server.Networks" = "Networks";
+"Server.AddButton" = "Add Self-hosted Network";
+"Server.Anytype" = "Anytype";
+"Server.LocalOnly" = "Local-only";
+
+// MARK: - Gallery
+"Gallery.Unavailable.Title" = "Gallery will be supported soon";
+"Gallery.Unavailable.Message" = "Please use the desktop app for now";

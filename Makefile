@@ -9,6 +9,8 @@ install-middle-local:
 	rm -fr Dependencies/Middleware/*
 	mkdir -p Dependencies/Middleware
 	cp -r ../anytype-heart/dist/ios/ Dependencies/Middleware
+	rm -rf Modules/ProtobufMessages/Sources/Protocol/*
+	cp -r Dependencies/Middleware/protobuf/*.swift Modules/ProtobufMessages/Sources/Protocol
 
 build-middle-local:
 	make -C ../anytype-heart build-ios

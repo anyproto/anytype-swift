@@ -77,6 +77,8 @@
 "Relation.AddedToLibrary" = "关联“%@”已添加到您的文库";
 "Relation.Deleted" = "已删除的关联";
 "Relation.From.Type" = "来自 %@ 类型";
+"Relation.LinksFrom.Title" = "从";
+"Relation.LinksTo.Title" = "到";
 
 "Relation.Format.Object.Title" = "对象";
 "Relation.Format.Text.Title" = "正文";
@@ -271,6 +273,8 @@
 "Actions.LinkItself" = "链接到";
 "Actions.MakeAsTemplate" = "制作模板";
 "Actions.TemplateMakeDefault" = "设为默认";
+"Actions.CreateWidget.Title" = "至小部件";
+"Actions.CreateWidget.Success" = "新小部件已创建";
 
 // Object Type
 "Set" = "集合";
@@ -416,8 +420,7 @@
 
 // MARK: - Set.Bookmarks
 "Set.Bookmark.Create.Placeholder" = "粘贴链接";
-"Set.Bookmark.Error.Title" = "哎呀 - 出问题了";
-"Set.Bookmark.Error.Message" = "请重试";
+"Set.Bookmark.Error.Message" = "噢不 - 出现了一些问题。请重试";
 
 // MARK: - Sets: View Settings
 "Set.View.Settings.ImageFit.Title" = "图像自适应";
@@ -466,6 +469,7 @@
 
 "Error" = "错误";
 "Unknown error" = "未知错误";
+"Open Type Error" = "不支持的类型 “%@”。您可以使用桌面端打开。";
 "Close" = "关闭";
 "Account is deleted" = "帐户已删除";
 "Add phone" = "添加电话号";
@@ -557,7 +561,7 @@
 "Add below" = "在下面添加";
 "Change type" = "更改类型";
 "Link to existing object" = "链接到现有对象";
-"Link to object" = "链接到对象";
+"Link to object" = "添加链接";
 "Upload playable audio" = "上传可播放音频";
 "Code snippet" = "代码片段";
 "Bookmark" = "书签";
@@ -725,6 +729,7 @@
 "Widgets.Actions.EditWidgets" = "编辑小部件";
 "Widgets.Actions.EmptyBin" = "清空废纸篓";
 "Widgets.Actions.AddBelow" = "在下面添加";
+"Widgets.Actions.NewObject" = "新建对象";
 "Widgets.Layout.Screen.Title" = "小部件类型";
 "Widgets.Layout.Link.Title" = "链接";
 "Widgets.Layout.Tree.Title" = "树状图";
@@ -800,8 +805,8 @@
 "ClearCacheAlert.Description" = "存储在 Anytype 中的所有媒体文件将从您当前的设备中删除。可以从备份节点或其他设备再次下载它们。";
 
 // MARK: - Spaces
-"Spaces.Accessibility.Public" = "Public Space";
-"Spaces.Accessibility.Private" = "Private Space";
+"Spaces.Accessibility.Public" = "公共空间";
+"Spaces.Accessibility.Private" = "私人空间";
 "Spaces.Accessibility.Personal" = "设置";
 "Spaces.Search.Title" = "搜索空间";
 
@@ -832,6 +837,14 @@
 "Sharing.Text.NoteObject" = "笔记对象";
 "Sharing.Text.TextBlock" = "文本块";
 
+// MARK: - Sharing tips
+"Sharing.Tip.Title" = "分享扩展";
+"Sharing.Tip.Button.title" = "显示分享菜单";
+
+"Sharing.Tip.Steps.1" = "单击 iOS 共享按钮";
+"Sharing.Tip.Steps.2" = "Scroll past the app and tap More";
+"Sharing.Tip.Steps.3" = "单击编辑来查找“Anytype”，然后点击";
+
 // MARK: - Initial
 
 "Initial.UnstableMiddle.Title" = "警告";
@@ -843,8 +856,26 @@
 
 // MARK: - Create tip
 "LongTapCreateTip.Title" = "创建带有特定类型的对象";
-"LongTapCreateTip.Message" = "长按创建对象按钮以打开带类型的菜单";
+"LongTapCreateTip.Message" = "长按创建文档按钮以打开带类型的菜单";
 
 // MARK: - Error
 "Error.AnytypeNeedsUpgrate.Title" = "更新应用";
-"Error.AnytypeNeedsUpgrate.Message" = "此对象已在更高版本的 Anytype 编辑过，请更新此设备的应用以打开它";
+"Error.AnytypeNeedsUpgrate.Message" = "此文档已在更高版本的 Anytype 编辑过，请更新此设备的应用以打开它。";
+"Error.AnytypeNeedsUpgrate.Confirm" = "更新";
+
+// MARK: - Relative date formatter
+"RelativeFormatter.days7" = "过去 7 天";
+"RelativeFormatter.days30" = "过去 30 天";
+"RelativeFormatter.older" = "较早的";
+
+// MARK: - Server
+"Server.Network" = "网络";
+"Server.Networks" = "网络";
+"Server.AddButton" = "添加自托管网络
+";
+"Server.Anytype" = "Anytype";
+"Server.LocalOnly" = "仅本地";
+
+// MARK: - Gallery
+"Gallery.Unavailable.Title" = "即将支持画廊";
+"Gallery.Unavailable.Message" = "目前请使用桌面应用";

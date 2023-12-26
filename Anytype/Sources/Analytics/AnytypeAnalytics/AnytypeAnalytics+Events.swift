@@ -103,12 +103,12 @@ extension AnytypeAnalytics {
                  withEventProperties: [AnalyticsEventsPropertiesKey.objectType: type.analyticsId])
     }
     
-    func logSelectObjectType(_ type: AnalyticsObjectType, route: SelectObjectTypeRoute? = nil) {
+    func logSelectObjectType(_ type: AnalyticsObjectType, route: SelectObjectTypeRoute) {
         logEvent(
             AnalyticsEventsName.selectObjectType,
             withEventProperties: [
                 AnalyticsEventsPropertiesKey.objectType: type.analyticsId,
-                AnalyticsEventsPropertiesKey.route: route?.rawValue
+                AnalyticsEventsPropertiesKey.route: route.rawValue
             ].compactMapValues { $0 }
         )
     }
@@ -128,15 +128,19 @@ extension AnytypeAnalytics {
         }
     }
 
-    func logCreateBlock(type: BlockContentType) {
-        logCreateBlock(type: type.analyticsValue, style: type.styleAnalyticsValue)
+    func logCreateBlock(type: BlockContentType, route: AnalyticsEventsRouteKind? = nil) {
+        logCreateBlock(type: type.analyticsValue, route: route, style: type.styleAnalyticsValue)
     }
     
-    func logCreateBlock(type: String, style: String? = nil) {
+    func logCreateBlock(type: String,  route: AnalyticsEventsRouteKind? = nil, style: String? = nil) {
         var props = [String: String]()
         props[AnalyticsEventsPropertiesKey.type] = type
         if let style = style {
             props[AnalyticsEventsPropertiesKey.blockStyle] = style
+        }
+        
+        if let route {
+            props[AnalyticsEventsPropertiesKey.route] = route.rawValue
         }
 
         logEvent(AnalyticsEventsName.blockCreate, withEventProperties: props)
@@ -686,6 +690,16 @@ extension AnytypeAnalytics {
         )
     }
     
+    func logClickOnboardingTooltip(tooltip: OnboardingTooltip, type: ClickOnboardingTooltipType) {
+        logEvent(
+            AnalyticsEventsName.clickOnboardingTooltip,
+            withEventProperties: [
+                AnalyticsEventsPropertiesKey.id: tooltip.rawValue,
+                AnalyticsEventsPropertiesKey.type: type.rawValue
+            ]
+        )
+    }
+    
     func logCreateLink() {
         logEvent(AnalyticsEventsName.createLink)
     }
@@ -724,5 +738,19 @@ extension AnytypeAnalytics {
     
     func logScreenSettingsAccountAccess() {
         logEvent(AnalyticsEventsName.screenSettingsAccountAccess)
+    }
+    
+    func logSelectNetwork(type: SelectNetworkType, route: SelectNetworkRoute) {
+        logEvent(
+            AnalyticsEventsName.selectNetwork,
+            withEventProperties: [
+                AnalyticsEventsPropertiesKey.type: type.rawValue,
+                AnalyticsEventsPropertiesKey.route: route.rawValue
+            ]
+        )
+    }
+    
+    func logUploadNetworkConfiguration() {
+        logEvent(AnalyticsEventsName.uploadNetworkConfiguration)
     }
 }

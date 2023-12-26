@@ -4,10 +4,6 @@ import XCTest
 final class RelationDateFormatterTests: XCTestCase {
 
     private let formatter = DateFormatter.relationDateFormatter
-    
-    override func setUpWithError() throws {
-        formatter.locale = Locale(identifier: "en_GB")
-    }
 
     override func tearDownWithError() throws {
     }

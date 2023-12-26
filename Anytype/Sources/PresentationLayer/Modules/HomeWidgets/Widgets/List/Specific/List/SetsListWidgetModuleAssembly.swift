@@ -24,7 +24,9 @@ final class SetsListWidgetModuleAssembly: HomeWidgetCommonAssemblyProtocol {
         let model = SetsWidgetInternalViewModel(
             widgetBlockId: widgetBlockId,
             widgetObject: widgetObject,
-            setsSubscriptionService: serviceLocator.setsSubscriptionService()
+            setsSubscriptionService: serviceLocator.setsSubscriptionService(),
+            pageRepository: serviceLocator.pageRepository(),
+            output: output
         )
      
         return widgetsSubmoduleDI.listWidgetModuleAssembly().make(

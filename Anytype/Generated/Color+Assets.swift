@@ -65,6 +65,13 @@ extension Color {
   
     // MARK: - Additional
     enum Additional {
+      
+      // MARK: - Indicator
+      enum Indicator {
+        internal static let selected = Color(asset: Asset.Additional.Indicator.selected)
+        internal static let unselected = Color(asset: Asset.Additional.Indicator.unselected)
+      }
+      internal static let gradient = Color(asset: Asset.Additional.gradient)
       internal static let separator = Color(asset: Asset.Additional.separator)
       internal static let space = Color(asset: Asset.Additional.space)
     }
@@ -77,6 +84,9 @@ extension Color {
       internal static let dotSelected = Color(asset: Asset.Auth.dotSelected)
       internal static let input = Color(asset: Asset.Auth.input)
       internal static let inputText = Color(asset: Asset.Auth.inputText)
+      internal static let modalBackground = Color(asset: Asset.Auth.modalBackground)
+      internal static let modalContent = Color(asset: Asset.Auth.modalContent)
+      internal static let text = Color(asset: Asset.Auth.text)
     }
     
     // MARK: - Background
@@ -86,6 +96,16 @@ extension Color {
       internal static let material = Color(asset: Asset.Background.material)
       internal static let primary = Color(asset: Asset.Background.primary)
       internal static let secondary = Color(asset: Asset.Background.secondary)
+    }
+    
+    // MARK: - BottomAlert
+    enum BottomAlert {
+      internal static let blueEnd = Color(asset: Asset.BottomAlert.blueEnd)
+      internal static let blueStart = Color(asset: Asset.BottomAlert.blueStart)
+      internal static let greenEnd = Color(asset: Asset.BottomAlert.greenEnd)
+      internal static let greenStart = Color(asset: Asset.BottomAlert.greenStart)
+      internal static let redEnd = Color(asset: Asset.BottomAlert.redEnd)
+      internal static let redStart = Color(asset: Asset.BottomAlert.redStart)
     }
     
     // MARK: - Button
@@ -101,6 +121,13 @@ extension Color {
     enum ModalScreen {
       internal static let background = Color(asset: Asset.ModalScreen.background)
       internal static let backgroundWithBlur = Color(asset: Asset.ModalScreen.backgroundWithBlur)
+    }
+    
+    // MARK: - Navigation
+    enum Navigation {
+      internal static let background = Color(asset: Asset.Navigation.background)
+      internal static let buttonActive = Color(asset: Asset.Navigation.buttonActive)
+      internal static let buttonInactive = Color(asset: Asset.Navigation.buttonInactive)
     }
     
     // MARK: - Shadow
@@ -127,6 +154,7 @@ extension Color {
     
     // MARK: - Widget
     enum Widget {
+      internal static let actionsBackground = Color(asset: Asset.Widget.actionsBackground)
       internal static let bottomPanel = Color(asset: Asset.Widget.bottomPanel)
       internal static let card = Color(asset: Asset.Widget.card)
       internal static let divider = Color(asset: Asset.Widget.divider)

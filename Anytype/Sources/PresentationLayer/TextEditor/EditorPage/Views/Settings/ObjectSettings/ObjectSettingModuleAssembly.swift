@@ -7,6 +7,7 @@ protocol ObjectSettingsModuleDelegate: AnyObject {
     func didTapUseTemplateAsDefault(templateId: BlockId)
 }
 
+@MainActor
 protocol ObjectSettingModuleAssemblyProtocol {
     func make(
         document: BaseDocumentProtocol,
@@ -16,11 +17,12 @@ protocol ObjectSettingModuleAssemblyProtocol {
     ) -> UIViewController
 }
 
+@MainActor
 final class ObjectSettingModuleAssembly: ObjectSettingModuleAssemblyProtocol {
     
     private let serviceLocator: ServiceLocator
     
-    init(serviceLocator: ServiceLocator) {
+    nonisolated init(serviceLocator: ServiceLocator) {
         self.serviceLocator = serviceLocator
     }
     
@@ -40,6 +42,8 @@ final class ObjectSettingModuleAssembly: ObjectSettingModuleAssemblyProtocol {
             templatesService: serviceLocator.templatesService,
             output: output,
             delegate: delegate,
+            blockWidgetService: serviceLocator.blockWidgetService(),
+            activeWorkpaceStorage: serviceLocator.activeWorkspaceStorage(),
             settingsActionHandler: actionHandler,
             documentsProvider: serviceLocator.documentsProvider
         )

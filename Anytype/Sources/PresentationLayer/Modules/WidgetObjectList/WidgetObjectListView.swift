@@ -2,14 +2,8 @@ import SwiftUI
 
 struct WidgetObjectListView: View {
     
-    @ObservedObject var model: WidgetObjectListViewModel
+    @StateObject var model: WidgetObjectListViewModel
     @State private var searchText: String = ""
-    @State private var editMode: EditMode
-    
-    init(model: WidgetObjectListViewModel) {
-        self.model = model
-        self._editMode = State(initialValue: (model.editModel == .editOnly) ? .active : .inactive)
-    }
     
     var body: some View {
         ZStack(alignment: .bottom) {
@@ -23,9 +17,6 @@ struct WidgetObjectListView: View {
                 SearchBar(text: $searchText, focused: false, placeholder: Loc.search)
                 content
             }
-            .safeAreaInset(edge: .bottom, content: {
-                Spacer.fixedHeight(EditorBottomNavigationView.Constants.height) // Navigation bottom panel offset
-            })
             optionsView
         }
         .ignoresSafeArea(.keyboard)
@@ -36,9 +27,11 @@ struct WidgetObjectListView: View {
             model.onDisappear()
         }
         .onChange(of: searchText) { model.didAskToSearch(text: $0) }
-        .onChange(of: editMode) { _ in model.onSwitchEditMode() }
+        .onChange(of: model.viewEditMode) { _ in model.onSwitchEditMode() }
+        .navigationBarTitle("")
         .navigationBarHidden(true)
-        .environment(\.editMode, $editMode)
+        .environment(\.editMode, $model.viewEditMode)
+        .homeBottomPanelHidden(model.homeBottomPanelHiddel, animated: false)
     }
     
     @ViewBuilder
@@ -56,7 +49,8 @@ struct WidgetObjectListView: View {
         PlainList {
             ForEach(sections) { section in
                 if let title = section.data, title.isNotEmpty {
-                    ListSectionBigHeaderView(title: title)
+                    ListSectionHeaderView(title: title)
+                        .padding(.horizontal, 20)
                 }
                 ForEach(section.rows, id: \.id) { row in
                     WidgetObjectListRowView(model: row)
@@ -67,7 +61,7 @@ struct WidgetObjectListView: View {
                     }
                 }
             }
-            Spacer.fixedHeight(130 - EditorBottomNavigationView.Constants.height) // Additional space for action view
+            AnytypeNavigationSpacer(minHeight: 130)
         }
         .hideScrollIndicatorLegacy()
         .hideKeyboardOnScrollLegacy()

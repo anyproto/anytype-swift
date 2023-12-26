@@ -6,7 +6,6 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
     var window: UIWindow?
     private var di: DIProtocol?
-    private var applicationCoordinator: ApplicationCoordinatorProtocol?
     
     // Use this method to optionally configure and attach the UIWindow `window` to the provided UIWindowScene `scene`.
     // If using a storyboard, the `window` property will automatically be initialized and attached to the scene.
@@ -23,13 +22,12 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         let di: DIProtocol = DI(viewControllerProvider: viewControllerProvider)
         self.di = di
         
-        let applicationCoordinator = di.coordinatorsDI.application().make()
-        self.applicationCoordinator = applicationCoordinator
-
         connectionOptions.shortcutItem.flatMap { _ = handleQuickAction($0) }
-        
-        applicationCoordinator.start(connectionOptions: connectionOptions)
+        handleURLContext(openURLContexts: connectionOptions.urlContexts)
 
+        let applicationView = di.coordinatorsDI.application().makeView()
+        window.rootViewController = UIHostingController(rootView: applicationView)
+        window.makeKeyAndVisible()
         window.overrideUserInterfaceStyle = UserDefaultsConfig.userInterfaceStyle
         
         ToastPresenter.shared = ToastPresenter(
@@ -60,11 +58,26 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         return true
     }
 
-    private func handleURLContext(openURLContexts URLContexts: Set<UIOpenURLContext>) {
-        guard URLContexts.count == 1, let context = URLContexts.first else {
+    private func handleURLContext(openURLContexts: Set<UIOpenURLContext>) {
+        guard openURLContexts.count == 1, 
+                let context = openURLContexts.first,
+                var components = URLComponents(url: context.url, resolvingAgainstBaseURL: false) else {
             return
         }
-
-        applicationCoordinator?.handleDeeplink(url: context.url)
+        
+        components.query = nil
+        
+        switch components.url {
+        case URLConstants.createObjectURL:
+            AppActionStorage.shared.action = .createObject
+        case URLConstants.sharingExtenstionURL:
+            AppActionStorage.shared.action = .showSharingExtension
+        case URLConstants.spaceSelectionURL:
+            AppActionStorage.shared.action = .spaceSelection
+        case URLConstants.galleryImportURL:
+            AppActionStorage.shared.action = .galleryImport
+        default:
+            break
+        }
     }
 }

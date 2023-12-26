@@ -1,3 +1,4 @@
+@MainActor
 protocol CreateObjectViewModelProtocol {
     var style: CreateObjectView.Style { get }
     

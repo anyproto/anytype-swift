@@ -8,6 +8,10 @@ final class MockSetDocument: SetDocumentProtocol {
     
     var objectId: BlockId { "" }
     
+    var blockId: BlockId { "" }
+    
+    var targetObjectId: BlockId { "" }
+    
     var spaceId: String { "" }
 
     var inlineParameters: EditorInlineSetObject? { nil }

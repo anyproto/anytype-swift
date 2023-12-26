@@ -2,12 +2,13 @@ import SwiftUI
 import AnytypeCore
 
 struct EditorSetView: View {
-    @ObservedObject var model: EditorSetViewModel
+    @StateObject var model: EditorSetViewModel
 
     @State private var headerMinimizedSize = CGSize.zero
     @State private var tableHeaderSize = CGSize.zero
     @State private var offset = CGPoint.zero
-
+    @Environment(\.dismiss) private var dismiss
+    
     var body: some View {
         Group {
             if model.loadingDocument {
@@ -23,6 +24,16 @@ struct EditorSetView: View {
         }
         .onDisappear {
             model.onDisappear()
+        }
+        .onChange(of: model.dismiss) { _ in
+            dismiss()
+        }
+        .anytypeStatusBar(style: .default)
+        .anytypeSheet(isPresented: $model.showUpdateAlert, onDismiss: { dismiss() }) {
+            DocumentUpdateAlertView { dismiss() }
+        }
+        .anytypeSheet(isPresented: $model.showCommonOpenError, onDismiss: { dismiss() }) {
+            DocumentCommonOpenErrorView { dismiss() }
         }
     }
     
@@ -95,7 +106,7 @@ struct EditorSetView: View {
             EditorSetEmptyView(
                 model: EditorSetEmptyViewModel(
                     mode: model.setDocument.isCollection() ? .collection : .set,
-                    onTap: model.onEmptyStateButtonTap
+                    onTap: { model.onEmptyStateButtonTap() }
                 )
             )
             .frame(width: tableHeaderSize.width)

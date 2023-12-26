@@ -66,6 +66,7 @@ extension EditorNavigationBarTitleView: ConfigurableView {
             titleLabel.isUserInteractionEnabled = true
             titleLabel.addTapGesture { _ in model.onTap() }
             arrowImageView.isHidden = false
+            arrowImageView.addTapGesture { _ in model.onTap() }
             iconImageView.isHidden = true
         }
         mode = model

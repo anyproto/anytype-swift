@@ -21,6 +21,7 @@ extension EditorEditingState {
 }
 
 /// Blocks drag & drop protocol.
+@MainActor
 protocol EditorPageMovingManagerProtocol {
     func canPlaceDividerAtIndexPath(_ indexPath: IndexPath) -> Bool
     func canMoveItemsToObject(at indexPath: IndexPath) -> Bool
@@ -31,6 +32,7 @@ protocol EditorPageMovingManagerProtocol {
     func didSelectEditingMode()
 }
 
+@MainActor
 protocol EditorPageSelectionManagerProtocol {
     func canSelectBlock(at indexPath: IndexPath) -> Bool
     func didLongTap(at indexPath: IndexPath)
@@ -43,8 +45,8 @@ extension EditorPageSelectionManagerProtocol {
     func didSelectSelection(from indexPath: IndexPath) {}
 }
 
+@MainActor
 protocol EditorPageBlocksStateManagerProtocol: EditorPageSelectionManagerProtocol, EditorPageMovingManagerProtocol, AnyObject {
-    func checkDocumentLockField()
     func checkOpenedState()
     
     var editingState: EditorEditingState { get }
@@ -52,6 +54,7 @@ protocol EditorPageBlocksStateManagerProtocol: EditorPageSelectionManagerProtoco
     var editorSelectedBlocks: AnyPublisher<[BlockId], Never> { get }
 }
 
+@MainActor
 final class EditorPageBlocksStateManager: EditorPageBlocksStateManagerProtocol {
     private enum MovingDestination {
         case position(IndexPath)
@@ -117,20 +120,20 @@ final class EditorPageBlocksStateManager: EditorPageBlocksStateManagerProtocol {
         setupEditingHandlers()
     }
 
-    func checkDocumentLockField() {
-        if document.isArchived {
+    func checkOpenedState() {
+        if !document.isOpened {
+            editingState = .loading
+        } else if document.isArchived {
             editingState = .readonly(state: .archived)
         } else if document.isLocked {
             editingState = .readonly(state: .locked)
-        } else if case .readonly = editingState, !document.isLocked, !document.isArchived {
+        } else if case .editing = editingState {
+            // nothing
+        } else {
             editingState = .editing
         }
     }
     
-    func checkOpenedState() {
-        editingState = document.isOpened ? .editing : .loading
-    }
-
     // MARK: - EditorPageSelectionManagerProtocol
 
     func canSelectBlock(at indexPath: IndexPath) -> Bool {

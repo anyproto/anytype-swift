@@ -3,6 +3,16 @@
     {
       "filename" : "Gallery.Selected.pdf",
       "idiom" : "universal"
+    },
+    {
+      "appearances" : [
+        {
+          "appearance" : "luminosity",
+          "value" : "dark"
+        }
+      ],
+      "filename" : "Gallery.Selected.Dark.pdf",
+      "idiom" : "universal"
     }
   ],
   "info" : {

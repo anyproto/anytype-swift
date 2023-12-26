@@ -3,6 +3,16 @@
     {
       "filename" : "Grid.pdf",
       "idiom" : "universal"
+    },
+    {
+      "appearances" : [
+        {
+          "appearance" : "luminosity",
+          "value" : "dark"
+        }
+      ],
+      "filename" : "Grid.Dark.pdf",
+      "idiom" : "universal"
     }
   ],
   "info" : {

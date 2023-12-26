@@ -2,7 +2,7 @@ import Foundation
 
 final class AnytypeRelativeDateTimeFormatter {
     
-    private let dateFormatter: RelativeDateTimeFormatter = {
+    private let fallbackDateFormatter: RelativeDateTimeFormatter = {
         let formatter = RelativeDateTimeFormatter()
         formatter.unitsStyle = .spellOut
         formatter.dateTimeStyle = .named
@@ -11,12 +11,28 @@ final class AnytypeRelativeDateTimeFormatter {
     }()
     
     func localizedString(for date: Date, relativeTo referenceDate: Date) -> String {
-        let interval = dateFormatter.calendar.dateComponents([.day], from: date, to: referenceDate)
+        let date = fallbackDateFormatter.calendar.startOfDay(for: date)
+        let referenceDate = fallbackDateFormatter.calendar.startOfDay(for: referenceDate)
         
-        if abs(interval.day ?? 0) > 0 {
-            return dateFormatter.localizedString(for: date, relativeTo: referenceDate)
-        } else {
+        let interval = fallbackDateFormatter.calendar.dateComponents([.day], from: date, to: referenceDate)
+        
+        guard let days = interval.day else {
+           return fallbackDateFormatter.localizedString(for: date, relativeTo: referenceDate)
+        }
+        
+        switch days {
+        case 0:
             return Loc.today
+        case 1:
+            return Loc.yesterday
+        case 2...7:
+            return Loc.RelativeFormatter.days7
+        case 8...30:
+            return Loc.RelativeFormatter.days30
+        case 31...:
+            return Loc.RelativeFormatter.older
+        default:
+            return fallbackDateFormatter.localizedString(for: date, relativeTo: referenceDate)
         }
     }
 }

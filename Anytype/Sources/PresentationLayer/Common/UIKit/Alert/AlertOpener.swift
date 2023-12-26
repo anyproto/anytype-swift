@@ -38,7 +38,7 @@ final class AlertOpener: AlertOpenerProtocol {
         return navigationContext.present(popup)
     }
     
-    func showFloatAlert(model: BottomAlert) -> AnytypeDismiss {
+    func showFloatAlert(model: BottomAlertLegacy) -> AnytypeDismiss {
         let view = FloaterAlertView(bottomAlert: model)
         
         let popup = AnytypePopup(

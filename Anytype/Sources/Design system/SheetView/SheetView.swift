@@ -2,8 +2,9 @@ import SwiftUI
 
 struct SheetView<Content: View>: View {
     @Environment(\.dismiss) private var dismiss
+    
     private var content: Content
-      
+    
     init(@ViewBuilder content: @escaping () -> Content) {
         self.content = content()
     }
@@ -12,7 +13,9 @@ struct SheetView<Content: View>: View {
         ZStack {
             Color.clear
                 .contentShape(Rectangle())
-                .onTapGesture { dismiss() }
+                .onTapGesture {
+                    dismiss()
+                }
             VStack(spacing: 0) {
                 Spacer()
                 contentView

@@ -29,7 +29,7 @@
 "TextStyle.Numbered.Title" = "Lista numerada";
 "TextStyle.Numbered.Subtitle" = "Lista numerada";
 
-"TextStyle.Toggle.Title" = "Mostrar/Ocultar";
+"TextStyle.Toggle.Title" = "Alternar";
 "TextStyle.Toggle.Subtitle" = "Ocultar y mostrar contenido";
 
 "TextStyle.Bold.Title" = "Negrita";
@@ -43,7 +43,7 @@
 
 "BlockText.ContentType.Title.Placeholder" = "Sin título";
 "BlockText.ContentType.Description.Placeholder" = "Agregar una descripción";
-"BlockText.ContentType.Toggle.Placeholder" = "Alternar bloque";
+"BlockText.ContentType.Toggle.Placeholder" = "Cambiar bloque";
 "BlockText.ContentType.Bulleted.Placeholder" = "Elemento de lista de viñetas";
 "BlockText.ContentType.Checkbox.Placeholder" = "Casilla de verificación";
 "BlockText.ContentType.Numbered.Placeholder" = "Elemento de lista numerada";
@@ -77,6 +77,8 @@
 "Relation.AddedToLibrary" = "La relación ‘%@’ ha sido añadida a tu librería";
 "Relation.Deleted" = "Relación eliminada";
 "Relation.From.Type" = "Del tipo %@";
+"Relation.LinksFrom.Title" = "desde";
+"Relation.LinksTo.Title" = "a";
 
 "Relation.Format.Object.Title" = "Objeto";
 "Relation.Format.Text.Title" = "Texto";
@@ -95,9 +97,9 @@
 
 "None" = "Ninguno";
 "Callout" = "Llamada";
-"Toggle empty. Tap to create block." = "Alternar vacío. Toque para crear bloque.";
+"Toggle empty. Tap to create block." = "Selección vacía. Toca para crear un bloque";
 "Loading, please wait" = "Cargando, por favor espere";
-"Done" = "Listo";
+"Done" = "Hecho";
 "Style" = "Estilo";
 "Color" = "Color";
 "Background" = "Fondo";
@@ -117,9 +119,9 @@
 "Move to" = "Mover a";
 "Back" = "Atrás";
 "File block subtitle" = "Almacenar el archivo en su estado original";
-"Picture block subtitle" = "Cargar y enriquecer la página con imágenes";
+"Picture block subtitle" = "Carga una imagen y enriquece la página.";
 "Video block subtitle" = "Cargar vídeo reproducible";
-"Bookmark block subtitle" = "Guarda tu enlace favorito con resumen";
+"Bookmark block subtitle" = "Guarda tu enlace favorito con un breve resumen";
 "Code block subtitle" = "Capturar fragmento de código";
 "Align right" = "Alinear a la derecha";
 "Align left" = "Alinear a la izquierda";
@@ -130,7 +132,7 @@
 "Pink" = "Rosa";
 "Purple" = "Morado";
 "Blue" = "Azul";
-"Teal" = "Verde turquesa";
+"Teal" = "Turquesa";
 "Green" = "Verde";
 "Default background" = "Fondo por defecto";
 "Amber background" = "Fondo ámbar";
@@ -146,7 +148,7 @@
 "Unsupported block" = "Bloque no soportado";
 "Name" = "Nombre";
 "Description" = "Descripción";
-"Paste processing..." = "Procesando pegado";
+"Paste processing..." = "Procesando \"pegar\"…";
 "Anytype Library" = "Biblioteca de Anytype";
 "Copied" = "Copiado";
 
@@ -182,10 +184,10 @@
 "Login" = "Iniciar sesión";
 "Create" = "Crear";
 "Scan QR code" = "Escanear código QR";
-"Auth.CameraPermissionTitle" = "Permita el acceso";
+"Auth.CameraPermissionTitle" = "Por favor, permita el acceso ";
 "Restore secret phrase from keychain" = "Restaurar Frase de Recuperación desde el llavero";
 "Auth.LogIn" = "Iniciar sesión";
-"Auth.Join" = "Crear cuenta nueva";
+"Auth.Join" = "Crear una nueva cuenta";
 "Auth.Welcome.Subtitle" = "Cualquier tipo es tu espacio seguro para escribir, planear, pensar y organizar todo lo que te importe.";
 "Auth.Caption.Privacy.Text" = "Al continuar aceptas las [Condiciones de uso](%@) y la [Política de privacidad](%@)";
 "Auth.Next" = "Siguiente";
@@ -220,7 +222,7 @@
 "Auth.JoinFlow.Key.ReadMore.Instruction.Option1.Title" = "La forma más fácil de almacenar su frase de recuperación es guardarla en su gestor de contraseñas.";
 "Auth.JoinFlow.Key.ReadMore.Instruction.Option2.Title" = "La forma más segura de almacenarla es escribirla en papel y mantenerla fuera de línea, en un lugar seguro.";
 
-"Auth.JoinFlow.Soul.Title" = "Choose your name";
+"Auth.JoinFlow.Soul.Title" = "Elige el nombre de la sala";
 "Auth.JoinFlow.Soul.Description" = "Así es como aparecerá en la aplicación.";
 "Auth.JoinFlow.Soul.Placeholder" = "Sin título";
 
@@ -233,7 +235,7 @@
 "Auth.LoginFlow.Or" = "O";
 "Auth.LoginFlow.Textfield.Placeholder" = "Escribe tu Frase de Recuperación";
 "Auth.LoginFlow.Enter.Button.Title" = "Iniciar sesión";
-"Auth.LoginFlow.Entering.Void.Title" = "Entrando en el vacío";
+"Auth.LoginFlow.Entering.Void.Title" = "Entrando al Vacío ";
 
 // Object settings
 
@@ -248,7 +250,7 @@
 "There is no emoji named" = "No hay ningún emoji nombrado";
 "Try to find a new one or upload your image" = "Intenta encontrar una nueva o sube tu imagen";
 
-"Emoji" = "Emoticono";
+"Emoji" = "Emoji";
 "Random" = "Aleatorio";
 "Upload" = "Subir";
 "Change icon" = "Cambiar icono";
@@ -264,13 +266,15 @@
 "Profile" = "Perfil";
 "Task" = "Tarea";
 "Note" = "Nota";
-"Choose layout type" = "Elige diseño";
+"Choose layout type" = "Elegir un tipo de diseño";
 
 "Undo typing" = "Deshacer Escritura";
 "Undo" = "Deshacer";
 "Actions.LinkItself" = "Vincular a";
 "Actions.MakeAsTemplate" = "Crear plantilla";
-"Actions.TemplateMakeDefault" = "Make default";
+"Actions.TemplateMakeDefault" = "Establecer como predeterminado";
+"Actions.CreateWidget.Title" = "A widgets";
+"Actions.CreateWidget.Success" = "Nuevo widget creado";
 
 // Object Type
 "Set" = "Ajustar";
@@ -280,7 +284,7 @@
 
 // MARK: - Link to search
 
-"Editor.LinkToObject.SearchPlaceholder" = "Pega enlace o busca objetos";
+"Editor.LinkToObject.SearchPlaceholder" = "Pega un enlace o busca algún objeto";
 "Editor.LinkToObject.PasteFromClipboard" = "Pegar desde el portapapeles";
 "Editor.LinkToObject.LinkedTo" = "Enlazado a";
 "Editor.LinkToObject.CopyLink" = "Copiar enlace";
@@ -416,8 +420,7 @@
 
 // MARK: - Set.Bookmarks
 "Set.Bookmark.Create.Placeholder" = "Pegar enlace";
-"Set.Bookmark.Error.Title" = "Vaya, algo ha salido mal.";
-"Set.Bookmark.Error.Message" = "Por favor, inténtelo de nuevo";
+"Set.Bookmark.Error.Message" = "Oops, algo anduvo mal. Por favor inténtelo de nuevo.";
 
 // MARK: - Sets: View Settings
 "Set.View.Settings.ImageFit.Title" = "Ajustar imagen";
@@ -466,6 +469,7 @@
 
 "Error" = "Error";
 "Unknown error" = "Error desconocido";
+"Open Type Error" = "No se admite el tipo \"%@\". Puede abrirlo desde el escritorio.";
 "Close" = "Cerrar";
 "Account is deleted" = "Se ha eliminado la cuenta";
 "Add phone" = "Añadir teléfono";
@@ -557,7 +561,7 @@
 "Add below" = "Agregar debajo";
 "Change type" = "Cambiar tipo";
 "Link to existing object" = "Enlazar a objeto existente";
-"Link to object" = "Enlazar a objeto";
+"Link to object" = "Añadir enlace";
 "Upload playable audio" = "Subir audio reproducible";
 "Code snippet" = "Fragmento de código";
 "Bookmark" = "Marcador";
@@ -615,7 +619,7 @@
 "DataviewType.list" = "Lista";
 "DataviewType.gallery" = "Galeria";
 "DataviewType.kanban" = "Kanban";
-"DataviewType.calendar" = "Calendar";
+"DataviewType.calendar" = "Calendario";
 
 // MARK: - ObjectType
 "ObjectType.fallbackDescription" = "Lienzo en blanco sin título";
@@ -725,6 +729,7 @@
 "Widgets.Actions.EditWidgets" = "Editar widgets";
 "Widgets.Actions.EmptyBin" = "Vaciar papelera";
 "Widgets.Actions.AddBelow" = "Añadir debajo";
+"Widgets.Actions.NewObject" = "Nuevo objeto";
 "Widgets.Layout.Screen.Title" = "Tipo de widget";
 "Widgets.Layout.Link.Title" = "Enlace";
 "Widgets.Layout.Tree.Title" = "Árbol";
@@ -820,7 +825,7 @@
 // MARK: - Sharing
 "Sharing.Navigation.title" = "Añadir a Anytype";
 "Sharing.Navigation.LeftButton.Title" = "Cancelar";
-"Sharing.Navigation.RightButton.Title" = "Listo";
+"Sharing.Navigation.RightButton.Title" = "Hecho";
 
 "Sharing.SaveAs" = "GUARDAR COMO";
 "Sharing.SelectSpace" = "Espacio";
@@ -831,6 +836,14 @@
 "Sharing.URL.Text" = "Bloque de texto";
 "Sharing.Text.NoteObject" = "Objeto de nota";
 "Sharing.Text.TextBlock" = "Bloque de texto";
+
+// MARK: - Sharing tips
+"Sharing.Tip.Title" = "Compartir extensión";
+"Sharing.Tip.Button.title" = "Mostrar menú de compartir";
+
+"Sharing.Tip.Steps.1" = "Pulse el botón compartir de iOS";
+"Sharing.Tip.Steps.2" = "Desplazarse más allá de la aplicación y toque más";
+"Sharing.Tip.Steps.3" = "Pulse Editar para encontrar \"Anytype\" y toque";
 
 // MARK: - Initial
 
@@ -848,3 +861,20 @@
 // MARK: - Error
 "Error.AnytypeNeedsUpgrate.Title" = "Actualiza tu aplicación";
 "Error.AnytypeNeedsUpgrate.Message" = "Este objeto fue modificado en una versión más reciente de Anytype. Actualice la aplicación para abrirlo en este dispositivo";
+"Error.AnytypeNeedsUpgrate.Confirm" = "Actualizar";
+
+// MARK: - Relative date formatter
+"RelativeFormatter.days7" = "Últimos 7 días";
+"RelativeFormatter.days30" = "Últimos 30 días";
+"RelativeFormatter.older" = "Más antiguo";
+
+// MARK: - Server
+"Server.Network" = "Red";
+"Server.Networks" = "Redes";
+"Server.AddButton" = "Añadir red autoalojada";
+"Server.Anytype" = "Anytype";
+"Server.LocalOnly" = "Sólo local";
+
+// MARK: - Gallery
+"Gallery.Unavailable.Title" = "La galería será compatible pronto";
+"Gallery.Unavailable.Message" = "Por favor, use la aplicación de escritorio por ahora";

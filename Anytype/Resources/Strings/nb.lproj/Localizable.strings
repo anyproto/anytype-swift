@@ -77,6 +77,8 @@
 "Relation.AddedToLibrary" = "Relasjonen ’%@’ har blitt lagt til i biblioteket ditt";
 "Relation.Deleted" = "Slettet relasjon";
 "Relation.From.Type" = "Fra type %@";
+"Relation.LinksFrom.Title" = "from";
+"Relation.LinksTo.Title" = "to";
 
 "Relation.Format.Object.Title" = "Objekt";
 "Relation.Format.Text.Title" = "Tekst";
@@ -271,6 +273,8 @@
 "Actions.LinkItself" = "Koble til";
 "Actions.MakeAsTemplate" = "Lag mal";
 "Actions.TemplateMakeDefault" = "Make default";
+"Actions.CreateWidget.Title" = "Til widgets";
+"Actions.CreateWidget.Success" = "Ny widget ble opprettet";
 
 // Object Type
 "Set" = "Sett";
@@ -416,8 +420,7 @@
 
 // MARK: - Set.Bookmarks
 "Set.Bookmark.Create.Placeholder" = "Lim inn lenke";
-"Set.Bookmark.Error.Title" = "Oops, noe gikk galt";
-"Set.Bookmark.Error.Message" = "Vennligst prøv igjen";
+"Set.Bookmark.Error.Message" = "Oops - noe gikk galt. Vennligst prøv igjen";
 
 // MARK: - Sets: View Settings
 "Set.View.Settings.ImageFit.Title" = "Tilpass bilde";
@@ -466,6 +469,7 @@
 
 "Error" = "Feil";
 "Unknown error" = "Ukjent feil";
+"Open Type Error" = "Ikke støttet type \"%@\". Du kan åpne den i skrivebordsappen.";
 "Close" = "Lukk";
 "Account is deleted" = "Konto er slettet";
 "Add phone" = "Legg til telefon";
@@ -557,7 +561,7 @@
 "Add below" = "Legg til under";
 "Change type" = "Endre type";
 "Link to existing object" = "Lenke til eksisterende objekt";
-"Link to object" = "Lenke til objekt";
+"Link to object" = "Legg til lenke";
 "Upload playable audio" = "Last opp spillbar lyd";
 "Code snippet" = "Kodesnutt";
 "Bookmark" = "Bokmerke";
@@ -725,6 +729,7 @@
 "Widgets.Actions.EditWidgets" = "Endre widgets";
 "Widgets.Actions.EmptyBin" = "Tøm papirkurven";
 "Widgets.Actions.AddBelow" = "Legg til under";
+"Widgets.Actions.NewObject" = "Nytt objekt";
 "Widgets.Layout.Screen.Title" = "Widget-type";
 "Widgets.Layout.Link.Title" = "Lenke";
 "Widgets.Layout.Tree.Title" = "Tre";
@@ -832,6 +837,14 @@
 "Sharing.Text.NoteObject" = "Notatobjekt";
 "Sharing.Text.TextBlock" = "Tekstblokk";
 
+// MARK: - Sharing tips
+"Sharing.Tip.Title" = "Share Extension";
+"Sharing.Tip.Button.title" = "Show share menu";
+
+"Sharing.Tip.Steps.1" = "Tap the iOS sharing button";
+"Sharing.Tip.Steps.2" = "Scroll past the app and tap More";
+"Sharing.Tip.Steps.3" = "Tap Edit to find “Anytype” and  tap";
+
 // MARK: - Initial
 
 "Initial.UnstableMiddle.Title" = "Advarsel";
@@ -848,3 +861,20 @@
 // MARK: - Error
 "Error.AnytypeNeedsUpgrate.Title" = "Oppdater din app";
 "Error.AnytypeNeedsUpgrate.Message" = "Dette objektet ble endret i en nyere versjon av Anytype. Oppdater appen for å åpne det på denne enheten";
+"Error.AnytypeNeedsUpgrate.Confirm" = "Oppdater";
+
+// MARK: - Relative date formatter
+"RelativeFormatter.days7" = "Siste 7 dager";
+"RelativeFormatter.days30" = "Siste 30 dager";
+"RelativeFormatter.older" = "Eldre";
+
+// MARK: - Server
+"Server.Network" = "Network";
+"Server.Networks" = "Networks";
+"Server.AddButton" = "Add Self-hosted Network";
+"Server.Anytype" = "Anytype";
+"Server.LocalOnly" = "Local-only";
+
+// MARK: - Gallery
+"Gallery.Unavailable.Title" = "Galleri vil bli støttet snart";
+"Gallery.Unavailable.Message" = "Vennligst bruk skrivebordsappen for nå";

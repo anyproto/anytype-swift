@@ -35,6 +35,7 @@ final class TreeWidgetViewModel: ObservableObject, WidgetContainerContentViewMod
     
     @Published private(set) var name: String = ""
     let dragId: String?
+    var allowCreateObject: Bool { internalModel.allowCreateObject }
     
     init(
         widgetBlockId: BlockId,
@@ -81,6 +82,10 @@ final class TreeWidgetViewModel: ObservableObject, WidgetContainerContentViewMod
         guard let screenData = internalModel.screenData() else { return }
         AnytypeAnalytics.instance().logSelectHomeTab(source: internalModel.analyticsSource())
         output?.onObjectSelected(screenData: screenData)
+    }
+    
+    func onCreateObjectTap() {
+        internalModel.onCreateObjectTap()
     }
     
     // MARK: - Private
@@ -135,7 +140,7 @@ final class TreeWidgetViewModel: ObservableObject, WidgetContainerContentViewMod
     private func updateTree() {
         guard let firstLevelSubscriptionData else { return }
         let links = firstLevelSubscriptionData.map { $0.id }
-        withAnimation {
+        withAnimation(rows.isNil ? nil : .default) {
             rows = buildRows(links: links, idPrefix: "", level: 0)
         }
     }

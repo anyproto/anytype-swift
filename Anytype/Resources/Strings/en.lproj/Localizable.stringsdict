@@ -50,6 +50,22 @@
 			<string>%d selected blocks</string>
 		</dict>
 	</dict>
+	<key>Links count</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@object@</string>
+		<key>object</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>one</key>
+			<string>%d link</string>
+			<key>other</key>
+			<string>%d links</string>
+		</dict>
+	</dict>
 	<key>Days to deletion account</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>

@@ -1,13 +1,12 @@
 import Foundation
 import SwiftUI
 
-struct HomeWidgetsView: View {
-    
+struct HomeWidgetsView: View {    
     @StateObject var model: HomeWidgetsViewModel
     @State var dndState = DragState()
     
     var body: some View {
-        ZStack {
+        ZStack(alignment: .bottom) {
             DashboardWallpaper(wallpaper: model.wallpaper)
             VerticalScrollViewWithOverlayHeader {
                 HomeTopShadow()
@@ -16,21 +15,21 @@ struct HomeWidgetsView: View {
                     ForEach(model.models) { rowModel in
                         rowModel.provider.view
                     }
-                    HomeEditButton(text: Loc.Widgets.Actions.editWidgets) {
-                        model.onEditButtonTap()
+                    if model.dataLoaded {
+                        HomeEditButton(text: Loc.Widgets.Actions.editWidgets) {
+                            model.onEditButtonTap()
+                        }
+                        .opacity(model.hideEditButton ? 0 : 1)
+                        .animation(.default, value: model.hideEditButton)
                     }
-                    .opacity(model.hideEditButton ? 0 : 1)
-                    .animation(.default, value: model.hideEditButton)
+                    AnytypeNavigationSpacer()
                 }
                 .padding(.horizontal, 20)
                 .padding(.top, 12)
                 .opacity(model.dataLoaded ? 1 : 0)
-                .animation(.default.delay(0.3), value: model.dataLoaded)
                 .fitIPadToReadableContentGuide()
             }
             .animation(.default, value: model.models.count)
-        }
-        .safeAreaInset(edge: .bottom, spacing: 20) {
             model.bottomPanelProvider.view
                 .fitIPadToReadableContentGuide()
         }
@@ -42,7 +41,8 @@ struct HomeWidgetsView: View {
         }
         .navigationBarHidden(true)
         .anytypeStatusBar(style: .lightContent)
-        .ignoresSafeArea(.all, edges: .bottom)
+        .ignoresSafeArea(.keyboard, edges: .bottom)
+        .homeBottomPanelHidden(model.hideEditButton)
         .anytypeVerticalDrop(data: model.models, state: $dndState) { from, to in
             model.dropUpdate(from: from, to: to)
         } dropFinish: { from, to in

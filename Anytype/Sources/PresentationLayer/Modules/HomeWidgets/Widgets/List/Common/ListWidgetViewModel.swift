@@ -30,6 +30,7 @@ final class ListWidgetViewModel: WidgetContainerContentViewModelProtocol, Observ
     @Published private(set) var rows: [ListWidgetRowModel]?
     let emptyTitle = Loc.Widgets.Empty.title
     let style: ListWidgetStyle
+    var allowCreateObject: Bool { internalModel.allowCreateObject }
     
     init(
         widgetBlockId: BlockId,
@@ -79,6 +80,10 @@ final class ListWidgetViewModel: WidgetContainerContentViewModelProtocol, Observ
         output?.onObjectSelected(screenData: screenData)
     }
     
+    func onCreateObjectTap() {
+        internalModel.onCreateObjectTap()
+    }
+    
     // MARK: - Private
     
     private func setupAllSubscriptions() {
@@ -104,7 +109,7 @@ final class ListWidgetViewModel: WidgetContainerContentViewModelProtocol, Observ
     }
     
     private func updateViewState() {
-        withAnimation {
+        withAnimation(rows.isNil ? nil : .default) {
             rows = rowDetails?.map { details in
                 ListWidgetRowModel(
                     details: details,
@@ -120,11 +125,11 @@ final class ListWidgetViewModel: WidgetContainerContentViewModelProtocol, Observ
     }
     
     private func updateHeader(dataviewState: WidgetDataviewState?) {
-        withAnimation {
+        withAnimation(headerItems.isNil ? nil : .default) {
             headerItems = dataviewState?.dataview.map { dataView in
                 ListWidgetHeaderItem.Model(
                     dataviewId: dataView.id,
-                    title: dataView.name,
+                    title: dataView.nameWithPlaceholder,
                     isSelected: dataView.id == dataviewState?.activeViewId,
                     onTap: { [weak self] in
                         self?.internalHeaderModel?.onActiveViewTap(dataView.id)

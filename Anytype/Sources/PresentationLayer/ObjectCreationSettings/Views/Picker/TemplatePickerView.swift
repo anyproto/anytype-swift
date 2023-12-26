@@ -1,9 +1,7 @@
 import SwiftUI
 
 struct TemplatePickerView: View {
-    let viewModel: TemplatePickerViewModel
-
-    @State private var index: Int = 0
+    @StateObject var viewModel: TemplatePickerViewModel
 
     var body: some View {
         NavigationView {
@@ -18,32 +16,21 @@ struct TemplatePickerView: View {
             
             HStack(spacing: 4) {
                 ForEach(viewModel.items) {
-                    storyIndicatorView(isSelected: $0.id == viewModel.items[index].id)
+                    storyIndicatorView(isSelected: $0.id == viewModel.selectedItem().id)
                 }
             }
             .padding([.horizontal], 16)
             
             Spacer.fixedHeight(6)
             
-            TabView(selection: $index) {
-                ForEach(viewModel.items) { item in
-                    VStack(spacing: 0) {
-                        switch item {
-                        case .blank:
-                            blankView
-                        case let .template(model):
-                            model.viewController
-                        }
-                        Spacer()
-                    }
-                    .frame(maxHeight: .infinity)
-                    .tag(item.id)
+            if #available(iOS 16.4, *) {
+                contentView
+            } else {
+                if viewModel.items.isNotEmpty {
+                    contentView
+                } else {
+                    Spacer()
                 }
-            }
-            .tabViewStyle(.page(indexDisplayMode: .never))
-            .frame(maxHeight: .infinity)
-            .onChange(of: index) { tab in
-                viewModel.onTabChange(selectedTab: tab)
             }
             
             button
@@ -60,19 +47,45 @@ struct TemplatePickerView: View {
                     color: .Text.primary
                 )
             }
+            ToolbarItem(placement: .navigationBarTrailing) {
+                settingsButton
+            }
         }
+        .anytypeSheet(isPresented: $viewModel.showBlankSettings) {
+            viewModel.blankSettingsView()?
+                .frame(height: 100)
+        }
+    }
+    
+    @ViewBuilder
+    private var contentView: some View {
+        TabView(selection: $viewModel.selectedTab) {
+            ForEach(viewModel.items) { item in
+                    switch item {
+                    case .blank:
+                        blankView
+                            .tag(item.id)
+                    case let .template(model):
+                        model.view
+                            .tag(item.id)
+                    }
+            }
+        }
+        .tabViewStyle(.page(indexDisplayMode: .never))
+        .frame(maxHeight: .infinity)
     }
     
     private var blankView: some View {
         VStack(spacing: 0) {
-            Spacer.fixedHeight(125)
+            Spacer.fixedHeight(32)
             HStack {
                 VStack(alignment: .leading, spacing: 8) {
-                    AnytypeText(Loc.BlockText.ContentType.Title.placeholder, style: .title, color: .Text.secondary)
-                    AnytypeText(Loc.TemplateSelection.Template.subtitle, style: .relation2Regular, color: .Text.secondary)
+                    AnytypeText(Loc.BlockText.ContentType.Title.placeholder, style: .title, color: .Text.tertiary)
+                    AnytypeText(Loc.TemplateSelection.Template.subtitle, style: .relation2Regular, color: .Text.tertiary)
                 }
                 Spacer()
             }
+            Spacer()
         }
         .padding([.horizontal], 20)
     }
@@ -95,9 +108,18 @@ struct TemplatePickerView: View {
     
     private var closeButton: some View {
         Button {
-            viewModel.onCloseButton()
+            viewModel.onCloseButtonTap()
         } label: {
             Image(asset: .X24.close)
+                .foregroundColor(.Button.active)
+        }
+    }
+    
+    private var settingsButton: some View {
+        Button {
+            viewModel.onSettingsButtonTap()
+        } label: {
+            Image(asset: .X24.more)
                 .foregroundColor(.Button.active)
         }
     }

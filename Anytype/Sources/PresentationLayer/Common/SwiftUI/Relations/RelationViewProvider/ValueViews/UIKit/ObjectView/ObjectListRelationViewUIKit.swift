@@ -6,6 +6,7 @@ final class ObjectListRelationViewUIKit: UIView {
     let style: RelationStyle
 
     private var stackView = UIStackView()
+    private var linksLabel: AnytypeLabel?
 
     // MARK: - Lifecycle
 
@@ -27,11 +28,30 @@ final class ObjectListRelationViewUIKit: UIView {
     // MARK: - Setup view
 
     private func setupViews() {
-        if options.isEmpty {
+        if let links = style.links {
+            let title = links.title(with: options.count)
+            setupLinksView(with: title)
+        } else if options.isEmpty {
             setupPlaceholder()
         } else {
             setupObjectsView()
         }
+    }
+    
+    private func setupLinksView(with title: String) {
+        setupLinksLabel(with: title)
+        if let linksLabel {
+            addSubview(linksLabel) {
+                $0.pinToSuperview()
+            }
+        }
+    }
+    
+    private func setupLinksLabel(with title: String) {
+        linksLabel = AnytypeLabel(style: style.font)
+        linksLabel?.setText(title)
+        linksLabel?.textColor = .Text.secondary
+        linksLabel?.setLineBreakMode(.byTruncatingTail)
     }
 
     private func setupObjectsView() {

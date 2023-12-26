@@ -77,6 +77,8 @@
 "Relation.AddedToLibrary" = "Relasi ‘%@’ ditambahkan ke pustakamu";
 "Relation.Deleted" = "Relasi terhapus";
 "Relation.From.Type" = "Dari tipe %@";
+"Relation.LinksFrom.Title" = "dari";
+"Relation.LinksTo.Title" = "ke";
 
 "Relation.Format.Object.Title" = "Objek";
 "Relation.Format.Text.Title" = "Teks";
@@ -271,6 +273,8 @@
 "Actions.LinkItself" = "Tautkan ke";
 "Actions.MakeAsTemplate" = "Buat templat";
 "Actions.TemplateMakeDefault" = "Make default";
+"Actions.CreateWidget.Title" = "To widgets";
+"Actions.CreateWidget.Success" = "Gawai baru telah dibuat";
 
 // Object Type
 "Set" = "Set";
@@ -416,8 +420,7 @@
 
 // MARK: - Set.Bookmarks
 "Set.Bookmark.Create.Placeholder" = "Tempelkan tautan";
-"Set.Bookmark.Error.Title" = "Ups, ada yang salah";
-"Set.Bookmark.Error.Message" = "Silakan coba lagi";
+"Set.Bookmark.Error.Message" = "Ups - terjadi kesalahan. Silakan coba lagi";
 
 // MARK: - Sets: View Settings
 "Set.View.Settings.ImageFit.Title" = "Paskan gambar";
@@ -466,6 +469,7 @@
 
 "Error" = "Galat";
 "Unknown error" = "Kesalahan tak dikenal";
+"Open Type Error" = "Tipe \"%@\" tidak didukung. Kamu bisa membukanya di desktop.";
 "Close" = "Tutup";
 "Account is deleted" = "Akun terhapus";
 "Add phone" = "Tambahkan telepon";
@@ -557,7 +561,7 @@
 "Add below" = "Tambah di bawah";
 "Change type" = "Ubah tipe";
 "Link to existing object" = "Tautkan ke objek yang telah ada";
-"Link to object" = "Tautkan ke objek";
+"Link to object" = "Tambahkan tautan";
 "Upload playable audio" = "Unggah audio yang dapat diputar";
 "Code snippet" = "Potongan kode";
 "Bookmark" = "Markah";
@@ -725,6 +729,7 @@
 "Widgets.Actions.EditWidgets" = "Sunting widget";
 "Widgets.Actions.EmptyBin" = "Tempat sampah kosong";
 "Widgets.Actions.AddBelow" = "Tambah di bawah";
+"Widgets.Actions.NewObject" = "Objek Baru";
 "Widgets.Layout.Screen.Title" = "Jenis widget";
 "Widgets.Layout.Link.Title" = "Tautan";
 "Widgets.Layout.Tree.Title" = "Pohon";
@@ -750,7 +755,7 @@
 "About.OSVersion" = "Versi Sistem Operasi: %@";
 "About.HelpCommunity" = "Bantuan & Komunitas";
 "About.WhatsNew" = "Apa yang baru";
-"About.AnytypeCommunity" = "Komunitas tipe apapun";
+"About.AnytypeCommunity" = "Komunitas Anytype";
 "About.HelpTutorials" = "Bantuan dan Tutorial";
 "About.ContactUs" = "Hubungi Kami";
 "About.Legal" = "Legal";
@@ -832,6 +837,14 @@
 "Sharing.Text.NoteObject" = "Catatan objek";
 "Sharing.Text.TextBlock" = "Blok teks";
 
+// MARK: - Sharing tips
+"Sharing.Tip.Title" = "Bagikan Ekstensi";
+"Sharing.Tip.Button.title" = "Tampilan menu berbagi";
+
+"Sharing.Tip.Steps.1" = "Ketuk tombol berbagi iOS";
+"Sharing.Tip.Steps.2" = "Scroll past the app and tap More";
+"Sharing.Tip.Steps.3" = "Tap Edit to find “Anytype” and  tap";
+
 // MARK: - Initial
 
 "Initial.UnstableMiddle.Title" = "Peringatan";
@@ -848,3 +861,20 @@
 // MARK: - Error
 "Error.AnytypeNeedsUpgrate.Title" = "Perbarui Aplikasimu";
 "Error.AnytypeNeedsUpgrate.Message" = "Objek ini telah diubah pada versi terbaru Anytype. Perbaruilah aplikasimu untuk membuka objek ini di perangkat ini.";
+"Error.AnytypeNeedsUpgrate.Confirm" = "Perbarui";
+
+// MARK: - Relative date formatter
+"RelativeFormatter.days7" = "7 hari terakhir";
+"RelativeFormatter.days30" = "30 hari terakhir";
+"RelativeFormatter.older" = "Lebih lama";
+
+// MARK: - Server
+"Server.Network" = "Jaringan";
+"Server.Networks" = "Jaringan";
+"Server.AddButton" = "Tambahkan Jaringan Swaladen (Self-Host)";
+"Server.Anytype" = "Anytype";
+"Server.LocalOnly" = "Hanya Lokal";
+
+// MARK: - Gallery
+"Gallery.Unavailable.Title" = "Galeri sedang dalam pengembangan";
+"Gallery.Unavailable.Message" = "Please use the desktop app for now";

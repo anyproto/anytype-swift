@@ -68,6 +68,7 @@ final class SharedContentInteractor: SharedContentInteractorProtocol {
                             info: bookmarkBlock,
                             position: .bottom
                         )
+                        AnytypeAnalytics.instance().logCreateBlock(type: .bookmark(.text), route: .sharingExtension)
                     }
                 }
             case .text(let target):
@@ -87,6 +88,10 @@ final class SharedContentInteractor: SharedContentInteractorProtocol {
         )
         try await bookmarkService.fetchBookmarkContent(bookmarkId: newBookmark.id, url: url.absoluteString)
         
+        AnytypeAnalytics.instance().logCreateObject(
+            objectType: .object(typeId: ObjectTypeUniqueKey.bookmark.value),
+            route: .sharingExtension
+        )
         return newBookmark
     }
     
@@ -135,6 +140,10 @@ final class SharedContentInteractor: SharedContentInteractorProtocol {
                         position: .bottom
                     )
                 }
+                AnytypeAnalytics.instance().logCreateObject(
+                    objectType: .object(typeId: ObjectTypeUniqueKey.note.value),
+                    route: .sharingExtension
+                )
             case .textBlock(let objectDetails):
                 let blockInformation = text.blockInformation
                 let lastBlockInDocument = try await listService.lastBlockId(from: objectDetails.id)
@@ -144,6 +153,7 @@ final class SharedContentInteractor: SharedContentInteractorProtocol {
                     info: blockInformation,
                     position: .bottom
                 )
+                AnytypeAnalytics.instance().logCreateBlock(type: .text(.text), route: .sharingExtension)
             }
         }
     }

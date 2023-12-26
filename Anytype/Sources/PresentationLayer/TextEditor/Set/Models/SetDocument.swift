@@ -7,7 +7,8 @@ class SetDocument: SetDocumentProtocol {
     let document: BaseDocumentProtocol
     
     var objectId: Services.BlockId { document.objectId }
-    
+    var blockId: BlockId { inlineParameters?.blockId ?? SetConstants.dataviewBlockId }
+    var targetObjectId: BlockId { inlineParameters?.targetObjectID ?? objectId }
     var spaceId: String { document.spaceId }
     
     var details: ObjectDetails? {
@@ -218,6 +219,12 @@ class SetDocument: SetDocumentProtocol {
             self?.onDocumentUpdate(update)
         }
         .store(in: &subscriptions)
+        
+        relationDetailsStorage.relationsDetailsPublisher.sink { [weak self] _ in
+            self?.updateDataViewRelations()
+            self?.triggerSync()
+        }
+        .store(in: &subscriptions)
     }
     
     private func onDocumentUpdate(_ data: DocumentUpdate) {
@@ -243,7 +250,7 @@ class SetDocument: SetDocumentProtocol {
         
         let shouldClearState = shouldClearState(prevActiveView: prevActiveView)
         updateSubject.send(.dataviewUpdated(clearState: shouldClearState))
-        sync = ()
+        triggerSync()
     }
     
     private func updateDataViewRelations() {
@@ -281,8 +288,12 @@ class SetDocument: SetDocumentProtocol {
     }
     
     private func updateDataview(with activeViewId: BlockId) {
-        document.infoContainer.updateDataview(blockId: inlineParameters?.blockId ?? SetConstants.dataviewBlockId) { dataView in
+        document.infoContainer.updateDataview(blockId: blockId) { dataView in
             dataView.updated(activeViewId: activeViewId)
         }
+    }
+    
+    private func triggerSync() {
+        sync = ()
     }
 }

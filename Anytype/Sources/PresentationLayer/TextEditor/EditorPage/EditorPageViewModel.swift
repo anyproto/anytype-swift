@@ -5,7 +5,8 @@ import os
 import Services
 import AnytypeCore
 
-final class EditorPageViewModel: EditorPageViewModelProtocol {
+@MainActor
+final class EditorPageViewModel: EditorPageViewModelProtocol, EditorBottomNavigationManagerOutput, ObservableObject {
     weak private(set) var viewInput: EditorPageViewInput?
 
     let blocksStateManager: EditorPageBlocksStateManagerProtocol
@@ -24,17 +25,20 @@ final class EditorPageViewModel: EditorPageViewModelProtocol {
     private let blockBuilder: BlockViewModelBuilder
     private let headerModel: ObjectHeaderViewModel
     private let editorPageTemplatesHandler: EditorPageTemplatesHandlerProtocol
-    private let accountManager: AccountManagerProtocol
     private let configuration: EditorPageViewModelConfiguration
-    
     private let templatesSubscriptionService: TemplatesSubscriptionServiceProtocol
-    private var availableTemplates = [ObjectDetails]()
-    
+    private let activeWorkspaceStorage: ActiveWorkpaceStorageProtocol
+    private weak var output: EditorPageModuleOutput?
     lazy var subscriptions = [AnyCancellable]()
 
     private let blockActionsService: BlockActionsServiceSingleProtocol
-    private let activeWorkpaceStorage: ActiveWorkpaceStorageProtocol
 
+    @Published var bottomPanelHidden: Bool = false
+    @Published var bottomPanelHiddenAnimated: Bool = true
+    @Published var dismiss = false
+    @Published var showUpdateAlert = false
+    @Published var showCommonOpenError = false
+    
     // MARK: - Initialization
     init(
         document: BaseDocumentProtocol,
@@ -51,10 +55,10 @@ final class EditorPageViewModel: EditorPageViewModelProtocol {
         objectActionsService: ObjectActionsServiceProtocol,
         searchService: SearchServiceProtocol,
         editorPageTemplatesHandler: EditorPageTemplatesHandlerProtocol,
-        accountManager: AccountManagerProtocol,
         configuration: EditorPageViewModelConfiguration,
         templatesSubscriptionService: TemplatesSubscriptionServiceProtocol,
-        activeWorkpaceStorage: ActiveWorkpaceStorageProtocol
+        activeWorkspaceStorage: ActiveWorkpaceStorageProtocol,
+        output: EditorPageModuleOutput?
     ) {
         self.viewInput = viewInput
         self.document = document
@@ -70,11 +74,11 @@ final class EditorPageViewModel: EditorPageViewModelProtocol {
         self.objectActionsService = objectActionsService
         self.searchService = searchService
         self.editorPageTemplatesHandler = editorPageTemplatesHandler
-        self.accountManager = accountManager
         self.configuration = configuration
         self.templatesSubscriptionService = templatesSubscriptionService
-        self.activeWorkpaceStorage = activeWorkpaceStorage
-
+        self.activeWorkspaceStorage = activeWorkspaceStorage
+        self.output = output
+        
         setupLoadingState()
     }
 
@@ -98,6 +102,12 @@ final class EditorPageViewModel: EditorPageViewModelProtocol {
             changes: nil,
             allModels: [shimmeringBlockViewModel]
         )
+    }
+    
+    func showSettings(delegate: ObjectSettingsModuleDelegate, output: ObjectSettingsCoordinatorOutput?) {
+        router.showSettings(delegate: delegate, output: output) { [weak self] action in
+            self?.handleSettingsAction(action: action)
+        }
     }
     
     private func handleUpdate(updateResult: DocumentUpdate) {
@@ -135,7 +145,12 @@ final class EditorPageViewModel: EditorPageViewModelProtocol {
 
             updateCursorIfNeeded()
         case .syncStatus(let status):
-            viewInput?.update(syncStatus: status)
+            viewInput?.update(
+                syncStatusData: SyncStatusData(
+                    status: status,
+                    networkId: activeWorkspaceStorage.workspaceInfo.networkId
+                )
+            )
         case .dataSourceUpdate:
             let models = document.children
 
@@ -144,7 +159,7 @@ final class EditorPageViewModel: EditorPageViewModelProtocol {
         }
 
         if !configuration.isOpenedForPreview {
-            blocksStateManager.checkDocumentLockField()
+            blocksStateManager.checkOpenedState()
         }
     }
     
@@ -227,8 +242,7 @@ final class EditorPageViewModel: EditorPageViewModelProtocol {
                 spaceId: document.spaceId
             ) { [weak self] details in
                 guard let self else { return }
-                availableTemplates = details
-                viewInput?.update(details: document.details, templatesCount: availableTemplates.count)
+                viewInput?.update(details: document.details, templatesCount: details.count)
             }
         }
     }
@@ -249,13 +263,17 @@ extension EditorPageViewModel {
                     try await document.open()
                     blocksStateManager.checkOpenedState()
                 }
+            } catch ObjectOpenError.anytypeNeedsUpgrade {
+                showUpdateAlert = true
             } catch {
-                router.showOpenDocumentError(error: error)
+                showCommonOpenError = true
             }
             
             if let objectDetails = document.details {
                 AnytypeAnalytics.instance().logShowObject(type: objectDetails.analyticsType, layout: objectDetails.layoutValue)
             }
+            
+            output?.setModuleInput(input: EditorPageModuleInputContainer(model: self), objectId: document.objectId)
         }
     }
     
@@ -263,9 +281,6 @@ extension EditorPageViewModel {
 
     func viewDidAppear() {
         cursorManager.didAppeared(with: modelsHolder.items, type: document.details?.type)
-        Task {
-            try await activeWorkpaceStorage.setActiveSpace(spaceId: document.spaceId)
-        }
     }
 
     func viewWillDisappear() {}
@@ -283,6 +298,13 @@ extension EditorPageViewModel {
                 }
             )
         )
+    }
+
+    // MARK: - EditorBottomNavigationManagerOutput
+
+    func setHomeBottomPanelHidden(_ hidden: Bool, animated: Bool) {
+        bottomPanelHidden = hidden
+        bottomPanelHiddenAnimated = animated
     }
 }
 
@@ -324,7 +346,7 @@ extension EditorPageViewModel {
     
     @MainActor
     func showTemplates() {
-        router.showTemplatesPicker(availableTemplates: availableTemplates)
+        router.showTemplatesPicker()
     }
 }
 

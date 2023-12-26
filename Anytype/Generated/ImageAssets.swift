@@ -15,6 +15,10 @@ internal extension ImageAsset {
   }
   static let authPhotoIcon = ImageAsset.bundle(name: "auth_photo_icon")
   static let theEverythingApp = ImageAsset.bundle(name: "the-everything-app")
+  enum BottomAlert {
+    static let error = ImageAsset.bundle(name: "BottomAlert/error")
+    static let update = ImageAsset.bundle(name: "BottomAlert/update")
+  }
   static let arrowDown = ImageAsset.bundle(name: "arrowDown")
   static let arrowForward = ImageAsset.bundle(name: "arrowForward")
   static let backArrow = ImageAsset.bundle(name: "backArrow")
@@ -104,6 +108,14 @@ internal extension ImageAsset {
     static let search = ImageAsset.bundle(name: "x18/Search")
     static let slashMenuArrow = ImageAsset.bundle(name: "x18/Slash Menu Arrow")
   }
+  enum X19 {
+    static let more = ImageAsset.bundle(name: "x19/more")
+    static let plus = ImageAsset.bundle(name: "x19/plus")
+    static let share = ImageAsset.bundle(name: "x19/share")
+  }
+  enum X22 {
+    static let close = ImageAsset.bundle(name: "x22/close")
+  }
   enum X24 {
     static let add = ImageAsset.bundle(name: "x24/Add")
     enum Arrow {
@@ -180,6 +192,7 @@ internal extension ImageAsset {
     static let color = ImageAsset.bundle(name: "x32/Color")
     static let copy = ImageAsset.bundle(name: "x32/Copy")
     static let dashboard = ImageAsset.bundle(name: "x32/Dashboard")
+    static let dashboardOld = ImageAsset.bundle(name: "x32/Dashboard_old")
     static let delete = ImageAsset.bundle(name: "x32/Delete")
     static let download = ImageAsset.bundle(name: "x32/Download")
     static let dragDrop = ImageAsset.bundle(name: "x32/Drag & Drop")
@@ -317,6 +330,11 @@ internal extension ImageAsset {
     static let accountAndData = ImageAsset.bundle(name: "SettingsOld/account_and_data")
     static let setWallpaper = ImageAsset.bundle(name: "SettingsOld/set_wallpaper")
   }
+  enum SharingTip {
+    static let step1 = ImageAsset.bundle(name: "SharingTip/step1")
+    static let step2 = ImageAsset.bundle(name: "SharingTip/step2")
+    static let step3 = ImageAsset.bundle(name: "SharingTip/step3")
+  }
   enum Format {
     static let unknown = ImageAsset.bundle(name: "format/unknown")
   }
@@ -354,12 +372,11 @@ internal extension ImageAsset {
       static let list = ImageAsset.bundle(name: "Widget/Preview/list")
       static let tree = ImageAsset.bundle(name: "Widget/Preview/tree")
     }
-    static let add = ImageAsset.bundle(name: "Widget/add")
+    static let addTop = ImageAsset.bundle(name: "Widget/add_top")
     static let bin = ImageAsset.bundle(name: "Widget/bin")
     static let collapse = ImageAsset.bundle(name: "Widget/collapse")
     static let collection = ImageAsset.bundle(name: "Widget/collection")
     static let dot = ImageAsset.bundle(name: "Widget/dot")
-    static let search = ImageAsset.bundle(name: "Widget/search")
     static let `set` = ImageAsset.bundle(name: "Widget/set")
     static let settings = ImageAsset.bundle(name: "Widget/settings")
     static let tick = ImageAsset.bundle(name: "Widget/tick")

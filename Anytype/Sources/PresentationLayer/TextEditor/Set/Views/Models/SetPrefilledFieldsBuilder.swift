@@ -2,14 +2,14 @@ import Services
 import SwiftProtobuf
 
 protocol SetPrefilledFieldsBuilderProtocol {
-    func buildPrefilledFields(from setFilters: [SetFilter], relationsDetails: [RelationDetails]) -> [String: Google_Protobuf_Value]
+    func buildPrefilledFields(from setFilters: [SetFilter], relationsDetails: [RelationDetails]) -> ObjectDetails
 }
 
 final class SetPrefilledFieldsBuilder: SetPrefilledFieldsBuilderProtocol {
     
     private let prefilledConditions: [DataviewFilter.Condition] = [.allIn, .equal, .in]
     
-    func buildPrefilledFields(from setFilters: [SetFilter], relationsDetails: [RelationDetails]) -> [String: Google_Protobuf_Value] {
+    func buildPrefilledFields(from setFilters: [SetFilter], relationsDetails: [RelationDetails]) -> ObjectDetails {
         var prefilledFields: [String: Google_Protobuf_Value] = [:]
         
         for relationDetails in relationsDetails {
@@ -25,6 +25,6 @@ final class SetPrefilledFieldsBuilder: SetPrefilledFieldsBuilderProtocol {
             prefilledFields[setFilter.filter.relationKey] = setFilter.filter.value
         }
         
-        return prefilledFields
+        return ObjectDetails(id: "", values: prefilledFields)
     }
 }

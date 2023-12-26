@@ -217,6 +217,12 @@ struct TextBlockActionHandler: TextBlockActionHandlerProtocol {
                     )
                     actionHandler.changeTextForced(newText, blockId: info.id)
                 }
+                
+                DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+                    if #available(iOS 17.0, *) {
+                        SharingTip.didCopyText = true
+                    }
+                }
             }
         showURLBookmarkPopup(urlIputParameters)
 
@@ -244,6 +250,10 @@ struct TextBlockActionHandler: TextBlockActionHandlerProtocol {
             if pasteResult.isSameBlockCaret || pasteResult.blockIds.isEmpty {
                 let range = NSRange(location: pasteResult.caretPosition, length: 0)
                 textView.setFocus(.at(range))
+            }
+            
+            if #available(iOS 17.0, *) {
+                SharingTip.didCopyText = true
             }
         }
         return false
@@ -287,12 +297,10 @@ struct TextBlockActionHandler: TextBlockActionHandlerProtocol {
         blockDelegate?.textDidChange(data: blockDelegateData(textView: textView))
     }
 
-    private func textViewWillBeginEditing(textView: UITextView) {
-        blockDelegate?.willBeginEditing(data: blockDelegateData(textView: textView))
-    }
+    private func textViewWillBeginEditing(textView: UITextView) {}
 
     private func textViewDidBeginEditing(textView: UITextView) {
-        blockDelegate?.didBeginEditing(view: textView)
+        blockDelegate?.didBeginEditing(view: textView, data: blockDelegateData(textView: textView))
     }
 
     private func textViewDidEndEditing(textView: UITextView) {

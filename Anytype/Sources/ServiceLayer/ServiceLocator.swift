@@ -22,7 +22,8 @@ final class ServiceLocator {
     lazy private(set) var unsplashService: UnsplashServiceProtocol = UnsplashService()
     lazy private(set) var documentsProvider: DocumentsProviderProtocol = DocumentsProvider(
         relationDetailsStorage: relationDetailsStorage(),
-        objectTypeProvider: objectTypeProvider()
+        objectTypeProvider: objectTypeProvider(),
+        blockActionsService: blockActionsServiceSingle()
     )
     
     // MARK: - Services
@@ -42,7 +43,8 @@ final class ServiceLocator {
             localRepoService: localRepoService(),
             loginStateService: loginStateService(),
             accountManager: accountManager(),
-            appErrorLoggerConfiguration: appErrorLoggerConfiguration()
+            appErrorLoggerConfiguration: appErrorLoggerConfiguration(),
+            serverConfigurationStorage: serverConfigurationStorage()
         )
     }
     
@@ -260,12 +262,8 @@ final class ServiceLocator {
         CameraPermissionVerifier()
     }
     
-    func dataviewService(objectId: BlockId, blockId: BlockId?) -> DataviewServiceProtocol {
-        DataviewService(
-            objectId: objectId,
-            blockId: blockId,
-            prefilledFieldsBuilder: SetPrefilledFieldsBuilder()
-        )
+    func dataviewService() -> DataviewServiceProtocol {
+        DataviewService()
     }
     
     
@@ -313,6 +311,21 @@ final class ServiceLocator {
     
     func templatesSubscription() -> TemplatesSubscriptionServiceProtocol {
         TemplatesSubscriptionService(subscriptionStorageProvider: subscriptionStorageProvider())
+    }
+    
+    func setObjectCreationHelper() -> SetObjectCreationHelperProtocol {
+        SetObjectCreationHelper(
+            objectTypeProvider: objectTypeProvider(),
+            dataviewService: dataviewService(),
+            objectActionsService: objectActionsService(),
+            prefilledFieldsBuilder: SetPrefilledFieldsBuilder(), 
+            blockActionsService: blockActionsServiceSingle()
+        )
+    }
+    
+    private lazy var _serverConfigurationStorage = ServerConfigurationStorage()
+    func serverConfigurationStorage() -> ServerConfigurationStorage {
+        return _serverConfigurationStorage
     }
     
     // MARK: - Private

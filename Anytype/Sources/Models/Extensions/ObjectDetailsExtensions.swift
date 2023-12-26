@@ -132,8 +132,12 @@ extension BundledRelationsValueProvider {
         return DetailsLayout.supportedForEditLayouts.contains(layoutValue)
     }
     
+    var isVisibleLayout: Bool {
+        return DetailsLayout.visibleLayouts.contains(layoutValue)
+    }
+    
     var isNotDeletedAndVisibleForEdit: Bool {
-        return !isDeleted && !isArchived && DetailsLayout.visibleLayouts.contains(layoutValue)
+        return !isDeleted && !isArchived && isVisibleLayout
     }
     
     var isNotDeletedAndSupportedForEdit: Bool {
@@ -141,10 +145,14 @@ extension BundledRelationsValueProvider {
     }
     
     var canMakeTemplate: Bool {
-        layoutValue.isTemplatesAvailable && !isTemplateType
+        layoutValue.isTemplatesAvailable && !isTemplateType && profileOwnerIdentity.isEmpty
     }
     
     var isTemplateType: Bool {
         objectType.isTemplateType
+    }
+    
+    var canCreateObject: Bool {
+        setOf.first { $0.isNotEmpty } != nil || isCollection
     }
 }

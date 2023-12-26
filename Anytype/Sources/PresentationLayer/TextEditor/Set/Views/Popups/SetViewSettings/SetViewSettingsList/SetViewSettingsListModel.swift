@@ -5,7 +5,6 @@ import Services
 @MainActor
 final class SetViewSettingsListModel: ObservableObject {
     @Published var name = ""
-    @Published var focused = false
     @Published var layoutValue = SetViewSettings.layout.placeholder
     @Published var relationsValue = SetViewSettings.relations.placeholder
     @Published var filtersValue = SetViewSettings.filters.placeholder
@@ -37,9 +36,12 @@ final class SetViewSettingsListModel: ObservableObject {
         self.dataviewService = dataviewService
         self.output = output
         self.canBeDeleted = setDocument.dataView.views.count > 1
-        self.setupFocus()
         self.debounceNameChanges()
         self.setupSubscriptions()
+    }
+    
+    func shouldSetupFocus() -> Bool {
+        mode == .new
     }
     
     func onSettingTap(_ setting: SetViewSettings) {
@@ -71,7 +73,7 @@ final class SetViewSettingsListModel: ObservableObject {
     func deleteView() {
         Task { [weak self] in
             guard let self else { return }
-            try await dataviewService.deleteView(viewId)
+            try await dataviewService.deleteView(objectId: setDocument.objectId, blockId: setDocument.blockId, viewId: viewId)
             AnytypeAnalytics.instance().logRemoveView(objectType: setDocument.analyticsType)
         }
     }
@@ -80,7 +82,7 @@ final class SetViewSettingsListModel: ObservableObject {
         let source = setDocument.details?.setOf ?? []
         Task { [weak self] in
             guard let self else { return }
-            try await dataviewService.createView(view, source: source)
+            try await dataviewService.createView(objectId: setDocument.objectId, blockId: setDocument.blockId, view: view, source: source)
             AnytypeAnalytics.instance().logDuplicateView(
                 type: view.type.stringValue,
                 objectType: setDocument.analyticsType
@@ -108,10 +110,6 @@ final class SetViewSettingsListModel: ObservableObject {
         updateFiltersValue(filters)
     }
     
-    private func setupFocus() {
-        focused = mode == .new
-    }
-    
     private func debounceNameChanges() {
         $name
             .debounce(for: .seconds(0.5), scheduler: RunLoop.main)
@@ -127,7 +125,7 @@ final class SetViewSettingsListModel: ObservableObject {
     private func updateView(with name: String) {
         let newView = view.updated(name: name)
         Task {
-            try await dataviewService.updateView(newView)
+            try await dataviewService.updateView(objectId: setDocument.objectId, blockId: setDocument.blockId, view: newView)
         }
     }
     

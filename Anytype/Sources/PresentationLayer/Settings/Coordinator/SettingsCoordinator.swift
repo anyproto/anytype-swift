@@ -8,18 +8,14 @@ protocol SettingsCoordinatorProtocol: AnyObject {
 @MainActor
 final class SettingsCoordinator: SettingsCoordinatorProtocol, 
                                     SettingsModuleOutput,
-                                    PersonalizationModuleOutput,
                                     SettingsAccountModuleOutput,
                                     AboutModuleOutput,
                                     FileStorageModuleOutput {
     
     private let navigationContext: NavigationContextProtocol
-    private let objectTypeProvider: ObjectTypeProviderProtocol
     private let settingsModuleAssembly: SettingsModuleAssemblyProtocol
     private let debugMenuModuleAssembly: DebugMenuModuleAssemblyProtocol
-    private let newSearchModuleAssembly: NewSearchModuleAssemblyProtocol
     private let appearanceModuleAssembly: SettingsAppearanceModuleAssemblyProtocol
-    private let wallpaperPickerModuleAssembly: WallpaperPickerModuleAssemblyProtocol
     private let aboutModuleAssembly: AboutModuleAssemblyProtocol
     private let accountModuleAssembly: SettingsAccountModuleAssemblyProtocol
     private let keychainPhraseModuleAssembly: KeychainPhraseModuleAssemblyProtocol
@@ -30,15 +26,13 @@ final class SettingsCoordinator: SettingsCoordinatorProtocol,
     private let urlOpener: URLOpenerProtocol
     private let activeWorkspaceStorage: ActiveWorkpaceStorageProtocol
     private let serviceLocator: ServiceLocator
+    private let applicationStateService: ApplicationStateServiceProtocol
     
     init(
         navigationContext: NavigationContextProtocol,
-        objectTypeProvider: ObjectTypeProviderProtocol,
         settingsModuleAssembly: SettingsModuleAssemblyProtocol,
         debugMenuModuleAssembly: DebugMenuModuleAssemblyProtocol,
-        newSearchModuleAssembly: NewSearchModuleAssemblyProtocol,
         appearanceModuleAssembly: SettingsAppearanceModuleAssemblyProtocol,
-        wallpaperPickerModuleAssembly: WallpaperPickerModuleAssemblyProtocol,
         aboutModuleAssembly: AboutModuleAssemblyProtocol,
         accountModuleAssembly: SettingsAccountModuleAssemblyProtocol,
         keychainPhraseModuleAssembly: KeychainPhraseModuleAssemblyProtocol,
@@ -51,12 +45,9 @@ final class SettingsCoordinator: SettingsCoordinatorProtocol,
         serviceLocator: ServiceLocator
     ) {
         self.navigationContext = navigationContext
-        self.objectTypeProvider = objectTypeProvider
         self.settingsModuleAssembly = settingsModuleAssembly
         self.debugMenuModuleAssembly = debugMenuModuleAssembly
-        self.newSearchModuleAssembly = newSearchModuleAssembly
         self.appearanceModuleAssembly = appearanceModuleAssembly
-        self.wallpaperPickerModuleAssembly = wallpaperPickerModuleAssembly
         self.aboutModuleAssembly = aboutModuleAssembly
         self.accountModuleAssembly = accountModuleAssembly
         self.keychainPhraseModuleAssembly = keychainPhraseModuleAssembly
@@ -67,6 +58,7 @@ final class SettingsCoordinator: SettingsCoordinatorProtocol,
         self.urlOpener = urlOpener
         self.activeWorkspaceStorage = activeWorkspaceStorage
         self.serviceLocator = serviceLocator
+        self.applicationStateService = serviceLocator.applicationStateService()
     }
     
     func startFlow() {
@@ -110,25 +102,6 @@ final class SettingsCoordinator: SettingsCoordinatorProtocol,
         navigationContext.present(module)
     }
     
-    // MARK: - PersonalizationModuleOutput
-    
-    func onDefaultTypeSelected() {
-        let module = newSearchModuleAssembly.objectTypeSearchModule(
-            title: Loc.chooseDefaultObjectType,
-            spaceId: activeWorkspaceStorage.workspaceInfo.accountSpaceId,
-            showBookmark: false
-        ) { [weak self] type in
-            self?.objectTypeProvider.setDefaultObjectType(type: type, spaceId: type.spaceId)
-            self?.navigationContext.dismissTopPresented(animated: true)
-        }
-        navigationContext.present(module)
-    }
-    
-    func onWallpaperChangeSelected() {
-        let module = wallpaperPickerModuleAssembly.make(spaceId: activeWorkspaceStorage.workspaceInfo.accountSpaceId)
-        navigationContext.present(module)
-    }
-    
     // MARK: - SettingsAccountModuleOutput
     
     func onRecoveryPhraseSelected() {
@@ -137,12 +110,18 @@ final class SettingsCoordinator: SettingsCoordinatorProtocol,
     }
     
     func onLogoutSelected() {
-        let module = dashboardAlertsAssembly.logoutAlert(onBackup: { [weak self] in
-            guard let self = self else { return }
-            self.navigationContext.dismissTopPresented()
-            let module = self.keychainPhraseModuleAssembly.make(context: .logout)
-            self.navigationContext.present(module)
-        })
+        let module = dashboardAlertsAssembly.logoutAlert(
+            onBackup: { [weak self] in
+                guard let self = self else { return }
+                self.navigationContext.dismissTopPresented()
+                let module = self.keychainPhraseModuleAssembly.make(context: .logout)
+                self.navigationContext.present(module)
+            },
+            onLogout: { [weak self] in
+                self?.navigationContext.dismissAllPresented(animated: true, completion: { 
+                    self?.applicationStateService.state = .initial
+                })
+            })
         navigationContext.present(module)
     }
     

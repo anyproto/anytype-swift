@@ -72,6 +72,11 @@ internal enum Asset {
     static let yellow = ColorAsset(name: "VeryLight/yellow")
   }
   internal enum Additional {
+    internal enum Indicator {
+      static let selected = ColorAsset(name: "Additional/Indicator/selected")
+      static let unselected = ColorAsset(name: "Additional/Indicator/unselected")
+    }
+    static let gradient = ColorAsset(name: "Additional/gradient")
     static let separator = ColorAsset(name: "Additional/separator")
     static let space = ColorAsset(name: "Additional/space")
   }
@@ -82,6 +87,9 @@ internal enum Asset {
     static let dotSelected = ColorAsset(name: "Auth/dotSelected")
     static let input = ColorAsset(name: "Auth/input")
     static let inputText = ColorAsset(name: "Auth/inputText")
+    static let modalBackground = ColorAsset(name: "Auth/modalBackground")
+    static let modalContent = ColorAsset(name: "Auth/modalContent")
+    static let text = ColorAsset(name: "Auth/text")
   }
   internal enum Background {
     static let black = ColorAsset(name: "Background/black")
@@ -89,6 +97,14 @@ internal enum Asset {
     static let material = ColorAsset(name: "Background/material")
     static let primary = ColorAsset(name: "Background/primary")
     static let secondary = ColorAsset(name: "Background/secondary")
+  }
+  internal enum BottomAlert {
+    static let blueEnd = ColorAsset(name: "BottomAlert/blueEnd")
+    static let blueStart = ColorAsset(name: "BottomAlert/blueStart")
+    static let greenEnd = ColorAsset(name: "BottomAlert/greenEnd")
+    static let greenStart = ColorAsset(name: "BottomAlert/greenStart")
+    static let redEnd = ColorAsset(name: "BottomAlert/redEnd")
+    static let redStart = ColorAsset(name: "BottomAlert/redStart")
   }
   internal enum Button {
     static let accent = ColorAsset(name: "Button/accent")
@@ -100,6 +116,11 @@ internal enum Asset {
   internal enum ModalScreen {
     static let background = ColorAsset(name: "ModalScreen/background")
     static let backgroundWithBlur = ColorAsset(name: "ModalScreen/backgroundWithBlur")
+  }
+  internal enum Navigation {
+    static let background = ColorAsset(name: "Navigation/background")
+    static let buttonActive = ColorAsset(name: "Navigation/buttonActive")
+    static let buttonInactive = ColorAsset(name: "Navigation/buttonInactive")
   }
   internal enum Shadow {
     static let primary = ColorAsset(name: "Shadow/primary")
@@ -118,6 +139,7 @@ internal enum Asset {
     static let white = ColorAsset(name: "Text/white")
   }
   internal enum Widget {
+    static let actionsBackground = ColorAsset(name: "Widget/actionsBackground")
     static let bottomPanel = ColorAsset(name: "Widget/bottomPanel")
     static let card = ColorAsset(name: "Widget/card")
     static let divider = ColorAsset(name: "Widget/divider")

@@ -57,7 +57,12 @@ extension SetFiltersListViewModel {
             let filter = filters[deleteIndex]
             Task { [weak self] in
                 guard let self else { return }
-                try await dataviewService.removeFilters([filter.filter.id], viewId: viewId)
+                try await dataviewService.removeFilters(
+                    objectId: setDocument.objectId,
+                    blockId: setDocument.blockId,
+                    ids: [filter.filter.id],
+                    viewId: viewId
+                )
                 AnytypeAnalytics.instance().logFilterRemove(objectType: setDocument.analyticsType)
             }
         }
@@ -138,8 +143,10 @@ extension SetFiltersListViewModel {
                 guard let self else { return }
                 if filter.filter.id.isNotEmpty {
                     try await dataviewService.replaceFilter(
-                        filter.filter.id,
-                        with: updatedFilter.filter,
+                        objectId: setDocument.objectId,
+                        blockId: setDocument.blockId,
+                        id: filter.filter.id,
+                        filter: updatedFilter.filter,
                         viewId: viewId
                     )
                     if filter.filter.condition != updatedFilter.filter.condition {
@@ -150,7 +157,9 @@ extension SetFiltersListViewModel {
                     }
                 } else {
                     try await dataviewService.addFilter(
-                        updatedFilter.filter,
+                        objectId: setDocument.objectId,
+                        blockId: setDocument.blockId,
+                        filter: updatedFilter.filter,
                         viewId: viewId
                     )
                     AnytypeAnalytics.instance().logAddFilter(

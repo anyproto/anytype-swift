@@ -11,7 +11,7 @@ protocol EditorPageViewInput: RelativePositionProvider {
         changes: CollectionDifference<EditorItem>?,
         allModels: [EditorItem]
     )
-    func update(syncStatus: SyncStatus)
+    func update(syncStatusData: SyncStatusData)
         
     /// Tells the delegate when editing of the text block begins
     func textBlockDidBeginEditing(firstResponderView: UIView)
@@ -19,9 +19,6 @@ protocol EditorPageViewInput: RelativePositionProvider {
     func blockDidChangeFrame()
 
     func textBlockDidChangeText()
-
-    /// Tells the delegate when editing of the text block will begin
-    func textBlockWillBeginEditing()
 
     func blockDidFinishEditing(blockId: BlockId)
     

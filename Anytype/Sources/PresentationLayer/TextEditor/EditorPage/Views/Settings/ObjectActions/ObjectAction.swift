@@ -12,6 +12,7 @@ enum ObjectAction: Hashable, Identifiable {
     case makeAsTemplate
     case templateSetAsDefault
     case delete
+    case createWidget
 
     // When adding to case
     static func allCasesWith(
@@ -35,10 +36,14 @@ enum ObjectAction: Hashable, Identifiable {
         }
         
         var allCases: [ObjectAction] = []
-
+        
         // We shouldn't allow archive for profile
         if !objectRestrictions.objectRestriction.contains(.delete) {
             allCases.append(.archive(isArchived: details.isArchived))
+        }
+        
+        if details.isVisibleLayout, !details.isTemplateType {
+            allCases.append(.createWidget)
         }
 
         allCases.append(.favorite(isFavorite: details.isFavorite))
@@ -83,6 +88,8 @@ enum ObjectAction: Hashable, Identifiable {
             return "templateSetAsDefault"
         case .delete:
             return "delete"
+        case .createWidget:
+            return "createWidget"
         }
     }
     

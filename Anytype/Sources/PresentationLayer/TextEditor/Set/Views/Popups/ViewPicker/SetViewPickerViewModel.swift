@@ -25,11 +25,7 @@ final class SetViewPickerViewModel: ObservableObject {
     }
     
     func addButtonTapped() {
-        if FeatureFlags.newSetSettings {
-            createView()
-        } else {
-            output?.onAddButtonTap()
-        }
+        createView()
     }
     
     func move(from: IndexSet, to: Int) {
@@ -38,7 +34,7 @@ final class SetViewPickerViewModel: ObservableObject {
             let view = setDocument.dataView.views[viewFromIndex]
             let position = to > viewFromIndex ? to - 1 : to
             Task {
-                try await dataviewService.setPositionForView(view.id, position: position)
+                try await dataviewService.setPositionForView(objectId: setDocument.objectId, blockId: setDocument.blockId, viewId: view.id, position: position)
                 AnytypeAnalytics.instance().logRepositionView(objectType: setDocument.analyticsType)
             }
         }
@@ -49,7 +45,7 @@ final class SetViewPickerViewModel: ObservableObject {
             guard deleteIndex < setDocument.dataView.views.count else { return }
             let view = setDocument.dataView.views[deleteIndex]
             Task {
-                try await dataviewService.deleteView(view.id)
+                try await dataviewService.deleteView(objectId: setDocument.objectId, blockId: setDocument.blockId, viewId: view.id)
                 AnytypeAnalytics.instance().logRemoveView(objectType: setDocument.analyticsType)
             }
         }
@@ -63,7 +59,7 @@ final class SetViewPickerViewModel: ObservableObject {
     
     private func updateRows(with dataView: BlockDataview) {
         rows = dataView.views.map { view in
-            let name = view.name.isNotEmpty ? view.name : Loc.SetViewTypesPicker.Settings.Textfield.Placeholder.untitled
+            let name = view.nameWithPlaceholder
             return SetViewRowConfiguration(
                 id: view.id,
                 name: name,
@@ -97,9 +93,19 @@ final class SetViewPickerViewModel: ObservableObject {
     private func createView() {
         Task { @MainActor [weak self] in
             guard let self else { return }
-            let newView = setDocument.activeView.updated(name: "", type: .table)
+            let newView = setDocument.activeView.updated(
+                name: "",
+                type: .table,
+                sorts: [],
+                filters: []
+            )
             let source = setDocument.details?.setOf ?? []
-            let viewId = try await dataviewService.createView(newView, source: source)
+            let viewId = try await dataviewService.createView(
+                objectId: setDocument.objectId,
+                blockId: setDocument.blockId,
+                view: newView,
+                source: source
+            )
             output?.onAddButtonTap(with: viewId)
             AnytypeAnalytics.instance().logAddView(
                 type: DataviewViewType.table.stringValue,

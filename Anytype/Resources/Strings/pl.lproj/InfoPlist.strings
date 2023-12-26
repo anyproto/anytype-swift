@@ -1,4 +1,4 @@
-"NSFaceIDUsageDescription" = "Face ID is used to retrieve your Recovery Phrase securely stored in the keychain";
-"NSCameraUsageDescription" = "Camera is used to scan QR codes for a secure and convenient login experience";
-"NSLocalNetworkUsageDescription" = "Local network access is used to synchronize data directly between your nearby devices";
+"NSFaceIDUsageDescription" = "Face ID jest używane do pobierania Twojej Frazy Odzyskiwania, przechowywanej bezpiecznie w pęku kluczy";
+"NSCameraUsageDescription" = "Aparat jest używany do skanowania kodów QR dla bezpiecznego i wygodnego logowania";
+"NSLocalNetworkUsageDescription" = "Dostęp do sieci lokalnej jest używany do bezpośredniej synchronizacji danych pomiędzy Twoimi pobliskimi urządzeniami";
 "NSPhotoLibraryAddUsageDescription" = "Potrzebny jest dostęp, aby zapisać wybrane obrazy do twojej biblioteki";

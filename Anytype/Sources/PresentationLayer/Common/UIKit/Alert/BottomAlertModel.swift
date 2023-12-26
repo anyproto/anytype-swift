@@ -1,23 +1,23 @@
 import Foundation
 
-struct BottomAlertButton {
+struct BottomAlertButtonLegacy {
     let title: String
     var isDistructive: Bool = false
     var autoDismiss: Bool = true
     let action: () -> Void
 }
 
-struct BottomAlert {
+struct BottomAlertLegacy {
     let title: String
     let message: String
-    let leftButton: BottomAlertButton
-    let rightButton: BottomAlertButton
+    let leftButton: BottomAlertButtonLegacy
+    let rightButton: BottomAlertButtonLegacy
 }
 
 // MARK: - Helpers
 
 extension FloaterAlertView {
-    init(bottomAlert: BottomAlert) {
+    init(bottomAlert: BottomAlertLegacy) {
         self.init(
             title: bottomAlert.title,
             description: bottomAlert.message,
@@ -30,7 +30,7 @@ extension FloaterAlertView {
 }
 
 extension StandardButtonModel {
-    init(bottomAlertButton: BottomAlertButton) {
+    init(bottomAlertButton: BottomAlertButtonLegacy) {
         self.init(
             text: bottomAlertButton.title,
             style: bottomAlertButton.isDistructive ? .warningLarge : .secondaryLarge,

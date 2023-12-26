@@ -3,6 +3,7 @@ import SwiftUI
 import Services
 import Combine
 
+@MainActor
 final class NewRelationViewModel: ObservableObject {
     
     var formatModel: NewRelationFormatSectionView.Model {
@@ -22,23 +23,29 @@ final class NewRelationViewModel: ObservableObject {
     @Published private var objectTypes: [ObjectType]?
     
     private let document: BaseDocumentProtocol
+    private let target: RelationsModuleTarget
     private let service: RelationsServiceProtocol
     private let toastPresenter: ToastPresenterProtocol
     private let objectTypeProvider: ObjectTypeProviderProtocol
+    private let relationsInteractor: RelationsInteractorProtocol
     private weak var output: NewRelationModuleOutput?
     
     init(
         name: String,
         document: BaseDocumentProtocol,
+        target: RelationsModuleTarget,
         service: RelationsServiceProtocol,
         toastPresenter: ToastPresenterProtocol,
         objectTypeProvider: ObjectTypeProviderProtocol,
+        relationsInteractor: RelationsInteractorProtocol,
         output: NewRelationModuleOutput?
     ) {
         self.document = document
+        self.target = target
         self.service = service
         self.toastPresenter = toastPresenter
         self.objectTypeProvider = objectTypeProvider
+        self.relationsInteractor = relationsInteractor
         self.output = output
         
         self.name = name
@@ -76,14 +83,29 @@ extension NewRelationViewModel {
             spaceId: ""
         )
         
-        Task { @MainActor in
-            let createRelation = try await service.createRelation(spaceId: document.spaceId, relationDetails: relationDetails)
-            toastPresenter.show(message: Loc.Relation.addedToLibrary(createRelation.name))
-            UINotificationFeedbackGenerator().notificationOccurred(.success)
-            output?.didCreateRelation(createRelation)
+        createRelation(relationDetails: relationDetails)
+    }
+    
+    private func createRelation(relationDetails: RelationDetails) {
+        Task {
+            let createdRelation = try await relationsInteractor.createRelation(spaceId: document.spaceId, relation: relationDetails)
+            
+            switch target {
+            case .object:
+                try await relationsInteractor.addRelationToObject(relation: createdRelation)
+            case .dataview(let activeViewId):
+                try await relationsInteractor.addRelationToDataview(spaceId: document.spaceId, relation: createdRelation, activeViewId: activeViewId)
+            }
+            
+            relationDetailsAdded(relationDetails: createdRelation)
         }
     }
     
+    private func relationDetailsAdded(relationDetails: RelationDetails) {
+        toastPresenter.show(message: Loc.Relation.addedToLibrary(relationDetails.name))
+        UINotificationFeedbackGenerator().notificationOccurred(.success)
+        output?.didCreateRelation(relationDetails)
+    }
 }
 
 // MARK: - NewRelationModuleInput

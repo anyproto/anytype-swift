@@ -1,29 +1,33 @@
 import Foundation
 import SwiftUI
+import Services
 
 struct HomeWidgetsCoordinatorView: View {
     
     @StateObject var model: HomeWidgetsCoordinatorViewModel
-    @State private var backgroundOpacity = 0.0
     
     var body: some View {
-        ZStack {
-            Color.Text.primary
-                .opacity(backgroundOpacity)
-                .ignoresSafeArea()
-                .onChange(of: model.homeAnimationId) { newValue in
-                    backgroundOpacity = 0
-                    withAnimation(.easeInOut(duration: 0.2)) {
-                        backgroundOpacity = 0.5
+        HomeBottomPanelContainer(
+            path: $model.editorPath,
+            content: {
+                AnytypeNavigationView(path: $model.editorPath, pathChanging: $model.pathChanging) { builder in
+                    builder.appendBuilder(for: AccountInfo.self) { info in
+                        model.homeWidgetsModule(info: info)
+                    }
+                    builder.appendBuilder(for: EditorScreenData.self) { data in
+                        model.editorModule(data: data)
                     }
                 }
-            model.homeWidgetsModule()
-                .transition(.asymmetric(insertion: .move(edge: .trailing), removal: .offset(x: -100)))
-                .animation(.easeInOut(duration: 0.35), value: model.homeAnimationId)
-        }
+            },
+            bottomPanel: {
+                model.homeBottomNavigationPanelModule()
+            }
+        )
         .onAppear {
             model.onAppear()
         }
+        .environment(\.pageNavigation, model.pageNavigation)
+        .snackbar(toastBarData: $model.toastBarData)
         .sheet(item: $model.showChangeSourceData) { data in
             model.changeSourceModule(data: data)
         }
@@ -47,6 +51,9 @@ struct HomeWidgetsCoordinatorView: View {
         }
         .sheet(isPresented: $model.showCreateObjectWithType) {
             model.createObjectWithTypeModule()
+        }
+        .anytypeSheet(isPresented: $model.showGalleryImport) {
+            GalleryUnavailableView()
         }
     }
 }

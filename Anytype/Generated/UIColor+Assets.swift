@@ -65,6 +65,13 @@ extension UIColor {
   
     // MARK: - Additional
     enum Additional {
+      
+      // MARK: - Indicator
+      enum Indicator {
+        internal static let selected = UIColor(asset: Asset.Additional.Indicator.selected)
+        internal static let unselected = UIColor(asset: Asset.Additional.Indicator.unselected)
+      }
+      internal static let gradient = UIColor(asset: Asset.Additional.gradient)
       internal static let separator = UIColor(asset: Asset.Additional.separator)
       internal static let space = UIColor(asset: Asset.Additional.space)
     }
@@ -77,6 +84,9 @@ extension UIColor {
       internal static let dotSelected = UIColor(asset: Asset.Auth.dotSelected)
       internal static let input = UIColor(asset: Asset.Auth.input)
       internal static let inputText = UIColor(asset: Asset.Auth.inputText)
+      internal static let modalBackground = UIColor(asset: Asset.Auth.modalBackground)
+      internal static let modalContent = UIColor(asset: Asset.Auth.modalContent)
+      internal static let text = UIColor(asset: Asset.Auth.text)
     }
     
     // MARK: - Background
@@ -86,6 +96,16 @@ extension UIColor {
       internal static let material = UIColor(asset: Asset.Background.material)
       internal static let primary = UIColor(asset: Asset.Background.primary)
       internal static let secondary = UIColor(asset: Asset.Background.secondary)
+    }
+    
+    // MARK: - BottomAlert
+    enum BottomAlert {
+      internal static let blueEnd = UIColor(asset: Asset.BottomAlert.blueEnd)
+      internal static let blueStart = UIColor(asset: Asset.BottomAlert.blueStart)
+      internal static let greenEnd = UIColor(asset: Asset.BottomAlert.greenEnd)
+      internal static let greenStart = UIColor(asset: Asset.BottomAlert.greenStart)
+      internal static let redEnd = UIColor(asset: Asset.BottomAlert.redEnd)
+      internal static let redStart = UIColor(asset: Asset.BottomAlert.redStart)
     }
     
     // MARK: - Button
@@ -101,6 +121,13 @@ extension UIColor {
     enum ModalScreen {
       internal static let background = UIColor(asset: Asset.ModalScreen.background)
       internal static let backgroundWithBlur = UIColor(asset: Asset.ModalScreen.backgroundWithBlur)
+    }
+    
+    // MARK: - Navigation
+    enum Navigation {
+      internal static let background = UIColor(asset: Asset.Navigation.background)
+      internal static let buttonActive = UIColor(asset: Asset.Navigation.buttonActive)
+      internal static let buttonInactive = UIColor(asset: Asset.Navigation.buttonInactive)
     }
     
     // MARK: - Shadow
@@ -127,6 +154,7 @@ extension UIColor {
     
     // MARK: - Widget
     enum Widget {
+      internal static let actionsBackground = UIColor(asset: Asset.Widget.actionsBackground)
       internal static let bottomPanel = UIColor(asset: Asset.Widget.bottomPanel)
       internal static let card = UIColor(asset: Asset.Widget.card)
       internal static let divider = UIColor(asset: Asset.Widget.divider)

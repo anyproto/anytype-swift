@@ -8,7 +8,8 @@ protocol WorkspacesStorageProtocol: AnyObject {
     var workspsacesPublisher: AnyPublisher<[SpaceView], Never> { get }
     func startSubscription() async
     func stopSubscription() async
-    func spaceView(id: String) -> SpaceView?
+    func spaceView(spaceViewId: String) -> SpaceView?
+    func spaceView(spaceId: String) -> SpaceView?
 }
 
 @MainActor
@@ -44,7 +45,11 @@ final class WorkspacesStorage: WorkspacesStorageProtocol {
         try? await subscriptionStorage.stopSubscription()
     }
     
-    func spaceView(id: String) -> SpaceView? {
-        return workspaces.first(where: { $0.id == id })
+    func spaceView(spaceViewId: String) -> SpaceView? {
+        return workspaces.first(where: { $0.id == spaceViewId })
+    }
+    
+    func spaceView(spaceId: String) -> SpaceView? {
+        return workspaces.first(where: { $0.targetSpaceId == spaceId })
     }
 }

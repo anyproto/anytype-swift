@@ -48,7 +48,6 @@ protocol NewSearchModuleAssemblyProtocol {
         excludedObjectTypeId: String?,
         showBookmark: Bool,
         showSetAndCollection: Bool,
-        browser: EditorBrowserController?,
         onSelect: @escaping (_ type: ObjectType) -> Void
     ) -> NewSearchView
     
@@ -74,7 +73,7 @@ protocol NewSearchModuleAssemblyProtocol {
     func relationsSearchModule(
         document: BaseDocumentProtocol,
         excludedRelationsIds: [String],
-        target: RelationsSearchTarget,
+        target: RelationsModuleTarget,
         output: RelationSearchModuleOutput
     ) -> NewSearchView
     
@@ -151,9 +150,8 @@ extension NewSearchModuleAssemblyProtocol {
         spaceId: String,
         selectedObjectId: BlockId? = nil,
         excludedObjectTypeId: String? = nil,
-        showBookmark: Bool = false,
+        showBookmark: Bool,
         showSetAndCollection: Bool = false,
-        browser: EditorBrowserController? = nil,
         onSelect: @escaping (_ type: ObjectType) -> Void
     ) -> NewSearchView {
         return objectTypeSearchModule(
@@ -164,7 +162,6 @@ extension NewSearchModuleAssemblyProtocol {
             excludedObjectTypeId: excludedObjectTypeId,
             showBookmark: showBookmark,
             showSetAndCollection: showSetAndCollection,
-            browser: browser,
             onSelect: onSelect
         )
     }

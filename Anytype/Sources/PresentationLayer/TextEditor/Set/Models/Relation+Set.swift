@@ -28,6 +28,14 @@ extension Relation {
     var showIcon: Bool {
         key != BundledRelationKey.setOf.rawValue
     }
+    
+    var links: Object.Links? {
+        if case let .object(object) = self {
+            return object.links
+        } else {
+            return nil
+        }
+    }
 }
 
 private enum Constants {
