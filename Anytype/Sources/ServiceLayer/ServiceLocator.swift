@@ -197,7 +197,7 @@ final class ServiceLocator {
         )
     }
     
-    private lazy var _middlewareConfigurationProvider = MiddlewareConfigurationProvider()
+    private lazy var _middlewareConfigurationProvider = MiddlewareConfigurationProvider(middlewareConfigurationService: middlewareConfigurationService())
     func middlewareConfigurationProvider() -> MiddlewareConfigurationProviderProtocol {
         return _middlewareConfigurationProvider
     }
@@ -325,6 +325,10 @@ final class ServiceLocator {
     private lazy var _serverConfigurationStorage = ServerConfigurationStorage()
     func serverConfigurationStorage() -> ServerConfigurationStorage {
         return _serverConfigurationStorage
+    }
+    
+    func middlewareConfigurationService() -> MiddlewareConfigurationServiceProtocol {
+        MiddlewareConfigurationService()
     }
     
     func textServiceHandler() -> TextServiceProtocol {
