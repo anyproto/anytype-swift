@@ -2,7 +2,17 @@ import Foundation
 import Services
 
 @MainActor
+protocol SetSubscriptionDataBuilderProtocol: AnyObject {
+    
+    var subscriptionId: String { get }
+    
+    func set(_ data: SetSubscriptionData) -> SubscriptionData
+}
+
+@MainActor
 final class SetSubscriptionDataBuilder: SetSubscriptionDataBuilderProtocol {
+    
+    let subscriptionId = "Set-\(UUID().uuidString)"
     
     private let activeWorkspaceStorage: ActiveWorkpaceStorageProtocol
     

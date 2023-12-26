@@ -6,7 +6,8 @@ extension EditorSetViewModel {
         update(data: paginationHelper.changePage(page, data: pagitationData, ignorePageLimit: true), groupId: groupId)
     }
     
-    func changePage(_ page: Int, groupId: String) {
+    func changePage(_ page: Int) {
+        let groupId = subscriptionId
         guard let pagitationData = pagitationDataDict[groupId] else { return }
         update(data: paginationHelper.changePage(page, data: pagitationData), groupId: groupId)
     }
@@ -16,12 +17,14 @@ extension EditorSetViewModel {
         update(data: paginationHelper.updatePageCount(count, data: pagitationData, ignorePageLimit: ignorePageLimit), groupId: groupId)
     }
     
-    func goForwardRow(groupId: String) {
+    func goForwardRow() {
+        let groupId = subscriptionId
         guard let pagitationData = pagitationDataDict[groupId] else { return }
         update(data: paginationHelper.goForwardRow(data: pagitationData), groupId: groupId)
     }
     
-    func goBackwardRow(groupId: String) {
+    func goBackwardRow() {
+        let groupId = subscriptionId
         guard let pagitationData = pagitationDataDict[groupId] else { return }
         update(data: paginationHelper.goBackwardRow(data: pagitationData), groupId: groupId)
     }
