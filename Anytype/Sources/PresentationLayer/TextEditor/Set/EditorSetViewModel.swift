@@ -126,7 +126,7 @@ final class EditorSetViewModel: ObservableObject {
     private let searchService: SearchServiceProtocol
     private let detailsService: DetailsServiceProtocol
     private let objectActionsService: ObjectActionsServiceProtocol
-    private let textService: TextServiceProtocol
+    private let textServiceHandler: TextServiceProtocol
     private let groupsSubscriptionsHandler: GroupsSubscriptionsHandlerProtocol
     private let setSubscriptionDataBuilder: SetSubscriptionDataBuilderProtocol
     private var subscriptions = [AnyCancellable]()
@@ -143,7 +143,7 @@ final class EditorSetViewModel: ObservableObject {
         searchService: SearchServiceProtocol,
         detailsService: DetailsServiceProtocol,
         objectActionsService: ObjectActionsServiceProtocol,
-        textService: TextServiceProtocol,
+        textServiceHandler: TextServiceProtocol,
         groupsSubscriptionsHandler: GroupsSubscriptionsHandlerProtocol,
         setSubscriptionDataBuilder: SetSubscriptionDataBuilderProtocol,
         objectTypeProvider: ObjectTypeProviderProtocol,
@@ -157,7 +157,7 @@ final class EditorSetViewModel: ObservableObject {
         self.searchService = searchService
         self.detailsService = detailsService
         self.objectActionsService = objectActionsService
-        self.textService = textService
+        self.textServiceHandler = textServiceHandler
         self.groupsSubscriptionsHandler = groupsSubscriptionsHandler
         self.setSubscriptionDataBuilder = setSubscriptionDataBuilder
         self.titleString = setDocument.details?.pageCellTitle ?? ""
@@ -304,7 +304,7 @@ final class EditorSetViewModel: ObservableObject {
                 }
 
                 Task { @MainActor in
-                    try? await self.textService.setText(
+                    try? await self.textServiceHandler.setText(
                         contextId: self.setDocument.inlineParameters?.targetObjectID ?? self.objectId,
                         blockId: RelationKey.title.rawValue,
                         middlewareString: .init(text: newValue, marks: .init())
@@ -740,7 +740,7 @@ extension EditorSetViewModel {
             fileService: DI.preview.serviceLocator.fileService()
         ),
         objectActionsService: DI.preview.serviceLocator.objectActionsService(),
-        textService: TextService(),
+        textServiceHandler: DI.preview.serviceLocator.textServiceHandler(),
         groupsSubscriptionsHandler: DI.preview.serviceLocator.groupsSubscriptionsHandler(),
         setSubscriptionDataBuilder: SetSubscriptionDataBuilder(activeWorkspaceStorage: DI.preview.serviceLocator.activeWorkspaceStorage()),
         objectTypeProvider: DI.preview.serviceLocator.objectTypeProvider(), 

@@ -1,10 +1,11 @@
 import Foundation
 import ProtobufMessages
-import Services
-import AnytypeCore
 
-final class TextService: TextServiceProtocol {    
-    func setText(contextId: String, blockId: String, middlewareString: MiddlewareString) async throws {
+public final class TextService: TextServiceProtocol {
+    
+    public init() {}
+    
+    public func setText(contextId: String, blockId: String, middlewareString: MiddlewareString) async throws {
         _ = try await ClientCommands.blockTextSetText(.with {
             $0.contextID = contextId
             $0.blockID = blockId
@@ -13,7 +14,7 @@ final class TextService: TextServiceProtocol {
         }).invoke()
     }
 
-    func setTextForced(contextId: BlockId, blockId: BlockId, middlewareString: MiddlewareString) async throws {
+    public func setTextForced(contextId: BlockId, blockId: BlockId, middlewareString: MiddlewareString) async throws {
         _ = try await ClientCommands.blockTextSetText(.with {
             $0.contextID = contextId
             $0.blockID = blockId
@@ -22,25 +23,15 @@ final class TextService: TextServiceProtocol {
         }).invoke()
     }
     
-    func setStyle(contextId: BlockId, blockId: BlockId, style: Style) async throws {
-        AnytypeAnalytics.instance().logChangeBlockStyle(style)
-        
+    public func setStyle(contextId: BlockId, blockId: BlockId, style: Style) async throws {
         _ = try await ClientCommands.blockTextSetStyle(.with {
             $0.contextID = contextId
             $0.blockID = blockId
             $0.style = style.asMiddleware
         }).invoke()
-        
-        await EventsBunch(
-            contextId: contextId,
-            localEvents: [.setStyle(blockId: blockId)]
-        ).send()
     }
     
-    func split(contextId: BlockId, blockId: BlockId, range: NSRange, style: Style, mode: SplitMode) async throws -> BlockId {
-        let textContentType = BlockContent.text(.empty(contentType: style)).type.analyticsValue
-        AnytypeAnalytics.instance().logCreateBlock(type: textContentType, style: String(describing: style))
-
+    public func split(contextId: BlockId, blockId: BlockId, range: NSRange, style: Style, mode: SplitMode) async throws -> BlockId {
         let response = try await ClientCommands.blockSplit(.with {
             $0.contextID = contextId
             $0.blockID = blockId
@@ -49,15 +40,10 @@ final class TextService: TextServiceProtocol {
             $0.mode = mode
         }).invoke()
 
-        await EventsBunch(
-            contextId: contextId,
-            localEvents: [.general]
-        ).send()
-
         return response.blockID
     }
 
-    func merge(contextId: BlockId, firstBlockId: BlockId, secondBlockId: BlockId) async throws {
+    public func merge(contextId: BlockId, firstBlockId: BlockId, secondBlockId: BlockId) async throws {
         try await ClientCommands.blockMerge(.with {
             $0.contextID = contextId
             $0.firstBlockID = firstBlockId
@@ -65,7 +51,7 @@ final class TextService: TextServiceProtocol {
         }).invoke()
     }
     
-    func checked(contextId: BlockId, blockId: BlockId, newValue: Bool) async throws {
+    public func checked(contextId: BlockId, blockId: BlockId, newValue: Bool) async throws {
         try await ClientCommands.blockTextSetChecked(.with {
             $0.contextID = contextId
             $0.blockID = blockId
@@ -73,7 +59,7 @@ final class TextService: TextServiceProtocol {
         }).invoke()
     }
 
-    func setTextIcon(
+    public func setTextIcon(
         contextId: BlockId,
         blockId: BlockId,
         imageHash: String,

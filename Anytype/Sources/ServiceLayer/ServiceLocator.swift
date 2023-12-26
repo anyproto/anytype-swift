@@ -8,7 +8,6 @@ import SecureService
 final class ServiceLocator {
     static let shared = ServiceLocator()
 
-    let textService = TextService()
     let templatesService = TemplatesService()
     let sharedContentManager: SharedContentManagerProtocol = SharedContentManager()
     lazy private(set) var sharedContentInteractor: SharedContentInteractorProtocol = SharedContentInteractor(
@@ -330,6 +329,10 @@ final class ServiceLocator {
     
     func middlewareConfigurationService() -> MiddlewareConfigurationServiceProtocol {
         MiddlewareConfigurationService()
+    }
+    
+    func textServiceHandler() -> TextServiceProtocol {
+        TextServiceHandler(textService: TextService())
     }
     
     // MARK: - Private
