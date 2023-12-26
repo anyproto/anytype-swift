@@ -42,9 +42,11 @@ final class SearchService: ObservableObject, SearchServiceProtocol {
     }
     
     private let accountManager: AccountManagerProtocol
+    private let searchMiddleService: SearchMiddleServiceProtocol
     
-    init(accountManager: AccountManagerProtocol) {
+    init(accountManager: AccountManagerProtocol, searchMiddleService: SearchMiddleServiceProtocol) {
         self.accountManager = accountManager
+        self.searchMiddleService = searchMiddleService
     }
     
     // MARK: - SearchServiceProtocol
@@ -65,7 +67,7 @@ final class SearchService: ObservableObject, SearchServiceProtocol {
             SearchHelper.excludedIdsFilter(excludedObjectIds)
         }
         
-        return try await search(filters: filters, sorts: [sort], fullText: text, limit: Constants.defaultLimit)
+        return try await searchMiddleService.search(filters: filters, sorts: [sort], fullText: text, limit: Constants.defaultLimit)
     }
     
     func searchObjectTypes(
@@ -104,7 +106,7 @@ final class SearchService: ObservableObject, SearchServiceProtocol {
             }
         }
         
-        let result = try await search(filters: filters, sorts: [sort], fullText: text)
+        let result = try await searchMiddleService.search(filters: filters, sorts: [sort], fullText: text)
 
         return result.reordered(
             by: [
@@ -129,7 +131,7 @@ final class SearchService: ObservableObject, SearchServiceProtocol {
             SearchHelper.excludedIdsFilter(excludedIds)
         }
         
-        return try await search(filters: filters, sorts: [sort], fullText: text)
+        return try await searchMiddleService.search(filters: filters, sorts: [sort], fullText: text)
     }
     
     func searchFiles(text: String, excludedFileIds: [String], spaceId: String) async throws -> [ObjectDetails] {
@@ -146,7 +148,7 @@ final class SearchService: ObservableObject, SearchServiceProtocol {
             SearchHelper.spaceId(spaceId),
         ]
         
-        return try await search(filters: filters, sorts: [sort], fullText: text, limit: Constants.defaultLimit)
+        return try await searchMiddleService.search(filters: filters, sorts: [sort], fullText: text, limit: Constants.defaultLimit)
     }
     
     func searchImages() async throws -> [ObjectDetails] {
@@ -161,7 +163,7 @@ final class SearchService: ObservableObject, SearchServiceProtocol {
             SearchHelper.layoutFilter([DetailsLayout.image])
         ]
         
-        return try await search(filters: filters, sorts: [sort], fullText: "", limit: Constants.defaultLimit)
+        return try await searchMiddleService.search(filters: filters, sorts: [sort], fullText: "", limit: Constants.defaultLimit)
     }
     
     func searchObjectsByTypes(text: String, typeIds: [String], excludedObjectIds: [String], spaceId: String) async throws -> [ObjectDetails] {
@@ -180,11 +182,11 @@ final class SearchService: ObservableObject, SearchServiceProtocol {
             }
         }
                 
-        return try await search(filters: filters, sorts: [sort], fullText: text)
+        return try await searchMiddleService.search(filters: filters, sorts: [sort], fullText: text)
     }
 
     func searchTemplates(for type: String, spaceId: String) async throws -> [ObjectDetails] {
-        try await search(filters: SearchHelper.templatesFilters(type: type, spaceId: spaceId))
+        try await searchMiddleService.search(filters: SearchHelper.templatesFilters(type: type, spaceId: spaceId))
     }
 	
     func searchObjects(
@@ -205,7 +207,7 @@ final class SearchService: ObservableObject, SearchServiceProtocol {
             SearchHelper.excludedLayoutFilter(excludedLayouts)
         }
         
-        return try await search(filters: filters, sorts: [sort], fullText: text, limit: Constants.defaultLimit)
+        return try await searchMiddleService.search(filters: filters, sorts: [sort], fullText: text, limit: Constants.defaultLimit)
     }
 
     func searchRelationOptions(text: String, relationKey: String, excludedObjectIds: [String], spaceId: String) async throws -> [RelationOption] {
@@ -217,7 +219,7 @@ final class SearchService: ObservableObject, SearchServiceProtocol {
         filters.append(SearchHelper.relationKey(relationKey))
         filters.append(SearchHelper.excludedIdsFilter(excludedObjectIds))
         
-        let details = try await search(filters: filters, sorts: [], fullText: text, limit: 0)
+        let details = try await searchMiddleService.search(filters: filters, sorts: [], fullText: text, limit: 0)
         return details.map { RelationOption(details: $0) }
     }
 
@@ -229,7 +231,7 @@ final class SearchService: ObservableObject, SearchServiceProtocol {
         )
         filters.append(SearchHelper.supportedIdsFilter(optionIds))
 
-        let details = try await search(filters: filters, sorts: [], fullText: "")
+        let details = try await searchMiddleService.search(filters: filters, sorts: [], fullText: "")
         return details.map { RelationOption(details: $0) }
     }
     
@@ -246,7 +248,7 @@ final class SearchService: ObservableObject, SearchServiceProtocol {
             SearchHelper.excludedIdsFilter(excludedIds)
         }
         
-        let details = try await search(filters: filters, sorts: [sort], fullText: text)
+        let details = try await searchMiddleService.search(filters: filters, sorts: [sort], fullText: text)
         return details.map { RelationDetails(objectDetails: $0) }
     }
     
@@ -266,14 +268,14 @@ final class SearchService: ObservableObject, SearchServiceProtocol {
             SearchHelper.excludedRelationKeys(BundledRelationKey.internalKeys.map(\.rawValue))
             SearchHelper.excludedIdsFilter(excludedIds)
         }
-        let details = try await search(filters: filters, sorts: [sort], fullText: text)
+        let details = try await searchMiddleService.search(filters: filters, sorts: [sort], fullText: text)
         return details.map { RelationDetails(objectDetails: $0) }
     }
     
     func searchArchiveObjectIds(spaceId: String) async throws -> [String] {
         let filters = buildFilters(isArchived: true, spaceId: spaceId)
         let keys = [BundledRelationKey.id.rawValue]
-        let result = try await search(filters: filters, keys: keys)
+        let result = try await searchMiddleService.search(filters: filters, keys: keys)
         return result.map { $0.id }
     }
     
@@ -286,46 +288,11 @@ final class SearchService: ObservableObject, SearchServiceProtocol {
         let spaceIds = [spaceId, accountManager.account.info.techSpaceId]
         let filters = buildFilters(isArchived: false, spaceIds: spaceIds, layouts: layouts)
         
-        return try await search(filters: filters, sorts: [sort], fullText: text, limit: Constants.defaultLimit)
+        return try await searchMiddleService.search(filters: filters, sorts: [sort], fullText: text, limit: Constants.defaultLimit)
     }
 }
 
 private extension SearchService {
-    
-    func search(
-        filters: [DataviewFilter] = [],
-        sorts: [DataviewSort] = [],
-        fullText: String = "",
-        limit: Int = 0
-    ) async throws -> [ObjectDetails] {
-        let response = try await ClientCommands.objectSearch(.with {
-            $0.filters = filters
-            $0.sorts = sorts.map { $0.fixIncludeTime() }
-            $0.fullText = fullText
-            $0.limit = Int32(limit)
-        }).invoke()
-       
-        return response.records.asDetais
-    }
-    
-    func search(
-        filters: [DataviewFilter] = [],
-        sorts: [DataviewSort] = [],
-        fullText: String = "",
-        keys: [String] = [],
-        limit: Int = 0
-    ) async throws -> [ObjectDetails] {
-                
-        let response = try await ClientCommands.objectSearch(.with {
-            $0.filters = filters
-            $0.sorts = sorts.map { $0.fixIncludeTime() }
-            $0.fullText = fullText
-            $0.limit = Int32(limit)
-            $0.keys = keys
-        }).invoke()
-        
-        return response.records.asDetais
-    }
     
     private func buildFilters(isArchived: Bool, spaceIds: [String]) -> [DataviewFilter] {
         [
