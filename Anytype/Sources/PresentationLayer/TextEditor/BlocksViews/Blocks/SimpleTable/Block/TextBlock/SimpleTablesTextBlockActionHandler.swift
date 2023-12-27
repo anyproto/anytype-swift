@@ -144,7 +144,7 @@ struct SimpleTablesTextBlockActionHandler: TextBlockActionHandlerProtocol {
             anytypeFont: content.contentType.uiFont
         )
 
-        modifier.apply(MarkupType.link(replacementURL), shouldApplyMarkup: true, range: newRange)
+        modifier.apply(.link(replacementURL), shouldApplyMarkup: true, range: newRange)
 
         return NSAttributedString(attributedString: modifier.attributedString)
     }

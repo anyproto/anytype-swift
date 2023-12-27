@@ -89,11 +89,11 @@ final class BlockMarkupChanger: BlockMarkupChangerProtocol {
         switch action {
         case .link(let linkURL):
             if linkURL.isNotNil {
-                modifier.apply(MarkupType.linkToObject(nil), shouldApplyMarkup: true, range: range)
+                modifier.apply(.linkToObject(nil), shouldApplyMarkup: true, range: range)
             }
         case .linkToObject(let blockId):
             if blockId.isNotNil {
-                modifier.apply(MarkupType.link(nil), shouldApplyMarkup: true, range: range)
+                modifier.apply(.link(nil), shouldApplyMarkup: true, range: range)
             }
         default: break
         }
