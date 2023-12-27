@@ -18,7 +18,7 @@ public final class DebugService {
     public func exportStackGoroutines() async throws -> String {
         let tempDirString = try FileManager.default.createTempDirectory()
         
-        let response = try await ClientCommands.debugStackGoroutines(.with {
+        try await ClientCommands.debugStackGoroutines(.with {
             $0.path = tempDirString
         }).invoke()
         

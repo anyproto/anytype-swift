@@ -1,16 +1,19 @@
 import Foundation
 import AnytypeCore
 
+@MainActor
 protocol EditorBottomNavigationManagerProtocol: AnyObject {
     func multiselectActive(_ active: Bool)
     func onScroll(bottom: Bool)
     func styleViewActive(_ active: Bool)
 }
 
+@MainActor
 protocol EditorBottomNavigationManagerOutput: AnyObject {
     func setHomeBottomPanelHidden(_ hidden: Bool, animated: Bool)
 }
 
+@MainActor
 final class EditorBottomNavigationManager: EditorBottomNavigationManagerProtocol {
     
     // MARK: - DI
