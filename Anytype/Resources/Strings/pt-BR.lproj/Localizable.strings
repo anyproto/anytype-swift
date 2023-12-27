@@ -273,7 +273,7 @@
 "Actions.LinkItself" = "Vincular a";
 "Actions.MakeAsTemplate" = "Fazer modelo";
 "Actions.TemplateMakeDefault" = "Make default";
-"Actions.CreateWidget.Title" = "To widgets";
+"Actions.CreateWidget.Title" = "Criar widget";
 "Actions.CreateWidget.Success" = "Um novo widget foi criado";
 
 // Object Type
@@ -495,6 +495,7 @@
 "Enter text" = "Inserir texto";
 "Unsupported value" = "Valor não suportado";
 "Select relation type" = "Selecionar tipo de relação";
+"CommonOpenErrorView.Message" = "Dados não encontrados";
 
 "Limit object types" = "Limitar tipos de objeto";
 "Type" = "Tipo";
@@ -544,7 +545,7 @@
 "Unfavorite" = "Remover dos favoritos";
 "Unsplash" = "Unsplash";
 "Go back" = "Voltar";
-"SyncStatus.LocalOnly.Title" = "Local-only";
+"SyncStatus.LocalOnly.Title" = "Somente local";
 "SyncStatus.LocalOnly.Description" = "Local only";
 "SyncStatus.Synced.Anytype.Description" = "Backed up on Anytype Network";
 "SyncStatus.Synced.AnytypeStaging.Description" = "Backed up on Anytype Staging";
@@ -846,7 +847,7 @@
 
 "Sharing.Tip.Steps.1" = "Toque no botão de compartilhamento do iOS";
 "Sharing.Tip.Steps.2" = "Scroll past the app and tap More";
-"Sharing.Tip.Steps.3" = "Tap Edit to find “Anytype” and  tap";
+"Sharing.Tip.Steps.3" = "Toque em Editar, encontre \"Anytype\" e toque";
 
 // MARK: - Initial
 
@@ -876,7 +877,7 @@
 "Server.Networks" = "Redes";
 "Server.AddButton" = "Adicionar Rede Auto-hospedada";
 "Server.Anytype" = "Anytype";
-"Server.LocalOnly" = "Local-only";
+"Server.LocalOnly" = "Somente local";
 
 // MARK: - Gallery
 "Gallery.Unavailable.Title" = "Gallery will be supported soon";
