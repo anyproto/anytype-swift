@@ -20,13 +20,17 @@ extension ComponentColor where T: UIColor {
 }
 
 extension UIColor {
-    func middlewareString(background: Bool) -> String? {
+    func middlewareColor() -> MiddlewareColor? {
         MiddlewareColor.allCases.first(
             where: { middleware in
                 UIColor.Dark.uiColor(from: middleware) == self ||
                 UIColor.VeryLight.uiColor(from: middleware) == self ||
                 UIColor.Light.uiColor(from: middleware) == self
             }
-        )?.rawValue
+        )
+    }
+    
+    func middlewareString() -> String? {
+        middlewareColor()?.rawValue
     }
 }

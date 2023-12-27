@@ -89,9 +89,9 @@ final class MarkupAccessoryViewModel: ObservableObject {
     func handleSelectedColorItem(_ colorItem: ColorView.ColorItem) {
         switch colorItem {
         case let .text(color):
-            actionHandler.changeTextStyle(.textColor(color.color), range: range, blockId: blockId)
+            actionHandler.changeTextStyle(.textColor(color.middleware), range: range, blockId: blockId)
         case let .background(color):
-            actionHandler.changeTextStyle(.backgroundColor(color.color), range: range, blockId: blockId)
+            actionHandler.changeTextStyle(.backgroundColor(color.middleware), range: range, blockId: blockId)
         }
     }
 

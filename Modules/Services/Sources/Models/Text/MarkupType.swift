@@ -1,22 +1,20 @@
-import UIKit
-import Services
-import SwiftUI
+import Foundation
 import AnytypeCore
 
-enum MarkupType: Equatable, Hashable, CaseIterable {
+public enum MarkupType: Equatable, Hashable, CaseIterable {
     case bold
     case italic
     case keyboard
     case strikethrough
     case underscored
-    case textColor(UIColor)
-    case backgroundColor(UIColor)
+    case textColor(MiddlewareColor)
+    case backgroundColor(MiddlewareColor)
     case link(URL?)
     case linkToObject(BlockId?)
     case mention(MentionData)
     case emoji(Emoji)
 
-    func hash(into hasher: inout Hasher) {
+    public func hash(into hasher: inout Hasher) {
         switch self {
         case .textColor(let value):
             hasher.combine(value)
@@ -35,11 +33,11 @@ enum MarkupType: Equatable, Hashable, CaseIterable {
         }
     }
 
-    static var allCases: [MarkupType] {
-        return [.bold, italic, .keyboard, .strikethrough, .underscored, .textColor(.Text.secondary), .backgroundColor(.Text.secondary), .link(nil), .linkToObject(nil), .mention(MentionData.noDetails(blockId: ""))]
+    public static var allCases: [MarkupType] {
+        return [.bold, italic, .keyboard, .strikethrough, .underscored, .textColor(.grey), .backgroundColor(.grey), .link(nil), .linkToObject(nil), .mention(.noDetails(blockId: ""))]
     }
     
-    func sameType(_ other: MarkupType) -> Bool {
+    public func sameType(_ other: MarkupType) -> Bool {
         switch (self, other) {
         case (.bold, .bold),
             (.italic, .italic),
@@ -58,7 +56,7 @@ enum MarkupType: Equatable, Hashable, CaseIterable {
         }
     }
     
-    func typeWithoutValue() -> MarkupType {
+    public func typeWithoutValue() -> MarkupType {
         return MarkupType.allCases.first { $0.sameType(self) } ?? self
     }
 }

@@ -150,7 +150,7 @@ struct TextBlockActionHandler: TextBlockActionHandlerProtocol {
         )
         
         if let replacementURL = replacementURL {
-            modifier.apply(.link(replacementURL), shouldApplyMarkup: true, range: newRange)
+            modifier.apply(MarkupType.link(replacementURL), shouldApplyMarkup: true, range: newRange)
         }
 
         return NSAttributedString(attributedString: modifier.attributedString)
