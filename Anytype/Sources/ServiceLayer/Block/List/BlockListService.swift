@@ -1,10 +1,5 @@
-import Foundation
-import Combine
 import Services
-import UIKit
 import ProtobufMessages
-import SwiftProtobuf
-import AnytypeCore
 
 enum BlockListServiceError: Error {
     case lastBlockIdNotFound
@@ -46,8 +41,6 @@ class BlockListService: BlockListServiceProtocol {
     }
 
     func setBackgroundColor(objectId: BlockId, blockIds: [BlockId], color: MiddlewareColor) async throws {
-        AnytypeAnalytics.instance().logChangeBlockBackground(color: color)
-        
         try await ClientCommands.blockListSetBackgroundColor(.with {
             $0.contextID = objectId
             $0.blockIds = blockIds
@@ -56,8 +49,6 @@ class BlockListService: BlockListServiceProtocol {
     }
 
     func setAlign(objectId: BlockId, blockIds: [BlockId], alignment: LayoutAlignment) async throws {
-        AnytypeAnalytics.instance().logSetAlignment(alignment, isBlock: blockIds.isNotEmpty)
-
         try await ClientCommands.blockListSetAlign(.with {
             $0.contextID = objectId
             $0.blockIds = blockIds
