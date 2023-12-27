@@ -495,6 +495,7 @@
 "Enter text" = "Text eingeben";
 "Unsupported value" = "Nicht unterstützter Wert";
 "Select relation type" = "Relationstyp auswählen";
+"CommonOpenErrorView.Message" = "No data found";
 
 "Limit object types" = "Objekttypen einschränken";
 "Type" = "Typ";
@@ -847,7 +848,7 @@
 
 "Sharing.Tip.Steps.1" = "Tippen Sie auf den iOS-Sharing-Button";
 "Sharing.Tip.Steps.2" = "Scrolle über die App hinaus und tippe auf Mehr";
-"Sharing.Tip.Steps.3" = "Tap Edit to find “Anytype” and  tap";
+"Sharing.Tip.Steps.3" = "Tap Edit to find “Anytype” and tap";
 
 // MARK: - Initial
 
