@@ -496,6 +496,7 @@
 "Enter text" = "Nhập văn bản";
 "Unsupported value" = "Unsupported value";
 "Select relation type" = "Chọn loại liên hệ";
+"CommonOpenErrorView.Message" = "No data found";
 
 "Limit object types" = "Giới hạn loại đối tượng";
 "Type" = "Loại";
@@ -847,7 +848,7 @@
 
 "Sharing.Tip.Steps.1" = "Tap the iOS sharing button";
 "Sharing.Tip.Steps.2" = "Scroll past the app and tap More";
-"Sharing.Tip.Steps.3" = "Tap Edit to find “Anytype” and  tap";
+"Sharing.Tip.Steps.3" = "Tap Edit to find “Anytype” and tap";
 
 // MARK: - Initial
 
