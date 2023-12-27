@@ -10,8 +10,6 @@ extension BlockLinkState {
         return !title.isEmpty ? title : Loc.Object.Title.placeholder
     }
 
-    var textTitleFont: AnytypeFont { .previewTitle1Medium }
-
     var titleColor: UIColor {
         if case let .object(.todo(value)) = icon, value {
             return .Button.active
