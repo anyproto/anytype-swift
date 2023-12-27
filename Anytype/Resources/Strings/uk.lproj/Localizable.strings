@@ -495,6 +495,7 @@
 "Enter text" = "Введіть текст";
 "Unsupported value" = "Непідтримуване значення";
 "Select relation type" = "Виберіть тип відношення";
+"CommonOpenErrorView.Message" = "No data found";
 
 "Limit object types" = "Обмежити типи об'єктів";
 "Type" = "Тип";
@@ -847,7 +848,7 @@
 
 "Sharing.Tip.Steps.1" = "Tap the iOS sharing button";
 "Sharing.Tip.Steps.2" = "Scroll past the app and tap More";
-"Sharing.Tip.Steps.3" = "Tap Edit to find “Anytype” and  tap";
+"Sharing.Tip.Steps.3" = "Tap Edit to find “Anytype” and tap";
 
 // MARK: - Initial
 
