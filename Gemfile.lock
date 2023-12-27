@@ -114,6 +114,7 @@ GEM
       badge (~> 0.13.0)
     fastlane-plugin-sentry (1.15.0)
       os (~> 1.1, >= 1.1.4)
+    fastlane-plugin-versioning (0.5.2)
     gh_inspector (1.1.3)
     google-apis-androidpublisher_v3 (0.51.0)
       google-apis-core (>= 0.11.0, < 2.a)
@@ -236,6 +237,7 @@ DEPENDENCIES
   fastlane (~> 2.216.0)
   fastlane-plugin-badge
   fastlane-plugin-sentry (= 1.15.0)
+  fastlane-plugin-versioning
   license_finder
 
 RUBY VERSION
