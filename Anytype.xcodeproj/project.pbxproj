@@ -9573,8 +9573,6 @@
 			dependencies = (
 			);
 			name = AnytypeShareExtension;
-			packageProductDependencies = (
-			);
 			productName = AnytypeShareExtension;
 			productReference = 862D55902A8F78330018103F /* AnytypeShareExtension.appex */;
 			productType = "com.apple.product-type.app-extension";
@@ -12044,7 +12042,7 @@
 /* Begin XCRemoteSwiftPackageReference section */
 		1259300326F3A5C500B115CD /* XCRemoteSwiftPackageReference "Highlightr" */ = {
 			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "git@github.com:raspu/Highlightr.git";
+			repositoryURL = "https://github.com/raspu/Highlightr";
 			requirement = {
 				kind = exactVersion;
 				version = 2.1.2;
@@ -12052,7 +12050,7 @@
 		};
 		1259300626F3A60B00B115CD /* XCRemoteSwiftPackageReference "Amplitude-iOS" */ = {
 			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "git@github.com:amplitude/Amplitude-iOS.git";
+			repositoryURL = "https://github.com/amplitude/Amplitude-iOS";
 			requirement = {
 				kind = exactVersion;
 				version = 8.15.2;
@@ -12060,7 +12058,7 @@
 		};
 		1259300C26F3A6AE00B115CD /* XCRemoteSwiftPackageReference "Kingfisher" */ = {
 			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "git@github.com:onevcat/Kingfisher.git";
+			repositoryURL = "https://github.com/onevcat/Kingfisher";
 			requirement = {
 				kind = exactVersion;
 				version = 7.6.2;
@@ -12068,7 +12066,7 @@
 		};
 		1259300F26F3A6EC00B115CD /* XCRemoteSwiftPackageReference "swiftui-visual-effects" */ = {
 			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "git@github.com:lucasbrown/swiftui-visual-effects.git";
+			repositoryURL = "https://github.com/lucasbrown/swiftui-visual-effects";
 			requirement = {
 				kind = exactVersion;
 				version = 1.0.3;
@@ -12076,7 +12074,7 @@
 		};
 		2A01A4F72A1FB4B7002042FB /* XCRemoteSwiftPackageReference "DeviceKit" */ = {
 			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "git@github.com:devicekit/DeviceKit.git";
+			repositoryURL = "https://github.com/devicekit/DeviceKit";
 			requirement = {
 				kind = exactVersion;
 				version = 5.0.0;
@@ -12084,7 +12082,7 @@
 		};
 		2A6ED16E285B452600AAA21C /* XCRemoteSwiftPackageReference "swift-protobuf" */ = {
 			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/apple/swift-protobuf.git";
+			repositoryURL = "https://github.com/apple/swift-protobuf";
 			requirement = {
 				kind = exactVersion;
 				version = 1.21.0;
@@ -12092,7 +12090,7 @@
 		};
 		2A94B5D129B88E95009AE2A7 /* XCRemoteSwiftPackageReference "sentry-cocoa" */ = {
 			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/getsentry/sentry-cocoa.git";
+			repositoryURL = "https://github.com/getsentry/sentry-cocoa";
 			requirement = {
 				kind = exactVersion;
 				version = 8.8.0;
@@ -12100,7 +12098,7 @@
 		};
 		5333421A262E249100238121 /* XCRemoteSwiftPackageReference "FloatingPanel" */ = {
 			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "git@github.com:scenee/FloatingPanel.git";
+			repositoryURL = "https://github.com/scenee/FloatingPanel";
 			requirement = {
 				kind = exactVersion;
 				version = 2.6.1;
@@ -12108,7 +12106,7 @@
 		};
 		538ABD4C284F9F88000D3CCC /* XCRemoteSwiftPackageReference "swift-collections" */ = {
 			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/apple/swift-collections.git";
+			repositoryURL = "https://github.com/apple/swift-collections";
 			requirement = {
 				kind = exactVersion;
 				version = 1.0.4;
@@ -12116,7 +12114,7 @@
 		};
 		C9433E52293EA5EF001662EA /* XCRemoteSwiftPackageReference "SwiftEntryKit" */ = {
 			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "git@github.com:bududomasidet/SwiftEntryKit.git";
+			repositoryURL = "https://github.com/bududomasidet/SwiftEntryKit";
 			requirement = {
 				kind = exactVersion;
 				version = 1.0.0;
