@@ -152,6 +152,7 @@ final class EditorPageModuleAssembly: EditorPageModuleAssemblyProtocol {
             textServiceHandler: serviceLocator.textServiceHandler(),
             modelsHolder: modelsHolder,
             bookmarkService: serviceLocator.bookmarkService(),
+            fileService: serviceLocator.fileService(),
             cursorManager: cursorManager,
             objectTypeProvider: serviceLocator.objectTypeProvider()
         )
