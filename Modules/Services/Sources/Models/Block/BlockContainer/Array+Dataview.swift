@@ -9,14 +9,10 @@ extension Array where Element == DataviewView {
         guard indices.contains(mainIndex) else { return nil }
         
         for index in (mainIndex + 1..<count) {
-            if self[index].type.isSupported {
-                return self[index]
-            }
+            return self[index]
         }
         for index in (0..<mainIndex).reversed() {
-            if self[index].type.isSupported {
-                return self[index]
-            }
+            return self[index]
         }
         
         return nil

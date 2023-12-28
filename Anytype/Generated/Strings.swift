@@ -1122,12 +1122,12 @@ internal enum Loc {
       internal static let movedTo = Loc.tr("Localizable", "Editor.Toast.MovedTo", fallback: "Block moved to")
     }
   }
-  internal enum EditorSetViewPicker {
+  internal enum EditorSet {
     internal enum View {
       internal enum Not {
         internal enum Supported {
           /// Unsupported
-          internal static let title = Loc.tr("Localizable", "EditorSetViewPicker.View.Not.Supported.Title", fallback: "Unsupported")
+          internal static let title = Loc.tr("Localizable", "EditorSet.View.Not.Supported.Title", fallback: "Unsupported")
         }
       }
     }
