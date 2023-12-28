@@ -1,5 +1,6 @@
 import UIKit
 import AnytypeCore
+import Services
 
 final class UIKitAnytypeText: Hashable {
     private let paragraphStyle: NSParagraphStyle

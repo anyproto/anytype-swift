@@ -1,7 +1,6 @@
-import Services
 import ProtobufMessages
 
-protocol BlockListServiceProtocol: AnyObject {
+public protocol BlockListServiceProtocol: AnyObject {
     func setAlign(objectId: BlockId, blockIds: [BlockId], alignment: LayoutAlignment) async throws
     func setBackgroundColor(objectId: BlockId, blockIds: [BlockId], color: MiddlewareColor) async throws
     func setFields(objectId: BlockId, blockId: BlockId, fields: BlockFields) async throws
