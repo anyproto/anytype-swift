@@ -28,9 +28,7 @@ final class ObjectActionsService: ObjectActionsServiceProtocol {
         self.objectTypeProvider = objectTypeProvider
     }
     
-    func delete(objectIds: [BlockId], route: RemoveCompletelyRoute) async throws {
-        AnytypeAnalytics.instance().logDeletion(count: objectIds.count, route: route)
-        
+    func delete(objectIds: [BlockId]) async throws {
         try await ClientCommands.objectListDelete(.with {
             $0.objectIds = objectIds
         }).invoke()

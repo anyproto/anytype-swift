@@ -161,8 +161,8 @@ final class ObjectActionsViewModel: ObservableObject {
     func deleteAction() {
         guard let details = details else { return }
         Task { @MainActor in
-            // TODO: Add new analytics route
-            try await service.delete(objectIds: [details.id], route: .bin)
+            AnytypeAnalytics.instance().logDeletion(count: 1, route: .bin)
+            try await service.delete(objectIds: [details.id])
             dismissSheet()
             closeEditorAction()
         }

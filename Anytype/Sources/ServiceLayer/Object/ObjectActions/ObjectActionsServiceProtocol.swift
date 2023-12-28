@@ -4,7 +4,7 @@ import ProtobufMessages
 import AnytypeCore
 
 protocol ObjectActionsServiceProtocol {
-    func delete(objectIds: [BlockId], route: RemoveCompletelyRoute) async throws
+    func delete(objectIds: [BlockId]) async throws
     
     func setArchive(objectIds: [BlockId], _ isArchived: Bool) async throws
     func setFavorite(objectIds: [BlockId], _ isFavorite: Bool) async throws
