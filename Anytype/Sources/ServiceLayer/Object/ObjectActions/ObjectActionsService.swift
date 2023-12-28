@@ -49,11 +49,6 @@ final class ObjectActionsService: ObjectActionsServiceProtocol {
     }
 
     func setLocked(_ isLocked: Bool, objectId: BlockId) async throws {
-        if isLocked {
-            AnytypeAnalytics.instance().logLockPage()
-        } else {
-            AnytypeAnalytics.instance().logUnlockPage()
-        }
         typealias ProtobufDictionary = [String: Google_Protobuf_Value]
         var protoFields = ProtobufDictionary()
         protoFields[BlockFieldBundledKey.isLocked.rawValue] = isLocked.protobufValue

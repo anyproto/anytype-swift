@@ -503,6 +503,14 @@ extension AnytypeAnalytics {
         logEvent(AnalyticsEventsName.searchResult)
     }
     
+    func logLockPage(_ isLocked: Bool) {
+        if isLocked {
+            logLockPage()
+        } else {
+            logUnlockPage()
+        }
+    }
+    
     func logLockPage() {
         logEvent(AnalyticsEventsName.lockPage)
     }

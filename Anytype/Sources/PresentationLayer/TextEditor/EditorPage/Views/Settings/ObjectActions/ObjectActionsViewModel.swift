@@ -91,6 +91,7 @@ final class ObjectActionsViewModel: ObservableObject {
 
     func changeLockState() {
         Task {
+            AnytypeAnalytics.instance().logLockPage(!isLocked)
             try await service.setLocked(!isLocked, objectId: objectId)
         }
     }
