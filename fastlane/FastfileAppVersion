@@ -6,7 +6,7 @@ platform :ios do
   lane :bump_dev_build_number do
     ensure_git_status_clean
 
-    build_number = increment_build_number(xcodeproj: ENV["APP_PROJECT"])
+    build_number = increment_build_number(xcodeproj: ENV["APP_PROJECT"], skip_info_plist: true)
     version = get_version_number(xcodeproj: ENV["APP_PROJECT"], target: ENV["APP_TARGET"])
 
     commit_version_bump(
@@ -43,18 +43,21 @@ platform :ios do
   end
 
   lane :increment_build do
-    increment_build_number(xcodeproj:  ENV["APP_PROJECT"])
+    increment_build_number(xcodeproj:  ENV["APP_PROJECT"], skip_info_plist: true)
   end
 
   # Private lane
   
   private_lane :bump_app_version_number do |options|
     increment_build_number(
-      build_number: "0"
+      build_number: "0",
+      xcodeproj:  ENV["APP_PROJECT"],
+      skip_info_plist: true
     )
 
-    increment_version_number(
-      bump_type: options[:bump_type]
+    increment_version_number_in_xcodeproj(
+      bump_type: options[:bump_type],
+      xcodeproj:  ENV["APP_PROJECT"]
     )
 
   end
