@@ -546,10 +546,10 @@
 "Unsplash" = "Unsplash";
 "Go back" = "Voltar";
 "SyncStatus.LocalOnly.Title" = "Somente local";
-"SyncStatus.LocalOnly.Description" = "Local only";
-"SyncStatus.Synced.Anytype.Description" = "Backed up on Anytype Network";
+"SyncStatus.LocalOnly.Description" = "Apenas localmente";
+"SyncStatus.Synced.Anytype.Description" = "Backup realizado na rede Anytype";
 "SyncStatus.Synced.AnytypeStaging.Description" = "Backed up on Anytype Staging";
-"SyncStatus.Synced.SelfHosted.Description" = "Backed up on Self-hosted Network";
+"SyncStatus.Synced.SelfHosted.Description" = "Backup Realizado na Rede Auto-hospedada";
 "Downloading or uploading data to some node" = "Baixando ou carregando dados para algum nó";
 "Node is not connected" = "O nó não está conectado";
 "Initializing sync" = "Iniciando sincronização";
