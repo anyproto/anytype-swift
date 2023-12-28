@@ -10378,7 +10378,6 @@
 				3DE6926827302D5800A4CD4E /* AccessoryViewStateManager.swift in Sources */,
 				53FB4E812731CCD200BF3F0E /* MarkupAccessoryView.swift in Sources */,
 				2ED25E332B3C84CA00F03E5E /* MentionObject.swift in Sources */,
-				2AA0209728D3526700321A66 /* SetSubscriptionDataBuilderProtocol.swift in Sources */,
 				C97B5D5D27F4989600EA7E33 /* BlockContentView.swift in Sources */,
 				2AC906D029B61DAC00209E39 /* SetsWidgetInternalViewModel.swift in Sources */,
 				C93793F0275614370016A26D /* EditorPageController+DragNDrop.swift in Sources */,
@@ -11505,7 +11504,6 @@
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				APP_URL_SCHEME = "dev-anytype";
-				APP_URL_SCHEME_LEGACY = "com.dev-anytype";
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = YES;
 				CODE_SIGN_ENTITLEMENTS = Anytype/Anytype.entitlements;
@@ -11550,7 +11548,6 @@
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				APP_URL_SCHEME = anytype;
-				APP_URL_SCHEME_LEGACY = com.anytype;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = YES;
 				CODE_SIGN_ENTITLEMENTS = Anytype/Anytype.entitlements;
@@ -11707,7 +11704,6 @@
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				APP_URL_SCHEME = "dev-anytype";
-				APP_URL_SCHEME_LEGACY = "com.dev-anytype";
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = YES;
 				CODE_SIGN_ENTITLEMENTS = Anytype/Anytype.entitlements;

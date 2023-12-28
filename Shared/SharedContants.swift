@@ -6,17 +6,10 @@ enum URLConstants {
     #else
     static let urlScheme = "anytype://"
     #endif
-    
-    #if DEBUG
-    static let urlSchemeLegacy = "com.dev-anytype://"
-    #else
-    static let urlSchemeLegacy = "com.anytype://"
-    #endif
-    
+        
     static let createObjectURL = URL(string: urlScheme + "create-object")
     static let sharingExtenstionURL = URL(string: urlScheme + "sharing-extension")
-    // Legacy - https://linear.app/anytype/issue/IOS-2061/
-    static let spaceSelectionURL = URL(string: urlSchemeLegacy + "space-selection")
+    static let spaceSelectionURL = URL(string: urlScheme + "space-selection")
     static let galleryImportURL = URL(string: urlScheme + "main/import")
 }
 
