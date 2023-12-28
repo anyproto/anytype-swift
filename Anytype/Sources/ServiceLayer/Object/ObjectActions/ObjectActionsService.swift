@@ -46,8 +46,6 @@ final class ObjectActionsService: ObjectActionsServiceProtocol {
             $0.objectIds = objectIds
             $0.isFavorite = isFavorite
         }).invoke()
-        
-        AnytypeAnalytics.instance().logAddToFavorites(isFavorite)
     }
 
     func setLocked(_ isLocked: Bool, objectId: BlockId) async throws {

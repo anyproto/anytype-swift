@@ -100,6 +100,7 @@ final class WidgetObjectListViewModel: ObservableObject, OptionsItemProvider, Wi
     // MARK: - WidgetObjectListMenuOutput
     
     func setFavorite(objectIds: [BlockId], _ isFavorite: Bool) {
+        AnytypeAnalytics.instance().logAddToFavorites(isFavorite)
         Task { try? await objectActionService.setFavorite(objectIds: objectIds, isFavorite) }
         UISelectionFeedbackGenerator().selectionChanged()
     }

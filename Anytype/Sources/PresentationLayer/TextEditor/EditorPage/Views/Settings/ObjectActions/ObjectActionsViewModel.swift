@@ -84,6 +84,7 @@ final class ObjectActionsViewModel: ObservableObject {
     func changeFavoriteSate() {
         guard let details = details else { return }
         Task {
+            AnytypeAnalytics.instance().logAddToFavorites(!details.isFavorite)
             try await service.setFavorite(objectIds: [objectId], !details.isFavorite)
         }
     }
