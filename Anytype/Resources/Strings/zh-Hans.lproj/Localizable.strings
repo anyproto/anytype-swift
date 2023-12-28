@@ -495,7 +495,7 @@
 "Enter text" = "输入文本";
 "Unsupported value" = "不支持该值";
 "Select relation type" = "选择关联类型";
-"CommonOpenErrorView.Message" = "No data found";
+"CommonOpenErrorView.Message" = "未找到数据";
 
 "Limit object types" = "限制对象类型";
 "Type" = "类型";
