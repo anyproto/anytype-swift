@@ -80,7 +80,7 @@ final class ServiceLocator {
     }
     
     func fileService() -> FileActionsServiceProtocol {
-        FileActionsService()
+        FileActionsService(fileService: FileService())
     }
     
     func searchService() -> SearchServiceProtocol {

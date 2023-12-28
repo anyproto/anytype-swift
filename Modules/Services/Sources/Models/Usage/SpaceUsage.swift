@@ -1,11 +1,11 @@
 import Foundation
 import ProtobufMessages
 
-struct SpaceUsage {
-    var spaceID: String
-    var filesCount: Int64
-    var cidsCount: Int64
-    var bytesUsage: Int64
+public struct SpaceUsage {
+    public var spaceID: String
+    public var filesCount: Int64
+    public var cidsCount: Int64
+    public var bytesUsage: Int64
 }
 
 extension SpaceUsage {

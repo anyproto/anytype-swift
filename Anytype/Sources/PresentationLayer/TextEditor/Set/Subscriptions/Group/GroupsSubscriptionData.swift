@@ -1,6 +1,6 @@
 import Services
 
-struct GroupsSubscription: Equatable {
+struct GroupsSubscriptionData: Equatable {
     let identifier: String
     let relationKey: String
     let filters: [DataviewFilter]
