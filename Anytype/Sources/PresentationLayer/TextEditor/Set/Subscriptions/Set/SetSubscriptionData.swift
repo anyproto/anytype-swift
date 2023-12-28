@@ -43,8 +43,3 @@ struct SetSubscriptionData: Hashable {
         self.collectionId = collectionId
     }
 }
-
-extension SetSubscriptionData {
-    static var setId = "SubscriptionId.Set"
-    static var setGroupsId = "SubscriptionId.Set.Groups"
-}

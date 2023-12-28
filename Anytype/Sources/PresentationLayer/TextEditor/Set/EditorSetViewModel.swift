@@ -79,6 +79,10 @@ final class EditorSetViewModel: ObservableObject {
         (setDocument.isCollection() && recordsDict.values.first { $0.isNotEmpty } == nil && setDocument.activeViewFilters.isEmpty)
     }
     
+    var subscriptionId: String {
+        setSubscriptionDataBuilder.subscriptionId
+    }
+    
     func groupBackgroundColor(for groupId: String) -> BlockBackgroundColor {
         guard let groupOrder = setDocument.dataView.groupOrders.first(where: { [weak self] in $0.viewID == self?.activeView.id }),
             let viewGroup = groupOrder.viewGroups.first(where: { $0.groupID == groupId }),
@@ -129,6 +133,7 @@ final class EditorSetViewModel: ObservableObject {
     private let textServiceHandler: TextServiceProtocol
     private let groupsSubscriptionsHandler: GroupsSubscriptionsHandlerProtocol
     private let setSubscriptionDataBuilder: SetSubscriptionDataBuilderProtocol
+    private let setGroupSubscriptionDataBuilder: SetGroupSubscriptionDataBuilderProtocol
     private var subscriptions = [AnyCancellable]()
     private var subscriptionStorages = [String: SubscriptionStorageProtocol]()
     private let activeWorkspaceStorage: ActiveWorkpaceStorageProtocol
@@ -146,6 +151,7 @@ final class EditorSetViewModel: ObservableObject {
         textServiceHandler: TextServiceProtocol,
         groupsSubscriptionsHandler: GroupsSubscriptionsHandlerProtocol,
         setSubscriptionDataBuilder: SetSubscriptionDataBuilderProtocol,
+        setGroupSubscriptionDataBuilder: SetGroupSubscriptionDataBuilderProtocol,
         objectTypeProvider: ObjectTypeProviderProtocol,
         activeWorkspaceStorage: ActiveWorkpaceStorageProtocol,
         output: EditorSetModuleOutput?
@@ -160,6 +166,7 @@ final class EditorSetViewModel: ObservableObject {
         self.textServiceHandler = textServiceHandler
         self.groupsSubscriptionsHandler = groupsSubscriptionsHandler
         self.setSubscriptionDataBuilder = setSubscriptionDataBuilder
+        self.setGroupSubscriptionDataBuilder = setGroupSubscriptionDataBuilder
         self.titleString = setDocument.details?.pageCellTitle ?? ""
         self.activeWorkspaceStorage = activeWorkspaceStorage
         self.output = output
@@ -229,8 +236,8 @@ final class EditorSetViewModel: ObservableObject {
         if activeView.type.hasGroups {
             try? await setupGroupsSubscription(forceUpdate: forceUpdate)
         } else {
-            setupPaginationDataIfNeeded(groupId: SetSubscriptionData.setId)
-            await startSubscriptionIfNeeded(with: SetSubscriptionData.setId)
+            setupPaginationDataIfNeeded(groupId: setSubscriptionDataBuilder.subscriptionId)
+            await startSubscriptionIfNeeded(with: setSubscriptionDataBuilder.subscriptionId)
         }
     }
     
@@ -247,8 +254,9 @@ final class EditorSetViewModel: ObservableObject {
         }
     }
     
-    func pagitationData(by groupId: String) -> EditorSetPaginationData {
-        pagitationDataDict[groupId] ?? EditorSetPaginationData.empty
+    func pagitationData(by groupId: String? = nil) -> EditorSetPaginationData {
+        let groupId = groupId ?? setSubscriptionDataBuilder.subscriptionId
+        return pagitationDataDict[groupId] ?? EditorSetPaginationData.empty
     }
     
     // MARK: - Private
@@ -319,13 +327,7 @@ final class EditorSetViewModel: ObservableObject {
     // MARK: - Groups Subscriptions
     
     private func setupGroupsSubscription(forceUpdate: Bool) async throws {
-        let data = GroupsSubscription(
-            identifier: SetSubscriptionData.setGroupsId,
-            relationKey: activeView.groupRelationKey,
-            filters: activeView.filters,
-            source: details?.setOf,
-            collectionId: setDocument.isCollection() ? objectId : nil
-        )
+        let data = setGroupSubscriptionDataBuilder.groupsData(setDocument)
         let hasGroupDiff = groupsSubscriptionsHandler.hasGroupsSubscriptionDataDiff(with: data)
         if hasGroupDiff {
             try await groupsSubscriptionsHandler.stopAllSubscriptions()
@@ -358,7 +360,7 @@ final class EditorSetViewModel: ObservableObject {
         return newVisible != nil || hasNewHidden
     }
     
-    private func startGroupsSubscription(with data: GroupsSubscription) async throws -> [DataviewGroup] {
+    private func startGroupsSubscription(with data: GroupsSubscriptionData) async throws -> [DataviewGroup] {
         try await groupsSubscriptionsHandler.startGroupsSubscription(data: data) { [weak self] group, remove in
             guard let self else { return }
             if remove {
@@ -743,7 +745,8 @@ extension EditorSetViewModel {
         textServiceHandler: DI.preview.serviceLocator.textServiceHandler(),
         groupsSubscriptionsHandler: DI.preview.serviceLocator.groupsSubscriptionsHandler(),
         setSubscriptionDataBuilder: SetSubscriptionDataBuilder(activeWorkspaceStorage: DI.preview.serviceLocator.activeWorkspaceStorage()),
-        objectTypeProvider: DI.preview.serviceLocator.objectTypeProvider(), 
+        setGroupSubscriptionDataBuilder: SetGroupSubscriptionDataBuilder(),
+        objectTypeProvider: DI.preview.serviceLocator.objectTypeProvider(),
         activeWorkspaceStorage: DI.preview.serviceLocator.activeWorkspaceStorage(),
         output: nil
     )

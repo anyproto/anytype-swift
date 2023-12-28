@@ -13,7 +13,7 @@ final class BlockActionService: BlockActionServiceProtocol {
     private let textServiceHandler: TextServiceProtocol
     private let listService: BlockListServiceProtocol
     private let bookmarkService: BookmarkServiceProtocol
-    private let fileService = FileActionsService()
+    private let fileService: FileActionsServiceProtocol
     private let cursorManager: EditorCursorManager
     private let objectTypeProvider: ObjectTypeProviderProtocol
     
@@ -27,6 +27,7 @@ final class BlockActionService: BlockActionServiceProtocol {
         textServiceHandler: TextServiceProtocol,
         modelsHolder: EditorMainItemModelsHolder,
         bookmarkService: BookmarkServiceProtocol,
+        fileService: FileActionsServiceProtocol,
         cursorManager: EditorCursorManager,
         objectTypeProvider: ObjectTypeProviderProtocol
     ) {
@@ -37,6 +38,7 @@ final class BlockActionService: BlockActionServiceProtocol {
         self.textServiceHandler = textServiceHandler
         self.modelsHolder = modelsHolder
         self.bookmarkService = bookmarkService
+        self.fileService = fileService
         self.cursorManager = cursorManager
         self.objectTypeProvider = objectTypeProvider
     }

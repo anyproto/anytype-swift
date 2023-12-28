@@ -64,7 +64,8 @@ final class EditorSetModuleAssembly: EditorSetModuleAssemblyProtocol {
             textServiceHandler: serviceLocator.textServiceHandler(),
             groupsSubscriptionsHandler: serviceLocator.groupsSubscriptionsHandler(),
             setSubscriptionDataBuilder: SetSubscriptionDataBuilder(activeWorkspaceStorage: serviceLocator.activeWorkspaceStorage()),
-            objectTypeProvider: serviceLocator.objectTypeProvider(), 
+            setGroupSubscriptionDataBuilder: SetGroupSubscriptionDataBuilder(),
+            objectTypeProvider: serviceLocator.objectTypeProvider(),
             activeWorkspaceStorage: serviceLocator.activeWorkspaceStorage(),
             output: output
         )
