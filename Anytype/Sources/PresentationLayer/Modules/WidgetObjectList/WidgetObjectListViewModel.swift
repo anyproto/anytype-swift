@@ -105,6 +105,7 @@ final class WidgetObjectListViewModel: ObservableObject, OptionsItemProvider, Wi
     }
     
     func setArchive(objectIds: [BlockId], _ isArchived: Bool) {
+        AnytypeAnalytics.instance().logMoveToBin(isArchived)
         Task { try? await objectActionService.setArchive(objectIds: objectIds, isArchived) }
         UISelectionFeedbackGenerator().selectionChanged()
     }
@@ -139,6 +140,7 @@ final class WidgetObjectListViewModel: ObservableObject, OptionsItemProvider, Wi
     
     private func forceDeleteConfirmed(objectIds: [BlockId]) {
         Task {
+            AnytypeAnalytics.instance().logMoveToBin(true)
             try await objectActionService.setArchive(objectIds: objectIds, true)
             AnytypeAnalytics.instance().logDeletion(count: objectIds.count, route: .settings)
             try await objectActionService.delete(objectIds: objectIds)

@@ -39,8 +39,6 @@ final class ObjectActionsService: ObjectActionsServiceProtocol {
             $0.objectIds = objectIds
             $0.isArchived = isArchived
         }).invoke()
-        
-        AnytypeAnalytics.instance().logMoveToBin(isArchived)
     }
     
     func setFavorite(objectIds: [BlockId], _ isFavorite: Bool) async throws {

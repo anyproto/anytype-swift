@@ -72,6 +72,7 @@ final class ObjectActionsViewModel: ObservableObject {
         
         let isArchived = !details.isArchived
         Task { @MainActor in
+            AnytypeAnalytics.instance().logMoveToBin(isArchived)
             try await service.setArchive(objectIds: [objectId], isArchived)
             if isArchived {
                 dismissSheet()
