@@ -29,7 +29,7 @@ struct SetViewRow: View {
                 
                 if !configuration.isSupported, editMode?.wrappedValue == .inactive {
                     AnytypeText(
-                        Loc.EditorSetViewPicker.View.Not.Supported.title,
+                        Loc.EditorSet.View.Not.Supported.title,
                         style: .caption2Regular,
                         color: .Text.secondary
                     )
@@ -37,8 +37,7 @@ struct SetViewRow: View {
             }
         }
         .disabled(
-            editMode?.wrappedValue != .inactive ||
-            !configuration.isSupported
+            editMode?.wrappedValue != .inactive
         )
         .frame(height: 52)
     }
