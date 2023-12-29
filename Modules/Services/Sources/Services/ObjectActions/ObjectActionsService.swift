@@ -1,65 +1,36 @@
 import Foundation
 import Combine
 import SwiftProtobuf
-import Services
 import ProtobufMessages
 import AnytypeCore
 
-enum ObjectActionsServiceError: Error {
-    case nothingToUndo
-    case nothingToRedo
-
-    var message: String {
-        switch self {
-        case .nothingToUndo:
-            return Loc.nothingToUndo
-        case .nothingToRedo:
-            return Loc.nothingToRedo
-        }
-    }
-}
-
-
-final class ObjectActionsService: ObjectActionsServiceProtocol {
+public final class ObjectActionsService: ObjectActionsServiceProtocol {
     
-    private let objectTypeProvider: ObjectTypeProviderProtocol
+    public init() {}
     
-    init(objectTypeProvider: ObjectTypeProviderProtocol) {
-        self.objectTypeProvider = objectTypeProvider
-    }
+    // MARK: - ObjectActionsServiceProtocol
     
-    func delete(objectIds: [BlockId], route: RemoveCompletelyRoute) async throws {
-        AnytypeAnalytics.instance().logDeletion(count: objectIds.count, route: route)
-        
+    public func delete(objectIds: [BlockId]) async throws {
         try await ClientCommands.objectListDelete(.with {
             $0.objectIds = objectIds
         }).invoke()
     }
     
-    func setArchive(objectIds: [BlockId], _ isArchived: Bool) async throws {
+    public func setArchive(objectIds: [BlockId], _ isArchived: Bool) async throws {
         try await ClientCommands.objectListSetIsArchived(.with {
             $0.objectIds = objectIds
             $0.isArchived = isArchived
         }).invoke()
-        
-        AnytypeAnalytics.instance().logMoveToBin(isArchived)
     }
     
-    func setFavorite(objectIds: [BlockId], _ isFavorite: Bool) async throws {
+    public func setFavorite(objectIds: [BlockId], _ isFavorite: Bool) async throws {
         try await ClientCommands.objectListSetIsFavorite(.with {
             $0.objectIds = objectIds
             $0.isFavorite = isFavorite
         }).invoke()
-        
-        AnytypeAnalytics.instance().logAddToFavorites(isFavorite)
     }
 
-    func setLocked(_ isLocked: Bool, objectId: BlockId) async throws {
-        if isLocked {
-            AnytypeAnalytics.instance().logLockPage()
-        } else {
-            AnytypeAnalytics.instance().logUnlockPage()
-        }
+    public func setLocked(_ isLocked: Bool, objectId: BlockId) async throws {
         typealias ProtobufDictionary = [String: Google_Protobuf_Value]
         var protoFields = ProtobufDictionary()
         protoFields[BlockFieldBundledKey.isLocked.rawValue] = isLocked.protobufValue
@@ -77,7 +48,7 @@ final class ObjectActionsService: ObjectActionsServiceProtocol {
     }
     
     /// NOTE: `CreatePage` action will return block of type `.link(.page)`.
-    func createPage(
+    public func createPage(
         contextId: BlockId,
         targetId: BlockId,
         spaceId: String,
@@ -111,7 +82,7 @@ final class ObjectActionsService: ObjectActionsServiceProtocol {
         return response.targetID
     }
 
-    func updateLayout(contextID: BlockId, value: Int) async throws  {
+    public func updateLayout(contextID: BlockId, value: Int) async throws  {
         guard let selectedLayout = Anytype_Model_ObjectType.Layout(rawValue: value) else {
             return
         }
@@ -121,7 +92,7 @@ final class ObjectActionsService: ObjectActionsServiceProtocol {
         }).invoke()
     }
     
-    func duplicate(objectId: BlockId) async throws -> BlockId {
+    public func duplicate(objectId: BlockId) async throws -> BlockId {
         let result = try await ClientCommands.objectDuplicate(.with {
             $0.contextID = objectId
         }).invoke()
@@ -130,7 +101,7 @@ final class ObjectActionsService: ObjectActionsServiceProtocol {
     }
 
     // MARK: - ObjectActionsService / SetDetails
-    func updateBundledDetails(contextID: BlockId, details: [BundledDetails]) async throws {
+    public func updateBundledDetails(contextID: BlockId, details: [BundledDetails]) async throws {
         try await ClientCommands.objectSetDetails(.with {
             $0.contextID = contextID
             $0.details = details.map { details in
@@ -142,7 +113,7 @@ final class ObjectActionsService: ObjectActionsServiceProtocol {
         }).invoke()
     }
     
-    func updateDetails(contextId: String, relationKey: String, value: DataviewGroupValue) async throws {
+    public func updateDetails(contextId: String, relationKey: String, value: DataviewGroupValue) async throws {
         let protobufValue: Google_Protobuf_Value?
         switch value {
         case .tag(let tag):
@@ -171,7 +142,7 @@ final class ObjectActionsService: ObjectActionsServiceProtocol {
         }).invoke()
     }
 
-    func convertChildrenToPages(contextID: BlockId, blocksIds: [BlockId], typeUniqueKey: ObjectTypeUniqueKey) async throws -> [BlockId] {
+    public func convertChildrenToPages(contextID: BlockId, blocksIds: [BlockId], typeUniqueKey: ObjectTypeUniqueKey) async throws -> [BlockId] {
         let response = try await ClientCommands.blockListConvertToObjects(.with {
             $0.contextID = contextID
             $0.blockIds = blocksIds
@@ -181,7 +152,7 @@ final class ObjectActionsService: ObjectActionsServiceProtocol {
         return response.linkIds
     }
     
-    func move(dashboadId: BlockId, blockId: BlockId, dropPositionblockId: BlockId, position: Anytype_Model_Block.Position) async throws {
+    public func move(dashboadId: BlockId, blockId: BlockId, dropPositionblockId: BlockId, position: Anytype_Model_Block.Position) async throws {
         try await ClientCommands.blockListMoveToExistingObject(.with {
             $0.contextID = dashboadId
             $0.blockIds = [blockId]
@@ -191,47 +162,47 @@ final class ObjectActionsService: ObjectActionsServiceProtocol {
         }).invoke()
     }
     
-    func setObjectType(objectId: BlockId, typeUniqueKey: ObjectTypeUniqueKey) async throws {
+    public func setObjectType(objectId: BlockId, typeUniqueKey: ObjectTypeUniqueKey) async throws {
         _ = try await ClientCommands.objectSetObjectType(.with {
             $0.contextID = objectId
             $0.objectTypeUniqueKey = typeUniqueKey.value
         }).invoke()
     }
 
-    func setObjectSetType(objectId: BlockId) async throws {
+    public func setObjectSetType(objectId: BlockId) async throws {
         try await ClientCommands.objectToSet(.with {
             $0.contextID = objectId
         }).invoke()
     }
     
-    func addObjectsToCollection(contextId: BlockId, objectIds: [String]) async throws {
+    public func addObjectsToCollection(contextId: BlockId, objectIds: [String]) async throws {
         try await ClientCommands.objectCollectionAdd(.with {
             $0.contextID = contextId
             $0.objectIds = objectIds
         }).invoke()
     }
     
-    func setObjectCollectionType(objectId: BlockId) async throws {
+    public func setObjectCollectionType(objectId: BlockId) async throws {
         try await ClientCommands.objectToCollection(.with {
             $0.contextID = objectId
         }).invoke()
     }
 
-    func applyTemplate(objectId: BlockId, templateId: BlockId) async throws {
+    public func applyTemplate(objectId: BlockId, templateId: BlockId) async throws {
         try await ClientCommands.objectApplyTemplate(.with {
             $0.contextID = objectId
             $0.templateID = templateId
         }).invoke()
     }
     
-    func setSource(objectId: BlockId, source: [String]) async throws {
+    public func setSource(objectId: BlockId, source: [String]) async throws {
         try await ClientCommands.objectSetSource(.with {
             $0.contextID = objectId
             $0.source = source
         }).invoke()
     }
 
-    func undo(objectId: BlockId) async throws {
+    public func undo(objectId: BlockId) async throws {
         do {
             try await ClientCommands.objectUndo(.with {
                 $0.contextID = objectId
@@ -241,7 +212,7 @@ final class ObjectActionsService: ObjectActionsServiceProtocol {
         }
     }
 
-    func redo(objectId: BlockId) async throws {
+    public func redo(objectId: BlockId) async throws {
         do {
             try await ClientCommands.objectRedo(.with {
                 $0.contextID = objectId
@@ -251,7 +222,7 @@ final class ObjectActionsService: ObjectActionsServiceProtocol {
         }
     }
     
-    func setInternalFlags(contextId: BlockId, internalFlags: [Int]) async throws {
+    public func setInternalFlags(contextId: BlockId, internalFlags: [Int]) async throws {
         let flags: [Anytype_Model_InternalFlag] = internalFlags.compactMap { flag in
             guard let value = Anytype_Model_InternalFlag.Value(rawValue: flag) else { return nil }
             return Anytype_Model_InternalFlag.with { $0.value = value }

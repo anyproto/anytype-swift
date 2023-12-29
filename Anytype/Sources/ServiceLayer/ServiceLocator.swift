@@ -76,7 +76,7 @@ final class ServiceLocator {
     }
     
     func objectActionsService() -> ObjectActionsServiceProtocol {
-        ObjectActionsService(objectTypeProvider: objectTypeProvider())
+        ObjectActionsService()
     }
     
     func fileService() -> FileActionsServiceProtocol {
