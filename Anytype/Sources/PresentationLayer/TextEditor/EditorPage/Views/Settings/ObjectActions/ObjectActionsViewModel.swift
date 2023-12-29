@@ -72,6 +72,7 @@ final class ObjectActionsViewModel: ObservableObject {
         
         let isArchived = !details.isArchived
         Task { @MainActor in
+            AnytypeAnalytics.instance().logMoveToBin(isArchived)
             try await service.setArchive(objectIds: [objectId], isArchived)
             if isArchived {
                 dismissSheet()
@@ -83,12 +84,14 @@ final class ObjectActionsViewModel: ObservableObject {
     func changeFavoriteSate() {
         guard let details = details else { return }
         Task {
+            AnytypeAnalytics.instance().logAddToFavorites(!details.isFavorite)
             try await service.setFavorite(objectIds: [objectId], !details.isFavorite)
         }
     }
 
     func changeLockState() {
         Task {
+            AnytypeAnalytics.instance().logLockPage(!isLocked)
             try await service.setLocked(!isLocked, objectId: objectId)
         }
     }
@@ -161,8 +164,8 @@ final class ObjectActionsViewModel: ObservableObject {
     func deleteAction() {
         guard let details = details else { return }
         Task { @MainActor in
-            // TODO: Add new analytics route
-            try await service.delete(objectIds: [details.id], route: .bin)
+            AnytypeAnalytics.instance().logDeletion(count: 1, route: .bin)
+            try await service.delete(objectIds: [details.id])
             dismissSheet()
             closeEditorAction()
         }

@@ -495,7 +495,7 @@
 "Enter text" = "Skriv inn tekst";
 "Unsupported value" = "Ikke-støttet verdi";
 "Select relation type" = "Velg relasjonstype";
-"CommonOpenErrorView.Message" = "No data found";
+"CommonOpenErrorView.Message" = "Ingen data funnet";
 
 "Limit object types" = "Begrens objekttyper";
 "Type" = "Type";

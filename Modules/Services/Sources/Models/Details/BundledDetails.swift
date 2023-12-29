@@ -1,18 +1,9 @@
-//
-//  ObjectDetailsItem.swift
-//  Anytype
-//
-//  Created by Konstantin Mordan on 22.11.2021.
-//  Copyright © 2021 Anytype. All rights reserved.
-//
-
 import Foundation
 import AnytypeCore
-import Services
 import ProtobufMessages
 import SwiftProtobuf
 
-enum BundledDetails {
+public enum BundledDetails {
     case name(String)
     case iconEmoji(String)
     case iconImageHash(Hash?)
