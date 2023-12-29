@@ -28,9 +28,6 @@ struct HomeBottomNavigationPanelView: View {
                             model.onTapCreateObjectWithType()
                         }
                 )
-                .if(homeMode) {
-                    $0.popoverHomeCreateObjectTip()
-                }
             
             if homeMode {
                 Button {
@@ -65,6 +62,11 @@ struct HomeBottomNavigationPanelView: View {
         .background(Color.Navigation.background)
         .background(.ultraThinMaterial)
         .cornerRadius(16, style: .continuous)
+        .overlay {
+            if #available(iOS 17.0, *) {
+                HomeTipView()
+            }
+        }
         .padding(.vertical, 10)
         .animation(.default, value: homeMode)
     }
