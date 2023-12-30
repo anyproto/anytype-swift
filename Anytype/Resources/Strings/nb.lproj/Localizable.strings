@@ -694,8 +694,8 @@
 "SetViewTypesPicker.Settings.Textfield.Placeholder.New.View" = "Ny visning";
 "SetViewTypesPicker.Settings.Textfield.Placeholder.Untitled" = "Uten tittel";
 
-// MARK: Select view picker
-"EditorSetViewPicker.View.Not.Supported.Title" = "Ikke støttet";
+// MARK: Select view
+"EditorSet.View.Not.Supported.Title" = "Unsupported";
 
 // BlockContent
 "Content.File.Upload" = "Last opp en fil";
