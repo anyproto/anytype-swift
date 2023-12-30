@@ -694,8 +694,8 @@
 "SetViewTypesPicker.Settings.Textfield.Placeholder.New.View" = "Tampilan baru";
 "SetViewTypesPicker.Settings.Textfield.Placeholder.Untitled" = "Nirjudul";
 
-// MARK: Select view picker
-"EditorSetViewPicker.View.Not.Supported.Title" = "Tidak didukung";
+// MARK: Select view
+"EditorSet.View.Not.Supported.Title" = "Unsupported";
 
 // BlockContent
 "Content.File.Upload" = "Unggah sebuah berkas";
