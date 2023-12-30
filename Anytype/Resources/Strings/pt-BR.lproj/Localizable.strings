@@ -694,8 +694,8 @@
 "SetViewTypesPicker.Settings.Textfield.Placeholder.New.View" = "Nova Exibição";
 "SetViewTypesPicker.Settings.Textfield.Placeholder.Untitled" = "Sem título";
 
-// MARK: Select view picker
-"EditorSetViewPicker.View.Not.Supported.Title" = "Incompatível";
+// MARK: Select view
+"EditorSet.View.Not.Supported.Title" = "Unsupported";
 
 // BlockContent
 "Content.File.Upload" = "Enviar um arquivo";
