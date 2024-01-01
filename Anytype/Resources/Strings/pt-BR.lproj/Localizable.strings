@@ -272,7 +272,7 @@
 "Undo" = "Desfazer";
 "Actions.LinkItself" = "Vincular a";
 "Actions.MakeAsTemplate" = "Fazer modelo";
-"Actions.TemplateMakeDefault" = "Make default";
+"Actions.TemplateMakeDefault" = "Tornar padrão";
 "Actions.CreateWidget.Title" = "Criar widget";
 "Actions.CreateWidget.Success" = "Um novo widget foi criado";
 
@@ -695,7 +695,7 @@
 "SetViewTypesPicker.Settings.Textfield.Placeholder.Untitled" = "Sem título";
 
 // MARK: Select view
-"EditorSet.View.Not.Supported.Title" = "Unsupported";
+"EditorSet.View.Not.Supported.Title" = "Incompatível";
 
 // BlockContent
 "Content.File.Upload" = "Enviar um arquivo";
@@ -865,7 +865,7 @@
 // MARK: - Error
 "Error.AnytypeNeedsUpgrate.Title" = "Atualizar seu aplicativo!";
 "Error.AnytypeNeedsUpgrate.Message" = "Este objeto foi atualizado em uma nova versão do Anytype. Por favor, atualize o aplicativo para abri-lo neste dispositivo";
-"Error.AnytypeNeedsUpgrate.Confirm" = "Update";
+"Error.AnytypeNeedsUpgrate.Confirm" = "Atualização";
 
 // MARK: - Relative date formatter
 "RelativeFormatter.days7" = "Últimos 7 dias";
