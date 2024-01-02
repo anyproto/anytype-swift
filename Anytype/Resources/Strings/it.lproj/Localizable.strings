@@ -495,7 +495,7 @@
 "Enter text" = "Inserisci testo";
 "Unsupported value" = "Valore non supportato";
 "Select relation type" = "Selezione il tipo della Relazione";
-"CommonOpenErrorView.Message" = "No data found";
+"CommonOpenErrorView.Message" = "Nessun dato trovato";
 
 "Limit object types" = "Limita tipi di oggetto";
 "Type" = "Tipo";
@@ -695,7 +695,7 @@
 "SetViewTypesPicker.Settings.Textfield.Placeholder.Untitled" = "Senza titolo";
 
 // MARK: Select view
-"EditorSet.View.Not.Supported.Title" = "Unsupported";
+"EditorSet.View.Not.Supported.Title" = "Non supportato";
 
 // BlockContent
 "Content.File.Upload" = "Carica un file";
@@ -847,7 +847,7 @@
 
 "Sharing.Tip.Steps.1" = "Tocca il pulsante di condivisione iOS";
 "Sharing.Tip.Steps.2" = "Scorri oltre l'app e tocca Altro";
-"Sharing.Tip.Steps.3" = "Tap Edit to find “Anytype” and tap";
+"Sharing.Tip.Steps.3" = "Tocca Modifica per trovare “Anytype” e tocca";
 
 // MARK: - Initial
 
