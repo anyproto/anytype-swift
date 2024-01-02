@@ -695,7 +695,7 @@
 "SetViewTypesPicker.Settings.Textfield.Placeholder.Untitled" = "Без названия";
 
 // MARK: Select view
-"EditorSet.View.Not.Supported.Title" = "Unsupported";
+"EditorSet.View.Not.Supported.Title" = "Не поддерживается";
 
 // BlockContent
 "Content.File.Upload" = "Загрузить файл";
