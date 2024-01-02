@@ -551,7 +551,7 @@
 "SyncStatus.Synced.AnytypeStaging.Description" = "Sauvegardé sur le réseau Anytype de pré-production";
 "SyncStatus.Synced.SelfHosted.Description" = "Sauvegarder vers votre réseau auto-hébergé";
 "Downloading or uploading data to some node" = "Téléchargement ou envoi de données vers un nœud";
-"Node is not connected" = "Node is not connected";
+"Node is not connected" = "Le noeud n'est pas connecté";
 "Initializing sync" = "Initialisation de la synchronisation";
 "Not syncing" = "Non synchronisé";
 "Synced" = "Synchronisé";
@@ -695,7 +695,7 @@
 "SetViewTypesPicker.Settings.Textfield.Placeholder.Untitled" = "Sans titre";
 
 // MARK: Select view
-"EditorSet.View.Not.Supported.Title" = "Unsupported";
+"EditorSet.View.Not.Supported.Title" = "Non pris en charge";
 
 // BlockContent
 "Content.File.Upload" = "Importer un fichier";
@@ -865,7 +865,7 @@
 // MARK: - Error
 "Error.AnytypeNeedsUpgrate.Title" = "Mettez à jour votre application";
 "Error.AnytypeNeedsUpgrate.Message" = "Cet objet a été modifié dans une version plus récente de Anytype. Veuillez mettre à jour l'application pour l'ouvrir sur cet appareil";
-"Error.AnytypeNeedsUpgrate.Confirm" = "Update";
+"Error.AnytypeNeedsUpgrate.Confirm" = "Mettre à jour";
 
 // MARK: - Relative date formatter
 "RelativeFormatter.days7" = "7 jours précédents";
