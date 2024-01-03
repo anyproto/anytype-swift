@@ -548,7 +548,7 @@
 "SyncStatus.LocalOnly.Title" = "Somente local";
 "SyncStatus.LocalOnly.Description" = "Apenas localmente";
 "SyncStatus.Synced.Anytype.Description" = "Backup realizado na rede Anytype";
-"SyncStatus.Synced.AnytypeStaging.Description" = "Backed up on Anytype Staging";
+"SyncStatus.Synced.AnytypeStaging.Description" = "Backup realizado na rede Anytype";
 "SyncStatus.Synced.SelfHosted.Description" = "Backup Realizado na Rede Auto-hospedada";
 "Downloading or uploading data to some node" = "Baixando ou carregando dados para algum nó";
 "Node is not connected" = "O nó não está conectado";
