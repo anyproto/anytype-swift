@@ -634,7 +634,7 @@
 "ObjectType.DeletedName" = "Deleted type";
 
 // MARK: - QuickAction
-"QuickAction.create" = "Create %@";
+"QuickAction.create" = "Skapa %@";
 
 // MARK: - RedactedText
 "RedactedText.pageTitle" = "Wake up, Neo";
