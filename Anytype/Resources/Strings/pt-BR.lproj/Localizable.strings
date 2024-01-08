@@ -272,7 +272,7 @@
 "Undo" = "Desfazer";
 "Actions.LinkItself" = "Vincular a";
 "Actions.MakeAsTemplate" = "Fazer modelo";
-"Actions.TemplateMakeDefault" = "Make default";
+"Actions.TemplateMakeDefault" = "Tornar padrão";
 "Actions.CreateWidget.Title" = "Criar widget";
 "Actions.CreateWidget.Success" = "Um novo widget foi criado";
 
@@ -548,7 +548,7 @@
 "SyncStatus.LocalOnly.Title" = "Somente local";
 "SyncStatus.LocalOnly.Description" = "Apenas localmente";
 "SyncStatus.Synced.Anytype.Description" = "Backup realizado na rede Anytype";
-"SyncStatus.Synced.AnytypeStaging.Description" = "Backed up on Anytype Staging";
+"SyncStatus.Synced.AnytypeStaging.Description" = "Backup realizado na rede Anytype";
 "SyncStatus.Synced.SelfHosted.Description" = "Backup Realizado na Rede Auto-hospedada";
 "Downloading or uploading data to some node" = "Baixando ou carregando dados para algum nó";
 "Node is not connected" = "O nó não está conectado";
@@ -694,8 +694,8 @@
 "SetViewTypesPicker.Settings.Textfield.Placeholder.New.View" = "Nova Exibição";
 "SetViewTypesPicker.Settings.Textfield.Placeholder.Untitled" = "Sem título";
 
-// MARK: Select view picker
-"EditorSetViewPicker.View.Not.Supported.Title" = "Incompatível";
+// MARK: Select view
+"EditorSet.View.Not.Supported.Title" = "Incompatível";
 
 // BlockContent
 "Content.File.Upload" = "Enviar um arquivo";
@@ -846,7 +846,7 @@
 "Sharing.Tip.Button.title" = "Mostrar menu de compartilhamento";
 
 "Sharing.Tip.Steps.1" = "Toque no botão de compartilhamento do iOS";
-"Sharing.Tip.Steps.2" = "Scroll past the app and tap More";
+"Sharing.Tip.Steps.2" = "Role a tela para além do aplicativo e toque em Mais";
 "Sharing.Tip.Steps.3" = "Toque em Editar, encontre \"Anytype\" e toque";
 
 // MARK: - Initial
@@ -865,7 +865,7 @@
 // MARK: - Error
 "Error.AnytypeNeedsUpgrate.Title" = "Atualizar seu aplicativo!";
 "Error.AnytypeNeedsUpgrate.Message" = "Este objeto foi atualizado em uma nova versão do Anytype. Por favor, atualize o aplicativo para abri-lo neste dispositivo";
-"Error.AnytypeNeedsUpgrate.Confirm" = "Update";
+"Error.AnytypeNeedsUpgrate.Confirm" = "Atualização";
 
 // MARK: - Relative date formatter
 "RelativeFormatter.days7" = "Últimos 7 dias";

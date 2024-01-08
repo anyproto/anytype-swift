@@ -3,7 +3,7 @@
 
 // MARK: Text Style in Slash and Style menu
 "TextStyle.Text.Title" = "Text";
-"TextStyle.Text.Subtitle" = "Einfach mit einem reinen Text beginnen";
+"TextStyle.Text.Subtitle" = "Einfach mit dem Schreiben eines reinen Textes beginnen";
 
 "TextStyle.Title.Title" = "Titel";
 "TextStyle.Title.Subtitle" = "Große Abschnittsüberschrift";
@@ -495,7 +495,7 @@
 "Enter text" = "Text eingeben";
 "Unsupported value" = "Nicht unterstützter Wert";
 "Select relation type" = "Relationstyp auswählen";
-"CommonOpenErrorView.Message" = "No data found";
+"CommonOpenErrorView.Message" = "Keine Daten gefunden";
 
 "Limit object types" = "Objekttypen einschränken";
 "Type" = "Typ";
@@ -537,7 +537,7 @@
 "Collection of objects" = "Sammlung von Objekten";
 "Designed to capture thoughts quickly" = "Entwickelt um schnell Gedanken zu erfassen";
 "Action-focused layout with a checkbox" = "Aktionsfokussiertes Layout mit Checkbox";
-"Standard layout for canvas blocks" = "Standardlayout für Leinenblöcke";
+"Standard layout for canvas blocks" = "Standardlayout für Leinwandblöcke";
 "List of related objects" = "Liste der verwandten Objekte";
 "Lock" = "Sperren";
 "Unlock" = "Entsperren";
@@ -694,8 +694,8 @@
 "SetViewTypesPicker.Settings.Textfield.Placeholder.New.View" = "Neue Ansicht";
 "SetViewTypesPicker.Settings.Textfield.Placeholder.Untitled" = "Unbenannt";
 
-// MARK: Select view picker
-"EditorSetViewPicker.View.Not.Supported.Title" = "Nicht unterstützt";
+// MARK: Select view
+"EditorSet.View.Not.Supported.Title" = "Nicht unterstützt";
 
 // BlockContent
 "Content.File.Upload" = "Datei hochladen";
