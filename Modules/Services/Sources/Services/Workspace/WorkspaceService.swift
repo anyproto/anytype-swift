@@ -39,6 +39,7 @@ public final class WorkspaceService: WorkspaceServiceProtocol {
             $0.details.fields[BundledRelationKey.name.rawValue] = name.protobufValue
             $0.details.fields[BundledRelationKey.iconOption.rawValue] = gradient.rawValue.protobufValue
             $0.details.fields[BundledRelationKey.spaceAccessibility.rawValue] = accessibility.rawValue.protobufValue
+            $0.useCase = .empty
         }).invoke()
         return result.spaceID
     }
