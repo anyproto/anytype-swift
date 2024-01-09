@@ -495,7 +495,7 @@
 "Enter text" = "Introducir texto";
 "Unsupported value" = "Valor no soportado";
 "Select relation type" = "Seleccionar tipo de relación";
-"CommonOpenErrorView.Message" = "No data found";
+"CommonOpenErrorView.Message" = "No se han encontrado datos";
 
 "Limit object types" = "Limitar tipos de objeto";
 "Type" = "Tipo";
@@ -546,10 +546,10 @@
 "Unsplash" = "Unsplash";
 "Go back" = "Volver";
 "SyncStatus.LocalOnly.Title" = "Sólo local";
-"SyncStatus.LocalOnly.Description" = "Local only";
-"SyncStatus.Synced.Anytype.Description" = "Backed up on Anytype Network";
-"SyncStatus.Synced.AnytypeStaging.Description" = "Backed up on Anytype Staging";
-"SyncStatus.Synced.SelfHosted.Description" = "Backed up on Self-hosted Network";
+"SyncStatus.LocalOnly.Description" = "Solo local";
+"SyncStatus.Synced.Anytype.Description" = "Respaldado en la red de Anytype";
+"SyncStatus.Synced.AnytypeStaging.Description" = "Respaldado en Anytype Staging";
+"SyncStatus.Synced.SelfHosted.Description" = "Respaldado en red de usuario";
 "Downloading or uploading data to some node" = "Descargando o subiendo datos a algún nodo";
 "Node is not connected" = "El nodo no está conectado";
 "Initializing sync" = "Inicializando la sincronización";
@@ -565,7 +565,7 @@
 "Into object" = "Objeto de nota";
 "Add below" = "Agregar debajo";
 "Change type" = "Cambiar tipo";
-"SlashMenu.LinkTo.Description" = "Create link to another object";
+"SlashMenu.LinkTo.Description" = "Crear enlace a otro objeto";
 "Upload playable audio" = "Subir audio reproducible";
 "Code snippet" = "Fragmento de código";
 "Bookmark" = "Marcador";
@@ -695,7 +695,7 @@
 "SetViewTypesPicker.Settings.Textfield.Placeholder.Untitled" = "Sin título";
 
 // MARK: Select view
-"EditorSet.View.Not.Supported.Title" = "Unsupported";
+"EditorSet.View.Not.Supported.Title" = "No soportado";
 
 // BlockContent
 "Content.File.Upload" = "Subir un archivo";
