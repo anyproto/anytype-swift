@@ -24,7 +24,8 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         
         connectionOptions.shortcutItem.flatMap { _ = handleQuickAction($0) }
         handleURLContext(openURLContexts: connectionOptions.urlContexts)
-
+        AppActionStorage.shared.action = .galleryImport
+        
         let applicationView = di.coordinatorsDI.application().makeView()
         window.rootViewController = UIHostingController(rootView: applicationView)
         window.makeKeyAndVisible()

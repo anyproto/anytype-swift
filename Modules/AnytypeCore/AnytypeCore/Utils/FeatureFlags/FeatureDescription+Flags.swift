@@ -71,6 +71,12 @@ public extension FeatureDescription {
         defaultValue: true
     )
     
+    static let galleryInstallation = FeatureDescription(
+        title: "Gallery / Experience installation - IOS-1805",
+        type: .feature(author: "m@anytype.io", releaseVersion: "0.28.0"),
+        defaultValue: true
+    )
+    
     // MARK: - Debug
     
     static let rainbowViews = FeatureDescription(

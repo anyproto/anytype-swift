@@ -31,6 +31,7 @@ final class HomeWidgetsCoordinatorViewModel: ObservableObject,
     private let documentsProvider: DocumentsProviderProtocol
     private let setObjectCreationCoordinatorAssembly: SetObjectCreationCoordinatorAssemblyProtocol
     private let sharingTipCoordinator: SharingTipCoordinatorProtocol
+    private let galleryInstallationCoordinatorAssembly: GalleryInstallationCoordinatorAssemblyProtocol
     
     // MARK: - State
     
@@ -87,7 +88,8 @@ final class HomeWidgetsCoordinatorViewModel: ObservableObject,
         workspacesStorage: WorkspacesStorageProtocol,
         documentsProvider: DocumentsProviderProtocol,
         setObjectCreationCoordinatorAssembly: SetObjectCreationCoordinatorAssemblyProtocol,
-        sharingTipCoordinator: SharingTipCoordinatorProtocol
+        sharingTipCoordinator: SharingTipCoordinatorProtocol,
+        galleryInstallationCoordinatorAssembly: GalleryInstallationCoordinatorAssemblyProtocol
     ) {
         self.homeWidgetsModuleAssembly = homeWidgetsModuleAssembly
         self.activeWorkspaceStorage = activeWorkspaceStorage
@@ -107,7 +109,8 @@ final class HomeWidgetsCoordinatorViewModel: ObservableObject,
         self.workspacesStorage = workspacesStorage
         self.documentsProvider = documentsProvider
         self.setObjectCreationCoordinatorAssembly = setObjectCreationCoordinatorAssembly
-        self.sharingTipCoordinator = sharingTipCoordinator
+        self.sharingTipCoordinator = sharingTipCoordinator,
+        self.galleryInstallationCoordinatorAssembly = galleryInstallationCoordinatorAssembly
     }
 
     func onAppear() {
@@ -184,6 +187,10 @@ final class HomeWidgetsCoordinatorViewModel: ObservableObject,
         }
     }
 
+    func createGalleryInstallationModule() -> AnyView {
+        return galleryInstallationCoordinatorAssembly.make()
+    }
+    
     // MARK: - HomeWidgetsModuleOutput
     
     // MARK: - CommonWidgetModuleOutput

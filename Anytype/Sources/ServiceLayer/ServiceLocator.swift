@@ -335,6 +335,10 @@ final class ServiceLocator {
         TextServiceHandler(textService: TextService())
     }
     
+    func galleryService() -> GalleryServiceProtocol {
+        GalleryService()
+    }
+    
     // MARK: - Private
     
     private func subscriptionToggler() -> SubscriptionTogglerProtocol {

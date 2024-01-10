@@ -173,4 +173,8 @@ final class CoordinatorsDI: CoordinatorsDIProtocol {
             navigationContext: uiHelpersDI.commonNavigationContext()
         )
     }
+    
+    func galleryInstallation() -> GalleryInstallationCoordinatorAssemblyProtocol {
+        GalleryInstallationCoordinatorAssembly(modulesDI: modulesDI)
+    }
 }

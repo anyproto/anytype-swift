@@ -261,4 +261,8 @@ final class ModulesDI: ModulesDIProtocol {
     func sharingTip() -> SharingTipModuleAssemblyProtocol {
         SharingTipModuleAssembly()
     }
+    
+    func galleryInstallationPreview() -> GalleryInstallationPreviewModuleAssemblyProtocol {
+        GalleryInstallationPreviewModuleAssembly()
+    }
 }

@@ -1,6 +1,7 @@
 import Foundation
 import SwiftUI
 import Services
+import AnytypeCore
 
 struct HomeWidgetsCoordinatorView: View {
     
@@ -52,8 +53,14 @@ struct HomeWidgetsCoordinatorView: View {
         .sheet(isPresented: $model.showCreateObjectWithType) {
             model.createObjectWithTypeModule()
         }
-        .anytypeSheet(isPresented: $model.showGalleryImport) {
-            GalleryUnavailableView()
-        }
+        .if(FeatureFlags.galleryInstallation, if: {
+            $0.sheet(isPresented: $model.showGalleryImport) {
+                model.createGalleryInstallationModule()
+            }
+        }, else: {
+            $0.anytypeSheet(isPresented: $model.showGalleryImport) {
+                GalleryUnavailableView()
+            }
+        })
     }
 }
