@@ -50,9 +50,9 @@ extension Emoji: ProtobufSupport {
     }
 }
 
-extension Hash: ProtobufSupport {
+extension FileObjectId: ProtobufSupport {
     public init?(_ value: Google_Protobuf_Value) {
-        guard let hash = Hash(value.unwrapedListValue.stringValue) else { return nil }
-        self = hash
+        guard let objectId = try? FileObjectId(rawValue: value.unwrapedListValue.stringValue) else { return nil }
+        self = objectId
     }
 }

@@ -62,8 +62,8 @@ enum TextBlockLeadingStyle {
         case .callout:
             let Icon: Icon
 
-            if let hash = Hash(configuration.content.iconImage) {
-                Icon = .object(.basic(hash.value))
+            if configuration.content.iconImage.isNotEmpty {
+                Icon = .object(.basic(configuration.content.iconImage))
             } else {
                 Icon = .object(.emoji(Emoji(configuration.content.iconEmoji) ?? .lamp))
             }
