@@ -512,6 +512,7 @@
 		2A7DCDE2292E60BA001919B4 /* AddNewRelationCoordinatorAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A7DCDE1292E60BA001919B4 /* AddNewRelationCoordinatorAssembly.swift */; };
 		2A7DCDE4292E7D5A001919B4 /* SearchModuleAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A7DCDE3292E7D5A001919B4 /* SearchModuleAssembly.swift */; };
 		2A7DCDE8292E8260001919B4 /* SearchModuleAssemblyProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A7DCDE7292E8260001919B4 /* SearchModuleAssemblyProtocol.swift */; };
+		2A7FCA692B4FEE7D00BFD2C8 /* AccountDeleteError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A7FCA682B4FEE7D00BFD2C8 /* AccountDeleteError.swift */; };
 		2A80D0422AB9EB2000DB0513 /* HomeBottomPanelContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A80D0412AB9EB2000DB0513 /* HomeBottomPanelContainer.swift */; };
 		2A80D04A2ABADD4600DB0513 /* EditorCoordinatorAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A80D0492ABADD4600DB0513 /* EditorCoordinatorAssembly.swift */; };
 		2A80D04C2ABADD5800DB0513 /* EditorSetCoordinatorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A80D04B2ABADD5800DB0513 /* EditorSetCoordinatorView.swift */; };
@@ -2168,6 +2169,7 @@
 		2A7DCDE1292E60BA001919B4 /* AddNewRelationCoordinatorAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddNewRelationCoordinatorAssembly.swift; sourceTree = "<group>"; };
 		2A7DCDE3292E7D5A001919B4 /* SearchModuleAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchModuleAssembly.swift; sourceTree = "<group>"; };
 		2A7DCDE7292E8260001919B4 /* SearchModuleAssemblyProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchModuleAssemblyProtocol.swift; sourceTree = "<group>"; };
+		2A7FCA682B4FEE7D00BFD2C8 /* AccountDeleteError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountDeleteError.swift; sourceTree = "<group>"; };
 		2A80D0412AB9EB2000DB0513 /* HomeBottomPanelContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeBottomPanelContainer.swift; sourceTree = "<group>"; };
 		2A80D0492ABADD4600DB0513 /* EditorCoordinatorAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditorCoordinatorAssembly.swift; sourceTree = "<group>"; };
 		2A80D04B2ABADD5800DB0513 /* EditorSetCoordinatorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditorSetCoordinatorView.swift; sourceTree = "<group>"; };
@@ -3685,6 +3687,7 @@
 				125BD56D27CF471B006D8227 /* AuthServiceError.swift */,
 				125BD57227CF4C95006D8227 /* CreateAccountServiceError.swift */,
 				2A04F28029DED2FC005FB197 /* SelectAccountError.swift */,
+				2A7FCA682B4FEE7D00BFD2C8 /* AccountDeleteError.swift */,
 			);
 			path = Auth;
 			sourceTree = "<group>";
@@ -10176,6 +10179,7 @@
 				2AB5083B2AE9395600E1C986 /* SpaceCreateModuleOutput.swift in Sources */,
 				1215E8B126A860D20089AF7E /* AppConfigurator.swift in Sources */,
 				2E975EDE287C2325004DE574 /* SetFilterRowConfiguration.swift in Sources */,
+				2A7FCA692B4FEE7D00BFD2C8 /* AccountDeleteError.swift in Sources */,
 				C91FAF5D2812865B0055BC4A /* UndoRedoViewModel.swift in Sources */,
 				2EE10C7428ACFCF100F41D50 /* LightDimmingButtonStyle.swift in Sources */,
 				3D8311072705899000CA6308 /* SlashActionObject.swift in Sources */,
