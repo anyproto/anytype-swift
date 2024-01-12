@@ -27,6 +27,8 @@ final class MockBaseDocument: BaseDocumentProtocol {
     
     var isLocked: Bool { false }
     
+    var relationValuesIsLocked: Bool { false }
+    
     var isEmpty: Bool { false }
     
     var isOpened: Bool { true }

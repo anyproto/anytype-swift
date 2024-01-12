@@ -13,6 +13,8 @@ final class MockSetDocument: SetDocumentProtocol {
     var targetObjectId: BlockId { "" }
     
     var spaceId: String { "" }
+    
+    var relationValuesIsLocked: Bool { return false }
 
     var inlineParameters: EditorInlineSetObject? { nil }
     

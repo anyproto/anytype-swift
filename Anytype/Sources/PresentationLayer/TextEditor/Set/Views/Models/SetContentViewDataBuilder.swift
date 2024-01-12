@@ -52,7 +52,7 @@ final class SetContentViewDataBuilder {
         _ details: [ObjectDetails],
         dataView: BlockDataview,
         activeView: DataviewView,
-        isObjectLocked: Bool,
+        relationValuesIsLocked: Bool,
         storage: ObjectDetailsStorage,
         spaceId: String,
         onIconTap: @escaping (ObjectDetails) -> Void,
@@ -70,7 +70,7 @@ final class SetContentViewDataBuilder {
             relationsDetails: relationsDetails,
             dataView: dataView,
             activeView: activeView,
-            isObjectLocked: isObjectLocked,
+            relationValuesIsLocked: relationValuesIsLocked,
             spaceId: spaceId,
             storage: storage
         )
@@ -105,7 +105,7 @@ final class SetContentViewDataBuilder {
         relationsDetails: [RelationDetails],
         dataView: BlockDataview,
         activeView: DataviewView,
-        isObjectLocked: Bool,
+        relationValuesIsLocked: Bool,
         spaceId: String,
         storage: ObjectDetailsStorage
     ) -> [SetContentViewItem] {
@@ -115,7 +115,7 @@ final class SetContentViewDataBuilder {
                     relationsDetails: relationsDetails,
                     typeRelationsDetails: [],
                     objectId: details.id,
-                    isObjectLocked: isObjectLocked,
+                    relationValuesIsLocked: relationValuesIsLocked,
                     storage: storage
                 )
                 .installed
