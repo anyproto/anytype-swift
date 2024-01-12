@@ -859,13 +859,14 @@
 "Initial.UnstableMiddle.WontUseProd" = "Não usarei a minha conta de produção";
 
 // MARK: - Create tip
-"LongTapCreateTip.Title" = "Criar objetos com tipo específico";
+"LongTapCreateTip.Title" = "Create Objects with specific Type";
 "LongTapCreateTip.Message" = "Toque longo no botão Criar Objeto para abrir o menu com os tipos";
 
 // MARK: - Error
 "Error.AnytypeNeedsUpgrate.Title" = "Atualizar seu aplicativo!";
 "Error.AnytypeNeedsUpgrate.Message" = "Este objeto foi atualizado em uma nova versão do Anytype. Por favor, atualize o aplicativo para abri-lo neste dispositivo";
 "Error.AnytypeNeedsUpgrate.Confirm" = "Atualização";
+"Error.UnableToConnect" = "Please connect to the internet";
 
 // MARK: - Relative date formatter
 "RelativeFormatter.days7" = "Últimos 7 dias";
