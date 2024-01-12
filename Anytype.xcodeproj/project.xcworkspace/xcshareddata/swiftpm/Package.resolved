@@ -21,7 +21,7 @@
     {
       "identity" : "anytype-swift-codegen",
       "kind" : "remoteSourceControl",
-      "location" : "https://github.com/anyproto/anytype-swift-codegen.git",
+      "location" : "https://github.com/anyproto/anytype-swift-codegen",
       "state" : {
         "branch" : "0.0.12",
         "revision" : "5b1d7ab0ad13b2259d9904810b59b60fb2349de5"
@@ -93,7 +93,7 @@
     {
       "identity" : "sourcerygenplugin",
       "kind" : "remoteSourceControl",
-      "location" : "https://github.com/anyproto/SourceryGenPlugin.git",
+      "location" : "https://github.com/anyproto/SourceryGenPlugin",
       "state" : {
         "branch" : "1.9.4",
         "revision" : "49f7fb9e3caba14f6c6fc4bf86fe3badcbc780b9"
@@ -111,7 +111,7 @@
     {
       "identity" : "swift-log",
       "kind" : "remoteSourceControl",
-      "location" : "https://github.com/apple/swift-log.git",
+      "location" : "https://github.com/apple/swift-log",
       "state" : {
         "branch" : "1.4.2",
         "revision" : "5d66f7ba25daf4f94100e7022febf3c75e37a6c7"
