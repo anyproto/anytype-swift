@@ -1133,6 +1133,8 @@ internal enum Loc {
     }
   }
   internal enum Error {
+    /// Please connect to the internet
+    internal static let unableToConnect = Loc.tr("Localizable", "Error.UnableToConnect", fallback: "Please connect to the internet")
     internal enum AnytypeNeedsUpgrate {
       /// Update
       internal static let confirm = Loc.tr("Localizable", "Error.AnytypeNeedsUpgrate.Confirm", fallback: "Update")
