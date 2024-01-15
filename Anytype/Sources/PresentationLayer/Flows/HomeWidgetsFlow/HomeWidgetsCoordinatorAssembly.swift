@@ -54,7 +54,8 @@ final class HomeWidgetsCoordinatorAssembly: HomeWidgetsCoordinatorAssemblyProtoc
             objectTypeSearchModuleAssembly: modulesDI.objectTypeSearch(),
             workspacesStorage: serviceLocator.workspaceStorage(),
             documentsProvider: serviceLocator.documentsProvider,
-            setObjectCreationCoordinatorAssembly: coordinatorsID.setObjectCreation()
+            setObjectCreationCoordinatorAssembly: coordinatorsID.setObjectCreation(),
+            sharingTipCoordinator: coordinatorsID.sharingTip()
         )
     }
 }
