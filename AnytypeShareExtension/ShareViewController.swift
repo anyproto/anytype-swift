@@ -10,7 +10,6 @@ enum ShareExtensionError: Error {
     case copyFailure
 }
 
-
 class ShareViewController: SLComposeServiceViewController {
     private let typeText = UTType.plainText
     private let typeURL = UTType.url
@@ -24,122 +23,58 @@ class ShareViewController: SLComposeServiceViewController {
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         
-        guard let extensionItem = extensionContext?.inputItems.first as? NSExtensionItem,
-              let items = extensionItem.attachments else {
+        guard let extensionItem = extensionContext?.inputItems.first as? NSExtensionItem else {
             extensionContext?.completeRequest(returningItems: nil, completionHandler: nil)
             return
         }
+        Task {
+            try await storeSharedItems(extensionItem: extensionItem)
+        }
+    }
+    
+    private func storeSharedItems(extensionItem: NSExtensionItem) async throws {
 
-        storeSharedItems(items: items, extensionItem: extensionItem)
+        let items = extensionItem.attachments ?? []
+        var sharedItems = await withTaskGroup(of: SharedContent?.self, returning: [SharedContent].self) { taskGroup in
+            items.enumerated().forEach { index, itemProvider in
+                if itemProvider.hasItemConformingToTypeIdentifier(typeText.identifier) {
+                    taskGroup.addTask { try? await self.handleText(itemProvider: itemProvider) }
+                } else if itemProvider.hasItemConformingToTypeIdentifier(typeURL.identifier) {
+                    taskGroup.addTask { try? await self.handleURL(itemProvider: itemProvider) }
+                } else if itemProvider.hasItemConformingToTypeIdentifier(typeImage.identifier) {
+                    taskGroup.addTask { try? await self.handleImage(itemProvider: itemProvider) }
+                }
+            }
+            
+            return await taskGroup.compactMap { $0 }.reduce(into: [SharedContent]()) { partialResult, content in
+                partialResult.append(content)
+            }
+        }
+
+        try sharedContentManager.saveSharedContent(content: sharedItems)
+        openMainApp()
+        extensionContext?.completeRequest(returningItems: nil, completionHandler: nil)
     }
     
-    private func storeSharedItems(items: [NSItemProvider], extensionItem: NSExtensionItem) {
-        let group = DispatchGroup()
-        
-        var sharedContent = [SharedContent]()
-        
-        let resultHandler: ((Result<SharedContent, Error>) -> Void) = { result in
-            switch result {
-            case .success(let success):
-                sharedContent.append(success)
-            case .failure:
-                break
-            }
-            
-            group.leave()
-        }
-        
-        items.forEach { itemProvider in
-            group.enter()
-            if itemProvider.hasItemConformingToTypeIdentifier(typeText.identifier) {
-                handleText(extensionItem: extensionItem, itemProvider: itemProvider, completion: resultHandler)
-            } else if itemProvider.hasItemConformingToTypeIdentifier(typeURL.identifier) {
-                handleURL(itemProvider: itemProvider, completion: resultHandler)
-            } else if itemProvider.hasItemConformingToTypeIdentifier(typeImage.identifier) {
-                handleImage(itemProvider: itemProvider, completion: resultHandler)
-            } else {
-                group.leave()
-            }
-        }
-        
-        group.notify(queue: .main) { [weak self] in
-            try? self?.sharedContentManager.saveSharedContent(content: sharedContent)
-            
-            self?.openMainApp()
-            self?.extensionContext?.completeRequest(returningItems: nil, completionHandler: nil)
-        }
+    private func handleText(itemProvider: NSItemProvider) async throws -> SharedContent {
+        let item = try await itemProvider.loadItem(forTypeIdentifier: typeText.identifier)
+        guard let text = item as? NSString else { throw ShareExtensionError.parseFailure }
+        return .text(AttributedString(text as String))
     }
     
-    private func handleText(
-        extensionItem: NSExtensionItem,
-        itemProvider: NSItemProvider,
-        completion: @escaping (Result<SharedContent, Error>) -> Void
-    ) {
-        if let attributedString =  extensionItem.attributedContentText {
-            completion(.success(.text(AttributedString(attributedString))))
-            return
-        }
-        
-        itemProvider.loadItem(
-            forTypeIdentifier: UTType.text.identifier,
-            options: nil
-        ) { (item, error) in
-            if let error = error {
-                completion(.failure(error))
-                return
-            }
-            completion(.success(.text(AttributedString(item as? String ?? ""))))
-        }
+    private func handleURL(itemProvider: NSItemProvider) async throws -> SharedContent {
+        let item = try await itemProvider.loadItem(forTypeIdentifier: typeURL.identifier)
+        guard let url = item as? NSURL else { throw ShareExtensionError.parseFailure }
+        return .url(url as URL)
     }
     
-    private func handleURL(
-        itemProvider: NSItemProvider,
-        completion: @escaping (Result<SharedContent, Error>) -> Void
-    )  {
-        itemProvider.loadItem(
-            forTypeIdentifier: typeURL.identifier,
-            options: nil
-        ) { (item, error) in
-            if let error = error {
-                completion(.failure(error))
-            }
-            
-            guard let url = item as? NSURL else {
-                completion(.failure(ShareExtensionError.parseFailure))
-                return
-            }
-            
-            completion(.success(.url(url as URL)))
-        }
-    }
-    
-    private func handleImage(
-        itemProvider: NSItemProvider,
-        completion: @escaping (Result<SharedContent, Error>) -> Void
-    )  {
-        itemProvider.loadItem(
-            forTypeIdentifier: typeImage.identifier,
-            options: nil
-        ) { [sharedContentManager] (item, error) in
-            if let error = error {
-                completion(.failure(error))
-            }
-            
-            guard let imageURL = item as? URL else {
-                completion(.failure(ShareExtensionError.copyFailure))
-                return
-            }
-            
-            do {
-                let groupFileUrl = try sharedContentManager.saveFileToGroup(url: imageURL)
-                completion(.success(.image(groupFileUrl)))
-            } catch {
-                completion(.failure(error))
-            }
-        }
+    private func handleImage(itemProvider: NSItemProvider) async throws -> SharedContent {
+        let item = try await itemProvider.loadItem(forTypeIdentifier: typeImage.identifier)
+        guard let imageURL = item as? NSURL else { throw ShareExtensionError.copyFailure }
+        let groupFileUrl = try sharedContentManager.saveFileToGroup(url: imageURL as URL)
+        return .image(groupFileUrl)
     }
 
-    
     private func openMainApp() {
         self.extensionContext?.completeRequest(returningItems: nil, completionHandler: { _ in
             _ = URLConstants.sharingExtenstionURL.map { self.openURL($0) }

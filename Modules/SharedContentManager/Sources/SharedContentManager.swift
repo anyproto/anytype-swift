@@ -60,7 +60,7 @@ final class SharedContentManager: SharedContentManagerProtocol {
     }
     
     private func containerPath() -> URL {
-        guard var containerURL = FileManager.default.containerURL(
+        guard let containerURL = FileManager.default.containerURL(
             forSecurityApplicationGroupIdentifier: TargetsConstants.appGroup
         ) else {
             fatalError()
