@@ -3,6 +3,7 @@ import Social
 import SwiftUI
 import UniformTypeIdentifiers
 import MobileCoreServices
+import SharedContentManager
 
 enum ShareExtensionError: Error {
     case parseFailure
@@ -14,7 +15,7 @@ class ShareViewController: SLComposeServiceViewController {
     private let typeText = UTType.plainText
     private let typeURL = UTType.url
     private let typeImage = UTType.image
-    private let sharedContentManager = SharedContentManager()
+    private let sharedContentManager = SharingDI.sharedContentManager()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -119,7 +120,7 @@ class ShareViewController: SLComposeServiceViewController {
         itemProvider.loadItem(
             forTypeIdentifier: typeImage.identifier,
             options: nil
-        ) { (item, error) in
+        ) { [sharedContentManager] (item, error) in
             if let error = error {
                 completion(.failure(error))
             }
@@ -129,18 +130,9 @@ class ShareViewController: SLComposeServiceViewController {
                 return
             }
             
-            guard var containerURL = FileManager.default.containerURL(
-                forSecurityApplicationGroupIdentifier: TargetsConstants.appGroup
-            ) else {
-                fatalError()
-            }
-            containerURL = containerURL
-                .appendingPathComponent("Library/Caches")
-                .appendingPathComponent(imageURL.lastPathComponent)
-            
             do {
-                try FileManager.default.copyItem(at: imageURL, to: containerURL)
-                completion(.success(.image(containerURL)))
+                let groupFileUrl = try sharedContentManager.saveFileToGroup(url: imageURL)
+                completion(.success(.image(groupFileUrl)))
             } catch {
                 completion(.failure(error))
             }

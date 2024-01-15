@@ -3,13 +3,14 @@ import UIKit
 import Services
 import AnytypeCore
 import SecureService
+import SharedContentManager
 
 // TODO: Migrate to ServicesDI
 final class ServiceLocator {
     static let shared = ServiceLocator()
 
     let templatesService = TemplatesService()
-    let sharedContentManager: SharedContentManagerProtocol = SharedContentManager()
+    let sharedContentManager: SharedContentManagerProtocol = SharingDI.sharedContentManager()
     lazy private(set) var sharedContentInteractor: SharedContentInteractorProtocol = SharedContentInteractor(
         listService: blockListService(),
         bookmarkService: bookmarkService(),

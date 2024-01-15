@@ -1,12 +1,13 @@
 import Foundation
 
-protocol SharedContentManagerProtocol {
+public protocol SharedContentManagerProtocol {
     func saveSharedContent(content: [SharedContent]) throws
     func getSharedContent() throws -> [SharedContent]
-    func clearSharedContent()
+    func clearSharedContent() throws
+    func saveFileToGroup(url: URL) throws -> URL
 }
 
-enum SharedContent: Codable {
+public enum SharedContent: Codable {
     case text(AttributedString)
     case url(URL)
     case image(URL)
@@ -35,7 +36,36 @@ final class SharedContentManager: SharedContentManagerProtocol {
         return sharedContent
     }
     
-    func clearSharedContent() {
+    func clearSharedContent() throws {
         userDefaults?.removeObject(forKey: SharedUserDefaultsKey.sharingExtension)
+        try deleteFilesFromGroup()
+    }
+    
+    func saveFileToGroup(url: URL) throws -> URL {
+        let filePath = containerPath().appendingPathComponent(url.lastPathComponent)
+        try FileManager.default.copyItem(at: url, to: filePath)
+        return filePath
+    }
+    
+    // MARK: - Private
+    
+    private func deleteFilesFromGroup() throws {
+        let containerFolder = containerPath()
+        
+        // TODO: Delete all folders
+        let fileURLs = try FileManager.default.contentsOfDirectory(at: containerFolder, includingPropertiesForKeys: nil)
+        for fileURL in fileURLs {
+            try? FileManager.default.removeItem(at: fileURL)
+        }
+    }
+    
+    private func containerPath() -> URL {
+        guard var containerURL = FileManager.default.containerURL(
+            forSecurityApplicationGroupIdentifier: TargetsConstants.appGroup
+        ) else {
+            fatalError()
+        }
+        
+        return containerURL.appendingPathComponent("Library/Caches")
     }
 }

@@ -2,6 +2,7 @@ import AnytypeCore
 import Combine
 import Services
 import Foundation
+import SharedContentManager
 
 @MainActor
 final class ShareViewModel: ObservableObject {
@@ -35,7 +36,7 @@ final class ShareViewModel: ObservableObject {
     }
     
     func tapClose() {
-        contentManager.clearSharedContent()
+        try? contentManager.clearSharedContent()
         onClose?(())
     }
     
@@ -52,7 +53,7 @@ final class ShareViewModel: ObservableObject {
                 onClose?(())
             }
             
-            contentManager.clearSharedContent()
+            try? contentManager.clearSharedContent()
         }
     }
 }

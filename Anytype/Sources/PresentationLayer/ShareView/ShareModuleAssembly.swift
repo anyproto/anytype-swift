@@ -2,6 +2,7 @@ import Foundation
 import SwiftUI
 import Services
 import AnytypeCore
+import SharedContentManager
 
 protocol ShareModuleAssemblyProtocol {
     @MainActor
