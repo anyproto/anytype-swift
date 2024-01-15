@@ -321,7 +321,9 @@ final class HomeWidgetsCoordinatorViewModel: ObservableObject,
         case .createObject:
             createAndShowNewPage()
         case .showSharingExtension:
-            showSharing = true
+            navigationContext.dismissAllPresented(animated: true) { [weak self] in
+                self?.showSharing = true
+            }
         case .spaceSelection:
             navigationContext.dismissAllPresented(animated: true) { [weak self] in
                 self?.showSpaceSwitch = true
