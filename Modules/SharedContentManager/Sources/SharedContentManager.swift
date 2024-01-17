@@ -7,12 +7,6 @@ public protocol SharedContentManagerProtocol {
     func saveFileToGroup(url: URL) throws -> URL
 }
 
-public enum SharedContent: Codable {
-    case text(AttributedString)
-    case url(URL)
-    case image(URL)
-}
-
 final class SharedContentManager: SharedContentManagerProtocol {
     private lazy var encoder = JSONEncoder()
     private lazy var decoder = JSONDecoder()

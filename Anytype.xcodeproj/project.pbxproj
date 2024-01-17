@@ -660,6 +660,14 @@
 		2ACDC9B22B553F7D0063BFBD /* SharedContentManager in Embed Frameworks */ = {isa = PBXBuildFile; productRef = 2ACDC9B02B553F7D0063BFBD /* SharedContentManager */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
 		2ACDC9B42B553F840063BFBD /* SharedContentManager in Frameworks */ = {isa = PBXBuildFile; productRef = 2ACDC9B32B553F840063BFBD /* SharedContentManager */; };
 		2ACDC9B52B553F840063BFBD /* SharedContentManager in Embed Frameworks */ = {isa = PBXBuildFile; productRef = 2ACDC9B32B553F840063BFBD /* SharedContentManager */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
+		2ACDC9B82B56704B0063BFBD /* ShareOptionsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2ACDC9B72B56704B0063BFBD /* ShareOptionsView.swift */; };
+		2ACDC9BA2B5670650063BFBD /* ShareOptionsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2ACDC9B92B5670650063BFBD /* ShareOptionsViewModel.swift */; };
+		2ACDC9BC2B5670710063BFBD /* ShareOptionsModuleAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2ACDC9BB2B5670710063BFBD /* ShareOptionsModuleAssembly.swift */; };
+		2ACDC9C82B5676820063BFBD /* ShareSelectionRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2ACDC9C72B5676820063BFBD /* ShareSelectionRow.swift */; };
+		2ACDC9CA2B5686F30063BFBD /* ShareArrowRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2ACDC9C92B5686F30063BFBD /* ShareArrowRow.swift */; };
+		2ACDC9CC2B5688310063BFBD /* ShareOptionsInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2ACDC9CB2B5688310063BFBD /* ShareOptionsInteractor.swift */; };
+		2ACDC9D02B56ACE50063BFBD /* ShareOptionsModuleOutput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2ACDC9CF2B56ACE50063BFBD /* ShareOptionsModuleOutput.swift */; };
+		2ACDC9D32B57C22D0063BFBD /* ShareContentModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2ACDC9D22B57C22D0063BFBD /* ShareContentModels.swift */; };
 		2ACE879729F2859800C2B2A9 /* EmptyNavigationLink.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2ACE879629F2859800C2B2A9 /* EmptyNavigationLink.swift */; };
 		2ACE879B29F2B23B00C2B2A9 /* StandardButtonConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2ACE879A29F2B23B00C2B2A9 /* StandardButtonConfig.swift */; };
 		2ACEAE442984016600B467CE /* WidgetTypeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2ACEAE432984016600B467CE /* WidgetTypeView.swift */; };
@@ -2322,6 +2330,14 @@
 		2ACD86F329C309AA0082E861 /* WidgetTypeChangeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WidgetTypeChangeViewModel.swift; sourceTree = "<group>"; };
 		2ACD86F529C316C90082E861 /* BlockWidgetInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlockWidgetInfo.swift; sourceTree = "<group>"; };
 		2ACDC9AF2B553F690063BFBD /* SharedContentManager */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = SharedContentManager; path = Modules/SharedContentManager; sourceTree = "<group>"; };
+		2ACDC9B72B56704B0063BFBD /* ShareOptionsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShareOptionsView.swift; sourceTree = "<group>"; };
+		2ACDC9B92B5670650063BFBD /* ShareOptionsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShareOptionsViewModel.swift; sourceTree = "<group>"; };
+		2ACDC9BB2B5670710063BFBD /* ShareOptionsModuleAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShareOptionsModuleAssembly.swift; sourceTree = "<group>"; };
+		2ACDC9C72B5676820063BFBD /* ShareSelectionRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShareSelectionRow.swift; sourceTree = "<group>"; };
+		2ACDC9C92B5686F30063BFBD /* ShareArrowRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShareArrowRow.swift; sourceTree = "<group>"; };
+		2ACDC9CB2B5688310063BFBD /* ShareOptionsInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShareOptionsInteractor.swift; sourceTree = "<group>"; };
+		2ACDC9CF2B56ACE50063BFBD /* ShareOptionsModuleOutput.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShareOptionsModuleOutput.swift; sourceTree = "<group>"; };
+		2ACDC9D22B57C22D0063BFBD /* ShareContentModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShareContentModels.swift; sourceTree = "<group>"; };
 		2ACE879629F2859800C2B2A9 /* EmptyNavigationLink.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmptyNavigationLink.swift; sourceTree = "<group>"; };
 		2ACE879A29F2B23B00C2B2A9 /* StandardButtonConfig.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StandardButtonConfig.swift; sourceTree = "<group>"; };
 		2ACEAE432984016600B467CE /* WidgetTypeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WidgetTypeView.swift; sourceTree = "<group>"; };
@@ -5978,6 +5994,7 @@
 		2ABAF2B62938E53A003C4730 /* Modules */ = {
 			isa = PBXGroup;
 			children = (
+				2ACDC9B62B56703C0063BFBD /* ShareOptions */,
 				2AE85FE42B1F48B700268E9D /* ServerDocumentPicker */,
 				2AF205B52ABD874C0027F3EA /* HomeNavigationContainer */,
 				2AD239052A8A05AC00F7697A /* SpaceCreate */,
@@ -6119,6 +6136,36 @@
 				2A673C1029B0BC3E00E3D672 /* SettingsModuleOutput.swift */,
 			);
 			path = Settings;
+			sourceTree = "<group>";
+		};
+		2ACDC9B62B56703C0063BFBD /* ShareOptions */ = {
+			isa = PBXGroup;
+			children = (
+				2ACDC9D42B57C2650063BFBD /* Rows */,
+				2ACDC9D22B57C22D0063BFBD /* ShareContentModels.swift */,
+				2ACDC9B72B56704B0063BFBD /* ShareOptionsView.swift */,
+				2ACDC9B92B5670650063BFBD /* ShareOptionsViewModel.swift */,
+				2ACDC9BB2B5670710063BFBD /* ShareOptionsModuleAssembly.swift */,
+				2ACDC9CB2B5688310063BFBD /* ShareOptionsInteractor.swift */,
+				2ACDC9CF2B56ACE50063BFBD /* ShareOptionsModuleOutput.swift */,
+			);
+			path = ShareOptions;
+			sourceTree = "<group>";
+		};
+		2ACDC9C42B5674210063BFBD /* Rows */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Rows;
+			sourceTree = "<group>";
+		};
+		2ACDC9D42B57C2650063BFBD /* Rows */ = {
+			isa = PBXGroup;
+			children = (
+				2ACDC9C72B5676820063BFBD /* ShareSelectionRow.swift */,
+				2ACDC9C92B5686F30063BFBD /* ShareArrowRow.swift */,
+			);
+			path = Rows;
 			sourceTree = "<group>";
 		};
 		2ACEAE422984015700B467CE /* WidgetType */ = {
@@ -8535,6 +8582,7 @@
 		53A46330262878710097C25E /* Design system */ = {
 			isa = PBXGroup;
 			children = (
+				2ACDC9C42B5674210063BFBD /* Rows */,
 				869B8DB82AA767EE00636B49 /* InlinePicker */,
 				2EEFEADD2A93C3B400AD5CDC /* SheetView */,
 				C9EF85152938E69A0001E6EC /* TappableLabel */,
@@ -9804,6 +9852,7 @@
 				1244794127DC735A00581174 /* NewSearchView+ListModel.swift in Sources */,
 				539E01922757CD0600067A24 /* SlashActionRelations.swift in Sources */,
 				2E2D255F28880C8D00E3DFD1 /* SetFilterConditionsViewModel.swift in Sources */,
+				2ACDC9BC2B5670710063BFBD /* ShareOptionsModuleAssembly.swift in Sources */,
 				53F7447927F71A83005C9BB0 /* PopupViewBuilder.swift in Sources */,
 				C99DCEDE283D0E820051F99D /* TemplatePickerViewModel.swift in Sources */,
 				3D3A9C3F265BC9AC000F07DB /* Publisher+Sink.swift in Sources */,
@@ -10163,6 +10212,7 @@
 				2A2B33302A7BB6BF004BD906 /* SpacePlusRow.swift in Sources */,
 				2A017FBA291E7BB7009C5BEF /* RelationsListModuleAsembly.swift in Sources */,
 				03CB3EFF230C0FF2003D5DFD /* SeedService.swift in Sources */,
+				2ACDC9C82B5676820063BFBD /* ShareSelectionRow.swift in Sources */,
 				2EC669212A166FD1001F71BC /* JoinFlowStepOutput.swift in Sources */,
 				2EB3F0232A9D1CAA00B79A3F /* SetFiltersCheckboxViewModuleAssembly.swift in Sources */,
 				0AD7695925D5908E00669F8C /* FileActionsService.swift in Sources */,
@@ -10236,6 +10286,7 @@
 				0303ECFF22D8EDAA005C552B /* AppDelegate.swift in Sources */,
 				3D1B5F74274CF2F5007D97AE /* SetMinimizedHeader.swift in Sources */,
 				2A4C7FFC2A823CB300201946 /* DateFormatter+Relation.swift in Sources */,
+				2ACDC9BA2B5670650063BFBD /* ShareOptionsViewModel.swift in Sources */,
 				1247BC6227FCA033005F2DB4 /* AddNewRelationCoordinator.swift in Sources */,
 				1247BC7E27FDEAAB005F2DB4 /* NewRelationRestrictionsSectionView.swift in Sources */,
 				3D93854C26FC3BB3001C137F /* UserDefaultsConfig.swift in Sources */,
@@ -10385,6 +10436,7 @@
 				3DB1C9CA2726A6E7000D2779 /* BlockLinkState+Text.swift in Sources */,
 				C99A53AE28A1411B00B3E5F4 /* ObjectHeaderEmptyData.swift in Sources */,
 				3DCC549226D3B568002517AC /* BlockBookmarkOnlyUrlConfiguration.swift in Sources */,
+				2ACDC9CA2B5686F30063BFBD /* ShareArrowRow.swift in Sources */,
 				2A6E04A6298D05AF0023B33D /* OpenedDocumentsProvider.swift in Sources */,
 				129C54D227FC7A2800C390C7 /* RelationFormatsListViewModel.swift in Sources */,
 				2AE85FF52B1F4ED500268E9D /* ServerConfigurationModuleOutput.swift in Sources */,
@@ -10441,6 +10493,7 @@
 				2A80D0622ABAFE9200DB0513 /* EditorNavigationBarView.swift in Sources */,
 				1211AF7B27F4B84800BACB88 /* KFProcessorBuilder.swift in Sources */,
 				2AECFD3B28993B19000E9CFB /* CoordinatorsDIProtocol.swift in Sources */,
+				2ACDC9D32B57C22D0063BFBD /* ShareContentModels.swift in Sources */,
 				3D5A41692703170300F1F6A1 /* BlockColor.swift in Sources */,
 				2E0DAF2128A26F1600F43320 /* DataviewViewSize+Value.swift in Sources */,
 				12461BFC2767837000D47708 /* TagView.swift in Sources */,
@@ -10868,6 +10921,7 @@
 				2A7DCDE0292E4AC5001919B4 /* RelationsListModuleOutput.swift in Sources */,
 				2A6E04A2298CFCDA0023B33D /* WidgetObjectListFavoritesViewModel.swift in Sources */,
 				3D568FC4266A714900DC7881 /* UIColor+Convenience.swift in Sources */,
+				2ACDC9B82B56704B0063BFBD /* ShareOptionsView.swift in Sources */,
 				53F8215B2655C871003FEB0B /* BottomSheetsFactory.swift in Sources */,
 				120EB4E126E8EE2E003A0C2B /* ObjectHeaderCoverView.swift in Sources */,
 				12A52E0126CA7BF6000F0333 /* UIViewControllerExtensions.swift in Sources */,
@@ -10928,6 +10982,7 @@
 				125683E027DF1D3C003A8251 /* ObjectsSearchInteractorProtocol.swift in Sources */,
 				0A0965E525BEF5B000C004BD /* FileDownloadingCoordinator.swift in Sources */,
 				2AECFD3928993AD8000E9CFB /* ModulesDIProtocol.swift in Sources */,
+				2ACDC9D02B56ACE50063BFBD /* ShareOptionsModuleOutput.swift in Sources */,
 				2AD06B8B28573D5B0006C255 /* TableOfContentData.swift in Sources */,
 				2E7C44752898434A0062287C /* DataviewFilter+QuickOption.swift in Sources */,
 				C965247F2720781C00254057 /* HorizonalTypeListView.swift in Sources */,
@@ -10987,6 +11042,7 @@
 				863DB2942AB320D800CB6914 /* HeaderBuilder.swift in Sources */,
 				12136D2C2796C5EC00262FE7 /* RelationOptionsPopupLayout.swift in Sources */,
 				2A673C0D29B0B2AA00E3D672 /* SettingsModuleAssembly.swift in Sources */,
+				2ACDC9CC2B5688310063BFBD /* ShareOptionsInteractor.swift in Sources */,
 				12636CF3276A0CF00084D35D /* ListSectionHeaderView.swift in Sources */,
 				120E818426A04A31006FE84E /* DetailsService.swift in Sources */,
 				2A9486612950B193007A5586 /* HomeWidgetsModuleOutput.swift in Sources */,
