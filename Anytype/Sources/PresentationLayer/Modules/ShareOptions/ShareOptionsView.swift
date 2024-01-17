@@ -42,7 +42,7 @@ struct ShareOptionsView: View {
         .navigationBarItems(
             leading:
                 Button(Loc.Sharing.Navigation.LeftButton.title, role: .cancel) {
-                    dismiss()
+                    model.onTapCancel()
                 },
             trailing:
                 Button(Loc.Sharing.Navigation.RightButton.title, role: .destructive) {

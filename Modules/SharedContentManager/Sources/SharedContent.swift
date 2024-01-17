@@ -3,7 +3,7 @@ import Foundation
 public enum SharedContent: Codable {
     case text(AttributedString)
     case url(URL)
-    case image(URL)
+    case file(URL)
 }
 
 public extension SharedContent {
@@ -26,9 +26,9 @@ public extension SharedContent {
         }
     }
     
-    var isImage: Bool {
+    var isFile: Bool {
         switch self {
-        case .image:
+        case .file:
             return true
         default:
             return false

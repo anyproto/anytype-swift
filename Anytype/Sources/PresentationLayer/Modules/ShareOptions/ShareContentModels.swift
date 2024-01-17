@@ -1,4 +1,5 @@
 import Foundation
+import Services
 
 struct ShareContentCounter {
     var textCount: Int
@@ -19,11 +20,20 @@ struct ShareContentCounter {
 }
 
 enum SharedSaveOptions {
-    case newObject(spaceId: String, linkToObjectId: String?)
-    case blocks(spaceId: String, addToObjectId: String)
+    case newObject(spaceId: String, linkToObject: ObjectDetails?)
+    case blocks(spaceId: String, addToObject: ObjectDetails)
 }
 
 enum ShareSaveAsType {
     case newObject
     case block
+    
+    var supportedLayouts: [DetailsLayout] {
+        switch self {
+        case .newObject:
+            return DetailsLayout.editorLayouts + [.collection]
+        case .block:
+            return DetailsLayout.editorLayouts
+        }
+    }
 }

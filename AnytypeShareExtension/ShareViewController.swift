@@ -13,7 +13,7 @@ enum ShareExtensionError: Error {
 class ShareViewController: SLComposeServiceViewController {
     private let typeText = UTType.plainText
     private let typeURL = UTType.url
-    private let typeImage = UTType.image
+    private let typeFileUrl = UTType.fileURL
     private let sharedContentManager = SharingDI.sharedContentManager()
     
     override func viewDidLoad() {
@@ -39,10 +39,10 @@ class ShareViewController: SLComposeServiceViewController {
             items.enumerated().forEach { index, itemProvider in
                 if itemProvider.hasItemConformingToTypeIdentifier(typeText.identifier) {
                     taskGroup.addTask { try? await self.handleText(itemProvider: itemProvider) }
+                } else if itemProvider.hasItemConformingToTypeIdentifier(typeFileUrl.identifier) {
+                    taskGroup.addTask { try? await self.handleFileUtl(itemProvider: itemProvider) }
                 } else if itemProvider.hasItemConformingToTypeIdentifier(typeURL.identifier) {
                     taskGroup.addTask { try? await self.handleURL(itemProvider: itemProvider) }
-                } else if itemProvider.hasItemConformingToTypeIdentifier(typeImage.identifier) {
-                    taskGroup.addTask { try? await self.handleImage(itemProvider: itemProvider) }
                 }
             }
             
@@ -68,11 +68,11 @@ class ShareViewController: SLComposeServiceViewController {
         return .url(url as URL)
     }
     
-    private func handleImage(itemProvider: NSItemProvider) async throws -> SharedContent {
-        let item = try await itemProvider.loadItem(forTypeIdentifier: typeImage.identifier)
-        guard let imageURL = item as? NSURL else { throw ShareExtensionError.copyFailure }
-        let groupFileUrl = try sharedContentManager.saveFileToGroup(url: imageURL as URL)
-        return .image(groupFileUrl)
+    private func handleFileUtl(itemProvider: NSItemProvider) async throws -> SharedContent {
+        let item = try await itemProvider.loadItem(forTypeIdentifier: typeFileUrl.identifier)
+        guard let fileURL = item as? NSURL else { throw ShareExtensionError.copyFailure }
+        let groupFileUrl = try sharedContentManager.saveFileToGroup(url: fileURL as URL)
+        return .file(groupFileUrl)
     }
 
     private func openMainApp() {

@@ -26,7 +26,8 @@ final class ShareOptionsModuleAssembly: ShareOptionsModuleAssemblyProtocol {
                     bookmarkService: self.serviceLocator.bookmarkService(),
                     objectActionsService: self.serviceLocator.objectActionsService(),
                     blockActionService: self.serviceLocator.blockActionsServiceSingle(),
-                    pageRepository: self.serviceLocator.pageRepository()
+                    pageRepository: self.serviceLocator.pageRepository(),
+                    fileService: self.serviceLocator.fileService()
                 ),
                 activeWorkpaceStorage: self.serviceLocator.activeWorkspaceStorage(),
                 output: output

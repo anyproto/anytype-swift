@@ -50,7 +50,7 @@ final class ShareModuleAssembly: ShareModuleAssemblyProtocol {
                     onDocumentSelection: onSearch,
                     onSpaceSelection: onSpaceSearch
                 )
-            case .image:
+            case .file:
                 anytypeAssertionFailure("Images still are not supported")
                 return nil
             }

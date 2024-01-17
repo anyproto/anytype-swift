@@ -1,6 +1,10 @@
+
 public extension DetailsLayout {
-    static var visibleLayouts: [DetailsLayout] = [.basic, .bookmark, .collection, .note, .profile, .set, .todo]
-    static var supportedForEditLayouts: [DetailsLayout] = [.basic, .bookmark, .collection, .file, .image, .note, .profile, .set, .todo]
+    
+    static var visibleLayouts: [DetailsLayout] = DetailsLayout.supportedForUserCreateLayouts + DetailsLayout.fileLayouts
+    static var supportedForEditLayouts: [DetailsLayout] = DetailsLayout.supportedForUserCreateLayouts + DetailsLayout.fileLayouts
+    
+    static var supportedForUserCreateLayouts: [DetailsLayout] = [.basic, .bookmark, .collection, .note, .profile, .set, .todo]
 }
 
 
@@ -15,7 +19,9 @@ public extension DetailsLayout {
     
     static var fileLayouts: [DetailsLayout] = [
         .file,
-        .image
+        .image,
+        .audio,
+        .video
     ]
     
     static var systemLayouts: [DetailsLayout] = [

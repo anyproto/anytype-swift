@@ -83,7 +83,7 @@ final class SearchService: ObservableObject, SearchServiceProtocol {
             type: .asc
         )
                 
-        var layouts = DetailsLayout.visibleLayouts
+        var layouts = DetailsLayout.supportedForUserCreateLayouts
         
         if !shouldIncludeSets {
             layouts.removeAll(where: { $0 == .set })
@@ -127,7 +127,7 @@ final class SearchService: ObservableObject, SearchServiceProtocol {
         let filters = Array.builder {
             SearchHelper.spaceId(MarketplaceId.anytypeMarketplace.rawValue)
             SearchHelper.layoutFilter([DetailsLayout.objectType])
-            SearchHelper.recomendedLayoutFilter(DetailsLayout.visibleLayouts)
+            SearchHelper.recomendedLayoutFilter(DetailsLayout.supportedForUserCreateLayouts)
             SearchHelper.excludedIdsFilter(excludedIds)
         }
         

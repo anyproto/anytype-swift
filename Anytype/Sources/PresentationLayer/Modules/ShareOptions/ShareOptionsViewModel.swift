@@ -43,14 +43,17 @@ final class ShareOptionsViewModel: ObservableObject {
     
     func onTapSaveAsNewObject() {
         saveAsType = .newObject
-        updateTitles()
-        updateSaveButton()
+        updateDataState()
     }
     
     func onTapSaveAsBlock() {
         saveAsType = .block
-        updateTitles()
-        updateSaveButton()
+        updateDataState()
+    }
+    
+    func onTapCancel() {
+        try? contentManager.clearSharedContent()
+        dismiss.toggle()
     }
     
     func onTapSave() {
@@ -67,6 +70,7 @@ final class ShareOptionsViewModel: ObservableObject {
         Task {
             let content = try contentManager.getSharedContent()
             try await interactor.saveContent(saveOptions: saveOptions, content: content)
+            try contentManager.clearSharedContent()
             dismiss.toggle()
         }
     }
@@ -74,8 +78,7 @@ final class ShareOptionsViewModel: ObservableObject {
     func onTapSelectSpace() {
         output?.onSpaceSelection { [weak self] newSpaceView in
             self?.spaceDetails = newSpaceView
-            self?.updateTitles()
-            self?.updateSaveButton()
+            self?.updateDataState()
         }
     }
     
@@ -88,10 +91,10 @@ final class ShareOptionsViewModel: ObservableObject {
             data: SearchModuleModel(
                 spaceId: spaceDetails.targetSpaceId,
                 title: linkTitle,
+                layoutLimits: saveAsType.supportedLayouts,
                 onSelect: { [weak self] searchData in
                     self?.linkObjectDetails = searchData.details
-                    self?.updateTitles()
-                    self?.updateSaveButton()
+                    self?.updateDataState()
                 }
             )
         )
@@ -106,11 +109,16 @@ final class ShareOptionsViewModel: ObservableObject {
         
         counter.textCount = content.filter(\.isText).count
         counter.bookmarksCount = content.filter(\.isUrl).count
-        counter.filesCount = content.filter(\.isImage).count
+        counter.filesCount = content.filter(\.isFile).count
         spaceDetails = activeWorkpaceStorage.spaceView()
         
-        updateTitles()
+        updateDataState()
+    }
+    
+    private func updateDataState() {
+        validateLinkToObject()
         updateSaveButton()
+        updateTitles()
     }
     
     private func updateTitles() {
@@ -136,7 +144,7 @@ final class ShareOptionsViewModel: ObservableObject {
         }
         
         spaceName = spaceDetails?.name ?? ""
-        linkObjectName = linkObjectDetails?.name ?? ""
+        linkObjectName = linkObjectDetails?.title ?? ""
     }
     
     private func updateSaveButton() {
@@ -152,13 +160,25 @@ final class ShareOptionsViewModel: ObservableObject {
         
         switch saveAsType {
         case .newObject:
-            saveOptions = .newObject(spaceId: spaceDetails.targetSpaceId, linkToObjectId: linkObjectDetails?.id)
+            saveOptions = .newObject(spaceId: spaceDetails.targetSpaceId, linkToObject: linkObjectDetails)
         case .block:
             if let linkObjectDetails {
-                saveOptions = .blocks(spaceId: spaceDetails.targetSpaceId, addToObjectId: linkObjectDetails.id)
+                saveOptions = .blocks(spaceId: spaceDetails.targetSpaceId, addToObject: linkObjectDetails)
             } else {
                 saveOptions = nil
             }
+        }
+    }
+    
+    private func validateLinkToObject() {
+        guard let linkObjectDetails else { return }
+        
+        if !saveAsType.supportedLayouts.contains(linkObjectDetails.layoutValue) {
+            self.linkObjectDetails = nil
+        }
+        
+        if linkObjectDetails.spaceId != spaceDetails?.targetSpaceId {
+            self.linkObjectDetails = nil
         }
     }
 }

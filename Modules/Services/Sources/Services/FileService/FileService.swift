@@ -3,8 +3,8 @@ import ProtobufMessages
 import AnytypeCore
 
 public protocol FileServiceProtocol: AnyObject {
-    func uploadFile(path: String, contextID: BlockId, blockID: BlockId) async throws
-    func uploadImage(path: String, spaceId: String) async throws -> Hash
+    func uploadFileBlock(path: String, contextID: BlockId, blockID: BlockId) async throws
+    func uploadFileObject(path: String, spaceId: String) async throws -> Hash
     func clearCache() async throws
     func nodeUsage() async throws -> NodeUsageInfo
 }
@@ -15,7 +15,7 @@ public final class FileService: FileServiceProtocol {
     
     // MARK: - FileServiceProtocol
     
-    public func uploadFile(path: String, contextID: BlockId, blockID: BlockId) async throws {
+    public func createFileBlock(path: String, contextID: BlockId, blockID: BlockId) async throws {
         try await ClientCommands.blockUpload(.with {
             $0.contextID = contextID
             $0.blockID = blockID
@@ -23,7 +23,7 @@ public final class FileService: FileServiceProtocol {
         }).invoke()
     }
     
-    public func uploadImage(path: String, spaceId: String) async throws -> Hash {
+    public func createFileObject(path: String, spaceId: String) async throws -> Hash {
         let result = try await ClientCommands.fileUpload(.with {
             $0.localPath = path
             $0.type = FileContentType.image.asMiddleware

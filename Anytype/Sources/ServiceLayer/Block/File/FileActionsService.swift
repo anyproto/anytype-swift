@@ -77,7 +77,7 @@ final class FileActionsService: FileActionsServiceProtocol {
                 try? FileManager.default.removeItem(atPath: data.path)
             }
         }
-        try await fileService.uploadFile(path: data.path, contextID: contextID, blockID: blockID)
+        try await fileService.uploadFileBlock(path: data.path, contextID: contextID, blockID: blockID)
     }
     
     func uploadImage(spaceId: String, data: FileData) async throws -> Hash {
@@ -87,7 +87,7 @@ final class FileActionsService: FileActionsServiceProtocol {
             }
         }
         
-        return try await fileService.uploadImage(path: data.path, spaceId: spaceId)
+        return try await fileService.uploadFileObject(path: data.path, spaceId: spaceId)
     }
     
     func uploadDataAt(source: FileUploadingSource, contextID: BlockId, blockID: BlockId) async throws {
