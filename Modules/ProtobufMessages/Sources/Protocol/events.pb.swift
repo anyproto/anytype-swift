@@ -1881,6 +1881,15 @@ public struct Anytype_Event {
         /// Clears the value of `style`. Subsequent reads from it will return its default value.
         public mutating func clearStyle() {self._style = nil}
 
+        public var targetObjectID: Anytype_Event.Block.Set.File.TargetObjectId {
+          get {return _targetObjectID ?? Anytype_Event.Block.Set.File.TargetObjectId()}
+          set {_targetObjectID = newValue}
+        }
+        /// Returns true if `targetObjectID` has been explicitly set.
+        public var hasTargetObjectID: Bool {return self._targetObjectID != nil}
+        /// Clears the value of `targetObjectID`. Subsequent reads from it will return its default value.
+        public mutating func clearTargetObjectID() {self._targetObjectID = nil}
+
         public var unknownFields = SwiftProtobuf.UnknownStorage()
 
         public struct Name {
@@ -1979,6 +1988,18 @@ public struct Anytype_Event {
           public init() {}
         }
 
+        public struct TargetObjectId {
+          // SwiftProtobuf.Message conformance is added in an extension below. See the
+          // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+          // methods supported on all messages.
+
+          public var value: String = String()
+
+          public var unknownFields = SwiftProtobuf.UnknownStorage()
+
+          public init() {}
+        }
+
         public init() {}
 
         fileprivate var _type: Anytype_Event.Block.Set.File.TypeMessage? = nil
@@ -1988,6 +2009,7 @@ public struct Anytype_Event {
         fileprivate var _name: Anytype_Event.Block.Set.File.Name? = nil
         fileprivate var _size: Anytype_Event.Block.Set.File.Size? = nil
         fileprivate var _style: Anytype_Event.Block.Set.File.Style? = nil
+        fileprivate var _targetObjectID: Anytype_Event.Block.Set.File.TargetObjectId? = nil
       }
 
       public struct Link {
@@ -4525,7 +4547,7 @@ public struct Anytype_Event {
 
 extension Anytype_Event.Block.Dataview.SliceOperation: CaseIterable {
   // The compiler won't synthesize support with the UNRECOGNIZED case.
-  public static let allCases: [Anytype_Event.Block.Dataview.SliceOperation] = [
+  public static var allCases: [Anytype_Event.Block.Dataview.SliceOperation] = [
     .none,
     .add,
     .move,
@@ -4536,7 +4558,7 @@ extension Anytype_Event.Block.Dataview.SliceOperation: CaseIterable {
 
 extension Anytype_Event.Status.Thread.SyncStatus: CaseIterable {
   // The compiler won't synthesize support with the UNRECOGNIZED case.
-  public static let allCases: [Anytype_Event.Status.Thread.SyncStatus] = [
+  public static var allCases: [Anytype_Event.Status.Thread.SyncStatus] = [
     .unknown,
     .offline,
     .syncing,
@@ -4698,7 +4720,7 @@ public struct Anytype_Model {
 
 extension Anytype_Model.Process.TypeEnum: CaseIterable {
   // The compiler won't synthesize support with the UNRECOGNIZED case.
-  public static let allCases: [Anytype_Model.Process.TypeEnum] = [
+  public static var allCases: [Anytype_Model.Process.TypeEnum] = [
     .dropFiles,
     .import,
     .export,
@@ -4710,7 +4732,7 @@ extension Anytype_Model.Process.TypeEnum: CaseIterable {
 
 extension Anytype_Model.Process.State: CaseIterable {
   // The compiler won't synthesize support with the UNRECOGNIZED case.
-  public static let allCases: [Anytype_Model.Process.State] = [
+  public static var allCases: [Anytype_Model.Process.State] = [
     .none,
     .running,
     .done,
@@ -4785,6 +4807,7 @@ extension Anytype_Event.Block.Set.File.Style: @unchecked Sendable {}
 extension Anytype_Event.Block.Set.File.Hash: @unchecked Sendable {}
 extension Anytype_Event.Block.Set.File.Mime: @unchecked Sendable {}
 extension Anytype_Event.Block.Set.File.Size: @unchecked Sendable {}
+extension Anytype_Event.Block.Set.File.TargetObjectId: @unchecked Sendable {}
 extension Anytype_Event.Block.Set.Link: @unchecked Sendable {}
 extension Anytype_Event.Block.Set.Link.TargetBlockId: @unchecked Sendable {}
 extension Anytype_Event.Block.Set.Link.Style: @unchecked Sendable {}
@@ -7960,6 +7983,7 @@ extension Anytype_Event.Block.Set.File: SwiftProtobuf.Message, SwiftProtobuf._Me
     6: .same(proto: "name"),
     7: .same(proto: "size"),
     8: .same(proto: "style"),
+    9: .same(proto: "targetObjectId"),
   ]
 
   public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
@@ -7976,6 +8000,7 @@ extension Anytype_Event.Block.Set.File: SwiftProtobuf.Message, SwiftProtobuf._Me
       case 6: try { try decoder.decodeSingularMessageField(value: &self._name) }()
       case 7: try { try decoder.decodeSingularMessageField(value: &self._size) }()
       case 8: try { try decoder.decodeSingularMessageField(value: &self._style) }()
+      case 9: try { try decoder.decodeSingularMessageField(value: &self._targetObjectID) }()
       default: break
       }
     }
@@ -8010,6 +8035,9 @@ extension Anytype_Event.Block.Set.File: SwiftProtobuf.Message, SwiftProtobuf._Me
     try { if let v = self._style {
       try visitor.visitSingularMessageField(value: v, fieldNumber: 8)
     } }()
+    try { if let v = self._targetObjectID {
+      try visitor.visitSingularMessageField(value: v, fieldNumber: 9)
+    } }()
     try unknownFields.traverse(visitor: &visitor)
   }
 
@@ -8022,6 +8050,7 @@ extension Anytype_Event.Block.Set.File: SwiftProtobuf.Message, SwiftProtobuf._Me
     if lhs._name != rhs._name {return false}
     if lhs._size != rhs._size {return false}
     if lhs._style != rhs._style {return false}
+    if lhs._targetObjectID != rhs._targetObjectID {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
@@ -8277,6 +8306,38 @@ extension Anytype_Event.Block.Set.File.Size: SwiftProtobuf.Message, SwiftProtobu
   }
 
   public static func ==(lhs: Anytype_Event.Block.Set.File.Size, rhs: Anytype_Event.Block.Set.File.Size) -> Bool {
+    if lhs.value != rhs.value {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    return true
+  }
+}
+
+extension Anytype_Event.Block.Set.File.TargetObjectId: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = Anytype_Event.Block.Set.File.protoMessageName + ".TargetObjectId"
+  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    1: .same(proto: "value"),
+  ]
+
+  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let fieldNumber = try decoder.nextFieldNumber() {
+      // The use of inline closures is to circumvent an issue where the compiler
+      // allocates stack space for every case branch when no optimizations are
+      // enabled. https://github.com/apple/swift-protobuf/issues/1034
+      switch fieldNumber {
+      case 1: try { try decoder.decodeSingularStringField(value: &self.value) }()
+      default: break
+      }
+    }
+  }
+
+  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    if !self.value.isEmpty {
+      try visitor.visitSingularStringField(value: self.value, fieldNumber: 1)
+    }
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  public static func ==(lhs: Anytype_Event.Block.Set.File.TargetObjectId, rhs: Anytype_Event.Block.Set.File.TargetObjectId) -> Bool {
     if lhs.value != rhs.value {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true

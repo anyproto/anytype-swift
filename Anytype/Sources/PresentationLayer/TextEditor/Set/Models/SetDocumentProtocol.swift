@@ -15,6 +15,7 @@ protocol SetDocumentProtocol: BaseDocumentGeneralProtocol {
     var dataviews: [BlockDataview] { get }
     var dataViewRelationsDetails: [RelationDetails] { get }
     var isObjectLocked: Bool { get }
+    var relationValuesIsLocked: Bool { get }
     var analyticsType: AnalyticsObjectType { get }
     // TODO Refactor this
     var dataBuilder: SetContentViewDataBuilder { get }

@@ -29,7 +29,7 @@ final class BlockBookmarkView: UIView, BlockContentView {
     private func apply(payload: BlockBookmarkPayload) {
         backgroundView.removeAllSubviews()
         
-        if payload.imageHash.isEmpty {
+        if payload.imageObjectId.isEmpty {
             layoutWithoutImage(payload: payload)
         } else {
             layoutWithImage(payload: payload)
@@ -47,7 +47,7 @@ final class BlockBookmarkView: UIView, BlockContentView {
     
     private func layoutWithImage(payload: BlockBookmarkPayload) {
         informationView.update(payload: payload)
-        imageView.update(imageId: payload.imageHash)
+        imageView.update(imageId: payload.imageObjectId)
                 
         backgroundView.layoutUsing.stack {
             $0.edgesToSuperview(insets: Layout.contentInsets)

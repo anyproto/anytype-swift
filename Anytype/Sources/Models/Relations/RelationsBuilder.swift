@@ -29,7 +29,7 @@ final class RelationsBuilder {
         relationsDetails: [RelationDetails],
         typeRelationsDetails: [RelationDetails],
         objectId: BlockId,
-        isObjectLocked: Bool,
+        relationValuesIsLocked: Bool,
         storage: ObjectDetailsStorage
     ) -> ParsedRelations {
         guard
@@ -48,7 +48,7 @@ final class RelationsBuilder {
             let value = relation(
                 relationDetails: relationDetails,
                 details: objectDetails,
-                isObjectLocked: isObjectLocked,
+                relationValuesIsLocked: relationValuesIsLocked,
                 storage: storage
             )
             
@@ -66,7 +66,7 @@ final class RelationsBuilder {
             return relation(
                 relationDetails: relationDetails,
                 details: objectDetails,
-                isObjectLocked: isObjectLocked,
+                relationValuesIsLocked: relationValuesIsLocked,
                 storage: storage
             )
         }
@@ -88,7 +88,7 @@ private extension RelationsBuilder {
     func relation(
         relationDetails: RelationDetails,
         details: ObjectDetails,
-        isObjectLocked: Bool,
+        relationValuesIsLocked: Bool,
         storage: ObjectDetailsStorage
     ) -> Relation {
         switch relationDetails.format {
@@ -96,76 +96,76 @@ private extension RelationsBuilder {
             return textRelation(
                 relationDetails: relationDetails,
                 details: details,
-                isObjectLocked: isObjectLocked
+                relationValuesIsLocked: relationValuesIsLocked
             )
         case .shortText:
             return textRelation(
                 relationDetails: relationDetails,
                 details: details,
-                isObjectLocked: isObjectLocked
+                relationValuesIsLocked: relationValuesIsLocked
             )
         case .number:
             return numberRelation(
                 relationDetails: relationDetails,
                 details: details,
-                isObjectLocked: isObjectLocked
+                relationValuesIsLocked: relationValuesIsLocked
             )
         case .status:
             return statusRelation(
                 relationDetails: relationDetails,
                 details: details,
-                isObjectLocked: isObjectLocked,
+                relationValuesIsLocked: relationValuesIsLocked,
                 storage: storage
             )
         case .date:
             return dateRelation(
                 relationDetails: relationDetails,
                 details: details,
-                isObjectLocked: isObjectLocked
+                relationValuesIsLocked: relationValuesIsLocked
             )
         case .file:
             return fileRelation(
                 relationDetails: relationDetails,
                 details: details,
-                isObjectLocked: isObjectLocked,
+                relationValuesIsLocked: relationValuesIsLocked,
                 storage: storage
             )
         case .checkbox:
             return checkboxRelation(
                 relationDetails: relationDetails,
                 details: details,
-                isObjectLocked: isObjectLocked
+                relationValuesIsLocked: relationValuesIsLocked
             )
         case .url:
             return urlRelation(
                 relationDetails: relationDetails,
                 details: details,
-                isObjectLocked: isObjectLocked
+                relationValuesIsLocked: relationValuesIsLocked
             )
         case .email:
             return emailRelation(
                 relationDetails: relationDetails,
                 details: details,
-                isObjectLocked: isObjectLocked
+                relationValuesIsLocked: relationValuesIsLocked
             )
         case .phone:
             return phoneRelation(
                 relationDetails: relationDetails,
                 details: details,
-                isObjectLocked: isObjectLocked
+                relationValuesIsLocked: relationValuesIsLocked
             )
         case .tag:
             return tagRelation(
                 relationDetails: relationDetails,
                 details: details,
-                isObjectLocked: isObjectLocked,
+                relationValuesIsLocked: relationValuesIsLocked,
                 storage: storage
             )
         case .object:
             return objectRelation(
                 relationDetails: relationDetails,
                 details: details,
-                isObjectLocked: isObjectLocked,
+                relationValuesIsLocked: relationValuesIsLocked,
                 storage: storage
             )
         case .unrecognized:
@@ -175,7 +175,7 @@ private extension RelationsBuilder {
                     key: relationDetails.key,
                     name: relationDetails.name,
                     isFeatured: relationDetails.isFeatured(details: details),
-                    isEditable: relationDetails.isEditable(objectLocked: isObjectLocked),
+                    isEditable: relationDetails.isEditable(valueLockedInObject: relationValuesIsLocked),
                     canBeRemovedFromObject: relationDetails.canBeRemovedFromObject,
                     isDeleted: relationDetails.isDeleted,
                     value: Loc.unsupportedValue
@@ -187,7 +187,7 @@ private extension RelationsBuilder {
     func textRelation(
         relationDetails: RelationDetails,
         details: ObjectDetails,
-        isObjectLocked: Bool
+        relationValuesIsLocked: Bool
     ) -> Relation {
         .text(
             Relation.Text(
@@ -195,7 +195,7 @@ private extension RelationsBuilder {
                 key: relationDetails.key,
                 name: relationDetails.name,
                 isFeatured: relationDetails.isFeatured(details: details),
-                isEditable: relationDetails.isEditable(objectLocked: isObjectLocked),
+                isEditable: relationDetails.isEditable(valueLockedInObject: relationValuesIsLocked),
                 canBeRemovedFromObject: relationDetails.canBeRemovedFromObject,
                 isDeleted: relationDetails.isDeleted,
                 value: details.stringValue(for: relationDetails.key)
@@ -206,7 +206,7 @@ private extension RelationsBuilder {
     func numberRelation(
         relationDetails: RelationDetails,
         details: ObjectDetails,
-        isObjectLocked: Bool
+        relationValuesIsLocked: Bool
     ) -> Relation {
         let numberValue: String? = {
             guard let number = details.doubleValue(for: relationDetails.key) else { return nil }
@@ -219,7 +219,7 @@ private extension RelationsBuilder {
                 key: relationDetails.key,
                 name: relationDetails.name,
                 isFeatured: relationDetails.isFeatured(details: details),
-                isEditable: relationDetails.isEditable(objectLocked: isObjectLocked),
+                isEditable: relationDetails.isEditable(valueLockedInObject: relationValuesIsLocked),
                 canBeRemovedFromObject: relationDetails.canBeRemovedFromObject,
                 isDeleted: relationDetails.isDeleted,
                 value: numberValue
@@ -230,7 +230,7 @@ private extension RelationsBuilder {
     func phoneRelation(
         relationDetails: RelationDetails,
         details: ObjectDetails,
-        isObjectLocked: Bool
+        relationValuesIsLocked: Bool
     ) -> Relation {
         .phone(
             Relation.Text(
@@ -238,7 +238,7 @@ private extension RelationsBuilder {
                 key: relationDetails.key,
                 name: relationDetails.name,
                 isFeatured: relationDetails.isFeatured(details: details),
-                isEditable: relationDetails.isEditable(objectLocked: isObjectLocked),
+                isEditable: relationDetails.isEditable(valueLockedInObject: relationValuesIsLocked),
                 canBeRemovedFromObject: relationDetails.canBeRemovedFromObject,
                 isDeleted: relationDetails.isDeleted,
                 value: details.stringValue(for: relationDetails.key)
@@ -249,7 +249,7 @@ private extension RelationsBuilder {
     func emailRelation(
         relationDetails: RelationDetails,
         details: ObjectDetails,
-        isObjectLocked: Bool
+        relationValuesIsLocked: Bool
     ) -> Relation {
         .email(
             Relation.Text(
@@ -257,7 +257,7 @@ private extension RelationsBuilder {
                 key: relationDetails.key,
                 name: relationDetails.name,
                 isFeatured: relationDetails.isFeatured(details: details),
-                isEditable: relationDetails.isEditable(objectLocked: isObjectLocked),
+                isEditable: relationDetails.isEditable(valueLockedInObject: relationValuesIsLocked),
                 canBeRemovedFromObject: relationDetails.canBeRemovedFromObject,
                 isDeleted: relationDetails.isDeleted,
                 value: details.stringValue(for: relationDetails.key)
@@ -268,7 +268,7 @@ private extension RelationsBuilder {
     func urlRelation(
         relationDetails: RelationDetails,
         details: ObjectDetails,
-        isObjectLocked: Bool
+        relationValuesIsLocked: Bool
     ) -> Relation {
         .url(
             Relation.Text(
@@ -276,7 +276,7 @@ private extension RelationsBuilder {
                 key: relationDetails.key,
                 name: relationDetails.name,
                 isFeatured: relationDetails.isFeatured(details: details),
-                isEditable: relationDetails.isEditable(objectLocked: isObjectLocked),
+                isEditable: relationDetails.isEditable(valueLockedInObject: relationValuesIsLocked),
                 canBeRemovedFromObject: relationDetails.canBeRemovedFromObject,
                 isDeleted: relationDetails.isDeleted,
                 value: details.stringValue(for: relationDetails.key)
@@ -287,7 +287,7 @@ private extension RelationsBuilder {
     func statusRelation(
         relationDetails: RelationDetails,
         details: ObjectDetails,
-        isObjectLocked: Bool,
+        relationValuesIsLocked: Bool,
         storage: ObjectDetailsStorage
     ) -> Relation {
         
@@ -310,7 +310,7 @@ private extension RelationsBuilder {
                 key: relationDetails.key,
                 name: relationDetails.name,
                 isFeatured: relationDetails.isFeatured(details: details),
-                isEditable: relationDetails.isEditable(objectLocked: isObjectLocked),
+                isEditable: relationDetails.isEditable(valueLockedInObject: relationValuesIsLocked),
                 canBeRemovedFromObject: relationDetails.canBeRemovedFromObject,
                 isDeleted: relationDetails.isDeleted,
                 values: values
@@ -321,7 +321,7 @@ private extension RelationsBuilder {
     func dateRelation(
         relationDetails: RelationDetails,
         details: ObjectDetails,
-        isObjectLocked: Bool
+        relationValuesIsLocked: Bool
     ) -> Relation {
         let value: DateRelationValue? = {
             guard let date = details.dateValue(for: relationDetails.key) else { return nil }
@@ -334,7 +334,7 @@ private extension RelationsBuilder {
                 key: relationDetails.key,
                 name: relationDetails.name,
                 isFeatured: relationDetails.isFeatured(details: details),
-                isEditable: relationDetails.isEditable(objectLocked: isObjectLocked),
+                isEditable: relationDetails.isEditable(valueLockedInObject: relationValuesIsLocked),
                 canBeRemovedFromObject: relationDetails.canBeRemovedFromObject,
                 isDeleted: relationDetails.isDeleted,
                 value: value
@@ -345,7 +345,7 @@ private extension RelationsBuilder {
     func checkboxRelation(
         relationDetails: RelationDetails,
         details: ObjectDetails,
-        isObjectLocked: Bool
+        relationValuesIsLocked: Bool
     ) -> Relation {
         .checkbox(
             Relation.Checkbox(
@@ -353,7 +353,7 @@ private extension RelationsBuilder {
                 key: relationDetails.key,
                 name: relationDetails.name,
                 isFeatured: relationDetails.isFeatured(details: details),
-                isEditable: relationDetails.isEditable(objectLocked: isObjectLocked),
+                isEditable: relationDetails.isEditable(valueLockedInObject: relationValuesIsLocked),
                 canBeRemovedFromObject: relationDetails.canBeRemovedFromObject,
                 isDeleted: relationDetails.isDeleted,
                 value: details.boolValue(for: relationDetails.key)
@@ -364,7 +364,7 @@ private extension RelationsBuilder {
     func tagRelation(
         relationDetails: RelationDetails,
         details: ObjectDetails,
-        isObjectLocked: Bool,
+        relationValuesIsLocked: Bool,
         storage: ObjectDetailsStorage
     ) -> Relation {
         
@@ -385,7 +385,7 @@ private extension RelationsBuilder {
                 key: relationDetails.key,
                 name: relationDetails.name,
                 isFeatured: relationDetails.isFeatured(details: details),
-                isEditable: relationDetails.isEditable(objectLocked: isObjectLocked),
+                isEditable: relationDetails.isEditable(valueLockedInObject: relationValuesIsLocked),
                 canBeRemovedFromObject: relationDetails.canBeRemovedFromObject,
                 isDeleted: relationDetails.isDeleted,
                 selectedTags: selectedTags
@@ -396,7 +396,7 @@ private extension RelationsBuilder {
     func objectRelation(
         relationDetails: RelationDetails,
         details: ObjectDetails,
-        isObjectLocked: Bool,
+        relationValuesIsLocked: Bool,
         storage: ObjectDetailsStorage
     ) -> Relation {
         let objectOptions: [Relation.Object.Option] = {
@@ -452,7 +452,7 @@ private extension RelationsBuilder {
                 key: relationDetails.key,
                 name: relationDetails.name,
                 isFeatured: relationDetails.isFeatured(details: details),
-                isEditable: relationDetails.isEditable(objectLocked: isObjectLocked),
+                isEditable: relationDetails.isEditable(valueLockedInObject: relationValuesIsLocked),
                 canBeRemovedFromObject: relationDetails.canBeRemovedFromObject,
                 isDeleted: relationDetails.isDeleted,
                 selectedObjects: objectOptions,
@@ -464,7 +464,7 @@ private extension RelationsBuilder {
     func fileRelation(
         relationDetails: RelationDetails,
         details: ObjectDetails,
-        isObjectLocked: Bool,
+        relationValuesIsLocked: Bool,
         storage: ObjectDetailsStorage
     ) -> Relation {
         let fileOptions: [Relation.File.Option] = {
@@ -492,7 +492,7 @@ private extension RelationsBuilder {
                 key: relationDetails.key,
                 name: relationDetails.name,
                 isFeatured: relationDetails.isFeatured(details: details),
-                isEditable: relationDetails.isEditable(objectLocked: isObjectLocked),
+                isEditable: relationDetails.isEditable(valueLockedInObject: relationValuesIsLocked),
                 canBeRemovedFromObject: relationDetails.canBeRemovedFromObject,
                 isDeleted: relationDetails.isDeleted,
                 files: fileOptions
@@ -543,8 +543,8 @@ private extension RelationDetails {
         details.featuredRelations.contains(key)
     }
     
-    func isEditable(objectLocked: Bool) -> Bool {
-        guard !objectLocked else { return false }
+    func isEditable(valueLockedInObject: Bool) -> Bool {
+        guard !valueLockedInObject else { return false }
 
         return !self.isReadOnlyValue
     }
