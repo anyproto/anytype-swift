@@ -34,7 +34,7 @@ extension DetailsService: DetailsServiceProtocol {
     
     func setCover(spaceId: String, source: FileUploadingSource) async throws {
         let data = try await fileService.createFileData(source: source)
-        let objectId = try await fileService.uploadImage(spaceId: spaceId, data: data)
+        let objectId = try await fileService.uploadFileObject(spaceId: spaceId, data: data)
         try await setCover(imageObjectId: objectId)
     }
     

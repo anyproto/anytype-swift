@@ -15,7 +15,7 @@ public final class FileService: FileServiceProtocol {
     
     // MARK: - FileServiceProtocol
     
-    public func createFileBlock(path: String, contextID: BlockId, blockID: BlockId) async throws {
+    public func uploadFileBlock(path: String, contextID: BlockId, blockID: BlockId) async throws {
         try await ClientCommands.blockUpload(.with {
             $0.contextID = contextID
             $0.blockID = blockID
@@ -23,10 +23,9 @@ public final class FileService: FileServiceProtocol {
         }).invoke()
     }
     
-    public func createFileObject(path: String, spaceId: String) async throws -> String {
+    public func uploadFileObject(path: String, spaceId: String) async throws -> String {
         let result = try await ClientCommands.fileUpload(.with {
             $0.localPath = path
-            $0.type = FileContentType.image.asMiddleware
             $0.disableEncryption = false
             $0.style = .auto
             $0.spaceID = spaceId

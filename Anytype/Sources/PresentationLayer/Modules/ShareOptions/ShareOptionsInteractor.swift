@@ -13,7 +13,8 @@ final class ShareOptionsInteractor: ShareOptionsInteractorProtocol {
     private let objectActionsService: ObjectActionsServiceProtocol
     private let blockActionService: BlockActionsServiceSingleProtocol
     private let pageRepository: PageRepositoryProtocol
-    private let fileService: FileServiceProtocol
+    private let fileService: FileActionsServiceProtocol
+    private let documentProvider: DocumentsProviderProtocol
     
     init(
         listService: BlockListServiceProtocol,
@@ -21,7 +22,8 @@ final class ShareOptionsInteractor: ShareOptionsInteractorProtocol {
         objectActionsService: ObjectActionsServiceProtocol,
         blockActionService: BlockActionsServiceSingleProtocol,
         pageRepository: PageRepositoryProtocol,
-        fileService: FileServiceProtocol
+        fileService: FileActionsServiceProtocol,
+        documentProvider: DocumentsProviderProtocol
     ) {
         self.listService = listService
         self.bookmarkService = bookmarkService
@@ -29,6 +31,7 @@ final class ShareOptionsInteractor: ShareOptionsInteractorProtocol {
         self.blockActionService = blockActionService
         self.pageRepository = pageRepository
         self.fileService = fileService
+        self.documentProvider = documentProvider
     }
     
     func saveContent(saveOptions: SharedSaveOptions, content: [SharedContent]) async throws {
@@ -46,19 +49,23 @@ final class ShareOptionsInteractor: ShareOptionsInteractorProtocol {
         for contentItem in content {
             do {
                 
-                let newObjectDetails: ObjectDetails
+                let newObjectId: String
                 let blockInformation: BlockInformation
                 
                 switch contentItem {
                 case let .text(text):
                     let attributedText = NSAttributedString(text)
-                    newObjectDetails = try await createNoteObject(text: attributedText, spaceId: spaceId)
+                    newObjectId = try await createNoteObject(text: attributedText, spaceId: spaceId).id
                     blockInformation = attributedText.blockInformation
                 case let .url(url):
-                    newObjectDetails = try await createBookmarkObject(url: url, spaceId: spaceId)
-                    blockInformation = BlockInformation.bookmark(targetId: newObjectDetails.id)
+                    newObjectId = try await createBookmarkObject(url: url, spaceId: spaceId).id
+                    blockInformation = BlockInformation.bookmark(targetId: newObjectId)
                 case let .file(url):
-                    continue
+                    newObjectId = try await fileService.uploadFileObject(spaceId: spaceId, data: FileData(path: url.relativePath, isTemporary: false))
+                    let fileDocument = documentProvider.document(objectId: newObjectId, forPreview: true)
+                    try await fileDocument.openForPreview()
+                    guard let fileDetails = fileDocument.details else { continue }
+                    blockInformation = BlockInformation.file(fileDetails: fileDetails)
                 }
                 
                 if let linkToObject {
@@ -66,7 +73,7 @@ final class ShareOptionsInteractor: ShareOptionsInteractorProtocol {
                         try await objectActionsService
                             .addObjectsToCollection(
                                 contextId: linkToObject.id,
-                                objectIds: [newObjectDetails.id]
+                                objectIds: [newObjectId]
                             )
                     } else {
                         let lastBlockInDocument = try await listService.lastBlockId(from: linkToObject.id)

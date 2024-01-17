@@ -1,10 +1,16 @@
 import Foundation
+import UIKit
+
+enum SharedContentManagerError: Error {
+    case dataIsNotCreatedForImage
+}
 
 public protocol SharedContentManagerProtocol {
     func saveSharedContent(content: [SharedContent]) throws
     func getSharedContent() throws -> [SharedContent]
     func clearSharedContent() throws
     func saveFileToGroup(url: URL) throws -> URL
+    func saveImageToGroup(image: UIImage) throws -> URL
 }
 
 final class SharedContentManager: SharedContentManagerProtocol {
@@ -38,6 +44,15 @@ final class SharedContentManager: SharedContentManagerProtocol {
     func saveFileToGroup(url: URL) throws -> URL {
         let filePath = containerPath().appendingPathComponent(url.lastPathComponent)
         try FileManager.default.copyItem(at: url, to: filePath)
+        return filePath
+    }
+    
+    func saveImageToGroup(image: UIImage) throws -> URL {
+        let filePath = containerPath().appendingPathExtension("\(UUID().uuidString).jpg")
+        guard let data = image.jpegData(compressionQuality: 0.5) else {
+            throw SharedContentManagerError.dataIsNotCreatedForImage
+        }
+        try data.write(to: filePath)
         return filePath
     }
     

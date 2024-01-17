@@ -11,6 +11,9 @@ import Foundation
 import Combine
 
 final class MockBaseDocument: BaseDocumentProtocol {
+    
+    var relationsListIsLocked: Bool { false }
+    
     var spaceId: String { "" } 
     
     var infoContainer: Services.InfoContainerProtocol { InfoContainer() }
