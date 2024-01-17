@@ -2654,7 +2654,7 @@ public struct Anytype_Rpc {
         public mutating func clearDetails() {self._details = nil}
 
         /// use case
-        public var useCase: Anytype_Rpc.Object.ImportUseCase.Request.UseCase = .empty
+        public var useCase: Anytype_Rpc.Object.ImportUseCase.Request.UseCase = .none
 
         public var unknownFields = SwiftProtobuf.UnknownStorage()
 
@@ -8446,44 +8446,47 @@ public struct Anytype_Rpc {
 
         public var spaceID: String = String()
 
-        public var useCase: Anytype_Rpc.Object.ImportUseCase.Request.UseCase = .empty
+        public var useCase: Anytype_Rpc.Object.ImportUseCase.Request.UseCase = .none
 
         public var unknownFields = SwiftProtobuf.UnknownStorage()
 
         public enum UseCase: SwiftProtobuf.Enum {
           public typealias RawValue = Int
-          case empty // = 0
-          case skip // = 1
+          case none // = 0
+          case getStarted // = 1
           case personalProjects // = 2
           case knowledgeBase // = 3
           case notesDiary // = 4
           case strategicWriting // = 5
+          case empty // = 6
           case UNRECOGNIZED(Int)
 
           public init() {
-            self = .empty
+            self = .none
           }
 
           public init?(rawValue: Int) {
             switch rawValue {
-            case 0: self = .empty
-            case 1: self = .skip
+            case 0: self = .none
+            case 1: self = .getStarted
             case 2: self = .personalProjects
             case 3: self = .knowledgeBase
             case 4: self = .notesDiary
             case 5: self = .strategicWriting
+            case 6: self = .empty
             default: self = .UNRECOGNIZED(rawValue)
             }
           }
 
           public var rawValue: Int {
             switch self {
-            case .empty: return 0
-            case .skip: return 1
+            case .none: return 0
+            case .getStarted: return 1
             case .personalProjects: return 2
             case .knowledgeBase: return 3
             case .notesDiary: return 4
             case .strategicWriting: return 5
+            case .empty: return 6
             case .UNRECOGNIZED(let i): return i
             }
           }
@@ -24875,12 +24878,13 @@ extension Anytype_Rpc.Object.ImportList.ImportResponse.TypeEnum: CaseIterable {
 extension Anytype_Rpc.Object.ImportUseCase.Request.UseCase: CaseIterable {
   // The compiler won't synthesize support with the UNRECOGNIZED case.
   public static let allCases: [Anytype_Rpc.Object.ImportUseCase.Request.UseCase] = [
-    .empty,
-    .skip,
+    .none,
+    .getStarted,
     .personalProjects,
     .knowledgeBase,
     .notesDiary,
     .strategicWriting,
+    .empty,
   ]
 }
 
@@ -30828,7 +30832,7 @@ extension Anytype_Rpc.Workspace.Create.Request: SwiftProtobuf.Message, SwiftProt
     try { if let v = self._details {
       try visitor.visitSingularMessageField(value: v, fieldNumber: 1)
     } }()
-    if self.useCase != .empty {
+    if self.useCase != .none {
       try visitor.visitSingularEnumField(value: self.useCase, fieldNumber: 2)
     }
     try unknownFields.traverse(visitor: &visitor)
@@ -39311,7 +39315,7 @@ extension Anytype_Rpc.Object.ImportUseCase.Request: SwiftProtobuf.Message, Swift
   }
 
   public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
-    if self.useCase != .empty {
+    if self.useCase != .none {
       try visitor.visitSingularEnumField(value: self.useCase, fieldNumber: 1)
     }
     if !self.spaceID.isEmpty {
@@ -39330,12 +39334,13 @@ extension Anytype_Rpc.Object.ImportUseCase.Request: SwiftProtobuf.Message, Swift
 
 extension Anytype_Rpc.Object.ImportUseCase.Request.UseCase: SwiftProtobuf._ProtoNameProviding {
   public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
-    0: .same(proto: "EMPTY"),
-    1: .same(proto: "SKIP"),
+    0: .same(proto: "NONE"),
+    1: .same(proto: "GET_STARTED"),
     2: .same(proto: "PERSONAL_PROJECTS"),
     3: .same(proto: "KNOWLEDGE_BASE"),
     4: .same(proto: "NOTES_DIARY"),
     5: .same(proto: "STRATEGIC_WRITING"),
+    6: .same(proto: "EMPTY"),
   ]
 }
 
