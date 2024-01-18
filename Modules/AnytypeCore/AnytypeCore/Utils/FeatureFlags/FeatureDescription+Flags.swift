@@ -77,6 +77,12 @@ public extension FeatureDescription {
         defaultValue: true
     )
     
+    static let newDateRelationCalendarView = FeatureDescription(
+        title: "New date relation calendar editing view - IOS-2109",
+        type: .feature(author: "joe_pusya@anytype.io", releaseVersion: "0.28.0"),
+        defaultValue: true
+    )
+    
     // MARK: - Debug
     
     static let rainbowViews = FeatureDescription(

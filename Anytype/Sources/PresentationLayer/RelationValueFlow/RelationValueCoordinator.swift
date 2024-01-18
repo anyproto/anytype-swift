@@ -2,6 +2,7 @@ import Foundation
 import Services
 import UIKit
 import AnytypeCore
+import SwiftUI
 
 final class RelationValueCoordinator: RelationValueCoordinatorProtocol,
                                       TextRelationActionButtonViewModelDelegate,
@@ -9,21 +10,25 @@ final class RelationValueCoordinator: RelationValueCoordinatorProtocol,
     
     private let navigationContext: NavigationContextProtocol
     private let relationValueModuleAssembly: RelationValueModuleAssemblyProtocol
+    private let dateRelationCalendarModuleAssembly: DateRelationCalendarModuleAssemblyProtocol
     private let urlOpener: URLOpenerProtocol
     private weak var output: RelationValueCoordinatorOutput?
     
     init(
         navigationContext: NavigationContextProtocol,
         relationValueModuleAssembly: RelationValueModuleAssemblyProtocol,
+        dateRelationCalendarModuleAssembly: DateRelationCalendarModuleAssemblyProtocol,
         urlOpener: URLOpenerProtocol
     ) {
         self.navigationContext = navigationContext
         self.relationValueModuleAssembly = relationValueModuleAssembly
+        self.dateRelationCalendarModuleAssembly = dateRelationCalendarModuleAssembly
         self.urlOpener = urlOpener
     }
     
     // MARK: - RelationValueCoordinatorProtocol
     
+    @MainActor
     func startFlow(
         objectDetails: ObjectDetails,
         relation: Relation,
@@ -41,6 +46,24 @@ final class RelationValueCoordinator: RelationValueCoordinatorProtocol,
             Task {
                 try await relationsService.updateRelation(relationKey: checkbox.key, value: newValue.protobufValue)
             }
+            return
+        }
+        
+        if FeatureFlags.newDateRelationCalendarView, case .date(let date) = relation {
+            let view = dateRelationCalendarModuleAssembly.make(
+                objectId: objectDetails.id,
+                title: relation.name,
+                date: date.value?.date,
+                relationKey: relation.key,
+                analyticsType: analyticsType
+            )
+                        
+            if UIDevice.isPad {
+                navigationContext.present(view, modalPresentationStyle: .formSheet)
+            } else {
+                navigationContext.present(view, mediumDetent: true)
+            }
+            
             return
         }
         
