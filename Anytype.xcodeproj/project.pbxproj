@@ -675,6 +675,7 @@
 		2ACF42982A6A7C09001B5D2E /* SquareGradientIconPainter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2ACF42972A6A7C09001B5D2E /* SquareGradientIconPainter.swift */; };
 		2ACF42A02A6A85C3001B5D2E /* ImageDataIconPainter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2ACF429F2A6A85C3001B5D2E /* ImageDataIconPainter.swift */; };
 		2ACF42A32A6A8C86001B5D2E /* UIImage+Draw.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2ACF42A22A6A8C86001B5D2E /* UIImage+Draw.swift */; };
+		2ACF5CFF2B59461700EF5F28 /* SharedContentManager in Embed Frameworks */ = {isa = PBXBuildFile; productRef = 2ACDC9B02B553F7D0063BFBD /* SharedContentManager */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
 		2AD06B7C2857271D0006C255 /* TableOfContentsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AD06B7B2857271D0006C255 /* TableOfContentsViewModel.swift */; };
 		2AD06B81285729890006C255 /* TableOfContentsConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AD06B80285729890006C255 /* TableOfContentsConfiguration.swift */; };
 		2AD06B8328572A520006C255 /* TableOfContentsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AD06B8228572A520006C255 /* TableOfContentsView.swift */; };
@@ -1614,6 +1615,7 @@
 				2A6ED16D285B44DB00AAA21C /* ProtobufMessages in Embed Frameworks */,
 				2A6ED16A285B44DB00AAA21C /* Services in Embed Frameworks */,
 				2A4FFBC2289D1C7E004938DF /* Logger in Embed Frameworks */,
+				2ACF5CFF2B59461700EF5F28 /* SharedContentManager in Embed Frameworks */,
 				86E69DD72A938CE8009F2221 /* SecureService in Embed Frameworks */,
 				2A6ED167285B44DB00AAA21C /* AnytypeCore in Embed Frameworks */,
 			);
