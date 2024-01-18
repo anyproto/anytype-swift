@@ -2,7 +2,6 @@ import Foundation
 import Services
 import UIKit
 import AnytypeCore
-import SwiftUI
 
 final class RelationValueCoordinator: RelationValueCoordinatorProtocol,
                                       TextRelationActionButtonViewModelDelegate,

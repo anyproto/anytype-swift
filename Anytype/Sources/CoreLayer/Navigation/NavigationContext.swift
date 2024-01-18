@@ -51,6 +51,7 @@ extension NavigationContextProtocol {
             sheet.detents = [.medium(), .large()]
             sheet.selectedDetentIdentifier = .medium
         }
+        
         present(controller, animated: animated, completion: completion)
     }
     
