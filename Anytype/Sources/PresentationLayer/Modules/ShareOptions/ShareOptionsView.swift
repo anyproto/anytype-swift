@@ -37,7 +37,7 @@ struct ShareOptionsView: View {
         .onChange(of: model.dismiss) { _ in
             dismiss()
         }
-        .navigationTitle(Loc.Sharing.saveAs)
+        .navigationTitle(Loc.Sharing.Navigation.title)
         .navigationBarTitleDisplayMode(.inline)
         .navigationBarItems(
             leading:
