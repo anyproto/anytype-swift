@@ -94,7 +94,7 @@ extension NewRelationViewModel {
             case .object:
                 try await relationsInteractor.addRelationToObject(relation: createdRelation)
             case .dataview(let activeViewId):
-                try await relationsInteractor.addRelationToDataview(spaceId: document.spaceId, relation: createdRelation, activeViewId: activeViewId)
+                try await relationsInteractor.addRelationToDataview(objectId: document.objectId, relation: createdRelation, activeViewId: activeViewId)
             }
             
             relationDetailsAdded(relationDetails: createdRelation)
