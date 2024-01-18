@@ -336,6 +336,10 @@ final class ServiceLocator {
         TextServiceHandler(textService: TextService())
     }
     
+    func pasteboardMiddlewareService() -> PasteboardMiddlewareServiceProtocol {
+        PasteboardMiddleService()
+    }
+    
     // MARK: - Private
     
     private func subscriptionToggler() -> SubscriptionTogglerProtocol {

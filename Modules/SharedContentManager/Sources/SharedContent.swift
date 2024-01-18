@@ -1,7 +1,7 @@
 import Foundation
 
 public enum SharedContent: Codable {
-    case text(AttributedString)
+    case text(String)
     case url(URL)
     case file(URL)
 }

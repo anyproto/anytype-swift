@@ -23,6 +23,7 @@ final class SharedContentManager: SharedContentManagerProtocol {
         let jsonString = String(data: sharedData, encoding: .utf8)
         
         userDefaults?.set(jsonString, forKey: SharedUserDefaultsKey.sharingExtension)
+        userDefaults?.synchronize()
     }
     
     func getSharedContent() throws -> [SharedContent] {

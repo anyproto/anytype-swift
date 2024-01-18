@@ -38,9 +38,9 @@ final class ShareModuleAssembly: ShareModuleAssemblyProtocol {
         let contentViewModel: ShareViewModelProtocol
         if sharedContent.count == 1, let content = sharedContent.first {
             switch content {
-            case .text(let attributedString):
+            case .text(let string):
                 contentViewModel = TextShareViewModel(
-                    attributedText: attributedString,
+                    attributedText: AttributedString(string),
                     onDocumentSelection: onSearch,
                     onSpaceSelection: onSpaceSearch
                 )

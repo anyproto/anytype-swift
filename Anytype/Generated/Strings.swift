@@ -1679,6 +1679,18 @@ internal enum Loc {
     internal static let saveAs = Loc.tr("Localizable", "Sharing.SaveAs", fallback: "SAVE AS")
     /// Space
     internal static let selectSpace = Loc.tr("Localizable", "Sharing.SelectSpace", fallback: "Space")
+    internal enum `Any` {
+      /// Create block
+      internal static let block = Loc.tr("Localizable", "Sharing.Any.Block", fallback: "Create block")
+      /// Create object
+      internal static let newObject = Loc.tr("Localizable", "Sharing.Any.NewObject", fallback: "Create object")
+    }
+    internal enum File {
+      /// Create file block
+      internal static let block = Loc.tr("Localizable", "Sharing.File.Block", fallback: "Create file block")
+      /// File object
+      internal static let newObject = Loc.tr("Localizable", "Sharing.File.NewObject", fallback: "File object")
+    }
     internal enum Navigation {
       /// Add to Anytype
       internal static let title = Loc.tr("Localizable", "Sharing.Navigation.title", fallback: "Add to Anytype")

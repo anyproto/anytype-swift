@@ -39,16 +39,17 @@ class ShareViewController: SLComposeServiceViewController {
         let items = extensionItem.attachments ?? []
         var sharedItems = await withTaskGroup(of: SharedContent?.self, returning: [SharedContent].self) { taskGroup in
             items.enumerated().forEach { index, itemProvider in
-                if itemProvider.hasItemConformingToTypeIdentifier(typeText.identifier) {
-                    taskGroup.addTask { try? await self.handleText(itemProvider: itemProvider) }
-                } else if itemProvider.hasItemConformingToTypeIdentifier(typeFileUrl.identifier) {
+                // Should be sort by hierarchy from child to parent
+                if itemProvider.hasItemConformingToTypeIdentifier(typeFileUrl.identifier) {
                     taskGroup.addTask { try? await self.handleFileUtl(itemProvider: itemProvider) }
-                } else if itemProvider.hasItemConformingToTypeIdentifier(typeURL.identifier) {
-                    taskGroup.addTask { try? await self.handleURL(itemProvider: itemProvider) }
                 } else if itemProvider.hasItemConformingToTypeIdentifier(typeImage.identifier) {
                     taskGroup.addTask { try? await self.handleImage(itemProvider: itemProvider) }
                 } else if itemProvider.hasItemConformingToTypeIdentifier(typeVisualContent.identifier) {
                     taskGroup.addTask { try? await self.handleAudioAndVideo(itemProvider: itemProvider) }
+                } else if itemProvider.hasItemConformingToTypeIdentifier(typeURL.identifier) {
+                    taskGroup.addTask { try? await self.handleURL(itemProvider: itemProvider) }
+                } else if itemProvider.hasItemConformingToTypeIdentifier(typeText.identifier) {
+                    taskGroup.addTask { try? await self.handleText(itemProvider: itemProvider) }
                 }
             }
             
@@ -57,6 +58,8 @@ class ShareViewController: SLComposeServiceViewController {
             }
         }
 
+        // TODO: Check is nontent is empty
+        
         try sharedContentManager.saveSharedContent(content: sharedItems)
         openMainApp()
         extensionContext?.completeRequest(returningItems: nil, completionHandler: nil)
@@ -65,7 +68,7 @@ class ShareViewController: SLComposeServiceViewController {
     private func handleText(itemProvider: NSItemProvider) async throws -> SharedContent {
         let item = try await itemProvider.loadItem(forTypeIdentifier: typeText.identifier)
         guard let text = item as? NSString else { throw ShareExtensionError.parseFailure }
-        return .text(AttributedString(text as String))
+        return .text(text as String)
     }
     
     private func handleURL(itemProvider: NSItemProvider) async throws -> SharedContent {

@@ -129,11 +129,11 @@ final class ShareOptionsViewModel: ObservableObject {
             newObjectTitle = Loc.Sharing.Url.bookmark
             embededObjectTitle = Loc.Sharing.Url.text
         } else if counter.onlyFiles {
-            newObjectTitle = "Create file"
-            embededObjectTitle = "Create file block"
+            newObjectTitle = Loc.Sharing.File.newObject
+            embededObjectTitle = Loc.Sharing.File.block
         } else {
-            newObjectTitle = "Create object"
-            newObjectTitle = "Create blocks"
+            newObjectTitle = Loc.Sharing.Any.newObject
+            embededObjectTitle = Loc.Sharing.Any.block
         }
         
         switch saveAsType {

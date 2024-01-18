@@ -5,7 +5,7 @@ import ProtobufMessages
 public protocol BlockActionsServiceSingleProtocol: AnyObject {
     func delete(contextId: String, blockIds: [BlockId]) async throws
     func duplicate(contextId: String, targetId: BlockId, blockIds: [BlockId], position: BlockPosition) async throws
-    func add(contextId: String, targetId: BlockId, info: BlockInformation, position: BlockPosition) async throws -> BlockId?
+    func add(contextId: String, targetId: BlockId, info: BlockInformation, position: BlockPosition) async throws -> BlockId
     func close(contextId: String) async throws
     func open(contextId: String) async throws -> ObjectViewModel
     func openForPreview(contextId: String) async throws -> ObjectViewModel

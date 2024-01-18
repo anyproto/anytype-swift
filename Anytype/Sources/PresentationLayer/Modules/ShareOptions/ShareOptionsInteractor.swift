@@ -15,6 +15,7 @@ final class ShareOptionsInteractor: ShareOptionsInteractorProtocol {
     private let pageRepository: PageRepositoryProtocol
     private let fileService: FileActionsServiceProtocol
     private let documentProvider: DocumentsProviderProtocol
+    private let pasteboardMiddlewareService: PasteboardMiddlewareServiceProtocol
     
     init(
         listService: BlockListServiceProtocol,
@@ -23,7 +24,8 @@ final class ShareOptionsInteractor: ShareOptionsInteractorProtocol {
         blockActionService: BlockActionsServiceSingleProtocol,
         pageRepository: PageRepositoryProtocol,
         fileService: FileActionsServiceProtocol,
-        documentProvider: DocumentsProviderProtocol
+        documentProvider: DocumentsProviderProtocol,
+        pasteboardMiddlewareService: PasteboardMiddlewareServiceProtocol
     ) {
         self.listService = listService
         self.bookmarkService = bookmarkService
@@ -32,6 +34,7 @@ final class ShareOptionsInteractor: ShareOptionsInteractorProtocol {
         self.pageRepository = pageRepository
         self.fileService = fileService
         self.documentProvider = documentProvider
+        self.pasteboardMiddlewareService = pasteboardMiddlewareService
     }
     
     func saveContent(saveOptions: SharedSaveOptions, content: [SharedContent]) async throws {
@@ -50,22 +53,14 @@ final class ShareOptionsInteractor: ShareOptionsInteractorProtocol {
             do {
                 
                 let newObjectId: String
-                let blockInformation: BlockInformation
                 
                 switch contentItem {
                 case let .text(text):
-                    let attributedText = NSAttributedString(text)
-                    newObjectId = try await createNoteObject(text: attributedText, spaceId: spaceId).id
-                    blockInformation = attributedText.blockInformation
+                    newObjectId = try await createNoteObject(text: text, spaceId: spaceId).id
                 case let .url(url):
                     newObjectId = try await createBookmarkObject(url: url, spaceId: spaceId).id
-                    blockInformation = BlockInformation.bookmark(targetId: newObjectId)
                 case let .file(url):
                     newObjectId = try await fileService.uploadFileObject(spaceId: spaceId, data: FileData(path: url.relativePath, isTemporary: false))
-                    let fileDocument = documentProvider.document(objectId: newObjectId, forPreview: true)
-                    try await fileDocument.openForPreview()
-                    guard let fileDetails = fileDocument.details else { continue }
-                    blockInformation = BlockInformation.file(fileDetails: fileDetails)
                 }
                 
                 if let linkToObject {
@@ -76,6 +71,7 @@ final class ShareOptionsInteractor: ShareOptionsInteractorProtocol {
                                 objectIds: [newObjectId]
                             )
                     } else {
+                        let blockInformation = BlockInformation.emptyLink(targetId: newObjectId)
                         let lastBlockInDocument = try await listService.lastBlockId(from: linkToObject.id)
                         _ = try await blockActionService.add(
                             contextId: linkToObject.id,
@@ -93,27 +89,14 @@ final class ShareOptionsInteractor: ShareOptionsInteractorProtocol {
     private func saveNewBlock(spaceId: String, addToObject: ObjectDetails, content: [SharedContent]) async {
         for contentItem in content {
             do {
-                
-                let attributedText: NSAttributedString
-                
                 switch contentItem {
                 case let .text(text):
-                    attributedText = NSAttributedString(text)
+                    try await createTextBlock(text: text, addToObject: addToObject)
                 case let .url(url):
-                    attributedText = url.attributedString
+                    try await createBookmarkBlock(url: url, addToObject: addToObject)
                 case let .file(url):
-                    continue
+                    try await createFileBlock(fileURL: url, addToObject: addToObject)
                 }
-                
-                let blockInformation = attributedText.blockInformation
-                let lastBlockInDocument = try await listService.lastBlockId(from: addToObject.id)
-                _ = try await blockActionService.add(
-                    contextId: addToObject.id,
-                    targetId: lastBlockInDocument,
-                    info: blockInformation,
-                    position: .bottom
-                )
-                AnytypeAnalytics.instance().logCreateBlock(type: blockInformation.content.type, route: .sharingExtension)
             } catch {}
         }
     }
@@ -133,7 +116,7 @@ final class ShareOptionsInteractor: ShareOptionsInteractorProtocol {
         return newBookmark
     }
 
-    private func createNoteObject(text: NSAttributedString, spaceId: BlockId) async throws -> ObjectDetails {
+    private func createNoteObject(text: String, spaceId: BlockId) async throws -> ObjectDetails {
         let newObject = try await pageRepository.createPage(
             name: "", // TODO: Check it
             typeUniqueKey: .note,
@@ -145,19 +128,56 @@ final class ShareOptionsInteractor: ShareOptionsInteractorProtocol {
             templateId: nil
         )
         let lastBlockInDocument = try await listService.lastBlockId(from: newObject.id)
-        let blockInformation = text.blockInformation
-        _ = try await blockActionService.add(
-            contextId: newObject.id,
-            targetId: lastBlockInDocument,
-            info: blockInformation,
-            position: .bottom
-        )
+        _ = try await pasteboardMiddlewareService.pasteText(text, objectId: newObject.id, context: .selected([lastBlockInDocument]))
         
         AnytypeAnalytics.instance().logCreateObject(
             objectType: .object(typeId: ObjectTypeUniqueKey.note.value),
             route: .sharingExtension
         )
         return newObject
+    }
+    
+    private func createTextBlock(text: String, addToObject: ObjectDetails) async throws {
+        let lastBlockInDocument = try await listService.lastBlockId(from: addToObject.id)
+        let newBlockId = try await blockActionService.add(
+            contextId: addToObject.id,
+            targetId: lastBlockInDocument,
+            info: .emptyText,
+            position: .bottom
+        )
+        _ = try await pasteboardMiddlewareService.pasteText(text, objectId: addToObject.id, context: .selected([newBlockId]))
+        AnytypeAnalytics.instance().logCreateBlock(type: BlockInformation.emptyText.content.type, route: .sharingExtension)
+    }
+    
+    private func createBookmarkBlock(url: URL, addToObject: ObjectDetails) async throws {
+        let blockInformation = url.attributedString.blockInformation
+        let lastBlockInDocument = try await listService.lastBlockId(from: addToObject.id)
+        _ = try await blockActionService.add(
+            contextId: addToObject.id,
+            targetId: lastBlockInDocument,
+            info: blockInformation,
+            position: .bottom
+        )
+        AnytypeAnalytics.instance().logCreateBlock(type: blockInformation.content.type, route: .sharingExtension)
+    }
+    
+    private func createFileBlock(fileURL: URL, addToObject: ObjectDetails) async throws {
+        let lastBlockInDocument = try await listService.lastBlockId(from: addToObject.id)
+        let newObjectId = try await fileService.uploadFileObject(
+            spaceId: addToObject.spaceId,
+            data: FileData(path: fileURL.relativePath, isTemporary: false)
+        )
+        let fileDocument = documentProvider.document(objectId: newObjectId, forPreview: true)
+        try await fileDocument.openForPreview()
+        guard let fileDetails = fileDocument.details else { return }
+        let blockInformation = BlockInformation.file(fileDetails: fileDetails)
+        _ = try await blockActionService.add(
+            contextId: addToObject.id,
+            targetId: lastBlockInDocument,
+            info: blockInformation,
+            position: .bottom
+        )
+        AnytypeAnalytics.instance().logCreateBlock(type: blockInformation.content.type, route: .sharingExtension)
     }
 }
 
