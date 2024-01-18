@@ -657,9 +657,7 @@
 		2ACD86F429C309AA0082E861 /* WidgetTypeChangeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2ACD86F329C309AA0082E861 /* WidgetTypeChangeViewModel.swift */; };
 		2ACD86F629C316C90082E861 /* BlockWidgetInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2ACD86F529C316C90082E861 /* BlockWidgetInfo.swift */; };
 		2ACDC9B12B553F7D0063BFBD /* SharedContentManager in Frameworks */ = {isa = PBXBuildFile; productRef = 2ACDC9B02B553F7D0063BFBD /* SharedContentManager */; };
-		2ACDC9B22B553F7D0063BFBD /* SharedContentManager in Embed Frameworks */ = {isa = PBXBuildFile; productRef = 2ACDC9B02B553F7D0063BFBD /* SharedContentManager */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
 		2ACDC9B42B553F840063BFBD /* SharedContentManager in Frameworks */ = {isa = PBXBuildFile; productRef = 2ACDC9B32B553F840063BFBD /* SharedContentManager */; };
-		2ACDC9B52B553F840063BFBD /* SharedContentManager in Embed Frameworks */ = {isa = PBXBuildFile; productRef = 2ACDC9B32B553F840063BFBD /* SharedContentManager */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
 		2ACDC9B82B56704B0063BFBD /* ShareOptionsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2ACDC9B72B56704B0063BFBD /* ShareOptionsView.swift */; };
 		2ACDC9BA2B5670650063BFBD /* ShareOptionsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2ACDC9B92B5670650063BFBD /* ShareOptionsViewModel.swift */; };
 		2ACDC9BC2B5670710063BFBD /* ShareOptionsModuleAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2ACDC9BB2B5670710063BFBD /* ShareOptionsModuleAssembly.swift */; };
@@ -1616,7 +1614,6 @@
 				2A6ED16D285B44DB00AAA21C /* ProtobufMessages in Embed Frameworks */,
 				2A6ED16A285B44DB00AAA21C /* Services in Embed Frameworks */,
 				2A4FFBC2289D1C7E004938DF /* Logger in Embed Frameworks */,
-				2ACDC9B22B553F7D0063BFBD /* SharedContentManager in Embed Frameworks */,
 				86E69DD72A938CE8009F2221 /* SecureService in Embed Frameworks */,
 				2A6ED167285B44DB00AAA21C /* AnytypeCore in Embed Frameworks */,
 			);
@@ -1642,7 +1639,6 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				2ACDC9B52B553F840063BFBD /* SharedContentManager in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
