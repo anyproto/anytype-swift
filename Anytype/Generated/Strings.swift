@@ -1456,6 +1456,14 @@ internal enum Loc {
     /// Send email
     internal static let sendEmail = Loc.tr("Localizable", "RelationAction.SendEmail", fallback: "Send email")
   }
+  internal enum Relations {
+    internal enum EmptyState {
+      /// No options found. Create first one to start.
+      internal static let description = Loc.tr("Localizable", "Relations.EmptyState.description", fallback: "No options found. Create first one to start.")
+      /// No values
+      internal static let title = Loc.tr("Localizable", "Relations.EmptyState.title", fallback: "No values")
+    }
+  }
   internal enum RelativeFormatter {
     /// Previous 30 days
     internal static let days30 = Loc.tr("Localizable", "RelativeFormatter.days30", fallback: "Previous 30 days")

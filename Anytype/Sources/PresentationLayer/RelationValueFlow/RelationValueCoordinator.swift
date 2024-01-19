@@ -10,6 +10,7 @@ final class RelationValueCoordinator: RelationValueCoordinatorProtocol,
     private let navigationContext: NavigationContextProtocol
     private let relationValueModuleAssembly: RelationValueModuleAssemblyProtocol
     private let dateRelationCalendarModuleAssembly: DateRelationCalendarModuleAssemblyProtocol
+    private let relationContainerModuleAssembly: RelationContainerModuleAssemblyProtocol
     private let urlOpener: URLOpenerProtocol
     private weak var output: RelationValueCoordinatorOutput?
     
@@ -17,11 +18,13 @@ final class RelationValueCoordinator: RelationValueCoordinatorProtocol,
         navigationContext: NavigationContextProtocol,
         relationValueModuleAssembly: RelationValueModuleAssemblyProtocol,
         dateRelationCalendarModuleAssembly: DateRelationCalendarModuleAssemblyProtocol,
+        relationContainerModuleAssembly: RelationContainerModuleAssemblyProtocol,
         urlOpener: URLOpenerProtocol
     ) {
         self.navigationContext = navigationContext
         self.relationValueModuleAssembly = relationValueModuleAssembly
         self.dateRelationCalendarModuleAssembly = dateRelationCalendarModuleAssembly
+        self.relationContainerModuleAssembly = relationContainerModuleAssembly
         self.urlOpener = urlOpener
     }
     
@@ -45,6 +48,16 @@ final class RelationValueCoordinator: RelationValueCoordinatorProtocol,
             Task {
                 try await relationsService.updateRelation(relationKey: checkbox.key, value: newValue.protobufValue)
             }
+            return
+        }
+        
+        if case .status(let status) = relation {
+            let view = relationContainerModuleAssembly.make(
+                title: status.name,
+                output: nil
+            )
+            navigationContext.present(view)
+            
             return
         }
         

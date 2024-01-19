@@ -18,7 +18,8 @@ final class RelationValueCoordinatorAssembly: RelationValueCoordinatorAssemblyPr
         let coordinator = RelationValueCoordinator(
             navigationContext: uiHelpersDI.commonNavigationContext(),
             relationValueModuleAssembly: modulesDI.relationValue(), 
-            dateRelationCalendarModuleAssembly: modulesDI.dateRelationCalendar(),
+            dateRelationCalendarModuleAssembly: modulesDI.dateRelationCalendar(), 
+            relationContainerModuleAssembly: modulesDI.relationContainer(),
             urlOpener: uiHelpersDI.urlOpener()
         )
         

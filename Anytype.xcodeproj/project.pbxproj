@@ -886,6 +886,10 @@
 		2E63047928A55D2000BEF2E9 /* SetGalleryViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E63047828A55D2000BEF2E9 /* SetGalleryViewCell.swift */; };
 		2E63047B28A55D2A00BEF2E9 /* SetCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E63047A28A55D2A00BEF2E9 /* SetCollectionView.swift */; };
 		2E63047D28AA69ED00BEF2E9 /* SwiftUIObjectHeaderCoverView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E63047C28AA69ED00BEF2E9 /* SwiftUIObjectHeaderCoverView.swift */; };
+		2E6B07812B5AAC61004CACE5 /* RelationContainerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E6B07802B5AAC61004CACE5 /* RelationContainerView.swift */; };
+		2E6B07832B5AAC6D004CACE5 /* RelationContainerViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E6B07822B5AAC6D004CACE5 /* RelationContainerViewModel.swift */; };
+		2E6B07852B5AAC82004CACE5 /* RelationContainerModuleAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E6B07842B5AAC82004CACE5 /* RelationContainerModuleAssembly.swift */; };
+		2E6B07872B5AB2A8004CACE5 /* RelationContainerModuleOutput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E6B07862B5AB2A8004CACE5 /* RelationContainerModuleOutput.swift */; };
 		2E6F3E1A2A4C6828002F4278 /* AlertView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E6F3E192A4C6828002F4278 /* AlertView.swift */; };
 		2E6F3E1D2A4DB179002F4278 /* SceneStateNotifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E6F3E1C2A4DB179002F4278 /* SceneStateNotifier.swift */; };
 		2E6F3E1F2A4DF154002F4278 /* SceneStateListener.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E6F3E1E2A4DF154002F4278 /* SceneStateListener.swift */; };
@@ -2551,6 +2555,10 @@
 		2E63047828A55D2000BEF2E9 /* SetGalleryViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SetGalleryViewCell.swift; sourceTree = "<group>"; };
 		2E63047A28A55D2A00BEF2E9 /* SetCollectionView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SetCollectionView.swift; sourceTree = "<group>"; };
 		2E63047C28AA69ED00BEF2E9 /* SwiftUIObjectHeaderCoverView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwiftUIObjectHeaderCoverView.swift; sourceTree = "<group>"; };
+		2E6B07802B5AAC61004CACE5 /* RelationContainerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RelationContainerView.swift; sourceTree = "<group>"; };
+		2E6B07822B5AAC6D004CACE5 /* RelationContainerViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RelationContainerViewModel.swift; sourceTree = "<group>"; };
+		2E6B07842B5AAC82004CACE5 /* RelationContainerModuleAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RelationContainerModuleAssembly.swift; sourceTree = "<group>"; };
+		2E6B07862B5AB2A8004CACE5 /* RelationContainerModuleOutput.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RelationContainerModuleOutput.swift; sourceTree = "<group>"; };
 		2E6F3E192A4C6828002F4278 /* AlertView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertView.swift; sourceTree = "<group>"; };
 		2E6F3E1C2A4DB179002F4278 /* SceneStateNotifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneStateNotifier.swift; sourceTree = "<group>"; };
 		2E6F3E1E2A4DF154002F4278 /* SceneStateListener.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneStateListener.swift; sourceTree = "<group>"; };
@@ -4594,6 +4602,7 @@
 		12887F3B274BC1ED00228330 /* RelationDetailsViews */ = {
 			isa = PBXGroup;
 			children = (
+				2E6B077F2B5AAC35004CACE5 /* Container */,
 				2EE33DC12B55829400D0CDDB /* Date */,
 				1244793A27DC61FA00581174 /* SearchViewModels */,
 				12887F3D274BC25100228330 /* Text */,
@@ -6679,6 +6688,17 @@
 				2E5E0663298C15E0004A98CE /* EditorSetEmptyViewModel.swift */,
 			);
 			path = Empty;
+			sourceTree = "<group>";
+		};
+		2E6B077F2B5AAC35004CACE5 /* Container */ = {
+			isa = PBXGroup;
+			children = (
+				2E6B07802B5AAC61004CACE5 /* RelationContainerView.swift */,
+				2E6B07822B5AAC6D004CACE5 /* RelationContainerViewModel.swift */,
+				2E6B07842B5AAC82004CACE5 /* RelationContainerModuleAssembly.swift */,
+				2E6B07862B5AB2A8004CACE5 /* RelationContainerModuleOutput.swift */,
+			);
+			path = Container;
 			sourceTree = "<group>";
 		};
 		2E6F3E1B2A4DB160002F4278 /* SceneState */ = {
@@ -10368,6 +10388,7 @@
 				C97B5D6227F498C600EA7E33 /* EditorContentView.swift in Sources */,
 				2A3425AC2A6A8EB3005E61F1 /* SmallImageIdPainter.swift in Sources */,
 				530F503426F0ECC400F76D03 /* AudioBlockContentView.swift in Sources */,
+				2E6B07872B5AB2A8004CACE5 /* RelationContainerModuleOutput.swift in Sources */,
 				2A4CEFFE2A13CCCD00B99891 /* BottomAlertModel.swift in Sources */,
 				3D44985C26D57773005A3E06 /* DismissHandler.swift in Sources */,
 				3D93D561270B3FC500614E29 /* UINavigationController+Extension.swift in Sources */,
@@ -10697,6 +10718,7 @@
 				3D38CC9626D632C500E4F7BF /* ObjectHeaderViewModel.swift in Sources */,
 				C92DCD91272990CE00A03D91 /* ChangeTypeAccessoryView.swift in Sources */,
 				2E8387BA291A51A000506766 /* SetCardDropData.swift in Sources */,
+				2E6B07812B5AAC61004CACE5 /* RelationContainerView.swift in Sources */,
 				2ECB343B2A98FEBE00E0F9BB /* SetFiltersListCoordinatorAssembly.swift in Sources */,
 				C973E1AD285C567F00978BC4 /* SimpleTableDependenciesBuilder.swift in Sources */,
 				12C2A5602754E13000311854 /* DateRelationDetailsView.swift in Sources */,
@@ -10737,6 +10759,7 @@
 				C9E939D428538B600089CB98 /* TextBlockActionHandler.swift in Sources */,
 				12FD9D29276717CF00991886 /* RelationTag.swift in Sources */,
 				86AA5B312A9E06D300816700 /* TextShareView.swift in Sources */,
+				2E6B07832B5AAC6D004CACE5 /* RelationContainerViewModel.swift in Sources */,
 				53D4088827EC9EFE00495335 /* ObjectPreviewView.swift in Sources */,
 				12EB9AF12771CD6600BA732F /* RelationOptionsListViewModel.swift in Sources */,
 				2E48ACA32A55D4EF0059CB5C /* CustomBackSwipe.swift in Sources */,
@@ -10843,6 +10866,7 @@
 				2EAA14052AA63918000A712A /* SetRelationsViewModuleAssembly.swift in Sources */,
 				2EE36CD82AF535C30043AA8D /* SetObjectCreationCoordinatorAssembly.swift in Sources */,
 				2EA2B7D42AB2113B00F1F49F /* SetViewSettingsListMode.swift in Sources */,
+				2E6B07852B5AAC82004CACE5 /* RelationContainerModuleAssembly.swift in Sources */,
 				2AE85FE92B1F490F00268E9D /* ServerConfigurationCoordinatorView.swift in Sources */,
 				53FF7C4E26F7DB3C00A5A592 /* AnytypeSharedAudioplayer.swift in Sources */,
 				EA20CDD926122CCF00DBA9FE /* VideoBlockContentViewConfiguration.swift in Sources */,
