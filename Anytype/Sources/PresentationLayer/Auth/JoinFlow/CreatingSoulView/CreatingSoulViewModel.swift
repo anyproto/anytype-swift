@@ -61,7 +61,7 @@ final class CreatingSoulViewModel: ObservableObject {
                     name: "",
                     imagePath: ""
                 )
-                try await usecaseService.setObjectImportUseCaseToSkip(spaceId: account.info.accountSpaceId)
+                try await usecaseService.setObjectImportDefaultUseCase(spaceId: account.info.accountSpaceId)
                 try? seedService.saveSeed(state.mnemonic)
                 
                 await createAccountSuccess()
