@@ -31,11 +31,11 @@ class ShareViewController: SLComposeServiceViewController {
         }
         Task {
             try? sharedContentManager.clearSharedContent()
-            try await storeSharedItems(extensionItem: extensionItem)
+            await storeSharedItems(extensionItem: extensionItem)
         }
     }
     
-    private func storeSharedItems(extensionItem: NSExtensionItem) async throws {
+    private func storeSharedItems(extensionItem: NSExtensionItem) async {
 
         let items = extensionItem.attachments ?? []
         var sharedItems = await withTaskGroup(of: SharedContent?.self, returning: [SharedContent].self) { taskGroup in
@@ -59,7 +59,7 @@ class ShareViewController: SLComposeServiceViewController {
             }
         }
 
-        try sharedContentManager.saveSharedContent(content: sharedItems)
+        try? sharedContentManager.saveSharedContent(content: sharedItems)
         
         if !sharedItems.isEmpty {
             openMainApp()
@@ -107,7 +107,8 @@ class ShareViewController: SLComposeServiceViewController {
     }
 
     private func openMainApp() {
-        _ = URLConstants.sharingExtenstionURL.map { openURL($0) }
+        let res = URLConstants.sharingExtenstionURL.map { openURL($0) }
+        print("open res \(res)")
     }
     
     // Courtesy: https://stackoverflow.com/a/44499222/13363449 👇🏾
