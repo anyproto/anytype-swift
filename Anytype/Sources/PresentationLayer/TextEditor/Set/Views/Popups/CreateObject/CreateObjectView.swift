@@ -78,7 +78,6 @@ final class CreateObjectView: UIView {
     private func setupTextField() {
         textField.translatesAutoresizingMaskIntoConstraints = false
         textField.autocorrectionType = .no
-        textField.autocapitalizationType = .none
         textField.font = .previewTitle1Medium
         textField.attributedPlaceholder = NSAttributedString(
             string: viewModel.style.placeholder,

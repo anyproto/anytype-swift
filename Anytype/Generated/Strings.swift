@@ -1133,6 +1133,8 @@ internal enum Loc {
     }
   }
   internal enum Error {
+    /// Please connect to the internet
+    internal static let unableToConnect = Loc.tr("Localizable", "Error.UnableToConnect", fallback: "Please connect to the internet")
     internal enum AnytypeNeedsUpgrate {
       /// Update
       internal static let confirm = Loc.tr("Localizable", "Error.AnytypeNeedsUpgrate.Confirm", fallback: "Update")
@@ -1311,8 +1313,8 @@ internal enum Loc {
   internal enum LongTapCreateTip {
     /// Long tap on Create Object button to open menu with types
     internal static let message = Loc.tr("Localizable", "LongTapCreateTip.Message", fallback: "Long tap on Create Object button to open menu with types")
-    /// Crete Objects with specific Type
-    internal static let title = Loc.tr("Localizable", "LongTapCreateTip.Title", fallback: "Crete Objects with specific Type")
+    /// Create Objects with specific Type
+    internal static let title = Loc.tr("Localizable", "LongTapCreateTip.Title", fallback: "Create Objects with specific Type")
   }
   internal enum Mention {
     internal enum Subtitle {

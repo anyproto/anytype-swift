@@ -166,4 +166,11 @@ final class CoordinatorsDI: CoordinatorsDIProtocol {
     func serverConfiguration() -> ServerConfigurationCoordinatorAssemblyProtocol {
         ServerConfigurationCoordinatorAssembly(modulesDI: modulesDI)
     }
+    
+    func sharingTip() -> SharingTipCoordinatorProtocol {
+        SharingTipCoordinator(
+            sharingTipAssembly: modulesDI.sharingTip(),
+            navigationContext: uiHelpersDI.commonNavigationContext()
+        )
+    }
 }

@@ -21,5 +21,6 @@ struct DashboardAccountDeletionAlert: View {
         .onAppear {
             AnytypeAnalytics.instance().logScreenSettingsDelete()
         }
+        .snackbar(toastBarData: $model.toastBarData)
     }
 }
