@@ -860,13 +860,14 @@
 "Initial.UnstableMiddle.WontUseProd" = "Я не буду использовать рабочий аккаунт.";
 
 // MARK: - Create tip
-"LongTapCreateTip.Title" = "Создать объекты определенного типа";
+"LongTapCreateTip.Title" = "Create Objects with specific Type";
 "LongTapCreateTip.Message" = "Удерживайте кнопку Создать Объект, чтобы открыть меню выбора типа";
 
 // MARK: - Error
 "Error.AnytypeNeedsUpgrate.Title" = "Обновите приложение";
 "Error.AnytypeNeedsUpgrate.Message" = "Объект был изменен в более новой версии Anytype. Пожалуйста, обновите приложение, чтобы открыть его на этом устройстве";
 "Error.AnytypeNeedsUpgrate.Confirm" = "Обновить";
+"Error.UnableToConnect" = "Please connect to the internet";
 
 // MARK: - Relative date formatter
 "RelativeFormatter.days7" = "За последние 7 дней";
