@@ -60,7 +60,7 @@ final class ShareOptionsInteractor: ShareOptionsInteractorProtocol {
                 case let .url(url):
                     newObjectId = try await createBookmarkObject(url: url, spaceId: spaceId).id
                 case let .file(url):
-                    newObjectId = try await fileService.uploadFileObject(spaceId: spaceId, data: FileData(path: url.relativePath, isTemporary: false))
+                    newObjectId = try await fileService.uploadFileObject(spaceId: spaceId, data: FileData(path: url.relativePath, isTemporary: false)).id
                 }
                 
                 if let linkToObject {
@@ -163,13 +163,10 @@ final class ShareOptionsInteractor: ShareOptionsInteractorProtocol {
     
     private func createFileBlock(fileURL: URL, addToObject: ObjectDetails) async throws {
         let lastBlockInDocument = try await listService.lastBlockId(from: addToObject.id)
-        let newObjectId = try await fileService.uploadFileObject(
+        let fileDetails = try await fileService.uploadFileObject(
             spaceId: addToObject.spaceId,
             data: FileData(path: fileURL.relativePath, isTemporary: false)
         )
-        let fileDocument = documentProvider.document(objectId: newObjectId, forPreview: true)
-        try await fileDocument.openForPreview()
-        guard let fileDetails = fileDocument.details else { return }
         let blockInformation = BlockInformation.file(fileDetails: fileDetails)
         _ = try await blockActionService.add(
             contextId: addToObject.id,

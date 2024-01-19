@@ -38,37 +38,20 @@ public extension BlockInformation {
         return BlockInformation.empty(content: content)
     }
     
-    static func file(fileDetails: ObjectDetails) -> BlockInformation {
+    static func file(fileDetails: FileDetails) -> BlockInformation {
         let content = BlockContent.file(
             BlockFile(
                 metadata: FileMetadata(
                     name: fileDetails.name,
-                    size: Int64(fileDetails.sizeInBytes ?? 0),
+                    size: Int64(fileDetails.sizeInBytes),
                     targetObjectId: fileDetails.id,
                     mime: fileDetails.fileMimeType,
                     addedAt: 0
                 ),
-                contentType: fileDetails.layoutValue.fileContentType,
+                contentType: fileDetails.fileContentType,
                 state: .done
             )
         )
         return BlockInformation.empty(content: content)
-    }
-}
-
-fileprivate extension DetailsLayout {
-    var fileContentType: FileContentType {
-        switch self {
-        case .file:
-            return .file
-        case .image:
-            return .image
-        case .audio:
-            return .audio
-        case .video:
-            return .video
-        default:
-            return .none
-        }
     }
 }
