@@ -30,6 +30,7 @@ class ShareViewController: SLComposeServiceViewController {
             return
         }
         Task {
+            try? sharedContentManager.clearSharedContent()
             try await storeSharedItems(extensionItem: extensionItem)
         }
     }
@@ -58,10 +59,11 @@ class ShareViewController: SLComposeServiceViewController {
             }
         }
 
-        // TODO: Check is nontent is empty
-        
         try sharedContentManager.saveSharedContent(content: sharedItems)
-        openMainApp()
+        
+        if sharedItems.isEmpty {
+            openMainApp()
+        }
         extensionContext?.completeRequest(returningItems: nil, completionHandler: nil)
     }
     

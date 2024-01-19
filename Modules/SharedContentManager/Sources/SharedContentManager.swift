@@ -43,7 +43,7 @@ final class SharedContentManager: SharedContentManagerProtocol {
     }
     
     func saveFileToGroup(url: URL) throws -> URL {
-        let filePath = containerPath().appendingPathComponent(url.lastPathComponent)
+        let filePath = findFreeFileName(originalURL: url)
         try FileManager.default.copyItem(at: url, to: filePath)
         return filePath
     }
@@ -77,5 +77,30 @@ final class SharedContentManager: SharedContentManagerProtocol {
         }
         
         return containerURL.appendingPathComponent("Library/Caches")
+    }
+    
+    private func findFreeFileName(originalURL: URL) -> URL {
+        let filePath = containerPath().appendingPathComponent(originalURL.lastPathComponent)
+        guard FileManager.default.fileExists(atPath: filePath.relativePath) else {
+            return filePath
+        }
+        let fileName = filePath.deletingPathExtension().lastPathComponent
+        let fileExtension = filePath.pathExtension
+        for i in 1...100 {
+            let newFilePath = filePath
+                .deletingLastPathComponent()
+                .appendingPathComponent("\(fileName)-\(i)")
+                .appendingPathExtension(fileExtension)
+            if !FileManager.default.fileExists(atPath: newFilePath.relativePath) {
+                return newFilePath
+            }
+        }
+        
+        // UUID
+        let newFilePath = filePath
+            .deletingLastPathComponent()
+            .appendingPathComponent("\(fileName)-\(UUID().uuidString)")
+            .appendingPathExtension(fileExtension)
+        return newFilePath
     }
 }

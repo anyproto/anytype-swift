@@ -53,14 +53,18 @@ final class ShareOptionsInteractor: ShareOptionsInteractorProtocol {
             do {
                 
                 let newObjectId: String
+                let blockInformation: BlockInformation
                 
                 switch contentItem {
                 case let .text(text):
                     newObjectId = try await createNoteObject(text: text, spaceId: spaceId).id
+                    blockInformation = BlockInformation.emptyLink(targetId: newObjectId)
                 case let .url(url):
                     newObjectId = try await createBookmarkObject(url: url, spaceId: spaceId).id
+                    blockInformation = BlockInformation.bookmark(targetId: newObjectId)
                 case let .file(url):
                     newObjectId = try await fileService.uploadFileObject(spaceId: spaceId, data: FileData(path: url.relativePath, isTemporary: false)).id
+                    blockInformation = BlockInformation.emptyLink(targetId: newObjectId)
                 }
                 
                 if let linkToObject {
@@ -71,7 +75,6 @@ final class ShareOptionsInteractor: ShareOptionsInteractorProtocol {
                                 objectIds: [newObjectId]
                             )
                     } else {
-                        let blockInformation = BlockInformation.emptyLink(targetId: newObjectId)
                         let lastBlockInDocument = try await listService.lastBlockId(from: linkToObject.id)
                         _ = try await blockActionService.add(
                             contextId: linkToObject.id,
