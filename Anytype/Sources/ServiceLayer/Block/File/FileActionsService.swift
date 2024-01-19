@@ -80,7 +80,7 @@ final class FileActionsService: FileActionsServiceProtocol {
         try await fileService.uploadFileBlock(path: data.path, contextID: contextID, blockID: blockID)
     }
     
-    func uploadFileObject(spaceId: String, data: FileData) async throws -> String {
+    func uploadFileObject(spaceId: String, data: FileData) async throws -> FileDetails {
         defer {
             if data.isTemporary {
                 try? FileManager.default.removeItem(atPath: data.path)
@@ -95,7 +95,7 @@ final class FileActionsService: FileActionsServiceProtocol {
         try await uploadDataAt(data: data, contextID: contextID, blockID: blockID)
     }
     
-    func uploadImage(spaceId: String, source: FileUploadingSource) async throws -> String {
+    func uploadImage(spaceId: String, source: FileUploadingSource) async throws -> FileDetails {
         let data = try await createFileData(source: source)
         return try await uploadFileObject(spaceId: spaceId, data: data)
     }

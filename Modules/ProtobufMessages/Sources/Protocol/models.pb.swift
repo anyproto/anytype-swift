@@ -273,6 +273,7 @@ public enum Anytype_Model_ObjectOrigin: SwiftProtobuf.Enum {
   case sharingExtension // = 5
   case usecase // = 6
   case builtin // = 7
+  case bookmark // = 8
   case UNRECOGNIZED(Int)
 
   public init() {
@@ -289,6 +290,7 @@ public enum Anytype_Model_ObjectOrigin: SwiftProtobuf.Enum {
     case 5: self = .sharingExtension
     case 6: self = .usecase
     case 7: self = .builtin
+    case 8: self = .bookmark
     default: self = .UNRECOGNIZED(rawValue)
     }
   }
@@ -303,6 +305,7 @@ public enum Anytype_Model_ObjectOrigin: SwiftProtobuf.Enum {
     case .sharingExtension: return 5
     case .usecase: return 6
     case .builtin: return 7
+    case .bookmark: return 8
     case .UNRECOGNIZED(let i): return i
     }
   }
@@ -322,6 +325,7 @@ extension Anytype_Model_ObjectOrigin: CaseIterable {
     .sharingExtension,
     .usecase,
     .builtin,
+    .bookmark,
   ]
 }
 
@@ -2328,6 +2332,17 @@ public struct Anytype_Model_Block {
         case soundcloud // = 5
         case googleMaps // = 6
         case miro // = 7
+        case figma // = 8
+        case twitter // = 9
+        case openStreetMap // = 10
+        case reddit // = 11
+        case facebook // = 12
+        case instagram // = 13
+        case telegram // = 14
+        case githubGist // = 15
+        case codepen // = 16
+        case bilibili // = 17
+        case excalidraw // = 18
         case UNRECOGNIZED(Int)
 
         public init() {
@@ -2344,6 +2359,17 @@ public struct Anytype_Model_Block {
           case 5: self = .soundcloud
           case 6: self = .googleMaps
           case 7: self = .miro
+          case 8: self = .figma
+          case 9: self = .twitter
+          case 10: self = .openStreetMap
+          case 11: self = .reddit
+          case 12: self = .facebook
+          case 13: self = .instagram
+          case 14: self = .telegram
+          case 15: self = .githubGist
+          case 16: self = .codepen
+          case 17: self = .bilibili
+          case 18: self = .excalidraw
           default: self = .UNRECOGNIZED(rawValue)
           }
         }
@@ -2358,6 +2384,17 @@ public struct Anytype_Model_Block {
           case .soundcloud: return 5
           case .googleMaps: return 6
           case .miro: return 7
+          case .figma: return 8
+          case .twitter: return 9
+          case .openStreetMap: return 10
+          case .reddit: return 11
+          case .facebook: return 12
+          case .instagram: return 13
+          case .telegram: return 14
+          case .githubGist: return 15
+          case .codepen: return 16
+          case .bilibili: return 17
+          case .excalidraw: return 18
           case .UNRECOGNIZED(let i): return i
           }
         }
@@ -2745,6 +2782,17 @@ extension Anytype_Model_Block.Content.Latex.Processor: CaseIterable {
     .soundcloud,
     .googleMaps,
     .miro,
+    .figma,
+    .twitter,
+    .openStreetMap,
+    .reddit,
+    .facebook,
+    .instagram,
+    .telegram,
+    .githubGist,
+    .codepen,
+    .bilibili,
+    .excalidraw,
   ]
 }
 
@@ -4491,6 +4539,20 @@ extension Anytype_Model_Import.ErrorCode: CaseIterable {
 
 #endif  // swift(>=4.2)
 
+public struct Anytype_Model_FileEncryptionKey {
+  // SwiftProtobuf.Message conformance is added in an extension below. See the
+  // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+  // methods supported on all messages.
+
+  public var path: String = String()
+
+  public var key: String = String()
+
+  public var unknownFields = SwiftProtobuf.UnknownStorage()
+
+  public init() {}
+}
+
 public struct Anytype_Model_FileInfo {
   // SwiftProtobuf.Message conformance is added in an extension below. See the
   // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
@@ -4498,23 +4560,9 @@ public struct Anytype_Model_FileInfo {
 
   public var fileID: String = String()
 
-  public var encryptionKeys: [Anytype_Model_FileInfo.EncryptionKey] = []
+  public var encryptionKeys: [Anytype_Model_FileEncryptionKey] = []
 
   public var unknownFields = SwiftProtobuf.UnknownStorage()
-
-  public struct EncryptionKey {
-    // SwiftProtobuf.Message conformance is added in an extension below. See the
-    // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
-    // methods supported on all messages.
-
-    public var path: String = String()
-
-    public var key: String = String()
-
-    public var unknownFields = SwiftProtobuf.UnknownStorage()
-
-    public init() {}
-  }
 
   public init() {}
 }
@@ -4638,8 +4686,8 @@ extension Anytype_Model_Export.Format: @unchecked Sendable {}
 extension Anytype_Model_Import: @unchecked Sendable {}
 extension Anytype_Model_Import.TypeEnum: @unchecked Sendable {}
 extension Anytype_Model_Import.ErrorCode: @unchecked Sendable {}
+extension Anytype_Model_FileEncryptionKey: @unchecked Sendable {}
 extension Anytype_Model_FileInfo: @unchecked Sendable {}
-extension Anytype_Model_FileInfo.EncryptionKey: @unchecked Sendable {}
 #endif  // swift(>=5.5) && canImport(_Concurrency)
 
 // MARK: - Code below here is support for the SwiftProtobuf runtime.
@@ -4702,6 +4750,7 @@ extension Anytype_Model_ObjectOrigin: SwiftProtobuf._ProtoNameProviding {
     5: .same(proto: "sharingExtension"),
     6: .same(proto: "usecase"),
     7: .same(proto: "builtin"),
+    8: .same(proto: "bookmark"),
   ]
 }
 
@@ -6914,6 +6963,17 @@ extension Anytype_Model_Block.Content.Latex.Processor: SwiftProtobuf._ProtoNameP
     5: .same(proto: "Soundcloud"),
     6: .same(proto: "GoogleMaps"),
     7: .same(proto: "Miro"),
+    8: .same(proto: "Figma"),
+    9: .same(proto: "Twitter"),
+    10: .same(proto: "OpenStreetMap"),
+    11: .same(proto: "Reddit"),
+    12: .same(proto: "Facebook"),
+    13: .same(proto: "Instagram"),
+    14: .same(proto: "Telegram"),
+    15: .same(proto: "GithubGist"),
+    16: .same(proto: "Codepen"),
+    17: .same(proto: "Bilibili"),
+    18: .same(proto: "Excalidraw"),
   ]
 }
 
@@ -9076,6 +9136,44 @@ extension Anytype_Model_Import.ErrorCode: SwiftProtobuf._ProtoNameProviding {
   ]
 }
 
+extension Anytype_Model_FileEncryptionKey: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = _protobuf_package + ".FileEncryptionKey"
+  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    1: .same(proto: "path"),
+    2: .same(proto: "key"),
+  ]
+
+  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let fieldNumber = try decoder.nextFieldNumber() {
+      // The use of inline closures is to circumvent an issue where the compiler
+      // allocates stack space for every case branch when no optimizations are
+      // enabled. https://github.com/apple/swift-protobuf/issues/1034
+      switch fieldNumber {
+      case 1: try { try decoder.decodeSingularStringField(value: &self.path) }()
+      case 2: try { try decoder.decodeSingularStringField(value: &self.key) }()
+      default: break
+      }
+    }
+  }
+
+  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    if !self.path.isEmpty {
+      try visitor.visitSingularStringField(value: self.path, fieldNumber: 1)
+    }
+    if !self.key.isEmpty {
+      try visitor.visitSingularStringField(value: self.key, fieldNumber: 2)
+    }
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  public static func ==(lhs: Anytype_Model_FileEncryptionKey, rhs: Anytype_Model_FileEncryptionKey) -> Bool {
+    if lhs.path != rhs.path {return false}
+    if lhs.key != rhs.key {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    return true
+  }
+}
+
 extension Anytype_Model_FileInfo: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
   public static let protoMessageName: String = _protobuf_package + ".FileInfo"
   public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
@@ -9109,44 +9207,6 @@ extension Anytype_Model_FileInfo: SwiftProtobuf.Message, SwiftProtobuf._MessageI
   public static func ==(lhs: Anytype_Model_FileInfo, rhs: Anytype_Model_FileInfo) -> Bool {
     if lhs.fileID != rhs.fileID {return false}
     if lhs.encryptionKeys != rhs.encryptionKeys {return false}
-    if lhs.unknownFields != rhs.unknownFields {return false}
-    return true
-  }
-}
-
-extension Anytype_Model_FileInfo.EncryptionKey: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
-  public static let protoMessageName: String = Anytype_Model_FileInfo.protoMessageName + ".EncryptionKey"
-  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
-    1: .same(proto: "path"),
-    2: .same(proto: "key"),
-  ]
-
-  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
-    while let fieldNumber = try decoder.nextFieldNumber() {
-      // The use of inline closures is to circumvent an issue where the compiler
-      // allocates stack space for every case branch when no optimizations are
-      // enabled. https://github.com/apple/swift-protobuf/issues/1034
-      switch fieldNumber {
-      case 1: try { try decoder.decodeSingularStringField(value: &self.path) }()
-      case 2: try { try decoder.decodeSingularStringField(value: &self.key) }()
-      default: break
-      }
-    }
-  }
-
-  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
-    if !self.path.isEmpty {
-      try visitor.visitSingularStringField(value: self.path, fieldNumber: 1)
-    }
-    if !self.key.isEmpty {
-      try visitor.visitSingularStringField(value: self.key, fieldNumber: 2)
-    }
-    try unknownFields.traverse(visitor: &visitor)
-  }
-
-  public static func ==(lhs: Anytype_Model_FileInfo.EncryptionKey, rhs: Anytype_Model_FileInfo.EncryptionKey) -> Bool {
-    if lhs.path != rhs.path {return false}
-    if lhs.key != rhs.key {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }

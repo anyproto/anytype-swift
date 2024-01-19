@@ -12,8 +12,6 @@ import Combine
 
 final class MockBaseDocument: BaseDocumentProtocol {
     
-    var relationsListIsLocked: Bool { false }
-    
     var spaceId: String { "" } 
     
     var infoContainer: Services.InfoContainerProtocol { InfoContainer() }
@@ -31,6 +29,8 @@ final class MockBaseDocument: BaseDocumentProtocol {
     var isLocked: Bool { false }
     
     var relationValuesIsLocked: Bool { false }
+    
+    var relationsListIsLocked: Bool { false }
     
     var isEmpty: Bool { false }
     

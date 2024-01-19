@@ -10602,6 +10602,15 @@ public struct Anytype_Rpc {
 
         public var objectID: String = String()
 
+        public var details: SwiftProtobuf.Google_Protobuf_Struct {
+          get {return _details ?? SwiftProtobuf.Google_Protobuf_Struct()}
+          set {_details = newValue}
+        }
+        /// Returns true if `details` has been explicitly set.
+        public var hasDetails: Bool {return self._details != nil}
+        /// Clears the value of `details`. Subsequent reads from it will return its default value.
+        public mutating func clearDetails() {self._details = nil}
+
         public var unknownFields = SwiftProtobuf.UnknownStorage()
 
         public struct Error {
@@ -10652,6 +10661,7 @@ public struct Anytype_Rpc {
         public init() {}
 
         fileprivate var _error: Anytype_Rpc.File.Upload.Response.Error? = nil
+        fileprivate var _details: SwiftProtobuf.Google_Protobuf_Struct? = nil
       }
 
       public init() {}
@@ -42642,6 +42652,7 @@ extension Anytype_Rpc.File.Upload.Response: SwiftProtobuf.Message, SwiftProtobuf
   public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
     1: .same(proto: "error"),
     2: .same(proto: "objectId"),
+    3: .same(proto: "details"),
   ]
 
   public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
@@ -42652,6 +42663,7 @@ extension Anytype_Rpc.File.Upload.Response: SwiftProtobuf.Message, SwiftProtobuf
       switch fieldNumber {
       case 1: try { try decoder.decodeSingularMessageField(value: &self._error) }()
       case 2: try { try decoder.decodeSingularStringField(value: &self.objectID) }()
+      case 3: try { try decoder.decodeSingularMessageField(value: &self._details) }()
       default: break
       }
     }
@@ -42668,12 +42680,16 @@ extension Anytype_Rpc.File.Upload.Response: SwiftProtobuf.Message, SwiftProtobuf
     if !self.objectID.isEmpty {
       try visitor.visitSingularStringField(value: self.objectID, fieldNumber: 2)
     }
+    try { if let v = self._details {
+      try visitor.visitSingularMessageField(value: v, fieldNumber: 3)
+    } }()
     try unknownFields.traverse(visitor: &visitor)
   }
 
   public static func ==(lhs: Anytype_Rpc.File.Upload.Response, rhs: Anytype_Rpc.File.Upload.Response) -> Bool {
     if lhs._error != rhs._error {return false}
     if lhs.objectID != rhs.objectID {return false}
+    if lhs._details != rhs._details {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }

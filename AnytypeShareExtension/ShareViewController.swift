@@ -105,9 +105,7 @@ class ShareViewController: SLComposeServiceViewController {
     }
 
     private func openMainApp() {
-        self.extensionContext?.completeRequest(returningItems: nil, completionHandler: { _ in
-            _ = URLConstants.sharingExtenstionURL.map { self.openURL($0) }
-        })
+        _ = URLConstants.sharingExtenstionURL.map { openURL($0) }
     }
     
     // Courtesy: https://stackoverflow.com/a/44499222/13363449 👇🏾
