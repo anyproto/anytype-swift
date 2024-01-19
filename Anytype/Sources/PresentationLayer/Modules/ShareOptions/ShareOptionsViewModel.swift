@@ -22,6 +22,7 @@ final class ShareOptionsViewModel: ObservableObject {
     // Navigation
     @Published var isSaveButtonAvailable = false
     @Published var dismiss = false
+    @Published var saveInProgress = false
     
     private var saveOptions: SharedSaveOptions?
     private var counter = ShareContentCounter(textCount: 0, bookmarksCount: 0, filesCount: 0)
@@ -68,6 +69,7 @@ final class ShareOptionsViewModel: ObservableObject {
         }
         
         Task {
+            saveInProgress = true
             let content = try contentManager.getSharedContent()
             try await interactor.saveContent(saveOptions: saveOptions, content: content)
             try contentManager.clearSharedContent()

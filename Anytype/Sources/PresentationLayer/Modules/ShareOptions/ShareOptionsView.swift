@@ -7,33 +7,42 @@ struct ShareOptionsView: View {
     @Environment(\.dismiss) private var dismiss
     
     var body: some View {
-        List {
-            Section(header: Text(Loc.Sharing.saveAs)) {
-                ShareSelectionRow(text: model.newObjectTitle, selected: model.saveAsType == .newObject)
-                    .fixTappableArea()
-                    .onTapGesture {
-                        model.onTapSaveAsNewObject()
-                    }
-                ShareSelectionRow(text: model.embededObjectTitle, selected: model.saveAsType == .block)
-                    .fixTappableArea()
-                    .onTapGesture {
-                        model.onTapSaveAsBlock()
-                    }
+        ZStack {
+            List {
+                Section(header: Text(Loc.Sharing.saveAs)) {
+                    ShareSelectionRow(text: model.newObjectTitle, selected: model.saveAsType == .newObject)
+                        .fixTappableArea()
+                        .onTapGesture {
+                            model.onTapSaveAsNewObject()
+                        }
+                    ShareSelectionRow(text: model.embededObjectTitle, selected: model.saveAsType == .block)
+                        .fixTappableArea()
+                        .onTapGesture {
+                            model.onTapSaveAsBlock()
+                        }
+                }
+                
+                Section {
+                    ShareArrowRow(title: Loc.Sharing.selectSpace, description: model.spaceName)
+                        .fixTappableArea()
+                        .onTapGesture {
+                            model.onTapSelectSpace()
+                        }
+                    ShareArrowRow(title: model.linkTitle, description: model.linkObjectName)
+                        .fixTappableArea()
+                        .onTapGesture {
+                            model.onTapLinkObject()
+                        }
+                }
             }
-
-            Section {
-                ShareArrowRow(title: Loc.Sharing.selectSpace, description: model.spaceName)
-                    .fixTappableArea()
-                    .onTapGesture {
-                        model.onTapSelectSpace()
-                    }
-                ShareArrowRow(title: model.linkTitle, description: model.linkObjectName)
-                    .fixTappableArea()
-                    .onTapGesture {
-                        model.onTapLinkObject()
-                    }
+            if model.saveInProgress {
+                Color.black.opacity(0.3)
+                    .ignoresSafeArea()
+                DotsView()
+                    .frame(width: 80, height: 8)
             }
         }
+        .disabled(model.saveInProgress)
         .onChange(of: model.dismiss) { _ in
             dismiss()
         }
@@ -48,7 +57,7 @@ struct ShareOptionsView: View {
                 Button(Loc.Sharing.Navigation.RightButton.title, role: .destructive) {
                     model.onTapSave()
                 }
-                .disabled(!model.isSaveButtonAvailable)
+                .disabled(!model.isSaveButtonAvailable || model.saveInProgress)
         )
     }
 }

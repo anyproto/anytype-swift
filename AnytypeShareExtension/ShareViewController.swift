@@ -61,7 +61,7 @@ class ShareViewController: SLComposeServiceViewController {
 
         try sharedContentManager.saveSharedContent(content: sharedItems)
         
-        if sharedItems.isEmpty {
+        if !sharedItems.isEmpty {
             openMainApp()
         }
         extensionContext?.completeRequest(returningItems: nil, completionHandler: nil)
