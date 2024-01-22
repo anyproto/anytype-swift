@@ -521,9 +521,9 @@ extension RelationFormat {
         case .phone:
             return Loc.addPhone
         case .status:
-            return Loc.selectStatus
+            return Loc.selectOption
         case .tag:
-            return Loc.selectTag
+            return Loc.selectOptions
         case .file:
             return Loc.selectFile
         case .object:
