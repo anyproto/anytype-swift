@@ -6,7 +6,15 @@ public final class SharingDI {
     
     private init() {}
     
-    public static func sharedContentManager() -> SharedContentManagerProtocol {
-        SharedContentManager()
+    public func sharedContentManager() -> SharedContentManagerProtocol {
+        SharedContentManager(sharedFileStorage: sharedFileStorage(), sharedContentImporter: sharedContentImporter())
+    }
+    
+    private func sharedContentImporter() -> SharedContentImporterProtocol {
+        SharedContentImporter(sharedFileStorage: sharedFileStorage())
+    }
+    
+    private func sharedFileStorage() -> SharedFileStorageProtocol {
+        SharedFileStorage()
     }
 }

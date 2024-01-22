@@ -10,7 +10,7 @@ final class ServiceLocator {
     static let shared = ServiceLocator()
 
     let templatesService = TemplatesService()
-    let sharedContentManager: SharedContentManagerProtocol = SharingDI.sharedContentManager()
+    let sharedContentManager: SharedContentManagerProtocol = SharingDI.shared.sharedContentManager()
     lazy private(set) var sharedContentInteractor: SharedContentInteractorProtocol = SharedContentInteractor(
         listService: blockListService(),
         bookmarkService: bookmarkService(),
