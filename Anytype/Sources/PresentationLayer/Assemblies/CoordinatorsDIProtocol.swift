@@ -31,6 +31,7 @@ protocol CoordinatorsDIProtocol: AnyObject {
     func spaceSwitch() -> SpaceSwitchCoordinatorAssemblyProtocol
     func setObjectCreation() -> SetObjectCreationCoordinatorAssemblyProtocol
     func serverConfiguration() -> ServerConfigurationCoordinatorAssemblyProtocol
+    func sharingTip() -> SharingTipCoordinatorProtocol
     
     // Now like a coordinator. Migrate to isolated modules
     func editorPageModule() -> EditorPageModuleAssemblyProtocol

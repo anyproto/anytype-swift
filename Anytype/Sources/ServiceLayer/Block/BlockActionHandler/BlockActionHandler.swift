@@ -43,6 +43,8 @@ final class BlockActionHandler: BlockActionHandlerProtocol {
     }
     
     func turnInto(_ style: BlockText.Style, blockId: BlockId) {
+        defer { AnytypeAnalytics.instance().logChangeBlockStyle(style) }
+        
         switch style {
         case .toggle:
             if let blockInformation = document.infoContainer.get(id: blockId),
@@ -86,6 +88,7 @@ final class BlockActionHandler: BlockActionHandlerProtocol {
     }
     
     func setBackgroundColor(_ color: BlockBackgroundColor, blockIds: [BlockId]) {
+        AnytypeAnalytics.instance().logChangeBlockBackground(color: color.middleware)
         service.setBackgroundColor(blockIds: blockIds, color: color)
     }
     
@@ -110,6 +113,7 @@ final class BlockActionHandler: BlockActionHandlerProtocol {
     }
     
     func setAlignment(_ alignment: LayoutAlignment, blockIds: [BlockId]) {
+        AnytypeAnalytics.instance().logSetAlignment(alignment, isBlock: blockIds.isNotEmpty)
         Task {
             try await listService.setAlign(objectId: document.objectId, blockIds: blockIds, alignment: alignment)
         }

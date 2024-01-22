@@ -495,6 +495,7 @@
 "Enter text" = "Skriv inn tekst";
 "Unsupported value" = "Ikke-støttet verdi";
 "Select relation type" = "Velg relasjonstype";
+"CommonOpenErrorView.Message" = "Ingen data funnet";
 
 "Limit object types" = "Begrens objekttyper";
 "Type" = "Type";
@@ -544,9 +545,13 @@
 "Unfavorite" = "Fjern fra favoritter";
 "Unsplash" = "Unsplash";
 "Go back" = "Gå tilbake";
-"Backed up on one node at least" = "Sikkerhetskopiert på minst én node";
+"SyncStatus.LocalOnly.Title" = "Local-only";
+"SyncStatus.LocalOnly.Description" = "Kun lokalt";
+"SyncStatus.Synced.Anytype.Description" = "Backed up on Anytype Network";
+"SyncStatus.Synced.AnytypeStaging.Description" = "Backed up on Anytype Staging";
+"SyncStatus.Synced.SelfHosted.Description" = "Backed up on Self-hosted Network";
 "Downloading or uploading data to some node" = "Laster ned eller laster opp data til en node";
-"Anytype node is not connected" = "Anytype-noden er ikke tilkoblet";
+"Node is not connected" = "Node is not connected";
 "Initializing sync" = "Initialiserer synkronisering";
 "Not syncing" = "Synkroniserer ikke";
 "Synced" = "Synkronisert";
@@ -560,8 +565,7 @@
 "Into object" = "Inn i objektet";
 "Add below" = "Legg til under";
 "Change type" = "Endre type";
-"Link to existing object" = "Lenke til eksisterende objekt";
-"Link to object" = "Legg til lenke";
+"SlashMenu.LinkTo.Description" = "Create link to another object";
 "Upload playable audio" = "Last opp spillbar lyd";
 "Code snippet" = "Kodesnutt";
 "Bookmark" = "Bokmerke";
@@ -690,8 +694,8 @@
 "SetViewTypesPicker.Settings.Textfield.Placeholder.New.View" = "Ny visning";
 "SetViewTypesPicker.Settings.Textfield.Placeholder.Untitled" = "Uten tittel";
 
-// MARK: Select view picker
-"EditorSetViewPicker.View.Not.Supported.Title" = "Ikke støttet";
+// MARK: Select view
+"EditorSet.View.Not.Supported.Title" = "Unsupported";
 
 // BlockContent
 "Content.File.Upload" = "Last opp en fil";
@@ -843,7 +847,7 @@
 
 "Sharing.Tip.Steps.1" = "Tap the iOS sharing button";
 "Sharing.Tip.Steps.2" = "Scroll past the app and tap More";
-"Sharing.Tip.Steps.3" = "Tap Edit to find “Anytype” and  tap";
+"Sharing.Tip.Steps.3" = "Tap Edit to find “Anytype” and tap";
 
 // MARK: - Initial
 
@@ -855,13 +859,14 @@
 "Initial.UnstableMiddle.WontUseProd" = "Jeg vil ikke bruke min produksjonskonto";
 
 // MARK: - Create tip
-"LongTapCreateTip.Title" = "Opprett objekter med spesifikk type";
+"LongTapCreateTip.Title" = "Create Objects with specific Type";
 "LongTapCreateTip.Message" = "Trykk og hold på Opprett objektknapp for å åpne meny med typer";
 
 // MARK: - Error
 "Error.AnytypeNeedsUpgrate.Title" = "Oppdater din app";
 "Error.AnytypeNeedsUpgrate.Message" = "Dette objektet ble endret i en nyere versjon av Anytype. Oppdater appen for å åpne det på denne enheten";
 "Error.AnytypeNeedsUpgrate.Confirm" = "Oppdater";
+"Error.UnableToConnect" = "Please connect to the internet";
 
 // MARK: - Relative date formatter
 "RelativeFormatter.days7" = "Siste 7 dager";

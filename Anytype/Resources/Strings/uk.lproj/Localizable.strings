@@ -495,6 +495,7 @@
 "Enter text" = "Введіть текст";
 "Unsupported value" = "Непідтримуване значення";
 "Select relation type" = "Виберіть тип відношення";
+"CommonOpenErrorView.Message" = "No data found";
 
 "Limit object types" = "Обмежити типи об'єктів";
 "Type" = "Тип";
@@ -544,9 +545,13 @@
 "Unfavorite" = "Вилучити з обраного";
 "Unsplash" = "Unsplash";
 "Go back" = "Повернутись";
-"Backed up on one node at least" = "Резервна копія принаймні на одному вузлі";
+"SyncStatus.LocalOnly.Title" = "Local-only";
+"SyncStatus.LocalOnly.Description" = "Local only";
+"SyncStatus.Synced.Anytype.Description" = "Backed up on Anytype Network";
+"SyncStatus.Synced.AnytypeStaging.Description" = "Backed up on Anytype Staging";
+"SyncStatus.Synced.SelfHosted.Description" = "Backed up on Self-hosted Network";
 "Downloading or uploading data to some node" = "Завантаження даних на деякий вузол";
-"Anytype node is not connected" = "Вузол Anytype не під'єднано";
+"Node is not connected" = "Node is not connected";
 "Initializing sync" = "Ініціалізація синхронізації";
 "Not syncing" = "Не синхронізовано";
 "Synced" = "Синхронізовано";
@@ -560,8 +565,7 @@
 "Into object" = "В об'єкт";
 "Add below" = "Додати знизу";
 "Change type" = "Змінити тип";
-"Link to existing object" = "Зв'язати з наявним об'єктом";
-"Link to object" = "Додайте посилання";
+"SlashMenu.LinkTo.Description" = "Create link to another object";
 "Upload playable audio" = "Завантажити відтворюване аудіо";
 "Code snippet" = "Фрагмент коду";
 "Bookmark" = "Закладка";
@@ -690,8 +694,8 @@
 "SetViewTypesPicker.Settings.Textfield.Placeholder.New.View" = "Нове подання";
 "SetViewTypesPicker.Settings.Textfield.Placeholder.Untitled" = "Без назви";
 
-// MARK: Select view picker
-"EditorSetViewPicker.View.Not.Supported.Title" = "Не підтримується";
+// MARK: Select view
+"EditorSet.View.Not.Supported.Title" = "Unsupported";
 
 // BlockContent
 "Content.File.Upload" = "Завантажити файл";
@@ -844,7 +848,7 @@
 
 "Sharing.Tip.Steps.1" = "Tap the iOS sharing button";
 "Sharing.Tip.Steps.2" = "Scroll past the app and tap More";
-"Sharing.Tip.Steps.3" = "Tap Edit to find “Anytype” and  tap";
+"Sharing.Tip.Steps.3" = "Tap Edit to find “Anytype” and tap";
 
 // MARK: - Initial
 
@@ -856,13 +860,14 @@
 "Initial.UnstableMiddle.WontUseProd" = "Я не використовуватиму свій виробничий обліковий запис";
 
 // MARK: - Create tip
-"LongTapCreateTip.Title" = "Створення об'єктів з певним типом";
+"LongTapCreateTip.Title" = "Create Objects with specific Type";
 "LongTapCreateTip.Message" = "Натисніть і утримуйте кнопку Створити об'єкт, щоб відкрити меню типів об'єктів";
 
 // MARK: - Error
 "Error.AnytypeNeedsUpgrate.Title" = "Update Your App";
 "Error.AnytypeNeedsUpgrate.Message" = "This object was modified in a newer version of Anytype. Please update the app to open it on this device";
 "Error.AnytypeNeedsUpgrate.Confirm" = "Update";
+"Error.UnableToConnect" = "Please connect to the internet";
 
 // MARK: - Relative date formatter
 "RelativeFormatter.days7" = "Previous 7 days";

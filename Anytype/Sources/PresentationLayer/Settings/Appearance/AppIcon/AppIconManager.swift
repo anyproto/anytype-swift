@@ -7,7 +7,7 @@ final class AppIconManager {
     static let shared = AppIconManager()
     
     var currentIcon: AppIcon {
-        AppIcon.allCases.first { $0.iconName == UIApplication.shared.alternateIconName } ?? .standart
+        AppIcon.availableCases.first { $0.iconName == UIApplication.shared.alternateIconName } ?? .standart
     }
     
     func setIcon(_ appIcon: AppIcon, completion: ((Bool) -> Void)? = nil) {

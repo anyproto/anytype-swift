@@ -45,8 +45,10 @@ final class FileActionsService: FileActionsServiceProtocol {
     
     // Clear file cache once for app launch
     private static var cacheCleared: Bool = false
+    private let fileService: FileServiceProtocol
     
-    init() {
+    init(fileService: FileServiceProtocol) {
+        self.fileService = fileService
         if !FileActionsService.cacheCleared {
             clearFileCache()
             FileActionsService.cacheCleared = true
@@ -70,30 +72,22 @@ final class FileActionsService: FileActionsServiceProtocol {
     }
  
     func uploadDataAt(data: FileData, contextID: BlockId, blockID: BlockId) async throws {
-        try await ClientCommands.blockUpload(.with {
-            $0.contextID = contextID
-            $0.blockID = blockID
-            $0.filePath = data.path
-        }).invoke()
-        
-        if data.isTemporary {
-            try? FileManager.default.removeItem(atPath: data.path)
+        defer {
+            if data.isTemporary {
+                try? FileManager.default.removeItem(atPath: data.path)
+            }
         }
+        try await fileService.uploadFile(path: data.path, contextID: contextID, blockID: blockID)
     }
     
     func uploadImage(spaceId: String, data: FileData) async throws -> Hash {
-        let result = try await ClientCommands.fileUpload(.with {
-            $0.localPath = data.path
-            $0.type = FileContentType.image.asMiddleware
-            $0.disableEncryption = false
-            $0.style = .auto
-            $0.spaceID = spaceId
-        }).invoke()
-        
-        if data.isTemporary {
-            try? FileManager.default.removeItem(atPath: data.path)
+        defer {
+            if data.isTemporary {
+                try? FileManager.default.removeItem(atPath: data.path)
+            }
         }
-        return try Hash(safeValue: result.hash)
+        
+        return try await fileService.uploadImage(path: data.path, spaceId: spaceId)
     }
     
     func uploadDataAt(source: FileUploadingSource, contextID: BlockId, blockID: BlockId) async throws {
@@ -107,14 +101,11 @@ final class FileActionsService: FileActionsServiceProtocol {
     }
     
     func clearCache() async throws {
-        try await ClientCommands.fileListOffload(.with {
-            $0.includeNotPinned = false
-        }).invoke()
+        try await fileService.clearCache()
     }
     
     func nodeUsage() async throws -> NodeUsageInfo {
-        let result = try await ClientCommands.fileNodeUsage().invoke()
-        return NodeUsageInfo(from: result)
+        return try await fileService.nodeUsage()
     }
     
     // MARK: - Private

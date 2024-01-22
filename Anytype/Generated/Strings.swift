@@ -633,8 +633,8 @@ internal enum Loc {
   internal enum Auth {
     /// Please allow access
     internal static let cameraPermissionTitle = Loc.tr("Localizable", "Auth.CameraPermissionTitle", fallback: "Please allow access")
-    /// Create New Account
-    internal static let join = Loc.tr("Localizable", "Auth.Join", fallback: "Create New Account")
+    /// Join
+    internal static let join = Loc.tr("Localizable", "Auth.Join", fallback: "Join")
     /// Log In
     internal static let logIn = Loc.tr("Localizable", "Auth.LogIn", fallback: "Log In")
     /// Next
@@ -1122,17 +1122,19 @@ internal enum Loc {
       internal static let movedTo = Loc.tr("Localizable", "Editor.Toast.MovedTo", fallback: "Block moved to")
     }
   }
-  internal enum EditorSetViewPicker {
+  internal enum EditorSet {
     internal enum View {
       internal enum Not {
         internal enum Supported {
           /// Unsupported
-          internal static let title = Loc.tr("Localizable", "EditorSetViewPicker.View.Not.Supported.Title", fallback: "Unsupported")
+          internal static let title = Loc.tr("Localizable", "EditorSet.View.Not.Supported.Title", fallback: "Unsupported")
         }
       }
     }
   }
   internal enum Error {
+    /// Please connect to the internet
+    internal static let unableToConnect = Loc.tr("Localizable", "Error.UnableToConnect", fallback: "Please connect to the internet")
     internal enum AnytypeNeedsUpgrate {
       /// Update
       internal static let confirm = Loc.tr("Localizable", "Error.AnytypeNeedsUpgrate.Confirm", fallback: "Update")
@@ -1311,8 +1313,8 @@ internal enum Loc {
   internal enum LongTapCreateTip {
     /// Long tap on Create Object button to open menu with types
     internal static let message = Loc.tr("Localizable", "LongTapCreateTip.Message", fallback: "Long tap on Create Object button to open menu with types")
-    /// Crete Objects with specific Type
-    internal static let title = Loc.tr("Localizable", "LongTapCreateTip.Title", fallback: "Crete Objects with specific Type")
+    /// Create Objects with specific Type
+    internal static let title = Loc.tr("Localizable", "LongTapCreateTip.Title", fallback: "Create Objects with specific Type")
   }
   internal enum Mention {
     internal enum Subtitle {
@@ -1707,8 +1709,8 @@ internal enum Loc {
         internal static let _1 = Loc.tr("Localizable", "Sharing.Tip.Steps.1", fallback: "Tap the iOS sharing button")
         /// Scroll past the app and tap More
         internal static let _2 = Loc.tr("Localizable", "Sharing.Tip.Steps.2", fallback: "Scroll past the app and tap More")
-        /// Tap Edit to find “Anytype” and  tap
-        internal static let _3 = Loc.tr("Localizable", "Sharing.Tip.Steps.3", fallback: "Tap Edit to find “Anytype” and  tap")
+        /// Tap Edit to find “Anytype” and tap
+        internal static let _3 = Loc.tr("Localizable", "Sharing.Tip.Steps.3", fallback: "Tap Edit to find “Anytype” and tap")
       }
     }
     internal enum Url {

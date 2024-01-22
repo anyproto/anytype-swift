@@ -2,22 +2,22 @@
 "StyleMenu.Color.TextColor.Placeholder" = "A";
 
 // MARK: Text Style in Slash and Style menu
-"TextStyle.Text.Title" = "Text";
+"TextStyle.Text.Title" = "文字";
 "TextStyle.Text.Subtitle" = "開始用純文字編寫";
 
 "TextStyle.Title.Title" = "Title";
-"TextStyle.Title.Subtitle" = "Big section heading";
+"TextStyle.Title.Subtitle" = "大节標題";
 
-"TextStyle.Heading.Title" = "Heading";
+"TextStyle.Heading.Title" = "標題";
 "TextStyle.Heading.Subtitle" = "中等大小的標題";
 
-"TextStyle.Subheading.Title" = "Subheading";
+"TextStyle.Subheading.Title" = "Subheading - 子標題";
 "TextStyle.Subheading.Subtitle" = "小標題";
 
 "TextStyle.Highlighted.Title" = "螢光筆";
 "TextStyle.Highlighted.Subtitle" = "高亮文本，需要特別關注";
 
-"TextStyle.Callout.Title" = "Callout";
+"TextStyle.Callout.Title" = "Callout - 標注";
 "TextStyle.Callout.Subtitle" = "帶有圖示的邊框文本";
 
 "TextStyle.Checkbox.Title" = "Checkbox";
@@ -49,8 +49,8 @@
 "BlockText.ContentType.Numbered.Placeholder" = "Numbered list item";
 "BlockText.ContentType.Quote.Placeholder" = "Highlighted text";
 "BlockText.ContentType.Header.Placeholder" = "Title";
-"BlockText.ContentType.Header2.Placeholder" = "Heading";
-"BlockText.ContentType.Header3.Placeholder" = "Subheading";
+"BlockText.ContentType.Header2.Placeholder" = "標題";
+"BlockText.ContentType.Header3.Placeholder" = "Subheading - 子標題";
 
 // MARK: - Block Link
 
@@ -59,7 +59,7 @@
 "BlockLink.PreviewSettings.IconSize.Medium" = "Medium";
 
 "BlockLink.PreviewSettings.Layout.Card.Title" = "Card";
-"BlockLink.PreviewSettings.Layout.Text.Title" = "Text";
+"BlockLink.PreviewSettings.Layout.Text.Title" = "文字";
 
 // MARK: - Settings
 "Settings.Title" = "Settings";
@@ -81,7 +81,7 @@
 "Relation.LinksTo.Title" = "to";
 
 "Relation.Format.Object.Title" = "Object";
-"Relation.Format.Text.Title" = "Text";
+"Relation.Format.Text.Title" = "文字";
 "Relation.Format.Number.Title" = "數字";
 "Relation.Format.Status.Title" = "狀態";
 "Relation.Format.Tag.Title" = "標籤";
@@ -96,7 +96,7 @@
 "Mention.Subtitle.Placeholder" = "Object";
 
 "None" = "None";
-"Callout" = "Callout";
+"Callout" = "Callout - 標注";
 "Toggle empty. Tap to create block." = "Toggle empty. Tap to create block.";
 "Loading, please wait" = "Loading, please wait";
 "Done" = "Done";
@@ -495,6 +495,7 @@
 "Enter text" = "Enter text";
 "Unsupported value" = "Unsupported value";
 "Select relation type" = "Select relation type";
+"CommonOpenErrorView.Message" = "No data found";
 
 "Limit object types" = "Limit object types";
 "Type" = "Type";
@@ -544,9 +545,13 @@
 "Unfavorite" = "Unfavorite";
 "Unsplash" = "Unsplash";
 "Go back" = "Go back";
-"Backed up on one node at least" = "Backed up on one node at least";
+"SyncStatus.LocalOnly.Title" = "Local-only";
+"SyncStatus.LocalOnly.Description" = "Local only";
+"SyncStatus.Synced.Anytype.Description" = "Backed up on Anytype Network";
+"SyncStatus.Synced.AnytypeStaging.Description" = "Backed up on Anytype Staging";
+"SyncStatus.Synced.SelfHosted.Description" = "Backed up on Self-hosted Network";
 "Downloading or uploading data to some node" = "Downloading or uploading data to some node";
-"Anytype node is not connected" = "Anytype node is not connected";
+"Node is not connected" = "Node is not connected";
 "Initializing sync" = "Initializing sync";
 "Not syncing" = "Not syncing";
 "Synced" = "Synced";
@@ -560,8 +565,7 @@
 "Into object" = "Into object";
 "Add below" = "Add below";
 "Change type" = "Change type";
-"Link to existing object" = "Link to existing object";
-"Link to object" = "Add link";
+"SlashMenu.LinkTo.Description" = "Create link to another object";
 "Upload playable audio" = "Upload playable audio";
 "Code snippet" = "Code snippet";
 "Bookmark" = "Bookmark";
@@ -690,8 +694,8 @@
 "SetViewTypesPicker.Settings.Textfield.Placeholder.New.View" = "New view";
 "SetViewTypesPicker.Settings.Textfield.Placeholder.Untitled" = "Untitled";
 
-// MARK: Select view picker
-"EditorSetViewPicker.View.Not.Supported.Title" = "Unsupported";
+// MARK: Select view
+"EditorSet.View.Not.Supported.Title" = "Unsupported";
 
 // BlockContent
 "Content.File.Upload" = "Upload a file";
@@ -843,7 +847,7 @@
 
 "Sharing.Tip.Steps.1" = "Tap the iOS sharing button";
 "Sharing.Tip.Steps.2" = "Scroll past the app and tap More";
-"Sharing.Tip.Steps.3" = "Tap Edit to find “Anytype” and  tap";
+"Sharing.Tip.Steps.3" = "Tap Edit to find “Anytype” and tap";
 
 // MARK: - Initial
 
@@ -855,13 +859,14 @@
 "Initial.UnstableMiddle.WontUseProd" = "I won't be using my production account";
 
 // MARK: - Create tip
-"LongTapCreateTip.Title" = "Crete Objects with specific Type";
+"LongTapCreateTip.Title" = "Create Objects with specific Type";
 "LongTapCreateTip.Message" = "Long tap on Create Object button to open menu with types";
 
 // MARK: - Error
 "Error.AnytypeNeedsUpgrate.Title" = "Update Your App";
 "Error.AnytypeNeedsUpgrate.Message" = "This object was modified in a newer version of Anytype. Please update the app to open it on this device";
 "Error.AnytypeNeedsUpgrate.Confirm" = "Update";
+"Error.UnableToConnect" = "Please connect to the internet";
 
 // MARK: - Relative date formatter
 "RelativeFormatter.days7" = "Previous 7 days";

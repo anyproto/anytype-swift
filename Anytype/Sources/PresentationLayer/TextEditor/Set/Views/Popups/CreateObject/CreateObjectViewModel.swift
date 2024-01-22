@@ -8,7 +8,7 @@ final class CreateObjectViewModel: CreateObjectViewModelProtocol {
     private let objectId: String
     private let blockId: String?
     private let relationService: RelationsServiceProtocol
-    private let textService: TextServiceProtocol
+    private let textServiceHandler: TextServiceProtocol
     private let debouncer = Debouncer()
     private let openToEditAction: () -> Void
     private let closeAction: () -> Void
@@ -18,14 +18,14 @@ final class CreateObjectViewModel: CreateObjectViewModelProtocol {
         objectId: String,
         blockId: String?,
         relationService: RelationsServiceProtocol,
-        textService: TextServiceProtocol,
+        textServiceHandler: TextServiceProtocol,
         openToEditAction: @escaping () -> Void,
         closeAction: @escaping () -> Void
     ) {
         self.objectId = objectId
         self.blockId = blockId
         self.relationService = relationService
-        self.textService = textService
+        self.textServiceHandler = textServiceHandler
         self.openToEditAction = openToEditAction
         self.closeAction = closeAction
     }
@@ -59,7 +59,7 @@ final class CreateObjectViewModel: CreateObjectViewModelProtocol {
         Task {
             if let blockId {
                 let middlewareString = MiddlewareString(text: text)
-                try await textService.setText(contextId: objectId, blockId: blockId, middlewareString: middlewareString)
+                try await textServiceHandler.setText(contextId: objectId, blockId: blockId, middlewareString: middlewareString)
             } else {
                 try await relationService.updateRelation(
                     relationKey: BundledRelationKey.name.rawValue,

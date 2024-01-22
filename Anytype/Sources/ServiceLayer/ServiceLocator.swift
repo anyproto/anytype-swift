@@ -8,7 +8,6 @@ import SecureService
 final class ServiceLocator {
     static let shared = ServiceLocator()
 
-    let textService = TextService()
     let templatesService = TemplatesService()
     let sharedContentManager: SharedContentManagerProtocol = SharedContentManager()
     lazy private(set) var sharedContentInteractor: SharedContentInteractorProtocol = SharedContentInteractor(
@@ -77,15 +76,15 @@ final class ServiceLocator {
     }
     
     func objectActionsService() -> ObjectActionsServiceProtocol {
-        ObjectActionsService(objectTypeProvider: objectTypeProvider())
+        ObjectActionsService()
     }
     
     func fileService() -> FileActionsServiceProtocol {
-        FileActionsService()
+        FileActionsService(fileService: FileService())
     }
     
     func searchService() -> SearchServiceProtocol {
-        SearchService(accountManager: accountManager())
+        SearchService(accountManager: accountManager(), searchMiddleService: SearchMiddleService())
     }
     
     func detailsService(objectId: BlockId) -> DetailsServiceProtocol {
@@ -198,7 +197,7 @@ final class ServiceLocator {
         )
     }
     
-    private lazy var _middlewareConfigurationProvider = MiddlewareConfigurationProvider()
+    private lazy var _middlewareConfigurationProvider = MiddlewareConfigurationProvider(middlewareConfigurationService: middlewareConfigurationService())
     func middlewareConfigurationProvider() -> MiddlewareConfigurationProviderProtocol {
         return _middlewareConfigurationProvider
     }
@@ -326,6 +325,14 @@ final class ServiceLocator {
     private lazy var _serverConfigurationStorage = ServerConfigurationStorage()
     func serverConfigurationStorage() -> ServerConfigurationStorage {
         return _serverConfigurationStorage
+    }
+    
+    func middlewareConfigurationService() -> MiddlewareConfigurationServiceProtocol {
+        MiddlewareConfigurationService()
+    }
+    
+    func textServiceHandler() -> TextServiceProtocol {
+        TextServiceHandler(textService: TextService())
     }
     
     // MARK: - Private

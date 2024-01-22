@@ -495,6 +495,7 @@
 "Enter text" = "Introducir texto";
 "Unsupported value" = "Valor no soportado";
 "Select relation type" = "Seleccionar tipo de relación";
+"CommonOpenErrorView.Message" = "No se han encontrado datos";
 
 "Limit object types" = "Limitar tipos de objeto";
 "Type" = "Tipo";
@@ -544,9 +545,13 @@
 "Unfavorite" = "Eliminar favorito";
 "Unsplash" = "Unsplash";
 "Go back" = "Volver";
-"Backed up on one node at least" = "Respaldado en al menos un nodo";
+"SyncStatus.LocalOnly.Title" = "Sólo local";
+"SyncStatus.LocalOnly.Description" = "Solo local";
+"SyncStatus.Synced.Anytype.Description" = "Respaldado en la red de Anytype";
+"SyncStatus.Synced.AnytypeStaging.Description" = "Respaldado en Anytype Staging";
+"SyncStatus.Synced.SelfHosted.Description" = "Respaldado en red de usuario";
 "Downloading or uploading data to some node" = "Descargando o subiendo datos a algún nodo";
-"Anytype node is not connected" = "Nodo de Anytype no está conectado";
+"Node is not connected" = "El nodo no está conectado";
 "Initializing sync" = "Inicializando la sincronización";
 "Not syncing" = "No sincronizado";
 "Synced" = "Sincronizado";
@@ -560,8 +565,7 @@
 "Into object" = "Objeto de nota";
 "Add below" = "Agregar debajo";
 "Change type" = "Cambiar tipo";
-"Link to existing object" = "Enlazar a objeto existente";
-"Link to object" = "Añadir enlace";
+"SlashMenu.LinkTo.Description" = "Crear enlace a otro objeto";
 "Upload playable audio" = "Subir audio reproducible";
 "Code snippet" = "Fragmento de código";
 "Bookmark" = "Marcador";
@@ -690,8 +694,8 @@
 "SetViewTypesPicker.Settings.Textfield.Placeholder.New.View" = "Nueva vista";
 "SetViewTypesPicker.Settings.Textfield.Placeholder.Untitled" = "Sin título";
 
-// MARK: Select view picker
-"EditorSetViewPicker.View.Not.Supported.Title" = "No soportado";
+// MARK: Select view
+"EditorSet.View.Not.Supported.Title" = "No soportado";
 
 // BlockContent
 "Content.File.Upload" = "Subir un archivo";
@@ -855,13 +859,14 @@
 "Initial.UnstableMiddle.WontUseProd" = "No voy a utilizar mi cuenta de producción";
 
 // MARK: - Create tip
-"LongTapCreateTip.Title" = "Objetos de Creta con tipo específico";
+"LongTapCreateTip.Title" = "Create Objects with specific Type";
 "LongTapCreateTip.Message" = "Pulsación larga en el botón Crear objeto para abrir el menú con tipos";
 
 // MARK: - Error
 "Error.AnytypeNeedsUpgrate.Title" = "Actualiza tu aplicación";
 "Error.AnytypeNeedsUpgrate.Message" = "Este objeto fue modificado en una versión más reciente de Anytype. Actualice la aplicación para abrirlo en este dispositivo";
 "Error.AnytypeNeedsUpgrate.Confirm" = "Actualizar";
+"Error.UnableToConnect" = "Please connect to the internet";
 
 // MARK: - Relative date formatter
 "RelativeFormatter.days7" = "Últimos 7 días";

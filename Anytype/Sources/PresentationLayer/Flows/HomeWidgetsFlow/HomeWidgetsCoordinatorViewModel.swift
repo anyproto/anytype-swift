@@ -30,6 +30,7 @@ final class HomeWidgetsCoordinatorViewModel: ObservableObject,
     private let workspacesStorage: WorkspacesStorageProtocol
     private let documentsProvider: DocumentsProviderProtocol
     private let setObjectCreationCoordinatorAssembly: SetObjectCreationCoordinatorAssemblyProtocol
+    private let sharingTipCoordinator: SharingTipCoordinatorProtocol
     
     // MARK: - State
     
@@ -85,7 +86,8 @@ final class HomeWidgetsCoordinatorViewModel: ObservableObject,
         objectTypeSearchModuleAssembly: ObjectTypeSearchModuleAssemblyProtocol,
         workspacesStorage: WorkspacesStorageProtocol,
         documentsProvider: DocumentsProviderProtocol,
-        setObjectCreationCoordinatorAssembly: SetObjectCreationCoordinatorAssemblyProtocol
+        setObjectCreationCoordinatorAssembly: SetObjectCreationCoordinatorAssemblyProtocol,
+        sharingTipCoordinator: SharingTipCoordinatorProtocol
     ) {
         self.homeWidgetsModuleAssembly = homeWidgetsModuleAssembly
         self.activeWorkspaceStorage = activeWorkspaceStorage
@@ -105,6 +107,7 @@ final class HomeWidgetsCoordinatorViewModel: ObservableObject,
         self.workspacesStorage = workspacesStorage
         self.documentsProvider = documentsProvider
         self.setObjectCreationCoordinatorAssembly = setObjectCreationCoordinatorAssembly
+        self.sharingTipCoordinator = sharingTipCoordinator
     }
 
     func onAppear() {
@@ -127,6 +130,8 @@ final class HomeWidgetsCoordinatorViewModel: ObservableObject,
                 self?.appActionsStorage.action = nil
             }
             .store(in: &subscriptions)
+        
+        sharingTipCoordinator.startObservingTips()
     }
     
     func homeWidgetsModule(info: AccountInfo) -> AnyView? {
@@ -321,7 +326,9 @@ final class HomeWidgetsCoordinatorViewModel: ObservableObject,
         case .createObject:
             createAndShowNewPage()
         case .showSharingExtension:
-            showSharing = true
+            navigationContext.dismissAllPresented(animated: true) { [weak self] in
+                self?.showSharing = true
+            }
         case .spaceSelection:
             navigationContext.dismissAllPresented(animated: true) { [weak self] in
                 self?.showSpaceSwitch = true

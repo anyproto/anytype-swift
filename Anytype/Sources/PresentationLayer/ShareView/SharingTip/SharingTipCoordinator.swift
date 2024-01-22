@@ -1,15 +1,17 @@
 import UIKit
 
+@MainActor
 protocol SharingTipCoordinatorProtocol {
     func startObservingTips()
 }
 
+@MainActor
 final class SharingTipCoordinator: SharingTipCoordinatorProtocol {
     private let sharingTipAssembly: SharingTipModuleAssemblyProtocol
     private var sharingTipPerformer: UIKitTipPerformer
     private let navigationContext: NavigationContextProtocol
     
-    init(
+    nonisolated init(
         sharingTipAssembly: SharingTipModuleAssemblyProtocol,
         navigationContext: NavigationContextProtocol
     ) {
@@ -25,15 +27,17 @@ final class SharingTipCoordinator: SharingTipCoordinatorProtocol {
         self.navigationContext = navigationContext
     }
     
-    @MainActor
     func startObservingTips() {
         sharingTipPerformer.presentHandler = { [weak self] in
             guard #available(iOS 17.0, *) else {
                 return
             }
+            
+            guard let self else { return }
+            
             UIApplication.shared.hideKeyboard()
             
-            guard let sharingTipView = self?.sharingTipAssembly.make(
+            guard let sharingTipView = sharingTipAssembly.make(
                 onClose: { [weak self] _ in
                     self?.navigationContext.dismissTopPresented(animated: true)
                 },
@@ -43,7 +47,7 @@ final class SharingTipCoordinator: SharingTipCoordinatorProtocol {
             ) else {
                 return
             }
-            self?.navigationContext.present(sharingTipView, animated: true)
+            navigationContext.present(sharingTipView, animated: true)
         }
     }
     

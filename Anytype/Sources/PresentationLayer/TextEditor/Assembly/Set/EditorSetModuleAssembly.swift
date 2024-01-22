@@ -61,10 +61,11 @@ final class EditorSetModuleAssembly: EditorSetModuleAssemblyProtocol {
             searchService: serviceLocator.searchService(),
             detailsService: detailsService,
             objectActionsService: serviceLocator.objectActionsService(),
-            textService: serviceLocator.textService,
+            textServiceHandler: serviceLocator.textServiceHandler(),
             groupsSubscriptionsHandler: serviceLocator.groupsSubscriptionsHandler(),
             setSubscriptionDataBuilder: SetSubscriptionDataBuilder(activeWorkspaceStorage: serviceLocator.activeWorkspaceStorage()),
-            objectTypeProvider: serviceLocator.objectTypeProvider(), 
+            setGroupSubscriptionDataBuilder: SetGroupSubscriptionDataBuilder(),
+            objectTypeProvider: serviceLocator.objectTypeProvider(),
             activeWorkspaceStorage: serviceLocator.activeWorkspaceStorage(),
             output: output
         )
@@ -86,10 +87,6 @@ final class EditorSetModuleAssembly: EditorSetModuleAssemblyProtocol {
             setViewSettingsGroupByModuleAssembly: modulesDI.setViewSettingsGroupByView(),
             editorSetRelationsCoordinatorAssembly: coordinatorsDI.setRelations(),
             setViewPickerCoordinatorAssembly: coordinatorsDI.setViewPicker(),
-            sharingTipCoordinator: SharingTipCoordinator(
-                sharingTipAssembly: modulesDI.sharingTip(),
-                navigationContext: uiHelpersDI.commonNavigationContext()
-            ),
             toastPresenter: uiHelpersDI.toastPresenter(),
             setObjectCreationSettingsCoordinator: coordinatorsDI.setObjectCreationSettings().make(with: uiHelpersDI.commonNavigationContext()),
             output: output

@@ -100,7 +100,7 @@ final class SetViewSettingsListModel: ObservableObject {
         view = setDocument.view(by: viewId)
         
         name = view.name
-        layoutValue = view.type.name
+        layoutValue = view.type.isSupported ? view.type.name : Loc.EditorSet.View.Not.Supported.title
         updateRelationsValue()
         
         let sorts = setDocument.sorts(for: viewId)

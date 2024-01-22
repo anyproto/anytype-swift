@@ -273,7 +273,7 @@
 "Actions.LinkItself" = "Tautkan ke";
 "Actions.MakeAsTemplate" = "Buat templat";
 "Actions.TemplateMakeDefault" = "Make default";
-"Actions.CreateWidget.Title" = "To widgets";
+"Actions.CreateWidget.Title" = "Ke widget";
 "Actions.CreateWidget.Success" = "Gawai baru telah dibuat";
 
 // Object Type
@@ -495,6 +495,7 @@
 "Enter text" = "Masukkan teks";
 "Unsupported value" = "Nilai tak didukung";
 "Select relation type" = "Pilih jenis relasi";
+"CommonOpenErrorView.Message" = "No data found";
 
 "Limit object types" = "Batasi tipe objek";
 "Type" = "Tipe";
@@ -544,9 +545,13 @@
 "Unfavorite" = "Batal favorit";
 "Unsplash" = "Unsplash";
 "Go back" = "Kembali";
-"Backed up on one node at least" = "Tercadangkan di minimal satu simpul";
+"SyncStatus.LocalOnly.Title" = "Hanya Lokal";
+"SyncStatus.LocalOnly.Description" = "Hanya lokal";
+"SyncStatus.Synced.Anytype.Description" = "Tercadangkan ke Jaringan Anytype";
+"SyncStatus.Synced.AnytypeStaging.Description" = "Backed up on Anytype Staging";
+"SyncStatus.Synced.SelfHosted.Description" = "Tercadangkan ke Jaringan Swaladen";
 "Downloading or uploading data to some node" = "Mengunduh atau mengunggah data ke simpul";
-"Anytype node is not connected" = "Simpul Anytype tidak terhubung";
+"Node is not connected" = "Simpul tidak terhubung";
 "Initializing sync" = "Memulai sinkron";
 "Not syncing" = "Tidak menyinkron";
 "Synced" = "Tersinkron";
@@ -560,8 +565,7 @@
 "Into object" = "Di dalam objek";
 "Add below" = "Tambah di bawah";
 "Change type" = "Ubah tipe";
-"Link to existing object" = "Tautkan ke objek yang telah ada";
-"Link to object" = "Tambahkan tautan";
+"SlashMenu.LinkTo.Description" = "Buat tautan ke objek lain";
 "Upload playable audio" = "Unggah audio yang dapat diputar";
 "Code snippet" = "Potongan kode";
 "Bookmark" = "Markah";
@@ -690,8 +694,8 @@
 "SetViewTypesPicker.Settings.Textfield.Placeholder.New.View" = "Tampilan baru";
 "SetViewTypesPicker.Settings.Textfield.Placeholder.Untitled" = "Nirjudul";
 
-// MARK: Select view picker
-"EditorSetViewPicker.View.Not.Supported.Title" = "Tidak didukung";
+// MARK: Select view
+"EditorSet.View.Not.Supported.Title" = "Tidak didukung";
 
 // BlockContent
 "Content.File.Upload" = "Unggah sebuah berkas";
@@ -791,7 +795,7 @@
 "FileStorage.LimitError" = "Kamu melewati batas unggah berkas";
 "FileStorage.LimitLegend.Current" = "%@ | %@";
 "FileStorage.LimitLegend.Other" = "Ruang lain | %@";
-"FileStorage.LimitLegend.Free" = "Free | %@";
+"FileStorage.LimitLegend.Free" = "Bebas | %@";
 
 // MARK: - Files List
 "FilesList.Title" = "Berkas tersinkronkan";
@@ -842,8 +846,8 @@
 "Sharing.Tip.Button.title" = "Tampilan menu berbagi";
 
 "Sharing.Tip.Steps.1" = "Ketuk tombol berbagi iOS";
-"Sharing.Tip.Steps.2" = "Scroll past the app and tap More";
-"Sharing.Tip.Steps.3" = "Tap Edit to find “Anytype” and  tap";
+"Sharing.Tip.Steps.2" = "Gulir melewati aplikasi dan ketuk Lainnya";
+"Sharing.Tip.Steps.3" = "Tap Edit to find “Anytype” and tap";
 
 // MARK: - Initial
 
@@ -862,6 +866,7 @@
 "Error.AnytypeNeedsUpgrate.Title" = "Perbarui Aplikasimu";
 "Error.AnytypeNeedsUpgrate.Message" = "Objek ini telah diubah pada versi terbaru Anytype. Perbaruilah aplikasimu untuk membuka objek ini di perangkat ini.";
 "Error.AnytypeNeedsUpgrate.Confirm" = "Perbarui";
+"Error.UnableToConnect" = "Tolong sambungkan ke internet";
 
 // MARK: - Relative date formatter
 "RelativeFormatter.days7" = "7 hari terakhir";
@@ -877,4 +882,4 @@
 
 // MARK: - Gallery
 "Gallery.Unavailable.Title" = "Galeri sedang dalam pengembangan";
-"Gallery.Unavailable.Message" = "Please use the desktop app for now";
+"Gallery.Unavailable.Message" = "Tolong gunakan aplikasi desktop untuk sekarang";

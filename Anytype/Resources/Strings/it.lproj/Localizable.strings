@@ -77,8 +77,8 @@
 "Relation.AddedToLibrary" = "Relazione ‘%@’ aggiunta alla tua libreria";
 "Relation.Deleted" = "Relazione eliminata";
 "Relation.From.Type" = "Dal tipo %@";
-"Relation.LinksFrom.Title" = "from";
-"Relation.LinksTo.Title" = "to";
+"Relation.LinksFrom.Title" = "da";
+"Relation.LinksTo.Title" = "a";
 
 "Relation.Format.Object.Title" = "Oggetto";
 "Relation.Format.Text.Title" = "Testo";
@@ -495,6 +495,7 @@
 "Enter text" = "Inserisci testo";
 "Unsupported value" = "Valore non supportato";
 "Select relation type" = "Selezione il tipo della Relazione";
+"CommonOpenErrorView.Message" = "Nessun dato trovato";
 
 "Limit object types" = "Limita tipi di oggetto";
 "Type" = "Tipo";
@@ -544,9 +545,13 @@
 "Unfavorite" = "Rimuovi da Preferiti";
 "Unsplash" = "Unsplash";
 "Go back" = "Indietro";
-"Backed up on one node at least" = "Salvato su almeno un nodo";
+"SyncStatus.LocalOnly.Title" = "Solo-locale";
+"SyncStatus.LocalOnly.Description" = "Solo Locale";
+"SyncStatus.Synced.Anytype.Description" = "Backup effettuato sulla Rete Anytype";
+"SyncStatus.Synced.AnytypeStaging.Description" = "Backup effettuato su Anytype Staging";
+"SyncStatus.Synced.SelfHosted.Description" = "Backup effettuato su Rete Self-hosted";
 "Downloading or uploading data to some node" = "Scaricamento o caricamento dati su qualche nodo";
-"Anytype node is not connected" = "Nodo di Anytype non connesso";
+"Node is not connected" = "Il nodo non è connesso";
 "Initializing sync" = "Inizializzazione sincronizzazione";
 "Not syncing" = "Sincronizzazione non attiva";
 "Synced" = "Sincronizzato";
@@ -560,8 +565,7 @@
 "Into object" = "Nell'oggetto";
 "Add below" = "Aggiungi sotto";
 "Change type" = "Cambia tipo";
-"Link to existing object" = "Collega a un oggetto esistente";
-"Link to object" = "Aggiungi link";
+"SlashMenu.LinkTo.Description" = "Crea collegamento a un altro oggetto";
 "Upload playable audio" = "Carica un audio riproducibile";
 "Code snippet" = "Frammento di codice";
 "Bookmark" = "Segnalibro";
@@ -690,8 +694,8 @@
 "SetViewTypesPicker.Settings.Textfield.Placeholder.New.View" = "Nuova vista";
 "SetViewTypesPicker.Settings.Textfield.Placeholder.Untitled" = "Senza titolo";
 
-// MARK: Select view picker
-"EditorSetViewPicker.View.Not.Supported.Title" = "Non supportato";
+// MARK: Select view
+"EditorSet.View.Not.Supported.Title" = "Non supportato";
 
 // BlockContent
 "Content.File.Upload" = "Carica un file";
@@ -838,12 +842,12 @@
 "Sharing.Text.TextBlock" = "Text block";
 
 // MARK: - Sharing tips
-"Sharing.Tip.Title" = "Share Extension";
-"Sharing.Tip.Button.title" = "Show share menu";
+"Sharing.Tip.Title" = "Condividi Estensione";
+"Sharing.Tip.Button.title" = "Mostra menu di condivisione";
 
-"Sharing.Tip.Steps.1" = "Tap the iOS sharing button";
-"Sharing.Tip.Steps.2" = "Scroll past the app and tap More";
-"Sharing.Tip.Steps.3" = "Tap Edit to find “Anytype” and  tap";
+"Sharing.Tip.Steps.1" = "Tocca il pulsante di condivisione iOS";
+"Sharing.Tip.Steps.2" = "Scorri oltre l'app e tocca Altro";
+"Sharing.Tip.Steps.3" = "Tocca Modifica per trovare “Anytype” e tocca";
 
 // MARK: - Initial
 
@@ -855,13 +859,14 @@
 "Initial.UnstableMiddle.WontUseProd" = "I won't be using my production account";
 
 // MARK: - Create tip
-"LongTapCreateTip.Title" = "Crea Oggetto con Tipo specifico";
+"LongTapCreateTip.Title" = "Crea Oggetti con Tipo specifico";
 "LongTapCreateTip.Message" = "Tocca a lungo il pulsante Crea Oggetto per aprire il menu con i tipi";
 
 // MARK: - Error
 "Error.AnytypeNeedsUpgrate.Title" = "Update Your App";
 "Error.AnytypeNeedsUpgrate.Message" = "This object was modified in a newer version of Anytype. Please update the app to open it on this device";
 "Error.AnytypeNeedsUpgrate.Confirm" = "Update";
+"Error.UnableToConnect" = "Si prega di connettersi a internet";
 
 // MARK: - Relative date formatter
 "RelativeFormatter.days7" = "Ultimi 7 giorni";
@@ -869,12 +874,12 @@
 "RelativeFormatter.older" = "Meno recenti";
 
 // MARK: - Server
-"Server.Network" = "Network";
-"Server.Networks" = "Networks";
-"Server.AddButton" = "Add Self-hosted Network";
+"Server.Network" = "Rete";
+"Server.Networks" = "Reti";
+"Server.AddButton" = "Aggiungi Rete Self-hosted";
 "Server.Anytype" = "Anytype";
-"Server.LocalOnly" = "Local-only";
+"Server.LocalOnly" = "Solo-locale";
 
 // MARK: - Gallery
 "Gallery.Unavailable.Title" = "La galleria sarà supportata presto";
-"Gallery.Unavailable.Message" = "Please use the desktop app for now";
+"Gallery.Unavailable.Message" = "Per favore usa l'applicazione desktop per ora";

@@ -1,4 +1,5 @@
 import Foundation
+import Services
 
 extension AccessoryViewStateManagerImpl: MentionViewDelegate {
     func selectMention(_ mention: MentionObject) {
@@ -26,6 +27,6 @@ extension AccessoryViewStateManagerImpl: MentionViewDelegate {
         textView.selectedRange = newCaretPosition
         handler.changeTextForced(newText, blockId: info.id)
 
-        AnytypeAnalytics.instance().logChangeTextStyle(.mention(MentionData.noDetails(blockId: "")))
+        AnytypeAnalytics.instance().logChangeTextStyle(.mention(.noDetails(blockId: "")))
     }
 }

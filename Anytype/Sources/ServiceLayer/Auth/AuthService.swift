@@ -168,12 +168,15 @@ final class AuthService: AuthServiceProtocol {
     }
     
     func deleteAccount() async throws -> AccountStatus {
-        let result = try await ClientCommands.accountDelete().invoke()
-        guard let model = result.status.asModel else {
-            throw AuthServiceParsingError.undefinedModel
+        do {
+            let result = try await ClientCommands.accountDelete().invoke()
+            guard let model = result.status.asModel else {
+                throw AuthServiceParsingError.undefinedModel
+            }
+            return model
+        } catch let error as Anytype_Rpc.Account.Delete.Response.Error {
+            throw error.asError
         }
-        
-        return model
     }
     
     func restoreAccount() async throws -> AccountStatus {

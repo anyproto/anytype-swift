@@ -10,10 +10,10 @@ final class BlockActionService: BlockActionServiceProtocol {
 
     private let singleService: BlockActionsServiceSingleProtocol
     private let objectActionService: ObjectActionsServiceProtocol
-    private let textService = TextService()
+    private let textServiceHandler: TextServiceProtocol
     private let listService: BlockListServiceProtocol
     private let bookmarkService: BookmarkServiceProtocol
-    private let fileService = FileActionsService()
+    private let fileService: FileActionsServiceProtocol
     private let cursorManager: EditorCursorManager
     private let objectTypeProvider: ObjectTypeProviderProtocol
     
@@ -24,8 +24,10 @@ final class BlockActionService: BlockActionServiceProtocol {
         listService: BlockListServiceProtocol,
         singleService: BlockActionsServiceSingleProtocol,
         objectActionService: ObjectActionsServiceProtocol,
+        textServiceHandler: TextServiceProtocol,
         modelsHolder: EditorMainItemModelsHolder,
         bookmarkService: BookmarkServiceProtocol,
+        fileService: FileActionsServiceProtocol,
         cursorManager: EditorCursorManager,
         objectTypeProvider: ObjectTypeProviderProtocol
     ) {
@@ -33,8 +35,10 @@ final class BlockActionService: BlockActionServiceProtocol {
         self.listService = listService
         self.singleService = singleService
         self.objectActionService = objectActionService
+        self.textServiceHandler = textServiceHandler
         self.modelsHolder = modelsHolder
         self.bookmarkService = bookmarkService
+        self.fileService = fileService
         self.cursorManager = cursorManager
         self.objectTypeProvider = objectTypeProvider
     }
@@ -64,7 +68,7 @@ final class BlockActionService: BlockActionServiceProtocol {
         newBlockContentType: BlockText.Style
     ) {
         Task {
-            let blockId = try await textService.split(
+            let blockId = try await textServiceHandler.split(
                 contextId: documentId,
                 blockId: blockId,
                 range: range,
@@ -101,7 +105,7 @@ final class BlockActionService: BlockActionServiceProtocol {
 
     func turnInto(_ style: BlockText.Style, blockId: BlockId) {
         Task {
-            try await textService.setStyle(contextId: documentId, blockId: blockId, style: style)
+            try await textServiceHandler.setStyle(contextId: documentId, blockId: blockId, style: style)
         }
     }
     
@@ -118,7 +122,7 @@ final class BlockActionService: BlockActionServiceProtocol {
     
     func checked(blockId: BlockId, newValue: Bool) {
         Task {
-            try await textService.checked(contextId: documentId, blockId: blockId, newValue: newValue)
+            try await textServiceHandler.checked(contextId: documentId, blockId: blockId, newValue: newValue)
         }
     }
     
@@ -136,7 +140,7 @@ final class BlockActionService: BlockActionServiceProtocol {
             }
             do {
                 self?.setFocus(model: previousBlock)
-                try await self?.textService.merge(contextId: documentId, firstBlockId: previousBlock.blockId, secondBlockId: secondBlockId)
+                try await self?.textServiceHandler.merge(contextId: documentId, firstBlockId: previousBlock.blockId, secondBlockId: secondBlockId)
             } catch {
                 // Do not set focus to previous block
             }
@@ -151,11 +155,11 @@ final class BlockActionService: BlockActionServiceProtocol {
     }
     
     func setText(contextId: BlockId, blockId: BlockId, middlewareString: MiddlewareString) async throws {
-        try await textService.setText(contextId: contextId, blockId: blockId, middlewareString: middlewareString)
+        try await textServiceHandler.setText(contextId: contextId, blockId: blockId, middlewareString: middlewareString)
     }
 
     func setTextForced(contextId: BlockId, blockId: BlockId, middlewareString: MiddlewareString) async throws {
-        try await textService.setTextForced(contextId: contextId, blockId: blockId, middlewareString: middlewareString)
+        try await textServiceHandler.setTextForced(contextId: contextId, blockId: blockId, middlewareString: middlewareString)
     }
     
     func setObjectType(type: ObjectType) async throws {

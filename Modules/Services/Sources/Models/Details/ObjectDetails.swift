@@ -25,6 +25,10 @@ public extension ObjectDetails {
         self.values = [:]
     }
     
+    static let deleted = ObjectDetails(
+        id: "",
+        values: [BundledRelationKey.isDeleted.rawValue: Google_Protobuf_Value(boolValue: true)]
+    )
 }
 
 public extension ObjectDetails {

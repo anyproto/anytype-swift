@@ -130,7 +130,7 @@ final class SetObjectWidgetInternalViewModel: CommonWidgetInternalViewModel, Wid
                 currentPage: 0,
                 numberOfRowsPerPage: widgetInfo.fixedLimit,
                 collectionId: setDocument.isCollection() ? setDocument.objectId : nil,
-                objectOrderIds: setDocument.objectOrderIds(for: SetSubscriptionData.setId)
+                objectOrderIds: setDocument.objectOrderIds(for: setSubscriptionDataBuilder.subscriptionId)
             )
         )
         
@@ -152,7 +152,7 @@ final class SetObjectWidgetInternalViewModel: CommonWidgetInternalViewModel, Wid
     }
     
     private func sortedRowDetails(_ details: [ObjectDetails]?) -> [ObjectDetails]? {
-        guard let objectOrderIds = setDocument?.objectOrderIds(for: SetSubscriptionData.setId),
+        guard let objectOrderIds = setDocument?.objectOrderIds(for: setSubscriptionDataBuilder.subscriptionId),
                 objectOrderIds.isNotEmpty else {
             return details
         }

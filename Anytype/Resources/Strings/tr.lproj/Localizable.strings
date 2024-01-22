@@ -495,6 +495,7 @@
 "Enter text" = "Metin gir";
 "Unsupported value" = "Desteklenmeyen değer";
 "Select relation type" = "Bağıntı türünü seç";
+"CommonOpenErrorView.Message" = "No data found";
 
 "Limit object types" = "Nesne türlerini sınırla";
 "Type" = "Tür";
@@ -544,9 +545,13 @@
 "Unfavorite" = "Favorilerden Çıkar";
 "Unsplash" = "Unsplash";
 "Go back" = "Geri git";
-"Backed up on one node at least" = "Backed up on one node at least";
+"SyncStatus.LocalOnly.Title" = "Local-only";
+"SyncStatus.LocalOnly.Description" = "Local only";
+"SyncStatus.Synced.Anytype.Description" = "Backed up on Anytype Network";
+"SyncStatus.Synced.AnytypeStaging.Description" = "Backed up on Anytype Staging";
+"SyncStatus.Synced.SelfHosted.Description" = "Backed up on Self-hosted Network";
 "Downloading or uploading data to some node" = "Downloading or uploading data to some node";
-"Anytype node is not connected" = "Anytype node is not connected";
+"Node is not connected" = "Node is not connected";
 "Initializing sync" = "Senkronizasyon başlatılıyor";
 "Not syncing" = "Senkronize edilmiyor";
 "Synced" = "Senkronize edildi";
@@ -560,8 +565,7 @@
 "Into object" = "Into object";
 "Add below" = "Aşağıya ekleyin";
 "Change type" = "Türü değiştir";
-"Link to existing object" = "Link to existing object";
-"Link to object" = "Bağlantı ekle";
+"SlashMenu.LinkTo.Description" = "Create link to another object";
 "Upload playable audio" = "Oynatılabilir ses yükle";
 "Code snippet" = "Kod parçacığı";
 "Bookmark" = "Yer imi";
@@ -602,7 +606,7 @@
 "Companies, contacts, friends and family" = "Companies, contacts, friends and family";
 "Failed to sync, trying again..." = "Failed to sync, trying again...";
 "Sync.Status.Version.Outdated.Description" = "Version outdated. Please update Anytype";
-"This object doesn't exist" = "This object doesn't exist";
+"This object doesn't exist" = "Bu nesne mevcut değil";
 "Setting up encrypted storage\nPlease wait" = "Setting up encrypted storage\nPlease wait";
 "These objects will be deleted irrevocably" = "These objects will be deleted irrevocably. You can’t undo this action.";
 "Delete account" = "Hesabı sil";
@@ -611,7 +615,7 @@
 "New" = "Yeni";
 
 // MARK: - DeletionAlert
-"DeletionAlert.title" = "Are you sure to delete account?";
+"DeletionAlert.title" = "Hesabınızı silmek istediğinizden emin misiniz?";
 "DeletionAlert.description" = "Diğer tüm cihazlarınızdan çıkış yapılacak, ve 30 gün içinde hesabı kurtarabileceksiniz. Sonrasında, hesabınız tamamen silinecek.";
 
 // MARK: - DataviewType
@@ -667,8 +671,8 @@
 
 // MARK: Link Past Actions
 "LinkPaste.text" = "Metin olarak yapıştır";
-"LinkPaste.link" = "Paste as link";
-"LinkPaste.bookmark" = "Create bookmark";
+"LinkPaste.link" = "Link olarak yapıştır";
+"LinkPaste.bookmark" = "Yer imi oluştur";
 
 // Relation Actions
 "RelationAction.CopyPhone" = "Copy phone numbler";
@@ -676,7 +680,7 @@
 "RelationAction.CopyLink" = "Bağlantıyı kopyala";
 "RelationAction.Copied" = "Kopyalandı";
 "RelationAction.ReloadingContent" = "İçerik yeniden yükleniyor";
-"RelationAction.ReloadContent" = "Reload object content";
+"RelationAction.ReloadContent" = "Nesne içeriğini yenile";
 "RelationAction.CallPhone" = "Call phone numbler";
 "RelationAction.SendEmail" = "E-posta gönder";
 "RelationAction.OpenLink" = "Bağlantıyı Aç";
@@ -690,8 +694,8 @@
 "SetViewTypesPicker.Settings.Textfield.Placeholder.New.View" = "Yeni görünüm";
 "SetViewTypesPicker.Settings.Textfield.Placeholder.Untitled" = "Başlıksız";
 
-// MARK: Select view picker
-"EditorSetViewPicker.View.Not.Supported.Title" = "Desteklenmiyor";
+// MARK: Select view
+"EditorSet.View.Not.Supported.Title" = "Unsupported";
 
 // BlockContent
 "Content.File.Upload" = "Dosya yükle";
@@ -844,7 +848,7 @@
 
 "Sharing.Tip.Steps.1" = "Tap the iOS sharing button";
 "Sharing.Tip.Steps.2" = "Scroll past the app and tap More";
-"Sharing.Tip.Steps.3" = "Tap Edit to find “Anytype” and  tap";
+"Sharing.Tip.Steps.3" = "Tap Edit to find “Anytype” and tap";
 
 // MARK: - Initial
 
@@ -856,13 +860,14 @@
 "Initial.UnstableMiddle.WontUseProd" = "I won't be using my production account";
 
 // MARK: - Create tip
-"LongTapCreateTip.Title" = "Crete Objects with specific Type";
+"LongTapCreateTip.Title" = "Create Objects with specific Type";
 "LongTapCreateTip.Message" = "Long tap on Create Object button to open menu with types";
 
 // MARK: - Error
 "Error.AnytypeNeedsUpgrate.Title" = "Update Your App";
 "Error.AnytypeNeedsUpgrate.Message" = "This object was modified in a newer version of Anytype. Please update the app to open it on this device";
 "Error.AnytypeNeedsUpgrate.Confirm" = "Update";
+"Error.UnableToConnect" = "Please connect to the internet";
 
 // MARK: - Relative date formatter
 "RelativeFormatter.days7" = "Previous 7 days";

@@ -6,11 +6,11 @@ import AnytypeCore
 final class BlockLinkCardView: UIView, BlockContentView {
     
     // MARK: - Views
-
+    private let smallIconView = IconViewUIKit()
     private let coverView = BlockLinkCoverView()
     private let largeLeadingIconImageView = IconViewUIKit()
 
-    private let titleLabel = AnytypeLabel(style: .uxTitle2Medium)
+    private let titleLabel = AnytypeLabel(style: .previewTitle1Medium)
     private let descriptionLabel = AnytypeLabel(style: .relation3Regular)
     private let objectTypeLabel = AnytypeLabel(style: .relation3Regular)
     private let taskButton = UIButton()
@@ -18,6 +18,7 @@ final class BlockLinkCardView: UIView, BlockContentView {
     private let mainVerticalStackView = UIStackView()
     private let verticalTextsStackView = UIStackView()
     private let horizontalContentStackView = UIStackView()
+    private let titleContaner = UIStackView()
 
     private var largeLeadingIconImageViewHeightConstraint: NSLayoutConstraint?
     private var verticalTextsStackViewHeightConstraint: NSLayoutConstraint?
@@ -39,13 +40,13 @@ final class BlockLinkCardView: UIView, BlockContentView {
     // MARK: - Configuration updates
 
     func update(with configuration: BlockLinkCardConfiguration) {
-        configuration.state.applyTitleState(
-            on: titleLabel,
-            font: configuration.state.textTitleFont,
-            iconIntendHidden: configuration.state.iconSize == .medium
-        )
+        
+        titleLabel.textColor = configuration.state.titleColor
+        titleLabel.setText(configuration.state.title)
 
-
+        smallIconView.icon = configuration.state.icon
+        smallIconView.isHidden = configuration.state.iconSize == .medium
+        
         descriptionLabel.isHidden = configuration.state.description.isEmpty
         descriptionLabel.setText(configuration.state.description)
 
@@ -164,10 +165,18 @@ final class BlockLinkCardView: UIView, BlockContentView {
         )
         horizontalContentStackView.isLayoutMarginsRelativeArrangement = true
 
+        smallIconView.layoutUsing.anchors {
+            $0.size(CGSize(width: 18, height: 18))
+        }
+        
+        titleContaner.spacing = 4
+        titleContaner.addArrangedSubview(smallIconView)
+        titleContaner.addArrangedSubview(titleLabel)
+        
         mainVerticalStackView.addArrangedSubview(coverView)
         mainVerticalStackView.addArrangedSubview(horizontalContentStackView)
 
-        verticalTextsStackView.addArrangedSubview(titleLabel)
+        verticalTextsStackView.addArrangedSubview(titleContaner)
         verticalTextsStackView.addArrangedSubview(descriptionLabel)
         verticalTextsStackView.addArrangedSubview(objectTypeLabel)
         
@@ -191,11 +200,9 @@ final class BlockLinkCardView: UIView, BlockContentView {
             $0.pinToSuperview(insets: .init(top: 0, left: 0, bottom: 16, right: 0))
         }
 
-        addSubview(taskButton) {
-            $0.top.equal(to: titleLabel.topAnchor)
-            $0.leading.equal(to: titleLabel.leadingAnchor)
-            $0.width.equal(to: 24)
-            $0.height.equal(to: 24)
+        smallIconView.isUserInteractionEnabled = true
+        smallIconView.addSubview(taskButton) {
+            $0.pinToSuperview()
         }
             
         verticalTextsStackViewHeightConstraint = verticalWrapperStackView.heightAnchor.constraint(greaterThanOrEqualToConstant: 48)
