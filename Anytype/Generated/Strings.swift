@@ -633,8 +633,8 @@ internal enum Loc {
   internal enum Auth {
     /// Please allow access
     internal static let cameraPermissionTitle = Loc.tr("Localizable", "Auth.CameraPermissionTitle", fallback: "Please allow access")
-    /// Create New Account
-    internal static let join = Loc.tr("Localizable", "Auth.Join", fallback: "Create New Account")
+    /// Join
+    internal static let join = Loc.tr("Localizable", "Auth.Join", fallback: "Join")
     /// Log In
     internal static let logIn = Loc.tr("Localizable", "Auth.LogIn", fallback: "Log In")
     /// Next
