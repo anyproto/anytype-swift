@@ -10,7 +10,7 @@ final class RelationValueCoordinator: RelationValueCoordinatorProtocol,
     private let navigationContext: NavigationContextProtocol
     private let relationValueModuleAssembly: RelationValueModuleAssemblyProtocol
     private let dateRelationCalendarModuleAssembly: DateRelationCalendarModuleAssemblyProtocol
-    private let relationContainerModuleAssembly: RelationContainerModuleAssemblyProtocol
+    private let statusRelationListModuleAssembly: StatusRelationListModuleAssemblyProtocol
     private let urlOpener: URLOpenerProtocol
     private weak var output: RelationValueCoordinatorOutput?
     
@@ -18,13 +18,13 @@ final class RelationValueCoordinator: RelationValueCoordinatorProtocol,
         navigationContext: NavigationContextProtocol,
         relationValueModuleAssembly: RelationValueModuleAssemblyProtocol,
         dateRelationCalendarModuleAssembly: DateRelationCalendarModuleAssemblyProtocol,
-        relationContainerModuleAssembly: RelationContainerModuleAssemblyProtocol,
+        statusRelationListModuleAssembly: StatusRelationListModuleAssemblyProtocol,
         urlOpener: URLOpenerProtocol
     ) {
         self.navigationContext = navigationContext
         self.relationValueModuleAssembly = relationValueModuleAssembly
         self.dateRelationCalendarModuleAssembly = dateRelationCalendarModuleAssembly
-        self.relationContainerModuleAssembly = relationContainerModuleAssembly
+        self.statusRelationListModuleAssembly = statusRelationListModuleAssembly
         self.urlOpener = urlOpener
     }
     
@@ -52,9 +52,8 @@ final class RelationValueCoordinator: RelationValueCoordinatorProtocol,
         }
         
         if case .status(let status) = relation {
-            let view = relationContainerModuleAssembly.make(
-                title: status.name,
-                output: nil
+            let view = statusRelationListModuleAssembly.make(
+                title: status.name
             )
             navigationContext.present(view)
             

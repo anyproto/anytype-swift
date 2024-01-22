@@ -1,9 +1,14 @@
 import SwiftUI
 
-struct RelationContainerView: View {
+struct RelationListContainerView<Content>: View where Content: View {
+    @State private var searchText = ""
     
-    @StateObject var viewModel: RelationContainerViewModel
-    @State var searchText = ""
+    let title: String
+    let isEmpty: Bool
+    let listContent: () -> Content
+    let onCreate: () -> Void
+    let onClear: () -> Void
+    let onSearchTextChange: (_ text: String) -> Void
     
     var body: some View {
         VStack(spacing: 0) {
@@ -16,7 +21,7 @@ struct RelationContainerView: View {
     private var navigationView: some View {
         NavigationView {
             content
-                .navigationTitle(viewModel.title)
+                .navigationTitle(title)
                 .navigationBarTitleDisplayMode(.inline)
                 .toolbar {
                     ToolbarItem(placement: .navigationBarLeading) {
@@ -34,29 +39,28 @@ struct RelationContainerView: View {
         VStack(spacing: 0) {
             SearchBar(text: $searchText, focused: false, placeholder: Loc.search)
                 .onChange(of: searchText) { text in
-                    viewModel.searchTextChanged(text)
+                    onSearchTextChange(text)
                 }
-//            if isEmpty {
+            if isEmpty {
                 emptyState
-//            } else {
-//                list
-//            }
+            } else {
+                list
+            }
         }
     }
     
     private var list: some View {
         PlainList {
-            
+            listContent()
         }
         .buttonStyle(BorderlessButtonStyle())
         .bounceBehaviorBasedOnSize()
         .background(Color.Background.secondary)
-        .border(.orange, width: 1)
     }
     
     private var clearButton: some View {
         Button {
-            viewModel.clearButtonTapped()
+            onClear()
         } label: {
             AnytypeText(Loc.clear, style: .uxBodyRegular, color: .Button.active)
         }
@@ -64,7 +68,7 @@ struct RelationContainerView: View {
     
     private var addButton: some View {
         Button {
-            viewModel.addButtonTapped()
+           onCreate()
         } label: {
             Image(asset: .X32.plus).foregroundColor(.Button.active)
         }
@@ -79,21 +83,10 @@ struct RelationContainerView: View {
             AnytypeText(Loc.Relations.EmptyState.description, style: .uxCalloutMedium, color: .Text.primary)
             Spacer.fixedHeight(12)
             StandardButton(Loc.create, style: .secondarySmall) {
-                viewModel.addButtonTapped()
+                onCreate()
             }
             Spacer.fixedHeight(48)
             Spacer()
         }
-    }
-}
-
-struct RelationContainerView_Previews: PreviewProvider {
-    static var previews: some View {
-        RelationContainerView(
-            viewModel: RelationContainerViewModel(
-                title: "",
-                output: nil
-            )
-        )
     }
 }
