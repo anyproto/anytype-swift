@@ -1399,12 +1399,12 @@ internal enum Loc {
         internal static let title = Loc.tr("Localizable", "Relation.Format.Phone.Title", fallback: "Phone number")
       }
       internal enum Status {
-        /// Status
-        internal static let title = Loc.tr("Localizable", "Relation.Format.Status.Title", fallback: "Status")
+        /// Select
+        internal static let title = Loc.tr("Localizable", "Relation.Format.Status.Title", fallback: "Select")
       }
       internal enum Tag {
-        /// Tag
-        internal static let title = Loc.tr("Localizable", "Relation.Format.Tag.Title", fallback: "Tag")
+        /// Multi-select
+        internal static let title = Loc.tr("Localizable", "Relation.Format.Tag.Title", fallback: "Multi-select")
       }
       internal enum Text {
         /// Text

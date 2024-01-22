@@ -141,6 +141,7 @@ internal extension ImageAsset {
     }
     static let folder = ImageAsset.bundle(name: "x24/Folder")
     static let more = ImageAsset.bundle(name: "x24/More")
+    static let multiselect = ImageAsset.bundle(name: "x24/Multiselect")
     static let name = ImageAsset.bundle(name: "x24/Name")
     static let number = ImageAsset.bundle(name: "x24/Number")
     static let object = ImageAsset.bundle(name: "x24/Object")
@@ -152,6 +153,7 @@ internal extension ImageAsset {
     static let relations = ImageAsset.bundle(name: "x24/Relations")
     static let removeRed = ImageAsset.bundle(name: "x24/Remove Red")
     static let replace = ImageAsset.bundle(name: "x24/Replace")
+    static let select = ImageAsset.bundle(name: "x24/Select")
     static let status = ImageAsset.bundle(name: "x24/Status")
     static let tag = ImageAsset.bundle(name: "x24/Tag")
     static let text = ImageAsset.bundle(name: "x24/Text")
