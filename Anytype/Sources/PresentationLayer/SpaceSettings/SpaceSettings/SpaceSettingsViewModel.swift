@@ -123,7 +123,7 @@ final class SpaceSettingsViewModel: ObservableObject {
         if let spaceRelationDetails = try? relationDetailsStorage.relationsDetails(for: .spaceId, spaceId: activeWorkspaceStorage.workspaceInfo.accountSpaceId) {
             info.append(
                 SettingsInfoModel(title: spaceRelationDetails.name, subtitle: details.id, onTap: { [weak self] in
-                    UIPasteboard.general.string = details.targetSpaceId
+                    UIPasteboard.general.string = details.id
                     self?.snackBarData = .init(text: Loc.copiedToClipboard(spaceRelationDetails.name), showSnackBar: true)
                 })
             )
