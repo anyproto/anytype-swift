@@ -1,6 +1,7 @@
 import SwiftUI
 import Combine
 import AnytypeCore
+import Services
 
 @MainActor
 final class LoginViewModel: ObservableObject {
@@ -172,9 +173,9 @@ final class LoginViewModel: ObservableObject {
                 stopButtonsLoading()
             }
             do {
-                let status = try await authService.selectAccount(id: id)
+                let account = try await authService.selectAccount(id: id)
                 
-                switch status {
+                switch account.status {
                 case .active:
                     applicationStateService.state = .home
                 case .pendingDeletion:
