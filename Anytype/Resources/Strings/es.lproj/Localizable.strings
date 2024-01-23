@@ -187,7 +187,7 @@
 "Auth.CameraPermissionTitle" = "Por favor, permita el acceso ";
 "Restore secret phrase from keychain" = "Restaurar Frase de Recuperación desde el llavero";
 "Auth.LogIn" = "Iniciar sesión";
-"Auth.Join" = "Crear una nueva cuenta";
+"Auth.Join" = "Join";
 "Auth.Welcome.Subtitle" = "Cualquier tipo es tu espacio seguro para escribir, planear, pensar y organizar todo lo que te importe.";
 "Auth.Caption.Privacy.Text" = "Al continuar aceptas las [Condiciones de uso](%@) y la [Política de privacidad](%@)";
 "Auth.Next" = "Siguiente";
