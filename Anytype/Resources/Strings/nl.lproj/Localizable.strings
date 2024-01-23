@@ -187,7 +187,7 @@
 "Auth.CameraPermissionTitle" = "Geef toegang";
 "Restore secret phrase from keychain" = "Herstel de herstelzin vanuit de keychain";
 "Auth.LogIn" = "Inloggen";
-"Auth.Join" = "Maak een nieuw account";
+"Auth.Join" = "Join";
 "Auth.Welcome.Subtitle" = "Anytype is jouw veilige ruimte om te schrijven, te plannen, na te denken en te organiseren van de dingen die jij belangrijk vindt.";
 "Auth.Caption.Privacy.Text" = "By continuing you agree to [Terms of Use](%@) and [Privacy Policy](%@)";
 "Auth.Next" = "Volgende";
@@ -546,10 +546,10 @@
 "Unsplash" = "Unsplash";
 "Go back" = "Go back";
 "SyncStatus.LocalOnly.Title" = "Local-only";
-"SyncStatus.LocalOnly.Description" = "Local only";
-"SyncStatus.Synced.Anytype.Description" = "Backed up on Anytype Network";
-"SyncStatus.Synced.AnytypeStaging.Description" = "Backed up on Anytype Staging";
-"SyncStatus.Synced.SelfHosted.Description" = "Backed up on Self-hosted Network";
+"SyncStatus.LocalOnly.Description" = "Alleen lokaal";
+"SyncStatus.Synced.Anytype.Description" = "Back-up gemaakt op Anytype netwerk";
+"SyncStatus.Synced.AnytypeStaging.Description" = "Back-up gemaakt op Anytype staging";
+"SyncStatus.Synced.SelfHosted.Description" = "Back-up gemaakt op zelf-gehost netwerk";
 "Downloading or uploading data to some node" = "Downloading or uploading data to some node";
 "Node is not connected" = "Node is not connected";
 "Initializing sync" = "Initializing sync";
