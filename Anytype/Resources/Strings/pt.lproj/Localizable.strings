@@ -187,7 +187,7 @@
 "Auth.CameraPermissionTitle" = "Por favor, permita o acesso";
 "Restore secret phrase from keychain" = "Restaurar Frase de Recuperação a partir do Porta-chaves";
 "Auth.LogIn" = "Log In";
-"Auth.Join" = "Create New Account";
+"Auth.Join" = "Join";
 "Auth.Welcome.Subtitle" = "O Anytype é o teu espaço seguro para escrever, planear, pensar e organizar tudo o que é importante para si.";
 "Auth.Caption.Privacy.Text" = "Ao continuar, está a concordar com os [Termos de Uso](%@) e com a [Política de Privacidade](%@)";
 "Auth.Next" = "Seguinte";
