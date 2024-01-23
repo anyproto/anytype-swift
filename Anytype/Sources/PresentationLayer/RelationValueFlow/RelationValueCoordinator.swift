@@ -52,10 +52,20 @@ final class RelationValueCoordinator: RelationValueCoordinatorProtocol,
         }
         
         if case .status(let status) = relation {
-            let view = statusRelationListModuleAssembly.make(
-                title: status.name
+            let configuration = RelationModuleConfiguration(
+                title: status.name,
+                isEditable: relation.isEditable,
+                relationKey: status.key,
+                spaceId: objectDetails.spaceId,
+                analyticsType: analyticsType
             )
-            navigationContext.present(view)
+            let view = statusRelationListModuleAssembly.make(
+                objectId: objectDetails.id,
+                configuration: configuration,
+                selectedStatus: status.values.first
+            )
+            
+            navigationContext.present(view, mediumDetent: status.values.first.isNotNil)
             
             return
         }

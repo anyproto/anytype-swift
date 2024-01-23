@@ -1,5 +1,4 @@
 import ProtobufMessages
-import Combine
 import Services
 import AnytypeCore
 
@@ -35,7 +34,7 @@ protocol SearchServiceProtocol: AnyObject {
     func searchObjectsWithLayouts(text: String, layouts: [DetailsLayout], spaceId: String) async throws -> [ObjectDetails]
 }
 
-final class SearchService: ObservableObject, SearchServiceProtocol {
+final class SearchService: SearchServiceProtocol {
     
     private enum Constants {
         static let defaultLimit = 100

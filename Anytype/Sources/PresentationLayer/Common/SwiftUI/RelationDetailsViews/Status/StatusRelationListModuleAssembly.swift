@@ -3,7 +3,11 @@ import SwiftUI
 
 protocol StatusRelationListModuleAssemblyProtocol: AnyObject {
     @MainActor
-    func make(title: String) -> AnyView
+    func make(
+        objectId: String,
+        configuration: RelationModuleConfiguration,
+        selectedStatus: Relation.Status.Option?
+    ) -> AnyView
 }
 
 final class StatusRelationListModuleAssembly: StatusRelationListModuleAssemblyProtocol {
@@ -17,10 +21,13 @@ final class StatusRelationListModuleAssembly: StatusRelationListModuleAssemblyPr
     // MARK: - StatusRelationListModuleAssemblyProtocol
     
     @MainActor
-    func make(title: String) -> AnyView {
+    func make(objectId: String, configuration: RelationModuleConfiguration, selectedStatus: Relation.Status.Option?) -> AnyView {
         StatusRelationListView(
             viewModel: StatusRelationListViewModel(
-                title: title
+                configuration: configuration,
+                selectedStatus: selectedStatus,
+                relationsService: self.serviceLocator.relationService(objectId: objectId),
+                searchService: self.serviceLocator.searchService()
             )
         )
         .eraseToAnyView()

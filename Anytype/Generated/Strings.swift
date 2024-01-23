@@ -1369,6 +1369,14 @@ internal enum Loc {
     internal static let deleted = Loc.tr("Localizable", "Relation.Deleted", fallback: "Deleted relation")
     /// My relations
     internal static let myRelations = Loc.tr("Localizable", "Relation.MyRelations", fallback: "My relations")
+    internal enum Create {
+      internal enum Row {
+        /// Create “%@”
+        internal static func title(_ p1: Any) -> String {
+          return Loc.tr("Localizable", "Relation.Create.Row.title", String(describing: p1), fallback: "Create “%@”")
+        }
+      }
+    }
     internal enum Format {
       internal enum Checkbox {
         /// Checkbox

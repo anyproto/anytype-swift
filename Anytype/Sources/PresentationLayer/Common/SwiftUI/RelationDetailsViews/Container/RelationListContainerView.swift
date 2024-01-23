@@ -6,7 +6,7 @@ struct RelationListContainerView<Content>: View where Content: View {
     let title: String
     let isEmpty: Bool
     let listContent: () -> Content
-    let onCreate: () -> Void
+    let onCreate: (_ title: String?) -> Void
     let onClear: () -> Void
     let onSearchTextChange: (_ text: String) -> Void
     
@@ -28,7 +28,7 @@ struct RelationListContainerView<Content>: View where Content: View {
                         clearButton
                     }
                     ToolbarItem(placement: .navigationBarTrailing) {
-                        addButton
+                        createButton
                     }
                 }
         }
@@ -52,6 +52,9 @@ struct RelationListContainerView<Content>: View where Content: View {
     private var list: some View {
         PlainList {
             listContent()
+            if searchText.isNotEmpty {
+                createRow
+            }
         }
         .buttonStyle(BorderlessButtonStyle())
         .bounceBehaviorBasedOnSize()
@@ -66,12 +69,25 @@ struct RelationListContainerView<Content>: View where Content: View {
         }
     }
     
-    private var addButton: some View {
+    private var createButton: some View {
         Button {
-           onCreate()
+            onCreate(nil)
         } label: {
             Image(asset: .X32.plus).foregroundColor(.Button.active)
         }
+    }
+    
+    private var createRow: some View {
+        Button {
+            onCreate(searchText)
+        } label: {
+            HStack(spacing: 10) {
+                Image(asset: .X32.plus).foregroundColor(.Button.active)
+                AnytypeText(Loc.Relation.Create.Row.title(searchText), style: .uxBodyRegular, color: .Text.primary)
+            }
+        }
+        .frame(height: 52)
+        .padding(.horizontal, 20)
     }
     
     private var emptyState: some View {
@@ -83,7 +99,7 @@ struct RelationListContainerView<Content>: View where Content: View {
             AnytypeText(Loc.Relations.EmptyState.description, style: .uxCalloutMedium, color: .Text.primary)
             Spacer.fixedHeight(12)
             StandardButton(Loc.create, style: .secondarySmall) {
-                onCreate()
+                onCreate(nil)
             }
             Spacer.fixedHeight(48)
             Spacer()
