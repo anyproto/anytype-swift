@@ -94,7 +94,7 @@ final class RelationsSearchViewModel: NewInternalSearchViewModelProtocol {
             }
         case .dataview(let activeViewId):
             Task { @MainActor in
-                try await interactor.addRelationToDataview(spaceId: document.spaceId, relation: relation, activeViewId: activeViewId)
+                try await interactor.addRelationToDataview(objectId: document.objectId, relation: relation, activeViewId: activeViewId)
                 onSelect(relation)
             }
         }
