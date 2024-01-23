@@ -269,6 +269,7 @@ public enum Anytype_Model_ObjectOrigin: SwiftProtobuf.Enum {
   case sharingExtension // = 5
   case usecase // = 6
   case builtin // = 7
+  case bookmark // = 8
   case UNRECOGNIZED(Int)
 
   public init() {
@@ -285,6 +286,7 @@ public enum Anytype_Model_ObjectOrigin: SwiftProtobuf.Enum {
     case 5: self = .sharingExtension
     case 6: self = .usecase
     case 7: self = .builtin
+    case 8: self = .bookmark
     default: self = .UNRECOGNIZED(rawValue)
     }
   }
@@ -299,6 +301,7 @@ public enum Anytype_Model_ObjectOrigin: SwiftProtobuf.Enum {
     case .sharingExtension: return 5
     case .usecase: return 6
     case .builtin: return 7
+    case .bookmark: return 8
     case .UNRECOGNIZED(let i): return i
     }
   }
@@ -318,6 +321,7 @@ extension Anytype_Model_ObjectOrigin: CaseIterable {
     .sharingExtension,
     .usecase,
     .builtin,
+    .bookmark,
   ]
 }
 
@@ -2312,6 +2316,17 @@ public struct Anytype_Model_Block {
         case soundcloud // = 5
         case googleMaps // = 6
         case miro // = 7
+        case figma // = 8
+        case twitter // = 9
+        case openStreetMap // = 10
+        case reddit // = 11
+        case facebook // = 12
+        case instagram // = 13
+        case telegram // = 14
+        case githubGist // = 15
+        case codepen // = 16
+        case bilibili // = 17
+        case excalidraw // = 18
         case UNRECOGNIZED(Int)
 
         public init() {
@@ -2328,6 +2343,17 @@ public struct Anytype_Model_Block {
           case 5: self = .soundcloud
           case 6: self = .googleMaps
           case 7: self = .miro
+          case 8: self = .figma
+          case 9: self = .twitter
+          case 10: self = .openStreetMap
+          case 11: self = .reddit
+          case 12: self = .facebook
+          case 13: self = .instagram
+          case 14: self = .telegram
+          case 15: self = .githubGist
+          case 16: self = .codepen
+          case 17: self = .bilibili
+          case 18: self = .excalidraw
           default: self = .UNRECOGNIZED(rawValue)
           }
         }
@@ -2342,6 +2368,17 @@ public struct Anytype_Model_Block {
           case .soundcloud: return 5
           case .googleMaps: return 6
           case .miro: return 7
+          case .figma: return 8
+          case .twitter: return 9
+          case .openStreetMap: return 10
+          case .reddit: return 11
+          case .facebook: return 12
+          case .instagram: return 13
+          case .telegram: return 14
+          case .githubGist: return 15
+          case .codepen: return 16
+          case .bilibili: return 17
+          case .excalidraw: return 18
           case .UNRECOGNIZED(let i): return i
           }
         }
@@ -2729,6 +2766,17 @@ extension Anytype_Model_Block.Content.Latex.Processor: CaseIterable {
     .soundcloud,
     .googleMaps,
     .miro,
+    .figma,
+    .twitter,
+    .openStreetMap,
+    .reddit,
+    .facebook,
+    .instagram,
+    .telegram,
+    .githubGist,
+    .codepen,
+    .bilibili,
+    .excalidraw,
   ]
 }
 
@@ -4655,6 +4703,7 @@ extension Anytype_Model_ObjectOrigin: SwiftProtobuf._ProtoNameProviding {
     5: .same(proto: "sharingExtension"),
     6: .same(proto: "usecase"),
     7: .same(proto: "builtin"),
+    8: .same(proto: "bookmark"),
   ]
 }
 
@@ -6855,6 +6904,17 @@ extension Anytype_Model_Block.Content.Latex.Processor: SwiftProtobuf._ProtoNameP
     5: .same(proto: "Soundcloud"),
     6: .same(proto: "GoogleMaps"),
     7: .same(proto: "Miro"),
+    8: .same(proto: "Figma"),
+    9: .same(proto: "Twitter"),
+    10: .same(proto: "OpenStreetMap"),
+    11: .same(proto: "Reddit"),
+    12: .same(proto: "Facebook"),
+    13: .same(proto: "Instagram"),
+    14: .same(proto: "Telegram"),
+    15: .same(proto: "GithubGist"),
+    16: .same(proto: "Codepen"),
+    17: .same(proto: "Bilibili"),
+    18: .same(proto: "Excalidraw"),
   ]
 }
 

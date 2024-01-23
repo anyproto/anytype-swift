@@ -37,7 +37,6 @@ public extension DetailsLayout {
     
     static var fileAndSystemLayouts: [DetailsLayout] = fileLayouts + systemLayouts
     static var layoutsWithoutTemplate: [DetailsLayout] = [
-        .note,
         .set,
         .collection,
         .bookmark

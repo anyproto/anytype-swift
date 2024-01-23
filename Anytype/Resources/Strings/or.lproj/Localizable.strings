@@ -187,7 +187,7 @@
 "Auth.CameraPermissionTitle" = "ଦୟାକରି ଆକସେସ୍ ଅନୁମତି ଦିଅନ୍ତୁ";
 "Restore secret phrase from keychain" = "କୀଚେନ୍ ରୁ ପୁନରୁଦ୍ଧାର ବାକ୍ୟ ପୁନରୁଦ୍ଧାର କରନ୍ତୁ";
 "Auth.LogIn" = "ଲଗ ଇନ";
-"Auth.Join" = "ନୂତନ ଆକାଉଣ୍ଟ ତିଆରି କରନ୍ତୁ";
+"Auth.Join" = "Join";
 "Auth.Welcome.Subtitle" = "ଏନିଟାଇପ ଆପଣଙ୍କ ପାଇଁ ଗୁରୁତ୍ୱପୂର୍ଣ୍ଣ ସବୁ କିଛି ଲେଖିବା, ଯୋଜନା କରିବା, ଚିନ୍ତା କରିବା ଏବଂ ସଂଗଠିତ କରିବା ପାଇଁ ଆପଣଙ୍କର ସୁରକ୍ଷିତ ସ୍ଥାନ ଅଟେ ।";
 "Auth.Caption.Privacy.Text" = "ଜାରି ରଖିବା ଦ୍ୱାରା ଆପଣ [ବ୍ୟବହାର ସର୍ତ୍ତାବଳୀ](%@) ଏବଂ [ଗୋପନୀୟତା ନୀତି](%@) ସହ ରାଜି ହୁଅନ୍ତି।";
 "Auth.Next" = "ପରବର୍ତ୍ତୀ";
@@ -859,13 +859,14 @@
 "Initial.UnstableMiddle.WontUseProd" = "I won't be using my production account";
 
 // MARK: - Create tip
-"LongTapCreateTip.Title" = "Crete Objects with specific Type";
+"LongTapCreateTip.Title" = "Create Objects with specific Type";
 "LongTapCreateTip.Message" = "Long tap on Create Object button to open menu with types";
 
 // MARK: - Error
 "Error.AnytypeNeedsUpgrate.Title" = "Update Your App";
 "Error.AnytypeNeedsUpgrate.Message" = "This object was modified in a newer version of Anytype. Please update the app to open it on this device";
 "Error.AnytypeNeedsUpgrate.Confirm" = "Update";
+"Error.UnableToConnect" = "Please connect to the internet";
 
 // MARK: - Relative date formatter
 "RelativeFormatter.days7" = "Previous 7 days";
