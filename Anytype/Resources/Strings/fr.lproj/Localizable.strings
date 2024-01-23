@@ -187,7 +187,7 @@
 "Auth.CameraPermissionTitle" = "Veuillez autoriser l'accès";
 "Restore secret phrase from keychain" = "Restaurer la phrase de récupération à partir du trousseau";
 "Auth.LogIn" = "Se connecter";
-"Auth.Join" = "Créer un nouveau compte";
+"Auth.Join" = "Join";
 "Auth.Welcome.Subtitle" = "Anytype est votre lieu sûr pour écrire, planifier, penser et organiser tout ce qui compte pour vous.";
 "Auth.Caption.Privacy.Text" = "En continuant, vous acceptez [Conditions d'utilisation](%@) et [Politique de confidentialité](%@)";
 "Auth.Next" = "Suivant";
@@ -762,7 +762,7 @@
 "About.AnytypeCommunity" = "Communauté Anytype";
 "About.HelpTutorials" = "Aide & Tutoriels";
 "About.ContactUs" = "Contactez-nous";
-"About.Legal" = "Legal";
+"About.Legal" = "Mentions légales";
 "About.TermsOfUse" = "Conditions d'utilisation";
 "About.PrivacyPolicy" = "Politique de confidentialité";
 "About.TechInfo" = "Informations techniques";
@@ -866,6 +866,7 @@
 "Error.AnytypeNeedsUpgrate.Title" = "Mettez à jour votre application";
 "Error.AnytypeNeedsUpgrate.Message" = "Cet objet a été modifié dans une version plus récente de Anytype. Veuillez mettre à jour l'application pour l'ouvrir sur cet appareil";
 "Error.AnytypeNeedsUpgrate.Confirm" = "Mettre à jour";
+"Error.UnableToConnect" = "Veuillez vous connecter à Internet";
 
 // MARK: - Relative date formatter
 "RelativeFormatter.days7" = "7 jours précédents";

@@ -187,7 +187,7 @@
 "Auth.CameraPermissionTitle" = "Per favore, consenti l’accesso";
 "Restore secret phrase from keychain" = "Ripristina la Frase di Recupero dal Portachiavi";
 "Auth.LogIn" = "Accedi";
-"Auth.Join" = "Crea Nuovo Account";
+"Auth.Join" = "Join";
 "Auth.Welcome.Subtitle" = "Anytype è il tuo spazio sicuro per scrivere, pianificare, pensare e organizzare tutto ciò che conta per te.";
 "Auth.Caption.Privacy.Text" = "Continuando accetti i [Termini d'uso](%@) e [Informativa sulla privacy](%@)";
 "Auth.Next" = "Avanti";
@@ -859,13 +859,14 @@
 "Initial.UnstableMiddle.WontUseProd" = "I won't be using my production account";
 
 // MARK: - Create tip
-"LongTapCreateTip.Title" = "Crea Oggetto con Tipo specifico";
+"LongTapCreateTip.Title" = "Crea Oggetti con Tipo specifico";
 "LongTapCreateTip.Message" = "Tocca a lungo il pulsante Crea Oggetto per aprire il menu con i tipi";
 
 // MARK: - Error
 "Error.AnytypeNeedsUpgrate.Title" = "Update Your App";
 "Error.AnytypeNeedsUpgrate.Message" = "This object was modified in a newer version of Anytype. Please update the app to open it on this device";
 "Error.AnytypeNeedsUpgrate.Confirm" = "Update";
+"Error.UnableToConnect" = "Si prega di connettersi a internet";
 
 // MARK: - Relative date formatter
 "RelativeFormatter.days7" = "Ultimi 7 giorni";
