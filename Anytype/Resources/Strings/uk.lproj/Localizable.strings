@@ -187,7 +187,7 @@
 "Auth.CameraPermissionTitle" = "Будь ласка, дозвольте доступ";
 "Restore secret phrase from keychain" = "Відновити фразу відновлення з в'язки ключів";
 "Auth.LogIn" = "Log In";
-"Auth.Join" = "Create New Account";
+"Auth.Join" = "Join";
 "Auth.Welcome.Subtitle" = "Anytype - це ваш безпечний простір, де ви можете писати, планувати, думати та організовувати все, що має для вас значення.";
 "Auth.Caption.Privacy.Text" = "Продовжуючи, ви погоджуєтесь з [Умовами використання](%@) і [Політикою конфіденційності](%@)";
 "Auth.Next" = "Далі";
