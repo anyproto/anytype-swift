@@ -4,6 +4,7 @@ struct RelationListContainerView<Content>: View where Content: View {
     @State private var searchText = ""
     
     let title: String
+    let isEditable: Bool
     let isEmpty: Bool
     let listContent: () -> Content
     let onCreate: (_ title: String?) -> Void
@@ -23,24 +24,29 @@ struct RelationListContainerView<Content>: View where Content: View {
             content
                 .navigationTitle(title)
                 .navigationBarTitleDisplayMode(.inline)
-                .toolbar {
-                    ToolbarItem(placement: .navigationBarLeading) {
-                        clearButton
+                .if(isEditable, transform: {
+                    $0.toolbar {
+                        ToolbarItem(placement: .navigationBarLeading) {
+                            clearButton
+                        }
+                        ToolbarItem(placement: .navigationBarTrailing) {
+                            createButton
+                        }
                     }
-                    ToolbarItem(placement: .navigationBarTrailing) {
-                        createButton
-                    }
-                }
+                })
         }
         .navigationViewStyle(.stack)
     }
     
     private var content: some View {
         VStack(spacing: 0) {
-            SearchBar(text: $searchText, focused: false, placeholder: Loc.search)
-                .onChange(of: searchText) { text in
-                    onSearchTextChange(text)
-                }
+            if isEditable {
+                SearchBar(text: $searchText, focused: false, placeholder: Loc.search)
+                    .onChange(of: searchText) { text in
+                        onSearchTextChange(text)
+                    }
+            }
+            
             if isEmpty {
                 emptyState
             } else {
@@ -59,6 +65,7 @@ struct RelationListContainerView<Content>: View where Content: View {
         .buttonStyle(BorderlessButtonStyle())
         .bounceBehaviorBasedOnSize()
         .background(Color.Background.secondary)
+        .disabled(!isEditable)
     }
     
     private var clearButton: some View {
@@ -88,6 +95,7 @@ struct RelationListContainerView<Content>: View where Content: View {
         }
         .frame(height: 52)
         .padding(.horizontal, 20)
+        .disabled(!isEditable)
     }
     
     private var emptyState: some View {

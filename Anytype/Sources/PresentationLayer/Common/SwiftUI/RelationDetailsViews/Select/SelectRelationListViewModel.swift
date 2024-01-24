@@ -74,9 +74,13 @@ final class SelectRelationListViewModel: ObservableObject {
                 spaceId: configuration.spaceId
             ).map { SelectRelationOption(relation: $0) }
             
-            options = rawOptions.reordered(
-                by: [ selectedOption?.id ?? "" ]
-            ) { $0.id }
+            if configuration.isEditable {
+                options = rawOptions.reordered(
+                    by: [ selectedOption?.id ?? "" ]
+                ) { $0.id }
+            } else {
+                options = [selectedOption].compactMap { $0 }
+            }
             
             isEmpty = options.isEmpty && text.isEmpty
         }

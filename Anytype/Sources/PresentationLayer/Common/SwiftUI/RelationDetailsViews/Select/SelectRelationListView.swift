@@ -7,7 +7,8 @@ struct SelectRelationListView: View {
     
     var body: some View {
         RelationListContainerView(
-            title: viewModel.configuration.title,
+            title: viewModel.configuration.title, 
+            isEditable: viewModel.configuration.isEditable,
             isEmpty: viewModel.isEmpty,
             listContent: {
                 ForEach(viewModel.options) { option in
@@ -39,7 +40,7 @@ struct SelectRelationListView: View {
             HStack {
                 AnytypeText(option.text, style: .relation1Regular, color: option.color)
                 Spacer()
-                if option == viewModel.selectedOption {
+                if option == viewModel.selectedOption, viewModel.configuration.isEditable {
                     Image(asset: .relationCheckboxChecked)
                 }
             }
