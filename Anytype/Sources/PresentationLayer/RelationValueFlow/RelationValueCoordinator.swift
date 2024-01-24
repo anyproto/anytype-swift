@@ -51,7 +51,7 @@ final class RelationValueCoordinator: RelationValueCoordinatorProtocol,
             return
         }
         
-        if case .status(let status) = relation {
+        if FeatureFlags.newSelectRelationView, case .status(let status) = relation {
             let configuration = RelationModuleConfiguration(
                 title: status.name,
                 isEditable: relation.isEditable,
@@ -62,10 +62,13 @@ final class RelationValueCoordinator: RelationValueCoordinatorProtocol,
             let view = selectRelationListCoordinatorAssembly.make(
                 objectId: objectDetails.id,
                 configuration: configuration,
-                selectedOption: status.values.compactMap { SelectRelationOption(id: $0.id, text: $0.text, color: $0.color.suColor) }.first
+                selectedOption: status.values.compactMap {
+                    SelectRelationOption(id: $0.id, text: $0.text, color: $0.color.suColor)
+                }.first
             )
             
-            navigationContext.present(view, mediumDetent: status.values.first.isNotNil)
+            let mediumDetent = status.values.first.isNotNil || !relation.isEditable
+            navigationContext.present(view, mediumDetent: mediumDetent)
             
             return
         }

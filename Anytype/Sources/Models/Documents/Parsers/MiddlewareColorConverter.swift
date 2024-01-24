@@ -1,5 +1,4 @@
 import UIKit
-import SwiftUI
 import Services
 
 extension ComponentColor where T: UIColor {
