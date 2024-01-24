@@ -414,12 +414,12 @@ internal enum Loc {
   internal static let selectFile = Loc.tr("Localizable", "Select file", fallback: "Select file")
   /// Select object
   internal static let selectObject = Loc.tr("Localizable", "Select object", fallback: "Select object")
+  /// Select option
+  internal static let selectOption = Loc.tr("Localizable", "Select option", fallback: "Select option")
+  /// Select options
+  internal static let selectOptions = Loc.tr("Localizable", "Select options", fallback: "Select options")
   /// Select relation type
   internal static let selectRelationType = Loc.tr("Localizable", "Select relation type", fallback: "Select relation type")
-  /// Select status
-  internal static let selectStatus = Loc.tr("Localizable", "Select status", fallback: "Select status")
-  /// Select tag
-  internal static let selectTag = Loc.tr("Localizable", "Select tag", fallback: "Select tag")
   /// Plural format key: "%#@object@"
   internal static func selectedBlocks(_ p1: Int) -> String {
     return Loc.tr("Localizable", "Selected blocks", p1, fallback: "Plural format key: \"%#@object@\"")
@@ -1399,12 +1399,12 @@ internal enum Loc {
         internal static let title = Loc.tr("Localizable", "Relation.Format.Phone.Title", fallback: "Phone number")
       }
       internal enum Status {
-        /// Status
-        internal static let title = Loc.tr("Localizable", "Relation.Format.Status.Title", fallback: "Status")
+        /// Select
+        internal static let title = Loc.tr("Localizable", "Relation.Format.Status.Title", fallback: "Select")
       }
       internal enum Tag {
-        /// Tag
-        internal static let title = Loc.tr("Localizable", "Relation.Format.Tag.Title", fallback: "Tag")
+        /// Multi-select
+        internal static let title = Loc.tr("Localizable", "Relation.Format.Tag.Title", fallback: "Multi-select")
       }
       internal enum Text {
         /// Text
