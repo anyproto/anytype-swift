@@ -96,7 +96,7 @@ extension ObjectType {
         uniqueKey == .collection
     }
     
-    public var isNoteType: Bool {
-        uniqueKey == .note
+    public var isNoteLayout: Bool {
+        recommendedLayout ?? .unknown == .note
     }
 }
