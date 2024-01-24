@@ -72,6 +72,8 @@ final class BlockActionService: BlockActionServiceProtocol {
                 style: newBlockContentType,
                 mode: mode
             )
+
+            cursorManager.focus(at: blockId, position: .beginning)
             cursorManager.blockFocus = .init(id: blockId, position: .beginning)
         }
     }
