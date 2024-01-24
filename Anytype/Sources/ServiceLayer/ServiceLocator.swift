@@ -43,7 +43,8 @@ final class ServiceLocator {
             loginStateService: loginStateService(),
             accountManager: accountManager(),
             appErrorLoggerConfiguration: appErrorLoggerConfiguration(),
-            serverConfigurationStorage: serverConfigurationStorage()
+            serverConfigurationStorage: serverConfigurationStorage(),
+            authMiddleService: authMiddleService()
         )
     }
     
@@ -343,5 +344,9 @@ final class ServiceLocator {
     
     private func objectSubscriptionService() -> ObjectSubscriptionServiceProtocol {
         ObjectSubscriptionService()
+    }
+    
+    private func authMiddleService() -> AuthMiddleServiceProtocol {
+        AuthMiddleService()
     }
 }

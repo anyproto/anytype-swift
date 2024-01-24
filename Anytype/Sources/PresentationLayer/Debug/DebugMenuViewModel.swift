@@ -3,6 +3,7 @@ import UIKit
 import AnytypeCore
 import Services
 
+@MainActor
 final class DebugMenuViewModel: ObservableObject {
     
     @Published private(set) var isRemovingRecoveryPhraseInProgress = false
@@ -19,12 +20,9 @@ final class DebugMenuViewModel: ObservableObject {
     
     func removeRecoveryPhraseFromDevice() {
         isRemovingRecoveryPhraseInProgress = true
-        ServiceLocator.shared.authService().logout(removeData: false) { isSuccess in
-            guard isSuccess else {
-                UINotificationFeedbackGenerator().notificationOccurred(.error)
-                return
-            }
+        Task {
             do {
+                try await ServiceLocator.shared.authService().logout(removeData: false)
                 try ServiceLocator.shared.seedService().removeSeed()
                 ServiceLocator.shared.applicationStateService().state = .auth
             } catch {

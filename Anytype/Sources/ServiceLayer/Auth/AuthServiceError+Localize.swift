@@ -1,14 +1,7 @@
 import Foundation
-import ProtobufMessages
+import Services
 
-typealias RecoverAccountErrorCode = Anytype_Rpc.Account.Recover.Response.Error.Code
-
-enum AuthServiceError: Error, LocalizedError {
-    case createWalletError
-    case recoverWalletError
-    case recoverAccountError(code: RecoverAccountErrorCode)
-    case selectAccountError
-    
+extension AuthServiceError: LocalizedError {
     var errorDescription: String? {
         switch self {
         case .createWalletError: return Loc.errorCreatingWallet

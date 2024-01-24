@@ -7,7 +7,7 @@ struct StatusRelationDetailsView: View {
     var body: some View {
         VStack(spacing: 0) {
             InlineNavigationBar {
-                TitleView(title: "Status")
+                TitleView(title: viewModel.title)
             } rightButton: {
                 rightButton
             }

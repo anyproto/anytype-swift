@@ -12,7 +12,7 @@ extension RelationFormat {
         case .number:
             return .X24.number
         case .status:
-            return .X24.status
+            return .X24.select
         case .date:
             return .X24.date
         case .file:
@@ -26,7 +26,7 @@ extension RelationFormat {
         case .phone:
             return .X24.phoneNumber
         case .tag:
-            return .X24.tag
+            return .X24.multiselect
         case .object:
             return .X24.object
         case .unrecognized:
@@ -34,7 +34,7 @@ extension RelationFormat {
         }
     }
     
-    var name: String {
+    var analyticsName: String {
         switch self {
         case .longText: return "Text"
         case .shortText: return "Text"
