@@ -3,7 +3,7 @@ import Services
 import SharedContentManager
 
 protocol ShareOptionsInteractorProtocol: AnyObject {
-    func saveContent(saveOptions: SharedSaveOptions, content: [SharedContent]) async throws
+    func saveContent(saveOptions: SharedSaveOptions, content: SharedContent) async throws
 }
 
 final class ShareOptionsInteractor: ShareOptionsInteractorProtocol {
@@ -37,7 +37,7 @@ final class ShareOptionsInteractor: ShareOptionsInteractorProtocol {
         self.pasteboardMiddlewareService = pasteboardMiddlewareService
     }
     
-    func saveContent(saveOptions: SharedSaveOptions, content: [SharedContent]) async throws {
+    func saveContent(saveOptions: SharedSaveOptions, content: SharedContent) async throws {
         switch saveOptions {
         case .container(let spaceId, let linkToObject):
             try await saveNewContainer(spaceId: spaceId, linkToObject: linkToObject, content: content)
@@ -50,9 +50,9 @@ final class ShareOptionsInteractor: ShareOptionsInteractorProtocol {
     
     // MARK: - Private
     
-    private func saveNewContainer(spaceId: String, linkToObject: ObjectDetails?, content: [SharedContent]) async throws {
+    private func saveNewContainer(spaceId: String, linkToObject: ObjectDetails?, content: SharedContent) async throws {
         let noteObject = try await pageRepository.createPage(
-            name: "",
+            name: content.title ?? "",
             typeUniqueKey: .note,
             shouldDeleteEmptyObject: false,
             shouldSelectType: false,
@@ -67,8 +67,8 @@ final class ShareOptionsInteractor: ShareOptionsInteractorProtocol {
         }
     }
     
-    private func saveNewObject(spaceId: String, linkToObject: ObjectDetails?, content: [SharedContent]) async {
-        for contentItem in content {
+    private func saveNewObject(spaceId: String, linkToObject: ObjectDetails?, content: SharedContent) async {
+        for contentItem in content.items {
             do {
                 
                 let newObjectId: String
@@ -93,8 +93,8 @@ final class ShareOptionsInteractor: ShareOptionsInteractorProtocol {
         }
     }
     
-    private func saveNewBlock(spaceId: String, addToObject: ObjectDetails, content: [SharedContent]) async {
-        for contentItem in content {
+    private func saveNewBlock(spaceId: String, addToObject: ObjectDetails, content: SharedContent) async {
+        for contentItem in content.items {
             do {
                 switch contentItem {
                 case let .text(text):

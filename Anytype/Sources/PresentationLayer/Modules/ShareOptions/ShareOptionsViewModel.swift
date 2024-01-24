@@ -42,6 +42,9 @@ final class ShareOptionsViewModel: ObservableObject {
         self.activeWorkpaceStorage = activeWorkpaceStorage
         self.output = output
         setupData()
+        if #available(iOS 17.0, *) {
+            SharingTip().invalidate(reason: .actionPerformed)
+        }
     }
     
     func onTapSaveAsContainer() {
@@ -116,9 +119,9 @@ final class ShareOptionsViewModel: ObservableObject {
             return
         }
         
-        counter.textCount = content.filter(\.isText).count
-        counter.bookmarksCount = content.filter(\.isUrl).count
-        counter.filesCount = content.filter(\.isFile).count
+        counter.textCount = content.items.filter(\.isText).count
+        counter.bookmarksCount = content.items.filter(\.isUrl).count
+        counter.filesCount = content.items.filter(\.isFile).count
         spaceDetails = activeWorkpaceStorage.spaceView()
         
         updateAvailableOptions()
@@ -134,9 +137,12 @@ final class ShareOptionsViewModel: ObservableObject {
     private func updateAvailableOptions() {
         if counter.onlyText {
             availableOptions = [.container, .block]
-        } else {
-            let otherItems = counter.textCount + counter.bookmarksCount + counter.filesCount
+        } else if counter.onlyBookmarks || counter.onlyFiles {
+            let otherItems = counter.bookmarksCount + counter.filesCount
             availableOptions = otherItems > 1 ? [.container, .object, .block] : [.object, .block]
+        } else {
+            // Different objects
+            availableOptions = [.container, .block]
         }
         saveAsType = availableOptions.first ?? .object
     }
@@ -146,13 +152,13 @@ final class ShareOptionsViewModel: ObservableObject {
             newObjectTitle = Loc.Sharing.Text.noteObject
             newBlockTitle = Loc.Sharing.Text.textBlock
         } else if counter.onlyBookmarks {
-            newObjectTitle = Loc.Sharing.Url.bookmark
-            newBlockTitle = Loc.Sharing.Url.text
+            newObjectTitle = Loc.Sharing.Url.newObject(counter.bookmarksCount)
+            newBlockTitle = Loc.Sharing.Url.block(counter.bookmarksCount)
         } else if counter.onlyFiles {
-            newObjectTitle = Loc.Sharing.File.newObject
-            newBlockTitle = Loc.Sharing.File.block
+            newObjectTitle = Loc.Sharing.File.newObject(counter.filesCount)
+            newBlockTitle = Loc.Sharing.File.block(counter.filesCount)
         } else {
-            newObjectTitle = Loc.Sharing.Any.newObject
+            newObjectTitle = ""
             newBlockTitle = Loc.Sharing.Any.block
         }
         

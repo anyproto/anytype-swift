@@ -2,9 +2,9 @@ import Foundation
 import UIKit
 
 public protocol SharedContentManagerProtocol: AnyObject {
-    func importAndSaveItems(items: [NSItemProvider]) async -> [SharedContent]
-    func saveSharedContent(content: [SharedContent]) throws
-    func getSharedContent() throws -> [SharedContent]
+    func importAndSaveItem(item: NSExtensionItem) async -> SharedContent
+    func saveSharedContent(content: SharedContent) throws
+    func getSharedContent() throws -> SharedContent
     func clearSharedContent() throws
 }
 
@@ -21,14 +21,15 @@ final class SharedContentManager: SharedContentManagerProtocol {
         self.sharedContentImporter = sharedContentImporter
     }
     
-    func importAndSaveItems(items: [NSItemProvider]) async -> [SharedContent] {
+    func importAndSaveItem(item: NSExtensionItem) async -> SharedContent {
         try? clearSharedContent()
-        let sharedItems = await sharedContentImporter.importData(items: items)
-        try? saveSharedContent(content: sharedItems)
-        return sharedItems
+        let sharedContentItems = await sharedContentImporter.importData(items: item.attachments ?? [])
+        let sharedContent = SharedContent(title: item.attributedTitle?.string, items: sharedContentItems)
+        try? saveSharedContent(content: sharedContent)
+        return sharedContent
     }
     
-    func saveSharedContent(content: [SharedContent]) throws {
+    func saveSharedContent(content: SharedContent) throws {
         let sharedData = try encoder.encode(content)
         let jsonString = String(data: sharedData, encoding: .utf8)
         
@@ -36,13 +37,13 @@ final class SharedContentManager: SharedContentManagerProtocol {
         userDefaults?.synchronize()
     }
     
-    func getSharedContent() throws -> [SharedContent] {
+    func getSharedContent() throws -> SharedContent {
         guard let jsonString = userDefaults?.string(forKey: SharedUserDefaultsKey.sharingExtension),
                 let data = jsonString.data(using: .utf8) else {
-            return []
+            throw SharedContentManagerError.common
         }
         
-        let sharedContent = try decoder.decode([SharedContent].self, from: data)
+        let sharedContent = try decoder.decode(SharedContent.self, from: data)
         
         return sharedContent
     }

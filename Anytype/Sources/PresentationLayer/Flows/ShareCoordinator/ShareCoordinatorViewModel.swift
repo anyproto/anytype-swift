@@ -5,7 +5,6 @@ import Services
 @MainActor
 final class ShareCoordinatorViewModel: ObservableObject, ShareOptionsModuleOutput {
     
-    private let shareModuleAssembly: ShareModuleAssemblyProtocol
     private let shareOptionsModuleAssembly: ShareOptionsModuleAssemblyProtocol
     private let searchModuleAssembly: SearchModuleAssemblyProtocol
     private let activeWorkspaceStorage: ActiveWorkpaceStorageProtocol
@@ -15,12 +14,10 @@ final class ShareCoordinatorViewModel: ObservableObject, ShareOptionsModuleOutpu
     @Published var dismiss = false
     
     init(
-        shareModuleAssembly: ShareModuleAssemblyProtocol,
         shareOptionsModuleAssembly: ShareOptionsModuleAssemblyProtocol,
         searchModuleAssembly: SearchModuleAssemblyProtocol,
         activeWorkspaceStorage: ActiveWorkpaceStorageProtocol
     ) {
-        self.shareModuleAssembly = shareModuleAssembly
         self.shareOptionsModuleAssembly = shareOptionsModuleAssembly
         self.searchModuleAssembly = searchModuleAssembly
         self.activeWorkspaceStorage = activeWorkspaceStorage
@@ -28,13 +25,6 @@ final class ShareCoordinatorViewModel: ObservableObject, ShareOptionsModuleOutpu
     
     func shareModule() -> AnyView {
         shareOptionsModuleAssembly.make(output: self)
-//        return shareModuleAssembly.make { [weak self] arg in
-//            self?.showSearchData = arg
-//        } onSpaceSearch: { [weak self] handler in
-//            self?.showSpaceSearchData = .init(onSelect: handler)
-//        } onClose: { [weak self] arg in
-//            self?.dismiss.toggle()
-//        }
     }
     
     func searchSpaceModule(data: SearchSpaceModel) -> AnyView {

@@ -8,7 +8,7 @@ enum ShareExtensionError: Error {
 }
 
 public protocol SharedContentImporterProtocol: AnyObject {
-    func importData(items: [NSItemProvider]) async -> [SharedContent]
+    func importData(items: [NSItemProvider]) async -> [SharedContentItem]
 }
 
 final class SharedContentImporter: SharedContentImporterProtocol {
@@ -27,8 +27,8 @@ final class SharedContentImporter: SharedContentImporterProtocol {
     
     // MARK: - SharedContentImporterProtocol
     
-    func importData(items: [NSItemProvider]) async -> [SharedContent] {
-        let sharedItems = await withTaskGroup(of: SharedContent?.self, returning: [SharedContent].self) { taskGroup in
+    func importData(items: [NSItemProvider]) async -> [SharedContentItem] {
+        let sharedItems = await withTaskGroup(of: SharedContentItem?.self, returning: [SharedContentItem].self) { taskGroup in
             items.enumerated().forEach { index, itemProvider in
                 // Should be sort by hierarchy from child to parent
                 if itemProvider.hasItemConformingToTypeIdentifier(typeFileUrl.identifier) {
@@ -44,7 +44,7 @@ final class SharedContentImporter: SharedContentImporterProtocol {
                 }
             }
             
-            return await taskGroup.compactMap { $0 }.reduce(into: [SharedContent]()) { partialResult, content in
+            return await taskGroup.compactMap { $0 }.reduce(into: [SharedContentItem]()) { partialResult, content in
                 partialResult.append(content)
             }
         }
@@ -54,26 +54,26 @@ final class SharedContentImporter: SharedContentImporterProtocol {
     
     // MARK: - Private
     
-    private func handleText(itemProvider: NSItemProvider) async throws -> SharedContent {
+    private func handleText(itemProvider: NSItemProvider) async throws -> SharedContentItem {
         let item = try await itemProvider.loadItem(forTypeIdentifier: typeText.identifier)
         guard let text = item as? NSString else { throw ShareExtensionError.parseFailure }
         return .text(text as String)
     }
     
-    private func handleURL(itemProvider: NSItemProvider) async throws -> SharedContent {
+    private func handleURL(itemProvider: NSItemProvider) async throws -> SharedContentItem {
         let item = try await itemProvider.loadItem(forTypeIdentifier: typeURL.identifier)
         guard let url = item as? NSURL else { throw ShareExtensionError.parseFailure }
         return .url(url as URL)
     }
     
-    private func handleFileUtl(itemProvider: NSItemProvider) async throws -> SharedContent {
+    private func handleFileUtl(itemProvider: NSItemProvider) async throws -> SharedContentItem {
         let item = try await itemProvider.loadItem(forTypeIdentifier: typeFileUrl.identifier)
         guard let fileURL = item as? NSURL else { throw ShareExtensionError.copyFailure }
         let groupFileUrl = try sharedFileStorage.saveFileToGroup(url: fileURL as URL)
         return .file(groupFileUrl)
     }
     
-    private func handleImage(itemProvider: NSItemProvider) async throws -> SharedContent {
+    private func handleImage(itemProvider: NSItemProvider) async throws -> SharedContentItem {
         let item = try await itemProvider.loadItem(forTypeIdentifier: typeImage.identifier)
         if let fileURL = item as? NSURL {
             let groupFileUrl = try sharedFileStorage.saveFileToGroup(url: fileURL as URL)
@@ -86,7 +86,7 @@ final class SharedContentImporter: SharedContentImporterProtocol {
         throw ShareExtensionError.parseFailure
     }
     
-    private func handleAudioAndVideo(itemProvider: NSItemProvider) async throws -> SharedContent {
+    private func handleAudioAndVideo(itemProvider: NSItemProvider) async throws -> SharedContentItem {
         let item = try await itemProvider.loadItem(forTypeIdentifier: typeVisualContent.identifier)
         guard let fileURL = item as? NSURL else { throw ShareExtensionError.parseFailure }
         let groupFileUrl = try sharedFileStorage.saveFileToGroup(url: fileURL as URL)

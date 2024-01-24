@@ -11,13 +11,6 @@ final class ServiceLocator {
 
     let templatesService = TemplatesService()
     let sharedContentManager: SharedContentManagerProtocol = SharingDI.shared.sharedContentManager()
-    lazy private(set) var sharedContentInteractor: SharedContentInteractorProtocol = SharedContentInteractor(
-        listService: blockListService(),
-        bookmarkService: bookmarkService(),
-        objectActionsService: objectActionsService(),
-        blockActionService: blockActionsServiceSingle(),
-        pageRepository: pageRepository()
-    )
 
     lazy private(set) var unsplashService: UnsplashServiceProtocol = UnsplashService()
     lazy private(set) var documentsProvider: DocumentsProviderProtocol = DocumentsProvider(

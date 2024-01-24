@@ -26,10 +26,8 @@ class ShareViewController: SLComposeServiceViewController {
     }
     
     private func storeSharedItems(extensionItem: NSExtensionItem) async {
-
-        let items = extensionItem.attachments ?? []
-        let sharedItems = await sharedContentManager.importAndSaveItems(items: items)
-        if !sharedItems.isEmpty {
+        let sharedItems = await sharedContentManager.importAndSaveItem(item: extensionItem)
+        if !sharedItems.items.isEmpty {
             openMainApp()
         }
         extensionContext?.completeRequest(returningItems: nil, completionHandler: nil)
