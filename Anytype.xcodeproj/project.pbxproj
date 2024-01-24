@@ -827,6 +827,10 @@
 		2E21599D28EC619E0042B205 /* EditorPageTemplatesHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E21599C28EC619E0042B205 /* EditorPageTemplatesHandler.swift */; };
 		2E22F9E32B600F91001EFCF3 /* RelationModuleConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E22F9E22B600F91001EFCF3 /* RelationModuleConfiguration.swift */; };
 		2E22F9E72B615053001EFCF3 /* SelectRelationOption.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E22F9E62B615053001EFCF3 /* SelectRelationOption.swift */; };
+		2E22F9EA2B6167AE001EFCF3 /* SelectRelationListCoordinatorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E22F9E92B6167AE001EFCF3 /* SelectRelationListCoordinatorView.swift */; };
+		2E22F9EC2B6167B7001EFCF3 /* SelectRelationListCoordinatorViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E22F9EB2B6167B7001EFCF3 /* SelectRelationListCoordinatorViewModel.swift */; };
+		2E22F9EE2B6167C4001EFCF3 /* SelectRelationListCoordinatorAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E22F9ED2B6167C4001EFCF3 /* SelectRelationListCoordinatorAssembly.swift */; };
+		2E22F9F02B616B6E001EFCF3 /* SelectRelationListModuleOutput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E22F9EF2B616B6E001EFCF3 /* SelectRelationListModuleOutput.swift */; };
 		2E28BCEE2AAB55AD001E6306 /* SetViewPickerModuleAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E28BCED2AAB55AD001E6306 /* SetViewPickerModuleAssembly.swift */; };
 		2E28BCF12AAB58C6001E6306 /* SetViewPickerCoordinatorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E28BCF02AAB58C6001E6306 /* SetViewPickerCoordinatorView.swift */; };
 		2E28BCF32AAB58D2001E6306 /* SetViewPickerCoordinatorViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E28BCF22AAB58D2001E6306 /* SetViewPickerCoordinatorViewModel.swift */; };
@@ -2497,6 +2501,10 @@
 		2E21599C28EC619E0042B205 /* EditorPageTemplatesHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditorPageTemplatesHandler.swift; sourceTree = "<group>"; };
 		2E22F9E22B600F91001EFCF3 /* RelationModuleConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RelationModuleConfiguration.swift; sourceTree = "<group>"; };
 		2E22F9E62B615053001EFCF3 /* SelectRelationOption.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectRelationOption.swift; sourceTree = "<group>"; };
+		2E22F9E92B6167AE001EFCF3 /* SelectRelationListCoordinatorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectRelationListCoordinatorView.swift; sourceTree = "<group>"; };
+		2E22F9EB2B6167B7001EFCF3 /* SelectRelationListCoordinatorViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectRelationListCoordinatorViewModel.swift; sourceTree = "<group>"; };
+		2E22F9ED2B6167C4001EFCF3 /* SelectRelationListCoordinatorAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectRelationListCoordinatorAssembly.swift; sourceTree = "<group>"; };
+		2E22F9EF2B616B6E001EFCF3 /* SelectRelationListModuleOutput.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectRelationListModuleOutput.swift; sourceTree = "<group>"; };
 		2E28BCED2AAB55AD001E6306 /* SetViewPickerModuleAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetViewPickerModuleAssembly.swift; sourceTree = "<group>"; };
 		2E28BCF02AAB58C6001E6306 /* SetViewPickerCoordinatorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetViewPickerCoordinatorView.swift; sourceTree = "<group>"; };
 		2E28BCF22AAB58D2001E6306 /* SetViewPickerCoordinatorViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetViewPickerCoordinatorViewModel.swift; sourceTree = "<group>"; };
@@ -6544,6 +6552,16 @@
 			path = Settings;
 			sourceTree = "<group>";
 		};
+		2E22F9E82B61667E001EFCF3 /* Coordinator */ = {
+			isa = PBXGroup;
+			children = (
+				2E22F9E92B6167AE001EFCF3 /* SelectRelationListCoordinatorView.swift */,
+				2E22F9EB2B6167B7001EFCF3 /* SelectRelationListCoordinatorViewModel.swift */,
+				2E22F9ED2B6167C4001EFCF3 /* SelectRelationListCoordinatorAssembly.swift */,
+			);
+			path = Coordinator;
+			sourceTree = "<group>";
+		};
 		2E28BCEF2AAB584F001E6306 /* Coordinator */ = {
 			isa = PBXGroup;
 			children = (
@@ -6695,10 +6713,12 @@
 		2E65276E2B5EEB9900F27126 /* Select */ = {
 			isa = PBXGroup;
 			children = (
+				2E22F9E82B61667E001EFCF3 /* Coordinator */,
 				2E65276C2B5EEAA100F27126 /* SelectRelationListModuleAssembly.swift */,
 				2E6527622B5EBD9300F27126 /* SelectRelationListView.swift */,
 				2E6527642B5EBD9F00F27126 /* SelectRelationListViewModel.swift */,
 				2E22F9E62B615053001EFCF3 /* SelectRelationOption.swift */,
+				2E22F9EF2B616B6E001EFCF3 /* SelectRelationListModuleOutput.swift */,
 			);
 			path = Select;
 			sourceTree = "<group>";
@@ -10217,6 +10237,7 @@
 				3D1CEC4527F5F566000D36BA /* Clock.swift in Sources */,
 				2AF205BC2ABD8E660027F3EA /* HomeBottomNavigationPanelView.swift in Sources */,
 				53FF7C4826F7562B00A5A592 /* AnytypeAudioPlayer.swift in Sources */,
+				2E22F9EC2B6167B7001EFCF3 /* SelectRelationListCoordinatorViewModel.swift in Sources */,
 				C946681728462EB000A8A6F5 /* SimpleTableBlockView.swift in Sources */,
 				2A00A4E929E811FD00C5FCC3 /* ControlsExample.swift in Sources */,
 				8638777C2A58088F0024F814 /* SetObjectCreationSettingsViewModel.swift in Sources */,
@@ -10655,6 +10676,7 @@
 				2AE7ECA4298816F30079F12B /* WidgetObjectListModuleAssembly.swift in Sources */,
 				2A4C79B029B8A17C003BB9D3 /* WidgetSourceSearchSelectInternalViewModel.swift in Sources */,
 				2E56F1382A0D43F400031167 /* LoopingPlayerUIView.swift in Sources */,
+				2E22F9F02B616B6E001EFCF3 /* SelectRelationListModuleOutput.swift in Sources */,
 				2AD5EFC42B17490200FAA908 /* ButtomAlertHeaderImageView.swift in Sources */,
 				3D93852026FB0B74001C137F /* PageRepository.swift in Sources */,
 				2E0797C52A09678C006F0FD7 /* AuthModuleAssembly.swift in Sources */,
@@ -10872,6 +10894,7 @@
 				2E9221A1294B8D4900968750 /* DataViewBlockView.swift in Sources */,
 				3D07ED6C261F49ED00C007E2 /* DividerBlockViewModel.swift in Sources */,
 				2A2B33272A7B9A40004BD906 /* SpaceSwitchModuleAssembly.swift in Sources */,
+				2E22F9EA2B6167AE001EFCF3 /* SelectRelationListCoordinatorView.swift in Sources */,
 				2EAA14052AA63918000A712A /* SetRelationsViewModuleAssembly.swift in Sources */,
 				2EE36CD82AF535C30043AA8D /* SetObjectCreationCoordinatorAssembly.swift in Sources */,
 				2EA2B7D42AB2113B00F1F49F /* SetViewSettingsListMode.swift in Sources */,
@@ -11075,6 +11098,7 @@
 				03D1516623FB446A004027CE /* MiddlewareConfigurationProvider.swift in Sources */,
 				2AD8AFD72A851CC400F12D54 /* BlockWidgetExpandedService.swift in Sources */,
 				3D30408C27DA92F900FFE0EB /* ObjectHeaderLocalEvent.swift in Sources */,
+				2E22F9EE2B6167C4001EFCF3 /* SelectRelationListCoordinatorAssembly.swift in Sources */,
 				2ADF00932ACF0040000D01F8 /* HomePath.swift in Sources */,
 				124A60B727130EFD0012FD2D /* ObjectDetailsExtensions.swift in Sources */,
 				533AED8C26CC421F0018E33C /* SwiftUIFont.swift in Sources */,

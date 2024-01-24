@@ -3,10 +3,12 @@ import UIKit
 
 final class RelationValueCoordinatorAssembly: RelationValueCoordinatorAssemblyProtocol {
     
+    private let coordinatorsDI: CoordinatorsDIProtocol
     private let modulesDI: ModulesDIProtocol
     private let uiHelpersDI: UIHelpersDIProtocol
     
-    init(modulesDI: ModulesDIProtocol, uiHelpersDI: UIHelpersDIProtocol) {
+    init(coordinatorsDI: CoordinatorsDIProtocol, modulesDI: ModulesDIProtocol, uiHelpersDI: UIHelpersDIProtocol) {
+        self.coordinatorsDI = coordinatorsDI
         self.modulesDI = modulesDI
         self.uiHelpersDI = uiHelpersDI
     }
@@ -19,7 +21,7 @@ final class RelationValueCoordinatorAssembly: RelationValueCoordinatorAssemblyPr
             navigationContext: uiHelpersDI.commonNavigationContext(),
             relationValueModuleAssembly: modulesDI.relationValue(), 
             dateRelationCalendarModuleAssembly: modulesDI.dateRelationCalendar(), 
-            selectRelationListModuleAssembly: modulesDI.selectRelationList(),
+            selectRelationListCoordinatorAssembly: coordinatorsDI.selectRelationList(),
             urlOpener: uiHelpersDI.urlOpener()
         )
         

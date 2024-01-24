@@ -8,21 +8,24 @@ final class SelectRelationListViewModel: ObservableObject {
     @Published var selectedOption: SelectRelationOption?
     @Published var options: [SelectRelationOption] = []
     @Published var isEmpty = false
-    @Published var dismiss = false
         
     let configuration: RelationModuleConfiguration
     
     private let relationsService: RelationsServiceProtocol
     private let searchService: SearchServiceProtocol
     
+    private weak var output: SelectRelationListModuleOutput?
+    
     init(
         configuration: RelationModuleConfiguration,
         selectedOption: SelectRelationOption?,
+        output: SelectRelationListModuleOutput?,
         relationsService: RelationsServiceProtocol,
         searchService: SearchServiceProtocol
     ) {
         self.configuration = configuration
         self.selectedOption = selectedOption
+        self.output = output
         self.relationsService = relationsService
         self.searchService = searchService
     }
@@ -61,7 +64,7 @@ final class SelectRelationListViewModel: ObservableObject {
             
             selectedOption = newOption
             logChanges()
-            dismiss = true
+            output?.onOptionSelected()
         }
     }
     

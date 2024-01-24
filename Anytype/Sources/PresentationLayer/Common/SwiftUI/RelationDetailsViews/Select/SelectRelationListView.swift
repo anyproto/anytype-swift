@@ -3,7 +3,6 @@ import SwiftUI
 struct SelectRelationListView: View {
     
     @StateObject var viewModel: SelectRelationListViewModel
-    @Environment(\.dismiss) var dismiss
     
     var body: some View {
         RelationListContainerView(
@@ -27,9 +26,6 @@ struct SelectRelationListView: View {
         )
         .onAppear {
             viewModel.searchTextChanged()
-        }
-        .onChange(of: viewModel.dismiss) { _ in
-            dismiss()
         }
     }
     
@@ -62,7 +58,8 @@ struct SelectRelationListView_Previews: PreviewProvider {
                     spaceId: "",
                     analyticsType: .block
                 ),
-                selectedOption: nil,
+                selectedOption: nil, 
+                output: nil,
                 relationsService: DI.preview.serviceLocator.relationService(objectId: ""),
                 searchService: DI.preview.serviceLocator.searchService()
             )
