@@ -1,16 +1,16 @@
 import Foundation
 import SwiftUI
 
-protocol StatusRelationListModuleAssemblyProtocol: AnyObject {
+protocol SelectRelationListModuleAssemblyProtocol: AnyObject {
     @MainActor
     func make(
         objectId: String,
         configuration: RelationModuleConfiguration,
-        selectedStatus: Relation.Status.Option?
+        selectedOption: SelectRelationOption?
     ) -> AnyView
 }
 
-final class StatusRelationListModuleAssembly: StatusRelationListModuleAssemblyProtocol {
+final class SelectRelationListModuleAssembly: SelectRelationListModuleAssemblyProtocol {
     
     private let serviceLocator: ServiceLocator
     
@@ -18,14 +18,14 @@ final class StatusRelationListModuleAssembly: StatusRelationListModuleAssemblyPr
         self.serviceLocator = serviceLocator
     }
     
-    // MARK: - StatusRelationListModuleAssemblyProtocol
+    // MARK: - SelectRelationListModuleAssemblyProtocol
     
     @MainActor
-    func make(objectId: String, configuration: RelationModuleConfiguration, selectedStatus: Relation.Status.Option?) -> AnyView {
-        StatusRelationListView(
-            viewModel: StatusRelationListViewModel(
+    func make(objectId: String, configuration: RelationModuleConfiguration, selectedOption: SelectRelationOption?) -> AnyView {
+        SelectRelationListView(
+            viewModel: SelectRelationListViewModel(
                 configuration: configuration,
-                selectedStatus: selectedStatus,
+                selectedOption: selectedOption,
                 relationsService: self.serviceLocator.relationService(objectId: objectId),
                 searchService: self.serviceLocator.searchService()
             )

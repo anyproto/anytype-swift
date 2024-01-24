@@ -4,7 +4,7 @@ protocol ModulesDIProtocol: AnyObject {
     func relationValue() -> RelationValueModuleAssemblyProtocol
     func relationsList() -> RelationsListModuleAssemblyProtocol
     func dateRelationCalendar() -> DateRelationCalendarModuleAssemblyProtocol
-    func statusRelationList() -> StatusRelationListModuleAssemblyProtocol
+    func selectRelationList() -> SelectRelationListModuleAssemblyProtocol
     func undoRedo() -> UndoRedoModuleAssemblyProtocol
     func objectLayoutPicker() -> ObjectLayoutPickerModuleAssemblyProtocol
     func objectCoverPicker() -> ObjectCoverPickerModuleAssemblyProtocol

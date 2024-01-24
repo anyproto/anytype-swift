@@ -10,7 +10,7 @@ final class RelationValueCoordinator: RelationValueCoordinatorProtocol,
     private let navigationContext: NavigationContextProtocol
     private let relationValueModuleAssembly: RelationValueModuleAssemblyProtocol
     private let dateRelationCalendarModuleAssembly: DateRelationCalendarModuleAssemblyProtocol
-    private let statusRelationListModuleAssembly: StatusRelationListModuleAssemblyProtocol
+    private let selectRelationListModuleAssembly: SelectRelationListModuleAssemblyProtocol
     private let urlOpener: URLOpenerProtocol
     private weak var output: RelationValueCoordinatorOutput?
     
@@ -18,13 +18,13 @@ final class RelationValueCoordinator: RelationValueCoordinatorProtocol,
         navigationContext: NavigationContextProtocol,
         relationValueModuleAssembly: RelationValueModuleAssemblyProtocol,
         dateRelationCalendarModuleAssembly: DateRelationCalendarModuleAssemblyProtocol,
-        statusRelationListModuleAssembly: StatusRelationListModuleAssemblyProtocol,
+        selectRelationListModuleAssembly: SelectRelationListModuleAssemblyProtocol,
         urlOpener: URLOpenerProtocol
     ) {
         self.navigationContext = navigationContext
         self.relationValueModuleAssembly = relationValueModuleAssembly
         self.dateRelationCalendarModuleAssembly = dateRelationCalendarModuleAssembly
-        self.statusRelationListModuleAssembly = statusRelationListModuleAssembly
+        self.selectRelationListModuleAssembly = selectRelationListModuleAssembly
         self.urlOpener = urlOpener
     }
     
@@ -59,10 +59,10 @@ final class RelationValueCoordinator: RelationValueCoordinatorProtocol,
                 spaceId: objectDetails.spaceId,
                 analyticsType: analyticsType
             )
-            let view = statusRelationListModuleAssembly.make(
+            let view = selectRelationListModuleAssembly.make(
                 objectId: objectDetails.id,
                 configuration: configuration,
-                selectedStatus: status.values.first
+                selectedOption: status.values.compactMap { SelectRelationOption(id: $0.id, text: $0.text, color: $0.color.suColor) }.first
             )
             
             navigationContext.present(view, mediumDetent: status.values.first.isNotNil)

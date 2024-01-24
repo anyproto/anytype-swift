@@ -1,8 +1,8 @@
 import SwiftUI
 
-struct StatusRelationListView: View {
+struct SelectRelationListView: View {
     
-    @StateObject var viewModel: StatusRelationListViewModel
+    @StateObject var viewModel: SelectRelationListViewModel
     @Environment(\.dismiss) var dismiss
     
     var body: some View {
@@ -10,8 +10,8 @@ struct StatusRelationListView: View {
             title: viewModel.configuration.title,
             isEmpty: viewModel.isEmpty,
             listContent: {
-                ForEach(viewModel.statuses) { status in
-                    statusRow(with: status)
+                ForEach(viewModel.options) { option in
+                    optionRow(with: option)
                 }
             },
             onCreate: { title in
@@ -32,14 +32,14 @@ struct StatusRelationListView: View {
         }
     }
     
-    private func statusRow(with status: Relation.Status.Option) -> some View {
+    private func optionRow(with option: SelectRelationOption) -> some View {
         Button {
-            viewModel.statusSelected(status.id)
+            viewModel.optionSelected(option.id)
         } label: {
             HStack {
-                AnytypeText(status.text, style: .relation1Regular, color: status.color.suColor)
+                AnytypeText(option.text, style: .relation1Regular, color: option.color)
                 Spacer()
-                if status.id == viewModel.selectedStatus?.id {
+                if option == viewModel.selectedOption {
                     Image(asset: .relationCheckboxChecked)
                 }
             }
@@ -50,10 +50,10 @@ struct StatusRelationListView: View {
     }
 }
 
-struct StatusRelationListView_Previews: PreviewProvider {
+struct SelectRelationListView_Previews: PreviewProvider {
     static var previews: some View {
-        StatusRelationListView(
-            viewModel: StatusRelationListViewModel(
+        SelectRelationListView(
+            viewModel: SelectRelationListViewModel(
                 configuration: RelationModuleConfiguration(
                     title: "Status",
                     isEditable: true,
@@ -61,7 +61,7 @@ struct StatusRelationListView_Previews: PreviewProvider {
                     spaceId: "",
                     analyticsType: .block
                 ),
-                selectedStatus: nil,
+                selectedOption: nil,
                 relationsService: DI.preview.serviceLocator.relationService(objectId: ""),
                 searchService: DI.preview.serviceLocator.searchService()
             )

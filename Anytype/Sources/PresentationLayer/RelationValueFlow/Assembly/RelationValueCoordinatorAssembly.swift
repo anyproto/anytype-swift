@@ -19,7 +19,7 @@ final class RelationValueCoordinatorAssembly: RelationValueCoordinatorAssemblyPr
             navigationContext: uiHelpersDI.commonNavigationContext(),
             relationValueModuleAssembly: modulesDI.relationValue(), 
             dateRelationCalendarModuleAssembly: modulesDI.dateRelationCalendar(), 
-            statusRelationListModuleAssembly: modulesDI.statusRelationList(),
+            selectRelationListModuleAssembly: modulesDI.selectRelationList(),
             urlOpener: uiHelpersDI.urlOpener()
         )
         

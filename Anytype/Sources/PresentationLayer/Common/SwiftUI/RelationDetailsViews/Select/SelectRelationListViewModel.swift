@@ -3,10 +3,10 @@ import Foundation
 import Services
 
 @MainActor
-final class StatusRelationListViewModel: ObservableObject {
+final class SelectRelationListViewModel: ObservableObject {
     
-    @Published var selectedStatus: Relation.Status.Option?
-    @Published var statuses: [Relation.Status.Option] = []
+    @Published var selectedOption: SelectRelationOption?
+    @Published var options: [SelectRelationOption] = []
     @Published var isEmpty = false
     @Published var dismiss = false
         
@@ -17,19 +17,19 @@ final class StatusRelationListViewModel: ObservableObject {
     
     init(
         configuration: RelationModuleConfiguration,
-        selectedStatus: Relation.Status.Option?,
+        selectedOption: SelectRelationOption?,
         relationsService: RelationsServiceProtocol,
         searchService: SearchServiceProtocol
     ) {
         self.configuration = configuration
-        self.selectedStatus = selectedStatus
+        self.selectedOption = selectedOption
         self.relationsService = relationsService
         self.searchService = searchService
     }
 
     func clear() {
         Task {
-            selectedStatus = nil
+            selectedOption = nil
             try await relationsService.updateRelation(relationKey: configuration.relationKey, value: nil)
             logChanges()
         }
@@ -37,29 +37,29 @@ final class StatusRelationListViewModel: ObservableObject {
     
     func create(with title: String?) {
         Task {
-            let statusId = try await relationsService.addRelationOption(
+            let optionId = try await relationsService.addRelationOption(
                 spaceId: configuration.spaceId,
                 relationKey: configuration.relationKey,
                 optionText: title ?? ""
             )
             
-            guard let statusId else { return }
+            guard let optionId else { return }
             
-            statusSelected(statusId)
+            optionSelected(optionId)
         }
         
     }
     
-    func statusSelected(_ statusId: String) {
+    func optionSelected(_ optionId: String) {
         Task {
-            try await relationsService.updateRelation(relationKey: configuration.relationKey, value: statusId.protobufValue)
+            try await relationsService.updateRelation(relationKey: configuration.relationKey, value: optionId.protobufValue)
             
-            let newStatus = try await searchService.searchRelationOptions(
-                optionIds: [statusId],
+            let newOption = try await searchService.searchRelationOptions(
+                optionIds: [optionId],
                 spaceId: configuration.spaceId
-            ).first.map { Relation.Status.Option(option: $0) }
+            ).first.map { SelectRelationOption(relation: $0) }
             
-            selectedStatus = newStatus
+            selectedOption = newOption
             logChanges()
             dismiss = true
         }
@@ -67,18 +67,18 @@ final class StatusRelationListViewModel: ObservableObject {
     
     func searchTextChanged(_ text: String = "") {
         Task {
-            statuses = try await searchService.searchRelationOptions(
+            options = try await searchService.searchRelationOptions(
                 text: text,
                 relationKey: configuration.relationKey,
                 excludedObjectIds: [],
                 spaceId: configuration.spaceId
-            ).map { Relation.Status.Option(option: $0) }
+            ).map { SelectRelationOption(relation: $0) }
             
-            isEmpty = statuses.isEmpty && text.isEmpty
+            isEmpty = options.isEmpty && text.isEmpty
         }
     }
     
     func logChanges() {
-        AnytypeAnalytics.instance().logChangeRelationValue(isEmpty: selectedStatus.isNil, type: configuration.analyticsType)
+        AnytypeAnalytics.instance().logChangeRelationValue(isEmpty: selectedOption.isNil, type: configuration.analyticsType)
     }
 }
