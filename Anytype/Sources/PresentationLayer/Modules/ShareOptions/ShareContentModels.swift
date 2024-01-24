@@ -20,17 +20,19 @@ struct ShareContentCounter {
 }
 
 enum SharedSaveOptions {
+    case container(spaceId: String, linkToObject: ObjectDetails?)
     case newObject(spaceId: String, linkToObject: ObjectDetails?)
     case blocks(spaceId: String, addToObject: ObjectDetails)
 }
 
 enum ShareSaveAsType {
-    case newObject
+    case container
+    case object
     case block
     
     var supportedLayouts: [DetailsLayout] {
         switch self {
-        case .newObject:
+        case .object, .container:
             return DetailsLayout.editorLayouts + [.collection]
         case .block:
             return DetailsLayout.editorLayouts

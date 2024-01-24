@@ -12,9 +12,11 @@ final class ShareOptionsViewModel: ObservableObject {
     private weak var output: ShareOptionsModuleOutput?
     
     // First Group
+    @Published var availableOptions: [ShareSaveAsType] = []
+    @Published var newContainerTitle: String = ""
     @Published var newObjectTitle: String = ""
-    @Published var embededObjectTitle: String = ""
-    @Published var saveAsType: ShareSaveAsType = .newObject
+    @Published var newBlockTitle: String = ""
+    @Published var saveAsType: ShareSaveAsType = .object
     // Second Group
     @Published var spaceName: String = ""
     @Published var linkTitle: String = ""
@@ -42,8 +44,13 @@ final class ShareOptionsViewModel: ObservableObject {
         setupData()
     }
     
+    func onTapSaveAsContainer() {
+        saveAsType = .container
+        updateDataState()
+    }
+    
     func onTapSaveAsNewObject() {
-        saveAsType = .newObject
+        saveAsType = .object
         updateDataState()
     }
     
@@ -114,6 +121,7 @@ final class ShareOptionsViewModel: ObservableObject {
         counter.filesCount = content.filter(\.isFile).count
         spaceDetails = activeWorkpaceStorage.spaceView()
         
+        updateAvailableOptions()
         updateDataState()
     }
     
@@ -123,23 +131,35 @@ final class ShareOptionsViewModel: ObservableObject {
         updateTitles()
     }
     
+    private func updateAvailableOptions() {
+        if counter.onlyText {
+            availableOptions = [.container, .block]
+        } else {
+            let otherItems = counter.textCount + counter.bookmarksCount + counter.filesCount
+            availableOptions = otherItems > 1 ? [.container, .object, .block] : [.object, .block]
+        }
+        saveAsType = availableOptions.first ?? .object
+    }
+    
     private func updateTitles() {
         if counter.onlyText {
             newObjectTitle = Loc.Sharing.Text.noteObject
-            embededObjectTitle = Loc.Sharing.Text.textBlock
+            newBlockTitle = Loc.Sharing.Text.textBlock
         } else if counter.onlyBookmarks {
             newObjectTitle = Loc.Sharing.Url.bookmark
-            embededObjectTitle = Loc.Sharing.Url.text
+            newBlockTitle = Loc.Sharing.Url.text
         } else if counter.onlyFiles {
             newObjectTitle = Loc.Sharing.File.newObject
-            embededObjectTitle = Loc.Sharing.File.block
+            newBlockTitle = Loc.Sharing.File.block
         } else {
             newObjectTitle = Loc.Sharing.Any.newObject
-            embededObjectTitle = Loc.Sharing.Any.block
+            newBlockTitle = Loc.Sharing.Any.block
         }
         
+        newContainerTitle = Loc.Sharing.Text.noteObject
+        
         switch saveAsType {
-        case .newObject:
+        case .object, .container:
             linkTitle = Loc.Sharing.linkTo
         case .block:
             linkTitle = Loc.Sharing.addTo
@@ -161,7 +181,9 @@ final class ShareOptionsViewModel: ObservableObject {
         }
         
         switch saveAsType {
-        case .newObject:
+        case .container:
+            saveOptions = .container(spaceId: spaceDetails.targetSpaceId, linkToObject: linkObjectDetails)
+        case .object:
             saveOptions = .newObject(spaceId: spaceDetails.targetSpaceId, linkToObject: linkObjectDetails)
         case .block:
             if let linkObjectDetails {

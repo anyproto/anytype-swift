@@ -39,6 +39,8 @@ final class ShareOptionsInteractor: ShareOptionsInteractorProtocol {
     
     func saveContent(saveOptions: SharedSaveOptions, content: [SharedContent]) async throws {
         switch saveOptions {
+        case .container(let spaceId, let linkToObject):
+            try await saveNewContainer(spaceId: spaceId, linkToObject: linkToObject, content: content)
         case .newObject(let spaceId, let linkToObject):
             await saveNewObject(spaceId: spaceId, linkToObject: linkToObject, content: content)
         case .blocks(let spaceId, let addToObject):
@@ -47,6 +49,23 @@ final class ShareOptionsInteractor: ShareOptionsInteractorProtocol {
     }
     
     // MARK: - Private
+    
+    private func saveNewContainer(spaceId: String, linkToObject: ObjectDetails?, content: [SharedContent]) async throws {
+        let noteObject = try await pageRepository.createPage(
+            name: "",
+            typeUniqueKey: .note,
+            shouldDeleteEmptyObject: false,
+            shouldSelectType: false,
+            shouldSelectTemplate: false,
+            spaceId: spaceId,
+            origin: .sharingExtension,
+            templateId: nil
+        )
+        await saveNewBlock(spaceId: spaceId, addToObject: noteObject, content: content)
+        if let linkToObject {
+            try await linkTo(object: linkToObject, newObjectId: noteObject.id, blockInformation: BlockInformation.emptyLink(targetId: noteObject.id))
+        }
+    }
     
     private func saveNewObject(spaceId: String, linkToObject: ObjectDetails?, content: [SharedContent]) async {
         for contentItem in content {
@@ -68,22 +87,7 @@ final class ShareOptionsInteractor: ShareOptionsInteractorProtocol {
                 }
                 
                 if let linkToObject {
-                    if linkToObject.isCollection {
-                        try await objectActionsService
-                            .addObjectsToCollection(
-                                contextId: linkToObject.id,
-                                objectIds: [newObjectId]
-                            )
-                    } else {
-                        let lastBlockInDocument = try await listService.lastBlockId(from: linkToObject.id)
-                        _ = try await blockActionService.add(
-                            contextId: linkToObject.id,
-                            targetId: lastBlockInDocument,
-                            info: blockInformation,
-                            position: .bottom
-                        )
-                        AnytypeAnalytics.instance().logCreateBlock(type: blockInformation.content.type, route: .sharingExtension)
-                    }
+                    try await linkTo(object: linkToObject, newObjectId: newObjectId, blockInformation: blockInformation)
                 }
             } catch {}
         }
@@ -178,6 +182,25 @@ final class ShareOptionsInteractor: ShareOptionsInteractorProtocol {
             position: .bottom
         )
         AnytypeAnalytics.instance().logCreateBlock(type: blockInformation.content.type, route: .sharingExtension)
+    }
+    
+    private func linkTo(object linkToObject: ObjectDetails, newObjectId: String, blockInformation: BlockInformation) async throws {
+        if linkToObject.isCollection {
+            try await objectActionsService
+                .addObjectsToCollection(
+                    contextId: linkToObject.id,
+                    objectIds: [newObjectId]
+                )
+        } else {
+            let lastBlockInDocument = try await listService.lastBlockId(from: linkToObject.id)
+            _ = try await blockActionService.add(
+                contextId: linkToObject.id,
+                targetId: lastBlockInDocument,
+                info: blockInformation,
+                position: .bottom
+            )
+            AnytypeAnalytics.instance().logCreateBlock(type: blockInformation.content.type, route: .sharingExtension)
+        }
     }
 }
 

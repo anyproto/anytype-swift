@@ -36,8 +36,7 @@ class ShareViewController: SLComposeServiceViewController {
     }
     
     private func openMainApp() {
-        let res = URLConstants.sharingExtenstionURL.map { openURL($0) }
-        print("open res \(res)")
+        _ = URLConstants.sharingExtenstionURL.map { openURL($0) }
     }
     
     // Courtesy: https://stackoverflow.com/a/44499222/13363449 👇🏾

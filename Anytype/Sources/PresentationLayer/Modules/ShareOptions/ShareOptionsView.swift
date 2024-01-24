@@ -10,16 +10,30 @@ struct ShareOptionsView: View {
         ZStack {
             List {
                 Section(header: Text(Loc.Sharing.saveAs)) {
-                    ShareSelectionRow(text: model.newObjectTitle, selected: model.saveAsType == .newObject)
-                        .fixTappableArea()
-                        .onTapGesture {
-                            model.onTapSaveAsNewObject()
-                        }
-                    ShareSelectionRow(text: model.embededObjectTitle, selected: model.saveAsType == .block)
-                        .fixTappableArea()
-                        .onTapGesture {
-                            model.onTapSaveAsBlock()
-                        }
+                    
+                    if model.availableOptions.contains(.container) {
+                        ShareSelectionRow(text: model.newContainerTitle, selected: model.saveAsType == .container)
+                            .fixTappableArea()
+                            .onTapGesture {
+                                model.onTapSaveAsContainer()
+                            }
+                    }
+                    
+                    if model.availableOptions.contains(.object) {
+                        ShareSelectionRow(text: model.newObjectTitle, selected: model.saveAsType == .object)
+                            .fixTappableArea()
+                            .onTapGesture {
+                                model.onTapSaveAsNewObject()
+                            }
+                    }
+                    
+                    if model.availableOptions.contains(.block) {
+                        ShareSelectionRow(text: model.newBlockTitle, selected: model.saveAsType == .block)
+                            .fixTappableArea()
+                            .onTapGesture {
+                                model.onTapSaveAsBlock()
+                            }
+                    }
                 }
                 
                 Section {
