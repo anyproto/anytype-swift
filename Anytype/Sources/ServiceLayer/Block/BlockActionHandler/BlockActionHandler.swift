@@ -167,37 +167,24 @@ final class BlockActionHandler: BlockActionHandlerProtocol {
         return changedAttributedString
     }
 
-    func changeTextStyle(_ attribute: MarkupType, range: NSRange, blockId: BlockId) {
-        fatalError()
-//        guard let newText = markupChanger.toggleMarkup(attribute, blockId: blockId, range: range) else { return }
-//
-//        AnytypeAnalytics.instance().logChangeTextStyle(attribute)
-//
-//        changeTextForced(newText, blockId: blockId)
-    }
+    func setTextStyle(
+        _ attribute: MarkupType,
+        range: NSRange,
+        blockId: BlockId,
+        currentText: NSAttributedString?,
+        contentType: BlockContentType
+    ) {
+        guard let currentText else { return }
+        let newText = markupChanger.setMarkup(
+            attribute,
+            range: range,
+            attributedString: currentText,
+            contentType: contentType
+        )
 
-    func setTextStyle(_ attribute: MarkupType, range: NSRange, blockId: BlockId, currentText: NSAttributedString?) {
-        fatalError()
-//        guard let newText = markupChanger.setMarkup(attribute, blockId: blockId, range: range, currentText: currentText)
-//            else { return }
-//
-//        AnytypeAnalytics.instance().logChangeTextStyle(attribute)
-//
-//        changeTextForced(newText, blockId: blockId)
-    }
-    
-    func setLink(url: URL?, range: NSRange, blockId: BlockId) {
-        fatalError()
-//        let newText: NSAttributedString?
-//        AnytypeAnalytics.instance().logChangeTextStyle(MarkupType.link(url))
-//        if let url = url {
-//            newText = markupChanger.setMarkup(.link(url), blockId: blockId, range: range)
-//        } else {
-//            newText = markupChanger.removeMarkup(.link(nil), blockId: blockId, range: range)
-//        }
-//
-//        guard let newText = newText else { return }
-//        changeTextForced(newText, blockId: blockId)
+        AnytypeAnalytics.instance().logChangeTextStyle(attribute)
+
+        changeText(newText, blockId: blockId)
     }
     
     func setLinkToObject(linkBlockId: BlockId?, range: NSRange, blockId: BlockId) {

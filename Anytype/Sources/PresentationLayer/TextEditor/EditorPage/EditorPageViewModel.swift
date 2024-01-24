@@ -82,7 +82,6 @@ final class EditorPageViewModel: EditorPageViewModelProtocol, EditorBottomNaviga
         }.store(in: &subscriptions)
         
         document.flattenBlockIds.receiveOnMain().sink { [weak self] ids in
-            print("Hello debug \(ids)")
             self?.handleUpdate(ids: ids)
         }.store(in: &subscriptions)
         

@@ -17,7 +17,7 @@ protocol BlockActionHandlerProtocol: AnyObject {
     func delete(blockIds: [BlockId])
     func moveToPage(blockId: BlockId, pageId: BlockId)
     func createEmptyBlock(parentId: BlockId)
-    func setLink(url: URL?, range: NSRange, blockId: BlockId)
+//    func setLink(url: URL?, range: NSRange, blockId: BlockId)
     func setLinkToObject(linkBlockId: BlockId?, range: NSRange, blockId: BlockId)
     func addLink(targetDetails: ObjectDetails, blockId: BlockId)
     func changeMarkup(blockIds: [BlockId], markType: MarkupType)
@@ -35,8 +35,13 @@ protocol BlockActionHandlerProtocol: AnyObject {
     func setObjectCollectionType() async throws
     func applyTemplate(objectId: String, templateId: String) async throws
     func changeText(_ text: NSAttributedString, blockId: BlockId)
-    func changeTextStyle(_ attribute: MarkupType, range: NSRange, blockId: BlockId)
-    func setTextStyle(_ attribute: MarkupType, range: NSRange, blockId: BlockId, currentText: NSAttributedString?)
+    func setTextStyle(
+        _ attribute: MarkupType,
+        range: NSRange,
+        blockId: BlockId,
+        currentText: NSAttributedString?,
+        contentType: BlockContentType
+    )
     func uploadMediaFile(uploadingSource: FileUploadingSource, type: MediaPickerContentType, blockId: BlockId)
     func uploadFileAt(localPath: String, blockId: BlockId)
     func createAndFetchBookmark(

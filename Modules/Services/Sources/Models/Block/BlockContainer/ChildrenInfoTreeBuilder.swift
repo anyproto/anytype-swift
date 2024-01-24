@@ -26,9 +26,9 @@ final class ChildrenInfoTreeBuilder {
         while !stack.isEmpty {
             if let info = stack.pop() {
                 if info.kind == .block { result.append(info) } // Skip meta blocks
-
+                
                 let children = findChildren(info: info)
-
+                
                 for item in children.reversed() {
                     stack.push(item)
                 }
@@ -37,29 +37,6 @@ final class ChildrenInfoTreeBuilder {
         
         return result
     }
-//    func treeList(root: TreeList<BlockInformation>) -> [TreeList<BlockInformation>] {
-//        var result: TreeList<BlockInformation>?
-//        let stack = Stack<BlockInformation>()
-//
-//        let children = findChildren(info: root.value)
-//        for item in children.reversed() {
-//            stack.push(item)
-//        }
-//        
-//        stack.push(root.value)
-//
-//        while !stack.isEmpty {
-//            if let info = stack.pop() {
-//                guard info.kind == .block else {
-//                    continue
-//                }  // Skip meta blocks
-//
-//                result = .init(value: info, children: children)
-//            }
-//        }
-//
-//        return result
-//    }
 
     private func findChildren(info: BlockInformation) -> [BlockInformation] {
         switch info.content {
@@ -86,17 +63,3 @@ public final class TreeList<T> {
         self.children = children
     }
 }
-
-//
-//extension Array where Element == BlockInformation {
-//    var treeList: [TreeList<BlockInformation>] {
-//        let listTree = Array<TreeList<BlockInformation>>()
-//
-//        var skippedBlockIds = [BlockId]()
-//
-//        for child in self {
-//
-//        }
-//    }
-//}
-

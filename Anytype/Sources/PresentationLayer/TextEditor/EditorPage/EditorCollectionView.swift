@@ -33,13 +33,6 @@ class EditorCollectionView: UICollectionView {
             }
         }
     }
-    
-    override func setContentOffset(_ contentOffset: CGPoint, animated: Bool) {
-        if contentOffset == .zero {
-            print("ZEROOO")
-        }
-        super.setContentOffset(contentOffset, animated: animated)
-    }
 
     private(set) var indexPathsForMovingItems = Set<IndexPath>()
 

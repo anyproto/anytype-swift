@@ -104,9 +104,9 @@ extension NSAttributedString {
 extension Int {
     init(any: Any?) {
         if let any, let anyInt = any as? Int {
-            self = anyInt
+            self.init(anyInt)
+        } else {
+            self.init(0)
         }
-        
-        self.init(0)
     }
 }

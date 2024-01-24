@@ -182,31 +182,6 @@ private extension TextViewWithPlaceholder {
     }
 }
 
-// MARK: - Contextual Menu
-
-extension TextViewWithPlaceholder {
-    
-    @objc private func didSelectContextMenuActionBold() {
-        handleMenuAction(.bold)
-    }
-    
-    @objc private func didSelectContextMenuActionItalic() {
-        handleMenuAction(.italic)
-    }
-    
-    @objc private func didSelectContextMenuActionStrikethrough() {
-        handleMenuAction(.strikethrough)
-    }
-    
-    @objc private func didSelectContextMenuActionCode() {
-        handleMenuAction(.keyboard)
-    }
-    
-    private func handleMenuAction(_ action: MarkupType) {
-        customTextViewDelegate?.changeTextStyle(attribute: action, range: selectedRange)
-    }
-}
-
 // MARK: - NSTextStorageDelegate
 
 extension TextViewWithPlaceholder: NSTextStorageDelegate {

@@ -29,11 +29,3 @@ protocol BlockMarkupChangerProtocol {
         attributedString: NSAttributedString
     ) -> NSAttributedString
 }
-
-// MARK: - Default values
-
-extension BlockMarkupChangerProtocol {
-//    func setMarkup(_ markup: MarkupType, blockId: BlockId, range: NSRange) -> NSAttributedString? {
-//        setMarkup(markup, blockId: blockId, range: range, currentText: nil)
-//    }
-}

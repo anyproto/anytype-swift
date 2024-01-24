@@ -46,10 +46,6 @@ extension TextBlockContentView: CustomTextViewDelegate {
         }
     }
     
-    func changeTextStyle(attribute: MarkupType, range: NSRange) {
-        actions?.changeTextStyle(attribute, range)
-    }
-    
     func keyboardAction(_ action: CustomTextView.KeyboardAction) {
         actions?.handleKeyboardAction(action, textView.textView)
     }

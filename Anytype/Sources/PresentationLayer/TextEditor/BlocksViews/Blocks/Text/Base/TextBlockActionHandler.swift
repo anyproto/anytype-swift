@@ -109,9 +109,6 @@ final class TextBlockActionHandler: TextBlockActionHandlerProtocol {
             openURL: { [weak self] in
                 self?.openURL($0)
             },
-            changeTextStyle: { [weak self] type, on in
-                self?.changeStyle(type: type, on: on)
-            },
             handleKeyboardAction: { [weak self] action, textView in
                 self?.handleKeyboardAction(action: action, textView: textView)
             },
@@ -195,7 +192,7 @@ final class TextBlockActionHandler: TextBlockActionHandlerProtocol {
                 actionHandler.addBlock(type, blockId: info.id, blockText: newText, position: .top)
                 resetSubject.send(nil)
             case let .addStyle(style, newText, styleRange, focusRange):
-                actionHandler.setTextStyle(style, range: styleRange, blockId: info.id, currentText: newText)
+                actionHandler.setTextStyle(style, range: styleRange, blockId: info.id, currentText: newText, contentType: info.content.type)
                 textView.setFocus(.at(focusRange))
             }
 
@@ -339,10 +336,6 @@ final class TextBlockActionHandler: TextBlockActionHandlerProtocol {
 
     private func createEmptyBlock() {
         actionHandler.createEmptyBlock(parentId: info.id)
-    }
-
-    private func changeStyle(type: MarkupType, on range: NSRange) {
-        actionHandler.changeTextStyle(type, range: range, blockId: info.id)
     }
 
     private func handleKeyboardAction(action: CustomTextView.KeyboardAction, textView: UITextView) {

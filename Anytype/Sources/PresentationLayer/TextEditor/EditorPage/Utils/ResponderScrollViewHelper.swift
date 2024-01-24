@@ -41,19 +41,12 @@ final class ResponderScrollViewHelper {
     }
     
     private func performContentOffsetChange(yDelta: CGFloat) {
-            UIView.animate(withDuration: CATransaction.animationDuration()) { [weak scrollView] in
-                guard let scrollView else  { return }
-                var contentOffset = scrollView.contentOffset
-                contentOffset.y = contentOffset.y + yDelta
-                scrollView.setContentOffset(contentOffset, animated: true)
-            }
-//        print("performContentOffsetChange(yDelta: \(yDelta)")
-//        DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) { [weak scrollView] in
-//            guard let scrollView else  { return }
-//            var contentOffset = scrollView.contentOffset
-//            contentOffset.y = contentOffset.y + yDelta
-//            scrollView.setContentOffset(contentOffset, animated: true)
-//        }
+        UIView.animate(withDuration: CATransaction.animationDuration()) { [weak scrollView] in
+            guard let scrollView else  { return }
+            var contentOffset = scrollView.contentOffset
+            contentOffset.y = contentOffset.y + yDelta
+            scrollView.setContentOffset(contentOffset, animated: true)
+        }
     }
 }
 

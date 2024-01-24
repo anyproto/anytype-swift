@@ -399,31 +399,11 @@ extension EditorPageController: EditorPageViewInput {
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) { [weak responderScrollViewHelper] in
             responderScrollViewHelper?.scrollBlockToVisibleArea(textView: textView)
         }
-        
-//        guard let item = dataSourceItem(for: blockId),
-//              let indexPath = dataSource.indexPath(for: item),
-//              let cellRect = collectionView.layoutAttributesForItem(at: indexPath)?.frame else { return }
-//        
-//        let convertedPoint = collectionView.convert(cellRect.origin, to: view)
-//        
-//        let navigationBarHeight = (navigationController?.navigationBar.frame.size.height ?? 0)
-//        
-//        let diff = convertedPoint.y - navigationBarHeight
-//        
-//        if diff <= 0 {
-//            var currentContentOffset = collectionView.contentOffset
-//            currentContentOffset.y -= abs(diff)
-//            collectionView.setContentOffset(currentContentOffset, animated: true)
-//        }
-//        print("convertedPoint: \(convertedPoint)")
     }
     
     func selectBlock(blockId: BlockId) {
         if let item = dataSourceItem(for: blockId),
             let indexPath = dataSource.indexPath(for: item) {
-//            viewModel.modelsHolder.contentProvider(for: item)
-//                .map(reloadCell(for:))
-
             collectionView.selectItem(at: indexPath, animated: true, scrollPosition: [])
 
             collectionView.indexPathsForSelectedItems.map(

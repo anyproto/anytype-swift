@@ -13,7 +13,6 @@ struct TextBlockContentConfiguration: BlockConfiguration {
         let showPage: (BlockId) -> Void
         let openURL: (URL) -> Void
         
-        let changeTextStyle: (MarkupType, NSRange) -> Void
         let handleKeyboardAction: (CustomTextView.KeyboardAction, UITextView) -> Void
         let becomeFirstResponder: () -> Void
         let resignFirstResponder: () -> Void
@@ -126,7 +125,6 @@ extension TextBlockContentConfiguration {
             createEmptyBlock: { },
             showPage: { _ in },
             openURL: { _ in },
-            changeTextStyle: { _, _ in },
             handleKeyboardAction: { _, _ in },
             becomeFirstResponder: { },
             resignFirstResponder: { },

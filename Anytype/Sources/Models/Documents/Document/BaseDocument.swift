@@ -167,7 +167,6 @@ final class BaseDocument: BaseDocumentProtocol {
     }
     
     var children: [BlockInformation] {
-        print("Children count in document \(_children.count)")
         return _children
     }
     
@@ -192,40 +191,14 @@ final class BaseDocument: BaseDocumentProtocol {
         if !forPreview {
             eventsListener.startListening()
         }
-
-//        Publishers
-//            .CombineLatest3(
-//                relationDetailsStorage.relationsDetailsPublisher,
-//                // Depends on different objects: relation options and relation objects
-//                // Subscriptions for each object will be complicated. Subscribes to any document updates.
-//                objectTypeProvider.syncPublisher,
-//                updatePublisher
-//            )
-//            .map { [weak self] _ -> ParsedRelations in
-//                guard let self = self else { return .empty }
-//                return self.parsedRelations
-//            }
-//            .removeDuplicates()
-//            .receiveOnMain()
-//            .sink { [weak self] in
-//                self?.parsedRelationsSubject.send($0)
-//                // Update block relation when relation is deleted or installed
-//                self?.updateSubject.send(.general)
-//            }
-//            .store(in: &subscriptions)
     }
     
-    private func reorderChilder() -> Bool {
+    private func reorderChilder() {
         guard let model = infoContainer.get(id: objectId) else {
-            return false
+            return
         }
         let flatten = model.flatChildrenTree(container: infoContainer)
-        
-        let isTheSame = flatten.map { $0.id } == _children.map { $0.id }
-       
         _children = flatten
-        
-        return isTheSame
     }
     
     private func triggerSync(updates: [DocumentUpdate]) {
@@ -239,9 +212,7 @@ final class BaseDocument: BaseDocumentProtocol {
             case .children(let blockIds):
                 blockIds.forEach { infoContainer.publishValue(for: $0) }
                 _resetBlocksSubject.send(blockIds)
-                
-                let shouldUpdate = reorderChilder()
-                
+                reorderChilder()
             case .blocks(let blockIds):
                 blockIds.forEach { infoContainer.publishValue(for: $0) }
                 _resetBlocksSubject.send(blockIds)
@@ -249,15 +220,8 @@ final class BaseDocument: BaseDocumentProtocol {
                 blockIds.forEach { infoContainer.publishValue(for: $0) }
             case .syncStatus:
                 break
-            case .details(let id):
-                if id == objectId {
-                } else {
-                }
-                
-                // Document details usually updates after sync()
-                //            if objectId == id {
-                //
-                //            } // => Update documentDetails
+            case .details:
+                break // Sync will be send always
             }
         }
         

@@ -99,16 +99,6 @@ final class MiddlewareEventConverter {
                 return .general
             }
             
-            #warning("Need to identify the problem and solve it another way")
-//            let excludedRelationKeys: [BundledRelationKey] = [.lastOpenedDate, .description, .snippet]
-//            
-//            let relationKeys = data.details
-//                .map { $0.key }
-////                .filter{ $0 != BundledRelationKey.description.rawValue && $0 != BundledRelationKey.lastModifiedDate.rawValue } // Also lastModifiedBy for multiplayer
-//            if relationLinksStorage.contains(relationKeys: relationKeys) {
-//                return .general
-//            }
-            
             return .details(id: data.id)
             
         case let .objectDetailsUnset(data):

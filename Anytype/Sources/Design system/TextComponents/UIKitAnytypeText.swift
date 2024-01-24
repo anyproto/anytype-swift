@@ -14,16 +14,13 @@ final class UIKitAnytypeText: Hashable {
         attributedString: NSAttributedString,
         style: AnytypeFont,
         lineBreakModel: NSLineBreakMode
-        //        textAlignment: NSTextAlignment
     ) {
         self.anytypeFont = style
         let font = UIKitFontBuilder.uiKitFont(font: style)
         
         let newAttrString = NSMutableAttributedString(attributedString: attributedString)
         textModifier = MarkStyleModifier(attributedString: newAttrString, anytypeFont: style)
-        
-        // setup line height
-        
+                
         let paragraphStyle = attributedString.length > 0
         ? (attributedString.attribute(.paragraphStyle, at: 0, effectiveRange: nil) as? NSMutableParagraphStyle) ?? NSMutableParagraphStyle()
         : NSMutableParagraphStyle()
@@ -89,13 +86,11 @@ extension UIKitAnytypeText {
         text: String,
         style: AnytypeFont,
         lineBreakModel: NSLineBreakMode
-        //        textAlignment: NSTextAlignment
     ) {
         self.init(
             attributedString: NSAttributedString(string: text),
             style: style,
             lineBreakModel: lineBreakModel
-            //            textAlignment: textAlignment
         )
     }
 }

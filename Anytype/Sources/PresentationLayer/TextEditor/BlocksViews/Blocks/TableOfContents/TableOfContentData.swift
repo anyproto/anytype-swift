@@ -11,10 +11,6 @@ final class TableOfContentItem: Equatable, Hashable, ObservableObject {
     @Published var title: String
     let level: Int
     
-    deinit {
-        print("TableOfContentItem deinited")
-    }
-    
     init(blockId: BlockId, title: String, level: Int) {
         self.blockId = blockId
         self.title = title

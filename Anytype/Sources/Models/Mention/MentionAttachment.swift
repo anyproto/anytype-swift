@@ -60,8 +60,6 @@ final class IconTextAttachment: NSTextAttachment {
         let imageOrigin = CGPoint(x: .zero, y: imageYPoint)
         
         let rect = CGRect(origin: imageOrigin, size: CGSize(width: size.width + rightPadding, height: size.height))
-        
-        print("REEEECT \(rect)")
 
         return rect
     }

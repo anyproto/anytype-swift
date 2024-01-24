@@ -130,7 +130,6 @@ final class TextBlockContentView: UIView, BlockContentView, DynamicHeightView, F
         focusSubscription = configuration
             .focusPublisher
             .sink { [weak self] focus in
-                print("Someone wants to set focus \(focus)")
                 DispatchQueue.main.async {
                     self?.textView.textView.setFocus(focus)
                 }
@@ -144,8 +143,6 @@ final class TextBlockContentView: UIView, BlockContentView, DynamicHeightView, F
         }
         
         if let position = configuration.initialBlockFocusPosition {
-            print("Someone wants to set initial focus \(position)")
-
             textView.textView.setFocus(position)
         }        
     }
