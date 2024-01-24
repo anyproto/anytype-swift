@@ -84,7 +84,6 @@ struct RelationListContainerView<Content>: View where Content: View {
         }
         .frame(height: 52)
         .padding(.horizontal, 20)
-        .disabled(!isEditable)
     }
     
     private var emptyState: some View {
@@ -98,6 +97,7 @@ struct RelationListContainerView<Content>: View where Content: View {
             StandardButton(Loc.create, style: .secondarySmall) {
                 onCreate(nil)
             }
+            .disabled(!isEditable)
             Spacer.fixedHeight(48)
             Spacer()
         }
