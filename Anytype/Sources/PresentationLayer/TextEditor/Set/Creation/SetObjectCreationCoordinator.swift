@@ -40,14 +40,14 @@ final class SetObjectCreationCoordinator: SetObjectCreationCoordinatorProtocol {
     ) {
         self.output = output
         self.customAnalyticsRoute = customAnalyticsRoute
-        objectCreationHelper.createObject(for: setDocument, setting: setting) { [weak self] details, blockId in
-            self?.handleCreatedObjectIfNeeded(details, blockId: blockId, setDocument: setDocument)
+        objectCreationHelper.createObject(for: setDocument, setting: setting) { [weak self] details, titleInputType in
+            self?.handleCreatedObjectIfNeeded(details, titleInputType: titleInputType, setDocument: setDocument)
         }
     }
     
-    private func handleCreatedObjectIfNeeded(_ details: ObjectDetails?, blockId: String?, setDocument: SetDocumentProtocol) {
+    private func handleCreatedObjectIfNeeded(_ details: ObjectDetails?, titleInputType: CreateObjectTitleInputType, setDocument: SetDocumentProtocol) {
         if let details {
-            showCreateObject(details: details, blockId: blockId)
+            showCreateObject(details: details, titleInputType: titleInputType)
             AnytypeAnalytics.instance().logCreateObject(
                 objectType: details.analyticsType,
                 route: customAnalyticsRoute ?? (setDocument.isCollection() ? .collection : .set)
@@ -57,8 +57,8 @@ final class SetObjectCreationCoordinator: SetObjectCreationCoordinatorProtocol {
         }
     }
     
-    private func showCreateObject(details: ObjectDetails, blockId: String?) {
-        let moduleViewController = createObjectModuleAssembly.makeCreateObject(objectId: details.id, blockId: blockId) { [weak self] in
+    private func showCreateObject(details: ObjectDetails, titleInputType: CreateObjectTitleInputType) {
+        let moduleViewController = createObjectModuleAssembly.makeCreateObject(objectId: details.id, titleInputType: titleInputType) { [weak self] in
             self?.navigationContext.dismissTopPresented()
             self?.showPage(data: details.editorScreenData())
         } closeAction: { [weak self] in
