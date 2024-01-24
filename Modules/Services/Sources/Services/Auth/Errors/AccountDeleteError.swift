@@ -1,16 +1,9 @@
 import Foundation
 import ProtobufMessages
 
-enum AccountDeleteError: Error, LocalizedError {
+public enum AccountDeleteError: Error {
     case unableToConnect
     case unknownError
-    
-    var errorDescription: String? {
-        switch self {
-        case .unableToConnect: return Loc.Error.unableToConnect
-        case .unknownError: return Loc.unknownError
-        }
-    }
 }
 
 extension Anytype_Rpc.Account.Delete.Response.Error {

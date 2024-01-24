@@ -30,14 +30,14 @@ final class DashboardLogoutAlertModel: ObservableObject {
         isLogoutInProgress = true
         AnytypeAnalytics.instance().logEvent(AnalyticsEventsName.logout)
 
-        authService.logout(removeData: false) { [weak self] isSuccess in
-            guard let self, isSuccess else {
+        Task {
+            do {
+                try await authService.logout(removeData: false)
+                UINotificationFeedbackGenerator().notificationOccurred(.success)
+                onLogout()
+            } catch {
                 UINotificationFeedbackGenerator().notificationOccurred(.error)
-                return
             }
-            
-            UINotificationFeedbackGenerator().notificationOccurred(.success)
-            onLogout()
         }
     }
 }

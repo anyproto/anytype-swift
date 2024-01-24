@@ -15,13 +15,13 @@ public struct AccountData {
 }
 
 public extension Anytype_Model_Account {
-    var asModel: AccountData {
+    func asModel() throws -> AccountData {
         AccountData(
             id: id,
             name: name,
             avatar: avatar,
             config: config.asModel,
-            status: status.asModel ?? .active,
+            status: try status.asModel(),
             info: info.asModel
         )
     }
