@@ -67,12 +67,16 @@ final class SelectRelationListViewModel: ObservableObject {
     
     func searchTextChanged(_ text: String = "") {
         Task {
-            options = try await searchService.searchRelationOptions(
+            let rawOptions = try await searchService.searchRelationOptions(
                 text: text,
                 relationKey: configuration.relationKey,
                 excludedObjectIds: [],
                 spaceId: configuration.spaceId
             ).map { SelectRelationOption(relation: $0) }
+            
+            options = rawOptions.reordered(
+                by: [ selectedOption?.id ?? "" ]
+            ) { $0.id }
             
             isEmpty = options.isEmpty && text.isEmpty
         }
