@@ -29,9 +29,6 @@ struct RelationListContainerView<Content>: View where Content: View {
                         ToolbarItem(placement: .navigationBarLeading) {
                             clearButton
                         }
-                        ToolbarItem(placement: .navigationBarTrailing) {
-                            createButton
-                        }
                     }
                 })
         }
@@ -73,14 +70,6 @@ struct RelationListContainerView<Content>: View where Content: View {
             onClear()
         } label: {
             AnytypeText(Loc.clear, style: .uxBodyRegular, color: .Button.active)
-        }
-    }
-    
-    private var createButton: some View {
-        Button {
-            onCreate(nil)
-        } label: {
-            Image(asset: .X32.plus).foregroundColor(.Button.active)
         }
     }
     
