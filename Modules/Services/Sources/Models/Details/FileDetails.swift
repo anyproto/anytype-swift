@@ -3,6 +3,7 @@ import Foundation
 public struct FileDetails {
     
     public var name: String { objectDetails.name }
+    public var fileExt: String { objectDetails.fileExt }
     public var id: String { objectDetails.id }
     public var sizeInBytes: Int { objectDetails.sizeInBytes ?? 0 }
     public var fileMimeType: String { objectDetails.fileMimeType }
@@ -12,6 +13,10 @@ public struct FileDetails {
     
     init(objectDetails: ObjectDetails) {
         self.objectDetails = objectDetails
+    }
+    
+    public var fileName: String {
+        return fileExt.isNotEmpty ? "\(name).\(fileExt)" : name
     }
 }
 
