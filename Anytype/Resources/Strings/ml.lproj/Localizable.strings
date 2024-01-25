@@ -83,8 +83,8 @@
 "Relation.Format.Object.Title" = "ഒബ്ജക്റ്റ്";
 "Relation.Format.Text.Title" = "ടെക്സ്റ്റ്";
 "Relation.Format.Number.Title" = "നമ്പർ";
-"Relation.Format.Status.Title" = "സ്റ്റാറ്റസ്";
-"Relation.Format.Tag.Title" = "ടാഗ്";
+"Relation.Format.Status.Title" = "സെലക്ട്";
+"Relation.Format.Tag.Title" = "Multi-select";
 "Relation.Format.Date.Title" = "തീയതി";
 "Relation.Format.FileMedia.Title" = "File & Media";
 "Relation.Format.Checkbox.Title" = "Checkbox";
@@ -486,8 +486,8 @@
 "Enter value" = "Enter value";
 "Select object" = "Select object";
 "Select file" = "Select file";
-"Select tag" = "Select tag";
-"Select status" = "Select status";
+"Select options" = "Select options";
+"Select option" = "Select option";
 "Select date" = "Select date";
 "Add email" = "Add email";
 "Add link" = "Add link";
