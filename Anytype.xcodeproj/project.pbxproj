@@ -6572,7 +6572,7 @@
 			path = Coordinator;
 			sourceTree = "<group>";
 		};
-		2E22F9F12B617B84001EFCF3 /* Editing */ = {
+		2E22F9F12B617B84001EFCF3 /* Settings */ = {
 			isa = PBXGroup;
 			children = (
 				2E22F9F22B617D5D001EFCF3 /* SelectRelationSettingsView.swift */,
@@ -6580,7 +6580,7 @@
 				2E22F9F62B617D7C001EFCF3 /* SelectRelationEditingModuleAssembly.swift */,
 				2E22F9FA2B6193AF001EFCF3 /* RelationCreateConfiguration.swift */,
 			);
-			path = Editing;
+			path = Settings;
 			sourceTree = "<group>";
 		};
 		2E28BCEF2AAB584F001E6306 /* Coordinator */ = {
@@ -6734,7 +6734,7 @@
 		2E65276E2B5EEB9900F27126 /* Select */ = {
 			isa = PBXGroup;
 			children = (
-				2E22F9F12B617B84001EFCF3 /* Editing */,
+				2E22F9F12B617B84001EFCF3 /* Settings */,
 				2E22F9E82B61667E001EFCF3 /* Coordinator */,
 				2E65276C2B5EEAA100F27126 /* SelectRelationListModuleAssembly.swift */,
 				2E6527622B5EBD9300F27126 /* SelectRelationListView.swift */,
