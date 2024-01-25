@@ -38,10 +38,13 @@ final class SetObjectCreationCoordinator: SetObjectCreationCoordinatorProtocol {
         output: SetObjectCreationCoordinatorOutput?,
         customAnalyticsRoute: AnalyticsEventsRouteKind?
     ) {
-        self.output = output
-        self.customAnalyticsRoute = customAnalyticsRoute
-        objectCreationHelper.createObject(for: setDocument, setting: setting) { [weak self] details, titleInputType in
-            self?.handleCreatedObjectIfNeeded(details, titleInputType: titleInputType, setDocument: setDocument)
+        Task { @MainActor [weak self] in
+            guard let self else { return }
+            
+            self.output = output
+            self.customAnalyticsRoute = customAnalyticsRoute
+            let result = try await objectCreationHelper.createObject(for: setDocument, setting: setting)
+            self.handleCreatedObjectIfNeeded(result.details, titleInputType: result.titleInputType, setDocument: setDocument)
         }
     }
     
