@@ -12,6 +12,7 @@ struct SelectRelationSettingsView: View {
             TitleView(title: model.mode.title)
             content
         }
+        .background(Color.Background.secondary)
     }
     
     private var content: some View {

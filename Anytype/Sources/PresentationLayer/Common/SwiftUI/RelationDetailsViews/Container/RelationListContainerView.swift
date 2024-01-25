@@ -53,6 +53,7 @@ struct RelationListContainerView<Content>: View where Content: View {
                 list
             }
         }
+        .background(Color.Background.secondary)
     }
     
     private var list: some View {
@@ -64,7 +65,6 @@ struct RelationListContainerView<Content>: View where Content: View {
         }
         .buttonStyle(BorderlessButtonStyle())
         .bounceBehaviorBasedOnSize()
-        .background(Color.Background.secondary)
         .disabled(!isEditable)
     }
     
