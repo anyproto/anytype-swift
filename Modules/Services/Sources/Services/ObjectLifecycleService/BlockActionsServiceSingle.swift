@@ -3,7 +3,7 @@ import ProtobufMessages
 import AnytypeCore
 import Foundation
 
-public final class BlockActionsServiceSingle: BlockActionsServiceSingleProtocol {
+public final class ObjectLifecycleService: ObjectLifecycleServiceProtocol {
     
     public init() {}
     

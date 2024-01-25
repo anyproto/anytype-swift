@@ -22,7 +22,7 @@ final class ServiceLocator {
     lazy private(set) var documentsProvider: DocumentsProviderProtocol = DocumentsProvider(
         relationDetailsStorage: relationDetailsStorage(),
         objectTypeProvider: objectTypeProvider(),
-        blockActionsService: blockActionsServiceSingle()
+        objectLifecycleService: objectLifecycleService()
     )
     
     // MARK: - Services
@@ -71,8 +71,8 @@ final class ServiceLocator {
         DashboardService(searchService: searchService(), pageService: pageRepository())
     }
     
-    func blockActionsServiceSingle() -> BlockActionsServiceSingleProtocol {
-        BlockActionsServiceSingle()
+    func objectLifecycleService() -> ObjectLifecycleServiceProtocol {
+        ObjectLifecycleService()
     }
     
     func objectActionsService() -> ObjectActionsServiceProtocol {

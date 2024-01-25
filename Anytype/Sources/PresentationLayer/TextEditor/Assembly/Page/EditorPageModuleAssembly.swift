@@ -272,7 +272,6 @@ final class EditorPageModuleAssembly: EditorPageModuleAssemblyProtocol {
             blockBuilder: blocksConverter,
             actionHandler: actionHandler,
             headerModel: headerModel,
-            blockActionsService: serviceLocator.blockActionsServiceSingle(),
             blocksStateManager: blocksStateManager,
             cursorManager: cursorManager,
             objectActionsService: serviceLocator.objectActionsService(),
