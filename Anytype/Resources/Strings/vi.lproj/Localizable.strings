@@ -83,8 +83,8 @@
 "Relation.Format.Object.Title" = "Đối tượng";
 "Relation.Format.Text.Title" = "Văn bản";
 "Relation.Format.Number.Title" = "Số";
-"Relation.Format.Status.Title" = "Trạng thái";
-"Relation.Format.Tag.Title" = "Thẻ";
+"Relation.Format.Status.Title" = "Select";
+"Relation.Format.Tag.Title" = "Multi-select";
 "Relation.Format.Date.Title" = "Ngày tháng";
 "Relation.Format.FileMedia.Title" = "File & Media";
 "Relation.Format.Checkbox.Title" = "Ô tick";
@@ -487,8 +487,8 @@
 "Enter value" = "Nhập giá trị";
 "Select object" = "Chọn đối tượng";
 "Select file" = "Chọn tập tin";
-"Select tag" = "Chọn thẻ";
-"Select status" = "Chọn trạng thái";
+"Select options" = "Select options";
+"Select option" = "Select option";
 "Select date" = "Chọn ngày";
 "Add email" = "Thêm email";
 "Add link" = "Thêm link";
