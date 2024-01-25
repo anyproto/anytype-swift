@@ -53,7 +53,7 @@ final class ObjectSettingsViewModel: ObservableObject {
         document: BaseDocumentProtocol,
         objectDetailsService: DetailsServiceProtocol,
         objectActionsService: ObjectActionsServiceProtocol,
-        blockActionsService: BlockActionsServiceSingleProtocol,
+        blockActionsService: BlockListServiceProtocol,
         templatesService: TemplatesServiceProtocol,
         output: ObjectSettingsModelOutput,
         delegate: ObjectSettingsModuleDelegate,

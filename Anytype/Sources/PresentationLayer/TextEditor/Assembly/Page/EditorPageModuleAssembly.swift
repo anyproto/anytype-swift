@@ -143,7 +143,6 @@ final class EditorPageModuleAssembly: EditorPageModuleAssemblyProtocol {
         let blockActionService = BlockActionService(
             documentId: document.objectId,
             listService: listService,
-            singleService: serviceLocator.blockActionsServiceSingle(),
             objectActionService: serviceLocator.objectActionsService(), 
             textServiceHandler: serviceLocator.textServiceHandler(),
             modelsHolder: modelsHolder,
@@ -183,7 +182,7 @@ final class EditorPageModuleAssembly: EditorPageModuleAssemblyProtocol {
             document: document,
             modelsHolder: modelsHolder,
             blocksSelectionOverlayViewModel: blocksSelectionOverlayViewModel,
-            blockActionsServiceSingle: serviceLocator.blockActionsServiceSingle(),
+            blockActionsService: serviceLocator.blockListService(),
             toastPresenter: uiHelpersDI.toastPresenter(),
             actionHandler: actionHandler,
             pasteboardService: pasteboardService,

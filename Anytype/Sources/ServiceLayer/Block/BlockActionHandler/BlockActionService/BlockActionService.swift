@@ -8,7 +8,6 @@ import AnytypeCore
 final class BlockActionService: BlockActionServiceProtocol {
     private let documentId: BlockId
 
-    private let singleService: BlockActionsServiceSingleProtocol
     private let objectActionService: ObjectActionsServiceProtocol
     private let textServiceHandler: TextServiceProtocol
     private let listService: BlockListServiceProtocol
@@ -22,7 +21,6 @@ final class BlockActionService: BlockActionServiceProtocol {
     init(
         documentId: String,
         listService: BlockListServiceProtocol,
-        singleService: BlockActionsServiceSingleProtocol,
         objectActionService: ObjectActionsServiceProtocol,
         textServiceHandler: TextServiceProtocol,
         modelsHolder: EditorMainItemModelsHolder,
@@ -33,7 +31,6 @@ final class BlockActionService: BlockActionServiceProtocol {
     ) {
         self.documentId = documentId
         self.listService = listService
-        self.singleService = singleService
         self.objectActionService = objectActionService
         self.textServiceHandler = textServiceHandler
         self.modelsHolder = modelsHolder
@@ -51,7 +48,7 @@ final class BlockActionService: BlockActionServiceProtocol {
 
     func add(info: BlockInformation, targetBlockId: BlockId, position: BlockPosition, setFocus: Bool) {
         Task {
-            guard let blockId = try await singleService
+            guard let blockId = try await listService
                 .add(contextId: documentId, targetId: targetBlockId, info: info, position: position) else { return }
             
             if setFocus {
@@ -82,7 +79,7 @@ final class BlockActionService: BlockActionServiceProtocol {
 
     func duplicate(blockId: BlockId) {
         Task {
-            try await singleService.duplicate(
+            try await listService.duplicate(
                 contextId: documentId,
                 targetId: blockId,
                 blockIds: [blockId],
@@ -150,7 +147,7 @@ final class BlockActionService: BlockActionServiceProtocol {
     func delete(blockIds: [BlockId]) {
         AnytypeAnalytics.instance().logEvent(AnalyticsEventsName.blockDelete)
         Task {
-            try await singleService.delete(contextId: documentId, blockIds: blockIds)
+            try await listService.delete(contextId: documentId, blockIds: blockIds)
         }
     }
     

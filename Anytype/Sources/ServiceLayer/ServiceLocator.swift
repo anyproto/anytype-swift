@@ -14,7 +14,7 @@ final class ServiceLocator {
         listService: blockListService(),
         bookmarkService: bookmarkService(),
         objectActionsService: objectActionsService(),
-        blockActionService: blockActionsServiceSingle(),
+        blockActionService: blockListService(),
         pageRepository: pageRepository()
     )
 
@@ -318,7 +318,7 @@ final class ServiceLocator {
             dataviewService: dataviewService(),
             objectActionsService: objectActionsService(),
             prefilledFieldsBuilder: SetPrefilledFieldsBuilder(), 
-            blockActionsService: blockActionsServiceSingle()
+            blockActionsService: blockListService()
         )
     }
     

@@ -18,14 +18,14 @@ final class SetObjectCreationHelper: SetObjectCreationHelperProtocol {
     private let objectTypeProvider: ObjectTypeProviderProtocol
     private let objectActionsService: ObjectActionsServiceProtocol
     private let prefilledFieldsBuilder: SetPrefilledFieldsBuilderProtocol
-    private let blockActionsService: BlockActionsServiceSingleProtocol
+    private let blockActionsService: BlockListServiceProtocol
     
     init(
         objectTypeProvider: ObjectTypeProviderProtocol,
         dataviewService: DataviewServiceProtocol,
         objectActionsService: ObjectActionsServiceProtocol,
         prefilledFieldsBuilder: SetPrefilledFieldsBuilderProtocol,
-        blockActionsService: BlockActionsServiceSingleProtocol
+        blockActionsService: BlockListServiceProtocol
     ) {
         self.objectTypeProvider = objectTypeProvider
         self.dataviewService = dataviewService

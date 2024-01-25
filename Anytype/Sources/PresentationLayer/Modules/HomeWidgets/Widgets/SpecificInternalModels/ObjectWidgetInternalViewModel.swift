@@ -11,7 +11,7 @@ final class ObjectWidgetInternalViewModel: CommonWidgetInternalViewModel, Widget
     private let subscriptionManager: TreeSubscriptionManagerProtocol
     private let pageRepository: PageRepositoryProtocol
     private let documentsProvider: DocumentsProviderProtocol
-    private let blockActionsService: BlockActionsServiceSingleProtocol
+    private let blockActionsService: BlockListServiceProtocol
     private weak var output: CommonWidgetModuleOutput?
     
     // MARK: - State
@@ -31,7 +31,7 @@ final class ObjectWidgetInternalViewModel: CommonWidgetInternalViewModel, Widget
         subscriptionManager: TreeSubscriptionManagerProtocol,
         pageRepository: PageRepositoryProtocol,
         documentsProvider: DocumentsProviderProtocol,
-        blockActionsService: BlockActionsServiceSingleProtocol,
+        blockActionsService: BlockListServiceProtocol,
         output: CommonWidgetModuleOutput?
     ) {
         self.subscriptionManager = subscriptionManager

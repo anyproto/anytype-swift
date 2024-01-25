@@ -36,7 +36,7 @@ final class ObjectActionsViewModel: ObservableObject {
     
     private let objectId: BlockId
     private let service: ObjectActionsServiceProtocol
-    private let blockActionsService: BlockActionsServiceSingleProtocol
+    private let blockActionsService: BlockListServiceProtocol
     private let templatesService: TemplatesServiceProtocol
     private let documentsProvider: DocumentsProviderProtocol
     private let blockWidgetService: BlockWidgetServiceProtocol
@@ -45,7 +45,7 @@ final class ObjectActionsViewModel: ObservableObject {
     init(
         objectId: BlockId,
         service: ObjectActionsServiceProtocol,
-        blockActionsService: BlockActionsServiceSingleProtocol,
+        blockActionsService: BlockListServiceProtocol,
         templatesService: TemplatesServiceProtocol,
         documentsProvider: DocumentsProviderProtocol,
         blockWidgetService: BlockWidgetServiceProtocol,

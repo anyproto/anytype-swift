@@ -11,20 +11,18 @@ private enum SharedContentProccessError: Error {
 }
 
 final class SharedContentInteractor: SharedContentInteractorProtocol {
-    private let listService: BlockListServiceProtocol
     private let bookmarkService: BookmarkServiceProtocol
     private let objectActionsService: ObjectActionsServiceProtocol
-    private let blockActionService: BlockActionsServiceSingleProtocol
+    private let blockActionService: BlockListServiceProtocol
     private let pageRepository: PageRepositoryProtocol
     
     init(
         listService: BlockListServiceProtocol,
         bookmarkService: BookmarkServiceProtocol,
         objectActionsService: ObjectActionsServiceProtocol,
-        blockActionService: BlockActionsServiceSingleProtocol,
+        blockActionService: BlockListServiceProtocol,
         pageRepository: PageRepositoryProtocol
     ) {
-        self.listService = listService
         self.bookmarkService = bookmarkService
         self.objectActionsService = objectActionsService
         self.blockActionService = blockActionService
@@ -59,7 +57,7 @@ final class SharedContentInteractor: SharedContentInteractorProtocol {
                         let newBookmark = try await createBookmarkObject(url: url, spaceId: space.targetSpaceId)
                         try await objectActionsService.addObjectsToCollection(contextId: objectDetails.id, objectIds: [newBookmark.id])
                     } else {
-                        let lastBlockInDocument = try await listService.lastBlockId(from: objectDetails.id)
+                        let lastBlockInDocument = try await blockActionService.lastBlockId(from: objectDetails.id)
                         let bookmarkObject = try await createBookmarkObject(url: url, spaceId: space.targetSpaceId)
                         let bookmarkBlock = BlockInformation.bookmark(targetId: bookmarkObject.id)
                         _ = try await blockActionService.add(
@@ -113,7 +111,7 @@ final class SharedContentInteractor: SharedContentInteractorProtocol {
                     origin: .sharingExtension,
                     templateId: nil
                 )
-                let lastBlockInDocument = try await listService.lastBlockId(from: newObject.id)
+                let lastBlockInDocument = try await blockActionService.lastBlockId(from: newObject.id)
                 let blockInformation = text.blockInformation
                 _ = try await blockActionService.add(
                     contextId: newObject.id,
@@ -132,7 +130,7 @@ final class SharedContentInteractor: SharedContentInteractorProtocol {
                     )
                 } else {
                     let info = BlockInformation.emptyLink(targetId: newObject.id)
-                    let lastBlockInDocument = try await listService.lastBlockId(from: linkedTo.id)
+                    let lastBlockInDocument = try await blockActionService.lastBlockId(from: linkedTo.id)
                     let _ = try await blockActionService.add(
                         contextId: linkedTo.id,
                         targetId: lastBlockInDocument,
@@ -146,7 +144,7 @@ final class SharedContentInteractor: SharedContentInteractorProtocol {
                 )
             case .textBlock(let objectDetails):
                 let blockInformation = text.blockInformation
-                let lastBlockInDocument = try await listService.lastBlockId(from: objectDetails.id)
+                let lastBlockInDocument = try await blockActionService.lastBlockId(from: objectDetails.id)
                 _ = try await blockActionService.add(
                     contextId: objectDetails.id,
                     targetId: lastBlockInDocument,
