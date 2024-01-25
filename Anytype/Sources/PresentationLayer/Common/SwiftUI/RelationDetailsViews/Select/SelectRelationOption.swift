@@ -14,7 +14,7 @@ extension SelectRelationOption {
         
         self.id = relation.id
         self.text = relation.text
-        self.color = middlewareColor.map { Color.Dark.color(from: $0) } ?? Color.Dark.default
+        self.color = middlewareColor.map { Color.Dark.color(from: $0) } ?? Color.Dark.grey
     }
     
 }
