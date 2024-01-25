@@ -26,6 +26,10 @@ final class ModulesDI: ModulesDIProtocol {
         return DateRelationCalendarModuleAssembly(serviceLocator: serviceLocator)
     }
     
+    func selectRelationList() -> SelectRelationListModuleAssemblyProtocol {
+        return SelectRelationListModuleAssembly(serviceLocator: serviceLocator)
+    }
+    
     func undoRedo() -> UndoRedoModuleAssemblyProtocol {
         return UndoRedoModuleAssembly(serviceLocator: serviceLocator, uiHelpersDI: uiHelpersDI)
     }

@@ -10,6 +10,7 @@ final class RelationValueCoordinator: RelationValueCoordinatorProtocol,
     private let navigationContext: NavigationContextProtocol
     private let relationValueModuleAssembly: RelationValueModuleAssemblyProtocol
     private let dateRelationCalendarModuleAssembly: DateRelationCalendarModuleAssemblyProtocol
+    private let selectRelationListCoordinatorAssembly: SelectRelationListCoordinatorAssemblyProtocol
     private let urlOpener: URLOpenerProtocol
     private weak var output: RelationValueCoordinatorOutput?
     
@@ -17,11 +18,13 @@ final class RelationValueCoordinator: RelationValueCoordinatorProtocol,
         navigationContext: NavigationContextProtocol,
         relationValueModuleAssembly: RelationValueModuleAssemblyProtocol,
         dateRelationCalendarModuleAssembly: DateRelationCalendarModuleAssemblyProtocol,
+        selectRelationListCoordinatorAssembly: SelectRelationListCoordinatorAssemblyProtocol,
         urlOpener: URLOpenerProtocol
     ) {
         self.navigationContext = navigationContext
         self.relationValueModuleAssembly = relationValueModuleAssembly
         self.dateRelationCalendarModuleAssembly = dateRelationCalendarModuleAssembly
+        self.selectRelationListCoordinatorAssembly = selectRelationListCoordinatorAssembly
         self.urlOpener = urlOpener
     }
     
@@ -45,6 +48,28 @@ final class RelationValueCoordinator: RelationValueCoordinatorProtocol,
             Task {
                 try await relationsService.updateRelation(relationKey: checkbox.key, value: newValue.protobufValue)
             }
+            return
+        }
+        
+        if FeatureFlags.newSelectRelationView, case .status(let status) = relation {
+            let configuration = RelationModuleConfiguration(
+                title: status.name,
+                isEditable: relation.isEditable,
+                relationKey: status.key,
+                spaceId: objectDetails.spaceId,
+                analyticsType: analyticsType
+            )
+            let view = selectRelationListCoordinatorAssembly.make(
+                objectId: objectDetails.id,
+                configuration: configuration,
+                selectedOption: status.values.compactMap {
+                    SelectRelationOption(id: $0.id, text: $0.text, color: $0.color.suColor)
+                }.first
+            )
+            
+            let mediumDetent = status.values.first.isNotNil || !relation.isEditable
+            navigationContext.present(view, mediumDetent: mediumDetent)
+            
             return
         }
         

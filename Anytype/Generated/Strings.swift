@@ -1369,6 +1369,14 @@ internal enum Loc {
     internal static let deleted = Loc.tr("Localizable", "Relation.Deleted", fallback: "Deleted relation")
     /// My relations
     internal static let myRelations = Loc.tr("Localizable", "Relation.MyRelations", fallback: "My relations")
+    internal enum Create {
+      internal enum Row {
+        /// Create “%@”
+        internal static func title(_ p1: Any) -> String {
+          return Loc.tr("Localizable", "Relation.Create.Row.title", String(describing: p1), fallback: "Create “%@”")
+        }
+      }
+    }
     internal enum Format {
       internal enum Checkbox {
         /// Checkbox
@@ -1455,6 +1463,14 @@ internal enum Loc {
     internal static let reloadingContent = Loc.tr("Localizable", "RelationAction.ReloadingContent", fallback: "Reloading content")
     /// Send email
     internal static let sendEmail = Loc.tr("Localizable", "RelationAction.SendEmail", fallback: "Send email")
+  }
+  internal enum Relations {
+    internal enum EmptyState {
+      /// No options found. Create first one to start.
+      internal static let description = Loc.tr("Localizable", "Relations.EmptyState.description", fallback: "No options found. Create first one to start.")
+      /// No values
+      internal static let title = Loc.tr("Localizable", "Relations.EmptyState.title", fallback: "No values")
+    }
   }
   internal enum RelativeFormatter {
     /// Previous 30 days
