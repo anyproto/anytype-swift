@@ -1,5 +1,6 @@
 import Foundation
 import SwiftUI
+import SharedContentManager
 
 struct ShareOptionsView: View {
     
@@ -47,6 +48,14 @@ struct ShareOptionsView: View {
                         .onTapGesture {
                             model.onTapLinkObject()
                         }
+                }
+                
+                if let debugItems = model.debugInfo?.items {
+                    Section(header: Text(Loc.Debug.info)) {
+                        ForEach(0..<debugItems.count, id: \.self) { index in
+                            ShareDebugRowView(index: index, mimeTypes: debugItems[index].mimeTypes)
+                        }
+                    }
                 }
             }
             if model.saveInProgress {

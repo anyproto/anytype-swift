@@ -795,6 +795,8 @@
 		2AFCEB4329CC808D00841E13 /* HomeWidgetsRecentStateManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AFCEB4229CC808D00841E13 /* HomeWidgetsRecentStateManager.swift */; };
 		2AFD69D72987BC240006D792 /* WidgetTypeInternalViewModelProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AFD69D62987BC240006D792 /* WidgetTypeInternalViewModelProtocol.swift */; };
 		2AFD69D92987BC5B0006D792 /* WidgetTypeCreateObjectViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AFD69D82987BC5B0006D792 /* WidgetTypeCreateObjectViewModel.swift */; };
+		2AFD7E152B626632003B16EB /* ShareDebugRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AFD7E142B626632003B16EB /* ShareDebugRow.swift */; };
+		2AFD7E182B626C2D003B16EB /* KeyboardDismiss.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AFD7E172B626C2D003B16EB /* KeyboardDismiss.swift */; };
 		2AFEED0D2A72713500D7A45B /* Icon.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AFEED0C2A72713500D7A45B /* Icon.swift */; };
 		2AFEED162A73AE8C00D7A45B /* HomeWidgetsCoordinatorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AFEED152A73AE8C00D7A45B /* HomeWidgetsCoordinatorView.swift */; };
 		2AFEED182A73AEDB00D7A45B /* HomeWidgetsCoordinatorViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AFEED172A73AEDB00D7A45B /* HomeWidgetsCoordinatorViewModel.swift */; };
@@ -2454,6 +2456,8 @@
 		2AFCEB4229CC808D00841E13 /* HomeWidgetsRecentStateManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeWidgetsRecentStateManager.swift; sourceTree = "<group>"; };
 		2AFD69D62987BC240006D792 /* WidgetTypeInternalViewModelProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WidgetTypeInternalViewModelProtocol.swift; sourceTree = "<group>"; };
 		2AFD69D82987BC5B0006D792 /* WidgetTypeCreateObjectViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WidgetTypeCreateObjectViewModel.swift; sourceTree = "<group>"; };
+		2AFD7E142B626632003B16EB /* ShareDebugRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShareDebugRow.swift; sourceTree = "<group>"; };
+		2AFD7E172B626C2D003B16EB /* KeyboardDismiss.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyboardDismiss.swift; sourceTree = "<group>"; };
 		2AFEED0C2A72713500D7A45B /* Icon.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Icon.swift; sourceTree = "<group>"; };
 		2AFEED152A73AE8C00D7A45B /* HomeWidgetsCoordinatorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeWidgetsCoordinatorView.swift; sourceTree = "<group>"; };
 		2AFEED172A73AEDB00D7A45B /* HomeWidgetsCoordinatorViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeWidgetsCoordinatorViewModel.swift; sourceTree = "<group>"; };
@@ -3513,6 +3517,7 @@
 		038FB5C722D8F304002B90B8 /* ApplicationLayer */ = {
 			isa = PBXGroup;
 			children = (
+				2AFD7E162B626C1E003B16EB /* GlobalEnv */,
 				2AE671DF29018AF600118F56 /* Notifications */,
 				12EE02D32840EAFF00223EB5 /* SceneDelegates */,
 				2AE4EDB42834CF4F00B61ABE /* Launch */,
@@ -6142,6 +6147,7 @@
 			children = (
 				2ACDC9C72B5676820063BFBD /* ShareSelectionRow.swift */,
 				2ACDC9C92B5686F30063BFBD /* ShareArrowRow.swift */,
+				2AFD7E142B626632003B16EB /* ShareDebugRow.swift */,
 			);
 			path = Rows;
 			sourceTree = "<group>";
@@ -6433,6 +6439,14 @@
 				2ACD86F329C309AA0082E861 /* WidgetTypeChangeViewModel.swift */,
 			);
 			path = Internal;
+			sourceTree = "<group>";
+		};
+		2AFD7E162B626C1E003B16EB /* GlobalEnv */ = {
+			isa = PBXGroup;
+			children = (
+				2AFD7E172B626C2D003B16EB /* KeyboardDismiss.swift */,
+			);
+			path = GlobalEnv;
 			sourceTree = "<group>";
 		};
 		2AFE04B128F9434C008647E0 /* LinkToObjectFlow */ = {
@@ -10485,6 +10499,7 @@
 				2E2D256028880C8D00E3DFD1 /* SetFiltersContentViewBuilder.swift in Sources */,
 				C93B2D32274E4FA70008544D /* TwoStandardButtonsView.swift in Sources */,
 				120E818E26A05946006FE84E /* ObjectIconPickerViewModel.swift in Sources */,
+				2AFD7E182B626C2D003B16EB /* KeyboardDismiss.swift in Sources */,
 				3DB692B12697645C00149864 /* MiddlewareColorConverter.swift in Sources */,
 				2A5BC4BE2A78F9D9004FAABF /* SquircleIconPainter.swift in Sources */,
 				EA3D1DEE26CDAFBD001A31D9 /* BlockMarkupChangerProtocol.swift in Sources */,
@@ -11080,6 +11095,7 @@
 				2A8DCAD228C635CE0029B914 /* RelationDetailsStorage.swift in Sources */,
 				3D7F718627A190C6003FE893 /* EditorSetPaginationHelper.swift in Sources */,
 				EA4AC466261CB701002E961E /* FileLoaderReturnValue.swift in Sources */,
+				2AFD7E152B626632003B16EB /* ShareDebugRow.swift in Sources */,
 				538269F426F4E4D400040156 /* AudioPlaybackConfigurator.swift in Sources */,
 				2AFEED0D2A72713500D7A45B /* Icon.swift in Sources */,
 				3D1CEC3127F5A8CA000D36BA /* DeletedAccountViewModel.swift in Sources */,

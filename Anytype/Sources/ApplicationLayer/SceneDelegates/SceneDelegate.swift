@@ -26,6 +26,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         handleURLContext(openURLContexts: connectionOptions.urlContexts)
 
         let applicationView = di.coordinatorsDI.application().makeView()
+            .setKeyboardDismissEnv(window: window)
         window.rootViewController = UIHostingController(rootView: applicationView)
         window.makeKeyAndVisible()
         window.overrideUserInterfaceStyle = UserDefaultsConfig.userInterfaceStyle

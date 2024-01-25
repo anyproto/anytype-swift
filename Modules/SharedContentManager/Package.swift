@@ -12,11 +12,13 @@ let package = Package(
             type: .dynamic,
             targets: ["SharedContentManager"]),
     ],
-    dependencies: [],
+    dependencies: [
+        .package(path: "../AnytypeCore")
+    ],
     targets: [
         .target(
             name: "SharedContentManager",
-            dependencies: [],
+            dependencies: ["AnytypeCore"],
             path: "Sources"
         )
     ]

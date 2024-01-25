@@ -1,6 +1,7 @@
 import Foundation
 import UniformTypeIdentifiers
 import UIKit
+import AnytypeCore
 
 enum ShareExtensionError: Error {
     case parseFailure
@@ -28,9 +29,9 @@ final class SharedContentImporter: SharedContentImporterProtocol {
     // MARK: - SharedContentImporterProtocol
     
     func importData(items: [NSItemProvider]) async -> [SharedContentItem] {
-        let sharedItems = await withTaskGroup(of: SharedContentItem?.self, returning: [SharedContentItem].self) { taskGroup in
+        return await withSortedTaskGroup(of: SharedContentItem?.self, returning: [SharedContentItem].self) { taskGroup in
             items.enumerated().forEach { index, itemProvider in
-                // Should be sort by hierarchy from child to parent
+                // Should be sort by UTType hierarchy from child to parent
                 if itemProvider.hasItemConformingToTypeIdentifier(typeFileUrl.identifier) {
                     taskGroup.addTask { try? await self.handleFileUtl(itemProvider: itemProvider) }
                 } else if itemProvider.hasItemConformingToTypeIdentifier(typeImage.identifier) {
@@ -44,12 +45,8 @@ final class SharedContentImporter: SharedContentImporterProtocol {
                 }
             }
             
-            return await taskGroup.compactMap { $0 }.reduce(into: [SharedContentItem]()) { partialResult, content in
-                partialResult.append(content)
-            }
+            return await taskGroup.waitResult().compactMap { $0 }
         }
-        
-        return sharedItems
     }
     
     // MARK: - Private

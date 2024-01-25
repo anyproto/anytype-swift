@@ -126,4 +126,11 @@ public extension FeatureDescription {
         defaultValue: false,
         debugValue: false
     )
+    
+    static let sharingExtensionShowContentTypes = FeatureDescription(
+        title: "Sharing extension - Show content types",
+        type: .debug,
+        defaultValue: false,
+        debugValue: true
+    )
 }

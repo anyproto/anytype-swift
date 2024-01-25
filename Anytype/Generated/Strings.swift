@@ -934,6 +934,14 @@ internal enum Loc {
     /// List
     internal static let list = Loc.tr("Localizable", "DataviewType.list", fallback: "List")
   }
+  internal enum Debug {
+    /// Debug Info
+    internal static let info = Loc.tr("Localizable", "Debug.Info", fallback: "Debug Info")
+    /// Mime Types - %@
+    internal static func mimeTypes(_ p1: Any) -> String {
+      return Loc.tr("Localizable", "Debug.MimeTypes", String(describing: p1), fallback: "Mime Types - %@")
+    }
+  }
   internal enum DebugMenu {
     /// Release: %@, %@
     internal static func toggleAuthor(_ p1: Any, _ p2: Any) -> String {

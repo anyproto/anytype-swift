@@ -25,6 +25,8 @@ final class ShareOptionsViewModel: ObservableObject {
     @Published var isSaveButtonAvailable = false
     @Published var dismiss = false
     @Published var saveInProgress = false
+    // Debug
+    @Published var debugInfo: SharedContentDebugInfo? = nil
     
     private var saveOptions: SharedSaveOptions?
     private var counter = ShareContentCounter(textCount: 0, bookmarksCount: 0, filesCount: 0)
@@ -126,6 +128,10 @@ final class ShareOptionsViewModel: ObservableObject {
         
         updateAvailableOptions()
         updateDataState()
+        
+        if FeatureFlags.sharingExtensionShowContentTypes {
+            debugInfo = content.debugInfo
+        }
     }
     
     private func updateDataState() {

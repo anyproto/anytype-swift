@@ -23,8 +23,12 @@ final class SharedContentManager: SharedContentManagerProtocol {
     
     func importAndSaveItem(item: NSExtensionItem) async -> SharedContent {
         try? clearSharedContent()
+        let attachments = item.attachments ?? []
         let sharedContentItems = await sharedContentImporter.importData(items: item.attachments ?? [])
-        let sharedContent = SharedContent(title: item.attributedTitle?.string, items: sharedContentItems)
+        let debugInfo = SharedContentDebugInfo(
+            items: attachments.map { SharedContentDebugItem(mimeTypes: $0.registeredTypeIdentifiers.map { $0.description }) }
+        )
+        let sharedContent = SharedContent(title: item.attributedTitle?.string, items: sharedContentItems, debugInfo: debugInfo)
         try? saveSharedContent(content: sharedContent)
         return sharedContent
     }
