@@ -79,7 +79,13 @@
 "Relation.From.Type" = "From type %@";
 "Relation.LinksFrom.Title" = "from";
 "Relation.LinksTo.Title" = "to";
+"Relation.EmptyState.title" = "No values";
+"Relation.EmptyState.description" = "No options found. Create first one to start.";
 "Relation.Create.Row.title" = "Create “%@”";
+"Relation.View.Create.title" = "Create option";
+"Relation.View.Edit.title" = "Edit option";
+"Relation.Create.Textfield.placeholder" = "Enter name...";
+"Relation.Edit.Button.title" = "Apply";
 
 "Relation.Format.Object.Title" = "Object";
 "Relation.Format.Text.Title" = "Text";
@@ -595,7 +601,7 @@
 "Today" = "Today";
 "No date" = "No date";
 "Clear" = "Clear";
-"Create option" = "Create option ‘%@’";
+"Create option with" = "Create option ‘%@’";
 "Add URL" = "Add URL";
 "Add email" = "Add email";
 "Add phone number" = "Add phone number";
@@ -614,10 +620,6 @@
 "Cancel deletion" = "Cancel deletion";
 "Logout and clear data" = "Logout and clear data";
 "New" = "New";
-
-// MARK: Relations
-"Relations.EmptyState.title" = "No values";
-"Relations.EmptyState.description" = "No options found. Create first one to start.";
 
 // MARK: - DeletionAlert
 "DeletionAlert.title" = "Are you sure to delete account?";
