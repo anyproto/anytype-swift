@@ -83,8 +83,8 @@
 "Relation.Format.Object.Title" = "Nesne";
 "Relation.Format.Text.Title" = "Metin";
 "Relation.Format.Number.Title" = "Sayı";
-"Relation.Format.Status.Title" = "Durum";
-"Relation.Format.Tag.Title" = "Etiket";
+"Relation.Format.Status.Title" = "Seç";
+"Relation.Format.Tag.Title" = "Multi-select";
 "Relation.Format.Date.Title" = "Tarih";
 "Relation.Format.FileMedia.Title" = "Dosya & Medya";
 "Relation.Format.Checkbox.Title" = "Onay kutusu";
@@ -486,8 +486,8 @@
 "Enter value" = "Değeri gir";
 "Select object" = "Nesne seç";
 "Select file" = "Dosya seç";
-"Select tag" = "Etiket seç";
-"Select status" = "Durum seç";
+"Select options" = "Select options";
+"Select option" = "Select option";
 "Select date" = "Tarih seç";
 "Add email" = "E-posta ekle";
 "Add link" = "Bağlantı ekle";
