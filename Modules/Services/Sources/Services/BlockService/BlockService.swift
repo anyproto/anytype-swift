@@ -1,11 +1,11 @@
 import ProtobufMessages
 import AnytypeCore
 
-public enum BlockListServiceError: Error {
+public enum BlockServiceError: Error {
     case lastBlockIdNotFound
 }
 
-public final class BlockListService: BlockListServiceProtocol {
+public final class BlockService: BlockServiceProtocol {
     
     public init() {}
     
@@ -156,7 +156,7 @@ public final class BlockListService: BlockListServiceProtocol {
         
 
         guard let lastBlockId = objectShow.objectView.blocks.first(where: { $0.id == objectId} )?.childrenIds.last else {
-            throw BlockListServiceError.lastBlockIdNotFound
+            throw BlockServiceError.lastBlockIdNotFound
         }
     
         return lastBlockId

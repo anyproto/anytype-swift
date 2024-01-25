@@ -11,10 +11,9 @@ final class ServiceLocator {
     let templatesService = TemplatesService()
     let sharedContentManager: SharedContentManagerProtocol = SharedContentManager()
     lazy private(set) var sharedContentInteractor: SharedContentInteractorProtocol = SharedContentInteractor(
-        listService: blockListService(),
         bookmarkService: bookmarkService(),
         objectActionsService: objectActionsService(),
-        blockActionService: blockListService(),
+        blockService: blockService(),
         pageRepository: pageRepository()
     )
 
@@ -132,8 +131,8 @@ final class ServiceLocator {
         return _accountEventHandler
     }
     
-    func blockListService() -> BlockListServiceProtocol {
-        return BlockListService()
+    func blockService() -> BlockServiceProtocol {
+        return BlockService()
     }
     
     func workspaceService() -> WorkspaceServiceProtocol {
@@ -318,7 +317,7 @@ final class ServiceLocator {
             dataviewService: dataviewService(),
             objectActionsService: objectActionsService(),
             prefilledFieldsBuilder: SetPrefilledFieldsBuilder(), 
-            blockActionsService: blockListService()
+            blockService: blockService()
         )
     }
     

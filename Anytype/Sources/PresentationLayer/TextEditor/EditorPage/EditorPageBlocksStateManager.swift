@@ -76,7 +76,7 @@ final class EditorPageBlocksStateManager: EditorPageBlocksStateManagerProtocol {
 
     private let document: BaseDocumentProtocol
     private let modelsHolder: EditorMainItemModelsHolder
-    private let blockActionsService: BlockListServiceProtocol
+    private let blockService: BlockServiceProtocol
     private let toastPresenter: ToastPresenterProtocol
     private let actionHandler: BlockActionHandlerProtocol
     private let pasteboardService: PasteboardServiceProtocol
@@ -94,7 +94,7 @@ final class EditorPageBlocksStateManager: EditorPageBlocksStateManagerProtocol {
         document: BaseDocumentProtocol,
         modelsHolder: EditorMainItemModelsHolder,
         blocksSelectionOverlayViewModel: BlocksSelectionOverlayViewModel,
-        blockActionsService: BlockListServiceProtocol,
+        blockService: BlockServiceProtocol,
         toastPresenter: ToastPresenterProtocol,
         actionHandler: BlockActionHandlerProtocol,
         pasteboardService: PasteboardServiceProtocol,
@@ -107,7 +107,7 @@ final class EditorPageBlocksStateManager: EditorPageBlocksStateManagerProtocol {
         self.document = document
         self.modelsHolder = modelsHolder
         self.blocksSelectionOverlayViewModel = blocksSelectionOverlayViewModel
-        self.blockActionsService = blockActionsService
+        self.blockService = blockService
         self.toastPresenter = toastPresenter
         self.actionHandler = actionHandler
         self.pasteboardService = pasteboardService
@@ -333,7 +333,7 @@ final class EditorPageBlocksStateManager: EditorPageBlocksStateManagerProtocol {
         AnytypeAnalytics.instance().logReorderBlock(count: movingBlocksIds.count)
         
         Task { @MainActor in
-            try await blockActionsService.move(
+            try await blockService.move(
                 contextId: document.objectId,
                 blockIds: movingBlocksIds,
                 targetContextID: targetId,

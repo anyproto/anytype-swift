@@ -18,20 +18,20 @@ final class SetObjectCreationHelper: SetObjectCreationHelperProtocol {
     private let objectTypeProvider: ObjectTypeProviderProtocol
     private let objectActionsService: ObjectActionsServiceProtocol
     private let prefilledFieldsBuilder: SetPrefilledFieldsBuilderProtocol
-    private let blockActionsService: BlockListServiceProtocol
+    private let blockService: BlockServiceProtocol
     
     init(
         objectTypeProvider: ObjectTypeProviderProtocol,
         dataviewService: DataviewServiceProtocol,
         objectActionsService: ObjectActionsServiceProtocol,
         prefilledFieldsBuilder: SetPrefilledFieldsBuilderProtocol,
-        blockActionsService: BlockListServiceProtocol
+        blockService: BlockServiceProtocol
     ) {
         self.objectTypeProvider = objectTypeProvider
         self.dataviewService = dataviewService
         self.objectActionsService = objectActionsService
         self.prefilledFieldsBuilder = prefilledFieldsBuilder
-        self.blockActionsService = blockActionsService
+        self.blockService = blockService
     }
     
     // MARK: - SetObjectCreationHelperProtocol
@@ -122,7 +122,7 @@ final class SetObjectCreationHelper: SetObjectCreationHelperProtocol {
         )
         let isNote = FeatureFlags.setTextInFirstNoteBlock && (type?.isNoteLayout ?? false)
         if isNote {
-            guard let newBlockId = try await blockActionsService.add(contextId: details.id, targetId: EditorConstants.headerBlockId.rawValue, info: .emptyText, position: .bottom) else {
+            guard let newBlockId = try await blockService.add(contextId: details.id, targetId: EditorConstants.headerBlockId.rawValue, info: .emptyText, position: .bottom) else {
                 return .init(details: details, titleInputType: .none)
             }
             

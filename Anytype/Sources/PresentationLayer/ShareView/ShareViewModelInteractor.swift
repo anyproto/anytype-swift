@@ -13,19 +13,18 @@ private enum SharedContentProccessError: Error {
 final class SharedContentInteractor: SharedContentInteractorProtocol {
     private let bookmarkService: BookmarkServiceProtocol
     private let objectActionsService: ObjectActionsServiceProtocol
-    private let blockActionService: BlockListServiceProtocol
+    private let blockService: BlockServiceProtocol
     private let pageRepository: PageRepositoryProtocol
     
     init(
-        listService: BlockListServiceProtocol,
         bookmarkService: BookmarkServiceProtocol,
         objectActionsService: ObjectActionsServiceProtocol,
-        blockActionService: BlockListServiceProtocol,
+        blockService: BlockServiceProtocol,
         pageRepository: PageRepositoryProtocol
     ) {
         self.bookmarkService = bookmarkService
         self.objectActionsService = objectActionsService
-        self.blockActionService = blockActionService
+        self.blockService = blockService
         self.pageRepository = pageRepository
     }
     
@@ -57,10 +56,10 @@ final class SharedContentInteractor: SharedContentInteractorProtocol {
                         let newBookmark = try await createBookmarkObject(url: url, spaceId: space.targetSpaceId)
                         try await objectActionsService.addObjectsToCollection(contextId: objectDetails.id, objectIds: [newBookmark.id])
                     } else {
-                        let lastBlockInDocument = try await blockActionService.lastBlockId(from: objectDetails.id)
+                        let lastBlockInDocument = try await blockService.lastBlockId(from: objectDetails.id)
                         let bookmarkObject = try await createBookmarkObject(url: url, spaceId: space.targetSpaceId)
                         let bookmarkBlock = BlockInformation.bookmark(targetId: bookmarkObject.id)
-                        _ = try await blockActionService.add(
+                        _ = try await blockService.add(
                             contextId: objectDetails.id,
                             targetId: lastBlockInDocument,
                             info: bookmarkBlock,
@@ -111,9 +110,9 @@ final class SharedContentInteractor: SharedContentInteractorProtocol {
                     origin: .sharingExtension,
                     templateId: nil
                 )
-                let lastBlockInDocument = try await blockActionService.lastBlockId(from: newObject.id)
+                let lastBlockInDocument = try await blockService.lastBlockId(from: newObject.id)
                 let blockInformation = text.blockInformation
-                _ = try await blockActionService.add(
+                _ = try await blockService.add(
                     contextId: newObject.id,
                     targetId: lastBlockInDocument,
                     info: blockInformation,
@@ -130,8 +129,8 @@ final class SharedContentInteractor: SharedContentInteractorProtocol {
                     )
                 } else {
                     let info = BlockInformation.emptyLink(targetId: newObject.id)
-                    let lastBlockInDocument = try await blockActionService.lastBlockId(from: linkedTo.id)
-                    let _ = try await blockActionService.add(
+                    let lastBlockInDocument = try await blockService.lastBlockId(from: linkedTo.id)
+                    let _ = try await blockService.add(
                         contextId: linkedTo.id,
                         targetId: lastBlockInDocument,
                         info: info,
@@ -144,8 +143,8 @@ final class SharedContentInteractor: SharedContentInteractorProtocol {
                 )
             case .textBlock(let objectDetails):
                 let blockInformation = text.blockInformation
-                let lastBlockInDocument = try await blockActionService.lastBlockId(from: objectDetails.id)
-                _ = try await blockActionService.add(
+                let lastBlockInDocument = try await blockService.lastBlockId(from: objectDetails.id)
+                _ = try await blockService.add(
                     contextId: objectDetails.id,
                     targetId: lastBlockInDocument,
                     info: blockInformation,

@@ -1,6 +1,6 @@
 import ProtobufMessages
 
-public protocol BlockListServiceProtocol: AnyObject {
+public protocol BlockServiceProtocol: AnyObject {
     func add(contextId: String, targetId: BlockId, info: BlockInformation, position: BlockPosition) async throws -> BlockId?
     func delete(contextId: String, blockIds: [BlockId]) async throws
     func duplicate(contextId: String, targetId: BlockId, blockIds: [BlockId], position: BlockPosition) async throws
