@@ -11,6 +11,7 @@ final class SelectRelationListCoordinatorViewModel: ObservableObject, SelectRela
     private let selectRelationSettingsModuleAssembly: SelectRelationSettingsModuleAssemblyProtocol
 
     @Published var relationData: RelationData?
+    @Published var deletionAlertData: DeletionAlertData?
     @Published var dismiss = false
     
     init(
@@ -78,6 +79,33 @@ final class SelectRelationListCoordinatorViewModel: ObservableObject, SelectRela
             completion: data.completion
         )
     }
+    
+    func onDeleteTap(completion: @escaping (_ isSuccess: Bool) -> Void) {
+        deletionAlertData = DeletionAlertData(
+            title: Loc.Relation.Delete.Alert.title,
+            description: Loc.Relation.Delete.Alert.description,
+            completion: { [weak self] isSuccess in
+                completion(isSuccess)
+                self?.deletionAlertData = nil
+            }
+        )
+    }
+    
+    func deletionAlertView(data: DeletionAlertData) -> AnyView {
+        BottomAlertView(
+            title: data.title,
+            message: data.description,
+            icon: .BottomAlert.error,
+            style: .red
+        ) {
+            BottomAlertButton(text: Loc.cancel, style: .secondary) {
+                data.completion(false)
+            }
+            BottomAlertButton(text: Loc.delete, style: .warning) {
+                data.completion(true)
+            }
+        }.eraseToAnyView()
+    }
 }
 
 extension SelectRelationListCoordinatorViewModel {
@@ -87,5 +115,12 @@ extension SelectRelationListCoordinatorViewModel {
         let color: Color?
         let mode: RelationSettingsMode
         let completion: (_ optionId: String) -> Void
+    }
+    
+    struct DeletionAlertData: Identifiable {
+        let id = UUID()
+        let title: String
+        let description: String
+        let completion: (_ isSuccess: Bool) -> Void
     }
 }

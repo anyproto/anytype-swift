@@ -51,6 +51,9 @@ struct SelectRelationListView: View {
             Button(Loc.duplicate) {
                 viewModel.onOptionDuplicate(option)
             }
+            Button(Loc.delete, role: .destructive) {
+                viewModel.onOptionDelete(option)
+            }
         }
     }
 }

@@ -60,6 +60,13 @@ final class SelectRelationListViewModel: ObservableObject {
         })
     }
     
+    func onOptionDelete(_ option: SelectRelationOption) {
+        output?.onDeleteTap { [weak self] isSuccess in
+            guard isSuccess else { return }
+            self?.removeRelationOprion(id: option.id)
+        }
+    }
+    
     func optionSelected(_ optionId: String, dismiss: Bool = true) {
         Task {
             try await relationsService.updateRelation(relationKey: configuration.relationKey, value: optionId.protobufValue)
@@ -99,6 +106,16 @@ final class SelectRelationListViewModel: ObservableObject {
             
             isEmpty = options.isEmpty && text.isEmpty
             searchText = text
+        }
+    }
+    
+    private func removeRelationOprion(id: String) {
+        Task {
+            try await relationsService.removeRelationOptions(ids: [id])
+            searchTextChanged(searchText)
+            if selectedOption?.id == id {
+                onClear()
+            }
         }
     }
     
