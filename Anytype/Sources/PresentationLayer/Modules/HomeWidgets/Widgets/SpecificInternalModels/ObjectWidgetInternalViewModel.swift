@@ -11,7 +11,7 @@ final class ObjectWidgetInternalViewModel: CommonWidgetInternalViewModel, Widget
     private let subscriptionManager: TreeSubscriptionManagerProtocol
     private let pageRepository: PageRepositoryProtocol
     private let documentsProvider: DocumentsProviderProtocol
-    private let blockActionsService: BlockActionsServiceSingleProtocol
+    private let blockService: BlockServiceProtocol
     private weak var output: CommonWidgetModuleOutput?
     
     // MARK: - State
@@ -31,13 +31,13 @@ final class ObjectWidgetInternalViewModel: CommonWidgetInternalViewModel, Widget
         subscriptionManager: TreeSubscriptionManagerProtocol,
         pageRepository: PageRepositoryProtocol,
         documentsProvider: DocumentsProviderProtocol,
-        blockActionsService: BlockActionsServiceSingleProtocol,
+        blockService: BlockServiceProtocol,
         output: CommonWidgetModuleOutput?
     ) {
         self.subscriptionManager = subscriptionManager
         self.pageRepository = pageRepository
         self.documentsProvider = documentsProvider
-        self.blockActionsService = blockActionsService
+        self.blockService = blockService
         self.output = output
         super.init(widgetBlockId: widgetBlockId, widgetObject: widgetObject)
     }
@@ -96,7 +96,7 @@ final class ObjectWidgetInternalViewModel: CommonWidgetInternalViewModel, Widget
             let details = try await pageRepository.createDefaultPage(name: "", shouldDeleteEmptyObject: true, spaceId: widgetObject.spaceId)
             AnytypeAnalytics.instance().logCreateObject(objectType: details.analyticsType, route: .widget)
             let info = BlockInformation.emptyLink(targetId: details.id)
-            let _ = try await self.blockActionsService.add(
+            let _ = try await self.blockService.add(
                 contextId: linkedObjectDetails.id,
                 targetId: lastBlockId,
                 info: info,

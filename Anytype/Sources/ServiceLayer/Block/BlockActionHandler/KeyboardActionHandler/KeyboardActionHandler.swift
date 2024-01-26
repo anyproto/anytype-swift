@@ -12,7 +12,7 @@ final class KeyboardActionHandler: KeyboardActionHandlerProtocol {
     
     private let documentId: String
     private let service: BlockActionServiceProtocol
-    private let listService: BlockListServiceProtocol
+    private let blockService: BlockServiceProtocol
     private let toggleStorage: ToggleStorage
     private let container: InfoContainerProtocol
     private weak var modelsHolder: EditorMainItemModelsHolder?
@@ -20,14 +20,14 @@ final class KeyboardActionHandler: KeyboardActionHandlerProtocol {
     init(
         documentId: String,
         service: BlockActionServiceProtocol,
-        listService: BlockListServiceProtocol,
+        blockService: BlockServiceProtocol,
         toggleStorage: ToggleStorage,
         container: InfoContainerProtocol,
         modelsHolder: EditorMainItemModelsHolder
     ) {
         self.documentId = documentId
         self.service = service
-        self.listService = listService
+        self.blockService = blockService
         self.toggleStorage = toggleStorage
         self.container = container
         self.modelsHolder = modelsHolder
@@ -113,7 +113,7 @@ final class KeyboardActionHandler: KeyboardActionHandlerProtocol {
         if isLastChildOfBlock(info: info, container: container, parent: parent)
         {
             // on delete of last child of block - move child to parent level
-            try? await listService.move(objectId: documentId, blockId: info.id, targetId: parent.id, position: .bottom)
+            try? await blockService.move(objectId: documentId, blockId: info.id, targetId: parent.id, position: .bottom)
             return
         }
         

@@ -16,7 +16,7 @@ final class BaseDocument: BaseDocumentProtocol {
     
     var objectRestrictions: ObjectRestrictions { restrictionsContainer.restrinctions }
 
-    private let blockActionsService: BlockActionsServiceSingleProtocol
+    private let objectLifecycleService: ObjectLifecycleServiceProtocol
     private let eventsListener: EventsListenerProtocol
     private let updateSubject = PassthroughSubject<DocumentUpdate, Never>()
     private let relationBuilder: RelationsBuilder
@@ -75,7 +75,7 @@ final class BaseDocument: BaseDocumentProtocol {
     init(
         objectId: BlockId,
         forPreview: Bool,
-        blockActionsService: BlockActionsServiceSingleProtocol,
+        objectLifecycleService: ObjectLifecycleServiceProtocol,
         relationDetailsStorage: RelationDetailsStorageProtocol,
         objectTypeProvider: ObjectTypeProviderProtocol
     ) {
@@ -97,7 +97,7 @@ final class BaseDocument: BaseDocumentProtocol {
             infoContainer: infoContainer
         )
         
-        self.blockActionsService = blockActionsService
+        self.objectLifecycleService = objectLifecycleService
         self.relationBuilder = RelationsBuilder()
         self.relationDetailsStorage = relationDetailsStorage
         self.objectTypeProvider = objectTypeProvider
@@ -107,8 +107,8 @@ final class BaseDocument: BaseDocumentProtocol {
     
     deinit {
         guard !forPreview, isOpened, UserDefaultsConfig.usersId.isNotEmpty else { return }
-        Task.detached(priority: .userInitiated) { [blockActionsService, objectId] in
-            try await blockActionsService.close(contextId: objectId)
+        Task.detached(priority: .userInitiated) { [objectLifecycleService, objectId] in
+            try await objectLifecycleService.close(contextId: objectId)
         }
     }
 
@@ -128,7 +128,7 @@ final class BaseDocument: BaseDocumentProtocol {
             anytypeAssertionFailure("Document created for preview. You should use openForPreview() method.")
             return
         }
-        let model = try await blockActionsService.open(contextId: objectId)
+        let model = try await objectLifecycleService.open(contextId: objectId)
         setupView(model)
     }
     
@@ -138,14 +138,14 @@ final class BaseDocument: BaseDocumentProtocol {
             anytypeAssertionFailure("Document created for handling. You should use open() method.")
             return
         }
-        let model = try await blockActionsService.openForPreview(contextId: objectId)
+        let model = try await objectLifecycleService.openForPreview(contextId: objectId)
         setupView(model)
     }
     
     @MainActor
     func close() async throws {
         guard !forPreview, isOpened, UserDefaultsConfig.usersId.isNotEmpty else { return }
-        try await blockActionsService.close(contextId: objectId)
+        try await objectLifecycleService.close(contextId: objectId)
         isOpened = false
     }
     
