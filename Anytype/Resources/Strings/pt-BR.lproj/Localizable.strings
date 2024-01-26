@@ -84,7 +84,7 @@
 "Relation.Format.Text.Title" = "Texto";
 "Relation.Format.Number.Title" = "Número";
 "Relation.Format.Status.Title" = "Selecionar";
-"Relation.Format.Tag.Title" = "Multi-select";
+"Relation.Format.Tag.Title" = "Seleção múltipla";
 "Relation.Format.Date.Title" = "Data";
 "Relation.Format.FileMedia.Title" = "Arquivos e mídias";
 "Relation.Format.Checkbox.Title" = "Caixa de seleção";
@@ -486,8 +486,8 @@
 "Enter value" = "Inserir valor";
 "Select object" = "Selecionar objeto";
 "Select file" = "Selecionar arquivo";
-"Select options" = "Select options";
-"Select option" = "Select option";
+"Select options" = "Selecionar opções";
+"Select option" = "Selecionar opção";
 "Select date" = "Selecionar data";
 "Add email" = "Adicionar e-mail";
 "Add link" = "Adicionar link";
