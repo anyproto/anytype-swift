@@ -84,7 +84,7 @@
 "Relation.Format.Text.Title" = "Testo";
 "Relation.Format.Number.Title" = "Numero";
 "Relation.Format.Status.Title" = "Select";
-"Relation.Format.Tag.Title" = "Multi-select";
+"Relation.Format.Tag.Title" = "Selezione multipla";
 "Relation.Format.Date.Title" = "Data";
 "Relation.Format.FileMedia.Title" = "File & Media";
 "Relation.Format.Checkbox.Title" = "Casella di scelta";
@@ -187,7 +187,7 @@
 "Auth.CameraPermissionTitle" = "Per favore, consenti l’accesso";
 "Restore secret phrase from keychain" = "Ripristina la Frase di Recupero dal Portachiavi";
 "Auth.LogIn" = "Accedi";
-"Auth.Join" = "Join";
+"Auth.Join" = "Unisciti";
 "Auth.Welcome.Subtitle" = "Anytype è il tuo spazio sicuro per scrivere, pianificare, pensare e organizzare tutto ciò che conta per te.";
 "Auth.Caption.Privacy.Text" = "Continuando accetti i [Termini d'uso](%@) e [Informativa sulla privacy](%@)";
 "Auth.Next" = "Avanti";
@@ -486,8 +486,8 @@
 "Enter value" = "Inserisci valore";
 "Select object" = "Seleziona oggetto";
 "Select file" = "Seleziona file";
-"Select options" = "Select options";
-"Select option" = "Select option";
+"Select options" = "Seleziona opzioni";
+"Select option" = "Seleziona opzione";
 "Select date" = "Seleziona data";
 "Add email" = "Aggiungi email";
 "Add link" = "Aggiungi link";
