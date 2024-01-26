@@ -1,8 +1,4 @@
-extension Array {
-    func appended(_ element: Element) -> [Element] {
-        return self + [element]
-    }
-}
+import AnytypeCore
 
 public extension DetailsLayout {
     static var visibleLayouts: [DetailsLayout] = [.basic, .bookmark, .collection, .note, .profile, .set, .todo]
@@ -20,7 +16,7 @@ public extension DetailsLayout {
         .todo
     ]
     
-    static var pageLayouts: [DetailsLayout] = editorLayouts.appended(.bookmark)
+    static var pageLayouts: [DetailsLayout] = editorLayouts + [.bookmark]
     
     static var fileLayouts: [DetailsLayout] = [
         .file,
