@@ -272,7 +272,7 @@
 "Undo" = "Ongedaan maken";
 "Actions.LinkItself" = "Link naar";
 "Actions.MakeAsTemplate" = "Maak sjabloon";
-"Actions.TemplateMakeDefault" = "Make default";
+"Actions.TemplateMakeDefault" = "Maak standaard";
 "Actions.CreateWidget.Title" = "Naar widgets";
 "Actions.CreateWidget.Success" = "Nieuwe widget is aangemaakt";
 
@@ -549,7 +549,7 @@
 "SyncStatus.LocalOnly.Description" = "Alleen lokaal";
 "SyncStatus.Synced.Anytype.Description" = "Back-up gemaakt op Anytype netwerk";
 "SyncStatus.Synced.AnytypeStaging.Description" = "Back-up gemaakt op Anytype staging";
-"SyncStatus.Synced.SelfHosted.Description" = "Back-up gemaakt op zelf-gehost netwerk";
+"SyncStatus.Synced.SelfHosted.Description" = "Back-up gemaakt op zelfgehost netwerk";
 "Downloading or uploading data to some node" = "Gegevens downloaden of uploaden naar een node";
 "Node is not connected" = "Node is not connected";
 "Initializing sync" = "Initializing sync";
@@ -565,7 +565,7 @@
 "Into object" = "Into object";
 "Add below" = "Add below";
 "Change type" = "Change type";
-"SlashMenu.LinkTo.Description" = "Create link to another object";
+"SlashMenu.LinkTo.Description" = "Maak link naar een ander object aan";
 "Upload playable audio" = "Upload playable audio";
 "Code snippet" = "Code snippet";
 "Bookmark" = "Bookmark";
@@ -866,7 +866,7 @@
 // MARK: - Error
 "Error.AnytypeNeedsUpgrate.Title" = "Update Your App";
 "Error.AnytypeNeedsUpgrate.Message" = "This object was modified in a newer version of Anytype. Please update the app to open it on this device";
-"Error.AnytypeNeedsUpgrate.Confirm" = "Update";
+"Error.AnytypeNeedsUpgrate.Confirm" = "Updaten";
 "Error.UnableToConnect" = "Please connect to the internet";
 
 // MARK: - Relative date formatter
@@ -882,5 +882,5 @@
 "Server.LocalOnly" = "Local-only";
 
 // MARK: - Gallery
-"Gallery.Unavailable.Title" = "Gallery will be supported soon";
+"Gallery.Unavailable.Title" = "Galerij wordt binnenkort ondersteund";
 "Gallery.Unavailable.Message" = "Please use the desktop app for now";
