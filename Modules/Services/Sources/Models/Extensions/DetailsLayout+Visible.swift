@@ -1,6 +1,13 @@
+extension Array {
+    func appended(_ element: Element) -> [Element] {
+        return self + [element]
+    }
+}
+
 public extension DetailsLayout {
     static var visibleLayouts: [DetailsLayout] = [.basic, .bookmark, .collection, .note, .profile, .set, .todo]
     static var supportedForEditLayouts: [DetailsLayout] = [.basic, .bookmark, .collection, .file, .image, .note, .profile, .set, .todo]
+    static var supportedForCreationInSets: [DetailsLayout] = pageLayouts
 }
 
 
@@ -13,9 +20,13 @@ public extension DetailsLayout {
         .todo
     ]
     
+    static var pageLayouts: [DetailsLayout] = editorLayouts.appended(.bookmark)
+    
     static var fileLayouts: [DetailsLayout] = [
         .file,
-        .image
+        .image,
+        .audio,
+        .video
     ]
     
     static var systemLayouts: [DetailsLayout] = [
@@ -24,15 +35,8 @@ public extension DetailsLayout {
         .relationOption,
         .relationOptionList,
         .dashboard,
-        .database
-    ]
-    
-    static var pageLayouts: [DetailsLayout] = [
-        .basic,
-        .profile,
-        .todo,
-        .note,
-        .bookmark
+        .database,
+        .space
     ]
     
     static var fileAndSystemLayouts: [DetailsLayout] = fileLayouts + systemLayouts
