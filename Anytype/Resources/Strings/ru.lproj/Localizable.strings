@@ -84,7 +84,7 @@
 "Relation.Format.Text.Title" = "Текст";
 "Relation.Format.Number.Title" = "Число";
 "Relation.Format.Status.Title" = "Выбрать";
-"Relation.Format.Tag.Title" = "Multi-select";
+"Relation.Format.Tag.Title" = "Множественный выбор";
 "Relation.Format.Date.Title" = "Дата";
 "Relation.Format.FileMedia.Title" = "Файл, медиафайл";
 "Relation.Format.Checkbox.Title" = "Флажок";
@@ -187,7 +187,7 @@
 "Auth.CameraPermissionTitle" = "Пожалуйста, разрешите доступ";
 "Restore secret phrase from keychain" = "Восстановить фразу восстановления из связки ключей";
 "Auth.LogIn" = "Войти";
-"Auth.Join" = "Join";
+"Auth.Join" = "Присоединиться";
 "Auth.Welcome.Subtitle" = "Anytype - это безопасное место для записи мыслей и заметок, планирования и организации всего что важно для вас.";
 "Auth.Caption.Privacy.Text" = "Продолжая, вы соглашаетесь с нашими [условиями пользования](%@) и [политикой конфиденциальности](%@) ";
 "Auth.Next" = "Далее";
@@ -486,8 +486,8 @@
 "Enter value" = "Введите значение";
 "Select object" = "Выбрать объект";
 "Select file" = "Выбрать файл";
-"Select options" = "Select options";
-"Select option" = "Select option";
+"Select options" = "Варианты выбора";
+"Select option" = "Выбрать вариант";
 "Select date" = "Выбрать дату";
 "Add email" = "Добавить электронную почту";
 "Add link" = "Добавить ссылку";
@@ -495,7 +495,7 @@
 "Enter text" = "Введите текст";
 "Unsupported value" = "Неподдерживаемое значение";
 "Select relation type" = "Выберите тип свойства";
-"CommonOpenErrorView.Message" = "No data found";
+"CommonOpenErrorView.Message" = "Данные не найдены";
 
 "Limit object types" = "Ограничить типы объектов";
 "Type" = "Тип";
@@ -565,7 +565,7 @@
 "Into object" = "В объект";
 "Add below" = "Добавить ниже";
 "Change type" = "Изменить тип";
-"SlashMenu.LinkTo.Description" = "Create link to another object";
+"SlashMenu.LinkTo.Description" = "Создать ссылку на другой объект";
 "Upload playable audio" = "Загрузить воспроизводимое аудио";
 "Code snippet" = "Фрагмент кода";
 "Bookmark" = "Закладка";
@@ -848,7 +848,7 @@
 
 "Sharing.Tip.Steps.1" = "Нажмите на кнопку обмена iOS";
 "Sharing.Tip.Steps.2" = "Прокрутите приложение и нажмите ещё";
-"Sharing.Tip.Steps.3" = "Tap Edit to find “Anytype” and tap";
+"Sharing.Tip.Steps.3" = "Нажмите Отредактировать, чтобы найти «Anytype» и нажмите";
 
 // MARK: - Initial
 
@@ -860,14 +860,14 @@
 "Initial.UnstableMiddle.WontUseProd" = "Я не буду использовать рабочий аккаунт.";
 
 // MARK: - Create tip
-"LongTapCreateTip.Title" = "Create Objects with specific Type";
+"LongTapCreateTip.Title" = "Создать объекты определенного типа";
 "LongTapCreateTip.Message" = "Удерживайте кнопку Создать Объект, чтобы открыть меню выбора типа";
 
 // MARK: - Error
 "Error.AnytypeNeedsUpgrate.Title" = "Обновите приложение";
 "Error.AnytypeNeedsUpgrate.Message" = "Объект был изменен в более новой версии Anytype. Пожалуйста, обновите приложение, чтобы открыть его на этом устройстве";
 "Error.AnytypeNeedsUpgrate.Confirm" = "Обновить";
-"Error.UnableToConnect" = "Please connect to the internet";
+"Error.UnableToConnect" = "Пожалуйста, подключитесь к Интернету.";
 
 // MARK: - Relative date formatter
 "RelativeFormatter.days7" = "За последние 7 дней";
