@@ -3,10 +3,10 @@
 
 // MARK: Text Style in Slash and Style menu
 "TextStyle.Text.Title" = "Văn bản";
-"TextStyle.Text.Subtitle" = "Just start writing with a plain text";
+"TextStyle.Text.Subtitle" = "Hãy bắt đầu ghi một vài dòng ký tự";
 
 "TextStyle.Title.Title" = "Tiêu đề";
-"TextStyle.Title.Subtitle" = "Big section heading";
+"TextStyle.Title.Subtitle" = "Tiêu đề của đoạn văn dài";
 
 "TextStyle.Heading.Title" = "Mục chính";
 "TextStyle.Heading.Subtitle" = "Đầu mục vừa";
@@ -23,7 +23,7 @@
 "TextStyle.Checkbox.Title" = "Ô tick";
 "TextStyle.Checkbox.Subtitle" = "Tạo và theo dõi tác vụ bằng danh sách việc cần làm";
 
-"TextStyle.Bulleted.Title" = "Bulleted";
+"TextStyle.Bulleted.Title" = "Chấm đầu dòng";
 "TextStyle.Bulleted.Subtitle" = "Danh sách đơn giản";
 
 "TextStyle.Numbered.Title" = "Danh sách đánh số";
