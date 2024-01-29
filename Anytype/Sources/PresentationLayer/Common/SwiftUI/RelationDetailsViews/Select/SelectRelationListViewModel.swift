@@ -60,10 +60,22 @@ final class SelectRelationListViewModel: ObservableObject {
         })
     }
     
+    func onOptionDelete(with indexSet: IndexSet) {
+        indexSet.forEach { deleteIndex in
+            guard deleteIndex < options.count else { return }
+            let optionToDelete = options[deleteIndex]
+            onOptionDelete(optionToDelete)
+        }
+    }
+    
     func onOptionDelete(_ option: SelectRelationOption) {
         output?.onDeleteTap { [weak self] isSuccess in
-            guard isSuccess else { return }
-            self?.removeRelationOprion(id: option.id)
+            guard let self else { return }
+            if isSuccess {
+                removeRelationOprion(id: option.id)
+            } else {
+                options = options
+            }            
         }
     }
     

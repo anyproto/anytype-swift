@@ -13,6 +13,9 @@ struct SelectRelationListView: View {
                 ForEach(viewModel.options) { option in
                     optionRow(with: option)
                 }
+                .onDelete {
+                    viewModel.onOptionDelete(with: $0)
+                }
             },
             onCreate: { title in
                 viewModel.onCreate(with: title)
@@ -58,22 +61,20 @@ struct SelectRelationListView: View {
     }
 }
 
-struct SelectRelationListView_Previews: PreviewProvider {
-    static var previews: some View {
-        SelectRelationListView(
-            viewModel: SelectRelationListViewModel(
-                configuration: RelationModuleConfiguration(
-                    title: "Status",
-                    isEditable: true,
-                    relationKey: "",
-                    spaceId: "",
-                    analyticsType: .block
-                ),
-                selectedOption: nil, 
-                output: nil,
-                relationsService: DI.preview.serviceLocator.relationService(objectId: ""),
-                searchService: DI.preview.serviceLocator.searchService()
-            )
+#Preview("Status list") {
+    SelectRelationListView(
+        viewModel: SelectRelationListViewModel(
+            configuration: RelationModuleConfiguration(
+                title: "Status",
+                isEditable: true,
+                relationKey: "",
+                spaceId: "",
+                analyticsType: .block
+            ),
+            selectedOption: nil,
+            output: nil,
+            relationsService: DI.preview.serviceLocator.relationService(objectId: ""),
+            searchService: DI.preview.serviceLocator.searchService()
         )
-    }
+    )
 }
