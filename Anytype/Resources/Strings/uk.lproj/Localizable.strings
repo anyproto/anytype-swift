@@ -83,8 +83,8 @@
 "Relation.Format.Object.Title" = "Об'єкт";
 "Relation.Format.Text.Title" = "Текст";
 "Relation.Format.Number.Title" = "Число";
-"Relation.Format.Status.Title" = "Статус";
-"Relation.Format.Tag.Title" = "Мітка";
+"Relation.Format.Status.Title" = "Select";
+"Relation.Format.Tag.Title" = "Multi-select";
 "Relation.Format.Date.Title" = "Дата";
 "Relation.Format.FileMedia.Title" = "Файл і медіа";
 "Relation.Format.Checkbox.Title" = "Прапорець";
@@ -486,8 +486,8 @@
 "Enter value" = "Введіть значення";
 "Select object" = "Обрати об'єкт";
 "Select file" = "Обрати файл";
-"Select tag" = "Оберіть тег";
-"Select status" = "Оберіть статус";
+"Select options" = "Select options";
+"Select option" = "Select option";
 "Select date" = "Оберіть дату";
 "Add email" = "Додати ел. пошту";
 "Add link" = "Додайте посилання";
