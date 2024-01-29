@@ -1,6 +1,6 @@
 import Foundation
 
-enum NotificationEvent {
+public enum NotificationEvent {
     case send(Notification)
     case update(Notification)
 }

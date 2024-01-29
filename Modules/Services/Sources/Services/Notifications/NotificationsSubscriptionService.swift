@@ -1,36 +1,29 @@
 import Foundation
 import Combine
 import ProtobufMessages
+import AnytypeCore
 
-protocol NotificationsSubscriptionServiceProtocol: AnyObject {
-    func addHandler(handler: @escaping (_ events: [NotificationEvent]) async -> Void) -> AnyCancellable
+public protocol NotificationsSubscriptionServiceProtocol: AnyObject {
+    func addHandler(handler: @escaping (_ events: [NotificationEvent]) async -> Void) async -> AnyCancellable
 }
 
-actor NotificationsSubscriptionService: ServiceEventsHandlerProtocol {
+public actor NotificationsSubscriptionService: ServiceEventsHandlerProtocol, NotificationsSubscriptionServiceProtocol {
     
-    private var subscribers = [NotificationSubscriber]()
+    private var handleStorage = HandlerStorage<(_ events: [NotificationEvent]) async -> Void>()
     
-    init() {
+    public init() {
         ServiceMessageHandlerAdapter.shared.addHandler(handler: self)
     }
     
-    nonisolated
-    func addHandler(handler: @escaping (_ events: [NotificationEvent]) async -> Void) -> AnyCancellable {
-        let subscriber = NotificationSubscriber(handler: handler)
-        Task {
-            await addSubscriber(subscriber)
-        }
-        return AnyCancellable(subscriber)
-    }
+    // MARK: - NotificationsSubscriptionServiceProtocol
     
-    private func addSubscriber(_ subscriber: NotificationSubscriber) {
-        subscribers.removeAll(where: \.handler.isNil)
-        subscribers.append(subscriber)
+    public func addHandler(handler: @escaping (_ events: [NotificationEvent]) async -> Void) async -> AnyCancellable {
+        await handleStorage.addHandler(handler: handler)
     }
     
     // MARK: - ServiceEventsHandlerProtocol
     
-    func handle(_ event: Anytype_Event) async {
+    public func handle(_ event: Anytype_Event) async {
         let messages: [NotificationEvent] = event.messages.compactMap { message in
             switch message.value {
             case let .notificationSend(data):
@@ -41,22 +34,8 @@ actor NotificationsSubscriptionService: ServiceEventsHandlerProtocol {
                 return nil
             }
         }
-        for subscriber in subscribers {
-            await subscriber.handler?(messages)
+        for handler in await handleStorage.handlers() {
+            await handler(messages)
         }
-    }
-
-}
-
-private class NotificationSubscriber: Cancellable {
-    
-    private(set) var handler:  ((_ events: [NotificationEvent]) async -> Void)?
-    
-    init(handler: @escaping (_ events: [NotificationEvent]) async -> Void) {
-        self.handler = handler
-    }
-    
-    func cancel() {
-        handler = nil
     }
 }

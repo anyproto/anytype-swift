@@ -42,7 +42,8 @@ final class ApplicationCoordinatorAssembly: ApplicationCoordinatorAssemblyProtoc
                 deleteAccountModuleAssembly: self.modulesDI.deleteAccount(),
                 initialCoordinatorAssembly: self.coordinatorsDI.initial(), 
                 debugMenuModuleAssembly: self.modulesDI.debugMenu(),
-                navigationContext: self.uiHelpersDI.commonNavigationContext()
+                navigationContext: self.uiHelpersDI.commonNavigationContext(),
+                notificationCoordinator: self.coordinatorsDI.notificationCoordinator()
             )
         ).eraseToAnyView()
     }

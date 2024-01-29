@@ -261,4 +261,8 @@ final class ModulesDI: ModulesDIProtocol {
     func sharingTip() -> SharingTipModuleAssemblyProtocol {
         SharingTipModuleAssembly()
     }
+    
+    func commonNotification() -> CommonNotificationAssemblyProtocol {
+        CommonNotificationAssembly(serviceLocator: serviceLocator)
+    }
 }

@@ -173,4 +173,11 @@ final class CoordinatorsDI: CoordinatorsDIProtocol {
             navigationContext: uiHelpersDI.commonNavigationContext()
         )
     }
+    
+    func notificationCoordinator() -> NotificationCoordinatorProtocol {
+        NotificationCoordinator(
+            notificationSubscriptionService: serviceLocator.notificationSubscriptionService(),
+            commonNotificationAssembly: modulesDI.commonNotification()
+        )
+    }
 }

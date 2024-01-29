@@ -335,6 +335,10 @@ final class ServiceLocator {
         TextServiceHandler(textService: TextService())
     }
     
+    func notificationSubscriptionService() -> NotificationsSubscriptionServiceProtocol {
+        NotificationsSubscriptionService()
+    }
+    
     // MARK: - Private
     
     private func subscriptionToggler() -> SubscriptionTogglerProtocol {
