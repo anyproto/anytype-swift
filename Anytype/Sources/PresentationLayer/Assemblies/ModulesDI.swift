@@ -30,6 +30,10 @@ final class ModulesDI: ModulesDIProtocol {
         return SelectRelationListModuleAssembly(serviceLocator: serviceLocator)
     }
     
+    func selectRelationSettings() -> SelectRelationSettingsModuleAssemblyProtocol {
+        SelectRelationSettingsModuleAssembly(serviceLocator: serviceLocator)
+    }
+    
     func undoRedo() -> UndoRedoModuleAssemblyProtocol {
         return UndoRedoModuleAssembly(serviceLocator: serviceLocator, uiHelpersDI: uiHelpersDI)
     }

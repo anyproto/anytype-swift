@@ -29,6 +29,9 @@ struct RelationListContainerView<Content>: View where Content: View {
                         ToolbarItem(placement: .navigationBarLeading) {
                             clearButton
                         }
+                        ToolbarItem(placement: .navigationBarTrailing) {
+                            createButton
+                        }
                     }
                 })
         }
@@ -50,6 +53,7 @@ struct RelationListContainerView<Content>: View where Content: View {
                 list
             }
         }
+        .background(Color.Background.secondary)
     }
     
     private var list: some View {
@@ -61,7 +65,6 @@ struct RelationListContainerView<Content>: View where Content: View {
         }
         .buttonStyle(BorderlessButtonStyle())
         .bounceBehaviorBasedOnSize()
-        .background(Color.Background.secondary)
         .disabled(!isEditable)
     }
     
@@ -70,6 +73,14 @@ struct RelationListContainerView<Content>: View where Content: View {
             onClear()
         } label: {
             AnytypeText(Loc.clear, style: .uxBodyRegular, color: .Button.active)
+        }
+    }
+    
+    private var createButton: some View {
+        Button {
+            onCreate(nil)
+        } label: {
+            Image(asset: .X32.plus).foregroundColor(.Button.active)
         }
     }
     
@@ -91,8 +102,8 @@ struct RelationListContainerView<Content>: View where Content: View {
             Spacer()
             ButtomAlertHeaderImageView(icon: .BottomAlert.error, style: .red)
             Spacer.fixedHeight(12)
-            AnytypeText(Loc.Relations.EmptyState.title, style: .uxCalloutMedium, color: .Text.primary)
-            AnytypeText(Loc.Relations.EmptyState.description, style: .uxCalloutMedium, color: .Text.primary)
+            AnytypeText(Loc.Relation.EmptyState.title, style: .uxCalloutMedium, color: .Text.primary)
+            AnytypeText(Loc.Relation.EmptyState.description, style: .uxCalloutMedium, color: .Text.primary)
             Spacer.fixedHeight(12)
             StandardButton(Loc.create, style: .secondarySmall) {
                 onCreate(nil)

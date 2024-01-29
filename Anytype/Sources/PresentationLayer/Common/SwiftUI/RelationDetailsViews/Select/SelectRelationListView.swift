@@ -15,10 +15,10 @@ struct SelectRelationListView: View {
                 }
             },
             onCreate: { title in
-                viewModel.create(with: title)
+                viewModel.onCreate(with: title)
             },
             onClear: {
-                viewModel.clear()
+                viewModel.onClear()
             },
             onSearchTextChange: { text in
                 viewModel.searchTextChanged(text)
@@ -36,7 +36,7 @@ struct SelectRelationListView: View {
             HStack {
                 AnytypeText(option.text, style: .relation1Regular, color: option.color)
                 Spacer()
-                if option == viewModel.selectedOption, viewModel.configuration.isEditable {
+                if option.id == viewModel.selectedOption?.id, viewModel.configuration.isEditable {
                     Image(asset: .relationCheckboxChecked)
                 }
             }
@@ -44,6 +44,14 @@ struct SelectRelationListView: View {
         .frame(height: 52)
         .newDivider()
         .padding(.horizontal, 20)
+        .contextMenu {
+            Button(Loc.edit) {
+                viewModel.onOptionEdit(option)
+            }
+            Button(Loc.duplicate) {
+                viewModel.onOptionDuplicate(option)
+            }
+        }
     }
 }
 

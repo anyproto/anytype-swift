@@ -8,6 +8,9 @@ struct SelectRelationListCoordinatorView: View {
     
     var body: some View {
         model.selectRelationListModule()
+            .sheet(item: $model.relationData) { data in
+                model.selectRelationCreate(data: data)
+            }
             .onChange(of: model.dismiss) { _ in
                 dismiss()
             }

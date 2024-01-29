@@ -155,8 +155,8 @@ internal enum Loc {
   /// Create object
   internal static let createObject = Loc.tr("Localizable", "Create object", fallback: "Create object")
   /// Create option ‘%@’
-  internal static func createOption(_ p1: Any) -> String {
-    return Loc.tr("Localizable", "Create option", String(describing: p1), fallback: "Create option ‘%@’")
+  internal static func createOptionWith(_ p1: Any) -> String {
+    return Loc.tr("Localizable", "Create option with", String(describing: p1), fallback: "Create option ‘%@’")
   }
   /// Create relation ‘%@’
   internal static func createRelation(_ p1: Any) -> String {
@@ -1376,6 +1376,22 @@ internal enum Loc {
           return Loc.tr("Localizable", "Relation.Create.Row.title", String(describing: p1), fallback: "Create “%@”")
         }
       }
+      internal enum Textfield {
+        /// Enter name...
+        internal static let placeholder = Loc.tr("Localizable", "Relation.Create.Textfield.placeholder", fallback: "Enter name...")
+      }
+    }
+    internal enum Edit {
+      internal enum Button {
+        /// Apply
+        internal static let title = Loc.tr("Localizable", "Relation.Edit.Button.title", fallback: "Apply")
+      }
+    }
+    internal enum EmptyState {
+      /// No options found. Create first one to start.
+      internal static let description = Loc.tr("Localizable", "Relation.EmptyState.description", fallback: "No options found. Create first one to start.")
+      /// No values
+      internal static let title = Loc.tr("Localizable", "Relation.EmptyState.title", fallback: "No values")
     }
     internal enum Format {
       internal enum Checkbox {
@@ -1438,6 +1454,14 @@ internal enum Loc {
       internal static let title = Loc.tr("Localizable", "Relation.LinksTo.Title", fallback: "to")
     }
     internal enum View {
+      internal enum Create {
+        /// Create option
+        internal static let title = Loc.tr("Localizable", "Relation.View.Create.title", fallback: "Create option")
+      }
+      internal enum Edit {
+        /// Edit option
+        internal static let title = Loc.tr("Localizable", "Relation.View.Edit.title", fallback: "Edit option")
+      }
       internal enum Hint {
         /// empty
         internal static let empty = Loc.tr("Localizable", "Relation.View.Hint.Empty", fallback: "empty")
@@ -1463,14 +1487,6 @@ internal enum Loc {
     internal static let reloadingContent = Loc.tr("Localizable", "RelationAction.ReloadingContent", fallback: "Reloading content")
     /// Send email
     internal static let sendEmail = Loc.tr("Localizable", "RelationAction.SendEmail", fallback: "Send email")
-  }
-  internal enum Relations {
-    internal enum EmptyState {
-      /// No options found. Create first one to start.
-      internal static let description = Loc.tr("Localizable", "Relations.EmptyState.description", fallback: "No options found. Create first one to start.")
-      /// No values
-      internal static let title = Loc.tr("Localizable", "Relations.EmptyState.title", fallback: "No values")
-    }
   }
   internal enum RelativeFormatter {
     /// Previous 30 days
