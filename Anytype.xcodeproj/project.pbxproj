@@ -783,6 +783,7 @@
 		2AFCEB4329CC808D00841E13 /* HomeWidgetsRecentStateManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AFCEB4229CC808D00841E13 /* HomeWidgetsRecentStateManager.swift */; };
 		2AFD69D72987BC240006D792 /* WidgetTypeInternalViewModelProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AFD69D62987BC240006D792 /* WidgetTypeInternalViewModelProtocol.swift */; };
 		2AFD69D92987BC5B0006D792 /* WidgetTypeCreateObjectViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AFD69D82987BC5B0006D792 /* WidgetTypeCreateObjectViewModel.swift */; };
+		2AFD7E1A2B63D536003B16EB /* Weak.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AFD7E192B63D536003B16EB /* Weak.swift */; };
 		2AFEED0D2A72713500D7A45B /* Icon.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AFEED0C2A72713500D7A45B /* Icon.swift */; };
 		2AFEED162A73AE8C00D7A45B /* HomeWidgetsCoordinatorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AFEED152A73AE8C00D7A45B /* HomeWidgetsCoordinatorView.swift */; };
 		2AFEED182A73AEDB00D7A45B /* HomeWidgetsCoordinatorViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AFEED172A73AEDB00D7A45B /* HomeWidgetsCoordinatorViewModel.swift */; };
@@ -887,7 +888,6 @@
 		2E6F3E1A2A4C6828002F4278 /* AlertView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E6F3E192A4C6828002F4278 /* AlertView.swift */; };
 		2E6F3E1D2A4DB179002F4278 /* SceneStateNotifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E6F3E1C2A4DB179002F4278 /* SceneStateNotifier.swift */; };
 		2E6F3E1F2A4DF154002F4278 /* SceneStateListener.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E6F3E1E2A4DF154002F4278 /* SceneStateListener.swift */; };
-		2E6F3E212A4DF191002F4278 /* Weak.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E6F3E202A4DF191002F4278 /* Weak.swift */; };
 		2E74AF0829CB4A5100AC3B91 /* SetContentViewItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E74AF0729CB4A5100AC3B91 /* SetContentViewItem.swift */; };
 		2E7C445D2891753B0062287C /* SetFiltersDateView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E7C445C2891753B0062287C /* SetFiltersDateView.swift */; };
 		2E7C445F2891755A0062287C /* SetFiltersDateViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E7C445E2891755A0062287C /* SetFiltersDateViewModel.swift */; };
@@ -2444,6 +2444,7 @@
 		2AFCEB4229CC808D00841E13 /* HomeWidgetsRecentStateManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeWidgetsRecentStateManager.swift; sourceTree = "<group>"; };
 		2AFD69D62987BC240006D792 /* WidgetTypeInternalViewModelProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WidgetTypeInternalViewModelProtocol.swift; sourceTree = "<group>"; };
 		2AFD69D82987BC5B0006D792 /* WidgetTypeCreateObjectViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WidgetTypeCreateObjectViewModel.swift; sourceTree = "<group>"; };
+		2AFD7E192B63D536003B16EB /* Weak.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Weak.swift; sourceTree = "<group>"; };
 		2AFEED0C2A72713500D7A45B /* Icon.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Icon.swift; sourceTree = "<group>"; };
 		2AFEED152A73AE8C00D7A45B /* HomeWidgetsCoordinatorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeWidgetsCoordinatorView.swift; sourceTree = "<group>"; };
 		2AFEED172A73AEDB00D7A45B /* HomeWidgetsCoordinatorViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeWidgetsCoordinatorViewModel.swift; sourceTree = "<group>"; };
@@ -2548,7 +2549,6 @@
 		2E6F3E192A4C6828002F4278 /* AlertView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertView.swift; sourceTree = "<group>"; };
 		2E6F3E1C2A4DB179002F4278 /* SceneStateNotifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneStateNotifier.swift; sourceTree = "<group>"; };
 		2E6F3E1E2A4DF154002F4278 /* SceneStateListener.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneStateListener.swift; sourceTree = "<group>"; };
-		2E6F3E202A4DF191002F4278 /* Weak.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Weak.swift; sourceTree = "<group>"; };
 		2E74AF0729CB4A5100AC3B91 /* SetContentViewItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetContentViewItem.swift; sourceTree = "<group>"; };
 		2E7C445C2891753B0062287C /* SetFiltersDateView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetFiltersDateView.swift; sourceTree = "<group>"; };
 		2E7C445E2891755A0062287C /* SetFiltersDateViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetFiltersDateViewModel.swift; sourceTree = "<group>"; };
@@ -6675,8 +6675,8 @@
 			isa = PBXGroup;
 			children = (
 				2E6F3E1C2A4DB179002F4278 /* SceneStateNotifier.swift */,
+				2AFD7E192B63D536003B16EB /* Weak.swift */,
 				2E6F3E1E2A4DF154002F4278 /* SceneStateListener.swift */,
-				2E6F3E202A4DF191002F4278 /* Weak.swift */,
 			);
 			path = SceneState;
 			sourceTree = "<group>";
@@ -10045,6 +10045,7 @@
 				12D15D2027F5F78500D22086 /* TagsOptionsSearchModuleBuilder.swift in Sources */,
 				2AD741352994F19B004BD223 /* ApplicationStateService.swift in Sources */,
 				2AAA09052AEAB71900A446B8 /* SpaceSwitchCoordinatorView.swift in Sources */,
+				2AFD7E1A2B63D536003B16EB /* Weak.swift in Sources */,
 				2A081A2E2AE7B3CF0040178D /* TipsConfiguration.swift in Sources */,
 				2ACD86F629C316C90082E861 /* BlockWidgetInfo.swift in Sources */,
 				8673528B2AA8BC00003F92DC /* URL+Middleware.swift in Sources */,
@@ -10889,7 +10890,6 @@
 				C92DCD682728561900A03D91 /* HorizonalTypeListViewModel.swift in Sources */,
 				3D1B5F7A274D0397007D97AE /* UIColor+Color.swift in Sources */,
 				EAED581E26A7321600374A46 /* MiddlewareTuple.swift in Sources */,
-				2E6F3E212A4DF191002F4278 /* Weak.swift in Sources */,
 				2E28BCF32AAB58D2001E6306 /* SetViewPickerCoordinatorViewModel.swift in Sources */,
 				2EC46DD72ABE000D00DEA4BD /* ObjectTypesConfiguration.swift in Sources */,
 				C9CD66A827EB1480001F1860 /* CoverColorsGridViewModel.swift in Sources */,
