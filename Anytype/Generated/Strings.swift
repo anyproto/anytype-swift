@@ -1383,8 +1383,8 @@ internal enum Loc {
     }
     internal enum Delete {
       internal enum Alert {
-        /// The value will be permanently removed from your space.
-        internal static let description = Loc.tr("Localizable", "Relation.Delete.Alert.Description", fallback: "The value will be permanently removed from your space.")
+        /// The option will be permanently removed from your space.
+        internal static let description = Loc.tr("Localizable", "Relation.Delete.Alert.Description", fallback: "The option will be permanently removed from your space.")
         /// Are you sure?
         internal static let title = Loc.tr("Localizable", "Relation.Delete.Alert.Title", fallback: "Are you sure?")
       }

@@ -88,7 +88,7 @@
 "Relation.Edit.Button.title" = "Apply";
 
 "Relation.Delete.Alert.Title" = "Are you sure?";
-"Relation.Delete.Alert.Description" = "The value will be permanently removed from your space.";
+"Relation.Delete.Alert.Description" = "The option will be permanently removed from your space.";
 
 "Relation.Format.Object.Title" = "Object";
 "Relation.Format.Text.Title" = "Text";
