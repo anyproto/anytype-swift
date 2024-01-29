@@ -10,7 +10,6 @@ protocol NotificationCoordinatorProtocol {
     func stopHandle()
 }
 
-// TODO: Rename to Coordinator
 final class NotificationCoordinator: NotificationCoordinatorProtocol {
     
     private let notificationSubscriptionService: NotificationsSubscriptionServiceProtocol
