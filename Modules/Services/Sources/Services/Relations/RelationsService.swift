@@ -109,4 +109,10 @@ public final class RelationsService: RelationsServiceProtocol {
         
         return optionResult?.objectID
     }
+    
+    public func removeRelationOptions(ids: [String]) async throws {
+        try await ClientCommands.relationListRemoveOption(.with {
+            $0.optionIds = ids
+        }).invoke()
+    }
 }

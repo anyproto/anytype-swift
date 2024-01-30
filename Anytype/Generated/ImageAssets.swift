@@ -18,6 +18,7 @@ internal extension ImageAsset {
   static let theEverythingApp = ImageAsset.bundle(name: "the-everything-app")
   enum BottomAlert {
     static let error = ImageAsset.bundle(name: "BottomAlert/error")
+    static let question = ImageAsset.bundle(name: "BottomAlert/question")
     static let update = ImageAsset.bundle(name: "BottomAlert/update")
   }
   static let arrowDown = ImageAsset.bundle(name: "arrowDown")

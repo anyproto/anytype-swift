@@ -88,6 +88,9 @@
 "Relation.Edit.Button.title" = "Apply";
 "Relation.Date.Locked.Alert.title" = "Relation “%@” is locked";
 
+"Relation.Delete.Alert.Title" = "Are you sure?";
+"Relation.Delete.Alert.Description" = "The option will be permanently removed from your space.";
+
 "Relation.Format.Object.Title" = "Object";
 "Relation.Format.Text.Title" = "Text";
 "Relation.Format.Number.Title" = "Number";
