@@ -19,7 +19,6 @@ final class ApplicationCoordinatorViewModel: ObservableObject {
     private let initialCoordinatorAssembly: InitialCoordinatorAssemblyProtocol
     private let debugMenuModuleAssembly: DebugMenuModuleAssemblyProtocol
     private let navigationContext: NavigationContextProtocol
-    private let notificationCoordinator: NotificationCoordinatorProtocol
     
     private var authCoordinator: AuthCoordinatorProtocol?
 
@@ -42,8 +41,7 @@ final class ApplicationCoordinatorViewModel: ObservableObject {
         deleteAccountModuleAssembly: DeleteAccountModuleAssemblyProtocol,
         initialCoordinatorAssembly: InitialCoordinatorAssemblyProtocol,
         debugMenuModuleAssembly: DebugMenuModuleAssemblyProtocol,
-        navigationContext: NavigationContextProtocol,
-        notificationCoordinator: NotificationCoordinatorProtocol
+        navigationContext: NavigationContextProtocol
     ) {
         self.authService = authService
         self.accountEventHandler = accountEventHandler
@@ -57,7 +55,6 @@ final class ApplicationCoordinatorViewModel: ObservableObject {
         self.initialCoordinatorAssembly = initialCoordinatorAssembly
         self.debugMenuModuleAssembly = debugMenuModuleAssembly
         self.navigationContext = navigationContext
-        self.notificationCoordinator = notificationCoordinator
     }
     
     func onAppear() {
@@ -99,9 +96,6 @@ final class ApplicationCoordinatorViewModel: ObservableObject {
     // MARK: - Subscription
 
     private func startObserve() {
-        Task {
-            await notificationCoordinator.startHandle()
-        }
         Task { @MainActor [weak self, applicationStateService] in
             for await state in applicationStateService.statePublisher.removeDuplicates().values {
                 guard let self = self else { return }
