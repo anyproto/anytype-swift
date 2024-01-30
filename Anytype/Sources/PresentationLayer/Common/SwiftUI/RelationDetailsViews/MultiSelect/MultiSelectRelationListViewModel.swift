@@ -7,9 +7,10 @@ import SwiftUI
 final class MultiSelectRelationListViewModel: ObservableObject {
     
     @Published var selectedOptions: [String]
-    @Published var options: [MultiSelectRelationOption] = []
+    @Published var visibleOptions: [MultiSelectRelationOption] = []
     @Published var isEmpty = false
     
+    private var options: [MultiSelectRelationOption] = []
     private var searchText = ""
         
     let configuration: RelationModuleConfiguration
@@ -32,6 +33,10 @@ final class MultiSelectRelationListViewModel: ObservableObject {
         self.relationsService = relationsService
         self.searchService = searchService
     }
+    
+    func onAppear() {
+        loadOptions()
+    }
 
     func onClear() {
         Task {
@@ -42,23 +47,25 @@ final class MultiSelectRelationListViewModel: ObservableObject {
     }
     
     func onCreate(with title: String?, color: Color? = nil) {
-        output?.onCreateTap(text: title, color: color, completion: { [weak self] optionId in
+        output?.onCreateTap(text: title, color: color, completion: { [weak self] option in
             guard let self else { return }
-            optionSelected(optionId)
-            searchTextChanged(searchText)
-        })
-    }
-    
-    func onOptionEdit(_ option: MultiSelectRelationOption) {
-        output?.onEditTap(option: option, completion: { [weak self] in
-            guard let self else { return }
+            options.append(option)
+            optionSelected(option)
             searchTextChanged(searchText)
         })
     }
     
     func onOptionDuplicate(_ option: MultiSelectRelationOption) {
-        output?.onCreateTap(text: option.text, color: option.textColor, completion: { [weak self] optionId in
-            self?.optionSelected(optionId)
+        onCreate(with: option.text, color: option.textColor)
+    }
+    
+    func onOptionEdit(_ option: MultiSelectRelationOption) {
+        output?.onEditTap(option: option, completion: { [weak self] option in
+            guard let self else { return }
+            if let index = options.firstIndex(of: option) {
+                options[index] = option
+                searchTextChanged(searchText)
+            }
         })
     }
     
@@ -76,17 +83,17 @@ final class MultiSelectRelationListViewModel: ObservableObject {
             if isSuccess {
                 removeRelationOption(option)
             } else {
-                options = options
-            }            
+                visibleOptions = visibleOptions
+            }
         }
     }
     
-    func optionSelected(_ optionId: String) {
+    func optionSelected(_ option: MultiSelectRelationOption) {
         var tempOptions = selectedOptions
-        if let index = tempOptions.firstIndex(of: optionId) {
+        if let index = tempOptions.firstIndex(of: option.id) {
             tempOptions.remove(at: index)
         } else {
-            tempOptions.append(optionId)
+            tempOptions.append(option.id)
         }
         
         Task {
@@ -99,10 +106,23 @@ final class MultiSelectRelationListViewModel: ObservableObject {
         }
     }
     
-    func searchTextChanged(_ text: String = "") {
+    func searchTextChanged(_ text: String) {
+        searchText = text
+        
+        guard text.isNotEmpty else {
+            visibleOptions = options
+            return
+        }
+        
+        visibleOptions = options.filter {
+            $0.text.range(of: text, options: .caseInsensitive) != nil
+        }
+    }
+    
+    private func loadOptions() {
         Task {
             let rawOptions = try await searchService.searchRelationOptions(
-                text: text,
+                text: "",
                 relationKey: configuration.relationKey,
                 excludedObjectIds: [],
                 spaceId: configuration.spaceId
@@ -118,8 +138,8 @@ final class MultiSelectRelationListViewModel: ObservableObject {
                 }
             }
             
-            isEmpty = options.isEmpty && text.isEmpty
-            searchText = text
+            visibleOptions = options
+            isEmpty = options.isEmpty
         }
     }
     
@@ -139,6 +159,7 @@ final class MultiSelectRelationListViewModel: ObservableObject {
                 )
                 selectedOptions = tempOptions
             }
+            searchTextChanged(searchText)
         }
     }
     

@@ -8,7 +8,7 @@ final class SelectRelationListCoordinatorViewModel: ObservableObject, SelectRela
     private let configuration: RelationModuleConfiguration
     private let selectedOption: SelectRelationOption?
     private let selectRelationListModuleAssembly: SelectRelationListModuleAssemblyProtocol
-    private let selectRelationSettingsModuleAssembly: SelectRelationSettingsModuleAssemblyProtocol
+    private let relationOptionSettingsModuleAssembly: RelationOptionSettingsModuleAssemblyProtocol
 
     @Published var relationData: RelationData?
     @Published var deletionAlertData: DeletionAlertData?
@@ -19,13 +19,13 @@ final class SelectRelationListCoordinatorViewModel: ObservableObject, SelectRela
         configuration: RelationModuleConfiguration,
         selectedOption: SelectRelationOption?,
         selectRelationListModuleAssembly: SelectRelationListModuleAssemblyProtocol,
-        selectRelationSettingsModuleAssembly: SelectRelationSettingsModuleAssemblyProtocol
+        relationOptionSettingsModuleAssembly: RelationOptionSettingsModuleAssemblyProtocol
     ) {
         self.objectId = objectId
         self.configuration = configuration
         self.selectedOption = selectedOption
         self.selectRelationListModuleAssembly = selectRelationListModuleAssembly
-        self.selectRelationSettingsModuleAssembly = selectRelationSettingsModuleAssembly
+        self.relationOptionSettingsModuleAssembly = relationOptionSettingsModuleAssembly
     }
     
     func selectRelationListModule() -> AnyView {
@@ -43,39 +43,49 @@ final class SelectRelationListCoordinatorViewModel: ObservableObject, SelectRela
         dismiss.toggle()
     }
     
-    func onCreateTap(text: String?, color: Color?, completion: @escaping (_ optionId: String) -> Void) {
+    func onCreateTap(text: String?, color: Color?, completion: @escaping (_ option: SelectRelationOption) -> Void) {
         relationData = RelationData(
-            text: text,
-            color: color,
-            mode: .create(RelationSettingsMode.CreateData(
-                relationKey: configuration.relationKey,
-                spaceId: configuration.spaceId
-            )),
-            completion: { [weak self] optionId in
-                completion(optionId)
+            configuration: RelationOptionSettingsConfiguration(
+                option: RelationOptionParameters(
+                    id: UUID().uuidString,
+                    text: text,
+                    color: color
+                ),
+                mode: .create(
+                    RelationOptionSettingsMode.CreateData(
+                        relationKey: configuration.relationKey,
+                        spaceId: configuration.spaceId
+                    )
+                )
+            ),
+            completion: { [weak self] optionParams in
+                completion(SelectRelationOption(optionParams: optionParams))
                 self?.relationData = nil
             }
         )
     }
     
-    func onEditTap(option: SelectRelationOption, completion: @escaping () -> Void) {
+    func onEditTap(option: SelectRelationOption, completion: @escaping (_ option: SelectRelationOption) -> Void) {
         relationData = RelationData(
-            text: option.text,
-            color: option.color,
-            mode: .edit(option.id),
-            completion: { [weak self] _ in
-                completion()
+            configuration: RelationOptionSettingsConfiguration(
+                option: RelationOptionParameters(
+                    id: option.id,
+                    text: option.text,
+                    color: option.color
+                ),
+                mode: .edit
+            ),
+            completion: { [weak self] optionParams in
+                completion(SelectRelationOption(optionParams: optionParams))
                 self?.relationData = nil
             }
         )
     }
     
     func selectRelationCreate(data: RelationData) -> AnyView {
-        selectRelationSettingsModuleAssembly.make(
-            text: data.text,
-            color: data.color,
-            mode: data.mode,
+        relationOptionSettingsModuleAssembly.make(
             objectId: objectId,
+            configuration: data.configuration,
             completion: data.completion
         )
     }
@@ -111,10 +121,8 @@ final class SelectRelationListCoordinatorViewModel: ObservableObject, SelectRela
 extension SelectRelationListCoordinatorViewModel {
     struct RelationData: Identifiable {
         let id = UUID()
-        let text: String?
-        let color: Color?
-        let mode: RelationSettingsMode
-        let completion: (_ optionId: String) -> Void
+        let configuration: RelationOptionSettingsConfiguration
+        let completion: (_ optionParams: RelationOptionParameters) -> Void
     }
     
     struct DeletionAlertData: Identifiable {

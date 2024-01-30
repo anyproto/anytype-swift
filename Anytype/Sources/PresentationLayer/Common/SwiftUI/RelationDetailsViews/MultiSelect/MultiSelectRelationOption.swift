@@ -19,5 +19,12 @@ extension MultiSelectRelationOption {
         self.backgroundColor = middlewareColor.map { Color.VeryLight.color(from: $0) } ?? Color.VeryLight.grey
     }
     
+    init(optionParams: RelationOptionParameters) {
+        self.id = optionParams.id
+        self.text = optionParams.text
+        self.textColor = optionParams.color
+        self.backgroundColor = optionParams.color.middlewareColor().map { Color.VeryLight.color(from: $0) } ?? Color.VeryLight.grey
+    }
+    
 }
 

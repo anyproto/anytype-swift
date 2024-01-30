@@ -34,8 +34,8 @@ final class ModulesDI: ModulesDIProtocol {
         return MultiSelectRelationListModuleAssembly(serviceLocator: serviceLocator)
     }
     
-    func selectRelationSettings() -> SelectRelationSettingsModuleAssemblyProtocol {
-        SelectRelationSettingsModuleAssembly(serviceLocator: serviceLocator)
+    func relationOptionSettings() -> RelationOptionSettingsModuleAssemblyProtocol {
+        RelationOptionSettingsModuleAssembly(serviceLocator: serviceLocator)
     }
     
     func undoRedo() -> UndoRedoModuleAssemblyProtocol {

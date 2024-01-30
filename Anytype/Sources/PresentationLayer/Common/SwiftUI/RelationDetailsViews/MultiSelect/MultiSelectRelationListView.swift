@@ -10,7 +10,7 @@ struct MultiSelectRelationListView: View {
             isEditable: viewModel.configuration.isEditable,
             isEmpty: viewModel.isEmpty,
             listContent: {
-                ForEach(viewModel.options) { option in
+                ForEach(viewModel.visibleOptions) { option in
                     optionRow(with: option)
                 }
                 .onDelete {
@@ -28,13 +28,13 @@ struct MultiSelectRelationListView: View {
             }
         )
         .onAppear {
-            viewModel.searchTextChanged()
+            viewModel.onAppear()
         }
     }
     
     private func optionRow(with option: MultiSelectRelationOption) -> some View {
         Button {
-            viewModel.optionSelected(option.id)
+            viewModel.optionSelected(option)
         } label: {
             HStack {
                 AnytypeText(option.text, style: .relation1Regular, color: option.textColor)

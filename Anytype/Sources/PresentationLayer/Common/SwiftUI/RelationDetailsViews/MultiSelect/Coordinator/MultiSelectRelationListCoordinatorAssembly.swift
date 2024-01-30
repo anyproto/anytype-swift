@@ -33,7 +33,7 @@ final class MultiSelectRelationListCoordinatorAssembly: MultiSelectRelationListC
                 configuration: configuration,
                 selectedOptions: selectedOptions,
                 miltiSelectRelationListModuleAssembly: self.modulesDI.multiSelectRelationList(),
-                selectRelationSettingsModuleAssembly: self.modulesDI.selectRelationSettings()
+                relationOptionSettingsModuleAssembly: self.modulesDI.relationOptionSettings()
             )
         ).eraseToAnyView()
     }

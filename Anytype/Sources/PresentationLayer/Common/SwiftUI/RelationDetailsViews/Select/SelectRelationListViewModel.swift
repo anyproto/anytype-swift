@@ -42,21 +42,21 @@ final class SelectRelationListViewModel: ObservableObject {
     }
     
     func onCreate(with title: String?, color: Color? = nil) {
-        output?.onCreateTap(text: title, color: color, completion: { [weak self] optionId in
-            self?.optionSelected(optionId, dismiss: false)
+        output?.onCreateTap(text: title, color: color, completion: { [weak self] option in
+            self?.optionSelected(option.id, dismiss: false)
         })
     }
     
     func onOptionEdit(_ option: SelectRelationOption) {
-        output?.onEditTap(option: option, completion: { [weak self] in
+        output?.onEditTap(option: option, completion: { [weak self] _ in
             guard let self else { return }
             searchTextChanged(searchText)
         })
     }
     
     func onOptionDuplicate(_ option: SelectRelationOption) {
-        output?.onCreateTap(text: option.text, color: option.color, completion: { [weak self] optionId in
-            self?.optionSelected(optionId, dismiss: false)
+        output?.onCreateTap(text: option.text, color: option.color, completion: { [weak self] option in
+            self?.optionSelected(option.id, dismiss: false)
         })
     }
     
