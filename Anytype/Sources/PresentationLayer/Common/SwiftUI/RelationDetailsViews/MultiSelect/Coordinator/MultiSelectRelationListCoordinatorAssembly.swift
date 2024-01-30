@@ -1,15 +1,15 @@
 import SwiftUI
 
-protocol SelectRelationListCoordinatorAssemblyProtocol {
+protocol MultiSelectRelationListCoordinatorAssemblyProtocol {
     @MainActor
     func make(
         objectId: String,
         configuration: RelationModuleConfiguration,
-        selectedOption: SelectRelationOption?
+        selectedOptions: [String]
     ) -> AnyView
 }
 
-final class SelectRelationListCoordinatorAssembly: SelectRelationListCoordinatorAssemblyProtocol {
+final class MultiSelectRelationListCoordinatorAssembly: MultiSelectRelationListCoordinatorAssemblyProtocol {
     
     // MARK: - DI
     
@@ -19,20 +19,20 @@ final class SelectRelationListCoordinatorAssembly: SelectRelationListCoordinator
         self.modulesDI = modulesDI
     }
     
-    // MARK: - SelectRelationListCoordinatorAssemblyProtocol
+    // MARK: - MultiSelectRelationListCoordinatorAssemblyProtocol
     
     @MainActor
     func make(
         objectId: String,
         configuration: RelationModuleConfiguration,
-        selectedOption: SelectRelationOption?
+        selectedOptions: [String]
     ) -> AnyView {
-        SelectRelationListCoordinatorView(
-            model: SelectRelationListCoordinatorViewModel(
+        MultiSelectRelationListCoordinatorView(
+            model: MultiSelectRelationListCoordinatorViewModel(
                 objectId: objectId,
                 configuration: configuration,
-                selectedOption: selectedOption,
-                selectRelationListModuleAssembly: self.modulesDI.selectRelationList(), 
+                selectedOptions: selectedOptions,
+                miltiSelectRelationListModuleAssembly: self.modulesDI.multiSelectRelationList(),
                 selectRelationSettingsModuleAssembly: self.modulesDI.selectRelationSettings()
             )
         ).eraseToAnyView()

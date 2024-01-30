@@ -11,6 +11,7 @@ final class RelationValueCoordinator: RelationValueCoordinatorProtocol,
     private let relationValueModuleAssembly: RelationValueModuleAssemblyProtocol
     private let dateRelationCalendarModuleAssembly: DateRelationCalendarModuleAssemblyProtocol
     private let selectRelationListCoordinatorAssembly: SelectRelationListCoordinatorAssemblyProtocol
+    private let multiSelectRelationListCoordinatorAssembly: MultiSelectRelationListCoordinatorAssemblyProtocol
     private let urlOpener: URLOpenerProtocol
     private let toastPresenter: ToastPresenterProtocol
     private weak var output: RelationValueCoordinatorOutput?
@@ -20,6 +21,7 @@ final class RelationValueCoordinator: RelationValueCoordinatorProtocol,
         relationValueModuleAssembly: RelationValueModuleAssemblyProtocol,
         dateRelationCalendarModuleAssembly: DateRelationCalendarModuleAssemblyProtocol,
         selectRelationListCoordinatorAssembly: SelectRelationListCoordinatorAssemblyProtocol,
+        multiSelectRelationListCoordinatorAssembly: MultiSelectRelationListCoordinatorAssemblyProtocol,
         urlOpener: URLOpenerProtocol,
         toastPresenter: ToastPresenterProtocol
     ) {
@@ -27,6 +29,7 @@ final class RelationValueCoordinator: RelationValueCoordinatorProtocol,
         self.relationValueModuleAssembly = relationValueModuleAssembly
         self.dateRelationCalendarModuleAssembly = dateRelationCalendarModuleAssembly
         self.selectRelationListCoordinatorAssembly = selectRelationListCoordinatorAssembly
+        self.multiSelectRelationListCoordinatorAssembly = multiSelectRelationListCoordinatorAssembly
         self.urlOpener = urlOpener
         self.toastPresenter = toastPresenter
     }
@@ -96,6 +99,26 @@ final class RelationValueCoordinator: RelationValueCoordinatorProtocol,
             )
             
             let mediumDetent = status.values.first.isNotNil || !relation.isEditable
+            navigationContext.present(view, mediumDetent: mediumDetent)
+            
+            return
+        }
+        
+        if FeatureFlags.newMultiSelectRelationView, case .tag(let tag) = relation {
+            let configuration = RelationModuleConfiguration(
+                title: tag.name,
+                isEditable: relation.isEditable,
+                relationKey: tag.key,
+                spaceId: objectDetails.spaceId,
+                analyticsType: analyticsType
+            )
+            let view = multiSelectRelationListCoordinatorAssembly.make(
+                objectId: objectDetails.id,
+                configuration: configuration,
+                selectedOptions: tag.selectedTags.compactMap { $0.id }
+            )
+            
+            let mediumDetent = tag.selectedTags.isNotEmpty || !relation.isEditable
             navigationContext.present(view, mediumDetent: mediumDetent)
             
             return

@@ -83,6 +83,12 @@ public extension FeatureDescription {
         defaultValue: true
     )
     
+    static let newMultiSelectRelationView = FeatureDescription(
+        title: "New Multi Select relation editing view - 2213",
+        type: .feature(author: "joe_pusya@anytype.io", releaseVersion: "0.28.0"),
+        defaultValue: false
+    )
+    
     // MARK: - Debug
     
     static let rainbowViews = FeatureDescription(

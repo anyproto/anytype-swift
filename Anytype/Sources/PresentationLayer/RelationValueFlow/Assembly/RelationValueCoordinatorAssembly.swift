@@ -21,7 +21,8 @@ final class RelationValueCoordinatorAssembly: RelationValueCoordinatorAssemblyPr
             navigationContext: uiHelpersDI.commonNavigationContext(),
             relationValueModuleAssembly: modulesDI.relationValue(), 
             dateRelationCalendarModuleAssembly: modulesDI.dateRelationCalendar(), 
-            selectRelationListCoordinatorAssembly: coordinatorsDI.selectRelationList(),
+            selectRelationListCoordinatorAssembly: coordinatorsDI.selectRelationList(), 
+            multiSelectRelationListCoordinatorAssembly: coordinatorsDI.multiSelectRelationList(),
             urlOpener: uiHelpersDI.urlOpener(),
             toastPresenter: uiHelpersDI.toastPresenter()
         )

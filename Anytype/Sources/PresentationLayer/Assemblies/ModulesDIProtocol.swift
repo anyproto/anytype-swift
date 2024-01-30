@@ -6,6 +6,7 @@ protocol ModulesDIProtocol: AnyObject {
     func dateRelationCalendar() -> DateRelationCalendarModuleAssemblyProtocol
     func selectRelationList() -> SelectRelationListModuleAssemblyProtocol
     func selectRelationSettings() -> SelectRelationSettingsModuleAssemblyProtocol
+    func multiSelectRelationList() -> MultiSelectRelationListModuleAssemblyProtocol
     func undoRedo() -> UndoRedoModuleAssemblyProtocol
     func objectLayoutPicker() -> ObjectLayoutPickerModuleAssemblyProtocol
     func objectCoverPicker() -> ObjectCoverPickerModuleAssemblyProtocol

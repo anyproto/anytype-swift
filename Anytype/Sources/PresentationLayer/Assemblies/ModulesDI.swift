@@ -30,6 +30,10 @@ final class ModulesDI: ModulesDIProtocol {
         return SelectRelationListModuleAssembly(serviceLocator: serviceLocator)
     }
     
+    func multiSelectRelationList() -> MultiSelectRelationListModuleAssemblyProtocol {
+        return MultiSelectRelationListModuleAssembly(serviceLocator: serviceLocator)
+    }
+    
     func selectRelationSettings() -> SelectRelationSettingsModuleAssemblyProtocol {
         SelectRelationSettingsModuleAssembly(serviceLocator: serviceLocator)
     }

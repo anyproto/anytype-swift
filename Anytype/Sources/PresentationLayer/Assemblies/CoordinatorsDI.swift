@@ -177,4 +177,8 @@ final class CoordinatorsDI: CoordinatorsDIProtocol {
     func selectRelationList() -> SelectRelationListCoordinatorAssemblyProtocol {
         SelectRelationListCoordinatorAssembly(modulesDI: modulesDI)
     }
+    
+    func multiSelectRelationList() -> MultiSelectRelationListCoordinatorAssemblyProtocol {
+        MultiSelectRelationListCoordinatorAssembly(modulesDI: modulesDI)
+    }
 }
