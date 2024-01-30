@@ -545,63 +545,63 @@
 "Unfavorite" = "Verwijder als favoriet";
 "Unsplash" = "Unsplash";
 "Go back" = "Ga terug";
-"SyncStatus.LocalOnly.Title" = "Local-only";
+"SyncStatus.LocalOnly.Title" = "Alleen lokaal";
 "SyncStatus.LocalOnly.Description" = "Alleen lokaal";
 "SyncStatus.Synced.Anytype.Description" = "Back-up gemaakt op Anytype netwerk";
 "SyncStatus.Synced.AnytypeStaging.Description" = "Back-up gemaakt op Anytype staging";
 "SyncStatus.Synced.SelfHosted.Description" = "Back-up gemaakt op zelfgehost netwerk";
 "Downloading or uploading data to some node" = "Gegevens downloaden of uploaden naar een node";
-"Node is not connected" = "Node is not connected";
-"Initializing sync" = "Initializing sync";
-"Not syncing" = "Not syncing";
-"Synced" = "Synced";
-"Syncing..." = "Syncing...";
-"No connection" = "No connection";
-"Preparing..." = "Preparing...";
-"Deleted" = "Deleted";
-"Download" = "Download";
+"Node is not connected" = "Node is niet verbonden";
+"Initializing sync" = "Synchronisatie wordt opgestart";
+"Not syncing" = "Niet aan het synchroniseren";
+"Synced" = "Gesynchroniseerd";
+"Syncing..." = "Aan het synchroniseren...";
+"No connection" = "Geen verbinding";
+"Preparing..." = "Aan het voorbereiden...";
+"Deleted" = "Verwijderd";
+"Download" = "Downloaden";
 "Open object" = "Open object";
-"Open source" = "Open source";
-"Into object" = "Into object";
-"Add below" = "Add below";
-"Change type" = "Change type";
+"Open source" = "Open bron";
+"Into object" = "Naar object";
+"Add below" = "Voeg toe hieronder";
+"Change type" = "Verander type";
 "SlashMenu.LinkTo.Description" = "Maak link naar een ander object aan";
-"Upload playable audio" = "Upload playable audio";
-"Code snippet" = "Code snippet";
-"Bookmark" = "Bookmark";
+"Upload playable audio" = "Upload afspeelbare video";
+"Code snippet" = "Codefragment";
+"Bookmark" = "Bladwijzer";
 "Audio" = "Audio";
 "Video" = "Video";
-"Picture" = "Picture";
-"File" = "File";
-"No related options here" = "No related options here. You can add some";
-"Empty" = "Empty";
+"Picture" = "Afbeelding";
+"File" = "Bestand";
+"No related options here" = "Geen gerelateerde opties hier. Je kunt er enkele toevoegen";
+"Empty" = "Leeg";
 "Link to" = "Link naar";
-"Unknown" = "Unknown";
+"Unknown" = "Onbekend";
 "Settings" = "Instellingen";
-"Views" = "Views";
+"Views" = "Weergaven";
 "Filter" = "Filter";
-"Sort" = "Sort";
+"Sort" = "Sorteer";
 "View" = "Weergave";
 "Home" = "Home";
-"Highlight" = "Highlight";
+"Highlight" = "Markeer";
 "Create object" = "Maak object aan";
-"Web pages" = "Web pages";
-"Preview layout" = "Preview layout";
-"Everywhere" = "Everywhere";
-"Exact day" = "Exact day";
+"Web pages" = "Internetpagina's";
+"Preview layout" = "Voorbeeldweergave lay-out";
+"Everywhere" = "Overal";
+"Exact day" = "Exacte dag";
 "Tomorrow" = "Morgen";
 "Yesterday" = "Gisteren";
 "Today" = "Vandaag";
-"No date" = "No date";
-"Clear" = "Clear";
-"Create option" = "Create option ‘%@’";
-"Add URL" = "Add URL";
+"No date" = "Geen datum";
+"Clear" = "Wis";
+"Create option" = "Maak optie '%@' aan";
+"Add URL" = "Voeg URL toe";
 "Add email" = "Voeg e-mailadres toe";
-"Add phone number" = "Add phone number";
-"Add number" = "Add number";
-"Add text" = "Add text";
+"Add phone number" = "Voeg telefoonnummer toe";
+"Add number" = "Voeg nummer toe";
+"Add text" = "Voeg tekst toe";
 "Ok" = "Ok";
-"Error occurred. Please try again" = "Error occurred. Please try again";
+"Error occurred. Please try again" = "Er is een fout opgetreden. Probeer het alsjeblieft opnieuw";
 "Add" = "Voeg toe";
 "Companies, contacts, friends and family" = "Bedrijven, contacten, vrienden en familie";
 "Failed to sync, trying again..." = "Synchroniseren mislukt, opnieuw proberen…";
@@ -649,7 +649,7 @@
 "TalbeOfContents.Empty" = "Voeg koppen toe om een inhoudsopgave te maken";
 
 // MARK: - Simple tables
-"SimpleTableMenu.Item.clearContents" = "Clear";
+"SimpleTableMenu.Item.clearContents" = "Wis";
 "SimpleTableMenu.Item.color" = "Kleur";
 "SimpleTableMenu.Item.style" = "Stijl";
 "SimpleTableMenu.Item.clearStyle" = "Reset stijl";
@@ -660,7 +660,7 @@
 "SimpleTableMenu.Item.MoveRight" = "Verplaats naar rechts";
 "SimpleTableMenu.Item.Duplicate" = "Dupliceer";
 "SimpleTableMenu.Item.Delete" = "Verwijder";
-"SimpleTableMenu.Item.Sort" = "Sort";
+"SimpleTableMenu.Item.Sort" = "Sorteer";
 
 "SimpleTableMenu.Item.InsertAbove" = "Voeg boven in";
 "SimpleTableMenu.Item.InsertBelow" = "Voeg beneden in";
@@ -687,21 +687,21 @@
 
 // MARK: Edit view type
 "SetViewTypesPicker.Title" = "Bewerk weergave";
-"SetViewTypesPicker.New.Title" = "New view";
-"SetViewTypesPicker.Section.Types.Title" = "View as";
+"SetViewTypesPicker.New.Title" = "Nieuwe weergave";
+"SetViewTypesPicker.Section.Types.Title" = "Geef weer als";
 "SetViewTypesPicker.Settings.Duplicate.View" = "Dupliceer";
-"SetViewTypesPicker.Settings.Delete.View" = "Delete view";
-"SetViewTypesPicker.Settings.Textfield.Placeholder.New.View" = "New view";
+"SetViewTypesPicker.Settings.Delete.View" = "Verwijder weergave";
+"SetViewTypesPicker.Settings.Textfield.Placeholder.New.View" = "Nieuwe weergave";
 "SetViewTypesPicker.Settings.Textfield.Placeholder.Untitled" = "Naamloos";
 
 // MARK: Select view
-"EditorSet.View.Not.Supported.Title" = "Unsupported";
+"EditorSet.View.Not.Supported.Title" = "Niet ondersteund";
 
 // BlockContent
-"Content.File.Upload" = "Upload a file";
+"Content.File.Upload" = "Upload een bestand";
 "Content.Audio.Upload" = "Upload audio";
-"Content.Video.Upload" = "Upload a video";
-"Content.Picture.Upload" = "Upload a picture";
+"Content.Video.Upload" = "Upload een video";
+"Content.Picture.Upload" = "Upload een afbeelding";
 "Content.Common.Uploading" = "Uploaden...";
 "Content.Common.Error" = "Er is iets verkeerd gegaan, probeer het opnieuw";
 "Content.Bookmark.Add" = "Voeg een webbladwijzer toe";
@@ -853,34 +853,34 @@
 // MARK: - Initial
 
 "Initial.UnstableMiddle.Title" = "Waarschuwing";
-"Initial.UnstableMiddle.Message" = "You launch app with a unstable middleware. Don't use your production account. Your account may be broken.";
+"Initial.UnstableMiddle.Message" = "Je start de app op met instabiele middleware. Gebruik niet jouw productieaccount. Jouw account kan beschadigd zijn.";
 "Initial.UnstableMiddle.Title" = "Waarschuwing";
-"Initial.UnstableMiddle.Logout" = "Logout from current account";
-"Initial.UnstableMiddle.Continue" = "Continue with current account";
-"Initial.UnstableMiddle.WontUseProd" = "I won't be using my production account";
+"Initial.UnstableMiddle.Logout" = "Log uit van huidige account";
+"Initial.UnstableMiddle.Continue" = "Ga verder met huidige account";
+"Initial.UnstableMiddle.WontUseProd" = "Ik zal niet mijn productieaccount gebruiken";
 
 // MARK: - Create tip
-"LongTapCreateTip.Title" = "Create Objects with specific Type";
-"LongTapCreateTip.Message" = "Long tap on Create Object button to open menu with types";
+"LongTapCreateTip.Title" = "Maak objecten aan met specifiek type";
+"LongTapCreateTip.Message" = "Druk lang op de knop maak object aan om het menu te openen met types";
 
 // MARK: - Error
-"Error.AnytypeNeedsUpgrate.Title" = "Update Your App";
-"Error.AnytypeNeedsUpgrate.Message" = "This object was modified in a newer version of Anytype. Please update the app to open it on this device";
+"Error.AnytypeNeedsUpgrate.Title" = "Update jouw app";
+"Error.AnytypeNeedsUpgrate.Message" = "Dit object is gewijzigd in een nieuwere versie van Anytype. Update alsjeblieft de app om het op dit apparaat te openen";
 "Error.AnytypeNeedsUpgrate.Confirm" = "Updaten";
-"Error.UnableToConnect" = "Please connect to the internet";
+"Error.UnableToConnect" = "Maak alsjeblieft verbinding met het internet";
 
 // MARK: - Relative date formatter
-"RelativeFormatter.days7" = "Previous 7 days";
-"RelativeFormatter.days30" = "Previous 30 days";
-"RelativeFormatter.older" = "Older";
+"RelativeFormatter.days7" = "Afgelopen 7 dagen";
+"RelativeFormatter.days30" = "Afgelopen 30 dagen";
+"RelativeFormatter.older" = "Ouder";
 
 // MARK: - Server
-"Server.Network" = "Network";
-"Server.Networks" = "Networks";
-"Server.AddButton" = "Add Self-hosted Network";
+"Server.Network" = "Netwerk";
+"Server.Networks" = "Netwerken";
+"Server.AddButton" = "Voeg zelfgehost netwerk toe";
 "Server.Anytype" = "Anytype";
-"Server.LocalOnly" = "Local-only";
+"Server.LocalOnly" = "Alleen lokaal";
 
 // MARK: - Gallery
 "Gallery.Unavailable.Title" = "Galerij wordt binnenkort ondersteund";
-"Gallery.Unavailable.Message" = "Please use the desktop app for now";
+"Gallery.Unavailable.Message" = "Gebruik voorlopig alsjeblieft de desktop app";
