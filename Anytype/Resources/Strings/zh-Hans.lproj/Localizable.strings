@@ -84,7 +84,7 @@
 "Relation.Format.Text.Title" = "正文";
 "Relation.Format.Number.Title" = "数目";
 "Relation.Format.Status.Title" = "选择";
-"Relation.Format.Tag.Title" = "Multi-select";
+"Relation.Format.Tag.Title" = "多选";
 "Relation.Format.Date.Title" = "日期";
 "Relation.Format.FileMedia.Title" = "文件 & 媒体";
 "Relation.Format.Checkbox.Title" = "复选框";
@@ -187,7 +187,7 @@
 "Auth.CameraPermissionTitle" = "请允许访问";
 "Restore secret phrase from keychain" = "从钥匙串恢复恢复短语";
 "Auth.LogIn" = "登录";
-"Auth.Join" = "Join";
+"Auth.Join" = "注册";
 "Auth.Welcome.Subtitle" = "Anytype 是您编写、计划、思考和组织集于一身，对您重要的安全空间。";
 "Auth.Caption.Privacy.Text" = "继续即表示您同意 [使用条款](%@) 和 [隐私策略](%@)";
 "Auth.Next" = "下一步";
@@ -486,8 +486,8 @@
 "Enter value" = "输入值";
 "Select object" = "选择对象";
 "Select file" = "选择文件";
-"Select options" = "Select options";
-"Select option" = "Select option";
+"Select options" = "选择选项";
+"Select option" = "选择选项";
 "Select date" = "选择日期";
 "Add email" = "添加电子邮件";
 "Add link" = "添加链接";
@@ -859,14 +859,14 @@
 "Initial.UnstableMiddle.WontUseProd" = "我不会使用我的生产账户";
 
 // MARK: - Create tip
-"LongTapCreateTip.Title" = "Create Objects with specific Type";
+"LongTapCreateTip.Title" = "创建带有特定类型的对象";
 "LongTapCreateTip.Message" = "长按创建文档按钮以打开带类型的菜单";
 
 // MARK: - Error
 "Error.AnytypeNeedsUpgrate.Title" = "更新应用";
 "Error.AnytypeNeedsUpgrate.Message" = "此文档已在更高版本的 Anytype 编辑过，请更新此设备的应用以打开它。";
 "Error.AnytypeNeedsUpgrate.Confirm" = "更新";
-"Error.UnableToConnect" = "Please connect to the internet";
+"Error.UnableToConnect" = "请连接到互联网";
 
 // MARK: - Relative date formatter
 "RelativeFormatter.days7" = "过去 7 天";
