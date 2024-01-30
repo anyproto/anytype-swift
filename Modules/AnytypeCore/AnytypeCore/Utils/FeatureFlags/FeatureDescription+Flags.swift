@@ -80,7 +80,7 @@ public extension FeatureDescription {
     static let newSelectRelationView = FeatureDescription(
         title: "New Select relation editing view - 2101",
         type: .feature(author: "joe_pusya@anytype.io", releaseVersion: "0.28.0"),
-        defaultValue: false
+        defaultValue: true
     )
     
     // MARK: - Debug
