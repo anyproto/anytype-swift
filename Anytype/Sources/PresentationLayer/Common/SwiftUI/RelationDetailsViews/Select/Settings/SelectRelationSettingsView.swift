@@ -59,7 +59,6 @@ struct SelectRelationSettingsView: View {
     private func colorItem(with color: Color) -> some View {
         Circle()
             .fill(color)
-            .frame(width: 60, height: 60)
             .onTapGesture {
                 model.onColorSelected(color)
             }

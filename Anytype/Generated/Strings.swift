@@ -1381,6 +1381,14 @@ internal enum Loc {
         internal static let placeholder = Loc.tr("Localizable", "Relation.Create.Textfield.placeholder", fallback: "Enter name...")
       }
     }
+    internal enum Delete {
+      internal enum Alert {
+        /// The option will be permanently removed from your space.
+        internal static let description = Loc.tr("Localizable", "Relation.Delete.Alert.Description", fallback: "The option will be permanently removed from your space.")
+        /// Are you sure?
+        internal static let title = Loc.tr("Localizable", "Relation.Delete.Alert.Title", fallback: "Are you sure?")
+      }
+    }
     internal enum Edit {
       internal enum Button {
         /// Apply

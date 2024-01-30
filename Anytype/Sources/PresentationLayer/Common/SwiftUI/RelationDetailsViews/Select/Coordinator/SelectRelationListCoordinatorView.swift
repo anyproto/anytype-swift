@@ -11,6 +11,9 @@ struct SelectRelationListCoordinatorView: View {
             .sheet(item: $model.relationData) { data in
                 model.selectRelationCreate(data: data)
             }
+            .anytypeSheet(item: $model.deletionAlertData) { data in
+                model.deletionAlertView(data: data)
+            }
             .onChange(of: model.dismiss) { _ in
                 dismiss()
             }

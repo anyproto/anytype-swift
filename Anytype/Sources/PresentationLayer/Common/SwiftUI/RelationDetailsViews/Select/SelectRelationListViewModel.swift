@@ -60,6 +60,25 @@ final class SelectRelationListViewModel: ObservableObject {
         })
     }
     
+    func onOptionDelete(with indexSet: IndexSet) {
+        indexSet.forEach { deleteIndex in
+            guard deleteIndex < options.count else { return }
+            let optionToDelete = options[deleteIndex]
+            onOptionDelete(optionToDelete)
+        }
+    }
+    
+    func onOptionDelete(_ option: SelectRelationOption) {
+        output?.onDeleteTap { [weak self] isSuccess in
+            guard let self else { return }
+            if isSuccess {
+                removeRelationOprion(id: option.id)
+            } else {
+                options = options
+            }            
+        }
+    }
+    
     func optionSelected(_ optionId: String, dismiss: Bool = true) {
         Task {
             try await relationsService.updateRelation(relationKey: configuration.relationKey, value: optionId.protobufValue)
@@ -99,6 +118,16 @@ final class SelectRelationListViewModel: ObservableObject {
             
             isEmpty = options.isEmpty && text.isEmpty
             searchText = text
+        }
+    }
+    
+    private func removeRelationOprion(id: String) {
+        Task {
+            try await relationsService.removeRelationOptions(ids: [id])
+            searchTextChanged(searchText)
+            if selectedOption?.id == id {
+                onClear()
+            }
         }
     }
     

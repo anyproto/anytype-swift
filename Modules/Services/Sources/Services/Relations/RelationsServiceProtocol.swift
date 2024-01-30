@@ -14,4 +14,5 @@ public protocol RelationsServiceProtocol: AnyObject {
 
     func removeRelation(relationKey: String) async throws
     func addRelationOption(spaceId: String, relationKey: String, optionText: String, color: String?) async throws -> String?
+    func removeRelationOptions(ids: [String]) async throws
 }
