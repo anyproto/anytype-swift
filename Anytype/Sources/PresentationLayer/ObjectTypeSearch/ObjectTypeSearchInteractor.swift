@@ -12,22 +12,15 @@ final class ObjectTypeSearchInteractor {
     }
     
     func search(text: String) async -> [ObjectType] {
-        do {
-            return try await searchService.searchObjectTypes(
-                text: text,
-                filteringTypeId: nil, //excludedObjectTypeId,
-                shouldIncludeSets: true, //showSetAndCollection,
-                shouldIncludeCollections: true,// showSetAndCollection,
-                shouldIncludeBookmark: true, //showBookmark,
-                spaceId: spaceId
-            )
-            .map { ObjectType(details: $0) }
-        } catch let error {
-            anytypeAssertionFailure(
-                "Error in searchObjectTypes",
-                info: ["error": error.localizedDescription]
-            )
-            return []
-        }
+        guard let objectTypes = try? await searchService.searchObjectTypes(
+            text: text,
+            filteringTypeId: nil, //excludedObjectTypeId,
+            shouldIncludeSets: true, //showSetAndCollection,
+            shouldIncludeCollections: true,// showSetAndCollection,
+            shouldIncludeBookmark: true, //showBookmark,
+            spaceId: spaceId
+        ) else { return [] }
+
+        return objectTypes.map { ObjectType(details: $0) }
     }
 }

@@ -49,10 +49,10 @@ struct ObjectTypeSearchView: View {
                 HStack {
                     AnytypeText("\(type.iconEmoji.value) \(type.name)", style: .uxTitle2Medium, color: .Text.primary)
                 }
+                .padding(.vertical, 15)
+                .padding(.leading, 14)
+                .padding(.trailing, 16)
             }
-            .padding(.vertical, 15)
-            .padding(.leading, 14)
-            .padding(.trailing, 16)
             .border(12, color: .Stroke.primary)
         }
     }
