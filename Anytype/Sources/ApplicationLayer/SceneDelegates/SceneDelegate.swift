@@ -24,7 +24,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         
         connectionOptions.shortcutItem.flatMap { _ = handleQuickAction($0) }
         handleURLContext(openURLContexts: connectionOptions.urlContexts)
-        AppActionStorage.shared.action = .galleryImport
+        handleURL(url: URL(string: "anytype://main/import/?type=experience&source=https%3A%2F%2Fstorage.gallery.any.coop%2Fdata_vault%2Fmanifest.json")!)
         
         let applicationView = di.coordinatorsDI.application().makeView()
         window.rootViewController = UIHostingController(rootView: applicationView)
@@ -61,12 +61,17 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
     private func handleURLContext(openURLContexts: Set<UIOpenURLContext>) {
         guard openURLContexts.count == 1, 
-                let context = openURLContexts.first,
-                var components = URLComponents(url: context.url, resolvingAgainstBaseURL: false) else {
+                let context = openURLContexts.first else {
             return
         }
         
-        components.query = nil
+        handleURL(url: context.url)
+    }
+    
+    private func handleURL(url: URL) {
+        guard var components = URLComponents(url: url, resolvingAgainstBaseURL: false) else {
+            return
+        }
         
         switch components.url {
         case URLConstants.createObjectURL:

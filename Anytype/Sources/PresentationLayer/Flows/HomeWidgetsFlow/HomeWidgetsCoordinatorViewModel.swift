@@ -109,7 +109,7 @@ final class HomeWidgetsCoordinatorViewModel: ObservableObject,
         self.workspacesStorage = workspacesStorage
         self.documentsProvider = documentsProvider
         self.setObjectCreationCoordinatorAssembly = setObjectCreationCoordinatorAssembly
-        self.sharingTipCoordinator = sharingTipCoordinator,
+        self.sharingTipCoordinator = sharingTipCoordinator
         self.galleryInstallationCoordinatorAssembly = galleryInstallationCoordinatorAssembly
     }
 
