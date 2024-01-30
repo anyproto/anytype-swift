@@ -86,6 +86,7 @@
 "Relation.View.Edit.title" = "Edit option";
 "Relation.Create.Textfield.placeholder" = "Enter name...";
 "Relation.Edit.Button.title" = "Apply";
+"Relation.Date.Locked.Alert.title" = "Relation “%@” is locked";
 
 "Relation.Delete.Alert.Title" = "Are you sure?";
 "Relation.Delete.Alert.Description" = "The option will be permanently removed from your space.";
