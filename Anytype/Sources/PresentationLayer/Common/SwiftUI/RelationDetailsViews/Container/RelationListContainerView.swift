@@ -97,19 +97,38 @@ struct RelationListContainerView<Content>: View where Content: View {
         .padding(.horizontal, 20)
     }
     
+    @ViewBuilder
     private var emptyState: some View {
+        if isEditable {
+            defaultEmptyState
+        } else {
+            blockedEmptyState
+        }
+    }
+    
+    private var defaultEmptyState: some View {
         VStack(spacing: 0) {
             Spacer()
             ButtomAlertHeaderImageView(icon: .BottomAlert.error, style: .red)
             Spacer.fixedHeight(12)
             AnytypeText(Loc.Relation.EmptyState.title, style: .uxCalloutMedium, color: .Text.primary)
-            AnytypeText(Loc.Relation.EmptyState.description, style: .uxCalloutMedium, color: .Text.primary)
+            AnytypeText(Loc.Relation.EmptyState.description, style: .uxCalloutRegular, color: .Text.primary)
             Spacer.fixedHeight(12)
             StandardButton(Loc.create, style: .secondarySmall) {
                 onCreate(nil)
             }
             .disabled(!isEditable)
             Spacer.fixedHeight(48)
+            Spacer()
+        }
+    }
+    
+    private var blockedEmptyState: some View {
+        VStack(spacing: 0) {
+            Spacer()
+            ButtomAlertHeaderImageView(icon: .BottomAlert.error, style: .red)
+            Spacer.fixedHeight(12)
+            AnytypeText(Loc.Relation.EmptyState.Blocked.title, style: .uxCalloutMedium, color: .Text.primary)
             Spacer()
         }
     }

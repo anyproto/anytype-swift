@@ -79,8 +79,9 @@
 "Relation.From.Type" = "From type %@";
 "Relation.LinksFrom.Title" = "from";
 "Relation.LinksTo.Title" = "to";
-"Relation.EmptyState.title" = "No values";
-"Relation.EmptyState.description" = "No options found. Create first one to start.";
+"Relation.EmptyState.title" = "No options";
+"Relation.EmptyState.description" = "Nothing found. Create first option to start.";
+"Relation.EmptyState.Blocked.title" = "The relation is empty";
 "Relation.Create.Row.title" = "Create “%@”";
 "Relation.View.Create.title" = "Create option";
 "Relation.View.Edit.title" = "Edit option";

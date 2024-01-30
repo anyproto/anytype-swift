@@ -1406,10 +1406,14 @@ internal enum Loc {
       }
     }
     internal enum EmptyState {
-      /// No options found. Create first one to start.
-      internal static let description = Loc.tr("Localizable", "Relation.EmptyState.description", fallback: "No options found. Create first one to start.")
-      /// No values
-      internal static let title = Loc.tr("Localizable", "Relation.EmptyState.title", fallback: "No values")
+      /// Nothing found. Create first option to start.
+      internal static let description = Loc.tr("Localizable", "Relation.EmptyState.description", fallback: "Nothing found. Create first option to start.")
+      /// No options
+      internal static let title = Loc.tr("Localizable", "Relation.EmptyState.title", fallback: "No options")
+      internal enum Blocked {
+        /// The relation is empty
+        internal static let title = Loc.tr("Localizable", "Relation.EmptyState.Blocked.title", fallback: "The relation is empty")
+      }
     }
     internal enum Format {
       internal enum Checkbox {
