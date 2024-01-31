@@ -411,6 +411,50 @@ extension Anytype_Model_SpaceStatus: CaseIterable {
 
 #endif  // swift(>=4.2)
 
+public enum Anytype_Model_ImageKind: SwiftProtobuf.Enum {
+  public typealias RawValue = Int
+  case basic // = 0
+  case cover // = 1
+  case icon // = 2
+  case UNRECOGNIZED(Int)
+
+  public init() {
+    self = .basic
+  }
+
+  public init?(rawValue: Int) {
+    switch rawValue {
+    case 0: self = .basic
+    case 1: self = .cover
+    case 2: self = .icon
+    default: self = .UNRECOGNIZED(rawValue)
+    }
+  }
+
+  public var rawValue: Int {
+    switch self {
+    case .basic: return 0
+    case .cover: return 1
+    case .icon: return 2
+    case .UNRECOGNIZED(let i): return i
+    }
+  }
+
+}
+
+#if swift(>=4.2)
+
+extension Anytype_Model_ImageKind: CaseIterable {
+  // The compiler won't synthesize support with the UNRECOGNIZED case.
+  public static var allCases: [Anytype_Model_ImageKind] = [
+    .basic,
+    .cover,
+    .icon,
+  ]
+}
+
+#endif  // swift(>=4.2)
+
 public struct Anytype_Model_SmartBlockSnapshotBase {
   // SwiftProtobuf.Message conformance is added in an extension below. See the
   // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
@@ -436,7 +480,6 @@ public struct Anytype_Model_SmartBlockSnapshotBase {
   /// Clears the value of `fileKeys`. Subsequent reads from it will return its default value.
   public mutating func clearFileKeys() {self._fileKeys = nil}
 
-  /// deprecated
   public var extraRelations: [Anytype_Model_Relation] = []
 
   public var objectTypes: [String] = []
@@ -4572,6 +4615,7 @@ extension Anytype_Model_SmartBlockType: @unchecked Sendable {}
 extension Anytype_Model_RelationFormat: @unchecked Sendable {}
 extension Anytype_Model_ObjectOrigin: @unchecked Sendable {}
 extension Anytype_Model_SpaceStatus: @unchecked Sendable {}
+extension Anytype_Model_ImageKind: @unchecked Sendable {}
 extension Anytype_Model_SmartBlockSnapshotBase: @unchecked Sendable {}
 extension Anytype_Model_Block: @unchecked Sendable {}
 extension Anytype_Model_Block.OneOf_Content: @unchecked Sendable {}
@@ -4764,6 +4808,14 @@ extension Anytype_Model_SpaceStatus: SwiftProtobuf._ProtoNameProviding {
     5: .same(proto: "RemoteWaitingDeletion"),
     6: .same(proto: "RemoteDeleted"),
     7: .same(proto: "SpaceDeleted"),
+  ]
+}
+
+extension Anytype_Model_ImageKind: SwiftProtobuf._ProtoNameProviding {
+  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    0: .same(proto: "Basic"),
+    1: .same(proto: "Cover"),
+    2: .same(proto: "Icon"),
   ]
 }
 
