@@ -270,6 +270,8 @@ internal enum Loc {
   }
   /// List of related objects
   internal static let listOfRelatedObjects = Loc.tr("Localizable", "List of related objects", fallback: "List of related objects")
+  /// Lists
+  internal static let lists = Loc.tr("Localizable", "Lists", fallback: "Lists")
   /// Loading, please wait
   internal static let loadingPleaseWait = Loc.tr("Localizable", "Loading, please wait", fallback: "Loading, please wait")
   /// Lock
@@ -1474,6 +1476,22 @@ internal enum Loc {
     internal enum LinksTo {
       /// to
       internal static let title = Loc.tr("Localizable", "Relation.LinksTo.Title", fallback: "to")
+    }
+    internal enum Origin {
+      /// Library installed
+      internal static let builtin = Loc.tr("Localizable", "Relation.Origin.Builtin", fallback: "Library installed")
+      /// Clipboard
+      internal static let clipboard = Loc.tr("Localizable", "Relation.Origin.Clipboard", fallback: "Clipboard")
+      /// Drag'n'Drop
+      internal static let dragAndDrop = Loc.tr("Localizable", "Relation.Origin.DragAndDrop", fallback: "Drag'n'Drop")
+      /// Imported object
+      internal static let `import` = Loc.tr("Localizable", "Relation.Origin.Import", fallback: "Imported object")
+      /// Mobile sharing extension
+      internal static let sharingExtension = Loc.tr("Localizable", "Relation.Origin.SharingExtension", fallback: "Mobile sharing extension")
+      /// Use case
+      internal static let useCase = Loc.tr("Localizable", "Relation.Origin.UseCase", fallback: "Use case")
+      /// Web clipper
+      internal static let webClipper = Loc.tr("Localizable", "Relation.Origin.WebClipper", fallback: "Web clipper")
     }
     internal enum View {
       internal enum Create {

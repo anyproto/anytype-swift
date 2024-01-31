@@ -12,12 +12,12 @@ final class MultiselectObjectTypesSearchViewModel {
     private var objects: [ObjectDetails] = []
     private var selectedObjectTypeIds: [String] = []
     
-    private let interactor: ObjectTypesSearchInteractor
+    private let interactor: Legacy_ObjectTypeSearchInteractor
     private let onSelect: (_ ids: [String]) -> Void
     
     init(
         selectedObjectTypeIds: [String],
-        interactor: ObjectTypesSearchInteractor,
+        interactor: Legacy_ObjectTypeSearchInteractor,
         onSelect: @escaping (_ ids: [String]) -> Void
     ) {
         self.selectedObjectTypeIds = selectedObjectTypeIds

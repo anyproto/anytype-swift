@@ -13,8 +13,12 @@ protocol SearchServiceProtocol: AnyObject {
         shouldIncludeBookmark: Bool,
         spaceId: String
     ) async throws -> [ObjectDetails]
-    
-    func searchMarketplaceObjectTypes(text: String, excludedIds: [String]) async throws -> [ObjectDetails]
+    func searchListTypes(text: String, spaceId: String) async throws -> [ObjectDetails]
+        
+    func searchMarketplaceObjectTypes(
+        text: String,
+        excludedIds: [String]
+    ) async throws -> [ObjectDetails]
     func searchFiles(text: String, excludedFileIds: [String],  spaceId: String) async throws -> [ObjectDetails]
     func searchImages() async throws -> [ObjectDetails]
     func searchObjectsByTypes(text: String, typeIds: [String], excludedObjectIds: [String], spaceId: String) async throws -> [ObjectDetails]
@@ -115,6 +119,23 @@ final class SearchService: SearchServiceProtocol {
                 ObjectTypeUniqueKey.collection.value
             ]
         ) { $0.uniqueKey }
+    }
+    
+    func searchListTypes(text: String, spaceId: String) async throws -> [ObjectDetails] {
+        let sort = SearchHelper.sort(
+            relation: BundledRelationKey.name,
+            type: .asc
+        )
+                
+        var layouts: [DetailsLayout] = [.set, .collection]
+        
+        let filters: [DataviewFilter] = .builder {
+            buildFilters(isArchived: false, spaceId: spaceId)
+            SearchHelper.layoutFilter([DetailsLayout.objectType])
+            SearchHelper.recomendedLayoutFilter(layouts)
+        }
+        
+        return try await searchMiddleService.search(filters: filters, sorts: [sort], fullText: text)
     }
     
     func searchMarketplaceObjectTypes(text: String, excludedIds: [String]) async throws -> [ObjectDetails] {
