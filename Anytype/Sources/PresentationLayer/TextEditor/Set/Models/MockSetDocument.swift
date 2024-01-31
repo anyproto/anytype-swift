@@ -24,7 +24,7 @@ final class MockSetDocument: SetDocumentProtocol {
     
     var dataViewRelationsDetails: [Services.RelationDetails] { [] }
     
-    var isObjectLocked: Bool { false }
+    var viewRelationValueIsLocked: Bool { false }
     
     var analyticsType: AnalyticsObjectType { .custom }
     
