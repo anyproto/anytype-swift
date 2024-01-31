@@ -1125,6 +1125,7 @@
 		3D5A417A2704541900F1F6A1 /* SearchBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D5A41782704541900F1F6A1 /* SearchBar.swift */; };
 		3D5A41802704543300F1F6A1 /* SearchCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D5A417D2704543300F1F6A1 /* SearchCell.swift */; };
 		3D5A418E27046EE400F1F6A1 /* AutofocusedTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D5A418D27046EE400F1F6A1 /* AutofocusedTextField.swift */; };
+		3D6381F72B6A61CF0026D071 /* WrappingHStack in Frameworks */ = {isa = PBXBuildFile; productRef = 3D6381F62B6A61CF0026D071 /* WrappingHStack */; };
 		3D68564226E0E1A000AA36A9 /* Spacer+FixedSize.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D68564126E0E1A000AA36A9 /* Spacer+FixedSize.swift */; };
 		3D68564D26E10D2500AA36A9 /* View+Placeholder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D68564C26E10D2500AA36A9 /* View+Placeholder.swift */; };
 		3D78F5662B612C20009908F2 /* EditorConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D78F5652B612C20009908F2 /* EditorConstants.swift */; };
@@ -3254,6 +3255,7 @@
 				1259300826F3A60B00B115CD /* Amplitude in Frameworks */,
 				2A6ED170285B452600AAA21C /* SwiftProtobuf in Frameworks */,
 				86E69DD62A938CE8009F2221 /* SecureService in Frameworks */,
+				3D6381F72B6A61CF0026D071 /* WrappingHStack in Frameworks */,
 				2A01A4F92A1FB507002042FB /* DeviceKit in Frameworks */,
 				03C5C53B22DF785000DD91DE /* Security.framework in Frameworks */,
 				0318D576230186CA000527B1 /* LocalAuthentication.framework in Frameworks */,
@@ -9520,6 +9522,7 @@
 				2A94B5D229B88E95009AE2A7 /* Sentry */,
 				2A01A4F82A1FB507002042FB /* DeviceKit */,
 				86E69DD52A938CE8009F2221 /* SecureService */,
+				3D6381F62B6A61CF0026D071 /* WrappingHStack */,
 			);
 			productName = Anytype;
 			productReference = 0303ECFB22D8EDAA005C552B /* Anytype.app */;
@@ -9642,6 +9645,7 @@
 				C9433E52293EA5EF001662EA /* XCRemoteSwiftPackageReference "SwiftEntryKit" */,
 				2A94B5D129B88E95009AE2A7 /* XCRemoteSwiftPackageReference "sentry-cocoa" */,
 				2A01A4F72A1FB4B7002042FB /* XCRemoteSwiftPackageReference "DeviceKit" */,
+				3D6381F52B6A61CF0026D071 /* XCRemoteSwiftPackageReference "WrappingHStack" */,
 			);
 			productRefGroup = 0303ECFC22D8EDAA005C552B /* Products */;
 			projectDirPath = "";
@@ -12085,6 +12089,14 @@
 				version = 8.8.0;
 			};
 		};
+		3D6381F52B6A61CF0026D071 /* XCRemoteSwiftPackageReference "WrappingHStack" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/dkk/WrappingHStack";
+			requirement = {
+				kind = exactVersion;
+				version = 2.2.11;
+			};
+		};
 		5333421A262E249100238121 /* XCRemoteSwiftPackageReference "FloatingPanel" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/scenee/FloatingPanel";
@@ -12187,6 +12199,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 2A94B5D129B88E95009AE2A7 /* XCRemoteSwiftPackageReference "sentry-cocoa" */;
 			productName = Sentry;
+		};
+		3D6381F62B6A61CF0026D071 /* WrappingHStack */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 3D6381F52B6A61CF0026D071 /* XCRemoteSwiftPackageReference "WrappingHStack" */;
+			productName = WrappingHStack;
 		};
 		5333421B262E249100238121 /* FloatingPanel */ = {
 			isa = XCSwiftPackageProductDependency;
