@@ -54,10 +54,15 @@ final class SetObjectWidgetInternalViewModel: CommonWidgetInternalViewModel, Wid
         super.startHeaderSubscription()
         widgetObject.widgetTargetDetailsPublisher(widgetBlockId: widgetBlockId)
             .receiveOnMain()
-            .sink { [weak self] details in
-                self?.allowCreateObject = details.canCreateObject
-                self?.name = details.title
-                Task { await self?.updateSetDocument(objectId: details.id) }
+            .sink { [weak self, setDocument] details in
+                guard let self, let setDocument else { return }
+                
+                allowCreateObject = details.isListAndCanCreateObject(setDocument: setDocument)
+                name = details.title
+                
+                Task { [weak self] in
+                    await self?.updateSetDocument(objectId: details.id)
+                }
             }
             .store(in: &subscriptions)
     }

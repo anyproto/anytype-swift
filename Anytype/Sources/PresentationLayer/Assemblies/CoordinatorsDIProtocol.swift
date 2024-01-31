@@ -33,6 +33,7 @@ protocol CoordinatorsDIProtocol: AnyObject {
     func serverConfiguration() -> ServerConfigurationCoordinatorAssemblyProtocol
     func sharingTip() -> SharingTipCoordinatorProtocol
     func galleryInstallation() -> GalleryInstallationCoordinatorAssemblyProtocol
+    func selectRelationList() -> SelectRelationListCoordinatorAssemblyProtocol
     
     // Now like a coordinator. Migrate to isolated modules
     func editorPageModule() -> EditorPageModuleAssemblyProtocol

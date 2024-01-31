@@ -124,8 +124,16 @@ extension BundledRelationsValueProvider {
         }
     }
     
+    var isList: Bool {
+        isSet || isCollection
+    }
+    
     var isCollection: Bool {
         return layoutValue == .collection
+    }
+    
+    var isSet: Bool {
+        return layoutValue == .set
     }
     
     var isSupportedForEdit: Bool {
@@ -152,7 +160,21 @@ extension BundledRelationsValueProvider {
         objectType.isTemplateType
     }
     
-    var canCreateObject: Bool {
-        setOf.first { $0.isNotEmpty } != nil || isCollection
+    func isListAndCanCreateObject(setDocument: SetDocumentProtocol) -> Bool {
+        guard isList else { return false }
+        if isCollection { return true }
+        if setDocument.isSetByRelation() { return true }
+        
+        // Set query validation
+        // Create objects in sets by type only permitted if type is Page-like
+        guard let setOfId = setOf.first(where: { $0.isNotEmpty }) else {
+            return false
+        }
+        
+        guard let layout = try? ObjectTypeProvider.shared.objectType(id: setOfId).recommendedLayout else {
+            return false
+        }
+        
+        return DetailsLayout.supportedForCreationInSets.contains(layout)
     }
 }

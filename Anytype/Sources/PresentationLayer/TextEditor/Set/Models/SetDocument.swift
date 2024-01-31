@@ -159,7 +159,7 @@ class SetDocument: SetDocumentProtocol {
     }
     
     func isTypeSet() -> Bool {
-        !isCollection() && !isRelationsSet()
+        !isCollection() && !isSetByRelation()
     }
     
     func isBookmarksSet() -> Bool {
@@ -168,7 +168,7 @@ class SetDocument: SetDocumentProtocol {
         return details.setOf.contains(bookmarkType.id)
     }
     
-    func isRelationsSet() -> Bool {
+    func isSetByRelation() -> Bool {
         let relation = parsedRelations.installed.first { $0.key == BundledRelationKey.setOf.rawValue }
         if let relation, relation.hasSelectedObjectsRelationType {
             return true

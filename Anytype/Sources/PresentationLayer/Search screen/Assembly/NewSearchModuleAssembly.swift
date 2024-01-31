@@ -141,21 +141,20 @@ final class NewSearchModuleAssembly: NewSearchModuleAssemblyProtocol {
         spaceId: String,
         selectedObjectId: BlockId?,
         excludedObjectTypeId: String?,
-        showBookmark: Bool,
         showSetAndCollection: Bool,
         onSelect: @escaping (_ type: ObjectType) -> Void
     ) -> NewSearchView {
-        let interactor = ObjectTypesSearchInteractor(
+        let interactor = Legacy_ObjectTypeSearchInteractor(
             spaceId: spaceId,
             searchService: serviceLocator.searchService(),
             workspaceService: serviceLocator.workspaceService(),
             objectTypeProvider: serviceLocator.objectTypeProvider(),
             excludedObjectTypeId: excludedObjectTypeId,
-            showBookmark: showBookmark,
+            showBookmark: true,
             showSetAndCollection: showSetAndCollection
         )
         
-        let internalViewModel = ObjectTypesSearchViewModel(
+        let internalViewModel = Legacy_ObjectTypeSearchViewModel(
             interactor: interactor,
             toastPresenter: uiHelpersDI.toastPresenter(),
             selectedObjectId: selectedObjectId,
@@ -177,7 +176,7 @@ final class NewSearchModuleAssembly: NewSearchModuleAssemblyProtocol {
         spaceId: String,
         onSelect: @escaping (_ ids: [String]) -> Void
     ) -> NewSearchView {
-        let interactor = ObjectTypesSearchInteractor(
+        let interactor = Legacy_ObjectTypeSearchInteractor(
             spaceId: spaceId,
             searchService: serviceLocator.searchService(),
             workspaceService: serviceLocator.workspaceService(),
