@@ -23,28 +23,20 @@ final class ObjectTypeSearchViewModel: ObservableObject {
     
     func search(text: String) {
         Task {
-            var sectionData: [SectionData] = []
-            
             let listTypes = await interactor.searchListTypes(text: text)
-            if listTypes.isNotEmpty {
-                sectionData.append(
-                    SectionData(section: .lists, types: listTypes)
-                )
-            }
-            
             let objectTypes = await interactor.searchObjectTypes(text: text)
-            if objectTypes.isNotEmpty {
-                sectionData.append(
-                    SectionData(section: .objects, types: objectTypes)
-                )
-            }
+            let libraryTypes = text.isNotEmpty ? await interactor.searchLibraryTypes(text: text) : []
             
-            if text.isNotEmpty {
-                let libraryTypes = await interactor.searchLibraryTypes(text: text)
+            let sectionData: [SectionData] = Array.builder {
+                if listTypes.isNotEmpty {
+                    SectionData(section: .lists, types: listTypes)
+                }
+                if objectTypes.isNotEmpty {
+                    SectionData(section: .objects, types: objectTypes)
+                }
+                
                 if libraryTypes.isNotEmpty {
-                    sectionData.append(
-                        SectionData(section: .library, types: libraryTypes)
-                    )
+                    SectionData(section: .library, types: libraryTypes)
                 }
             }
             
