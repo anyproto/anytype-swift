@@ -1,8 +1,7 @@
 import AnytypeCore
 
 public extension DetailsLayout {
-    // TODO: Rollback
-    static var visibleLayouts: [DetailsLayout] = [.basic, .bookmark, .collection, .note, .profile, .set, .todo, .file, .image]
+    static var visibleLayouts: [DetailsLayout] = [.basic, .bookmark, .collection, .note, .profile, .set, .todo]
     static var supportedForEditLayouts: [DetailsLayout] = [.basic, .bookmark, .collection, .file, .image, .note, .profile, .set, .todo]
     static var supportedForCreationInSets: [DetailsLayout] = pageLayouts
 }
