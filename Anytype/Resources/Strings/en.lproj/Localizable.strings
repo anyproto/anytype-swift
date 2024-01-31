@@ -79,6 +79,18 @@
 "Relation.From.Type" = "From type %@";
 "Relation.LinksFrom.Title" = "from";
 "Relation.LinksTo.Title" = "to";
+"Relation.EmptyState.title" = "No options";
+"Relation.EmptyState.description" = "Nothing found. Create first option to start.";
+"Relation.EmptyState.Blocked.title" = "The relation is empty";
+"Relation.Create.Row.title" = "Create “%@”";
+"Relation.View.Create.title" = "Create option";
+"Relation.View.Edit.title" = "Edit option";
+"Relation.Create.Textfield.placeholder" = "Enter name...";
+"Relation.Edit.Button.title" = "Apply";
+"Relation.Date.Locked.Alert.title" = "Relation “%@” is locked";
+
+"Relation.Delete.Alert.Title" = "Are you sure?";
+"Relation.Delete.Alert.Description" = "The option will be permanently removed from your space.";
 
 "Relation.Format.Object.Title" = "Object";
 "Relation.Format.Text.Title" = "Text";
@@ -605,7 +617,7 @@
 "Today" = "Today";
 "No date" = "No date";
 "Clear" = "Clear";
-"Create option" = "Create option ‘%@’";
+"Create option with" = "Create option ‘%@’";
 "Add URL" = "Add URL";
 "Add email" = "Add email";
 "Add phone number" = "Add phone number";
