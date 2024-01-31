@@ -23,6 +23,7 @@ final class SetObjectCreationSettingsCoordinator: SetObjectCreationSettingsCoord
     private let navigationContext: NavigationContextProtocol
     private let setObjectCreationSettingsAssembly: SetObjectCreationSettingsModuleAssemblyProtocol
     private let newSearchModuleAssembly: NewSearchModuleAssemblyProtocol
+    private let objectTypeSearchModuleAssembly:ObjectTypeSearchModuleAssemblyProtocol
     private let editorPageCoordinatorAssembly: EditorPageCoordinatorAssemblyProtocol
     private var handler: TemplateSelectionObjectSettingsHandler?
     
@@ -32,11 +33,13 @@ final class SetObjectCreationSettingsCoordinator: SetObjectCreationSettingsCoord
         navigationContext: NavigationContextProtocol,
         setObjectCreationSettingsAssembly: SetObjectCreationSettingsModuleAssemblyProtocol,
         newSearchModuleAssembly: NewSearchModuleAssemblyProtocol,
+        objectTypeSearchModuleAssembly:ObjectTypeSearchModuleAssemblyProtocol,
         editorPageCoordinatorAssembly: EditorPageCoordinatorAssemblyProtocol
     ) {
         self.navigationContext = navigationContext
         self.setObjectCreationSettingsAssembly = setObjectCreationSettingsAssembly
         self.newSearchModuleAssembly = newSearchModuleAssembly
+        self.objectTypeSearchModuleAssembly = objectTypeSearchModuleAssembly
         self.editorPageCoordinatorAssembly = editorPageCoordinatorAssembly
     }
     
@@ -135,16 +138,29 @@ final class SetObjectCreationSettingsCoordinator: SetObjectCreationSettingsCoord
         setDocument: SetDocumentProtocol,
         onSelect: @escaping (ObjectType) -> ()
     ) {
-        let view = newSearchModuleAssembly.objectTypeSearchModule(
-            title: Loc.changeType,
-            spaceId: setDocument.spaceId,
-            showSetAndCollection: true
-        ) { [weak self] type in
-            self?.navigationContext.dismissTopPresented()
-            onSelect(type)
+        if FeatureFlags.newTypePicker {
+            let view = objectTypeSearchModuleAssembly.objectTypeSearchForCreateObject(
+                title: Loc.changeType,
+                spaceId: setDocument.spaceId,
+                showLists: true
+            ) { [weak self] type in
+                self?.navigationContext.dismissTopPresented()
+                onSelect(type)
+            }
+            
+            navigationContext.presentSwiftUIView(view: view)
+        } else {
+            let view = newSearchModuleAssembly.objectTypeSearchModule(
+                title: Loc.changeType,
+                spaceId: setDocument.spaceId,
+                showSetAndCollection: true
+            ) { [weak self] type in
+                self?.navigationContext.dismissTopPresented()
+                onSelect(type)
+            }
+            
+            navigationContext.presentSwiftUIView(view: view)
         }
-
-        navigationContext.presentSwiftUIView(view: view)
     }
 }
 
