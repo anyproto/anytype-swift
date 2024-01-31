@@ -6,7 +6,7 @@ final class SelectRelationListCoordinatorViewModel: ObservableObject, SelectRela
 
     private let objectId: String
     private let configuration: RelationModuleConfiguration
-    private let selectedOption: SelectRelationOption?
+    private let selectedOptionId: String?
     private let selectRelationListModuleAssembly: SelectRelationListModuleAssemblyProtocol
     private let relationOptionSettingsModuleAssembly: RelationOptionSettingsModuleAssemblyProtocol
 
@@ -17,13 +17,13 @@ final class SelectRelationListCoordinatorViewModel: ObservableObject, SelectRela
     init(
         objectId: String,
         configuration: RelationModuleConfiguration,
-        selectedOption: SelectRelationOption?,
+        selectedOptionId: String?,
         selectRelationListModuleAssembly: SelectRelationListModuleAssemblyProtocol,
         relationOptionSettingsModuleAssembly: RelationOptionSettingsModuleAssemblyProtocol
     ) {
         self.objectId = objectId
         self.configuration = configuration
-        self.selectedOption = selectedOption
+        self.selectedOptionId = selectedOptionId
         self.selectRelationListModuleAssembly = selectRelationListModuleAssembly
         self.relationOptionSettingsModuleAssembly = relationOptionSettingsModuleAssembly
     }
@@ -32,7 +32,7 @@ final class SelectRelationListCoordinatorViewModel: ObservableObject, SelectRela
         selectRelationListModuleAssembly.make(
             objectId: objectId,
             configuration: configuration,
-            selectedOption: selectedOption,
+            selectedOptionId: selectedOptionId,
             output: self
         )
     }

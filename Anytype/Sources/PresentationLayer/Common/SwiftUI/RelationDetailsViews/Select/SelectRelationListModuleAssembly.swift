@@ -6,7 +6,7 @@ protocol SelectRelationListModuleAssemblyProtocol: AnyObject {
     func make(
         objectId: String,
         configuration: RelationModuleConfiguration,
-        selectedOption: SelectRelationOption?,
+        selectedOptionId: String?,
         output: SelectRelationListModuleOutput?
     ) -> AnyView
 }
@@ -25,13 +25,13 @@ final class SelectRelationListModuleAssembly: SelectRelationListModuleAssemblyPr
     func make(
         objectId: String,
         configuration: RelationModuleConfiguration,
-        selectedOption: SelectRelationOption?,
+        selectedOptionId: String?,
         output: SelectRelationListModuleOutput?
     ) -> AnyView {
         SelectRelationListView(
             viewModel: SelectRelationListViewModel(
                 configuration: configuration,
-                selectedOption: selectedOption,
+                selectedOptionId: selectedOptionId,
                 output: output,
                 relationsService: self.serviceLocator.relationService(objectId: objectId),
                 searchService: self.serviceLocator.searchService()

@@ -10,7 +10,7 @@ struct MultiSelectRelationListView: View {
             isEditable: viewModel.configuration.isEditable,
             isEmpty: viewModel.isEmpty,
             listContent: {
-                ForEach(viewModel.visibleOptions) { option in
+                ForEach(viewModel.options) { option in
                     optionRow(with: option)
                 }
                 .onDelete {
@@ -52,7 +52,7 @@ struct MultiSelectRelationListView: View {
                 
                 Spacer()
                 
-                if viewModel.configuration.isEditable, let index = viewModel.selectedOptions.firstIndex(of: option.id) {
+                if viewModel.configuration.isEditable, let index = viewModel.selectedOptionsIds.firstIndex(of: option.id) {
                     SelectionIndicatorView(model: .selected(index: index + 1, color: Color.System.sky))
                 } else {
                     SelectionIndicatorView(model: .notSelected)
@@ -86,7 +86,7 @@ struct MultiSelectRelationListView: View {
                 spaceId: "",
                 analyticsType: .block
             ),
-            selectedOptions: [],
+            selectedOptionsIds: [],
             output: nil,
             relationsService: DI.preview.serviceLocator.relationService(objectId: ""),
             searchService: DI.preview.serviceLocator.searchService()

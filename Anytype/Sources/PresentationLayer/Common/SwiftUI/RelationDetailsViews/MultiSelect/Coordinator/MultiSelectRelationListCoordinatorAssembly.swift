@@ -5,7 +5,7 @@ protocol MultiSelectRelationListCoordinatorAssemblyProtocol {
     func make(
         objectId: String,
         configuration: RelationModuleConfiguration,
-        selectedOptions: [String]
+        selectedOptionsIds: [String]
     ) -> AnyView
 }
 
@@ -25,13 +25,13 @@ final class MultiSelectRelationListCoordinatorAssembly: MultiSelectRelationListC
     func make(
         objectId: String,
         configuration: RelationModuleConfiguration,
-        selectedOptions: [String]
+        selectedOptionsIds: [String]
     ) -> AnyView {
         MultiSelectRelationListCoordinatorView(
             model: MultiSelectRelationListCoordinatorViewModel(
                 objectId: objectId,
                 configuration: configuration,
-                selectedOptions: selectedOptions,
+                selectedOptionsIds: selectedOptionsIds,
                 miltiSelectRelationListModuleAssembly: self.modulesDI.multiSelectRelationList(),
                 relationOptionSettingsModuleAssembly: self.modulesDI.relationOptionSettings()
             )

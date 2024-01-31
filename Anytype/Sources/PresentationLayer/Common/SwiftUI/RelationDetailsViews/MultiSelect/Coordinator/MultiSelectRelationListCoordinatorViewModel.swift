@@ -6,7 +6,7 @@ final class MultiSelectRelationListCoordinatorViewModel: ObservableObject, Multi
 
     private let objectId: String
     private let configuration: RelationModuleConfiguration
-    private let selectedOptions: [String]
+    private let selectedOptionsIds: [String]
     private let miltiSelectRelationListModuleAssembly: MultiSelectRelationListModuleAssemblyProtocol
     private let relationOptionSettingsModuleAssembly: RelationOptionSettingsModuleAssemblyProtocol
 
@@ -16,13 +16,13 @@ final class MultiSelectRelationListCoordinatorViewModel: ObservableObject, Multi
     init(
         objectId: String,
         configuration: RelationModuleConfiguration,
-        selectedOptions: [String],
+        selectedOptionsIds: [String],
         miltiSelectRelationListModuleAssembly: MultiSelectRelationListModuleAssemblyProtocol,
         relationOptionSettingsModuleAssembly: RelationOptionSettingsModuleAssemblyProtocol
     ) {
         self.objectId = objectId
         self.configuration = configuration
-        self.selectedOptions = selectedOptions
+        self.selectedOptionsIds = selectedOptionsIds
         self.miltiSelectRelationListModuleAssembly = miltiSelectRelationListModuleAssembly
         self.relationOptionSettingsModuleAssembly = relationOptionSettingsModuleAssembly
     }
@@ -31,7 +31,7 @@ final class MultiSelectRelationListCoordinatorViewModel: ObservableObject, Multi
         miltiSelectRelationListModuleAssembly.make(
             objectId: objectId,
             configuration: configuration,
-            selectedOptions: selectedOptions,
+            selectedOptionsIds: selectedOptionsIds,
             output: self
         )
     }

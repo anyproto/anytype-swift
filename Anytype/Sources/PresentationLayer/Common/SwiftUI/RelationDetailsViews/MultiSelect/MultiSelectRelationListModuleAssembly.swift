@@ -6,7 +6,7 @@ protocol MultiSelectRelationListModuleAssemblyProtocol: AnyObject {
     func make(
         objectId: String,
         configuration: RelationModuleConfiguration,
-        selectedOptions: [String],
+        selectedOptionsIds: [String],
         output: MultiSelectRelationListModuleOutput?
     ) -> AnyView
 }
@@ -25,13 +25,13 @@ final class MultiSelectRelationListModuleAssembly: MultiSelectRelationListModule
     func make(
         objectId: String,
         configuration: RelationModuleConfiguration,
-        selectedOptions: [String],
+        selectedOptionsIds: [String],
         output: MultiSelectRelationListModuleOutput?
     ) -> AnyView {
         MultiSelectRelationListView(
             viewModel: MultiSelectRelationListViewModel(
                 configuration: configuration,
-                selectedOptions: selectedOptions,
+                selectedOptionsIds: selectedOptionsIds,
                 output: output,
                 relationsService: self.serviceLocator.relationService(objectId: objectId),
                 searchService: self.serviceLocator.searchService()

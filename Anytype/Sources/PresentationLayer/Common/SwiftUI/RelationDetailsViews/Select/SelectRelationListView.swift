@@ -28,7 +28,7 @@ struct SelectRelationListView: View {
             }
         )
         .onAppear {
-            viewModel.searchTextChanged()
+            viewModel.onAppear()
         }
     }
     
@@ -39,7 +39,7 @@ struct SelectRelationListView: View {
             HStack {
                 AnytypeText(option.text, style: .relation1Regular, color: option.color)
                 Spacer()
-                if option.id == viewModel.selectedOption?.id, viewModel.configuration.isEditable {
+                if option.id == viewModel.selectedOptionId, viewModel.configuration.isEditable {
                     Image(asset: .relationCheckboxChecked)
                 }
             }
@@ -71,7 +71,7 @@ struct SelectRelationListView: View {
                 spaceId: "",
                 analyticsType: .block
             ),
-            selectedOption: nil,
+            selectedOptionId: nil,
             output: nil,
             relationsService: DI.preview.serviceLocator.relationService(objectId: ""),
             searchService: DI.preview.serviceLocator.searchService()

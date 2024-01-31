@@ -93,9 +93,7 @@ final class RelationValueCoordinator: RelationValueCoordinatorProtocol,
             let view = selectRelationListCoordinatorAssembly.make(
                 objectId: objectDetails.id,
                 configuration: configuration,
-                selectedOption: status.values.compactMap {
-                    SelectRelationOption(id: $0.id, text: $0.text, color: $0.color.suColor)
-                }.first
+                selectedOptionId: status.values.compactMap { $0.id }.first
             )
             
             let mediumDetent = status.values.first.isNotNil || !relation.isEditable
@@ -115,7 +113,7 @@ final class RelationValueCoordinator: RelationValueCoordinatorProtocol,
             let view = multiSelectRelationListCoordinatorAssembly.make(
                 objectId: objectDetails.id,
                 configuration: configuration,
-                selectedOptions: tag.selectedTags.compactMap { $0.id }
+                selectedOptionsIds: tag.selectedTags.compactMap { $0.id }
             )
             
             let mediumDetent = tag.selectedTags.isNotEmpty || !relation.isEditable

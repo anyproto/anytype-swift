@@ -6,11 +6,10 @@ import SwiftUI
 @MainActor
 final class MultiSelectRelationListViewModel: ObservableObject {
     
-    @Published var selectedOptions: [String]
-    @Published var visibleOptions: [MultiSelectRelationOption] = []
+    @Published var selectedOptionsIds: [String]
+    @Published var options: [MultiSelectRelationOption] = []
     @Published var isEmpty = false
     
-    private var options: [MultiSelectRelationOption] = []
     private var searchText = ""
         
     let configuration: RelationModuleConfiguration
@@ -22,25 +21,25 @@ final class MultiSelectRelationListViewModel: ObservableObject {
     
     init(
         configuration: RelationModuleConfiguration,
-        selectedOptions: [String],
+        selectedOptionsIds: [String],
         output: MultiSelectRelationListModuleOutput?,
         relationsService: RelationsServiceProtocol,
         searchService: SearchServiceProtocol
     ) {
         self.configuration = configuration
-        self.selectedOptions = selectedOptions
+        self.selectedOptionsIds = selectedOptionsIds
         self.output = output
         self.relationsService = relationsService
         self.searchService = searchService
     }
     
     func onAppear() {
-        loadOptions()
+        searchTextChanged()
     }
 
     func onClear() {
         Task {
-            selectedOptions = []
+            selectedOptionsIds = []
             try await relationsService.updateRelation(relationKey: configuration.relationKey, value: nil)
             logChanges()
         }
@@ -49,7 +48,6 @@ final class MultiSelectRelationListViewModel: ObservableObject {
     func onCreate(with title: String?, color: Color? = nil) {
         output?.onCreateTap(text: title, color: color, completion: { [weak self] option in
             guard let self else { return }
-            options.append(option)
             optionSelected(option)
             searchTextChanged(searchText)
         })
@@ -62,9 +60,8 @@ final class MultiSelectRelationListViewModel: ObservableObject {
     func onOptionEdit(_ option: MultiSelectRelationOption) {
         output?.onEditTap(option: option, completion: { [weak self] option in
             guard let self else { return }
-            if let index = options.firstIndex(of: option) {
+            if let index = options.firstIndex(where: { $0.id == option.id }) {
                 options[index] = option
-                searchTextChanged(searchText)
             }
         })
     }
@@ -83,46 +80,31 @@ final class MultiSelectRelationListViewModel: ObservableObject {
             if isSuccess {
                 removeRelationOption(option)
             } else {
-                visibleOptions = visibleOptions
+                options = options
             }
         }
     }
     
     func optionSelected(_ option: MultiSelectRelationOption) {
-        var tempOptions = selectedOptions
-        if let index = tempOptions.firstIndex(of: option.id) {
-            tempOptions.remove(at: index)
+        if let index = selectedOptionsIds.firstIndex(of: option.id) {
+            selectedOptionsIds.remove(at: index)
         } else {
-            tempOptions.append(option.id)
+            selectedOptionsIds.append(option.id)
         }
         
         Task {
             try await relationsService.updateRelation(
                 relationKey: configuration.relationKey,
-                value: tempOptions.protobufValue
+                value: selectedOptionsIds.protobufValue
             )
-            selectedOptions = tempOptions
             logChanges()
         }
     }
     
-    func searchTextChanged(_ text: String) {
-        searchText = text
-        
-        guard text.isNotEmpty else {
-            visibleOptions = options
-            return
-        }
-        
-        visibleOptions = options.filter {
-            $0.text.range(of: text, options: .caseInsensitive) != nil
-        }
-    }
-    
-    private func loadOptions() {
+    func searchTextChanged(_ text: String = "") {
         Task {
             let rawOptions = try await searchService.searchRelationOptions(
-                text: "",
+                text: text,
                 relationKey: configuration.relationKey,
                 excludedObjectIds: [],
                 spaceId: configuration.spaceId
@@ -130,17 +112,19 @@ final class MultiSelectRelationListViewModel: ObservableObject {
             
             if configuration.isEditable {
                 options = rawOptions.reordered(
-                    by: selectedOptions
+                    by: selectedOptionsIds
                 ) { $0.id }
             } else {
-                options = options.filter { [weak self] in
-                    self?.selectedOptions.contains($0.id) ?? false
-                }
+                options = options.filter { selectedOptionsIds.contains($0.id) }
             }
             
-            visibleOptions = options
-            isEmpty = options.isEmpty
+            searchText = text
+            setEmptyIfNeeded()
         }
+    }
+    
+    private func setEmptyIfNeeded() {
+        isEmpty = options.isEmpty && searchText.isEmpty
     }
     
     private func removeRelationOption(_ option: MultiSelectRelationOption) {
@@ -150,20 +134,18 @@ final class MultiSelectRelationListViewModel: ObservableObject {
                 options.remove(at: index)
             }
             
-            if let index = selectedOptions.firstIndex(of: option.id) {
-                var tempOptions = selectedOptions
-                tempOptions.remove(at: index)
+            if let index = selectedOptionsIds.firstIndex(of: option.id) {
+                selectedOptionsIds.remove(at: index)
                 try await relationsService.updateRelation(
                     relationKey: configuration.relationKey,
-                    value: tempOptions.protobufValue
+                    value: selectedOptionsIds.protobufValue
                 )
-                selectedOptions = tempOptions
             }
-            searchTextChanged(searchText)
+            setEmptyIfNeeded()
         }
     }
     
     private func logChanges() {
-        AnytypeAnalytics.instance().logChangeRelationValue(isEmpty: selectedOptions.isEmpty, type: configuration.analyticsType)
+        AnytypeAnalytics.instance().logChangeRelationValue(isEmpty: selectedOptionsIds.isEmpty, type: configuration.analyticsType)
     }
 }
