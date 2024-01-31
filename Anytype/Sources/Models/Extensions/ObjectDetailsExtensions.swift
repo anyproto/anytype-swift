@@ -163,7 +163,7 @@ extension BundledRelationsValueProvider {
     func isListAndCanCreateObject(setDocument: SetDocumentProtocol) -> Bool {
         guard isList else { return false }
         if isCollection { return true }
-        if setDocument.isRelationsSet() { return true }
+        if setDocument.isSetByRelation() { return true }
         
         // Set query validation
         // Create objects in sets by type only permitted if type is Page-like
