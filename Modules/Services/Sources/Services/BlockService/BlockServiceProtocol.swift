@@ -1,6 +1,11 @@
 import ProtobufMessages
 
-public protocol BlockListServiceProtocol: AnyObject {
+public protocol BlockServiceProtocol: AnyObject {
+    func add(contextId: String, targetId: BlockId, info: BlockInformation, position: BlockPosition) async throws -> BlockId?
+    func delete(contextId: String, blockIds: [BlockId]) async throws
+    func duplicate(contextId: String, targetId: BlockId, blockIds: [BlockId], position: BlockPosition) async throws
+    func move(contextId: String, blockIds: [String], targetContextID: BlockId, dropTargetID: String, position: BlockPosition) async throws
+    
     func setAlign(objectId: BlockId, blockIds: [BlockId], alignment: LayoutAlignment) async throws
     func setBackgroundColor(objectId: BlockId, blockIds: [BlockId], color: MiddlewareColor) async throws
     func setFields(objectId: BlockId, blockId: BlockId, fields: BlockFields) async throws

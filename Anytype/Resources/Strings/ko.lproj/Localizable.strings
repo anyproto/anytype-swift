@@ -83,8 +83,8 @@
 "Relation.Format.Object.Title" = "개체";
 "Relation.Format.Text.Title" = "텍스트";
 "Relation.Format.Number.Title" = "숫자";
-"Relation.Format.Status.Title" = "상태";
-"Relation.Format.Tag.Title" = "태그";
+"Relation.Format.Status.Title" = "Select";
+"Relation.Format.Tag.Title" = "Multi-select";
 "Relation.Format.Date.Title" = "날짜";
 "Relation.Format.FileMedia.Title" = "File & Media";
 "Relation.Format.Checkbox.Title" = "체크박스";
@@ -486,8 +486,8 @@
 "Enter value" = "Enter value";
 "Select object" = "Select object";
 "Select file" = "Select file";
-"Select tag" = "Select tag";
-"Select status" = "Select status";
+"Select options" = "Select options";
+"Select option" = "Select option";
 "Select date" = "Select date";
 "Add email" = "Add email";
 "Add link" = "Add link";

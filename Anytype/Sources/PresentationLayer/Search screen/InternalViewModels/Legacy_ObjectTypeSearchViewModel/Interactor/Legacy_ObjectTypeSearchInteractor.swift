@@ -2,7 +2,7 @@ import Foundation
 import Services
 import AnytypeCore
 
-final class ObjectTypesSearchInteractor {
+final class Legacy_ObjectTypeSearchInteractor {
     
     private let spaceId: String
     private let searchService: SearchServiceProtocol
@@ -32,7 +32,7 @@ final class ObjectTypesSearchInteractor {
     
 }
 
-extension ObjectTypesSearchInteractor {
+extension Legacy_ObjectTypeSearchInteractor {
     
     func search(text: String) async throws -> [ObjectDetails] {
         try await searchService.searchObjectTypes(

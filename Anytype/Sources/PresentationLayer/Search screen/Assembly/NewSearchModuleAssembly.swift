@@ -145,7 +145,7 @@ final class NewSearchModuleAssembly: NewSearchModuleAssemblyProtocol {
         showSetAndCollection: Bool,
         onSelect: @escaping (_ type: ObjectType) -> Void
     ) -> NewSearchView {
-        let interactor = ObjectTypesSearchInteractor(
+        let interactor = Legacy_ObjectTypeSearchInteractor(
             spaceId: spaceId,
             searchService: serviceLocator.searchService(),
             workspaceService: serviceLocator.workspaceService(),
@@ -155,7 +155,7 @@ final class NewSearchModuleAssembly: NewSearchModuleAssemblyProtocol {
             showSetAndCollection: showSetAndCollection
         )
         
-        let internalViewModel = ObjectTypesSearchViewModel(
+        let internalViewModel = Legacy_ObjectTypeSearchViewModel(
             interactor: interactor,
             toastPresenter: uiHelpersDI.toastPresenter(),
             selectedObjectId: selectedObjectId,
@@ -177,7 +177,7 @@ final class NewSearchModuleAssembly: NewSearchModuleAssemblyProtocol {
         spaceId: String,
         onSelect: @escaping (_ ids: [String]) -> Void
     ) -> NewSearchView {
-        let interactor = ObjectTypesSearchInteractor(
+        let interactor = Legacy_ObjectTypeSearchInteractor(
             spaceId: spaceId,
             searchService: serviceLocator.searchService(),
             workspaceService: serviceLocator.workspaceService(),

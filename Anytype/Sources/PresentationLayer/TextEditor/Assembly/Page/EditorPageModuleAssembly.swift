@@ -139,12 +139,11 @@ final class EditorPageModuleAssembly: EditorPageModuleAssemblyProtocol {
         let focusSubjectHolder = FocusSubjectsHolder()
 
         let cursorManager = EditorCursorManager(focusSubjectHolder: focusSubjectHolder)
-        let listService = serviceLocator.blockListService()
+        let blockService = serviceLocator.blockService()
         let blockActionService = BlockActionService(
             documentId: document.objectId,
-            listService: listService,
-            singleService: serviceLocator.blockActionsServiceSingle(),
-            objectActionService: serviceLocator.objectActionsService(), 
+            blockService: blockService,
+            objectActionService: serviceLocator.objectActionsService(),
             textServiceHandler: serviceLocator.textServiceHandler(),
             modelsHolder: modelsHolder,
             bookmarkService: serviceLocator.bookmarkService(),
@@ -155,7 +154,7 @@ final class EditorPageModuleAssembly: EditorPageModuleAssemblyProtocol {
         let keyboardHandler = KeyboardActionHandler(
             documentId: document.objectId,
             service: blockActionService,
-            listService: listService,
+            blockService: blockService,
             toggleStorage: ToggleStorage.shared,
             container: document.infoContainer,
             modelsHolder: modelsHolder
@@ -166,7 +165,7 @@ final class EditorPageModuleAssembly: EditorPageModuleAssemblyProtocol {
             document: document,
             markupChanger: markupChanger,
             service: blockActionService,
-            listService: listService,
+            blockService: blockService,
             keyboardHandler: keyboardHandler,
             blockTableService: blockTableService,
             fileService: serviceLocator.fileService(),
@@ -183,7 +182,7 @@ final class EditorPageModuleAssembly: EditorPageModuleAssemblyProtocol {
             document: document,
             modelsHolder: modelsHolder,
             blocksSelectionOverlayViewModel: blocksSelectionOverlayViewModel,
-            blockActionsServiceSingle: serviceLocator.blockActionsServiceSingle(),
+            blockService: serviceLocator.blockService(),
             toastPresenter: uiHelpersDI.toastPresenter(),
             actionHandler: actionHandler,
             pasteboardService: pasteboardService,
@@ -273,7 +272,6 @@ final class EditorPageModuleAssembly: EditorPageModuleAssemblyProtocol {
             blockBuilder: blocksConverter,
             actionHandler: actionHandler,
             headerModel: headerModel,
-            blockActionsService: serviceLocator.blockActionsServiceSingle(),
             blocksStateManager: blocksStateManager,
             cursorManager: cursorManager,
             objectActionsService: serviceLocator.objectActionsService(),

@@ -1,12 +1,61 @@
 import ProtobufMessages
+import AnytypeCore
 
-public enum BlockListServiceError: Error {
+public enum BlockServiceError: Error {
     case lastBlockIdNotFound
 }
 
-public final class BlockListService: BlockListServiceProtocol {
+public final class BlockService: BlockServiceProtocol {
     
     public init() {}
+    
+    public func add(contextId: String, targetId: BlockId, info: BlockInformation, position: BlockPosition) async throws -> BlockId? {
+        guard let block = BlockInformationConverter.convert(information: info) else {
+            anytypeAssertionFailure("addActionBlockIsNotParsed")
+            return nil
+        }
+
+        let response = try await ClientCommands.blockCreate(.with {
+            $0.contextID = contextId
+            $0.targetID = targetId
+            $0.block = block
+            $0.position = position.asMiddleware
+        }).invoke()
+        
+        return response.blockID
+    }
+    
+    public func delete(contextId: String, blockIds: [BlockId]) async throws {
+        try await ClientCommands.blockListDelete(.with {
+            $0.contextID = contextId
+            $0.blockIds = blockIds
+        }).invoke()
+    }
+
+    public func duplicate(contextId: String, targetId: BlockId, blockIds: [BlockId], position: BlockPosition) async throws {
+        try await ClientCommands.blockListDuplicate(.with {
+            $0.contextID = contextId
+            $0.targetID = targetId
+            $0.blockIds = blockIds
+            $0.position = position.asMiddleware
+        }).invoke()
+    }
+
+    public func move(
+        contextId: String,
+        blockIds: [String],
+        targetContextID: BlockId,
+        dropTargetID: String,
+        position: BlockPosition
+    ) async throws {
+        try await ClientCommands.blockListMoveToExistingObject(.with {
+            $0.contextID = contextId
+            $0.blockIds = blockIds
+            $0.targetContextID = targetContextID
+            $0.dropTargetID = dropTargetID
+            $0.position = position.asMiddleware
+        }).invoke()
+    }   
     
     public func setBlockColor(objectId: BlockId, blockIds: [BlockId], color: MiddlewareColor) async throws {
         try await ClientCommands.blockTextListSetColor(.with {
@@ -107,7 +156,7 @@ public final class BlockListService: BlockListServiceProtocol {
         
 
         guard let lastBlockId = objectShow.objectView.blocks.first(where: { $0.id == objectId} )?.childrenIds.last else {
-            throw BlockListServiceError.lastBlockIdNotFound
+            throw BlockServiceError.lastBlockIdNotFound
         }
     
         return lastBlockId

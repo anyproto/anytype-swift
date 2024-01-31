@@ -3,10 +3,10 @@
 
 // MARK: Text Style in Slash and Style menu
 "TextStyle.Text.Title" = "Văn bản";
-"TextStyle.Text.Subtitle" = "Just start writing with a plain text";
+"TextStyle.Text.Subtitle" = "Hãy bắt đầu ghi một vài dòng ký tự";
 
 "TextStyle.Title.Title" = "Tiêu đề";
-"TextStyle.Title.Subtitle" = "Big section heading";
+"TextStyle.Title.Subtitle" = "Tiêu đề của đoạn văn dài";
 
 "TextStyle.Heading.Title" = "Mục chính";
 "TextStyle.Heading.Subtitle" = "Đầu mục vừa";
@@ -23,7 +23,7 @@
 "TextStyle.Checkbox.Title" = "Ô tick";
 "TextStyle.Checkbox.Subtitle" = "Tạo và theo dõi tác vụ bằng danh sách việc cần làm";
 
-"TextStyle.Bulleted.Title" = "Bulleted";
+"TextStyle.Bulleted.Title" = "Chấm đầu dòng";
 "TextStyle.Bulleted.Subtitle" = "Danh sách đơn giản";
 
 "TextStyle.Numbered.Title" = "Danh sách đánh số";
@@ -83,8 +83,8 @@
 "Relation.Format.Object.Title" = "Đối tượng";
 "Relation.Format.Text.Title" = "Văn bản";
 "Relation.Format.Number.Title" = "Số";
-"Relation.Format.Status.Title" = "Trạng thái";
-"Relation.Format.Tag.Title" = "Thẻ";
+"Relation.Format.Status.Title" = "Select";
+"Relation.Format.Tag.Title" = "Multi-select";
 "Relation.Format.Date.Title" = "Ngày tháng";
 "Relation.Format.FileMedia.Title" = "File & Media";
 "Relation.Format.Checkbox.Title" = "Ô tick";
@@ -487,8 +487,8 @@
 "Enter value" = "Nhập giá trị";
 "Select object" = "Chọn đối tượng";
 "Select file" = "Chọn tập tin";
-"Select tag" = "Chọn thẻ";
-"Select status" = "Chọn trạng thái";
+"Select options" = "Select options";
+"Select option" = "Select option";
 "Select date" = "Chọn ngày";
 "Add email" = "Thêm email";
 "Add link" = "Thêm link";

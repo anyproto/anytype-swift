@@ -83,8 +83,8 @@
 "Relation.Format.Object.Title" = "Object";
 "Relation.Format.Text.Title" = "文字";
 "Relation.Format.Number.Title" = "數字";
-"Relation.Format.Status.Title" = "狀態";
-"Relation.Format.Tag.Title" = "標籤";
+"Relation.Format.Status.Title" = "選擇";
+"Relation.Format.Tag.Title" = "Multi-select";
 "Relation.Format.Date.Title" = "日期";
 "Relation.Format.FileMedia.Title" = "檔案與媒體";
 "Relation.Format.Checkbox.Title" = "Checkbox";
@@ -486,8 +486,8 @@
 "Enter value" = "Enter value";
 "Select object" = "Select object";
 "Select file" = "Select file";
-"Select tag" = "Select tag";
-"Select status" = "Select status";
+"Select options" = "Select options";
+"Select option" = "Select option";
 "Select date" = "Select date";
 "Add email" = "Add email";
 "Add link" = "Add link";
