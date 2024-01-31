@@ -1,6 +1,7 @@
 import Foundation
 import SwiftUI
 import Combine
+import AnytypeCore
 
 @MainActor
 final class SpaceSettingsCoordinatorViewModel: ObservableObject, SpaceSettingsModuleOutput, RemoteStorageModuleOutput, PersonalizationModuleOutput {
@@ -13,6 +14,7 @@ final class SpaceSettingsCoordinatorViewModel: ObservableObject, SpaceSettingsMo
     private let personalizationModuleAssembly: PersonalizationModuleAssemblyProtocol
     private let activeWorkspaceStorage: ActiveWorkpaceStorageProtocol
     private let newSearchModuleAssembly: NewSearchModuleAssemblyProtocol
+    private let objectTypeSearchModuleAssembly: ObjectTypeSearchModuleAssemblyProtocol
     private let wallpaperPickerModuleAssembly: WallpaperPickerModuleAssemblyProtocol
     private let objectTypeProvider: ObjectTypeProviderProtocol
     private let urlOpener: URLOpenerProtocol
@@ -35,6 +37,7 @@ final class SpaceSettingsCoordinatorViewModel: ObservableObject, SpaceSettingsMo
         personalizationModuleAssembly: PersonalizationModuleAssemblyProtocol,
         activeWorkspaceStorage: ActiveWorkpaceStorageProtocol,
         newSearchModuleAssembly: NewSearchModuleAssemblyProtocol,
+        objectTypeSearchModuleAssembly: ObjectTypeSearchModuleAssemblyProtocol,
         wallpaperPickerModuleAssembly: WallpaperPickerModuleAssemblyProtocol,
         objectTypeProvider: ObjectTypeProviderProtocol,
         urlOpener: URLOpenerProtocol,
@@ -48,6 +51,7 @@ final class SpaceSettingsCoordinatorViewModel: ObservableObject, SpaceSettingsMo
         self.personalizationModuleAssembly = personalizationModuleAssembly
         self.activeWorkspaceStorage = activeWorkspaceStorage
         self.newSearchModuleAssembly = newSearchModuleAssembly
+        self.objectTypeSearchModuleAssembly = objectTypeSearchModuleAssembly
         self.wallpaperPickerModuleAssembly = wallpaperPickerModuleAssembly
         self.objectTypeProvider = objectTypeProvider
         self.urlOpener = urlOpener
@@ -102,14 +106,26 @@ final class SpaceSettingsCoordinatorViewModel: ObservableObject, SpaceSettingsMo
     // MARK: - PersonalizationModuleOutput
     
     func onDefaultTypeSelected() {
-        let module = newSearchModuleAssembly.objectTypeSearchModule(
-            title: Loc.chooseDefaultObjectType,
-            spaceId: activeWorkspaceStorage.workspaceInfo.accountSpaceId
-        ) { [weak self] type in
-            self?.objectTypeProvider.setDefaultObjectType(type: type, spaceId: type.spaceId)
-            self?.navigationContext.dismissTopPresented(animated: true)
+        if FeatureFlags.newTypePicker {
+            let module = objectTypeSearchModuleAssembly.objectTypeSearchForCreateObject(
+                title: Loc.chooseDefaultObjectType,
+                spaceId: activeWorkspaceStorage.workspaceInfo.accountSpaceId,
+                showLists: false
+            ) { [weak self] type in
+                self?.objectTypeProvider.setDefaultObjectType(type: type, spaceId: type.spaceId)
+                self?.navigationContext.dismissTopPresented(animated: true)
+            }
+            navigationContext.present(module)
+        } else {
+            let module = newSearchModuleAssembly.objectTypeSearchModule(
+                title: Loc.chooseDefaultObjectType,
+                spaceId: activeWorkspaceStorage.workspaceInfo.accountSpaceId
+            ) { [weak self] type in
+                self?.objectTypeProvider.setDefaultObjectType(type: type, spaceId: type.spaceId)
+                self?.navigationContext.dismissTopPresented(animated: true)
+            }
+            navigationContext.present(module)
         }
-        navigationContext.present(module)
     }
     
     func onWallpaperChangeSelected() {
