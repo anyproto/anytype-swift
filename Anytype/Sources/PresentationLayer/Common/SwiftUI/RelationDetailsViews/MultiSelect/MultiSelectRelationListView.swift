@@ -8,7 +8,8 @@ struct MultiSelectRelationListView: View {
         RelationListContainerView(
             title: viewModel.configuration.title, 
             isEditable: viewModel.configuration.isEditable,
-            isEmpty: viewModel.isEmpty,
+            isEmpty: viewModel.isEmpty, 
+            hideClear: viewModel.selectedOptionsIds.isEmpty,
             listContent: {
                 ForEach(viewModel.options) { option in
                     optionRow(with: option)

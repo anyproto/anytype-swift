@@ -6,6 +6,7 @@ struct RelationListContainerView<Content>: View where Content: View {
     let title: String
     let isEditable: Bool
     let isEmpty: Bool
+    let hideClear: Bool
     let listContent: () -> Content
     let onCreate: (_ title: String?) -> Void
     let onClear: () -> Void
@@ -27,7 +28,9 @@ struct RelationListContainerView<Content>: View where Content: View {
                 .if(isEditable, transform: {
                     $0.toolbar {
                         ToolbarItem(placement: .navigationBarLeading) {
-                            clearButton
+                            if !hideClear {
+                                clearButton
+                            }
                         }
                         ToolbarItem(placement: .navigationBarTrailing) {
                             createButton
