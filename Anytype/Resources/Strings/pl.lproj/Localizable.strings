@@ -353,15 +353,15 @@
 // MARK: - Sets: Filters
 "EditSet.Popup.Filters.NavigationView.Title" = "Filtry";
 "EditSet.Popup.Filters.EmptyView.Title" = "Brak filtrów tutaj. Możesz dodać kilka";
-"EditSet.Popup.Filters.TextView.Placeholder" = "Value";
+"EditSet.Popup.Filters.TextView.Placeholder" = "Wartość";
 
 // MARK: - Sets: Filters.Conditions
 "EditSet.Popup.Filter.Condition.Text.Equal" = "Jest";
-"EditSet.Popup.Filter.Condition.Text.NotEqual" = "Is not";
-"EditSet.Popup.Filter.Condition.Text.Like" = "Contains";
-"EditSet.Popup.Filter.Condition.Text.NotLike" = "Doesn't contain";
+"EditSet.Popup.Filter.Condition.Text.NotEqual" = "Nie jest";
+"EditSet.Popup.Filter.Condition.Text.Like" = "Zawiera";
+"EditSet.Popup.Filter.Condition.Text.NotLike" = "Nie zawiera";
 
-"EditSet.Popup.Filter.Condition.Number.Equal" = "Is equal to";
+"EditSet.Popup.Filter.Condition.Number.Equal" = "Nie równa się";
 "EditSet.Popup.Filter.Condition.Number.NotEqual" = "Nie równa się";
 "EditSet.Popup.Filter.Condition.Number.Greater" = "Jest większe niż";
 "EditSet.Popup.Filter.Condition.Number.Less" = "Jest mniejsze niż";
@@ -381,7 +381,7 @@
 "EditSet.Popup.Filter.Condition.Selected.Equal" = "Jest dokładnie";
 
 "EditSet.Popup.Filter.Condition.Checkbox.Equal" = "Jest";
-"EditSet.Popup.Filter.Condition.Checkbox.NotEqual" = "Is not";
+"EditSet.Popup.Filter.Condition.Checkbox.NotEqual" = "Nie jest";
 
 "EditSet.Popup.Filter.Condition.General.Empty" = "Jest puste";
 "EditSet.Popup.Filter.Condition.General.NotEmpty" = "Nie jest puste";
@@ -429,9 +429,9 @@
 "Set.View.Settings.CardSize.Large.Title" = "Duży";
 "Set.View.Settings.ImagePreview.Title" = "Podgląd obrazu";
 "Set.View.Settings.GroupBy.Title" = "Grupuj według";
-"Set.View.Settings.GroupBackgroundColors.Title" = "Color columns";
+"Set.View.Settings.GroupBackgroundColors.Title" = "Kolorowe kolumny";
 
-"Set.View.Settings.NoRelations.Placeholder" = "No relations";
+"Set.View.Settings.NoRelations.Placeholder" = "Moje relacje";
 "Set.View.Settings.NoFilters.Placeholder" = "Brak filtrów";
 "Set.View.Settings.NoSorts.Placeholder" = "Brak sortowania";
 "Set.View.Settings.Objects.Applied.Title" = "%d stosowane";
