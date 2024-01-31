@@ -53,12 +53,6 @@ public extension FeatureDescription {
         defaultValue: true
     )
     
-    static let selfHosted = FeatureDescription(
-        title: "Widgets - New object - IOS-1873",
-        type: .feature(author: "m@anytype.io", releaseVersion: "0.27.0"),
-        defaultValue: true
-    )
-
     static let setAndCollectionInSlashMenu = FeatureDescription(
         title: "Set and Collection in slashMenu",
         type: .feature(author: "joe_pusya@anytype.io", releaseVersion: "0.27.0"),
@@ -77,7 +71,15 @@ public extension FeatureDescription {
         defaultValue: true
     )
     
-    // MARK: - Debug
+    static let newTypePicker = FeatureDescription(
+        title: "New type picker, you know 🫵🐭 - IOS-2017",
+        type: .feature(author: "vova@anytype.io", releaseVersion: "0.28.0"),
+        defaultValue: false
+    )
+}
+
+// MARK: - Debug
+public extension FeatureDescription {
     
     static let rainbowViews = FeatureDescription(
         title: "Paint editor views 🌈",

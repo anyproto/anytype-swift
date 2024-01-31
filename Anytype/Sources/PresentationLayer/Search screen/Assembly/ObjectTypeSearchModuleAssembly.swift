@@ -1,6 +1,7 @@
 import Foundation
 import Services
 import SwiftUI
+import AnytypeCore
 
 protocol ObjectTypeSearchModuleAssemblyProtocol: AnyObject {
     
@@ -24,34 +25,49 @@ final class ObjectTypeSearchModuleAssembly: ObjectTypeSearchModuleAssemblyProtoc
         spaceId: String,
         onSelect: @escaping (_ type: ObjectType) -> Void
     ) -> AnyView {
-        
-        let interactor = ObjectTypesSearchInteractor(
-            spaceId: spaceId,
-            searchService: serviceLocator.searchService(),
-            workspaceService: serviceLocator.workspaceService(),
-            objectTypeProvider: serviceLocator.objectTypeProvider(),
-            excludedObjectTypeId: nil,
-            showBookmark: true,
-            showSetAndCollection: true
-        )
-        
-        let internalViewModel = ObjectTypesSearchViewModel(
-            interactor: interactor,
-            toastPresenter: uiHelpersDI.toastPresenter(),
-            selectedObjectId: nil,
-            hideMarketplace: true,
-            showDescription: false,
-            onSelect: onSelect
-        )
-        let viewModel = NewSearchViewModel(
-            title: Loc.createNewObject,
-            searchPlaceholder: Loc.ObjectType.search,
-            focusedBar: false,
-            style: .default,
-            itemCreationMode: .unavailable,
-            internalViewModel: internalViewModel
-        )
-        
-        return NewSearchView(viewModel: viewModel).eraseToAnyView()
+        if FeatureFlags.newTypePicker {
+            let interactor = ObjectTypeSearchInteractor(
+                spaceId: spaceId,
+                searchService: serviceLocator.searchService()
+            )
+            
+            let model = ObjectTypeSearchViewModel(
+                onSelect: onSelect,
+                interactor: interactor
+            )
+            
+            return ObjectTypeSearchView(
+                viewModel: model
+            ).eraseToAnyView()
+        } else {
+            let interactor = Legacy_ObjectTypeSearchInteractor(
+                spaceId: spaceId,
+                searchService: serviceLocator.searchService(),
+                workspaceService: serviceLocator.workspaceService(),
+                objectTypeProvider: serviceLocator.objectTypeProvider(),
+                excludedObjectTypeId: nil,
+                showBookmark: true,
+                showSetAndCollection: true
+            )
+            
+            let internalViewModel = Legacy_ObjectTypeSearchViewModel(
+                interactor: interactor,
+                toastPresenter: uiHelpersDI.toastPresenter(),
+                selectedObjectId: nil,
+                hideMarketplace: true,
+                showDescription: false,
+                onSelect: onSelect
+            )
+            let viewModel = NewSearchViewModel(
+                title: Loc.createNewObject,
+                searchPlaceholder: Loc.ObjectType.search,
+                focusedBar: false,
+                style: .default,
+                itemCreationMode: .unavailable,
+                internalViewModel: internalViewModel
+            )
+            
+            return NewSearchView(viewModel: viewModel).eraseToAnyView()
+        }
     }
 }

@@ -52,6 +52,8 @@ final class RelationsBuilder {
                 storage: storage
             )
             
+            guard let value else { return }
+            
             if value.isFeatured {
                 featuredRelations.append(value)
             } else if value.isDeleted {
@@ -90,7 +92,7 @@ private extension RelationsBuilder {
         details: ObjectDetails,
         relationValuesIsLocked: Bool,
         storage: ObjectDetailsStorage
-    ) -> Relation {
+    ) -> Relation? {
         switch relationDetails.format {
         case .longText:
             return textRelation(
@@ -207,11 +209,19 @@ private extension RelationsBuilder {
         relationDetails: RelationDetails,
         details: ObjectDetails,
         relationValuesIsLocked: Bool
-    ) -> Relation {
-        let numberValue: String? = {
-            guard let number = details.doubleValue(for: relationDetails.key) else { return nil }
-            return numberFormatter.string(from: NSNumber(floatLiteral: number))
-        }()
+    ) -> Relation? {
+        
+        let numberValue: String?
+        if relationDetails.key == BundledRelationKey.origin.rawValue,
+           let origin = details.intValue(for: relationDetails.key).flatMap({ ObjectOrigin(rawValue: $0) }) {
+            if let title = origin.title {
+                numberValue = title
+            } else {
+                return nil
+            }
+        } else {
+            numberValue = details.doubleValue(for: relationDetails.key).flatMap { numberFormatter.string(from: NSNumber(floatLiteral: $0)) }
+        }
         
         return .number(
             Relation.Text(
@@ -521,9 +531,9 @@ extension RelationFormat {
         case .phone:
             return Loc.addPhone
         case .status:
-            return Loc.selectStatus
+            return Loc.selectOption
         case .tag:
-            return Loc.selectTag
+            return Loc.selectOptions
         case .file:
             return Loc.selectFile
         case .object:

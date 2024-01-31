@@ -83,8 +83,8 @@
 "Relation.Format.Object.Title" = "Nesne";
 "Relation.Format.Text.Title" = "Metin";
 "Relation.Format.Number.Title" = "Sayı";
-"Relation.Format.Status.Title" = "Durum";
-"Relation.Format.Tag.Title" = "Etiket";
+"Relation.Format.Status.Title" = "Seç";
+"Relation.Format.Tag.Title" = "Multi-select";
 "Relation.Format.Date.Title" = "Tarih";
 "Relation.Format.FileMedia.Title" = "Dosya & Medya";
 "Relation.Format.Checkbox.Title" = "Onay kutusu";
@@ -187,7 +187,7 @@
 "Auth.CameraPermissionTitle" = "Lütfen erişime izin ver";
 "Restore secret phrase from keychain" = "Restore Recovery Phrase from the keychain";
 "Auth.LogIn" = "Giriş Yap";
-"Auth.Join" = "Yeni Hesap Oluştur";
+"Auth.Join" = "Join";
 "Auth.Welcome.Subtitle" = "Anytype, önem verdiğin her şeyi yazman, planlaman, düşünmen ve organize etmen için güvenilir bir alandır.";
 "Auth.Caption.Privacy.Text" = "Devam ederek [Kullanım Şartlarımızı](%@) ve [Gizlilik Politikalarımızı](%@) kabul etmiş olursun";
 "Auth.Next" = "Sonraki";
@@ -486,8 +486,8 @@
 "Enter value" = "Değeri gir";
 "Select object" = "Nesne seç";
 "Select file" = "Dosya seç";
-"Select tag" = "Etiket seç";
-"Select status" = "Durum seç";
+"Select options" = "Select options";
+"Select option" = "Select option";
 "Select date" = "Tarih seç";
 "Add email" = "E-posta ekle";
 "Add link" = "Bağlantı ekle";
@@ -546,8 +546,8 @@
 "Unsplash" = "Unsplash";
 "Go back" = "Geri git";
 "SyncStatus.LocalOnly.Title" = "Local-only";
-"SyncStatus.LocalOnly.Description" = "Local only";
-"SyncStatus.Synced.Anytype.Description" = "Backed up on Anytype Network";
+"SyncStatus.LocalOnly.Description" = "Sadece yerel";
+"SyncStatus.Synced.Anytype.Description" = "Anytype Ağına yedeklendi";
 "SyncStatus.Synced.AnytypeStaging.Description" = "Backed up on Anytype Staging";
 "SyncStatus.Synced.SelfHosted.Description" = "Backed up on Self-hosted Network";
 "Downloading or uploading data to some node" = "Downloading or uploading data to some node";
@@ -860,13 +860,14 @@
 "Initial.UnstableMiddle.WontUseProd" = "I won't be using my production account";
 
 // MARK: - Create tip
-"LongTapCreateTip.Title" = "Crete Objects with specific Type";
+"LongTapCreateTip.Title" = "Create Objects with specific Type";
 "LongTapCreateTip.Message" = "Long tap on Create Object button to open menu with types";
 
 // MARK: - Error
 "Error.AnytypeNeedsUpgrate.Title" = "Update Your App";
 "Error.AnytypeNeedsUpgrate.Message" = "This object was modified in a newer version of Anytype. Please update the app to open it on this device";
-"Error.AnytypeNeedsUpgrate.Confirm" = "Update";
+"Error.AnytypeNeedsUpgrate.Confirm" = "Güncelle";
+"Error.UnableToConnect" = "Please connect to the internet";
 
 // MARK: - Relative date formatter
 "RelativeFormatter.days7" = "Previous 7 days";
@@ -881,5 +882,5 @@
 "Server.LocalOnly" = "Local-only";
 
 // MARK: - Gallery
-"Gallery.Unavailable.Title" = "Gallery will be supported soon";
+"Gallery.Unavailable.Title" = "Galeri yakında destekelenecek";
 "Gallery.Unavailable.Message" = "Please use the desktop app for now";

@@ -83,8 +83,8 @@
 "Relation.Format.Object.Title" = "Objeto";
 "Relation.Format.Text.Title" = "Texto";
 "Relation.Format.Number.Title" = "Número";
-"Relation.Format.Status.Title" = "Estado";
-"Relation.Format.Tag.Title" = "Etiqueta";
+"Relation.Format.Status.Title" = "Select";
+"Relation.Format.Tag.Title" = "Multi-select";
 "Relation.Format.Date.Title" = "Data";
 "Relation.Format.FileMedia.Title" = "Ficheiro & Media";
 "Relation.Format.Checkbox.Title" = "Checkbox";
@@ -187,7 +187,7 @@
 "Auth.CameraPermissionTitle" = "Por favor, permita o acesso";
 "Restore secret phrase from keychain" = "Restaurar Frase de Recuperação a partir do Porta-chaves";
 "Auth.LogIn" = "Log In";
-"Auth.Join" = "Create New Account";
+"Auth.Join" = "Join";
 "Auth.Welcome.Subtitle" = "O Anytype é o teu espaço seguro para escrever, planear, pensar e organizar tudo o que é importante para si.";
 "Auth.Caption.Privacy.Text" = "Ao continuar, está a concordar com os [Termos de Uso](%@) e com a [Política de Privacidade](%@)";
 "Auth.Next" = "Seguinte";
@@ -486,8 +486,8 @@
 "Enter value" = "Enter value";
 "Select object" = "Select object";
 "Select file" = "Select file";
-"Select tag" = "Select tag";
-"Select status" = "Select status";
+"Select options" = "Select options";
+"Select option" = "Select option";
 "Select date" = "Select date";
 "Add email" = "Add email";
 "Add link" = "Add link";
@@ -859,13 +859,14 @@
 "Initial.UnstableMiddle.WontUseProd" = "I won't be using my production account";
 
 // MARK: - Create tip
-"LongTapCreateTip.Title" = "Crete Objects with specific Type";
+"LongTapCreateTip.Title" = "Create Objects with specific Type";
 "LongTapCreateTip.Message" = "Long tap on Create Object button to open menu with types";
 
 // MARK: - Error
 "Error.AnytypeNeedsUpgrate.Title" = "Update Your App";
 "Error.AnytypeNeedsUpgrate.Message" = "This object was modified in a newer version of Anytype. Please update the app to open it on this device";
 "Error.AnytypeNeedsUpgrate.Confirm" = "Update";
+"Error.UnableToConnect" = "Please connect to the internet";
 
 // MARK: - Relative date formatter
 "RelativeFormatter.days7" = "Previous 7 days";

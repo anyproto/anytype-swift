@@ -83,8 +83,8 @@
 "Relation.Format.Object.Title" = "Objekt";
 "Relation.Format.Text.Title" = "Text";
 "Relation.Format.Number.Title" = "Nummer";
-"Relation.Format.Status.Title" = "Status";
-"Relation.Format.Tag.Title" = "Tag";
+"Relation.Format.Status.Title" = "Auswählen";
+"Relation.Format.Tag.Title" = "Mehrfachauswahl";
 "Relation.Format.Date.Title" = "Datum";
 "Relation.Format.FileMedia.Title" = "Dateien & Medien";
 "Relation.Format.Checkbox.Title" = "Checkbox";
@@ -187,7 +187,7 @@
 "Auth.CameraPermissionTitle" = "Bitte Zugriff erlauben";
 "Restore secret phrase from keychain" = "Stelle die Wiederherstellungsphrase aus dem Schlüsselbund wieder her";
 "Auth.LogIn" = "Anmelden";
-"Auth.Join" = "Neues Konto erstellen";
+"Auth.Join" = "Beitreten";
 "Auth.Welcome.Subtitle" = "Anytype ist dein sicherer Ort zum Schreiben, Planen, Denken und Organisieren von allem, was dir wichtig ist.";
 "Auth.Caption.Privacy.Text" = "Durch Fortfahren stimmst du den [Nutzungsbedingungen](%@) und [Datenschutzrichtlinie](%@ ) zu";
 "Auth.Next" = "Weiter";
@@ -486,8 +486,8 @@
 "Enter value" = "Wert eingeben";
 "Select object" = "Objekt wählen";
 "Select file" = "Datei wählen";
-"Select tag" = "Markierung auswählen";
-"Select status" = "Status auswählen";
+"Select options" = "Optionen auswählen";
+"Select option" = "Option auswählen";
 "Select date" = "Datum auswählen";
 "Add email" = "E-Mail hinzufügen";
 "Add link" = "Link hinzufügen";
@@ -860,13 +860,14 @@
 "Initial.UnstableMiddle.WontUseProd" = "Ich werde mein Produktionskonto nicht verwenden";
 
 // MARK: - Create tip
-"LongTapCreateTip.Title" = "Erstelle Objekte mit spezifischem Typ";
+"LongTapCreateTip.Title" = "Erstelle Objekte mit bestimmtem Typ";
 "LongTapCreateTip.Message" = "Tippen sie lange auf den Erstelle Objekt Knopf um ein Typ-Menü zu öffnen";
 
 // MARK: - Error
 "Error.AnytypeNeedsUpgrate.Title" = "Aktualisieren Sie Ihre App";
 "Error.AnytypeNeedsUpgrate.Message" = "Dieses Objekt wurde in einer neueren Version von Anytype geändert. Bitte aktualisieren Sie die App, um es auf diesem Gerät zu öffnen";
 "Error.AnytypeNeedsUpgrate.Confirm" = "Update";
+"Error.UnableToConnect" = "Bitte mit dem Internet verbinden";
 
 // MARK: - Relative date formatter
 "RelativeFormatter.days7" = "Letzte 7 Tage";

@@ -9,7 +9,7 @@ final class BlockActionHandler: BlockActionHandlerProtocol {
     private let document: BaseDocumentProtocol
     
     private let service: BlockActionServiceProtocol
-    private let listService: BlockListServiceProtocol
+    private let blockService: BlockServiceProtocol
     private let markupChanger: BlockMarkupChangerProtocol
     private let keyboardHandler: KeyboardActionHandlerProtocol
     private let blockTableService: BlockTableServiceProtocol
@@ -20,7 +20,7 @@ final class BlockActionHandler: BlockActionHandlerProtocol {
         document: BaseDocumentProtocol,
         markupChanger: BlockMarkupChangerProtocol,
         service: BlockActionServiceProtocol,
-        listService: BlockListServiceProtocol,
+        blockService: BlockServiceProtocol,
         keyboardHandler: KeyboardActionHandlerProtocol,
         blockTableService: BlockTableServiceProtocol,
         fileService: FileActionsServiceProtocol,
@@ -29,7 +29,7 @@ final class BlockActionHandler: BlockActionHandlerProtocol {
         self.document = document
         self.markupChanger = markupChanger
         self.service = service
-        self.listService = listService
+        self.blockService = blockService
         self.keyboardHandler = keyboardHandler
         self.blockTableService = blockTableService
         self.fileService = fileService
@@ -83,7 +83,7 @@ final class BlockActionHandler: BlockActionHandlerProtocol {
     
     func setTextColor(_ color: BlockColor, blockIds: [BlockId]) {
         Task {
-            try await listService.setBlockColor(objectId: document.objectId, blockIds: blockIds, color: color.middleware)
+            try await blockService.setBlockColor(objectId: document.objectId, blockIds: blockIds, color: color.middleware)
         }
     }
     
@@ -115,7 +115,7 @@ final class BlockActionHandler: BlockActionHandlerProtocol {
     func setAlignment(_ alignment: LayoutAlignment, blockIds: [BlockId]) {
         AnytypeAnalytics.instance().logSetAlignment(alignment, isBlock: blockIds.isNotEmpty)
         Task {
-            try await listService.setAlign(objectId: document.objectId, blockIds: blockIds, alignment: alignment)
+            try await blockService.setAlign(objectId: document.objectId, blockIds: blockIds, alignment: alignment)
         }
     }
     
@@ -126,7 +126,7 @@ final class BlockActionHandler: BlockActionHandlerProtocol {
     func moveToPage(blockId: BlockId, pageId: BlockId) {
         AnytypeAnalytics.instance().logMoveBlock()
         Task {
-            try await listService.moveToPage(objectId: document.objectId, blockId: blockId, pageId: pageId)
+            try await blockService.moveToPage(objectId: document.objectId, blockId: blockId, pageId: pageId)
         }
     }
     
@@ -149,7 +149,7 @@ final class BlockActionHandler: BlockActionHandlerProtocol {
     func changeMarkup(blockIds: [BlockId], markType: MarkupType) {
         Task {
             AnytypeAnalytics.instance().logChangeBlockStyle(markType)
-            try await listService.changeMarkup(objectId: document.objectId, blockIds: blockIds, markType: markType)
+            try await blockService.changeMarkup(objectId: document.objectId, blockIds: blockIds, markType: markType)
         }
     }
     
@@ -346,7 +346,7 @@ final class BlockActionHandler: BlockActionHandlerProtocol {
 
     func setAppearance(blockId: BlockId, appearance: BlockLink.Appearance) {
         Task {
-            try await listService.setLinkAppearance(objectId: document.objectId, blockIds: [blockId], appearance: appearance)
+            try await blockService.setLinkAppearance(objectId: document.objectId, blockIds: [blockId], appearance: appearance)
         }
     }
 }

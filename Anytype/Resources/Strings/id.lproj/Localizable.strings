@@ -83,8 +83,8 @@
 "Relation.Format.Object.Title" = "Objek";
 "Relation.Format.Text.Title" = "Teks";
 "Relation.Format.Number.Title" = "Angka";
-"Relation.Format.Status.Title" = "Status";
-"Relation.Format.Tag.Title" = "Label";
+"Relation.Format.Status.Title" = "Pilih";
+"Relation.Format.Tag.Title" = "Pilih jamak";
 "Relation.Format.Date.Title" = "Tanggal";
 "Relation.Format.FileMedia.Title" = "Berkas & Media";
 "Relation.Format.Checkbox.Title" = "Kotak centang";
@@ -187,7 +187,7 @@
 "Auth.CameraPermissionTitle" = "Tolong izinkan akses";
 "Restore secret phrase from keychain" = "Mengembalikan Tahap Pemulihan dari rantai kunci";
 "Auth.LogIn" = "Masuk";
-"Auth.Join" = "Buat Akun Baru";
+"Auth.Join" = "Gabung";
 "Auth.Welcome.Subtitle" = "Anytype adalah tempat aman bagimu untuk menulis, berpikir, merencanakan, dan mengorganisasikan apa pun yang penting bagimu.";
 "Auth.Caption.Privacy.Text" = "Dengan melanjutkan, kamu menyetujui [Syarat Penggunaan](%@) dan [Kebijakan Privasi](%@)";
 "Auth.Next" = "Lanjut";
@@ -486,8 +486,8 @@
 "Enter value" = "Masukkan nilai";
 "Select object" = "Pilih objek";
 "Select file" = "Pilih berkas";
-"Select tag" = "Pilih tag";
-"Select status" = "Pilih status";
+"Select options" = "Pilih opsi";
+"Select option" = "Pilih opsi";
 "Select date" = "Pilih tanggal";
 "Add email" = "Tambahkan surel";
 "Add link" = "Tambahkan tautan";
@@ -866,6 +866,7 @@
 "Error.AnytypeNeedsUpgrate.Title" = "Perbarui Aplikasimu";
 "Error.AnytypeNeedsUpgrate.Message" = "Objek ini telah diubah pada versi terbaru Anytype. Perbaruilah aplikasimu untuk membuka objek ini di perangkat ini.";
 "Error.AnytypeNeedsUpgrate.Confirm" = "Perbarui";
+"Error.UnableToConnect" = "Tolong sambungkan ke internet";
 
 // MARK: - Relative date formatter
 "RelativeFormatter.days7" = "7 hari terakhir";

@@ -9,7 +9,7 @@
 import ProtobufMessages
 import AnytypeCore
 
-public struct ObjectType: Equatable, Hashable, Codable {
+public struct ObjectType: Equatable, Hashable, Codable, Identifiable {
     
     public let id: String
     public let name: String
@@ -96,7 +96,7 @@ extension ObjectType {
         uniqueKey == .collection
     }
     
-    public var isNoteType: Bool {
-        uniqueKey == .note
+    public var isNoteLayout: Bool {
+        recommendedLayout ?? .unknown == .note
     }
 }

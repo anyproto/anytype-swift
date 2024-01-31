@@ -8,6 +8,7 @@ final class StatusRelationDetailsViewModel: ObservableObject {
     
     @Published private(set) var currentStatusModel: StatusSearchRowView.Model?
     @Published var isSearchPresented: Bool = false
+    var title: String { relation.name }
     
     let popupLayout = AnytypePopupLayoutType.constantHeight(height: 116, floatingPanelStyle: false)
 

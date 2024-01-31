@@ -1,7 +1,7 @@
 import Foundation
 import ProtobufMessages
 
-enum SelectAccountError: Error {
+public enum SelectAccountError: Error {
     case accountIsDeleted
     case failedToFetchRemoteNodeHasIncompatibleProtoVersion
 }

@@ -11,10 +11,9 @@ final class ServiceLocator {
     let templatesService = TemplatesService()
     let sharedContentManager: SharedContentManagerProtocol = SharedContentManager()
     lazy private(set) var sharedContentInteractor: SharedContentInteractorProtocol = SharedContentInteractor(
-        listService: blockListService(),
         bookmarkService: bookmarkService(),
         objectActionsService: objectActionsService(),
-        blockActionService: blockActionsServiceSingle(),
+        blockService: blockService(),
         pageRepository: pageRepository()
     )
 
@@ -22,7 +21,7 @@ final class ServiceLocator {
     lazy private(set) var documentsProvider: DocumentsProviderProtocol = DocumentsProvider(
         relationDetailsStorage: relationDetailsStorage(),
         objectTypeProvider: objectTypeProvider(),
-        blockActionsService: blockActionsServiceSingle()
+        objectLifecycleService: objectLifecycleService()
     )
     
     // MARK: - Services
@@ -43,7 +42,8 @@ final class ServiceLocator {
             loginStateService: loginStateService(),
             accountManager: accountManager(),
             appErrorLoggerConfiguration: appErrorLoggerConfiguration(),
-            serverConfigurationStorage: serverConfigurationStorage()
+            serverConfigurationStorage: serverConfigurationStorage(),
+            authMiddleService: authMiddleService()
         )
     }
     
@@ -71,8 +71,8 @@ final class ServiceLocator {
         DashboardService(searchService: searchService(), pageService: pageRepository())
     }
     
-    func blockActionsServiceSingle() -> BlockActionsServiceSingleProtocol {
-        BlockActionsServiceSingle()
+    func objectLifecycleService() -> ObjectLifecycleServiceProtocol {
+        ObjectLifecycleService()
     }
     
     func objectActionsService() -> ObjectActionsServiceProtocol {
@@ -132,8 +132,8 @@ final class ServiceLocator {
         return _accountEventHandler
     }
     
-    func blockListService() -> BlockListServiceProtocol {
-        return BlockListService()
+    func blockService() -> BlockServiceProtocol {
+        return BlockService()
     }
     
     func workspaceService() -> WorkspaceServiceProtocol {
@@ -318,7 +318,7 @@ final class ServiceLocator {
             dataviewService: dataviewService(),
             objectActionsService: objectActionsService(),
             prefilledFieldsBuilder: SetPrefilledFieldsBuilder(), 
-            blockActionsService: blockActionsServiceSingle()
+            blockService: blockService()
         )
     }
     
@@ -343,5 +343,9 @@ final class ServiceLocator {
     
     private func objectSubscriptionService() -> ObjectSubscriptionServiceProtocol {
         ObjectSubscriptionService()
+    }
+    
+    private func authMiddleService() -> AuthMiddleServiceProtocol {
+        AuthMiddleService()
     }
 }

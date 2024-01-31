@@ -83,8 +83,8 @@
 "Relation.Format.Object.Title" = "Об'єкт";
 "Relation.Format.Text.Title" = "Текст";
 "Relation.Format.Number.Title" = "Число";
-"Relation.Format.Status.Title" = "Статус";
-"Relation.Format.Tag.Title" = "Мітка";
+"Relation.Format.Status.Title" = "Select";
+"Relation.Format.Tag.Title" = "Multi-select";
 "Relation.Format.Date.Title" = "Дата";
 "Relation.Format.FileMedia.Title" = "Файл і медіа";
 "Relation.Format.Checkbox.Title" = "Прапорець";
@@ -187,7 +187,7 @@
 "Auth.CameraPermissionTitle" = "Будь ласка, дозвольте доступ";
 "Restore secret phrase from keychain" = "Відновити фразу відновлення з в'язки ключів";
 "Auth.LogIn" = "Log In";
-"Auth.Join" = "Create New Account";
+"Auth.Join" = "Join";
 "Auth.Welcome.Subtitle" = "Anytype - це ваш безпечний простір, де ви можете писати, планувати, думати та організовувати все, що має для вас значення.";
 "Auth.Caption.Privacy.Text" = "Продовжуючи, ви погоджуєтесь з [Умовами використання](%@) і [Політикою конфіденційності](%@)";
 "Auth.Next" = "Далі";
@@ -486,8 +486,8 @@
 "Enter value" = "Введіть значення";
 "Select object" = "Обрати об'єкт";
 "Select file" = "Обрати файл";
-"Select tag" = "Оберіть тег";
-"Select status" = "Оберіть статус";
+"Select options" = "Select options";
+"Select option" = "Select option";
 "Select date" = "Оберіть дату";
 "Add email" = "Додати ел. пошту";
 "Add link" = "Додайте посилання";
@@ -860,13 +860,14 @@
 "Initial.UnstableMiddle.WontUseProd" = "Я не використовуватиму свій виробничий обліковий запис";
 
 // MARK: - Create tip
-"LongTapCreateTip.Title" = "Створення об'єктів з певним типом";
+"LongTapCreateTip.Title" = "Create Objects with specific Type";
 "LongTapCreateTip.Message" = "Натисніть і утримуйте кнопку Створити об'єкт, щоб відкрити меню типів об'єктів";
 
 // MARK: - Error
 "Error.AnytypeNeedsUpgrate.Title" = "Update Your App";
 "Error.AnytypeNeedsUpgrate.Message" = "This object was modified in a newer version of Anytype. Please update the app to open it on this device";
 "Error.AnytypeNeedsUpgrate.Confirm" = "Update";
+"Error.UnableToConnect" = "Please connect to the internet";
 
 // MARK: - Relative date formatter
 "RelativeFormatter.days7" = "Previous 7 days";

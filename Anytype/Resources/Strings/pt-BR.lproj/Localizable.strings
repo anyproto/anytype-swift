@@ -83,8 +83,8 @@
 "Relation.Format.Object.Title" = "Objeto";
 "Relation.Format.Text.Title" = "Texto";
 "Relation.Format.Number.Title" = "Número";
-"Relation.Format.Status.Title" = "Situação";
-"Relation.Format.Tag.Title" = "Etiqueta";
+"Relation.Format.Status.Title" = "Selecionar";
+"Relation.Format.Tag.Title" = "Seleção múltipla";
 "Relation.Format.Date.Title" = "Data";
 "Relation.Format.FileMedia.Title" = "Arquivos e mídias";
 "Relation.Format.Checkbox.Title" = "Caixa de seleção";
@@ -187,7 +187,7 @@
 "Auth.CameraPermissionTitle" = "Conceda acesso, por favor";
 "Restore secret phrase from keychain" = "Restaure a frase de recuperação do chaveiro";
 "Auth.LogIn" = "Entrar";
-"Auth.Join" = "Criar nova conta";
+"Auth.Join" = "Cadastrar-se";
 "Auth.Welcome.Subtitle" = "Anytype é seu lugar seguro para pensar, planejar, escrever, e organizar tudo que é importante para você";
 "Auth.Caption.Privacy.Text" = "Ao continuar, você concorda com os [Termos de Uso](%@) e com a [Política de Privacidade](%@)";
 "Auth.Next" = "Avançar";
@@ -486,8 +486,8 @@
 "Enter value" = "Inserir valor";
 "Select object" = "Selecionar objeto";
 "Select file" = "Selecionar arquivo";
-"Select tag" = "Selecionar tag";
-"Select status" = "Selecionar status";
+"Select options" = "Selecionar opções";
+"Select option" = "Selecionar opção";
 "Select date" = "Selecionar data";
 "Add email" = "Adicionar e-mail";
 "Add link" = "Adicionar link";
@@ -565,7 +565,7 @@
 "Into object" = "Neste objeto";
 "Add below" = "Adicionar abaixo";
 "Change type" = "Alterar tipo";
-"SlashMenu.LinkTo.Description" = "Create link to another object";
+"SlashMenu.LinkTo.Description" = "Criar vínculo com outro objeto";
 "Upload playable audio" = "Carregar áudio reproduzível";
 "Code snippet" = "Trecho de código";
 "Bookmark" = "Marcador";
@@ -859,13 +859,14 @@
 "Initial.UnstableMiddle.WontUseProd" = "Não usarei a minha conta de produção";
 
 // MARK: - Create tip
-"LongTapCreateTip.Title" = "Criar objetos com tipo específico";
+"LongTapCreateTip.Title" = "Criar Objetos com Tipo específico";
 "LongTapCreateTip.Message" = "Toque longo no botão Criar Objeto para abrir o menu com os tipos";
 
 // MARK: - Error
 "Error.AnytypeNeedsUpgrate.Title" = "Atualizar seu aplicativo!";
 "Error.AnytypeNeedsUpgrate.Message" = "Este objeto foi atualizado em uma nova versão do Anytype. Por favor, atualize o aplicativo para abri-lo neste dispositivo";
 "Error.AnytypeNeedsUpgrate.Confirm" = "Atualização";
+"Error.UnableToConnect" = "Por favor, conecte-se à internet";
 
 // MARK: - Relative date formatter
 "RelativeFormatter.days7" = "Últimos 7 dias";
@@ -880,5 +881,5 @@
 "Server.LocalOnly" = "Somente local";
 
 // MARK: - Gallery
-"Gallery.Unavailable.Title" = "Gallery will be supported soon";
+"Gallery.Unavailable.Title" = "A Galeria estará disponível em breve";
 "Gallery.Unavailable.Message" = "Por favor, utilize o aplicativo para computador por enquanto";
