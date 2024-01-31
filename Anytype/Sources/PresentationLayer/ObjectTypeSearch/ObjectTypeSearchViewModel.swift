@@ -50,14 +50,12 @@ final class ObjectTypeSearchViewModel: ObservableObject {
     
     func didSelectType(_ type: ObjectType, section: SectionType) {
         Task {
-            do {
-                if section == .library {
-                    try await interactor.installType(objectId: type.id)
-                    toastPresenter.show(message: Loc.ObjectType.addedToLibrary(type.name))
-                }
-                
-                onSelect(type)
+            if section == .library {
+                try await interactor.installType(objectId: type.id)
+                toastPresenter.show(message: Loc.ObjectType.addedToLibrary(type.name))
             }
+            
+            onSelect(type)
         }
     }
 }
