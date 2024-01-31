@@ -2,7 +2,7 @@ import Foundation
 import SwiftUI
 
 protocol GalleryInstallationCoordinatorAssemblyProtocol: AnyObject {
-    func make() -> AnyView
+    func make(data: GalleryInstallationData) -> AnyView
 }
 
 final class GalleryInstallationCoordinatorAssembly: GalleryInstallationCoordinatorAssemblyProtocol {
@@ -15,9 +15,10 @@ final class GalleryInstallationCoordinatorAssembly: GalleryInstallationCoordinat
     
     // MARK: - GalleryInstallationCoordinatorAssemblyProtocol
     
-    func make() -> AnyView {
+    func make(data: GalleryInstallationData) -> AnyView {
         return GalleryInstallationCoordinatorView(
             model: GalleryInstallationCoordinatorViewModel(
+                data: data,
                 galleryInstallationPreviewModuleAssembly: self.modulesDI.galleryInstallationPreview()
             )
         ).eraseToAnyView()

@@ -720,6 +720,7 @@
 		2AE155952A31BDF50049C387 /* SetCompactListWidgetModuleAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AE155902A31BDF40049C387 /* SetCompactListWidgetModuleAssembly.swift */; };
 		2AE155962A31BDF50049C387 /* CollectionsCompactListWidgetModuleAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AE155912A31BDF40049C387 /* CollectionsCompactListWidgetModuleAssembly.swift */; };
 		2AE1559A2A31C6170049C387 /* ListWidgetCompactRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AE155992A31C6170049C387 /* ListWidgetCompactRow.swift */; };
+		2AE337D32B693E1200498A31 /* GalleryInstallationData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AE337D22B693E1200498A31 /* GalleryInstallationData.swift */; };
 		2AE4EDB92834CF5D00B61ABE /* LaunchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AE4EDB82834CF5D00B61ABE /* LaunchView.swift */; };
 		2AE5C71D29B7299F00A92C12 /* WidgetSourceSearchViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AE5C71C29B7299F00A92C12 /* WidgetSourceSearchViewModel.swift */; };
 		2AE5C71F29B72B8100A92C12 /* WidgetSourceSearchInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AE5C71E29B72B8100A92C12 /* WidgetSourceSearchInteractor.swift */; };
@@ -2387,6 +2388,7 @@
 		2AE155902A31BDF40049C387 /* SetCompactListWidgetModuleAssembly.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SetCompactListWidgetModuleAssembly.swift; sourceTree = "<group>"; };
 		2AE155912A31BDF40049C387 /* CollectionsCompactListWidgetModuleAssembly.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CollectionsCompactListWidgetModuleAssembly.swift; sourceTree = "<group>"; };
 		2AE155992A31C6170049C387 /* ListWidgetCompactRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListWidgetCompactRow.swift; sourceTree = "<group>"; };
+		2AE337D22B693E1200498A31 /* GalleryInstallationData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GalleryInstallationData.swift; sourceTree = "<group>"; };
 		2AE4EDB82834CF5D00B61ABE /* LaunchView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LaunchView.swift; sourceTree = "<group>"; };
 		2AE5C71C29B7299F00A92C12 /* WidgetSourceSearchViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WidgetSourceSearchViewModel.swift; sourceTree = "<group>"; };
 		2AE5C71E29B72B8100A92C12 /* WidgetSourceSearchInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WidgetSourceSearchInteractor.swift; sourceTree = "<group>"; };
@@ -5125,6 +5127,7 @@
 				2A2872362B4D8C07007B3D59 /* GalleryInstallationCoordinatorView.swift */,
 				2A2872392B4D8C30007B3D59 /* GalleryInstallationCoordinatorViewModel.swift */,
 				2A28723B2B4D8C38007B3D59 /* GalleryInstallationCoordinatorAssembly.swift */,
+				2AE337D22B693E1200498A31 /* GalleryInstallationData.swift */,
 			);
 			path = GalleryInstallation;
 			sourceTree = "<group>";
@@ -10822,6 +10825,7 @@
 				EA57F39826B74D2E007D4292 /* BlockInformationCreator.swift in Sources */,
 				2A2B33202A7AA7AF004BD906 /* CreateWidgetCoordinatorViewModel.swift in Sources */,
 				2ECB340A2A95200000E0F9BB /* SetSortsListModuleAssembly.swift in Sources */,
+				2AE337D32B693E1200498A31 /* GalleryInstallationData.swift in Sources */,
 				2A4919A929530B0F00FCEAC9 /* HomeSubmoduleProviderProtocol.swift in Sources */,
 				2A9486582950A494007A5586 /* HomeWidgetsViewModel.swift in Sources */,
 				12DE4060264AE455007B5074 /* LayoutAnchorType.swift in Sources */,

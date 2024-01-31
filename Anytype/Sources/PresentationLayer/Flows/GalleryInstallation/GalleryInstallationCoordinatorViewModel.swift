@@ -3,9 +3,11 @@ import SwiftUI
 
 final class GalleryInstallationCoordinatorViewModel: ObservableObject {
     
-    let galleryInstallationPreviewModuleAssembly: GalleryInstallationPreviewModuleAssemblyProtocol
+    private let data: GalleryInstallationData
+    private let galleryInstallationPreviewModuleAssembly: GalleryInstallationPreviewModuleAssemblyProtocol
     
-    init(galleryInstallationPreviewModuleAssembly: GalleryInstallationPreviewModuleAssemblyProtocol) {
+    init(data: GalleryInstallationData, galleryInstallationPreviewModuleAssembly: GalleryInstallationPreviewModuleAssemblyProtocol) {
+        self.data = data
         self.galleryInstallationPreviewModuleAssembly = galleryInstallationPreviewModuleAssembly
     }
     

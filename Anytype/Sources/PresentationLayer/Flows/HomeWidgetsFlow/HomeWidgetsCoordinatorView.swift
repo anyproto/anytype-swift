@@ -54,11 +54,11 @@ struct HomeWidgetsCoordinatorView: View {
             model.createObjectWithTypeModule()
         }
         .if(FeatureFlags.galleryInstallation, if: {
-            $0.sheet(isPresented: $model.showGalleryImport) {
-                model.createGalleryInstallationModule()
+            $0.sheet(item: $model.showGalleryImport) { data in
+                model.createGalleryInstallationModule(data: data)
             }
         }, else: {
-            $0.anytypeSheet(isPresented: $model.showGalleryImport) {
+            $0.anytypeSheet(item: $model.showGalleryImport) { _ in
                 GalleryUnavailableView()
             }
         })

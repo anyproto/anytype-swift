@@ -73,6 +73,11 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
             return
         }
         
+        let queryItems = components.queryItems
+        components.queryItems = nil
+        
+        print("ccc \(components.url)")
+        
         switch components.url {
         case URLConstants.createObjectURL:
             AppActionStorage.shared.action = .createObject
@@ -81,7 +86,9 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         case URLConstants.spaceSelectionURL:
             AppActionStorage.shared.action = .spaceSelection
         case URLConstants.galleryImportURL:
-            AppActionStorage.shared.action = .galleryImport
+            guard let source = queryItems?.first(where: { $0.name == "source" })?.value,
+                  let type = queryItems?.first(where: { $0.name == "type" })?.value else { return }
+            AppActionStorage.shared.action = .galleryImport(type: type, source: source)
         default:
             break
         }

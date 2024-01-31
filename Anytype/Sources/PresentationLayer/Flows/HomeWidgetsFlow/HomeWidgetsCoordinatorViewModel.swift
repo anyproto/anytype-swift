@@ -47,7 +47,7 @@ final class HomeWidgetsCoordinatorViewModel: ObservableObject,
     @Published var showCreateWidgetData: CreateWidgetCoordinatorModel?
     @Published var showSpaceSettings: Bool = false
     @Published var showSharing: Bool = false
-    @Published var showGalleryImport: Bool = false
+    @Published var showGalleryImport: GalleryInstallationData?
     @Published var editorPath = HomePath() {
         didSet { UserDefaultsConfig.lastOpenedPage = editorPath.lastPathElement as? EditorScreenData }
     }
@@ -187,8 +187,8 @@ final class HomeWidgetsCoordinatorViewModel: ObservableObject,
         }
     }
 
-    func createGalleryInstallationModule() -> AnyView {
-        return galleryInstallationCoordinatorAssembly.make()
+    func createGalleryInstallationModule(data: GalleryInstallationData) -> AnyView {
+        return galleryInstallationCoordinatorAssembly.make(data: data)
     }
     
     // MARK: - HomeWidgetsModuleOutput
@@ -340,9 +340,9 @@ final class HomeWidgetsCoordinatorViewModel: ObservableObject,
             navigationContext.dismissAllPresented(animated: true) { [weak self] in
                 self?.showSpaceSwitch = true
             }
-        case .galleryImport:
+        case let .galleryImport(type, source):
             navigationContext.dismissAllPresented(animated: true) { [weak self] in
-                self?.showGalleryImport = true
+                self?.showGalleryImport = GalleryInstallationData(type: type, source: source)
             }
         }
     }
