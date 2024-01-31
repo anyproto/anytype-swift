@@ -1,5 +1,6 @@
 import SwiftUI
 import Services
+import WrappingHStack
 
 
 struct ObjectTypeSearchView: View {
@@ -58,7 +59,7 @@ struct ObjectTypeSearchView: View {
     }
     
     private func typesView(section: SectionType, types: [ObjectType]) -> some View {
-        ForEach(types) { type in
+        WrappingHStack(types, spacing: .constant(8)) { type in
             Button {
                 viewModel.didSelectType(type, section: section)
             } label: {
@@ -70,6 +71,8 @@ struct ObjectTypeSearchView: View {
                 .padding(.trailing, 16)
             }
             .border(12, color: .Stroke.primary)
+            .padding(.bottom, 8)
         }
+        .padding(.horizontal, 20)
     }
 }
