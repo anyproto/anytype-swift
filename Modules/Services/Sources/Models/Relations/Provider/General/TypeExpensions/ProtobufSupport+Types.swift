@@ -49,10 +49,3 @@ extension Emoji: ProtobufSupport {
         self = emoji
     }
 }
-
-extension FileObjectId: ProtobufSupport {
-    public init?(_ value: Google_Protobuf_Value) {
-        guard let objectId = try? FileObjectId(rawValue: value.unwrapedListValue.stringValue) else { return nil }
-        self = objectId
-    }
-}
