@@ -94,6 +94,7 @@ final class EditorPageModuleAssembly: EditorPageModuleAssemblyProtocol {
             toastPresenter: uiHelpersDI.toastPresenter(using: nil),
             codeLanguageListModuleAssembly: modulesDI.codeLanguageList(),
             newSearchModuleAssembly: modulesDI.newSearch(),
+            objectTypeSearchModuleAssembly: modulesDI.objectTypeSearch(),
             textIconPickerModuleAssembly: modulesDI.textIconPicker(),
             templateService: serviceLocator.templatesService,
             output: output
