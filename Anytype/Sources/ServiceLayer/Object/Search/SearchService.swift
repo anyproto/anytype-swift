@@ -16,7 +16,7 @@ protocol SearchServiceProtocol: AnyObject {
     ) async throws -> [ObjectDetails]
     func searchListTypes(text: String, spaceId: String) async throws -> [ObjectDetails]
         
-    func searchMarketplaceObjectTypes(
+    func searchLibraryObjectTypes(
         text: String,
         excludedIds: [String]
     ) async throws -> [ObjectDetails]
@@ -34,7 +34,7 @@ protocol SearchServiceProtocol: AnyObject {
     func searchRelationOptions(text: String, relationKey: String, excludedObjectIds: [String], spaceId: String) async throws -> [RelationOption]
     func searchRelationOptions(optionIds: [String], spaceId: String) async throws -> [RelationOption]
     func searchRelations(text: String, excludedIds: [String], spaceId: String) async throws -> [RelationDetails]
-    func searchMarketplaceRelations(text: String, excludedIds: [String]) async throws -> [RelationDetails]
+    func searchLibraryRelations(text: String, excludedIds: [String]) async throws -> [RelationDetails]
     func searchArchiveObjectIds(spaceId: String) async throws -> [String]
     func searchObjectsWithLayouts(text: String, layouts: [DetailsLayout], spaceId: String) async throws -> [ObjectDetails]
 }
@@ -139,14 +139,14 @@ final class SearchService: ObservableObject, SearchServiceProtocol {
         return try await searchMiddleService.search(filters: filters, sorts: [sort], fullText: text)
     }
     
-    func searchMarketplaceObjectTypes(text: String, excludedIds: [String]) async throws -> [ObjectDetails] {
+    func searchLibraryObjectTypes(text: String, excludedIds: [String]) async throws -> [ObjectDetails] {
         let sort = SearchHelper.sort(
             relation: BundledRelationKey.name,
             type: .asc
         )
         
         let filters = Array.builder {
-            SearchHelper.spaceId(MarketplaceId.anytypeMarketplace.rawValue)
+            SearchHelper.spaceId(MarketplaceId.anytypeLibrary.rawValue)
             SearchHelper.layoutFilter([DetailsLayout.objectType])
             SearchHelper.recomendedLayoutFilter(DetailsLayout.visibleLayouts)
             SearchHelper.excludedIdsFilter(excludedIds)
@@ -273,7 +273,7 @@ final class SearchService: ObservableObject, SearchServiceProtocol {
         return details.map { RelationDetails(objectDetails: $0) }
     }
     
-    func searchMarketplaceRelations(text: String, excludedIds: [String]) async throws -> [RelationDetails] {
+    func searchLibraryRelations(text: String, excludedIds: [String]) async throws -> [RelationDetails] {
         let sort = SearchHelper.sort(
             relation: BundledRelationKey.name,
             type: .asc
@@ -282,7 +282,7 @@ final class SearchService: ObservableObject, SearchServiceProtocol {
         let filters: [DataviewFilter] = .builder {
             buildFilters(
                 isArchived: false,
-                spaceId: MarketplaceId.anytypeMarketplace.rawValue
+                spaceId: MarketplaceId.anytypeLibrary.rawValue
             )
             SearchHelper.layoutFilter([DetailsLayout.relation])
             SearchHelper.relationReadonlyValue(false)
