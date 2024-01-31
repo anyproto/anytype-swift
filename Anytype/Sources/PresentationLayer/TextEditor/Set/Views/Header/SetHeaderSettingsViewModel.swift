@@ -41,7 +41,7 @@ class SetHeaderSettingsViewModel: ObservableObject {
             .sink { [weak self, setDocument] details in
                 guard let self else { return }
                 
-                isActive = details.isGroupAndCanCreateObject(setDocument: setDocument)
+                isActive = details.isListAndCanCreateObject(setDocument: setDocument)
             }
             .store(in: &subscriptions)
     }

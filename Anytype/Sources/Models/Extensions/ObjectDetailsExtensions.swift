@@ -124,7 +124,7 @@ extension BundledRelationsValueProvider {
         }
     }
     
-    var isGroup: Bool {
+    var isList: Bool {
         isSet || isCollection
     }
     
@@ -160,8 +160,8 @@ extension BundledRelationsValueProvider {
         objectType.isTemplateType
     }
     
-    func isGroupAndCanCreateObject(setDocument: SetDocumentProtocol) -> Bool {
-        guard isGroup else { return false }
+    func isListAndCanCreateObject(setDocument: SetDocumentProtocol) -> Bool {
+        guard isList else { return false }
         if isCollection { return true }
         if setDocument.isRelationsSet() { return true }
         
