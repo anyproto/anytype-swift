@@ -231,7 +231,6 @@ final class EditorSetRouter: EditorSetRouterProtocol, ObjectSettingsCoordinatorO
         showTypesSearch(
             title: Loc.Set.SourceType.selectQuery,
             selectedObjectId: selectedObjectId,
-            showBookmark: true,
             showSetAndCollection: false,
             onSelect: onSelect
         )
@@ -291,7 +290,6 @@ final class EditorSetRouter: EditorSetRouterProtocol, ObjectSettingsCoordinatorO
     private func showTypesSearch(
         title: String,
         selectedObjectId: BlockId?,
-        showBookmark: Bool,
         showSetAndCollection: Bool,
         onSelect: @escaping (BlockId) -> ()
     ) {
@@ -300,7 +298,6 @@ final class EditorSetRouter: EditorSetRouterProtocol, ObjectSettingsCoordinatorO
             spaceId: setDocument.spaceId,
             selectedObjectId: selectedObjectId,
             excludedObjectTypeId: setDocument.details?.type,
-            showBookmark: showBookmark,
             showSetAndCollection: showSetAndCollection
         ) { [weak self] type in
             self?.navigationContext.dismissTopPresented()

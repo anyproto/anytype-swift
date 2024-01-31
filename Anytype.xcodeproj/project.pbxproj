@@ -5754,13 +5754,6 @@
 			path = RelationStorage;
 			sourceTree = "<group>";
 		};
-		2A947B312A3094D200119140 /* Alerts */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Alerts;
-			sourceTree = "<group>";
-		};
 		2A947B3C2A30E24000119140 /* Subviews */ = {
 			isa = PBXGroup;
 			children = (
@@ -6274,7 +6267,6 @@
 		2AE7EC9E298816F30079F12B /* WidgetObjectList */ = {
 			isa = PBXGroup;
 			children = (
-				2A947B312A3094D200119140 /* Alerts */,
 				2A947B3C2A30E24000119140 /* Subviews */,
 				2AA8108129A3E0D4007DD64B /* Buildes */,
 				2AA8107C29A3D89F007DD64B /* Models */,
