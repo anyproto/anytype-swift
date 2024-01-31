@@ -514,6 +514,8 @@
 		2A7BD6E628D85993008B735C /* RelationSubscriptionDataBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A7BD6E528D85993008B735C /* RelationSubscriptionDataBuilder.swift */; };
 		2A7BD6E828D8599D008B735C /* RelationSubscriptionDataBuilderProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A7BD6E728D8599D008B735C /* RelationSubscriptionDataBuilderProtocol.swift */; };
 		2A7BD6EB28D85B6B008B735C /* ObjectTypeSubscriptionDataBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A7BD6EA28D85B6B008B735C /* ObjectTypeSubscriptionDataBuilder.swift */; };
+		2A7CCC192B6A7EDB00F2E98B /* GalleryInstallationPreviewViewModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A7CCC182B6A7EDB00F2E98B /* GalleryInstallationPreviewViewModels.swift */; };
+		2A7CCC1C2B6A92B200F2E98B /* GalleryInstallationPreviewManifestView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A7CCC1B2B6A92B200F2E98B /* GalleryInstallationPreviewManifestView.swift */; };
 		2A7DCDE0292E4AC5001919B4 /* RelationsListModuleOutput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A7DCDDF292E4AC5001919B4 /* RelationsListModuleOutput.swift */; };
 		2A7DCDE2292E60BA001919B4 /* AddNewRelationCoordinatorAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A7DCDE1292E60BA001919B4 /* AddNewRelationCoordinatorAssembly.swift */; };
 		2A7DCDE4292E7D5A001919B4 /* SearchModuleAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A7DCDE3292E7D5A001919B4 /* SearchModuleAssembly.swift */; };
@@ -2178,6 +2180,8 @@
 		2A7BD6E528D85993008B735C /* RelationSubscriptionDataBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RelationSubscriptionDataBuilder.swift; sourceTree = "<group>"; };
 		2A7BD6E728D8599D008B735C /* RelationSubscriptionDataBuilderProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RelationSubscriptionDataBuilderProtocol.swift; sourceTree = "<group>"; };
 		2A7BD6EA28D85B6B008B735C /* ObjectTypeSubscriptionDataBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObjectTypeSubscriptionDataBuilder.swift; sourceTree = "<group>"; };
+		2A7CCC182B6A7EDB00F2E98B /* GalleryInstallationPreviewViewModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GalleryInstallationPreviewViewModels.swift; sourceTree = "<group>"; };
+		2A7CCC1B2B6A92B200F2E98B /* GalleryInstallationPreviewManifestView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GalleryInstallationPreviewManifestView.swift; sourceTree = "<group>"; };
 		2A7DCDDF292E4AC5001919B4 /* RelationsListModuleOutput.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RelationsListModuleOutput.swift; sourceTree = "<group>"; };
 		2A7DCDE1292E60BA001919B4 /* AddNewRelationCoordinatorAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddNewRelationCoordinatorAssembly.swift; sourceTree = "<group>"; };
 		2A7DCDE3292E7D5A001919B4 /* SearchModuleAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchModuleAssembly.swift; sourceTree = "<group>"; };
@@ -5114,9 +5118,11 @@
 		2A28722F2B4D8B35007B3D59 /* GalleryInstallationPreview */ = {
 			isa = PBXGroup;
 			children = (
+				2A7CCC1A2B6A92A000F2E98B /* Subviews */,
 				2A2872302B4D8B8E007B3D59 /* GalleryInstallationPreviewView.swift */,
 				2A2872322B4D8B9C007B3D59 /* GalleryInstallationPreviewViewModel.swift */,
 				2A2872342B4D8BA7007B3D59 /* GalleryInstallationPreviewModuleAssembly.swift */,
+				2A7CCC182B6A7EDB00F2E98B /* GalleryInstallationPreviewViewModels.swift */,
 			);
 			path = GalleryInstallationPreview;
 			sourceTree = "<group>";
@@ -5633,6 +5639,14 @@
 				2A7BD6EA28D85B6B008B735C /* ObjectTypeSubscriptionDataBuilder.swift */,
 			);
 			path = Subscription;
+			sourceTree = "<group>";
+		};
+		2A7CCC1A2B6A92A000F2E98B /* Subviews */ = {
+			isa = PBXGroup;
+			children = (
+				2A7CCC1B2B6A92B200F2E98B /* GalleryInstallationPreviewManifestView.swift */,
+			);
+			path = Subviews;
 			sourceTree = "<group>";
 		};
 		2A7DCDDB292E4A4E001919B4 /* Flows */ = {
@@ -9937,6 +9951,7 @@
 				2E975EF1287C23DA004DE574 /* SetSortsListView.swift in Sources */,
 				53F7442F27F4BBE9005C9BB0 /* ObjectPreviewRouter.swift in Sources */,
 				12FD9D252767179A00991886 /* RelationDate.swift in Sources */,
+				2A7CCC192B6A7EDB00F2E98B /* GalleryInstallationPreviewViewModels.swift in Sources */,
 				2EDC2B082A13E5E00065E009 /* KeyPhraseViewModuleAssembly.swift in Sources */,
 				12136D5827996F7C00262FE7 /* TextRelationDetailsServiceProtocol.swift in Sources */,
 				1247BC6A27FDC493005F2DB4 /* NewRelationModuleOutput.swift in Sources */,
@@ -10731,6 +10746,7 @@
 				3DB1CA6E272C0C19000D2779 /* WallpaperColorsGridView.swift in Sources */,
 				2EDC2AFB2A125BD60065E009 /* JoinFlowOutput.swift in Sources */,
 				53EA4A7F2637639F00968B8E /* StyleColorCellConfiguration.swift in Sources */,
+				2A7CCC1C2B6A92B200F2E98B /* GalleryInstallationPreviewManifestView.swift in Sources */,
 				53F80F0D27BDA5B700E9E12A /* ObjectRelationViewUIKit.swift in Sources */,
 				C920F7F92903082600360F01 /* BlockTextLinkView.swift in Sources */,
 				2E7C4461289184BA0062287C /* SetFiltersDateRowConfiguration.swift in Sources */,

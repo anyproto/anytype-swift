@@ -24,7 +24,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         
         connectionOptions.shortcutItem.flatMap { _ = handleQuickAction($0) }
         handleURLContext(openURLContexts: connectionOptions.urlContexts)
-        handleURL(url: URL(string: "anytype://main/import/?type=experience&source=https%3A%2F%2Fstorage.gallery.any.coop%2Fdata_vault%2Fmanifest.json")!)
+        handleURL(url: URL(string: "dev-anytype://main/import/?type=experience&source=https%3A%2F%2Fstorage.gallery.any.coop%2Fpara_tasks_resources_meeting_notes_crm%2Fmanifest.json")!)
         
         let applicationView = di.coordinatorsDI.application().makeView()
         window.rootViewController = UIHostingController(rootView: applicationView)
@@ -76,9 +76,12 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         let queryItems = components.queryItems
         components.queryItems = nil
         
-        print("ccc \(components.url)")
+        guard var urlString = components.url?.absoluteString else { return }
+        if urlString.last == "/" {
+            _ = urlString.removeLast()
+        }
         
-        switch components.url {
+        switch URL(string: urlString) {
         case URLConstants.createObjectURL:
             AppActionStorage.shared.action = .createObject
         case URLConstants.sharingExtenstionURL:

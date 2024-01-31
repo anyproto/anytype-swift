@@ -1,6 +1,7 @@
 import Foundation
 import SwiftUI
 
+@MainActor
 final class GalleryInstallationCoordinatorViewModel: ObservableObject {
     
     private let data: GalleryInstallationData
@@ -12,6 +13,6 @@ final class GalleryInstallationCoordinatorViewModel: ObservableObject {
     }
     
     func previewModule() -> AnyView {
-        galleryInstallationPreviewModuleAssembly.make()
+        galleryInstallationPreviewModuleAssembly.make(data: data)
     }
 }

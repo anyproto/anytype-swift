@@ -1,15 +1,28 @@
 import Foundation
 import SwiftUI
 
+@MainActor
 protocol GalleryInstallationPreviewModuleAssemblyProtocol: AnyObject {
-    func make() -> AnyView
+    func make(data: GalleryInstallationData) -> AnyView
 }
 
+@MainActor
 final class GalleryInstallationPreviewModuleAssembly: GalleryInstallationPreviewModuleAssemblyProtocol {
+    
+    private let serviceLocator: ServiceLocator
+    
+    nonisolated init(serviceLocator: ServiceLocator) {
+        self.serviceLocator = serviceLocator
+    }
     
     // MARK: - GalleryInstallationPreviewModuleAssemblyProtocol
     
-    func make() -> AnyView {
-        return GalleryInstallationPreviewView(model: GalleryInstallationPreviewViewModel()).eraseToAnyView()
+    func make(data: GalleryInstallationData) -> AnyView {
+        return GalleryInstallationPreviewView(
+            model: GalleryInstallationPreviewViewModel(
+                data: data,
+                galleryService: self.serviceLocator.galleryService()
+            )
+        ).eraseToAnyView()
     }
 }

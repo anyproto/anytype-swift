@@ -263,6 +263,6 @@ final class ModulesDI: ModulesDIProtocol {
     }
     
     func galleryInstallationPreview() -> GalleryInstallationPreviewModuleAssemblyProtocol {
-        GalleryInstallationPreviewModuleAssembly()
+        GalleryInstallationPreviewModuleAssembly(serviceLocator: serviceLocator)
     }
 }

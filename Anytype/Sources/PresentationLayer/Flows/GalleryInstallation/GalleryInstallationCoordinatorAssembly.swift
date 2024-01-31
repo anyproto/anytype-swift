@@ -1,15 +1,17 @@
 import Foundation
 import SwiftUI
 
+@MainActor
 protocol GalleryInstallationCoordinatorAssemblyProtocol: AnyObject {
     func make(data: GalleryInstallationData) -> AnyView
 }
 
+@MainActor
 final class GalleryInstallationCoordinatorAssembly: GalleryInstallationCoordinatorAssemblyProtocol {
     
     private let modulesDI: ModulesDIProtocol
     
-    init(modulesDI: ModulesDIProtocol) {
+    nonisolated init(modulesDI: ModulesDIProtocol) {
         self.modulesDI = modulesDI
     }
     
