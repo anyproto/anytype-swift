@@ -28,12 +28,15 @@ final class ObjectTypeSearchModuleAssembly: ObjectTypeSearchModuleAssemblyProtoc
         if FeatureFlags.newTypePicker {
             let interactor = ObjectTypeSearchInteractor(
                 spaceId: spaceId,
-                searchService: serviceLocator.searchService()
+                searchService: serviceLocator.searchService(),
+                workspaceService: serviceLocator.workspaceService(),
+                objectTypeProvider: serviceLocator.objectTypeProvider()
             )
             
             let model = ObjectTypeSearchViewModel(
                 onSelect: onSelect,
-                interactor: interactor
+                interactor: interactor, 
+                toastPresenter: uiHelpersDI.toastPresenter()
             )
             
             return ObjectTypeSearchView(

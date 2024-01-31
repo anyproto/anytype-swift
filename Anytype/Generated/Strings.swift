@@ -270,6 +270,8 @@ internal enum Loc {
   }
   /// List of related objects
   internal static let listOfRelatedObjects = Loc.tr("Localizable", "List of related objects", fallback: "List of related objects")
+  /// Lists
+  internal static let lists = Loc.tr("Localizable", "Lists", fallback: "Lists")
   /// Loading, please wait
   internal static let loadingPleaseWait = Loc.tr("Localizable", "Loading, please wait", fallback: "Loading, please wait")
   /// Lock

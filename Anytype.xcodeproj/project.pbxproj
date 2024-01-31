@@ -1207,6 +1207,7 @@
 		3DDC6A602627071E004F5EA4 /* BlockLinkState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DDC6A5F2627071E004F5EA4 /* BlockLinkState.swift */; };
 		3DDC6A64262707CB004F5EA4 /* BlockLinkCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DDC6A63262707CB004F5EA4 /* BlockLinkCardView.swift */; };
 		3DDC6A6A26270998004F5EA4 /* BlockLinkContentConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DDC6A6926270998004F5EA4 /* BlockLinkContentConfiguration.swift */; };
+		3DDC9F262B694D5500A00C99 /* ObjectTypeSearchViewModel+State.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DDC9F252B694D5500A00C99 /* ObjectTypeSearchViewModel+State.swift */; };
 		3DDD3D0E26AEB55700B5673A /* BlockFileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DDD3D0C26AEB55700B5673A /* BlockFileView.swift */; };
 		3DDD3D0F26AEB55700B5673A /* BlockFile+MediaData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DDD3D0D26AEB55700B5673A /* BlockFile+MediaData.swift */; };
 		3DDD3D1426AED74E00B5673A /* CodeLanguage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DDD3D1326AED74E00B5673A /* CodeLanguage.swift */; };
@@ -2872,6 +2873,7 @@
 		3DDC6A5F2627071E004F5EA4 /* BlockLinkState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlockLinkState.swift; sourceTree = "<group>"; };
 		3DDC6A63262707CB004F5EA4 /* BlockLinkCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlockLinkCardView.swift; sourceTree = "<group>"; };
 		3DDC6A6926270998004F5EA4 /* BlockLinkContentConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlockLinkContentConfiguration.swift; sourceTree = "<group>"; };
+		3DDC9F252B694D5500A00C99 /* ObjectTypeSearchViewModel+State.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ObjectTypeSearchViewModel+State.swift"; sourceTree = "<group>"; };
 		3DDD3D0C26AEB55700B5673A /* BlockFileView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = BlockFileView.swift; path = Anytype/Sources/PresentationLayer/TextEditor/BlocksViews/Blocks/File/File/BlockFileView.swift; sourceTree = SOURCE_ROOT; };
 		3DDD3D0D26AEB55700B5673A /* BlockFile+MediaData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "BlockFile+MediaData.swift"; path = "Anytype/Sources/PresentationLayer/TextEditor/BlocksViews/Blocks/File/File/Utils/BlockFile+MediaData.swift"; sourceTree = SOURCE_ROOT; };
 		3DDD3D1326AED74E00B5673A /* CodeLanguage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CodeLanguage.swift; path = Anytype/Sources/PresentationLayer/TextEditor/BlocksViews/Blocks/Text/Code/Support/CodeLanguage.swift; sourceTree = SOURCE_ROOT; };
@@ -7342,6 +7344,7 @@
 				3D2F00282B6814CC009F3AA5 /* ObjectTypeSearchView.swift */,
 				3D2F002A2B6821D7009F3AA5 /* ObjectTypeSearchViewModel.swift */,
 				3D2F002C2B68269B009F3AA5 /* ObjectTypeSearchInteractor.swift */,
+				3DDC9F252B694D5500A00C99 /* ObjectTypeSearchViewModel+State.swift */,
 			);
 			path = ObjectTypeSearch;
 			sourceTree = "<group>";
@@ -9799,6 +9802,7 @@
 				2AE85FEF2B1F4BD800268E9D /* ServerDocumentPickerView.swift in Sources */,
 				2AE1559A2A31C6170049C387 /* ListWidgetCompactRow.swift in Sources */,
 				8624C8612A6E577E0065CBC0 /* EditorPageViewModelConfiguration.swift in Sources */,
+				3DDC9F262B694D5500A00C99 /* ObjectTypeSearchViewModel+State.swift in Sources */,
 				2A8A2DCA2AB9956000105549 /* AppAction.swift in Sources */,
 				3D17025C2716E4F60079B65B /* EditorBarItemState.swift in Sources */,
 				2A65E9B62AE1297800D40657 /* InitialCoordinatorAssembly.swift in Sources */,
