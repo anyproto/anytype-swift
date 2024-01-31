@@ -49,7 +49,7 @@ final class ObjectTypeSearchInteractor {
     func searchLibraryTypes(text: String) async -> [ObjectType] {
         let installedObjectIds = objectTypeProvider.objectTypes(spaceId: spaceId).map(\.sourceObject)
         
-        guard let details = try? await searchService.searchMarketplaceObjectTypes(
+        guard let details = try? await searchService.searchLibraryObjectTypes(
             text: text, excludedIds: installedObjectIds
         ) else {
             return []

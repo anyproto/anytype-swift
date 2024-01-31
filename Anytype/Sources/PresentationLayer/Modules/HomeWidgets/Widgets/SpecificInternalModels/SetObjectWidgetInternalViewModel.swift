@@ -57,7 +57,7 @@ final class SetObjectWidgetInternalViewModel: CommonWidgetInternalViewModel, Wid
             .sink { [weak self, setDocument] details in
                 guard let self, let setDocument else { return }
                 
-                allowCreateObject = details.isGroupAndCanCreateObject(setDocument: setDocument)
+                allowCreateObject = details.isListAndCanCreateObject(setDocument: setDocument)
                 name = details.title
                 
                 Task { [weak self] in

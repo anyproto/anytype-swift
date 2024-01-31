@@ -64,7 +64,7 @@ final class MockSetDocument: SetDocumentProtocol {
     
     func isTypeSet() -> Bool { false }
     
-    func isRelationsSet() -> Bool { false }
+    func isSetByRelation() -> Bool { false }
     
     func isBookmarksSet() -> Bool { false }
     

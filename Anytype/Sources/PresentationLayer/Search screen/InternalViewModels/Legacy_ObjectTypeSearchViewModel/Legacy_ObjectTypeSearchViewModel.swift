@@ -8,7 +8,7 @@ final class Legacy_ObjectTypeSearchViewModel {
     
     private enum Constants {
         static let installedSectionId = "MyTypeId"
-        static let marketplaceSectionId = "MarketplaceId"
+        static let librarySectionId = "MarketplaceId"
     }
     
     let selectionMode: NewSearchViewModel.SelectionMode = .singleItem
@@ -46,7 +46,7 @@ extension Legacy_ObjectTypeSearchViewModel: NewInternalSearchViewModelProtocol {
     
     func search(text: String) async throws {
         let objects = try await interactor.search(text: text)
-        let marketplaceObjects = (text.isEmpty && hideMarketplace) ? [] : try await interactor.searchInMarketplace(text: text)
+        let marketplaceObjects = (text.isEmpty && hideMarketplace) ? [] : try await interactor.searchInLibrary(text: text)
         
         if objects.isEmpty && marketplaceObjects.isEmpty {
             handleError(for: text)
@@ -101,7 +101,7 @@ private extension Legacy_ObjectTypeSearchViewModel {
                     }
                     if marketplaceObjects.isNotEmpty {
                         ListSectionConfiguration.smallHeader(
-                            id: Constants.marketplaceSectionId,
+                            id: Constants.librarySectionId,
                             title: Loc.anytypeLibrary,
                             rows:  marketplaceObjects.asRowConfigurations(selectedId: selectedObjectId, showDescription: showDescription)
                         )

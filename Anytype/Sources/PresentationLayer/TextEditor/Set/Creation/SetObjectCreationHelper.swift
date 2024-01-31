@@ -44,7 +44,7 @@ final class SetObjectCreationHelper: SetObjectCreationHelperProtocol {
             return .init(details: nil, titleInputType: .none)
         } else if setDocument.isCollection() {
             return try await createObjectForCollection(for: setDocument, setting: setting)
-        } else if setDocument.isRelationsSet() {
+        } else if setDocument.isSetByRelation() {
             return try await createObjectForRelationSet(for: setDocument, setting: setting)
         } else {
             return try await  createObjectForRegularSet(for: setDocument, setting: setting)

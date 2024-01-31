@@ -45,9 +45,9 @@ extension Legacy_ObjectTypeSearchInteractor {
         )
     }
     
-    func searchInMarketplace(text: String) async throws -> [ObjectDetails] {
+    func searchInLibrary(text: String) async throws -> [ObjectDetails] {
         let excludedIds = objectTypeProvider.objectTypes(spaceId: spaceId).map(\.sourceObject)
-        return try await searchService.searchMarketplaceObjectTypes(text: text, excludedIds: excludedIds)
+        return try await searchService.searchLibraryObjectTypes(text: text, excludedIds: excludedIds)
     }
     
     func installType(objectId: String) async throws -> ObjectDetails {
