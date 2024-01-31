@@ -75,6 +75,7 @@ final class EditorSetModuleAssembly: EditorSetModuleAssemblyProtocol {
             navigationContext: uiHelpersDI.commonNavigationContext(),
             createObjectModuleAssembly: modulesDI.createObject(),
             newSearchModuleAssembly: modulesDI.newSearch(),
+            objectTypeSearchModuleAssembly: modulesDI.objectTypeSearch(),
             objectSettingCoordinator: coordinatorsDI.objectSettings().make(),
             relationValueCoordinator: coordinatorsDI.relationValue().make(), 
             setObjectCreationCoordinator: coordinatorsDI.setObjectCreation().make(),
