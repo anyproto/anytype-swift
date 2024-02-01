@@ -178,6 +178,13 @@ final class CoordinatorsDI: CoordinatorsDIProtocol {
         GalleryInstallationCoordinatorAssembly(modulesDI: modulesDI)
     }
     
+    func notificationCoordinator() -> NotificationCoordinatorProtocol {
+        NotificationCoordinator(
+            notificationSubscriptionService: serviceLocator.notificationSubscriptionService(),
+            commonNotificationAssembly: modulesDI.commonNotification()
+        )
+    }
+    
     func selectRelationList() -> SelectRelationListCoordinatorAssemblyProtocol {
         SelectRelationListCoordinatorAssembly(modulesDI: modulesDI)
     }

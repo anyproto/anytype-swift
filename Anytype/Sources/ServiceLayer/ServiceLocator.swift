@@ -339,6 +339,10 @@ final class ServiceLocator {
         GalleryService()
     }
     
+    func notificationSubscriptionService() -> NotificationsSubscriptionServiceProtocol {
+        NotificationsSubscriptionService()
+    }
+    
     // MARK: - Private
     
     private func subscriptionToggler() -> SubscriptionTogglerProtocol {
