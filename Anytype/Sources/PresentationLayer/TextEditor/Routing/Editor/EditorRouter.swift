@@ -479,7 +479,7 @@ final class EditorRouter: NSObject, EditorRouterProtocol, ObjectSettingsCoordina
         onSelect: @escaping (ObjectType) -> ()
     ) {
         if FeatureFlags.newTypePicker {
-            let view = objectTypeSearchModuleAssembly.objectTypeSearchForCreateObject(
+            let view = objectTypeSearchModuleAssembly.make(
                 title: title,
                 spaceId: document.spaceId,
                 showLists: showSetAndCollection

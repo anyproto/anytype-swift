@@ -5,7 +5,7 @@ import AnytypeCore
 
 protocol ObjectTypeSearchModuleAssemblyProtocol: AnyObject {
     
-    func objectTypeSearchForCreateObject(
+    func make(
         title: String,
         spaceId: String,
         showLists: Bool,
@@ -23,7 +23,7 @@ final class ObjectTypeSearchModuleAssembly: ObjectTypeSearchModuleAssemblyProtoc
         self.serviceLocator = serviceLocator
     }
     
-    func objectTypeSearchForCreateObject(
+    func make(
         title: String,
         spaceId: String,
         showLists: Bool,

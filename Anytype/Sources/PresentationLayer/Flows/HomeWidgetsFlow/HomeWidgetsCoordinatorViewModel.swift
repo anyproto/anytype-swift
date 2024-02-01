@@ -176,7 +176,7 @@ final class HomeWidgetsCoordinatorViewModel: ObservableObject,
 
     func createObjectWithTypeModule() -> AnyView {
         AnytypeAnalytics.instance().logOnboardingTooltip(tooltip: .selectType)
-        return objectTypeSearchModuleAssembly.objectTypeSearchForCreateObject(
+        return objectTypeSearchModuleAssembly.make(
             title: Loc.createNewObject,
             spaceId: activeWorkspaceStorage.workspaceInfo.accountSpaceId,
             showLists: true

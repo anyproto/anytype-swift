@@ -232,7 +232,7 @@ final class EditorSetRouter: EditorSetRouterProtocol, ObjectSettingsCoordinatorO
     
     func showQueries(selectedObjectId: BlockId?, onSelect: @escaping (BlockId) -> ()) {
         if FeatureFlags.newTypePicker {
-            let view = objectTypeSearchModuleAssembly.objectTypeSearchForCreateObject(
+            let view = objectTypeSearchModuleAssembly.make(
                 title: Loc.Set.SourceType.selectQuery,
                 spaceId: setDocument.spaceId,
                 showLists: false

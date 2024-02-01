@@ -139,7 +139,7 @@ final class SetObjectCreationSettingsCoordinator: SetObjectCreationSettingsCoord
         onSelect: @escaping (ObjectType) -> ()
     ) {
         if FeatureFlags.newTypePicker {
-            let view = objectTypeSearchModuleAssembly.objectTypeSearchForCreateObject(
+            let view = objectTypeSearchModuleAssembly.make(
                 title: Loc.changeType,
                 spaceId: setDocument.spaceId,
                 showLists: true
