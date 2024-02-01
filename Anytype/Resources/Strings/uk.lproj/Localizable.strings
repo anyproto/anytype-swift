@@ -79,6 +79,18 @@
 "Relation.From.Type" = "З типу %@";
 "Relation.LinksFrom.Title" = "from";
 "Relation.LinksTo.Title" = "to";
+"Relation.EmptyState.title" = "No options";
+"Relation.EmptyState.description" = "Nothing found. Create first option to start.";
+"Relation.EmptyState.Blocked.title" = "The relation is empty";
+"Relation.Create.Row.title" = "Create “%@”";
+"Relation.View.Create.title" = "Create option";
+"Relation.View.Edit.title" = "Edit option";
+"Relation.Create.Textfield.placeholder" = "Enter name...";
+"Relation.Edit.Button.title" = "Застосувати";
+"Relation.Date.Locked.Alert.title" = "Relation “%@” is locked";
+
+"Relation.Delete.Alert.Title" = "Ви впевнені?";
+"Relation.Delete.Alert.Description" = "The option will be permanently removed from your space.";
 
 "Relation.Format.Object.Title" = "Об'єкт";
 "Relation.Format.Text.Title" = "Текст";
@@ -91,6 +103,16 @@
 "Relation.Format.Url.Title" = "URL";
 "Relation.Format.Email.Title" = "Ел. пошта";
 "Relation.Format.Phone.Title" = "Номер телефону";
+
+// Origin Relation
+
+"Relation.Origin.Clipboard" = "Clipboard";
+"Relation.Origin.DragAndDrop" = "Drag'n'Drop";
+"Relation.Origin.Import" = "Imported object";
+"Relation.Origin.WebClipper" = "Web clipper";
+"Relation.Origin.SharingExtension" = "Mobile sharing extension";
+"Relation.Origin.UseCase" = "Use case";
+"Relation.Origin.Builtin" = "Library installed";
 
 // MARK: - Mention
 "Mention.Subtitle.Placeholder" = "Об'єкт";
@@ -109,6 +131,7 @@
 "Actions" = "Дії";
 "Relations" = "Відносини";
 "Objects" = "Об'єкти";
+"Lists" = "Groups";
 "Delete" = "Видалити";
 "Duplicate" = "Дублювати";
 "Copy" = "Копіювати";
@@ -594,7 +617,7 @@
 "Today" = "Сьогодні";
 "No date" = "Без дати";
 "Clear" = "Очистити";
-"Create option" = "Створити варіант ‘%@’";
+"Create option with" = "Create option ‘%@’";
 "Add URL" = "Додати URL";
 "Add email" = "Додати ел. пошту";
 "Add phone number" = "Додати номер телефону";
