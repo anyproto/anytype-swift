@@ -6,6 +6,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
     var window: UIWindow?
     private var di: DIProtocol?
+    private var deepLinkParser: DeepLinkParserProtocol?
     
     // Use this method to optionally configure and attach the UIWindow `window` to the provided UIWindowScene `scene`.
     // If using a storyboard, the `window` property will automatically be initialized and attached to the scene.
@@ -21,10 +22,10 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         let viewControllerProvider = ViewControllerProvider(sceneWindow: window)
         let di: DIProtocol = DI(viewControllerProvider: viewControllerProvider)
         self.di = di
+        deepLinkParser = di.serviceLocator.deepLinkParser()
         
         connectionOptions.shortcutItem.flatMap { _ = handleQuickAction($0) }
         handleURLContext(openURLContexts: connectionOptions.urlContexts)
-        handleURL(url: URL(string: "dev-anytype://main/import/?type=experience&source=https%3A%2F%2Fstorage.gallery.any.coop%2Fpara_tasks_resources_meeting_notes_crm%2Fmanifest.json")!)
         
         let applicationView = di.coordinatorsDI.application().makeView()
         window.rootViewController = UIHostingController(rootView: applicationView)
@@ -65,35 +66,6 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
             return
         }
         
-        handleURL(url: context.url)
-    }
-    
-    private func handleURL(url: URL) {
-        guard var components = URLComponents(url: url, resolvingAgainstBaseURL: false) else {
-            return
-        }
-        
-        let queryItems = components.queryItems
-        components.queryItems = nil
-        
-        guard var urlString = components.url?.absoluteString else { return }
-        if urlString.last == "/" {
-            _ = urlString.removeLast()
-        }
-        
-        switch URL(string: urlString) {
-        case URLConstants.createObjectURL:
-            AppActionStorage.shared.action = .createObject
-        case URLConstants.sharingExtenstionURL:
-            AppActionStorage.shared.action = .showSharingExtension
-        case URLConstants.spaceSelectionURL:
-            AppActionStorage.shared.action = .spaceSelection
-        case URLConstants.galleryImportURL:
-            guard let source = queryItems?.first(where: { $0.name == "source" })?.value,
-                  let type = queryItems?.first(where: { $0.name == "type" })?.value else { return }
-            AppActionStorage.shared.action = .galleryImport(type: type, source: source)
-        default:
-            break
-        }
+        AppActionStorage.shared.action = deepLinkParser?.parse(url: context.url)
     }
 }

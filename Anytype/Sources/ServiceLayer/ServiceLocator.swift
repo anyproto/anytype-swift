@@ -343,6 +343,10 @@ final class ServiceLocator {
         NotificationsSubscriptionService()
     }
     
+    func deepLinkParser() -> DeepLinkParserProtocol {
+        DeepLinkParser()
+    }
+    
     // MARK: - Private
     
     private func subscriptionToggler() -> SubscriptionTogglerProtocol {
