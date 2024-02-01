@@ -79,6 +79,18 @@
 "Relation.From.Type" = "À partir du type %@";
 "Relation.LinksFrom.Title" = "depuis";
 "Relation.LinksTo.Title" = "à";
+"Relation.EmptyState.title" = "Aucune option";
+"Relation.EmptyState.description" = "Rien n'a été trouvé. Créez la première option pour commencer.";
+"Relation.EmptyState.Blocked.title" = "La relation est vide";
+"Relation.Create.Row.title" = "Créer \"%@”";
+"Relation.View.Create.title" = "Créer une option";
+"Relation.View.Edit.title" = "Éditer l'option";
+"Relation.Create.Textfield.placeholder" = "Saisir un nom...";
+"Relation.Edit.Button.title" = "Appliquer";
+"Relation.Date.Locked.Alert.title" = "La relation “%@” est verrouillée";
+
+"Relation.Delete.Alert.Title" = "Êtes-vous sûr ?";
+"Relation.Delete.Alert.Description" = "L'option sera définitivement retirée de votre espace.";
 
 "Relation.Format.Object.Title" = "Objet";
 "Relation.Format.Text.Title" = "Texte";
@@ -91,6 +103,16 @@
 "Relation.Format.Url.Title" = "URL";
 "Relation.Format.Email.Title" = "Email";
 "Relation.Format.Phone.Title" = "N° de téléphone";
+
+// Origin Relation
+
+"Relation.Origin.Clipboard" = "Presse-papier";
+"Relation.Origin.DragAndDrop" = "Glisser-déposer";
+"Relation.Origin.Import" = "Objet importé";
+"Relation.Origin.WebClipper" = "Web Clipper";
+"Relation.Origin.SharingExtension" = "Extension de partage mobile";
+"Relation.Origin.UseCase" = "Cas d'utilisation";
+"Relation.Origin.Builtin" = "Bibliothèque installée.";
 
 // MARK: - Mention
 "Mention.Subtitle.Placeholder" = "Objet";
@@ -109,6 +131,7 @@
 "Actions" = "Actions";
 "Relations" = "Relations";
 "Objects" = "Objets";
+"Lists" = "Groups";
 "Delete" = "Supprimer";
 "Duplicate" = "Dupliquer";
 "Copy" = "Copier";
@@ -594,7 +617,7 @@
 "Today" = "Aujourd'hui";
 "No date" = "Pas de date";
 "Clear" = "Effacer";
-"Create option" = "Créer une option '%@’";
+"Create option with" = "Créer une option '%@’";
 "Add URL" = "Ajouter URL";
 "Add email" = "Ajouter un email";
 "Add phone number" = "Ajouter un numéro de téléphone";
