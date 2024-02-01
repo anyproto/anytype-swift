@@ -9,8 +9,7 @@ final class MultiSelectRelationListViewModel: ObservableObject {
     @Published var selectedOptionsIds: [String]
     @Published var options: [MultiSelectRelationOption] = []
     @Published var isEmpty = false
-    
-    private var searchText = ""
+    @Published var searchText = ""
         
     let configuration: RelationModuleConfiguration
     
@@ -47,9 +46,7 @@ final class MultiSelectRelationListViewModel: ObservableObject {
     
     func onCreate(with title: String?, color: Color? = nil) {
         output?.onCreateTap(text: title, color: color, completion: { [weak self] option in
-            guard let self else { return }
-            optionSelected(option)
-            searchTextChanged(searchText)
+            self?.updateListOnCreate(with: option)
         })
     }
     
@@ -86,40 +83,55 @@ final class MultiSelectRelationListViewModel: ObservableObject {
     }
     
     func optionSelected(_ option: MultiSelectRelationOption) {
+        Task {
+            try await optionSelectedAsync(option)
+        }
+    }
+    
+    func searchTextChanged(_ text: String = "") {
+        Task {
+            try await searchTextChangedAsync(text)
+        }
+    }
+    
+    private func optionSelectedAsync(_ option: MultiSelectRelationOption) async throws {
         if let index = selectedOptionsIds.firstIndex(of: option.id) {
             selectedOptionsIds.remove(at: index)
         } else {
             selectedOptionsIds.append(option.id)
         }
         
-        Task {
-            try await relationsService.updateRelation(
-                relationKey: configuration.relationKey,
-                value: selectedOptionsIds.protobufValue
-            )
-            logChanges()
-        }
+        try await relationsService.updateRelation(
+            relationKey: configuration.relationKey,
+            value: selectedOptionsIds.protobufValue
+        )
+        logChanges()
     }
     
-    func searchTextChanged(_ text: String = "") {
+    private func searchTextChangedAsync(_ text: String = "") async throws {
+        let rawOptions = try await searchService.searchRelationOptions(
+            text: text,
+            relationKey: configuration.relationKey,
+            excludedObjectIds: [],
+            spaceId: configuration.spaceId
+        ).map { MultiSelectRelationOption(relation: $0) }
+        
+        if configuration.isEditable {
+            options = rawOptions.reordered(
+                by: selectedOptionsIds
+            ) { $0.id }
+        } else {
+            options = options.filter { selectedOptionsIds.contains($0.id) }
+        }
+        
+        setEmptyIfNeeded()
+    }
+    
+    private func updateListOnCreate(with option: MultiSelectRelationOption) {
         Task {
-            let rawOptions = try await searchService.searchRelationOptions(
-                text: text,
-                relationKey: configuration.relationKey,
-                excludedObjectIds: [],
-                spaceId: configuration.spaceId
-            ).map { MultiSelectRelationOption(relation: $0) }
-            
-            if configuration.isEditable {
-                options = rawOptions.reordered(
-                    by: selectedOptionsIds
-                ) { $0.id }
-            } else {
-                options = options.filter { selectedOptionsIds.contains($0.id) }
-            }
-            
-            searchText = text
-            setEmptyIfNeeded()
+            searchText = ""
+            try await optionSelectedAsync(option)
+            try await searchTextChangedAsync()
         }
     }
     

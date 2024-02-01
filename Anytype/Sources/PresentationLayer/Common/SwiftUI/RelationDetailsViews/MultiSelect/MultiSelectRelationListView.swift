@@ -6,7 +6,8 @@ struct MultiSelectRelationListView: View {
     
     var body: some View {
         RelationListContainerView(
-            title: viewModel.configuration.title, 
+            searchText: $viewModel.searchText, 
+            title: viewModel.configuration.title,
             isEditable: viewModel.configuration.isEditable,
             isEmpty: viewModel.isEmpty, 
             hideClear: viewModel.selectedOptionsIds.isEmpty,

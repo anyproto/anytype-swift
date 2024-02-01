@@ -1,7 +1,7 @@
 import SwiftUI
 
 struct RelationListContainerView<Content>: View where Content: View {
-    @State private var searchText = ""
+    @Binding var searchText: String
     
     let title: String
     let isEditable: Bool

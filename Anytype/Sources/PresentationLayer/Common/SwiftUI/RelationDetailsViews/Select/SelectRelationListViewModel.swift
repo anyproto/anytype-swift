@@ -9,8 +9,7 @@ final class SelectRelationListViewModel: ObservableObject {
     @Published var selectedOptionId: String?
     @Published var options: [SelectRelationOption] = []
     @Published var isEmpty = false
-    
-    private var searchText = ""
+    @Published var searchText = ""
         
     let configuration: RelationModuleConfiguration
     
@@ -47,9 +46,7 @@ final class SelectRelationListViewModel: ObservableObject {
     
     func onCreate(with title: String?, color: Color? = nil) {
         output?.onCreateTap(text: title, color: color, completion: { [weak self] option in
-            guard let self else { return }
-            optionSelected(option.id, dismiss: false)
-            searchTextChanged(searchText)
+            self?.updateListOnCreate(with: option.id)
         })
     }
     
@@ -86,35 +83,50 @@ final class SelectRelationListViewModel: ObservableObject {
     }
     
     func optionSelected(_ optionId: String, dismiss: Bool = true) {
-        selectedOptionId = optionId
         Task {
-            try await relationsService.updateRelation(relationKey: configuration.relationKey, value: optionId.protobufValue)
-            logChanges()
-            if dismiss {
-                output?.onClose()
-            }
+            try await optionSelectedAsync(optionId, dismiss: dismiss)
         }
     }
     
     func searchTextChanged(_ text: String = "") {
         Task {
-            let rawOptions = try await searchService.searchRelationOptions(
-                text: text,
-                relationKey: configuration.relationKey,
-                excludedObjectIds: [],
-                spaceId: configuration.spaceId
-            ).map { SelectRelationOption(relation: $0) }
-            
-            if configuration.isEditable {
-                options = rawOptions.reordered(
-                    by: [selectedOptionId].compactMap { $0 }
-                ) { $0.id }
-            } else {
-                options = options.filter { $0.id == selectedOptionId }
-            }
-            
-            searchText = text
-            setEmptyIfNeeded()
+            try await searchTextChangedAsync(text)
+        }
+    }
+    
+    private func optionSelectedAsync(_ optionId: String, dismiss: Bool = true) async throws {
+        try await relationsService.updateRelation(relationKey: configuration.relationKey, value: optionId.protobufValue)
+        selectedOptionId = optionId
+        logChanges()
+        if dismiss {
+            output?.onClose()
+        }
+    }
+    
+    private func searchTextChangedAsync(_ text: String = "") async throws {
+        let rawOptions = try await searchService.searchRelationOptions(
+            text: text,
+            relationKey: configuration.relationKey,
+            excludedObjectIds: [],
+            spaceId: configuration.spaceId
+        ).map { SelectRelationOption(relation: $0) }
+        
+        if configuration.isEditable {
+            options = rawOptions.reordered(
+                by: [selectedOptionId].compactMap { $0 }
+            ) { $0.id }
+        } else {
+            options = options.filter { $0.id == selectedOptionId }
+        }
+        
+        setEmptyIfNeeded()
+    }
+    
+    private func updateListOnCreate(with optionId: String) {
+        Task {
+            searchText = ""
+            try await optionSelectedAsync(optionId, dismiss: false)
+            try await searchTextChangedAsync()
         }
     }
     
