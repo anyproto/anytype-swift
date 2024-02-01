@@ -159,22 +159,4 @@ extension BundledRelationsValueProvider {
     var isTemplateType: Bool {
         objectType.isTemplateType
     }
-    
-    func isListAndCanCreateObject(setDocument: SetDocumentProtocol) -> Bool {
-        guard isList else { return false }
-        if isCollection { return true }
-        if setDocument.isSetByRelation() { return true }
-        
-        // Set query validation
-        // Create objects in sets by type only permitted if type is Page-like
-        guard let setOfId = setOf.first(where: { $0.isNotEmpty }) else {
-            return false
-        }
-        
-        guard let layout = try? ObjectTypeProvider.shared.objectType(id: setOfId).recommendedLayout else {
-            return false
-        }
-        
-        return DetailsLayout.supportedForCreationInSets.contains(layout)
-    }
 }

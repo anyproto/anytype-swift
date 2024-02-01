@@ -70,6 +70,8 @@ final class MockSetDocument: SetDocumentProtocol {
     
     func isCollection() -> Bool { false }
     
+    func canCreateObject() -> Bool { true }
+    
     func defaultObjectTypeForActiveView() throws -> ObjectType { fatalError() }
     
     func defaultObjectTypeForView(_ view: DataviewView) throws -> ObjectType { fatalError() }

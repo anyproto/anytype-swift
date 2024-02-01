@@ -46,6 +46,7 @@ protocol SetDocumentProtocol: BaseDocumentGeneralProtocol {
     func isSetByRelation() -> Bool
     func isBookmarksSet() -> Bool
     func isCollection() -> Bool
+    func canCreateObject() -> Bool
     func defaultObjectTypeForActiveView() throws -> ObjectType
     func defaultObjectTypeForView(_ view: DataviewView) throws -> ObjectType
     var syncPublisher: AnyPublisher<Void, Never> { get }
