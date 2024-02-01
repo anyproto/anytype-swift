@@ -28,6 +28,7 @@ public class ServiceMessageHandlerAdapter {
     }
     
     public func addHandler(handler: ServiceEventsHandlerProtocol) {
+        handlers.removeAll { $0.value == nil }
         handlers.append(WeakHandler(handler))
     }
     
