@@ -94,9 +94,9 @@ class ChangeTypeAccessoryView: UIView {
             // For some known reason swiftUI view can't layout itself because its position is under the keyboard in an initialization moment. Use static height values is an workaround
             heightConstraint.constant = isVisible ? Constants.expandedHeight : Constants.minimizedHeight
 
-            UIView.animate(withDuration: 0.2) {
+            UIView.animate(withDuration: 0.2, delay: 0, options: .curveEaseOut) {
                 self?.changeTypeView.isHidden = !isVisible
-                self?.changeButton.imageView?.transform = isVisible ? .identity : CGAffineTransform(rotationAngle: Double.pi)
+                self?.changeButton.updateState(isOpen: isVisible)
                 self?.stackView.layoutIfNeeded()
             }
         }.store(in: &cancellables)
