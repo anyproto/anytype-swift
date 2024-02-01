@@ -174,6 +174,13 @@ final class CoordinatorsDI: CoordinatorsDIProtocol {
         )
     }
     
+    func notificationCoordinator() -> NotificationCoordinatorProtocol {
+        NotificationCoordinator(
+            notificationSubscriptionService: serviceLocator.notificationSubscriptionService(),
+            commonNotificationAssembly: modulesDI.commonNotification()
+        )
+    }
+    
     func selectRelationList() -> SelectRelationListCoordinatorAssemblyProtocol {
         SelectRelationListCoordinatorAssembly(modulesDI: modulesDI)
     }

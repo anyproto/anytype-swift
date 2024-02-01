@@ -1,0 +1,41 @@
+import Foundation
+import Combine
+import ProtobufMessages
+import AnytypeCore
+
+public protocol NotificationsSubscriptionServiceProtocol: AnyObject {
+    func addHandler(handler: @escaping (_ events: [NotificationEvent]) async -> Void) async -> AnyCancellable
+}
+
+public actor NotificationsSubscriptionService: ServiceEventsHandlerProtocol, NotificationsSubscriptionServiceProtocol {
+    
+    private var handleStorage = HandlerStorage<(_ events: [NotificationEvent]) async -> Void>()
+    
+    public init() {
+        ServiceMessageHandlerAdapter.shared.addHandler(handler: self)
+    }
+    
+    // MARK: - NotificationsSubscriptionServiceProtocol
+    
+    public func addHandler(handler: @escaping (_ events: [NotificationEvent]) async -> Void) async -> AnyCancellable {
+        await handleStorage.addHandler(handler: handler)
+    }
+    
+    // MARK: - ServiceEventsHandlerProtocol
+    
+    public func handle(_ event: Anytype_Event) async {
+        let messages: [NotificationEvent] = event.messages.compactMap { message in
+            switch message.value {
+            case let .notificationSend(data):
+                return .send(data.notification.asModel())
+            case let .notificationUpdate(data):
+                return .update(data.notification.asModel())
+            default:
+                return nil
+            }
+        }
+        for handler in await handleStorage.handlers() {
+            await handler(messages)
+        }
+    }
+}
