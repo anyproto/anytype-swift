@@ -25,7 +25,7 @@ struct InitialCoordinatorView: View {
                     }
                 }
             } message: {
-                Text(Loc.Initial.UnstableMiddle.message)
+                Text(verbatim: Loc.Initial.UnstableMiddle.message)
             }
             .ignoresSafeArea()
     }
