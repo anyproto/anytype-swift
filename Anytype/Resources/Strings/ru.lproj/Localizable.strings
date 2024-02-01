@@ -79,6 +79,18 @@
 "Relation.From.Type" = "Из типа %@";
 "Relation.LinksFrom.Title" = "из";
 "Relation.LinksTo.Title" = "в";
+"Relation.EmptyState.title" = "No options";
+"Relation.EmptyState.description" = "Nothing found. Create first option to start.";
+"Relation.EmptyState.Blocked.title" = "The relation is empty";
+"Relation.Create.Row.title" = "Create “%@”";
+"Relation.View.Create.title" = "Create option";
+"Relation.View.Edit.title" = "Edit option";
+"Relation.Create.Textfield.placeholder" = "Enter name...";
+"Relation.Edit.Button.title" = "Применить";
+"Relation.Date.Locked.Alert.title" = "Relation “%@” is locked";
+
+"Relation.Delete.Alert.Title" = "Вы уверены?";
+"Relation.Delete.Alert.Description" = "The option will be permanently removed from your space.";
 
 "Relation.Format.Object.Title" = "Объект";
 "Relation.Format.Text.Title" = "Текст";
@@ -91,6 +103,16 @@
 "Relation.Format.Url.Title" = "Ссылка";
 "Relation.Format.Email.Title" = "E-mail";
 "Relation.Format.Phone.Title" = "Номер телефона";
+
+// Origin Relation
+
+"Relation.Origin.Clipboard" = "Clipboard";
+"Relation.Origin.DragAndDrop" = "Drag'n'Drop";
+"Relation.Origin.Import" = "Imported object";
+"Relation.Origin.WebClipper" = "Web clipper";
+"Relation.Origin.SharingExtension" = "Mobile sharing extension";
+"Relation.Origin.UseCase" = "Use case";
+"Relation.Origin.Builtin" = "Library installed";
 
 // MARK: - Mention
 "Mention.Subtitle.Placeholder" = "Объект";
@@ -109,6 +131,7 @@
 "Actions" = "Действия";
 "Relations" = "Свойства";
 "Objects" = "Объекты";
+"Lists" = "Списки";
 "Delete" = "Удалить";
 "Duplicate" = "Дублировать";
 "Copy" = "Копировать";
@@ -594,7 +617,7 @@
 "Today" = "Сегодня";
 "No date" = "Нет даты";
 "Clear" = "Очистить";
-"Create option" = "Создать параметр '%@’";
+"Create option with" = "Create option ‘%@’";
 "Add URL" = "Добавить URL-адрес";
 "Add email" = "Добавить электронную почту";
 "Add phone number" = "Добавить номер телефона";
