@@ -1,10 +1,11 @@
 import Foundation
 import SwiftUI
 import Services
+import WrappingHStack
 
 struct GalleryInstallationPreviewManifestView: View {
 
-    let manifest: GalleryManifest
+    let manifest: GalleryInstallationPreviewViewModel.Manifest
     
     var body: some View {
         ZStack(alignment: .bottom) {
@@ -14,7 +15,7 @@ struct GalleryInstallationPreviewManifestView: View {
                         TabView {
                             ForEach(manifest.screenshots, id: \.self) { url in
                                 AsyncImage(
-                                    url: URL(string: url),
+                                    url: url,
                                     content: { image in
                                         image.resizable()
                                             .aspectRatio(contentMode: .fit)
@@ -49,6 +50,18 @@ struct GalleryInstallationPreviewManifestView: View {
                         AnytypeText(manifest.title, style: .title, color: .Text.primary)
                         Spacer.fixedHeight(8)
                         AnytypeText(manifest.description, style: .bodyRegular, color: .Text.primary)
+                        Spacer.fixedHeight(20)
+                        WrappingHStack(manifest.categories, spacing: .constant(8), lineSpacing: 8) { category in
+                            AnytypeText(category, style: .caption1Medium, color: .Text.secondary)
+                                .padding(.horizontal, 6)
+                                .padding(.vertical, 1)
+                                .background(Color.Stroke.secondary)
+                                .cornerRadius(4, style: .continuous)
+                        }
+                        Spacer.fixedHeight(16)
+                        AnytypeText(manifest.author, style: .caption1Regular, color: .Text.secondary)
+                        Spacer.fixedHeight(2)
+                        AnytypeText(manifest.fileSize, style: .caption1Regular, color: .Text.secondary)
                         Spacer()
                     }
                     .padding(.horizontal, 20)
