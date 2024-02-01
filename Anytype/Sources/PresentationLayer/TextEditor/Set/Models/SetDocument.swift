@@ -181,6 +181,29 @@ class SetDocument: SetDocumentProtocol {
         details?.isCollection ?? false
     }
     
+    func canCreateObject() -> Bool {
+        guard let details else {
+            anytypeAssertionFailure("SetDocument: No details in canCreateObject")
+            return false
+        }
+        guard details.isList else { return false }
+        
+        if details.isCollection { return true }
+        if isSetByRelation() { return true }
+        
+        // Set query validation
+        // Create objects in sets by type only permitted if type is Page-like
+        guard let setOfId = details.setOf.first(where: { $0.isNotEmpty }) else {
+            return false
+        }
+        
+        guard let layout = try? ObjectTypeProvider.shared.objectType(id: setOfId).recommendedLayout else {
+            return false
+        }
+        
+        return DetailsLayout.supportedForCreationInSets.contains(layout)
+    }
+    
     func defaultObjectTypeForActiveView() throws -> ObjectType {
         return try defaultObjectTypeForView(activeView)
     }
