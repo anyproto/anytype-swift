@@ -79,6 +79,18 @@
 "Relation.From.Type" = "来自 %@ 类型";
 "Relation.LinksFrom.Title" = "从";
 "Relation.LinksTo.Title" = "到";
+"Relation.EmptyState.title" = "无选项";
+"Relation.EmptyState.description" = "什么也没有。创建第一个选项以开始。";
+"Relation.EmptyState.Blocked.title" = "关联是空的";
+"Relation.Create.Row.title" = "创建 “%@”";
+"Relation.View.Create.title" = "创建选项";
+"Relation.View.Edit.title" = "编辑选项";
+"Relation.Create.Textfield.placeholder" = "输入名称...";
+"Relation.Edit.Button.title" = "应用";
+"Relation.Date.Locked.Alert.title" = "关系“%@” 已锁定";
+
+"Relation.Delete.Alert.Title" = "是否确定?";
+"Relation.Delete.Alert.Description" = "此选项将从您的空间永久删除。";
 
 "Relation.Format.Object.Title" = "对象";
 "Relation.Format.Text.Title" = "正文";
@@ -91,6 +103,16 @@
 "Relation.Format.Url.Title" = "URL网址";
 "Relation.Format.Email.Title" = "电子邮件";
 "Relation.Format.Phone.Title" = "电话号码";
+
+// Origin Relation
+
+"Relation.Origin.Clipboard" = "剪贴板";
+"Relation.Origin.DragAndDrop" = "拖放";
+"Relation.Origin.Import" = "导入的对象";
+"Relation.Origin.WebClipper" = "网页剪藏器";
+"Relation.Origin.SharingExtension" = "手机共享扩展";
+"Relation.Origin.UseCase" = "使用案例";
+"Relation.Origin.Builtin" = "库已安装";
 
 // MARK: - Mention
 "Mention.Subtitle.Placeholder" = "对象";
@@ -109,6 +131,7 @@
 "Actions" = "操作";
 "Relations" = "关联";
 "Objects" = "对象";
+"Lists" = "分组";
 "Delete" = "删除";
 "Duplicate" = "生成副本";
 "Copy" = "拷贝";
@@ -594,7 +617,7 @@
 "Today" = "今天";
 "No date" = "未注明日期";
 "Clear" = "清除";
-"Create option" = "创建选项 ‘%@’";
+"Create option with" = "创建选项 “%@”";
 "Add URL" = "添加URL网址";
 "Add email" = "添加电子邮件";
 "Add phone number" = "添加电话号码";
