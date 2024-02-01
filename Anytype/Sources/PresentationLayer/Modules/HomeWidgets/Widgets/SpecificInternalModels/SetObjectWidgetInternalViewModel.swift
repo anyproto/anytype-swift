@@ -55,9 +55,11 @@ final class SetObjectWidgetInternalViewModel: CommonWidgetInternalViewModel, Wid
         widgetObject.widgetTargetDetailsPublisher(widgetBlockId: widgetBlockId)
             .receiveOnMain()
             .sink { [weak self, setDocument] details in
-                guard let self, let setDocument else { return }
+                guard let self else { return }
                 
-                allowCreateObject = details.isListAndCanCreateObject(setDocument: setDocument)
+                if let setDocument {
+                    allowCreateObject = details.isListAndCanCreateObject(setDocument: setDocument)
+                }
                 name = details.title
                 
                 Task { [weak self] in
