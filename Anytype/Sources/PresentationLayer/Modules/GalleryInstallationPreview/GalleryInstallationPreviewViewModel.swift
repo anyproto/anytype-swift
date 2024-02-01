@@ -1,5 +1,6 @@
 import Foundation
 import Services
+import AnytypeCore
 
 @MainActor
 final class GalleryInstallationPreviewViewModel: ObservableObject {
@@ -7,15 +8,30 @@ final class GalleryInstallationPreviewViewModel: ObservableObject {
     private let data: GalleryInstallationData
     private let galleryService: GalleryServiceProtocol
     private let formatter = ByteCountFormatter.fileFormatter
+    private let workspaceService: WorkspaceServiceProtocol
     
     private var manifest: GalleryManifest?
     @Published var state: State = .loading
+    @Published var dismiss = false
     
-    init(data: GalleryInstallationData, galleryService: GalleryServiceProtocol) {
+    init(data: GalleryInstallationData, galleryService: GalleryServiceProtocol, workspaceService: WorkspaceServiceProtocol) {
         self.data = data
         self.galleryService = galleryService
+        self.workspaceService = workspaceService
         Task {
             await loadData()
+        }
+    }
+    
+    func onTapInstall() {
+        guard let manifest else {
+            anytypeAssertionFailure("Try to install without manifest")
+            return
+        }
+        Task {
+            let spaceId = try await workspaceService.createSpace(name: manifest.title, gradient: .random, accessibility: .personal)
+            try await galleryService.importExperience(spaceId: spaceId, isNewSpace: true, title: manifest.title, url: manifest.downloadLink)
+            dismiss.toggle()
         }
     }
     

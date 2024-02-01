@@ -21,7 +21,8 @@ final class GalleryInstallationPreviewModuleAssembly: GalleryInstallationPreview
         return GalleryInstallationPreviewView(
             model: GalleryInstallationPreviewViewModel(
                 data: data,
-                galleryService: self.serviceLocator.galleryService()
+                galleryService: self.serviceLocator.galleryService(),
+                workspaceService: self.serviceLocator.workspaceService()
             )
         ).eraseToAnyView()
     }
