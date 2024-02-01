@@ -31,10 +31,15 @@ final class SelectRelationListModuleAssembly: SelectRelationListModuleAssemblyPr
         SelectRelationListView(
             viewModel: SelectRelationListViewModel(
                 configuration: configuration,
-                selectedOptionId: selectedOptionId,
-                output: output,
-                relationsService: self.serviceLocator.relationService(objectId: objectId),
-                searchService: self.serviceLocator.searchService()
+                relationSelectedOptionsModel: RelationSelectedOptionsModel(
+                    mode: .single,
+                    selectedOptionsIds: [selectedOptionId].compactMap { $0 },
+                    relationKey: configuration.relationKey,
+                    analyticsType: configuration.analyticsType,
+                    relationsService: self.serviceLocator.relationService(objectId: objectId)
+                ),
+                searchService: self.serviceLocator.searchService(),
+                output: output
             )
         )
         .eraseToAnyView()

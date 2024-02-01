@@ -6,30 +6,29 @@ import SwiftUI
 @MainActor
 final class MultiSelectRelationListViewModel: ObservableObject {
     
-    @Published var selectedOptionsIds: [String]
+    @Published var selectedOptionsIds: [String] = []
     @Published var options: [MultiSelectRelationOption] = []
     @Published var isEmpty = false
     @Published var searchText = ""
         
     let configuration: RelationModuleConfiguration
     
-    private let relationsService: RelationsServiceProtocol
+    private let relationSelectedOptionsModel: RelationSelectedOptionsModelProtocol
     private let searchService: SearchServiceProtocol
     
     private weak var output: MultiSelectRelationListModuleOutput?
     
     init(
         configuration: RelationModuleConfiguration,
-        selectedOptionsIds: [String],
-        output: MultiSelectRelationListModuleOutput?,
-        relationsService: RelationsServiceProtocol,
-        searchService: SearchServiceProtocol
+        relationSelectedOptionsModel: RelationSelectedOptionsModelProtocol,
+        searchService: SearchServiceProtocol,
+        output: MultiSelectRelationListModuleOutput?
     ) {
         self.configuration = configuration
-        self.selectedOptionsIds = selectedOptionsIds
+        self.relationSelectedOptionsModel = relationSelectedOptionsModel
         self.output = output
-        self.relationsService = relationsService
         self.searchService = searchService
+        self.relationSelectedOptionsModel.selectedOptionsIdsPublisher.assign(to: &$selectedOptionsIds)
     }
     
     func onAppear() {
@@ -38,9 +37,7 @@ final class MultiSelectRelationListViewModel: ObservableObject {
 
     func onClear() {
         Task {
-            selectedOptionsIds = []
-            try await relationsService.updateRelation(relationKey: configuration.relationKey, value: nil)
-            logChanges()
+            try await relationSelectedOptionsModel.onClear()
         }
     }
     
@@ -84,7 +81,7 @@ final class MultiSelectRelationListViewModel: ObservableObject {
     
     func optionSelected(_ option: MultiSelectRelationOption) {
         Task {
-            try await optionSelectedAsync(option)
+            try await relationSelectedOptionsModel.optionSelected(option.id)
         }
     }
     
@@ -92,20 +89,6 @@ final class MultiSelectRelationListViewModel: ObservableObject {
         Task {
             try await searchTextChangedAsync(text)
         }
-    }
-    
-    private func optionSelectedAsync(_ option: MultiSelectRelationOption) async throws {
-        if let index = selectedOptionsIds.firstIndex(of: option.id) {
-            selectedOptionsIds.remove(at: index)
-        } else {
-            selectedOptionsIds.append(option.id)
-        }
-        
-        try await relationsService.updateRelation(
-            relationKey: configuration.relationKey,
-            value: selectedOptionsIds.protobufValue
-        )
-        logChanges()
     }
     
     private func searchTextChangedAsync(_ text: String = "") async throws {
@@ -130,7 +113,7 @@ final class MultiSelectRelationListViewModel: ObservableObject {
     private func updateListOnCreate(with option: MultiSelectRelationOption) {
         Task {
             searchText = ""
-            try await optionSelectedAsync(option)
+            try await relationSelectedOptionsModel.optionSelected(option.id)
             try await searchTextChangedAsync()
         }
     }
@@ -141,23 +124,11 @@ final class MultiSelectRelationListViewModel: ObservableObject {
     
     private func removeRelationOption(_ option: MultiSelectRelationOption) {
         Task {
-            try await relationsService.removeRelationOptions(ids: [option.id])
             if let index = options.firstIndex(of: option) {
                 options.remove(at: index)
             }
-            
-            if let index = selectedOptionsIds.firstIndex(of: option.id) {
-                selectedOptionsIds.remove(at: index)
-                try await relationsService.updateRelation(
-                    relationKey: configuration.relationKey,
-                    value: selectedOptionsIds.protobufValue
-                )
-            }
+            try await relationSelectedOptionsModel.removeRelationOption(option.id)
             setEmptyIfNeeded()
         }
-    }
-    
-    private func logChanges() {
-        AnytypeAnalytics.instance().logChangeRelationValue(isEmpty: selectedOptionsIds.isEmpty, type: configuration.analyticsType)
     }
 }

@@ -72,11 +72,16 @@ struct SelectRelationListView: View {
                 relationKey: "",
                 spaceId: "",
                 analyticsType: .block
+            ), 
+            relationSelectedOptionsModel: RelationSelectedOptionsModel(
+                mode: .single,
+                selectedOptionsIds: [],
+                relationKey: "",
+                analyticsType: .block,
+                relationsService: DI.preview.serviceLocator.relationService(objectId: "")
             ),
-            selectedOptionId: nil,
-            output: nil,
-            relationsService: DI.preview.serviceLocator.relationService(objectId: ""),
-            searchService: DI.preview.serviceLocator.searchService()
+            searchService: DI.preview.serviceLocator.searchService(),
+            output: nil
         )
     )
 }

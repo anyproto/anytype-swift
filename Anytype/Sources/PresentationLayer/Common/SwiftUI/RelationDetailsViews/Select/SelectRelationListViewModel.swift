@@ -13,23 +13,22 @@ final class SelectRelationListViewModel: ObservableObject {
         
     let configuration: RelationModuleConfiguration
     
-    private let relationsService: RelationsServiceProtocol
+    private let relationSelectedOptionsModel: RelationSelectedOptionsModelProtocol
     private let searchService: SearchServiceProtocol
     
     private weak var output: SelectRelationListModuleOutput?
     
     init(
         configuration: RelationModuleConfiguration,
-        selectedOptionId: String?,
-        output: SelectRelationListModuleOutput?,
-        relationsService: RelationsServiceProtocol,
-        searchService: SearchServiceProtocol
+        relationSelectedOptionsModel: RelationSelectedOptionsModelProtocol,
+        searchService: SearchServiceProtocol,
+        output: SelectRelationListModuleOutput?
     ) {
         self.configuration = configuration
-        self.selectedOptionId = selectedOptionId
         self.output = output
-        self.relationsService = relationsService
+        self.relationSelectedOptionsModel = relationSelectedOptionsModel
         self.searchService = searchService
+        self.relationSelectedOptionsModel.selectedOptionsIdsPublisher.map { $0.first }.assign(to: &$selectedOptionId)
     }
     
     func onAppear() {
@@ -38,9 +37,7 @@ final class SelectRelationListViewModel: ObservableObject {
 
     func onClear() {
         Task {
-            selectedOptionId = nil
-            try await relationsService.updateRelation(relationKey: configuration.relationKey, value: nil)
-            logChanges()
+            try await relationSelectedOptionsModel.onClear()
         }
     }
     
@@ -82,24 +79,16 @@ final class SelectRelationListViewModel: ObservableObject {
         }
     }
     
-    func optionSelected(_ optionId: String, dismiss: Bool = true) {
+    func optionSelected(_ optionId: String) {
         Task {
-            try await optionSelectedAsync(optionId, dismiss: dismiss)
+            try await relationSelectedOptionsModel.optionSelected(optionId)
+            output?.onClose()
         }
     }
     
     func searchTextChanged(_ text: String = "") {
         Task {
             try await searchTextChangedAsync(text)
-        }
-    }
-    
-    private func optionSelectedAsync(_ optionId: String, dismiss: Bool = true) async throws {
-        try await relationsService.updateRelation(relationKey: configuration.relationKey, value: optionId.protobufValue)
-        selectedOptionId = optionId
-        logChanges()
-        if dismiss {
-            output?.onClose()
         }
     }
     
@@ -125,7 +114,7 @@ final class SelectRelationListViewModel: ObservableObject {
     private func updateListOnCreate(with optionId: String) {
         Task {
             searchText = ""
-            try await optionSelectedAsync(optionId, dismiss: false)
+            try await relationSelectedOptionsModel.optionSelected(optionId)
             try await searchTextChangedAsync()
         }
     }
@@ -136,18 +125,11 @@ final class SelectRelationListViewModel: ObservableObject {
     
     private func removeRelationOption(_ option: SelectRelationOption) {
         Task {
-            try await relationsService.removeRelationOptions(ids: [option.id])
             if let index = options.firstIndex(of: option) {
                 options.remove(at: index)
             }
-            if selectedOptionId == option.id {
-                onClear()
-            }
+            try await relationSelectedOptionsModel.removeRelationOption(option.id)
             setEmptyIfNeeded()
         }
-    }
-    
-    private func logChanges() {
-        AnytypeAnalytics.instance().logChangeRelationValue(isEmpty: selectedOptionId.isNil, type: configuration.analyticsType)
     }
 }

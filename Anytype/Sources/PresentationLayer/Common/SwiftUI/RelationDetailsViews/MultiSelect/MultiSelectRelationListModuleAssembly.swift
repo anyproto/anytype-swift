@@ -31,10 +31,15 @@ final class MultiSelectRelationListModuleAssembly: MultiSelectRelationListModule
         MultiSelectRelationListView(
             viewModel: MultiSelectRelationListViewModel(
                 configuration: configuration,
-                selectedOptionsIds: selectedOptionsIds,
-                output: output,
-                relationsService: self.serviceLocator.relationService(objectId: objectId),
-                searchService: self.serviceLocator.searchService()
+                relationSelectedOptionsModel: RelationSelectedOptionsModel(
+                    mode: .multi,
+                    selectedOptionsIds: selectedOptionsIds,
+                    relationKey: configuration.relationKey,
+                    analyticsType: configuration.analyticsType,
+                    relationsService: self.serviceLocator.relationService(objectId: objectId)
+                ),
+                searchService: self.serviceLocator.searchService(),
+                output: output
             )
         ).eraseToAnyView()
     }

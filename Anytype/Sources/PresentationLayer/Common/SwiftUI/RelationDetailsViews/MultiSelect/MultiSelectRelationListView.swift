@@ -87,11 +87,16 @@ struct MultiSelectRelationListView: View {
                 relationKey: "",
                 spaceId: "",
                 analyticsType: .block
+            ), 
+            relationSelectedOptionsModel: RelationSelectedOptionsModel(
+                mode: .multi,
+                selectedOptionsIds: [],
+                relationKey: "",
+                analyticsType: .block,
+                relationsService: DI.preview.serviceLocator.relationService(objectId: "")
             ),
-            selectedOptionsIds: [],
-            output: nil,
-            relationsService: DI.preview.serviceLocator.relationService(objectId: ""),
-            searchService: DI.preview.serviceLocator.searchService()
+            searchService: DI.preview.serviceLocator.searchService(),
+            output: nil
         )
     )
 }
