@@ -35,7 +35,7 @@ struct RelationOptionParameters {
     let text: String
     let color: Color
     
-    init(id: String, text: String?, color: Color?) {
+    init(id: String = UUID().uuidString, text: String?, color: Color?) {
         self.id = id
         self.text = text ?? ""
         self.color = color ?? MiddlewareColor.allCasesWithoutDefault.randomElement().map { Color.Dark.color(from: $0) } ?? Color.Dark.grey

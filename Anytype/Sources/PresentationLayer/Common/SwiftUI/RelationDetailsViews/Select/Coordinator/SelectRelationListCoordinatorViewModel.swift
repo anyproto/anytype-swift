@@ -47,7 +47,6 @@ final class SelectRelationListCoordinatorViewModel: ObservableObject, SelectRela
         relationData = RelationData(
             configuration: RelationOptionSettingsConfiguration(
                 option: RelationOptionParameters(
-                    id: UUID().uuidString,
                     text: text,
                     color: color
                 ),
