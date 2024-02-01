@@ -7,6 +7,7 @@ struct ObjectTypeSearchView: View {
     private typealias SectionData = ObjectTypeSearchViewModel.SectionData
     private typealias SectionType = ObjectTypeSearchViewModel.SectionType
     
+    let title: String
     @StateObject var viewModel: ObjectTypeSearchViewModel
 
     @State private var searchText = ""
@@ -14,7 +15,7 @@ struct ObjectTypeSearchView: View {
     var body: some View {
         VStack(spacing: 0) {
             DragIndicator()
-            TitleView(title: Loc.createNewObject)
+            TitleView(title: title)
             SearchBar(text: $searchText, focused: true, placeholder: Loc.search)
             content
         }

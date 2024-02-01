@@ -6,24 +6,28 @@ import Services
 final class ObjectTypeSearchViewModel: ObservableObject {
     @Published var state = State.searchResults([])
     
-    private let onSelect: (_ type: ObjectType) -> Void
+    private let showLists: Bool
     
     private let interactor: ObjectTypeSearchInteractor
     private let toastPresenter: ToastPresenterProtocol
     
+    private let onSelect: (_ type: ObjectType) -> Void
+    
     nonisolated init(
-        onSelect: @escaping (_ type: ObjectType) -> Void,
+        showLists: Bool,
         interactor: ObjectTypeSearchInteractor,
-        toastPresenter: ToastPresenterProtocol
+        toastPresenter: ToastPresenterProtocol,
+        onSelect: @escaping (_ type: ObjectType) -> Void
     ) {
-        self.onSelect = onSelect
+        self.showLists = showLists
         self.interactor = interactor
         self.toastPresenter = toastPresenter
+        self.onSelect = onSelect
     }
     
     func search(text: String) {
         Task {
-            let listTypes = await interactor.searchListTypes(text: text)
+            let listTypes = showLists ? await interactor.searchListTypes(text: text) : []
             let objectTypes = await interactor.searchObjectTypes(text: text)
             let libraryTypes = text.isNotEmpty ? await interactor.searchLibraryTypes(text: text) : []
             

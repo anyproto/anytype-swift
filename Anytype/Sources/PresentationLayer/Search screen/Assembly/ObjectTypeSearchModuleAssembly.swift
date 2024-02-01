@@ -5,8 +5,10 @@ import AnytypeCore
 
 protocol ObjectTypeSearchModuleAssemblyProtocol: AnyObject {
     
-    func objectTypeSearchForCreateObject(
+    func make(
+        title: String,
         spaceId: String,
+        showLists: Bool,
         onSelect: @escaping (_ type: ObjectType) -> Void
     ) -> AnyView
 }
@@ -21,8 +23,10 @@ final class ObjectTypeSearchModuleAssembly: ObjectTypeSearchModuleAssemblyProtoc
         self.serviceLocator = serviceLocator
     }
     
-    func objectTypeSearchForCreateObject(
+    func make(
+        title: String,
         spaceId: String,
+        showLists: Bool,
         onSelect: @escaping (_ type: ObjectType) -> Void
     ) -> AnyView {
         if FeatureFlags.newTypePicker {
@@ -34,12 +38,14 @@ final class ObjectTypeSearchModuleAssembly: ObjectTypeSearchModuleAssemblyProtoc
             )
             
             let model = ObjectTypeSearchViewModel(
-                onSelect: onSelect,
-                interactor: interactor, 
-                toastPresenter: uiHelpersDI.toastPresenter()
+                showLists: showLists,
+                interactor: interactor,
+                toastPresenter: uiHelpersDI.toastPresenter(),
+                onSelect: onSelect
             )
             
             return ObjectTypeSearchView(
+                title: title,
                 viewModel: model
             ).eraseToAnyView()
         } else {

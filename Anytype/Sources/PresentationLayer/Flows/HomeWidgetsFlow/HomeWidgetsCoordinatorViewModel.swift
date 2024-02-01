@@ -186,8 +186,10 @@ final class HomeWidgetsCoordinatorViewModel: ObservableObject,
 
     func createObjectWithTypeModule() -> AnyView {
         AnytypeAnalytics.instance().logOnboardingTooltip(tooltip: .selectType)
-        return objectTypeSearchModuleAssembly.objectTypeSearchForCreateObject(
-            spaceId: activeWorkspaceStorage.workspaceInfo.accountSpaceId
+        return objectTypeSearchModuleAssembly.make(
+            title: Loc.createNewObject,
+            spaceId: activeWorkspaceStorage.workspaceInfo.accountSpaceId,
+            showLists: true
         ) { [weak self] type in
             self?.showCreateObjectWithType = false
             self?.createAndShowNewPage(type: type)

@@ -79,6 +79,18 @@
 "Relation.From.Type" = "From type %@";
 "Relation.LinksFrom.Title" = "from";
 "Relation.LinksTo.Title" = "to";
+"Relation.EmptyState.title" = "No options";
+"Relation.EmptyState.description" = "Nothing found. Create first option to start.";
+"Relation.EmptyState.Blocked.title" = "The relation is empty";
+"Relation.Create.Row.title" = "Create “%@”";
+"Relation.View.Create.title" = "Create option";
+"Relation.View.Edit.title" = "Edit option";
+"Relation.Create.Textfield.placeholder" = "Enter name...";
+"Relation.Edit.Button.title" = "Apply";
+"Relation.Date.Locked.Alert.title" = "Relation “%@” is locked";
+
+"Relation.Delete.Alert.Title" = "Are you sure?";
+"Relation.Delete.Alert.Description" = "The option will be permanently removed from your space.";
 
 "Relation.Format.Object.Title" = "Object";
 "Relation.Format.Text.Title" = "Texti";
@@ -91,6 +103,16 @@
 "Relation.Format.Url.Title" = "URL";
 "Relation.Format.Email.Title" = "Email";
 "Relation.Format.Phone.Title" = "Phone number";
+
+// Origin Relation
+
+"Relation.Origin.Clipboard" = "Clipboard";
+"Relation.Origin.DragAndDrop" = "Drag'n'Drop";
+"Relation.Origin.Import" = "Imported object";
+"Relation.Origin.WebClipper" = "Web clipper";
+"Relation.Origin.SharingExtension" = "Mobile sharing extension";
+"Relation.Origin.UseCase" = "Use case";
+"Relation.Origin.Builtin" = "Library installed";
 
 // MARK: - Mention
 "Mention.Subtitle.Placeholder" = "Object";
@@ -109,6 +131,7 @@
 "Actions" = "Actions";
 "Relations" = "Relations";
 "Objects" = "Objects";
+"Lists" = "Lists";
 "Delete" = "Delete";
 "Duplicate" = "Duplicate";
 "Copy" = "Copy";
@@ -594,7 +617,7 @@
 "Today" = "Today";
 "No date" = "No date";
 "Clear" = "Clear";
-"Create option" = "Create option ‘%@’";
+"Create option with" = "Create option ‘%@’";
 "Add URL" = "Add URL";
 "Add email" = "Add email";
 "Add phone number" = "Add phone number";

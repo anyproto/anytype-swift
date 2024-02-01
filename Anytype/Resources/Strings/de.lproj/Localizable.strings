@@ -79,6 +79,18 @@
 "Relation.From.Type" = "Vom Typ \"%@\"";
 "Relation.LinksFrom.Title" = "von";
 "Relation.LinksTo.Title" = "zu";
+"Relation.EmptyState.title" = "Keine Optionen";
+"Relation.EmptyState.description" = "Nichts gefunden. Erstelle zuerst eine Option zum Starten.";
+"Relation.EmptyState.Blocked.title" = "Die Relation ist leer";
+"Relation.Create.Row.title" = "„%@“ erstellen";
+"Relation.View.Create.title" = "Option erstellen";
+"Relation.View.Edit.title" = "Option bearbeiten";
+"Relation.Create.Textfield.placeholder" = "Name eingeben...";
+"Relation.Edit.Button.title" = "Anwenden";
+"Relation.Date.Locked.Alert.title" = "Relation „%@“ ist gesperrt";
+
+"Relation.Delete.Alert.Title" = "Sind Sie sicher?";
+"Relation.Delete.Alert.Description" = "The option will be permanently removed from your space.";
 
 "Relation.Format.Object.Title" = "Objekt";
 "Relation.Format.Text.Title" = "Text";
@@ -91,6 +103,16 @@
 "Relation.Format.Url.Title" = "Link";
 "Relation.Format.Email.Title" = "E-Mail";
 "Relation.Format.Phone.Title" = "Telefonnummer";
+
+// Origin Relation
+
+"Relation.Origin.Clipboard" = "Zwischenablage";
+"Relation.Origin.DragAndDrop" = "Drag'n'Drop";
+"Relation.Origin.Import" = "Importiertes Objekt";
+"Relation.Origin.WebClipper" = "Web Clipper";
+"Relation.Origin.SharingExtension" = "Erweiterung für mobiles Teilen";
+"Relation.Origin.UseCase" = "Anwendungsfall";
+"Relation.Origin.Builtin" = "Bibliothek installiert";
 
 // MARK: - Mention
 "Mention.Subtitle.Placeholder" = "Objekt";
@@ -109,6 +131,7 @@
 "Actions" = "Aktionen";
 "Relations" = "Verknüpfungen";
 "Objects" = "Objekte";
+"Lists" = "Gruppen";
 "Delete" = "Löschen";
 "Duplicate" = "Duplizieren";
 "Copy" = "Kopieren";
@@ -594,7 +617,7 @@
 "Today" = "Heute";
 "No date" = "Kein Datum";
 "Clear" = "Leeren";
-"Create option" = "Erstelle Option ‘%@’";
+"Create option with" = "Option ‚%@‘ erstellen";
 "Add URL" = "URL hinzufügen";
 "Add email" = "E-Mail hinzufügen";
 "Add phone number" = "Telefonnummer hinzufügen";
