@@ -23,6 +23,7 @@ final class EditorRouter: NSObject, EditorRouterProtocol, ObjectSettingsCoordina
     private let toastPresenter: ToastPresenterProtocol
     private let codeLanguageListModuleAssembly: CodeLanguageListModuleAssemblyProtocol
     private let newSearchModuleAssembly: NewSearchModuleAssemblyProtocol
+    private let objectTypeSearchModuleAssembly: ObjectTypeSearchModuleAssemblyProtocol
     private let textIconPickerModuleAssembly: TextIconPickerModuleAssemblyProtocol
     private let templateService: TemplatesServiceProtocol
     private weak var output: EditorPageModuleOutput?
@@ -44,6 +45,7 @@ final class EditorRouter: NSObject, EditorRouterProtocol, ObjectSettingsCoordina
         toastPresenter: ToastPresenterProtocol,
         codeLanguageListModuleAssembly: CodeLanguageListModuleAssemblyProtocol,
         newSearchModuleAssembly: NewSearchModuleAssemblyProtocol,
+        objectTypeSearchModuleAssembly: ObjectTypeSearchModuleAssemblyProtocol,
         textIconPickerModuleAssembly: TextIconPickerModuleAssemblyProtocol,
         templateService: TemplatesServiceProtocol,
         output: EditorPageModuleOutput?
@@ -65,6 +67,7 @@ final class EditorRouter: NSObject, EditorRouterProtocol, ObjectSettingsCoordina
         self.toastPresenter = toastPresenter
         self.codeLanguageListModuleAssembly = codeLanguageListModuleAssembly
         self.newSearchModuleAssembly = newSearchModuleAssembly
+        self.objectTypeSearchModuleAssembly = objectTypeSearchModuleAssembly
         self.textIconPickerModuleAssembly = textIconPickerModuleAssembly
         self.templateService = templateService
         self.output = output
@@ -475,18 +478,31 @@ final class EditorRouter: NSObject, EditorRouterProtocol, ObjectSettingsCoordina
         showSetAndCollection: Bool,
         onSelect: @escaping (ObjectType) -> ()
     ) {
-        let view = newSearchModuleAssembly.objectTypeSearchModule(
-            title: title,
-            spaceId: document.spaceId,
-            selectedObjectId: selectedObjectId,
-            excludedObjectTypeId: document.details?.type,
-            showSetAndCollection: showSetAndCollection
-        ) { [weak self] type in
-            self?.navigationContext.dismissTopPresented()
-            onSelect(type)
+        if FeatureFlags.newTypePicker {
+            let view = objectTypeSearchModuleAssembly.make(
+                title: title,
+                spaceId: document.spaceId,
+                showLists: showSetAndCollection
+            ) { [weak self] type in
+                self?.navigationContext.dismissTopPresented()
+                onSelect(type)
+            }
+            
+            navigationContext.presentSwiftUIView(view: view)
+        } else {
+            let view = newSearchModuleAssembly.objectTypeSearchModule(
+                title: title,
+                spaceId: document.spaceId,
+                selectedObjectId: selectedObjectId,
+                excludedObjectTypeId: document.details?.type,
+                showSetAndCollection: showSetAndCollection
+            ) { [weak self] type in
+                self?.navigationContext.dismissTopPresented()
+                onSelect(type)
+            }
+            
+            navigationContext.presentSwiftUIView(view: view)
         }
-        
-        navigationContext.presentSwiftUIView(view: view)
     }
 }
 
