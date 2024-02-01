@@ -155,6 +155,7 @@ internal extension ImageAsset {
     static let relations = ImageAsset.bundle(name: "x24/Relations")
     static let removeRed = ImageAsset.bundle(name: "x24/Remove Red")
     static let replace = ImageAsset.bundle(name: "x24/Replace")
+    static let search = ImageAsset.bundle(name: "x24/Search")
     static let select = ImageAsset.bundle(name: "x24/Select")
     static let status = ImageAsset.bundle(name: "x24/Status")
     static let tag = ImageAsset.bundle(name: "x24/Tag")

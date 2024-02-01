@@ -6,10 +6,11 @@ class ChangeTypeAccessoryView: UIView {
     // https://www.figma.com/file/TupCOWb8sC9NcjtSToWIkS/Mobile---main?node-id=5309%3A1717
     private struct Constants {
         static let padding: CGFloat = 16
-        static let topViewHeight: CGFloat = 48
+        static let topViewHeight: CGFloat = 44
+        static let typeviewHeight: CGFloat = 52
         static let doneButtonWidth: CGFloat = 45
-        static let expandedHeight: CGFloat = 144
-        static let minimizedHeight: CGFloat = 48
+        static let expandedHeight: CGFloat = 96
+        static let minimizedHeight: CGFloat = 44
     }
     
 
@@ -61,13 +62,8 @@ class ChangeTypeAccessoryView: UIView {
             $0.centerY.equal(to: topView.centerYAnchor)
         }
 
-        let dividerView = UIView()
-        dividerView.heightAnchor.constraint(equalToConstant: 0.5).isActive = true
-        dividerView.backgroundColor = .Stroke.primary
-
         stackView.axis = .vertical
         stackView.addArrangedSubview(topView)
-        stackView.addArrangedSubview(dividerView)
         stackView.addArrangedSubview(changeTypeView)
 
         // Fix swiftui animation
@@ -75,7 +71,7 @@ class ChangeTypeAccessoryView: UIView {
             $0.pinToSuperview(excluding: [.bottom])
         }
         
-        let changeTypeViewHeightConstraint = changeTypeView.heightAnchor.constraint(equalToConstant: 96)
+        let changeTypeViewHeightConstraint = changeTypeView.heightAnchor.constraint(equalToConstant: Constants.typeviewHeight)
         changeTypeViewHeightConstraint.isActive = true
         changeTypeViewHeightConstraint.priority = .init(rawValue: 999)
 
@@ -114,7 +110,7 @@ class ChangeTypeAccessoryView: UIView {
         }
 
         button.setTitle(Loc.done, for: .normal)
-        button.setTitleColor(UIColor.System.amber100, for: .normal)
+        button.setTitleColor(UIColor.Text.primary, for: .normal)
         button.addAction(primaryAction, for: .touchUpInside)
 
         return button
@@ -145,12 +141,11 @@ private final class ChangeButton: UIButton {
     private func setup() {
         var configuration = UIButton.Configuration.plain()
         configuration.attributedTitle = attributedString(for: .normal)
-        configuration.image = UIImage(asset: .TextEditor.turnIntoArrow)
+        configuration.image = UIImage(asset: .X18.listArrow)
         configuration.buttonSize = .mini
         configuration.titleAlignment = .leading
-        configuration.imagePlacement = .leading
-        configuration.contentInsets = .init(top: 0, leading: -5, bottom: 0, trailing: 0)
-        configuration.imagePadding = 5
+        configuration.imagePlacement = .trailing
+        configuration.imagePadding = 4
         self.configuration = configuration
         
         configurationUpdateHandler = { [weak self] button in
@@ -166,8 +161,8 @@ private final class ChangeButton: UIButton {
         .init(
             Loc.changeType,
             attributes: AttributeContainer([
-                NSAttributedString.Key.font: UIFont.bodyRegular,
-                NSAttributedString.Key.foregroundColor: state == .highlighted ? UIColor.Text.primary : UIColor.Button.active
+                NSAttributedString.Key.font: UIFont.calloutRegular,
+                NSAttributedString.Key.foregroundColor: state == .highlighted ? UIColor.Text.primary : UIColor.Text.secondary
             ])
         )
     }
