@@ -67,7 +67,7 @@
 
 // MARK: - Object
 "Object.Title.Placeholder" = "Naamloos";
-"Object.Deleted.Placeholder" = "Object verwijderd";
+"Object.Deleted.Placeholder" = "Verwijderd object";
 
 // MARK: - Relation
 "Featured relations" = "Aanbevolen relaties";
@@ -83,8 +83,8 @@
 "Relation.Format.Object.Title" = "Object";
 "Relation.Format.Text.Title" = "Tekst";
 "Relation.Format.Number.Title" = "Nummer";
-"Relation.Format.Status.Title" = "Status";
-"Relation.Format.Tag.Title" = "Label";
+"Relation.Format.Status.Title" = "Selecteer";
+"Relation.Format.Tag.Title" = "Multiselect";
 "Relation.Format.Date.Title" = "Datum";
 "Relation.Format.FileMedia.Title" = "Bestand & Media";
 "Relation.Format.Checkbox.Title" = "Selectievak";
@@ -97,7 +97,7 @@
 
 "None" = "Geen";
 "Callout" = "Tekstkader";
-"Toggle empty. Tap to create block." = "Uitvouwbare lijst is leeg. Tikken om nieuw blok te maken.";
+"Toggle empty. Tap to create block." = "Uitvouwbare lijst is leeg. Tik om nieuw blok aan te maken.";
 "Loading, please wait" = "Bezig met laden, een ogenblik geduld";
 "Done" = "Gereed";
 "Style" = "Stijl";
@@ -110,22 +110,22 @@
 "Relations" = "Relaties";
 "Objects" = "Objecten";
 "Delete" = "Verwijder";
-"Duplicate" = "Dupliceren";
-"Copy" = "Kopiëren";
+"Duplicate" = "Dupliceer";
+"Copy" = "Kopieer";
 "Preview" = "Voorvertoning";
 "View" = "Weergave";
-"Paste" = "Plakken";
-"Move" = "Verplaatsen";
+"Paste" = "Plak";
+"Move" = "Verplaats";
 "Move to" = "Verplaats naar";
 "Back" = "Terug";
 "File block subtitle" = "Sla bestand op in oorspronkelijke staat";
 "Picture block subtitle" = "Upload en verrijk de pagina met afbeelding";
-"Video block subtitle" = "Video uploaden";
+"Video block subtitle" = "Upload afspeelbare video";
 "Bookmark block subtitle" = "Sla je favoriete link op met samenvatting";
-"Code block subtitle" = "Codefragment vastleggen";
-"Align right" = "Rechts uitlijnen";
-"Align left" = "Links uitlijnen";
-"Align center" = "Centreren";
+"Code block subtitle" = "Leg code fragment vast";
+"Align right" = "Lijn rechts uit";
+"Align left" = "Lijn links uit";
+"Align center" = "Centreer";
 "Black" = "Zwart";
 "Amber" = "Amber";
 "Red" = "Rood";
@@ -134,22 +134,22 @@
 "Blue" = "Blauw";
 "Teal" = "Groenblauw";
 "Green" = "Groen";
-"Default background" = "Standaardachtergrond";
+"Default background" = "Standaard achtergrond";
 "Amber background" = "Amber achtergrond";
 "Red background" = "Rode achtergrond";
 "Pink background" = "Roze achtergrond";
 "Purple background" = "Paarse achtergrond";
 "Blue background" = "Blauwe achtergrond";
 "Green background" = "Groene achtergrond";
-"Create new object" = "Nieuw object aanmaken";
-"Cancel" = "Annuleren";
-"Paste or type URL" = "Plak of typ URL";
+"Create new object" = "Maak nieuw object aan";
+"Cancel" = "Annuleer";
+"Paste or type URL" = "Plak of type URL";
 "No items match filter" = "Geen items die met filter overeenkomen";
-"Unsupported block" = "Blok niet ondersteund";
+"Unsupported block" = "Niet ondersteund blok";
 "Name" = "Naam";
 "Description" = "Beschrijving";
 "Paste processing..." = "Bezig met plakken...";
-"Anytype Library" = "Anytype Bibliotheek";
+"Anytype Library" = "Anytype bibliotheek";
 "Copied" = "Gekopieerd";
 
 // Home
@@ -159,18 +159,18 @@
 
 // Settings
 "Wallpaper" = "Achtergrond";
-"Log out" = "Afmelden";
+"Log out" = "Meld af";
 
 // Action
-"Restore" = "Herstellen";
+"Restore" = "Herstel";
 
 // Keychain screen
 "Keychain.Recovery phrase" = "Herstelzin";
 "Keychain.Recovery phrase copied to clipboard" = "Herstelzin gekopieerd";
-"Keychain.Recovery phrase description" = "Je zal dit nodig hebben om in te loggen. Bewaar dit op een veilige plek. Als je dit verliest, heb je niet langer toegang tot je account.";
-"Keychain.Save keychain alert part 1" = "Als je de herstelzin verliest, wordt je uitgelogd en kun je niet meer";
-"Keychain.Save keychain alert part 2" = "bij je gegevens komen";
-"Keychain.Save keychain alert part 3" = "/\nSla deze herstelzin op buiten Anytype voor dataherstel.\nWe raden aan om een beveiligde gegevenskluis, wachtwoordbeheerder of vel papier te gebruiken.";
+"Keychain.Recovery phrase description" = "Je zult dit nodig hebben om in te loggen. Bewaar dit op een veilige plek. Als je dit verliest, heb je niet langer toegang tot je account.";
+"Keychain.Save keychain alert part 1" = "Als je de herstelzin verliest en wordt uitgelogd, dan zul je niet meer in staat zijn om ";
+"Keychain.Save keychain alert part 2" = "ooit weer toegang tot je gegevens te hebben";
+"Keychain.Save keychain alert part 3" = "/\nSla deze herstelzin op buiten Anytype voor gegevensherstel.\nWe raden aan om een beveiligde gegevenskluis, wachtwoordbeheerder of vel papier te gebruiken.";
 "Keychain.Don’t forget to save your recovery phrase" = "Vergeet niet je herstelzin op te slaan";
 "Keychain.Show and copy phrase" = "Laat herstelzin zien en kopieer";
 "Keychain.Have you backed up your recovery phrase?" = "Heb je een back-up gemaakt van je herstelzin?";
@@ -272,7 +272,7 @@
 "Undo" = "Ongedaan maken";
 "Actions.LinkItself" = "Link naar";
 "Actions.MakeAsTemplate" = "Maak sjabloon";
-"Actions.TemplateMakeDefault" = "Make default";
+"Actions.TemplateMakeDefault" = "Maak standaard";
 "Actions.CreateWidget.Title" = "Naar widgets";
 "Actions.CreateWidget.Success" = "Nieuwe widget is aangemaakt";
 
@@ -320,7 +320,7 @@
 "TemplateSelection.ObjectType.Subtitle" = "Objecttype";
 
 "TemplateOptions.Alert.EditTemplate" = "Sjabloon bewerken";
-"TemplateOptions.Alert.Duplicate" = "Dupliceren";
+"TemplateOptions.Alert.Duplicate" = "Dupliceer";
 "TemplateOptions.Alert.Delete" = "Verwijder";
 
 "TemplateEditing.Title" = "Sjabloon bewerken";
@@ -433,61 +433,61 @@
 
 "Set.View.Settings.NoRelations.Placeholder" = "Geen relaties";
 "Set.View.Settings.NoFilters.Placeholder" = "Geen filters";
-"Set.View.Settings.NoSorts.Placeholder" = "No sorts";
-"Set.View.Settings.Objects.Applied.Title" = "%d applied";
+"Set.View.Settings.NoSorts.Placeholder" = "Geen sortering";
+"Set.View.Settings.Objects.Applied.Title" = "%d toegepast";
 
 // MARK: - Sets: Kanban
-"Set.View.Kanban.Column.Title.Uncategorized" = "Uncategorized";
-"Set.View.Kanban.Column.Title.Checked" = "%@ is checked";
-"Set.View.Kanban.Column.Title.Unchecked" = "%@ is unchecked";
-"Set.View.Kanban.Column.Paging.Title.ShowMore" = "Show more objects";
-"Set.View.Kanban.Column.Settings.Color.Title" = "Column color";
-"Set.View.Kanban.Column.Settings.Hide.Column.Title" = "Hide column";
+"Set.View.Kanban.Column.Title.Uncategorized" = "Niet gecategoriseerd";
+"Set.View.Kanban.Column.Title.Checked" = "%@ is geselecteerd";
+"Set.View.Kanban.Column.Title.Unchecked" = "%@ is niet geselecteerd";
+"Set.View.Kanban.Column.Paging.Title.ShowMore" = "Toon meer objecten";
+"Set.View.Kanban.Column.Settings.Color.Title" = "Kleur kolom";
+"Set.View.Kanban.Column.Settings.Hide.Column.Title" = "Verberg kolom";
 
 // MARK: - Sets: empty view
-"Set.View.Empty.Title" = "No query selected";
-"Set.View.Empty.Subtitle" = "Add search query to aggregate objects with equal types and relations in a live mode";
+"Set.View.Empty.Title" = "Geen zoekopdracht geselecteerd";
+"Set.View.Empty.Subtitle" = "Voeg zoekopdracht toe om objecten te verzamelen met vergelijkbare types en relaties in een live omgeving";
 
 // MARK: - Set source type
-"Set.SourceType.SelectQuery" = "Select query";
-"Set.SourceType.Cancel.Toast.Title" = "This query can be changed on desktop only";
+"Set.SourceType.SelectQuery" = "Selecteer zoekopdracht";
+"Set.SourceType.Cancel.Toast.Title" = "Deze zoekopdracht kan alleen op het bureaublad worden gewijzigd";
 
 // MARK: - Set: Type context menu
-"Set.TypeRelation.ContextMenu.TurnIntoCollection" = "Turn Set into Collection";
-"Set.TypeRelation.ContextMenu.ChangeQuery" = "Change query";
+"Set.TypeRelation.ContextMenu.TurnIntoCollection" = "Zet set om naar collectie";
+"Set.TypeRelation.ContextMenu.ChangeQuery" = "Verander zoekopdracht";
 
 // MARK: - Collection: empty view
-"Collection.View.Empty.Title" = "No objects";
-"Collection.View.Empty.Subtitle" = "Create first object to continue";
-"Collection.View.Empty.Button.Title" = "Create object";
+"Collection.View.Empty.Title" = "Geen objecten";
+"Collection.View.Empty.Subtitle" = "Maak eerst object  aan om door te gaan";
+"Collection.View.Empty.Button.Title" = "Maak object aan";
 
 // MARK: Slash Menu
-"SlashMenu.DotsDivider" = "Dots divider";
-"SlashMenu.LineDivider" = "Line divider";
-"SlashMenu.TableOfContents" = "Table of contents";
-"SlashMenu.Table" = "Table";
+"SlashMenu.DotsDivider" = "Gestippelde scheidingslijn";
+"SlashMenu.LineDivider" = "Scheidingslijn";
+"SlashMenu.TableOfContents" = "Inhoudsopgave";
+"SlashMenu.Table" = "Tabel";
 
-"Error" = "Error";
-"Unknown error" = "Unknown error";
-"Open Type Error" = "Not supported type \"%@\". You can open it via desktop.";
-"Close" = "Close";
-"Account is deleted" = "Account is deleted";
-"Add phone" = "Add phone";
-"Nothing to redo" = "Nothing to redo";
-"Nothing to undo" = "Nothing to undo";
-"Progress..." = "Progress...";
-"Grey" = "Grey";
-"Sky" = "Sky";
-"Yellow" = "Yellow";
-"Grey background" = "Grey background";
-"Teal background" = "Teal background";
-"Sky background" = "Sky background";
-"Yellow background" = "Yellow background";
-"Enter value" = "Enter value";
-"Select object" = "Select object";
+"Error" = "Foutmelding";
+"Unknown error" = "Onbekende foutmelding";
+"Open Type Error" = "Niet ondersteund type \"%@\". Je kunt het openen via het bureaublad.";
+"Close" = "Sluit";
+"Account is deleted" = "Account wordt verwijderd";
+"Add phone" = "Voeg telefoonnummer toe";
+"Nothing to redo" = "Niets om opnieuw te doen";
+"Nothing to undo" = "Niets om ongedaan te maken";
+"Progress..." = "Voortgang...";
+"Grey" = "Grijs";
+"Sky" = "Lucht";
+"Yellow" = "Geel";
+"Grey background" = "Grijze achtergrond";
+"Teal background" = "Blauwgroene achtergrond";
+"Sky background" = "Luchtkleurige achtergrond";
+"Yellow background" = "Gele achtergrond";
+"Enter value" = "Voer waarde in";
+"Select object" = "Selecteer object";
 "Select file" = "Selecteer bestand";
-"Select tag" = "Selecteer tag";
-"Select status" = "Selecteer status";
+"Select options" = "Selecteer opties";
+"Select option" = "Selecteer optie";
 "Select date" = "Selecteer datum";
 "Add email" = "Voeg e-mailadres toe";
 "Add link" = "Voeg link toe";
@@ -538,19 +538,19 @@
 "Designed to capture thoughts quickly" = "Ontworpen om snel gedachten te bewaren";
 "Action-focused layout with a checkbox" = "Actiegerichte lay-out met een checkbox";
 "Standard layout for canvas blocks" = "Standaard layout voor canvas blokken";
-"List of related objects" = "List of related objects";
-"Lock" = "Lock";
-"Unlock" = "Unlock";
-"Favorite" = "Favorite";
-"Unfavorite" = "Unfavorite";
+"List of related objects" = "Lijst van gerelateerde objecten";
+"Lock" = "Vergrendel";
+"Unlock" = "Ontgrendel";
+"Favorite" = "Maak favoriet";
+"Unfavorite" = "Verwijder als favoriet";
 "Unsplash" = "Unsplash";
-"Go back" = "Go back";
+"Go back" = "Ga terug";
 "SyncStatus.LocalOnly.Title" = "Local-only";
 "SyncStatus.LocalOnly.Description" = "Alleen lokaal";
 "SyncStatus.Synced.Anytype.Description" = "Back-up gemaakt op Anytype netwerk";
 "SyncStatus.Synced.AnytypeStaging.Description" = "Back-up gemaakt op Anytype staging";
-"SyncStatus.Synced.SelfHosted.Description" = "Back-up gemaakt op zelf-gehost netwerk";
-"Downloading or uploading data to some node" = "Downloading or uploading data to some node";
+"SyncStatus.Synced.SelfHosted.Description" = "Back-up gemaakt op zelfgehost netwerk";
+"Downloading or uploading data to some node" = "Gegevens downloaden of uploaden naar een node";
 "Node is not connected" = "Node is not connected";
 "Initializing sync" = "Initializing sync";
 "Not syncing" = "Not syncing";
@@ -565,7 +565,7 @@
 "Into object" = "Into object";
 "Add below" = "Add below";
 "Change type" = "Change type";
-"SlashMenu.LinkTo.Description" = "Create link to another object";
+"SlashMenu.LinkTo.Description" = "Maak link naar een ander object aan";
 "Upload playable audio" = "Upload playable audio";
 "Code snippet" = "Code snippet";
 "Bookmark" = "Bookmark";
@@ -584,7 +584,7 @@
 "View" = "Weergave";
 "Home" = "Home";
 "Highlight" = "Highlight";
-"Create object" = "Create object";
+"Create object" = "Maak object aan";
 "Web pages" = "Web pages";
 "Preview layout" = "Preview layout";
 "Everywhere" = "Everywhere";
@@ -658,7 +658,7 @@
 "SimpleTableMenu.Item.InsertRight" = "Voeg rechts in";
 "SimpleTableMenu.Item.MoveLeft" = "Verplaats naar links";
 "SimpleTableMenu.Item.MoveRight" = "Verplaats naar rechts";
-"SimpleTableMenu.Item.Duplicate" = "Dupliceren";
+"SimpleTableMenu.Item.Duplicate" = "Dupliceer";
 "SimpleTableMenu.Item.Delete" = "Verwijder";
 "SimpleTableMenu.Item.Sort" = "Sort";
 
@@ -689,7 +689,7 @@
 "SetViewTypesPicker.Title" = "Bewerk weergave";
 "SetViewTypesPicker.New.Title" = "New view";
 "SetViewTypesPicker.Section.Types.Title" = "View as";
-"SetViewTypesPicker.Settings.Duplicate.View" = "Dupliceren";
+"SetViewTypesPicker.Settings.Duplicate.View" = "Dupliceer";
 "SetViewTypesPicker.Settings.Delete.View" = "Delete view";
 "SetViewTypesPicker.Settings.Textfield.Placeholder.New.View" = "New view";
 "SetViewTypesPicker.Settings.Textfield.Placeholder.Untitled" = "Naamloos";
@@ -702,61 +702,62 @@
 "Content.Audio.Upload" = "Upload audio";
 "Content.Video.Upload" = "Upload a video";
 "Content.Picture.Upload" = "Upload a picture";
-"Content.Common.Uploading" = "Uploading...";
-"Content.Common.Error" = "Something went wrong, try again";
-"Content.Bookmark.Add" = "Add a web bookmark";
-"Content.Bookmark.Loading" = "Loading, please wait...";
-"Content.DataView.InlineSet.Subtitle" = "Inline set";
-"Content.DataView.InlineCollection.Subtitle" = "Inline collection";
-"Content.DataView.InlineSet.NoSource" = "No source";
-"Content.DataView.InlineSet.NoData" = "No data";
-"Content.DataView.InlineSet.Untitled" = "Untitled set";
-"Content.DataView.InlineCollection.Untitled" = "Untitled collection";
-"Content.DataView.InlineSet.Toast.Failure" = "This inline set doesn’t have a source";
+"Content.Common.Uploading" = "Uploaden...";
+"Content.Common.Error" = "Er is iets verkeerd gegaan, probeer het opnieuw";
+"Content.Bookmark.Add" = "Voeg een webbladwijzer toe";
+"Content.Bookmark.Loading" = "Laden, even geduld...";
+"Content.DataView.InlineSet.Subtitle" = "Set in lijn";
+"Content.DataView.InlineCollection.Subtitle" = "Collectie in lijn";
+"Content.DataView.InlineSet.NoSource" = "Geen bron";
+"Content.DataView.InlineSet.NoData" = "Geen gegevens";
+"Content.DataView.InlineSet.Untitled" = "Naamloze set";
+"Content.DataView.InlineCollection.Untitled" = "Naamloze collectie";
+"Content.DataView.InlineSet.Toast.Failure" = "Deze set in lijn heeft geen bron";
 
 // MARK: - Widget extension
-"WidgetExtension.LockScreen.Title" = "New object";
-"WidgetExtension.LockScreen.Description" = "Create a new object on the fly";
+"WidgetExtension.LockScreen.Title" = "Nieuw object";
+"WidgetExtension.LockScreen.Description" = "Maak snel een nieuw object aan ";
 
 // MARK: - Toast
-"Editor.Toast.LinkedTo" = "linked to";
-"Editor.Toast.MovedTo" = "Block moved to";
+"Editor.Toast.LinkedTo" = "gelinkt naar";
+"Editor.Toast.MovedTo" = "Blok verplaatst naar";
 
 // MARK: - Scanner
-"Scanner.Error.Scanning not supported" = "Scanning not supported";
+"Scanner.Error.Scanning not supported" = "Scannen wordt niet ondersteund";
 
 // MARK: - Widgets
-"Widgets.SourceSearch" = "Widget source";
-"Widgets.Actions.ChangeSource" = "Change Source";
-"Widgets.Actions.ChangeWidgetType" = "Change Widget Type";
-"Widgets.Actions.RemoveWidget" = "Remove Widget";
-"Widgets.Actions.EditWidgets" = "Edit Widgets";
-"Widgets.Actions.EmptyBin" = "Empty Bin";
-"Widgets.Actions.AddBelow" = "Add Below";
-"Widgets.Actions.NewObject" = "New Object";
+"Widgets.SourceSearch" = "Widget bron";
+"Widgets.Actions.ChangeSource" = "Wijzig bron";
+"Widgets.Actions.ChangeWidgetType" = "Wijzig widget type";
+"Widgets.Actions.RemoveWidget" = "Verwijder widget";
+"Widgets.Actions.EditWidgets" = "Bewerk widget";
+"Widgets.Actions.EmptyBin" = "Leeg prullenbak";
+"Widgets.Actions.AddBelow" = "Voeg onder toe";
+"Widgets.Actions.NewObject" = "Nieuw object";
 "Widgets.Layout.Screen.Title" = "Widget type";
 "Widgets.Layout.Link.Title" = "Link";
-"Widgets.Layout.Tree.Title" = "Tree";
+"Widgets.Layout.Tree.Title" = "Boomstructuur";
 "Widgets.Layout.List.Title" = "Lijst";
-"Widgets.Layout.CompactList.Title" = "Сompact list";
-"Widgets.Layout.Link.Description" = "Сompact version of the object";
-"Widgets.Layout.Tree.Description" = "Hierarchical structure of objects";
-"Widgets.Layout.List.Description" = "Widget with list view of set object";
-"Widgets.Layout.CompactList.Description" = "Widget with list view of set object";
-"Widgets.Empty.Title" = "This data view contains no objects";
-"Widgets.Library.RecentlyEdited.Name" = "Recently edited";
-"Widgets.Library.RecentlyOpened.Name" = "Recently opened";
-"Widgets.Library.RecentlyOpened.Description" = "On this device";
+"Widgets.Layout.CompactList.Title" = "Compacte lijst";
+"Widgets.Layout.Link.Description" = "Compacte versie van het object";
+"Widgets.Layout.Tree.Description" = "Hiërarchische structuur van objecten";
+"Widgets.Layout.List.Description" = "Widget met lijstweergave van geselecteerde object";
+"Widgets.Layout.CompactList.Description" = "Widget met lijstweergave van geselecteerde object";
+"Widgets.Empty.Title" = "Deze gegevensweergave bevat geen objecten";
+"Widgets.Library.RecentlyEdited.Name" = "Onlangs bewerkt";
+"Widgets.Library.RecentlyOpened.Name" = "Onlangs geopend";
+"Widgets.Library.RecentlyOpened.Description" = "Op dit apparaat";
 
 // MARK: - About
-"About.AppVersion" = "App version: %@";
-"About.BuildNumber" = "Build number: %@";
-"About.Library" = "Library version: %@";
+"About.AppVersion" = "App versie: %@";
+"About.BuildNumber" = "Build nummer: %@";
+"About.Library" = "Bibliotheek versie: %@";
 "About.accountId" = "Account ID: %@";
 "About.analyticsId" = "Analytics ID: %@";
-"About.deviceId" = "Device ID: %@";
-"About.Device" = "Device: %@";
-"About.OSVersion" = "OS version: %@";
+"About.deviceId" = "Apparaat ID: %@
+";
+"About.Device" = "Apparaat: %@";
+"About.OSVersion" = "OS versie: %@";
 "About.HelpCommunity" = "Help & Community";
 "About.WhatsNew" = "Wat is er nieuw";
 "About.AnytypeCommunity" = "Anytype Community";
@@ -828,7 +829,7 @@
 
 // MARK: - Sharing
 "Sharing.Navigation.title" = "Voeg toe aan Anytype";
-"Sharing.Navigation.LeftButton.Title" = "Annuleren";
+"Sharing.Navigation.LeftButton.Title" = "Annuleer";
 "Sharing.Navigation.RightButton.Title" = "Gereed";
 
 "Sharing.SaveAs" = "OPSLAAN ALS";
@@ -837,23 +838,23 @@
 "Sharing.LinkTo" = "Link naar";
 
 "Sharing.URL.Bookmark" = "Bladwijzer object";
-"Sharing.URL.Text" = "Text block";
-"Sharing.Text.NoteObject" = "Note object";
-"Sharing.Text.TextBlock" = "Text block";
+"Sharing.URL.Text" = "Tekstblok";
+"Sharing.Text.NoteObject" = "Noteer object";
+"Sharing.Text.TextBlock" = "Tekstblok";
 
 // MARK: - Sharing tips
-"Sharing.Tip.Title" = "Share Extension";
-"Sharing.Tip.Button.title" = "Show share menu";
+"Sharing.Tip.Title" = "Deel extensie";
+"Sharing.Tip.Button.title" = "Toon deel menu";
 
-"Sharing.Tip.Steps.1" = "Tap the iOS sharing button";
-"Sharing.Tip.Steps.2" = "Scroll past the app and tap More";
-"Sharing.Tip.Steps.3" = "Tap Edit to find “Anytype” and tap";
+"Sharing.Tip.Steps.1" = "Tik op de iOS deel knop";
+"Sharing.Tip.Steps.2" = "Scroll voorbij de app en tik op Meer";
+"Sharing.Tip.Steps.3" = "Tik op Bewerken om \"Anytype\" te vinden en tik op";
 
 // MARK: - Initial
 
-"Initial.UnstableMiddle.Title" = "Warning";
+"Initial.UnstableMiddle.Title" = "Waarschuwing";
 "Initial.UnstableMiddle.Message" = "You launch app with a unstable middleware. Don't use your production account. Your account may be broken.";
-"Initial.UnstableMiddle.Title" = "Warning";
+"Initial.UnstableMiddle.Title" = "Waarschuwing";
 "Initial.UnstableMiddle.Logout" = "Logout from current account";
 "Initial.UnstableMiddle.Continue" = "Continue with current account";
 "Initial.UnstableMiddle.WontUseProd" = "I won't be using my production account";
@@ -865,7 +866,7 @@
 // MARK: - Error
 "Error.AnytypeNeedsUpgrate.Title" = "Update Your App";
 "Error.AnytypeNeedsUpgrate.Message" = "This object was modified in a newer version of Anytype. Please update the app to open it on this device";
-"Error.AnytypeNeedsUpgrate.Confirm" = "Update";
+"Error.AnytypeNeedsUpgrate.Confirm" = "Updaten";
 "Error.UnableToConnect" = "Please connect to the internet";
 
 // MARK: - Relative date formatter
@@ -881,5 +882,5 @@
 "Server.LocalOnly" = "Local-only";
 
 // MARK: - Gallery
-"Gallery.Unavailable.Title" = "Gallery will be supported soon";
+"Gallery.Unavailable.Title" = "Galerij wordt binnenkort ondersteund";
 "Gallery.Unavailable.Message" = "Please use the desktop app for now";

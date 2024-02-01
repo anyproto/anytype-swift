@@ -138,7 +138,6 @@ final class SetObjectCreationSettingsCoordinator: SetObjectCreationSettingsCoord
         let view = newSearchModuleAssembly.objectTypeSearchModule(
             title: Loc.changeType,
             spaceId: setDocument.spaceId,
-            showBookmark: true,
             showSetAndCollection: true
         ) { [weak self] type in
             self?.navigationContext.dismissTopPresented()

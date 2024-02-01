@@ -8,11 +8,11 @@ struct HomeCreateObjectTip: Tip {
     static var objectTpeChanged: Bool = false
     
     var title: Text {
-        Text(Loc.LongTapCreateTip.title)
+        Text(verbatim: Loc.LongTapCreateTip.title)
     }
     
     var message: Text? {
-        Text(Loc.LongTapCreateTip.message)
+        Text(verbatim: Loc.LongTapCreateTip.message)
     }
     
     var options: [TipOption] {

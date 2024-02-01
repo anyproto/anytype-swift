@@ -115,7 +115,7 @@ private extension StatusRelationDetailsViewModel {
     
     func handleCreateOption(title: String) {
         Task {
-            let optionId = try await service.addRelationOption(spaceId: details.spaceId, relationKey: relation.key, optionText: title)
+            let optionId = try await service.addRelationOption(spaceId: details.spaceId, relationKey: relation.key, optionText: title, color: nil)
             guard let optionId = optionId else { return }
             
             try? await handleSelectedOptionIds([optionId])
