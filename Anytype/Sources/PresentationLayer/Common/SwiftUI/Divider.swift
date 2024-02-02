@@ -30,7 +30,7 @@ struct AnytypeDivider: View {
     let color: Color
     
     init(color: Color? = nil) {
-        self.color = color ?? Color.Stroke.primary
+        self.color = color ?? Color.Shape.primary
     }
     
     var body: some View {
@@ -42,7 +42,7 @@ final class UIKitAnytypeDivider: UIView {
     
     override init(frame: CGRect) {
         super.init(frame: frame)
-        backgroundColor = .Stroke.primary
+        backgroundColor = .Shape.primary
     }
     
     required init?(coder: NSCoder) {
