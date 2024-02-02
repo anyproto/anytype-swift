@@ -3,23 +3,29 @@ import SwiftUI
 import Services
 
 @MainActor
-final class GalleryInstallationCoordinatorViewModel: ObservableObject, GalleryInstallationPreviewModuleOutput {
+final class GalleryInstallationCoordinatorViewModel: ObservableObject,
+                                                     GalleryInstallationPreviewModuleOutput, GallerySpaceSelectionModuleOutput {
     
     private let data: GalleryInstallationData
     private let galleryInstallationPreviewModuleAssembly: GalleryInstallationPreviewModuleAssemblyProtocol
+    private let gallerySpaceSelectionModuleAssembly: GallerySpaceSelectionModuleAssemblyProtocol
     private let galleryService: GalleryServiceProtocol
     private let workspaceService: WorkspaceServiceProtocol
     
+    private var manifest: GalleryManifest?
     @Published var dismiss = false
+    @Published var showSpaceSelection = false
     
     init(
         data: GalleryInstallationData,
         galleryInstallationPreviewModuleAssembly: GalleryInstallationPreviewModuleAssemblyProtocol,
+        gallerySpaceSelectionModuleAssembly: GallerySpaceSelectionModuleAssemblyProtocol,
         galleryService: GalleryServiceProtocol,
         workspaceService: WorkspaceServiceProtocol
     ) {
         self.data = data
         self.galleryInstallationPreviewModuleAssembly = galleryInstallationPreviewModuleAssembly
+        self.gallerySpaceSelectionModuleAssembly = gallerySpaceSelectionModuleAssembly
         self.galleryService = galleryService
         self.workspaceService = workspaceService
     }
@@ -28,13 +34,25 @@ final class GalleryInstallationCoordinatorViewModel: ObservableObject, GalleryIn
         galleryInstallationPreviewModuleAssembly.make(data: data, output: self)
     }
     
+    func spaceSelectionModule() -> AnyView {
+        gallerySpaceSelectionModuleAssembly.make(output: self)
+    }
+    
     // MARK: - GalleryInstallationPreviewModuleOutput
     
     func onSelectInstall(manifest: GalleryManifest) {
-        Task {
-            let spaceId = try await workspaceService.createSpace(name: manifest.title, gradient: .random, accessibility: .personal, useCase: .none)
-            dismiss.toggle()
-            try await galleryService.importExperience(spaceId: spaceId, isNewSpace: true, title: manifest.title, url: manifest.downloadLink)
-        }
+        self.manifest = manifest
+        showSpaceSelection = true
+//        Task {
+//            let spaceId = try await workspaceService.createSpace(name: manifest.title, gradient: .random, accessibility: .personal, useCase: .none)
+//            dismiss.toggle()
+//            try await galleryService.importExperience(spaceId: spaceId, isNewSpace: true, title: manifest.title, url: manifest.downloadLink)
+//        }
+    }
+    
+    // MARK: - GallerySpaceSelectionModuleOutput
+    
+    func onSelectSpace(result: GallerySpaceSelectionResult) {
+        
     }
 }

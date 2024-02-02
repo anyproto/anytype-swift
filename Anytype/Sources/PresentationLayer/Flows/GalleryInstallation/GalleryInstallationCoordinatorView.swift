@@ -8,8 +8,11 @@ struct GalleryInstallationCoordinatorView: View {
     
     var body: some View {
         model.previewModule()
-        .onChange(of: model.dismiss) { _ in
-            dismiss()
-        }
+            .sheet(isPresented: $model.showSpaceSelection) {
+                model.spaceSelectionModule()
+            }
+            .onChange(of: model.dismiss) { _ in
+                dismiss()
+            }
     }
 }

@@ -278,6 +278,10 @@ final class ModulesDI: ModulesDIProtocol {
         GalleryInstallationPreviewModuleAssembly(serviceLocator: serviceLocator)
     }
     
+    func gallerySpaceSelectionModuleAssembly() -> GallerySpaceSelectionModuleAssemblyProtocol {
+        GallerySpaceSelectionModuleAssembly(serviceLocator: serviceLocator)
+    }
+    
     func commonNotification() -> CommonNotificationAssemblyProtocol {
         CommonNotificationAssembly(serviceLocator: serviceLocator)
     }

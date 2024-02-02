@@ -24,6 +24,7 @@ final class GalleryInstallationCoordinatorAssembly: GalleryInstallationCoordinat
             model: GalleryInstallationCoordinatorViewModel(
                 data: data,
                 galleryInstallationPreviewModuleAssembly: self.modulesDI.galleryInstallationPreview(),
+                gallerySpaceSelectionModuleAssembly: self.modulesDI.gallerySpaceSelectionModuleAssembly(),
                 galleryService: self.serviceLocator.galleryService(),
                 workspaceService: self.serviceLocator.workspaceService()
             )
