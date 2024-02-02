@@ -237,7 +237,7 @@ final class BaseDocument: BaseDocumentProtocol {
     }
 }
 
-extension Array where Element == DocumentUpdate {
+private extension Array where Element == DocumentUpdate {
     var merged: Self {
         if contains(.general) { return [.general] }
         var childIds = Set<BlockId>()

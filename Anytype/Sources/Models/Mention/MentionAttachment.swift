@@ -58,10 +58,8 @@ final class IconTextAttachment: NSTextAttachment {
         // Shift image to center take into account the offset
         let imageYPoint: CGFloat = -(size.height / 2.0) + yOffset
         let imageOrigin = CGPoint(x: .zero, y: imageYPoint)
-        
-        let rect = CGRect(origin: imageOrigin, size: CGSize(width: size.width + rightPadding, height: size.height))
 
-        return rect
+        return CGRect(origin: imageOrigin, size: CGSize(width: size.width + rightPadding, height: size.height))
     }
     
     override func viewProvider(for parentView: UIView?, location: NSTextLocation, textContainer: NSTextContainer?) -> NSTextAttachmentViewProvider? {

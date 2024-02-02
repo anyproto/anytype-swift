@@ -225,19 +225,10 @@ final class MiddlewareEventConverter {
         }
         
         guard let newInformation = informationCreator.createBlockInformation(from: newData),
-              case let .text(textContent) = newInformation.content else {
+              case .text = newInformation.content else {
             return nil
         }
         infoContainer.add(newInformation)
-        
-        // If toggle changed style to another style or vice versa
-        // we should rebuild all view to display/hide toggle's child blocks
-        let isOldStyleToggle = oldText.contentType == .toggle
-        let isNewStyleToggle = textContent.contentType == .toggle
-        
-//        if oldText.contentType != newInformation.textContent?.contentType
-//        let toggleStyleChanged = isOldStyleToggle != isNewStyleToggle
-
 
         var childIds = infoContainer.recursiveChildren(of: newData.id).map { $0.id }
         childIds.append(newData.id)
