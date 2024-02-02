@@ -11,7 +11,7 @@ struct LineProgressBarConfiguration {
         height: 6,
         cornerRadius: 3,
         innerCornerRadius: nil,
-        foregroundColor: .Stroke.secondary,
+        foregroundColor: .Shape.secondary,
         innerForegroundColor: .Text.primary
     )
 }

@@ -135,12 +135,12 @@ extension UIColor {
       internal static let primary = UIColor(asset: Asset.Shadow.primary)
     }
     
-    // MARK: - Stroke
-    enum Stroke {
-      internal static let primary = UIColor(asset: Asset.Stroke.primary)
-      internal static let secondary = UIColor(asset: Asset.Stroke.secondary)
-      internal static let tertiary = UIColor(asset: Asset.Stroke.tertiary)
-      internal static let transperent = UIColor(asset: Asset.Stroke.transperent)
+    // MARK: - Shape
+    enum Shape {
+      internal static let primary = UIColor(asset: Asset.Shape.primary)
+      internal static let secondary = UIColor(asset: Asset.Shape.secondary)
+      internal static let tertiary = UIColor(asset: Asset.Shape.tertiary)
+      internal static let transperent = UIColor(asset: Asset.Shape.transperent)
     }
     
     // MARK: - Text

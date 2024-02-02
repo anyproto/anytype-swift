@@ -15,7 +15,7 @@ struct SelectionIndicatorView: View {
     
     private var notSelectedView: some View {
         Circle()
-            .strokeBorder(Color.Stroke.primary, lineWidth: 1.5)
+            .strokeBorder(Color.Shape.primary, lineWidth: 1.5)
             .frame(width: 24, height: 24)
     }
     

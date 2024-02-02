@@ -152,7 +152,7 @@ struct ControlsExample: View {
                     UISelectionFeedbackGenerator().selectionChanged()
                 }
                 Rectangle()
-                    .fill(Color.Stroke.primary)
+                    .fill(Color.Shape.primary)
                     .frame(width: 1, height: 28)
                 StandardButton(.image(.X18.listArrow), style: .primaryXSmall, corners: [.topRight, .bottomRight]) {
                     UISelectionFeedbackGenerator().selectionChanged()
