@@ -8,11 +8,12 @@ struct InstalledObjectTypeView: View {
         Button {
             model.onTap()
         } label: {
-            HStack(spacing: 0) {
-                IconView(icon: model.icon)
-                    .frame(width: 18, height: 18)
+            HStack(spacing: 8) {
+                if let icon = model.icon {
+                    IconView(icon: icon)
+                        .frame(width: 18, height: 18)
+                }
                 if let title = model.title {
-                    Spacer.fixedWidth(8)
                     AnytypeText(title, style: .uxCalloutMedium, color: .Text.primary)
                 }
             }

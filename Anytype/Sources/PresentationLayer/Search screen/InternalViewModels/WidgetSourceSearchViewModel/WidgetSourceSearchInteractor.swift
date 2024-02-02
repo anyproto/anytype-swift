@@ -45,35 +45,35 @@ private extension AnytypeWidgetId {
                 type: .favorite,
                 name: Loc.favorite,
                 description: nil,
-                icon: .object(.emoji(Emoji("⭐️") ?? .default))
+                icon: .object(.emoji(Emoji("⭐️")!))
             )
         case .sets:
             return WidgetAnytypeLibrarySource(
                 type: .sets,
                 name: Loc.sets,
                 description: nil,
-                icon: .object(.emoji(Emoji("📚") ?? .default))
+                icon: .object(.emoji(Emoji("📚")!))
             )
         case .collections:
             return WidgetAnytypeLibrarySource(
                 type: .collections,
                 name: Loc.collections,
                 description: nil,
-                icon: .object(.emoji(Emoji("📂") ?? .default))
+                icon: .object(.emoji(Emoji("📂")!))
             )
         case .recent:
             return WidgetAnytypeLibrarySource(
                 type: .recent,
                 name: Loc.Widgets.Library.RecentlyEdited.name,
                 description: nil,
-                icon: .object(.emoji(Emoji("📝") ?? .default))
+                icon: .object(.emoji(Emoji("📝")!))
             )
         case .recentOpen:
             return WidgetAnytypeLibrarySource(
                 type: .recentOpen,
                 name: Loc.Widgets.Library.RecentlyOpened.name,
                 description: Loc.Widgets.Library.RecentlyOpened.description,
-                icon: .object(.emoji(Emoji("📅") ?? .default))
+                icon: .object(.emoji(Emoji("📅")!))
             )
         }
     }
