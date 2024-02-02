@@ -82,8 +82,8 @@ final class SearchService: SearchServiceProtocol {
         spaceId: String
     ) async throws -> [ObjectDetails] {
         let sort = SearchHelper.sort(
-            relation: BundledRelationKey.name,
-            type: .asc
+            relation: BundledRelationKey.lastUsedDate,
+            type: .desc
         )
                 
         var layouts = DetailsLayout.visibleLayouts
@@ -111,23 +111,16 @@ final class SearchService: SearchServiceProtocol {
         
         let result = try await searchMiddleService.search(filters: filters, sorts: [sort], fullText: text)
 
-        return result.reordered(
-            by: [
-                ObjectTypeUniqueKey.page.value,
-                ObjectTypeUniqueKey.note.value,
-                ObjectTypeUniqueKey.task.value,
-                ObjectTypeUniqueKey.collection.value
-            ]
-        ) { $0.uniqueKey }
+        return result
     }
     
     func searchListTypes(text: String, spaceId: String) async throws -> [ObjectDetails] {
         let sort = SearchHelper.sort(
-            relation: BundledRelationKey.name,
-            type: .asc
+            relation: BundledRelationKey.lastUsedDate,
+            type: .desc
         )
                 
-        var layouts: [DetailsLayout] = [.set, .collection]
+        let layouts: [DetailsLayout] = [.set, .collection]
         
         let filters: [DataviewFilter] = .builder {
             buildFilters(isArchived: false, spaceId: spaceId)
