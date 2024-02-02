@@ -79,18 +79,18 @@
 "Relation.From.Type" = "Fra type %@";
 "Relation.LinksFrom.Title" = "fra";
 "Relation.LinksTo.Title" = "til";
-"Relation.EmptyState.title" = "No options";
-"Relation.EmptyState.description" = "Nothing found. Create first option to start.";
-"Relation.EmptyState.Blocked.title" = "The relation is empty";
-"Relation.Create.Row.title" = "Create “%@”";
-"Relation.View.Create.title" = "Create option";
-"Relation.View.Edit.title" = "Edit option";
-"Relation.Create.Textfield.placeholder" = "Enter name...";
+"Relation.EmptyState.title" = "Ingen valg";
+"Relation.EmptyState.description" = "Fant ingenting. Opprett første alternativ for å starte.";
+"Relation.EmptyState.Blocked.title" = "Relasjonen er tom";
+"Relation.Create.Row.title" = "Opprett “%@”";
+"Relation.View.Create.title" = "Opprett alternativ";
+"Relation.View.Edit.title" = "Rediger valg";
+"Relation.Create.Textfield.placeholder" = "Skriv inn navn...";
 "Relation.Edit.Button.title" = "Bruk";
-"Relation.Date.Locked.Alert.title" = "Relation “%@” is locked";
+"Relation.Date.Locked.Alert.title" = "Relasjon “%@” er låst";
 
 "Relation.Delete.Alert.Title" = "Er du sikker?";
-"Relation.Delete.Alert.Description" = "The option will be permanently removed from your space.";
+"Relation.Delete.Alert.Description" = "Alternativet vil bli permanent fjernet fra ditt rom.";
 
 "Relation.Format.Object.Title" = "Objekt";
 "Relation.Format.Text.Title" = "Tekst";
@@ -107,7 +107,7 @@
 // Origin Relation
 
 "Relation.Origin.Clipboard" = "Clipboard";
-"Relation.Origin.DragAndDrop" = "Drag'n'Drop";
+"Relation.Origin.DragAndDrop" = "Dra og slipp";
 "Relation.Origin.Import" = "Imported object";
 "Relation.Origin.WebClipper" = "Web clipper";
 "Relation.Origin.SharingExtension" = "Mobile sharing extension";
@@ -617,7 +617,7 @@
 "Today" = "I dag";
 "No date" = "Ingen dato";
 "Clear" = "Tøm";
-"Create option with" = "Create option ‘%@’";
+"Create option with" = "Opprett valg '%@'";
 "Add URL" = "Legg til URL";
 "Add email" = "Legg til e-post";
 "Add phone number" = "Legg til telefonnummer";

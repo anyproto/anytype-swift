@@ -82,10 +82,10 @@
 "Relation.EmptyState.title" = "No options";
 "Relation.EmptyState.description" = "Nothing found. Create first option to start.";
 "Relation.EmptyState.Blocked.title" = "The relation is empty";
-"Relation.Create.Row.title" = "Create “%@”";
-"Relation.View.Create.title" = "Create option";
+"Relation.Create.Row.title" = "Skapa “%@”";
+"Relation.View.Create.title" = "Skapa alternativ";
 "Relation.View.Edit.title" = "Edit option";
-"Relation.Create.Textfield.placeholder" = "Enter name...";
+"Relation.Create.Textfield.placeholder" = "Ange namn...";
 "Relation.Edit.Button.title" = "Apply";
 "Relation.Date.Locked.Alert.title" = "Relation “%@” is locked";
 
