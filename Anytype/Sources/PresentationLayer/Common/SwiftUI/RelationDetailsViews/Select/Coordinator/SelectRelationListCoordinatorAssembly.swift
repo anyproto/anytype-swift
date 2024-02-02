@@ -5,7 +5,6 @@ protocol SelectRelationListCoordinatorAssemblyProtocol {
     func make(
         objectId: String,
         style: SelectRelationListStyle,
-        selectionMode: RelationSelectionOptionsMode,
         configuration: RelationModuleConfiguration,
         selectedOptionsIds: [String]
     ) -> AnyView
@@ -27,7 +26,6 @@ final class SelectRelationListCoordinatorAssembly: SelectRelationListCoordinator
     func make(
         objectId: String,
         style: SelectRelationListStyle,
-        selectionMode: RelationSelectionOptionsMode,
         configuration: RelationModuleConfiguration,
         selectedOptionsIds: [String]
     ) -> AnyView {
@@ -35,7 +33,6 @@ final class SelectRelationListCoordinatorAssembly: SelectRelationListCoordinator
             model: SelectRelationListCoordinatorViewModel(
                 objectId: objectId,
                 style: style,
-                selectionMode: selectionMode,
                 configuration: configuration,
                 selectedOptionsIds: selectedOptionsIds,
                 selectRelationListModuleAssembly: self.modulesDI.selectRelationList(),

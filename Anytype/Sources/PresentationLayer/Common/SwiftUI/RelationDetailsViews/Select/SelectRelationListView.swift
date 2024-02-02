@@ -80,7 +80,7 @@ struct SelectRelationListView: View {
     
     @ViewBuilder
     private func rowSelection(with option: SelectRelationOption) -> some View {
-        switch viewModel.relationSelectedOptionsModel.selectionMode {
+        switch viewModel.configuration.selectionMode {
         case .single:
             if viewModel.selectedOptionsIds.contains(option.id) {
                 Image(asset: .relationCheckboxChecked)
@@ -103,7 +103,8 @@ struct SelectRelationListView: View {
                 title: "Status",
                 isEditable: true,
                 relationKey: "",
-                spaceId: "",
+                spaceId: "", 
+                selectionMode: .single,
                 analyticsType: .block
             ), 
             relationSelectedOptionsModel: RelationSelectedOptionsModel(
@@ -128,6 +129,7 @@ struct SelectRelationListView: View {
                 isEditable: true,
                 relationKey: "",
                 spaceId: "",
+                selectionMode: .multi,
                 analyticsType: .block
             ),
             relationSelectedOptionsModel: RelationSelectedOptionsModel(

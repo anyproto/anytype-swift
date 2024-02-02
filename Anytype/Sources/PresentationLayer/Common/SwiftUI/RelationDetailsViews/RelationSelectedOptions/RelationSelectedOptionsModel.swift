@@ -15,9 +15,8 @@ protocol RelationSelectedOptionsModelProtocol {
 final class RelationSelectedOptionsModel: RelationSelectedOptionsModelProtocol {
     
     @Published private var selectedOptionsIds: [String] = []
-    var selectedOptionsIdsPublisher: AnyPublisher<[String], Never> {
-        $selectedOptionsIds.eraseToAnyPublisher()
-    }
+    var selectedOptionsIdsPublisher: AnyPublisher<[String], Never> { $selectedOptionsIds.eraseToAnyPublisher() }
+    
     let selectionMode: RelationSelectionOptionsMode
     
     private let relationKey: String

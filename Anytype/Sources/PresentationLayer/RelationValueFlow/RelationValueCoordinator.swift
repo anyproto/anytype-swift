@@ -85,12 +85,12 @@ final class RelationValueCoordinator: RelationValueCoordinatorProtocol,
                 isEditable: relation.isEditable,
                 relationKey: status.key,
                 spaceId: objectDetails.spaceId,
+                selectionMode: .single,
                 analyticsType: analyticsType
             )
             let view = selectRelationListCoordinatorAssembly.make(
                 objectId: objectDetails.id,
                 style: .status, 
-                selectionMode: .single,
                 configuration: configuration,
                 selectedOptionsIds: status.values.compactMap { $0.id }
             )
@@ -106,13 +106,13 @@ final class RelationValueCoordinator: RelationValueCoordinatorProtocol,
                 title: tag.name,
                 isEditable: relation.isEditable,
                 relationKey: tag.key,
-                spaceId: objectDetails.spaceId,
+                spaceId: objectDetails.spaceId, 
+                selectionMode: .multi,
                 analyticsType: analyticsType
             )
             let view = selectRelationListCoordinatorAssembly.make(
                 objectId: objectDetails.id,
-                style: .tag, 
-                selectionMode: .multi,
+                style: .tag,
                 configuration: configuration,
                 selectedOptionsIds: tag.selectedTags.compactMap { $0.id }
             )

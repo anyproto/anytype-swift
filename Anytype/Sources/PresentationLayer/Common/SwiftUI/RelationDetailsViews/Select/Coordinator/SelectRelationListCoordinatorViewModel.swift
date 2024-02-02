@@ -6,7 +6,6 @@ final class SelectRelationListCoordinatorViewModel: ObservableObject, SelectRela
 
     private let objectId: String
     private let style: SelectRelationListStyle
-    private let selectionMode: RelationSelectionOptionsMode
     private let configuration: RelationModuleConfiguration
     private let selectedOptionsIds: [String]
     private let selectRelationListModuleAssembly: SelectRelationListModuleAssemblyProtocol
@@ -19,7 +18,6 @@ final class SelectRelationListCoordinatorViewModel: ObservableObject, SelectRela
     init(
         objectId: String,
         style: SelectRelationListStyle,
-        selectionMode: RelationSelectionOptionsMode,
         configuration: RelationModuleConfiguration,
         selectedOptionsIds: [String],
         selectRelationListModuleAssembly: SelectRelationListModuleAssemblyProtocol,
@@ -27,7 +25,6 @@ final class SelectRelationListCoordinatorViewModel: ObservableObject, SelectRela
     ) {
         self.objectId = objectId
         self.style = style
-        self.selectionMode = selectionMode
         self.configuration = configuration
         self.selectedOptionsIds = selectedOptionsIds
         self.selectRelationListModuleAssembly = selectRelationListModuleAssembly
@@ -38,7 +35,6 @@ final class SelectRelationListCoordinatorViewModel: ObservableObject, SelectRela
         selectRelationListModuleAssembly.make(
             objectId: objectId,
             style: style, 
-            selectionMode: selectionMode,
             configuration: configuration,
             selectedOptionsIds: selectedOptionsIds,
             output: self

@@ -13,8 +13,8 @@ final class SelectRelationListViewModel: ObservableObject {
         
     let style: SelectRelationListStyle
     let configuration: RelationModuleConfiguration
-    let relationSelectedOptionsModel: RelationSelectedOptionsModelProtocol
     
+    private let relationSelectedOptionsModel: RelationSelectedOptionsModelProtocol
     private let searchService: SearchServiceProtocol
     
     private weak var output: SelectRelationListModuleOutput?
@@ -137,7 +137,7 @@ final class SelectRelationListViewModel: ObservableObject {
     }
     
     private func closeIfNeeded() {
-        if relationSelectedOptionsModel.selectionMode == .single {
+        if configuration.selectionMode == .single {
             output?.onClose()
         }
     }

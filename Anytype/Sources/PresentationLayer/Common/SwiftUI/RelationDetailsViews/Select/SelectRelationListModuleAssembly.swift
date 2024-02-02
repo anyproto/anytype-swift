@@ -6,7 +6,6 @@ protocol SelectRelationListModuleAssemblyProtocol: AnyObject {
     func make(
         objectId: String,
         style: SelectRelationListStyle,
-        selectionMode: RelationSelectionOptionsMode,
         configuration: RelationModuleConfiguration,
         selectedOptionsIds: [String],
         output: SelectRelationListModuleOutput?
@@ -27,7 +26,6 @@ final class SelectRelationListModuleAssembly: SelectRelationListModuleAssemblyPr
     func make(
         objectId: String,
         style: SelectRelationListStyle,
-        selectionMode: RelationSelectionOptionsMode,
         configuration: RelationModuleConfiguration,
         selectedOptionsIds: [String],
         output: SelectRelationListModuleOutput?
@@ -37,7 +35,7 @@ final class SelectRelationListModuleAssembly: SelectRelationListModuleAssemblyPr
                 style: style,
                 configuration: configuration,
                 relationSelectedOptionsModel: RelationSelectedOptionsModel(
-                    selectionMode: selectionMode,
+                    selectionMode: configuration.selectionMode,
                     selectedOptionsIds: selectedOptionsIds,
                     relationKey: configuration.relationKey,
                     analyticsType: configuration.analyticsType,
