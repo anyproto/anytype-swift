@@ -71,7 +71,7 @@ struct ObjectTypeSearchView: View {
                 .padding(.leading, 14)
                 .padding(.trailing, 16)
             }
-            .border(12, color: .Stroke.primary)
+            .border(12, color: .Shape.primary)
             .padding(.bottom, 8)
         }
         .padding(.horizontal, 20)

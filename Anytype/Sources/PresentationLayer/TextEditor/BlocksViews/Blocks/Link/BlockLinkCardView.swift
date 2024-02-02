@@ -134,7 +134,7 @@ final class BlockLinkCardView: UIView, BlockContentView {
         layer.cornerRadius = 12
         layer.masksToBounds = true
         layer.borderWidth = 0.5
-        dynamicBorderColor = UIColor.Stroke.primary
+        dynamicBorderColor = UIColor.Shape.primary
 
         titleLabel.numberOfLines = 2
         titleLabel.setLineBreakMode(.byTruncatingTail)

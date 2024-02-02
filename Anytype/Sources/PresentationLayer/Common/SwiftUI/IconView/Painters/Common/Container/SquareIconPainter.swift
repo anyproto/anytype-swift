@@ -37,7 +37,7 @@ final class SquareIconPainter: IconPainter {
         context.addPath(path)
         context.clip()
         
-        context.setFillColor(UIColor.Stroke.secondary.cgColor)
+        context.setFillColor(UIColor.Shape.secondary.cgColor)
         context.fill(bounds)
     }
 }

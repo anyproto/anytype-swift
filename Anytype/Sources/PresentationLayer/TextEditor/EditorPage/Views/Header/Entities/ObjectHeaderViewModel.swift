@@ -77,7 +77,7 @@ final class ObjectHeaderViewModel: ObservableObject {
             cornerRadius: 0,
             side: imageSize.height,
             foregroundColor: nil,
-            backgroundColor: .Stroke.tertiary
+            backgroundColor: .Shape.tertiary
         )
         return .filled(
             state: .iconAndCover(
@@ -87,7 +87,7 @@ final class ObjectHeaderViewModel: ObservableObject {
                     onTap: {}
                 ),
                 cover: .init(
-                    coverType: .cover(.color(.Stroke.tertiary)),
+                    coverType: .cover(.color(.Shape.tertiary)),
                     onTap: {})
             ),
             isShimmering: true

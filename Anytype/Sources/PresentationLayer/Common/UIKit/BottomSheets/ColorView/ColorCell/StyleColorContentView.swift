@@ -49,7 +49,7 @@ final class StyleColorContentView: UIView, UIContentView {
         colorView.dynamicBorderColor = UIColor.Text.tertiary
         colorView.layer.borderWidth = 1
 
-        backgroundView.dynamicBorderColor = UIColor.Stroke.secondary
+        backgroundView.dynamicBorderColor = UIColor.Shape.secondary
         backgroundView.layer.borderWidth = 3
 
         addSubview(backgroundView)
