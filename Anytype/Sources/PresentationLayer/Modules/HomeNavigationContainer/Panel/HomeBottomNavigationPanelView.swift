@@ -124,9 +124,12 @@ struct HomeBottomNavigationPanelView: View {
         if let progress = model.progress {
             GeometryReader { reader in
                 Color.red
-                    .frame(width: reader.size.width * progress, alignment: .leading)
+                    .cornerRadius(2)
+                    .frame(width: max(reader.size.width * progress, 30), alignment: .leading)
+                    .animation(.linear, value: progress)
             }
             .frame(height: 12)
+            .transition(.opacity)
         }
     }
 }
