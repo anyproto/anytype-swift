@@ -5,7 +5,6 @@ import Services
 struct GalleryInstallationPreviewView: View {
     
     @StateObject var model: GalleryInstallationPreviewViewModel
-    @Environment(\.dismiss) var dismiss
     
     var body: some View {
         Group {
@@ -19,9 +18,6 @@ struct GalleryInstallationPreviewView: View {
             case .install:
                 EmptyView()
             }
-        }
-        .onChange(of: model.dismiss) { _ in
-            dismiss()
         }
     }
 }

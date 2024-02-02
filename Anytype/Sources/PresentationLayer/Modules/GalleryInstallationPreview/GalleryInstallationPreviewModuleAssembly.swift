@@ -3,7 +3,7 @@ import SwiftUI
 
 @MainActor
 protocol GalleryInstallationPreviewModuleAssemblyProtocol: AnyObject {
-    func make(data: GalleryInstallationData) -> AnyView
+    func make(data: GalleryInstallationData, output: GalleryInstallationPreviewModuleOutput?) -> AnyView
 }
 
 @MainActor
@@ -17,12 +17,12 @@ final class GalleryInstallationPreviewModuleAssembly: GalleryInstallationPreview
     
     // MARK: - GalleryInstallationPreviewModuleAssemblyProtocol
     
-    func make(data: GalleryInstallationData) -> AnyView {
+    func make(data: GalleryInstallationData, output: GalleryInstallationPreviewModuleOutput?) -> AnyView {
         return GalleryInstallationPreviewView(
             model: GalleryInstallationPreviewViewModel(
                 data: data,
                 galleryService: self.serviceLocator.galleryService(),
-                workspaceService: self.serviceLocator.workspaceService()
+                output: output
             )
         ).eraseToAnyView()
     }

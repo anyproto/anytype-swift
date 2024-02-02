@@ -10,9 +10,11 @@ protocol GalleryInstallationCoordinatorAssemblyProtocol: AnyObject {
 final class GalleryInstallationCoordinatorAssembly: GalleryInstallationCoordinatorAssemblyProtocol {
     
     private let modulesDI: ModulesDIProtocol
+    private let serviceLocator: ServiceLocator
     
-    nonisolated init(modulesDI: ModulesDIProtocol) {
+    nonisolated init(modulesDI: ModulesDIProtocol, serviceLocator: ServiceLocator) {
         self.modulesDI = modulesDI
+        self.serviceLocator = serviceLocator
     }
     
     // MARK: - GalleryInstallationCoordinatorAssemblyProtocol
@@ -21,7 +23,9 @@ final class GalleryInstallationCoordinatorAssembly: GalleryInstallationCoordinat
         return GalleryInstallationCoordinatorView(
             model: GalleryInstallationCoordinatorViewModel(
                 data: data,
-                galleryInstallationPreviewModuleAssembly: self.modulesDI.galleryInstallationPreview()
+                galleryInstallationPreviewModuleAssembly: self.modulesDI.galleryInstallationPreview(),
+                galleryService: self.serviceLocator.galleryService(),
+                workspaceService: self.serviceLocator.workspaceService()
             )
         ).eraseToAnyView()
     }
