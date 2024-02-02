@@ -49,10 +49,3 @@ extension Emoji: ProtobufSupport {
         self = emoji
     }
 }
-
-extension Hash: ProtobufSupport {
-    public init?(_ value: Google_Protobuf_Value) {
-        guard let hash = Hash(value.unwrapedListValue.stringValue) else { return nil }
-        self = hash
-    }
-}

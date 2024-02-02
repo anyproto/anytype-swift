@@ -48,9 +48,9 @@ final class TextServiceHandler: TextServiceProtocol {
     func setTextIcon(
         contextId: BlockId,
         blockId: BlockId,
-        imageHash: String,
+        imageObjectId: String,
         emojiUnicode: String
     ) async throws {
-        try await textService.setTextIcon(contextId: contextId, blockId: blockId, imageHash: imageHash, emojiUnicode: emojiUnicode)
+        try await textService.setTextIcon(contextId: contextId, blockId: blockId, imageObjectId: imageObjectId, emojiUnicode: emojiUnicode)
     }
 }

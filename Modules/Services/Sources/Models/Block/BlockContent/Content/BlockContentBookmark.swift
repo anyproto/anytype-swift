@@ -26,11 +26,11 @@ public struct BlockBookmark: Hashable {
 
     // MARK: - Empty
     public static func empty() -> Self {
-        .init(source: nil, title: "", theDescription: "", imageHash: "", faviconHash: "", type: .unknown, targetObjectID: "", state: .empty)
+        .init(source: nil, title: "", theDescription: "", imageObjectId: "", faviconObjectId: "", type: .unknown, targetObjectID: "", state: .empty)
     }
     
     public static func empty(targetObjectID: String) -> Self {
-        .init(source: nil, title: "", theDescription: "", imageHash: "", faviconHash: "", type: .unknown, targetObjectID: targetObjectID, state: .done)
+        .init(source: nil, title: "", theDescription: "", imageObjectId: "", faviconObjectId: "", type: .unknown, targetObjectID: targetObjectID, state: .done)
     }
     
     // MARK: - Memberwise initializer
@@ -38,8 +38,8 @@ public struct BlockBookmark: Hashable {
         source: AnytypeURL?,
         title: String,
         theDescription: String,
-        imageHash: String,
-        faviconHash: String,
+        imageObjectId: String,
+        faviconObjectId: String,
         type: Style,
         targetObjectID: String,
         state: State
@@ -47,8 +47,8 @@ public struct BlockBookmark: Hashable {
         self.source = source
         self.title = title
         self.theDescription = theDescription
-        self.imageHash = imageHash
-        self.faviconHash = faviconHash
+        self.imageHash = imageObjectId
+        self.faviconHash = faviconObjectId
         self.type = type
         self.targetObjectID = targetObjectID
         self.state = state

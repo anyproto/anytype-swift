@@ -16,7 +16,7 @@ public protocol TextServiceProtocol {
     func setTextIcon(
         contextId: BlockId,
         blockId: BlockId,
-        imageHash: String,
+        imageObjectId: String,
         emojiUnicode: String
     ) async throws
 }

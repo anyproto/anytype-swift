@@ -10,8 +10,8 @@ public extension Anytype_Model_Block.Content.Bookmark {
                         source: AnytypeURL(string: url),
                         title: title,
                         theDescription: description_p,
-                        imageHash: imageHash,
-                        faviconHash: faviconHash,
+                        imageObjectId: imageHash,
+                        faviconObjectId: faviconHash,
                         type: $0,
                         targetObjectID: targetObjectID,
                         state: state.asModel

@@ -49,6 +49,7 @@ public enum Anytype_Model_SmartBlockType: SwiftProtobuf.Enum {
   case spaceView // = 530
   case identity // = 532
   case missingObject // = 519
+  case fileObject // = 533
   case UNRECOGNIZED(Int)
 
   public init() {
@@ -78,6 +79,7 @@ public enum Anytype_Model_SmartBlockType: SwiftProtobuf.Enum {
     case 529: self = .strelationOption
     case 530: self = .spaceView
     case 532: self = .identity
+    case 533: self = .fileObject
     default: self = .UNRECOGNIZED(rawValue)
     }
   }
@@ -105,6 +107,7 @@ public enum Anytype_Model_SmartBlockType: SwiftProtobuf.Enum {
     case .strelationOption: return 529
     case .spaceView: return 530
     case .identity: return 532
+    case .fileObject: return 533
     case .UNRECOGNIZED(let i): return i
     }
   }
@@ -137,6 +140,7 @@ extension Anytype_Model_SmartBlockType: CaseIterable {
     .spaceView,
     .identity,
     .missingObject,
+    .fileObject,
   ]
 }
 
@@ -407,6 +411,50 @@ extension Anytype_Model_SpaceStatus: CaseIterable {
 
 #endif  // swift(>=4.2)
 
+public enum Anytype_Model_ImageKind: SwiftProtobuf.Enum {
+  public typealias RawValue = Int
+  case basic // = 0
+  case cover // = 1
+  case icon // = 2
+  case UNRECOGNIZED(Int)
+
+  public init() {
+    self = .basic
+  }
+
+  public init?(rawValue: Int) {
+    switch rawValue {
+    case 0: self = .basic
+    case 1: self = .cover
+    case 2: self = .icon
+    default: self = .UNRECOGNIZED(rawValue)
+    }
+  }
+
+  public var rawValue: Int {
+    switch self {
+    case .basic: return 0
+    case .cover: return 1
+    case .icon: return 2
+    case .UNRECOGNIZED(let i): return i
+    }
+  }
+
+}
+
+#if swift(>=4.2)
+
+extension Anytype_Model_ImageKind: CaseIterable {
+  // The compiler won't synthesize support with the UNRECOGNIZED case.
+  public static let allCases: [Anytype_Model_ImageKind] = [
+    .basic,
+    .cover,
+    .icon,
+  ]
+}
+
+#endif  // swift(>=4.2)
+
 public struct Anytype_Model_SmartBlockSnapshotBase {
   // SwiftProtobuf.Message conformance is added in an extension below. See the
   // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
@@ -432,7 +480,6 @@ public struct Anytype_Model_SmartBlockSnapshotBase {
   /// Clears the value of `fileKeys`. Subsequent reads from it will return its default value.
   public mutating func clearFileKeys() {self._fileKeys = nil}
 
-  /// deprecated
   public var extraRelations: [Anytype_Model_Relation] = []
 
   public var objectTypes: [String] = []
@@ -456,6 +503,15 @@ public struct Anytype_Model_SmartBlockSnapshotBase {
   /// ignored in import/export in favor of createdDate relation. Used to store original user-side object creation timestamp
   public var originalCreatedTimestamp: Int64 = 0
 
+  public var fileInfo: Anytype_Model_FileInfo {
+    get {return _fileInfo ?? Anytype_Model_FileInfo()}
+    set {_fileInfo = newValue}
+  }
+  /// Returns true if `fileInfo` has been explicitly set.
+  public var hasFileInfo: Bool {return self._fileInfo != nil}
+  /// Clears the value of `fileInfo`. Subsequent reads from it will return its default value.
+  public mutating func clearFileInfo() {self._fileInfo = nil}
+
   public var unknownFields = SwiftProtobuf.UnknownStorage()
 
   public init() {}
@@ -463,6 +519,7 @@ public struct Anytype_Model_SmartBlockSnapshotBase {
   fileprivate var _details: SwiftProtobuf.Google_Protobuf_Struct? = nil
   fileprivate var _fileKeys: SwiftProtobuf.Google_Protobuf_Struct? = nil
   fileprivate var _collections: SwiftProtobuf.Google_Protobuf_Struct? = nil
+  fileprivate var _fileInfo: Anytype_Model_FileInfo? = nil
 }
 
 public struct Anytype_Model_Block {
@@ -1472,6 +1529,8 @@ public struct Anytype_Model_Block {
 
       public var addedAt: Int64 = 0
 
+      public var targetObjectID: String = String()
+
       public var state: Anytype_Model_Block.Content.File.State = .empty
 
       public var style: Anytype_Model_Block.Content.File.Style = .auto
@@ -1687,6 +1746,7 @@ public struct Anytype_Model_Block {
           case gallery // = 2
           case kanban // = 3
           case calendar // = 4
+          case graph // = 5
           case UNRECOGNIZED(Int)
 
           public init() {
@@ -1700,6 +1760,7 @@ public struct Anytype_Model_Block {
             case 2: self = .gallery
             case 3: self = .kanban
             case 4: self = .calendar
+            case 5: self = .graph
             default: self = .UNRECOGNIZED(rawValue)
             }
           }
@@ -1711,6 +1772,7 @@ public struct Anytype_Model_Block {
             case .gallery: return 2
             case .kanban: return 3
             case .calendar: return 4
+            case .graph: return 5
             case .UNRECOGNIZED(let i): return i
             }
           }
@@ -2665,6 +2727,7 @@ extension Anytype_Model_Block.Content.Dataview.View.TypeEnum: CaseIterable {
     .gallery,
     .kanban,
     .calendar,
+    .graph,
   ]
 }
 
@@ -4523,11 +4586,40 @@ extension Anytype_Model_Import.ErrorCode: CaseIterable {
 
 #endif  // swift(>=4.2)
 
+public struct Anytype_Model_FileEncryptionKey {
+  // SwiftProtobuf.Message conformance is added in an extension below. See the
+  // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+  // methods supported on all messages.
+
+  public var path: String = String()
+
+  public var key: String = String()
+
+  public var unknownFields = SwiftProtobuf.UnknownStorage()
+
+  public init() {}
+}
+
+public struct Anytype_Model_FileInfo {
+  // SwiftProtobuf.Message conformance is added in an extension below. See the
+  // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+  // methods supported on all messages.
+
+  public var fileID: String = String()
+
+  public var encryptionKeys: [Anytype_Model_FileEncryptionKey] = []
+
+  public var unknownFields = SwiftProtobuf.UnknownStorage()
+
+  public init() {}
+}
+
 #if swift(>=5.5) && canImport(_Concurrency)
 extension Anytype_Model_SmartBlockType: @unchecked Sendable {}
 extension Anytype_Model_RelationFormat: @unchecked Sendable {}
 extension Anytype_Model_ObjectOrigin: @unchecked Sendable {}
 extension Anytype_Model_SpaceStatus: @unchecked Sendable {}
+extension Anytype_Model_ImageKind: @unchecked Sendable {}
 extension Anytype_Model_SmartBlockSnapshotBase: @unchecked Sendable {}
 extension Anytype_Model_Block: @unchecked Sendable {}
 extension Anytype_Model_Block.OneOf_Content: @unchecked Sendable {}
@@ -4642,6 +4734,8 @@ extension Anytype_Model_Export.Format: @unchecked Sendable {}
 extension Anytype_Model_Import: @unchecked Sendable {}
 extension Anytype_Model_Import.TypeEnum: @unchecked Sendable {}
 extension Anytype_Model_Import.ErrorCode: @unchecked Sendable {}
+extension Anytype_Model_FileEncryptionKey: @unchecked Sendable {}
+extension Anytype_Model_FileInfo: @unchecked Sendable {}
 #endif  // swift(>=5.5) && canImport(_Concurrency)
 
 // MARK: - Code below here is support for the SwiftProtobuf runtime.
@@ -4671,6 +4765,7 @@ extension Anytype_Model_SmartBlockType: SwiftProtobuf._ProtoNameProviding {
     529: .same(proto: "STRelationOption"),
     530: .same(proto: "SpaceView"),
     532: .same(proto: "Identity"),
+    533: .same(proto: "FileObject"),
   ]
 }
 
@@ -4720,6 +4815,14 @@ extension Anytype_Model_SpaceStatus: SwiftProtobuf._ProtoNameProviding {
   ]
 }
 
+extension Anytype_Model_ImageKind: SwiftProtobuf._ProtoNameProviding {
+  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    0: .same(proto: "Basic"),
+    1: .same(proto: "Cover"),
+    2: .same(proto: "Icon"),
+  ]
+}
+
 extension Anytype_Model_SmartBlockSnapshotBase: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
   public static let protoMessageName: String = _protobuf_package + ".SmartBlockSnapshotBase"
   public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
@@ -4733,6 +4836,7 @@ extension Anytype_Model_SmartBlockSnapshotBase: SwiftProtobuf.Message, SwiftProt
     7: .same(proto: "relationLinks"),
     9: .same(proto: "key"),
     10: .same(proto: "originalCreatedTimestamp"),
+    11: .same(proto: "fileInfo"),
   ]
 
   public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
@@ -4751,6 +4855,7 @@ extension Anytype_Model_SmartBlockSnapshotBase: SwiftProtobuf.Message, SwiftProt
       case 8: try { try decoder.decodeRepeatedStringField(value: &self.removedCollectionKeys) }()
       case 9: try { try decoder.decodeSingularStringField(value: &self.key) }()
       case 10: try { try decoder.decodeSingularInt64Field(value: &self.originalCreatedTimestamp) }()
+      case 11: try { try decoder.decodeSingularMessageField(value: &self._fileInfo) }()
       default: break
       }
     }
@@ -4791,6 +4896,9 @@ extension Anytype_Model_SmartBlockSnapshotBase: SwiftProtobuf.Message, SwiftProt
     if self.originalCreatedTimestamp != 0 {
       try visitor.visitSingularInt64Field(value: self.originalCreatedTimestamp, fieldNumber: 10)
     }
+    try { if let v = self._fileInfo {
+      try visitor.visitSingularMessageField(value: v, fieldNumber: 11)
+    } }()
     try unknownFields.traverse(visitor: &visitor)
   }
 
@@ -4805,6 +4913,7 @@ extension Anytype_Model_SmartBlockSnapshotBase: SwiftProtobuf.Message, SwiftProt
     if lhs.relationLinks != rhs.relationLinks {return false}
     if lhs.key != rhs.key {return false}
     if lhs.originalCreatedTimestamp != rhs.originalCreatedTimestamp {return false}
+    if lhs._fileInfo != rhs._fileInfo {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
@@ -5859,6 +5968,7 @@ extension Anytype_Model_Block.Content.File: SwiftProtobuf.Message, SwiftProtobuf
     4: .same(proto: "mime"),
     5: .same(proto: "size"),
     6: .same(proto: "addedAt"),
+    9: .same(proto: "targetObjectId"),
     7: .same(proto: "state"),
     8: .same(proto: "style"),
   ]
@@ -5877,6 +5987,7 @@ extension Anytype_Model_Block.Content.File: SwiftProtobuf.Message, SwiftProtobuf
       case 6: try { try decoder.decodeSingularInt64Field(value: &self.addedAt) }()
       case 7: try { try decoder.decodeSingularEnumField(value: &self.state) }()
       case 8: try { try decoder.decodeSingularEnumField(value: &self.style) }()
+      case 9: try { try decoder.decodeSingularStringField(value: &self.targetObjectID) }()
       default: break
       }
     }
@@ -5907,6 +6018,9 @@ extension Anytype_Model_Block.Content.File: SwiftProtobuf.Message, SwiftProtobuf
     if self.style != .auto {
       try visitor.visitSingularEnumField(value: self.style, fieldNumber: 8)
     }
+    if !self.targetObjectID.isEmpty {
+      try visitor.visitSingularStringField(value: self.targetObjectID, fieldNumber: 9)
+    }
     try unknownFields.traverse(visitor: &visitor)
   }
 
@@ -5917,6 +6031,7 @@ extension Anytype_Model_Block.Content.File: SwiftProtobuf.Message, SwiftProtobuf
     if lhs.mime != rhs.mime {return false}
     if lhs.size != rhs.size {return false}
     if lhs.addedAt != rhs.addedAt {return false}
+    if lhs.targetObjectID != rhs.targetObjectID {return false}
     if lhs.state != rhs.state {return false}
     if lhs.style != rhs.style {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
@@ -6174,6 +6289,7 @@ extension Anytype_Model_Block.Content.Dataview.View.TypeEnum: SwiftProtobuf._Pro
     2: .same(proto: "Gallery"),
     3: .same(proto: "Kanban"),
     4: .same(proto: "Calendar"),
+    5: .same(proto: "Graph"),
   ]
 }
 
@@ -9075,4 +9191,80 @@ extension Anytype_Model_Import.ErrorCode: SwiftProtobuf._ProtoNameProviding {
     7: .same(proto: "LIMIT_OF_ROWS_OR_RELATIONS_EXCEEDED"),
     8: .same(proto: "FILE_LOAD_ERROR"),
   ]
+}
+
+extension Anytype_Model_FileEncryptionKey: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = _protobuf_package + ".FileEncryptionKey"
+  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    1: .same(proto: "path"),
+    2: .same(proto: "key"),
+  ]
+
+  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let fieldNumber = try decoder.nextFieldNumber() {
+      // The use of inline closures is to circumvent an issue where the compiler
+      // allocates stack space for every case branch when no optimizations are
+      // enabled. https://github.com/apple/swift-protobuf/issues/1034
+      switch fieldNumber {
+      case 1: try { try decoder.decodeSingularStringField(value: &self.path) }()
+      case 2: try { try decoder.decodeSingularStringField(value: &self.key) }()
+      default: break
+      }
+    }
+  }
+
+  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    if !self.path.isEmpty {
+      try visitor.visitSingularStringField(value: self.path, fieldNumber: 1)
+    }
+    if !self.key.isEmpty {
+      try visitor.visitSingularStringField(value: self.key, fieldNumber: 2)
+    }
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  public static func ==(lhs: Anytype_Model_FileEncryptionKey, rhs: Anytype_Model_FileEncryptionKey) -> Bool {
+    if lhs.path != rhs.path {return false}
+    if lhs.key != rhs.key {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    return true
+  }
+}
+
+extension Anytype_Model_FileInfo: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = _protobuf_package + ".FileInfo"
+  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    1: .same(proto: "fileId"),
+    2: .same(proto: "encryptionKeys"),
+  ]
+
+  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let fieldNumber = try decoder.nextFieldNumber() {
+      // The use of inline closures is to circumvent an issue where the compiler
+      // allocates stack space for every case branch when no optimizations are
+      // enabled. https://github.com/apple/swift-protobuf/issues/1034
+      switch fieldNumber {
+      case 1: try { try decoder.decodeSingularStringField(value: &self.fileID) }()
+      case 2: try { try decoder.decodeRepeatedMessageField(value: &self.encryptionKeys) }()
+      default: break
+      }
+    }
+  }
+
+  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    if !self.fileID.isEmpty {
+      try visitor.visitSingularStringField(value: self.fileID, fieldNumber: 1)
+    }
+    if !self.encryptionKeys.isEmpty {
+      try visitor.visitRepeatedMessageField(value: self.encryptionKeys, fieldNumber: 2)
+    }
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  public static func ==(lhs: Anytype_Model_FileInfo, rhs: Anytype_Model_FileInfo) -> Bool {
+    if lhs.fileID != rhs.fileID {return false}
+    if lhs.encryptionKeys != rhs.encryptionKeys {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    return true
+  }
 }
