@@ -26,6 +26,10 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         
         connectionOptions.shortcutItem.flatMap { _ = handleQuickAction($0) }
         handleURLContext(openURLContexts: connectionOptions.urlContexts)
+        let testURL = URL(string: "dev-anytype://main/import/?type=experience&source=https%3A%2F%2Fstorage.gallery.any.coop%2Fpara_tasks_resources_meeting_notes_crm%2Fmanifest.json")!
+        
+        AppActionStorage.shared.action = deepLinkParser?.parse(url: testURL)
+        
         
         let applicationView = di.coordinatorsDI.application().makeView()
         window.rootViewController = UIHostingController(rootView: applicationView)

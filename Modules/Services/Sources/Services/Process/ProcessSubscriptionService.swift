@@ -3,13 +3,19 @@ import ProtobufMessages
 import Combine
 import AnytypeCore
 
-actor ProcessStorage: ServiceEventsHandlerProtocol {
+public protocol ProcessSubscriptionServiceProtocol: AnyObject {
+    func addHandler(handler: @escaping (_ processes: [ProcessEvent]) async -> Void) async -> AnyCancellable
+}
+
+public actor ProcessSubscriptionService: ServiceEventsHandlerProtocol, ProcessSubscriptionServiceProtocol {
     
     private var handleStorage = HandlerStorage<(_ processes: [ProcessEvent]) async -> Void>()
     
-    init() {
+    public init() {
         ServiceMessageHandlerAdapter.shared.addHandler(handler: self)
     }
+    
+    // MARK: - ProcessSubscriptionServiceProtocol
     
     public func addHandler(handler: @escaping (_ processes: [ProcessEvent]) async -> Void) async -> AnyCancellable {
         return await handleStorage.addHandler(handler: handler)
@@ -17,7 +23,7 @@ actor ProcessStorage: ServiceEventsHandlerProtocol {
     
     // MARK: - ServiceEventsHandlerProtocol
     
-    func handle(_ event: Anytype_Event) async {
+    public func handle(_ event: Anytype_Event) async {
         let messages: [ProcessEvent] = event.messages.compactMap { message in
             switch message.value {
             case let .processNew(data):

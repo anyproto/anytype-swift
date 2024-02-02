@@ -61,6 +61,9 @@ struct HomeBottomNavigationPanelView: View {
         .padding(.vertical, 10)
         .background(Color.Navigation.background)
         .background(.ultraThinMaterial)
+        .overlay(alignment: .bottom) {
+            progressView
+        }
         .cornerRadius(16, style: .continuous)
         .overlay {
             if #available(iOS 17.0, *) {
@@ -114,5 +117,16 @@ struct HomeBottomNavigationPanelView: View {
     
     private var homeMode: Bool {
         return homePath.count <= 1
+    }
+    
+    @ViewBuilder
+    private var progressView: some View {
+        if let progress = model.progress {
+            GeometryReader { reader in
+                Color.red
+                    .frame(width: reader.size.width * progress, alignment: .leading)
+            }
+            .frame(height: 12)
+        }
     }
 }
