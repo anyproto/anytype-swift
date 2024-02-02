@@ -18,10 +18,12 @@ extension BlockBookmark {
             newData.theDescription = data.description_p.value
         }
 
+        // TODO: Rename hash
         if data.hasImageHash {
             newData.imageHash = data.imageHash.value
         }
-
+        
+        // TODO: Rename hash
         if data.hasFaviconHash {
             newData.faviconHash = data.faviconHash.value
         }

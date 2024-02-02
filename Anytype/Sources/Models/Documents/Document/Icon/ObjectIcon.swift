@@ -2,7 +2,7 @@ import AnytypeCore
 import Services
 
 enum ObjectIcon: Hashable {
-    case basic(_ imageId: String)
+    case basic(_ imageObjectId: String)
     case profile(Profile)
     case emoji(Emoji)
     case bookmark(_ imageId: String)

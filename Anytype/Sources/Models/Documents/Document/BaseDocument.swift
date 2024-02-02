@@ -48,13 +48,21 @@ final class BaseDocument: BaseDocumentProtocol {
             relationsDetails: objectRelationsDetails,
             typeRelationsDetails: typeRelationsDetails,
             objectId: objectId,
-            isObjectLocked: isLocked || isArchived,
+            relationValuesIsLocked: relationValuesIsLocked,
             storage: detailsStorage
         )
     }
     
     var isLocked: Bool {
         return infoContainer.get(id: objectId)?.isLocked ?? false
+    }
+    
+    var relationValuesIsLocked: Bool {
+        return isLocked || isArchived || objectRestrictions.objectRestriction.contains(.details)
+    }
+    
+    var relationsListIsLocked: Bool {
+        return isLocked || isArchived || objectRestrictions.objectRestriction.contains(.relations)
     }
     
     var isArchived: Bool {

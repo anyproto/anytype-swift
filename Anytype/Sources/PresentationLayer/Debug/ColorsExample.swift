@@ -27,7 +27,7 @@ struct ColorsExample: View {
                     Spacer()
                     VStack {
                         Circle()
-                            .strokeBorder(Color.Stroke.primary, lineWidth: 1)
+                            .strokeBorder(Color.Shape.primary, lineWidth: 1)
                             .background(Circle().foregroundColor(colorInfo.color.suColor))
                             .frame(width: 100, height: 100)
                         AnytypeText(colorCode(color: colorInfo.color.light), style: .caption2Medium, color: .Text.primary)
@@ -41,7 +41,7 @@ struct ColorsExample: View {
                     Spacer()
                     VStack {
                         Circle()
-                            .strokeBorder(Color.Stroke.primary, lineWidth: 1)
+                            .strokeBorder(Color.Shape.primary, lineWidth: 1)
                             .background(Circle().foregroundColor(colorInfo.color.suColor))
                             .frame(width: 100, height: 100)
                         AnytypeText(colorCode(color: colorInfo.color.dark), style: .caption2Medium, color: .Text.primary)

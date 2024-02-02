@@ -45,7 +45,7 @@ final class RelationsListViewModel: ObservableObject {
             .receiveOnMain()
             .sink { [weak self] in
                 guard let self else { return }
-                navigationBarButtonsDisabled = self.document.isLocked || self.document.isArchived
+                navigationBarButtonsDisabled = self.document.relationsListIsLocked
             }
             .store(in: &subscriptions)
     }

@@ -52,7 +52,7 @@ final class ObjectIconPickerViewModel: ObservableObject, ObjectIconPickerViewMod
             return true
         case .profile, .space, .spaceView:
             guard let details = document.details else { return false }
-            return details.iconImage.isNotNil
+            return details.iconImage.isNotEmpty
         default:
             anytypeAssertionFailure(
                 "`ObjectIconPickerViewModel` unavailable",

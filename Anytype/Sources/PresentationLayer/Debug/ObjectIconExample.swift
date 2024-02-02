@@ -46,7 +46,7 @@ struct ObjectIconExample: View {
         }
         .task {
             let files = try? await seearchService.searchImages()
-            iconId = files?.first?.iconImage?.value ?? ""
+            iconId = files?.first?.iconImage ?? ""
         }
     }
     

@@ -8,8 +8,8 @@ extension BlockBookmark {
             source: objectDetails.source,
             title: objectDetails.title,
             theDescription: objectDetails.description,
-            imageHash: objectDetails.picture?.value ?? "",
-            faviconHash: objectDetails.iconImage?.value ?? "",
+            imageObjectId: objectDetails.picture,
+            faviconObjectId: objectDetails.iconImage,
             type: .unknown,
             targetObjectID: objectDetails.id,
             state: .done

@@ -29,7 +29,7 @@ struct SetTableViewHeader: View {
                 
                 Rectangle()
                     .frame(width: .onePixel, height: 18)
-                    .foregroundColor(.Stroke.primary)
+                    .foregroundColor(.Shape.primary)
             }
         }
         .frame(height: 40)
