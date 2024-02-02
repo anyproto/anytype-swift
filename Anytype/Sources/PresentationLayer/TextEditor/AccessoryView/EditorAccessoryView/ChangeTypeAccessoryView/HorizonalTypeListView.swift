@@ -35,7 +35,7 @@ struct HorizonalTypeListView: View {
                 .frame(width: 24, height: 24)
                 .padding(8)
         }
-        .border(10, color: .Stroke.secondary)
+        .border(10, color: .Shape.secondary)
     }
 }
 
@@ -55,6 +55,6 @@ private struct TypeView: View {
         }
         .padding(.vertical, 11)
         .padding(.horizontal, 12)
-        .border(10, color: .Stroke.secondary)
+        .border(10, color: .Shape.secondary)
     }
 }
