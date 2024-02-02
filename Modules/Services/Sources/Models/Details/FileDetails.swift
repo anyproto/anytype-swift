@@ -2,12 +2,11 @@ import Foundation
 
 public struct FileDetails {
     
-    public var name: String { objectDetails.name }
-    public var id: String { objectDetails.id }
-    
-    private let objectDetails: ObjectDetails
+    public var id: String
+    public var name: String
     
     init(objectDetails: ObjectDetails) {
-        self.objectDetails = objectDetails
+        self.id = objectDetails.id
+        self.name = objectDetails.name
     }
 }
