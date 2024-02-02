@@ -23,8 +23,8 @@ extension BundledRelationsValueProvider {
     }
     
     private var basicIcon: ObjectIcon? {
-        if let iconImageHash = self.iconImage {
-            return .basic(iconImageHash.value)
+        if iconImage.isNotEmpty {
+            return .basic(iconImage)
         }
         
         if let iconEmoji = self.iconEmoji {
@@ -35,20 +35,20 @@ extension BundledRelationsValueProvider {
     }
     
     private var profileIcon: ObjectIcon? {
-        if let iconImageHash = self.iconImage {
-            return .profile(.imageId(iconImageHash.value))
+        if iconImage.isNotEmpty {
+            return .profile(.imageId(iconImage))
         }
         
         return title.first.flatMap { .profile(.character($0)) }
     }
     
     private var bookmarkIcon: ObjectIcon? {
-        return iconImage.map { .bookmark($0.value) }
+        return iconImage.isNotEmpty ? .bookmark(iconImage) : nil
     }
     
     private var spaceIcon: ObjectIcon? {
-        if let iconImageHash = self.iconImage {
-            return .basic(iconImageHash.value)
+        if iconImage.isNotEmpty {
+            return .basic(iconImage)
         }
         
         if let iconOptionValue {

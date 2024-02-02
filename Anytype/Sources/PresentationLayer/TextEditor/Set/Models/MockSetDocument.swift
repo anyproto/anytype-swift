@@ -13,6 +13,8 @@ final class MockSetDocument: SetDocumentProtocol {
     var targetObjectId: BlockId { "" }
     
     var spaceId: String { "" }
+    
+    var relationValuesIsLocked: Bool { return false }
 
     var inlineParameters: EditorInlineSetObject? { nil }
     
@@ -22,7 +24,7 @@ final class MockSetDocument: SetDocumentProtocol {
     
     var dataViewRelationsDetails: [Services.RelationDetails] { [] }
     
-    var isObjectLocked: Bool { false }
+    var viewRelationValueIsLocked: Bool { false }
     
     var analyticsType: AnalyticsObjectType { .custom }
     

@@ -1,21 +1,19 @@
-public typealias FileId = String
-
 public struct FileMetadata: Hashable {
     public var name: String
     public var size: Int64
-    public var hash: FileId
+    public var targetObjectId: String
     public var mime: String
     public var addedAt: Int64
     
     public static func empty() -> Self {
-        .init(name: "", size: 0, hash: "", mime: "", addedAt: 0)
+        .init(name: "", size: 0, targetObjectId: "", mime: "", addedAt: 0)
     }
     
     // MARK: - Memberwise initializer
-    public init(name: String, size: Int64, hash: String, mime: String, addedAt: Int64) {
+    public init(name: String, size: Int64, targetObjectId: String, mime: String, addedAt: Int64) {
         self.name = name
         self.size = size
-        self.hash = hash
+        self.targetObjectId = targetObjectId
         self.mime = mime
         self.addedAt = addedAt
     }

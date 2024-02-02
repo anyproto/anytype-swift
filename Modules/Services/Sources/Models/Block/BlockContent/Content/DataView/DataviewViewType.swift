@@ -50,6 +50,7 @@ public extension DataviewTypeEnum {
         case .gallery: return .gallery
         case .kanban: return .kanban
         case .calendar: return .calendar
+        case .graph: return nil
         case .UNRECOGNIZED: return nil
         }
     }

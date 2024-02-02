@@ -62,13 +62,13 @@ public final class TextService: TextServiceProtocol {
     public func setTextIcon(
         contextId: BlockId,
         blockId: BlockId,
-        imageHash: String,
+        imageObjectId: String,
         emojiUnicode: String
     ) async throws {
         _ = try await ClientCommands.blockTextSetIcon(.with {
             $0.contextID = contextId
             $0.blockID = blockId
-            $0.iconImage = imageHash
+            $0.iconImage = imageObjectId
             $0.iconEmoji = emojiUnicode
         }).invoke()
     }

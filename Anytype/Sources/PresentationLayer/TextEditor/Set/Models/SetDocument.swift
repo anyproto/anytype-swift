@@ -44,11 +44,14 @@ class SetDocument: SetDocumentProtocol {
     
     var dataViewRelationsDetails: [RelationDetails] = []
     
-    var isObjectLocked: Bool {
-        document.isLocked ||
+    var viewRelationValueIsLocked: Bool {
         activeView.type == .gallery ||
         activeView.type == .list ||
         (FeatureFlags.setKanbanView && activeView.type == .kanban)
+    }
+    
+    var relationValuesIsLocked: Bool {
+        return document.relationValuesIsLocked
     }
     
     var analyticsType: AnalyticsObjectType {
