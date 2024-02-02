@@ -16,7 +16,7 @@ struct HorizonalTypeListView: View {
                     Button {
                         item.action()
                     } label: {
-                        TypeView(emoji: item.emoji, title: item.title)
+                        TypeView(icon: item.icon, title: item.title)
                     }
                 }
             }
@@ -40,13 +40,14 @@ struct HorizonalTypeListView: View {
 }
 
 private struct TypeView: View {
-    let emoji: Emoji?
+    let icon: Icon?
     let title: String
 
     var body: some View {
         HStack(spacing: 5) {
-            if let emoji {
-                AnytypeText(emoji.value, style: .caption1Medium, color: .Text.primary)
+            if let icon {
+                IconView(icon: icon)
+                    .frame(width: 16, height: 16)
             }
             
             AnytypeText(title, style: .caption1Medium, color: .Text.primary)

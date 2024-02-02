@@ -98,7 +98,7 @@ final class ObjectTypeProvider: ObjectTypeProviderProtocol {
         return ObjectType(
             id: id,
             name: Loc.ObjectType.deletedName,
-            iconEmoji: .default,
+            iconEmoji: nil,
             description: "",
             hidden: false,
             readonly: true,

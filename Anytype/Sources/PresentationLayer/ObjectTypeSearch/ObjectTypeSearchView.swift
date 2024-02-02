@@ -64,8 +64,13 @@ struct ObjectTypeSearchView: View {
             Button {
                 viewModel.didSelectType(type, section: section)
             } label: {
-                HStack {
-                    AnytypeText("\(type.iconEmoji.value) \(type.name)", style: .uxTitle2Medium, color: .Text.primary)
+                HStack(spacing: 8) {
+                    if let emoji = type.iconEmoji {
+                        IconView(icon: .object(.emoji(emoji)))
+                            .frame(width: 18, height: 18)
+                    }
+                    
+                    AnytypeText(type.name, style: .uxTitle2Medium, color: .Text.primary)
                 }
                 .padding(.vertical, 15)
                 .padding(.leading, 14)

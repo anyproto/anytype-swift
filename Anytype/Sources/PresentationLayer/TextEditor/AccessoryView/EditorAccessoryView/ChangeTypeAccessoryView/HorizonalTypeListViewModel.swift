@@ -7,7 +7,7 @@ import AnytypeCore
 struct HorizontalListItem: Identifiable, Hashable {
     let id: String
     let title: String
-    let emoji: Emoji?
+    let icon: Icon?
 
     @EquatableNoop var action: () -> Void
 }
@@ -36,7 +36,7 @@ extension HorizontalListItem {
         self.init(
             id: details.id,
             title: details.name,
-            emoji: details.iconEmoji,
+            icon: details.objectIconImage,
             action: handler
         )
     }
