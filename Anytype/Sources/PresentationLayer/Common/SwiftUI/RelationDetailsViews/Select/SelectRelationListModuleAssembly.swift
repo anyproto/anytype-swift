@@ -5,8 +5,10 @@ protocol SelectRelationListModuleAssemblyProtocol: AnyObject {
     @MainActor
     func make(
         objectId: String,
+        style: SelectRelationListStyle,
+        selectionMode: RelationSelectionOptionsMode,
         configuration: RelationModuleConfiguration,
-        selectedOptionId: String?,
+        selectedOptionsIds: [String],
         output: SelectRelationListModuleOutput?
     ) -> AnyView
 }
@@ -24,16 +26,19 @@ final class SelectRelationListModuleAssembly: SelectRelationListModuleAssemblyPr
     @MainActor
     func make(
         objectId: String,
+        style: SelectRelationListStyle,
+        selectionMode: RelationSelectionOptionsMode,
         configuration: RelationModuleConfiguration,
-        selectedOptionId: String?,
+        selectedOptionsIds: [String],
         output: SelectRelationListModuleOutput?
     ) -> AnyView {
         SelectRelationListView(
             viewModel: SelectRelationListViewModel(
+                style: style,
                 configuration: configuration,
                 relationSelectedOptionsModel: RelationSelectedOptionsModel(
-                    mode: .single,
-                    selectedOptionsIds: [selectedOptionId].compactMap { $0 },
+                    selectionMode: selectionMode,
+                    selectedOptionsIds: selectedOptionsIds,
                     relationKey: configuration.relationKey,
                     analyticsType: configuration.analyticsType,
                     relationsService: self.serviceLocator.relationService(objectId: objectId)

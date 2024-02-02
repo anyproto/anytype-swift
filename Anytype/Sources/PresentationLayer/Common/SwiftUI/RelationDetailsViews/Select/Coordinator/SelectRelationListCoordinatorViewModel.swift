@@ -5,8 +5,10 @@ import SwiftUI
 final class SelectRelationListCoordinatorViewModel: ObservableObject, SelectRelationListModuleOutput {
 
     private let objectId: String
+    private let style: SelectRelationListStyle
+    private let selectionMode: RelationSelectionOptionsMode
     private let configuration: RelationModuleConfiguration
-    private let selectedOptionId: String?
+    private let selectedOptionsIds: [String]
     private let selectRelationListModuleAssembly: SelectRelationListModuleAssemblyProtocol
     private let relationOptionSettingsModuleAssembly: RelationOptionSettingsModuleAssemblyProtocol
 
@@ -16,14 +18,18 @@ final class SelectRelationListCoordinatorViewModel: ObservableObject, SelectRela
     
     init(
         objectId: String,
+        style: SelectRelationListStyle,
+        selectionMode: RelationSelectionOptionsMode,
         configuration: RelationModuleConfiguration,
-        selectedOptionId: String?,
+        selectedOptionsIds: [String],
         selectRelationListModuleAssembly: SelectRelationListModuleAssemblyProtocol,
         relationOptionSettingsModuleAssembly: RelationOptionSettingsModuleAssemblyProtocol
     ) {
         self.objectId = objectId
+        self.style = style
+        self.selectionMode = selectionMode
         self.configuration = configuration
-        self.selectedOptionId = selectedOptionId
+        self.selectedOptionsIds = selectedOptionsIds
         self.selectRelationListModuleAssembly = selectRelationListModuleAssembly
         self.relationOptionSettingsModuleAssembly = relationOptionSettingsModuleAssembly
     }
@@ -31,8 +37,10 @@ final class SelectRelationListCoordinatorViewModel: ObservableObject, SelectRela
     func selectRelationListModule() -> AnyView {
         selectRelationListModuleAssembly.make(
             objectId: objectId,
+            style: style, 
+            selectionMode: selectionMode,
             configuration: configuration,
-            selectedOptionId: selectedOptionId,
+            selectedOptionsIds: selectedOptionsIds,
             output: self
         )
     }

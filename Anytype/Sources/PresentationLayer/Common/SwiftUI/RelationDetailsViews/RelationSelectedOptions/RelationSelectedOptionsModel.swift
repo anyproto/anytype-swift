@@ -3,7 +3,9 @@ import Services
 
 @MainActor
 protocol RelationSelectedOptionsModelProtocol {
+    var selectionMode: RelationSelectionOptionsMode { get }
     var selectedOptionsIdsPublisher: AnyPublisher<[String], Never> { get }
+    
     func onClear() async throws
     func optionSelected(_ optionId: String) async throws
     func removeRelationOption(_ optionId: String) async throws
@@ -16,20 +18,20 @@ final class RelationSelectedOptionsModel: RelationSelectedOptionsModelProtocol {
     var selectedOptionsIdsPublisher: AnyPublisher<[String], Never> {
         $selectedOptionsIds.eraseToAnyPublisher()
     }
+    let selectionMode: RelationSelectionOptionsMode
     
-    private let mode: Mode
     private let relationKey: String
     private let analyticsType: AnalyticsEventsRelationType
     private let relationsService: RelationsServiceProtocol
     
     init(
-        mode: Mode,
+        selectionMode: RelationSelectionOptionsMode,
         selectedOptionsIds: [String],
         relationKey: String,
         analyticsType: AnalyticsEventsRelationType,
         relationsService: RelationsServiceProtocol
     ) {
-        self.mode = mode
+        self.selectionMode = selectionMode
         self.selectedOptionsIds = selectedOptionsIds
         self.relationKey = relationKey
         self.analyticsType = analyticsType
@@ -43,7 +45,7 @@ final class RelationSelectedOptionsModel: RelationSelectedOptionsModelProtocol {
     }
     
     func optionSelected(_ optionId: String) async throws {
-        switch mode {
+        switch selectionMode {
         case .single:
             selectedOptionsIds = [optionId]
         case .multi:
@@ -78,12 +80,5 @@ final class RelationSelectedOptionsModel: RelationSelectedOptionsModelProtocol {
     
     private func logChanges() {
         AnytypeAnalytics.instance().logChangeRelationValue(isEmpty: selectedOptionsIds.isEmpty, type: analyticsType)
-    }
-}
-
-extension RelationSelectedOptionsModel {
-    enum Mode {
-        case single
-        case multi
     }
 }

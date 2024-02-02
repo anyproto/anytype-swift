@@ -10,7 +10,7 @@ struct SelectRelationListView: View {
             title: viewModel.configuration.title,
             isEditable: viewModel.configuration.isEditable,
             isEmpty: viewModel.isEmpty,
-            hideClear: viewModel.selectedOptionId.isNil,
+            hideClear: viewModel.selectedOptionsIds.isEmpty,
             listContent: {
                 ForEach(viewModel.options) { option in
                     optionRow(with: option)
@@ -39,10 +39,12 @@ struct SelectRelationListView: View {
             viewModel.optionSelected(option.id)
         } label: {
             HStack {
-                AnytypeText(option.text, style: .relation1Regular, color: option.color)
+                rowContent(with: option)
+                
                 Spacer()
-                if option.id == viewModel.selectedOptionId, viewModel.configuration.isEditable {
-                    Image(asset: .relationCheckboxChecked)
+                
+                if viewModel.configuration.isEditable {
+                    rowSelection(with: option)
                 }
             }
         }
@@ -61,11 +63,42 @@ struct SelectRelationListView: View {
             }
         }
     }
+    
+    @ViewBuilder
+    private func rowContent(with option: SelectRelationOption) -> some View {
+        switch viewModel.style {
+        case .status:
+            AnytypeText(option.text, style: .relation1Regular, color: option.color)
+        case .tag:
+            TagOptionView(
+                text: option.text,
+                textColor: option.color,
+                backgroundColor: option.color.veryLightColor()
+            )
+        }
+    }
+    
+    @ViewBuilder
+    private func rowSelection(with option: SelectRelationOption) -> some View {
+        switch viewModel.relationSelectedOptionsModel.selectionMode {
+        case .single:
+            if viewModel.selectedOptionsIds.contains(option.id) {
+                Image(asset: .relationCheckboxChecked)
+            }
+        case .multi:
+            if let index = viewModel.selectedOptionsIds.firstIndex(of: option.id) {
+                SelectionIndicatorView(model: .selected(index: index + 1, color: Color.System.sky))
+            } else {
+                SelectionIndicatorView(model: .notSelected)
+            }
+        }
+    }
 }
 
 #Preview("Status list") {
     SelectRelationListView(
         viewModel: SelectRelationListViewModel(
+            style: .status,
             configuration: RelationModuleConfiguration(
                 title: "Status",
                 isEditable: true,
@@ -74,7 +107,31 @@ struct SelectRelationListView: View {
                 analyticsType: .block
             ), 
             relationSelectedOptionsModel: RelationSelectedOptionsModel(
-                mode: .single,
+                selectionMode: .single,
+                selectedOptionsIds: [],
+                relationKey: "",
+                analyticsType: .block,
+                relationsService: DI.preview.serviceLocator.relationService(objectId: "")
+            ),
+            searchService: DI.preview.serviceLocator.searchService(),
+            output: nil
+        )
+    )
+}
+
+#Preview("Tag list") {
+    SelectRelationListView(
+        viewModel: SelectRelationListViewModel(
+            style: .tag,
+            configuration: RelationModuleConfiguration(
+                title: "Tag",
+                isEditable: true,
+                relationKey: "",
+                spaceId: "",
+                analyticsType: .block
+            ),
+            relationSelectedOptionsModel: RelationSelectedOptionsModel(
+                selectionMode: .multi,
                 selectedOptionsIds: [],
                 relationKey: "",
                 analyticsType: .block,

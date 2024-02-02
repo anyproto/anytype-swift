@@ -6,29 +6,32 @@ import SwiftUI
 @MainActor
 final class SelectRelationListViewModel: ObservableObject {
     
-    @Published var selectedOptionId: String?
+    @Published var selectedOptionsIds: [String] = []
     @Published var options: [SelectRelationOption] = []
     @Published var isEmpty = false
     @Published var searchText = ""
         
+    let style: SelectRelationListStyle
     let configuration: RelationModuleConfiguration
+    let relationSelectedOptionsModel: RelationSelectedOptionsModelProtocol
     
-    private let relationSelectedOptionsModel: RelationSelectedOptionsModelProtocol
     private let searchService: SearchServiceProtocol
     
     private weak var output: SelectRelationListModuleOutput?
     
     init(
+        style: SelectRelationListStyle,
         configuration: RelationModuleConfiguration,
         relationSelectedOptionsModel: RelationSelectedOptionsModelProtocol,
         searchService: SearchServiceProtocol,
         output: SelectRelationListModuleOutput?
     ) {
+        self.style = style
         self.configuration = configuration
         self.output = output
         self.relationSelectedOptionsModel = relationSelectedOptionsModel
         self.searchService = searchService
-        self.relationSelectedOptionsModel.selectedOptionsIdsPublisher.map { $0.first }.assign(to: &$selectedOptionId)
+        self.relationSelectedOptionsModel.selectedOptionsIdsPublisher.assign(to: &$selectedOptionsIds)
     }
     
     func onAppear() {
@@ -47,6 +50,10 @@ final class SelectRelationListViewModel: ObservableObject {
         })
     }
     
+    func onOptionDuplicate(_ option: SelectRelationOption) {
+        onCreate(with: option.text, color: option.color)
+    }
+    
     func onOptionEdit(_ option: SelectRelationOption) {
         output?.onEditTap(option: option, completion: { [weak self] option in
             guard let self else { return }
@@ -54,10 +61,6 @@ final class SelectRelationListViewModel: ObservableObject {
                 options[index] = option
             }
         })
-    }
-    
-    func onOptionDuplicate(_ option: SelectRelationOption) {
-        onCreate(with: option.text, color: option.color)
     }
     
     func onOptionDelete(with indexSet: IndexSet) {
@@ -82,7 +85,7 @@ final class SelectRelationListViewModel: ObservableObject {
     func optionSelected(_ optionId: String) {
         Task {
             try await relationSelectedOptionsModel.optionSelected(optionId)
-            output?.onClose()
+            closeIfNeeded()
         }
     }
     
@@ -100,12 +103,12 @@ final class SelectRelationListViewModel: ObservableObject {
             spaceId: configuration.spaceId
         ).map { SelectRelationOption(relation: $0) }
         
-        if configuration.isEditable {
-            options = rawOptions.reordered(
-                by: [selectedOptionId].compactMap { $0 }
-            ) { $0.id }
-        } else {
-            options = options.filter { $0.id == selectedOptionId }
+        options = rawOptions.reordered(
+            by: selectedOptionsIds
+        ) { $0.id }
+        
+        if !configuration.isEditable {
+            options = options.filter { selectedOptionsIds.contains($0.id) }
         }
         
         setEmptyIfNeeded()
@@ -119,10 +122,6 @@ final class SelectRelationListViewModel: ObservableObject {
         }
     }
     
-    private func setEmptyIfNeeded() {
-        isEmpty = options.isEmpty && searchText.isEmpty
-    }
-    
     private func removeRelationOption(_ option: SelectRelationOption) {
         Task {
             if let index = options.firstIndex(of: option) {
@@ -130,6 +129,16 @@ final class SelectRelationListViewModel: ObservableObject {
             }
             try await relationSelectedOptionsModel.removeRelationOption(option.id)
             setEmptyIfNeeded()
+        }
+    }
+    
+    private func setEmptyIfNeeded() {
+        isEmpty = options.isEmpty && searchText.isEmpty
+    }
+    
+    private func closeIfNeeded() {
+        if relationSelectedOptionsModel.selectionMode == .single {
+            output?.onClose()
         }
     }
 }

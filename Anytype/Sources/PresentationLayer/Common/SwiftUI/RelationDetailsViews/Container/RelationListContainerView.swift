@@ -120,7 +120,6 @@ struct RelationListContainerView<Content>: View where Content: View {
             StandardButton(Loc.create, style: .secondarySmall) {
                 onCreate(nil)
             }
-            .disabled(!isEditable)
             Spacer.fixedHeight(48)
             Spacer()
         }

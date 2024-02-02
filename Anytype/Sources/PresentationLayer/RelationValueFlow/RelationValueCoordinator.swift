@@ -11,7 +11,6 @@ final class RelationValueCoordinator: RelationValueCoordinatorProtocol,
     private let relationValueModuleAssembly: RelationValueModuleAssemblyProtocol
     private let dateRelationCalendarModuleAssembly: DateRelationCalendarModuleAssemblyProtocol
     private let selectRelationListCoordinatorAssembly: SelectRelationListCoordinatorAssemblyProtocol
-    private let multiSelectRelationListCoordinatorAssembly: MultiSelectRelationListCoordinatorAssemblyProtocol
     private let urlOpener: URLOpenerProtocol
     private let toastPresenter: ToastPresenterProtocol
     private weak var output: RelationValueCoordinatorOutput?
@@ -21,7 +20,6 @@ final class RelationValueCoordinator: RelationValueCoordinatorProtocol,
         relationValueModuleAssembly: RelationValueModuleAssemblyProtocol,
         dateRelationCalendarModuleAssembly: DateRelationCalendarModuleAssemblyProtocol,
         selectRelationListCoordinatorAssembly: SelectRelationListCoordinatorAssemblyProtocol,
-        multiSelectRelationListCoordinatorAssembly: MultiSelectRelationListCoordinatorAssemblyProtocol,
         urlOpener: URLOpenerProtocol,
         toastPresenter: ToastPresenterProtocol
     ) {
@@ -29,7 +27,6 @@ final class RelationValueCoordinator: RelationValueCoordinatorProtocol,
         self.relationValueModuleAssembly = relationValueModuleAssembly
         self.dateRelationCalendarModuleAssembly = dateRelationCalendarModuleAssembly
         self.selectRelationListCoordinatorAssembly = selectRelationListCoordinatorAssembly
-        self.multiSelectRelationListCoordinatorAssembly = multiSelectRelationListCoordinatorAssembly
         self.urlOpener = urlOpener
         self.toastPresenter = toastPresenter
     }
@@ -92,11 +89,13 @@ final class RelationValueCoordinator: RelationValueCoordinatorProtocol,
             )
             let view = selectRelationListCoordinatorAssembly.make(
                 objectId: objectDetails.id,
+                style: .status, 
+                selectionMode: .single,
                 configuration: configuration,
-                selectedOptionId: status.values.compactMap { $0.id }.first
+                selectedOptionsIds: status.values.compactMap { $0.id }
             )
             
-            let mediumDetent = status.values.first.isNotNil || !relation.isEditable
+            let mediumDetent = status.values.isNotEmpty || !relation.isEditable
             navigationContext.present(view, mediumDetent: mediumDetent)
             
             return
@@ -110,8 +109,10 @@ final class RelationValueCoordinator: RelationValueCoordinatorProtocol,
                 spaceId: objectDetails.spaceId,
                 analyticsType: analyticsType
             )
-            let view = multiSelectRelationListCoordinatorAssembly.make(
+            let view = selectRelationListCoordinatorAssembly.make(
                 objectId: objectDetails.id,
+                style: .tag, 
+                selectionMode: .multi,
                 configuration: configuration,
                 selectedOptionsIds: tag.selectedTags.compactMap { $0.id }
             )
