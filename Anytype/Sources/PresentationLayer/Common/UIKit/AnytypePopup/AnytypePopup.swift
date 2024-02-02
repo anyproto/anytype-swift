@@ -175,7 +175,7 @@ private extension AnytypePopup {
         
         surfaceView.grabberHandlePadding = 6.0
         surfaceView.grabberHandleSize = CGSize(width: 48.0, height: 4.0)
-        surfaceView.grabberHandle.backgroundColor = .Stroke.primary
+        surfaceView.grabberHandle.backgroundColor = .Shape.primary
         surfaceView.grabberHandle.isHidden = !configuration.isGrabberVisible
 
         surfaceView.contentPadding = UIEdgeInsets(

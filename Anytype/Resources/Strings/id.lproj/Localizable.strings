@@ -79,6 +79,18 @@
 "Relation.From.Type" = "Dari tipe %@";
 "Relation.LinksFrom.Title" = "dari";
 "Relation.LinksTo.Title" = "ke";
+"Relation.EmptyState.title" = "No options";
+"Relation.EmptyState.description" = "Nothing found. Create first option to start.";
+"Relation.EmptyState.Blocked.title" = "The relation is empty";
+"Relation.Create.Row.title" = "Create “%@”";
+"Relation.View.Create.title" = "Create option";
+"Relation.View.Edit.title" = "Edit option";
+"Relation.Create.Textfield.placeholder" = "Enter name...";
+"Relation.Edit.Button.title" = "Terapkan";
+"Relation.Date.Locked.Alert.title" = "Relation “%@” is locked";
+
+"Relation.Delete.Alert.Title" = "Apakah kamu yakin?";
+"Relation.Delete.Alert.Description" = "The option will be permanently removed from your space.";
 
 "Relation.Format.Object.Title" = "Objek";
 "Relation.Format.Text.Title" = "Teks";
@@ -91,6 +103,16 @@
 "Relation.Format.Url.Title" = "URL";
 "Relation.Format.Email.Title" = "Surel";
 "Relation.Format.Phone.Title" = "Nomor telepon";
+
+// Origin Relation
+
+"Relation.Origin.Clipboard" = "Papan kerani";
+"Relation.Origin.DragAndDrop" = "Drag'n'Drop";
+"Relation.Origin.Import" = "Objek diimpor";
+"Relation.Origin.WebClipper" = "Web clipper";
+"Relation.Origin.SharingExtension" = "Mobile sharing extension";
+"Relation.Origin.UseCase" = "Use case";
+"Relation.Origin.Builtin" = "Pustaka terpasang";
 
 // MARK: - Mention
 "Mention.Subtitle.Placeholder" = "Objek";
@@ -109,6 +131,7 @@
 "Actions" = "Tindakan";
 "Relations" = "Relasi";
 "Objects" = "Objek";
+"Lists" = "Grup";
 "Delete" = "Hapus";
 "Duplicate" = "Gandakan";
 "Copy" = "Salin";
@@ -594,7 +617,7 @@
 "Today" = "Hari ini";
 "No date" = "Tidak ada tanggal";
 "Clear" = "Bersihkan";
-"Create option" = "Buat pilihan '%@'";
+"Create option with" = "Create option ‘%@’";
 "Add URL" = "Tambahkan URL";
 "Add email" = "Tambahkan surel";
 "Add phone number" = "Tambahkan nomor telepon";

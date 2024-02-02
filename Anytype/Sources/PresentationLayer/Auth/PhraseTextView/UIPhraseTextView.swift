@@ -62,7 +62,7 @@ class UIPhraseTextView: UITextView, UITextViewDelegate {
         textColor = UIColor.Auth.inputText
         tintColor = UIColor.Auth.inputText
         textContainer.lineFragmentPadding = 0.0
-        backgroundColor = UIColor.Stroke.transperent
+        backgroundColor = UIColor.Shape.transperent
         layer.opacity = 0.8
         layer.cornerRadius = 24
         layer.cornerCurve = .continuous

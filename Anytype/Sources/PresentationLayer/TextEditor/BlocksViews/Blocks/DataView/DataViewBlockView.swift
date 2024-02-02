@@ -36,7 +36,7 @@ final class DataViewBlockView: UIView, BlockContentView {
     private let contentView: UIView = {
         let view = UIView()
         view.layer.borderWidth = 1
-        view.dynamicBorderColor = .Stroke.primary
+        view.dynamicBorderColor = .Shape.primary
         view.layer.cornerRadius = 12
         view.clipsToBounds = true
         view.backgroundColor = .clear

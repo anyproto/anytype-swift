@@ -55,7 +55,7 @@ enum ObjectAction: Hashable, Identifiable {
         if details.layoutValue != .set && details.layoutValue != .collection {
             allCases.append(.undoRedo)
             
-            if details.canMakeTemplate {
+            if details.canMakeTemplate && !objectRestrictions.objectRestriction.contains(.template) {
                 allCases.append(.makeAsTemplate)
             }
             

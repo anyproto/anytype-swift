@@ -1,11 +1,13 @@
 import SwiftUI
 import Services
+import WrappingHStack
 
 
 struct ObjectTypeSearchView: View {
     private typealias SectionData = ObjectTypeSearchViewModel.SectionData
     private typealias SectionType = ObjectTypeSearchViewModel.SectionType
     
+    let title: String
     @StateObject var viewModel: ObjectTypeSearchViewModel
 
     @State private var searchText = ""
@@ -13,7 +15,7 @@ struct ObjectTypeSearchView: View {
     var body: some View {
         VStack(spacing: 0) {
             DragIndicator()
-            TitleView(title: Loc.createNewObject)
+            TitleView(title: title)
             SearchBar(text: $searchText, focused: true, placeholder: Loc.search)
             content
         }
@@ -58,7 +60,7 @@ struct ObjectTypeSearchView: View {
     }
     
     private func typesView(section: SectionType, types: [ObjectType]) -> some View {
-        ForEach(types) { type in
+        WrappingHStack(types, spacing: .constant(8)) { type in
             Button {
                 viewModel.didSelectType(type, section: section)
             } label: {
@@ -69,7 +71,9 @@ struct ObjectTypeSearchView: View {
                 .padding(.leading, 14)
                 .padding(.trailing, 16)
             }
-            .border(12, color: .Stroke.primary)
+            .border(12, color: .Shape.primary)
+            .padding(.bottom, 8)
         }
+        .padding(.horizontal, 20)
     }
 }

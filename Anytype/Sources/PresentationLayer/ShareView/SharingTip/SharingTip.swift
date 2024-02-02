@@ -7,7 +7,7 @@ struct SharingTip: Tip {
     static var didCopyText: Bool = false
     
     var title: Text {
-        Text(Loc.Sharing.Navigation.title)
+        Text(verbatim: Loc.Sharing.Navigation.title)
     }
     
     var options: [TipOption] {

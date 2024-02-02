@@ -46,7 +46,6 @@ protocol NewSearchModuleAssemblyProtocol {
         spaceId: String,
         selectedObjectId: BlockId?,
         excludedObjectTypeId: String?,
-        showBookmark: Bool,
         showSetAndCollection: Bool,
         onSelect: @escaping (_ type: ObjectType) -> Void
     ) -> NewSearchView
@@ -150,7 +149,6 @@ extension NewSearchModuleAssemblyProtocol {
         spaceId: String,
         selectedObjectId: BlockId? = nil,
         excludedObjectTypeId: String? = nil,
-        showBookmark: Bool,
         showSetAndCollection: Bool = false,
         onSelect: @escaping (_ type: ObjectType) -> Void
     ) -> NewSearchView {
@@ -160,7 +158,6 @@ extension NewSearchModuleAssemblyProtocol {
             spaceId: spaceId,
             selectedObjectId: selectedObjectId,
             excludedObjectTypeId: excludedObjectTypeId,
-            showBookmark: showBookmark,
             showSetAndCollection: showSetAndCollection,
             onSelect: onSelect
         )

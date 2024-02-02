@@ -55,7 +55,8 @@ final class HomeWidgetsCoordinatorAssembly: HomeWidgetsCoordinatorAssemblyProtoc
             workspacesStorage: serviceLocator.workspaceStorage(),
             documentsProvider: serviceLocator.documentsProvider,
             setObjectCreationCoordinatorAssembly: coordinatorsID.setObjectCreation(),
-            sharingTipCoordinator: coordinatorsID.sharingTip()
+            sharingTipCoordinator: coordinatorsID.sharingTip(),
+            notificationCoordinator: coordinatorsID.notificationCoordinator()
         )
     }
 }

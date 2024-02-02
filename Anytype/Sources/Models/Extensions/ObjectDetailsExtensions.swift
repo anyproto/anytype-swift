@@ -23,8 +23,8 @@ extension BundledRelationsValueProvider {
     }
     
     private var basicIcon: ObjectIcon? {
-        if let iconImageHash = self.iconImage {
-            return .basic(iconImageHash.value)
+        if iconImage.isNotEmpty {
+            return .basic(iconImage)
         }
         
         if let iconEmoji = self.iconEmoji {
@@ -35,20 +35,20 @@ extension BundledRelationsValueProvider {
     }
     
     private var profileIcon: ObjectIcon? {
-        if let iconImageHash = self.iconImage {
-            return .profile(.imageId(iconImageHash.value))
+        if iconImage.isNotEmpty {
+            return .profile(.imageId(iconImage))
         }
         
         return title.first.flatMap { .profile(.character($0)) }
     }
     
     private var bookmarkIcon: ObjectIcon? {
-        return iconImage.map { .bookmark($0.value) }
+        return iconImage.isNotEmpty ? .bookmark(iconImage) : nil
     }
     
     private var spaceIcon: ObjectIcon? {
-        if let iconImageHash = self.iconImage {
-            return .basic(iconImageHash.value)
+        if iconImage.isNotEmpty {
+            return .basic(iconImage)
         }
         
         if let iconOptionValue {
@@ -124,7 +124,7 @@ extension BundledRelationsValueProvider {
         }
     }
     
-    var isGroup: Bool {
+    var isList: Bool {
         isSet || isCollection
     }
     
@@ -158,23 +158,5 @@ extension BundledRelationsValueProvider {
     
     var isTemplateType: Bool {
         objectType.isTemplateType
-    }
-    
-    func isGroupAndCanCreateObject(setDocument: SetDocumentProtocol) -> Bool {
-        guard isGroup else { return false }
-        if isCollection { return true }
-        if setDocument.isRelationsSet() { return true }
-        
-        // Set query validation
-        // Create objects in sets by type only permitted if type is Page-like
-        guard let setOfId = setOf.first(where: { $0.isNotEmpty }) else {
-            return false
-        }
-        
-        guard let layout = try? ObjectTypeProvider.shared.objectType(id: setOfId).recommendedLayout else {
-            return false
-        }
-        
-        return DetailsLayout.supportedForCreationInSets.contains(layout)
     }
 }

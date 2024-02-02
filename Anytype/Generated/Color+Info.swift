@@ -37,7 +37,7 @@ extension UIColor {
                 UIColor.ModalScreen.collectionInfo, 
                 UIColor.Navigation.collectionInfo, 
                 UIColor.Shadow.collectionInfo, 
-                UIColor.Stroke.collectionInfo, 
+                UIColor.Shape.collectionInfo, 
                 UIColor.Text.collectionInfo, 
                 UIColor.Widget.collectionInfo
             ]
@@ -208,14 +208,14 @@ extension UIColor.Shadow {
         ]
     )
 }
-extension UIColor.Stroke {
+extension UIColor.Shape {
     static let collectionInfo = ColorCollectionInfo(
-        name: "Stroke",
+        name: "Shape",
         colors: [
-            ColorInfo(name: "primary", color: UIColor.Stroke.primary), 
-            ColorInfo(name: "secondary", color: UIColor.Stroke.secondary), 
-            ColorInfo(name: "tertiary", color: UIColor.Stroke.tertiary), 
-            ColorInfo(name: "transperent", color: UIColor.Stroke.transperent)
+            ColorInfo(name: "primary", color: UIColor.Shape.primary), 
+            ColorInfo(name: "secondary", color: UIColor.Shape.secondary), 
+            ColorInfo(name: "tertiary", color: UIColor.Shape.tertiary), 
+            ColorInfo(name: "transperent", color: UIColor.Shape.transperent)
         ]
     )
 }

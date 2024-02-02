@@ -14,7 +14,7 @@ struct TagOptionView: View {
             .if(backgroundColor == Color.VeryLight.default) {
                 $0.overlay(
                     RoundedRectangle(cornerRadius: 3)
-                        .stroke(Color.Stroke.primary, lineWidth: 1)
+                        .stroke(Color.Shape.primary, lineWidth: 1)
                 )
             }
             .frame(height: 20)

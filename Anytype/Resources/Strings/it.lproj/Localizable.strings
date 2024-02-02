@@ -79,6 +79,18 @@
 "Relation.From.Type" = "Dal tipo %@";
 "Relation.LinksFrom.Title" = "da";
 "Relation.LinksTo.Title" = "a";
+"Relation.EmptyState.title" = "Nessuna opzione";
+"Relation.EmptyState.description" = "Nessun risultato. Crea la prima opzione per iniziare.";
+"Relation.EmptyState.Blocked.title" = "La relazione è vuota";
+"Relation.Create.Row.title" = "Crea “%@”";
+"Relation.View.Create.title" = "Crea opzione";
+"Relation.View.Edit.title" = "Modifica opzione";
+"Relation.Create.Textfield.placeholder" = "Inserisci nome...";
+"Relation.Edit.Button.title" = "Applica";
+"Relation.Date.Locked.Alert.title" = "Relazione “%@” è bloccata";
+
+"Relation.Delete.Alert.Title" = "Sei sicuro/a?";
+"Relation.Delete.Alert.Description" = "L'opzione verrà rimossa definitivamente dal tuo spazio.";
 
 "Relation.Format.Object.Title" = "Oggetto";
 "Relation.Format.Text.Title" = "Testo";
@@ -91,6 +103,16 @@
 "Relation.Format.Url.Title" = "URL";
 "Relation.Format.Email.Title" = "Email";
 "Relation.Format.Phone.Title" = "Numero di telefono";
+
+// Origin Relation
+
+"Relation.Origin.Clipboard" = "Appunti";
+"Relation.Origin.DragAndDrop" = "Trascina e rilascia";
+"Relation.Origin.Import" = "Oggetto importato";
+"Relation.Origin.WebClipper" = "Clipper web";
+"Relation.Origin.SharingExtension" = "Estensione di condivisione mobile";
+"Relation.Origin.UseCase" = "Caso d'uso";
+"Relation.Origin.Builtin" = "Libreria installata";
 
 // MARK: - Mention
 "Mention.Subtitle.Placeholder" = "Oggetto";
@@ -109,6 +131,7 @@
 "Actions" = "Azioni";
 "Relations" = "Relazioni";
 "Objects" = "Oggetti";
+"Lists" = "Liste";
 "Delete" = "Elimina";
 "Duplicate" = "Duplica";
 "Copy" = "Copia";
@@ -594,7 +617,7 @@
 "Today" = "Oggi";
 "No date" = "Nessuna data";
 "Clear" = "Cancella";
-"Create option" = "Crea opzione ‘%@’";
+"Create option with" = "Crea opzione ‘%@’";
 "Add URL" = "Aggiungi URL";
 "Add email" = "Aggiungi email";
 "Add phone number" = "Aggiungi numero di telefono";
@@ -730,9 +753,9 @@
 "Widgets.Actions.ChangeSource" = "Cambia fonte";
 "Widgets.Actions.ChangeWidgetType" = "Change Widget Type";
 "Widgets.Actions.RemoveWidget" = "Remove Widget";
-"Widgets.Actions.EditWidgets" = "Edit Widgets";
-"Widgets.Actions.EmptyBin" = "Empty Bin";
-"Widgets.Actions.AddBelow" = "Add Below";
+"Widgets.Actions.EditWidgets" = "Modifica Widgets";
+"Widgets.Actions.EmptyBin" = "Svuota Cestino";
+"Widgets.Actions.AddBelow" = "Aggiungi sotto";
 "Widgets.Actions.NewObject" = "Nuovo Oggetto";
 "Widgets.Layout.Screen.Title" = "Tipo di widget";
 "Widgets.Layout.Link.Title" = "Collegamento";
@@ -794,8 +817,8 @@
 "FileStorage.ManageFiles" = "Gestione file";
 "FileStorage.LimitError" = "Hai superato il limite di caricamento dei file";
 "FileStorage.LimitLegend.Current" = "%@ | %@";
-"FileStorage.LimitLegend.Other" = "Other spaces | %@";
-"FileStorage.LimitLegend.Free" = "Free | %@";
+"FileStorage.LimitLegend.Other" = "Altri spazi | %@";
+"FileStorage.LimitLegend.Free" = "Gratis | %@";
 
 // MARK: - Files List
 "FilesList.Title" = "File sincronizzati";
@@ -805,7 +828,7 @@
 "WidgetObjectList.ForceDelete.Message" = "You can’t undo this action.";
 
 // MARK: - Cpear cache alert
-"ClearCacheAlert.Title" = "Are you sure?";
+"ClearCacheAlert.Title" = "Sei sicuro/a?";
 "ClearCacheAlert.Description" = "All media files stored in Anytype will be deleted from your current device. They can be downloaded again from a backup node or another device.";
 
 // MARK: - Spaces
@@ -827,16 +850,16 @@
 "SpaceCreate.Title" = "Crea uno spazio";
 
 // MARK: - Sharing
-"Sharing.Navigation.title" = "Add to Anytype";
+"Sharing.Navigation.title" = "Aggiungi a Anytype";
 "Sharing.Navigation.LeftButton.Title" = "Annulla";
 "Sharing.Navigation.RightButton.Title" = "Fatto";
 
-"Sharing.SaveAs" = "SAVE AS";
-"Sharing.SelectSpace" = "Space";
-"Sharing.AddTo" = "Add to";
+"Sharing.SaveAs" = "SALVA COME";
+"Sharing.SelectSpace" = "Spazio";
+"Sharing.AddTo" = "Aggiungi a";
 "Sharing.LinkTo" = "Collega a";
 
-"Sharing.URL.Bookmark" = "Bookmark object";
+"Sharing.URL.Bookmark" = "Oggetto segnalibro";
 "Sharing.URL.Text" = "Text block";
 "Sharing.Text.NoteObject" = "Note object";
 "Sharing.Text.TextBlock" = "Text block";

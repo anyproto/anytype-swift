@@ -29,7 +29,7 @@ struct EditorSetEmptyView: View {
                     .padding(EdgeInsets(top: 9, leading: 12, bottom: 9, trailing: 12))
                     .overlay(
                         RoundedRectangle(cornerRadius: 8)
-                            .stroke(Color.Stroke.primary, lineWidth: 1)
+                            .stroke(Color.Shape.primary, lineWidth: 1)
                     )
             }
         }

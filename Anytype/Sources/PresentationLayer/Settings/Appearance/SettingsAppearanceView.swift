@@ -89,7 +89,7 @@ struct SettingsAppearanceView: View {
                     .clipShape(RoundedRectangle(cornerRadius: 14))
                     .overlay(
                         RoundedRectangle(cornerRadius: 14)
-                            .stroke(Color.Stroke.tertiary, lineWidth: 1)
+                            .stroke(Color.Shape.tertiary, lineWidth: 1)
                     )
                     .overlay(
                         RoundedRectangle(cornerRadius: 16)

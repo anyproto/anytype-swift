@@ -54,13 +54,8 @@ final class SetObjectWidgetInternalViewModel: CommonWidgetInternalViewModel, Wid
         super.startHeaderSubscription()
         widgetObject.widgetTargetDetailsPublisher(widgetBlockId: widgetBlockId)
             .receiveOnMain()
-            .sink { [weak self, setDocument] details in
-                guard let self, let setDocument else { return }
-                
-                allowCreateObject = details.isGroupAndCanCreateObject(setDocument: setDocument)
-                name = details.title
-                
-                Task { [weak self] in
+            .sink { [weak self] details in
+                Task {
                     await self?.updateSetDocument(objectId: details.id)
                 }
             }
@@ -167,13 +162,13 @@ final class SetObjectWidgetInternalViewModel: CommonWidgetInternalViewModel, Wid
     private func updateSetDocument(objectId: String) async {
         guard objectId != setDocument?.objectId else {
             try? await setDocument?.openForPreview()
-            setActiveViewId()
+            updateModelState()
             return
         }
         
         setDocument = documentService.setDocument(objectId: objectId, forPreview: true, inlineParameters: nil)
         try? await setDocument?.openForPreview()
-        setActiveViewId()
+        updateModelState()
         
         details = nil
         dataview = nil
@@ -182,6 +177,16 @@ final class SetObjectWidgetInternalViewModel: CommonWidgetInternalViewModel, Wid
         
         await stopContentSubscription()
         await startContentSubscription()
+    }
+    
+    private func updateModelState() {
+        setActiveViewId()
+        
+        guard let setDocument else { return }
+        allowCreateObject = setDocument.canCreateObject()
+        
+        guard let details = setDocument.details else { return }
+        name = details.title
     }
     
     

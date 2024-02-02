@@ -187,6 +187,7 @@ final class MiddlewareEventConverter {
                 .accountUpdate, // Event not working on middleware. See AccountManager.
                 .accountDetails, // Skipped
                 .accountConfigUpdate, // Remote config updates
+                .accountLinkChallenge,
                 .objectRemove, // Remove from History Object wich was deleted. For Desktop purposes
                 .subscriptionAdd, // Implemented in `SubscriptionsService`
                 .subscriptionRemove, // Implemented in `SubscriptionsService`
