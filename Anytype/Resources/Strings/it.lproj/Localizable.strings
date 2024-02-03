@@ -588,6 +588,8 @@
 "Into object" = "Nell'oggetto";
 "Add below" = "Aggiungi sotto";
 "Change type" = "Cambia tipo";
+"Show types" = "Show types";
+"Hide types" = "Hide types";
 "SlashMenu.LinkTo.Description" = "Crea collegamento a un altro oggetto";
 "Upload playable audio" = "Carica un audio riproducibile";
 "Code snippet" = "Frammento di codice";
