@@ -106,13 +106,13 @@
 
 // Origin Relation
 
-"Relation.Origin.Clipboard" = "Clipboard";
+"Relation.Origin.Clipboard" = "Буфер обмена";
 "Relation.Origin.DragAndDrop" = "Drag'n'Drop";
 "Relation.Origin.Import" = "Imported object";
 "Relation.Origin.WebClipper" = "Web clipper";
 "Relation.Origin.SharingExtension" = "Mobile sharing extension";
-"Relation.Origin.UseCase" = "Use case";
-"Relation.Origin.Builtin" = "Library installed";
+"Relation.Origin.UseCase" = "Вариант использования";
+"Relation.Origin.Builtin" = "Библиотеки установлены.";
 
 // MARK: - Mention
 "Mention.Subtitle.Placeholder" = "Объект";
@@ -907,5 +907,5 @@
 "Server.LocalOnly" = "Только локально";
 
 // MARK: - Gallery
-"Gallery.Unavailable.Title" = "Gallery will be supported soon";
+"Gallery.Unavailable.Title" = "Вскоре будет поддерживаться галерея";
 "Gallery.Unavailable.Message" = "Пожалуйста, используйте приложение для компьютера";
