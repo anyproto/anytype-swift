@@ -27,6 +27,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         connectionOptions.shortcutItem.flatMap { _ = handleQuickAction($0) }
         handleURLContext(openURLContexts: connectionOptions.urlContexts)
         
+        
         let applicationView = di.coordinatorsDI.application().makeView()
             .setKeyboardDismissEnv(window: window)
         window.rootViewController = UIHostingController(rootView: applicationView)

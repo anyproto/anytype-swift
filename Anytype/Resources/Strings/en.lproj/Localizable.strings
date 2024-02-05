@@ -909,6 +909,8 @@
 "Gallery.Unavailable.Title" = "Gallery will be supported soon";
 "Gallery.Unavailable.Message" = "Please use the desktop app for now";
 "Gallery.Author" = "Made by @%@";
+"Gallery.Install" = "Install";
+"Gallery.InstallToNew" = "Install to new space";
 
 // MARK: - Debug
 "Debug.MimeTypes" = "Mime Types - %@";

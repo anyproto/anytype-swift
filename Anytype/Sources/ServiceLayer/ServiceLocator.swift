@@ -346,6 +346,10 @@ final class ServiceLocator {
         DeepLinkParser()
     }
     
+    func processSubscriptionService() -> ProcessSubscriptionServiceProtocol {
+        ProcessSubscriptionService()
+    }
+    
     // MARK: - Private
     
     private func subscriptionToggler() -> SubscriptionTogglerProtocol {

@@ -66,5 +66,6 @@ protocol ModulesDIProtocol: AnyObject {
     func sharingTip() -> SharingTipModuleAssemblyProtocol
     func shareOptions() -> ShareOptionsModuleAssemblyProtocol
     func galleryInstallationPreview() -> GalleryInstallationPreviewModuleAssemblyProtocol
+    func gallerySpaceSelectionModuleAssembly() -> GallerySpaceSelectionModuleAssemblyProtocol
     func commonNotification() -> CommonNotificationAssemblyProtocol
 }

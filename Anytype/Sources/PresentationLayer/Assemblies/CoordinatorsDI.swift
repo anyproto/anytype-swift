@@ -175,7 +175,7 @@ final class CoordinatorsDI: CoordinatorsDIProtocol {
     }
     
     func galleryInstallation() -> GalleryInstallationCoordinatorAssemblyProtocol {
-        GalleryInstallationCoordinatorAssembly(modulesDI: modulesDI)
+        GalleryInstallationCoordinatorAssembly(modulesDI: modulesDI, serviceLocator: serviceLocator)
     }
     
     func notificationCoordinator() -> NotificationCoordinatorProtocol {
