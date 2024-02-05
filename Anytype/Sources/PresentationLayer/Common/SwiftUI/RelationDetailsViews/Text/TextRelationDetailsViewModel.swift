@@ -4,7 +4,8 @@ import SwiftUI
 import Combine
 import FloatingPanel
 
-final class TextRelationDetailsViewModel: ObservableObject, TextRelationDetailsViewModelProtocol {     
+@MainActor
+final class TextRelationDetailsViewModel: ObservableObject, TextRelationDetailsViewModelProtocol {
     weak var viewController: TextRelationDetailsViewController?
     
     private weak var popup: AnytypePopupProxy?

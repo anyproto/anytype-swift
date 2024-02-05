@@ -10,7 +10,8 @@ struct SelectRelationListView: View {
             title: viewModel.configuration.title,
             isEditable: viewModel.configuration.isEditable,
             isEmpty: viewModel.isEmpty,
-            hideClear: viewModel.selectedOptionsIds.isEmpty,
+            isClearAvailable: viewModel.selectedOptionsIds.isNotEmpty,
+            isCreateAvailable: true,
             listContent: {
                 ForEach(viewModel.options) { option in
                     optionRow(with: option)

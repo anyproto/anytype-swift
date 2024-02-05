@@ -101,6 +101,12 @@ public extension FeatureDescription {
         defaultValue: false
     )
     
+    static let newObjectSelectRelationView = FeatureDescription(
+        title: "New object relation editing view - 2214",
+        type: .feature(author: "joe_pusya@anytype.io", releaseVersion: "0.28.0"),
+        defaultValue: false
+    )
+    
     // MARK: - Debug
     
     static let rainbowViews = FeatureDescription(
