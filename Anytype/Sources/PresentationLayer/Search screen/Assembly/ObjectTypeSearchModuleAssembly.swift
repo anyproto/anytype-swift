@@ -34,6 +34,7 @@ final class ObjectTypeSearchModuleAssembly: ObjectTypeSearchModuleAssemblyProtoc
                 spaceId: spaceId,
                 searchService: serviceLocator.searchService(),
                 workspaceService: serviceLocator.workspaceService(),
+                typesService: serviceLocator.typesService(),
                 objectTypeProvider: serviceLocator.objectTypeProvider()
             )
             

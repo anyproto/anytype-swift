@@ -36,7 +36,7 @@ struct ObjectTypeSearchView: View {
                     subtitle: Loc.noTypeFoundText(searchText),
                     actionText: Loc.createType
                 ) {
-                    
+                    viewModel.createType(name: searchText)
                 }
             }
         }
