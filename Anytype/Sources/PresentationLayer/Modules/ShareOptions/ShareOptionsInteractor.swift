@@ -122,7 +122,7 @@ final class ShareOptionsInteractor: ShareOptionsInteractorProtocol {
 
     private func createNoteObject(text: String, spaceId: BlockId) async throws -> ObjectDetails {
         let newObject = try await pageRepository.createPage(
-            name: "", // TODO: Check it
+            name: "",
             typeUniqueKey: .note,
             shouldDeleteEmptyObject: false,
             shouldSelectType: false,
