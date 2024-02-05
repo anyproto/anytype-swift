@@ -79,15 +79,15 @@
 "Relation.From.Type" = "Z typu %@";
 "Relation.LinksFrom.Title" = "z";
 "Relation.LinksTo.Title" = "do";
-"Relation.EmptyState.title" = "No options";
-"Relation.EmptyState.description" = "Nothing found. Create first option to start.";
-"Relation.EmptyState.Blocked.title" = "The relation is empty";
-"Relation.Create.Row.title" = "Create “%@”";
-"Relation.View.Create.title" = "Create option";
-"Relation.View.Edit.title" = "Edit option";
-"Relation.Create.Textfield.placeholder" = "Enter name...";
+"Relation.EmptyState.title" = "Brak opcji";
+"Relation.EmptyState.description" = "Nic nie znaleziono. Utwórz pierwszą opcję, aby rozpocząć.";
+"Relation.EmptyState.Blocked.title" = "Powiązanie jest puste";
+"Relation.Create.Row.title" = "Utwórz „%@”";
+"Relation.View.Create.title" = "Utwórz opcję";
+"Relation.View.Edit.title" = "Edytuj opcję";
+"Relation.Create.Textfield.placeholder" = "Wprowadź nazwę...";
 "Relation.Edit.Button.title" = "Zastosuj";
-"Relation.Date.Locked.Alert.title" = "Relation “%@” is locked";
+"Relation.Date.Locked.Alert.title" = "Relacja „%@” jest zablokowana";
 
 "Relation.Delete.Alert.Title" = "Are you sure?";
 "Relation.Delete.Alert.Description" = "The option will be permanently removed from your space.";
