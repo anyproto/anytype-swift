@@ -6,6 +6,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
     var window: UIWindow?
     private var di: DIProtocol?
+    private var deepLinkParser: DeepLinkParserProtocol?
     
     // Use this method to optionally configure and attach the UIWindow `window` to the provided UIWindowScene `scene`.
     // If using a storyboard, the `window` property will automatically be initialized and attached to the scene.
@@ -21,10 +22,11 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         let viewControllerProvider = ViewControllerProvider(sceneWindow: window)
         let di: DIProtocol = DI(viewControllerProvider: viewControllerProvider)
         self.di = di
+        deepLinkParser = di.serviceLocator.deepLinkParser()
         
         connectionOptions.shortcutItem.flatMap { _ = handleQuickAction($0) }
         handleURLContext(openURLContexts: connectionOptions.urlContexts)
-
+        
         let applicationView = di.coordinatorsDI.application().makeView()
         window.rootViewController = UIHostingController(rootView: applicationView)
         window.makeKeyAndVisible()
@@ -60,24 +62,10 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
     private func handleURLContext(openURLContexts: Set<UIOpenURLContext>) {
         guard openURLContexts.count == 1, 
-                let context = openURLContexts.first,
-                var components = URLComponents(url: context.url, resolvingAgainstBaseURL: false) else {
+                let context = openURLContexts.first else {
             return
         }
         
-        components.query = nil
-        
-        switch components.url {
-        case URLConstants.createObjectURL:
-            AppActionStorage.shared.action = .createObject
-        case URLConstants.sharingExtenstionURL:
-            AppActionStorage.shared.action = .showSharingExtension
-        case URLConstants.spaceSelectionURL:
-            AppActionStorage.shared.action = .spaceSelection
-        case URLConstants.galleryImportURL:
-            AppActionStorage.shared.action = .galleryImport
-        default:
-            break
-        }
+        AppActionStorage.shared.action = deepLinkParser?.parse(url: context.url)
     }
 }

@@ -908,3 +908,4 @@
 // MARK: - Gallery
 "Gallery.Unavailable.Title" = "Gallery will be supported soon";
 "Gallery.Unavailable.Message" = "Please use the desktop app for now";
+"Gallery.Author" = "Made by @%@";

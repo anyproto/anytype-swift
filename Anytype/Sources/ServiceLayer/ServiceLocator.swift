@@ -335,8 +335,16 @@ final class ServiceLocator {
         TextServiceHandler(textService: TextService())
     }
     
+    func galleryService() -> GalleryServiceProtocol {
+        GalleryService()
+    }
+    
     func notificationSubscriptionService() -> NotificationsSubscriptionServiceProtocol {
         NotificationsSubscriptionService()
+    }
+    
+    func deepLinkParser() -> DeepLinkParserProtocol {
+        DeepLinkParser()
     }
     
     // MARK: - Private
