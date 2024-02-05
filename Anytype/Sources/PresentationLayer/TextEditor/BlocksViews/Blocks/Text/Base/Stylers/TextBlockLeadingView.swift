@@ -88,8 +88,4 @@ final class TextBlockLeadingView: UIView {
             $0.bottom.equal(to: bottomAnchor, priority: .defaultLow)
         }
     }
-    
-    override func layoutSubviews() {
-        super.layoutSubviews()
-    }
 }

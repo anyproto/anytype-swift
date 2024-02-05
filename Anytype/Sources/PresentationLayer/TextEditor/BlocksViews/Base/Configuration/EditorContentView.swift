@@ -4,9 +4,8 @@ import Services
 final class EditorContentView<View: BlockContentView>: UIView & UIContentView, UIDragInteractionDelegate, ReusableContent {
     typealias Configuration = CellBlockConfiguration<View.Configuration>
     
-
     static var reusableIdentifier: String { View.reusableIdentifier }
-    
+
     var configuration: UIContentConfiguration {
         get {
             Configuration(
@@ -66,12 +65,8 @@ final class EditorContentView<View: BlockContentView>: UIView & UIContentView, U
     private lazy var wrapperView = UIView()
     
     private lazy var contentStackView = UIView()
-    private lazy var leadingView = TextBlockIconView(viewType: .quote)
     private lazy var blockView = View(frame: .zero)
-    
     private lazy var selectionView = EditorSelectionView()
-    
-    private lazy var indentationViews = [UIView]()
     
     private var contentConstraints: InsetConstraints?
     
@@ -125,7 +120,6 @@ final class EditorContentView<View: BlockContentView>: UIView & UIContentView, U
     
 
     // MARK: - Subviews setup
-    
     private func setupSubviews() {
         addSubview(blockView) {
             let leadingConstraint = $0.leading.equal(to: leadingAnchor)
@@ -148,13 +142,10 @@ final class EditorContentView<View: BlockContentView>: UIView & UIContentView, U
             $0.bottom.equal(to: bottomAnchor, constant: blockConfiguration.selectionInsets.bottom)
         }
         
-                bringSubviewToFront(selectionView)
-        
-        
+        bringSubviewToFront(selectionView)
     }
     
     // MARK: - UIDragInteractionDelegate
-    
     func dragInteraction(_ interaction: UIDragInteraction, itemsForBeginning session: UIDragSession) -> [UIDragItem] {
         guard let dragConfiguration = dragConfiguration else {
             return []
@@ -165,16 +156,8 @@ final class EditorContentView<View: BlockContentView>: UIView & UIContentView, U
         item.localObject = dragConfiguration
         
         let dragPreview = UIDragPreview(view: self)
-        
-//        item.previewProvider = { self }
-        
         UIImpactFeedbackGenerator(style: .light).impactOccurred()
         
         return [item]
     }
-}
-
-private enum IndentationConstants {
-    static let indentationWidth: CGFloat = 24
-    static let leadingViewVerticalPadding: CGFloat = 6
 }

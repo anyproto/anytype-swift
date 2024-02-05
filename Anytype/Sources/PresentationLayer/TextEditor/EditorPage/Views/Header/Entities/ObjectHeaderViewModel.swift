@@ -90,7 +90,7 @@ final class ObjectHeaderViewModel: ObservableObject {
                     coverType: .cover(.color(.Shape.tertiary)),
                     onTap: {})
             ),
-            isShimmering: false
+            isShimmering: true
         )
     }
     

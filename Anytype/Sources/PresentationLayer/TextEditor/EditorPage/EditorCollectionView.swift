@@ -17,14 +17,14 @@ class EditorCollectionView: UICollectionView {
         alwaysBounceVertical = true
     }
     
-//    override var adjustedContentInset: UIEdgeInsets {
-//        .init(
-//            top: 0,
-//            left: super.adjustedContentInset.left,
-//            bottom: super.adjustedContentInset.bottom,
-//            right: super.adjustedContentInset.right
-//        )
-//    }
+    override var adjustedContentInset: UIEdgeInsets {
+        .init(
+            top: 0,
+            left: super.adjustedContentInset.left,
+            bottom: super.adjustedContentInset.bottom,
+            right: super.adjustedContentInset.right
+        )
+    }
 
     var isLocked: Bool = false {
         didSet {

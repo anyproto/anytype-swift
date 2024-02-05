@@ -60,46 +60,46 @@ final class TextViewWithPlaceholder: UITextView {
     
     // MARK: - Overrides
     
-        override var textContainerInset: UIEdgeInsets {
-            didSet {
-                updatePlaceholderLayout()
+    override var textContainerInset: UIEdgeInsets {
+        didSet {
+            updatePlaceholderLayout()
+        }
+    }
+    
+    override var typingAttributes: [NSAttributedString.Key : Any] {
+        didSet {
+            if let font = super.typingAttributes[.font] as? UIFont {
+                placeholderLabel.font = font
             }
         }
+    }
     
-        override var typingAttributes: [NSAttributedString.Key : Any] {
-            didSet {
-                if let font = super.typingAttributes[.font] as? UIFont {
-                    placeholderLabel.font = font
-                }
-            }
-        }
+    override var canBecomeFirstResponder: Bool {
+        let canBecome = super.canBecomeFirstResponder
+        return isLockedForEditing ? false : canBecome
+    }
     
-        override var canBecomeFirstResponder: Bool {
-            let canBecome = super.canBecomeFirstResponder
-            return isLockedForEditing ? false : canBecome
-        }
-    
-        override func becomeFirstResponder() -> Bool {
-            let value = super.becomeFirstResponder()
-    
-            reloadGestures()
-            return value
-        }
+    override func becomeFirstResponder() -> Bool {
+        let value = super.becomeFirstResponder()
+        
+        reloadGestures()
+        return value
+    }
     //
-        override func canPerformAction(_ action: Selector, withSender sender: Any?) -> Bool {
-            // Force showing paste menu item in text view for other type than text
-            if action == #selector(TextViewWithPlaceholder.paste(_:)) {
-                return true
-            }
-            return super.canPerformAction(action, withSender: sender)
+    override func canPerformAction(_ action: Selector, withSender sender: Any?) -> Bool {
+        // Force showing paste menu item in text view for other type than text
+        if action == #selector(TextViewWithPlaceholder.paste(_:)) {
+            return true
         }
+        return super.canPerformAction(action, withSender: sender)
+    }
     //
-        override func resignFirstResponder() -> Bool {
-            let value = super.resignFirstResponder()
-    
-            reloadGestures()
-            return value
-        }
+    override func resignFirstResponder() -> Bool {
+        let value = super.resignFirstResponder()
+        
+        reloadGestures()
+        return value
+    }
     
     override func paste(_ sender: Any?) {
         guard let customTextViewDelegate else {
@@ -128,7 +128,6 @@ final class TextViewWithPlaceholder: UITextView {
     }
     
     // MARK: - Initialization
-    
     override init(
         frame: CGRect,
         textContainer: NSTextContainer?
@@ -217,3 +216,4 @@ extension TextViewWithPlaceholder {
         placeholderLabel.attributedText = placeholder
     }
 }
+

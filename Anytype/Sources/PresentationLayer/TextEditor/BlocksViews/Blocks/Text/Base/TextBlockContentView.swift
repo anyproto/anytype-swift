@@ -94,38 +94,19 @@ final class TextBlockContentView: UIView, BlockContentView, DynamicHeightView, F
     // MARK: - Apply configuration
     
     private func applyNewConfiguration(configuration: TextBlockContentConfiguration) {
-        printTimeElapsedWhenRunningCode(title: "Text Block setAttributedString") {
-            textView.textView.textStorage.setAttributedString(configuration.attributedString)
-        }
-
-        printTimeElapsedWhenRunningCode(title: "TextBlockLeftViewStyler.applyStyle") {
-            TextBlockLeftViewStyler.applyStyle(contentStackView: contentStackView, configuration: configuration)
-        }
+        textView.textView.textStorage.setAttributedString(configuration.attributedString)
+        TextBlockLeftViewStyler.applyStyle(contentStackView: contentStackView, configuration: configuration)
         
+        textBlockLeadingView.update(style: .init(with: configuration))
+    
+        let restrictions = BlockRestrictionsBuilder.build(textContentType: configuration.content.contentType)
+        TextBlockTextViewStyler.applyStyle(textView: textView, configuration: configuration, restrictions: restrictions)
         
-        // Make it state
-        printTimeElapsedWhenRunningCode(title: "Leading view") {
-            textBlockLeadingView.update(style: .init(with: configuration))
-        }
-        
-        printTimeElapsedWhenRunningCode(title: "TextBlockTextViewStyler.applyStyle") {
-            let restrictions = BlockRestrictionsBuilder.build(textContentType: configuration.content.contentType)
-            TextBlockTextViewStyler.applyStyle(textView: textView, configuration: configuration, restrictions: restrictions)
-        }
-       
-        //
-        
-        printTimeElapsedWhenRunningCode(title: "updateAllConstraint") {
-            updateAllConstraint(blockTextStyle: configuration.content.contentType)
-        }
-        
-        //
+        updateAllConstraint(blockTextStyle: configuration.content.contentType)
         textView.delegate = self
         
-        printTimeElapsedWhenRunningCode(title: "createEmptyBlockButton.isHidden") {
-            let displayPlaceholder = configuration.content.contentType == .toggle && configuration.shouldDisplayPlaceholder
-            createEmptyBlockButton.isHidden = !displayPlaceholder
-        }
+        let displayPlaceholder = configuration.content.contentType == .toggle && configuration.shouldDisplayPlaceholder
+        createEmptyBlockButton.isHidden = !displayPlaceholder
         
         focusSubscription = configuration
             .focusPublisher

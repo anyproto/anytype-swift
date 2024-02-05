@@ -316,16 +316,11 @@ final class EditorPageController: UIViewController {
 // MARK: - EditorPageViewInput
 
 extension EditorPageController: EditorPageViewInput {
-    func update(syncStatus: Services.SyncStatus) {
-        
-    }
+    func update(syncStatus: Services.SyncStatus) { /* Do we need this method? */ }
     
-    func textBlockWillBeginEditing() {
-        //
-    }
+    func textBlockWillBeginEditing() { }
     
     func reload(items: [EditorItem]) {
-        return
         guard items.count > 0 else { return }
         
         var snapshot = dataSource.snapshot()
@@ -418,14 +413,8 @@ extension EditorPageController: EditorPageViewInput {
 
     func itemDidChangeFrame(item: EditorItem) {
         DispatchQueue.main.async { [weak self] in
-            
-            printTimeElapsedWhenRunningCode(title: "dataSource.apply") { [weak self] in
-                guard let self else { return }
-                
-//                let indexPath = dataSource.indexPath(for: item)
-                dataSource.apply(dataSource.snapshot(), animatingDifferences: true)
-//                indexPath.map { self.layout.invalidateLayout(with: CustomInvalidation(indexPaths: [$0])) }
-            }
+            guard let self else { return }
+            dataSource.apply(dataSource.snapshot(), animatingDifferences: true)
         }
     }
 
@@ -433,20 +422,9 @@ extension EditorPageController: EditorPageViewInput {
         self.firstResponderView = nil
         self.selectingRangeTextView = nil
         self.selectingRangeEditorItem = nil
-
-//        viewModel.didFinishEditing(blockId: blockId)
-//
-//        guard let newItem = viewModel.modelsHolder.contentProvider(for: blockId) else { return }
-//
-//        reloadCell(for: .block(newItem))
-//
-//        var blocksSnapshot = NSDiffableDataSourceSectionSnapshot<EditorItem>()
-//        blocksSnapshot.append(viewModel.modelsHolder.items)
-//        applyBlocksSectionSnapshot(blocksSnapshot, animatingDifferences: false)
     }
 
     // MARK: -
-    // Need to merge those 3 methods with editing state publisher!!!
     func endEditing() {
         view.endEditing(true)
         collectionView.isEditing = false
@@ -456,7 +434,6 @@ extension EditorPageController: EditorPageViewInput {
         collectionView.adjustContentOffsetForSelectedItem(relatively: relatively)
     }
 
-    // Moved from EditorPageController+FloatingPanelControllerDelegate.swift
     func restoreEditingState() {
         UIView.animate(withDuration: CATransaction.animationDuration()) { [weak self] in
             self?.insetsHelper?.restoreEditingOffset()
@@ -620,8 +597,6 @@ private extension EditorPageController {
                 (cell as? EditorViewListCell)?.isMoving = self.collectionView.indexPathsForMovingItems.contains(indexPath)
                 (cell as? EditorViewListCell)?.isLocked = self.collectionView.isLocked
             }
-
-
             return cell
         }
 

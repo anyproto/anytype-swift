@@ -285,9 +285,13 @@ final class TextBlockActionHandler: TextBlockActionHandlerProtocol {
                         replacementText: replacementText.trimmed,
                         range: range
                     )
-                    
                     newText.map { self?.actionHandler.changeText($0, blockId: info.id) }
                     
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+                        if #available(iOS 17.0, *) {
+                            SharingTip.didCopyText = true
+                        }
+                    }
                 }
             }
         showURLBookmarkPopup(urlIputParameters)
@@ -316,6 +320,10 @@ final class TextBlockActionHandler: TextBlockActionHandlerProtocol {
             if pasteResult.isSameBlockCaret || pasteResult.blockIds.isEmpty {
                 let range = NSRange(location: pasteResult.caretPosition, length: 0)
                 textView.setFocus(.at(range))
+            }
+            
+            if #available(iOS 17.0, *) {
+                SharingTip.didCopyText = true
             }
         }
         return false

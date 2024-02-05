@@ -4,14 +4,8 @@ import Combine
 
 final class SlashMenuView: DismissableInputAccessoryView {
     private let viewModel: SlashMenuViewModel
-    
+
     private var cancellables = [AnyCancellable]()
-    //    private var filterStringMismatchLength = 0
-    //    private var cachedFilterText = ""
-    
-    
-    //    private let itemsBuilder = SlashMenuItemsBuilder()
-    //    private var searchMenuItemsTask: Task<(), Never>?
     
     init(frame: CGRect, viewModel: SlashMenuViewModel) {
         self.viewModel = viewModel
@@ -34,31 +28,6 @@ final class SlashMenuView: DismissableInputAccessoryView {
             self?.controller.cellData = values
         }.store(in: &cancellables)
     }
-    
-    //    func update(slashMenuItems: [SlashMenuItem]) {
-    //        searchMenuItemsTask?.cancel()
-    
-    
-    
-    //        viewModel.info = info
-    //        let restrictions = BlockRestrictionsBuilder.build(contentType: info.content.type)
-    //
-    //        Task { @MainActor [weak self] in
-    //            self?.menuItems = (try? await self?.itemsBuilder.slashMenuItems(resrictions: restrictions, relations: relations)) ?? []
-    //            self?.restoreDefaultState()
-    //        }
-    //    }
-    
-    //    func restoreDefaultState() {
-    //        filterStringMismatchLength = 0
-    //        popTooRoot()
-    //
-    //        controller.cellData = cellDataBuilder.build(menuItems: menuItems)
-    //    }
-    
-    //    override func didShow(from textView: UITextView) {
-    //        viewModel.didShowMenuView(from: textView)
-    //    }
     
     private func popTooRoot() {
         if controller.navigationController?.topViewController != controller {
@@ -87,9 +56,3 @@ final class SlashMenuView: DismissableInputAccessoryView {
     private lazy var controller = SlashMenuAssembly
         .menuController(viewModel: viewModel, dismissHandler: dismissHandler)
 }
-
-//extension SlashMenuView: DismissStatusProvider {
-//    var shouldDismiss: Bool {
-//        filterStringMismatchLength > 3
-//    }
-//}

@@ -74,9 +74,6 @@ final class EditorPageModuleAssembly: EditorPageModuleAssemblyProtocol {
             forPreview: data.isOpenedForPreview
         )
         let navigationContext = NavigationContext(rootViewController: controller)
-        
-        
-        
         let router = EditorRouter(
             viewController: controller,
             navigationContext: navigationContext,
@@ -87,7 +84,6 @@ final class EditorPageModuleAssembly: EditorPageModuleAssemblyProtocol {
             urlOpener: uiHelpersDI.urlOpener(),
             relationValueCoordinator: coordinatorsDI.relationValue().make(),
             linkToObjectCoordinatorAssembly: coordinatorsDI.linkToObject(),
-//            linkToObjectCoordinator: linkToObjectCoordinator,
             objectCoverPickerModuleAssembly: modulesDI.objectCoverPicker(),
             objectIconPickerModuleAssembly: modulesDI.objectIconPicker(),
             objectSettingCoordinator: coordinatorsDI.objectSettings().make(),

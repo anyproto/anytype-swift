@@ -258,11 +258,7 @@ final class SimpleTablesTextBlockActionHandler: TextBlockActionHandlerProtocol {
         onKeyboardAction(action)
     }
     
-    private func textBlockSetNeedsLayout(textView: UITextView) {
-//        viewModel.map {
-//            collectionController.itemDidChangeFrame(item: .block($0))
-//        }
-    }
+    private func textBlockSetNeedsLayout(textView: UITextView) {}
     
     private func textViewDidChangeText(textView: UITextView) {
         changeType.map { accessoryViewStateManager.textDidChange(changeType: $0) }
@@ -275,15 +271,11 @@ final class SimpleTablesTextBlockActionHandler: TextBlockActionHandlerProtocol {
         }
     }
     
-    private func textViewWillBeginEditing(textView: UITextView) {
-//        collectionController.textBlockWillBeginEditing()
-//        accessoryViewStateManager.willBeginEditing(with: accessoryConfiguration(using: textView))
-    }
+    private func textViewWillBeginEditing(textView: UITextView) {}
     
     private func textViewDidBeginEditing(textView: UITextView) {
         accessoryViewStateManager.didBeginEdition(with: accessoryConfiguration(using: textView))
-
-//        UIView.animate(withDuration: <#T##TimeInterval#>, delay: <#T##TimeInterval#>, animations: <#T##() -> Void#>)
+        
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) { [weak self] in
             self?.responderScrollViewHelper.scrollBlockToVisibleArea(textView: textView)
         }

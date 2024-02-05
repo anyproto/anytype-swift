@@ -98,28 +98,26 @@ final class AccessoryViewStateManagerImpl: AccessoryViewStateManager, CursorMode
         
         switcher.clearAccessory()
         
-        printTimeElapsedWhenRunningCode(title: "AccessoryViewStateManagerImpl willBeginEditing") {
-            
-            switcher.update(with: configuration)
-            
-            // Cursor mode
-            cursorModeViewModel.update(with: configuration)
-            
-            // Slash menu
-            let restrictions = BlockRestrictionsBuilder.build(contentType: configuration.contentType)
-            slashMenuViewModel.update(with: restrictions, relations: document.parsedRelations.installed)
-            
-            // Markup menu
-            markupAccessoryViewModel.update(configuration)
-            
-            if configuration.textView.selectedRange.length != .zero {
-                switcher.showMarkupView()
-            } else {
-                switcher.showDefaultView()
-            }
-            
-            self.configuration = configuration
+        
+        switcher.update(with: configuration)
+        
+        // Cursor mode
+        cursorModeViewModel.update(with: configuration)
+        
+        // Slash menu
+        let restrictions = BlockRestrictionsBuilder.build(contentType: configuration.contentType)
+        slashMenuViewModel.update(with: restrictions, relations: document.parsedRelations.installed)
+        
+        // Markup menu
+        markupAccessoryViewModel.update(configuration)
+        
+        if configuration.textView.selectedRange.length != .zero {
+            switcher.showMarkupView()
+        } else {
+            switcher.showDefaultView()
         }
+        
+        self.configuration = configuration
     }
     
     func didEndEditing(with configuration: TextViewAccessoryConfiguration) {
@@ -129,29 +127,25 @@ final class AccessoryViewStateManagerImpl: AccessoryViewStateManager, CursorMode
         self.configuration = nil
         
         switcher.clearAccessory()
+        switcher.update(with: configuration)
         
-        printTimeElapsedWhenRunningCode(title: "AccessoryViewStateManagerImpl willBeginEditing") {
-            
-            switcher.update(with: configuration)
-            
-            // Cursor mode
-            cursorModeViewModel.update(with: configuration)
-            
-            // Slash menu
-            let restrictions = BlockRestrictionsBuilder.build(contentType: configuration.contentType)
-            slashMenuViewModel.update(with: restrictions, relations: document.parsedRelations.installed)
-            
-            // Markup menu
-            markupAccessoryViewModel.update(configuration)
-            
-            if configuration.textView.selectedRange.length != .zero {
-                switcher.showMarkupView()
-            } else {
-                switcher.showDefaultView()
-            }
-            
-            self.configuration = configuration
+        // Cursor mode
+        cursorModeViewModel.update(with: configuration)
+        
+        // Slash menu
+        let restrictions = BlockRestrictionsBuilder.build(contentType: configuration.contentType)
+        slashMenuViewModel.update(with: restrictions, relations: document.parsedRelations.installed)
+        
+        // Markup menu
+        markupAccessoryViewModel.update(configuration)
+        
+        if configuration.textView.selectedRange.length != .zero {
+            switcher.showMarkupView()
+        } else {
+            switcher.showDefaultView()
         }
+        
+        self.configuration = configuration
     }
 
     func textDidChange(changeType: TextChangeType) {

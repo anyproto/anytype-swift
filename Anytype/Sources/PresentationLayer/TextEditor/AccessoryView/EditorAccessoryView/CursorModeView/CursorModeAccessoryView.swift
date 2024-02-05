@@ -51,18 +51,6 @@ class CursorModeAccessoryView: UIView {
         }
     }
     
-//    // MARK: - Public methods
-//    func setDelegate(_ delegate: CursorModeAccessoryViewDelegate) {
-//        viewModel.delegate = delegate
-//    }
-//
-//    func update(info: BlockInformation, textView: UITextView, usecase: TextBlockUsecase) {
-//        viewModel.textView = textView
-//        viewModel.info = info
-//
-//        updateMenuItems(info: info, usecase: usecase)
-//    }
-
     // MARK: - Private methods
     private func update(with items: [Item]) {
         stackView.arrangedSubviews.forEach { view in

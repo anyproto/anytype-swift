@@ -36,62 +36,16 @@ final class SlashMenuViewModel: ObservableObject {
         onSlashAction?(action)
     }
     
-    func didShowMenuView(from textView: UITextView) {
-//        self.textView = textView
-//        selectedRange = NSRange(
-//            location: textView.selectedRange.location - 1,
-//            length: 0
-//        )
-    }
-    
     func restoreDefaultState() {
         popToRootSubject.send(())
     }
     
     func setFilterText(filterText: String) {
-//        guard cachedFilterText != filterText else { return }
-        
         popToRootSubject.send(())
         
         searchDataDebouncer.debounce(milliseconds: 1) { [weak self] in
             guard let self = self else { return }
             detailsMenuItems = detailsMenuBuilder.build(filter: filterText, menuItems: menuItems)
         }
-        
-        
-        
-//        if !detailsMenuItems.isEmpty {
-//            filterStringMismatchLength = 0
-//        } else {
-//            filterStringMismatchLength += filterText.count - cachedFilterText.count
-//        }
-        
-//        cachedFilterText = filterText
-    }
-    
-    private func removeSlashMenuText() {
-        // After we select any action from actions menu we must delete /symbol
-        // and all text which was typed after /
-        //
-        // We create text range from two text positions and replace text in
-        // this range with empty string
-        
-//        configuration
-//        guard let selectedRange = selectedRange,
-//              let textView = textView,
-//              let info = info else {
-//            return
-//        }
-//        let mutableText = textView.attributedText.mutable
-//
-//        let range = NSRange(
-//            location: selectedRange.location,
-//            length: textView.selectedRange.location - selectedRange.location
-//        )
-//
-//        mutableText.replaceCharacters(in: range, with: "")
-//        handler.changeText(mutableText, info: info)
-//        textView.attributedText = mutableText
-//        textView.selectedRange = NSRange(location: selectedRange.location, length: 0)
     }
 }

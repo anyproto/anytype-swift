@@ -1,14 +1,6 @@
 import UIKit
 
 final class EditorViewListCell: UICollectionViewListCell, CustomTypesAccessable {
-//    override var reuseIdentifier: String? {
-//        if let view = contentView as? ReusableContent {
-//            return type(of: view).reusableIdentifier
-//        }
-//        
-//        return nil
-//    }
-    
     override func systemLayoutSizeFitting(_ targetSize: CGSize, withHorizontalFittingPriority horizontalFittingPriority: UILayoutPriority, verticalFittingPriority: UILayoutPriority) -> CGSize {
         let superSize = super.systemLayoutSizeFitting(
             targetSize,

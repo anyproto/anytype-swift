@@ -181,11 +181,7 @@ final class BlockViewModelBuilder {
                 let viewModel = TextBlockViewModel(
                     document: document,
                     blockInformationProvider: blockInformationProvider,
-                    stylePublisher: .empty(), //document.detailsPublisher
-//                        .receiveOnMain()
-//                        .compactMap { $0.layoutValue == .todo ? .todo : .none }
-//                        .removeDuplicates()
-//                        .eraseToAnyPublisher(),
+                    stylePublisher: .empty(),
                     actionHandler: textBlockActionHandler,
                     cursorManager: cursorManager
                 )

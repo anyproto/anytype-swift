@@ -158,16 +158,3 @@ final class TextBlockViewModel: BlockViewModelProtocol {
             )
     }
 }
-
-
-func printTimeElapsedWhenRunningCode<T>(title:String, operation:()->(T)) -> T  {
-    let startTime = CFAbsoluteTimeGetCurrent()
-    let something = operation()
-    let timeElapsed = CFAbsoluteTimeGetCurrent() - startTime
-    
-    if timeElapsed > 0.01 {
-        print("⚠️ Time elapsed for \(title): \(timeElapsed) s.")
-    }
-    
-    return something
-}
