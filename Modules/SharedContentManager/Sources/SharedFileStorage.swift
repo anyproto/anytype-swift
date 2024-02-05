@@ -33,7 +33,6 @@ final class SharedFileStorage: SharedFileStorageProtocol {
     private func deleteFilesFromGroup() throws {
         let containerFolder = containerPath()
         
-        // TODO: Delete all folders
         let fileURLs = try FileManager.default.contentsOfDirectory(at: containerFolder, includingPropertiesForKeys: nil)
         for fileURL in fileURLs {
             try? FileManager.default.removeItem(at: fileURL)
