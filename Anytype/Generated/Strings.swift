@@ -933,6 +933,8 @@ internal enum Loc {
     internal static let calendar = Loc.tr("Localizable", "DataviewType.calendar", fallback: "Calendar")
     /// Gallery
     internal static let gallery = Loc.tr("Localizable", "DataviewType.gallery", fallback: "Gallery")
+    /// Graph
+    internal static let graph = Loc.tr("Localizable", "DataviewType.graph", fallback: "Graph")
     /// Grid
     internal static let grid = Loc.tr("Localizable", "DataviewType.grid", fallback: "Grid")
     /// Kanban

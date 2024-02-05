@@ -1,15 +1,15 @@
 import Foundation
 import SwiftUI
 
-struct SelectRelationSettingsView: View {
+struct RelationOptionSettingsView: View {
     
-    @StateObject var model: SelectRelationSettingsViewModel
+    @StateObject var model: RelationOptionSettingsViewModel
     @Environment(\.dismiss) var dismiss
     
     var body: some View {
         VStack(spacing: 0) {
             DragIndicator()
-            TitleView(title: model.mode.title)
+            TitleView(title: model.configuration.mode.title)
             content
         }
         .background(Color.Background.secondary)
@@ -79,7 +79,7 @@ struct SelectRelationSettingsView: View {
     
     private var createButton: some View {
         StandardButton(
-            model.mode.buttonTitle,
+            model.configuration.mode.buttonTitle,
             style: .primaryLarge,
             action: {
                 model.onButtonTap()
@@ -90,17 +90,15 @@ struct SelectRelationSettingsView: View {
     
 }
 
-struct SelectRelationSettingsView_Previews: PreviewProvider {
-    static var previews: some View {
-        SelectRelationSettingsView(
-            model: SelectRelationSettingsViewModel(
-                text: nil,
-                color: nil,
-                mode: .edit(""),
-                relationsService: DI.preview.serviceLocator.relationService(objectId: ""),
-                completion: { _ in }
-            )
+#Preview {
+    RelationOptionSettingsView(
+        model: RelationOptionSettingsViewModel(
+            configuration: RelationOptionSettingsConfiguration(
+                option: RelationOptionParameters(id: "", text: nil, color: nil),
+                mode: .edit
+            ),
+            relationsService: DI.preview.serviceLocator.relationService(objectId: ""),
+            completion: { _ in }
         )
-    }
+    )
 }
-
