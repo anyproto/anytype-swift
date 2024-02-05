@@ -12,7 +12,9 @@ struct EmptyStateView: View {
             ButtomAlertHeaderImageView(icon: .BottomAlert.error, style: .red)
             Spacer.fixedHeight(12)
             AnytypeText(title, style: .uxCalloutMedium, color: .Text.primary)
+                .multilineTextAlignment(.center)
             AnytypeText(subtitle, style: .uxCalloutRegular, color: .Text.primary)
+                .multilineTextAlignment(.center)
             Spacer.fixedHeight(12)
             StandardButton(actionText, style: .secondarySmall) {
                 action()
