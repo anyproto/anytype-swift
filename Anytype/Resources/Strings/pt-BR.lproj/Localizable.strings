@@ -79,18 +79,18 @@
 "Relation.From.Type" = "Do tipo \"%@\"";
 "Relation.LinksFrom.Title" = "de";
 "Relation.LinksTo.Title" = "para";
-"Relation.EmptyState.title" = "No options";
-"Relation.EmptyState.description" = "Nothing found. Create first option to start.";
-"Relation.EmptyState.Blocked.title" = "The relation is empty";
-"Relation.Create.Row.title" = "Create “%@”";
-"Relation.View.Create.title" = "Create option";
-"Relation.View.Edit.title" = "Edit option";
-"Relation.Create.Textfield.placeholder" = "Enter name...";
+"Relation.EmptyState.title" = "Nenhuma opção";
+"Relation.EmptyState.description" = "Nada foi encontrado. Crie a primeira opção para começar.";
+"Relation.EmptyState.Blocked.title" = "A relação está vazia";
+"Relation.Create.Row.title" = "Criar \"%@”";
+"Relation.View.Create.title" = "Criar opção";
+"Relation.View.Edit.title" = "Editar opção";
+"Relation.Create.Textfield.placeholder" = "Inserir nome...";
 "Relation.Edit.Button.title" = "Aplicar";
-"Relation.Date.Locked.Alert.title" = "Relation “%@” is locked";
+"Relation.Date.Locked.Alert.title" = "Relação “%@” está bloqueada";
 
 "Relation.Delete.Alert.Title" = "Você tem certeza?";
-"Relation.Delete.Alert.Description" = "The option will be permanently removed from your space.";
+"Relation.Delete.Alert.Description" = "A opção será removida permanentemente do seu espaço.";
 
 "Relation.Format.Object.Title" = "Objeto";
 "Relation.Format.Text.Title" = "Texto";
@@ -619,7 +619,7 @@
 "Today" = "Hoje";
 "No date" = "Sem data";
 "Clear" = "Limpar";
-"Create option with" = "Create option ‘%@’";
+"Create option with" = "Criar opção %@’";
 "Add URL" = "Adicionar URL";
 "Add email" = "Adicionar e-mail";
 "Add phone number" = "Adicionar número de telefone";
