@@ -31,6 +31,7 @@ final class HomeWidgetsCoordinatorViewModel: ObservableObject,
     private let documentsProvider: DocumentsProviderProtocol
     private let setObjectCreationCoordinatorAssembly: SetObjectCreationCoordinatorAssemblyProtocol
     private let sharingTipCoordinator: SharingTipCoordinatorProtocol
+    private let galleryInstallationCoordinatorAssembly: GalleryInstallationCoordinatorAssemblyProtocol
     private let notificationCoordinator: NotificationCoordinatorProtocol
     
     // MARK: - State
@@ -47,7 +48,7 @@ final class HomeWidgetsCoordinatorViewModel: ObservableObject,
     @Published var showCreateWidgetData: CreateWidgetCoordinatorModel?
     @Published var showSpaceSettings: Bool = false
     @Published var showSharing: Bool = false
-    @Published var showGalleryImport: Bool = false
+    @Published var showGalleryImport: GalleryInstallationData?
     @Published var editorPath = HomePath() {
         didSet { UserDefaultsConfig.lastOpenedPage = editorPath.lastPathElement as? EditorScreenData }
     }
@@ -89,6 +90,7 @@ final class HomeWidgetsCoordinatorViewModel: ObservableObject,
         documentsProvider: DocumentsProviderProtocol,
         setObjectCreationCoordinatorAssembly: SetObjectCreationCoordinatorAssemblyProtocol,
         sharingTipCoordinator: SharingTipCoordinatorProtocol,
+        galleryInstallationCoordinatorAssembly: GalleryInstallationCoordinatorAssemblyProtocol,
         notificationCoordinator: NotificationCoordinatorProtocol
     ) {
         self.homeWidgetsModuleAssembly = homeWidgetsModuleAssembly
@@ -110,6 +112,7 @@ final class HomeWidgetsCoordinatorViewModel: ObservableObject,
         self.documentsProvider = documentsProvider
         self.setObjectCreationCoordinatorAssembly = setObjectCreationCoordinatorAssembly
         self.sharingTipCoordinator = sharingTipCoordinator
+        self.galleryInstallationCoordinatorAssembly = galleryInstallationCoordinatorAssembly
         self.notificationCoordinator = notificationCoordinator
     }
 
@@ -193,6 +196,10 @@ final class HomeWidgetsCoordinatorViewModel: ObservableObject,
         }
     }
 
+    func createGalleryInstallationModule(data: GalleryInstallationData) -> AnyView {
+        return galleryInstallationCoordinatorAssembly.make(data: data)
+    }
+    
     // MARK: - HomeWidgetsModuleOutput
     
     // MARK: - CommonWidgetModuleOutput
@@ -342,9 +349,9 @@ final class HomeWidgetsCoordinatorViewModel: ObservableObject,
             navigationContext.dismissAllPresented(animated: true) { [weak self] in
                 self?.showSpaceSwitch = true
             }
-        case .galleryImport:
+        case let .galleryImport(type, source):
             navigationContext.dismissAllPresented(animated: true) { [weak self] in
-                self?.showGalleryImport = true
+                self?.showGalleryImport = GalleryInstallationData(type: type, source: source)
             }
         }
     }

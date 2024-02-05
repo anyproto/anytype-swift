@@ -274,6 +274,10 @@ final class ModulesDI: ModulesDIProtocol {
         SharingTipModuleAssembly()
     }
     
+    func galleryInstallationPreview() -> GalleryInstallationPreviewModuleAssemblyProtocol {
+        GalleryInstallationPreviewModuleAssembly(serviceLocator: serviceLocator)
+    }
+    
     func commonNotification() -> CommonNotificationAssemblyProtocol {
         CommonNotificationAssembly(serviceLocator: serviceLocator)
     }

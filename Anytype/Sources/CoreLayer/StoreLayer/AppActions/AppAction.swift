@@ -4,5 +4,5 @@ enum AppAction {
     case createObject
     case showSharingExtension
     case spaceSelection
-    case galleryImport
+    case galleryImport(type: String, source: String)
 }

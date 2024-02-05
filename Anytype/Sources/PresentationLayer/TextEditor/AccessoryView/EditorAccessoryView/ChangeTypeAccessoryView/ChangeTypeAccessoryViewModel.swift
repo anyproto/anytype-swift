@@ -11,12 +11,10 @@ final class ChangeTypeAccessoryViewModel {
     var onDoneButtonTap: (() -> Void)?
     var onTypeTap: ((ObjectType) -> Void)?
 
-    private var allSupportedTypes = [TypeItem]()
     private let router: EditorRouterProtocol
     private let handler: BlockActionHandlerProtocol
     private let searchService: SearchServiceProtocol
     private let document: BaseDocumentProtocol
-    private lazy var searchItem = TypeItem.searchItem { [weak self] in self?.onSearchTap() }
 
     private var cancellables = [AnyCancellable]()
 
@@ -41,6 +39,15 @@ final class ChangeTypeAccessoryViewModel {
     func toggleChangeTypeState() {
         isTypesViewVisible.toggle()
     }
+    
+    func onSearchTap() {
+        router.showTypesForEmptyObject(
+            selectedObjectId: document.details?.type,
+            onSelect: { [weak self] type in
+                self?.onTypeTap(type: type)
+            }
+        )
+    }
 
     private func onTypeTap(type: ObjectType) {
         defer { logSelectObjectType(type: type) }
@@ -52,23 +59,13 @@ final class ChangeTypeAccessoryViewModel {
     }
 
     private func subscribeOnDocumentChanges() {
-        document.updatePublisher.sink { [weak self] _ in
-            Task { @MainActor [weak self] in
-                guard let self else { return }
-                if let supportedTypes = await fetchSupportedTypes() {
-                    allSupportedTypes = supportedTypes
+        document.updatePublisher.sink { _ in
+            Task { @MainActor in
+                if let supportedTypes = await self.fetchSupportedTypes() {
+                    self.supportedTypes = supportedTypes
                 }
-                updateSupportedTypes()
             }
         }.store(in: &cancellables)
-    }
-    
-    private func updateSupportedTypes() {
-        let filteredItems = allSupportedTypes.filter {
-            $0.id != document.details?.type
-        }
-        supportedTypes = [searchItem] + filteredItems
-        
     }
     
     private func fetchSupportedTypes() async -> [TypeItem]? {
@@ -86,15 +83,6 @@ final class ChangeTypeAccessoryViewModel {
                 })
             }
         return supportedTypes
-    }
-    
-    private func onSearchTap() {
-        router.showTypesForEmptyObject(
-            selectedObjectId: document.details?.type,
-            onSelect: { [weak self] type in
-                self?.onTypeTap(type: type)
-            }
-        )
     }
 }
 

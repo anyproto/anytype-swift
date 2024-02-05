@@ -40,7 +40,12 @@ struct AccessoryViewBuilder {
             document: document
         )
         
-        let typeListViewModel = HorizonalTypeListViewModel(itemProvider: changeTypeViewModel)
+        let typeListViewModel = HorizonalTypeListViewModel(
+            itemProvider: changeTypeViewModel, 
+            onSearchTap: { [weak changeTypeViewModel] in
+                changeTypeViewModel?.onSearchTap()
+            }
+        )
 
         let horizontalTypeListView = HorizonalTypeListView(viewModel: typeListViewModel)
 

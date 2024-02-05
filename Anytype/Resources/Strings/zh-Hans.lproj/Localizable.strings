@@ -588,6 +588,8 @@
 "Into object" = "转为对象";
 "Add below" = "在下面添加";
 "Change type" = "更改类型";
+"Show types" = "显示类型";
+"Hide types" = "隐藏类型";
 "SlashMenu.LinkTo.Description" = "创建链接到另一个对象";
 "Upload playable audio" = "上传可播放音频";
 "Code snippet" = "代码片段";

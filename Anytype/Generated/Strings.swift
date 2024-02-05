@@ -246,6 +246,8 @@ internal enum Loc {
   internal static let grey = Loc.tr("Localizable", "Grey", fallback: "Grey")
   /// Grey background
   internal static let greyBackground = Loc.tr("Localizable", "Grey background", fallback: "Grey background")
+  /// Hide types
+  internal static let hideTypes = Loc.tr("Localizable", "Hide types", fallback: "Hide types")
   /// Highlight
   internal static let highlight = Loc.tr("Localizable", "Highlight", fallback: "Highlight")
   /// Home
@@ -437,6 +439,8 @@ internal enum Loc {
   internal static let settings = Loc.tr("Localizable", "Settings", fallback: "Settings")
   /// Shared
   internal static let shared = Loc.tr("Localizable", "Shared", fallback: "Shared")
+  /// Show types
+  internal static let showTypes = Loc.tr("Localizable", "Show types", fallback: "Show types")
   /// Sign up
   internal static let signUp = Loc.tr("Localizable", "Sign up", fallback: "Sign up")
   /// Sky
@@ -1217,6 +1221,10 @@ internal enum Loc {
     }
   }
   internal enum Gallery {
+    /// Made by @%@
+    internal static func author(_ p1: Any) -> String {
+      return Loc.tr("Localizable", "Gallery.Author", String(describing: p1), fallback: "Made by @%@")
+    }
     internal enum Unavailable {
       /// Please use the desktop app for now
       internal static let message = Loc.tr("Localizable", "Gallery.Unavailable.Message", fallback: "Please use the desktop app for now")
