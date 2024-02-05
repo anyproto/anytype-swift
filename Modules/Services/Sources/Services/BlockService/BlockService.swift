@@ -9,10 +9,10 @@ public final class BlockService: BlockServiceProtocol {
     
     public init() {}
     
-    public func add(contextId: String, targetId: BlockId, info: BlockInformation, position: BlockPosition) async throws -> BlockId? {
+    public func add(contextId: String, targetId: BlockId, info: BlockInformation, position: BlockPosition) async throws -> BlockId {
         guard let block = BlockInformationConverter.convert(information: info) else {
             anytypeAssertionFailure("addActionBlockIsNotParsed")
-            return nil
+            throw CommonError.undefined
         }
 
         let response = try await ClientCommands.blockCreate(.with {

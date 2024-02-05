@@ -862,10 +862,9 @@
 "Sharing.AddTo" = "Add to";
 "Sharing.LinkTo" = "Link to";
 
-"Sharing.URL.Bookmark" = "Bookmark object";
-"Sharing.URL.Text" = "Text block";
 "Sharing.Text.NoteObject" = "Note object";
-"Sharing.Text.TextBlock" = "Text block";
+"Sharing.Text.TextBlock" = "Blocks";
+"Sharing.Any.Block" = "Blocks";
 
 // MARK: - Sharing tips
 "Sharing.Tip.Title" = "Share Extension";
@@ -912,3 +911,7 @@
 "Gallery.Author" = "Made by @%@";
 "Gallery.Install" = "Install";
 "Gallery.InstallToNew" = "Install to new space";
+
+// MARK: - Debug
+"Debug.MimeTypes" = "Mime Types - %@";
+"Debug.Info" = "Debug Info";

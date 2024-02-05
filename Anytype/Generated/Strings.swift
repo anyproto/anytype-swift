@@ -942,6 +942,14 @@ internal enum Loc {
     /// List
     internal static let list = Loc.tr("Localizable", "DataviewType.list", fallback: "List")
   }
+  internal enum Debug {
+    /// Debug Info
+    internal static let info = Loc.tr("Localizable", "Debug.Info", fallback: "Debug Info")
+    /// Mime Types - %@
+    internal static func mimeTypes(_ p1: Any) -> String {
+      return Loc.tr("Localizable", "Debug.MimeTypes", String(describing: p1), fallback: "Mime Types - %@")
+    }
+  }
   internal enum DebugMenu {
     /// Release: %@, %@
     internal static func toggleAuthor(_ p1: Any, _ p2: Any) -> String {
@@ -1765,6 +1773,20 @@ internal enum Loc {
     internal static let saveAs = Loc.tr("Localizable", "Sharing.SaveAs", fallback: "SAVE AS")
     /// Space
     internal static let selectSpace = Loc.tr("Localizable", "Sharing.SelectSpace", fallback: "Space")
+    internal enum `Any` {
+      /// Blocks
+      internal static let block = Loc.tr("Localizable", "Sharing.Any.Block", fallback: "Blocks")
+    }
+    internal enum File {
+      /// Plural format key: "%#@object@"
+      internal static func block(_ p1: Int) -> String {
+        return Loc.tr("Localizable", "Sharing.File.Block", p1, fallback: "Plural format key: \"%#@object@\"")
+      }
+      /// Plural format key: "%#@object@"
+      internal static func newObject(_ p1: Int) -> String {
+        return Loc.tr("Localizable", "Sharing.File.NewObject", p1, fallback: "Plural format key: \"%#@object@\"")
+      }
+    }
     internal enum Navigation {
       /// Add to Anytype
       internal static let title = Loc.tr("Localizable", "Sharing.Navigation.title", fallback: "Add to Anytype")
@@ -1780,8 +1802,8 @@ internal enum Loc {
     internal enum Text {
       /// Note object
       internal static let noteObject = Loc.tr("Localizable", "Sharing.Text.NoteObject", fallback: "Note object")
-      /// Text block
-      internal static let textBlock = Loc.tr("Localizable", "Sharing.Text.TextBlock", fallback: "Text block")
+      /// Blocks
+      internal static let textBlock = Loc.tr("Localizable", "Sharing.Text.TextBlock", fallback: "Blocks")
     }
     internal enum Tip {
       /// Share Extension
@@ -1800,10 +1822,14 @@ internal enum Loc {
       }
     }
     internal enum Url {
-      /// Bookmark object
-      internal static let bookmark = Loc.tr("Localizable", "Sharing.URL.Bookmark", fallback: "Bookmark object")
-      /// Text block
-      internal static let text = Loc.tr("Localizable", "Sharing.URL.Text", fallback: "Text block")
+      /// Plural format key: "%#@object@"
+      internal static func block(_ p1: Int) -> String {
+        return Loc.tr("Localizable", "Sharing.URL.Block", p1, fallback: "Plural format key: \"%#@object@\"")
+      }
+      /// Plural format key: "%#@object@"
+      internal static func newObject(_ p1: Int) -> String {
+        return Loc.tr("Localizable", "Sharing.URL.NewObject", p1, fallback: "Plural format key: \"%#@object@\"")
+      }
     }
   }
   internal enum SimpleTableMenu {

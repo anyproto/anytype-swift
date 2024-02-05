@@ -57,7 +57,6 @@ protocol ModulesDIProtocol: AnyObject {
     func setLayoutSettingsView() -> SetLayoutSettingsViewAssemblyProtocol
     func setViewSettingsGroupByView() -> SetViewSettingsGroupByModuleAssemblyProtocol
     func setRelationsView() -> SetRelationsViewModuleAssemblyProtocol
-    func shareAssembly() -> ShareModuleAssemblyProtocol
     func setViewPicker() -> SetViewPickerModuleAssemblyProtocol
     func homeBottomNavigationPanel() -> HomeBottomNavigationPanelModuleAssemblyProtocol
     func deleteAccount() -> DeleteAccountModuleAssemblyProtocol
@@ -65,6 +64,7 @@ protocol ModulesDIProtocol: AnyObject {
     func serverConfiguration() -> ServerConfigurationModuleAssemblyProtocol
     func serverDocumentPicker() -> ServerDocumentPickerModuleAssemblyProtocol
     func sharingTip() -> SharingTipModuleAssemblyProtocol
+    func shareOptions() -> ShareOptionsModuleAssemblyProtocol
     func galleryInstallationPreview() -> GalleryInstallationPreviewModuleAssemblyProtocol
     func gallerySpaceSelectionModuleAssembly() -> GallerySpaceSelectionModuleAssemblyProtocol
     func commonNotification() -> CommonNotificationAssemblyProtocol

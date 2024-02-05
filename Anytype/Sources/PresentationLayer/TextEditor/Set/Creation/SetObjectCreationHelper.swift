@@ -122,7 +122,7 @@ final class SetObjectCreationHelper: SetObjectCreationHelperProtocol {
         )
         let isNote = FeatureFlags.setTextInFirstNoteBlock && (type?.isNoteLayout ?? false)
         if isNote {
-            guard let newBlockId = try await blockService.add(contextId: details.id, targetId: EditorConstants.headerBlockId.rawValue, info: .emptyText, position: .bottom) else {
+            guard let newBlockId = try? await blockService.add(contextId: details.id, targetId: EditorConstants.headerBlockId.rawValue, info: .emptyText, position: .bottom) else {
                 return .init(details: details, titleInputType: .none)
             }
             

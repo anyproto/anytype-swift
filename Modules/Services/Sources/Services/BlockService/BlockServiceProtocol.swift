@@ -1,7 +1,7 @@
 import ProtobufMessages
 
 public protocol BlockServiceProtocol: AnyObject {
-    func add(contextId: String, targetId: BlockId, info: BlockInformation, position: BlockPosition) async throws -> BlockId?
+    func add(contextId: String, targetId: BlockId, info: BlockInformation, position: BlockPosition) async throws -> BlockId
     func delete(contextId: String, blockIds: [BlockId]) async throws
     func duplicate(contextId: String, targetId: BlockId, blockIds: [BlockId], position: BlockPosition) async throws
     func move(contextId: String, blockIds: [String], targetContextID: BlockId, dropTargetID: String, position: BlockPosition) async throws

@@ -18,7 +18,7 @@ protocol FileActionsServiceProtocol {
     func createFileData(source: FileUploadingSource) async throws -> FileData
     
     func uploadDataAt(data: FileData, contextID: BlockId, blockID: BlockId) async throws
-    func uploadImage(spaceId: String, data: FileData) async throws -> FileDetails
+    func uploadFileObject(spaceId: String, data: FileData) async throws -> FileDetails
     
     func uploadDataAt(source: FileUploadingSource, contextID: BlockId, blockID: BlockId) async throws
     func uploadImage(spaceId: String, source: FileUploadingSource) async throws -> FileDetails
