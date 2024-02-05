@@ -1223,6 +1223,10 @@ internal enum Loc {
     }
   }
   internal enum Gallery {
+    /// Made by @%@
+    internal static func author(_ p1: Any) -> String {
+      return Loc.tr("Localizable", "Gallery.Author", String(describing: p1), fallback: "Made by @%@")
+    }
     internal enum Unavailable {
       /// Please use the desktop app for now
       internal static let message = Loc.tr("Localizable", "Gallery.Unavailable.Message", fallback: "Please use the desktop app for now")

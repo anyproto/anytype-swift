@@ -258,7 +258,7 @@
 "Auth.LoginFlow.Or" = "O";
 "Auth.LoginFlow.Textfield.Placeholder" = "Digita la frase di recupero";
 "Auth.LoginFlow.Enter.Button.Title" = "Accedi";
-"Auth.LoginFlow.Entering.Void.Title" = "Entering the Void";
+"Auth.LoginFlow.Entering.Void.Title" = "Entrando nel Void";
 
 // Object settings
 
@@ -588,6 +588,8 @@
 "Into object" = "Nell'oggetto";
 "Add below" = "Aggiungi sotto";
 "Change type" = "Cambia tipo";
+"Show types" = "Mostra tipi";
+"Hide types" = "Nascondi tipi";
 "SlashMenu.LinkTo.Description" = "Crea collegamento a un altro oggetto";
 "Upload playable audio" = "Carica un audio riproducibile";
 "Code snippet" = "Frammento di codice";
@@ -690,7 +692,7 @@
 "SimpleTableMenu.Item.MoveUp" = "Sposta in alto";
 "SimpleTableMenu.Item.MoveDown" = "Sposta in basso";
 
-"DebugMenu.ToggleAuthor" = "Release: %@, %@";
+"DebugMenu.ToggleAuthor" = "Rilascio: %@, %@";
 
 // MARK: Link Past Actions
 "LinkPaste.text" = "Incolla come testo";
@@ -751,8 +753,8 @@
 // MARK: - Widgets
 "Widgets.SourceSearch" = "Fonte del widget";
 "Widgets.Actions.ChangeSource" = "Cambia fonte";
-"Widgets.Actions.ChangeWidgetType" = "Change Widget Type";
-"Widgets.Actions.RemoveWidget" = "Remove Widget";
+"Widgets.Actions.ChangeWidgetType" = "Cambia Tipo di Widget";
+"Widgets.Actions.RemoveWidget" = "Rimuovi Widget";
 "Widgets.Actions.EditWidgets" = "Modifica Widgets";
 "Widgets.Actions.EmptyBin" = "Svuota Cestino";
 "Widgets.Actions.AddBelow" = "Aggiungi sotto";
@@ -825,11 +827,11 @@
 "FilesList.ForceDelete.Title" = "Sei sicuro di voler eliminare definitivamente i file?";
 
 // MARK: - Widget object list
-"WidgetObjectList.ForceDelete.Message" = "You can’t undo this action.";
+"WidgetObjectList.ForceDelete.Message" = "Non puoi annullare questa azione.";
 
 // MARK: - Cpear cache alert
 "ClearCacheAlert.Title" = "Sei sicuro/a?";
-"ClearCacheAlert.Description" = "All media files stored in Anytype will be deleted from your current device. They can be downloaded again from a backup node or another device.";
+"ClearCacheAlert.Description" = "Tutti i file multimediali memorizzati in Anytype verranno eliminati dal dispositivo corrente. Possono essere scaricati di nuovo da un nodo di backup o da un altro dispositivo.";
 
 // MARK: - Spaces
 "Spaces.Accessibility.Public" = "Spazio pubblico";
@@ -860,9 +862,9 @@
 "Sharing.LinkTo" = "Collega a";
 
 "Sharing.URL.Bookmark" = "Oggetto segnalibro";
-"Sharing.URL.Text" = "Text block";
-"Sharing.Text.NoteObject" = "Note object";
-"Sharing.Text.TextBlock" = "Text block";
+"Sharing.URL.Text" = "Blocco di testo";
+"Sharing.Text.NoteObject" = "Oggetto nota";
+"Sharing.Text.TextBlock" = "Blocco di testo";
 
 // MARK: - Sharing tips
 "Sharing.Tip.Title" = "Condividi Estensione";
@@ -874,20 +876,20 @@
 
 // MARK: - Initial
 
-"Initial.UnstableMiddle.Title" = "Warning";
+"Initial.UnstableMiddle.Title" = "Attenzione";
 "Initial.UnstableMiddle.Message" = "You launch app with a unstable middleware. Don't use your production account. Your account may be broken.";
-"Initial.UnstableMiddle.Title" = "Warning";
-"Initial.UnstableMiddle.Logout" = "Logout from current account";
-"Initial.UnstableMiddle.Continue" = "Continue with current account";
-"Initial.UnstableMiddle.WontUseProd" = "I won't be using my production account";
+"Initial.UnstableMiddle.Title" = "Attenzione";
+"Initial.UnstableMiddle.Logout" = "Disconnetti dall'account corrente";
+"Initial.UnstableMiddle.Continue" = "Continua con l'account corrente";
+"Initial.UnstableMiddle.WontUseProd" = "Non userò il mio account di produzione";
 
 // MARK: - Create tip
 "LongTapCreateTip.Title" = "Crea Oggetti con Tipo specifico";
 "LongTapCreateTip.Message" = "Tocca a lungo il pulsante Crea Oggetto per aprire il menu con i tipi";
 
 // MARK: - Error
-"Error.AnytypeNeedsUpgrate.Title" = "Update Your App";
-"Error.AnytypeNeedsUpgrate.Message" = "This object was modified in a newer version of Anytype. Please update the app to open it on this device";
+"Error.AnytypeNeedsUpgrate.Title" = "Aggiorna la tua app";
+"Error.AnytypeNeedsUpgrate.Message" = "Questo oggetto è stato modificato in una versione più recente di Anytype. Si prega di aggiornare l'app per aprirlo su questo dispositivo.";
 "Error.AnytypeNeedsUpgrate.Confirm" = "Update";
 "Error.UnableToConnect" = "Si prega di connettersi a internet";
 

@@ -56,6 +56,7 @@ final class HomeWidgetsCoordinatorAssembly: HomeWidgetsCoordinatorAssemblyProtoc
             documentsProvider: serviceLocator.documentsProvider,
             setObjectCreationCoordinatorAssembly: coordinatorsID.setObjectCreation(),
             sharingTipCoordinator: coordinatorsID.sharingTip(),
+            galleryInstallationCoordinatorAssembly: coordinatorsID.galleryInstallation(),
             notificationCoordinator: coordinatorsID.notificationCoordinator()
         )
     }
