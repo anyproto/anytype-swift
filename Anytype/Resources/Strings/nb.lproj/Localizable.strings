@@ -588,6 +588,8 @@
 "Into object" = "Inn i objektet";
 "Add below" = "Legg til under";
 "Change type" = "Endre type";
+"Show types" = "Vis typer";
+"Hide types" = "Skjul typer";
 "SlashMenu.LinkTo.Description" = "Create link to another object";
 "Upload playable audio" = "Last opp spillbar lyd";
 "Code snippet" = "Kodesnutt";
