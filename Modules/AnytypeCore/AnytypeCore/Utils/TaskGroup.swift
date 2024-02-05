@@ -18,7 +18,7 @@ public struct SortedTaskGroup<ChildTaskResult> where ChildTaskResult : Sendable 
     public mutating func addTask(priority: TaskPriority? = nil, operation: @escaping @Sendable () async -> ChildTaskResult) {
         let currentIndex = index
         taskGroup.addTask(priority: priority) { SortedItem(index: currentIndex, content: await operation()) }
-        index+=1
+        index += 1
     }
     
     public mutating func waitResult() async -> [ChildTaskResult] {
