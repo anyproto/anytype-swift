@@ -2836,7 +2836,7 @@
 		3D3A18292733E946000D0842 /* MarkdownListener.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MarkdownListener.swift; sourceTree = "<group>"; };
 		3D3A183827340187000D0842 /* NSAttributedString+Convenience.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSAttributedString+Convenience.swift"; sourceTree = "<group>"; };
 		3D3A9C3E265BC9AC000F07DB /* Publisher+Sink.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Publisher+Sink.swift"; sourceTree = "<group>"; };
-		3D3D894C2678D08E008C2B26 /* ViewModifiers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ViewModifiers.swift; path = Anytype/Sources/PresentationLayer/Common/SwiftUI/ViewModifiers.swift; sourceTree = SOURCE_ROOT; };
+		3D3D894C2678D08E008C2B26 /* ViewModifiers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ViewModifiers.swift; path = Anytype/Sources/PresentationLayer/Common/SwiftUI/BasicComponents/ViewModifiers.swift; sourceTree = SOURCE_ROOT; };
 		3D40C00B273FD77A0001E336 /* SetTableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetTableView.swift; sourceTree = "<group>"; };
 		3D4125F926A014E1007A6880 /* TextContent+Font.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "TextContent+Font.swift"; path = "Anytype/Sources/Design system/TextComponents/TextContent+Font.swift"; sourceTree = SOURCE_ROOT; };
 		3D43FDAF26B18BF80094D4C0 /* Array+SafeCall.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "Array+SafeCall.swift"; path = "Anytype/Sources/FrameworkExtensions/Foundation/Array+SafeCall.swift"; sourceTree = SOURCE_ROOT; };
@@ -7831,6 +7831,7 @@
 		3D486C162631726A00A9B625 /* SwiftUI */ = {
 			isa = PBXGroup;
 			children = (
+				3DA414982B70FE9100960748 /* BasicComponents */,
 				2A8302B32B075885002D6655 /* NavigationView */,
 				2ADF008D2ACD5D96000D01F8 /* StatusBarStyle */,
 				2A8395662AF3ECC8004EE41F /* Segment */,
@@ -7853,26 +7854,7 @@
 				03475B702306CFA900F8FCE7 /* Waiting Views */,
 				12887F3B274BC1ED00228330 /* RelationDetailsViews */,
 				1256840B27E1D904003A8251 /* Configurations */,
-				3D829171265E50190007C152 /* RedactedText.swift */,
-				3D932D5C2631807800C7D1EA /* OffsetAwareScrollView.swift */,
-				3D3D894C2678D08E008C2B26 /* ViewModifiers.swift */,
-				3D850B9E26458CC2005805A8 /* DragIndicator.swift */,
-				120F7D45267CD2BA00327734 /* InlineNavigationBar.swift */,
-				C91AFF10270C3E2F005F9386 /* ActivityViewController.swift */,
-				120F7D57267D071400327734 /* PickerSectionHeaderView.swift */,
-				03E2AD5423A93D3800C701CE /* UserIconView.swift */,
-				3D68564126E0E1A000AA36A9 /* Spacer+FixedSize.swift */,
-				3D68564C26E10D2500AA36A9 /* View+Placeholder.swift */,
-				535F79722746AAD40050A1B8 /* FlowLayout.swift */,
-				1240EAF727B14841005B501E /* HorizontalReadabilityPadding.swift */,
-				3D2D4C5A27BA54030070A4C6 /* Divider.swift */,
-				125683EC27DF4DDF003A8251 /* SelectionIndicatorView.swift */,
-				3D30418427ECBBDB00FFE0EB /* AnytypeToggle.swift */,
 				1247BC8327FE0933005F2DB4 /* TransparencyEffect */,
-				3D1CEC4427F5F566000D36BA /* Clock.swift */,
-				C99DCEC3283CCBF30051F99D /* GenericUIKitToSwiftUIView.swift */,
-				2EE10C7328ACFCF100F41D50 /* LightDimmingButtonStyle.swift */,
-				2E48D74228CF461400CEE69D /* TertiaryPressedBackgroundButtonStyle.swift */,
 			);
 			path = SwiftUI;
 			sourceTree = "<group>";
@@ -8193,6 +8175,32 @@
 				C90F8F2328DCBAE100E874A9 /* FileDownloader.swift */,
 			);
 			path = FileLoader;
+			sourceTree = "<group>";
+		};
+		3DA414982B70FE9100960748 /* BasicComponents */ = {
+			isa = PBXGroup;
+			children = (
+				3D68564C26E10D2500AA36A9 /* View+Placeholder.swift */,
+				3D1CEC4427F5F566000D36BA /* Clock.swift */,
+				C99DCEC3283CCBF30051F99D /* GenericUIKitToSwiftUIView.swift */,
+				2EE10C7328ACFCF100F41D50 /* LightDimmingButtonStyle.swift */,
+				2E48D74228CF461400CEE69D /* TertiaryPressedBackgroundButtonStyle.swift */,
+				535F79722746AAD40050A1B8 /* FlowLayout.swift */,
+				1240EAF727B14841005B501E /* HorizontalReadabilityPadding.swift */,
+				3D2D4C5A27BA54030070A4C6 /* Divider.swift */,
+				125683EC27DF4DDF003A8251 /* SelectionIndicatorView.swift */,
+				3D30418427ECBBDB00FFE0EB /* AnytypeToggle.swift */,
+				3D829171265E50190007C152 /* RedactedText.swift */,
+				3D932D5C2631807800C7D1EA /* OffsetAwareScrollView.swift */,
+				3D3D894C2678D08E008C2B26 /* ViewModifiers.swift */,
+				3D850B9E26458CC2005805A8 /* DragIndicator.swift */,
+				120F7D45267CD2BA00327734 /* InlineNavigationBar.swift */,
+				C91AFF10270C3E2F005F9386 /* ActivityViewController.swift */,
+				120F7D57267D071400327734 /* PickerSectionHeaderView.swift */,
+				03E2AD5423A93D3800C701CE /* UserIconView.swift */,
+				3D68564126E0E1A000AA36A9 /* Spacer+FixedSize.swift */,
+			);
+			path = BasicComponents;
 			sourceTree = "<group>";
 		};
 		3DA46B5F273BEB05007B7464 /* Markdown */ = {
@@ -11158,7 +11166,6 @@
 				3D1B5F7A274D0397007D97AE /* UIColor+Color.swift in Sources */,
 				EAED581E26A7321600374A46 /* MiddlewareTuple.swift in Sources */,
 				2E22F9FB2B6193AF001EFCF3 /* RelationOptionSettingsConfiguration.swift in Sources */,
-				2E6F3E212A4DF191002F4278 /* Weak.swift in Sources */,
 				2E28BCF32AAB58D2001E6306 /* SetViewPickerCoordinatorViewModel.swift in Sources */,
 				2EC46DD72ABE000D00DEA4BD /* ObjectTypesConfiguration.swift in Sources */,
 				C9CD66A827EB1480001F1860 /* CoverColorsGridViewModel.swift in Sources */,
