@@ -1,6 +1,7 @@
 import Services
 import Combine
 import UIKit
+import AnytypeCore
 
 final class SimpleTablesTextBlockActionHandler: TextBlockActionHandlerProtocol {
     var info: BlockInformation
@@ -353,7 +354,7 @@ extension SimpleTablesTextBlockActionHandler: AccessoryViewOutput {
         at position: Int,
         textView: UITextView?
     ) {
-        fatalError()
+        anytypeAssertionFailure("Simple tables should not have slash selection")
     }
     
     func didSelectEditButton() {

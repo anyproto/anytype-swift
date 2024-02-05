@@ -361,15 +361,8 @@ final class StyleView: UIView {
 
         currentDeselectAction?()
         currentDeselectAction = deselectAction
-        if style == .code {
-            fatalError()
-//            blockIds.forEach {
-//                actionHandler.toggleWholeBlockMarkup(.keyboard, blockId: $0)
-//            }
-        } else {
-            blockIds.forEach {
-                actionHandler.turnInto(style, blockId: $0)
-            }
+        blockIds.forEach {
+            actionHandler.turnInto(style, blockId: $0)
         }
     }
 

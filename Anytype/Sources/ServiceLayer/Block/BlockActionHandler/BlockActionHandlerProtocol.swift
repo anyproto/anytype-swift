@@ -17,8 +17,6 @@ protocol BlockActionHandlerProtocol: AnyObject {
     func delete(blockIds: [BlockId])
     func moveToPage(blockId: BlockId, pageId: BlockId)
     func createEmptyBlock(parentId: BlockId)
-//    func setLink(url: URL?, range: NSRange, blockId: BlockId)
-    func setLinkToObject(linkBlockId: BlockId?, range: NSRange, blockId: BlockId)
     func addLink(targetDetails: ObjectDetails, blockId: BlockId)
     func changeMarkup(blockIds: [BlockId], markType: MarkupType)
     func addBlock(_ type: BlockContentType, blockId: BlockId, blockText: NSAttributedString?, position: BlockPosition?)

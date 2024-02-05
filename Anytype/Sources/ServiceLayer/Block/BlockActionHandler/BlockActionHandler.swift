@@ -187,10 +187,6 @@ final class BlockActionHandler: BlockActionHandlerProtocol {
         changeText(newText, blockId: blockId)
     }
     
-    func setLinkToObject(linkBlockId: BlockId?, range: NSRange, blockId: BlockId) {
-        fatalError()
-    }
-    
     func changeText(_ text: NSAttributedString, blockId: BlockId) {
         let safeSendableText = SafeSendable(value: text)
 

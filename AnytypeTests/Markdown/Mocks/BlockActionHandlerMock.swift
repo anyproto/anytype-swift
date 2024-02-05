@@ -95,10 +95,6 @@ final class BlockActionHandlerMock: BlockActionHandlerProtocol {
         assertionFailure()
     }
     
-    func setLinkToObject(linkBlockId: BlockId?, range: NSRange, blockId: BlockId) {
-        assertionFailure()
-    }
-    
     func addLink(targetDetails: ObjectDetails, blockId: BlockId) {
         assertionFailure()
     }
