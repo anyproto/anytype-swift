@@ -649,6 +649,7 @@
 "DataviewType.gallery" = "Gallery";
 "DataviewType.kanban" = "Kanban";
 "DataviewType.calendar" = "Calendar";
+"DataviewType.graph" = "Graph";
 
 // MARK: - ObjectType
 "ObjectType.fallbackDescription" = "Blank canvas with no title";
