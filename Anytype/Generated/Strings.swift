@@ -162,6 +162,8 @@ internal enum Loc {
   internal static func createRelation(_ p1: Any) -> String {
     return Loc.tr("Localizable", "Create relation", String(describing: p1), fallback: "Create relation ‘%@’")
   }
+  /// Create type
+  internal static let createType = Loc.tr("Localizable", "Create type", fallback: "Create type")
   /// Plural format key: "This account will be deleted %#@days@"
   internal static func daysToDeletionAccount(_ p1: Int) -> String {
     return Loc.tr("Localizable", "Days to deletion account", p1, fallback: "Plural format key: \"This account will be deleted %#@days@\"")
@@ -310,6 +312,10 @@ internal enum Loc {
   internal static let noName = Loc.tr("Localizable", "No name", fallback: "No name")
   /// No related options here. You can add some
   internal static let noRelatedOptionsHere = Loc.tr("Localizable", "No related options here", fallback: "No related options here. You can add some")
+  /// No type “%@” found. Change your request or create new type.
+  internal static func noTypeFoundText(_ p1: Any) -> String {
+    return Loc.tr("Localizable", "No type found text", String(describing: p1), fallback: "No type “%@” found. Change your request or create new type.")
+  }
   /// Node is not connected
   internal static let nodeIsNotConnected = Loc.tr("Localizable", "Node is not connected", fallback: "Node is not connected")
   /// Non-existent object
@@ -320,6 +326,8 @@ internal enum Loc {
   internal static let notSyncing = Loc.tr("Localizable", "Not syncing", fallback: "Not syncing")
   /// Note
   internal static let note = Loc.tr("Localizable", "Note", fallback: "Note")
+  /// Nothing found
+  internal static let nothingFound = Loc.tr("Localizable", "Nothing found", fallback: "Nothing found")
   /// Nothing to redo
   internal static let nothingToRedo = Loc.tr("Localizable", "Nothing to redo", fallback: "Nothing to redo")
   /// Nothing to undo
