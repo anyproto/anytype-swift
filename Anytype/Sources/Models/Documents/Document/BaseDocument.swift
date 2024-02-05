@@ -24,7 +24,6 @@ final class BaseDocument: BaseDocumentProtocol {
     
     var objectRestrictions: ObjectRestrictions { restrictionsContainer.restrinctions }
     private let objectLifecycleService: ObjectLifecycleServiceProtocol
-    private let blockActionsService: BlockActionsServiceSingleProtocol
     private let eventsListener: EventsListenerProtocol
     private let relationBuilder: RelationsBuilder
     private let relationDetailsStorage: RelationDetailsStorageProtocol
