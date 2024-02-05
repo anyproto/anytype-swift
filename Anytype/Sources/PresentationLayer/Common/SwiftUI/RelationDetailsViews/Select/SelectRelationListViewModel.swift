@@ -6,57 +6,60 @@ import SwiftUI
 @MainActor
 final class SelectRelationListViewModel: ObservableObject {
     
-    @Published var selectedOption: SelectRelationOption?
+    @Published var selectedOptionsIds: [String] = []
     @Published var options: [SelectRelationOption] = []
     @Published var isEmpty = false
-    
-    private var searchText = ""
+    @Published var searchText = ""
         
+    let style: SelectRelationListStyle
     let configuration: RelationModuleConfiguration
     
-    private let relationsService: RelationsServiceProtocol
+    private let relationSelectedOptionsModel: RelationSelectedOptionsModelProtocol
     private let searchService: SearchServiceProtocol
     
     private weak var output: SelectRelationListModuleOutput?
     
     init(
+        style: SelectRelationListStyle,
         configuration: RelationModuleConfiguration,
-        selectedOption: SelectRelationOption?,
-        output: SelectRelationListModuleOutput?,
-        relationsService: RelationsServiceProtocol,
-        searchService: SearchServiceProtocol
+        relationSelectedOptionsModel: RelationSelectedOptionsModelProtocol,
+        searchService: SearchServiceProtocol,
+        output: SelectRelationListModuleOutput?
     ) {
+        self.style = style
         self.configuration = configuration
-        self.selectedOption = selectedOption
         self.output = output
-        self.relationsService = relationsService
+        self.relationSelectedOptionsModel = relationSelectedOptionsModel
         self.searchService = searchService
+        self.relationSelectedOptionsModel.selectedOptionsIdsPublisher.assign(to: &$selectedOptionsIds)
+    }
+    
+    func onAppear() {
+        searchTextChanged()
     }
 
     func onClear() {
         Task {
-            selectedOption = nil
-            try await relationsService.updateRelation(relationKey: configuration.relationKey, value: nil)
-            logChanges()
+            try await relationSelectedOptionsModel.onClear()
         }
     }
     
     func onCreate(with title: String?, color: Color? = nil) {
-        output?.onCreateTap(text: title, color: color, completion: { [weak self] optionId in
-            self?.optionSelected(optionId, dismiss: false)
-        })
-    }
-    
-    func onOptionEdit(_ option: SelectRelationOption) {
-        output?.onEditTap(option: option, completion: { [weak self] in
-            guard let self else { return }
-            searchTextChanged(searchText)
+        output?.onCreateTap(text: title, color: color, completion: { [weak self] option in
+            self?.updateListOnCreate(with: option.id)
         })
     }
     
     func onOptionDuplicate(_ option: SelectRelationOption) {
-        output?.onCreateTap(text: option.text, color: option.color, completion: { [weak self] optionId in
-            self?.optionSelected(optionId, dismiss: false)
+        onCreate(with: option.text, color: option.color)
+    }
+    
+    func onOptionEdit(_ option: SelectRelationOption) {
+        output?.onEditTap(option: option, completion: { [weak self] option in
+            guard let self else { return }
+            if let index = options.firstIndex(where: { $0.id == option.id }) {
+                options[index] = option
+            }
         })
     }
     
@@ -72,66 +75,70 @@ final class SelectRelationListViewModel: ObservableObject {
         output?.onDeleteTap { [weak self] isSuccess in
             guard let self else { return }
             if isSuccess {
-                removeRelationOprion(id: option.id)
+                removeRelationOption(option)
             } else {
                 options = options
             }            
         }
     }
     
-    func optionSelected(_ optionId: String, dismiss: Bool = true) {
+    func optionSelected(_ optionId: String) {
         Task {
-            try await relationsService.updateRelation(relationKey: configuration.relationKey, value: optionId.protobufValue)
-            
-            let newOption = try await searchService.searchRelationOptions(
-                optionIds: [optionId],
-                spaceId: configuration.spaceId
-            ).first.map { SelectRelationOption(relation: $0) }
-            
-            selectedOption = newOption
-            logChanges()
-            
-            if dismiss {
-                output?.onClose()
-            } else {
-                searchTextChanged(searchText)
-            }
+            try await relationSelectedOptionsModel.optionSelected(optionId)
+            closeIfNeeded()
         }
     }
     
     func searchTextChanged(_ text: String = "") {
         Task {
-            let rawOptions = try await searchService.searchRelationOptions(
-                text: text,
-                relationKey: configuration.relationKey,
-                excludedObjectIds: [],
-                spaceId: configuration.spaceId
-            ).map { SelectRelationOption(relation: $0) }
-            
-            if configuration.isEditable {
-                options = rawOptions.reordered(
-                    by: [ selectedOption?.id ?? "" ]
-                ) { $0.id }
-            } else {
-                options = [selectedOption].compactMap { $0 }
-            }
-            
-            isEmpty = options.isEmpty && text.isEmpty
-            searchText = text
+            try await searchTextChangedAsync(text)
         }
     }
     
-    private func removeRelationOprion(id: String) {
+    private func searchTextChangedAsync(_ text: String = "") async throws {
+        let rawOptions = try await searchService.searchRelationOptions(
+            text: text,
+            relationKey: configuration.relationKey,
+            excludedObjectIds: [],
+            spaceId: configuration.spaceId
+        ).map { SelectRelationOption(relation: $0) }
+        
+        options = rawOptions.reordered(
+            by: selectedOptionsIds
+        ) { $0.id }
+        
+        if !configuration.isEditable {
+            options = options.filter { selectedOptionsIds.contains($0.id) }
+        }
+        
+        setEmptyIfNeeded()
+    }
+    
+    private func updateListOnCreate(with optionId: String) {
         Task {
-            try await relationsService.removeRelationOptions(ids: [id])
-            searchTextChanged(searchText)
-            if selectedOption?.id == id {
-                onClear()
-            }
+            searchText = ""
+            try await relationSelectedOptionsModel.optionSelected(optionId)
+            try await searchTextChangedAsync()
         }
     }
     
-    private func logChanges() {
-        AnytypeAnalytics.instance().logChangeRelationValue(isEmpty: selectedOption.isNil, type: configuration.analyticsType)
+    private func removeRelationOption(_ option: SelectRelationOption) {
+        Task {
+            if let index = options.firstIndex(of: option) {
+                options.remove(at: index)
+            }
+            try await relationSelectedOptionsModel.removeRelationOption(option.id)
+            setEmptyIfNeeded()
+        }
+    }
+    
+    private func setEmptyIfNeeded() {
+        isEmpty = options.isEmpty && searchText.isEmpty
+    }
+    
+    private func closeIfNeeded() {
+        if configuration.selectionMode == .single {
+            output?.onClose()
+        }
     }
 }

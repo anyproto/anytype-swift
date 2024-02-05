@@ -5,8 +5,9 @@ protocol SelectRelationListModuleAssemblyProtocol: AnyObject {
     @MainActor
     func make(
         objectId: String,
+        style: SelectRelationListStyle,
         configuration: RelationModuleConfiguration,
-        selectedOption: SelectRelationOption?,
+        selectedOptionsIds: [String],
         output: SelectRelationListModuleOutput?
     ) -> AnyView
 }
@@ -24,17 +25,24 @@ final class SelectRelationListModuleAssembly: SelectRelationListModuleAssemblyPr
     @MainActor
     func make(
         objectId: String,
+        style: SelectRelationListStyle,
         configuration: RelationModuleConfiguration,
-        selectedOption: SelectRelationOption?,
+        selectedOptionsIds: [String],
         output: SelectRelationListModuleOutput?
     ) -> AnyView {
         SelectRelationListView(
             viewModel: SelectRelationListViewModel(
+                style: style,
                 configuration: configuration,
-                selectedOption: selectedOption,
-                output: output,
-                relationsService: self.serviceLocator.relationService(objectId: objectId),
-                searchService: self.serviceLocator.searchService()
+                relationSelectedOptionsModel: RelationSelectedOptionsModel(
+                    selectionMode: configuration.selectionMode,
+                    selectedOptionsIds: selectedOptionsIds,
+                    relationKey: configuration.relationKey,
+                    analyticsType: configuration.analyticsType,
+                    relationsService: self.serviceLocator.relationService(objectId: objectId)
+                ),
+                searchService: self.serviceLocator.searchService(),
+                output: output
             )
         )
         .eraseToAnyView()
