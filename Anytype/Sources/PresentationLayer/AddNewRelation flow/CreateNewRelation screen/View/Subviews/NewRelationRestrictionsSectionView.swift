@@ -33,8 +33,11 @@ struct NewRelationRestrictionsSectionView: View {
     
     private func objectTypeView(model: ObjectTypeModel) -> some View {
         HStack(spacing: 5) {
-            AnytypeText(model.emoji.value, style: .uxBodyRegular, color: .Text.primary)
-                .lineLimit(1)
+            if let emoji = model.emoji {
+                IconView(icon: .object(.emoji(emoji)))
+                    .frame(width: 20, height: 20)
+                
+            }
             AnytypeText(model.title, style: .uxBodyRegular, color: .Text.primary)
                 .lineLimit(1)
         }
@@ -45,7 +48,7 @@ extension NewRelationRestrictionsSectionView {
     
     struct ObjectTypeModel: Identifiable, Hashable {
         let id: String
-        let emoji: Emoji
+        let emoji: Emoji?
         let title: String
     }
     
@@ -57,7 +60,7 @@ struct NewRelationRestrictionsSectionView_Previews: PreviewProvider {
             model: [
                 NewRelationRestrictionsSectionView.ObjectTypeModel(
                     id: UUID().uuidString,
-                    emoji: Emoji.default,
+                    emoji: Emoji("🐭")!,
                     title: "title 1"
                 ),
                 NewRelationRestrictionsSectionView.ObjectTypeModel(

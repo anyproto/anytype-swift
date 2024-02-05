@@ -53,6 +53,7 @@ final class SetObjectCreationSettingsInteractor: SetObjectCreationSettingsIntera
     
     private let subscriptionService: TemplatesSubscriptionServiceProtocol
     private let objectTypesProvider: ObjectTypeProviderProtocol
+    private let searchService: SearchServiceProtocol
     private let dataviewService: DataviewServiceProtocol
     
     @Published private var templatesDetails = [ObjectDetails]()
@@ -67,6 +68,7 @@ final class SetObjectCreationSettingsInteractor: SetObjectCreationSettingsIntera
         setDocument: SetDocumentProtocol,
         viewId: String,
         objectTypesProvider: ObjectTypeProviderProtocol,
+        searchService: SearchServiceProtocol,
         subscriptionService: TemplatesSubscriptionServiceProtocol,
         dataviewService: DataviewServiceProtocol
     ) {
@@ -76,6 +78,7 @@ final class SetObjectCreationSettingsInteractor: SetObjectCreationSettingsIntera
         self.defaultTemplateId = dataView.defaultTemplateID ?? .empty
         self.subscriptionService = subscriptionService
         self.objectTypesProvider = objectTypesProvider
+        self.searchService = searchService
         self.dataviewService = dataviewService
         
         let defaultObjectType = try? setDocument.defaultObjectTypeForActiveView()
@@ -149,20 +152,16 @@ final class SetObjectCreationSettingsInteractor: SetObjectCreationSettingsIntera
     }
     
     private func updateObjectTypes() {
-        let objectTypes = objectTypesProvider.objectTypes(spaceId: setDocument.spaceId).filter {
-            guard let recommendedLayout = $0.recommendedLayout else { return false }
-            return !$0.isArchived &&
-            DetailsLayout.visibleLayouts.contains(recommendedLayout) &&
-            !$0.isTemplateType
+        Task {
+            objectTypes = try await searchService.searchObjectTypes(
+                text: "",
+                filteringTypeId: nil,
+                shouldIncludeSets: true,
+                shouldIncludeCollections: true,
+                shouldIncludeBookmark: true,
+                spaceId: setDocument.spaceId
+            ).map { ObjectType(details: $0) }
         }
-        self.objectTypes = objectTypes.reordered(
-            by: [
-                ObjectTypeUniqueKey.page.value,
-                ObjectTypeUniqueKey.note.value,
-                ObjectTypeUniqueKey.task.value,
-                ObjectTypeUniqueKey.collection.value
-            ]
-        ) { $0.uniqueKey.value }
     }
     
     private func updateTypeDefaultTemplateId() {

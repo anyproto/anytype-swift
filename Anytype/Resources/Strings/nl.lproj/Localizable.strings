@@ -79,18 +79,18 @@
 "Relation.From.Type" = "Van type %@";
 "Relation.LinksFrom.Title" = "van";
 "Relation.LinksTo.Title" = "tot";
-"Relation.EmptyState.title" = "No options";
-"Relation.EmptyState.description" = "Nothing found. Create first option to start.";
-"Relation.EmptyState.Blocked.title" = "The relation is empty";
-"Relation.Create.Row.title" = "Create “%@”";
-"Relation.View.Create.title" = "Create option";
-"Relation.View.Edit.title" = "Edit option";
-"Relation.Create.Textfield.placeholder" = "Enter name...";
+"Relation.EmptyState.title" = "Geen opties";
+"Relation.EmptyState.description" = "Niets gevonden. Maak een eerste optie aan om te starten.";
+"Relation.EmptyState.Blocked.title" = "De relatie is leeg";
+"Relation.Create.Row.title" = "Maak \"%@\" aan";
+"Relation.View.Create.title" = "Maak optie aan";
+"Relation.View.Edit.title" = "Bewerk optie";
+"Relation.Create.Textfield.placeholder" = "Voer naam... in";
 "Relation.Edit.Button.title" = "Pas toe";
-"Relation.Date.Locked.Alert.title" = "Relation “%@” is locked";
+"Relation.Date.Locked.Alert.title" = "Relatie \"%@\" is vergrendeld";
 
 "Relation.Delete.Alert.Title" = "Weet je het zeker?";
-"Relation.Delete.Alert.Description" = "The option will be permanently removed from your space.";
+"Relation.Delete.Alert.Description" = "De optie wordt permanent verwijderd uit jouw ruimte.";
 
 "Relation.Format.Object.Title" = "Object";
 "Relation.Format.Text.Title" = "Tekst";
@@ -588,6 +588,8 @@
 "Into object" = "Naar object";
 "Add below" = "Voeg toe hieronder";
 "Change type" = "Verander type";
+"Show types" = "Toon types";
+"Hide types" = "Verberg types";
 "SlashMenu.LinkTo.Description" = "Maak link naar een ander object aan";
 "Upload playable audio" = "Upload afspeelbare video";
 "Code snippet" = "Codefragment";
@@ -617,7 +619,7 @@
 "Today" = "Vandaag";
 "No date" = "Geen datum";
 "Clear" = "Wis";
-"Create option with" = "Create option ‘%@’";
+"Create option with" = "Maak optie '%@' aan";
 "Add URL" = "Voeg URL toe";
 "Add email" = "Voeg e-mailadres toe";
 "Add phone number" = "Voeg telefoonnummer toe";
