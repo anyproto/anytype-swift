@@ -7,7 +7,7 @@ import AnytypeCore
 struct HorizontalListItem: Identifiable, Hashable {
     let id: String
     let title: String
-    let image: Icon
+    let icon: Icon?
 
     @EquatableNoop var action: () -> Void
 }
@@ -18,10 +18,13 @@ protocol TypeListItemProvider: AnyObject {
 
 final class HorizonalTypeListViewModel: ObservableObject {
     @Published var items = [HorizontalListItem]()
+    let onSearchTap: () -> ()
 
     private var cancellables = [AnyCancellable]()
 
-    init(itemProvider: TypeListItemProvider?) {
+    init(itemProvider: TypeListItemProvider?, onSearchTap: @escaping () -> ()) {
+        self.onSearchTap = onSearchTap
+        
         itemProvider?.typesPublisher.sink { [weak self] types in
             self?.items = types
         }.store(in: &cancellables)
@@ -30,23 +33,11 @@ final class HorizonalTypeListViewModel: ObservableObject {
 
 extension HorizontalListItem {
     init(from details: ObjectDetails, handler: @escaping () -> Void) {
-        let emoji = details.iconEmoji.map { Icon.object(.emoji($0)) } ??
-            .object(.placeholder(details.name.first))
-        
         self.init(
             id: details.id,
             title: details.name,
-            image: emoji,
+            icon: details.objectIconImage,
             action: handler
-        )
-    }
-
-    static func searchItem(onTap: @escaping () -> Void) -> Self {
-        return .init(
-            id: "Search",
-            title: Loc.search,
-            image: .squircle(.asset(.X32.search)),
-            action: onTap
         )
     }
 }

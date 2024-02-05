@@ -79,18 +79,40 @@
 "Relation.From.Type" = "З типу %@";
 "Relation.LinksFrom.Title" = "from";
 "Relation.LinksTo.Title" = "to";
+"Relation.EmptyState.title" = "No options";
+"Relation.EmptyState.description" = "Nothing found. Create first option to start.";
+"Relation.EmptyState.Blocked.title" = "The relation is empty";
+"Relation.Create.Row.title" = "Create “%@”";
+"Relation.View.Create.title" = "Create option";
+"Relation.View.Edit.title" = "Edit option";
+"Relation.Create.Textfield.placeholder" = "Enter name...";
+"Relation.Edit.Button.title" = "Застосувати";
+"Relation.Date.Locked.Alert.title" = "Relation “%@” is locked";
+
+"Relation.Delete.Alert.Title" = "Ви впевнені?";
+"Relation.Delete.Alert.Description" = "The option will be permanently removed from your space.";
 
 "Relation.Format.Object.Title" = "Об'єкт";
 "Relation.Format.Text.Title" = "Текст";
 "Relation.Format.Number.Title" = "Число";
-"Relation.Format.Status.Title" = "Статус";
-"Relation.Format.Tag.Title" = "Мітка";
+"Relation.Format.Status.Title" = "Select";
+"Relation.Format.Tag.Title" = "Multi-select";
 "Relation.Format.Date.Title" = "Дата";
 "Relation.Format.FileMedia.Title" = "Файл і медіа";
 "Relation.Format.Checkbox.Title" = "Прапорець";
 "Relation.Format.Url.Title" = "URL";
 "Relation.Format.Email.Title" = "Ел. пошта";
 "Relation.Format.Phone.Title" = "Номер телефону";
+
+// Origin Relation
+
+"Relation.Origin.Clipboard" = "Clipboard";
+"Relation.Origin.DragAndDrop" = "Drag'n'Drop";
+"Relation.Origin.Import" = "Imported object";
+"Relation.Origin.WebClipper" = "Web clipper";
+"Relation.Origin.SharingExtension" = "Mobile sharing extension";
+"Relation.Origin.UseCase" = "Use case";
+"Relation.Origin.Builtin" = "Library installed";
 
 // MARK: - Mention
 "Mention.Subtitle.Placeholder" = "Об'єкт";
@@ -109,6 +131,7 @@
 "Actions" = "Дії";
 "Relations" = "Відносини";
 "Objects" = "Об'єкти";
+"Lists" = "Groups";
 "Delete" = "Видалити";
 "Duplicate" = "Дублювати";
 "Copy" = "Копіювати";
@@ -187,7 +210,7 @@
 "Auth.CameraPermissionTitle" = "Будь ласка, дозвольте доступ";
 "Restore secret phrase from keychain" = "Відновити фразу відновлення з в'язки ключів";
 "Auth.LogIn" = "Log In";
-"Auth.Join" = "Create New Account";
+"Auth.Join" = "Join";
 "Auth.Welcome.Subtitle" = "Anytype - це ваш безпечний простір, де ви можете писати, планувати, думати та організовувати все, що має для вас значення.";
 "Auth.Caption.Privacy.Text" = "Продовжуючи, ви погоджуєтесь з [Умовами використання](%@) і [Політикою конфіденційності](%@)";
 "Auth.Next" = "Далі";
@@ -486,8 +509,8 @@
 "Enter value" = "Введіть значення";
 "Select object" = "Обрати об'єкт";
 "Select file" = "Обрати файл";
-"Select tag" = "Оберіть тег";
-"Select status" = "Оберіть статус";
+"Select options" = "Select options";
+"Select option" = "Select option";
 "Select date" = "Оберіть дату";
 "Add email" = "Додати ел. пошту";
 "Add link" = "Додайте посилання";
@@ -565,6 +588,8 @@
 "Into object" = "В об'єкт";
 "Add below" = "Додати знизу";
 "Change type" = "Змінити тип";
+"Show types" = "Show types";
+"Hide types" = "Hide types";
 "SlashMenu.LinkTo.Description" = "Create link to another object";
 "Upload playable audio" = "Завантажити відтворюване аудіо";
 "Code snippet" = "Фрагмент коду";
@@ -594,7 +619,7 @@
 "Today" = "Сьогодні";
 "No date" = "Без дати";
 "Clear" = "Очистити";
-"Create option" = "Створити варіант ‘%@’";
+"Create option with" = "Create option ‘%@’";
 "Add URL" = "Додати URL";
 "Add email" = "Додати ел. пошту";
 "Add phone number" = "Додати номер телефону";
@@ -860,13 +885,14 @@
 "Initial.UnstableMiddle.WontUseProd" = "Я не використовуватиму свій виробничий обліковий запис";
 
 // MARK: - Create tip
-"LongTapCreateTip.Title" = "Створення об'єктів з певним типом";
+"LongTapCreateTip.Title" = "Create Objects with specific Type";
 "LongTapCreateTip.Message" = "Натисніть і утримуйте кнопку Створити об'єкт, щоб відкрити меню типів об'єктів";
 
 // MARK: - Error
 "Error.AnytypeNeedsUpgrate.Title" = "Update Your App";
 "Error.AnytypeNeedsUpgrate.Message" = "This object was modified in a newer version of Anytype. Please update the app to open it on this device";
 "Error.AnytypeNeedsUpgrate.Confirm" = "Update";
+"Error.UnableToConnect" = "Please connect to the internet";
 
 // MARK: - Relative date formatter
 "RelativeFormatter.days7" = "Previous 7 days";

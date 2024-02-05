@@ -209,6 +209,9 @@ public struct Anytype_Model_ObjectStoreChecksums {
   /// increased in order to perform fulltext indexing for all type of objects (useful when we change fulltext config)
   public var fulltextRebuild: Int32 = 0
 
+  /// remove all the fulltext indexes and add to reindex queue after
+  public var fulltextErase: Int32 = 0
+
   public var bundledTemplates: String = String()
 
   /// anytypeProfile and maybe some others in the feature
@@ -568,6 +571,7 @@ extension Anytype_Model_ObjectStoreChecksums: SwiftProtobuf.Message, SwiftProtob
     5: .same(proto: "filesForceReindexCounter"),
     6: .same(proto: "idxRebuildCounter"),
     7: .same(proto: "fulltextRebuild"),
+    11: .same(proto: "fulltextErase"),
     8: .same(proto: "bundledTemplates"),
     9: .same(proto: "bundledObjects"),
     10: .same(proto: "filestoreKeysForceReindexCounter"),
@@ -589,6 +593,7 @@ extension Anytype_Model_ObjectStoreChecksums: SwiftProtobuf.Message, SwiftProtob
       case 8: try { try decoder.decodeSingularStringField(value: &self.bundledTemplates) }()
       case 9: try { try decoder.decodeSingularInt32Field(value: &self.bundledObjects) }()
       case 10: try { try decoder.decodeSingularInt32Field(value: &self.filestoreKeysForceReindexCounter) }()
+      case 11: try { try decoder.decodeSingularInt32Field(value: &self.fulltextErase) }()
       default: break
       }
     }
@@ -625,6 +630,9 @@ extension Anytype_Model_ObjectStoreChecksums: SwiftProtobuf.Message, SwiftProtob
     if self.filestoreKeysForceReindexCounter != 0 {
       try visitor.visitSingularInt32Field(value: self.filestoreKeysForceReindexCounter, fieldNumber: 10)
     }
+    if self.fulltextErase != 0 {
+      try visitor.visitSingularInt32Field(value: self.fulltextErase, fieldNumber: 11)
+    }
     try unknownFields.traverse(visitor: &visitor)
   }
 
@@ -636,6 +644,7 @@ extension Anytype_Model_ObjectStoreChecksums: SwiftProtobuf.Message, SwiftProtob
     if lhs.filesForceReindexCounter != rhs.filesForceReindexCounter {return false}
     if lhs.idxRebuildCounter != rhs.idxRebuildCounter {return false}
     if lhs.fulltextRebuild != rhs.fulltextRebuild {return false}
+    if lhs.fulltextErase != rhs.fulltextErase {return false}
     if lhs.bundledTemplates != rhs.bundledTemplates {return false}
     if lhs.bundledObjects != rhs.bundledObjects {return false}
     if lhs.filestoreKeysForceReindexCounter != rhs.filestoreKeysForceReindexCounter {return false}

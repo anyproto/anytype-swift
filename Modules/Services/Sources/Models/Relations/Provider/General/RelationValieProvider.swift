@@ -46,4 +46,8 @@ public extension RelationValueProvider {
     func doubleValue(for key: String) -> Double? {
         value(for: key)
     }
+    
+    func intValue(for key: String) -> Int? {
+        value(for: key)
+    }
 }

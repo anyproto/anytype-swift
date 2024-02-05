@@ -445,7 +445,7 @@ final class EditorSetViewModel: ObservableObject {
                     records,
                     dataView: setDocument.dataView,
                     activeView: activeView,
-                    relationValuesIsLocked: setDocument.relationValuesIsLocked,
+                    viewRelationValueIsLocked: setDocument.viewRelationValueIsLocked,
                     storage: subscription.detailsStorage,
                     spaceId: setDocument.spaceId,
                     onIconTap: { [weak self] details in

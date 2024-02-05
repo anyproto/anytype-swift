@@ -36,7 +36,7 @@ final class ObjectActionsViewModel: ObservableObject {
     
     private let objectId: BlockId
     private let service: ObjectActionsServiceProtocol
-    private let blockActionsService: BlockActionsServiceSingleProtocol
+    private let blockService: BlockServiceProtocol
     private let templatesService: TemplatesServiceProtocol
     private let documentsProvider: DocumentsProviderProtocol
     private let blockWidgetService: BlockWidgetServiceProtocol
@@ -45,7 +45,7 @@ final class ObjectActionsViewModel: ObservableObject {
     init(
         objectId: BlockId,
         service: ObjectActionsServiceProtocol,
-        blockActionsService: BlockActionsServiceSingleProtocol,
+        blockService: BlockServiceProtocol,
         templatesService: TemplatesServiceProtocol,
         documentsProvider: DocumentsProviderProtocol,
         blockWidgetService: BlockWidgetServiceProtocol,
@@ -57,7 +57,7 @@ final class ObjectActionsViewModel: ObservableObject {
     ) {
         self.objectId = objectId
         self.service = service
-        self.blockActionsService = blockActionsService
+        self.blockService = blockService
         self.templatesService = templatesService
         self.documentsProvider = documentsProvider
         self.blockWidgetService = blockWidgetService
@@ -131,7 +131,7 @@ final class ObjectActionsViewModel: ObservableObject {
                 } else {
                     let info = BlockInformation.emptyLink(targetId: currentObjectId)
                     AnytypeAnalytics.instance().logCreateBlock(type: info.content.type)
-                    let _ = try await self.blockActionsService.add(
+                    let _ = try await self.blockService.add(
                         contextId: objectId,
                         targetId: id,
                         info: info,

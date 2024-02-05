@@ -8,29 +8,26 @@ protocol ShareOptionsInteractorProtocol: AnyObject {
 
 final class ShareOptionsInteractor: ShareOptionsInteractorProtocol {
     
-    private let listService: BlockListServiceProtocol
+    private let blockService: BlockServiceProtocol
     private let bookmarkService: BookmarkServiceProtocol
     private let objectActionsService: ObjectActionsServiceProtocol
-    private let blockActionService: BlockActionsServiceSingleProtocol
     private let pageRepository: PageRepositoryProtocol
     private let fileService: FileActionsServiceProtocol
     private let documentProvider: DocumentsProviderProtocol
     private let pasteboardMiddlewareService: PasteboardMiddlewareServiceProtocol
     
     init(
-        listService: BlockListServiceProtocol,
+        blockService: BlockServiceProtocol,
         bookmarkService: BookmarkServiceProtocol,
         objectActionsService: ObjectActionsServiceProtocol,
-        blockActionService: BlockActionsServiceSingleProtocol,
         pageRepository: PageRepositoryProtocol,
         fileService: FileActionsServiceProtocol,
         documentProvider: DocumentsProviderProtocol,
         pasteboardMiddlewareService: PasteboardMiddlewareServiceProtocol
     ) {
-        self.listService = listService
+        self.blockService = blockService
         self.bookmarkService = bookmarkService
         self.objectActionsService = objectActionsService
-        self.blockActionService = blockActionService
         self.pageRepository = pageRepository
         self.fileService = fileService
         self.documentProvider = documentProvider
@@ -134,7 +131,7 @@ final class ShareOptionsInteractor: ShareOptionsInteractorProtocol {
             origin: .sharingExtension,
             templateId: nil
         )
-        let lastBlockInDocument = try await listService.lastBlockId(from: newObject.id)
+        let lastBlockInDocument = try await blockService.lastBlockId(from: newObject.id)
         _ = try await pasteboardMiddlewareService.pasteText(text, objectId: newObject.id, context: .selected([lastBlockInDocument]))
         
         AnytypeAnalytics.instance().logCreateObject(
@@ -145,8 +142,8 @@ final class ShareOptionsInteractor: ShareOptionsInteractorProtocol {
     }
     
     private func createTextBlock(text: String, addToObject: ObjectDetails) async throws {
-        let lastBlockInDocument = try await listService.lastBlockId(from: addToObject.id)
-        let newBlockId = try await blockActionService.add(
+        let lastBlockInDocument = try await blockService.lastBlockId(from: addToObject.id)
+        let newBlockId = try await blockService.add(
             contextId: addToObject.id,
             targetId: lastBlockInDocument,
             info: .emptyText,
@@ -158,8 +155,8 @@ final class ShareOptionsInteractor: ShareOptionsInteractorProtocol {
     
     private func createBookmarkBlock(url: URL, addToObject: ObjectDetails) async throws {
         let blockInformation = url.attributedString.blockInformation
-        let lastBlockInDocument = try await listService.lastBlockId(from: addToObject.id)
-        _ = try await blockActionService.add(
+        let lastBlockInDocument = try await blockService.lastBlockId(from: addToObject.id)
+        _ = try await blockService.add(
             contextId: addToObject.id,
             targetId: lastBlockInDocument,
             info: blockInformation,
@@ -169,13 +166,13 @@ final class ShareOptionsInteractor: ShareOptionsInteractorProtocol {
     }
     
     private func createFileBlock(fileURL: URL, addToObject: ObjectDetails) async throws {
-        let lastBlockInDocument = try await listService.lastBlockId(from: addToObject.id)
+        let lastBlockInDocument = try await blockService.lastBlockId(from: addToObject.id)
         let fileDetails = try await fileService.uploadFileObject(
             spaceId: addToObject.spaceId,
             data: FileData(path: fileURL.relativePath, isTemporary: false)
         )
         let blockInformation = BlockInformation.file(fileDetails: fileDetails)
-        _ = try await blockActionService.add(
+        _ = try await blockService.add(
             contextId: addToObject.id,
             targetId: lastBlockInDocument,
             info: blockInformation,
@@ -192,8 +189,8 @@ final class ShareOptionsInteractor: ShareOptionsInteractorProtocol {
                     objectIds: [newObjectId]
                 )
         } else {
-            let lastBlockInDocument = try await listService.lastBlockId(from: linkToObject.id)
-            _ = try await blockActionService.add(
+            let lastBlockInDocument = try await blockService.lastBlockId(from: linkToObject.id)
+            _ = try await blockService.add(
                 contextId: linkToObject.id,
                 targetId: lastBlockInDocument,
                 info: blockInformation,

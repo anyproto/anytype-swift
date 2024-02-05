@@ -2,17 +2,20 @@ import Foundation
 
 public struct FileDetails {
     
-    public var name: String { objectDetails.name }
-    public var fileExt: String { objectDetails.fileExt }
-    public var id: String { objectDetails.id }
-    public var sizeInBytes: Int { objectDetails.sizeInBytes ?? 0 }
-    public var fileMimeType: String { objectDetails.fileMimeType }
-    public var fileContentType: FileContentType { objectDetails.layoutValue.fileContentType }
-    
-    private let objectDetails: ObjectDetails
+    public let name: String
+    public let fileExt: String
+    public let id: String
+    public let sizeInBytes: Int
+    public let fileMimeType: String
+    public let fileContentType: FileContentType
     
     init(objectDetails: ObjectDetails) {
-        self.objectDetails = objectDetails
+        self.name = objectDetails.name
+        self.fileExt = objectDetails.fileExt
+        self.id = objectDetails.id
+        self.sizeInBytes = objectDetails.sizeInBytes ?? 0
+        self.fileMimeType = objectDetails.fileMimeType
+        self.fileContentType = objectDetails.layoutValue.fileContentType
     }
     
     public var fileName: String {

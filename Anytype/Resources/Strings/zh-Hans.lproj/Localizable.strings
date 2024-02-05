@@ -79,18 +79,40 @@
 "Relation.From.Type" = "来自 %@ 类型";
 "Relation.LinksFrom.Title" = "从";
 "Relation.LinksTo.Title" = "到";
+"Relation.EmptyState.title" = "无选项";
+"Relation.EmptyState.description" = "什么也没有。创建第一个选项以开始。";
+"Relation.EmptyState.Blocked.title" = "关联是空的";
+"Relation.Create.Row.title" = "创建 “%@”";
+"Relation.View.Create.title" = "创建选项";
+"Relation.View.Edit.title" = "编辑选项";
+"Relation.Create.Textfield.placeholder" = "输入名称...";
+"Relation.Edit.Button.title" = "应用";
+"Relation.Date.Locked.Alert.title" = "关系“%@” 已锁定";
+
+"Relation.Delete.Alert.Title" = "是否确定?";
+"Relation.Delete.Alert.Description" = "此选项将从您的空间永久删除。";
 
 "Relation.Format.Object.Title" = "对象";
 "Relation.Format.Text.Title" = "正文";
 "Relation.Format.Number.Title" = "数目";
-"Relation.Format.Status.Title" = "状态";
-"Relation.Format.Tag.Title" = "标签";
+"Relation.Format.Status.Title" = "选择";
+"Relation.Format.Tag.Title" = "多选";
 "Relation.Format.Date.Title" = "日期";
 "Relation.Format.FileMedia.Title" = "文件 & 媒体";
 "Relation.Format.Checkbox.Title" = "复选框";
 "Relation.Format.Url.Title" = "URL网址";
 "Relation.Format.Email.Title" = "电子邮件";
 "Relation.Format.Phone.Title" = "电话号码";
+
+// Origin Relation
+
+"Relation.Origin.Clipboard" = "剪贴板";
+"Relation.Origin.DragAndDrop" = "拖放";
+"Relation.Origin.Import" = "导入的对象";
+"Relation.Origin.WebClipper" = "网页剪藏器";
+"Relation.Origin.SharingExtension" = "手机共享扩展";
+"Relation.Origin.UseCase" = "使用案例";
+"Relation.Origin.Builtin" = "库已安装";
 
 // MARK: - Mention
 "Mention.Subtitle.Placeholder" = "对象";
@@ -109,6 +131,7 @@
 "Actions" = "操作";
 "Relations" = "关联";
 "Objects" = "对象";
+"Lists" = "分组";
 "Delete" = "删除";
 "Duplicate" = "生成副本";
 "Copy" = "拷贝";
@@ -187,7 +210,7 @@
 "Auth.CameraPermissionTitle" = "请允许访问";
 "Restore secret phrase from keychain" = "从钥匙串恢复恢复短语";
 "Auth.LogIn" = "登录";
-"Auth.Join" = "创建新账户";
+"Auth.Join" = "注册";
 "Auth.Welcome.Subtitle" = "Anytype 是您编写、计划、思考和组织集于一身，对您重要的安全空间。";
 "Auth.Caption.Privacy.Text" = "继续即表示您同意 [使用条款](%@) 和 [隐私策略](%@)";
 "Auth.Next" = "下一步";
@@ -486,8 +509,8 @@
 "Enter value" = "输入值";
 "Select object" = "选择对象";
 "Select file" = "选择文件";
-"Select tag" = "选择标签";
-"Select status" = "选择状态";
+"Select options" = "选择选项";
+"Select option" = "选择选项";
 "Select date" = "选择日期";
 "Add email" = "添加电子邮件";
 "Add link" = "添加链接";
@@ -565,6 +588,8 @@
 "Into object" = "转为对象";
 "Add below" = "在下面添加";
 "Change type" = "更改类型";
+"Show types" = "显示类型";
+"Hide types" = "隐藏类型";
 "SlashMenu.LinkTo.Description" = "创建链接到另一个对象";
 "Upload playable audio" = "上传可播放音频";
 "Code snippet" = "代码片段";
@@ -594,7 +619,7 @@
 "Today" = "今天";
 "No date" = "未注明日期";
 "Clear" = "清除";
-"Create option" = "创建选项 ‘%@’";
+"Create option with" = "创建选项 “%@”";
 "Add URL" = "添加URL网址";
 "Add email" = "添加电子邮件";
 "Add phone number" = "添加电话号码";
@@ -866,6 +891,7 @@
 "Error.AnytypeNeedsUpgrate.Title" = "更新应用";
 "Error.AnytypeNeedsUpgrate.Message" = "此文档已在更高版本的 Anytype 编辑过，请更新此设备的应用以打开它。";
 "Error.AnytypeNeedsUpgrate.Confirm" = "更新";
+"Error.UnableToConnect" = "请连接到互联网";
 
 // MARK: - Relative date formatter
 "RelativeFormatter.days7" = "过去 7 天";

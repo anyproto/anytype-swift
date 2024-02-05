@@ -79,18 +79,40 @@
 "Relation.From.Type" = "Из типа %@";
 "Relation.LinksFrom.Title" = "из";
 "Relation.LinksTo.Title" = "в";
+"Relation.EmptyState.title" = "No options";
+"Relation.EmptyState.description" = "Nothing found. Create first option to start.";
+"Relation.EmptyState.Blocked.title" = "The relation is empty";
+"Relation.Create.Row.title" = "Create “%@”";
+"Relation.View.Create.title" = "Create option";
+"Relation.View.Edit.title" = "Edit option";
+"Relation.Create.Textfield.placeholder" = "Enter name...";
+"Relation.Edit.Button.title" = "Применить";
+"Relation.Date.Locked.Alert.title" = "Relation “%@” is locked";
+
+"Relation.Delete.Alert.Title" = "Вы уверены?";
+"Relation.Delete.Alert.Description" = "The option will be permanently removed from your space.";
 
 "Relation.Format.Object.Title" = "Объект";
 "Relation.Format.Text.Title" = "Текст";
 "Relation.Format.Number.Title" = "Число";
-"Relation.Format.Status.Title" = "Статус";
-"Relation.Format.Tag.Title" = "Метка";
+"Relation.Format.Status.Title" = "Выбрать";
+"Relation.Format.Tag.Title" = "Множественный выбор";
 "Relation.Format.Date.Title" = "Дата";
 "Relation.Format.FileMedia.Title" = "Файл, медиафайл";
 "Relation.Format.Checkbox.Title" = "Флажок";
 "Relation.Format.Url.Title" = "Ссылка";
 "Relation.Format.Email.Title" = "E-mail";
 "Relation.Format.Phone.Title" = "Номер телефона";
+
+// Origin Relation
+
+"Relation.Origin.Clipboard" = "Буфер обмена";
+"Relation.Origin.DragAndDrop" = "Drag'n'Drop";
+"Relation.Origin.Import" = "Imported object";
+"Relation.Origin.WebClipper" = "Web clipper";
+"Relation.Origin.SharingExtension" = "Mobile sharing extension";
+"Relation.Origin.UseCase" = "Вариант использования";
+"Relation.Origin.Builtin" = "Библиотеки установлены.";
 
 // MARK: - Mention
 "Mention.Subtitle.Placeholder" = "Объект";
@@ -109,6 +131,7 @@
 "Actions" = "Действия";
 "Relations" = "Свойства";
 "Objects" = "Объекты";
+"Lists" = "Списки";
 "Delete" = "Удалить";
 "Duplicate" = "Дублировать";
 "Copy" = "Копировать";
@@ -187,7 +210,7 @@
 "Auth.CameraPermissionTitle" = "Пожалуйста, разрешите доступ";
 "Restore secret phrase from keychain" = "Восстановить фразу восстановления из связки ключей";
 "Auth.LogIn" = "Войти";
-"Auth.Join" = "Создать новую учетную запись";
+"Auth.Join" = "Присоединиться";
 "Auth.Welcome.Subtitle" = "Anytype - это безопасное место для записи мыслей и заметок, планирования и организации всего что важно для вас.";
 "Auth.Caption.Privacy.Text" = "Продолжая, вы соглашаетесь с нашими [условиями пользования](%@) и [политикой конфиденциальности](%@) ";
 "Auth.Next" = "Далее";
@@ -486,8 +509,8 @@
 "Enter value" = "Введите значение";
 "Select object" = "Выбрать объект";
 "Select file" = "Выбрать файл";
-"Select tag" = "Выбрать тег";
-"Select status" = "Выбрать статус";
+"Select options" = "Варианты выбора";
+"Select option" = "Выбрать вариант";
 "Select date" = "Выбрать дату";
 "Add email" = "Добавить электронную почту";
 "Add link" = "Добавить ссылку";
@@ -495,7 +518,7 @@
 "Enter text" = "Введите текст";
 "Unsupported value" = "Неподдерживаемое значение";
 "Select relation type" = "Выберите тип свойства";
-"CommonOpenErrorView.Message" = "No data found";
+"CommonOpenErrorView.Message" = "Данные не найдены";
 
 "Limit object types" = "Ограничить типы объектов";
 "Type" = "Тип";
@@ -565,7 +588,9 @@
 "Into object" = "В объект";
 "Add below" = "Добавить ниже";
 "Change type" = "Изменить тип";
-"SlashMenu.LinkTo.Description" = "Create link to another object";
+"Show types" = "Show types";
+"Hide types" = "Hide types";
+"SlashMenu.LinkTo.Description" = "Создать ссылку на другой объект";
 "Upload playable audio" = "Загрузить воспроизводимое аудио";
 "Code snippet" = "Фрагмент кода";
 "Bookmark" = "Закладка";
@@ -594,7 +619,7 @@
 "Today" = "Сегодня";
 "No date" = "Нет даты";
 "Clear" = "Очистить";
-"Create option" = "Создать параметр '%@’";
+"Create option with" = "Create option ‘%@’";
 "Add URL" = "Добавить URL-адрес";
 "Add email" = "Добавить электронную почту";
 "Add phone number" = "Добавить номер телефона";
@@ -848,7 +873,7 @@
 
 "Sharing.Tip.Steps.1" = "Нажмите на кнопку обмена iOS";
 "Sharing.Tip.Steps.2" = "Прокрутите приложение и нажмите ещё";
-"Sharing.Tip.Steps.3" = "Tap Edit to find “Anytype” and tap";
+"Sharing.Tip.Steps.3" = "Нажмите Отредактировать, чтобы найти «Anytype» и нажмите";
 
 // MARK: - Initial
 
@@ -867,6 +892,7 @@
 "Error.AnytypeNeedsUpgrate.Title" = "Обновите приложение";
 "Error.AnytypeNeedsUpgrate.Message" = "Объект был изменен в более новой версии Anytype. Пожалуйста, обновите приложение, чтобы открыть его на этом устройстве";
 "Error.AnytypeNeedsUpgrate.Confirm" = "Обновить";
+"Error.UnableToConnect" = "Пожалуйста, подключитесь к Интернету.";
 
 // MARK: - Relative date formatter
 "RelativeFormatter.days7" = "За последние 7 дней";
@@ -881,5 +907,5 @@
 "Server.LocalOnly" = "Только локально";
 
 // MARK: - Gallery
-"Gallery.Unavailable.Title" = "Gallery will be supported soon";
+"Gallery.Unavailable.Title" = "Вскоре будет поддерживаться галерея";
 "Gallery.Unavailable.Message" = "Пожалуйста, используйте приложение для компьютера";

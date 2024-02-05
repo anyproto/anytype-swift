@@ -1,8 +1,15 @@
 import Services
 import AnytypeCore
 
+struct SetObjectCreationResult {
+    let details: ObjectDetails?
+    let titleInputType: CreateObjectTitleInputType
+}
+
 protocol SetObjectCreationHelperProtocol {
-    func createObject(for setDocument: SetDocumentProtocol, setting: ObjectCreationSetting?, completion: @escaping ((_ details: ObjectDetails?, _ blockId: String?) -> Void))
+    func createObject(
+        for setDocument: SetDocumentProtocol, setting: ObjectCreationSetting?
+    ) async throws -> SetObjectCreationResult
 }
 
 final class SetObjectCreationHelper: SetObjectCreationHelperProtocol {
@@ -11,37 +18,36 @@ final class SetObjectCreationHelper: SetObjectCreationHelperProtocol {
     private let objectTypeProvider: ObjectTypeProviderProtocol
     private let objectActionsService: ObjectActionsServiceProtocol
     private let prefilledFieldsBuilder: SetPrefilledFieldsBuilderProtocol
-    private let blockActionsService: BlockActionsServiceSingleProtocol
+    private let blockService: BlockServiceProtocol
     
     init(
         objectTypeProvider: ObjectTypeProviderProtocol,
         dataviewService: DataviewServiceProtocol,
         objectActionsService: ObjectActionsServiceProtocol,
         prefilledFieldsBuilder: SetPrefilledFieldsBuilderProtocol,
-        blockActionsService: BlockActionsServiceSingleProtocol
+        blockService: BlockServiceProtocol
     ) {
         self.objectTypeProvider = objectTypeProvider
         self.dataviewService = dataviewService
         self.objectActionsService = objectActionsService
         self.prefilledFieldsBuilder = prefilledFieldsBuilder
-        self.blockActionsService = blockActionsService
+        self.blockService = blockService
     }
     
     // MARK: - SetObjectCreationHelperProtocol
     
     func createObject(
         for setDocument: SetDocumentProtocol,
-        setting: ObjectCreationSetting?,
-        completion: @escaping ((_ details: ObjectDetails?, _ blockId: String?) -> Void)
-    ) {
+        setting: ObjectCreationSetting?
+    ) async throws -> SetObjectCreationResult {
         if isBookmarkObject(setDocument: setDocument, setting: setting) {
-            completion(nil, nil)
+            return .init(details: nil, titleInputType: .none)
         } else if setDocument.isCollection() {
-            createObjectForCollection(for: setDocument, setting: setting, completion: completion)
-        } else if setDocument.isRelationsSet() {
-            createObjectForRelationSet(for: setDocument, setting: setting, completion: completion)
+            return try await createObjectForCollection(for: setDocument, setting: setting)
+        } else if setDocument.isSetByRelation() {
+            return try await createObjectForRelationSet(for: setDocument, setting: setting)
         } else {
-            createObjectForRegularSet(for: setDocument, setting: setting, completion: completion)
+            return try await  createObjectForRegularSet(for: setDocument, setting: setting)
         }
     }
     
@@ -49,34 +55,29 @@ final class SetObjectCreationHelper: SetObjectCreationHelperProtocol {
     
     private func createObjectForCollection(
         for setDocument: SetDocumentProtocol,
-        setting: ObjectCreationSetting?,
-        completion: @escaping ((_ details: ObjectDetails?, _ blockId: String?) -> Void)
-    ) {
+        setting: ObjectCreationSetting?
+    ) async throws -> SetObjectCreationResult {
         let objectType = objectType(for: setDocument, setting: setting)
         let templateId = setting?.templateId ?? defaultTemplateId(for: objectType, setDocument: setDocument)
         
-        createObject(
+        let result = try await createObject(
             setDocument: setDocument,
             type: objectType,
             relationsDetails: [],
-            templateId: templateId,
-            completion: { details, blockId in
-                Task { @MainActor [weak self] in
-                    try await self?.objectActionsService.addObjectsToCollection(
-                        contextId: setDocument.objectId,
-                        objectIds: [details.id]
-                    )
-                    completion(details, blockId)
-                }
-            }
+            templateId: templateId
         )
+        try await objectActionsService.addObjectsToCollection(
+            contextId: setDocument.objectId,
+            objectIds: [result.details?.id].compactMap { $0 }
+        )
+        
+        return result
     }
     
     private func createObjectForRelationSet(
         for setDocument: SetDocumentProtocol,
-        setting: ObjectCreationSetting?,
-        completion: @escaping ((_ details: ObjectDetails?, _ blockId: String?) -> Void)
-    ) {
+        setting: ObjectCreationSetting?
+    ) async throws -> SetObjectCreationResult {
         let relationsDetails = setDocument.dataViewRelationsDetails.filter { detail in
             guard let source = setDocument.details?.setOf else { return false }
             return source.contains(detail.id)
@@ -84,29 +85,26 @@ final class SetObjectCreationHelper: SetObjectCreationHelperProtocol {
         let objectType = objectType(for: setDocument, setting: setting)
         let templateId = setting?.templateId ?? defaultTemplateId(for: objectType, setDocument: setDocument)
         
-        createObject(
+        return try await createObject(
             setDocument: setDocument,
             type: objectType,
             relationsDetails: relationsDetails,
-            templateId: templateId,
-            completion: completion
+            templateId: templateId
         )
     }
     
     private func createObjectForRegularSet(
         for setDocument: SetDocumentProtocol,
-        setting: ObjectCreationSetting?,
-        completion: @escaping ((_ details: ObjectDetails?, _ blockId: String?) -> Void)
-    ) {
+        setting: ObjectCreationSetting?
+    ) async throws -> SetObjectCreationResult {
         let objectTypeId = setDocument.details?.setOf.first ?? ""
         let objectType = try? objectTypeProvider.objectType(id: objectTypeId)
         let templateId = setting?.templateId ?? defaultTemplateId(for: objectType, setDocument: setDocument)
-        createObject(
+        return try await createObject(
             setDocument: setDocument,
             type: objectType,
             relationsDetails: [],
-            templateId: templateId,
-            completion: completion
+            templateId: templateId
         )
     }
     
@@ -114,28 +112,23 @@ final class SetObjectCreationHelper: SetObjectCreationHelperProtocol {
         setDocument: SetDocumentProtocol,
         type: ObjectType?,
         relationsDetails: [RelationDetails],
-        templateId: BlockId?,
-        completion: ((_ details: ObjectDetails, _ blockId: String?) -> Void)?
-    ) {
-        Task { @MainActor [weak self] in
-            guard let self else { return }
-            
-            let details = try await dataviewService.addRecord(
-                typeUniqueKey: type?.uniqueKey,
-                templateId: templateId ?? "",
-                spaceId: setDocument.spaceId,
-                details: prefilledFieldsBuilder.buildPrefilledFields(from: setDocument.activeViewFilters, relationsDetails: relationsDetails)
-            )
-            if FeatureFlags.setTextInFirstNoteBlock && type?.isNoteType ?? false {
-                let model = try await blockActionsService.openForPreview(contextId: details.id)
-                let firstTextBlockId = model.blocks.first {
-                    guard let content = $0.content else { return false }
-                    return BlocksModelsConverter.convert(middleware: content)?.isText ?? false
-                }?.id
-                completion?(details, firstTextBlockId)
-            } else {
-                completion?(details, nil)
+        templateId: BlockId?
+    ) async throws -> SetObjectCreationResult {
+        let details = try await dataviewService.addRecord(
+            typeUniqueKey: type?.uniqueKey,
+            templateId: templateId ?? "",
+            spaceId: setDocument.spaceId,
+            details: prefilledFieldsBuilder.buildPrefilledFields(from: setDocument.activeViewFilters, relationsDetails: relationsDetails)
+        )
+        let isNote = FeatureFlags.setTextInFirstNoteBlock && (type?.isNoteLayout ?? false)
+        if isNote {
+            guard let newBlockId = try? await blockService.add(contextId: details.id, targetId: EditorConstants.headerBlockId.rawValue, info: .emptyText, position: .bottom) else {
+                return .init(details: details, titleInputType: .none)
             }
+            
+            return .init(details:details, titleInputType: .writeToBlock(blockId: newBlockId))
+        } else {
+            return .init(details:details, titleInputType: .writeToRelationName)
         }
     }
     
@@ -167,7 +160,7 @@ final class SetObjectCreationHelper: SetObjectCreationHelperProtocol {
 }
 
 extension SetObjectCreationHelperProtocol {
-    func createObject(for setDocument: SetDocumentProtocol, completion: @escaping ((_ details: ObjectDetails?, _ blockId: String?) -> Void)) {
-        createObject(for: setDocument, setting: nil, completion: completion)
+    func createObject(for setDocument: SetDocumentProtocol) async throws -> SetObjectCreationResult {
+        return try await createObject(for: setDocument, setting: nil)
     }
 }

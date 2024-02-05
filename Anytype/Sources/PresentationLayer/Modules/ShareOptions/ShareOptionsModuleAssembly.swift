@@ -22,10 +22,9 @@ final class ShareOptionsModuleAssembly: ShareOptionsModuleAssemblyProtocol {
             model: ShareOptionsViewModel(
                 contentManager: self.serviceLocator.sharedContentManager,
                 interactor: ShareOptionsInteractor(
-                    listService: self.serviceLocator.blockListService(),
+                    blockService: self.serviceLocator.blockService(),
                     bookmarkService: self.serviceLocator.bookmarkService(),
                     objectActionsService: self.serviceLocator.objectActionsService(),
-                    blockActionService: self.serviceLocator.blockActionsServiceSingle(),
                     pageRepository: self.serviceLocator.pageRepository(),
                     fileService: self.serviceLocator.fileService(),
                     documentProvider: self.serviceLocator.documentsProvider,

@@ -22,7 +22,7 @@ enum ButtonsFactory {
         let button = makeButton(image: image)
         button.layer.cornerRadius = 10
         button.layer.borderWidth = 1
-        button.dynamicBorderColor = UIColor.Stroke.primary
+        button.dynamicBorderColor = UIColor.Shape.primary
         button.contentMode = .center
         button.imageView.contentMode = .scaleAspectFit
 

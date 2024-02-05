@@ -22,6 +22,18 @@ final class ModulesDI: ModulesDIProtocol {
         return RelationsListModuleAssembly()
     }
     
+    func dateRelationCalendar() -> DateRelationCalendarModuleAssemblyProtocol {
+        return DateRelationCalendarModuleAssembly(serviceLocator: serviceLocator)
+    }
+    
+    func selectRelationList() -> SelectRelationListModuleAssemblyProtocol {
+        return SelectRelationListModuleAssembly(serviceLocator: serviceLocator)
+    }
+    
+    func selectRelationSettings() -> SelectRelationSettingsModuleAssemblyProtocol {
+        SelectRelationSettingsModuleAssembly(serviceLocator: serviceLocator)
+    }
+    
     func undoRedo() -> UndoRedoModuleAssemblyProtocol {
         return UndoRedoModuleAssembly(serviceLocator: serviceLocator, uiHelpersDI: uiHelpersDI)
     }
@@ -260,5 +272,13 @@ final class ModulesDI: ModulesDIProtocol {
     
     func shareOptions() -> ShareOptionsModuleAssemblyProtocol {
         ShareOptionsModuleAssembly(serviceLocator: serviceLocator)
+    }
+    
+    func galleryInstallationPreview() -> GalleryInstallationPreviewModuleAssemblyProtocol {
+        GalleryInstallationPreviewModuleAssembly(serviceLocator: serviceLocator)
+    }
+    
+    func commonNotification() -> CommonNotificationAssemblyProtocol {
+        CommonNotificationAssembly(serviceLocator: serviceLocator)
     }
 }

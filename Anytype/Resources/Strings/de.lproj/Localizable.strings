@@ -79,18 +79,40 @@
 "Relation.From.Type" = "Vom Typ \"%@\"";
 "Relation.LinksFrom.Title" = "von";
 "Relation.LinksTo.Title" = "zu";
+"Relation.EmptyState.title" = "Keine Optionen";
+"Relation.EmptyState.description" = "Nichts gefunden. Erstelle zuerst eine Option zum Starten.";
+"Relation.EmptyState.Blocked.title" = "Die Relation ist leer";
+"Relation.Create.Row.title" = "„%@“ erstellen";
+"Relation.View.Create.title" = "Option erstellen";
+"Relation.View.Edit.title" = "Option bearbeiten";
+"Relation.Create.Textfield.placeholder" = "Name eingeben...";
+"Relation.Edit.Button.title" = "Anwenden";
+"Relation.Date.Locked.Alert.title" = "Relation „%@“ ist gesperrt";
+
+"Relation.Delete.Alert.Title" = "Sind Sie sicher?";
+"Relation.Delete.Alert.Description" = "The option will be permanently removed from your space.";
 
 "Relation.Format.Object.Title" = "Objekt";
 "Relation.Format.Text.Title" = "Text";
 "Relation.Format.Number.Title" = "Nummer";
-"Relation.Format.Status.Title" = "Status";
-"Relation.Format.Tag.Title" = "Tag";
+"Relation.Format.Status.Title" = "Auswählen";
+"Relation.Format.Tag.Title" = "Mehrfachauswahl";
 "Relation.Format.Date.Title" = "Datum";
 "Relation.Format.FileMedia.Title" = "Dateien & Medien";
 "Relation.Format.Checkbox.Title" = "Checkbox";
 "Relation.Format.Url.Title" = "Link";
 "Relation.Format.Email.Title" = "E-Mail";
 "Relation.Format.Phone.Title" = "Telefonnummer";
+
+// Origin Relation
+
+"Relation.Origin.Clipboard" = "Zwischenablage";
+"Relation.Origin.DragAndDrop" = "Drag'n'Drop";
+"Relation.Origin.Import" = "Importiertes Objekt";
+"Relation.Origin.WebClipper" = "Web Clipper";
+"Relation.Origin.SharingExtension" = "Erweiterung für mobiles Teilen";
+"Relation.Origin.UseCase" = "Anwendungsfall";
+"Relation.Origin.Builtin" = "Bibliothek installiert";
 
 // MARK: - Mention
 "Mention.Subtitle.Placeholder" = "Objekt";
@@ -109,6 +131,7 @@
 "Actions" = "Aktionen";
 "Relations" = "Verknüpfungen";
 "Objects" = "Objekte";
+"Lists" = "Gruppen";
 "Delete" = "Löschen";
 "Duplicate" = "Duplizieren";
 "Copy" = "Kopieren";
@@ -187,7 +210,7 @@
 "Auth.CameraPermissionTitle" = "Bitte Zugriff erlauben";
 "Restore secret phrase from keychain" = "Stelle die Wiederherstellungsphrase aus dem Schlüsselbund wieder her";
 "Auth.LogIn" = "Anmelden";
-"Auth.Join" = "Neues Konto erstellen";
+"Auth.Join" = "Beitreten";
 "Auth.Welcome.Subtitle" = "Anytype ist dein sicherer Ort zum Schreiben, Planen, Denken und Organisieren von allem, was dir wichtig ist.";
 "Auth.Caption.Privacy.Text" = "Durch Fortfahren stimmst du den [Nutzungsbedingungen](%@) und [Datenschutzrichtlinie](%@ ) zu";
 "Auth.Next" = "Weiter";
@@ -486,8 +509,8 @@
 "Enter value" = "Wert eingeben";
 "Select object" = "Objekt wählen";
 "Select file" = "Datei wählen";
-"Select tag" = "Markierung auswählen";
-"Select status" = "Status auswählen";
+"Select options" = "Optionen auswählen";
+"Select option" = "Option auswählen";
 "Select date" = "Datum auswählen";
 "Add email" = "E-Mail hinzufügen";
 "Add link" = "Link hinzufügen";
@@ -565,6 +588,8 @@
 "Into object" = "In ein Objekt";
 "Add below" = "Unten hinzufügen";
 "Change type" = "Typ ändern";
+"Show types" = "Show types";
+"Hide types" = "Hide types";
 "SlashMenu.LinkTo.Description" = "Link zu einem anderen Objekt erstellen";
 "Upload playable audio" = "Audio hochladen";
 "Code snippet" = "Code-Ausschnitt";
@@ -594,7 +619,7 @@
 "Today" = "Heute";
 "No date" = "Kein Datum";
 "Clear" = "Leeren";
-"Create option" = "Erstelle Option ‘%@’";
+"Create option with" = "Option ‚%@‘ erstellen";
 "Add URL" = "URL hinzufügen";
 "Add email" = "E-Mail hinzufügen";
 "Add phone number" = "Telefonnummer hinzufügen";
@@ -860,13 +885,14 @@
 "Initial.UnstableMiddle.WontUseProd" = "Ich werde mein Produktionskonto nicht verwenden";
 
 // MARK: - Create tip
-"LongTapCreateTip.Title" = "Erstelle Objekte mit spezifischem Typ";
+"LongTapCreateTip.Title" = "Erstelle Objekte mit bestimmtem Typ";
 "LongTapCreateTip.Message" = "Tippen sie lange auf den Erstelle Objekt Knopf um ein Typ-Menü zu öffnen";
 
 // MARK: - Error
 "Error.AnytypeNeedsUpgrate.Title" = "Aktualisieren Sie Ihre App";
 "Error.AnytypeNeedsUpgrate.Message" = "Dieses Objekt wurde in einer neueren Version von Anytype geändert. Bitte aktualisieren Sie die App, um es auf diesem Gerät zu öffnen";
 "Error.AnytypeNeedsUpgrate.Confirm" = "Update";
+"Error.UnableToConnect" = "Bitte mit dem Internet verbinden";
 
 // MARK: - Relative date formatter
 "RelativeFormatter.days7" = "Letzte 7 Tage";

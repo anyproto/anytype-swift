@@ -21,12 +21,8 @@ struct AuthView: View {
     
     private var content: some View {
         VStack(alignment: .center, spacing: 0) {
-            if FeatureFlags.selfHosted {
-                header
-                Spacer.fixedHeight(48)
-            } else {
-                Spacer.fixedHeight(80)
-            }
+            header
+            Spacer.fixedHeight(48)
             Spacer()
             greetings
             Spacer()

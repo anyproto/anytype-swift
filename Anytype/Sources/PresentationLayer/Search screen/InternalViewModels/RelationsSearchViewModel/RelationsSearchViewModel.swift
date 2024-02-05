@@ -7,7 +7,7 @@ final class RelationsSearchViewModel: NewInternalSearchViewModelProtocol {
     
     private enum Constants {
         static let installedSectionId = "InstalledId"
-        static let marketplaceSectionId = "MarketplaceId"
+        static let librarySectionId = "MarketplaceId"
     }
     
     let selectionMode: NewSearchViewModel.SelectionMode = .singleItem
@@ -44,7 +44,7 @@ final class RelationsSearchViewModel: NewInternalSearchViewModelProtocol {
     
     func search(text: String) async throws {
         let objects = try await interactor.search(text: text, excludedIds: excludedRelationsIds, spaceId: document.spaceId)
-        let marketplaceObjects = try await interactor.searchInMarketplace(text: text, spaceId: document.spaceId)
+        let marketplaceObjects = try await interactor.searchInLibrary(text: text, spaceId: document.spaceId)
         
         handleSearchResults(objects: objects, marketplaceObjects: marketplaceObjects)
         
@@ -94,7 +94,7 @@ final class RelationsSearchViewModel: NewInternalSearchViewModelProtocol {
             }
         case .dataview(let activeViewId):
             Task { @MainActor in
-                try await interactor.addRelationToDataview(spaceId: document.spaceId, relation: relation, activeViewId: activeViewId)
+                try await interactor.addRelationToDataview(objectId: document.objectId, relation: relation, activeViewId: activeViewId)
                 onSelect(relation)
             }
         }
@@ -114,7 +114,7 @@ final class RelationsSearchViewModel: NewInternalSearchViewModelProtocol {
                     }
                     if marketplaceObjects.isNotEmpty {
                         ListSectionConfiguration.smallHeader(
-                            id: Constants.marketplaceSectionId,
+                            id: Constants.librarySectionId,
                             title: Loc.anytypeLibrary,
                             rows:  marketplaceObjects.asRowConfigurations()
                         )

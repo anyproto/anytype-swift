@@ -9,21 +9,31 @@ final class RelationValueCoordinator: RelationValueCoordinatorProtocol,
     
     private let navigationContext: NavigationContextProtocol
     private let relationValueModuleAssembly: RelationValueModuleAssemblyProtocol
+    private let dateRelationCalendarModuleAssembly: DateRelationCalendarModuleAssemblyProtocol
+    private let selectRelationListCoordinatorAssembly: SelectRelationListCoordinatorAssemblyProtocol
     private let urlOpener: URLOpenerProtocol
+    private let toastPresenter: ToastPresenterProtocol
     private weak var output: RelationValueCoordinatorOutput?
     
     init(
         navigationContext: NavigationContextProtocol,
         relationValueModuleAssembly: RelationValueModuleAssemblyProtocol,
-        urlOpener: URLOpenerProtocol
+        dateRelationCalendarModuleAssembly: DateRelationCalendarModuleAssemblyProtocol,
+        selectRelationListCoordinatorAssembly: SelectRelationListCoordinatorAssemblyProtocol,
+        urlOpener: URLOpenerProtocol,
+        toastPresenter: ToastPresenterProtocol
     ) {
         self.navigationContext = navigationContext
         self.relationValueModuleAssembly = relationValueModuleAssembly
+        self.dateRelationCalendarModuleAssembly = dateRelationCalendarModuleAssembly
+        self.selectRelationListCoordinatorAssembly = selectRelationListCoordinatorAssembly
         self.urlOpener = urlOpener
+        self.toastPresenter = toastPresenter
     }
     
     // MARK: - RelationValueCoordinatorProtocol
     
+    @MainActor
     func startFlow(
         objectDetails: ObjectDetails,
         relation: Relation,
@@ -31,6 +41,31 @@ final class RelationValueCoordinator: RelationValueCoordinatorProtocol,
         output: RelationValueCoordinatorOutput
     ) {
         self.output = output
+        
+        if FeatureFlags.newDateRelationCalendarView, case .date(let date) = relation {
+            let dateValue = date.value?.date
+            
+            if !relation.isEditable {
+                toastPresenter.show(message: Loc.Relation.Date.Locked.Alert.title(relation.name))
+                return
+            }
+            
+            let view = dateRelationCalendarModuleAssembly.make(
+                objectId: objectDetails.id,
+                title: relation.name,
+                date: dateValue,
+                relationKey: relation.key,
+                analyticsType: analyticsType
+            )
+                        
+            if UIDevice.isPad {
+                navigationContext.present(view, modalPresentationStyle: .formSheet)
+            } else {
+                navigationContext.present(view, mediumDetent: true)
+            }
+            
+            return
+        }
         
         guard relation.isEditable || relation.hasDetails else { return }
         
@@ -41,6 +76,28 @@ final class RelationValueCoordinator: RelationValueCoordinatorProtocol,
             Task {
                 try await relationsService.updateRelation(relationKey: checkbox.key, value: newValue.protobufValue)
             }
+            return
+        }
+        
+        if FeatureFlags.newSelectRelationView, case .status(let status) = relation {
+            let configuration = RelationModuleConfiguration(
+                title: status.name,
+                isEditable: relation.isEditable,
+                relationKey: status.key,
+                spaceId: objectDetails.spaceId,
+                analyticsType: analyticsType
+            )
+            let view = selectRelationListCoordinatorAssembly.make(
+                objectId: objectDetails.id,
+                configuration: configuration,
+                selectedOption: status.values.compactMap {
+                    SelectRelationOption(id: $0.id, text: $0.text, color: $0.color.suColor)
+                }.first
+            )
+            
+            let mediumDetent = status.values.first.isNotNil || !relation.isEditable
+            navigationContext.present(view, mediumDetent: mediumDetent)
+            
             return
         }
         

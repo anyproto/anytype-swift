@@ -88,7 +88,7 @@ private struct ContentView: View {
     var body: some View {
         ScrollView {
             FlowLayout(items: items, cell: { item, _ in
-                Text(item.value)
+                Text(verbatim: item.value)
                     .padding()
                     .background(RoundedRectangle(cornerRadius: 5).fill(Color.blue))
             })

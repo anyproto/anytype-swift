@@ -17,7 +17,7 @@ final class CoordinatorsDI: CoordinatorsDIProtocol {
     
     func relationValue() -> RelationValueCoordinatorAssemblyProtocol {
         return RelationValueCoordinatorAssembly(
-            serviceLocator: serviceLocator,
+            coordinatorsDI: self,
             modulesDI: modulesDI,
             uiHelpersDI: uiHelpersDI
         )
@@ -172,5 +172,20 @@ final class CoordinatorsDI: CoordinatorsDIProtocol {
             sharingTipAssembly: modulesDI.sharingTip(),
             navigationContext: uiHelpersDI.commonNavigationContext()
         )
+    }
+    
+    func galleryInstallation() -> GalleryInstallationCoordinatorAssemblyProtocol {
+        GalleryInstallationCoordinatorAssembly(modulesDI: modulesDI)
+    }
+    
+    func notificationCoordinator() -> NotificationCoordinatorProtocol {
+        NotificationCoordinator(
+            notificationSubscriptionService: serviceLocator.notificationSubscriptionService(),
+            commonNotificationAssembly: modulesDI.commonNotification()
+        )
+    }
+    
+    func selectRelationList() -> SelectRelationListCoordinatorAssemblyProtocol {
+        SelectRelationListCoordinatorAssembly(modulesDI: modulesDI)
     }
 }

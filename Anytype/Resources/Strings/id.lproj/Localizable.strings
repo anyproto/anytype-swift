@@ -79,18 +79,40 @@
 "Relation.From.Type" = "Dari tipe %@";
 "Relation.LinksFrom.Title" = "dari";
 "Relation.LinksTo.Title" = "ke";
+"Relation.EmptyState.title" = "No options";
+"Relation.EmptyState.description" = "Nothing found. Create first option to start.";
+"Relation.EmptyState.Blocked.title" = "The relation is empty";
+"Relation.Create.Row.title" = "Create “%@”";
+"Relation.View.Create.title" = "Create option";
+"Relation.View.Edit.title" = "Edit option";
+"Relation.Create.Textfield.placeholder" = "Enter name...";
+"Relation.Edit.Button.title" = "Terapkan";
+"Relation.Date.Locked.Alert.title" = "Relation “%@” is locked";
+
+"Relation.Delete.Alert.Title" = "Apakah kamu yakin?";
+"Relation.Delete.Alert.Description" = "The option will be permanently removed from your space.";
 
 "Relation.Format.Object.Title" = "Objek";
 "Relation.Format.Text.Title" = "Teks";
 "Relation.Format.Number.Title" = "Angka";
-"Relation.Format.Status.Title" = "Status";
-"Relation.Format.Tag.Title" = "Label";
+"Relation.Format.Status.Title" = "Pilih";
+"Relation.Format.Tag.Title" = "Pilih jamak";
 "Relation.Format.Date.Title" = "Tanggal";
 "Relation.Format.FileMedia.Title" = "Berkas & Media";
 "Relation.Format.Checkbox.Title" = "Kotak centang";
 "Relation.Format.Url.Title" = "URL";
 "Relation.Format.Email.Title" = "Surel";
 "Relation.Format.Phone.Title" = "Nomor telepon";
+
+// Origin Relation
+
+"Relation.Origin.Clipboard" = "Papan kerani";
+"Relation.Origin.DragAndDrop" = "Drag'n'Drop";
+"Relation.Origin.Import" = "Objek diimpor";
+"Relation.Origin.WebClipper" = "Web clipper";
+"Relation.Origin.SharingExtension" = "Mobile sharing extension";
+"Relation.Origin.UseCase" = "Use case";
+"Relation.Origin.Builtin" = "Pustaka terpasang";
 
 // MARK: - Mention
 "Mention.Subtitle.Placeholder" = "Objek";
@@ -109,6 +131,7 @@
 "Actions" = "Tindakan";
 "Relations" = "Relasi";
 "Objects" = "Objek";
+"Lists" = "Grup";
 "Delete" = "Hapus";
 "Duplicate" = "Gandakan";
 "Copy" = "Salin";
@@ -187,7 +210,7 @@
 "Auth.CameraPermissionTitle" = "Tolong izinkan akses";
 "Restore secret phrase from keychain" = "Mengembalikan Tahap Pemulihan dari rantai kunci";
 "Auth.LogIn" = "Masuk";
-"Auth.Join" = "Buat Akun Baru";
+"Auth.Join" = "Gabung";
 "Auth.Welcome.Subtitle" = "Anytype adalah tempat aman bagimu untuk menulis, berpikir, merencanakan, dan mengorganisasikan apa pun yang penting bagimu.";
 "Auth.Caption.Privacy.Text" = "Dengan melanjutkan, kamu menyetujui [Syarat Penggunaan](%@) dan [Kebijakan Privasi](%@)";
 "Auth.Next" = "Lanjut";
@@ -486,8 +509,8 @@
 "Enter value" = "Masukkan nilai";
 "Select object" = "Pilih objek";
 "Select file" = "Pilih berkas";
-"Select tag" = "Pilih tag";
-"Select status" = "Pilih status";
+"Select options" = "Pilih opsi";
+"Select option" = "Pilih opsi";
 "Select date" = "Pilih tanggal";
 "Add email" = "Tambahkan surel";
 "Add link" = "Tambahkan tautan";
@@ -565,6 +588,8 @@
 "Into object" = "Di dalam objek";
 "Add below" = "Tambah di bawah";
 "Change type" = "Ubah tipe";
+"Show types" = "Tampilkan tipe";
+"Hide types" = "Sembunyikan tipe";
 "SlashMenu.LinkTo.Description" = "Buat tautan ke objek lain";
 "Upload playable audio" = "Unggah audio yang dapat diputar";
 "Code snippet" = "Potongan kode";
@@ -594,7 +619,7 @@
 "Today" = "Hari ini";
 "No date" = "Tidak ada tanggal";
 "Clear" = "Bersihkan";
-"Create option" = "Buat pilihan '%@'";
+"Create option with" = "Create option ‘%@’";
 "Add URL" = "Tambahkan URL";
 "Add email" = "Tambahkan surel";
 "Add phone number" = "Tambahkan nomor telepon";
@@ -866,6 +891,7 @@
 "Error.AnytypeNeedsUpgrate.Title" = "Perbarui Aplikasimu";
 "Error.AnytypeNeedsUpgrate.Message" = "Objek ini telah diubah pada versi terbaru Anytype. Perbaruilah aplikasimu untuk membuka objek ini di perangkat ini.";
 "Error.AnytypeNeedsUpgrate.Confirm" = "Perbarui";
+"Error.UnableToConnect" = "Tolong sambungkan ke internet";
 
 // MARK: - Relative date formatter
 "RelativeFormatter.days7" = "7 hari terakhir";

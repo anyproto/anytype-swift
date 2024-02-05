@@ -124,8 +124,16 @@ extension BundledRelationsValueProvider {
         }
     }
     
+    var isList: Bool {
+        isSet || isCollection
+    }
+    
     var isCollection: Bool {
         return layoutValue == .collection
+    }
+    
+    var isSet: Bool {
+        return layoutValue == .set
     }
     
     var isSupportedForEdit: Bool {
@@ -150,9 +158,5 @@ extension BundledRelationsValueProvider {
     
     var isTemplateType: Bool {
         objectType.isTemplateType
-    }
-    
-    var canCreateObject: Bool {
-        setOf.first { $0.isNotEmpty } != nil || isCollection
     }
 }

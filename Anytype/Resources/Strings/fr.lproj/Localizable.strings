@@ -79,18 +79,40 @@
 "Relation.From.Type" = "À partir du type %@";
 "Relation.LinksFrom.Title" = "depuis";
 "Relation.LinksTo.Title" = "à";
+"Relation.EmptyState.title" = "Aucune option";
+"Relation.EmptyState.description" = "Rien n'a été trouvé. Créez la première option pour commencer.";
+"Relation.EmptyState.Blocked.title" = "La relation est vide";
+"Relation.Create.Row.title" = "Créer \"%@”";
+"Relation.View.Create.title" = "Créer une option";
+"Relation.View.Edit.title" = "Éditer l'option";
+"Relation.Create.Textfield.placeholder" = "Saisir un nom...";
+"Relation.Edit.Button.title" = "Appliquer";
+"Relation.Date.Locked.Alert.title" = "La relation “%@” est verrouillée";
+
+"Relation.Delete.Alert.Title" = "Êtes-vous sûr ?";
+"Relation.Delete.Alert.Description" = "L'option sera définitivement retirée de votre espace.";
 
 "Relation.Format.Object.Title" = "Objet";
 "Relation.Format.Text.Title" = "Texte";
 "Relation.Format.Number.Title" = "Nombre";
-"Relation.Format.Status.Title" = "Statut";
-"Relation.Format.Tag.Title" = "Tag";
+"Relation.Format.Status.Title" = "Sélectionner";
+"Relation.Format.Tag.Title" = "Sélection multiple";
 "Relation.Format.Date.Title" = "Date";
 "Relation.Format.FileMedia.Title" = "Fichier & Média";
 "Relation.Format.Checkbox.Title" = "Case à cocher";
 "Relation.Format.Url.Title" = "URL";
 "Relation.Format.Email.Title" = "Email";
 "Relation.Format.Phone.Title" = "N° de téléphone";
+
+// Origin Relation
+
+"Relation.Origin.Clipboard" = "Presse-papier";
+"Relation.Origin.DragAndDrop" = "Glisser-déposer";
+"Relation.Origin.Import" = "Objet importé";
+"Relation.Origin.WebClipper" = "Web Clipper";
+"Relation.Origin.SharingExtension" = "Extension de partage mobile";
+"Relation.Origin.UseCase" = "Cas d'utilisation";
+"Relation.Origin.Builtin" = "Bibliothèque installée.";
 
 // MARK: - Mention
 "Mention.Subtitle.Placeholder" = "Objet";
@@ -109,6 +131,7 @@
 "Actions" = "Actions";
 "Relations" = "Relations";
 "Objects" = "Objets";
+"Lists" = "Groups";
 "Delete" = "Supprimer";
 "Duplicate" = "Dupliquer";
 "Copy" = "Copier";
@@ -187,7 +210,7 @@
 "Auth.CameraPermissionTitle" = "Veuillez autoriser l'accès";
 "Restore secret phrase from keychain" = "Restaurer la phrase de récupération à partir du trousseau";
 "Auth.LogIn" = "Se connecter";
-"Auth.Join" = "Créer un nouveau compte";
+"Auth.Join" = "Rejoindre";
 "Auth.Welcome.Subtitle" = "Anytype est votre lieu sûr pour écrire, planifier, penser et organiser tout ce qui compte pour vous.";
 "Auth.Caption.Privacy.Text" = "En continuant, vous acceptez [Conditions d'utilisation](%@) et [Politique de confidentialité](%@)";
 "Auth.Next" = "Suivant";
@@ -486,8 +509,8 @@
 "Enter value" = "Saisir une valeur";
 "Select object" = "Sélectionner un objet";
 "Select file" = "Sélectionner un fichier";
-"Select tag" = "Sélectionner un tag";
-"Select status" = "Sélectionner un statut";
+"Select options" = "Choisir les options";
+"Select option" = "Choisir une option";
 "Select date" = "Sélectionner une date";
 "Add email" = "Ajouter un email";
 "Add link" = "Ajouter un lien";
@@ -565,6 +588,8 @@
 "Into object" = "En objet";
 "Add below" = "Ajouter en dessous";
 "Change type" = "Changer le type";
+"Show types" = "Afficher les types";
+"Hide types" = "Masquer les types";
 "SlashMenu.LinkTo.Description" = "Créer un lien vers un autre objet";
 "Upload playable audio" = "Charger un fichier audio";
 "Code snippet" = "Extrait de code";
@@ -594,7 +619,7 @@
 "Today" = "Aujourd'hui";
 "No date" = "Pas de date";
 "Clear" = "Effacer";
-"Create option" = "Créer une option '%@’";
+"Create option with" = "Créer une option '%@’";
 "Add URL" = "Ajouter URL";
 "Add email" = "Ajouter un email";
 "Add phone number" = "Ajouter un numéro de téléphone";
@@ -762,7 +787,7 @@
 "About.AnytypeCommunity" = "Communauté Anytype";
 "About.HelpTutorials" = "Aide & Tutoriels";
 "About.ContactUs" = "Contactez-nous";
-"About.Legal" = "Legal";
+"About.Legal" = "Mentions légales";
 "About.TermsOfUse" = "Conditions d'utilisation";
 "About.PrivacyPolicy" = "Politique de confidentialité";
 "About.TechInfo" = "Informations techniques";
@@ -866,6 +891,7 @@
 "Error.AnytypeNeedsUpgrate.Title" = "Mettez à jour votre application";
 "Error.AnytypeNeedsUpgrate.Message" = "Cet objet a été modifié dans une version plus récente de Anytype. Veuillez mettre à jour l'application pour l'ouvrir sur cet appareil";
 "Error.AnytypeNeedsUpgrate.Confirm" = "Mettre à jour";
+"Error.UnableToConnect" = "Veuillez vous connecter à Internet";
 
 // MARK: - Relative date formatter
 "RelativeFormatter.days7" = "7 jours précédents";

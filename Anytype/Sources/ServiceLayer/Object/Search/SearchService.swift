@@ -1,5 +1,4 @@
 import ProtobufMessages
-import Combine
 import Services
 import AnytypeCore
 
@@ -14,8 +13,12 @@ protocol SearchServiceProtocol: AnyObject {
         shouldIncludeBookmark: Bool,
         spaceId: String
     ) async throws -> [ObjectDetails]
-    
-    func searchMarketplaceObjectTypes(text: String, excludedIds: [String]) async throws -> [ObjectDetails]
+    func searchListTypes(text: String, spaceId: String) async throws -> [ObjectDetails]
+        
+    func searchLibraryObjectTypes(
+        text: String,
+        excludedIds: [String]
+    ) async throws -> [ObjectDetails]
     func searchFiles(text: String, excludedFileIds: [String],  spaceId: String) async throws -> [ObjectDetails]
     func searchImages() async throws -> [ObjectDetails]
     func searchObjectsByTypes(text: String, typeIds: [String], excludedObjectIds: [String], spaceId: String) async throws -> [ObjectDetails]
@@ -30,12 +33,12 @@ protocol SearchServiceProtocol: AnyObject {
     func searchRelationOptions(text: String, relationKey: String, excludedObjectIds: [String], spaceId: String) async throws -> [RelationOption]
     func searchRelationOptions(optionIds: [String], spaceId: String) async throws -> [RelationOption]
     func searchRelations(text: String, excludedIds: [String], spaceId: String) async throws -> [RelationDetails]
-    func searchMarketplaceRelations(text: String, excludedIds: [String]) async throws -> [RelationDetails]
+    func searchLibraryRelations(text: String, excludedIds: [String]) async throws -> [RelationDetails]
     func searchArchiveObjectIds(spaceId: String) async throws -> [String]
     func searchObjectsWithLayouts(text: String, layouts: [DetailsLayout], spaceId: String) async throws -> [ObjectDetails]
 }
 
-final class SearchService: ObservableObject, SearchServiceProtocol {
+final class SearchService: SearchServiceProtocol {
     
     private enum Constants {
         static let defaultLimit = 100
@@ -79,11 +82,11 @@ final class SearchService: ObservableObject, SearchServiceProtocol {
         spaceId: String
     ) async throws -> [ObjectDetails] {
         let sort = SearchHelper.sort(
-            relation: BundledRelationKey.name,
-            type: .asc
+            relation: BundledRelationKey.lastUsedDate,
+            type: .desc
         )
                 
-        var layouts = DetailsLayout.supportedForUserCreateLayouts
+        var layouts = DetailsLayout.visibleLayouts
         
         if !shouldIncludeSets {
             layouts.removeAll(where: { $0 == .set })
@@ -108,26 +111,36 @@ final class SearchService: ObservableObject, SearchServiceProtocol {
         
         let result = try await searchMiddleService.search(filters: filters, sorts: [sort], fullText: text)
 
-        return result.reordered(
-            by: [
-                ObjectTypeUniqueKey.page.value,
-                ObjectTypeUniqueKey.note.value,
-                ObjectTypeUniqueKey.task.value,
-                ObjectTypeUniqueKey.collection.value
-            ]
-        ) { $0.uniqueKey }
+        return result
     }
     
-    func searchMarketplaceObjectTypes(text: String, excludedIds: [String]) async throws -> [ObjectDetails] {
+    func searchListTypes(text: String, spaceId: String) async throws -> [ObjectDetails] {
+        let sort = SearchHelper.sort(
+            relation: BundledRelationKey.lastUsedDate,
+            type: .desc
+        )
+                
+        let layouts: [DetailsLayout] = [.set, .collection]
+        
+        let filters: [DataviewFilter] = .builder {
+            buildFilters(isArchived: false, spaceId: spaceId)
+            SearchHelper.layoutFilter([DetailsLayout.objectType])
+            SearchHelper.recomendedLayoutFilter(layouts)
+        }
+        
+        return try await searchMiddleService.search(filters: filters, sorts: [sort], fullText: text)
+    }
+    
+    func searchLibraryObjectTypes(text: String, excludedIds: [String]) async throws -> [ObjectDetails] {
         let sort = SearchHelper.sort(
             relation: BundledRelationKey.name,
             type: .asc
         )
         
         let filters = Array.builder {
-            SearchHelper.spaceId(MarketplaceId.anytypeMarketplace.rawValue)
+            SearchHelper.spaceId(MarketplaceId.anytypeLibrary.rawValue)
             SearchHelper.layoutFilter([DetailsLayout.objectType])
-            SearchHelper.recomendedLayoutFilter(DetailsLayout.supportedForUserCreateLayouts)
+            SearchHelper.recomendedLayoutFilter(DetailsLayout.visibleLayouts)
             SearchHelper.excludedIdsFilter(excludedIds)
         }
         
@@ -252,7 +265,7 @@ final class SearchService: ObservableObject, SearchServiceProtocol {
         return details.map { RelationDetails(objectDetails: $0) }
     }
     
-    func searchMarketplaceRelations(text: String, excludedIds: [String]) async throws -> [RelationDetails] {
+    func searchLibraryRelations(text: String, excludedIds: [String]) async throws -> [RelationDetails] {
         let sort = SearchHelper.sort(
             relation: BundledRelationKey.name,
             type: .asc
@@ -261,7 +274,7 @@ final class SearchService: ObservableObject, SearchServiceProtocol {
         let filters: [DataviewFilter] = .builder {
             buildFilters(
                 isArchived: false,
-                spaceId: MarketplaceId.anytypeMarketplace.rawValue
+                spaceId: MarketplaceId.anytypeLibrary.rawValue
             )
             SearchHelper.layoutFilter([DetailsLayout.relation])
             SearchHelper.relationReadonlyValue(false)

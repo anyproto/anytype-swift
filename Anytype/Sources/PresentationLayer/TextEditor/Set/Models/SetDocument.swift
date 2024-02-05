@@ -44,8 +44,7 @@ class SetDocument: SetDocumentProtocol {
     
     var dataViewRelationsDetails: [RelationDetails] = []
     
-    var isObjectLocked: Bool {
-        document.isLocked ||
+    var viewRelationValueIsLocked: Bool {
         activeView.type == .gallery ||
         activeView.type == .list ||
         (FeatureFlags.setKanbanView && activeView.type == .kanban)
@@ -53,7 +52,6 @@ class SetDocument: SetDocumentProtocol {
     
     var relationValuesIsLocked: Bool {
         return document.relationValuesIsLocked
-//        document.objectRestrictions.dataViewRestriction["dataviewid"]?.contains(.DVRelation)
     }
     
     var analyticsType: AnalyticsObjectType {
@@ -164,7 +162,7 @@ class SetDocument: SetDocumentProtocol {
     }
     
     func isTypeSet() -> Bool {
-        !isCollection() && !isRelationsSet()
+        !isCollection() && !isSetByRelation()
     }
     
     func isBookmarksSet() -> Bool {
@@ -173,7 +171,7 @@ class SetDocument: SetDocumentProtocol {
         return details.setOf.contains(bookmarkType.id)
     }
     
-    func isRelationsSet() -> Bool {
+    func isSetByRelation() -> Bool {
         let relation = parsedRelations.installed.first { $0.key == BundledRelationKey.setOf.rawValue }
         if let relation, relation.hasSelectedObjectsRelationType {
             return true
@@ -184,6 +182,29 @@ class SetDocument: SetDocumentProtocol {
     
     func isCollection() -> Bool {
         details?.isCollection ?? false
+    }
+    
+    func canCreateObject() -> Bool {
+        guard let details else {
+            anytypeAssertionFailure("SetDocument: No details in canCreateObject")
+            return false
+        }
+        guard details.isList else { return false }
+        
+        if details.isCollection { return true }
+        if isSetByRelation() { return true }
+        
+        // Set query validation
+        // Create objects in sets by type only permitted if type is Page-like
+        guard let setOfId = details.setOf.first(where: { $0.isNotEmpty }) else {
+            return false
+        }
+        
+        guard let layout = try? ObjectTypeProvider.shared.objectType(id: setOfId).recommendedLayout else {
+            return false
+        }
+        
+        return DetailsLayout.supportedForCreationInSets.contains(layout)
     }
     
     func defaultObjectTypeForActiveView() throws -> ObjectType {

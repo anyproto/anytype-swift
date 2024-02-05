@@ -48,14 +48,14 @@ final class DashboardAccountDeletionAlertModel: ObservableObject {
         
         AnytypeAnalytics.instance().logEvent(AnalyticsEventsName.logout)
 
-        authService.logout(removeData: true) { [weak self] isSuccess in
-            guard isSuccess else {
+        Task {
+            do {
+                try await authService.logout(removeData: true)
+                UINotificationFeedbackGenerator().notificationOccurred(.success)
+                applicationStateService.state = .auth
+            } catch {
                 UINotificationFeedbackGenerator().notificationOccurred(.error)
-                return
             }
-            
-            UINotificationFeedbackGenerator().notificationOccurred(.success)
-            self?.applicationStateService.state = .auth
         }
     }
 }

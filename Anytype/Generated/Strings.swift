@@ -155,8 +155,8 @@ internal enum Loc {
   /// Create object
   internal static let createObject = Loc.tr("Localizable", "Create object", fallback: "Create object")
   /// Create option ‘%@’
-  internal static func createOption(_ p1: Any) -> String {
-    return Loc.tr("Localizable", "Create option", String(describing: p1), fallback: "Create option ‘%@’")
+  internal static func createOptionWith(_ p1: Any) -> String {
+    return Loc.tr("Localizable", "Create option with", String(describing: p1), fallback: "Create option ‘%@’")
   }
   /// Create relation ‘%@’
   internal static func createRelation(_ p1: Any) -> String {
@@ -246,6 +246,8 @@ internal enum Loc {
   internal static let grey = Loc.tr("Localizable", "Grey", fallback: "Grey")
   /// Grey background
   internal static let greyBackground = Loc.tr("Localizable", "Grey background", fallback: "Grey background")
+  /// Hide types
+  internal static let hideTypes = Loc.tr("Localizable", "Hide types", fallback: "Hide types")
   /// Highlight
   internal static let highlight = Loc.tr("Localizable", "Highlight", fallback: "Highlight")
   /// Home
@@ -270,6 +272,8 @@ internal enum Loc {
   }
   /// List of related objects
   internal static let listOfRelatedObjects = Loc.tr("Localizable", "List of related objects", fallback: "List of related objects")
+  /// Lists
+  internal static let lists = Loc.tr("Localizable", "Lists", fallback: "Lists")
   /// Loading, please wait
   internal static let loadingPleaseWait = Loc.tr("Localizable", "Loading, please wait", fallback: "Loading, please wait")
   /// Lock
@@ -414,12 +418,12 @@ internal enum Loc {
   internal static let selectFile = Loc.tr("Localizable", "Select file", fallback: "Select file")
   /// Select object
   internal static let selectObject = Loc.tr("Localizable", "Select object", fallback: "Select object")
+  /// Select option
+  internal static let selectOption = Loc.tr("Localizable", "Select option", fallback: "Select option")
+  /// Select options
+  internal static let selectOptions = Loc.tr("Localizable", "Select options", fallback: "Select options")
   /// Select relation type
   internal static let selectRelationType = Loc.tr("Localizable", "Select relation type", fallback: "Select relation type")
-  /// Select status
-  internal static let selectStatus = Loc.tr("Localizable", "Select status", fallback: "Select status")
-  /// Select tag
-  internal static let selectTag = Loc.tr("Localizable", "Select tag", fallback: "Select tag")
   /// Plural format key: "%#@object@"
   internal static func selectedBlocks(_ p1: Int) -> String {
     return Loc.tr("Localizable", "Selected blocks", p1, fallback: "Plural format key: \"%#@object@\"")
@@ -435,6 +439,8 @@ internal enum Loc {
   internal static let settings = Loc.tr("Localizable", "Settings", fallback: "Settings")
   /// Shared
   internal static let shared = Loc.tr("Localizable", "Shared", fallback: "Shared")
+  /// Show types
+  internal static let showTypes = Loc.tr("Localizable", "Show types", fallback: "Show types")
   /// Sign up
   internal static let signUp = Loc.tr("Localizable", "Sign up", fallback: "Sign up")
   /// Sky
@@ -633,8 +639,8 @@ internal enum Loc {
   internal enum Auth {
     /// Please allow access
     internal static let cameraPermissionTitle = Loc.tr("Localizable", "Auth.CameraPermissionTitle", fallback: "Please allow access")
-    /// Create New Account
-    internal static let join = Loc.tr("Localizable", "Auth.Join", fallback: "Create New Account")
+    /// Join
+    internal static let join = Loc.tr("Localizable", "Auth.Join", fallback: "Join")
     /// Log In
     internal static let logIn = Loc.tr("Localizable", "Auth.LogIn", fallback: "Log In")
     /// Next
@@ -1223,6 +1229,10 @@ internal enum Loc {
     }
   }
   internal enum Gallery {
+    /// Made by @%@
+    internal static func author(_ p1: Any) -> String {
+      return Loc.tr("Localizable", "Gallery.Author", String(describing: p1), fallback: "Made by @%@")
+    }
     internal enum Unavailable {
       /// Please use the desktop app for now
       internal static let message = Loc.tr("Localizable", "Gallery.Unavailable.Message", fallback: "Please use the desktop app for now")
@@ -1377,6 +1387,52 @@ internal enum Loc {
     internal static let deleted = Loc.tr("Localizable", "Relation.Deleted", fallback: "Deleted relation")
     /// My relations
     internal static let myRelations = Loc.tr("Localizable", "Relation.MyRelations", fallback: "My relations")
+    internal enum Create {
+      internal enum Row {
+        /// Create “%@”
+        internal static func title(_ p1: Any) -> String {
+          return Loc.tr("Localizable", "Relation.Create.Row.title", String(describing: p1), fallback: "Create “%@”")
+        }
+      }
+      internal enum Textfield {
+        /// Enter name...
+        internal static let placeholder = Loc.tr("Localizable", "Relation.Create.Textfield.placeholder", fallback: "Enter name...")
+      }
+    }
+    internal enum Date {
+      internal enum Locked {
+        internal enum Alert {
+          /// Relation “%@” is locked
+          internal static func title(_ p1: Any) -> String {
+            return Loc.tr("Localizable", "Relation.Date.Locked.Alert.title", String(describing: p1), fallback: "Relation “%@” is locked")
+          }
+        }
+      }
+    }
+    internal enum Delete {
+      internal enum Alert {
+        /// The option will be permanently removed from your space.
+        internal static let description = Loc.tr("Localizable", "Relation.Delete.Alert.Description", fallback: "The option will be permanently removed from your space.")
+        /// Are you sure?
+        internal static let title = Loc.tr("Localizable", "Relation.Delete.Alert.Title", fallback: "Are you sure?")
+      }
+    }
+    internal enum Edit {
+      internal enum Button {
+        /// Apply
+        internal static let title = Loc.tr("Localizable", "Relation.Edit.Button.title", fallback: "Apply")
+      }
+    }
+    internal enum EmptyState {
+      /// Nothing found. Create first option to start.
+      internal static let description = Loc.tr("Localizable", "Relation.EmptyState.description", fallback: "Nothing found. Create first option to start.")
+      /// No options
+      internal static let title = Loc.tr("Localizable", "Relation.EmptyState.title", fallback: "No options")
+      internal enum Blocked {
+        /// The relation is empty
+        internal static let title = Loc.tr("Localizable", "Relation.EmptyState.Blocked.title", fallback: "The relation is empty")
+      }
+    }
     internal enum Format {
       internal enum Checkbox {
         /// Checkbox
@@ -1407,12 +1463,12 @@ internal enum Loc {
         internal static let title = Loc.tr("Localizable", "Relation.Format.Phone.Title", fallback: "Phone number")
       }
       internal enum Status {
-        /// Status
-        internal static let title = Loc.tr("Localizable", "Relation.Format.Status.Title", fallback: "Status")
+        /// Select
+        internal static let title = Loc.tr("Localizable", "Relation.Format.Status.Title", fallback: "Select")
       }
       internal enum Tag {
-        /// Tag
-        internal static let title = Loc.tr("Localizable", "Relation.Format.Tag.Title", fallback: "Tag")
+        /// Multi-select
+        internal static let title = Loc.tr("Localizable", "Relation.Format.Tag.Title", fallback: "Multi-select")
       }
       internal enum Text {
         /// Text
@@ -1437,7 +1493,31 @@ internal enum Loc {
       /// to
       internal static let title = Loc.tr("Localizable", "Relation.LinksTo.Title", fallback: "to")
     }
+    internal enum Origin {
+      /// Library installed
+      internal static let builtin = Loc.tr("Localizable", "Relation.Origin.Builtin", fallback: "Library installed")
+      /// Clipboard
+      internal static let clipboard = Loc.tr("Localizable", "Relation.Origin.Clipboard", fallback: "Clipboard")
+      /// Drag'n'Drop
+      internal static let dragAndDrop = Loc.tr("Localizable", "Relation.Origin.DragAndDrop", fallback: "Drag'n'Drop")
+      /// Imported object
+      internal static let `import` = Loc.tr("Localizable", "Relation.Origin.Import", fallback: "Imported object")
+      /// Mobile sharing extension
+      internal static let sharingExtension = Loc.tr("Localizable", "Relation.Origin.SharingExtension", fallback: "Mobile sharing extension")
+      /// Use case
+      internal static let useCase = Loc.tr("Localizable", "Relation.Origin.UseCase", fallback: "Use case")
+      /// Web clipper
+      internal static let webClipper = Loc.tr("Localizable", "Relation.Origin.WebClipper", fallback: "Web clipper")
+    }
     internal enum View {
+      internal enum Create {
+        /// Create option
+        internal static let title = Loc.tr("Localizable", "Relation.View.Create.title", fallback: "Create option")
+      }
+      internal enum Edit {
+        /// Edit option
+        internal static let title = Loc.tr("Localizable", "Relation.View.Edit.title", fallback: "Edit option")
+      }
       internal enum Hint {
         /// empty
         internal static let empty = Loc.tr("Localizable", "Relation.View.Hint.Empty", fallback: "empty")
