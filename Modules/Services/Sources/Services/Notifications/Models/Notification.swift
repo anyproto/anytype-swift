@@ -21,3 +21,5 @@ extension Anytype_Model_Notification {
         )
     }
 }
+
+public typealias NotificationGalleryImport = Anytype_Model_Notification.GalleryImport

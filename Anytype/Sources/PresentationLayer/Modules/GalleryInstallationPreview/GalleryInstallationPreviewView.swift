@@ -30,8 +30,8 @@ struct GalleryInstallationPreviewView: View {
             Spacer()
             ButtomAlertHeaderImageView(icon: .BottomAlert.error, style: .red)
             Spacer.fixedHeight(12)
-            AnytypeText(Loc.error, style: .uxCalloutMedium, color: .Text.primary)
-            AnytypeText(Loc.unknownError, style: .uxCalloutRegular, color: .Text.primary)
+            AnytypeText(Loc.Error.Common.title, style: .uxCalloutMedium, color: .Text.primary)
+            AnytypeText(Loc.Error.Common.message, style: .uxCalloutRegular, color: .Text.primary)
             Spacer()
         }
     }

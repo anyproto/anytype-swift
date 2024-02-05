@@ -3,6 +3,7 @@ import Services
 import Combine
 import ProtobufMessages
 
+@MainActor
 final class CommonNotificationViewModel: ObservableObject {
     
     private let notification: Services.Notification

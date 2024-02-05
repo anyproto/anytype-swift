@@ -328,6 +328,7 @@
 		2A17643A283E2245002853D3 /* ContentUrlBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A176439283E2245002853D3 /* ContentUrlBuilder.swift */; };
 		2A18929C2A8F6F5500A19740 /* NonFatalAlertConfigurator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A18929B2A8F6F5500A19740 /* NonFatalAlertConfigurator.swift */; };
 		2A18929F2A8F6FB000A19740 /* NonFatalLoggerHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A18929E2A8F6FB000A19740 /* NonFatalLoggerHandler.swift */; };
+		2A1AD7782B7118BF000EEBC0 /* TopNotificationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A1AD7772B7118BF000EEBC0 /* TopNotificationView.swift */; };
 		2A1AEDA028FD318A008C3660 /* MarkupViewTypes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A1AED9F28FD318A008C3660 /* MarkupViewTypes.swift */; };
 		2A1D2B3E2A42CD0300B07596 /* UIUserInterfaceStyle+Analytics.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A1D2B3D2A42CD0300B07596 /* UIUserInterfaceStyle+Analytics.swift */; };
 		2A1DEA592B5EB40C00A00883 /* AccountDeleteError+Localize.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A1DEA582B5EB40C00A00883 /* AccountDeleteError+Localize.swift */; };
@@ -664,6 +665,9 @@
 		2AC906DC29B6276A00209E39 /* ListWidgetModuleAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AC906DB29B6276A00209E39 /* ListWidgetModuleAssembly.swift */; };
 		2AC906DF29B6289A00209E39 /* RecentListWidgetModuleAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AC906DD29B6289A00209E39 /* RecentListWidgetModuleAssembly.swift */; };
 		2AC906E029B6289A00209E39 /* FavoriteListWidgetModuleAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AC906DE29B6289A00209E39 /* FavoriteListWidgetModuleAssembly.swift */; };
+		2ACA29A32B712F73009CD054 /* GalleryNotificationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2ACA29A02B712F73009CD054 /* GalleryNotificationView.swift */; };
+		2ACA29A42B712F73009CD054 /* GalleryNotificationAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2ACA29A12B712F73009CD054 /* GalleryNotificationAssembly.swift */; };
+		2ACA29A52B712F73009CD054 /* GalleryNotificationViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2ACA29A22B712F73009CD054 /* GalleryNotificationViewModel.swift */; };
 		2ACD26B72AFB9A1B00B19E50 /* DataviewView+View.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2ACD26B62AFB9A1B00B19E50 /* DataviewView+View.swift */; };
 		2ACD86F229C2181B0082E861 /* NewSearchErrorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2ACD86F129C2181B0082E861 /* NewSearchErrorView.swift */; };
 		2ACD86F429C309AA0082E861 /* WidgetTypeChangeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2ACD86F329C309AA0082E861 /* WidgetTypeChangeViewModel.swift */; };
@@ -2022,6 +2026,7 @@
 		2A176439283E2245002853D3 /* ContentUrlBuilder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContentUrlBuilder.swift; sourceTree = "<group>"; };
 		2A18929B2A8F6F5500A19740 /* NonFatalAlertConfigurator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NonFatalAlertConfigurator.swift; sourceTree = "<group>"; };
 		2A18929E2A8F6FB000A19740 /* NonFatalLoggerHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NonFatalLoggerHandler.swift; sourceTree = "<group>"; };
+		2A1AD7772B7118BF000EEBC0 /* TopNotificationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopNotificationView.swift; sourceTree = "<group>"; };
 		2A1AED9F28FD318A008C3660 /* MarkupViewTypes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MarkupViewTypes.swift; sourceTree = "<group>"; };
 		2A1B74012B03685A00E9F241 /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		2A1B74032B03687D00E9F241 /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/Localizable.strings; sourceTree = "<group>"; };
@@ -2368,6 +2373,9 @@
 		2AC906DB29B6276A00209E39 /* ListWidgetModuleAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListWidgetModuleAssembly.swift; sourceTree = "<group>"; };
 		2AC906DD29B6289A00209E39 /* RecentListWidgetModuleAssembly.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RecentListWidgetModuleAssembly.swift; sourceTree = "<group>"; };
 		2AC906DE29B6289A00209E39 /* FavoriteListWidgetModuleAssembly.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FavoriteListWidgetModuleAssembly.swift; sourceTree = "<group>"; };
+		2ACA29A02B712F73009CD054 /* GalleryNotificationView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GalleryNotificationView.swift; sourceTree = "<group>"; };
+		2ACA29A12B712F73009CD054 /* GalleryNotificationAssembly.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GalleryNotificationAssembly.swift; sourceTree = "<group>"; };
+		2ACA29A22B712F73009CD054 /* GalleryNotificationViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GalleryNotificationViewModel.swift; sourceTree = "<group>"; };
 		2ACD26B62AFB9A1B00B19E50 /* DataviewView+View.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DataviewView+View.swift"; sourceTree = "<group>"; };
 		2ACD86F129C2181B0082E861 /* NewSearchErrorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewSearchErrorView.swift; sourceTree = "<group>"; };
 		2ACD86F329C309AA0082E861 /* WidgetTypeChangeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WidgetTypeChangeViewModel.swift; sourceTree = "<group>"; };
@@ -5134,6 +5142,14 @@
 			path = NonFatalAlertConfigurator;
 			sourceTree = "<group>";
 		};
+		2A1AD7762B7118A4000EEBC0 /* CommonViews */ = {
+			isa = PBXGroup;
+			children = (
+				2A1AD7772B7118BF000EEBC0 /* TopNotificationView.swift */,
+			);
+			path = CommonViews;
+			sourceTree = "<group>";
+		};
 		2A1F4CB729B88DBE004516F6 /* Sentry */ = {
 			isa = PBXGroup;
 			children = (
@@ -5352,14 +5368,14 @@
 			path = RelationValueModule;
 			sourceTree = "<group>";
 		};
-		2A2DDB9F2B67C95600EA3F47 /* Views */ = {
+		2A2DDB9F2B67C95600EA3F47 /* Common */ = {
 			isa = PBXGroup;
 			children = (
 				2A2DDBA02B67CC3C00EA3F47 /* CommonNotificationView.swift */,
 				2A2DDBA22B67CE0E00EA3F47 /* CommonNotificationViewModel.swift */,
 				2A2DDBA42B67D0E400EA3F47 /* CommonNotificationAssembly.swift */,
 			);
-			path = Views;
+			path = Common;
 			sourceTree = "<group>";
 		};
 		2A30734728ACEF33003673DF /* Alert */ = {
@@ -6239,6 +6255,25 @@
 			path = Common;
 			sourceTree = "<group>";
 		};
+		2ACA299C2B712F44009CD054 /* Specific */ = {
+			isa = PBXGroup;
+			children = (
+				2ACA299F2B712F73009CD054 /* GalleryImport */,
+				2A2DDB9F2B67C95600EA3F47 /* Common */,
+			);
+			path = Specific;
+			sourceTree = "<group>";
+		};
+		2ACA299F2B712F73009CD054 /* GalleryImport */ = {
+			isa = PBXGroup;
+			children = (
+				2ACA29A02B712F73009CD054 /* GalleryNotificationView.swift */,
+				2ACA29A12B712F73009CD054 /* GalleryNotificationAssembly.swift */,
+				2ACA29A22B712F73009CD054 /* GalleryNotificationViewModel.swift */,
+			);
+			path = GalleryImport;
+			sourceTree = "<group>";
+		};
 		2ACA341429AD047700BBD2F5 /* Settings */ = {
 			isa = PBXGroup;
 			children = (
@@ -6343,8 +6378,9 @@
 		2AD8E94C2B679D0F00AADB9E /* Notifications */ = {
 			isa = PBXGroup;
 			children = (
+				2ACA299C2B712F44009CD054 /* Specific */,
+				2A1AD7762B7118A4000EEBC0 /* CommonViews */,
 				2AD8E94E2B679D2800AADB9E /* NotificationCoordinator.swift */,
-				2A2DDB9F2B67C95600EA3F47 /* Views */,
 			);
 			path = Notifications;
 			sourceTree = "<group>";
@@ -10232,6 +10268,7 @@
 				2E5E0664298C15E0004A98CE /* EditorSetEmptyViewModel.swift in Sources */,
 				C97CD703272AA3C90085AE64 /* EditorСursorManager.swift in Sources */,
 				2E2D256D288ACA5100E3DFD1 /* SetFiltersCheckboxViewModel.swift in Sources */,
+				2A1AD7782B7118BF000EEBC0 /* TopNotificationView.swift in Sources */,
 				2E9994852940D1D500FFBED9 /* SetDocument.swift in Sources */,
 				EAADB1BE26790459004B0AF2 /* NSMutableAttributedStringExtension.swift in Sources */,
 				2EE33DC52B55832300D0CDDB /* DateRelationCalendarViewModel.swift in Sources */,
@@ -10478,6 +10515,7 @@
 				2ECBD18F2B14F9BF007F47FC /* RelationsInteractor.swift in Sources */,
 				2E412CC8283BCA3E00C973FF /* MediaPickerContentType.swift in Sources */,
 				2A8C00FD29C4C61300309C14 /* SectionHeaderView.swift in Sources */,
+				2ACA29A42B712F73009CD054 /* GalleryNotificationAssembly.swift in Sources */,
 				2E2D255D28880C8D00E3DFD1 /* SetFiltersSelectionView.swift in Sources */,
 				2AC906D829B6233700209E39 /* ListWidgetViewModel.swift in Sources */,
 				2E9BF63F28B7D40A006D3CC2 /* SetViewTypeConfiguration.swift in Sources */,
@@ -10533,6 +10571,7 @@
 				2E63047728A54F1900BEF2E9 /* SetContentViewType.swift in Sources */,
 				2A96148D2A69839100E50D0A /* IconMaker.swift in Sources */,
 				2AEE49EE292E27FA00EA53AA /* ObjectSettingsCoordinator.swift in Sources */,
+				2ACA29A32B712F73009CD054 /* GalleryNotificationView.swift in Sources */,
 				2A730A762940C10000E51335 /* SearchObjectRowView+Init.swift in Sources */,
 				12EE02D62840EB5600223EB5 /* DeviceSceneStateListener.swift in Sources */,
 				2A66937B2A7104EA007747DD /* ObjectIconImageUsecase.swift in Sources */,
@@ -10617,6 +10656,7 @@
 				3DB1C9CA2726A6E7000D2779 /* BlockLinkState+Text.swift in Sources */,
 				C99A53AE28A1411B00B3E5F4 /* ObjectHeaderEmptyData.swift in Sources */,
 				3DCC549226D3B568002517AC /* BlockBookmarkOnlyUrlConfiguration.swift in Sources */,
+				2ACA29A52B712F73009CD054 /* GalleryNotificationViewModel.swift in Sources */,
 				2A6E04A6298D05AF0023B33D /* OpenedDocumentsProvider.swift in Sources */,
 				129C54D227FC7A2800C390C7 /* RelationFormatsListViewModel.swift in Sources */,
 				2AE85FF52B1F4ED500268E9D /* ServerConfigurationModuleOutput.swift in Sources */,
