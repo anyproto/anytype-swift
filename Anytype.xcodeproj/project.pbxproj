@@ -1695,7 +1695,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		0303ECFB22D8EDAA005C552B /* Anytype Debug.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Anytype Debug.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		0303ECFB22D8EDAA005C552B /* Anytype.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Anytype.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		0303ECFE22D8EDAA005C552B /* AppDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		0303ED0022D8EDAA005C552B /* SceneDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
 		0303ED0422D8EDAD005C552B /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Assets.xcassets; path = Anytype/Resources/Assets.xcassets; sourceTree = SOURCE_ROOT; };
@@ -3391,7 +3391,7 @@
 		0303ECFC22D8EDAA005C552B /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				0303ECFB22D8EDAA005C552B /* Anytype Debug.app */,
+				0303ECFB22D8EDAA005C552B /* Anytype.app */,
 				03C5C54022DFD90C00DD91DE /* AnytypeTests.xctest */,
 				C960DFA928D88615002898AE /* AnytypeWidgetExtension.appex */,
 				862D55902A8F78330018103F /* AnytypeShareExtension.appex */,
@@ -9748,7 +9748,7 @@
 				3D6381F62B6A61CF0026D071 /* WrappingHStack */,
 			);
 			productName = Anytype;
-			productReference = 0303ECFB22D8EDAA005C552B /* Anytype Debug.app */;
+			productReference = 0303ECFB22D8EDAA005C552B /* Anytype.app */;
 			productType = "com.apple.product-type.application";
 		};
 		03C5C53F22DFD90C00DD91DE /* AnytypeTests */ = {
@@ -11171,7 +11171,6 @@
 				3D1B5F7A274D0397007D97AE /* UIColor+Color.swift in Sources */,
 				EAED581E26A7321600374A46 /* MiddlewareTuple.swift in Sources */,
 				2E22F9FB2B6193AF001EFCF3 /* RelationOptionSettingsConfiguration.swift in Sources */,
-				2E6F3E212A4DF191002F4278 /* Weak.swift in Sources */,
 				2E28BCF32AAB58D2001E6306 /* SetViewPickerCoordinatorViewModel.swift in Sources */,
 				2EC46DD72ABE000D00DEA4BD /* ObjectTypesConfiguration.swift in Sources */,
 				C9CD66A827EB1480001F1860 /* CoverColorsGridViewModel.swift in Sources */,
@@ -11801,7 +11800,7 @@
 				OTHER_LDFLAGS = "-ObjC";
 				OTHER_SWIFT_FLAGS = "-enable-upcoming-feature ConciseMagicFile";
 				PRODUCT_BUNDLE_IDENTIFIER = io.anytype.app.dev;
-				PRODUCT_NAME = "$(TARGET_NAME) Debug";
+				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "match Development io.anytype.app.dev";
 				SENTRY_ENV = "";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
