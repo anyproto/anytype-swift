@@ -25,10 +25,12 @@ final class SharedContentManager: SharedContentManagerProtocol {
         try? clearSharedContent()
         let attachments = item.attachments ?? []
         let sharedContentItems = await sharedContentImporter.importData(items: item.attachments ?? [])
+        let sortedItems = sharedContentItems.filter { $0.isText } + sharedContentItems.filter { !$0.isText }
+            
         let debugInfo = SharedContentDebugInfo(
             items: attachments.map { SharedContentDebugItem(mimeTypes: $0.registeredTypeIdentifiers.map { $0.description }) }
         )
-        let sharedContent = SharedContent(title: item.attributedTitle?.string, items: sharedContentItems, debugInfo: debugInfo)
+        let sharedContent = SharedContent(title: item.attributedTitle?.string, items: sortedItems, debugInfo: debugInfo)
         try? saveSharedContent(content: sharedContent)
         return sharedContent
     }
