@@ -31,7 +31,13 @@ struct ObjectTypeSearchView: View {
             case .searchResults(let sectionsData):
                 searchResults(sectionsData: sectionsData)
             case .emptyScreen:
-                NewSearchErrorView(error: .noTypeError(searchText: searchText))
+                EmptyStateView(
+                    title: Loc.nothingFound,
+                    subtitle: Loc.noTypeFoundText(searchText),
+                    actionText: Loc.createType
+                ) {
+                    viewModel.createType(name: searchText)
+                }
             }
         }
     }

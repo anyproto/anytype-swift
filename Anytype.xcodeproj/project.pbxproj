@@ -1214,6 +1214,7 @@
 		3D93D570270C9E4E00614E29 /* EditorPageViewInput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D93D56E270C9E4E00614E29 /* EditorPageViewInput.swift */; };
 		3D9EE8DA273D432C004FEAA7 /* InlineMarkdown.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D9EE8D9273D432C004FEAA7 /* InlineMarkdown.swift */; };
 		3DA414972B6BDF4400960748 /* ChangeTypeAccessoryView+Views.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DA414962B6BDF4400960748 /* ChangeTypeAccessoryView+Views.swift */; };
+		3DA4149C2B70FF2F00960748 /* EmptyStateView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DA4149B2B70FF2F00960748 /* EmptyStateView.swift */; };
 		3DA46B64273BEB1E007B7464 /* BeginingOfTextMarkdownListenerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DA46B63273BEB1E007B7464 /* BeginingOfTextMarkdownListenerTests.swift */; };
 		3DA46B67273BEB60007B7464 /* BlockActionHandlerMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DA46B66273BEB60007B7464 /* BlockActionHandlerMock.swift */; };
 		3DA46B69273BECBB007B7464 /* BlockMarkupChangerMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DA46B68273BECBB007B7464 /* BlockMarkupChangerMock.swift */; };
@@ -2857,7 +2858,7 @@
 		3D3A18292733E946000D0842 /* MarkdownListener.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MarkdownListener.swift; sourceTree = "<group>"; };
 		3D3A183827340187000D0842 /* NSAttributedString+Convenience.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSAttributedString+Convenience.swift"; sourceTree = "<group>"; };
 		3D3A9C3E265BC9AC000F07DB /* Publisher+Sink.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Publisher+Sink.swift"; sourceTree = "<group>"; };
-		3D3D894C2678D08E008C2B26 /* ViewModifiers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ViewModifiers.swift; path = Anytype/Sources/PresentationLayer/Common/SwiftUI/ViewModifiers.swift; sourceTree = SOURCE_ROOT; };
+		3D3D894C2678D08E008C2B26 /* ViewModifiers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ViewModifiers.swift; path = Anytype/Sources/PresentationLayer/Common/SwiftUI/BasicComponents/ViewModifiers.swift; sourceTree = SOURCE_ROOT; };
 		3D40C00B273FD77A0001E336 /* SetTableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetTableView.swift; sourceTree = "<group>"; };
 		3D4125F926A014E1007A6880 /* TextContent+Font.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "TextContent+Font.swift"; path = "Anytype/Sources/Design system/TextComponents/TextContent+Font.swift"; sourceTree = SOURCE_ROOT; };
 		3D43FDAF26B18BF80094D4C0 /* Array+SafeCall.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "Array+SafeCall.swift"; path = "Anytype/Sources/FrameworkExtensions/Foundation/Array+SafeCall.swift"; sourceTree = SOURCE_ROOT; };
@@ -2921,6 +2922,7 @@
 		3D93D56E270C9E4E00614E29 /* EditorPageViewInput.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditorPageViewInput.swift; sourceTree = "<group>"; };
 		3D9EE8D9273D432C004FEAA7 /* InlineMarkdown.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InlineMarkdown.swift; sourceTree = "<group>"; };
 		3DA414962B6BDF4400960748 /* ChangeTypeAccessoryView+Views.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ChangeTypeAccessoryView+Views.swift"; sourceTree = "<group>"; };
+		3DA4149B2B70FF2F00960748 /* EmptyStateView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmptyStateView.swift; sourceTree = "<group>"; };
 		3DA46B63273BEB1E007B7464 /* BeginingOfTextMarkdownListenerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = BeginingOfTextMarkdownListenerTests.swift; path = AnyTypeTests/Markdown/BeginingOfTextMarkdownListenerTests.swift; sourceTree = SOURCE_ROOT; };
 		3DA46B66273BEB60007B7464 /* BlockActionHandlerMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = BlockActionHandlerMock.swift; path = AnyTypeTests/Markdown/Mocks/BlockActionHandlerMock.swift; sourceTree = SOURCE_ROOT; };
 		3DA46B68273BECBB007B7464 /* BlockMarkupChangerMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = BlockMarkupChangerMock.swift; path = AnyTypeTests/Markdown/Mocks/BlockMarkupChangerMock.swift; sourceTree = SOURCE_ROOT; };
@@ -7897,6 +7899,7 @@
 		3D486C162631726A00A9B625 /* SwiftUI */ = {
 			isa = PBXGroup;
 			children = (
+				3DA414982B70FE9100960748 /* BasicComponents */,
 				2A8302B32B075885002D6655 /* NavigationView */,
 				2ADF008D2ACD5D96000D01F8 /* StatusBarStyle */,
 				2A8395662AF3ECC8004EE41F /* Segment */,
@@ -7919,26 +7922,7 @@
 				03475B702306CFA900F8FCE7 /* Waiting Views */,
 				12887F3B274BC1ED00228330 /* RelationDetailsViews */,
 				1256840B27E1D904003A8251 /* Configurations */,
-				3D829171265E50190007C152 /* RedactedText.swift */,
-				3D932D5C2631807800C7D1EA /* OffsetAwareScrollView.swift */,
-				3D3D894C2678D08E008C2B26 /* ViewModifiers.swift */,
-				3D850B9E26458CC2005805A8 /* DragIndicator.swift */,
-				120F7D45267CD2BA00327734 /* InlineNavigationBar.swift */,
-				C91AFF10270C3E2F005F9386 /* ActivityViewController.swift */,
-				120F7D57267D071400327734 /* PickerSectionHeaderView.swift */,
-				03E2AD5423A93D3800C701CE /* UserIconView.swift */,
-				3D68564126E0E1A000AA36A9 /* Spacer+FixedSize.swift */,
-				3D68564C26E10D2500AA36A9 /* View+Placeholder.swift */,
-				535F79722746AAD40050A1B8 /* FlowLayout.swift */,
-				1240EAF727B14841005B501E /* HorizontalReadabilityPadding.swift */,
-				3D2D4C5A27BA54030070A4C6 /* Divider.swift */,
-				125683EC27DF4DDF003A8251 /* SelectionIndicatorView.swift */,
-				3D30418427ECBBDB00FFE0EB /* AnytypeToggle.swift */,
 				1247BC8327FE0933005F2DB4 /* TransparencyEffect */,
-				3D1CEC4427F5F566000D36BA /* Clock.swift */,
-				C99DCEC3283CCBF30051F99D /* GenericUIKitToSwiftUIView.swift */,
-				2EE10C7328ACFCF100F41D50 /* LightDimmingButtonStyle.swift */,
-				2E48D74228CF461400CEE69D /* TertiaryPressedBackgroundButtonStyle.swift */,
 			);
 			path = SwiftUI;
 			sourceTree = "<group>";
@@ -8259,6 +8243,33 @@
 				C90F8F2328DCBAE100E874A9 /* FileDownloader.swift */,
 			);
 			path = FileLoader;
+			sourceTree = "<group>";
+		};
+		3DA414982B70FE9100960748 /* BasicComponents */ = {
+			isa = PBXGroup;
+			children = (
+				3D68564C26E10D2500AA36A9 /* View+Placeholder.swift */,
+				3D1CEC4427F5F566000D36BA /* Clock.swift */,
+				C99DCEC3283CCBF30051F99D /* GenericUIKitToSwiftUIView.swift */,
+				2EE10C7328ACFCF100F41D50 /* LightDimmingButtonStyle.swift */,
+				2E48D74228CF461400CEE69D /* TertiaryPressedBackgroundButtonStyle.swift */,
+				535F79722746AAD40050A1B8 /* FlowLayout.swift */,
+				1240EAF727B14841005B501E /* HorizontalReadabilityPadding.swift */,
+				3D2D4C5A27BA54030070A4C6 /* Divider.swift */,
+				125683EC27DF4DDF003A8251 /* SelectionIndicatorView.swift */,
+				3D30418427ECBBDB00FFE0EB /* AnytypeToggle.swift */,
+				3D829171265E50190007C152 /* RedactedText.swift */,
+				3D932D5C2631807800C7D1EA /* OffsetAwareScrollView.swift */,
+				3D3D894C2678D08E008C2B26 /* ViewModifiers.swift */,
+				3D850B9E26458CC2005805A8 /* DragIndicator.swift */,
+				120F7D45267CD2BA00327734 /* InlineNavigationBar.swift */,
+				C91AFF10270C3E2F005F9386 /* ActivityViewController.swift */,
+				120F7D57267D071400327734 /* PickerSectionHeaderView.swift */,
+				03E2AD5423A93D3800C701CE /* UserIconView.swift */,
+				3D68564126E0E1A000AA36A9 /* Spacer+FixedSize.swift */,
+				3DA4149B2B70FF2F00960748 /* EmptyStateView.swift */,
+			);
+			path = BasicComponents;
 			sourceTree = "<group>";
 		};
 		3DA46B5F273BEB05007B7464 /* Markdown */ = {
@@ -10992,6 +11003,7 @@
 				C920F7F92903082600360F01 /* BlockTextLinkView.swift in Sources */,
 				2E7C4461289184BA0062287C /* SetFiltersDateRowConfiguration.swift in Sources */,
 				2AF205BE2ABD8E660027F3EA /* HomeBottomNavigationPanelModuleOutput.swift in Sources */,
+				3DA4149C2B70FF2F00960748 /* EmptyStateView.swift in Sources */,
 				3D24912D27BD271900821595 /* EventsListenerProtocol.swift in Sources */,
 				129C54D027FC79F900C390C7 /* RelationFormatsListView.swift in Sources */,
 				1211AF7727F49A9300BACB88 /* DownloadableImageViewWrapper.swift in Sources */,

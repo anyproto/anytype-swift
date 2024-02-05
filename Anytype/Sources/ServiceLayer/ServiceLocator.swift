@@ -135,6 +135,10 @@ final class ServiceLocator {
         return WorkspaceService()
     }
     
+    func typesService() -> TypesServiceProtocol {
+        return TypesService()
+    }
+    
     func pageRepository() -> PageRepositoryProtocol {
         return PageRepository(objectTypeProvider: objectTypeProvider(), pageService: PageService())
     }

@@ -6,17 +6,20 @@ final class ObjectTypeSearchInteractor {
     private let spaceId: String
     private let searchService: SearchServiceProtocol
     private let workspaceService: WorkspaceServiceProtocol
+    private let typesService: TypesServiceProtocol
     private let objectTypeProvider: ObjectTypeProviderProtocol
     
     init(
         spaceId: String,
         searchService: SearchServiceProtocol,
         workspaceService: WorkspaceServiceProtocol,
+        typesService: TypesServiceProtocol,
         objectTypeProvider: ObjectTypeProviderProtocol
     ) {
         self.spaceId = spaceId
         self.searchService = searchService
         self.workspaceService = workspaceService
+        self.typesService = typesService
         self.objectTypeProvider = objectTypeProvider
     }
     
@@ -58,8 +61,13 @@ final class ObjectTypeSearchInteractor {
         return details.map { ObjectType(details: $0) }
     }
     
-    // MARK: - Install type
+    // MARK: - Working with types
     func installType(objectId: String) async throws {
         _ = try await workspaceService.installObject(spaceId: spaceId, objectId: objectId)
+    }
+    
+    func createNewType(name: String) async throws -> ObjectType {
+        let details = try await typesService.createType(name: name, spaceId: spaceId)
+        return ObjectType(details: details)
     }
 }
