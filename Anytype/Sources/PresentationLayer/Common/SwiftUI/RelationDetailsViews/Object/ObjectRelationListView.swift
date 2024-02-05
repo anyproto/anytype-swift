@@ -84,6 +84,9 @@ struct ObjectRelationListView: View {
             Button(Loc.openObject) {
                 viewModel.onObjectOpen(option)
             }
+            Button(Loc.duplicate) {
+                viewModel.onObjectDuplicate(option)
+            }
             Button(Loc.delete, role: .destructive) {
                 viewModel.onOptionDelete(option)
             }
@@ -112,15 +115,15 @@ struct ObjectRelationListView: View {
         viewModel: SelectRelationListViewModel(
             style: .status,
             configuration: RelationModuleConfiguration(
-                title: "Status",
+                title: "Object",
                 isEditable: true,
                 relationKey: "",
                 spaceId: "",
-                selectionMode: .single,
+                selectionMode: .multi,
                 analyticsType: .block
             ),
             relationSelectedOptionsModel: RelationSelectedOptionsModel(
-                selectionMode: .single,
+                selectionMode: .multi,
                 selectedOptionsIds: [],
                 relationKey: "",
                 analyticsType: .block,

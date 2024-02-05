@@ -13,6 +13,7 @@ public protocol ObjectActionsServiceProtocol {
     func move(dashboadId: BlockId, blockId: BlockId, dropPositionblockId: BlockId, position: Anytype_Model_Block.Position) async throws
     func setLocked(_ isLocked: Bool, objectId: BlockId) async throws
     func updateLayout(contextID: BlockId, value: Int) async throws
+    @discardableResult
     func duplicate(objectId: BlockId) async throws -> BlockId
     
     /// NOTE: `CreatePage` action will return block of type `.link(.page)`. (!!!)

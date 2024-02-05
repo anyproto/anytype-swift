@@ -59,6 +59,13 @@ final class ObjectRelationListViewModel: ObservableObject {
         output?.onObjectOpen(screenData: option.editorScreenData)
     }
     
+    func onObjectDuplicate(_ option: Relation.Object.Option) {
+        Task {
+            try await objectActionsService.duplicate(objectId: option.id)
+            try await searchTextChangedAsync(searchText)
+        }
+    }
+    
     func onOptionDelete(with indexSet: IndexSet) {
         indexSet.forEach { deleteIndex in
             guard deleteIndex < options.count else { return }
@@ -82,12 +89,6 @@ final class ObjectRelationListViewModel: ObservableObject {
         Task {
             try await relationSelectedOptionsModel.optionSelected(optionId)
             closeIfNeeded()
-        }
-    }
-    
-    func searchTextChanged(_ text: String = "") {
-        Task {
-            try await searchTextChangedAsync(text)
         }
     }
     
@@ -115,6 +116,12 @@ final class ObjectRelationListViewModel: ObservableObject {
         return items
     }
     
+    func searchTextChanged(_ text: String = "") {
+        Task {
+            try await searchTextChangedAsync(text)
+        }
+    }
+    
     private func searchTextChangedAsync(_ text: String = "") async throws {
         let rawOptions = try await searchService.searchObjectsByTypes(
             text: text,
@@ -132,14 +139,6 @@ final class ObjectRelationListViewModel: ObservableObject {
         }
         
         setEmptyIfNeeded()
-    }
-    
-    private func updateListOnCreate(with optionId: String) {
-        Task {
-            searchText = ""
-            try await relationSelectedOptionsModel.optionSelected(optionId)
-            try await searchTextChangedAsync()
-        }
     }
     
     private func removeRelationOption(_ option: Relation.Object.Option) {
