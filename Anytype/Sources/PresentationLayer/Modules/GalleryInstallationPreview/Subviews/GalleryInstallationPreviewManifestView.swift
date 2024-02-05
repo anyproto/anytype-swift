@@ -57,7 +57,7 @@ struct GalleryInstallationPreviewManifestView: View {
                         AnytypeText(category, style: .caption1Medium, color: .Text.secondary)
                             .padding(.horizontal, 6)
                             .padding(.vertical, 1)
-                            .background(Color.Stroke.secondary)
+                            .background(Color.Shape.secondary)
                             .cornerRadius(4, style: .continuous)
                     }
                     Spacer.fixedHeight(16)
