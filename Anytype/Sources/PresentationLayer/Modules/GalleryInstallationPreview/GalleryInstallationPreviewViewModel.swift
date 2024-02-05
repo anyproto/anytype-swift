@@ -16,7 +16,7 @@ final class GalleryInstallationPreviewViewModel: ObservableObject {
     private weak var output: GalleryInstallationPreviewModuleOutput?
     
     private var manifest: GalleryManifest?
-    @Published var state: State = .loading
+    @Published var state: State
     
     init(
         data: GalleryInstallationData,
@@ -26,6 +26,7 @@ final class GalleryInstallationPreviewViewModel: ObservableObject {
         self.data = data
         self.galleryService = galleryService
         self.output = output
+        self.state = .loading(manifest: .placeholder)
         Task {
             await loadData()
         }

@@ -70,6 +70,5 @@ struct GalleryInstallationPreviewManifestView: View {
             }
             .padding(.horizontal, 20)
         }
-        .presentationCornerRadiusLegacy(16)
     }
 }
