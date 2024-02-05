@@ -1,7 +1,7 @@
 import Foundation
 import SwiftUI
 import Services
-
+import AnytypeCore
 @MainActor
 final class GalleryInstallationCoordinatorViewModel: ObservableObject,
                                                      GalleryInstallationPreviewModuleOutput, GallerySpaceSelectionModuleOutput {
@@ -53,6 +53,21 @@ final class GalleryInstallationCoordinatorViewModel: ObservableObject,
     // MARK: - GallerySpaceSelectionModuleOutput
     
     func onSelectSpace(result: GallerySpaceSelectionResult) {
-        
+        guard let manifest else {
+            anytypeAssertionFailure("Manifest is empty")
+            return
+        }
+        Task {
+            switch result {
+            case .space(let spaceId):
+                dismiss.toggle()
+                try await galleryService.importExperience(spaceId: spaceId, isNewSpace: true, title: manifest.title, url: manifest.downloadLink)
+            case .newSpace:
+                let spaceId = try await workspaceService.createSpace(name: manifest.title, gradient: .random, accessibility: .personal, useCase: .none)
+                dismiss.toggle()
+                try await galleryService.importExperience(spaceId: spaceId, isNewSpace: true, title: manifest.title, url: manifest.downloadLink)
+
+            }
+        }
     }
 }

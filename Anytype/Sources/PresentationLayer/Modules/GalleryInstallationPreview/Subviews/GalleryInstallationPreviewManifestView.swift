@@ -19,24 +19,20 @@ struct GalleryInstallationPreviewManifestView: View {
                                 content: { image in
                                     image.resizable()
                                         .aspectRatio(contentMode: .fit)
-//                                        .frame(maxHeight: 300)
                                         .cornerRadius(16, style: .continuous)
                                         .shadow(radius: 40, y: 4)
                                 },
                                 placeholder: {
                                     Image(asset: .X32.plus) // Any image for make placeholder
                                         .resizable()
-//                                        .frame(maxHeight: 300)
                                         .redacted(reason: .placeholder)
                                         .cornerRadius(16, style: .continuous)
                                         .shadow(radius: 40, y: 4)
                                 }
                             )
-//                                .background(Color.red)
                             .padding(.horizontal, 20)
                             .padding(.top, 20)
                             .padding(.bottom, 40)
-                            //                            .cornerRadius(16, style: .continuous)
                         }
                     }
                     .tabViewStyle(.page(indexDisplayMode: .always))
@@ -47,7 +43,6 @@ struct GalleryInstallationPreviewManifestView: View {
                         .frame(height: 50)
                 }
                 .frame(height: 360)
-//                    .background(Color.green)
                 Group {
                     AnytypeText(manifest.title, style: .title, color: .Text.primary)
                     Spacer.fixedHeight(8)
@@ -57,7 +52,7 @@ struct GalleryInstallationPreviewManifestView: View {
                         AnytypeText(category, style: .caption1Medium, color: .Text.secondary)
                             .padding(.horizontal, 6)
                             .padding(.vertical, 1)
-                            .background(Color.Stroke.secondary)
+                            .background(Color.Shape.secondary)
                             .cornerRadius(4, style: .continuous)
                     }
                     Spacer.fixedHeight(16)
@@ -70,7 +65,7 @@ struct GalleryInstallationPreviewManifestView: View {
             }
         }
         .safeAreaInset(edge: .bottom) {
-            StandardButton("Install", style: .primaryMedium) {
+            StandardButton(Loc.Gallery.install, style: .primaryMedium) {
                 onTapInstall()
             }
             .padding(.horizontal, 20)

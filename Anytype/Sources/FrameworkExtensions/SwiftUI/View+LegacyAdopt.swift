@@ -37,9 +37,9 @@ extension View {
         }
     }
 
-    func presentationDetentsMediumAndLargeLegacy() -> some View {
+    func presentationDetentsHeightAndLargeLegacy(height: CGFloat) -> some View {
         if #available(iOS 16.0, *) {
-            return self.presentationDetents([.medium, .large])
+            return self.presentationDetents([.height(height), .large])
         } else {
             return self
         }

@@ -14,4 +14,12 @@ final class GallerySpaceSelectionViewModel: ObservableObject {
         self.output = output
         self.spaces = workspaceStorage.workspaces
     }
+    
+    func onTapSpace(spaceView: SpaceView) {
+        output?.onSelectSpace(result: .space(spaceId: spaceView.targetSpaceId))
+    }
+    
+    func onTapNewSpace() {
+        output?.onSelectSpace(result: .newSpace)
+    }
 }

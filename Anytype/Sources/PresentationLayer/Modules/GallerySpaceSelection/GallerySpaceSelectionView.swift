@@ -17,28 +17,45 @@ struct GallerySpaceSelectionView: View {
             }
         }
         .presentationCornerRadiusLegacy(16)
-        .presentationDetentsMediumAndLargeLegacy()
+        .presentationDetentsHeightAndLargeLegacy(height: 250)
         .presentationDragIndicatorHiddenLegacy()
     }
     
     private var plus: some View {
-        HStack(spacing: 12) {
-//            IconView(icon: space.objectIconImage)
-//                .frame(width: 48, height: 48)
-//            AnytypeText(space.name, style: .uxTitle2Regular, color: .Text.primary)
-//            Spacer()
+        Button {
+            model.onTapNewSpace()
+        } label: {
+            HStack(spacing: 12) {
+                ZStack {
+                    Color.Shape.secondary
+                        .opacity(0.04)
+                        .cornerRadius(8)
+                        .border(1, color: Color.Shape.secondary)
+                    IconView(icon: .asset(.X24.plus))
+                        .frame(width: 24, height: 24)
+                }
+                .frame(width: 48, height: 48)
+                AnytypeText(Loc.Gallery.installToNew, style: .uxTitle2Regular, color: .Text.primary)
+                    .lineLimit(1)
+                Spacer()
+            }
         }
     }
     
     private var spaces: some View {
         ForEach(model.spaces) { space in
-            HStack(spacing: 12) {
-                IconView(icon: space.objectIconImage)
-                    .frame(width: 48, height: 48)
-                AnytypeText(space.name, style: .uxTitle2Regular, color: .Text.primary)
-                Spacer()
+            Button {
+                model.onTapSpace(spaceView: space)
+            } label: {
+                HStack(spacing: 12) {
+                    IconView(icon: space.objectIconImage)
+                        .frame(width: 48, height: 48)
+                    AnytypeText(space.name, style: .uxTitle2Regular, color: .Text.primary)
+                        .lineLimit(1)
+                    Spacer()
+                }
+                .frame(height: 64)
             }
-            .frame(height: 64)
         }
     }
 }
