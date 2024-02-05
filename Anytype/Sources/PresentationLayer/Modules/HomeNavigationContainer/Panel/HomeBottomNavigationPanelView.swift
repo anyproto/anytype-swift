@@ -59,11 +59,9 @@ struct HomeBottomNavigationPanelView: View {
         }
         .padding(.horizontal, 20)
         .padding(.vertical, 10)
+        .background(progressView)
         .background(Color.Navigation.background)
         .background(.ultraThinMaterial)
-        .overlay(alignment: .bottom) {
-            progressView
-        }
         .cornerRadius(16, style: .continuous)
         .overlay {
             if #available(iOS 17.0, *) {

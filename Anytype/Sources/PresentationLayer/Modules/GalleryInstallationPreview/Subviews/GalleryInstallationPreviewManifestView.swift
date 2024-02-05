@@ -11,38 +11,30 @@ struct GalleryInstallationPreviewManifestView: View {
     var body: some View {
         ScrollView {
             VStack(alignment: .leading, spacing: 0) {
-                ZStack(alignment: .bottom) {
-                    TabView {
-                        ForEach(manifest.screenshots, id: \.self) { url in
-                            AsyncImage(
-                                url: url,
-                                content: { image in
-                                    image.resizable()
-                                        .aspectRatio(contentMode: .fit)
-                                        .cornerRadius(16, style: .continuous)
-                                        .shadow(radius: 40, y: 4)
-                                },
-                                placeholder: {
-                                    Image(asset: .X32.plus) // Any image for make placeholder
-                                        .resizable()
-                                        .redacted(reason: .placeholder)
-                                        .cornerRadius(16, style: .continuous)
-                                        .shadow(radius: 40, y: 4)
-                                }
-                            )
-                            .padding(.horizontal, 20)
-                            .padding(.top, 20)
-                            .padding(.bottom, 40)
-                        }
+                Spacer.fixedHeight(24)
+                TabView {
+                    ForEach(manifest.screenshots, id: \.self) { url in
+                        AsyncImage(
+                            url: url,
+                            content: { image in
+                                image.resizable()
+                                    .aspectRatio(contentMode: .fit)
+                                    .cornerRadius(12, style: .continuous)
+                            },
+                            placeholder: {
+                                Image(asset: .X32.plus) // Any image for make placeholder
+                                    .resizable()
+                                    .redacted(reason: .placeholder)
+                                    .cornerRadius(12, style: .continuous)
+                            }
+                        )
+                        .padding(.horizontal, 20)
                     }
-                    .tabViewStyle(.page(indexDisplayMode: .always))
-                    .indexViewStyle(.page(backgroundDisplayMode: .always))
-                    
-                    LinearGradient(colors: [.white, .clear], startPoint: .bottom, endPoint: .top)
-                        .allowsHitTesting(false)
-                        .frame(height: 50)
                 }
-                .frame(height: 360)
+                .tabViewStyle(.page(indexDisplayMode: .always))
+                .indexViewStyle(.page(backgroundDisplayMode: .always))
+                .frame(height: 324)
+                .shadow(radius: 40, y: 4)
                 Group {
                     AnytypeText(manifest.title, style: .title, color: .Text.primary)
                     Spacer.fixedHeight(8)
