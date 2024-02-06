@@ -6,7 +6,7 @@ protocol CoordinatorsDIProtocol: AnyObject {
     func linkToObject() -> LinkToObjectCoordinatorAssemblyProtocol
     func objectSettings() -> ObjectSettingsCoordinatorAssemblyProtocol
     func addNewRelation() -> AddNewRelationCoordinatorAssemblyProtocol
-    func homeWidgets() -> HomeWidgetsCoordinatorAssemblyProtocol
+    func home() -> HomeCoordinatorAssemblyProtocol
     func createWidget() -> CreateWidgetCoordinatorAssemblyProtocol
     func application() -> ApplicationCoordinatorAssemblyProtocol
     func settings() -> SettingsCoordinatorAssemblyProtocol

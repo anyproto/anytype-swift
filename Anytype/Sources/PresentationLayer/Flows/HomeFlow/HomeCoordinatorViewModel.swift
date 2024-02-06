@@ -5,7 +5,7 @@ import Services
 import AnytypeCore
 
 @MainActor
-final class HomeWidgetsCoordinatorViewModel: ObservableObject,
+final class HomeCoordinatorViewModel: ObservableObject,
                                              HomeWidgetsModuleOutput, CommonWidgetModuleOutput,
                                              HomeBottomPanelModuleOutput, HomeBottomNavigationPanelModuleOutput,
                                              SetObjectCreationCoordinatorOutput {
@@ -52,7 +52,7 @@ final class HomeWidgetsCoordinatorViewModel: ObservableObject,
     @Published var editorPath = HomePath() {
         didSet { UserDefaultsConfig.lastOpenedPage = editorPath.lastPathElement as? EditorScreenData }
     }
-    @Published var showCreateObjectWithType: Bool = false
+    @Published var showTypeSearch: Bool = false
     @Published var toastBarData = ToastBarData.empty
     @Published var pathChanging: Bool = false
     @Published var keyboardToggle: Bool = false
@@ -185,7 +185,7 @@ final class HomeWidgetsCoordinatorViewModel: ObservableObject,
         return editorCoordinatorAssembly.make(data: data)
     }
 
-    func createObjectWithTypeModule() -> AnyView {
+    func createTypeSearchModule() -> AnyView {
         AnytypeAnalytics.instance().logOnboardingTooltip(tooltip: .selectType)
         return objectTypeSearchModuleAssembly.make(
             title: Loc.createNewObject,
@@ -193,7 +193,7 @@ final class HomeWidgetsCoordinatorViewModel: ObservableObject,
             showLists: true,
             highlightDefaultType: true
         ) { [weak self] type in
-            self?.showCreateObjectWithType = false
+            self?.showTypeSearch = false
             self?.createAndShowNewPage(type: type)
         }
     }
@@ -303,7 +303,7 @@ final class HomeWidgetsCoordinatorViewModel: ObservableObject,
     
     func onCreateObjectWithTypeSelected() {
         UISelectionFeedbackGenerator().selectionChanged()
-        showCreateObjectWithType.toggle()
+        showTypeSearch.toggle()
     }
 
     // MARK: - SetObjectCreationCoordinatorOutput

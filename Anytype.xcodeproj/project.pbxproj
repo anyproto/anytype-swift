@@ -577,7 +577,7 @@
 		2A9486542950A3E7007A5586 /* HomeWidgetsModuleAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A9486532950A3E7007A5586 /* HomeWidgetsModuleAssembly.swift */; };
 		2A9486562950A41B007A5586 /* HomeWidgetsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A9486552950A41B007A5586 /* HomeWidgetsView.swift */; };
 		2A9486582950A494007A5586 /* HomeWidgetsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A9486572950A494007A5586 /* HomeWidgetsViewModel.swift */; };
-		2A94865D2950A59D007A5586 /* HomeWidgetsCoordinatorAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A94865C2950A59D007A5586 /* HomeWidgetsCoordinatorAssembly.swift */; };
+		2A94865D2950A59D007A5586 /* HomeCoordinatorAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A94865C2950A59D007A5586 /* HomeCoordinatorAssembly.swift */; };
 		2A9486612950B193007A5586 /* HomeWidgetsModuleOutput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A9486602950B193007A5586 /* HomeWidgetsModuleOutput.swift */; };
 		2A94B5D329B88E95009AE2A7 /* Sentry in Frameworks */ = {isa = PBXBuildFile; productRef = 2A94B5D229B88E95009AE2A7 /* Sentry */; };
 		2A95A26C29DD94F4009637C9 /* IconGradientStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A95A26B29DD94F4009637C9 /* IconGradientStorage.swift */; };
@@ -817,8 +817,8 @@
 		2AFD7E182B626C2D003B16EB /* KeyboardDismiss.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AFD7E172B626C2D003B16EB /* KeyboardDismiss.swift */; };
 		2AFD7E1A2B63D536003B16EB /* Weak.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AFD7E192B63D536003B16EB /* Weak.swift */; };
 		2AFEED0D2A72713500D7A45B /* Icon.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AFEED0C2A72713500D7A45B /* Icon.swift */; };
-		2AFEED162A73AE8C00D7A45B /* HomeWidgetsCoordinatorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AFEED152A73AE8C00D7A45B /* HomeWidgetsCoordinatorView.swift */; };
-		2AFEED182A73AEDB00D7A45B /* HomeWidgetsCoordinatorViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AFEED172A73AEDB00D7A45B /* HomeWidgetsCoordinatorViewModel.swift */; };
+		2AFEED162A73AE8C00D7A45B /* HomeCoordinatorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AFEED152A73AE8C00D7A45B /* HomeCoordinatorView.swift */; };
+		2AFEED182A73AEDB00D7A45B /* HomeCoordinatorViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AFEED172A73AEDB00D7A45B /* HomeCoordinatorViewModel.swift */; };
 		2AFEED1B2A73B84100D7A45B /* WidgetChangeSourceSearchModuleModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AFEED1A2A73B84100D7A45B /* WidgetChangeSourceSearchModuleModel.swift */; };
 		2AFF7AC2299CDA4B00B7746B /* WidgetObjectListBinViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AFF7AC1299CDA4B00B7746B /* WidgetObjectListBinViewModel.swift */; };
 		2AFF7AC4299CDA6900B7746B /* BinSubscriptionService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AFF7AC3299CDA6900B7746B /* BinSubscriptionService.swift */; };
@@ -2277,7 +2277,7 @@
 		2A9486532950A3E7007A5586 /* HomeWidgetsModuleAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeWidgetsModuleAssembly.swift; sourceTree = "<group>"; };
 		2A9486552950A41B007A5586 /* HomeWidgetsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeWidgetsView.swift; sourceTree = "<group>"; };
 		2A9486572950A494007A5586 /* HomeWidgetsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeWidgetsViewModel.swift; sourceTree = "<group>"; };
-		2A94865C2950A59D007A5586 /* HomeWidgetsCoordinatorAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeWidgetsCoordinatorAssembly.swift; sourceTree = "<group>"; };
+		2A94865C2950A59D007A5586 /* HomeCoordinatorAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeCoordinatorAssembly.swift; sourceTree = "<group>"; };
 		2A9486602950B193007A5586 /* HomeWidgetsModuleOutput.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeWidgetsModuleOutput.swift; sourceTree = "<group>"; };
 		2A95A26B29DD94F4009637C9 /* IconGradientStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IconGradientStorage.swift; sourceTree = "<group>"; };
 		2A96148A2A6981DF00E50D0A /* IconView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IconView.swift; sourceTree = "<group>"; };
@@ -2526,8 +2526,8 @@
 		2AFD7E172B626C2D003B16EB /* KeyboardDismiss.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyboardDismiss.swift; sourceTree = "<group>"; };
 		2AFD7E192B63D536003B16EB /* Weak.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Weak.swift; sourceTree = "<group>"; };
 		2AFEED0C2A72713500D7A45B /* Icon.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Icon.swift; sourceTree = "<group>"; };
-		2AFEED152A73AE8C00D7A45B /* HomeWidgetsCoordinatorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeWidgetsCoordinatorView.swift; sourceTree = "<group>"; };
-		2AFEED172A73AEDB00D7A45B /* HomeWidgetsCoordinatorViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeWidgetsCoordinatorViewModel.swift; sourceTree = "<group>"; };
+		2AFEED152A73AE8C00D7A45B /* HomeCoordinatorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeCoordinatorView.swift; sourceTree = "<group>"; };
+		2AFEED172A73AEDB00D7A45B /* HomeCoordinatorViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeCoordinatorViewModel.swift; sourceTree = "<group>"; };
 		2AFEED1A2A73B84100D7A45B /* WidgetChangeSourceSearchModuleModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WidgetChangeSourceSearchModuleModel.swift; sourceTree = "<group>"; };
 		2AFF7AC1299CDA4B00B7746B /* WidgetObjectListBinViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WidgetObjectListBinViewModel.swift; sourceTree = "<group>"; };
 		2AFF7AC3299CDA6900B7746B /* BinSubscriptionService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BinSubscriptionService.swift; sourceTree = "<group>"; };
@@ -5772,7 +5772,7 @@
 				2A8A2DCF2AB99AFC00105549 /* ShareCoordinator */,
 				2A5B53B62A80DC9000BC993B /* SpaceSettings */,
 				2AF4C3E1295DE1AB00FD7153 /* CreateWidgetFlow */,
-				2A9486592950A57B007A5586 /* HomeWidgetsFlow */,
+				2A9486592950A57B007A5586 /* HomeFlow */,
 				2AEE49EC292E27E300EA53AA /* ObjectSettingsFlow */,
 			);
 			path = Flows;
@@ -5921,17 +5921,17 @@
 			path = HomeWidgets;
 			sourceTree = "<group>";
 		};
-		2A9486592950A57B007A5586 /* HomeWidgetsFlow */ = {
+		2A9486592950A57B007A5586 /* HomeFlow */ = {
 			isa = PBXGroup;
 			children = (
 				2A7B124C2B19CC4700E14578 /* Views */,
-				2A94865C2950A59D007A5586 /* HomeWidgetsCoordinatorAssembly.swift */,
-				2AFEED152A73AE8C00D7A45B /* HomeWidgetsCoordinatorView.swift */,
-				2AFEED172A73AEDB00D7A45B /* HomeWidgetsCoordinatorViewModel.swift */,
+				2A94865C2950A59D007A5586 /* HomeCoordinatorAssembly.swift */,
+				2AFEED152A73AE8C00D7A45B /* HomeCoordinatorView.swift */,
+				2AFEED172A73AEDB00D7A45B /* HomeCoordinatorViewModel.swift */,
 				2AD1FCC02AB8466C00CEBE1E /* SetBottomPanelHidenEnvironment.swift */,
 				2A29873B2ACC087B009E8787 /* PageNavigation.swift */,
 			);
-			path = HomeWidgetsFlow;
+			path = HomeFlow;
 			sourceTree = "<group>";
 		};
 		2A9614832A69757000E50D0A /* Painters */ = {
@@ -10650,7 +10650,7 @@
 				3D93D561270B3FC500614E29 /* UINavigationController+Extension.swift in Sources */,
 				2A6F5046288A8F0B00ED6E2E /* ImageAssets.swift in Sources */,
 				2ADD66732A6ECA0100266F57 /* CoreGraphics+Hash.swift in Sources */,
-				2AFEED162A73AE8C00D7A45B /* HomeWidgetsCoordinatorView.swift in Sources */,
+				2AFEED162A73AE8C00D7A45B /* HomeCoordinatorView.swift in Sources */,
 				531629392632BD0B000D6780 /* StyleCellConfiguration.swift in Sources */,
 				2A39F3CD29ED9A7E005DE8F5 /* LayoutAlignment+Analytics.swift in Sources */,
 				3DE6926827302D5800A4CD4E /* AccessoryViewStateManager.swift in Sources */,
@@ -10713,7 +10713,7 @@
 				2A6693812A71057D007747DD /* ObjectIconImageModel.swift in Sources */,
 				2AA2291E29C47F4F0047B245 /* HomeTopShadow.swift in Sources */,
 				123949EE279FD7320080E1CF /* FullScreenHeightPopupLayout.swift in Sources */,
-				2A94865D2950A59D007A5586 /* HomeWidgetsCoordinatorAssembly.swift in Sources */,
+				2A94865D2950A59D007A5586 /* HomeCoordinatorAssembly.swift in Sources */,
 				034A30412405CDBE002599E2 /* CombineExtension.swift in Sources */,
 				12DE4063264AE4C8007B5074 /* UIViewExtensions.swift in Sources */,
 				C905B29A2828CA2F00F1106B /* ToastPresenter.swift in Sources */,
@@ -11155,7 +11155,7 @@
 				2E9B40602A1F807A00A7D74E /* LocalAuthService.swift in Sources */,
 				12FD9D212767174E00991886 /* RelationCheckbox.swift in Sources */,
 				0A74E4F823A90E5100B6C406 /* Gradients.swift in Sources */,
-				2AFEED182A73AEDB00D7A45B /* HomeWidgetsCoordinatorViewModel.swift in Sources */,
+				2AFEED182A73AEDB00D7A45B /* HomeCoordinatorViewModel.swift in Sources */,
 				12EB9B342774437300BA732F /* RelationFilesRowView.swift in Sources */,
 				C9A4268728489CAD00F388FC /* SimpleTableBlockViewModel.swift in Sources */,
 				2AC906C729B601C200209E39 /* FavoriteWidgetInternalViewModel.swift in Sources */,
