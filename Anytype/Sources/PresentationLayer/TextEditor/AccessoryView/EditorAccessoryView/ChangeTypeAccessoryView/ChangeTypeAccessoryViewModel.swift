@@ -73,8 +73,7 @@ final class ChangeTypeAccessoryViewModel {
             .searchObjectTypes(
                 text: "",
                 filteringTypeId: nil,
-                shouldIncludeSets: true,
-                shouldIncludeCollections: true,
+                shouldIncludeLists: true,
                 shouldIncludeBookmark: true,
                 spaceId: document.spaceId
             ).map { type in

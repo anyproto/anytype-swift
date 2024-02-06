@@ -29,8 +29,7 @@ public final class TypesService: TypesServiceProtocol {
     public func searchObjectTypes(
         text: String,
         filteringTypeId: String? = nil,
-        shouldIncludeSets: Bool,
-        shouldIncludeCollections: Bool,
+        shouldIncludeLists: Bool,
         shouldIncludeBookmark: Bool,
         spaceId: String
     ) async throws -> [ObjectDetails] {
@@ -41,11 +40,8 @@ public final class TypesService: TypesServiceProtocol {
                 
         var layouts = DetailsLayout.visibleLayouts
         
-        if !shouldIncludeSets {
+        if !shouldIncludeLists {
             layouts.removeAll(where: { $0 == .set })
-        }
-        
-        if !shouldIncludeCollections {
             layouts.removeAll(where: { $0 == .collection })
         }
         

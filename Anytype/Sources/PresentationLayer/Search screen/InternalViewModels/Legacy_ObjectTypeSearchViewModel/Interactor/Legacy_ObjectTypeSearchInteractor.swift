@@ -38,8 +38,7 @@ extension Legacy_ObjectTypeSearchInteractor {
         try await typesService.searchObjectTypes(
             text: text,
             filteringTypeId: excludedObjectTypeId,
-            shouldIncludeSets: showSetAndCollection,
-            shouldIncludeCollections: showSetAndCollection,
+            shouldIncludeLists: showSetAndCollection,
             shouldIncludeBookmark: showBookmark,
             spaceId: spaceId
         )

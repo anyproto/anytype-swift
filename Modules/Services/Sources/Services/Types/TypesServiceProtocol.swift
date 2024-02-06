@@ -4,12 +4,13 @@ public protocol TypesServiceProtocol {
     func searchObjectTypes(
         text: String,
         filteringTypeId: String?,
-        shouldIncludeSets: Bool,
-        shouldIncludeCollections: Bool,
+        shouldIncludeLists: Bool,
         shouldIncludeBookmark: Bool,
         spaceId: String
     ) async throws -> [ObjectDetails]
+    
     func searchListTypes(text: String, spaceId: String) async throws -> [ObjectDetails]
+    
     func searchLibraryObjectTypes(
         text: String,
         excludedIds: [String]

@@ -25,8 +25,7 @@ final class ObjectTypeSearchInteractor {
         guard let details = try? await typesService.searchObjectTypes(
             text: text,
             filteringTypeId: nil,
-            shouldIncludeSets: false,
-            shouldIncludeCollections: false,
+            shouldIncludeLists: false,
             shouldIncludeBookmark: true,
             spaceId: spaceId
         ) else {
