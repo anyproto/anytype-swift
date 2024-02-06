@@ -3,9 +3,9 @@ import SwiftUI
 import Services
 import AnytypeCore
 
-struct HomeWidgetsCoordinatorView: View {
+struct HomeCoordinatorView: View {
     
-    @StateObject var model: HomeWidgetsCoordinatorViewModel
+    @StateObject var model: HomeCoordinatorViewModel
     @Environment(\.keyboardDismiss) var keyboardDismiss
     
     var body: some View {

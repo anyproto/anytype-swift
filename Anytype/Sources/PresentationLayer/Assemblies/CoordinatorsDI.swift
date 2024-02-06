@@ -45,8 +45,8 @@ final class CoordinatorsDI: CoordinatorsDIProtocol {
     }
     
     @MainActor
-    func homeWidgets() -> HomeWidgetsCoordinatorAssemblyProtocol {
-        return HomeWidgetsCoordinatorAssembly(
+    func home() -> HomeCoordinatorAssemblyProtocol {
+        return HomeCoordinatorAssembly(
             coordinatorsID: self,
             modulesDI: modulesDI,
             serviceLocator: serviceLocator,

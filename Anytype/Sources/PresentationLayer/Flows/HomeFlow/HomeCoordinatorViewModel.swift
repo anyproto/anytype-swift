@@ -5,7 +5,7 @@ import Services
 import AnytypeCore
 
 @MainActor
-final class HomeWidgetsCoordinatorViewModel: ObservableObject,
+final class HomeCoordinatorViewModel: ObservableObject,
                                              HomeWidgetsModuleOutput, CommonWidgetModuleOutput,
                                              HomeBottomPanelModuleOutput, HomeBottomNavigationPanelModuleOutput,
                                              SetObjectCreationCoordinatorOutput {
