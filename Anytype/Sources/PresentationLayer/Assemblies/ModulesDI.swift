@@ -245,10 +245,6 @@ final class ModulesDI: ModulesDIProtocol {
     func setRelationsView() -> SetRelationsViewModuleAssemblyProtocol {
         SetRelationsViewModuleAssembly(serviceLocator: serviceLocator)
     }
-
-    func shareAssembly() -> ShareModuleAssemblyProtocol {
-        return ShareModuleAssembly(serviceLocator: serviceLocator)
-    }
     
     func setViewPicker() -> SetViewPickerModuleAssemblyProtocol {
         SetViewPickerModuleAssembly(serviceLocator: serviceLocator)
@@ -276,6 +272,10 @@ final class ModulesDI: ModulesDIProtocol {
     
     func sharingTip() -> SharingTipModuleAssemblyProtocol {
         SharingTipModuleAssembly()
+    }
+    
+    func shareOptions() -> ShareOptionsModuleAssemblyProtocol {
+        ShareOptionsModuleAssembly(serviceLocator: serviceLocator)
     }
     
     func galleryInstallationPreview() -> GalleryInstallationPreviewModuleAssemblyProtocol {

@@ -111,7 +111,7 @@ extension BundledRelationsValueProvider {
     
     var objectType: ObjectType {
         let parsedType = try? ObjectTypeProvider.shared.objectType(id: type)
-        return parsedType ?? ObjectTypeProvider.shared.deleteObjectType(id: type)
+        return parsedType ?? ObjectTypeProvider.shared.deletedObjectType(id: type)
     }
     
     var editorViewType: EditorViewType {

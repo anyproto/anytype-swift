@@ -55,6 +55,7 @@ final class HomeWidgetsCoordinatorViewModel: ObservableObject,
     @Published var showCreateObjectWithType: Bool = false
     @Published var toastBarData = ToastBarData.empty
     @Published var pathChanging: Bool = false
+    @Published var keyboardToggle: Bool = false
     
     private var currentSpaceId: String?
     
@@ -338,6 +339,7 @@ final class HomeWidgetsCoordinatorViewModel: ObservableObject,
     }
     
     private func handleAppAction(action: AppAction) {
+        keyboardToggle.toggle()
         switch action {
         case .createObject:
             createAndShowNewPage()

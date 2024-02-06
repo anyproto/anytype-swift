@@ -6,6 +6,7 @@ import AnytypeCore
 struct HomeWidgetsCoordinatorView: View {
     
     @StateObject var model: HomeWidgetsCoordinatorViewModel
+    @Environment(\.keyboardDismiss) var keyboardDismiss
     
     var body: some View {
         HomeBottomPanelContainer(
@@ -28,6 +29,9 @@ struct HomeWidgetsCoordinatorView: View {
             model.onAppear()
         }
         .environment(\.pageNavigation, model.pageNavigation)
+        .onChange(of: model.keyboardToggle) { _ in
+            keyboardDismiss()
+        }
         .snackbar(toastBarData: $model.toastBarData)
         .sheet(item: $model.showChangeSourceData) { data in
             model.changeSourceModule(data: data)

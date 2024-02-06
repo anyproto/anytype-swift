@@ -94,7 +94,7 @@ final class ObjectTypeProvider: ObjectTypeProviderProtocol {
         return objectTypes.filter { $0.spaceId == spaceId }
     }
     
-    func deleteObjectType(id: String) -> ObjectType {
+    func deletedObjectType(id: String) -> ObjectType {
         return ObjectType(
             id: id,
             name: Loc.ObjectType.deletedName,
