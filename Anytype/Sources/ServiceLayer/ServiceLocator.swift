@@ -79,7 +79,11 @@ final class ServiceLocator {
     }
     
     func searchService() -> SearchServiceProtocol {
-        SearchService(accountManager: accountManager(), searchMiddleService: SearchMiddleService())
+        SearchService(accountManager: accountManager(), searchMiddleService: searchMiddleService())
+    }
+    
+    func searchMiddleService() -> SearchMiddleServiceProtocol {
+        SearchMiddleService()
     }
     
     func detailsService(objectId: BlockId) -> DetailsServiceProtocol {
@@ -136,7 +140,7 @@ final class ServiceLocator {
     }
     
     func typesService() -> TypesServiceProtocol {
-        return TypesService()
+        return TypesService(searchMiddleService: searchMiddleService())
     }
     
     func pageRepository() -> PageRepositoryProtocol {

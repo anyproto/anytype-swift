@@ -4,20 +4,17 @@ import AnytypeCore
 
 final class ObjectTypeSearchInteractor {
     private let spaceId: String
-    private let searchService: SearchServiceProtocol
     private let workspaceService: WorkspaceServiceProtocol
     private let typesService: TypesServiceProtocol
     private let objectTypeProvider: ObjectTypeProviderProtocol
     
     init(
         spaceId: String,
-        searchService: SearchServiceProtocol,
         workspaceService: WorkspaceServiceProtocol,
         typesService: TypesServiceProtocol,
         objectTypeProvider: ObjectTypeProviderProtocol
     ) {
         self.spaceId = spaceId
-        self.searchService = searchService
         self.workspaceService = workspaceService
         self.typesService = typesService
         self.objectTypeProvider = objectTypeProvider
@@ -25,18 +22,17 @@ final class ObjectTypeSearchInteractor {
     
     // MARK: - Search
     func searchObjectTypes(text: String) async throws -> [ObjectType] {
-        return try await searchService.searchObjectTypes(
+        return try await typesService.searchObjectTypes(
             text: text,
             filteringTypeId: nil,
-            shouldIncludeSets: false,
-            shouldIncludeCollections: false,
+            shouldIncludeLists: false,
             shouldIncludeBookmark: true,
             spaceId: spaceId
         ).map { ObjectType(details: $0) }
     }
     
     func searchListTypes(text: String) async throws -> [ObjectType] {
-        return try await searchService.searchListTypes(
+        return try await typesService.searchListTypes(
             text: text, spaceId: spaceId
         ).map { ObjectType(details: $0) }
     }
@@ -44,7 +40,7 @@ final class ObjectTypeSearchInteractor {
     func searchLibraryTypes(text: String) async throws -> [ObjectType] {
         let installedObjectIds = objectTypeProvider.objectTypes(spaceId: spaceId).map(\.sourceObject)
         
-        return try await searchService.searchLibraryObjectTypes(
+        return try await typesService.searchLibraryObjectTypes(
             text: text, excludedIds: installedObjectIds
         ).map { ObjectType(details: $0) }
     }

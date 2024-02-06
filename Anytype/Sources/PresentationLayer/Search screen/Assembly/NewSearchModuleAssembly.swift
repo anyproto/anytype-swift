@@ -146,7 +146,7 @@ final class NewSearchModuleAssembly: NewSearchModuleAssemblyProtocol {
     ) -> NewSearchView {
         let interactor = Legacy_ObjectTypeSearchInteractor(
             spaceId: spaceId,
-            searchService: serviceLocator.searchService(),
+            typesService: serviceLocator.typesService(),
             workspaceService: serviceLocator.workspaceService(),
             objectTypeProvider: serviceLocator.objectTypeProvider(),
             excludedObjectTypeId: excludedObjectTypeId,
@@ -178,7 +178,7 @@ final class NewSearchModuleAssembly: NewSearchModuleAssemblyProtocol {
     ) -> NewSearchView {
         let interactor = Legacy_ObjectTypeSearchInteractor(
             spaceId: spaceId,
-            searchService: serviceLocator.searchService(),
+            typesService: serviceLocator.typesService(),
             workspaceService: serviceLocator.workspaceService(),
             objectTypeProvider: serviceLocator.objectTypeProvider(),
             excludedObjectTypeId: nil,
