@@ -32,7 +32,6 @@ final class ObjectTypeSearchModuleAssembly: ObjectTypeSearchModuleAssemblyProtoc
         if FeatureFlags.newTypePicker {
             let interactor = ObjectTypeSearchInteractor(
                 spaceId: spaceId,
-                searchService: serviceLocator.searchService(),
                 workspaceService: serviceLocator.workspaceService(),
                 typesService: serviceLocator.typesService(),
                 objectTypeProvider: serviceLocator.objectTypeProvider()
@@ -52,7 +51,7 @@ final class ObjectTypeSearchModuleAssembly: ObjectTypeSearchModuleAssemblyProtoc
         } else {
             let interactor = Legacy_ObjectTypeSearchInteractor(
                 spaceId: spaceId,
-                searchService: serviceLocator.searchService(),
+                typesService: serviceLocator.typesService(),
                 workspaceService: serviceLocator.workspaceService(),
                 objectTypeProvider: serviceLocator.objectTypeProvider(),
                 excludedObjectTypeId: nil,

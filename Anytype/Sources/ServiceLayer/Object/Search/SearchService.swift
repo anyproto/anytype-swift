@@ -31,85 +31,11 @@ final class SearchService: SearchServiceProtocol {
         
         let spaceIds = [spaceId, accountManager.account.info.techSpaceId]
         let filters: [DataviewFilter] = .builder {
-            buildFilters(isArchived: false, spaceIds: spaceIds, layouts: DetailsLayout.visibleLayouts)
+            SearchFiltersBuilder.buildFilters(isArchived: false, spaceIds: spaceIds, layouts: DetailsLayout.visibleLayouts)
             SearchHelper.excludedIdsFilter(excludedObjectIds)
         }
         
         return try await searchMiddleService.search(filters: filters, sorts: [sort], fullText: text, limit: Constants.defaultLimit)
-    }
-    
-    func searchObjectTypes(
-        text: String,
-        filteringTypeId: String? = nil,
-        shouldIncludeSets: Bool,
-        shouldIncludeCollections: Bool,
-        shouldIncludeBookmark: Bool,
-        spaceId: String
-    ) async throws -> [ObjectDetails] {
-        let sort = SearchHelper.sort(
-            relation: BundledRelationKey.lastUsedDate,
-            type: .desc
-        )
-                
-        var layouts = DetailsLayout.visibleLayouts
-        
-        if !shouldIncludeSets {
-            layouts.removeAll(where: { $0 == .set })
-        }
-        
-        if !shouldIncludeCollections {
-            layouts.removeAll(where: { $0 == .collection })
-        }
-        
-        if !shouldIncludeBookmark {
-            layouts.removeAll(where: { $0 == .bookmark })
-        }
-        
-        let filters: [DataviewFilter] = .builder {
-            buildFilters(isArchived: false, spaceId: spaceId)
-            SearchHelper.layoutFilter([DetailsLayout.objectType])
-            SearchHelper.recomendedLayoutFilter(layouts)
-            if let filteringTypeId {
-                SearchHelper.excludedIdsFilter([filteringTypeId])
-            }
-        }
-        
-        let result = try await searchMiddleService.search(filters: filters, sorts: [sort], fullText: text)
-
-        return result
-    }
-    
-    func searchListTypes(text: String, spaceId: String) async throws -> [ObjectDetails] {
-        let sort = SearchHelper.sort(
-            relation: BundledRelationKey.lastUsedDate,
-            type: .desc
-        )
-                
-        let layouts: [DetailsLayout] = [.set, .collection]
-        
-        let filters: [DataviewFilter] = .builder {
-            buildFilters(isArchived: false, spaceId: spaceId)
-            SearchHelper.layoutFilter([DetailsLayout.objectType])
-            SearchHelper.recomendedLayoutFilter(layouts)
-        }
-        
-        return try await searchMiddleService.search(filters: filters, sorts: [sort], fullText: text)
-    }
-    
-    func searchLibraryObjectTypes(text: String, excludedIds: [String]) async throws -> [ObjectDetails] {
-        let sort = SearchHelper.sort(
-            relation: BundledRelationKey.name,
-            type: .asc
-        )
-        
-        let filters = Array.builder {
-            SearchHelper.spaceId(MarketplaceId.anytypeLibrary.rawValue)
-            SearchHelper.layoutFilter([DetailsLayout.objectType])
-            SearchHelper.recomendedLayoutFilter(DetailsLayout.visibleLayouts)
-            SearchHelper.excludedIdsFilter(excludedIds)
-        }
-        
-        return try await searchMiddleService.search(filters: filters, sorts: [sort], fullText: text)
     }
     
     func searchFiles(text: String, excludedFileIds: [String], spaceId: String) async throws -> [ObjectDetails] {
@@ -153,9 +79,9 @@ final class SearchService: SearchServiceProtocol {
         let filters: [DataviewFilter] = .builder {
             SearchHelper.excludedIdsFilter(excludedObjectIds)
             if typeIds.isEmpty {
-                buildFilters(isArchived: false, spaceIds: spaceIds, layouts: DetailsLayout.visibleLayouts)
+                SearchFiltersBuilder.buildFilters(isArchived: false, spaceIds: spaceIds, layouts: DetailsLayout.visibleLayouts)
             } else {
-                buildFilters(isArchived: false, spaceIds: spaceIds)
+                SearchFiltersBuilder.buildFilters(isArchived: false, spaceIds: spaceIds)
                 SearchHelper.typeFilter(typeIds: typeIds)
             }
         }
@@ -180,7 +106,7 @@ final class SearchService: SearchServiceProtocol {
         )
         let spaceIds = [spaceId, accountManager.account.info.techSpaceId]
         let filters: [DataviewFilter] = .builder {
-            buildFilters(isArchived: false, spaceIds: spaceIds, layouts: DetailsLayout.visibleLayouts)
+            SearchFiltersBuilder.buildFilters(isArchived: false, spaceIds: spaceIds, layouts: DetailsLayout.visibleLayouts)
             SearchHelper.excludedIdsFilter(excludedObjectIds)
             SearchHelper.excludedLayoutFilter(excludedLayouts)
         }
@@ -189,7 +115,7 @@ final class SearchService: SearchServiceProtocol {
     }
 
     func searchRelationOptions(text: String, relationKey: String, excludedObjectIds: [String], spaceId: String) async throws -> [RelationOption] {
-        var filters = buildFilters(
+        var filters = SearchFiltersBuilder.buildFilters(
             isArchived: false,
             spaceId: spaceId,
             layouts: [DetailsLayout.relationOption]
@@ -202,7 +128,7 @@ final class SearchService: SearchServiceProtocol {
     }
 
     func searchRelationOptions(optionIds: [String], spaceId: String) async throws -> [RelationOption] {
-        var filters = buildFilters(
+        var filters = SearchFiltersBuilder.buildFilters(
             isArchived: false,
             spaceId: spaceId,
             layouts: [DetailsLayout.relationOption]
@@ -220,7 +146,7 @@ final class SearchService: SearchServiceProtocol {
         )
         
         let filters: [DataviewFilter] = .builder {
-            buildFilters(isArchived: false,  spaceId: spaceId, layouts: [DetailsLayout.relation])
+            SearchFiltersBuilder.buildFilters(isArchived: false,  spaceId: spaceId, layouts: [DetailsLayout.relation])
             SearchHelper.relationReadonlyValue(false)
             SearchHelper.excludedRelationKeys(BundledRelationKey.internalKeys.map(\.rawValue))
             SearchHelper.excludedIdsFilter(excludedIds)
@@ -237,7 +163,7 @@ final class SearchService: SearchServiceProtocol {
         )
         
         let filters: [DataviewFilter] = .builder {
-            buildFilters(
+            SearchFiltersBuilder.buildFilters(
                 isArchived: false,
                 spaceId: MarketplaceId.anytypeLibrary.rawValue
             )
@@ -251,7 +177,7 @@ final class SearchService: SearchServiceProtocol {
     }
     
     func searchArchiveObjectIds(spaceId: String) async throws -> [String] {
-        let filters = buildFilters(isArchived: true, spaceId: spaceId)
+        let filters = SearchFiltersBuilder.buildFilters(isArchived: true, spaceId: spaceId)
         let keys = [BundledRelationKey.id.rawValue]
         let result = try await searchMiddleService.search(filters: filters, keys: keys)
         return result.map { $0.id }
@@ -264,34 +190,8 @@ final class SearchService: SearchServiceProtocol {
         )
         
         let spaceIds = [spaceId, accountManager.account.info.techSpaceId]
-        let filters = buildFilters(isArchived: false, spaceIds: spaceIds, layouts: layouts)
+        let filters = SearchFiltersBuilder.buildFilters(isArchived: false, spaceIds: spaceIds, layouts: layouts)
         
         return try await searchMiddleService.search(filters: filters, sorts: [sort], fullText: text, limit: Constants.defaultLimit)
-    }
-}
-
-private extension SearchService {
-    
-    private func buildFilters(isArchived: Bool, spaceIds: [String]) -> [DataviewFilter] {
-        [
-            SearchHelper.notHiddenFilter(),
-            SearchHelper.isArchivedFilter(isArchived: isArchived),
-            SearchHelper.spaceIds(spaceIds)
-        ]
-    }
-    
-    private func buildFilters(isArchived: Bool, spaceId: String) -> [DataviewFilter] {
-        buildFilters(isArchived: isArchived, spaceIds: [spaceId])
-    }
-    
-    private func buildFilters(isArchived: Bool, spaceIds: [String], layouts: [DetailsLayout]) -> [DataviewFilter] {
-        var filters = buildFilters(isArchived: isArchived, spaceIds: spaceIds)
-        filters.append(SearchHelper.layoutFilter(layouts))
-        filters.append(SearchHelper.templateScheme(include: false))
-        return filters
-    }
-    
-    private func buildFilters(isArchived: Bool, spaceId: String, layouts: [DetailsLayout]) -> [DataviewFilter] {
-        buildFilters(isArchived: isArchived, spaceIds: [spaceId], layouts: layouts)
     }
 }

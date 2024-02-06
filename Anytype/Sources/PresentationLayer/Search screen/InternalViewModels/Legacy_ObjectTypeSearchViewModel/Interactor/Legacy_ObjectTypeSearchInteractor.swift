@@ -5,7 +5,7 @@ import AnytypeCore
 final class Legacy_ObjectTypeSearchInteractor {
     
     private let spaceId: String
-    private let searchService: SearchServiceProtocol
+    private let typesService: TypesServiceProtocol
     private let workspaceService: WorkspaceServiceProtocol
     private let excludedObjectTypeId: String?
     private let showBookmark: Bool
@@ -14,7 +14,7 @@ final class Legacy_ObjectTypeSearchInteractor {
     
     init(
         spaceId: String,
-        searchService: SearchServiceProtocol,
+        typesService: TypesServiceProtocol,
         workspaceService: WorkspaceServiceProtocol,
         objectTypeProvider: ObjectTypeProviderProtocol,
         excludedObjectTypeId: String?,
@@ -22,7 +22,7 @@ final class Legacy_ObjectTypeSearchInteractor {
         showSetAndCollection: Bool
     ) {
         self.spaceId = spaceId
-        self.searchService = searchService
+        self.typesService = typesService
         self.workspaceService = workspaceService
         self.excludedObjectTypeId = excludedObjectTypeId
         self.showBookmark = showBookmark
@@ -35,7 +35,7 @@ final class Legacy_ObjectTypeSearchInteractor {
 extension Legacy_ObjectTypeSearchInteractor {
     
     func search(text: String) async throws -> [ObjectDetails] {
-        try await searchService.searchObjectTypes(
+        try await typesService.searchObjectTypes(
             text: text,
             filteringTypeId: excludedObjectTypeId,
             shouldIncludeSets: showSetAndCollection,
@@ -47,7 +47,7 @@ extension Legacy_ObjectTypeSearchInteractor {
     
     func searchInLibrary(text: String) async throws -> [ObjectDetails] {
         let excludedIds = objectTypeProvider.objectTypes(spaceId: spaceId).map(\.sourceObject)
-        return try await searchService.searchLibraryObjectTypes(text: text, excludedIds: excludedIds)
+        return try await typesService.searchLibraryObjectTypes(text: text, excludedIds: excludedIds)
     }
     
     func installType(objectId: String) async throws -> ObjectDetails {

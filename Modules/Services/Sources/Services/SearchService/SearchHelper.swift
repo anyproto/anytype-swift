@@ -1,10 +1,9 @@
 import ProtobufMessages
 import SwiftProtobuf
-import Services
 import Foundation
 
-class SearchHelper {
-    static func sort(relation: BundledRelationKey, type: DataviewSort.TypeEnum) -> DataviewSort {
+public class SearchHelper {
+    public static func sort(relation: BundledRelationKey, type: DataviewSort.TypeEnum) -> DataviewSort {
         var sort = DataviewSort()
         sort.relationKey = relation.rawValue
         sort.type = type
@@ -12,7 +11,7 @@ class SearchHelper {
         return sort
     }
     
-    static func customSort(ids: [String]) -> DataviewSort {
+    public static func customSort(ids: [String]) -> DataviewSort {
         var sort = DataviewSort()
         sort.type = .custom
         sort.customOrder = ids.map { $0.protobufValue }
@@ -20,7 +19,7 @@ class SearchHelper {
         return sort
     }
     
-    static func isArchivedFilter(isArchived: Bool) -> DataviewFilter {
+    public static func isArchivedFilter(isArchived: Bool) -> DataviewFilter {
         var filter = DataviewFilter()
         filter.condition = .equal
         filter.value = isArchived.protobufValue
@@ -30,7 +29,7 @@ class SearchHelper {
         return filter
     }
     
-    static func isFavoriteFilter(isFavorite: Bool) -> DataviewFilter {
+    public static func isFavoriteFilter(isFavorite: Bool) -> DataviewFilter {
         var filter = DataviewFilter()
         filter.condition = .equal
         filter.value = isFavorite.protobufValue
@@ -40,7 +39,7 @@ class SearchHelper {
         return filter
     }
     
-    static func isDeletedFilter(isDeleted: Bool) -> DataviewFilter {
+    public static func isDeletedFilter(isDeleted: Bool) -> DataviewFilter {
         var filter = DataviewFilter()
         filter.condition = .equal
         filter.value = isDeleted.protobufValue
@@ -50,7 +49,7 @@ class SearchHelper {
         return filter
     }
     
-    static func notHiddenFilter() -> DataviewFilter {
+    public static func notHiddenFilter() -> DataviewFilter {
         var filter = DataviewFilter()
         filter.condition = .equal
         filter.value = false.protobufValue
@@ -60,7 +59,7 @@ class SearchHelper {
         return filter
     }
     
-    static func lastOpenedDateNotNilFilter() -> DataviewFilter {
+    public static func lastOpenedDateNotNilFilter() -> DataviewFilter {
         var filter = DataviewFilter()
         filter.condition = .notEmpty
         filter.value = nil
@@ -70,7 +69,7 @@ class SearchHelper {
         return filter
     }
     
-    static func lastModifiedDateFrom(_ date: Date) -> DataviewFilter {
+    public static func lastModifiedDateFrom(_ date: Date) -> DataviewFilter {
         var filter = DataviewFilter()
         filter.condition = .greaterOrEqual
         filter.value = date.timeIntervalSince1970.protobufValue
@@ -80,7 +79,7 @@ class SearchHelper {
         return filter
     }
     
-    static func typeFilter(typeIds: [String]) -> DataviewFilter {
+    public static func typeFilter(typeIds: [String]) -> DataviewFilter {
         var filter = DataviewFilter()
         filter.condition = .in
         filter.value = typeIds.protobufValue
@@ -90,7 +89,7 @@ class SearchHelper {
         return filter
     }
     
-    static func excludedTypeFilter(_ typeIds: [String]) -> DataviewFilter {
+    public static func excludedTypeFilter(_ typeIds: [String]) -> DataviewFilter {
         var filter = DataviewFilter()
         filter.condition = .notIn
         filter.value = typeIds.protobufValue
@@ -100,7 +99,7 @@ class SearchHelper {
         return filter
     }
     
-    static func layoutFilter(_ layouts: [DetailsLayout]) -> DataviewFilter {
+    public static func layoutFilter(_ layouts: [DetailsLayout]) -> DataviewFilter {
         var filter = DataviewFilter()
         filter.condition = .in
         filter.value = layouts.map(\.rawValue).protobufValue
@@ -110,7 +109,7 @@ class SearchHelper {
         return filter
     }
     
-    static func excludedLayoutFilter(_ layouts: [DetailsLayout]) -> DataviewFilter {
+    public static func excludedLayoutFilter(_ layouts: [DetailsLayout]) -> DataviewFilter {
         var filter = DataviewFilter()
         filter.condition = .notIn
         filter.value = layouts.map(\.rawValue).protobufValue
@@ -120,7 +119,7 @@ class SearchHelper {
         return filter
     }
     
-    static func recomendedLayoutFilter(_ layouts: [DetailsLayout]) -> DataviewFilter {
+    public static func recomendedLayoutFilter(_ layouts: [DetailsLayout]) -> DataviewFilter {
         var filter = DataviewFilter()
         filter.condition = .in
         filter.value = layouts.map(\.rawValue).protobufValue
@@ -130,7 +129,7 @@ class SearchHelper {
         return filter
     }
     
-    static func supportedIdsFilter(_ typeIds: [String]) -> DataviewFilter {
+    public static func supportedIdsFilter(_ typeIds: [String]) -> DataviewFilter {
         var filter = DataviewFilter()
         filter.condition = .in
         filter.value = typeIds.protobufValue
@@ -140,7 +139,7 @@ class SearchHelper {
         return filter
     }
     
-    static func sharedObjectsFilters() -> [DataviewFilter] {
+    public static func sharedObjectsFilters() -> [DataviewFilter] {
         var spaceFilter = DataviewFilter()
         spaceFilter.condition = .notEmpty
         spaceFilter.value = nil
@@ -159,7 +158,7 @@ class SearchHelper {
         ]
     }
     
-    static func excludedIdsFilter(_ ids: [String]) -> DataviewFilter {
+    public static func excludedIdsFilter(_ ids: [String]) -> DataviewFilter {
         var filter = DataviewFilter()
         filter.condition = .notIn
         filter.value = ids.protobufValue
@@ -170,7 +169,7 @@ class SearchHelper {
         return filter
     }
     
-    static func relationKey(_ relationKey: String) -> DataviewFilter {
+    public static func relationKey(_ relationKey: String) -> DataviewFilter {
         var filter = DataviewFilter()
         filter.condition = .equal
         filter.value = relationKey.protobufValue
@@ -181,7 +180,7 @@ class SearchHelper {
         return filter
     }
     
-    static func excludedRelationKeys(_ relationKeys: [String]) -> DataviewFilter {
+    public static func excludedRelationKeys(_ relationKeys: [String]) -> DataviewFilter {
         var filter = DataviewFilter()
         filter.condition = .notIn
         filter.value = relationKeys.protobufValue
@@ -192,7 +191,7 @@ class SearchHelper {
         return filter
     }
 
-    static func templatesFilters(type: String, spaceId spaceIdValue: String) -> [DataviewFilter] {
+    public static func templatesFilters(type: String, spaceId spaceIdValue: String) -> [DataviewFilter] {
         [
             isArchivedFilter(isArchived: false),
             isDeletedFilter(isDeleted: false),
@@ -202,7 +201,7 @@ class SearchHelper {
         ]
     }
     
-    static func spaceId(_ spaceId: String) -> DataviewFilter {
+    public static func spaceId(_ spaceId: String) -> DataviewFilter {
         var filter = DataviewFilter()
         filter.condition = .equal
         filter.value = spaceId.protobufValue
@@ -213,7 +212,7 @@ class SearchHelper {
         return filter
     }
     
-    static func spaceIds(_ spaceIds: [String]) -> DataviewFilter {
+    public static func spaceIds(_ spaceIds: [String]) -> DataviewFilter {
         var filter = DataviewFilter()
         filter.condition = .in
         filter.value = spaceIds.protobufValue
@@ -224,7 +223,7 @@ class SearchHelper {
         return filter
     }
     
-    static func fileSyncStatus(_ status: FileSyncStatus) -> DataviewFilter {
+    public static func fileSyncStatus(_ status: FileSyncStatus) -> DataviewFilter {
         var filter = DataviewFilter()
         filter.condition = .equal
         filter.value = status.rawValue.protobufValue
@@ -234,7 +233,7 @@ class SearchHelper {
         return filter
     }
     
-    static func relationReadonlyValue(_ value: Bool) -> DataviewFilter {
+    public static func relationReadonlyValue(_ value: Bool) -> DataviewFilter {
         var filter = DataviewFilter()
         filter.condition = .equal
         filter.value = value.protobufValue
@@ -244,7 +243,7 @@ class SearchHelper {
         return filter
     }
     
-    static func spaceAccountStatusExcludeFilter(_ status: SpaceStatus) -> DataviewFilter {
+    public static func spaceAccountStatusExcludeFilter(_ status: SpaceStatus) -> DataviewFilter {
         var filter = DataviewFilter()
         filter.condition = .notEqual
         filter.value = status.toMiddleware.rawValue.protobufValue
@@ -254,7 +253,7 @@ class SearchHelper {
         return filter
     }
     
-    static func spaceLocalStatusFilter(_ status: SpaceStatus) -> DataviewFilter {
+    public static func spaceLocalStatusFilter(_ status: SpaceStatus) -> DataviewFilter {
         var filter = DataviewFilter()
         filter.condition = .equal
         filter.value = status.toMiddleware.rawValue.protobufValue
@@ -264,7 +263,7 @@ class SearchHelper {
         return filter
     }
     
-    static func templateScheme(include: Bool) -> DataviewFilter {
+    public static func templateScheme(include: Bool) -> DataviewFilter {
         var filter = DataviewFilter()
         filter.condition = include ? .equal : .notEqual
         filter.relationKey = "\(BundledRelationKey.type.rawValue).\(BundledRelationKey.uniqueKey.rawValue)"

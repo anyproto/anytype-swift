@@ -53,7 +53,7 @@ final class SetObjectCreationSettingsInteractor: SetObjectCreationSettingsIntera
     
     private let subscriptionService: TemplatesSubscriptionServiceProtocol
     private let objectTypesProvider: ObjectTypeProviderProtocol
-    private let searchService: SearchServiceProtocol
+    private let typesService: TypesServiceProtocol
     private let dataviewService: DataviewServiceProtocol
     
     @Published private var templatesDetails = [ObjectDetails]()
@@ -68,7 +68,7 @@ final class SetObjectCreationSettingsInteractor: SetObjectCreationSettingsIntera
         setDocument: SetDocumentProtocol,
         viewId: String,
         objectTypesProvider: ObjectTypeProviderProtocol,
-        searchService: SearchServiceProtocol,
+        typesService: TypesServiceProtocol,
         subscriptionService: TemplatesSubscriptionServiceProtocol,
         dataviewService: DataviewServiceProtocol
     ) {
@@ -78,7 +78,7 @@ final class SetObjectCreationSettingsInteractor: SetObjectCreationSettingsIntera
         self.defaultTemplateId = dataView.defaultTemplateID ?? .empty
         self.subscriptionService = subscriptionService
         self.objectTypesProvider = objectTypesProvider
-        self.searchService = searchService
+        self.typesService = typesService
         self.dataviewService = dataviewService
         
         let defaultObjectType = try? setDocument.defaultObjectTypeForActiveView()
@@ -153,7 +153,7 @@ final class SetObjectCreationSettingsInteractor: SetObjectCreationSettingsIntera
     
     private func updateObjectTypes() {
         Task {
-            objectTypes = try await searchService.searchObjectTypes(
+            objectTypes = try await typesService.searchObjectTypes(
                 text: "",
                 filteringTypeId: nil,
                 shouldIncludeSets: true,

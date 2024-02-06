@@ -36,7 +36,7 @@ struct AccessoryViewBuilder {
         let changeTypeViewModel = ChangeTypeAccessoryViewModel(
             router: router,
             handler: actionHandler,
-            searchService: ServiceLocator.shared.searchService(),
+            typesService: ServiceLocator.shared.typesService(),
             document: document
         )
         

@@ -4,20 +4,17 @@ import AnytypeCore
 
 final class ObjectTypeSearchInteractor {
     private let spaceId: String
-    private let searchService: SearchServiceProtocol
     private let workspaceService: WorkspaceServiceProtocol
     private let typesService: TypesServiceProtocol
     private let objectTypeProvider: ObjectTypeProviderProtocol
     
     init(
         spaceId: String,
-        searchService: SearchServiceProtocol,
         workspaceService: WorkspaceServiceProtocol,
         typesService: TypesServiceProtocol,
         objectTypeProvider: ObjectTypeProviderProtocol
     ) {
         self.spaceId = spaceId
-        self.searchService = searchService
         self.workspaceService = workspaceService
         self.typesService = typesService
         self.objectTypeProvider = objectTypeProvider
@@ -25,7 +22,7 @@ final class ObjectTypeSearchInteractor {
     
     // MARK: - Search
     func searchObjectTypes(text: String) async -> [ObjectType] {
-        guard let details = try? await searchService.searchObjectTypes(
+        guard let details = try? await typesService.searchObjectTypes(
             text: text,
             filteringTypeId: nil,
             shouldIncludeSets: false,
@@ -40,7 +37,7 @@ final class ObjectTypeSearchInteractor {
     }
     
     func searchListTypes(text: String) async -> [ObjectType] {
-        guard let details = try? await searchService.searchListTypes(
+        guard let details = try? await typesService.searchListTypes(
             text: text, spaceId: spaceId
         ) else {
             return []
@@ -52,7 +49,7 @@ final class ObjectTypeSearchInteractor {
     func searchLibraryTypes(text: String) async -> [ObjectType] {
         let installedObjectIds = objectTypeProvider.objectTypes(spaceId: spaceId).map(\.sourceObject)
         
-        guard let details = try? await searchService.searchLibraryObjectTypes(
+        guard let details = try? await typesService.searchLibraryObjectTypes(
             text: text, excludedIds: installedObjectIds
         ) else {
             return []

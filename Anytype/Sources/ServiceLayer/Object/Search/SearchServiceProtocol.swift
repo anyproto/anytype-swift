@@ -3,21 +3,8 @@ import Services
 
 protocol SearchServiceProtocol: AnyObject {
     func search(text: String, spaceId: String) async throws -> [ObjectDetails]
-    func search(text: String, excludedObjectIds: [String], spaceId: String) async throws -> [ObjectDetails]
-    func searchObjectTypes(
-        text: String,
-        filteringTypeId: String?,
-        shouldIncludeSets: Bool,
-        shouldIncludeCollections: Bool,
-        shouldIncludeBookmark: Bool,
-        spaceId: String
-    ) async throws -> [ObjectDetails]
-    func searchListTypes(text: String, spaceId: String) async throws -> [ObjectDetails]
-        
-    func searchLibraryObjectTypes(
-        text: String,
-        excludedIds: [String]
-    ) async throws -> [ObjectDetails]
+    func search(text: String, excludedObjectIds: [String], spaceId: String) async throws -> [ObjectDetails]    
+    
     func searchFiles(text: String, excludedFileIds: [String],  spaceId: String) async throws -> [ObjectDetails]
     func searchImages() async throws -> [ObjectDetails]
     func searchObjectsByTypes(text: String, typeIds: [String], excludedObjectIds: [String], spaceId: String) async throws -> [ObjectDetails]
