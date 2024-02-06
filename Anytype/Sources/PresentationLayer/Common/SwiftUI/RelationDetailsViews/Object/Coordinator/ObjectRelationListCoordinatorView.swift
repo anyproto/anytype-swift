@@ -8,9 +8,11 @@ struct ObjectRelationListCoordinatorView: View {
     
     var body: some View {
         model.objectRelationListModule()
-            .anytypeSheet(item: $model.deletionAlertData) { data in
+            .anytypeSheet(item: $model.deletionAlertData, cancelAction: {
+                model.deletionAlertData?.completion(false)
+            }, content: { data in
                 model.deletionAlertView(data: data)
-            }
+            })
             .onChange(of: model.dismiss) { _ in
                 dismiss()
             }

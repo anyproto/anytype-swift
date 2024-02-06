@@ -30,7 +30,8 @@ extension NavigationContextProtocol {
     }
     
     func presentSwiftUISheetView<Content: View>(view: Content, animated: Bool = true) {
-        let rootView = SheetView { view }
+        let rootView = SheetView { view } cancelAction: {}
+
         let controller = UISheetController(rootView: rootView)
         present(controller, animated: animated)
     }
