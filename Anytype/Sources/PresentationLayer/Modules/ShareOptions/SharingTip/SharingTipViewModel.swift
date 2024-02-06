@@ -3,30 +3,28 @@ import Foundation
 
 @available(iOS 17.0, *)
 final class SharingTipViewModel: ObservableObject {
-    var onClose: RoutingAction<Void>?
-    var onShareURL: RoutingAction<URL>?
     
     let sharingTip = SharingTip()
     
-    init() {
-        sharingTip.invalidate(reason: .tipClosed)
-    }
+    let sharedUrl = URL(string: "https://anytype.io")
+    @Published var showShare: Bool = false
+    @Published var dismiss: Bool = false
+    
+    init() {}
     
     func tapClose() {
         AnytypeAnalytics.instance().logClickOnboardingTooltip(tooltip: .sharingExtension, type: .close)
-        onClose?(())
+        dismiss.toggle()
+    }
+    
+    func onDisappear() {
+        sharingTip.invalidate(reason: .tipClosed)
     }
     
     func tapShowShareMenu() {
-        AnytypeAnalytics.instance().logClickOnboardingTooltip(tooltip: .sharingExtension, type: .showShareMenu)
-        sharingTip.invalidate(reason: .tipClosed)
-        
-        guard let url = URL(string: "https://anytype.io") else {
-            return
+        if !showShare {
+            AnytypeAnalytics.instance().logClickOnboardingTooltip(tooltip: .sharingExtension, type: .showShareMenu)
         }
-        DispatchQueue.main.asyncAfter(deadline: .now() + 0.4) { [self] in
-            onShareURL?(url)
-        }
-        
+        showShare.toggle()
     }
 }
