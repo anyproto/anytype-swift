@@ -92,7 +92,6 @@ public final class ObjectActionsService: ObjectActionsServiceProtocol {
         }).invoke()
     }
     
-    @discardableResult
     public func duplicate(objectId: BlockId) async throws -> BlockId {
         let result = try await ClientCommands.objectDuplicate(.with {
             $0.contextID = objectId

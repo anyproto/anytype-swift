@@ -61,7 +61,8 @@ final class ObjectRelationListViewModel: ObservableObject {
     
     func onObjectDuplicate(_ option: Relation.Object.Option) {
         Task {
-            try await objectActionsService.duplicate(objectId: option.id)
+            let newOptionId =  try await objectActionsService.duplicate(objectId: option.id)
+            try await relationSelectedOptionsModel.optionSelected(newOptionId)
             try await searchTextChangedAsync(searchText)
         }
     }
