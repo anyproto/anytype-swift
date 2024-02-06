@@ -48,8 +48,7 @@ final class BlockActionService: BlockActionServiceProtocol {
 
     func add(info: BlockInformation, targetBlockId: BlockId, position: BlockPosition, setFocus: Bool) {
         Task {
-            guard let blockId = try await blockService
-                .add(contextId: documentId, targetId: targetBlockId, info: info, position: position) else { return }
+            let blockId = try await blockService.add(contextId: documentId, targetId: targetBlockId, info: info, position: position)
             
             if setFocus {
                 cursorManager.blockFocus = .init(id: blockId, position: .beginning)

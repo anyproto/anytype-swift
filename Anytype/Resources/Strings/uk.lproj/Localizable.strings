@@ -519,6 +519,10 @@
 "Unsupported value" = "Непідтримуване значення";
 "Select relation type" = "Виберіть тип відношення";
 "CommonOpenErrorView.Message" = "No data found";
+"Nothing found" = "Nothing found";
+"No type found text" = "No type “%@” found. Change your request or create new type.";
+"Create type" = "Create type";
+
 
 "Limit object types" = "Обмежити типи об'єктів";
 "Type" = "Тип";
@@ -649,6 +653,7 @@
 "DataviewType.gallery" = "Галерея";
 "DataviewType.kanban" = "Канбан";
 "DataviewType.calendar" = "Календар";
+"DataviewType.graph" = "Graph";
 
 // MARK: - ObjectType
 "ObjectType.fallbackDescription" = "Порожнє полотно без заголовка";
@@ -862,10 +867,9 @@
 "Sharing.AddTo" = "Додати до";
 "Sharing.LinkTo" = "Зв'язати з";
 
-"Sharing.URL.Bookmark" = "Об'єкт закладки";
-"Sharing.URL.Text" = "Текстовий блок";
 "Sharing.Text.NoteObject" = "Об'єкт нотатки";
-"Sharing.Text.TextBlock" = "Текстовий блок";
+"Sharing.Text.TextBlock" = "Blocks";
+"Sharing.Any.Block" = "Blocks";
 
 // MARK: - Sharing tips
 "Sharing.Tip.Title" = "Share Extension";
@@ -909,3 +913,10 @@
 // MARK: - Gallery
 "Gallery.Unavailable.Title" = "Gallery will be supported soon";
 "Gallery.Unavailable.Message" = "Please use the desktop app for now";
+"Gallery.Author" = "Made by @%@";
+"Gallery.Install" = "Install";
+"Gallery.InstallToNew" = "Install to new space";
+
+// MARK: - Debug
+"Debug.MimeTypes" = "Mime Types - %@";
+"Debug.Info" = "Debug Info";

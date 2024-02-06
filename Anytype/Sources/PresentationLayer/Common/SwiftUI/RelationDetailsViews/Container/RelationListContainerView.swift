@@ -1,11 +1,12 @@
 import SwiftUI
 
 struct RelationListContainerView<Content>: View where Content: View {
-    @State private var searchText = ""
+    @Binding var searchText: String
     
     let title: String
     let isEditable: Bool
     let isEmpty: Bool
+    let hideClear: Bool
     let listContent: () -> Content
     let onCreate: (_ title: String?) -> Void
     let onClear: () -> Void
@@ -27,7 +28,9 @@ struct RelationListContainerView<Content>: View where Content: View {
                 .if(isEditable, transform: {
                     $0.toolbar {
                         ToolbarItem(placement: .navigationBarLeading) {
-                            clearButton
+                            if !hideClear {
+                                clearButton
+                            }
                         }
                         ToolbarItem(placement: .navigationBarTrailing) {
                             createButton
@@ -107,19 +110,12 @@ struct RelationListContainerView<Content>: View where Content: View {
     }
     
     private var defaultEmptyState: some View {
-        VStack(spacing: 0) {
-            Spacer()
-            ButtomAlertHeaderImageView(icon: .BottomAlert.error, style: .red)
-            Spacer.fixedHeight(12)
-            AnytypeText(Loc.Relation.EmptyState.title, style: .uxCalloutMedium, color: .Text.primary)
-            AnytypeText(Loc.Relation.EmptyState.description, style: .uxCalloutRegular, color: .Text.primary)
-            Spacer.fixedHeight(12)
-            StandardButton(Loc.create, style: .secondarySmall) {
-                onCreate(nil)
-            }
-            .disabled(!isEditable)
-            Spacer.fixedHeight(48)
-            Spacer()
+        EmptyStateView(
+            title: Loc.Relation.EmptyState.title,
+            subtitle: Loc.Relation.EmptyState.description,
+            actionText: Loc.create
+        ) {
+            onCreate(nil)
         }
     }
     

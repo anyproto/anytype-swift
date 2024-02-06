@@ -90,7 +90,7 @@
 "Relation.Date.Locked.Alert.title" = "Relacja „%@” jest zablokowana";
 
 "Relation.Delete.Alert.Title" = "Are you sure?";
-"Relation.Delete.Alert.Description" = "The option will be permanently removed from your space.";
+"Relation.Delete.Alert.Description" = "Opcja zostanie trwale usunięta z Twojej przestrzeni.";
 
 "Relation.Format.Object.Title" = "Obiekt";
 "Relation.Format.Text.Title" = "Tekst";
@@ -107,7 +107,7 @@
 // Origin Relation
 
 "Relation.Origin.Clipboard" = "Clipboard";
-"Relation.Origin.DragAndDrop" = "Drag'n'Drop";
+"Relation.Origin.DragAndDrop" = "Przeciągnij i upuść";
 "Relation.Origin.Import" = "Imported object";
 "Relation.Origin.WebClipper" = "Web clipper";
 "Relation.Origin.SharingExtension" = "Mobile sharing extension";
@@ -464,7 +464,7 @@
 "Set.View.Kanban.Column.Title.Checked" = "%@ jest zaznaczony";
 "Set.View.Kanban.Column.Title.Unchecked" = "%@ nie jest zaznaczony";
 "Set.View.Kanban.Column.Paging.Title.ShowMore" = "Pokaż więcej obiektów";
-"Set.View.Kanban.Column.Settings.Color.Title" = "Column color";
+"Set.View.Kanban.Column.Settings.Color.Title" = "Kolor kolumny";
 "Set.View.Kanban.Column.Settings.Hide.Column.Title" = "Ukryj kolumnę";
 
 // MARK: - Sets: empty view
@@ -519,6 +519,10 @@
 "Unsupported value" = "Unsupported value";
 "Select relation type" = "Select relation type";
 "CommonOpenErrorView.Message" = "No data found";
+"Nothing found" = "Nothing found";
+"No type found text" = "No type “%@” found. Change your request or create new type.";
+"Create type" = "Create type";
+
 
 "Limit object types" = "Limit object types";
 "Type" = "Type";
@@ -649,6 +653,7 @@
 "DataviewType.gallery" = "Galeria";
 "DataviewType.kanban" = "Kanban";
 "DataviewType.calendar" = "Kalendarz";
+"DataviewType.graph" = "Wykres ";
 
 // MARK: - ObjectType
 "ObjectType.fallbackDescription" = "Puste płótno bez tytułu";
@@ -861,10 +866,9 @@
 "Sharing.AddTo" = "Add to";
 "Sharing.LinkTo" = "Łącze do";
 
-"Sharing.URL.Bookmark" = "Bookmark object";
-"Sharing.URL.Text" = "Text block";
 "Sharing.Text.NoteObject" = "Note object";
-"Sharing.Text.TextBlock" = "Text block";
+"Sharing.Text.TextBlock" = "Blocks";
+"Sharing.Any.Block" = "Blocks";
 
 // MARK: - Sharing tips
 "Sharing.Tip.Title" = "Share Extension";
@@ -908,3 +912,10 @@
 // MARK: - Gallery
 "Gallery.Unavailable.Title" = "Gallery will be supported soon";
 "Gallery.Unavailable.Message" = "Proszę na razie korzystać z wersji na komputer";
+"Gallery.Author" = "Wykonane przez @%@";
+"Gallery.Install" = "Zainstaluj";
+"Gallery.InstallToNew" = "Zainstaluj w nowej przestrzeni";
+
+// MARK: - Debug
+"Debug.MimeTypes" = "Mime Types - %@";
+"Debug.Info" = "Debug Info";

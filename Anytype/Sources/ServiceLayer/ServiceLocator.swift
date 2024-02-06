@@ -3,19 +3,14 @@ import UIKit
 import Services
 import AnytypeCore
 import SecureService
+import SharedContentManager
 
 // TODO: Migrate to ServicesDI
 final class ServiceLocator {
     static let shared = ServiceLocator()
 
     let templatesService = TemplatesService()
-    let sharedContentManager: SharedContentManagerProtocol = SharedContentManager()
-    lazy private(set) var sharedContentInteractor: SharedContentInteractorProtocol = SharedContentInteractor(
-        bookmarkService: bookmarkService(),
-        objectActionsService: objectActionsService(),
-        blockService: blockService(),
-        pageRepository: pageRepository()
-    )
+    let sharedContentManager: SharedContentManagerProtocol = SharingDI.shared.sharedContentManager()
 
     lazy private(set) var unsplashService: UnsplashServiceProtocol = UnsplashService()
     lazy private(set) var documentsProvider: DocumentsProviderProtocol = DocumentsProvider(
@@ -138,6 +133,10 @@ final class ServiceLocator {
     
     func workspaceService() -> WorkspaceServiceProtocol {
         return WorkspaceService()
+    }
+    
+    func typesService() -> TypesServiceProtocol {
+        return TypesService()
     }
     
     func pageRepository() -> PageRepositoryProtocol {
@@ -333,6 +332,10 @@ final class ServiceLocator {
     
     func textServiceHandler() -> TextServiceProtocol {
         TextServiceHandler(textService: TextService())
+    }
+    
+    func pasteboardMiddlewareService() -> PasteboardMiddlewareServiceProtocol {
+        PasteboardMiddleService()
     }
     
     func galleryService() -> GalleryServiceProtocol {

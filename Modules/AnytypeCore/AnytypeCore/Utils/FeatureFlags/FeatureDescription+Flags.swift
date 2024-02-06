@@ -94,10 +94,14 @@ public extension FeatureDescription {
         type: .feature(author: "joe_pusya@anytype.io", releaseVersion: "0.28.0"),
         defaultValue: true
     )
-}
-
-// MARK: - Debug
-public extension FeatureDescription {
+    
+    static let newMultiSelectRelationView = FeatureDescription(
+        title: "New Multi Select relation editing view - 2213",
+        type: .feature(author: "joe_pusya@anytype.io", releaseVersion: "0.28.0"),
+        defaultValue: false
+    )
+    
+    // MARK: - Debug
     
     static let rainbowViews = FeatureDescription(
         title: "Paint editor views 🌈",
@@ -145,5 +149,12 @@ public extension FeatureDescription {
         type: .debug,
         defaultValue: false,
         debugValue: false
+    )
+    
+    static let sharingExtensionShowContentTypes = FeatureDescription(
+        title: "Sharing extension - Show content types",
+        type: .debug,
+        defaultValue: false,
+        debugValue: true
     )
 }

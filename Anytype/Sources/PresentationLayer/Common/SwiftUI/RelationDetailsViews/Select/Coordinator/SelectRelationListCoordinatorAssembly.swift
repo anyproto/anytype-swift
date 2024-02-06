@@ -4,8 +4,9 @@ protocol SelectRelationListCoordinatorAssemblyProtocol {
     @MainActor
     func make(
         objectId: String,
+        style: SelectRelationListStyle,
         configuration: RelationModuleConfiguration,
-        selectedOption: SelectRelationOption?
+        selectedOptionsIds: [String]
     ) -> AnyView
 }
 
@@ -19,21 +20,23 @@ final class SelectRelationListCoordinatorAssembly: SelectRelationListCoordinator
         self.modulesDI = modulesDI
     }
     
-    // MARK: - JoinFlowCoordinatorAssemblyProtocol
+    // MARK: - SelectRelationListCoordinatorAssemblyProtocol
     
     @MainActor
     func make(
         objectId: String,
+        style: SelectRelationListStyle,
         configuration: RelationModuleConfiguration,
-        selectedOption: SelectRelationOption?
+        selectedOptionsIds: [String]
     ) -> AnyView {
         SelectRelationListCoordinatorView(
             model: SelectRelationListCoordinatorViewModel(
                 objectId: objectId,
+                style: style,
                 configuration: configuration,
-                selectedOption: selectedOption,
-                selectRelationListModuleAssembly: self.modulesDI.selectRelationList(), 
-                selectRelationSettingsModuleAssembly: self.modulesDI.selectRelationSettings()
+                selectedOptionsIds: selectedOptionsIds,
+                selectRelationListModuleAssembly: self.modulesDI.selectRelationList(),
+                relationOptionSettingsModuleAssembly: self.modulesDI.relationOptionSettings()
             )
         ).eraseToAnyView()
     }

@@ -85,17 +85,39 @@ final class RelationValueCoordinator: RelationValueCoordinatorProtocol,
                 isEditable: relation.isEditable,
                 relationKey: status.key,
                 spaceId: objectDetails.spaceId,
+                selectionMode: .single,
                 analyticsType: analyticsType
             )
             let view = selectRelationListCoordinatorAssembly.make(
                 objectId: objectDetails.id,
+                style: .status, 
                 configuration: configuration,
-                selectedOption: status.values.compactMap {
-                    SelectRelationOption(id: $0.id, text: $0.text, color: $0.color.suColor)
-                }.first
+                selectedOptionsIds: status.values.compactMap { $0.id }
             )
             
-            let mediumDetent = status.values.first.isNotNil || !relation.isEditable
+            let mediumDetent = status.values.isNotEmpty || !relation.isEditable
+            navigationContext.present(view, mediumDetent: mediumDetent)
+            
+            return
+        }
+        
+        if FeatureFlags.newMultiSelectRelationView, case .tag(let tag) = relation {
+            let configuration = RelationModuleConfiguration(
+                title: tag.name,
+                isEditable: relation.isEditable,
+                relationKey: tag.key,
+                spaceId: objectDetails.spaceId, 
+                selectionMode: .multi,
+                analyticsType: analyticsType
+            )
+            let view = selectRelationListCoordinatorAssembly.make(
+                objectId: objectDetails.id,
+                style: .tag,
+                configuration: configuration,
+                selectedOptionsIds: tag.selectedTags.compactMap { $0.id }
+            )
+            
+            let mediumDetent = tag.selectedTags.isNotEmpty || !relation.isEditable
             navigationContext.present(view, mediumDetent: mediumDetent)
             
             return

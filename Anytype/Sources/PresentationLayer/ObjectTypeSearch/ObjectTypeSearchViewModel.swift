@@ -62,4 +62,11 @@ final class ObjectTypeSearchViewModel: ObservableObject {
             onSelect(type)
         }
     }
+    
+    func createType(name: String) {
+        Task {
+            let type = try await interactor.createNewType(name: name)
+            onSelect(type)
+        }
+    }
 }

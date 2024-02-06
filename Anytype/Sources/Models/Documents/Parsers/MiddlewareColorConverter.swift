@@ -68,4 +68,8 @@ extension Color {
     func middlewareString() -> String? {
         middlewareColor()?.rawValue
     }
+    
+    func veryLightColor() -> Color {
+        middlewareColor().map { Color.VeryLight.color(from: $0) } ?? Color.VeryLight.grey
+    }
 }

@@ -519,6 +519,10 @@
 "Unsupported value" = "Ikke-støttet verdi";
 "Select relation type" = "Velg relasjonstype";
 "CommonOpenErrorView.Message" = "Ingen data funnet";
+"Nothing found" = "Ingenting funnet";
+"No type found text" = "No type “%@” found. Change your request or create new type.";
+"Create type" = "Create type";
+
 
 "Limit object types" = "Begrens objekttyper";
 "Type" = "Type";
@@ -649,6 +653,7 @@
 "DataviewType.gallery" = "Galleri";
 "DataviewType.kanban" = "Kanban";
 "DataviewType.calendar" = "Kalender";
+"DataviewType.graph" = "Graph";
 
 // MARK: - ObjectType
 "ObjectType.fallbackDescription" = "Tomt lerret uten tittel";
@@ -861,10 +866,9 @@
 "Sharing.AddTo" = "Legg til i";
 "Sharing.LinkTo" = "Koble til";
 
-"Sharing.URL.Bookmark" = "Bokmerkeobjekt";
-"Sharing.URL.Text" = "Tekstblokk";
 "Sharing.Text.NoteObject" = "Notatobjekt";
-"Sharing.Text.TextBlock" = "Tekstblokk";
+"Sharing.Text.TextBlock" = "Blocks";
+"Sharing.Any.Block" = "Blocks";
 
 // MARK: - Sharing tips
 "Sharing.Tip.Title" = "Delingsutvidelse";
@@ -908,3 +912,10 @@
 // MARK: - Gallery
 "Gallery.Unavailable.Title" = "Galleri vil bli støttet snart";
 "Gallery.Unavailable.Message" = "Vennligst bruk skrivebordsappen for nå";
+"Gallery.Author" = "Made by @%@";
+"Gallery.Install" = "Install";
+"Gallery.InstallToNew" = "Install to new space";
+
+// MARK: - Debug
+"Debug.MimeTypes" = "Mime Types - %@";
+"Debug.Info" = "Debug Info";
