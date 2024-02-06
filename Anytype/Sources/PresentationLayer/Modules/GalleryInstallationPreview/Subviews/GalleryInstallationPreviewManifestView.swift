@@ -28,12 +28,14 @@ struct GalleryInstallationPreviewManifestView: View {
                                     .cornerRadius(12, style: .continuous)
                             }
                         )
+                        .frame(height: 335)
                         .padding(.horizontal, 20)
+                        .padding(.bottom, 50)
                     }
                 }
                 .tabViewStyle(.page(indexDisplayMode: .always))
                 .indexViewStyle(.page(backgroundDisplayMode: .always))
-                .frame(height: 324)
+                .frame(height: 384)
                 .shadow(radius: 40, y: 4)
                 Group {
                     AnytypeText(manifest.title, style: .title, color: .Text.primary)
