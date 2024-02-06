@@ -24,41 +24,29 @@ final class ObjectTypeSearchInteractor {
     }
     
     // MARK: - Search
-    func searchObjectTypes(text: String) async -> [ObjectType] {
-        guard let details = try? await searchService.searchObjectTypes(
+    func searchObjectTypes(text: String) async throws -> [ObjectType] {
+        return try await searchService.searchObjectTypes(
             text: text,
             filteringTypeId: nil,
             shouldIncludeSets: false,
             shouldIncludeCollections: false,
             shouldIncludeBookmark: true,
             spaceId: spaceId
-        ) else {
-            return []
-        }
-
-        return details.map { ObjectType(details: $0) }
+        ).map { ObjectType(details: $0) }
     }
     
-    func searchListTypes(text: String) async -> [ObjectType] {
-        guard let details = try? await searchService.searchListTypes(
+    func searchListTypes(text: String) async throws -> [ObjectType] {
+        return try await searchService.searchListTypes(
             text: text, spaceId: spaceId
-        ) else {
-            return []
-        }
-        
-        return details.map { ObjectType(details: $0) }
+        ).map { ObjectType(details: $0) }
     }
     
-    func searchLibraryTypes(text: String) async -> [ObjectType] {
+    func searchLibraryTypes(text: String) async throws -> [ObjectType] {
         let installedObjectIds = objectTypeProvider.objectTypes(spaceId: spaceId).map(\.sourceObject)
         
-        guard let details = try? await searchService.searchLibraryObjectTypes(
+        return try await searchService.searchLibraryObjectTypes(
             text: text, excludedIds: installedObjectIds
-        ) else {
-            return []
-        }
-        
-        return details.map { ObjectType(details: $0) }
+        ).map { ObjectType(details: $0) }
     }
     
     // MARK: - Working with types
@@ -69,5 +57,9 @@ final class ObjectTypeSearchInteractor {
     func createNewType(name: String) async throws -> ObjectType {
         let details = try await typesService.createType(name: name, spaceId: spaceId)
         return ObjectType(details: details)
+    }
+    
+    func defaultObjectType() throws -> ObjectType {
+        return try objectTypeProvider.defaultObjectType(spaceId: spaceId)
     }
 }

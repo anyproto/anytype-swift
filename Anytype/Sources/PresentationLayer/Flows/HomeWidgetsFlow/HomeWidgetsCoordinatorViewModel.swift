@@ -190,7 +190,8 @@ final class HomeWidgetsCoordinatorViewModel: ObservableObject,
         return objectTypeSearchModuleAssembly.make(
             title: Loc.createNewObject,
             spaceId: activeWorkspaceStorage.workspaceInfo.accountSpaceId,
-            showLists: true
+            showLists: true,
+            highlightlDefaultObjectType: true
         ) { [weak self] type in
             self?.showCreateObjectWithType = false
             self?.createAndShowNewPage(type: type)

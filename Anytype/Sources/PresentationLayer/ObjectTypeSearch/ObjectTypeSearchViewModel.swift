@@ -7,6 +7,7 @@ final class ObjectTypeSearchViewModel: ObservableObject {
     @Published var state = State.searchResults([])
     
     private let showLists: Bool
+    private let highlightlDefaultObjectType: Bool
     
     private let interactor: ObjectTypeSearchInteractor
     private let toastPresenter: ToastPresenterProtocol
@@ -15,11 +16,13 @@ final class ObjectTypeSearchViewModel: ObservableObject {
     
     nonisolated init(
         showLists: Bool,
+        highlightlDefaultObjectType: Bool,
         interactor: ObjectTypeSearchInteractor,
         toastPresenter: ToastPresenterProtocol,
         onSelect: @escaping (_ type: ObjectType) -> Void
     ) {
         self.showLists = showLists
+        self.highlightlDefaultObjectType = highlightlDefaultObjectType
         self.interactor = interactor
         self.toastPresenter = toastPresenter
         self.onSelect = onSelect
@@ -27,20 +30,40 @@ final class ObjectTypeSearchViewModel: ObservableObject {
     
     func search(text: String) {
         Task {
-            let listTypes = showLists ? await interactor.searchListTypes(text: text) : []
-            let objectTypes = await interactor.searchObjectTypes(text: text)
-            let libraryTypes = text.isNotEmpty ? await interactor.searchLibraryTypes(text: text) : []
+            let listTypes = showLists ? try await interactor.searchListTypes(text: text) : []
+            let objectTypes = try await interactor.searchObjectTypes(text: text)
+            let libraryTypes = text.isNotEmpty ? try await interactor.searchLibraryTypes(text: text) : []
+            
+            let defaultObjectType = try interactor.defaultObjectType()
+            let isHighlighted: (String) -> Bool = { typeId in
+                self.highlightlDefaultObjectType && defaultObjectType.id == typeId
+            }
             
             let sectionData: [SectionData] = Array.builder {
                 if listTypes.isNotEmpty {
-                    SectionData(section: .lists, types: listTypes)
+                    SectionData(
+                        section: .lists,
+                        types: listTypes.map {
+                            ObjectTypeData(type: $0, isHighlighted: isHighlighted($0.id))
+                        }
+                    )
                 }
                 if objectTypes.isNotEmpty {
-                    SectionData(section: .objects, types: objectTypes)
+                    SectionData(
+                        section: .objects,
+                        types: objectTypes.map {
+                            ObjectTypeData(type: $0, isHighlighted: isHighlighted($0.id))
+                        }
+                    )
                 }
                 
                 if libraryTypes.isNotEmpty {
-                    SectionData(section: .library, types: libraryTypes)
+                    SectionData(
+                        section: .library,
+                        types: libraryTypes.map {
+                            ObjectTypeData(type: $0, isHighlighted: isHighlighted($0.id))
+                        }
+                    )
                 }
             }
             
