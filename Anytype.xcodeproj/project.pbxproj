@@ -773,6 +773,7 @@
 		2AEABE0328C7546200BDE3AC /* RelationEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AEABE0228C7546200BDE3AC /* RelationEvent.swift */; };
 		2AEABE0528C7548A00BDE3AC /* RelationEventsBunch.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AEABE0428C7548A00BDE3AC /* RelationEventsBunch.swift */; };
 		2AEABE0728C7559500BDE3AC /* RelationEventConverter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AEABE0628C7559500BDE3AC /* RelationEventConverter.swift */; };
+		2AEB0C262B7231B7007BB10C /* NotificationEnvironment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AEB0C252B7231B7007BB10C /* NotificationEnvironment.swift */; };
 		2AECFD37289939DE000E9CFB /* DIProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AECFD36289939DE000E9CFB /* DIProtocol.swift */; };
 		2AECFD3928993AD8000E9CFB /* ModulesDIProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AECFD3828993AD8000E9CFB /* ModulesDIProtocol.swift */; };
 		2AECFD3B28993B19000E9CFB /* CoordinatorsDIProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AECFD3A28993B19000E9CFB /* CoordinatorsDIProtocol.swift */; };
@@ -2486,6 +2487,7 @@
 		2AEABE0228C7546200BDE3AC /* RelationEvent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RelationEvent.swift; sourceTree = "<group>"; };
 		2AEABE0428C7548A00BDE3AC /* RelationEventsBunch.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RelationEventsBunch.swift; sourceTree = "<group>"; };
 		2AEABE0628C7559500BDE3AC /* RelationEventConverter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RelationEventConverter.swift; sourceTree = "<group>"; };
+		2AEB0C252B7231B7007BB10C /* NotificationEnvironment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationEnvironment.swift; sourceTree = "<group>"; };
 		2AECFD36289939DE000E9CFB /* DIProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DIProtocol.swift; sourceTree = "<group>"; };
 		2AECFD3828993AD8000E9CFB /* ModulesDIProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModulesDIProtocol.swift; sourceTree = "<group>"; };
 		2AECFD3A28993B19000E9CFB /* CoordinatorsDIProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoordinatorsDIProtocol.swift; sourceTree = "<group>"; };
@@ -5162,6 +5164,7 @@
 			isa = PBXGroup;
 			children = (
 				2A1AD7772B7118BF000EEBC0 /* TopNotificationView.swift */,
+				2AEB0C252B7231B7007BB10C /* NotificationEnvironment.swift */,
 			);
 			path = CommonViews;
 			sourceTree = "<group>";
@@ -10166,6 +10169,7 @@
 				EA57F41C26B99937007D4292 /* MarkupViewModel.swift in Sources */,
 				2AE4EDB92834CF5D00B61ABE /* LaunchView.swift in Sources */,
 				2AE942C6294713F8005BAD1F /* KeyboardEvent.swift in Sources */,
+				2AEB0C262B7231B7007BB10C /* NotificationEnvironment.swift in Sources */,
 				2A6693732A7104EA007747DD /* BasicIconImageGuideline.swift in Sources */,
 				530470F62682046900C9EE78 /* TextBlockIconView.swift in Sources */,
 				3DE296472617439C00EADB0A /* ServiceLocator.swift in Sources */,

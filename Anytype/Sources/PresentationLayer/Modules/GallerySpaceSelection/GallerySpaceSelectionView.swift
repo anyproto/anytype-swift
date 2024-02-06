@@ -21,23 +21,26 @@ struct GallerySpaceSelectionView: View {
         .presentationDragIndicatorHiddenLegacy()
     }
     
+    @ViewBuilder
     private var plus: some View {
-        Button {
-            model.onTapNewSpace()
-        } label: {
-            HStack(spacing: 12) {
-                ZStack {
-                    Color.Shape.secondary
-                        .opacity(0.04)
-                        .cornerRadius(8)
-                        .border(1, color: Color.Shape.secondary)
-                    IconView(icon: .asset(.X24.plus))
-                        .frame(width: 24, height: 24)
+        if model.canCreateNewSpace {
+            Button {
+                model.onTapNewSpace()
+            } label: {
+                HStack(spacing: 12) {
+                    ZStack {
+                        Color.Shape.secondary
+                            .opacity(0.04)
+                            .cornerRadius(8)
+                            .border(1, color: Color.Shape.secondary)
+                        IconView(icon: .asset(.X24.plus))
+                            .frame(width: 24, height: 24)
+                    }
+                    .frame(width: 48, height: 48)
+                    AnytypeText(Loc.Gallery.installToNew, style: .uxTitle2Regular, color: .Text.primary)
+                        .lineLimit(1)
+                    Spacer()
                 }
-                .frame(width: 48, height: 48)
-                AnytypeText(Loc.Gallery.installToNew, style: .uxTitle2Regular, color: .Text.primary)
-                    .lineLimit(1)
-                Spacer()
             }
         }
     }
