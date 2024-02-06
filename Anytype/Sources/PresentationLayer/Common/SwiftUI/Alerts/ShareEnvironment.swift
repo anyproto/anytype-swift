@@ -35,6 +35,7 @@ private struct ShareViewWrapper: UIViewControllerRepresentable {
 }
 
 private final class ShareViewCoordinator {
+    // Store local state in coordinator for prevent "undefined behavior" warning
     weak var activity: UIViewController?
 }
 
