@@ -7,6 +7,7 @@ final class ObjectTypeSearchViewModel: ObservableObject {
     @Published var state = State.searchResults([])
     
     private let showLists: Bool
+    private let highlightDefaultType: Bool
     
     private let interactor: ObjectTypeSearchInteractor
     private let toastPresenter: ToastPresenterProtocol
@@ -15,11 +16,13 @@ final class ObjectTypeSearchViewModel: ObservableObject {
     
     nonisolated init(
         showLists: Bool,
+        highlightDefaultType: Bool,
         interactor: ObjectTypeSearchInteractor,
         toastPresenter: ToastPresenterProtocol,
         onSelect: @escaping (_ type: ObjectType) -> Void
     ) {
         self.showLists = showLists
+        self.highlightDefaultType = highlightDefaultType
         self.interactor = interactor
         self.toastPresenter = toastPresenter
         self.onSelect = onSelect
@@ -27,20 +30,30 @@ final class ObjectTypeSearchViewModel: ObservableObject {
     
     func search(text: String) {
         Task {
-            let listTypes = showLists ? await interactor.searchListTypes(text: text) : []
-            let objectTypes = await interactor.searchObjectTypes(text: text)
-            let libraryTypes = text.isNotEmpty ? await interactor.searchLibraryTypes(text: text) : []
+            let listTypes = showLists ? try await interactor.searchListTypes(text: text) : []
+            let objectTypes = try await interactor.searchObjectTypes(text: text)
+            let libraryTypes = text.isNotEmpty ? try await interactor.searchLibraryTypes(text: text) : []
+            let defaultType = try interactor.defaultObjectType()
             
             let sectionData: [SectionData] = Array.builder {
                 if listTypes.isNotEmpty {
-                    SectionData(section: .lists, types: listTypes)
+                    SectionData(
+                        section: .lists,
+                        types: buildTypeData(types: listTypes, defaultType: defaultType)
+                    )
                 }
                 if objectTypes.isNotEmpty {
-                    SectionData(section: .objects, types: objectTypes)
+                    SectionData(
+                        section: .objects,
+                        types: buildTypeData(types: objectTypes, defaultType: defaultType)
+                    )
                 }
                 
                 if libraryTypes.isNotEmpty {
-                    SectionData(section: .library, types: libraryTypes)
+                    SectionData(
+                        section: .library,
+                        types: buildTypeData(types: libraryTypes, defaultType: defaultType)
+                    )
                 }
             }
             
@@ -67,6 +80,16 @@ final class ObjectTypeSearchViewModel: ObservableObject {
         Task {
             let type = try await interactor.createNewType(name: name)
             onSelect(type)
+        }
+    }
+    
+    // MARK: - Private
+    private func buildTypeData(types: [ObjectType], defaultType: ObjectType) -> [ObjectTypeData] {
+        return types.map { type in
+            ObjectTypeData(
+                type: type,
+                isHighlighted: highlightDefaultType && defaultType.id == type.id
+            )
         }
     }
 }

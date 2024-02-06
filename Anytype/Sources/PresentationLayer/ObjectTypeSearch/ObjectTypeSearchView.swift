@@ -6,6 +6,7 @@ import WrappingHStack
 struct ObjectTypeSearchView: View {
     private typealias SectionData = ObjectTypeSearchViewModel.SectionData
     private typealias SectionType = ObjectTypeSearchViewModel.SectionType
+    private typealias ObjectTypeData =  ObjectTypeSearchViewModel.ObjectTypeData
     
     let title: String
     @StateObject var viewModel: ObjectTypeSearchViewModel
@@ -47,7 +48,7 @@ struct ObjectTypeSearchView: View {
             LazyVStack(spacing: 0) {
                 ForEach(sectionsData) { sectionData in
                     Section(header: sectionHeader(sectionData.section)) {
-                        typesView(section: sectionData.section, types: sectionData.types)
+                        typesView(section: sectionData.section, data: sectionData.types)
                     }
                 }
             }
@@ -65,24 +66,28 @@ struct ObjectTypeSearchView: View {
         .padding(.bottom, 8)
     }
     
-    private func typesView(section: SectionType, types: [ObjectType]) -> some View {
-        WrappingHStack(types, spacing: .constant(8)) { type in
+    private func typesView(section: SectionType, data: [ObjectTypeData]) -> some View {
+        WrappingHStack(data, spacing: .constant(8)) { typeData in
             Button {
-                viewModel.didSelectType(type, section: section)
+                viewModel.didSelectType(typeData.type, section: section)
             } label: {
                 HStack(spacing: 8) {
-                    if let emoji = type.iconEmoji {
+                    if let emoji = typeData.type.iconEmoji {
                         IconView(icon: .object(.emoji(emoji)))
                             .frame(width: 18, height: 18)
                     }
                     
-                    AnytypeText(type.name, style: .uxTitle2Medium, color: .Text.primary)
+                    AnytypeText(typeData.type.name, style: .uxTitle2Medium, color: .Text.primary)
                 }
                 .padding(.vertical, 15)
                 .padding(.leading, 14)
                 .padding(.trailing, 16)
             }
-            .border(12, color: .Shape.primary)
+            .border(
+                12,
+                color: typeData.isHighlighted ? .System.amber50 : .Shape.primary,
+                lineWidth: typeData.isHighlighted ? 2 : 1
+            )
             .padding(.bottom, 8)
         }
         .padding(.horizontal, 20)

@@ -18,9 +18,14 @@ extension ObjectTypeSearchViewModel {
         }
     }
     
+    struct ObjectTypeData {
+        let type: ObjectType
+        let isHighlighted: Bool
+    }
+    
     struct SectionData: Identifiable {
         let section: SectionType
-        let types: [ObjectType]
+        let types: [ObjectTypeData]
         
         var id: SectionType {
             section

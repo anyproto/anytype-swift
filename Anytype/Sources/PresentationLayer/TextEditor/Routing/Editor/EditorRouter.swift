@@ -279,7 +279,8 @@ final class EditorRouter: NSObject, EditorRouterProtocol, ObjectSettingsCoordina
         showTypesSearch(
             title: Loc.changeType,
             selectedObjectId: selectedObjectId,
-            showSetAndCollection: false,
+            showSetAndCollection: false, 
+            highlightDefaultType: false,
             onSelect: onSelect
         )
     }
@@ -292,6 +293,7 @@ final class EditorRouter: NSObject, EditorRouterProtocol, ObjectSettingsCoordina
             title: Loc.changeType,
             selectedObjectId: selectedObjectId,
             showSetAndCollection: true,
+            highlightDefaultType: true,
             onSelect: onSelect
         )
     }
@@ -476,13 +478,15 @@ final class EditorRouter: NSObject, EditorRouterProtocol, ObjectSettingsCoordina
         title: String,
         selectedObjectId: BlockId?,
         showSetAndCollection: Bool,
+        highlightDefaultType: Bool,
         onSelect: @escaping (ObjectType) -> ()
     ) {
         if FeatureFlags.newTypePicker {
             let view = objectTypeSearchModuleAssembly.make(
                 title: title,
                 spaceId: document.spaceId,
-                showLists: showSetAndCollection
+                showLists: showSetAndCollection, 
+                highlightDefaultType: highlightDefaultType
             ) { [weak self] type in
                 self?.navigationContext.dismissTopPresented()
                 onSelect(type)
