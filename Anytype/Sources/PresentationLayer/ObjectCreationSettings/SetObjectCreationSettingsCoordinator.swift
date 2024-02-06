@@ -143,7 +143,7 @@ final class SetObjectCreationSettingsCoordinator: SetObjectCreationSettingsCoord
                 title: Loc.changeType,
                 spaceId: setDocument.spaceId,
                 showLists: true, 
-                highlightlDefaultObjectType: false
+                highlightlDefaultType: false
             ) { [weak self] type in
                 self?.navigationContext.dismissTopPresented()
                 onSelect(type)

@@ -236,7 +236,7 @@ final class EditorSetRouter: EditorSetRouterProtocol, ObjectSettingsCoordinatorO
                 title: Loc.Set.SourceType.selectQuery,
                 spaceId: setDocument.spaceId,
                 showLists: false,
-                highlightlDefaultObjectType: false
+                highlightlDefaultType: false
             ) { [weak self] type in
                 self?.navigationContext.dismissTopPresented()
                 onSelect(type.id)
