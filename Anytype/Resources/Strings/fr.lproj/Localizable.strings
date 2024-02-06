@@ -519,6 +519,10 @@
 "Unsupported value" = "Valeur non prise en charge";
 "Select relation type" = "Sélectionner le type de relation";
 "CommonOpenErrorView.Message" = "Aucune donnée n’a été trouvée";
+"Nothing found" = "Aucun résultat";
+"No type found text" = "No type “%@” found. Change your request or create new type.";
+"Create type" = "Create type";
+
 
 "Limit object types" = "Limiter les types d'objet";
 "Type" = "Type";
@@ -649,6 +653,7 @@
 "DataviewType.gallery" = "Galerie";
 "DataviewType.kanban" = "Kanban";
 "DataviewType.calendar" = "Calendrier";
+"DataviewType.graph" = "Graphe";
 
 // MARK: - ObjectType
 "ObjectType.fallbackDescription" = "Toile vierge sans titre";
@@ -861,10 +866,9 @@
 "Sharing.AddTo" = "Ajouter à";
 "Sharing.LinkTo" = "Lien vers";
 
-"Sharing.URL.Bookmark" = "Marquer l'objet";
-"Sharing.URL.Text" = "Bloc de texte";
 "Sharing.Text.NoteObject" = "Objet Note";
-"Sharing.Text.TextBlock" = "Bloc de texte";
+"Sharing.Text.TextBlock" = "Blocs";
+"Sharing.Any.Block" = "Blocs";
 
 // MARK: - Sharing tips
 "Sharing.Tip.Title" = "Extension de partage";
@@ -908,3 +912,10 @@
 // MARK: - Gallery
 "Gallery.Unavailable.Title" = "La galerie sera bientôt prise en charge";
 "Gallery.Unavailable.Message" = "Veuillez utiliser l'application de bureau pour le moment";
+"Gallery.Author" = "Fait par @%@";
+"Gallery.Install" = "Installer";
+"Gallery.InstallToNew" = "Installer dans un nouvel espace";
+
+// MARK: - Debug
+"Debug.MimeTypes" = "Types Mime - %@";
+"Debug.Info" = "Infos de débogage";

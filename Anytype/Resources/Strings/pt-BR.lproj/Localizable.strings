@@ -519,6 +519,10 @@
 "Unsupported value" = "Valor não suportado";
 "Select relation type" = "Selecionar tipo de relação";
 "CommonOpenErrorView.Message" = "Dados não encontrados";
+"Nothing found" = "Nada encontrado";
+"No type found text" = "No type “%@” found. Change your request or create new type.";
+"Create type" = "Create type";
+
 
 "Limit object types" = "Limitar tipos de objeto";
 "Type" = "Tipo";
@@ -649,6 +653,7 @@
 "DataviewType.gallery" = "Galeria";
 "DataviewType.kanban" = "Kanban";
 "DataviewType.calendar" = "Calendário";
+"DataviewType.graph" = "Graph";
 
 // MARK: - ObjectType
 "ObjectType.fallbackDescription" = "Tela em branco sem título";
@@ -861,10 +866,9 @@
 "Sharing.AddTo" = "Adicionar à";
 "Sharing.LinkTo" = "Vincular a";
 
-"Sharing.URL.Bookmark" = "Objeto marcador";
-"Sharing.URL.Text" = "Bloco de texto";
 "Sharing.Text.NoteObject" = "Objeto nota";
-"Sharing.Text.TextBlock" = "Bloco de texto";
+"Sharing.Text.TextBlock" = "Blocks";
+"Sharing.Any.Block" = "Blocks";
 
 // MARK: - Sharing tips
 "Sharing.Tip.Title" = "Compartilhar extensão";
@@ -908,3 +912,10 @@
 // MARK: - Gallery
 "Gallery.Unavailable.Title" = "A Galeria estará disponível em breve";
 "Gallery.Unavailable.Message" = "Por favor, utilize o aplicativo para computador por enquanto";
+"Gallery.Author" = "Made by @%@";
+"Gallery.Install" = "Install";
+"Gallery.InstallToNew" = "Install to new space";
+
+// MARK: - Debug
+"Debug.MimeTypes" = "Mime Types - %@";
+"Debug.Info" = "Debug Info";

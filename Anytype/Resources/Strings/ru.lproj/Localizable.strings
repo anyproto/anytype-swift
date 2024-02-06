@@ -519,6 +519,10 @@
 "Unsupported value" = "Неподдерживаемое значение";
 "Select relation type" = "Выберите тип свойства";
 "CommonOpenErrorView.Message" = "Данные не найдены";
+"Nothing found" = "Nothing found";
+"No type found text" = "No type “%@” found. Change your request or create new type.";
+"Create type" = "Create type";
+
 
 "Limit object types" = "Ограничить типы объектов";
 "Type" = "Тип";
@@ -649,6 +653,7 @@
 "DataviewType.gallery" = "Галерея";
 "DataviewType.kanban" = "Канбан";
 "DataviewType.calendar" = "Календарь";
+"DataviewType.graph" = "Graph";
 
 // MARK: - ObjectType
 "ObjectType.fallbackDescription" = "Пустой холст без заголовка";
@@ -862,10 +867,9 @@
 "Sharing.AddTo" = "Добавить";
 "Sharing.LinkTo" = "Связать с";
 
-"Sharing.URL.Bookmark" = "Добавить в закладки";
-"Sharing.URL.Text" = "Текстовый блок";
 "Sharing.Text.NoteObject" = "Объект заметка";
-"Sharing.Text.TextBlock" = "Текстовый блок";
+"Sharing.Text.TextBlock" = "Blocks";
+"Sharing.Any.Block" = "Blocks";
 
 // MARK: - Sharing tips
 "Sharing.Tip.Title" = "Расширение для общего доступа";
@@ -909,3 +913,10 @@
 // MARK: - Gallery
 "Gallery.Unavailable.Title" = "Вскоре будет поддерживаться галерея";
 "Gallery.Unavailable.Message" = "Пожалуйста, используйте приложение для компьютера";
+"Gallery.Author" = "Made by @%@";
+"Gallery.Install" = "Install";
+"Gallery.InstallToNew" = "Install to new space";
+
+// MARK: - Debug
+"Debug.MimeTypes" = "Mime Types - %@";
+"Debug.Info" = "Debug Info";
