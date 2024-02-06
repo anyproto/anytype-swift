@@ -519,6 +519,10 @@
 "Unsupported value" = "不支持该值";
 "Select relation type" = "选择关联类型";
 "CommonOpenErrorView.Message" = "未找到数据";
+"Nothing found" = "未找到任何内容";
+"No type found text" = "找不到类型“%@”，请更改您的请求或创建新类型。";
+"Create type" = "创建类型";
+
 
 "Limit object types" = "限制对象类型";
 "Type" = "类型";
@@ -649,6 +653,7 @@
 "DataviewType.gallery" = "相簿";
 "DataviewType.kanban" = "看板";
 "DataviewType.calendar" = "日历";
+"DataviewType.graph" = "关联图";
 
 // MARK: - ObjectType
 "ObjectType.fallbackDescription" = "没有标题的空白画布";
@@ -861,10 +866,9 @@
 "Sharing.AddTo" = "添加到";
 "Sharing.LinkTo" = "链接到";
 
-"Sharing.URL.Bookmark" = "书签对象";
-"Sharing.URL.Text" = "文本块";
 "Sharing.Text.NoteObject" = "笔记对象";
-"Sharing.Text.TextBlock" = "文本块";
+"Sharing.Text.TextBlock" = "Blocks";
+"Sharing.Any.Block" = "Blocks";
 
 // MARK: - Sharing tips
 "Sharing.Tip.Title" = "分享扩展";
@@ -909,3 +913,10 @@
 // MARK: - Gallery
 "Gallery.Unavailable.Title" = "即将支持画廊";
 "Gallery.Unavailable.Message" = "目前请使用桌面应用";
+"Gallery.Author" = "作者：@%@";
+"Gallery.Install" = "安装";
+"Gallery.InstallToNew" = "安装至新的空间";
+
+// MARK: - Debug
+"Debug.MimeTypes" = "Mime Types - %@";
+"Debug.Info" = "调试信息";

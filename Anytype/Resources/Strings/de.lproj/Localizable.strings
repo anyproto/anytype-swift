@@ -519,6 +519,10 @@
 "Unsupported value" = "Nicht unterstützter Wert";
 "Select relation type" = "Relationstyp auswählen";
 "CommonOpenErrorView.Message" = "Keine Daten gefunden";
+"Nothing found" = "Nichts gefunden";
+"No type found text" = "Kein Typ „%@“ gefunden. Ändere deine Anfrage oder erstelle einen neuen Typ.";
+"Create type" = "Typ erstellen";
+
 
 "Limit object types" = "Objekttypen einschränken";
 "Type" = "Typ";
@@ -588,8 +592,8 @@
 "Into object" = "In ein Objekt";
 "Add below" = "Unten hinzufügen";
 "Change type" = "Typ ändern";
-"Show types" = "Show types";
-"Hide types" = "Hide types";
+"Show types" = "Typen anzeigen";
+"Hide types" = "Typen ausblenden";
 "SlashMenu.LinkTo.Description" = "Link zu einem anderen Objekt erstellen";
 "Upload playable audio" = "Audio hochladen";
 "Code snippet" = "Code-Ausschnitt";
@@ -649,6 +653,7 @@
 "DataviewType.gallery" = "Galerie";
 "DataviewType.kanban" = "Kanban";
 "DataviewType.calendar" = "Kalender";
+"DataviewType.graph" = "Graph";
 
 // MARK: - ObjectType
 "ObjectType.fallbackDescription" = "Leere Leinwand ohne Titel";
@@ -862,10 +867,9 @@
 "Sharing.AddTo" = "Hinzufügen zu";
 "Sharing.LinkTo" = "Link zu";
 
-"Sharing.URL.Bookmark" = "Lesezeichen-Objekt";
-"Sharing.URL.Text" = "Textblock";
 "Sharing.Text.NoteObject" = "Notiz-Objekt";
-"Sharing.Text.TextBlock" = "Textblock";
+"Sharing.Text.TextBlock" = "Blöcke";
+"Sharing.Any.Block" = "Blöcke";
 
 // MARK: - Sharing tips
 "Sharing.Tip.Title" = "Erweiterung teilen";
@@ -909,3 +913,10 @@
 // MARK: - Gallery
 "Gallery.Unavailable.Title" = "Galerie wird bald unterstützt";
 "Gallery.Unavailable.Message" = "Bitte verwende die Desktop-App vorläufig";
+"Gallery.Author" = "Erstellt von @%@";
+"Gallery.Install" = "Installieren";
+"Gallery.InstallToNew" = "Install to new space";
+
+// MARK: - Debug
+"Debug.MimeTypes" = "MIME-Typen - %@";
+"Debug.Info" = "Debug-Informationen";

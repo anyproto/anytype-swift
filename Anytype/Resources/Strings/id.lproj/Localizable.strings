@@ -519,6 +519,10 @@
 "Unsupported value" = "Nilai tak didukung";
 "Select relation type" = "Pilih jenis relasi";
 "CommonOpenErrorView.Message" = "No data found";
+"Nothing found" = "Nothing found";
+"No type found text" = "No type “%@” found. Change your request or create new type.";
+"Create type" = "Create type";
+
 
 "Limit object types" = "Batasi tipe objek";
 "Type" = "Tipe";
@@ -649,6 +653,7 @@
 "DataviewType.gallery" = "Galeri";
 "DataviewType.kanban" = "Kanban";
 "DataviewType.calendar" = "Kalender";
+"DataviewType.graph" = "Graph";
 
 // MARK: - ObjectType
 "ObjectType.fallbackDescription" = "Kanvas kosong tanpa judul";
@@ -861,10 +866,9 @@
 "Sharing.AddTo" = "Tambah ke ";
 "Sharing.LinkTo" = "Tautkan ke";
 
-"Sharing.URL.Bookmark" = "Tandai objek";
-"Sharing.URL.Text" = "Blok teks";
 "Sharing.Text.NoteObject" = "Catatan objek";
-"Sharing.Text.TextBlock" = "Blok teks";
+"Sharing.Text.TextBlock" = "Blocks";
+"Sharing.Any.Block" = "Blocks";
 
 // MARK: - Sharing tips
 "Sharing.Tip.Title" = "Bagikan Ekstensi";
@@ -908,3 +912,10 @@
 // MARK: - Gallery
 "Gallery.Unavailable.Title" = "Galeri sedang dalam pengembangan";
 "Gallery.Unavailable.Message" = "Tolong gunakan aplikasi desktop untuk sekarang";
+"Gallery.Author" = "Made by @%@";
+"Gallery.Install" = "Install";
+"Gallery.InstallToNew" = "Install to new space";
+
+// MARK: - Debug
+"Debug.MimeTypes" = "Mime Types - %@";
+"Debug.Info" = "Debug Info";

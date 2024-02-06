@@ -519,6 +519,10 @@
 "Unsupported value" = "Niet-ondersteunde waarde";
 "Select relation type" = "Selecteer relatie type";
 "CommonOpenErrorView.Message" = "Geen gegevens gevonden";
+"Nothing found" = "Niets gevonden";
+"No type found text" = "No type “%@” found. Change your request or create new type.";
+"Create type" = "Create type";
+
 
 "Limit object types" = "Beperkt objecttypes";
 "Type" = "Type";
@@ -649,6 +653,7 @@
 "DataviewType.gallery" = "Galerij";
 "DataviewType.kanban" = "Kanban";
 "DataviewType.calendar" = "Kalender";
+"DataviewType.graph" = "Graph";
 
 // MARK: - ObjectType
 "ObjectType.fallbackDescription" = "Leeg canvas zonder titel";
@@ -862,10 +867,9 @@
 "Sharing.AddTo" = "Voeg toe aan";
 "Sharing.LinkTo" = "Link naar";
 
-"Sharing.URL.Bookmark" = "Bladwijzer object";
-"Sharing.URL.Text" = "Tekstblok";
 "Sharing.Text.NoteObject" = "Noteer object";
-"Sharing.Text.TextBlock" = "Tekstblok";
+"Sharing.Text.TextBlock" = "Blocks";
+"Sharing.Any.Block" = "Blocks";
 
 // MARK: - Sharing tips
 "Sharing.Tip.Title" = "Deel extensie";
@@ -909,3 +913,10 @@
 // MARK: - Gallery
 "Gallery.Unavailable.Title" = "Galerij wordt binnenkort ondersteund";
 "Gallery.Unavailable.Message" = "Gebruik voorlopig alsjeblieft de desktop app";
+"Gallery.Author" = "Made by @%@";
+"Gallery.Install" = "Install";
+"Gallery.InstallToNew" = "Install to new space";
+
+// MARK: - Debug
+"Debug.MimeTypes" = "Mime Types - %@";
+"Debug.Info" = "Debug Info";
