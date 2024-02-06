@@ -33,36 +33,26 @@ final class ObjectTypeSearchViewModel: ObservableObject {
             let listTypes = showLists ? try await interactor.searchListTypes(text: text) : []
             let objectTypes = try await interactor.searchObjectTypes(text: text)
             let libraryTypes = text.isNotEmpty ? try await interactor.searchLibraryTypes(text: text) : []
-            
             let defaultObjectType = try interactor.defaultObjectType()
-            let isHighlighted: (String) -> Bool = { typeId in
-                self.highlightlDefaultObjectType && defaultObjectType.id == typeId
-            }
             
             let sectionData: [SectionData] = Array.builder {
                 if listTypes.isNotEmpty {
                     SectionData(
                         section: .lists,
-                        types: listTypes.map {
-                            ObjectTypeData(type: $0, isHighlighted: isHighlighted($0.id))
-                        }
+                        types: buildTypeData(types: listTypes, defaultObjectType: defaultObjectType)
                     )
                 }
                 if objectTypes.isNotEmpty {
                     SectionData(
                         section: .objects,
-                        types: objectTypes.map {
-                            ObjectTypeData(type: $0, isHighlighted: isHighlighted($0.id))
-                        }
+                        types: buildTypeData(types: objectTypes, defaultObjectType: defaultObjectType)
                     )
                 }
                 
                 if libraryTypes.isNotEmpty {
                     SectionData(
                         section: .library,
-                        types: libraryTypes.map {
-                            ObjectTypeData(type: $0, isHighlighted: isHighlighted($0.id))
-                        }
+                        types: buildTypeData(types: libraryTypes, defaultObjectType: defaultObjectType)
                     )
                 }
             }
@@ -90,6 +80,16 @@ final class ObjectTypeSearchViewModel: ObservableObject {
         Task {
             let type = try await interactor.createNewType(name: name)
             onSelect(type)
+        }
+    }
+    
+    // MARK: - Private
+    private func buildTypeData(types: [ObjectType], defaultObjectType: ObjectType) -> [ObjectTypeData] {
+        return types.map { type in
+            ObjectTypeData(
+                type: type,
+                isHighlighted: highlightlDefaultObjectType && defaultObjectType.id == type.id
+            )
         }
     }
 }
