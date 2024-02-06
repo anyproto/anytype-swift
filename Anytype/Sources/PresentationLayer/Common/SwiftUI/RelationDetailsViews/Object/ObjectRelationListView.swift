@@ -43,7 +43,7 @@ struct ObjectRelationListView: View {
     
     @ViewBuilder
     private var header: some View {
-        if let items = viewModel.objectRelationTypeItems() {
+        if viewModel.configuration.isEditable, let items = viewModel.objectRelationTypeItems() {
             WrappingHStack(items, spacing: .constant(5), lineSpacing: 0) { item in
                 AnytypeText(
                     item.name,

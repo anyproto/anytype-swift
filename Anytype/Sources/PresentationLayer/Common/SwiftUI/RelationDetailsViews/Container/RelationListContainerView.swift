@@ -105,10 +105,10 @@ struct RelationListContainerView<Content>: View where Content: View {
     
     @ViewBuilder
     private var emptyState: some View {
-        if isEditable {
-            defaultEmptyState
-        } else {
+        if !isCreateAvailable || !isEditable {
             blockedEmptyState
+        } else  {
+            defaultEmptyState
         }
     }
     
