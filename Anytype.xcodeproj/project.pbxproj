@@ -894,6 +894,7 @@
 		2E2EA2CA2A53388500569E1E /* DotView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E2EA2C92A53388500569E1E /* DotView.swift */; };
 		2E2EA2CC2A5339CE00569E1E /* DotsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E2EA2CB2A5339CE00569E1E /* DotsView.swift */; };
 		2E2EA2CE2A543EFE00569E1E /* AnytypeFontConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E2EA2CD2A543EFE00569E1E /* AnytypeFontConfig.swift */; };
+		2E31C9622B7281CD006DB3E2 /* RelationListSelectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E31C9612B7281CD006DB3E2 /* RelationListSelectionView.swift */; };
 		2E330C52286CB6A70099C7C3 /* CreateBookmarkViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E330C51286CB6A70099C7C3 /* CreateBookmarkViewModel.swift */; };
 		2E330C54286CC2BA0099C7C3 /* CreateObjectViewModelProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E330C53286CC2BA0099C7C3 /* CreateObjectViewModelProtocol.swift */; };
 		2E37F01428C768B900337BD4 /* SetViewRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E37F01328C768B900337BD4 /* SetViewRow.swift */; };
@@ -2610,6 +2611,7 @@
 		2E2EA2C92A53388500569E1E /* DotView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DotView.swift; sourceTree = "<group>"; };
 		2E2EA2CB2A5339CE00569E1E /* DotsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DotsView.swift; sourceTree = "<group>"; };
 		2E2EA2CD2A543EFE00569E1E /* AnytypeFontConfig.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnytypeFontConfig.swift; sourceTree = "<group>"; };
+		2E31C9612B7281CD006DB3E2 /* RelationListSelectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RelationListSelectionView.swift; sourceTree = "<group>"; };
 		2E330C51286CB6A70099C7C3 /* CreateBookmarkViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateBookmarkViewModel.swift; sourceTree = "<group>"; };
 		2E330C53286CC2BA0099C7C3 /* CreateObjectViewModelProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateObjectViewModelProtocol.swift; sourceTree = "<group>"; };
 		2E37F01328C768B900337BD4 /* SetViewRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetViewRow.swift; sourceTree = "<group>"; };
@@ -6942,6 +6944,7 @@
 			children = (
 				2E65276A2B5EE9BA00F27126 /* RelationListContainerView.swift */,
 				2E22F9E22B600F91001EFCF3 /* RelationModuleConfiguration.swift */,
+				2E31C9612B7281CD006DB3E2 /* RelationListSelectionView.swift */,
 			);
 			path = Container;
 			sourceTree = "<group>";
@@ -10905,6 +10908,7 @@
 				3D1B5F78274CF567007D97AE /* SetTableViewHeader.swift in Sources */,
 				2ECB341A2A97B4C400E0F9BB /* SetFiltersDateCoordinatorAssembly.swift in Sources */,
 				1226857928D4C5E60013A28E /* AppMetricsTracker.swift in Sources */,
+				2E31C9622B7281CD006DB3E2 /* RelationListSelectionView.swift in Sources */,
 				2A00A74229D33B25007BE598 /* EdgeInsets+Helpers.swift in Sources */,
 				2A65E9B22AE1290300D40657 /* InitialCoordinatorView.swift in Sources */,
 				3DE6E3C026542151008FB0AF /* UIVIewController+Child.swift in Sources */,

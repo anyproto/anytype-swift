@@ -45,7 +45,10 @@ struct SelectRelationListView: View {
                 Spacer()
                 
                 if viewModel.configuration.isEditable {
-                    rowSelection(with: option)
+                    RelationListSelectionView(
+                        selectionMode: viewModel.configuration.selectionMode,
+                        selectedIndex: viewModel.selectedOptionsIds.firstIndex(of: option.id)
+                    )
                 }
             }
         }
@@ -76,22 +79,6 @@ struct SelectRelationListView: View {
                 textColor: option.color,
                 backgroundColor: option.color.veryLightColor()
             )
-        }
-    }
-    
-    @ViewBuilder
-    private func rowSelection(with option: SelectRelationOption) -> some View {
-        switch viewModel.configuration.selectionMode {
-        case .single:
-            if viewModel.selectedOptionsIds.contains(option.id) {
-                Image(asset: .relationCheckboxChecked)
-            }
-        case .multi:
-            if let index = viewModel.selectedOptionsIds.firstIndex(of: option.id) {
-                SelectionIndicatorView(model: .selected(index: index + 1, color: Color.System.sky))
-            } else {
-                SelectionIndicatorView(model: .notSelected)
-            }
         }
     }
 }

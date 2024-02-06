@@ -73,7 +73,10 @@ struct ObjectRelationListView: View {
                 Spacer()
                 
                 if viewModel.configuration.isEditable {
-                    rowSelection(with: option.id)
+                    RelationListSelectionView(
+                        selectionMode: viewModel.configuration.selectionMode,
+                        selectedIndex: viewModel.selectedOptionsIds.firstIndex(of: option.id)
+                    )
                 }
             }
         }
@@ -89,22 +92,6 @@ struct ObjectRelationListView: View {
             }
             Button(Loc.delete, role: .destructive) {
                 viewModel.onOptionDelete(option)
-            }
-        }
-    }
-    
-    @ViewBuilder
-    private func rowSelection(with optionId: String) -> some View {
-        switch viewModel.configuration.selectionMode {
-        case .single:
-            if viewModel.selectedOptionsIds.contains(optionId) {
-                Image(asset: .relationCheckboxChecked)
-            }
-        case .multi:
-            if let index = viewModel.selectedOptionsIds.firstIndex(of: optionId) {
-                SelectionIndicatorView(model: .selected(index: index + 1, color: Color.System.sky))
-            } else {
-                SelectionIndicatorView(model: .notSelected)
             }
         }
     }
