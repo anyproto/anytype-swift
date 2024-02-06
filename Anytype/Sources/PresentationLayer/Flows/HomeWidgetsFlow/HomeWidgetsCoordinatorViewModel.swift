@@ -191,7 +191,7 @@ final class HomeWidgetsCoordinatorViewModel: ObservableObject,
             title: Loc.createNewObject,
             spaceId: activeWorkspaceStorage.workspaceInfo.accountSpaceId,
             showLists: true,
-            highlightlDefaultType: true
+            highlightDefaultType: true
         ) { [weak self] type in
             self?.showCreateObjectWithType = false
             self?.createAndShowNewPage(type: type)

@@ -7,7 +7,7 @@ final class ObjectTypeSearchViewModel: ObservableObject {
     @Published var state = State.searchResults([])
     
     private let showLists: Bool
-    private let highlightlDefaultType: Bool
+    private let highlightDefaultType: Bool
     
     private let interactor: ObjectTypeSearchInteractor
     private let toastPresenter: ToastPresenterProtocol
@@ -16,13 +16,13 @@ final class ObjectTypeSearchViewModel: ObservableObject {
     
     nonisolated init(
         showLists: Bool,
-        highlightlDefaultType: Bool,
+        highlightDefaultType: Bool,
         interactor: ObjectTypeSearchInteractor,
         toastPresenter: ToastPresenterProtocol,
         onSelect: @escaping (_ type: ObjectType) -> Void
     ) {
         self.showLists = showLists
-        self.highlightlDefaultType = highlightlDefaultType
+        self.highlightDefaultType = highlightDefaultType
         self.interactor = interactor
         self.toastPresenter = toastPresenter
         self.onSelect = onSelect
@@ -88,7 +88,7 @@ final class ObjectTypeSearchViewModel: ObservableObject {
         return types.map { type in
             ObjectTypeData(
                 type: type,
-                isHighlighted: highlightlDefaultType && defaultType.id == type.id
+                isHighlighted: highlightDefaultType && defaultType.id == type.id
             )
         }
     }

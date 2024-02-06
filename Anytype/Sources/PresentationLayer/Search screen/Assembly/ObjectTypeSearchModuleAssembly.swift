@@ -9,7 +9,7 @@ protocol ObjectTypeSearchModuleAssemblyProtocol: AnyObject {
         title: String,
         spaceId: String,
         showLists: Bool,
-        highlightlDefaultType: Bool,
+        highlightDefaultType: Bool,
         onSelect: @escaping (_ type: ObjectType) -> Void
     ) -> AnyView
 }
@@ -28,7 +28,7 @@ final class ObjectTypeSearchModuleAssembly: ObjectTypeSearchModuleAssemblyProtoc
         title: String,
         spaceId: String,
         showLists: Bool,
-        highlightlDefaultType: Bool,
+        highlightDefaultType: Bool,
         onSelect: @escaping (_ type: ObjectType) -> Void
     ) -> AnyView {
         if FeatureFlags.newTypePicker {
@@ -42,7 +42,7 @@ final class ObjectTypeSearchModuleAssembly: ObjectTypeSearchModuleAssemblyProtoc
             
             let model = ObjectTypeSearchViewModel(
                 showLists: showLists,
-                highlightlDefaultType: highlightlDefaultType,
+                highlightDefaultType: highlightDefaultType,
                 interactor: interactor,
                 toastPresenter: uiHelpersDI.toastPresenter(),
                 onSelect: onSelect

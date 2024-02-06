@@ -280,7 +280,7 @@ final class EditorRouter: NSObject, EditorRouterProtocol, ObjectSettingsCoordina
             title: Loc.changeType,
             selectedObjectId: selectedObjectId,
             showSetAndCollection: false, 
-            highlightlDefaultType: false,
+            highlightDefaultType: false,
             onSelect: onSelect
         )
     }
@@ -293,7 +293,7 @@ final class EditorRouter: NSObject, EditorRouterProtocol, ObjectSettingsCoordina
             title: Loc.changeType,
             selectedObjectId: selectedObjectId,
             showSetAndCollection: true,
-            highlightlDefaultType: true,
+            highlightDefaultType: true,
             onSelect: onSelect
         )
     }
@@ -478,7 +478,7 @@ final class EditorRouter: NSObject, EditorRouterProtocol, ObjectSettingsCoordina
         title: String,
         selectedObjectId: BlockId?,
         showSetAndCollection: Bool,
-        highlightlDefaultType: Bool,
+        highlightDefaultType: Bool,
         onSelect: @escaping (ObjectType) -> ()
     ) {
         if FeatureFlags.newTypePicker {
@@ -486,7 +486,7 @@ final class EditorRouter: NSObject, EditorRouterProtocol, ObjectSettingsCoordina
                 title: title,
                 spaceId: document.spaceId,
                 showLists: showSetAndCollection, 
-                highlightlDefaultType: highlightlDefaultType
+                highlightDefaultType: highlightDefaultType
             ) { [weak self] type in
                 self?.navigationContext.dismissTopPresented()
                 onSelect(type)
