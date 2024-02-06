@@ -31,7 +31,7 @@ final class SearchService: SearchServiceProtocol {
         
         let spaceIds = [spaceId, accountManager.account.info.techSpaceId]
         let filters: [DataviewFilter] = .builder {
-            SearchFiltersBuilder.buildFilters(isArchived: false, spaceIds: spaceIds, layouts: DetailsLayout.visibleLayouts)
+            SearchFiltersBuilder.build(isArchived: false, spaceIds: spaceIds, layouts: DetailsLayout.visibleLayouts)
             SearchHelper.excludedIdsFilter(excludedObjectIds)
         }
         
@@ -79,9 +79,9 @@ final class SearchService: SearchServiceProtocol {
         let filters: [DataviewFilter] = .builder {
             SearchHelper.excludedIdsFilter(excludedObjectIds)
             if typeIds.isEmpty {
-                SearchFiltersBuilder.buildFilters(isArchived: false, spaceIds: spaceIds, layouts: DetailsLayout.visibleLayouts)
+                SearchFiltersBuilder.build(isArchived: false, spaceIds: spaceIds, layouts: DetailsLayout.visibleLayouts)
             } else {
-                SearchFiltersBuilder.buildFilters(isArchived: false, spaceIds: spaceIds)
+                SearchFiltersBuilder.build(isArchived: false, spaceIds: spaceIds)
                 SearchHelper.typeFilter(typeIds: typeIds)
             }
         }
@@ -106,7 +106,7 @@ final class SearchService: SearchServiceProtocol {
         )
         let spaceIds = [spaceId, accountManager.account.info.techSpaceId]
         let filters: [DataviewFilter] = .builder {
-            SearchFiltersBuilder.buildFilters(isArchived: false, spaceIds: spaceIds, layouts: DetailsLayout.visibleLayouts)
+            SearchFiltersBuilder.build(isArchived: false, spaceIds: spaceIds, layouts: DetailsLayout.visibleLayouts)
             SearchHelper.excludedIdsFilter(excludedObjectIds)
             SearchHelper.excludedLayoutFilter(excludedLayouts)
         }
@@ -115,7 +115,7 @@ final class SearchService: SearchServiceProtocol {
     }
 
     func searchRelationOptions(text: String, relationKey: String, excludedObjectIds: [String], spaceId: String) async throws -> [RelationOption] {
-        var filters = SearchFiltersBuilder.buildFilters(
+        var filters = SearchFiltersBuilder.build(
             isArchived: false,
             spaceId: spaceId,
             layouts: [DetailsLayout.relationOption]
@@ -128,7 +128,7 @@ final class SearchService: SearchServiceProtocol {
     }
 
     func searchRelationOptions(optionIds: [String], spaceId: String) async throws -> [RelationOption] {
-        var filters = SearchFiltersBuilder.buildFilters(
+        var filters = SearchFiltersBuilder.build(
             isArchived: false,
             spaceId: spaceId,
             layouts: [DetailsLayout.relationOption]
@@ -146,7 +146,7 @@ final class SearchService: SearchServiceProtocol {
         )
         
         let filters: [DataviewFilter] = .builder {
-            SearchFiltersBuilder.buildFilters(isArchived: false,  spaceId: spaceId, layouts: [DetailsLayout.relation])
+            SearchFiltersBuilder.build(isArchived: false,  spaceId: spaceId, layouts: [DetailsLayout.relation])
             SearchHelper.relationReadonlyValue(false)
             SearchHelper.excludedRelationKeys(BundledRelationKey.internalKeys.map(\.rawValue))
             SearchHelper.excludedIdsFilter(excludedIds)
@@ -163,7 +163,7 @@ final class SearchService: SearchServiceProtocol {
         )
         
         let filters: [DataviewFilter] = .builder {
-            SearchFiltersBuilder.buildFilters(
+            SearchFiltersBuilder.build(
                 isArchived: false,
                 spaceId: MarketplaceId.anytypeLibrary.rawValue
             )
@@ -177,7 +177,7 @@ final class SearchService: SearchServiceProtocol {
     }
     
     func searchArchiveObjectIds(spaceId: String) async throws -> [String] {
-        let filters = SearchFiltersBuilder.buildFilters(isArchived: true, spaceId: spaceId)
+        let filters = SearchFiltersBuilder.build(isArchived: true, spaceId: spaceId)
         let keys = [BundledRelationKey.id.rawValue]
         let result = try await searchMiddleService.search(filters: filters, keys: keys)
         return result.map { $0.id }
@@ -190,7 +190,7 @@ final class SearchService: SearchServiceProtocol {
         )
         
         let spaceIds = [spaceId, accountManager.account.info.techSpaceId]
-        let filters = SearchFiltersBuilder.buildFilters(isArchived: false, spaceIds: spaceIds, layouts: layouts)
+        let filters = SearchFiltersBuilder.build(isArchived: false, spaceIds: spaceIds, layouts: layouts)
         
         return try await searchMiddleService.search(filters: filters, sorts: [sort], fullText: text, limit: Constants.defaultLimit)
     }

@@ -54,7 +54,7 @@ public final class TypesService: TypesServiceProtocol {
         }
         
         let filters: [DataviewFilter] = .builder {
-            SearchFiltersBuilder.buildFilters(isArchived: false, spaceId: spaceId)
+            SearchFiltersBuilder.build(isArchived: false, spaceId: spaceId)
             SearchHelper.layoutFilter([DetailsLayout.objectType])
             SearchHelper.recomendedLayoutFilter(layouts)
             if let filteringTypeId {
@@ -76,7 +76,7 @@ public final class TypesService: TypesServiceProtocol {
         let layouts: [DetailsLayout] = [.set, .collection]
         
         let filters: [DataviewFilter] = .builder {
-            SearchFiltersBuilder.buildFilters(isArchived: false, spaceId: spaceId)
+            SearchFiltersBuilder.build(isArchived: false, spaceId: spaceId)
             SearchHelper.layoutFilter([DetailsLayout.objectType])
             SearchHelper.recomendedLayoutFilter(layouts)
         }
