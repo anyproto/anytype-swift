@@ -26,13 +26,11 @@ struct GalleryInstallationPreviewView: View {
     }
     
     private var errorState: some View {
-        VStack(spacing: 0) {
-            Spacer()
-            ButtomAlertHeaderImageView(icon: .BottomAlert.error, style: .red)
-            Spacer.fixedHeight(12)
-            AnytypeText(Loc.Error.Common.title, style: .uxCalloutMedium, color: .Text.primary)
-            AnytypeText(Loc.Error.Common.message, style: .uxCalloutRegular, color: .Text.primary)
-            Spacer()
-        }
+        EmptyStateView(
+            title: Loc.Error.Common.title,
+            subtitle: Loc.Error.Common.message,
+            actionText: Loc.Error.Common.tryAgain,
+            action: { model.onTryAgainTap() }
+        )
     }
 }

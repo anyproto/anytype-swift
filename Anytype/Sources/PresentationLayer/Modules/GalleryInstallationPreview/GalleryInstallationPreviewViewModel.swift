@@ -16,7 +16,7 @@ final class GalleryInstallationPreviewViewModel: ObservableObject {
     private weak var output: GalleryInstallationPreviewModuleOutput?
     
     private var manifest: GalleryManifest?
-    @Published var state: State
+    @Published var state: State = .loading(manifest: .placeholder)
     
     init(
         data: GalleryInstallationData,
@@ -26,10 +26,7 @@ final class GalleryInstallationPreviewViewModel: ObservableObject {
         self.data = data
         self.galleryService = galleryService
         self.output = output
-        self.state = .loading(manifest: .placeholder)
-        Task {
-            await loadData()
-        }
+        Task { await loadData() }
     }
     
     func onTapInstall() {
@@ -40,7 +37,12 @@ final class GalleryInstallationPreviewViewModel: ObservableObject {
         output?.onSelectInstall(manifest: manifest)
     }
     
+    func onTryAgainTap() {
+        Task { await loadData() }
+    }
+    
     private func loadData() async {
+        state = .loading(manifest: .placeholder)
         do {
             let manifest = try await galleryService.manifest(url: data.source)
             state = .data(manifest: makeViewManifest(manifest: manifest))

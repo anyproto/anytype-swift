@@ -1172,6 +1172,8 @@ internal enum Loc {
       internal static let message = Loc.tr("Localizable", "Error.Common.Message", fallback: "Please check your internet connection and try again or post a report on forum.")
       /// Oops!
       internal static let title = Loc.tr("Localizable", "Error.Common.Title", fallback: "Oops!")
+      /// Try again
+      internal static let tryAgain = Loc.tr("Localizable", "Error.Common.TryAgain", fallback: "Try again")
     }
   }
   internal enum ErrorOccurred {
