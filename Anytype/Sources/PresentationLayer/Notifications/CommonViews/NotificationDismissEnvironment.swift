@@ -1,13 +1,13 @@
 import Foundation
 import SwiftUI
 
-struct KeyboardDismissKey: EnvironmentKey {
+struct NotificationDismissKey: EnvironmentKey {
     static let defaultValue: () -> Void = {}
 }
 
 extension EnvironmentValues {
     var notificationDismiss: () -> Void {
-        get { self[KeyboardDismissKey.self] }
-        set { self[KeyboardDismissKey.self] = newValue }
+        get { self[NotificationDismissKey.self] }
+        set { self[NotificationDismissKey.self] = newValue }
     }
 }
