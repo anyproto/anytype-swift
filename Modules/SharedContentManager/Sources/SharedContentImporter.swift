@@ -22,6 +22,12 @@ final class SharedContentImporter: SharedContentImporterProtocol {
     
     private let sharedFileStorage: SharedFileStorageProtocol
     
+    private let formatter: DateFormatter = {
+        let formatter = DateFormatter()
+        formatter.dateFormat = "yyyy-MM-dd-HH-mm-ss"
+        return formatter
+    }()
+    
     init(sharedFileStorage: SharedFileStorageProtocol) {
         self.sharedFileStorage = sharedFileStorage
     }
@@ -29,13 +35,14 @@ final class SharedContentImporter: SharedContentImporterProtocol {
     // MARK: - SharedContentImporterProtocol
     
     func importData(items: [NSItemProvider]) async -> [SharedContentItem] {
+        let importDate = Date()
         return await withSortedTaskGroup(of: SharedContentItem?.self, returning: [SharedContentItem].self) { taskGroup in
             items.enumerated().forEach { index, itemProvider in
                 // Should be sort by UTType hierarchy from child to parent
                 if itemProvider.hasItemConformingToTypeIdentifier(typeFileUrl.identifier) {
                     taskGroup.addTask { try? await self.handleFileUtl(itemProvider: itemProvider) }
                 } else if itemProvider.hasItemConformingToTypeIdentifier(typeImage.identifier) {
-                    taskGroup.addTask { try? await self.handleImage(itemProvider: itemProvider) }
+                    taskGroup.addTask { try? await self.handleImage(itemProvider: itemProvider, index: index, importDate: importDate) }
                 } else if itemProvider.hasItemConformingToTypeIdentifier(typeVisualContent.identifier) {
                     taskGroup.addTask { try? await self.handleAudioAndVideo(itemProvider: itemProvider) }
                 } else if itemProvider.hasItemConformingToTypeIdentifier(typeURL.identifier) {
@@ -70,14 +77,15 @@ final class SharedContentImporter: SharedContentImporterProtocol {
         return .file(groupFileUrl)
     }
     
-    private func handleImage(itemProvider: NSItemProvider) async throws -> SharedContentItem {
+    private func handleImage(itemProvider: NSItemProvider, index: Int, importDate: Date) async throws -> SharedContentItem {
         let item = try await itemProvider.loadItem(forTypeIdentifier: typeImage.identifier)
         if let fileURL = item as? NSURL {
             let groupFileUrl = try sharedFileStorage.saveFileToGroup(url: fileURL as URL)
             return .file(groupFileUrl)
         }
         if let image = item as? UIImage {
-            let groupFileUrl = try sharedFileStorage.saveImageToGroup(image: image)
+            let name = "PHOTO-\(formatter.string(from: importDate))-\(index)"
+            let groupFileUrl = try sharedFileStorage.saveImageToGroup(image: image, name: name)
             return .file(groupFileUrl)
         }
         throw ShareExtensionError.parseFailure
