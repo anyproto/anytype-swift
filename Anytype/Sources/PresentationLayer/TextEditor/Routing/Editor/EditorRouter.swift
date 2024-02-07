@@ -279,8 +279,8 @@ final class EditorRouter: NSObject, EditorRouterProtocol, ObjectSettingsCoordina
         showTypesSearch(
             title: Loc.changeType,
             selectedObjectId: selectedObjectId,
-            showSetAndCollection: false, 
-            highlightDefaultType: false,
+            showPins: false,
+            showLists: false,
             onSelect: onSelect
         )
     }
@@ -292,8 +292,8 @@ final class EditorRouter: NSObject, EditorRouterProtocol, ObjectSettingsCoordina
         showTypesSearch(
             title: Loc.changeType,
             selectedObjectId: selectedObjectId,
-            showSetAndCollection: true,
-            highlightDefaultType: true,
+            showPins: true,
+            showLists: true,
             onSelect: onSelect
         )
     }
@@ -477,16 +477,16 @@ final class EditorRouter: NSObject, EditorRouterProtocol, ObjectSettingsCoordina
     private func showTypesSearch(
         title: String,
         selectedObjectId: BlockId?,
-        showSetAndCollection: Bool,
-        highlightDefaultType: Bool,
+        showPins: Bool,
+        showLists: Bool,
         onSelect: @escaping (ObjectType) -> ()
     ) {
         if FeatureFlags.newTypePicker {
             let view = objectTypeSearchModuleAssembly.make(
                 title: title,
                 spaceId: document.spaceId,
-                showLists: showSetAndCollection, 
-                highlightDefaultType: highlightDefaultType
+                showPins: showPins,
+                showLists: showLists
             ) { [weak self] type in
                 self?.navigationContext.dismissTopPresented()
                 onSelect(type)
@@ -499,7 +499,7 @@ final class EditorRouter: NSObject, EditorRouterProtocol, ObjectSettingsCoordina
                 spaceId: document.spaceId,
                 selectedObjectId: selectedObjectId,
                 excludedObjectTypeId: document.details?.type,
-                showSetAndCollection: showSetAndCollection
+                showSetAndCollection: showLists
             ) { [weak self] type in
                 self?.navigationContext.dismissTopPresented()
                 onSelect(type)

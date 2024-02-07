@@ -2,12 +2,15 @@ import Services
 
 extension ObjectTypeSearchViewModel {
     enum SectionType {
+        case pins
         case lists
         case objects
         case library
         
         var name: String {
             switch self {
+            case .pins:
+                Loc.pinned
             case .lists:
                 Loc.lists
             case .objects:

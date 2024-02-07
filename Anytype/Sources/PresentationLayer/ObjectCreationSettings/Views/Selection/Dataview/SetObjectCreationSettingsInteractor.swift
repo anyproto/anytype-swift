@@ -154,7 +154,8 @@ final class SetObjectCreationSettingsInteractor: SetObjectCreationSettingsIntera
     private func updateObjectTypes() {
         Task {
             objectTypes = try await typesService.searchObjectTypes(
-                text: "",
+                text: "", 
+                includePins: true,
                 includeLists: true,
                 includeBookmark: true,
                 spaceId: setDocument.spaceId

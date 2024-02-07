@@ -35,10 +35,13 @@ final class TypesService: TypesServiceProtocol {
     // MARK: - Search
     func searchObjectTypes(
         text: String,
+        includePins: Bool,
         includeLists: Bool,
         includeBookmark: Bool,
         spaceId: String
     ) async throws -> [ObjectDetails] {
+        let excludedTypeIds = includePins ? [] : try await searchPinnedTypes(text: "", spaceId: spaceId).map { $0.id }
+        
         let sort = SearchHelper.sort(
             relation: BundledRelationKey.lastUsedDate,
             type: .desc
@@ -59,6 +62,7 @@ final class TypesService: TypesServiceProtocol {
             SearchFiltersBuilder.build(isArchived: false, spaceId: spaceId)
             SearchHelper.layoutFilter([DetailsLayout.objectType])
             SearchHelper.recomendedLayoutFilter(layouts)
+            SearchHelper.excludedIdsFilter(excludedTypeIds)
         }
         
         let result = try await searchMiddleService.search(filters: filters, sorts: [sort], fullText: text)
@@ -66,7 +70,13 @@ final class TypesService: TypesServiceProtocol {
         return result
     }
     
-    func searchListTypes(text: String, spaceId: String) async throws -> [ObjectType] {
+    func searchListTypes(
+        text: String,
+        includePins: Bool,
+        spaceId: String
+    ) async throws -> [ObjectType] {
+        let excludedTypeIds = includePins ? [] : try await searchPinnedTypes(text: "", spaceId: spaceId).map { $0.id }
+        
         let sort = SearchHelper.sort(
             relation: BundledRelationKey.lastUsedDate,
             type: .desc
@@ -78,6 +88,7 @@ final class TypesService: TypesServiceProtocol {
             SearchFiltersBuilder.build(isArchived: false, spaceId: spaceId)
             SearchHelper.layoutFilter([DetailsLayout.objectType])
             SearchHelper.recomendedLayoutFilter(layouts)
+            SearchHelper.excludedIdsFilter(excludedTypeIds)
         }
         
         return try await searchMiddleService.search(filters: filters, sorts: [sort], fullText: text)

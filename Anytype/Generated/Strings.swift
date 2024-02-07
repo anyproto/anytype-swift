@@ -372,6 +372,8 @@ internal enum Loc {
   internal static let pink = Loc.tr("Localizable", "Pink", fallback: "Pink")
   /// Pink background
   internal static let pinkBackground = Loc.tr("Localizable", "Pink background", fallback: "Pink background")
+  /// Pinned
+  internal static let pinned = Loc.tr("Localizable", "Pinned", fallback: "Pinned")
   /// Preparing...
   internal static let preparing = Loc.tr("Localizable", "Preparing...", fallback: "Preparing...")
   /// Preview

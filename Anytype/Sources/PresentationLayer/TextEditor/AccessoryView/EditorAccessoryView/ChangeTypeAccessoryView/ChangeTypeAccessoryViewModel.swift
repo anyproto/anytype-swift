@@ -72,6 +72,7 @@ final class ChangeTypeAccessoryViewModel {
         let supportedTypes = try? await typesService
             .searchObjectTypes(
                 text: "",
+                includePins: true,
                 includeLists: true,
                 includeBookmark: true,
                 spaceId: document.spaceId

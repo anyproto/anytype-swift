@@ -21,18 +21,19 @@ final class ObjectTypeSearchInteractor {
     }
     
     // MARK: - Search
-    func searchObjectTypes(text: String) async throws -> [ObjectType] {
+    func searchObjectTypes(text: String, includePins: Bool) async throws -> [ObjectType] {
         return try await typesService.searchObjectTypes(
-            text: text,
+            text: text, 
+            includePins: includePins,
             includeLists: false,
             includeBookmark: true,
             spaceId: spaceId
         ).map { ObjectType(details: $0) }
     }
     
-    func searchListTypes(text: String) async throws -> [ObjectType] {
+    func searchListTypes(text: String, includePins: Bool) async throws -> [ObjectType] {
         return try await typesService.searchListTypes(
-            text: text, spaceId: spaceId
+            text: text, includePins: includePins, spaceId: spaceId
         )
     }
     
@@ -42,6 +43,10 @@ final class ObjectTypeSearchInteractor {
         return try await typesService.searchLibraryObjectTypes(
             text: text, excludedIds: installedObjectIds
         ).map { ObjectType(details: $0) }
+    }
+    
+    func searchPinnedTypes(text: String) async throws -> [ObjectType] {
+        return try await typesService.searchPinnedTypes(text: text, spaceId: spaceId)
     }
     
     // MARK: - Working with types

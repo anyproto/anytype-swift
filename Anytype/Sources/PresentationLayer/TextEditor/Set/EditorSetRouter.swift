@@ -235,8 +235,8 @@ final class EditorSetRouter: EditorSetRouterProtocol, ObjectSettingsCoordinatorO
             let view = objectTypeSearchModuleAssembly.make(
                 title: Loc.Set.SourceType.selectQuery,
                 spaceId: setDocument.spaceId,
-                showLists: false,
-                highlightDefaultType: false
+                showPins: false,
+                showLists: false
             ) { [weak self] type in
                 self?.navigationContext.dismissTopPresented()
                 onSelect(type.id)
