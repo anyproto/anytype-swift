@@ -4599,7 +4599,7 @@ public struct Anytype_Event {
 
 extension Anytype_Event.Block.Dataview.SliceOperation: CaseIterable {
   // The compiler won't synthesize support with the UNRECOGNIZED case.
-  public static let allCases: [Anytype_Event.Block.Dataview.SliceOperation] = [
+  public static var allCases: [Anytype_Event.Block.Dataview.SliceOperation] = [
     .none,
     .add,
     .move,
@@ -4610,7 +4610,7 @@ extension Anytype_Event.Block.Dataview.SliceOperation: CaseIterable {
 
 extension Anytype_Event.Status.Thread.SyncStatus: CaseIterable {
   // The compiler won't synthesize support with the UNRECOGNIZED case.
-  public static let allCases: [Anytype_Event.Status.Thread.SyncStatus] = [
+  public static var allCases: [Anytype_Event.Status.Thread.SyncStatus] = [
     .unknown,
     .offline,
     .syncing,
@@ -4772,7 +4772,7 @@ public struct Anytype_Model {
 
 extension Anytype_Model.Process.TypeEnum: CaseIterable {
   // The compiler won't synthesize support with the UNRECOGNIZED case.
-  public static let allCases: [Anytype_Model.Process.TypeEnum] = [
+  public static var allCases: [Anytype_Model.Process.TypeEnum] = [
     .dropFiles,
     .import,
     .export,
@@ -4784,7 +4784,7 @@ extension Anytype_Model.Process.TypeEnum: CaseIterable {
 
 extension Anytype_Model.Process.State: CaseIterable {
   // The compiler won't synthesize support with the UNRECOGNIZED case.
-  public static let allCases: [Anytype_Model.Process.State] = [
+  public static var allCases: [Anytype_Model.Process.State] = [
     .none,
     .running,
     .done,

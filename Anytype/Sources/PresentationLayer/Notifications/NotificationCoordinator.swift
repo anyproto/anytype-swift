@@ -58,7 +58,7 @@ final class NotificationCoordinator: NotificationCoordinatorProtocol {
     @MainActor
     private func handleSend(notification: Services.Notification) {
         switch notification.payload {
-        case .import, .export:
+        case .import, .export, .requestToJoin:
             let view = commonNotificationAssembly.make(notification: notification)
             show(view: view)
         case .galleryImport(let data):
