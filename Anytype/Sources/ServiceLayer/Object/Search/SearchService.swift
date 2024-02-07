@@ -124,7 +124,7 @@ final class SearchService: SearchServiceProtocol {
         filters.append(SearchHelper.excludedIdsFilter(excludedObjectIds))
         
         let sort = SearchHelper.sort(
-            relation: BundledRelationKey.createdDate,
+            relation: BundledRelationKey.name,
             type: .asc
         )
         
