@@ -1,7 +1,7 @@
 import Services
 
 protocol TypesServiceProtocol {
-    func createType(name: String, spaceId: String) async throws -> ObjectDetails
+    func createType(name: String, spaceId: String) async throws -> ObjectType
     
     func searchObjectTypes(
         text: String,
@@ -11,7 +11,7 @@ protocol TypesServiceProtocol {
         spaceId: String
     ) async throws -> [ObjectDetails]
     
-    func searchListTypes(text: String, spaceId: String) async throws -> [ObjectDetails]
+    func searchListTypes(text: String, spaceId: String) async throws -> [ObjectType]
     
     func searchLibraryObjectTypes(
         text: String,

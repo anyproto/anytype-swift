@@ -34,7 +34,7 @@ final class ObjectTypeSearchInteractor {
     func searchListTypes(text: String) async throws -> [ObjectType] {
         return try await typesService.searchListTypes(
             text: text, spaceId: spaceId
-        ).map { ObjectType(details: $0) }
+        )
     }
     
     func searchLibraryTypes(text: String) async throws -> [ObjectType] {
@@ -51,8 +51,7 @@ final class ObjectTypeSearchInteractor {
     }
     
     func createNewType(name: String) async throws -> ObjectType {
-        let details = try await typesService.createType(name: name, spaceId: spaceId)
-        return ObjectType(details: details)
+        return try await typesService.createType(name: name, spaceId: spaceId)
     }
     
     func defaultObjectType() throws -> ObjectType {

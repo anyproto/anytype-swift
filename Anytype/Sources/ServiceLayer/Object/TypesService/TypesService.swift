@@ -16,7 +16,7 @@ final class TypesService: TypesServiceProtocol {
         self.typeProvider = typeProvider
     }
     
-    func createType(name: String, spaceId: String) async throws -> ObjectDetails {
+    func createType(name: String, spaceId: String) async throws -> ObjectType {
         let details = Google_Protobuf_Struct(
             fields: [
                 BundledRelationKey.name.rawValue: name.protobufValue,
@@ -28,7 +28,8 @@ final class TypesService: TypesServiceProtocol {
             $0.spaceID = spaceId
         }).invoke()
         
-        return try ObjectDetails(protobufStruct: result.details)
+        let objectDetails = try ObjectDetails(protobufStruct: result.details)
+        return ObjectType(details: objectDetails)
     }
     
     // MARK: - Search
@@ -69,7 +70,7 @@ final class TypesService: TypesServiceProtocol {
         return result
     }
     
-    func searchListTypes(text: String, spaceId: String) async throws -> [ObjectDetails] {
+    func searchListTypes(text: String, spaceId: String) async throws -> [ObjectType] {
         let sort = SearchHelper.sort(
             relation: BundledRelationKey.lastUsedDate,
             type: .desc
@@ -84,6 +85,7 @@ final class TypesService: TypesServiceProtocol {
         }
         
         return try await searchMiddleService.search(filters: filters, sorts: [sort], fullText: text)
+            .map { ObjectType(details: $0) }
     }
     
     func searchLibraryObjectTypes(text: String, excludedIds: [String]) async throws -> [ObjectDetails] {
