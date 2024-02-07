@@ -4,7 +4,7 @@ import SwiftUI
 
 @MainActor
 protocol GalleryNotificationAssemblyProtocol: AnyObject {
-    func make(notification: Services.Notification) -> AnyView
+    func make(notification: NotificationGalleryImport) -> AnyView
 }
 
 @MainActor
@@ -17,7 +17,7 @@ final class GalleryNotificationAssembly: GalleryNotificationAssemblyProtocol {
         self.serviceLocator = serviceLocator
     }
     
-    func make(notification: Services.Notification) -> AnyView {
+    func make(notification: NotificationGalleryImport) -> AnyView {
         GalleryNotificationView(
             model: GalleryNotificationViewModel(
                 notification: notification,

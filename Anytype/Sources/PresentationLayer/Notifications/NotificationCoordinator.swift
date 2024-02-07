@@ -61,8 +61,8 @@ final class NotificationCoordinator: NotificationCoordinatorProtocol {
         case .import, .export:
             let view = commonNotificationAssembly.make(notification: notification)
             show(view: view)
-        case .galleryImport:
-            let view = galleryNotificationAssembly.make(notification: notification)
+        case .galleryImport(let data):
+            let view = galleryNotificationAssembly.make(notification: NotificationGalleryImport(common: notification, galleryImport: data))
             show(view: view)
         case .none:
             break
