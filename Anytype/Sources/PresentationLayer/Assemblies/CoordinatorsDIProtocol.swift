@@ -35,6 +35,7 @@ protocol CoordinatorsDIProtocol: AnyObject {
     func galleryInstallation() -> GalleryInstallationCoordinatorAssemblyProtocol
     func notificationCoordinator() -> NotificationCoordinatorProtocol // Global coordinator without root view
     func selectRelationList() -> SelectRelationListCoordinatorAssemblyProtocol
+    func objectRelationList() -> ObjectRelationListCoordinatorAssemblyProtocol
     
     // Now like a coordinator. Migrate to isolated modules
     func editorPageModule() -> EditorPageModuleAssemblyProtocol

@@ -6,7 +6,8 @@ struct RelationListContainerView<Content>: View where Content: View {
     let title: String
     let isEditable: Bool
     let isEmpty: Bool
-    let hideClear: Bool
+    let isClearAvailable: Bool
+    let isCreateAvailable: Bool
     let listContent: () -> Content
     let onCreate: (_ title: String?) -> Void
     let onClear: () -> Void
@@ -28,12 +29,14 @@ struct RelationListContainerView<Content>: View where Content: View {
                 .if(isEditable, transform: {
                     $0.toolbar {
                         ToolbarItem(placement: .navigationBarLeading) {
-                            if !hideClear {
+                            if isClearAvailable {
                                 clearButton
                             }
                         }
                         ToolbarItem(placement: .navigationBarTrailing) {
-                            createButton
+                            if isCreateAvailable {
+                                createButton
+                            }
                         }
                     }
                 })
@@ -62,7 +65,7 @@ struct RelationListContainerView<Content>: View where Content: View {
     private var list: some View {
         PlainList {
             listContent()
-            if searchText.isNotEmpty {
+            if isCreateAvailable, searchText.isNotEmpty {
                 createRow
             }
         }
@@ -102,10 +105,10 @@ struct RelationListContainerView<Content>: View where Content: View {
     
     @ViewBuilder
     private var emptyState: some View {
-        if isEditable {
-            defaultEmptyState
-        } else {
+        if !isCreateAvailable || !isEditable {
             blockedEmptyState
+        } else  {
+            defaultEmptyState
         }
     }
     

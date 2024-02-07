@@ -1527,6 +1527,26 @@ internal enum Loc {
       /// to
       internal static let title = Loc.tr("Localizable", "Relation.LinksTo.Title", fallback: "to")
     }
+    internal enum Object {
+      internal enum Delete {
+        internal enum Alert {
+          /// The object will be moved to Bin.
+          internal static let description = Loc.tr("Localizable", "Relation.Object.Delete.Alert.Description", fallback: "The object will be moved to Bin.")
+        }
+      }
+    }
+    internal enum ObjectType {
+      internal enum Header {
+        /// Object type:
+        internal static let title = Loc.tr("Localizable", "Relation.ObjectType.Header.title", fallback: "Object type:")
+      }
+    }
+    internal enum ObjectTypes {
+      internal enum Header {
+        /// Object types:
+        internal static let title = Loc.tr("Localizable", "Relation.ObjectTypes.Header.title", fallback: "Object types:")
+      }
+    }
     internal enum Origin {
       /// Library installed
       internal static let builtin = Loc.tr("Localizable", "Relation.Origin.Builtin", fallback: "Library installed")

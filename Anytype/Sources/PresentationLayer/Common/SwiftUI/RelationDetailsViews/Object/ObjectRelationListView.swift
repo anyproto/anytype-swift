@@ -1,8 +1,9 @@
 import SwiftUI
+import WrappingHStack
 
-struct SelectRelationListView: View {
+struct ObjectRelationListView: View {
     
-    @StateObject var viewModel: SelectRelationListViewModel
+    @StateObject var viewModel: ObjectRelationListViewModel
     
     var body: some View {
         RelationListContainerView(
@@ -11,18 +12,11 @@ struct SelectRelationListView: View {
             isEditable: viewModel.configuration.isEditable,
             isEmpty: viewModel.isEmpty,
             isClearAvailable: viewModel.selectedOptionsIds.isNotEmpty,
-            isCreateAvailable: true,
+            isCreateAvailable: false,
             listContent: {
-                ForEach(viewModel.options) { option in
-                    optionRow(with: option)
-                }
-                .onDelete {
-                    viewModel.onOptionDelete(with: $0)
-                }
+                listContent
             },
-            onCreate: { title in
-                viewModel.onCreate(with: title)
-            },
+            onCreate: { _ in },
             onClear: {
                 viewModel.onClear()
             },
@@ -35,12 +29,46 @@ struct SelectRelationListView: View {
         }
     }
     
-    private func optionRow(with option: SelectRelationOption) -> some View {
+    private var listContent: some View {
+        Group {
+            header
+            ForEach(viewModel.options) { option in
+                optionRow(with: option)
+            }
+            .onDelete {
+                viewModel.onOptionDelete(with: $0)
+            }
+        }
+    }
+    
+    @ViewBuilder
+    private var header: some View {
+        if viewModel.configuration.isEditable, let items = viewModel.objectRelationTypeItems() {
+            WrappingHStack(items, spacing: .constant(5), lineSpacing: 0) { item in
+                AnytypeText(
+                    item.name,
+                    style: item.isSelected ? .caption1Medium : .caption1Regular,
+                    color: .Text.secondary
+                )
+            }
+            .padding(.top, 26)
+            .padding(.bottom, 8)
+            .newDivider()
+            .padding(.horizontal, 20)
+        }
+    }
+    
+    private func optionRow(with option: Relation.Object.Option) -> some View {
         Button {
             viewModel.optionSelected(option.id)
         } label: {
             HStack {
-                rowContent(with: option)
+                RelationObjectsRowView(
+                    object: option,
+                    action: {
+                        viewModel.optionSelected(option.id)
+                    }
+                )
                 
                 Spacer()
                 
@@ -52,68 +80,29 @@ struct SelectRelationListView: View {
                 }
             }
         }
-        .frame(height: 52)
+        .frame(height: 72)
         .newDivider()
         .padding(.horizontal, 20)
         .contextMenu {
-            Button(Loc.edit) {
-                viewModel.onOptionEdit(option)
+            Button(Loc.openObject) {
+                viewModel.onObjectOpen(option)
             }
             Button(Loc.duplicate) {
-                viewModel.onOptionDuplicate(option)
+                viewModel.onObjectDuplicate(option)
             }
             Button(Loc.delete, role: .destructive) {
                 viewModel.onOptionDelete(option)
             }
         }
     }
-    
-    @ViewBuilder
-    private func rowContent(with option: SelectRelationOption) -> some View {
-        switch viewModel.style {
-        case .status:
-            AnytypeText(option.text, style: .relation1Regular, color: option.color)
-        case .tag:
-            TagOptionView(
-                text: option.text,
-                textColor: option.color,
-                backgroundColor: option.color.veryLightColor()
-            )
-        }
-    }
 }
 
-#Preview("Status list") {
+#Preview("Object") {
     SelectRelationListView(
         viewModel: SelectRelationListViewModel(
             style: .status,
             configuration: RelationModuleConfiguration(
-                title: "Status",
-                isEditable: true,
-                relationKey: "",
-                spaceId: "", 
-                selectionMode: .single,
-                analyticsType: .block
-            ), 
-            relationSelectedOptionsModel: RelationSelectedOptionsModel(
-                selectionMode: .single,
-                selectedOptionsIds: [],
-                relationKey: "",
-                analyticsType: .block,
-                relationsService: DI.preview.serviceLocator.relationService(objectId: "")
-            ),
-            searchService: DI.preview.serviceLocator.searchService(),
-            output: nil
-        )
-    )
-}
-
-#Preview("Tag list") {
-    SelectRelationListView(
-        viewModel: SelectRelationListViewModel(
-            style: .tag,
-            configuration: RelationModuleConfiguration(
-                title: "Tag",
+                title: "Object",
                 isEditable: true,
                 relationKey: "",
                 spaceId: "",

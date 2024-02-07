@@ -901,6 +901,7 @@
 		2E2EA2CA2A53388500569E1E /* DotView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E2EA2C92A53388500569E1E /* DotView.swift */; };
 		2E2EA2CC2A5339CE00569E1E /* DotsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E2EA2CB2A5339CE00569E1E /* DotsView.swift */; };
 		2E2EA2CE2A543EFE00569E1E /* AnytypeFontConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E2EA2CD2A543EFE00569E1E /* AnytypeFontConfig.swift */; };
+		2E31C9622B7281CD006DB3E2 /* RelationListSelectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E31C9612B7281CD006DB3E2 /* RelationListSelectionView.swift */; };
 		2E330C52286CB6A70099C7C3 /* CreateBookmarkViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E330C51286CB6A70099C7C3 /* CreateBookmarkViewModel.swift */; };
 		2E330C54286CC2BA0099C7C3 /* CreateObjectViewModelProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E330C53286CC2BA0099C7C3 /* CreateObjectViewModelProtocol.swift */; };
 		2E37F01428C768B900337BD4 /* SetViewRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E37F01328C768B900337BD4 /* SetViewRow.swift */; };
@@ -953,6 +954,13 @@
 		2E7C4473289843220062287C /* DataviewFilter+Condition.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E7C4472289843220062287C /* DataviewFilter+Condition.swift */; };
 		2E7C44752898434A0062287C /* DataviewFilter+QuickOption.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E7C44742898434A0062287C /* DataviewFilter+QuickOption.swift */; };
 		2E7CAA3C2949E6A200475898 /* SetKanbanColumnHeaderType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E7CAA3B2949E6A200475898 /* SetKanbanColumnHeaderType.swift */; };
+		2E7E503E2B6D5756003867A3 /* ObjectRelationListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E7E503D2B6D5756003867A3 /* ObjectRelationListView.swift */; };
+		2E7E50402B6D5771003867A3 /* ObjectRelationListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E7E503F2B6D5771003867A3 /* ObjectRelationListViewModel.swift */; };
+		2E7E50422B6D5C3A003867A3 /* ObjectRelationListModuleOutput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E7E50412B6D5C3A003867A3 /* ObjectRelationListModuleOutput.swift */; };
+		2E7E50452B6D65DF003867A3 /* ObjectRelationListCoordinatorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E7E50442B6D65DF003867A3 /* ObjectRelationListCoordinatorView.swift */; };
+		2E7E50472B6D65F6003867A3 /* ObjectRelationListCoordinatorViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E7E50462B6D65F6003867A3 /* ObjectRelationListCoordinatorViewModel.swift */; };
+		2E7E50492B6D6609003867A3 /* ObjectRelationListCoordinatorAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E7E50482B6D6609003867A3 /* ObjectRelationListCoordinatorAssembly.swift */; };
+		2E7E504B2B6D6727003867A3 /* ObjectRelationListModuleAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E7E504A2B6D6727003867A3 /* ObjectRelationListModuleAssembly.swift */; };
 		2E8387BA291A51A000506766 /* SetCardDropData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E8387B8291A51A000506766 /* SetCardDropData.swift */; };
 		2E8387BB291A51A000506766 /* SetCardDropInsideDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E8387B9291A51A000506766 /* SetCardDropInsideDelegate.swift */; };
 		2E8387BD291A520C00506766 /* GroupObjectIds.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E8387BC291A520C00506766 /* GroupObjectIds.swift */; };
@@ -2617,6 +2625,7 @@
 		2E2EA2C92A53388500569E1E /* DotView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DotView.swift; sourceTree = "<group>"; };
 		2E2EA2CB2A5339CE00569E1E /* DotsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DotsView.swift; sourceTree = "<group>"; };
 		2E2EA2CD2A543EFE00569E1E /* AnytypeFontConfig.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnytypeFontConfig.swift; sourceTree = "<group>"; };
+		2E31C9612B7281CD006DB3E2 /* RelationListSelectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RelationListSelectionView.swift; sourceTree = "<group>"; };
 		2E330C51286CB6A70099C7C3 /* CreateBookmarkViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateBookmarkViewModel.swift; sourceTree = "<group>"; };
 		2E330C53286CC2BA0099C7C3 /* CreateObjectViewModelProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateObjectViewModelProtocol.swift; sourceTree = "<group>"; };
 		2E37F01328C768B900337BD4 /* SetViewRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetViewRow.swift; sourceTree = "<group>"; };
@@ -2669,6 +2678,13 @@
 		2E7C4472289843220062287C /* DataviewFilter+Condition.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DataviewFilter+Condition.swift"; sourceTree = "<group>"; };
 		2E7C44742898434A0062287C /* DataviewFilter+QuickOption.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DataviewFilter+QuickOption.swift"; sourceTree = "<group>"; };
 		2E7CAA3B2949E6A200475898 /* SetKanbanColumnHeaderType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetKanbanColumnHeaderType.swift; sourceTree = "<group>"; };
+		2E7E503D2B6D5756003867A3 /* ObjectRelationListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObjectRelationListView.swift; sourceTree = "<group>"; };
+		2E7E503F2B6D5771003867A3 /* ObjectRelationListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObjectRelationListViewModel.swift; sourceTree = "<group>"; };
+		2E7E50412B6D5C3A003867A3 /* ObjectRelationListModuleOutput.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObjectRelationListModuleOutput.swift; sourceTree = "<group>"; };
+		2E7E50442B6D65DF003867A3 /* ObjectRelationListCoordinatorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObjectRelationListCoordinatorView.swift; sourceTree = "<group>"; };
+		2E7E50462B6D65F6003867A3 /* ObjectRelationListCoordinatorViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObjectRelationListCoordinatorViewModel.swift; sourceTree = "<group>"; };
+		2E7E50482B6D6609003867A3 /* ObjectRelationListCoordinatorAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObjectRelationListCoordinatorAssembly.swift; sourceTree = "<group>"; };
+		2E7E504A2B6D6727003867A3 /* ObjectRelationListModuleAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObjectRelationListModuleAssembly.swift; sourceTree = "<group>"; };
 		2E8387B8291A51A000506766 /* SetCardDropData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SetCardDropData.swift; sourceTree = "<group>"; };
 		2E8387B9291A51A000506766 /* SetCardDropInsideDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SetCardDropInsideDelegate.swift; sourceTree = "<group>"; };
 		2E8387BC291A520C00506766 /* GroupObjectIds.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GroupObjectIds.swift; sourceTree = "<group>"; };
@@ -4704,6 +4720,7 @@
 		12887F3B274BC1ED00228330 /* RelationDetailsViews */ = {
 			isa = PBXGroup;
 			children = (
+				2E7E503C2B6D5707003867A3 /* Object */,
 				2EED4F572B6C31530076FAC6 /* RelationSelectedOptions */,
 				2E22F9F12B617B84001EFCF3 /* RelationOptionSettings */,
 				2E65276E2B5EEB9900F27126 /* Select */,
@@ -6978,6 +6995,7 @@
 			children = (
 				2E65276A2B5EE9BA00F27126 /* RelationListContainerView.swift */,
 				2E22F9E22B600F91001EFCF3 /* RelationModuleConfiguration.swift */,
+				2E31C9612B7281CD006DB3E2 /* RelationListSelectionView.swift */,
 			);
 			path = Container;
 			sourceTree = "<group>";
@@ -7006,6 +7024,28 @@
 				2ECB341B2A97B80F00E0F9BB /* SetFiltersDateViewModuleAssembly.swift */,
 			);
 			path = Date;
+			sourceTree = "<group>";
+		};
+		2E7E503C2B6D5707003867A3 /* Object */ = {
+			isa = PBXGroup;
+			children = (
+				2E7E50432B6D65C2003867A3 /* Coordinator */,
+				2E7E503D2B6D5756003867A3 /* ObjectRelationListView.swift */,
+				2E7E503F2B6D5771003867A3 /* ObjectRelationListViewModel.swift */,
+				2E7E50412B6D5C3A003867A3 /* ObjectRelationListModuleOutput.swift */,
+				2E7E504A2B6D6727003867A3 /* ObjectRelationListModuleAssembly.swift */,
+			);
+			path = Object;
+			sourceTree = "<group>";
+		};
+		2E7E50432B6D65C2003867A3 /* Coordinator */ = {
+			isa = PBXGroup;
+			children = (
+				2E7E50442B6D65DF003867A3 /* ObjectRelationListCoordinatorView.swift */,
+				2E7E50462B6D65F6003867A3 /* ObjectRelationListCoordinatorViewModel.swift */,
+				2E7E50482B6D6609003867A3 /* ObjectRelationListCoordinatorAssembly.swift */,
+			);
+			path = Coordinator;
 			sourceTree = "<group>";
 		};
 		2E8E8D102A261DA4009BC3B0 /* CreatingSoulView */ = {
@@ -10136,6 +10176,7 @@
 				53F7447927F71A83005C9BB0 /* PopupViewBuilder.swift in Sources */,
 				C99DCEDE283D0E820051F99D /* TemplatePickerViewModel.swift in Sources */,
 				3D3A9C3F265BC9AC000F07DB /* Publisher+Sink.swift in Sources */,
+				2E7E50492B6D6609003867A3 /* ObjectRelationListCoordinatorAssembly.swift in Sources */,
 				2AAF3454295B1B5F00921320 /* TreeSubscriptionManager.swift in Sources */,
 				120E8177269F3474006FE84E /* ObjectSetting.swift in Sources */,
 				3D5A416A2703170300F1F6A1 /* BlockAction.swift in Sources */,
@@ -10509,6 +10550,7 @@
 				2A7466AA2A9DFDF400D73F63 /* ObjectSettingsCoordinatorOutput.swift in Sources */,
 				EA20CDCD2612288400DBA9FE /* VideoBlockViewModel.swift in Sources */,
 				2AD6792C29812EE600339624 /* HomeBottomPanelModuleOutput.swift in Sources */,
+				2E7E50422B6D5C3A003867A3 /* ObjectRelationListModuleOutput.swift in Sources */,
 				3D1CEC4527F5F566000D36BA /* Clock.swift in Sources */,
 				2AF205BC2ABD8E660027F3EA /* HomeBottomNavigationPanelView.swift in Sources */,
 				53FF7C4826F7562B00A5A592 /* AnytypeAudioPlayer.swift in Sources */,
@@ -10740,6 +10782,7 @@
 				125B6ED026F235F400BCD7D6 /* SlashMenuAssembly.swift in Sources */,
 				2AFF7AC2299CDA4B00B7746B /* WidgetObjectListBinViewModel.swift in Sources */,
 				863776852A658B410040308E /* TemplateOptionAction.swift in Sources */,
+				2E7E504B2B6D6727003867A3 /* ObjectRelationListModuleAssembly.swift in Sources */,
 				125B6ECF26F235F400BCD7D6 /* SlashMenuViewController.swift in Sources */,
 				2A03039F28ABD4BD002EFC46 /* SystemURLService.swift in Sources */,
 				86E555372A7AB983000A8DC7 /* MockSetDocument.swift in Sources */,
@@ -10925,6 +10968,7 @@
 				3D1B5F78274CF567007D97AE /* SetTableViewHeader.swift in Sources */,
 				2ECB341A2A97B4C400E0F9BB /* SetFiltersDateCoordinatorAssembly.swift in Sources */,
 				1226857928D4C5E60013A28E /* AppMetricsTracker.swift in Sources */,
+				2E31C9622B7281CD006DB3E2 /* RelationListSelectionView.swift in Sources */,
 				2A00A74229D33B25007BE598 /* EdgeInsets+Helpers.swift in Sources */,
 				2A65E9B22AE1290300D40657 /* InitialCoordinatorView.swift in Sources */,
 				3DE6E3C026542151008FB0AF /* UIVIewController+Child.swift in Sources */,
@@ -11041,6 +11085,7 @@
 				129C54CB27FC694A00C390C7 /* NewRelationSectionView.swift in Sources */,
 				3D38CC9626D632C500E4F7BF /* ObjectHeaderViewModel.swift in Sources */,
 				C92DCD91272990CE00A03D91 /* ChangeTypeAccessoryView.swift in Sources */,
+				2E7E50452B6D65DF003867A3 /* ObjectRelationListCoordinatorView.swift in Sources */,
 				2E8387BA291A51A000506766 /* SetCardDropData.swift in Sources */,
 				2ECB343B2A98FEBE00E0F9BB /* SetFiltersListCoordinatorAssembly.swift in Sources */,
 				C973E1AD285C567F00978BC4 /* SimpleTableDependenciesBuilder.swift in Sources */,
@@ -11387,6 +11432,7 @@
 				2A816AC92AD7DFC700975BCA /* ServerConfigurationView.swift in Sources */,
 				12A7B6C126C3E47200544037 /* DocumentCover.swift in Sources */,
 				2AD8E94F2B679D2800AADB9E /* NotificationCoordinator.swift in Sources */,
+				2E7E50472B6D65F6003867A3 /* ObjectRelationListCoordinatorViewModel.swift in Sources */,
 				53D408AC27F0B7EE00495335 /* CodeBlockFields.swift in Sources */,
 				1219F971269350A5009DE4D4 /* ObjectIcon.swift in Sources */,
 				2A2C331D2892B627008BC326 /* RelationValueModuleAssembly.swift in Sources */,
@@ -11406,6 +11452,7 @@
 				1280E20B265C1A5700E5AEEE /* UIImageExtensions.swift in Sources */,
 				12FD9D232767177400991886 /* RelationStatus.swift in Sources */,
 				2A5BC4BA2A78F61E004FAABF /* SquareIconPainter.swift in Sources */,
+				2E7E50402B6D5771003867A3 /* ObjectRelationListViewModel.swift in Sources */,
 				C9432719285DE08200D82F3F /* SimpleTablesTextBlockActionHandler.swift in Sources */,
 				1244794527DC931900581174 /* NewSearchSectionsBuilder.swift in Sources */,
 				C922F68E2860973900DF2EF5 /* SimpleTableCellsBuilder.swift in Sources */,
@@ -11493,6 +11540,7 @@
 				2A2B331E2A7AA7A6004BD906 /* CreateWidgetCoordinatorView.swift in Sources */,
 				2E6F3E1F2A4DF154002F4278 /* SceneStateListener.swift in Sources */,
 				2ACE879B29F2B23B00C2B2A9 /* StandardButtonConfig.swift in Sources */,
+				2E7E503E2B6D5756003867A3 /* ObjectRelationListView.swift in Sources */,
 				3DE0CFD426F8593D003A606A /* SlashMenuItem.swift in Sources */,
 				2A377E472A82703500EA856B /* RemoteStorageModuleOutput.swift in Sources */,
 				2A176438283E2211002853D3 /* AnytypePopupProxy.swift in Sources */,

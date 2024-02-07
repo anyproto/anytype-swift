@@ -3,14 +3,19 @@ import Services
 import UIKit
 import AnytypeCore
 
-final class RelationValueCoordinator: RelationValueCoordinatorProtocol,
-                                      TextRelationActionButtonViewModelDelegate,
-                                      RelationValueViewModelOutput {
+@MainActor
+final class RelationValueCoordinator:
+    RelationValueCoordinatorProtocol,
+    TextRelationActionButtonViewModelDelegate,
+    RelationValueViewModelOutput,
+    ObjectRelationListCoordinatorModuleOutput
+{
     
     private let navigationContext: NavigationContextProtocol
     private let relationValueModuleAssembly: RelationValueModuleAssemblyProtocol
     private let dateRelationCalendarModuleAssembly: DateRelationCalendarModuleAssemblyProtocol
     private let selectRelationListCoordinatorAssembly: SelectRelationListCoordinatorAssemblyProtocol
+    private let objectRelationListCoordinatorAssembly: ObjectRelationListCoordinatorAssemblyProtocol
     private let urlOpener: URLOpenerProtocol
     private let toastPresenter: ToastPresenterProtocol
     private weak var output: RelationValueCoordinatorOutput?
@@ -20,6 +25,7 @@ final class RelationValueCoordinator: RelationValueCoordinatorProtocol,
         relationValueModuleAssembly: RelationValueModuleAssemblyProtocol,
         dateRelationCalendarModuleAssembly: DateRelationCalendarModuleAssemblyProtocol,
         selectRelationListCoordinatorAssembly: SelectRelationListCoordinatorAssemblyProtocol,
+        objectRelationListCoordinatorAssembly: ObjectRelationListCoordinatorAssemblyProtocol,
         urlOpener: URLOpenerProtocol,
         toastPresenter: ToastPresenterProtocol
     ) {
@@ -27,6 +33,7 @@ final class RelationValueCoordinator: RelationValueCoordinatorProtocol,
         self.relationValueModuleAssembly = relationValueModuleAssembly
         self.dateRelationCalendarModuleAssembly = dateRelationCalendarModuleAssembly
         self.selectRelationListCoordinatorAssembly = selectRelationListCoordinatorAssembly
+        self.objectRelationListCoordinatorAssembly = objectRelationListCoordinatorAssembly
         self.urlOpener = urlOpener
         self.toastPresenter = toastPresenter
     }
@@ -123,6 +130,29 @@ final class RelationValueCoordinator: RelationValueCoordinatorProtocol,
             return
         }
         
+        if FeatureFlags.newObjectSelectRelationView, case .object(let object) = relation {
+            let configuration = RelationModuleConfiguration(
+                title: object.name,
+                isEditable: relation.isEditable,
+                relationKey: object.key,
+                spaceId: objectDetails.spaceId,
+                selectionMode: .multi,
+                analyticsType: analyticsType
+            )
+            let view = objectRelationListCoordinatorAssembly.make(
+                objectId: objectDetails.id,
+                configuration: configuration,
+                limitedObjectTypes: object.limitedObjectTypes,
+                selectedOptionsIds: object.selectedObjects.compactMap { $0.id }, 
+                output: self
+            )
+            
+            let mediumDetent = object.selectedObjects.isNotEmpty || !relation.isEditable
+            navigationContext.present(view, mediumDetent: mediumDetent)
+            
+            return
+        }
+        
         guard let moduleViewController = relationValueModuleAssembly.make(
             objectDetails: objectDetails,
             relation: relation,
@@ -147,6 +177,12 @@ final class RelationValueCoordinator: RelationValueCoordinatorProtocol,
     // MARK: - RelationValueViewModelOutput
     
     func onTapRelation(screenData: EditorScreenData) {
+        output?.openObject(screenData: screenData)
+    }
+    
+    // MARK: - ObjectRelationListCoordinatorModuleOutput
+    
+    func onObjectOpen(screenData: EditorScreenData) {
         output?.openObject(screenData: screenData)
     }
 }

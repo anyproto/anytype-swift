@@ -31,7 +31,11 @@ final class ModulesDI: ModulesDIProtocol {
     }
     
     func relationOptionSettings() -> RelationOptionSettingsModuleAssemblyProtocol {
-        RelationOptionSettingsModuleAssembly(serviceLocator: serviceLocator)
+        return RelationOptionSettingsModuleAssembly(serviceLocator: serviceLocator)
+    }
+    
+    func objectRelationList() -> ObjectRelationListModuleAssemblyProtocol {
+        return ObjectRelationListModuleAssembly(serviceLocator: serviceLocator)
     }
     
     func undoRedo() -> UndoRedoModuleAssemblyProtocol {

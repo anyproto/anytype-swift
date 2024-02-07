@@ -1,16 +1,13 @@
 import Foundation
 import SwiftUI
 
-struct SelectRelationListCoordinatorView: View {
+struct ObjectRelationListCoordinatorView: View {
     
-    @StateObject var model: SelectRelationListCoordinatorViewModel
+    @StateObject var model: ObjectRelationListCoordinatorViewModel
     @Environment(\.dismiss) var dismiss
     
     var body: some View {
-        model.selectRelationListModule()
-            .sheet(item: $model.relationData) { data in
-                model.selectRelationCreate(data: data)
-            }
+        model.objectRelationListModule()
             .anytypeSheet(item: $model.deletionAlertData, cancelAction: {
                 model.deletionAlertData?.completion(false)
             }, content: { data in

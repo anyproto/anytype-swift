@@ -522,6 +522,7 @@ extension EditorRouter: AttachmentRouterProtocol {
 
 // MARK: - Relations
 extension EditorRouter {
+    @MainActor
     func showRelationValueEditingView(key: String) {
         let relation = document.parsedRelations.installed.first { $0.key == key }
         guard let relation = relation else { return }
@@ -529,6 +530,7 @@ extension EditorRouter {
         showRelationValueEditingView(objectId: document.objectId, relation: relation)
     }
     
+    @MainActor
     func showRelationValueEditingView(objectId: BlockId, relation: Relation) {
         guard let objectDetails = document.detailsStorage.get(id: objectId) else {
             anytypeAssertionFailure("Details not found")
