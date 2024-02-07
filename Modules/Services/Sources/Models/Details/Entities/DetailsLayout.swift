@@ -20,7 +20,7 @@ public enum DetailsLayout: Int, CaseIterable, Codable {
     case video = 16
     case date = 17
     case spaceView = 18
-    
+    case participant = 19
     case database = 20
     
     case unknown = -1
