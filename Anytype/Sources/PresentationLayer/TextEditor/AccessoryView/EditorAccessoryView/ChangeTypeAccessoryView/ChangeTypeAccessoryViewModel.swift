@@ -59,8 +59,9 @@ final class ChangeTypeAccessoryViewModel {
     }
 
     private func subscribeOnDocumentChanges() {
-        document.updatePublisher.sink { _ in
-            Task { @MainActor in
+        document.updatePublisher.sink { [weak self] _ in
+            Task { @MainActor [weak self] in
+                guard let self else { return }
                 if let supportedTypes = await self.fetchSupportedTypes() {
                     self.supportedTypes = supportedTypes
                 }
@@ -72,9 +73,9 @@ final class ChangeTypeAccessoryViewModel {
         let supportedTypes = try? await typesService
             .searchObjectTypes(
                 text: "",
-                filteringTypeId: nil,
-                shouldIncludeLists: true,
-                shouldIncludeBookmark: true,
+                includePins: true,
+                includeLists: true,
+                includeBookmark: true,
                 spaceId: document.spaceId
             ).map { type in
                 TypeItem(from: type, handler: { [weak self] in

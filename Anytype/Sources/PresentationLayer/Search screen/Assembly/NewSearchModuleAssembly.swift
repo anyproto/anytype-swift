@@ -140,7 +140,6 @@ final class NewSearchModuleAssembly: NewSearchModuleAssemblyProtocol {
         title: String,
         spaceId: String,
         selectedObjectId: BlockId?,
-        excludedObjectTypeId: String?,
         showSetAndCollection: Bool,
         onSelect: @escaping (_ type: ObjectType) -> Void
     ) -> NewSearchView {
@@ -149,7 +148,6 @@ final class NewSearchModuleAssembly: NewSearchModuleAssemblyProtocol {
             typesService: serviceLocator.typesService(),
             workspaceService: serviceLocator.workspaceService(),
             objectTypeProvider: serviceLocator.objectTypeProvider(),
-            excludedObjectTypeId: excludedObjectTypeId,
             showBookmark: true,
             showSetAndCollection: showSetAndCollection
         )
@@ -181,7 +179,6 @@ final class NewSearchModuleAssembly: NewSearchModuleAssemblyProtocol {
             typesService: serviceLocator.typesService(),
             workspaceService: serviceLocator.workspaceService(),
             objectTypeProvider: serviceLocator.objectTypeProvider(),
-            excludedObjectTypeId: nil,
             showBookmark: true,
             showSetAndCollection: false
         )

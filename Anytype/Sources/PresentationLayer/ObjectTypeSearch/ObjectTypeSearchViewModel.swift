@@ -6,8 +6,8 @@ import Services
 final class ObjectTypeSearchViewModel: ObservableObject {
     @Published var state = State.searchResults([])
     
+    private let showPins: Bool
     private let showLists: Bool
-    private let highlightDefaultType: Bool
     
     private let interactor: ObjectTypeSearchInteractor
     private let toastPresenter: ToastPresenterProtocol
@@ -15,14 +15,14 @@ final class ObjectTypeSearchViewModel: ObservableObject {
     private let onSelect: (_ type: ObjectType) -> Void
     
     nonisolated init(
+        showPins: Bool,
         showLists: Bool,
-        highlightDefaultType: Bool,
         interactor: ObjectTypeSearchInteractor,
         toastPresenter: ToastPresenterProtocol,
         onSelect: @escaping (_ type: ObjectType) -> Void
     ) {
+        self.showPins = showPins
         self.showLists = showLists
-        self.highlightDefaultType = highlightDefaultType
         self.interactor = interactor
         self.toastPresenter = toastPresenter
         self.onSelect = onSelect
@@ -30,12 +30,20 @@ final class ObjectTypeSearchViewModel: ObservableObject {
     
     func search(text: String) {
         Task {
-            let listTypes = showLists ? try await interactor.searchListTypes(text: text) : []
-            let objectTypes = try await interactor.searchObjectTypes(text: text)
+            let pinnedTypes = showPins ? try await interactor.searchPinnedTypes(text: text) : []
+            let listTypes = showLists ? try await interactor.searchListTypes(text: text, includePins: !showPins) : []
+            let objectTypes = try await interactor.searchObjectTypes(text: text, includePins: !showPins)
             let libraryTypes = text.isNotEmpty ? try await interactor.searchLibraryTypes(text: text) : []
             let defaultType = try interactor.defaultObjectType()
             
             let sectionData: [SectionData] = Array.builder {
+                if pinnedTypes.isNotEmpty {
+                    SectionData(
+                        section: .pins,
+                        types: buildTypeData(types: pinnedTypes, defaultType: defaultType)
+                    )
+                }
+                
                 if listTypes.isNotEmpty {
                     SectionData(
                         section: .lists,
@@ -88,7 +96,7 @@ final class ObjectTypeSearchViewModel: ObservableObject {
         return types.map { type in
             ObjectTypeData(
                 type: type,
-                isHighlighted: highlightDefaultType && defaultType.id == type.id
+                isHighlighted: showPins && defaultType.id == type.id
             )
         }
     }

@@ -69,10 +69,10 @@ struct SlashMenuItemsBuilder {
     private func searchObjectsMenuItem(spaceId: String) async throws -> SlashMenuItem? {
         let shouldIncludeSetsAndCollections = FeatureFlags.setAndCollectionInSlashMenu
         guard let searchTypes = try? await typesService.searchObjectTypes(
-            text: "",
-            filteringTypeId: nil,
-            shouldIncludeLists: shouldIncludeSetsAndCollections,
-            shouldIncludeBookmark: false,
+            text: "", 
+            includePins: true,
+            includeLists: shouldIncludeSetsAndCollections,
+            includeBookmark: false,
             spaceId: spaceId
         ) else {
             return nil

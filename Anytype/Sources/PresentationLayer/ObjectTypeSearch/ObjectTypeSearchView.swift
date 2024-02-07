@@ -69,6 +69,7 @@ struct ObjectTypeSearchView: View {
     private func typesView(section: SectionType, data: [ObjectTypeData]) -> some View {
         WrappingHStack(data, spacing: .constant(8)) { typeData in
             Button {
+                UISelectionFeedbackGenerator().selectionChanged()
                 viewModel.didSelectType(typeData.type, section: section)
             } label: {
                 HStack(spacing: 8) {

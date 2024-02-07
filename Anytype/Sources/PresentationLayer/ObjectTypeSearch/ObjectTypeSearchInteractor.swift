@@ -21,20 +21,20 @@ final class ObjectTypeSearchInteractor {
     }
     
     // MARK: - Search
-    func searchObjectTypes(text: String) async throws -> [ObjectType] {
+    func searchObjectTypes(text: String, includePins: Bool) async throws -> [ObjectType] {
         return try await typesService.searchObjectTypes(
-            text: text,
-            filteringTypeId: nil,
-            shouldIncludeLists: false,
-            shouldIncludeBookmark: true,
+            text: text, 
+            includePins: includePins,
+            includeLists: false,
+            includeBookmark: true,
             spaceId: spaceId
         ).map { ObjectType(details: $0) }
     }
     
-    func searchListTypes(text: String) async throws -> [ObjectType] {
+    func searchListTypes(text: String, includePins: Bool) async throws -> [ObjectType] {
         return try await typesService.searchListTypes(
-            text: text, spaceId: spaceId
-        ).map { ObjectType(details: $0) }
+            text: text, includePins: includePins, spaceId: spaceId
+        )
     }
     
     func searchLibraryTypes(text: String) async throws -> [ObjectType] {
@@ -45,14 +45,17 @@ final class ObjectTypeSearchInteractor {
         ).map { ObjectType(details: $0) }
     }
     
+    func searchPinnedTypes(text: String) async throws -> [ObjectType] {
+        return try await typesService.searchPinnedTypes(text: text, spaceId: spaceId)
+    }
+    
     // MARK: - Working with types
     func installType(objectId: String) async throws {
         _ = try await workspaceService.installObject(spaceId: spaceId, objectId: objectId)
     }
     
     func createNewType(name: String) async throws -> ObjectType {
-        let details = try await typesService.createType(name: name, spaceId: spaceId)
-        return ObjectType(details: details)
+        return try await typesService.createType(name: name, spaceId: spaceId)
     }
     
     func defaultObjectType() throws -> ObjectType {

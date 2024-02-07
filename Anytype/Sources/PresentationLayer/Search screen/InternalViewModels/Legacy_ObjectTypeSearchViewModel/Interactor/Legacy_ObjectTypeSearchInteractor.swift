@@ -7,7 +7,6 @@ final class Legacy_ObjectTypeSearchInteractor {
     private let spaceId: String
     private let typesService: TypesServiceProtocol
     private let workspaceService: WorkspaceServiceProtocol
-    private let excludedObjectTypeId: String?
     private let showBookmark: Bool
     private let showSetAndCollection: Bool
     private let objectTypeProvider: ObjectTypeProviderProtocol
@@ -17,14 +16,12 @@ final class Legacy_ObjectTypeSearchInteractor {
         typesService: TypesServiceProtocol,
         workspaceService: WorkspaceServiceProtocol,
         objectTypeProvider: ObjectTypeProviderProtocol,
-        excludedObjectTypeId: String?,
         showBookmark: Bool,
         showSetAndCollection: Bool
     ) {
         self.spaceId = spaceId
         self.typesService = typesService
         self.workspaceService = workspaceService
-        self.excludedObjectTypeId = excludedObjectTypeId
         self.showBookmark = showBookmark
         self.showSetAndCollection = showSetAndCollection
         self.objectTypeProvider = objectTypeProvider
@@ -36,10 +33,10 @@ extension Legacy_ObjectTypeSearchInteractor {
     
     func search(text: String) async throws -> [ObjectDetails] {
         try await typesService.searchObjectTypes(
-            text: text,
-            filteringTypeId: excludedObjectTypeId,
-            shouldIncludeLists: showSetAndCollection,
-            shouldIncludeBookmark: showBookmark,
+            text: text, 
+            includePins: true,
+            includeLists: showSetAndCollection,
+            includeBookmark: showBookmark,
             spaceId: spaceId
         )
     }

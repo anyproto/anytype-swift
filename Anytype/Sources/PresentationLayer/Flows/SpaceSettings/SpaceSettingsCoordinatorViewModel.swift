@@ -110,8 +110,8 @@ final class SpaceSettingsCoordinatorViewModel: ObservableObject, SpaceSettingsMo
             let module = objectTypeSearchModuleAssembly.make(
                 title: Loc.chooseDefaultObjectType,
                 spaceId: activeWorkspaceStorage.workspaceInfo.accountSpaceId,
-                showLists: false, 
-                highlightDefaultType: false
+                showPins: false,
+                showLists: false
             ) { [weak self] type in
                 self?.objectTypeProvider.setDefaultObjectType(type: type, spaceId: type.spaceId)
                 self?.navigationContext.dismissTopPresented(animated: true)

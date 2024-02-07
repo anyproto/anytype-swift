@@ -8,8 +8,8 @@ protocol ObjectTypeSearchModuleAssemblyProtocol: AnyObject {
     func make(
         title: String,
         spaceId: String,
+        showPins: Bool,
         showLists: Bool,
-        highlightDefaultType: Bool,
         onSelect: @escaping (_ type: ObjectType) -> Void
     ) -> AnyView
 }
@@ -27,8 +27,8 @@ final class ObjectTypeSearchModuleAssembly: ObjectTypeSearchModuleAssemblyProtoc
     func make(
         title: String,
         spaceId: String,
+        showPins: Bool,
         showLists: Bool,
-        highlightDefaultType: Bool,
         onSelect: @escaping (_ type: ObjectType) -> Void
     ) -> AnyView {
         if FeatureFlags.newTypePicker {
@@ -40,8 +40,8 @@ final class ObjectTypeSearchModuleAssembly: ObjectTypeSearchModuleAssemblyProtoc
             )
             
             let model = ObjectTypeSearchViewModel(
+                showPins: showPins,
                 showLists: showLists,
-                highlightDefaultType: highlightDefaultType,
                 interactor: interactor,
                 toastPresenter: uiHelpersDI.toastPresenter(),
                 onSelect: onSelect
@@ -57,7 +57,6 @@ final class ObjectTypeSearchModuleAssembly: ObjectTypeSearchModuleAssemblyProtoc
                 typesService: serviceLocator.typesService(),
                 workspaceService: serviceLocator.workspaceService(),
                 objectTypeProvider: serviceLocator.objectTypeProvider(),
-                excludedObjectTypeId: nil,
                 showBookmark: true,
                 showSetAndCollection: true
             )

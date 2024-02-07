@@ -142,8 +142,8 @@ final class SetObjectCreationSettingsCoordinator: SetObjectCreationSettingsCoord
             let view = objectTypeSearchModuleAssembly.make(
                 title: Loc.changeType,
                 spaceId: setDocument.spaceId,
-                showLists: true, 
-                highlightDefaultType: false
+                showPins: false,
+                showLists: true
             ) { [weak self] type in
                 self?.navigationContext.dismissTopPresented()
                 onSelect(type)

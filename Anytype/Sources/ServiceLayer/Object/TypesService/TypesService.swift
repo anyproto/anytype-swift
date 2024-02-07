@@ -1,16 +1,22 @@
 import ProtobufMessages
 import SwiftProtobuf
+import Services
 
 
-public final class TypesService: TypesServiceProtocol {
+final class TypesService: TypesServiceProtocol {
     
     private let searchMiddleService: SearchMiddleServiceProtocol
+    private let typeProvider: ObjectTypeProviderProtocol
     
-    public init(searchMiddleService: SearchMiddleServiceProtocol) {
+    init(
+        searchMiddleService: SearchMiddleServiceProtocol,
+        typeProvider: ObjectTypeProviderProtocol
+    ) {
         self.searchMiddleService = searchMiddleService
+        self.typeProvider = typeProvider
     }
     
-    public func createType(name: String, spaceId: String) async throws -> ObjectDetails {
+    func createType(name: String, spaceId: String) async throws -> ObjectType {
         let details = Google_Protobuf_Struct(
             fields: [
                 BundledRelationKey.name.rawValue: name.protobufValue,
@@ -22,17 +28,20 @@ public final class TypesService: TypesServiceProtocol {
             $0.spaceID = spaceId
         }).invoke()
         
-        return try ObjectDetails(protobufStruct: result.details)
+        let objectDetails = try ObjectDetails(protobufStruct: result.details)
+        return ObjectType(details: objectDetails)
     }
     
     // MARK: - Search
-    public func searchObjectTypes(
+    func searchObjectTypes(
         text: String,
-        filteringTypeId: String? = nil,
-        shouldIncludeLists: Bool,
-        shouldIncludeBookmark: Bool,
+        includePins: Bool,
+        includeLists: Bool,
+        includeBookmark: Bool,
         spaceId: String
     ) async throws -> [ObjectDetails] {
+        let excludedTypeIds = includePins ? [] : try await searchPinnedTypes(text: "", spaceId: spaceId).map { $0.id }
+        
         let sort = SearchHelper.sort(
             relation: BundledRelationKey.lastUsedDate,
             type: .desc
@@ -40,12 +49,12 @@ public final class TypesService: TypesServiceProtocol {
                 
         var layouts = DetailsLayout.visibleLayouts
         
-        if !shouldIncludeLists {
+        if !includeLists {
             layouts.removeAll(where: { $0 == .set })
             layouts.removeAll(where: { $0 == .collection })
         }
         
-        if !shouldIncludeBookmark {
+        if !includeBookmark {
             layouts.removeAll(where: { $0 == .bookmark })
         }
         
@@ -53,9 +62,7 @@ public final class TypesService: TypesServiceProtocol {
             SearchFiltersBuilder.build(isArchived: false, spaceId: spaceId)
             SearchHelper.layoutFilter([DetailsLayout.objectType])
             SearchHelper.recomendedLayoutFilter(layouts)
-            if let filteringTypeId {
-                SearchHelper.excludedIdsFilter([filteringTypeId])
-            }
+            SearchHelper.excludedIdsFilter(excludedTypeIds)
         }
         
         let result = try await searchMiddleService.search(filters: filters, sorts: [sort], fullText: text)
@@ -63,7 +70,13 @@ public final class TypesService: TypesServiceProtocol {
         return result
     }
     
-    public func searchListTypes(text: String, spaceId: String) async throws -> [ObjectDetails] {
+    func searchListTypes(
+        text: String,
+        includePins: Bool,
+        spaceId: String
+    ) async throws -> [ObjectType] {
+        let excludedTypeIds = includePins ? [] : try await searchPinnedTypes(text: "", spaceId: spaceId).map { $0.id }
+        
         let sort = SearchHelper.sort(
             relation: BundledRelationKey.lastUsedDate,
             type: .desc
@@ -75,12 +88,14 @@ public final class TypesService: TypesServiceProtocol {
             SearchFiltersBuilder.build(isArchived: false, spaceId: spaceId)
             SearchHelper.layoutFilter([DetailsLayout.objectType])
             SearchHelper.recomendedLayoutFilter(layouts)
+            SearchHelper.excludedIdsFilter(excludedTypeIds)
         }
         
         return try await searchMiddleService.search(filters: filters, sorts: [sort], fullText: text)
+            .map { ObjectType(details: $0) }
     }
     
-    public func searchLibraryObjectTypes(text: String, excludedIds: [String]) async throws -> [ObjectDetails] {
+    func searchLibraryObjectTypes(text: String, excludedIds: [String]) async throws -> [ObjectDetails] {
         let sort = SearchHelper.sort(
             relation: BundledRelationKey.name,
             type: .asc
@@ -94,5 +109,12 @@ public final class TypesService: TypesServiceProtocol {
         }
         
         return try await searchMiddleService.search(filters: filters, sorts: [sort], fullText: text)
+    }
+    
+    func searchPinnedTypes(text: String, spaceId: String) async throws -> [ObjectType] {
+        let page = try typeProvider.objectType(uniqueKey: .page, spaceId: spaceId)
+        let note = try typeProvider.objectType(uniqueKey: .note, spaceId: spaceId)
+        let task = try typeProvider.objectType(uniqueKey: .task, spaceId: spaceId)
+        return [ note, page, task ]
     }
 }
