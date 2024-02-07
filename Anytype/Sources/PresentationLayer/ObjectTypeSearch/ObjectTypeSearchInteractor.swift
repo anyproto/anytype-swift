@@ -71,4 +71,8 @@ final class ObjectTypeSearchInteractor {
     func defaultObjectType() throws -> ObjectType {
         return try objectTypeProvider.defaultObjectType(spaceId: spaceId)
     }
+    
+    func setDefaultObjectType(_ type: ObjectType) {
+        objectTypeProvider.setDefaultObjectType(type: type, spaceId: spaceId)
+    }
 }

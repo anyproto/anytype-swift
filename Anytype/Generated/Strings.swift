@@ -442,6 +442,8 @@ internal enum Loc {
   }
   /// Set
   internal static let `set` = Loc.tr("Localizable", "Set", fallback: "Set")
+  /// Set as default
+  internal static let setAsDefault = Loc.tr("Localizable", "Set as default", fallback: "Set as default")
   /// Sets
   internal static let sets = Loc.tr("Localizable", "Sets", fallback: "Sets")
   /// Setting up encrypted storage
