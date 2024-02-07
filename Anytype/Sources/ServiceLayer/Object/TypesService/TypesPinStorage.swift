@@ -4,6 +4,8 @@ import Services
 protocol TypesPinStorageProtocol {
     func getPins(spaceId: String) throws -> [ObjectType]
     func setPins(_ pins: [ObjectType], spaceId: String)
+    func appendPin(_ pin: ObjectType, spaceId: String) throws
+    func removePin(_ pin: ObjectType, spaceId: String) throws
 }
 
 final class TypesPinStorage: TypesPinStorageProtocol {
@@ -32,5 +34,17 @@ final class TypesPinStorage: TypesPinStorageProtocol {
     
     func setPins(_ pins: [ObjectType], spaceId: String) {
         storage[spaceId] = pins
+    }
+    
+    func appendPin(_ pin: ObjectType, spaceId: String) throws {
+        var pins = try getPins(spaceId: spaceId)
+        pins.insert(pin, at: 0)
+        setPins(pins, spaceId: spaceId)
+    }
+    
+    func removePin(_ pin: ObjectType, spaceId: String) throws {
+        var pins = try getPins(spaceId: spaceId)
+        pins.removeAll { $0.id == pin.id }
+        setPins(pins, spaceId: spaceId)
     }
 }

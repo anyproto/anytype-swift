@@ -368,6 +368,8 @@ internal enum Loc {
   internal static let picture = Loc.tr("Localizable", "Picture", fallback: "Picture")
   /// Upload and enrich the page with image
   internal static let pictureBlockSubtitle = Loc.tr("Localizable", "Picture block subtitle", fallback: "Upload and enrich the page with image")
+  /// Pin on top
+  internal static let pinOnTop = Loc.tr("Localizable", "Pin on top", fallback: "Pin on top")
   /// Pink
   internal static let pink = Loc.tr("Localizable", "Pink", fallback: "Pink")
   /// Pink background
@@ -515,6 +517,8 @@ internal enum Loc {
   internal static let unknownError = Loc.tr("Localizable", "Unknown error", fallback: "Unknown error")
   /// Unlock
   internal static let unlock = Loc.tr("Localizable", "Unlock", fallback: "Unlock")
+  /// Unpin
+  internal static let unpin = Loc.tr("Localizable", "Unpin", fallback: "Unpin")
   /// Unselect all
   internal static let unselectAll = Loc.tr("Localizable", "Unselect all", fallback: "Unselect all")
   /// Unsplash

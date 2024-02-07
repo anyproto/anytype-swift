@@ -50,6 +50,7 @@ struct ObjectTypeSearchView: View {
                     Section(header: sectionHeader(sectionData.section)) {
                         typesView(section: sectionData.section, data: sectionData.types)
                     }
+                    .id(sectionData.id)
                 }
             }
             .padding(.bottom, 10)
@@ -84,13 +85,30 @@ struct ObjectTypeSearchView: View {
                 .padding(.leading, 14)
                 .padding(.trailing, 16)
             }
+            .contextMenu {
+                contextMenu(section: section, data: typeData)
+            }
             .border(
                 12,
                 color: typeData.isHighlighted ? .System.amber50 : .Shape.primary,
                 lineWidth: typeData.isHighlighted ? 2 : 1
             )
             .padding(.bottom, 8)
+            .id(typeData.type.id)
         }
         .padding(.horizontal, 20)
+    }
+    
+    @ViewBuilder
+    private func contextMenu(section: SectionType, data: ObjectTypeData) -> some View {
+        if section == .pins {
+            Button(Loc.unpin) {
+                viewModel.removePinedType(data.type, currentText: searchText)
+            }
+        } else {
+            Button(Loc.pinOnTop) {
+                viewModel.addPinedType(data.type, currentText: searchText)
+            }
+        }
     }
 }

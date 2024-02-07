@@ -112,10 +112,18 @@ final class TypesService: TypesServiceProtocol {
     }
     
     func searchPinnedTypes(text: String, spaceId: String) async throws -> [ObjectType] {
-        return try pinsStorage.getPins(spaceId: spaceId)
+        try pinsStorage.getPins(spaceId: spaceId)
             .filter {
                 guard text.isNotEmpty else { return true }
                 return $0.name.lowercased().contains(text.lowercased())
             }
+    }
+    
+    func addPinedType(_ type: ObjectType, spaceId: String) throws {
+        try pinsStorage.appendPin(type, spaceId: spaceId)
+    }
+    
+    func removePinedType(_ type: ObjectType, spaceId: String) throws {
+        try pinsStorage.removePin(type, spaceId: spaceId)
     }
 }
