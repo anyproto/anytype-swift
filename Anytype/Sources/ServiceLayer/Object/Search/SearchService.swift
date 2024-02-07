@@ -123,7 +123,12 @@ final class SearchService: SearchServiceProtocol {
         filters.append(SearchHelper.relationKey(relationKey))
         filters.append(SearchHelper.excludedIdsFilter(excludedObjectIds))
         
-        let details = try await searchMiddleService.search(filters: filters, sorts: [], fullText: text, limit: 0)
+        let sort = SearchHelper.sort(
+            relation: BundledRelationKey.createdDate,
+            type: .asc
+        )
+        
+        let details = try await searchMiddleService.search(filters: filters, sorts: [sort], fullText: text, limit: 0)
         return details.map { RelationOption(details: $0) }
     }
 
