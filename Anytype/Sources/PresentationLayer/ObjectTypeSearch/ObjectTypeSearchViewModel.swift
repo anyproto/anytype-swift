@@ -94,6 +94,13 @@ final class ObjectTypeSearchViewModel: ObservableObject {
         }
     }
     
+    func deleteType(_ type: ObjectType) {
+        Task {
+            try await interactor.deleteType(type)
+            search(text: searchText)
+        }
+    }
+    
     func setDefaultType(_ type: ObjectType) {
         interactor.setDefaultObjectType(type)
         search(text: searchText)

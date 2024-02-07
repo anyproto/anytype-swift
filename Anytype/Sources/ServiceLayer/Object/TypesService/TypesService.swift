@@ -1,6 +1,7 @@
 import ProtobufMessages
 import SwiftProtobuf
 import Services
+import AnytypeCore
 
 
 final class TypesService: TypesServiceProtocol {
@@ -30,6 +31,17 @@ final class TypesService: TypesServiceProtocol {
         
         let objectDetails = try ObjectDetails(protobufStruct: result.details)
         return ObjectType(details: objectDetails)
+    }
+    
+    func deleteType(_ type: ObjectType, spaceId: String) async throws {
+        guard !type.readonly else {
+            anytypeAssertionFailure("Trying to delete readonly type \(type.name)")
+            throw TypesServiceError.deletingReadonlyType
+        }
+        
+        try await ClientCommands.workspaceObjectListRemove(.with {
+            $0.objectIds = [type.id]
+        }).invoke()
     }
     
     // MARK: - Search

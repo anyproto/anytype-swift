@@ -68,6 +68,10 @@ final class ObjectTypeSearchInteractor {
         return try await typesService.createType(name: name, spaceId: spaceId)
     }
     
+    func deleteType(_ type: ObjectType) async throws {
+        try await typesService.deleteType(type, spaceId: spaceId)
+    }
+    
     func defaultObjectType() throws -> ObjectType {
         return try objectTypeProvider.defaultObjectType(spaceId: spaceId)
     }

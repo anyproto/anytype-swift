@@ -119,5 +119,11 @@ struct ObjectTypeSearchView: View {
                 viewModel.setDefaultType(data.type)
             }
         }
+        
+        if !data.type.readonly {
+            Button(Loc.delete, role: .destructive) {
+                viewModel.deleteType(data.type)
+            }
+        }
     }
 }
