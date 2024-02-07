@@ -103,13 +103,15 @@ struct RelationListContainerView<Content>: View where Content: View {
         .padding(.horizontal, 20)
     }
     
-    @ViewBuilder
     private var emptyState: some View {
-        if !isCreateAvailable || !isEditable {
-            blockedEmptyState
-        } else  {
-            defaultEmptyState
+        Group {
+            if !isCreateAvailable || !isEditable {
+                blockedEmptyState
+            } else  {
+                defaultEmptyState
+            }
         }
+        .frame(maxWidth: .infinity)
     }
     
     private var defaultEmptyState: some View {
