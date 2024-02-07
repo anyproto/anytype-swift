@@ -103,9 +103,14 @@ final class SelectRelationListViewModel: ObservableObject {
             spaceId: configuration.spaceId
         ).map { SelectRelationOption(relation: $0) }
         
-        options = rawOptions.reordered(
-            by: selectedOptionsIds
-        ) { $0.id }
+        switch configuration.selectionMode {
+        case .single:
+            options = rawOptions
+        case .multi:
+            options = rawOptions.reordered(
+                by: selectedOptionsIds
+            ) { $0.id }
+        }
         
         if !configuration.isEditable {
             options = options.filter { selectedOptionsIds.contains($0.id) }
