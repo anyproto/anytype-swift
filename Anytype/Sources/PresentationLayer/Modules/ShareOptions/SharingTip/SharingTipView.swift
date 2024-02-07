@@ -3,6 +3,7 @@ import SwiftUI
 @available(iOS 17.0, *)
 struct SharingTipView: View {
     @ObservedObject var viewModel: SharingTipViewModel
+    @Environment(\.dismiss) private var dismiss
     
     var body: some View {
         ZStack {
@@ -14,6 +15,12 @@ struct SharingTipView: View {
         .onAppear {
             setupAppearance()
             AnytypeAnalytics.instance().logOnboardingTooltip(tooltip: .sharingExtension)
+        }
+        .onDisappear() {
+            viewModel.onDisappear()
+        }
+        .onChange(of: viewModel.dismiss) { _ in
+            dismiss()
         }
     }
     
@@ -50,7 +57,9 @@ struct SharingTipView: View {
                 Loc.Sharing.Tip.Button.title,
                 style: .secondaryLarge,
                 action: { viewModel.tapShowShareMenu() }
-            ).padding(.horizontal, 24)
+            )
+            .padding(.horizontal, 24)
+            .anytypeShareView(show: $viewModel.showShare, item: viewModel.sharedUrl ?? "")
             Spacer.fixedHeight(20)
         }
     }

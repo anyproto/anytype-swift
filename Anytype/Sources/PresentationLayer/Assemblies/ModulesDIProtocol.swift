@@ -6,6 +6,7 @@ protocol ModulesDIProtocol: AnyObject {
     func dateRelationCalendar() -> DateRelationCalendarModuleAssemblyProtocol
     func selectRelationList() -> SelectRelationListModuleAssemblyProtocol
     func relationOptionSettings() -> RelationOptionSettingsModuleAssemblyProtocol
+    func objectRelationList() -> ObjectRelationListModuleAssemblyProtocol
     func undoRedo() -> UndoRedoModuleAssemblyProtocol
     func objectLayoutPicker() -> ObjectLayoutPickerModuleAssemblyProtocol
     func objectCoverPicker() -> ObjectCoverPickerModuleAssemblyProtocol
@@ -68,4 +69,5 @@ protocol ModulesDIProtocol: AnyObject {
     func galleryInstallationPreview() -> GalleryInstallationPreviewModuleAssemblyProtocol
     func gallerySpaceSelectionModuleAssembly() -> GallerySpaceSelectionModuleAssemblyProtocol
     func commonNotification() -> CommonNotificationAssemblyProtocol
+    func galleryNotification() -> GalleryNotificationAssemblyProtocol
 }

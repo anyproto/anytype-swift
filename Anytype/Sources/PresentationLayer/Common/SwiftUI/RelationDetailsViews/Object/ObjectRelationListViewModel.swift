@@ -3,64 +3,68 @@ import Foundation
 import Services
 import SwiftUI
 
+struct ObjectRelationTypeItem {
+    let name: String
+    let isSelected: Bool
+}
+
 @MainActor
-final class SelectRelationListViewModel: ObservableObject {
+final class ObjectRelationListViewModel: ObservableObject {
     
     @Published var selectedOptionsIds: [String] = []
-    @Published var options: [SelectRelationOption] = []
+    @Published var options: [Relation.Object.Option] = []
     @Published var isEmpty = false
     @Published var searchText = ""
-        
-    let style: SelectRelationListStyle
+    
     let configuration: RelationModuleConfiguration
     
+    private let limitedObjectTypes: [ObjectType]
     private let relationSelectedOptionsModel: RelationSelectedOptionsModelProtocol
     private let searchService: SearchServiceProtocol
+    private let objectActionsService: ObjectActionsServiceProtocol
     
-    private weak var output: SelectRelationListModuleOutput?
+    private weak var output: ObjectRelationListModuleOutput?
     
     init(
-        style: SelectRelationListStyle,
+        limitedObjectTypes: [String],
         configuration: RelationModuleConfiguration,
         relationSelectedOptionsModel: RelationSelectedOptionsModelProtocol,
         searchService: SearchServiceProtocol,
-        output: SelectRelationListModuleOutput?
+        objectTypeProvider: ObjectTypeProviderProtocol,
+        objectActionsService: ObjectActionsServiceProtocol,
+        output: ObjectRelationListModuleOutput?
     ) {
-        self.style = style
+        self.limitedObjectTypes = limitedObjectTypes.compactMap { id in
+            objectTypeProvider.objectTypes.first { $0.id == id }
+        }
         self.configuration = configuration
         self.output = output
         self.relationSelectedOptionsModel = relationSelectedOptionsModel
         self.searchService = searchService
+        self.objectActionsService = objectActionsService
         self.relationSelectedOptionsModel.selectedOptionsIdsPublisher.assign(to: &$selectedOptionsIds)
     }
     
     func onAppear() {
         searchTextChanged()
     }
-
+    
     func onClear() {
         Task {
             try await relationSelectedOptionsModel.onClear()
         }
     }
     
-    func onCreate(with title: String?, color: Color? = nil) {
-        output?.onCreateTap(text: title, color: color, completion: { [weak self] option in
-            self?.updateListOnCreate(with: option.id)
-        })
+    func onObjectOpen(_ option: Relation.Object.Option) {
+        output?.onObjectOpen(screenData: option.editorScreenData)
     }
     
-    func onOptionDuplicate(_ option: SelectRelationOption) {
-        onCreate(with: option.text, color: option.color)
-    }
-    
-    func onOptionEdit(_ option: SelectRelationOption) {
-        output?.onEditTap(option: option, completion: { [weak self] option in
-            guard let self else { return }
-            if let index = options.firstIndex(where: { $0.id == option.id }) {
-                options[index] = option
-            }
-        })
+    func onObjectDuplicate(_ option: Relation.Object.Option) {
+        Task {
+            let newOptionId =  try await objectActionsService.duplicate(objectId: option.id)
+            try await relationSelectedOptionsModel.optionSelected(newOptionId)
+            try await searchTextChangedAsync(searchText)
+        }
     }
     
     func onOptionDelete(with indexSet: IndexSet) {
@@ -71,14 +75,14 @@ final class SelectRelationListViewModel: ObservableObject {
         }
     }
     
-    func onOptionDelete(_ option: SelectRelationOption) {
+    func onOptionDelete(_ option: Relation.Object.Option) {
         output?.onDeleteTap { [weak self] isSuccess in
             guard let self else { return }
             if isSuccess {
                 removeRelationOption(option)
             } else {
                 options = options
-            }            
+            }
         }
     }
     
@@ -89,6 +93,30 @@ final class SelectRelationListViewModel: ObservableObject {
         }
     }
     
+    func objectRelationTypeItems() -> [ObjectRelationTypeItem]? {
+        let typesNames = limitedObjectTypes.map { $0.name }
+        
+        guard typesNames.isNotEmpty else { return nil }
+        
+        var items = typesNames.enumerated().map { index, name in
+            var separator = ","
+            if typesNames.count - 1 == index {
+                separator = ""
+            }
+            return ObjectRelationTypeItem(name: name + separator, isSelected: true)
+            
+        }
+        let title = typesNames.count == 1 ? Loc.Relation.ObjectType.Header.title : Loc.Relation.ObjectTypes.Header.title
+        items.insert(
+            ObjectRelationTypeItem(
+                name: title,
+                isSelected: false
+            ),
+            at: 0
+        )
+        return items
+    }
+    
     func searchTextChanged(_ text: String = "") {
         Task {
             try await searchTextChangedAsync(text)
@@ -96,21 +124,16 @@ final class SelectRelationListViewModel: ObservableObject {
     }
     
     private func searchTextChangedAsync(_ text: String = "") async throws {
-        let rawOptions = try await searchService.searchRelationOptions(
+        let rawOptions = try await searchService.searchObjectsByTypes(
             text: text,
-            relationKey: configuration.relationKey,
+            typeIds: limitedObjectTypes.map { $0.id },
             excludedObjectIds: [],
             spaceId: configuration.spaceId
-        ).map { SelectRelationOption(relation: $0) }
+        ).map { Relation.Object.Option(objectDetails: $0) }
         
-        switch configuration.selectionMode {
-        case .single:
-            options = rawOptions
-        case .multi:
-            options = rawOptions.reordered(
-                by: selectedOptionsIds
-            ) { $0.id }
-        }
+        options = rawOptions.reordered(
+            by: selectedOptionsIds
+        ) { $0.id }
         
         if !configuration.isEditable {
             options = options.filter { selectedOptionsIds.contains($0.id) }
@@ -119,20 +142,13 @@ final class SelectRelationListViewModel: ObservableObject {
         setEmptyIfNeeded()
     }
     
-    private func updateListOnCreate(with optionId: String) {
-        Task {
-            searchText = ""
-            try await relationSelectedOptionsModel.optionSelected(optionId)
-            try await searchTextChangedAsync()
-        }
-    }
-    
-    private func removeRelationOption(_ option: SelectRelationOption) {
+    private func removeRelationOption(_ option: Relation.Object.Option) {
         Task {
             if let index = options.firstIndex(of: option) {
                 options.remove(at: index)
             }
-            try await relationSelectedOptionsModel.removeRelationOption(option.id)
+            try await objectActionsService.setArchive(objectIds: [option.id], true)
+            try await relationSelectedOptionsModel.removeRelationOptionFromSelectedIfNeeded(option.id)
             setEmptyIfNeeded()
         }
     }

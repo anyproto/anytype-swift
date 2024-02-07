@@ -5,29 +5,18 @@ import AnytypeCore
 
 protocol SharingTipModuleAssemblyProtocol {
     @MainActor
-    func make(
-        onClose: @escaping RoutingAction<Void>,
-        onShareURL: @escaping RoutingAction<URL>
-    ) -> AnyView?
+    @available(iOS 17.0, *)
+    func make() -> AnyView
 }
 
 final class SharingTipModuleAssembly: SharingTipModuleAssemblyProtocol {    
     // MARK: - SharingTipModuleAssemblyProtocol
     @MainActor
-    func make(
-        onClose: @escaping RoutingAction<Void>,
-        onShareURL: @escaping RoutingAction<URL>
-    ) -> AnyView? {
-        if #available(iOS 17.0, *) {
-            let viewModel = SharingTipViewModel()
-            let view = SharingTipView(viewModel: viewModel)
-            
-            viewModel.onClose = onClose
-            viewModel.onShareURL = onShareURL
-            
-            return view.eraseToAnyView()
-        } else {
-            return nil
-        }
+    @available(iOS 17.0, *)
+    func make() -> AnyView {
+        let viewModel = SharingTipViewModel()
+        let view = SharingTipView(viewModel: viewModel)
+        
+        return view.eraseToAnyView()
     }
 }

@@ -97,10 +97,7 @@ final class SelectRelationListCoordinatorViewModel: ObservableObject, SelectRela
         deletionAlertData = DeletionAlertData(
             title: Loc.Relation.Delete.Alert.title,
             description: Loc.Relation.Delete.Alert.description,
-            completion: { [weak self] isSuccess in
-                completion(isSuccess)
-                self?.deletionAlertData = nil
-            }
+            completion: completion
         )
     }
     
@@ -111,11 +108,13 @@ final class SelectRelationListCoordinatorViewModel: ObservableObject, SelectRela
             icon: .BottomAlert.question,
             style: .red
         ) {
-            BottomAlertButton(text: Loc.cancel, style: .secondary) {
+            BottomAlertButton(text: Loc.cancel, style: .secondary) { [weak self] in
                 data.completion(false)
+                self?.deletionAlertData = nil
             }
-            BottomAlertButton(text: Loc.delete, style: .warning) {
+            BottomAlertButton(text: Loc.delete, style: .warning) { [weak self] in
                 data.completion(true)
+                self?.deletionAlertData = nil
             }
         }.eraseToAnyView()
     }

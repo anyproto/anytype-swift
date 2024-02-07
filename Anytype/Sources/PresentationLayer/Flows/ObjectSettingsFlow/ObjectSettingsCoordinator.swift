@@ -155,6 +155,7 @@ final class ObjectSettingsCoordinator: ObjectSettingsCoordinatorProtocol,
         )
     }
     
+    @MainActor
     func editRelationValueAction(document: BaseDocumentProtocol, relationKey: String) {
         let relation = document.parsedRelations.installed.first { $0.key == relationKey }
         guard let relation = relation else {

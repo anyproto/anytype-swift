@@ -9,6 +9,7 @@ protocol RelationSelectedOptionsModelProtocol {
     func onClear() async throws
     func optionSelected(_ optionId: String) async throws
     func removeRelationOption(_ optionId: String) async throws
+    func removeRelationOptionFromSelectedIfNeeded(_ optionId: String) async throws
 }
 
 @MainActor
@@ -60,6 +61,10 @@ final class RelationSelectedOptionsModel: RelationSelectedOptionsModelProtocol {
     
     func removeRelationOption(_ optionId: String) async throws {
         try await relationsService.removeRelationOptions(ids: [optionId])
+        try await removeRelationOptionFromSelectedIfNeeded(optionId)
+    }
+    
+    func removeRelationOptionFromSelectedIfNeeded(_ optionId: String) async throws {
         if let index = selectedOptionsIds.firstIndex(of: optionId) {
             selectedOptionsIds.remove(at: index)
             try await relationsService.updateRelation(
