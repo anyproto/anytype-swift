@@ -4,8 +4,8 @@ protocol ObjectRelationListCoordinatorAssemblyProtocol {
     @MainActor
     func make(
         objectId: String,
+        mode: ObjectRelationListMode,
         configuration: RelationModuleConfiguration,
-        limitedObjectTypes: [String],
         selectedOptionsIds: [String],
         output: ObjectRelationListCoordinatorModuleOutput?
     ) -> AnyView
@@ -26,16 +26,16 @@ final class ObjectRelationListCoordinatorAssembly: ObjectRelationListCoordinator
     @MainActor
     func make(
         objectId: String,
+        mode: ObjectRelationListMode,
         configuration: RelationModuleConfiguration,
-        limitedObjectTypes: [String],
         selectedOptionsIds: [String],
         output: ObjectRelationListCoordinatorModuleOutput?
     ) -> AnyView {
         ObjectRelationListCoordinatorView(
             model: ObjectRelationListCoordinatorViewModel(
                 objectId: objectId,
+                mode: mode,
                 configuration: configuration,
-                limitedObjectTypes: limitedObjectTypes,
                 selectedOptionsIds: selectedOptionsIds,
                 objectRelationListModuleAssembly: self.modulesDI.objectRelationList(),
                 output: output
