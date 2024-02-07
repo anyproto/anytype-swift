@@ -20,7 +20,7 @@ final class CommonNotificationViewModel: ObservableObject {
     }
     
     
-    func startHandle() async {
+    private func startHandle() async {
         subscription = await notificationSubscriptionService.handleUpdate(notificationID: notification.id) { [weak self] notification in
             self?.updateView(notification: notification)
         }
