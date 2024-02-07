@@ -102,8 +102,10 @@ final class TypesService: TypesServiceProtocol {
         return try await searchMiddleService.search(filters: filters, sorts: [sort], fullText: text)
     }
     
-    func searchPinnedTypes(text: String, spaceId: String) async throws -> [ObjectDetails] {
-        typeProvider.objectTypes(spaceId: spaceId)
-        return []
+    func searchPinnedTypes(text: String, spaceId: String) async throws -> [ObjectType] {
+        let page = try typeProvider.objectType(uniqueKey: .page, spaceId: spaceId)
+        let note = try typeProvider.objectType(uniqueKey: .note, spaceId: spaceId)
+        let task = try typeProvider.objectType(uniqueKey: .task, spaceId: spaceId)
+        return [ note, page, task ]
     }
 }

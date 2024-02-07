@@ -18,5 +18,5 @@ protocol TypesServiceProtocol {
         excludedIds: [String]
     ) async throws -> [ObjectDetails]
     
-    func searchPinnedTypes(text: String, spaceId: String) async throws -> [ObjectDetails]
+    func searchPinnedTypes(text: String, spaceId: String) async throws -> [ObjectType]
 }
