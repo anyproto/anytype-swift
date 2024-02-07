@@ -5,7 +5,6 @@ protocol TypesServiceProtocol {
     
     func searchObjectTypes(
         text: String,
-        filteringTypeId: String?,
         shouldIncludeLists: Bool,
         shouldIncludeBookmark: Bool,
         spaceId: String

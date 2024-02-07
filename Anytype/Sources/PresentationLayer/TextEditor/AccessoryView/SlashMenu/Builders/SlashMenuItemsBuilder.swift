@@ -70,7 +70,6 @@ struct SlashMenuItemsBuilder {
         let shouldIncludeSetsAndCollections = FeatureFlags.setAndCollectionInSlashMenu
         guard let searchTypes = try? await typesService.searchObjectTypes(
             text: "",
-            filteringTypeId: nil,
             shouldIncludeLists: shouldIncludeSetsAndCollections,
             shouldIncludeBookmark: false,
             spaceId: spaceId

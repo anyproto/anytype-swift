@@ -57,7 +57,6 @@ final class ObjectTypeSearchModuleAssembly: ObjectTypeSearchModuleAssemblyProtoc
                 typesService: serviceLocator.typesService(),
                 workspaceService: serviceLocator.workspaceService(),
                 objectTypeProvider: serviceLocator.objectTypeProvider(),
-                excludedObjectTypeId: nil,
                 showBookmark: true,
                 showSetAndCollection: true
             )

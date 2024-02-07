@@ -35,7 +35,6 @@ final class TypesService: TypesServiceProtocol {
     // MARK: - Search
     func searchObjectTypes(
         text: String,
-        filteringTypeId: String? = nil,
         shouldIncludeLists: Bool,
         shouldIncludeBookmark: Bool,
         spaceId: String
@@ -60,9 +59,6 @@ final class TypesService: TypesServiceProtocol {
             SearchFiltersBuilder.build(isArchived: false, spaceId: spaceId)
             SearchHelper.layoutFilter([DetailsLayout.objectType])
             SearchHelper.recomendedLayoutFilter(layouts)
-            if let filteringTypeId {
-                SearchHelper.excludedIdsFilter([filteringTypeId])
-            }
         }
         
         let result = try await searchMiddleService.search(filters: filters, sorts: [sort], fullText: text)
