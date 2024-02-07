@@ -5,7 +5,7 @@ import AnytypeCore
 import SwiftEntryKit
 import SwiftUI
 
-protocol NotificationCoordinatorProtocol {
+protocol NotificationCoordinatorProtocol: AnyObject {
     func startHandle() async
     func stopHandle()
 }
@@ -15,15 +15,18 @@ final class NotificationCoordinator: NotificationCoordinatorProtocol {
     private let notificationSubscriptionService: NotificationsSubscriptionServiceProtocol
     // Specific View
     private let commonNotificationAssembly: CommonNotificationAssemblyProtocol
+    private let galleryNotificationAssembly: GalleryNotificationAssemblyProtocol
     
     private var subscription: AnyCancellable?
     
     init(
         notificationSubscriptionService: NotificationsSubscriptionServiceProtocol,
-        commonNotificationAssembly: CommonNotificationAssemblyProtocol
+        commonNotificationAssembly: CommonNotificationAssemblyProtocol,
+        galleryNotificationAssembly: GalleryNotificationAssemblyProtocol
     ) {
         self.notificationSubscriptionService = notificationSubscriptionService
         self.commonNotificationAssembly = commonNotificationAssembly
+        self.galleryNotificationAssembly = galleryNotificationAssembly
     }
     
     func startHandle() async {
@@ -55,8 +58,11 @@ final class NotificationCoordinator: NotificationCoordinatorProtocol {
     @MainActor
     private func handleSend(notification: Services.Notification) {
         switch notification.payload {
-        case .import, .export, .galleryImport:
+        case .import, .export:
             let view = commonNotificationAssembly.make(notification: notification)
+            show(view: view)
+        case .galleryImport(let data):
+            let view = galleryNotificationAssembly.make(notification: NotificationGalleryImport(common: notification, galleryImport: data))
             show(view: view)
         case .none:
             break

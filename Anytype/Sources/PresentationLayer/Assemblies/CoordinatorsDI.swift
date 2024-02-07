@@ -181,7 +181,8 @@ final class CoordinatorsDI: CoordinatorsDIProtocol {
     func notificationCoordinator() -> NotificationCoordinatorProtocol {
         NotificationCoordinator(
             notificationSubscriptionService: serviceLocator.notificationSubscriptionService(),
-            commonNotificationAssembly: modulesDI.commonNotification()
+            commonNotificationAssembly: modulesDI.commonNotification(),
+            galleryNotificationAssembly: modulesDI.galleryNotification()
         )
     }
     

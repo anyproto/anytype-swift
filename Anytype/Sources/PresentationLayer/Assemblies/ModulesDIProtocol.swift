@@ -68,4 +68,5 @@ protocol ModulesDIProtocol: AnyObject {
     func galleryInstallationPreview() -> GalleryInstallationPreviewModuleAssemblyProtocol
     func gallerySpaceSelectionModuleAssembly() -> GallerySpaceSelectionModuleAssemblyProtocol
     func commonNotification() -> CommonNotificationAssemblyProtocol
+    func galleryNotification() -> GalleryNotificationAssemblyProtocol
 }

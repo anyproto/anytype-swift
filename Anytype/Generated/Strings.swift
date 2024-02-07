@@ -1167,6 +1167,14 @@ internal enum Loc {
       /// Update Your App
       internal static let title = Loc.tr("Localizable", "Error.AnytypeNeedsUpgrate.Title", fallback: "Update Your App")
     }
+    internal enum Common {
+      /// Please check your internet connection and try again or post a report on forum.
+      internal static let message = Loc.tr("Localizable", "Error.Common.Message", fallback: "Please check your internet connection and try again or post a report on forum.")
+      /// Oops!
+      internal static let title = Loc.tr("Localizable", "Error.Common.Title", fallback: "Oops!")
+      /// Try again
+      internal static let tryAgain = Loc.tr("Localizable", "Error.Common.TryAgain", fallback: "Try again")
+    }
   }
   internal enum ErrorOccurred {
     /// Error occurred. Please try again
@@ -1247,6 +1255,18 @@ internal enum Loc {
     internal static let install = Loc.tr("Localizable", "Gallery.Install", fallback: "Install")
     /// Install to new space
     internal static let installToNew = Loc.tr("Localizable", "Gallery.InstallToNew", fallback: "Install to new space")
+    internal enum Notification {
+      /// Go to space
+      internal static let button = Loc.tr("Localizable", "Gallery.Notification.Button", fallback: "Go to space")
+      /// Oops! "%@" wasn't installed. Please check your internet connection and try again or post a report on forum.
+      internal static func error(_ p1: Any) -> String {
+        return Loc.tr("Localizable", "Gallery.Notification.Error", String(describing: p1), fallback: "Oops! \"%@\" wasn't installed. Please check your internet connection and try again or post a report on forum.")
+      }
+      /// Experience was successfully installed to the "%@" space. You can now open and start using it.
+      internal static func success(_ p1: Any) -> String {
+        return Loc.tr("Localizable", "Gallery.Notification.Success", String(describing: p1), fallback: "Experience was successfully installed to the \"%@\" space. You can now open and start using it.")
+      }
+    }
     internal enum Unavailable {
       /// Please use the desktop app for now
       internal static let message = Loc.tr("Localizable", "Gallery.Unavailable.Message", fallback: "Please use the desktop app for now")

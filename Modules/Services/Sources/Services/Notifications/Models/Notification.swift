@@ -2,7 +2,6 @@ import Foundation
 import ProtobufMessages
 
 public struct Notification {
-    
     public var id: String
     public var createTime: Date
     public var status: NotificationStatus

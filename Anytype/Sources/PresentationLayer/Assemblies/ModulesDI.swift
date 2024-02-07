@@ -285,4 +285,8 @@ final class ModulesDI: ModulesDIProtocol {
     func commonNotification() -> CommonNotificationAssemblyProtocol {
         CommonNotificationAssembly(serviceLocator: serviceLocator)
     }
+    
+    func galleryNotification() -> GalleryNotificationAssemblyProtocol {
+        GalleryNotificationAssembly(serviceLocator: serviceLocator)
+    }
 }
