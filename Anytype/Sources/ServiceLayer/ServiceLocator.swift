@@ -140,7 +140,10 @@ final class ServiceLocator {
     }
     
     func typesService() -> TypesServiceProtocol {
-        return TypesService(searchMiddleService: searchMiddleService())
+        return TypesService(
+            searchMiddleService: searchMiddleService(),
+            typeProvider: objectTypeProvider()
+        )
     }
     
     func pageRepository() -> PageRepositoryProtocol {

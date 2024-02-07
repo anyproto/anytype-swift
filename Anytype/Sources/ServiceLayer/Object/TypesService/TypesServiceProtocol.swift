@@ -1,4 +1,6 @@
-public protocol TypesServiceProtocol {
+import Services
+
+protocol TypesServiceProtocol {
     func createType(name: String, spaceId: String) async throws -> ObjectDetails
     
     func searchObjectTypes(
@@ -15,4 +17,6 @@ public protocol TypesServiceProtocol {
         text: String,
         excludedIds: [String]
     ) async throws -> [ObjectDetails]
+    
+    func searchPinnedTypes(text: String, spaceId: String) async throws -> [ObjectDetails]
 }
