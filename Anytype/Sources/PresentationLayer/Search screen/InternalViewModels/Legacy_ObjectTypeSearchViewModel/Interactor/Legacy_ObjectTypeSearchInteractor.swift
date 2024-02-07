@@ -34,8 +34,8 @@ extension Legacy_ObjectTypeSearchInteractor {
     func search(text: String) async throws -> [ObjectDetails] {
         try await typesService.searchObjectTypes(
             text: text,
-            shouldIncludeLists: showSetAndCollection,
-            shouldIncludeBookmark: showBookmark,
+            includeLists: showSetAndCollection,
+            includeBookmark: showBookmark,
             spaceId: spaceId
         )
     }

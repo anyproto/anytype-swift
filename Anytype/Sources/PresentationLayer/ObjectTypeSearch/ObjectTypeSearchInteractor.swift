@@ -24,8 +24,8 @@ final class ObjectTypeSearchInteractor {
     func searchObjectTypes(text: String) async throws -> [ObjectType] {
         return try await typesService.searchObjectTypes(
             text: text,
-            shouldIncludeLists: false,
-            shouldIncludeBookmark: true,
+            includeLists: false,
+            includeBookmark: true,
             spaceId: spaceId
         ).map { ObjectType(details: $0) }
     }

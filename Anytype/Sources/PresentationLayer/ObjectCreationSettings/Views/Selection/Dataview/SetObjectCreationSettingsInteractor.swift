@@ -155,8 +155,8 @@ final class SetObjectCreationSettingsInteractor: SetObjectCreationSettingsIntera
         Task {
             objectTypes = try await typesService.searchObjectTypes(
                 text: "",
-                shouldIncludeLists: true,
-                shouldIncludeBookmark: true,
+                includeLists: true,
+                includeBookmark: true,
                 spaceId: setDocument.spaceId
             ).map { ObjectType(details: $0) }
         }

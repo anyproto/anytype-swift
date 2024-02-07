@@ -5,8 +5,8 @@ protocol TypesServiceProtocol {
     
     func searchObjectTypes(
         text: String,
-        shouldIncludeLists: Bool,
-        shouldIncludeBookmark: Bool,
+        includeLists: Bool,
+        includeBookmark: Bool,
         spaceId: String
     ) async throws -> [ObjectDetails]
     

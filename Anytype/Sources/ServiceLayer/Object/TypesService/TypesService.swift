@@ -35,8 +35,8 @@ final class TypesService: TypesServiceProtocol {
     // MARK: - Search
     func searchObjectTypes(
         text: String,
-        shouldIncludeLists: Bool,
-        shouldIncludeBookmark: Bool,
+        includeLists: Bool,
+        includeBookmark: Bool,
         spaceId: String
     ) async throws -> [ObjectDetails] {
         let sort = SearchHelper.sort(
@@ -46,12 +46,12 @@ final class TypesService: TypesServiceProtocol {
                 
         var layouts = DetailsLayout.visibleLayouts
         
-        if !shouldIncludeLists {
+        if !includeLists {
             layouts.removeAll(where: { $0 == .set })
             layouts.removeAll(where: { $0 == .collection })
         }
         
-        if !shouldIncludeBookmark {
+        if !includeBookmark {
             layouts.removeAll(where: { $0 == .bookmark })
         }
         

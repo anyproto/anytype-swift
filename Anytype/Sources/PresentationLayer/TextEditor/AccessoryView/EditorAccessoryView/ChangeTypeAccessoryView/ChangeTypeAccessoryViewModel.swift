@@ -72,8 +72,8 @@ final class ChangeTypeAccessoryViewModel {
         let supportedTypes = try? await typesService
             .searchObjectTypes(
                 text: "",
-                shouldIncludeLists: true,
-                shouldIncludeBookmark: true,
+                includeLists: true,
+                includeBookmark: true,
                 spaceId: document.spaceId
             ).map { type in
                 TypeItem(from: type, handler: { [weak self] in
