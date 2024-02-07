@@ -9,6 +9,7 @@ protocol ObjectTypeSearchModuleAssemblyProtocol: AnyObject {
         title: String,
         spaceId: String,
         showLists: Bool,
+        highlightDefaultType: Bool,
         onSelect: @escaping (_ type: ObjectType) -> Void
     ) -> AnyView
 }
@@ -27,12 +28,12 @@ final class ObjectTypeSearchModuleAssembly: ObjectTypeSearchModuleAssemblyProtoc
         title: String,
         spaceId: String,
         showLists: Bool,
+        highlightDefaultType: Bool,
         onSelect: @escaping (_ type: ObjectType) -> Void
     ) -> AnyView {
         if FeatureFlags.newTypePicker {
             let interactor = ObjectTypeSearchInteractor(
                 spaceId: spaceId,
-                searchService: serviceLocator.searchService(),
                 workspaceService: serviceLocator.workspaceService(),
                 typesService: serviceLocator.typesService(),
                 objectTypeProvider: serviceLocator.objectTypeProvider()
@@ -40,6 +41,7 @@ final class ObjectTypeSearchModuleAssembly: ObjectTypeSearchModuleAssemblyProtoc
             
             let model = ObjectTypeSearchViewModel(
                 showLists: showLists,
+                highlightDefaultType: highlightDefaultType,
                 interactor: interactor,
                 toastPresenter: uiHelpersDI.toastPresenter(),
                 onSelect: onSelect
@@ -52,7 +54,7 @@ final class ObjectTypeSearchModuleAssembly: ObjectTypeSearchModuleAssemblyProtoc
         } else {
             let interactor = Legacy_ObjectTypeSearchInteractor(
                 spaceId: spaceId,
-                searchService: serviceLocator.searchService(),
+                typesService: serviceLocator.typesService(),
                 workspaceService: serviceLocator.workspaceService(),
                 objectTypeProvider: serviceLocator.objectTypeProvider(),
                 excludedObjectTypeId: nil,

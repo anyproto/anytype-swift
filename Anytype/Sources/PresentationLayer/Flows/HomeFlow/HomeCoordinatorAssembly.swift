@@ -1,12 +1,12 @@
 import Foundation
 import SwiftUI
 
-protocol HomeWidgetsCoordinatorAssemblyProtocol {
+protocol HomeCoordinatorAssemblyProtocol {
     @MainActor
     func make() -> AnyView
 }
 
-final class HomeWidgetsCoordinatorAssembly: HomeWidgetsCoordinatorAssemblyProtocol {
+final class HomeCoordinatorAssembly: HomeCoordinatorAssemblyProtocol {
     
     private let coordinatorsID: CoordinatorsDIProtocol
     private let modulesDI: ModulesDIProtocol
@@ -25,18 +25,18 @@ final class HomeWidgetsCoordinatorAssembly: HomeWidgetsCoordinatorAssemblyProtoc
         self.uiHelpersDI = uiHelpersDI
     }
     
-    // MARK: - HomeWidgetsCoordinatorAssemblyProtocol
+    // MARK: - HomeCoordinatorAssemblyProtocol
     
     @MainActor
     func make() -> AnyView {
-        return HomeWidgetsCoordinatorView(model: self.makeModel()).eraseToAnyView()
+        return HomeCoordinatorView(model: self.makeModel()).eraseToAnyView()
     }
     
     // MARK: - Private func
     
     @MainActor
-    private func makeModel() -> HomeWidgetsCoordinatorViewModel {
-        HomeWidgetsCoordinatorViewModel(
+    private func makeModel() -> HomeCoordinatorViewModel {
+        HomeCoordinatorViewModel(
             homeWidgetsModuleAssembly: modulesDI.homeWidgets(),
             activeWorkspaceStorage: serviceLocator.activeWorkspaceStorage(),
             navigationContext: uiHelpersDI.commonNavigationContext(),

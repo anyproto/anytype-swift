@@ -2,10 +2,10 @@ import Services
 import AnytypeCore
 
 struct SlashMenuItemsBuilder {
-    private let searchService: SearchServiceProtocol
+    private let typesService: TypesServiceProtocol
     
-    init(searchService: SearchServiceProtocol = ServiceLocator.shared.searchService()) {
-        self.searchService = searchService
+    init(typesService: TypesServiceProtocol = ServiceLocator.shared.typesService()) {
+        self.typesService = typesService
     }
     
     func slashMenuItems(spaceId: String, resrictions: BlockRestrictions, relations: [Relation]) async throws -> [SlashMenuItem] {
@@ -68,11 +68,10 @@ struct SlashMenuItemsBuilder {
     
     private func searchObjectsMenuItem(spaceId: String) async throws -> SlashMenuItem? {
         let shouldIncludeSetsAndCollections = FeatureFlags.setAndCollectionInSlashMenu
-        guard let searchTypes = try? await searchService.searchObjectTypes(
+        guard let searchTypes = try? await typesService.searchObjectTypes(
             text: "",
             filteringTypeId: nil,
-            shouldIncludeSets: shouldIncludeSetsAndCollections,
-            shouldIncludeCollections: shouldIncludeSetsAndCollections,
+            shouldIncludeLists: shouldIncludeSetsAndCollections,
             shouldIncludeBookmark: false,
             spaceId: spaceId
         ) else {

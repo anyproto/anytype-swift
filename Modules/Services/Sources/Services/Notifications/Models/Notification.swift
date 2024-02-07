@@ -2,7 +2,6 @@ import Foundation
 import ProtobufMessages
 
 public struct Notification {
-    
     public var id: String
     public var createTime: Date
     public var status: NotificationStatus
@@ -21,5 +20,3 @@ extension Anytype_Model_Notification {
         )
     }
 }
-
-public typealias NotificationGalleryImport = Anytype_Model_Notification.GalleryImport

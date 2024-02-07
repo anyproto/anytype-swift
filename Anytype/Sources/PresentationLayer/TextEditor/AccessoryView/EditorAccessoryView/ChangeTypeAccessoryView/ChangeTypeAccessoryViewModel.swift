@@ -13,7 +13,7 @@ final class ChangeTypeAccessoryViewModel {
 
     private let router: EditorRouterProtocol
     private let handler: BlockActionHandlerProtocol
-    private let searchService: SearchServiceProtocol
+    private let typesService: TypesServiceProtocol
     private let document: BaseDocumentProtocol
 
     private var cancellables = [AnyCancellable]()
@@ -21,12 +21,12 @@ final class ChangeTypeAccessoryViewModel {
     init(
         router: EditorRouterProtocol,
         handler: BlockActionHandlerProtocol,
-        searchService: SearchServiceProtocol,
+        typesService: TypesServiceProtocol,
         document: BaseDocumentProtocol
     ) {
         self.router = router
         self.handler = handler
-        self.searchService = searchService
+        self.typesService = typesService
         self.document = document
 
         subscribeOnDocumentChanges()
@@ -69,12 +69,11 @@ final class ChangeTypeAccessoryViewModel {
     }
     
     private func fetchSupportedTypes() async -> [TypeItem]? {
-        let supportedTypes = try? await searchService
+        let supportedTypes = try? await typesService
             .searchObjectTypes(
                 text: "",
                 filteringTypeId: nil,
-                shouldIncludeSets: true,
-                shouldIncludeCollections: true,
+                shouldIncludeLists: true,
                 shouldIncludeBookmark: true,
                 spaceId: document.spaceId
             ).map { type in

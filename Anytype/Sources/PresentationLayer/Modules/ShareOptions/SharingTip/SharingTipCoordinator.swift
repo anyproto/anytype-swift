@@ -19,7 +19,7 @@ final class SharingTipCoordinator: SharingTipCoordinatorProtocol {
         if #available(iOS 17.0, *) {
             tipPerformer = UIKitTipPerformer(tip: SharingTip())
         } else {
-            tipPerformer = .init(tip: nil)
+            tipPerformer = UIKitTipPerformer(tip: nil)
         }
         
         self.sharingTipAssembly = sharingTipAssembly
@@ -37,22 +37,8 @@ final class SharingTipCoordinator: SharingTipCoordinatorProtocol {
             
             UIApplication.shared.hideKeyboard()
             
-            guard let sharingTipView = sharingTipAssembly.make(
-                onClose: { [weak self] _ in
-                    self?.navigationContext.dismissTopPresented(animated: true)
-                },
-                onShareURL:  { [weak self] url in
-                    self?.shareURL(url: url)
-                }
-            ) else {
-                return
-            }
+            let sharingTipView = sharingTipAssembly.make()
             navigationContext.present(sharingTipView, animated: true)
         }
-    }
-    
-    private func shareURL(url: URL) {
-        let activityIndicatorViewController = UIActivityViewController(activityItems: [url], applicationActivities: nil)
-        navigationContext.present(activityIndicatorViewController, animated: true, completion: nil)
     }
 }
