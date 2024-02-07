@@ -6,14 +6,14 @@ import Services
 final class TypesService: TypesServiceProtocol {
     
     private let searchMiddleService: SearchMiddleServiceProtocol
-    private let typeProvider: ObjectTypeProviderProtocol
+    private let pinsStorage: TypesPinStorageProtocol
     
     init(
         searchMiddleService: SearchMiddleServiceProtocol,
-        typeProvider: ObjectTypeProviderProtocol
+        pinsStorage: TypesPinStorageProtocol
     ) {
         self.searchMiddleService = searchMiddleService
-        self.typeProvider = typeProvider
+        self.pinsStorage = pinsStorage
     }
     
     func createType(name: String, spaceId: String) async throws -> ObjectType {
@@ -112,9 +112,10 @@ final class TypesService: TypesServiceProtocol {
     }
     
     func searchPinnedTypes(text: String, spaceId: String) async throws -> [ObjectType] {
-        let page = try typeProvider.objectType(uniqueKey: .page, spaceId: spaceId)
-        let note = try typeProvider.objectType(uniqueKey: .note, spaceId: spaceId)
-        let task = try typeProvider.objectType(uniqueKey: .task, spaceId: spaceId)
-        return [ note, page, task ]
+        return try pinsStorage.getPins(spaceId: spaceId)
+            .filter {
+                guard text.isNotEmpty else { return true }
+                return $0.name.lowercased().contains(text.lowercased())
+            }
     }
 }
