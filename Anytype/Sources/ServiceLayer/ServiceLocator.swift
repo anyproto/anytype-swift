@@ -143,7 +143,8 @@ final class ServiceLocator {
         return TypesService(
             searchMiddleService: searchMiddleService(), 
             actionsService: objectActionsService(),
-            pinsStorage: pinsStorage()
+            pinsStorage: pinsStorage(),
+            typeProvider: objectTypeProvider()
         )
     }
     

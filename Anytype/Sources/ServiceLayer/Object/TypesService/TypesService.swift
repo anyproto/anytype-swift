@@ -9,15 +9,18 @@ final class TypesService: TypesServiceProtocol {
     private let searchMiddleService: SearchMiddleServiceProtocol
     private let actionsService: ObjectActionsServiceProtocol
     private let pinsStorage: TypesPinStorageProtocol
+    private let typeProvider: ObjectTypeProviderProtocol
     
     init(
         searchMiddleService: SearchMiddleServiceProtocol,
         actionsService: ObjectActionsServiceProtocol,
-        pinsStorage: TypesPinStorageProtocol
+        pinsStorage: TypesPinStorageProtocol,
+        typeProvider: ObjectTypeProviderProtocol
     ) {
         self.searchMiddleService = searchMiddleService
         self.actionsService = actionsService
         self.pinsStorage = pinsStorage
+        self.typeProvider = typeProvider
     }
     
     func createType(name: String, spaceId: String) async throws -> ObjectType {
@@ -103,7 +106,9 @@ final class TypesService: TypesServiceProtocol {
             .map { ObjectType(details: $0) }
     }
     
-    func searchLibraryObjectTypes(text: String, excludedIds: [String]) async throws -> [ObjectDetails] {
+    func searchLibraryObjectTypes(text: String, includeInstalledTypes: Bool, spaceId: String) async throws -> [ObjectDetails] {
+        let excludedIds = includeInstalledTypes ? [] : typeProvider.objectTypes(spaceId: spaceId).map(\.sourceObject)
+        
         let sort = SearchHelper.sort(
             relation: BundledRelationKey.name,
             type: .asc
