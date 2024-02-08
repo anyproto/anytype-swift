@@ -455,6 +455,46 @@ extension Anytype_Model_ImageKind: CaseIterable {
 
 #endif  // swift(>=4.2)
 
+public enum Anytype_Model_FileIndexingStatus: SwiftProtobuf.Enum {
+  public typealias RawValue = Int
+  case notIndexed // = 0
+  case indexed // = 1
+  case UNRECOGNIZED(Int)
+
+  public init() {
+    self = .notIndexed
+  }
+
+  public init?(rawValue: Int) {
+    switch rawValue {
+    case 0: self = .notIndexed
+    case 1: self = .indexed
+    default: self = .UNRECOGNIZED(rawValue)
+    }
+  }
+
+  public var rawValue: Int {
+    switch self {
+    case .notIndexed: return 0
+    case .indexed: return 1
+    case .UNRECOGNIZED(let i): return i
+    }
+  }
+
+}
+
+#if swift(>=4.2)
+
+extension Anytype_Model_FileIndexingStatus: CaseIterable {
+  // The compiler won't synthesize support with the UNRECOGNIZED case.
+  public static let allCases: [Anytype_Model_FileIndexingStatus] = [
+    .notIndexed,
+    .indexed,
+  ]
+}
+
+#endif  // swift(>=4.2)
+
 public struct Anytype_Model_SmartBlockSnapshotBase {
   // SwiftProtobuf.Message conformance is added in an extension below. See the
   // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
@@ -4620,6 +4660,7 @@ extension Anytype_Model_RelationFormat: @unchecked Sendable {}
 extension Anytype_Model_ObjectOrigin: @unchecked Sendable {}
 extension Anytype_Model_SpaceStatus: @unchecked Sendable {}
 extension Anytype_Model_ImageKind: @unchecked Sendable {}
+extension Anytype_Model_FileIndexingStatus: @unchecked Sendable {}
 extension Anytype_Model_SmartBlockSnapshotBase: @unchecked Sendable {}
 extension Anytype_Model_Block: @unchecked Sendable {}
 extension Anytype_Model_Block.OneOf_Content: @unchecked Sendable {}
@@ -4820,6 +4861,13 @@ extension Anytype_Model_ImageKind: SwiftProtobuf._ProtoNameProviding {
     0: .same(proto: "Basic"),
     1: .same(proto: "Cover"),
     2: .same(proto: "Icon"),
+  ]
+}
+
+extension Anytype_Model_FileIndexingStatus: SwiftProtobuf._ProtoNameProviding {
+  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    0: .same(proto: "NotIndexed"),
+    1: .same(proto: "Indexed"),
   ]
 }
 
