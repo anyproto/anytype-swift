@@ -6,12 +6,17 @@ protocol ObjectRelationListCoordinatorModuleOutput: AnyObject {
     func onObjectOpen(screenData: EditorScreenData)
 }
 
+enum ObjectRelationListMode {
+    case object(limitedObjectTypes: [String])
+    case file
+}
+
 @MainActor
 final class ObjectRelationListCoordinatorViewModel: ObservableObject, ObjectRelationListModuleOutput {
 
     private let objectId: String
+    private let mode: ObjectRelationListMode
     private let configuration: RelationModuleConfiguration
-    private let limitedObjectTypes: [String]
     private let selectedOptionsIds: [String]
     private let objectRelationListModuleAssembly: ObjectRelationListModuleAssemblyProtocol
     private weak var output: ObjectRelationListCoordinatorModuleOutput?
@@ -21,28 +26,38 @@ final class ObjectRelationListCoordinatorViewModel: ObservableObject, ObjectRela
     
     init(
         objectId: String,
+        mode: ObjectRelationListMode,
         configuration: RelationModuleConfiguration,
-        limitedObjectTypes: [String],
         selectedOptionsIds: [String],
         objectRelationListModuleAssembly: ObjectRelationListModuleAssemblyProtocol,
         output: ObjectRelationListCoordinatorModuleOutput?
     ) {
         self.objectId = objectId
+        self.mode = mode
         self.configuration = configuration
-        self.limitedObjectTypes = limitedObjectTypes
         self.selectedOptionsIds = selectedOptionsIds
         self.objectRelationListModuleAssembly = objectRelationListModuleAssembly
         self.output = output
     }
     
-    func objectRelationListModule() -> AnyView {
-        objectRelationListModuleAssembly.make(
-            objectId: objectId,
-            limitedObjectTypes: limitedObjectTypes,
-            configuration: configuration,
-            selectedOptionsIds: selectedOptionsIds,
-            output: self
-        )
+    func relationListModule() -> AnyView {
+        switch mode {
+        case let .object(limitedObjectTypes):
+            return objectRelationListModuleAssembly.makeObjectModule(
+                objectId: objectId,
+                limitedObjectTypes: limitedObjectTypes,
+                configuration: configuration,
+                selectedOptionsIds: selectedOptionsIds,
+                output: self
+            )
+        case .file:
+            return objectRelationListModuleAssembly.makeFileModule(
+                objectId: objectId,
+                configuration: configuration,
+                selectedOptionsIds: selectedOptionsIds,
+                output: self
+            )
+        }
     }
 
     // MARK: - ObjectRelationListModuleOutput

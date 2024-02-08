@@ -40,8 +40,8 @@ final class SearchService: SearchServiceProtocol {
     
     func searchFiles(text: String, excludedFileIds: [String], spaceId: String) async throws -> [ObjectDetails] {
         let sort = SearchHelper.sort(
-            relation: BundledRelationKey.name,
-            type: .asc
+            relation: BundledRelationKey.lastOpenedDate,
+            type: .desc
         )
         
         let filters = [

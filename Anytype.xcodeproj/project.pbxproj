@@ -901,6 +901,11 @@
 		2E2EA2CC2A5339CE00569E1E /* DotsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E2EA2CB2A5339CE00569E1E /* DotsView.swift */; };
 		2E2EA2CE2A543EFE00569E1E /* AnytypeFontConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E2EA2CD2A543EFE00569E1E /* AnytypeFontConfig.swift */; };
 		2E31C9622B7281CD006DB3E2 /* RelationListSelectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E31C9612B7281CD006DB3E2 /* RelationListSelectionView.swift */; };
+		2E31C9642B73C809006DB3E2 /* ObjectRelationListInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E31C9632B73C809006DB3E2 /* ObjectRelationListInteractor.swift */; };
+		2E31C9662B73C8C8006DB3E2 /* ObjectRelationOption.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E31C9652B73C8C8006DB3E2 /* ObjectRelationOption.swift */; };
+		2E31C9682B73C963006DB3E2 /* ObjectRelationOptionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E31C9672B73C963006DB3E2 /* ObjectRelationOptionView.swift */; };
+		2E31C96B2B73DF1F006DB3E2 /* FileRelationListInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E31C96A2B73DF1F006DB3E2 /* FileRelationListInteractor.swift */; };
+		2E31C96D2B73DF29006DB3E2 /* ObjectRelationListInteractorProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E31C96C2B73DF29006DB3E2 /* ObjectRelationListInteractorProtocol.swift */; };
 		2E330C52286CB6A70099C7C3 /* CreateBookmarkViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E330C51286CB6A70099C7C3 /* CreateBookmarkViewModel.swift */; };
 		2E330C54286CC2BA0099C7C3 /* CreateObjectViewModelProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E330C53286CC2BA0099C7C3 /* CreateObjectViewModelProtocol.swift */; };
 		2E37F01428C768B900337BD4 /* SetViewRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E37F01328C768B900337BD4 /* SetViewRow.swift */; };
@@ -2628,6 +2633,11 @@
 		2E2EA2CB2A5339CE00569E1E /* DotsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DotsView.swift; sourceTree = "<group>"; };
 		2E2EA2CD2A543EFE00569E1E /* AnytypeFontConfig.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnytypeFontConfig.swift; sourceTree = "<group>"; };
 		2E31C9612B7281CD006DB3E2 /* RelationListSelectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RelationListSelectionView.swift; sourceTree = "<group>"; };
+		2E31C9632B73C809006DB3E2 /* ObjectRelationListInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObjectRelationListInteractor.swift; sourceTree = "<group>"; };
+		2E31C9652B73C8C8006DB3E2 /* ObjectRelationOption.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObjectRelationOption.swift; sourceTree = "<group>"; };
+		2E31C9672B73C963006DB3E2 /* ObjectRelationOptionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObjectRelationOptionView.swift; sourceTree = "<group>"; };
+		2E31C96A2B73DF1F006DB3E2 /* FileRelationListInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileRelationListInteractor.swift; sourceTree = "<group>"; };
+		2E31C96C2B73DF29006DB3E2 /* ObjectRelationListInteractorProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObjectRelationListInteractorProtocol.swift; sourceTree = "<group>"; };
 		2E330C51286CB6A70099C7C3 /* CreateBookmarkViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateBookmarkViewModel.swift; sourceTree = "<group>"; };
 		2E330C53286CC2BA0099C7C3 /* CreateObjectViewModelProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateObjectViewModelProtocol.swift; sourceTree = "<group>"; };
 		2E37F01328C768B900337BD4 /* SetViewRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetViewRow.swift; sourceTree = "<group>"; };
@@ -6901,6 +6911,16 @@
 			path = DotsView;
 			sourceTree = "<group>";
 		};
+		2E31C9692B73DED8006DB3E2 /* Interactor */ = {
+			isa = PBXGroup;
+			children = (
+				2E31C9632B73C809006DB3E2 /* ObjectRelationListInteractor.swift */,
+				2E31C96A2B73DF1F006DB3E2 /* FileRelationListInteractor.swift */,
+				2E31C96C2B73DF29006DB3E2 /* ObjectRelationListInteractorProtocol.swift */,
+			);
+			path = Interactor;
+			sourceTree = "<group>";
+		};
 		2E412D0128466AC900C973FF /* Sorts */ = {
 			isa = PBXGroup;
 			children = (
@@ -7028,11 +7048,14 @@
 		2E7E503C2B6D5707003867A3 /* Object */ = {
 			isa = PBXGroup;
 			children = (
+				2E31C9692B73DED8006DB3E2 /* Interactor */,
 				2E7E50432B6D65C2003867A3 /* Coordinator */,
 				2E7E503D2B6D5756003867A3 /* ObjectRelationListView.swift */,
 				2E7E503F2B6D5771003867A3 /* ObjectRelationListViewModel.swift */,
 				2E7E50412B6D5C3A003867A3 /* ObjectRelationListModuleOutput.swift */,
 				2E7E504A2B6D6727003867A3 /* ObjectRelationListModuleAssembly.swift */,
+				2E31C9652B73C8C8006DB3E2 /* ObjectRelationOption.swift */,
+				2E31C9672B73C963006DB3E2 /* ObjectRelationOptionView.swift */,
 			);
 			path = Object;
 			sourceTree = "<group>";
@@ -10305,6 +10328,7 @@
 				12136D5827996F7C00262FE7 /* TextRelationDetailsServiceProtocol.swift in Sources */,
 				1247BC6A27FDC493005F2DB4 /* NewRelationModuleOutput.swift in Sources */,
 				129C54CD27FC741C00C390C7 /* NewRelationFormatSectionView.swift in Sources */,
+				2E31C96D2B73DF29006DB3E2 /* ObjectRelationListInteractorProtocol.swift in Sources */,
 				2A377E3E2A82564E00EA856B /* SpaceTypeView.swift in Sources */,
 				2E52DE6E2A1CE7E700F16815 /* SoulViewModel.swift in Sources */,
 				2AFCEB4329CC808D00841E13 /* HomeWidgetsRecentStateManager.swift in Sources */,
@@ -11053,6 +11077,7 @@
 				12636CF6276A0DC70084D35D /* ListCreateButton.swift in Sources */,
 				5386E3C227B3F63E004D8221 /* TextRelationViewSwiftUI.swift in Sources */,
 				124E2BC2273020F500A2D534 /* RelationsListView.swift in Sources */,
+				2E31C9682B73C963006DB3E2 /* ObjectRelationOptionView.swift in Sources */,
 				2EE622FC29F2F57D004DBF3E /* SetItemProviderObject.swift in Sources */,
 				3D7EA8A6268EF38D00C76974 /* BlockFileConfiguration.swift in Sources */,
 				535FDE0A27E7E27B0098DBFA /* PasteboardTask.swift in Sources */,
@@ -11365,6 +11390,7 @@
 				C965247F2720781C00254057 /* HorizonalTypeListView.swift in Sources */,
 				C973E1A8285B3A5C00978BC4 /* EmptyRowViewViewModel.swift in Sources */,
 				3D929B2B263302160063F1BE /* TypographyExample.swift in Sources */,
+				2E31C9662B73C8C8006DB3E2 /* ObjectRelationOption.swift in Sources */,
 				2AF4C3E5295DE3CB00FD7153 /* CreateWidgetCoordinatorAssembly.swift in Sources */,
 				2A9486542950A3E7007A5586 /* HomeWidgetsModuleAssembly.swift in Sources */,
 				129C54D427FC83C000C390C7 /* SupportedRelationFormat.swift in Sources */,
@@ -11434,6 +11460,7 @@
 				2EFBBEFC2A42512300734A0B /* UIPhraseTextView.swift in Sources */,
 				2E2A22F72A9E447000745D78 /* SetLayoutSettingsView.swift in Sources */,
 				3D16843626DE8BDF008B9DFF /* Application+FirstResponder.swift in Sources */,
+				2E31C96B2B73DF1F006DB3E2 /* FileRelationListInteractor.swift in Sources */,
 				2EA2B29A2B3B3B5700C258E8 /* SetGroupSubscriptionDataBuilder.swift in Sources */,
 				2E0A6CD72A3773B800A28AF2 /* LoginFlowCoordinator.swift in Sources */,
 				2E975EDD287C2325004DE574 /* SetFiltersListView.swift in Sources */,
@@ -11497,6 +11524,7 @@
 				12FD9D1F2767172A00991886 /* RelationText.swift in Sources */,
 				2E65276B2B5EE9BA00F27126 /* RelationListContainerView.swift in Sources */,
 				2A56C16B2ACB0C50001677E1 /* EditorPageModuleOutput.swift in Sources */,
+				2E31C9642B73C809006DB3E2 /* ObjectRelationListInteractor.swift in Sources */,
 				2EA098A72A697511009182C0 /* SubscriptionData+Info.swift in Sources */,
 				3D471E1F26C3B60200457DE5 /* BlockLinkState+Icon.swift in Sources */,
 				3DA6263D2657AB8000942249 /* AnimationExtension.swift in Sources */,

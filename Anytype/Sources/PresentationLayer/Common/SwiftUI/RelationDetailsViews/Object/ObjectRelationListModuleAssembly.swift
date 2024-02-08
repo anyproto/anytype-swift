@@ -1,29 +1,37 @@
 import Foundation
 import SwiftUI
 
+@MainActor
 protocol ObjectRelationListModuleAssemblyProtocol: AnyObject {
-    @MainActor
-    func make(
+    func makeObjectModule(
         objectId: String,
         limitedObjectTypes: [String],
         configuration: RelationModuleConfiguration,
         selectedOptionsIds: [String],
         output: ObjectRelationListModuleOutput?
     ) -> AnyView
+    
+    func makeFileModule(
+        objectId: String,
+        configuration: RelationModuleConfiguration,
+        selectedOptionsIds: [String],
+        output: ObjectRelationListModuleOutput?
+    ) -> AnyView
 }
 
+@MainActor
 final class ObjectRelationListModuleAssembly: ObjectRelationListModuleAssemblyProtocol {
     
     private let serviceLocator: ServiceLocator
     
-    init(serviceLocator: ServiceLocator) {
+    nonisolated init(serviceLocator: ServiceLocator) {
         self.serviceLocator = serviceLocator
     }
     
     // MARK: - ObjectRelationListModuleAssemblyProtocol
     
-    @MainActor
-    func make(
+    
+    func makeObjectModule(
         objectId: String,
         limitedObjectTypes: [String],
         configuration: RelationModuleConfiguration,
@@ -32,8 +40,13 @@ final class ObjectRelationListModuleAssembly: ObjectRelationListModuleAssemblyPr
     ) -> AnyView {
         ObjectRelationListView(
             viewModel: ObjectRelationListViewModel(
-                limitedObjectTypes: limitedObjectTypes,
-                configuration: configuration,
+                configuration: configuration, 
+                interactor: ObjectRelationListInteractor(
+                    spaceId: configuration.spaceId,
+                    limitedObjectTypes: limitedObjectTypes,
+                    objectTypeProvider: self.serviceLocator.objectTypeProvider(),
+                    searchService: self.serviceLocator.searchService()
+                ),
                 relationSelectedOptionsModel: RelationSelectedOptionsModel(
                     selectionMode: configuration.selectionMode,
                     selectedOptionsIds: selectedOptionsIds,
@@ -41,8 +54,32 @@ final class ObjectRelationListModuleAssembly: ObjectRelationListModuleAssemblyPr
                     analyticsType: configuration.analyticsType,
                     relationsService: self.serviceLocator.relationService(objectId: objectId)
                 ),
-                searchService: self.serviceLocator.searchService(), 
-                objectTypeProvider: self.serviceLocator.objectTypeProvider(), 
+                objectActionsService: self.serviceLocator.objectActionsService(),
+                output: output
+            )
+        ).eraseToAnyView()
+    }
+    
+    func makeFileModule(
+        objectId: String,
+        configuration: RelationModuleConfiguration,
+        selectedOptionsIds: [String],
+        output: ObjectRelationListModuleOutput?
+    ) -> AnyView {
+        ObjectRelationListView(
+            viewModel: ObjectRelationListViewModel(
+                configuration: configuration,
+                interactor: FileRelationListInteractor(
+                    spaceId: configuration.spaceId,
+                    searchService: self.serviceLocator.searchService()
+                ),
+                relationSelectedOptionsModel: RelationSelectedOptionsModel(
+                    selectionMode: configuration.selectionMode,
+                    selectedOptionsIds: selectedOptionsIds,
+                    relationKey: configuration.relationKey,
+                    analyticsType: configuration.analyticsType,
+                    relationsService: self.serviceLocator.relationService(objectId: objectId)
+                ),
                 objectActionsService: self.serviceLocator.objectActionsService(),
                 output: output
             )
