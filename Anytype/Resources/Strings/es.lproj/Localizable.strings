@@ -88,9 +88,12 @@
 "Relation.Create.Textfield.placeholder" = "Enter name...";
 "Relation.Edit.Button.title" = "Aplicar";
 "Relation.Date.Locked.Alert.title" = "Relation “%@” is locked";
+"Relation.ObjectTypes.Header.title" = "Tipos de objeto";
+"Relation.ObjectType.Header.title" = "Tipo de Objeto:";
 
 "Relation.Delete.Alert.Title" = "¿Estás seguro?";
 "Relation.Delete.Alert.Description" = "The option will be permanently removed from your space.";
+"Relation.Object.Delete.Alert.Description" = "El objeto será movido a la papelera.";
 
 "Relation.Format.Object.Title" = "Objeto";
 "Relation.Format.Text.Title" = "Texto";
@@ -132,6 +135,7 @@
 "Relations" = "Relaciones";
 "Objects" = "Objetos";
 "Lists" = "Grupos";
+"Pinned" = "Pinned";
 "Delete" = "Borrar";
 "Duplicate" = "Duplicar";
 "Copy" = "Copiar";
@@ -896,6 +900,9 @@
 "Error.AnytypeNeedsUpgrate.Message" = "Este objeto fue modificado en una versión más reciente de Anytype. Actualice la aplicación para abrirlo en este dispositivo";
 "Error.AnytypeNeedsUpgrate.Confirm" = "Actualizar";
 "Error.UnableToConnect" = "Please connect to the internet";
+"Error.Common.Title" = "Oops!";
+"Error.Common.Message" = "Please check your internet connection and try again or post a report on forum.";
+"Error.Common.TryAgain" = "Try again";
 
 // MARK: - Relative date formatter
 "RelativeFormatter.days7" = "Últimos 7 días";
@@ -915,6 +922,9 @@
 "Gallery.Author" = "Made by @%@";
 "Gallery.Install" = "Install";
 "Gallery.InstallToNew" = "Install to new space";
+"Gallery.Notification.Success" = "Experience was successfully installed to the \"%@\" space. You can now open and start using it.";
+"Gallery.Notification.Button" = "Go to space";
+"Gallery.Notification.Error" = "Oops! \"%@\" wasn't installed. Please check your internet connection and try again or post a report on forum.";
 
 // MARK: - Debug
 "Debug.MimeTypes" = "Mime Types - %@";
