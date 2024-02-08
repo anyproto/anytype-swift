@@ -12,7 +12,7 @@ struct CheckboxRelationView: View {
         case .featuredRelationBlock, .kanbanHeader, .setCollection:
             featuredRelationBlock
         case .filter:
-            filterText()
+            filterText
         }
     }
     
@@ -49,16 +49,14 @@ struct CheckboxRelationView: View {
         }
     }
     
-    private func filterText() -> some View {
-        Group {
-            let text = isChecked ? Loc.EditSet.Popup.Filter.Value.checked :
-            Loc.EditSet.Popup.Filter.Value.unchecked
-            AnytypeText(
-                text.lowercased(),
-                style: .relation1Regular,
-                color: .Text.secondary
-            )
-        }
+    private var filterText: some View {
+        let text = isChecked ? Loc.EditSet.Popup.Filter.Value.checked :
+        Loc.EditSet.Popup.Filter.Value.unchecked
+        return AnytypeText(
+            text.lowercased(),
+            style: .relation1Regular,
+            color: .Text.secondary
+        )
     }
 }
 
