@@ -80,7 +80,7 @@ public extension FeatureDescription {
     static let newTypePicker = FeatureDescription(
         title: "New type picker, you know 🫵🐭 - IOS-2017",
         type: .feature(author: "vova@anytype.io", releaseVersion: "0.28.0"),
-        defaultValue: false
+        defaultValue: true
     )
     
     static let newDateRelationCalendarView = FeatureDescription(
