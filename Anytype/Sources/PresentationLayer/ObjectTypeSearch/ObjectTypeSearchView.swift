@@ -10,20 +10,18 @@ struct ObjectTypeSearchView: View {
     
     let title: String
     @StateObject var viewModel: ObjectTypeSearchViewModel
-
-    @State private var searchText = ""
     
     var body: some View {
         VStack(spacing: 0) {
             DragIndicator()
             TitleView(title: title)
-            SearchBar(text: $searchText, focused: true, placeholder: Loc.search)
+            SearchBar(text: $viewModel.searchText, focused: true, placeholder: Loc.search)
             content
         }
         .background(Color.Background.secondary)
         
-        .onChange(of: searchText) { viewModel.search(text: $0) }
-        .onAppear { viewModel.search(text: searchText) }
+        .onChange(of: viewModel.searchText) { viewModel.search(text: $0) }
+        .onAppear { viewModel.search(text: viewModel.searchText) }
     }
     
     private var content: some View {
@@ -34,10 +32,10 @@ struct ObjectTypeSearchView: View {
             case .emptyScreen:
                 EmptyStateView(
                     title: Loc.nothingFound,
-                    subtitle: Loc.noTypeFoundText(searchText),
+                    subtitle: Loc.noTypeFoundText(viewModel.searchText),
                     actionText: Loc.createType
                 ) {
-                    viewModel.createType(name: searchText)
+                    viewModel.createType(name: viewModel.searchText)
                 }
             }
         }
@@ -90,8 +88,8 @@ struct ObjectTypeSearchView: View {
             }
             .border(
                 12,
-                color: typeData.isHighlighted ? .System.amber50 : .Shape.primary,
-                lineWidth: typeData.isHighlighted ? 2 : 1
+                color: shouldHighlightType(typeData) ? .System.amber50 : .Shape.primary,
+                lineWidth: shouldHighlightType(typeData) ? 2 : 1
             )
             .padding(.bottom, 8)
             .id(typeData.type.id)
@@ -99,15 +97,32 @@ struct ObjectTypeSearchView: View {
         .padding(.horizontal, 20)
     }
     
+    private func shouldHighlightType(_ type: ObjectTypeData) -> Bool {
+        type.isDefault && viewModel.showPins
+    }
+    
     @ViewBuilder
     private func contextMenu(section: SectionType, data: ObjectTypeData) -> some View {
-        if section == .pins {
-            Button(Loc.unpin) {
-                viewModel.removePinedType(data.type, currentText: searchText)
+        if viewModel.showPins {
+            if section == .pins {
+                Button(Loc.unpin) {
+                    viewModel.removePinedType(data.type)
+                }
+            } else {
+                Button(Loc.pinOnTop) {
+                    viewModel.addPinedType(data.type)
+                }
             }
-        } else {
-            Button(Loc.pinOnTop) {
-                viewModel.addPinedType(data.type, currentText: searchText)
+        }
+        if !data.isDefault {
+            Button(Loc.setAsDefault) {
+                viewModel.setDefaultType(data.type)
+            }
+        }
+        
+        if !data.type.readonly {
+            Button(Loc.delete, role: .destructive) {
+                viewModel.deleteType(data.type)
             }
         }
     }

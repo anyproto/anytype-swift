@@ -1,7 +1,12 @@
 import Services
 
+enum TypesServiceError: Error {
+    case deletingReadonlyType
+}
+
 protocol TypesServiceProtocol {
     func createType(name: String, spaceId: String) async throws -> ObjectType
+    func deleteType(typeId: String) async throws
     
     func searchObjectTypes(
         text: String,

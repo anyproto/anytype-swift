@@ -5,8 +5,9 @@ import Services
 @MainActor
 final class ObjectTypeSearchViewModel: ObservableObject {
     @Published var state = State.searchResults([])
+    @Published var searchText = ""
     
-    private let showPins: Bool
+    let showPins: Bool
     private let showLists: Bool
     
     private let interactor: ObjectTypeSearchInteractor
@@ -93,17 +94,29 @@ final class ObjectTypeSearchViewModel: ObservableObject {
         }
     }
     
-    func addPinedType(_ type: ObjectType, currentText: String) {
+    func deleteType(_ type: ObjectType) {
+        Task {
+            try await interactor.deleteType(type)
+            search(text: searchText)
+        }
+    }
+    
+    func setDefaultType(_ type: ObjectType) {
+        interactor.setDefaultObjectType(type)
+        search(text: searchText)
+    }
+    
+    func addPinedType(_ type: ObjectType) {
         do {
             try interactor.addPinedType(type)
-            search(text: currentText)
+            search(text: searchText)
         } catch { }
     }
     
-    func removePinedType(_ type: ObjectType, currentText: String) {
+    func removePinedType(_ type: ObjectType) {
         do {
             try interactor.removePinedType(type)
-            search(text: currentText)
+            search(text: searchText)
         } catch { }
     }
     
@@ -112,7 +125,7 @@ final class ObjectTypeSearchViewModel: ObservableObject {
         return types.map { type in
             ObjectTypeData(
                 type: type,
-                isHighlighted: showPins && defaultType.id == type.id
+                isDefault: defaultType.id == type.id
             )
         }
     }

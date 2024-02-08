@@ -1,18 +1,22 @@
 import ProtobufMessages
 import SwiftProtobuf
 import Services
+import AnytypeCore
 
 
 final class TypesService: TypesServiceProtocol {
     
     private let searchMiddleService: SearchMiddleServiceProtocol
+    private let actionsService: ObjectActionsServiceProtocol
     private let pinsStorage: TypesPinStorageProtocol
     
     init(
         searchMiddleService: SearchMiddleServiceProtocol,
+        actionsService: ObjectActionsServiceProtocol,
         pinsStorage: TypesPinStorageProtocol
     ) {
         self.searchMiddleService = searchMiddleService
+        self.actionsService = actionsService
         self.pinsStorage = pinsStorage
     }
     
@@ -30,6 +34,10 @@ final class TypesService: TypesServiceProtocol {
         
         let objectDetails = try ObjectDetails(protobufStruct: result.details)
         return ObjectType(details: objectDetails)
+    }
+    
+    func deleteType(typeId: String) async throws {
+        try await actionsService.delete(objectIds: [typeId])
     }
     
     // MARK: - Search
