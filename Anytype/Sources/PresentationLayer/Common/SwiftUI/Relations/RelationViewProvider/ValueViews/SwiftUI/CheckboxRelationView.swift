@@ -1,6 +1,7 @@
 import SwiftUI
 
 struct CheckboxRelationView: View {
+    let name: String
     let isChecked: Bool
     let style: RelationStyle
     
@@ -8,12 +9,19 @@ struct CheckboxRelationView: View {
         switch style {
         case .regular, .set:
             icon
-        case .featuredRelationBlock, .kanbanHeader:
-            featuredRelationBlockIcon
+        case .featuredRelationBlock, .kanbanHeader, .setCollection:
+            featuredRelationBlock
         case .filter:
             filterText(lowercased: true)
-        case .setCollection:
-            filterText()
+        }
+    }
+    
+    private var featuredRelationBlock: some View {
+        HStack(spacing: 6) {
+            featuredRelationBlockIcon
+            AnytypeText(name, style: style.font, color: style.fontColor)
+                .multilineTextAlignment(.leading)
+                .lineLimit(style.allowMultiLine ? nil : 1)
         }
     }
     
@@ -57,6 +65,7 @@ struct CheckboxRelationView: View {
 struct CheckboxRelationView_Previews: PreviewProvider {
     static var previews: some View {
         CheckboxRelationView(
+            name: "Checkbox",
             isChecked: true,
             style: .featuredRelationBlock(FeaturedRelationSettings(allowMultiLine: false))
         )
