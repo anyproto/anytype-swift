@@ -71,14 +71,29 @@ final class NotificationCoordinator: NotificationCoordinatorProtocol {
     
     @MainActor
     func show(view: AnyView) {
+        
+        let entryName = UUID().uuidString
+        
+        let containerView = VStack(spacing: 0) {
+            view
+            Spacer()
+        }
+        .frame(height: 200)
+        .environment(\.notificationDismiss, {
+            SwiftEntryKit.dismiss(.specific(entryName: entryName))
+        })
+        // Max height. SwiftEntryKit can't handle swiftui view height.
+        // This is 🩼. Migrate to swiftui scene and add swiftui window for alerts.
+        
         var attributes = EKAttributes()
         
+        attributes.name = entryName
         attributes.windowLevel = .alerts
         attributes.displayDuration = 4
         attributes.positionConstraints.size = .init(width: .offset(value: 16), height: .intrinsic)
         attributes.position = .top
         
-        let controller = UIHostingController(rootView: view)
+        let controller = UIHostingController(rootView: containerView)
         controller.view.backgroundColor = .clear
         SwiftEntryKit.display(entry: controller.view, using: attributes)
     }
