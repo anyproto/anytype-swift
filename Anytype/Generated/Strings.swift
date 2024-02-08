@@ -2158,6 +2158,14 @@ internal enum Loc {
     /// Toggle empty. Tap to create block.
     internal static let tapToCreateBlock = Loc.tr("Localizable", "Toggle empty. Tap to create block.", fallback: "Toggle empty. Tap to create block.")
   }
+  internal enum Wallet {
+    internal enum Recovery {
+      internal enum Error {
+        /// Invalid recovery phrase
+        internal static let description = Loc.tr("Localizable", "Wallet.Recovery.Error.description", fallback: "Invalid recovery phrase")
+      }
+    }
+  }
   internal enum WidgetExtension {
     internal enum LockScreen {
       /// Create a new object on the fly

@@ -123,8 +123,10 @@ final class LoginViewModel: ObservableObject {
                 try seedService.saveSeed(phrase)
                 
                 recoverWalletSuccess()
+            } catch WalletRecoveryError.badInput {
+                recoverWalletError(Loc.Wallet.Recovery.Error.description)
             } catch {
-                recoverWalletError(error)
+                recoverWalletError(error.localizedDescription)
             }
         }
     }
@@ -143,9 +145,9 @@ final class LoginViewModel: ObservableObject {
         accountRecover()
     }
     
-    private func recoverWalletError(_ error: Error) {
+    private func recoverWalletError(_ error: String) {
         stopButtonsLoading()
-        errorText = error.localizedDescription
+        errorText = error
     }
     
     private func handleAccountShowEvent() {
