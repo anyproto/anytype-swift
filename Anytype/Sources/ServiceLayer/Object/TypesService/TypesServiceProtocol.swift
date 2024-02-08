@@ -6,7 +6,7 @@ enum TypesServiceError: Error {
 
 protocol TypesServiceProtocol {
     func createType(name: String, spaceId: String) async throws -> ObjectType
-    func deleteType(_ type: ObjectType, spaceId: String) async throws
+    func deleteType(typeId: String, spaceId: String) async throws
     
     func searchObjectTypes(
         text: String,

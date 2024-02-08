@@ -7,13 +7,16 @@ import AnytypeCore
 final class TypesService: TypesServiceProtocol {
     
     private let searchMiddleService: SearchMiddleServiceProtocol
+    private let workspaceService: WorkspaceServiceProtocol
     private let pinsStorage: TypesPinStorageProtocol
     
     init(
         searchMiddleService: SearchMiddleServiceProtocol,
+        workspaceService: WorkspaceServiceProtocol,
         pinsStorage: TypesPinStorageProtocol
     ) {
         self.searchMiddleService = searchMiddleService
+        self.workspaceService = workspaceService
         self.pinsStorage = pinsStorage
     }
     
@@ -33,15 +36,8 @@ final class TypesService: TypesServiceProtocol {
         return ObjectType(details: objectDetails)
     }
     
-    func deleteType(_ type: ObjectType, spaceId: String) async throws {
-        guard !type.readonly else {
-            anytypeAssertionFailure("Trying to delete readonly type \(type.name)")
-            throw TypesServiceError.deletingReadonlyType
-        }
-        
-        try await ClientCommands.workspaceObjectListRemove(.with {
-            $0.objectIds = [type.id]
-        }).invoke()
+    func deleteType(typeId: String, spaceId: String) async throws {
+        try await workspaceService.removeObject(spaceId: spaceId, objectId: typeId)
     }
     
     // MARK: - Search
