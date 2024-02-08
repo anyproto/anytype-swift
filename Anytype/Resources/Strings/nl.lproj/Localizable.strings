@@ -88,9 +88,12 @@
 "Relation.Create.Textfield.placeholder" = "Voer naam... in";
 "Relation.Edit.Button.title" = "Pas toe";
 "Relation.Date.Locked.Alert.title" = "Relatie \"%@\" is vergrendeld";
+"Relation.ObjectTypes.Header.title" = "Object types:";
+"Relation.ObjectType.Header.title" = "Object type:";
 
 "Relation.Delete.Alert.Title" = "Weet je het zeker?";
 "Relation.Delete.Alert.Description" = "De optie wordt permanent verwijderd uit jouw ruimte.";
+"Relation.Object.Delete.Alert.Description" = "The object will be moved to Bin.";
 
 "Relation.Format.Object.Title" = "Object";
 "Relation.Format.Text.Title" = "Tekst";
@@ -132,6 +135,7 @@
 "Relations" = "Relaties";
 "Objects" = "Objecten";
 "Lists" = "Lijsten";
+"Pinned" = "Vastgezet";
 "Delete" = "Verwijder";
 "Duplicate" = "Dupliceer";
 "Copy" = "Kopieer";
@@ -520,8 +524,8 @@
 "Select relation type" = "Selecteer relatie type";
 "CommonOpenErrorView.Message" = "Geen gegevens gevonden";
 "Nothing found" = "Niets gevonden";
-"No type found text" = "No type “%@” found. Change your request or create new type.";
-"Create type" = "Create type";
+"No type found text" = "Geen type \"%@\" gevonden. Wijzig uw verzoek of maak een nieuw type aan.";
+"Create type" = "Maak type aan";
 
 
 "Limit object types" = "Beperkt objecttypes";
@@ -653,7 +657,7 @@
 "DataviewType.gallery" = "Galerij";
 "DataviewType.kanban" = "Kanban";
 "DataviewType.calendar" = "Kalender";
-"DataviewType.graph" = "Graph";
+"DataviewType.graph" = "Weergave";
 
 // MARK: - ObjectType
 "ObjectType.fallbackDescription" = "Leeg canvas zonder titel";
@@ -868,8 +872,8 @@
 "Sharing.LinkTo" = "Link naar";
 
 "Sharing.Text.NoteObject" = "Noteer object";
-"Sharing.Text.TextBlock" = "Blocks";
-"Sharing.Any.Block" = "Blocks";
+"Sharing.Text.TextBlock" = "Blokken";
+"Sharing.Any.Block" = "Blokken";
 
 // MARK: - Sharing tips
 "Sharing.Tip.Title" = "Deel extensie";
@@ -897,6 +901,9 @@
 "Error.AnytypeNeedsUpgrate.Message" = "Dit object is gewijzigd in een nieuwere versie van Anytype. Update alsjeblieft de app om het op dit apparaat te openen";
 "Error.AnytypeNeedsUpgrate.Confirm" = "Updaten";
 "Error.UnableToConnect" = "Maak alsjeblieft verbinding met het internet";
+"Error.Common.Title" = "Oops!";
+"Error.Common.Message" = "Please check your internet connection and try again or post a report on forum.";
+"Error.Common.TryAgain" = "Probeer opnieuw";
 
 // MARK: - Relative date formatter
 "RelativeFormatter.days7" = "Afgelopen 7 dagen";
@@ -913,10 +920,13 @@
 // MARK: - Gallery
 "Gallery.Unavailable.Title" = "Galerij wordt binnenkort ondersteund";
 "Gallery.Unavailable.Message" = "Gebruik voorlopig alsjeblieft de desktop app";
-"Gallery.Author" = "Made by @%@";
-"Gallery.Install" = "Install";
-"Gallery.InstallToNew" = "Install to new space";
+"Gallery.Author" = "Gemaakt door @%@";
+"Gallery.Install" = "Installeer";
+"Gallery.InstallToNew" = "Installeer in nieuwe ruimte";
+"Gallery.Notification.Success" = "Experience was successfully installed to the \"%@\" space. You can now open and start using it.";
+"Gallery.Notification.Button" = "Go to space";
+"Gallery.Notification.Error" = "Oops! \"%@\" wasn't installed. Please check your internet connection and try again or post a report on forum.";
 
 // MARK: - Debug
-"Debug.MimeTypes" = "Mime Types - %@";
-"Debug.Info" = "Debug Info";
+"Debug.MimeTypes" = "Media types - %@";
+"Debug.Info" = "Debug informatie";
