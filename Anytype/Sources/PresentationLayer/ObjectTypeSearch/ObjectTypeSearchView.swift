@@ -15,7 +15,7 @@ struct ObjectTypeSearchView: View {
         VStack(spacing: 0) {
             DragIndicator()
             TitleView(title: title)
-            SearchBar(text: $viewModel.searchText, focused: true, placeholder: Loc.search)
+            SearchBar(text: $viewModel.searchText, focused: false, placeholder: Loc.search)
             content
         }
         .background(Color.Background.secondary)
