@@ -761,4 +761,30 @@ extension AnytypeAnalytics {
     func logUploadNetworkConfiguration() {
         logEvent(AnalyticsEventsName.uploadNetworkConfiguration)
     }
+    
+    func logScreenGalleryInstall(name: String) {
+        logEvent(
+            AnalyticsEventsName.screenGalleryInstall,
+            withEventProperties: [AnalyticsEventsPropertiesKey.name: name]
+        )
+    }
+    
+    func logClickGalleryInstall() {
+        logEvent(AnalyticsEventsName.clickGalleryInstall)
+    }
+    
+    func logClickGalleryInstallSpace(type: ClickGalleryInstallSpaceType) {
+        logEvent(
+            AnalyticsEventsName.clickGalleryInstallSpace,
+            withEventProperties: [AnalyticsEventsPropertiesKey.type: type.rawValue]
+        )
+    }
+    
+    func logGalleryInstall(name: String) {
+        logEvent(
+            AnalyticsEventsName.galleryInstall,
+            withEventProperties: [AnalyticsEventsPropertiesKey.name: name]
+        )
+    }
+    
 }
