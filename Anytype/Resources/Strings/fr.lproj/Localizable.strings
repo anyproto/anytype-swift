@@ -88,9 +88,12 @@
 "Relation.Create.Textfield.placeholder" = "Saisir un nom...";
 "Relation.Edit.Button.title" = "Appliquer";
 "Relation.Date.Locked.Alert.title" = "La relation “%@” est verrouillée";
+"Relation.ObjectTypes.Header.title" = "Object types:";
+"Relation.ObjectType.Header.title" = "Object type:";
 
 "Relation.Delete.Alert.Title" = "Êtes-vous sûr ?";
 "Relation.Delete.Alert.Description" = "L'option sera définitivement retirée de votre espace.";
+"Relation.Object.Delete.Alert.Description" = "The object will be moved to Bin.";
 
 "Relation.Format.Object.Title" = "Objet";
 "Relation.Format.Text.Title" = "Texte";
@@ -132,6 +135,7 @@
 "Relations" = "Relations";
 "Objects" = "Objets";
 "Lists" = "Groups";
+"Pinned" = "Épinglé";
 "Delete" = "Supprimer";
 "Duplicate" = "Dupliquer";
 "Copy" = "Copier";
@@ -520,8 +524,8 @@
 "Select relation type" = "Sélectionner le type de relation";
 "CommonOpenErrorView.Message" = "Aucune donnée n’a été trouvée";
 "Nothing found" = "Aucun résultat";
-"No type found text" = "No type “%@” found. Change your request or create new type.";
-"Create type" = "Create type";
+"No type found text" = "Aucun type “%@” trouvé. Modifiez votre demande ou créez un nouveau type.";
+"Create type" = "Créer un type";
 
 
 "Limit object types" = "Limiter les types d'objet";
@@ -896,6 +900,9 @@
 "Error.AnytypeNeedsUpgrate.Message" = "Cet objet a été modifié dans une version plus récente de Anytype. Veuillez mettre à jour l'application pour l'ouvrir sur cet appareil";
 "Error.AnytypeNeedsUpgrate.Confirm" = "Mettre à jour";
 "Error.UnableToConnect" = "Veuillez vous connecter à Internet";
+"Error.Common.Title" = "Oops!";
+"Error.Common.Message" = "Please check your internet connection and try again or post a report on forum.";
+"Error.Common.TryAgain" = "Essayez de nouveau";
 
 // MARK: - Relative date formatter
 "RelativeFormatter.days7" = "7 jours précédents";
@@ -915,6 +922,9 @@
 "Gallery.Author" = "Fait par @%@";
 "Gallery.Install" = "Installer";
 "Gallery.InstallToNew" = "Installer dans un nouvel espace";
+"Gallery.Notification.Success" = "Experience was successfully installed to the \"%@\" space. You can now open and start using it.";
+"Gallery.Notification.Button" = "Go to space";
+"Gallery.Notification.Error" = "Oops! \"%@\" wasn't installed. Please check your internet connection and try again or post a report on forum.";
 
 // MARK: - Debug
 "Debug.MimeTypes" = "Types Mime - %@";
