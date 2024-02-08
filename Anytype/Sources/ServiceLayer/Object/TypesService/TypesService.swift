@@ -7,16 +7,16 @@ import AnytypeCore
 final class TypesService: TypesServiceProtocol {
     
     private let searchMiddleService: SearchMiddleServiceProtocol
-    private let workspaceService: WorkspaceServiceProtocol
+    private let actionsService: ObjectActionsServiceProtocol
     private let pinsStorage: TypesPinStorageProtocol
     
     init(
         searchMiddleService: SearchMiddleServiceProtocol,
-        workspaceService: WorkspaceServiceProtocol,
+        actionsService: ObjectActionsServiceProtocol,
         pinsStorage: TypesPinStorageProtocol
     ) {
         self.searchMiddleService = searchMiddleService
-        self.workspaceService = workspaceService
+        self.actionsService = actionsService
         self.pinsStorage = pinsStorage
     }
     
@@ -36,8 +36,8 @@ final class TypesService: TypesServiceProtocol {
         return ObjectType(details: objectDetails)
     }
     
-    func deleteType(typeId: String, spaceId: String) async throws {
-        try await workspaceService.removeObject(spaceId: spaceId, objectId: typeId)
+    func deleteType(typeId: String) async throws {
+        try await actionsService.delete(objectIds: [typeId])
     }
     
     // MARK: - Search

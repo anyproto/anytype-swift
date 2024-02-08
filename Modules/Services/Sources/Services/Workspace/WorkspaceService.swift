@@ -5,7 +5,6 @@ import AnytypeCore
 public protocol WorkspaceServiceProtocol {
     func installObjects(spaceId: String, objectIds: [String]) async throws -> [String]
     func installObject(spaceId: String, objectId: String) async throws -> ObjectDetails
-    func removeObject(spaceId: String, objectId: String) async throws
     
     func createSpace(name: String, gradient: GradientId, accessibility: SpaceAccessibility, useCase: UseCase) async throws -> String
     func workspaceOpen(spaceId: String) async throws -> AccountInfo
@@ -34,12 +33,6 @@ public final class WorkspaceService: WorkspaceServiceProtocol {
         }).invoke()
         
 		return try ObjectDetails(protobufStruct: result.details)
-    }
-    
-    public func removeObject(spaceId: String, objectId: String) async throws {
-        try await ClientCommands.workspaceObjectListRemove(.with {
-            $0.objectIds = [objectId]
-        }).invoke()
     }
     
     public func createSpace(name: String, gradient: GradientId, accessibility: SpaceAccessibility, useCase: UseCase) async throws -> String {
