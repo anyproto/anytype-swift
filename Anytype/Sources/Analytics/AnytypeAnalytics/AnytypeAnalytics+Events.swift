@@ -194,21 +194,23 @@ extension AnytypeAnalytics {
     }
     
     // MARK: - Collection
-    func logScreenCollection() {
+    func logScreenCollection(with type: String) {
         logEvent(
             AnalyticsEventsName.screenCollection,
             withEventProperties: [
-                AnalyticsEventsPropertiesKey.embedType: AnalyticsEventsSetCollectionEmbedType.object
+                AnalyticsEventsPropertiesKey.embedType: AnalyticsEventsSetCollectionEmbedType.object,
+                AnalyticsEventsPropertiesKey.type: type
             ]
         )
     }
     
     // MARK: - Set
-    func logScreenSet() {
+    func logScreenSet(with type: String) {
         logEvent(
             AnalyticsEventsName.screenSet,
             withEventProperties: [
-                AnalyticsEventsPropertiesKey.embedType: AnalyticsEventsSetCollectionEmbedType.object
+                AnalyticsEventsPropertiesKey.embedType: AnalyticsEventsSetCollectionEmbedType.object,
+                AnalyticsEventsPropertiesKey.type: type
             ]
         )
     }
