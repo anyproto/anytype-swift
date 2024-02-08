@@ -88,9 +88,12 @@
 "Relation.Create.Textfield.placeholder" = "Skriv inn navn...";
 "Relation.Edit.Button.title" = "Bruk";
 "Relation.Date.Locked.Alert.title" = "Relasjon “%@” er låst";
+"Relation.ObjectTypes.Header.title" = "Object types:";
+"Relation.ObjectType.Header.title" = "Object type:";
 
 "Relation.Delete.Alert.Title" = "Er du sikker?";
 "Relation.Delete.Alert.Description" = "Alternativet vil bli permanent fjernet fra ditt rom.";
+"Relation.Object.Delete.Alert.Description" = "The object will be moved to Bin.";
 
 "Relation.Format.Object.Title" = "Objekt";
 "Relation.Format.Text.Title" = "Tekst";
@@ -132,6 +135,7 @@
 "Relations" = "Relasjoner";
 "Objects" = "Objekter";
 "Lists" = "Groups";
+"Pinned" = "Pinned";
 "Delete" = "Slett";
 "Duplicate" = "Dupliser";
 "Copy" = "Kopier";
@@ -896,6 +900,9 @@
 "Error.AnytypeNeedsUpgrate.Message" = "Dette objektet ble endret i en nyere versjon av Anytype. Oppdater appen for å åpne det på denne enheten";
 "Error.AnytypeNeedsUpgrate.Confirm" = "Oppdater";
 "Error.UnableToConnect" = "Vennligst koble deg til internett";
+"Error.Common.Title" = "Oops!";
+"Error.Common.Message" = "Please check your internet connection and try again or post a report on forum.";
+"Error.Common.TryAgain" = "Prøv igjen";
 
 // MARK: - Relative date formatter
 "RelativeFormatter.days7" = "Siste 7 dager";
@@ -915,6 +922,9 @@
 "Gallery.Author" = "Made by @%@";
 "Gallery.Install" = "Install";
 "Gallery.InstallToNew" = "Install to new space";
+"Gallery.Notification.Success" = "Experience was successfully installed to the \"%@\" space. You can now open and start using it.";
+"Gallery.Notification.Button" = "Go to space";
+"Gallery.Notification.Error" = "Oops! \"%@\" wasn't installed. Please check your internet connection and try again or post a report on forum.";
 
 // MARK: - Debug
 "Debug.MimeTypes" = "Mime Types - %@";
