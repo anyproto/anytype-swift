@@ -65,10 +65,12 @@ final class ObjectTypeSearchViewModel: ObservableObject {
                 }
             }
             
-            if sectionData.isNotEmpty {
-                state = .searchResults(sectionData)
-            } else {
-                state = .emptyScreen
+            withAnimation(.easeOut(duration: 0.2)) {
+                if sectionData.isNotEmpty {
+                    state = .searchResults(sectionData)
+                } else {
+                    state = .emptyScreen
+                }
             }
         }
     }
@@ -89,6 +91,20 @@ final class ObjectTypeSearchViewModel: ObservableObject {
             let type = try await interactor.createNewType(name: name)
             onSelect(type)
         }
+    }
+    
+    func addPinedType(_ type: ObjectType, currentText: String) {
+        do {
+            try interactor.addPinedType(type)
+            search(text: currentText)
+        } catch { }
+    }
+    
+    func removePinedType(_ type: ObjectType, currentText: String) {
+        do {
+            try interactor.removePinedType(type)
+            search(text: currentText)
+        } catch { }
     }
     
     // MARK: - Private

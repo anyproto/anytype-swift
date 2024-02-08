@@ -45,8 +45,18 @@ final class ObjectTypeSearchInteractor {
         ).map { ObjectType(details: $0) }
     }
     
+    // MARK: - Pins
+    
     func searchPinnedTypes(text: String) async throws -> [ObjectType] {
         return try await typesService.searchPinnedTypes(text: text, spaceId: spaceId)
+    }
+    
+    func addPinedType(_ type: ObjectType) throws {
+        try typesService.addPinedType(type, spaceId: spaceId)
+    }
+    
+    func removePinedType(_ type: ObjectType) throws {
+        try typesService.removePinedType(type, spaceId: spaceId)
     }
     
     // MARK: - Working with types

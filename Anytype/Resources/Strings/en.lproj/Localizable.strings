@@ -145,6 +145,8 @@
 "Move" = "Move";
 "Move to" = "Move to";
 "Back" = "Back";
+"Unpin" = "Unpin";
+"Pin on top" = "Pin on top";
 "File block subtitle" = "Store file in original state";
 "Picture block subtitle" = "Upload and enrich the page with image";
 "Video block subtitle" = "Upload playable video";

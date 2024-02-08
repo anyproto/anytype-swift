@@ -26,4 +26,7 @@ protocol TypesServiceProtocol {
         text: String,
         spaceId: String
     ) async throws -> [ObjectType]
+    
+    func addPinedType(_ type: ObjectType, spaceId: String) throws
+    func removePinedType(_ type: ObjectType, spaceId: String) throws
 }
