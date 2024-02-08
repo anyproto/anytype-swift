@@ -44,18 +44,6 @@ extension Relation.Object {
     
 }
 
-extension Relation.Object.Option {
-    init(objectDetails: ObjectDetails) {
-        id = objectDetails.id
-        icon = objectDetails.objectIconImage
-        title = objectDetails.title
-        type = objectDetails.objectType.name
-        isArchived = objectDetails.isArchived
-        isDeleted = objectDetails.isDeleted
-        editorScreenData = objectDetails.editorScreenData()
-    }
-}
-
 extension Relation.Object {
     
     enum Links: String {

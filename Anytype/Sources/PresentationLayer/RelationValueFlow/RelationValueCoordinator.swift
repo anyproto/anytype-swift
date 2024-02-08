@@ -140,14 +140,37 @@ final class RelationValueCoordinator:
                 analyticsType: analyticsType
             )
             let view = objectRelationListCoordinatorAssembly.make(
-                objectId: objectDetails.id,
+                objectId: objectDetails.id, 
+                mode: .object(limitedObjectTypes: object.limitedObjectTypes),
                 configuration: configuration,
-                limitedObjectTypes: object.limitedObjectTypes,
                 selectedOptionsIds: object.selectedObjects.compactMap { $0.id }, 
                 output: self
             )
             
             let mediumDetent = object.selectedObjects.isNotEmpty || !relation.isEditable
+            navigationContext.present(view, mediumDetent: mediumDetent)
+            
+            return
+        }
+        
+        if FeatureFlags.newFileSelectRelationView, case .file(let file) = relation {
+            let configuration = RelationModuleConfiguration(
+                title: file.name,
+                isEditable: relation.isEditable,
+                relationKey: file.key,
+                spaceId: objectDetails.spaceId,
+                selectionMode: .multi,
+                analyticsType: analyticsType
+            )
+            let view = objectRelationListCoordinatorAssembly.make(
+                objectId: objectDetails.id,
+                mode: .file,
+                configuration: configuration,
+                selectedOptionsIds: file.files.compactMap { $0.id },
+                output: self
+            )
+            
+            let mediumDetent = file.files.isNotEmpty || !relation.isEditable
             navigationContext.present(view, mediumDetent: mediumDetent)
             
             return

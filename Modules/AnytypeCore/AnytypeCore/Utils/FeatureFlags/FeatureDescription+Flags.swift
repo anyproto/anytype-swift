@@ -98,13 +98,19 @@ public extension FeatureDescription {
     static let newMultiSelectRelationView = FeatureDescription(
         title: "New Multi Select relation editing view - 2213",
         type: .feature(author: "joe_pusya@anytype.io", releaseVersion: "0.28.0"),
-        defaultValue: false
+        defaultValue: true
     )
     
     static let newObjectSelectRelationView = FeatureDescription(
         title: "New object relation editing view - 2214",
         type: .feature(author: "joe_pusya@anytype.io", releaseVersion: "0.28.0"),
-        defaultValue: false
+        defaultValue: true
+    )
+    
+    static let newFileSelectRelationView = FeatureDescription(
+        title: "New file relation editing view - 2259",
+        type: .feature(author: "joe_pusya@anytype.io", releaseVersion: "0.28.0"),
+        defaultValue: true
     )
     
     // MARK: - Debug

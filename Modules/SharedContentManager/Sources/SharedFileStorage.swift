@@ -4,12 +4,12 @@ import UIKit
 public protocol SharedFileStorageProtocol: AnyObject {
     func clearStorage() throws
     func saveFileToGroup(url: URL) throws -> URL
-    func saveImageToGroup(image: UIImage) throws -> URL
+    func saveImageToGroup(image: UIImage, name: String) throws -> URL
 }
 
 final class SharedFileStorage: SharedFileStorageProtocol {
     
-   func clearStorage() throws {
+    func clearStorage() throws {
         try deleteFilesFromGroup()
     }
     
@@ -19,8 +19,8 @@ final class SharedFileStorage: SharedFileStorageProtocol {
         return filePath
     }
     
-    func saveImageToGroup(image: UIImage) throws -> URL {
-        let filePath = containerPath().appendingPathExtension("\(UUID().uuidString).jpg")
+    func saveImageToGroup(image: UIImage, name: String) throws -> URL {
+        let filePath = containerPath().appendingPathComponent("\(name).jpg")
         guard let data = image.jpegData(compressionQuality: 0.5) else {
             throw SharedContentManagerError.common
         }

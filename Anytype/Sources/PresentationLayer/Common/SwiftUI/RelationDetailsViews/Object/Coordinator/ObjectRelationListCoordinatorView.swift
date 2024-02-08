@@ -7,7 +7,7 @@ struct ObjectRelationListCoordinatorView: View {
     @Environment(\.dismiss) var dismiss
     
     var body: some View {
-        model.objectRelationListModule()
+        model.relationListModule()
             .anytypeSheet(item: $model.deletionAlertData, cancelAction: {
                 model.deletionAlertData?.completion(false)
             }, content: { data in

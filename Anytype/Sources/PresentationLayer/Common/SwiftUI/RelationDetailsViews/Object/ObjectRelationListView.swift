@@ -58,17 +58,12 @@ struct ObjectRelationListView: View {
         }
     }
     
-    private func optionRow(with option: Relation.Object.Option) -> some View {
+    private func optionRow(with option: ObjectRelationOption) -> some View {
         Button {
             viewModel.optionSelected(option.id)
         } label: {
             HStack {
-                RelationObjectsRowView(
-                    object: option,
-                    action: {
-                        viewModel.optionSelected(option.id)
-                    }
-                )
+                ObjectRelationOptionView(option: option)
                 
                 Spacer()
                 
@@ -87,9 +82,13 @@ struct ObjectRelationListView: View {
             Button(Loc.openObject) {
                 viewModel.onObjectOpen(option)
             }
-            Button(Loc.duplicate) {
-                viewModel.onObjectDuplicate(option)
+            
+            if viewModel.canDuplicateObject() {
+                Button(Loc.duplicate) {
+                    viewModel.onObjectDuplicate(option)
+                }
             }
+            
             Button(Loc.delete, role: .destructive) {
                 viewModel.onOptionDelete(option)
             }
