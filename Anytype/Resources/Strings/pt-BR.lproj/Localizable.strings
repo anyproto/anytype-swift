@@ -88,9 +88,12 @@
 "Relation.Create.Textfield.placeholder" = "Inserir nome...";
 "Relation.Edit.Button.title" = "Aplicar";
 "Relation.Date.Locked.Alert.title" = "Relação “%@” está bloqueada";
+"Relation.ObjectTypes.Header.title" = "Tipos de Objeto:";
+"Relation.ObjectType.Header.title" = "Tipo de Objeto:";
 
 "Relation.Delete.Alert.Title" = "Você tem certeza?";
 "Relation.Delete.Alert.Description" = "A opção será removida permanentemente do seu espaço.";
+"Relation.Object.Delete.Alert.Description" = "O objeto será movido para o Lixo.";
 
 "Relation.Format.Object.Title" = "Objeto";
 "Relation.Format.Text.Title" = "Texto";
@@ -132,6 +135,7 @@
 "Relations" = "Relações";
 "Objects" = "Objetos";
 "Lists" = "Groups";
+"Pinned" = "Fixado";
 "Delete" = "Excluir";
 "Duplicate" = "Duplicar";
 "Copy" = "Copiar";
@@ -867,8 +871,8 @@
 "Sharing.LinkTo" = "Vincular a";
 
 "Sharing.Text.NoteObject" = "Objeto nota";
-"Sharing.Text.TextBlock" = "Blocks";
-"Sharing.Any.Block" = "Blocks";
+"Sharing.Text.TextBlock" = "Blocos";
+"Sharing.Any.Block" = "Blocos";
 
 // MARK: - Sharing tips
 "Sharing.Tip.Title" = "Compartilhar extensão";
@@ -896,6 +900,9 @@
 "Error.AnytypeNeedsUpgrate.Message" = "Este objeto foi atualizado em uma nova versão do Anytype. Por favor, atualize o aplicativo para abri-lo neste dispositivo";
 "Error.AnytypeNeedsUpgrate.Confirm" = "Atualização";
 "Error.UnableToConnect" = "Por favor, conecte-se à internet";
+"Error.Common.Title" = "Oops!";
+"Error.Common.Message" = "Please check your internet connection and try again or post a report on forum.";
+"Error.Common.TryAgain" = "Try again";
 
 // MARK: - Relative date formatter
 "RelativeFormatter.days7" = "Últimos 7 dias";
@@ -915,7 +922,10 @@
 "Gallery.Author" = "Made by @%@";
 "Gallery.Install" = "Install";
 "Gallery.InstallToNew" = "Install to new space";
+"Gallery.Notification.Success" = "Experience was successfully installed to the \"%@\" space. You can now open and start using it.";
+"Gallery.Notification.Button" = "Go to space";
+"Gallery.Notification.Error" = "Oops! \"%@\" wasn't installed. Please check your internet connection and try again or post a report on forum.";
 
 // MARK: - Debug
-"Debug.MimeTypes" = "Mime Types - %@";
-"Debug.Info" = "Debug Info";
+"Debug.MimeTypes" = "Tipos de MIME - %@";
+"Debug.Info" = "Informações de Depuração";
