@@ -14,6 +14,7 @@ final class ObjectTypeSearchViewModel: ObservableObject {
     private let toastPresenter: ToastPresenterProtocol
     
     private let onSelect: (_ type: ObjectType) -> Void
+    private var searchTask: Task<(), any Error>?
     
     nonisolated init(
         showPins: Bool,
@@ -30,7 +31,9 @@ final class ObjectTypeSearchViewModel: ObservableObject {
     }
     
     func search(text: String) {
-        Task {
+        searchTask?.cancel()
+        
+        searchTask = Task { @MainActor in
             let pinnedTypes = showPins ? try await interactor.searchPinnedTypes(text: text) : []
             let listTypes = showLists ? try await interactor.searchListTypes(text: text, includePins: !showPins) : []
             let objectTypes = try await interactor.searchObjectTypes(text: text, includePins: !showPins)
