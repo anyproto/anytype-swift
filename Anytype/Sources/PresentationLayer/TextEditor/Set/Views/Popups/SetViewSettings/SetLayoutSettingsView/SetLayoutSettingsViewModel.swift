@@ -155,7 +155,7 @@ final class SetLayoutSettingsViewModel: ObservableObject {
                 blockId: setDocument.blockId,
                 view: activeView
             )
-            AnytypeAnalytics.instance().logChangeViewType(type: selectedType.stringValue, objectType: setDocument.analyticsType)
+            AnytypeAnalytics.instance().logChangeViewType(type: selectedType.analyticStringValue, objectType: setDocument.analyticsType)
         }
     }
     

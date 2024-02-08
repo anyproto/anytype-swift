@@ -198,7 +198,7 @@ final class EditorSetViewModel: ObservableObject {
     }
     
     func logModuleScreen() {
-        let type = activeView.type.stringValue
+        let type = activeView.type.analyticStringValue
         if self.setDocument.isCollection() {
             AnytypeAnalytics.instance().logScreenCollection(with: type)
         } else {
