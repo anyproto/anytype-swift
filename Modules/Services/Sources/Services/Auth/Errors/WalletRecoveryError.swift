@@ -3,6 +3,7 @@ import ProtobufMessages
 
 public enum WalletRecoveryError: Error {
     case badInput
+    case unknownError
 }
 
 extension Anytype_Rpc.Wallet.Recover.Response.Error {
@@ -11,7 +12,7 @@ extension Anytype_Rpc.Wallet.Recover.Response.Error {
         case .badInput:
             return .badInput
         default:
-            return nil
+            return .unknownError
         }
     }
 }
