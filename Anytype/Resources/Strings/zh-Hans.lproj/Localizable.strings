@@ -88,9 +88,12 @@
 "Relation.Create.Textfield.placeholder" = "输入名称...";
 "Relation.Edit.Button.title" = "应用";
 "Relation.Date.Locked.Alert.title" = "关系“%@” 已锁定";
+"Relation.ObjectTypes.Header.title" = "对象类型：";
+"Relation.ObjectType.Header.title" = "对象类型：";
 
 "Relation.Delete.Alert.Title" = "是否确定?";
 "Relation.Delete.Alert.Description" = "此选项将从您的空间永久删除。";
+"Relation.Object.Delete.Alert.Description" = "对象将被移动到回收站。";
 
 "Relation.Format.Object.Title" = "对象";
 "Relation.Format.Text.Title" = "正文";
@@ -113,6 +116,7 @@
 "Relation.Origin.SharingExtension" = "手机共享扩展";
 "Relation.Origin.UseCase" = "使用案例";
 "Relation.Origin.Builtin" = "库已安装";
+"Relation.Origin.Bookmark" = "书签";
 
 // MARK: - Mention
 "Mention.Subtitle.Placeholder" = "对象";
@@ -132,6 +136,7 @@
 "Relations" = "关联";
 "Objects" = "对象";
 "Lists" = "分组";
+"Pinned" = "固定";
 "Delete" = "删除";
 "Duplicate" = "生成副本";
 "Copy" = "拷贝";
@@ -141,6 +146,8 @@
 "Move" = "移动";
 "Move to" = "移至";
 "Back" = "返回";
+"Unpin" = "取消固定";
+"Pin on top" = "置顶";
 "File block subtitle" = "以原始状态存储文件";
 "Picture block subtitle" = "上传图片，丰富页面内容";
 "Video block subtitle" = "上传可播放的视频";
@@ -354,6 +361,7 @@
 "Templates.Popup.Default" = "此模板已设置为默认";
 
 "To Bin" = "移到废纸篓";
+"Set as default" = "设为默认";
 
 // MARK: - Context Menu
 "Remove From Favorite" = "从收藏夹中删除";
@@ -896,6 +904,9 @@
 "Error.AnytypeNeedsUpgrate.Message" = "此文档已在更高版本的 Anytype 编辑过，请更新此设备的应用以打开它。";
 "Error.AnytypeNeedsUpgrate.Confirm" = "更新";
 "Error.UnableToConnect" = "请连接到互联网";
+"Error.Common.Title" = "哎呀!";
+"Error.Common.Message" = "请检查您的互联网连接，然后重试或在论坛上反馈。";
+"Error.Common.TryAgain" = "请再试一次";
 
 // MARK: - Relative date formatter
 "RelativeFormatter.days7" = "过去 7 天";
@@ -916,6 +927,9 @@
 "Gallery.Author" = "作者：@%@";
 "Gallery.Install" = "安装";
 "Gallery.InstallToNew" = "安装至新的空间";
+"Gallery.Notification.Success" = "体验已成功安装到 “%@” 空间。您现在可以打开并开始使用它。";
+"Gallery.Notification.Button" = "转到空间";
+"Gallery.Notification.Error" = "哎呀！ “%@” 未安装。请检查您的互联网连接，然后重试或在论坛上反馈。";
 
 // MARK: - Debug
 "Debug.MimeTypes" = "Mime Types - %@";

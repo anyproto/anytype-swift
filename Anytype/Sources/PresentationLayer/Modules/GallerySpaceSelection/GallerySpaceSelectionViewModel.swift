@@ -18,10 +18,12 @@ final class GallerySpaceSelectionViewModel: ObservableObject {
     }
     
     func onTapSpace(spaceView: SpaceView) {
+        AnytypeAnalytics.instance().logClickGalleryInstallSpace(type: .existing)
         output?.onSelectSpace(result: .space(spaceId: spaceView.targetSpaceId))
     }
     
     func onTapNewSpace() {
+        AnytypeAnalytics.instance().logClickGalleryInstallSpace(type: .new)
         output?.onSelectSpace(result: .newSpace)
     }
 }

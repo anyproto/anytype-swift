@@ -34,6 +34,7 @@ final class GalleryInstallationPreviewViewModel: ObservableObject {
             anytypeAssertionFailure("Try to install without manifest")
             return
         }
+        AnytypeAnalytics.instance().logClickGalleryInstall()
         output?.onSelectInstall(manifest: manifest)
     }
     
@@ -47,6 +48,7 @@ final class GalleryInstallationPreviewViewModel: ObservableObject {
             let manifest = try await galleryService.manifest(url: data.source)
             state = .data(manifest: makeViewManifest(manifest: manifest))
             self.manifest = manifest
+            AnytypeAnalytics.instance().logScreenGalleryInstall(name: manifest.title)
         } catch {
             state = .error
         }
