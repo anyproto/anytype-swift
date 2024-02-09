@@ -109,7 +109,7 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>d</string>
         <key>one</key>
-        <string>File Object</string>
+        <string>Bestand object</string>
         <key>other</key>
         <string>%d Bestand objecten</string>
       </dict>
@@ -125,7 +125,7 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>d</string>
         <key>one</key>
-        <string>File Block</string>
+        <string>Bestand blok</string>
         <key>other</key>
         <string>%d Bestand blokken</string>
       </dict>
@@ -141,7 +141,7 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>d</string>
         <key>one</key>
-        <string>Bookmark Object</string>
+        <string>Bladwijzer object</string>
         <key>other</key>
         <string>%d Bladwijzer objecten</string>
       </dict>
@@ -157,7 +157,7 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>d</string>
         <key>one</key>
-        <string>Link Block</string>
+        <string>Link blok</string>
         <key>other</key>
         <string>Link %d blokken</string>
       </dict>
