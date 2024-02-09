@@ -20,6 +20,8 @@ final class MockSetDocument: SetDocumentProtocol {
     
     var forPreview: Bool { false }
     
+    var objectRestrictions: ObjectRestrictions { ObjectRestrictions(objectRestriction: [], dataViewRestriction: [:]) }
+    
     var dataviews: [BlockDataview] { [] }
     
     var dataViewRelationsDetails: [Services.RelationDetails] { [] }

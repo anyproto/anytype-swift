@@ -66,6 +66,10 @@ class SetDocument: SetDocumentProtocol {
         document.parsedRelations
     }
     
+    var objectRestrictions: ObjectRestrictions {
+        document.objectRestrictions
+    }
+    
     var setUpdatePublisher: AnyPublisher<SetDocumentUpdate, Never> { updateSubject.eraseToAnyPublisher() }
     private let updateSubject = PassthroughSubject<SetDocumentUpdate, Never>()
     

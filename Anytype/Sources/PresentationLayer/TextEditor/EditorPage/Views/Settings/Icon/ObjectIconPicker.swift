@@ -13,7 +13,7 @@ struct ObjectIconPicker: View {
                     viewModel: viewModel,
                     onDismiss: dismissHandler.onDismiss
                 )
-            case .space, .spaceView, .profile:
+            case .space, .spaceView, .profile, .participant:
                 ObjectProfileIconPicker(viewModel: viewModel, onDismiss: dismissHandler.onDismiss)
             case nil:
                 EmptyView()
