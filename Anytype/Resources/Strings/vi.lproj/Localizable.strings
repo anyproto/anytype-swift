@@ -116,6 +116,7 @@
 "Relation.Origin.SharingExtension" = "Mobile sharing extension";
 "Relation.Origin.UseCase" = "Use case";
 "Relation.Origin.Builtin" = "Library installed";
+"Relation.Origin.Bookmark" = "Dấu trang";
 
 // MARK: - Mention
 "Mention.Subtitle.Placeholder" = "Đối tượng";
@@ -145,6 +146,8 @@
 "Move" = "Di chuyển";
 "Move to" = "Di chuyển đến";
 "Back" = "Quay lại";
+"Unpin" = "Unpin";
+"Pin on top" = "Pin on top";
 "File block subtitle" = "Lưu tập tin ở trạng thái gốc";
 "Picture block subtitle" = "Tải lên và làm trang sống động bằng ảnh";
 "Video block subtitle" = "Tải lên video chạy được";
@@ -359,6 +362,7 @@
 "Templates.Popup.Default" = "The template was set as default";
 
 "To Bin" = "To Bin";
+"Set as default" = "Set as default";
 
 // MARK: - Context Menu
 "Remove From Favorite" = "Bỏ khỏi mục Ưa thích";
