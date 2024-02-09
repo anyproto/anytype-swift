@@ -93,7 +93,7 @@
 
 "Relation.Delete.Alert.Title" = "Weet je het zeker?";
 "Relation.Delete.Alert.Description" = "De optie wordt permanent verwijderd uit jouw ruimte.";
-"Relation.Object.Delete.Alert.Description" = "The object will be moved to Bin.";
+"Relation.Object.Delete.Alert.Description" = "Het object zal naar de prullenbak worden verplaatst.";
 
 "Relation.Format.Object.Title" = "Object";
 "Relation.Format.Text.Title" = "Tekst";
@@ -116,6 +116,7 @@
 "Relation.Origin.SharingExtension" = "Mobiel delen extensie";
 "Relation.Origin.UseCase" = "Gebruikssituatie";
 "Relation.Origin.Builtin" = "Bibliotheek geïnstalleerd";
+"Relation.Origin.Bookmark" = "Bladwijzer";
 
 // MARK: - Mention
 "Mention.Subtitle.Placeholder" = "Object";
@@ -145,6 +146,8 @@
 "Move" = "Verplaats";
 "Move to" = "Verplaats naar";
 "Back" = "Terug";
+"Unpin" = "Maak los";
+"Pin on top" = "Zet vast bovenaan";
 "File block subtitle" = "Sla bestand op in oorspronkelijke staat";
 "Picture block subtitle" = "Upload en verrijk de pagina met afbeelding";
 "Video block subtitle" = "Upload afspeelbare video";
@@ -358,6 +361,7 @@
 "Templates.Popup.Default" = "Dit sjabloon werd als standaard ingesteld";
 
 "To Bin" = "Naar Prullenbak";
+"Set as default" = "Stel in als standaard";
 
 // MARK: - Context Menu
 "Remove From Favorite" = "Verwijder uit Favorieten";
@@ -901,8 +905,8 @@
 "Error.AnytypeNeedsUpgrate.Message" = "Dit object is gewijzigd in een nieuwere versie van Anytype. Update alsjeblieft de app om het op dit apparaat te openen";
 "Error.AnytypeNeedsUpgrate.Confirm" = "Updaten";
 "Error.UnableToConnect" = "Maak alsjeblieft verbinding met het internet";
-"Error.Common.Title" = "Oops!";
-"Error.Common.Message" = "Please check your internet connection and try again or post a report on forum.";
+"Error.Common.Title" = "Oeps!";
+"Error.Common.Message" = "Controleer alsjeblieft jouw internetverbinding en probeer het opnieuw of rapporteer het op het forum.";
 "Error.Common.TryAgain" = "Probeer opnieuw";
 
 // MARK: - Relative date formatter
@@ -923,9 +927,9 @@
 "Gallery.Author" = "Gemaakt door @%@";
 "Gallery.Install" = "Installeer";
 "Gallery.InstallToNew" = "Installeer in nieuwe ruimte";
-"Gallery.Notification.Success" = "Experience was successfully installed to the \"%@\" space. You can now open and start using it.";
-"Gallery.Notification.Button" = "Go to space";
-"Gallery.Notification.Error" = "Oops! \"%@\" wasn't installed. Please check your internet connection and try again or post a report on forum.";
+"Gallery.Notification.Success" = "Experience werd succesvol geïnstalleerd in de \"%@\" ruimte. Je kunt het nu openen en gebruiken.";
+"Gallery.Notification.Button" = "Ga naar ruimte";
+"Gallery.Notification.Error" = "Oeps! \"%@\" werd niet geïnstalleerd. Controleer jouw internetverbinding en probeer het opnieuw of rapporteer het op het forum.";
 
 // MARK: - Debug
 "Debug.MimeTypes" = "Media types - %@";
