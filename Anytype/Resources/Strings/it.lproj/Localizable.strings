@@ -116,6 +116,7 @@
 "Relation.Origin.SharingExtension" = "Estensione di condivisione mobile";
 "Relation.Origin.UseCase" = "Caso d'uso";
 "Relation.Origin.Builtin" = "Libreria installata";
+"Relation.Origin.Bookmark" = "Segnalibro";
 
 // MARK: - Mention
 "Mention.Subtitle.Placeholder" = "Oggetto";
@@ -145,6 +146,8 @@
 "Move" = "Sposta";
 "Move to" = "Sposta in";
 "Back" = "Indietro";
+"Unpin" = "Togli";
+"Pin on top" = "Fissa in alto";
 "File block subtitle" = "Salva file nello stato originale";
 "Picture block subtitle" = "Carica e arricchisci la pagina con immagine";
 "Video block subtitle" = "Carica un video riproducibile";
@@ -358,6 +361,7 @@
 "Templates.Popup.Default" = "Questo modello è stato impostato come predefinito";
 
 "To Bin" = "Nel Cestino";
+"Set as default" = "Imposta come predefinito";
 
 // MARK: - Context Menu
 "Remove From Favorite" = "Rimuovi dai Preferiti";
