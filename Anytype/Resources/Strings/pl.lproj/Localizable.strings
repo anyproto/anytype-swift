@@ -116,6 +116,7 @@
 "Relation.Origin.SharingExtension" = "Mobile sharing extension";
 "Relation.Origin.UseCase" = "Use case";
 "Relation.Origin.Builtin" = "Library installed";
+"Relation.Origin.Bookmark" = "Bookmark";
 
 // MARK: - Mention
 "Mention.Subtitle.Placeholder" = "Obiekt";
@@ -145,6 +146,8 @@
 "Move" = "Przenieś";
 "Move to" = "Przenieś do";
 "Back" = "Wstecz";
+"Unpin" = "Unpin";
+"Pin on top" = "Pin on top";
 "File block subtitle" = "Zachowaj plik w oryginalnym formacie";
 "Picture block subtitle" = "Prześlij i wzbogacaj stronę obrazkiem";
 "Video block subtitle" = "Prześlij odtwarzalne wideo";
@@ -358,6 +361,7 @@
 "Templates.Popup.Default" = "Szablon został ustawiony jako domyślny";
 
 "To Bin" = "Do kosza";
+"Set as default" = "Set as default";
 
 // MARK: - Context Menu
 "Remove From Favorite" = "Usuń z ulubionych";
