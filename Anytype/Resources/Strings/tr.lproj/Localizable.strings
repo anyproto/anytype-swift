@@ -116,6 +116,7 @@
 "Relation.Origin.SharingExtension" = "Mobil paylaşma uzantısı";
 "Relation.Origin.UseCase" = "Kullanım Alanları";
 "Relation.Origin.Builtin" = "Kütüphane yüklü";
+"Relation.Origin.Bookmark" = "Yer imi";
 
 // MARK: - Mention
 "Mention.Subtitle.Placeholder" = "Nesne";
@@ -145,6 +146,8 @@
 "Move" = "Taşı";
 "Move to" = "Şuraya taşı";
 "Back" = "Geri";
+"Unpin" = "Unpin";
+"Pin on top" = "Pin on top";
 "File block subtitle" = "Dosyayı orijinal halinde sakla";
 "Picture block subtitle" = "Resim yükle ve sayfayı zenginleştir";
 "Video block subtitle" = "Oynatılabilir video yükle";
@@ -358,6 +361,7 @@
 "Templates.Popup.Default" = "Şablon varsayılan olarak ayarlandı";
 
 "To Bin" = "Çöp kutusuna";
+"Set as default" = "Set as default";
 
 // MARK: - Context Menu
 "Remove From Favorite" = "Favoriden Kaldır";
