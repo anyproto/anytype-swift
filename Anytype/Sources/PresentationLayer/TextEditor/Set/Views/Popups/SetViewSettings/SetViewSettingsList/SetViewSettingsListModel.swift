@@ -84,7 +84,7 @@ final class SetViewSettingsListModel: ObservableObject {
             guard let self else { return }
             try await dataviewService.createView(objectId: setDocument.objectId, blockId: setDocument.blockId, view: view, source: source)
             AnytypeAnalytics.instance().logDuplicateView(
-                type: view.type.stringValue,
+                type: view.type.analyticStringValue,
                 objectType: setDocument.analyticsType
             )
         }

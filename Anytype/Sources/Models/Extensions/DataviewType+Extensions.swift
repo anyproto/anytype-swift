@@ -74,4 +74,16 @@ extension DataviewViewType {
             return [.icon, .groupBy, .colorColumns]
         }
     }
+    
+    var analyticStringValue: String {
+        switch setContentViewType {
+        case .collection(let collectionType):
+            switch collectionType {
+            case .gallery: return "Gallery"
+            case .list: return "List"
+            }
+        case .table: return "Grid"
+        case .kanban: return "Board"
+        }
+    }
 }
