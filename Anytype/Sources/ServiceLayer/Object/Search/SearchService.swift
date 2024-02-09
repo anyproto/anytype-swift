@@ -29,9 +29,8 @@ final class SearchService: SearchServiceProtocol {
             type: .desc
         )
         
-        let spaceIds = [spaceId, accountManager.account.info.techSpaceId]
         let filters: [DataviewFilter] = .builder {
-            SearchFiltersBuilder.build(isArchived: false, spaceIds: spaceIds, layouts: DetailsLayout.visibleLayouts)
+            SearchFiltersBuilder.build(isArchived: false, spaceId: spaceId, layouts: DetailsLayout.visibleLayouts)
             SearchHelper.excludedIdsFilter(excludedObjectIds)
         }
         
@@ -75,13 +74,12 @@ final class SearchService: SearchServiceProtocol {
             relation: BundledRelationKey.lastOpenedDate,
             type: .desc
         )
-        let spaceIds = [spaceId, accountManager.account.info.techSpaceId]
         let filters: [DataviewFilter] = .builder {
             SearchHelper.excludedIdsFilter(excludedObjectIds)
             if typeIds.isEmpty {
-                SearchFiltersBuilder.build(isArchived: false, spaceIds: spaceIds, layouts: DetailsLayout.visibleLayouts)
+                SearchFiltersBuilder.build(isArchived: false, spaceId: spaceId, layouts: DetailsLayout.visibleLayouts)
             } else {
-                SearchFiltersBuilder.build(isArchived: false, spaceIds: spaceIds)
+                SearchFiltersBuilder.build(isArchived: false, spaceId: spaceId)
                 SearchHelper.typeFilter(typeIds: typeIds)
             }
         }
@@ -104,9 +102,8 @@ final class SearchService: SearchServiceProtocol {
             relation: sortRelationKey ?? .lastOpenedDate,
             type: .desc
         )
-        let spaceIds = [spaceId, accountManager.account.info.techSpaceId]
         let filters: [DataviewFilter] = .builder {
-            SearchFiltersBuilder.build(isArchived: false, spaceIds: spaceIds, layouts: DetailsLayout.visibleLayouts)
+            SearchFiltersBuilder.build(isArchived: false, spaceId: spaceId, layouts: DetailsLayout.visibleLayouts)
             SearchHelper.excludedIdsFilter(excludedObjectIds)
             SearchHelper.excludedLayoutFilter(excludedLayouts)
         }
@@ -194,8 +191,7 @@ final class SearchService: SearchServiceProtocol {
             type: .desc
         )
         
-        let spaceIds = [spaceId, accountManager.account.info.techSpaceId]
-        let filters = SearchFiltersBuilder.build(isArchived: false, spaceIds: spaceIds, layouts: layouts)
+        let filters = SearchFiltersBuilder.build(isArchived: false, spaceId: spaceId, layouts: layouts)
         
         return try await searchMiddleService.search(filters: filters, sorts: [sort], fullText: text, limit: Constants.defaultLimit)
     }
