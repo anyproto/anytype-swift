@@ -116,6 +116,7 @@
 "Relation.Origin.SharingExtension" = "Mobile sharing extension";
 "Relation.Origin.UseCase" = "Use case";
 "Relation.Origin.Builtin" = "Library installed";
+"Relation.Origin.Bookmark" = "Bookmark";
 
 // MARK: - Mention
 "Mention.Subtitle.Placeholder" = "Object";
@@ -145,6 +146,8 @@
 "Move" = "移動";
 "Move to" = "移動至";
 "Back" = "返回";
+"Unpin" = "Unpin";
+"Pin on top" = "Pin on top";
 "File block subtitle" = "以原始狀態儲存文件";
 "Picture block subtitle" = "上傳並用圖像豐富頁面";
 "Video block subtitle" = "上傳可播放的影片";
@@ -358,6 +361,7 @@
 "Templates.Popup.Default" = "The template was set as default";
 
 "To Bin" = "To Bin";
+"Set as default" = "Set as default";
 
 // MARK: - Context Menu
 "Remove From Favorite" = "Remove From Favorite";
