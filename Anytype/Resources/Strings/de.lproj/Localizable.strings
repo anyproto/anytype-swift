@@ -88,9 +88,12 @@
 "Relation.Create.Textfield.placeholder" = "Name eingeben...";
 "Relation.Edit.Button.title" = "Anwenden";
 "Relation.Date.Locked.Alert.title" = "Relation „%@“ ist gesperrt";
+"Relation.ObjectTypes.Header.title" = "Objekttypen:";
+"Relation.ObjectType.Header.title" = "Objekttyp:";
 
 "Relation.Delete.Alert.Title" = "Sind Sie sicher?";
 "Relation.Delete.Alert.Description" = "The option will be permanently removed from your space.";
+"Relation.Object.Delete.Alert.Description" = "Das Objekt wird in den Papierkorb verschoben.";
 
 "Relation.Format.Object.Title" = "Objekt";
 "Relation.Format.Text.Title" = "Text";
@@ -113,6 +116,7 @@
 "Relation.Origin.SharingExtension" = "Erweiterung für mobiles Teilen";
 "Relation.Origin.UseCase" = "Anwendungsfall";
 "Relation.Origin.Builtin" = "Bibliothek installiert";
+"Relation.Origin.Bookmark" = "Lesezeichen";
 
 // MARK: - Mention
 "Mention.Subtitle.Placeholder" = "Objekt";
@@ -132,6 +136,7 @@
 "Relations" = "Verknüpfungen";
 "Objects" = "Objekte";
 "Lists" = "Gruppen";
+"Pinned" = "Angeheftet";
 "Delete" = "Löschen";
 "Duplicate" = "Duplizieren";
 "Copy" = "Kopieren";
@@ -141,6 +146,8 @@
 "Move" = "Verschieben";
 "Move to" = "Verschieben nach";
 "Back" = "Zurück";
+"Unpin" = "Loslösen";
+"Pin on top" = "Oben anheften";
 "File block subtitle" = "Datei im Originalzustand speichern";
 "Picture block subtitle" = "Lade ein Bild hoch und bereichere die Seite";
 "Video block subtitle" = "Video hochladen";
@@ -354,6 +361,7 @@
 "Templates.Popup.Default" = "Die Vorlage wurde als Standard festgelegt";
 
 "To Bin" = "Zum Papierkorb";
+"Set as default" = "Als Standard festlegen";
 
 // MARK: - Context Menu
 "Remove From Favorite" = "Aus den Favoriten entfernen";
@@ -897,6 +905,9 @@
 "Error.AnytypeNeedsUpgrate.Message" = "Dieses Objekt wurde in einer neueren Version von Anytype geändert. Bitte aktualisieren Sie die App, um es auf diesem Gerät zu öffnen";
 "Error.AnytypeNeedsUpgrate.Confirm" = "Update";
 "Error.UnableToConnect" = "Bitte mit dem Internet verbinden";
+"Error.Common.Title" = "Hoppla!";
+"Error.Common.Message" = "Bitte überprüfe deine Internetverbindung und versuche es erneut oder schreibe einen Bericht im Forum.";
+"Error.Common.TryAgain" = "Erneut versuchen";
 
 // MARK: - Relative date formatter
 "RelativeFormatter.days7" = "Letzte 7 Tage";
@@ -916,6 +927,9 @@
 "Gallery.Author" = "Erstellt von @%@";
 "Gallery.Install" = "Installieren";
 "Gallery.InstallToNew" = "Install to new space";
+"Gallery.Notification.Success" = "Experience was successfully installed to the \"%@\" space. You can now open and start using it.";
+"Gallery.Notification.Button" = "Go to space";
+"Gallery.Notification.Error" = "Hoppla! „%@“ wurde nicht installiert. Bitte überprüfe deine Internetverbindung und versuche es erneut oder schreibe einen Bericht im Forum.";
 
 // MARK: - Debug
 "Debug.MimeTypes" = "MIME-Typen - %@";

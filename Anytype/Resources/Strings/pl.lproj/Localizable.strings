@@ -88,9 +88,12 @@
 "Relation.Create.Textfield.placeholder" = "Wprowadź nazwę...";
 "Relation.Edit.Button.title" = "Zastosuj";
 "Relation.Date.Locked.Alert.title" = "Relacja „%@” jest zablokowana";
+"Relation.ObjectTypes.Header.title" = "Object types:";
+"Relation.ObjectType.Header.title" = "Object type:";
 
 "Relation.Delete.Alert.Title" = "Are you sure?";
 "Relation.Delete.Alert.Description" = "Opcja zostanie trwale usunięta z Twojej przestrzeni.";
+"Relation.Object.Delete.Alert.Description" = "The object will be moved to Bin.";
 
 "Relation.Format.Object.Title" = "Obiekt";
 "Relation.Format.Text.Title" = "Tekst";
@@ -113,6 +116,7 @@
 "Relation.Origin.SharingExtension" = "Mobile sharing extension";
 "Relation.Origin.UseCase" = "Use case";
 "Relation.Origin.Builtin" = "Library installed";
+"Relation.Origin.Bookmark" = "Bookmark";
 
 // MARK: - Mention
 "Mention.Subtitle.Placeholder" = "Obiekt";
@@ -132,6 +136,7 @@
 "Relations" = "Relacje";
 "Objects" = "Obiekty";
 "Lists" = "Lists";
+"Pinned" = "Pinned";
 "Delete" = "Usuń";
 "Duplicate" = "Duplikuj";
 "Copy" = "Kopiuj";
@@ -141,6 +146,8 @@
 "Move" = "Przenieś";
 "Move to" = "Przenieś do";
 "Back" = "Wstecz";
+"Unpin" = "Unpin";
+"Pin on top" = "Pin on top";
 "File block subtitle" = "Zachowaj plik w oryginalnym formacie";
 "Picture block subtitle" = "Prześlij i wzbogacaj stronę obrazkiem";
 "Video block subtitle" = "Prześlij odtwarzalne wideo";
@@ -354,6 +361,7 @@
 "Templates.Popup.Default" = "Szablon został ustawiony jako domyślny";
 
 "To Bin" = "Do kosza";
+"Set as default" = "Set as default";
 
 // MARK: - Context Menu
 "Remove From Favorite" = "Usuń z ulubionych";
@@ -896,6 +904,9 @@
 "Error.AnytypeNeedsUpgrate.Message" = "This object was modified in a newer version of Anytype. Please update the app to open it on this device";
 "Error.AnytypeNeedsUpgrate.Confirm" = "Update";
 "Error.UnableToConnect" = "Please connect to the internet";
+"Error.Common.Title" = "Ups!";
+"Error.Common.Message" = "Sprawdź swoje połączenie internetowe i spróbuj ponownie lub opublikuj raport na forum.";
+"Error.Common.TryAgain" = "Spróbuj ponownie";
 
 // MARK: - Relative date formatter
 "RelativeFormatter.days7" = "Ostatnie 7 dni";
@@ -915,6 +926,9 @@
 "Gallery.Author" = "Wykonane przez @%@";
 "Gallery.Install" = "Zainstaluj";
 "Gallery.InstallToNew" = "Zainstaluj w nowej przestrzeni";
+"Gallery.Notification.Success" = "Doświadczenie zostało pomyślnie zainstalowane w przestrzeni \"%@\". Możesz teraz otworzyć i zacząć z niej korzystać.";
+"Gallery.Notification.Button" = "Przejdź do miejsca";
+"Gallery.Notification.Error" = "Ups! \"%@\" nie został zainstalowany. Sprawdź swoje połączenie internetowe i spróbuj ponownie lub opublikuj raport na forum.";
 
 // MARK: - Debug
 "Debug.MimeTypes" = "Mime Types - %@";

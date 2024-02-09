@@ -88,9 +88,12 @@
 "Relation.Create.Textfield.placeholder" = "Enter name...";
 "Relation.Edit.Button.title" = "Terapkan";
 "Relation.Date.Locked.Alert.title" = "Relation “%@” is locked";
+"Relation.ObjectTypes.Header.title" = "Object types:";
+"Relation.ObjectType.Header.title" = "Object type:";
 
 "Relation.Delete.Alert.Title" = "Apakah kamu yakin?";
 "Relation.Delete.Alert.Description" = "The option will be permanently removed from your space.";
+"Relation.Object.Delete.Alert.Description" = "The object will be moved to Bin.";
 
 "Relation.Format.Object.Title" = "Objek";
 "Relation.Format.Text.Title" = "Teks";
@@ -113,6 +116,7 @@
 "Relation.Origin.SharingExtension" = "Mobile sharing extension";
 "Relation.Origin.UseCase" = "Use case";
 "Relation.Origin.Builtin" = "Pustaka terpasang";
+"Relation.Origin.Bookmark" = "Markah";
 
 // MARK: - Mention
 "Mention.Subtitle.Placeholder" = "Objek";
@@ -132,6 +136,7 @@
 "Relations" = "Relasi";
 "Objects" = "Objek";
 "Lists" = "Grup";
+"Pinned" = "Tersemat";
 "Delete" = "Hapus";
 "Duplicate" = "Gandakan";
 "Copy" = "Salin";
@@ -141,6 +146,8 @@
 "Move" = "Pindahkan";
 "Move to" = "Pindahkan ke";
 "Back" = "Kembali";
+"Unpin" = "Lepas sematan";
+"Pin on top" = "Sematkan di atas";
 "File block subtitle" = "Simpan berkas sebagaimana aslinya";
 "Picture block subtitle" = "Unggah dan perkaya halaman dengan gambar";
 "Video block subtitle" = "Unggah video yang dapat diputar";
@@ -354,6 +361,7 @@
 "Templates.Popup.Default" = "Templat diatur sebagai bawaan";
 
 "To Bin" = "Ke Bak Sampah";
+"Set as default" = "Atur sebagai bawaan";
 
 // MARK: - Context Menu
 "Remove From Favorite" = "Hapus dari Favorit";
@@ -896,6 +904,9 @@
 "Error.AnytypeNeedsUpgrate.Message" = "Objek ini telah diubah pada versi terbaru Anytype. Perbaruilah aplikasimu untuk membuka objek ini di perangkat ini.";
 "Error.AnytypeNeedsUpgrate.Confirm" = "Perbarui";
 "Error.UnableToConnect" = "Tolong sambungkan ke internet";
+"Error.Common.Title" = "Oops!";
+"Error.Common.Message" = "Please check your internet connection and try again or post a report on forum.";
+"Error.Common.TryAgain" = "Try again";
 
 // MARK: - Relative date formatter
 "RelativeFormatter.days7" = "7 hari terakhir";
@@ -915,6 +926,9 @@
 "Gallery.Author" = "Made by @%@";
 "Gallery.Install" = "Install";
 "Gallery.InstallToNew" = "Install to new space";
+"Gallery.Notification.Success" = "Experience was successfully installed to the \"%@\" space. You can now open and start using it.";
+"Gallery.Notification.Button" = "Go to space";
+"Gallery.Notification.Error" = "Oops! \"%@\" wasn't installed. Please check your internet connection and try again or post a report on forum.";
 
 // MARK: - Debug
 "Debug.MimeTypes" = "Mime Types - %@";
