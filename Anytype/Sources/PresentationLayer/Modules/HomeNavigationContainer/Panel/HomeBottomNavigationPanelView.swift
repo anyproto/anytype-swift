@@ -73,10 +73,10 @@ struct HomeBottomNavigationPanelView: View {
             view.gesture(
                 DragGesture(minimumDistance: 100)
                     .onEnded { value in
-                        if value.translation.width < 150 {
-                            model.onTapForward()
-                        } else if value.translation.width > -150 {
+                        if value.translation.width > 150 {
                             model.onTapBackward()
+                        } else if value.translation.width < -150 {
+                            model.onTapForward()
                         }
                     }
             )
