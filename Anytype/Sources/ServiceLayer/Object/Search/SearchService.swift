@@ -9,11 +9,9 @@ final class SearchService: SearchServiceProtocol {
         static let defaultLimit = 100
     }
     
-    private let accountManager: AccountManagerProtocol
     private let searchMiddleService: SearchMiddleServiceProtocol
     
-    init(accountManager: AccountManagerProtocol, searchMiddleService: SearchMiddleServiceProtocol) {
-        self.accountManager = accountManager
+    init(searchMiddleService: SearchMiddleServiceProtocol) {
         self.searchMiddleService = searchMiddleService
     }
     
