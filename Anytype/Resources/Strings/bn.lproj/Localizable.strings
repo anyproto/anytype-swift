@@ -116,6 +116,7 @@
 "Relation.Origin.SharingExtension" = "Mobile sharing extension";
 "Relation.Origin.UseCase" = "Use case";
 "Relation.Origin.Builtin" = "Library installed";
+"Relation.Origin.Bookmark" = "Bookmark";
 
 // MARK: - Mention
 "Mention.Subtitle.Placeholder" = "বস্তু";
@@ -145,6 +146,8 @@
 "Move" = "Move";
 "Move to" = "Move to";
 "Back" = "Back";
+"Unpin" = "Unpin";
+"Pin on top" = "Pin on top";
 "File block subtitle" = "Store file in original state";
 "Picture block subtitle" = "Upload and enrich the page with image";
 "Video block subtitle" = "Upload playable video";
@@ -358,6 +361,7 @@
 "Templates.Popup.Default" = "The template was set as default";
 
 "To Bin" = "To Bin";
+"Set as default" = "Set as default";
 
 // MARK: - Context Menu
 "Remove From Favorite" = "Remove From Favorite";
