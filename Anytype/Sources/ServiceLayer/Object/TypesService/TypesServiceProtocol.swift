@@ -24,7 +24,8 @@ protocol TypesServiceProtocol {
     
     func searchLibraryObjectTypes(
         text: String,
-        excludedIds: [String]
+        includeInstalledTypes: Bool,
+        spaceId: String
     ) async throws -> [ObjectDetails]
     
     func searchPinnedTypes(
