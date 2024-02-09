@@ -83,14 +83,16 @@ struct ObjectTypeSearchView: View {
                 .padding(.leading, 14)
                 .padding(.trailing, 16)
             }
-            .contextMenu {
-                contextMenu(section: section, data: typeData)
-            }
             .border(
                 12,
                 color: shouldHighlightType(typeData) ? .System.amber50 : .Shape.primary,
                 lineWidth: shouldHighlightType(typeData) ? 2 : 1
             )
+            .background(Color.Background.secondary)
+            .contentShape(.contextMenuPreview, RoundedRectangle(cornerRadius: 12, style: .continuous))
+            .contextMenu {
+                contextMenu(section: section, data: typeData)
+            }
             .padding(.bottom, 8)
             .id(typeData.type.id)
         }
