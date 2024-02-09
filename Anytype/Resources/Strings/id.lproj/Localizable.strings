@@ -116,6 +116,7 @@
 "Relation.Origin.SharingExtension" = "Mobile sharing extension";
 "Relation.Origin.UseCase" = "Use case";
 "Relation.Origin.Builtin" = "Pustaka terpasang";
+"Relation.Origin.Bookmark" = "Markah";
 
 // MARK: - Mention
 "Mention.Subtitle.Placeholder" = "Objek";
@@ -145,6 +146,8 @@
 "Move" = "Pindahkan";
 "Move to" = "Pindahkan ke";
 "Back" = "Kembali";
+"Unpin" = "Lepas sematan";
+"Pin on top" = "Sematkan di atas";
 "File block subtitle" = "Simpan berkas sebagaimana aslinya";
 "Picture block subtitle" = "Unggah dan perkaya halaman dengan gambar";
 "Video block subtitle" = "Unggah video yang dapat diputar";
@@ -358,6 +361,7 @@
 "Templates.Popup.Default" = "Templat diatur sebagai bawaan";
 
 "To Bin" = "Ke Bak Sampah";
+"Set as default" = "Atur sebagai bawaan";
 
 // MARK: - Context Menu
 "Remove From Favorite" = "Hapus dari Favorit";
