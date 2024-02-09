@@ -29,7 +29,7 @@ struct ObjectRelationOptionView: View {
         VStack(alignment: .leading, spacing: 1) {
             AnytypeText(
                 option.isDeleted ? Loc.nonExistentObject : option.title,
-                style: .previewTitle2Medium,
+                style: .uxTitle2Regular,
                 color: option.isUnavailable ? .Text.tertiary : .Text.primary
             )
             .lineLimit(1)
