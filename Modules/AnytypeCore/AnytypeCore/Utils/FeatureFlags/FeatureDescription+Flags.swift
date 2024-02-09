@@ -113,6 +113,12 @@ public extension FeatureDescription {
         defaultValue: true
     )
     
+    static let multiplayer = FeatureDescription(
+        title: "Multiplayer",
+        type: .feature(author: "m@anytype.io", releaseVersion: "0.29.0"),
+        defaultValue: false
+    )
+    
     // MARK: - Debug
     
     static let rainbowViews = FeatureDescription(
