@@ -72,7 +72,7 @@ public final class AuthMiddleService: AuthMiddleServiceProtocol {
                 $0.mnemonic = mnemonic
             }).invoke()
         } catch let responseError as Anytype_Rpc.Wallet.Recover.Response.Error {
-            throw responseError.asError ?? responseError
+            throw responseError.asError
         }
     }
     

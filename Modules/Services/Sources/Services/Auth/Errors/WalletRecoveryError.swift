@@ -7,7 +7,7 @@ public enum WalletRecoveryError: Error {
 }
 
 extension Anytype_Rpc.Wallet.Recover.Response.Error {
-    var asError: WalletRecoveryError? {
+    var asError: WalletRecoveryError {
         switch code {
         case .badInput:
             return .badInput
