@@ -42,7 +42,7 @@ final class ObjectTypeSearchViewModel: ObservableObject {
     func search(text: String) {
         searchTask?.cancel()
         
-        searchTask = Task { @MainActor in
+        searchTask = Task {
             let pinnedTypes = showPins ? try await typesService.searchPinnedTypes(text: text, spaceId: spaceId) : []
             let listTypes = showLists ? try await typesService.searchListTypes(
                 text: searchText, includePins: !showPins, spaceId: spaceId
@@ -85,6 +85,8 @@ final class ObjectTypeSearchViewModel: ObservableObject {
                     )
                 }
             }
+            
+            try Task.checkCancellation()
             
             withAnimation(.easeOut(duration: 0.2)) {
                 if sectionData.isNotEmpty {
