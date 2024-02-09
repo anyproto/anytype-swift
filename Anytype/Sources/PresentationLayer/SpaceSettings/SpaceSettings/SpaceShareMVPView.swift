@@ -1,5 +1,7 @@
 import Foundation
 import SwiftUI
+import ProtobufMessages
+import Services
 
 // This is temporary code for testing
 struct SpaceShareMVPView: View {
@@ -9,6 +11,7 @@ struct SpaceShareMVPView: View {
     private let activeWorkspaceService = ServiceLocator.shared.activeWorkspaceStorage()
     
     @State private var link: String = ""
+    @State private var identityId: String = ""
     
     var body: some View {
         VStack {
@@ -26,6 +29,18 @@ struct SpaceShareMVPView: View {
             StandardButton(.text("Copy to buffer"), style: .primaryMedium) {
                 UIPasteboard.general.string = link
             }
+            
+            AnytypeTextField(placeholder: "Identity id", placeholderFont: .heading, text: $identityId)
+                .foregroundColor(.Text.primary)
+                .font(AnytypeFontBuilder.font(anytypeFont: .heading))
+                .autocorrectionDisabled()
+            
+            StandardButton(.text("Accept invite"), style: .primaryMedium) {
+                Task {
+                    try await workspaceService.requestApprove(spaceId: activeWorkspaceService.workspaceInfo.accountSpaceId, identity: identityId)
+                }
+            }
+            
         }
     }
 }
