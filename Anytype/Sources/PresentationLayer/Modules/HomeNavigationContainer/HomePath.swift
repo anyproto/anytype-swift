@@ -39,7 +39,6 @@ struct HomePath {
     mutating func pushFromHistory() {
         guard let item = forwardPath.last else { return }
         path.append(item)
-        _ = forwardPath.popLast()
     }
     
     func hasForwardPath() -> Bool {
@@ -65,6 +64,8 @@ struct HomePath {
             let currentForwardSubpath = forwardPath.suffix(newSubPath.count)
             if Array(newSubPath) != Array(currentForwardSubpath) {
                 forwardPath.removeAll()
+            } else {
+                forwardPath.removeLast(newSubPath.count)
             }
         }
     }

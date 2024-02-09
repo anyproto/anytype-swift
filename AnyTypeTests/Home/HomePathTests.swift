@@ -28,6 +28,31 @@ final class HomePathTests: XCTestCase {
         XCTAssertEqual(path.forwardPath, [])
     }
     
+    func testPushSameOne() {
+        path.push("4")
+        path.pop()
+        path.push("4")
+        
+        XCTAssertEqual(path.path, ["1", "2", "3", "4"])
+        XCTAssertEqual(path.forwardPath, [])
+    }
+    
+    func testPushSameMuptiple() {
+        path.push("4")
+        path.push("5")
+        path.push("6")
+        
+        path.pop()
+        path.pop()
+        path.pop()
+        
+        path.push("4")
+        path.push("5")
+        
+        XCTAssertEqual(path.path, ["1", "2", "3", "4", "5"])
+        XCTAssertEqual(path.forwardPath, ["6"])
+    }
+    
     func testPopOne() {
         path.push("4")
         path.push("5")
