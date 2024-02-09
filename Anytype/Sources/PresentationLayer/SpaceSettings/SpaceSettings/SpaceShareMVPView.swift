@@ -2,7 +2,7 @@ import Foundation
 import SwiftUI
 
 // This is temporary code for testing
-struct SpaceShareMPVView: View {
+struct SpaceShareMVPView: View {
     
     private let parser = ServiceLocator.shared.deepLinkParser()
     private let workspaceService = ServiceLocator.shared.workspaceService()

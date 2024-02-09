@@ -44,7 +44,7 @@ struct SpaceSettingsView: View {
                     }
                     
                     if FeatureFlags.multiplayer {
-                        SpaceShareMPVView()
+                        SpaceShareMVPView()
                     }
                     
                     if model.allowDelete {
