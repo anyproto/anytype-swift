@@ -88,12 +88,12 @@
 "Relation.Create.Textfield.placeholder" = "Skriv inn navn...";
 "Relation.Edit.Button.title" = "Bruk";
 "Relation.Date.Locked.Alert.title" = "Relasjon “%@” er låst";
-"Relation.ObjectTypes.Header.title" = "Object types:";
-"Relation.ObjectType.Header.title" = "Object type:";
+"Relation.ObjectTypes.Header.title" = "Objekttyper:";
+"Relation.ObjectType.Header.title" = "Objekttype:";
 
 "Relation.Delete.Alert.Title" = "Er du sikker?";
 "Relation.Delete.Alert.Description" = "Alternativet vil bli permanent fjernet fra ditt rom.";
-"Relation.Object.Delete.Alert.Description" = "The object will be moved to Bin.";
+"Relation.Object.Delete.Alert.Description" = "Objektet vil bli flyttet til papirkurven.";
 
 "Relation.Format.Object.Title" = "Objekt";
 "Relation.Format.Text.Title" = "Tekst";
@@ -116,6 +116,7 @@
 "Relation.Origin.SharingExtension" = "Mobile sharing extension";
 "Relation.Origin.UseCase" = "Use case";
 "Relation.Origin.Builtin" = "Library installed";
+"Relation.Origin.Bookmark" = "Bokmerke";
 
 // MARK: - Mention
 "Mention.Subtitle.Placeholder" = "Objekt";
@@ -145,6 +146,8 @@
 "Move" = "Flytt";
 "Move to" = "Flytt til";
 "Back" = "Tilbake";
+"Unpin" = "Unpin";
+"Pin on top" = "Pin on top";
 "File block subtitle" = "Lagre fil i original tilstand";
 "Picture block subtitle" = "Last opp og berik siden med bilde";
 "Video block subtitle" = "Last opp spillbar video";
@@ -358,6 +361,7 @@
 "Templates.Popup.Default" = "Malen ble satt som standard";
 
 "To Bin" = "Til papirkurv";
+"Set as default" = "Set as default";
 
 // MARK: - Context Menu
 "Remove From Favorite" = "Fjern fra favoritter";
@@ -524,8 +528,8 @@
 "Select relation type" = "Velg relasjonstype";
 "CommonOpenErrorView.Message" = "Ingen data funnet";
 "Nothing found" = "Ingenting funnet";
-"No type found text" = "No type “%@” found. Change your request or create new type.";
-"Create type" = "Create type";
+"No type found text" = "Ingen type “%@” funnet. Endre forespørselen din eller opprett ny type.";
+"Create type" = "Opprett type";
 
 
 "Limit object types" = "Begrens objekttyper";
@@ -657,7 +661,7 @@
 "DataviewType.gallery" = "Galleri";
 "DataviewType.kanban" = "Kanban";
 "DataviewType.calendar" = "Kalender";
-"DataviewType.graph" = "Graph";
+"DataviewType.graph" = "Graf";
 
 // MARK: - ObjectType
 "ObjectType.fallbackDescription" = "Tomt lerret uten tittel";
@@ -871,8 +875,8 @@
 "Sharing.LinkTo" = "Koble til";
 
 "Sharing.Text.NoteObject" = "Notatobjekt";
-"Sharing.Text.TextBlock" = "Blocks";
-"Sharing.Any.Block" = "Blocks";
+"Sharing.Text.TextBlock" = "Blokker";
+"Sharing.Any.Block" = "Blokker";
 
 // MARK: - Sharing tips
 "Sharing.Tip.Title" = "Delingsutvidelse";
@@ -901,7 +905,7 @@
 "Error.AnytypeNeedsUpgrate.Confirm" = "Oppdater";
 "Error.UnableToConnect" = "Vennligst koble deg til internett";
 "Error.Common.Title" = "Oops!";
-"Error.Common.Message" = "Please check your internet connection and try again or post a report on forum.";
+"Error.Common.Message" = "Vennligst sjekk internettforbindelsen din og prøv igjen, eller legg ut en rapport på forumet.";
 "Error.Common.TryAgain" = "Prøv igjen";
 
 // MARK: - Relative date formatter
@@ -919,13 +923,13 @@
 // MARK: - Gallery
 "Gallery.Unavailable.Title" = "Galleri vil bli støttet snart";
 "Gallery.Unavailable.Message" = "Vennligst bruk skrivebordsappen for nå";
-"Gallery.Author" = "Made by @%@";
-"Gallery.Install" = "Install";
-"Gallery.InstallToNew" = "Install to new space";
-"Gallery.Notification.Success" = "Experience was successfully installed to the \"%@\" space. You can now open and start using it.";
-"Gallery.Notification.Button" = "Go to space";
-"Gallery.Notification.Error" = "Oops! \"%@\" wasn't installed. Please check your internet connection and try again or post a report on forum.";
+"Gallery.Author" = "Laget av @%@";
+"Gallery.Install" = "Installer";
+"Gallery.InstallToNew" = "Installer til nytt rom";
+"Gallery.Notification.Success" = "Erfaringen ble vellykket installert i rommet \"%@\". Du kan nå åpne det og begynne å bruke det.";
+"Gallery.Notification.Button" = "Gå til rom";
+"Gallery.Notification.Error" = "Oops! \"%@\" ble ikke installert. Vennligst sjekk internettforbindelsen din og prøv igjen, eller legg ut en rapport på forumet.";
 
 // MARK: - Debug
-"Debug.MimeTypes" = "Mime Types - %@";
-"Debug.Info" = "Debug Info";
+"Debug.MimeTypes" = "MIME-typer - %@";
+"Debug.Info" = "Feilsøkingsinformasjon";
