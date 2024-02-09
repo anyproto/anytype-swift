@@ -116,6 +116,7 @@
 "Relation.Origin.SharingExtension" = "Mobile sharing extension";
 "Relation.Origin.UseCase" = "Use case";
 "Relation.Origin.Builtin" = "Library installed";
+"Relation.Origin.Bookmark" = "Закладка";
 
 // MARK: - Mention
 "Mention.Subtitle.Placeholder" = "Об'єкт";
@@ -145,6 +146,8 @@
 "Move" = "Перемістити";
 "Move to" = "Перемістити до";
 "Back" = "Назад";
+"Unpin" = "Unpin";
+"Pin on top" = "Pin on top";
 "File block subtitle" = "Зберігати файл у початковому стані";
 "Picture block subtitle" = "Завантажити та наповнити сторінку зображенням";
 "Video block subtitle" = "Завантажити відтворюване відео";
@@ -358,6 +361,7 @@
 "Templates.Popup.Default" = "Шаблон було встановлено за замовчуванням";
 
 "To Bin" = "В кошик";
+"Set as default" = "Set as default";
 
 // MARK: - Context Menu
 "Remove From Favorite" = "Видалити з Обраного";
