@@ -17,7 +17,7 @@ public struct GalleryManifest {
 }
 
 extension GalleryManifest {
-    init(from model: Anytype_Rpc.DownloadManifest.Response.ManifestInfo) {
+    init(from model: Anytype_Model_ManifestInfo) {
         self.schema = model.schema
         self.id = model.id
         self.name = model.name

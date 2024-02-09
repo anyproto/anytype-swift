@@ -1,5 +1,6 @@
 import Foundation
 import SwiftUI
+import AnytypeCore
 
 struct SpaceSettingsView: View {
     
@@ -40,6 +41,10 @@ struct SpaceSettingsView: View {
                     
                     ForEach(0..<model.info.count, id:\.self) { index in
                         SettingsInfoBlockView(model: model.info[index])
+                    }
+                    
+                    if FeatureFlags.multiplayer {
+                        SpaceShareMPVView()
                     }
                     
                     if model.allowDelete {
