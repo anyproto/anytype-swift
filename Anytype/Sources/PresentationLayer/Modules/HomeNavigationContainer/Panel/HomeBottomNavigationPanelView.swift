@@ -69,6 +69,18 @@ struct HomeBottomNavigationPanelView: View {
             }
         }
         .padding(.vertical, 10)
+        .if(FeatureFlags.homeTestSwipeGeature) { view in
+            view.gesture(
+                DragGesture(minimumDistance: 100)
+                    .onEnded { value in
+                        if value.translation.width < 150 {
+                            model.onTapForward()
+                        } else if value.translation.width > -150 {
+                            model.onTapBackward()
+                        }
+                    }
+            )
+        }
         .animation(.default, value: homeMode)
     }
     
