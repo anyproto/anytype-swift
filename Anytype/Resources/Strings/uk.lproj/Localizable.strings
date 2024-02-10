@@ -229,6 +229,7 @@
 "Error creating wallet" = "Помилка при створенні гаманця";
 "Error select account" = "Помилка при виборі облікового запису";
 "Error wallet recover account" = "Помилка відновлення облікового запису";
+"Wallet.Recovery.Error.description" = "Invalid recovery phrase";
 
 "Search for language" = "Шукати мову";
 
