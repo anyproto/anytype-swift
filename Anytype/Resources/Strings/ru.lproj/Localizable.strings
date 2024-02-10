@@ -229,6 +229,7 @@
 "Error creating wallet" = "Ошибка создания кошелька";
 "Error select account" = "Ошибка при выборе учетной записи";
 "Error wallet recover account" = "Ошибка восстановления аккаунта";
+"Wallet.Recovery.Error.description" = "Invalid recovery phrase";
 
 "Search for language" = "Поиск языка";
 
