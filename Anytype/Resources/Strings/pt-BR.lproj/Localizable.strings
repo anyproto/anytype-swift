@@ -88,7 +88,7 @@
 "Relation.Create.Textfield.placeholder" = "Inserir nome...";
 "Relation.Edit.Button.title" = "Aplicar";
 "Relation.Date.Locked.Alert.title" = "Relação “%@” está bloqueada";
-"Relation.ObjectTypes.Header.title" = "Tipos de Objeto:";
+"Relation.ObjectTypes.Header.title" = "Tipos de objeto:";
 "Relation.ObjectType.Header.title" = "Tipo de Objeto:";
 
 "Relation.Delete.Alert.Title" = "Você tem certeza?";
@@ -229,6 +229,7 @@
 "Error creating wallet" = "Erro na criação da carteira";
 "Error select account" = "Erro ao selecionar conta";
 "Error wallet recover account" = "Erro ao recuperar conta da carteira";
+"Wallet.Recovery.Error.description" = "Frase de recuperação inválida";
 
 "Search for language" = "Pesquisar idioma";
 
