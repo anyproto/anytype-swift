@@ -229,6 +229,7 @@
 "Error creating wallet" = "ୱାଲେଟ୍ ତିଆରିରେ ଅସୁବିଧା";
 "Error select account" = "ଆକାଉଣ୍ଟ ବାଛିବାରେ ଅସୁବିଧା";
 "Error wallet recover account" = "ୱାଲେଟ୍ ଆକାଉଣ୍ଟ ପୁନରୁଦ୍ଧାର ତ୍ରୁଟି";
+"Wallet.Recovery.Error.description" = "Invalid recovery phrase";
 
 "Search for language" = "ଭାଷା ଖୋଜନ୍ତୁ ";
 
