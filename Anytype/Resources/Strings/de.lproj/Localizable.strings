@@ -229,6 +229,7 @@
 "Error creating wallet" = "Fehler beim Erstellen der Wallet";
 "Error select account" = "Fehler bei der Kontoauswahl";
 "Error wallet recover account" = "Fehler bei Wallet-Wiederherstellung";
+"Wallet.Recovery.Error.description" = "Ungültige Wiederherstellungsphrase";
 
 "Search for language" = "Sprache suchen";
 
