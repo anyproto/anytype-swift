@@ -79,11 +79,11 @@
 "Relation.From.Type" = "Из типа %@";
 "Relation.LinksFrom.Title" = "из";
 "Relation.LinksTo.Title" = "в";
-"Relation.EmptyState.title" = "No options";
-"Relation.EmptyState.description" = "Nothing found. Create first option to start.";
-"Relation.EmptyState.Blocked.title" = "The relation is empty";
-"Relation.Create.Row.title" = "Create “%@”";
-"Relation.View.Create.title" = "Create option";
+"Relation.EmptyState.title" = "Опций нет";
+"Relation.EmptyState.description" = "Ничего не найдено. Создайте первую опцию для начала.";
+"Relation.EmptyState.Blocked.title" = "Отношение пустое";
+"Relation.Create.Row.title" = "Создать %@";
+"Relation.View.Create.title" = "Создать параметр";
 "Relation.View.Edit.title" = "Edit option";
 "Relation.Create.Textfield.placeholder" = "Enter name...";
 "Relation.Edit.Button.title" = "Применить";
