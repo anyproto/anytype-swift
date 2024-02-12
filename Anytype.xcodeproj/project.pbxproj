@@ -2388,6 +2388,9 @@
 		2AC252272A26112500B89884 /* MiddlewareHandlerConfigurator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MiddlewareHandlerConfigurator.swift; sourceTree = "<group>"; };
 		2AC3F9452A138263005EFEE9 /* FileLimitsStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileLimitsStorage.swift; sourceTree = "<group>"; };
 		2AC429A529B784280002AD05 /* BaseDocumentProtocol+Home.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "BaseDocumentProtocol+Home.swift"; sourceTree = "<group>"; };
+		2AC434922B7A00EE006166BF /* nl */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = nl; path = nl.lproj/Localizable.strings; sourceTree = "<group>"; };
+		2AC434932B7A00FA006166BF /* nl */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = nl; path = nl.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		2AC434942B7A0100006166BF /* nl */ = {isa = PBXFileReference; lastKnownFileType = text.plist.stringsdict; name = nl; path = nl.lproj/Localizable.stringsdict; sourceTree = "<group>"; };
 		2AC750212AE7EB1A000CDD66 /* FloaterAlertView+DeleteSpace.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "FloaterAlertView+DeleteSpace.swift"; sourceTree = "<group>"; };
 		2AC906C029B5F8EF00209E39 /* WidgetInternalViewModelProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WidgetInternalViewModelProtocol.swift; sourceTree = "<group>"; };
 		2AC906C229B5FA3300209E39 /* ObjectWidgetInternalViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObjectWidgetInternalViewModel.swift; sourceTree = "<group>"; };
@@ -10024,6 +10027,7 @@
 				fr,
 				it,
 				ru,
+				nl,
 			);
 			mainGroup = 0303ECF222D8EDAA005C552B;
 			packageReferences = (
@@ -11792,6 +11796,7 @@
 				2A1B74042B03688000E9F241 /* fr */,
 				2A1B74082B03689C00E9F241 /* it */,
 				2A1B740C2B0368AE00E9F241 /* ru */,
+				2AC434932B7A00FA006166BF /* nl */,
 			);
 			name = InfoPlist.strings;
 			sourceTree = "<group>";
@@ -11810,6 +11815,7 @@
 				2A1B74032B03687D00E9F241 /* fr */,
 				2A1B74072B03689800E9F241 /* it */,
 				2A1B740B2B0368AB00E9F241 /* ru */,
+				2AC434922B7A00EE006166BF /* nl */,
 			);
 			name = Localizable.strings;
 			sourceTree = "<group>";
@@ -11828,6 +11834,7 @@
 				2A1B74052B03688400E9F241 /* fr */,
 				2A1B74092B03689F00E9F241 /* it */,
 				2A1B740D2B0368B100E9F241 /* ru */,
+				2AC434942B7A0100006166BF /* nl */,
 			);
 			name = Localizable.stringsdict;
 			sourceTree = "<group>";
