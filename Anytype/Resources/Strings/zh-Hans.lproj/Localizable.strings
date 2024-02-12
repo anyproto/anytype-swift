@@ -229,6 +229,7 @@
 "Error creating wallet" = "创建钱包时出错";
 "Error select account" = "选择帐户时出错";
 "Error wallet recover account" = "错误钱包恢复帐户";
+"Wallet.Recovery.Error.description" = "Invalid recovery phrase";
 
 "Search for language" = "搜索语言";
 

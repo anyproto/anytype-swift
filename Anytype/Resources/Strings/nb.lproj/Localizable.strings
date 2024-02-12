@@ -229,6 +229,7 @@
 "Error creating wallet" = "Feil ved oppretting av wallet";
 "Error select account" = "Feil ved valg av konto";
 "Error wallet recover account" = "Feil ved gjenoppretting av wallet-konto";
+"Wallet.Recovery.Error.description" = "Ugyldig gjenopprettingsfrase";
 
 "Search for language" = "Søk etter språk";
 

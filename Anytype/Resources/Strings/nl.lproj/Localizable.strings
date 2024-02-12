@@ -229,6 +229,7 @@
 "Error creating wallet" = "Fout bij aanmaken wallet";
 "Error select account" = "Fout bij selecteren van account";
 "Error wallet recover account" = "Fout bij het herstellen van portemonnee van account";
+"Wallet.Recovery.Error.description" = "Invalid recovery phrase";
 
 "Search for language" = "Zoek naar taal";
 

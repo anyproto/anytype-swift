@@ -229,6 +229,7 @@
 "Error creating wallet" = "Błąd podczas tworzenia portfela";
 "Error select account" = "Błąd podczas wybierania konta";
 "Error wallet recover account" = "Wystąpił błąd podczas odzyskiwania konta";
+"Wallet.Recovery.Error.description" = "Invalid recovery phrase";
 
 "Search for language" = "Wyszukaj język";
 
