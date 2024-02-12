@@ -5,7 +5,7 @@ protocol TypesPinStorageProtocol {
     func getPins(spaceId: String) throws -> [ObjectType]
     func setPins(_ pins: [ObjectType], spaceId: String)
     func appendPin(_ pin: ObjectType, spaceId: String) throws
-    func removePin(_ pin: ObjectType, spaceId: String) throws
+    func removePin(typeId: String, spaceId: String) throws
 }
 
 final class TypesPinStorage: TypesPinStorageProtocol {
@@ -42,9 +42,9 @@ final class TypesPinStorage: TypesPinStorageProtocol {
         setPins(pins, spaceId: spaceId)
     }
     
-    func removePin(_ pin: ObjectType, spaceId: String) throws {
+    func removePin(typeId: String, spaceId: String) throws {
         var pins = try getPins(spaceId: spaceId)
-        pins.removeAll { $0.id == pin.id }
+        pins.removeAll { $0.id == typeId }
         setPins(pins, spaceId: spaceId)
     }
 }
