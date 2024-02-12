@@ -293,4 +293,8 @@ final class ModulesDI: ModulesDIProtocol {
     func galleryNotification() -> GalleryNotificationAssemblyProtocol {
         GalleryNotificationAssembly(serviceLocator: serviceLocator)
     }
+    
+    func spareShare() -> SpaceShareModuleAssemblyProtocol {
+        SpaceShareModuleAssembly()
+    }
 }

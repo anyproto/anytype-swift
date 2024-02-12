@@ -655,6 +655,12 @@
 		2AC252282A26112500B89884 /* MiddlewareHandlerConfigurator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AC252272A26112500B89884 /* MiddlewareHandlerConfigurator.swift */; };
 		2AC3F9462A138263005EFEE9 /* FileLimitsStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AC3F9452A138263005EFEE9 /* FileLimitsStorage.swift */; };
 		2AC429A629B784280002AD05 /* BaseDocumentProtocol+Home.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AC429A529B784280002AD05 /* BaseDocumentProtocol+Home.swift */; };
+		2AC434972B7A0683006166BF /* SpaceShareView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AC434962B7A0683006166BF /* SpaceShareView.swift */; };
+		2AC434992B7A068B006166BF /* SpaceShareViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AC434982B7A068B006166BF /* SpaceShareViewModel.swift */; };
+		2AC4349B2B7A0697006166BF /* SpaceShareModuleAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AC4349A2B7A0697006166BF /* SpaceShareModuleAssembly.swift */; };
+		2AC4349E2B7A074B006166BF /* SpaceShareCoordinatorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AC4349D2B7A074B006166BF /* SpaceShareCoordinatorView.swift */; };
+		2AC434A02B7A0759006166BF /* SpaceShareCoordinatorViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AC4349F2B7A0759006166BF /* SpaceShareCoordinatorViewModel.swift */; };
+		2AC434A22B7A0763006166BF /* SpaceShareCoordinatorAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AC434A12B7A0763006166BF /* SpaceShareCoordinatorAssembly.swift */; };
 		2AC750222AE7EB1A000CDD66 /* FloaterAlertView+DeleteSpace.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AC750212AE7EB1A000CDD66 /* FloaterAlertView+DeleteSpace.swift */; };
 		2AC906C129B5F8EF00209E39 /* WidgetInternalViewModelProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AC906C029B5F8EF00209E39 /* WidgetInternalViewModelProtocol.swift */; };
 		2AC906C329B5FA3300209E39 /* ObjectWidgetInternalViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AC906C229B5FA3300209E39 /* ObjectWidgetInternalViewModel.swift */; };
@@ -2392,6 +2398,12 @@
 		2AC252272A26112500B89884 /* MiddlewareHandlerConfigurator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MiddlewareHandlerConfigurator.swift; sourceTree = "<group>"; };
 		2AC3F9452A138263005EFEE9 /* FileLimitsStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileLimitsStorage.swift; sourceTree = "<group>"; };
 		2AC429A529B784280002AD05 /* BaseDocumentProtocol+Home.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "BaseDocumentProtocol+Home.swift"; sourceTree = "<group>"; };
+		2AC434962B7A0683006166BF /* SpaceShareView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpaceShareView.swift; sourceTree = "<group>"; };
+		2AC434982B7A068B006166BF /* SpaceShareViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpaceShareViewModel.swift; sourceTree = "<group>"; };
+		2AC4349A2B7A0697006166BF /* SpaceShareModuleAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpaceShareModuleAssembly.swift; sourceTree = "<group>"; };
+		2AC4349D2B7A074B006166BF /* SpaceShareCoordinatorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpaceShareCoordinatorView.swift; sourceTree = "<group>"; };
+		2AC4349F2B7A0759006166BF /* SpaceShareCoordinatorViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpaceShareCoordinatorViewModel.swift; sourceTree = "<group>"; };
+		2AC434A12B7A0763006166BF /* SpaceShareCoordinatorAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpaceShareCoordinatorAssembly.swift; sourceTree = "<group>"; };
 		2AC750212AE7EB1A000CDD66 /* FloaterAlertView+DeleteSpace.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "FloaterAlertView+DeleteSpace.swift"; sourceTree = "<group>"; };
 		2AC906C029B5F8EF00209E39 /* WidgetInternalViewModelProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WidgetInternalViewModelProtocol.swift; sourceTree = "<group>"; };
 		2AC906C229B5FA3300209E39 /* ObjectWidgetInternalViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObjectWidgetInternalViewModel.swift; sourceTree = "<group>"; };
@@ -5827,6 +5839,7 @@
 		2A7DCDDB292E4A4E001919B4 /* Flows */ = {
 			isa = PBXGroup;
 			children = (
+				2AC4349C2B7A0739006166BF /* SpaceShareCoordinator */,
 				2A2872382B4D8C0E007B3D59 /* GalleryInstallation */,
 				2AE85FE72B1F48D700268E9D /* ServerConfiguration */,
 				2A80D0452ABADCC700DB0513 /* EditorSetFlow */,
@@ -6187,6 +6200,7 @@
 		2ABAF2B62938E53A003C4730 /* Modules */ = {
 			isa = PBXGroup;
 			children = (
+				2AC434952B7A064F006166BF /* SpaceShare */,
 				2ACDC9B62B56703C0063BFBD /* ShareOptions */,
 				2AD276402B6D22A900112215 /* GallerySpaceSelection */,
 				2A28722F2B4D8B35007B3D59 /* GalleryInstallationPreview */,
@@ -6249,6 +6263,26 @@
 				2AC3F9452A138263005EFEE9 /* FileLimitsStorage.swift */,
 			);
 			path = FileLimitsStorage;
+			sourceTree = "<group>";
+		};
+		2AC434952B7A064F006166BF /* SpaceShare */ = {
+			isa = PBXGroup;
+			children = (
+				2AC434962B7A0683006166BF /* SpaceShareView.swift */,
+				2AC434982B7A068B006166BF /* SpaceShareViewModel.swift */,
+				2AC4349A2B7A0697006166BF /* SpaceShareModuleAssembly.swift */,
+			);
+			path = SpaceShare;
+			sourceTree = "<group>";
+		};
+		2AC4349C2B7A0739006166BF /* SpaceShareCoordinator */ = {
+			isa = PBXGroup;
+			children = (
+				2AC4349D2B7A074B006166BF /* SpaceShareCoordinatorView.swift */,
+				2AC4349F2B7A0759006166BF /* SpaceShareCoordinatorViewModel.swift */,
+				2AC434A12B7A0763006166BF /* SpaceShareCoordinatorAssembly.swift */,
+			);
+			path = SpaceShareCoordinator;
 			sourceTree = "<group>";
 		};
 		2AC906BD29B5F7C600209E39 /* Common */ = {
@@ -10328,6 +10362,7 @@
 				2A2B331A2A7AA525004BD906 /* WidgetTypeModuleCreateModel.swift in Sources */,
 				EAED57A6269F346D00374A46 /* TextBlockViewModel.swift in Sources */,
 				0A0965FB25BEF5B000C004BD /* EditorPageController.swift in Sources */,
+				2AC4349E2B7A074B006166BF /* SpaceShareCoordinatorView.swift in Sources */,
 				2A945D3C299E2CD300C34C86 /* WidgetEmptyView.swift in Sources */,
 				2E975EF1287C23DA004DE574 /* SetSortsListView.swift in Sources */,
 				53F7442F27F4BBE9005C9BB0 /* ObjectPreviewRouter.swift in Sources */,
@@ -10941,6 +10976,7 @@
 				2E2D256028880C8D00E3DFD1 /* SetFiltersContentViewBuilder.swift in Sources */,
 				C93B2D32274E4FA70008544D /* TwoStandardButtonsView.swift in Sources */,
 				120E818E26A05946006FE84E /* ObjectIconPickerViewModel.swift in Sources */,
+				2AC434A22B7A0763006166BF /* SpaceShareCoordinatorAssembly.swift in Sources */,
 				2AFD7E182B626C2D003B16EB /* KeyboardDismiss.swift in Sources */,
 				3DB692B12697645C00149864 /* MiddlewareColorConverter.swift in Sources */,
 				2A5BC4BE2A78F9D9004FAABF /* SquircleIconPainter.swift in Sources */,
@@ -11479,6 +11515,7 @@
 				2A4C7FFA2A822BA000201946 /* SettingsInfoBlockView.swift in Sources */,
 				1206DB90267A303E000A48A7 /* MediaPickerView.swift in Sources */,
 				2A377E412A826FFD00EA856B /* RemoteStorageView.swift in Sources */,
+				2AC434972B7A0683006166BF /* SpaceShareView.swift in Sources */,
 				2AD8AFD52A83E60400F12D54 /* SpaceSwitchModuleOutput.swift in Sources */,
 				1247BC6627FDC36B005F2DB4 /* RelationFormatsListModuleOutput.swift in Sources */,
 				1244791627D8A38600581174 /* StatusSearchViewModel.swift in Sources */,
@@ -11535,12 +11572,14 @@
 				0ACC357625C851650003CF3A /* BlockViewModelBuilder.swift in Sources */,
 				12FD9D1F2767172A00991886 /* RelationText.swift in Sources */,
 				2E65276B2B5EE9BA00F27126 /* RelationListContainerView.swift in Sources */,
+				2AC434992B7A068B006166BF /* SpaceShareViewModel.swift in Sources */,
 				2A56C16B2ACB0C50001677E1 /* EditorPageModuleOutput.swift in Sources */,
 				2E31C9642B73C809006DB3E2 /* ObjectRelationListInteractor.swift in Sources */,
 				2EA098A72A697511009182C0 /* SubscriptionData+Info.swift in Sources */,
 				3D471E1F26C3B60200457DE5 /* BlockLinkState+Icon.swift in Sources */,
 				3DA6263D2657AB8000942249 /* AnimationExtension.swift in Sources */,
 				53728D00273596C40092A8CF /* MarkupAccessoryViewModel.swift in Sources */,
+				2AC4349B2B7A0697006166BF /* SpaceShareModuleAssembly.swift in Sources */,
 				1289F5A42733C50500656EC2 /* TextRelationFactory.swift in Sources */,
 				2AF2C6B928BD104B00F8612B /* UIAnytypeActivityIndicator.swift in Sources */,
 				120EB4DC26E8E94C003A0C2B /* ObjectHeaderView.swift in Sources */,
@@ -11706,6 +11745,7 @@
 				12E05EEF2796A9C10037B667 /* AnytypePopup.swift in Sources */,
 				12450D4727A918A90026F004 /* AdaptiveTextRelationDetailsPopupLayout.swift in Sources */,
 				2AFF7ACC299D24C300B7746B /* DocumentViewModelSetter.swift in Sources */,
+				2AC434A02B7A0759006166BF /* SpaceShareCoordinatorViewModel.swift in Sources */,
 				2ACEAE462984017100B467CE /* WidgetTypeViewModel.swift in Sources */,
 				2A29873C2ACC087B009E8787 /* PageNavigation.swift in Sources */,
 				2E7C4473289843220062287C /* DataviewFilter+Condition.swift in Sources */,
