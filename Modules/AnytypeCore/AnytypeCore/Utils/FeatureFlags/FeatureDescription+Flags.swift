@@ -169,4 +169,10 @@ public extension FeatureDescription {
         defaultValue: false,
         debugValue: true
     )
+    
+    static let homeTestSwipeGeature = FeatureDescription(
+        title: "Test swipe gesture",
+        type: .debug,
+        defaultValue: false
+    )
 }

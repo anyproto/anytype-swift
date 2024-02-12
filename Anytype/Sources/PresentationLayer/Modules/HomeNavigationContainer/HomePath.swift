@@ -4,9 +4,9 @@ import SwiftUI
 
 struct HomePath {
     
-    private var forwardPath: [AnyHashable] = []
+    private(set) var forwardPath: [AnyHashable] = []
     
-    fileprivate var path: [AnyHashable] = [] {
+    fileprivate(set) var path: [AnyHashable] = [] {
         didSet { didChangePath(newPath: path, oldPath: oldValue) }
     }
     
@@ -37,7 +37,7 @@ struct HomePath {
     }
     
     mutating func pushFromHistory() {
-        guard let item = forwardPath.first else { return }
+        guard let item = forwardPath.last else { return }
         path.append(item)
     }
     
@@ -56,14 +56,16 @@ struct HomePath {
         if oldPath.count > newPath.count {
             // Pop
             let oldSubPath = oldPath[newPath.count...].reversed()
-            forwardPath.insert(contentsOf: oldSubPath, at: 0)
+            forwardPath.append(contentsOf: oldSubPath)
         } else if oldPath.count < newPath.count {
             // Push
             let newSubPath = newPath[oldPath.count...].reversed()
             guard forwardPath.count >= newSubPath.count, newSubPath.count > 0 else { return }
-            let currentForwardSubpath = forwardPath[...(newSubPath.count-1)]
+            let currentForwardSubpath = forwardPath.suffix(newSubPath.count)
             if Array(newSubPath) != Array(currentForwardSubpath) {
                 forwardPath.removeAll()
+            } else {
+                forwardPath.removeLast(newSubPath.count)
             }
         }
     }
