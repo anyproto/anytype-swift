@@ -9,8 +9,15 @@ struct SpaceShareView: View {
         VStack(spacing: 0) {
             DragIndicator()
             TitleView(title: Loc.SpaceShare.title)
+            
             ScrollView {
-                // Members list
+                VStack(spacing: 0) {
+                    SectionHeaderView(title: Loc.SpaceShare.membersSection)
+                    ForEach(model.participants) { participant in
+                        SpaceShareParticipant(participant: participant)
+                    }
+                }
+                .padding(.horizontal, 16)
             }
         }
     }

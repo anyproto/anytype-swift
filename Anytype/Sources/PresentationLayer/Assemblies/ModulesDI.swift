@@ -295,6 +295,6 @@ final class ModulesDI: ModulesDIProtocol {
     }
     
     func spareShare() -> SpaceShareModuleAssemblyProtocol {
-        SpaceShareModuleAssembly()
+        SpaceShareModuleAssembly(serviceLocator: serviceLocator)
     }
 }

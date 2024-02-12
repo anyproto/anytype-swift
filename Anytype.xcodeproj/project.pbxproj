@@ -661,6 +661,11 @@
 		2AC4349E2B7A074B006166BF /* SpaceShareCoordinatorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AC4349D2B7A074B006166BF /* SpaceShareCoordinatorView.swift */; };
 		2AC434A02B7A0759006166BF /* SpaceShareCoordinatorViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AC4349F2B7A0759006166BF /* SpaceShareCoordinatorViewModel.swift */; };
 		2AC434A22B7A0763006166BF /* SpaceShareCoordinatorAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AC434A12B7A0763006166BF /* SpaceShareCoordinatorAssembly.swift */; };
+		2AC434A52B7A12A0006166BF /* ParticipantsSubscriptionService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AC434A42B7A12A0006166BF /* ParticipantsSubscriptionService.swift */; };
+		2AC434AA2B7A15B9006166BF /* SpaceShareParticipant.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AC434A92B7A15B9006166BF /* SpaceShareParticipant.swift */; };
+		2AC434AC2B7A1D17006166BF /* CommonError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AC434AB2B7A1D17006166BF /* CommonError.swift */; };
+		2AC434AE2B7A1E3F006166BF /* Participant.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AC434AD2B7A1E3F006166BF /* Participant.swift */; };
+		2AC434B02B7A20EF006166BF /* Participant+Localization.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AC434AF2B7A20EF006166BF /* Participant+Localization.swift */; };
 		2AC750222AE7EB1A000CDD66 /* FloaterAlertView+DeleteSpace.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AC750212AE7EB1A000CDD66 /* FloaterAlertView+DeleteSpace.swift */; };
 		2AC906C129B5F8EF00209E39 /* WidgetInternalViewModelProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AC906C029B5F8EF00209E39 /* WidgetInternalViewModelProtocol.swift */; };
 		2AC906C329B5FA3300209E39 /* ObjectWidgetInternalViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AC906C229B5FA3300209E39 /* ObjectWidgetInternalViewModel.swift */; };
@@ -2404,6 +2409,11 @@
 		2AC4349D2B7A074B006166BF /* SpaceShareCoordinatorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpaceShareCoordinatorView.swift; sourceTree = "<group>"; };
 		2AC4349F2B7A0759006166BF /* SpaceShareCoordinatorViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpaceShareCoordinatorViewModel.swift; sourceTree = "<group>"; };
 		2AC434A12B7A0763006166BF /* SpaceShareCoordinatorAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpaceShareCoordinatorAssembly.swift; sourceTree = "<group>"; };
+		2AC434A42B7A12A0006166BF /* ParticipantsSubscriptionService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ParticipantsSubscriptionService.swift; sourceTree = "<group>"; };
+		2AC434A92B7A15B9006166BF /* SpaceShareParticipant.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpaceShareParticipant.swift; sourceTree = "<group>"; };
+		2AC434AB2B7A1D17006166BF /* CommonError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommonError.swift; sourceTree = "<group>"; };
+		2AC434AD2B7A1E3F006166BF /* Participant.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Participant.swift; sourceTree = "<group>"; };
+		2AC434AF2B7A20EF006166BF /* Participant+Localization.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Participant+Localization.swift"; sourceTree = "<group>"; };
 		2AC750212AE7EB1A000CDD66 /* FloaterAlertView+DeleteSpace.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "FloaterAlertView+DeleteSpace.swift"; sourceTree = "<group>"; };
 		2AC906C029B5F8EF00209E39 /* WidgetInternalViewModelProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WidgetInternalViewModelProtocol.swift; sourceTree = "<group>"; };
 		2AC906C229B5FA3300209E39 /* ObjectWidgetInternalViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObjectWidgetInternalViewModel.swift; sourceTree = "<group>"; };
@@ -3716,6 +3726,7 @@
 		038FB5C922D8F32F002B90B8 /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				2AC434AD2B7A1E3F006166BF /* Participant.swift */,
 				53D4089527ECCE9000495335 /* FieldConverters */,
 				5347854A2743C50C0097CA30 /* Relations */,
 				3D5A41652703170300F1F6A1 /* Blocks */,
@@ -3725,6 +3736,7 @@
 				1215E8C026A86CAC0089AF7E /* ImageSource.swift */,
 				12426A2B26DD006500693B1F /* ImageMetadata.swift */,
 				12870A2B26DE6A7400A6F46A /* ImageWidth.swift */,
+				2AC434AB2B7A1D17006166BF /* CommonError.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -4887,6 +4899,7 @@
 				2A2C32FF28919576008BC326 /* RelationMetadataFormat+Extensions.swift */,
 				2AAE455728A5307C00E538C8 /* BlockBookmark+Extensions.swift */,
 				2A64B6BA2B3DD54D000316E2 /* ObjectActionsServiceError+Localization.swift */,
+				2AC434AF2B7A20EF006166BF /* Participant+Localization.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -5269,6 +5282,7 @@
 				2A6C75C329FC03D4002BD440 /* SingleObjectSubscriptionService.swift */,
 				2AA0C43E2A013EF800B9C108 /* FilesSubscriptionService.swift */,
 				8639E0132A6020E700F52ED2 /* TemplatesSubscriptionService.swift */,
+				2AC434A42B7A12A0006166BF /* ParticipantsSubscriptionService.swift */,
 			);
 			path = Subscriptions;
 			sourceTree = "<group>";
@@ -6268,6 +6282,7 @@
 		2AC434952B7A064F006166BF /* SpaceShare */ = {
 			isa = PBXGroup;
 			children = (
+				2AC434A82B7A15AD006166BF /* Subviews */,
 				2AC434962B7A0683006166BF /* SpaceShareView.swift */,
 				2AC434982B7A068B006166BF /* SpaceShareViewModel.swift */,
 				2AC4349A2B7A0697006166BF /* SpaceShareModuleAssembly.swift */,
@@ -6283,6 +6298,14 @@
 				2AC434A12B7A0763006166BF /* SpaceShareCoordinatorAssembly.swift */,
 			);
 			path = SpaceShareCoordinator;
+			sourceTree = "<group>";
+		};
+		2AC434A82B7A15AD006166BF /* Subviews */ = {
+			isa = PBXGroup;
+			children = (
+				2AC434A92B7A15B9006166BF /* SpaceShareParticipant.swift */,
+			);
+			path = Subviews;
 			sourceTree = "<group>";
 		};
 		2AC906BD29B5F7C600209E39 /* Common */ = {
@@ -10275,6 +10298,7 @@
 				C9C5368E276A3A07003CD3F3 /* TagRelationRowView.swift in Sources */,
 				53728CFB273596750092A8CF /* MarkupKind.swift in Sources */,
 				C97A9A19287300080032DE3E /* SimpleTableMenuView.swift in Sources */,
+				2AC434AA2B7A15B9006166BF /* SpaceShareParticipant.swift in Sources */,
 				2A43EAC72A98A18500DA4AAE /* QuickActionBuilder.swift in Sources */,
 				3D4125FA26A014E1007A6880 /* TextContent+Font.swift in Sources */,
 				2AAF344F295AD8D200921320 /* TreeWidgetRowView.swift in Sources */,
@@ -10546,6 +10570,7 @@
 				0A09661825C0AB4F00C004BD /* BaseDocument.swift in Sources */,
 				EAA70348264432FA00C4F7F7 /* CollectionDifference.Change+Convenience.swift in Sources */,
 				125B6ECA26F235F400BCD7D6 /* AccessoryViewBuilder.swift in Sources */,
+				2AC434B02B7A20EF006166BF /* Participant+Localization.swift in Sources */,
 				2A4919AE295333CF00FCEAC9 /* Color+ComponentColor.swift in Sources */,
 				2AE10778296C258400BAB22A /* View+LegacyAdopt.swift in Sources */,
 				2A5BC4C32A78FAC7004FAABF /* CharIconPainter.swift in Sources */,
@@ -10805,6 +10830,7 @@
 				3D155270264D8DB800B0E976 /* SeedPhraseView.swift in Sources */,
 				3DA626532657ADA700942249 /* PopupExtension.swift in Sources */,
 				3D00F1CF278D7CB700863D7C /* ObjectSearchData.swift in Sources */,
+				2AC434AE2B7A1E3F006166BF /* Participant.swift in Sources */,
 				2A64B6BB2B3DD54D000316E2 /* ObjectActionsServiceError+Localization.swift in Sources */,
 				2A4E5C8D296C0BFF002BB71B /* HomeBottomPanelViewModel.swift in Sources */,
 				2A66937D2A7104EA007747DD /* ObjectIconImageGuidelineSet.swift in Sources */,
@@ -10984,6 +11010,7 @@
 				122FFD43272BA7420069129A /* ObjectHeaderFilledState.swift in Sources */,
 				EAC5FD4E2657DC6F006BB24E /* KeyboardEventsListenerHelper.swift in Sources */,
 				2E3E0DDE29F1F437009F68D8 /* View+KeyboardToolbar.swift in Sources */,
+				2AC434AC2B7A1D17006166BF /* CommonError.swift in Sources */,
 				2A29FD2F2A701BDD007A8549 /* ActiveWorkspaceStorage.swift in Sources */,
 				12A4793527C38E6C00E62795 /* AnytypePopupLayout.swift in Sources */,
 				53FF7CB826FCDB4B00A5A592 /* ObjectActionsView.swift in Sources */,
@@ -11595,6 +11622,7 @@
 				2A8395682AF3ECDD004EE41F /* SegmentLegend.swift in Sources */,
 				12426A2C26DD006500693B1F /* ImageMetadata.swift in Sources */,
 				2EE36CD62AF532B70043AA8D /* SetObjectCreationCoordinator.swift in Sources */,
+				2AC434A52B7A12A0006166BF /* ParticipantsSubscriptionService.swift in Sources */,
 				125B6EC926F235F400BCD7D6 /* MentionView.swift in Sources */,
 				53FF7CBC26FDD36200A5A592 /* ObjectActionsViewModel.swift in Sources */,
 				2A5BC4B72A78F5C7004FAABF /* CircleIconPainter.swift in Sources */,

@@ -9,11 +9,19 @@ protocol SpaceShareModuleAssemblyProtocol: AnyObject {
 @MainActor
 final class SpaceShareModuleAssembly: SpaceShareModuleAssemblyProtocol {
     
-    nonisolated init() {}
+    private let serviceLocator: ServiceLocator
+    
+    nonisolated init(serviceLocator: ServiceLocator) {
+        self.serviceLocator = serviceLocator
+    }
     
     // MARK: - SpaceShareModuleAssemblyProtocol
     
     func make() -> AnyView {
-        return SpaceShareView(model: SpaceShareViewModel()).eraseToAnyView()
+        return SpaceShareView(
+            model: SpaceShareViewModel(
+                participantSubscriptionService: self.serviceLocator.participantSubscriptionService()
+            )
+        ).eraseToAnyView()
     }
 }

@@ -1963,8 +1963,18 @@ internal enum Loc {
     }
   }
   internal enum SpaceShare {
+    /// Members and requests
+    internal static let membersSection = Loc.tr("Localizable", "SpaceShare.MembersSection", fallback: "Members and requests")
     /// Share space
     internal static let title = Loc.tr("Localizable", "SpaceShare.Title", fallback: "Share space")
+    internal enum Permissions {
+      /// Owner
+      internal static let owner = Loc.tr("Localizable", "SpaceShare.Permissions.Owner", fallback: "Owner")
+      /// Can view
+      internal static let reader = Loc.tr("Localizable", "SpaceShare.Permissions.Reader", fallback: "Can view")
+      /// Can edit
+      internal static let writer = Loc.tr("Localizable", "SpaceShare.Permissions.Writer", fallback: "Can edit")
+    }
   }
   internal enum Spaces {
     internal enum Accessibility {

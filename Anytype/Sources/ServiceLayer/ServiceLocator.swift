@@ -207,6 +207,13 @@ final class ServiceLocator {
         )
     }
     
+    func participantSubscriptionService() -> ParticipantsSubscriptionServiceProtocol {
+        return ParticipantsSubscriptionService(
+            subscriptionStorageProvider: subscriptionStorageProvider(),
+            activeWorkspaceStorage: activeWorkspaceStorage()
+        )
+    }
+    
     private lazy var _middlewareConfigurationProvider = MiddlewareConfigurationProvider(middlewareConfigurationService: middlewareConfigurationService())
     func middlewareConfigurationProvider() -> MiddlewareConfigurationProviderProtocol {
         return _middlewareConfigurationProvider
