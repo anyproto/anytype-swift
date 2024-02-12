@@ -19,9 +19,18 @@ struct SpaceSettingsView: View {
                         model.onChangeIconTap()
                     })
                     
-                    SectionHeaderView(title: Loc.type)
-                    
-                    SpaceTypeView(name: model.spaceType)
+                    if FeatureFlags.multiplayer {
+                        SectionHeaderView(title: Loc.SpaceSettings.sharing)
+                        SettingsSectionItemView(
+                            name: Loc.SpaceSettings.share,
+                            onTap: { model.onShareTap() }
+                        )
+
+                    } else {
+                        SectionHeaderView(title: Loc.type)
+                        
+                        SpaceTypeView(name: model.spaceType)
+                    }
                     
                     SectionHeaderView(title: Loc.settings)
                     

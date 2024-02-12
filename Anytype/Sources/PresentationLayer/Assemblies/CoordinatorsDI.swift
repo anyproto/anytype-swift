@@ -83,7 +83,7 @@ final class CoordinatorsDI: CoordinatorsDIProtocol {
     }
     
     func spaceSettings() -> SpaceSettingsCoordinatorAssemblyProtocol {
-        return SpaceSettingsCoordinatorAssembly(modulesDI: modulesDI, serviceLocator: serviceLocator, uiHelpersDI: uiHelpersDI)
+        return SpaceSettingsCoordinatorAssembly(modulesDI: modulesDI, serviceLocator: serviceLocator, uiHelpersDI: uiHelpersDI, coordinatorsDI: self)
     }
     
     func setViewSettings() -> SetViewSettingsCoordinatorAssemblyProtocol {
@@ -192,5 +192,9 @@ final class CoordinatorsDI: CoordinatorsDIProtocol {
     
     func objectRelationList() -> ObjectRelationListCoordinatorAssemblyProtocol {
         ObjectRelationListCoordinatorAssembly(modulesDI: modulesDI)
+    }
+    
+    func spaceShare() -> SpaceShareCoordinatorAssemblyProtocol {
+        SpaceShareCoordinatorAssembly(modulesDI: modulesDI)
     }
 }

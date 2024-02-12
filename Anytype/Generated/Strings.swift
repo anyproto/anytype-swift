@@ -1947,6 +1947,10 @@ internal enum Loc {
     internal static let networkId = Loc.tr("Localizable", "SpaceSettings.NetworkId", fallback: "Network ID")
     /// Remote storage
     internal static let remoteStorage = Loc.tr("Localizable", "SpaceSettings.RemoteStorage", fallback: "Remote storage")
+    /// Share
+    internal static let share = Loc.tr("Localizable", "SpaceSettings.Share", fallback: "Share")
+    /// Sharing
+    internal static let sharing = Loc.tr("Localizable", "SpaceSettings.Sharing", fallback: "Sharing")
     /// Space settings
     internal static let title = Loc.tr("Localizable", "SpaceSettings.Title", fallback: "Space settings")
     internal enum DeleteAlert {
@@ -1957,6 +1961,10 @@ internal enum Loc {
         return Loc.tr("Localizable", "SpaceSettings.DeleteAlert.Title", String(describing: p1), fallback: "Delete ‘%@’ space")
       }
     }
+  }
+  internal enum SpaceShare {
+    /// Share space
+    internal static let title = Loc.tr("Localizable", "SpaceShare.Title", fallback: "Share space")
   }
   internal enum Spaces {
     internal enum Accessibility {
