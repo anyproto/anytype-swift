@@ -1,6 +1,6 @@
 import SwiftUI
 
-@available(iOS 15.0, *)
+
 /*
  There is no way to change the keyboard toolbar style now
  and HStack doesn't work inside ToolbarItemGroup,

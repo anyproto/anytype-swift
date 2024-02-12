@@ -148,11 +148,9 @@ final class EditorSetRouter: EditorSetRouterProtocol, ObjectSettingsCoordinatorO
                 }
             )
         )
-        if #available(iOS 15.0, *) {
-            if let sheet = vc.sheetPresentationController {
-                sheet.detents = [.medium(), .large()]
-                sheet.selectedDetentIdentifier = .large
-            }
+        if let sheet = vc.sheetPresentationController {
+            sheet.detents = [.medium(), .large()]
+            sheet.selectedDetentIdentifier = .large
         }
         navigationContext.present(vc)
     }
