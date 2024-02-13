@@ -3,6 +3,17 @@ import ProtobufMessages
 import AnytypeCore
 
 public protocol ObjectActionsServiceProtocol {
+    func createObject(
+        name: String,
+        typeUniqueKey: ObjectTypeUniqueKey,
+        shouldDeleteEmptyObject: Bool,
+        shouldSelectType: Bool,
+        shouldSelectTemplate: Bool,
+        spaceId: String,
+        origin: ObjectOrigin,
+        templateId: String?
+    ) async throws -> ObjectDetails
+    
     func delete(objectIds: [BlockId]) async throws
     func setArchive(objectIds: [BlockId], _ isArchived: Bool) async throws
     func setFavorite(objectIds: [BlockId], _ isFavorite: Bool) async throws
