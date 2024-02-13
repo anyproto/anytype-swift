@@ -75,7 +75,7 @@ final class ServiceLocator {
     }
     
     func searchService() -> SearchServiceProtocol {
-        SearchService(accountManager: accountManager(), searchMiddleService: searchMiddleService())
+        SearchService(searchMiddleService: searchMiddleService())
     }
     
     func searchMiddleService() -> SearchMiddleServiceProtocol {

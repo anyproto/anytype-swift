@@ -449,6 +449,8 @@
 		2A5BC4C32A78FAC7004FAABF /* CharIconPainter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A5BC4C12A78FAC7004FAABF /* CharIconPainter.swift */; };
 		2A5BC4C92A791AED004FAABF /* ViewProvidersConfigurator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A5BC4C82A791AED004FAABF /* ViewProvidersConfigurator.swift */; };
 		2A5CB4212A433C3B00ED9415 /* EditorScreenData+Details.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A5CB4202A433C3B00ED9415 /* EditorScreenData+Details.swift */; };
+		2A610E212B74FF5200B74412 /* SpaceJoinMVPView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A610E202B74FF5200B74412 /* SpaceJoinMVPView.swift */; };
+		2A610E922B76362C00B74412 /* SpaceShareMVPView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A610E912B76362C00B74412 /* SpaceShareMVPView.swift */; };
 		2A617BCA2A49960500725152 /* Document+WidgetTargetSubscriptions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A617BC92A49960400725152 /* Document+WidgetTargetSubscriptions.swift */; };
 		2A617BCC2A49E5B400725152 /* BlockWidget+Limits.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A617BCB2A49E5B400725152 /* BlockWidget+Limits.swift */; };
 		2A617BCE2A49EC0B00725152 /* CommonWidgetInternalViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A617BCD2A49EC0B00725152 /* CommonWidgetInternalViewModel.swift */; };
@@ -485,6 +487,7 @@
 		2A673C1929B0D7CD00E3D672 /* SettingsAccountViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A673C1829B0D7CD00E3D672 /* SettingsAccountViewModel.swift */; };
 		2A673C1D29B0FA2800E3D672 /* AnytypeDismiss.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A673C1C29B0FA2800E3D672 /* AnytypeDismiss.swift */; };
 		2A67D5AB2948D86800CBFAEF /* NewRelationModuleAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A67D5AA2948D86800CBFAEF /* NewRelationModuleAssembly.swift */; };
+		2A685D572B7B694800456E08 /* Text+Markdown.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A685D562B7B694800456E08 /* Text+Markdown.swift */; };
 		2A6C75C429FC03D4002BD440 /* SingleObjectSubscriptionService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A6C75C329FC03D4002BD440 /* SingleObjectSubscriptionService.swift */; };
 		2A6C75C629FC16D2002BD440 /* FileStorageModuleOutput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A6C75C529FC16D2002BD440 /* FileStorageModuleOutput.swift */; };
 		2A6E04A2298CFCDA0023B33D /* WidgetObjectListFavoritesViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A6E04A1298CFCDA0023B33D /* WidgetObjectListFavoritesViewModel.swift */; };
@@ -652,6 +655,12 @@
 		2AC252282A26112500B89884 /* MiddlewareHandlerConfigurator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AC252272A26112500B89884 /* MiddlewareHandlerConfigurator.swift */; };
 		2AC3F9462A138263005EFEE9 /* FileLimitsStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AC3F9452A138263005EFEE9 /* FileLimitsStorage.swift */; };
 		2AC429A629B784280002AD05 /* BaseDocumentProtocol+Home.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AC429A529B784280002AD05 /* BaseDocumentProtocol+Home.swift */; };
+		2AC434972B7A0683006166BF /* SpaceShareView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AC434962B7A0683006166BF /* SpaceShareView.swift */; };
+		2AC434992B7A068B006166BF /* SpaceShareViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AC434982B7A068B006166BF /* SpaceShareViewModel.swift */; };
+		2AC4349B2B7A0697006166BF /* SpaceShareModuleAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AC4349A2B7A0697006166BF /* SpaceShareModuleAssembly.swift */; };
+		2AC4349E2B7A074B006166BF /* SpaceShareCoordinatorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AC4349D2B7A074B006166BF /* SpaceShareCoordinatorView.swift */; };
+		2AC434A02B7A0759006166BF /* SpaceShareCoordinatorViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AC4349F2B7A0759006166BF /* SpaceShareCoordinatorViewModel.swift */; };
+		2AC434A22B7A0763006166BF /* SpaceShareCoordinatorAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AC434A12B7A0763006166BF /* SpaceShareCoordinatorAssembly.swift */; };
 		2AC750222AE7EB1A000CDD66 /* FloaterAlertView+DeleteSpace.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AC750212AE7EB1A000CDD66 /* FloaterAlertView+DeleteSpace.swift */; };
 		2AC906C129B5F8EF00209E39 /* WidgetInternalViewModelProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AC906C029B5F8EF00209E39 /* WidgetInternalViewModelProtocol.swift */; };
 		2AC906C329B5FA3300209E39 /* ObjectWidgetInternalViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AC906C229B5FA3300209E39 /* ObjectWidgetInternalViewModel.swift */; };
@@ -2183,6 +2192,8 @@
 		2A5BC4C12A78FAC7004FAABF /* CharIconPainter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CharIconPainter.swift; sourceTree = "<group>"; };
 		2A5BC4C82A791AED004FAABF /* ViewProvidersConfigurator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewProvidersConfigurator.swift; sourceTree = "<group>"; };
 		2A5CB4202A433C3B00ED9415 /* EditorScreenData+Details.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "EditorScreenData+Details.swift"; sourceTree = "<group>"; };
+		2A610E202B74FF5200B74412 /* SpaceJoinMVPView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpaceJoinMVPView.swift; sourceTree = "<group>"; };
+		2A610E912B76362C00B74412 /* SpaceShareMVPView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpaceShareMVPView.swift; sourceTree = "<group>"; };
 		2A617BC92A49960400725152 /* Document+WidgetTargetSubscriptions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Document+WidgetTargetSubscriptions.swift"; sourceTree = "<group>"; };
 		2A617BCB2A49E5B400725152 /* BlockWidget+Limits.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "BlockWidget+Limits.swift"; sourceTree = "<group>"; };
 		2A617BCD2A49EC0B00725152 /* CommonWidgetInternalViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommonWidgetInternalViewModel.swift; sourceTree = "<group>"; };
@@ -2219,6 +2230,7 @@
 		2A673C1829B0D7CD00E3D672 /* SettingsAccountViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsAccountViewModel.swift; sourceTree = "<group>"; };
 		2A673C1C29B0FA2800E3D672 /* AnytypeDismiss.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnytypeDismiss.swift; sourceTree = "<group>"; };
 		2A67D5AA2948D86800CBFAEF /* NewRelationModuleAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewRelationModuleAssembly.swift; sourceTree = "<group>"; };
+		2A685D562B7B694800456E08 /* Text+Markdown.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Text+Markdown.swift"; sourceTree = "<group>"; };
 		2A6C75C329FC03D4002BD440 /* SingleObjectSubscriptionService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SingleObjectSubscriptionService.swift; sourceTree = "<group>"; };
 		2A6C75C529FC16D2002BD440 /* FileStorageModuleOutput.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileStorageModuleOutput.swift; sourceTree = "<group>"; };
 		2A6E04A1298CFCDA0023B33D /* WidgetObjectListFavoritesViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WidgetObjectListFavoritesViewModel.swift; sourceTree = "<group>"; };
@@ -2386,6 +2398,12 @@
 		2AC252272A26112500B89884 /* MiddlewareHandlerConfigurator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MiddlewareHandlerConfigurator.swift; sourceTree = "<group>"; };
 		2AC3F9452A138263005EFEE9 /* FileLimitsStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileLimitsStorage.swift; sourceTree = "<group>"; };
 		2AC429A529B784280002AD05 /* BaseDocumentProtocol+Home.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "BaseDocumentProtocol+Home.swift"; sourceTree = "<group>"; };
+		2AC434962B7A0683006166BF /* SpaceShareView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpaceShareView.swift; sourceTree = "<group>"; };
+		2AC434982B7A068B006166BF /* SpaceShareViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpaceShareViewModel.swift; sourceTree = "<group>"; };
+		2AC4349A2B7A0697006166BF /* SpaceShareModuleAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpaceShareModuleAssembly.swift; sourceTree = "<group>"; };
+		2AC4349D2B7A074B006166BF /* SpaceShareCoordinatorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpaceShareCoordinatorView.swift; sourceTree = "<group>"; };
+		2AC4349F2B7A0759006166BF /* SpaceShareCoordinatorViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpaceShareCoordinatorViewModel.swift; sourceTree = "<group>"; };
+		2AC434A12B7A0763006166BF /* SpaceShareCoordinatorAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpaceShareCoordinatorAssembly.swift; sourceTree = "<group>"; };
 		2AC434922B7A00EE006166BF /* nl */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = nl; path = nl.lproj/Localizable.strings; sourceTree = "<group>"; };
 		2AC434932B7A00FA006166BF /* nl */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = nl; path = nl.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		2AC434942B7A0100006166BF /* nl */ = {isa = PBXFileReference; lastKnownFileType = text.plist.stringsdict; name = nl; path = nl.lproj/Localizable.stringsdict; sourceTree = "<group>"; };
@@ -5604,6 +5622,7 @@
 		2A5B53AF2A80DB9700BC993B /* SpaceSettings */ = {
 			isa = PBXGroup;
 			children = (
+				2A610E912B76362C00B74412 /* SpaceShareMVPView.swift */,
 				2A4C7FF62A822B7F00201946 /* Views */,
 				2A5B53B02A80DBA200BC993B /* SpaceSettingsView.swift */,
 				2A5B53B22A80DBAA00BC993B /* SpaceSettingsViewModel.swift */,
@@ -5815,6 +5834,7 @@
 		2A7DCDDB292E4A4E001919B4 /* Flows */ = {
 			isa = PBXGroup;
 			children = (
+				2AC4349C2B7A0739006166BF /* SpaceShareCoordinator */,
 				2A2872382B4D8C0E007B3D59 /* GalleryInstallation */,
 				2AE85FE72B1F48D700268E9D /* ServerConfiguration */,
 				2A80D0452ABADCC700DB0513 /* EditorSetFlow */,
@@ -6183,6 +6203,7 @@
 		2ABAF2B62938E53A003C4730 /* Modules */ = {
 			isa = PBXGroup;
 			children = (
+				2AC434952B7A064F006166BF /* SpaceShare */,
 				2ACDC9B62B56703C0063BFBD /* ShareOptions */,
 				2AD276402B6D22A900112215 /* GallerySpaceSelection */,
 				2A28722F2B4D8B35007B3D59 /* GalleryInstallationPreview */,
@@ -6245,6 +6266,26 @@
 				2AC3F9452A138263005EFEE9 /* FileLimitsStorage.swift */,
 			);
 			path = FileLimitsStorage;
+			sourceTree = "<group>";
+		};
+		2AC434952B7A064F006166BF /* SpaceShare */ = {
+			isa = PBXGroup;
+			children = (
+				2AC434962B7A0683006166BF /* SpaceShareView.swift */,
+				2AC434982B7A068B006166BF /* SpaceShareViewModel.swift */,
+				2AC4349A2B7A0697006166BF /* SpaceShareModuleAssembly.swift */,
+			);
+			path = SpaceShare;
+			sourceTree = "<group>";
+		};
+		2AC4349C2B7A0739006166BF /* SpaceShareCoordinator */ = {
+			isa = PBXGroup;
+			children = (
+				2AC4349D2B7A074B006166BF /* SpaceShareCoordinatorView.swift */,
+				2AC4349F2B7A0759006166BF /* SpaceShareCoordinatorViewModel.swift */,
+				2AC434A12B7A0763006166BF /* SpaceShareCoordinatorAssembly.swift */,
+			);
+			path = SpaceShareCoordinator;
 			sourceTree = "<group>";
 		};
 		2AC906BD29B5F7C600209E39 /* Common */ = {
@@ -6408,6 +6449,7 @@
 				2AD239082A8A05C800F7697A /* SpaceCreateViewModel.swift */,
 				2AD2390A2A8A05D200F7697A /* SpaceCreateModuleAssembly.swift */,
 				2AB5083A2AE9395600E1C986 /* SpaceCreateModuleOutput.swift */,
+				2A610E202B74FF5200B74412 /* SpaceJoinMVPView.swift */,
 			);
 			path = SpaceCreate;
 			sourceTree = "<group>";
@@ -8568,6 +8610,7 @@
 				2E48ACA22A55D4EF0059CB5C /* CustomBackSwipe.swift */,
 				2ECB34002A95041800E0F9BB /* View+Detents.swift */,
 				2AB7AAEA2AF51D0C00ED3E02 /* View+PresentationBackground.swift */,
+				2A685D562B7B694800456E08 /* Text+Markdown.swift */,
 			);
 			path = SwiftUI;
 			sourceTree = "<group>";
@@ -10246,6 +10289,7 @@
 				3D7F7173279F0829003FE893 /* EditorSetPaginationData.swift in Sources */,
 				2ECB34182A97B45B00E0F9BB /* SetFiltersDateCoordinatorViewModel.swift in Sources */,
 				53FF7C5226F7E49900A5A592 /* AudioPlayerView.swift in Sources */,
+				2A685D572B7B694800456E08 /* Text+Markdown.swift in Sources */,
 				2AC750222AE7EB1A000CDD66 /* FloaterAlertView+DeleteSpace.swift in Sources */,
 				2AC906E029B6289A00209E39 /* FavoriteListWidgetModuleAssembly.swift in Sources */,
 				1289C518281159DE005085E2 /* FileDownloadingModuleOutput.swift in Sources */,
@@ -10323,6 +10367,7 @@
 				2A2B331A2A7AA525004BD906 /* WidgetTypeModuleCreateModel.swift in Sources */,
 				EAED57A6269F346D00374A46 /* TextBlockViewModel.swift in Sources */,
 				0A0965FB25BEF5B000C004BD /* EditorPageController.swift in Sources */,
+				2AC4349E2B7A074B006166BF /* SpaceShareCoordinatorView.swift in Sources */,
 				2A945D3C299E2CD300C34C86 /* WidgetEmptyView.swift in Sources */,
 				2E975EF1287C23DA004DE574 /* SetSortsListView.swift in Sources */,
 				53F7442F27F4BBE9005C9BB0 /* ObjectPreviewRouter.swift in Sources */,
@@ -10640,6 +10685,7 @@
 				2AAA09042AEAB71900A446B8 /* SpaceSwitchCoordinatorViewModel.swift in Sources */,
 				2A6E04B1298D66DB0023B33D /* WidgetObjectListCommonModuleOutput.swift in Sources */,
 				2ABA0E07283BC420008369DC /* BlockObjectsSearchInteractor.swift in Sources */,
+				2A610E922B76362C00B74412 /* SpaceShareMVPView.swift in Sources */,
 				2EAA13FC2AA63918000A712A /* SetViewSettingsImagePreviewModuleAssembly.swift in Sources */,
 				12EEC36C26A0903F00C3C4B1 /* EmojiProvider.swift in Sources */,
 				2AD37D5A299121D30012409E /* WidgetObjectListViewModel.swift in Sources */,
@@ -10935,6 +10981,7 @@
 				2E2D256028880C8D00E3DFD1 /* SetFiltersContentViewBuilder.swift in Sources */,
 				C93B2D32274E4FA70008544D /* TwoStandardButtonsView.swift in Sources */,
 				120E818E26A05946006FE84E /* ObjectIconPickerViewModel.swift in Sources */,
+				2AC434A22B7A0763006166BF /* SpaceShareCoordinatorAssembly.swift in Sources */,
 				2AFD7E182B626C2D003B16EB /* KeyboardDismiss.swift in Sources */,
 				3DB692B12697645C00149864 /* MiddlewareColorConverter.swift in Sources */,
 				2A5BC4BE2A78F9D9004FAABF /* SquircleIconPainter.swift in Sources */,
@@ -11301,6 +11348,7 @@
 				3D44984026D53A89005A3E06 /* ObjectHeader+Mutation.swift in Sources */,
 				125B6ECE26F235F400BCD7D6 /* DismissableInputAccessoryView.swift in Sources */,
 				2ACD26B72AFB9A1B00B19E50 /* DataviewView+View.swift in Sources */,
+				2A610E212B74FF5200B74412 /* SpaceJoinMVPView.swift in Sources */,
 				2E8E8D162A262D2E009BC3B0 /* CreatingSoulView.swift in Sources */,
 				3D24913427BD271900821595 /* LocalEvent.swift in Sources */,
 				127240D72846249600C6F8E2 /* NewSearchViewState.swift in Sources */,
@@ -11471,6 +11519,7 @@
 				2A4C7FFA2A822BA000201946 /* SettingsInfoBlockView.swift in Sources */,
 				1206DB90267A303E000A48A7 /* MediaPickerView.swift in Sources */,
 				2A377E412A826FFD00EA856B /* RemoteStorageView.swift in Sources */,
+				2AC434972B7A0683006166BF /* SpaceShareView.swift in Sources */,
 				2AD8AFD52A83E60400F12D54 /* SpaceSwitchModuleOutput.swift in Sources */,
 				1247BC6627FDC36B005F2DB4 /* RelationFormatsListModuleOutput.swift in Sources */,
 				1244791627D8A38600581174 /* StatusSearchViewModel.swift in Sources */,
@@ -11527,12 +11576,14 @@
 				0ACC357625C851650003CF3A /* BlockViewModelBuilder.swift in Sources */,
 				12FD9D1F2767172A00991886 /* RelationText.swift in Sources */,
 				2E65276B2B5EE9BA00F27126 /* RelationListContainerView.swift in Sources */,
+				2AC434992B7A068B006166BF /* SpaceShareViewModel.swift in Sources */,
 				2A56C16B2ACB0C50001677E1 /* EditorPageModuleOutput.swift in Sources */,
 				2E31C9642B73C809006DB3E2 /* ObjectRelationListInteractor.swift in Sources */,
 				2EA098A72A697511009182C0 /* SubscriptionData+Info.swift in Sources */,
 				3D471E1F26C3B60200457DE5 /* BlockLinkState+Icon.swift in Sources */,
 				3DA6263D2657AB8000942249 /* AnimationExtension.swift in Sources */,
 				53728D00273596C40092A8CF /* MarkupAccessoryViewModel.swift in Sources */,
+				2AC4349B2B7A0697006166BF /* SpaceShareModuleAssembly.swift in Sources */,
 				1289F5A42733C50500656EC2 /* TextRelationFactory.swift in Sources */,
 				2AF2C6B928BD104B00F8612B /* UIAnytypeActivityIndicator.swift in Sources */,
 				120EB4DC26E8E94C003A0C2B /* ObjectHeaderView.swift in Sources */,
@@ -11697,6 +11748,7 @@
 				12E05EEF2796A9C10037B667 /* AnytypePopup.swift in Sources */,
 				12450D4727A918A90026F004 /* AdaptiveTextRelationDetailsPopupLayout.swift in Sources */,
 				2AFF7ACC299D24C300B7746B /* DocumentViewModelSetter.swift in Sources */,
+				2AC434A02B7A0759006166BF /* SpaceShareCoordinatorViewModel.swift in Sources */,
 				2ACEAE462984017100B467CE /* WidgetTypeViewModel.swift in Sources */,
 				2A29873C2ACC087B009E8787 /* PageNavigation.swift in Sources */,
 				2E7C4473289843220062287C /* DataviewFilter+Condition.swift in Sources */,
@@ -11978,7 +12030,7 @@
 				CODE_SIGN_ENTITLEMENTS = Anytype/Anytype.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 43;
+				CURRENT_PROJECT_VERSION = 44;
 				DEVELOPMENT_ASSET_PATHS = "Anytype/Resources/Preview\\ Content";
 				DEVELOPMENT_TEAM = J3NXTX3T5S;
 				ENABLE_BITCODE = NO;
@@ -12022,7 +12074,7 @@
 				CODE_SIGN_ENTITLEMENTS = Anytype/Anytype.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Distribution";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 43;
+				CURRENT_PROJECT_VERSION = 44;
 				DEVELOPMENT_ASSET_PATHS = "Anytype/Resources/Preview\\ Content";
 				DEVELOPMENT_TEAM = J3NXTX3T5S;
 				ENABLE_BITCODE = NO;
@@ -12178,7 +12230,7 @@
 				CODE_SIGN_ENTITLEMENTS = Anytype/Anytype.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Distribution";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 43;
+				CURRENT_PROJECT_VERSION = 44;
 				DEVELOPMENT_ASSET_PATHS = "Anytype/Resources/Preview\\ Content";
 				DEVELOPMENT_TEAM = J3NXTX3T5S;
 				ENABLE_BITCODE = NO;
@@ -12245,7 +12297,7 @@
 				CODE_SIGN_ENTITLEMENTS = AnytypeShareExtension/AnytypeShareExtension.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 43;
+				CURRENT_PROJECT_VERSION = 44;
 				DEVELOPMENT_TEAM = "";
 				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = J3NXTX3T5S;
 				GENERATE_INFOPLIST_FILE = YES;
@@ -12277,7 +12329,7 @@
 				CODE_SIGN_ENTITLEMENTS = AnytypeShareExtension/AnytypeShareExtension.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Distribution";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 43;
+				CURRENT_PROJECT_VERSION = 44;
 				DEVELOPMENT_TEAM = "";
 				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = J3NXTX3T5S;
 				GENERATE_INFOPLIST_FILE = YES;
@@ -12310,7 +12362,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Distribution";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 43;
+				CURRENT_PROJECT_VERSION = 44;
 				DEVELOPMENT_TEAM = "";
 				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = J3NXTX3T5S;
 				GENERATE_INFOPLIST_FILE = YES;
@@ -12344,7 +12396,7 @@
 				CODE_SIGN_IDENTITY = "Apple Development";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 43;
+				CURRENT_PROJECT_VERSION = 44;
 				DEVELOPMENT_TEAM = "";
 				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = J3NXTX3T5S;
 				GENERATE_INFOPLIST_FILE = YES;
@@ -12378,7 +12430,7 @@
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
 				CODE_SIGN_IDENTITY = "iPhone Distribution";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 43;
+				CURRENT_PROJECT_VERSION = 44;
 				DEVELOPMENT_TEAM = "";
 				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = J3NXTX3T5S;
 				GENERATE_INFOPLIST_FILE = YES;
@@ -12412,7 +12464,7 @@
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
 				CODE_SIGN_IDENTITY = "iPhone Distribution";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 43;
+				CURRENT_PROJECT_VERSION = 44;
 				DEVELOPMENT_TEAM = "";
 				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = J3NXTX3T5S;
 				GENERATE_INFOPLIST_FILE = YES;

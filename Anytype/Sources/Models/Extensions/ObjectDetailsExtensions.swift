@@ -10,7 +10,7 @@ extension BundledRelationsValueProvider {
         switch layoutValue {
         case .basic, .set, .collection, .image, .objectType:
             return basicIcon
-        case .profile:
+        case .profile, .participant:
             return profileIcon
         case .bookmark:
             return bookmarkIcon
@@ -116,7 +116,7 @@ extension BundledRelationsValueProvider {
     
     var editorViewType: EditorViewType {
         switch layoutValue {
-        case .basic, .profile, .todo, .note, .bookmark, .space, .file, .image, .objectType, .unknown, .relation,
+        case .basic, .profile, .participant, .todo, .note, .bookmark, .space, .file, .image, .objectType, .unknown, .relation,
                 .relationOption, .dashboard, .relationOptionList, .database, .audio, .video, .date, .spaceView:
             return .page
         case .set, .collection:

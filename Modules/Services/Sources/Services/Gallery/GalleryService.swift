@@ -13,7 +13,7 @@ public final class GalleryService: GalleryServiceProtocol {
     // MARK: - GalleryServiceProtocol
     
     public func manifest(url: String) async throws -> GalleryManifest {
-        let response = try await ClientCommands.downloadManifest(.with {
+        let response = try await ClientCommands.galleryDownloadManifest(.with {
             $0.url = url
         }).invoke()
         return GalleryManifest(from: response.info)

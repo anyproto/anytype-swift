@@ -92,7 +92,7 @@
 "Relation.ObjectType.Header.title" = "Objekttyp:";
 
 "Relation.Delete.Alert.Title" = "Sind Sie sicher?";
-"Relation.Delete.Alert.Description" = "The option will be permanently removed from your space.";
+"Relation.Delete.Alert.Description" = "Die Option wird dauerhaft aus Ihrem Bereich entfernt.";
 "Relation.Object.Delete.Alert.Description" = "Das Objekt wird in den Papierkorb verschoben.";
 
 "Relation.Format.Object.Title" = "Objekt";
