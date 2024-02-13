@@ -20,20 +20,16 @@ struct AutofocusedTextField: View {
     }
     
     var body: some View {
-        if #available(iOS 15.0, *) {
-            NewAutofocusedTextField(
-                placeholder: placeholder,
-                placeholderFont: placeholderFont,
-                shouldSkipFocusOnFilled: shouldSkipFocusOnFilled,
-                text: $text
-            )
-        } else {
-            AnytypeTextField(placeholder: placeholder, placeholderFont: placeholderFont, text: $text)
-        }
+        NewAutofocusedTextField(
+            placeholder: placeholder,
+            placeholderFont: placeholderFont,
+            shouldSkipFocusOnFilled: shouldSkipFocusOnFilled,
+            text: $text
+        )
     }
 }
 
-@available(iOS 15.0, *)
+
 private struct NewAutofocusedTextField: View {
     let placeholder: String
     let placeholderFont: AnytypeFont
