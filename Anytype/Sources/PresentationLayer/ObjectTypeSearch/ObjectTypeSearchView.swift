@@ -91,7 +91,12 @@ struct ObjectTypeSearchView: View {
             .background(Color.Background.secondary)
             .contentShape(.contextMenuPreview, RoundedRectangle(cornerRadius: 12, style: .continuous))
             .contextMenu {
-                contextMenu(section: section, data: typeData)
+                switch section {
+                case .pins, .objects, .lists:
+                    contextMenu(section: section, data: typeData)
+                case .library:
+                    EmptyView()
+                }
             }
             .padding(.bottom, 8)
             .id(typeData.type.id)
