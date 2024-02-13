@@ -6,8 +6,7 @@ final class SharingTipViewModel: ObservableObject {
     
     let sharingTip = SharingTip()
     
-    let sharedUrl = URL(string: "https://anytype.io")
-    @Published var showShare: Bool = false
+    @Published var sharedUrl: URL?
     @Published var dismiss: Bool = false
     
     init() {}
@@ -22,9 +21,9 @@ final class SharingTipViewModel: ObservableObject {
     }
     
     func tapShowShareMenu() {
-        if !showShare {
+        if sharedUrl.isNil {
             AnytypeAnalytics.instance().logClickOnboardingTooltip(tooltip: .sharingExtension, type: .showShareMenu)
         }
-        showShare.toggle()
+        sharedUrl = URL(string: "https://anytype.io")
     }
 }

@@ -487,6 +487,8 @@
 		2A673C1929B0D7CD00E3D672 /* SettingsAccountViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A673C1829B0D7CD00E3D672 /* SettingsAccountViewModel.swift */; };
 		2A673C1D29B0FA2800E3D672 /* AnytypeDismiss.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A673C1C29B0FA2800E3D672 /* AnytypeDismiss.swift */; };
 		2A67D5AB2948D86800CBFAEF /* NewRelationModuleAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A67D5AA2948D86800CBFAEF /* NewRelationModuleAssembly.swift */; };
+		2A685D5A2B7B855300456E08 /* ZIPFoundation in Frameworks */ = {isa = PBXBuildFile; productRef = 2A685D592B7B855300456E08 /* ZIPFoundation */; };
+		2A685D5C2B7B9E1500456E08 /* FileManager+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A685D5B2B7B9E1500456E08 /* FileManager+Extension.swift */; };
 		2A6C75C429FC03D4002BD440 /* SingleObjectSubscriptionService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A6C75C329FC03D4002BD440 /* SingleObjectSubscriptionService.swift */; };
 		2A6C75C629FC16D2002BD440 /* FileStorageModuleOutput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A6C75C529FC16D2002BD440 /* FileStorageModuleOutput.swift */; };
 		2A6E04A2298CFCDA0023B33D /* WidgetObjectListFavoritesViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A6E04A1298CFCDA0023B33D /* WidgetObjectListFavoritesViewModel.swift */; };
@@ -537,7 +539,7 @@
 		2A80D0622ABAFE9200DB0513 /* EditorNavigationBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A80D0612ABAFE9200DB0513 /* EditorNavigationBarView.swift */; };
 		2A816AC72AD7DC1700975BCA /* ServerConfigirationStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A816AC62AD7DC1700975BCA /* ServerConfigirationStorage.swift */; };
 		2A816AC92AD7DFC700975BCA /* ServerConfigurationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A816AC82AD7DFC700975BCA /* ServerConfigurationView.swift */; };
-		2A816ACC2AD7E31F00975BCA /* YamlDocumentPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A816ACB2AD7E31F00975BCA /* YamlDocumentPicker.swift */; };
+		2A816ACC2AD7E31F00975BCA /* DocumentPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A816ACB2AD7E31F00975BCA /* DocumentPicker.swift */; };
 		2A816AD12AD8069400975BCA /* SpaceView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A816AD02AD8069400975BCA /* SpaceView.swift */; };
 		2A816AD42AD840F500975BCA /* SpaceViewIconInternalViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A816AD32AD840F500975BCA /* SpaceViewIconInternalViewModel.swift */; };
 		2A81D2802B723F3800A2959E /* ShareEnvironment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A81D27F2B723F3800A2959E /* ShareEnvironment.swift */; };
@@ -2222,6 +2224,7 @@
 		2A673C1829B0D7CD00E3D672 /* SettingsAccountViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsAccountViewModel.swift; sourceTree = "<group>"; };
 		2A673C1C29B0FA2800E3D672 /* AnytypeDismiss.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnytypeDismiss.swift; sourceTree = "<group>"; };
 		2A67D5AA2948D86800CBFAEF /* NewRelationModuleAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewRelationModuleAssembly.swift; sourceTree = "<group>"; };
+		2A685D5B2B7B9E1500456E08 /* FileManager+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "FileManager+Extension.swift"; sourceTree = "<group>"; };
 		2A6C75C329FC03D4002BD440 /* SingleObjectSubscriptionService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SingleObjectSubscriptionService.swift; sourceTree = "<group>"; };
 		2A6C75C529FC16D2002BD440 /* FileStorageModuleOutput.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileStorageModuleOutput.swift; sourceTree = "<group>"; };
 		2A6E04A1298CFCDA0023B33D /* WidgetObjectListFavoritesViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WidgetObjectListFavoritesViewModel.swift; sourceTree = "<group>"; };
@@ -2268,7 +2271,7 @@
 		2A80D0612ABAFE9200DB0513 /* EditorNavigationBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditorNavigationBarView.swift; sourceTree = "<group>"; };
 		2A816AC62AD7DC1700975BCA /* ServerConfigirationStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServerConfigirationStorage.swift; sourceTree = "<group>"; };
 		2A816AC82AD7DFC700975BCA /* ServerConfigurationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServerConfigurationView.swift; sourceTree = "<group>"; };
-		2A816ACB2AD7E31F00975BCA /* YamlDocumentPicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YamlDocumentPicker.swift; sourceTree = "<group>"; };
+		2A816ACB2AD7E31F00975BCA /* DocumentPicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DocumentPicker.swift; sourceTree = "<group>"; };
 		2A816AD02AD8069400975BCA /* SpaceView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpaceView.swift; sourceTree = "<group>"; };
 		2A816AD32AD840F500975BCA /* SpaceViewIconInternalViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpaceViewIconInternalViewModel.swift; sourceTree = "<group>"; };
 		2A81D27F2B723F3800A2959E /* ShareEnvironment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShareEnvironment.swift; sourceTree = "<group>"; };
@@ -3397,6 +3400,7 @@
 				03C5C53B22DF785000DD91DE /* Security.framework in Frameworks */,
 				0318D576230186CA000527B1 /* LocalAuthentication.framework in Frameworks */,
 				1259301126F3A6EC00B115CD /* SwiftUIVisualEffects in Frameworks */,
+				2A685D5A2B7B855300456E08 /* ZIPFoundation in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -3663,6 +3667,7 @@
 		038FB5C722D8F304002B90B8 /* ApplicationLayer */ = {
 			isa = PBXGroup;
 			children = (
+				2A685D322B7A53C400456E08 /* ApplicationCrashView */,
 				2AFD7E162B626C1E003B16EB /* GlobalEnv */,
 				2AE671DF29018AF600118F56 /* Notifications */,
 				12EE02D32840EAFF00223EB5 /* SceneDelegates */,
@@ -5749,6 +5754,13 @@
 			path = Coordinator;
 			sourceTree = "<group>";
 		};
+		2A685D322B7A53C400456E08 /* ApplicationCrashView */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = ApplicationCrashView;
+			sourceTree = "<group>";
+		};
 		2A6E04A0298CFCC40023B33D /* Internal */ = {
 			isa = PBXGroup;
 			children = (
@@ -6566,7 +6578,6 @@
 		2AE85FE42B1F48B700268E9D /* ServerDocumentPicker */ = {
 			isa = PBXGroup;
 			children = (
-				2A816ACB2AD7E31F00975BCA /* YamlDocumentPicker.swift */,
 				2AE85FEE2B1F4BD800268E9D /* ServerDocumentPickerView.swift */,
 				2AE85FF02B1F4BFA00268E9D /* ServerDocumentPickerViewModel.swift */,
 				2AE85FF22B1F4D8A00268E9D /* ServerDocumentPickerModuleAssembly.swift */,
@@ -8491,6 +8502,7 @@
 				12C2A5812756342F00311854 /* DateExtension.swift */,
 				1211AF7C27F4BE7400BACB88 /* CGSizeExtensions.swift */,
 				3D1CEC2E27F4D9F7000D36BA /* CalendarExtension.swift */,
+				2A685D5B2B7B9E1500456E08 /* FileManager+Extension.swift */,
 			);
 			path = Foundation;
 			sourceTree = "<group>";
@@ -8551,6 +8563,7 @@
 		3DB7DCB3263AA5D100635E4C /* SwiftUI */ = {
 			isa = PBXGroup;
 			children = (
+				2A816ACB2AD7E31F00975BCA /* DocumentPicker.swift */,
 				3DA6DBD72746567900516E75 /* Geometry */,
 				03A24B8B231EC07700DA7369 /* ArrayExtension.swift */,
 				3DBE2403262F04AA0065E9B6 /* Binding+OnChange.swift */,
@@ -9913,6 +9926,7 @@
 				86E69DD52A938CE8009F2221 /* SecureService */,
 				2ACDC9B02B553F7D0063BFBD /* SharedContentManager */,
 				3D6381F62B6A61CF0026D071 /* WrappingHStack */,
+				2A685D592B7B855300456E08 /* ZIPFoundation */,
 			);
 			productName = Anytype;
 			productReference = 0303ECFB22D8EDAA005C552B /* Anytype.app */;
@@ -10039,6 +10053,7 @@
 				2A94B5D129B88E95009AE2A7 /* XCRemoteSwiftPackageReference "sentry-cocoa" */,
 				2A01A4F72A1FB4B7002042FB /* XCRemoteSwiftPackageReference "DeviceKit" */,
 				3D6381F52B6A61CF0026D071 /* XCRemoteSwiftPackageReference "WrappingHStack" */,
+				2A685D582B7B854200456E08 /* XCRemoteSwiftPackageReference "ZIPFoundation" */,
 			);
 			productRefGroup = 0303ECFC22D8EDAA005C552B /* Products */;
 			projectDirPath = "";
@@ -10653,7 +10668,7 @@
 				867580042A58306A0008566A /* TemplatePreview.swift in Sources */,
 				2AB2C22428AD23FD000191F8 /* AlertOpenerProtocol.swift in Sources */,
 				2A0BAD3129E020A3005BC5D9 /* Task+Extensions.swift in Sources */,
-				2A816ACC2AD7E31F00975BCA /* YamlDocumentPicker.swift in Sources */,
+				2A816ACC2AD7E31F00975BCA /* DocumentPicker.swift in Sources */,
 				2A947B422A30E3EC00119140 /* ListWidgetRowModel.swift in Sources */,
 				1256840427E0C606003A8251 /* NewSearchViewModel+ItemCreationMode.swift in Sources */,
 				EAADB1AE2678D5FB004B0AF2 /* NSLayoutManager+Convenience.swift in Sources */,
@@ -11640,6 +11655,7 @@
 				03A24B8C231EC07700DA7369 /* ArrayExtension.swift in Sources */,
 				2A01A4F62A1F9FA1002042FB /* MailToUrl.swift in Sources */,
 				2A3629A7292E2BB200C02EC3 /* ObjectSettingsCoordinatorAssembly.swift in Sources */,
+				2A685D5C2B7B9E1500456E08 /* FileManager+Extension.swift in Sources */,
 				129D78C52694B7E700DA6757 /* ObjectLayoutRow.swift in Sources */,
 				2EF1EE902B276BE2002AD836 /* SyncStatusData.swift in Sources */,
 				C9C536AB276C86DD003CD3F3 /* UIColor+Assets.swift in Sources */,
@@ -12531,6 +12547,14 @@
 				version = 5.0.0;
 			};
 		};
+		2A685D582B7B854200456E08 /* XCRemoteSwiftPackageReference "ZIPFoundation" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/weichsel/ZIPFoundation";
+			requirement = {
+				kind = exactVersion;
+				version = 0.9.18;
+			};
+		};
 		2A6ED16E285B452600AAA21C /* XCRemoteSwiftPackageReference "swift-protobuf" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/apple/swift-protobuf";
@@ -12618,6 +12642,11 @@
 		2A4FFBC0289D1C7E004938DF /* Logger */ = {
 			isa = XCSwiftPackageProductDependency;
 			productName = Logger;
+		};
+		2A685D592B7B855300456E08 /* ZIPFoundation */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 2A685D582B7B854200456E08 /* XCRemoteSwiftPackageReference "ZIPFoundation" */;
+			productName = ZIPFoundation;
 		};
 		2A6ED165285B44DB00AAA21C /* AnytypeCore */ = {
 			isa = XCSwiftPackageProductDependency;

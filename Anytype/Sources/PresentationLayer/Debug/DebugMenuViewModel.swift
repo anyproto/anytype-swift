@@ -2,6 +2,7 @@ import Foundation
 import UIKit
 import AnytypeCore
 import Services
+import ZIPFoundation
 
 @MainActor
 final class DebugMenuViewModel: ObservableObject {
@@ -10,11 +11,27 @@ final class DebugMenuViewModel: ObservableObject {
     @Published var localStoreURL: URL?
     @Published var stackGoroutinesURL: URL?
     @Published var workingDirectoryURL: URL?
+    @Published var showZipPicker = false
     @Published private(set) var flags = [FeatureFlagSection]()
     
-    private let debugService = DebugService()
+    private let debugService: DebugServiceProtocol
+    private let localAuthService: LocalAuthServiceProtocol
+    private let localRepoService: LocalRepoServiceProtocol
+    private let authService: AuthServiceProtocol
+    private let applicationStateService: ApplicationStateServiceProtocol
     
-    init() {
+    init(
+        debugService: DebugServiceProtocol,
+        localAuthService: LocalAuthServiceProtocol,
+        localRepoService: LocalRepoServiceProtocol,
+        authService: AuthServiceProtocol,
+        applicationStateService: ApplicationStateServiceProtocol
+    ) {
+        self.debugService = debugService
+        self.localAuthService = localAuthService
+        self.localRepoService = localRepoService
+        self.authService = authService
+        self.applicationStateService = applicationStateService
         updateFlags()
     }
     
@@ -32,47 +49,49 @@ final class DebugMenuViewModel: ObservableObject {
     }
     
     func getLocalStoreData() {
-        Task { @MainActor in
-            do {
-                let path = try await debugService.exportLocalStore()
-                guard let zipURL = compressFilesToZip(directoryPath: URL(fileURLWithPath: path), zipFileName: "localstore.zip") else {
-                    return
-                }
-                self.localStoreURL = zipURL
-            } catch {
-                anytypeAssertionFailure("Can't export localstore")
-            }
+        Task {
+            try await localAuthService.auth(reason: "Share local store")
+            let path = try await debugService.exportLocalStore()
+            let zipFile = FileManager.default.createTempDirectory().appendingPathComponent("localstore.zip")
+            try FileManager.default.zipItem(at: URL(fileURLWithPath: path), to: zipFile)
+            localStoreURL = zipFile
         }
     }
     
     func getGoroutinesData() {
-        Task { @MainActor in
-            do {
-                let path = try await debugService.exportStackGoroutines()
-                guard let zipURL = compressFilesToZip(directoryPath: URL(fileURLWithPath: path), zipFileName: "stackGoroutines.zip") else {
-                    return
-                }
-                self.stackGoroutinesURL = zipURL
-            } catch {
-                anytypeAssertionFailure("Can't export stackGoroutines")
-            }
+        Task {
+            let path = try await debugService.exportStackGoroutines()
+            let zipFile = FileManager.default.createTempDirectory().appendingPathComponent("stackGoroutines.zip")
+            try FileManager.default.zipItem(at: URL(fileURLWithPath: path), to: zipFile)
+            stackGoroutinesURL = zipFile
         }
     }
     
     func zipWorkingDirectory() {
-        LocalAuthService().auth(reason: "Zip working directory") { [weak self] didComplete in
-            guard didComplete, let self else {
-                return
-            }
-            let workingDirectory = LocalRepoService().middlewareRepoPath
-            guard let zipURL = compressFilesToZip(
-                directoryPath: URL(fileURLWithPath: workingDirectory),
-                zipFileName: "workingDirectory.zip"
-            ) else {
-                return
-            }
-            
-            workingDirectoryURL = zipURL
+        Task {
+            try await localAuthService.auth(reason: "Share working directory")
+            let zipFile = FileManager.default.createTempDirectory().appendingPathComponent("workingDirectory.zip")
+            try FileManager.default.zipItem(at: localRepoService.middlewareRepoURL, to: zipFile)
+            workingDirectoryURL = zipFile
+        }
+    }
+    
+    func unzipWorkingDirectory() {
+        showZipPicker.toggle()
+    }
+    
+    func onSelectUnzipFile(url: URL) {
+        Task {
+            let middlewareTempPath = FileManager.default.createTempDirectory()
+            try FileManager.default.unzipItem(at: url, to: middlewareTempPath)
+            try await authService.logout(removeData: false)
+            applicationStateService.state = .initial
+            let middlewareRepoURL = localRepoService.middlewareRepoURL
+            try? FileManager.default.removeItem(at: middlewareRepoURL)
+            try FileManager.default.moveItem(
+                at: middlewareTempPath.appendingPathComponent(middlewareRepoURL.lastPathComponent),
+                to: middlewareRepoURL
+            )
         }
     }
     
@@ -99,21 +118,4 @@ final class DebugMenuViewModel: ObservableObject {
                 FeatureFlagSection(title: "Debug", rows: debugRows),
             ]
     }
-}
-
-private func compressFilesToZip(directoryPath: URL, zipFileName: String) -> URL? {
-    let coordinator = NSFileCoordinator()
-    var error: NSError? = nil
-    var archiveUrl: URL?
-    coordinator.coordinate(readingItemAt: directoryPath, options: [.forUploading], error: &error) { (zipUrl) in
-        let tmpUrl = try! FileManager.default.url(
-            for: .itemReplacementDirectory,
-            in: .userDomainMask,
-            appropriateFor: zipUrl,
-            create: true
-        ).appendingPathComponent(zipFileName)
-        try! FileManager.default.moveItem(at: zipUrl, to: tmpUrl)
-        archiveUrl = tmpUrl
-    }
-    return archiveUrl
 }

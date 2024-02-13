@@ -367,6 +367,10 @@ final class ServiceLocator {
         ProcessSubscriptionService()
     }
     
+    func debugService() -> DebugServiceProtocol {
+        DebugService()
+    }
+    
     // MARK: - Private
     
     private func subscriptionToggler() -> SubscriptionTogglerProtocol {

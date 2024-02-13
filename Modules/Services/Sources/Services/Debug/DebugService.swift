@@ -1,9 +1,16 @@
 import Foundation
 import ProtobufMessages
 
-public final class DebugService {
+public protocol DebugServiceProtocol: AnyObject {
+    func exportLocalStore() async throws -> String
+    func exportStackGoroutines() async throws -> String
+}
+
+public final class DebugService: DebugServiceProtocol {
     
     public init() {}
+    
+    // MARK: - DebugServiceProtocol
     
     public func exportLocalStore() async throws -> String {
         let tempDirString = try FileManager.default.createTempDirectory()
