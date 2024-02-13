@@ -6,18 +6,18 @@ import AnytypeCore
 
 final class DashboardService: DashboardServiceProtocol {
     
-    private let pageService: PageRepositoryProtocol
+    private let defaultObjectService: DefaultObjectCreationServiceProtocol
     private let objectService: ObjectActionsServiceProtocol
 
-    init(pageService: PageRepositoryProtocol, objectService: ObjectActionsServiceProtocol) {
+    init(defaultObjectService: DefaultObjectCreationServiceProtocol, objectService: ObjectActionsServiceProtocol) {
         self.objectService = objectService
-        self.pageService = pageService
+        self.defaultObjectService = defaultObjectService
     }
     
     // MARK: - DashboardServiceProtocol
     
     func createNewPage(spaceId: String) async throws -> ObjectDetails {
-        let details = try await pageService.createDefaultPage(
+        let details = try await defaultObjectService.createDefaultPage(
             name: "",
             shouldDeleteEmptyObject: true,
             spaceId: spaceId

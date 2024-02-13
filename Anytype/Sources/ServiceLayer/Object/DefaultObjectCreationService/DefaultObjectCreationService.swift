@@ -3,7 +3,7 @@ import SwiftProtobuf
 import Services
 import AnytypeCore
 
-protocol PageRepositoryProtocol: AnyObject {
+protocol DefaultObjectCreationServiceProtocol: AnyObject {
     func createDefaultPage(
         name: String,
         shouldDeleteEmptyObject: Bool,
@@ -12,7 +12,7 @@ protocol PageRepositoryProtocol: AnyObject {
 }
 
 
-final class PageRepository: PageRepositoryProtocol {
+final class DefaultObjectCreationService: DefaultObjectCreationServiceProtocol {
     
     private let objectTypeProvider: ObjectTypeProviderProtocol
     private let objectService: ObjectActionsServiceProtocol
