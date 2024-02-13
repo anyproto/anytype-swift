@@ -47,7 +47,7 @@ final class SoulViewModel: ObservableObject {
     }
     
     func onAppear() {
-        AnytypeAnalytics.instance().logScreenOnboarding(step: .soul)
+        AnytypeAnalytics.instance().logScreenOnboarding(step: .void)
     }
     
     func onNextAction() {

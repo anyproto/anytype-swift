@@ -141,8 +141,10 @@ final class ServiceLocator {
     
     func typesService() -> TypesServiceProtocol {
         return TypesService(
-            searchMiddleService: searchMiddleService(),
-            pinsStorage: pinsStorage()
+            searchMiddleService: searchMiddleService(), 
+            actionsService: objectActionsService(),
+            pinsStorage: pinsStorage(),
+            typeProvider: objectTypeProvider()
         )
     }
     
@@ -151,7 +153,10 @@ final class ServiceLocator {
     }
     
     func pageRepository() -> PageRepositoryProtocol {
-        return PageRepository(objectTypeProvider: objectTypeProvider(), pageService: PageService())
+        return PageRepository(
+            objectTypeProvider: objectTypeProvider(),
+            objectService: objectActionsService()
+        )
     }
         
     func blockWidgetService() -> BlockWidgetServiceProtocol {

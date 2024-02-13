@@ -1,19 +1,26 @@
 import ProtobufMessages
 import SwiftProtobuf
 import Services
+import AnytypeCore
 
 
 final class TypesService: TypesServiceProtocol {
     
     private let searchMiddleService: SearchMiddleServiceProtocol
+    private let actionsService: ObjectActionsServiceProtocol
     private let pinsStorage: TypesPinStorageProtocol
+    private let typeProvider: ObjectTypeProviderProtocol
     
     init(
         searchMiddleService: SearchMiddleServiceProtocol,
-        pinsStorage: TypesPinStorageProtocol
+        actionsService: ObjectActionsServiceProtocol,
+        pinsStorage: TypesPinStorageProtocol,
+        typeProvider: ObjectTypeProviderProtocol
     ) {
         self.searchMiddleService = searchMiddleService
+        self.actionsService = actionsService
         self.pinsStorage = pinsStorage
+        self.typeProvider = typeProvider
     }
     
     func createType(name: String, spaceId: String) async throws -> ObjectType {
@@ -30,6 +37,11 @@ final class TypesService: TypesServiceProtocol {
         
         let objectDetails = try ObjectDetails(protobufStruct: result.details)
         return ObjectType(details: objectDetails)
+    }
+    
+    func deleteType(typeId: String, spaceId: String) async throws {
+        try await actionsService.delete(objectIds: [typeId])
+        try pinsStorage.removePin(typeId: typeId, spaceId: spaceId)
     }
     
     // MARK: - Search
@@ -95,7 +107,9 @@ final class TypesService: TypesServiceProtocol {
             .map { ObjectType(details: $0) }
     }
     
-    func searchLibraryObjectTypes(text: String, excludedIds: [String]) async throws -> [ObjectDetails] {
+    func searchLibraryObjectTypes(text: String, includeInstalledTypes: Bool, spaceId: String) async throws -> [ObjectDetails] {
+        let excludedIds = includeInstalledTypes ? [] : typeProvider.objectTypes(spaceId: spaceId).map(\.sourceObject)
+        
         let sort = SearchHelper.sort(
             relation: BundledRelationKey.name,
             type: .asc
@@ -112,7 +126,15 @@ final class TypesService: TypesServiceProtocol {
     }
     
     func searchPinnedTypes(text: String, spaceId: String) async throws -> [ObjectType] {
-        try pinsStorage.getPins(spaceId: spaceId)
+        let objectTypeIds = typeProvider.objectTypes(spaceId: spaceId)
+            .filter { !$0.isArchived }
+            .filter { !$0.isDeleted }
+            .map { $0.id }
+        
+        return try pinsStorage.getPins(spaceId: spaceId)
+            .filter {
+                objectTypeIds.contains($0.id)
+            }
             .filter {
                 guard text.isNotEmpty else { return true }
                 return $0.name.lowercased().contains(text.lowercased())
@@ -123,7 +145,7 @@ final class TypesService: TypesServiceProtocol {
         try pinsStorage.appendPin(type, spaceId: spaceId)
     }
     
-    func removePinedType(_ type: ObjectType, spaceId: String) throws {
-        try pinsStorage.removePin(type, spaceId: spaceId)
+    func removePinedType(typeId: String, spaceId: String) throws {
+        try pinsStorage.removePin(typeId: typeId, spaceId: spaceId)
     }
 }

@@ -442,6 +442,8 @@ internal enum Loc {
   }
   /// Set
   internal static let `set` = Loc.tr("Localizable", "Set", fallback: "Set")
+  /// Set as default
+  internal static let setAsDefault = Loc.tr("Localizable", "Set as default", fallback: "Set as default")
   /// Sets
   internal static let sets = Loc.tr("Localizable", "Sets", fallback: "Sets")
   /// Setting up encrypted storage
@@ -1554,6 +1556,8 @@ internal enum Loc {
       }
     }
     internal enum Origin {
+      /// Bookmark
+      internal static let bookmark = Loc.tr("Localizable", "Relation.Origin.Bookmark", fallback: "Bookmark")
       /// Library installed
       internal static let builtin = Loc.tr("Localizable", "Relation.Origin.Builtin", fallback: "Library installed")
       /// Clipboard
@@ -2163,6 +2167,14 @@ internal enum Loc {
   internal enum ToggleEmpty {
     /// Toggle empty. Tap to create block.
     internal static let tapToCreateBlock = Loc.tr("Localizable", "Toggle empty. Tap to create block.", fallback: "Toggle empty. Tap to create block.")
+  }
+  internal enum Wallet {
+    internal enum Recovery {
+      internal enum Error {
+        /// Invalid recovery phrase
+        internal static let description = Loc.tr("Localizable", "Wallet.Recovery.Error.description", fallback: "Invalid recovery phrase")
+      }
+    }
   }
   internal enum WidgetExtension {
     internal enum LockScreen {

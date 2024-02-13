@@ -61,8 +61,8 @@ final class GalleryInstallationCoordinatorViewModel: ObservableObject,
                 let spaceId = try await workspaceService.createSpace(name: manifest.title, gradient: .random, accessibility: .personal, useCase: .none)
                 dismiss.toggle()
                 try await galleryService.importExperience(spaceId: spaceId, isNewSpace: true, title: manifest.title, url: manifest.downloadLink)
-
             }
+            AnytypeAnalytics.instance().logGalleryInstall(name: manifest.title)
         }
     }
 }

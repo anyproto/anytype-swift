@@ -23,7 +23,7 @@ extension ObjectTypeSearchViewModel {
     
     struct ObjectTypeData {
         let type: ObjectType
-        let isHighlighted: Bool
+        let isDefault: Bool
     }
     
     struct SectionData: Identifiable {

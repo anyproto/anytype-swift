@@ -5,6 +5,7 @@ import AnytypeCore
 public protocol WorkspaceServiceProtocol {
     func installObjects(spaceId: String, objectIds: [String]) async throws -> [String]
     func installObject(spaceId: String, objectId: String) async throws -> ObjectDetails
+    
     func createSpace(name: String, gradient: GradientId, accessibility: SpaceAccessibility, useCase: UseCase) async throws -> String
     func workspaceOpen(spaceId: String) async throws -> AccountInfo
     func workspaceSetDetails(spaceId: String, details: [WorkspaceSetDetails]) async throws

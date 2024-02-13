@@ -109,9 +109,9 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>d</string>
         <key>one</key>
-        <string>File Object</string>
+        <string>Fil-objekt</string>
         <key>other</key>
-        <string>%d File Objects</string>
+        <string>%d filobjekter</string>
       </dict>
     </dict>
     <key>Sharing.File.Block</key>
@@ -125,9 +125,9 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>d</string>
         <key>one</key>
-        <string>File Block</string>
+        <string>Fil-blokk</string>
         <key>other</key>
-        <string>%d File Blocks</string>
+        <string>%d fil-blokker</string>
       </dict>
     </dict>
     <key>Sharing.URL.NewObject</key>
@@ -141,9 +141,9 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>d</string>
         <key>one</key>
-        <string>Bookmark Object</string>
+        <string>Bokmerkeobjekt</string>
         <key>other</key>
-        <string>%d Bookmark Objects</string>
+        <string>%d bokmerkeobjekter</string>
       </dict>
     </dict>
     <key>Sharing.URL.Block</key>
@@ -157,9 +157,9 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>d</string>
         <key>one</key>
-        <string>Link Block</string>
+        <string>Lenke blokk</string>
         <key>other</key>
-        <string>Link %d Blocks</string>
+        <string>Lenke %d blokker</string>
       </dict>
     </dict>
   </dict>
