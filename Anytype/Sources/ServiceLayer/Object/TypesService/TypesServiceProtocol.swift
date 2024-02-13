@@ -1,7 +1,12 @@
 import Services
 
+enum TypesServiceError: Error {
+    case deletingReadonlyType
+}
+
 protocol TypesServiceProtocol {
     func createType(name: String, spaceId: String) async throws -> ObjectType
+    func deleteType(typeId: String, spaceId: String) async throws
     
     func searchObjectTypes(
         text: String,
@@ -19,7 +24,8 @@ protocol TypesServiceProtocol {
     
     func searchLibraryObjectTypes(
         text: String,
-        excludedIds: [String]
+        includeInstalledTypes: Bool,
+        spaceId: String
     ) async throws -> [ObjectDetails]
     
     func searchPinnedTypes(
@@ -28,5 +34,5 @@ protocol TypesServiceProtocol {
     ) async throws -> [ObjectType]
     
     func addPinedType(_ type: ObjectType, spaceId: String) throws
-    func removePinedType(_ type: ObjectType, spaceId: String) throws
+    func removePinedType(typeId: String, spaceId: String) throws
 }

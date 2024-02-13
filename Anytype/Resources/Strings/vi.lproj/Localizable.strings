@@ -88,9 +88,12 @@
 "Relation.Create.Textfield.placeholder" = "Enter name...";
 "Relation.Edit.Button.title" = "Áp dụng";
 "Relation.Date.Locked.Alert.title" = "Relation “%@” is locked";
+"Relation.ObjectTypes.Header.title" = "Object types:";
+"Relation.ObjectType.Header.title" = "Object type:";
 
 "Relation.Delete.Alert.Title" = "Bạn chắc chưa?";
 "Relation.Delete.Alert.Description" = "The option will be permanently removed from your space.";
+"Relation.Object.Delete.Alert.Description" = "The object will be moved to Bin.";
 
 "Relation.Format.Object.Title" = "Đối tượng";
 "Relation.Format.Text.Title" = "Văn bản";
@@ -113,6 +116,7 @@
 "Relation.Origin.SharingExtension" = "Mobile sharing extension";
 "Relation.Origin.UseCase" = "Use case";
 "Relation.Origin.Builtin" = "Library installed";
+"Relation.Origin.Bookmark" = "Dấu trang";
 
 // MARK: - Mention
 "Mention.Subtitle.Placeholder" = "Đối tượng";
@@ -132,6 +136,7 @@
 "Relations" = "Các liên hệ";
 "Objects" = "Các đối tượng";
 "Lists" = "Lists";
+"Pinned" = "Pinned";
 "Delete" = "Xoá";
 "Duplicate" = "Nhân đôi";
 "Copy" = "Chép";
@@ -141,6 +146,8 @@
 "Move" = "Di chuyển";
 "Move to" = "Di chuyển đến";
 "Back" = "Quay lại";
+"Unpin" = "Unpin";
+"Pin on top" = "Pin on top";
 "File block subtitle" = "Lưu tập tin ở trạng thái gốc";
 "Picture block subtitle" = "Tải lên và làm trang sống động bằng ảnh";
 "Video block subtitle" = "Tải lên video chạy được";
@@ -223,6 +230,7 @@
 "Error creating wallet" = "Error creating wallet";
 "Error select account" = "Error select account";
 "Error wallet recover account" = "Error wallet recover account";
+"Wallet.Recovery.Error.description" = "Invalid recovery phrase";
 
 "Search for language" = "Search for language";
 
@@ -355,6 +363,7 @@
 "Templates.Popup.Default" = "The template was set as default";
 
 "To Bin" = "To Bin";
+"Set as default" = "Set as default";
 
 // MARK: - Context Menu
 "Remove From Favorite" = "Bỏ khỏi mục Ưa thích";
@@ -897,6 +906,9 @@
 "Error.AnytypeNeedsUpgrate.Message" = "This object was modified in a newer version of Anytype. Please update the app to open it on this device";
 "Error.AnytypeNeedsUpgrate.Confirm" = "Update";
 "Error.UnableToConnect" = "Please connect to the internet";
+"Error.Common.Title" = "Oops!";
+"Error.Common.Message" = "Please check your internet connection and try again or post a report on forum.";
+"Error.Common.TryAgain" = "Try again";
 
 // MARK: - Relative date formatter
 "RelativeFormatter.days7" = "Previous 7 days";
@@ -916,6 +928,9 @@
 "Gallery.Author" = "Made by @%@";
 "Gallery.Install" = "Install";
 "Gallery.InstallToNew" = "Install to new space";
+"Gallery.Notification.Success" = "Experience was successfully installed to the \"%@\" space. You can now open and start using it.";
+"Gallery.Notification.Button" = "Go to space";
+"Gallery.Notification.Error" = "Oops! \"%@\" wasn't installed. Please check your internet connection and try again or post a report on forum.";
 
 // MARK: - Debug
 "Debug.MimeTypes" = "Mime Types - %@";

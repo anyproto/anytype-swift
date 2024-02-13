@@ -32,17 +32,13 @@ final class ObjectTypeSearchModuleAssembly: ObjectTypeSearchModuleAssemblyProtoc
         onSelect: @escaping (_ type: ObjectType) -> Void
     ) -> AnyView {
         if FeatureFlags.newTypePicker {
-            let interactor = ObjectTypeSearchInteractor(
-                spaceId: spaceId,
-                workspaceService: serviceLocator.workspaceService(),
-                typesService: serviceLocator.typesService(),
-                objectTypeProvider: serviceLocator.objectTypeProvider()
-            )
-            
             let model = ObjectTypeSearchViewModel(
                 showPins: showPins,
                 showLists: showLists,
-                interactor: interactor,
+                spaceId: spaceId,
+                workspaceService: serviceLocator.workspaceService(),
+                typesService: serviceLocator.typesService(),
+                objectTypeProvider: serviceLocator.objectTypeProvider(),
                 toastPresenter: uiHelpersDI.toastPresenter(),
                 onSelect: onSelect
             )

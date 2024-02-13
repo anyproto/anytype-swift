@@ -125,7 +125,7 @@ final class AccessoryViewStateManagerImpl: AccessoryViewStateManager, CursorMode
     
     private func displaySlashOrMentionIfNeeded() {
         guard let textView = data?.textView else { return }
-        guard let data = data, data.info.content.type != .text(.title) else { return }
+        guard let data, isAvailableBlockContentType(data) else { return }
         guard let textBeforeCaret = textView.textBeforeCaret else { return }
         guard let caretPosition = textView.caretPosition else { return }
         
@@ -141,5 +141,9 @@ final class AccessoryViewStateManagerImpl: AccessoryViewStateManager, CursorMode
         }
         
         triggerSymbolPosition = textView.caretPosition
+    }
+    
+    private func isAvailableBlockContentType(_ data: TextBlockDelegateData) -> Bool {
+        data.info.content.type != .text(.title) && data.info.content.type != .text(.description)
     }
 }

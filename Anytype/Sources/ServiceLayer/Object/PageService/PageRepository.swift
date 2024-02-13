@@ -40,12 +40,14 @@ extension PageRepositoryProtocol {
 final class PageRepository: PageRepositoryProtocol {
     
     private let objectTypeProvider: ObjectTypeProviderProtocol
-    private let pageService: PageServiceProtocol
+    private let objectService: ObjectActionsServiceProtocol
     
-    init(objectTypeProvider: ObjectTypeProviderProtocol,
-         pageService: PageServiceProtocol) {
+    init(
+        objectTypeProvider: ObjectTypeProviderProtocol,
+        objectService: ObjectActionsServiceProtocol
+    ) {
         self.objectTypeProvider = objectTypeProvider
-        self.pageService = pageService
+        self.objectService = objectService
     }
     
     func createPage(
@@ -58,7 +60,7 @@ final class PageRepository: PageRepositoryProtocol {
         origin: ObjectOrigin,
         templateId: String? = nil
     ) async throws -> ObjectDetails {
-        try await pageService.createPage(
+        try await objectService.createObject(
             name: name,
             typeUniqueKey: typeUniqueKey,
             shouldDeleteEmptyObject: shouldDeleteEmptyObject,
@@ -76,7 +78,7 @@ final class PageRepository: PageRepositoryProtocol {
         spaceId: String
     ) async throws -> ObjectDetails {
         let defaultObjectType = try objectTypeProvider.defaultObjectType(spaceId: spaceId)
-        return try await pageService.createPage(
+        return try await objectService.createObject(
             name: name,
             typeUniqueKey: defaultObjectType.uniqueKey,
             shouldDeleteEmptyObject: shouldDeleteEmptyObject,

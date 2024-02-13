@@ -194,21 +194,23 @@ extension AnytypeAnalytics {
     }
     
     // MARK: - Collection
-    func logScreenCollection() {
+    func logScreenCollection(with type: String) {
         logEvent(
             AnalyticsEventsName.screenCollection,
             withEventProperties: [
-                AnalyticsEventsPropertiesKey.embedType: AnalyticsEventsSetCollectionEmbedType.object
+                AnalyticsEventsPropertiesKey.embedType: AnalyticsEventsSetCollectionEmbedType.object,
+                AnalyticsEventsPropertiesKey.type: type
             ]
         )
     }
     
     // MARK: - Set
-    func logScreenSet() {
+    func logScreenSet(with type: String) {
         logEvent(
             AnalyticsEventsName.screenSet,
             withEventProperties: [
-                AnalyticsEventsPropertiesKey.embedType: AnalyticsEventsSetCollectionEmbedType.object
+                AnalyticsEventsPropertiesKey.embedType: AnalyticsEventsSetCollectionEmbedType.object,
+                AnalyticsEventsPropertiesKey.type: type
             ]
         )
     }
@@ -761,4 +763,30 @@ extension AnytypeAnalytics {
     func logUploadNetworkConfiguration() {
         logEvent(AnalyticsEventsName.uploadNetworkConfiguration)
     }
+    
+    func logScreenGalleryInstall(name: String) {
+        logEvent(
+            AnalyticsEventsName.screenGalleryInstall,
+            withEventProperties: [AnalyticsEventsPropertiesKey.name: name]
+        )
+    }
+    
+    func logClickGalleryInstall() {
+        logEvent(AnalyticsEventsName.clickGalleryInstall)
+    }
+    
+    func logClickGalleryInstallSpace(type: ClickGalleryInstallSpaceType) {
+        logEvent(
+            AnalyticsEventsName.clickGalleryInstallSpace,
+            withEventProperties: [AnalyticsEventsPropertiesKey.type: type.rawValue]
+        )
+    }
+    
+    func logGalleryInstall(name: String) {
+        logEvent(
+            AnalyticsEventsName.galleryInstall,
+            withEventProperties: [AnalyticsEventsPropertiesKey.name: name]
+        )
+    }
+    
 }

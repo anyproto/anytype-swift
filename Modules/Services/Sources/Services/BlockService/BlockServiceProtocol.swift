@@ -18,4 +18,15 @@ public protocol BlockServiceProtocol: AnyObject {
     func changeMarkup(objectId: BlockId, blockIds: [BlockId], markType: MarkupType) async throws
     
     func lastBlockId(from objectId: BlockId) async throws -> BlockId
+    
+    func convertChildrenToPages(contextId: BlockId, blocksIds: [BlockId], typeUniqueKey: ObjectTypeUniqueKey) async throws -> [BlockId]
+    func createBlockLink(
+        contextId: BlockId,
+        targetId: BlockId,
+        spaceId: String,
+        details: [BundledDetails],
+        typeUniqueKey: ObjectTypeUniqueKey,
+        position: BlockPosition,
+        templateId: String
+    ) async throws -> BlockId
 }

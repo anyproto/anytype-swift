@@ -88,9 +88,12 @@
 "Relation.Create.Textfield.placeholder" = "Inserir nome...";
 "Relation.Edit.Button.title" = "Aplicar";
 "Relation.Date.Locked.Alert.title" = "Relação “%@” está bloqueada";
+"Relation.ObjectTypes.Header.title" = "Tipos de objeto:";
+"Relation.ObjectType.Header.title" = "Tipo de Objeto:";
 
 "Relation.Delete.Alert.Title" = "Você tem certeza?";
 "Relation.Delete.Alert.Description" = "A opção será removida permanentemente do seu espaço.";
+"Relation.Object.Delete.Alert.Description" = "O objeto será movido para o Lixo.";
 
 "Relation.Format.Object.Title" = "Objeto";
 "Relation.Format.Text.Title" = "Texto";
@@ -113,6 +116,7 @@
 "Relation.Origin.SharingExtension" = "Extensão de compartilhamento móvel";
 "Relation.Origin.UseCase" = "Caso de uso";
 "Relation.Origin.Builtin" = "Biblioteca instalada";
+"Relation.Origin.Bookmark" = "Marcador";
 
 // MARK: - Mention
 "Mention.Subtitle.Placeholder" = "Objeto";
@@ -132,6 +136,7 @@
 "Relations" = "Relações";
 "Objects" = "Objetos";
 "Lists" = "Groups";
+"Pinned" = "Fixado";
 "Delete" = "Excluir";
 "Duplicate" = "Duplicar";
 "Copy" = "Copiar";
@@ -141,6 +146,8 @@
 "Move" = "Mover";
 "Move to" = "Mover para";
 "Back" = "Voltar";
+"Unpin" = "Desafixar";
+"Pin on top" = "Fixar no topo";
 "File block subtitle" = "Armazenar arquivo no estado original";
 "Picture block subtitle" = "Enviar e enriquecer a página com imagem";
 "Video block subtitle" = "Enviar vídeo";
@@ -222,6 +229,7 @@
 "Error creating wallet" = "Erro na criação da carteira";
 "Error select account" = "Erro ao selecionar conta";
 "Error wallet recover account" = "Erro ao recuperar conta da carteira";
+"Wallet.Recovery.Error.description" = "Frase de recuperação inválida";
 
 "Search for language" = "Pesquisar idioma";
 
@@ -354,6 +362,7 @@
 "Templates.Popup.Default" = "O modelo foi definido como padrão";
 
 "To Bin" = "Para Lixeira";
+"Set as default" = "Definir como padrão";
 
 // MARK: - Context Menu
 "Remove From Favorite" = "Remover dos Favoritos";
@@ -867,8 +876,8 @@
 "Sharing.LinkTo" = "Vincular a";
 
 "Sharing.Text.NoteObject" = "Objeto nota";
-"Sharing.Text.TextBlock" = "Blocks";
-"Sharing.Any.Block" = "Blocks";
+"Sharing.Text.TextBlock" = "Blocos";
+"Sharing.Any.Block" = "Blocos";
 
 // MARK: - Sharing tips
 "Sharing.Tip.Title" = "Compartilhar extensão";
@@ -896,6 +905,9 @@
 "Error.AnytypeNeedsUpgrate.Message" = "Este objeto foi atualizado em uma nova versão do Anytype. Por favor, atualize o aplicativo para abri-lo neste dispositivo";
 "Error.AnytypeNeedsUpgrate.Confirm" = "Atualização";
 "Error.UnableToConnect" = "Por favor, conecte-se à internet";
+"Error.Common.Title" = "Oops!";
+"Error.Common.Message" = "Please check your internet connection and try again or post a report on forum.";
+"Error.Common.TryAgain" = "Try again";
 
 // MARK: - Relative date formatter
 "RelativeFormatter.days7" = "Últimos 7 dias";
@@ -915,7 +927,10 @@
 "Gallery.Author" = "Made by @%@";
 "Gallery.Install" = "Install";
 "Gallery.InstallToNew" = "Install to new space";
+"Gallery.Notification.Success" = "Experience was successfully installed to the \"%@\" space. You can now open and start using it.";
+"Gallery.Notification.Button" = "Go to space";
+"Gallery.Notification.Error" = "Oops! \"%@\" wasn't installed. Please check your internet connection and try again or post a report on forum.";
 
 // MARK: - Debug
-"Debug.MimeTypes" = "Mime Types - %@";
-"Debug.Info" = "Debug Info";
+"Debug.MimeTypes" = "Tipos de MIME - %@";
+"Debug.Info" = "Informações de Depuração";
