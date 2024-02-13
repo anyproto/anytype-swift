@@ -153,7 +153,10 @@ final class ServiceLocator {
     }
     
     func pageRepository() -> PageRepositoryProtocol {
-        return PageRepository(objectTypeProvider: objectTypeProvider(), pageService: PageService())
+        return PageRepository(
+            objectTypeProvider: objectTypeProvider(),
+            objectService: objectActionsService()
+        )
     }
         
     func blockWidgetService() -> BlockWidgetServiceProtocol {

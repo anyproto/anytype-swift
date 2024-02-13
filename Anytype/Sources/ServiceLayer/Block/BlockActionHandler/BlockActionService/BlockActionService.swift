@@ -88,7 +88,7 @@ final class BlockActionService: BlockActionServiceProtocol {
     }
 
     func createPage(targetId: BlockId, spaceId: String, typeUniqueKey: ObjectTypeUniqueKey, position: BlockPosition, templateId: String) async throws -> BlockId {
-        try await objectActionService.createPage(
+        try await blockService.createBlockLink(
             contextId: documentId,
             targetId: targetId,
             spaceId: spaceId,
@@ -109,8 +109,8 @@ final class BlockActionService: BlockActionServiceProtocol {
         let pageType = try objectTypeProvider.objectType(uniqueKey: .page, spaceId: spaceId)
         AnytypeAnalytics.instance().logCreateObject(objectType: pageType.analyticsType, route: .turnInto)
 
-        return try await objectActionService.convertChildrenToPages(
-            contextID: documentId,
+        return try await blockService.convertChildrenToPages(
+            contextId: documentId,
             blocksIds: [blockId],
             typeUniqueKey: pageType.uniqueKey
         ).first
