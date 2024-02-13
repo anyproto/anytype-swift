@@ -63,7 +63,7 @@ final class FavoriteWidgetInternalViewModel: CommonWidgetInternalViewModel, Widg
     
     func onCreateObjectTap() {
         Task {
-            let details = try await defaultObjectService.createDefaultPage(name: "", shouldDeleteEmptyObject: true, spaceId: widgetObject.spaceId)
+            let details = try await defaultObjectService.createDefaultObject(name: "", shouldDeleteEmptyObject: true, spaceId: widgetObject.spaceId)
             AnytypeAnalytics.instance().logCreateObject(objectType: details.analyticsType, route: .widget)
             AnytypeAnalytics.instance().logAddToFavorites(true)
             try await objectActionsService.setFavorite(objectIds: [details.id], true)

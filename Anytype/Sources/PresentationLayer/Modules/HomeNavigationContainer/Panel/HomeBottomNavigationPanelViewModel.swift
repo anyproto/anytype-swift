@@ -92,7 +92,7 @@ final class HomeBottomNavigationPanelViewModel: ObservableObject {
     
     private func handleCreateObject() {
         Task { @MainActor in
-            guard let details = try? await defaultObjectService.createDefaultPage(name: "", shouldDeleteEmptyObject: true, spaceId: activeWorkpaceStorage.workspaceInfo.accountSpaceId) else { return }
+            guard let details = try? await defaultObjectService.createDefaultObject(name: "", shouldDeleteEmptyObject: true, spaceId: activeWorkpaceStorage.workspaceInfo.accountSpaceId) else { return }
             AnytypeAnalytics.instance().logCreateObject(objectType: details.analyticsType, route: .navigation, view: .home)
             
             output?.onCreateObjectSelected(screenData: details.editorScreenData())

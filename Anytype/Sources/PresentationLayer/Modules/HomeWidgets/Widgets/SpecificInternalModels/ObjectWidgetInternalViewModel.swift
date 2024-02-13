@@ -93,7 +93,7 @@ final class ObjectWidgetInternalViewModel: CommonWidgetInternalViewModel, Widget
             try await document.openForPreview()
             guard let lastBlockId = document.children.last?.id else { return }
                   
-            let details = try await defaultObjectService.createDefaultPage(name: "", shouldDeleteEmptyObject: true, spaceId: widgetObject.spaceId)
+            let details = try await defaultObjectService.createDefaultObject(name: "", shouldDeleteEmptyObject: true, spaceId: widgetObject.spaceId)
             AnytypeAnalytics.instance().logCreateObject(objectType: details.analyticsType, route: .widget)
             let info = BlockInformation.emptyLink(targetId: details.id)
             let _ = try await self.blockService.add(

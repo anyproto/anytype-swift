@@ -4,7 +4,7 @@ import Services
 import AnytypeCore
 
 protocol DefaultObjectCreationServiceProtocol: AnyObject {
-    func createDefaultPage(
+    func createDefaultObject(
         name: String,
         shouldDeleteEmptyObject: Bool,
         spaceId: String
@@ -25,7 +25,7 @@ final class DefaultObjectCreationService: DefaultObjectCreationServiceProtocol {
         self.objectService = objectService
     }
     
-    func createDefaultPage(
+    func createDefaultObject(
         name: String,
         shouldDeleteEmptyObject: Bool,
         spaceId: String

@@ -48,7 +48,7 @@ final class MentionsViewModel {
     
     func didSelectCreateNewMention() {
         Task { @MainActor in
-            guard let newBlockDetails = try? await defaultObjectService.createDefaultPage(name: searchString, shouldDeleteEmptyObject: false, spaceId: document.spaceId) else { return }
+            guard let newBlockDetails = try? await defaultObjectService.createDefaultObject(name: searchString, shouldDeleteEmptyObject: false, spaceId: document.spaceId) else { return }
             
             AnytypeAnalytics.instance().logCreateObject(objectType: newBlockDetails.analyticsType, route: .mention)
             let name = searchString.isEmpty ? Loc.Object.Title.placeholder : searchString
