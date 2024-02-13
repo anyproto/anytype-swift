@@ -85,4 +85,14 @@ final class BlockServiceMock: BlockServiceProtocol {
     func move(contextId: String, blockIds: [String], targetContextID: Services.BlockId, dropTargetID: String, position: Services.BlockPosition) async throws {
         assertionFailure()
     }
+    
+    func convertChildrenToPages(contextId: Services.BlockId, blocksIds: [Services.BlockId], typeUniqueKey: Services.ObjectTypeUniqueKey) async throws -> [Services.BlockId] {
+        assertionFailure()
+        return []
+    }
+    
+    func createBlockLink(contextId: Services.BlockId, targetId: Services.BlockId, spaceId: String, details: [Services.BundledDetails], typeUniqueKey: Services.ObjectTypeUniqueKey, position: Services.BlockPosition, templateId: String) async throws -> Services.BlockId {
+        assertionFailure()
+        return ""
+    }
 }
