@@ -62,13 +62,6 @@ final class ServiceLocator {
         return _loginStateService
     }
     
-    func dashboardService() -> DashboardServiceProtocol {
-        DashboardService(
-            defaultObjectService: defaultObjectCreationService(),
-            objectService: objectActionsService()
-        )
-    }
-    
     func objectLifecycleService() -> ObjectLifecycleServiceProtocol {
         ObjectLifecycleService()
     }

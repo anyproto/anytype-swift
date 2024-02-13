@@ -18,7 +18,8 @@ final class HomeCoordinatorViewModel: ObservableObject,
     private let createWidgetCoordinatorAssembly: CreateWidgetCoordinatorAssemblyProtocol
     private let searchModuleAssembly: SearchModuleAssemblyProtocol
     private let newSearchModuleAssembly: NewSearchModuleAssemblyProtocol
-    private let dashboardService: DashboardServiceProtocol
+    private let objectActionsService: ObjectActionsServiceProtocol
+    private let defaultObjectService: DefaultObjectCreationServiceProtocol
     private let appActionsStorage: AppActionStorage
     private let widgetTypeModuleAssembly: WidgetTypeModuleAssemblyProtocol
     private let spaceSwitchCoordinatorAssembly: SpaceSwitchCoordinatorAssemblyProtocol
@@ -78,7 +79,8 @@ final class HomeCoordinatorViewModel: ObservableObject,
         createWidgetCoordinatorAssembly: CreateWidgetCoordinatorAssemblyProtocol,
         searchModuleAssembly: SearchModuleAssemblyProtocol,
         newSearchModuleAssembly: NewSearchModuleAssemblyProtocol,
-        dashboardService: DashboardServiceProtocol,
+        objectActionsService: ObjectActionsServiceProtocol,
+        defaultObjectService: DefaultObjectCreationServiceProtocol,
         appActionsStorage: AppActionStorage,
         widgetTypeModuleAssembly: WidgetTypeModuleAssemblyProtocol,
         spaceSwitchCoordinatorAssembly: SpaceSwitchCoordinatorAssemblyProtocol,
@@ -100,7 +102,8 @@ final class HomeCoordinatorViewModel: ObservableObject,
         self.createWidgetCoordinatorAssembly = createWidgetCoordinatorAssembly
         self.searchModuleAssembly = searchModuleAssembly
         self.newSearchModuleAssembly = newSearchModuleAssembly
-        self.dashboardService = dashboardService
+        self.objectActionsService = objectActionsService
+        self.defaultObjectService = defaultObjectService
         self.appActionsStorage = appActionsStorage
         self.widgetTypeModuleAssembly = widgetTypeModuleAssembly
         self.spaceSwitchCoordinatorAssembly = spaceSwitchCoordinatorAssembly
@@ -320,7 +323,7 @@ final class HomeCoordinatorViewModel: ObservableObject,
     
     private func createAndShowNewPage() {
         Task {
-            let details = try await dashboardService.createNewPage(spaceId: activeWorkspaceStorage.workspaceInfo.accountSpaceId)
+            let details = try await defaultObjectService.createDefaultObject(name: "", shouldDeleteEmptyObject: true, spaceId: activeWorkspaceStorage.workspaceInfo.accountSpaceId)
             AnytypeAnalytics.instance().logCreateObject(objectType: details.analyticsType, route: .navigation, view: .home)
             openObject(screenData: details.editorScreenData())
         }
@@ -328,11 +331,17 @@ final class HomeCoordinatorViewModel: ObservableObject,
 
     private func createAndShowNewPage(type: ObjectType) {
         Task {
-            let details = try await dashboardService.createNewPage(
-                spaceId: activeWorkspaceStorage.workspaceInfo.accountSpaceId,
+            let details = try await objectActionsService.createObject(
+                name: "",
                 typeUniqueKey: type.uniqueKey,
+                shouldDeleteEmptyObject: true,
+                shouldSelectType: false,
+                shouldSelectTemplate: true,
+                spaceId: activeWorkspaceStorage.workspaceInfo.accountSpaceId,
+                origin: .none,
                 templateId: type.defaultTemplateId
             )
+
             AnytypeAnalytics.instance().logCreateObject(objectType: details.analyticsType, route: .navigation, view: .home)
             AnytypeAnalytics.instance().logSelectObjectType(type.analyticsType, route: .longTap)
             openObject(screenData: details.editorScreenData())

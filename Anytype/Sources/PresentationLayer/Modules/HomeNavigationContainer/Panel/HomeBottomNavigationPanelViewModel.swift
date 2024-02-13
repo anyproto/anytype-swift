@@ -12,7 +12,7 @@ final class HomeBottomNavigationPanelViewModel: ObservableObject {
     
     private let activeWorkpaceStorage: ActiveWorkpaceStorageProtocol
     private let subscriptionService: SingleObjectSubscriptionServiceProtocol
-    private let dashboardService: DashboardServiceProtocol
+    private let defaultObjectService: DefaultObjectCreationServiceProtocol
     private var processSubscriptionService: ProcessSubscriptionServiceProtocol
     private weak var output: HomeBottomNavigationPanelModuleOutput?
     private let subId = "HomeBottomNavigationProfile-\(UUID().uuidString)"
@@ -29,13 +29,13 @@ final class HomeBottomNavigationPanelViewModel: ObservableObject {
     init(
         activeWorkpaceStorage: ActiveWorkpaceStorageProtocol,
         subscriptionService: SingleObjectSubscriptionServiceProtocol,
-        dashboardService: DashboardServiceProtocol,
+        defaultObjectService: DefaultObjectCreationServiceProtocol,
         processSubscriptionService: ProcessSubscriptionServiceProtocol,
         output: HomeBottomNavigationPanelModuleOutput?
     ) {
         self.activeWorkpaceStorage = activeWorkpaceStorage
         self.subscriptionService = subscriptionService
-        self.dashboardService = dashboardService
+        self.defaultObjectService = defaultObjectService
         self.processSubscriptionService = processSubscriptionService
         self.output = output
         setupDataSubscription()
@@ -92,7 +92,7 @@ final class HomeBottomNavigationPanelViewModel: ObservableObject {
     
     private func handleCreateObject() {
         Task { @MainActor in
-            guard let details = try? await dashboardService.createNewPage(spaceId: activeWorkpaceStorage.workspaceInfo.accountSpaceId) else { return }
+            guard let details = try? await defaultObjectService.createDefaultObject(name: "", shouldDeleteEmptyObject: true, spaceId: activeWorkpaceStorage.workspaceInfo.accountSpaceId) else { return }
             AnytypeAnalytics.instance().logCreateObject(objectType: details.analyticsType, route: .navigation, view: .home)
             
             output?.onCreateObjectSelected(screenData: details.editorScreenData())
