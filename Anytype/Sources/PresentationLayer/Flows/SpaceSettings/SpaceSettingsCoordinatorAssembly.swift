@@ -11,15 +11,18 @@ final class SpaceSettingsCoordinatorAssembly: SpaceSettingsCoordinatorAssemblyPr
     private let modulesDI: ModulesDIProtocol
     private let serviceLocator: ServiceLocator
     private let uiHelpersDI: UIHelpersDIProtocol
+    private let coordinatorsDI: CoordinatorsDIProtocol
     
     init(
         modulesDI: ModulesDIProtocol,
         serviceLocator: ServiceLocator,
-        uiHelpersDI: UIHelpersDIProtocol
+        uiHelpersDI: UIHelpersDIProtocol,
+        coordinatorsDI: CoordinatorsDIProtocol
     ) {
         self.modulesDI = modulesDI
         self.serviceLocator = serviceLocator
         self.uiHelpersDI = uiHelpersDI
+        self.coordinatorsDI = coordinatorsDI
     }
     
     // MARK: - SpaceSettingsCoordinatorAssemblyProtocol
@@ -38,6 +41,7 @@ final class SpaceSettingsCoordinatorAssembly: SpaceSettingsCoordinatorAssemblyPr
                 newSearchModuleAssembly: self.modulesDI.newSearch(),
                 objectTypeSearchModuleAssembly: self.modulesDI.objectTypeSearch(),
                 wallpaperPickerModuleAssembly: self.modulesDI.wallpaperPicker(),
+                spaceShareCoordinatorAssembly: self.coordinatorsDI.spaceShare(),
                 objectTypeProvider: self.serviceLocator.objectTypeProvider(),
                 urlOpener: self.uiHelpersDI.urlOpener(),
                 documentService: self.serviceLocator.documentService()

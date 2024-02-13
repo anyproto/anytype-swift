@@ -11,6 +11,7 @@ enum URLConstants {
     static let sharingExtenstionURL = URL(string: urlScheme + "sharing-extension")
     static let spaceSelectionURL = URL(string: urlScheme + "space-selection")
     static let galleryImportURL = URL(string: urlScheme + "main/import")
+    static let inviteURL = URL(string: urlScheme + "invite")
 }
 
 enum AppLinks {

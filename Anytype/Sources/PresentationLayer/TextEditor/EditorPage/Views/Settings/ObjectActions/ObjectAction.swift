@@ -42,7 +42,7 @@ enum ObjectAction: Hashable, Identifiable {
             allCases.append(.archive(isArchived: details.isArchived))
         }
         
-        if details.isVisibleLayout, !details.isTemplateType {
+        if details.isVisibleLayout, !details.isTemplateType, details.layoutValue != .participant {
             allCases.append(.createWidget)
         }
 
@@ -52,7 +52,7 @@ enum ObjectAction: Hashable, Identifiable {
             allCases.append(.duplicate)
         }
 
-        if details.layoutValue != .set && details.layoutValue != .collection {
+        if details.layoutValue != .set && details.layoutValue != .collection && details.layoutValue != .participant {
             allCases.append(.undoRedo)
             
             if details.canMakeTemplate && !objectRestrictions.objectRestriction.contains(.template) {

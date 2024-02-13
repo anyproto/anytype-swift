@@ -11,6 +11,8 @@ public enum SpaceStatus {
     case remoteWaitingDeletion
     case remoteDeleted
     case spaceDeleted
+    case spaceActive
+    case spaceJoining
 }
 
 public extension SpaceStatus {
@@ -32,6 +34,10 @@ public extension SpaceStatus {
             self = .remoteDeleted
         case .spaceDeleted:
             self = .spaceDeleted
+        case .spaceActive:
+            self = .spaceActive
+        case .spaceJoining:
+            self = .spaceJoining
         case .UNRECOGNIZED(let value):
             anytypeAssertionFailure("UNRECOGNIZED Anytype_Model_SpaceStatus", info: ["status": "\(value)"])
             throw CommonConvertError.requiredFieldIsMissing
@@ -58,6 +64,10 @@ public extension SpaceStatus {
             return .remoteDeleted
         case .spaceDeleted:
             return .spaceDeleted
+        case .spaceActive:
+            return .spaceActive
+        case .spaceJoining:
+            return .spaceJoining
         }
     }
 }

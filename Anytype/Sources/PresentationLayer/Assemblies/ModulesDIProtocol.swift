@@ -70,4 +70,5 @@ protocol ModulesDIProtocol: AnyObject {
     func gallerySpaceSelectionModuleAssembly() -> GallerySpaceSelectionModuleAssemblyProtocol
     func commonNotification() -> CommonNotificationAssemblyProtocol
     func galleryNotification() -> GalleryNotificationAssemblyProtocol
+    func spareShare() -> SpaceShareModuleAssemblyProtocol
 }

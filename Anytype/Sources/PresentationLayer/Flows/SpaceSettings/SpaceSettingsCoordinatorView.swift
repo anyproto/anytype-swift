@@ -17,6 +17,9 @@ struct SpaceSettingsCoordinatorView: View {
                     model.wallpaperModule()
                 }
         }
+        .sheet(isPresented: $model.showSpaceShare) {
+            model.spaceShareModule()
+        }
         .onChange(of: model.dismiss) { _ in
             dismiss()
         }
