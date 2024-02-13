@@ -565,7 +565,7 @@
 "On analytics" = "On analytics";
 "Select account error" = "Erreur de sélection du compte";
 "Account deleted" = "Compte supprimé";
-"Account.Select.Incompatible.Version.Error.Text" = "Unable to retrieve account data due to incompatible version on remote nodes. Please update Anytype to the latest version.";
+"Account.Select.Incompatible.Version.Error.Text" = "Impossible de récupérer les données du compte en raison d'une version incompatible sur les nœuds distants. Veuillez mettre à jour Anytype à la dernière version.";
 "Restore from keychain" = "Restaurer depuis le trousseau";
 "Edit" = "Éditer";
 "In this object" = "Dans cet objet";
@@ -611,7 +611,7 @@
 "Video" = "Vidéo";
 "Picture" = "Image";
 "File" = "Fichier";
-"No related options here" = "No related options here. You can add some";
+"No related options here" = "Pas d'options associées ici. Vous pouvez en ajouter";
 "Empty" = "Vide";
 "Link to" = "Lien vers";
 "Unknown" = "Inconnu";
@@ -669,7 +669,7 @@
 "ObjectType.SearchOrInstall" = "Rechercher ou créer un nouveau type";
 "ObjectType.Search" = "Rechercher un type";
 "ObjectType.MyTypes" = "Mes Types";
-"ObjectType.AddedToLibrary" = "Type ‘%@’ added to your library";
+"ObjectType.AddedToLibrary" = "Le type %@ a été ajouté à votre bibliothèque";
 "ObjectType.DeletedName" = "Type supprimé";
 
 // MARK: - QuickAction
@@ -780,8 +780,8 @@
 "Widgets.Layout.CompactList.Title" = "Liste compacte";
 "Widgets.Layout.Link.Description" = "Version compacte de l'objet";
 "Widgets.Layout.Tree.Description" = "Arborescence des objets";
-"Widgets.Layout.List.Description" = "Widget with list view of set object";
-"Widgets.Layout.CompactList.Description" = "Widget with list view of set object";
+"Widgets.Layout.List.Description" = "Widget avec vue en liste d'un set d'objets";
+"Widgets.Layout.CompactList.Description" = "Widget avec vue en liste d'un set d'objets";
 "Widgets.Empty.Title" = "Cette vue de données ne contient aucun objet";
 "Widgets.Library.RecentlyEdited.Name" = "Récemment modifié";
 "Widgets.Library.RecentlyOpened.Name" = "Récemment ouvert";
@@ -809,7 +809,7 @@
 "About.Mail.Body" = "\n\nInformations techniques\n%@";
 
 // MARK: - Cache
-"ClearCache.Success" = "Cache sucessfully cleared";
+"ClearCache.Success" = "Le cache a été vidé avec succès";
 "ClearCache.Error" = "Erreur, réessayez plus tard";
 
 // MARK: - Settings

@@ -118,7 +118,7 @@ final class ObjectTypeSearchViewModel: ObservableObject {
     
     func deleteType(_ type: ObjectType) {
         Task {
-            try await typesService.deleteType(typeId: type.id)
+            try await typesService.deleteType(typeId: type.id, spaceId: spaceId)
             search(text: searchText)
         }
     }
@@ -137,7 +137,7 @@ final class ObjectTypeSearchViewModel: ObservableObject {
     
     func removePinedType(_ type: ObjectType) {
         do {
-            try typesService.removePinedType(type, spaceId: spaceId)
+            try typesService.removePinedType(typeId: type.id, spaceId: spaceId)
             search(text: searchText)
         } catch { }
     }

@@ -39,8 +39,9 @@ final class TypesService: TypesServiceProtocol {
         return ObjectType(details: objectDetails)
     }
     
-    func deleteType(typeId: String) async throws {
+    func deleteType(typeId: String, spaceId: String) async throws {
         try await actionsService.delete(objectIds: [typeId])
+        try pinsStorage.removePin(typeId: typeId, spaceId: spaceId)
     }
     
     // MARK: - Search
@@ -125,7 +126,15 @@ final class TypesService: TypesServiceProtocol {
     }
     
     func searchPinnedTypes(text: String, spaceId: String) async throws -> [ObjectType] {
-        try pinsStorage.getPins(spaceId: spaceId)
+        let objectTypeIds = typeProvider.objectTypes(spaceId: spaceId)
+            .filter { !$0.isArchived }
+            .filter { !$0.isDeleted }
+            .map { $0.id }
+        
+        return try pinsStorage.getPins(spaceId: spaceId)
+            .filter {
+                objectTypeIds.contains($0.id)
+            }
             .filter {
                 guard text.isNotEmpty else { return true }
                 return $0.name.lowercased().contains(text.lowercased())
@@ -136,7 +145,7 @@ final class TypesService: TypesServiceProtocol {
         try pinsStorage.appendPin(type, spaceId: spaceId)
     }
     
-    func removePinedType(_ type: ObjectType, spaceId: String) throws {
-        try pinsStorage.removePin(type, spaceId: spaceId)
+    func removePinedType(typeId: String, spaceId: String) throws {
+        try pinsStorage.removePin(typeId: typeId, spaceId: spaceId)
     }
 }

@@ -356,6 +356,8 @@ final class HomeCoordinatorViewModel: ObservableObject,
             navigationContext.dismissAllPresented(animated: true) { [weak self] in
                 self?.showGalleryImport = GalleryInstallationData(type: type, source: source)
             }
+        case .invite:
+            break
         }
     }
     

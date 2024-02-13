@@ -13,8 +13,9 @@ protocol NotificationCoordinatorProtocol: AnyObject {
 final class NotificationCoordinator: NotificationCoordinatorProtocol {
     
     private let notificationSubscriptionService: NotificationsSubscriptionServiceProtocol
-    // Specific View
+    // Common for show notifications without specific logic and buttons
     private let commonNotificationAssembly: CommonNotificationAssemblyProtocol
+    // Specific View
     private let galleryNotificationAssembly: GalleryNotificationAssemblyProtocol
     
     private var subscription: AnyCancellable?
@@ -58,13 +59,10 @@ final class NotificationCoordinator: NotificationCoordinatorProtocol {
     @MainActor
     private func handleSend(notification: Services.Notification) {
         switch notification.payload {
-        case .import, .export:
-            let view = commonNotificationAssembly.make(notification: notification)
-            show(view: view)
         case .galleryImport(let data):
             let view = galleryNotificationAssembly.make(notification: NotificationGalleryImport(common: notification, galleryImport: data))
             show(view: view)
-        case .none:
+        default:
             break
         }
     }

@@ -10,12 +10,8 @@ struct SetTableView: View {
     @State private var dropData = SetCardDropData()
 
     var body: some View {
-        if #available(iOS 15.0, *) {
-            SingleAxisGeometryReader { fullWidth in
-                scrollView(fullWidth: fullWidth)
-            }
-        } else {
-            scrollView(fullWidth: UIApplication.shared.keyWindow!.frame.width)
+        SingleAxisGeometryReader { fullWidth in
+            scrollView(fullWidth: fullWidth)
         }
     }
     

@@ -558,6 +558,14 @@ public struct Anytype_Event {
       set {value = .notificationUpdate(newValue)}
     }
 
+    public var payloadBroadcast: Anytype_Event.Payload.Broadcast {
+      get {
+        if case .payloadBroadcast(let v)? = value {return v}
+        return Anytype_Event.Payload.Broadcast()
+      }
+      set {value = .payloadBroadcast(newValue)}
+    }
+
     public var unknownFields = SwiftProtobuf.UnknownStorage()
 
     public enum OneOf_Value: Equatable {
@@ -627,6 +635,7 @@ public struct Anytype_Event {
       case fileLocalUsage(Anytype_Event.File.LocalUsage)
       case notificationSend(Anytype_Event.Notification.Send)
       case notificationUpdate(Anytype_Event.Notification.Update)
+      case payloadBroadcast(Anytype_Event.Payload.Broadcast)
 
     #if !swift(>=4.1)
       public static func ==(lhs: Anytype_Event.Message.OneOf_Value, rhs: Anytype_Event.Message.OneOf_Value) -> Bool {
@@ -884,6 +893,10 @@ public struct Anytype_Event {
         }()
         case (.notificationUpdate, .notificationUpdate): return {
           guard case .notificationUpdate(let l) = lhs, case .notificationUpdate(let r) = rhs else { preconditionFailure() }
+          return l == r
+        }()
+        case (.payloadBroadcast, .payloadBroadcast): return {
+          guard case .payloadBroadcast(let l) = lhs, case .payloadBroadcast(let r) = rhs else { preconditionFailure() }
           return l == r
         }()
         default: return false
@@ -4590,6 +4603,28 @@ public struct Anytype_Event {
     public init() {}
   }
 
+  public struct Payload {
+    // SwiftProtobuf.Message conformance is added in an extension below. See the
+    // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+    // methods supported on all messages.
+
+    public var unknownFields = SwiftProtobuf.UnknownStorage()
+
+    public struct Broadcast {
+      // SwiftProtobuf.Message conformance is added in an extension below. See the
+      // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+      // methods supported on all messages.
+
+      public var payload: String = String()
+
+      public var unknownFields = SwiftProtobuf.UnknownStorage()
+
+      public init() {}
+    }
+
+    public init() {}
+  }
+
   public init() {}
 
   fileprivate var _initiator: Anytype_Model_Account? = nil
@@ -4599,7 +4634,7 @@ public struct Anytype_Event {
 
 extension Anytype_Event.Block.Dataview.SliceOperation: CaseIterable {
   // The compiler won't synthesize support with the UNRECOGNIZED case.
-  public static let allCases: [Anytype_Event.Block.Dataview.SliceOperation] = [
+  public static var allCases: [Anytype_Event.Block.Dataview.SliceOperation] = [
     .none,
     .add,
     .move,
@@ -4610,7 +4645,7 @@ extension Anytype_Event.Block.Dataview.SliceOperation: CaseIterable {
 
 extension Anytype_Event.Status.Thread.SyncStatus: CaseIterable {
   // The compiler won't synthesize support with the UNRECOGNIZED case.
-  public static let allCases: [Anytype_Event.Status.Thread.SyncStatus] = [
+  public static var allCases: [Anytype_Event.Status.Thread.SyncStatus] = [
     .unknown,
     .offline,
     .syncing,
@@ -4772,7 +4807,7 @@ public struct Anytype_Model {
 
 extension Anytype_Model.Process.TypeEnum: CaseIterable {
   // The compiler won't synthesize support with the UNRECOGNIZED case.
-  public static let allCases: [Anytype_Model.Process.TypeEnum] = [
+  public static var allCases: [Anytype_Model.Process.TypeEnum] = [
     .dropFiles,
     .import,
     .export,
@@ -4784,7 +4819,7 @@ extension Anytype_Model.Process.TypeEnum: CaseIterable {
 
 extension Anytype_Model.Process.State: CaseIterable {
   // The compiler won't synthesize support with the UNRECOGNIZED case.
-  public static let allCases: [Anytype_Model.Process.State] = [
+  public static var allCases: [Anytype_Model.Process.State] = [
     .none,
     .running,
     .done,
@@ -4983,6 +5018,8 @@ extension Anytype_Event.File.LocalUsage: @unchecked Sendable {}
 extension Anytype_Event.Notification: @unchecked Sendable {}
 extension Anytype_Event.Notification.Send: @unchecked Sendable {}
 extension Anytype_Event.Notification.Update: @unchecked Sendable {}
+extension Anytype_Event.Payload: @unchecked Sendable {}
+extension Anytype_Event.Payload.Broadcast: @unchecked Sendable {}
 extension Anytype_ResponseEvent: @unchecked Sendable {}
 extension Anytype_Model: @unchecked Sendable {}
 extension Anytype_Model.Process: @unchecked Sendable {}
@@ -5115,6 +5152,7 @@ extension Anytype_Event.Message: SwiftProtobuf.Message, SwiftProtobuf._MessageIm
     113: .same(proto: "fileLocalUsage"),
     114: .same(proto: "notificationSend"),
     115: .same(proto: "notificationUpdate"),
+    116: .same(proto: "payloadBroadcast"),
   ]
 
   public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
@@ -5825,6 +5863,19 @@ extension Anytype_Event.Message: SwiftProtobuf.Message, SwiftProtobuf._MessageIm
           self.value = .notificationUpdate(v)
         }
       }()
+      case 116: try {
+        var v: Anytype_Event.Payload.Broadcast?
+        var hadOneofValue = false
+        if let current = self.value {
+          hadOneofValue = true
+          if case .payloadBroadcast(let m) = current {v = m}
+        }
+        try decoder.decodeSingularMessageField(value: &v)
+        if let v = v {
+          if hadOneofValue {try decoder.handleConflictingOneOf()}
+          self.value = .payloadBroadcast(v)
+        }
+      }()
       case 123: try {
         var v: Anytype_Event.Block.Dataview.RelationSet?
         var hadOneofValue = false
@@ -6168,6 +6219,10 @@ extension Anytype_Event.Message: SwiftProtobuf.Message, SwiftProtobuf._MessageIm
     case .notificationUpdate?: try {
       guard case .notificationUpdate(let v)? = self.value else { preconditionFailure() }
       try visitor.visitSingularMessageField(value: v, fieldNumber: 115)
+    }()
+    case .payloadBroadcast?: try {
+      guard case .payloadBroadcast(let v)? = self.value else { preconditionFailure() }
+      try visitor.visitSingularMessageField(value: v, fieldNumber: 116)
     }()
     case .blockDataviewRelationSet?: try {
       guard case .blockDataviewRelationSet(let v)? = self.value else { preconditionFailure() }
@@ -13194,6 +13249,57 @@ extension Anytype_Event.Notification.Update: SwiftProtobuf.Message, SwiftProtobu
 
   public static func ==(lhs: Anytype_Event.Notification.Update, rhs: Anytype_Event.Notification.Update) -> Bool {
     if lhs._notification != rhs._notification {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    return true
+  }
+}
+
+extension Anytype_Event.Payload: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = Anytype_Event.protoMessageName + ".Payload"
+  public static let _protobuf_nameMap = SwiftProtobuf._NameMap()
+
+  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let _ = try decoder.nextFieldNumber() {
+    }
+  }
+
+  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  public static func ==(lhs: Anytype_Event.Payload, rhs: Anytype_Event.Payload) -> Bool {
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    return true
+  }
+}
+
+extension Anytype_Event.Payload.Broadcast: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = Anytype_Event.Payload.protoMessageName + ".Broadcast"
+  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    1: .same(proto: "payload"),
+  ]
+
+  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let fieldNumber = try decoder.nextFieldNumber() {
+      // The use of inline closures is to circumvent an issue where the compiler
+      // allocates stack space for every case branch when no optimizations are
+      // enabled. https://github.com/apple/swift-protobuf/issues/1034
+      switch fieldNumber {
+      case 1: try { try decoder.decodeSingularStringField(value: &self.payload) }()
+      default: break
+      }
+    }
+  }
+
+  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    if !self.payload.isEmpty {
+      try visitor.visitSingularStringField(value: self.payload, fieldNumber: 1)
+    }
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  public static func ==(lhs: Anytype_Event.Payload.Broadcast, rhs: Anytype_Event.Payload.Broadcast) -> Bool {
+    if lhs.payload != rhs.payload {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }

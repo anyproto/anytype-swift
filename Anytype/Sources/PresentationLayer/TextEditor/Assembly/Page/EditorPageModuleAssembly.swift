@@ -200,7 +200,6 @@ final class EditorPageModuleAssembly: EditorPageModuleAssemblyProtocol {
             document: document,
             onShowStyleMenu: blocksStateManager.didSelectStyleSelection(infos:),
             onBlockSelection: actionHandler.selectBlock(info:),
-            pageService: serviceLocator.pageRepository(),
             linkToObjectCoordinator: coordinatorsDI.linkToObject().make(output: router),
             cursorManager: cursorManager
         )
@@ -236,7 +235,7 @@ final class EditorPageModuleAssembly: EditorPageModuleAssemblyProtocol {
             viewInput: viewInput,
             mainEditorSelectionManager: blocksStateManager,
             responderScrollViewHelper: responderScrollViewHelper,
-            pageService: serviceLocator.pageRepository(),
+            defaultObjectService: serviceLocator.defaultObjectCreationService(),
             linkToObjectCoordinator: coordinatorsDI.linkToObject().make(output: router)
         )
 
@@ -249,7 +248,6 @@ final class EditorPageModuleAssembly: EditorPageModuleAssemblyProtocol {
             markdownListener: markdownListener,
             simpleTableDependenciesBuilder: simpleTableDependenciesBuilder,
             subjectsHolder: focusSubjectHolder,
-            pageService: serviceLocator.pageRepository(),
             detailsService: serviceLocator.detailsService(objectId: document.objectId),
             audioSessionService: serviceLocator.audioSessionService(),
             infoContainer: document.infoContainer,

@@ -11,7 +11,6 @@ final class ShareOptionsInteractor: ShareOptionsInteractorProtocol {
     private let blockService: BlockServiceProtocol
     private let bookmarkService: BookmarkServiceProtocol
     private let objectActionsService: ObjectActionsServiceProtocol
-    private let pageRepository: PageRepositoryProtocol
     private let fileService: FileActionsServiceProtocol
     private let documentProvider: DocumentsProviderProtocol
     private let pasteboardMiddlewareService: PasteboardMiddlewareServiceProtocol
@@ -20,7 +19,6 @@ final class ShareOptionsInteractor: ShareOptionsInteractorProtocol {
         blockService: BlockServiceProtocol,
         bookmarkService: BookmarkServiceProtocol,
         objectActionsService: ObjectActionsServiceProtocol,
-        pageRepository: PageRepositoryProtocol,
         fileService: FileActionsServiceProtocol,
         documentProvider: DocumentsProviderProtocol,
         pasteboardMiddlewareService: PasteboardMiddlewareServiceProtocol
@@ -28,7 +26,6 @@ final class ShareOptionsInteractor: ShareOptionsInteractorProtocol {
         self.blockService = blockService
         self.bookmarkService = bookmarkService
         self.objectActionsService = objectActionsService
-        self.pageRepository = pageRepository
         self.fileService = fileService
         self.documentProvider = documentProvider
         self.pasteboardMiddlewareService = pasteboardMiddlewareService
@@ -48,7 +45,7 @@ final class ShareOptionsInteractor: ShareOptionsInteractorProtocol {
     // MARK: - Private
     
     private func saveNewContainer(spaceId: String, linkToObject: ObjectDetails?, content: SharedContent) async throws {
-        let noteObject = try await pageRepository.createPage(
+        let noteObject = try await objectActionsService.createObject(
             name: content.title ?? "",
             typeUniqueKey: .note,
             shouldDeleteEmptyObject: false,
@@ -121,7 +118,7 @@ final class ShareOptionsInteractor: ShareOptionsInteractorProtocol {
     }
 
     private func createNoteObject(text: String, spaceId: BlockId) async throws -> ObjectDetails {
-        let newObject = try await pageRepository.createPage(
+        let newObject = try await objectActionsService.createObject(
             name: "",
             typeUniqueKey: .note,
             shouldDeleteEmptyObject: false,

@@ -25,7 +25,7 @@ final class SetsListWidgetModuleAssembly: HomeWidgetCommonAssemblyProtocol {
             widgetBlockId: widgetBlockId,
             widgetObject: widgetObject,
             setsSubscriptionService: serviceLocator.setsSubscriptionService(),
-            pageRepository: serviceLocator.pageRepository(),
+            objectService: serviceLocator.objectActionsService(),
             output: output
         )
      

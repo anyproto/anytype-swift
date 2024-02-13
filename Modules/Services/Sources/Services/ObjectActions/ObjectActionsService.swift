@@ -10,6 +10,46 @@ public final class ObjectActionsService: ObjectActionsServiceProtocol {
     
     // MARK: - ObjectActionsServiceProtocol
     
+    public func createObject(
+        name: String,
+        typeUniqueKey: ObjectTypeUniqueKey,
+        shouldDeleteEmptyObject: Bool,
+        shouldSelectType: Bool,
+        shouldSelectTemplate: Bool,
+        spaceId: String,
+        origin: ObjectOrigin,
+        templateId: String? = nil
+    ) async throws -> ObjectDetails {
+        let details = Google_Protobuf_Struct(
+            fields: [
+                BundledRelationKey.name.rawValue: name.protobufValue,
+                BundledRelationKey.origin.rawValue: origin.rawValue.protobufValue
+            ]
+        )
+        
+        let internalFlags: [Anytype_Model_InternalFlag] = .builder {
+            if shouldDeleteEmptyObject {
+                Anytype_Model_InternalFlag.with { $0.value = .editorDeleteEmpty }
+            }
+            if shouldSelectType {
+                Anytype_Model_InternalFlag.with { $0.value = .editorSelectType }
+            }
+            if shouldSelectTemplate {
+                Anytype_Model_InternalFlag.with { $0.value = .editorSelectTemplate }
+            }
+        }
+        
+        let response = try await ClientCommands.objectCreate(.with {
+            $0.details = details
+            $0.internalFlags = internalFlags
+            $0.templateID = templateId ?? ""
+            $0.spaceID = spaceId
+            $0.objectTypeUniqueKey = typeUniqueKey.value
+        }).invoke()
+        
+        return try response.details.toDetails()
+    }
+    
     public func delete(objectIds: [BlockId]) async throws {
         try await ClientCommands.objectListDelete(.with {
             $0.objectIds = objectIds
@@ -47,41 +87,6 @@ public final class ObjectActionsService: ObjectActionsServiceProtocol {
         }).invoke()
     }
     
-    /// NOTE: `CreatePage` action will return block of type `.link(.page)`.
-    public func createPage(
-        contextId: BlockId,
-        targetId: BlockId,
-        spaceId: String,
-        details: [BundledDetails],
-        typeUniqueKey: ObjectTypeUniqueKey,
-        position: BlockPosition,
-        templateId: String
-    ) async throws -> BlockId {
-        let protobufDetails = details.reduce([String: Google_Protobuf_Value]()) { result, detail in
-            var result = result
-            result[detail.key] = detail.value
-            return result
-        }
-        let protobufStruct = Google_Protobuf_Struct(fields: protobufDetails)
-        
-        let internalFlags: [Anytype_Model_InternalFlag] = .builder {
-            Anytype_Model_InternalFlag.with { $0.value = .editorSelectTemplate }
-        }
-        
-        let response = try await ClientCommands.blockLinkCreateWithObject(.with {
-            $0.contextID = contextId
-            $0.details = protobufStruct
-            $0.templateID = templateId
-            $0.targetID = targetId
-            $0.position = position.asMiddleware
-            $0.internalFlags = internalFlags
-            $0.spaceID = spaceId
-            $0.objectTypeUniqueKey = typeUniqueKey.value
-        }).invoke()
-        
-        return response.targetID
-    }
-
     public func updateLayout(contextID: BlockId, value: Int) async throws  {
         guard let selectedLayout = Anytype_Model_ObjectType.Layout(rawValue: value) else {
             return
@@ -140,16 +145,6 @@ public final class ObjectActionsService: ObjectActionsServiceProtocol {
                 }
             ]
         }).invoke()
-    }
-
-    public func convertChildrenToPages(contextID: BlockId, blocksIds: [BlockId], typeUniqueKey: ObjectTypeUniqueKey) async throws -> [BlockId] {
-        let response = try await ClientCommands.blockListConvertToObjects(.with {
-            $0.contextID = contextID
-            $0.blockIds = blocksIds
-            $0.objectTypeUniqueKey = typeUniqueKey.value
-        }).invoke()
-        
-        return response.linkIds
     }
     
     public func move(dashboadId: BlockId, blockId: BlockId, dropPositionblockId: BlockId, position: Anytype_Model_Block.Position) async throws {

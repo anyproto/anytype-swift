@@ -451,6 +451,8 @@
 		2A5BC4C32A78FAC7004FAABF /* CharIconPainter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A5BC4C12A78FAC7004FAABF /* CharIconPainter.swift */; };
 		2A5BC4C92A791AED004FAABF /* ViewProvidersConfigurator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A5BC4C82A791AED004FAABF /* ViewProvidersConfigurator.swift */; };
 		2A5CB4212A433C3B00ED9415 /* EditorScreenData+Details.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A5CB4202A433C3B00ED9415 /* EditorScreenData+Details.swift */; };
+		2A610E212B74FF5200B74412 /* SpaceJoinMVPView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A610E202B74FF5200B74412 /* SpaceJoinMVPView.swift */; };
+		2A610E922B76362C00B74412 /* SpaceShareMVPView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A610E912B76362C00B74412 /* SpaceShareMVPView.swift */; };
 		2A617BCA2A49960500725152 /* Document+WidgetTargetSubscriptions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A617BC92A49960400725152 /* Document+WidgetTargetSubscriptions.swift */; };
 		2A617BCC2A49E5B400725152 /* BlockWidget+Limits.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A617BCB2A49E5B400725152 /* BlockWidget+Limits.swift */; };
 		2A617BCE2A49EC0B00725152 /* CommonWidgetInternalViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A617BCD2A49EC0B00725152 /* CommonWidgetInternalViewModel.swift */; };
@@ -489,6 +491,7 @@
 		2A67D5AB2948D86800CBFAEF /* NewRelationModuleAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A67D5AA2948D86800CBFAEF /* NewRelationModuleAssembly.swift */; };
 		2A685D5A2B7B855300456E08 /* ZIPFoundation in Frameworks */ = {isa = PBXBuildFile; productRef = 2A685D592B7B855300456E08 /* ZIPFoundation */; };
 		2A685D5C2B7B9E1500456E08 /* FileManager+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A685D5B2B7B9E1500456E08 /* FileManager+Extension.swift */; };
+		2A685D572B7B694800456E08 /* Text+Markdown.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A685D562B7B694800456E08 /* Text+Markdown.swift */; };
 		2A6C75C429FC03D4002BD440 /* SingleObjectSubscriptionService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A6C75C329FC03D4002BD440 /* SingleObjectSubscriptionService.swift */; };
 		2A6C75C629FC16D2002BD440 /* FileStorageModuleOutput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A6C75C529FC16D2002BD440 /* FileStorageModuleOutput.swift */; };
 		2A6E04A2298CFCDA0023B33D /* WidgetObjectListFavoritesViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A6E04A1298CFCDA0023B33D /* WidgetObjectListFavoritesViewModel.swift */; };
@@ -601,6 +604,7 @@
 		2AA044262ACAD73900D1C2E7 /* ObjectTypeSearchModuleAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AA044252ACAD73900D1C2E7 /* ObjectTypeSearchModuleAssembly.swift */; };
 		2AA0C43D2A013EB500B9C108 /* WidgetObjectListFilesViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AA0C43C2A013EB500B9C108 /* WidgetObjectListFilesViewModel.swift */; };
 		2AA0C43F2A013EF800B9C108 /* FilesSubscriptionService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AA0C43E2A013EF800B9C108 /* FilesSubscriptionService.swift */; };
+		2AA161412B76718A00935919 /* HomePathTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AA161402B76718A00935919 /* HomePathTests.swift */; };
 		2AA1652629D4711B0093DB12 /* DebugMenuViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AA1652529D4711B0093DB12 /* DebugMenuViewModel.swift */; };
 		2AA1652829D474D40093DB12 /* FeatureFlagView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AA1652729D474D40093DB12 /* FeatureFlagView.swift */; };
 		2AA2291A29C45DC50047B245 /* VerticalScrollViewWithOverlayHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AA2291929C45DC50047B245 /* VerticalScrollViewWithOverlayHeader.swift */; };
@@ -655,6 +659,17 @@
 		2AC252282A26112500B89884 /* MiddlewareHandlerConfigurator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AC252272A26112500B89884 /* MiddlewareHandlerConfigurator.swift */; };
 		2AC3F9462A138263005EFEE9 /* FileLimitsStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AC3F9452A138263005EFEE9 /* FileLimitsStorage.swift */; };
 		2AC429A629B784280002AD05 /* BaseDocumentProtocol+Home.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AC429A529B784280002AD05 /* BaseDocumentProtocol+Home.swift */; };
+		2AC434972B7A0683006166BF /* SpaceShareView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AC434962B7A0683006166BF /* SpaceShareView.swift */; };
+		2AC434992B7A068B006166BF /* SpaceShareViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AC434982B7A068B006166BF /* SpaceShareViewModel.swift */; };
+		2AC4349B2B7A0697006166BF /* SpaceShareModuleAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AC4349A2B7A0697006166BF /* SpaceShareModuleAssembly.swift */; };
+		2AC4349E2B7A074B006166BF /* SpaceShareCoordinatorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AC4349D2B7A074B006166BF /* SpaceShareCoordinatorView.swift */; };
+		2AC434A02B7A0759006166BF /* SpaceShareCoordinatorViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AC4349F2B7A0759006166BF /* SpaceShareCoordinatorViewModel.swift */; };
+		2AC434A22B7A0763006166BF /* SpaceShareCoordinatorAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AC434A12B7A0763006166BF /* SpaceShareCoordinatorAssembly.swift */; };
+		2AC434A52B7A12A0006166BF /* ParticipantsSubscriptionService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AC434A42B7A12A0006166BF /* ParticipantsSubscriptionService.swift */; };
+		2AC434AA2B7A15B9006166BF /* SpaceShareParticipant.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AC434A92B7A15B9006166BF /* SpaceShareParticipant.swift */; };
+		2AC434AC2B7A1D17006166BF /* CommonError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AC434AB2B7A1D17006166BF /* CommonError.swift */; };
+		2AC434AE2B7A1E3F006166BF /* Participant.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AC434AD2B7A1E3F006166BF /* Participant.swift */; };
+		2AC434B02B7A20EF006166BF /* Participant+Localization.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AC434AF2B7A20EF006166BF /* Participant+Localization.swift */; };
 		2AC750222AE7EB1A000CDD66 /* FloaterAlertView+DeleteSpace.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AC750212AE7EB1A000CDD66 /* FloaterAlertView+DeleteSpace.swift */; };
 		2AC906C129B5F8EF00209E39 /* WidgetInternalViewModelProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AC906C029B5F8EF00209E39 /* WidgetInternalViewModelProtocol.swift */; };
 		2AC906C329B5FA3300209E39 /* ObjectWidgetInternalViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AC906C229B5FA3300209E39 /* ObjectWidgetInternalViewModel.swift */; };
@@ -1231,7 +1246,7 @@
 		3D932D5926317EFC00C7D1EA /* FilePickerResultInformation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D932D5526317EFB00C7D1EA /* FilePickerResultInformation.swift */; };
 		3D9384F826F9F421001C137F /* MentionImageProcessor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D9384F726F9F421001C137F /* MentionImageProcessor.swift */; };
 		3D93851726FAF46E001C137F /* MentionAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D93851626FAF46E001C137F /* MentionAssembly.swift */; };
-		3D93852026FB0B74001C137F /* PageRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D93851F26FB0B74001C137F /* PageRepository.swift */; };
+		3D93852026FB0B74001C137F /* DefaultObjectCreationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D93851F26FB0B74001C137F /* DefaultObjectCreationService.swift */; };
 		3D93854C26FC3BB3001C137F /* UserDefaultsConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D93854B26FC3BB3001C137F /* UserDefaultsConfig.swift */; };
 		3D93D561270B3FC500614E29 /* UINavigationController+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D93D560270B3FC500614E29 /* UINavigationController+Extension.swift */; };
 		3D93D56B270C9E3400614E29 /* URLInputViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D93D569270C9E3400614E29 /* URLInputViewController.swift */; };
@@ -2188,6 +2203,8 @@
 		2A5BC4C12A78FAC7004FAABF /* CharIconPainter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CharIconPainter.swift; sourceTree = "<group>"; };
 		2A5BC4C82A791AED004FAABF /* ViewProvidersConfigurator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewProvidersConfigurator.swift; sourceTree = "<group>"; };
 		2A5CB4202A433C3B00ED9415 /* EditorScreenData+Details.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "EditorScreenData+Details.swift"; sourceTree = "<group>"; };
+		2A610E202B74FF5200B74412 /* SpaceJoinMVPView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpaceJoinMVPView.swift; sourceTree = "<group>"; };
+		2A610E912B76362C00B74412 /* SpaceShareMVPView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpaceShareMVPView.swift; sourceTree = "<group>"; };
 		2A617BC92A49960400725152 /* Document+WidgetTargetSubscriptions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Document+WidgetTargetSubscriptions.swift"; sourceTree = "<group>"; };
 		2A617BCB2A49E5B400725152 /* BlockWidget+Limits.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "BlockWidget+Limits.swift"; sourceTree = "<group>"; };
 		2A617BCD2A49EC0B00725152 /* CommonWidgetInternalViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommonWidgetInternalViewModel.swift; sourceTree = "<group>"; };
@@ -2225,6 +2242,7 @@
 		2A673C1C29B0FA2800E3D672 /* AnytypeDismiss.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnytypeDismiss.swift; sourceTree = "<group>"; };
 		2A67D5AA2948D86800CBFAEF /* NewRelationModuleAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewRelationModuleAssembly.swift; sourceTree = "<group>"; };
 		2A685D5B2B7B9E1500456E08 /* FileManager+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "FileManager+Extension.swift"; sourceTree = "<group>"; };
+		2A685D562B7B694800456E08 /* Text+Markdown.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Text+Markdown.swift"; sourceTree = "<group>"; };
 		2A6C75C329FC03D4002BD440 /* SingleObjectSubscriptionService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SingleObjectSubscriptionService.swift; sourceTree = "<group>"; };
 		2A6C75C529FC16D2002BD440 /* FileStorageModuleOutput.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileStorageModuleOutput.swift; sourceTree = "<group>"; };
 		2A6E04A1298CFCDA0023B33D /* WidgetObjectListFavoritesViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WidgetObjectListFavoritesViewModel.swift; sourceTree = "<group>"; };
@@ -2325,6 +2343,7 @@
 		2AA044252ACAD73900D1C2E7 /* ObjectTypeSearchModuleAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObjectTypeSearchModuleAssembly.swift; sourceTree = "<group>"; };
 		2AA0C43C2A013EB500B9C108 /* WidgetObjectListFilesViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WidgetObjectListFilesViewModel.swift; sourceTree = "<group>"; };
 		2AA0C43E2A013EF800B9C108 /* FilesSubscriptionService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilesSubscriptionService.swift; sourceTree = "<group>"; };
+		2AA161402B76718A00935919 /* HomePathTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = HomePathTests.swift; path = AnyTypeTests/Home/HomePathTests.swift; sourceTree = SOURCE_ROOT; };
 		2AA1652529D4711B0093DB12 /* DebugMenuViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DebugMenuViewModel.swift; sourceTree = "<group>"; };
 		2AA1652729D474D40093DB12 /* FeatureFlagView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeatureFlagView.swift; sourceTree = "<group>"; };
 		2AA2291929C45DC50047B245 /* VerticalScrollViewWithOverlayHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VerticalScrollViewWithOverlayHeader.swift; sourceTree = "<group>"; };
@@ -2391,6 +2410,20 @@
 		2AC252272A26112500B89884 /* MiddlewareHandlerConfigurator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MiddlewareHandlerConfigurator.swift; sourceTree = "<group>"; };
 		2AC3F9452A138263005EFEE9 /* FileLimitsStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileLimitsStorage.swift; sourceTree = "<group>"; };
 		2AC429A529B784280002AD05 /* BaseDocumentProtocol+Home.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "BaseDocumentProtocol+Home.swift"; sourceTree = "<group>"; };
+		2AC434962B7A0683006166BF /* SpaceShareView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpaceShareView.swift; sourceTree = "<group>"; };
+		2AC434982B7A068B006166BF /* SpaceShareViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpaceShareViewModel.swift; sourceTree = "<group>"; };
+		2AC4349A2B7A0697006166BF /* SpaceShareModuleAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpaceShareModuleAssembly.swift; sourceTree = "<group>"; };
+		2AC4349D2B7A074B006166BF /* SpaceShareCoordinatorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpaceShareCoordinatorView.swift; sourceTree = "<group>"; };
+		2AC4349F2B7A0759006166BF /* SpaceShareCoordinatorViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpaceShareCoordinatorViewModel.swift; sourceTree = "<group>"; };
+		2AC434A12B7A0763006166BF /* SpaceShareCoordinatorAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpaceShareCoordinatorAssembly.swift; sourceTree = "<group>"; };
+		2AC434A42B7A12A0006166BF /* ParticipantsSubscriptionService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ParticipantsSubscriptionService.swift; sourceTree = "<group>"; };
+		2AC434A92B7A15B9006166BF /* SpaceShareParticipant.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpaceShareParticipant.swift; sourceTree = "<group>"; };
+		2AC434AB2B7A1D17006166BF /* CommonError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommonError.swift; sourceTree = "<group>"; };
+		2AC434AD2B7A1E3F006166BF /* Participant.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Participant.swift; sourceTree = "<group>"; };
+		2AC434AF2B7A20EF006166BF /* Participant+Localization.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Participant+Localization.swift"; sourceTree = "<group>"; };
+		2AC434922B7A00EE006166BF /* nl */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = nl; path = nl.lproj/Localizable.strings; sourceTree = "<group>"; };
+		2AC434932B7A00FA006166BF /* nl */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = nl; path = nl.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		2AC434942B7A0100006166BF /* nl */ = {isa = PBXFileReference; lastKnownFileType = text.plist.stringsdict; name = nl; path = nl.lproj/Localizable.stringsdict; sourceTree = "<group>"; };
 		2AC750212AE7EB1A000CDD66 /* FloaterAlertView+DeleteSpace.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "FloaterAlertView+DeleteSpace.swift"; sourceTree = "<group>"; };
 		2AC906C029B5F8EF00209E39 /* WidgetInternalViewModelProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WidgetInternalViewModelProtocol.swift; sourceTree = "<group>"; };
 		2AC906C229B5FA3300209E39 /* ObjectWidgetInternalViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObjectWidgetInternalViewModel.swift; sourceTree = "<group>"; };
@@ -2964,7 +2997,7 @@
 		3D932D5C2631807800C7D1EA /* OffsetAwareScrollView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OffsetAwareScrollView.swift; sourceTree = "<group>"; };
 		3D9384F726F9F421001C137F /* MentionImageProcessor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MentionImageProcessor.swift; sourceTree = "<group>"; };
 		3D93851626FAF46E001C137F /* MentionAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MentionAssembly.swift; sourceTree = "<group>"; };
-		3D93851F26FB0B74001C137F /* PageRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PageRepository.swift; sourceTree = "<group>"; };
+		3D93851F26FB0B74001C137F /* DefaultObjectCreationService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultObjectCreationService.swift; sourceTree = "<group>"; };
 		3D93854B26FC3BB3001C137F /* UserDefaultsConfig.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaultsConfig.swift; sourceTree = "<group>"; };
 		3D93D560270B3FC500614E29 /* UINavigationController+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UINavigationController+Extension.swift"; sourceTree = "<group>"; };
 		3D93D569270C9E3400614E29 /* URLInputViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = URLInputViewController.swift; sourceTree = "<group>"; };
@@ -3705,6 +3738,7 @@
 		038FB5C922D8F32F002B90B8 /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				2AC434AD2B7A1E3F006166BF /* Participant.swift */,
 				53D4089527ECCE9000495335 /* FieldConverters */,
 				5347854A2743C50C0097CA30 /* Relations */,
 				3D5A41652703170300F1F6A1 /* Blocks */,
@@ -3714,6 +3748,7 @@
 				1215E8C026A86CAC0089AF7E /* ImageSource.swift */,
 				12426A2B26DD006500693B1F /* ImageMetadata.swift */,
 				12870A2B26DE6A7400A6F46A /* ImageWidth.swift */,
+				2AC434AB2B7A1D17006166BF /* CommonError.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -3819,6 +3854,7 @@
 		03C5C54122DFD90C00DD91DE /* AnytypeTests */ = {
 			isa = PBXGroup;
 			children = (
+				2AA1613D2B76716B00935919 /* Home */,
 				2A20B91A2AFBCBB3001D0014 /* AnytypeTests.xctestplan */,
 				2A4C7FFD2A823E0D00201946 /* Formatters */,
 				8638C75E2A6FE25100BF2A41 /* Emoji */,
@@ -4877,6 +4913,7 @@
 				2A2C32FF28919576008BC326 /* RelationMetadataFormat+Extensions.swift */,
 				2AAE455728A5307C00E538C8 /* BlockBookmark+Extensions.swift */,
 				2A64B6BA2B3DD54D000316E2 /* ObjectActionsServiceError+Localization.swift */,
+				2AC434AF2B7A20EF006166BF /* Participant+Localization.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -5259,6 +5296,7 @@
 				2A6C75C329FC03D4002BD440 /* SingleObjectSubscriptionService.swift */,
 				2AA0C43E2A013EF800B9C108 /* FilesSubscriptionService.swift */,
 				8639E0132A6020E700F52ED2 /* TemplatesSubscriptionService.swift */,
+				2AC434A42B7A12A0006166BF /* ParticipantsSubscriptionService.swift */,
 			);
 			path = Subscriptions;
 			sourceTree = "<group>";
@@ -5617,6 +5655,7 @@
 		2A5B53AF2A80DB9700BC993B /* SpaceSettings */ = {
 			isa = PBXGroup;
 			children = (
+				2A610E912B76362C00B74412 /* SpaceShareMVPView.swift */,
 				2A4C7FF62A822B7F00201946 /* Views */,
 				2A5B53B02A80DBA200BC993B /* SpaceSettingsView.swift */,
 				2A5B53B22A80DBAA00BC993B /* SpaceSettingsViewModel.swift */,
@@ -5835,6 +5874,7 @@
 		2A7DCDDB292E4A4E001919B4 /* Flows */ = {
 			isa = PBXGroup;
 			children = (
+				2AC4349C2B7A0739006166BF /* SpaceShareCoordinator */,
 				2A2872382B4D8C0E007B3D59 /* GalleryInstallation */,
 				2AE85FE72B1F48D700268E9D /* ServerConfiguration */,
 				2A80D0452ABADCC700DB0513 /* EditorSetFlow */,
@@ -6062,6 +6102,14 @@
 			path = Subscriptions;
 			sourceTree = "<group>";
 		};
+		2AA1613D2B76716B00935919 /* Home */ = {
+			isa = PBXGroup;
+			children = (
+				2AA161402B76718A00935919 /* HomePathTests.swift */,
+			);
+			path = Home;
+			sourceTree = "<group>";
+		};
 		2AA4E51929E85463008632EB /* Converters */ = {
 			isa = PBXGroup;
 			children = (
@@ -6195,6 +6243,7 @@
 		2ABAF2B62938E53A003C4730 /* Modules */ = {
 			isa = PBXGroup;
 			children = (
+				2AC434952B7A064F006166BF /* SpaceShare */,
 				2ACDC9B62B56703C0063BFBD /* ShareOptions */,
 				2AD276402B6D22A900112215 /* GallerySpaceSelection */,
 				2A28722F2B4D8B35007B3D59 /* GalleryInstallationPreview */,
@@ -6257,6 +6306,35 @@
 				2AC3F9452A138263005EFEE9 /* FileLimitsStorage.swift */,
 			);
 			path = FileLimitsStorage;
+			sourceTree = "<group>";
+		};
+		2AC434952B7A064F006166BF /* SpaceShare */ = {
+			isa = PBXGroup;
+			children = (
+				2AC434A82B7A15AD006166BF /* Subviews */,
+				2AC434962B7A0683006166BF /* SpaceShareView.swift */,
+				2AC434982B7A068B006166BF /* SpaceShareViewModel.swift */,
+				2AC4349A2B7A0697006166BF /* SpaceShareModuleAssembly.swift */,
+			);
+			path = SpaceShare;
+			sourceTree = "<group>";
+		};
+		2AC4349C2B7A0739006166BF /* SpaceShareCoordinator */ = {
+			isa = PBXGroup;
+			children = (
+				2AC4349D2B7A074B006166BF /* SpaceShareCoordinatorView.swift */,
+				2AC4349F2B7A0759006166BF /* SpaceShareCoordinatorViewModel.swift */,
+				2AC434A12B7A0763006166BF /* SpaceShareCoordinatorAssembly.swift */,
+			);
+			path = SpaceShareCoordinator;
+			sourceTree = "<group>";
+		};
+		2AC434A82B7A15AD006166BF /* Subviews */ = {
+			isa = PBXGroup;
+			children = (
+				2AC434A92B7A15B9006166BF /* SpaceShareParticipant.swift */,
+			);
+			path = Subviews;
 			sourceTree = "<group>";
 		};
 		2AC906BD29B5F7C600209E39 /* Common */ = {
@@ -6420,6 +6498,7 @@
 				2AD239082A8A05C800F7697A /* SpaceCreateViewModel.swift */,
 				2AD2390A2A8A05D200F7697A /* SpaceCreateModuleAssembly.swift */,
 				2AB5083A2AE9395600E1C986 /* SpaceCreateModuleOutput.swift */,
+				2A610E202B74FF5200B74412 /* SpaceJoinMVPView.swift */,
 			);
 			path = SpaceCreate;
 			sourceTree = "<group>";
@@ -7761,7 +7840,7 @@
 				2E98634B2937B55800304645 /* GroupsSubscriptionsHandler */,
 				120E818226A04A23006FE84E /* Details */,
 				3D24F435269C92F700FA0F5F /* Search */,
-				3D93851B26FB0AD0001C137F /* PageService */,
+				3D93851B26FB0AD0001C137F /* DefaultObjectCreationService */,
 			);
 			path = Object;
 			sourceTree = "<group>";
@@ -8358,12 +8437,12 @@
 			path = Models;
 			sourceTree = "<group>";
 		};
-		3D93851B26FB0AD0001C137F /* PageService */ = {
+		3D93851B26FB0AD0001C137F /* DefaultObjectCreationService */ = {
 			isa = PBXGroup;
 			children = (
-				3D93851F26FB0B74001C137F /* PageRepository.swift */,
+				3D93851F26FB0B74001C137F /* DefaultObjectCreationService.swift */,
 			);
-			path = PageService;
+			path = DefaultObjectCreationService;
 			sourceTree = "<group>";
 		};
 		3D93854726FC3BA6001C137F /* UserDefaults */ = {
@@ -8581,6 +8660,7 @@
 				2E48ACA22A55D4EF0059CB5C /* CustomBackSwipe.swift */,
 				2ECB34002A95041800E0F9BB /* View+Detents.swift */,
 				2AB7AAEA2AF51D0C00ED3E02 /* View+PresentationBackground.swift */,
+				2A685D562B7B694800456E08 /* Text+Markdown.swift */,
 			);
 			path = SwiftUI;
 			sourceTree = "<group>";
@@ -10038,6 +10118,7 @@
 				fr,
 				it,
 				ru,
+				nl,
 			);
 			mainGroup = 0303ECF222D8EDAA005C552B;
 			packageReferences = (
@@ -10250,6 +10331,7 @@
 				C9C5368E276A3A07003CD3F3 /* TagRelationRowView.swift in Sources */,
 				53728CFB273596750092A8CF /* MarkupKind.swift in Sources */,
 				C97A9A19287300080032DE3E /* SimpleTableMenuView.swift in Sources */,
+				2AC434AA2B7A15B9006166BF /* SpaceShareParticipant.swift in Sources */,
 				2A43EAC72A98A18500DA4AAE /* QuickActionBuilder.swift in Sources */,
 				3D4125FA26A014E1007A6880 /* TextContent+Font.swift in Sources */,
 				2AAF344F295AD8D200921320 /* TreeWidgetRowView.swift in Sources */,
@@ -10260,6 +10342,7 @@
 				3D7F7173279F0829003FE893 /* EditorSetPaginationData.swift in Sources */,
 				2ECB34182A97B45B00E0F9BB /* SetFiltersDateCoordinatorViewModel.swift in Sources */,
 				53FF7C5226F7E49900A5A592 /* AudioPlayerView.swift in Sources */,
+				2A685D572B7B694800456E08 /* Text+Markdown.swift in Sources */,
 				2AC750222AE7EB1A000CDD66 /* FloaterAlertView+DeleteSpace.swift in Sources */,
 				2AC906E029B6289A00209E39 /* FavoriteListWidgetModuleAssembly.swift in Sources */,
 				1289C518281159DE005085E2 /* FileDownloadingModuleOutput.swift in Sources */,
@@ -10337,6 +10420,7 @@
 				2A2B331A2A7AA525004BD906 /* WidgetTypeModuleCreateModel.swift in Sources */,
 				EAED57A6269F346D00374A46 /* TextBlockViewModel.swift in Sources */,
 				0A0965FB25BEF5B000C004BD /* EditorPageController.swift in Sources */,
+				2AC4349E2B7A074B006166BF /* SpaceShareCoordinatorView.swift in Sources */,
 				2A945D3C299E2CD300C34C86 /* WidgetEmptyView.swift in Sources */,
 				2E975EF1287C23DA004DE574 /* SetSortsListView.swift in Sources */,
 				53F7442F27F4BBE9005C9BB0 /* ObjectPreviewRouter.swift in Sources */,
@@ -10520,6 +10604,7 @@
 				0A09661825C0AB4F00C004BD /* BaseDocument.swift in Sources */,
 				EAA70348264432FA00C4F7F7 /* CollectionDifference.Change+Convenience.swift in Sources */,
 				125B6ECA26F235F400BCD7D6 /* AccessoryViewBuilder.swift in Sources */,
+				2AC434B02B7A20EF006166BF /* Participant+Localization.swift in Sources */,
 				2A4919AE295333CF00FCEAC9 /* Color+ComponentColor.swift in Sources */,
 				2AE10778296C258400BAB22A /* View+LegacyAdopt.swift in Sources */,
 				2A5BC4C32A78FAC7004FAABF /* CharIconPainter.swift in Sources */,
@@ -10655,6 +10740,7 @@
 				2AAA09042AEAB71900A446B8 /* SpaceSwitchCoordinatorViewModel.swift in Sources */,
 				2A6E04B1298D66DB0023B33D /* WidgetObjectListCommonModuleOutput.swift in Sources */,
 				2ABA0E07283BC420008369DC /* BlockObjectsSearchInteractor.swift in Sources */,
+				2A610E922B76362C00B74412 /* SpaceShareMVPView.swift in Sources */,
 				2EAA13FC2AA63918000A712A /* SetViewSettingsImagePreviewModuleAssembly.swift in Sources */,
 				12EEC36C26A0903F00C3C4B1 /* EmojiProvider.swift in Sources */,
 				2AD37D5A299121D30012409E /* WidgetObjectListViewModel.swift in Sources */,
@@ -10779,6 +10865,7 @@
 				3D155270264D8DB800B0E976 /* SeedPhraseView.swift in Sources */,
 				3DA626532657ADA700942249 /* PopupExtension.swift in Sources */,
 				3D00F1CF278D7CB700863D7C /* ObjectSearchData.swift in Sources */,
+				2AC434AE2B7A1E3F006166BF /* Participant.swift in Sources */,
 				2A64B6BB2B3DD54D000316E2 /* ObjectActionsServiceError+Localization.swift in Sources */,
 				2A4E5C8D296C0BFF002BB71B /* HomeBottomPanelViewModel.swift in Sources */,
 				2A66937D2A7104EA007747DD /* ObjectIconImageGuidelineSet.swift in Sources */,
@@ -10950,6 +11037,7 @@
 				2E2D256028880C8D00E3DFD1 /* SetFiltersContentViewBuilder.swift in Sources */,
 				C93B2D32274E4FA70008544D /* TwoStandardButtonsView.swift in Sources */,
 				120E818E26A05946006FE84E /* ObjectIconPickerViewModel.swift in Sources */,
+				2AC434A22B7A0763006166BF /* SpaceShareCoordinatorAssembly.swift in Sources */,
 				2AFD7E182B626C2D003B16EB /* KeyboardDismiss.swift in Sources */,
 				3DB692B12697645C00149864 /* MiddlewareColorConverter.swift in Sources */,
 				2A5BC4BE2A78F9D9004FAABF /* SquircleIconPainter.swift in Sources */,
@@ -10957,6 +11045,7 @@
 				122FFD43272BA7420069129A /* ObjectHeaderFilledState.swift in Sources */,
 				EAC5FD4E2657DC6F006BB24E /* KeyboardEventsListenerHelper.swift in Sources */,
 				2E3E0DDE29F1F437009F68D8 /* View+KeyboardToolbar.swift in Sources */,
+				2AC434AC2B7A1D17006166BF /* CommonError.swift in Sources */,
 				2A29FD2F2A701BDD007A8549 /* ActiveWorkspaceStorage.swift in Sources */,
 				12A4793527C38E6C00E62795 /* AnytypePopupLayout.swift in Sources */,
 				53FF7CB826FCDB4B00A5A592 /* ObjectActionsView.swift in Sources */,
@@ -11073,7 +11162,7 @@
 				2E56F1382A0D43F400031167 /* LoopingPlayerUIView.swift in Sources */,
 				2E22F9F02B616B6E001EFCF3 /* SelectRelationListModuleOutput.swift in Sources */,
 				2AD5EFC42B17490200FAA908 /* ButtomAlertHeaderImageView.swift in Sources */,
-				3D93852026FB0B74001C137F /* PageRepository.swift in Sources */,
+				3D93852026FB0B74001C137F /* DefaultObjectCreationService.swift in Sources */,
 				2E0797C52A09678C006F0FD7 /* AuthModuleAssembly.swift in Sources */,
 				2A2B33352A7BE5E0004BD906 /* SpaceWidgetViewModel.swift in Sources */,
 				3DDD3D1426AED74E00B5673A /* CodeLanguage.swift in Sources */,
@@ -11317,6 +11406,7 @@
 				3D44984026D53A89005A3E06 /* ObjectHeader+Mutation.swift in Sources */,
 				125B6ECE26F235F400BCD7D6 /* DismissableInputAccessoryView.swift in Sources */,
 				2ACD26B72AFB9A1B00B19E50 /* DataviewView+View.swift in Sources */,
+				2A610E212B74FF5200B74412 /* SpaceJoinMVPView.swift in Sources */,
 				2E8E8D162A262D2E009BC3B0 /* CreatingSoulView.swift in Sources */,
 				3D24913427BD271900821595 /* LocalEvent.swift in Sources */,
 				127240D72846249600C6F8E2 /* NewSearchViewState.swift in Sources */,
@@ -11487,6 +11577,7 @@
 				2A4C7FFA2A822BA000201946 /* SettingsInfoBlockView.swift in Sources */,
 				1206DB90267A303E000A48A7 /* MediaPickerView.swift in Sources */,
 				2A377E412A826FFD00EA856B /* RemoteStorageView.swift in Sources */,
+				2AC434972B7A0683006166BF /* SpaceShareView.swift in Sources */,
 				2AD8AFD52A83E60400F12D54 /* SpaceSwitchModuleOutput.swift in Sources */,
 				1247BC6627FDC36B005F2DB4 /* RelationFormatsListModuleOutput.swift in Sources */,
 				1244791627D8A38600581174 /* StatusSearchViewModel.swift in Sources */,
@@ -11543,12 +11634,14 @@
 				0ACC357625C851650003CF3A /* BlockViewModelBuilder.swift in Sources */,
 				12FD9D1F2767172A00991886 /* RelationText.swift in Sources */,
 				2E65276B2B5EE9BA00F27126 /* RelationListContainerView.swift in Sources */,
+				2AC434992B7A068B006166BF /* SpaceShareViewModel.swift in Sources */,
 				2A56C16B2ACB0C50001677E1 /* EditorPageModuleOutput.swift in Sources */,
 				2E31C9642B73C809006DB3E2 /* ObjectRelationListInteractor.swift in Sources */,
 				2EA098A72A697511009182C0 /* SubscriptionData+Info.swift in Sources */,
 				3D471E1F26C3B60200457DE5 /* BlockLinkState+Icon.swift in Sources */,
 				3DA6263D2657AB8000942249 /* AnimationExtension.swift in Sources */,
 				53728D00273596C40092A8CF /* MarkupAccessoryViewModel.swift in Sources */,
+				2AC4349B2B7A0697006166BF /* SpaceShareModuleAssembly.swift in Sources */,
 				1289F5A42733C50500656EC2 /* TextRelationFactory.swift in Sources */,
 				2AF2C6B928BD104B00F8612B /* UIAnytypeActivityIndicator.swift in Sources */,
 				120EB4DC26E8E94C003A0C2B /* ObjectHeaderView.swift in Sources */,
@@ -11564,6 +11657,7 @@
 				2A8395682AF3ECDD004EE41F /* SegmentLegend.swift in Sources */,
 				12426A2C26DD006500693B1F /* ImageMetadata.swift in Sources */,
 				2EE36CD62AF532B70043AA8D /* SetObjectCreationCoordinator.swift in Sources */,
+				2AC434A52B7A12A0006166BF /* ParticipantsSubscriptionService.swift in Sources */,
 				125B6EC926F235F400BCD7D6 /* MentionView.swift in Sources */,
 				53FF7CBC26FDD36200A5A592 /* ObjectActionsViewModel.swift in Sources */,
 				2A5BC4B72A78F5C7004FAABF /* CircleIconPainter.swift in Sources */,
@@ -11714,6 +11808,7 @@
 				12E05EEF2796A9C10037B667 /* AnytypePopup.swift in Sources */,
 				12450D4727A918A90026F004 /* AdaptiveTextRelationDetailsPopupLayout.swift in Sources */,
 				2AFF7ACC299D24C300B7746B /* DocumentViewModelSetter.swift in Sources */,
+				2AC434A02B7A0759006166BF /* SpaceShareCoordinatorViewModel.swift in Sources */,
 				2ACEAE462984017100B467CE /* WidgetTypeViewModel.swift in Sources */,
 				2A29873C2ACC087B009E8787 /* PageNavigation.swift in Sources */,
 				2E7C4473289843220062287C /* DataviewFilter+Condition.swift in Sources */,
@@ -11729,6 +11824,7 @@
 				3D7F718927A1B0D4003FE893 /* EditorSetMarkdownHelpertests.swift in Sources */,
 				EA2640E526C40DEA006071BD /* AttributedStringConverterTests.swift in Sources */,
 				8638C7602A6FE26300BF2A41 /* EmojiTests.swift in Sources */,
+				2AA161412B76718A00935919 /* HomePathTests.swift in Sources */,
 				2AB511AE29093CB4005D0A91 /* InlineMarkdownListenerTests.swift in Sources */,
 				3D4B8CE527C54FDC001A1F98 /* BlockListServiceMock.swift in Sources */,
 				3D34F25627C3D1D100990C49 /* BlockActionServiceMock.swift in Sources */,
@@ -11808,6 +11904,7 @@
 				2A1B74042B03688000E9F241 /* fr */,
 				2A1B74082B03689C00E9F241 /* it */,
 				2A1B740C2B0368AE00E9F241 /* ru */,
+				2AC434932B7A00FA006166BF /* nl */,
 			);
 			name = InfoPlist.strings;
 			sourceTree = "<group>";
@@ -11826,6 +11923,7 @@
 				2A1B74032B03687D00E9F241 /* fr */,
 				2A1B74072B03689800E9F241 /* it */,
 				2A1B740B2B0368AB00E9F241 /* ru */,
+				2AC434922B7A00EE006166BF /* nl */,
 			);
 			name = Localizable.strings;
 			sourceTree = "<group>";
@@ -11844,6 +11942,7 @@
 				2A1B74052B03688400E9F241 /* fr */,
 				2A1B74092B03689F00E9F241 /* it */,
 				2A1B740D2B0368B100E9F241 /* ru */,
+				2AC434942B7A0100006166BF /* nl */,
 			);
 			name = Localizable.stringsdict;
 			sourceTree = "<group>";
@@ -11991,7 +12090,7 @@
 				CODE_SIGN_ENTITLEMENTS = Anytype/Anytype.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 43;
+				CURRENT_PROJECT_VERSION = 44;
 				DEVELOPMENT_ASSET_PATHS = "Anytype/Resources/Preview\\ Content";
 				DEVELOPMENT_TEAM = J3NXTX3T5S;
 				ENABLE_BITCODE = NO;
@@ -12035,7 +12134,7 @@
 				CODE_SIGN_ENTITLEMENTS = Anytype/Anytype.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Distribution";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 43;
+				CURRENT_PROJECT_VERSION = 44;
 				DEVELOPMENT_ASSET_PATHS = "Anytype/Resources/Preview\\ Content";
 				DEVELOPMENT_TEAM = J3NXTX3T5S;
 				ENABLE_BITCODE = NO;
@@ -12191,7 +12290,7 @@
 				CODE_SIGN_ENTITLEMENTS = Anytype/Anytype.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Distribution";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 43;
+				CURRENT_PROJECT_VERSION = 44;
 				DEVELOPMENT_ASSET_PATHS = "Anytype/Resources/Preview\\ Content";
 				DEVELOPMENT_TEAM = J3NXTX3T5S;
 				ENABLE_BITCODE = NO;
@@ -12258,7 +12357,7 @@
 				CODE_SIGN_ENTITLEMENTS = AnytypeShareExtension/AnytypeShareExtension.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 43;
+				CURRENT_PROJECT_VERSION = 44;
 				DEVELOPMENT_TEAM = "";
 				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = J3NXTX3T5S;
 				GENERATE_INFOPLIST_FILE = YES;
@@ -12290,7 +12389,7 @@
 				CODE_SIGN_ENTITLEMENTS = AnytypeShareExtension/AnytypeShareExtension.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Distribution";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 43;
+				CURRENT_PROJECT_VERSION = 44;
 				DEVELOPMENT_TEAM = "";
 				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = J3NXTX3T5S;
 				GENERATE_INFOPLIST_FILE = YES;
@@ -12323,7 +12422,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Distribution";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 43;
+				CURRENT_PROJECT_VERSION = 44;
 				DEVELOPMENT_TEAM = "";
 				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = J3NXTX3T5S;
 				GENERATE_INFOPLIST_FILE = YES;
@@ -12357,7 +12456,7 @@
 				CODE_SIGN_IDENTITY = "Apple Development";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 43;
+				CURRENT_PROJECT_VERSION = 44;
 				DEVELOPMENT_TEAM = "";
 				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = J3NXTX3T5S;
 				GENERATE_INFOPLIST_FILE = YES;
@@ -12391,7 +12490,7 @@
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
 				CODE_SIGN_IDENTITY = "iPhone Distribution";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 43;
+				CURRENT_PROJECT_VERSION = 44;
 				DEVELOPMENT_TEAM = "";
 				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = J3NXTX3T5S;
 				GENERATE_INFOPLIST_FILE = YES;
@@ -12425,7 +12524,7 @@
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
 				CODE_SIGN_IDENTITY = "iPhone Distribution";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 43;
+				CURRENT_PROJECT_VERSION = 44;
 				DEVELOPMENT_TEAM = "";
 				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = J3NXTX3T5S;
 				GENERATE_INFOPLIST_FILE = YES;

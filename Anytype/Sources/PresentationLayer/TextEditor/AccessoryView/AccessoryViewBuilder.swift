@@ -11,7 +11,6 @@ struct AccessoryViewBuilder {
         document: BaseDocumentProtocol,
         onShowStyleMenu: @escaping RoutingAction<[BlockInformation]>,
         onBlockSelection: @escaping RoutingAction<BlockInformation>,
-        pageService: PageRepositoryProtocol,
         linkToObjectCoordinator: LinkToObjectCoordinatorProtocol,
         cursorManager: EditorCursorManager
     ) -> (AccessoryViewStateManager, ChangeTypeAccessoryViewModel) {
@@ -29,7 +28,6 @@ struct AccessoryViewBuilder {
         let markupViewModel = MarkupAccessoryViewModel(
             document: document,
             actionHandler: actionHandler,
-            pageService: pageService,
             linkToObjectCoordinator: linkToObjectCoordinator
         )
 

@@ -113,6 +113,12 @@ public extension FeatureDescription {
         defaultValue: true
     )
     
+    static let multiplayer = FeatureDescription(
+        title: "Multiplayer",
+        type: .feature(author: "m@anytype.io", releaseVersion: "0.29.0"),
+        defaultValue: false
+    )
+    
     // MARK: - Debug
     
     static let rainbowViews = FeatureDescription(
@@ -168,5 +174,11 @@ public extension FeatureDescription {
         type: .debug,
         defaultValue: false,
         debugValue: true
+    )
+    
+    static let homeTestSwipeGeature = FeatureDescription(
+        title: "Test swipe gesture",
+        type: .debug,
+        defaultValue: false
     )
 }

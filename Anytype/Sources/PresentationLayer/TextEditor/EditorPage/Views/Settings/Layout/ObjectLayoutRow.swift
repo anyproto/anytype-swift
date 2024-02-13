@@ -67,7 +67,7 @@ private extension DetailsLayout {
         switch self {
         case .basic:
             return .Layout.basic
-        case .profile:
+        case .profile, .participant:
             return .Layout.profile
         case .todo:
             return .Layout.task
@@ -82,7 +82,7 @@ private extension DetailsLayout {
         switch self {
         case .basic:
             return Loc.basic
-        case .profile:
+        case .profile, .participant:
             return Loc.profile
         case .todo:
             return Loc.task
@@ -101,7 +101,7 @@ private extension DetailsLayout {
         switch self {
         case .basic:
             return Loc.standardLayoutForCanvasBlocks
-        case .profile:
+        case .profile, .participant:
             return Loc.companiesContactsFriendsAndFamily
         case .todo:
             return Loc.actionFocusedLayoutWithACheckbox
