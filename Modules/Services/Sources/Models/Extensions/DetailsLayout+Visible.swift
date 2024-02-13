@@ -1,9 +1,9 @@
 import AnytypeCore
 
 public extension DetailsLayout {
-    static var visibleLayouts: [DetailsLayout] = [.basic, .bookmark, .collection, .note, .set, .todo, .participant]
-    static var supportedForEditLayouts: [DetailsLayout] = [.basic, .bookmark, .collection, .file, .image, .note, .profile, .participant, .set, .todo]
-    static var supportedForCreationInSets: [DetailsLayout] = pageLayouts
+    static var visibleLayouts: [DetailsLayout] = pageLayouts + setLayouts - [.profile]
+    static var supportedForEditLayouts: [DetailsLayout] =  pageLayouts + fileLayouts + setLayouts
+    static var supportedForCreationInSets: [DetailsLayout] = pageLayouts - [.participant]
 }
 
 
@@ -23,16 +23,21 @@ public extension DetailsLayout {
         .file,
         .image,
         .audio,
-        .video
+        .video,
+        .pdf
+    ]
+    
+    static var setLayouts: [DetailsLayout] = [
+        .collection,
+        .set
     ]
     
     static var systemLayouts: [DetailsLayout] = [
         .objectType,
         .relation,
         .relationOption,
-        .relationOptionList,
+        .relationOptionsList,
         .dashboard,
-        .database,
         .space
     ]
     
