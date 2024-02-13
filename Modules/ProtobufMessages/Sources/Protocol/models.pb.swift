@@ -3688,9 +3688,7 @@ public struct Anytype_Model_ObjectType {
     case date // = 17
     case spaceView // = 18
     case participant // = 19
-
-    /// to be released later
-    case database // = 20
+    case pdf // = 20
     case UNRECOGNIZED(Int)
 
     public init() {
@@ -3719,7 +3717,7 @@ public struct Anytype_Model_ObjectType {
       case 17: self = .date
       case 18: self = .spaceView
       case 19: self = .participant
-      case 20: self = .database
+      case 20: self = .pdf
       default: self = .UNRECOGNIZED(rawValue)
       }
     }
@@ -3746,7 +3744,7 @@ public struct Anytype_Model_ObjectType {
       case .date: return 17
       case .spaceView: return 18
       case .participant: return 19
-      case .database: return 20
+      case .pdf: return 20
       case .UNRECOGNIZED(let i): return i
       }
     }
@@ -3781,7 +3779,7 @@ extension Anytype_Model_ObjectType.Layout: CaseIterable {
     .date,
     .spaceView,
     .participant,
-    .database,
+    .pdf,
   ]
 }
 
@@ -8433,7 +8431,7 @@ extension Anytype_Model_ObjectType.Layout: SwiftProtobuf._ProtoNameProviding {
     17: .same(proto: "date"),
     18: .same(proto: "spaceView"),
     19: .same(proto: "participant"),
-    20: .same(proto: "database"),
+    20: .same(proto: "pdf"),
   ]
 }
 
