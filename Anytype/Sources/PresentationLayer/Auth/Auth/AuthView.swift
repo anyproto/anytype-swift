@@ -95,7 +95,8 @@ struct AuthView: View {
         AnytypeText(
             Loc.Auth.Caption.Privacy.text(AboutApp.termsLink, AboutApp.privacyLink),
             style: .authCaption,
-            color: .Auth.caption
+            color: .Auth.caption,
+            enableMarkdown: true
         )
         .multilineTextAlignment(.center)
         .padding(.horizontal, 38)
