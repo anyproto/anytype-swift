@@ -63,7 +63,10 @@ final class ServiceLocator {
     }
     
     func dashboardService() -> DashboardServiceProtocol {
-        DashboardService(searchService: searchService(), pageService: pageRepository())
+        DashboardService(
+            pageService: pageRepository(),
+            objectService: objectActionsService()
+        )
     }
     
     func objectLifecycleService() -> ObjectLifecycleServiceProtocol {

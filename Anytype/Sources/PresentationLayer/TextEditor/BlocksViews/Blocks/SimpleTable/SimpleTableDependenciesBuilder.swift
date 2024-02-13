@@ -86,7 +86,6 @@ final class SimpleTableDependenciesBuilder {
             document: document,
             onShowStyleMenu: stateManager.didSelectStyleSelection(infos:),
             onBlockSelection: stateManager.didSelectEditingState(info:),
-            pageService: pageService,
             linkToObjectCoordinator: linkToObjectCoordinator,
             cursorManager: cursorManager
         )

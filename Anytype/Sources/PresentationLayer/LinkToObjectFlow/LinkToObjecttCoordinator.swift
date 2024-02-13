@@ -55,7 +55,7 @@ final class LinkToObjectCoordinator: LinkToObjectCoordinatorProtocol {
                 setLinkToObject(linkBlockId)
             case let .createObject(name):
                 Task { @MainActor [weak self] in
-                    if let linkBlockDetails = try? await self?.pageService.createDefaultPage(name: name, spaceId: spaceId) {
+                    if let linkBlockDetails = try? await self?.pageService.createDefaultPage(name: name, shouldDeleteEmptyObject: false, spaceId: spaceId) {
                         AnytypeAnalytics.instance().logCreateObject(objectType: linkBlockDetails.analyticsType, route: .mention)
                         setLinkToObject(linkBlockDetails.id)
                     }

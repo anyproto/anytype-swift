@@ -6,11 +6,11 @@ import AnytypeCore
 
 final class DashboardService: DashboardServiceProtocol {
     
-    private let searchService: SearchServiceProtocol
     private let pageService: PageRepositoryProtocol
+    private let objectService: ObjectActionsServiceProtocol
 
-    init(searchService: SearchServiceProtocol, pageService: PageRepositoryProtocol) {
-        self.searchService = searchService
+    init(pageService: PageRepositoryProtocol, objectService: ObjectActionsServiceProtocol) {
+        self.objectService = objectService
         self.pageService = pageService
     }
     
@@ -26,7 +26,7 @@ final class DashboardService: DashboardServiceProtocol {
     }
     
     func createNewPage(spaceId: String, typeUniqueKey: ObjectTypeUniqueKey, templateId: String) async throws -> ObjectDetails {
-        let details = try await pageService.createPage(
+        let details = try await objectService.createObject(
             name: "",
             typeUniqueKey: typeUniqueKey,
             shouldDeleteEmptyObject: true,
