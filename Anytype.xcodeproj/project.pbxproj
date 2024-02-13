@@ -1239,7 +1239,7 @@
 		3D932D5926317EFC00C7D1EA /* FilePickerResultInformation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D932D5526317EFB00C7D1EA /* FilePickerResultInformation.swift */; };
 		3D9384F826F9F421001C137F /* MentionImageProcessor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D9384F726F9F421001C137F /* MentionImageProcessor.swift */; };
 		3D93851726FAF46E001C137F /* MentionAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D93851626FAF46E001C137F /* MentionAssembly.swift */; };
-		3D93852026FB0B74001C137F /* PageRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D93851F26FB0B74001C137F /* PageRepository.swift */; };
+		3D93852026FB0B74001C137F /* DefaultObjectCreationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D93851F26FB0B74001C137F /* DefaultObjectCreationService.swift */; };
 		3D93854C26FC3BB3001C137F /* UserDefaultsConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D93854B26FC3BB3001C137F /* UserDefaultsConfig.swift */; };
 		3D93D561270B3FC500614E29 /* UINavigationController+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D93D560270B3FC500614E29 /* UINavigationController+Extension.swift */; };
 		3D93D56B270C9E3400614E29 /* URLInputViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D93D569270C9E3400614E29 /* URLInputViewController.swift */; };
@@ -2984,7 +2984,7 @@
 		3D932D5C2631807800C7D1EA /* OffsetAwareScrollView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OffsetAwareScrollView.swift; sourceTree = "<group>"; };
 		3D9384F726F9F421001C137F /* MentionImageProcessor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MentionImageProcessor.swift; sourceTree = "<group>"; };
 		3D93851626FAF46E001C137F /* MentionAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MentionAssembly.swift; sourceTree = "<group>"; };
-		3D93851F26FB0B74001C137F /* PageRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PageRepository.swift; sourceTree = "<group>"; };
+		3D93851F26FB0B74001C137F /* DefaultObjectCreationService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultObjectCreationService.swift; sourceTree = "<group>"; };
 		3D93854B26FC3BB3001C137F /* UserDefaultsConfig.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaultsConfig.swift; sourceTree = "<group>"; };
 		3D93D560270B3FC500614E29 /* UINavigationController+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UINavigationController+Extension.swift"; sourceTree = "<group>"; };
 		3D93D569270C9E3400614E29 /* URLInputViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = URLInputViewController.swift; sourceTree = "<group>"; };
@@ -7806,7 +7806,7 @@
 				2E98634B2937B55800304645 /* GroupsSubscriptionsHandler */,
 				120E818226A04A23006FE84E /* Details */,
 				3D24F435269C92F700FA0F5F /* Search */,
-				3D93851B26FB0AD0001C137F /* PageService */,
+				3D93851B26FB0AD0001C137F /* DefaultObjectCreationService */,
 			);
 			path = Object;
 			sourceTree = "<group>";
@@ -8403,12 +8403,12 @@
 			path = Models;
 			sourceTree = "<group>";
 		};
-		3D93851B26FB0AD0001C137F /* PageService */ = {
+		3D93851B26FB0AD0001C137F /* DefaultObjectCreationService */ = {
 			isa = PBXGroup;
 			children = (
-				3D93851F26FB0B74001C137F /* PageRepository.swift */,
+				3D93851F26FB0B74001C137F /* DefaultObjectCreationService.swift */,
 			);
-			path = PageService;
+			path = DefaultObjectCreationService;
 			sourceTree = "<group>";
 		};
 		3D93854726FC3BA6001C137F /* UserDefaults */ = {
@@ -11120,7 +11120,7 @@
 				2E56F1382A0D43F400031167 /* LoopingPlayerUIView.swift in Sources */,
 				2E22F9F02B616B6E001EFCF3 /* SelectRelationListModuleOutput.swift in Sources */,
 				2AD5EFC42B17490200FAA908 /* ButtomAlertHeaderImageView.swift in Sources */,
-				3D93852026FB0B74001C137F /* PageRepository.swift in Sources */,
+				3D93852026FB0B74001C137F /* DefaultObjectCreationService.swift in Sources */,
 				2E0797C52A09678C006F0FD7 /* AuthModuleAssembly.swift in Sources */,
 				2A2B33352A7BE5E0004BD906 /* SpaceWidgetViewModel.swift in Sources */,
 				3DDD3D1426AED74E00B5673A /* CodeLanguage.swift in Sources */,

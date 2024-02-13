@@ -63,7 +63,10 @@ final class ServiceLocator {
     }
     
     func dashboardService() -> DashboardServiceProtocol {
-        DashboardService(searchService: searchService(), pageService: pageRepository())
+        DashboardService(
+            defaultObjectService: defaultObjectCreationService(),
+            objectService: objectActionsService()
+        )
     }
     
     func objectLifecycleService() -> ObjectLifecycleServiceProtocol {
@@ -152,8 +155,8 @@ final class ServiceLocator {
         return TypesPinStorage(typeProvider: objectTypeProvider())
     }
     
-    func pageRepository() -> PageRepositoryProtocol {
-        return PageRepository(
+    func defaultObjectCreationService() -> DefaultObjectCreationServiceProtocol {
+        return DefaultObjectCreationService(
             objectTypeProvider: objectTypeProvider(),
             objectService: objectActionsService()
         )

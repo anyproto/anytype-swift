@@ -25,7 +25,6 @@ final class MarkupAccessoryViewModel: ObservableObject {
     private(set) var restrictions: BlockRestrictions?
     private(set) var actionHandler: BlockActionHandlerProtocol
     private(set) var blockId: BlockId = ""
-    private let pageService: PageRepositoryProtocol
     private let document: BaseDocumentProtocol
     private let linkToObjectCoordinator: LinkToObjectCoordinatorProtocol
 
@@ -40,12 +39,10 @@ final class MarkupAccessoryViewModel: ObservableObject {
     init(
         document: BaseDocumentProtocol,
         actionHandler: BlockActionHandlerProtocol,
-        pageService: PageRepositoryProtocol,
         linkToObjectCoordinator: LinkToObjectCoordinatorProtocol
     ) {
         self.actionHandler = actionHandler
         self.document = document
-        self.pageService = pageService
         self.linkToObjectCoordinator = linkToObjectCoordinator
         self.subscribeOnBlocksChanges()
     }
