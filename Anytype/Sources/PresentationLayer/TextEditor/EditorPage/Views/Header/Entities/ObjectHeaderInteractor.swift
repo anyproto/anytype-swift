@@ -96,7 +96,7 @@ final class ObjectHeaderInteractor: ObjectHeaderInteractorProtocol {
                 let safeSendableItemProvider = SafeSendable(value: itemProvider)
                 Task {
                     let data = try await fileService.createFileData(source: .itemProvider(safeSendableItemProvider.value))
-                    let fileDetails = try await fileService.uploadFileObject(spaceId: spaceId, data: data)
+                    let fileDetails = try await fileService.uploadFileObject(spaceId: spaceId, data: data, origin: .none)
                     try await detailsService.updateBundledDetails([.iconEmoji(""), .iconObjectId(fileDetails.id)])
                 }
             }

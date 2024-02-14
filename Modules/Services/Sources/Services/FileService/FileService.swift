@@ -4,7 +4,7 @@ import AnytypeCore
 
 public protocol FileServiceProtocol: AnyObject {
     func uploadFileBlock(path: String, contextID: BlockId, blockID: BlockId) async throws
-    func uploadFileObject(path: String, spaceId: String) async throws -> FileDetails
+    func uploadFileObject(path: String, spaceId: String, origin: ObjectOrigin) async throws -> FileDetails
     func clearCache() async throws
     func nodeUsage() async throws -> NodeUsageInfo
 }
@@ -23,13 +23,13 @@ public final class FileService: FileServiceProtocol {
         }).invoke()
     }
     
-    public func uploadFileObject(path: String, spaceId: String) async throws -> FileDetails {
+    public func uploadFileObject(path: String, spaceId: String, origin: ObjectOrigin) async throws -> FileDetails {
         let result = try await ClientCommands.fileUpload(.with {
             $0.localPath = path
             $0.disableEncryption = false
             $0.style = .auto
             $0.spaceID = spaceId
-            // TODO: Add origin
+            $0.origin = origin
         }).invoke()
         return FileDetails(objectDetails: try ObjectDetails(protobufStruct: result.details))
     }

@@ -76,7 +76,8 @@ final class ShareOptionsInteractor: ShareOptionsInteractorProtocol {
                     newObjectId = try await createBookmarkObject(url: url, spaceId: spaceId).id
                     blockInformation = BlockInformation.bookmark(targetId: newObjectId)
                 case let .file(url):
-                    newObjectId = try await fileService.uploadFileObject(spaceId: spaceId, data: FileData(path: url.relativePath, isTemporary: false)).id
+                    let data = FileData(path: url.relativePath, isTemporary: false)
+                    newObjectId = try await fileService.uploadFileObject(spaceId: spaceId, data: data, origin: .sharingExtension).id
                     blockInformation = BlockInformation.emptyLink(targetId: newObjectId)
                 }
                 
@@ -166,7 +167,8 @@ final class ShareOptionsInteractor: ShareOptionsInteractorProtocol {
         let lastBlockInDocument = try await blockService.lastBlockId(from: addToObject.id)
         let fileDetails = try await fileService.uploadFileObject(
             spaceId: addToObject.spaceId,
-            data: FileData(path: fileURL.relativePath, isTemporary: false)
+            data: FileData(path: fileURL.relativePath, isTemporary: false),
+            origin: .sharingExtension
         )
         let blockInformation = BlockInformation.file(fileDetails: fileDetails)
         _ = try await blockService.add(

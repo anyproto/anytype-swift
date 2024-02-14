@@ -44,7 +44,7 @@ final class TextIconPickerViewModel: ObservableObject, ObjectIconPickerViewModel
     func uploadImage(from itemProvider: NSItemProvider) {
         let safeSendableItemProvider = SafeSendable(value: itemProvider)
         Task {
-            let fileDetails = try await fileService.uploadImage(spaceId: spaceId, source: .itemProvider(safeSendableItemProvider.value))
+            let fileDetails = try await fileService.uploadImage(spaceId: spaceId, source: .itemProvider(safeSendableItemProvider.value), origin: .none)
             try await textServiceHandler.setTextIcon(
                 contextId: contextId,
                 blockId: objectId,
