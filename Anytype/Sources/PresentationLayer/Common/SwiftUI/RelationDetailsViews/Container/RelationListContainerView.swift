@@ -46,18 +46,19 @@ struct RelationListContainerView<Content>: View where Content: View {
     
     private var content: some View {
         VStack(spacing: 0) {
-            if isEditable {
+            if isEditable, !isEmpty {
                 SearchBar(text: $searchText, focused: false, placeholder: Loc.search)
                     .onChange(of: searchText) { text in
                         onSearchTextChange(text)
                     }
             }
             
-            if isEmpty {
-                emptyState
-            } else {
-                list
-            }
+            list
+                .if(isEmpty) {
+                    $0.overlay(alignment: .center) {
+                        emptyState
+                    }
+                }
         }
         .background(Color.Background.secondary)
     }
