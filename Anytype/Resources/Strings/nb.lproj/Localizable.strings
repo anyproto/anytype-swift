@@ -861,6 +861,16 @@
 "SpaceSettings.DeleteAlert.Title" = "Slett ’%@’ rommet";
 "SpaceSettings.DeleteAlert.Message" = "Dette rommet vil bli slettet ugjenkallelig. Du kan ikke angre denne handlingen.";
 "SpaceSettings.DeleteButton" = "Slett rom";
+"SpaceSettings.Sharing" = "Sharing";
+"SpaceSettings.Share" = "Del";
+
+// MARK: - Space Share
+
+"SpaceShare.Title" = "Share space";
+"SpaceShare.MembersSection" = "Members and requests";
+"SpaceShare.Permissions.Owner" = "Owner";
+"SpaceShare.Permissions.Reader" = "Can view";
+"SpaceShare.Permissions.Writer" = "Can edit";
 
 // MARK: - Space Create
 "SpaceCreate.Title" = "Opprett et rom";

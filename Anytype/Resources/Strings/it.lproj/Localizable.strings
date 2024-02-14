@@ -861,6 +861,16 @@
 "SpaceSettings.DeleteAlert.Title" = "Elimina spazio ‘%@’ ";
 "SpaceSettings.DeleteAlert.Message" = "Questo spazio verrà eliminato irrevocabilmente. Non è possibile annullare questa azione.";
 "SpaceSettings.DeleteButton" = "Elimina spazio";
+"SpaceSettings.Sharing" = "Sharing";
+"SpaceSettings.Share" = "Share";
+
+// MARK: - Space Share
+
+"SpaceShare.Title" = "Share space";
+"SpaceShare.MembersSection" = "Members and requests";
+"SpaceShare.Permissions.Owner" = "Owner";
+"SpaceShare.Permissions.Reader" = "Can view";
+"SpaceShare.Permissions.Writer" = "Can edit";
 
 // MARK: - Space Create
 "SpaceCreate.Title" = "Crea uno spazio";
