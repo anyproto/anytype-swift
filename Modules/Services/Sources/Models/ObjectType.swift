@@ -89,6 +89,6 @@ extension ObjectType {
     }
     
     public var isNoteLayout: Bool {
-        recommendedLayout ?? .unknown == .note
+        recommendedLayout == .note
     }
 }

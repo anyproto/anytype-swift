@@ -73,7 +73,7 @@ private extension DetailsLayout {
             return .Layout.task
         case .note:
             return .Layout.note
-        case .set, .collection, .bookmark, .space, .file, .image, .objectType, .unknown, .relation, .relationOption, .dashboard, .relationOptionList, .database, .audio, .video, .date, .spaceView:
+        case .set, .collection, .bookmark, .space, .file, .image, .objectType, .UNRECOGNIZED, .relation, .relationOption, .dashboard, .relationOptionsList, .pdf, .audio, .video, .date, .spaceView:
             return .noImage
         }
     }
@@ -92,7 +92,7 @@ private extension DetailsLayout {
             return Loc.set
         case .collection:
             return Loc.collection
-        case .bookmark, .space, .file, .image, .objectType, .unknown, .relation, .relationOption, .dashboard, .relationOptionList, .database, .audio, .video, .date, .spaceView:
+        case .bookmark, .space, .file, .image, .objectType, .UNRECOGNIZED, .relation, .relationOption, .dashboard, .relationOptionsList, .pdf, .audio, .video, .date, .spaceView:
             return ""
         }
     }
@@ -109,7 +109,7 @@ private extension DetailsLayout {
             return Loc.designedToCaptureThoughtsQuickly
         case .set, .collection:
             return Loc.collectionOfObjects
-        case .bookmark, .space, .file, .image, .objectType, .unknown, .relation, .relationOption, .dashboard, .relationOptionList, .database, .audio, .video, .date, .spaceView:
+        case .bookmark, .space, .file, .image, .objectType, .UNRECOGNIZED, .relation, .relationOption, .dashboard, .relationOptionsList, .pdf, .audio, .video, .date, .spaceView:
             return ""
         }
     }
