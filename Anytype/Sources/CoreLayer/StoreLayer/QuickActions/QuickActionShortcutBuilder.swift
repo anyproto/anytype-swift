@@ -35,10 +35,9 @@ final class QuickActionShortcutBuilder: QuickActionShortcutBuilderProtocol {
         }
         
         return types.prefix(3)
-            .map {
+            .compactMap {
                 buildCreateObjectShortcutItem(typeId: $0.id)
             }
-            .compactMap { $0 }
     }
     
     private func buildCreateDefaultObjectShortcutItem() -> UIApplicationShortcutItem? {
@@ -51,7 +50,7 @@ final class QuickActionShortcutBuilder: QuickActionShortcutBuilderProtocol {
         return buildCreateObjectShortcutItem(type: type)
     }
     
-    private func buildCreateObjectShortcutItem(type: ObjectType) -> UIApplicationShortcutItem? {
+    private func buildCreateObjectShortcutItem(type: ObjectType) -> UIApplicationShortcutItem {
         UIApplicationShortcutItem(
             type: Constants.newObject.rawValue,
             localizedTitle: Loc.QuickAction.create(type.name),
