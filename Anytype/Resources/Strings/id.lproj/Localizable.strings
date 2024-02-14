@@ -88,12 +88,12 @@
 "Relation.Create.Textfield.placeholder" = "Enter name...";
 "Relation.Edit.Button.title" = "Terapkan";
 "Relation.Date.Locked.Alert.title" = "Relation “%@” is locked";
-"Relation.ObjectTypes.Header.title" = "Object types:";
-"Relation.ObjectType.Header.title" = "Object type:";
+"Relation.ObjectTypes.Header.title" = "Tipe objek:";
+"Relation.ObjectType.Header.title" = "Tipe objek:";
 
 "Relation.Delete.Alert.Title" = "Apakah kamu yakin?";
 "Relation.Delete.Alert.Description" = "The option will be permanently removed from your space.";
-"Relation.Object.Delete.Alert.Description" = "The object will be moved to Bin.";
+"Relation.Object.Delete.Alert.Description" = "Objek ini akan dipindah ke Bak Sampah.";
 
 "Relation.Format.Object.Title" = "Objek";
 "Relation.Format.Text.Title" = "Teks";
@@ -229,7 +229,7 @@
 "Error creating wallet" = "Galat membuat wallet";
 "Error select account" = "Galat memilih akun";
 "Error wallet recover account" = "Galat wallet memulihkan akun";
-"Wallet.Recovery.Error.description" = "Invalid recovery phrase";
+"Wallet.Recovery.Error.description" = "Frasa pemulihan tidak valid";
 
 "Search for language" = "Cari bahasa";
 
@@ -529,8 +529,8 @@
 "Select relation type" = "Pilih jenis relasi";
 "CommonOpenErrorView.Message" = "No data found";
 "Nothing found" = "Nothing found";
-"No type found text" = "No type “%@” found. Change your request or create new type.";
-"Create type" = "Create type";
+"No type found text" = "Tipe “%@” tidak ditemukan. Ubah permintaanmu atau buatlah tipe yang baru.";
+"Create type" = "Buat tipe";
 
 
 "Limit object types" = "Batasi tipe objek";
@@ -861,6 +861,16 @@
 "SpaceSettings.DeleteAlert.Title" = "Hapus '%@' ruang";
 "SpaceSettings.DeleteAlert.Message" = "Ruang ini akan dihapus secara permanen. Kamu tidak bisa membatalkan tindakan ini.";
 "SpaceSettings.DeleteButton" = "Hapus ruang";
+"SpaceSettings.Sharing" = "Sharing";
+"SpaceSettings.Share" = "Bagikan";
+
+// MARK: - Space Share
+
+"SpaceShare.Title" = "Share space";
+"SpaceShare.MembersSection" = "Members and requests";
+"SpaceShare.Permissions.Owner" = "Owner";
+"SpaceShare.Permissions.Reader" = "Can view";
+"SpaceShare.Permissions.Writer" = "Can edit";
 
 // MARK: - Space Create
 "SpaceCreate.Title" = "Buat ruang";
@@ -905,9 +915,9 @@
 "Error.AnytypeNeedsUpgrate.Message" = "Objek ini telah diubah pada versi terbaru Anytype. Perbaruilah aplikasimu untuk membuka objek ini di perangkat ini.";
 "Error.AnytypeNeedsUpgrate.Confirm" = "Perbarui";
 "Error.UnableToConnect" = "Tolong sambungkan ke internet";
-"Error.Common.Title" = "Oops!";
-"Error.Common.Message" = "Please check your internet connection and try again or post a report on forum.";
-"Error.Common.TryAgain" = "Try again";
+"Error.Common.Title" = "Waduh!";
+"Error.Common.Message" = "Silakan cek koneksi internetmu dan coba lagi, atau buatlah laporan di forum.";
+"Error.Common.TryAgain" = "Coba lagi";
 
 // MARK: - Relative date formatter
 "RelativeFormatter.days7" = "7 hari terakhir";
@@ -924,13 +934,13 @@
 // MARK: - Gallery
 "Gallery.Unavailable.Title" = "Galeri sedang dalam pengembangan";
 "Gallery.Unavailable.Message" = "Tolong gunakan aplikasi desktop untuk sekarang";
-"Gallery.Author" = "Made by @%@";
-"Gallery.Install" = "Install";
-"Gallery.InstallToNew" = "Install to new space";
+"Gallery.Author" = "Dibuat oleh @%@";
+"Gallery.Install" = "Pasang";
+"Gallery.InstallToNew" = "Pasang ke ruang baru";
 "Gallery.Notification.Success" = "Experience was successfully installed to the \"%@\" space. You can now open and start using it.";
-"Gallery.Notification.Button" = "Go to space";
-"Gallery.Notification.Error" = "Oops! \"%@\" wasn't installed. Please check your internet connection and try again or post a report on forum.";
+"Gallery.Notification.Button" = "Kunjungi ruang";
+"Gallery.Notification.Error" = "Ups! \"%@\" tidak terpasang. Silakan cek koneksi internetmu lalu coba lagi, atau buatlah laporan di forum.";
 
 // MARK: - Debug
 "Debug.MimeTypes" = "Mime Types - %@";
-"Debug.Info" = "Debug Info";
+"Debug.Info" = "Info awakutu";
