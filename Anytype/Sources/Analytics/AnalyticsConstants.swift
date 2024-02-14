@@ -278,6 +278,7 @@ enum AnalyticsEventsRouteKind: String {
     case navigation = "Navigation"
     case widget = "Widget"
     case sharingExtension = "SharingExtension"
+    case homeScreen = "HomeScreen"
 }
 
 enum AnalyticsEventsRouteView: String {
