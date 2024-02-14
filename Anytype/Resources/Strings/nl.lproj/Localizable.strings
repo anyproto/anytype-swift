@@ -862,6 +862,16 @@
 "SpaceSettings.DeleteAlert.Title" = "Verwijder '%@' ruimte";
 "SpaceSettings.DeleteAlert.Message" = "Deze ruimte zal onherroepelijk worden verwijderd. Je kunt deze actie niet ongedaan maken.";
 "SpaceSettings.DeleteButton" = "Verwijder ruimte";
+"SpaceSettings.Sharing" = "Aan het delen";
+"SpaceSettings.Share" = "Deel";
+
+// MARK: - Space Share
+
+"SpaceShare.Title" = "Deel ruimte";
+"SpaceShare.MembersSection" = "Leden en verzoeken";
+"SpaceShare.Permissions.Owner" = "Eigenaar";
+"SpaceShare.Permissions.Reader" = "Kan zien";
+"SpaceShare.Permissions.Writer" = "Kan bewerken";
 
 // MARK: - Space Create
 "SpaceCreate.Title" = "Maak een ruimte aan";
