@@ -861,6 +861,16 @@
 "SpaceSettings.DeleteAlert.Title" = "Excluir o espaço ‘%@’";
 "SpaceSettings.DeleteAlert.Message" = "Este espaço será excluído irrevogavelmente. Você não pode desfazer esta ação.";
 "SpaceSettings.DeleteButton" = "Excluir Espaço";
+"SpaceSettings.Sharing" = "Compartilhamento";
+"SpaceSettings.Share" = "Compartilhar";
+
+// MARK: - Space Share
+
+"SpaceShare.Title" = "Compartilhar espaço";
+"SpaceShare.MembersSection" = "Membros e solicitações";
+"SpaceShare.Permissions.Owner" = "Proprietário";
+"SpaceShare.Permissions.Reader" = "Pode visualizar";
+"SpaceShare.Permissions.Writer" = "Pode editar";
 
 // MARK: - Space Create
 "SpaceCreate.Title" = "Cria um Espaço";
