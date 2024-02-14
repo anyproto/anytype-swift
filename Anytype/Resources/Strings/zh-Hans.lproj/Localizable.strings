@@ -861,6 +861,16 @@
 "SpaceSettings.DeleteAlert.Title" = "删除 “%@” 空间";
 "SpaceSettings.DeleteAlert.Message" = "此空间将被不可撤销地删除。您无法撤消此操作。";
 "SpaceSettings.DeleteButton" = "删除空间";
+"SpaceSettings.Sharing" = "Sharing";
+"SpaceSettings.Share" = "分享";
+
+// MARK: - Space Share
+
+"SpaceShare.Title" = "Share space";
+"SpaceShare.MembersSection" = "Members and requests";
+"SpaceShare.Permissions.Owner" = "Owner";
+"SpaceShare.Permissions.Reader" = "Can view";
+"SpaceShare.Permissions.Writer" = "Can edit";
 
 // MARK: - Space Create
 "SpaceCreate.Title" = "创建空间";
