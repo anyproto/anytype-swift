@@ -862,6 +862,16 @@
 "SpaceSettings.DeleteAlert.Title" = "Удалить пространство \"%@\"";
 "SpaceSettings.DeleteAlert.Message" = "Это пространство будет удалено безвозвратно. Вы не сможете отменить это действие.";
 "SpaceSettings.DeleteButton" = "Удалить пространство";
+"SpaceSettings.Sharing" = "Sharing";
+"SpaceSettings.Share" = "Поделиться";
+
+// MARK: - Space Share
+
+"SpaceShare.Title" = "Share space";
+"SpaceShare.MembersSection" = "Members and requests";
+"SpaceShare.Permissions.Owner" = "Owner";
+"SpaceShare.Permissions.Reader" = "Can view";
+"SpaceShare.Permissions.Writer" = "Can edit";
 
 // MARK: - Space Create
 "SpaceCreate.Title" = "Создать пространство";
