@@ -20,7 +20,7 @@ final class DeepLinkParser: DeepLinkParserProtocol {
         
         switch URL(string: urlString) {
         case URLConstants.createObjectURL:
-            return .createObject
+            return .createDefaultObject
         case URLConstants.sharingExtenstionURL:
             return .showSharingExtension
         case URLConstants.spaceSelectionURL:
@@ -40,6 +40,8 @@ final class DeepLinkParser: DeepLinkParserProtocol {
     
     func createUrl(deepLink: AppAction) -> URL? {
         switch deepLink {
+        case .createDefaultObject:
+            return nil
         case .createObject:
             return nil
         case .showSharingExtension:
