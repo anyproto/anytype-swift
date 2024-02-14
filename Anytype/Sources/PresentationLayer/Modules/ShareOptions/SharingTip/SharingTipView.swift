@@ -59,7 +59,7 @@ struct SharingTipView: View {
                 action: { viewModel.tapShowShareMenu() }
             )
             .padding(.horizontal, 24)
-            .anytypeShareView(show: $viewModel.showShare, item: viewModel.sharedUrl ?? "")
+            .anytypeShareView(item: $viewModel.sharedUrl)
             Spacer.fixedHeight(20)
         }
     }

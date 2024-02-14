@@ -127,7 +127,7 @@ final class ModulesDI: ModulesDIProtocol {
     }
     
     func debugMenu() -> DebugMenuModuleAssemblyProtocol {
-        return DebugMenuModuleAssembly()
+        return DebugMenuModuleAssembly(serviceLocator: serviceLocator)
     }
     
     func settingsAccount() -> SettingsAccountModuleAssemblyProtocol {
@@ -295,6 +295,6 @@ final class ModulesDI: ModulesDIProtocol {
     }
     
     func spareShare() -> SpaceShareModuleAssemblyProtocol {
-        SpaceShareModuleAssembly()
+        SpaceShareModuleAssembly(serviceLocator: serviceLocator)
     }
 }

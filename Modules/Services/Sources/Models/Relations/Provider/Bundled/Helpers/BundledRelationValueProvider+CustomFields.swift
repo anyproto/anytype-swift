@@ -73,4 +73,14 @@ extension BundledRelationsValueProvider {
         guard let spaceAccountStatus else { return nil }
         return Anytype_Model_SpaceStatus(rawValue: spaceAccountStatus)
     }
+    
+    public var participantPermissionsValue: ParticipantPermissions? {
+        guard let participantPermissions else { return nil }
+        return ParticipantPermissions(rawValue: participantPermissions)
+    }
+    
+    public var participantStatusValue: ParticipantStatus? {
+        guard let participantStatus else { return nil }
+        return ParticipantStatus(rawValue: participantStatus)
+    }
 }

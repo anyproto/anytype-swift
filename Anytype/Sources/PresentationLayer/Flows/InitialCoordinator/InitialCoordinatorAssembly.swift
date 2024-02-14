@@ -21,7 +21,10 @@ final class InitialCoordinatorAssembly: InitialCoordinatorAssemblyProtocol {
         InitialCoordinatorView(
             model: InitialCoordinatorViewModel(
                 middlewareConfigurationProvider: self.serviceLocator.middlewareConfigurationProvider(),
-                applicationStateService: self.serviceLocator.applicationStateService()
+                applicationStateService: self.serviceLocator.applicationStateService(),
+                seedService: self.serviceLocator.seedService(),
+                localAuthService: self.serviceLocator.localAuthService(),
+                localRepoService: self.serviceLocator.localRepoService()
             )
         ).eraseToAnyView()
     }

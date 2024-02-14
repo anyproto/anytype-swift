@@ -1,25 +1,24 @@
 import Foundation
 import SwiftUI
 
-private struct ShareViewWrapper: UIViewControllerRepresentable {
+private struct ShareViewWrapper<T>: UIViewControllerRepresentable {
     
-    @Binding var show: Bool
-    var item: Any
+    @Binding var item: T?
 
     func makeUIViewController(context: Context) -> UIViewController {
         UIViewController()
     }
     
     func updateUIViewController(_ uiViewController: UIViewController, context: Context) {
-        if show {
+        if let showItem = item {
             guard context.coordinator.activity.isNil else { return }
-            let newActivity = UIActivityViewController(activityItems: [item], applicationActivities: nil)
+            let newActivity = UIActivityViewController(activityItems: [showItem], applicationActivities: nil)
             if UIDevice.isPad {
                 newActivity.popoverPresentationController?.sourceView = uiViewController.view
                 newActivity.popoverPresentationController?.sourceRect = uiViewController.view.bounds
             }
             newActivity.completionWithItemsHandler = { (_, _, _, _) in
-                show = false
+                item = nil
             }
             context.coordinator.activity = newActivity
             uiViewController.present(newActivity, animated: true)
@@ -40,9 +39,9 @@ private final class ShareViewCoordinator {
 }
 
 extension View {
-    func anytypeShareView(show: Binding<Bool>, item: Any) -> some View {
+    func anytypeShareView<T>(item: Binding<T?>) -> some View {
         self.overlay(
-            ShareViewWrapper(show: show, item: item)
+            ShareViewWrapper(item: item)
                 .allowsHitTesting(false)
         )
     }
