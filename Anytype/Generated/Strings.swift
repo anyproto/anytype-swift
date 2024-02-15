@@ -2202,14 +2202,6 @@ internal enum Loc {
       }
     }
   }
-  internal enum WidgetExtension {
-    internal enum LockScreen {
-      /// Create a new object on the fly
-      internal static let description = Loc.tr("Localizable", "WidgetExtension.LockScreen.Description", fallback: "Create a new object on the fly")
-      /// New object
-      internal static let title = Loc.tr("Localizable", "WidgetExtension.LockScreen.Title", fallback: "New object")
-    }
-  }
   internal enum WidgetObjectList {
     internal enum ForceDelete {
       /// You can’t undo this action.

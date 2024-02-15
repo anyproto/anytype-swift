@@ -1,5 +1,7 @@
 import Foundation
 
+// Call `make generate` to update FeatureFlags helper
+
 public extension FeatureDescription {
     
     static let setTemplateSelection = FeatureDescription(
