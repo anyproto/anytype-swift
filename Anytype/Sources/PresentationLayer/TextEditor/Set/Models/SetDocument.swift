@@ -200,7 +200,7 @@ class SetDocument: SetDocumentProtocol {
         
         // Set query validation
         // Create objects in sets by type only permitted if type is Page-like
-        guard let setOfId = details.setOf.first(where: { $0.isNotEmpty }) else {
+        guard let setOfId = getSetOfId() else {
             return false
         }
         
@@ -209,6 +209,14 @@ class SetDocument: SetDocumentProtocol {
         }
         
         return DetailsLayout.supportedForCreationInSets.contains(layout)
+    }
+    
+    func getSetOfId() -> String? {
+        guard let details else {
+            anytypeAssertionFailure("SetDocument: No details in canCreateObject")
+            return nil
+        }
+        return details.setOf.first(where: { $0.isNotEmpty })
     }
     
     func defaultObjectTypeForActiveView() throws -> ObjectType {
