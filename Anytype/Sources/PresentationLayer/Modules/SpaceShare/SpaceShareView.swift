@@ -21,8 +21,13 @@ struct SpaceShareView: View {
                     .padding(.horizontal, 16)
                 }
                 
-                InviteLinkView(invite: "https://anytype.io/ibafyrfhfsag6rea3ifffsasssg fsdf sdfdsf sdfsd fdsfsdfsdf sdfsdfs", left: 2)
+                InviteLinkView(invite: model.inviteLink, left: model.left) {
+                    model.onUpdateLink()
+                } onShareInvite: {
+                    model.onShareInvite()
+                }
             }
         }
+        .anytypeShareView(item: $model.shareInviteLink)
     }
 }

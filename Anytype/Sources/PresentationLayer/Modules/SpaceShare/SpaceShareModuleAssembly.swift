@@ -20,7 +20,10 @@ final class SpaceShareModuleAssembly: SpaceShareModuleAssemblyProtocol {
     func make() -> AnyView {
         return SpaceShareView(
             model: SpaceShareViewModel(
-                participantSubscriptionService: self.serviceLocator.participantSubscriptionService()
+                participantSubscriptionService: self.serviceLocator.participantSubscriptionService(),
+                workspaceService: self.serviceLocator.workspaceService(),
+                activeWorkspaceStorage: self.serviceLocator.activeWorkspaceStorage(),
+                deppLinkParser: self.serviceLocator.deepLinkParser()
             )
         ).eraseToAnyView()
     }
