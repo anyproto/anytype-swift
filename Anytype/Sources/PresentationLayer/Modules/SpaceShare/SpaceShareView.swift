@@ -14,8 +14,8 @@ struct SpaceShareView: View {
                 ScrollView {
                     VStack(spacing: 0) {
                         SectionHeaderView(title: Loc.SpaceShare.membersSection)
-                        ForEach(model.participants) { participant in
-                            SpaceShareParticipant(participant: participant)
+                        ForEach(model.rows) { participant in
+                            SpaceShareParticipantView(participant: participant)
                         }
                     }
                     .padding(.horizontal, 16)

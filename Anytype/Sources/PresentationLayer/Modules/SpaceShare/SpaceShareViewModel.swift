@@ -14,7 +14,9 @@ final class SpaceShareViewModel: ObservableObject {
     private let activeWorkspaceStorage: ActiveWorkpaceStorageProtocol
     private let deppLinkParser: DeepLinkParserProtocol
     
-    @Published var participants: [Participant] = []
+    private var participants: [Participant] = []
+    
+    @Published var rows: [SpaceShareParticipantViewModel] = []
     @Published var inviteLink: URL?
     @Published var shareInviteLink: URL?
     @Published var limitTitle: String = ""
@@ -63,9 +65,36 @@ final class SpaceShareViewModel: ObservableObject {
     
     private func updateParticipant(items: [Participant]) {
         participants = items
+        rows = items.map { participant in
+            SpaceShareParticipantViewModel(
+                id: participant.id,
+                icon: participant.icon,
+                name: participant.name,
+                status: participantStatus(participant)
+            )
+        }
         let limit = Constants.participantLimit - items.count
         activeShareButton = Constants.participantLimit > items.count
         limitTitle = activeShareButton ? Loc.SpaceShare.Invite.members(limit) : Loc.SpaceShare.Invite.maxLimit(Constants.participantLimit)
+    }
+    
+    private func participantStatus(_ participant: Participant) -> SpaceShareParticipantViewModel.Status? {
+        switch participant.status {
+        case .active:
+            return .normal(permission: participant.permission.title)
+        case .canceled:
+            return nil
+        case .declined:
+            return nil
+        case .joining:
+            return .joining
+        case .removing:
+            return nil
+        case .removed:
+            return nil
+        case .UNRECOGNIZED:
+            return nil
+        }
     }
     
     deinit {
