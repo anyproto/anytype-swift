@@ -109,7 +109,7 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>d</string>
         <key>one</key>
-        <string>File Object</string>
+        <string>Objets fichiers</string>
         <key>other</key>
         <string>%d File Objects</string>
       </dict>
