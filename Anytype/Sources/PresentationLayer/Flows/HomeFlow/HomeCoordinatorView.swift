@@ -68,3 +68,7 @@ struct HomeCoordinatorView: View {
         })
     }
 }
+
+#Preview {
+    DI.preview.coordinatorsDI.home().make()
+}
