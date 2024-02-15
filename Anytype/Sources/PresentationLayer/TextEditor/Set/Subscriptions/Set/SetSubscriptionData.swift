@@ -35,6 +35,7 @@ struct SetSubscriptionData: Hashable {
         if let groupFilter {
             filters.append(groupFilter)
         }
+        filters.append(SearchHelper.excludedLayoutFilter(DetailsLayout.systemLayouts))
         self.filters = filters
         self.options = view.options
         self.currentPage = currentPage

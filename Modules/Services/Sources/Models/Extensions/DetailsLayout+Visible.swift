@@ -1,7 +1,7 @@
 import AnytypeCore
 
 public extension DetailsLayout {
-    static var visibleLayouts: [DetailsLayout] = pageLayouts + setLayouts - [.profile]
+    static var visibleLayouts: [DetailsLayout] = pageLayouts + setLayouts - systemLayouts
     static var supportedForEditLayouts: [DetailsLayout] =  pageLayouts + fileLayouts + setLayouts
     static var supportedForCreationInSets: [DetailsLayout] = pageLayouts - [.participant]
 }
@@ -38,7 +38,8 @@ public extension DetailsLayout {
         .relationOption,
         .relationOptionsList,
         .dashboard,
-        .space
+        .space,
+        .profile
     ]
     
     static var fileAndSystemLayouts: [DetailsLayout] = fileLayouts + systemLayouts
