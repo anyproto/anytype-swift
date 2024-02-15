@@ -143,7 +143,8 @@ final class SetObjectCreationSettingsCoordinator: SetObjectCreationSettingsCoord
                 title: Loc.changeType,
                 spaceId: setDocument.spaceId,
                 showPins: false,
-                showLists: true
+                showLists: true, 
+                showFiles: false
             ) { [weak self] type in
                 self?.navigationContext.dismissTopPresented()
                 onSelect(type)

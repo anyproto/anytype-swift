@@ -4,7 +4,8 @@ import Services
 
 class SetHeaderSettingsViewModel: ObservableObject {
     @Published var viewName = ""
-    @Published var isActive = true
+    @Published var isActiveCreateButton = true
+    @Published var isActiveHeader = true
     
     private let setDocument: SetDocumentProtocol
     private var subscriptions = [AnyCancellable]()
@@ -41,7 +42,8 @@ class SetHeaderSettingsViewModel: ObservableObject {
             .sink { [weak self, weak setDocument] details in
                 guard let self, let setDocument else { return }
                 
-                isActive = setDocument.canCreateObject()
+                isActiveCreateButton = setDocument.canCreateObject()
+                isActiveHeader = setDocument.isActiveHeader()
             }
             .store(in: &subscriptions)
     }

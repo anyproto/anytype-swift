@@ -11,15 +11,22 @@ struct SetHeaderSettingsView: View {
             Spacer()
             settingButton
 
-            Spacer.fixedWidth(16)
-            if FeatureFlags.setTemplateSelection {
-                compositeCreateButtons
-            } else {
-                createObjectButton
+            if !model.isActiveHeader || model.isActiveCreateButton {
+                Spacer.fixedWidth(16)
+                createView
             }
         }
         .padding(.horizontal, 20)
         .frame(height: 56)
+    }
+    
+    @ViewBuilder
+    private var createView: some View {
+        if FeatureFlags.setTemplateSelection {
+            compositeCreateButtons
+        } else {
+            createObjectButton
+        }
     }
     
     private var settingButton: some View {
@@ -28,9 +35,9 @@ struct SetHeaderSettingsView: View {
             model.onSettingsTap()
         }) {
             Image(asset: .X24.customizeView)
-                .foregroundColor(model.isActive ? .Button.active : .Button.inactive)
+                .foregroundColor(model.isActiveHeader ? .Button.active : .Button.inactive)
         }
-        .disabled(!model.isActive)
+        .disabled(!model.isActiveHeader)
     }
     
     private var createObjectButton: some View {
@@ -38,7 +45,7 @@ struct SetHeaderSettingsView: View {
             UISelectionFeedbackGenerator().selectionChanged()
             model.onCreateTap()
         }
-        .disabled(!model.isActive)
+        .disabled(!model.isActiveCreateButton)
     }
     
     private var compositeCreateButtons: some View {
@@ -51,7 +58,7 @@ struct SetHeaderSettingsView: View {
                 UISelectionFeedbackGenerator().selectionChanged()
                 model.onCreateTap()
             }
-            .disabled(!model.isActive)
+            .disabled(!model.isActiveCreateButton)
             Rectangle()
                 .fill(Color.clear)
                 .frame(width: 1, height: 28)
@@ -60,7 +67,7 @@ struct SetHeaderSettingsView: View {
                 UISelectionFeedbackGenerator().selectionChanged()
                 model.onSecondaryCreateTap()
             }
-            .disabled(!model.isActive)
+            .disabled(!model.isActiveCreateButton)
         }
     }
     
@@ -75,14 +82,14 @@ struct SetHeaderSettingsView: View {
                 AnytypeText(
                     model.viewName.isNotEmpty ? model.viewName : Loc.SetViewTypesPicker.Settings.Textfield.Placeholder.untitled,
                     style: .subheading,
-                    color: model.isActive ? .Text.primary : .Text.tertiary
+                    color: model.isActiveHeader ? .Text.primary : .Text.tertiary
                 )
                 Spacer.fixedWidth(4)
                 Image(asset: .arrowDown)
-                    .foregroundColor(model.isActive ? .Text.primary : .Text.tertiary)
+                    .foregroundColor(model.isActiveHeader ? .Text.primary : .Text.tertiary)
             }
         }
-        .disabled(!model.isActive)
+        .disabled(!model.isActiveHeader)
     }
 }
 

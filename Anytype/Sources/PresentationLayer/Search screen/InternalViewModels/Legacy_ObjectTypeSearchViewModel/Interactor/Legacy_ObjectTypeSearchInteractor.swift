@@ -9,6 +9,7 @@ final class Legacy_ObjectTypeSearchInteractor {
     private let workspaceService: WorkspaceServiceProtocol
     private let showBookmark: Bool
     private let showSetAndCollection: Bool
+    private let showFiles: Bool
     private let objectTypeProvider: ObjectTypeProviderProtocol
     
     init(
@@ -17,13 +18,15 @@ final class Legacy_ObjectTypeSearchInteractor {
         workspaceService: WorkspaceServiceProtocol,
         objectTypeProvider: ObjectTypeProviderProtocol,
         showBookmark: Bool,
-        showSetAndCollection: Bool
+        showSetAndCollection: Bool,
+        showFiles: Bool
     ) {
         self.spaceId = spaceId
         self.typesService = typesService
         self.workspaceService = workspaceService
         self.showBookmark = showBookmark
         self.showSetAndCollection = showSetAndCollection
+        self.showFiles = showFiles
         self.objectTypeProvider = objectTypeProvider
     }
     
@@ -36,7 +39,8 @@ extension Legacy_ObjectTypeSearchInteractor {
             text: text, 
             includePins: true,
             includeLists: showSetAndCollection,
-            includeBookmark: showBookmark,
+            includeBookmark: showBookmark, 
+            includeFiles: showFiles,
             spaceId: spaceId
         )
     }
