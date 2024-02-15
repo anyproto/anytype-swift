@@ -213,7 +213,7 @@ class SetDocument: SetDocumentProtocol {
     
     func getSetOfId() -> String? {
         guard let details else {
-            anytypeAssertionFailure("SetDocument: No details in canCreateObject")
+            anytypeAssertionFailure("SetDocument: No details in getSetOfId")
             return nil
         }
         return details.setOf.first(where: { $0.isNotEmpty })
