@@ -20,6 +20,7 @@ final class HomeCoordinatorViewModel: ObservableObject,
     private let newSearchModuleAssembly: NewSearchModuleAssemblyProtocol
     private let objectActionsService: ObjectActionsServiceProtocol
     private let defaultObjectService: DefaultObjectCreationServiceProtocol
+    private let typeProvider: ObjectTypeProviderProtocol
     private let appActionsStorage: AppActionStorage
     private let widgetTypeModuleAssembly: WidgetTypeModuleAssemblyProtocol
     private let spaceSwitchCoordinatorAssembly: SpaceSwitchCoordinatorAssemblyProtocol
@@ -81,6 +82,7 @@ final class HomeCoordinatorViewModel: ObservableObject,
         newSearchModuleAssembly: NewSearchModuleAssemblyProtocol,
         objectActionsService: ObjectActionsServiceProtocol,
         defaultObjectService: DefaultObjectCreationServiceProtocol,
+        typeProvider: ObjectTypeProviderProtocol,
         appActionsStorage: AppActionStorage,
         widgetTypeModuleAssembly: WidgetTypeModuleAssemblyProtocol,
         spaceSwitchCoordinatorAssembly: SpaceSwitchCoordinatorAssemblyProtocol,
@@ -104,6 +106,7 @@ final class HomeCoordinatorViewModel: ObservableObject,
         self.newSearchModuleAssembly = newSearchModuleAssembly
         self.objectActionsService = objectActionsService
         self.defaultObjectService = defaultObjectService
+        self.typeProvider = typeProvider
         self.appActionsStorage = appActionsStorage
         self.widgetTypeModuleAssembly = widgetTypeModuleAssembly
         self.spaceSwitchCoordinatorAssembly = spaceSwitchCoordinatorAssembly
@@ -197,7 +200,7 @@ final class HomeCoordinatorViewModel: ObservableObject,
             showLists: true
         ) { [weak self] type in
             self?.showTypeSearch = false
-            self?.createAndShowNewPage(type: type)
+            self?.createAndShowNewObject(type: type)
         }
     }
 
@@ -321,15 +324,25 @@ final class HomeCoordinatorViewModel: ObservableObject,
         push(data: screenData)
     }
     
-    private func createAndShowNewPage() {
+    private func createAndShowDefaultObject() {
         Task {
             let details = try await defaultObjectService.createDefaultObject(name: "", shouldDeleteEmptyObject: true, spaceId: activeWorkspaceStorage.workspaceInfo.accountSpaceId)
             AnytypeAnalytics.instance().logCreateObject(objectType: details.analyticsType, route: .navigation, view: .home)
             openObject(screenData: details.editorScreenData())
         }
     }
+    
+    private func createAndShowNewObject(typeId: String) {
+        do {
+            let type = try typeProvider.objectType(id: typeId)
+            createAndShowNewObject(type: type)
+        } catch {
+            anytypeAssertionFailure("No object provided typeId", info: ["typeId": typeId])
+            createAndShowDefaultObject()
+        }
+    }
 
-    private func createAndShowNewPage(type: ObjectType) {
+    private func createAndShowNewObject(type: ObjectType) {
         Task {
             let details = try await objectActionsService.createObject(
                 name: "",
@@ -351,8 +364,10 @@ final class HomeCoordinatorViewModel: ObservableObject,
     private func handleAppAction(action: AppAction) {
         keyboardToggle.toggle()
         switch action {
-        case .createObject:
-            createAndShowNewPage()
+        case .createObject(let typeId):
+            createAndShowNewObject(typeId: typeId)
+        case .createDefaultObject:
+            createAndShowDefaultObject()
         case .showSharingExtension:
             navigationContext.dismissAllPresented(animated: true) { [weak self] in
                 self?.showSharing = true

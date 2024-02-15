@@ -20,7 +20,14 @@ final class TypesPinStorage: TypesPinStorageProtocol {
     
     func getPins(spaceId: String) throws -> [ObjectType] {
         if let pins = storage[spaceId] {
-            return pins
+            let objectTypeIds = typeProvider.objectTypes(spaceId: spaceId)
+                .filter { !$0.isArchived }
+                .filter { !$0.isDeleted }
+                .map { $0.id }
+            
+            return pins.filter {
+                objectTypeIds.contains($0.id)
+            }
         }
         
         let page = try typeProvider.objectType(uniqueKey: .page, spaceId: spaceId)

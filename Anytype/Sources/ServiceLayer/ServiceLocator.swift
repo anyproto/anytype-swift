@@ -318,7 +318,11 @@ final class ServiceLocator {
     }
     
     func quickActionShortcutBuilder() -> QuickActionShortcutBuilderProtocol {
-        return QuickActionShortcutBuilder(activeWorkspaceStorage: activeWorkspaceStorage(), objectTypeProvider: objectTypeProvider())
+        return QuickActionShortcutBuilder(
+            activeWorkspaceStorage: activeWorkspaceStorage(),
+            typesService: typesService(),
+            objectTypeProvider: objectTypeProvider()
+        )
     }
     
     private lazy var _subscriptionStorageProvider = SubscriptionStorageProvider(toggler: subscriptionToggler())

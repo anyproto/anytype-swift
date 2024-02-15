@@ -35,4 +35,5 @@ protocol TypesServiceProtocol {
     
     func addPinedType(_ type: ObjectType, spaceId: String) throws
     func removePinedType(typeId: String, spaceId: String) throws
+    func getPinnedTypes(spaceId: String) throws -> [ObjectType]
 }

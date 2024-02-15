@@ -45,6 +45,7 @@ final class HomeCoordinatorAssembly: HomeCoordinatorAssemblyProtocol {
             newSearchModuleAssembly: modulesDI.newSearch(),
             objectActionsService: serviceLocator.objectActionsService(),
             defaultObjectService: serviceLocator.defaultObjectCreationService(),
+            typeProvider: serviceLocator.objectTypeProvider(),
             appActionsStorage: serviceLocator.appActionStorage(),
             widgetTypeModuleAssembly: modulesDI.widgetType(),
             spaceSwitchCoordinatorAssembly: coordinatorsID.spaceSwitch(),

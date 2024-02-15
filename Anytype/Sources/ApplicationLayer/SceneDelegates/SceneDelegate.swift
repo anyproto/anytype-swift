@@ -46,8 +46,8 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     }
 
     func sceneWillResignActive(_ scene: UIScene) {
-        let quickActionShortcutBuilder = di?.serviceLocator.quickActionShortcutBuilder()
-        UIApplication.shared.shortcutItems = QuickAction.allCases.compactMap { quickActionShortcutBuilder?.buildShortcutItem(action: $0) }
+        let builder = di?.serviceLocator.quickActionShortcutBuilder()
+        UIApplication.shared.shortcutItems = builder?.buildShortcutItems()
     }
     
     func windowScene(_ windowScene: UIWindowScene, performActionFor shortcutItem: UIApplicationShortcutItem, completionHandler: @escaping (Bool) -> Void) {
