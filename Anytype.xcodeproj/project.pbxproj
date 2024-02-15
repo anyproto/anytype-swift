@@ -451,7 +451,6 @@
 		2A5CB4212A433C3B00ED9415 /* EditorScreenData+Details.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A5CB4202A433C3B00ED9415 /* EditorScreenData+Details.swift */; };
 		2A5EC7802B7D166F00DD7D89 /* InviteLinkView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A5EC77F2B7D166F00DD7D89 /* InviteLinkView.swift */; };
 		2A610E212B74FF5200B74412 /* SpaceJoinMVPView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A610E202B74FF5200B74412 /* SpaceJoinMVPView.swift */; };
-		2A610E922B76362C00B74412 /* SpaceShareMVPView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A610E912B76362C00B74412 /* SpaceShareMVPView.swift */; };
 		2A617BCA2A49960500725152 /* Document+WidgetTargetSubscriptions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A617BC92A49960400725152 /* Document+WidgetTargetSubscriptions.swift */; };
 		2A617BCC2A49E5B400725152 /* BlockWidget+Limits.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A617BCB2A49E5B400725152 /* BlockWidget+Limits.swift */; };
 		2A617BCE2A49EC0B00725152 /* CommonWidgetInternalViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A617BCD2A49EC0B00725152 /* CommonWidgetInternalViewModel.swift */; };
@@ -727,6 +726,7 @@
 		2AD37D5829911FA50012409E /* WidgetObjectListSetsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AD37D5729911FA50012409E /* WidgetObjectListSetsViewModel.swift */; };
 		2AD37D5A299121D30012409E /* WidgetObjectListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AD37D59299121D30012409E /* WidgetObjectListViewModel.swift */; };
 		2AD37D5C299145370012409E /* WidgetObjectListRecentViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AD37D5B299145370012409E /* WidgetObjectListRecentViewModel.swift */; };
+		2AD48D4E2B7E65BB0077C53B /* SpaceRequestView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AD48D4D2B7E65BB0077C53B /* SpaceRequestView.swift */; };
 		2AD5EFC42B17490200FAA908 /* ButtomAlertHeaderImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AD5EFC32B17490200FAA908 /* ButtomAlertHeaderImageView.swift */; };
 		2AD5EFC62B17492500FAA908 /* BottomAlertButtonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AD5EFC52B17492500FAA908 /* BottomAlertButtonView.swift */; };
 		2AD5EFC92B1753E400FAA908 /* DocumentUpdateAlertView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AD5EFC82B1753E400FAA908 /* DocumentUpdateAlertView.swift */; };
@@ -2202,7 +2202,6 @@
 		2A5CB4202A433C3B00ED9415 /* EditorScreenData+Details.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "EditorScreenData+Details.swift"; sourceTree = "<group>"; };
 		2A5EC77F2B7D166F00DD7D89 /* InviteLinkView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InviteLinkView.swift; sourceTree = "<group>"; };
 		2A610E202B74FF5200B74412 /* SpaceJoinMVPView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpaceJoinMVPView.swift; sourceTree = "<group>"; };
-		2A610E912B76362C00B74412 /* SpaceShareMVPView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpaceShareMVPView.swift; sourceTree = "<group>"; };
 		2A617BC92A49960400725152 /* Document+WidgetTargetSubscriptions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Document+WidgetTargetSubscriptions.swift"; sourceTree = "<group>"; };
 		2A617BCB2A49E5B400725152 /* BlockWidget+Limits.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "BlockWidget+Limits.swift"; sourceTree = "<group>"; };
 		2A617BCD2A49EC0B00725152 /* CommonWidgetInternalViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommonWidgetInternalViewModel.swift; sourceTree = "<group>"; };
@@ -2477,6 +2476,7 @@
 		2AD37D5729911FA50012409E /* WidgetObjectListSetsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WidgetObjectListSetsViewModel.swift; sourceTree = "<group>"; };
 		2AD37D59299121D30012409E /* WidgetObjectListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WidgetObjectListViewModel.swift; sourceTree = "<group>"; };
 		2AD37D5B299145370012409E /* WidgetObjectListRecentViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WidgetObjectListRecentViewModel.swift; sourceTree = "<group>"; };
+		2AD48D4D2B7E65BB0077C53B /* SpaceRequestView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpaceRequestView.swift; sourceTree = "<group>"; };
 		2AD5EFC32B17490200FAA908 /* ButtomAlertHeaderImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ButtomAlertHeaderImageView.swift; sourceTree = "<group>"; };
 		2AD5EFC52B17492500FAA908 /* BottomAlertButtonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BottomAlertButtonView.swift; sourceTree = "<group>"; };
 		2AD5EFC82B1753E400FAA908 /* DocumentUpdateAlertView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DocumentUpdateAlertView.swift; sourceTree = "<group>"; };
@@ -5645,7 +5645,6 @@
 		2A5B53AF2A80DB9700BC993B /* SpaceSettings */ = {
 			isa = PBXGroup;
 			children = (
-				2A610E912B76362C00B74412 /* SpaceShareMVPView.swift */,
 				2A4C7FF62A822B7F00201946 /* Views */,
 				2A5B53B02A80DBA200BC993B /* SpaceSettingsView.swift */,
 				2A5B53B22A80DBAA00BC993B /* SpaceSettingsViewModel.swift */,
@@ -6332,6 +6331,7 @@
 			children = (
 				2AC434A92B7A15B9006166BF /* SpaceShareParticipantView.swift */,
 				2A5EC77F2B7D166F00DD7D89 /* InviteLinkView.swift */,
+				2AD48D4D2B7E65BB0077C53B /* SpaceRequestView.swift */,
 			);
 			path = Subviews;
 			sourceTree = "<group>";
@@ -10770,7 +10770,6 @@
 				2AAA09042AEAB71900A446B8 /* SpaceSwitchCoordinatorViewModel.swift in Sources */,
 				2A6E04B1298D66DB0023B33D /* WidgetObjectListCommonModuleOutput.swift in Sources */,
 				2ABA0E07283BC420008369DC /* BlockObjectsSearchInteractor.swift in Sources */,
-				2A610E922B76362C00B74412 /* SpaceShareMVPView.swift in Sources */,
 				2EAA13FC2AA63918000A712A /* SetViewSettingsImagePreviewModuleAssembly.swift in Sources */,
 				12EEC36C26A0903F00C3C4B1 /* EmojiProvider.swift in Sources */,
 				2AD37D5A299121D30012409E /* WidgetObjectListViewModel.swift in Sources */,
@@ -11204,6 +11203,7 @@
 				0A78328324BDEAE700A1B6F6 /* AttributedTextConverter.swift in Sources */,
 				1247BC8027FE05C4005F2DB4 /* TransparencyEffect.swift in Sources */,
 				2A28723C2B4D8C38007B3D59 /* GalleryInstallationCoordinatorAssembly.swift in Sources */,
+				2AD48D4E2B7E65BB0077C53B /* SpaceRequestView.swift in Sources */,
 				1247BC7527FDD3D4005F2DB4 /* NewSearchModuleAssemblyProtocol.swift in Sources */,
 				2E0DAF1B28A17DB400F43320 /* SetPrefilledFieldsBuilder.swift in Sources */,
 				2E7C446B2892E66D0062287C /* SetFiltersDate.swift in Sources */,

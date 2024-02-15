@@ -22,6 +22,7 @@ final class SpaceShareViewModel: ObservableObject {
     @Published var limitTitle: String = ""
     @Published var activeShareButton = false
     @Published var toastBarData: ToastBarData = .empty
+    @Published var requestAlertModel: SpaceRequestViewModel?
     
     init(
         participantSubscriptionService: ParticipantsSubscriptionServiceProtocol, 
@@ -41,7 +42,10 @@ final class SpaceShareViewModel: ObservableObject {
     }
     
     func onUpdateLink() {
-        
+        Task {
+            let invite = try await workspaceService.generateInvite(spaceId: activeWorkspaceStorage.workspaceInfo.accountSpaceId)
+            inviteLink = deppLinkParser.createUrl(deepLink: .invite(cid: invite.cid, key: invite.fileKey))
+        }
     }
     
     func onShareInvite() {
@@ -64,13 +68,14 @@ final class SpaceShareViewModel: ObservableObject {
     }
     
     private func updateParticipant(items: [Participant]) {
-        participants = items
-        rows = items.map { participant in
+        participants = items.sorted { $0.sortingWeight > $1.sortingWeight }
+        rows = participants.map { participant in
             SpaceShareParticipantViewModel(
                 id: participant.id,
                 icon: participant.icon,
                 name: participant.name,
-                status: participantStatus(participant)
+                status: participantStatus(participant),
+                action: participantAction(participant)
             )
         }
         let limit = Constants.participantLimit - items.count
@@ -82,24 +87,68 @@ final class SpaceShareViewModel: ObservableObject {
         switch participant.status {
         case .active:
             return .normal(permission: participant.permission.title)
-        case .canceled:
-            return nil
-        case .declined:
-            return nil
         case .joining:
             return .joining
-        case .removing:
-            return nil
-        case .removed:
-            return nil
-        case .UNRECOGNIZED:
+        case .declined:
+            return .declined
+        case .canceled, .removing, .removed, .UNRECOGNIZED:
             return nil
         }
+    }
+    
+    private func participantAction(_ participant: Participant) -> SpaceShareParticipantViewModel.Action? {
+        switch participant.status {
+        case .joining:
+            return SpaceShareParticipantViewModel.Action(title: Loc.SpaceShare.Action.viewRequest, action: { [weak self] in
+                self?.shoqRequestAlert(participant: participant)
+            })
+        case .active, .canceled, .declined, .removing, .removed, .UNRECOGNIZED:
+            return nil
+        }
+    }
+    
+    private func shoqRequestAlert(participant: Participant) {
+        guard let spaceView = activeWorkspaceStorage.spaceView() else { return }
+        
+        requestAlertModel = SpaceRequestViewModel(
+            icon: participant.icon,
+            title: Loc.SpaceShare.ViewRequest.title(participant.name, spaceView.name),
+            onViewAccess: { [weak self] in
+                Task {
+                    try await self?.workspaceService.requestApprove(spaceId: spaceView.targetSpaceId, identity: participant.identity, permissions: .reader)
+                }
+            },
+            onEditAccess: { [weak self] in
+                Task {
+                    try await self?.workspaceService.requestApprove(spaceId: spaceView.targetSpaceId, identity: participant.identity, permissions: .writer)
+                }
+            },
+            onReject: { [weak self] in
+                Task {
+                    try await self?.workspaceService.requestDecline(spaceId: spaceView.targetSpaceId, identity: participant.identity)
+                }
+                
+            }
+        )
     }
     
     deinit {
         Task { [participantSubscriptionService] in
             await participantSubscriptionService.stopSubscription()
         }
+    }
+}
+
+private extension Participant {
+    var sortingWeight: Int {
+        if permission == .owner {
+            return 3
+        }
+        
+        if status == .declined {
+            return 1
+        }
+        
+        return 2
     }
 }

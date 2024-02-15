@@ -20,18 +20,25 @@ struct SpaceShareView: View {
                     }
                     .padding(.horizontal, 16)
                 }
-                
-                InviteLinkView(invite: model.inviteLink, limitTitle: model.limitTitle, activeShareLink: model.activeShareButton) {
-                    model.onUpdateLink()
-                } onShareInvite: {
-                    model.onShareInvite()
-                } onCopyLink: {
-                    model.onCopyLink()
+                .safeAreaInset(edge: .bottom) {
+                    inviteView
                 }
             }
-            .ignoresSafeArea()
         }
         .anytypeShareView(item: $model.shareInviteLink)
         .snackbar(toastBarData: $model.toastBarData)
+        .anytypeSheet(item: $model.requestAlertModel) { model in
+            SpaceRequestView(model: model)
+        }
+    }
+    
+    private var inviteView: some View {
+        InviteLinkView(invite: model.inviteLink, limitTitle: model.limitTitle, activeShareLink: model.activeShareButton) {
+            model.onUpdateLink()
+        } onShareInvite: {
+            model.onShareInvite()
+        } onCopyLink: {
+            model.onCopyLink()
+        }
     }
 }
