@@ -1,5 +1,6 @@
 import Foundation
 import Services
+import UIKit
 
 @MainActor
 final class SpaceShareViewModel: ObservableObject {
@@ -18,6 +19,7 @@ final class SpaceShareViewModel: ObservableObject {
     @Published var shareInviteLink: URL?
     @Published var limitTitle: String = ""
     @Published var activeShareButton = false
+    @Published var toastBarData: ToastBarData = .empty
     
     init(
         participantSubscriptionService: ParticipantsSubscriptionServiceProtocol, 
@@ -42,6 +44,12 @@ final class SpaceShareViewModel: ObservableObject {
     
     func onShareInvite() {
         shareInviteLink = inviteLink
+    }
+    
+    func onCopyLink() {
+        guard let inviteLink else { return }
+        UIPasteboard.general.string = inviteLink.absoluteString
+        toastBarData = ToastBarData(text: inviteLink.absoluteString, showSnackBar: true)
     }
     
     // MARK: - Private

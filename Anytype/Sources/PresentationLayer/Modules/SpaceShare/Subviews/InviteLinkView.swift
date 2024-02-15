@@ -8,6 +8,7 @@ struct InviteLinkView: View {
     let activeShareLink: Bool
     let onUpdateLink: () -> Void
     let onShareInvite: () -> Void
+    let onCopyLink: () -> Void
     
     var body: some View {
         VStack(alignment: .leading, spacing: 0) {
@@ -24,10 +25,15 @@ struct InviteLinkView: View {
             Spacer.fixedHeight(8)
             AnytypeText(Loc.SpaceShare.Invite.description, style: .uxCalloutRegular, color: .Text.primary)
             Spacer.fixedHeight(8)
-            AnytypeText(invite?.absoluteString ?? "", style: .uxCalloutRegular, color: .Text.secondary)
-                .lineLimit(1)
-                .frame(height: 48)
-                .newDivider()
+            Button {
+                onCopyLink()
+            } label: {
+                AnytypeText(invite?.absoluteString ?? "", style: .uxCalloutRegular, color: .Text.secondary)
+                    .lineLimit(1)
+                    .frame(height: 48)
+                    .newDivider()
+            }
+            .disabled(!activeShareLink)
             Spacer.fixedHeight(14)
             AnytypeText(limitTitle, style: .relation3Regular, color: .Text.secondary)
             Spacer.fixedHeight(13)

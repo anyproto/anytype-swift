@@ -25,9 +25,13 @@ struct SpaceShareView: View {
                     model.onUpdateLink()
                 } onShareInvite: {
                     model.onShareInvite()
+                } onCopyLink: {
+                    model.onCopyLink()
                 }
             }
+            .ignoresSafeArea()
         }
         .anytypeShareView(item: $model.shareInviteLink)
+        .snackbar(toastBarData: $model.toastBarData)
     }
 }
