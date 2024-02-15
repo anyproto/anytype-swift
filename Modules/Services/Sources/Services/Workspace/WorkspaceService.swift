@@ -13,6 +13,7 @@ public protocol WorkspaceServiceProtocol {
     func inviteView(cid: String, key: String) async throws -> SpaceInviteView
     func join(spaceId: String, cid: String, key: String) async throws
     func generateInvite(spaceId: String) async throws -> SpaceInvite
+    func getCurrentInvite(spaceId: String) async throws -> SpaceInvite
     func requestApprove(spaceId: String, identity: String) async throws
 }
 
@@ -90,6 +91,13 @@ public final class WorkspaceService: WorkspaceServiceProtocol {
     
     public func generateInvite(spaceId: String) async throws -> SpaceInvite {
         let result = try await ClientCommands.spaceInviteGenerate(.with {
+            $0.spaceID = spaceId
+        }).invoke()
+        return result.asModel()
+    }
+    
+    public func getCurrentInvite(spaceId: String) async throws -> SpaceInvite {
+        let result = try await ClientCommands.spaceInviteGetCurrent(.with {
             $0.spaceID = spaceId
         }).invoke()
         return result.asModel()
