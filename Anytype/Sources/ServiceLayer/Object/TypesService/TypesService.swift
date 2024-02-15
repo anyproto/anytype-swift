@@ -50,6 +50,7 @@ final class TypesService: TypesServiceProtocol {
         includePins: Bool,
         includeLists: Bool,
         includeBookmark: Bool,
+        includeFiles: Bool,
         spaceId: String
     ) async throws -> [ObjectDetails] {
         let excludedTypeIds = includePins ? [] : try await searchPinnedTypes(text: "", spaceId: spaceId).map { $0.id }
@@ -59,7 +60,7 @@ final class TypesService: TypesServiceProtocol {
             type: .desc
         )
                 
-        var layouts = DetailsLayout.visibleLayouts
+        var layouts = includeFiles ? DetailsLayout.visibleLayoutsWithFiles : DetailsLayout.visibleLayouts
         
         if !includeLists {
             layouts.removeAll(where: { $0 == .set })

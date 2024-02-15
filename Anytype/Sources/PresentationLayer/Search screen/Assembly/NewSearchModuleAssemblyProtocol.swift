@@ -47,6 +47,7 @@ protocol NewSearchModuleAssemblyProtocol {
         selectedObjectId: BlockId?,
         excludedObjectTypeId: String?,
         showSetAndCollection: Bool,
+        showFiles: Bool,
         onSelect: @escaping (_ type: ObjectType) -> Void
     ) -> NewSearchView
     
@@ -150,6 +151,7 @@ extension NewSearchModuleAssemblyProtocol {
         selectedObjectId: BlockId? = nil,
         excludedObjectTypeId: String? = nil,
         showSetAndCollection: Bool = false,
+        showFiles: Bool = false,
         onSelect: @escaping (_ type: ObjectType) -> Void
     ) -> NewSearchView {
         return objectTypeSearchModule(
@@ -159,6 +161,7 @@ extension NewSearchModuleAssemblyProtocol {
             selectedObjectId: selectedObjectId,
             excludedObjectTypeId: excludedObjectTypeId,
             showSetAndCollection: showSetAndCollection,
+            showFiles: showFiles,
             onSelect: onSelect
         )
     }

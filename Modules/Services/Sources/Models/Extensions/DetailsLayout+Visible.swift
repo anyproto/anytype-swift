@@ -4,6 +4,7 @@ public extension DetailsLayout {
     static var visibleLayouts: [DetailsLayout] = pageLayouts + setLayouts - [.profile]
     static var supportedForEditLayouts: [DetailsLayout] =  pageLayouts + fileLayouts + setLayouts
     static var supportedForCreationInSets: [DetailsLayout] = pageLayouts - [.participant]
+    static var visibleLayoutsWithFiles = visibleLayouts + fileLayouts
 }
 
 

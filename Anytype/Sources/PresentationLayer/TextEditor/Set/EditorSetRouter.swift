@@ -234,7 +234,8 @@ final class EditorSetRouter: EditorSetRouterProtocol, ObjectSettingsCoordinatorO
                 title: Loc.Set.SourceType.selectQuery,
                 spaceId: setDocument.spaceId,
                 showPins: false,
-                showLists: false
+                showLists: false, 
+                showFiles: true
             ) { [weak self] type in
                 self?.navigationContext.dismissTopPresented()
                 onSelect(type.id)
@@ -247,7 +248,8 @@ final class EditorSetRouter: EditorSetRouterProtocol, ObjectSettingsCoordinatorO
                 spaceId: setDocument.spaceId,
                 selectedObjectId: selectedObjectId,
                 excludedObjectTypeId: setDocument.details?.type,
-                showSetAndCollection: false
+                showSetAndCollection: false,
+                showFiles: true
             ) { [weak self] type in
                 self?.navigationContext.dismissTopPresented()
                 onSelect(type.id)

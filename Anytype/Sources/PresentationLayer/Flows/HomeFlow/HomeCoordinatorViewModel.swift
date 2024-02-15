@@ -197,7 +197,8 @@ final class HomeCoordinatorViewModel: ObservableObject,
             title: Loc.createNewObject,
             spaceId: activeWorkspaceStorage.workspaceInfo.accountSpaceId,
             showPins: true,
-            showLists: true
+            showLists: true, 
+            showFiles: false
         ) { [weak self] type in
             self?.showTypeSearch = false
             self?.createAndShowNewObject(type: type)
