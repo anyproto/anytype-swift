@@ -1971,6 +1971,22 @@ internal enum Loc {
     internal static let membersSection = Loc.tr("Localizable", "SpaceShare.MembersSection", fallback: "Members and requests")
     /// Share space
     internal static let title = Loc.tr("Localizable", "SpaceShare.Title", fallback: "Share space")
+    internal enum Invite {
+      /// Share invite link
+      internal static let button = Loc.tr("Localizable", "SpaceShare.Invite.Button", fallback: "Share invite link")
+      /// Send this link to invite others. Assign access rights upon their request approval
+      internal static let description = Loc.tr("Localizable", "SpaceShare.Invite.Description", fallback: "Send this link to invite others. Assign access rights upon their request approval")
+      /// Plural format key: "%#@object@"
+      internal static func maxLimit(_ p1: Int) -> String {
+        return Loc.tr("Localizable", "SpaceShare.Invite.MaxLimit", p1, fallback: "Plural format key: \"%#@object@\"")
+      }
+      /// Plural format key: "%#@object@"
+      internal static func members(_ p1: Int) -> String {
+        return Loc.tr("Localizable", "SpaceShare.Invite.Members", p1, fallback: "Plural format key: \"%#@object@\"")
+      }
+      /// Invite link
+      internal static let title = Loc.tr("Localizable", "SpaceShare.Invite.Title", fallback: "Invite link")
+    }
     internal enum Permissions {
       /// Owner
       internal static let owner = Loc.tr("Localizable", "SpaceShare.Permissions.Owner", fallback: "Owner")

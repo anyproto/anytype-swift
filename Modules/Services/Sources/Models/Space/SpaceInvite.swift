@@ -11,3 +11,9 @@ extension Anytype_Rpc.Space.InviteGenerate.Response {
         return SpaceInvite(cid: inviteCid, fileKey: inviteFileKey)
     }
 }
+
+extension Anytype_Rpc.Space.InviteGetCurrent.Response {
+    func asModel() -> SpaceInvite {
+        return SpaceInvite(cid: inviteCid, fileKey: inviteFileKey)
+    }
+}
