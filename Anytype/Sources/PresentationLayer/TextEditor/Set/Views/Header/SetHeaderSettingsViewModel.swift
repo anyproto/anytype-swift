@@ -5,7 +5,7 @@ import Services
 class SetHeaderSettingsViewModel: ObservableObject {
     @Published var viewName = ""
     @Published var isActiveCreateButton = true
-    @Published var isActiveSettings = true
+    @Published var isActiveHeader = true
     
     private let setDocument: SetDocumentProtocol
     private var subscriptions = [AnyCancellable]()
@@ -43,7 +43,7 @@ class SetHeaderSettingsViewModel: ObservableObject {
                 guard let self, let setDocument else { return }
                 
                 isActiveCreateButton = setDocument.canCreateObject()
-                isActiveSettings = setDocument.getSetOfId().isNotNil
+                isActiveHeader = setDocument.isHeaderActive()
             }
             .store(in: &subscriptions)
     }

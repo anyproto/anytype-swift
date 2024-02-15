@@ -11,15 +11,22 @@ struct SetHeaderSettingsView: View {
             Spacer()
             settingButton
 
-            Spacer.fixedWidth(16)
-            if FeatureFlags.setTemplateSelection {
-                compositeCreateButtons
-            } else {
-                createObjectButton
+            if !model.isActiveHeader || model.isActiveCreateButton {
+                Spacer.fixedWidth(16)
+                createView
             }
         }
         .padding(.horizontal, 20)
         .frame(height: 56)
+    }
+    
+    @ViewBuilder
+    private var createView: some View {
+        if FeatureFlags.setTemplateSelection {
+            compositeCreateButtons
+        } else {
+            createObjectButton
+        }
     }
     
     private var settingButton: some View {
@@ -28,9 +35,9 @@ struct SetHeaderSettingsView: View {
             model.onSettingsTap()
         }) {
             Image(asset: .X24.customizeView)
-                .foregroundColor(model.isActiveSettings ? .Button.active : .Button.inactive)
+                .foregroundColor(model.isActiveHeader ? .Button.active : .Button.inactive)
         }
-        .disabled(!model.isActiveSettings)
+        .disabled(!model.isActiveHeader)
     }
     
     private var createObjectButton: some View {
@@ -75,14 +82,14 @@ struct SetHeaderSettingsView: View {
                 AnytypeText(
                     model.viewName.isNotEmpty ? model.viewName : Loc.SetViewTypesPicker.Settings.Textfield.Placeholder.untitled,
                     style: .subheading,
-                    color: model.isActiveSettings ? .Text.primary : .Text.tertiary
+                    color: model.isActiveHeader ? .Text.primary : .Text.tertiary
                 )
                 Spacer.fixedWidth(4)
                 Image(asset: .arrowDown)
-                    .foregroundColor(model.isActiveSettings ? .Text.primary : .Text.tertiary)
+                    .foregroundColor(model.isActiveHeader ? .Text.primary : .Text.tertiary)
             }
         }
-        .disabled(!model.isActiveSettings)
+        .disabled(!model.isActiveHeader)
     }
 }
 
