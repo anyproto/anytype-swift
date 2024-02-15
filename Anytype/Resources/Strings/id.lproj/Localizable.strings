@@ -861,12 +861,12 @@
 "SpaceSettings.DeleteAlert.Title" = "Hapus '%@' ruang";
 "SpaceSettings.DeleteAlert.Message" = "Ruang ini akan dihapus secara permanen. Kamu tidak bisa membatalkan tindakan ini.";
 "SpaceSettings.DeleteButton" = "Hapus ruang";
-"SpaceSettings.Sharing" = "Sharing";
+"SpaceSettings.Sharing" = "Berbagi";
 "SpaceSettings.Share" = "Bagikan";
 
 // MARK: - Space Share
 
-"SpaceShare.Title" = "Share space";
+"SpaceShare.Title" = "Bagikan ruang";
 "SpaceShare.MembersSection" = "Members and requests";
 "SpaceShare.Permissions.Owner" = "Owner";
 "SpaceShare.Permissions.Reader" = "Can view";
