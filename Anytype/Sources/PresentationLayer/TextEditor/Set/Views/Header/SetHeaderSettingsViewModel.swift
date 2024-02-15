@@ -43,7 +43,7 @@ class SetHeaderSettingsViewModel: ObservableObject {
                 guard let self, let setDocument else { return }
                 
                 isActiveCreateButton = setDocument.canCreateObject()
-                isActiveHeader = setDocument.isHeaderActive()
+                isActiveHeader = setDocument.isActiveHeader()
             }
             .store(in: &subscriptions)
     }

@@ -48,7 +48,7 @@ protocol SetDocumentProtocol: BaseDocumentGeneralProtocol {
     func isBookmarksSet() -> Bool
     func isCollection() -> Bool
     func canCreateObject() -> Bool
-    func isHeaderActive() -> Bool
+    func isActiveHeader() -> Bool
     func defaultObjectTypeForActiveView() throws -> ObjectType
     func defaultObjectTypeForView(_ view: DataviewView) throws -> ObjectType
     var syncPublisher: AnyPublisher<Void, Never> { get }

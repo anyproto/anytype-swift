@@ -76,7 +76,7 @@ final class MockSetDocument: SetDocumentProtocol {
     
     func canCreateObject() -> Bool { true }
     
-    func isHeaderActive() -> Bool { true }
+    func isActiveHeader() -> Bool { true }
     
     func defaultObjectTypeForActiveView() throws -> ObjectType { fatalError() }
     
