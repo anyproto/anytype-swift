@@ -47,9 +47,8 @@ final class SpaceShareViewModel: ObservableObject {
     }
     
     func onCopyLink() {
-        guard let inviteLink else { return }
-        UIPasteboard.general.string = inviteLink.absoluteString
-        toastBarData = ToastBarData(text: inviteLink.absoluteString, showSnackBar: true)
+        UIPasteboard.general.string = inviteLink?.absoluteString
+        toastBarData = ToastBarData(text: Loc.copied, showSnackBar: true)
     }
     
     // MARK: - Private
