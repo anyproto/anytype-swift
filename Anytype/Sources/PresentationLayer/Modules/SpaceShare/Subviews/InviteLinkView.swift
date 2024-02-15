@@ -4,7 +4,8 @@ import SwiftUI
 struct InviteLinkView: View {
     
     let invite: URL?
-    let left: Int
+    let limitTitle: String
+    let activeShareLink: Bool
     let onUpdateLink: () -> Void
     let onShareInvite: () -> Void
     
@@ -28,11 +29,12 @@ struct InviteLinkView: View {
                 .frame(height: 48)
                 .newDivider()
             Spacer.fixedHeight(14)
-            AnytypeText(Loc.SpaceShare.Invite.members(left), style: .relation3Regular, color: .Text.secondary)
+            AnytypeText(limitTitle, style: .relation3Regular, color: .Text.secondary)
             Spacer.fixedHeight(13)
             StandardButton(Loc.SpaceShare.Invite.button, style: .primaryLarge) {
                 onShareInvite()
             }
+            .disabled(!activeShareLink)
         }
         .padding(20)
         .background(Color.Background.secondary)

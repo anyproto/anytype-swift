@@ -1977,6 +1977,10 @@ internal enum Loc {
       /// Send this link to invite others. Assign access rights upon their request approval
       internal static let description = Loc.tr("Localizable", "SpaceShare.Invite.Description", fallback: "Send this link to invite others. Assign access rights upon their request approval")
       /// Plural format key: "%#@object@"
+      internal static func maxLimit(_ p1: Int) -> String {
+        return Loc.tr("Localizable", "SpaceShare.Invite.MaxLimit", p1, fallback: "Plural format key: \"%#@object@\"")
+      }
+      /// Plural format key: "%#@object@"
       internal static func members(_ p1: Int) -> String {
         return Loc.tr("Localizable", "SpaceShare.Invite.Members", p1, fallback: "Plural format key: \"%#@object@\"")
       }

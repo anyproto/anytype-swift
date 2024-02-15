@@ -16,7 +16,8 @@ final class SpaceShareViewModel: ObservableObject {
     @Published var participants: [Participant] = []
     @Published var inviteLink: URL?
     @Published var shareInviteLink: URL?
-    @Published var left: Int = 0
+    @Published var limitTitle: String = ""
+    @Published var activeShareButton = false
     
     init(
         participantSubscriptionService: ParticipantsSubscriptionServiceProtocol, 
@@ -48,10 +49,16 @@ final class SpaceShareViewModel: ObservableObject {
     private func startSubscriptions() {
         Task {
             await participantSubscriptionService.startSubscription { [weak self] items in
-                self?.participants = items
-                self?.left = Constants.participantLimit - items.count
+                self?.updateParticipant(items: items)
             }
         }
+    }
+    
+    private func updateParticipant(items: [Participant]) {
+        participants = items
+        let limit = Constants.participantLimit - items.count
+        activeShareButton = Constants.participantLimit > items.count
+        limitTitle = activeShareButton ? Loc.SpaceShare.Invite.members(limit) : Loc.SpaceShare.Invite.maxLimit(Constants.participantLimit)
     }
     
     deinit {

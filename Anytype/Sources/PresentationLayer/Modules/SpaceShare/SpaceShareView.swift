@@ -21,7 +21,7 @@ struct SpaceShareView: View {
                     .padding(.horizontal, 16)
                 }
                 
-                InviteLinkView(invite: model.inviteLink, left: model.left) {
+                InviteLinkView(invite: model.inviteLink, limitTitle: model.limitTitle, activeShareLink: model.activeShareButton) {
                     model.onUpdateLink()
                 } onShareInvite: {
                     model.onShareInvite()
