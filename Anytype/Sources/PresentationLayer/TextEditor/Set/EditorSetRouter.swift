@@ -7,12 +7,7 @@ import SwiftUI
 protocol EditorSetRouterProtocol:
     AnyObject,
     ObjectHeaderRouterProtocol
-{
-    
-    func showSetSettings(subscriptionDetailsStorage: ObjectDetailsStorage)
-    
-    func showViewPicker(subscriptionDetailsStorage: ObjectDetailsStorage)
-    
+{    
     func showCreateObject(setting: ObjectCreationSetting?)
     
     func showRelationSearch(relationsDetails: [RelationDetails], onSelect: @escaping (RelationDetails) -> Void)
@@ -112,26 +107,6 @@ final class EditorSetRouter: EditorSetRouterProtocol, ObjectSettingsCoordinatorO
         self.output = output
     }
     // MARK: - EditorSetRouterProtocol
-    
-    @MainActor
-    func showSetSettings(subscriptionDetailsStorage: ObjectDetailsStorage) {
-        let view = setViewSettingsCoordinatorAssembly.make(
-            setDocument: setDocument,
-            viewId: setDocument.activeView.id,
-            mode: .edit,
-            subscriptionDetailsStorage: subscriptionDetailsStorage
-        )
-        navigationContext.presentSwiftUISheetView(view: view)
-    }
-
-    @MainActor
-    func showViewPicker(subscriptionDetailsStorage: ObjectDetailsStorage) {
-        let view = setViewPickerCoordinatorAssembly.make(
-            with: setDocument,
-            subscriptionDetailsStorage: subscriptionDetailsStorage
-        )
-        navigationContext.presentSwiftUISheetView(view: view)
-    }
     
     func showCreateObject(setting: ObjectCreationSetting?) {
         setObjectCreationCoordinator.startCreateObject(setDocument: setDocument, setting: setting, output: self, customAnalyticsRoute: nil)

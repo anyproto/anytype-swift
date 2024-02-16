@@ -603,12 +603,12 @@ extension EditorSetViewModel {
     
     func showViewPicker() {
         guard let detailsStorage = defaultSubscriptionDetailsStorage() else { return }
-        router?.showViewPicker(subscriptionDetailsStorage: detailsStorage)
+        output?.showSetViewPicker(document: setDocument, subscriptionDetailsStorage: detailsStorage)
     }
     
     func showSetSettings() {
         guard let detailsStorage = defaultSubscriptionDetailsStorage() else { return }
-        router?.showSetSettings(subscriptionDetailsStorage: detailsStorage)
+        output?.showSetViewSettings(document: setDocument, subscriptionDetailsStorage: detailsStorage)
     }
     
     func showObjectSettings() {

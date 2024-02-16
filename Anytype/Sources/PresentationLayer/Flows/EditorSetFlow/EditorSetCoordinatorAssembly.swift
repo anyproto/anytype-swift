@@ -30,7 +30,12 @@ final class EditorSetCoordinatorAssembly: EditorSetCoordinatorAssemblyProtocol {
     @MainActor
     func make(data: EditorSetObject) -> AnyView {
         return EditorSetCoordinatorView(
-            model: EditorSetCoordinatorViewModel(data: data,editorSetAssembly: self.coordinatorsID.editorSetModule())
+            model: EditorSetCoordinatorViewModel(
+                data: data,
+                editorSetAssembly: self.coordinatorsID.editorSetModule(), 
+                setViewPickerCoordinatorAssembly: self.coordinatorsID.setViewPicker(),
+                setViewSettingsCoordinatorAssembly: self.coordinatorsID.setViewSettings()
+            )
         ).eraseToAnyView()
     }
 }
