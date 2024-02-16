@@ -753,10 +753,6 @@
 "Content.DataView.InlineCollection.Untitled" = "Navnløs samling";
 "Content.DataView.InlineSet.Toast.Failure" = "Dette innfelte settet har ingen kilde";
 
-// MARK: - Widget extension
-"WidgetExtension.LockScreen.Title" = "Nytt objekt";
-"WidgetExtension.LockScreen.Description" = "Opprett et nytt objekt på direkten";
-
 // MARK: - Toast
 "Editor.Toast.LinkedTo" = "koblet til";
 "Editor.Toast.MovedTo" = "Blokk flyttet til";
@@ -871,6 +867,9 @@
 "SpaceShare.Permissions.Owner" = "Eier";
 "SpaceShare.Permissions.Reader" = "Kan se";
 "SpaceShare.Permissions.Writer" = "Kan redigere";
+"SpaceShare.Invite.Title" = "Invite link";
+"SpaceShare.Invite.Description" = "Send this link to invite others. Assign access rights upon their request approval";
+"SpaceShare.Invite.Button" = "Share invite link";
 
 // MARK: - Space Create
 "SpaceCreate.Title" = "Opprett et rom";
