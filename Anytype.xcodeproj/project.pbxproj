@@ -727,6 +727,9 @@
 		2AD37D5829911FA50012409E /* WidgetObjectListSetsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AD37D5729911FA50012409E /* WidgetObjectListSetsViewModel.swift */; };
 		2AD37D5A299121D30012409E /* WidgetObjectListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AD37D59299121D30012409E /* WidgetObjectListViewModel.swift */; };
 		2AD37D5C299145370012409E /* WidgetObjectListRecentViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AD37D5B299145370012409E /* WidgetObjectListRecentViewModel.swift */; };
+		2AD48D522B7F57B80077C53B /* SpaceJoinView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AD48D512B7F57B80077C53B /* SpaceJoinView.swift */; };
+		2AD48D542B7F57CE0077C53B /* SpaceJoinViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AD48D532B7F57CE0077C53B /* SpaceJoinViewModel.swift */; };
+		2AD48D562B7F57D90077C53B /* SpaceJoinModuleAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AD48D552B7F57D90077C53B /* SpaceJoinModuleAssembly.swift */; };
 		2AD5EFC42B17490200FAA908 /* ButtomAlertHeaderImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AD5EFC32B17490200FAA908 /* ButtomAlertHeaderImageView.swift */; };
 		2AD5EFC62B17492500FAA908 /* BottomAlertButtonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AD5EFC52B17492500FAA908 /* BottomAlertButtonView.swift */; };
 		2AD5EFC92B1753E400FAA908 /* DocumentUpdateAlertView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AD5EFC82B1753E400FAA908 /* DocumentUpdateAlertView.swift */; };
@@ -2477,6 +2480,9 @@
 		2AD37D5729911FA50012409E /* WidgetObjectListSetsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WidgetObjectListSetsViewModel.swift; sourceTree = "<group>"; };
 		2AD37D59299121D30012409E /* WidgetObjectListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WidgetObjectListViewModel.swift; sourceTree = "<group>"; };
 		2AD37D5B299145370012409E /* WidgetObjectListRecentViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WidgetObjectListRecentViewModel.swift; sourceTree = "<group>"; };
+		2AD48D512B7F57B80077C53B /* SpaceJoinView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpaceJoinView.swift; sourceTree = "<group>"; };
+		2AD48D532B7F57CE0077C53B /* SpaceJoinViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpaceJoinViewModel.swift; sourceTree = "<group>"; };
+		2AD48D552B7F57D90077C53B /* SpaceJoinModuleAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpaceJoinModuleAssembly.swift; sourceTree = "<group>"; };
 		2AD5EFC32B17490200FAA908 /* ButtomAlertHeaderImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ButtomAlertHeaderImageView.swift; sourceTree = "<group>"; };
 		2AD5EFC52B17492500FAA908 /* BottomAlertButtonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BottomAlertButtonView.swift; sourceTree = "<group>"; };
 		2AD5EFC82B1753E400FAA908 /* DocumentUpdateAlertView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DocumentUpdateAlertView.swift; sourceTree = "<group>"; };
@@ -6241,6 +6247,7 @@
 		2ABAF2B62938E53A003C4730 /* Modules */ = {
 			isa = PBXGroup;
 			children = (
+				2AD48D502B7F57AD0077C53B /* SpaceJoin */,
 				2AC434952B7A064F006166BF /* SpaceShare */,
 				2ACDC9B62B56703C0063BFBD /* ShareOptions */,
 				2AD276402B6D22A900112215 /* GallerySpaceSelection */,
@@ -6519,6 +6526,16 @@
 				2AD276472B6D25FC00112215 /* GallerySpaceSelectionModuleAssembly.swift */,
 			);
 			path = GallerySpaceSelection;
+			sourceTree = "<group>";
+		};
+		2AD48D502B7F57AD0077C53B /* SpaceJoin */ = {
+			isa = PBXGroup;
+			children = (
+				2AD48D512B7F57B80077C53B /* SpaceJoinView.swift */,
+				2AD48D532B7F57CE0077C53B /* SpaceJoinViewModel.swift */,
+				2AD48D552B7F57D90077C53B /* SpaceJoinModuleAssembly.swift */,
+			);
+			path = SpaceJoin;
 			sourceTree = "<group>";
 		};
 		2AD5EFC22B1748CC00FAA908 /* Bottom */ = {
@@ -10314,6 +10331,7 @@
 				03CB3F01230C10E9003D5DFD /* AuthServiceProtocol.swift in Sources */,
 				03527A0722F7A44B004F0418 /* KeychainPhraseView.swift in Sources */,
 				2A6693792A7104EA007747DD /* ObjectIconImageUsecase+Font.swift in Sources */,
+				2AD48D522B7F57B80077C53B /* SpaceJoinView.swift in Sources */,
 				EA4AC46B261CBDE4002E961E /* FileLoadingState.swift in Sources */,
 				0AA00C4424CB02D400870C18 /* DividerBlockContentConfiguration.swift in Sources */,
 				3D850B9F26458CC2005805A8 /* DragIndicator.swift in Sources */,
@@ -11211,6 +11229,7 @@
 				538F172D272C2F75009528E7 /* ObjectSearchViewModel.swift in Sources */,
 				12DE405D264AE455007B5074 /* LayoutProperty.swift in Sources */,
 				3D5A415B2703132800F1F6A1 /* SlashActionOther.swift in Sources */,
+				2AD48D562B7F57D90077C53B /* SpaceJoinModuleAssembly.swift in Sources */,
 				125B6EC526F235F400BCD7D6 /* MentionsViewController.swift in Sources */,
 				2EAA140C2AA63C0B000A712A /* SetRelationsCoordinatorViewModel.swift in Sources */,
 				12636CF6276A0DC70084D35D /* ListCreateButton.swift in Sources */,
@@ -11360,6 +11379,7 @@
 				2E37F01428C768B900337BD4 /* SetViewRow.swift in Sources */,
 				C9A04F8D287C317D00276804 /* SelectionDecorationView.swift in Sources */,
 				12136D5A2799A2BC00262FE7 /* TextRelationDetailsViewController.swift in Sources */,
+				2AD48D542B7F57CE0077C53B /* SpaceJoinViewModel.swift in Sources */,
 				2E0A57BA2A3C7C6800359110 /* UsecaseService.swift in Sources */,
 				535FDE2027E8B63A0098DBFA /* PasteboardHelper.swift in Sources */,
 				126C46D726BD966700D31DBF /* ObjectHeaderIcon.swift in Sources */,
