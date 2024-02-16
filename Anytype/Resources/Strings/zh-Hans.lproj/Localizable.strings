@@ -753,10 +753,6 @@
 "Content.DataView.InlineCollection.Untitled" = "无标题集锦";
 "Content.DataView.InlineSet.Toast.Failure" = "该关联集合无信息来源";
 
-// MARK: - Widget extension
-"WidgetExtension.LockScreen.Title" = "新对象";
-"WidgetExtension.LockScreen.Description" = "快速创建新对象";
-
 // MARK: - Toast
 "Editor.Toast.LinkedTo" = "链接到";
 "Editor.Toast.MovedTo" = "区块移至";
@@ -871,6 +867,9 @@
 "SpaceShare.Permissions.Owner" = "Owner";
 "SpaceShare.Permissions.Reader" = "Can view";
 "SpaceShare.Permissions.Writer" = "Can edit";
+"SpaceShare.Invite.Title" = "Invite link";
+"SpaceShare.Invite.Description" = "Send this link to invite others. Assign access rights upon their request approval";
+"SpaceShare.Invite.Button" = "Share invite link";
 
 // MARK: - Space Create
 "SpaceCreate.Title" = "创建空间";
