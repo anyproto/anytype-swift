@@ -753,10 +753,6 @@
 "Content.DataView.InlineCollection.Untitled" = "Коллекция без названия";
 "Content.DataView.InlineSet.Toast.Failure" = "Этот набор не имеет источника";
 
-// MARK: - Widget extension
-"WidgetExtension.LockScreen.Title" = "Новый объект";
-"WidgetExtension.LockScreen.Description" = "Быстрое создание нового объекта";
-
 // MARK: - Toast
 "Editor.Toast.LinkedTo" = "связано с";
 "Editor.Toast.MovedTo" = "Блок перемещен в";
@@ -872,6 +868,9 @@
 "SpaceShare.Permissions.Owner" = "Owner";
 "SpaceShare.Permissions.Reader" = "Can view";
 "SpaceShare.Permissions.Writer" = "Can edit";
+"SpaceShare.Invite.Title" = "Invite link";
+"SpaceShare.Invite.Description" = "Send this link to invite others. Assign access rights upon their request approval";
+"SpaceShare.Invite.Button" = "Share invite link";
 
 // MARK: - Space Create
 "SpaceCreate.Title" = "Создать пространство";
