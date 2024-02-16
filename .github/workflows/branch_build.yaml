@@ -15,6 +15,11 @@ jobs:
         with:
            fetch-depth: 0
 
+      - name: Install SSH key for access to repository
+        uses: webfactory/ssh-agent@v0.9.0
+        with:
+          ssh-private-key: ${{ secrets.SSH_ACCESS_KEY }}
+
       - name: Update git config
         uses: ./.github/actions/update-git-config
 
