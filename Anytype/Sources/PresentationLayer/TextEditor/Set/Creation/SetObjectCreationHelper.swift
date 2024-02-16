@@ -1,5 +1,4 @@
 import Services
-import AnytypeCore
 
 struct SetObjectCreationResult {
     let details: ObjectDetails?
@@ -120,8 +119,7 @@ final class SetObjectCreationHelper: SetObjectCreationHelperProtocol {
             spaceId: setDocument.spaceId,
             details: prefilledFieldsBuilder.buildPrefilledFields(from: setDocument.activeViewFilters, relationsDetails: relationsDetails)
         )
-        let isNote = FeatureFlags.setTextInFirstNoteBlock && (type?.isNoteLayout ?? false)
-        if isNote {
+        if let type, type.isNoteLayout {
             guard let newBlockId = try? await blockService.add(contextId: details.id, targetId: EditorConstants.headerBlockId.rawValue, info: .emptyText, position: .bottom) else {
                 return .init(details: details, titleInputType: .none)
             }
