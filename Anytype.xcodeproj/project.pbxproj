@@ -1114,7 +1114,6 @@
 		2EED4F592B6C31600076FAC6 /* RelationSelectedOptionsModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EED4F582B6C31600076FAC6 /* RelationSelectedOptionsModel.swift */; };
 		2EED4F5B2B6C42C60076FAC6 /* TagOptionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EED4F5A2B6C42C60076FAC6 /* TagOptionView.swift */; };
 		2EEFEADC2A93C39100AD5CDC /* SheetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EEFEADB2A93C39100AD5CDC /* SheetView.swift */; };
-		2EEFEADF2A93C41100AD5CDC /* UISheetController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EEFEADE2A93C41100AD5CDC /* UISheetController.swift */; };
 		2EF1EE902B276BE2002AD836 /* SyncStatusData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EF1EE8F2B276BE2002AD836 /* SyncStatusData.swift */; };
 		2EFBBEFA2A41DBD900734A0B /* PhraseTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EFBBEF92A41DBD900734A0B /* PhraseTextView.swift */; };
 		2EFBBEFC2A42512300734A0B /* UIPhraseTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EFBBEFB2A42512300734A0B /* UIPhraseTextView.swift */; };
@@ -2867,7 +2866,6 @@
 		2EED4F582B6C31600076FAC6 /* RelationSelectedOptionsModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RelationSelectedOptionsModel.swift; sourceTree = "<group>"; };
 		2EED4F5A2B6C42C60076FAC6 /* TagOptionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TagOptionView.swift; sourceTree = "<group>"; };
 		2EEFEADB2A93C39100AD5CDC /* SheetView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SheetView.swift; sourceTree = "<group>"; };
-		2EEFEADE2A93C41100AD5CDC /* UISheetController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UISheetController.swift; sourceTree = "<group>"; };
 		2EF1EE8F2B276BE2002AD836 /* SyncStatusData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SyncStatusData.swift; sourceTree = "<group>"; };
 		2EFBBEF92A41DBD900734A0B /* PhraseTextView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhraseTextView.swift; sourceTree = "<group>"; };
 		2EFBBEFB2A42512300734A0B /* UIPhraseTextView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIPhraseTextView.swift; sourceTree = "<group>"; };
@@ -7572,7 +7570,6 @@
 			isa = PBXGroup;
 			children = (
 				2EEFEADB2A93C39100AD5CDC /* SheetView.swift */,
-				2EEFEADE2A93C41100AD5CDC /* UISheetController.swift */,
 				2A93E1A72AE7DE90004438FD /* View+Sheet.swift */,
 			);
 			path = SheetView;
@@ -10302,7 +10299,6 @@
 				3DE0CFD626F8593D003A606A /* SlashMenuItemDisplayData.swift in Sources */,
 				2EED4F5B2B6C42C60076FAC6 /* TagOptionView.swift in Sources */,
 				2E1146D0293124ED0057C753 /* SetKanbanColumnSettingsViewModel.swift in Sources */,
-				2EEFEADF2A93C41100AD5CDC /* UISheetController.swift in Sources */,
 				3D34F20A27BE3B5300990C49 /* SettingsAppearanceView.swift in Sources */,
 				2A2B332B2A7BAEBA004BD906 /* SpaceSwitchViewModel.swift in Sources */,
 				EAADB1B32678EB52004B0AF2 /* MarkStyleModifier.swift in Sources */,

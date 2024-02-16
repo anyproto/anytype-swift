@@ -138,7 +138,7 @@ final class EditorSetViewModel: ObservableObject {
     private var subscriptionStorages = [String: SubscriptionStorageProtocol]()
     private let activeWorkspaceStorage: ActiveWorkpaceStorageProtocol
     private var titleSubscription: AnyCancellable?
-    private let output: EditorSetModuleOutput?
+    private weak var output: EditorSetModuleOutput?
 
     init(
         setDocument: SetDocumentProtocol,

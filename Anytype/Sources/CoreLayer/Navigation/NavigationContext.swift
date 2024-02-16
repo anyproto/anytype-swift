@@ -29,13 +29,6 @@ extension NavigationContextProtocol {
         present(view, animated: animated)
     }
     
-    func presentSwiftUISheetView<Content: View>(view: Content, animated: Bool = true) {
-        let rootView = SheetView { view } cancelAction: {}
-
-        let controller = UISheetController(rootView: rootView)
-        present(controller, animated: animated)
-    }
-    
     func present<Content: View>(
         _ view: Content,
         modalPresentationStyle: UIModalPresentationStyle? = nil,
