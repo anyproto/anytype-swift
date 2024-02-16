@@ -1,12 +1,10 @@
 name: Fastlane test build
 
+permissions:
+  contents: 'write'
+
 on:
   workflow_dispatch:
-    inputs:
-      branch:
-        description: 'Branch'
-        required: false
-        default: 'develop'
 
 jobs:
   main:
@@ -14,21 +12,13 @@ jobs:
     timeout-minutes: 35
 
     steps:
-      - name: Install SSH key for access to repository.
-        uses: webfactory/ssh-agent@v0.5.4
-        with:
-          ssh-private-key: ${{ secrets.SSH_ACCESS_KEY }}
-
       - uses: actions/checkout@v2.4.0
-        with:
-          ref: ${{ github.event.inputs.branch }}
 
       - name: Prepare deps
         uses: ./.github/actions/prepare-deps
 
       - name: Update git config
         run: |
-          git config --global url.ssh://git@github.com/.insteadOf https://github.com/
           git config --global user.name "William Blake"
           git config --global user.email "iosteam@anytype.io"
 
@@ -45,6 +35,17 @@ jobs:
       #   run: bundle exec fastlane add_linear_comment from_tag:dev/0.22.0/32 to_tag:dev/0.22.0/33 comment:"Test comment \`0.23\`"
       #   env:
       #    LINEAR_TOKEN: ${{ secrets.LINEAR_TOKEN }}
+         
+      # Test GITHUB_TOKEN permissions
+
+      # - name: Test permissions
+      #   run: |
+      #     git tag -a "test_1" -m "Test" -f
+      #     git push origin test_1 --no-verify -f
+      #     bundle exec fastlane bump_major_app_version_number
+      #     git add --all
+      #     git commit -m 'Test commit' --no-verify
+      #     git push --no-verify
 
       - name: Build
         run: |
