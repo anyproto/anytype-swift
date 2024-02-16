@@ -753,10 +753,6 @@
 "Content.DataView.InlineCollection.Untitled" = "Безіменна колекція";
 "Content.DataView.InlineSet.Toast.Failure" = "Цей вбудований набір не має джерела";
 
-// MARK: - Widget extension
-"WidgetExtension.LockScreen.Title" = "Новий обʼєкт";
-"WidgetExtension.LockScreen.Description" = "Створіть новий об'єкт на льоту";
-
 // MARK: - Toast
 "Editor.Toast.LinkedTo" = "пов'язаний з";
 "Editor.Toast.MovedTo" = "Блок переміщено до";
@@ -872,6 +868,9 @@
 "SpaceShare.Permissions.Owner" = "Owner";
 "SpaceShare.Permissions.Reader" = "Can view";
 "SpaceShare.Permissions.Writer" = "Can edit";
+"SpaceShare.Invite.Title" = "Invite link";
+"SpaceShare.Invite.Description" = "Send this link to invite others. Assign access rights upon their request approval";
+"SpaceShare.Invite.Button" = "Share invite link";
 
 // MARK: - Space Create
 "SpaceCreate.Title" = "Створити простір";
