@@ -55,24 +55,6 @@ public extension FeatureDescription {
         defaultValue: true
     )
     
-    static let setAndCollectionInSlashMenu = FeatureDescription(
-        title: "Set and Collection in slashMenu",
-        type: .feature(author: "joe_pusya@anytype.io", releaseVersion: "0.27.0"),
-        defaultValue: true
-    )
-    
-    static let setTextInFirstNoteBlock = FeatureDescription(
-        title: "Set text in first Note block when creating from the Set/Collection/Widget - IOS-1956",
-        type: .feature(author: "joe_pusya@anytype.io", releaseVersion: "0.27.0"),
-        defaultValue: true
-    )
-    
-    static let bottomNavigationAlwaysBackButton = FeatureDescription(
-        title: "[Back] in Bottom menu - IOS-2087",
-        type: .feature(author: "joe_pusya@anytype.io", releaseVersion: "0.27.0"),
-        defaultValue: true
-    )
-    
     static let galleryInstallation = FeatureDescription(
         title: "Gallery / Experience installation - IOS-1805",
         type: .feature(author: "m@anytype.io", releaseVersion: "0.28.0"),
