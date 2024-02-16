@@ -98,7 +98,7 @@
 "Relation.Format.Object.Title" = "Oggetto";
 "Relation.Format.Text.Title" = "Testo";
 "Relation.Format.Number.Title" = "Numero";
-"Relation.Format.Status.Title" = "Select";
+"Relation.Format.Status.Title" = "Seleziona";
 "Relation.Format.Tag.Title" = "Selezione multipla";
 "Relation.Format.Date.Title" = "Data";
 "Relation.Format.FileMedia.Title" = "File & Media";
@@ -529,8 +529,8 @@
 "Select relation type" = "Selezione il tipo della Relazione";
 "CommonOpenErrorView.Message" = "Nessun dato trovato";
 "Nothing found" = "Nessun risultato trovato";
-"No type found text" = "No type “%@” found. Change your request or create new type.";
-"Create type" = "Create type";
+"No type found text" = "Nessun tipo “%@” trovato. Modifica la tua richiesta o crea un nuovo tipo.";
+"Create type" = "Crea tipo";
 
 
 "Limit object types" = "Limita tipi di oggetto";
@@ -662,7 +662,7 @@
 "DataviewType.gallery" = "Galleria";
 "DataviewType.kanban" = "Kanban";
 "DataviewType.calendar" = "Calendario";
-"DataviewType.graph" = "Graph";
+"DataviewType.graph" = "Grafo";
 
 // MARK: - ObjectType
 "ObjectType.fallbackDescription" = "Tela vuota senza titolo";
@@ -752,10 +752,6 @@
 "Content.DataView.InlineSet.Untitled" = "Insieme senza titolo";
 "Content.DataView.InlineCollection.Untitled" = "Collezione senza titolo";
 "Content.DataView.InlineSet.Toast.Failure" = "Questo insieme in linea non ha una fonte.";
-
-// MARK: - Widget extension
-"WidgetExtension.LockScreen.Title" = "Nuovo oggetto";
-"WidgetExtension.LockScreen.Description" = "Crea un nuovo oggetto al volo";
 
 // MARK: - Toast
 "Editor.Toast.LinkedTo" = "collegato a";
@@ -862,7 +858,7 @@
 "SpaceSettings.DeleteAlert.Message" = "Questo spazio verrà eliminato irrevocabilmente. Non è possibile annullare questa azione.";
 "SpaceSettings.DeleteButton" = "Elimina spazio";
 "SpaceSettings.Sharing" = "Condivisione";
-"SpaceSettings.Share" = "Share";
+"SpaceSettings.Share" = "Condividi";
 
 // MARK: - Space Share
 
@@ -871,6 +867,9 @@
 "SpaceShare.Permissions.Owner" = "Proprietario";
 "SpaceShare.Permissions.Reader" = "Può visualizzare";
 "SpaceShare.Permissions.Writer" = "Può modificare";
+"SpaceShare.Invite.Title" = "Invite link";
+"SpaceShare.Invite.Description" = "Send this link to invite others. Assign access rights upon their request approval";
+"SpaceShare.Invite.Button" = "Share invite link";
 
 // MARK: - Space Create
 "SpaceCreate.Title" = "Crea uno spazio";
@@ -886,8 +885,8 @@
 "Sharing.LinkTo" = "Collega a";
 
 "Sharing.Text.NoteObject" = "Oggetto nota";
-"Sharing.Text.TextBlock" = "Blocks";
-"Sharing.Any.Block" = "Blocks";
+"Sharing.Text.TextBlock" = "Blocchi";
+"Sharing.Any.Block" = "Blocchi";
 
 // MARK: - Sharing tips
 "Sharing.Tip.Title" = "Condividi Estensione";
@@ -934,13 +933,13 @@
 // MARK: - Gallery
 "Gallery.Unavailable.Title" = "La galleria sarà supportata presto";
 "Gallery.Unavailable.Message" = "Per favore usa l'applicazione desktop per ora";
-"Gallery.Author" = "Made by @%@";
-"Gallery.Install" = "Install";
-"Gallery.InstallToNew" = "Install to new space";
+"Gallery.Author" = "Realizzato da @%@";
+"Gallery.Install" = "Installa";
+"Gallery.InstallToNew" = "Installa in un nuovo spazio";
 "Gallery.Notification.Success" = "L'esperienza è stata installata con successo nello spazio \"%@\". Ora puoi aprirla e iniziare ad usarla.";
 "Gallery.Notification.Button" = "Vai allo spazio";
 "Gallery.Notification.Error" = "Oops! \"%@\" non è stato installato. Controlla la tua connessione internet e riprova o pubblica un rapporto sul forum.";
 
 // MARK: - Debug
 "Debug.MimeTypes" = "Mime Types - %@";
-"Debug.Info" = "Debug Info";
+"Debug.Info" = "Informazioni di Debug";
