@@ -13,8 +13,8 @@ final class EditorSetCoordinatorViewModel: ObservableObject, EditorSetModuleOutp
     var pageNavigation: PageNavigation?
     @Published var dismiss = false
     
-    @Published var setViewSettingsData: SetViewData?
     @Published var setViewPickerData: SetViewData?
+    @Published var setViewSettingsData: SetViewData?
     
     init(
         data: EditorSetObject,
@@ -29,7 +29,7 @@ final class EditorSetCoordinatorViewModel: ObservableObject, EditorSetModuleOutp
     }
     
     func setModule() -> AnyView {
-        return editorSetAssembly.make(data: data, output: self)
+        editorSetAssembly.make(data: data, output: self)
     }
     
     // MARK: - EditorSetModuleOutput
