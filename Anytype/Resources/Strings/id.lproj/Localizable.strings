@@ -753,10 +753,6 @@
 "Content.DataView.InlineCollection.Untitled" = "Koleksi tidak berjudul";
 "Content.DataView.InlineSet.Toast.Failure" = "Set dalam-baris ini tidak memiliki sebuah sumber";
 
-// MARK: - Widget extension
-"WidgetExtension.LockScreen.Title" = "Objek baru";
-"WidgetExtension.LockScreen.Description" = "Buat sebuah objek baru dengan cepat";
-
 // MARK: - Toast
 "Editor.Toast.LinkedTo" = "ditautkan pada";
 "Editor.Toast.MovedTo" = "Diblok berpindah ke";
@@ -871,6 +867,9 @@
 "SpaceShare.Permissions.Owner" = "Owner";
 "SpaceShare.Permissions.Reader" = "Can view";
 "SpaceShare.Permissions.Writer" = "Can edit";
+"SpaceShare.Invite.Title" = "Tautan undangan";
+"SpaceShare.Invite.Description" = "Kirimkan tautan ini untuk mengundang orang lain. Kamu bisa mengatur hak akses mereka setelah mereka menyetujui undangan";
+"SpaceShare.Invite.Button" = "Bagikan tautan undangan";
 
 // MARK: - Space Create
 "SpaceCreate.Title" = "Buat ruang";
