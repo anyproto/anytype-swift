@@ -1,13 +1,11 @@
 name: Anytype
 
+permissions:
+  contents: 'write'
+
 on:
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
-    inputs:
-      branch:
-        description: 'Branch'
-        required: true
-        default: 'release'
 
 jobs:
   main:
@@ -15,16 +13,10 @@ jobs:
     timeout-minutes: 50
 
     steps:
-      - name: Install SSH key for access to repository
-        uses: webfactory/ssh-agent@v0.6.0
-        with:
-          ssh-private-key: ${{ secrets.SSH_ACCESS_KEY }}
-
       - name: Checkout
         uses: actions/checkout@v3
         with:
            fetch-depth: 0
-           ref: ${{ github.event.inputs.branch }}
 
       - name: Update git config
         uses: ./.github/actions/update-git-config
