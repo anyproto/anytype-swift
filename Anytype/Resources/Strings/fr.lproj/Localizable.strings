@@ -572,7 +572,7 @@
 "Other relations" = "Autres relations";
 "Collection of objects" = "Collection d'objets";
 "Designed to capture thoughts quickly" = "Conçu pour saisir rapidement les idées";
-"Action-focused layout with a checkbox" = "Action-focused layout with a checkbox";
+"Action-focused layout with a checkbox" = "Mise en page axée sur l'action avec une case à cocher";
 "Standard layout for canvas blocks" = "Disposition standard pour les toiles";
 "List of related objects" = "Liste des objets liés";
 "Lock" = "Verrouiller";
@@ -753,10 +753,6 @@
 "Content.DataView.InlineCollection.Untitled" = "Collection sans titre";
 "Content.DataView.InlineSet.Toast.Failure" = "Ce Set intégré n'a pas de source";
 
-// MARK: - Widget extension
-"WidgetExtension.LockScreen.Title" = "Nouvel objet";
-"WidgetExtension.LockScreen.Description" = "Créer un nouvel objet à la volée";
-
 // MARK: - Toast
 "Editor.Toast.LinkedTo" = "lié à";
 "Editor.Toast.MovedTo" = "Bloc déplacé vers";
@@ -861,16 +857,19 @@
 "SpaceSettings.DeleteAlert.Title" = "Supprimer l'espace '%@'";
 "SpaceSettings.DeleteAlert.Message" = "Cet espace sera supprimé définitivement. Vous ne pouvez pas annuler cette action.";
 "SpaceSettings.DeleteButton" = "Supprimer l'espace";
-"SpaceSettings.Sharing" = "Sharing";
+"SpaceSettings.Sharing" = "Partage";
 "SpaceSettings.Share" = "Partager";
 
 // MARK: - Space Share
 
-"SpaceShare.Title" = "Share space";
-"SpaceShare.MembersSection" = "Members and requests";
-"SpaceShare.Permissions.Owner" = "Owner";
-"SpaceShare.Permissions.Reader" = "Can view";
-"SpaceShare.Permissions.Writer" = "Can edit";
+"SpaceShare.Title" = "Partager l'espace";
+"SpaceShare.MembersSection" = "Membres et demandes";
+"SpaceShare.Permissions.Owner" = "Propriétaire";
+"SpaceShare.Permissions.Reader" = "Peut voir";
+"SpaceShare.Permissions.Writer" = "Peut modifier";
+"SpaceShare.Invite.Title" = "Lien d'invitation";
+"SpaceShare.Invite.Description" = "Envoyez ce lien pour inviter d'autres personnes. Attribuez les droits d'accès lors de l'approbation de leur demande.\"";
+"SpaceShare.Invite.Button" = "Partager le lien d'invitation";
 
 // MARK: - Space Create
 "SpaceCreate.Title" = "Créer un espace";
