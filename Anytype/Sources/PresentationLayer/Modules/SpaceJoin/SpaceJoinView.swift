@@ -18,38 +18,27 @@ struct SpaceJoinView: View {
         .onChange(of: model.dismiss) { _ in
             dismiss()
         }
+        .snackbar(toastBarData: $model.toast)
     }
     
     private var content: some View {
-        ScrollView {
-            VStack(spacing: 0) {
-                // TODO: Add icon
-                ButtomAlertHeaderImageView(icon: .BottomAlert.update, style: .blue)
-                Spacer.fixedHeight(15)
-                AnytypeText(Loc.SpaceShare.Join.title, style: .heading, color: .Text.primary)
-                Spacer.fixedHeight(16)
-                AnytypeText(model.message, style: .bodyRegular, color: .Text.primary)
-                Spacer.fixedHeight(16)
-                // TODO: Make Multiline text field
-                AnytypeTextField(
-                    placeholder: Loc.SpaceShare.Join.commentPlaceholder,
-                    placeholderFont: .caption1Regular,
-                    text: $model.comment
-                )
+        VStack(spacing: 0) {
+            // TODO: Add icon
+            ButtomAlertHeaderImageView(icon: .BottomAlert.update, style: .blue)
+            Spacer.fixedHeight(15)
+            AnytypeText(Loc.SpaceShare.Join.title, style: .heading, color: .Text.primary)
+            Spacer.fixedHeight(16)
+            AnytypeText(model.message, style: .bodyRegular, color: .Text.primary)
+            Spacer.fixedHeight(16)
+            AsyncStandardButton(text: Loc.SpaceShare.Join.button, style: .primaryLarge) {
+                try await model.onJoin()
             }
-            .padding(.horizontal, 30)
+            Spacer.fixedHeight(20)
+            AnytypeText(Loc.SpaceShare.Join.info, style: .caption1Regular, color: .Text.secondary)
+            Spacer.fixedHeight(16)
         }
-        .safeAreaInset(edge: .bottom) {
-            VStack(spacing: 0) {
-                AsyncStandardButton(text: Loc.SpaceShare.Join.button, style: .primaryLarge) {
-                    try await model.onJoin()
-                }
-                Spacer.fixedHeight(20)
-                AnytypeText(Loc.SpaceShare.Join.info, style: .caption1Regular, color: .Text.secondary)
-            }
-            .padding(.horizontal, 30)
-        }
-        .snackbar(toastBarData: $model.toast)
+        .padding(.horizontal, 30)
+        .fixedSize(horizontal: false, vertical: true)
     }
 }
 
@@ -58,7 +47,7 @@ struct SpaceJoinView: View {
 }
 
 #Preview("Sheet") {
-    Color.black.sheet(isPresented: .constant(true)) {
+    Color.black.anytypeSheet(isPresented: .constant(true)) {
         DI.preview.modulesDI.spaceJoin().make(data: SpaceJoinModuleData(cid: "", key: ""))
     }
 }
