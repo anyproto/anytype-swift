@@ -111,7 +111,7 @@ final class SetObjectCreationHelper: SetObjectCreationHelperProtocol {
         setDocument: SetDocumentProtocol,
         type: ObjectType?,
         relationsDetails: [RelationDetails],
-        templateId: BlockId?
+        templateId: String?
     ) async throws -> SetObjectCreationResult {
         let details = try await dataviewService.addRecord(
             typeUniqueKey: type?.uniqueKey,

@@ -120,7 +120,7 @@ final class EditorSetCoordinatorViewModel:
     }
     
     // MARK: - EditorSetModuleOutput - SetQuery
-    func showQueries(document: SetDocumentProtocol, selectedObjectId: BlockId?, onSelect: @escaping (BlockId) -> ()) {
+    func showQueries(document: SetDocumentProtocol, selectedObjectId: String?, onSelect: @escaping (String) -> ()) {
         setQueryData = SetQueryData(
             document: document,
             selectedObjectId: selectedObjectId,
@@ -250,7 +250,7 @@ final class EditorSetCoordinatorViewModel:
 }
 
 extension EditorSetCoordinatorViewModel: ObjectSettingsModuleDelegate {
-    func didCreateTemplate(templateId: Services.BlockId) {
+    func didCreateTemplate(templateId: String) {
         anytypeAssertionFailure("Should be disabled in restrictions. Check template restrinctions")
     }
     
@@ -264,7 +264,7 @@ extension EditorSetCoordinatorViewModel: ObjectSettingsModuleDelegate {
         }
     }
     
-    func didTapUseTemplateAsDefault(templateId: BlockId) {
+    func didTapUseTemplateAsDefault(templateId: String) {
         anytypeAssertionFailure("Invalid delegate method handler")
     }
 }
@@ -279,7 +279,7 @@ extension EditorSetCoordinatorViewModel {
     struct SetQueryData: Identifiable {
         let id = UUID()
         let document: SetDocumentProtocol
-        let selectedObjectId: BlockId?
-        let onSelect: (BlockId) -> ()
+        let selectedObjectId: String?
+        let onSelect: (String) -> ()
     }
 }

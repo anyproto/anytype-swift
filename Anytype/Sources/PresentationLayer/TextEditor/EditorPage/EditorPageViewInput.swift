@@ -20,9 +20,9 @@ protocol EditorPageViewInput: RelativePositionProvider {
 
     func textBlockDidChangeText()
 
-    func blockDidFinishEditing(blockId: BlockId)
+    func blockDidFinishEditing(blockId: String)
     
-    func scrollToBlock(blockId: BlockId)
+    func scrollToBlock(blockId: String)
 
     func endEditing()
 
@@ -30,5 +30,5 @@ protocol EditorPageViewInput: RelativePositionProvider {
 
     func restoreEditingState()
 
-    func didSelectTextRangeSelection(blockId: BlockId, textView: UITextView)
+    func didSelectTextRangeSelection(blockId: String, textView: UITextView)
 }

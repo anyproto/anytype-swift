@@ -14,7 +14,7 @@ protocol SetObjectCreationSettingsCoordinatorProtocol: AnyObject {
     func showTemplateEditing(
         setting: ObjectCreationSetting,
         onTemplateSelection: (() -> Void)?,
-        onSetAsDefaultTempalte: @escaping (BlockId) -> Void,
+        onSetAsDefaultTempalte: @escaping (String) -> Void,
         completion: (() -> Void)?
     )
 }
@@ -105,7 +105,7 @@ final class SetObjectCreationSettingsCoordinator: SetObjectCreationSettingsCoord
     func showTemplateEditing(
         setting: ObjectCreationSetting,
         onTemplateSelection: (() -> Void)?,
-        onSetAsDefaultTempalte: @escaping (BlockId) -> Void,
+        onSetAsDefaultTempalte: @escaping (String) -> Void,
         completion: (() -> Void)?
     ) {
         let editorView = editorPageCoordinatorAssembly.make(
@@ -175,9 +175,9 @@ extension SetObjectCreationSettingsCoordinator: ObjectSettingsCoordinatorOutput 
 }
 
 final class TemplateSelectionObjectSettingsHandler: ObjectSettingsModuleDelegate {
-    let useAsTemplateAction: (BlockId) -> Void
+    let useAsTemplateAction: (String) -> Void
     
-    init(useAsTemplateAction: @escaping (BlockId) -> Void) {
+    init(useAsTemplateAction: @escaping (String) -> Void) {
         self.useAsTemplateAction = useAsTemplateAction
     }
     
@@ -185,11 +185,11 @@ final class TemplateSelectionObjectSettingsHandler: ObjectSettingsModuleDelegate
         anytypeAssertionFailure("Should be disabled in restrictions. Check template restrinctions")
     }
     
-    func didCreateTemplate(templateId: BlockId) {
+    func didCreateTemplate(templateId: String) {
         anytypeAssertionFailure("Should be disabled in restrictions. Check template restrinctions")
     }
     
-    func didTapUseTemplateAsDefault(templateId: BlockId) {
+    func didTapUseTemplateAsDefault(templateId: String) {
         useAsTemplateAction(templateId)
     }
 }

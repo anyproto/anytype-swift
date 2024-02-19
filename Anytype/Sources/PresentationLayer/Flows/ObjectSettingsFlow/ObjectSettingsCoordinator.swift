@@ -5,7 +5,7 @@ import AnytypeCore
 @MainActor
 protocol ObjectSettingsCoordinatorProtocol {
     func startFlow(
-        objectId: BlockId,
+        objectId: String,
         delegate: ObjectSettingsModuleDelegate,
         output: ObjectSettingsCoordinatorOutput?,
         objectSettingsHandler: @escaping (ObjectSettingsAction) -> Void
@@ -60,7 +60,7 @@ final class ObjectSettingsCoordinator: ObjectSettingsCoordinatorProtocol,
     }
     
     func startFlow(
-        objectId: BlockId,
+        objectId: String,
         delegate: ObjectSettingsModuleDelegate,
         output: ObjectSettingsCoordinatorOutput?,
         objectSettingsHandler: @escaping (ObjectSettingsAction) -> Void
@@ -124,7 +124,7 @@ final class ObjectSettingsCoordinator: ObjectSettingsCoordinatorProtocol,
         output?.showEditorScreen(data: screenData)
     }
     
-    func linkToAction(document: BaseDocumentProtocol, onSelect: @escaping (BlockId) -> ()) {
+    func linkToAction(document: BaseDocumentProtocol, onSelect: @escaping (String) -> ()) {
         let moduleView = newSearchModuleAssembly.blockObjectsSearchModule(
             title: Loc.linkTo,
             spaceId: document.spaceId,

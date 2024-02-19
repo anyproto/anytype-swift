@@ -9,7 +9,7 @@ struct BlockFileViewModel: BlockViewModelProtocol {
     let fileData: BlockFile
     let handler: BlockActionHandlerProtocol
     
-    let showFilePicker: (BlockId) -> ()
+    let showFilePicker: (String) -> ()
     let onFileOpen: (FilePreviewContext) -> ()
 
     func didSelectRowInTableView(editorEditingState: EditorEditingState) {

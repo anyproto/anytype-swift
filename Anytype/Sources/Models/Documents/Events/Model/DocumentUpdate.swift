@@ -4,8 +4,8 @@ import AnytypeCore
 enum DocumentUpdate: Hashable {
     case general
     case syncStatus(SyncStatus)
-    case blocks(blockIds: Set<BlockId>)
-    case details(id: BlockId)
+    case blocks(blockIds: Set<String>)
+    case details(id: String)
     case dataSourceUpdate
 
     var hasUpdate: Bool {

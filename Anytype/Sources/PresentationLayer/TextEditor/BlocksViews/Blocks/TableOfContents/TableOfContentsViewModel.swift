@@ -10,13 +10,13 @@ struct TableOfContentsViewModel: BlockViewModelProtocol {
     
     let info: BlockInformation
     let document: BaseDocumentProtocol
-    let onTap: (BlockId) -> Void
+    let onTap: (String) -> Void
     let blockSetNeedsLayout: () -> Void
     
     init(
         info: BlockInformation,
         document: BaseDocumentProtocol,
-        onTap: @escaping (BlockId) -> Void,
+        onTap: @escaping (String) -> Void,
         blockSetNeedsLayout: @escaping () -> Void
     ) {
         self.info = info

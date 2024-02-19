@@ -9,7 +9,7 @@ protocol EditorSetModuleOutput: AnyObject {
     
     func showSetViewPicker(document: SetDocumentProtocol, subscriptionDetailsStorage: ObjectDetailsStorage)
     func showSetViewSettings(document: SetDocumentProtocol, subscriptionDetailsStorage: ObjectDetailsStorage)
-    func showQueries(document: SetDocumentProtocol, selectedObjectId: BlockId?, onSelect: @escaping (BlockId) -> ())
+    func showQueries(document: SetDocumentProtocol, selectedObjectId: String?, onSelect: @escaping (String) -> ())
 
     // NavigationContext
     func showCreateObject(document: SetDocumentProtocol, setting: ObjectCreationSetting?)

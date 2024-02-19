@@ -20,7 +20,7 @@ final class RecentWidgetInternalViewModel: CommonWidgetInternalViewModel, Widget
     
     init(
         type: RecentWidgetType,
-        widgetBlockId: BlockId,
+        widgetBlockId: String,
         widgetObject: BaseDocumentProtocol,
         recentSubscriptionService: RecentSubscriptionServiceProtocol
     ) {

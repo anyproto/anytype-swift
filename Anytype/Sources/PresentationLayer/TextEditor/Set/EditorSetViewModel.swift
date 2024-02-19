@@ -33,7 +33,7 @@ final class EditorSetViewModel: ObservableObject {
     
     var isUpdating = false
 
-    var objectId: Services.BlockId {
+    var objectId: String {
         setDocument.objectId
     }
     
@@ -584,7 +584,7 @@ extension EditorSetViewModel {
     }
     
     func showRelationValueEditingView(
-        objectId: BlockId,
+        objectId: String,
         relation: Relation
     ) {
         guard let detailsStorage = defaultSubscriptionDetailsStorage() else { return }

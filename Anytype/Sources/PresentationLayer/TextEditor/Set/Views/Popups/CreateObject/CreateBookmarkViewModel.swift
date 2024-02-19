@@ -9,7 +9,7 @@ final class CreateBookmarkViewModel: CreateObjectViewModelProtocol {
     private let bookmarkService: BookmarkServiceProtocol
     private let objectActionsService: ObjectActionsServiceProtocol
     private let closeAction: (_ details: ObjectDetails?) -> Void
-    private var currentText: String = .empty
+    private var currentText: String = ""
 
     init(
         spaceId: String,

@@ -25,7 +25,7 @@ final class MentionsViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        viewModel.obtainMentions(filterString: .empty)
+        viewModel.obtainMentions(filterString: "")
     }
     
     private func setup() {

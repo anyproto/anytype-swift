@@ -6,8 +6,8 @@ import AnytypeCore
 
 protocol SimpleTableSelectionHandler: AnyObject {
     func didStartSimpleTableSelectionMode(
-        simpleTableBlockId: BlockId,
-        selectedBlockIds: [BlockId],
+        simpleTableBlockId: String,
+        selectedBlockIds: [String],
         menuModel: SimpleTableMenuModel
     )
     func didStopSimpleTableSelectionMode()
@@ -29,7 +29,7 @@ final class SimpleTableStateManager: SimpleTableStateManagerProtocol {
 
     var editorEditingStatePublisher: AnyPublisher<EditorEditingState, Never> { $editingState.eraseToAnyPublisher() }
     var selectedMenuTabPublisher: AnyPublisher<SimpleTableMenuView.Tab, Never> { $selectedMenuTab.eraseToAnyPublisher() }
-    var editorSelectedBlocks: AnyPublisher<[BlockId], Never> { fatalError("To remove!!!") } // Not used
+    var editorSelectedBlocks: AnyPublisher<[String], Never> { fatalError("To remove!!!") } // Not used
 
     var selectedBlocksIndexPathsPublisher: AnyPublisher<[IndexPath], Never> { selectedIndexPathsSubject.eraseToAnyPublisher() }
 
@@ -298,8 +298,8 @@ extension Array where Element == [ComputedTable.Cell] {
         return nil
     }
 
-    func blockIds(for indexPaths: [IndexPath]) -> [BlockId] {
-        var blockIds = [BlockId]()
+    func blockIds(for indexPaths: [IndexPath]) -> [String] {
+        var blockIds = [String]()
 
         for (sectionIndex, sections) in self.enumerated() {
             for (rowIndex, item) in sections.enumerated() {
@@ -318,7 +318,7 @@ extension Array where Element == [ComputedTable.Cell] {
 }
 
 private extension EditorItem {
-     var blockId: BlockId? {
+     var blockId: String? {
         switch self {
         case .header:
             return nil

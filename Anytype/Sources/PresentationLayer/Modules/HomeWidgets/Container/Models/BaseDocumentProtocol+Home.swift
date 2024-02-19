@@ -14,7 +14,7 @@ extension BaseDocumentProtocol {
             .eraseToAnyPublisher()
     }
     
-    func targetObjectIdByLinkFor(widgetBlockId: BlockId) -> String? {
+    func targetObjectIdByLinkFor(widgetBlockId: String) -> String? {
         guard let block = infoContainer.get(id: widgetBlockId),
               let contentId = block.childrenIds.first,
               let contentInfo = infoContainer.get(id: contentId),

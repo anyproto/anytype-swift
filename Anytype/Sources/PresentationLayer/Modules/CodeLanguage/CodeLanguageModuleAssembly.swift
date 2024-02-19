@@ -4,8 +4,8 @@ import Services
 import SwiftUI
 
 protocol CodeLanguageListModuleAssemblyProtocol {
-    func makeLegacy(document: BaseDocumentProtocol, blockId: BlockId) -> UIViewController
-    func make(document: BaseDocumentProtocol, blockId: BlockId, selectedLanguage: CodeLanguage) -> AnyView
+    func makeLegacy(document: BaseDocumentProtocol, blockId: String) -> UIViewController
+    func make(document: BaseDocumentProtocol, blockId: String, selectedLanguage: CodeLanguage) -> AnyView
 }
 
 final class CodeLanguageListModuleAssembly: CodeLanguageListModuleAssemblyProtocol {
@@ -18,7 +18,7 @@ final class CodeLanguageListModuleAssembly: CodeLanguageListModuleAssemblyProtoc
     
     // MARK: - CodeLanguageListModuleAssemblyProtocol
     
-    func makeLegacy(document: BaseDocumentProtocol, blockId: BlockId) -> UIViewController {
+    func makeLegacy(document: BaseDocumentProtocol, blockId: String) -> UIViewController {
         let viewModel = CodeLanguageLegacyListViewModel(
             document: document,
             blockId: blockId,
@@ -27,7 +27,7 @@ final class CodeLanguageListModuleAssembly: CodeLanguageListModuleAssemblyProtoc
         return CodeLanguageLegacyListViewController(viewModel: viewModel)
     }
     
-    func make(document: BaseDocumentProtocol, blockId: BlockId, selectedLanguage: CodeLanguage) -> AnyView {
+    func make(document: BaseDocumentProtocol, blockId: String, selectedLanguage: CodeLanguage) -> AnyView {
         return CodeLanguageListView(
             model: CodeLanguageListViewModel(
                 document: document,
