@@ -10,6 +10,7 @@ protocol ObjectTypeSearchModuleAssemblyProtocol: AnyObject {
         spaceId: String,
         showPins: Bool,
         showLists: Bool,
+        showFiles: Bool,
         onSelect: @escaping (_ type: ObjectType) -> Void
     ) -> AnyView
 }
@@ -29,12 +30,14 @@ final class ObjectTypeSearchModuleAssembly: ObjectTypeSearchModuleAssemblyProtoc
         spaceId: String,
         showPins: Bool,
         showLists: Bool,
+        showFiles: Bool,
         onSelect: @escaping (_ type: ObjectType) -> Void
     ) -> AnyView {
         if FeatureFlags.newTypePicker {
             let model = ObjectTypeSearchViewModel(
                 showPins: showPins,
-                showLists: showLists,
+                showLists: showLists, 
+                showFiles: showFiles,
                 spaceId: spaceId,
                 workspaceService: serviceLocator.workspaceService(),
                 typesService: serviceLocator.typesService(),
@@ -54,7 +57,8 @@ final class ObjectTypeSearchModuleAssembly: ObjectTypeSearchModuleAssemblyProtoc
                 workspaceService: serviceLocator.workspaceService(),
                 objectTypeProvider: serviceLocator.objectTypeProvider(),
                 showBookmark: true,
-                showSetAndCollection: true
+                showSetAndCollection: true, 
+                showFiles: showFiles
             )
             
             let internalViewModel = Legacy_ObjectTypeSearchViewModel(

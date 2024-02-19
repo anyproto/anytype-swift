@@ -35,6 +35,7 @@ final class HomeCoordinatorViewModel: ObservableObject,
     private let sharingTipCoordinator: SharingTipCoordinatorProtocol
     private let galleryInstallationCoordinatorAssembly: GalleryInstallationCoordinatorAssemblyProtocol
     private let notificationCoordinator: NotificationCoordinatorProtocol
+    private let spaceJoinModuleAssembly: SpaceJoinModuleAssemblyProtocol
     
     // MARK: - State
     
@@ -58,6 +59,7 @@ final class HomeCoordinatorViewModel: ObservableObject,
     @Published var toastBarData = ToastBarData.empty
     @Published var pathChanging: Bool = false
     @Published var keyboardToggle: Bool = false
+    @Published var spaceJoinData: SpaceJoinModuleData?
     
     private var currentSpaceId: String?
     
@@ -96,7 +98,8 @@ final class HomeCoordinatorViewModel: ObservableObject,
         setObjectCreationCoordinatorAssembly: SetObjectCreationCoordinatorAssemblyProtocol,
         sharingTipCoordinator: SharingTipCoordinatorProtocol,
         galleryInstallationCoordinatorAssembly: GalleryInstallationCoordinatorAssemblyProtocol,
-        notificationCoordinator: NotificationCoordinatorProtocol
+        notificationCoordinator: NotificationCoordinatorProtocol,
+        spaceJoinModuleAssembly: SpaceJoinModuleAssemblyProtocol
     ) {
         self.homeWidgetsModuleAssembly = homeWidgetsModuleAssembly
         self.activeWorkspaceStorage = activeWorkspaceStorage
@@ -121,6 +124,7 @@ final class HomeCoordinatorViewModel: ObservableObject,
         self.sharingTipCoordinator = sharingTipCoordinator
         self.galleryInstallationCoordinatorAssembly = galleryInstallationCoordinatorAssembly
         self.notificationCoordinator = notificationCoordinator
+        self.spaceJoinModuleAssembly = spaceJoinModuleAssembly
     }
 
     func onAppear() {
@@ -197,7 +201,8 @@ final class HomeCoordinatorViewModel: ObservableObject,
             title: Loc.createNewObject,
             spaceId: activeWorkspaceStorage.workspaceInfo.accountSpaceId,
             showPins: true,
-            showLists: true
+            showLists: true, 
+            showFiles: false
         ) { [weak self] type in
             self?.showTypeSearch = false
             self?.createAndShowNewObject(type: type)
@@ -206,6 +211,10 @@ final class HomeCoordinatorViewModel: ObservableObject,
 
     func createGalleryInstallationModule(data: GalleryInstallationData) -> AnyView {
         return galleryInstallationCoordinatorAssembly.make(data: data)
+    }
+    
+    func spaceJoinModule(data: SpaceJoinModuleData) -> AnyView {
+        return spaceJoinModuleAssembly.make(data: data)
     }
     
     // MARK: - HomeWidgetsModuleOutput
@@ -380,8 +389,12 @@ final class HomeCoordinatorViewModel: ObservableObject,
             navigationContext.dismissAllPresented(animated: true) { [weak self] in
                 self?.showGalleryImport = GalleryInstallationData(type: type, source: source)
             }
-        case .invite:
-            break
+        case .invite(let cid, let key):
+            if FeatureFlags.multiplayer {
+                navigationContext.dismissAllPresented(animated: true) { [weak self] in
+                    self?.spaceJoinData = SpaceJoinModuleData(cid: cid, key: key)
+                }
+            }
         }
     }
     

@@ -28,7 +28,5 @@ public extension BundledRelationKey {
         .links,
         .internalFlags,
         .restrictions,
-        .fileId,
-        .sizeInBytes,
     ]
 }

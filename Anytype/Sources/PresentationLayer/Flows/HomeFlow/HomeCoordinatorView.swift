@@ -57,6 +57,9 @@ struct HomeCoordinatorView: View {
         .sheet(isPresented: $model.showTypeSearch) {
             model.createTypeSearchModule()
         }
+        .sheet(item: $model.spaceJoinData) {
+            model.spaceJoinModule(data: $0)
+        }
         .if(FeatureFlags.galleryInstallation, if: {
             $0.sheet(item: $model.showGalleryImport) { data in
                 model.createGalleryInstallationModule(data: data)

@@ -12,7 +12,7 @@ struct RelationListSelectionView: View {
             }
         case .multi:
             if let selectedIndex {
-                SelectionIndicatorView(model: .selected(index: selectedIndex + 1, color: Color.System.sky))
+                SelectionIndicatorView(model: .selected(index: selectedIndex + 1))
             } else {
                 SelectionIndicatorView(model: .notSelected)
             }

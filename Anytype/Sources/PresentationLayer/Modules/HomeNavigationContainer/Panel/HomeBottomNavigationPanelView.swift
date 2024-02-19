@@ -86,39 +86,18 @@ struct HomeBottomNavigationPanelView: View {
     
     @ViewBuilder
     private var navigationButton: some View {
-        if FeatureFlags.bottomNavigationAlwaysBackButton {
-            Button {
-                if homeMode {
-                    model.onTapForward()
-                } else {
-                    model.onTapBackward()
-                }
-            } label: {
-                Image(asset: .X32.Arrow.left)
-                    .foregroundColor(navigationButtonDisabled ? .Navigation.buttonInactive : .Navigation.buttonActive)
-            }
-            .transition(.identity)
-            .disabled(navigationButtonDisabled)
-        } else {
+        Button {
             if homeMode {
-                Button {
-                    model.onTapForward()
-                } label: {
-                    Image(asset: .X32.Arrow.right)
-                        .foregroundColor(homePath.hasForwardPath() ? .Navigation.buttonActive : .Navigation.buttonInactive)
-                }
-                .transition(.identity)
-                .disabled(!homePath.hasForwardPath())
+                model.onTapForward()
             } else {
-                Button {
-                    model.onTapBackward()
-                } label: {
-                    Image(asset: .X32.Arrow.left)
-                        .foregroundColor(.Navigation.buttonActive)
-                }
-                .transition(.identity)
+                model.onTapBackward()
             }
+        } label: {
+            Image(asset: .X32.Arrow.left)
+                .foregroundColor(navigationButtonDisabled ? .Navigation.buttonInactive : .Navigation.buttonActive)
         }
+        .transition(.identity)
+        .disabled(navigationButtonDisabled)
     }
     
     private var navigationButtonDisabled: Bool {

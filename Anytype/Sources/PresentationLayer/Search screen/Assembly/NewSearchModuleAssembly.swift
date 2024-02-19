@@ -141,6 +141,7 @@ final class NewSearchModuleAssembly: NewSearchModuleAssemblyProtocol {
         spaceId: String,
         selectedObjectId: BlockId?,
         showSetAndCollection: Bool,
+        showFiles: Bool,
         onSelect: @escaping (_ type: ObjectType) -> Void
     ) -> NewSearchView {
         let interactor = Legacy_ObjectTypeSearchInteractor(
@@ -149,7 +150,8 @@ final class NewSearchModuleAssembly: NewSearchModuleAssemblyProtocol {
             workspaceService: serviceLocator.workspaceService(),
             objectTypeProvider: serviceLocator.objectTypeProvider(),
             showBookmark: true,
-            showSetAndCollection: showSetAndCollection
+            showSetAndCollection: showSetAndCollection, 
+            showFiles: showFiles
         )
         
         let internalViewModel = Legacy_ObjectTypeSearchViewModel(
@@ -180,7 +182,8 @@ final class NewSearchModuleAssembly: NewSearchModuleAssemblyProtocol {
             workspaceService: serviceLocator.workspaceService(),
             objectTypeProvider: serviceLocator.objectTypeProvider(),
             showBookmark: true,
-            showSetAndCollection: false
+            showSetAndCollection: false, 
+            showFiles: false
         )
         
         let internalViewModel = MultiselectObjectTypesSearchViewModel(

@@ -8,8 +8,8 @@ struct SelectionIndicatorView: View {
         switch model {
         case .notSelected:
             notSelectedView
-        case let .selected(index, color):
-            selectedView(index: index, color: color)
+        case let .selected(index):
+            selectedView(index: index)
         }
     }
     
@@ -19,11 +19,11 @@ struct SelectionIndicatorView: View {
             .frame(width: 24, height: 24)
     }
     
-    private func selectedView(index: Int, color: Color) -> some View {
+    private func selectedView(index: Int) -> some View {
         AnytypeText("\(index)", style: .uxTitle2Medium, color: .Text.white)
             .lineLimit(1)
             .frame(width:24, height: 24)
-            .background(color)
+            .background(Color.System.sky)
             .clipShape(Circle())
     }
 }
@@ -32,7 +32,7 @@ extension SelectionIndicatorView {
     
     enum Model {
         case notSelected
-        case selected(index: Int, color: Color = Color.Button.button)
+        case selected(index: Int)
     }
 }
 

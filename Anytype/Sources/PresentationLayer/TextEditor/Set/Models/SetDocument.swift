@@ -211,6 +211,14 @@ class SetDocument: SetDocumentProtocol {
         return DetailsLayout.supportedForCreationInSets.contains(layout)
     }
     
+    func isActiveHeader() -> Bool {
+        guard let details else {
+            anytypeAssertionFailure("SetDocument: No details in isHeaderActive")
+            return false
+        }
+        return details.isCollection || isSetByRelation() || details.setOf.first(where: { $0.isNotEmpty }).isNotNil
+    }
+    
     func defaultObjectTypeForActiveView() throws -> ObjectType {
         return try defaultObjectTypeForView(activeView)
     }
