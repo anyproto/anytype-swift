@@ -100,14 +100,14 @@ final class SpaceShareViewModel: ObservableObject {
         switch participant.status {
         case .joining:
             return SpaceShareParticipantViewModel.Action(title: Loc.SpaceShare.Action.viewRequest, action: { [weak self] in
-                self?.shoqRequestAlert(participant: participant)
+                self?.showRequestAlert(participant: participant)
             })
         case .active, .canceled, .declined, .removing, .removed, .UNRECOGNIZED:
             return nil
         }
     }
     
-    private func shoqRequestAlert(participant: Participant) {
+    private func showRequestAlert(participant: Participant) {
         guard let spaceView = activeWorkspaceStorage.spaceView() else { return }
         
         requestAlertModel = SpaceRequestViewModel(
