@@ -5,7 +5,8 @@ protocol ModulesDIProtocol: AnyObject {
     func relationsList() -> RelationsListModuleAssemblyProtocol
     func dateRelationCalendar() -> DateRelationCalendarModuleAssemblyProtocol
     func selectRelationList() -> SelectRelationListModuleAssemblyProtocol
-    func selectRelationSettings() -> SelectRelationSettingsModuleAssemblyProtocol
+    func relationOptionSettings() -> RelationOptionSettingsModuleAssemblyProtocol
+    func objectRelationList() -> ObjectRelationListModuleAssemblyProtocol
     func undoRedo() -> UndoRedoModuleAssemblyProtocol
     func objectLayoutPicker() -> ObjectLayoutPickerModuleAssemblyProtocol
     func objectCoverPicker() -> ObjectCoverPickerModuleAssemblyProtocol
@@ -57,7 +58,6 @@ protocol ModulesDIProtocol: AnyObject {
     func setLayoutSettingsView() -> SetLayoutSettingsViewAssemblyProtocol
     func setViewSettingsGroupByView() -> SetViewSettingsGroupByModuleAssemblyProtocol
     func setRelationsView() -> SetRelationsViewModuleAssemblyProtocol
-    func shareAssembly() -> ShareModuleAssemblyProtocol
     func setViewPicker() -> SetViewPickerModuleAssemblyProtocol
     func homeBottomNavigationPanel() -> HomeBottomNavigationPanelModuleAssemblyProtocol
     func deleteAccount() -> DeleteAccountModuleAssemblyProtocol
@@ -65,5 +65,11 @@ protocol ModulesDIProtocol: AnyObject {
     func serverConfiguration() -> ServerConfigurationModuleAssemblyProtocol
     func serverDocumentPicker() -> ServerDocumentPickerModuleAssemblyProtocol
     func sharingTip() -> SharingTipModuleAssemblyProtocol
+    func shareOptions() -> ShareOptionsModuleAssemblyProtocol
+    func galleryInstallationPreview() -> GalleryInstallationPreviewModuleAssemblyProtocol
+    func gallerySpaceSelectionModuleAssembly() -> GallerySpaceSelectionModuleAssemblyProtocol
     func commonNotification() -> CommonNotificationAssemblyProtocol
+    func galleryNotification() -> GalleryNotificationAssemblyProtocol
+    func spareShare() -> SpaceShareModuleAssemblyProtocol
+    func spaceJoin() -> SpaceJoinModuleAssemblyProtocol
 }

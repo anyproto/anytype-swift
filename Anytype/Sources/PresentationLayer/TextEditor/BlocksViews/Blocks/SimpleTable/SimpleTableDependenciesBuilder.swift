@@ -19,9 +19,9 @@ final class SimpleTableDependenciesBuilder {
     private let focusSubjectHolder: FocusSubjectsHolder
     private let tableService = BlockTableService()
     private let responderScrollViewHelper: ResponderScrollViewHelper
-    private let pageService: PageRepositoryProtocol
+    private let defaultObjectService: DefaultObjectCreationServiceProtocol
     private let linkToObjectCoordinator: LinkToObjectCoordinatorProtocol
-    private let searchService: SearchServiceProtocol
+    private let typesService: TypesServiceProtocol
     private let accessoryStateManager: AccessoryViewStateManager
 //    private let collectionController: EditorBlockCollectionController
 
@@ -37,9 +37,9 @@ final class SimpleTableDependenciesBuilder {
         focusSubjectHolder: FocusSubjectsHolder,
         mainEditorSelectionManager: SimpleTableSelectionHandler?,
         responderScrollViewHelper: ResponderScrollViewHelper,
-        pageService: PageRepositoryProtocol,
+        defaultObjectService: DefaultObjectCreationServiceProtocol,
         linkToObjectCoordinator: LinkToObjectCoordinatorProtocol,
-        searchService: SearchServiceProtocol,
+        typesService: TypesServiceProtocol,
         accessoryStateManager: AccessoryViewStateManager
     ) {
         self.document = document
@@ -51,9 +51,9 @@ final class SimpleTableDependenciesBuilder {
 //        self.collectionController = collectionController
         self.mainEditorSelectionManager = mainEditorSelectionManager
         self.responderScrollViewHelper = responderScrollViewHelper
-        self.pageService = pageService
+        self.defaultObjectService = defaultObjectService
         self.linkToObjectCoordinator = linkToObjectCoordinator
-        self.searchService = searchService
+        self.typesService = typesService
         self.accessoryStateManager = accessoryStateManager
         
         self.cursorManager = EditorCursorManager(focusSubjectHolder: focusSubjectHolder)
@@ -83,7 +83,7 @@ final class SimpleTableDependenciesBuilder {
             actionHandler: handler,
             router: router,
             document: document,
-            searchService: searchService
+            typesService: typesService
         )
 
         let cellsBuilder = SimpleTableCellsBuilder(

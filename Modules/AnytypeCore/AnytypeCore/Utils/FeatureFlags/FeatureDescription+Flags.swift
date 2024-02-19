@@ -1,5 +1,7 @@
 import Foundation
 
+// Call `make generate` to update FeatureFlags helper
+
 public extension FeatureDescription {
     
     static let setTemplateSelection = FeatureDescription(
@@ -46,35 +48,22 @@ public extension FeatureDescription {
         defaultValue: true
     )
     
-    
     static let widgetsCreateObject = FeatureDescription(
         title: "Widgets - New object - IOS-1873",
         type: .feature(author: "m@anytype.io", releaseVersion: "0.27.0"),
         defaultValue: true
     )
     
-    static let setAndCollectionInSlashMenu = FeatureDescription(
-        title: "Set and Collection in slashMenu",
-        type: .feature(author: "joe_pusya@anytype.io", releaseVersion: "0.27.0"),
-        defaultValue: true
-    )
-    
-    static let setTextInFirstNoteBlock = FeatureDescription(
-        title: "Set text in first Note block when creating from the Set/Collection/Widget - IOS-1956",
-        type: .feature(author: "joe_pusya@anytype.io", releaseVersion: "0.27.0"),
-        defaultValue: true
-    )
-    
-    static let bottomNavigationAlwaysBackButton = FeatureDescription(
-        title: "[Back] in Bottom menu - IOS-2087",
-        type: .feature(author: "joe_pusya@anytype.io", releaseVersion: "0.27.0"),
+    static let galleryInstallation = FeatureDescription(
+        title: "Gallery / Experience installation - IOS-1805",
+        type: .feature(author: "m@anytype.io", releaseVersion: "0.28.0"),
         defaultValue: true
     )
     
     static let newTypePicker = FeatureDescription(
         title: "New type picker, you know 🫵🐭 - IOS-2017",
         type: .feature(author: "vova@anytype.io", releaseVersion: "0.28.0"),
-        defaultValue: false
+        defaultValue: true
     )
     
     static let newDateRelationCalendarView = FeatureDescription(
@@ -88,10 +77,32 @@ public extension FeatureDescription {
         type: .feature(author: "joe_pusya@anytype.io", releaseVersion: "0.28.0"),
         defaultValue: true
     )
-}
-
-// MARK: - Debug
-public extension FeatureDescription {
+    
+    static let newMultiSelectRelationView = FeatureDescription(
+        title: "New Multi Select relation editing view - 2213",
+        type: .feature(author: "joe_pusya@anytype.io", releaseVersion: "0.28.0"),
+        defaultValue: true
+    )
+    
+    static let newObjectSelectRelationView = FeatureDescription(
+        title: "New object relation editing view - 2214",
+        type: .feature(author: "joe_pusya@anytype.io", releaseVersion: "0.28.0"),
+        defaultValue: true
+    )
+    
+    static let newFileSelectRelationView = FeatureDescription(
+        title: "New file relation editing view - 2259",
+        type: .feature(author: "joe_pusya@anytype.io", releaseVersion: "0.28.0"),
+        defaultValue: true
+    )
+    
+    static let multiplayer = FeatureDescription(
+        title: "Multiplayer",
+        type: .feature(author: "m@anytype.io", releaseVersion: "0.29.0"),
+        defaultValue: false
+    )
+    
+    // MARK: - Debug
     
     static let rainbowViews = FeatureDescription(
         title: "Paint editor views 🌈",
@@ -139,5 +150,18 @@ public extension FeatureDescription {
         type: .debug,
         defaultValue: false,
         debugValue: false
+    )
+    
+    static let sharingExtensionShowContentTypes = FeatureDescription(
+        title: "Sharing extension - Show content types",
+        type: .debug,
+        defaultValue: false,
+        debugValue: true
+    )
+    
+    static let homeTestSwipeGeature = FeatureDescription(
+        title: "Test swipe gesture",
+        type: .debug,
+        defaultValue: false
     )
 }

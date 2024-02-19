@@ -1,11 +1,13 @@
 import SwiftUI
 
 struct RelationListContainerView<Content>: View where Content: View {
-    @State private var searchText = ""
+    @Binding var searchText: String
     
     let title: String
     let isEditable: Bool
     let isEmpty: Bool
+    let isClearAvailable: Bool
+    let isCreateAvailable: Bool
     let listContent: () -> Content
     let onCreate: (_ title: String?) -> Void
     let onClear: () -> Void
@@ -27,10 +29,14 @@ struct RelationListContainerView<Content>: View where Content: View {
                 .if(isEditable, transform: {
                     $0.toolbar {
                         ToolbarItem(placement: .navigationBarLeading) {
-                            clearButton
+                            if isClearAvailable {
+                                clearButton
+                            }
                         }
                         ToolbarItem(placement: .navigationBarTrailing) {
-                            createButton
+                            if isCreateAvailable {
+                                createButton
+                            }
                         }
                     }
                 })
@@ -40,18 +46,19 @@ struct RelationListContainerView<Content>: View where Content: View {
     
     private var content: some View {
         VStack(spacing: 0) {
-            if isEditable {
+            if isEditable, !isEmpty {
                 SearchBar(text: $searchText, focused: false, placeholder: Loc.search)
                     .onChange(of: searchText) { text in
                         onSearchTextChange(text)
                     }
             }
             
-            if isEmpty {
-                emptyState
-            } else {
-                list
-            }
+            list
+                .if(isEmpty) {
+                    $0.overlay(alignment: .center) {
+                        emptyState
+                    }
+                }
         }
         .background(Color.Background.secondary)
     }
@@ -59,7 +66,7 @@ struct RelationListContainerView<Content>: View where Content: View {
     private var list: some View {
         PlainList {
             listContent()
-            if searchText.isNotEmpty {
+            if isCreateAvailable, searchText.isNotEmpty {
                 createRow
             }
         }
@@ -97,29 +104,24 @@ struct RelationListContainerView<Content>: View where Content: View {
         .padding(.horizontal, 20)
     }
     
-    @ViewBuilder
     private var emptyState: some View {
-        if isEditable {
-            defaultEmptyState
-        } else {
-            blockedEmptyState
+        Group {
+            if !isCreateAvailable || !isEditable {
+                blockedEmptyState
+            } else  {
+                defaultEmptyState
+            }
         }
+        .frame(maxWidth: .infinity)
     }
     
     private var defaultEmptyState: some View {
-        VStack(spacing: 0) {
-            Spacer()
-            ButtomAlertHeaderImageView(icon: .BottomAlert.error, style: .red)
-            Spacer.fixedHeight(12)
-            AnytypeText(Loc.Relation.EmptyState.title, style: .uxCalloutMedium, color: .Text.primary)
-            AnytypeText(Loc.Relation.EmptyState.description, style: .uxCalloutRegular, color: .Text.primary)
-            Spacer.fixedHeight(12)
-            StandardButton(Loc.create, style: .secondarySmall) {
-                onCreate(nil)
-            }
-            .disabled(!isEditable)
-            Spacer.fixedHeight(48)
-            Spacer()
+        EmptyStateView(
+            title: Loc.Relation.EmptyState.title,
+            subtitle: Loc.Relation.EmptyState.description,
+            actionText: Loc.create
+        ) {
+            onCreate(nil)
         }
     }
     

@@ -98,5 +98,69 @@
         <string>%d objetos destruidos</string>
       </dict>
     </dict>
+    <key>Sharing.File.NewObject</key>
+    <dict>
+      <key>NSStringLocalizedFormatKey</key>
+      <string>%#@object@</string>
+      <key>object</key>
+      <dict>
+        <key>NSStringFormatSpecTypeKey</key>
+        <string>NSStringPluralRuleType</string>
+        <key>NSStringFormatValueTypeKey</key>
+        <string>d</string>
+        <key>one</key>
+        <string>Objeto de Arquivo</string>
+        <key>other</key>
+        <string>%d Objetos de Arquivo</string>
+      </dict>
+    </dict>
+    <key>Sharing.File.Block</key>
+    <dict>
+      <key>NSStringLocalizedFormatKey</key>
+      <string>%#@object@</string>
+      <key>object</key>
+      <dict>
+        <key>NSStringFormatSpecTypeKey</key>
+        <string>NSStringPluralRuleType</string>
+        <key>NSStringFormatValueTypeKey</key>
+        <string>d</string>
+        <key>one</key>
+        <string>Bloco de Arquivo</string>
+        <key>other</key>
+        <string>%d Blocos de Arquivos</string>
+      </dict>
+    </dict>
+    <key>Sharing.URL.NewObject</key>
+    <dict>
+      <key>NSStringLocalizedFormatKey</key>
+      <string>%#@object@</string>
+      <key>object</key>
+      <dict>
+        <key>NSStringFormatSpecTypeKey</key>
+        <string>NSStringPluralRuleType</string>
+        <key>NSStringFormatValueTypeKey</key>
+        <string>d</string>
+        <key>one</key>
+        <string>Objeto Marcador</string>
+        <key>other</key>
+        <string>%d Objetos Marcadores</string>
+      </dict>
+    </dict>
+    <key>Sharing.URL.Block</key>
+    <dict>
+      <key>NSStringLocalizedFormatKey</key>
+      <string>%#@object@</string>
+      <key>object</key>
+      <dict>
+        <key>NSStringFormatSpecTypeKey</key>
+        <string>NSStringPluralRuleType</string>
+        <key>NSStringFormatValueTypeKey</key>
+        <string>d</string>
+        <key>one</key>
+        <string>Bloco de Link</string>
+        <key>other</key>
+        <string>Vincular %d Blocos</string>
+      </dict>
+    </dict>
   </dict>
 </plist>

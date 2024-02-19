@@ -1,8 +1,10 @@
 import Foundation
 
 enum AppAction {
-    case createObject
+    case createObject(typeId: String)
+    case createDefaultObject
     case showSharingExtension
     case spaceSelection
-    case galleryImport
+    case galleryImport(type: String, source: String)
+    case invite(cid: String, key: String)
 }

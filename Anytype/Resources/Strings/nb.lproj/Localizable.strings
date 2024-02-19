@@ -88,9 +88,12 @@
 "Relation.Create.Textfield.placeholder" = "Skriv inn navn...";
 "Relation.Edit.Button.title" = "Bruk";
 "Relation.Date.Locked.Alert.title" = "Relasjon “%@” er låst";
+"Relation.ObjectTypes.Header.title" = "Objekttyper:";
+"Relation.ObjectType.Header.title" = "Objekttype:";
 
 "Relation.Delete.Alert.Title" = "Er du sikker?";
 "Relation.Delete.Alert.Description" = "Alternativet vil bli permanent fjernet fra ditt rom.";
+"Relation.Object.Delete.Alert.Description" = "Objektet vil bli flyttet til papirkurven.";
 
 "Relation.Format.Object.Title" = "Objekt";
 "Relation.Format.Text.Title" = "Tekst";
@@ -113,6 +116,7 @@
 "Relation.Origin.SharingExtension" = "Mobile sharing extension";
 "Relation.Origin.UseCase" = "Use case";
 "Relation.Origin.Builtin" = "Library installed";
+"Relation.Origin.Bookmark" = "Bokmerke";
 
 // MARK: - Mention
 "Mention.Subtitle.Placeholder" = "Objekt";
@@ -132,6 +136,7 @@
 "Relations" = "Relasjoner";
 "Objects" = "Objekter";
 "Lists" = "Groups";
+"Pinned" = "Pinned";
 "Delete" = "Slett";
 "Duplicate" = "Dupliser";
 "Copy" = "Kopier";
@@ -141,6 +146,8 @@
 "Move" = "Flytt";
 "Move to" = "Flytt til";
 "Back" = "Tilbake";
+"Unpin" = "Unpin";
+"Pin on top" = "Pin on top";
 "File block subtitle" = "Lagre fil i original tilstand";
 "Picture block subtitle" = "Last opp og berik siden med bilde";
 "Video block subtitle" = "Last opp spillbar video";
@@ -222,6 +229,7 @@
 "Error creating wallet" = "Feil ved oppretting av wallet";
 "Error select account" = "Feil ved valg av konto";
 "Error wallet recover account" = "Feil ved gjenoppretting av wallet-konto";
+"Wallet.Recovery.Error.description" = "Ugyldig gjenopprettingsfrase";
 
 "Search for language" = "Søk etter språk";
 
@@ -354,6 +362,7 @@
 "Templates.Popup.Default" = "Malen ble satt som standard";
 
 "To Bin" = "Til papirkurv";
+"Set as default" = "Set as default";
 
 // MARK: - Context Menu
 "Remove From Favorite" = "Fjern fra favoritter";
@@ -519,6 +528,10 @@
 "Unsupported value" = "Ikke-støttet verdi";
 "Select relation type" = "Velg relasjonstype";
 "CommonOpenErrorView.Message" = "Ingen data funnet";
+"Nothing found" = "Ingenting funnet";
+"No type found text" = "Ingen type “%@” funnet. Endre forespørselen din eller opprett ny type.";
+"Create type" = "Opprett type";
+
 
 "Limit object types" = "Begrens objekttyper";
 "Type" = "Type";
@@ -588,6 +601,8 @@
 "Into object" = "Inn i objektet";
 "Add below" = "Legg til under";
 "Change type" = "Endre type";
+"Show types" = "Vis typer";
+"Hide types" = "Skjul typer";
 "SlashMenu.LinkTo.Description" = "Create link to another object";
 "Upload playable audio" = "Last opp spillbar lyd";
 "Code snippet" = "Kodesnutt";
@@ -647,6 +662,7 @@
 "DataviewType.gallery" = "Galleri";
 "DataviewType.kanban" = "Kanban";
 "DataviewType.calendar" = "Kalender";
+"DataviewType.graph" = "Graf";
 
 // MARK: - ObjectType
 "ObjectType.fallbackDescription" = "Tomt lerret uten tittel";
@@ -845,6 +861,16 @@
 "SpaceSettings.DeleteAlert.Title" = "Slett ’%@’ rommet";
 "SpaceSettings.DeleteAlert.Message" = "Dette rommet vil bli slettet ugjenkallelig. Du kan ikke angre denne handlingen.";
 "SpaceSettings.DeleteButton" = "Slett rom";
+"SpaceSettings.Sharing" = "Sharing";
+"SpaceSettings.Share" = "Del";
+
+// MARK: - Space Share
+
+"SpaceShare.Title" = "Share space";
+"SpaceShare.MembersSection" = "Members and requests";
+"SpaceShare.Permissions.Owner" = "Owner";
+"SpaceShare.Permissions.Reader" = "Can view";
+"SpaceShare.Permissions.Writer" = "Can edit";
 
 // MARK: - Space Create
 "SpaceCreate.Title" = "Opprett et rom";
@@ -859,10 +885,9 @@
 "Sharing.AddTo" = "Legg til i";
 "Sharing.LinkTo" = "Koble til";
 
-"Sharing.URL.Bookmark" = "Bokmerkeobjekt";
-"Sharing.URL.Text" = "Tekstblokk";
 "Sharing.Text.NoteObject" = "Notatobjekt";
-"Sharing.Text.TextBlock" = "Tekstblokk";
+"Sharing.Text.TextBlock" = "Blokker";
+"Sharing.Any.Block" = "Blokker";
 
 // MARK: - Sharing tips
 "Sharing.Tip.Title" = "Delingsutvidelse";
@@ -890,6 +915,9 @@
 "Error.AnytypeNeedsUpgrate.Message" = "Dette objektet ble endret i en nyere versjon av Anytype. Oppdater appen for å åpne det på denne enheten";
 "Error.AnytypeNeedsUpgrate.Confirm" = "Oppdater";
 "Error.UnableToConnect" = "Vennligst koble deg til internett";
+"Error.Common.Title" = "Oops!";
+"Error.Common.Message" = "Vennligst sjekk internettforbindelsen din og prøv igjen, eller legg ut en rapport på forumet.";
+"Error.Common.TryAgain" = "Prøv igjen";
 
 // MARK: - Relative date formatter
 "RelativeFormatter.days7" = "Siste 7 dager";
@@ -906,3 +934,13 @@
 // MARK: - Gallery
 "Gallery.Unavailable.Title" = "Galleri vil bli støttet snart";
 "Gallery.Unavailable.Message" = "Vennligst bruk skrivebordsappen for nå";
+"Gallery.Author" = "Laget av @%@";
+"Gallery.Install" = "Installer";
+"Gallery.InstallToNew" = "Installer til nytt rom";
+"Gallery.Notification.Success" = "Erfaringen ble vellykket installert i rommet \"%@\". Du kan nå åpne det og begynne å bruke det.";
+"Gallery.Notification.Button" = "Gå til rom";
+"Gallery.Notification.Error" = "Oops! \"%@\" ble ikke installert. Vennligst sjekk internettforbindelsen din og prøv igjen, eller legg ut en rapport på forumet.";
+
+// MARK: - Debug
+"Debug.MimeTypes" = "MIME-typer - %@";
+"Debug.Info" = "Feilsøkingsinformasjon";

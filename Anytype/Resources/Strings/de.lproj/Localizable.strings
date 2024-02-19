@@ -88,9 +88,12 @@
 "Relation.Create.Textfield.placeholder" = "Name eingeben...";
 "Relation.Edit.Button.title" = "Anwenden";
 "Relation.Date.Locked.Alert.title" = "Relation „%@“ ist gesperrt";
+"Relation.ObjectTypes.Header.title" = "Objekttypen:";
+"Relation.ObjectType.Header.title" = "Objekttyp:";
 
 "Relation.Delete.Alert.Title" = "Sind Sie sicher?";
-"Relation.Delete.Alert.Description" = "The option will be permanently removed from your space.";
+"Relation.Delete.Alert.Description" = "Die Option wird dauerhaft aus Ihrem Bereich entfernt.";
+"Relation.Object.Delete.Alert.Description" = "Das Objekt wird in den Papierkorb verschoben.";
 
 "Relation.Format.Object.Title" = "Objekt";
 "Relation.Format.Text.Title" = "Text";
@@ -113,6 +116,7 @@
 "Relation.Origin.SharingExtension" = "Erweiterung für mobiles Teilen";
 "Relation.Origin.UseCase" = "Anwendungsfall";
 "Relation.Origin.Builtin" = "Bibliothek installiert";
+"Relation.Origin.Bookmark" = "Lesezeichen";
 
 // MARK: - Mention
 "Mention.Subtitle.Placeholder" = "Objekt";
@@ -132,6 +136,7 @@
 "Relations" = "Verknüpfungen";
 "Objects" = "Objekte";
 "Lists" = "Gruppen";
+"Pinned" = "Angeheftet";
 "Delete" = "Löschen";
 "Duplicate" = "Duplizieren";
 "Copy" = "Kopieren";
@@ -141,6 +146,8 @@
 "Move" = "Verschieben";
 "Move to" = "Verschieben nach";
 "Back" = "Zurück";
+"Unpin" = "Loslösen";
+"Pin on top" = "Oben anheften";
 "File block subtitle" = "Datei im Originalzustand speichern";
 "Picture block subtitle" = "Lade ein Bild hoch und bereichere die Seite";
 "Video block subtitle" = "Video hochladen";
@@ -222,6 +229,7 @@
 "Error creating wallet" = "Fehler beim Erstellen der Wallet";
 "Error select account" = "Fehler bei der Kontoauswahl";
 "Error wallet recover account" = "Fehler bei Wallet-Wiederherstellung";
+"Wallet.Recovery.Error.description" = "Ungültige Wiederherstellungsphrase";
 
 "Search for language" = "Sprache suchen";
 
@@ -354,6 +362,7 @@
 "Templates.Popup.Default" = "Die Vorlage wurde als Standard festgelegt";
 
 "To Bin" = "Zum Papierkorb";
+"Set as default" = "Als Standard festlegen";
 
 // MARK: - Context Menu
 "Remove From Favorite" = "Aus den Favoriten entfernen";
@@ -519,6 +528,10 @@
 "Unsupported value" = "Nicht unterstützter Wert";
 "Select relation type" = "Relationstyp auswählen";
 "CommonOpenErrorView.Message" = "Keine Daten gefunden";
+"Nothing found" = "Nichts gefunden";
+"No type found text" = "Kein Typ „%@“ gefunden. Ändere deine Anfrage oder erstelle einen neuen Typ.";
+"Create type" = "Typ erstellen";
+
 
 "Limit object types" = "Objekttypen einschränken";
 "Type" = "Typ";
@@ -588,6 +601,8 @@
 "Into object" = "In ein Objekt";
 "Add below" = "Unten hinzufügen";
 "Change type" = "Typ ändern";
+"Show types" = "Typen anzeigen";
+"Hide types" = "Typen ausblenden";
 "SlashMenu.LinkTo.Description" = "Link zu einem anderen Objekt erstellen";
 "Upload playable audio" = "Audio hochladen";
 "Code snippet" = "Code-Ausschnitt";
@@ -647,6 +662,7 @@
 "DataviewType.gallery" = "Galerie";
 "DataviewType.kanban" = "Kanban";
 "DataviewType.calendar" = "Kalender";
+"DataviewType.graph" = "Graph";
 
 // MARK: - ObjectType
 "ObjectType.fallbackDescription" = "Leere Leinwand ohne Titel";
@@ -736,10 +752,6 @@
 "Content.DataView.InlineSet.Untitled" = "Unbenanntes Set";
 "Content.DataView.InlineCollection.Untitled" = "Unbenannte Sammlung";
 "Content.DataView.InlineSet.Toast.Failure" = "Dieses Inline-Set hat keine Quelle";
-
-// MARK: - Widget extension
-"WidgetExtension.LockScreen.Title" = "Neues Objekt";
-"WidgetExtension.LockScreen.Description" = "Erstelle ein neues Objekt im Gange";
 
 // MARK: - Toast
 "Editor.Toast.LinkedTo" = "verlinkt mit";
@@ -846,6 +858,19 @@
 "SpaceSettings.DeleteAlert.Title" = "Space '%@' löschen";
 "SpaceSettings.DeleteAlert.Message" = "Dieser Space wird unwiderruflich gelöscht. Diese Aktion kann nicht rückgängig gemacht werden.";
 "SpaceSettings.DeleteButton" = "Space löschen";
+"SpaceSettings.Sharing" = "Sharing";
+"SpaceSettings.Share" = "Teilen";
+
+// MARK: - Space Share
+
+"SpaceShare.Title" = "Share space";
+"SpaceShare.MembersSection" = "Mitglieder und Anfragen";
+"SpaceShare.Permissions.Owner" = "Eigentümer";
+"SpaceShare.Permissions.Reader" = "Darf ansehen";
+"SpaceShare.Permissions.Writer" = "Darf bearbeiten";
+"SpaceShare.Invite.Title" = "Einladungslink";
+"SpaceShare.Invite.Description" = "Sende diesen Link, um andere einzuladen. Weise Zugriffsrechte zu, wenn deren Anfrage genehmigt wurde";
+"SpaceShare.Invite.Button" = "Einladungslink teilen";
 
 // MARK: - Space Create
 "SpaceCreate.Title" = "Space erstellen";
@@ -860,10 +885,9 @@
 "Sharing.AddTo" = "Hinzufügen zu";
 "Sharing.LinkTo" = "Link zu";
 
-"Sharing.URL.Bookmark" = "Lesezeichen-Objekt";
-"Sharing.URL.Text" = "Textblock";
 "Sharing.Text.NoteObject" = "Notiz-Objekt";
-"Sharing.Text.TextBlock" = "Textblock";
+"Sharing.Text.TextBlock" = "Blöcke";
+"Sharing.Any.Block" = "Blöcke";
 
 // MARK: - Sharing tips
 "Sharing.Tip.Title" = "Erweiterung teilen";
@@ -891,6 +915,9 @@
 "Error.AnytypeNeedsUpgrate.Message" = "Dieses Objekt wurde in einer neueren Version von Anytype geändert. Bitte aktualisieren Sie die App, um es auf diesem Gerät zu öffnen";
 "Error.AnytypeNeedsUpgrate.Confirm" = "Update";
 "Error.UnableToConnect" = "Bitte mit dem Internet verbinden";
+"Error.Common.Title" = "Hoppla!";
+"Error.Common.Message" = "Bitte überprüfe deine Internetverbindung und versuche es erneut oder schreibe einen Bericht im Forum.";
+"Error.Common.TryAgain" = "Erneut versuchen";
 
 // MARK: - Relative date formatter
 "RelativeFormatter.days7" = "Letzte 7 Tage";
@@ -907,3 +934,13 @@
 // MARK: - Gallery
 "Gallery.Unavailable.Title" = "Galerie wird bald unterstützt";
 "Gallery.Unavailable.Message" = "Bitte verwende die Desktop-App vorläufig";
+"Gallery.Author" = "Erstellt von @%@";
+"Gallery.Install" = "Installieren";
+"Gallery.InstallToNew" = "Install to new space";
+"Gallery.Notification.Success" = "Experience was successfully installed to the \"%@\" space. You can now open and start using it.";
+"Gallery.Notification.Button" = "Go to space";
+"Gallery.Notification.Error" = "Hoppla! „%@“ wurde nicht installiert. Bitte überprüfe deine Internetverbindung und versuche es erneut oder schreibe einen Bericht im Forum.";
+
+// MARK: - Debug
+"Debug.MimeTypes" = "MIME-Typen - %@";
+"Debug.Info" = "Debug-Informationen";

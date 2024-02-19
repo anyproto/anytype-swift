@@ -22,6 +22,7 @@ final class ObjectHeaderViewModel: ObservableObject {
     
     private lazy var onIconTap = { [weak self] in
         guard let self = self, !self.configuration.isOpenedForPreview else { return }
+        guard !document.objectRestrictions.objectRestriction.contains(.details) else { return }
         UISelectionFeedbackGenerator().selectionChanged()
         self.onIconPickerTap?((document, { [weak self] action in
             self?.handleIconAction(action: action)
@@ -31,6 +32,7 @@ final class ObjectHeaderViewModel: ObservableObject {
     private lazy var onCoverTap = { [weak self] in
         guard let self = self, !self.configuration.isOpenedForPreview else { return }
         guard self.document.details?.layoutValue != .note else { return }
+        guard !document.objectRestrictions.objectRestriction.contains(.details) else { return }
         UISelectionFeedbackGenerator().selectionChanged()
         self.onCoverPickerTap?((document, { [weak self] action in
             self?.handleCoverAction(action: action)

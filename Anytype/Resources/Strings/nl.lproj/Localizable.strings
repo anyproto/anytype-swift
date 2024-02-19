@@ -79,18 +79,21 @@
 "Relation.From.Type" = "Van type %@";
 "Relation.LinksFrom.Title" = "van";
 "Relation.LinksTo.Title" = "tot";
-"Relation.EmptyState.title" = "No options";
-"Relation.EmptyState.description" = "Nothing found. Create first option to start.";
-"Relation.EmptyState.Blocked.title" = "The relation is empty";
-"Relation.Create.Row.title" = "Create “%@”";
-"Relation.View.Create.title" = "Create option";
-"Relation.View.Edit.title" = "Edit option";
-"Relation.Create.Textfield.placeholder" = "Enter name...";
+"Relation.EmptyState.title" = "Geen opties";
+"Relation.EmptyState.description" = "Niets gevonden. Maak een eerste optie aan om te starten.";
+"Relation.EmptyState.Blocked.title" = "De relatie is leeg";
+"Relation.Create.Row.title" = "Maak \"%@\" aan";
+"Relation.View.Create.title" = "Maak optie aan";
+"Relation.View.Edit.title" = "Bewerk optie";
+"Relation.Create.Textfield.placeholder" = "Voer naam... in";
 "Relation.Edit.Button.title" = "Pas toe";
-"Relation.Date.Locked.Alert.title" = "Relation “%@” is locked";
+"Relation.Date.Locked.Alert.title" = "Relatie \"%@\" is vergrendeld";
+"Relation.ObjectTypes.Header.title" = "Object types:";
+"Relation.ObjectType.Header.title" = "Object type:";
 
 "Relation.Delete.Alert.Title" = "Weet je het zeker?";
-"Relation.Delete.Alert.Description" = "The option will be permanently removed from your space.";
+"Relation.Delete.Alert.Description" = "De optie wordt permanent verwijderd uit jouw ruimte.";
+"Relation.Object.Delete.Alert.Description" = "Het object zal naar de prullenbak worden verplaatst.";
 
 "Relation.Format.Object.Title" = "Object";
 "Relation.Format.Text.Title" = "Tekst";
@@ -113,6 +116,7 @@
 "Relation.Origin.SharingExtension" = "Mobiel delen extensie";
 "Relation.Origin.UseCase" = "Gebruikssituatie";
 "Relation.Origin.Builtin" = "Bibliotheek geïnstalleerd";
+"Relation.Origin.Bookmark" = "Bladwijzer";
 
 // MARK: - Mention
 "Mention.Subtitle.Placeholder" = "Object";
@@ -132,6 +136,7 @@
 "Relations" = "Relaties";
 "Objects" = "Objecten";
 "Lists" = "Lijsten";
+"Pinned" = "Vastgezet";
 "Delete" = "Verwijder";
 "Duplicate" = "Dupliceer";
 "Copy" = "Kopieer";
@@ -141,6 +146,8 @@
 "Move" = "Verplaats";
 "Move to" = "Verplaats naar";
 "Back" = "Terug";
+"Unpin" = "Maak los";
+"Pin on top" = "Zet vast bovenaan";
 "File block subtitle" = "Sla bestand op in oorspronkelijke staat";
 "Picture block subtitle" = "Upload en verrijk de pagina met afbeelding";
 "Video block subtitle" = "Upload afspeelbare video";
@@ -222,6 +229,7 @@
 "Error creating wallet" = "Fout bij aanmaken wallet";
 "Error select account" = "Fout bij selecteren van account";
 "Error wallet recover account" = "Fout bij het herstellen van portemonnee van account";
+"Wallet.Recovery.Error.description" = "Ongeldige herstelzin";
 
 "Search for language" = "Zoek naar taal";
 
@@ -354,6 +362,7 @@
 "Templates.Popup.Default" = "Dit sjabloon werd als standaard ingesteld";
 
 "To Bin" = "Naar Prullenbak";
+"Set as default" = "Stel in als standaard";
 
 // MARK: - Context Menu
 "Remove From Favorite" = "Verwijder uit Favorieten";
@@ -519,6 +528,10 @@
 "Unsupported value" = "Niet-ondersteunde waarde";
 "Select relation type" = "Selecteer relatie type";
 "CommonOpenErrorView.Message" = "Geen gegevens gevonden";
+"Nothing found" = "Niets gevonden";
+"No type found text" = "Geen type \"%@\" gevonden. Wijzig uw verzoek of maak een nieuw type aan.";
+"Create type" = "Maak type aan";
+
 
 "Limit object types" = "Beperkt objecttypes";
 "Type" = "Type";
@@ -588,6 +601,8 @@
 "Into object" = "Naar object";
 "Add below" = "Voeg toe hieronder";
 "Change type" = "Verander type";
+"Show types" = "Toon types";
+"Hide types" = "Verberg types";
 "SlashMenu.LinkTo.Description" = "Maak link naar een ander object aan";
 "Upload playable audio" = "Upload afspeelbare video";
 "Code snippet" = "Codefragment";
@@ -617,7 +632,7 @@
 "Today" = "Vandaag";
 "No date" = "Geen datum";
 "Clear" = "Wis";
-"Create option with" = "Create option ‘%@’";
+"Create option with" = "Maak optie '%@' aan";
 "Add URL" = "Voeg URL toe";
 "Add email" = "Voeg e-mailadres toe";
 "Add phone number" = "Voeg telefoonnummer toe";
@@ -647,6 +662,7 @@
 "DataviewType.gallery" = "Galerij";
 "DataviewType.kanban" = "Kanban";
 "DataviewType.calendar" = "Kalender";
+"DataviewType.graph" = "Weergave";
 
 // MARK: - ObjectType
 "ObjectType.fallbackDescription" = "Leeg canvas zonder titel";
@@ -736,10 +752,6 @@
 "Content.DataView.InlineSet.Untitled" = "Naamloze set";
 "Content.DataView.InlineCollection.Untitled" = "Naamloze collectie";
 "Content.DataView.InlineSet.Toast.Failure" = "Deze set in lijn heeft geen bron";
-
-// MARK: - Widget extension
-"WidgetExtension.LockScreen.Title" = "Nieuw object";
-"WidgetExtension.LockScreen.Description" = "Maak snel een nieuw object aan ";
 
 // MARK: - Toast
 "Editor.Toast.LinkedTo" = "gelinkt naar";
@@ -846,6 +858,19 @@
 "SpaceSettings.DeleteAlert.Title" = "Verwijder '%@' ruimte";
 "SpaceSettings.DeleteAlert.Message" = "Deze ruimte zal onherroepelijk worden verwijderd. Je kunt deze actie niet ongedaan maken.";
 "SpaceSettings.DeleteButton" = "Verwijder ruimte";
+"SpaceSettings.Sharing" = "Aan het delen";
+"SpaceSettings.Share" = "Deel";
+
+// MARK: - Space Share
+
+"SpaceShare.Title" = "Deel ruimte";
+"SpaceShare.MembersSection" = "Leden en verzoeken";
+"SpaceShare.Permissions.Owner" = "Eigenaar";
+"SpaceShare.Permissions.Reader" = "Kan zien";
+"SpaceShare.Permissions.Writer" = "Kan bewerken";
+"SpaceShare.Invite.Title" = "Uitnodigingslink";
+"SpaceShare.Invite.Description" = "Stuur deze link om anderen uit te nodigen. Wijs toegangsrechten toe na hun goedkeuring.";
+"SpaceShare.Invite.Button" = "Deel uitnodigingslink";
 
 // MARK: - Space Create
 "SpaceCreate.Title" = "Maak een ruimte aan";
@@ -860,10 +885,9 @@
 "Sharing.AddTo" = "Voeg toe aan";
 "Sharing.LinkTo" = "Link naar";
 
-"Sharing.URL.Bookmark" = "Bladwijzer object";
-"Sharing.URL.Text" = "Tekstblok";
 "Sharing.Text.NoteObject" = "Noteer object";
-"Sharing.Text.TextBlock" = "Tekstblok";
+"Sharing.Text.TextBlock" = "Blokken";
+"Sharing.Any.Block" = "Blokken";
 
 // MARK: - Sharing tips
 "Sharing.Tip.Title" = "Deel extensie";
@@ -891,6 +915,9 @@
 "Error.AnytypeNeedsUpgrate.Message" = "Dit object is gewijzigd in een nieuwere versie van Anytype. Update alsjeblieft de app om het op dit apparaat te openen";
 "Error.AnytypeNeedsUpgrate.Confirm" = "Updaten";
 "Error.UnableToConnect" = "Maak alsjeblieft verbinding met het internet";
+"Error.Common.Title" = "Oeps!";
+"Error.Common.Message" = "Controleer alsjeblieft jouw internetverbinding en probeer het opnieuw of rapporteer het op het forum.";
+"Error.Common.TryAgain" = "Probeer opnieuw";
 
 // MARK: - Relative date formatter
 "RelativeFormatter.days7" = "Afgelopen 7 dagen";
@@ -907,3 +934,13 @@
 // MARK: - Gallery
 "Gallery.Unavailable.Title" = "Galerij wordt binnenkort ondersteund";
 "Gallery.Unavailable.Message" = "Gebruik voorlopig alsjeblieft de desktop app";
+"Gallery.Author" = "Gemaakt door @%@";
+"Gallery.Install" = "Installeer";
+"Gallery.InstallToNew" = "Installeer in nieuwe ruimte";
+"Gallery.Notification.Success" = "Experience werd succesvol geïnstalleerd in de \"%@\" ruimte. Je kunt het nu openen en gebruiken.";
+"Gallery.Notification.Button" = "Ga naar ruimte";
+"Gallery.Notification.Error" = "Oeps! \"%@\" werd niet geïnstalleerd. Controleer jouw internetverbinding en probeer het opnieuw of rapporteer het op het forum.";
+
+// MARK: - Debug
+"Debug.MimeTypes" = "Media types - %@";
+"Debug.Info" = "Debug informatie";

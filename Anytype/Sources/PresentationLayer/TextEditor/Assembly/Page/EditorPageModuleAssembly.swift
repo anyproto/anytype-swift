@@ -174,7 +174,7 @@ final class EditorPageModuleAssembly: EditorPageModuleAssemblyProtocol {
         let pasteboardHelper = PasteboardHelper()
         let pasteboardService = PasteboardService(document: document,
                                                   pasteboardHelper: pasteboardHelper,
-                                                  pasteboardMiddlewareService: pasteboardMiddlewareService)
+                                                  pasteboardMiddlewareService: serviceLocator.pasteboardMiddlewareService())
         
         let blocksStateManager = EditorPageBlocksStateManager(
             document: document,
@@ -195,7 +195,7 @@ final class EditorPageModuleAssembly: EditorPageModuleAssemblyProtocol {
             actionHandler: actionHandler,
             router: router,
             document: document,
-            searchService: serviceLocator.searchService()
+            typesService: serviceLocator.typesService()
         )
         
         let markdownListener = MarkdownListenerImpl(
@@ -223,9 +223,9 @@ final class EditorPageModuleAssembly: EditorPageModuleAssemblyProtocol {
             focusSubjectHolder: focusSubjectHolder,
             mainEditorSelectionManager: blocksStateManager,
             responderScrollViewHelper: responderScrollViewHelper,
-            pageService: serviceLocator.pageRepository(),
+            defaultObjectService: serviceLocator.defaultObjectCreationService(),
             linkToObjectCoordinator: coordinatorsDI.linkToObject().make(output: router),
-            searchService: serviceLocator.searchService(),
+            typesService: serviceLocator.typesService(),
             accessoryStateManager: accessoryState.0
         )
         
@@ -245,7 +245,6 @@ final class EditorPageModuleAssembly: EditorPageModuleAssemblyProtocol {
             markdownListener: markdownListener,
             simpleTableDependenciesBuilder: simpleTableDependenciesBuilder,
             subjectsHolder: focusSubjectHolder,
-            pageService: serviceLocator.pageRepository(),
             detailsService: serviceLocator.detailsService(objectId: document.objectId),
             audioSessionService: serviceLocator.audioSessionService(),
             infoContainer: document.infoContainer,

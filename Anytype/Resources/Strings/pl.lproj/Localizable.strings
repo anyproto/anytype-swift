@@ -79,18 +79,21 @@
 "Relation.From.Type" = "Z typu %@";
 "Relation.LinksFrom.Title" = "z";
 "Relation.LinksTo.Title" = "do";
-"Relation.EmptyState.title" = "No options";
-"Relation.EmptyState.description" = "Nothing found. Create first option to start.";
-"Relation.EmptyState.Blocked.title" = "The relation is empty";
-"Relation.Create.Row.title" = "Create “%@”";
-"Relation.View.Create.title" = "Create option";
-"Relation.View.Edit.title" = "Edit option";
-"Relation.Create.Textfield.placeholder" = "Enter name...";
+"Relation.EmptyState.title" = "Brak opcji";
+"Relation.EmptyState.description" = "Nic nie znaleziono. Utwórz pierwszą opcję, aby rozpocząć.";
+"Relation.EmptyState.Blocked.title" = "Powiązanie jest puste";
+"Relation.Create.Row.title" = "Utwórz „%@”";
+"Relation.View.Create.title" = "Utwórz opcję";
+"Relation.View.Edit.title" = "Edytuj opcję";
+"Relation.Create.Textfield.placeholder" = "Wprowadź nazwę...";
 "Relation.Edit.Button.title" = "Zastosuj";
-"Relation.Date.Locked.Alert.title" = "Relation “%@” is locked";
+"Relation.Date.Locked.Alert.title" = "Relacja „%@” jest zablokowana";
+"Relation.ObjectTypes.Header.title" = "Object types:";
+"Relation.ObjectType.Header.title" = "Object type:";
 
 "Relation.Delete.Alert.Title" = "Are you sure?";
-"Relation.Delete.Alert.Description" = "The option will be permanently removed from your space.";
+"Relation.Delete.Alert.Description" = "Opcja zostanie trwale usunięta z Twojej przestrzeni.";
+"Relation.Object.Delete.Alert.Description" = "The object will be moved to Bin.";
 
 "Relation.Format.Object.Title" = "Obiekt";
 "Relation.Format.Text.Title" = "Tekst";
@@ -107,12 +110,13 @@
 // Origin Relation
 
 "Relation.Origin.Clipboard" = "Clipboard";
-"Relation.Origin.DragAndDrop" = "Drag'n'Drop";
+"Relation.Origin.DragAndDrop" = "Przeciągnij i upuść";
 "Relation.Origin.Import" = "Imported object";
 "Relation.Origin.WebClipper" = "Web clipper";
 "Relation.Origin.SharingExtension" = "Mobile sharing extension";
 "Relation.Origin.UseCase" = "Use case";
 "Relation.Origin.Builtin" = "Library installed";
+"Relation.Origin.Bookmark" = "Bookmark";
 
 // MARK: - Mention
 "Mention.Subtitle.Placeholder" = "Obiekt";
@@ -132,6 +136,7 @@
 "Relations" = "Relacje";
 "Objects" = "Obiekty";
 "Lists" = "Lists";
+"Pinned" = "Pinned";
 "Delete" = "Usuń";
 "Duplicate" = "Duplikuj";
 "Copy" = "Kopiuj";
@@ -141,6 +146,8 @@
 "Move" = "Przenieś";
 "Move to" = "Przenieś do";
 "Back" = "Wstecz";
+"Unpin" = "Unpin";
+"Pin on top" = "Pin on top";
 "File block subtitle" = "Zachowaj plik w oryginalnym formacie";
 "Picture block subtitle" = "Prześlij i wzbogacaj stronę obrazkiem";
 "Video block subtitle" = "Prześlij odtwarzalne wideo";
@@ -222,6 +229,7 @@
 "Error creating wallet" = "Błąd podczas tworzenia portfela";
 "Error select account" = "Błąd podczas wybierania konta";
 "Error wallet recover account" = "Wystąpił błąd podczas odzyskiwania konta";
+"Wallet.Recovery.Error.description" = "Invalid recovery phrase";
 
 "Search for language" = "Wyszukaj język";
 
@@ -354,6 +362,7 @@
 "Templates.Popup.Default" = "Szablon został ustawiony jako domyślny";
 
 "To Bin" = "Do kosza";
+"Set as default" = "Set as default";
 
 // MARK: - Context Menu
 "Remove From Favorite" = "Usuń z ulubionych";
@@ -464,7 +473,7 @@
 "Set.View.Kanban.Column.Title.Checked" = "%@ jest zaznaczony";
 "Set.View.Kanban.Column.Title.Unchecked" = "%@ nie jest zaznaczony";
 "Set.View.Kanban.Column.Paging.Title.ShowMore" = "Pokaż więcej obiektów";
-"Set.View.Kanban.Column.Settings.Color.Title" = "Column color";
+"Set.View.Kanban.Column.Settings.Color.Title" = "Kolor kolumny";
 "Set.View.Kanban.Column.Settings.Hide.Column.Title" = "Ukryj kolumnę";
 
 // MARK: - Sets: empty view
@@ -519,6 +528,10 @@
 "Unsupported value" = "Unsupported value";
 "Select relation type" = "Select relation type";
 "CommonOpenErrorView.Message" = "No data found";
+"Nothing found" = "Nothing found";
+"No type found text" = "No type “%@” found. Change your request or create new type.";
+"Create type" = "Create type";
+
 
 "Limit object types" = "Limit object types";
 "Type" = "Type";
@@ -588,6 +601,8 @@
 "Into object" = "Into object";
 "Add below" = "Add below";
 "Change type" = "Change type";
+"Show types" = "Show types";
+"Hide types" = "Hide types";
 "SlashMenu.LinkTo.Description" = "Create link to another object";
 "Upload playable audio" = "Upload playable audio";
 "Code snippet" = "Code snippet";
@@ -647,6 +662,7 @@
 "DataviewType.gallery" = "Galeria";
 "DataviewType.kanban" = "Kanban";
 "DataviewType.calendar" = "Kalendarz";
+"DataviewType.graph" = "Wykres ";
 
 // MARK: - ObjectType
 "ObjectType.fallbackDescription" = "Puste płótno bez tytułu";
@@ -845,6 +861,16 @@
 "SpaceSettings.DeleteAlert.Title" = "Delete ‘%@’ space";
 "SpaceSettings.DeleteAlert.Message" = "This space will be deleted irrevocably. You can’t undo this action.";
 "SpaceSettings.DeleteButton" = "Delete space";
+"SpaceSettings.Sharing" = "Sharing";
+"SpaceSettings.Share" = "Share";
+
+// MARK: - Space Share
+
+"SpaceShare.Title" = "Share space";
+"SpaceShare.MembersSection" = "Members and requests";
+"SpaceShare.Permissions.Owner" = "Owner";
+"SpaceShare.Permissions.Reader" = "Can view";
+"SpaceShare.Permissions.Writer" = "Can edit";
 
 // MARK: - Space Create
 "SpaceCreate.Title" = "Create a space";
@@ -859,10 +885,9 @@
 "Sharing.AddTo" = "Add to";
 "Sharing.LinkTo" = "Łącze do";
 
-"Sharing.URL.Bookmark" = "Bookmark object";
-"Sharing.URL.Text" = "Text block";
 "Sharing.Text.NoteObject" = "Note object";
-"Sharing.Text.TextBlock" = "Text block";
+"Sharing.Text.TextBlock" = "Blocks";
+"Sharing.Any.Block" = "Blocks";
 
 // MARK: - Sharing tips
 "Sharing.Tip.Title" = "Share Extension";
@@ -890,6 +915,9 @@
 "Error.AnytypeNeedsUpgrate.Message" = "This object was modified in a newer version of Anytype. Please update the app to open it on this device";
 "Error.AnytypeNeedsUpgrate.Confirm" = "Update";
 "Error.UnableToConnect" = "Please connect to the internet";
+"Error.Common.Title" = "Ups!";
+"Error.Common.Message" = "Sprawdź swoje połączenie internetowe i spróbuj ponownie lub opublikuj raport na forum.";
+"Error.Common.TryAgain" = "Spróbuj ponownie";
 
 // MARK: - Relative date formatter
 "RelativeFormatter.days7" = "Ostatnie 7 dni";
@@ -906,3 +934,13 @@
 // MARK: - Gallery
 "Gallery.Unavailable.Title" = "Gallery will be supported soon";
 "Gallery.Unavailable.Message" = "Proszę na razie korzystać z wersji na komputer";
+"Gallery.Author" = "Wykonane przez @%@";
+"Gallery.Install" = "Zainstaluj";
+"Gallery.InstallToNew" = "Zainstaluj w nowej przestrzeni";
+"Gallery.Notification.Success" = "Doświadczenie zostało pomyślnie zainstalowane w przestrzeni \"%@\". Możesz teraz otworzyć i zacząć z niej korzystać.";
+"Gallery.Notification.Button" = "Przejdź do miejsca";
+"Gallery.Notification.Error" = "Ups! \"%@\" nie został zainstalowany. Sprawdź swoje połączenie internetowe i spróbuj ponownie lub opublikuj raport na forum.";
+
+// MARK: - Debug
+"Debug.MimeTypes" = "Mime Types - %@";
+"Debug.Info" = "Debug Info";

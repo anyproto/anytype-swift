@@ -246,7 +246,7 @@ final class AccessoryViewStateManagerImpl: AccessoryViewStateManager, CursorMode
 
     private func displaySlashOrMentionIfNeeded() {
         guard let configuration,
-              configuration.contentType != .text(.title),
+              isAvailableBlockContentType(configuration),
               let textBeforeCaret = configuration.textView.textBeforeCaret,
               let caretPosition = configuration.textView.caretPosition else {
             
@@ -416,5 +416,9 @@ extension AccessoryViewStateManagerImpl {
         let haveSpaceBeforeCarret = textView.textBeforeCaret?.last == " "
         
         return !(carretInTheBeginingOfDocument || haveSpaceBeforeCarret)
+    }
+    
+    private func isAvailableBlockContentType(_ configuration: TextViewAccessoryConfiguration) -> Bool {
+        configuration.contentType != .text(.title) && configuration.contentType != .text(.description)
     }
 }

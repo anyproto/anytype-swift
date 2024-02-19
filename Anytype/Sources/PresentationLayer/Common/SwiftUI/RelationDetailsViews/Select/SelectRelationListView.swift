@@ -6,9 +6,12 @@ struct SelectRelationListView: View {
     
     var body: some View {
         RelationListContainerView(
-            title: viewModel.configuration.title, 
+            searchText: $viewModel.searchText,
+            title: viewModel.configuration.title,
             isEditable: viewModel.configuration.isEditable,
             isEmpty: viewModel.isEmpty,
+            isClearAvailable: viewModel.selectedOptionsIds.isNotEmpty,
+            isCreateAvailable: true,
             listContent: {
                 ForEach(viewModel.options) { option in
                     optionRow(with: option)
@@ -28,7 +31,7 @@ struct SelectRelationListView: View {
             }
         )
         .onAppear {
-            viewModel.searchTextChanged()
+            viewModel.onAppear()
         }
     }
     
@@ -37,10 +40,15 @@ struct SelectRelationListView: View {
             viewModel.optionSelected(option.id)
         } label: {
             HStack {
-                AnytypeText(option.text, style: .relation1Regular, color: option.color)
+                rowContent(with: option)
+                
                 Spacer()
-                if option.id == viewModel.selectedOption?.id, viewModel.configuration.isEditable {
-                    Image(asset: .relationCheckboxChecked)
+                
+                if viewModel.configuration.isEditable {
+                    RelationListSelectionView(
+                        selectionMode: viewModel.configuration.selectionMode,
+                        selectedIndex: viewModel.selectedOptionsIds.firstIndex(of: option.id)
+                    )
                 }
             }
         }
@@ -59,22 +67,68 @@ struct SelectRelationListView: View {
             }
         }
     }
+    
+    @ViewBuilder
+    private func rowContent(with option: SelectRelationOption) -> some View {
+        switch viewModel.style {
+        case .status:
+            AnytypeText(option.text, style: .relation1Regular, color: option.color)
+        case .tag:
+            TagOptionView(
+                text: option.text,
+                textColor: option.color,
+                backgroundColor: option.color.veryLightColor()
+            )
+        }
+    }
 }
 
 #Preview("Status list") {
     SelectRelationListView(
         viewModel: SelectRelationListViewModel(
+            style: .status,
             configuration: RelationModuleConfiguration(
                 title: "Status",
                 isEditable: true,
                 relationKey: "",
+                spaceId: "", 
+                selectionMode: .single,
+                analyticsType: .block
+            ), 
+            relationSelectedOptionsModel: RelationSelectedOptionsModel(
+                selectionMode: .single,
+                selectedOptionsIds: [],
+                relationKey: "",
+                analyticsType: .block,
+                relationsService: DI.preview.serviceLocator.relationService(objectId: "")
+            ),
+            searchService: DI.preview.serviceLocator.searchService(),
+            output: nil
+        )
+    )
+}
+
+#Preview("Tag list") {
+    SelectRelationListView(
+        viewModel: SelectRelationListViewModel(
+            style: .tag,
+            configuration: RelationModuleConfiguration(
+                title: "Tag",
+                isEditable: true,
+                relationKey: "",
                 spaceId: "",
+                selectionMode: .multi,
                 analyticsType: .block
             ),
-            selectedOption: nil,
-            output: nil,
-            relationsService: DI.preview.serviceLocator.relationService(objectId: ""),
-            searchService: DI.preview.serviceLocator.searchService()
+            relationSelectedOptionsModel: RelationSelectedOptionsModel(
+                selectionMode: .multi,
+                selectedOptionsIds: [],
+                relationKey: "",
+                analyticsType: .block,
+                relationsService: DI.preview.serviceLocator.relationService(objectId: "")
+            ),
+            searchService: DI.preview.serviceLocator.searchService(),
+            output: nil
         )
     )
 }

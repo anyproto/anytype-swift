@@ -10,12 +10,12 @@ extension BundledRelationsValueProvider {
         switch layoutValue {
         case .basic, .set, .collection, .image, .objectType:
             return basicIcon
-        case .profile:
+        case .profile, .participant:
             return profileIcon
         case .bookmark:
             return bookmarkIcon
-        case .todo, .note, .file, .unknown, .relation, .relationOption, .dashboard, .relationOptionList, .database,
-                .audio, .video, .date:
+        case .todo, .note, .file, .UNRECOGNIZED, .relation, .relationOption, .dashboard, .relationOptionsList,
+                .audio, .video, .pdf, .date:
             return nil
         case .space, .spaceView:
             return spaceIcon
@@ -111,13 +111,13 @@ extension BundledRelationsValueProvider {
     
     var objectType: ObjectType {
         let parsedType = try? ObjectTypeProvider.shared.objectType(id: type)
-        return parsedType ?? ObjectTypeProvider.shared.deleteObjectType(id: type)
+        return parsedType ?? ObjectTypeProvider.shared.deletedObjectType(id: type)
     }
     
     var editorViewType: EditorViewType {
         switch layoutValue {
-        case .basic, .profile, .todo, .note, .bookmark, .space, .file, .image, .objectType, .unknown, .relation,
-                .relationOption, .dashboard, .relationOptionList, .database, .audio, .video, .date, .spaceView:
+        case .basic, .profile, .participant, .todo, .note, .bookmark, .space, .file, .image, .objectType, .UNRECOGNIZED, .relation,
+                .relationOption, .dashboard, .relationOptionsList, .pdf, .audio, .video, .date, .spaceView:
             return .page
         case .set, .collection:
             return .set

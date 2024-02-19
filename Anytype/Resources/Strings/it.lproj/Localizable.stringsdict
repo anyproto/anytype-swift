@@ -98,5 +98,101 @@
         <string>%d oggetti eliminati</string>
       </dict>
     </dict>
+    <key>Sharing.File.NewObject</key>
+    <dict>
+      <key>NSStringLocalizedFormatKey</key>
+      <string>%#@object@</string>
+      <key>object</key>
+      <dict>
+        <key>NSStringFormatSpecTypeKey</key>
+        <string>NSStringPluralRuleType</string>
+        <key>NSStringFormatValueTypeKey</key>
+        <string>d</string>
+        <key>one</key>
+        <string>Oggetto File</string>
+        <key>other</key>
+        <string>%d Oggetti File</string>
+      </dict>
+    </dict>
+    <key>Sharing.File.Block</key>
+    <dict>
+      <key>NSStringLocalizedFormatKey</key>
+      <string>%#@object@</string>
+      <key>object</key>
+      <dict>
+        <key>NSStringFormatSpecTypeKey</key>
+        <string>NSStringPluralRuleType</string>
+        <key>NSStringFormatValueTypeKey</key>
+        <string>d</string>
+        <key>one</key>
+        <string>Blocco File</string>
+        <key>other</key>
+        <string>%d Blocchi File </string>
+      </dict>
+    </dict>
+    <key>Sharing.URL.NewObject</key>
+    <dict>
+      <key>NSStringLocalizedFormatKey</key>
+      <string>%#@object@</string>
+      <key>object</key>
+      <dict>
+        <key>NSStringFormatSpecTypeKey</key>
+        <string>NSStringPluralRuleType</string>
+        <key>NSStringFormatValueTypeKey</key>
+        <string>d</string>
+        <key>one</key>
+        <string>Oggetto Segnalibro</string>
+        <key>other</key>
+        <string>%d Oggetti Segnalibro</string>
+      </dict>
+    </dict>
+    <key>Sharing.URL.Block</key>
+    <dict>
+      <key>NSStringLocalizedFormatKey</key>
+      <string>%#@object@</string>
+      <key>object</key>
+      <dict>
+        <key>NSStringFormatSpecTypeKey</key>
+        <string>NSStringPluralRuleType</string>
+        <key>NSStringFormatValueTypeKey</key>
+        <string>d</string>
+        <key>one</key>
+        <string>Blocco Collegamento</string>
+        <key>other</key>
+        <string>Collega %d Blocchi</string>
+      </dict>
+    </dict>
+    <key>SpaceShare.Invite.Members</key>
+    <dict>
+      <key>NSStringLocalizedFormatKey</key>
+      <string>%#@object@</string>
+      <key>object</key>
+      <dict>
+        <key>NSStringFormatSpecTypeKey</key>
+        <string>NSStringPluralRuleType</string>
+        <key>NSStringFormatValueTypeKey</key>
+        <string>d</string>
+        <key>one</key>
+        <string>Puoi aggiungere un altro membro</string>
+        <key>other</key>
+        <string>Puoi aggiungere altri %d membri</string>
+      </dict>
+    </dict>
+    <key>SpaceShare.Invite.MaxLimit</key>
+    <dict>
+      <key>NSStringLocalizedFormatKey</key>
+      <string>%#@object@</string>
+      <key>object</key>
+      <dict>
+        <key>one</key>
+        <string>Hai raggiunto il limite di %d membri. Nuovi membri non potranno unirsi.</string>
+        <key>NSStringFormatSpecTypeKey</key>
+        <string>NSStringPluralRuleType</string>
+        <key>NSStringFormatValueTypeKey</key>
+        <string>d</string>
+        <key>other</key>
+        <string>Hai raggiunto il limite di %d membri. Nuovi membri non potranno unirsi.</string>
+      </dict>
+    </dict>
   </dict>
 </plist>

@@ -88,9 +88,12 @@
 "Relation.Create.Textfield.placeholder" = "输入名称...";
 "Relation.Edit.Button.title" = "应用";
 "Relation.Date.Locked.Alert.title" = "关系“%@” 已锁定";
+"Relation.ObjectTypes.Header.title" = "对象类型：";
+"Relation.ObjectType.Header.title" = "对象类型：";
 
 "Relation.Delete.Alert.Title" = "是否确定?";
 "Relation.Delete.Alert.Description" = "此选项将从您的空间永久删除。";
+"Relation.Object.Delete.Alert.Description" = "对象将被移动到回收站。";
 
 "Relation.Format.Object.Title" = "对象";
 "Relation.Format.Text.Title" = "正文";
@@ -113,6 +116,7 @@
 "Relation.Origin.SharingExtension" = "手机共享扩展";
 "Relation.Origin.UseCase" = "使用案例";
 "Relation.Origin.Builtin" = "库已安装";
+"Relation.Origin.Bookmark" = "书签";
 
 // MARK: - Mention
 "Mention.Subtitle.Placeholder" = "对象";
@@ -132,6 +136,7 @@
 "Relations" = "关联";
 "Objects" = "对象";
 "Lists" = "分组";
+"Pinned" = "固定";
 "Delete" = "删除";
 "Duplicate" = "生成副本";
 "Copy" = "拷贝";
@@ -141,6 +146,8 @@
 "Move" = "移动";
 "Move to" = "移至";
 "Back" = "返回";
+"Unpin" = "取消固定";
+"Pin on top" = "置顶";
 "File block subtitle" = "以原始状态存储文件";
 "Picture block subtitle" = "上传图片，丰富页面内容";
 "Video block subtitle" = "上传可播放的视频";
@@ -222,6 +229,7 @@
 "Error creating wallet" = "创建钱包时出错";
 "Error select account" = "选择帐户时出错";
 "Error wallet recover account" = "错误钱包恢复帐户";
+"Wallet.Recovery.Error.description" = "Invalid recovery phrase";
 
 "Search for language" = "搜索语言";
 
@@ -354,6 +362,7 @@
 "Templates.Popup.Default" = "此模板已设置为默认";
 
 "To Bin" = "移到废纸篓";
+"Set as default" = "设为默认";
 
 // MARK: - Context Menu
 "Remove From Favorite" = "从收藏夹中删除";
@@ -519,6 +528,10 @@
 "Unsupported value" = "不支持该值";
 "Select relation type" = "选择关联类型";
 "CommonOpenErrorView.Message" = "未找到数据";
+"Nothing found" = "未找到任何内容";
+"No type found text" = "找不到类型“%@”，请更改您的请求或创建新类型。";
+"Create type" = "创建类型";
+
 
 "Limit object types" = "限制对象类型";
 "Type" = "类型";
@@ -588,6 +601,8 @@
 "Into object" = "转为对象";
 "Add below" = "在下面添加";
 "Change type" = "更改类型";
+"Show types" = "显示类型";
+"Hide types" = "隐藏类型";
 "SlashMenu.LinkTo.Description" = "创建链接到另一个对象";
 "Upload playable audio" = "上传可播放音频";
 "Code snippet" = "代码片段";
@@ -647,6 +662,7 @@
 "DataviewType.gallery" = "相簿";
 "DataviewType.kanban" = "看板";
 "DataviewType.calendar" = "日历";
+"DataviewType.graph" = "关联图";
 
 // MARK: - ObjectType
 "ObjectType.fallbackDescription" = "没有标题的空白画布";
@@ -845,6 +861,16 @@
 "SpaceSettings.DeleteAlert.Title" = "删除 “%@” 空间";
 "SpaceSettings.DeleteAlert.Message" = "此空间将被不可撤销地删除。您无法撤消此操作。";
 "SpaceSettings.DeleteButton" = "删除空间";
+"SpaceSettings.Sharing" = "Sharing";
+"SpaceSettings.Share" = "分享";
+
+// MARK: - Space Share
+
+"SpaceShare.Title" = "Share space";
+"SpaceShare.MembersSection" = "Members and requests";
+"SpaceShare.Permissions.Owner" = "Owner";
+"SpaceShare.Permissions.Reader" = "Can view";
+"SpaceShare.Permissions.Writer" = "Can edit";
 
 // MARK: - Space Create
 "SpaceCreate.Title" = "创建空间";
@@ -859,10 +885,9 @@
 "Sharing.AddTo" = "添加到";
 "Sharing.LinkTo" = "链接到";
 
-"Sharing.URL.Bookmark" = "书签对象";
-"Sharing.URL.Text" = "文本块";
 "Sharing.Text.NoteObject" = "笔记对象";
-"Sharing.Text.TextBlock" = "文本块";
+"Sharing.Text.TextBlock" = "Blocks";
+"Sharing.Any.Block" = "Blocks";
 
 // MARK: - Sharing tips
 "Sharing.Tip.Title" = "分享扩展";
@@ -890,6 +915,9 @@
 "Error.AnytypeNeedsUpgrate.Message" = "此文档已在更高版本的 Anytype 编辑过，请更新此设备的应用以打开它。";
 "Error.AnytypeNeedsUpgrate.Confirm" = "更新";
 "Error.UnableToConnect" = "请连接到互联网";
+"Error.Common.Title" = "哎呀!";
+"Error.Common.Message" = "请检查您的互联网连接，然后重试或在论坛上反馈。";
+"Error.Common.TryAgain" = "请再试一次";
 
 // MARK: - Relative date formatter
 "RelativeFormatter.days7" = "过去 7 天";
@@ -907,3 +935,13 @@
 // MARK: - Gallery
 "Gallery.Unavailable.Title" = "即将支持画廊";
 "Gallery.Unavailable.Message" = "目前请使用桌面应用";
+"Gallery.Author" = "作者：@%@";
+"Gallery.Install" = "安装";
+"Gallery.InstallToNew" = "安装至新的空间";
+"Gallery.Notification.Success" = "体验已成功安装到 “%@” 空间。您现在可以打开并开始使用它。";
+"Gallery.Notification.Button" = "转到空间";
+"Gallery.Notification.Error" = "哎呀！ “%@” 未安装。请检查您的互联网连接，然后重试或在论坛上反馈。";
+
+// MARK: - Debug
+"Debug.MimeTypes" = "Mime Types - %@";
+"Debug.Info" = "调试信息";

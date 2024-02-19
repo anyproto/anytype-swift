@@ -45,8 +45,8 @@ final class CoordinatorsDI: CoordinatorsDIProtocol {
     }
     
     @MainActor
-    func homeWidgets() -> HomeWidgetsCoordinatorAssemblyProtocol {
-        return HomeWidgetsCoordinatorAssembly(
+    func home() -> HomeCoordinatorAssemblyProtocol {
+        return HomeCoordinatorAssembly(
             coordinatorsID: self,
             modulesDI: modulesDI,
             serviceLocator: serviceLocator,
@@ -83,7 +83,7 @@ final class CoordinatorsDI: CoordinatorsDIProtocol {
     }
     
     func spaceSettings() -> SpaceSettingsCoordinatorAssemblyProtocol {
-        return SpaceSettingsCoordinatorAssembly(modulesDI: modulesDI, serviceLocator: serviceLocator, uiHelpersDI: uiHelpersDI)
+        return SpaceSettingsCoordinatorAssembly(modulesDI: modulesDI, serviceLocator: serviceLocator, uiHelpersDI: uiHelpersDI, coordinatorsDI: self)
     }
     
     func setViewSettings() -> SetViewSettingsCoordinatorAssemblyProtocol {
@@ -174,14 +174,27 @@ final class CoordinatorsDI: CoordinatorsDIProtocol {
         )
     }
     
+    func galleryInstallation() -> GalleryInstallationCoordinatorAssemblyProtocol {
+        GalleryInstallationCoordinatorAssembly(modulesDI: modulesDI, serviceLocator: serviceLocator)
+    }
+    
     func notificationCoordinator() -> NotificationCoordinatorProtocol {
         NotificationCoordinator(
             notificationSubscriptionService: serviceLocator.notificationSubscriptionService(),
-            commonNotificationAssembly: modulesDI.commonNotification()
+            commonNotificationAssembly: modulesDI.commonNotification(),
+            galleryNotificationAssembly: modulesDI.galleryNotification()
         )
     }
     
     func selectRelationList() -> SelectRelationListCoordinatorAssemblyProtocol {
         SelectRelationListCoordinatorAssembly(modulesDI: modulesDI)
+    }
+    
+    func objectRelationList() -> ObjectRelationListCoordinatorAssemblyProtocol {
+        ObjectRelationListCoordinatorAssembly(modulesDI: modulesDI)
+    }
+    
+    func spaceShare() -> SpaceShareCoordinatorAssemblyProtocol {
+        SpaceShareCoordinatorAssembly(modulesDI: modulesDI)
     }
 }

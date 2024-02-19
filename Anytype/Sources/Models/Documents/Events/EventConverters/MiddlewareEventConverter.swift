@@ -209,7 +209,8 @@ final class MiddlewareEventConverter {
                 .fileSpaceUsage,
                 .fileLocalUsage,
                 .notificationSend,
-                .notificationUpdate:
+                .notificationUpdate,
+                .payloadBroadcast:
             return nil
         }
     }

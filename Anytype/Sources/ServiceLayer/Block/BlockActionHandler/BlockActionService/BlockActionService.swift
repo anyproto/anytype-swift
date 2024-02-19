@@ -48,8 +48,7 @@ final class BlockActionService: BlockActionServiceProtocol {
 
     func add(info: BlockInformation, targetBlockId: BlockId, position: BlockPosition, setFocus: Bool) {
         Task {
-            guard let blockId = try await blockService
-                .add(contextId: documentId, targetId: targetBlockId, info: info, position: position) else { return }
+            let blockId = try await blockService.add(contextId: documentId, targetId: targetBlockId, info: info, position: position)
             
             if setFocus {
                 cursorManager.blockFocus = .init(id: blockId, position: .beginning)
@@ -90,7 +89,7 @@ final class BlockActionService: BlockActionServiceProtocol {
     }
 
     func createPage(targetId: BlockId, spaceId: String, typeUniqueKey: ObjectTypeUniqueKey, position: BlockPosition, templateId: String) async throws -> BlockId {
-        try await objectActionService.createPage(
+        try await blockService.createBlockLink(
             contextId: documentId,
             targetId: targetId,
             spaceId: spaceId,
@@ -111,8 +110,8 @@ final class BlockActionService: BlockActionServiceProtocol {
         let pageType = try objectTypeProvider.objectType(uniqueKey: .page, spaceId: spaceId)
         AnytypeAnalytics.instance().logCreateObject(objectType: pageType.analyticsType, route: .turnInto)
 
-        return try await objectActionService.convertChildrenToPages(
-            contextID: documentId,
+        return try await blockService.convertChildrenToPages(
+            contextId: documentId,
             blocksIds: [blockId],
             typeUniqueKey: pageType.uniqueKey
         ).first

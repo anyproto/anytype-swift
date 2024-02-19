@@ -2,6 +2,7 @@ import Foundation
 import UIKit
 import AnytypeCore
 
+@MainActor
 final class TextRelationURLActionViewModel: TextRelationActionViewModelProtocol {
     
     enum SupportedTextType {

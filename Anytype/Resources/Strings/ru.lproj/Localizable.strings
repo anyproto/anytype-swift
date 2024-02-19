@@ -79,18 +79,21 @@
 "Relation.From.Type" = "Из типа %@";
 "Relation.LinksFrom.Title" = "из";
 "Relation.LinksTo.Title" = "в";
-"Relation.EmptyState.title" = "No options";
-"Relation.EmptyState.description" = "Nothing found. Create first option to start.";
-"Relation.EmptyState.Blocked.title" = "The relation is empty";
-"Relation.Create.Row.title" = "Create “%@”";
-"Relation.View.Create.title" = "Create option";
+"Relation.EmptyState.title" = "Опций нет";
+"Relation.EmptyState.description" = "Ничего не найдено. Создайте первую опцию для начала.";
+"Relation.EmptyState.Blocked.title" = "Отношение пустое";
+"Relation.Create.Row.title" = "Создать %@";
+"Relation.View.Create.title" = "Создать параметр";
 "Relation.View.Edit.title" = "Edit option";
 "Relation.Create.Textfield.placeholder" = "Enter name...";
 "Relation.Edit.Button.title" = "Применить";
 "Relation.Date.Locked.Alert.title" = "Relation “%@” is locked";
+"Relation.ObjectTypes.Header.title" = "Object types:";
+"Relation.ObjectType.Header.title" = "Object type:";
 
 "Relation.Delete.Alert.Title" = "Вы уверены?";
 "Relation.Delete.Alert.Description" = "The option will be permanently removed from your space.";
+"Relation.Object.Delete.Alert.Description" = "The object will be moved to Bin.";
 
 "Relation.Format.Object.Title" = "Объект";
 "Relation.Format.Text.Title" = "Текст";
@@ -106,13 +109,14 @@
 
 // Origin Relation
 
-"Relation.Origin.Clipboard" = "Clipboard";
+"Relation.Origin.Clipboard" = "Буфер обмена";
 "Relation.Origin.DragAndDrop" = "Drag'n'Drop";
 "Relation.Origin.Import" = "Imported object";
 "Relation.Origin.WebClipper" = "Web clipper";
 "Relation.Origin.SharingExtension" = "Mobile sharing extension";
-"Relation.Origin.UseCase" = "Use case";
-"Relation.Origin.Builtin" = "Library installed";
+"Relation.Origin.UseCase" = "Вариант использования";
+"Relation.Origin.Builtin" = "Библиотеки установлены.";
+"Relation.Origin.Bookmark" = "Закладка";
 
 // MARK: - Mention
 "Mention.Subtitle.Placeholder" = "Объект";
@@ -132,6 +136,7 @@
 "Relations" = "Свойства";
 "Objects" = "Объекты";
 "Lists" = "Списки";
+"Pinned" = "Закреплённые";
 "Delete" = "Удалить";
 "Duplicate" = "Дублировать";
 "Copy" = "Копировать";
@@ -141,6 +146,8 @@
 "Move" = "Переместить";
 "Move to" = "Переместить в";
 "Back" = "Назад";
+"Unpin" = "Открепить";
+"Pin on top" = "Закрепить";
 "File block subtitle" = "Сохранить файл в исходном состоянии";
 "Picture block subtitle" = "Загрузите и дополните страницу изображением";
 "Video block subtitle" = "Загрузить воспроизводимое видео";
@@ -222,6 +229,7 @@
 "Error creating wallet" = "Ошибка создания кошелька";
 "Error select account" = "Ошибка при выборе учетной записи";
 "Error wallet recover account" = "Ошибка восстановления аккаунта";
+"Wallet.Recovery.Error.description" = "Invalid recovery phrase";
 
 "Search for language" = "Поиск языка";
 
@@ -354,6 +362,7 @@
 "Templates.Popup.Default" = "Шаблон был установлен по умолчанию";
 
 "To Bin" = "В корзину";
+"Set as default" = "Установить по умолчанию";
 
 // MARK: - Context Menu
 "Remove From Favorite" = "Удалить из избранного";
@@ -519,6 +528,10 @@
 "Unsupported value" = "Неподдерживаемое значение";
 "Select relation type" = "Выберите тип свойства";
 "CommonOpenErrorView.Message" = "Данные не найдены";
+"Nothing found" = "Nothing found";
+"No type found text" = "No type “%@” found. Change your request or create new type.";
+"Create type" = "Create type";
+
 
 "Limit object types" = "Ограничить типы объектов";
 "Type" = "Тип";
@@ -588,6 +601,8 @@
 "Into object" = "В объект";
 "Add below" = "Добавить ниже";
 "Change type" = "Изменить тип";
+"Show types" = "Show types";
+"Hide types" = "Hide types";
 "SlashMenu.LinkTo.Description" = "Создать ссылку на другой объект";
 "Upload playable audio" = "Загрузить воспроизводимое аудио";
 "Code snippet" = "Фрагмент кода";
@@ -647,6 +662,7 @@
 "DataviewType.gallery" = "Галерея";
 "DataviewType.kanban" = "Канбан";
 "DataviewType.calendar" = "Календарь";
+"DataviewType.graph" = "Graph";
 
 // MARK: - ObjectType
 "ObjectType.fallbackDescription" = "Пустой холст без заголовка";
@@ -846,6 +862,16 @@
 "SpaceSettings.DeleteAlert.Title" = "Удалить пространство \"%@\"";
 "SpaceSettings.DeleteAlert.Message" = "Это пространство будет удалено безвозвратно. Вы не сможете отменить это действие.";
 "SpaceSettings.DeleteButton" = "Удалить пространство";
+"SpaceSettings.Sharing" = "Sharing";
+"SpaceSettings.Share" = "Поделиться";
+
+// MARK: - Space Share
+
+"SpaceShare.Title" = "Share space";
+"SpaceShare.MembersSection" = "Members and requests";
+"SpaceShare.Permissions.Owner" = "Owner";
+"SpaceShare.Permissions.Reader" = "Can view";
+"SpaceShare.Permissions.Writer" = "Can edit";
 
 // MARK: - Space Create
 "SpaceCreate.Title" = "Создать пространство";
@@ -860,10 +886,9 @@
 "Sharing.AddTo" = "Добавить";
 "Sharing.LinkTo" = "Связать с";
 
-"Sharing.URL.Bookmark" = "Добавить в закладки";
-"Sharing.URL.Text" = "Текстовый блок";
 "Sharing.Text.NoteObject" = "Объект заметка";
-"Sharing.Text.TextBlock" = "Текстовый блок";
+"Sharing.Text.TextBlock" = "Blocks";
+"Sharing.Any.Block" = "Blocks";
 
 // MARK: - Sharing tips
 "Sharing.Tip.Title" = "Расширение для общего доступа";
@@ -891,6 +916,9 @@
 "Error.AnytypeNeedsUpgrate.Message" = "Объект был изменен в более новой версии Anytype. Пожалуйста, обновите приложение, чтобы открыть его на этом устройстве";
 "Error.AnytypeNeedsUpgrate.Confirm" = "Обновить";
 "Error.UnableToConnect" = "Пожалуйста, подключитесь к Интернету.";
+"Error.Common.Title" = "Oops!";
+"Error.Common.Message" = "Please check your internet connection and try again or post a report on forum.";
+"Error.Common.TryAgain" = "Попробуйте еще раз";
 
 // MARK: - Relative date formatter
 "RelativeFormatter.days7" = "За последние 7 дней";
@@ -905,5 +933,15 @@
 "Server.LocalOnly" = "Только локально";
 
 // MARK: - Gallery
-"Gallery.Unavailable.Title" = "Gallery will be supported soon";
+"Gallery.Unavailable.Title" = "Вскоре будет поддерживаться галерея";
 "Gallery.Unavailable.Message" = "Пожалуйста, используйте приложение для компьютера";
+"Gallery.Author" = "Made by @%@";
+"Gallery.Install" = "Install";
+"Gallery.InstallToNew" = "Install to new space";
+"Gallery.Notification.Success" = "Experience was successfully installed to the \"%@\" space. You can now open and start using it.";
+"Gallery.Notification.Button" = "Go to space";
+"Gallery.Notification.Error" = "Oops! \"%@\" wasn't installed. Please check your internet connection and try again or post a report on forum.";
+
+// MARK: - Debug
+"Debug.MimeTypes" = "Mime Types - %@";
+"Debug.Info" = "Debug Info";

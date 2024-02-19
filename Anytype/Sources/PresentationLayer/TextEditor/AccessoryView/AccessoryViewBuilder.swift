@@ -8,7 +8,7 @@ struct AccessoryViewBuilder {
         actionHandler: BlockActionHandlerProtocol,
         router: EditorRouterProtocol,
         document: BaseDocumentProtocol,
-        searchService: SearchServiceProtocol
+        typesService: TypesServiceProtocol
     ) -> (AccessoryViewStateManager, ChangeTypeAccessoryViewModel) {
         let mentionsModule = MentionAssembly().controller(document: document)
 
@@ -26,7 +26,7 @@ struct AccessoryViewBuilder {
         let changeTypeViewModel = ChangeTypeAccessoryViewModel(
             router: router,
             handler: actionHandler,
-            searchService: ServiceLocator.shared.searchService(),
+            typesService: ServiceLocator.shared.typesService(),
             document: document
         )
         let typeListViewModel = HorizonalTypeListViewModel(
@@ -47,7 +47,7 @@ struct AccessoryViewBuilder {
         
         let slashMenuViewModel = SlashMenuViewModel(
             detailsMenuBuilder: SlashMenuCellDataBuilder(),
-            itemsBuilder: SlashMenuItemsBuilder(searchService: searchService)
+            itemsBuilder: SlashMenuItemsBuilder(typesService: typesService)
         )
         let slashMenuView = SlashMenuAssembly.menuView(
             size: menuActionsViewSize,

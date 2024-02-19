@@ -279,7 +279,8 @@ final class EditorRouter: NSObject, EditorRouterProtocol, ObjectSettingsCoordina
         showTypesSearch(
             title: Loc.changeType,
             selectedObjectId: selectedObjectId,
-            showSetAndCollection: false,
+            showPins: false,
+            showLists: false,
             onSelect: onSelect
         )
     }
@@ -291,7 +292,8 @@ final class EditorRouter: NSObject, EditorRouterProtocol, ObjectSettingsCoordina
         showTypesSearch(
             title: Loc.changeType,
             selectedObjectId: selectedObjectId,
-            showSetAndCollection: true,
+            showPins: true,
+            showLists: true,
             onSelect: onSelect
         )
     }
@@ -312,11 +314,9 @@ final class EditorRouter: NSObject, EditorRouterProtocol, ObjectSettingsCoordina
     }
     
     func presentSheet(_ vc: UIViewController) {
-        if #available(iOS 15.0, *) {
-            if let sheet = vc.sheetPresentationController {
-                sheet.detents = [.medium(), .large()]
-                sheet.selectedDetentIdentifier = .medium
-            }
+        if let sheet = vc.sheetPresentationController {
+            sheet.detents = [.medium(), .large()]
+            sheet.selectedDetentIdentifier = .medium
         }
         navigationContext.present(vc)
     }
@@ -475,14 +475,17 @@ final class EditorRouter: NSObject, EditorRouterProtocol, ObjectSettingsCoordina
     private func showTypesSearch(
         title: String,
         selectedObjectId: BlockId?,
-        showSetAndCollection: Bool,
+        showPins: Bool,
+        showLists: Bool,
         onSelect: @escaping (ObjectType) -> ()
     ) {
         if FeatureFlags.newTypePicker {
             let view = objectTypeSearchModuleAssembly.make(
                 title: title,
                 spaceId: document.spaceId,
-                showLists: showSetAndCollection
+                showPins: showPins,
+                showLists: showLists, 
+                showFiles: false
             ) { [weak self] type in
                 self?.navigationContext.dismissTopPresented()
                 onSelect(type)
@@ -495,7 +498,7 @@ final class EditorRouter: NSObject, EditorRouterProtocol, ObjectSettingsCoordina
                 spaceId: document.spaceId,
                 selectedObjectId: selectedObjectId,
                 excludedObjectTypeId: document.details?.type,
-                showSetAndCollection: showSetAndCollection
+                showSetAndCollection: showLists
             ) { [weak self] type in
                 self?.navigationContext.dismissTopPresented()
                 onSelect(type)
@@ -518,6 +521,7 @@ extension EditorRouter: AttachmentRouterProtocol {
 
 // MARK: - Relations
 extension EditorRouter {
+    @MainActor
     func showRelationValueEditingView(key: String) {
         let relation = document.parsedRelations.installed.first { $0.key == key }
         guard let relation = relation else { return }
@@ -525,6 +529,7 @@ extension EditorRouter {
         showRelationValueEditingView(objectId: document.objectId, relation: relation)
     }
     
+    @MainActor
     func showRelationValueEditingView(objectId: BlockId, relation: Relation) {
         guard let objectDetails = document.detailsStorage.get(id: objectId) else {
             anytypeAssertionFailure("Details not found")

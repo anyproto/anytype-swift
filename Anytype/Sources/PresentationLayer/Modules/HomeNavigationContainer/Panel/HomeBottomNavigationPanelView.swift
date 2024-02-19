@@ -59,6 +59,7 @@ struct HomeBottomNavigationPanelView: View {
         }
         .padding(.horizontal, 20)
         .padding(.vertical, 10)
+        .background(progressView)
         .background(Color.Navigation.background)
         .background(.ultraThinMaterial)
         .cornerRadius(16, style: .continuous)
@@ -68,44 +69,35 @@ struct HomeBottomNavigationPanelView: View {
             }
         }
         .padding(.vertical, 10)
+        .if(FeatureFlags.homeTestSwipeGeature) { view in
+            view.gesture(
+                DragGesture(minimumDistance: 100)
+                    .onEnded { value in
+                        if value.translation.width > 150 {
+                            model.onTapBackward()
+                        } else if value.translation.width < -150 {
+                            model.onTapForward()
+                        }
+                    }
+            )
+        }
         .animation(.default, value: homeMode)
     }
     
     @ViewBuilder
     private var navigationButton: some View {
-        if FeatureFlags.bottomNavigationAlwaysBackButton {
-            Button {
-                if homeMode {
-                    model.onTapForward()
-                } else {
-                    model.onTapBackward()
-                }
-            } label: {
-                Image(asset: .X32.Arrow.left)
-                    .foregroundColor(navigationButtonDisabled ? .Navigation.buttonInactive : .Navigation.buttonActive)
-            }
-            .transition(.identity)
-            .disabled(navigationButtonDisabled)
-        } else {
+        Button {
             if homeMode {
-                Button {
-                    model.onTapForward()
-                } label: {
-                    Image(asset: .X32.Arrow.right)
-                        .foregroundColor(homePath.hasForwardPath() ? .Navigation.buttonActive : .Navigation.buttonInactive)
-                }
-                .transition(.identity)
-                .disabled(!homePath.hasForwardPath())
+                model.onTapForward()
             } else {
-                Button {
-                    model.onTapBackward()
-                } label: {
-                    Image(asset: .X32.Arrow.left)
-                        .foregroundColor(.Navigation.buttonActive)
-                }
-                .transition(.identity)
+                model.onTapBackward()
             }
+        } label: {
+            Image(asset: .X32.Arrow.left)
+                .foregroundColor(navigationButtonDisabled ? .Navigation.buttonInactive : .Navigation.buttonActive)
         }
+        .transition(.identity)
+        .disabled(navigationButtonDisabled)
     }
     
     private var navigationButtonDisabled: Bool {
@@ -114,5 +106,18 @@ struct HomeBottomNavigationPanelView: View {
     
     private var homeMode: Bool {
         return homePath.count <= 1
+    }
+    
+    @ViewBuilder
+    private var progressView: some View {
+        if let progress = model.progress {
+            GeometryReader { reader in
+                Color.VeryLight.amber
+                    .cornerRadius(2)
+                    .frame(width: max(reader.size.width * progress, 30), alignment: .leading)
+                    .animation(.linear, value: progress)
+            }
+            .transition(.opacity)
+        }
     }
 }

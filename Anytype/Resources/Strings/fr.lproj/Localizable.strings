@@ -88,9 +88,12 @@
 "Relation.Create.Textfield.placeholder" = "Saisir un nom...";
 "Relation.Edit.Button.title" = "Appliquer";
 "Relation.Date.Locked.Alert.title" = "La relation “%@” est verrouillée";
+"Relation.ObjectTypes.Header.title" = "Types d'objets :";
+"Relation.ObjectType.Header.title" = "Type d'objet :";
 
 "Relation.Delete.Alert.Title" = "Êtes-vous sûr ?";
 "Relation.Delete.Alert.Description" = "L'option sera définitivement retirée de votre espace.";
+"Relation.Object.Delete.Alert.Description" = "L'objet sera déplacé dans la corbeille.";
 
 "Relation.Format.Object.Title" = "Objet";
 "Relation.Format.Text.Title" = "Texte";
@@ -113,6 +116,7 @@
 "Relation.Origin.SharingExtension" = "Extension de partage mobile";
 "Relation.Origin.UseCase" = "Cas d'utilisation";
 "Relation.Origin.Builtin" = "Bibliothèque installée.";
+"Relation.Origin.Bookmark" = "Marque-page";
 
 // MARK: - Mention
 "Mention.Subtitle.Placeholder" = "Objet";
@@ -132,6 +136,7 @@
 "Relations" = "Relations";
 "Objects" = "Objets";
 "Lists" = "Groups";
+"Pinned" = "Épinglé";
 "Delete" = "Supprimer";
 "Duplicate" = "Dupliquer";
 "Copy" = "Copier";
@@ -141,6 +146,8 @@
 "Move" = "Déplacer";
 "Move to" = "Déplacer vers";
 "Back" = "Retour";
+"Unpin" = "Désépingler";
+"Pin on top" = "Épingler en haut";
 "File block subtitle" = "Stocker le fichier dans l'état original";
 "Picture block subtitle" = "Envoyer et enrichir la page avec une image";
 "Video block subtitle" = "Charger une vidéo";
@@ -222,6 +229,7 @@
 "Error creating wallet" = "Erreur lors de la création du portefeuille";
 "Error select account" = "Erreur de sélection du compte";
 "Error wallet recover account" = "Erreur lors de la récupération du compte";
+"Wallet.Recovery.Error.description" = "La phrase de récupération est invalide";
 
 "Search for language" = "Rechercher une langue…";
 
@@ -354,6 +362,7 @@
 "Templates.Popup.Default" = "Ce modèle a été défini comme modèle par défaut";
 
 "To Bin" = "Vers la corbeille";
+"Set as default" = "Définir par défaut";
 
 // MARK: - Context Menu
 "Remove From Favorite" = "Retirer des favoris";
@@ -519,6 +528,10 @@
 "Unsupported value" = "Valeur non prise en charge";
 "Select relation type" = "Sélectionner le type de relation";
 "CommonOpenErrorView.Message" = "Aucune donnée n’a été trouvée";
+"Nothing found" = "Aucun résultat";
+"No type found text" = "Aucun type “%@” trouvé. Modifiez votre demande ou créez un nouveau type.";
+"Create type" = "Créer un type";
+
 
 "Limit object types" = "Limiter les types d'objet";
 "Type" = "Type";
@@ -552,14 +565,14 @@
 "On analytics" = "On analytics";
 "Select account error" = "Erreur de sélection du compte";
 "Account deleted" = "Compte supprimé";
-"Account.Select.Incompatible.Version.Error.Text" = "Unable to retrieve account data due to incompatible version on remote nodes. Please update Anytype to the latest version.";
+"Account.Select.Incompatible.Version.Error.Text" = "Impossible de récupérer les données du compte en raison d'une version incompatible sur les nœuds distants. Veuillez mettre à jour Anytype à la dernière version.";
 "Restore from keychain" = "Restaurer depuis le trousseau";
 "Edit" = "Éditer";
 "In this object" = "Dans cet objet";
 "Other relations" = "Autres relations";
 "Collection of objects" = "Collection d'objets";
 "Designed to capture thoughts quickly" = "Conçu pour saisir rapidement les idées";
-"Action-focused layout with a checkbox" = "Action-focused layout with a checkbox";
+"Action-focused layout with a checkbox" = "Mise en page axée sur l'action avec une case à cocher";
 "Standard layout for canvas blocks" = "Disposition standard pour les toiles";
 "List of related objects" = "Liste des objets liés";
 "Lock" = "Verrouiller";
@@ -588,6 +601,8 @@
 "Into object" = "En objet";
 "Add below" = "Ajouter en dessous";
 "Change type" = "Changer le type";
+"Show types" = "Afficher les types";
+"Hide types" = "Masquer les types";
 "SlashMenu.LinkTo.Description" = "Créer un lien vers un autre objet";
 "Upload playable audio" = "Charger un fichier audio";
 "Code snippet" = "Extrait de code";
@@ -596,7 +611,7 @@
 "Video" = "Vidéo";
 "Picture" = "Image";
 "File" = "Fichier";
-"No related options here" = "No related options here. You can add some";
+"No related options here" = "Pas d'options associées ici. Vous pouvez en ajouter";
 "Empty" = "Vide";
 "Link to" = "Lien vers";
 "Unknown" = "Inconnu";
@@ -647,13 +662,14 @@
 "DataviewType.gallery" = "Galerie";
 "DataviewType.kanban" = "Kanban";
 "DataviewType.calendar" = "Calendrier";
+"DataviewType.graph" = "Graphe";
 
 // MARK: - ObjectType
 "ObjectType.fallbackDescription" = "Toile vierge sans titre";
 "ObjectType.SearchOrInstall" = "Rechercher ou créer un nouveau type";
 "ObjectType.Search" = "Rechercher un type";
 "ObjectType.MyTypes" = "Mes Types";
-"ObjectType.AddedToLibrary" = "Type ‘%@’ added to your library";
+"ObjectType.AddedToLibrary" = "Le type %@ a été ajouté à votre bibliothèque";
 "ObjectType.DeletedName" = "Type supprimé";
 
 // MARK: - QuickAction
@@ -737,10 +753,6 @@
 "Content.DataView.InlineCollection.Untitled" = "Collection sans titre";
 "Content.DataView.InlineSet.Toast.Failure" = "Ce Set intégré n'a pas de source";
 
-// MARK: - Widget extension
-"WidgetExtension.LockScreen.Title" = "Nouvel objet";
-"WidgetExtension.LockScreen.Description" = "Créer un nouvel objet à la volée";
-
 // MARK: - Toast
 "Editor.Toast.LinkedTo" = "lié à";
 "Editor.Toast.MovedTo" = "Bloc déplacé vers";
@@ -764,8 +776,8 @@
 "Widgets.Layout.CompactList.Title" = "Liste compacte";
 "Widgets.Layout.Link.Description" = "Version compacte de l'objet";
 "Widgets.Layout.Tree.Description" = "Arborescence des objets";
-"Widgets.Layout.List.Description" = "Widget with list view of set object";
-"Widgets.Layout.CompactList.Description" = "Widget with list view of set object";
+"Widgets.Layout.List.Description" = "Widget avec vue en liste d'un set d'objets";
+"Widgets.Layout.CompactList.Description" = "Widget avec vue en liste d'un set d'objets";
 "Widgets.Empty.Title" = "Cette vue de données ne contient aucun objet";
 "Widgets.Library.RecentlyEdited.Name" = "Récemment modifié";
 "Widgets.Library.RecentlyOpened.Name" = "Récemment ouvert";
@@ -793,7 +805,7 @@
 "About.Mail.Body" = "\n\nInformations techniques\n%@";
 
 // MARK: - Cache
-"ClearCache.Success" = "Cache sucessfully cleared";
+"ClearCache.Success" = "Le cache a été vidé avec succès";
 "ClearCache.Error" = "Erreur, réessayez plus tard";
 
 // MARK: - Settings
@@ -845,6 +857,19 @@
 "SpaceSettings.DeleteAlert.Title" = "Supprimer l'espace '%@'";
 "SpaceSettings.DeleteAlert.Message" = "Cet espace sera supprimé définitivement. Vous ne pouvez pas annuler cette action.";
 "SpaceSettings.DeleteButton" = "Supprimer l'espace";
+"SpaceSettings.Sharing" = "Partage";
+"SpaceSettings.Share" = "Partager";
+
+// MARK: - Space Share
+
+"SpaceShare.Title" = "Partager l'espace";
+"SpaceShare.MembersSection" = "Membres et demandes";
+"SpaceShare.Permissions.Owner" = "Propriétaire";
+"SpaceShare.Permissions.Reader" = "Peut voir";
+"SpaceShare.Permissions.Writer" = "Peut modifier";
+"SpaceShare.Invite.Title" = "Lien d'invitation";
+"SpaceShare.Invite.Description" = "Envoyez ce lien pour inviter d'autres personnes. Attribuez les droits d'accès lors de l'approbation de leur demande.\"";
+"SpaceShare.Invite.Button" = "Partager le lien d'invitation";
 
 // MARK: - Space Create
 "SpaceCreate.Title" = "Créer un espace";
@@ -859,10 +884,9 @@
 "Sharing.AddTo" = "Ajouter à";
 "Sharing.LinkTo" = "Lien vers";
 
-"Sharing.URL.Bookmark" = "Marquer l'objet";
-"Sharing.URL.Text" = "Bloc de texte";
 "Sharing.Text.NoteObject" = "Objet Note";
-"Sharing.Text.TextBlock" = "Bloc de texte";
+"Sharing.Text.TextBlock" = "Blocs";
+"Sharing.Any.Block" = "Blocs";
 
 // MARK: - Sharing tips
 "Sharing.Tip.Title" = "Extension de partage";
@@ -890,6 +914,9 @@
 "Error.AnytypeNeedsUpgrate.Message" = "Cet objet a été modifié dans une version plus récente de Anytype. Veuillez mettre à jour l'application pour l'ouvrir sur cet appareil";
 "Error.AnytypeNeedsUpgrate.Confirm" = "Mettre à jour";
 "Error.UnableToConnect" = "Veuillez vous connecter à Internet";
+"Error.Common.Title" = "Oups !";
+"Error.Common.Message" = "Veuillez vérifier votre connexion internet et réessayer ou poster un rapport sur le forum.";
+"Error.Common.TryAgain" = "Essayez de nouveau";
 
 // MARK: - Relative date formatter
 "RelativeFormatter.days7" = "7 jours précédents";
@@ -906,3 +933,13 @@
 // MARK: - Gallery
 "Gallery.Unavailable.Title" = "La galerie sera bientôt prise en charge";
 "Gallery.Unavailable.Message" = "Veuillez utiliser l'application de bureau pour le moment";
+"Gallery.Author" = "Fait par @%@";
+"Gallery.Install" = "Installer";
+"Gallery.InstallToNew" = "Installer dans un nouvel espace";
+"Gallery.Notification.Success" = "L'expérience a été installée avec succès dans l'espace \"%@\". Vous pouvez maintenant ouvrir et commencer à l'utiliser.";
+"Gallery.Notification.Button" = "Aller à l'espace";
+"Gallery.Notification.Error" = "Oups ! \"%@\" n'a pas été installé. Veuillez vérifier votre connexion internet et réessayer ou poster un rapport sur le forum.";
+
+// MARK: - Debug
+"Debug.MimeTypes" = "Types Mime - %@";
+"Debug.Info" = "Infos de débogage";

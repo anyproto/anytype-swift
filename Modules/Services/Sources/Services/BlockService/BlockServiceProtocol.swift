@@ -1,7 +1,7 @@
 import ProtobufMessages
 
 public protocol BlockServiceProtocol: AnyObject {
-    func add(contextId: String, targetId: BlockId, info: BlockInformation, position: BlockPosition) async throws -> BlockId?
+    func add(contextId: String, targetId: BlockId, info: BlockInformation, position: BlockPosition) async throws -> BlockId
     func delete(contextId: String, blockIds: [BlockId]) async throws
     func duplicate(contextId: String, targetId: BlockId, blockIds: [BlockId], position: BlockPosition) async throws
     func move(contextId: String, blockIds: [String], targetContextID: BlockId, dropTargetID: String, position: BlockPosition) async throws
@@ -18,4 +18,15 @@ public protocol BlockServiceProtocol: AnyObject {
     func changeMarkup(objectId: BlockId, blockIds: [BlockId], markType: MarkupType) async throws
     
     func lastBlockId(from objectId: BlockId) async throws -> BlockId
+    
+    func convertChildrenToPages(contextId: BlockId, blocksIds: [BlockId], typeUniqueKey: ObjectTypeUniqueKey) async throws -> [BlockId]
+    func createBlockLink(
+        contextId: BlockId,
+        targetId: BlockId,
+        spaceId: String,
+        details: [BundledDetails],
+        typeUniqueKey: ObjectTypeUniqueKey,
+        position: BlockPosition,
+        templateId: String
+    ) async throws -> BlockId
 }

@@ -27,7 +27,6 @@ final class SpaceSettingsViewModel: ObservableObject {
     @Published var spaceName: String = ""
     @Published var spaceType: String = ""
     @Published var spaceIcon: Icon?
-    @Published var profileIcon: Icon = .asset(.SettingsOld.accountAndData)
     @Published var info = [SettingsInfoModel]()
     @Published var snackBarData = ToastBarData.empty
     @Published var showSpaceDeleteAlert = false
@@ -70,6 +69,10 @@ final class SpaceSettingsViewModel: ObservableObject {
     func onDeleteTap() {
         AnytypeAnalytics.instance().logClickDeleteSpace(route: .settings)
         showSpaceDeleteAlert.toggle()
+    }
+    
+    func onShareTap() {
+        output?.onSpaceShareSelected()
     }
     
     func onDeleteConfirmationTap() {

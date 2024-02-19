@@ -3,7 +3,9 @@ import AnytypeCore
 import Logger
 
 struct DebugMenu: View {
-    @StateObject private var model = DebugMenuViewModel()
+    
+    @StateObject var model: DebugMenuViewModel
+    
     @State private var showLogs = false
     @State private var showTypography = false
     @State private var showFeedbackGenerators = false
@@ -91,7 +93,7 @@ struct DebugMenu: View {
                 UIImpactFeedbackGenerator(style: .heavy).impactOccurred()
                 showFeedbackGenerators.toggle()
             }
-            StandardButton("Export Localstore 📁", style: .secondaryLarge) {
+            StandardButton("Export localstore data as json 📁", style: .secondaryLarge) {
                 UIImpactFeedbackGenerator(style: .heavy).impactOccurred()
                 model.getLocalStoreData()
             }
@@ -102,6 +104,10 @@ struct DebugMenu: View {
             StandardButton("Export full directory 🤐", style: .secondaryLarge) {
                 UIImpactFeedbackGenerator(style: .heavy).impactOccurred()
                 model.zipWorkingDirectory()
+            }
+            StandardButton("Import full directory 📲", style: .secondaryLarge) {
+                UIImpactFeedbackGenerator(style: .heavy).impactOccurred()
+                model.unzipWorkingDirectory()
             }
             StandardButton(
                 "Remove Recovery Phrase from device",
@@ -128,6 +134,11 @@ struct DebugMenu: View {
         }
         .sheet(item: $model.workingDirectoryURL) { url in
             ActivityViewController(activityItems: [url], applicationActivities: nil)
+        }
+        .sheet(isPresented: $model.showZipPicker) {
+            DocumentPicker(contentTypes: [.zip]) { url in
+                model.onSelectUnzipFile(url: url)
+            }
         }
     }
     

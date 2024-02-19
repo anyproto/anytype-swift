@@ -5,7 +5,7 @@ final class MentionAssembly {
         let viewModel = MentionsViewModel(
             document: document,
             mentionService: mentionService,
-            pageService: ServiceLocator.shared.pageRepository()
+            defaultObjectService: ServiceLocator.shared.defaultObjectCreationService()
         )
         let controller = MentionsViewController(viewModel: viewModel)
         controller.view.translatesAutoresizingMaskIntoConstraints = false

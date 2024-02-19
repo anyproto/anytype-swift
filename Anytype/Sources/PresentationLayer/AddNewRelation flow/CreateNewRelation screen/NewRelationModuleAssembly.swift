@@ -51,11 +51,9 @@ final class NewRelationModuleAssembly: NewRelationModuleAssemblyProtocol {
         
         let vc = UIHostingController(rootView: view)
         
-        if #available(iOS 15.0, *) {
-            if let sheet = vc.sheetPresentationController {
-                sheet.detents = [.medium()]
-                sheet.selectedDetentIdentifier = .medium
-            }
+        if let sheet = vc.sheetPresentationController {
+            sheet.detents = [.medium()]
+            sheet.selectedDetentIdentifier = .medium
         }
         
         return UIKitModule(viewController: vc, input: viewModel)

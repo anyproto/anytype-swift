@@ -16,6 +16,7 @@ final class SpaceSettingsCoordinatorViewModel: ObservableObject, SpaceSettingsMo
     private let newSearchModuleAssembly: NewSearchModuleAssemblyProtocol
     private let objectTypeSearchModuleAssembly: ObjectTypeSearchModuleAssemblyProtocol
     private let wallpaperPickerModuleAssembly: WallpaperPickerModuleAssemblyProtocol
+    private let spaceShareCoordinatorAssembly: SpaceShareCoordinatorAssemblyProtocol
     private let objectTypeProvider: ObjectTypeProviderProtocol
     private let urlOpener: URLOpenerProtocol
     private let documentService: OpenedDocumentsProviderProtocol
@@ -23,6 +24,7 @@ final class SpaceSettingsCoordinatorViewModel: ObservableObject, SpaceSettingsMo
     @Published var showRemoteStorage = false
     @Published var showPersonalization = false
     @Published var showWallpaperPicker = false
+    @Published var showSpaceShare = false
     @Published var dismiss = false
     
     private var accountSpaceId: String
@@ -39,6 +41,7 @@ final class SpaceSettingsCoordinatorViewModel: ObservableObject, SpaceSettingsMo
         newSearchModuleAssembly: NewSearchModuleAssemblyProtocol,
         objectTypeSearchModuleAssembly: ObjectTypeSearchModuleAssemblyProtocol,
         wallpaperPickerModuleAssembly: WallpaperPickerModuleAssemblyProtocol,
+        spaceShareCoordinatorAssembly: SpaceShareCoordinatorAssemblyProtocol,
         objectTypeProvider: ObjectTypeProviderProtocol,
         urlOpener: URLOpenerProtocol,
         documentService: OpenedDocumentsProviderProtocol
@@ -53,6 +56,7 @@ final class SpaceSettingsCoordinatorViewModel: ObservableObject, SpaceSettingsMo
         self.newSearchModuleAssembly = newSearchModuleAssembly
         self.objectTypeSearchModuleAssembly = objectTypeSearchModuleAssembly
         self.wallpaperPickerModuleAssembly = wallpaperPickerModuleAssembly
+        self.spaceShareCoordinatorAssembly = spaceShareCoordinatorAssembly
         self.objectTypeProvider = objectTypeProvider
         self.urlOpener = urlOpener
         self.documentService = documentService
@@ -76,6 +80,10 @@ final class SpaceSettingsCoordinatorViewModel: ObservableObject, SpaceSettingsMo
         return wallpaperPickerModuleAssembly.make(spaceId: accountSpaceId)
     }
     
+    func spaceShareModule() -> AnyView {
+        return spaceShareCoordinatorAssembly.make()
+    }
+    
     // MARK: - SpaceSettingsModuleOutput
     
     func onChangeIconSelected(objectId: String) {
@@ -90,6 +98,10 @@ final class SpaceSettingsCoordinatorViewModel: ObservableObject, SpaceSettingsMo
     
     func onPersonalizationSelected() {
         showPersonalization.toggle()
+    }
+    
+    func onSpaceShareSelected() {
+        showSpaceShare.toggle()
     }
     
     // MARK: - RemoteStorageModuleOutput
@@ -110,7 +122,9 @@ final class SpaceSettingsCoordinatorViewModel: ObservableObject, SpaceSettingsMo
             let module = objectTypeSearchModuleAssembly.make(
                 title: Loc.chooseDefaultObjectType,
                 spaceId: activeWorkspaceStorage.workspaceInfo.accountSpaceId,
-                showLists: false
+                showPins: false,
+                showLists: false, 
+                showFiles: false
             ) { [weak self] type in
                 self?.objectTypeProvider.setDefaultObjectType(type: type, spaceId: type.spaceId)
                 self?.navigationContext.dismissTopPresented(animated: true)

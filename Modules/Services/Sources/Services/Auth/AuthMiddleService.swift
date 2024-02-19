@@ -66,10 +66,14 @@ public final class AuthMiddleService: AuthMiddleServiceProtocol {
     }
     
     public func walletRecovery(rootPath: String, mnemonic: String) async throws {
-        try await ClientCommands.walletRecover(.with {
-            $0.rootPath = rootPath
-            $0.mnemonic = mnemonic
-        }).invoke()
+        do {
+            try await ClientCommands.walletRecover(.with {
+                $0.rootPath = rootPath
+                $0.mnemonic = mnemonic
+            }).invoke()
+        } catch let responseError as Anytype_Rpc.Wallet.Recover.Response.Error {
+            throw responseError.asError
+        }
     }
     
     public func accountRecover() async throws {

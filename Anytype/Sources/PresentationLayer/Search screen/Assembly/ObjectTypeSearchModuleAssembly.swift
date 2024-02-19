@@ -8,7 +8,9 @@ protocol ObjectTypeSearchModuleAssemblyProtocol: AnyObject {
     func make(
         title: String,
         spaceId: String,
+        showPins: Bool,
         showLists: Bool,
+        showFiles: Bool,
         onSelect: @escaping (_ type: ObjectType) -> Void
     ) -> AnyView
 }
@@ -26,20 +28,20 @@ final class ObjectTypeSearchModuleAssembly: ObjectTypeSearchModuleAssemblyProtoc
     func make(
         title: String,
         spaceId: String,
+        showPins: Bool,
         showLists: Bool,
+        showFiles: Bool,
         onSelect: @escaping (_ type: ObjectType) -> Void
     ) -> AnyView {
         if FeatureFlags.newTypePicker {
-            let interactor = ObjectTypeSearchInteractor(
-                spaceId: spaceId,
-                searchService: serviceLocator.searchService(),
-                workspaceService: serviceLocator.workspaceService(),
-                objectTypeProvider: serviceLocator.objectTypeProvider()
-            )
-            
             let model = ObjectTypeSearchViewModel(
-                showLists: showLists,
-                interactor: interactor,
+                showPins: showPins,
+                showLists: showLists, 
+                showFiles: showFiles,
+                spaceId: spaceId,
+                workspaceService: serviceLocator.workspaceService(),
+                typesService: serviceLocator.typesService(),
+                objectTypeProvider: serviceLocator.objectTypeProvider(),
                 toastPresenter: uiHelpersDI.toastPresenter(),
                 onSelect: onSelect
             )
@@ -51,12 +53,12 @@ final class ObjectTypeSearchModuleAssembly: ObjectTypeSearchModuleAssemblyProtoc
         } else {
             let interactor = Legacy_ObjectTypeSearchInteractor(
                 spaceId: spaceId,
-                searchService: serviceLocator.searchService(),
+                typesService: serviceLocator.typesService(),
                 workspaceService: serviceLocator.workspaceService(),
                 objectTypeProvider: serviceLocator.objectTypeProvider(),
-                excludedObjectTypeId: nil,
                 showBookmark: true,
-                showSetAndCollection: true
+                showSetAndCollection: true, 
+                showFiles: showFiles
             )
             
             let internalViewModel = Legacy_ObjectTypeSearchViewModel(

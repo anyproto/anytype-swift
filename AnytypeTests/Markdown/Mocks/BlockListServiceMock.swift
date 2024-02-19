@@ -69,9 +69,9 @@ final class BlockServiceMock: BlockServiceProtocol {
         ""
     }
     
-    func add(contextId: String, targetId: Services.BlockId, info: Services.BlockInformation, position: Services.BlockPosition) async throws -> Services.BlockId? {
+    func add(contextId: String, targetId: Services.BlockId, info: Services.BlockInformation, position: Services.BlockPosition) async throws -> Services.BlockId {
         assertionFailure()
-        return nil
+        return ""
     }
     
     func delete(contextId: String, blockIds: [Services.BlockId]) async throws {
@@ -84,5 +84,15 @@ final class BlockServiceMock: BlockServiceProtocol {
     
     func move(contextId: String, blockIds: [String], targetContextID: Services.BlockId, dropTargetID: String, position: Services.BlockPosition) async throws {
         assertionFailure()
+    }
+    
+    func convertChildrenToPages(contextId: Services.BlockId, blocksIds: [Services.BlockId], typeUniqueKey: Services.ObjectTypeUniqueKey) async throws -> [Services.BlockId] {
+        assertionFailure()
+        return []
+    }
+    
+    func createBlockLink(contextId: Services.BlockId, targetId: Services.BlockId, spaceId: String, details: [Services.BundledDetails], typeUniqueKey: Services.ObjectTypeUniqueKey, position: Services.BlockPosition, templateId: String) async throws -> Services.BlockId {
+        assertionFailure()
+        return ""
     }
 }

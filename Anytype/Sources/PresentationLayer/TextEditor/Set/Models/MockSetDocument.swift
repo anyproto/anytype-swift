@@ -21,6 +21,8 @@ final class MockSetDocument: SetDocumentProtocol {
     
     var forPreview: Bool { false }
     
+    var objectRestrictions: ObjectRestrictions { ObjectRestrictions(objectRestriction: [], dataViewRestriction: [:]) }
+    
     var dataviews: [BlockDataview] { [] }
     
     var dataViewRelationsDetails: [Services.RelationDetails] { [] }
@@ -74,6 +76,8 @@ final class MockSetDocument: SetDocumentProtocol {
     func isCollection() -> Bool { false }
     
     func canCreateObject() -> Bool { true }
+    
+    func isActiveHeader() -> Bool { true }
     
     func defaultObjectTypeForActiveView() throws -> ObjectType { fatalError() }
     

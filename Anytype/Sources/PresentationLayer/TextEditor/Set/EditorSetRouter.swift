@@ -148,11 +148,9 @@ final class EditorSetRouter: EditorSetRouterProtocol, ObjectSettingsCoordinatorO
                 }
             )
         )
-        if #available(iOS 15.0, *) {
-            if let sheet = vc.sheetPresentationController {
-                sheet.detents = [.medium(), .large()]
-                sheet.selectedDetentIdentifier = .large
-            }
+        if let sheet = vc.sheetPresentationController {
+            sheet.detents = [.medium(), .large()]
+            sheet.selectedDetentIdentifier = .large
         }
         navigationContext.present(vc)
     }
@@ -235,7 +233,9 @@ final class EditorSetRouter: EditorSetRouterProtocol, ObjectSettingsCoordinatorO
             let view = objectTypeSearchModuleAssembly.make(
                 title: Loc.Set.SourceType.selectQuery,
                 spaceId: setDocument.spaceId,
-                showLists: false
+                showPins: false,
+                showLists: false, 
+                showFiles: true
             ) { [weak self] type in
                 self?.navigationContext.dismissTopPresented()
                 onSelect(type.id)
@@ -248,7 +248,8 @@ final class EditorSetRouter: EditorSetRouterProtocol, ObjectSettingsCoordinatorO
                 spaceId: setDocument.spaceId,
                 selectedObjectId: selectedObjectId,
                 excludedObjectTypeId: setDocument.details?.type,
-                showSetAndCollection: false
+                showSetAndCollection: false,
+                showFiles: true
             ) { [weak self] type in
                 self?.navigationContext.dismissTopPresented()
                 onSelect(type.id)

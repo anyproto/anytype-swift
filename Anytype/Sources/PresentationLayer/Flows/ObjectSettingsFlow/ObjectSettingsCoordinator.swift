@@ -127,7 +127,7 @@ final class ObjectSettingsCoordinator: ObjectSettingsCoordinatorProtocol,
             title: Loc.linkTo,
             spaceId: document.spaceId,
             excludedObjectIds: [document.objectId],
-            excludedLayouts: [.set]
+            excludedLayouts: [.set, .participant]
         ) { [weak navigationContext] details in
             navigationContext?.dismissAllPresented(animated: true) {
                 onSelect(details.id)
@@ -155,6 +155,7 @@ final class ObjectSettingsCoordinator: ObjectSettingsCoordinatorProtocol,
         )
     }
     
+    @MainActor
     func editRelationValueAction(document: BaseDocumentProtocol, relationKey: String) {
         let relation = document.parsedRelations.installed.first { $0.key == relationKey }
         guard let relation = relation else {

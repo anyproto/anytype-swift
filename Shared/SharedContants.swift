@@ -11,20 +11,7 @@ enum URLConstants {
     static let sharingExtenstionURL = URL(string: urlScheme + "sharing-extension")
     static let spaceSelectionURL = URL(string: urlScheme + "space-selection")
     static let galleryImportURL = URL(string: urlScheme + "main/import")
-}
-
-enum TargetsConstants {
-    static let appGroup = "group.io.anytype.app"
-}
-
-extension FileManager {
-    var groupURL: URL? {
-        containerURL(forSecurityApplicationGroupIdentifier: TargetsConstants.appGroup)
-    }
-}
-
-enum SharedUserDefaultsKey {
-    static let sharingExtension = "sharing-extension"
+    static let inviteURL = URL(string: urlScheme + "invite")
 }
 
 enum AppLinks {

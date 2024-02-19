@@ -1,5 +1,6 @@
 import ProtobufMessages
 import AnytypeCore
+import SwiftProtobuf
 
 public enum BlockServiceError: Error {
     case lastBlockIdNotFound
@@ -9,10 +10,10 @@ public final class BlockService: BlockServiceProtocol {
     
     public init() {}
     
-    public func add(contextId: String, targetId: BlockId, info: BlockInformation, position: BlockPosition) async throws -> BlockId? {
+    public func add(contextId: String, targetId: BlockId, info: BlockInformation, position: BlockPosition) async throws -> BlockId {
         guard let block = BlockInformationConverter.convert(information: info) else {
             anytypeAssertionFailure("addActionBlockIsNotParsed")
-            return nil
+            throw CommonError.undefined
         }
 
         let response = try await ClientCommands.blockCreate(.with {
@@ -161,6 +162,51 @@ public final class BlockService: BlockServiceProtocol {
     
         return lastBlockId
     }
+    
+    public func convertChildrenToPages(contextId: BlockId, blocksIds: [BlockId], typeUniqueKey: ObjectTypeUniqueKey) async throws -> [BlockId] {
+        let response = try await ClientCommands.blockListConvertToObjects(.with {
+            $0.contextID = contextId
+            $0.blockIds = blocksIds
+            $0.objectTypeUniqueKey = typeUniqueKey.value
+        }).invoke()
+        
+        return response.linkIds
+    }
+    
+    public func createBlockLink(
+        contextId: BlockId,
+        targetId: BlockId,
+        spaceId: String,
+        details: [BundledDetails],
+        typeUniqueKey: ObjectTypeUniqueKey,
+        position: BlockPosition,
+        templateId: String
+    ) async throws -> BlockId {
+        let protobufDetails = details.reduce([String: Google_Protobuf_Value]()) { result, detail in
+            var result = result
+            result[detail.key] = detail.value
+            return result
+        }
+        let protobufStruct = Google_Protobuf_Struct(fields: protobufDetails)
+        
+        let internalFlags: [Anytype_Model_InternalFlag] = .builder {
+            Anytype_Model_InternalFlag.with { $0.value = .editorSelectTemplate }
+        }
+        
+        let response = try await ClientCommands.blockLinkCreateWithObject(.with {
+            $0.contextID = contextId
+            $0.details = protobufStruct
+            $0.templateID = templateId
+            $0.targetID = targetId
+            $0.position = position.asMiddleware
+            $0.internalFlags = internalFlags
+            $0.spaceID = spaceId
+            $0.objectTypeUniqueKey = typeUniqueKey.value
+        }).invoke()
+        
+        return response.targetID
+    }
+
 }
 
 private extension MarkupType {

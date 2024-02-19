@@ -2,12 +2,15 @@ import Services
 
 extension ObjectTypeSearchViewModel {
     enum SectionType {
+        case pins
         case lists
         case objects
         case library
         
         var name: String {
             switch self {
+            case .pins:
+                Loc.pinned
             case .lists:
                 Loc.lists
             case .objects:
@@ -18,9 +21,14 @@ extension ObjectTypeSearchViewModel {
         }
     }
     
+    struct ObjectTypeData {
+        let type: ObjectType
+        let isDefault: Bool
+    }
+    
     struct SectionData: Identifiable {
         let section: SectionType
-        let types: [ObjectType]
+        let types: [ObjectTypeData]
         
         var id: SectionType {
             section

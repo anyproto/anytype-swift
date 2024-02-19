@@ -26,7 +26,7 @@ final class SpaceViewIconInternalViewModel {
                 let safeSendableItemProvider = SafeSendable(value: itemProvider)
                 Task {
                     let data = try await fileService.createFileData(source: .itemProvider(safeSendableItemProvider.value))
-                    let fileDetails = try await fileService.uploadImage(spaceId: spaceId, data: data)
+                    let fileDetails = try await fileService.uploadFileObject(spaceId: spaceId, data: data, origin: .none)
                     try await workspaceService.workspaceSetDetails(spaceId: spaceId, details: [.iconObjectId(fileDetails.id)])
                 }
             }

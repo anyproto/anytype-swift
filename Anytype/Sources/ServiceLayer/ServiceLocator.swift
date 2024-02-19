@@ -3,19 +3,14 @@ import UIKit
 import Services
 import AnytypeCore
 import SecureService
+import SharedContentManager
 
 // TODO: Migrate to ServicesDI
 final class ServiceLocator {
     static let shared = ServiceLocator()
 
     let templatesService = TemplatesService()
-    let sharedContentManager: SharedContentManagerProtocol = SharedContentManager()
-    lazy private(set) var sharedContentInteractor: SharedContentInteractorProtocol = SharedContentInteractor(
-        bookmarkService: bookmarkService(),
-        objectActionsService: objectActionsService(),
-        blockService: blockService(),
-        pageRepository: pageRepository()
-    )
+    let sharedContentManager: SharedContentManagerProtocol = SharingDI.shared.sharedContentManager()
 
     lazy private(set) var unsplashService: UnsplashServiceProtocol = UnsplashService()
     lazy private(set) var documentsProvider: DocumentsProviderProtocol = DocumentsProvider(
@@ -67,10 +62,6 @@ final class ServiceLocator {
         return _loginStateService
     }
     
-    func dashboardService() -> DashboardServiceProtocol {
-        DashboardService(searchService: searchService(), pageService: pageRepository())
-    }
-    
     func objectLifecycleService() -> ObjectLifecycleServiceProtocol {
         ObjectLifecycleService()
     }
@@ -84,7 +75,11 @@ final class ServiceLocator {
     }
     
     func searchService() -> SearchServiceProtocol {
-        SearchService(accountManager: accountManager(), searchMiddleService: SearchMiddleService())
+        SearchService(searchMiddleService: searchMiddleService())
+    }
+    
+    func searchMiddleService() -> SearchMiddleServiceProtocol {
+        SearchMiddleService()
     }
     
     func detailsService(objectId: BlockId) -> DetailsServiceProtocol {
@@ -140,8 +135,24 @@ final class ServiceLocator {
         return WorkspaceService()
     }
     
-    func pageRepository() -> PageRepositoryProtocol {
-        return PageRepository(objectTypeProvider: objectTypeProvider(), pageService: PageService())
+    func typesService() -> TypesServiceProtocol {
+        return TypesService(
+            searchMiddleService: searchMiddleService(), 
+            actionsService: objectActionsService(),
+            pinsStorage: pinsStorage(),
+            typeProvider: objectTypeProvider()
+        )
+    }
+    
+    func pinsStorage() -> TypesPinStorageProtocol {
+        return TypesPinStorage(typeProvider: objectTypeProvider())
+    }
+    
+    func defaultObjectCreationService() -> DefaultObjectCreationServiceProtocol {
+        return DefaultObjectCreationService(
+            objectTypeProvider: objectTypeProvider(),
+            objectService: objectActionsService()
+        )
     }
         
     func blockWidgetService() -> BlockWidgetServiceProtocol {
@@ -192,6 +203,13 @@ final class ServiceLocator {
     
     func filesSubscriptionManager() -> FilesSubscriptionServiceProtocol {
         return FilesSubscriptionService(
+            subscriptionStorageProvider: subscriptionStorageProvider(),
+            activeWorkspaceStorage: activeWorkspaceStorage()
+        )
+    }
+    
+    func participantSubscriptionService() -> ParticipantsSubscriptionServiceProtocol {
+        return ParticipantsSubscriptionService(
             subscriptionStorageProvider: subscriptionStorageProvider(),
             activeWorkspaceStorage: activeWorkspaceStorage()
         )
@@ -300,7 +318,11 @@ final class ServiceLocator {
     }
     
     func quickActionShortcutBuilder() -> QuickActionShortcutBuilderProtocol {
-        return QuickActionShortcutBuilder(activeWorkspaceStorage: activeWorkspaceStorage(), objectTypeProvider: objectTypeProvider())
+        return QuickActionShortcutBuilder(
+            activeWorkspaceStorage: activeWorkspaceStorage(),
+            typesService: typesService(),
+            objectTypeProvider: objectTypeProvider()
+        )
     }
     
     private lazy var _subscriptionStorageProvider = SubscriptionStorageProvider(toggler: subscriptionToggler())
@@ -335,8 +357,28 @@ final class ServiceLocator {
         TextServiceHandler(textService: TextService())
     }
     
+    func pasteboardMiddlewareService() -> PasteboardMiddlewareServiceProtocol {
+        PasteboardMiddleService()
+    }
+    
+    func galleryService() -> GalleryServiceProtocol {
+        GalleryService()
+    }
+    
     func notificationSubscriptionService() -> NotificationsSubscriptionServiceProtocol {
         NotificationsSubscriptionService()
+    }
+    
+    func deepLinkParser() -> DeepLinkParserProtocol {
+        DeepLinkParser()
+    }
+    
+    func processSubscriptionService() -> ProcessSubscriptionServiceProtocol {
+        ProcessSubscriptionService()
+    }
+    
+    func debugService() -> DebugServiceProtocol {
+        DebugService()
     }
     
     // MARK: - Private
