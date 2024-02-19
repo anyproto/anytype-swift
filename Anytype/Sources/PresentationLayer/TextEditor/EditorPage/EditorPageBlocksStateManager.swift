@@ -299,7 +299,7 @@ final class EditorPageBlocksStateManager: EditorPageBlocksStateManagerProtocol {
                         prefixText: Loc.Editor.Toast.movedTo,
                         objectId: targetDocument.objectId,
                         tapHandler: { [weak self] in
-                            self?.router.showPage(data: details.editorScreenData())
+                            self?.router.showEditorScreen(data: details.editorScreenData())
                         }
                     )
                 }
@@ -384,7 +384,7 @@ final class EditorPageBlocksStateManager: EditorPageBlocksStateManagerProtocol {
                     prefixText: Loc.Editor.Toast.movedTo,
                     objectId: details.id,
                     tapHandler: { [weak self] in
-                        self?.router.showPage(data: details.editorScreenData())
+                        self?.router.showEditorScreen(data: details.editorScreenData())
                     }
                 )
             }

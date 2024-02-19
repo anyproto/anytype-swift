@@ -82,10 +82,10 @@ final class EditorRouter: NSObject, EditorRouterProtocol, ObjectSettingsCoordina
         }
         guard !details.isDeleted else { return }
         
-        showPage(data: details.editorScreenData())
+        showEditorScreen(data: details.editorScreenData())
     }
     
-    func showPage(data: EditorScreenData) {
+    func showEditorScreen(data: EditorScreenData) {
         Task { @MainActor in
             output?.showEditorScreen(data: data)
         }
@@ -555,7 +555,7 @@ extension EditorRouter {
 extension EditorRouter: RelationValueCoordinatorOutput {
     func openObject(screenData: EditorScreenData) {
         navigationContext.dismissAllPresented()
-        showPage(data: screenData)
+        showEditorScreen(data: screenData)
     }
 }
 
@@ -564,7 +564,7 @@ extension EditorRouter: ObjectSettingsModuleDelegate {
         guard let objectId = data.objectId else { return }
         UIApplication.shared.hideKeyboard()
         toastPresenter.showObjectName(selfName, middleAction: Loc.Editor.Toast.linkedTo, secondObjectId: objectId) { [weak self] in
-            self?.showPage(data: data)
+            self?.showEditorScreen(data: data)
         }
     }
     

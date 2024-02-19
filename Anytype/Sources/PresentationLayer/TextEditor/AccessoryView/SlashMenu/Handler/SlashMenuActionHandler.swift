@@ -49,7 +49,7 @@ final class SlashMenuActionHandler {
                         .flatMap { [weak self] objectId in
                             guard let self else { return }
                             AnytypeAnalytics.instance().logCreateObject(objectType: object.analyticsType, route: .powertool)
-                            router.showPage(data: editorScreenData(objectId: objectId, objectDetails: object))
+                            router.showEditorScreen(data: editorScreenData(objectId: objectId, objectDetails: object))
                         }
                 }
             }

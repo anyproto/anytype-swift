@@ -13,7 +13,7 @@ protocol EditorRouterProtocol:
 {
     func showAlert(alertModel: AlertModel)
     func showPage(objectId: String)
-    func showPage(data: EditorScreenData)
+    func showEditorScreen(data: EditorScreenData)
     func replaceCurrentPage(with data: EditorScreenData)
     
     func openUrl(_ url: URL)
