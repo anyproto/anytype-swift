@@ -655,6 +655,7 @@
 		2ABF8F5B2B7FADA3004B8FB8 /* ErrorStateView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2ABF8F5A2B7FADA3004B8FB8 /* ErrorStateView.swift */; };
 		2ABF8F5D2B7FB1B5004B8FB8 /* ScreenStateView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2ABF8F5C2B7FB1B5004B8FB8 /* ScreenStateView.swift */; };
 		2ABF8F5F2B7FB982004B8FB8 /* AsyncStandardButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2ABF8F5E2B7FB982004B8FB8 /* AsyncStandardButton.swift */; };
+		2ABF39402B8398FB00EF9DA1 /* BottomAlertButttonStack.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2ABF393F2B8398FB00EF9DA1 /* BottomAlertButttonStack.swift */; };
 		2ABFED9428C9D784008B5C03 /* RelationDetailsStorageProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2ABFED9328C9D784008B5C03 /* RelationDetailsStorageProtocol.swift */; };
 		2ABFED9628C9DAA4008B5C03 /* RelationDetails+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2ABFED9528C9DAA4008B5C03 /* RelationDetails+Extensions.swift */; };
 		2AC252282A26112500B89884 /* MiddlewareHandlerConfigurator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AC252272A26112500B89884 /* MiddlewareHandlerConfigurator.swift */; };
@@ -2407,6 +2408,7 @@
 		2ABF8F5A2B7FADA3004B8FB8 /* ErrorStateView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorStateView.swift; sourceTree = "<group>"; };
 		2ABF8F5C2B7FB1B5004B8FB8 /* ScreenStateView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScreenStateView.swift; sourceTree = "<group>"; };
 		2ABF8F5E2B7FB982004B8FB8 /* AsyncStandardButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AsyncStandardButton.swift; sourceTree = "<group>"; };
+		2ABF393F2B8398FB00EF9DA1 /* BottomAlertButttonStack.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BottomAlertButttonStack.swift; sourceTree = "<group>"; };
 		2ABFED9328C9D784008B5C03 /* RelationDetailsStorageProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RelationDetailsStorageProtocol.swift; sourceTree = "<group>"; };
 		2ABFED9528C9DAA4008B5C03 /* RelationDetails+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "RelationDetails+Extensions.swift"; sourceTree = "<group>"; };
 		2AC252272A26112500B89884 /* MiddlewareHandlerConfigurator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MiddlewareHandlerConfigurator.swift; sourceTree = "<group>"; };
@@ -6541,6 +6543,7 @@
 				2AA42CF02B1737C800CA20D4 /* BottomAlertView.swift */,
 				2AD5EFC32B17490200FAA908 /* ButtomAlertHeaderImageView.swift */,
 				2AD5EFC52B17492500FAA908 /* BottomAlertButtonView.swift */,
+				2ABF393F2B8398FB00EF9DA1 /* BottomAlertButttonStack.swift */,
 			);
 			path = Bottom;
 			sourceTree = "<group>";
@@ -10631,6 +10634,7 @@
 				8673528B2AA8BC00003F92DC /* URL+Middleware.swift in Sources */,
 				2A7BC27F2B1E2C4700EB96EB /* ServerConfigurationViewModel.swift in Sources */,
 				2A7208B72AF3B67D006D88CF /* SegmentLine.swift in Sources */,
+				2ABF39402B8398FB00EF9DA1 /* BottomAlertButttonStack.swift in Sources */,
 				866B43082ABAE4C10028DDAE /* ObjectHeaderInteractor.swift in Sources */,
 				2A6693712A7104EA007747DD /* SpaceIconImageGuideline.swift in Sources */,
 				12DE405E264AE455007B5074 /* LayoutAnchor.swift in Sources */,
