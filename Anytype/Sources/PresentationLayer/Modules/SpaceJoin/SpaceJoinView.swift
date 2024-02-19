@@ -41,7 +41,7 @@ struct SpaceJoinView: View {
         }
         .safeAreaInset(edge: .bottom) {
             VStack(spacing: 0) {
-                AsyncStandartButton(text: Loc.SpaceShare.Join.button, style: .primaryLarge) {
+                AsyncStandardButton(text: Loc.SpaceShare.Join.button, style: .primaryLarge) {
                     try await model.onJoin()
                 }
                 Spacer.fixedHeight(20)

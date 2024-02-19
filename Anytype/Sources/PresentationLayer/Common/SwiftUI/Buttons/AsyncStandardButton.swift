@@ -1,7 +1,7 @@
 import Foundation
 import SwiftUI
 
-struct AsyncStandartButton: View {
+struct AsyncStandardButton: View {
     
     let text: String
     let style: StandardButtonStyle
