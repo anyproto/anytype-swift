@@ -23,7 +23,6 @@ final class SimpleTableDependenciesBuilder {
     private let linkToObjectCoordinator: LinkToObjectCoordinatorProtocol
     private let typesService: TypesServiceProtocol
     private let accessoryStateManager: AccessoryViewStateManager
-//    private let collectionController: EditorBlockCollectionController
 
     weak var mainEditorSelectionManager: SimpleTableSelectionHandler?
     
@@ -48,7 +47,6 @@ final class SimpleTableDependenciesBuilder {
         self.pasteboardService = pasteboardService
         self.markdownListener = markdownListener
         self.focusSubjectHolder = focusSubjectHolder
-//        self.collectionController = collectionController
         self.mainEditorSelectionManager = mainEditorSelectionManager
         self.responderScrollViewHelper = responderScrollViewHelper
         self.defaultObjectService = defaultObjectService
