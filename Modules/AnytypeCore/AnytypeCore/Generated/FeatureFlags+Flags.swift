@@ -18,10 +18,6 @@ public extension FeatureFlags {
         value(for: .dndOnCollectionsAndSets)
     }
 
-    static var newCodeLanguages: Bool {
-        value(for: .newCodeLanguages)
-    }
-
     static var ipadIncreaseWidth: Bool {
         value(for: .ipadIncreaseWidth)
     }
@@ -107,7 +103,6 @@ public extension FeatureFlags {
         .setKanbanView,
         .fullInlineSetImpl,
         .dndOnCollectionsAndSets,
-        .newCodeLanguages,
         .ipadIncreaseWidth,
         .selectTypeByLongTap,
         .widgetsCreateObject,
