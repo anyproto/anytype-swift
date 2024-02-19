@@ -417,6 +417,7 @@ enum SelectObjectTypeRoute: String {
 enum OnboardingTooltip: String {
     case selectType = "SelectType"
     case sharingExtension = "SharingExtension"
+    case swipeInWidgets = "ObjectCreationWidget"
 }
 
 enum ClickDeleteSpaceRoute: String {

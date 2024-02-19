@@ -25,5 +25,8 @@ struct WidgetSwipeTipView: View {
     var body: some View {
         TipView(tip)
             .tipBackground(Color.Background.primary)
+            .onAppear {
+                AnytypeAnalytics.instance().logOnboardingTooltip(tooltip: .swipeInWidgets)
+            }
     }
 }
