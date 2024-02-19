@@ -24,7 +24,7 @@ final class MarkupAccessoryViewModel: ObservableObject {
 
     private(set) var restrictions: BlockRestrictions?
     private(set) var actionHandler: BlockActionHandlerProtocol
-    private(set) var blockId: BlockId = ""
+    private(set) var blockId: String = ""
     private let document: BaseDocumentProtocol
     private let linkToObjectCoordinator: LinkToObjectCoordinatorProtocol
 
@@ -109,12 +109,12 @@ final class MarkupAccessoryViewModel: ObservableObject {
         return .notApplied
     }
 
-    private func showLinkToSearch(blockId: BlockId, range: NSRange) {
+    private func showLinkToSearch(blockId: String, range: NSRange) {
         guard let currentText = currentText else { return }
         
         let urlLink = currentText.linkState(range: range)
         let objectIdLink = currentText.linkToObjectState(range: range)
-        let eitherLink: Either<URL, BlockId>? = urlLink.map { .left($0) } ?? objectIdLink.map { .right($0) } ?? nil
+        let eitherLink: Either<URL, String>? = urlLink.map { .left($0) } ?? objectIdLink.map { .right($0) } ?? nil
         
         linkToObjectCoordinator.startFlow(
             spaceId: document.spaceId,
@@ -155,7 +155,7 @@ final class MarkupAccessoryViewModel: ObservableObject {
         }.store(in: &cancellables)
     }
 
-    private func blockData(blockId: BlockId) -> (BlockInformation, BlockText)? {
+    private func blockData(blockId: String) -> (BlockInformation, BlockText)? {
         guard let info = document.infoContainer.get(id: blockId) else {
             return nil
         }

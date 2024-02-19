@@ -71,7 +71,7 @@ final class CreateObjectView: UIView {
         button.addAction { [weak self] _ in
             guard let self = self else { return }
 
-            self.viewModel.actionButtonTapped(with: self.textField.text ?? .empty)
+            self.viewModel.actionButtonTapped(with: self.textField.text ?? "")
         }
     }
 

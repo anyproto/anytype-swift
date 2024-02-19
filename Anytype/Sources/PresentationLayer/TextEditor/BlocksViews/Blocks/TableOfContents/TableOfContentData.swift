@@ -7,7 +7,7 @@ enum TableOfContentData: Equatable {
 }
 
 struct TableOfContentItem: Equatable, Hashable {
-    let blockId: BlockId
+    let blockId: String
     let title: String
     let level: Int
 }

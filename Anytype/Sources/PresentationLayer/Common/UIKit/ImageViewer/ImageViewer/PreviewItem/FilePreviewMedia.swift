@@ -6,7 +6,7 @@ final class FilePreviewMedia: NSObject, PreviewRemoteItem {
     // MARK: - PreviewRemoteItem
     let didUpdateContentSubject = PassthroughSubject<Void, Never>()
     let file: BlockFile
-    let blockId: BlockId
+    let blockId: String
 
     // MARK: - QLPreviewItem
     var previewItemTitle: String? { "" }
@@ -14,7 +14,7 @@ final class FilePreviewMedia: NSObject, PreviewRemoteItem {
 
     private let fileDownloader = FileDownloader()
 
-    init(file: BlockFile, blockId: BlockId) {
+    init(file: BlockFile, blockId: String) {
         self.file = file
         self.blockId = blockId
 

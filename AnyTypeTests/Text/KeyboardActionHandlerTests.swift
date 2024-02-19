@@ -839,7 +839,7 @@ class KeyboardActionHandlerTests: XCTestCase {
     }
     
     private func info(
-        id: BlockId = "id",
+        id: String = "id",
         style: BlockText.Style = .text,
         hasChild: Bool = false,
         parent: BlockInformation = .empty(id: "pageId", content: .smartblock(.init(style: .page)))
@@ -848,7 +848,7 @@ class KeyboardActionHandlerTests: XCTestCase {
     }
     
     private func info(
-        id: BlockId = "id",
+        id: String = "id",
         content: BlockContent,
         hasChild: Bool = false,
         parent: BlockInformation? = nil

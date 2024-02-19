@@ -11,7 +11,7 @@ struct ObjectSearchData: SearchDataProtocol {
     let callout: String
     let typeId: String
     
-    let blockId: BlockId
+    let blockId: String
     
     let editorScreenData: EditorScreenData
     

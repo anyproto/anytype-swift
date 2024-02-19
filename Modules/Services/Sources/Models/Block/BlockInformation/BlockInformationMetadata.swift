@@ -11,7 +11,7 @@ public enum BlockIndentationStyle: Hashable {
 }
 
 public struct BlockInformationMetadata: Hashable {
-    public let parentId: BlockId?
+    public let parentId: String?
     public let parentBackgroundColors: [MiddlewareColor?]
     public let parentIndentationStyle: [BlockIndentationStyle]
     public let backgroundColor: MiddlewareColor?
@@ -19,7 +19,7 @@ public struct BlockInformationMetadata: Hashable {
     public let calloutBackgroundColor: MiddlewareColor?
 
     public init(
-        parentId: BlockId? = nil,
+        parentId: String? = nil,
         parentBackgroundColors: [MiddlewareColor?] = [MiddlewareColor](),
         parentIndentationStyle: [BlockIndentationStyle] = [BlockIndentationStyle](),
         backgroundColor: MiddlewareColor?,

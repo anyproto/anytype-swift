@@ -12,7 +12,7 @@ final class CreateObjectViewModel: CreateObjectViewModelProtocol {
     private let debouncer = Debouncer()
     private let openToEditAction: () -> Void
     private let closeAction: () -> Void
-    private var currentText: String = .empty
+    private var currentText: String = ""
 
     init(
         objectId: String,

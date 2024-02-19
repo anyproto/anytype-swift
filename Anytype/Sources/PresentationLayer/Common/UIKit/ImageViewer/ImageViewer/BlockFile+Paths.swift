@@ -2,7 +2,7 @@ import Services
 import Foundation
 
 extension BlockFile {
-    func originalPath(with blockId: BlockId) -> URL {
+    func originalPath(with blockId: String) -> URL {
         FileManager
             .default
             .temporaryDirectory
@@ -10,7 +10,7 @@ extension BlockFile {
             .appendingPathComponent(metadata.name)
     }
 
-    func previewPath(with blockId: BlockId) -> URL {
+    func previewPath(with blockId: String) -> URL {
         FileManager
             .default
             .temporaryDirectory

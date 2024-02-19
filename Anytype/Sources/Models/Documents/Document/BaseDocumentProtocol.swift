@@ -3,7 +3,7 @@ import Combine
 import AnytypeCore
 
 protocol BaseDocumentGeneralProtocol: AnyObject {
-    var objectId: BlockId { get }
+    var objectId: String { get }
     var spaceId: String { get }
     var details: ObjectDetails? { get }
     var detailsPublisher: AnyPublisher<ObjectDetails, Never> { get }
