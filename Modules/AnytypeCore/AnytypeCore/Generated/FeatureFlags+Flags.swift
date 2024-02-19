@@ -38,18 +38,6 @@ public extension FeatureFlags {
         value(for: .widgetsCreateObject)
     }
 
-    static var setAndCollectionInSlashMenu: Bool {
-        value(for: .setAndCollectionInSlashMenu)
-    }
-
-    static var setTextInFirstNoteBlock: Bool {
-        value(for: .setTextInFirstNoteBlock)
-    }
-
-    static var bottomNavigationAlwaysBackButton: Bool {
-        value(for: .bottomNavigationAlwaysBackButton)
-    }
-
     static var galleryInstallation: Bool {
         value(for: .galleryInstallation)
     }
@@ -128,9 +116,6 @@ public extension FeatureFlags {
         .ipadIncreaseWidth,
         .selectTypeByLongTap,
         .widgetsCreateObject,
-        .setAndCollectionInSlashMenu,
-        .setTextInFirstNoteBlock,
-        .bottomNavigationAlwaysBackButton,
         .galleryInstallation,
         .newTypePicker,
         .newDateRelationCalendarView,
