@@ -6,10 +6,6 @@
 public extension FeatureFlags {
 
     // Static value reader
-    static var setTemplateSelection: Bool {
-        value(for: .setTemplateSelection)
-    }
-
     static var setKanbanView: Bool {
         value(for: .setKanbanView)
     }
@@ -108,7 +104,6 @@ public extension FeatureFlags {
 
     // All toggles
     static let features: [FeatureDescription] = [
-        .setTemplateSelection,
         .setKanbanView,
         .fullInlineSetImpl,
         .dndOnCollectionsAndSets,

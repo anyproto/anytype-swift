@@ -4,12 +4,6 @@ import Foundation
 
 public extension FeatureDescription {
     
-    static let setTemplateSelection = FeatureDescription(
-        title: "Additional button in sets to pick needed template",
-        type: .feature(author: "db@anytype.io", releaseVersion: "0.24.0"),
-        defaultValue: true
-    )
-    
     static let setKanbanView = FeatureDescription(
         title: "Set kanban view",
         type: .feature(author: "joe_pusya@anytype.io", releaseVersion: "0.?.0"),
