@@ -42,12 +42,6 @@ public extension FeatureDescription {
         defaultValue: true
     )
     
-    static let widgetsCreateObject = FeatureDescription(
-        title: "Widgets - New object - IOS-1873",
-        type: .feature(author: "m@anytype.io", releaseVersion: "0.27.0"),
-        defaultValue: true
-    )
-    
     static let galleryInstallation = FeatureDescription(
         title: "Gallery / Experience installation - IOS-1805",
         type: .feature(author: "m@anytype.io", releaseVersion: "0.28.0"),

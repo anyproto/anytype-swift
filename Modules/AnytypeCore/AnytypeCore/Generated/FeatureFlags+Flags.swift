@@ -30,10 +30,6 @@ public extension FeatureFlags {
         value(for: .ipadIncreaseWidth)
     }
 
-    static var widgetsCreateObject: Bool {
-        value(for: .widgetsCreateObject)
-    }
-
     static var galleryInstallation: Bool {
         value(for: .galleryInstallation)
     }
@@ -110,7 +106,6 @@ public extension FeatureFlags {
         .dndOnCollectionsAndSets,
         .newCodeLanguages,
         .ipadIncreaseWidth,
-        .widgetsCreateObject,
         .galleryInstallation,
         .newTypePicker,
         .newDateRelationCalendarView,
