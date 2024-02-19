@@ -42,12 +42,6 @@ public extension FeatureDescription {
         defaultValue: true
     )
     
-    static let selectTypeByLongTap = FeatureDescription(
-        title: "Object creation flow updates - MVP - IOS-1796",
-        type: .feature(author: "m@anytype.io", releaseVersion: "0.26.0"),
-        defaultValue: true
-    )
-    
     static let widgetsCreateObject = FeatureDescription(
         title: "Widgets - New object - IOS-1873",
         type: .feature(author: "m@anytype.io", releaseVersion: "0.27.0"),
