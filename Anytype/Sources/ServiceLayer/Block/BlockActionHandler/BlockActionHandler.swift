@@ -38,11 +38,11 @@ final class BlockActionHandler: BlockActionHandlerProtocol {
 
     // MARK: - Service proxy
 
-    func turnIntoPage(blockId: BlockId) async throws -> BlockId? {
+    func turnIntoPage(blockId: String) async throws -> String? {
         try await service.turnIntoPage(blockId: blockId, spaceId: document.spaceId)
     }
     
-    func turnInto(_ style: BlockText.Style, blockId: BlockId) {
+    func turnInto(_ style: BlockText.Style, blockId: String) {
         defer { AnytypeAnalytics.instance().logChangeBlockStyle(style) }
         
         switch style {
@@ -57,7 +57,7 @@ final class BlockActionHandler: BlockActionHandlerProtocol {
         }
     }
     
-    func upload(blockId: BlockId, filePath: String) async throws {
+    func upload(blockId: String, filePath: String) async throws {
         try await service.upload(blockId: blockId, filePath: filePath)
     }
     
@@ -81,62 +81,62 @@ final class BlockActionHandler: BlockActionHandlerProtocol {
         try await objectService.applyTemplate(objectId: objectId, templateId: templateId)
     }
     
-    func setTextColor(_ color: BlockColor, blockIds: [BlockId]) {
+    func setTextColor(_ color: BlockColor, blockIds: [String]) {
         Task {
             try await blockService.setBlockColor(objectId: document.objectId, blockIds: blockIds, color: color.middleware)
         }
     }
     
-    func setBackgroundColor(_ color: BlockBackgroundColor, blockIds: [BlockId]) {
+    func setBackgroundColor(_ color: BlockBackgroundColor, blockIds: [String]) {
         AnytypeAnalytics.instance().logChangeBlockBackground(color: color.middleware)
         service.setBackgroundColor(blockIds: blockIds, color: color)
     }
     
-    func duplicate(blockId: BlockId) {
+    func duplicate(blockId: String) {
         AnytypeAnalytics.instance().logEvent(AnalyticsEventsName.blockListDuplicate)
         service.duplicate(blockId: blockId)
     }
     
-    func fetch(url: AnytypeURL, blockId: BlockId) {
+    func fetch(url: AnytypeURL, blockId: String) {
         service.bookmarkFetch(blockId: blockId, url: url)
     }
     
-    func checkbox(selected: Bool, blockId: BlockId) {
+    func checkbox(selected: Bool, blockId: String) {
         service.checked(blockId: blockId, newValue: selected)
     }
     
-    func toggle(blockId: BlockId) {
+    func toggle(blockId: String) {
         Task {
             await EventsBunch(contextId: document.objectId, localEvents: [.setToggled(blockId: blockId)])
                 .send()
         }
     }
     
-    func setAlignment(_ alignment: LayoutAlignment, blockIds: [BlockId]) {
+    func setAlignment(_ alignment: LayoutAlignment, blockIds: [String]) {
         AnytypeAnalytics.instance().logSetAlignment(alignment, isBlock: blockIds.isNotEmpty)
         Task {
             try await blockService.setAlign(objectId: document.objectId, blockIds: blockIds, alignment: alignment)
         }
     }
     
-    func delete(blockIds: [BlockId]) {
+    func delete(blockIds: [String]) {
         service.delete(blockIds: blockIds)
     }
     
-    func moveToPage(blockId: BlockId, pageId: BlockId) {
+    func moveToPage(blockId: String, pageId: String) {
         AnytypeAnalytics.instance().logMoveBlock()
         Task {
             try await blockService.moveToPage(objectId: document.objectId, blockId: blockId, pageId: pageId)
         }
     }
     
-    func createEmptyBlock(parentId: BlockId) {
+    func createEmptyBlock(parentId: String) {
         let emptyBlock = BlockInformation.emptyText
         AnytypeAnalytics.instance().logCreateBlock(type: emptyBlock.content.type)
         service.addChild(info: emptyBlock, parentId: parentId)
     }
     
-    func addLink(targetDetails: ObjectDetails, blockId: BlockId) {
+    func addLink(targetDetails: ObjectDetails, blockId: String) {
         let isBookmarkType = targetDetails.layoutValue == .bookmark
         AnytypeAnalytics.instance().logCreateLink()
         service.add(
@@ -146,7 +146,7 @@ final class BlockActionHandler: BlockActionHandlerProtocol {
         )
     }
     
-    func changeMarkup(blockIds: [BlockId], markType: MarkupType) {
+    func changeMarkup(blockIds: [String], markType: MarkupType) {
         Task {
             AnytypeAnalytics.instance().logChangeBlockStyle(markType)
             try await blockService.changeMarkup(objectId: document.objectId, blockIds: blockIds, markType: markType)
@@ -154,13 +154,13 @@ final class BlockActionHandler: BlockActionHandlerProtocol {
     }
     
     // MARK: - Markup changer proxy
-    func toggleWholeBlockMarkup(_ markup: MarkupType, blockId: BlockId) {
+    func toggleWholeBlockMarkup(_ markup: MarkupType, blockId: String) {
         guard let newText = markupChanger.toggleMarkup(markup, blockId: blockId) else { return }
         
         changeTextForced(newText, blockId: blockId)
     }
     
-    func changeTextStyle(_ attribute: MarkupType, range: NSRange, blockId: BlockId) {
+    func changeTextStyle(_ attribute: MarkupType, range: NSRange, blockId: String) {
         guard let newText = markupChanger.toggleMarkup(attribute, blockId: blockId, range: range) else { return }
 
         AnytypeAnalytics.instance().logChangeTextStyle(attribute)
@@ -168,7 +168,7 @@ final class BlockActionHandler: BlockActionHandlerProtocol {
         changeTextForced(newText, blockId: blockId)
     }
     
-    func setTextStyle(_ attribute: MarkupType, range: NSRange, blockId: BlockId, currentText: NSAttributedString?) {
+    func setTextStyle(_ attribute: MarkupType, range: NSRange, blockId: String, currentText: NSAttributedString?) {
         guard let newText = markupChanger.setMarkup(attribute, blockId: blockId, range: range, currentText: currentText)
             else { return }
 
@@ -177,7 +177,7 @@ final class BlockActionHandler: BlockActionHandlerProtocol {
         changeTextForced(newText, blockId: blockId)
     }
     
-    func setLink(url: URL?, range: NSRange, blockId: BlockId) {
+    func setLink(url: URL?, range: NSRange, blockId: String) {
         let newText: NSAttributedString?
         AnytypeAnalytics.instance().logChangeTextStyle(MarkupType.link(url))
         if let url = url {
@@ -190,7 +190,7 @@ final class BlockActionHandler: BlockActionHandlerProtocol {
         changeTextForced(newText, blockId: blockId)
     }
     
-    func setLinkToObject(linkBlockId: BlockId?, range: NSRange, blockId: BlockId) {
+    func setLinkToObject(linkBlockId: String?, range: NSRange, blockId: String) {
         let newText: NSAttributedString?
         AnytypeAnalytics.instance().logChangeTextStyle(MarkupType.linkToObject(linkBlockId))
         if let linkBlockId = linkBlockId {
@@ -211,7 +211,7 @@ final class BlockActionHandler: BlockActionHandlerProtocol {
         keyboardHandler.handle(info: info, currentString: currentText, action: action)
     }
     
-    func changeTextForced(_ text: NSAttributedString, blockId: BlockId) {
+    func changeTextForced(_ text: NSAttributedString, blockId: String) {
         let safeSendableText = SafeSendable(value: text)
         
         Task {
@@ -248,7 +248,7 @@ final class BlockActionHandler: BlockActionHandlerProtocol {
     }
     
     // MARK: - Public methods
-    func uploadMediaFile(uploadingSource: FileUploadingSource, type: MediaPickerContentType, blockId: BlockId) {
+    func uploadMediaFile(uploadingSource: FileUploadingSource, type: MediaPickerContentType, blockId: String) {
         
         Task {
             
@@ -263,7 +263,7 @@ final class BlockActionHandler: BlockActionHandlerProtocol {
         AnytypeAnalytics.instance().logUploadMedia(type: type.asFileBlockContentType)
     }
     
-    func uploadFileAt(localPath: String, blockId: BlockId) {
+    func uploadFileAt(localPath: String, blockId: String) {
         AnytypeAnalytics.instance().logUploadMedia(type: .file)
         
         Task {
@@ -276,7 +276,7 @@ final class BlockActionHandler: BlockActionHandlerProtocol {
         }
     }
     
-    func createPage(targetId: BlockId, spaceId: String, typeUniqueKey: ObjectTypeUniqueKey, templateId: String) async throws -> BlockId? {
+    func createPage(targetId: String, spaceId: String, typeUniqueKey: ObjectTypeUniqueKey, templateId: String) async throws -> String? {
         guard let info = document.infoContainer.get(id: targetId) else { return nil }
         var position: BlockPosition
         if case .text(let blockText) = info.content, blockText.text.isEmpty {
@@ -288,11 +288,11 @@ final class BlockActionHandler: BlockActionHandlerProtocol {
     }
 
     func createTable(
-        blockId: BlockId,
+        blockId: String,
         rowsCount: Int,
         columnsCount: Int,
         blockText: SafeSendable<NSAttributedString?>
-    ) async throws -> BlockId {
+    ) async throws -> String {
         guard let isTextAndEmpty = blockText.value?.string.isEmpty
                 ?? document.infoContainer.get(id: blockId)?.isTextAndEmpty else { return "" }
         
@@ -310,7 +310,7 @@ final class BlockActionHandler: BlockActionHandlerProtocol {
     }
 
 
-    func addBlock(_ type: BlockContentType, blockId: BlockId, blockText: NSAttributedString?, position: BlockPosition?) {
+    func addBlock(_ type: BlockContentType, blockId: String, blockText: NSAttributedString?, position: BlockPosition?) {
         guard type != .smartblock(.page) else {
             anytypeAssertionFailure("Use createPage func instead")
             return
@@ -332,7 +332,7 @@ final class BlockActionHandler: BlockActionHandlerProtocol {
     }
 
     func createAndFetchBookmark(
-        targetID: BlockId,
+        targetID: String,
         position: BlockPosition,
         url: AnytypeURL
     ) {
@@ -344,7 +344,7 @@ final class BlockActionHandler: BlockActionHandlerProtocol {
         )
     }
 
-    func setAppearance(blockId: BlockId, appearance: BlockLink.Appearance) {
+    func setAppearance(blockId: String, appearance: BlockLink.Appearance) {
         Task {
             try await blockService.setLinkAppearance(objectId: document.objectId, blockIds: [blockId], appearance: appearance)
         }

@@ -12,10 +12,10 @@ protocol ToastPresenterProtocol: AnyObject {
     func showObjectName(
         _ firstObjectName: String,
         middleAction: String,
-        secondObjectId: BlockId,
+        secondObjectId: String,
         tapHandler: @escaping () -> Void
     )
-    func showObjectCompositeAlert(prefixText: String, objectId: BlockId, tapHandler: @escaping () -> Void)
+    func showObjectCompositeAlert(prefixText: String, objectId: String, tapHandler: @escaping () -> Void)
 }
 
 enum ToastPresenterMode {
@@ -86,7 +86,7 @@ class ToastPresenter: ToastPresenterProtocol {
     func showObjectName(
         _ firstObjectName: String,
         middleAction: String,
-        secondObjectId: BlockId,
+        secondObjectId: String,
         tapHandler: @escaping () -> Void
     ) {
         let objectAttributedString = NSMutableAttributedString(
@@ -103,7 +103,7 @@ class ToastPresenter: ToastPresenterProtocol {
         )
     }
     
-    func showObjectCompositeAlert(prefixText: String, objectId: BlockId, tapHandler: @escaping () -> Void) {
+    func showObjectCompositeAlert(prefixText: String, objectId: String, tapHandler: @escaping () -> Void) {
         showObjectCompositeAlert(
             p1: .init(string: prefixText, attributes: ToastView.defaultAttributes),
             objectId: objectId,
@@ -147,7 +147,7 @@ class ToastPresenter: ToastPresenterProtocol {
     
     private func showObjectCompositeAlert(
         p1: NSAttributedString,
-        objectId: BlockId,
+        objectId: String,
         tapHandler: @escaping () -> Void
     ) {
         Task { @MainActor in
@@ -193,7 +193,7 @@ class ToastPresenter: ToastPresenterProtocol {
         )
     }
     
-    private func retrieveObjectDetails(objectId: BlockId) async -> ObjectDetails? {
+    private func retrieveObjectDetails(objectId: String) async -> ObjectDetails? {
         let targetDocument = documentsProvider.document(objectId: objectId, forPreview: true)
         try? await targetDocument.openForPreview()
         

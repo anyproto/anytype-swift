@@ -26,7 +26,7 @@ final class ObjectWidgetInternalViewModel: CommonWidgetInternalViewModel, Widget
     var allowCreateObject = true
     
     init(
-        widgetBlockId: BlockId,
+        widgetBlockId: String,
         widgetObject: BaseDocumentProtocol,
         subscriptionManager: TreeSubscriptionManagerProtocol,
         defaultObjectService: DefaultObjectCreationServiceProtocol,

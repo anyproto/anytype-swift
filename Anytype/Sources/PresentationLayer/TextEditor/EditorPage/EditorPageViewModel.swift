@@ -173,7 +173,7 @@ final class EditorPageViewModel: EditorPageViewModelProtocol, EditorBottomNaviga
     }
 
     private func difference(
-        with blockIds: Set<BlockId>
+        with blockIds: Set<String>
     ) -> CollectionDifference<EditorItem> {
         var currentModels = modelsHolder.items
 
@@ -312,7 +312,7 @@ extension EditorPageViewModel {
             .didSelectRowInTableView(editorEditingState: blocksStateManager.editingState)
     }
     
-    func didFinishEditing(blockId: BlockId) {
+    func didFinishEditing(blockId: String) {
         if blockId == BundledRelationKey.description.rawValue {
             AnytypeAnalytics.instance().logSetObjectDescription()
         }
@@ -348,7 +348,7 @@ extension EditorPageViewModel {
 
 // Cursor
 extension EditorPageViewModel {
-    func cursorFocus(blockId: BlockId) {
+    func cursorFocus(blockId: String) {
         cursorManager.restoreLastFocus(at: blockId)
     }
 }

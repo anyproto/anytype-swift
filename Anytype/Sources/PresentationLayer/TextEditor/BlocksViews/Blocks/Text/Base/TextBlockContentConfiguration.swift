@@ -10,7 +10,7 @@ struct TextBlockContentConfiguration: BlockConfiguration {
         let copy: (NSRange) -> Void
         let cut: (NSRange) -> Void
         let createEmptyBlock: () -> Void
-        let showPage: (BlockId) -> Void
+        let showPage: (String) -> Void
         let openURL: (URL) -> Void
 
         let changeTextStyle: (MarkupType, NSRange) -> Void
@@ -34,7 +34,7 @@ struct TextBlockContentConfiguration: BlockConfiguration {
         let tapOnCalloutIcon: () -> Void
     }
 
-    let blockId: BlockId
+    let blockId: String
     let content: BlockText
     let anytypeText: UIKitAnytypeText
     let isCheckable: Bool
@@ -48,7 +48,7 @@ struct TextBlockContentConfiguration: BlockConfiguration {
     @EquatableNoop private(set) var actions: Actions
 
     init(
-        blockId: BlockId,
+        blockId: String,
         content: BlockText,
         anytypeText: UIKitAnytypeText,
         alignment: NSTextAlignment,

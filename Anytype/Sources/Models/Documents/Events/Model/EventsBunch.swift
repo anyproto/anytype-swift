@@ -3,7 +3,7 @@ import Services
 import Foundation
 
 struct EventsBunch {
-    let contextId: BlockId
+    let contextId: String
     let middlewareEvents: [Anytype_Event.Message]
     let localEvents: [LocalEvent]
     let dataSourceEvents: [LocalEvent]
@@ -15,14 +15,14 @@ struct EventsBunch {
 
 extension EventsBunch {
 
-    init(contextId: BlockId, middlewareEvents: [Anytype_Event.Message]) {
+    init(contextId: String, middlewareEvents: [Anytype_Event.Message]) {
         self.contextId = contextId
         self.middlewareEvents = middlewareEvents
         self.localEvents = []
         self.dataSourceEvents = []
     }
 
-    init(contextId: BlockId, localEvents: [LocalEvent]) {
+    init(contextId: String, localEvents: [LocalEvent]) {
         self.contextId = contextId
         self.middlewareEvents = []
         self.localEvents = localEvents
@@ -37,7 +37,7 @@ extension EventsBunch {
         self.init(contextId: event.contextID, middlewareEvents: event.messages)
     }
 
-    init(contextId: BlockId, dataSourceUpdateEvents: [LocalEvent]) {
+    init(contextId: String, dataSourceUpdateEvents: [LocalEvent]) {
         self.init(
             contextId: contextId,
             middlewareEvents: [],

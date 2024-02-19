@@ -22,14 +22,14 @@ protocol EditorPageViewModelProtocol: AnyObject {
     func shakeMotionDidAppear()
 
     func didSelectBlock(at indexPath: IndexPath)
-    func didFinishEditing(blockId: BlockId)
+    func didFinishEditing(blockId: String)
     
     func showSettings()
     func setupSubscriptions()
     
     func showTemplates()
     
-    func cursorFocus(blockId: BlockId)
+    func cursorFocus(blockId: String)
     
     func handleSettingsAction(action: ObjectSettingsAction)
 }

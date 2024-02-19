@@ -23,7 +23,7 @@ final class PasteboardService: PasteboardServiceProtocol {
         pasteboardHelper.hasValidURL
     }
     
-    func pasteInsideBlock(focusedBlockId: BlockId,
+    func pasteInsideBlock(focusedBlockId: String,
                           range: NSRange,
                           handleLongOperation:  @escaping () -> Void,
                           completion: @escaping (_ pasteResult: PasteboardPasteResult?) -> Void) {
@@ -31,7 +31,7 @@ final class PasteboardService: PasteboardServiceProtocol {
         paste(context: context, handleLongOperation: handleLongOperation, completion: completion)
     }
     
-    func pasteInSelectedBlocks(selectedBlockIds: [BlockId],
+    func pasteInSelectedBlocks(selectedBlockIds: [String],
                                handleLongOperation:  @escaping () -> Void,
                                completion: @escaping (_ pasteResult: PasteboardPasteResult?) -> Void) {
         let context = PasteboardActionContext.selected(selectedBlockIds)
@@ -66,7 +66,7 @@ final class PasteboardService: PasteboardServiceProtocol {
         .store(in: &tasks)
     }
     
-    func copy(blocksIds: [BlockId], selectedTextRange: NSRange) async throws {
+    func copy(blocksIds: [String], selectedTextRange: NSRange) async throws {
         let blockInformations = blocksIds.compactMap { document.infoContainer.get(id: $0) }
         if let result = try await pasteboardMiddlewareService.copy(
             blockInformations: blockInformations,
@@ -77,7 +77,7 @@ final class PasteboardService: PasteboardServiceProtocol {
         }
     }
     
-    func cut(blocksIds: [BlockId], selectedTextRange: NSRange) async throws {
+    func cut(blocksIds: [String], selectedTextRange: NSRange) async throws {
         let blockInformations = blocksIds.compactMap { document.infoContainer.get(id: $0) }
         if let result = try await pasteboardMiddlewareService.cut(blockInformations: blockInformations, objectId: document.objectId, selectedTextRange: selectedTextRange) {
             pasteboardHelper.setItems(textSlot: result.textSlot, htmlSlot: result.htmlSlot, blocksSlots: result.blockSlot)

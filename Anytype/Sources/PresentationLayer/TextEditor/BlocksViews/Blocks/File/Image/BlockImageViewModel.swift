@@ -13,14 +13,14 @@ struct BlockImageViewModel: BlockViewModelProtocol {
     let fileData: BlockFile
     let handler: BlockActionHandlerProtocol
     
-    let showIconPicker: Action<BlockId>
+    let showIconPicker: Action<String>
     let onImageOpen: Action<FilePreviewContext>?
     
     init?(
         info: BlockInformation,
         fileData: BlockFile,
         handler: BlockActionHandlerProtocol,
-        showIconPicker: @escaping (BlockId) -> (),
+        showIconPicker: @escaping (String) -> (),
         onImageOpen: Action<FilePreviewContext>?
     ) {
         guard fileData.contentType == .image else {
