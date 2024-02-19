@@ -18,10 +18,6 @@ public extension FeatureFlags {
         value(for: .dndOnCollectionsAndSets)
     }
 
-    static var ipadIncreaseWidth: Bool {
-        value(for: .ipadIncreaseWidth)
-    }
-
     static var selectTypeByLongTap: Bool {
         value(for: .selectTypeByLongTap)
     }
@@ -103,7 +99,6 @@ public extension FeatureFlags {
         .setKanbanView,
         .fullInlineSetImpl,
         .dndOnCollectionsAndSets,
-        .ipadIncreaseWidth,
         .selectTypeByLongTap,
         .widgetsCreateObject,
         .galleryInstallation,

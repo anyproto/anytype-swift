@@ -34,11 +34,7 @@ final class MentionView: DismissableInputAccessoryView {
         
         controller.addChild(mentionsController)
         addSubview(mentionsController.view) {
-            if FeatureFlags.ipadIncreaseWidth {
-                $0.pinToSuperview(excluding: [.top])
-            } else {
-                $0.pinToSuperviewPreservingReadability(excluding: [.top])
-            }
+            $0.pinToSuperview(excluding: [.top])
             $0.top.equal(to: topSeparator?.bottomAnchor ?? topAnchor)
         }
         mentionsController.didMove(toParent: controller)

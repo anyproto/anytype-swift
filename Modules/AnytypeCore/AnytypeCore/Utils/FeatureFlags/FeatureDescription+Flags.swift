@@ -24,12 +24,6 @@ public extension FeatureDescription {
         defaultValue: false
     )
     
-    static let ipadIncreaseWidth = FeatureDescription(
-        title: "iPad width",
-        type: .feature(author: "m@anytype.io", releaseVersion: "0.26.0"),
-        defaultValue: true
-    )
-    
     static let selectTypeByLongTap = FeatureDescription(
         title: "Object creation flow updates - MVP - IOS-1796",
         type: .feature(author: "m@anytype.io", releaseVersion: "0.26.0"),
