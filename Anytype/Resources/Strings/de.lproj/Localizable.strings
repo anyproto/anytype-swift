@@ -62,7 +62,7 @@
 "BlockLink.PreviewSettings.Layout.Text.Title" = "Text";
 
 // MARK: - Settings
-"Settings.Title" = "Persönlicher Space";
+"Settings.Title" = "Einstellungen";
 "Settings.SpaceName" = "Space-Name";
 
 // MARK: - Object
@@ -259,7 +259,7 @@
 
 "Auth.JoinFlow.Creating.Soul.Title" = "Neues Konto erstellen";
 "Auth.JoinFlow.Setting.Space.Title" = "Einrichtung deines persönlichen Spaces";
-"Auth.JoinFlow.Personal.Space.Title" = "Persönlicher Space";
+"Auth.JoinFlow.Personal.Space.Title" = "Einstellungen";
 
 // Auth - Login flow
 "Auth.LoginFlow.Use.Keychain.Title" = "Schlüsselbund verwenden";
@@ -810,7 +810,7 @@
 "ClearCache.Error" = "Fehler. Versuchen Sie es später noch einmal";
 
 // MARK: - Settings
-"Settings.TitleLegacy" = "Persönlicher Space";
+"Settings.TitleLegacy" = "Einstellungen";
 "Settings.Title" = "Einstellungen";
 "Settings.SpaceName" = "Space-Name";
 "Settings.AccountAndAccess" = "Konto und Zugriff";
@@ -847,7 +847,7 @@
 // MARK: - Spaces
 "Spaces.Accessibility.Public" = "Öffentlicher Raum";
 "Spaces.Accessibility.Private" = "Privater Raum";
-"Spaces.Accessibility.Personal" = "Persönlicher Space";
+"Spaces.Accessibility.Personal" = "Einstellungen";
 "Spaces.Search.Title" = "Spaces suchen";
 
 // MARK: - Space Settings
