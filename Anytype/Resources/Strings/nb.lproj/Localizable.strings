@@ -753,10 +753,6 @@
 "Content.DataView.InlineCollection.Untitled" = "Navnløs samling";
 "Content.DataView.InlineSet.Toast.Failure" = "Dette innfelte settet har ingen kilde";
 
-// MARK: - Widget extension
-"WidgetExtension.LockScreen.Title" = "Nytt objekt";
-"WidgetExtension.LockScreen.Description" = "Opprett et nytt objekt på direkten";
-
 // MARK: - Toast
 "Editor.Toast.LinkedTo" = "koblet til";
 "Editor.Toast.MovedTo" = "Blokk flyttet til";
@@ -861,16 +857,19 @@
 "SpaceSettings.DeleteAlert.Title" = "Slett ’%@’ rommet";
 "SpaceSettings.DeleteAlert.Message" = "Dette rommet vil bli slettet ugjenkallelig. Du kan ikke angre denne handlingen.";
 "SpaceSettings.DeleteButton" = "Slett rom";
-"SpaceSettings.Sharing" = "Sharing";
+"SpaceSettings.Sharing" = "Deling";
 "SpaceSettings.Share" = "Del";
 
 // MARK: - Space Share
 
-"SpaceShare.Title" = "Share space";
-"SpaceShare.MembersSection" = "Members and requests";
-"SpaceShare.Permissions.Owner" = "Owner";
-"SpaceShare.Permissions.Reader" = "Can view";
-"SpaceShare.Permissions.Writer" = "Can edit";
+"SpaceShare.Title" = "Del rom";
+"SpaceShare.MembersSection" = "Medlemmer og forespørsler";
+"SpaceShare.Permissions.Owner" = "Eier";
+"SpaceShare.Permissions.Reader" = "Kan se";
+"SpaceShare.Permissions.Writer" = "Kan redigere";
+"SpaceShare.Invite.Title" = "Invite link";
+"SpaceShare.Invite.Description" = "Send this link to invite others. Assign access rights upon their request approval";
+"SpaceShare.Invite.Button" = "Share invite link";
 
 // MARK: - Space Create
 "SpaceCreate.Title" = "Opprett et rom";
