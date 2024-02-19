@@ -10,8 +10,8 @@ struct ShareCoordinatorView: View {
         NavigationView {
             model.shareModule()
         }
-        .sheet(item: $model.showSearchData) { data in
-            model.searchModule(data: data)
+        .sheet(item: $model.showSearchObjectData) { data in
+            model.searchObjectModule(data: data)
         }
         .sheet(item: $model.showSpaceSearchData) { data in
             model.searchSpaceModule(data: data)
