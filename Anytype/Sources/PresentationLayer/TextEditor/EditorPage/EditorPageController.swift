@@ -487,11 +487,7 @@ private extension EditorPageController {
     
     func setupLayout() {
         view.addSubview(collectionView) {
-            if FeatureFlags.ipadIncreaseWidth {
-                $0.pinToSuperview()
-            } else {
-                $0.pinToSuperviewPreservingReadability()
-            }
+            $0.pinToSuperview()
         }
 
         view.addSubview(blocksSelectionOverlayView) {

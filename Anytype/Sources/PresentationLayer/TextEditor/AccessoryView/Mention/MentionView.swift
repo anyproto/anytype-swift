@@ -24,7 +24,7 @@ final class MentionView: DismissableInputAccessoryView {
         
         controller.addChild(mentionsController)
         addSubview(mentionsController.view) {
-            $0.pinToSuperviewPreservingReadability(excluding: [.top])
+            $0.pinToSuperview(excluding: [.top])
             $0.top.equal(to: topSeparator?.bottomAnchor ?? topAnchor)
         }
         mentionsController.didMove(toParent: controller)

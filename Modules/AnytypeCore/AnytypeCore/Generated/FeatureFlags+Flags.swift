@@ -6,10 +6,6 @@
 public extension FeatureFlags {
 
     // Static value reader
-    static var setTemplateSelection: Bool {
-        value(for: .setTemplateSelection)
-    }
-
     static var setKanbanView: Bool {
         value(for: .setKanbanView)
     }
@@ -20,14 +16,6 @@ public extension FeatureFlags {
 
     static var dndOnCollectionsAndSets: Bool {
         value(for: .dndOnCollectionsAndSets)
-    }
-
-    static var newCodeLanguages: Bool {
-        value(for: .newCodeLanguages)
-    }
-
-    static var ipadIncreaseWidth: Bool {
-        value(for: .ipadIncreaseWidth)
     }
 
     static var galleryInstallation: Bool {
@@ -100,12 +88,9 @@ public extension FeatureFlags {
 
     // All toggles
     static let features: [FeatureDescription] = [
-        .setTemplateSelection,
         .setKanbanView,
         .fullInlineSetImpl,
         .dndOnCollectionsAndSets,
-        .newCodeLanguages,
-        .ipadIncreaseWidth,
         .galleryInstallation,
         .newTypePicker,
         .newDateRelationCalendarView,
