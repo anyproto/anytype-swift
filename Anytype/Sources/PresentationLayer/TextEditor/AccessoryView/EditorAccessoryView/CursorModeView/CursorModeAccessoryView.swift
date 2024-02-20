@@ -19,11 +19,7 @@ class CursorModeAccessoryView: UIView {
         autoresizingMask = .flexibleHeight
         backgroundColor = .Background.primary
         addSubview(stackView) {
-            if FeatureFlags.ipadIncreaseWidth {
-                $0.pinToSuperview()
-            } else {
-                $0.pinToSuperviewPreservingReadability()
-            }
+            $0.pinToSuperview()
         }
     }
     
