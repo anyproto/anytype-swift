@@ -9,7 +9,7 @@ final class ShareCoordinatorViewModel: ObservableObject, ShareOptionsModuleOutpu
     private let searchModuleAssembly: SearchModuleAssemblyProtocol
     private let activeWorkspaceStorage: ActiveWorkpaceStorageProtocol
     
-    @Published var showSearchData: SearchModuleModel?
+    @Published var showSearchObjectData: SearchModuleModel?
     @Published var showSpaceSearchData: SearchSpaceModel?
     @Published var dismiss = false
     
@@ -31,7 +31,7 @@ final class ShareCoordinatorViewModel: ObservableObject, ShareOptionsModuleOutpu
         return searchModuleAssembly.makeSpaceSearch(data: data)
     }
     
-    func searchModule(data: SearchModuleModel) -> AnyView {
+    func searchObjectModule(data: SearchModuleModel) -> AnyView {
         return searchModuleAssembly.makeObjectSearch(data: data)
     }
     
@@ -42,6 +42,6 @@ final class ShareCoordinatorViewModel: ObservableObject, ShareOptionsModuleOutpu
     }
     
     func onDocumentSelection(data: SearchModuleModel) {
-        showSearchData = data
+        showSearchObjectData = data
     }
 }

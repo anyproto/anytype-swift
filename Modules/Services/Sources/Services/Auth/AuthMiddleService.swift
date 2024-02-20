@@ -95,7 +95,7 @@ public final class AuthMiddleService: AuthMiddleServiceProtocol {
             let response = try await ClientCommands.accountSelect(.with {
                 $0.id = id
                 $0.rootPath = rootPath
-                $0.disableLocalNetworkSync = true
+                $0.disableLocalNetworkSync = false
                 $0.networkMode = networkMode
                 $0.networkCustomConfigFilePath = configPath ?? ""
             }).invoke()

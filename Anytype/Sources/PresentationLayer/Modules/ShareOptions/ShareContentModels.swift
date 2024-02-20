@@ -1,5 +1,6 @@
 import Foundation
 import Services
+import AnytypeCore
 
 struct ShareContentCounter {
     var textCount: Int
@@ -33,9 +34,9 @@ enum ShareSaveAsType {
     var supportedLayouts: [DetailsLayout] {
         switch self {
         case .object, .container:
-            return DetailsLayout.editorLayouts + [.collection]
+            return DetailsLayout.editorLayouts + [.collection] - [.participant]
         case .block:
-            return DetailsLayout.editorLayouts
+            return DetailsLayout.editorLayouts - [.participant]
         }
     }
 }

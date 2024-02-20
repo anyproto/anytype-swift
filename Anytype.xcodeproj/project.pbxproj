@@ -1326,6 +1326,7 @@
 		3DE6924F27301C3E00A4CD4E /* AccessoryViewType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DE6924E27301C3E00A4CD4E /* AccessoryViewType.swift */; };
 		3DE6926827302D5800A4CD4E /* AccessoryViewStateManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DE6926727302D5800A4CD4E /* AccessoryViewStateManager.swift */; };
 		3DE6E3C026542151008FB0AF /* UIVIewController+Child.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DE6E3BF26542151008FB0AF /* UIVIewController+Child.swift */; };
+		3DF418BB2B7CEF8B00C414D6 /* WidgetSwipeTip.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DF418BA2B7CEF8B00C414D6 /* WidgetSwipeTip.swift */; };
 		3DF6F628262EDA31000E05A5 /* DebugMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DF6F627262EDA31000E05A5 /* DebugMenu.swift */; };
 		3DF80F3326EF8552000492F3 /* EmptyToggleButtonBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DF80F3226EF8552000492F3 /* EmptyToggleButtonBuilder.swift */; };
 		3DF80F3726EF8F5C000492F3 /* TextBlockLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DF80F3626EF8F5C000492F3 /* TextBlockLayout.swift */; };
@@ -3081,6 +3082,7 @@
 		3DE6924E27301C3E00A4CD4E /* AccessoryViewType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccessoryViewType.swift; sourceTree = "<group>"; };
 		3DE6926727302D5800A4CD4E /* AccessoryViewStateManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccessoryViewStateManager.swift; sourceTree = "<group>"; };
 		3DE6E3BF26542151008FB0AF /* UIVIewController+Child.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIVIewController+Child.swift"; sourceTree = "<group>"; };
+		3DF418BA2B7CEF8B00C414D6 /* WidgetSwipeTip.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WidgetSwipeTip.swift; sourceTree = "<group>"; };
 		3DF6F627262EDA31000E05A5 /* DebugMenu.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DebugMenu.swift; sourceTree = "<group>"; };
 		3DF80F3226EF8552000492F3 /* EmptyToggleButtonBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmptyToggleButtonBuilder.swift; sourceTree = "<group>"; };
 		3DF80F3626EF8F5C000492F3 /* TextBlockLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextBlockLayout.swift; sourceTree = "<group>"; };
@@ -5545,6 +5547,7 @@
 		2A4919A629530AD200FCEAC9 /* Widgets */ = {
 			isa = PBXGroup;
 			children = (
+				3DF418B92B7CE63800C414D6 /* Tips */,
 				2A2B33312A7BE5BB004BD906 /* Space */,
 				2AC906C829B6093A00209E39 /* SpecificInternalModels */,
 				2AD7411F2993DB27004BD223 /* BinLink */,
@@ -8807,6 +8810,14 @@
 			path = Model;
 			sourceTree = "<group>";
 		};
+		3DF418B92B7CE63800C414D6 /* Tips */ = {
+			isa = PBXGroup;
+			children = (
+				3DF418BA2B7CEF8B00C414D6 /* WidgetSwipeTip.swift */,
+			);
+			path = Tips;
+			sourceTree = "<group>";
+		};
 		3DF80F3C26EFA365000492F3 /* Stylers */ = {
 			isa = PBXGroup;
 			children = (
@@ -11476,6 +11487,7 @@
 				3DC9F261266018B000B115B9 /* StandardButton.swift in Sources */,
 				1244791427D8A37000581174 /* NewSearchView.swift in Sources */,
 				2A0B7151297697230003B1C5 /* HomeEditButtonStyle.swift in Sources */,
+				3DF418BB2B7CEF8B00C414D6 /* WidgetSwipeTip.swift in Sources */,
 				2AD7412E2993E1EF004BD223 /* HomeWidgetCommonProviderAssembly.swift in Sources */,
 				C9CD66A427EAFD3E001F1860 /* GridItemViewModel.swift in Sources */,
 				2A2DDBA52B67D0E400EA3F47 /* CommonNotificationAssembly.swift in Sources */,

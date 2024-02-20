@@ -2054,6 +2054,14 @@ internal enum Loc {
       }
     }
   }
+  internal enum Swipe {
+    internal enum Tip {
+      /// Create objects inside widgets by easily swiping them left.
+      internal static let subtitle = Loc.tr("Localizable", "Swipe.Tip.Subtitle", fallback: "Create objects inside widgets by easily swiping them left.")
+      /// Swipe to Create Objects
+      internal static let title = Loc.tr("Localizable", "Swipe.Tip.Title", fallback: "Swipe to Create Objects")
+    }
+  }
   internal enum Sync {
     internal enum Status {
       internal enum Version {

@@ -20,7 +20,12 @@ struct WidgetContainerView<Content: View, ContentVM: WidgetContainerContentViewM
         WidgetSwipeActionView(
             isEnable: contentModel.allowCreateObject,
             showTitle: model.isExpanded,
-            action: { contentModel.onCreateObjectTap() }
+            action: {
+                if #available(iOS 17.0, *) {
+                    WidgetSwipeTip().invalidate(reason: .actionPerformed)
+                }
+                contentModel.onCreateObjectTap()
+            }
         ) {
             LinkWidgetViewContainer(
                 title: contentModel.name,
