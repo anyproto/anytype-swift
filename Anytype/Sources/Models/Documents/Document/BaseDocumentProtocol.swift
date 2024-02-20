@@ -5,7 +5,7 @@ import AnytypeCore
 protocol BaseDocumentGeneralProtocol: AnyObject {
     var syncStatus: AnyPublisher<SyncStatus, Never> { get }
     
-    var objectId: BlockId { get }
+    var objectId: String { get }
     var spaceId: String { get }
     var details: ObjectDetails? { get }
     var detailsPublisher: AnyPublisher<ObjectDetails, Never> { get }
@@ -36,5 +36,5 @@ protocol BaseDocumentProtocol: AnyObject, BaseDocumentGeneralProtocol {
     var parsedRelationsPublisher: AnyPublisher<ParsedRelations, Never> { get }
     var childrenPublisher: AnyPublisher<[BlockInformation], Never> { get }
     var syncPublisher: AnyPublisher<Void, Never> { get }
-    var resetBlocksSubject: PassthroughSubject<Set<BlockId>, Never> { get }
+    var resetBlocksSubject: PassthroughSubject<Set<String>, Never> { get }
 }

@@ -4,10 +4,10 @@ import AnytypeCore
 enum DocumentUpdate: Hashable {
     case general
     case syncStatus(SyncStatus)
-    case blocks(blockIds: Set<BlockId>)
-    case children(blockIds: Set<BlockId>)
-    case details(id: BlockId)
-    case unhandled(blockIds: Set<BlockId>)
+    case blocks(blockIds: Set<String>)
+    case children(blockIds: Set<String>)
+    case details(id: String)
+    case unhandled(blockIds: Set<String>)
 
     var hasUpdate: Bool {
         switch self {

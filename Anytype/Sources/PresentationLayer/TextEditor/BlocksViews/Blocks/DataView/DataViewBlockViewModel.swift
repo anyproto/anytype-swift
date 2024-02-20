@@ -7,12 +7,12 @@ final class ObjectDetailsInfomationProvider {
     @Published private(set) var details: ObjectDetails?
     
     private let detailsStorage: ObjectDetailsStorage
-    private let targetObjectId: BlockId
+    private let targetObjectId: String
     private var subscription: AnyCancellable?
     
     init(
         detailsStorage: ObjectDetailsStorage,
-        targetObjectId: BlockId,
+        targetObjectId: String,
         details: ObjectDetails?
     ) {
         self.detailsStorage = detailsStorage

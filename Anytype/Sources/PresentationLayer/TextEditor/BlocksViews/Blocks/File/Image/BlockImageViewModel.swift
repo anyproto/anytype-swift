@@ -13,7 +13,7 @@ struct BlockImageViewModel: BlockViewModelProtocol {
     let blockInformationProvider: BlockModelInfomationProvider
     let handler: BlockActionHandlerProtocol
     
-    let showIconPicker: Action<BlockId>
+    let showIconPicker: Action<String>
     let onImageOpen: Action<FilePreviewContext>?
     
     var fileData: BlockFile? {
@@ -31,7 +31,7 @@ struct BlockImageViewModel: BlockViewModelProtocol {
     init?(
         blockInformationProvider: BlockModelInfomationProvider,
         handler: BlockActionHandlerProtocol,
-        showIconPicker: @escaping (BlockId) -> (),
+        showIconPicker: @escaping (String) -> (),
         onImageOpen: Action<FilePreviewContext>?
     ) {
         self.blockInformationProvider = blockInformationProvider

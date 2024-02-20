@@ -95,7 +95,7 @@ final class BlockActionHandlerMock: BlockActionHandlerProtocol {
         assertionFailure()
     }
     
-    func addLink(targetDetails: ObjectDetails, blockId: BlockId) {
+    func addLink(targetDetails: ObjectDetails, blockId: String) {
         assertionFailure()
     }
     

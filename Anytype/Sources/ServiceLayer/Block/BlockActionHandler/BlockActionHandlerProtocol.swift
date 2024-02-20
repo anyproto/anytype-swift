@@ -3,45 +3,45 @@ import Services
 import AnytypeCore
 
 protocol BlockActionHandlerProtocol: AnyObject {
-    func turnInto(_ style: BlockText.Style, blockId: BlockId)
+    func turnInto(_ style: BlockText.Style, blockId: String)
     @discardableResult
     func turnIntoPage(blockId: String) async throws -> String?
     
-    func setTextColor(_ color: BlockColor, blockIds: [BlockId])
-    func setBackgroundColor(_ color: BlockBackgroundColor, blockIds: [BlockId])
-    func duplicate(blockId: BlockId)
-    func fetch(url: AnytypeURL, blockId: BlockId) async throws
-    func checkbox(selected: Bool, blockId: BlockId)
-    func toggle(blockId: BlockId)
-    func setAlignment(_ alignment: LayoutAlignment, blockIds: [BlockId])
-    func delete(blockIds: [BlockId])
-    func moveToPage(blockId: BlockId, pageId: BlockId)
-    func createEmptyBlock(parentId: BlockId)
-    func addLink(targetDetails: ObjectDetails, blockId: BlockId)
-    func changeMarkup(blockIds: [BlockId], markType: MarkupType)
-    func addBlock(_ type: BlockContentType, blockId: BlockId, blockText: NSAttributedString?, position: BlockPosition?)
+    func setTextColor(_ color: BlockColor, blockIds: [String])
+    func setBackgroundColor(_ color: BlockBackgroundColor, blockIds: [String])
+    func duplicate(blockId: String)
+    func fetch(url: AnytypeURL, blockId: String) async throws
+    func checkbox(selected: Bool, blockId: String)
+    func toggle(blockId: String)
+    func setAlignment(_ alignment: LayoutAlignment, blockIds: [String])
+    func delete(blockIds: [String])
+    func moveToPage(blockId: String, pageId: String)
+    func createEmptyBlock(parentId: String)
+    func addLink(targetDetails: ObjectDetails, blockId: String)
+    func changeMarkup(blockIds: [String], markType: MarkupType)
+    func addBlock(_ type: BlockContentType, blockId: String, blockText: NSAttributedString?, position: BlockPosition?)
     func toggleWholeBlockMarkup(
         _ attributedString: NSAttributedString?,
         markup: MarkupType,
         info: BlockInformation
     ) -> NSAttributedString?
-    func upload(blockId: BlockId, filePath: String) async throws
-    func createPage(targetId: BlockId, spaceId: String, typeUniqueKey: ObjectTypeUniqueKey, templateId: String) async throws -> BlockId?
+    func upload(blockId: String, filePath: String) async throws
+    func createPage(targetId: String, spaceId: String, typeUniqueKey: ObjectTypeUniqueKey, templateId: String) async throws -> String?
 
     func setObjectType(type: ObjectType) async throws
     func setObjectSetType() async throws
     func setObjectCollectionType() async throws
     func applyTemplate(objectId: String, templateId: String) async throws
-    func changeText(_ text: NSAttributedString, blockId: BlockId)
+    func changeText(_ text: NSAttributedString, blockId: String)
     func setTextStyle(
         _ attribute: MarkupType,
         range: NSRange,
-        blockId: BlockId,
+        blockId: String,
         currentText: NSAttributedString?,
         contentType: BlockContentType
     )
-    func uploadMediaFile(uploadingSource: FileUploadingSource, type: MediaPickerContentType, blockId: BlockId)
-    func uploadFileAt(localPath: String, blockId: BlockId)
+    func uploadMediaFile(uploadingSource: FileUploadingSource, type: MediaPickerContentType, blockId: String)
+    func uploadFileAt(localPath: String, blockId: String)
     func createAndFetchBookmark(
         targetID: String,
         position: BlockPosition,

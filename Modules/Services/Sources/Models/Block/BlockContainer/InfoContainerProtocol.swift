@@ -2,9 +2,9 @@ import Combine
 
 public protocol InfoContainerProtocol: AnyObject {
     
-    func publisherFor(id: BlockId) -> AnyPublisher<BlockInformation?, Never>
+    func publisherFor(id: String) -> AnyPublisher<BlockInformation?, Never>
     func publishAllValues()
-    func publishValue(for key: BlockId)
+    func publishValue(for key: String)
     
     func children(of id: String) -> [BlockInformation]
     func recursiveChildren(of id: String) -> [BlockInformation]

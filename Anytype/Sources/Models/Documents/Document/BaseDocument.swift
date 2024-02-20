@@ -10,10 +10,10 @@ final class BaseDocument: BaseDocumentProtocol {
     var childrenPublisher: AnyPublisher<[BlockInformation], Never> { $_children.eraseToAnyPublisher() }
     @Published private var _children = [BlockInformation]()
     
-    private var _resetBlocksSubject = PassthroughSubject<Set<BlockId>, Never>()
-    var resetBlocksSubject: PassthroughSubject<Set<BlockId>, Never> { _resetBlocksSubject }
+    private var _resetBlocksSubject = PassthroughSubject<Set<String>, Never>()
+    var resetBlocksSubject: PassthroughSubject<Set<String>, Never> { _resetBlocksSubject }
     
-    let objectId: BlockId
+    let objectId: String
     private(set) var isOpened = false
     let forPreview: Bool
     
@@ -90,7 +90,7 @@ final class BaseDocument: BaseDocumentProtocol {
     }
     
     init(
-        objectId: BlockId,
+        objectId: String,
         forPreview: Bool,
         objectLifecycleService: ObjectLifecycleServiceProtocol,
         relationDetailsStorage: RelationDetailsStorageProtocol,
@@ -239,9 +239,9 @@ final class BaseDocument: BaseDocumentProtocol {
 private extension Array where Element == DocumentUpdate {
     var merged: Self {
         if contains(.general) { return [.general] }
-        var childIds = Set<BlockId>()
-        var blockIds = Set<BlockId>()
-        var unhandled = Set<BlockId>()
+        var childIds = Set<String>()
+        var blockIds = Set<String>()
+        var unhandled = Set<String>()
         
         var output = [DocumentUpdate]()
         

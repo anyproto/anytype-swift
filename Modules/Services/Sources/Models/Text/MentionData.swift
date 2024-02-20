@@ -2,7 +2,7 @@ import AnytypeCore
 
 public struct MentionObject: Equatable, Hashable {
     public let details: ObjectDetails
-    public var id: BlockId { details.id }
+    public var id: String { details.id }
 
     
     public init(details: ObjectDetails) {
@@ -21,7 +21,7 @@ public extension MentionObject {
 }
 
 extension MentionObject {
-    public static func noDetails(blockId: BlockId) -> MentionObject {
+    public static func noDetails(blockId: String) -> MentionObject {
         MentionObject(details: .init(id: blockId))
     }
 }

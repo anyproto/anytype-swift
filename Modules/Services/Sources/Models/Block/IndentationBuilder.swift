@@ -7,7 +7,7 @@ public enum IndentationBuilder {
 
     private static func privateBuild(
         container: InfoContainerProtocol,
-        id: BlockId
+        id: String
     ) {
         if let parent = container.get(id: id) {
             var updatedBlockNumber = 0

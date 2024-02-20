@@ -60,7 +60,7 @@ extension BaseDocumentProtocol {
         return enhancedRelations
     }
     
-    var flattenBlockIds: AnyPublisher<[BlockId], Never> {
+    var flattenBlockIds: AnyPublisher<[String], Never> {
         childrenPublisher
             .map { $0.map { $0.id } }
             .removeDuplicates()

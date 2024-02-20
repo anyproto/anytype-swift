@@ -6,7 +6,7 @@ import AnytypeCore
 final class SimpleTablesTextBlockActionHandler: TextBlockActionHandlerProtocol {
     var info: BlockInformation
     
-    let showPage: (BlockId) -> Void
+    let showPage: (String) -> Void
     let openURL: (URL) -> Void
     private let onShowStyleMenu: (BlockInformation) -> Void
     private let onEnterSelectionMode: (BlockInformation) -> Void
@@ -49,7 +49,7 @@ final class SimpleTablesTextBlockActionHandler: TextBlockActionHandlerProtocol {
         accessoryViewStateManager: AccessoryViewStateManager,
         markupChanger: BlockMarkupChangerProtocol,
         responderScrollViewHelper: ResponderScrollViewHelper,
-        showPage: @escaping (BlockId) -> Void,
+        showPage: @escaping (String) -> Void,
         openURL: @escaping (URL) -> Void,
         onShowStyleMenu: @escaping (BlockInformation) -> Void,
         onEnterSelectionMode: @escaping (BlockInformation) -> Void,

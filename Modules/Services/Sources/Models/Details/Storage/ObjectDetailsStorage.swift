@@ -6,7 +6,7 @@ import Combine
 
 public final class ObjectDetailsStorage {
     
-    fileprivate var storage = PassthroughSubjectDictionary<BlockId, ObjectDetails>()
+    fileprivate var storage = PassthroughSubjectDictionary<String, ObjectDetails>()
     
     public init() {}
         
@@ -39,7 +39,7 @@ public final class ObjectDetailsStorage {
 }
 
 public extension ObjectDetailsStorage {
-    func publisherFor(id: BlockId) -> AnyPublisher<ObjectDetails?, Never> {
+    func publisherFor(id: String) -> AnyPublisher<ObjectDetails?, Never> {
         storage.publisher(id)
     }
 }

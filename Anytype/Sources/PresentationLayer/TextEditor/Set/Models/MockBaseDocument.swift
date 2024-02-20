@@ -11,11 +11,11 @@ import Foundation
 import Combine
 
 final class MockBaseDocument: BaseDocumentProtocol {    
-    var resetBlocksSubject: PassthroughSubject<Set<Services.BlockId>, Never> { fatalError() }
+    var resetBlocksSubject: PassthroughSubject<Set<String>, Never> { fatalError() }
     
     var childrenPublisher: AnyPublisher<[Services.BlockInformation], Never> { fatalError() }
     
-    func publisher(for blockId: Services.BlockId) -> AnyPublisher<Services.BlockInformation?, Never> {
+    func publisher(for blockId: String) -> AnyPublisher<Services.BlockInformation?, Never> {
         fatalError()
     }
     

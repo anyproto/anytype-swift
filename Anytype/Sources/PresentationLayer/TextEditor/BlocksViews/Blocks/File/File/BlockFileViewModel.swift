@@ -9,13 +9,13 @@ final class BlockFileViewModel: BlockViewModelProtocol {
     
     let informationProvider: BlockModelInfomationProvider
     let handler: BlockActionHandlerProtocol
-    let showFilePicker: (BlockId) -> ()
+    let showFilePicker: (String) -> ()
     let onFileOpen: (FilePreviewContext) -> ()
     
     init(
         informationProvider: BlockModelInfomationProvider,
         handler: BlockActionHandlerProtocol,
-        showFilePicker: @escaping (BlockId) -> (),
+        showFilePicker: @escaping (String) -> (),
         onFileOpen: @escaping (FilePreviewContext) -> ()
     ) {
         self.informationProvider = informationProvider

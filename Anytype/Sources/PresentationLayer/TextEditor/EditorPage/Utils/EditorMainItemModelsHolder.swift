@@ -51,7 +51,7 @@ extension EditorMainItemModelsHolder {
         return block
     }
     
-    func contentProvider(for blockId: BlockId) -> BlockViewModelProtocol? {
+    func contentProvider(for blockId: String) -> BlockViewModelProtocol? {
         blocksMapping[blockId]
     }
     

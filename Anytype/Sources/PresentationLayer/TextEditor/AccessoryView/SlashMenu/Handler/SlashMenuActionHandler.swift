@@ -101,7 +101,7 @@ final class SlashMenuActionHandler {
         }
     }
     
-    private func handleAlignment(_ alignment: SlashActionAlignment, blockIds: [BlockId]) {
+    private func handleAlignment(_ alignment: SlashActionAlignment, blockIds: [String]) {
         switch alignment {
         case .left :
             actionHandler.setAlignment(.left, blockIds: blockIds)
@@ -176,7 +176,7 @@ final class SlashMenuActionHandler {
         }
     }
     
-    private func handleActions(_ action: BlockAction, textView: UITextView?, blockId: BlockId) {
+    private func handleActions(_ action: BlockAction, textView: UITextView?, blockId: String) {
         switch action {
         case .delete:
             actionHandler.delete(blockIds: [blockId])

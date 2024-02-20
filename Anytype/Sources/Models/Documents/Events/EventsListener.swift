@@ -12,7 +12,7 @@ final class EventsListener: EventsListenerProtocol {
         
     // MARK: - Private variables
     
-    private let objectId: BlockId
+    private let objectId: String
      
     private let infoContainer: InfoContainerProtocol
     
@@ -26,7 +26,7 @@ final class EventsListener: EventsListenerProtocol {
     // MARK: - Initializers
     
     init(
-        objectId: BlockId,
+        objectId: String,
         infoContainer: InfoContainerProtocol,
         relationLinksStorage: RelationLinksStorageProtocol,
         restrictionsContainer: ObjectRestrictionsContainer,

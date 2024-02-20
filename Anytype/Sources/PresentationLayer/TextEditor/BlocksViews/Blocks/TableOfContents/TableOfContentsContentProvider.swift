@@ -12,7 +12,7 @@ final class TableOfContentsContentProvider {
     
     private let document: BaseDocumentProtocol
     private lazy var subscriptions = [AnyCancellable]()
-    private lazy var blockSubscriptions = [BlockId: AnyCancellable]()
+    private lazy var blockSubscriptions = [String: AnyCancellable]()
     
     // MARK: - Public properties
     

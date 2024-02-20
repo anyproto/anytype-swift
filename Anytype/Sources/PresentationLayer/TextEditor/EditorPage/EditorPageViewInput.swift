@@ -5,7 +5,7 @@ protocol EditorCollectionReloadable: AnyObject {
     func reload(items: [EditorItem])
     func reconfigure(items: [EditorItem])
     func itemDidChangeFrame(item: EditorItem)
-    func scrollToTopBlock(blockId: BlockId) // Change to editorItem
+    func scrollToTopBlock(blockId: String) // Change to editorItem
     
     func scrollToTextViewIfNotVisible(textView: UITextView)
     
@@ -13,7 +13,7 @@ protocol EditorCollectionReloadable: AnyObject {
     func textBlockDidBeginEditing(firstResponderView: UIView)
     func textBlockWillBeginEditing()
     func blockDidFinishEditing()
-    func didSelectTextRangeSelection(blockId: BlockId, textView: UITextView)
+    func didSelectTextRangeSelection(blockId: String, textView: UITextView)
 }
 
 /// Input data for document view

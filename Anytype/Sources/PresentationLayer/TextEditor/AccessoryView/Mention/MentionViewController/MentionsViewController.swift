@@ -19,7 +19,7 @@ final class MentionsViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        viewModel.obtainMentions(filterString: .empty)
+        viewModel.obtainMentions(filterString: "")
         
         viewModel.$mentions.sink { [weak self] mentions, filteredString in
             self?.display(mentions, newObjectName: filteredString)

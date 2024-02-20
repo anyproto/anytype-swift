@@ -48,7 +48,7 @@ final class TextBlockActionHandler: TextBlockActionHandlerProtocol {
     init(
         info: BlockInformation,
         focusSubject: PassthroughSubject<BlockFocusPosition, Never>,
-        showPage: @escaping (BlockId) -> Void,
+        showPage: @escaping (String) -> Void,
         openURL: @escaping (URL) -> Void,
         onShowStyleMenu: @escaping (BlockInformation) -> Void,
         onEnterSelectionMode: @escaping (BlockInformation) -> Void,
@@ -414,7 +414,7 @@ extension TextBlockActionHandler: AccessoryViewOutput {
     func showLinkToSearch(range: NSRange, text: NSAttributedString) {
         let urlLink = text.linkState(range: range)
         let objectIdLink = text.linkToObjectState(range: range)
-        let eitherLink: Either<URL, BlockId>? = urlLink.map { .left($0) } ?? objectIdLink.map { .right($0) } ?? nil
+        let eitherLink: Either<URL, String>? = urlLink.map { .left($0) } ?? objectIdLink.map { .right($0) } ?? nil
     
         linkToObjectCoordinator.startFlow(
             spaceId: "",

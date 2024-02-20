@@ -72,7 +72,7 @@ final class BlockViewModelBuilder {
         self.editorPageBlocksStateManager = editorPageBlocksStateManager
     }
     
-    func buildEditorItems(infos: [BlockId]) -> [EditorItem] {
+    func buildEditorItems(infos: [String]) -> [EditorItem] {
         let blockViewModels = build(infos)
         
         
@@ -94,14 +94,14 @@ final class BlockViewModelBuilder {
         return .system(shimmeringViewModel)
     }
     
-    private func build(_ ids: [BlockId]) -> [BlockViewModelProtocol] {
+    private func build(_ ids: [String]) -> [BlockViewModelProtocol] {
         ids.compactMap {
             let block = build(id: $0)
             return block
         }
     }
     
-    func build(id: BlockId) -> BlockViewModelProtocol? {
+    func build(id: String) -> BlockViewModelProtocol? {
         if let model = modelsHolder.blocksMapping[id] {
             return model
         }
@@ -380,7 +380,7 @@ final class BlockViewModelBuilder {
     
     private var subscriptions = [AnyCancellable]()
     
-    private func showMediaPicker(type: MediaPickerContentType, blockId: BlockId) {
+    private func showMediaPicker(type: MediaPickerContentType, blockId: String) {
         router.showImagePicker(contentType: type) { [weak self] itemProvider in
             guard let itemProvider = itemProvider else { return }
             
@@ -392,7 +392,7 @@ final class BlockViewModelBuilder {
         }
     }
     
-    private func showFilePicker(blockId: BlockId, types: [UTType] = [.item]) {
+    private func showFilePicker(blockId: String, types: [UTType] = [.item]) {
         let model = Picker.ViewModel(types: types)
         model.$resultInformation.safelyUnwrapOptionals().sink { [weak self] result in
             self?.handler.uploadFileAt(localPath: result.filePath, blockId: blockId)

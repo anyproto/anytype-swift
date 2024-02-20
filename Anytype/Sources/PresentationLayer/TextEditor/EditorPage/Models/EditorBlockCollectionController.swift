@@ -20,7 +20,7 @@ final class EditorBlockCollectionController: EditorCollectionReloadable {
         viewInput?.itemDidChangeFrame(item: item)
     }
     
-    func scrollToTopBlock(blockId: BlockId) {
+    func scrollToTopBlock(blockId: String) {
         viewInput?.scrollToTopBlock(blockId: blockId)
     }
     
@@ -40,7 +40,7 @@ final class EditorBlockCollectionController: EditorCollectionReloadable {
         viewInput?.blockDidFinishEditing()
     }
     
-    func didSelectTextRangeSelection(blockId: BlockId, textView: UITextView) {
+    func didSelectTextRangeSelection(blockId: String, textView: UITextView) {
         viewInput?.didSelectTextRangeSelection(blockId: blockId, textView: textView)
     }
 }

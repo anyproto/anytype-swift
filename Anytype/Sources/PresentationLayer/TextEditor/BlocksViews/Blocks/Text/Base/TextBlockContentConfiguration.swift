@@ -33,7 +33,7 @@ struct TextBlockContentConfiguration: BlockConfiguration {
         let tapOnCalloutIcon: () -> Void
     }
     
-    var blockId: BlockId
+    var blockId: String
     var content: BlockText
     var attributedString: NSAttributedString
     var isCheckable: Bool

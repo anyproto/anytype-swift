@@ -4,10 +4,10 @@ import AnytypeCore
 
 public final class InfoContainer: InfoContainerProtocol {
     
-    private var models = PassthroughSubjectDictionary<BlockId, BlockInformation>()
+    private var models = PassthroughSubjectDictionary<String, BlockInformation>()
     public init() {}
     
-    public func children(of id: BlockId) -> [BlockInformation] {
+    public func children(of id: String) -> [BlockInformation] {
         guard let information = models[id] else {
             return []
         }
@@ -60,7 +60,7 @@ public final class InfoContainer: InfoContainerProtocol {
     
     // MARK: - Published
     
-    public func publisherFor(id: BlockId) -> AnyPublisher<BlockInformation?, Never> {
+    public func publisherFor(id: String) -> AnyPublisher<BlockInformation?, Never> {
         return models.publisher(id)
     }
     
@@ -68,7 +68,7 @@ public final class InfoContainer: InfoContainerProtocol {
         models.publishAllValues()
     }
     
-    public func publishValue(for key: BlockId) {
+    public func publishValue(for key: String) {
         models.publishValue(for: key)
     }
 }

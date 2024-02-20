@@ -170,7 +170,7 @@ final class BlockActionHandler: BlockActionHandlerProtocol {
     func setTextStyle(
         _ attribute: MarkupType,
         range: NSRange,
-        blockId: BlockId,
+        blockId: String,
         currentText: NSAttributedString?,
         contentType: BlockContentType
     ) {
@@ -187,7 +187,7 @@ final class BlockActionHandler: BlockActionHandlerProtocol {
         changeText(newText, blockId: blockId)
     }
     
-    func changeText(_ text: NSAttributedString, blockId: BlockId) {
+    func changeText(_ text: NSAttributedString, blockId: String) {
         let safeSendableText = SafeSendable(value: text)
 
         Task {

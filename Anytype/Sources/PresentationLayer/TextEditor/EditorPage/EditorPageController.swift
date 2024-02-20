@@ -350,7 +350,7 @@ extension EditorPageController: EditorPageViewInput {
         navigationBarHelper.updateSyncStatusData(syncStatusData)
     }
     
-    func didSelectTextRangeSelection(blockId: BlockId, textView: UITextView) {
+    func didSelectTextRangeSelection(blockId: String, textView: UITextView) {
         if let item = dataSourceItem(for: blockId), textView.textViewSelectionPosition.contains(.end) || textView.textViewSelectionPosition.contains(.start) {
             self.selectingRangeEditorItem = item
             self.selectingRangeTextView = textView
@@ -382,7 +382,7 @@ extension EditorPageController: EditorPageViewInput {
         )
     }
 
-    func scrollToTopBlock(blockId: BlockId) {
+    func scrollToTopBlock(blockId: String) {
         guard let item = dataSourceItem(for: blockId),
               let indexPath = dataSource.indexPath(for: item),
               let cellRect = collectionView.layoutAttributesForItem(at: indexPath)?.frame else { return }
@@ -396,7 +396,7 @@ extension EditorPageController: EditorPageViewInput {
         }
     }
     
-    func selectBlock(blockId: BlockId) {
+    func selectBlock(blockId: String) {
         if let item = dataSourceItem(for: blockId),
             let indexPath = dataSource.indexPath(for: item) {
             collectionView.selectItem(at: indexPath, animated: true, scrollPosition: [])
@@ -526,7 +526,7 @@ private extension EditorPageController {
         cell.contentConfiguration = newConfiguration
     }
 
-    func dataSourceItem(for blockId: BlockId) -> EditorItem? {
+    func dataSourceItem(for blockId: String) -> EditorItem? {
         dataSource.snapshot().itemIdentifiers.first {
             switch $0 {
             case let .block(block):

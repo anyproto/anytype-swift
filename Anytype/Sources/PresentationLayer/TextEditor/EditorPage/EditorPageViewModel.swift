@@ -113,7 +113,7 @@ final class EditorPageViewModel: EditorPageViewModelProtocol, EditorBottomNaviga
         )
     }
     
-    private func handleUpdate(ids: [BlockId]) {
+    private func handleUpdate(ids: [String]) {
         let blocksViewModels = blockBuilder.buildEditorItems(infos: ids)
         
         let difference = modelsHolder.difference(between: blocksViewModels)

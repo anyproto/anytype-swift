@@ -7,11 +7,11 @@ enum TableOfContentData: Equatable {
 }
 
 final class TableOfContentItem: Equatable, Hashable, ObservableObject {
-    let blockId: BlockId
+    let blockId: String
     @Published var title: String
     let level: Int
     
-    init(blockId: BlockId, title: String, level: Int) {
+    init(blockId: String, title: String, level: Int) {
         self.blockId = blockId
         self.title = title
         self.level = level
