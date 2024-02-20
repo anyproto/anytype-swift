@@ -257,7 +257,6 @@ enum AnalyticsEventsPropertiesKey {
     static let format = "format"
     static let condition = "condition"
     static let linkType = "linkType"
-    static let view = "view"
     static let context = "context"
     static let color = "color"
     static let name = "name"
@@ -279,11 +278,6 @@ enum AnalyticsEventsRouteKind: String {
     case widget = "Widget"
     case sharingExtension = "SharingExtension"
     case homeScreen = "HomeScreen"
-}
-
-enum AnalyticsEventsRouteView: String {
-    case navbar = "Navbar"
-    case home = "Home"
 }
 
 enum AnalyticsEventsRelationType: String {
@@ -353,10 +347,6 @@ enum AnalyticsObjectType {
             return AnalyticsEventsTypeValues.customType
         }
     }
-}
-
-enum AnalyticsView: String {
-    case widget = "Widget"
 }
 
 enum AnalyticsWidgetRoute: String {
