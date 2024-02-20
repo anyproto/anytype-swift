@@ -361,6 +361,18 @@ final class ServiceLocator {
         PasteboardMiddleService()
     }
     
+    func pasteboardHelper() -> PasteboardHelperProtocol {
+        PasteboardHelper()
+    }
+    
+    func pasteboardBlockService(document: BaseDocumentProtocol) -> PasteboardBlockServiceProtocol {
+        PasteboardBlockService(
+            document: document,
+            pasteboardHelper: pasteboardHelper(),
+            pasteboardMiddlewareService: pasteboardMiddlewareService()
+        )
+    }
+    
     func galleryService() -> GalleryServiceProtocol {
         GalleryService()
     }

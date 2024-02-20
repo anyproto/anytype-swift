@@ -28,6 +28,7 @@ final class LinkToObjectCoordinatorAssembly: LinkToObjectCoordinatorAssemblyProt
             defaultObjectService: serviceLocator.defaultObjectCreationService(),
             urlOpener: uiHelopersDI.urlOpener(),
             searchService: serviceLocator.searchService(),
+            pasteboardHelper: serviceLocator.pasteboardHelper(),
             output: output
         )
         
