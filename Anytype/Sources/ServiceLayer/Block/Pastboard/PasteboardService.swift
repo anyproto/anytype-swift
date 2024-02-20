@@ -4,14 +4,14 @@ import Combine
 
 final class PasteboardService: PasteboardServiceProtocol {
     private let document: BaseDocumentProtocol
-    private let pasteboardHelper: PasteboardHelper
+    private let pasteboardHelper: PasteboardHelperProtocol
     private let pasteboardMiddlewareService: PasteboardMiddlewareServiceProtocol
     
     private var tasks = [AnyCancellable]()
 
     init(
         document: BaseDocumentProtocol,
-        pasteboardHelper: PasteboardHelper,
+        pasteboardHelper: PasteboardHelperProtocol,
         pasteboardMiddlewareService: PasteboardMiddlewareServiceProtocol
     ) {
         self.document = document
