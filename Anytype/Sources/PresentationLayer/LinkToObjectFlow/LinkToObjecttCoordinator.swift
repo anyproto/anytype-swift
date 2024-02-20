@@ -22,6 +22,7 @@ final class LinkToObjectCoordinator: LinkToObjectCoordinatorProtocol {
     private let defaultObjectService: DefaultObjectCreationServiceProtocol
     private let urlOpener: URLOpenerProtocol
     private let searchService: SearchServiceProtocol
+    private let pasteboardHelper: PasteboardHelperProtocol
     private weak var output: LinkToObjectCoordinatorOutput?
     
     nonisolated init(
@@ -29,12 +30,14 @@ final class LinkToObjectCoordinator: LinkToObjectCoordinatorProtocol {
         defaultObjectService: DefaultObjectCreationServiceProtocol,
         urlOpener: URLOpenerProtocol,
         searchService: SearchServiceProtocol,
+        pasteboardHelper: PasteboardHelperProtocol,
         output: LinkToObjectCoordinatorOutput?
     ) {
         self.navigationContext = navigationContext
         self.defaultObjectService = defaultObjectService
         self.urlOpener = urlOpener
         self.searchService = searchService
+        self.pasteboardHelper = pasteboardHelper
         self.output = output
     }
     
@@ -86,7 +89,12 @@ final class LinkToObjectCoordinator: LinkToObjectCoordinatorProtocol {
         currentLink: Either<URL, String>?,
         onSelect: @escaping (LinkToObjectSearchViewModel.SearchKind) -> ()
     ) {
-        let viewModel = LinkToObjectSearchViewModel(spaceId: spaceId, currentLink: currentLink, searchService: searchService) { data in
+        let viewModel = LinkToObjectSearchViewModel(
+            spaceId: spaceId,
+            currentLink: currentLink,
+            searchService: searchService,
+            pasteboardHelper: pasteboardHelper
+        ) { data in
             onSelect(data.searchKind)
         }
         let linkToView = SearchView(title: Loc.linkTo, viewModel: viewModel)

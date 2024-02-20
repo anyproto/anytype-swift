@@ -17,7 +17,7 @@ final class LinkToObjectSearchViewModel: SearchViewModelProtocol {
 
     private let spaceId: String
     private let searchService: SearchServiceProtocol
-    private let pasteboardHelper: PasteboardHelper
+    private let pasteboardHelper: PasteboardHelperProtocol
     private let currentLink: Either<URL, String>?
 
     let descriptionTextColor: Color = .Text.primary
@@ -34,7 +34,7 @@ final class LinkToObjectSearchViewModel: SearchViewModelProtocol {
         spaceId: String,
         currentLink: Either<URL, String>?,
         searchService: SearchServiceProtocol,
-        pasteboardHelper: PasteboardHelper = PasteboardHelper(),
+        pasteboardHelper: PasteboardHelperProtocol,
         onSelect: @escaping (SearchDataType) -> ()
     ) {
         self.spaceId = spaceId
