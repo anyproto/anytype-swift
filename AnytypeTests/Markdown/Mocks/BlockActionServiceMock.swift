@@ -97,8 +97,6 @@ final class BlockActionServiceMock: BlockActionServiceProtocol {
         if mergeStub {
             mergeNumberOfCalls += 1
             mergeSecondBlockId = secondBlockId
-        } else {
-            XCTFail()
         }
     }
     

@@ -27,7 +27,7 @@ final class TextBlockLayoutManager: NSLayoutManager {
         if let color = obtainCustomFontColor(hasForegroundColor: hasForegroundColor) {
             CGContext.setFillColor(color)
         }
-
+        
         super.showCGGlyphs(glyphs, positions: positions, count: glyphCount, font: font, textMatrix: textMatrix, attributes: attributes, in: CGContext)
     }
     
@@ -38,19 +38,19 @@ final class TextBlockLayoutManager: NSLayoutManager {
             characterRange: characterRange,
             origin: origin
         )
-
+        
         drawUnderline(
             for: .link,
             characterRange: characterRange,
             origin: origin
         )
-
+        
         drawUnderline(
             for: .anytypeUnderline,
             characterRange: characterRange,
             origin: origin
         )
-
+        
         super.drawGlyphs(forGlyphRange: glyphsToShow, at: origin)
     }
     
@@ -109,7 +109,11 @@ final class TextBlockLayoutManager: NSLayoutManager {
             guard let glyphRangeWithAttribute = glyphRangeInLine.intersection(glyphRange) else { return }
             guard let rect = self?.boundingRect(forGlyphRange: glyphRangeWithAttribute, in: textContainer) else { return }
 
-            guard let font = self?.textStorage?.attribute(.font, at: 0, effectiveRange: nil) as? UIFont else {
+            guard let font = self?.textStorage?.attribute(
+                .font,
+                at: glyphRange.centerIndex,
+                effectiveRange: nil
+            ) as? UIFont else {
                 anytypeAssertionFailure("font attribute must be UIFont")
                 return
             }
@@ -124,7 +128,11 @@ final class TextBlockLayoutManager: NSLayoutManager {
             var additionalYOffset: CGFloat = 0
 
             if origin.y < 0 {
-                let font = self?.textStorage?.attribute(.font, at: 0, effectiveRange: nil) as! UIFont
+                let font = self?.textStorage?.attribute(
+                    .font,
+                    at: glyphRange.centerIndex,
+                    effectiveRange: nil
+                ) as! UIFont
                 // line should not be upper font descender otherwise smth wrong
                 additionalYOffset = max(font.descender, origin.y) - lineHeight
             }

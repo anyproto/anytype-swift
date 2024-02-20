@@ -1,25 +1,25 @@
 import AnytypeCore
 
-struct CalloutIconViewModel {
-    let onTap: () -> Void
+struct CalloutIconViewModel: Equatable {
+    @EquatableNoop var onTap: () -> Void
     let icomImage: Icon
 }
 
-enum TextBlockLeadingStyle {
-    struct TitleModel {
+enum TextBlockLeadingStyle: Equatable {
+    struct TitleModel: Equatable {
         let isCheckable: Bool
         let checked: Bool
-        let toggleAction: () -> Void
+        @EquatableNoop var toggleAction: () -> Void
     }
 
-    struct ToggleModel {
+    struct ToggleModel: Equatable {
         let isToggled: Bool
-        let toggleAction: () -> Void
+        @EquatableNoop var toggleAction: () -> Void
     }
 
-    struct CheckboxModel {
+    struct CheckboxModel: Equatable {
         let isChecked: Bool
-        let toggleAction: () -> Void
+        @EquatableNoop var toggleAction: () -> Void
     }
 
     case title(TitleModel)
@@ -76,8 +76,10 @@ enum TextBlockLeadingStyle {
                     icomImage: Icon
                 )
             )
-        case .header, .header2, .header3, .header4, .code, .description, .text, .quote:
+        case .header, .header2, .header3, .header4, .code, .description, .text:
             self = .body
+        case .quote:
+            self = .quote
         }
     }
 }

@@ -1,3 +1,5 @@
+import Services
+
 protocol MentionObjectsServiceProtocol: AnyObject {
     func searchMentions(spaceId: String, text: String, excludedObjectIds: [String]) async throws -> [MentionObject]
 }

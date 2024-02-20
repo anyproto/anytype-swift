@@ -437,8 +437,9 @@ final class EditorPageBlocksStateManager: EditorPageBlocksStateManagerProtocol {
             AnytypeAnalytics.instance().logEvent(AnalyticsEventsName.openAsSource)
             router.showPage(objectId: data.targetObjectID)
         case .style:
-            editingState = .editing
-            didSelectStyleSelection(infos: elements.map { $0.info })
+            let elements = elements.map { $0.info }
+            editingState = .selecting(blocks: elements.map { $0.id} )
+            didSelectStyleSelection(infos: elements)
 
             return
         case .paste:
@@ -509,7 +510,7 @@ extension EditorPageBlocksStateManager: SimpleTableSelectionHandler {
     }
 }
 
-extension EditorPageBlocksStateManager: BlockSelectionHandler {
+extension EditorPageBlocksStateManager {
     func didSelectSelection(from indexPath: IndexPath) {
         guard let blockViewModel = modelsHolder.blockViewModel(at: indexPath.row) else { return }
 

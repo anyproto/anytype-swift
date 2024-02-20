@@ -57,7 +57,7 @@ struct HomeCoordinatorView: View {
         .sheet(isPresented: $model.showTypeSearch) {
             model.createTypeSearchModule()
         }
-        .sheet(item: $model.spaceJoinData) {
+        .anytypeSheet(item: $model.spaceJoinData) {
             model.spaceJoinModule(data: $0)
         }
         .if(FeatureFlags.galleryInstallation, if: {

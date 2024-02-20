@@ -3,6 +3,7 @@ import Services
 import Combine
 
 final class MockSetDocument: SetDocumentProtocol {
+    var syncStatus: AnyPublisher<Services.SyncStatus, Never> { fatalError() }
     
     var document: BaseDocumentProtocol { fatalError() }
     

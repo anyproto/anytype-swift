@@ -161,13 +161,8 @@ final class EditorRouter: NSObject, EditorRouterProtocol, ObjectSettingsCoordina
     }
     
     func showCodeLanguage(blockId: String, selectedLanguage: CodeLanguage) {
-        if FeatureFlags.newCodeLanguages {
-            let module = codeLanguageListModuleAssembly.make(document: document, blockId: blockId, selectedLanguage: selectedLanguage)
-            navigationContext.present(module)
-        } else {
-            let moduleViewController = codeLanguageListModuleAssembly.makeLegacy(document: document, blockId: blockId)
-            navigationContext.present(moduleViewController)
-        }
+        let module = codeLanguageListModuleAssembly.make(document: document, blockId: blockId, selectedLanguage: selectedLanguage)
+        navigationContext.present(module)
     }
     
     @MainActor

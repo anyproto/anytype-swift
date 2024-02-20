@@ -30,6 +30,19 @@ enum EditorItem: Hashable {
     }
 }
 
+extension EditorItem: HashableProvier {
+    var hashable: AnyHashable {
+        switch self {
+        case .header(let objectHeader):
+            return objectHeader.hashable
+        case .block(let blockViewModelProtocol):
+            return blockViewModelProtocol.hashable
+        case .system(let systemContentConfiguationProvider):
+            return systemContentConfiguationProvider.hashable
+        }
+    }
+}
+
 extension CollectionDifference where ChangeElement == EditorItem {
     var canPerformAnimation: Bool {
         !insertions.contains { item in

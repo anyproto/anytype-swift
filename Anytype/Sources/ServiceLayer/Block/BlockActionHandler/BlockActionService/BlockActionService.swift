@@ -71,7 +71,8 @@ final class BlockActionService: BlockActionServiceProtocol {
                 style: newBlockContentType,
                 mode: mode
             )
-            
+
+            cursorManager.focus(at: blockId, position: .beginning)
             cursorManager.blockFocus = .init(id: blockId, position: .beginning)
         }
     }
@@ -135,7 +136,13 @@ final class BlockActionService: BlockActionServiceProtocol {
                 return
             }
             do {
-                self?.setFocus(model: previousBlock)
+
+                if let textContent = previousBlock.info.textContent {
+                    self?.cursorManager.focus(
+                        at: previousBlock.blockId,
+                        position: .at(.init(location: Int(textContent.text.count), length: 0))
+                        )
+                }
                 try await self?.textServiceHandler.merge(contextId: documentId, firstBlockId: previousBlock.blockId, secondBlockId: secondBlockId)
             } catch {
                 // Do not set focus to previous block
@@ -171,9 +178,7 @@ final class BlockActionService: BlockActionServiceProtocol {
     }
 
     private func setFocus(model: BlockViewModelProtocol) {
-        if case let .text(text) = model.info.content {
-            model.set(focus: .at(text.endOfTextRangeWithMention))
-        }
+        model.set(focus: .end)
     }
 }
 

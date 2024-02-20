@@ -3,7 +3,7 @@ import Services
 struct SlashMenuItemsBuilder {
     private let typesService: TypesServiceProtocol
     
-    init(typesService: TypesServiceProtocol = ServiceLocator.shared.typesService()) {
+    init(typesService: TypesServiceProtocol) {
         self.typesService = typesService
     }
     
