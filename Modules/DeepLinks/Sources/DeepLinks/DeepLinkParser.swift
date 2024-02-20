@@ -5,7 +5,7 @@ public protocol DeepLinkParserProtocol: AnyObject {
     func createUrl(deepLink: DeepLink, scheme: DeepLinkScheme) -> URL?
 }
 
-public final class DeepLinkParser: DeepLinkParserProtocol {
+final class DeepLinkParser: DeepLinkParserProtocol {
 
     private enum LinkPaths {
         static let createObject = "create-object"
