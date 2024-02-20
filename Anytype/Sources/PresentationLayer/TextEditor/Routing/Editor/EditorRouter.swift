@@ -271,26 +271,63 @@ final class EditorRouter: NSObject, EditorRouterProtocol, ObjectSettingsCoordina
     }
     
     func showTypes(selectedObjectId: String?, onSelect: @escaping (ObjectType) -> ()) {
-        showTypesSearch(
-            title: Loc.changeType,
-            selectedObjectId: selectedObjectId,
-            showPins: false,
-            showLists: false,
-            onSelect: onSelect
-        )
+        if FeatureFlags.newTypePicker {
+            let view = objectTypeSearchModuleAssembly.makeDefaultTypeSearch(
+                title: Loc.changeType,
+                spaceId: document.spaceId,
+                showPins: false,
+                showLists: false,
+                showFiles: false
+            ) { [weak self] type in
+                self?.navigationContext.dismissTopPresented()
+                onSelect(type)
+            }
+            
+            navigationContext.presentSwiftUIView(view: view)
+        } else {
+            let view = newSearchModuleAssembly.objectTypeSearchModule(
+                title: Loc.changeType,
+                spaceId: document.spaceId,
+                selectedObjectId: selectedObjectId,
+                excludedObjectTypeId: document.details?.type,
+                showSetAndCollection: false
+            ) { [weak self] type in
+                self?.navigationContext.dismissTopPresented()
+                onSelect(type)
+            }
+            
+            navigationContext.presentSwiftUIView(view: view)
+        }
     }
     
-    func showTypesForEmptyObject(
+    func showTypePickerForNewObjectCreation(
         selectedObjectId: String?,
         onSelect: @escaping (ObjectType) -> ()
     ) {
-        showTypesSearch(
-            title: Loc.changeType,
-            selectedObjectId: selectedObjectId,
-            showPins: true,
-            showLists: true,
-            onSelect: onSelect
-        )
+        if FeatureFlags.newTypePicker {
+            let view = objectTypeSearchModuleAssembly.makeTypeSearchForNewObjectCreation(
+                title: Loc.changeType,
+                spaceId: document.spaceId
+            ) { [weak self] type in
+                self?.navigationContext.dismissTopPresented()
+                onSelect(type)
+            }
+            
+            navigationContext.presentSwiftUIView(view: view)
+        } else {
+            let view = newSearchModuleAssembly.objectTypeSearchModule(
+                title: Loc.changeType,
+                spaceId: document.spaceId,
+                selectedObjectId: selectedObjectId,
+                excludedObjectTypeId: document.details?.type,
+                showSetAndCollection: true
+            ) { [weak self] type in
+                self?.navigationContext.dismissTopPresented()
+                onSelect(type)
+            }
+            
+            navigationContext.presentSwiftUIView(view: view)
+        }
     }
     
     func showWaitingView(text: String) {
@@ -465,42 +502,6 @@ final class EditorRouter: NSObject, EditorRouterProtocol, ObjectSettingsCoordina
         let controller = URLInputViewController(url: url, didSetURL: completion)
         controller.modalPresentationStyle = .overCurrentContext
         navigationContext.present(controller, animated: false)
-    }
-    
-    private func showTypesSearch(
-        title: String,
-        selectedObjectId: String?,
-        showPins: Bool,
-        showLists: Bool,
-        onSelect: @escaping (ObjectType) -> ()
-    ) {
-        if FeatureFlags.newTypePicker {
-            let view = objectTypeSearchModuleAssembly.make(
-                title: title,
-                spaceId: document.spaceId,
-                showPins: showPins,
-                showLists: showLists, 
-                showFiles: false
-            ) { [weak self] type in
-                self?.navigationContext.dismissTopPresented()
-                onSelect(type)
-            }
-            
-            navigationContext.presentSwiftUIView(view: view)
-        } else {
-            let view = newSearchModuleAssembly.objectTypeSearchModule(
-                title: title,
-                spaceId: document.spaceId,
-                selectedObjectId: selectedObjectId,
-                excludedObjectTypeId: document.details?.type,
-                showSetAndCollection: showLists
-            ) { [weak self] type in
-                self?.navigationContext.dismissTopPresented()
-                onSelect(type)
-            }
-            
-            navigationContext.presentSwiftUIView(view: view)
-        }
     }
 }
 

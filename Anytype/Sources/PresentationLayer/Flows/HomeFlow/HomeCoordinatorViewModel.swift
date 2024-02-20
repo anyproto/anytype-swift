@@ -197,12 +197,9 @@ final class HomeCoordinatorViewModel: ObservableObject,
 
     func createTypeSearchModule() -> AnyView {
         AnytypeAnalytics.instance().logOnboardingTooltip(tooltip: .selectType)
-        return objectTypeSearchModuleAssembly.make(
+        return objectTypeSearchModuleAssembly.makeTypeSearchForNewObjectCreation(
             title: Loc.createNewObject,
-            spaceId: activeWorkspaceStorage.workspaceInfo.accountSpaceId,
-            showPins: true,
-            showLists: true, 
-            showFiles: false
+            spaceId: activeWorkspaceStorage.workspaceInfo.accountSpaceId
         ) { [weak self] type in
             self?.showTypeSearch = false
             self?.createAndShowNewObject(type: type)
