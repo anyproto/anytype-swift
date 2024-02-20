@@ -38,7 +38,8 @@ final class ObjectTypeSearchModuleAssembly: ObjectTypeSearchModuleAssemblyProtoc
         let model = ObjectTypeSearchViewModel(
             showPins: true,
             showLists: true,
-            showFiles: false,
+            showFiles: false, 
+            showPaste: true,
             spaceId: spaceId,
             workspaceService: serviceLocator.workspaceService(),
             typesService: serviceLocator.typesService(),
@@ -67,6 +68,7 @@ final class ObjectTypeSearchModuleAssembly: ObjectTypeSearchModuleAssemblyProtoc
                 showPins: showPins,
                 showLists: showLists, 
                 showFiles: showFiles,
+                showPaste: false,
                 spaceId: spaceId,
                 workspaceService: serviceLocator.workspaceService(),
                 typesService: serviceLocator.typesService(),

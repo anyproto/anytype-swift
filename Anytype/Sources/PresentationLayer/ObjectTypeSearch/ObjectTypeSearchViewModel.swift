@@ -7,6 +7,7 @@ final class ObjectTypeSearchViewModel: ObservableObject {
     @Published var state = State.searchResults([])
     @Published var searchText = ""
     
+    let showPaste: Bool
     let showPins: Bool
     private let showLists: Bool
     private let showFiles: Bool
@@ -24,6 +25,7 @@ final class ObjectTypeSearchViewModel: ObservableObject {
         showPins: Bool,
         showLists: Bool,
         showFiles: Bool,
+        showPaste: Bool,
         spaceId: String,
         workspaceService: WorkspaceServiceProtocol,
         typesService: TypesServiceProtocol,
@@ -34,6 +36,7 @@ final class ObjectTypeSearchViewModel: ObservableObject {
         self.showPins = showPins
         self.showLists = showLists
         self.showFiles = showFiles
+        self.showPaste = showPaste
         self.spaceId = spaceId
         self.workspaceService = workspaceService
         self.typesService = typesService
