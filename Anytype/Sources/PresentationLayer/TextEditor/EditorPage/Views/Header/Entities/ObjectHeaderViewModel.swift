@@ -3,6 +3,7 @@ import UIKit
 import Combine
 import AnytypeCore
 
+@MainActor
 protocol ObjectHeaderRouterProtocol: AnyObject {
     func showIconPicker(
         document: BaseDocumentGeneralProtocol,
@@ -14,6 +15,7 @@ protocol ObjectHeaderRouterProtocol: AnyObject {
     )
 }
 
+@MainActor
 final class ObjectHeaderViewModel: ObservableObject {
     
     @Published private(set) var header: ObjectHeader?

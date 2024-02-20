@@ -67,7 +67,7 @@ final class LinkToObjectCoordinator: LinkToObjectCoordinatorProtocol {
                 self?.urlOpener.openUrl(url)
             case let .openObject(details):
                 willShowNextScreen?()
-                self?.output?.showPage(data: details.editorScreenData())
+                self?.output?.showEditorScreen(data: details.editorScreenData())
             case .removeLink:
                 removeLink()
             case let .copyLink(url):

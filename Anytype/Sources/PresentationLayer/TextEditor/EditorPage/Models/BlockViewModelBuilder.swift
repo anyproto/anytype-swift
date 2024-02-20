@@ -269,7 +269,7 @@ final class BlockViewModelBuilder {
                 blocksController: blockCollectionController,
                 detailsService: detailsService,
                 openLink: { [weak self] data in
-                    self?.router.showPage(data: data)
+                    self?.router.showEditorScreen(data: data)
                 }
             )
         case .featuredRelations:
@@ -351,7 +351,7 @@ final class BlockViewModelBuilder {
                     self?.router.showFailureToast(message: message)
                 },
                 openSet: { [weak self] data in
-                    self?.router.showPage(data: data)
+                    self?.router.showEditorScreen(data: data)
                 }
             )
         case .unsupported:

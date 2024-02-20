@@ -59,7 +59,7 @@ final class SlashMenuActionHandler {
                         )
                         .flatMap { objectId in
                             AnytypeAnalytics.instance().logCreateObject(objectType: object.analyticsType, route: .powertool)
-                            self?.router.showPage(
+                            self?.router.showEditorScreen(
                                 data: .page(EditorPageObject(objectId: objectId, spaceId: object.spaceId, isOpenedForPreview: false))
                             )
                         }

@@ -171,7 +171,7 @@ extension SetObjectCreationSettingsCoordinator: ObjectSettingsCoordinatorOutput 
         navigationContext.dismissTopPresented(animated: true, completion: nil)
     }
     
-    func showPage(data: EditorScreenData) {}
+    func showEditorScreen(data: EditorScreenData) {}
 }
 
 final class TemplateSelectionObjectSettingsHandler: ObjectSettingsModuleDelegate {

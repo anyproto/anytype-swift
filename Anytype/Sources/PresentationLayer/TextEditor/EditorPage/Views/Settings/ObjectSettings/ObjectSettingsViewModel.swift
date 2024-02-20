@@ -10,6 +10,7 @@ enum ObjectSettingsAction {
     case icon(ObjectIconPickerAction)
 }
 
+@MainActor
 protocol ObjectSettingsModelOutput: AnyObject, ObjectHeaderRouterProtocol {
     func undoRedoAction(document: BaseDocumentProtocol)
     func layoutPickerAction(document: BaseDocumentProtocol)
