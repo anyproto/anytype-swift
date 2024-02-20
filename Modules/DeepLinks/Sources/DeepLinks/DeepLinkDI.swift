@@ -6,7 +6,7 @@ public final class DeepLinkDI {
     
     private init() {}
     
-    public func parser() -> DeepLinkParserProtocol {
-        DeepLinkParser()
+    public func parser(isDebug: Bool) -> DeepLinkParserProtocol {
+        DeepLinkParser(isDebug: isDebug)
     }
 }

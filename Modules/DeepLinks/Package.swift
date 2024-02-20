@@ -13,13 +13,10 @@ let package = Package(
             name: "DeepLinks",
             targets: ["DeepLinks"]),
     ],
-    dependencies: [
-        .package(path: "../AnytypeCore")
-    ],
     targets: [
         .target(
             name: "DeepLinks",
-            dependencies: ["AnytypeCore"]),
+            dependencies: []),
         .testTarget(
             name: "DeepLinksTests",
             dependencies: ["DeepLinks"]),

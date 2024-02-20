@@ -1,5 +1,4 @@
 import Foundation
-import AnytypeCore
 
 public protocol DeepLinkParserProtocol: AnyObject {
     func parse(url: URL) -> DeepLink?
@@ -16,6 +15,12 @@ public final class DeepLinkParser: DeepLinkParserProtocol {
         static let invite = "invite"
     }
 
+    private let isDebug: Bool
+    
+    init(isDebug: Bool) {
+        self.isDebug = isDebug
+    }
+    
     public func parse(url: URL) -> DeepLink? {
         guard var components = URLComponents(url: url, resolvingAgainstBaseURL: false) else { return nil }
         
@@ -31,10 +36,10 @@ public final class DeepLinkParser: DeepLinkParserProtocol {
         
         // Check and remove schema
         
-        if urlString.hasPrefix(DeepLinkScheme.buildSpecific.host()) {
-            urlString = String(urlString.dropFirst(DeepLinkScheme.buildSpecific.host().count))
-        } else if urlString.hasPrefix(DeepLinkScheme.main.host()) {
-            urlString = String(urlString.dropFirst(DeepLinkScheme.main.host().count))
+        if urlString.hasPrefix(DeepLinkScheme.buildSpecific.host(isDebug: isDebug)) {
+            urlString = String(urlString.dropFirst(DeepLinkScheme.buildSpecific.host(isDebug: isDebug).count))
+        } else if urlString.hasPrefix(DeepLinkScheme.main.host(isDebug: isDebug)) {
+            urlString = String(urlString.dropFirst(DeepLinkScheme.main.host(isDebug: isDebug).count))
         } else {
             return nil
         }
@@ -63,7 +68,7 @@ public final class DeepLinkParser: DeepLinkParserProtocol {
     
     public func createUrl(deepLink: DeepLink, scheme: DeepLinkScheme) -> URL? {
         
-        let host = scheme.host()
+        let host = scheme.host(isDebug: isDebug)
         
         switch deepLink {
         case .createDefaultObject:

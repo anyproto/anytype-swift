@@ -406,11 +406,11 @@
 		2A39F3CB29ED97F3005DE8F5 /* BlockTextStyle+Analytics.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A39F3CA29ED97F2005DE8F5 /* BlockTextStyle+Analytics.swift */; };
 		2A39F3CD29ED9A7E005DE8F5 /* LayoutAlignment+Analytics.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A39F3CC29ED9A7E005DE8F5 /* LayoutAlignment+Analytics.swift */; };
 		2A3AFF552A7CEB9F004F7E09 /* SpaceAccessibility+Localization.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A3AFF542A7CEB9F004F7E09 /* SpaceAccessibility+Localization.swift */; };
-		2A3F65842B6B9BD40066101C /* DeepLinkParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A3F65832B6B9BD40066101C /* DeepLinkParser.swift */; };
 		2A4063632A5D480E00ECEA79 /* AsyncHelpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A4063622A5D480E00ECEA79 /* AsyncHelpers.swift */; };
 		2A4063652A5D9D8A00ECEA79 /* EventBunchSubscribtion.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A4063642A5D9D8A00ECEA79 /* EventBunchSubscribtion.swift */; };
 		2A41A6782B84E57B00EAE6E6 /* DeepLinks in Frameworks */ = {isa = PBXBuildFile; productRef = 2A41A6772B84E57B00EAE6E6 /* DeepLinks */; };
 		2A41A67A2B84E59B00EAE6E6 /* DeepLinks in Frameworks */ = {isa = PBXBuildFile; productRef = 2A41A6792B84E59B00EAE6E6 /* DeepLinks */; };
+		2A41A68D2B84EBBC00EAE6E6 /* DeepLinks in Frameworks */ = {isa = PBXBuildFile; productRef = 2A41A68C2B84EBBC00EAE6E6 /* DeepLinks */; };
 		2A4373722906808700A1C4D6 /* InlineMarkdownListener.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A4373712906808700A1C4D6 /* InlineMarkdownListener.swift */; };
 		2A43EAC72A98A18500DA4AAE /* QuickActionShortcutBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A43EAC62A98A18500DA4AAE /* QuickActionShortcutBuilder.swift */; };
 		2A475F172AFE47BE00E8C6D5 /* AnytypeNavigationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A475F162AFE47BE00E8C6D5 /* AnytypeNavigationView.swift */; };
@@ -2159,7 +2159,6 @@
 		2A39F3CA29ED97F2005DE8F5 /* BlockTextStyle+Analytics.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "BlockTextStyle+Analytics.swift"; sourceTree = "<group>"; };
 		2A39F3CC29ED9A7E005DE8F5 /* LayoutAlignment+Analytics.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "LayoutAlignment+Analytics.swift"; sourceTree = "<group>"; };
 		2A3AFF542A7CEB9F004F7E09 /* SpaceAccessibility+Localization.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SpaceAccessibility+Localization.swift"; sourceTree = "<group>"; };
-		2A3F65832B6B9BD40066101C /* DeepLinkParser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeepLinkParser.swift; sourceTree = "<group>"; };
 		2A4063622A5D480E00ECEA79 /* AsyncHelpers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AsyncHelpers.swift; sourceTree = "<group>"; };
 		2A4063642A5D9D8A00ECEA79 /* EventBunchSubscribtion.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventBunchSubscribtion.swift; sourceTree = "<group>"; };
 		2A41A6762B84D43C00EAE6E6 /* DeepLinks */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = DeepLinks; path = Modules/DeepLinks; sourceTree = "<group>"; };
@@ -3467,6 +3466,7 @@
 			files = (
 				C960DFAD28D88615002898AE /* SwiftUI.framework in Frameworks */,
 				C960DFAB28D88615002898AE /* WidgetKit.framework in Frameworks */,
+				2A41A68D2B84EBBC00EAE6E6 /* DeepLinks in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -3723,7 +3723,6 @@
 			isa = PBXGroup;
 			children = (
 				2A55F1EB2B73826E009DB80A /* Notifications */,
-				2A3F65822B6B9BC10066101C /* DeeplinkParser */,
 				862065512AB1A974006E539B /* DocumentsProvider */,
 				2AB522062A14D08A007DEE53 /* File */,
 				2AD741322994F17F004BD223 /* ApplicationState */,
@@ -5526,14 +5525,6 @@
 				2A3AFF542A7CEB9F004F7E09 /* SpaceAccessibility+Localization.swift */,
 			);
 			path = Models;
-			sourceTree = "<group>";
-		};
-		2A3F65822B6B9BC10066101C /* DeeplinkParser */ = {
-			isa = PBXGroup;
-			children = (
-				2A3F65832B6B9BD40066101C /* DeepLinkParser.swift */,
-			);
-			path = DeeplinkParser;
 			sourceTree = "<group>";
 		};
 		2A4919A629530AD200FCEAC9 /* Widgets */ = {
@@ -10098,6 +10089,9 @@
 			dependencies = (
 			);
 			name = AnytypeWidgetExtension;
+			packageProductDependencies = (
+				2A41A68C2B84EBBC00EAE6E6 /* DeepLinks */,
+			);
 			productName = AnytypeWidgetExtension;
 			productReference = C960DFA928D88615002898AE /* AnytypeWidgetExtension.appex */;
 			productType = "com.apple.product-type.app-extension";
@@ -10796,7 +10790,6 @@
 				3D07ECE9261B735300C007E2 /* UINavigationController+UIGestureRecognizerDelegate.swift in Sources */,
 				535E02AD274FF0B100E1AF8C /* RelationValueView.swift in Sources */,
 				2EA9D72B2B3093FE001CF0DE /* EventsBunch.swift in Sources */,
-				2A3F65842B6B9BD40066101C /* DeepLinkParser.swift in Sources */,
 				867580042A58306A0008566A /* TemplatePreview.swift in Sources */,
 				2AB2C22428AD23FD000191F8 /* AlertOpenerProtocol.swift in Sources */,
 				2A0BAD3129E020A3005BC5D9 /* Task+Extensions.swift in Sources */,
@@ -12139,9 +12132,9 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
-				APP_URL_SCHEME = "dev-anytype";
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = YES;
+				BUILD_APP_URL_SCHEME = "dev-anytype";
 				CODE_SIGN_ENTITLEMENTS = Anytype/Anytype.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Manual;
@@ -12183,9 +12176,9 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
-				APP_URL_SCHEME = anytype;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = YES;
+				BUILD_APP_URL_SCHEME = "prod-anytype";
 				CODE_SIGN_ENTITLEMENTS = Anytype/Anytype.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Distribution";
 				CODE_SIGN_STYLE = Manual;
@@ -12339,9 +12332,9 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
-				APP_URL_SCHEME = "dev-anytype";
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = YES;
+				BUILD_APP_URL_SCHEME = "dev-anytype";
 				CODE_SIGN_ENTITLEMENTS = Anytype/Anytype.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Distribution";
 				CODE_SIGN_STYLE = Manual;
@@ -12798,6 +12791,10 @@
 			productName = DeepLinks;
 		};
 		2A41A6792B84E59B00EAE6E6 /* DeepLinks */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = DeepLinks;
+		};
+		2A41A68C2B84EBBC00EAE6E6 /* DeepLinks */ = {
 			isa = XCSwiftPackageProductDependency;
 			productName = DeepLinks;
 		};

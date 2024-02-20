@@ -1,6 +1,4 @@
 import Foundation
-import AnytypeCore
-
 
 public enum DeepLinkScheme {
     case buildSpecific
@@ -15,16 +13,16 @@ extension DeepLinkScheme {
         static let main = "anytype://"
     }
     
-    func host() -> String {
+    func host(isDebug: Bool) -> String {
         switch self {
         case .buildSpecific:
-            return currentDebugSchema()
+            return currentDebugSchema(isDebug: isDebug)
         case .main:
             return Scheme.main
         }
     }
     
-    private func currentDebugSchema() -> String {
-        return CoreEnvironment.isDebug ? Scheme.dev : Scheme.prod
+    private func currentDebugSchema(isDebug: Bool) -> String {
+        return isDebug ? Scheme.dev : Scheme.prod
     }
 }

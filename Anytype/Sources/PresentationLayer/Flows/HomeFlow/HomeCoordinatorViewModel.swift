@@ -3,6 +3,7 @@ import SwiftUI
 import Combine
 import Services
 import AnytypeCore
+import DeepLinks
 
 @MainActor
 final class HomeCoordinatorViewModel: ObservableObject,
@@ -375,6 +376,13 @@ final class HomeCoordinatorViewModel: ObservableObject,
         switch action {
         case .createObject(let typeId):
             createAndShowNewObject(typeId: typeId)
+        case .deepLink(let deepLink):
+            handleDeepLink(deepLink: deepLink)
+        }
+    }
+    
+    private func handleDeepLink(deepLink: DeepLink) {
+        switch deepLink {
         case .createDefaultObject:
             createAndShowDefaultObject()
         case .showSharingExtension:
