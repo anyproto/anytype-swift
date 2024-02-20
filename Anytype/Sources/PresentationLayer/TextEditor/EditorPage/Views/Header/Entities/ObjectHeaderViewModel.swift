@@ -3,6 +3,7 @@ import UIKit
 import Combine
 import AnytypeCore
 
+@MainActor
 protocol ObjectHeaderRouterProtocol: AnyObject {
     func showIconPicker(
         document: BaseDocumentGeneralProtocol,
@@ -14,6 +15,7 @@ protocol ObjectHeaderRouterProtocol: AnyObject {
     )
 }
 
+@MainActor
 final class ObjectHeaderViewModel: ObservableObject {
     
     @Published private(set) var header: ObjectHeader?
@@ -66,8 +68,8 @@ final class ObjectHeaderViewModel: ObservableObject {
     
     // MARK: - Private
     private func setupSubscription() {
-        subscription = document.updatePublisher.sink { [weak self] update in
-            self?.onUpdate(update)
+        subscription = document.detailsPublisher.sink { [weak self] details in
+            self?.onUpdate(details: details)
         }
     }
 
@@ -96,19 +98,19 @@ final class ObjectHeaderViewModel: ObservableObject {
         )
     }
     
-    private func onUpdate(_ update: DocumentUpdate) {
-        switch update {
-        case .details, .general:
-            header = buildHeader()
-        case .blocks, .dataSourceUpdate, .syncStatus:
-            break
+    private func onUpdate(details: ObjectDetails) {
+        let header = buildHeader(details: details)
+        
+        if self.header != header {
+            self.header = header
         }
     }
     
-    private func buildHeader() -> ObjectHeader {
+    private func buildHeader(details: ObjectDetails) -> ObjectHeader {
         guard let details = document.details else {
             return buildShimmeringHeader()
         }
+        
         return HeaderBuilder.buildObjectHeader(
             details: details,
             usecase: .openedObject,

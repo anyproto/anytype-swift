@@ -22,7 +22,7 @@ final class CollectionsWidgetInternalViewModel: CommonWidgetInternalViewModel, W
     var allowCreateObject = true
     
     init(
-        widgetBlockId: BlockId,
+        widgetBlockId: String,
         widgetObject: BaseDocumentProtocol,
         subscriptionService: CollectionsSubscriptionServiceProtocol,
         objectService: ObjectActionsServiceProtocol,

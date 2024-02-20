@@ -62,7 +62,7 @@
 "BlockLink.PreviewSettings.Layout.Text.Title" = "Text";
 
 // MARK: - Settings
-"Settings.Title" = "Persönlicher Space";
+"Settings.Title" = "Einstellungen";
 "Settings.SpaceName" = "Space-Name";
 
 // MARK: - Object
@@ -259,7 +259,7 @@
 
 "Auth.JoinFlow.Creating.Soul.Title" = "Neues Konto erstellen";
 "Auth.JoinFlow.Setting.Space.Title" = "Einrichtung deines persönlichen Spaces";
-"Auth.JoinFlow.Personal.Space.Title" = "Persönlicher Space";
+"Auth.JoinFlow.Personal.Space.Title" = "Einstellungen";
 
 // Auth - Login flow
 "Auth.LoginFlow.Use.Keychain.Title" = "Schlüsselbund verwenden";
@@ -753,10 +753,6 @@
 "Content.DataView.InlineCollection.Untitled" = "Unbenannte Sammlung";
 "Content.DataView.InlineSet.Toast.Failure" = "Dieses Inline-Set hat keine Quelle";
 
-// MARK: - Widget extension
-"WidgetExtension.LockScreen.Title" = "Neues Objekt";
-"WidgetExtension.LockScreen.Description" = "Erstelle ein neues Objekt im Gange";
-
 // MARK: - Toast
 "Editor.Toast.LinkedTo" = "verlinkt mit";
 "Editor.Toast.MovedTo" = "Block verschoben nach";
@@ -814,7 +810,7 @@
 "ClearCache.Error" = "Fehler. Versuchen Sie es später noch einmal";
 
 // MARK: - Settings
-"Settings.TitleLegacy" = "Persönlicher Space";
+"Settings.TitleLegacy" = "Einstellungen";
 "Settings.Title" = "Einstellungen";
 "Settings.SpaceName" = "Space-Name";
 "Settings.AccountAndAccess" = "Konto und Zugriff";
@@ -851,7 +847,7 @@
 // MARK: - Spaces
 "Spaces.Accessibility.Public" = "Öffentlicher Raum";
 "Spaces.Accessibility.Private" = "Privater Raum";
-"Spaces.Accessibility.Personal" = "Persönlicher Space";
+"Spaces.Accessibility.Personal" = "Einstellungen";
 "Spaces.Search.Title" = "Spaces suchen";
 
 // MARK: - Space Settings
@@ -868,10 +864,25 @@
 // MARK: - Space Share
 
 "SpaceShare.Title" = "Share space";
-"SpaceShare.MembersSection" = "Members and requests";
-"SpaceShare.Permissions.Owner" = "Owner";
-"SpaceShare.Permissions.Reader" = "Can view";
-"SpaceShare.Permissions.Writer" = "Can edit";
+"SpaceShare.MembersSection" = "Mitglieder und Anfragen";
+"SpaceShare.Permissions.Owner" = "Eigentümer";
+"SpaceShare.Permissions.Reader" = "Darf ansehen";
+"SpaceShare.Permissions.Writer" = "Darf bearbeiten";
+"SpaceShare.Invite.Title" = "Einladungslink";
+"SpaceShare.Invite.Description" = "Sende diesen Link, um andere einzuladen. Weise Zugriffsrechte zu, wenn deren Anfrage genehmigt wurde";
+"SpaceShare.Invite.Button" = "Einladungslink teilen";
+"SpaceShare.Status.Joining" = "Requested";
+"SpaceShare.Status.Declined" = "Declined";
+"SpaceShare.Action.ViewRequest" = "View Request";
+"SpaceShare.ViewRequest.Title" = "%@ requested to join %@ space";
+"SpaceShare.ViewRequest.ViewAccess" = "Grand view access";
+"SpaceShare.ViewRequest.EditAccess" = "Grand edit access";
+"SpaceShare.ViewRequest.Reject" = "Reject";
+"SpaceShare.Join.Title" = "Join a space";
+"SpaceShare.Join.CommentPlaceholder" = "Leave a private comment for a space owner";
+"SpaceShare.Join.Button" = "Request to join";
+"SpaceShare.Join.Info" = "Once the space owner approves your request, you'll join the space with the access rights owner determined.";
+"SpaceShare.Join.Message" = "You’ve been invited to join %@ space, created by %@. Send a request so space owner can let you in.";
 
 // MARK: - Space Create
 "SpaceCreate.Title" = "Space erstellen";

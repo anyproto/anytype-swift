@@ -753,10 +753,6 @@
 "Content.DataView.InlineCollection.Untitled" = "Naamloze collectie";
 "Content.DataView.InlineSet.Toast.Failure" = "Deze set in lijn heeft geen bron";
 
-// MARK: - Widget extension
-"WidgetExtension.LockScreen.Title" = "Nieuw object";
-"WidgetExtension.LockScreen.Description" = "Maak snel een nieuw object aan ";
-
 // MARK: - Toast
 "Editor.Toast.LinkedTo" = "gelinkt naar";
 "Editor.Toast.MovedTo" = "Blok verplaatst naar";
@@ -872,6 +868,21 @@
 "SpaceShare.Permissions.Owner" = "Eigenaar";
 "SpaceShare.Permissions.Reader" = "Kan zien";
 "SpaceShare.Permissions.Writer" = "Kan bewerken";
+"SpaceShare.Invite.Title" = "Uitnodigingslink";
+"SpaceShare.Invite.Description" = "Stuur deze link om anderen uit te nodigen. Wijs toegangsrechten toe na hun goedkeuring.";
+"SpaceShare.Invite.Button" = "Deel uitnodigingslink";
+"SpaceShare.Status.Joining" = "Aangevraagd";
+"SpaceShare.Status.Declined" = "Afgewezen";
+"SpaceShare.Action.ViewRequest" = "Bekijk verzoek";
+"SpaceShare.ViewRequest.Title" = "%@ heeft verzocht om zich aan te sluiten bij de ruimte %@";
+"SpaceShare.ViewRequest.ViewAccess" = "Geef leesrechten";
+"SpaceShare.ViewRequest.EditAccess" = "Geef bewerkingsrechten";
+"SpaceShare.ViewRequest.Reject" = "Weiger";
+"SpaceShare.Join.Title" = "Sluit je aan bij een ruimte";
+"SpaceShare.Join.CommentPlaceholder" = "Laat een persoonlijk bericht achter voor een eigenaar van de ruimte";
+"SpaceShare.Join.Button" = "Verzoek om aan te sluiten";
+"SpaceShare.Join.Info" = "Zodra de eigenaar van de ruimte jouw verzoek heeft goedgekeurd, zul je toetreden tot de ruimte met de toegangsrechten die door de eigenaar zijn bepaald.";
+"SpaceShare.Join.Message" = "Je bent uitgenodigd om je aan te sluiten bij  %@ ruimte, aangemaakt door %@ Stuur een verzoek zodat de eigenaar van de ruimte je kan toelaten. ";
 
 // MARK: - Space Create
 "SpaceCreate.Title" = "Maak een ruimte aan";

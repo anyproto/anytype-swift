@@ -58,7 +58,6 @@ extension EditorPageController: UICollectionViewDelegate {
     }
     
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
-        offsetDidChanged = scrollView.contentOffset
         let yTranslation = scrollView.panGestureRecognizer.translation(in: scrollView.superview).y
         bottomNavigationManager.onScroll(bottom: yTranslation < 0)
 

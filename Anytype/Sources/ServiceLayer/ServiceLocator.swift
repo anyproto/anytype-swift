@@ -82,7 +82,7 @@ final class ServiceLocator {
         SearchMiddleService()
     }
     
-    func detailsService(objectId: BlockId) -> DetailsServiceProtocol {
+    func detailsService(objectId: String) -> DetailsServiceProtocol {
         DetailsService(objectId: objectId, service: objectActionsService(), fileService: fileService())
     }
     
@@ -243,7 +243,7 @@ final class ServiceLocator {
         ObjectsCommonSubscriptionDataBuilder()
     }
     
-    func objectHeaderInteractor(objectId: BlockId) -> ObjectHeaderInteractorProtocol {
+    func objectHeaderInteractor(objectId: String) -> ObjectHeaderInteractorProtocol {
         ObjectHeaderInteractor(
             detailsService: detailsService(objectId: objectId),
             fileService: fileService(),
@@ -359,6 +359,18 @@ final class ServiceLocator {
     
     func pasteboardMiddlewareService() -> PasteboardMiddlewareServiceProtocol {
         PasteboardMiddleService()
+    }
+    
+    func pasteboardHelper() -> PasteboardHelperProtocol {
+        PasteboardHelper()
+    }
+    
+    func pasteboardBlockService(document: BaseDocumentProtocol) -> PasteboardBlockServiceProtocol {
+        PasteboardBlockService(
+            document: document,
+            pasteboardHelper: pasteboardHelper(),
+            pasteboardMiddlewareService: pasteboardMiddlewareService()
+        )
     }
     
     func galleryService() -> GalleryServiceProtocol {

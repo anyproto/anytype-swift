@@ -62,7 +62,7 @@
 "BlockLink.PreviewSettings.Layout.Text.Title" = "Текст";
 
 // MARK: - Settings
-"Settings.Title" = "Особистий простір";
+"Settings.Title" = "Налаштування";
 "Settings.SpaceName" = "Назва простору";
 
 // MARK: - Object
@@ -259,7 +259,7 @@
 
 "Auth.JoinFlow.Creating.Soul.Title" = "Створення нового облікового запису";
 "Auth.JoinFlow.Setting.Space.Title" = "Налаштування вашого особистого простору";
-"Auth.JoinFlow.Personal.Space.Title" = "Особистий простір";
+"Auth.JoinFlow.Personal.Space.Title" = "Налаштування";
 
 // Auth - Login flow
 "Auth.LoginFlow.Use.Keychain.Title" = "Використотати в'язку ключів";
@@ -753,10 +753,6 @@
 "Content.DataView.InlineCollection.Untitled" = "Безіменна колекція";
 "Content.DataView.InlineSet.Toast.Failure" = "Цей вбудований набір не має джерела";
 
-// MARK: - Widget extension
-"WidgetExtension.LockScreen.Title" = "Новий обʼєкт";
-"WidgetExtension.LockScreen.Description" = "Створіть новий об'єкт на льоту";
-
 // MARK: - Toast
 "Editor.Toast.LinkedTo" = "пов'язаний з";
 "Editor.Toast.MovedTo" = "Блок переміщено до";
@@ -814,7 +810,7 @@
 "ClearCache.Error" = "Помилка, повторіть спробу пізніше";
 
 // MARK: - Settings
-"Settings.TitleLegacy" = "Особистий простір";
+"Settings.TitleLegacy" = "Налаштування";
 "Settings.Title" = "Налаштування";
 "Settings.SpaceName" = "Назва простору";
 "Settings.AccountAndAccess" = "Обліковий запис та доступ";
@@ -851,7 +847,7 @@
 // MARK: - Spaces
 "Spaces.Accessibility.Public" = "Public Space";
 "Spaces.Accessibility.Private" = "Private Space";
-"Spaces.Accessibility.Personal" = "Особистий простір";
+"Spaces.Accessibility.Personal" = "Налаштування";
 "Spaces.Search.Title" = "Пошук просторів";
 
 // MARK: - Space Settings
@@ -872,6 +868,21 @@
 "SpaceShare.Permissions.Owner" = "Owner";
 "SpaceShare.Permissions.Reader" = "Can view";
 "SpaceShare.Permissions.Writer" = "Can edit";
+"SpaceShare.Invite.Title" = "Invite link";
+"SpaceShare.Invite.Description" = "Send this link to invite others. Assign access rights upon their request approval";
+"SpaceShare.Invite.Button" = "Share invite link";
+"SpaceShare.Status.Joining" = "Requested";
+"SpaceShare.Status.Declined" = "Declined";
+"SpaceShare.Action.ViewRequest" = "View Request";
+"SpaceShare.ViewRequest.Title" = "%@ requested to join %@ space";
+"SpaceShare.ViewRequest.ViewAccess" = "Grand view access";
+"SpaceShare.ViewRequest.EditAccess" = "Grand edit access";
+"SpaceShare.ViewRequest.Reject" = "Reject";
+"SpaceShare.Join.Title" = "Join a space";
+"SpaceShare.Join.CommentPlaceholder" = "Leave a private comment for a space owner";
+"SpaceShare.Join.Button" = "Request to join";
+"SpaceShare.Join.Info" = "Once the space owner approves your request, you'll join the space with the access rights owner determined.";
+"SpaceShare.Join.Message" = "You’ve been invited to join %@ space, created by %@. Send a request so space owner can let you in.";
 
 // MARK: - Space Create
 "SpaceCreate.Title" = "Створити простір";

@@ -1,34 +1,35 @@
 import Services
 import UIKit
 
-/// Input data for document view
-protocol EditorPageViewInput: RelativePositionProvider {
+protocol EditorCollectionReloadable: AnyObject {
+    func reload(items: [EditorItem])
+    func reconfigure(items: [EditorItem])
+    func itemDidChangeFrame(item: EditorItem)
+    func scrollToTopBlock(blockId: String) // Change to editorItem
     
-    func update(header: ObjectHeader)
-    func update(details: ObjectDetails?, templatesCount: Int)
-    func update(changes: CollectionDifference<EditorItem>?)
-    func update(
-        changes: CollectionDifference<EditorItem>?,
-        allModels: [EditorItem]
-    )
-    func update(syncStatusData: SyncStatusData)
-        
+    func scrollToTextViewIfNotVisible(textView: UITextView)
+    
     /// Tells the delegate when editing of the text block begins
     func textBlockDidBeginEditing(firstResponderView: UIView)
+    func textBlockWillBeginEditing()
+    func blockDidFinishEditing()
+    func didSelectTextRangeSelection(blockId: String, textView: UITextView)
+}
 
-    func blockDidChangeFrame()
-
-    func textBlockDidChangeText()
-
-    func blockDidFinishEditing(blockId: BlockId)
+/// Input data for document view
+protocol EditorPageViewInput: EditorCollectionReloadable {
+    func update(header: ObjectHeader)
+    func update(details: ObjectDetails?, templatesCount: Int)
+    func update(
+        changes: CollectionDifference<EditorItem>?,
+        allModels: [EditorItem],
+        completion: @escaping () -> Void
+    )
+    func update(syncStatus: SyncStatus)
     
-    func scrollToBlock(blockId: BlockId)
-
     func endEditing()
 
     func adjustContentOffset(relatively: UIView)
 
     func restoreEditingState()
-
-    func didSelectTextRangeSelection(blockId: BlockId, textView: UITextView)
 }

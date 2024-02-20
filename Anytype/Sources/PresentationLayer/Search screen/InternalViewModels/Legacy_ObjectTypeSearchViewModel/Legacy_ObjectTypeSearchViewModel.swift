@@ -18,7 +18,7 @@ final class Legacy_ObjectTypeSearchViewModel {
     private var marketplaceObjects: [ObjectDetails] = []
     private let interactor: Legacy_ObjectTypeSearchInteractor
     private let toastPresenter: ToastPresenterProtocol
-    private let selectedObjectId: BlockId?
+    private let selectedObjectId: String?
     private let hideMarketplace: Bool
     private let showDescription: Bool
     private let onSelect: (_ type: ObjectType) -> Void
@@ -26,7 +26,7 @@ final class Legacy_ObjectTypeSearchViewModel {
     init(
         interactor: Legacy_ObjectTypeSearchInteractor,
         toastPresenter: ToastPresenterProtocol,
-        selectedObjectId: BlockId? = nil,
+        selectedObjectId: String? = nil,
         hideMarketplace: Bool = false,
         showDescription: Bool = true,
         onSelect: @escaping (_ type: ObjectType) -> Void
@@ -115,7 +115,7 @@ private extension Legacy_ObjectTypeSearchViewModel {
 
 private extension Array where Element == ObjectDetails {
 
-    func asRowConfigurations(selectedId: BlockId?, showDescription: Bool) -> [ListRowConfiguration] {
+    func asRowConfigurations(selectedId: String?, showDescription: Bool) -> [ListRowConfiguration] {
         sorted { lhs, rhs in
             lhs.id == selectedId && rhs.id != selectedId
         }.map { details in

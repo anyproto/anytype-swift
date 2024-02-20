@@ -59,10 +59,10 @@ final class ChangeTypeAccessoryViewModel {
     }
 
     private func subscribeOnDocumentChanges() {
-        document.updatePublisher.sink { [weak self] _ in
+        document.detailsPublisher.sink { [weak self] _ in
             Task { @MainActor [weak self] in
                 guard let self else { return }
-                if let supportedTypes = await self.fetchSupportedTypes() {
+                if let supportedTypes = await fetchSupportedTypes() {
                     self.supportedTypes = supportedTypes
                 }
             }

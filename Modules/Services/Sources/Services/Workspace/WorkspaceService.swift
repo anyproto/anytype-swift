@@ -14,7 +14,8 @@ public protocol WorkspaceServiceProtocol {
     func join(spaceId: String, cid: String, key: String) async throws
     func generateInvite(spaceId: String) async throws -> SpaceInvite
     func getCurrentInvite(spaceId: String) async throws -> SpaceInvite
-    func requestApprove(spaceId: String, identity: String) async throws
+    func requestApprove(spaceId: String, identity: String, permissions: ParticipantPermissions) async throws
+    func requestDecline(spaceId: String, identity: String) async throws
 }
 
 public final class WorkspaceService: WorkspaceServiceProtocol {
@@ -103,8 +104,16 @@ public final class WorkspaceService: WorkspaceServiceProtocol {
         return result.asModel()
     }
     
-    public func requestApprove(spaceId: String, identity: String) async throws {
+    public func requestApprove(spaceId: String, identity: String, permissions: ParticipantPermissions) async throws {
         try await ClientCommands.spaceRequestApprove(.with {
+            $0.spaceID = spaceId
+            $0.identity = identity
+            $0.permissions = permissions
+        }).invoke()
+    }
+    
+    public func requestDecline(spaceId: String, identity: String) async throws {
+        try await ClientCommands.spaceRequestDecline(.with {
             $0.spaceID = spaceId
             $0.identity = identity
         }).invoke()

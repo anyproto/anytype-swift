@@ -200,12 +200,12 @@ final class RelationValueCoordinator:
     // MARK: - RelationValueViewModelOutput
     
     func onTapRelation(screenData: EditorScreenData) {
-        output?.openObject(screenData: screenData)
+        output?.showEditorScreen(data: screenData)
     }
     
     // MARK: - ObjectRelationListCoordinatorModuleOutput
     
     func onObjectOpen(screenData: EditorScreenData) {
-        output?.openObject(screenData: screenData)
+        output?.showEditorScreen(data: screenData)
     }
 }

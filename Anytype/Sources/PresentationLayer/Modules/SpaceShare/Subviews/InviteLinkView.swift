@@ -48,6 +48,5 @@ struct InviteLinkView: View {
         .padding(.horizontal, 16)
         .padding(.bottom, 28)
         .shadow(radius: 16)
-        .ignoresSafeArea()
     }
 }
