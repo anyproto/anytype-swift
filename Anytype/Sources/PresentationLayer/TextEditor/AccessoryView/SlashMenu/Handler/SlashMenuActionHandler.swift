@@ -7,7 +7,7 @@ final class SlashMenuActionHandler {
     private let actionHandler: BlockActionHandlerProtocol
     private let router: EditorRouterProtocol
     private let document: BaseDocumentProtocol
-    private let pasteboardService: PasteboardServiceProtocol
+    private let pasteboardService: PasteboardBlockServiceProtocol
     private let cursorManager: EditorCursorManager
     private weak var textView: UITextView?
     
@@ -15,7 +15,7 @@ final class SlashMenuActionHandler {
         document: BaseDocumentProtocol,
         actionHandler: BlockActionHandlerProtocol,
         router: EditorRouterProtocol,
-        pasteboardService: PasteboardServiceProtocol,
+        pasteboardService: PasteboardBlockServiceProtocol,
         cursorManager: EditorCursorManager
     ) {
         self.document = document

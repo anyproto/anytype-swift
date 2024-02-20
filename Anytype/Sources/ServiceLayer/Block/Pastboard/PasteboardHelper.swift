@@ -1,15 +1,20 @@
-//
-//  PasteboardHelper.swift
-//  Anytype
-//
-//  Created by Denis Batvinkin on 21.03.2022.
-//  Copyright © 2022 Anytype. All rights reserved.
-//
-
 import UIKit
 import UniformTypeIdentifiers
 
-final class PasteboardHelper {
+protocol PasteboardHelperProtocol {
+    func obrainString() -> String?
+    func obtainBlocksSlots() -> [String]?
+    func obtainHTMLSlot() -> String?
+    func obtainTextSlot() -> String?
+    func obtainAsFiles() -> [NSItemProvider]
+    
+    func setItems(textSlot: String?, htmlSlot: String?, blocksSlots: [String]?)
+    
+    var hasValidURL: Bool { get }
+    var hasSlots: Bool { get }
+}
+
+final class PasteboardHelper: PasteboardHelperProtocol {
     private lazy var pasteboard = UIPasteboard.general
 
     func obrainString() -> String? {
