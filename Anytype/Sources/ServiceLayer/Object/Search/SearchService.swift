@@ -141,7 +141,7 @@ final class SearchService: ObservableObject, SearchServiceProtocol {
         let filters = [
             SearchHelper.notHiddenFilter(),
             SearchHelper.isDeletedFilter(isDeleted: false),
-            SearchHelper.layoutFilter([DetailsLayout.file, DetailsLayout.image]),
+            SearchHelper.layoutFilter(DetailsLayout.fileLayouts),
             SearchHelper.excludedIdsFilter(excludedFileIds),
             SearchHelper.spaceId(spaceId),
         ]
