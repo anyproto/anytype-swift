@@ -191,7 +191,7 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>d</string>
         <key>other</key>
-        <string>You have reached the limit of %d members. New members will not be able to join.</string>
+        <string>Du har nådd grensen på %d medlemmer. Nye medlemmer vil ikke kunne bli med.</string>
       </dict>
     </dict>
   </dict>
