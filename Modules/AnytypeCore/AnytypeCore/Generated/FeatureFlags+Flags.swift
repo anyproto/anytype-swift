@@ -30,14 +30,6 @@ public extension FeatureFlags {
         value(for: .ipadIncreaseWidth)
     }
 
-    static var selectTypeByLongTap: Bool {
-        value(for: .selectTypeByLongTap)
-    }
-
-    static var widgetsCreateObject: Bool {
-        value(for: .widgetsCreateObject)
-    }
-
     static var galleryInstallation: Bool {
         value(for: .galleryInstallation)
     }
@@ -114,8 +106,6 @@ public extension FeatureFlags {
         .dndOnCollectionsAndSets,
         .newCodeLanguages,
         .ipadIncreaseWidth,
-        .selectTypeByLongTap,
-        .widgetsCreateObject,
         .galleryInstallation,
         .newTypePicker,
         .newDateRelationCalendarView,
