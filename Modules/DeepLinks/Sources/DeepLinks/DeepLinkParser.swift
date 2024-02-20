@@ -62,30 +62,32 @@ public final class DeepLinkParser: DeepLinkParserProtocol {
     }
     
     public func createUrl(deepLink: DeepLink, scheme: DeepLinkScheme) -> URL? {
-        guard var components = URLComponents(string: scheme.host()) else { return nil }
+        
+        let host = scheme.host()
         
         switch deepLink {
         case .createDefaultObject:
-            components.path = LinkPaths.createObject
+            return URL(string: host + LinkPaths.createObject)
         case .showSharingExtension:
-            components.path = LinkPaths.sharingExtenstion
+            return URL(string: host + LinkPaths.sharingExtenstion)
         case .spaceSelection:
-            components.path = LinkPaths.spaceSelection
+            return URL(string: host + LinkPaths.spaceSelection)
         case .galleryImport(let type, let source):
-            components.path = LinkPaths.galleryImport
+            guard var components = URLComponents(string: host + LinkPaths.galleryImport) else { return nil }
             components.queryItems = [
                 URLQueryItem(name: "type", value: type),
                 URLQueryItem(name: "source", value: source)
             ]
+            return components.url
         case .invite(let cid, let key):
-            components.path = LinkPaths.invite
+            guard var components = URLComponents(string: host + LinkPaths.invite) else { return nil }
             components.queryItems = [
                 URLQueryItem(name: "cid", value: cid),
                 URLQueryItem(name: "key", value: key)
             ]
+            
+            return components.url
         }
-        
-        return components.url
     }
 
 }

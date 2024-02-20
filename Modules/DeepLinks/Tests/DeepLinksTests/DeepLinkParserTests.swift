@@ -13,7 +13,16 @@ final class DeepLinkParserTests: XCTestCase {
     override func tearDownWithError() throws {
     }
 
-    func testNormal() throws {
+    func testNormalOnProd() throws {
+        CoreEnvironment.isDebug = false
+        let url = URL(string: "anytype://create-object")!
+        
+        let deepLink = parser.parse(url: url)
+        XCTAssertEqual(deepLink, .createDefaultObject)
+    }
+    
+    func testNormalOnDev() throws {
+        CoreEnvironment.isDebug = true
         let url = URL(string: "anytype://create-object")!
         
         let deepLink = parser.parse(url: url)
@@ -78,5 +87,38 @@ final class DeepLinkParserTests: XCTestCase {
         
         let deepLink = parser.parse(url: url)
         XCTAssertEqual(deepLink, .invite(cid: "1", key: "2"))
+    }
+    
+    func testDeepLinkToURLMainInProd() throws {
+        CoreEnvironment.isDebug = false
+        
+        let url = parser.createUrl(deepLink: .createDefaultObject, scheme: .main)
+        XCTAssertEqual(url, URL(string: "anytype://create-object"))
+    }
+    
+    func testDeepLinkToURLMainInDev() throws {
+        CoreEnvironment.isDebug = true
+        
+        let url = parser.createUrl(deepLink: .createDefaultObject, scheme: .main)
+        XCTAssertEqual(url, URL(string: "anytype://create-object"))
+    }
+    
+    func testDeepLinkToURLSpecificInProd() throws {
+        CoreEnvironment.isDebug = false
+        
+        let url = parser.createUrl(deepLink: .createDefaultObject, scheme: .buildSpecific)
+        XCTAssertEqual(url, URL(string: "prod-anytype://create-object"))
+    }
+    
+    func testDeepLinkToURLSpecificInDev() throws {
+        CoreEnvironment.isDebug = true
+        
+        let url = parser.createUrl(deepLink: .createDefaultObject, scheme: .buildSpecific)
+        XCTAssertEqual(url, URL(string: "dev-anytype://create-object"))
+    }
+    
+    func testDeepLinkWithArgs() throws {
+        let url = parser.createUrl(deepLink: .galleryImport(type: "1", source: "2"), scheme: .main)
+        XCTAssertEqual(url, URL(string: "anytype://main/import?type=1&source=2"))
     }
 }
