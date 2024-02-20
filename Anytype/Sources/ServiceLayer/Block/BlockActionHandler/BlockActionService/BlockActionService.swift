@@ -6,7 +6,7 @@ import ProtobufMessages
 import AnytypeCore
 
 final class BlockActionService: BlockActionServiceProtocol {
-    private let documentId: BlockId
+    private let documentId: String
 
     private let objectActionService: ObjectActionsServiceProtocol
     private let textServiceHandler: TextServiceProtocol
@@ -42,11 +42,11 @@ final class BlockActionService: BlockActionServiceProtocol {
 
     // MARK: Actions
 
-    func addChild(info: BlockInformation, parentId: BlockId) {
+    func addChild(info: BlockInformation, parentId: String) {
         add(info: info, targetBlockId: parentId, position: .inner)
     }
 
-    func add(info: BlockInformation, targetBlockId: BlockId, position: BlockPosition, setFocus: Bool) {
+    func add(info: BlockInformation, targetBlockId: String, position: BlockPosition, setFocus: Bool) {
         Task {
             let blockId = try await blockService.add(contextId: documentId, targetId: targetBlockId, info: info, position: position)
             
@@ -58,7 +58,7 @@ final class BlockActionService: BlockActionServiceProtocol {
 
     func split(
         _ string: NSAttributedString,
-        blockId: BlockId,
+        blockId: String,
         mode: Anytype_Rpc.Block.Split.Request.Mode,
         range: NSRange,
         newBlockContentType: BlockText.Style
@@ -77,7 +77,7 @@ final class BlockActionService: BlockActionServiceProtocol {
         }
     }
 
-    func duplicate(blockId: BlockId) {
+    func duplicate(blockId: String) {
         Task {
             try await blockService.duplicate(
                 contextId: documentId,
@@ -88,7 +88,7 @@ final class BlockActionService: BlockActionServiceProtocol {
         }
     }
 
-    func createPage(targetId: BlockId, spaceId: String, typeUniqueKey: ObjectTypeUniqueKey, position: BlockPosition, templateId: String) async throws -> BlockId {
+    func createPage(targetId: String, spaceId: String, typeUniqueKey: ObjectTypeUniqueKey, position: BlockPosition, templateId: String) async throws -> String {
         try await blockService.createBlockLink(
             contextId: documentId,
             targetId: targetId,
@@ -100,13 +100,13 @@ final class BlockActionService: BlockActionServiceProtocol {
         )
     }
 
-    func turnInto(_ style: BlockText.Style, blockId: BlockId) {
+    func turnInto(_ style: BlockText.Style, blockId: String) {
         Task {
             try await textServiceHandler.setStyle(contextId: documentId, blockId: blockId, style: style)
         }
     }
     
-    func turnIntoPage(blockId: BlockId, spaceId: String) async throws -> BlockId? {
+    func turnIntoPage(blockId: String, spaceId: String) async throws -> String? {
         let pageType = try objectTypeProvider.objectType(uniqueKey: .page, spaceId: spaceId)
         AnytypeAnalytics.instance().logCreateObject(objectType: pageType.analyticsType, route: .turnInto)
 
@@ -117,13 +117,13 @@ final class BlockActionService: BlockActionServiceProtocol {
         ).first
     }
     
-    func checked(blockId: BlockId, newValue: Bool) {
+    func checked(blockId: String, newValue: Bool) {
         Task {
             try await textServiceHandler.checked(contextId: documentId, blockId: blockId, newValue: newValue)
         }
     }
     
-    func merge(secondBlockId: BlockId) {
+    func merge(secondBlockId: String) {
         Task { @MainActor [weak self, documentId] in
             guard
                 let previousBlock = self?.modelsHolder?.findModel(
@@ -150,18 +150,18 @@ final class BlockActionService: BlockActionServiceProtocol {
         }
     }
     
-    func delete(blockIds: [BlockId]) {
+    func delete(blockIds: [String]) {
         AnytypeAnalytics.instance().logEvent(AnalyticsEventsName.blockDelete)
         Task {
             try await blockService.delete(contextId: documentId, blockIds: blockIds)
         }
     }
     
-    func setText(contextId: BlockId, blockId: BlockId, middlewareString: MiddlewareString) async throws {
+    func setText(contextId: String, blockId: String, middlewareString: MiddlewareString) async throws {
         try await textServiceHandler.setText(contextId: contextId, blockId: blockId, middlewareString: middlewareString)
     }
 
-    func setTextForced(contextId: BlockId, blockId: BlockId, middlewareString: MiddlewareString) async throws {
+    func setTextForced(contextId: String, blockId: String, middlewareString: MiddlewareString) async throws {
         try await textServiceHandler.setTextForced(contextId: contextId, blockId: blockId, middlewareString: middlewareString)
     }
     
@@ -185,15 +185,15 @@ final class BlockActionService: BlockActionServiceProtocol {
 // MARK: - BookmarkFetch
 
 extension BlockActionService {
-    func bookmarkFetch(blockId: BlockId, url: AnytypeURL) {
+    func bookmarkFetch(blockId: String, url: AnytypeURL) {
         Task {
             try await bookmarkService.fetchBookmark(contextID: documentId, blockID: blockId, url: url.absoluteString)
         }
     }
 
     func createAndFetchBookmark(
-        contextID: BlockId,
-        targetID: BlockId,
+        contextID: String,
+        targetID: String,
         position: BlockPosition,
         url: AnytypeURL
     ) {
@@ -211,11 +211,11 @@ extension BlockActionService {
 // MARK: - SetBackgroundColor
 
 extension BlockActionService {
-    func setBackgroundColor(blockIds: [BlockId], color: BlockBackgroundColor) {
+    func setBackgroundColor(blockIds: [String], color: BlockBackgroundColor) {
         setBackgroundColor(blockIds: blockIds, color: color.middleware)
     }
     
-    func setBackgroundColor(blockIds: [BlockId], color: MiddlewareColor) {
+    func setBackgroundColor(blockIds: [String], color: MiddlewareColor) {
         Task {
             try await blockService.setBackgroundColor(objectId: documentId, blockIds: blockIds, color: color)
         }
@@ -225,7 +225,7 @@ extension BlockActionService {
 // MARK: - UploadFile
 
 extension BlockActionService {
-    func upload(blockId: BlockId, filePath: String) async throws {
+    func upload(blockId: String, filePath: String) async throws {
         try await fileService.uploadDataAt(source: .path(filePath), contextID: documentId, blockID: blockId)
     }
 }

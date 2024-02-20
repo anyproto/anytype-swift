@@ -5,7 +5,7 @@ public extension BlockInformation {
     }
     
     static func empty(
-        id: BlockId = "", content: BlockContent
+        id: String = "", content: BlockContent
     ) -> BlockInformation {
         BlockInformation(
             id: id,
@@ -18,7 +18,7 @@ public extension BlockInformation {
         )
     }
     
-    static func emptyLink(targetId: BlockId) -> BlockInformation {
+    static func emptyLink(targetId: String) -> BlockInformation {
         let content: BlockContent = .link(
             .init(
                 targetBlockID: targetId,
@@ -29,7 +29,7 @@ public extension BlockInformation {
         return BlockInformation.empty(content: content)
     }
     
-    static func bookmark(targetId: BlockId) -> BlockInformation {
+    static func bookmark(targetId: String) -> BlockInformation {
         let content: BlockContent = .bookmark(.empty(targetObjectID: targetId))
         return BlockInformation.empty(content: content)
     }

@@ -8,7 +8,7 @@ extension WidgetContainerViewModel {
     convenience init(
         serviceLocator: ServiceLocator,
         uiHelpersDI: UIHelpersDIProtocol,
-        widgetBlockId: BlockId,
+        widgetBlockId: String,
         widgetObject: BaseDocumentProtocol,
         stateManager: HomeWidgetsStateManagerProtocol,
         contentModel: ContentVM,

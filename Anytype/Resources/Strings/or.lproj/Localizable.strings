@@ -62,7 +62,7 @@
 "BlockLink.PreviewSettings.Layout.Text.Title" = "ଲେଖା";
 
 // MARK: - Settings
-"Settings.Title" = "ବ୍ୟକ୍ତିଗତ ସ୍ଥାନ";
+"Settings.Title" = "ସେଟିଂସମୂହ";
 "Settings.SpaceName" = "ସ୍ଥାନ ନାମ";
 
 // MARK: - Object
@@ -259,7 +259,7 @@
 
 "Auth.JoinFlow.Creating.Soul.Title" = "ନୂତନ ଖାତା ସୃଷ୍ଟି କରୁଛି";
 "Auth.JoinFlow.Setting.Space.Title" = "ଆପଣଙ୍କର ବ୍ୟକ୍ତିଗତ ସ୍ଥାନ ସେଟ୍ ଅପ୍ କରୁଛି";
-"Auth.JoinFlow.Personal.Space.Title" = "ବ୍ୟକ୍ତିଗତ ସ୍ଥାନ";
+"Auth.JoinFlow.Personal.Space.Title" = "ସେଟିଂସମୂହ";
 
 // Auth - Login flow
 "Auth.LoginFlow.Use.Keychain.Title" = "କିଚେନ ବ୍ୟବହାର କରନ୍ତୁ";
@@ -753,10 +753,6 @@
 "Content.DataView.InlineCollection.Untitled" = "Untitled collection";
 "Content.DataView.InlineSet.Toast.Failure" = "This inline set doesn’t have a source";
 
-// MARK: - Widget extension
-"WidgetExtension.LockScreen.Title" = "New object";
-"WidgetExtension.LockScreen.Description" = "Create a new object on the fly";
-
 // MARK: - Toast
 "Editor.Toast.LinkedTo" = "linked to";
 "Editor.Toast.MovedTo" = "Block moved to";
@@ -813,7 +809,7 @@
 "ClearCache.Error" = "Error, try again later";
 
 // MARK: - Settings
-"Settings.TitleLegacy" = "ବ୍ୟକ୍ତିଗତ ସ୍ଥାନ";
+"Settings.TitleLegacy" = "ସେଟିଂସମୂହ";
 "Settings.Title" = "ସେଟିଂସମୂହ";
 "Settings.SpaceName" = "ସ୍ଥାନ ନାମ";
 "Settings.AccountAndAccess" = "Account and access";
@@ -850,7 +846,7 @@
 // MARK: - Spaces
 "Spaces.Accessibility.Public" = "Public Space";
 "Spaces.Accessibility.Private" = "Private Space";
-"Spaces.Accessibility.Personal" = "ବ୍ୟକ୍ତିଗତ ସ୍ଥାନ";
+"Spaces.Accessibility.Personal" = "ସେଟିଂସମୂହ";
 "Spaces.Search.Title" = "Search spaces";
 
 // MARK: - Space Settings
@@ -871,6 +867,9 @@
 "SpaceShare.Permissions.Owner" = "Owner";
 "SpaceShare.Permissions.Reader" = "Can view";
 "SpaceShare.Permissions.Writer" = "Can edit";
+"SpaceShare.Invite.Title" = "Invite link";
+"SpaceShare.Invite.Description" = "Send this link to invite others. Assign access rights upon their request approval";
+"SpaceShare.Invite.Button" = "Share invite link";
 
 // MARK: - Space Create
 "SpaceCreate.Title" = "Create a space";

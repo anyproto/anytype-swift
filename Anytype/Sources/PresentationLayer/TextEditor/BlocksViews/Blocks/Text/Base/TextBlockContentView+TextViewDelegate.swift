@@ -50,7 +50,7 @@ extension TextBlockContentView: CustomTextViewDelegate {
         actions?.handleKeyboardAction(action, textView.textView)
     }
     
-    func showPage(blockId: BlockId) {
+    func showPage(blockId: String) {
         actions?.showPage(blockId)
     }
     

@@ -15,7 +15,7 @@ protocol ObjectSettingsModelOutput: AnyObject, ObjectHeaderRouterProtocol {
     func layoutPickerAction(document: BaseDocumentProtocol)
     func relationsAction(document: BaseDocumentProtocol)
     func openPageAction(screenData: EditorScreenData)
-    func linkToAction(document: BaseDocumentProtocol, onSelect: @escaping (BlockId) -> ())
+    func linkToAction(document: BaseDocumentProtocol, onSelect: @escaping (String) -> ())
     func closeEditorAction()
 }
 

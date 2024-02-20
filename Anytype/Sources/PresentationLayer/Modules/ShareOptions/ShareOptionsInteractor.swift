@@ -103,7 +103,7 @@ final class ShareOptionsInteractor: ShareOptionsInteractorProtocol {
         }
     }
     
-    private func createBookmarkObject(url: URL, spaceId: BlockId) async throws -> ObjectDetails {
+    private func createBookmarkObject(url: URL, spaceId: String) async throws -> ObjectDetails {
         let newBookmark = try await bookmarkService.createBookmarkObject(
             spaceId: spaceId,
             url: url.absoluteString,
@@ -118,7 +118,7 @@ final class ShareOptionsInteractor: ShareOptionsInteractorProtocol {
         return newBookmark
     }
 
-    private func createNoteObject(text: String, spaceId: BlockId) async throws -> ObjectDetails {
+    private func createNoteObject(text: String, spaceId: String) async throws -> ObjectDetails {
         let newObject = try await objectActionsService.createObject(
             name: "",
             typeUniqueKey: .note,

@@ -6,10 +6,10 @@ final class CodeLanguageLegacyListViewModel {
     var items: [CodeLanguage] = CodeLanguage.allCases
     
     private let document: BaseDocumentProtocol
-    private let blockId: BlockId
+    private let blockId: String
     private let blockService: BlockServiceProtocol
     
-    init(document: BaseDocumentProtocol, blockId: BlockId, blockService: BlockServiceProtocol) {
+    init(document: BaseDocumentProtocol, blockId: String, blockService: BlockServiceProtocol) {
         self.document = document
         self.blockId = blockId
         self.blockService = blockService

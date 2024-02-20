@@ -99,7 +99,7 @@ final class BottomSheetsFactory {
         parentViewController: UIViewController,
         styleView: UIView,
         document: BaseDocumentProtocol,
-        blockIds: [BlockId],
+        blockIds: [String],
         actionHandler: BlockActionHandlerProtocol,
         linkToObjectCoordinator: LinkToObjectCoordinatorProtocol,
         viewDidClose: @escaping () -> Void

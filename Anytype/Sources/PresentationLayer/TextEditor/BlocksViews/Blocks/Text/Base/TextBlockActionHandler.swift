@@ -12,7 +12,7 @@ struct TextBlockURLInputParameters {
 final class TextBlockActionHandler: TextBlockActionHandlerProtocol {
     var info: BlockInformation
 
-    let showPage: (BlockId) -> Void
+    let showPage: (String) -> Void
     let openURL: (URL) -> Void
     private let onShowStyleMenu: (BlockInformation) -> Void
     private let onEnterSelectionMode: (BlockInformation) -> Void

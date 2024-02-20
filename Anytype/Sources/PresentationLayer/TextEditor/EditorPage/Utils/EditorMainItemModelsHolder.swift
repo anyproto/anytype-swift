@@ -1,7 +1,7 @@
 import Services
 import AnytypeCore
 
-typealias BlockMapping = Dictionary<BlockId, BlockViewModelProtocol>
+typealias BlockMapping = Dictionary<String, BlockViewModelProtocol>
 
 final class EditorMainItemModelsHolder {
     var items = [EditorItem]() {
@@ -27,7 +27,7 @@ final class EditorMainItemModelsHolder {
 // MARK: - Models searching
 extension EditorMainItemModelsHolder {
     func findModel(
-        beforeBlockId blockId: BlockId,
+        beforeBlockId blockId: String,
         acceptingTypes: [BlockContentType]
     ) -> BlockViewModelProtocol? {
         guard let modelIndex = items.firstIndex(blockId: blockId) else { return nil }
@@ -104,7 +104,7 @@ extension EditorMainItemModelsHolder {
 
 
 extension Array where Element == EditorItem {
-    func firstIndex(blockId: BlockId) -> Int? {
+    func firstIndex(blockId: String) -> Int? {
         firstIndex { element in
             guard case let .block(block) = element else { return false }
             return block.blockId == blockId

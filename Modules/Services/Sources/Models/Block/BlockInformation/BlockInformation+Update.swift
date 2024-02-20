@@ -6,7 +6,7 @@ public extension BlockInformation {
         content: BlockContent? = nil,
         backgroundColor: MiddlewareColor? = nil,
         horizontalAlignment: LayoutAlignment? = nil,
-        childrenIds: [BlockId]? = nil,
+        childrenIds: [String]? = nil,
         fields: BlockFields? = nil,
         metadata: BlockInformationMetadata? = nil
     ) -> BlockInformation {

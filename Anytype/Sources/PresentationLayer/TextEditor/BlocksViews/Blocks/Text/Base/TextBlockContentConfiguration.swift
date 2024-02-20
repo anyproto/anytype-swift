@@ -10,7 +10,7 @@ struct TextBlockContentConfiguration: BlockConfiguration {
         let copy: (NSRange) -> Void
         let cut: (NSRange) -> Void
         let createEmptyBlock: () -> Void
-        let showPage: (BlockId) -> Void
+        let showPage: (String) -> Void
         let openURL: (URL) -> Void
         
         let handleKeyboardAction: (CustomTextView.KeyboardAction, UITextView) -> Void
@@ -50,7 +50,7 @@ struct TextBlockContentConfiguration: BlockConfiguration {
     @EquatableNoop private(set) var actions: Actions
     
     init(
-        blockId: BlockId,
+        blockId: String,
         content: BlockText,
         attributedString: NSAttributedString,
         placeholderAttributes: [NSAttributedString.Key: Any],

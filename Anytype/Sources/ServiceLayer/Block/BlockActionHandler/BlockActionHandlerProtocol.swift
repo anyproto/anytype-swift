@@ -5,7 +5,7 @@ import AnytypeCore
 protocol BlockActionHandlerProtocol: AnyObject {
     func turnInto(_ style: BlockText.Style, blockId: BlockId)
     @discardableResult
-    func turnIntoPage(blockId: BlockId) async throws -> BlockId?
+    func turnIntoPage(blockId: String) async throws -> String?
     
     func setTextColor(_ color: BlockColor, blockIds: [BlockId])
     func setBackgroundColor(_ color: BlockBackgroundColor, blockIds: [BlockId])
@@ -43,21 +43,21 @@ protocol BlockActionHandlerProtocol: AnyObject {
     func uploadMediaFile(uploadingSource: FileUploadingSource, type: MediaPickerContentType, blockId: BlockId)
     func uploadFileAt(localPath: String, blockId: BlockId)
     func createAndFetchBookmark(
-        targetID: BlockId,
+        targetID: String,
         position: BlockPosition,
         url: AnytypeURL
     ) async throws
-    func setAppearance(blockId: BlockId, appearance: BlockLink.Appearance)
+    func setAppearance(blockId: String, appearance: BlockLink.Appearance)
     func createTable(
-        blockId: BlockId,
+        blockId: String,
         rowsCount: Int,
         columnsCount: Int,
         blockText: SafeSendable<NSAttributedString?>
-    ) async throws -> BlockId
+    ) async throws -> String
 }
 
 extension BlockActionHandlerProtocol {
-    func addBlock(_ type: BlockContentType, blockId: BlockId, blockText: NSAttributedString? = nil) {
+    func addBlock(_ type: BlockContentType, blockId: String, blockText: NSAttributedString? = nil) {
         addBlock(type, blockId: blockId, blockText: blockText, position: nil)
     }
 }

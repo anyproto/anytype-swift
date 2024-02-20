@@ -24,7 +24,7 @@ final class FavoriteWidgetInternalViewModel: CommonWidgetInternalViewModel, Widg
     var allowCreateObject = true
     
     init(
-        widgetBlockId: BlockId,
+        widgetBlockId: String,
         widgetObject: BaseDocumentProtocol,
         favoriteSubscriptionService: FavoriteSubscriptionServiceProtocol,
         activeWorkspaceStorage: ActiveWorkpaceStorageProtocol,

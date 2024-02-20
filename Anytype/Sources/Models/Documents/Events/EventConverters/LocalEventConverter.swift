@@ -40,7 +40,7 @@ final class LocalEventConverter {
     // simplified version of inner converter method
     // func blockSetTextUpdate(_ newData: Anytype_Event.Block.Set.Text)
     // only text is changed
-    private func blockSetTextUpdate(blockId: BlockId, text: MiddlewareString) -> DocumentUpdate {
+    private func blockSetTextUpdate(blockId: String, text: MiddlewareString) -> DocumentUpdate {
         guard var info = infoContainer.get(id: blockId) else {
             anytypeAssertionFailure("Block model not found in container", info: ["blockId": "\(blockId)"])
             return .unhandled(blockIds: .init([blockId]))

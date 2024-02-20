@@ -7,7 +7,7 @@ public final class DataviewService: DataviewServiceProtocol {
   
     public init() {}
     
-    public func updateView(objectId: BlockId, blockId: BlockId, view: DataviewView) async throws {
+    public func updateView(objectId: String, blockId: String, view: DataviewView) async throws {
         try await ClientCommands.blockDataviewViewUpdate(.with {
             $0.contextID = objectId
             $0.blockID = blockId
@@ -18,7 +18,7 @@ public final class DataviewService: DataviewServiceProtocol {
     
     // MARK: - Filters
     
-    public func addFilter(objectId: BlockId, blockId: BlockId, filter: DataviewFilter, viewId: String) async throws {
+    public func addFilter(objectId: String, blockId: String, filter: DataviewFilter, viewId: String) async throws {
         try await ClientCommands.blockDataviewFilterAdd(.with {
             $0.contextID = objectId
             $0.blockID = blockId
@@ -27,7 +27,7 @@ public final class DataviewService: DataviewServiceProtocol {
         }).invoke()
     }
     
-    public func removeFilters(objectId: BlockId, blockId: BlockId, ids: [String], viewId: String) async throws {
+    public func removeFilters(objectId: String, blockId: String, ids: [String], viewId: String) async throws {
         try await ClientCommands.blockDataviewFilterRemove(.with {
             $0.contextID = objectId
             $0.blockID = blockId
@@ -36,7 +36,7 @@ public final class DataviewService: DataviewServiceProtocol {
         }).invoke()
     }
     
-    public func replaceFilter(objectId: BlockId, blockId: BlockId, id: String, filter: DataviewFilter, viewId: String) async throws {
+    public func replaceFilter(objectId: String, blockId: String, id: String, filter: DataviewFilter, viewId: String) async throws {
         try await ClientCommands.blockDataviewFilterReplace(.with {
             $0.contextID = objectId
             $0.blockID = blockId
@@ -48,7 +48,7 @@ public final class DataviewService: DataviewServiceProtocol {
     
     // MARK: - Sorts
     
-    public func addSort(objectId: BlockId, blockId: BlockId, sort: DataviewSort, viewId: String) async throws {
+    public func addSort(objectId: String, blockId: String, sort: DataviewSort, viewId: String) async throws {
         try await ClientCommands.blockDataviewSortAdd(.with {
             $0.contextID = objectId
             $0.blockID = blockId
@@ -57,7 +57,7 @@ public final class DataviewService: DataviewServiceProtocol {
         }).invoke()
     }
     
-    public func removeSorts(objectId: BlockId, blockId: BlockId, ids: [String], viewId: String) async throws {
+    public func removeSorts(objectId: String, blockId: String, ids: [String], viewId: String) async throws {
         try await ClientCommands.blockDataviewSortRemove(.with {
             $0.contextID = objectId
             $0.blockID = blockId
@@ -66,7 +66,7 @@ public final class DataviewService: DataviewServiceProtocol {
         }).invoke()
     }
     
-    public func replaceSort(objectId: BlockId, blockId: BlockId, id: String, sort: DataviewSort, viewId: String) async throws {
+    public func replaceSort(objectId: String, blockId: String, id: String, sort: DataviewSort, viewId: String) async throws {
         try await ClientCommands.blockDataviewSortReplace(.with {
             $0.contextID = objectId
             $0.blockID = blockId
@@ -76,7 +76,7 @@ public final class DataviewService: DataviewServiceProtocol {
         }).invoke()
     }
     
-    public func sortSorts(objectId: BlockId, blockId: BlockId, ids: [String], viewId: String) async throws {
+    public func sortSorts(objectId: String, blockId: String, ids: [String], viewId: String) async throws {
         try await ClientCommands.blockDataviewSortSort(.with {
             $0.contextID = objectId
             $0.blockID = blockId
@@ -87,7 +87,7 @@ public final class DataviewService: DataviewServiceProtocol {
     
     // MARK: - Relations
     
-    public func addViewRelation(objectId: BlockId, blockId: BlockId, relation: MiddlewareRelation, viewId: String) async throws {
+    public func addViewRelation(objectId: String, blockId: String, relation: MiddlewareRelation, viewId: String) async throws {
         try await ClientCommands.blockDataviewViewRelationAdd(.with {
             $0.contextID = objectId
             $0.blockID = blockId
@@ -96,7 +96,7 @@ public final class DataviewService: DataviewServiceProtocol {
         }).invoke()
     }
     
-    public func removeViewRelations(objectId: BlockId, blockId: BlockId, keys: [String], viewId: String) async throws {
+    public func removeViewRelations(objectId: String, blockId: String, keys: [String], viewId: String) async throws {
         try await ClientCommands.blockDataviewViewRelationRemove(.with {
             $0.contextID = objectId
             $0.blockID = blockId
@@ -105,7 +105,7 @@ public final class DataviewService: DataviewServiceProtocol {
         }).invoke()
     }
     
-    public func replaceViewRelation(objectId: BlockId, blockId: BlockId, key: String, with relation: MiddlewareRelation, viewId: String) async throws {
+    public func replaceViewRelation(objectId: String, blockId: String, key: String, with relation: MiddlewareRelation, viewId: String) async throws {
         try await ClientCommands.blockDataviewViewRelationReplace(.with {
             $0.contextID = objectId
             $0.blockID = blockId
@@ -115,7 +115,7 @@ public final class DataviewService: DataviewServiceProtocol {
         }).invoke()
     }
     
-    public func sortViewRelations(objectId: BlockId, blockId: BlockId, keys: [String], viewId: String) async throws {
+    public func sortViewRelations(objectId: String, blockId: String, keys: [String], viewId: String) async throws {
         try await ClientCommands.blockDataviewViewRelationSort(.with {
             $0.contextID = objectId
             $0.blockID = blockId
@@ -126,7 +126,7 @@ public final class DataviewService: DataviewServiceProtocol {
     
     // MARK: -
 
-    public func createView(objectId: BlockId, blockId: BlockId, view: DataviewView, source: [String]) async throws -> String {
+    public func createView(objectId: String, blockId: String, view: DataviewView, source: [String]) async throws -> String {
         let response = try await ClientCommands.blockDataviewViewCreate(.with {
             $0.contextID = objectId
             $0.blockID = blockId
@@ -136,7 +136,7 @@ public final class DataviewService: DataviewServiceProtocol {
         return response.viewID
     }
 
-    public func deleteView(objectId: BlockId, blockId: BlockId, viewId: String) async throws {
+    public func deleteView(objectId: String, blockId: String, viewId: String) async throws {
         try await ClientCommands.blockDataviewViewDelete(.with {
             $0.contextID = objectId
             $0.blockID = blockId
@@ -144,7 +144,7 @@ public final class DataviewService: DataviewServiceProtocol {
         }).invoke()
     }
 
-    public func addRelation(objectId: BlockId, blockId: BlockId, relationDetails: RelationDetails) async throws {
+    public func addRelation(objectId: String, blockId: String, relationDetails: RelationDetails) async throws {
         try await ClientCommands.blockDataviewRelationAdd(.with {
             $0.contextID = objectId
             $0.blockID = blockId
@@ -152,7 +152,7 @@ public final class DataviewService: DataviewServiceProtocol {
         }).invoke()
     }
     
-    public func deleteRelation(objectId: BlockId, blockId: BlockId, relationKey: String) async throws {
+    public func deleteRelation(objectId: String, blockId: String, relationKey: String) async throws {
         try await ClientCommands.blockDataviewRelationDelete(.with {
             $0.contextID = objectId
             $0.blockID = blockId
@@ -162,7 +162,7 @@ public final class DataviewService: DataviewServiceProtocol {
     
     public func addRecord(
         typeUniqueKey: ObjectTypeUniqueKey?,
-        templateId: BlockId,
+        templateId: String,
         spaceId: String,
         details: ObjectDetails
     ) async throws -> ObjectDetails {
@@ -186,7 +186,7 @@ public final class DataviewService: DataviewServiceProtocol {
         return try ObjectDetails(protobufStruct: response.details)
     }
     
-    public func setPositionForView(objectId: BlockId, blockId: BlockId, viewId: String, position: Int) async throws {
+    public func setPositionForView(objectId: String, blockId: String, viewId: String, position: Int) async throws {
         try await ClientCommands.blockDataviewViewSetPosition(.with {
             $0.contextID = objectId
             $0.blockID = blockId
@@ -195,7 +195,7 @@ public final class DataviewService: DataviewServiceProtocol {
         }).invoke()
     }
     
-    public func objectOrderUpdate(objectId: BlockId, blockId: BlockId, order: [DataviewObjectOrder]) async throws {
+    public func objectOrderUpdate(objectId: String, blockId: String, order: [DataviewObjectOrder]) async throws {
         try await ClientCommands.blockDataviewObjectOrderUpdate(.with {
             $0.contextID = objectId
             $0.blockID = blockId
@@ -203,7 +203,7 @@ public final class DataviewService: DataviewServiceProtocol {
         }).invoke()
     }
     
-    public func groupOrderUpdate(objectId: BlockId, blockId: BlockId, viewId: String, groupOrder: DataviewGroupOrder) async throws {
+    public func groupOrderUpdate(objectId: String, blockId: String, viewId: String, groupOrder: DataviewGroupOrder) async throws {
         try await ClientCommands.blockDataviewGroupOrderUpdate(.with {
             $0.contextID = objectId
             $0.blockID = blockId

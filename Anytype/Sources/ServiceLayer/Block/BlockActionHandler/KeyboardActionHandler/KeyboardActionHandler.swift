@@ -212,7 +212,7 @@ final class KeyboardActionHandler: KeyboardActionHandlerProtocol {
 // MARK: - Extensions
 private extension KeyboardActionHandler {
     // We do want to create regular text block when splitting title block
-    func contentTypeForSplit(_ style: BlockText.Style, blockId: BlockId) -> BlockText.Style {
+    func contentTypeForSplit(_ style: BlockText.Style, blockId: String) -> BlockText.Style {
         if style == .title || style == .description {
             return .text
         }

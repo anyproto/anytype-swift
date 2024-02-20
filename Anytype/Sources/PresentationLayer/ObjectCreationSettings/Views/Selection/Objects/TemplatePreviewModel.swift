@@ -19,7 +19,7 @@ struct TemplateModel: Equatable {
     }
     
     init(
-        id: BlockId,
+        id: String,
         title: String,
         header: ObjectHeader?,
         isBundled: Bool,
@@ -32,7 +32,7 @@ struct TemplateModel: Equatable {
         self.style = style
     }
     
-    let id: BlockId
+    let id: String
     let title: String
     let header: ObjectHeader?
     let isBundled: Bool
@@ -61,7 +61,7 @@ struct TemplatePreviewModel: Identifiable, Equatable {
     let alignment: LayoutAlignment
     let isDefault: Bool
     
-    var id: BlockId {
+    var id: String {
         mode.id
     }
 }

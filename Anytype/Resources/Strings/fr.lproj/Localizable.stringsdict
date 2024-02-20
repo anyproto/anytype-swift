@@ -127,7 +127,7 @@
         <key>one</key>
         <string>File Block</string>
         <key>other</key>
-        <string>%d File Blocks</string>
+        <string>%d Blocs de fichiers</string>
       </dict>
     </dict>
     <key>Sharing.URL.NewObject</key>

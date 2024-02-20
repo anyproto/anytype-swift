@@ -6,10 +6,10 @@ import UIKit
 
 enum EditorEditingState {
     case editing
-    case selecting(blocks: [BlockId])
+    case selecting(blocks: [String])
     case moving(indexPaths: [IndexPath])
     case readonly(state: ReadonlyState)
-    case simpleTablesSelection(block: BlockId, selectedBlocks: [BlockId], simpleTableMenuModel: SimpleTableMenuModel)
+    case simpleTablesSelection(block: String, selectedBlocks: [String], simpleTableMenuModel: SimpleTableMenuModel)
     case loading
 }
 
@@ -51,24 +51,24 @@ protocol EditorPageBlocksStateManagerProtocol: EditorPageSelectionManagerProtoco
     
     var editingState: EditorEditingState { get }
     var editorEditingStatePublisher: AnyPublisher<EditorEditingState, Never> { get }
-    var editorSelectedBlocks: AnyPublisher<[BlockId], Never> { get }
+    var editorSelectedBlocks: AnyPublisher<[String], Never> { get }
 }
 
 @MainActor
 final class EditorPageBlocksStateManager: EditorPageBlocksStateManagerProtocol {
     private enum MovingDestination {
         case position(IndexPath)
-        case object(BlockId)
+        case object(String)
     }
 
     var editorEditingStatePublisher: AnyPublisher<EditorEditingState, Never> { $editingState.eraseToAnyPublisher() }
-    var editorSelectedBlocks: AnyPublisher<[BlockId], Never> { $selectedBlocks.eraseToAnyPublisher() }
+    var editorSelectedBlocks: AnyPublisher<[String], Never> { $selectedBlocks.eraseToAnyPublisher() }
 
     @Published var editingState: EditorEditingState = .editing
-    @Published var selectedBlocks = [BlockId]()
+    @Published var selectedBlocks = [String]()
 
     private(set) var selectedBlocksIndexPaths = [IndexPath]()
-    private(set) var movingBlocksIds = [BlockId]()
+    private(set) var movingBlocksIds = [String]()
     private var movingDestination: MovingDestination?
 
     // We need to store interspace between root and all childs to disable cursor moving between those indexPaths
@@ -308,7 +308,7 @@ final class EditorPageBlocksStateManager: EditorPageBlocksStateManagerProtocol {
             }
         case let .position(positionIndexPath):
             let position: BlockPosition
-            let dropTargetId: BlockId
+            let dropTargetId: String
             if let targetBlock = modelsHolder.blockViewModel(at: positionIndexPath.row) {
                 position = .top
                 dropTargetId = targetBlock.blockId
@@ -326,7 +326,7 @@ final class EditorPageBlocksStateManager: EditorPageBlocksStateManagerProtocol {
         }
     }
     
-    private func move(position: BlockPosition, targetId: BlockId, dropTargetId: BlockId) {
+    private func move(position: BlockPosition, targetId: String, dropTargetId: String) {
         guard !movingBlocksIds.contains(dropTargetId) else { return }
 
         UISelectionFeedbackGenerator().selectionChanged()
@@ -497,7 +497,7 @@ final class EditorPageBlocksStateManager: EditorPageBlocksStateManagerProtocol {
 }
 
 extension EditorPageBlocksStateManager: SimpleTableSelectionHandler {
-    func didStartSimpleTableSelectionMode(simpleTableBlockId: BlockId, selectedBlockIds: [BlockId], menuModel: SimpleTableMenuModel) {
+    func didStartSimpleTableSelectionMode(simpleTableBlockId: String, selectedBlockIds: [String], menuModel: SimpleTableMenuModel) {
         editingState = .simpleTablesSelection(
             block: simpleTableBlockId,
             selectedBlocks: selectedBlockIds,
@@ -545,7 +545,7 @@ extension EditorMainItemModelsHolder {
         allIndexes(for: viewModel.info.childrenIds.map { $0 })
     }
 
-    private func allIndexes(for childs: [BlockId]) -> [Int] {
+    private func allIndexes(for childs: [String]) -> [Int] {
         var indexes = [Int]()
 
         for child in childs {

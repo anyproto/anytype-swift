@@ -80,7 +80,7 @@ final class SimpleTableSelectionOptionHandler {
             }
         case .moveLeft:
             let allColumnIds = table.allColumnIds
-            let dropColumnIds = uniqueColumns.compactMap { item -> BlockId? in
+            let dropColumnIds = uniqueColumns.compactMap { item -> String? in
                 guard let index = allColumnIds.firstIndex(of: item) else { return nil }
                 let indexBefore = allColumnIds.index(before: index)
 
@@ -92,7 +92,7 @@ final class SimpleTableSelectionOptionHandler {
             }
         case .moveRight:
             let allColumnIds = table.allColumnIds
-            let dropColumnIds = uniqueColumns.compactMap { item -> BlockId? in
+            let dropColumnIds = uniqueColumns.compactMap { item -> String? in
                 guard let index = allColumnIds.firstIndex(of: item) else { return nil }
                 let indexBefore = allColumnIds.index(after: index)
 
@@ -132,7 +132,7 @@ final class SimpleTableSelectionOptionHandler {
         onFinishSelection?()
     }
 
-    private func onColorSelection(for selectedBlockIds: [BlockId]) {
+    private func onColorSelection(for selectedBlockIds: [String]) {
         let blockInformations = selectedBlockIds.compactMap(document.infoContainer.get(id:))
 
         let backgroundColors = blockInformations.map(\.backgroundColor)
@@ -164,7 +164,7 @@ final class SimpleTableSelectionOptionHandler {
         )
     }
 
-    private func onStyleSelection(for selectedBlockIds: [BlockId]) {
+    private func onStyleSelection(for selectedBlockIds: [String]) {
         router.showMarkupBottomSheet(
             selectedBlockIds: selectedBlockIds,
             viewDidClose: {
@@ -200,7 +200,7 @@ final class SimpleTableSelectionOptionHandler {
             }
         case .moveUp:
             let allRowIds = table.allRowIds
-            let dropRowIds = uniqueRows.compactMap { item -> BlockId? in
+            let dropRowIds = uniqueRows.compactMap { item -> String? in
                 guard let index = allRowIds.firstIndex(of: item) else { return nil }
                 let indexBefore = allRowIds.index(before: index)
 
@@ -217,7 +217,7 @@ final class SimpleTableSelectionOptionHandler {
             }
         case .moveDown:
             let allRowIds = table.allRowIds
-            let dropRowIds = uniqueRows.compactMap { item -> BlockId? in
+            let dropRowIds = uniqueRows.compactMap { item -> String? in
                 guard let index = allRowIds.firstIndex(of: item) else { return nil }
                 let indexAfter = allRowIds.index(after: index)
 

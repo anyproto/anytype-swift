@@ -1,7 +1,7 @@
 import Foundation
 
 public enum IndentationBuilder {
-    public static func build(container: InfoContainerProtocol, id: BlockId) {
+    public static func build(container: InfoContainerProtocol, id: String) {
         privateBuild(container: container, id: id)
     }
 

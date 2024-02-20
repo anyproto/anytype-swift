@@ -22,7 +22,7 @@ final class AudioBlockViewModel: BlockViewModelProtocol {
     }
     let audioSessionService: AudioSessionServiceProtocol
 
-    let showAudioPicker: (BlockId) -> ()
+    let showAudioPicker: (String) -> ()
 
     // Player properties
     let audioPlayer = AnytypeSharedAudioplayer.sharedInstance
@@ -32,7 +32,7 @@ final class AudioBlockViewModel: BlockViewModelProtocol {
     init(
         informationProvider: BlockModelInfomationProvider,
         audioSessionService: AudioSessionServiceProtocol,
-        showAudioPicker: @escaping (BlockId) -> ()
+        showAudioPicker: @escaping (String) -> ()
     ) {
         self.informantionProvider = informationProvider
         self.audioSessionService = audioSessionService
