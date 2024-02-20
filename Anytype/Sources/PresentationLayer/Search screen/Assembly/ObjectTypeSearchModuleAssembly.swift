@@ -45,7 +45,6 @@ final class ObjectTypeSearchModuleAssembly: ObjectTypeSearchModuleAssemblyProtoc
             typesService: serviceLocator.typesService(),
             objectTypeProvider: serviceLocator.objectTypeProvider(),
             toastPresenter: uiHelpersDI.toastPresenter(),
-            pasteboardHelper: serviceLocator.pasteboardHelper(),
             onSelect: onSelect
         )
         
@@ -73,8 +72,7 @@ final class ObjectTypeSearchModuleAssembly: ObjectTypeSearchModuleAssemblyProtoc
                 workspaceService: serviceLocator.workspaceService(),
                 typesService: serviceLocator.typesService(),
                 objectTypeProvider: serviceLocator.objectTypeProvider(),
-                toastPresenter: uiHelpersDI.toastPresenter(), 
-                pasteboardHelper: serviceLocator.pasteboardHelper(),
+                toastPresenter: uiHelpersDI.toastPresenter(),
                 onSelect: onSelect
             )
             
