@@ -92,6 +92,6 @@ class BeginingOfTextMarkdownListenerTests: XCTestCase {
         
         let text = UIKitAnytypeText(text: text, style: .bodyRegular, lineBreakModel: .byWordWrapping)
         
-        return TextViewAccessoryConfiguration(textView: textView, info: .emptyText, text: text, usecase: .editor)
+        return TextViewAccessoryConfiguration(textView: textView, contentType: .text(.text), usecase: .editor, output: nil)
     }
 }

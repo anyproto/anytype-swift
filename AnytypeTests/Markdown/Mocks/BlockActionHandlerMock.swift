@@ -4,16 +4,6 @@ import Foundation
 import AnytypeCore
 
 final class BlockActionHandlerMock: BlockActionHandlerProtocol {
-    var blockSelectionHandler: BlockSelectionHandler? {
-        get {
-            assertionFailure()
-            return nil
-        }
-        set {
-            assertionFailure()
-        }
-    }
-    
     var turnIntoStub = false
     var turnIntoNumberOfCalls = 0
     var turnIntoStyleFromLastCall: BlockText.Style?
@@ -103,8 +93,9 @@ final class BlockActionHandlerMock: BlockActionHandlerProtocol {
         assertionFailure()
     }
     
-    func toggleWholeBlockMarkup(_ markup: MarkupType, blockId: String) {
+    func toggleWholeBlockMarkup(_ attributedString: NSAttributedString?, markup: MarkupType, info: BlockInformation) -> NSAttributedString? {
         assertionFailure()
+        return nil
     }
     
     func upload(blockId: String, filePath: String) {
@@ -156,7 +147,7 @@ final class BlockActionHandlerMock: BlockActionHandlerProtocol {
         assertionFailure()
     }
     
-    func setTextStyle(_ attribute: MarkupType, range: NSRange, blockId: String, currentText: NSAttributedString?) {
+    func setTextStyle(_ attribute: MarkupType, range: NSRange, blockId: String, currentText: NSAttributedString?, contentType: BlockContentType) {
         assertionFailure()
     }
     
