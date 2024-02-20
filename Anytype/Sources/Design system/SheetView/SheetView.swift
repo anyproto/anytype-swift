@@ -6,7 +6,7 @@ struct SheetView<Content: View>: View {
     private var content: Content
     private let cancelAction: (() -> Void)?
     
-    init(@ViewBuilder content: @escaping () -> Content, cancelAction: (() -> Void)?) {
+    init(content: () -> Content, cancelAction: (() -> Void)?) {
         self.content = content()
         self.cancelAction = cancelAction
     }

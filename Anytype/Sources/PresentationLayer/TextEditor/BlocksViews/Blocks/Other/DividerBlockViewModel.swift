@@ -1,23 +1,28 @@
 import Services
 import UIKit
+import AnytypeCore
 
 struct DividerBlockViewModel: BlockViewModelProtocol {
-    var hashable: AnyHashable { [ info ] as [AnyHashable] }
+    var hashable: AnyHashable { info.id }
+    var info: BlockInformation { blockInformationProvider.info }
     
-    let info: BlockInformation
-    
-    private let dividerContent: BlockDivider
+    private let blockInformationProvider: BlockModelInfomationProvider
 
-    init(content: BlockDivider, info: BlockInformation) {
-        self.dividerContent = content
-        self.info = info
+    init(blockInformationProvider: BlockModelInfomationProvider) {
+        self.blockInformationProvider = blockInformationProvider
     }
     
-    func makeContentConfiguration(maxWidth _ : CGFloat) -> UIContentConfiguration {
-        DividerBlockContentConfiguration(content: dividerContent)
+    func makeContentConfiguration(maxWidth width : CGFloat) -> UIContentConfiguration {
+        guard case let .divider(dividerContent) = info.content else {
+            anytypeAssertionFailure("DividerBlockViewModel blockInformation has wrong content type")
+            return UnsupportedBlockViewModel(info: info)
+                .makeContentConfiguration(maxWidth: width)
+        }
+        
+        return DividerBlockContentConfiguration(content: dividerContent)
             .cellBlockConfiguration(
-                indentationSettings: .init(with: info.configurationData),
-                dragConfiguration: .init(id: info.id)
+                dragConfiguration: .init(id: info.id),
+                styleConfiguration: .init(backgroundColor: info.backgroundColor?.backgroundColor.color)
             )
     }
     

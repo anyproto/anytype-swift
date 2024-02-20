@@ -31,7 +31,7 @@ final class SpreadsheetBlockView<View: BlockContentView>: UIView & UIContentView
         }
     }
 
-    private var styleConfiguration: SpreadsheetStyleConfiguration {
+    private var styleConfiguration: CellStyleConfiguration {
         didSet {
             updateStyleConfiguration(configuration: styleConfiguration)
         }
@@ -74,7 +74,7 @@ final class SpreadsheetBlockView<View: BlockContentView>: UIView & UIContentView
         fatalError("init(coder:) has not been implemented")
     }
 
-    private func updateStyleConfiguration(configuration: SpreadsheetStyleConfiguration) {
+    private func updateStyleConfiguration(configuration: CellStyleConfiguration) {
         backgroundColor = configuration.backgroundColor
     }
 

@@ -753,10 +753,6 @@
 "Content.DataView.InlineCollection.Untitled" = "Naamloze collectie";
 "Content.DataView.InlineSet.Toast.Failure" = "Deze set in lijn heeft geen bron";
 
-// MARK: - Widget extension
-"WidgetExtension.LockScreen.Title" = "Nieuw object";
-"WidgetExtension.LockScreen.Description" = "Maak snel een nieuw object aan ";
-
 // MARK: - Toast
 "Editor.Toast.LinkedTo" = "gelinkt naar";
 "Editor.Toast.MovedTo" = "Blok verplaatst naar";
@@ -872,6 +868,9 @@
 "SpaceShare.Permissions.Owner" = "Eigenaar";
 "SpaceShare.Permissions.Reader" = "Kan zien";
 "SpaceShare.Permissions.Writer" = "Kan bewerken";
+"SpaceShare.Invite.Title" = "Uitnodigingslink";
+"SpaceShare.Invite.Description" = "Stuur deze link om anderen uit te nodigen. Wijs toegangsrechten toe na hun goedkeuring.";
+"SpaceShare.Invite.Button" = "Deel uitnodigingslink";
 
 // MARK: - Space Create
 "SpaceCreate.Title" = "Maak een ruimte aan";

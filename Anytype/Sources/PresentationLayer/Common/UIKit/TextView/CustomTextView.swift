@@ -20,7 +20,6 @@ final class CustomTextView: UIView {
     
     init() {
         super.init(frame: .zero)
-
         setupView()
     }
 

@@ -48,12 +48,14 @@ final class ParticipantsSubscriptionService: ParticipantsSubscriptionServiceProt
                     BundledRelationKey.objectListKeys.map { $0.rawValue }
                     BundledRelationKey.participantStatus.rawValue
                     BundledRelationKey.participantPermissions.rawValue
+                    BundledRelationKey.identity.rawValue
                 }
             )
         )
         
         try? await subscriptionStorage.startOrUpdateSubscription(data: searchData) { data in
-            let items = data.items.compactMap { try? Participant(details: $0) }
+            let items = data.items
+                .compactMap { try? Participant(details: $0) }
             update(items)
         }
     }

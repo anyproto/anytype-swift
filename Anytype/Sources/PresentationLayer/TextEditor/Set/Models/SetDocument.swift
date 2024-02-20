@@ -6,9 +6,9 @@ import AnytypeCore
 class SetDocument: SetDocumentProtocol {
     let document: BaseDocumentProtocol
     
-    var objectId: Services.BlockId { document.objectId }
-    var blockId: BlockId { inlineParameters?.blockId ?? SetConstants.dataviewBlockId }
-    var targetObjectId: BlockId { inlineParameters?.targetObjectID ?? objectId }
+    var objectId: String { document.objectId }
+    var blockId: String { inlineParameters?.blockId ?? SetConstants.dataviewBlockId }
+    var targetObjectId: String { inlineParameters?.targetObjectID ?? objectId }
     var spaceId: String { document.spaceId }
     
     var details: ObjectDetails? {
@@ -23,8 +23,8 @@ class SetDocument: SetDocumentProtocol {
         document.detailsPublisher
     }
     
-    var updatePublisher: AnyPublisher<DocumentUpdate, Never> {
-        document.updatePublisher
+    var syncStatus: AnyPublisher<SyncStatus, Never> {
+        document.syncStatus
     }
     
     var forPreview: Bool { document.forPreview }
@@ -160,7 +160,7 @@ class SetDocument: SetDocumentProtocol {
         }?.objectIds ?? []
     }
     
-    func updateActiveViewId(_ id: BlockId) {
+    func updateActiveViewId(_ id: String) {
         updateDataview(with: id)
         updateData()
     }
@@ -253,8 +253,8 @@ class SetDocument: SetDocumentProtocol {
     // MARK: - Private
     
     private func setup() {
-        document.updatePublisher.sink { [weak self] update in
-            self?.onDocumentUpdate(update)
+        document.syncPublisher.sink { [weak self] update in
+            self?.updateData()
         }
         .store(in: &subscriptions)
         
@@ -263,15 +263,6 @@ class SetDocument: SetDocumentProtocol {
             self?.triggerSync()
         }
         .store(in: &subscriptions)
-    }
-    
-    private func onDocumentUpdate(_ data: DocumentUpdate) {
-        switch data {
-        case .general, .blocks, .details, .dataSourceUpdate:
-            updateData()
-        case .syncStatus(let status):
-            updateSubject.send(.syncStatus(status))
-        }
     }
     
     private func updateData() {
@@ -325,7 +316,7 @@ class SetDocument: SetDocumentProtocol {
         }
     }
     
-    private func updateDataview(with activeViewId: BlockId) {
+    private func updateDataview(with activeViewId: String) {
         document.infoContainer.updateDataview(blockId: blockId) { dataView in
             dataView.updated(activeViewId: activeViewId)
         }

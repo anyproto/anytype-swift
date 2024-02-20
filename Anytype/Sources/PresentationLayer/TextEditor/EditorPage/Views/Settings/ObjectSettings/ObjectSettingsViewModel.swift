@@ -10,12 +10,13 @@ enum ObjectSettingsAction {
     case icon(ObjectIconPickerAction)
 }
 
+@MainActor
 protocol ObjectSettingsModelOutput: AnyObject, ObjectHeaderRouterProtocol {
     func undoRedoAction(document: BaseDocumentProtocol)
     func layoutPickerAction(document: BaseDocumentProtocol)
     func relationsAction(document: BaseDocumentProtocol)
     func openPageAction(screenData: EditorScreenData)
-    func linkToAction(document: BaseDocumentProtocol, onSelect: @escaping (BlockId) -> ())
+    func linkToAction(document: BaseDocumentProtocol, onSelect: @escaping (String) -> ())
     func closeEditorAction()
 }
 
@@ -132,7 +133,7 @@ final class ObjectSettingsViewModel: ObservableObject {
     
     // MARK: - Private
     private func setupSubscription() {
-        subscription = document.updatePublisher.sink { [weak self] _ in
+        subscription = document.syncPublisher.sink { [weak self] in
             self?.onDocumentUpdate()
         }
     }

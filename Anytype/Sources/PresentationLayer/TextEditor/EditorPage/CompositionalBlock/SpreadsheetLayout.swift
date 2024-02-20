@@ -2,16 +2,8 @@ import UIKit
 import Combine
 import AnytypeCore
 
-protocol RelativePositionProvider: AnyObject {
-    var contentOffsetDidChangedStatePublisher: AnyPublisher<CGPoint, Never> { get }
-
-    func visibleRect(to view: UIView) -> CGRect
-}
-
 final class SpreadsheetLayout: UICollectionViewLayout {
     weak var dataSource: SpreadsheetViewDataSource?
-    weak var relativePositionProvider: RelativePositionProvider?
-    var cacheContainer: SimpleTableHeightCacheContainer?
     var itemWidths = [CGFloat]() {
         didSet {
             reset()
@@ -90,31 +82,21 @@ final class SpreadsheetLayout: UICollectionViewLayout {
             for rowIndex in 0..<dataSource.allModels[sectionIndex].count {
                 let indexPath = IndexPath(row: rowIndex, section: sectionIndex)
 
-                guard let item = dataSource.contentConfigurationProvider(at: indexPath),
-                      let columnWidth = itemWidths[safe: rowIndex] else {
+                guard let columnWidth = itemWidths[safe: rowIndex] else {
                     continue
                 }
 
-                let hashable = item.spreadsheethashable(width: columnWidth)
-
-                let size: CGSize
-                if let cachedValue = cacheContainer?.cachedSectionRowHeights[hashable] {
-                    size = .init(width: columnWidth, height: cachedValue)
-                } else {
-                    let cell = dataSource.dequeueCell(at: indexPath)
-
-                    let maxSize = CGSize(
-                        width: columnWidth,
-                        height: .greatestFiniteMagnitude
-                    )
-                    size = cell.systemLayoutSizeFitting(
-                        maxSize,
-                        withHorizontalFittingPriority: .required,
-                        verticalFittingPriority: .fittingSizeLevel
-                    )
-
-                    cacheContainer?.cachedSectionRowHeights[hashable] = size.height
-                }
+                let cell = dataSource.dequeueCell(at: indexPath)
+                
+                let maxSize = CGSize(
+                    width: columnWidth,
+                    height: .greatestFiniteMagnitude
+                )
+                let size = cell.systemLayoutSizeFitting(
+                    maxSize,
+                    withHorizontalFittingPriority: .required,
+                    verticalFittingPriority: .fittingSizeLevel
+                )
 
                 sectionMaxHeight = size.height > sectionMaxHeight ? size.height : sectionMaxHeight
             }
@@ -194,26 +176,7 @@ extension SpreadsheetLayout {
             verticalFittingPriority: .fittingSizeLevel
         )
 
-        let hashable = item.spreadsheethashable(width: columnWidth)
-
-        cacheContainer?.cachedSectionRowHeights[hashable] = size.height
         prepare()
         invalidateLayout()
-    }
-}
-
-
-private extension ContentConfigurationProvider {
-    var asConfigurationHashable: AnyHashable {
-        (makeSpreadsheetConfiguration() as? HashableProvier)?.hashable ?? "" as AnyHashable
-    }
-
-    func spreadsheethashable(width: CGFloat) -> AnyHashable {
-        // Should be rewrited
-        guard let configuration = makeSpreadsheetConfiguration() as? HashableProvier else {
-            return ""
-        }
-
-        return configuration.hashable
     }
 }

@@ -1,6 +1,22 @@
 import UIKit
 
 class EditorCollectionView: UICollectionView {
+    override init(frame: CGRect, collectionViewLayout layout: UICollectionViewLayout) {
+        super.init(frame: frame, collectionViewLayout: layout)
+        
+        setup()
+    }
+    
+    required init?(coder: NSCoder) {
+        super.init(coder: coder)
+        
+        setup()
+    }
+    
+    private func setup() {
+        alwaysBounceVertical = true
+    }
+    
     override var adjustedContentInset: UIEdgeInsets {
         .init(
             top: 0,
@@ -46,10 +62,6 @@ class EditorCollectionView: UICollectionView {
         let cell = cellForItem(at: indexPath) as? CustomTypesAccessable
 
         cell?.isMoving = isMoving
-    }
-
-    override func selectItem(at indexPath: IndexPath?, animated: Bool, scrollPosition: UICollectionView.ScrollPosition) {
-        super.selectItem(at: indexPath, animated: animated, scrollPosition: scrollPosition)
     }
 
     func adjustContentOffsetForSelectedItem(relatively relativeView: UIView) {

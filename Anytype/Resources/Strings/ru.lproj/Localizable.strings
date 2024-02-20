@@ -62,7 +62,7 @@
 "BlockLink.PreviewSettings.Layout.Text.Title" = "Текст";
 
 // MARK: - Settings
-"Settings.Title" = "Личное пространство";
+"Settings.Title" = "Настройки";
 "Settings.SpaceName" = "Название пространства";
 
 // MARK: - Object
@@ -259,7 +259,7 @@
 
 "Auth.JoinFlow.Creating.Soul.Title" = "Создание нового аккаунта";
 "Auth.JoinFlow.Setting.Space.Title" = "Настройка вашего личного пространства";
-"Auth.JoinFlow.Personal.Space.Title" = "Личное пространство";
+"Auth.JoinFlow.Personal.Space.Title" = "Настройки";
 
 // Auth - Login flow
 "Auth.LoginFlow.Use.Keychain.Title" = "Использовать связку ключей";
@@ -753,10 +753,6 @@
 "Content.DataView.InlineCollection.Untitled" = "Коллекция без названия";
 "Content.DataView.InlineSet.Toast.Failure" = "Этот набор не имеет источника";
 
-// MARK: - Widget extension
-"WidgetExtension.LockScreen.Title" = "Новый объект";
-"WidgetExtension.LockScreen.Description" = "Быстрое создание нового объекта";
-
 // MARK: - Toast
 "Editor.Toast.LinkedTo" = "связано с";
 "Editor.Toast.MovedTo" = "Блок перемещен в";
@@ -813,7 +809,7 @@
 "ClearCache.Error" = "Ошибка, повторите попытку позже";
 
 // MARK: - Settings
-"Settings.TitleLegacy" = "Личное пространство";
+"Settings.TitleLegacy" = "Настройки";
 "Settings.Title" = "Настройки";
 "Settings.SpaceName" = "Название пространства";
 "Settings.AccountAndAccess" = "Учетная запись и доступ";
@@ -851,7 +847,7 @@
 // MARK: - Spaces
 "Spaces.Accessibility.Public" = "Публичное пространство";
 "Spaces.Accessibility.Private" = "Личное Пространство";
-"Spaces.Accessibility.Personal" = "Личное пространство";
+"Spaces.Accessibility.Personal" = "Настройки";
 "Spaces.Search.Title" = "Поиск пространств";
 
 // MARK: - Space Settings
@@ -872,6 +868,9 @@
 "SpaceShare.Permissions.Owner" = "Owner";
 "SpaceShare.Permissions.Reader" = "Can view";
 "SpaceShare.Permissions.Writer" = "Can edit";
+"SpaceShare.Invite.Title" = "Invite link";
+"SpaceShare.Invite.Description" = "Send this link to invite others. Assign access rights upon their request approval";
+"SpaceShare.Invite.Button" = "Share invite link";
 
 // MARK: - Space Create
 "SpaceCreate.Title" = "Создать пространство";

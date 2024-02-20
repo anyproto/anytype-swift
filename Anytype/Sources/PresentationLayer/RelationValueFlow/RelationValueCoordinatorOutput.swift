@@ -1,6 +1,7 @@
 import Foundation
 import Services
 
+@MainActor
 protocol RelationValueCoordinatorOutput: AnyObject {
-    func openObject(screenData: EditorScreenData)
+    func showEditorScreen(data: EditorScreenData)
 }

@@ -5,6 +5,7 @@ import UIKit
 import AnytypeCore
 import Combine
 
+@MainActor
 final class RelationsListViewModel: ObservableObject {
         
     @Published private(set) var navigationBarButtonsDisabled: Bool = false

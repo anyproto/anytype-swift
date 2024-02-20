@@ -1,21 +1,27 @@
-public struct MentionData: Equatable, Hashable {
+import AnytypeCore
+
+public struct MentionObject: Equatable, Hashable {
     public let details: ObjectDetails
-    public let blockId: BlockId
-    public let isDeleted: Bool
-    public let isArchived: Bool
+    public var id: String { details.id }
+
     
-    public static func noDetails(blockId: BlockId) -> MentionData {
-        return MentionData(details: ObjectDetails.deleted, blockId: blockId, isDeleted: true, isArchived: false)
+    public init(details: ObjectDetails) {
+        self.details = details
     }
 }
 
-extension MentionData {
-    public init(details: ObjectDetails) {
-        self.init(
-            details: details,
-            blockId: details.id,
-            isDeleted: details.isDeleted,
-            isArchived: details.isArchived
-        )
+public extension MentionObject {
+    static func == (lhs: MentionObject, rhs: MentionObject) -> Bool {
+        lhs.details == rhs.details
+    }
+    
+    func hash(into hasher: inout Hasher) {
+        hasher.combine(details)
+    }
+}
+
+extension MentionObject {
+    public static func noDetails(blockId: String) -> MentionObject {
+        MentionObject(details: .init(id: blockId))
     }
 }

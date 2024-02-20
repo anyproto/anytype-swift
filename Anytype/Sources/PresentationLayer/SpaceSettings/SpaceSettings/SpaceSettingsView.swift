@@ -52,10 +52,6 @@ struct SpaceSettingsView: View {
                         SettingsInfoBlockView(model: model.info[index])
                     }
                     
-                    if FeatureFlags.multiplayer {
-                        SpaceShareMVPView()
-                    }
-                    
                     if model.allowDelete {
                         StandardButton(Loc.SpaceSettings.deleteButton, style: .warningLarge) {
                             model.onDeleteTap()

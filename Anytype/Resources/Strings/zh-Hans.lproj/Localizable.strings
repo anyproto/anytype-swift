@@ -229,7 +229,7 @@
 "Error creating wallet" = "创建钱包时出错";
 "Error select account" = "选择帐户时出错";
 "Error wallet recover account" = "错误钱包恢复帐户";
-"Wallet.Recovery.Error.description" = "Invalid recovery phrase";
+"Wallet.Recovery.Error.description" = "恢复短语无效";
 
 "Search for language" = "搜索语言";
 
@@ -753,10 +753,6 @@
 "Content.DataView.InlineCollection.Untitled" = "无标题集锦";
 "Content.DataView.InlineSet.Toast.Failure" = "该关联集合无信息来源";
 
-// MARK: - Widget extension
-"WidgetExtension.LockScreen.Title" = "新对象";
-"WidgetExtension.LockScreen.Description" = "快速创建新对象";
-
 // MARK: - Toast
 "Editor.Toast.LinkedTo" = "链接到";
 "Editor.Toast.MovedTo" = "区块移至";
@@ -861,16 +857,19 @@
 "SpaceSettings.DeleteAlert.Title" = "删除 “%@” 空间";
 "SpaceSettings.DeleteAlert.Message" = "此空间将被不可撤销地删除。您无法撤消此操作。";
 "SpaceSettings.DeleteButton" = "删除空间";
-"SpaceSettings.Sharing" = "Sharing";
+"SpaceSettings.Sharing" = "分享";
 "SpaceSettings.Share" = "分享";
 
 // MARK: - Space Share
 
-"SpaceShare.Title" = "Share space";
-"SpaceShare.MembersSection" = "Members and requests";
-"SpaceShare.Permissions.Owner" = "Owner";
-"SpaceShare.Permissions.Reader" = "Can view";
-"SpaceShare.Permissions.Writer" = "Can edit";
+"SpaceShare.Title" = "共享空间";
+"SpaceShare.MembersSection" = "成员和请求";
+"SpaceShare.Permissions.Owner" = "所有者";
+"SpaceShare.Permissions.Reader" = "可查看";
+"SpaceShare.Permissions.Writer" = "可编辑";
+"SpaceShare.Invite.Title" = "邀请链接";
+"SpaceShare.Invite.Description" = "发送此链接来邀请他人。在他们的请求批准时分配访问权限。";
+"SpaceShare.Invite.Button" = "分享邀请链接";
 
 // MARK: - Space Create
 "SpaceCreate.Title" = "创建空间";
@@ -886,8 +885,8 @@
 "Sharing.LinkTo" = "链接到";
 
 "Sharing.Text.NoteObject" = "笔记对象";
-"Sharing.Text.TextBlock" = "Blocks";
-"Sharing.Any.Block" = "Blocks";
+"Sharing.Text.TextBlock" = "区块";
+"Sharing.Any.Block" = "区块";
 
 // MARK: - Sharing tips
 "Sharing.Tip.Title" = "分享扩展";
@@ -943,5 +942,5 @@
 "Gallery.Notification.Error" = "哎呀！ “%@” 未安装。请检查您的互联网连接，然后重试或在论坛上反馈。";
 
 // MARK: - Debug
-"Debug.MimeTypes" = "Mime Types - %@";
+"Debug.MimeTypes" = "媒体类型 - %@";
 "Debug.Info" = "调试信息";
