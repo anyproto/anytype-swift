@@ -11,7 +11,7 @@ public enum MarkupType: Equatable, Hashable, CaseIterable {
     case backgroundColor(MiddlewareColor)
     case link(URL?)
     case linkToObject(String?)
-    case mention(MentionData)
+    case mention(MentionObject)
     case emoji(Emoji)
 
     public func hash(into hasher: inout Hasher) {

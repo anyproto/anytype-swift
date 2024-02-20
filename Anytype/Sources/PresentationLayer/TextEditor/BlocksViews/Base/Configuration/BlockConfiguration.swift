@@ -16,7 +16,7 @@ extension BlockConfiguration {
     var hasOwnBackground: Bool { false }
 
     var contentInsets: UIEdgeInsets { UIEdgeInsets(top: 2, left: 20, bottom: 2, right: 20) }
-    var selectionInsets: UIEdgeInsets { UIEdgeInsets(top: 0, left: -8, bottom: 0, right: -8) }
+    var selectionInsets: UIEdgeInsets { UIEdgeInsets(top: 0, left: 8, bottom: 0, right: 8) }
     var spreadsheetInsets: UIEdgeInsets { UIEdgeInsets(top: 9, left: 12, bottom: 9, right: 12) }
 
     var isAnimationEnabled: Bool { true }
@@ -28,20 +28,20 @@ struct BlockDragConfiguration {
 
 extension BlockConfiguration {
     func cellBlockConfiguration(
-        indentationSettings: IndentationSettings?,
-        dragConfiguration: BlockDragConfiguration?
+        dragConfiguration: BlockDragConfiguration?,
+        styleConfiguration: CellStyleConfiguration?
     ) -> CellBlockConfiguration<Self> {
         CellBlockConfiguration(
             blockConfiguration: self,
             currentConfigurationState: nil,
-            indentationSettings: indentationSettings,
-            dragConfiguration: dragConfiguration
+            dragConfiguration: dragConfiguration,
+            styleConfiguration: styleConfiguration
         )
     }
 
     func spreadsheetConfiguration(
         dragConfiguration: BlockDragConfiguration?,
-        styleConfiguration: SpreadsheetStyleConfiguration
+        styleConfiguration: CellStyleConfiguration
     ) -> SpreadsheetBlockConfiguration<Self> {
         SpreadsheetBlockConfiguration(
             blockConfiguration: self,

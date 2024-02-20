@@ -32,13 +32,7 @@ final class MarkupAccessoryView: UIView {
     }
 
     private func createColorView(viewModel: MarkupAccessoryViewModel) -> ColorView {
-        let color = viewModel.currentText?.colorState(range: viewModel.range) ?? UIColor.Dark.default
-        let backgroundColor = viewModel.currentText?.backgroundColor(range: viewModel.range) ?? UIColor.VeryLight.default
-
-        let colorView = ColorView(
-            selectedColor: color,
-            selectedBackgroundColor: backgroundColor
-        ) { [weak viewModel] item in
+        let colorView = ColorView() { [weak viewModel] item in
             viewModel?.handleSelectedColorItem(item)
         } viewDidClose: { [weak viewModel] in
             viewModel?.showColorView = false
@@ -56,7 +50,6 @@ final class MarkupAccessoryView: UIView {
             $0.pinToSuperview()
         }
     }
-
 
     private func bindViewModel(viewModel: MarkupAccessoryViewModel) {
         viewModel.$showColorView.sink { [weak self] shouldShowColorView in
@@ -77,8 +70,8 @@ final class MarkupAccessoryView: UIView {
                     $0.bottom.equal(to: view.topAnchor, constant: topAnchorConstant - 8)
                 }
 
-                let color = viewModel.currentText?.colorState(range: viewModel.range) ?? UIColor.Dark.default
-                let backgroundColor = viewModel.currentText?.backgroundColor(range: viewModel.range) ?? UIColor.VeryLight.default
+                let color = viewModel.foregroundColorState()
+                let backgroundColor = viewModel.backgroundColorState()
 
                 self.colorView.selectedTextColor = color
                 self.colorView.selectedBackgroundColor = backgroundColor
@@ -90,14 +83,6 @@ final class MarkupAccessoryView: UIView {
     }
 
     // MARK: - Public methos
-
-    func selectionChanged(range: NSRange) {
-        viewModel?.updateRange(range: range)
-    }
-
-    func update(info: BlockInformation, textView: UITextView) {
-        viewModel?.selectBlock(info, text: textView.attributedText, range: textView.selectedRange)
-    }
     
     override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
         super.traitCollectionDidChange(previousTraitCollection)

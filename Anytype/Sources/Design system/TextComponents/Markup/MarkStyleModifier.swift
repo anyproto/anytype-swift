@@ -17,16 +17,14 @@ final class MarkStyleModifier {
             anytypeFont: anytypeFont
         )
     }
-        
+    
     func apply(_ action: MarkupType, shouldApplyMarkup: Bool, range: NSRange) {
         guard attributedString.isRangeValid(range) else {
             return
         }
         
         switch action {
-        case .mention:
-            applySingleAction(action, shouldApplyMarkup: shouldApplyMarkup, range: range)
-        case .emoji:
+        case .mention, .emoji:
             applySingleAction(action, shouldApplyMarkup: shouldApplyMarkup, range: range)
         default:
             attributedString.enumerateAttributes(in: range) { _, subrange, _ in
@@ -38,13 +36,13 @@ final class MarkStyleModifier {
     private func applySingleAction(_ action: MarkupType, shouldApplyMarkup: Bool, range: NSRange) {
         let oldAttributes = getAttributes(at: range)
         guard let update = apply(action, shouldApplyMarkup: shouldApplyMarkup, to: oldAttributes) else { return }
-
+        
         var newAttributes = oldAttributes.merging(update.changeAttributes) { old, new in new }
         for key in update.deletedKeys {
             newAttributes.removeValue(forKey: key)
             attributedString.removeAttribute(key, range: range)
         }
-
+        
         attributedString.addAttributes(newAttributes, range: range)
         if case let .mention(data) = action {
             addMentionIcon(data: data, range: range, font: anytypeFont)
@@ -53,19 +51,19 @@ final class MarkStyleModifier {
             addEmoji(data: data, range: range, font: anytypeFont)
         }
     }
-
+    
     private func getAttributes(at range: NSRange) -> [NSAttributedString.Key : Any] {
         switch (attributedString.string.isEmpty, range) {
-        // isEmpty & range == zero(0, 0) - assuming that we deleted text. So, we need to apply default typing attributes that are coming from textView.
+            // isEmpty & range == zero(0, 0) - assuming that we deleted text. So, we need to apply default typing attributes that are coming from textView.
         case (true, NSRange.zero): return [:]
-
-        // isEmpty & range != zero(0, 0) - strange situation, we can't do that. Error, we guess. In that case we need only empty attributes.
+            
+            // isEmpty & range != zero(0, 0) - strange situation, we can't do that. Error, we guess. In that case we need only empty attributes.
         case (true, _): return [:]
-
-        // At the end.
+            
+            // At the end.
         case let (_, value) where value.location == attributedString.length && value.length == 0: return [:]
-
-        // Otherwise, return string attributes.
+            
+            // Otherwise, return string attributes.
         default: break
         }
         guard attributedString.length >= range.location + range.length else { return [:] }
@@ -76,27 +74,34 @@ final class MarkStyleModifier {
         switch action {
         case .bold:
             guard let oldFont = old[.font] as? UIFont else { return nil }
-
+            
             let newFont = shouldApplyMarkup ? oldFont.bold : oldFont.regular
             return AttributedStringChange(changeAttributes: [.font : newFont])
-
-
+            
+            
         case .italic:
             guard let oldFont = old[.font] as? UIFont else { return nil }
-
+            
             let newFont = shouldApplyMarkup ? oldFont.italic : oldFont.nonItalic
             return AttributedStringChange(changeAttributes: [.font : newFont])
-
+            
         case .keyboard:
             return keyboardUpdate(with: old, shouldHaveStyle: shouldApplyMarkup)
         case .strikethrough:
-            return AttributedStringChange(
-                changeAttributes: [.strikethroughStyle : shouldApplyMarkup ? NSUnderlineStyle.single.rawValue : 0,
-                                   .strikethroughColor: UIColor.Text.primary]
-            )
-
+            if shouldApplyMarkup {
+                return AttributedStringChange(
+                    changeAttributes: [.strikethroughStyle : NSUnderlineStyle.single.rawValue,
+                                       .strikethroughColor: UIColor.Text.primary]
+                )
+            } else {
+                return AttributedStringChange(deletedKeys: [.strikethroughStyle, .strikethroughColor])
+            }
         case .underscored:
-            return AttributedStringChange(changeAttributes: [.anytypeUnderline : shouldApplyMarkup])
+            if shouldApplyMarkup {
+                return AttributedStringChange(changeAttributes: [.anytypeUnderline : true])
+            } else {
+                return AttributedStringChange(deletedKeys: [.anytypeUnderline])
+            }
         case let .textColor(middlewareColor):
             let uiColor = UIColor.Dark.uiColor(from: middlewareColor)
             return AttributedStringChange(changeAttributes: [.foregroundColor : uiColor as Any])
@@ -104,7 +109,6 @@ final class MarkStyleModifier {
         case let .backgroundColor(middlewareColor):
             let uiColor = UIColor.VeryLight.uiColor(from: middlewareColor)
             return AttributedStringChange(changeAttributes: [.backgroundColor : uiColor as Any])
-            
         case let .link(url):
             return AttributedStringChange(
                 changeAttributes: [.link : url as Any],
@@ -129,11 +133,11 @@ final class MarkStyleModifier {
         return AttributedStringChange(changeAttributes: [ .emoji: data ])
     }
     
-    private func mentionUpdate(data: MentionData) -> AttributedStringChange {
+    private func mentionUpdate(data: MentionObject) -> AttributedStringChange {
         let deletedStyle = data.isDeleted || data.isArchived
         
         var changeAttributes: [NSAttributedString.Key: Any] = [
-            .mention: data.blockId,
+            .mention: data.id,
             .anytypeLink: !deletedStyle
         ]
         if deletedStyle { changeAttributes[.foregroundColor] = UIColor.Text.tertiary }
@@ -141,7 +145,7 @@ final class MarkStyleModifier {
         return AttributedStringChange(changeAttributes: changeAttributes)
     }
     
-    private func addMentionIcon(data: MentionData, range: NSRange, font: AnytypeFont) {
+    private func addMentionIcon(data: MentionObject, range: NSRange, font: AnytypeFont) {
         let mentionAttributedString = attributedString.attributedSubstring(from: range)
         guard mentionAttributedString.string.isNotEmpty else {
             // Empty string is for deleted mentions
@@ -151,8 +155,12 @@ final class MarkStyleModifier {
         var iconAttributes = mentionAttributedString.attributes(at: 0, effectiveRange: nil)
         iconAttributes.removeValue(forKey: .anytypeLink) // no underline under icon
         
+   
         let mentionIcon = data.details.objectIconImage
-        let mentionAttachment = IconTextAttachment(icon: mentionIcon, mentionType: font.mentionType)
+        let mentionAttachment = IconTextAttachment.iconTextAttachment(
+            icon: mentionIcon,
+            mentionType: font.mentionType
+        )
         let mentionAttachmentString = NSMutableAttributedString(attachment: mentionAttachment)
         mentionAttachmentString.addAttributes(iconAttributes, range: mentionAttachmentString.wholeRange)
         
@@ -169,7 +177,7 @@ final class MarkStyleModifier {
         var iconAttributes = emojiAttributedString.attributes(at: 0, effectiveRange: nil)
         iconAttributes.removeValue(forKey: .anytypeLink) // no underline under icon
         
-        let attachment = IconTextAttachment(icon: .object(.emoji(data)), mentionType: font.mentionType)
+        let attachment = IconTextAttachment.iconTextAttachment(icon: .object(.emoji(data)), mentionType: font.mentionType)
         let attachmentString = NSMutableAttributedString(attachment: attachment)
         attachmentString.addAttributes(iconAttributes, range: attachmentString.wholeRange)
         
@@ -196,7 +204,7 @@ final class MarkStyleModifier {
         
         var newFontDescriptor = targetFont.fontDescriptor
         newFontDescriptor = newFontDescriptor.withSymbolicTraits(font.fontDescriptor.symbolicTraits) ?? newFontDescriptor
-
+        
         return AttributedStringChange(changeAttributes: [.font: UIFont(descriptor: newFontDescriptor, size: font.pointSize)])
     }
 }

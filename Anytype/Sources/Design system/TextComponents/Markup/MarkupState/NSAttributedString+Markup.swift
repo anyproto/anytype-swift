@@ -75,7 +75,7 @@ extension NSAttributedString {
         case .linkToObject:
             return linkToObjectState(range: range).map { .linkToObject($0) }
         case .mention:
-            return mention(range: range).map { .mention(MentionData.noDetails(blockId: $0)) }
+            return mention(range: range).map { .mention(MentionObject.noDetails(blockId: $0)) }
         case .emoji:
             return emoji(range: range).flatMap { Emoji($0) }.map { .emoji($0) }
         }

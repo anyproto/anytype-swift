@@ -56,4 +56,8 @@ final class InfoContainerMock: InfoContainerProtocol {
     func updateDataview(blockId: String, update: (BlockDataview) -> (BlockDataview)) {
         assertionFailure()
     }
+    
+    func publishAllValues() {}
+    
+    func publishValue(for key: String) {}
 }

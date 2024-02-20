@@ -13,11 +13,7 @@ public extension BlockInformation {
             backgroundColor: nil,
             horizontalAlignment: .left,
             childrenIds: [],
-            configurationData: BlockInformationMetadata(
-                backgroundColor: .default,
-                indentationStyle: content.indentationStyle(isLastChild: true),
-                calloutBackgroundColor: nil
-            ),
+            configurationData: BlockInformationMetadata(backgroundColor: .default),
             fields: [:]
         )
     }
