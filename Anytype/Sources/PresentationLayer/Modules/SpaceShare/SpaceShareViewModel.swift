@@ -36,7 +36,7 @@ final class SpaceShareViewModel: ObservableObject {
         self.deppLinkParser = deppLinkParser
         startSubscriptions()
         Task {
-            let invite = try await workspaceService.getCurrentInvite(spaceId: activeWorkspaceStorage.workspaceInfo.accountSpaceId)
+            let invite = try await workspaceService.generateInvite(spaceId: activeWorkspaceStorage.workspaceInfo.accountSpaceId)
             inviteLink = deppLinkParser.createUrl(deepLink: .invite(cid: invite.cid, key: invite.fileKey))
         }
     }

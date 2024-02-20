@@ -13,9 +13,9 @@ struct EmptyRowViewViewModel: SystemContentConfiguationProvider {
     }
 
     init(
-        contextId: BlockId,
-        rowId: BlockId,
-        columnId: BlockId,
+        contextId: String,
+        rowId: String,
+        columnId: String,
         tablesService: BlockTableServiceProtocol,
         cursorManager: EditorCursorManager,
         isHeaderRow: Bool
@@ -28,9 +28,9 @@ struct EmptyRowViewViewModel: SystemContentConfiguationProvider {
         self.isHeaderRow = isHeaderRow
     }
 
-    private let contextId: BlockId
-    private let rowId: BlockId
-    private let columnId: BlockId
+    private let contextId: String
+    private let rowId: String
+    private let columnId: String
     private let tablesService: BlockTableServiceProtocol
     private let cursorManager: EditorCursorManager
     private let isHeaderRow: Bool
@@ -75,7 +75,7 @@ struct EmptyRowViewViewModel: SystemContentConfiguationProvider {
 struct EmptyRowConfiguration: BlockConfiguration {
     typealias View = EmptyRowView
 
-    let id: BlockId
+    let id: String
 
     @EquatableNoop private(set) var action: () -> Void
 

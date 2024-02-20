@@ -5,7 +5,7 @@ import Foundation
 
 final class BaseDocument: BaseDocumentProtocol {
     var updatePublisher: AnyPublisher<DocumentUpdate, Never> { updateSubject.eraseToAnyPublisher() }
-    let objectId: BlockId
+    let objectId: String
     private(set) var isOpened = false
     let forPreview: Bool
 
@@ -81,7 +81,7 @@ final class BaseDocument: BaseDocumentProtocol {
     }
     
     init(
-        objectId: BlockId,
+        objectId: String,
         forPreview: Bool,
         objectLifecycleService: ObjectLifecycleServiceProtocol,
         relationDetailsStorage: RelationDetailsStorageProtocol,

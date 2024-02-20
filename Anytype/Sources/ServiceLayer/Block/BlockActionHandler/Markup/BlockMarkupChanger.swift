@@ -10,7 +10,7 @@ final class BlockMarkupChanger: BlockMarkupChangerProtocol {
         self.document = document
     }
     
-    func toggleMarkup(_ markup: MarkupType, blockId: BlockId)  -> NSAttributedString? {
+    func toggleMarkup(_ markup: MarkupType, blockId: String)  -> NSAttributedString? {
         guard let info = document.infoContainer.get(id: blockId) else { return nil }
         guard case let .text(blockText) = info.content else { return nil }
         
@@ -19,7 +19,7 @@ final class BlockMarkupChanger: BlockMarkupChangerProtocol {
         return toggleMarkup(markup, blockId: blockId, range: range)
     }
     
-    func toggleMarkup(_ markup: MarkupType, blockId: BlockId, range: NSRange) -> NSAttributedString? {
+    func toggleMarkup(_ markup: MarkupType, blockId: String, range: NSRange) -> NSAttributedString? {
         guard let content = blockData(blockId: blockId) else { return nil }
 
         let restrictions = BlockRestrictionsBuilder.build(textContentType: content.contentType)
@@ -39,17 +39,17 @@ final class BlockMarkupChanger: BlockMarkupChangerProtocol {
     }
 
     func setMarkup(
-        _ markup: MarkupType, blockId: BlockId, range: NSRange, currentText: NSAttributedString?
+        _ markup: MarkupType, blockId: String, range: NSRange, currentText: NSAttributedString?
     ) -> NSAttributedString? {
         return updateMarkup(markup, shouldApplyMarkup: true, blockId: blockId, range: range, currentText: currentText)
     }
 
-    func removeMarkup(_ markup: MarkupType, blockId: BlockId, range: NSRange) -> NSAttributedString? {
+    func removeMarkup(_ markup: MarkupType, blockId: String, range: NSRange) -> NSAttributedString? {
         return updateMarkup(markup, shouldApplyMarkup: false, blockId: blockId, range: range)
     }
 
     private func updateMarkup(
-        _ markup: MarkupType, shouldApplyMarkup: Bool, blockId: BlockId, range: NSRange, currentText: NSAttributedString? = nil
+        _ markup: MarkupType, shouldApplyMarkup: Bool, blockId: String, range: NSRange, currentText: NSAttributedString? = nil
     ) -> NSAttributedString? {
         guard let content = blockData(blockId: blockId) else { return nil }
 
@@ -101,7 +101,7 @@ final class BlockMarkupChanger: BlockMarkupChangerProtocol {
         return NSAttributedString(attributedString: modifier.attributedString)
     }
     
-    private func blockData(blockId: BlockId) -> BlockText? {
+    private func blockData(blockId: String) -> BlockText? {
         guard let info = document.infoContainer.get(id: blockId) else {
             anytypeAssertionFailure("Can't find block", info: ["blockId": blockId])
             return nil

@@ -19,14 +19,14 @@ public enum DataViewRestriction: Int {
 
 public struct ObjectRestrictions {
     public let objectRestriction: [ObjectRestriction]
-    public let dataViewRestriction: [BlockId: [DataViewRestriction]]
+    public let dataViewRestriction: [String: [DataViewRestriction]]
 
     public init() {
         objectRestriction = []
         dataViewRestriction = [:]
     }
 
-    public init(objectRestriction: [ObjectRestriction], dataViewRestriction: [BlockId: [DataViewRestriction]]) {
+    public init(objectRestriction: [ObjectRestriction], dataViewRestriction: [String: [DataViewRestriction]]) {
         self.objectRestriction = objectRestriction
         self.dataViewRestriction = dataViewRestriction
     }

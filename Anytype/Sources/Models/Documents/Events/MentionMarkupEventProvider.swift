@@ -4,12 +4,12 @@ import ProtobufMessages
 
 final class MentionMarkupEventProvider {
     
-    private let objectId: BlockId
+    private let objectId: String
     private let infoContainer: InfoContainerProtocol
     private let detailsStorage: ObjectDetailsStorage
         
     init(
-        objectId: BlockId,
+        objectId: String,
         infoContainer: InfoContainerProtocol,
         detailsStorage: ObjectDetailsStorage
     ) {
@@ -27,7 +27,7 @@ final class MentionMarkupEventProvider {
         return .blocks(blockIds: Set(blockIds))
     }
     
-    func updateIfNeeded(info: BlockInformation) -> BlockId? {
+    func updateIfNeeded(info: BlockInformation) -> String? {
         guard case let .text(content) = info.content else { return nil }
         guard !content.marks.marks.isEmpty else { return nil }
         

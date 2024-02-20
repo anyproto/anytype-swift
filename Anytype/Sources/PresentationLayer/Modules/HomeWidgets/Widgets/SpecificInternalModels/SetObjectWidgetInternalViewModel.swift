@@ -34,7 +34,7 @@ final class SetObjectWidgetInternalViewModel: CommonWidgetInternalViewModel, Wid
     var allowCreateObject = true
     
     init(
-        widgetBlockId: BlockId,
+        widgetBlockId: String,
         widgetObject: BaseDocumentProtocol,
         setSubscriptionDataBuilder: SetSubscriptionDataBuilderProtocol,
         subscriptionStorageProvider: SubscriptionStorageProviderProtocol,

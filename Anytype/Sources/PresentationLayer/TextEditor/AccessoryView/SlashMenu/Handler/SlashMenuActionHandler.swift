@@ -25,7 +25,7 @@ final class SlashMenuActionHandler {
         self.cursorManager = cursorManager
     }
     
-    func handle(_ action: SlashAction, textView: UITextView?, blockId: BlockId, selectedRange: NSRange) {
+    func handle(_ action: SlashAction, textView: UITextView?, blockId: String, selectedRange: NSRange) {
         switch action {
         case let .actions(action):
             handleActions(action, textView: textView, blockId: blockId, selectedRange: selectedRange)
@@ -102,7 +102,7 @@ final class SlashMenuActionHandler {
         }
     }
     
-    private func handleAlignment(_ alignment: SlashActionAlignment, blockIds: [BlockId]) {
+    private func handleAlignment(_ alignment: SlashActionAlignment, blockIds: [String]) {
         switch alignment {
         case .left :
             actionHandler.setAlignment(.left, blockIds: blockIds)
@@ -113,7 +113,7 @@ final class SlashMenuActionHandler {
         }
     }
     
-    private func handleStyle(_ style: SlashActionStyle, blockId: BlockId) {
+    private func handleStyle(_ style: SlashActionStyle, blockId: String) {
         switch style {
         case .text:
             actionHandler.turnInto(.text, blockId: blockId)
@@ -148,7 +148,7 @@ final class SlashMenuActionHandler {
         }
     }
     
-    private func handleActions(_ action: BlockAction, textView: UITextView?, blockId: BlockId, selectedRange: NSRange) {
+    private func handleActions(_ action: BlockAction, textView: UITextView?, blockId: String, selectedRange: NSRange) {
         switch action {
         case .delete:
             actionHandler.delete(blockIds: [blockId])

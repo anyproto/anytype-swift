@@ -1,10 +1,10 @@
 public struct MentionData: Equatable, Hashable {
     public let details: ObjectDetails
-    public let blockId: BlockId
+    public let blockId: String
     public let isDeleted: Bool
     public let isArchived: Bool
     
-    public static func noDetails(blockId: BlockId) -> MentionData {
+    public static func noDetails(blockId: String) -> MentionData {
         return MentionData(details: ObjectDetails.deleted, blockId: blockId, isDeleted: true, isArchived: false)
     }
 }

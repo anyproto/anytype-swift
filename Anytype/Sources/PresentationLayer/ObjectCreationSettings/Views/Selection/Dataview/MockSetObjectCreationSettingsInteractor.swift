@@ -15,11 +15,11 @@ final class MockSetObjectCreationSettingsInteractor: SetObjectCreationSettingsIn
 
     @Published private var templates = MockTemplatePreviewModel.allPreviews.map { $0.model }
     
-    func setDefaultObjectType(objectTypeId: BlockId) async throws {
+    func setDefaultObjectType(objectTypeId: String) async throws {
         fatalError()
     }
     
-    func setDefaultTemplate(templateId: Services.BlockId) async throws {
+    func setDefaultTemplate(templateId: String) async throws {
         fatalError()
     }
     
