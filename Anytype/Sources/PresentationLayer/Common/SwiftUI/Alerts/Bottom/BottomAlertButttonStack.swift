@@ -9,6 +9,8 @@ struct BottomAlertButttonStack: Layout {
     
     // Additional spacing from subview.spacing doesn't support
     func sizeThatFits(proposal: ProposedViewSize, subviews: Subviews, cache: inout ()) -> CGSize {
+        guard subviews.count > 0 else { return .zero }
+        
         let subviewSizes = subviews.map { $0.sizeThatFits(.unspecified) }
         let widthSpacing = horizontalSpacing * CGFloat(subviews.count - 1)
         let maxSize = maxSize(subviews: subviews)
@@ -29,6 +31,8 @@ struct BottomAlertButttonStack: Layout {
     }
     
     func placeSubviews(in bounds: CGRect, proposal: ProposedViewSize, subviews: Subviews, cache: inout ()) {
+        guard subviews.count > 0 else { return }
+        
         let subviewSizes = subviews.map { $0.sizeThatFits(.unspecified) }
         let widthSpacing = horizontalSpacing * CGFloat(subviews.count - 1)
         let maxSize = maxSize(subviews: subviews)
