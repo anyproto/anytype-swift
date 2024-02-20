@@ -192,7 +192,6 @@ final class HomeCoordinatorViewModel: ObservableObject,
     }
 
     func createTypeSearchModule() -> AnyView {
-        AnytypeAnalytics.instance().logOnboardingTooltip(tooltip: .selectType)
         return objectTypeSearchModuleAssembly.make(
             title: Loc.createNewObject,
             spaceId: activeWorkspaceStorage.workspaceInfo.accountSpaceId,

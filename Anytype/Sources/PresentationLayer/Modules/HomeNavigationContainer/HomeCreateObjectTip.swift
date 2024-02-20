@@ -41,6 +41,9 @@ struct HomeTipView: View {
                     size = newSize
                 }
                 .position(x: reader.size.width * 0.5, y: -size.height*0.5)
+                .onAppear {
+                    AnytypeAnalytics.instance().logOnboardingTooltip(tooltip: .selectType)
+                }
         }
     }
 }
