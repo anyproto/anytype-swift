@@ -11,6 +11,7 @@ struct Participant: Identifiable {
     let icon: Icon?
     let status: ParticipantStatus
     let permission: ParticipantPermissions
+    let identity: String
     
     init(details: ObjectDetails) throws {
         self.id = details.id
@@ -26,5 +27,6 @@ struct Participant: Identifiable {
             throw CommonError.undefined
         }
         self.permission = permission
+        self.identity = details.identity
     }
 }

@@ -1971,6 +1971,10 @@ internal enum Loc {
     internal static let membersSection = Loc.tr("Localizable", "SpaceShare.MembersSection", fallback: "Members and requests")
     /// Share space
     internal static let title = Loc.tr("Localizable", "SpaceShare.Title", fallback: "Share space")
+    internal enum Action {
+      /// View Request
+      internal static let viewRequest = Loc.tr("Localizable", "SpaceShare.Action.ViewRequest", fallback: "View Request")
+    }
     internal enum Invite {
       /// Share invite link
       internal static let button = Loc.tr("Localizable", "SpaceShare.Invite.Button", fallback: "Share invite link")
@@ -2008,6 +2012,24 @@ internal enum Loc {
       internal static let reader = Loc.tr("Localizable", "SpaceShare.Permissions.Reader", fallback: "Can view")
       /// Can edit
       internal static let writer = Loc.tr("Localizable", "SpaceShare.Permissions.Writer", fallback: "Can edit")
+    }
+    internal enum Status {
+      /// Declined
+      internal static let declined = Loc.tr("Localizable", "SpaceShare.Status.Declined", fallback: "Declined")
+      /// Requested
+      internal static let joining = Loc.tr("Localizable", "SpaceShare.Status.Joining", fallback: "Requested")
+    }
+    internal enum ViewRequest {
+      /// Grand edit access
+      internal static let editAccess = Loc.tr("Localizable", "SpaceShare.ViewRequest.EditAccess", fallback: "Grand edit access")
+      /// Reject
+      internal static let reject = Loc.tr("Localizable", "SpaceShare.ViewRequest.Reject", fallback: "Reject")
+      /// %@ requested to join %@ space
+      internal static func title(_ p1: Any, _ p2: Any) -> String {
+        return Loc.tr("Localizable", "SpaceShare.ViewRequest.Title", String(describing: p1), String(describing: p2), fallback: "%@ requested to join %@ space")
+      }
+      /// Grand view access
+      internal static let viewAccess = Loc.tr("Localizable", "SpaceShare.ViewRequest.ViewAccess", fallback: "Grand view access")
     }
   }
   internal enum Spaces {
