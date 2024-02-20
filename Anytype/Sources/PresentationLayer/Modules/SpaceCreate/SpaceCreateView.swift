@@ -19,10 +19,6 @@ struct SpaceCreateView: View {
                     SectionHeaderView(title: Loc.type)
                     SpaceTypeView(name: model.spaceType.name)
                 }
-                
-                if FeatureFlags.multiplayer {
-                    SpaceJoinMVPView()
-                }
             }
             .safeAreaInset(edge: .bottom) {
                 StandardButton(model: StandardButtonModel(text: Loc.create, inProgress: model.createLoadingState, style: .primaryLarge, action: {

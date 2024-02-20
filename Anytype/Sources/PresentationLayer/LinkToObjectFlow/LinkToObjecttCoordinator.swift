@@ -7,7 +7,7 @@ import AnytypeCore
 protocol LinkToObjectCoordinatorProtocol: AnyObject {
     func startFlow(
         spaceId: String,
-        currentLink: Either<URL, BlockId>?,
+        currentLink: Either<URL, String>?,
         setLinkToObject: @escaping (_ blockId: String) -> Void,
         setLinkToUrl: @escaping (_ url: URL) -> Void,
         removeLink: @escaping () -> Void,
@@ -42,7 +42,7 @@ final class LinkToObjectCoordinator: LinkToObjectCoordinatorProtocol {
         
     func startFlow(
         spaceId: String,
-        currentLink: Either<URL, BlockId>?,
+        currentLink: Either<URL, String>?,
         setLinkToObject: @escaping (_ blockId: String) -> Void,
         setLinkToUrl: @escaping (_ url: URL) -> Void,
         removeLink: @escaping () -> Void,
@@ -83,7 +83,7 @@ final class LinkToObjectCoordinator: LinkToObjectCoordinatorProtocol {
     
     func showLinkToObject(
         spaceId: String,
-        currentLink: Either<URL, BlockId>?,
+        currentLink: Either<URL, String>?,
         onSelect: @escaping (LinkToObjectSearchViewModel.SearchKind) -> ()
     ) {
         let viewModel = LinkToObjectSearchViewModel(spaceId: spaceId, currentLink: currentLink, searchService: searchService) { data in

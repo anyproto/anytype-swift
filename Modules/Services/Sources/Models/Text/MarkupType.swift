@@ -10,7 +10,7 @@ public enum MarkupType: Equatable, Hashable, CaseIterable {
     case textColor(MiddlewareColor)
     case backgroundColor(MiddlewareColor)
     case link(URL?)
-    case linkToObject(BlockId?)
+    case linkToObject(String?)
     case mention(MentionData)
     case emoji(Emoji)
 

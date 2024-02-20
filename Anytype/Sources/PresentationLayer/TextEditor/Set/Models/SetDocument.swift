@@ -6,9 +6,9 @@ import AnytypeCore
 class SetDocument: SetDocumentProtocol {
     let document: BaseDocumentProtocol
     
-    var objectId: Services.BlockId { document.objectId }
-    var blockId: BlockId { inlineParameters?.blockId ?? SetConstants.dataviewBlockId }
-    var targetObjectId: BlockId { inlineParameters?.targetObjectID ?? objectId }
+    var objectId: String { document.objectId }
+    var blockId: String { inlineParameters?.blockId ?? SetConstants.dataviewBlockId }
+    var targetObjectId: String { inlineParameters?.targetObjectID ?? objectId }
     var spaceId: String { document.spaceId }
     
     var details: ObjectDetails? {
@@ -160,7 +160,7 @@ class SetDocument: SetDocumentProtocol {
         }?.objectIds ?? []
     }
     
-    func updateActiveViewId(_ id: BlockId) {
+    func updateActiveViewId(_ id: String) {
         updateDataview(with: id)
         updateData()
     }
@@ -325,7 +325,7 @@ class SetDocument: SetDocumentProtocol {
         }
     }
     
-    private func updateDataview(with activeViewId: BlockId) {
+    private func updateDataview(with activeViewId: String) {
         document.infoContainer.updateDataview(blockId: blockId) { dataView in
             dataView.updated(activeViewId: activeViewId)
         }

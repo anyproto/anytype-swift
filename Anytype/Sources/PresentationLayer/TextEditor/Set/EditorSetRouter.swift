@@ -28,7 +28,7 @@ protocol EditorSetRouterProtocol:
     )
     
     func showSettings(actionHandler: @escaping (ObjectSettingsAction) -> Void)
-    func showQueries(selectedObjectId: BlockId?, onSelect: @escaping (BlockId) -> ())
+    func showQueries(selectedObjectId: String?, onSelect: @escaping (String) -> ())
 
     func showRelationValueEditingView(key: String)
     func showRelationValueEditingView(objectDetails: ObjectDetails, relation: Relation)
@@ -228,7 +228,7 @@ final class EditorSetRouter: EditorSetRouterProtocol, ObjectSettingsCoordinatorO
         navigationContext.present(moduleViewController)
     }
     
-    func showQueries(selectedObjectId: BlockId?, onSelect: @escaping (BlockId) -> ()) {
+    func showQueries(selectedObjectId: String?, onSelect: @escaping (String) -> ()) {
         if FeatureFlags.newTypePicker {
             let view = objectTypeSearchModuleAssembly.make(
                 title: Loc.Set.SourceType.selectQuery,
@@ -331,7 +331,7 @@ extension EditorSetRouter: RelationValueCoordinatorOutput {
 }
 
 extension EditorSetRouter: ObjectSettingsModuleDelegate {
-    func didCreateTemplate(templateId: Services.BlockId) {
+    func didCreateTemplate(templateId: String) {
         anytypeAssertionFailure("Should be disabled in restrictions. Check template restrinctions")
     }
     
@@ -343,7 +343,7 @@ extension EditorSetRouter: ObjectSettingsModuleDelegate {
         }
     }
     
-    func didTapUseTemplateAsDefault(templateId: BlockId) {
+    func didTapUseTemplateAsDefault(templateId: String) {
         anytypeAssertionFailure("Invalid delegate method handler")
     }
 }

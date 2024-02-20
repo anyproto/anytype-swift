@@ -25,7 +25,7 @@ final class SpaceJoinModuleAssembly: SpaceJoinModuleAssemblyProtocol {
     
     func make(data: SpaceJoinModuleData) -> AnyView {
         return SpaceJoinView(
-            model: SpaceJoinViewModel(data: data)
+            model: SpaceJoinViewModel(data: data, workspaceService: self.serviceLocator.workspaceService())
         ).eraseToAnyView()
     }
 }

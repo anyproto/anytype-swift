@@ -12,7 +12,7 @@ final class AudioBlockViewModel: BlockViewModelProtocol {
     let fileData: BlockFile
     let audioSessionService: AudioSessionServiceProtocol
 
-    let showAudioPicker: (BlockId) -> ()
+    let showAudioPicker: (String) -> ()
 
     // Player properties
     let audioPlayer = AnytypeSharedAudioplayer.sharedInstance
@@ -23,7 +23,7 @@ final class AudioBlockViewModel: BlockViewModelProtocol {
         info: BlockInformation,
         fileData: BlockFile,
         audioSessionService: AudioSessionServiceProtocol,
-        showAudioPicker: @escaping (BlockId) -> ()
+        showAudioPicker: @escaping (String) -> ()
     ) {
         self.info = info
         self.fileData = fileData

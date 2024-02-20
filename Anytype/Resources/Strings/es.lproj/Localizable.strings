@@ -753,10 +753,6 @@
 "Content.DataView.InlineCollection.Untitled" = "Colección sin título";
 "Content.DataView.InlineSet.Toast.Failure" = "Este conjunto en línea no tiene un origen";
 
-// MARK: - Widget extension
-"WidgetExtension.LockScreen.Title" = "Nuevo objeto";
-"WidgetExtension.LockScreen.Description" = "Crear un nuevo objeto al vuelo";
-
 // MARK: - Toast
 "Editor.Toast.LinkedTo" = "enlazado a";
 "Editor.Toast.MovedTo" = "Bloque movido a";
@@ -871,6 +867,9 @@
 "SpaceShare.Permissions.Owner" = "Owner";
 "SpaceShare.Permissions.Reader" = "Can view";
 "SpaceShare.Permissions.Writer" = "Can edit";
+"SpaceShare.Invite.Title" = "Invite link";
+"SpaceShare.Invite.Description" = "Send this link to invite others. Assign access rights upon their request approval";
+"SpaceShare.Invite.Button" = "Share invite link";
 
 // MARK: - Space Create
 "SpaceCreate.Title" = "Crear un espacio";

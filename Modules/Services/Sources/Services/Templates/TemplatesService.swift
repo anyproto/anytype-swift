@@ -2,23 +2,23 @@ import ProtobufMessages
 import SwiftProtobuf
 
 public protocol TemplatesServiceProtocol {
-    func cloneTemplate(blockId: BlockId) async throws
-    func createTemplateFromObjectType(objectTypeId: BlockId) async throws -> BlockId
-    func createTemplateFromObject(objectId: BlockId) async throws -> BlockId
-    func deleteTemplate(templateId: BlockId) async throws
-    func setTemplateAsDefaultForType(objectTypeId: BlockId, templateId: BlockId) async throws
+    func cloneTemplate(blockId: String) async throws
+    func createTemplateFromObjectType(objectTypeId: String) async throws -> String
+    func createTemplateFromObject(objectId: String) async throws -> String
+    func deleteTemplate(templateId: String) async throws
+    func setTemplateAsDefaultForType(objectTypeId: String, templateId: String) async throws
 }
 
 public final class TemplatesService: TemplatesServiceProtocol {
     public init() {}
     
-    public func cloneTemplate(blockId: BlockId) async throws {
+    public func cloneTemplate(blockId: String) async throws {
         _ = try await ClientCommands.objectListDuplicate(.with {
             $0.objectIds = [blockId]
         }).invoke()
     }
     
-    public func createTemplateFromObjectType(objectTypeId: BlockId) async throws -> BlockId {
+    public func createTemplateFromObjectType(objectTypeId: String) async throws -> String {
         let objectDetails = try await objectDetails(objectId: objectTypeId)
         
         let response = try await ClientCommands.objectCreate(.with {
@@ -35,7 +35,7 @@ public final class TemplatesService: TemplatesServiceProtocol {
         return response.objectID
     }
     
-    public func createTemplateFromObject(objectId: BlockId) async throws -> BlockId {
+    public func createTemplateFromObject(objectId: String) async throws -> String {
         let response = try await ClientCommands.templateCreateFromObject(.with {
             $0.contextID = objectId
         }).invoke()
@@ -43,14 +43,14 @@ public final class TemplatesService: TemplatesServiceProtocol {
         return response.id
     }
     
-    public func deleteTemplate(templateId: BlockId) async throws {
+    public func deleteTemplate(templateId: String) async throws {
         _ = try await ClientCommands.objectSetIsArchived(.with {
             $0.contextID = templateId
             $0.isArchived = true
         }).invoke()
     }
     
-    public func setTemplateAsDefaultForType(objectTypeId: BlockId, templateId: BlockId) async throws {
+    public func setTemplateAsDefaultForType(objectTypeId: String, templateId: String) async throws {
         _ = try await ClientCommands.objectSetDetails(.with {
             $0.contextID = objectTypeId
             
@@ -65,7 +65,7 @@ public final class TemplatesService: TemplatesServiceProtocol {
     
     // MARK: - Private
     
-    private func objectDetails(objectId: BlockId) async throws -> ObjectDetails {
+    private func objectDetails(objectId: String) async throws -> ObjectDetails {
         let objectShow = try await ClientCommands.objectShow(.with {
             $0.contextID = objectId
             $0.objectID = objectId

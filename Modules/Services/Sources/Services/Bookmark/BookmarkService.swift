@@ -5,7 +5,7 @@ public final class BookmarkService: BookmarkServiceProtocol {
     
     public init() {}
     
-    public func fetchBookmark(contextID: BlockId, blockID: BlockId, url: String) async throws {
+    public func fetchBookmark(contextID: String, blockID: String, url: String) async throws {
         _ = try await ClientCommands.blockBookmarkFetch(.with {
             $0.contextID = contextID
             $0.blockID = blockID
@@ -14,8 +14,8 @@ public final class BookmarkService: BookmarkServiceProtocol {
     }
 
     public func createAndFetchBookmark(
-        contextID: BlockId,
-        targetID: BlockId,
+        contextID: String,
+        targetID: String,
         position: BlockPosition,
         url: String
     ) async throws {
@@ -45,7 +45,7 @@ public final class BookmarkService: BookmarkServiceProtocol {
         return try result.details.toDetails()
     }
     
-    public func fetchBookmarkContent(bookmarkId: BlockId, url: String) async throws {
+    public func fetchBookmarkContent(bookmarkId: String, url: String) async throws {
         try await ClientCommands.objectBookmarkFetch(.with {
             $0.contextID = bookmarkId
             $0.url = url

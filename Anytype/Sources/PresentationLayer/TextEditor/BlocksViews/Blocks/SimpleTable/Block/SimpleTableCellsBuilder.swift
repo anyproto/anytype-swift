@@ -68,8 +68,8 @@ final class SimpleTableCellsBuilder {
     }
 
     private func makeEmptyContentCellConfiguration(
-        columnId: BlockId,
-        rowId: BlockId,
+        columnId: String,
+        rowId: String,
         isHeaderRow: Bool
     ) -> EditorItem {
         .system(
@@ -178,9 +178,9 @@ final class SimpleTableCellsBuilder {
 
 struct ComputedTable {
     struct Cell {
-        var blockId: BlockId { "\(rowId)-\(columnId)" }
-        let rowId: BlockId
-        let columnId: BlockId
+        var blockId: String { "\(rowId)-\(columnId)" }
+        let rowId: String
+        let columnId: String
         let isHeaderRow: Bool
         let blockInformation: BlockInformation?
     }
@@ -253,11 +253,11 @@ extension ComputedTable {
 }
 
 extension ComputedTable {
-    var allColumnIds: [BlockId] {
+    var allColumnIds: [String] {
         cells.first?.compactMap { $0.columnId } ?? []
     }
 
-    var allRowIds: [BlockId] {
+    var allRowIds: [String] {
         cells.compactMap {
             $0.first.map { $0.rowId }
         }

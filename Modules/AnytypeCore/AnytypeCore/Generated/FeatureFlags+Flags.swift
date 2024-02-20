@@ -18,14 +18,6 @@ public extension FeatureFlags {
         value(for: .dndOnCollectionsAndSets)
     }
 
-    static var selectTypeByLongTap: Bool {
-        value(for: .selectTypeByLongTap)
-    }
-
-    static var widgetsCreateObject: Bool {
-        value(for: .widgetsCreateObject)
-    }
-
     static var galleryInstallation: Bool {
         value(for: .galleryInstallation)
     }
@@ -99,8 +91,6 @@ public extension FeatureFlags {
         .setKanbanView,
         .fullInlineSetImpl,
         .dndOnCollectionsAndSets,
-        .selectTypeByLongTap,
-        .widgetsCreateObject,
         .galleryInstallation,
         .newTypePicker,
         .newDateRelationCalendarView,

@@ -12,7 +12,7 @@ struct TextBlockURLInputParameters {
 struct TextBlockActionHandler: TextBlockActionHandlerProtocol {
     let info: BlockInformation
 
-    let showPage: (BlockId) -> Void
+    let showPage: (String) -> Void
     let openURL: (URL) -> Void
     let showTextIconPicker: () -> Void
     let resetSubject = PassthroughSubject<Void, Never>()
@@ -32,7 +32,7 @@ struct TextBlockActionHandler: TextBlockActionHandlerProtocol {
 
     init(
         info: BlockInformation,
-        showPage: @escaping (BlockId) -> Void,
+        showPage: @escaping (String) -> Void,
         openURL: @escaping (URL) -> Void,
         showTextIconPicker: @escaping () -> Void,
         showWaitingView: @escaping (String) -> Void,

@@ -22,7 +22,7 @@ final class SetsWidgetInternalViewModel: CommonWidgetInternalViewModel, WidgetIn
     var allowCreateObject = true
     
     init(
-        widgetBlockId: BlockId,
+        widgetBlockId: String,
         widgetObject: BaseDocumentProtocol,
         setsSubscriptionService: SetsSubscriptionServiceProtocol,
         objectService: ObjectActionsServiceProtocol,

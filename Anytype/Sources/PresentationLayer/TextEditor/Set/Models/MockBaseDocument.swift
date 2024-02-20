@@ -20,7 +20,7 @@ final class MockBaseDocument: BaseDocumentProtocol {
     
     var detailsStorage: Services.ObjectDetailsStorage { ObjectDetailsStorage() }
     
-    var objectId: Services.BlockId { "" }
+    var objectId: String { "" }
     
     var children: [Services.BlockInformation] { [] }
     

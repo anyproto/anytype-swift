@@ -583,10 +583,10 @@
 "Unsplash" = "Unsplash";
 "Go back" = "Quay lại";
 "SyncStatus.LocalOnly.Title" = "Local-only";
-"SyncStatus.LocalOnly.Description" = "Local only";
+"SyncStatus.LocalOnly.Description" = "Chỉ cục bộ";
 "SyncStatus.Synced.Anytype.Description" = "Backed up on Anytype Network";
 "SyncStatus.Synced.AnytypeStaging.Description" = "Backed up on Anytype Staging";
-"SyncStatus.Synced.SelfHosted.Description" = "Backed up on Self-hosted Network";
+"SyncStatus.Synced.SelfHosted.Description" = "Sao lưu lên mạng tự quản";
 "Downloading or uploading data to some node" = "Đang tải dữ liệu về hoặc lên điểm nào đó";
 "Node is not connected" = "Node is not connected";
 "Initializing sync" = "Đang khởi tạo đồng bộ";
@@ -754,10 +754,6 @@
 "Content.DataView.InlineCollection.Untitled" = "Bộ không tên";
 "Content.DataView.InlineSet.Toast.Failure" = "This inline set doesn’t have a source";
 
-// MARK: - Widget extension
-"WidgetExtension.LockScreen.Title" = "Đối tượng mới";
-"WidgetExtension.LockScreen.Description" = "Create a new object on the fly";
-
 // MARK: - Toast
 "Editor.Toast.LinkedTo" = "linked to";
 "Editor.Toast.MovedTo" = "Block moved to";
@@ -872,6 +868,9 @@
 "SpaceShare.Permissions.Owner" = "Owner";
 "SpaceShare.Permissions.Reader" = "Can view";
 "SpaceShare.Permissions.Writer" = "Can edit";
+"SpaceShare.Invite.Title" = "Invite link";
+"SpaceShare.Invite.Description" = "Send this link to invite others. Assign access rights upon their request approval";
+"SpaceShare.Invite.Button" = "Share invite link";
 
 // MARK: - Space Create
 "SpaceCreate.Title" = "Create a space";

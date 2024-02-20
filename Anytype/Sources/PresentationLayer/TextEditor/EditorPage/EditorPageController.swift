@@ -346,7 +346,7 @@ extension EditorPageController: EditorPageViewInput {
         }
     }
 
-    func didSelectTextRangeSelection(blockId: BlockId, textView: UITextView) {
+    func didSelectTextRangeSelection(blockId: String, textView: UITextView) {
         if let item = dataSourceItem(for: blockId), textView.textViewSelectionPosition.contains(.end) || textView.textViewSelectionPosition.contains(.start) {
             self.selectingRangeEditorItem = item
             self.selectingRangeTextView = textView
@@ -372,7 +372,7 @@ extension EditorPageController: EditorPageViewInput {
         applyBlocksSectionSnapshot(blocksSnapshot, animatingDifferences: animatingDifferences)
     }
 
-    func scrollToBlock(blockId: BlockId) {
+    func scrollToBlock(blockId: String) {
         guard let item = dataSourceItem(for: blockId),
               let indexPath = dataSource.indexPath(for: item),
               let cellRect = collectionView.layoutAttributesForItem(at: indexPath)?.frame else { return }
@@ -380,7 +380,7 @@ extension EditorPageController: EditorPageViewInput {
         collectionView.setContentOffset(.init(x: 0, y: yOffset), animated: true)
     }
     
-    func selectBlock(blockId: BlockId) {
+    func selectBlock(blockId: String) {
         if let item = dataSourceItem(for: blockId),
             let indexPath = dataSource.indexPath(for: item) {
             viewModel.modelsHolder.contentProvider(for: item)
@@ -410,7 +410,7 @@ extension EditorPageController: EditorPageViewInput {
         // For future changes
     }
 
-    func blockDidFinishEditing(blockId: BlockId) {
+    func blockDidFinishEditing(blockId: String) {
         self.selectingRangeTextView = nil
         self.selectingRangeEditorItem = nil
 
@@ -524,7 +524,7 @@ private extension EditorPageController {
         }
     }
 
-    func dataSourceItem(for blockId: BlockId) -> EditorItem? {
+    func dataSourceItem(for blockId: String) -> EditorItem? {
         dataSource.snapshot().itemIdentifiers.first {
             switch $0 {
             case let .block(block):
