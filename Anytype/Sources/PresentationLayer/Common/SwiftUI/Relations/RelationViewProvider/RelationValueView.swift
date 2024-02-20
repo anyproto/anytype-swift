@@ -17,7 +17,7 @@ struct RelationValueView: View {
     
     @ViewBuilder
     private func buttonView(with action: (() -> Void)?) -> some View {
-        if action.isNotNil && relation.isEditable {
+        if action.isNotNil {
             Button {
                 action?()
             } label: {
