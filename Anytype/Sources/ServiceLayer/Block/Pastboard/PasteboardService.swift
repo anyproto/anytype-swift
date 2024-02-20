@@ -2,7 +2,7 @@ import Services
 import Foundation
 import Combine
 
-final class PasteboardService: PasteboardServiceProtocol {
+final class PasteboardBlockService: PasteboardBlockServiceProtocol {
     private let document: BaseDocumentProtocol
     private let pasteboardHelper: PasteboardHelperProtocol
     private let pasteboardMiddlewareService: PasteboardMiddlewareServiceProtocol
@@ -85,7 +85,7 @@ final class PasteboardService: PasteboardServiceProtocol {
     }
 }
 
-private extension PasteboardService {
+private extension PasteboardBlockService {
     enum Constants {
         static let longOperationTime: Double = 0.5
     }
