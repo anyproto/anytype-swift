@@ -867,9 +867,21 @@
 "SpaceShare.Permissions.Owner" = "Eier";
 "SpaceShare.Permissions.Reader" = "Kan se";
 "SpaceShare.Permissions.Writer" = "Kan redigere";
-"SpaceShare.Invite.Title" = "Invite link";
-"SpaceShare.Invite.Description" = "Send this link to invite others. Assign access rights upon their request approval";
-"SpaceShare.Invite.Button" = "Share invite link";
+"SpaceShare.Invite.Title" = "Invitasjonslenke";
+"SpaceShare.Invite.Description" = "Send denne lenken for å invitere andre. Tildel tilgangsrettigheter når deres forespørsel er godkjent";
+"SpaceShare.Invite.Button" = "Del invitasjonslenke";
+"SpaceShare.Status.Joining" = "Requested";
+"SpaceShare.Status.Declined" = "Declined";
+"SpaceShare.Action.ViewRequest" = "View Request";
+"SpaceShare.ViewRequest.Title" = "%@ requested to join %@ space";
+"SpaceShare.ViewRequest.ViewAccess" = "Grand view access";
+"SpaceShare.ViewRequest.EditAccess" = "Grand edit access";
+"SpaceShare.ViewRequest.Reject" = "Reject";
+"SpaceShare.Join.Title" = "Bli med i et rom";
+"SpaceShare.Join.CommentPlaceholder" = "Legg igjen en privat kommentar til eieren av rommet";
+"SpaceShare.Join.Button" = "Be om å bli med";
+"SpaceShare.Join.Info" = "Når eieren av rommet godkjenner forespørselen din, vil du bli med i rommet med tilgangsrettigheter eieren har satt.";
+"SpaceShare.Join.Message" = "Du har blitt invitert til å bli med i %@ -rommet, opprettet av %@. Send en forespørsel slik at eieren av rommet kan slippe deg inn.";
 
 // MARK: - Space Create
 "SpaceCreate.Title" = "Opprett et rom";

@@ -870,6 +870,18 @@
 "SpaceShare.Invite.Title" = "Lien d'invitation";
 "SpaceShare.Invite.Description" = "Envoyez ce lien pour inviter d'autres personnes. Attribuez les droits d'accès lors de l'approbation de leur demande.\"";
 "SpaceShare.Invite.Button" = "Partager le lien d'invitation";
+"SpaceShare.Status.Joining" = "Demandé";
+"SpaceShare.Status.Declined" = "Refusé";
+"SpaceShare.Action.ViewRequest" = "Voir la demande";
+"SpaceShare.ViewRequest.Title" = "%@ a demandé à rejoindre l'espace %@";
+"SpaceShare.ViewRequest.ViewAccess" = "Accorder l’accès en consultation";
+"SpaceShare.ViewRequest.EditAccess" = "Accorder un accès à l'édition";
+"SpaceShare.ViewRequest.Reject" = "Rejeter";
+"SpaceShare.Join.Title" = "Rejoindre un espace";
+"SpaceShare.Join.CommentPlaceholder" = "Laisser un commentaire privé au propriétaire de l'espace";
+"SpaceShare.Join.Button" = "Demander à rejoindre";
+"SpaceShare.Join.Info" = "Une fois que le propriétaire de l'espace a approuvé votre demande, vous rejoindrez l'espace avec les droits d'accès déterminés par le propriétaire.";
+"SpaceShare.Join.Message" = "Vous avez été invité à rejoindre l'espace %@ créé par %@. Envoyez une demande afin que le propriétaire de l'espace puisse vous laisser entrer.";
 
 // MARK: - Space Create
 "SpaceCreate.Title" = "Créer un espace";
