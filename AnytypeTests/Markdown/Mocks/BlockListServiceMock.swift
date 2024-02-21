@@ -74,6 +74,12 @@ final class BlockServiceMock: BlockServiceProtocol {
         return ""
     }
     
+    func addFirstBlock(contextId: String, info: BlockInformation) async throws -> String {
+        assertionFailure()
+        return ""    
+    }
+    
+    
     func delete(contextId: String, blockIds: [String]) async throws {
         assertionFailure()
     }

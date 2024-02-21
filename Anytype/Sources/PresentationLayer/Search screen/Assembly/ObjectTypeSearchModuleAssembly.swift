@@ -7,7 +7,7 @@ protocol ObjectTypeSearchModuleAssemblyProtocol: AnyObject {
     func makeTypeSearchForNewObjectCreation(
         title: String,
         spaceId: String,
-        onSelect: @escaping (_ type: ObjectType) -> Void
+        onSelect: @escaping (_ type: ObjectType,_ content: String?) -> Void
     ) -> AnyView
     
     func makeDefaultTypeSearch(
@@ -33,18 +33,19 @@ final class ObjectTypeSearchModuleAssembly: ObjectTypeSearchModuleAssemblyProtoc
     func makeTypeSearchForNewObjectCreation(
         title: String,
         spaceId: String,
-        onSelect: @escaping (_ type: ObjectType) -> Void
+        onSelect: @escaping (_ type: ObjectType,_ content: String?) -> Void
     ) -> AnyView {
         let model = ObjectTypeSearchViewModel(
             showPins: true,
             showLists: true,
             showFiles: false, 
-            showPaste: true,
+            allowPaste: true,
             spaceId: spaceId,
             workspaceService: serviceLocator.workspaceService(),
             typesService: serviceLocator.typesService(),
             objectTypeProvider: serviceLocator.objectTypeProvider(),
             toastPresenter: uiHelpersDI.toastPresenter(),
+            pasteboardHelper: serviceLocator.pasteboardHelper(),
             onSelect: onSelect
         )
         
@@ -67,13 +68,16 @@ final class ObjectTypeSearchModuleAssembly: ObjectTypeSearchModuleAssemblyProtoc
                 showPins: showPins,
                 showLists: showLists, 
                 showFiles: showFiles,
-                showPaste: false,
+                allowPaste: false,
                 spaceId: spaceId,
                 workspaceService: serviceLocator.workspaceService(),
                 typesService: serviceLocator.typesService(),
                 objectTypeProvider: serviceLocator.objectTypeProvider(),
-                toastPresenter: uiHelpersDI.toastPresenter(),
-                onSelect: onSelect
+                toastPresenter: uiHelpersDI.toastPresenter(), 
+                pasteboardHelper: serviceLocator.pasteboardHelper(),
+                onSelect: { type, _ in
+                    onSelect(type)
+                }
             )
             
             return ObjectTypeSearchView(

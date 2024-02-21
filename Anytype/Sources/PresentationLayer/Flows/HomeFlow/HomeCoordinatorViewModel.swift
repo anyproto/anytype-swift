@@ -200,10 +200,10 @@ final class HomeCoordinatorViewModel: ObservableObject,
         return objectTypeSearchModuleAssembly.makeTypeSearchForNewObjectCreation(
             title: Loc.createNewObject,
             spaceId: activeWorkspaceStorage.workspaceInfo.accountSpaceId
-        ) { [weak self] type in
+        ) { [weak self] type, content in
             self?.showTypeSearch = false
             AnytypeAnalytics.instance().logSelectObjectType(type.analyticsType, route: .longTap)
-            self?.createAndShowNewObject(type: type, route: .navigation)
+            self?.createAndShowNewObject(type: type, content: content, route: .navigation)
         }
     }
 
@@ -354,6 +354,7 @@ final class HomeCoordinatorViewModel: ObservableObject,
 
     private func createAndShowNewObject(
         type: ObjectType,
+        content: String? = nil,
         route: AnalyticsEventsRouteKind
     ) {
         Task {
@@ -367,8 +368,13 @@ final class HomeCoordinatorViewModel: ObservableObject,
                 origin: .none,
                 templateId: type.defaultTemplateId
             )
-
             AnytypeAnalytics.instance().logCreateObject(objectType: details.analyticsType, route: route)
+            
+            if let content = content {
+                var info = BlockInformation.empty(content: .text(.plain(content, contentType: .text)))
+                _ = try await BlockService().addFirstBlock(contextId: details.id, info: info)
+            }
+
             openObject(screenData: details.editorScreenData())
         }
     }
