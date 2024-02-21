@@ -1,5 +1,6 @@
 import UIKit
 import UniformTypeIdentifiers
+import Combine
 
 protocol PasteboardHelperProtocol {
     func obrainString() -> String?
@@ -13,6 +14,9 @@ protocol PasteboardHelperProtocol {
     var hasValidURL: Bool { get }
     var hasStrings: Bool { get }
     var hasSlots: Bool { get }
+    
+    func startSubscription(onChange: @escaping () -> Void)
+    func stopSubscription()
 }
 
 final class PasteboardHelper: PasteboardHelperProtocol {
@@ -99,5 +103,22 @@ final class PasteboardHelper: PasteboardHelperProtocol {
 
     var hasSlots: Bool {
         pasteboard.hasSlots
+    }
+    
+    // MARK: Subscriptions
+    private var subscription: AnyCancellable?
+    func startSubscription(onChange: @escaping () -> Void) {
+        subscription = NotificationCenter.Publisher(
+            center: .default,
+            name: UIPasteboard.changedNotification
+        )
+        .receiveOnMain()
+        .sink { _ in
+            onChange()
+        }
+    }
+    
+    func stopSubscription() {
+        NotificationCenter.default.removeObserver(self, name: UIPasteboard.changedNotification, object: nil)
     }
 }

@@ -6,11 +6,12 @@ import Services
 final class ObjectTypeSearchViewModel: ObservableObject {
     @Published var state = State.searchResults([])
     @Published var searchText = ""
+    @Published var showPasteButton = false
     
-    let showPasteButton: Bool
     let showPins: Bool
     private let showLists: Bool
     private let showFiles: Bool
+    private let allowPaste: Bool
     
     private let spaceId: String
     private let workspaceService: WorkspaceServiceProtocol
@@ -38,7 +39,7 @@ final class ObjectTypeSearchViewModel: ObservableObject {
         self.showPins = showPins
         self.showLists = showLists
         self.showFiles = showFiles
-
+        self.allowPaste = allowPaste
         self.spaceId = spaceId
         self.workspaceService = workspaceService
         self.typesService = typesService
@@ -47,8 +48,24 @@ final class ObjectTypeSearchViewModel: ObservableObject {
         self.onSelect = onSelect
         self.pasteboardHelper = pasteboardHelper
         
-        // TODO: Subscribe to notification
-        self.showPasteButton = allowPaste && pasteboardHelper.hasStrings
+        pasteboardHelper.startSubscription { [weak self] in
+            Task { [self] in
+                await self?.updatePasteButton()
+            }
+        }
+    }
+    
+    deinit {
+        pasteboardHelper.stopSubscription()
+    }
+    
+    func onAppear() {
+        search(text: searchText)
+        updatePasteButton()
+    }
+    
+    func updatePasteButton() {
+        showPasteButton = allowPaste && pasteboardHelper.hasStrings
     }
     
     func search(text: String) {
