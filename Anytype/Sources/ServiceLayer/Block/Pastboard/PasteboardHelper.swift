@@ -3,14 +3,16 @@ import UniformTypeIdentifiers
 import Combine
 
 protocol PasteboardHelperProtocol {
-    func obrainString() -> String?
+    func obtainString() -> String?
     func obtainBlocksSlots() -> [String]?
     func obtainHTMLSlot() -> String?
     func obtainTextSlot() -> String?
     func obtainAsFiles() -> [NSItemProvider]
+    func obtainAllItems() -> [[String: Any]]
     
     func setItems(textSlot: String?, htmlSlot: String?, blocksSlots: [String]?)
     
+    var numberOfItems: Int { get }
     var hasValidURL: Bool { get }
     var hasStrings: Bool { get }
     var hasSlots: Bool { get }
@@ -22,7 +24,7 @@ protocol PasteboardHelperProtocol {
 final class PasteboardHelper: PasteboardHelperProtocol {
     private lazy var pasteboard = UIPasteboard.general
 
-    func obrainString() -> String? {
+    func obtainString() -> String? {
         return pasteboard.string
     }
     
@@ -70,6 +72,10 @@ final class PasteboardHelper: PasteboardHelperProtocol {
     func obtainAsFiles() -> [NSItemProvider] {
         return pasteboard.itemProviders
     }
+    
+    func obtainAllItems() -> [[String: Any]] {
+        pasteboard.items
+    }
 
     func setItems(textSlot: String?, htmlSlot: String?, blocksSlots: [String]?) {
         var textSlots: [String: Any] = [:]
@@ -88,6 +94,10 @@ final class PasteboardHelper: PasteboardHelperProtocol {
         }
         allSlots.append(textSlots)
         pasteboard.setItems(allSlots)
+    }
+    
+    var numberOfItems: Int {
+        pasteboard.numberOfItems
     }
 
     var hasValidURL: Bool {

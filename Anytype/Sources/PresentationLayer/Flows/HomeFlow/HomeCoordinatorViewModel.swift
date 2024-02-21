@@ -21,6 +21,7 @@ final class HomeCoordinatorViewModel: ObservableObject,
     private let newSearchModuleAssembly: NewSearchModuleAssemblyProtocol
     private let objectActionsService: ObjectActionsServiceProtocol
     private let defaultObjectService: DefaultObjectCreationServiceProtocol
+    private let bookmarkService: BookmarkServiceProtocol
     private let typeProvider: ObjectTypeProviderProtocol
     private let appActionsStorage: AppActionStorage
     private let widgetTypeModuleAssembly: WidgetTypeModuleAssemblyProtocol
@@ -85,6 +86,7 @@ final class HomeCoordinatorViewModel: ObservableObject,
         newSearchModuleAssembly: NewSearchModuleAssemblyProtocol,
         objectActionsService: ObjectActionsServiceProtocol,
         defaultObjectService: DefaultObjectCreationServiceProtocol,
+        bookmarkService: BookmarkServiceProtocol,
         typeProvider: ObjectTypeProviderProtocol,
         appActionsStorage: AppActionStorage,
         widgetTypeModuleAssembly: WidgetTypeModuleAssemblyProtocol,
@@ -110,6 +112,7 @@ final class HomeCoordinatorViewModel: ObservableObject,
         self.newSearchModuleAssembly = newSearchModuleAssembly
         self.objectActionsService = objectActionsService
         self.defaultObjectService = defaultObjectService
+        self.bookmarkService = bookmarkService
         self.typeProvider = typeProvider
         self.appActionsStorage = appActionsStorage
         self.widgetTypeModuleAssembly = widgetTypeModuleAssembly
@@ -200,10 +203,16 @@ final class HomeCoordinatorViewModel: ObservableObject,
         return objectTypeSearchModuleAssembly.makeTypeSearchForNewObjectCreation(
             title: Loc.createNewObject,
             spaceId: activeWorkspaceStorage.workspaceInfo.accountSpaceId
-        ) { [weak self] type, content in
+        ) { [weak self] result in
             self?.showTypeSearch = false
-            AnytypeAnalytics.instance().logSelectObjectType(type.analyticsType, route: .longTap)
-            self?.createAndShowNewObject(type: type, content: content, route: .navigation)
+            
+            switch result {
+            case .object(let type, let content):
+                AnytypeAnalytics.instance().logSelectObjectType(type.analyticsType, route: .longTap)
+                self?.createAndShowNewObject(type: type, content: content, route: .navigation)
+            case .bookmark(let url):
+                self?.createAndShowNewBookmark(url: url)
+            }
         }
     }
 
@@ -371,9 +380,24 @@ final class HomeCoordinatorViewModel: ObservableObject,
             AnytypeAnalytics.instance().logCreateObject(objectType: details.analyticsType, route: route)
             
             if let content = content {
-                var info = BlockInformation.empty(content: .text(.plain(content, contentType: .text)))
+                let info = BlockInformation.empty(content: .text(.plain(content, contentType: .text)))
                 _ = try await BlockService().addFirstBlock(contextId: details.id, info: info)
             }
+
+            openObject(screenData: details.editorScreenData())
+        }
+    }
+    
+    private func createAndShowNewBookmark(url: String) {
+        Task {
+            let details = try await bookmarkService.createBookmarkObject(
+                spaceId: activeWorkspaceStorage.workspaceInfo.accountSpaceId,
+                url: url,
+                origin: .clipboard
+            )
+            
+            AnytypeAnalytics.instance().logSelectObjectType(details.analyticsType, route: .longTap)
+            AnytypeAnalytics.instance().logCreateObject(objectType: details.analyticsType, route: .navigation)
 
             openObject(screenData: details.editorScreenData())
         }
