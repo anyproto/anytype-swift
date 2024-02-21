@@ -66,6 +66,10 @@ final class SettingsViewModel: ObservableObject {
         output?.onChangeIconSelected(objectId: activeWorkspaceStorage.workspaceInfo.profileObjectID)
     }
     
+    func onSpacesTap() {
+        output?.onSpacesSelected()
+    }
+    
     // MARK: - Private
     
     private func setupSubscription() async {

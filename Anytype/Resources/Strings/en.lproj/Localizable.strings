@@ -849,6 +849,7 @@
 "Spaces.Accessibility.Private" = "Private Space";
 "Spaces.Accessibility.Personal" = "Personal Space";
 "Spaces.Search.Title" = "Search spaces";
+"Spaces.Title" = "Spaces";
 
 // MARK: - Space Settings
 "SpaceSettings.Title" = "Space settings";
