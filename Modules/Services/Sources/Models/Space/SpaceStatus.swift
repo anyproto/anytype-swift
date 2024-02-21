@@ -13,6 +13,7 @@ public enum SpaceStatus {
     case spaceDeleted
     case spaceActive
     case spaceJoining
+    case spaceRemoving
 }
 
 public extension SpaceStatus {
@@ -38,6 +39,8 @@ public extension SpaceStatus {
             self = .spaceActive
         case .spaceJoining:
             self = .spaceJoining
+        case .spaceRemoving:
+            self = .spaceRemoving
         case .UNRECOGNIZED(let value):
             anytypeAssertionFailure("UNRECOGNIZED Anytype_Model_SpaceStatus", info: ["status": "\(value)"])
             throw CommonConvertError.requiredFieldIsMissing
@@ -68,6 +71,8 @@ public extension SpaceStatus {
             return .spaceActive
         case .spaceJoining:
             return .spaceJoining
+        case .spaceRemoving:
+            return .spaceRemoving
         }
     }
 }

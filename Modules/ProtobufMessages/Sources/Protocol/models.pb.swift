@@ -367,6 +367,9 @@ public enum Anytype_Model_SpaceStatus: SwiftProtobuf.Enum {
 
   /// SpaceJoining - the account is joining the space
   case spaceJoining // = 9
+
+  /// SpaceRemoving - the account is removing from space or the space is removed from network
+  case spaceRemoving // = 10
   case UNRECOGNIZED(Int)
 
   public init() {
@@ -385,6 +388,7 @@ public enum Anytype_Model_SpaceStatus: SwiftProtobuf.Enum {
     case 7: self = .spaceDeleted
     case 8: self = .spaceActive
     case 9: self = .spaceJoining
+    case 10: self = .spaceRemoving
     default: self = .UNRECOGNIZED(rawValue)
     }
   }
@@ -401,6 +405,7 @@ public enum Anytype_Model_SpaceStatus: SwiftProtobuf.Enum {
     case .spaceDeleted: return 7
     case .spaceActive: return 8
     case .spaceJoining: return 9
+    case .spaceRemoving: return 10
     case .UNRECOGNIZED(let i): return i
     }
   }
@@ -422,6 +427,7 @@ extension Anytype_Model_SpaceStatus: CaseIterable {
     .spaceDeleted,
     .spaceActive,
     .spaceJoining,
+    .spaceRemoving,
   ]
 }
 
@@ -4412,6 +4418,14 @@ public struct Anytype_Model_Notification {
     set {payload = .requestToJoin(newValue)}
   }
 
+  public var test: Anytype_Model_Notification.Test {
+    get {
+      if case .test(let v)? = payload {return v}
+      return Anytype_Model_Notification.Test()
+    }
+    set {payload = .test(newValue)}
+  }
+
   public var space: String = String()
 
   public var unknownFields = SwiftProtobuf.UnknownStorage()
@@ -4421,6 +4435,7 @@ public struct Anytype_Model_Notification {
     case export(Anytype_Model_Notification.Export)
     case galleryImport(Anytype_Model_Notification.GalleryImport)
     case requestToJoin(Anytype_Model_Notification.RequestToJoin)
+    case test(Anytype_Model_Notification.Test)
 
   #if !swift(>=4.1)
     public static func ==(lhs: Anytype_Model_Notification.OneOf_Payload, rhs: Anytype_Model_Notification.OneOf_Payload) -> Bool {
@@ -4442,6 +4457,10 @@ public struct Anytype_Model_Notification {
       }()
       case (.requestToJoin, .requestToJoin): return {
         guard case .requestToJoin(let l) = lhs, case .requestToJoin(let r) = rhs else { preconditionFailure() }
+        return l == r
+      }()
+      case (.test, .test): return {
+        guard case .test(let l) = lhs, case .test(let r) = rhs else { preconditionFailure() }
         return l == r
       }()
       default: return false
@@ -4604,6 +4623,16 @@ public struct Anytype_Model_Notification {
     public var identityName: String = String()
 
     public var identityIcon: String = String()
+
+    public var unknownFields = SwiftProtobuf.UnknownStorage()
+
+    public init() {}
+  }
+
+  public struct Test {
+    // SwiftProtobuf.Message conformance is added in an extension below. See the
+    // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+    // methods supported on all messages.
 
     public var unknownFields = SwiftProtobuf.UnknownStorage()
 
@@ -5082,6 +5111,7 @@ extension Anytype_Model_Notification.Export: @unchecked Sendable {}
 extension Anytype_Model_Notification.Export.Code: @unchecked Sendable {}
 extension Anytype_Model_Notification.GalleryImport: @unchecked Sendable {}
 extension Anytype_Model_Notification.RequestToJoin: @unchecked Sendable {}
+extension Anytype_Model_Notification.Test: @unchecked Sendable {}
 extension Anytype_Model_Export: @unchecked Sendable {}
 extension Anytype_Model_Export.Format: @unchecked Sendable {}
 extension Anytype_Model_Import: @unchecked Sendable {}
@@ -5172,6 +5202,7 @@ extension Anytype_Model_SpaceStatus: SwiftProtobuf._ProtoNameProviding {
     7: .same(proto: "SpaceDeleted"),
     8: .same(proto: "SpaceActive"),
     9: .same(proto: "SpaceJoining"),
+    10: .same(proto: "SpaceRemoving"),
   ]
 }
 
@@ -9281,6 +9312,7 @@ extension Anytype_Model_Notification: SwiftProtobuf.Message, SwiftProtobuf._Mess
     8: .same(proto: "export"),
     9: .same(proto: "galleryImport"),
     10: .same(proto: "requestToJoin"),
+    11: .same(proto: "test"),
     7: .same(proto: "space"),
   ]
 
@@ -9347,6 +9379,19 @@ extension Anytype_Model_Notification: SwiftProtobuf.Message, SwiftProtobuf._Mess
           self.payload = .requestToJoin(v)
         }
       }()
+      case 11: try {
+        var v: Anytype_Model_Notification.Test?
+        var hadOneofValue = false
+        if let current = self.payload {
+          hadOneofValue = true
+          if case .test(let m) = current {v = m}
+        }
+        try decoder.decodeSingularMessageField(value: &v)
+        if let v = v {
+          if hadOneofValue {try decoder.handleConflictingOneOf()}
+          self.payload = .test(v)
+        }
+      }()
       default: break
       }
     }
@@ -9387,6 +9432,10 @@ extension Anytype_Model_Notification: SwiftProtobuf.Message, SwiftProtobuf._Mess
     case .requestToJoin?: try {
       guard case .requestToJoin(let v)? = self.payload else { preconditionFailure() }
       try visitor.visitSingularMessageField(value: v, fieldNumber: 10)
+    }()
+    case .test?: try {
+      guard case .test(let v)? = self.payload else { preconditionFailure() }
+      try visitor.visitSingularMessageField(value: v, fieldNumber: 11)
     }()
     default: break
     }
@@ -9617,6 +9666,25 @@ extension Anytype_Model_Notification.RequestToJoin: SwiftProtobuf.Message, Swift
     if lhs.identity != rhs.identity {return false}
     if lhs.identityName != rhs.identityName {return false}
     if lhs.identityIcon != rhs.identityIcon {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    return true
+  }
+}
+
+extension Anytype_Model_Notification.Test: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = Anytype_Model_Notification.protoMessageName + ".Test"
+  public static let _protobuf_nameMap = SwiftProtobuf._NameMap()
+
+  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let _ = try decoder.nextFieldNumber() {
+    }
+  }
+
+  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  public static func ==(lhs: Anytype_Model_Notification.Test, rhs: Anytype_Model_Notification.Test) -> Bool {
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }

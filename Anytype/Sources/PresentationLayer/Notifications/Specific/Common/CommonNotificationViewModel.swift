@@ -30,7 +30,7 @@ final class CommonNotificationViewModel: ObservableObject {
         switch notification.payload {
         case .import(let data):
             title = data.name
-        case .export, .requestToJoin: // Without title
+        case .export, .requestToJoin, .test: // Without title
             break
         case .galleryImport(let galleryImport):
             title = galleryImport.name
