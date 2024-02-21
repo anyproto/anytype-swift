@@ -1,7 +1,7 @@
 import Foundation
 import SwiftUI
 
-struct SpaceManagerRowView: View {
+struct SpacesManagerRowView: View {
     
     let spaceView: SpaceView
     
@@ -12,6 +12,7 @@ struct SpaceManagerRowView: View {
         }
         .padding(.horizontal, 16)
         .border(12, color: .Shape.primary)
+        .lineLimit(1)
     }
     
     private var spaceInfo: some View {
@@ -37,9 +38,9 @@ struct SpaceManagerRowView: View {
     private var spaceStateInfo: some View {
         GeometryReader { reader in
             HStack(spacing: 0) {
-                statusInfoBlock(title: "Network:", name: "Available DEMO")
+                statusInfoBlock(title: Loc.Spaces.Info.network, name: spaceView.accountStatus?.name ?? "")
                     .frame(width: reader.size.width * 0.5)
-                statusInfoBlock(title: "Device:", name: "Stored DEMO")
+                statusInfoBlock(title: Loc.Spaces.Info.device, name: spaceView.localStatus?.name ?? "")
                     .frame(width: reader.size.width * 0.5)
             }
             .frame(height: 44)
@@ -50,13 +51,11 @@ struct SpaceManagerRowView: View {
     
     private func statusInfoBlock(title: String, name: String) -> some View {
         HStack(spacing: 0) {
-            Circle()
-                .fill(Color.green)
-                .frame(width: 8, height: 8)
             Spacer.fixedWidth(6)
             AnytypeText(title, style: .relation3Regular, color: .Text.secondary)
             Spacer.fixedWidth(4)
             AnytypeText(name, style: .relation3Regular, color: .Text.primary)
+            Spacer()
         }
     }
 }

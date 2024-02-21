@@ -13,7 +13,7 @@ struct SpacesManagerView: View {
                 Spacer.fixedHeight(10)
                 VStack(spacing: 12) {
                     ForEach(model.spaces) { space in
-                        SpaceManagerRowView(spaceView: space)
+                        SpacesManagerRowView(spaceView: space)
                     }
                 }
                 .padding(.horizontal, 10)

@@ -1938,6 +1938,30 @@ internal enum Loc {
       internal static let description = Loc.tr("Localizable", "SlashMenu.LinkTo.Description", fallback: "Create link to another object")
     }
   }
+  internal enum Space {
+    internal enum Status {
+      /// Error
+      internal static let error = Loc.tr("Localizable", "Space.Status.Error", fallback: "Error")
+      /// Loading
+      internal static let loading = Loc.tr("Localizable", "Space.Status.Loading", fallback: "Loading")
+      /// Missing
+      internal static let missing = Loc.tr("Localizable", "Space.Status.Missing", fallback: "Missing")
+      /// Ok
+      internal static let ok = Loc.tr("Localizable", "Space.Status.Ok", fallback: "Ok")
+      /// Remote Deleted
+      internal static let remoteDeleted = Loc.tr("Localizable", "Space.Status.RemoteDeleted", fallback: "Remote Deleted")
+      /// Waiting Deletion
+      internal static let remoteWaitingDeletion = Loc.tr("Localizable", "Space.Status.RemoteWaitingDeletion", fallback: "Waiting Deletion")
+      /// Active
+      internal static let spaceActive = Loc.tr("Localizable", "Space.Status.SpaceActive", fallback: "Active")
+      /// Deleted
+      internal static let spaceDeleted = Loc.tr("Localizable", "Space.Status.SpaceDeleted", fallback: "Deleted")
+      /// Joining
+      internal static let spaceJoining = Loc.tr("Localizable", "Space.Status.SpaceJoining", fallback: "Joining")
+      /// Unknown
+      internal static let unknown = Loc.tr("Localizable", "Space.Status.Unknown", fallback: "Unknown")
+    }
+  }
   internal enum SpaceCreate {
     /// Create a space
     internal static let title = Loc.tr("Localizable", "SpaceCreate.Title", fallback: "Create a space")
@@ -2042,6 +2066,12 @@ internal enum Loc {
       internal static let `private` = Loc.tr("Localizable", "Spaces.Accessibility.Private", fallback: "Private Space")
       /// Public Space
       internal static let `public` = Loc.tr("Localizable", "Spaces.Accessibility.Public", fallback: "Public Space")
+    }
+    internal enum Info {
+      /// Device:
+      internal static let device = Loc.tr("Localizable", "Spaces.Info.Device", fallback: "Device:")
+      /// Network:
+      internal static let network = Loc.tr("Localizable", "Spaces.Info.Network", fallback: "Network:")
     }
     internal enum Search {
       /// Search spaces
