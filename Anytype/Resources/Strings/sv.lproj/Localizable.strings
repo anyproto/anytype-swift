@@ -554,6 +554,7 @@
 "Application icon" = "Application icon";
 "Mode" = "Mode";
 "copied to clipboard" = "%@ copied to clipboard";
+"Create object from clipboard" = "Skapa objekt från urklipp";
 "Access to secret phrase from keychain" = "Access to secret phrase from keychain";
 "Back up your recovery phrase" = "Säkerhetskopiera din återställningsfras";
 "Account" = "Konto";
@@ -848,6 +849,7 @@
 "Spaces.Accessibility.Private" = "Private Space";
 "Spaces.Accessibility.Personal" = "Inställningar";
 "Spaces.Search.Title" = "Search spaces";
+"Spaces.Title" = "Spaces";
 
 // MARK: - Space Settings
 "SpaceSettings.Title" = "Space settings";
@@ -907,6 +909,11 @@
 "Sharing.Tip.Steps.1" = "Tap the iOS sharing button";
 "Sharing.Tip.Steps.2" = "Scroll past the app and tap More";
 "Sharing.Tip.Steps.3" = "Tap Edit to find “Anytype” and tap";
+
+// MARK: - Swipe tips
+"Swipe.Tip.Title" = "Swipe to Create Objects";
+"Swipe.Tip.Subtitle" = "Create objects inside widgets by easily swiping them left.";
+
 
 // MARK: - Initial
 
