@@ -308,7 +308,8 @@ final class EditorRouter: NSObject, EditorRouterProtocol, ObjectSettingsCoordina
             let view = objectTypeSearchModuleAssembly.makeTypeSearchForNewObjectCreation(
                 title: Loc.changeType,
                 spaceId: document.spaceId
-            ) { [weak self] type in
+            ) { [weak self] type, _ in
+                // TODO: Support object content
                 self?.navigationContext.dismissTopPresented()
                 onSelect(type)
             }

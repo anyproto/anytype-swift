@@ -26,6 +26,11 @@ public final class BlockService: BlockServiceProtocol {
         return response.blockID
     }
     
+    public func addFirstBlock(contextId: String, info: BlockInformation) async throws -> String {
+        let headerBlockId = "header"
+        return try await add(contextId: contextId, targetId: headerBlockId, info: info, position: .bottom)
+    }
+    
     public func delete(contextId: String, blockIds: [String]) async throws {
         try await ClientCommands.blockListDelete(.with {
             $0.contextID = contextId

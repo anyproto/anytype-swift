@@ -11,6 +11,7 @@ protocol PasteboardHelperProtocol {
     func setItems(textSlot: String?, htmlSlot: String?, blocksSlots: [String]?)
     
     var hasValidURL: Bool { get }
+    var hasStrings: Bool { get }
     var hasSlots: Bool { get }
 }
 
@@ -90,6 +91,10 @@ final class PasteboardHelper: PasteboardHelperProtocol {
             return true
         }
         return false
+    }
+    
+    var hasStrings: Bool {
+        pasteboard.hasStrings
     }
 
     var hasSlots: Bool {

@@ -7,7 +7,7 @@ final class ObjectTypeSearchViewModel: ObservableObject {
     @Published var state = State.searchResults([])
     @Published var searchText = ""
     
-    let showPaste: Bool
+    let showPasteButton: Bool
     let showPins: Bool
     private let showLists: Bool
     private let showFiles: Bool
@@ -17,32 +17,38 @@ final class ObjectTypeSearchViewModel: ObservableObject {
     private let typesService: TypesServiceProtocol
     private let objectTypeProvider: ObjectTypeProviderProtocol
     private let toastPresenter: ToastPresenterProtocol
+    private let pasteboardHelper: PasteboardHelperProtocol
     
-    private let onSelect: (_ type: ObjectType) -> Void
+    private let onSelect: (_ type: ObjectType,_ content: String?) -> Void
     private var searchTask: Task<(), any Error>?
     
     nonisolated init(
         showPins: Bool,
         showLists: Bool,
         showFiles: Bool,
-        showPaste: Bool,
+        allowPaste: Bool,
         spaceId: String,
         workspaceService: WorkspaceServiceProtocol,
         typesService: TypesServiceProtocol,
         objectTypeProvider: ObjectTypeProviderProtocol,
         toastPresenter: ToastPresenterProtocol,
-        onSelect: @escaping (_ type: ObjectType) -> Void
+        pasteboardHelper: PasteboardHelperProtocol,
+        onSelect: @escaping (_ type: ObjectType,_ content: String?) -> Void
     ) {
         self.showPins = showPins
         self.showLists = showLists
         self.showFiles = showFiles
-        self.showPaste = showPaste
+
         self.spaceId = spaceId
         self.workspaceService = workspaceService
         self.typesService = typesService
         self.objectTypeProvider = objectTypeProvider
         self.toastPresenter = toastPresenter
         self.onSelect = onSelect
+        self.pasteboardHelper = pasteboardHelper
+        
+        // TODO: Subscribe to notification
+        self.showPasteButton = allowPaste && pasteboardHelper.hasStrings
     }
     
     func search(text: String) {
@@ -112,14 +118,26 @@ final class ObjectTypeSearchViewModel: ObservableObject {
                 toastPresenter.show(message: Loc.ObjectType.addedToLibrary(type.name))
             }
             
-            onSelect(type)
+            onSelect(type, nil)
         }
+    }
+    
+    func createObjectFromClipboard() {
+        Task {
+            guard let content = pasteboardHelper.obrainString() else {
+                return
+            }
+            
+            let type = try objectTypeProvider.defaultObjectType(spaceId: spaceId)
+            onSelect(type, content)
+        }
+        
     }
     
     func createType(name: String) {
         Task {
             let type = try await typesService.createType(name: name, spaceId: spaceId)
-            onSelect(type)
+            onSelect(type, nil)
         }
     }
     

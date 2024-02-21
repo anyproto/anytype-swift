@@ -120,7 +120,7 @@ final class SetObjectCreationHelper: SetObjectCreationHelperProtocol {
             details: prefilledFieldsBuilder.buildPrefilledFields(from: setDocument.activeViewFilters, relationsDetails: relationsDetails)
         )
         if let type, type.isNoteLayout {
-            guard let newBlockId = try? await blockService.add(contextId: details.id, targetId: EditorConstants.headerBlockId.rawValue, info: .emptyText, position: .bottom) else {
+            guard let newBlockId = try? await blockService.addFirstBlock(contextId: details.id, info: .emptyText) else {
                 return .init(details: details, titleInputType: .none)
             }
             
