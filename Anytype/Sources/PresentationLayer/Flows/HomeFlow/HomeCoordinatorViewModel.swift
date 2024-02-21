@@ -3,6 +3,7 @@ import SwiftUI
 import Combine
 import Services
 import AnytypeCore
+import DeepLinks
 
 @MainActor
 final class HomeCoordinatorViewModel: ObservableObject,
@@ -196,13 +197,13 @@ final class HomeCoordinatorViewModel: ObservableObject,
     }
 
     func createTypeSearchModule() -> AnyView {
-        AnytypeAnalytics.instance().logOnboardingTooltip(tooltip: .selectType)
         return objectTypeSearchModuleAssembly.makeTypeSearchForNewObjectCreation(
             title: Loc.createNewObject,
             spaceId: activeWorkspaceStorage.workspaceInfo.accountSpaceId
         ) { [weak self] type in
             self?.showTypeSearch = false
-            self?.createAndShowNewObject(type: type)
+            AnytypeAnalytics.instance().logSelectObjectType(type.analyticsType, route: .longTap)
+            self?.createAndShowNewObject(type: type, route: .navigation)
         }
     }
 
@@ -330,25 +331,31 @@ final class HomeCoordinatorViewModel: ObservableObject,
         push(data: screenData)
     }
     
-    private func createAndShowDefaultObject() {
+    private func createAndShowDefaultObject(route: AnalyticsEventsRouteKind) {
         Task {
             let details = try await defaultObjectService.createDefaultObject(name: "", shouldDeleteEmptyObject: true, spaceId: activeWorkspaceStorage.workspaceInfo.accountSpaceId)
-            AnytypeAnalytics.instance().logCreateObject(objectType: details.analyticsType, route: .navigation, view: .home)
+            AnytypeAnalytics.instance().logCreateObject(objectType: details.analyticsType, route: route)
             openObject(screenData: details.editorScreenData())
         }
     }
     
-    private func createAndShowNewObject(typeId: String) {
+    private func createAndShowNewObject(
+        typeId: String,
+        route: AnalyticsEventsRouteKind
+    ) {
         do {
             let type = try typeProvider.objectType(id: typeId)
-            createAndShowNewObject(type: type)
+            createAndShowNewObject(type: type, route: route)
         } catch {
             anytypeAssertionFailure("No object provided typeId", info: ["typeId": typeId])
-            createAndShowDefaultObject()
+            createAndShowDefaultObject(route: route)
         }
     }
 
-    private func createAndShowNewObject(type: ObjectType) {
+    private func createAndShowNewObject(
+        type: ObjectType,
+        route: AnalyticsEventsRouteKind
+    ) {
         Task {
             let details = try await objectActionsService.createObject(
                 name: "",
@@ -361,8 +368,7 @@ final class HomeCoordinatorViewModel: ObservableObject,
                 templateId: type.defaultTemplateId
             )
 
-            AnytypeAnalytics.instance().logCreateObject(objectType: details.analyticsType, route: .navigation, view: .home)
-            AnytypeAnalytics.instance().logSelectObjectType(type.analyticsType, route: .longTap)
+            AnytypeAnalytics.instance().logCreateObject(objectType: details.analyticsType, route: route)
             openObject(screenData: details.editorScreenData())
         }
     }
@@ -370,10 +376,17 @@ final class HomeCoordinatorViewModel: ObservableObject,
     private func handleAppAction(action: AppAction) {
         keyboardToggle.toggle()
         switch action {
-        case .createObject(let typeId):
-            createAndShowNewObject(typeId: typeId)
-        case .createDefaultObject:
-            createAndShowDefaultObject()
+        case .createObjectFromQuickAction(let typeId):
+            createAndShowNewObject(typeId: typeId, route: .homeScreen)
+        case .deepLink(let deepLink):
+            handleDeepLink(deepLink: deepLink)
+        }
+    }
+    
+    private func handleDeepLink(deepLink: DeepLink) {
+        switch deepLink {
+        case .createObjectFromWidget:
+            createAndShowDefaultObject(route: .widget)
         case .showSharingExtension:
             navigationContext.dismissAllPresented(animated: true) { [weak self] in
                 self?.showSharing = true

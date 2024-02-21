@@ -1,14 +1,7 @@
-//
-//  AnytypeWidget.swift
-//  AnytypeWidget
-//
-//  Created by Dmitry Bilienko on 19.09.2022.
-//  Copyright © 2022 Anytype. All rights reserved.
-//
-
 import WidgetKit
 import SwiftUI
 import Intents
+import DeepLinks
 
 struct StaticProvider: TimelineProvider {
     typealias Entry = SimpleEntry
@@ -45,6 +38,12 @@ struct SimpleEntry: TimelineEntry {
 struct AnytypeWidgetEntryView : View {
     var entry: StaticProvider.Entry
 
+    #if DEBUG
+    private let deepLinkParser = DeepLinkDI.shared.parser(isDebug: true)
+    #else
+    private let deepLinkParser = DeepLinkDI.shared.parser(isDebug: false)
+    #endif
+    
     var body: some View {
         ZStack {
             Circle()
@@ -56,7 +55,7 @@ struct AnytypeWidgetEntryView : View {
                 .frame(width: 24, height: 24)
         }
         .widgetAccentable()
-        .widgetURL(URLConstants.createObjectURL)
+        .widgetURL(deepLinkParser.createUrl(deepLink: .createObjectFromWidget, scheme: .buildSpecific))
     }
 }
 
