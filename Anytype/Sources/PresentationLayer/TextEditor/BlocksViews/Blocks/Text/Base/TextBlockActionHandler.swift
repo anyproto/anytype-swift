@@ -28,7 +28,7 @@ final class TextBlockActionHandler: TextBlockActionHandlerProtocol {
     private let markupChanger: BlockMarkupChangerProtocol
     
     // Fix retain cycle for long paste action
-    private weak var pasteboardService: PasteboardServiceProtocol?
+    private weak var pasteboardService: PasteboardBlockServiceProtocol?
     private let mentionDetecter = MentionTextDetector()
     private let markdownListener: MarkdownListener
     private let keyboardHandler: KeyboardActionHandlerProtocol
@@ -57,7 +57,7 @@ final class TextBlockActionHandler: TextBlockActionHandlerProtocol {
         hideWaitingView: @escaping () -> Void,
         showURLBookmarkPopup: @escaping (TextBlockURLInputParameters) -> Void,
         actionHandler: BlockActionHandlerProtocol,
-        pasteboardService: PasteboardServiceProtocol,
+        pasteboardService: PasteboardBlockServiceProtocol,
         markdownListener: MarkdownListener,
         collectionController: EditorCollectionReloadable,
         cursorManager: EditorCursorManager,

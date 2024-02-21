@@ -8,7 +8,7 @@ extension QuickAction {
     func toAppAction() -> AppAction {
         switch self {
         case .newObject(let typeId):
-            return .createObject(typeId: typeId)
+            return .createObjectFromQuickAction(typeId: typeId)
         }
     }
 }

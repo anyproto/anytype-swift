@@ -4892,6 +4892,8 @@ public struct Anytype_Model_IdentityProfile {
 
   public var iconEncryptionKeys: [Anytype_Model_FileEncryptionKey] = []
 
+  public var description_p: String = String()
+
   public var unknownFields = SwiftProtobuf.UnknownStorage()
 
   public init() {}
@@ -9807,6 +9809,7 @@ extension Anytype_Model_IdentityProfile: SwiftProtobuf.Message, SwiftProtobuf._M
     2: .same(proto: "name"),
     3: .same(proto: "iconCid"),
     4: .same(proto: "iconEncryptionKeys"),
+    5: .same(proto: "description"),
   ]
 
   public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
@@ -9819,6 +9822,7 @@ extension Anytype_Model_IdentityProfile: SwiftProtobuf.Message, SwiftProtobuf._M
       case 2: try { try decoder.decodeSingularStringField(value: &self.name) }()
       case 3: try { try decoder.decodeSingularStringField(value: &self.iconCid) }()
       case 4: try { try decoder.decodeRepeatedMessageField(value: &self.iconEncryptionKeys) }()
+      case 5: try { try decoder.decodeSingularStringField(value: &self.description_p) }()
       default: break
       }
     }
@@ -9837,6 +9841,9 @@ extension Anytype_Model_IdentityProfile: SwiftProtobuf.Message, SwiftProtobuf._M
     if !self.iconEncryptionKeys.isEmpty {
       try visitor.visitRepeatedMessageField(value: self.iconEncryptionKeys, fieldNumber: 4)
     }
+    if !self.description_p.isEmpty {
+      try visitor.visitSingularStringField(value: self.description_p, fieldNumber: 5)
+    }
     try unknownFields.traverse(visitor: &visitor)
   }
 
@@ -9845,6 +9852,7 @@ extension Anytype_Model_IdentityProfile: SwiftProtobuf.Message, SwiftProtobuf._M
     if lhs.name != rhs.name {return false}
     if lhs.iconCid != rhs.iconCid {return false}
     if lhs.iconEncryptionKeys != rhs.iconEncryptionKeys {return false}
+    if lhs.description_p != rhs.description_p {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }

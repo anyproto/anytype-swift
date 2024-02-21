@@ -6,7 +6,7 @@ import AnytypeCore
 final class BlockViewModelBuilder {
     private let document: BaseDocumentProtocol
     private let handler: BlockActionHandlerProtocol
-    private let pasteboardService: PasteboardServiceProtocol
+    private let pasteboardService: PasteboardBlockServiceProtocol
     private let router: EditorRouterProtocol
     private let subjectsHolder: FocusSubjectsHolder
     private let markdownListener: MarkdownListener
@@ -29,7 +29,7 @@ final class BlockViewModelBuilder {
     init(
         document: BaseDocumentProtocol,
         handler: BlockActionHandlerProtocol,
-        pasteboardService: PasteboardServiceProtocol,
+        pasteboardService: PasteboardBlockServiceProtocol,
         router: EditorRouterProtocol,
         markdownListener: MarkdownListener,
         simpleTableDependenciesBuilder: SimpleTableDependenciesBuilder,

@@ -98,7 +98,7 @@
 "Relation.Format.Object.Title" = "Obiekt";
 "Relation.Format.Text.Title" = "Tekst";
 "Relation.Format.Number.Title" = "Liczba";
-"Relation.Format.Status.Title" = "Select";
+"Relation.Format.Status.Title" = "Wybierz";
 "Relation.Format.Tag.Title" = "Wielokrotny wybór";
 "Relation.Format.Date.Title" = "Data";
 "Relation.Format.FileMedia.Title" = "Plik i media";
@@ -858,7 +858,7 @@
 "SpaceSettings.DeleteAlert.Message" = "This space will be deleted irrevocably. You can’t undo this action.";
 "SpaceSettings.DeleteButton" = "Delete space";
 "SpaceSettings.Sharing" = "Sharing";
-"SpaceSettings.Share" = "Share";
+"SpaceSettings.Share" = "Udostępnij";
 
 // MARK: - Space Share
 
@@ -870,6 +870,18 @@
 "SpaceShare.Invite.Title" = "Invite link";
 "SpaceShare.Invite.Description" = "Send this link to invite others. Assign access rights upon their request approval";
 "SpaceShare.Invite.Button" = "Share invite link";
+"SpaceShare.Status.Joining" = "Requested";
+"SpaceShare.Status.Declined" = "Declined";
+"SpaceShare.Action.ViewRequest" = "View Request";
+"SpaceShare.ViewRequest.Title" = "%@ requested to join %@ space";
+"SpaceShare.ViewRequest.ViewAccess" = "Grand view access";
+"SpaceShare.ViewRequest.EditAccess" = "Grand edit access";
+"SpaceShare.ViewRequest.Reject" = "Reject";
+"SpaceShare.Join.Title" = "Dołącz do przestrzeni";
+"SpaceShare.Join.CommentPlaceholder" = "Pozostaw prywatny komentarz dla właściciela przestrzeni";
+"SpaceShare.Join.Button" = "Poproś o dołączenie";
+"SpaceShare.Join.Info" = "Gdy właściciel przestrzeni zatwierdzi Twoje żądanie, dołączysz do przestrzeni z określonym właścicielem praw dostępu.";
+"SpaceShare.Join.Message" = "Zostałeś zaproszony do dołączenia do %@ miejsca, utworzonego przez %@. Wyślij prośbę, aby właściciel przestrzeni mógł Ci pozwolić.";
 
 // MARK: - Space Create
 "SpaceCreate.Title" = "Create a space";

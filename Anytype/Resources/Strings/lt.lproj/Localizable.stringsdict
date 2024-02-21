@@ -5,7 +5,7 @@
     <key>Are you sure you want to delete</key>
     <dict>
       <key>NSStringLocalizedFormatKey</key>
-      <string>Er du sikker på at du vil slette  %#@object@?</string>
+      <string>Are you sure you want to delete %#@object@?</string>
       <key>object</key>
       <dict>
         <key>NSStringFormatSpecTypeKey</key>
@@ -13,15 +13,19 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>d</string>
         <key>one</key>
-        <string>%d objekt</string>
+        <string>%d object</string>
+        <key>few</key>
+        <string>%d objects</string>
+        <key>many</key>
+        <string>%d objects</string>
         <key>other</key>
-        <string>%d objekter</string>
+        <string>%d objects</string>
       </dict>
     </dict>
     <key>Object selected</key>
     <dict>
       <key>NSStringLocalizedFormatKey</key>
-      <string>%#@object@ valgt</string>
+      <string>%#@object@ selected</string>
       <key>object</key>
       <dict>
         <key>NSStringFormatSpecTypeKey</key>
@@ -29,9 +33,13 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>d</string>
         <key>one</key>
-        <string>%d objekt</string>
+        <string>%d object</string>
+        <key>few</key>
+        <string>%d objects</string>
+        <key>many</key>
+        <string>%d objects</string>
         <key>other</key>
-        <string>%d objekter</string>
+        <string>%d objects</string>
       </dict>
     </dict>
     <key>Selected blocks</key>
@@ -45,9 +53,13 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>d</string>
         <key>one</key>
-        <string>%d valgt blokk</string>
+        <string>%d selected block</string>
+        <key>few</key>
+        <string>%d selected blocks</string>
+        <key>many</key>
+        <string>%d selected blocks</string>
         <key>other</key>
-        <string>%d valgte blokker</string>
+        <string>%d selected blocks</string>
       </dict>
     </dict>
     <key>Links count</key>
@@ -61,15 +73,19 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>d</string>
         <key>one</key>
-        <string>%d lenke</string>
+        <string>%d link</string>
+        <key>few</key>
+        <string>%d links</string>
+        <key>many</key>
+        <string>%d links</string>
         <key>other</key>
-        <string>%d lenker</string>
+        <string>%d links</string>
       </dict>
     </dict>
     <key>Days to deletion account</key>
     <dict>
       <key>NSStringLocalizedFormatKey</key>
-      <string>Denne kontoen vil bli slettet %#@days@</string>
+      <string>This account will be deleted %#@days@</string>
       <key>days</key>
       <dict>
         <key>NSStringFormatSpecTypeKey</key>
@@ -77,9 +93,13 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>d</string>
         <key>one</key>
-        <string>i morgen</string>
+        <string>tomorrow</string>
+        <key>few</key>
+        <string>in %d days</string>
+        <key>many</key>
+        <string>in %d days</string>
         <key>other</key>
-        <string>om %d dager</string>
+        <string>in %d days</string>
       </dict>
     </dict>
     <key>Widgets.Actions.BinConfirm</key>
@@ -93,9 +113,13 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>d</string>
         <key>one</key>
-        <string>Ett objekt slettet</string>
+        <string>One object deleted</string>
+        <key>few</key>
+        <string>%d objects deleted</string>
+        <key>many</key>
+        <string>%d objects deleted</string>
         <key>other</key>
-        <string>%d objekter slettet</string>
+        <string>%d objects deleted</string>
       </dict>
     </dict>
     <key>Sharing.File.NewObject</key>
@@ -109,9 +133,13 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>d</string>
         <key>one</key>
-        <string>Fil-objekt</string>
+        <string>File Object</string>
+        <key>few</key>
+        <string>%d File Objects</string>
+        <key>many</key>
+        <string>%d File Objects</string>
         <key>other</key>
-        <string>%d filobjekter</string>
+        <string>%d File Objects</string>
       </dict>
     </dict>
     <key>Sharing.File.Block</key>
@@ -125,9 +153,13 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>d</string>
         <key>one</key>
-        <string>Fil-blokk</string>
+        <string>File Block</string>
+        <key>few</key>
+        <string>%d File Blocks</string>
+        <key>many</key>
+        <string>%d File Blocks</string>
         <key>other</key>
-        <string>%d fil-blokker</string>
+        <string>%d File Blocks</string>
       </dict>
     </dict>
     <key>Sharing.URL.NewObject</key>
@@ -141,9 +173,13 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>d</string>
         <key>one</key>
-        <string>Bokmerkeobjekt</string>
+        <string>Bookmark Object</string>
+        <key>few</key>
+        <string>%d Bookmark Objects</string>
+        <key>many</key>
+        <string>%d Bookmark Objects</string>
         <key>other</key>
-        <string>%d bokmerkeobjekter</string>
+        <string>%d Bookmark Objects</string>
       </dict>
     </dict>
     <key>Sharing.URL.Block</key>
@@ -157,9 +193,13 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>d</string>
         <key>one</key>
-        <string>Lenke blokk</string>
+        <string>Link Block</string>
+        <key>few</key>
+        <string>Link %d Blocks</string>
+        <key>many</key>
+        <string>Link %d Blocks</string>
         <key>other</key>
-        <string>Lenke %d blokker</string>
+        <string>Link %d Blocks</string>
       </dict>
     </dict>
     <key>SpaceShare.Invite.Members</key>
@@ -173,9 +213,13 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>d</string>
         <key>one</key>
-        <string>Du kan legge til ett medlem til</string>
+        <string>You can add one more member</string>
+        <key>few</key>
+        <string>You can add %d more members</string>
+        <key>many</key>
+        <string>You can add %d more members</string>
         <key>other</key>
-        <string>Du kan legge til %d flere medlemmer</string>
+        <string>You can add %d more members</string>
       </dict>
     </dict>
     <key>SpaceShare.Invite.MaxLimit</key>
@@ -185,13 +229,17 @@
       <key>object</key>
       <dict>
         <key>one</key>
-        <string>Du har nådd grensen på %d medlemmer. Nye medlemmer vil ikke kunne bli med.</string>
+        <string>You have reached the limit of %d members. New members will not be able to join.</string>
+        <key>few</key>
+        <string>You have reached the limit of %d members. New members will not be able to join.</string>
+        <key>many</key>
+        <string>You have reached the limit of %d members. New members will not be able to join.</string>
         <key>NSStringFormatSpecTypeKey</key>
         <string>NSStringPluralRuleType</string>
         <key>NSStringFormatValueTypeKey</key>
         <string>d</string>
         <key>other</key>
-        <string>Du har nådd grensen på %d medlemmer. Nye medlemmer vil ikke kunne bli med.</string>
+        <string>You have reached the limit of %d members. New members will not be able to join.</string>
       </dict>
     </dict>
   </dict>

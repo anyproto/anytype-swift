@@ -2,16 +2,16 @@ import Services
 import Foundation
 import Combine
 
-final class PasteboardService: PasteboardServiceProtocol {
+final class PasteboardBlockService: PasteboardBlockServiceProtocol {
     private let document: BaseDocumentProtocol
-    private let pasteboardHelper: PasteboardHelper
+    private let pasteboardHelper: PasteboardHelperProtocol
     private let pasteboardMiddlewareService: PasteboardMiddlewareServiceProtocol
     
     private var tasks = [AnyCancellable]()
 
     init(
         document: BaseDocumentProtocol,
-        pasteboardHelper: PasteboardHelper,
+        pasteboardHelper: PasteboardHelperProtocol,
         pasteboardMiddlewareService: PasteboardMiddlewareServiceProtocol
     ) {
         self.document = document
@@ -85,7 +85,7 @@ final class PasteboardService: PasteboardServiceProtocol {
     }
 }
 
-private extension PasteboardService {
+private extension PasteboardBlockService {
     enum Constants {
         static let longOperationTime: Double = 0.5
     }

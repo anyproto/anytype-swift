@@ -55,7 +55,7 @@ struct AnytypeWidgetEntryView : View {
                 .frame(width: 24, height: 24)
         }
         .widgetAccentable()
-        .widgetURL(deepLinkParser.createUrl(deepLink: .createDefaultObject, scheme: .buildSpecific))
+        .widgetURL(deepLinkParser.createUrl(deepLink: .createObjectFromWidget, scheme: .buildSpecific))
     }
 }
 

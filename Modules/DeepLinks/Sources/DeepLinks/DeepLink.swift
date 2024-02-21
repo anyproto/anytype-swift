@@ -1,5 +1,5 @@
 public enum DeepLink: Equatable {
-    case createDefaultObject
+    case createObjectFromWidget
     case showSharingExtension
     case spaceSelection
     case galleryImport(type: String, source: String)

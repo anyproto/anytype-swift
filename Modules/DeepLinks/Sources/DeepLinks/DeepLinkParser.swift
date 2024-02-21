@@ -8,7 +8,7 @@ public protocol DeepLinkParserProtocol: AnyObject {
 final class DeepLinkParser: DeepLinkParserProtocol {
 
     private enum LinkPaths {
-        static let createObject = "create-object"
+        static let createObjectWidget = "create-object-widget"
         static let sharingExtenstion = "sharing-extension"
         static let spaceSelection = "space-selection"
         static let galleryImport = "main/import"
@@ -47,8 +47,8 @@ final class DeepLinkParser: DeepLinkParserProtocol {
         // Parse path
         
         switch urlString {
-        case LinkPaths.createObject:
-            return .createDefaultObject
+        case LinkPaths.createObjectWidget:
+            return .createObjectFromWidget
         case LinkPaths.sharingExtenstion:
             return .showSharingExtension
         case LinkPaths.spaceSelection:
@@ -71,8 +71,8 @@ final class DeepLinkParser: DeepLinkParserProtocol {
         let host = scheme.host(isDebug: isDebug)
         
         switch deepLink {
-        case .createDefaultObject:
-            return URL(string: host + LinkPaths.createObject)
+        case .createObjectFromWidget:
+            return URL(string: host + LinkPaths.createObjectWidget)
         case .showSharingExtension:
             return URL(string: host + LinkPaths.sharingExtenstion)
         case .spaceSelection:
