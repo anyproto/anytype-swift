@@ -27,7 +27,7 @@ final class SettingsCoordinator: SettingsCoordinatorProtocol,
     private let activeWorkspaceStorage: ActiveWorkpaceStorageProtocol
     private let serviceLocator: ServiceLocator
     private let applicationStateService: ApplicationStateServiceProtocol
-    private let spacesManager: SpacesManagerModuleAssemblyProtocol
+    private let spacesManagerModuleAssembly: SpacesManagerModuleAssemblyProtocol
     
     init(
         navigationContext: NavigationContextProtocol,
@@ -44,7 +44,7 @@ final class SettingsCoordinator: SettingsCoordinatorProtocol,
         urlOpener: URLOpenerProtocol,
         activeWorkspaceStorage: ActiveWorkpaceStorageProtocol,
         serviceLocator: ServiceLocator,
-        spacesManager: SpacesManagerModuleAssemblyProtocol
+        spacesManagerModuleAssembly: SpacesManagerModuleAssemblyProtocol
     ) {
         self.navigationContext = navigationContext
         self.settingsModuleAssembly = settingsModuleAssembly
@@ -61,7 +61,7 @@ final class SettingsCoordinator: SettingsCoordinatorProtocol,
         self.activeWorkspaceStorage = activeWorkspaceStorage
         self.serviceLocator = serviceLocator
         self.applicationStateService = serviceLocator.applicationStateService()
-        self.spacesManager = spacesManager
+        self.spacesManagerModuleAssembly = spacesManagerModuleAssembly
     }
     
     func startFlow() {
@@ -106,7 +106,7 @@ final class SettingsCoordinator: SettingsCoordinatorProtocol,
     }
     
     func onSpacesSelected() {
-        let module = spacesManager.make()
+        let module = spacesManagerModuleAssembly.make()
         navigationContext.present(module)
     }
     
