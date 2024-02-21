@@ -2,55 +2,55 @@
 "StyleMenu.Color.TextColor.Placeholder" = "A";
 
 // MARK: Text Style in Slash and Style menu
-"TextStyle.Text.Title" = "Text";
-"TextStyle.Text.Subtitle" = "Just start writing with a plain text";
+"TextStyle.Text.Title" = "Tekstas";
+"TextStyle.Text.Subtitle" = "Tiesiog pradėk rašyti su paprastu tekstu";
 
-"TextStyle.Title.Title" = "Title";
-"TextStyle.Title.Subtitle" = "Big section heading";
+"TextStyle.Title.Title" = "Pavadinimas";
+"TextStyle.Title.Subtitle" = "Didelio skyriaus antraštė";
 
-"TextStyle.Heading.Title" = "Heading";
+"TextStyle.Heading.Title" = "Antraštė";
 "TextStyle.Heading.Subtitle" = "Medium headline";
 
-"TextStyle.Subheading.Title" = "Subheading";
+"TextStyle.Subheading.Title" = "Paantraštė";
 "TextStyle.Subheading.Subtitle" = "Small headline";
 
-"TextStyle.Highlighted.Title" = "Highlighted";
+"TextStyle.Highlighted.Title" = "Paryškintas";
 "TextStyle.Highlighted.Subtitle" = "Spotlight, that needs special attention";
 
-"TextStyle.Callout.Title" = "Callout";
+"TextStyle.Callout.Title" = "Išnaša";
 "TextStyle.Callout.Subtitle" = "Bordered text with icon";
 
-"TextStyle.Checkbox.Title" = "Checkbox";
-"TextStyle.Checkbox.Subtitle" = "Create and track task with to-do list";
+"TextStyle.Checkbox.Title" = "Žymimasis Langelis";
+"TextStyle.Checkbox.Subtitle" = "Sukurk ir sek užduotį su užduočių sąrašu";
 
 "TextStyle.Bulleted.Title" = "Bulleted";
-"TextStyle.Bulleted.Subtitle" = "Simple list";
+"TextStyle.Bulleted.Subtitle" = "Paprastas sąrašas";
 
-"TextStyle.Numbered.Title" = "Numbered list";
-"TextStyle.Numbered.Subtitle" = "Numbered list";
+"TextStyle.Numbered.Title" = "Numeruotasis sąrašas";
+"TextStyle.Numbered.Subtitle" = "Numeruotasis sąrašas";
 
-"TextStyle.Toggle.Title" = "Toggle";
-"TextStyle.Toggle.Subtitle" = "Hide and show content inside";
+"TextStyle.Toggle.Title" = "Išskleidžiamas";
+"TextStyle.Toggle.Subtitle" = "Paslėpti ir rodyti turinį viduje";
 
-"TextStyle.Bold.Title" = "Bold";
-"TextStyle.Italic.Title" = "Italic";
-"TextStyle.Strikethrough.Title" = "Strikethrough";
-"TextStyle.Code.Title" = "Code";
-"TextStyle.Link.Title" = "Link";
+"TextStyle.Bold.Title" = "Paryškintas";
+"TextStyle.Italic.Title" = "Pasviręs";
+"TextStyle.Strikethrough.Title" = "Perbrauktas";
+"TextStyle.Code.Title" = "Kodas";
+"TextStyle.Link.Title" = "Nuoroda";
 
 // MARK: - Block Text
-"BlockText.Content.Placeholder" = "Untitled";
+"BlockText.Content.Placeholder" = "Be pavadinimo";
 
-"BlockText.ContentType.Title.Placeholder" = "Untitled";
+"BlockText.ContentType.Title.Placeholder" = "Be pavadinimo";
 "BlockText.ContentType.Description.Placeholder" = "Add a description";
 "BlockText.ContentType.Toggle.Placeholder" = "Toggle block";
 "BlockText.ContentType.Bulleted.Placeholder" = "Bulleted list item";
-"BlockText.ContentType.Checkbox.Placeholder" = "Checkbox";
+"BlockText.ContentType.Checkbox.Placeholder" = "Žymimasis Langelis";
 "BlockText.ContentType.Numbered.Placeholder" = "Numbered list item";
 "BlockText.ContentType.Quote.Placeholder" = "Highlighted text";
-"BlockText.ContentType.Header.Placeholder" = "Title";
-"BlockText.ContentType.Header2.Placeholder" = "Heading";
-"BlockText.ContentType.Header3.Placeholder" = "Subheading";
+"BlockText.ContentType.Header.Placeholder" = "Pavadinimas";
+"BlockText.ContentType.Header2.Placeholder" = "Antraštė";
+"BlockText.ContentType.Header3.Placeholder" = "Paantraštė";
 
 // MARK: - Block Link
 
@@ -59,14 +59,14 @@
 "BlockLink.PreviewSettings.IconSize.Medium" = "Medium";
 
 "BlockLink.PreviewSettings.Layout.Card.Title" = "Card";
-"BlockLink.PreviewSettings.Layout.Text.Title" = "Text";
+"BlockLink.PreviewSettings.Layout.Text.Title" = "Tekstas";
 
 // MARK: - Settings
 "Settings.Title" = "Personal Space";
 "Settings.SpaceName" = "Space name";
 
 // MARK: - Object
-"Object.Title.Placeholder" = "Untitled";
+"Object.Title.Placeholder" = "Be pavadinimo";
 "Object.Deleted.Placeholder" = "Deleted object";
 
 // MARK: - Relation
@@ -96,13 +96,13 @@
 "Relation.Object.Delete.Alert.Description" = "The object will be moved to Bin.";
 
 "Relation.Format.Object.Title" = "Object";
-"Relation.Format.Text.Title" = "Text";
+"Relation.Format.Text.Title" = "Tekstas";
 "Relation.Format.Number.Title" = "Number";
 "Relation.Format.Status.Title" = "Select";
 "Relation.Format.Tag.Title" = "Multi-select";
 "Relation.Format.Date.Title" = "Date";
 "Relation.Format.FileMedia.Title" = "File & Media";
-"Relation.Format.Checkbox.Title" = "Checkbox";
+"Relation.Format.Checkbox.Title" = "Žymimasis Langelis";
 "Relation.Format.Url.Title" = "URL";
 "Relation.Format.Email.Title" = "Email";
 "Relation.Format.Phone.Title" = "Phone number";
@@ -122,7 +122,7 @@
 "Mention.Subtitle.Placeholder" = "Object";
 
 "None" = "None";
-"Callout" = "Callout";
+"Callout" = "Išnaša";
 "Toggle empty. Tap to create block." = "Toggle empty. Tap to create block.";
 "Loading, please wait" = "Loading, please wait";
 "Done" = "Done";
@@ -255,7 +255,7 @@
 
 "Auth.JoinFlow.Soul.Title" = "Choose your name";
 "Auth.JoinFlow.Soul.Description" = "This is how you will appear in the app.";
-"Auth.JoinFlow.Soul.Placeholder" = "Untitled";
+"Auth.JoinFlow.Soul.Placeholder" = "Be pavadinimo";
 
 "Auth.JoinFlow.Creating.Soul.Title" = "Generating new account";
 "Auth.JoinFlow.Setting.Space.Title" = "Setting up your personal space";
@@ -439,7 +439,7 @@
 "EditSet.Popup.Filter.Date.Option.NumberOfDaysFromNow.Short" = "%@ days from now";
 
 // MARK: - Sets. Create object
-"Set.Create.ObjectTitle.Placeholder" = "Untitled";
+"Set.Create.ObjectTitle.Placeholder" = "Be pavadinimo";
 
 // MARK: - Sets: Featured relations
 "Set.FeaturedRelations.Query" = "Query";
@@ -554,6 +554,7 @@
 "Application icon" = "Application icon";
 "Mode" = "Mode";
 "copied to clipboard" = "%@ copied to clipboard";
+"Create object from clipboard" = "Create object from clipboard";
 "Access to secret phrase from keychain" = "Access to secret phrase from keychain";
 "Back up your recovery phrase" = "Back up your recovery phrase";
 "Account" = "Account";
@@ -731,7 +732,7 @@
 "SetViewTypesPicker.Settings.Duplicate.View" = "Duplicate";
 "SetViewTypesPicker.Settings.Delete.View" = "Delete view";
 "SetViewTypesPicker.Settings.Textfield.Placeholder.New.View" = "New view";
-"SetViewTypesPicker.Settings.Textfield.Placeholder.Untitled" = "Untitled";
+"SetViewTypesPicker.Settings.Textfield.Placeholder.Untitled" = "Be pavadinimo";
 
 // MARK: Select view
 "EditorSet.View.Not.Supported.Title" = "Unsupported";
@@ -770,7 +771,7 @@
 "Widgets.Actions.AddBelow" = "Add Below";
 "Widgets.Actions.NewObject" = "New Object";
 "Widgets.Layout.Screen.Title" = "Widget type";
-"Widgets.Layout.Link.Title" = "Link";
+"Widgets.Layout.Link.Title" = "Nuoroda";
 "Widgets.Layout.Tree.Title" = "Tree";
 "Widgets.Layout.List.Title" = "List";
 "Widgets.Layout.CompactList.Title" = "Сompact list";
@@ -848,6 +849,7 @@
 "Spaces.Accessibility.Private" = "Private Space";
 "Spaces.Accessibility.Personal" = "Personal Space";
 "Spaces.Search.Title" = "Search spaces";
+"Spaces.Title" = "Spaces";
 
 // MARK: - Space Settings
 "SpaceSettings.Title" = "Space settings";
@@ -907,6 +909,11 @@
 "Sharing.Tip.Steps.1" = "Tap the iOS sharing button";
 "Sharing.Tip.Steps.2" = "Scroll past the app and tap More";
 "Sharing.Tip.Steps.3" = "Tap Edit to find “Anytype” and tap";
+
+// MARK: - Swipe tips
+"Swipe.Tip.Title" = "Swipe to Create Objects";
+"Swipe.Tip.Subtitle" = "Create objects inside widgets by easily swiping them left.";
+
 
 // MARK: - Initial
 

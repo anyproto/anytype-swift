@@ -554,6 +554,7 @@
 "Application icon" = "Значок приложения";
 "Mode" = "Режим";
 "copied to clipboard" = "Скопирован(о) в буфер обмена: %@";
+"Create object from clipboard" = "Создать объект из буфера обмена";
 "Access to secret phrase from keychain" = "Доступ к секретной фразе из связки ключей";
 "Back up your recovery phrase" = "Создайте резервную копию фразы восстановления";
 "Account" = "Учетная запись";
@@ -849,6 +850,7 @@
 "Spaces.Accessibility.Private" = "Личное Пространство";
 "Spaces.Accessibility.Personal" = "Настройки";
 "Spaces.Search.Title" = "Поиск пространств";
+"Spaces.Title" = "Пространства";
 
 // MARK: - Space Settings
 "SpaceSettings.Title" = "Настройки пространства";
@@ -908,6 +910,11 @@
 "Sharing.Tip.Steps.1" = "Нажмите на кнопку обмена iOS";
 "Sharing.Tip.Steps.2" = "Прокрутите приложение и нажмите ещё";
 "Sharing.Tip.Steps.3" = "Нажмите Отредактировать, чтобы найти «Anytype» и нажмите";
+
+// MARK: - Swipe tips
+"Swipe.Tip.Title" = "Swipe to Create Objects";
+"Swipe.Tip.Subtitle" = "Create objects inside widgets by easily swiping them left.";
+
 
 // MARK: - Initial
 
