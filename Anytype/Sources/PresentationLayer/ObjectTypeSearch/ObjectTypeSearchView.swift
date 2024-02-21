@@ -22,7 +22,9 @@ struct ObjectTypeSearchView: View {
         .background(Color.Background.secondary)
         
         .onChange(of: viewModel.searchText) { viewModel.search(text: $0) }
-        .onAppear { viewModel.search(text: viewModel.searchText) }
+        .onAppear {
+            viewModel.onAppear()
+        }
     }
     
     private var pasteButton: some View {
