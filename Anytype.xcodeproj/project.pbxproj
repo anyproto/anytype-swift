@@ -598,6 +598,9 @@
 		2A9D299028BCC11A00789AC7 /* NonExistentBlockView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A9D298F28BCC11A00789AC7 /* NonExistentBlockView.swift */; };
 		2A9D299228BCC16E00789AC7 /* NonExistentBlockContentConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A9D299128BCC16E00789AC7 /* NonExistentBlockContentConfiguration.swift */; };
 		2A9D299428BCC78900789AC7 /* NonExistentBlockViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A9D299328BCC78900789AC7 /* NonExistentBlockViewModel.swift */; };
+		2A9D2B362B85DFFD0085EEFC /* SpacesManagerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A9D2B352B85DFFD0085EEFC /* SpacesManagerView.swift */; };
+		2A9D2B382B85E0050085EEFC /* SpacesManagerViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A9D2B372B85E0050085EEFC /* SpacesManagerViewModel.swift */; };
+		2A9D2B3A2B85E00F0085EEFC /* SpacesManagerModuleAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A9D2B392B85E00F0085EEFC /* SpacesManagerModuleAssembly.swift */; };
 		2AA0209228D3502000321A66 /* Array+SubscriptionUpdate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AA0209128D3502000321A66 /* Array+SubscriptionUpdate.swift */; };
 		2AA0209528D3523000321A66 /* SetSubscriptionDataBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AA0209428D3523000321A66 /* SetSubscriptionDataBuilder.swift */; };
 		2AA0209928D352C300321A66 /* SetSubscriptionData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AA0209828D352C300321A66 /* SetSubscriptionData.swift */; };
@@ -2336,6 +2339,9 @@
 		2A9D298F28BCC11A00789AC7 /* NonExistentBlockView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NonExistentBlockView.swift; sourceTree = "<group>"; };
 		2A9D299128BCC16E00789AC7 /* NonExistentBlockContentConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NonExistentBlockContentConfiguration.swift; sourceTree = "<group>"; };
 		2A9D299328BCC78900789AC7 /* NonExistentBlockViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NonExistentBlockViewModel.swift; sourceTree = "<group>"; };
+		2A9D2B352B85DFFD0085EEFC /* SpacesManagerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpacesManagerView.swift; sourceTree = "<group>"; };
+		2A9D2B372B85E0050085EEFC /* SpacesManagerViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpacesManagerViewModel.swift; sourceTree = "<group>"; };
+		2A9D2B392B85E00F0085EEFC /* SpacesManagerModuleAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpacesManagerModuleAssembly.swift; sourceTree = "<group>"; };
 		2AA0209128D3502000321A66 /* Array+SubscriptionUpdate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Array+SubscriptionUpdate.swift"; sourceTree = "<group>"; };
 		2AA0209428D3523000321A66 /* SetSubscriptionDataBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetSubscriptionDataBuilder.swift; sourceTree = "<group>"; };
 		2AA0209828D352C300321A66 /* SetSubscriptionData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetSubscriptionData.swift; sourceTree = "<group>"; };
@@ -6090,6 +6096,16 @@
 			path = NonExistent;
 			sourceTree = "<group>";
 		};
+		2A9D2B342B85DFF10085EEFC /* SpacesManager */ = {
+			isa = PBXGroup;
+			children = (
+				2A9D2B352B85DFFD0085EEFC /* SpacesManagerView.swift */,
+				2A9D2B372B85E0050085EEFC /* SpacesManagerViewModel.swift */,
+				2A9D2B392B85E00F0085EEFC /* SpacesManagerModuleAssembly.swift */,
+			);
+			path = SpacesManager;
+			sourceTree = "<group>";
+		};
 		2AA0209328D3521E00321A66 /* Subscriptions */ = {
 			isa = PBXGroup;
 			children = (
@@ -6240,6 +6256,7 @@
 		2ABAF2B62938E53A003C4730 /* Modules */ = {
 			isa = PBXGroup;
 			children = (
+				2A9D2B342B85DFF10085EEFC /* SpacesManager */,
 				2AD48D502B7F57AD0077C53B /* SpaceJoin */,
 				2AC434952B7A064F006166BF /* SpaceShare */,
 				2ACDC9B62B56703C0063BFBD /* ShareOptions */,
@@ -10557,6 +10574,7 @@
 				12EEC36E26A0903F00C3C4B1 /* EmojiGridView.swift in Sources */,
 				2A7B124E2B19CC5600E14578 /* GalleryUnavailableView.swift in Sources */,
 				1223C9022726BEB000C34616 /* FeaturedRelationsBlockContentConfiguration.swift in Sources */,
+				2A9D2B362B85DFFD0085EEFC /* SpacesManagerView.swift in Sources */,
 				2AC906C329B5FA3300209E39 /* ObjectWidgetInternalViewModel.swift in Sources */,
 				2A5CB4212A433C3B00ED9415 /* EditorScreenData+Details.swift in Sources */,
 				C9367A91273126AD007D687A /* SelectionOptionsView.swift in Sources */,
@@ -10713,6 +10731,7 @@
 				2ECB34062A95131100E0F9BB /* SetSortsListCoordinatorViewModel.swift in Sources */,
 				863776832A658AF10040308E /* SetObjectCreationSettingsModuleAssembly.swift in Sources */,
 				2EAA14012AA63918000A712A /* SetViewSettingsGroupByViewModel.swift in Sources */,
+				2A9D2B382B85E0050085EEFC /* SpacesManagerViewModel.swift in Sources */,
 				2E6F3E1D2A4DB179002F4278 /* SceneStateNotifier.swift in Sources */,
 				1211D65A2667CED000541D9C /* ActivityIndicatorView.swift in Sources */,
 				125683E227DF1E7D003A8251 /* SearchObjectRowView.swift in Sources */,
@@ -11449,6 +11468,7 @@
 				2AE155932A31BDF50049C387 /* FavoriteCompactListWidgetModuleAssembly.swift in Sources */,
 				2AA1652829D474D40093DB12 /* FeatureFlagView.swift in Sources */,
 				2A5A898E29C866FF00C170D6 /* SettingsObjectHeader.swift in Sources */,
+				2A9D2B3A2B85E00F0085EEFC /* SpacesManagerModuleAssembly.swift in Sources */,
 				C99DCEC4283CCBF30051F99D /* GenericUIKitToSwiftUIView.swift in Sources */,
 				2A6693722A7104EA007747DD /* BookmarkIconImageGuideline.swift in Sources */,
 				5356072526E2602F001464A4 /* UnsupportedBlockViewModel.swift in Sources */,

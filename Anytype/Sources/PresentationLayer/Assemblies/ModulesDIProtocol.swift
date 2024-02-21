@@ -72,4 +72,5 @@ protocol ModulesDIProtocol: AnyObject {
     func galleryNotification() -> GalleryNotificationAssemblyProtocol
     func spareShare() -> SpaceShareModuleAssemblyProtocol
     func spaceJoin() -> SpaceJoinModuleAssemblyProtocol
+    func spacesManager() -> SpacesManagerModuleAssemblyProtocol
 }
