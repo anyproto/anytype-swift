@@ -10,43 +10,43 @@ final class DeepLinkParserTests: XCTestCase {
     func testNormalOnProd() throws {
         let parser = DeepLinkParser(isDebug: false)
         
-        let url = URL(string: "anytype://create-object")!
+        let url = URL(string: "anytype://create-object-widget")!
         
         let deepLink = parser.parse(url: url)
-        XCTAssertEqual(deepLink, .createDefaultObject)
+        XCTAssertEqual(deepLink, .createObjectFromWidget)
     }
     
     func testNormalOnDev() throws {
         let parser = DeepLinkParser(isDebug: true)
         
-        let url = URL(string: "anytype://create-object")!
+        let url = URL(string: "anytype://create-object-widget")!
         
         let deepLink = parser.parse(url: url)
-        XCTAssertEqual(deepLink, .createDefaultObject)
+        XCTAssertEqual(deepLink, .createObjectFromWidget)
     }
     
     func testNarmalWithSlash() throws {
         let parser = DeepLinkParser(isDebug: false)
         
-        let url = URL(string: "anytype://create-object/")!
+        let url = URL(string: "anytype://create-object-widget/")!
         
         let deepLink = parser.parse(url: url)
-        XCTAssertEqual(deepLink, .createDefaultObject)
+        XCTAssertEqual(deepLink, .createObjectFromWidget)
     }
     
     func testProdOnProd() throws {
         let parser = DeepLinkParser(isDebug: false)
         
-        let url = URL(string: "prod-anytype://create-object")!
+        let url = URL(string: "prod-anytype://create-object-widget")!
         
         let deepLink = parser.parse(url: url)
-        XCTAssertEqual(deepLink, .createDefaultObject)
+        XCTAssertEqual(deepLink, .createObjectFromWidget)
     }
 
     func testProdOnDev() throws {
         let parser = DeepLinkParser(isDebug: true)
         
-        let url = URL(string: "prod-anytype://create-object")!
+        let url = URL(string: "prod-anytype://create-object-widget")!
         
         let deepLink = parser.parse(url: url)
         XCTAssertEqual(deepLink, nil)
@@ -55,16 +55,16 @@ final class DeepLinkParserTests: XCTestCase {
     func testDevOnDev() throws {
         let parser = DeepLinkParser(isDebug: true)
         
-        let url = URL(string: "dev-anytype://create-object")!
+        let url = URL(string: "dev-anytype://create-object-widget")!
         
         let deepLink = parser.parse(url: url)
-        XCTAssertEqual(deepLink, .createDefaultObject)
+        XCTAssertEqual(deepLink, .createObjectFromWidget)
     }
     
     func testDevOnProd() throws {
         let parser = DeepLinkParser(isDebug: false)
         
-        let url = URL(string: "dev-anytype://create-object")!
+        let url = URL(string: "dev-anytype://create-object-widget")!
         
         let deepLink = parser.parse(url: url)
         XCTAssertEqual(deepLink, nil)
@@ -73,7 +73,7 @@ final class DeepLinkParserTests: XCTestCase {
     func testWrong() throws {
         let parser = DeepLinkParser(isDebug: false)
         
-        let url = URL(string: "anytype123://create-object")!
+        let url = URL(string: "anytype123://create-object-widget")!
         
         let deepLink = parser.parse(url: url)
         XCTAssertEqual(deepLink, nil)
@@ -100,29 +100,29 @@ final class DeepLinkParserTests: XCTestCase {
     func testDeepLinkToURLMainInProd() throws {
         let parser = DeepLinkParser(isDebug: false)
         
-        let url = parser.createUrl(deepLink: .createDefaultObject, scheme: .main)
-        XCTAssertEqual(url, URL(string: "anytype://create-object"))
+        let url = parser.createUrl(deepLink: .createObjectFromWidget, scheme: .main)
+        XCTAssertEqual(url, URL(string: "anytype://create-object-widget"))
     }
     
     func testDeepLinkToURLMainInDev() throws {
         let parser = DeepLinkParser(isDebug: true)
         
-        let url = parser.createUrl(deepLink: .createDefaultObject, scheme: .main)
-        XCTAssertEqual(url, URL(string: "anytype://create-object"))
+        let url = parser.createUrl(deepLink: .createObjectFromWidget, scheme: .main)
+        XCTAssertEqual(url, URL(string: "anytype://create-object-widget"))
     }
     
     func testDeepLinkToURLSpecificInProd() throws {
         let parser = DeepLinkParser(isDebug: false)
         
-        let url = parser.createUrl(deepLink: .createDefaultObject, scheme: .buildSpecific)
-        XCTAssertEqual(url, URL(string: "prod-anytype://create-object"))
+        let url = parser.createUrl(deepLink: .createObjectFromWidget, scheme: .buildSpecific)
+        XCTAssertEqual(url, URL(string: "prod-anytype://create-object-widget"))
     }
     
     func testDeepLinkToURLSpecificInDev() throws {
         let parser = DeepLinkParser(isDebug: true)
         
-        let url = parser.createUrl(deepLink: .createDefaultObject, scheme: .buildSpecific)
-        XCTAssertEqual(url, URL(string: "dev-anytype://create-object"))
+        let url = parser.createUrl(deepLink: .createObjectFromWidget, scheme: .buildSpecific)
+        XCTAssertEqual(url, URL(string: "dev-anytype://create-object-widget"))
     }
     
     func testDeepLinkWithArgs() throws {
