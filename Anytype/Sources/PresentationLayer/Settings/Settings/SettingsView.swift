@@ -46,6 +46,7 @@ struct SettingsView: View {
                     if FeatureFlags.multiplayer {
                         SettingsSectionItemView(
                             name: Loc.Spaces.title,
+                            imageAsset: .Settings.spaces,
                             onTap: { model.onSpacesTap() }
                         )
                     }
