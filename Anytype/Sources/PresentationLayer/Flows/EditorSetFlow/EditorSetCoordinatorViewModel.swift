@@ -129,7 +129,7 @@ final class EditorSetCoordinatorViewModel:
     }
     func setQuery(_ queryData: SetQueryData) -> AnyView {
         if FeatureFlags.newTypePicker {
-            return objectTypeSearchModuleAssembly.make(
+            return objectTypeSearchModuleAssembly.makeDefaultTypeSearch(
                 title: Loc.Set.SourceType.selectQuery,
                 spaceId: data.spaceId,
                 showPins: false,

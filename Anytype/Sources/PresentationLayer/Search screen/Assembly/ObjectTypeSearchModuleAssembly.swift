@@ -4,8 +4,13 @@ import SwiftUI
 import AnytypeCore
 
 protocol ObjectTypeSearchModuleAssemblyProtocol: AnyObject {
+    func makeTypeSearchForNewObjectCreation(
+        title: String,
+        spaceId: String,
+        onSelect: @escaping (_ type: ObjectType) -> Void
+    ) -> AnyView
     
-    func make(
+    func makeDefaultTypeSearch(
         title: String,
         spaceId: String,
         showPins: Bool,
@@ -25,7 +30,31 @@ final class ObjectTypeSearchModuleAssembly: ObjectTypeSearchModuleAssemblyProtoc
         self.serviceLocator = serviceLocator
     }
     
-    func make(
+    func makeTypeSearchForNewObjectCreation(
+        title: String,
+        spaceId: String,
+        onSelect: @escaping (_ type: ObjectType) -> Void
+    ) -> AnyView {
+        let model = ObjectTypeSearchViewModel(
+            showPins: true,
+            showLists: true,
+            showFiles: false, 
+            showPaste: true,
+            spaceId: spaceId,
+            workspaceService: serviceLocator.workspaceService(),
+            typesService: serviceLocator.typesService(),
+            objectTypeProvider: serviceLocator.objectTypeProvider(),
+            toastPresenter: uiHelpersDI.toastPresenter(),
+            onSelect: onSelect
+        )
+        
+        return ObjectTypeSearchView(
+            title: title,
+            viewModel: model
+        ).eraseToAnyView()
+    }
+    
+    func makeDefaultTypeSearch(
         title: String,
         spaceId: String,
         showPins: Bool,
@@ -38,6 +67,7 @@ final class ObjectTypeSearchModuleAssembly: ObjectTypeSearchModuleAssemblyProtoc
                 showPins: showPins,
                 showLists: showLists, 
                 showFiles: showFiles,
+                showPaste: false,
                 spaceId: spaceId,
                 workspaceService: serviceLocator.workspaceService(),
                 typesService: serviceLocator.typesService(),

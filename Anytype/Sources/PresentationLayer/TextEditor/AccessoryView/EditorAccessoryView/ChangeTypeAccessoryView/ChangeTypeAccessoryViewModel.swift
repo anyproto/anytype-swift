@@ -41,7 +41,7 @@ final class ChangeTypeAccessoryViewModel {
     }
     
     func onSearchTap() {
-        router.showTypesForEmptyObject(
+        router.showTypePickerForNewObjectCreation(
             selectedObjectId: document.details?.type,
             onSelect: { [weak self] type in
                 self?.onTypeTap(type: type)
