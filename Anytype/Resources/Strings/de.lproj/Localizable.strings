@@ -554,6 +554,7 @@
 "Application icon" = "App-Symbol";
 "Mode" = "Modus";
 "copied to clipboard" = "%@ in die Zwischenanlage kopiert";
+"Create object from clipboard" = "Objekt aus der Zwischenablage erstellen";
 "Access to secret phrase from keychain" = "Zugriff auf die Passphrase von deinem Schlüsselbund";
 "Back up your recovery phrase" = "Erstelle ein Backup Ihrer Wiederherstellungsphrase";
 "Account" = "Konto";
@@ -849,6 +850,7 @@
 "Spaces.Accessibility.Private" = "Privater Raum";
 "Spaces.Accessibility.Personal" = "Einstellungen";
 "Spaces.Search.Title" = "Spaces suchen";
+"Spaces.Title" = "Spaces";
 
 // MARK: - Space Settings
 "SpaceSettings.Title" = "Space-Einstellungen";
@@ -871,9 +873,9 @@
 "SpaceShare.Invite.Title" = "Einladungslink";
 "SpaceShare.Invite.Description" = "Sende diesen Link, um andere einzuladen. Weise Zugriffsrechte zu, wenn deren Anfrage genehmigt wurde";
 "SpaceShare.Invite.Button" = "Einladungslink teilen";
-"SpaceShare.Status.Joining" = "Requested";
-"SpaceShare.Status.Declined" = "Declined";
-"SpaceShare.Action.ViewRequest" = "View Request";
+"SpaceShare.Status.Joining" = "Angefragt";
+"SpaceShare.Status.Declined" = "Abgelehnt";
+"SpaceShare.Action.ViewRequest" = "Anfrage ansehen";
 "SpaceShare.ViewRequest.Title" = "%@ requested to join %@ space";
 "SpaceShare.ViewRequest.ViewAccess" = "Grand view access";
 "SpaceShare.ViewRequest.EditAccess" = "Grand edit access";
@@ -908,6 +910,11 @@
 "Sharing.Tip.Steps.1" = "Tippen Sie auf den iOS-Sharing-Button";
 "Sharing.Tip.Steps.2" = "Scrolle über die App hinaus und tippe auf Mehr";
 "Sharing.Tip.Steps.3" = "Tippe auf Bearbeiten, um \"Anytype\" zu finden und darauf zu tippen";
+
+// MARK: - Swipe tips
+"Swipe.Tip.Title" = "Zum Erstellen von Objekten wischen";
+"Swipe.Tip.Subtitle" = "Create objects inside widgets by easily swiping them left.";
+
 
 // MARK: - Initial
 
