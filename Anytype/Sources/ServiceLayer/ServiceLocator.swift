@@ -4,6 +4,7 @@ import Services
 import AnytypeCore
 import SecureService
 import SharedContentManager
+import DeepLinks
 
 // TODO: Migrate to ServicesDI
 final class ServiceLocator {
@@ -382,7 +383,7 @@ final class ServiceLocator {
     }
     
     func deepLinkParser() -> DeepLinkParserProtocol {
-        DeepLinkParser()
+        DeepLinkDI.shared.parser(isDebug: CoreEnvironment.isDebug)
     }
     
     func processSubscriptionService() -> ProcessSubscriptionServiceProtocol {

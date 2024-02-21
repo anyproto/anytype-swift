@@ -1,6 +1,7 @@
 import Foundation
 import Services
 import UIKit
+import DeepLinks
 
 @MainActor
 final class SpaceShareViewModel: ObservableObject {
@@ -37,14 +38,14 @@ final class SpaceShareViewModel: ObservableObject {
         startSubscriptions()
         Task {
             let invite = try await workspaceService.generateInvite(spaceId: activeWorkspaceStorage.workspaceInfo.accountSpaceId)
-            inviteLink = deppLinkParser.createUrl(deepLink: .invite(cid: invite.cid, key: invite.fileKey))
+            inviteLink = deppLinkParser.createUrl(deepLink: .invite(cid: invite.cid, key: invite.fileKey), scheme: .main)
         }
     }
     
     func onUpdateLink() {
         Task {
             let invite = try await workspaceService.generateInvite(spaceId: activeWorkspaceStorage.workspaceInfo.accountSpaceId)
-            inviteLink = deppLinkParser.createUrl(deepLink: .invite(cid: invite.cid, key: invite.fileKey))
+            inviteLink = deppLinkParser.createUrl(deepLink: .invite(cid: invite.cid, key: invite.fileKey), scheme: .main)
         }
     }
     

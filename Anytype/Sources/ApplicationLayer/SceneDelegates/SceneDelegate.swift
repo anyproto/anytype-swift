@@ -1,6 +1,7 @@
 import UIKit
 import SwiftUI
 import AnytypeCore
+import DeepLinks
 
 class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
@@ -63,11 +64,11 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     }
 
     private func handleURLContext(openURLContexts: Set<UIOpenURLContext>) {
-        guard openURLContexts.count == 1, 
-                let context = openURLContexts.first else {
-            return
-        }
+        guard openURLContexts.count == 1,
+              let context = openURLContexts.first,
+              let deepLink = deepLinkParser?.parse(url: context.url)
+        else { return }
         
-        AppActionStorage.shared.action = deepLinkParser?.parse(url: context.url)
+        AppActionStorage.shared.action = .deepLink(deepLink)
     }
 }
