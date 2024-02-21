@@ -29,7 +29,7 @@ final class WorkspacesSubscriptionBuilder: WorkspacesSubscriptionBuilderProtocol
             SearchHelper.layoutFilter([.spaceView]),
             SearchHelper.isArchivedFilter(isArchived: false),
             SearchHelper.isDeletedFilter(isDeleted: false),
-            SearchHelper.spaceAccountStatusExcludeFilter(.spaceDeleted),
+            SearchHelper.spaceAccountStatusExcludeFilter(.spaceDeleted, .spaceRemoving),
             SearchHelper.spaceLocalStatusFilter(.ok)
         ]
         
