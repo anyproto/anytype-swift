@@ -554,6 +554,7 @@
 "Application icon" = "Іконка застосунку";
 "Mode" = "Режим";
 "copied to clipboard" = "%@ скопійовано до буфера обміну";
+"Create object from clipboard" = "Create object from clipboard";
 "Access to secret phrase from keychain" = "Доступ до секретної фрази з в'язки ключів";
 "Back up your recovery phrase" = "Створити резервну копію вашої фрази відновлення";
 "Account" = "Обліковий запис";
@@ -849,6 +850,7 @@
 "Spaces.Accessibility.Private" = "Private Space";
 "Spaces.Accessibility.Personal" = "Налаштування";
 "Spaces.Search.Title" = "Пошук просторів";
+"Spaces.Title" = "Spaces";
 
 // MARK: - Space Settings
 "SpaceSettings.Title" = "Параметри простору";
@@ -908,6 +910,11 @@
 "Sharing.Tip.Steps.1" = "Tap the iOS sharing button";
 "Sharing.Tip.Steps.2" = "Scroll past the app and tap More";
 "Sharing.Tip.Steps.3" = "Tap Edit to find “Anytype” and tap";
+
+// MARK: - Swipe tips
+"Swipe.Tip.Title" = "Swipe to Create Objects";
+"Swipe.Tip.Subtitle" = "Create objects inside widgets by easily swiping them left.";
+
 
 // MARK: - Initial
 
