@@ -19,8 +19,7 @@ struct SpaceManagerRowView: View {
             IconView(icon: spaceView.iconImage)
                 .frame(width: 48, height: 48)
             VStack(alignment: .leading, spacing: 0) {
-                // TODO: Add semibold
-                AnytypeText(spaceView.name, style: .uxTitle2Medium, color: .Text.primary)
+                AnytypeText(spaceView.name, style: .uxTitle2Semibold, color: .Text.primary)
                 AnytypeText("Owner DEMO", style: .relation2Regular, color: .Text.secondary)
             }
             Spacer()
