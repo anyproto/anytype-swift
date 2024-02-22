@@ -850,6 +850,20 @@
 "Spaces.Accessibility.Personal" = "Personal Space";
 "Spaces.Search.Title" = "Search spaces";
 "Spaces.Title" = "Spaces";
+"Spaces.Info.Network" = "Network:";
+"Spaces.Info.Device" = "Device:";
+
+// MARK: - Space
+"Space.Status.Unknown" = "Unknown";
+"Space.Status.Loading" = "Loading";
+"Space.Status.Ok" = "Ok";
+"Space.Status.Missing" = "Missing";
+"Space.Status.Error" = "Error";
+"Space.Status.RemoteWaitingDeletion" = "Waiting Deletion";
+"Space.Status.RemoteDeleted" = "Remote Deleted";
+"Space.Status.SpaceDeleted" = "Deleted";
+"Space.Status.SpaceActive" = "Active";
+"Space.Status.SpaceJoining" = "Joining";
 
 // MARK: - Space Settings
 "SpaceSettings.Title" = "Space settings";

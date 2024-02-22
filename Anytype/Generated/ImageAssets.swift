@@ -76,6 +76,7 @@ internal extension ImageAsset {
     static let keychainPhrase = ImageAsset.bundle(name: "Settings/KeychainPhrase")
     static let personalization = ImageAsset.bundle(name: "Settings/Personalization")
     static let pinCode = ImageAsset.bundle(name: "Settings/PinCode")
+    static let spaces = ImageAsset.bundle(name: "Settings/Spaces")
   }
   enum TaskLayout {
     static let done = ImageAsset.bundle(name: "TaskLayout/Done")

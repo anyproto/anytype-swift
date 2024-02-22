@@ -9,6 +9,7 @@ struct SpaceView: Identifiable {
     let targetSpaceId: String
     let createdDate: Date?
     let accountStatus: SpaceStatus?
+    let localStatus: SpaceStatus?
     let spaceAccessibility: SpaceAccessibility?
 }
 
@@ -20,7 +21,8 @@ extension SpaceView: DetailsModel {
         self.objectIconImage = details.objectIconImage
         self.targetSpaceId = details.targetSpaceId
         self.createdDate = details.createdDate
-        self.accountStatus = try? SpaceStatus(from: details.spaceAccountStatusMiddlewareValue)
+        self.accountStatus = details.spaceAccountStatusValue
+        self.localStatus = details.spaceLocalStatusValue
         self.spaceAccessibility = details.spaceAccessibilityValue
     }
     
@@ -33,5 +35,6 @@ extension SpaceView: DetailsModel {
         BundledRelationKey.createdDate
         BundledRelationKey.spaceAccessibility
         BundledRelationKey.spaceAccountStatus
+        BundledRelationKey.spaceLocalStatus
     }
 }

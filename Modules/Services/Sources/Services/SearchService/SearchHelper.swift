@@ -246,7 +246,7 @@ public class SearchHelper {
     public static func spaceAccountStatusExcludeFilter(_ status: SpaceStatus) -> DataviewFilter {
         var filter = DataviewFilter()
         filter.condition = .notEqual
-        filter.value = status.toMiddleware.rawValue.protobufValue
+        filter.value = status.rawValue.protobufValue
         filter.relationKey = BundledRelationKey.spaceAccountStatus.rawValue
         filter.operator = .and
         
@@ -256,7 +256,7 @@ public class SearchHelper {
     public static func spaceLocalStatusFilter(_ status: SpaceStatus) -> DataviewFilter {
         var filter = DataviewFilter()
         filter.condition = .equal
-        filter.value = status.toMiddleware.rawValue.protobufValue
+        filter.value = status.rawValue.protobufValue
         filter.relationKey = BundledRelationKey.spaceLocalStatus.rawValue
         filter.operator = .and
         
