@@ -170,7 +170,7 @@ final class EditorPageModuleAssembly: EditorPageModuleAssemblyProtocol {
             objectService: serviceLocator.objectActionsService()
         )
         
-        let pasteboardService = serviceLocator.pasteboardBlockService(document: document)
+        let pasteboardService = serviceLocator.pasteboardBlockDocumentService(document: document)
         let blocksStateManager = EditorPageBlocksStateManager(
             document: document,
             modelsHolder: modelsHolder,
