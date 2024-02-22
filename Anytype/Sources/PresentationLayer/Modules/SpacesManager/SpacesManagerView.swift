@@ -20,10 +20,10 @@ struct SpacesManagerView: View {
             }
         }
         .task {
-            await model.startWorkspacesTask()
+            await model.onAppear()
         }
         .task {
-            await model.startParticipantTask()
+            await model.startWorkspacesTask()
         }
     }
 }

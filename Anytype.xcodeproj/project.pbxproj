@@ -396,8 +396,8 @@
 		2A3629A7292E2BB200C02EC3 /* ObjectSettingsCoordinatorAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A3629A6292E2BB200C02EC3 /* ObjectSettingsCoordinatorAssembly.swift */; };
 		2A376F5A2B85F30600CF444A /* SpacesManagerRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A376F592B85F30600CF444A /* SpacesManagerRowView.swift */; };
 		2A376F5F2B861D7100CF444A /* SpaceStatus+Localize.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A376F5E2B861D7100CF444A /* SpaceStatus+Localize.swift */; };
-		2A376F622B873E1D00CF444A /* ParticipantsStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A376F612B873E1D00CF444A /* ParticipantsStorage.swift */; };
-		2A376F642B874D8500CF444A /* ParticipantSubscriptionBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A376F632B874D8500CF444A /* ParticipantSubscriptionBuilder.swift */; };
+		2A376F662B879BE600CF444A /* ParticipantsSubscriptionService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A376F652B879BE600CF444A /* ParticipantsSubscriptionService.swift */; };
+		2A376F682B879CB000CF444A /* AccountParticipantsSubscriptionServiceProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A376F672B879CB000CF444A /* AccountParticipantsSubscriptionServiceProtocol.swift */; };
 		2A377E3E2A82564E00EA856B /* SpaceTypeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A377E3D2A82564E00EA856B /* SpaceTypeView.swift */; };
 		2A377E412A826FFD00EA856B /* RemoteStorageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A377E402A826FFD00EA856B /* RemoteStorageView.swift */; };
 		2A377E432A82700C00EA856B /* RemoteStorageViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A377E422A82700C00EA856B /* RemoteStorageViewModel.swift */; };
@@ -2155,8 +2155,8 @@
 		2A3629A6292E2BB200C02EC3 /* ObjectSettingsCoordinatorAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObjectSettingsCoordinatorAssembly.swift; sourceTree = "<group>"; };
 		2A376F592B85F30600CF444A /* SpacesManagerRowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpacesManagerRowView.swift; sourceTree = "<group>"; };
 		2A376F5E2B861D7100CF444A /* SpaceStatus+Localize.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SpaceStatus+Localize.swift"; sourceTree = "<group>"; };
-		2A376F612B873E1D00CF444A /* ParticipantsStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ParticipantsStorage.swift; sourceTree = "<group>"; };
-		2A376F632B874D8500CF444A /* ParticipantSubscriptionBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ParticipantSubscriptionBuilder.swift; sourceTree = "<group>"; };
+		2A376F652B879BE600CF444A /* ParticipantsSubscriptionService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ParticipantsSubscriptionService.swift; sourceTree = "<group>"; };
+		2A376F672B879CB000CF444A /* AccountParticipantsSubscriptionServiceProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountParticipantsSubscriptionServiceProtocol.swift; sourceTree = "<group>"; };
 		2A377E3D2A82564E00EA856B /* SpaceTypeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpaceTypeView.swift; sourceTree = "<group>"; };
 		2A377E402A826FFD00EA856B /* RemoteStorageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemoteStorageView.swift; sourceTree = "<group>"; };
 		2A377E422A82700C00EA856B /* RemoteStorageViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemoteStorageViewModel.swift; sourceTree = "<group>"; };
@@ -3843,7 +3843,6 @@
 		03C5C53422DF6C9900DD91DE /* StoreLayer */ = {
 			isa = PBXGroup;
 			children = (
-				2A376F602B873E0800CF444A /* ParticipantsStorage */,
 				2A816AC52AD7DC0D00975BCA /* ServerConfigirationStorage */,
 				2A8A2DC82AB993E900105549 /* AppActions */,
 				2A29FD2D2A701BBB007A8549 /* SpaceStorage */,
@@ -5303,6 +5302,8 @@
 				2A6C75C329FC03D4002BD440 /* SingleObjectSubscriptionService.swift */,
 				2AA0C43E2A013EF800B9C108 /* FilesSubscriptionService.swift */,
 				8639E0132A6020E700F52ED2 /* TemplatesSubscriptionService.swift */,
+				2A376F652B879BE600CF444A /* ParticipantsSubscriptionService.swift */,
+				2A376F672B879CB000CF444A /* AccountParticipantsSubscriptionServiceProtocol.swift */,
 			);
 			path = Subscriptions;
 			sourceTree = "<group>";
@@ -5513,15 +5514,6 @@
 				2A376F5E2B861D7100CF444A /* SpaceStatus+Localize.swift */,
 			);
 			path = Models;
-			sourceTree = "<group>";
-		};
-		2A376F602B873E0800CF444A /* ParticipantsStorage */ = {
-			isa = PBXGroup;
-			children = (
-				2A376F612B873E1D00CF444A /* ParticipantsStorage.swift */,
-				2A376F632B874D8500CF444A /* ParticipantSubscriptionBuilder.swift */,
-			);
-			path = ParticipantsStorage;
 			sourceTree = "<group>";
 		};
 		2A377E3F2A826FE100EA856B /* RemoteStorage */ = {
@@ -11199,7 +11191,6 @@
 				2AB508162AE81DEA00E1C986 /* ByteCountFormatter+Extensions.swift in Sources */,
 				120F7D5C267D0C4400327734 /* Color+Extensions.swift in Sources */,
 				2EC9425F2900351C00DE91E4 /* DataviewGroup+Filter.swift in Sources */,
-				2A376F642B874D8500CF444A /* ParticipantSubscriptionBuilder.swift in Sources */,
 				2AD06B81285729890006C255 /* TableOfContentsConfiguration.swift in Sources */,
 				3DE0CFD926F8593D003A606A /* SlashMenuItemFilterMatch.swift in Sources */,
 				2EAA13FF2AA63918000A712A /* SetViewSettingsImagePreviewView.swift in Sources */,
@@ -11250,6 +11241,7 @@
 				C98282382850B3CF00C4E1D4 /* SpreadsheetInvalidationContext.swift in Sources */,
 				12A52E1B26CA88CD000F0333 /* UIEditorBarButtonItem.swift in Sources */,
 				2A2C33232892C63B008BC326 /* RelationValueCoordinatorOutput.swift in Sources */,
+				2A376F682B879CB000CF444A /* AccountParticipantsSubscriptionServiceProtocol.swift in Sources */,
 				538AE50F272C57300071DB0D /* LinkToObjectSearchViewModel.swift in Sources */,
 				2A5A898C29C8650600C170D6 /* SettingsAccountView.swift in Sources */,
 				2EB97A1B28B64CDC002BBB39 /* SetListViewCell.swift in Sources */,
@@ -11394,7 +11386,6 @@
 				12B691D227F4CB5D00A0C336 /* ImageGuideline.swift in Sources */,
 				C9E939D428538B600089CB98 /* TextBlockActionHandler.swift in Sources */,
 				12FD9D29276717CF00991886 /* RelationTag.swift in Sources */,
-				2A376F622B873E1D00CF444A /* ParticipantsStorage.swift in Sources */,
 				53D4088827EC9EFE00495335 /* ObjectPreviewView.swift in Sources */,
 				2AD276422B6D22BA00112215 /* GallerySpaceSelectionView.swift in Sources */,
 				12EB9AF12771CD6600BA732F /* RelationOptionsListViewModel.swift in Sources */,
@@ -11475,6 +11466,7 @@
 				2E2A23042A9F746D00745D78 /* SetLayoutSettings.swift in Sources */,
 				3DB1CA5A272BEF3B000D2779 /* WallpaperPickerView.swift in Sources */,
 				539168852632DD5200AD5C5F /* StyleCellView.swift in Sources */,
+				2A376F662B879BE600CF444A /* ParticipantsSubscriptionService.swift in Sources */,
 				3D8624492B738D6400A5FCF4 /* ObjectTypeProviderProtocol.swift in Sources */,
 				C9BFBA8B28A12E980003D9E6 /* ShimmeringBlockView.swift in Sources */,
 				2A5B53B52A80DBB800BC993B /* SpaceSettingsModuleAssembly.swift in Sources */,

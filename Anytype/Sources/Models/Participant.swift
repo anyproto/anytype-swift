@@ -32,3 +32,14 @@ struct Participant: Identifiable, Equatable {
         self.spaceId = details.spaceId
     }
 }
+
+extension Participant {
+    static var subscriptionKeys: [BundledRelationKey] {
+        .builder {
+            BundledRelationKey.objectListKeys
+            BundledRelationKey.participantStatus
+            BundledRelationKey.participantPermissions
+            BundledRelationKey.identity
+        }
+    }
+}
