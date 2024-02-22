@@ -2,7 +2,7 @@ import Services
 import Foundation
 import Combine
 
-final class PasteboardBlockService: PasteboardBlockServiceProtocol {
+final class PasteboardBlockDocumentService: PasteboardBlockDocumentServiceProtocol {
     private let document: BaseDocumentProtocol
     private let pasteboardHelper: PasteboardHelperProtocol
     private let pasteboardMiddlewareService: PasteboardMiddlewareServiceProtocol
@@ -23,24 +23,30 @@ final class PasteboardBlockService: PasteboardBlockServiceProtocol {
         pasteboardHelper.hasValidURL
     }
     
-    func pasteInsideBlock(focusedBlockId: String,
-                          range: NSRange,
-                          handleLongOperation:  @escaping () -> Void,
-                          completion: @escaping (_ pasteResult: PasteboardPasteResult?) -> Void) {
+    func pasteInsideBlock(
+        focusedBlockId: String,
+        range: NSRange,
+        handleLongOperation:  @escaping () -> Void,
+        completion: @escaping (_ pasteResult: PasteboardPasteResult?) -> Void
+    ) {
         let context = PasteboardActionContext.focused(blockId: focusedBlockId, range: range)
         paste(context: context, handleLongOperation: handleLongOperation, completion: completion)
     }
     
-    func pasteInSelectedBlocks(selectedBlockIds: [String],
-                               handleLongOperation:  @escaping () -> Void,
-                               completion: @escaping (_ pasteResult: PasteboardPasteResult?) -> Void) {
+    func pasteInSelectedBlocks(
+        selectedBlockIds: [String],
+        handleLongOperation:  @escaping () -> Void,
+        completion: @escaping (_ pasteResult: PasteboardPasteResult?) -> Void
+    ) {
         let context = PasteboardActionContext.selected(blockIds: selectedBlockIds)
         paste(context: context, handleLongOperation: handleLongOperation, completion: completion)
     }
     
-    private func paste(context: PasteboardActionContext,
-                       handleLongOperation:  @escaping () -> Void,
-                       completion: @escaping (_ pasteResult: PasteboardPasteResult?) -> Void) {
+    private func paste(
+        context: PasteboardActionContext,
+        handleLongOperation:  @escaping () -> Void,
+        completion: @escaping (_ pasteResult: PasteboardPasteResult?) -> Void
+    ) {
         
         let workItem = DispatchWorkItem {
             handleLongOperation()
@@ -85,7 +91,7 @@ final class PasteboardBlockService: PasteboardBlockServiceProtocol {
     }
 }
 
-private extension PasteboardBlockService {
+private extension PasteboardBlockDocumentService {
     enum Constants {
         static let longOperationTime: Double = 0.5
     }

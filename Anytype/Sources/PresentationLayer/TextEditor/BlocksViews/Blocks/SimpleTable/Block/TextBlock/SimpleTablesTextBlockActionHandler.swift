@@ -20,7 +20,7 @@ final class SimpleTablesTextBlockActionHandler: TextBlockActionHandlerProtocol {
     private let markupChanger: BlockMarkupChangerProtocol
     
     // Fix retain cycle for long paste action
-    private weak var pasteboardService: PasteboardBlockServiceProtocol?
+    private weak var pasteboardService: PasteboardBlockDocumentServiceProtocol?
     private let mentionDetecter = MentionTextDetector()
     private let markdownListener: MarkdownListener
 
@@ -42,7 +42,7 @@ final class SimpleTablesTextBlockActionHandler: TextBlockActionHandlerProtocol {
         info: BlockInformation,
         focusSubject: PassthroughSubject<BlockFocusPosition, Never>,
         actionHandler: BlockActionHandlerProtocol,
-        pasteboardService: PasteboardBlockServiceProtocol,
+        pasteboardService: PasteboardBlockDocumentServiceProtocol,
         markdownListener: MarkdownListener,
         //        collectionController: EditorCollectionReloadable,
         cursorManager: EditorCursorManager,
