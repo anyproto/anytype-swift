@@ -14,7 +14,7 @@ final class SimpleTableDependenciesBuilder {
     private let document: BaseDocumentProtocol
     private let router: EditorRouterProtocol
     private let handler: BlockActionHandlerProtocol
-    private let pasteboardService: PasteboardBlockServiceProtocol
+    private let pasteboardService: PasteboardBlockDocumentServiceProtocol
     private let markdownListener: MarkdownListener
     private let focusSubjectHolder: FocusSubjectsHolder
     private let tableService = BlockTableService()
@@ -31,7 +31,7 @@ final class SimpleTableDependenciesBuilder {
         document: BaseDocumentProtocol,
         router: EditorRouterProtocol,
         handler: BlockActionHandlerProtocol,
-        pasteboardService: PasteboardBlockServiceProtocol,
+        pasteboardService: PasteboardBlockDocumentServiceProtocol,
         markdownListener: MarkdownListener,
         focusSubjectHolder: FocusSubjectsHolder,
         mainEditorSelectionManager: SimpleTableSelectionHandler?,

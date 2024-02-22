@@ -79,7 +79,7 @@ final class EditorPageBlocksStateManager: EditorPageBlocksStateManagerProtocol {
     private let blockService: BlockServiceProtocol
     private let toastPresenter: ToastPresenterProtocol
     private let actionHandler: BlockActionHandlerProtocol
-    private let pasteboardService: PasteboardBlockServiceProtocol
+    private let pasteboardService: PasteboardBlockDocumentServiceProtocol
     private let router: EditorRouterProtocol
     private let bottomNavigationManager: EditorBottomNavigationManagerProtocol
     private let documentsProvider: DocumentsProviderProtocol
@@ -97,7 +97,7 @@ final class EditorPageBlocksStateManager: EditorPageBlocksStateManagerProtocol {
         blockService: BlockServiceProtocol,
         toastPresenter: ToastPresenterProtocol,
         actionHandler: BlockActionHandlerProtocol,
-        pasteboardService: PasteboardBlockServiceProtocol,
+        pasteboardService: PasteboardBlockDocumentServiceProtocol,
         router: EditorRouterProtocol,
         initialEditingState: EditorEditingState,
         viewInput: EditorPageViewInput,

@@ -130,7 +130,7 @@ final class ShareOptionsInteractor: ShareOptionsInteractorProtocol {
             templateId: nil
         )
         let lastBlockInDocument = try await blockService.lastBlockId(from: newObject.id)
-        _ = try await pasteboardMiddlewareService.pasteText(text, objectId: newObject.id, context: .selected([lastBlockInDocument]))
+        _ = try await pasteboardMiddlewareService.pasteText(text, objectId: newObject.id, context: .selected(blockIds: [lastBlockInDocument]))
         
         AnytypeAnalytics.instance().logCreateObject(
             objectType: .object(typeId: ObjectTypeUniqueKey.note.value),
@@ -147,7 +147,7 @@ final class ShareOptionsInteractor: ShareOptionsInteractorProtocol {
             info: .emptyText,
             position: .bottom
         )
-        _ = try await pasteboardMiddlewareService.pasteText(text, objectId: addToObject.id, context: .selected([newBlockId]))
+        _ = try await pasteboardMiddlewareService.pasteText(text, objectId: addToObject.id, context: .selected(blockIds: [newBlockId]))
         AnytypeAnalytics.instance().logCreateBlock(type: BlockInformation.emptyText.content.type, route: .sharingExtension)
     }
     
