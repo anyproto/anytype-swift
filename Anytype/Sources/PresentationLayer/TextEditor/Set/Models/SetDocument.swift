@@ -3,7 +3,7 @@ import Services
 import Combine
 import AnytypeCore
 
-class SetDocument: SetDocumentProtocol {
+final class SetDocument: SetDocumentProtocol {
     let document: BaseDocumentProtocol
     
     var objectId: String { document.objectId }
@@ -29,15 +29,14 @@ class SetDocument: SetDocumentProtocol {
     
     var forPreview: Bool { document.forPreview }
     
-    var dataviews: [BlockDataview] {
-        return document.children.compactMap { info -> BlockDataview? in
-            if case .dataView(let data) = info.content {
-                if let blockId = inlineParameters?.blockId {
-                    return info.id == blockId ? data : nil
-                } else {
-                    return data
-                }
-            }
+    var blockDataview: BlockDataview? {
+        let blockId = inlineParameters?.blockId ?? SetConstants.dataviewBlockId
+        guard let blockInfo = document.infoContainer.get(id: blockId) else {
+            return nil
+        }
+        if case .dataView(let data) = blockInfo.content {
+           return data
+        } else {
             return nil
         }
     }
@@ -160,7 +159,7 @@ class SetDocument: SetDocumentProtocol {
         }?.objectIds ?? []
     }
     
-    func updateActiveViewId(_ id: String) {
+    func updateActiveViewIdAndReload(_ id: String) {
         updateDataview(with: id)
         updateData()
     }
@@ -266,12 +265,12 @@ class SetDocument: SetDocumentProtocol {
     }
     
     private func updateData() {
-        dataView = dataviews.first ?? .empty
+        dataView = blockDataview ?? .empty
         updateDataViewRelations()
         
         let prevActiveView = activeView
         
-        updateActiveViewId()
+        updateActiveViewIdIfNeeded()
         activeView = dataView.views.first { $0.id == dataView.activeViewId } ?? .empty
         
         updateSorts()
@@ -303,17 +302,23 @@ class SetDocument: SetDocumentProtocol {
         return modeChanged || groupRelationKeyChanged
     }
     
-    private func updateActiveViewId() {
-        let activeViewId = dataView.views.first?.id
-        if let activeViewId = activeViewId {
-            if self.dataView.activeViewId.isEmpty || !dataView.views.contains(where: { $0.id == self.dataView.activeViewId }) {
-                updateDataview(with: activeViewId)
-                dataView.activeViewId = activeViewId
-            }
-        } else {
-            updateDataview(with: "")
-            dataView.activeViewId = ""
+    private func updateActiveViewIdIfNeeded() {
+        let firstViewId = dataView.views.first?.id
+        let currentActiveViewId = dataView.activeViewId
+        
+        guard let firstViewId else {
+            updateActiveViewId(with: "")
+            return
         }
+        
+        if currentActiveViewId.isEmpty || dataView.views.first(where: { $0.id == currentActiveViewId }).isNil {
+            updateActiveViewId(with: firstViewId)
+        }
+    }
+    
+    private func updateActiveViewId(with viewId: String) {
+        updateDataview(with: viewId)
+        dataView.activeViewId = viewId
     }
     
     private func updateDataview(with activeViewId: String) {
