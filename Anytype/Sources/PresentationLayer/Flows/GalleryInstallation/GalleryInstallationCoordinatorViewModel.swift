@@ -56,7 +56,7 @@ final class GalleryInstallationCoordinatorViewModel: ObservableObject,
             switch result {
             case .space(let spaceId):
                 dismiss.toggle()
-                try await galleryService.importExperience(spaceId: spaceId, isNewSpace: true, title: manifest.title, url: manifest.downloadLink)
+                try await galleryService.importExperience(spaceId: spaceId, isNewSpace: false, title: manifest.title, url: manifest.downloadLink)
             case .newSpace:
                 let spaceId = try await workspaceService.createSpace(name: manifest.title, gradient: .random, accessibility: .personal, useCase: .none)
                 dismiss.toggle()
