@@ -27,14 +27,14 @@ final class PasteboardBlockService: PasteboardBlockServiceProtocol {
                           range: NSRange,
                           handleLongOperation:  @escaping () -> Void,
                           completion: @escaping (_ pasteResult: PasteboardPasteResult?) -> Void) {
-        let context = PasteboardActionContext.focused(focusedBlockId, range)
+        let context = PasteboardActionContext.focused(blockId: focusedBlockId, range: range)
         paste(context: context, handleLongOperation: handleLongOperation, completion: completion)
     }
     
     func pasteInSelectedBlocks(selectedBlockIds: [String],
                                handleLongOperation:  @escaping () -> Void,
                                completion: @escaping (_ pasteResult: PasteboardPasteResult?) -> Void) {
-        let context = PasteboardActionContext.selected(selectedBlockIds)
+        let context = PasteboardActionContext.selected(blockIds: selectedBlockIds)
         paste(context: context, handleLongOperation: handleLongOperation, completion: completion)
     }
     

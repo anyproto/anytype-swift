@@ -3,6 +3,7 @@ import Foundation
 
 protocol PasteboardBlockServiceProtocol: AnyObject {
     var hasValidURL: Bool { get }
+    
     func pasteInsideBlock(
         focusedBlockId: String,
         range: NSRange,
