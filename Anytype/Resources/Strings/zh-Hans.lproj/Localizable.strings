@@ -850,6 +850,20 @@
 "Spaces.Accessibility.Personal" = "个人空间";
 "Spaces.Search.Title" = "搜索空间";
 "Spaces.Title" = "Spaces";
+"Spaces.Info.Network" = "Network:";
+"Spaces.Info.Device" = "Device:";
+
+// MARK: - Space
+"Space.Status.Unknown" = "未知";
+"Space.Status.Loading" = "Loading";
+"Space.Status.Ok" = "好的";
+"Space.Status.Missing" = "Missing";
+"Space.Status.Error" = "错误";
+"Space.Status.RemoteWaitingDeletion" = "Waiting Deletion";
+"Space.Status.RemoteDeleted" = "Remote Deleted";
+"Space.Status.SpaceDeleted" = "已删除";
+"Space.Status.SpaceActive" = "Active";
+"Space.Status.SpaceJoining" = "Joining";
 
 // MARK: - Space Settings
 "SpaceSettings.Title" = "空间设置";
