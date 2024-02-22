@@ -61,7 +61,7 @@ struct TagRelationView: View {
                 AnytypeText(leftTagsCount, style: .relation2Regular, color: .Text.secondary)
                     .lineLimit(1)
                     .frame(width: 24, height: 18)
-                    .background(Color.Stroke.tertiary)
+                    .background(Color.Shape.tertiary)
                     .cornerRadius(3)
             case .filter, .setCollection, .kanbanHeader:
                 CountTagView(count: count, style: style)

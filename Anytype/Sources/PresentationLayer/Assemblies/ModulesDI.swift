@@ -22,6 +22,22 @@ final class ModulesDI: ModulesDIProtocol {
         return RelationsListModuleAssembly()
     }
     
+    func dateRelationCalendar() -> DateRelationCalendarModuleAssemblyProtocol {
+        return DateRelationCalendarModuleAssembly(serviceLocator: serviceLocator)
+    }
+    
+    func selectRelationList() -> SelectRelationListModuleAssemblyProtocol {
+        return SelectRelationListModuleAssembly(serviceLocator: serviceLocator)
+    }
+    
+    func relationOptionSettings() -> RelationOptionSettingsModuleAssemblyProtocol {
+        return RelationOptionSettingsModuleAssembly(serviceLocator: serviceLocator)
+    }
+    
+    func objectRelationList() -> ObjectRelationListModuleAssemblyProtocol {
+        return ObjectRelationListModuleAssembly(serviceLocator: serviceLocator)
+    }
+    
     func undoRedo() -> UndoRedoModuleAssemblyProtocol {
         return UndoRedoModuleAssembly(serviceLocator: serviceLocator, uiHelpersDI: uiHelpersDI)
     }
@@ -111,7 +127,7 @@ final class ModulesDI: ModulesDIProtocol {
     }
     
     func debugMenu() -> DebugMenuModuleAssemblyProtocol {
-        return DebugMenuModuleAssembly()
+        return DebugMenuModuleAssembly(serviceLocator: serviceLocator)
     }
     
     func settingsAccount() -> SettingsAccountModuleAssemblyProtocol {
@@ -229,10 +245,6 @@ final class ModulesDI: ModulesDIProtocol {
     func setRelationsView() -> SetRelationsViewModuleAssemblyProtocol {
         SetRelationsViewModuleAssembly(serviceLocator: serviceLocator)
     }
-
-    func shareAssembly() -> ShareModuleAssemblyProtocol {
-        return ShareModuleAssembly(serviceLocator: serviceLocator)
-    }
     
     func setViewPicker() -> SetViewPickerModuleAssemblyProtocol {
         SetViewPickerModuleAssembly(serviceLocator: serviceLocator)
@@ -260,5 +272,29 @@ final class ModulesDI: ModulesDIProtocol {
     
     func sharingTip() -> SharingTipModuleAssemblyProtocol {
         SharingTipModuleAssembly()
+    }
+    
+    func shareOptions() -> ShareOptionsModuleAssemblyProtocol {
+        ShareOptionsModuleAssembly(serviceLocator: serviceLocator)
+    }
+    
+    func galleryInstallationPreview() -> GalleryInstallationPreviewModuleAssemblyProtocol {
+        GalleryInstallationPreviewModuleAssembly(serviceLocator: serviceLocator)
+    }
+    
+    func gallerySpaceSelectionModuleAssembly() -> GallerySpaceSelectionModuleAssemblyProtocol {
+        GallerySpaceSelectionModuleAssembly(serviceLocator: serviceLocator)
+    }
+    
+    func commonNotification() -> CommonNotificationAssemblyProtocol {
+        CommonNotificationAssembly(serviceLocator: serviceLocator)
+    }
+    
+    func galleryNotification() -> GalleryNotificationAssemblyProtocol {
+        GalleryNotificationAssembly(serviceLocator: serviceLocator)
+    }
+    
+    func spareShare() -> SpaceShareModuleAssemblyProtocol {
+        SpaceShareModuleAssembly(serviceLocator: serviceLocator)
     }
 }

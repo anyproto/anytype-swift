@@ -34,11 +34,11 @@ extension DetailsService: DetailsServiceProtocol {
     
     func setCover(spaceId: String, source: FileUploadingSource) async throws {
         let data = try await fileService.createFileData(source: source)
-        let imageHash = try await fileService.uploadImage(spaceId: spaceId, data: data)
-        try await setCover(imageHash: imageHash)
+        let fileDetails = try await fileService.uploadFileObject(spaceId: spaceId, data: data, origin: .none)
+        try await setCover(imageObjectId: fileDetails.id)
     }
     
-    func setCover(imageHash: Hash) async throws {
-        try await updateBundledDetails([.coverType(CoverType.uploadedImage), .coverId(imageHash.value)])
+    func setCover(imageObjectId: String) async throws {
+        try await updateBundledDetails([.coverType(CoverType.uploadedImage), .coverId(imageObjectId)])
     }
 }

@@ -30,13 +30,29 @@ extension NavigationContextProtocol {
     }
     
     func presentSwiftUISheetView<Content: View>(view: Content, animated: Bool = true) {
-        let rootView = SheetView { view }
+        let rootView = SheetView { view } cancelAction: {}
+
         let controller = UISheetController(rootView: rootView)
         present(controller, animated: animated)
     }
     
-    func present<Content: View>(_ view: Content, animated: Bool = true, completion: (() -> Void)? = nil) {
+    func present<Content: View>(
+        _ view: Content,
+        modalPresentationStyle: UIModalPresentationStyle? = nil,
+        mediumDetent: Bool = false,
+        animated: Bool = true,
+        completion: (() -> Void)? = nil)
+    {
         let controller = UIHostingController(rootView: view)
+        
+        if let modalPresentationStyle {
+            controller.modalPresentationStyle = modalPresentationStyle
+        }
+        if mediumDetent, let sheet = controller.sheetPresentationController {
+            sheet.detents = [.medium(), .large()]
+            sheet.selectedDetentIdentifier = .medium
+        }
+        
         present(controller, animated: animated, completion: completion)
     }
     

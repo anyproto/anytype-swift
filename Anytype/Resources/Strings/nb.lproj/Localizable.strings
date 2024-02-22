@@ -77,20 +77,46 @@
 "Relation.AddedToLibrary" = "Relasjonen ’%@’ har blitt lagt til i biblioteket ditt";
 "Relation.Deleted" = "Slettet relasjon";
 "Relation.From.Type" = "Fra type %@";
-"Relation.LinksFrom.Title" = "from";
-"Relation.LinksTo.Title" = "to";
+"Relation.LinksFrom.Title" = "fra";
+"Relation.LinksTo.Title" = "til";
+"Relation.EmptyState.title" = "Ingen valg";
+"Relation.EmptyState.description" = "Fant ingenting. Opprett første alternativ for å starte.";
+"Relation.EmptyState.Blocked.title" = "Relasjonen er tom";
+"Relation.Create.Row.title" = "Opprett “%@”";
+"Relation.View.Create.title" = "Opprett alternativ";
+"Relation.View.Edit.title" = "Rediger valg";
+"Relation.Create.Textfield.placeholder" = "Skriv inn navn...";
+"Relation.Edit.Button.title" = "Bruk";
+"Relation.Date.Locked.Alert.title" = "Relasjon “%@” er låst";
+"Relation.ObjectTypes.Header.title" = "Objekttyper:";
+"Relation.ObjectType.Header.title" = "Objekttype:";
+
+"Relation.Delete.Alert.Title" = "Er du sikker?";
+"Relation.Delete.Alert.Description" = "Alternativet vil bli permanent fjernet fra ditt rom.";
+"Relation.Object.Delete.Alert.Description" = "Objektet vil bli flyttet til papirkurven.";
 
 "Relation.Format.Object.Title" = "Objekt";
 "Relation.Format.Text.Title" = "Tekst";
 "Relation.Format.Number.Title" = "Tall";
-"Relation.Format.Status.Title" = "Status";
-"Relation.Format.Tag.Title" = "Tag";
+"Relation.Format.Status.Title" = "Velg";
+"Relation.Format.Tag.Title" = "Velg flere";
 "Relation.Format.Date.Title" = "Dato";
 "Relation.Format.FileMedia.Title" = "Fil & Media";
 "Relation.Format.Checkbox.Title" = "Avkrysningsboks";
 "Relation.Format.Url.Title" = "URL";
 "Relation.Format.Email.Title" = "E-post";
 "Relation.Format.Phone.Title" = "Telefonnummer";
+
+// Origin Relation
+
+"Relation.Origin.Clipboard" = "Clipboard";
+"Relation.Origin.DragAndDrop" = "Dra og slipp";
+"Relation.Origin.Import" = "Imported object";
+"Relation.Origin.WebClipper" = "Web clipper";
+"Relation.Origin.SharingExtension" = "Mobile sharing extension";
+"Relation.Origin.UseCase" = "Use case";
+"Relation.Origin.Builtin" = "Library installed";
+"Relation.Origin.Bookmark" = "Bokmerke";
 
 // MARK: - Mention
 "Mention.Subtitle.Placeholder" = "Objekt";
@@ -109,6 +135,8 @@
 "Actions" = "Handlinger";
 "Relations" = "Relasjoner";
 "Objects" = "Objekter";
+"Lists" = "Groups";
+"Pinned" = "Pinned";
 "Delete" = "Slett";
 "Duplicate" = "Dupliser";
 "Copy" = "Kopier";
@@ -118,6 +146,8 @@
 "Move" = "Flytt";
 "Move to" = "Flytt til";
 "Back" = "Tilbake";
+"Unpin" = "Unpin";
+"Pin on top" = "Pin on top";
 "File block subtitle" = "Lagre fil i original tilstand";
 "Picture block subtitle" = "Last opp og berik siden med bilde";
 "Video block subtitle" = "Last opp spillbar video";
@@ -187,7 +217,7 @@
 "Auth.CameraPermissionTitle" = "Vennligst tillat tilgang";
 "Restore secret phrase from keychain" = "Gjenopprett gjenopprettingsfrasen fra nøkkelringen";
 "Auth.LogIn" = "Logg inn";
-"Auth.Join" = "Opprett ny konto";
+"Auth.Join" = "Bli med";
 "Auth.Welcome.Subtitle" = "Anytype er ditt sikre sted å skrive, planlegge, tenke og organisere alt som betyr for deg.";
 "Auth.Caption.Privacy.Text" = "Ved å fortsette godtar du [Brukervilkårene](%@) og [Personvernerklæringen](%@)";
 "Auth.Next" = "Neste";
@@ -199,6 +229,7 @@
 "Error creating wallet" = "Feil ved oppretting av wallet";
 "Error select account" = "Feil ved valg av konto";
 "Error wallet recover account" = "Feil ved gjenoppretting av wallet-konto";
+"Wallet.Recovery.Error.description" = "Ugyldig gjenopprettingsfrase";
 
 "Search for language" = "Søk etter språk";
 
@@ -331,6 +362,7 @@
 "Templates.Popup.Default" = "Malen ble satt som standard";
 
 "To Bin" = "Til papirkurv";
+"Set as default" = "Set as default";
 
 // MARK: - Context Menu
 "Remove From Favorite" = "Fjern fra favoritter";
@@ -486,8 +518,8 @@
 "Enter value" = "Skriv inn verdi";
 "Select object" = "Velg objekt";
 "Select file" = "Velg fil";
-"Select tag" = "Velg merkelapp";
-"Select status" = "Velg status";
+"Select options" = "Velg alternativer";
+"Select option" = "Velg alternativ";
 "Select date" = "Velg dato";
 "Add email" = "Legg til e-post";
 "Add link" = "Legg til lenke";
@@ -495,6 +527,11 @@
 "Enter text" = "Skriv inn tekst";
 "Unsupported value" = "Ikke-støttet verdi";
 "Select relation type" = "Velg relasjonstype";
+"CommonOpenErrorView.Message" = "Ingen data funnet";
+"Nothing found" = "Ingenting funnet";
+"No type found text" = "Ingen type “%@” funnet. Endre forespørselen din eller opprett ny type.";
+"Create type" = "Opprett type";
+
 
 "Limit object types" = "Begrens objekttyper";
 "Type" = "Type";
@@ -544,9 +581,13 @@
 "Unfavorite" = "Fjern fra favoritter";
 "Unsplash" = "Unsplash";
 "Go back" = "Gå tilbake";
-"Backed up on one node at least" = "Sikkerhetskopiert på minst én node";
+"SyncStatus.LocalOnly.Title" = "Kun lokalt";
+"SyncStatus.LocalOnly.Description" = "Kun lokalt";
+"SyncStatus.Synced.Anytype.Description" = "Backed up on Anytype Network";
+"SyncStatus.Synced.AnytypeStaging.Description" = "Backed up on Anytype Staging";
+"SyncStatus.Synced.SelfHosted.Description" = "Backed up on Self-hosted Network";
 "Downloading or uploading data to some node" = "Laster ned eller laster opp data til en node";
-"Anytype node is not connected" = "Anytype-noden er ikke tilkoblet";
+"Node is not connected" = "Noden er ikke tilkoblet";
 "Initializing sync" = "Initialiserer synkronisering";
 "Not syncing" = "Synkroniserer ikke";
 "Synced" = "Synkronisert";
@@ -560,8 +601,9 @@
 "Into object" = "Inn i objektet";
 "Add below" = "Legg til under";
 "Change type" = "Endre type";
-"Link to existing object" = "Lenke til eksisterende objekt";
-"Link to object" = "Legg til lenke";
+"Show types" = "Vis typer";
+"Hide types" = "Skjul typer";
+"SlashMenu.LinkTo.Description" = "Create link to another object";
 "Upload playable audio" = "Last opp spillbar lyd";
 "Code snippet" = "Kodesnutt";
 "Bookmark" = "Bokmerke";
@@ -590,7 +632,7 @@
 "Today" = "I dag";
 "No date" = "Ingen dato";
 "Clear" = "Tøm";
-"Create option" = "Opprett valg '%@'";
+"Create option with" = "Opprett valg '%@'";
 "Add URL" = "Legg til URL";
 "Add email" = "Legg til e-post";
 "Add phone number" = "Legg til telefonnummer";
@@ -620,6 +662,7 @@
 "DataviewType.gallery" = "Galleri";
 "DataviewType.kanban" = "Kanban";
 "DataviewType.calendar" = "Kalender";
+"DataviewType.graph" = "Graf";
 
 // MARK: - ObjectType
 "ObjectType.fallbackDescription" = "Tomt lerret uten tittel";
@@ -690,8 +733,8 @@
 "SetViewTypesPicker.Settings.Textfield.Placeholder.New.View" = "Ny visning";
 "SetViewTypesPicker.Settings.Textfield.Placeholder.Untitled" = "Uten tittel";
 
-// MARK: Select view picker
-"EditorSetViewPicker.View.Not.Supported.Title" = "Ikke støttet";
+// MARK: Select view
+"EditorSet.View.Not.Supported.Title" = "Ikke støttet";
 
 // BlockContent
 "Content.File.Upload" = "Last opp en fil";
@@ -818,6 +861,16 @@
 "SpaceSettings.DeleteAlert.Title" = "Slett ’%@’ rommet";
 "SpaceSettings.DeleteAlert.Message" = "Dette rommet vil bli slettet ugjenkallelig. Du kan ikke angre denne handlingen.";
 "SpaceSettings.DeleteButton" = "Slett rom";
+"SpaceSettings.Sharing" = "Sharing";
+"SpaceSettings.Share" = "Del";
+
+// MARK: - Space Share
+
+"SpaceShare.Title" = "Share space";
+"SpaceShare.MembersSection" = "Members and requests";
+"SpaceShare.Permissions.Owner" = "Owner";
+"SpaceShare.Permissions.Reader" = "Can view";
+"SpaceShare.Permissions.Writer" = "Can edit";
 
 // MARK: - Space Create
 "SpaceCreate.Title" = "Opprett et rom";
@@ -832,18 +885,17 @@
 "Sharing.AddTo" = "Legg til i";
 "Sharing.LinkTo" = "Koble til";
 
-"Sharing.URL.Bookmark" = "Bokmerkeobjekt";
-"Sharing.URL.Text" = "Tekstblokk";
 "Sharing.Text.NoteObject" = "Notatobjekt";
-"Sharing.Text.TextBlock" = "Tekstblokk";
+"Sharing.Text.TextBlock" = "Blokker";
+"Sharing.Any.Block" = "Blokker";
 
 // MARK: - Sharing tips
-"Sharing.Tip.Title" = "Share Extension";
-"Sharing.Tip.Button.title" = "Show share menu";
+"Sharing.Tip.Title" = "Delingsutvidelse";
+"Sharing.Tip.Button.title" = "Vis delingsmeny";
 
-"Sharing.Tip.Steps.1" = "Tap the iOS sharing button";
-"Sharing.Tip.Steps.2" = "Scroll past the app and tap More";
-"Sharing.Tip.Steps.3" = "Tap Edit to find “Anytype” and  tap";
+"Sharing.Tip.Steps.1" = "Trykk på knappen for deling i iOS";
+"Sharing.Tip.Steps.2" = "Bla forbi appen og trykk mer";
+"Sharing.Tip.Steps.3" = "Trykk på Rediger for å finne \"Anytype\" og trykk på";
 
 // MARK: - Initial
 
@@ -862,6 +914,10 @@
 "Error.AnytypeNeedsUpgrate.Title" = "Oppdater din app";
 "Error.AnytypeNeedsUpgrate.Message" = "Dette objektet ble endret i en nyere versjon av Anytype. Oppdater appen for å åpne det på denne enheten";
 "Error.AnytypeNeedsUpgrate.Confirm" = "Oppdater";
+"Error.UnableToConnect" = "Vennligst koble deg til internett";
+"Error.Common.Title" = "Oops!";
+"Error.Common.Message" = "Vennligst sjekk internettforbindelsen din og prøv igjen, eller legg ut en rapport på forumet.";
+"Error.Common.TryAgain" = "Prøv igjen";
 
 // MARK: - Relative date formatter
 "RelativeFormatter.days7" = "Siste 7 dager";
@@ -869,12 +925,22 @@
 "RelativeFormatter.older" = "Eldre";
 
 // MARK: - Server
-"Server.Network" = "Network";
-"Server.Networks" = "Networks";
-"Server.AddButton" = "Add Self-hosted Network";
+"Server.Network" = "Nettverk";
+"Server.Networks" = "Nettverk";
+"Server.AddButton" = "Legg til selvhostede nettverk";
 "Server.Anytype" = "Anytype";
-"Server.LocalOnly" = "Local-only";
+"Server.LocalOnly" = "Kun lokalt";
 
 // MARK: - Gallery
 "Gallery.Unavailable.Title" = "Galleri vil bli støttet snart";
 "Gallery.Unavailable.Message" = "Vennligst bruk skrivebordsappen for nå";
+"Gallery.Author" = "Laget av @%@";
+"Gallery.Install" = "Installer";
+"Gallery.InstallToNew" = "Installer til nytt rom";
+"Gallery.Notification.Success" = "Erfaringen ble vellykket installert i rommet \"%@\". Du kan nå åpne det og begynne å bruke det.";
+"Gallery.Notification.Button" = "Gå til rom";
+"Gallery.Notification.Error" = "Oops! \"%@\" ble ikke installert. Vennligst sjekk internettforbindelsen din og prøv igjen, eller legg ut en rapport på forumet.";
+
+// MARK: - Debug
+"Debug.MimeTypes" = "MIME-typer - %@";
+"Debug.Info" = "Feilsøkingsinformasjon";

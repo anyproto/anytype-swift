@@ -12,6 +12,9 @@ struct HomeWidgetsView: View {
                 HomeTopShadow()
             } content: {
                 VStack(spacing: 12) {
+                    if #available(iOS 17.0, *) {
+                        WidgetSwipeTipView()
+                    }
                     ForEach(model.models) { rowModel in
                         rowModel.provider.view
                     }

@@ -37,7 +37,7 @@ final class BlockImageContentView: UIView, BlockContentView {
         imageView.contentMode = .scaleAspectFit
         imageView.clipsToBounds = true
         imageView.isUserInteractionEnabled = true
-        imageView.backgroundColor = .Stroke.tertiary
+        imageView.backgroundColor = .Shape.tertiary
         
         addSubview(imageView) {
             $0.pinToSuperview(insets: Layout.imageViewInsets)
@@ -57,10 +57,10 @@ final class BlockImageContentView: UIView, BlockContentView {
         let file = configuration.fileData
         let oldFile = currentFile
 
-        guard !file.metadata.hash.isEmpty else { return }
+        guard !file.metadata.targetObjectId.isEmpty else { return }
 
-        let imageId = file.metadata.hash
-        guard imageId != oldFile?.metadata.hash else { return }
+        let imageId = file.metadata.targetObjectId
+        guard imageId != oldFile?.metadata.targetObjectId else { return }
         currentFile = file
                 
         let imageWidth = configuration.maxWidth - Layout.imageViewInsets.right - Layout.imageViewInsets.left

@@ -1,6 +1,7 @@
 import SwiftUI
 import Combine
 import AnytypeCore
+import Services
 
 @MainActor
 final class LoginViewModel: ObservableObject {
@@ -129,11 +130,9 @@ final class LoginViewModel: ObservableObject {
     }
     
     private func restoreFromkeychain() {
-        localAuthService.auth(reason: Loc.restoreSecretPhraseFromKeychain) { [weak self] didComplete in
-            guard let self, didComplete,
-                  let phrase = try? seedService.obtainSeed() else {
-                return
-            }
+        Task {
+            try await localAuthService.auth(reason: Loc.restoreSecretPhraseFromKeychain)
+            let phrase = try seedService.obtainSeed()
             walletRecovery(with: phrase, route: .keychain)
         }
     }
@@ -172,9 +171,9 @@ final class LoginViewModel: ObservableObject {
                 stopButtonsLoading()
             }
             do {
-                let status = try await authService.selectAccount(id: id)
+                let account = try await authService.selectAccount(id: id)
                 
-                switch status {
+                switch account.status {
                 case .active:
                     applicationStateService.state = .home
                 case .pendingDeletion:

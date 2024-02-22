@@ -61,9 +61,9 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>d</string>
         <key>one</key>
-        <string>%d link</string>
+        <string>%d Link</string>
         <key>other</key>
-        <string>%d links</string>
+        <string>%d Links</string>
       </dict>
     </dict>
     <key>Days to deletion account</key>
@@ -96,6 +96,70 @@
         <string>Ein Objekt gelöscht</string>
         <key>other</key>
         <string>%d Objekte gelöscht</string>
+      </dict>
+    </dict>
+    <key>Sharing.File.NewObject</key>
+    <dict>
+      <key>NSStringLocalizedFormatKey</key>
+      <string>%#@object@</string>
+      <key>object</key>
+      <dict>
+        <key>NSStringFormatSpecTypeKey</key>
+        <string>NSStringPluralRuleType</string>
+        <key>NSStringFormatValueTypeKey</key>
+        <string>d</string>
+        <key>one</key>
+        <string>Dateiobjekt</string>
+        <key>other</key>
+        <string>%d Dateiobjekte</string>
+      </dict>
+    </dict>
+    <key>Sharing.File.Block</key>
+    <dict>
+      <key>NSStringLocalizedFormatKey</key>
+      <string>%#@object@</string>
+      <key>object</key>
+      <dict>
+        <key>NSStringFormatSpecTypeKey</key>
+        <string>NSStringPluralRuleType</string>
+        <key>NSStringFormatValueTypeKey</key>
+        <string>d</string>
+        <key>one</key>
+        <string>Dateiblock</string>
+        <key>other</key>
+        <string>%d Dateiblöcke</string>
+      </dict>
+    </dict>
+    <key>Sharing.URL.NewObject</key>
+    <dict>
+      <key>NSStringLocalizedFormatKey</key>
+      <string>%#@object@</string>
+      <key>object</key>
+      <dict>
+        <key>NSStringFormatSpecTypeKey</key>
+        <string>NSStringPluralRuleType</string>
+        <key>NSStringFormatValueTypeKey</key>
+        <string>d</string>
+        <key>one</key>
+        <string>Lesezeichen-Objekt</string>
+        <key>other</key>
+        <string>%d Lesezeichen-Objekte</string>
+      </dict>
+    </dict>
+    <key>Sharing.URL.Block</key>
+    <dict>
+      <key>NSStringLocalizedFormatKey</key>
+      <string>%#@object@</string>
+      <key>object</key>
+      <dict>
+        <key>NSStringFormatSpecTypeKey</key>
+        <string>NSStringPluralRuleType</string>
+        <key>NSStringFormatValueTypeKey</key>
+        <string>d</string>
+        <key>one</key>
+        <string>Block verlinken</string>
+        <key>other</key>
+        <string>%d Blöcke verlinken</string>
       </dict>
     </dict>
   </dict>

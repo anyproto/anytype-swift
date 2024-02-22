@@ -9,7 +9,7 @@ final class FavoriteWidgetInternalViewModel: CommonWidgetInternalViewModel, Widg
     // MARK: - DI
     
     private let favoriteSubscriptionService: FavoriteSubscriptionServiceProtocol
-    private let pageRepository: PageRepositoryProtocol
+    private let defaultObjectService: DefaultObjectCreationServiceProtocol
     private let objectActionsService: ObjectActionsServiceProtocol
     private weak var output: CommonWidgetModuleOutput?
     
@@ -29,13 +29,13 @@ final class FavoriteWidgetInternalViewModel: CommonWidgetInternalViewModel, Widg
         favoriteSubscriptionService: FavoriteSubscriptionServiceProtocol,
         activeWorkspaceStorage: ActiveWorkpaceStorageProtocol,
         documentService: OpenedDocumentsProviderProtocol,
-        pageRepository: PageRepositoryProtocol,
+        defaultObjectService: DefaultObjectCreationServiceProtocol,
         objectActionsService: ObjectActionsServiceProtocol,
         output: CommonWidgetModuleOutput?
     ) {
         self.favoriteSubscriptionService = favoriteSubscriptionService
         self.document = documentService.document(objectId: activeWorkspaceStorage.workspaceInfo.homeObjectID)
-        self.pageRepository = pageRepository
+        self.defaultObjectService = defaultObjectService
         self.objectActionsService = objectActionsService
         self.output = output
         super.init(widgetBlockId: widgetBlockId, widgetObject: widgetObject)
@@ -63,8 +63,9 @@ final class FavoriteWidgetInternalViewModel: CommonWidgetInternalViewModel, Widg
     
     func onCreateObjectTap() {
         Task {
-            let details = try await pageRepository.createDefaultPage(name: "", shouldDeleteEmptyObject: true, spaceId: widgetObject.spaceId)
+            let details = try await defaultObjectService.createDefaultObject(name: "", shouldDeleteEmptyObject: true, spaceId: widgetObject.spaceId)
             AnytypeAnalytics.instance().logCreateObject(objectType: details.analyticsType, route: .widget)
+            AnytypeAnalytics.instance().logAddToFavorites(true)
             try await objectActionsService.setFavorite(objectIds: [details.id], true)
             output?.onObjectSelected(screenData: details.editorScreenData())
             UISelectionFeedbackGenerator().selectionChanged()

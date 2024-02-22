@@ -25,7 +25,6 @@ final class SquareIconPainter: IconPainter {
     func draw(bounds: CGRect, context: CGContext, iconContext: IconContext) {
         context.saveGState()
         
-        drawBackground(bounds: bounds, context: context, iconContext: iconContext)
         contentPainter.draw(bounds: bounds, context: context, iconContext: iconContext)
         
         context.restoreGState()
@@ -38,7 +37,7 @@ final class SquareIconPainter: IconPainter {
         context.addPath(path)
         context.clip()
         
-        context.setFillColor(UIColor.Stroke.secondary.cgColor)
+        context.setFillColor(UIColor.Shape.secondary.cgColor)
         context.fill(bounds)
     }
 }

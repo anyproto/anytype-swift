@@ -77,20 +77,46 @@
 "Relation.AddedToLibrary" = "Relação \"%@\" adicionada à biblioteca";
 "Relation.Deleted" = "Relação apagada";
 "Relation.From.Type" = "Do tipo \"%@\"";
-"Relation.LinksFrom.Title" = "from";
-"Relation.LinksTo.Title" = "to";
+"Relation.LinksFrom.Title" = "de";
+"Relation.LinksTo.Title" = "para";
+"Relation.EmptyState.title" = "Nenhuma opção";
+"Relation.EmptyState.description" = "Nada foi encontrado. Crie a primeira opção para começar.";
+"Relation.EmptyState.Blocked.title" = "A relação está vazia";
+"Relation.Create.Row.title" = "Criar \"%@”";
+"Relation.View.Create.title" = "Criar opção";
+"Relation.View.Edit.title" = "Editar opção";
+"Relation.Create.Textfield.placeholder" = "Inserir nome...";
+"Relation.Edit.Button.title" = "Aplicar";
+"Relation.Date.Locked.Alert.title" = "Relação “%@” está bloqueada";
+"Relation.ObjectTypes.Header.title" = "Tipos de objeto:";
+"Relation.ObjectType.Header.title" = "Tipo de Objeto:";
+
+"Relation.Delete.Alert.Title" = "Você tem certeza?";
+"Relation.Delete.Alert.Description" = "A opção será removida permanentemente do seu espaço.";
+"Relation.Object.Delete.Alert.Description" = "O objeto será movido para o Lixo.";
 
 "Relation.Format.Object.Title" = "Objeto";
 "Relation.Format.Text.Title" = "Texto";
 "Relation.Format.Number.Title" = "Número";
-"Relation.Format.Status.Title" = "Situação";
-"Relation.Format.Tag.Title" = "Etiqueta";
+"Relation.Format.Status.Title" = "Selecionar";
+"Relation.Format.Tag.Title" = "Seleção múltipla";
 "Relation.Format.Date.Title" = "Data";
 "Relation.Format.FileMedia.Title" = "Arquivos e mídias";
 "Relation.Format.Checkbox.Title" = "Caixa de seleção";
 "Relation.Format.Url.Title" = "URL";
 "Relation.Format.Email.Title" = "Email";
 "Relation.Format.Phone.Title" = "Número de telefone";
+
+// Origin Relation
+
+"Relation.Origin.Clipboard" = "Área de Transferência";
+"Relation.Origin.DragAndDrop" = "Arraste e Solte";
+"Relation.Origin.Import" = "Objeto importado";
+"Relation.Origin.WebClipper" = "Web clipper";
+"Relation.Origin.SharingExtension" = "Extensão de compartilhamento móvel";
+"Relation.Origin.UseCase" = "Caso de uso";
+"Relation.Origin.Builtin" = "Biblioteca instalada";
+"Relation.Origin.Bookmark" = "Marcador";
 
 // MARK: - Mention
 "Mention.Subtitle.Placeholder" = "Objeto";
@@ -109,6 +135,8 @@
 "Actions" = "Ações";
 "Relations" = "Relações";
 "Objects" = "Objetos";
+"Lists" = "Groups";
+"Pinned" = "Fixado";
 "Delete" = "Excluir";
 "Duplicate" = "Duplicar";
 "Copy" = "Copiar";
@@ -118,6 +146,8 @@
 "Move" = "Mover";
 "Move to" = "Mover para";
 "Back" = "Voltar";
+"Unpin" = "Desafixar";
+"Pin on top" = "Fixar no topo";
 "File block subtitle" = "Armazenar arquivo no estado original";
 "Picture block subtitle" = "Enviar e enriquecer a página com imagem";
 "Video block subtitle" = "Enviar vídeo";
@@ -187,7 +217,7 @@
 "Auth.CameraPermissionTitle" = "Conceda acesso, por favor";
 "Restore secret phrase from keychain" = "Restaure a frase de recuperação do chaveiro";
 "Auth.LogIn" = "Entrar";
-"Auth.Join" = "Criar nova conta";
+"Auth.Join" = "Cadastrar-se";
 "Auth.Welcome.Subtitle" = "Anytype é seu lugar seguro para pensar, planejar, escrever, e organizar tudo que é importante para você";
 "Auth.Caption.Privacy.Text" = "Ao continuar, você concorda com os [Termos de Uso](%@) e com a [Política de Privacidade](%@)";
 "Auth.Next" = "Avançar";
@@ -199,6 +229,7 @@
 "Error creating wallet" = "Erro na criação da carteira";
 "Error select account" = "Erro ao selecionar conta";
 "Error wallet recover account" = "Erro ao recuperar conta da carteira";
+"Wallet.Recovery.Error.description" = "Frase de recuperação inválida";
 
 "Search for language" = "Pesquisar idioma";
 
@@ -272,9 +303,9 @@
 "Undo" = "Desfazer";
 "Actions.LinkItself" = "Vincular a";
 "Actions.MakeAsTemplate" = "Fazer modelo";
-"Actions.TemplateMakeDefault" = "Make default";
-"Actions.CreateWidget.Title" = "To widgets";
-"Actions.CreateWidget.Success" = "New widget was created";
+"Actions.TemplateMakeDefault" = "Tornar padrão";
+"Actions.CreateWidget.Title" = "Criar widget";
+"Actions.CreateWidget.Success" = "Um novo widget foi criado";
 
 // Object Type
 "Set" = "Conjunto";
@@ -331,6 +362,7 @@
 "Templates.Popup.Default" = "O modelo foi definido como padrão";
 
 "To Bin" = "Para Lixeira";
+"Set as default" = "Definir como padrão";
 
 // MARK: - Context Menu
 "Remove From Favorite" = "Remover dos Favoritos";
@@ -469,7 +501,7 @@
 
 "Error" = "Erro";
 "Unknown error" = "Erro desconhecido";
-"Open Type Error" = "Not supported type \"%@\". You can open it via desktop.";
+"Open Type Error" = "Tipo \"%@\" não suportado. Você pode abri-lo no desktop.";
 "Close" = "Fechar";
 "Account is deleted" = "A conta foi removida";
 "Add phone" = "Adicionar telefone";
@@ -486,8 +518,8 @@
 "Enter value" = "Inserir valor";
 "Select object" = "Selecionar objeto";
 "Select file" = "Selecionar arquivo";
-"Select tag" = "Selecionar tag";
-"Select status" = "Selecionar status";
+"Select options" = "Selecionar opções";
+"Select option" = "Selecionar opção";
 "Select date" = "Selecionar data";
 "Add email" = "Adicionar e-mail";
 "Add link" = "Adicionar link";
@@ -495,6 +527,11 @@
 "Enter text" = "Inserir texto";
 "Unsupported value" = "Valor não suportado";
 "Select relation type" = "Selecionar tipo de relação";
+"CommonOpenErrorView.Message" = "Dados não encontrados";
+"Nothing found" = "Nada encontrado";
+"No type found text" = "No type “%@” found. Change your request or create new type.";
+"Create type" = "Create type";
+
 
 "Limit object types" = "Limitar tipos de objeto";
 "Type" = "Tipo";
@@ -544,9 +581,13 @@
 "Unfavorite" = "Remover dos favoritos";
 "Unsplash" = "Unsplash";
 "Go back" = "Voltar";
-"Backed up on one node at least" = "Backup feito em pelo menos um nó";
+"SyncStatus.LocalOnly.Title" = "Somente local";
+"SyncStatus.LocalOnly.Description" = "Apenas localmente";
+"SyncStatus.Synced.Anytype.Description" = "Backup realizado na rede Anytype";
+"SyncStatus.Synced.AnytypeStaging.Description" = "Backup realizado na rede Anytype";
+"SyncStatus.Synced.SelfHosted.Description" = "Backup Realizado na Rede Auto-hospedada";
 "Downloading or uploading data to some node" = "Baixando ou carregando dados para algum nó";
-"Anytype node is not connected" = "Nó Anytype não está conectado";
+"Node is not connected" = "O nó não está conectado";
 "Initializing sync" = "Iniciando sincronização";
 "Not syncing" = "Sincronização desativada";
 "Synced" = "Sincronizado";
@@ -560,8 +601,9 @@
 "Into object" = "Neste objeto";
 "Add below" = "Adicionar abaixo";
 "Change type" = "Alterar tipo";
-"Link to existing object" = "Vincular a objeto existente";
-"Link to object" = "Adicionar link";
+"Show types" = "Show types";
+"Hide types" = "Hide types";
+"SlashMenu.LinkTo.Description" = "Criar vínculo com outro objeto";
 "Upload playable audio" = "Carregar áudio reproduzível";
 "Code snippet" = "Trecho de código";
 "Bookmark" = "Marcador";
@@ -590,7 +632,7 @@
 "Today" = "Hoje";
 "No date" = "Sem data";
 "Clear" = "Limpar";
-"Create option" = "Criar opção %@’";
+"Create option with" = "Criar opção %@’";
 "Add URL" = "Adicionar URL";
 "Add email" = "Adicionar e-mail";
 "Add phone number" = "Adicionar número de telefone";
@@ -620,6 +662,7 @@
 "DataviewType.gallery" = "Galeria";
 "DataviewType.kanban" = "Kanban";
 "DataviewType.calendar" = "Calendário";
+"DataviewType.graph" = "Graph";
 
 // MARK: - ObjectType
 "ObjectType.fallbackDescription" = "Tela em branco sem título";
@@ -690,8 +733,8 @@
 "SetViewTypesPicker.Settings.Textfield.Placeholder.New.View" = "Nova Exibição";
 "SetViewTypesPicker.Settings.Textfield.Placeholder.Untitled" = "Sem título";
 
-// MARK: Select view picker
-"EditorSetViewPicker.View.Not.Supported.Title" = "Incompatível";
+// MARK: Select view
+"EditorSet.View.Not.Supported.Title" = "Incompatível";
 
 // BlockContent
 "Content.File.Upload" = "Enviar um arquivo";
@@ -709,10 +752,6 @@
 "Content.DataView.InlineSet.Untitled" = "Conjunto sem título";
 "Content.DataView.InlineCollection.Untitled" = "Coleção sem título";
 "Content.DataView.InlineSet.Toast.Failure" = "Esse conjunto não tem uma fonte";
-
-// MARK: - Widget extension
-"WidgetExtension.LockScreen.Title" = "Novo objeto";
-"WidgetExtension.LockScreen.Description" = "Criar um objeto novo em tempo real";
 
 // MARK: - Toast
 "Editor.Toast.LinkedTo" = "vinculado a";
@@ -818,6 +857,16 @@
 "SpaceSettings.DeleteAlert.Title" = "Excluir o espaço ‘%@’";
 "SpaceSettings.DeleteAlert.Message" = "Este espaço será excluído irrevogavelmente. Você não pode desfazer esta ação.";
 "SpaceSettings.DeleteButton" = "Excluir Espaço";
+"SpaceSettings.Sharing" = "Compartilhamento";
+"SpaceSettings.Share" = "Compartilhar";
+
+// MARK: - Space Share
+
+"SpaceShare.Title" = "Compartilhar espaço";
+"SpaceShare.MembersSection" = "Membros e solicitações";
+"SpaceShare.Permissions.Owner" = "Proprietário";
+"SpaceShare.Permissions.Reader" = "Pode visualizar";
+"SpaceShare.Permissions.Writer" = "Pode editar";
 
 // MARK: - Space Create
 "SpaceCreate.Title" = "Cria um Espaço";
@@ -832,18 +881,17 @@
 "Sharing.AddTo" = "Adicionar à";
 "Sharing.LinkTo" = "Vincular a";
 
-"Sharing.URL.Bookmark" = "Objeto marcador";
-"Sharing.URL.Text" = "Bloco de texto";
 "Sharing.Text.NoteObject" = "Objeto nota";
-"Sharing.Text.TextBlock" = "Bloco de texto";
+"Sharing.Text.TextBlock" = "Blocos";
+"Sharing.Any.Block" = "Blocos";
 
 // MARK: - Sharing tips
-"Sharing.Tip.Title" = "Share Extension";
-"Sharing.Tip.Button.title" = "Show share menu";
+"Sharing.Tip.Title" = "Compartilhar extensão";
+"Sharing.Tip.Button.title" = "Mostrar menu de compartilhamento";
 
-"Sharing.Tip.Steps.1" = "Tap the iOS sharing button";
-"Sharing.Tip.Steps.2" = "Scroll past the app and tap More";
-"Sharing.Tip.Steps.3" = "Tap Edit to find “Anytype” and  tap";
+"Sharing.Tip.Steps.1" = "Toque no botão de compartilhamento do iOS";
+"Sharing.Tip.Steps.2" = "Role a tela para além do aplicativo e toque em Mais";
+"Sharing.Tip.Steps.3" = "Toque em Editar, encontre \"Anytype\" e toque";
 
 // MARK: - Initial
 
@@ -855,13 +903,17 @@
 "Initial.UnstableMiddle.WontUseProd" = "Não usarei a minha conta de produção";
 
 // MARK: - Create tip
-"LongTapCreateTip.Title" = "Criar objetos com tipo específico";
+"LongTapCreateTip.Title" = "Criar Objetos com Tipo específico";
 "LongTapCreateTip.Message" = "Toque longo no botão Criar Objeto para abrir o menu com os tipos";
 
 // MARK: - Error
 "Error.AnytypeNeedsUpgrate.Title" = "Atualizar seu aplicativo!";
 "Error.AnytypeNeedsUpgrate.Message" = "Este objeto foi atualizado em uma nova versão do Anytype. Por favor, atualize o aplicativo para abri-lo neste dispositivo";
-"Error.AnytypeNeedsUpgrate.Confirm" = "Update";
+"Error.AnytypeNeedsUpgrate.Confirm" = "Atualização";
+"Error.UnableToConnect" = "Por favor, conecte-se à internet";
+"Error.Common.Title" = "Oops!";
+"Error.Common.Message" = "Please check your internet connection and try again or post a report on forum.";
+"Error.Common.TryAgain" = "Try again";
 
 // MARK: - Relative date formatter
 "RelativeFormatter.days7" = "Últimos 7 dias";
@@ -869,12 +921,22 @@
 "RelativeFormatter.older" = "Mais antigo";
 
 // MARK: - Server
-"Server.Network" = "Network";
-"Server.Networks" = "Networks";
-"Server.AddButton" = "Add Self-hosted Network";
+"Server.Network" = "Rede";
+"Server.Networks" = "Redes";
+"Server.AddButton" = "Adicionar Rede Auto-hospedada";
 "Server.Anytype" = "Anytype";
-"Server.LocalOnly" = "Local-only";
+"Server.LocalOnly" = "Somente local";
 
 // MARK: - Gallery
-"Gallery.Unavailable.Title" = "Gallery will be supported soon";
-"Gallery.Unavailable.Message" = "Please use the desktop app for now";
+"Gallery.Unavailable.Title" = "A Galeria estará disponível em breve";
+"Gallery.Unavailable.Message" = "Por favor, utilize o aplicativo para computador por enquanto";
+"Gallery.Author" = "Made by @%@";
+"Gallery.Install" = "Install";
+"Gallery.InstallToNew" = "Install to new space";
+"Gallery.Notification.Success" = "Experience was successfully installed to the \"%@\" space. You can now open and start using it.";
+"Gallery.Notification.Button" = "Go to space";
+"Gallery.Notification.Error" = "Oops! \"%@\" wasn't installed. Please check your internet connection and try again or post a report on forum.";
+
+// MARK: - Debug
+"Debug.MimeTypes" = "Tipos de MIME - %@";
+"Debug.Info" = "Informações de Depuração";

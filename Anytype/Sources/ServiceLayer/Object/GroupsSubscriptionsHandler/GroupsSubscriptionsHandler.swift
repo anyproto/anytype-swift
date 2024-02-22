@@ -6,7 +6,7 @@ import NotificationCenter
 final class GroupsSubscriptionsHandler: GroupsSubscriptionsHandlerProtocol {
     
     private struct Subscriber {
-        let data: GroupsSubscription
+        let data: GroupsSubscriptionData
         let callback: GroupsSubscriptionCallback
     }
     
@@ -28,7 +28,7 @@ final class GroupsSubscriptionsHandler: GroupsSubscriptionsHandlerProtocol {
         }
     }
     
-    func startGroupsSubscription(data: GroupsSubscription, update: @escaping GroupsSubscriptionCallback) async throws -> [DataviewGroup] {
+    func startGroupsSubscription(data: GroupsSubscriptionData, update: @escaping GroupsSubscriptionCallback) async throws -> [DataviewGroup] {
         guard subscribers[data.identifier].isNil else {
             return []
         }
@@ -44,7 +44,7 @@ final class GroupsSubscriptionsHandler: GroupsSubscriptionsHandlerProtocol {
         ).groups
     }
     
-    func hasGroupsSubscriptionDataDiff(with data: GroupsSubscription) -> Bool {
+    func hasGroupsSubscriptionDataDiff(with data: GroupsSubscriptionData) -> Bool {
         guard let subscriber = subscribers[data.identifier] else {
             return true
         }

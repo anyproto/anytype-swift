@@ -1,6 +1,5 @@
 import Foundation
 import Combine
-import ProtobufMessages
 import AnytypeCore
 import Services
 
@@ -16,6 +15,11 @@ final class MiddlewareConfigurationProvider {
     
     // MARK: - Private variables
     private var cachedConfiguration: MiddlewareConfiguration?
+    private let middlewareConfigurationService: MiddlewareConfigurationServiceProtocol
+    
+    init(middlewareConfigurationService: MiddlewareConfigurationServiceProtocol) {
+        self.middlewareConfigurationService = middlewareConfigurationService
+    }
 }
 
 extension MiddlewareConfigurationProvider: MiddlewareConfigurationProviderProtocol {
@@ -39,6 +43,6 @@ extension MiddlewareConfigurationProvider: MiddlewareConfigurationProviderProtoc
     }
     
     func libraryVersion() async throws -> String {
-        return try await ClientCommands.appGetVersion().invoke().version
+        return try await middlewareConfigurationService.libraryVersion()
     }
 }

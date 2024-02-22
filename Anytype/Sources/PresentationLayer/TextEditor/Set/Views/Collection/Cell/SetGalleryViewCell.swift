@@ -39,7 +39,7 @@ struct SetGalleryViewCell: View {
         .frame(maxWidth: .infinity, minHeight: configuration.minHeight, alignment: .topLeading)
         .cornerRadius(Constants.cornerRadius)
         .overlay(
-            RoundedRectangle(cornerRadius: Constants.cornerRadius).stroke(Color.Stroke.primary, lineWidth: 0.5)
+            RoundedRectangle(cornerRadius: Constants.cornerRadius).stroke(Color.Shape.primary, lineWidth: 0.5)
         )
         .readSize { width = $0.width }
     }
@@ -63,7 +63,7 @@ struct SetGalleryViewCell: View {
                     Constants.largeItemHeight
             )
             .frame(maxWidth: .infinity)
-            .background(Color.Stroke.transperent)
+            .background(Color.Shape.transperent)
         }
     }
     

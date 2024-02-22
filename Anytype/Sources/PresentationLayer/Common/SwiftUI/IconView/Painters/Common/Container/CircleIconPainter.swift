@@ -38,7 +38,7 @@ final class CircleIconPainter: IconPainter {
         context.addPath(circlePath)
         context.clip()
         
-        context.setFillColor(UIColor.Stroke.secondary.cgColor)
+        context.setFillColor(UIColor.Shape.secondary.cgColor)
         context.fill(bounds)
     }
 }

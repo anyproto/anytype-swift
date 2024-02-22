@@ -54,7 +54,7 @@ final class AccountEventHandler: AccountEventHandlerProtocol {
             case let .accountShow(data):
                 accountShowSubject.send(data.account.id)
             case let .accountUpdate(data):
-                if data.hasStatus, let status = data.status.asModel {
+                if data.hasStatus, let status = try? data.status.asModel() {
                     handleStatus(status)
                 }
                 // Other account events

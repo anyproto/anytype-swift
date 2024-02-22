@@ -37,14 +37,13 @@ final class DeletedAccountViewModel: ObservableObject {
                 AnalyticsEventsPropertiesKey.route: AnalyticsEventsName.screenDeletion
             ]
         )
-
-        service.logout(removeData: true) { [weak self] isSuccess in
-            guard isSuccess else {
+        Task {
+            do {
+                try await service.logout(removeData: true)
+                applicationStateService.state = .auth
+            } catch {
                 UINotificationFeedbackGenerator().notificationOccurred(.error)
-                return
             }
-            
-            self?.applicationStateService.state = .auth
         }
     }
     

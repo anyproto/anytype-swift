@@ -11,7 +11,6 @@ struct AccessoryViewBuilder {
         document: BaseDocumentProtocol,
         onShowStyleMenu: @escaping RoutingAction<[BlockInformation]>,
         onBlockSelection: @escaping RoutingAction<BlockInformation>,
-        pageService: PageRepositoryProtocol,
         linkToObjectCoordinator: LinkToObjectCoordinatorProtocol,
         cursorManager: EditorCursorManager
     ) -> (AccessoryViewStateManager, ChangeTypeAccessoryViewModel) {
@@ -29,18 +28,22 @@ struct AccessoryViewBuilder {
         let markupViewModel = MarkupAccessoryViewModel(
             document: document,
             actionHandler: actionHandler,
-            pageService: pageService,
             linkToObjectCoordinator: linkToObjectCoordinator
         )
 
         let changeTypeViewModel = ChangeTypeAccessoryViewModel(
             router: router,
             handler: actionHandler,
-            searchService: ServiceLocator.shared.searchService(),
+            typesService: ServiceLocator.shared.typesService(),
             document: document
         )
         
-        let typeListViewModel = HorizonalTypeListViewModel(itemProvider: changeTypeViewModel)
+        let typeListViewModel = HorizonalTypeListViewModel(
+            itemProvider: changeTypeViewModel, 
+            onSearchTap: { [weak changeTypeViewModel] in
+                changeTypeViewModel?.onSearchTap()
+            }
+        )
 
         let horizontalTypeListView = HorizonalTypeListView(viewModel: typeListViewModel)
 

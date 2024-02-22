@@ -17,8 +17,8 @@ extension BlockFile {
             newData.metadata.name = data.name.value
         }
         
-        if data.hasHash {
-            newData.metadata.hash = data.hash.value
+        if data.hasTargetObjectID {
+            newData.metadata.targetObjectId = data.targetObjectID.value
         }
         
         if data.hasMime {

@@ -2,12 +2,19 @@ import Foundation
 import UIKit
 import Services
 
+enum CreateObjectTitleInputType {
+    case writeToBlock(blockId: String) // For layouts withouts Name (Note)
+    case writeToRelationName // For the rest of layouts
+    
+    case none // Layouts without title input like Bookmark
+}
+
 @MainActor
 protocol CreateObjectModuleAssemblyProtocol {
     
     func makeCreateObject(
         objectId: String,
-        blockId: String?,
+        titleInputType: CreateObjectTitleInputType,
         openToEditAction: @escaping () -> Void,
         closeAction: @escaping () -> Void
     ) -> UIViewController
@@ -33,15 +40,15 @@ final class CreateObjectModuleAssembly: CreateObjectModuleAssemblyProtocol {
     @MainActor
     func makeCreateObject(
         objectId: String,
-        blockId: String?,
+        titleInputType: CreateObjectTitleInputType,
         openToEditAction: @escaping () -> Void,
         closeAction: @escaping () -> Void
     ) -> UIViewController {
         let viewModel = CreateObjectViewModel(
             objectId: objectId,
-            blockId: blockId,
+            titleInputType: titleInputType,
             relationService: serviceLocator.relationService(objectId: objectId),
-            textService: serviceLocator.textService,
+            textServiceHandler: serviceLocator.textServiceHandler(),
             openToEditAction: openToEditAction,
             closeAction: closeAction
         )

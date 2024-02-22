@@ -8,12 +8,11 @@ import AnytypeCore
 final class BlockActionService: BlockActionServiceProtocol {
     private let documentId: BlockId
 
-    private let singleService: BlockActionsServiceSingleProtocol
     private let objectActionService: ObjectActionsServiceProtocol
-    private let textService = TextService()
-    private let listService: BlockListServiceProtocol
+    private let textServiceHandler: TextServiceProtocol
+    private let blockService: BlockServiceProtocol
     private let bookmarkService: BookmarkServiceProtocol
-    private let fileService = FileActionsService()
+    private let fileService: FileActionsServiceProtocol
     private let cursorManager: EditorCursorManager
     private let objectTypeProvider: ObjectTypeProviderProtocol
     
@@ -21,20 +20,22 @@ final class BlockActionService: BlockActionServiceProtocol {
 
     init(
         documentId: String,
-        listService: BlockListServiceProtocol,
-        singleService: BlockActionsServiceSingleProtocol,
+        blockService: BlockServiceProtocol,
         objectActionService: ObjectActionsServiceProtocol,
+        textServiceHandler: TextServiceProtocol,
         modelsHolder: EditorMainItemModelsHolder,
         bookmarkService: BookmarkServiceProtocol,
+        fileService: FileActionsServiceProtocol,
         cursorManager: EditorCursorManager,
         objectTypeProvider: ObjectTypeProviderProtocol
     ) {
         self.documentId = documentId
-        self.listService = listService
-        self.singleService = singleService
+        self.blockService = blockService
         self.objectActionService = objectActionService
+        self.textServiceHandler = textServiceHandler
         self.modelsHolder = modelsHolder
         self.bookmarkService = bookmarkService
+        self.fileService = fileService
         self.cursorManager = cursorManager
         self.objectTypeProvider = objectTypeProvider
     }
@@ -47,8 +48,7 @@ final class BlockActionService: BlockActionServiceProtocol {
 
     func add(info: BlockInformation, targetBlockId: BlockId, position: BlockPosition, setFocus: Bool) {
         Task {
-            guard let blockId = try await singleService
-                .add(contextId: documentId, targetId: targetBlockId, info: info, position: position) else { return }
+            let blockId = try await blockService.add(contextId: documentId, targetId: targetBlockId, info: info, position: position)
             
             if setFocus {
                 cursorManager.blockFocus = .init(id: blockId, position: .beginning)
@@ -64,7 +64,7 @@ final class BlockActionService: BlockActionServiceProtocol {
         newBlockContentType: BlockText.Style
     ) {
         Task {
-            let blockId = try await textService.split(
+            let blockId = try await textServiceHandler.split(
                 contextId: documentId,
                 blockId: blockId,
                 range: range,
@@ -78,7 +78,7 @@ final class BlockActionService: BlockActionServiceProtocol {
 
     func duplicate(blockId: BlockId) {
         Task {
-            try await singleService.duplicate(
+            try await blockService.duplicate(
                 contextId: documentId,
                 targetId: blockId,
                 blockIds: [blockId],
@@ -88,7 +88,7 @@ final class BlockActionService: BlockActionServiceProtocol {
     }
 
     func createPage(targetId: BlockId, spaceId: String, typeUniqueKey: ObjectTypeUniqueKey, position: BlockPosition, templateId: String) async throws -> BlockId {
-        try await objectActionService.createPage(
+        try await blockService.createBlockLink(
             contextId: documentId,
             targetId: targetId,
             spaceId: spaceId,
@@ -101,7 +101,7 @@ final class BlockActionService: BlockActionServiceProtocol {
 
     func turnInto(_ style: BlockText.Style, blockId: BlockId) {
         Task {
-            try await textService.setStyle(contextId: documentId, blockId: blockId, style: style)
+            try await textServiceHandler.setStyle(contextId: documentId, blockId: blockId, style: style)
         }
     }
     
@@ -109,8 +109,8 @@ final class BlockActionService: BlockActionServiceProtocol {
         let pageType = try objectTypeProvider.objectType(uniqueKey: .page, spaceId: spaceId)
         AnytypeAnalytics.instance().logCreateObject(objectType: pageType.analyticsType, route: .turnInto)
 
-        return try await objectActionService.convertChildrenToPages(
-            contextID: documentId,
+        return try await blockService.convertChildrenToPages(
+            contextId: documentId,
             blocksIds: [blockId],
             typeUniqueKey: pageType.uniqueKey
         ).first
@@ -118,7 +118,7 @@ final class BlockActionService: BlockActionServiceProtocol {
     
     func checked(blockId: BlockId, newValue: Bool) {
         Task {
-            try await textService.checked(contextId: documentId, blockId: blockId, newValue: newValue)
+            try await textServiceHandler.checked(contextId: documentId, blockId: blockId, newValue: newValue)
         }
     }
     
@@ -136,7 +136,7 @@ final class BlockActionService: BlockActionServiceProtocol {
             }
             do {
                 self?.setFocus(model: previousBlock)
-                try await self?.textService.merge(contextId: documentId, firstBlockId: previousBlock.blockId, secondBlockId: secondBlockId)
+                try await self?.textServiceHandler.merge(contextId: documentId, firstBlockId: previousBlock.blockId, secondBlockId: secondBlockId)
             } catch {
                 // Do not set focus to previous block
             }
@@ -146,16 +146,16 @@ final class BlockActionService: BlockActionServiceProtocol {
     func delete(blockIds: [BlockId]) {
         AnytypeAnalytics.instance().logEvent(AnalyticsEventsName.blockDelete)
         Task {
-            try await singleService.delete(contextId: documentId, blockIds: blockIds)
+            try await blockService.delete(contextId: documentId, blockIds: blockIds)
         }
     }
     
     func setText(contextId: BlockId, blockId: BlockId, middlewareString: MiddlewareString) async throws {
-        try await textService.setText(contextId: contextId, blockId: blockId, middlewareString: middlewareString)
+        try await textServiceHandler.setText(contextId: contextId, blockId: blockId, middlewareString: middlewareString)
     }
 
     func setTextForced(contextId: BlockId, blockId: BlockId, middlewareString: MiddlewareString) async throws {
-        try await textService.setTextForced(contextId: contextId, blockId: blockId, middlewareString: middlewareString)
+        try await textServiceHandler.setTextForced(contextId: contextId, blockId: blockId, middlewareString: middlewareString)
     }
     
     func setObjectType(type: ObjectType) async throws {
@@ -212,7 +212,7 @@ extension BlockActionService {
     
     func setBackgroundColor(blockIds: [BlockId], color: MiddlewareColor) {
         Task {
-            try await listService.setBackgroundColor(objectId: documentId, blockIds: blockIds, color: color)
+            try await blockService.setBackgroundColor(objectId: documentId, blockIds: blockIds, color: color)
         }
     }
 }

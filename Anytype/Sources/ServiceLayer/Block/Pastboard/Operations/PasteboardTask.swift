@@ -1,6 +1,7 @@
 import AnytypeCore
 import Foundation
 import UniformTypeIdentifiers
+import Services
 
 final class PasteboardTask {
 
@@ -12,15 +13,20 @@ final class PasteboardTask {
     
     private var alreadyStarted: Bool = false
     
+    private let objectId: BlockId
     private let context: PasteboardActionContext
     private let pasteboardHelper: PasteboardHelper
     private let pasteboardMiddlewareService: PasteboardMiddlewareServiceProtocol
 
     // MARK: - Initializers
 
-    init(pasteboardHelper: PasteboardHelper,
-         pasteboardMiddlewareService: PasteboardMiddlewareServiceProtocol,
-         context: PasteboardActionContext) {
+    init(
+        objectId: BlockId,
+        pasteboardHelper: PasteboardHelper,
+        pasteboardMiddlewareService: PasteboardMiddlewareServiceProtocol,
+        context: PasteboardActionContext
+    ) {
+        self.objectId = objectId
         self.pasteboardHelper = pasteboardHelper
         self.pasteboardMiddlewareService = pasteboardMiddlewareService
         self.context = context
@@ -44,17 +50,17 @@ final class PasteboardTask {
         // Find first item to paste with follow order anySlots (blocks slots), htmlSlot, textSlot, filesSlots
         // blocks slots
         if let blocksSlots = pasteboardHelper.obtainBlocksSlots() {
-            return try await pasteboardMiddlewareService.pasteBlock(blocksSlots, context: context)
+            return try await pasteboardMiddlewareService.pasteBlock(blocksSlots, objectId: objectId, context: context)
         }
 
         // html slot
         if let htmlSlot = pasteboardHelper.obtainHTMLSlot() {
-            return try await pasteboardMiddlewareService.pasteHTML(htmlSlot, context: context)
+            return try await pasteboardMiddlewareService.pasteHTML(htmlSlot, objectId: objectId, context: context)
         }
 
         // text slot
         if let textSlot = pasteboardHelper.obtainTextSlot() {
-            return try await pasteboardMiddlewareService.pasteText(textSlot, context: context)
+            return try await pasteboardMiddlewareService.pasteText(textSlot, objectId: objectId, context: context)
         }
 
         let directory = FileManager.default.temporaryDirectory.appendingPathComponent(Constants.filesDirectory, isDirectory: true)
@@ -74,6 +80,6 @@ final class PasteboardTask {
         }
         
         try Task.checkCancellation()
-        return try await pasteboardMiddlewareService.pasteFiles(files, context: context)
+        return try await pasteboardMiddlewareService.pasteFiles(files, objectId: objectId, context: context)
     }
 }

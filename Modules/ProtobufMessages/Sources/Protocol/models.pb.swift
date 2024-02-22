@@ -48,7 +48,9 @@ public enum Anytype_Model_SmartBlockType: SwiftProtobuf.Enum {
   case strelationOption // = 529
   case spaceView // = 530
   case identity // = 532
+  case participant // = 534
   case missingObject // = 519
+  case fileObject // = 533
   case UNRECOGNIZED(Int)
 
   public init() {
@@ -78,6 +80,8 @@ public enum Anytype_Model_SmartBlockType: SwiftProtobuf.Enum {
     case 529: self = .strelationOption
     case 530: self = .spaceView
     case 532: self = .identity
+    case 533: self = .fileObject
+    case 534: self = .participant
     default: self = .UNRECOGNIZED(rawValue)
     }
   }
@@ -105,6 +109,8 @@ public enum Anytype_Model_SmartBlockType: SwiftProtobuf.Enum {
     case .strelationOption: return 529
     case .spaceView: return 530
     case .identity: return 532
+    case .fileObject: return 533
+    case .participant: return 534
     case .UNRECOGNIZED(let i): return i
     }
   }
@@ -136,7 +142,9 @@ extension Anytype_Model_SmartBlockType: CaseIterable {
     .strelationOption,
     .spaceView,
     .identity,
+    .participant,
     .missingObject,
+    .fileObject,
   ]
 }
 
@@ -353,6 +361,12 @@ public enum Anytype_Model_SpaceStatus: SwiftProtobuf.Enum {
 
   /// SpaceDeleted - the space should be deleted in the network
   case spaceDeleted // = 7
+
+  /// SpaceActive - the space is active in the network
+  case spaceActive // = 8
+
+  /// SpaceJoining - the account is joining the space
+  case spaceJoining // = 9
   case UNRECOGNIZED(Int)
 
   public init() {
@@ -369,6 +383,8 @@ public enum Anytype_Model_SpaceStatus: SwiftProtobuf.Enum {
     case 5: self = .remoteWaitingDeletion
     case 6: self = .remoteDeleted
     case 7: self = .spaceDeleted
+    case 8: self = .spaceActive
+    case 9: self = .spaceJoining
     default: self = .UNRECOGNIZED(rawValue)
     }
   }
@@ -383,6 +399,8 @@ public enum Anytype_Model_SpaceStatus: SwiftProtobuf.Enum {
     case .remoteWaitingDeletion: return 5
     case .remoteDeleted: return 6
     case .spaceDeleted: return 7
+    case .spaceActive: return 8
+    case .spaceJoining: return 9
     case .UNRECOGNIZED(let i): return i
     }
   }
@@ -402,6 +420,244 @@ extension Anytype_Model_SpaceStatus: CaseIterable {
     .remoteWaitingDeletion,
     .remoteDeleted,
     .spaceDeleted,
+    .spaceActive,
+    .spaceJoining,
+  ]
+}
+
+#endif  // swift(>=4.2)
+
+public enum Anytype_Model_ParticipantPermissions: SwiftProtobuf.Enum {
+  public typealias RawValue = Int
+  case reader // = 0
+  case writer // = 1
+  case owner // = 2
+  case noPermissions // = 3
+  case UNRECOGNIZED(Int)
+
+  public init() {
+    self = .reader
+  }
+
+  public init?(rawValue: Int) {
+    switch rawValue {
+    case 0: self = .reader
+    case 1: self = .writer
+    case 2: self = .owner
+    case 3: self = .noPermissions
+    default: self = .UNRECOGNIZED(rawValue)
+    }
+  }
+
+  public var rawValue: Int {
+    switch self {
+    case .reader: return 0
+    case .writer: return 1
+    case .owner: return 2
+    case .noPermissions: return 3
+    case .UNRECOGNIZED(let i): return i
+    }
+  }
+
+}
+
+#if swift(>=4.2)
+
+extension Anytype_Model_ParticipantPermissions: CaseIterable {
+  // The compiler won't synthesize support with the UNRECOGNIZED case.
+  public static let allCases: [Anytype_Model_ParticipantPermissions] = [
+    .reader,
+    .writer,
+    .owner,
+    .noPermissions,
+  ]
+}
+
+#endif  // swift(>=4.2)
+
+public enum Anytype_Model_ParticipantStatus: SwiftProtobuf.Enum {
+  public typealias RawValue = Int
+  case joining // = 0
+  case active // = 1
+  case removed // = 2
+  case declined // = 3
+  case removing // = 4
+  case canceled // = 5
+  case UNRECOGNIZED(Int)
+
+  public init() {
+    self = .joining
+  }
+
+  public init?(rawValue: Int) {
+    switch rawValue {
+    case 0: self = .joining
+    case 1: self = .active
+    case 2: self = .removed
+    case 3: self = .declined
+    case 4: self = .removing
+    case 5: self = .canceled
+    default: self = .UNRECOGNIZED(rawValue)
+    }
+  }
+
+  public var rawValue: Int {
+    switch self {
+    case .joining: return 0
+    case .active: return 1
+    case .removed: return 2
+    case .declined: return 3
+    case .removing: return 4
+    case .canceled: return 5
+    case .UNRECOGNIZED(let i): return i
+    }
+  }
+
+}
+
+#if swift(>=4.2)
+
+extension Anytype_Model_ParticipantStatus: CaseIterable {
+  // The compiler won't synthesize support with the UNRECOGNIZED case.
+  public static let allCases: [Anytype_Model_ParticipantStatus] = [
+    .joining,
+    .active,
+    .removed,
+    .declined,
+    .removing,
+    .canceled,
+  ]
+}
+
+#endif  // swift(>=4.2)
+
+public enum Anytype_Model_SpaceAccessType: SwiftProtobuf.Enum {
+  public typealias RawValue = Int
+  case `private` // = 0
+  case personal // = 1
+  case shared // = 2
+  case UNRECOGNIZED(Int)
+
+  public init() {
+    self = .private
+  }
+
+  public init?(rawValue: Int) {
+    switch rawValue {
+    case 0: self = .private
+    case 1: self = .personal
+    case 2: self = .shared
+    default: self = .UNRECOGNIZED(rawValue)
+    }
+  }
+
+  public var rawValue: Int {
+    switch self {
+    case .private: return 0
+    case .personal: return 1
+    case .shared: return 2
+    case .UNRECOGNIZED(let i): return i
+    }
+  }
+
+}
+
+#if swift(>=4.2)
+
+extension Anytype_Model_SpaceAccessType: CaseIterable {
+  // The compiler won't synthesize support with the UNRECOGNIZED case.
+  public static let allCases: [Anytype_Model_SpaceAccessType] = [
+    .private,
+    .personal,
+    .shared,
+  ]
+}
+
+#endif  // swift(>=4.2)
+
+public enum Anytype_Model_ImageKind: SwiftProtobuf.Enum {
+  public typealias RawValue = Int
+  case basic // = 0
+  case cover // = 1
+  case icon // = 2
+  case UNRECOGNIZED(Int)
+
+  public init() {
+    self = .basic
+  }
+
+  public init?(rawValue: Int) {
+    switch rawValue {
+    case 0: self = .basic
+    case 1: self = .cover
+    case 2: self = .icon
+    default: self = .UNRECOGNIZED(rawValue)
+    }
+  }
+
+  public var rawValue: Int {
+    switch self {
+    case .basic: return 0
+    case .cover: return 1
+    case .icon: return 2
+    case .UNRECOGNIZED(let i): return i
+    }
+  }
+
+}
+
+#if swift(>=4.2)
+
+extension Anytype_Model_ImageKind: CaseIterable {
+  // The compiler won't synthesize support with the UNRECOGNIZED case.
+  public static let allCases: [Anytype_Model_ImageKind] = [
+    .basic,
+    .cover,
+    .icon,
+  ]
+}
+
+#endif  // swift(>=4.2)
+
+public enum Anytype_Model_FileIndexingStatus: SwiftProtobuf.Enum {
+  public typealias RawValue = Int
+  case notIndexed // = 0
+  case indexed // = 1
+  case notFound // = 2
+  case UNRECOGNIZED(Int)
+
+  public init() {
+    self = .notIndexed
+  }
+
+  public init?(rawValue: Int) {
+    switch rawValue {
+    case 0: self = .notIndexed
+    case 1: self = .indexed
+    case 2: self = .notFound
+    default: self = .UNRECOGNIZED(rawValue)
+    }
+  }
+
+  public var rawValue: Int {
+    switch self {
+    case .notIndexed: return 0
+    case .indexed: return 1
+    case .notFound: return 2
+    case .UNRECOGNIZED(let i): return i
+    }
+  }
+
+}
+
+#if swift(>=4.2)
+
+extension Anytype_Model_FileIndexingStatus: CaseIterable {
+  // The compiler won't synthesize support with the UNRECOGNIZED case.
+  public static let allCases: [Anytype_Model_FileIndexingStatus] = [
+    .notIndexed,
+    .indexed,
+    .notFound,
   ]
 }
 
@@ -432,7 +688,6 @@ public struct Anytype_Model_SmartBlockSnapshotBase {
   /// Clears the value of `fileKeys`. Subsequent reads from it will return its default value.
   public mutating func clearFileKeys() {self._fileKeys = nil}
 
-  /// deprecated
   public var extraRelations: [Anytype_Model_Relation] = []
 
   public var objectTypes: [String] = []
@@ -456,6 +711,15 @@ public struct Anytype_Model_SmartBlockSnapshotBase {
   /// ignored in import/export in favor of createdDate relation. Used to store original user-side object creation timestamp
   public var originalCreatedTimestamp: Int64 = 0
 
+  public var fileInfo: Anytype_Model_FileInfo {
+    get {return _fileInfo ?? Anytype_Model_FileInfo()}
+    set {_fileInfo = newValue}
+  }
+  /// Returns true if `fileInfo` has been explicitly set.
+  public var hasFileInfo: Bool {return self._fileInfo != nil}
+  /// Clears the value of `fileInfo`. Subsequent reads from it will return its default value.
+  public mutating func clearFileInfo() {self._fileInfo = nil}
+
   public var unknownFields = SwiftProtobuf.UnknownStorage()
 
   public init() {}
@@ -463,6 +727,7 @@ public struct Anytype_Model_SmartBlockSnapshotBase {
   fileprivate var _details: SwiftProtobuf.Google_Protobuf_Struct? = nil
   fileprivate var _fileKeys: SwiftProtobuf.Google_Protobuf_Struct? = nil
   fileprivate var _collections: SwiftProtobuf.Google_Protobuf_Struct? = nil
+  fileprivate var _fileInfo: Anytype_Model_FileInfo? = nil
 }
 
 public struct Anytype_Model_Block {
@@ -1472,6 +1737,8 @@ public struct Anytype_Model_Block {
 
       public var addedAt: Int64 = 0
 
+      public var targetObjectID: String = String()
+
       public var state: Anytype_Model_Block.Content.File.State = .empty
 
       public var style: Anytype_Model_Block.Content.File.Style = .auto
@@ -1687,6 +1954,7 @@ public struct Anytype_Model_Block {
           case gallery // = 2
           case kanban // = 3
           case calendar // = 4
+          case graph // = 5
           case UNRECOGNIZED(Int)
 
           public init() {
@@ -1700,6 +1968,7 @@ public struct Anytype_Model_Block {
             case 2: self = .gallery
             case 3: self = .kanban
             case 4: self = .calendar
+            case 5: self = .graph
             default: self = .UNRECOGNIZED(rawValue)
             }
           }
@@ -1711,6 +1980,7 @@ public struct Anytype_Model_Block {
             case .gallery: return 2
             case .kanban: return 3
             case .calendar: return 4
+            case .graph: return 5
             case .UNRECOGNIZED(let i): return i
             }
           }
@@ -2665,6 +2935,7 @@ extension Anytype_Model_Block.Content.Dataview.View.TypeEnum: CaseIterable {
     .gallery,
     .kanban,
     .calendar,
+    .graph,
   ]
 }
 
@@ -3416,9 +3687,8 @@ public struct Anytype_Model_ObjectType {
     case video // = 16
     case date // = 17
     case spaceView // = 18
-
-    /// to be released later
-    case database // = 20
+    case participant // = 19
+    case pdf // = 20
     case UNRECOGNIZED(Int)
 
     public init() {
@@ -3446,7 +3716,8 @@ public struct Anytype_Model_ObjectType {
       case 16: self = .video
       case 17: self = .date
       case 18: self = .spaceView
-      case 20: self = .database
+      case 19: self = .participant
+      case 20: self = .pdf
       default: self = .UNRECOGNIZED(rawValue)
       }
     }
@@ -3472,7 +3743,8 @@ public struct Anytype_Model_ObjectType {
       case .video: return 16
       case .date: return 17
       case .spaceView: return 18
-      case .database: return 20
+      case .participant: return 19
+      case .pdf: return 20
       case .UNRECOGNIZED(let i): return i
       }
     }
@@ -3506,7 +3778,8 @@ extension Anytype_Model_ObjectType.Layout: CaseIterable {
     .video,
     .date,
     .spaceView,
-    .database,
+    .participant,
+    .pdf,
   ]
 }
 
@@ -4018,6 +4291,20 @@ public struct Anytype_Model_ObjectView {
   fileprivate var _history: Anytype_Model_ObjectView.HistorySize? = nil
 }
 
+public struct Anytype_Model_ParticipantPermissionChange {
+  // SwiftProtobuf.Message conformance is added in an extension below. See the
+  // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+  // methods supported on all messages.
+
+  public var identity: String = String()
+
+  public var perms: Anytype_Model_ParticipantPermissions = .reader
+
+  public var unknownFields = SwiftProtobuf.UnknownStorage()
+
+  public init() {}
+}
+
 public struct Anytype_Model_Metadata {
   // SwiftProtobuf.Message conformance is added in an extension below. See the
   // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
@@ -4117,6 +4404,14 @@ public struct Anytype_Model_Notification {
     set {payload = .galleryImport(newValue)}
   }
 
+  public var requestToJoin: Anytype_Model_Notification.RequestToJoin {
+    get {
+      if case .requestToJoin(let v)? = payload {return v}
+      return Anytype_Model_Notification.RequestToJoin()
+    }
+    set {payload = .requestToJoin(newValue)}
+  }
+
   public var space: String = String()
 
   public var unknownFields = SwiftProtobuf.UnknownStorage()
@@ -4125,6 +4420,7 @@ public struct Anytype_Model_Notification {
     case `import`(Anytype_Model_Notification.Import)
     case export(Anytype_Model_Notification.Export)
     case galleryImport(Anytype_Model_Notification.GalleryImport)
+    case requestToJoin(Anytype_Model_Notification.RequestToJoin)
 
   #if !swift(>=4.1)
     public static func ==(lhs: Anytype_Model_Notification.OneOf_Payload, rhs: Anytype_Model_Notification.OneOf_Payload) -> Bool {
@@ -4142,6 +4438,10 @@ public struct Anytype_Model_Notification {
       }()
       case (.galleryImport, .galleryImport): return {
         guard case .galleryImport(let l) = lhs, case .galleryImport(let r) = rhs else { preconditionFailure() }
+        return l == r
+      }()
+      case (.requestToJoin, .requestToJoin): return {
+        guard case .requestToJoin(let l) = lhs, case .requestToJoin(let r) = rhs else { preconditionFailure() }
         return l == r
       }()
       default: return false
@@ -4286,6 +4586,24 @@ public struct Anytype_Model_Notification {
     public var spaceID: String = String()
 
     public var name: String = String()
+
+    public var unknownFields = SwiftProtobuf.UnknownStorage()
+
+    public init() {}
+  }
+
+  public struct RequestToJoin {
+    // SwiftProtobuf.Message conformance is added in an extension below. See the
+    // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+    // methods supported on all messages.
+
+    public var spaceID: String = String()
+
+    public var identity: String = String()
+
+    public var identityName: String = String()
+
+    public var identityIcon: String = String()
 
     public var unknownFields = SwiftProtobuf.UnknownStorage()
 
@@ -4523,11 +4841,136 @@ extension Anytype_Model_Import.ErrorCode: CaseIterable {
 
 #endif  // swift(>=4.2)
 
+public struct Anytype_Model_Invite {
+  // SwiftProtobuf.Message conformance is added in an extension below. See the
+  // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+  // methods supported on all messages.
+
+  public var payload: Data = Data()
+
+  public var signature: Data = Data()
+
+  public var unknownFields = SwiftProtobuf.UnknownStorage()
+
+  public init() {}
+}
+
+public struct Anytype_Model_InvitePayload {
+  // SwiftProtobuf.Message conformance is added in an extension below. See the
+  // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+  // methods supported on all messages.
+
+  public var creatorIdentity: String = String()
+
+  public var creatorName: String = String()
+
+  public var inviteKey: Data = Data()
+
+  public var spaceID: String = String()
+
+  public var spaceName: String = String()
+
+  public var spaceIconCid: String = String()
+
+  public var spaceIconEncryptionKeys: [Anytype_Model_FileEncryptionKey] = []
+
+  public var unknownFields = SwiftProtobuf.UnknownStorage()
+
+  public init() {}
+}
+
+public struct Anytype_Model_IdentityProfile {
+  // SwiftProtobuf.Message conformance is added in an extension below. See the
+  // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+  // methods supported on all messages.
+
+  public var identity: String = String()
+
+  public var name: String = String()
+
+  public var iconCid: String = String()
+
+  public var iconEncryptionKeys: [Anytype_Model_FileEncryptionKey] = []
+
+  public var description_p: String = String()
+
+  public var unknownFields = SwiftProtobuf.UnknownStorage()
+
+  public init() {}
+}
+
+public struct Anytype_Model_FileInfo {
+  // SwiftProtobuf.Message conformance is added in an extension below. See the
+  // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+  // methods supported on all messages.
+
+  public var fileID: String = String()
+
+  public var encryptionKeys: [Anytype_Model_FileEncryptionKey] = []
+
+  public var unknownFields = SwiftProtobuf.UnknownStorage()
+
+  public init() {}
+}
+
+public struct Anytype_Model_FileEncryptionKey {
+  // SwiftProtobuf.Message conformance is added in an extension below. See the
+  // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+  // methods supported on all messages.
+
+  public var path: String = String()
+
+  public var key: String = String()
+
+  public var unknownFields = SwiftProtobuf.UnknownStorage()
+
+  public init() {}
+}
+
+public struct Anytype_Model_ManifestInfo {
+  // SwiftProtobuf.Message conformance is added in an extension below. See the
+  // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+  // methods supported on all messages.
+
+  public var schema: String = String()
+
+  public var id: String = String()
+
+  public var name: String = String()
+
+  public var author: String = String()
+
+  public var license: String = String()
+
+  public var title: String = String()
+
+  public var description_p: String = String()
+
+  public var screenshots: [String] = []
+
+  public var downloadLink: String = String()
+
+  public var fileSize: Int32 = 0
+
+  public var categories: [String] = []
+
+  public var language: String = String()
+
+  public var unknownFields = SwiftProtobuf.UnknownStorage()
+
+  public init() {}
+}
+
 #if swift(>=5.5) && canImport(_Concurrency)
 extension Anytype_Model_SmartBlockType: @unchecked Sendable {}
 extension Anytype_Model_RelationFormat: @unchecked Sendable {}
 extension Anytype_Model_ObjectOrigin: @unchecked Sendable {}
 extension Anytype_Model_SpaceStatus: @unchecked Sendable {}
+extension Anytype_Model_ParticipantPermissions: @unchecked Sendable {}
+extension Anytype_Model_ParticipantStatus: @unchecked Sendable {}
+extension Anytype_Model_SpaceAccessType: @unchecked Sendable {}
+extension Anytype_Model_ImageKind: @unchecked Sendable {}
+extension Anytype_Model_FileIndexingStatus: @unchecked Sendable {}
 extension Anytype_Model_SmartBlockSnapshotBase: @unchecked Sendable {}
 extension Anytype_Model_Block: @unchecked Sendable {}
 extension Anytype_Model_Block.OneOf_Content: @unchecked Sendable {}
@@ -4625,6 +5068,7 @@ extension Anytype_Model_ObjectView: @unchecked Sendable {}
 extension Anytype_Model_ObjectView.DetailsSet: @unchecked Sendable {}
 extension Anytype_Model_ObjectView.RelationWithValuePerObject: @unchecked Sendable {}
 extension Anytype_Model_ObjectView.HistorySize: @unchecked Sendable {}
+extension Anytype_Model_ParticipantPermissionChange: @unchecked Sendable {}
 extension Anytype_Model_Metadata: @unchecked Sendable {}
 extension Anytype_Model_Metadata.OneOf_Payload: @unchecked Sendable {}
 extension Anytype_Model_Metadata.Payload: @unchecked Sendable {}
@@ -4637,11 +5081,18 @@ extension Anytype_Model_Notification.Import: @unchecked Sendable {}
 extension Anytype_Model_Notification.Export: @unchecked Sendable {}
 extension Anytype_Model_Notification.Export.Code: @unchecked Sendable {}
 extension Anytype_Model_Notification.GalleryImport: @unchecked Sendable {}
+extension Anytype_Model_Notification.RequestToJoin: @unchecked Sendable {}
 extension Anytype_Model_Export: @unchecked Sendable {}
 extension Anytype_Model_Export.Format: @unchecked Sendable {}
 extension Anytype_Model_Import: @unchecked Sendable {}
 extension Anytype_Model_Import.TypeEnum: @unchecked Sendable {}
 extension Anytype_Model_Import.ErrorCode: @unchecked Sendable {}
+extension Anytype_Model_Invite: @unchecked Sendable {}
+extension Anytype_Model_InvitePayload: @unchecked Sendable {}
+extension Anytype_Model_IdentityProfile: @unchecked Sendable {}
+extension Anytype_Model_FileInfo: @unchecked Sendable {}
+extension Anytype_Model_FileEncryptionKey: @unchecked Sendable {}
+extension Anytype_Model_ManifestInfo: @unchecked Sendable {}
 #endif  // swift(>=5.5) && canImport(_Concurrency)
 
 // MARK: - Code below here is support for the SwiftProtobuf runtime.
@@ -4671,6 +5122,8 @@ extension Anytype_Model_SmartBlockType: SwiftProtobuf._ProtoNameProviding {
     529: .same(proto: "STRelationOption"),
     530: .same(proto: "SpaceView"),
     532: .same(proto: "Identity"),
+    533: .same(proto: "FileObject"),
+    534: .same(proto: "Participant"),
   ]
 }
 
@@ -4717,6 +5170,52 @@ extension Anytype_Model_SpaceStatus: SwiftProtobuf._ProtoNameProviding {
     5: .same(proto: "RemoteWaitingDeletion"),
     6: .same(proto: "RemoteDeleted"),
     7: .same(proto: "SpaceDeleted"),
+    8: .same(proto: "SpaceActive"),
+    9: .same(proto: "SpaceJoining"),
+  ]
+}
+
+extension Anytype_Model_ParticipantPermissions: SwiftProtobuf._ProtoNameProviding {
+  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    0: .same(proto: "Reader"),
+    1: .same(proto: "Writer"),
+    2: .same(proto: "Owner"),
+    3: .same(proto: "NoPermissions"),
+  ]
+}
+
+extension Anytype_Model_ParticipantStatus: SwiftProtobuf._ProtoNameProviding {
+  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    0: .same(proto: "Joining"),
+    1: .same(proto: "Active"),
+    2: .same(proto: "Removed"),
+    3: .same(proto: "Declined"),
+    4: .same(proto: "Removing"),
+    5: .same(proto: "Canceled"),
+  ]
+}
+
+extension Anytype_Model_SpaceAccessType: SwiftProtobuf._ProtoNameProviding {
+  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    0: .same(proto: "Private"),
+    1: .same(proto: "Personal"),
+    2: .same(proto: "Shared"),
+  ]
+}
+
+extension Anytype_Model_ImageKind: SwiftProtobuf._ProtoNameProviding {
+  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    0: .same(proto: "Basic"),
+    1: .same(proto: "Cover"),
+    2: .same(proto: "Icon"),
+  ]
+}
+
+extension Anytype_Model_FileIndexingStatus: SwiftProtobuf._ProtoNameProviding {
+  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    0: .same(proto: "NotIndexed"),
+    1: .same(proto: "Indexed"),
+    2: .same(proto: "NotFound"),
   ]
 }
 
@@ -4733,6 +5232,7 @@ extension Anytype_Model_SmartBlockSnapshotBase: SwiftProtobuf.Message, SwiftProt
     7: .same(proto: "relationLinks"),
     9: .same(proto: "key"),
     10: .same(proto: "originalCreatedTimestamp"),
+    11: .same(proto: "fileInfo"),
   ]
 
   public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
@@ -4751,6 +5251,7 @@ extension Anytype_Model_SmartBlockSnapshotBase: SwiftProtobuf.Message, SwiftProt
       case 8: try { try decoder.decodeRepeatedStringField(value: &self.removedCollectionKeys) }()
       case 9: try { try decoder.decodeSingularStringField(value: &self.key) }()
       case 10: try { try decoder.decodeSingularInt64Field(value: &self.originalCreatedTimestamp) }()
+      case 11: try { try decoder.decodeSingularMessageField(value: &self._fileInfo) }()
       default: break
       }
     }
@@ -4791,6 +5292,9 @@ extension Anytype_Model_SmartBlockSnapshotBase: SwiftProtobuf.Message, SwiftProt
     if self.originalCreatedTimestamp != 0 {
       try visitor.visitSingularInt64Field(value: self.originalCreatedTimestamp, fieldNumber: 10)
     }
+    try { if let v = self._fileInfo {
+      try visitor.visitSingularMessageField(value: v, fieldNumber: 11)
+    } }()
     try unknownFields.traverse(visitor: &visitor)
   }
 
@@ -4805,6 +5309,7 @@ extension Anytype_Model_SmartBlockSnapshotBase: SwiftProtobuf.Message, SwiftProt
     if lhs.relationLinks != rhs.relationLinks {return false}
     if lhs.key != rhs.key {return false}
     if lhs.originalCreatedTimestamp != rhs.originalCreatedTimestamp {return false}
+    if lhs._fileInfo != rhs._fileInfo {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
@@ -5859,6 +6364,7 @@ extension Anytype_Model_Block.Content.File: SwiftProtobuf.Message, SwiftProtobuf
     4: .same(proto: "mime"),
     5: .same(proto: "size"),
     6: .same(proto: "addedAt"),
+    9: .same(proto: "targetObjectId"),
     7: .same(proto: "state"),
     8: .same(proto: "style"),
   ]
@@ -5877,6 +6383,7 @@ extension Anytype_Model_Block.Content.File: SwiftProtobuf.Message, SwiftProtobuf
       case 6: try { try decoder.decodeSingularInt64Field(value: &self.addedAt) }()
       case 7: try { try decoder.decodeSingularEnumField(value: &self.state) }()
       case 8: try { try decoder.decodeSingularEnumField(value: &self.style) }()
+      case 9: try { try decoder.decodeSingularStringField(value: &self.targetObjectID) }()
       default: break
       }
     }
@@ -5907,6 +6414,9 @@ extension Anytype_Model_Block.Content.File: SwiftProtobuf.Message, SwiftProtobuf
     if self.style != .auto {
       try visitor.visitSingularEnumField(value: self.style, fieldNumber: 8)
     }
+    if !self.targetObjectID.isEmpty {
+      try visitor.visitSingularStringField(value: self.targetObjectID, fieldNumber: 9)
+    }
     try unknownFields.traverse(visitor: &visitor)
   }
 
@@ -5917,6 +6427,7 @@ extension Anytype_Model_Block.Content.File: SwiftProtobuf.Message, SwiftProtobuf
     if lhs.mime != rhs.mime {return false}
     if lhs.size != rhs.size {return false}
     if lhs.addedAt != rhs.addedAt {return false}
+    if lhs.targetObjectID != rhs.targetObjectID {return false}
     if lhs.state != rhs.state {return false}
     if lhs.style != rhs.style {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
@@ -6174,6 +6685,7 @@ extension Anytype_Model_Block.Content.Dataview.View.TypeEnum: SwiftProtobuf._Pro
     2: .same(proto: "Gallery"),
     3: .same(proto: "Kanban"),
     4: .same(proto: "Calendar"),
+    5: .same(proto: "Graph"),
   ]
 }
 
@@ -7920,7 +8432,8 @@ extension Anytype_Model_ObjectType.Layout: SwiftProtobuf._ProtoNameProviding {
     16: .same(proto: "video"),
     17: .same(proto: "date"),
     18: .same(proto: "spaceView"),
-    20: .same(proto: "database"),
+    19: .same(proto: "participant"),
+    20: .same(proto: "pdf"),
   ]
 }
 
@@ -8620,6 +9133,44 @@ extension Anytype_Model_ObjectView.HistorySize: SwiftProtobuf.Message, SwiftProt
   }
 }
 
+extension Anytype_Model_ParticipantPermissionChange: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = _protobuf_package + ".ParticipantPermissionChange"
+  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    1: .same(proto: "identity"),
+    2: .same(proto: "perms"),
+  ]
+
+  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let fieldNumber = try decoder.nextFieldNumber() {
+      // The use of inline closures is to circumvent an issue where the compiler
+      // allocates stack space for every case branch when no optimizations are
+      // enabled. https://github.com/apple/swift-protobuf/issues/1034
+      switch fieldNumber {
+      case 1: try { try decoder.decodeSingularStringField(value: &self.identity) }()
+      case 2: try { try decoder.decodeSingularEnumField(value: &self.perms) }()
+      default: break
+      }
+    }
+  }
+
+  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    if !self.identity.isEmpty {
+      try visitor.visitSingularStringField(value: self.identity, fieldNumber: 1)
+    }
+    if self.perms != .reader {
+      try visitor.visitSingularEnumField(value: self.perms, fieldNumber: 2)
+    }
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  public static func ==(lhs: Anytype_Model_ParticipantPermissionChange, rhs: Anytype_Model_ParticipantPermissionChange) -> Bool {
+    if lhs.identity != rhs.identity {return false}
+    if lhs.perms != rhs.perms {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    return true
+  }
+}
+
 extension Anytype_Model_Metadata: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
   public static let protoMessageName: String = _protobuf_package + ".Metadata"
   public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
@@ -8729,6 +9280,7 @@ extension Anytype_Model_Notification: SwiftProtobuf.Message, SwiftProtobuf._Mess
     6: .same(proto: "import"),
     8: .same(proto: "export"),
     9: .same(proto: "galleryImport"),
+    10: .same(proto: "requestToJoin"),
     7: .same(proto: "space"),
   ]
 
@@ -8782,6 +9334,19 @@ extension Anytype_Model_Notification: SwiftProtobuf.Message, SwiftProtobuf._Mess
           self.payload = .galleryImport(v)
         }
       }()
+      case 10: try {
+        var v: Anytype_Model_Notification.RequestToJoin?
+        var hadOneofValue = false
+        if let current = self.payload {
+          hadOneofValue = true
+          if case .requestToJoin(let m) = current {v = m}
+        }
+        try decoder.decodeSingularMessageField(value: &v)
+        if let v = v {
+          if hadOneofValue {try decoder.handleConflictingOneOf()}
+          self.payload = .requestToJoin(v)
+        }
+      }()
       default: break
       }
     }
@@ -8818,6 +9383,10 @@ extension Anytype_Model_Notification: SwiftProtobuf.Message, SwiftProtobuf._Mess
     case .galleryImport?: try {
       guard case .galleryImport(let v)? = self.payload else { preconditionFailure() }
       try visitor.visitSingularMessageField(value: v, fieldNumber: 9)
+    }()
+    case .requestToJoin?: try {
+      guard case .requestToJoin(let v)? = self.payload else { preconditionFailure() }
+      try visitor.visitSingularMessageField(value: v, fieldNumber: 10)
     }()
     default: break
     }
@@ -9003,6 +9572,56 @@ extension Anytype_Model_Notification.GalleryImport: SwiftProtobuf.Message, Swift
   }
 }
 
+extension Anytype_Model_Notification.RequestToJoin: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = Anytype_Model_Notification.protoMessageName + ".RequestToJoin"
+  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    1: .same(proto: "spaceId"),
+    2: .same(proto: "identity"),
+    3: .same(proto: "identityName"),
+    4: .same(proto: "identityIcon"),
+  ]
+
+  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let fieldNumber = try decoder.nextFieldNumber() {
+      // The use of inline closures is to circumvent an issue where the compiler
+      // allocates stack space for every case branch when no optimizations are
+      // enabled. https://github.com/apple/swift-protobuf/issues/1034
+      switch fieldNumber {
+      case 1: try { try decoder.decodeSingularStringField(value: &self.spaceID) }()
+      case 2: try { try decoder.decodeSingularStringField(value: &self.identity) }()
+      case 3: try { try decoder.decodeSingularStringField(value: &self.identityName) }()
+      case 4: try { try decoder.decodeSingularStringField(value: &self.identityIcon) }()
+      default: break
+      }
+    }
+  }
+
+  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    if !self.spaceID.isEmpty {
+      try visitor.visitSingularStringField(value: self.spaceID, fieldNumber: 1)
+    }
+    if !self.identity.isEmpty {
+      try visitor.visitSingularStringField(value: self.identity, fieldNumber: 2)
+    }
+    if !self.identityName.isEmpty {
+      try visitor.visitSingularStringField(value: self.identityName, fieldNumber: 3)
+    }
+    if !self.identityIcon.isEmpty {
+      try visitor.visitSingularStringField(value: self.identityIcon, fieldNumber: 4)
+    }
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  public static func ==(lhs: Anytype_Model_Notification.RequestToJoin, rhs: Anytype_Model_Notification.RequestToJoin) -> Bool {
+    if lhs.spaceID != rhs.spaceID {return false}
+    if lhs.identity != rhs.identity {return false}
+    if lhs.identityName != rhs.identityName {return false}
+    if lhs.identityIcon != rhs.identityIcon {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    return true
+  }
+}
+
 extension Anytype_Model_Export: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
   public static let protoMessageName: String = _protobuf_package + ".Export"
   public static let _protobuf_nameMap = SwiftProtobuf._NameMap()
@@ -9075,4 +9694,340 @@ extension Anytype_Model_Import.ErrorCode: SwiftProtobuf._ProtoNameProviding {
     7: .same(proto: "LIMIT_OF_ROWS_OR_RELATIONS_EXCEEDED"),
     8: .same(proto: "FILE_LOAD_ERROR"),
   ]
+}
+
+extension Anytype_Model_Invite: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = _protobuf_package + ".Invite"
+  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    1: .same(proto: "payload"),
+    2: .same(proto: "signature"),
+  ]
+
+  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let fieldNumber = try decoder.nextFieldNumber() {
+      // The use of inline closures is to circumvent an issue where the compiler
+      // allocates stack space for every case branch when no optimizations are
+      // enabled. https://github.com/apple/swift-protobuf/issues/1034
+      switch fieldNumber {
+      case 1: try { try decoder.decodeSingularBytesField(value: &self.payload) }()
+      case 2: try { try decoder.decodeSingularBytesField(value: &self.signature) }()
+      default: break
+      }
+    }
+  }
+
+  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    if !self.payload.isEmpty {
+      try visitor.visitSingularBytesField(value: self.payload, fieldNumber: 1)
+    }
+    if !self.signature.isEmpty {
+      try visitor.visitSingularBytesField(value: self.signature, fieldNumber: 2)
+    }
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  public static func ==(lhs: Anytype_Model_Invite, rhs: Anytype_Model_Invite) -> Bool {
+    if lhs.payload != rhs.payload {return false}
+    if lhs.signature != rhs.signature {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    return true
+  }
+}
+
+extension Anytype_Model_InvitePayload: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = _protobuf_package + ".InvitePayload"
+  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    1: .same(proto: "creatorIdentity"),
+    2: .same(proto: "creatorName"),
+    3: .same(proto: "inviteKey"),
+    4: .same(proto: "spaceId"),
+    5: .same(proto: "spaceName"),
+    6: .same(proto: "spaceIconCid"),
+    7: .same(proto: "spaceIconEncryptionKeys"),
+  ]
+
+  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let fieldNumber = try decoder.nextFieldNumber() {
+      // The use of inline closures is to circumvent an issue where the compiler
+      // allocates stack space for every case branch when no optimizations are
+      // enabled. https://github.com/apple/swift-protobuf/issues/1034
+      switch fieldNumber {
+      case 1: try { try decoder.decodeSingularStringField(value: &self.creatorIdentity) }()
+      case 2: try { try decoder.decodeSingularStringField(value: &self.creatorName) }()
+      case 3: try { try decoder.decodeSingularBytesField(value: &self.inviteKey) }()
+      case 4: try { try decoder.decodeSingularStringField(value: &self.spaceID) }()
+      case 5: try { try decoder.decodeSingularStringField(value: &self.spaceName) }()
+      case 6: try { try decoder.decodeSingularStringField(value: &self.spaceIconCid) }()
+      case 7: try { try decoder.decodeRepeatedMessageField(value: &self.spaceIconEncryptionKeys) }()
+      default: break
+      }
+    }
+  }
+
+  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    if !self.creatorIdentity.isEmpty {
+      try visitor.visitSingularStringField(value: self.creatorIdentity, fieldNumber: 1)
+    }
+    if !self.creatorName.isEmpty {
+      try visitor.visitSingularStringField(value: self.creatorName, fieldNumber: 2)
+    }
+    if !self.inviteKey.isEmpty {
+      try visitor.visitSingularBytesField(value: self.inviteKey, fieldNumber: 3)
+    }
+    if !self.spaceID.isEmpty {
+      try visitor.visitSingularStringField(value: self.spaceID, fieldNumber: 4)
+    }
+    if !self.spaceName.isEmpty {
+      try visitor.visitSingularStringField(value: self.spaceName, fieldNumber: 5)
+    }
+    if !self.spaceIconCid.isEmpty {
+      try visitor.visitSingularStringField(value: self.spaceIconCid, fieldNumber: 6)
+    }
+    if !self.spaceIconEncryptionKeys.isEmpty {
+      try visitor.visitRepeatedMessageField(value: self.spaceIconEncryptionKeys, fieldNumber: 7)
+    }
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  public static func ==(lhs: Anytype_Model_InvitePayload, rhs: Anytype_Model_InvitePayload) -> Bool {
+    if lhs.creatorIdentity != rhs.creatorIdentity {return false}
+    if lhs.creatorName != rhs.creatorName {return false}
+    if lhs.inviteKey != rhs.inviteKey {return false}
+    if lhs.spaceID != rhs.spaceID {return false}
+    if lhs.spaceName != rhs.spaceName {return false}
+    if lhs.spaceIconCid != rhs.spaceIconCid {return false}
+    if lhs.spaceIconEncryptionKeys != rhs.spaceIconEncryptionKeys {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    return true
+  }
+}
+
+extension Anytype_Model_IdentityProfile: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = _protobuf_package + ".IdentityProfile"
+  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    1: .same(proto: "identity"),
+    2: .same(proto: "name"),
+    3: .same(proto: "iconCid"),
+    4: .same(proto: "iconEncryptionKeys"),
+    5: .same(proto: "description"),
+  ]
+
+  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let fieldNumber = try decoder.nextFieldNumber() {
+      // The use of inline closures is to circumvent an issue where the compiler
+      // allocates stack space for every case branch when no optimizations are
+      // enabled. https://github.com/apple/swift-protobuf/issues/1034
+      switch fieldNumber {
+      case 1: try { try decoder.decodeSingularStringField(value: &self.identity) }()
+      case 2: try { try decoder.decodeSingularStringField(value: &self.name) }()
+      case 3: try { try decoder.decodeSingularStringField(value: &self.iconCid) }()
+      case 4: try { try decoder.decodeRepeatedMessageField(value: &self.iconEncryptionKeys) }()
+      case 5: try { try decoder.decodeSingularStringField(value: &self.description_p) }()
+      default: break
+      }
+    }
+  }
+
+  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    if !self.identity.isEmpty {
+      try visitor.visitSingularStringField(value: self.identity, fieldNumber: 1)
+    }
+    if !self.name.isEmpty {
+      try visitor.visitSingularStringField(value: self.name, fieldNumber: 2)
+    }
+    if !self.iconCid.isEmpty {
+      try visitor.visitSingularStringField(value: self.iconCid, fieldNumber: 3)
+    }
+    if !self.iconEncryptionKeys.isEmpty {
+      try visitor.visitRepeatedMessageField(value: self.iconEncryptionKeys, fieldNumber: 4)
+    }
+    if !self.description_p.isEmpty {
+      try visitor.visitSingularStringField(value: self.description_p, fieldNumber: 5)
+    }
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  public static func ==(lhs: Anytype_Model_IdentityProfile, rhs: Anytype_Model_IdentityProfile) -> Bool {
+    if lhs.identity != rhs.identity {return false}
+    if lhs.name != rhs.name {return false}
+    if lhs.iconCid != rhs.iconCid {return false}
+    if lhs.iconEncryptionKeys != rhs.iconEncryptionKeys {return false}
+    if lhs.description_p != rhs.description_p {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    return true
+  }
+}
+
+extension Anytype_Model_FileInfo: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = _protobuf_package + ".FileInfo"
+  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    1: .same(proto: "fileId"),
+    2: .same(proto: "encryptionKeys"),
+  ]
+
+  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let fieldNumber = try decoder.nextFieldNumber() {
+      // The use of inline closures is to circumvent an issue where the compiler
+      // allocates stack space for every case branch when no optimizations are
+      // enabled. https://github.com/apple/swift-protobuf/issues/1034
+      switch fieldNumber {
+      case 1: try { try decoder.decodeSingularStringField(value: &self.fileID) }()
+      case 2: try { try decoder.decodeRepeatedMessageField(value: &self.encryptionKeys) }()
+      default: break
+      }
+    }
+  }
+
+  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    if !self.fileID.isEmpty {
+      try visitor.visitSingularStringField(value: self.fileID, fieldNumber: 1)
+    }
+    if !self.encryptionKeys.isEmpty {
+      try visitor.visitRepeatedMessageField(value: self.encryptionKeys, fieldNumber: 2)
+    }
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  public static func ==(lhs: Anytype_Model_FileInfo, rhs: Anytype_Model_FileInfo) -> Bool {
+    if lhs.fileID != rhs.fileID {return false}
+    if lhs.encryptionKeys != rhs.encryptionKeys {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    return true
+  }
+}
+
+extension Anytype_Model_FileEncryptionKey: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = _protobuf_package + ".FileEncryptionKey"
+  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    1: .same(proto: "path"),
+    2: .same(proto: "key"),
+  ]
+
+  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let fieldNumber = try decoder.nextFieldNumber() {
+      // The use of inline closures is to circumvent an issue where the compiler
+      // allocates stack space for every case branch when no optimizations are
+      // enabled. https://github.com/apple/swift-protobuf/issues/1034
+      switch fieldNumber {
+      case 1: try { try decoder.decodeSingularStringField(value: &self.path) }()
+      case 2: try { try decoder.decodeSingularStringField(value: &self.key) }()
+      default: break
+      }
+    }
+  }
+
+  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    if !self.path.isEmpty {
+      try visitor.visitSingularStringField(value: self.path, fieldNumber: 1)
+    }
+    if !self.key.isEmpty {
+      try visitor.visitSingularStringField(value: self.key, fieldNumber: 2)
+    }
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  public static func ==(lhs: Anytype_Model_FileEncryptionKey, rhs: Anytype_Model_FileEncryptionKey) -> Bool {
+    if lhs.path != rhs.path {return false}
+    if lhs.key != rhs.key {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    return true
+  }
+}
+
+extension Anytype_Model_ManifestInfo: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = _protobuf_package + ".ManifestInfo"
+  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    1: .same(proto: "schema"),
+    2: .same(proto: "id"),
+    3: .same(proto: "name"),
+    4: .same(proto: "author"),
+    5: .same(proto: "license"),
+    6: .same(proto: "title"),
+    7: .same(proto: "description"),
+    8: .same(proto: "screenshots"),
+    9: .same(proto: "downloadLink"),
+    10: .same(proto: "fileSize"),
+    11: .same(proto: "categories"),
+    12: .same(proto: "language"),
+  ]
+
+  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let fieldNumber = try decoder.nextFieldNumber() {
+      // The use of inline closures is to circumvent an issue where the compiler
+      // allocates stack space for every case branch when no optimizations are
+      // enabled. https://github.com/apple/swift-protobuf/issues/1034
+      switch fieldNumber {
+      case 1: try { try decoder.decodeSingularStringField(value: &self.schema) }()
+      case 2: try { try decoder.decodeSingularStringField(value: &self.id) }()
+      case 3: try { try decoder.decodeSingularStringField(value: &self.name) }()
+      case 4: try { try decoder.decodeSingularStringField(value: &self.author) }()
+      case 5: try { try decoder.decodeSingularStringField(value: &self.license) }()
+      case 6: try { try decoder.decodeSingularStringField(value: &self.title) }()
+      case 7: try { try decoder.decodeSingularStringField(value: &self.description_p) }()
+      case 8: try { try decoder.decodeRepeatedStringField(value: &self.screenshots) }()
+      case 9: try { try decoder.decodeSingularStringField(value: &self.downloadLink) }()
+      case 10: try { try decoder.decodeSingularInt32Field(value: &self.fileSize) }()
+      case 11: try { try decoder.decodeRepeatedStringField(value: &self.categories) }()
+      case 12: try { try decoder.decodeSingularStringField(value: &self.language) }()
+      default: break
+      }
+    }
+  }
+
+  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    if !self.schema.isEmpty {
+      try visitor.visitSingularStringField(value: self.schema, fieldNumber: 1)
+    }
+    if !self.id.isEmpty {
+      try visitor.visitSingularStringField(value: self.id, fieldNumber: 2)
+    }
+    if !self.name.isEmpty {
+      try visitor.visitSingularStringField(value: self.name, fieldNumber: 3)
+    }
+    if !self.author.isEmpty {
+      try visitor.visitSingularStringField(value: self.author, fieldNumber: 4)
+    }
+    if !self.license.isEmpty {
+      try visitor.visitSingularStringField(value: self.license, fieldNumber: 5)
+    }
+    if !self.title.isEmpty {
+      try visitor.visitSingularStringField(value: self.title, fieldNumber: 6)
+    }
+    if !self.description_p.isEmpty {
+      try visitor.visitSingularStringField(value: self.description_p, fieldNumber: 7)
+    }
+    if !self.screenshots.isEmpty {
+      try visitor.visitRepeatedStringField(value: self.screenshots, fieldNumber: 8)
+    }
+    if !self.downloadLink.isEmpty {
+      try visitor.visitSingularStringField(value: self.downloadLink, fieldNumber: 9)
+    }
+    if self.fileSize != 0 {
+      try visitor.visitSingularInt32Field(value: self.fileSize, fieldNumber: 10)
+    }
+    if !self.categories.isEmpty {
+      try visitor.visitRepeatedStringField(value: self.categories, fieldNumber: 11)
+    }
+    if !self.language.isEmpty {
+      try visitor.visitSingularStringField(value: self.language, fieldNumber: 12)
+    }
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  public static func ==(lhs: Anytype_Model_ManifestInfo, rhs: Anytype_Model_ManifestInfo) -> Bool {
+    if lhs.schema != rhs.schema {return false}
+    if lhs.id != rhs.id {return false}
+    if lhs.name != rhs.name {return false}
+    if lhs.author != rhs.author {return false}
+    if lhs.license != rhs.license {return false}
+    if lhs.title != rhs.title {return false}
+    if lhs.description_p != rhs.description_p {return false}
+    if lhs.screenshots != rhs.screenshots {return false}
+    if lhs.downloadLink != rhs.downloadLink {return false}
+    if lhs.fileSize != rhs.fileSize {return false}
+    if lhs.categories != rhs.categories {return false}
+    if lhs.language != rhs.language {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    return true
+  }
 }

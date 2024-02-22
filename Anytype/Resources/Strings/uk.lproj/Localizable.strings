@@ -79,18 +79,44 @@
 "Relation.From.Type" = "З типу %@";
 "Relation.LinksFrom.Title" = "from";
 "Relation.LinksTo.Title" = "to";
+"Relation.EmptyState.title" = "No options";
+"Relation.EmptyState.description" = "Nothing found. Create first option to start.";
+"Relation.EmptyState.Blocked.title" = "The relation is empty";
+"Relation.Create.Row.title" = "Create “%@”";
+"Relation.View.Create.title" = "Create option";
+"Relation.View.Edit.title" = "Edit option";
+"Relation.Create.Textfield.placeholder" = "Enter name...";
+"Relation.Edit.Button.title" = "Застосувати";
+"Relation.Date.Locked.Alert.title" = "Relation “%@” is locked";
+"Relation.ObjectTypes.Header.title" = "Object types:";
+"Relation.ObjectType.Header.title" = "Object type:";
+
+"Relation.Delete.Alert.Title" = "Ви впевнені?";
+"Relation.Delete.Alert.Description" = "The option will be permanently removed from your space.";
+"Relation.Object.Delete.Alert.Description" = "The object will be moved to Bin.";
 
 "Relation.Format.Object.Title" = "Об'єкт";
 "Relation.Format.Text.Title" = "Текст";
 "Relation.Format.Number.Title" = "Число";
-"Relation.Format.Status.Title" = "Статус";
-"Relation.Format.Tag.Title" = "Мітка";
+"Relation.Format.Status.Title" = "Select";
+"Relation.Format.Tag.Title" = "Multi-select";
 "Relation.Format.Date.Title" = "Дата";
 "Relation.Format.FileMedia.Title" = "Файл і медіа";
 "Relation.Format.Checkbox.Title" = "Прапорець";
 "Relation.Format.Url.Title" = "URL";
 "Relation.Format.Email.Title" = "Ел. пошта";
 "Relation.Format.Phone.Title" = "Номер телефону";
+
+// Origin Relation
+
+"Relation.Origin.Clipboard" = "Clipboard";
+"Relation.Origin.DragAndDrop" = "Drag'n'Drop";
+"Relation.Origin.Import" = "Imported object";
+"Relation.Origin.WebClipper" = "Web clipper";
+"Relation.Origin.SharingExtension" = "Mobile sharing extension";
+"Relation.Origin.UseCase" = "Use case";
+"Relation.Origin.Builtin" = "Library installed";
+"Relation.Origin.Bookmark" = "Закладка";
 
 // MARK: - Mention
 "Mention.Subtitle.Placeholder" = "Об'єкт";
@@ -109,6 +135,8 @@
 "Actions" = "Дії";
 "Relations" = "Відносини";
 "Objects" = "Об'єкти";
+"Lists" = "Groups";
+"Pinned" = "Pinned";
 "Delete" = "Видалити";
 "Duplicate" = "Дублювати";
 "Copy" = "Копіювати";
@@ -118,6 +146,8 @@
 "Move" = "Перемістити";
 "Move to" = "Перемістити до";
 "Back" = "Назад";
+"Unpin" = "Unpin";
+"Pin on top" = "Pin on top";
 "File block subtitle" = "Зберігати файл у початковому стані";
 "Picture block subtitle" = "Завантажити та наповнити сторінку зображенням";
 "Video block subtitle" = "Завантажити відтворюване відео";
@@ -187,7 +217,7 @@
 "Auth.CameraPermissionTitle" = "Будь ласка, дозвольте доступ";
 "Restore secret phrase from keychain" = "Відновити фразу відновлення з в'язки ключів";
 "Auth.LogIn" = "Log In";
-"Auth.Join" = "Create New Account";
+"Auth.Join" = "Join";
 "Auth.Welcome.Subtitle" = "Anytype - це ваш безпечний простір, де ви можете писати, планувати, думати та організовувати все, що має для вас значення.";
 "Auth.Caption.Privacy.Text" = "Продовжуючи, ви погоджуєтесь з [Умовами використання](%@) і [Політикою конфіденційності](%@)";
 "Auth.Next" = "Далі";
@@ -199,6 +229,7 @@
 "Error creating wallet" = "Помилка при створенні гаманця";
 "Error select account" = "Помилка при виборі облікового запису";
 "Error wallet recover account" = "Помилка відновлення облікового запису";
+"Wallet.Recovery.Error.description" = "Invalid recovery phrase";
 
 "Search for language" = "Шукати мову";
 
@@ -331,6 +362,7 @@
 "Templates.Popup.Default" = "Шаблон було встановлено за замовчуванням";
 
 "To Bin" = "В кошик";
+"Set as default" = "Set as default";
 
 // MARK: - Context Menu
 "Remove From Favorite" = "Видалити з Обраного";
@@ -486,8 +518,8 @@
 "Enter value" = "Введіть значення";
 "Select object" = "Обрати об'єкт";
 "Select file" = "Обрати файл";
-"Select tag" = "Оберіть тег";
-"Select status" = "Оберіть статус";
+"Select options" = "Select options";
+"Select option" = "Select option";
 "Select date" = "Оберіть дату";
 "Add email" = "Додати ел. пошту";
 "Add link" = "Додайте посилання";
@@ -495,6 +527,11 @@
 "Enter text" = "Введіть текст";
 "Unsupported value" = "Непідтримуване значення";
 "Select relation type" = "Виберіть тип відношення";
+"CommonOpenErrorView.Message" = "No data found";
+"Nothing found" = "Nothing found";
+"No type found text" = "No type “%@” found. Change your request or create new type.";
+"Create type" = "Create type";
+
 
 "Limit object types" = "Обмежити типи об'єктів";
 "Type" = "Тип";
@@ -544,9 +581,13 @@
 "Unfavorite" = "Вилучити з обраного";
 "Unsplash" = "Unsplash";
 "Go back" = "Повернутись";
-"Backed up on one node at least" = "Резервна копія принаймні на одному вузлі";
+"SyncStatus.LocalOnly.Title" = "Local-only";
+"SyncStatus.LocalOnly.Description" = "Local only";
+"SyncStatus.Synced.Anytype.Description" = "Backed up on Anytype Network";
+"SyncStatus.Synced.AnytypeStaging.Description" = "Backed up on Anytype Staging";
+"SyncStatus.Synced.SelfHosted.Description" = "Backed up on Self-hosted Network";
 "Downloading or uploading data to some node" = "Завантаження даних на деякий вузол";
-"Anytype node is not connected" = "Вузол Anytype не під'єднано";
+"Node is not connected" = "Node is not connected";
 "Initializing sync" = "Ініціалізація синхронізації";
 "Not syncing" = "Не синхронізовано";
 "Synced" = "Синхронізовано";
@@ -560,8 +601,9 @@
 "Into object" = "В об'єкт";
 "Add below" = "Додати знизу";
 "Change type" = "Змінити тип";
-"Link to existing object" = "Зв'язати з наявним об'єктом";
-"Link to object" = "Додайте посилання";
+"Show types" = "Show types";
+"Hide types" = "Hide types";
+"SlashMenu.LinkTo.Description" = "Create link to another object";
 "Upload playable audio" = "Завантажити відтворюване аудіо";
 "Code snippet" = "Фрагмент коду";
 "Bookmark" = "Закладка";
@@ -590,7 +632,7 @@
 "Today" = "Сьогодні";
 "No date" = "Без дати";
 "Clear" = "Очистити";
-"Create option" = "Створити варіант ‘%@’";
+"Create option with" = "Create option ‘%@’";
 "Add URL" = "Додати URL";
 "Add email" = "Додати ел. пошту";
 "Add phone number" = "Додати номер телефону";
@@ -620,6 +662,7 @@
 "DataviewType.gallery" = "Галерея";
 "DataviewType.kanban" = "Канбан";
 "DataviewType.calendar" = "Календар";
+"DataviewType.graph" = "Graph";
 
 // MARK: - ObjectType
 "ObjectType.fallbackDescription" = "Порожнє полотно без заголовка";
@@ -690,8 +733,8 @@
 "SetViewTypesPicker.Settings.Textfield.Placeholder.New.View" = "Нове подання";
 "SetViewTypesPicker.Settings.Textfield.Placeholder.Untitled" = "Без назви";
 
-// MARK: Select view picker
-"EditorSetViewPicker.View.Not.Supported.Title" = "Не підтримується";
+// MARK: Select view
+"EditorSet.View.Not.Supported.Title" = "Unsupported";
 
 // BlockContent
 "Content.File.Upload" = "Завантажити файл";
@@ -819,6 +862,16 @@
 "SpaceSettings.DeleteAlert.Title" = "Видалити ‘%@’ простір";
 "SpaceSettings.DeleteAlert.Message" = "Цей простір буде видалено безповоротно. Ви не можете скасувати цю дію.";
 "SpaceSettings.DeleteButton" = "Видалити простір ";
+"SpaceSettings.Sharing" = "Sharing";
+"SpaceSettings.Share" = "Share";
+
+// MARK: - Space Share
+
+"SpaceShare.Title" = "Share space";
+"SpaceShare.MembersSection" = "Members and requests";
+"SpaceShare.Permissions.Owner" = "Owner";
+"SpaceShare.Permissions.Reader" = "Can view";
+"SpaceShare.Permissions.Writer" = "Can edit";
 
 // MARK: - Space Create
 "SpaceCreate.Title" = "Створити простір";
@@ -833,10 +886,9 @@
 "Sharing.AddTo" = "Додати до";
 "Sharing.LinkTo" = "Зв'язати з";
 
-"Sharing.URL.Bookmark" = "Об'єкт закладки";
-"Sharing.URL.Text" = "Текстовий блок";
 "Sharing.Text.NoteObject" = "Об'єкт нотатки";
-"Sharing.Text.TextBlock" = "Текстовий блок";
+"Sharing.Text.TextBlock" = "Blocks";
+"Sharing.Any.Block" = "Blocks";
 
 // MARK: - Sharing tips
 "Sharing.Tip.Title" = "Share Extension";
@@ -844,7 +896,7 @@
 
 "Sharing.Tip.Steps.1" = "Tap the iOS sharing button";
 "Sharing.Tip.Steps.2" = "Scroll past the app and tap More";
-"Sharing.Tip.Steps.3" = "Tap Edit to find “Anytype” and  tap";
+"Sharing.Tip.Steps.3" = "Tap Edit to find “Anytype” and tap";
 
 // MARK: - Initial
 
@@ -856,13 +908,17 @@
 "Initial.UnstableMiddle.WontUseProd" = "Я не використовуватиму свій виробничий обліковий запис";
 
 // MARK: - Create tip
-"LongTapCreateTip.Title" = "Створення об'єктів з певним типом";
+"LongTapCreateTip.Title" = "Create Objects with specific Type";
 "LongTapCreateTip.Message" = "Натисніть і утримуйте кнопку Створити об'єкт, щоб відкрити меню типів об'єктів";
 
 // MARK: - Error
 "Error.AnytypeNeedsUpgrate.Title" = "Update Your App";
 "Error.AnytypeNeedsUpgrate.Message" = "This object was modified in a newer version of Anytype. Please update the app to open it on this device";
 "Error.AnytypeNeedsUpgrate.Confirm" = "Update";
+"Error.UnableToConnect" = "Please connect to the internet";
+"Error.Common.Title" = "Oops!";
+"Error.Common.Message" = "Please check your internet connection and try again or post a report on forum.";
+"Error.Common.TryAgain" = "Try again";
 
 // MARK: - Relative date formatter
 "RelativeFormatter.days7" = "Previous 7 days";
@@ -879,3 +935,13 @@
 // MARK: - Gallery
 "Gallery.Unavailable.Title" = "Gallery will be supported soon";
 "Gallery.Unavailable.Message" = "Please use the desktop app for now";
+"Gallery.Author" = "Made by @%@";
+"Gallery.Install" = "Install";
+"Gallery.InstallToNew" = "Install to new space";
+"Gallery.Notification.Success" = "Experience was successfully installed to the \"%@\" space. You can now open and start using it.";
+"Gallery.Notification.Button" = "Go to space";
+"Gallery.Notification.Error" = "Oops! \"%@\" wasn't installed. Please check your internet connection and try again or post a report on forum.";
+
+// MARK: - Debug
+"Debug.MimeTypes" = "Mime Types - %@";
+"Debug.Info" = "Debug Info";

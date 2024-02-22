@@ -19,6 +19,6 @@ final class ImageIdPainter: IconPainter {
     }
     
     func draw(bounds: CGRect, context: CGContext, iconContext: IconContext) {
-        image?.drawFit(in: bounds)
+        image?.drawFill(in: bounds)
     }
 }

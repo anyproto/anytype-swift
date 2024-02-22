@@ -6,10 +6,11 @@ class ChangeTypeAccessoryView: UIView {
     // https://www.figma.com/file/TupCOWb8sC9NcjtSToWIkS/Mobile---main?node-id=5309%3A1717
     private struct Constants {
         static let padding: CGFloat = 16
-        static let topViewHeight: CGFloat = 48
+        static let topViewHeight: CGFloat = 44
+        static let typeviewHeight: CGFloat = 52
         static let doneButtonWidth: CGFloat = 45
-        static let expandedHeight: CGFloat = 144
-        static let minimizedHeight: CGFloat = 48
+        static let expandedHeight: CGFloat = 96
+        static let minimizedHeight: CGFloat = 44
     }
     
 
@@ -61,13 +62,8 @@ class ChangeTypeAccessoryView: UIView {
             $0.centerY.equal(to: topView.centerYAnchor)
         }
 
-        let dividerView = UIView()
-        dividerView.heightAnchor.constraint(equalToConstant: 0.5).isActive = true
-        dividerView.backgroundColor = .Stroke.primary
-
         stackView.axis = .vertical
         stackView.addArrangedSubview(topView)
-        stackView.addArrangedSubview(dividerView)
         stackView.addArrangedSubview(changeTypeView)
 
         // Fix swiftui animation
@@ -75,7 +71,7 @@ class ChangeTypeAccessoryView: UIView {
             $0.pinToSuperview(excluding: [.bottom])
         }
         
-        let changeTypeViewHeightConstraint = changeTypeView.heightAnchor.constraint(equalToConstant: 96)
+        let changeTypeViewHeightConstraint = changeTypeView.heightAnchor.constraint(equalToConstant: Constants.typeviewHeight)
         changeTypeViewHeightConstraint.isActive = true
         changeTypeViewHeightConstraint.priority = .init(rawValue: 999)
 
@@ -98,27 +94,16 @@ class ChangeTypeAccessoryView: UIView {
             // For some known reason swiftUI view can't layout itself because its position is under the keyboard in an initialization moment. Use static height values is an workaround
             heightConstraint.constant = isVisible ? Constants.expandedHeight : Constants.minimizedHeight
 
-            UIView.animate(withDuration: 0.2) {
+            UIView.animate(withDuration: 0.2, delay: 0, options: .curveEaseOut) {
                 self?.changeTypeView.isHidden = !isVisible
-                self?.changeButton.imageView?.transform = isVisible ? .identity : CGAffineTransform(rotationAngle: Double.pi)
+                self?.changeButton.updateState(isOpen: isVisible)
                 self?.stackView.layoutIfNeeded()
             }
         }.store(in: &cancellables)
     }
 
     // UI Elements
-    private lazy var doneButton: UIButton = {
-        let button = UIButton(type: .custom)
-        let primaryAction = UIAction { [weak self] _ in
-            self?.viewModel.handleDoneButtonTap()
-        }
-
-        button.setTitle(Loc.done, for: .normal)
-        button.setTitleColor(UIColor.System.amber100, for: .normal)
-        button.addAction(primaryAction, for: .touchUpInside)
-
-        return button
-    }()
+    private lazy var doneButton: UIButton = createDoneButton()
 
     private lazy var changeButton = ChangeButton(frame: .zero)
 
@@ -127,48 +112,4 @@ class ChangeTypeAccessoryView: UIView {
     required init?(coder aDecoder: NSCoder) { fatalError("Not been implemented") }
     @available(*, unavailable)
     override init(frame: CGRect) { fatalError("Not been implemented") }
-}
-
-private final class ChangeButton: UIButton {
-    override init(frame: CGRect) {
-        super.init(frame: frame)
-
-        setup()
-    }
-
-    required init?(coder: NSCoder) {
-        super.init(coder: coder)
-
-        setup()
-    }
-
-    private func setup() {
-        var configuration = UIButton.Configuration.plain()
-        configuration.attributedTitle = attributedString(for: .normal)
-        configuration.image = UIImage(asset: .TextEditor.turnIntoArrow)
-        configuration.buttonSize = .mini
-        configuration.titleAlignment = .leading
-        configuration.imagePlacement = .leading
-        configuration.contentInsets = .init(top: 0, leading: -5, bottom: 0, trailing: 0)
-        configuration.imagePadding = 5
-        self.configuration = configuration
-        
-        configurationUpdateHandler = { [weak self] button in
-            guard let self = self else { return }
-            
-            var configuration = button.configuration
-            configuration?.attributedTitle = attributedString(for: button.state)
-            self.configuration = configuration
-        }
-    }
-    
-    private func attributedString(for state: UIButton.State) -> AttributedString {
-        .init(
-            Loc.changeType,
-            attributes: AttributeContainer([
-                NSAttributedString.Key.font: UIFont.bodyRegular,
-                NSAttributedString.Key.foregroundColor: state == .highlighted ? UIColor.Text.primary : UIColor.Button.active
-            ])
-        )
-    }
 }

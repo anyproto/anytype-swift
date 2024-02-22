@@ -149,15 +149,13 @@ final class SetLayoutSettingsViewModel: ObservableObject {
     }
     
     private func updateView(_ activeView: DataviewView) {
-        if activeView.type != selectedType {
-            AnytypeAnalytics.instance().logChangeViewType(type: selectedType.stringValue, objectType: setDocument.analyticsType)
-        }
         Task {
             try await dataviewService.updateView(
                 objectId: setDocument.objectId,
                 blockId: setDocument.blockId,
                 view: activeView
             )
+            AnytypeAnalytics.instance().logChangeViewType(type: selectedType.analyticStringValue, objectType: setDocument.analyticsType)
         }
     }
     

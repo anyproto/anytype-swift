@@ -68,7 +68,7 @@ public extension RelationDetails {
             fields[BundledRelationKey.name.rawValue] = name.protobufValue
         }
         if format != .unrecognized {
-            fields[BundledRelationKey.relationFormat.rawValue] = format.rawValue.protobufValue
+            fields[BundledRelationKey.relationFormat.rawValue] = format.asMiddleware.rawValue.protobufValue
         }
         if objectTypes.isNotEmpty {
             fields[BundledRelationKey.relationFormatObjectTypes.rawValue] = objectTypes.protobufValue

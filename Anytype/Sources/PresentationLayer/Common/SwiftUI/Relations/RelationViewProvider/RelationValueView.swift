@@ -17,7 +17,7 @@ struct RelationValueView: View {
     
     @ViewBuilder
     private func buttonView(with action: (() -> Void)?) -> some View {
-        if action.isNotNil && relation.isEditable {
+        if action.isNotNil {
             Button {
                 action?()
             } label: {
@@ -59,7 +59,7 @@ struct RelationValueView: View {
             case .object(let object):
                 ObjectRelationView(options: object.selectedObjects, hint: relation.hint, style: style)
             case .checkbox(let checkbox):
-                CheckboxRelationView(isChecked: checkbox.value, style: style)
+                CheckboxRelationView(name: checkbox.name, isChecked: checkbox.value, style: style)
             case .url(let text):
                 TextRelationFactory.swiftUI(value: text.value, hint: relation.hint, style: style)
             case .email(let text):

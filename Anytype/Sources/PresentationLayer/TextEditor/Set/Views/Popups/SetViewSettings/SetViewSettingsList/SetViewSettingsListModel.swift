@@ -84,7 +84,7 @@ final class SetViewSettingsListModel: ObservableObject {
             guard let self else { return }
             try await dataviewService.createView(objectId: setDocument.objectId, blockId: setDocument.blockId, view: view, source: source)
             AnytypeAnalytics.instance().logDuplicateView(
-                type: view.type.stringValue,
+                type: view.type.analyticStringValue,
                 objectType: setDocument.analyticsType
             )
         }
@@ -100,7 +100,7 @@ final class SetViewSettingsListModel: ObservableObject {
         view = setDocument.view(by: viewId)
         
         name = view.name
-        layoutValue = view.type.name
+        layoutValue = view.type.isSupported ? view.type.name : Loc.EditorSet.View.Not.Supported.title
         updateRelationsValue()
         
         let sorts = setDocument.sorts(for: viewId)

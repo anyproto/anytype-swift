@@ -24,7 +24,8 @@ final class HomeBottomNavigationPanelModuleAssembly: HomeBottomNavigationPanelMo
             model: HomeBottomNavigationPanelViewModel(
                 activeWorkpaceStorage: self.serviceLocator.activeWorkspaceStorage(),
                 subscriptionService: self.serviceLocator.singleObjectSubscriptionService(),
-                dashboardService: self.serviceLocator.dashboardService(),
+                defaultObjectService: self.serviceLocator.defaultObjectCreationService(),
+                processSubscriptionService: self.serviceLocator.processSubscriptionService(),
                 output: output
             )
         ).eraseToAnyView()

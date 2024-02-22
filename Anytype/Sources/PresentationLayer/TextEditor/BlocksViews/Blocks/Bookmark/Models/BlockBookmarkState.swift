@@ -5,8 +5,8 @@ struct BlockBookmarkPayload: Hashable, Equatable {
     let source: AnytypeURL?
     let title: String
     let subtitle: String
-    let imageHash: String
-    let faviconHash: String
+    let imageObjectId: String
+    let faviconObjectId: String
     let isArchived: Bool
 }
 
@@ -21,8 +21,8 @@ extension BlockBookmarkPayload {
         self.source = objectDetails.source
         self.title = objectDetails.title
         self.subtitle = objectDetails.description
-        self.imageHash = objectDetails.picture?.value ?? ""
-        self.faviconHash = objectDetails.iconImage?.value ?? ""
+        self.imageObjectId = objectDetails.picture
+        self.faviconObjectId = objectDetails.iconImage
         self.isArchived = objectDetails.isArchived
     }
     
@@ -30,8 +30,8 @@ extension BlockBookmarkPayload {
         self.source = blockBookmark.source
         self.title = blockBookmark.title
         self.subtitle = blockBookmark.theDescription
-        self.imageHash = blockBookmark.imageHash
-        self.faviconHash = blockBookmark.faviconHash
+        self.imageObjectId = blockBookmark.imageHash
+        self.faviconObjectId = blockBookmark.faviconHash
         self.isArchived = false
     }
 }

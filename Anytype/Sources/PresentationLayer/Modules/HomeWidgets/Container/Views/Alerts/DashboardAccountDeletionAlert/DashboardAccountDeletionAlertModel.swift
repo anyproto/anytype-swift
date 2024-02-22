@@ -10,6 +10,8 @@ final class DashboardAccountDeletionAlertModel: ObservableObject {
     private let authService: AuthServiceProtocol
     private let applicationStateService: ApplicationStateServiceProtocol
     
+    @Published var toastBarData: ToastBarData = .empty
+    
     init(
         authService: AuthServiceProtocol,
         applicationStateService: ApplicationStateServiceProtocol
@@ -23,21 +25,21 @@ final class DashboardAccountDeletionAlertModel: ObservableObject {
         AnytypeAnalytics.instance().logEvent(AnalyticsEventsName.deleteAccount)
         
         Task {
-            guard let status = try? await authService.deleteAccount() else {
+            do {
+                let status = try await authService.deleteAccount()
+                
+                switch status {
+                case .active:
+                    UINotificationFeedbackGenerator().notificationOccurred(.error)
+                case .pendingDeletion:
+                    UINotificationFeedbackGenerator().notificationOccurred(.success)
+                    applicationStateService.state = .delete
+                case .deleted:
+                    logout()
+                }
+            } catch {
+                toastBarData = ToastBarData(text: error.localizedDescription, showSnackBar: true, messageType: .failure)
                 UINotificationFeedbackGenerator().notificationOccurred(.error)
-                return
-            }
-            
-            switch status {
-            case .active:
-                UINotificationFeedbackGenerator().notificationOccurred(.error)
-                return
-            case .pendingDeletion:
-                UINotificationFeedbackGenerator().notificationOccurred(.success)
-                applicationStateService.state = .delete
-            case .deleted:
-                logout()
-                break
             }
         }
     }
@@ -46,14 +48,14 @@ final class DashboardAccountDeletionAlertModel: ObservableObject {
         
         AnytypeAnalytics.instance().logEvent(AnalyticsEventsName.logout)
 
-        authService.logout(removeData: true) { [weak self] isSuccess in
-            guard isSuccess else {
+        Task {
+            do {
+                try await authService.logout(removeData: true)
+                UINotificationFeedbackGenerator().notificationOccurred(.success)
+                applicationStateService.state = .auth
+            } catch {
                 UINotificationFeedbackGenerator().notificationOccurred(.error)
-                return
             }
-            
-            UINotificationFeedbackGenerator().notificationOccurred(.success)
-            self?.applicationStateService.state = .auth
         }
     }
 }

@@ -23,7 +23,7 @@ extension EditorPageObject {
         isOpenedForPreview: Bool = false,
         usecase: ObjectHeaderEmptyData.ObjectHeaderEmptyUsecase = .editor
     ) {
-        self.objectId = details.identityProfileLink.isNotEmpty ? details.identityProfileLink : details.id
+        self.objectId = details.id
         self.spaceId = details.spaceId
         self.isOpenedForPreview = isOpenedForPreview
         self.usecase = usecase

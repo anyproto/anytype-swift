@@ -10,6 +10,7 @@ protocol BaseDocumentGeneralProtocol: AnyObject {
     var updatePublisher: AnyPublisher<DocumentUpdate, Never> { get }
     var syncPublisher: AnyPublisher<Void, Never> { get }
     var forPreview: Bool { get }
+    var objectRestrictions: ObjectRestrictions { get }
     
     @MainActor
     func open() async throws
@@ -21,11 +22,12 @@ protocol BaseDocumentGeneralProtocol: AnyObject {
 
 protocol BaseDocumentProtocol: AnyObject, BaseDocumentGeneralProtocol {
     var infoContainer: InfoContainerProtocol { get }
-    var objectRestrictions: ObjectRestrictions { get }
     var detailsStorage: ObjectDetailsStorage { get }
     var children: [BlockInformation] { get }
     var parsedRelations: ParsedRelations { get }
     var isLocked: Bool { get }
+    var relationValuesIsLocked: Bool { get }
+    var relationsListIsLocked: Bool { get }
     var isEmpty: Bool { get }
     var isOpened: Bool { get }
     var isArchived: Bool { get }

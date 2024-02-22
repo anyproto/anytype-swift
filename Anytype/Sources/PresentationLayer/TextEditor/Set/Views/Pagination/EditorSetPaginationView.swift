@@ -3,7 +3,6 @@ import SwiftUI
 struct EditorSetPaginationView: View {
     @ObservedObject var model: EditorSetViewModel
     let paginationData: EditorSetPaginationData
-    let groupId: String
     
     var body: some View {
         VStack(spacing: 0) {
@@ -39,7 +38,7 @@ struct EditorSetPaginationView: View {
     
     private func pagesButton(_ counter: Int) -> some View {
         Button(action: {
-            model.changePage(counter, groupId: groupId)
+            model.changePage(counter)
         }) {
             AnytypeText(
                 "\(counter)",
@@ -53,7 +52,7 @@ struct EditorSetPaginationView: View {
     private var backArror: some View {
         Group {
             if paginationData.canGoBackward {
-                Button(action: { model.goBackwardRow(groupId: groupId) }) {
+                Button(action: { model.goBackwardRow() }) {
                     Image(asset: .X18.Disclosure.left)
                         .foregroundColor(.Button.active)
                 }
@@ -66,7 +65,7 @@ struct EditorSetPaginationView: View {
     private var forwardArror: some View {
         Group {
             if paginationData.canGoForward {
-                Button(action: { model.goForwardRow(groupId: groupId) }) {
+                Button(action: { model.goForwardRow() }) {
                     Image(asset: .X18.Disclosure.right)
                         .foregroundColor(.Button.active)
                 }

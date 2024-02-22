@@ -112,7 +112,7 @@ struct SetObjectCreationSettingsView_Previews: PreviewProvider {
             )
         )
         .previewLayout(.sizeThatFits)
-        .border(8, color: .Stroke.primary)
+        .border(8, color: .Shape.primary)
         .padding()
         .previewDisplayName("Preview with title & icon")
     }

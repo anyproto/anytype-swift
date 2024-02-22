@@ -55,7 +55,9 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>d</string>
         <key>other</key>
-        <string>%d links</string>
+        <string>%d tautan
+
+%d tautan - tautan</string>
       </dict>
     </dict>
     <key>Days to deletion account</key>
@@ -84,6 +86,62 @@
         <string>d</string>
         <key>other</key>
         <string>%d objek dihapus</string>
+      </dict>
+    </dict>
+    <key>Sharing.File.NewObject</key>
+    <dict>
+      <key>NSStringLocalizedFormatKey</key>
+      <string>%#@object@</string>
+      <key>object</key>
+      <dict>
+        <key>NSStringFormatSpecTypeKey</key>
+        <string>NSStringPluralRuleType</string>
+        <key>NSStringFormatValueTypeKey</key>
+        <string>d</string>
+        <key>other</key>
+        <string>%d File Objects</string>
+      </dict>
+    </dict>
+    <key>Sharing.File.Block</key>
+    <dict>
+      <key>NSStringLocalizedFormatKey</key>
+      <string>%#@object@</string>
+      <key>object</key>
+      <dict>
+        <key>NSStringFormatSpecTypeKey</key>
+        <string>NSStringPluralRuleType</string>
+        <key>NSStringFormatValueTypeKey</key>
+        <string>d</string>
+        <key>other</key>
+        <string>%d File Blocks</string>
+      </dict>
+    </dict>
+    <key>Sharing.URL.NewObject</key>
+    <dict>
+      <key>NSStringLocalizedFormatKey</key>
+      <string>%#@object@</string>
+      <key>object</key>
+      <dict>
+        <key>NSStringFormatSpecTypeKey</key>
+        <string>NSStringPluralRuleType</string>
+        <key>NSStringFormatValueTypeKey</key>
+        <string>d</string>
+        <key>other</key>
+        <string>%d Bookmark Objects</string>
+      </dict>
+    </dict>
+    <key>Sharing.URL.Block</key>
+    <dict>
+      <key>NSStringLocalizedFormatKey</key>
+      <string>%#@object@</string>
+      <key>object</key>
+      <dict>
+        <key>NSStringFormatSpecTypeKey</key>
+        <string>NSStringPluralRuleType</string>
+        <key>NSStringFormatValueTypeKey</key>
+        <string>d</string>
+        <key>other</key>
+        <string>Link %d Blocks</string>
       </dict>
     </dict>
   </dict>

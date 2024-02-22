@@ -26,14 +26,14 @@ final class SpaceViewIconInternalViewModel {
                 let safeSendableItemProvider = SafeSendable(value: itemProvider)
                 Task {
                     let data = try await fileService.createFileData(source: .itemProvider(safeSendableItemProvider.value))
-                    let imageHash = try await fileService.uploadImage(spaceId: spaceId, data: data)
-                    try await workspaceService.workspaceSetDetails(spaceId: spaceId, details: [.iconImageHash(imageHash)])
+                    let fileDetails = try await fileService.uploadFileObject(spaceId: spaceId, data: data, origin: .none)
+                    try await workspaceService.workspaceSetDetails(spaceId: spaceId, details: [.iconObjectId(fileDetails.id)])
                 }
             }
         case .removeIcon:
             AnytypeAnalytics.instance().logEvent(AnalyticsEventsName.removeIcon)
             Task {
-                try await workspaceService.workspaceSetDetails(spaceId: spaceId, details: [.iconImageHash(nil)])
+                try await workspaceService.workspaceSetDetails(spaceId: spaceId, details: [.iconObjectId("")])
             }
         }
     }

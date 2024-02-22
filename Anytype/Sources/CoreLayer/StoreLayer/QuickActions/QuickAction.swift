@@ -1,14 +1,14 @@
 import UIKit
 
-enum QuickAction: String, CaseIterable {
-    case newObject
+enum QuickAction {
+    case newObject(typeId: String)
 }
 
 extension QuickAction {
     func toAppAction() -> AppAction {
         switch self {
-        case .newObject:
-            return .createObject
+        case .newObject(let typeId):
+            return .createObjectFromQuickAction(typeId: typeId)
         }
     }
 }

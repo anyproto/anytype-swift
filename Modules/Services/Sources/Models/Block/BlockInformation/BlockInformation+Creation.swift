@@ -37,4 +37,21 @@ public extension BlockInformation {
         let content: BlockContent = .bookmark(.empty(targetObjectID: targetId))
         return BlockInformation.empty(content: content)
     }
+    
+    static func file(fileDetails: FileDetails) -> BlockInformation {
+        let content = BlockContent.file(
+            BlockFile(
+                metadata: FileMetadata(
+                    name: fileDetails.fileName,
+                    size: Int64(fileDetails.sizeInBytes),
+                    targetObjectId: fileDetails.id,
+                    mime: fileDetails.fileMimeType,
+                    addedAt: 0
+                ),
+                contentType: fileDetails.fileContentType,
+                state: .done
+            )
+        )
+        return BlockInformation.empty(content: content)
+    }
 }

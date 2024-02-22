@@ -3,10 +3,10 @@
 
 // MARK: Text Style in Slash and Style menu
 "TextStyle.Text.Title" = "Văn bản";
-"TextStyle.Text.Subtitle" = "Just start writing with a plain text";
+"TextStyle.Text.Subtitle" = "Hãy bắt đầu ghi một vài dòng ký tự";
 
 "TextStyle.Title.Title" = "Tiêu đề";
-"TextStyle.Title.Subtitle" = "Big section heading";
+"TextStyle.Title.Subtitle" = "Tiêu đề của đoạn văn dài";
 
 "TextStyle.Heading.Title" = "Mục chính";
 "TextStyle.Heading.Subtitle" = "Đầu mục vừa";
@@ -23,7 +23,7 @@
 "TextStyle.Checkbox.Title" = "Ô tick";
 "TextStyle.Checkbox.Subtitle" = "Tạo và theo dõi tác vụ bằng danh sách việc cần làm";
 
-"TextStyle.Bulleted.Title" = "Bulleted";
+"TextStyle.Bulleted.Title" = "Chấm đầu dòng";
 "TextStyle.Bulleted.Subtitle" = "Danh sách đơn giản";
 
 "TextStyle.Numbered.Title" = "Danh sách đánh số";
@@ -79,18 +79,44 @@
 "Relation.From.Type" = "Của loại '%@'";
 "Relation.LinksFrom.Title" = "from";
 "Relation.LinksTo.Title" = "to";
+"Relation.EmptyState.title" = "No options";
+"Relation.EmptyState.description" = "Nothing found. Create first option to start.";
+"Relation.EmptyState.Blocked.title" = "The relation is empty";
+"Relation.Create.Row.title" = "Create “%@”";
+"Relation.View.Create.title" = "Create option";
+"Relation.View.Edit.title" = "Edit option";
+"Relation.Create.Textfield.placeholder" = "Enter name...";
+"Relation.Edit.Button.title" = "Áp dụng";
+"Relation.Date.Locked.Alert.title" = "Relation “%@” is locked";
+"Relation.ObjectTypes.Header.title" = "Object types:";
+"Relation.ObjectType.Header.title" = "Object type:";
+
+"Relation.Delete.Alert.Title" = "Bạn chắc chưa?";
+"Relation.Delete.Alert.Description" = "The option will be permanently removed from your space.";
+"Relation.Object.Delete.Alert.Description" = "The object will be moved to Bin.";
 
 "Relation.Format.Object.Title" = "Đối tượng";
 "Relation.Format.Text.Title" = "Văn bản";
 "Relation.Format.Number.Title" = "Số";
-"Relation.Format.Status.Title" = "Trạng thái";
-"Relation.Format.Tag.Title" = "Thẻ";
+"Relation.Format.Status.Title" = "Select";
+"Relation.Format.Tag.Title" = "Multi-select";
 "Relation.Format.Date.Title" = "Ngày tháng";
 "Relation.Format.FileMedia.Title" = "File & Media";
 "Relation.Format.Checkbox.Title" = "Ô tick";
 "Relation.Format.Url.Title" = "URL";
 "Relation.Format.Email.Title" = "Email";
 "Relation.Format.Phone.Title" = "Số điện thoại";
+
+// Origin Relation
+
+"Relation.Origin.Clipboard" = "Clipboard";
+"Relation.Origin.DragAndDrop" = "Drag'n'Drop";
+"Relation.Origin.Import" = "Imported object";
+"Relation.Origin.WebClipper" = "Web clipper";
+"Relation.Origin.SharingExtension" = "Mobile sharing extension";
+"Relation.Origin.UseCase" = "Use case";
+"Relation.Origin.Builtin" = "Library installed";
+"Relation.Origin.Bookmark" = "Dấu trang";
 
 // MARK: - Mention
 "Mention.Subtitle.Placeholder" = "Đối tượng";
@@ -109,6 +135,8 @@
 "Actions" = "Các thao tác";
 "Relations" = "Các liên hệ";
 "Objects" = "Các đối tượng";
+"Lists" = "Lists";
+"Pinned" = "Pinned";
 "Delete" = "Xoá";
 "Duplicate" = "Nhân đôi";
 "Copy" = "Chép";
@@ -118,6 +146,8 @@
 "Move" = "Di chuyển";
 "Move to" = "Di chuyển đến";
 "Back" = "Quay lại";
+"Unpin" = "Unpin";
+"Pin on top" = "Pin on top";
 "File block subtitle" = "Lưu tập tin ở trạng thái gốc";
 "Picture block subtitle" = "Tải lên và làm trang sống động bằng ảnh";
 "Video block subtitle" = "Tải lên video chạy được";
@@ -188,7 +218,7 @@
 "Auth.CameraPermissionTitle" = "Hãy cho phép truy cập";
 "Restore secret phrase from keychain" = "Restore Recovery Phrase from the keychain";
 "Auth.LogIn" = "Log In";
-"Auth.Join" = "Create New Account";
+"Auth.Join" = "Join";
 "Auth.Welcome.Subtitle" = "Anytype is your safe space to write, plan, think and organise everything that matters to you.";
 "Auth.Caption.Privacy.Text" = "By continuing you agree to [Terms of Use](%@) and [Privacy Policy](%@)";
 "Auth.Next" = "Tiếp";
@@ -200,6 +230,7 @@
 "Error creating wallet" = "Error creating wallet";
 "Error select account" = "Error select account";
 "Error wallet recover account" = "Error wallet recover account";
+"Wallet.Recovery.Error.description" = "Invalid recovery phrase";
 
 "Search for language" = "Search for language";
 
@@ -332,6 +363,7 @@
 "Templates.Popup.Default" = "The template was set as default";
 
 "To Bin" = "To Bin";
+"Set as default" = "Set as default";
 
 // MARK: - Context Menu
 "Remove From Favorite" = "Bỏ khỏi mục Ưa thích";
@@ -487,8 +519,8 @@
 "Enter value" = "Nhập giá trị";
 "Select object" = "Chọn đối tượng";
 "Select file" = "Chọn tập tin";
-"Select tag" = "Chọn thẻ";
-"Select status" = "Chọn trạng thái";
+"Select options" = "Select options";
+"Select option" = "Select option";
 "Select date" = "Chọn ngày";
 "Add email" = "Thêm email";
 "Add link" = "Thêm link";
@@ -496,6 +528,11 @@
 "Enter text" = "Nhập văn bản";
 "Unsupported value" = "Unsupported value";
 "Select relation type" = "Chọn loại liên hệ";
+"CommonOpenErrorView.Message" = "No data found";
+"Nothing found" = "Nothing found";
+"No type found text" = "No type “%@” found. Change your request or create new type.";
+"Create type" = "Create type";
+
 
 "Limit object types" = "Giới hạn loại đối tượng";
 "Type" = "Loại";
@@ -545,9 +582,13 @@
 "Unfavorite" = "Unfavorite";
 "Unsplash" = "Unsplash";
 "Go back" = "Quay lại";
-"Backed up on one node at least" = "Được sao lưu trên ít nhất một nút mạng";
+"SyncStatus.LocalOnly.Title" = "Local-only";
+"SyncStatus.LocalOnly.Description" = "Local only";
+"SyncStatus.Synced.Anytype.Description" = "Backed up on Anytype Network";
+"SyncStatus.Synced.AnytypeStaging.Description" = "Backed up on Anytype Staging";
+"SyncStatus.Synced.SelfHosted.Description" = "Backed up on Self-hosted Network";
 "Downloading or uploading data to some node" = "Đang tải dữ liệu về hoặc lên điểm nào đó";
-"Anytype node is not connected" = "Nút mạng Anytype chưa kết nối";
+"Node is not connected" = "Node is not connected";
 "Initializing sync" = "Đang khởi tạo đồng bộ";
 "Not syncing" = "Chưa đồng bộ";
 "Synced" = "Đã đồng bộ";
@@ -561,8 +602,9 @@
 "Into object" = "Into object";
 "Add below" = "Add below";
 "Change type" = "Đổi loại";
-"Link to existing object" = "Liên kết đến đối tượng đã có";
-"Link to object" = "Thêm link";
+"Show types" = "Show types";
+"Hide types" = "Hide types";
+"SlashMenu.LinkTo.Description" = "Create link to another object";
 "Upload playable audio" = "Tải lên âm thanh chơi được";
 "Code snippet" = "Code snippet";
 "Bookmark" = "Dấu trang";
@@ -591,7 +633,7 @@
 "Today" = "Hôm nay";
 "No date" = "Không có ngày";
 "Clear" = "Xoá hết";
-"Create option" = "Tạo lựa chọn '%@’";
+"Create option with" = "Create option ‘%@’";
 "Add URL" = "Thêm URL";
 "Add email" = "Thêm email";
 "Add phone number" = "Thêm số điện thoại";
@@ -621,6 +663,7 @@
 "DataviewType.gallery" = "Gallery";
 "DataviewType.kanban" = "Dạng Kanban";
 "DataviewType.calendar" = "Calendar";
+"DataviewType.graph" = "Graph";
 
 // MARK: - ObjectType
 "ObjectType.fallbackDescription" = "Blank canvas with no title";
@@ -691,8 +734,8 @@
 "SetViewTypesPicker.Settings.Textfield.Placeholder.New.View" = "New view";
 "SetViewTypesPicker.Settings.Textfield.Placeholder.Untitled" = "Không tên";
 
-// MARK: Select view picker
-"EditorSetViewPicker.View.Not.Supported.Title" = "Unsupported";
+// MARK: Select view
+"EditorSet.View.Not.Supported.Title" = "Unsupported";
 
 // BlockContent
 "Content.File.Upload" = "Upload a file";
@@ -819,6 +862,16 @@
 "SpaceSettings.DeleteAlert.Title" = "Delete ‘%@’ space";
 "SpaceSettings.DeleteAlert.Message" = "This space will be deleted irrevocably. You can’t undo this action.";
 "SpaceSettings.DeleteButton" = "Delete space";
+"SpaceSettings.Sharing" = "Sharing";
+"SpaceSettings.Share" = "Share";
+
+// MARK: - Space Share
+
+"SpaceShare.Title" = "Share space";
+"SpaceShare.MembersSection" = "Members and requests";
+"SpaceShare.Permissions.Owner" = "Owner";
+"SpaceShare.Permissions.Reader" = "Can view";
+"SpaceShare.Permissions.Writer" = "Can edit";
 
 // MARK: - Space Create
 "SpaceCreate.Title" = "Create a space";
@@ -833,10 +886,9 @@
 "Sharing.AddTo" = "Thêm vào";
 "Sharing.LinkTo" = "Liên kết đến";
 
-"Sharing.URL.Bookmark" = "Bookmark object";
-"Sharing.URL.Text" = "Text block";
 "Sharing.Text.NoteObject" = "Note object";
-"Sharing.Text.TextBlock" = "Text block";
+"Sharing.Text.TextBlock" = "Blocks";
+"Sharing.Any.Block" = "Blocks";
 
 // MARK: - Sharing tips
 "Sharing.Tip.Title" = "Share Extension";
@@ -844,7 +896,7 @@
 
 "Sharing.Tip.Steps.1" = "Tap the iOS sharing button";
 "Sharing.Tip.Steps.2" = "Scroll past the app and tap More";
-"Sharing.Tip.Steps.3" = "Tap Edit to find “Anytype” and  tap";
+"Sharing.Tip.Steps.3" = "Tap Edit to find “Anytype” and tap";
 
 // MARK: - Initial
 
@@ -856,13 +908,17 @@
 "Initial.UnstableMiddle.WontUseProd" = "I won't be using my production account";
 
 // MARK: - Create tip
-"LongTapCreateTip.Title" = "Crete Objects with specific Type";
+"LongTapCreateTip.Title" = "Create Objects with specific Type";
 "LongTapCreateTip.Message" = "Long tap on Create Object button to open menu with types";
 
 // MARK: - Error
 "Error.AnytypeNeedsUpgrate.Title" = "Update Your App";
 "Error.AnytypeNeedsUpgrate.Message" = "This object was modified in a newer version of Anytype. Please update the app to open it on this device";
 "Error.AnytypeNeedsUpgrate.Confirm" = "Update";
+"Error.UnableToConnect" = "Please connect to the internet";
+"Error.Common.Title" = "Oops!";
+"Error.Common.Message" = "Please check your internet connection and try again or post a report on forum.";
+"Error.Common.TryAgain" = "Try again";
 
 // MARK: - Relative date formatter
 "RelativeFormatter.days7" = "Previous 7 days";
@@ -879,3 +935,13 @@
 // MARK: - Gallery
 "Gallery.Unavailable.Title" = "Gallery will be supported soon";
 "Gallery.Unavailable.Message" = "Please use the desktop app for now";
+"Gallery.Author" = "Made by @%@";
+"Gallery.Install" = "Install";
+"Gallery.InstallToNew" = "Install to new space";
+"Gallery.Notification.Success" = "Experience was successfully installed to the \"%@\" space. You can now open and start using it.";
+"Gallery.Notification.Button" = "Go to space";
+"Gallery.Notification.Error" = "Oops! \"%@\" wasn't installed. Please check your internet connection and try again or post a report on forum.";
+
+// MARK: - Debug
+"Debug.MimeTypes" = "Mime Types - %@";
+"Debug.Info" = "Debug Info";

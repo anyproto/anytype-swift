@@ -50,9 +50,9 @@ final class ObjectIconPickerViewModel: ObservableObject, ObjectIconPickerViewMod
         switch detailsLayout {
         case .basic, .set, .collection:
             return true
-        case .profile, .space, .spaceView:
+        case .profile, .participant, .space, .spaceView:
             guard let details = document.details else { return false }
-            return details.iconImage.isNotNil
+            return details.iconImage.isNotEmpty
         default:
             anytypeAssertionFailure(
                 "`ObjectIconPickerViewModel` unavailable",

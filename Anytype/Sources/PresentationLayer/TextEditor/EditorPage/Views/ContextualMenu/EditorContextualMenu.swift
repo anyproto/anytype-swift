@@ -38,7 +38,7 @@ struct EditorContextualMenuView: View {
                 Button {
                     optionTapHandler(option)
                 } label: {
-                    Text(option.localisedString)
+                    Text(verbatim: option.localisedString)
                         .foregroundColor(Color.Text.primary)
                         .font(AnytypeFontBuilder.font(anytypeFont: .uxCalloutRegular))
                         .padding(.leading, 16)

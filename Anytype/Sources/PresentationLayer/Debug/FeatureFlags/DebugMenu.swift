@@ -3,7 +3,9 @@ import AnytypeCore
 import Logger
 
 struct DebugMenu: View {
-    @StateObject private var model = DebugMenuViewModel()
+    
+    @StateObject var model: DebugMenuViewModel
+    
     @State private var showLogs = false
     @State private var showTypography = false
     @State private var showFeedbackGenerators = false
@@ -87,12 +89,26 @@ struct DebugMenu: View {
                     showObjectIcons.toggle()
                 }
             }
-            
             StandardButton("Feedback Generator 🃏", style: .secondaryLarge) {
                 UIImpactFeedbackGenerator(style: .heavy).impactOccurred()
                 showFeedbackGenerators.toggle()
             }
-
+            StandardButton("Export localstore data as json 📁", style: .secondaryLarge) {
+                UIImpactFeedbackGenerator(style: .heavy).impactOccurred()
+                model.getLocalStoreData()
+            }
+            StandardButton("Debug stack Goroutines 💤", style: .secondaryLarge) {
+                UIImpactFeedbackGenerator(style: .heavy).impactOccurred()
+                model.getGoroutinesData()
+            }
+            StandardButton("Export full directory 🤐", style: .secondaryLarge) {
+                UIImpactFeedbackGenerator(style: .heavy).impactOccurred()
+                model.zipWorkingDirectory()
+            }
+            StandardButton("Import full directory 📲", style: .secondaryLarge) {
+                UIImpactFeedbackGenerator(style: .heavy).impactOccurred()
+                model.unzipWorkingDirectory()
+            }
             StandardButton(
                 "Remove Recovery Phrase from device",
                 inProgress: model.isRemovingRecoveryPhraseInProgress,
@@ -110,6 +126,20 @@ struct DebugMenu: View {
         .sheet(isPresented: $showControls) { ControlsExample() }
         .sheet(isPresented: $showColors) { ColorsExample() }
         .sheet(isPresented: $showObjectIcons) { ObjectIconExample() }
+        .sheet(item: $model.localStoreURL) { url in
+            ActivityViewController(activityItems: [url], applicationActivities: nil)
+        }
+        .sheet(item: $model.stackGoroutinesURL) { url in
+            ActivityViewController(activityItems: [url], applicationActivities: nil)
+        }
+        .sheet(item: $model.workingDirectoryURL) { url in
+            ActivityViewController(activityItems: [url], applicationActivities: nil)
+        }
+        .sheet(isPresented: $model.showZipPicker) {
+            DocumentPicker(contentTypes: [.zip]) { url in
+                model.onSelectUnzipFile(url: url)
+            }
+        }
     }
     
     var toggles: some View {
@@ -130,4 +160,8 @@ struct DebugMenu: View {
         .padding(.horizontal, 20)
         .background(UIColor.systemGroupedBackground.suColor)
     }
+}
+
+extension URL: Identifiable {
+    public var id: String { absoluteString }
 }

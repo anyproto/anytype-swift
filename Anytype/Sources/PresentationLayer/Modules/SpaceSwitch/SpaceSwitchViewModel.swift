@@ -6,10 +6,6 @@ import UIKit
 @MainActor
 final class SpaceSwitchViewModel: ObservableObject {
     
-    private enum Constants {
-        static let maxSpaces = 10
-    }
-    
     // MARK: - DI
     
     private let workspacesStorage: WorkspacesStorageProtocol
@@ -130,7 +126,7 @@ final class SpaceSwitchViewModel: ObservableObject {
             scrollToRowId = selectedRow.id
         }
         
-        createSpaceAvailable = spaces.count < Constants.maxSpaces
+        createSpaceAvailable = workspacesStorage.canCreateNewSpace()
     }
     
     private func updateProfile(profile: ObjectDetails) {

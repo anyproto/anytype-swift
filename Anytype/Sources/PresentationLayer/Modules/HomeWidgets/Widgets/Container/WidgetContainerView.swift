@@ -20,7 +20,12 @@ struct WidgetContainerView<Content: View, ContentVM: WidgetContainerContentViewM
         WidgetSwipeActionView(
             isEnable: FeatureFlags.widgetsCreateObject ? contentModel.allowCreateObject : false,
             showTitle: model.isExpanded,
-            action: { contentModel.onCreateObjectTap() }
+            action: {
+                if #available(iOS 17.0, *) {
+                    WidgetSwipeTip().invalidate(reason: .actionPerformed)
+                }
+                contentModel.onCreateObjectTap()
+            }
         ) {
             LinkWidgetViewContainer(
                 title: contentModel.name,
@@ -86,31 +91,17 @@ struct WidgetContainerView<Content: View, ContentVM: WidgetContainerContentViewM
                 model.onChangeTypeTap()
             }
         case .remove:
-            if #available(iOS 15.0, *) {
-                Button(Loc.Widgets.Actions.removeWidget, role: .destructive) {
-                    // Fix anumation glytch.
-                    // We should to finalize context menu transition to list and then delete object
-                    // If we find how customize context menu transition, this 🩼 can be delete it
-                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.7) {
-                        model.onDeleteWidgetTap()
-                    }
-                }
-            } else {
-                Button(Loc.Widgets.Actions.removeWidget) {
-                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.7) {
-                        model.onDeleteWidgetTap()
-                    }
+            Button(Loc.Widgets.Actions.removeWidget, role: .destructive) {
+                // Fix animation glitch.
+                // We should to finalize context menu transition to list and then delete object
+                // If we find how customize context menu transition, this 🩼 can be deleted
+                DispatchQueue.main.asyncAfter(deadline: .now() + 0.7) {
+                    model.onDeleteWidgetTap()
                 }
             }
         case .emptyBin:
-            if #available(iOS 15.0, *) {
-                Button(Loc.Widgets.Actions.emptyBin, role: .destructive) {
-                    model.onEmptyBinTap()
-                }
-            } else {
-                Button(Loc.Widgets.Actions.emptyBin) {
-                    model.onEmptyBinTap()
-                }
+            Button(Loc.Widgets.Actions.emptyBin, role: .destructive) {
+                model.onEmptyBinTap()
             }
         }
     }
