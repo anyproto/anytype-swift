@@ -6,7 +6,7 @@ final class SimpleTableCellsBuilder {
     private let document: BaseDocumentProtocol
     private let router: EditorRouterProtocol
     private let handler: BlockActionHandlerProtocol
-    private let pasteboardService: PasteboardBlockServiceProtocol
+    private let pasteboardService: PasteboardBlockDocumentServiceProtocol
     private let markdownListener: MarkdownListener
     private let cursorManager: EditorCursorManager
     private let focusSubjectHolder: FocusSubjectsHolder
@@ -24,7 +24,7 @@ final class SimpleTableCellsBuilder {
         document: BaseDocumentProtocol,
         router: EditorRouterProtocol,
         handler: BlockActionHandlerProtocol,
-        pasteboardService: PasteboardBlockServiceProtocol,
+        pasteboardService: PasteboardBlockDocumentServiceProtocol,
         markdownListener: MarkdownListener,
         cursorManager: EditorCursorManager,
         focusSubjectHolder: FocusSubjectsHolder,

@@ -366,8 +366,8 @@ final class ServiceLocator {
         PasteboardHelper()
     }
     
-    func pasteboardBlockService(document: BaseDocumentProtocol) -> PasteboardBlockServiceProtocol {
-        PasteboardBlockService(
+    func pasteboardBlockService(document: BaseDocumentProtocol) -> PasteboardBlockDocumentServiceProtocol {
+        PasteboardBlockDocumentService(
             document: document,
             pasteboardHelper: pasteboardHelper(),
             pasteboardMiddlewareService: pasteboardMiddlewareService()
