@@ -851,6 +851,20 @@
 "Spaces.Accessibility.Personal" = "Настройки";
 "Spaces.Search.Title" = "Поиск пространств";
 "Spaces.Title" = "Пространства";
+"Spaces.Info.Network" = "Network:";
+"Spaces.Info.Device" = "Device:";
+
+// MARK: - Space
+"Space.Status.Unknown" = "Неизвестно";
+"Space.Status.Loading" = "Loading";
+"Space.Status.Ok" = "Ок";
+"Space.Status.Missing" = "Missing";
+"Space.Status.Error" = "Ошибка";
+"Space.Status.RemoteWaitingDeletion" = "Waiting Deletion";
+"Space.Status.RemoteDeleted" = "Remote Deleted";
+"Space.Status.SpaceDeleted" = "Удалено";
+"Space.Status.SpaceActive" = "Active";
+"Space.Status.SpaceJoining" = "Joining";
 
 // MARK: - Space Settings
 "SpaceSettings.Title" = "Настройки пространства";
