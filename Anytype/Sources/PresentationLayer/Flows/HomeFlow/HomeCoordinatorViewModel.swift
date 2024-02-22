@@ -22,6 +22,7 @@ final class HomeCoordinatorViewModel: ObservableObject,
     private let objectActionsService: ObjectActionsServiceProtocol
     private let defaultObjectService: DefaultObjectCreationServiceProtocol
     private let bookmarkService: BookmarkServiceProtocol
+    private let pasteboardBlockService: PasteboardBlockServiceProtocol
     private let typeProvider: ObjectTypeProviderProtocol
     private let appActionsStorage: AppActionStorage
     private let widgetTypeModuleAssembly: WidgetTypeModuleAssemblyProtocol
@@ -87,6 +88,7 @@ final class HomeCoordinatorViewModel: ObservableObject,
         objectActionsService: ObjectActionsServiceProtocol,
         defaultObjectService: DefaultObjectCreationServiceProtocol,
         bookmarkService: BookmarkServiceProtocol,
+        pasteboardBlockService: PasteboardBlockServiceProtocol,
         typeProvider: ObjectTypeProviderProtocol,
         appActionsStorage: AppActionStorage,
         widgetTypeModuleAssembly: WidgetTypeModuleAssemblyProtocol,
@@ -113,6 +115,7 @@ final class HomeCoordinatorViewModel: ObservableObject,
         self.objectActionsService = objectActionsService
         self.defaultObjectService = defaultObjectService
         self.bookmarkService = bookmarkService
+        self.pasteboardBlockService = pasteboardBlockService
         self.typeProvider = typeProvider
         self.appActionsStorage = appActionsStorage
         self.widgetTypeModuleAssembly = widgetTypeModuleAssembly
@@ -207,9 +210,9 @@ final class HomeCoordinatorViewModel: ObservableObject,
             self?.showTypeSearch = false
             
             switch result {
-            case .object(let type, let content):
+            case .object(let type, let pasteContent):
                 AnytypeAnalytics.instance().logSelectObjectType(type.analyticsType, route: .longTap)
-                self?.createAndShowNewObject(type: type, content: content, route: .navigation)
+                self?.createAndShowNewObject(type: type, pasteContent: pasteContent, route: .navigation)
             case .bookmark(let url):
                 self?.createAndShowNewBookmark(url: url)
             }
@@ -363,7 +366,7 @@ final class HomeCoordinatorViewModel: ObservableObject,
 
     private func createAndShowNewObject(
         type: ObjectType,
-        content: String? = nil,
+        pasteContent: Bool = false,
         route: AnalyticsEventsRouteKind
     ) {
         Task {
@@ -379,9 +382,18 @@ final class HomeCoordinatorViewModel: ObservableObject,
             )
             AnytypeAnalytics.instance().logCreateObject(objectType: details.analyticsType, route: route)
             
-            if let content = content {
-                let info = BlockInformation.empty(content: .text(.plain(content, contentType: .text)))
-                _ = try await BlockService().addFirstBlock(contextId: details.id, info: info)
+            if pasteContent {
+                let blockId = try await BlockService().addFirstBlock(contextId: details.id, info: .emptyText)
+                
+                pasteboardBlockService.pasteInsideBlock(
+                    objectId: details.id,
+                    focusedBlockId: blockId,
+                    range: .zero,
+                    handleLongOperation: {
+                        anytypeAssertionFailure("Not supported handleLongOperation")
+                    },
+                    completion: { _ in }
+                )
             }
 
             openObject(screenData: details.editorScreenData())

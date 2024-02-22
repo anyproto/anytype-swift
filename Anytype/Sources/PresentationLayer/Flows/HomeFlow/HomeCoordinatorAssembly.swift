@@ -46,6 +46,7 @@ final class HomeCoordinatorAssembly: HomeCoordinatorAssemblyProtocol {
             objectActionsService: serviceLocator.objectActionsService(),
             defaultObjectService: serviceLocator.defaultObjectCreationService(),
             bookmarkService: serviceLocator.bookmarkService(),
+            pasteboardBlockService: serviceLocator.pasteboardBlockService(),
             typeProvider: serviceLocator.objectTypeProvider(),
             appActionsStorage: serviceLocator.appActionStorage(),
             widgetTypeModuleAssembly: modulesDI.widgetType(),

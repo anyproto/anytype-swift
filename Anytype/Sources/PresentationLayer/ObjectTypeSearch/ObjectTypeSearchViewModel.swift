@@ -138,7 +138,7 @@ final class ObjectTypeSearchViewModel: ObservableObject {
                 toastPresenter.show(message: Loc.ObjectType.addedToLibrary(type.name))
             }
             
-            onSelect(.object(type: type, content: nil))
+            onSelect(.object(type: type, pasteContent: false))
         }
     }
     
@@ -147,7 +147,8 @@ final class ObjectTypeSearchViewModel: ObservableObject {
             guard pasteboardHelper.numberOfItems != 0 else { return }
             
             if pasteboardHelper.numberOfItems > 1 {
-                // TODO: Support multipaste
+                let type = try objectTypeProvider.defaultObjectType(spaceId: spaceId)
+                onSelect(.object(type: type, pasteContent: true))
                 return
             }
             
@@ -156,10 +157,9 @@ final class ObjectTypeSearchViewModel: ObservableObject {
                 return
             }
             
-            if pasteboardHelper.hasStrings, let content = pasteboardHelper.obtainString() {
-                
+            if pasteboardHelper.hasStrings {
                 let type = try objectTypeProvider.defaultObjectType(spaceId: spaceId)
-                onSelect(.object(type: type, content: content))
+                onSelect(.object(type: type, pasteContent: true))
                 return
             }
             
@@ -176,7 +176,7 @@ final class ObjectTypeSearchViewModel: ObservableObject {
     func createType(name: String) {
         Task {
             let type = try await typesService.createType(name: name, spaceId: spaceId)
-            onSelect(.object(type: type, content: nil))
+            onSelect(.object(type: type, pasteContent: false))
         }
     }
     
