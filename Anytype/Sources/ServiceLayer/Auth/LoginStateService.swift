@@ -20,6 +20,7 @@ final class LoginStateService: LoginStateServiceProtocol {
     private let relationDetailsStorage: RelationDetailsStorageProtocol
     private let workspacesStorage: WorkspacesStorageProtocol
     private let activeWorkpaceStorage: ActiveWorkpaceStorageProtocol
+    private let participantsStorage: ParticipantsStorageProtocol
     
     init(
         objectTypeProvider: ObjectTypeProviderProtocol,
@@ -27,7 +28,8 @@ final class LoginStateService: LoginStateServiceProtocol {
         blockWidgetExpandedService: BlockWidgetExpandedServiceProtocol,
         relationDetailsStorage: RelationDetailsStorageProtocol,
         workspacesStorage: WorkspacesStorageProtocol,
-        activeWorkpaceStorage: ActiveWorkpaceStorageProtocol
+        activeWorkpaceStorage: ActiveWorkpaceStorageProtocol,
+        participantsStorage: ParticipantsStorageProtocol
     ) {
         self.objectTypeProvider = objectTypeProvider
         self.middlewareConfigurationProvider = middlewareConfigurationProvider
@@ -35,6 +37,7 @@ final class LoginStateService: LoginStateServiceProtocol {
         self.relationDetailsStorage = relationDetailsStorage
         self.workspacesStorage = workspacesStorage
         self.activeWorkpaceStorage = activeWorkpaceStorage
+        self.participantsStorage = participantsStorage
     }
     
     // MARK: - LoginStateServiceProtocol
@@ -70,11 +73,13 @@ final class LoginStateService: LoginStateServiceProtocol {
         await workspacesStorage.startSubscription()
         await relationDetailsStorage.startSubscription()
         await objectTypeProvider.startSubscription()
+        await participantsStorage.startSubscription()
     }
     
     private func stopSubscriptions() async {
         await workspacesStorage.stopSubscription()
         await relationDetailsStorage.stopSubscription()
         await objectTypeProvider.stopSubscription()
+        await participantsStorage.stopSubscription()
     }
 }

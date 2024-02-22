@@ -19,7 +19,8 @@ final class SpacesManagerModuleAssembly: SpacesManagerModuleAssemblyProtocol {
     func make() -> AnyView {
         SpacesManagerView(
             model: SpacesManagerViewModel(
-                workspacesStorage: self.serviceLocator.workspaceStorage()
+                workspacesStorage: self.serviceLocator.workspaceStorage(),
+                participantsStorage: self.serviceLocator.participantStorage()
             )
         ).eraseToAnyView()
     }

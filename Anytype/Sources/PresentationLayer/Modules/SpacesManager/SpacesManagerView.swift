@@ -12,8 +12,8 @@ struct SpacesManagerView: View {
             ScrollView(showsIndicators: false) {
                 Spacer.fixedHeight(10)
                 VStack(spacing: 12) {
-                    ForEach(model.spaces) { space in
-                        SpacesManagerRowView(spaceView: space)
+                    ForEach(model.rows) { row in
+                        SpacesManagerRowView(model: row)
                     }
                 }
                 .padding(.horizontal, 10)
@@ -21,6 +21,9 @@ struct SpacesManagerView: View {
         }
         .task {
             await model.startWorkspacesTask()
+        }
+        .task {
+            await model.startParticipantTask()
         }
     }
 }

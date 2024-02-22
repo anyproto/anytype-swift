@@ -2,6 +2,7 @@ import Foundation
 import Services
 import UIKit
 import DeepLinks
+import Combine
 
 @MainActor
 final class SpaceShareViewModel: ObservableObject {
@@ -10,11 +11,12 @@ final class SpaceShareViewModel: ObservableObject {
         static let participantLimit = 11 // 10 participants and 1 owner
     }
     
-    private let participantSubscriptionService: ParticipantsSubscriptionServiceProtocol
+    private let participantStorage: ParticipantsStorageProtocol
     private let workspaceService: WorkspaceServiceProtocol
     private let activeWorkspaceStorage: ActiveWorkpaceStorageProtocol
     private let deppLinkParser: DeepLinkParserProtocol
     
+    private var subscriptions: [AnyCancellable] = []
     private var participants: [Participant] = []
     
     @Published var rows: [SpaceShareParticipantViewModel] = []
@@ -26,12 +28,12 @@ final class SpaceShareViewModel: ObservableObject {
     @Published var requestAlertModel: SpaceRequestViewModel?
     
     init(
-        participantSubscriptionService: ParticipantsSubscriptionServiceProtocol, 
+        participantStorage: ParticipantsStorageProtocol,
         workspaceService: WorkspaceServiceProtocol,
         activeWorkspaceStorage: ActiveWorkpaceStorageProtocol,
         deppLinkParser: DeepLinkParserProtocol
     ) {
-        self.participantSubscriptionService = participantSubscriptionService
+        self.participantStorage = participantStorage
         self.workspaceService = workspaceService
         self.activeWorkspaceStorage = activeWorkspaceStorage
         self.deppLinkParser = deppLinkParser
@@ -62,9 +64,11 @@ final class SpaceShareViewModel: ObservableObject {
     
     private func startSubscriptions() {
         Task {
-            await participantSubscriptionService.startSubscription { [weak self] items in
-                self?.updateParticipant(items: items)
-            }
+            participantStorage.participantsPublisher(spaceId: activeWorkspaceStorage.workspaceInfo.accountSpaceId)
+                .sink { [weak self] items in
+                    self?.updateParticipant(items: items)
+                }
+                .store(in: &subscriptions)
         }
     }
     
@@ -131,12 +135,6 @@ final class SpaceShareViewModel: ObservableObject {
                 
             }
         )
-    }
-    
-    deinit {
-        Task { [participantSubscriptionService] in
-            await participantSubscriptionService.stopSubscription()
-        }
     }
 }
 

@@ -4,7 +4,7 @@ import AnytypeCore
 
 // TODO: Move to services. Also move some helpers object details to servicess
 // IOS-2275
-struct Participant: Identifiable {
+struct Participant: Identifiable, Equatable {
     
     let id: String
     let name: String
@@ -12,6 +12,7 @@ struct Participant: Identifiable {
     let status: ParticipantStatus
     let permission: ParticipantPermissions
     let identity: String
+    let spaceId: String
     
     init(details: ObjectDetails) throws {
         self.id = details.id
@@ -28,5 +29,6 @@ struct Participant: Identifiable {
         }
         self.permission = permission
         self.identity = details.identity
+        self.spaceId = details.spaceId
     }
 }

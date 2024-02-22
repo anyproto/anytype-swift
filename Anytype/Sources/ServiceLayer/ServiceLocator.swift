@@ -57,7 +57,8 @@ final class ServiceLocator {
         blockWidgetExpandedService: blockWidgetExpandedService(),
         relationDetailsStorage: relationDetailsStorage(),
         workspacesStorage: workspaceStorage(),
-        activeWorkpaceStorage: activeWorkspaceStorage()
+        activeWorkpaceStorage: activeWorkspaceStorage(),
+        participantsStorage: participantStorage()
     )
     func loginStateService() -> LoginStateServiceProtocol {
         return _loginStateService
@@ -204,13 +205,6 @@ final class ServiceLocator {
     
     func filesSubscriptionManager() -> FilesSubscriptionServiceProtocol {
         return FilesSubscriptionService(
-            subscriptionStorageProvider: subscriptionStorageProvider(),
-            activeWorkspaceStorage: activeWorkspaceStorage()
-        )
-    }
-    
-    func participantSubscriptionService() -> ParticipantsSubscriptionServiceProtocol {
-        return ParticipantsSubscriptionService(
             subscriptionStorageProvider: subscriptionStorageProvider(),
             activeWorkspaceStorage: activeWorkspaceStorage()
         )
@@ -392,6 +386,15 @@ final class ServiceLocator {
     
     func debugService() -> DebugServiceProtocol {
         DebugService()
+    }
+    
+    private lazy var _participantStorage = ParticipantsStorage(
+        subscriptionStorageProvider: subscriptionStorageProvider(),
+        subscriptionBuilder: ParticipantsSubscriptionBuilder(),
+        accountManager: accountManager()
+    )
+    func participantStorage() -> ParticipantsStorageProtocol {
+        return _participantStorage
     }
     
     // MARK: - Private

@@ -397,6 +397,7 @@
 		2A376F5A2B85F30600CF444A /* SpacesManagerRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A376F592B85F30600CF444A /* SpacesManagerRowView.swift */; };
 		2A376F5F2B861D7100CF444A /* SpaceStatus+Localize.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A376F5E2B861D7100CF444A /* SpaceStatus+Localize.swift */; };
 		2A376F622B873E1D00CF444A /* ParticipantsStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A376F612B873E1D00CF444A /* ParticipantsStorage.swift */; };
+		2A376F642B874D8500CF444A /* ParticipantSubscriptionBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A376F632B874D8500CF444A /* ParticipantSubscriptionBuilder.swift */; };
 		2A377E3E2A82564E00EA856B /* SpaceTypeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A377E3D2A82564E00EA856B /* SpaceTypeView.swift */; };
 		2A377E412A826FFD00EA856B /* RemoteStorageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A377E402A826FFD00EA856B /* RemoteStorageView.swift */; };
 		2A377E432A82700C00EA856B /* RemoteStorageViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A377E422A82700C00EA856B /* RemoteStorageViewModel.swift */; };
@@ -674,7 +675,6 @@
 		2AC4349E2B7A074B006166BF /* SpaceShareCoordinatorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AC4349D2B7A074B006166BF /* SpaceShareCoordinatorView.swift */; };
 		2AC434A02B7A0759006166BF /* SpaceShareCoordinatorViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AC4349F2B7A0759006166BF /* SpaceShareCoordinatorViewModel.swift */; };
 		2AC434A22B7A0763006166BF /* SpaceShareCoordinatorAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AC434A12B7A0763006166BF /* SpaceShareCoordinatorAssembly.swift */; };
-		2AC434A52B7A12A0006166BF /* ParticipantsSubscriptionService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AC434A42B7A12A0006166BF /* ParticipantsSubscriptionService.swift */; };
 		2AC434AA2B7A15B9006166BF /* SpaceShareParticipantView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AC434A92B7A15B9006166BF /* SpaceShareParticipantView.swift */; };
 		2AC434AC2B7A1D17006166BF /* CommonError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AC434AB2B7A1D17006166BF /* CommonError.swift */; };
 		2AC434AE2B7A1E3F006166BF /* Participant.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AC434AD2B7A1E3F006166BF /* Participant.swift */; };
@@ -2156,6 +2156,7 @@
 		2A376F592B85F30600CF444A /* SpacesManagerRowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpacesManagerRowView.swift; sourceTree = "<group>"; };
 		2A376F5E2B861D7100CF444A /* SpaceStatus+Localize.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SpaceStatus+Localize.swift"; sourceTree = "<group>"; };
 		2A376F612B873E1D00CF444A /* ParticipantsStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ParticipantsStorage.swift; sourceTree = "<group>"; };
+		2A376F632B874D8500CF444A /* ParticipantSubscriptionBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ParticipantSubscriptionBuilder.swift; sourceTree = "<group>"; };
 		2A377E3D2A82564E00EA856B /* SpaceTypeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpaceTypeView.swift; sourceTree = "<group>"; };
 		2A377E402A826FFD00EA856B /* RemoteStorageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemoteStorageView.swift; sourceTree = "<group>"; };
 		2A377E422A82700C00EA856B /* RemoteStorageViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemoteStorageViewModel.swift; sourceTree = "<group>"; };
@@ -2432,7 +2433,6 @@
 		2AC4349D2B7A074B006166BF /* SpaceShareCoordinatorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpaceShareCoordinatorView.swift; sourceTree = "<group>"; };
 		2AC4349F2B7A0759006166BF /* SpaceShareCoordinatorViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpaceShareCoordinatorViewModel.swift; sourceTree = "<group>"; };
 		2AC434A12B7A0763006166BF /* SpaceShareCoordinatorAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpaceShareCoordinatorAssembly.swift; sourceTree = "<group>"; };
-		2AC434A42B7A12A0006166BF /* ParticipantsSubscriptionService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ParticipantsSubscriptionService.swift; sourceTree = "<group>"; };
 		2AC434A92B7A15B9006166BF /* SpaceShareParticipantView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpaceShareParticipantView.swift; sourceTree = "<group>"; };
 		2AC434AB2B7A1D17006166BF /* CommonError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommonError.swift; sourceTree = "<group>"; };
 		2AC434AD2B7A1E3F006166BF /* Participant.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Participant.swift; sourceTree = "<group>"; };
@@ -5303,7 +5303,6 @@
 				2A6C75C329FC03D4002BD440 /* SingleObjectSubscriptionService.swift */,
 				2AA0C43E2A013EF800B9C108 /* FilesSubscriptionService.swift */,
 				8639E0132A6020E700F52ED2 /* TemplatesSubscriptionService.swift */,
-				2AC434A42B7A12A0006166BF /* ParticipantsSubscriptionService.swift */,
 			);
 			path = Subscriptions;
 			sourceTree = "<group>";
@@ -5520,6 +5519,7 @@
 			isa = PBXGroup;
 			children = (
 				2A376F612B873E1D00CF444A /* ParticipantsStorage.swift */,
+				2A376F632B874D8500CF444A /* ParticipantSubscriptionBuilder.swift */,
 			);
 			path = ParticipantsStorage;
 			sourceTree = "<group>";
@@ -11199,6 +11199,7 @@
 				2AB508162AE81DEA00E1C986 /* ByteCountFormatter+Extensions.swift in Sources */,
 				120F7D5C267D0C4400327734 /* Color+Extensions.swift in Sources */,
 				2EC9425F2900351C00DE91E4 /* DataviewGroup+Filter.swift in Sources */,
+				2A376F642B874D8500CF444A /* ParticipantSubscriptionBuilder.swift in Sources */,
 				2AD06B81285729890006C255 /* TableOfContentsConfiguration.swift in Sources */,
 				3DE0CFD926F8593D003A606A /* SlashMenuItemFilterMatch.swift in Sources */,
 				2EAA13FF2AA63918000A712A /* SetViewSettingsImagePreviewView.swift in Sources */,
@@ -11769,7 +11770,6 @@
 				2A8395682AF3ECDD004EE41F /* SegmentLegend.swift in Sources */,
 				12426A2C26DD006500693B1F /* ImageMetadata.swift in Sources */,
 				2EE36CD62AF532B70043AA8D /* SetObjectCreationCoordinator.swift in Sources */,
-				2AC434A52B7A12A0006166BF /* ParticipantsSubscriptionService.swift in Sources */,
 				125B6EC926F235F400BCD7D6 /* MentionView.swift in Sources */,
 				53FF7CBC26FDD36200A5A592 /* ObjectActionsViewModel.swift in Sources */,
 				2A5BC4B72A78F5C7004FAABF /* CircleIconPainter.swift in Sources */,
