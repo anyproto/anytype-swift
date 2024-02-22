@@ -30,6 +30,12 @@ struct SpaceShareView: View {
         .anytypeSheet(item: $model.requestAlertModel) { model in
             SpaceRequestView(model: model)
         }
+        .task {
+            try? await model.onAppear()
+        }
+        .task {
+            await model.startParticipantTask()
+        }
     }
     
     private var inviteView: some View {

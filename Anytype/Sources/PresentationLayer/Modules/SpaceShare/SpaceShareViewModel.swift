@@ -37,11 +37,11 @@ final class SpaceShareViewModel: ObservableObject {
         self.workspaceService = workspaceService
         self.activeWorkspaceStorage = activeWorkspaceStorage
         self.deppLinkParser = deppLinkParser
-        startSubscriptions()
-        Task {
-            let invite = try await workspaceService.generateInvite(spaceId: activeWorkspaceStorage.workspaceInfo.accountSpaceId)
-            inviteLink = deppLinkParser.createUrl(deepLink: .invite(cid: invite.cid, key: invite.fileKey), scheme: .main)
-        }
+    }
+    
+    func onAppear() async throws {
+        let invite = try await workspaceService.generateInvite(spaceId: activeWorkspaceStorage.workspaceInfo.accountSpaceId)
+        inviteLink = deppLinkParser.createUrl(deepLink: .invite(cid: invite.cid, key: invite.fileKey), scheme: .main)
     }
     
     func onUpdateLink() {
@@ -60,17 +60,13 @@ final class SpaceShareViewModel: ObservableObject {
         toastBarData = ToastBarData(text: Loc.copied, showSnackBar: true)
     }
     
-    // MARK: - Private
-    
-    private func startSubscriptions() {
-        Task {
-            participantStorage.participantsPublisher(spaceId: activeWorkspaceStorage.workspaceInfo.accountSpaceId)
-                .sink { [weak self] items in
-                    self?.updateParticipant(items: items)
-                }
-                .store(in: &subscriptions)
+    func startParticipantTask() async {
+        for await participants in participantStorage.participantsPublisher(spaceId: activeWorkspaceStorage.workspaceInfo.accountSpaceId).values {
+            updateParticipant(items: participants)
         }
     }
+    
+    // MARK: - Private
     
     private func updateParticipant(items: [Participant]) {
         participants = items.sorted { $0.sortingWeight > $1.sortingWeight }
