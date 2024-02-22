@@ -308,10 +308,16 @@ final class EditorRouter: NSObject, EditorRouterProtocol, ObjectSettingsCoordina
             let view = objectTypeSearchModuleAssembly.makeTypeSearchForNewObjectCreation(
                 title: Loc.changeType,
                 spaceId: document.spaceId
-            ) { [weak self] type, _ in
-                // TODO: Support object content
-                self?.navigationContext.dismissTopPresented()
-                onSelect(type)
+            ) { [weak self] result in
+                switch result {
+                case .object(let type, _):
+                    // TODO: Support object content
+                    self?.navigationContext.dismissTopPresented()
+                    onSelect(type)
+                case .bookmark(let url):
+                    // TODO: Support bookmark
+                    break
+                }
             }
             
             navigationContext.presentSwiftUIView(view: view)

@@ -1,5 +1,6 @@
 import SwiftUI
 import Services
+import AnytypeCore
 
 
 @MainActor
@@ -20,7 +21,7 @@ final class ObjectTypeSearchViewModel: ObservableObject {
     private let toastPresenter: ToastPresenterProtocol
     private let pasteboardHelper: PasteboardHelperProtocol
     
-    private let onSelect: (_ type: ObjectType,_ content: String?) -> Void
+    private let onSelect: (TypeSelectionResult) -> Void
     private var searchTask: Task<(), any Error>?
     
     nonisolated init(
@@ -34,7 +35,7 @@ final class ObjectTypeSearchViewModel: ObservableObject {
         objectTypeProvider: ObjectTypeProviderProtocol,
         toastPresenter: ToastPresenterProtocol,
         pasteboardHelper: PasteboardHelperProtocol,
-        onSelect: @escaping (_ type: ObjectType,_ content: String?) -> Void
+        onSelect: @escaping (TypeSelectionResult) -> Void
     ) {
         self.showPins = showPins
         self.showLists = showLists
@@ -65,7 +66,9 @@ final class ObjectTypeSearchViewModel: ObservableObject {
     }
     
     func updatePasteButton() {
-        showPasteButton = allowPaste && pasteboardHelper.hasStrings
+        withAnimation {
+            showPasteButton = allowPaste && pasteboardHelper.hasStrings
+        }
     }
     
     func search(text: String) {
@@ -135,18 +138,37 @@ final class ObjectTypeSearchViewModel: ObservableObject {
                 toastPresenter.show(message: Loc.ObjectType.addedToLibrary(type.name))
             }
             
-            onSelect(type, nil)
+            onSelect(.object(type: type, content: nil))
         }
     }
     
     func createObjectFromClipboard() {
         Task {
-            guard let content = pasteboardHelper.obrainString() else {
+            guard pasteboardHelper.numberOfItems != 0 else { return }
+            
+            if pasteboardHelper.numberOfItems > 1 {
+                // TODO: Support multipaste
                 return
             }
             
-            let type = try objectTypeProvider.defaultObjectType(spaceId: spaceId)
-            onSelect(type, content)
+            if pasteboardHelper.hasValidURL, let url = pasteboardHelper.obtainString() {
+                onSelect(.bookmark(url: url))
+                return
+            }
+            
+            if pasteboardHelper.hasStrings, let content = pasteboardHelper.obtainString() {
+                
+                let type = try objectTypeProvider.defaultObjectType(spaceId: spaceId)
+                onSelect(.object(type: type, content: content))
+                return
+            }
+            
+            anytypeAssertionFailure(
+                "Not supported clipboard content",
+                info: [
+                    "Items":pasteboardHelper.obtainAllItems().debugDescription
+                ]
+            )
         }
         
     }
@@ -154,7 +176,7 @@ final class ObjectTypeSearchViewModel: ObservableObject {
     func createType(name: String) {
         Task {
             let type = try await typesService.createType(name: name, spaceId: spaceId)
-            onSelect(type, nil)
+            onSelect(.object(type: type, content: nil))
         }
     }
     
