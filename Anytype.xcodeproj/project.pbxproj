@@ -396,6 +396,7 @@
 		2A3629A7292E2BB200C02EC3 /* ObjectSettingsCoordinatorAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A3629A6292E2BB200C02EC3 /* ObjectSettingsCoordinatorAssembly.swift */; };
 		2A376F5A2B85F30600CF444A /* SpacesManagerRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A376F592B85F30600CF444A /* SpacesManagerRowView.swift */; };
 		2A376F5F2B861D7100CF444A /* SpaceStatus+Localize.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A376F5E2B861D7100CF444A /* SpaceStatus+Localize.swift */; };
+		2A376F622B873E1D00CF444A /* ParticipantsStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A376F612B873E1D00CF444A /* ParticipantsStorage.swift */; };
 		2A377E3E2A82564E00EA856B /* SpaceTypeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A377E3D2A82564E00EA856B /* SpaceTypeView.swift */; };
 		2A377E412A826FFD00EA856B /* RemoteStorageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A377E402A826FFD00EA856B /* RemoteStorageView.swift */; };
 		2A377E432A82700C00EA856B /* RemoteStorageViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A377E422A82700C00EA856B /* RemoteStorageViewModel.swift */; };
@@ -2154,6 +2155,7 @@
 		2A3629A6292E2BB200C02EC3 /* ObjectSettingsCoordinatorAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObjectSettingsCoordinatorAssembly.swift; sourceTree = "<group>"; };
 		2A376F592B85F30600CF444A /* SpacesManagerRowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpacesManagerRowView.swift; sourceTree = "<group>"; };
 		2A376F5E2B861D7100CF444A /* SpaceStatus+Localize.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SpaceStatus+Localize.swift"; sourceTree = "<group>"; };
+		2A376F612B873E1D00CF444A /* ParticipantsStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ParticipantsStorage.swift; sourceTree = "<group>"; };
 		2A377E3D2A82564E00EA856B /* SpaceTypeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpaceTypeView.swift; sourceTree = "<group>"; };
 		2A377E402A826FFD00EA856B /* RemoteStorageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemoteStorageView.swift; sourceTree = "<group>"; };
 		2A377E422A82700C00EA856B /* RemoteStorageViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemoteStorageViewModel.swift; sourceTree = "<group>"; };
@@ -3841,6 +3843,7 @@
 		03C5C53422DF6C9900DD91DE /* StoreLayer */ = {
 			isa = PBXGroup;
 			children = (
+				2A376F602B873E0800CF444A /* ParticipantsStorage */,
 				2A816AC52AD7DC0D00975BCA /* ServerConfigirationStorage */,
 				2A8A2DC82AB993E900105549 /* AppActions */,
 				2A29FD2D2A701BBB007A8549 /* SpaceStorage */,
@@ -5511,6 +5514,14 @@
 				2A376F5E2B861D7100CF444A /* SpaceStatus+Localize.swift */,
 			);
 			path = Models;
+			sourceTree = "<group>";
+		};
+		2A376F602B873E0800CF444A /* ParticipantsStorage */ = {
+			isa = PBXGroup;
+			children = (
+				2A376F612B873E1D00CF444A /* ParticipantsStorage.swift */,
+			);
+			path = ParticipantsStorage;
 			sourceTree = "<group>";
 		};
 		2A377E3F2A826FE100EA856B /* RemoteStorage */ = {
@@ -11382,6 +11393,7 @@
 				12B691D227F4CB5D00A0C336 /* ImageGuideline.swift in Sources */,
 				C9E939D428538B600089CB98 /* TextBlockActionHandler.swift in Sources */,
 				12FD9D29276717CF00991886 /* RelationTag.swift in Sources */,
+				2A376F622B873E1D00CF444A /* ParticipantsStorage.swift in Sources */,
 				53D4088827EC9EFE00495335 /* ObjectPreviewView.swift in Sources */,
 				2AD276422B6D22BA00112215 /* GallerySpaceSelectionView.swift in Sources */,
 				12EB9AF12771CD6600BA732F /* RelationOptionsListViewModel.swift in Sources */,
