@@ -3,10 +3,12 @@ import SwiftUI
 import Services
 
 struct SpacesManagerRowViewModel: Identifiable {
-    let spaceView: SpaceView
-    let permission: ParticipantPermissions?
-    
-    var id: String { spaceView.id }
+    let id: String
+    let name: String
+    let iconImage: Icon?
+    let accountStatus: String
+    let localStatus: String
+    let permission: String
 }
 
 struct SpacesManagerRowView: View {
@@ -25,11 +27,11 @@ struct SpacesManagerRowView: View {
     
     private var spaceInfo: some View {
         HStack(spacing: 12) {
-            IconView(icon: model.spaceView.iconImage)
+            IconView(icon: model.iconImage)
                 .frame(width: 48, height: 48)
             VStack(alignment: .leading, spacing: 0) {
-                AnytypeText(model.spaceView.name, style: .uxTitle2Semibold, color: .Text.primary)
-                AnytypeText(model.permission?.title ?? "", style: .relation2Regular, color: .Text.secondary)
+                AnytypeText(model.name, style: .uxTitle2Semibold, color: .Text.primary)
+                AnytypeText(model.permission, style: .relation2Regular, color: .Text.secondary)
             }
             Spacer()
             Button {
@@ -46,9 +48,9 @@ struct SpacesManagerRowView: View {
     private var spaceStateInfo: some View {
         GeometryReader { reader in
             HStack(spacing: 0) {
-                statusInfoBlock(title: Loc.Spaces.Info.network, name: model.spaceView.accountStatus?.name ?? "")
+                statusInfoBlock(title: Loc.Spaces.Info.network, name: model.accountStatus)
                     .frame(width: reader.size.width * 0.5)
-                statusInfoBlock(title: Loc.Spaces.Info.device, name: model.spaceView.localStatus?.name ?? "")
+                statusInfoBlock(title: Loc.Spaces.Info.device, name: model.localStatus)
                     .frame(width: reader.size.width * 0.5)
             }
             .frame(height: 44)

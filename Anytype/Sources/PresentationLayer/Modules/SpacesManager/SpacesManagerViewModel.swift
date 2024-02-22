@@ -34,7 +34,14 @@ final class SpacesManagerViewModel: ObservableObject {
     private func updateRows() {
         rows = spaces.map { spaceView in
             let participant = participants.first { $0.spaceId == spaceView.targetSpaceId }
-            return SpacesManagerRowViewModel(spaceView: spaceView, permission: participant?.permission)
+            return SpacesManagerRowViewModel(
+                id: spaceView.id,
+                name: spaceView.name,
+                iconImage: spaceView.iconImage,
+                accountStatus: spaceView.accountStatus?.name ?? "",
+                localStatus: spaceView.localStatus?.name ?? "",
+                permission: participant?.permission.title ?? ""
+            )
         }
     }
 }
