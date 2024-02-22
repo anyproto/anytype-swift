@@ -389,9 +389,7 @@ final class HomeCoordinatorViewModel: ObservableObject,
                     objectId: details.id,
                     focusedBlockId: blockId,
                     range: .zero,
-                    handleLongOperation: {
-                        anytypeAssertionFailure("Not supported handleLongOperation")
-                    },
+                    handleLongOperation: { },
                     completion: { _ in }
                 )
             }

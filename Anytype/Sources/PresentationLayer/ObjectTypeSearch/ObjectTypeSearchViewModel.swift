@@ -67,7 +67,7 @@ final class ObjectTypeSearchViewModel: ObservableObject {
     
     func updatePasteButton() {
         withAnimation {
-            showPasteButton = allowPaste && pasteboardHelper.hasStrings
+            showPasteButton = allowPaste && pasteboardHelper.numberOfItems > 0
         }
     }
     
@@ -144,31 +144,20 @@ final class ObjectTypeSearchViewModel: ObservableObject {
     
     func createObjectFromClipboard() {
         Task {
-            guard pasteboardHelper.numberOfItems != 0 else { return }
-            
-            if pasteboardHelper.numberOfItems > 1 {
-                let type = try objectTypeProvider.defaultObjectType(spaceId: spaceId)
-                onSelect(.object(type: type, pasteContent: true))
+            guard pasteboardHelper.numberOfItems != 0 else {
+                anytypeAssertionFailure("Trying to paste with empty clipboard")
                 return
             }
             
-            if pasteboardHelper.hasValidURL, let url = pasteboardHelper.obtainString() {
+            if pasteboardHelper.numberOfItems == 1, pasteboardHelper.hasValidURL, let url = pasteboardHelper.obtainString() {
                 onSelect(.bookmark(url: url))
                 return
             }
             
-            if pasteboardHelper.hasStrings {
-                let type = try objectTypeProvider.defaultObjectType(spaceId: spaceId)
-                onSelect(.object(type: type, pasteContent: true))
-                return
-            }
-            
-            anytypeAssertionFailure(
-                "Not supported clipboard content",
-                info: [
-                    "Items":pasteboardHelper.obtainAllItems().debugDescription
-                ]
-            )
+            _ = pasteboardHelper.obtainAllItems() // To invoke user dialog
+            let type = try objectTypeProvider.defaultObjectType(spaceId: spaceId)
+            onSelect(.object(type: type, pasteContent: true))
+            return
         }
         
     }
