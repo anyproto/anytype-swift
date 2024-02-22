@@ -19,7 +19,7 @@ struct SpacesManagerView: View {
                 .padding(.horizontal, 10)
             }
         }
-        .task(id: "1") {
+        .task {
             await model.startWorkspacesTask()
         }
     }
