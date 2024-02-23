@@ -6,7 +6,7 @@ extension EditorPageViewModel {
     func onChangeType(typeSelection: TypeSelectionResult) {
         switch typeSelection {
         case .objectType(let type):
-            onChangeType(type: type, pasteContent: false)
+            onChangeType(type: type)
         case .createFromPasteboard:
             switch PasteboardHelper().pasteboardContent {
             case .none:
@@ -19,14 +19,16 @@ extension EditorPageViewModel {
             case .string:
                 fallthrough
             case .otherContent:
-                if let type = try? objectTypeProvider.defaultObjectType(spaceId: document.spaceId) {
-                    onChangeType(type: type, pasteContent: true)
+                Task {
+                    let type = try objectTypeProvider.defaultObjectType(spaceId: document.spaceId)
+                    try await actionHandler.applyTemplate(objectId: document.objectId, templateId: type.defaultTemplateId)
+                    actionHandler.pasteContent()
                 }
             }
         }
     }
     
-    private func onChangeType(type: ObjectType, pasteContent: Bool) {
+    private func onChangeType(type: ObjectType) {
         if type.isSetType {
             Task { @MainActor in
                 subscriptions.removeAll()
@@ -48,9 +50,6 @@ extension EditorPageViewModel {
         Task { @MainActor in
             try await actionHandler.setObjectType(type: type)
             try await actionHandler.applyTemplate(objectId: document.objectId, templateId: type.defaultTemplateId)
-            if pasteContent {
-                actionHandler.pasteContent()
-            }
         }
     }
 }

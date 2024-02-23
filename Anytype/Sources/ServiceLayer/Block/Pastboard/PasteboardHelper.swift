@@ -33,6 +33,10 @@ protocol PasteboardHelperProtocol {
 final class PasteboardHelper: PasteboardHelperProtocol {
     private lazy var pasteboard = UIPasteboard.general
     
+    deinit {
+        stopSubscription()
+    }
+    
     var pasteboardContent: PasteboardContent? {
         guard numberOfItems != 0 else { return nil }
         

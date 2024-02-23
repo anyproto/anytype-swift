@@ -9,7 +9,7 @@ final class ChangeTypeAccessoryViewModel {
     @Published private(set) var isTypesViewVisible: Bool = false
     @Published private(set) var supportedTypes = [TypeItem]()
     var onDoneButtonTap: (() -> Void)?
-    var onTypeTap: ((TypeSelectionResult) -> Void)?
+    var onTypeSelected: ((TypeSelectionResult) -> Void)?
 
     private let router: EditorRouterProtocol
     private let handler: BlockActionHandlerProtocol
@@ -44,14 +44,14 @@ final class ChangeTypeAccessoryViewModel {
         router.showTypePickerForNewObjectCreation(
             selectedObjectId: document.details?.type,
             onSelect: { [weak self] result in
-                self?.onTypeTap(result: result)
+                self?.onTypeSelected(result: result)
             }
         )
     }
 
-    private func onTypeTap(result: TypeSelectionResult) {
+    private func onTypeSelected(result: TypeSelectionResult) {
         defer { logSelectObjectType(result: result) }
-        onTypeTap?(result)
+        onTypeSelected?(result)
     }
     
     private func logSelectObjectType(result: TypeSelectionResult) {
@@ -86,7 +86,7 @@ final class ChangeTypeAccessoryViewModel {
                 spaceId: document.spaceId
             ).map { type in
                 TypeItem(from: type, handler: { [weak self] in
-                    self?.onTypeTap(result: .objectType(type: ObjectType(details: type)))
+                    self?.onTypeSelected(result: .objectType(type: ObjectType(details: type)))
                 })
             }
         return supportedTypes
