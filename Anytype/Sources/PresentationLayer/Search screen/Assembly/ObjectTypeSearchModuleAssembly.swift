@@ -5,7 +5,7 @@ import AnytypeCore
 
 
 enum TypeSelectionResult {
-    case object(type: ObjectType, content: String?)
+    case object(type: ObjectType, pasteContent: Bool)
     case bookmark(url: String)
 }
 

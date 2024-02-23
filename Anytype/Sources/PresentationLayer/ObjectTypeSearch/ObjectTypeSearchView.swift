@@ -22,7 +22,7 @@ struct ObjectTypeSearchView: View {
         .background(Color.Background.secondary)
         
         .onChange(of: viewModel.searchText) { viewModel.search(text: $0) }
-        .onAppear {
+        .task {
             viewModel.onAppear()
         }
     }
