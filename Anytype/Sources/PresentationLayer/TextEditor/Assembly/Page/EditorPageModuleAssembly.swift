@@ -168,7 +168,9 @@ final class EditorPageModuleAssembly: EditorPageModuleAssemblyProtocol {
             blockTableService: blockTableService,
             fileService: serviceLocator.fileService(),
             objectService: serviceLocator.objectActionsService(),
-            pasteboardBlockService: serviceLocator.pasteboardBlockService()
+            pasteboardBlockService: serviceLocator.pasteboardBlockService(),
+            bookmarkService: serviceLocator.bookmarkService(),
+            objectTypeProvider: serviceLocator.objectTypeProvider()
         )
         
         let pasteboardService = serviceLocator.pasteboardBlockDocumentService(document: document)

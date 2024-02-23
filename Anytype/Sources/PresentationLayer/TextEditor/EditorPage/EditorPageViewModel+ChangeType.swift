@@ -6,7 +6,9 @@ extension EditorPageViewModel {
         case .object(let type, let pasteContent):
             onChangeType(type: type, pasteContent: pasteContent)
         case .bookmark(let url):
-            onChangeTypeToBookmark(url: url)
+            Task {
+                try await actionHandler.turnIntoBookmark(url: url)
+            }
         }
     }
     
@@ -36,9 +38,5 @@ extension EditorPageViewModel {
                 actionHandler.pasteContent()
             }
         }
-    }
-    
-    private func onChangeTypeToBookmark(url: String) {
-        // TODO: Create bookmark
     }
 }

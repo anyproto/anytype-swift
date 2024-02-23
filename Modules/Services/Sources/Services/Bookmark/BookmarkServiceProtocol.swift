@@ -1,9 +1,9 @@
 import Foundation
 
 public protocol BookmarkServiceProtocol {
-    func fetchBookmark(contextID: String, blockID: String, url: String) async throws
+    func fetchBookmark(objectId: String, blockID: String, url: String) async throws
     func createAndFetchBookmark(
-        contextID: String,
+        objectId: String,
         targetID: String,
         position: BlockPosition,
         url: String

@@ -187,7 +187,7 @@ final class BlockActionService: BlockActionServiceProtocol {
 extension BlockActionService {
     func bookmarkFetch(blockId: String, url: AnytypeURL) {
         Task {
-            try await bookmarkService.fetchBookmark(contextID: documentId, blockID: blockId, url: url.absoluteString)
+            try await bookmarkService.fetchBookmark(objectId: documentId, blockID: blockId, url: url.absoluteString)
         }
     }
 
@@ -199,7 +199,7 @@ extension BlockActionService {
     ) {
         Task {
             try await bookmarkService.createAndFetchBookmark(
-                contextID: contextID,
+                objectId: contextID,
                 targetID: targetID,
                 position: position,
                 url: url.absoluteString

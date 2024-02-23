@@ -14,6 +14,8 @@ final class BlockActionHandler: BlockActionHandlerProtocol {
     private let fileService: FileActionsServiceProtocol
     private let objectService: ObjectActionsServiceProtocol
     private let pasteboardBlockService: PasteboardBlockServiceProtocol
+    private let bookmarkService: BookmarkServiceProtocol
+    private let objectTypeProvider: ObjectTypeProviderProtocol
     
     init(
         document: BaseDocumentProtocol,
@@ -23,7 +25,9 @@ final class BlockActionHandler: BlockActionHandlerProtocol {
         blockTableService: BlockTableServiceProtocol,
         fileService: FileActionsServiceProtocol,
         objectService: ObjectActionsServiceProtocol,
-        pasteboardBlockService: PasteboardBlockServiceProtocol
+        pasteboardBlockService: PasteboardBlockServiceProtocol,
+        bookmarkService: BookmarkServiceProtocol,
+        objectTypeProvider: ObjectTypeProviderProtocol
     ) {
         self.document = document
         self.markupChanger = markupChanger
@@ -33,6 +37,8 @@ final class BlockActionHandler: BlockActionHandlerProtocol {
         self.fileService = fileService
         self.objectService = objectService
         self.pasteboardBlockService = pasteboardBlockService
+        self.bookmarkService = bookmarkService
+        self.objectTypeProvider = objectTypeProvider
     }
 
     // MARK: - Service proxy
@@ -66,6 +72,12 @@ final class BlockActionHandler: BlockActionHandlerProtocol {
             HomeCreateObjectTip.objectTpeChanged = true
         }
         try await service.setObjectType(type: type)
+    }
+    
+    func turnIntoBookmark(url: String) async throws {
+        let type = try objectTypeProvider.objectType(uniqueKey: .bookmark, spaceId: document.spaceId)
+        try await setObjectType(type: type)
+        try await bookmarkService.fetchBookmarkContent(bookmarkId: document.objectId, url: url)
     }
 
     func setObjectSetType() async throws {

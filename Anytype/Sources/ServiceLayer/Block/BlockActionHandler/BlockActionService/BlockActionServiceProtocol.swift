@@ -20,8 +20,6 @@ protocol BlockActionServiceProtocol {
         newBlockContentType: BlockText.Style
     )
     
-    func bookmarkFetch(blockId: String, url: AnytypeURL)
-    
     func setBackgroundColor(blockIds: [String], color: BlockBackgroundColor)
     func setBackgroundColor(blockIds: [String], color: MiddlewareColor)
     func checked(blockId: String, newValue: Bool)
@@ -32,6 +30,8 @@ protocol BlockActionServiceProtocol {
     func setObjectType(type: ObjectType) async throws
     func setObjectSetType() async throws
     func setObjectCollectionType() async throws
+    
+    func bookmarkFetch(blockId: String, url: AnytypeURL)
     func createAndFetchBookmark(
         contextID: String,
         targetID: String,
