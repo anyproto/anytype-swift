@@ -138,7 +138,7 @@ final class ObjectTypeSearchViewModel: ObservableObject {
                 toastPresenter.show(message: Loc.ObjectType.addedToLibrary(type.name))
             }
             
-            onSelect(.object(type: type, pasteContent: false))
+            onSelect(.objectType(type: type))
         }
     }
     
@@ -149,15 +149,8 @@ final class ObjectTypeSearchViewModel: ObservableObject {
                 return
             }
             
-            if pasteboardHelper.numberOfItems == 1, pasteboardHelper.hasValidURL, let url = pasteboardHelper.obtainString() {
-                onSelect(.bookmark(url: url))
-                return
-            }
-            
             _ = pasteboardHelper.obtainAllItems() // To invoke user dialog
-            let type = try objectTypeProvider.defaultObjectType(spaceId: spaceId)
-            onSelect(.object(type: type, pasteContent: true))
-            return
+            onSelect(.createFromPasteboard)
         }
         
     }
@@ -165,7 +158,7 @@ final class ObjectTypeSearchViewModel: ObservableObject {
     func createType(name: String) {
         Task {
             let type = try await typesService.createType(name: name, spaceId: spaceId)
-            onSelect(.object(type: type, pasteContent: false))
+            onSelect(.objectType(type: type))
         }
     }
     

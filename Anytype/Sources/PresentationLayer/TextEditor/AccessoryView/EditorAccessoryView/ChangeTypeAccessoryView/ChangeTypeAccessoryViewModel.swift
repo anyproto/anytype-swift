@@ -56,12 +56,11 @@ final class ChangeTypeAccessoryViewModel {
     
     private func logSelectObjectType(result: TypeSelectionResult) {
         switch result {
-        case .object(let type, let pasteContent):
+        case .objectType(let type):
             AnytypeAnalytics.instance().logSelectObjectType(type.analyticsType, route: .navigation)
-        case .bookmark(let url):
-            if let type = try? ObjectTypeProvider.shared.objectType(uniqueKey: .bookmark, spaceId: document.spaceId) {
-                AnytypeAnalytics.instance().logSelectObjectType(type.analyticsType, route: .navigation)
-            }
+        case .createFromPasteboard:
+            // TODO: Analytics from pasteboard
+            break
         }
     }
 
@@ -87,7 +86,7 @@ final class ChangeTypeAccessoryViewModel {
                 spaceId: document.spaceId
             ).map { type in
                 TypeItem(from: type, handler: { [weak self] in
-                    self?.onTypeTap(result: .object(type: ObjectType(details: type), pasteContent: false))
+                    self?.onTypeTap(result: .objectType(type: ObjectType(details: type)))
                 })
             }
         return supportedTypes

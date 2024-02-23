@@ -210,14 +210,28 @@ final class HomeCoordinatorViewModel: ObservableObject,
             title: Loc.createNewObject,
             spaceId: activeWorkspaceStorage.workspaceInfo.accountSpaceId
         ) { [weak self] result in
-            self?.showTypeSearch = false
+            guard let self else { return }
+            self.showTypeSearch = false
             
             switch result {
-            case .object(let type, let pasteContent):
+            case .objectType(let type):
                 AnytypeAnalytics.instance().logSelectObjectType(type.analyticsType, route: .longTap)
-                self?.createAndShowNewObject(type: type, pasteContent: pasteContent, route: .navigation)
-            case .bookmark(let url):
-                self?.createAndShowNewBookmark(url: url)
+                self.createAndShowNewObject(type: type, route: .navigation)
+            case .createFromPasteboard:
+                // TODO: Analytics from pasteboard
+                switch pasteboardBlockService.pasteboardContent {
+                case .none:
+                    anytypeAssertionFailure("No content in Pasteboard")
+                    return
+                case .url(let url):
+                    self.createAndShowNewBookmark(url: url)
+                case .string:
+                    fallthrough
+                case .otherContent:
+                    if let type = try? typeProvider.defaultObjectType(spaceId: activeWorkspaceStorage.workspaceInfo.accountSpaceId) {
+                        self.createAndShowNewObject(type: type, pasteContent: true, route: .navigation)
+                    }
+                }
             }
         }
     }

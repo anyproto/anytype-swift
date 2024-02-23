@@ -2,7 +2,15 @@ import UIKit
 import UniformTypeIdentifiers
 import Combine
 
+enum PasteboardContent {
+    case string(String)
+    case url(String)
+    case otherContent
+}
+
 protocol PasteboardHelperProtocol {
+    var pasteboardContent: PasteboardContent? { get }
+    
     func obtainString() -> String?
     func obtainBlocksSlots() -> [String]?
     func obtainHTMLSlot() -> String?
@@ -23,6 +31,20 @@ protocol PasteboardHelperProtocol {
 
 final class PasteboardHelper: PasteboardHelperProtocol {
     private lazy var pasteboard = UIPasteboard.general
+    
+    var pasteboardContent: PasteboardContent? {
+        guard numberOfItems != 0 else { return nil }
+        
+        if numberOfItems == 1, hasValidURL, let url = obtainString() {
+            return .url(url)
+        }
+        
+        if numberOfItems == 1, let string = obtainString() {
+            return .string(string)
+        }
+                    
+        return .otherContent
+    }
 
     func obtainString() -> String? {
         return pasteboard.string
