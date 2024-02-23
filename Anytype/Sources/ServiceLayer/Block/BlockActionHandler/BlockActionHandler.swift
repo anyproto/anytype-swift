@@ -69,12 +69,12 @@ final class BlockActionHandler: BlockActionHandlerProtocol {
     @MainActor
     func setObjectType(type: ObjectType) async throws {
         if #available(iOS 17.0, *) {
-            HomeCreateObjectTip.objectTpeChanged = true
+            HomeCreateObjectTip.objectTypeChanged = true
         }
         try await service.setObjectType(type: type)
     }
     
-    func turnIntoBookmark(url: String) async throws {
+    func turnIntoBookmark(url: AnytypeURL) async throws {
         let type = try objectTypeProvider.objectType(uniqueKey: .bookmark, spaceId: document.spaceId)
         try await setObjectType(type: type)
         try await bookmarkService.fetchBookmarkContent(bookmarkId: document.objectId, url: url)
