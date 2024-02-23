@@ -9,7 +9,6 @@ struct FeaturedRelationsBlockContentConfiguration: BlockConfiguration {
     let alignment: NSTextAlignment
 
     @EquatableNoop private(set) var onRelationTap: (Relation) -> Void
-    @EquatableNoop var heightDidChanged: () -> Void
 }
 
 extension FeaturedRelationsBlockContentConfiguration {

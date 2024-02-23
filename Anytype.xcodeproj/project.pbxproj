@@ -1557,7 +1557,6 @@
 		C960DFB928D88618002898AE /* AnytypeWidgetExtension.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = C960DFA928D88615002898AE /* AnytypeWidgetExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		C961582027AC2AD400AE8848 /* FocusSubjectsHolder.swift in Sources */ = {isa = PBXBuildFile; fileRef = C961581F27AC2AD400AE8848 /* FocusSubjectsHolder.swift */; };
 		C965247F2720781C00254057 /* HorizonalTypeListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C965247E2720781C00254057 /* HorizonalTypeListView.swift */; };
-		C96AFFD1284A385D0048B8EB /* SeparatorItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C96AFFD0284A385D0048B8EB /* SeparatorItemView.swift */; };
 		C96B6C9D27B0F33100C453EB /* BlocksFileEmptyViewConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = C96B6C9C27B0F33100C453EB /* BlocksFileEmptyViewConfiguration.swift */; };
 		C96B6CA127B0F8DE00C453EB /* SpacerBlockViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C96B6CA027B0F8DE00C453EB /* SpacerBlockViewModel.swift */; };
 		C973E1A8285B3A5C00978BC4 /* EmptyRowViewViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C973E1A7285B3A5C00978BC4 /* EmptyRowViewViewModel.swift */; };
@@ -1590,7 +1589,6 @@
 		C9A7528328E3297000235BDE /* SharedContants.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9A7528228E3297000235BDE /* SharedContants.swift */; };
 		C9BFBA8B28A12E980003D9E6 /* ShimmeringBlockView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9BFBA8A28A12E980003D9E6 /* ShimmeringBlockView.swift */; };
 		C9C0A99E274FB04E0002FA30 /* EditorPageBlocksStateManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9C0A99D274FB04E0002FA30 /* EditorPageBlocksStateManager.swift */; };
-		C9C283802864724900F035C5 /* FeaturedRelationBlockItemsDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9C2837F2864724900F035C5 /* FeaturedRelationBlockItemsDataSource.swift */; };
 		C9C283822864727C00F035C5 /* GenericCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9C283812864727C00F035C5 /* GenericCollectionViewCell.swift */; };
 		C9C49A82270499B500D86463 /* CameraPermissionVerifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9C49A81270499B500D86463 /* CameraPermissionVerifier.swift */; };
 		C9C49A8527049D0200D86463 /* AlertsFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9C49A8427049D0200D86463 /* AlertsFactory.swift */; };
@@ -3313,7 +3311,6 @@
 		C960DFB428D88618002898AE /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		C961581F27AC2AD400AE8848 /* FocusSubjectsHolder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FocusSubjectsHolder.swift; sourceTree = "<group>"; };
 		C965247E2720781C00254057 /* HorizonalTypeListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HorizonalTypeListView.swift; sourceTree = "<group>"; };
-		C96AFFD0284A385D0048B8EB /* SeparatorItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SeparatorItemView.swift; sourceTree = "<group>"; };
 		C96B6C9C27B0F33100C453EB /* BlocksFileEmptyViewConfiguration.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BlocksFileEmptyViewConfiguration.swift; sourceTree = "<group>"; };
 		C96B6CA027B0F8DE00C453EB /* SpacerBlockViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpacerBlockViewModel.swift; sourceTree = "<group>"; };
 		C973E1A7285B3A5C00978BC4 /* EmptyRowViewViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmptyRowViewViewModel.swift; sourceTree = "<group>"; };
@@ -3345,7 +3342,6 @@
 		C9A7528228E3297000235BDE /* SharedContants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SharedContants.swift; sourceTree = "<group>"; };
 		C9BFBA8A28A12E980003D9E6 /* ShimmeringBlockView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShimmeringBlockView.swift; sourceTree = "<group>"; };
 		C9C0A99D274FB04E0002FA30 /* EditorPageBlocksStateManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditorPageBlocksStateManager.swift; sourceTree = "<group>"; };
-		C9C2837F2864724900F035C5 /* FeaturedRelationBlockItemsDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeaturedRelationBlockItemsDataSource.swift; sourceTree = "<group>"; };
 		C9C283812864727C00F035C5 /* GenericCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GenericCollectionViewCell.swift; sourceTree = "<group>"; };
 		C9C49A81270499B500D86463 /* CameraPermissionVerifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraPermissionVerifier.swift; sourceTree = "<group>"; };
 		C9C49A8427049D0200D86463 /* AlertsFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertsFactory.swift; sourceTree = "<group>"; };
@@ -4262,10 +4258,8 @@
 		1223C8F9272693C600C34616 /* FeaturedRelations */ = {
 			isa = PBXGroup;
 			children = (
-				C96AFFCC284A383A0048B8EB /* SeparatorItem */,
 				1223C8FD272693E600C34616 /* FeaturedRelationsBlockViewModel.swift */,
 				1223C8FF2726BE1C00C34616 /* FeaturedRelationBlockView.swift */,
-				C9C2837F2864724900F035C5 /* FeaturedRelationBlockItemsDataSource.swift */,
 				1223C9012726BEB000C34616 /* FeaturedRelationsBlockContentConfiguration.swift */,
 			);
 			path = FeaturedRelations;
@@ -9732,14 +9726,6 @@
 			path = ChangeTypeAccessoryView;
 			sourceTree = "<group>";
 		};
-		C96AFFCC284A383A0048B8EB /* SeparatorItem */ = {
-			isa = PBXGroup;
-			children = (
-				C96AFFD0284A385D0048B8EB /* SeparatorItemView.swift */,
-			);
-			path = SeparatorItem;
-			sourceTree = "<group>";
-		};
 		C96B6C9F27B0F8B700C453EB /* Spacer */ = {
 			isa = PBXGroup;
 			children = (
@@ -10419,7 +10405,6 @@
 				EAAD6E0026CD436F005CE1E7 /* BlockMarkupChanger.swift in Sources */,
 				039F669923C7FD1D00DBE36A /* GeometryExtension.swift in Sources */,
 				3DB1CA5F272BF43F000D2779 /* DashboardWallpaper.swift in Sources */,
-				C9C283802864724900F035C5 /* FeaturedRelationBlockItemsDataSource.swift in Sources */,
 				5338E7EC25DC723D008CB97D /* KeyboardActionHandler.swift in Sources */,
 				2ED9F4432A8F94D400BE0A6B /* SetViewSettings.swift in Sources */,
 				1244794127DC735A00581174 /* NewSearchView+ListModel.swift in Sources */,
@@ -10969,7 +10954,6 @@
 				12EB9AF62771F0E900BA732F /* RelationOptionsListView.swift in Sources */,
 				2ECB342B2A97C95600E0F9BB /* SetFiltersSelectionHeaderModuleAssembly.swift in Sources */,
 				3DDD3D0E26AEB55700B5673A /* BlockFileView.swift in Sources */,
-				C96AFFD1284A385D0048B8EB /* SeparatorItemView.swift in Sources */,
 				2AD5EFC62B17492500FAA908 /* BottomAlertButtonView.swift in Sources */,
 				53FF7C6D26F8F8E400A5A592 /* iCloudBackupConfigurator.swift in Sources */,
 				53F80F1227BDA96E00E9E12A /* FileRelationViewUIKit.swift in Sources */,

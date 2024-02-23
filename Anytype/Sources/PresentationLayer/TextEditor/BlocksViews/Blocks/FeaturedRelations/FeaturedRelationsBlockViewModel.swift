@@ -44,10 +44,6 @@ final class FeaturedRelationsBlockViewModel: BlockViewModelProtocol {
             alignment: info.horizontalAlignment.asNSTextAlignment,
             onRelationTap: { [weak self] relation in
                 self?.onRelationTap(relation)
-            },
-            heightDidChanged: { [weak self] in
-                guard let self else { return }
-                collectionController.itemDidChangeFrame(item: .block(self))
             }
         ).cellBlockConfiguration(
             dragConfiguration: nil,
