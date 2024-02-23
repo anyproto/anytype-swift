@@ -54,6 +54,7 @@ protocol BlockActionHandlerProtocol: AnyObject {
         columnsCount: Int,
         blockText: SafeSendable<NSAttributedString?>
     ) async throws -> String
+    func pasteContent()
 }
 
 extension BlockActionHandlerProtocol {

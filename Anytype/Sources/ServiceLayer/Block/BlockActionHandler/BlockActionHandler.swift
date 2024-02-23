@@ -13,6 +13,7 @@ final class BlockActionHandler: BlockActionHandlerProtocol {
     private let blockTableService: BlockTableServiceProtocol
     private let fileService: FileActionsServiceProtocol
     private let objectService: ObjectActionsServiceProtocol
+    private let pasteboardBlockService: PasteboardBlockServiceProtocol
     
     init(
         document: BaseDocumentProtocol,
@@ -21,7 +22,8 @@ final class BlockActionHandler: BlockActionHandlerProtocol {
         blockService: BlockServiceProtocol,
         blockTableService: BlockTableServiceProtocol,
         fileService: FileActionsServiceProtocol,
-        objectService: ObjectActionsServiceProtocol
+        objectService: ObjectActionsServiceProtocol,
+        pasteboardBlockService: PasteboardBlockServiceProtocol
     ) {
         self.document = document
         self.markupChanger = markupChanger
@@ -30,6 +32,7 @@ final class BlockActionHandler: BlockActionHandlerProtocol {
         self.blockTableService = blockTableService
         self.fileService = fileService
         self.objectService = objectService
+        self.pasteboardBlockService = pasteboardBlockService
     }
 
     // MARK: - Service proxy
@@ -299,6 +302,19 @@ final class BlockActionHandler: BlockActionHandlerProtocol {
     func setAppearance(blockId: String, appearance: BlockLink.Appearance) {
         Task {
             try await blockService.setLinkAppearance(objectId: document.objectId, blockIds: [blockId], appearance: appearance)
+        }
+    }
+    
+    func pasteContent() {
+        Task {
+            let blockId = try await blockService.addFirstBlock(contextId: document.objectId, info: .emptyText)
+            pasteboardBlockService.pasteInsideBlock(
+                objectId: document.objectId,
+                focusedBlockId: blockId,
+                range: .zero,
+                handleLongOperation: { },
+                completion: { _ in }
+            )
         }
     }
 }

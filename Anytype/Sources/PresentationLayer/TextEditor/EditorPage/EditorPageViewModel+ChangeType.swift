@@ -32,7 +32,9 @@ extension EditorPageViewModel {
         Task { @MainActor in
             try await actionHandler.setObjectType(type: type)
             try await actionHandler.applyTemplate(objectId: document.objectId, templateId: type.defaultTemplateId)
-            // TODO: Paste content
+            if pasteContent {
+                actionHandler.pasteContent()
+            }
         }
     }
     
