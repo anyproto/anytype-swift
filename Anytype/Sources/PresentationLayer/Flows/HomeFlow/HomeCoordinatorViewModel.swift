@@ -21,6 +21,7 @@ final class HomeCoordinatorViewModel: ObservableObject,
     private let newSearchModuleAssembly: NewSearchModuleAssemblyProtocol
     private let objectActionsService: ObjectActionsServiceProtocol
     private let defaultObjectService: DefaultObjectCreationServiceProtocol
+    private let blockService: BlockServiceProtocol
     private let bookmarkService: BookmarkServiceProtocol
     private let pasteboardBlockService: PasteboardBlockServiceProtocol
     private let typeProvider: ObjectTypeProviderProtocol
@@ -87,6 +88,7 @@ final class HomeCoordinatorViewModel: ObservableObject,
         newSearchModuleAssembly: NewSearchModuleAssemblyProtocol,
         objectActionsService: ObjectActionsServiceProtocol,
         defaultObjectService: DefaultObjectCreationServiceProtocol,
+        blockService: BlockServiceProtocol,
         bookmarkService: BookmarkServiceProtocol,
         pasteboardBlockService: PasteboardBlockServiceProtocol,
         typeProvider: ObjectTypeProviderProtocol,
@@ -114,6 +116,7 @@ final class HomeCoordinatorViewModel: ObservableObject,
         self.newSearchModuleAssembly = newSearchModuleAssembly
         self.objectActionsService = objectActionsService
         self.defaultObjectService = defaultObjectService
+        self.blockService = blockService
         self.bookmarkService = bookmarkService
         self.pasteboardBlockService = pasteboardBlockService
         self.typeProvider = typeProvider
@@ -383,7 +386,8 @@ final class HomeCoordinatorViewModel: ObservableObject,
             AnytypeAnalytics.instance().logCreateObject(objectType: details.analyticsType, route: route)
             
             if pasteContent {
-                let blockId = try await BlockService().addFirstBlock(contextId: details.id, info: .emptyText)
+                try await objectActionsService.applyTemplate(objectId: details.id, templateId: type.defaultTemplateId)
+                let blockId = try await blockService.addFirstBlock(contextId: details.id, info: .emptyText)
                 
                 pasteboardBlockService.pasteInsideBlock(
                     objectId: details.id,

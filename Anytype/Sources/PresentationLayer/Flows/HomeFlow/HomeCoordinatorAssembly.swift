@@ -45,6 +45,7 @@ final class HomeCoordinatorAssembly: HomeCoordinatorAssemblyProtocol {
             newSearchModuleAssembly: modulesDI.newSearch(),
             objectActionsService: serviceLocator.objectActionsService(),
             defaultObjectService: serviceLocator.defaultObjectCreationService(),
+            blockService: serviceLocator.blockService(),
             bookmarkService: serviceLocator.bookmarkService(),
             pasteboardBlockService: serviceLocator.pasteboardBlockService(),
             typeProvider: serviceLocator.objectTypeProvider(),
