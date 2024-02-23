@@ -323,7 +323,7 @@ final class EditorCollectionFlowLayout: UICollectionViewLayout {
                 
                 additionalSize = additionalSize + height
                 
-                guard let childStyle = blockLayoutDetails[childHash]?.ownStyle else { continue }
+                guard blockLayoutDetails[childHash]?.ownStyle != nil else { continue }
             }
             
             if layoutDetails.allChilds.count > 0 {

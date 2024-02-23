@@ -174,7 +174,7 @@ extension AnytypeAnalytics {
     }
 
     func logCreateObject(objectType: AnalyticsObjectType, route: AnalyticsEventsRouteKind) {
-        var properties = [
+        let properties = [
             AnalyticsEventsPropertiesKey.objectType: objectType.analyticsId,
             AnalyticsEventsPropertiesKey.route: route.rawValue
         ]

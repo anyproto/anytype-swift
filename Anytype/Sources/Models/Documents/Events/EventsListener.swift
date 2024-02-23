@@ -71,7 +71,7 @@ final class EventsListener: EventsListenerProtocol {
     private func subscribeMiddlewareEvents() {
         EventBunchSubscribtion.default.addHandler { [weak self] events in
             guard events.contextId == self?.objectId else { return }
-            await self?.handle(events: events)
+            self?.handle(events: events)
         }.store(in: &subscriptions)
     }
     
@@ -94,7 +94,7 @@ final class EventsListener: EventsListenerProtocol {
         let localUpdates = events.localEvents.compactMap { localConverter.convert($0) }
         let markupUpdates = [mentionMarkupEventProvider.updateMentionsEvent()].compactMap { $0 }
 
-        var updates = middlewareUpdates + markupUpdates + localUpdates
+        let updates = middlewareUpdates + markupUpdates + localUpdates
         
         IndentationBuilder.build(
             container: infoContainer,

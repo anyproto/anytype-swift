@@ -33,7 +33,7 @@ struct VideoBlockViewModel: BlockViewModelProtocol {
         }
     }
     
-    func makeContentConfiguration(maxWidth maxWidth: CGFloat) -> UIContentConfiguration {
+    func makeContentConfiguration(maxWidth: CGFloat) -> UIContentConfiguration {
         guard let fileData else {
             return UnsupportedBlockViewModel(info: info).makeContentConfiguration(maxWidth: maxWidth)
         }
