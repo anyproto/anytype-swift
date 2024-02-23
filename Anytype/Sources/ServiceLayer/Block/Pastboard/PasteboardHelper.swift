@@ -20,6 +20,7 @@ protocol PasteboardHelperProtocol {
     
     func setItems(textSlot: String?, htmlSlot: String?, blocksSlots: [String]?)
     
+    var isPasteboardEmpty: Bool { get }
     var numberOfItems: Int { get }
     var hasValidURL: Bool { get }
     var hasStrings: Bool { get }
@@ -135,6 +136,15 @@ final class PasteboardHelper: PasteboardHelperProtocol {
 
     var hasSlots: Bool {
         pasteboard.hasSlots
+    }
+    
+    var isPasteboardEmpty: Bool {
+        let items = obtainAllItems()
+        
+        if items.isEmpty { return true }
+        if items.count == 1 && items[0].isEmpty { return true }
+        
+        return false
     }
     
     // MARK: Subscriptions

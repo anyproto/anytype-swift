@@ -149,8 +149,9 @@ final class ObjectTypeSearchViewModel: ObservableObject {
                 return
             }
             
-            _ = pasteboardHelper.obtainAllItems() // To invoke user dialog
-            onSelect(.createFromPasteboard)
+            if !pasteboardHelper.isPasteboardEmpty {
+                onSelect(.createFromPasteboard)
+            }
         }
         
     }
