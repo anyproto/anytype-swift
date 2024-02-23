@@ -36,17 +36,14 @@ final class FeaturedRelationsBlockViewModel: BlockViewModelProtocol {
     }
     
     func makeContentConfiguration(maxWidth _: CGFloat) -> UIContentConfiguration {
-        let relationViewModels = featuredRelationValues.map(RelationItemModel.init)
         let objectType = document.details?.objectType
         
         return FeaturedRelationsBlockContentConfiguration(
-            featuredRelations: relationViewModels,
+            featuredRelations: featuredRelationValues,
             type: objectType?.name ?? "",
             alignment: info.horizontalAlignment.asNSTextAlignment,
-            onRelationTap: { [weak self] item in
-                self?.featuredRelationValues
-                    .first { $0.key == item.key }
-                    .map { self?.onRelationTap($0) }
+            onRelationTap: { [weak self] relation in
+                self?.onRelationTap(relation)
             },
             heightDidChanged: { [weak self] in
                 guard let self else { return }

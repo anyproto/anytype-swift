@@ -4,11 +4,11 @@ import Services
 struct FeaturedRelationsBlockContentConfiguration: BlockConfiguration {
     typealias View = FeaturedRelationBlockView
 
-    let featuredRelations: [RelationItemModel]
+    let featuredRelations: [Relation]
     let type: String
     let alignment: NSTextAlignment
 
-    @EquatableNoop private(set) var onRelationTap: (RelationItemModel) -> Void
+    @EquatableNoop private(set) var onRelationTap: (Relation) -> Void
     @EquatableNoop var heightDidChanged: () -> Void
 }
 
