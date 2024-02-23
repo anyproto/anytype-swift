@@ -9,7 +9,7 @@ final class ChangeTypeAccessoryViewModel {
     @Published private(set) var isTypesViewVisible: Bool = false
     @Published private(set) var supportedTypes = [TypeItem]()
     var onDoneButtonTap: (() -> Void)?
-    var onTypeTap: ((ObjectType) -> Void)?
+    var onTypeTap: ((TypeSelectionResult) -> Void)?
 
     private let router: EditorRouterProtocol
     private let handler: BlockActionHandlerProtocol
@@ -43,19 +43,26 @@ final class ChangeTypeAccessoryViewModel {
     func onSearchTap() {
         router.showTypePickerForNewObjectCreation(
             selectedObjectId: document.details?.type,
-            onSelect: { [weak self] type in
-                self?.onTypeTap(type: type)
+            onSelect: { [weak self] result in
+                self?.onTypeTap(result: result)
             }
         )
     }
 
-    private func onTypeTap(type: ObjectType) {
-        defer { logSelectObjectType(type: type) }
-        onTypeTap?(type)
+    private func onTypeTap(result: TypeSelectionResult) {
+        defer { logSelectObjectType(result: result) }
+        onTypeTap?(result)
     }
     
-    private func logSelectObjectType(type: ObjectType) {
-        AnytypeAnalytics.instance().logSelectObjectType(type.analyticsType, route: .navigation)
+    private func logSelectObjectType(result: TypeSelectionResult) {
+        switch result {
+        case .object(let type, let pasteContent):
+            AnytypeAnalytics.instance().logSelectObjectType(type.analyticsType, route: .navigation)
+        case .bookmark(let url):
+            if let type = try? ObjectTypeProvider.shared.objectType(uniqueKey: .bookmark, spaceId: document.spaceId) {
+                AnytypeAnalytics.instance().logSelectObjectType(type.analyticsType, route: .navigation)
+            }
+        }
     }
 
     private func subscribeOnDocumentChanges() {
@@ -80,7 +87,7 @@ final class ChangeTypeAccessoryViewModel {
                 spaceId: document.spaceId
             ).map { type in
                 TypeItem(from: type, handler: { [weak self] in
-                    self?.onTypeTap(type: ObjectType(details: type))
+                    self?.onTypeTap(result: .object(type: ObjectType(details: type), pasteContent: false))
                 })
             }
         return supportedTypes

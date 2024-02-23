@@ -385,7 +385,7 @@ final class HomeCoordinatorViewModel: ObservableObject,
             )
             AnytypeAnalytics.instance().logCreateObject(objectType: details.analyticsType, route: route)
             
-            if pasteContent {
+            if pasteContent && !type.isListType {
                 try await objectActionsService.applyTemplate(objectId: details.id, templateId: type.defaultTemplateId)
                 let blockId = try await blockService.addFirstBlock(contextId: details.id, info: .emptyText)
                 
