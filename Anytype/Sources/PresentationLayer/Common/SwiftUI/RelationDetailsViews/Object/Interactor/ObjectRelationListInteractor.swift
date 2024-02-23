@@ -4,7 +4,6 @@ import Services
 final class ObjectRelationListInteractor: ObjectRelationListInteractorProtocol {
     
     let limitedObjectTypes: [ObjectType]
-    let canDuplicateObject: Bool
     
     private let spaceId: String
     private let searchService: SearchServiceProtocol
@@ -19,7 +18,6 @@ final class ObjectRelationListInteractor: ObjectRelationListInteractorProtocol {
         self.limitedObjectTypes = limitedObjectTypes.compactMap { id in
             objectTypeProvider.objectTypes.first { $0.id == id }
         }
-        self.canDuplicateObject = true
         self.searchService = searchService
     }
     

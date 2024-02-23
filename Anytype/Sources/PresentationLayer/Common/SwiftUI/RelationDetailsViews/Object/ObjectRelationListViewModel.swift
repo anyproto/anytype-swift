@@ -117,10 +117,6 @@ final class ObjectRelationListViewModel: ObservableObject {
         }
     }
     
-    func canDuplicateObject() -> Bool {
-        interactor.canDuplicateObject
-    }
-    
     private func searchTextChangedAsync(_ text: String = "") async throws {
         let rawOptions = try await interactor.searchOptions(text: text)
         

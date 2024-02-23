@@ -67,3 +67,10 @@ public extension ObjectDetails {
         self.init(id: id, values: fields)
     }
 }
+
+public extension ObjectDetails {
+    var restrictionsList: [Int] {
+        values[BundledRelationKey.restrictions.rawValue]?
+            .listValue.values.compactMap { $0.safeIntValue } ?? []
+    }
+}
