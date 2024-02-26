@@ -32,6 +32,7 @@ final class SpaceSettingsViewModel: ObservableObject {
     @Published var showSpaceDeleteAlert = false
     @Published var dismiss: Bool = false
     @Published var allowDelete: Bool = false
+    @Published var allowShare: Bool = false
     
     init(
         activeWorkspaceStorage: ActiveWorkpaceStorageProtocol,
@@ -105,6 +106,7 @@ final class SpaceSettingsViewModel: ObservableObject {
         spaceIcon = details.objectIconImage
         spaceAccessType = details.spaceAccessType?.name ?? ""
         allowDelete = accountManager.account.info.spaceViewId != details.id
+        allowShare = details.spaceAccessType?.canBeShared ?? false
         buildInfoBlock(details: details)
         
         if !dataLoaded {
