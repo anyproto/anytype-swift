@@ -209,15 +209,15 @@ final class ServiceLocator {
         )
     }
     
-    func participantSubscriptionServiceBySpace() -> ParticipantsSubscriptionServiceBySpaceProtocol {
-        return ParticipantsSubscriptionServiceBySpace(
+    func participantSubscriptionBySpaceService() -> ParticipantsSubscriptionBySpaceServiceProtocol {
+        return ParticipantsSubscriptionBySpaceService(
             subscriptionStorageProvider: subscriptionStorageProvider(),
             activeWorkspaceStorage: activeWorkspaceStorage()
         )
     }
     
-    func participantsSubscriptionServiceByAccount() -> ParticipantsSubscriptionServiceByAccountProtocol {
-        return ParticipantsSubscriptionServiceByAccount(
+    func participantsSubscriptionByAccountService() -> ParticipantsSubscriptionByAccountServiceProtocol {
+        return ParticipantsSubscriptionByAccountService(
             subscriptionStorageProvider: subscriptionStorageProvider(),
             activeWorkspaceStorage: activeWorkspaceStorage()
         )

@@ -20,7 +20,7 @@ final class SpacesManagerModuleAssembly: SpacesManagerModuleAssemblyProtocol {
         SpacesManagerView(
             model: SpacesManagerViewModel(
                 workspacesStorage: self.serviceLocator.workspaceStorage(),
-                participantsSubscriptionServiceByAccount: self.serviceLocator.participantsSubscriptionServiceByAccount()
+                participantsSubscriptionByAccountService: self.serviceLocator.participantsSubscriptionByAccountService()
             )
         ).eraseToAnyView()
     }

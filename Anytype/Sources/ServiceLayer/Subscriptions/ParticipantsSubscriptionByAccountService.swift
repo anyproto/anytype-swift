@@ -2,17 +2,17 @@ import Foundation
 import Services
 
 @MainActor
-protocol ParticipantsSubscriptionServiceBySpaceProtocol: AnyObject {
+protocol ParticipantsSubscriptionByAccountServiceProtocol: AnyObject {
     func startSubscription(update: @escaping ([Participant]) -> Void) async
     func stopSubscription() async
 }
 
 @MainActor
-final class ParticipantsSubscriptionServiceBySpace: ParticipantsSubscriptionServiceBySpaceProtocol {
+final class ParticipantsSubscriptionByAccountService: ParticipantsSubscriptionByAccountServiceProtocol {
     
     private let subscriptionStorage: SubscriptionStorageProtocol
     private let activeWorkspaceStorage: ActiveWorkpaceStorageProtocol
-    private let subscriptionId = "SpaceParticipant-\(UUID().uuidString)"
+    private let subscriptionId = "AccountParticipant-\(UUID().uuidString)"
     
     nonisolated init(
         subscriptionStorageProvider: SubscriptionStorageProviderProtocol,
@@ -33,7 +33,7 @@ final class ParticipantsSubscriptionServiceBySpace: ParticipantsSubscriptionServ
             SearchHelper.notHiddenFilter(),
             SearchHelper.isArchivedFilter(isArchived: false),
             SearchHelper.isDeletedFilter(isDeleted: false),
-            SearchHelper.spaceId(activeWorkspaceStorage.workspaceInfo.accountSpaceId),
+            SearchHelper.identityProfileLink(activeWorkspaceStorage.workspaceInfo.profileObjectID),
             SearchHelper.layoutFilter([.participant])
         ]
         
