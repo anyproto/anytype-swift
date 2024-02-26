@@ -22,7 +22,6 @@ final class HomeCoordinatorViewModel: ObservableObject,
     private let objectActionsService: ObjectActionsServiceProtocol
     private let defaultObjectService: DefaultObjectCreationServiceProtocol
     private let blockService: BlockServiceProtocol
-    private let bookmarkService: BookmarkServiceProtocol
     private let pasteboardBlockService: PasteboardBlockServiceProtocol
     private let typeProvider: ObjectTypeProviderProtocol
     private let appActionsStorage: AppActionStorage
@@ -90,7 +89,6 @@ final class HomeCoordinatorViewModel: ObservableObject,
         objectActionsService: ObjectActionsServiceProtocol,
         defaultObjectService: DefaultObjectCreationServiceProtocol,
         blockService: BlockServiceProtocol,
-        bookmarkService: BookmarkServiceProtocol,
         pasteboardBlockService: PasteboardBlockServiceProtocol,
         typeProvider: ObjectTypeProviderProtocol,
         appActionsStorage: AppActionStorage,
@@ -119,7 +117,6 @@ final class HomeCoordinatorViewModel: ObservableObject,
         self.objectActionsService = objectActionsService
         self.defaultObjectService = defaultObjectService
         self.blockService = blockService
-        self.bookmarkService = bookmarkService
         self.pasteboardBlockService = pasteboardBlockService
         self.typeProvider = typeProvider
         self.appActionsStorage = appActionsStorage
@@ -209,21 +206,9 @@ final class HomeCoordinatorViewModel: ObservableObject,
     }
 
     func typeSearchForObjectCreationModule() -> AnyView {
-        typeSearchCoordinatorAssembly.make { [weak self] result in
+        typeSearchCoordinatorAssembly.make { [weak self] details in
             guard let self else { return }
-            showTypeSearchForObjectCreation = false
-            
-            switch result {
-            case .object(let type, let pasteContent):
-                AnytypeAnalytics.instance().logSelectObjectType(type.analyticsType, route: .longTap)
-                createAndShowNewObject(type: type, pasteContent: pasteContent, route: .navigation)
-            case .bookmark(let url):
-                // TODO: Analytics from pasteboard
-                createAndShowNewBookmark(url: url)
-            case .error:
-                // TODO: Support error
-                anytypeAssertionFailure("Unsupported error in TypeSearchForObjectCreationModule")
-            }
+            openObject(screenData: details.editorScreenData())
         }
     }
 
@@ -374,7 +359,6 @@ final class HomeCoordinatorViewModel: ObservableObject,
 
     private func createAndShowNewObject(
         type: ObjectType,
-        pasteContent: Bool = false,
         route: AnalyticsEventsRouteKind
     ) {
         Task {
@@ -390,34 +374,6 @@ final class HomeCoordinatorViewModel: ObservableObject,
             )
             AnytypeAnalytics.instance().logCreateObject(objectType: details.analyticsType, route: route)
             
-            if pasteContent && !type.isListType {
-                try await objectActionsService.applyTemplate(objectId: details.id, templateId: type.defaultTemplateId)
-                let blockId = try await blockService.addFirstBlock(contextId: details.id, info: .emptyText)
-                
-                pasteboardBlockService.pasteInsideBlock(
-                    objectId: details.id,
-                    focusedBlockId: blockId,
-                    range: .zero,
-                    handleLongOperation: { },
-                    completion: { _ in }
-                )
-            }
-
-            openObject(screenData: details.editorScreenData())
-        }
-    }
-    
-    private func createAndShowNewBookmark(url: AnytypeURL) {
-        Task {
-            let details = try await bookmarkService.createBookmarkObject(
-                spaceId: activeWorkspaceStorage.workspaceInfo.accountSpaceId,
-                url: url,
-                origin: .clipboard
-            )
-            
-            AnytypeAnalytics.instance().logSelectObjectType(details.analyticsType, route: .longTap)
-            AnytypeAnalytics.instance().logCreateObject(objectType: details.analyticsType, route: .navigation)
-
             openObject(screenData: details.editorScreenData())
         }
     }
