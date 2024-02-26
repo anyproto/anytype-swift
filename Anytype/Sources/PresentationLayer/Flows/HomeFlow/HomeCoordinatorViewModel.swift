@@ -343,7 +343,7 @@ final class HomeCoordinatorViewModel: ObservableObject,
         editorPath.pop()
     }
     
-    func onCreateObjectWithTypeSelected() {
+    func onPickTypeForNewObjectSelected() {
         UISelectionFeedbackGenerator().selectionChanged()
         showTypeSearch.toggle()
     }
