@@ -103,8 +103,8 @@ final class SpaceSettingsViewModel: ObservableObject {
     private func handleSpaceDetails(details: SpaceView) {
         spaceView = details
         spaceIcon = details.objectIconImage
-        spaceType = details.spaceAccessibility?.name ?? ""
-        allowDelete = accountManager.account.info.spaceViewId != details.id
+        spaceType = details.spaceAccessType?.name ?? ""
+        allowDelete = details.spaceAccessType == .personal || details.spaceAccessType == .private
         buildInfoBlock(details: details)
         
         if !dataLoaded {
