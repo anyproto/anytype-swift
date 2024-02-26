@@ -114,8 +114,8 @@ extension ObjectRelationView {
     
     private var maxOptions: Int {
         switch style {
-        case .regular, .set: return 0
-        case .filter, .setCollection, .featuredRelationBlock, .kanbanHeader: return 1
+        case .filter, .setCollection, .featuredRelationBlock, .kanbanHeader, .regular: return 1
+        case .set: return 0
         }
     }
     

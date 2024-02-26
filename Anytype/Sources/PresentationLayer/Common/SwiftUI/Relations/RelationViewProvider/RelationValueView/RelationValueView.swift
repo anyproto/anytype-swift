@@ -2,12 +2,10 @@ import SwiftUI
 import AnytypeCore
 
 struct RelationValueView: View {
-    let relation: RelationItemModel
-    let style: RelationStyle
-    let mode: Mode
+    @StateObject var model: RelationValueViewModel
 
     var body: some View {
-        switch mode {
+        switch model.data.mode {
         case .button(let action):
             buttonView(with: action)
         case .contextMenu(let items):
@@ -29,7 +27,7 @@ struct RelationValueView: View {
     }
     
     @ViewBuilder
-    private func contextMenuView(from items: [MenuItem]) -> some View {
+    private func contextMenuView(from items: [RelationValueViewData.MenuItem]) -> some View {
         if items.isNotEmpty {
             Menu {
                 ForEach(items, id: \.title) { item in
@@ -47,6 +45,13 @@ struct RelationValueView: View {
 
     @ViewBuilder
     private var relationView: some View {
+        if let relation = model.data.relation {
+            relationView(for: relation, style: model.data.style)
+        }
+    }
+    
+    @ViewBuilder
+    private func relationView(for relation: RelationItemModel, style: RelationStyle) -> some View {
         switch relation {
         case .text(let text):
             TextRelationFactory.swiftUI(value: text.value, hint: relation.hint, style: style)

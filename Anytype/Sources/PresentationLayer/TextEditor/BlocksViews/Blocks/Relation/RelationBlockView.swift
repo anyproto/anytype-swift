@@ -44,7 +44,7 @@ final class RelationBlockView: UIView, BlockContentView {
     
     private func setupRelationState(
         relation: RelationItemModel,
-        action: ((_ relation: RelationItemModel) -> Void)?
+        action: (() -> Void)?
     ) {
         relationNameView.setText(relation.name)
         relationIcon.image = UIImage(asset: .relationLocked)
@@ -98,7 +98,8 @@ final class RelationBlockView: UIView, BlockContentView {
                     $0.vGap(fixed: 2),
                     relationValueView,
                     $0.vGap(fixed: 2)
-                )
+                ),
+                $0.vGap()
             )
         }
         

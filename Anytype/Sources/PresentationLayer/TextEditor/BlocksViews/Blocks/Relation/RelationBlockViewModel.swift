@@ -52,7 +52,7 @@ final class RelationBlockViewModel: BlockViewModelProtocol {
 
     func makeContentConfiguration(maxWidth: CGFloat) -> UIContentConfiguration {
         return RelationBlockContentConfiguration(
-            actionOnValue: { [weak self] _ in self?.actionOnValue?() },
+            actionOnValue: { [weak self] in self?.actionOnValue?() },
             relation: RelationItemModel(relation: relationProvider.relation)
         ).cellBlockConfiguration(
             dragConfiguration: .init(id: info.id),

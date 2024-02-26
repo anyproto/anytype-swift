@@ -141,22 +141,19 @@ extension SetFullHeader {
             )
         )
         let contextMenuItems = model.contextMenuItems(for: relation)
-        if contextMenuItems.isNotEmpty {
-            RelationValueView(
-                relation: item,
-                style: style,
-                mode: .contextMenu(contextMenuItems)
+        let mode: RelationValueViewData.Mode = contextMenuItems.isNotEmpty ? .contextMenu(contextMenuItems) : .button(action: { [weak model] in
+            UIApplication.shared.hideKeyboard()
+            model?.onRelationTap(relation: relation)
+        })
+        RelationValueView(
+            model: RelationValueViewModel(
+                data: RelationValueViewData(
+                    relation: item,
+                    style: style,
+                    mode: mode
+                )
             )
-        } else {
-            RelationValueView(
-                relation: item,
-                style: style,
-                mode: .button(action: { [weak model] in
-                    UIApplication.shared.hideKeyboard()
-                    model?.onRelationTap(relation: relation)
-                })
-            )
-        }
+        )
     }
 }
 
