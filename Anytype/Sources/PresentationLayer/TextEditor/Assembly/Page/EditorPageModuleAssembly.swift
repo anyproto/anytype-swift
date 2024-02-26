@@ -167,10 +167,13 @@ final class EditorPageModuleAssembly: EditorPageModuleAssemblyProtocol {
             blockService: blockService,
             blockTableService: blockTableService,
             fileService: serviceLocator.fileService(),
-            objectService: serviceLocator.objectActionsService()
+            objectService: serviceLocator.objectActionsService(),
+            pasteboardBlockService: serviceLocator.pasteboardBlockService(),
+            bookmarkService: serviceLocator.bookmarkService(),
+            objectTypeProvider: serviceLocator.objectTypeProvider()
         )
         
-        let pasteboardService = serviceLocator.pasteboardBlockService(document: document)
+        let pasteboardService = serviceLocator.pasteboardBlockDocumentService(document: document)
         let blocksStateManager = EditorPageBlocksStateManager(
             document: document,
             modelsHolder: modelsHolder,
@@ -277,11 +280,12 @@ final class EditorPageModuleAssembly: EditorPageModuleAssemblyProtocol {
             configuration: configuration,
             templatesSubscriptionService: serviceLocator.templatesSubscription(),
             activeWorkspaceStorage: serviceLocator.activeWorkspaceStorage(),
+            objectTypeProvider: serviceLocator.objectTypeProvider(),
             output: output
         )
 
-        accessoryState.1.onTypeTap = { [weak viewModel] in
-            viewModel?.onChangeType(type: $0)
+        accessoryState.1.onTypeSelected = { [weak viewModel] in
+            viewModel?.onChangeType(typeSelection: $0)
         }
 
         return viewModel

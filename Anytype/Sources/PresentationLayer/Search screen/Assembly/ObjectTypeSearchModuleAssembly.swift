@@ -3,11 +3,17 @@ import Services
 import SwiftUI
 import AnytypeCore
 
+
+enum TypeSelectionResult {
+    case objectType(type: ObjectType)
+    case createFromPasteboard
+}
+
 protocol ObjectTypeSearchModuleAssemblyProtocol: AnyObject {
     func makeTypeSearchForNewObjectCreation(
         title: String,
         spaceId: String,
-        onSelect: @escaping (_ type: ObjectType,_ content: String?) -> Void
+        onSelect: @escaping (TypeSelectionResult) -> Void
     ) -> AnyView
     
     func makeDefaultTypeSearch(
@@ -33,7 +39,7 @@ final class ObjectTypeSearchModuleAssembly: ObjectTypeSearchModuleAssemblyProtoc
     func makeTypeSearchForNewObjectCreation(
         title: String,
         spaceId: String,
-        onSelect: @escaping (_ type: ObjectType,_ content: String?) -> Void
+        onSelect: @escaping (TypeSelectionResult) -> Void
     ) -> AnyView {
         let model = ObjectTypeSearchViewModel(
             showPins: true,
@@ -75,8 +81,13 @@ final class ObjectTypeSearchModuleAssembly: ObjectTypeSearchModuleAssemblyProtoc
                 objectTypeProvider: serviceLocator.objectTypeProvider(),
                 toastPresenter: uiHelpersDI.toastPresenter(), 
                 pasteboardHelper: serviceLocator.pasteboardHelper(),
-                onSelect: { type, _ in
-                    onSelect(type)
+                onSelect: { result in
+                    switch result {
+                    case .objectType(let type):
+                        onSelect(type)
+                    case .createFromPasteboard:
+                        anytypeAssertionFailure("Unsupported action createFromPasteboard")
+                    }
                 }
             )
             

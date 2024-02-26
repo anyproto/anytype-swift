@@ -1,8 +1,35 @@
 import Services
+import AnytypeCore
+
 
 extension EditorPageViewModel {
-    func onChangeType(type: ObjectType) {
-        if type.recommendedLayout == .set {
+    func onChangeType(typeSelection: TypeSelectionResult) {
+        switch typeSelection {
+        case .objectType(let type):
+            onChangeType(type: type)
+        case .createFromPasteboard:
+            switch PasteboardHelper().pasteboardContent {
+            case .none:
+                anytypeAssertionFailure("Empty clipboard")
+                return
+            case .url(let url):
+                Task {
+                    try await actionHandler.turnIntoBookmark(url: url)
+                }
+            case .string:
+                fallthrough
+            case .otherContent:
+                Task {
+                    let type = try objectTypeProvider.defaultObjectType(spaceId: document.spaceId)
+                    try await actionHandler.applyTemplate(objectId: document.objectId, templateId: type.defaultTemplateId)
+                    actionHandler.pasteContent()
+                }
+            }
+        }
+    }
+    
+    private func onChangeType(type: ObjectType) {
+        if type.isSetType {
             Task { @MainActor in
                 subscriptions.removeAll()
                 try await actionHandler.setObjectSetType()
@@ -11,7 +38,7 @@ extension EditorPageViewModel {
             return
         }
         
-        if type.recommendedLayout == .collection {
+        if type.isCollectionType {
             Task { @MainActor in
                 subscriptions.removeAll()
                 try await actionHandler.setObjectCollectionType()

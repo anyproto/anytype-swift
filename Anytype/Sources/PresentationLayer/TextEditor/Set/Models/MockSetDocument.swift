@@ -23,7 +23,7 @@ final class MockSetDocument: SetDocumentProtocol {
     
     var objectRestrictions: ObjectRestrictions { ObjectRestrictions(objectRestriction: [], dataViewRestriction: [:]) }
     
-    var dataviews: [BlockDataview] { [] }
+    var blockDataview: BlockDataview? { nil }
     
     var dataViewRelationsDetails: [Services.RelationDetails] { [] }
     
@@ -65,7 +65,7 @@ final class MockSetDocument: SetDocumentProtocol {
     
     func objectOrderIds(for groupId: String) -> [String] { [] }
     
-    func updateActiveViewId(_ id: String) { }
+    func updateActiveViewIdAndReload(_ id: String) { }
     
     func isTypeSet() -> Bool { false }
     

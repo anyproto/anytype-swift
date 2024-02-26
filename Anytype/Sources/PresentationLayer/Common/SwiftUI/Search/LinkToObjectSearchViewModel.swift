@@ -79,7 +79,7 @@ final class LinkToObjectSearchViewModel: SearchViewModelProtocol {
         
         if text.isEmpty {
             if pasteboardHelper.hasValidURL,
-               let pasteboardString = pasteboardHelper.obrainString(),
+               let pasteboardString = pasteboardHelper.obtainString(),
                let url = AnytypeURL(string: pasteboardString) {
                 let webSearchData = LinkToObjectSearchData(
                     searchKind: .web(url.url),

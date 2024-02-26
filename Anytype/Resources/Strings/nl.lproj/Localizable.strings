@@ -217,7 +217,7 @@
 "Auth.CameraPermissionTitle" = "Geef toegang";
 "Restore secret phrase from keychain" = "Herstel de herstelzin vanuit de keychain";
 "Auth.LogIn" = "Inloggen";
-"Auth.Join" = "Neem deel";
+"Auth.Join" = "Sluit aan";
 "Auth.Welcome.Subtitle" = "Anytype is jouw veilige ruimte om te schrijven, te plannen, na te denken en te organiseren van de dingen die jij belangrijk vindt.";
 "Auth.Caption.Privacy.Text" = "Door verder te gaan ga je akkoord met onze [Algemene voorwaarden](%@) en [Privacybeleid](%@)";
 "Auth.Next" = "Volgende";
@@ -850,7 +850,21 @@
 "Spaces.Accessibility.Private" = "Persoonlijke ruimte";
 "Spaces.Accessibility.Personal" = "Persoonlijke ruimte";
 "Spaces.Search.Title" = "Zoek ruimten";
-"Spaces.Title" = "Spaces";
+"Spaces.Title" = "Ruimtes";
+"Spaces.Info.Network" = "Netwerk:";
+"Spaces.Info.Device" = "Apparaat:";
+
+// MARK: - Space
+"Space.Status.Unknown" = "Onbekend";
+"Space.Status.Loading" = "Aan het laden";
+"Space.Status.Ok" = "Ok";
+"Space.Status.Missing" = "Ontbrekend";
+"Space.Status.Error" = "Foutmelding";
+"Space.Status.RemoteWaitingDeletion" = "Aan het wachten op verwijdering";
+"Space.Status.RemoteDeleted" = "Op afstand verwijderd";
+"Space.Status.SpaceDeleted" = "Verwijderd";
+"Space.Status.SpaceActive" = "Actief";
+"Space.Status.SpaceJoining" = "Aan het aansluiten";
 
 // MARK: - Space Settings
 "SpaceSettings.Title" = "Ruimte instellingen";
@@ -912,8 +926,8 @@
 "Sharing.Tip.Steps.3" = "Tik op Bewerken om \"Anytype\" te vinden en tik op";
 
 // MARK: - Swipe tips
-"Swipe.Tip.Title" = "Swipe to Create Objects";
-"Swipe.Tip.Subtitle" = "Create objects inside widgets by easily swiping them left.";
+"Swipe.Tip.Title" = "Swipe om objecten aan te maken";
+"Swipe.Tip.Subtitle" = "Maak objecten binnen widgets aan door ze naar links te swipen.";
 
 
 // MARK: - Initial

@@ -850,6 +850,20 @@
 "Spaces.Accessibility.Personal" = "Impostazioni";
 "Spaces.Search.Title" = "Cerca spazi";
 "Spaces.Title" = "Spazi";
+"Spaces.Info.Network" = "Rete:";
+"Spaces.Info.Device" = "Dispositivo:";
+
+// MARK: - Space
+"Space.Status.Unknown" = "Sconosciuto";
+"Space.Status.Loading" = "Caricamento";
+"Space.Status.Ok" = "Ok";
+"Space.Status.Missing" = "Mancante";
+"Space.Status.Error" = "Errore";
+"Space.Status.RemoteWaitingDeletion" = "In attesa di eliminazione";
+"Space.Status.RemoteDeleted" = "Eliminato da remoto";
+"Space.Status.SpaceDeleted" = "Eliminato";
+"Space.Status.SpaceActive" = "Attivo";
+"Space.Status.SpaceJoining" = "Accesso in corso";
 
 // MARK: - Space Settings
 "SpaceSettings.Title" = "Impostazioni dello Spazio";

@@ -78,7 +78,7 @@ final class SetViewPickerViewModel: ObservableObject {
     }
     
     private func handleTap(with view: DataviewView) {
-        setDocument.updateActiveViewId(view.id)
+        setDocument.updateActiveViewIdAndReload(view.id)
         AnytypeAnalytics.instance().logSwitchView(
             type: view.type.analyticStringValue,
             objectType: setDocument.analyticsType

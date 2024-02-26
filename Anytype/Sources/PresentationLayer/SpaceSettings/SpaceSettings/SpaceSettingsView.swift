@@ -20,16 +20,17 @@ struct SpaceSettingsView: View {
                     })
                     
                     if FeatureFlags.multiplayer {
-                        SectionHeaderView(title: Loc.SpaceSettings.sharing)
-                        SettingsSectionItemView(
-                            name: Loc.SpaceSettings.share,
-                            onTap: { model.onShareTap() }
-                        )
-
+                        if model.allowShare {
+                            SectionHeaderView(title: Loc.SpaceSettings.sharing)
+                            SettingsSectionItemView(
+                                name: Loc.SpaceSettings.share,
+                                onTap: { model.onShareTap() }
+                            )
+                        }
                     } else {
                         SectionHeaderView(title: Loc.type)
                         
-                        SpaceTypeView(name: model.spaceType)
+                        SpaceTypeView(name: model.spaceAccessType)
                     }
                     
                     SectionHeaderView(title: Loc.settings)

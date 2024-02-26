@@ -851,6 +851,20 @@
 "Spaces.Accessibility.Personal" = "Ayarlar";
 "Spaces.Search.Title" = "Search spaces";
 "Spaces.Title" = "Spaces";
+"Spaces.Info.Network" = "Network:";
+"Spaces.Info.Device" = "Device:";
+
+// MARK: - Space
+"Space.Status.Unknown" = "Bilinmeyen";
+"Space.Status.Loading" = "Loading";
+"Space.Status.Ok" = "Tamam";
+"Space.Status.Missing" = "Missing";
+"Space.Status.Error" = "Hata";
+"Space.Status.RemoteWaitingDeletion" = "Waiting Deletion";
+"Space.Status.RemoteDeleted" = "Remote Deleted";
+"Space.Status.SpaceDeleted" = "Silindi";
+"Space.Status.SpaceActive" = "Active";
+"Space.Status.SpaceJoining" = "Joining";
 
 // MARK: - Space Settings
 "SpaceSettings.Title" = "Alan ayarları";

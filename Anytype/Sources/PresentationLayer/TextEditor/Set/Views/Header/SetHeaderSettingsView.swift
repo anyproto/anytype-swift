@@ -3,7 +3,7 @@ import AnytypeCore
 
 struct SetHeaderSettingsView: View {
     
-    @ObservedObject var model: SetHeaderSettingsViewModel
+    @StateObject var model: SetHeaderSettingsViewModel
     
     var body: some View {
         HStack(alignment: .center, spacing: 0) {

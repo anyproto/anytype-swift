@@ -29,6 +29,7 @@ protocol BlockActionHandlerProtocol: AnyObject {
     func createPage(targetId: String, spaceId: String, typeUniqueKey: ObjectTypeUniqueKey, templateId: String) async throws -> String?
 
     func setObjectType(type: ObjectType) async throws
+    func turnIntoBookmark(url: AnytypeURL) async throws
     func setObjectSetType() async throws
     func setObjectCollectionType() async throws
     func applyTemplate(objectId: String, templateId: String) async throws
@@ -54,6 +55,7 @@ protocol BlockActionHandlerProtocol: AnyObject {
         columnsCount: Int,
         blockText: SafeSendable<NSAttributedString?>
     ) async throws -> String
+    func pasteContent()
 }
 
 extension BlockActionHandlerProtocol {

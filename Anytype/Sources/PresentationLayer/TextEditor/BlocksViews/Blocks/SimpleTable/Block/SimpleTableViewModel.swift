@@ -45,7 +45,7 @@ final class SimpleTableViewModel {
             guard let computedTable = ComputedTable(blockInformation: tableBlockInfoProvider.info, infoContainer: document.infoContainer) else {
                 return
             }
-            var allRelatedIds = [tableBlockInfoProvider.info.id] + document.infoContainer.recursiveChildren(of: tableBlockInfoProvider.info.id).map { $0.id }
+            let allRelatedIds = [tableBlockInfoProvider.info.id] + document.infoContainer.recursiveChildren(of: tableBlockInfoProvider.info.id).map { $0.id }
             
             if Set(allRelatedIds).intersection(blockIds).count > 0 {
                 forceUpdate(shouldApplyFocus: true)

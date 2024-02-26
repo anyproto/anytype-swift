@@ -9,7 +9,7 @@ final class ChangeTypeAccessoryViewModel {
     @Published private(set) var isTypesViewVisible: Bool = false
     @Published private(set) var supportedTypes = [TypeItem]()
     var onDoneButtonTap: (() -> Void)?
-    var onTypeTap: ((ObjectType) -> Void)?
+    var onTypeSelected: ((TypeSelectionResult) -> Void)?
 
     private let router: EditorRouterProtocol
     private let handler: BlockActionHandlerProtocol
@@ -43,19 +43,25 @@ final class ChangeTypeAccessoryViewModel {
     func onSearchTap() {
         router.showTypePickerForNewObjectCreation(
             selectedObjectId: document.details?.type,
-            onSelect: { [weak self] type in
-                self?.onTypeTap(type: type)
+            onSelect: { [weak self] result in
+                self?.onTypeSelected(result: result)
             }
         )
     }
 
-    private func onTypeTap(type: ObjectType) {
-        defer { logSelectObjectType(type: type) }
-        onTypeTap?(type)
+    private func onTypeSelected(result: TypeSelectionResult) {
+        defer { logSelectObjectType(result: result) }
+        onTypeSelected?(result)
     }
     
-    private func logSelectObjectType(type: ObjectType) {
-        AnytypeAnalytics.instance().logSelectObjectType(type.analyticsType, route: .navigation)
+    private func logSelectObjectType(result: TypeSelectionResult) {
+        switch result {
+        case .objectType(let type):
+            AnytypeAnalytics.instance().logSelectObjectType(type.analyticsType, route: .navigation)
+        case .createFromPasteboard:
+            // TODO: Analytics from pasteboard
+            break
+        }
     }
 
     private func subscribeOnDocumentChanges() {
@@ -80,7 +86,7 @@ final class ChangeTypeAccessoryViewModel {
                 spaceId: document.spaceId
             ).map { type in
                 TypeItem(from: type, handler: { [weak self] in
-                    self?.onTypeTap(type: ObjectType(details: type))
+                    self?.onTypeSelected(result: .objectType(type: ObjectType(details: type)))
                 })
             }
         return supportedTypes

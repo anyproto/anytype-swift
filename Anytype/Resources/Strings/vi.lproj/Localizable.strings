@@ -851,6 +851,20 @@
 "Spaces.Accessibility.Personal" = "Cài đặt";
 "Spaces.Search.Title" = "Search spaces";
 "Spaces.Title" = "Spaces";
+"Spaces.Info.Network" = "Network:";
+"Spaces.Info.Device" = "Device:";
+
+// MARK: - Space
+"Space.Status.Unknown" = "Không rõ";
+"Space.Status.Loading" = "Loading";
+"Space.Status.Ok" = "OK";
+"Space.Status.Missing" = "Missing";
+"Space.Status.Error" = "Error";
+"Space.Status.RemoteWaitingDeletion" = "Waiting Deletion";
+"Space.Status.RemoteDeleted" = "Remote Deleted";
+"Space.Status.SpaceDeleted" = "Đã xoá";
+"Space.Status.SpaceActive" = "Active";
+"Space.Status.SpaceJoining" = "Joining";
 
 // MARK: - Space Settings
 "SpaceSettings.Title" = "Space settings";

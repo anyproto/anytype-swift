@@ -33,6 +33,9 @@ struct AccessoryViewBuilder {
             itemProvider: changeTypeViewModel, 
             onSearchTap: { [weak changeTypeViewModel] in
                 changeTypeViewModel?.onSearchTap()
+            },
+            onPasteTap: { [weak changeTypeViewModel] in
+                changeTypeViewModel?.onTypeSelected?(.createFromPasteboard)
             }
         )
         let horizontalTypeListView = HorizonalTypeListView(viewModel: typeListViewModel)

@@ -276,9 +276,8 @@ final class EditorSetViewModel: ObservableObject {
         // Show for empty state
         featuredRelations = setDocument.featuredRelationsForEditor
         
-        guard setDocument.dataviews.isNotEmpty else { return }
-        anytypeAssert(setDocument.dataviews.count < 2, "\(setDocument.dataviews.count) dataviews in set")
-        setDocument.dataviews.first.flatMap { dataView in
+        guard setDocument.blockDataview.isNotNil else { return }
+        setDocument.blockDataview.flatMap { dataView in
             anytypeAssert(dataView.views.isNotEmpty, "Empty views in dataview: \(dataView)")
         }
         

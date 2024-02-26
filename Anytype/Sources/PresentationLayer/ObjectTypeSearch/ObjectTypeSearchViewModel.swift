@@ -1,5 +1,6 @@
 import SwiftUI
 import Services
+import AnytypeCore
 
 
 @MainActor
@@ -20,7 +21,7 @@ final class ObjectTypeSearchViewModel: ObservableObject {
     private let toastPresenter: ToastPresenterProtocol
     private let pasteboardHelper: PasteboardHelperProtocol
     
-    private let onSelect: (_ type: ObjectType,_ content: String?) -> Void
+    private let onSelect: (TypeSelectionResult) -> Void
     private var searchTask: Task<(), any Error>?
     
     nonisolated init(
@@ -34,7 +35,7 @@ final class ObjectTypeSearchViewModel: ObservableObject {
         objectTypeProvider: ObjectTypeProviderProtocol,
         toastPresenter: ToastPresenterProtocol,
         pasteboardHelper: PasteboardHelperProtocol,
-        onSelect: @escaping (_ type: ObjectType,_ content: String?) -> Void
+        onSelect: @escaping (TypeSelectionResult) -> Void
     ) {
         self.showPins = showPins
         self.showLists = showLists
@@ -55,17 +56,15 @@ final class ObjectTypeSearchViewModel: ObservableObject {
         }
     }
     
-    deinit {
-        pasteboardHelper.stopSubscription()
-    }
-    
     func onAppear() {
         search(text: searchText)
         updatePasteButton()
     }
     
     func updatePasteButton() {
-        showPasteButton = allowPaste && pasteboardHelper.hasStrings
+        withAnimation {
+            showPasteButton = allowPaste && pasteboardHelper.hasSlots
+        }
     }
     
     func search(text: String) {
@@ -135,18 +134,20 @@ final class ObjectTypeSearchViewModel: ObservableObject {
                 toastPresenter.show(message: Loc.ObjectType.addedToLibrary(type.name))
             }
             
-            onSelect(type, nil)
+            onSelect(.objectType(type: type))
         }
     }
     
     func createObjectFromClipboard() {
         Task {
-            guard let content = pasteboardHelper.obrainString() else {
+            guard pasteboardHelper.hasSlots else {
+                anytypeAssertionFailure("Trying to paste with empty clipboard")
                 return
             }
             
-            let type = try objectTypeProvider.defaultObjectType(spaceId: spaceId)
-            onSelect(type, content)
+            if !pasteboardHelper.isPasteboardEmpty { // No permission
+                onSelect(.createFromPasteboard)
+            }
         }
         
     }
@@ -154,7 +155,7 @@ final class ObjectTypeSearchViewModel: ObservableObject {
     func createType(name: String) {
         Task {
             let type = try await typesService.createType(name: name, spaceId: spaceId)
-            onSelect(type, nil)
+            onSelect(.objectType(type: type))
         }
     }
     

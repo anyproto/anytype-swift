@@ -302,16 +302,15 @@ final class EditorRouter: NSObject, EditorRouterProtocol, ObjectSettingsCoordina
     
     func showTypePickerForNewObjectCreation(
         selectedObjectId: String?,
-        onSelect: @escaping (ObjectType) -> ()
+        onSelect: @escaping (TypeSelectionResult) -> ()
     ) {
         if FeatureFlags.newTypePicker {
             let view = objectTypeSearchModuleAssembly.makeTypeSearchForNewObjectCreation(
                 title: Loc.changeType,
                 spaceId: document.spaceId
-            ) { [weak self] type, _ in
-                // TODO: Support object content
+            ) { [weak self] result in
                 self?.navigationContext.dismissTopPresented()
-                onSelect(type)
+                onSelect(result)
             }
             
             navigationContext.presentSwiftUIView(view: view)
@@ -324,7 +323,7 @@ final class EditorRouter: NSObject, EditorRouterProtocol, ObjectSettingsCoordina
                 showSetAndCollection: true
             ) { [weak self] type in
                 self?.navigationContext.dismissTopPresented()
-                onSelect(type)
+                onSelect(.objectType(type: type))
             }
             
             navigationContext.presentSwiftUIView(view: view)

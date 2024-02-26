@@ -849,7 +849,21 @@
 "Spaces.Accessibility.Private" = "Privat rom";
 "Spaces.Accessibility.Personal" = "Innstillinger";
 "Spaces.Search.Title" = "Søk etter rom";
-"Spaces.Title" = "Spaces";
+"Spaces.Title" = "Rom";
+"Spaces.Info.Network" = "Nettverk:";
+"Spaces.Info.Device" = "Enhet:";
+
+// MARK: - Space
+"Space.Status.Unknown" = "Ukjent";
+"Space.Status.Loading" = "Laster";
+"Space.Status.Ok" = "Ok";
+"Space.Status.Missing" = "Mangler";
+"Space.Status.Error" = "Feil";
+"Space.Status.RemoteWaitingDeletion" = "Venter sletting";
+"Space.Status.RemoteDeleted" = "Fjernslettet";
+"Space.Status.SpaceDeleted" = "Slettet";
+"Space.Status.SpaceActive" = "Aktiv";
+"Space.Status.SpaceJoining" = "Kobler til";
 
 // MARK: - Space Settings
 "SpaceSettings.Title" = "Rominnstillinger";

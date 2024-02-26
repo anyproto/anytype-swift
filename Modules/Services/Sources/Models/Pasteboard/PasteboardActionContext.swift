@@ -1,8 +1,8 @@
 import Foundation
 
 public enum PasteboardActionContext {
-    case focused(String, NSRange)
-    case selected([String])
+    case focused(blockId: String, range: NSRange)
+    case selected(blockIds: [String])
 
     public var focusedBlockId: String {
         switch self {
