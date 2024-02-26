@@ -31,7 +31,7 @@ extension SpaceView: DetailsModel {
         BundledRelationKey.objectIconImageKeys
         BundledRelationKey.targetSpaceId
         BundledRelationKey.createdDate
-        BundledRelationKey.spaceAccessibility
+        BundledRelationKey.spaceAccessType
         BundledRelationKey.spaceAccountStatus
     }
 }
