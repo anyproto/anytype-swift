@@ -706,6 +706,11 @@ extension Anytype_Rpc.Notification.Reply.Response.Error: ResponseError {
     public var isNull: Bool { code == .null }
 }
 
+extension Anytype_Rpc.Notification.Test.Response: ResultWithError {}
+extension Anytype_Rpc.Notification.Test.Response.Error: ResponseError {
+    public var isNull: Bool { code == .null }
+}
+
 extension Anytype_Rpc.Object.ApplyTemplate.Response: ResultWithError {}
 extension Anytype_Rpc.Object.ApplyTemplate.Response.Error: ResponseError {
     public var isNull: Bool { code == .null }

@@ -2224,6 +2224,16 @@ public struct ClientCommands {
         }
     }
 
+    public static func notificationTest(
+        _ request: Anytype_Rpc.Notification.Test.Request = .init()
+    ) -> Invocation<Anytype_Rpc.Notification.Test.Request, Anytype_Rpc.Notification.Test.Response> {
+        return Invocation(messageName: "NotificationTest", request: request) { request in
+            let requestData = try request.serializedData()
+            let responseData = Lib.ServiceNotificationTest(requestData) ?? Data()
+            return try Anytype_Rpc.Notification.Test.Response(serializedData: responseData)
+        }
+    }
+
     public static func broadcastPayloadEvent(
         _ request: Anytype_Rpc.Broadcast.PayloadEvent.Request = .init()
     ) -> Invocation<Anytype_Rpc.Broadcast.PayloadEvent.Request, Anytype_Rpc.Broadcast.PayloadEvent.Response> {
