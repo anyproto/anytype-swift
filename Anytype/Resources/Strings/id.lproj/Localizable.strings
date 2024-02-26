@@ -845,7 +845,7 @@
 "ClearCacheAlert.Description" = "Semua berkas media yang tersimpan di Anytype akan dihapus dari perangkatmu saat ini. Berkas - berkas ini dapat di unduh kembali dari sebuah simpul cadangan atau perangkat yang lain.";
 
 // MARK: - Spaces
-"Spaces.Accessibility.Public" = "Ruang Publik";
+"Spaces.Accessibility.Shared" = "Shared Space";
 "Spaces.Accessibility.Private" = "Ruang Pribadi";
 "Spaces.Accessibility.Personal" = "Setelan";
 "Spaces.Search.Title" = "Cari ruang";
