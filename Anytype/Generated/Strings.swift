@@ -2066,8 +2066,8 @@ internal enum Loc {
       internal static let personal = Loc.tr("Localizable", "Spaces.Accessibility.Personal", fallback: "Personal Space")
       /// Private Space
       internal static let `private` = Loc.tr("Localizable", "Spaces.Accessibility.Private", fallback: "Private Space")
-      /// Public Space
-      internal static let `public` = Loc.tr("Localizable", "Spaces.Accessibility.Public", fallback: "Public Space")
+      /// Shared Space
+      internal static let shared = Loc.tr("Localizable", "Spaces.Accessibility.Shared", fallback: "Shared Space")
     }
     internal enum Info {
       /// Device:

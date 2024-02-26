@@ -12,7 +12,7 @@ struct SpaceWidgetView: View {
             VStack(alignment: .leading, spacing: 1) {
                 AnytypeText(model.spaceName, style: .previewTitle2Medium, color: .Text.primary)
                     .lineLimit(1)
-                AnytypeText(model.spaceAccessibility, style: .relation3Regular, color: .Text.secondary)
+                AnytypeText(model.spaceAccessType, style: .relation3Regular, color: .Text.secondary)
             }
             Spacer()
         }

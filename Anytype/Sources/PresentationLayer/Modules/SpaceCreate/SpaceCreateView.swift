@@ -17,7 +17,7 @@ struct SpaceCreateView: View {
                         .focused(.constant(true))
                     
                     SectionHeaderView(title: Loc.type)
-                    SpaceTypeView(name: model.spaceType.name)
+                    SpaceTypeView(name: model.spaceAccessType.name)
                 }
             }
             .safeAreaInset(edge: .bottom) {
