@@ -845,7 +845,7 @@
 "ClearCacheAlert.Description" = "Todos los archivos multimedia almacenados en Anytype se eliminarán de tu dispositivo actual. Se pueden volver a descargar desde un nodo de copia de seguridad o desde otro dispositivo.";
 
 // MARK: - Spaces
-"Spaces.Accessibility.Public" = "Espacio público";
+"Spaces.Accessibility.Shared" = "Shared Space";
 "Spaces.Accessibility.Private" = "Espacio privado";
 "Spaces.Accessibility.Personal" = "Espacio personal";
 "Spaces.Search.Title" = "Buscar espacios";
