@@ -65,7 +65,7 @@ final class HomeBottomNavigationPanelViewModel: ObservableObject {
         output?.onProfileSelected()
     }
     
-    func onTapCreateObjectWithType() {
+    func onPlusButtonLongtap() {
         output?.onCreateObjectWithTypeSelected()
     }
         
