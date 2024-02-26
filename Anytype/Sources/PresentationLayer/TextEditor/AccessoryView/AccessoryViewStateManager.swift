@@ -240,7 +240,7 @@ final class AccessoryViewStateManagerImpl: AccessoryViewStateManager, CursorMode
     func dismissViewIfNeeded(forceDismiss: Bool = false) {
         if forceDismiss || isTriggerSymbolDeleted {
             configuration?.output?.accessoryState = .none
-            switcher.restoreDefaultState()
+            switcher.showDefaultView()
         }
     }
 

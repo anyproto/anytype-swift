@@ -6,7 +6,6 @@ protocol AccessoryViewSwitcherProtocol {
     func update(with configuration: TextViewAccessoryConfiguration?)
     func clearAccessory()
 
-    func restoreDefaultState()
 
     func showDefaultView()
     func showSlashMenuView()
@@ -18,6 +17,9 @@ final class AccessoryViewSwitcher: AccessoryViewSwitcherProtocol {
     private(set) var configuration: TextViewAccessoryConfiguration?
     private(set) var activeView = AccessoryViewType.none
     
+    private var typePickerDismissedByUser = false
+    private let document: BaseDocumentProtocol
+    
     private let cursorModeAccessoryView: CursorModeAccessoryView
     private let mentionsView: MentionView
     private let slashMenuView: SlashMenuView
@@ -25,12 +27,14 @@ final class AccessoryViewSwitcher: AccessoryViewSwitcherProtocol {
     private let markupAccessoryView: MarkupAccessoryView
     
     init(
+        document: BaseDocumentProtocol,
         mentionsView: MentionView,
         slashMenuView: SlashMenuView,
         cursorModeAccessoryView: CursorModeAccessoryView,
         markupAccessoryView: MarkupAccessoryView,
         changeTypeView: ChangeTypeAccessoryView
     ) {
+        self.document = document
         self.slashMenuView = slashMenuView
         self.cursorModeAccessoryView = cursorModeAccessoryView
         self.markupAccessoryView = markupAccessoryView
@@ -58,18 +62,20 @@ final class AccessoryViewSwitcher: AccessoryViewSwitcherProtocol {
         showAccessoryView(.markup(markupAccessoryView))
     }
 
-
     func showDefaultView() {
-        showAccessoryView(.changeType(changeTypeView), animation: activeView.animation)
-        changeTypeView.isHidden = false
+        let isSelectType = document.details?.isSelectType ?? false
+        let canSelectType = !document.objectRestrictions.objectRestriction.contains(.typechange)
+        
+        if isSelectType && canSelectType && !typePickerDismissedByUser {
+            showAccessoryView(.changeType(changeTypeView), animation: activeView.animation)
+        } else {
+            showAccessoryView(.default(cursorModeAccessoryView), animation: activeView.animation)
+            cursorModeAccessoryView.isHidden = false
+        }
     }
 
     func clearAccessory() {
         cursorModeAccessoryView.isHidden = true
-    }
-    
-    func restoreDefaultState() {
-        showDefaultView()
     }
     
     // MARK: - Private methods
@@ -113,10 +119,11 @@ final class AccessoryViewSwitcher: AccessoryViewSwitcherProtocol {
     private func setupDismissHandlers() {
         let dismiss = { [weak self] in
             guard let self = self else { return }
-            self.restoreDefaultState()
+            self.showDefaultView()
         }
 
         changeTypeView.viewModel.onDoneButtonTap = { [weak self] in
+            self?.typePickerDismissedByUser = true
             self?.showDefaultView()
         }
 
