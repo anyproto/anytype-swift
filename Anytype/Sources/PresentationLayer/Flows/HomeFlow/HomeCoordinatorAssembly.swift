@@ -63,7 +63,8 @@ final class HomeCoordinatorAssembly: HomeCoordinatorAssemblyProtocol {
             sharingTipCoordinator: coordinatorsID.sharingTip(),
             galleryInstallationCoordinatorAssembly: coordinatorsID.galleryInstallation(),
             notificationCoordinator: coordinatorsID.notificationCoordinator(),
-            spaceJoinModuleAssembly: modulesDI.spaceJoin()
+            spaceJoinModuleAssembly: modulesDI.spaceJoin(),
+            typeSearchCoordinatorAssembly: coordinatorsID.typeSearchForNewObject()
         )
     }
 }

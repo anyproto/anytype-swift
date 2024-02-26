@@ -40,6 +40,7 @@ final class HomeCoordinatorViewModel: ObservableObject,
     private let galleryInstallationCoordinatorAssembly: GalleryInstallationCoordinatorAssemblyProtocol
     private let notificationCoordinator: NotificationCoordinatorProtocol
     private let spaceJoinModuleAssembly: SpaceJoinModuleAssemblyProtocol
+    private let typeSearchCoordinatorAssembly: TypeSearchForNewObjectCoordinatorAssemblyProtocol
     
     // MARK: - State
     
@@ -106,7 +107,8 @@ final class HomeCoordinatorViewModel: ObservableObject,
         sharingTipCoordinator: SharingTipCoordinatorProtocol,
         galleryInstallationCoordinatorAssembly: GalleryInstallationCoordinatorAssemblyProtocol,
         notificationCoordinator: NotificationCoordinatorProtocol,
-        spaceJoinModuleAssembly: SpaceJoinModuleAssemblyProtocol
+        spaceJoinModuleAssembly: SpaceJoinModuleAssemblyProtocol,
+        typeSearchCoordinatorAssembly: TypeSearchForNewObjectCoordinatorAssemblyProtocol
     ) {
         self.homeWidgetsModuleAssembly = homeWidgetsModuleAssembly
         self.activeWorkspaceStorage = activeWorkspaceStorage
@@ -135,6 +137,7 @@ final class HomeCoordinatorViewModel: ObservableObject,
         self.galleryInstallationCoordinatorAssembly = galleryInstallationCoordinatorAssembly
         self.notificationCoordinator = notificationCoordinator
         self.spaceJoinModuleAssembly = spaceJoinModuleAssembly
+        self.typeSearchCoordinatorAssembly = typeSearchCoordinatorAssembly
     }
 
     func onAppear() {
@@ -206,32 +209,20 @@ final class HomeCoordinatorViewModel: ObservableObject,
     }
 
     func typeSearchForObjectCreationModule() -> AnyView {
-        return objectTypeSearchModuleAssembly.makeTypeSearchForNewObjectCreation(
-            title: Loc.createNewObject,
-            spaceId: activeWorkspaceStorage.workspaceInfo.accountSpaceId
-        ) { [weak self] result in
+        typeSearchCoordinatorAssembly.make { [weak self] result in
             guard let self else { return }
-            self.showTypeSearchForObjectCreation = false
+            showTypeSearchForObjectCreation = false
             
             switch result {
-            case .objectType(let type):
+            case .object(let type, let pasteContent):
                 AnytypeAnalytics.instance().logSelectObjectType(type.analyticsType, route: .longTap)
-                self.createAndShowNewObject(type: type, route: .navigation)
-            case .createFromPasteboard:
+                createAndShowNewObject(type: type, pasteContent: pasteContent, route: .navigation)
+            case .bookmark(let url):
                 // TODO: Analytics from pasteboard
-                switch pasteboardBlockService.pasteboardContent {
-                case .none:
-                    anytypeAssertionFailure("No content in Pasteboard")
-                    return
-                case .url(let url):
-                    self.createAndShowNewBookmark(url: url)
-                case .string:
-                    fallthrough
-                case .otherContent:
-                    if let type = try? typeProvider.defaultObjectType(spaceId: activeWorkspaceStorage.workspaceInfo.accountSpaceId) {
-                        self.createAndShowNewObject(type: type, pasteContent: true, route: .navigation)
-                    }
-                }
+                createAndShowNewBookmark(url: url)
+            case .error:
+                // TODO: Support error
+                anytypeAssertionFailure("Unsupported error in TypeSearchForObjectCreationModule")
             }
         }
     }
