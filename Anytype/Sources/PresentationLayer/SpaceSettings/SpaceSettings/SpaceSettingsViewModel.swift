@@ -25,7 +25,7 @@ final class SpaceSettingsViewModel: ObservableObject {
     private var spaceView: SpaceView?
     
     @Published var spaceName: String = ""
-    @Published var spaceType: String = ""
+    @Published var spaceAccessType: String = ""
     @Published var spaceIcon: Icon?
     @Published var info = [SettingsInfoModel]()
     @Published var snackBarData = ToastBarData.empty
@@ -103,7 +103,7 @@ final class SpaceSettingsViewModel: ObservableObject {
     private func handleSpaceDetails(details: SpaceView) {
         spaceView = details
         spaceIcon = details.objectIconImage
-        spaceType = details.spaceAccessibility?.name ?? ""
+        spaceAccessType = details.spaceAccessType?.name ?? ""
         allowDelete = accountManager.account.info.spaceViewId != details.id
         buildInfoBlock(details: details)
         

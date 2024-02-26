@@ -29,7 +29,7 @@ struct SpaceSettingsView: View {
                     } else {
                         SectionHeaderView(title: Loc.type)
                         
-                        SpaceTypeView(name: model.spaceType)
+                        SpaceTypeView(name: model.spaceAccessType)
                     }
                     
                     SectionHeaderView(title: Loc.settings)
