@@ -212,6 +212,17 @@ public class SearchHelper {
         return filter
     }
     
+    public static func identityProfileLink(_ identityId: String) -> DataviewFilter {
+        var filter = DataviewFilter()
+        filter.condition = .equal
+        filter.value = identityId.protobufValue
+        
+        filter.relationKey = BundledRelationKey.identityProfileLink.rawValue
+        filter.operator = .and
+        
+        return filter
+    }
+    
     public static func spaceIds(_ spaceIds: [String]) -> DataviewFilter {
         var filter = DataviewFilter()
         filter.condition = .in
