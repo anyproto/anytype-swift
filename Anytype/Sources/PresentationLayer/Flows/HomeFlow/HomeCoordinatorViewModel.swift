@@ -59,7 +59,7 @@ final class HomeCoordinatorViewModel: ObservableObject,
     @Published var editorPath = HomePath() {
         didSet { UserDefaultsConfig.lastOpenedPage = editorPath.lastPathElement as? EditorScreenData }
     }
-    @Published var showTypeSearch: Bool = false
+    @Published var showTypeSearchForObjectCreation: Bool = false
     @Published var toastBarData = ToastBarData.empty
     @Published var pathChanging: Bool = false
     @Published var keyboardToggle: Bool = false
@@ -205,13 +205,13 @@ final class HomeCoordinatorViewModel: ObservableObject,
         return editorCoordinatorAssembly.make(data: data)
     }
 
-    func createTypeSearchModule() -> AnyView {
+    func typeSearchForObjectCreationModule() -> AnyView {
         return objectTypeSearchModuleAssembly.makeTypeSearchForNewObjectCreation(
             title: Loc.createNewObject,
             spaceId: activeWorkspaceStorage.workspaceInfo.accountSpaceId
         ) { [weak self] result in
             guard let self else { return }
-            self.showTypeSearch = false
+            self.showTypeSearchForObjectCreation = false
             
             switch result {
             case .objectType(let type):
@@ -345,7 +345,7 @@ final class HomeCoordinatorViewModel: ObservableObject,
     
     func onPickTypeForNewObjectSelected() {
         UISelectionFeedbackGenerator().selectionChanged()
-        showTypeSearch.toggle()
+        showTypeSearchForObjectCreation.toggle()
     }
 
     // MARK: - SetObjectCreationCoordinatorOutput
