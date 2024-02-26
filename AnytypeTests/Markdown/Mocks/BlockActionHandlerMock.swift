@@ -191,7 +191,7 @@ final class BlockActionHandlerMock: BlockActionHandlerProtocol {
         assertionFailure()
     }
     
-    func turnIntoBookmark(url: String) async throws {
+    func turnIntoBookmark(url: AnytypeURL) async throws {
         assertionFailure()
     }
     
