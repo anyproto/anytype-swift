@@ -5,20 +5,20 @@ import Combine
 final class SpacesManagerViewModel: ObservableObject {
     
     private let workspacesStorage: WorkspacesStorageProtocol
-    private let accountParticipantsSubscriptionService: AccountParticipantsSubscriptionServiceProtocol
+    private let participantsSubscriptionServiceByAccount: ParticipantsSubscriptionServiceByAccountProtocol
     
     private var spaces: [SpaceView] = []
     private var participants: [Participant] = []
     
     @Published var rows: [SpacesManagerRowViewModel] = []
     
-    init(workspacesStorage: WorkspacesStorageProtocol, accountParticipantsSubscriptionService: AccountParticipantsSubscriptionServiceProtocol) {
+    init(workspacesStorage: WorkspacesStorageProtocol, participantsSubscriptionServiceByAccount: ParticipantsSubscriptionServiceByAccountProtocol) {
         self.workspacesStorage = workspacesStorage
-        self.accountParticipantsSubscriptionService = accountParticipantsSubscriptionService
+        self.participantsSubscriptionServiceByAccount = participantsSubscriptionServiceByAccount
     }
     
     func onAppear() async {
-        await accountParticipantsSubscriptionService.startSubscription { [weak self] items in
+        await participantsSubscriptionServiceByAccount.startSubscription { [weak self] items in
             self?.participants = items
             self?.updateRows()
         }

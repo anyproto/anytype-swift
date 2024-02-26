@@ -10,7 +10,7 @@ final class SpaceShareViewModel: ObservableObject {
         static let participantLimit = 11 // 10 participants and 1 owner
     }
     
-    private let participantSubscriptionService: ParticipantsSubscriptionServiceProtocol
+    private let participantSubscriptionService: ParticipantsSubscriptionServiceBySpaceProtocol
     private let workspaceService: WorkspaceServiceProtocol
     private let activeWorkspaceStorage: ActiveWorkpaceStorageProtocol
     private let deppLinkParser: DeepLinkParserProtocol
@@ -26,7 +26,7 @@ final class SpaceShareViewModel: ObservableObject {
     @Published var requestAlertModel: SpaceRequestViewModel?
     
     init(
-        participantSubscriptionService: ParticipantsSubscriptionServiceProtocol,
+        participantSubscriptionService: ParticipantsSubscriptionServiceBySpaceProtocol,
         workspaceService: WorkspaceServiceProtocol,
         activeWorkspaceStorage: ActiveWorkpaceStorageProtocol,
         deppLinkParser: DeepLinkParserProtocol
