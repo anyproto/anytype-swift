@@ -53,6 +53,8 @@ struct ObjectRelationOptionView: View {
             type: "File",
             isArchived: false,
             isDeleted: false,
+            disableDeletion: false,
+            disableDuplication: false,
             editorScreenData: nil
         )
     )

@@ -67,3 +67,11 @@ public extension ObjectDetails {
         self.init(id: id, values: fields)
     }
 }
+
+public extension ObjectDetails {
+    // Should remove when GO-2964 will be fixed
+    var restrictionsList: [Int] {
+        values[BundledRelationKey.restrictions.rawValue]?
+            .listValue.values.compactMap { $0.safeIntValue } ?? []
+    }
+}
