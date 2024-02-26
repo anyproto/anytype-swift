@@ -1,9 +1,20 @@
 import UIKit
 import UniformTypeIdentifiers
 import Combine
+import AnytypeCore
+
+
+enum PasteboardContent {
+    case string(String)
+    case url(AnytypeURL)
+    case otherContent
+}
 
 protocol PasteboardHelperProtocol {
+    var pasteboardContent: PasteboardContent? { get }
+    
     func obtainString() -> String?
+    func obtainUrl() -> AnytypeURL?
     func obtainBlocksSlots() -> [String]?
     func obtainHTMLSlot() -> String?
     func obtainTextSlot() -> String?
@@ -12,6 +23,7 @@ protocol PasteboardHelperProtocol {
     
     func setItems(textSlot: String?, htmlSlot: String?, blocksSlots: [String]?)
     
+    var isPasteboardEmpty: Bool { get }
     var numberOfItems: Int { get }
     var hasValidURL: Bool { get }
     var hasStrings: Bool { get }
@@ -23,9 +35,31 @@ protocol PasteboardHelperProtocol {
 
 final class PasteboardHelper: PasteboardHelperProtocol {
     private lazy var pasteboard = UIPasteboard.general
+    
+    deinit {
+        stopSubscription()
+    }
+    
+    var pasteboardContent: PasteboardContent? {
+        guard numberOfItems != 0 else { return nil }
+        
+        if numberOfItems == 1, let url = obtainUrl() {
+            return .url(url)
+        }
+        
+        if numberOfItems == 1, let string = obtainString() {
+            return .string(string)
+        }
+                    
+        return .otherContent
+    }
 
     func obtainString() -> String? {
         return pasteboard.string
+    }
+    
+    func obtainUrl() -> AnytypeURL? {
+        obtainString().flatMap(AnytypeURL.init)
     }
     
     func obtainBlocksSlots() -> [String]? {
@@ -113,6 +147,15 @@ final class PasteboardHelper: PasteboardHelperProtocol {
 
     var hasSlots: Bool {
         pasteboard.hasSlots
+    }
+    
+    var isPasteboardEmpty: Bool {
+        let items = obtainAllItems()
+        
+        if items.isEmpty { return true }
+        if items.count == 1 && items[0].isEmpty { return true }
+        
+        return false
     }
     
     // MARK: Subscriptions

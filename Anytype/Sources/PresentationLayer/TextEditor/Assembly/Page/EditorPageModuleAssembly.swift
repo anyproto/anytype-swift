@@ -280,10 +280,11 @@ final class EditorPageModuleAssembly: EditorPageModuleAssemblyProtocol {
             configuration: configuration,
             templatesSubscriptionService: serviceLocator.templatesSubscription(),
             activeWorkspaceStorage: serviceLocator.activeWorkspaceStorage(),
+            objectTypeProvider: serviceLocator.objectTypeProvider(),
             output: output
         )
 
-        accessoryState.1.onTypeTap = { [weak viewModel] in
+        accessoryState.1.onTypeSelected = { [weak viewModel] in
             viewModel?.onChangeType(typeSelection: $0)
         }
 
