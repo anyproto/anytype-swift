@@ -48,10 +48,8 @@ final class TypeSearchForNewObjectCoordinatorViewModel: ObservableObject {
             
             switch result {
             case .objectType(let type):
-                AnytypeAnalytics.instance().logSelectObjectType(type.analyticsType, route: .longTap)
-                createAndShowNewObject(type: type, pasteContent: false, route: .navigation)
+                createAndShowNewObject(type: type, pasteContent: false)
             case .createFromPasteboard:
-                // TODO: Analytics from pasteboard
                 switch pasteboardBlockService.pasteboardContent {
                 case .none:
                     anytypeAssertionFailure("No content in Pasteboard")
@@ -65,8 +63,7 @@ final class TypeSearchForNewObjectCoordinatorViewModel: ObservableObject {
                         return
                     }
                     
-                    AnytypeAnalytics.instance().logSelectObjectType(type.analyticsType, route: .longTap)
-                    createAndShowNewObject(type: type, pasteContent: true, route: .navigation)
+                    createAndShowNewObject(type: type, pasteContent: true)
                 }
             }
         }
@@ -80,8 +77,8 @@ final class TypeSearchForNewObjectCoordinatorViewModel: ObservableObject {
                 origin: .clipboard
             )
             
-            AnytypeAnalytics.instance().logSelectObjectType(details.analyticsType, route: .longTap)
-            AnytypeAnalytics.instance().logCreateObject(objectType: details.analyticsType, route: .navigation)
+            AnytypeAnalytics.instance().logSelectObjectType(details.analyticsType, route: .clipboard)
+            AnytypeAnalytics.instance().logCreateObject(objectType: details.analyticsType, route: .clipboard)
 
             openObject(details)
         }
@@ -90,8 +87,7 @@ final class TypeSearchForNewObjectCoordinatorViewModel: ObservableObject {
     
     private func createAndShowNewObject(
         type: ObjectType,
-        pasteContent: Bool = false,
-        route: AnalyticsEventsRouteKind
+        pasteContent: Bool
     ) {
         Task {
             let details = try await objectActionsService.createObject(
@@ -104,7 +100,9 @@ final class TypeSearchForNewObjectCoordinatorViewModel: ObservableObject {
                 origin: .none,
                 templateId: type.defaultTemplateId
             )
-            AnytypeAnalytics.instance().logCreateObject(objectType: details.analyticsType, route: route)
+            
+            AnytypeAnalytics.instance().logSelectObjectType(type.analyticsType, route: pasteContent ? .clipboard : .longTap)
+            AnytypeAnalytics.instance().logCreateObject(objectType: details.analyticsType, route: pasteContent ? .clipboard : .navigation)
             
             if pasteContent && !type.isListType {
                 try await objectActionsService.applyTemplate(objectId: details.id, templateId: type.defaultTemplateId)

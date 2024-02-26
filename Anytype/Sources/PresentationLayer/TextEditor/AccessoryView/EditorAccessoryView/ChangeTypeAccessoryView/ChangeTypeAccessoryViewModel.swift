@@ -50,18 +50,7 @@ final class ChangeTypeAccessoryViewModel {
     }
 
     private func onTypeSelected(result: TypeSelectionResult) {
-        defer { logSelectObjectType(result: result) }
         onTypeSelected?(result)
-    }
-    
-    private func logSelectObjectType(result: TypeSelectionResult) {
-        switch result {
-        case .objectType(let type):
-            AnytypeAnalytics.instance().logSelectObjectType(type.analyticsType, route: .navigation)
-        case .createFromPasteboard:
-            // TODO: Analytics from pasteboard
-            break
-        }
     }
 
     private func subscribeOnDocumentChanges() {

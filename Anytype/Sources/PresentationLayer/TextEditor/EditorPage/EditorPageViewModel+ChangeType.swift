@@ -6,6 +6,7 @@ extension EditorPageViewModel {
     func onChangeType(typeSelection: TypeSelectionResult) async throws {
         switch typeSelection {
         case .objectType(let type):
+            AnytypeAnalytics.instance().logSelectObjectType(type.analyticsType, route: .navigation)
             onChangeType(type: type)
         case .createFromPasteboard:
             switch PasteboardHelper().pasteboardContent {
@@ -13,11 +14,14 @@ extension EditorPageViewModel {
                 anytypeAssertionFailure("Empty clipboard")
                 return
             case .url(let url):
-                try await actionHandler.turnIntoBookmark(url: url)
+                let type = try await actionHandler.turnIntoBookmark(url: url)
+                AnytypeAnalytics.instance().logSelectObjectType(type.analyticsType, route: .clipboard)
             case .string:
                 fallthrough
             case .otherContent:
                 let type = try objectTypeProvider.defaultObjectType(spaceId: document.spaceId)
+                AnytypeAnalytics.instance().logSelectObjectType(type.analyticsType, route: .clipboard)
+                
                 try await actionHandler.applyTemplate(objectId: document.objectId, templateId: type.defaultTemplateId)
                 actionHandler.pasteContent()
             }
