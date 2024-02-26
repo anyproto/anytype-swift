@@ -1,16 +1,34 @@
 import Services
+import AnytypeCore
+
 
 extension EditorPageViewModel {
     func onChangeType(typeSelection: TypeSelectionResult) {
         switch typeSelection {
-        case .object(let type, let pasteContent):
-            onChangeType(type: type, pasteContent: pasteContent)
-        case .bookmark(let url):
-            onChangeTypeToBookmark(url: url)
+        case .objectType(let type):
+            onChangeType(type: type)
+        case .createFromPasteboard:
+            switch PasteboardHelper().pasteboardContent {
+            case .none:
+                anytypeAssertionFailure("Empty clipboard")
+                return
+            case .url(let url):
+                Task {
+                    try await actionHandler.turnIntoBookmark(url: url)
+                }
+            case .string:
+                fallthrough
+            case .otherContent:
+                Task {
+                    let type = try objectTypeProvider.defaultObjectType(spaceId: document.spaceId)
+                    try await actionHandler.applyTemplate(objectId: document.objectId, templateId: type.defaultTemplateId)
+                    actionHandler.pasteContent()
+                }
+            }
         }
     }
     
-    private func onChangeType(type: ObjectType, pasteContent: Bool) {
+    private func onChangeType(type: ObjectType) {
         if type.isSetType {
             Task { @MainActor in
                 subscriptions.removeAll()
@@ -32,11 +50,6 @@ extension EditorPageViewModel {
         Task { @MainActor in
             try await actionHandler.setObjectType(type: type)
             try await actionHandler.applyTemplate(objectId: document.objectId, templateId: type.defaultTemplateId)
-            // TODO: Paste content
         }
-    }
-    
-    private func onChangeTypeToBookmark(url: String) {
-        // TODO: Create bookmark
     }
 }

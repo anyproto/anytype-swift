@@ -323,7 +323,7 @@ final class EditorRouter: NSObject, EditorRouterProtocol, ObjectSettingsCoordina
                 showSetAndCollection: true
             ) { [weak self] type in
                 self?.navigationContext.dismissTopPresented()
-                onSelect(.object(type: type, pasteContent: false))
+                onSelect(.objectType(type: type))
             }
             
             navigationContext.presentSwiftUIView(view: view)

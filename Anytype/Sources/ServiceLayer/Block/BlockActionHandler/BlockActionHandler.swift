@@ -13,6 +13,9 @@ final class BlockActionHandler: BlockActionHandlerProtocol {
     private let blockTableService: BlockTableServiceProtocol
     private let fileService: FileActionsServiceProtocol
     private let objectService: ObjectActionsServiceProtocol
+    private let pasteboardBlockService: PasteboardBlockServiceProtocol
+    private let bookmarkService: BookmarkServiceProtocol
+    private let objectTypeProvider: ObjectTypeProviderProtocol
     
     init(
         document: BaseDocumentProtocol,
@@ -21,7 +24,10 @@ final class BlockActionHandler: BlockActionHandlerProtocol {
         blockService: BlockServiceProtocol,
         blockTableService: BlockTableServiceProtocol,
         fileService: FileActionsServiceProtocol,
-        objectService: ObjectActionsServiceProtocol
+        objectService: ObjectActionsServiceProtocol,
+        pasteboardBlockService: PasteboardBlockServiceProtocol,
+        bookmarkService: BookmarkServiceProtocol,
+        objectTypeProvider: ObjectTypeProviderProtocol
     ) {
         self.document = document
         self.markupChanger = markupChanger
@@ -30,6 +36,9 @@ final class BlockActionHandler: BlockActionHandlerProtocol {
         self.blockTableService = blockTableService
         self.fileService = fileService
         self.objectService = objectService
+        self.pasteboardBlockService = pasteboardBlockService
+        self.bookmarkService = bookmarkService
+        self.objectTypeProvider = objectTypeProvider
     }
 
     // MARK: - Service proxy
@@ -60,9 +69,15 @@ final class BlockActionHandler: BlockActionHandlerProtocol {
     @MainActor
     func setObjectType(type: ObjectType) async throws {
         if #available(iOS 17.0, *) {
-            HomeCreateObjectTip.objectTpeChanged = true
+            HomeCreateObjectTip.objectTypeChanged = true
         }
         try await service.setObjectType(type: type)
+    }
+    
+    func turnIntoBookmark(url: AnytypeURL) async throws {
+        let type = try objectTypeProvider.objectType(uniqueKey: .bookmark, spaceId: document.spaceId)
+        try await setObjectType(type: type)
+        try await bookmarkService.fetchBookmarkContent(bookmarkId: document.objectId, url: url)
     }
 
     func setObjectSetType() async throws {
@@ -299,6 +314,19 @@ final class BlockActionHandler: BlockActionHandlerProtocol {
     func setAppearance(blockId: String, appearance: BlockLink.Appearance) {
         Task {
             try await blockService.setLinkAppearance(objectId: document.objectId, blockIds: [blockId], appearance: appearance)
+        }
+    }
+    
+    func pasteContent() {
+        Task {
+            let blockId = try await blockService.addFirstBlock(contextId: document.objectId, info: .emptyText)
+            pasteboardBlockService.pasteInsideBlock(
+                objectId: document.objectId,
+                focusedBlockId: blockId,
+                range: .zero,
+                handleLongOperation: { },
+                completion: { _ in }
+            )
         }
     }
 }

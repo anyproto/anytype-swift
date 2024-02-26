@@ -56,10 +56,6 @@ final class ObjectTypeSearchViewModel: ObservableObject {
         }
     }
     
-    deinit {
-        pasteboardHelper.stopSubscription()
-    }
-    
     func onAppear() {
         search(text: searchText)
         updatePasteButton()
@@ -67,7 +63,7 @@ final class ObjectTypeSearchViewModel: ObservableObject {
     
     func updatePasteButton() {
         withAnimation {
-            showPasteButton = allowPaste && pasteboardHelper.numberOfItems > 0
+            showPasteButton = allowPaste && pasteboardHelper.hasSlots
         }
     }
     
@@ -138,26 +134,20 @@ final class ObjectTypeSearchViewModel: ObservableObject {
                 toastPresenter.show(message: Loc.ObjectType.addedToLibrary(type.name))
             }
             
-            onSelect(.object(type: type, pasteContent: false))
+            onSelect(.objectType(type: type))
         }
     }
     
     func createObjectFromClipboard() {
         Task {
-            guard pasteboardHelper.numberOfItems != 0 else {
+            guard pasteboardHelper.hasSlots else {
                 anytypeAssertionFailure("Trying to paste with empty clipboard")
                 return
             }
             
-            if pasteboardHelper.numberOfItems == 1, pasteboardHelper.hasValidURL, let url = pasteboardHelper.obtainString() {
-                onSelect(.bookmark(url: url))
-                return
+            if !pasteboardHelper.isPasteboardEmpty { // No permission
+                onSelect(.createFromPasteboard)
             }
-            
-            _ = pasteboardHelper.obtainAllItems() // To invoke user dialog
-            let type = try objectTypeProvider.defaultObjectType(spaceId: spaceId)
-            onSelect(.object(type: type, pasteContent: true))
-            return
         }
         
     }
@@ -165,7 +155,7 @@ final class ObjectTypeSearchViewModel: ObservableObject {
     func createType(name: String) {
         Task {
             let type = try await typesService.createType(name: name, spaceId: spaceId)
-            onSelect(.object(type: type, pasteContent: false))
+            onSelect(.objectType(type: type))
         }
     }
     

@@ -12,6 +12,10 @@ final class PasteboardBlockService: PasteboardBlockServiceProtocol {
     var hasValidURL: Bool {
         pasteboardHelper.hasValidURL
     }
+    
+    var pasteboardContent: PasteboardContent? {
+        pasteboardHelper.pasteboardContent
+    }
 
     init(
         pasteboardHelper: PasteboardHelperProtocol,

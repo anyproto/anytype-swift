@@ -190,4 +190,13 @@ final class BlockActionHandlerMock: BlockActionHandlerProtocol {
     func changeMarkup(blockIds: [String], markType: MarkupType) {
         assertionFailure()
     }
+    
+    func turnIntoBookmark(url: String) async throws {
+        assertionFailure()
+    }
+    
+    func pasteContent() {
+        assertionFailure()
+    }
+    
 }

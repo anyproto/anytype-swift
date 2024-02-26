@@ -1,6 +1,8 @@
 import Foundation
 import UIKit
 import Services
+import AnytypeCore
+
 
 final class TextRelationReloadContentActionViewModel: TextRelationActionViewModelProtocol {
     
@@ -34,8 +36,13 @@ final class TextRelationReloadContentActionViewModel: TextRelationActionViewMode
     
     func performAction() {
         Task { @MainActor in
+            guard let url = AnytypeURL(string: inputText) else {
+                UINotificationFeedbackGenerator().notificationOccurred(.error)
+                return
+            }
+            
             UISelectionFeedbackGenerator().selectionChanged()
-            try await bookmarkService.fetchBookmarkContent(bookmarkId: objectDetails.id, url: inputText)
+            try await bookmarkService.fetchBookmarkContent(bookmarkId: objectDetails.id, url: url)
             alertOpener.showTopAlert(message: Loc.RelationAction.reloadingContent)
             AnytypeAnalytics.instance().logEvent(AnalyticsEventsName.reloadSourceData)
         }

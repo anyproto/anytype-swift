@@ -5,8 +5,8 @@ import AnytypeCore
 
 
 enum TypeSelectionResult {
-    case object(type: ObjectType, pasteContent: Bool)
-    case bookmark(url: String)
+    case objectType(type: ObjectType)
+    case createFromPasteboard
 }
 
 protocol ObjectTypeSearchModuleAssemblyProtocol: AnyObject {
@@ -83,13 +83,10 @@ final class ObjectTypeSearchModuleAssembly: ObjectTypeSearchModuleAssemblyProtoc
                 pasteboardHelper: serviceLocator.pasteboardHelper(),
                 onSelect: { result in
                     switch result {
-                    case .object(let type, _):
+                    case .objectType(let type):
                         onSelect(type)
-                    case .bookmark(let url):
-                        anytypeAssertionFailure(
-                            "Unsupported type result",
-                            info: ["Bookmark": url]
-                        )
+                    case .createFromPasteboard:
+                        anytypeAssertionFailure("Unsupported action createFromPasteboard")
                     }
                 }
             )

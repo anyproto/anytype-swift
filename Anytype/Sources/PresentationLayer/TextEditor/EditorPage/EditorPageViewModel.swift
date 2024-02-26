@@ -17,6 +17,7 @@ final class EditorPageViewModel: EditorPageViewModelProtocol, EditorBottomNaviga
     
     let actionHandler: BlockActionHandlerProtocol
     let objectActionsService: ObjectActionsServiceProtocol
+    let objectTypeProvider: ObjectTypeProviderProtocol
     
     private let searchService: SearchServiceProtocol
     private let cursorManager: EditorCursorManager
@@ -26,6 +27,7 @@ final class EditorPageViewModel: EditorPageViewModelProtocol, EditorBottomNaviga
     private let configuration: EditorPageViewModelConfiguration
     private let templatesSubscriptionService: TemplatesSubscriptionServiceProtocol
     private let activeWorkspaceStorage: ActiveWorkpaceStorageProtocol
+    
     private weak var output: EditorPageModuleOutput?
     lazy var subscriptions = [AnyCancellable]()
 
@@ -52,6 +54,7 @@ final class EditorPageViewModel: EditorPageViewModelProtocol, EditorBottomNaviga
         configuration: EditorPageViewModelConfiguration,
         templatesSubscriptionService: TemplatesSubscriptionServiceProtocol,
         activeWorkspaceStorage: ActiveWorkpaceStorageProtocol,
+        objectTypeProvider: ObjectTypeProviderProtocol,
         output: EditorPageModuleOutput?
     ) {
         self.viewInput = viewInput
@@ -68,6 +71,7 @@ final class EditorPageViewModel: EditorPageViewModelProtocol, EditorBottomNaviga
         self.configuration = configuration
         self.templatesSubscriptionService = templatesSubscriptionService
         self.activeWorkspaceStorage = activeWorkspaceStorage
+        self.objectTypeProvider = objectTypeProvider
         self.output = output
         self.actionHandler = actionHandler
         

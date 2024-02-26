@@ -1,17 +1,19 @@
 import Foundation
+import AnytypeCore
+
 
 public protocol BookmarkServiceProtocol {
-    func fetchBookmark(contextID: String, blockID: String, url: String) async throws
+    func fetchBookmark(objectId: String, blockID: String, url: AnytypeURL) async throws
     func createAndFetchBookmark(
-        contextID: String,
+        objectId: String,
         targetID: String,
         position: BlockPosition,
-        url: String
+        url: AnytypeURL
     ) async throws
     func createBookmarkObject(
         spaceId: String,
-        url: String,
+        url: AnytypeURL,
         origin: ObjectOrigin
     ) async throws -> ObjectDetails
-    func fetchBookmarkContent(bookmarkId: String, url: String) async throws
+    func fetchBookmarkContent(bookmarkId: String, url: AnytypeURL) async throws
 }
