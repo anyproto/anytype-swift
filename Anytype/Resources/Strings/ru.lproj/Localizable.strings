@@ -846,7 +846,7 @@
 "ClearCacheAlert.Description" = "Все медиафайлы, сохраненные в Anytype, будут удалены с вашего текущего устройства. Их можно снова загрузить с резервного узла или другого устройства.";
 
 // MARK: - Spaces
-"Spaces.Accessibility.Public" = "Публичное пространство";
+"Spaces.Accessibility.Shared" = "Shared Space";
 "Spaces.Accessibility.Private" = "Личное Пространство";
 "Spaces.Accessibility.Personal" = "Настройки";
 "Spaces.Search.Title" = "Поиск пространств";
