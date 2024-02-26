@@ -416,7 +416,7 @@ final class HomeCoordinatorViewModel: ObservableObject,
         }
     }
     
-    private func createAndShowNewBookmark(url: String) {
+    private func createAndShowNewBookmark(url: AnytypeURL) {
         Task {
             let details = try await bookmarkService.createBookmarkObject(
                 spaceId: activeWorkspaceStorage.workspaceInfo.accountSpaceId,

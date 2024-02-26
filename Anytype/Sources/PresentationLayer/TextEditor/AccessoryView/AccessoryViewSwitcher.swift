@@ -60,8 +60,8 @@ final class AccessoryViewSwitcher: AccessoryViewSwitcherProtocol {
 
 
     func showDefaultView() {
-        showAccessoryView(.default(cursorModeAccessoryView), animation: activeView.animation)
-        cursorModeAccessoryView.isHidden = false
+        showAccessoryView(.changeType(changeTypeView), animation: activeView.animation)
+        changeTypeView.isHidden = false
     }
 
     func clearAccessory() {
