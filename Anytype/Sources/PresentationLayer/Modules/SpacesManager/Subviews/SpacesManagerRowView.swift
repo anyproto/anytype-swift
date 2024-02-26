@@ -9,6 +9,15 @@ struct SpacesManagerRowViewModel: Identifiable {
     let accountStatus: String
     let localStatus: String
     let permission: String
+    
+    init (spaceView: SpaceView, participant: Participant?) {
+        self.id = spaceView.id
+        self.name = spaceView.name
+        self.iconImage = spaceView.iconImage
+        self.accountStatus = spaceView.accountStatus?.name ?? ""
+        self.localStatus = spaceView.localStatus?.name ?? ""
+        self.permission = participant?.permission.title ?? ""
+    }
 }
 
 struct SpacesManagerRowView: View {
