@@ -846,7 +846,7 @@
 "ClearCacheAlert.Description" = "Alle mediabestanden die in Anytype zijn opgeslagen, zullen van het huidige apparaat worden verwijderd. Ze kunnen opnieuw van een back-up node of een ander apparaat worden gedownload.";
 
 // MARK: - Spaces
-"Spaces.Accessibility.Public" = "Openbare ruimte";
+"Spaces.Accessibility.Shared" = "Shared Space";
 "Spaces.Accessibility.Private" = "Persoonlijke ruimte";
 "Spaces.Accessibility.Personal" = "Persoonlijke ruimte";
 "Spaces.Search.Title" = "Zoek ruimten";
