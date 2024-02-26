@@ -849,20 +849,20 @@
 "Spaces.Accessibility.Private" = "Ruang Pribadi";
 "Spaces.Accessibility.Personal" = "Setelan";
 "Spaces.Search.Title" = "Cari ruang";
-"Spaces.Title" = "Spaces";
-"Spaces.Info.Network" = "Network:";
-"Spaces.Info.Device" = "Device:";
+"Spaces.Title" = "Ruang";
+"Spaces.Info.Network" = "Jaringan:";
+"Spaces.Info.Device" = "Perangkat:";
 
 // MARK: - Space
 "Space.Status.Unknown" = "Tidak diketahui";
-"Space.Status.Loading" = "Loading";
+"Space.Status.Loading" = "Memuat";
 "Space.Status.Ok" = "Oke";
-"Space.Status.Missing" = "Missing";
+"Space.Status.Missing" = "Hilang";
 "Space.Status.Error" = "Galat";
-"Space.Status.RemoteWaitingDeletion" = "Waiting Deletion";
+"Space.Status.RemoteWaitingDeletion" = "Menunggu Penghapusan";
 "Space.Status.RemoteDeleted" = "Remote Deleted";
 "Space.Status.SpaceDeleted" = "Terhapus";
-"Space.Status.SpaceActive" = "Active";
+"Space.Status.SpaceActive" = "Aktif";
 "Space.Status.SpaceJoining" = "Joining";
 
 // MARK: - Space Settings
@@ -886,18 +886,18 @@
 "SpaceShare.Invite.Title" = "Tautan undangan";
 "SpaceShare.Invite.Description" = "Kirimkan tautan ini untuk mengundang orang lain. Kamu bisa mengatur hak akses mereka setelah mereka menyetujui undangan";
 "SpaceShare.Invite.Button" = "Bagikan tautan undangan";
-"SpaceShare.Status.Joining" = "Requested";
-"SpaceShare.Status.Declined" = "Declined";
-"SpaceShare.Action.ViewRequest" = "View Request";
-"SpaceShare.ViewRequest.Title" = "%@ requested to join %@ space";
-"SpaceShare.ViewRequest.ViewAccess" = "Grand view access";
-"SpaceShare.ViewRequest.EditAccess" = "Grand edit access";
-"SpaceShare.ViewRequest.Reject" = "Reject";
-"SpaceShare.Join.Title" = "Join a space";
-"SpaceShare.Join.CommentPlaceholder" = "Leave a private comment for a space owner";
-"SpaceShare.Join.Button" = "Request to join";
-"SpaceShare.Join.Info" = "Once the space owner approves your request, you'll join the space with the access rights owner determined.";
-"SpaceShare.Join.Message" = "You’ve been invited to join %@ space, created by %@. Send a request so space owner can let you in.";
+"SpaceShare.Status.Joining" = "Diminta";
+"SpaceShare.Status.Declined" = "Ditolak";
+"SpaceShare.Action.ViewRequest" = "Lihat Permintaan";
+"SpaceShare.ViewRequest.Title" = "%@ meminta bergabung ke ruang %@";
+"SpaceShare.ViewRequest.ViewAccess" = "Izinkan akses baca";
+"SpaceShare.ViewRequest.EditAccess" = "Izinkan akses sunting";
+"SpaceShare.ViewRequest.Reject" = "Tolak";
+"SpaceShare.Join.Title" = "Bergabung dengan ruang";
+"SpaceShare.Join.CommentPlaceholder" = "Tinggalkan komentar untuk pemilik ruang";
+"SpaceShare.Join.Button" = "Permintaan bergabung";
+"SpaceShare.Join.Info" = "Ketika pemilik ruang menyetujui permintaanmu, kamu akan bergabung ke ruang ini dengan hak akses yang telah ditentukan.";
+"SpaceShare.Join.Message" = "Kamu diundang untuk bergabung dengan ruang %@ buatan %@. Kirimkan permintaan supaya pemilik ruang dapat mengizinkanmu bergabung.";
 
 // MARK: - Space Create
 "SpaceCreate.Title" = "Buat ruang";

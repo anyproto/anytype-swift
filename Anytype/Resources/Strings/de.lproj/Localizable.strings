@@ -851,19 +851,19 @@
 "Spaces.Accessibility.Personal" = "Einstellungen";
 "Spaces.Search.Title" = "Spaces suchen";
 "Spaces.Title" = "Spaces";
-"Spaces.Info.Network" = "Network:";
-"Spaces.Info.Device" = "Device:";
+"Spaces.Info.Network" = "Netzwerk:";
+"Spaces.Info.Device" = "Gerät:";
 
 // MARK: - Space
 "Space.Status.Unknown" = "Unbekannt";
-"Space.Status.Loading" = "Loading";
+"Space.Status.Loading" = "Wird geladen ";
 "Space.Status.Ok" = "OK";
-"Space.Status.Missing" = "Missing";
+"Space.Status.Missing" = "Fehlend";
 "Space.Status.Error" = "Fehler";
 "Space.Status.RemoteWaitingDeletion" = "Waiting Deletion";
 "Space.Status.RemoteDeleted" = "Remote Deleted";
 "Space.Status.SpaceDeleted" = "Gelöscht";
-"Space.Status.SpaceActive" = "Active";
+"Space.Status.SpaceActive" = "Aktiv";
 "Space.Status.SpaceJoining" = "Joining";
 
 // MARK: - Space Settings
@@ -893,7 +893,7 @@
 "SpaceShare.ViewRequest.Title" = "%@ requested to join %@ space";
 "SpaceShare.ViewRequest.ViewAccess" = "Grand view access";
 "SpaceShare.ViewRequest.EditAccess" = "Grand edit access";
-"SpaceShare.ViewRequest.Reject" = "Reject";
+"SpaceShare.ViewRequest.Reject" = "Ablehnen";
 "SpaceShare.Join.Title" = "Join a space";
 "SpaceShare.Join.CommentPlaceholder" = "Leave a private comment for a space owner";
 "SpaceShare.Join.Button" = "Request to join";

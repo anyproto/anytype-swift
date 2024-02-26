@@ -949,7 +949,7 @@
 "Error.UnableToConnect" = "Por favor, conecte-se à internet";
 "Error.Common.Title" = "Ops!";
 "Error.Common.Message" = "Por favor, verifique sua conexão com a internet e tente novamente ou publique seu problema no fórum.";
-"Error.Common.TryAgain" = "Try again";
+"Error.Common.TryAgain" = "Tente novamente";
 
 // MARK: - Relative date formatter
 "RelativeFormatter.days7" = "Últimos 7 dias";
