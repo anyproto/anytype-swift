@@ -56,10 +56,6 @@ final class ObjectTypeSearchViewModel: ObservableObject {
         }
     }
     
-    deinit {
-        pasteboardHelper.stopSubscription()
-    }
-    
     func onAppear() {
         search(text: searchText)
         updatePasteButton()
@@ -67,7 +63,7 @@ final class ObjectTypeSearchViewModel: ObservableObject {
     
     func updatePasteButton() {
         withAnimation {
-            showPasteButton = allowPaste && pasteboardHelper.numberOfItems > 0
+            showPasteButton = allowPaste && pasteboardHelper.hasSlots
         }
     }
     
@@ -144,12 +140,12 @@ final class ObjectTypeSearchViewModel: ObservableObject {
     
     func createObjectFromClipboard() {
         Task {
-            guard pasteboardHelper.numberOfItems != 0 else {
+            guard pasteboardHelper.hasSlots else {
                 anytypeAssertionFailure("Trying to paste with empty clipboard")
                 return
             }
             
-            if !pasteboardHelper.isPasteboardEmpty {
+            if !pasteboardHelper.isPasteboardEmpty { // No permission
                 onSelect(.createFromPasteboard)
             }
         }
