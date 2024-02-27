@@ -12,7 +12,6 @@ struct RelationValueViewConfiguration: BlockConfiguration {
 final class RelationValueViewUIKit: UIView, BlockContentView {
     private var relationView = UIView()
 
-
     func update(with configuration: RelationValueViewConfiguration) {
         relationView.removeFromSuperview()
         
