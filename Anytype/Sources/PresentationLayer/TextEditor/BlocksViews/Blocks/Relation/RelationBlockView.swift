@@ -92,14 +92,13 @@ final class RelationBlockView: UIView, BlockContentView {
         } builder: {
             $0.hStack(
                 spacing: 12,
-                alignedTo: .top,
+                alignedTo: .leading,
                 relationNameStack,
                 $0.vStack(
                     $0.vGap(fixed: 2),
                     relationValueView,
                     $0.vGap(fixed: 2)
-                ),
-                $0.vGap()
+                )
             )
         }
         

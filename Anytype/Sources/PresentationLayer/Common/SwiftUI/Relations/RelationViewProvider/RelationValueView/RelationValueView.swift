@@ -2,7 +2,7 @@ import SwiftUI
 import AnytypeCore
 
 struct RelationValueView: View {
-    @StateObject var model: RelationValueViewModel
+    @ObservedObject var model: RelationValueViewModel
 
     var body: some View {
         switch model.data.mode {
@@ -52,32 +52,37 @@ struct RelationValueView: View {
     
     @ViewBuilder
     private func relationView(for relation: RelationItemModel, style: RelationStyle) -> some View {
-        switch relation {
-        case .text(let text):
-            TextRelationFactory.swiftUI(value: text.value, hint: relation.hint, style: style)
-        case .number(let text):
-            TextRelationFactory.swiftUI(value: text.value, hint: relation.hint, style: style)
-        case .status(let status):
-            StatusRelationView(options: status.values, hint: relation.hint, style: style)
-        case .date(let date):
-            TextRelationFactory.swiftUI(value: date.value?.text, hint: relation.hint, style: style)
-        case .object(let object):
-            ObjectRelationView(options: object.selectedObjects, hint: relation.hint, style: style)
-        case .checkbox(let checkbox):
-            CheckboxRelationView(name: checkbox.name, isChecked: checkbox.value, style: style)
-        case .url(let text):
-            TextRelationFactory.swiftUI(value: text.value, hint: relation.hint, style: style)
-        case .email(let text):
-            TextRelationFactory.swiftUI(value: text.value, hint: relation.hint, style: style)
-        case .phone(let text):
-            TextRelationFactory.swiftUI(value: text.value, hint: relation.hint, style: style)
-        case .tag(let tag):
-            TagRelationView(tags: tag.selectedTags, hint: relation.hint, style: style)
-        case .file(let file):
-            FileRelationView(options: file.files, hint: relation.hint, style: style)
-        case .unknown(let unknown):
-            RelationsListRowPlaceholderView(hint: unknown.value, style: style)
+        HStack(spacing: 0) {
+            switch relation {
+            case .text(let text):
+                TextRelationFactory.swiftUI(value: text.value, hint: relation.hint, style: style)
+            case .number(let text):
+                TextRelationFactory.swiftUI(value: text.value, hint: relation.hint, style: style)
+            case .status(let status):
+                StatusRelationView(options: status.values, hint: relation.hint, style: style)
+            case .date(let date):
+                TextRelationFactory.swiftUI(value: date.value?.text, hint: relation.hint, style: style)
+            case .object(let object):
+                ObjectRelationView(options: object.selectedObjects, hint: relation.hint, style: style)
+            case .checkbox(let checkbox):
+                CheckboxRelationView(name: checkbox.name, isChecked: checkbox.value, style: style)
+            case .url(let text):
+                TextRelationFactory.swiftUI(value: text.value, hint: relation.hint, style: style)
+            case .email(let text):
+                TextRelationFactory.swiftUI(value: text.value, hint: relation.hint, style: style)
+            case .phone(let text):
+                TextRelationFactory.swiftUI(value: text.value, hint: relation.hint, style: style)
+            case .tag(let tag):
+                TagRelationView(tags: tag.selectedTags, hint: relation.hint, style: style)
+            case .file(let file):
+                FileRelationView(options: file.files, hint: relation.hint, style: style)
+            case .unknown(let unknown):
+                RelationsListRowPlaceholderView(hint: unknown.value, style: style)
+            }
         }
+        .if(model.data.leftAlign, transform: {
+            $0.frame(maxWidth: .infinity, alignment: .leading)
+        })
     }
 }
 

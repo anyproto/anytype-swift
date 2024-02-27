@@ -1,7 +1,6 @@
 import UIKit
 import AnytypeCore
 
-
 struct RelationValueViewConfiguration: BlockConfiguration {
     typealias View = RelationValueViewUIKit
 
@@ -39,7 +38,8 @@ final class RelationValueViewUIKit: UIView, BlockContentView {
             RelationValueViewData(
                 relation: configuration.relation,
                 style: configuration.style,
-                mode: .button(action: configuration.action)
+                mode: .button(action: configuration.action),
+                leftAlign: true
             )
         )
     }
