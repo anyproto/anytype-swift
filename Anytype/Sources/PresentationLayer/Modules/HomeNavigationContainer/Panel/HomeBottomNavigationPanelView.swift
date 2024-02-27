@@ -25,7 +25,7 @@ struct HomeBottomNavigationPanelView: View {
                 .simultaneousGesture(
                     LongPressGesture(minimumDuration: 0.3)
                         .onEnded { _ in
-                            model.onTapCreateObjectWithType()
+                            model.onPlusButtonLongtap()
                         }
                 )
             

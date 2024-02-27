@@ -300,7 +300,7 @@ final class EditorRouter: NSObject, EditorRouterProtocol, ObjectSettingsCoordina
         }
     }
     
-    func showTypePickerForNewObjectCreation(
+    func showTypeSearchForObjectCreation(
         selectedObjectId: String?,
         onSelect: @escaping (TypeSelectionResult) -> ()
     ) {

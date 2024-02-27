@@ -54,8 +54,8 @@ struct HomeCoordinatorView: View {
         .sheet(isPresented: $model.showSharing) {
             model.createSharingModule()
         }
-        .sheet(isPresented: $model.showTypeSearch) {
-            model.createTypeSearchModule()
+        .sheet(isPresented: $model.showTypeSearchForObjectCreation) {
+            model.typeSearchForObjectCreationModule()
         }
         .anytypeSheet(item: $model.spaceJoinData) {
             model.spaceJoinModule(data: $0)
