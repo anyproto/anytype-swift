@@ -191,8 +191,9 @@ final class BlockActionHandlerMock: BlockActionHandlerProtocol {
         assertionFailure()
     }
     
-    func turnIntoBookmark(url: AnytypeURL) async throws {
+    func turnIntoBookmark(url: AnytypeURL) async throws -> ObjectType {
         assertionFailure()
+        return .emptyType
     }
     
     func pasteContent() {

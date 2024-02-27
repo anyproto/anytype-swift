@@ -80,6 +80,11 @@ enum AnalyticsEventsName {
     static let redo = "Redo"
     static let duplicateObject = "DuplicateObject"
     static let moveBlock = "MoveBlock"
+    
+    // Type picker
+    static let pinObjectType = "PinObjectType"
+    static let unpinObjectType = "UnpinObjectType"
+    static let typeSearchResult = "TypeSearchResult"
 
     // Details events
     static let changeLayout = "ChangeLayout"
@@ -113,6 +118,7 @@ enum AnalyticsEventsName {
     static let settingsWallpaperSet = "SettingsWallpaperSet"
     static let screenSettingsStorageIndex = "ScreenSettingsStorageIndex"
     static let screenSettingsStorageManager = "ScreenSettingsStorageManager"
+    static let screenObjectTypeSearch = "ScreenObjectTypeSearch"
     
     static let showDeletionWarning = "ShowDeletionWarning"
 
@@ -278,6 +284,7 @@ enum AnalyticsEventsRouteKind: String {
     case widget = "Widget"
     case sharingExtension = "SharingExtension"
     case homeScreen = "HomeScreen"
+    case clipboard = "Clipboard"
 }
 
 enum AnalyticsEventsRelationType: String {
@@ -397,11 +404,13 @@ enum AnalyticsDefaultObjectTypeChangeRoute: String {
     case settings = "Settings"
     case set = "Set"
     case collection = "Collection"
+    case navigation = "Navigation"
 }
 
 enum SelectObjectTypeRoute: String {
     case longTap = "LongTap"
     case navigation = "Navigation"
+    case clipboard = "Clipboard"
 }
 
 enum OnboardingTooltip: String {

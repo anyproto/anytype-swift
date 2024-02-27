@@ -29,7 +29,8 @@ protocol BlockActionHandlerProtocol: AnyObject {
     func createPage(targetId: String, spaceId: String, typeUniqueKey: ObjectTypeUniqueKey, templateId: String) async throws -> String?
 
     func setObjectType(type: ObjectType) async throws
-    func turnIntoBookmark(url: AnytypeURL) async throws
+    @discardableResult
+    func turnIntoBookmark(url: AnytypeURL) async throws -> ObjectType
     func setObjectSetType() async throws
     func setObjectCollectionType() async throws
     func applyTemplate(objectId: String, templateId: String) async throws

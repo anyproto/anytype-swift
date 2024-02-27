@@ -74,10 +74,12 @@ final class BlockActionHandler: BlockActionHandlerProtocol {
         try await service.setObjectType(type: type)
     }
     
-    func turnIntoBookmark(url: AnytypeURL) async throws {
+    @discardableResult
+    func turnIntoBookmark(url: AnytypeURL) async throws -> ObjectType {
         let type = try objectTypeProvider.objectType(uniqueKey: .bookmark, spaceId: document.spaceId)
         try await setObjectType(type: type)
         try await bookmarkService.fetchBookmarkContent(bookmarkId: document.objectId, url: url)
+        return type
     }
 
     func setObjectSetType() async throws {
