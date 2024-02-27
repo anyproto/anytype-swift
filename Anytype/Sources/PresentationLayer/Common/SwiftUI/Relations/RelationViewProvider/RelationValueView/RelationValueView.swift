@@ -2,10 +2,10 @@ import SwiftUI
 import AnytypeCore
 
 struct RelationValueView: View {
-    @ObservedObject var model: RelationValueViewModel
+    let model: RelationValueViewModel
 
     var body: some View {
-        switch model.data.mode {
+        switch model.mode {
         case .button(let action):
             buttonView(with: action)
         case .contextMenu(let items):
@@ -27,7 +27,7 @@ struct RelationValueView: View {
     }
     
     @ViewBuilder
-    private func contextMenuView(from items: [RelationValueViewData.MenuItem]) -> some View {
+    private func contextMenuView(from items: [RelationValueViewModel.MenuItem]) -> some View {
         if items.isNotEmpty {
             Menu {
                 ForEach(items, id: \.title) { item in
@@ -45,8 +45,8 @@ struct RelationValueView: View {
 
     @ViewBuilder
     private var relationView: some View {
-        if let relation = model.data.relation {
-            relationView(for: relation, style: model.data.style)
+        if let relation = model.relation {
+            relationView(for: relation, style: model.style)
         }
     }
     
@@ -80,20 +80,8 @@ struct RelationValueView: View {
                 RelationsListRowPlaceholderView(hint: unknown.value, style: style)
             }
         }
-        .if(model.data.leftAlign, transform: {
+        .if(model.leftAlign, transform: {
             $0.frame(maxWidth: .infinity, alignment: .leading)
         })
-    }
-}
-
-extension RelationValueView {
-    enum Mode {
-        case button(action: (() -> Void)?)
-        case contextMenu([MenuItem])
-    }
-    
-    struct MenuItem {
-        let title: String
-        let action: () -> Void
     }
 }

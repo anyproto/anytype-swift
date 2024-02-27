@@ -1,18 +1,6 @@
 import SwiftUI
 
-final class RelationValueViewModel: ObservableObject {
-    @Published var data: RelationValueViewData
-    
-    init(data: RelationValueViewData = .empty) {
-        self.data = data
-    }
-    
-    func updateData(_ data: RelationValueViewData) {
-        self.data = data
-    }
-}
-
-struct RelationValueViewData {
+final class RelationValueViewModel {
     let relation: RelationItemModel?
     let style: RelationStyle
     let mode: Mode
@@ -29,7 +17,9 @@ struct RelationValueViewData {
         self.mode = mode
         self.leftAlign = leftAlign
     }
-    
+}
+
+extension RelationValueViewModel {
     enum Mode {
         case button(action: (() -> Void)?)
         case contextMenu([MenuItem])
@@ -39,10 +29,4 @@ struct RelationValueViewData {
         let title: String
         let action: () -> Void
     }
-    
-    static let empty = RelationValueViewData(
-        relation: nil,
-        style: .regular(allowMultiLine: false),
-        mode: .button(action: nil)
-    )
 }

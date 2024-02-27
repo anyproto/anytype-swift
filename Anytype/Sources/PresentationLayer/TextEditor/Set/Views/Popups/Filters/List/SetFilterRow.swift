@@ -66,11 +66,9 @@ struct SetFilterRow: View {
         if let relation = relation {
             RelationValueView(
                 model: RelationValueViewModel(
-                    data: RelationValueViewData(
-                        relation: RelationItemModel(relation: relation),
-                        style: .filter(hasValues: configuration.hasValues),
-                        mode: .button(action: nil)
-                    )
+                    relation: RelationItemModel(relation: relation),
+                    style: .filter(hasValues: configuration.hasValues),
+                    mode: .button(action: nil)
                 )
             )
         }

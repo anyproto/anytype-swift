@@ -56,11 +56,9 @@ struct RelationNameValueView: View {
     private var valueView: some View {
         RelationValueView(
             model: RelationValueViewModel(
-                data: RelationValueViewData(
-                    relation: viewModel.relation,
-                    style: .regular(allowMultiLine: false),
-                    mode: .button(action: viewModel.action)
-                )
+                relation: viewModel.relation,
+                style: .regular(allowMultiLine: false),
+                mode: .button(action: viewModel.action)
             )
         )
     }

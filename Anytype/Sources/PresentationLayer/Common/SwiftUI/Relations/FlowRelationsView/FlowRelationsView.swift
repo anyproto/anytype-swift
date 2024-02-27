@@ -44,11 +44,9 @@ struct FlowRelationsView: View {
             view: { relation in
                 RelationValueView(
                     model: RelationValueViewModel(
-                        data: RelationValueViewData(
-                            relation:  RelationItemModel(relation: relation),
-                            style: .setCollection,
-                            mode: .button(action: nil)
-                        )
+                        relation:  RelationItemModel(relation: relation),
+                        style: .setCollection,
+                        mode: .button(action: nil)
                     )
                 )
             }

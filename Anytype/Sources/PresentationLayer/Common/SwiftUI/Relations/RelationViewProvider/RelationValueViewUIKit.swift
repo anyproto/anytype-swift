@@ -10,37 +10,22 @@ struct RelationValueViewConfiguration: BlockConfiguration {
 }
 
 final class RelationValueViewUIKit: UIView, BlockContentView {
-    private let relationView: UIView
-    private let relationModel: RelationValueViewModel
-    
-    override init(frame: CGRect) {
-        let model = RelationValueViewModel()
-        relationModel = model
-        relationView = RelationValueView(model: model).asUIView()
+    private var relationView = UIView()
 
-        super.init(frame: frame)
+
+    func update(with configuration: RelationValueViewConfiguration) {
+        relationView.removeFromSuperview()
         
-        setupLayout()
-    }
-    
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
-    
-    private func setupLayout() {
+        let model = RelationValueViewModel(
+            relation: configuration.relation,
+            style: configuration.style,
+            mode: .button(action: configuration.action),
+            leftAlign: true
+        )
+        relationView = RelationValueView(model: model).asUIView()
+        
         addSubview(relationView) {
             $0.pinToSuperview()
         }
-    }
-
-    func update(with configuration: RelationValueViewConfiguration) {
-        relationModel.updateData(
-            RelationValueViewData(
-                relation: configuration.relation,
-                style: configuration.style,
-                mode: .button(action: configuration.action),
-                leftAlign: true
-            )
-        )
     }
 }
