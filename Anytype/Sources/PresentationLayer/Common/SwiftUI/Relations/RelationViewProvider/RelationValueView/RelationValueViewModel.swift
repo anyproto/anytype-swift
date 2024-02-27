@@ -1,6 +1,6 @@
 import SwiftUI
 
-final class RelationValueViewModel {
+struct RelationValueViewModel {
     let relation: RelationItemModel?
     let style: RelationStyle
     let mode: Mode
