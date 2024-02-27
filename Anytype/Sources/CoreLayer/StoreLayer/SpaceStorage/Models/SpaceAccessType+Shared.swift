@@ -10,4 +10,8 @@ extension SpaceAccessType {
             return true
         }
     }
+    
+    var isShared: Bool {
+        return self == .shared
+    }
 }

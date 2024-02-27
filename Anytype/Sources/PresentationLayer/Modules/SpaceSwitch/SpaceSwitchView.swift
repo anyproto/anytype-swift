@@ -98,7 +98,7 @@ struct SpaceSwitchView: View {
             AnytypeText(model.profileName, style: .heading, color: .Text.white)
                 .lineLimit(1)
             Spacer()
-            Image(asset: .Dashboard.settings)
+            Image(asset: .NavigationBase.settings)
                 .foregroundColor(.Button.white)
         }
         .frame(height: 68)
