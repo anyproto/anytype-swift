@@ -16,6 +16,8 @@ public protocol WorkspaceServiceProtocol {
     func getCurrentInvite(spaceId: String) async throws -> SpaceInvite
     func requestApprove(spaceId: String, identity: String, permissions: ParticipantPermissions) async throws
     func requestDecline(spaceId: String, identity: String) async throws
+    func participantPermissionsChange(spaceId: String, identity: String, permissions: ParticipantPermissions) async throws
+    func participantRemove(spaceId: String, identity: String) async throws
 }
 
 public final class WorkspaceService: WorkspaceServiceProtocol {
@@ -116,6 +118,25 @@ public final class WorkspaceService: WorkspaceServiceProtocol {
         try await ClientCommands.spaceRequestDecline(.with {
             $0.spaceID = spaceId
             $0.identity = identity
+        }).invoke()
+    }
+    
+    public func participantPermissionsChange(spaceId: String, identity: String, permissions: ParticipantPermissions) async throws {
+        try await ClientCommands.spaceParticipantPermissionsChange(.with {
+            $0.spaceID = spaceId
+            $0.changes = [
+                Anytype_Model_ParticipantPermissionChange.with {
+                    $0.identity = identity
+                    $0.perms = permissions
+                }
+            ]
+        }).invoke()
+    }
+    
+    public func participantRemove(spaceId: String, identity: String) async throws {
+        try await ClientCommands.spaceParticipantRemove(.with {
+            $0.spaceID = spaceId
+            $0.identities = [identity]
         }).invoke()
     }
 }

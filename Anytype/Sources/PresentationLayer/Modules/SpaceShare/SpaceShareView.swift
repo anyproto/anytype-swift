@@ -30,6 +30,12 @@ struct SpaceShareView: View {
         .anytypeSheet(item: $model.requestAlertModel) { model in
             SpaceRequestView(model: model)
         }
+        .anytypeSheet(item: $model.changeAccessAlertModel) { model in
+            SpaceChangeAccessView(model: model)
+        }
+        .anytypeSheet(item: $model.removeParticipantAlertModel) { model in
+            SpaceParticipantRemoveView(model: model)
+        }
     }
     
     private var inviteView: some View {

@@ -24,6 +24,8 @@ final class SpaceShareViewModel: ObservableObject {
     @Published var activeShareButton = false
     @Published var toastBarData: ToastBarData = .empty
     @Published var requestAlertModel: SpaceRequestViewModel?
+    @Published var changeAccessAlertModel: SpaceChangeAccessViewModel?
+    @Published var removeParticipantAlertModel: SpaceParticipantRemoveViewModel?
     
     init(
         participantSubscriptionService: ParticipantsSubscriptionBySpaceServiceProtocol,
@@ -76,7 +78,8 @@ final class SpaceShareViewModel: ObservableObject {
                 icon: participant.icon,
                 name: participant.name,
                 status: participantStatus(participant),
-                action: participantAction(participant)
+                action: participantAction(participant),
+                contextActions: participantContextActions(participant)
             )
         }
         let limit = Constants.participantLimit - items.count
@@ -108,6 +111,36 @@ final class SpaceShareViewModel: ObservableObject {
         }
     }
     
+    private func participantContextActions(_ participant: Participant) -> [SpaceShareParticipantViewModel.ContextAction] {
+        guard participant.permission != .owner, participant.status == .active else { return [] }
+        return [
+            SpaceShareParticipantViewModel.ContextAction(
+                title: Loc.SpaceShare.Permissions.reader,
+                isSelected: participant.permission == .reader,
+                destructive: false,
+                action: { [weak self] in
+                    self?.showPermissionAlert(participant: participant, newPermission: .reader)
+                }
+            ),
+            SpaceShareParticipantViewModel.ContextAction(
+                title: Loc.SpaceShare.Permissions.writer,
+                isSelected: participant.permission == .writer,
+                destructive: false,
+                action: { [weak self] in
+                    self?.showPermissionAlert(participant: participant, newPermission: .writer)
+                }
+            ),
+            SpaceShareParticipantViewModel.ContextAction(
+                title: Loc.SpaceShare.RemoveMember.title,
+                isSelected: false,
+                destructive: true,
+                action: { [weak self] in
+                    self?.showRemoveAlert(participant: participant)
+                }
+            )
+        ]
+    }
+    
     private func showRequestAlert(participant: Participant) {
         guard let spaceView = activeWorkspaceStorage.spaceView() else { return }
         
@@ -115,28 +148,39 @@ final class SpaceShareViewModel: ObservableObject {
             icon: participant.icon,
             title: Loc.SpaceShare.ViewRequest.title(participant.name, spaceView.name),
             onViewAccess: { [weak self] in
-                Task {
-                    try await self?.workspaceService.requestApprove(spaceId: spaceView.targetSpaceId, identity: participant.identity, permissions: .reader)
-                }
+                try await self?.workspaceService.requestApprove(spaceId: spaceView.targetSpaceId, identity: participant.identity, permissions: .reader)
             },
             onEditAccess: { [weak self] in
-                Task {
-                    try await self?.workspaceService.requestApprove(spaceId: spaceView.targetSpaceId, identity: participant.identity, permissions: .writer)
-                }
+                try await self?.workspaceService.requestApprove(spaceId: spaceView.targetSpaceId, identity: participant.identity, permissions: .writer)
             },
             onReject: { [weak self] in
-                Task {
-                    try await self?.workspaceService.requestDecline(spaceId: spaceView.targetSpaceId, identity: participant.identity)
-                }
-                
+                try await self?.workspaceService.requestDecline(spaceId: spaceView.targetSpaceId, identity: participant.identity)
             }
         )
     }
     
-    deinit {
-        Task { [participantSubscriptionService] in
-            await participantSubscriptionService.stopSubscription()
-        }
+    private func showPermissionAlert(participant: Participant, newPermission: ParticipantPermissions) {
+        guard participant.permission != newPermission else { return }
+        changeAccessAlertModel = SpaceChangeAccessViewModel(
+            participantName: participant.name,
+            permissions: newPermission.title,
+            onConfirm: { [weak self] in
+                try await self?.workspaceService.participantPermissionsChange(
+                    spaceId: participant.spaceId,
+                    identity: participant.identity,
+                    permissions: newPermission
+                )
+            }
+        )
+    }
+    
+    private func showRemoveAlert(participant: Participant) {
+        removeParticipantAlertModel = SpaceParticipantRemoveViewModel(
+            participantName: participant.name,
+            onConfirm: { [weak self] in
+                try await self?.workspaceService.participantRemove(spaceId: participant.spaceId, identity: participant.identity)
+            }
+        )
     }
 }
 

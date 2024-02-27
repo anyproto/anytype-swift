@@ -5,9 +5,9 @@ struct SpaceRequestViewModel: Identifiable {
     let id = UUID()
     let icon: Icon?
     let title: String
-    let onViewAccess: () -> Void
-    let onEditAccess: () -> Void
-    let onReject: () -> Void
+    let onViewAccess: () async throws -> Void
+    let onEditAccess: () async throws -> Void
+    let onReject: () async throws -> Void
 }
 
 struct SpaceRequestView: View {
@@ -19,15 +19,15 @@ struct SpaceRequestView: View {
     var body: some View {
         BottomAlertView(title: model.title, message: "") {
             BottomAlertButton(text: Loc.SpaceShare.ViewRequest.viewAccess, style: .secondary) {
-                model.onViewAccess()
+                try await model.onViewAccess()
                 dismiss()
             }
             BottomAlertButton(text: Loc.SpaceShare.ViewRequest.editAccess, style: .secondary) {
-                model.onEditAccess()
+                try await model.onEditAccess()
                 dismiss()
             }
             BottomAlertButton(text: Loc.SpaceShare.ViewRequest.reject, style: .warning) {
-                model.onReject()
+                try await model.onReject()
                 dismiss()
             }
         }

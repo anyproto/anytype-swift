@@ -72,6 +72,8 @@ internal enum Loc {
   internal static func areYouSureYouWantToDelete(_ p1: Int) -> String {
     return Loc.tr("Localizable", "Are you sure you want to delete", p1, fallback: "Plural format key: \"Are you sure you want to delete %#@object@?\"")
   }
+  /// Are you sure?
+  internal static let areYouSure = Loc.tr("Localizable", "AreYouSure", fallback: "Are you sure?")
   /// Arrangement of objects on a canvas
   internal static let arrangementOfObjectsOnACanvas = Loc.tr("Localizable", "Arrangement of objects on a canvas", fallback: "Arrangement of objects on a canvas")
   /// Audio
@@ -1995,6 +1997,10 @@ internal enum Loc {
     }
   }
   internal enum SpaceShare {
+    /// %@ access to the space would become %@
+    internal static func changePermissions(_ p1: Any, _ p2: Any) -> String {
+      return Loc.tr("Localizable", "SpaceShare.ChangePermissions", String(describing: p1), String(describing: p2), fallback: "%@ access to the space would become %@")
+    }
     /// Members and requests
     internal static let membersSection = Loc.tr("Localizable", "SpaceShare.MembersSection", fallback: "Members and requests")
     /// Share space
@@ -2042,10 +2048,18 @@ internal enum Loc {
     internal enum Permissions {
       /// Owner
       internal static let owner = Loc.tr("Localizable", "SpaceShare.Permissions.Owner", fallback: "Owner")
-      /// Can view
-      internal static let reader = Loc.tr("Localizable", "SpaceShare.Permissions.Reader", fallback: "Can view")
-      /// Can edit
-      internal static let writer = Loc.tr("Localizable", "SpaceShare.Permissions.Writer", fallback: "Can edit")
+      /// Viewer
+      internal static let reader = Loc.tr("Localizable", "SpaceShare.Permissions.Reader", fallback: "Viewer")
+      /// Editor
+      internal static let writer = Loc.tr("Localizable", "SpaceShare.Permissions.Writer", fallback: "Editor")
+    }
+    internal enum RemoveMember {
+      /// %@ will be removed from the space
+      internal static func message(_ p1: Any) -> String {
+        return Loc.tr("Localizable", "SpaceShare.RemoveMember.Message", String(describing: p1), fallback: "%@ will be removed from the space")
+      }
+      /// Remove memeber
+      internal static let title = Loc.tr("Localizable", "SpaceShare.RemoveMember.Title", fallback: "Remove memeber")
     }
     internal enum Status {
       /// Declined

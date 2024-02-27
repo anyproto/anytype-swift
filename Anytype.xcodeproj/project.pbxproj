@@ -430,6 +430,8 @@
 		2A4C7FFC2A823CB300201946 /* DateFormatter+Relation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A4C7FFB2A823CB300201946 /* DateFormatter+Relation.swift */; };
 		2A4C7FFF2A823E2300201946 /* RelationDateFormatterTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A4C7FFE2A823E2300201946 /* RelationDateFormatterTests.swift */; };
 		2A4CEFFE2A13CCCD00B99891 /* BottomAlertModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A4CEFFD2A13CCCD00B99891 /* BottomAlertModel.swift */; };
+		2A4DD28C2B8DF798005D22CF /* SpaceChangeAccessView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A4DD28B2B8DF798005D22CF /* SpaceChangeAccessView.swift */; };
+		2A4DD28E2B8DFC32005D22CF /* SpaceParticipantRemoveView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A4DD28D2B8DFC32005D22CF /* SpaceParticipantRemoveView.swift */; };
 		2A4E5C8A296C0BAD002BB71B /* HomeBottomPanelView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A4E5C89296C0BAD002BB71B /* HomeBottomPanelView.swift */; };
 		2A4E5C8D296C0BFF002BB71B /* HomeBottomPanelViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A4E5C8C296C0BFF002BB71B /* HomeBottomPanelViewModel.swift */; };
 		2A4E99E82B0B5DB700C81584 /* SetObjectCreationCoordinatorOutput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A4E99E72B0B5DB700C81584 /* SetObjectCreationCoordinatorOutput.swift */; };
@@ -2194,6 +2196,8 @@
 		2A4C7FFB2A823CB300201946 /* DateFormatter+Relation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DateFormatter+Relation.swift"; sourceTree = "<group>"; };
 		2A4C7FFE2A823E2300201946 /* RelationDateFormatterTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = RelationDateFormatterTests.swift; path = AnyTypeTests/Formatters/RelationDateFormatterTests.swift; sourceTree = SOURCE_ROOT; };
 		2A4CEFFD2A13CCCD00B99891 /* BottomAlertModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BottomAlertModel.swift; sourceTree = "<group>"; };
+		2A4DD28B2B8DF798005D22CF /* SpaceChangeAccessView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpaceChangeAccessView.swift; sourceTree = "<group>"; };
+		2A4DD28D2B8DFC32005D22CF /* SpaceParticipantRemoveView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpaceParticipantRemoveView.swift; sourceTree = "<group>"; };
 		2A4E5C89296C0BAD002BB71B /* HomeBottomPanelView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeBottomPanelView.swift; sourceTree = "<group>"; };
 		2A4E5C8C296C0BFF002BB71B /* HomeBottomPanelViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeBottomPanelViewModel.swift; sourceTree = "<group>"; };
 		2A4E99E72B0B5DB700C81584 /* SetObjectCreationCoordinatorOutput.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetObjectCreationCoordinatorOutput.swift; sourceTree = "<group>"; };
@@ -6393,6 +6397,8 @@
 				2AC434A92B7A15B9006166BF /* SpaceShareParticipantView.swift */,
 				2A5EC77F2B7D166F00DD7D89 /* InviteLinkView.swift */,
 				2AD48D4D2B7E65BB0077C53B /* SpaceRequestView.swift */,
+				2A4DD28B2B8DF798005D22CF /* SpaceChangeAccessView.swift */,
+				2A4DD28D2B8DFC32005D22CF /* SpaceParticipantRemoveView.swift */,
 			);
 			path = Subviews;
 			sourceTree = "<group>";
@@ -10451,6 +10457,7 @@
 				2ACDC9BC2B5670710063BFBD /* ShareOptionsModuleAssembly.swift in Sources */,
 				53F7447927F71A83005C9BB0 /* PopupViewBuilder.swift in Sources */,
 				C99DCEDE283D0E820051F99D /* TemplatePickerViewModel.swift in Sources */,
+				2A4DD28E2B8DFC32005D22CF /* SpaceParticipantRemoveView.swift in Sources */,
 				3D3A9C3F265BC9AC000F07DB /* Publisher+Sink.swift in Sources */,
 				2E7E50492B6D6609003867A3 /* ObjectRelationListCoordinatorAssembly.swift in Sources */,
 				2AAF3454295B1B5F00921320 /* TreeSubscriptionManager.swift in Sources */,
@@ -10790,6 +10797,7 @@
 				12394A2A27A405D10080E1CF /* RelationDetailsPopupBehavior.swift in Sources */,
 				1247BB0027CCBF470079DA1F /* ConstantHeightPopupLayout.swift in Sources */,
 				53960C0F242BD74E001E9D1F /* KeychainPhraseViewModel.swift in Sources */,
+				2A4DD28C2B8DF798005D22CF /* SpaceChangeAccessView.swift in Sources */,
 				2A4919AC29530B5700FCEAC9 /* LinkWidgetViewContainer.swift in Sources */,
 				2A1DEA592B5EB40C00A00883 /* AccountDeleteError+Localize.swift in Sources */,
 				039F669C23C7FDC300DBE36A /* TimingTimer.swift in Sources */,

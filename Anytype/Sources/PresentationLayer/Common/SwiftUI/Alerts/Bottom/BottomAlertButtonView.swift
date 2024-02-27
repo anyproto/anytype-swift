@@ -12,8 +12,7 @@ struct BottomAlertButton {
     
     var text: String
     var style: Style
-    var loading: Bool = false
-    var action: () -> Void
+    var action: () async throws -> Void
     
     fileprivate var standartStyle: StandardButtonStyle {
         switch style {
@@ -38,9 +37,8 @@ struct BottomAlertButtonView: View {
             BottomAlertButttonStack {
                 ForEach(0..<buttons.count, id: \.self) { index in
                     let button = buttons[index]
-                    StandardButton(
-                        button.text,
-                        inProgress: button.loading,
+                    AsyncStandardButton(
+                        text: button.text,
                         style: button.standartStyle,
                         action: button.action
                     )
@@ -50,9 +48,8 @@ struct BottomAlertButtonView: View {
             VStack(spacing: 10) {
                 ForEach(0..<buttons.count, id: \.self) { index in
                     let button = buttons[index]
-                    StandardButton(
-                        button.text,
-                        inProgress: button.loading,
+                    AsyncStandardButton(
+                        text: button.text,
                         style: button.standartStyle,
                         action: button.action
                     )

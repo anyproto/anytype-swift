@@ -101,7 +101,7 @@ extension BottomAlertView where Header == ButtomAlertHeaderImageView, Body == Em
         title: "Title",
         message: "The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog") {
             BottomAlertButton(text: "Button", style: .secondary, action: {})
-            BottomAlertButton(text: "Button", style: .primary, loading: true, action: {})
+            BottomAlertButton(text: "Button", style: .primary, action: {})
         }
 }
 
@@ -112,7 +112,7 @@ extension BottomAlertView where Header == ButtomAlertHeaderImageView, Body == Em
         icon: .BottomAlert.update,
         style: .green) {
             BottomAlertButton(text: "Button", style: .secondary, action: {})
-            BottomAlertButton(text: "Button", style: .primary, loading: true, action: {})
+            BottomAlertButton(text: "Button", style: .primary, action: {})
         }
 }
 
@@ -123,6 +123,6 @@ extension BottomAlertView where Header == ButtomAlertHeaderImageView, Body == Em
         icon: .BottomAlert.update,
         style: .green) {
             BottomAlertButton(text: "Button 1111111111 11111", style: .secondary, action: {})
-            BottomAlertButton(text: "Button", style: .primary, loading: false, action: {})
+            BottomAlertButton(text: "Button", style: .primary, action: {})
         }
 }
