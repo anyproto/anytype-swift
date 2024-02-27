@@ -528,6 +528,7 @@
 "Unsupported value" = "Ikke-støttet verdi";
 "Select relation type" = "Velg relasjonstype";
 "CommonOpenErrorView.Message" = "Ingen data funnet";
+"AreYouSure" = "Er du sikker?";
 "Nothing found" = "Ingenting funnet";
 "No type found text" = "Ingen type “%@” funnet. Endre forespørselen din eller opprett ny type.";
 "Create type" = "Opprett type";
@@ -864,6 +865,7 @@
 "Space.Status.SpaceDeleted" = "Slettet";
 "Space.Status.SpaceActive" = "Aktiv";
 "Space.Status.SpaceJoining" = "Kobler til";
+"Space.Status.SpaceRemoving" = "Removing";
 
 // MARK: - Space Settings
 "SpaceSettings.Title" = "Rominnstillinger";
@@ -881,8 +883,8 @@
 "SpaceShare.Title" = "Del rom";
 "SpaceShare.MembersSection" = "Medlemmer og forespørsler";
 "SpaceShare.Permissions.Owner" = "Eier";
-"SpaceShare.Permissions.Reader" = "Kan se";
-"SpaceShare.Permissions.Writer" = "Kan redigere";
+"SpaceShare.Permissions.Reader" = "Viewer";
+"SpaceShare.Permissions.Writer" = "Editor";
 "SpaceShare.Invite.Title" = "Invitasjonslenke";
 "SpaceShare.Invite.Description" = "Send denne lenken for å invitere andre. Tildel tilgangsrettigheter når deres forespørsel er godkjent";
 "SpaceShare.Invite.Button" = "Del invitasjonslenke";
@@ -893,11 +895,16 @@
 "SpaceShare.ViewRequest.ViewAccess" = "Grand view access";
 "SpaceShare.ViewRequest.EditAccess" = "Grand edit access";
 "SpaceShare.ViewRequest.Reject" = "Avvis";
+"SpaceShare.RemoveMember.Title" = "Remove memeber";
+"SpaceShare.RemoveMember.Message" = "%@ will be removed from the space.";
+"SpaceShare.ChangePermissions" = "%@ access to the space would become %@.";
 "SpaceShare.Join.Title" = "Bli med i et rom";
 "SpaceShare.Join.CommentPlaceholder" = "Legg igjen en privat kommentar til eieren av rommet";
 "SpaceShare.Join.Button" = "Be om å bli med";
 "SpaceShare.Join.Info" = "Når eieren av rommet godkjenner forespørselen din, vil du bli med i rommet med tilgangsrettigheter eieren har satt.";
 "SpaceShare.Join.Message" = "Du har blitt invitert til å bli med i %@ -rommet, opprettet av %@. Send en forespørsel slik at eieren av rommet kan slippe deg inn.";
+"SpaceShare.JoinConfirmation.Title" = "Request sent";
+"SpaceShare.JoinConfirmation.Message" = "You will receive a notification when the space owner will approve your request.";
 
 // MARK: - Space Create
 "SpaceCreate.Title" = "Opprett et rom";
