@@ -24,6 +24,8 @@ extension SpaceStatus {
             return Loc.Space.Status.spaceActive
         case .spaceJoining:
             return Loc.Space.Status.spaceJoining
+        case .spaceRemoving:
+            return Loc.Space.Status.spaceRemoving
         case .UNRECOGNIZED:
             return Loc.Space.Status.unknown
         }

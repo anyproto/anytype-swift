@@ -124,8 +124,7 @@ final class SetObjectWidgetInternalViewModel: CommonWidgetInternalViewModel, Wid
         let subscriptionData = setSubscriptionDataBuilder.set(
             SetSubscriptionData(
                 identifier: subscriptionId,
-                source: setDocument.details?.setOf,
-                view: setDocument.activeView,
+                document: setDocument,
                 groupFilter: nil,
                 currentPage: 0,
                 numberOfRowsPerPage: widgetInfo.fixedLimit,

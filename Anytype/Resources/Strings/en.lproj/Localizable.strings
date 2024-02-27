@@ -864,6 +864,7 @@
 "Space.Status.SpaceDeleted" = "Deleted";
 "Space.Status.SpaceActive" = "Active";
 "Space.Status.SpaceJoining" = "Joining";
+"Space.Status.SpaceRemoving" = "Removing";
 
 // MARK: - Space Settings
 "SpaceSettings.Title" = "Space settings";

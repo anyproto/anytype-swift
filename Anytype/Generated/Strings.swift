@@ -1960,6 +1960,8 @@ internal enum Loc {
       internal static let spaceDeleted = Loc.tr("Localizable", "Space.Status.SpaceDeleted", fallback: "Deleted")
       /// Joining
       internal static let spaceJoining = Loc.tr("Localizable", "Space.Status.SpaceJoining", fallback: "Joining")
+      /// Removing
+      internal static let spaceRemoving = Loc.tr("Localizable", "Space.Status.SpaceRemoving", fallback: "Removing")
       /// Unknown
       internal static let unknown = Loc.tr("Localizable", "Space.Status.Unknown", fallback: "Unknown")
     }

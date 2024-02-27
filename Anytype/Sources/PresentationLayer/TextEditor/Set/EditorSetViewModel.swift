@@ -399,10 +399,9 @@ final class EditorSetViewModel: ObservableObject {
         guard setDocument.canStartSubscription() else { return }
         
         let data = setSubscriptionDataBuilder.set(
-            .init(
+            SetSubscriptionData(
                 identifier: subscriptionId,
-                source: setDocument.details?.setOf,
-                view: activeView,
+                document: setDocument,
                 groupFilter: groupFilter,
                 currentPage: currentPage, // show first page for empty request
                 numberOfRowsPerPage: numberOfRowsPerPage,
