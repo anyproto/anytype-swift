@@ -528,6 +528,7 @@
 "Unsupported value" = "Niet-ondersteunde waarde";
 "Select relation type" = "Selecteer relatie type";
 "CommonOpenErrorView.Message" = "Geen gegevens gevonden";
+"AreYouSure" = "Weet je het zeker?";
 "Nothing found" = "Niets gevonden";
 "No type found text" = "Geen type \"%@\" gevonden. Wijzig uw verzoek of maak een nieuw type aan.";
 "Create type" = "Maak type aan";
@@ -865,6 +866,7 @@
 "Space.Status.SpaceDeleted" = "Verwijderd";
 "Space.Status.SpaceActive" = "Actief";
 "Space.Status.SpaceJoining" = "Aan het aansluiten";
+"Space.Status.SpaceRemoving" = "Removing";
 
 // MARK: - Space Settings
 "SpaceSettings.Title" = "Ruimte instellingen";
@@ -882,8 +884,8 @@
 "SpaceShare.Title" = "Deel ruimte";
 "SpaceShare.MembersSection" = "Leden en verzoeken";
 "SpaceShare.Permissions.Owner" = "Eigenaar";
-"SpaceShare.Permissions.Reader" = "Kan zien";
-"SpaceShare.Permissions.Writer" = "Kan bewerken";
+"SpaceShare.Permissions.Reader" = "Viewer";
+"SpaceShare.Permissions.Writer" = "Editor";
 "SpaceShare.Invite.Title" = "Uitnodigingslink";
 "SpaceShare.Invite.Description" = "Stuur deze link om anderen uit te nodigen. Wijs toegangsrechten toe na hun goedkeuring.";
 "SpaceShare.Invite.Button" = "Deel uitnodigingslink";
@@ -894,11 +896,16 @@
 "SpaceShare.ViewRequest.ViewAccess" = "Geef leesrechten";
 "SpaceShare.ViewRequest.EditAccess" = "Geef bewerkingsrechten";
 "SpaceShare.ViewRequest.Reject" = "Weiger";
+"SpaceShare.RemoveMember.Title" = "Remove memeber";
+"SpaceShare.RemoveMember.Message" = "%@ will be removed from the space.";
+"SpaceShare.ChangePermissions" = "%@ access to the space would become %@.";
 "SpaceShare.Join.Title" = "Sluit je aan bij een ruimte";
 "SpaceShare.Join.CommentPlaceholder" = "Laat een persoonlijk bericht achter voor een eigenaar van de ruimte";
 "SpaceShare.Join.Button" = "Verzoek om aan te sluiten";
 "SpaceShare.Join.Info" = "Zodra de eigenaar van de ruimte jouw verzoek heeft goedgekeurd, zul je toetreden tot de ruimte met de toegangsrechten die door de eigenaar zijn bepaald.";
 "SpaceShare.Join.Message" = "Je bent uitgenodigd om je aan te sluiten bij  %@ ruimte, aangemaakt door %@ Stuur een verzoek zodat de eigenaar van de ruimte je kan toelaten. ";
+"SpaceShare.JoinConfirmation.Title" = "Request sent";
+"SpaceShare.JoinConfirmation.Message" = "You will receive a notification when the space owner will approve your request.";
 
 // MARK: - Space Create
 "SpaceCreate.Title" = "Maak een ruimte aan";

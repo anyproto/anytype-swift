@@ -528,6 +528,7 @@
 "Unsupported value" = "Nilai tak didukung";
 "Select relation type" = "Pilih jenis relasi";
 "CommonOpenErrorView.Message" = "No data found";
+"AreYouSure" = "Apakah kamu yakin?";
 "Nothing found" = "Nothing found";
 "No type found text" = "Tipe “%@” tidak ditemukan. Ubah permintaanmu atau buatlah tipe yang baru.";
 "Create type" = "Buat tipe";
@@ -864,6 +865,7 @@
 "Space.Status.SpaceDeleted" = "Terhapus";
 "Space.Status.SpaceActive" = "Aktif";
 "Space.Status.SpaceJoining" = "Joining";
+"Space.Status.SpaceRemoving" = "Removing";
 
 // MARK: - Space Settings
 "SpaceSettings.Title" = "Setelan ruang";
@@ -881,8 +883,8 @@
 "SpaceShare.Title" = "Bagikan ruang";
 "SpaceShare.MembersSection" = "Members and requests";
 "SpaceShare.Permissions.Owner" = "Owner";
-"SpaceShare.Permissions.Reader" = "Can view";
-"SpaceShare.Permissions.Writer" = "Can edit";
+"SpaceShare.Permissions.Reader" = "Viewer";
+"SpaceShare.Permissions.Writer" = "Editor";
 "SpaceShare.Invite.Title" = "Tautan undangan";
 "SpaceShare.Invite.Description" = "Kirimkan tautan ini untuk mengundang orang lain. Kamu bisa mengatur hak akses mereka setelah mereka menyetujui undangan";
 "SpaceShare.Invite.Button" = "Bagikan tautan undangan";
@@ -893,11 +895,16 @@
 "SpaceShare.ViewRequest.ViewAccess" = "Izinkan akses baca";
 "SpaceShare.ViewRequest.EditAccess" = "Izinkan akses sunting";
 "SpaceShare.ViewRequest.Reject" = "Tolak";
+"SpaceShare.RemoveMember.Title" = "Remove memeber";
+"SpaceShare.RemoveMember.Message" = "%@ will be removed from the space.";
+"SpaceShare.ChangePermissions" = "%@ access to the space would become %@.";
 "SpaceShare.Join.Title" = "Bergabung dengan ruang";
 "SpaceShare.Join.CommentPlaceholder" = "Tinggalkan komentar untuk pemilik ruang";
 "SpaceShare.Join.Button" = "Permintaan bergabung";
 "SpaceShare.Join.Info" = "Ketika pemilik ruang menyetujui permintaanmu, kamu akan bergabung ke ruang ini dengan hak akses yang telah ditentukan.";
 "SpaceShare.Join.Message" = "Kamu diundang untuk bergabung dengan ruang %@ buatan %@. Kirimkan permintaan supaya pemilik ruang dapat mengizinkanmu bergabung.";
+"SpaceShare.JoinConfirmation.Title" = "Request sent";
+"SpaceShare.JoinConfirmation.Message" = "You will receive a notification when the space owner will approve your request.";
 
 // MARK: - Space Create
 "SpaceCreate.Title" = "Buat ruang";
