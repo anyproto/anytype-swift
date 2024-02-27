@@ -2001,8 +2001,6 @@ internal enum Loc {
     }
     /// Members and requests
     internal static let membersSection = Loc.tr("Localizable", "SpaceShare.MembersSection", fallback: "Members and requests")
-    /// Remove memeber
-    internal static let removeMember = Loc.tr("Localizable", "SpaceShare.RemoveMember", fallback: "Remove memeber")
     /// Share space
     internal static let title = Loc.tr("Localizable", "SpaceShare.Title", fallback: "Share space")
     internal enum Action {
@@ -2042,10 +2040,18 @@ internal enum Loc {
     internal enum Permissions {
       /// Owner
       internal static let owner = Loc.tr("Localizable", "SpaceShare.Permissions.Owner", fallback: "Owner")
-      /// Can view
-      internal static let reader = Loc.tr("Localizable", "SpaceShare.Permissions.Reader", fallback: "Can view")
-      /// Can edit
-      internal static let writer = Loc.tr("Localizable", "SpaceShare.Permissions.Writer", fallback: "Can edit")
+      /// Viewer
+      internal static let reader = Loc.tr("Localizable", "SpaceShare.Permissions.Reader", fallback: "Viewer")
+      /// Editor
+      internal static let writer = Loc.tr("Localizable", "SpaceShare.Permissions.Writer", fallback: "Editor")
+    }
+    internal enum RemoveMember {
+      /// %@ will be removed from the space
+      internal static func message(_ p1: Any) -> String {
+        return Loc.tr("Localizable", "SpaceShare.RemoveMember.Message", String(describing: p1), fallback: "%@ will be removed from the space")
+      }
+      /// Remove memeber
+      internal static let title = Loc.tr("Localizable", "SpaceShare.RemoveMember.Title", fallback: "Remove memeber")
     }
     internal enum Status {
       /// Declined

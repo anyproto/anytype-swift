@@ -1,22 +1,24 @@
 import Foundation
 import SwiftUI
 
-struct SpaceChangeAccessViewModel: Identifiable {
+struct SpaceParticipantRemoveViewModel: Identifiable {
     let id = UUID()
     let participantName: String
-    let permissions: String
     let onConfirm: () async throws -> Void
 }
 
-struct SpaceChangeAccessView: View {
+struct SpaceParticipantRemoveView: View {
     
-    let model: SpaceChangeAccessViewModel
+    let model: SpaceParticipantRemoveViewModel
     
     @Environment(\.dismiss) private var dismiss
     
     var body: some View {
-        BottomAlertView(title: Loc.areYouSure, message: Loc.SpaceShare.changePermissions(model.participantName, model.permissions)) {
-            BottomAlertButton(text: Loc.ok, style: .warning) {
+        BottomAlertView(
+            title: Loc.SpaceShare.RemoveMember.title,
+            message: Loc.SpaceShare.RemoveMember.message(model.participantName)
+        ) {
+            BottomAlertButton(text: Loc.remove, style: .warning) {
                 try await model.onConfirm()
                 dismiss()
             }

@@ -34,7 +34,8 @@ final class ParticipantsSubscriptionBySpaceService: ParticipantsSubscriptionBySp
             SearchHelper.isArchivedFilter(isArchived: false),
             SearchHelper.isDeletedFilter(isDeleted: false),
             SearchHelper.spaceId(activeWorkspaceStorage.workspaceInfo.accountSpaceId),
-            SearchHelper.layoutFilter([.participant])
+            SearchHelper.layoutFilter([.participant]),
+            SearchHelper.participantStatusFilterExclude(.removed)
         ]
         
         let searchData: SubscriptionData = .search(
