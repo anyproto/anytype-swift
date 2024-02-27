@@ -24,7 +24,7 @@ struct SpaceShareParticipantViewModel: Identifiable {
         let id = UUID()
         let title: String
         let isSelected: Bool
-        let bad: Bool
+        let destructive: Bool
         let action: () -> Void
     }
 }
@@ -76,7 +76,7 @@ struct SpaceShareParticipantView: View {
         } else {
             Menu {
                 ForEach(participant.contextActions) { action in
-                    Button(role: action.bad ? .destructive : nil) {
+                    Button(role: action.destructive ? .destructive : nil) {
                         action.action()
                     } label: {
                         HStack {

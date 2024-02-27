@@ -117,7 +117,7 @@ final class SpaceShareViewModel: ObservableObject {
             SpaceShareParticipantViewModel.ContextAction(
                 title: Loc.SpaceShare.Permissions.reader,
                 isSelected: participant.permission == .reader,
-                bad: false,
+                destructive: false,
                 action: { [weak self] in
                     self?.showPermissionAlert(participant: participant, newPermission: .reader)
                 }
@@ -125,7 +125,7 @@ final class SpaceShareViewModel: ObservableObject {
             SpaceShareParticipantViewModel.ContextAction(
                 title: Loc.SpaceShare.Permissions.writer,
                 isSelected: participant.permission == .writer,
-                bad: false,
+                destructive: false,
                 action: { [weak self] in
                     self?.showPermissionAlert(participant: participant, newPermission: .writer)
                 }
@@ -133,7 +133,7 @@ final class SpaceShareViewModel: ObservableObject {
             SpaceShareParticipantViewModel.ContextAction(
                 title: Loc.SpaceShare.RemoveMember.title,
                 isSelected: false,
-                bad: true,
+                destructive: true,
                 action: { [weak self] in
                     self?.showRemoveAlert(participant: participant)
                 }
