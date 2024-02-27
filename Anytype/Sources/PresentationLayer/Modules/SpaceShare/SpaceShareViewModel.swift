@@ -76,7 +76,8 @@ final class SpaceShareViewModel: ObservableObject {
                 icon: participant.icon,
                 name: participant.name,
                 status: participantStatus(participant),
-                action: participantAction(participant)
+                action: participantAction(participant),
+                contextActions: participantContextActions(participant)
             )
         }
         let limit = Constants.participantLimit - items.count
@@ -105,6 +106,40 @@ final class SpaceShareViewModel: ObservableObject {
             })
         case .active, .canceled, .declined, .removing, .removed, .UNRECOGNIZED:
             return nil
+        }
+    }
+    
+    private func participantContextActions(_ participant: Participant) -> [SpaceShareParticipantViewModel.ContextAction] {
+        switch participant.status {
+        case .active:
+            return [
+                SpaceShareParticipantViewModel.ContextAction(
+                    title: Loc.SpaceShare.Permissions.reader,
+                    isSelected: participant.permission == .reader,
+                    bad: false,
+                    action: {
+                        print("view action")
+                    }
+                ),
+                SpaceShareParticipantViewModel.ContextAction(
+                    title: Loc.SpaceShare.Permissions.writer,
+                    isSelected: participant.permission == .writer,
+                    bad: false,
+                    action: {
+                        print("edit action")
+                    }
+                ),
+                SpaceShareParticipantViewModel.ContextAction(
+                    title: Loc.SpaceShare.removeMember,
+                    isSelected: false,
+                    bad: true,
+                    action: {
+                        print("remove action")
+                    }
+                )
+            ]
+        case .joining, .canceled, .declined, .removing, .removed, .UNRECOGNIZED:
+            return []
         }
     }
     

@@ -7,6 +7,7 @@ struct SpaceShareParticipantViewModel: Identifiable {
     let name: String
     let status: Status?
     let action: Action?
+    let contextActions: [ContextAction]
     
     enum Status {
         case normal(permission: String)
@@ -16,6 +17,14 @@ struct SpaceShareParticipantViewModel: Identifiable {
     
     struct Action {
         let title: String
+        let action: () -> Void
+    }
+    
+    struct ContextAction: Identifiable {
+        let id = UUID()
+        let title: String
+        let isSelected: Bool
+        let bad: Bool
         let action: () -> Void
     }
 }
@@ -36,6 +45,7 @@ struct SpaceShareParticipantView: View {
             if let action = participant.action {
                 StandardButton(.text(action.title), style: .secondarySmall, action: action.action)
             }
+            menu
         }
         .lineLimit(1)
         .padding(.vertical, 9)
@@ -56,6 +66,33 @@ struct SpaceShareParticipantView: View {
             AnytypeText(Loc.SpaceShare.Status.declined, style: .relation3Regular, color: .Text.secondary)
         case .none:
             EmptyView()
+        }
+    }
+    
+    @ViewBuilder
+    private var menu: some View {
+        if participant.contextActions.isEmpty {
+            EmptyView()
+        } else {
+            Menu {
+                ForEach(participant.contextActions) { action in
+                    Button(role: action.bad ? .destructive : nil) {
+                        action.action()
+                    } label: {
+                        HStack {
+                            AnytypeText(action.title, style: .uxCalloutRegular, color: .Text.primary)
+                            Spacer()
+                            if action.isSelected {
+                                Image(asset: .X24.tick)
+                            }
+                        }
+                    }
+                }
+                
+            } label: {
+                IconView(icon: .asset(.X24.more))
+                    .frame(width: 24, height: 24)
+            }
         }
     }
 }
