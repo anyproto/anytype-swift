@@ -31,12 +31,10 @@ extension TextBlockContentView: CustomTextViewDelegate {
 
     func didBeginEditing() {
         actions?.textViewDidBeginEditing(textView.textView)
-        isFirstResponderValueChangeHandler?(true)
     }
     
     func didEndEditing() {
         actions?.textViewDidEndEditing(textView.textView)
-        isFirstResponderValueChangeHandler?(false)
     }
 
     func textViewDidChangeText(_ textView: UITextView) {
@@ -48,15 +46,11 @@ extension TextBlockContentView: CustomTextViewDelegate {
         }
     }
     
-    func changeTextStyle(attribute: MarkupType, range: NSRange) {
-        actions?.changeTextStyle(attribute, range)
-    }
-    
-    func keyboardAction(_ action: CustomTextView.KeyboardAction) {        
+    func keyboardAction(_ action: CustomTextView.KeyboardAction) {
         actions?.handleKeyboardAction(action, textView.textView)
     }
     
-    func showPage(blockId: BlockId) {
+    func showPage(blockId: String) {
         actions?.showPage(blockId)
     }
     

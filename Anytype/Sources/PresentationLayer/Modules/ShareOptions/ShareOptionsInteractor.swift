@@ -1,6 +1,8 @@
 import Foundation
 import Services
 import SharedContentManager
+import AnytypeCore
+
 
 protocol ShareOptionsInteractorProtocol: AnyObject {
     func saveContent(saveOptions: SharedSaveOptions, content: SharedContent) async throws
@@ -74,7 +76,7 @@ final class ShareOptionsInteractor: ShareOptionsInteractorProtocol {
                     newObjectId = try await createNoteObject(text: text, spaceId: spaceId).id
                     blockInformation = BlockInformation.emptyLink(targetId: newObjectId)
                 case let .url(url):
-                    newObjectId = try await createBookmarkObject(url: url, spaceId: spaceId).id
+                    newObjectId = try await createBookmarkObject(url: AnytypeURL(url: url), spaceId: spaceId).id
                     blockInformation = BlockInformation.bookmark(targetId: newObjectId)
                 case let .file(url):
                     let data = FileData(path: url.relativePath, isTemporary: false)
@@ -104,13 +106,13 @@ final class ShareOptionsInteractor: ShareOptionsInteractorProtocol {
         }
     }
     
-    private func createBookmarkObject(url: URL, spaceId: BlockId) async throws -> ObjectDetails {
+    private func createBookmarkObject(url: AnytypeURL, spaceId: String) async throws -> ObjectDetails {
         let newBookmark = try await bookmarkService.createBookmarkObject(
             spaceId: spaceId,
-            url: url.absoluteString,
+            url: url,
             origin: .sharingExtension
         )
-        try await bookmarkService.fetchBookmarkContent(bookmarkId: newBookmark.id, url: url.absoluteString)
+        try await bookmarkService.fetchBookmarkContent(bookmarkId: newBookmark.id, url: url)
         
         AnytypeAnalytics.instance().logCreateObject(
             objectType: .object(typeId: ObjectTypeUniqueKey.bookmark.value),
@@ -119,7 +121,7 @@ final class ShareOptionsInteractor: ShareOptionsInteractorProtocol {
         return newBookmark
     }
 
-    private func createNoteObject(text: String, spaceId: BlockId) async throws -> ObjectDetails {
+    private func createNoteObject(text: String, spaceId: String) async throws -> ObjectDetails {
         let newObject = try await objectActionsService.createObject(
             name: "",
             typeUniqueKey: .note,
@@ -131,7 +133,7 @@ final class ShareOptionsInteractor: ShareOptionsInteractorProtocol {
             templateId: nil
         )
         let lastBlockInDocument = try await blockService.lastBlockId(from: newObject.id)
-        _ = try await pasteboardMiddlewareService.pasteText(text, objectId: newObject.id, context: .selected([lastBlockInDocument]))
+        _ = try await pasteboardMiddlewareService.pasteText(text, objectId: newObject.id, context: .selected(blockIds: [lastBlockInDocument]))
         
         AnytypeAnalytics.instance().logCreateObject(
             objectType: .object(typeId: ObjectTypeUniqueKey.note.value),
@@ -148,7 +150,7 @@ final class ShareOptionsInteractor: ShareOptionsInteractorProtocol {
             info: .emptyText,
             position: .bottom
         )
-        _ = try await pasteboardMiddlewareService.pasteText(text, objectId: addToObject.id, context: .selected([newBlockId]))
+        _ = try await pasteboardMiddlewareService.pasteText(text, objectId: addToObject.id, context: .selected(blockIds: [newBlockId]))
         if logAnalytics {
             AnytypeAnalytics.instance().logCreateBlock(type: BlockInformation.emptyText.content.type, route: .sharingExtension)
         }

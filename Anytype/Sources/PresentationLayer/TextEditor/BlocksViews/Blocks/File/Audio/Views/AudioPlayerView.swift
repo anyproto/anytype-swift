@@ -10,7 +10,7 @@ import UIKit
 import AVFoundation
 
 
-protocol AudioPlayerViewDelegate: AnyObject, HashableProvier {
+protocol AudioPlayerViewDelegate: AnyObject {
     var audioPlayerView: AudioPlayerViewInput? { get set }
     var currentTime: Double { get }
     /// Track duration in seconds

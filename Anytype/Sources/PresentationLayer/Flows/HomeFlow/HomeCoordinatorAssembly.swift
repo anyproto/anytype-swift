@@ -45,6 +45,9 @@ final class HomeCoordinatorAssembly: HomeCoordinatorAssemblyProtocol {
             newSearchModuleAssembly: modulesDI.newSearch(),
             objectActionsService: serviceLocator.objectActionsService(),
             defaultObjectService: serviceLocator.defaultObjectCreationService(),
+            blockService: serviceLocator.blockService(),
+            bookmarkService: serviceLocator.bookmarkService(),
+            pasteboardBlockService: serviceLocator.pasteboardBlockService(),
             typeProvider: serviceLocator.objectTypeProvider(),
             appActionsStorage: serviceLocator.appActionStorage(),
             widgetTypeModuleAssembly: modulesDI.widgetType(),
@@ -59,7 +62,8 @@ final class HomeCoordinatorAssembly: HomeCoordinatorAssemblyProtocol {
             setObjectCreationCoordinatorAssembly: coordinatorsID.setObjectCreation(),
             sharingTipCoordinator: coordinatorsID.sharingTip(),
             galleryInstallationCoordinatorAssembly: coordinatorsID.galleryInstallation(),
-            notificationCoordinator: coordinatorsID.notificationCoordinator()
+            notificationCoordinator: coordinatorsID.notificationCoordinator(),
+            spaceJoinModuleAssembly: modulesDI.spaceJoin()
         )
     }
 }

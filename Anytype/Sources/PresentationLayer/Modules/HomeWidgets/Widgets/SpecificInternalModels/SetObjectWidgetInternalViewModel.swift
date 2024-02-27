@@ -34,7 +34,7 @@ final class SetObjectWidgetInternalViewModel: CommonWidgetInternalViewModel, Wid
     var allowCreateObject = true
     
     init(
-        widgetBlockId: BlockId,
+        widgetBlockId: String,
         widgetObject: BaseDocumentProtocol,
         setSubscriptionDataBuilder: SetSubscriptionDataBuilderProtocol,
         subscriptionStorageProvider: SubscriptionStorageProviderProtocol,
@@ -191,6 +191,6 @@ final class SetObjectWidgetInternalViewModel: CommonWidgetInternalViewModel, Wid
     
     private func setActiveViewId() {
         guard let widgetInfo, setDocument?.activeView.id != widgetInfo.block.viewId else { return }
-        setDocument?.updateActiveViewId(widgetInfo.block.viewId)
+        setDocument?.updateActiveViewIdAndReload(widgetInfo.block.viewId)
     }
 }

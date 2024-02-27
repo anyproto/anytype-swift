@@ -4,13 +4,13 @@ import AnytypeCore
 public class ToggleStorage {
     public static let shared = ToggleStorage()
     
-    private var toggles = SynchronizedDictionary<BlockId, Bool>()
+    private var toggles = SynchronizedDictionary<String, Bool>()
 
-    public func isToggled(blockId: BlockId) -> Bool {
+    public func isToggled(blockId: String) -> Bool {
         toggles[blockId] ?? false
     }
     
-    public func toggle(blockId: BlockId) {
+    public func toggle(blockId: String) {
         toggles[blockId] = !isToggled(blockId: blockId)
     }
 }

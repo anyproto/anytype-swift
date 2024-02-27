@@ -25,13 +25,14 @@ final class StyleColorViewController: UIViewController {
         super.init(nibName: nil, bundle: nil)
 
         colorView = ColorView(
-            selectedColor: selectedColor,
-            selectedBackgroundColor: selectedBackgroundColor,
             colorViewSelectedAction: onColorSelection,
             viewDidClose: { [weak self] in
                 self?.removeFromParentEmbed()
                 self.map { self?.viewDidCloseHandler($0) }
             })
+        
+        colorView.selectedTextColor = selectedColor
+        colorView.selectedBackgroundColor = selectedBackgroundColor
     }
 
     @available(*, unavailable)

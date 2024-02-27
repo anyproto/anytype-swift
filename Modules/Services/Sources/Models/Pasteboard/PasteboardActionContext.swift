@@ -1,15 +1,15 @@
 import Foundation
 
 public enum PasteboardActionContext {
-    case focused(BlockId, NSRange)
-    case selected([BlockId])
+    case focused(blockId: String, range: NSRange)
+    case selected(blockIds: [String])
 
     public var focusedBlockId: String {
         switch self {
         case .focused(let blockId, _):
             return blockId
         case .selected(_):
-            return BlockId.empty
+            return ""
         }
     }
 
@@ -22,7 +22,7 @@ public enum PasteboardActionContext {
         }
     }
 
-    public var selectedBlocksIds: [BlockId] {
+    public var selectedBlocksIds: [String] {
         switch self {
         case .focused:
             return []

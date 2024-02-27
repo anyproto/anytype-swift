@@ -4,10 +4,16 @@ import SwiftUI
 import UniformTypeIdentifiers
 import MobileCoreServices
 import SharedContentManager
+import DeepLinks
 
 class ShareViewController: SLComposeServiceViewController {
 
     private let sharedContentManager = SharingDI.shared.sharedContentManager()
+    #if DEBUG
+    private let deepLinkParser = DeepLinkDI.shared.parser(isDebug: true)
+    #else
+    private let deepLinkParser = DeepLinkDI.shared.parser(isDebug: false)
+    #endif
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -37,7 +43,8 @@ class ShareViewController: SLComposeServiceViewController {
     }
     
     private func openMainApp() {
-        _ = URLConstants.sharingExtenstionURL.map { openURL($0) }
+        guard let url = deepLinkParser.createUrl(deepLink: .showSharingExtension, scheme: .buildSpecific) else { return }
+        _ = openURL(url)
     }
     
     // Courtesy: https://stackoverflow.com/a/44499222/13363449 👇🏾

@@ -7,7 +7,7 @@ class CommonWidgetInternalViewModel {
     
     // MARK: - DI
     
-    let widgetBlockId: BlockId
+    let widgetBlockId: String
     let widgetObject: BaseDocumentProtocol
     
     // MARK: - State
@@ -22,7 +22,7 @@ class CommonWidgetInternalViewModel {
     var contentIsAppear = false
     
     init(
-        widgetBlockId: BlockId,
+        widgetBlockId: String,
         widgetObject: BaseDocumentProtocol
     ) {
         self.widgetBlockId = widgetBlockId

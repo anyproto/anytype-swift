@@ -26,7 +26,7 @@ actor SubscriptionStorage: SubscriptionStorageProtocol {
     private var data: SubscriptionData?
     private var update: (@MainActor (_ data: SubscriptionStorageState) -> Void)?
     
-    private var orderIds: [BlockId] = []
+    private var orderIds: [String] = []
     private var state = SubscriptionStorageState(total: 0, nextCount: 0, prevCount: 0, items: [])
     
     init(subId: String, detailsStorage: ObjectDetailsStorage, toggler: SubscriptionTogglerProtocol) {

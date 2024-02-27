@@ -4,11 +4,11 @@ import AnytypeCore
 
 final class DetailsService {
     
-    private let objectId: BlockId
+    private let objectId: String
     private let service: ObjectActionsServiceProtocol
     private let fileService: FileActionsServiceProtocol
         
-    init(objectId: BlockId, service: ObjectActionsServiceProtocol, fileService: FileActionsServiceProtocol) {
+    init(objectId: String, service: ObjectActionsServiceProtocol, fileService: FileActionsServiceProtocol) {
         self.objectId = objectId
         self.service = service
         self.fileService = fileService

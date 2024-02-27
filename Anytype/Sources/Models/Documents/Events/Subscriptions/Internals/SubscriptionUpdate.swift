@@ -2,7 +2,7 @@ import Foundation
 import Services
 
 enum SubscriptionUpdate {
-    case remove(BlockId)
-    case add(BlockId, after: BlockId?)
-    case move(from: BlockId, after: BlockId?)
+    case remove(String)
+    case add(String, after: String?)
+    case move(from: String, after: String?)
 }

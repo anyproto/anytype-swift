@@ -3,6 +3,7 @@ import SwiftUI
 import Combine
 import Services
 import AnytypeCore
+import DeepLinks
 
 @MainActor
 final class HomeCoordinatorViewModel: ObservableObject,
@@ -20,6 +21,9 @@ final class HomeCoordinatorViewModel: ObservableObject,
     private let newSearchModuleAssembly: NewSearchModuleAssemblyProtocol
     private let objectActionsService: ObjectActionsServiceProtocol
     private let defaultObjectService: DefaultObjectCreationServiceProtocol
+    private let blockService: BlockServiceProtocol
+    private let bookmarkService: BookmarkServiceProtocol
+    private let pasteboardBlockService: PasteboardBlockServiceProtocol
     private let typeProvider: ObjectTypeProviderProtocol
     private let appActionsStorage: AppActionStorage
     private let widgetTypeModuleAssembly: WidgetTypeModuleAssemblyProtocol
@@ -35,6 +39,7 @@ final class HomeCoordinatorViewModel: ObservableObject,
     private let sharingTipCoordinator: SharingTipCoordinatorProtocol
     private let galleryInstallationCoordinatorAssembly: GalleryInstallationCoordinatorAssemblyProtocol
     private let notificationCoordinator: NotificationCoordinatorProtocol
+    private let spaceJoinModuleAssembly: SpaceJoinModuleAssemblyProtocol
     
     // MARK: - State
     
@@ -58,6 +63,7 @@ final class HomeCoordinatorViewModel: ObservableObject,
     @Published var toastBarData = ToastBarData.empty
     @Published var pathChanging: Bool = false
     @Published var keyboardToggle: Bool = false
+    @Published var spaceJoinData: SpaceJoinModuleData?
     
     private var currentSpaceId: String?
     
@@ -82,6 +88,9 @@ final class HomeCoordinatorViewModel: ObservableObject,
         newSearchModuleAssembly: NewSearchModuleAssemblyProtocol,
         objectActionsService: ObjectActionsServiceProtocol,
         defaultObjectService: DefaultObjectCreationServiceProtocol,
+        blockService: BlockServiceProtocol,
+        bookmarkService: BookmarkServiceProtocol,
+        pasteboardBlockService: PasteboardBlockServiceProtocol,
         typeProvider: ObjectTypeProviderProtocol,
         appActionsStorage: AppActionStorage,
         widgetTypeModuleAssembly: WidgetTypeModuleAssemblyProtocol,
@@ -96,7 +105,8 @@ final class HomeCoordinatorViewModel: ObservableObject,
         setObjectCreationCoordinatorAssembly: SetObjectCreationCoordinatorAssemblyProtocol,
         sharingTipCoordinator: SharingTipCoordinatorProtocol,
         galleryInstallationCoordinatorAssembly: GalleryInstallationCoordinatorAssemblyProtocol,
-        notificationCoordinator: NotificationCoordinatorProtocol
+        notificationCoordinator: NotificationCoordinatorProtocol,
+        spaceJoinModuleAssembly: SpaceJoinModuleAssemblyProtocol
     ) {
         self.homeWidgetsModuleAssembly = homeWidgetsModuleAssembly
         self.activeWorkspaceStorage = activeWorkspaceStorage
@@ -106,6 +116,9 @@ final class HomeCoordinatorViewModel: ObservableObject,
         self.newSearchModuleAssembly = newSearchModuleAssembly
         self.objectActionsService = objectActionsService
         self.defaultObjectService = defaultObjectService
+        self.blockService = blockService
+        self.bookmarkService = bookmarkService
+        self.pasteboardBlockService = pasteboardBlockService
         self.typeProvider = typeProvider
         self.appActionsStorage = appActionsStorage
         self.widgetTypeModuleAssembly = widgetTypeModuleAssembly
@@ -121,6 +134,7 @@ final class HomeCoordinatorViewModel: ObservableObject,
         self.sharingTipCoordinator = sharingTipCoordinator
         self.galleryInstallationCoordinatorAssembly = galleryInstallationCoordinatorAssembly
         self.notificationCoordinator = notificationCoordinator
+        self.spaceJoinModuleAssembly = spaceJoinModuleAssembly
     }
 
     func onAppear() {
@@ -192,21 +206,42 @@ final class HomeCoordinatorViewModel: ObservableObject,
     }
 
     func createTypeSearchModule() -> AnyView {
-        return objectTypeSearchModuleAssembly.make(
+        return objectTypeSearchModuleAssembly.makeTypeSearchForNewObjectCreation(
             title: Loc.createNewObject,
-            spaceId: activeWorkspaceStorage.workspaceInfo.accountSpaceId,
-            showPins: true,
-            showLists: true, 
-            showFiles: false
-        ) { [weak self] type in
-            self?.showTypeSearch = false
-            AnytypeAnalytics.instance().logSelectObjectType(type.analyticsType, route: .longTap)
-            self?.createAndShowNewObject(type: type, route: .navigation)
+            spaceId: activeWorkspaceStorage.workspaceInfo.accountSpaceId
+        ) { [weak self] result in
+            guard let self else { return }
+            self.showTypeSearch = false
+            
+            switch result {
+            case .objectType(let type):
+                AnytypeAnalytics.instance().logSelectObjectType(type.analyticsType, route: .longTap)
+                self.createAndShowNewObject(type: type, route: .navigation)
+            case .createFromPasteboard:
+                // TODO: Analytics from pasteboard
+                switch pasteboardBlockService.pasteboardContent {
+                case .none:
+                    anytypeAssertionFailure("No content in Pasteboard")
+                    return
+                case .url(let url):
+                    self.createAndShowNewBookmark(url: url)
+                case .string:
+                    fallthrough
+                case .otherContent:
+                    if let type = try? typeProvider.defaultObjectType(spaceId: activeWorkspaceStorage.workspaceInfo.accountSpaceId) {
+                        self.createAndShowNewObject(type: type, pasteContent: true, route: .navigation)
+                    }
+                }
+            }
         }
     }
 
     func createGalleryInstallationModule(data: GalleryInstallationData) -> AnyView {
         return galleryInstallationCoordinatorAssembly.make(data: data)
+    }
+    
+    func spaceJoinModule(data: SpaceJoinModuleData) -> AnyView {
+        return spaceJoinModuleAssembly.make(data: data)
     }
     
     // MARK: - HomeWidgetsModuleOutput
@@ -348,6 +383,7 @@ final class HomeCoordinatorViewModel: ObservableObject,
 
     private func createAndShowNewObject(
         type: ObjectType,
+        pasteContent: Bool = false,
         route: AnalyticsEventsRouteKind
     ) {
         Task {
@@ -361,8 +397,36 @@ final class HomeCoordinatorViewModel: ObservableObject,
                 origin: .none,
                 templateId: type.defaultTemplateId
             )
-
             AnytypeAnalytics.instance().logCreateObject(objectType: details.analyticsType, route: route)
+            
+            if pasteContent && !type.isListType {
+                try await objectActionsService.applyTemplate(objectId: details.id, templateId: type.defaultTemplateId)
+                let blockId = try await blockService.addFirstBlock(contextId: details.id, info: .emptyText)
+                
+                pasteboardBlockService.pasteInsideBlock(
+                    objectId: details.id,
+                    focusedBlockId: blockId,
+                    range: .zero,
+                    handleLongOperation: { },
+                    completion: { _ in }
+                )
+            }
+
+            openObject(screenData: details.editorScreenData())
+        }
+    }
+    
+    private func createAndShowNewBookmark(url: AnytypeURL) {
+        Task {
+            let details = try await bookmarkService.createBookmarkObject(
+                spaceId: activeWorkspaceStorage.workspaceInfo.accountSpaceId,
+                url: url,
+                origin: .clipboard
+            )
+            
+            AnytypeAnalytics.instance().logSelectObjectType(details.analyticsType, route: .longTap)
+            AnytypeAnalytics.instance().logCreateObject(objectType: details.analyticsType, route: .navigation)
+
             openObject(screenData: details.editorScreenData())
         }
     }
@@ -372,6 +436,13 @@ final class HomeCoordinatorViewModel: ObservableObject,
         switch action {
         case .createObjectFromQuickAction(let typeId):
             createAndShowNewObject(typeId: typeId, route: .homeScreen)
+        case .deepLink(let deepLink):
+            handleDeepLink(deepLink: deepLink)
+        }
+    }
+    
+    private func handleDeepLink(deepLink: DeepLink) {
+        switch deepLink {
         case .createObjectFromWidget:
             createAndShowDefaultObject(route: .widget)
         case .showSharingExtension:
@@ -386,8 +457,12 @@ final class HomeCoordinatorViewModel: ObservableObject,
             navigationContext.dismissAllPresented(animated: true) { [weak self] in
                 self?.showGalleryImport = GalleryInstallationData(type: type, source: source)
             }
-        case .invite:
-            break
+        case .invite(let cid, let key):
+            if FeatureFlags.multiplayer {
+                navigationContext.dismissAllPresented(animated: true) { [weak self] in
+                    self?.spaceJoinData = SpaceJoinModuleData(cid: cid, key: key)
+                }
+            }
         }
     }
     

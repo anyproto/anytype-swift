@@ -25,13 +25,14 @@ final class SpaceSettingsViewModel: ObservableObject {
     private var spaceView: SpaceView?
     
     @Published var spaceName: String = ""
-    @Published var spaceType: String = ""
+    @Published var spaceAccessType: String = ""
     @Published var spaceIcon: Icon?
     @Published var info = [SettingsInfoModel]()
     @Published var snackBarData = ToastBarData.empty
     @Published var showSpaceDeleteAlert = false
     @Published var dismiss: Bool = false
     @Published var allowDelete: Bool = false
+    @Published var allowShare: Bool = false
     
     init(
         activeWorkspaceStorage: ActiveWorkpaceStorageProtocol,
@@ -103,8 +104,9 @@ final class SpaceSettingsViewModel: ObservableObject {
     private func handleSpaceDetails(details: SpaceView) {
         spaceView = details
         spaceIcon = details.objectIconImage
-        spaceType = details.spaceAccessType?.name ?? ""
-        allowDelete = details.spaceAccessType == .personal || details.spaceAccessType == .private
+        spaceAccessType = details.spaceAccessType?.name ?? ""
+        allowDelete = accountManager.account.info.spaceViewId != details.id
+        allowShare = details.spaceAccessType?.canBeShared ?? false
         buildInfoBlock(details: details)
         
         if !dataLoaded {

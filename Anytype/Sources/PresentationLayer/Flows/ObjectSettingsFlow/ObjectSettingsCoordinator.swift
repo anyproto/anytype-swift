@@ -2,15 +2,17 @@ import Foundation
 import Services
 import AnytypeCore
 
+@MainActor
 protocol ObjectSettingsCoordinatorProtocol {
     func startFlow(
-        objectId: BlockId,
+        objectId: String,
         delegate: ObjectSettingsModuleDelegate,
         output: ObjectSettingsCoordinatorOutput?,
         objectSettingsHandler: @escaping (ObjectSettingsAction) -> Void
     )
 }
 
+@MainActor
 final class ObjectSettingsCoordinator: ObjectSettingsCoordinatorProtocol,
                                        ObjectSettingsModelOutput, RelationsListModuleOutput,
                                        RelationValueCoordinatorOutput {
@@ -58,7 +60,7 @@ final class ObjectSettingsCoordinator: ObjectSettingsCoordinatorProtocol,
     }
     
     func startFlow(
-        objectId: BlockId,
+        objectId: String,
         delegate: ObjectSettingsModuleDelegate,
         output: ObjectSettingsCoordinatorOutput?,
         objectSettingsHandler: @escaping (ObjectSettingsAction) -> Void
@@ -119,10 +121,10 @@ final class ObjectSettingsCoordinator: ObjectSettingsCoordinatorProtocol,
     }
     
     func openPageAction(screenData: EditorScreenData) {
-        output?.showPage(data: screenData)
+        output?.showEditorScreen(data: screenData)
     }
     
-    func linkToAction(document: BaseDocumentProtocol, onSelect: @escaping (BlockId) -> ()) {
+    func linkToAction(document: BaseDocumentProtocol, onSelect: @escaping (String) -> ()) {
         let moduleView = newSearchModuleAssembly.blockObjectsSearchModule(
             title: Loc.linkTo,
             spaceId: document.spaceId,
@@ -143,7 +145,6 @@ final class ObjectSettingsCoordinator: ObjectSettingsCoordinatorProtocol,
     
     // MARK: - RelationsListModuleOutput
     
-    @MainActor
     func addNewRelationAction(document: BaseDocumentProtocol) {
         addNewRelationCoordinator.showAddNewRelationView(
             document: document,
@@ -155,7 +156,6 @@ final class ObjectSettingsCoordinator: ObjectSettingsCoordinatorProtocol,
         )
     }
     
-    @MainActor
     func editRelationValueAction(document: BaseDocumentProtocol, relationKey: String) {
         let relation = document.parsedRelations.installed.first { $0.key == relationKey }
         guard let relation = relation else {
@@ -178,9 +178,9 @@ final class ObjectSettingsCoordinator: ObjectSettingsCoordinatorProtocol,
     
     // MARK: - RelationValueCoordinatorOutput
     
-    func openObject(screenData: EditorScreenData) {
+    func showEditorScreen(data: EditorScreenData) {
         navigationContext.dismissAllPresented(animated: true) { [weak self] in
-            self?.output?.showPage(data: screenData)
+            self?.output?.showEditorScreen(data: data)
         }
     }
 }

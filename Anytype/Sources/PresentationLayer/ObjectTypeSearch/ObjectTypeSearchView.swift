@@ -17,11 +17,32 @@ struct ObjectTypeSearchView: View {
             TitleView(title: title)
             SearchBar(text: $viewModel.searchText, focused: false, placeholder: Loc.search)
             content
+            pasteButton
         }
         .background(Color.Background.secondary)
         
         .onChange(of: viewModel.searchText) { viewModel.search(text: $0) }
-        .onAppear { viewModel.search(text: viewModel.searchText) }
+        .task {
+            viewModel.onAppear()
+        }
+    }
+    
+    private var pasteButton: some View {
+        Group {
+            if viewModel.showPasteButton {
+                Button {
+                    viewModel.createObjectFromClipboard()
+                } label: {
+                    HStack(spacing: 6) {
+                        Image(asset: .X24.clipboard).foregroundStyle(Color.Button.active)
+                        AnytypeText(Loc.createObjectFromClipboard, style: .caption1Medium, color: .Text.secondary)
+                        Spacer()
+                    }
+                    .padding(.horizontal, 20)
+                    .padding(.vertical, 12)
+                }
+            }
+        }
     }
     
     private var content: some View {

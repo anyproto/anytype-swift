@@ -3,9 +3,20 @@ import Services
 import SwiftUI
 import AnytypeCore
 
+
+enum TypeSelectionResult {
+    case objectType(type: ObjectType)
+    case createFromPasteboard
+}
+
 protocol ObjectTypeSearchModuleAssemblyProtocol: AnyObject {
+    func makeTypeSearchForNewObjectCreation(
+        title: String,
+        spaceId: String,
+        onSelect: @escaping (TypeSelectionResult) -> Void
+    ) -> AnyView
     
-    func make(
+    func makeDefaultTypeSearch(
         title: String,
         spaceId: String,
         showPins: Bool,
@@ -25,7 +36,32 @@ final class ObjectTypeSearchModuleAssembly: ObjectTypeSearchModuleAssemblyProtoc
         self.serviceLocator = serviceLocator
     }
     
-    func make(
+    func makeTypeSearchForNewObjectCreation(
+        title: String,
+        spaceId: String,
+        onSelect: @escaping (TypeSelectionResult) -> Void
+    ) -> AnyView {
+        let model = ObjectTypeSearchViewModel(
+            showPins: true,
+            showLists: true,
+            showFiles: false, 
+            allowPaste: true,
+            spaceId: spaceId,
+            workspaceService: serviceLocator.workspaceService(),
+            typesService: serviceLocator.typesService(),
+            objectTypeProvider: serviceLocator.objectTypeProvider(),
+            toastPresenter: uiHelpersDI.toastPresenter(),
+            pasteboardHelper: serviceLocator.pasteboardHelper(),
+            onSelect: onSelect
+        )
+        
+        return ObjectTypeSearchView(
+            title: title,
+            viewModel: model
+        ).eraseToAnyView()
+    }
+    
+    func makeDefaultTypeSearch(
         title: String,
         spaceId: String,
         showPins: Bool,
@@ -38,12 +74,21 @@ final class ObjectTypeSearchModuleAssembly: ObjectTypeSearchModuleAssemblyProtoc
                 showPins: showPins,
                 showLists: showLists, 
                 showFiles: showFiles,
+                allowPaste: false,
                 spaceId: spaceId,
                 workspaceService: serviceLocator.workspaceService(),
                 typesService: serviceLocator.typesService(),
                 objectTypeProvider: serviceLocator.objectTypeProvider(),
-                toastPresenter: uiHelpersDI.toastPresenter(),
-                onSelect: onSelect
+                toastPresenter: uiHelpersDI.toastPresenter(), 
+                pasteboardHelper: serviceLocator.pasteboardHelper(),
+                onSelect: { result in
+                    switch result {
+                    case .objectType(let type):
+                        onSelect(type)
+                    case .createFromPasteboard:
+                        anytypeAssertionFailure("Unsupported action createFromPasteboard")
+                    }
+                }
             )
             
             return ObjectTypeSearchView(

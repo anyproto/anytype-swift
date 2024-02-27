@@ -10,7 +10,7 @@ public final class BlockService: BlockServiceProtocol {
     
     public init() {}
     
-    public func add(contextId: String, targetId: BlockId, info: BlockInformation, position: BlockPosition) async throws -> BlockId {
+    public func add(contextId: String, targetId: String, info: BlockInformation, position: BlockPosition) async throws -> String {
         guard let block = BlockInformationConverter.convert(information: info) else {
             anytypeAssertionFailure("addActionBlockIsNotParsed")
             throw CommonError.undefined
@@ -26,14 +26,19 @@ public final class BlockService: BlockServiceProtocol {
         return response.blockID
     }
     
-    public func delete(contextId: String, blockIds: [BlockId]) async throws {
+    public func addFirstBlock(contextId: String, info: BlockInformation) async throws -> String {
+        let headerBlockId = "header"
+        return try await add(contextId: contextId, targetId: headerBlockId, info: info, position: .bottom)
+    }
+    
+    public func delete(contextId: String, blockIds: [String]) async throws {
         try await ClientCommands.blockListDelete(.with {
             $0.contextID = contextId
             $0.blockIds = blockIds
         }).invoke()
     }
 
-    public func duplicate(contextId: String, targetId: BlockId, blockIds: [BlockId], position: BlockPosition) async throws {
+    public func duplicate(contextId: String, targetId: String, blockIds: [String], position: BlockPosition) async throws {
         try await ClientCommands.blockListDuplicate(.with {
             $0.contextID = contextId
             $0.targetID = targetId
@@ -45,7 +50,7 @@ public final class BlockService: BlockServiceProtocol {
     public func move(
         contextId: String,
         blockIds: [String],
-        targetContextID: BlockId,
+        targetContextID: String,
         dropTargetID: String,
         position: BlockPosition
     ) async throws {
@@ -58,7 +63,7 @@ public final class BlockService: BlockServiceProtocol {
         }).invoke()
     }   
     
-    public func setBlockColor(objectId: BlockId, blockIds: [BlockId], color: MiddlewareColor) async throws {
+    public func setBlockColor(objectId: String, blockIds: [String], color: MiddlewareColor) async throws {
         try await ClientCommands.blockTextListSetColor(.with {
             $0.contextID = objectId
             $0.blockIds = blockIds
@@ -66,7 +71,7 @@ public final class BlockService: BlockServiceProtocol {
         }).invoke()
     }
     
-    public func setFields(objectId: BlockId, blockId: BlockId, fields: BlockFields) async throws {
+    public func setFields(objectId: String, blockId: String, fields: BlockFields) async throws {
         let fieldsRequest = Anytype_Rpc.Block.ListSetFields.Request.BlockField.with {
             $0.blockID = blockId
             $0.fields = .with {
@@ -80,8 +85,8 @@ public final class BlockService: BlockServiceProtocol {
     }
 
     public func changeMarkup(
-        objectId: BlockId,
-        blockIds: [BlockId],
+        objectId: String,
+        blockIds: [String],
         markType: MarkupType
     ) async throws {
         guard let mark = markType.asMiddleware else { return }
@@ -92,7 +97,7 @@ public final class BlockService: BlockServiceProtocol {
         }).invoke()
     }
 
-    public func setBackgroundColor(objectId: BlockId, blockIds: [BlockId], color: MiddlewareColor) async throws {
+    public func setBackgroundColor(objectId: String, blockIds: [String], color: MiddlewareColor) async throws {
         try await ClientCommands.blockListSetBackgroundColor(.with {
             $0.contextID = objectId
             $0.blockIds = blockIds
@@ -100,7 +105,7 @@ public final class BlockService: BlockServiceProtocol {
         }).invoke()
     }
 
-    public func setAlign(objectId: BlockId, blockIds: [BlockId], alignment: LayoutAlignment) async throws {
+    public func setAlign(objectId: String, blockIds: [String], alignment: LayoutAlignment) async throws {
         try await ClientCommands.blockListSetAlign(.with {
             $0.contextID = objectId
             $0.blockIds = blockIds
@@ -108,7 +113,7 @@ public final class BlockService: BlockServiceProtocol {
         }).invoke()
     }
 
-    public func replace(objectId: BlockId, blockIds: [BlockId], targetId: BlockId) async throws {
+    public func replace(objectId: String, blockIds: [String], targetId: String) async throws {
         try await ClientCommands.blockListMoveToExistingObject(.with {
             $0.contextID = objectId
             $0.blockIds = blockIds
@@ -118,7 +123,7 @@ public final class BlockService: BlockServiceProtocol {
         }).invoke()
     }
     
-    public func move(objectId: BlockId, blockId: BlockId, targetId: BlockId, position: Anytype_Model_Block.Position) async throws {
+    public func move(objectId: String, blockId: String, targetId: String, position: Anytype_Model_Block.Position) async throws {
         try await ClientCommands.blockListMoveToExistingObject(.with {
             $0.contextID = objectId
             $0.blockIds = [blockId]
@@ -128,7 +133,7 @@ public final class BlockService: BlockServiceProtocol {
         }).invoke()
     }
     
-    public func moveToPage(objectId: BlockId, blockId: BlockId, pageId: BlockId) async throws {
+    public func moveToPage(objectId: String, blockId: String, pageId: String) async throws {
         try await ClientCommands.blockListMoveToExistingObject(.with {
             $0.contextID = objectId
             $0.blockIds = [blockId]
@@ -138,7 +143,7 @@ public final class BlockService: BlockServiceProtocol {
         }).invoke()
     }
 
-    public func setLinkAppearance(objectId: BlockId, blockIds: [BlockId], appearance: BlockLink.Appearance) async throws {
+    public func setLinkAppearance(objectId: String, blockIds: [String], appearance: BlockLink.Appearance) async throws {
         try await ClientCommands.blockLinkListSetAppearance(.with {
             $0.contextID = objectId
             $0.blockIds = blockIds
@@ -149,7 +154,7 @@ public final class BlockService: BlockServiceProtocol {
         }).invoke()
     }
     
-    public func lastBlockId(from objectId: BlockId) async throws -> BlockId {
+    public func lastBlockId(from objectId: String) async throws -> String {
         let objectShow = try await ClientCommands.objectShow(.with {
             $0.contextID = objectId
             $0.objectID = objectId
@@ -163,7 +168,7 @@ public final class BlockService: BlockServiceProtocol {
         return lastBlockId
     }
     
-    public func convertChildrenToPages(contextId: BlockId, blocksIds: [BlockId], typeUniqueKey: ObjectTypeUniqueKey) async throws -> [BlockId] {
+    public func convertChildrenToPages(contextId: String, blocksIds: [String], typeUniqueKey: ObjectTypeUniqueKey) async throws -> [String] {
         let response = try await ClientCommands.blockListConvertToObjects(.with {
             $0.contextID = contextId
             $0.blockIds = blocksIds
@@ -174,14 +179,14 @@ public final class BlockService: BlockServiceProtocol {
     }
     
     public func createBlockLink(
-        contextId: BlockId,
-        targetId: BlockId,
+        contextId: String,
+        targetId: String,
         spaceId: String,
         details: [BundledDetails],
         typeUniqueKey: ObjectTypeUniqueKey,
         position: BlockPosition,
         templateId: String
-    ) async throws -> BlockId {
+    ) async throws -> String {
         let protobufDetails = details.reduce([String: Google_Protobuf_Value]()) { result, detail in
             var result = result
             result[detail.key] = detail.value
@@ -234,7 +239,7 @@ private extension MarkupType {
         case let .linkToObject(blockId):
             return Anytype_Model_Block.Content.Text.Mark(range: .init(), type: .object, param: blockId ?? "")
         case let .mention(mentionData):
-            return Anytype_Model_Block.Content.Text.Mark(range: .init(), type: .mention, param: mentionData.blockId)
+            return Anytype_Model_Block.Content.Text.Mark(range: .init(), type: .mention, param: mentionData.id)
         case let .emoji(emoji):
             return Anytype_Model_Block.Content.Text.Mark(range: .init(), type: .emoji, param: emoji.value)
         }

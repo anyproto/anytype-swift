@@ -25,16 +25,16 @@ final class ObjectActionsViewModel: ObservableObject {
     @Published var isArchived: Bool = false
     @Published var toastData = ToastBarData.empty
     
-    var onLinkItselfAction: RoutingAction<(BlockId) -> Void>?
-    var onNewTemplateCreation: RoutingAction<BlockId>?
-    var onTemplateMakeDefault: RoutingAction<BlockId>?
+    var onLinkItselfAction: RoutingAction<(String) -> Void>?
+    var onNewTemplateCreation: RoutingAction<String>?
+    var onTemplateMakeDefault: RoutingAction<String>?
     var dismissSheet: () -> () = {}
 
     let undoRedoAction: () -> ()
     let openPageAction: (_ screenData: EditorScreenData) -> ()
     let closeEditorAction: () -> ()
     
-    private let objectId: BlockId
+    private let objectId: String
     private let service: ObjectActionsServiceProtocol
     private let blockService: BlockServiceProtocol
     private let templatesService: TemplatesServiceProtocol
@@ -43,7 +43,7 @@ final class ObjectActionsViewModel: ObservableObject {
     private let activeWorkpaceStorage: ActiveWorkpaceStorageProtocol
     
     init(
-        objectId: BlockId,
+        objectId: String,
         service: ObjectActionsServiceProtocol,
         blockService: BlockServiceProtocol,
         templatesService: TemplatesServiceProtocol,
@@ -113,7 +113,7 @@ final class ObjectActionsViewModel: ObservableObject {
     func linkItselfAction() {
         guard let currentObjectId = details?.id else { return }
 
-        let onObjectSelection: (BlockId) -> Void = { objectId in
+        let onObjectSelection: (String) -> Void = { objectId in
             Task { @MainActor [weak self] in
                 guard let self = self else { return }
                 let targetDocument = documentsProvider.document(objectId: objectId, forPreview: true)
