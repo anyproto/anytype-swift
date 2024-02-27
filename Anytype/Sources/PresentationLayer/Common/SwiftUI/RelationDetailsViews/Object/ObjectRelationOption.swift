@@ -8,6 +8,9 @@ struct ObjectRelationOption: Equatable, Identifiable {
     let type: String
     let isArchived: Bool
     let isDeleted: Bool
+    let disableDeletion: Bool
+    let disableDuplication: Bool
+    
     let editorScreenData: EditorScreenData?
     
     var isUnavailable: Bool {
@@ -24,6 +27,10 @@ extension ObjectRelationOption {
         isArchived = objectDetails.isArchived
         isDeleted = objectDetails.isDeleted
         editorScreenData = objectDetails.editorScreenData()
+        
+        let restrictions = objectDetails.restrictionsList.compactMap { ObjectRestriction(rawValue: $0) }
+        disableDeletion = restrictions.contains(.delete)
+        disableDuplication = restrictions.contains(.duplicate)
     }
 }
 

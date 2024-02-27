@@ -34,6 +34,7 @@ struct ObjectRelationListView: View {
             header
             ForEach(viewModel.options) { option in
                 optionRow(with: option)
+                    .deleteDisabled(option.disableDeletion)
             }
             .onDelete {
                 viewModel.onOptionDelete(with: $0)
@@ -83,14 +84,16 @@ struct ObjectRelationListView: View {
                 viewModel.onObjectOpen(option)
             }
             
-            if viewModel.canDuplicateObject() {
+            if !option.disableDuplication {
                 Button(Loc.duplicate) {
                     viewModel.onObjectDuplicate(option)
                 }
             }
             
-            Button(Loc.delete, role: .destructive) {
-                viewModel.onOptionDelete(option)
+            if !option.disableDeletion {
+                Button(Loc.delete, role: .destructive) {
+                    viewModel.onOptionDelete(option)
+                }
             }
         }
     }

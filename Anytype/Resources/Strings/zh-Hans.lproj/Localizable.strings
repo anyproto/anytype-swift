@@ -845,7 +845,7 @@
 "ClearCacheAlert.Description" = "存储在 Anytype 中的所有媒体文件将从您当前的设备中删除。可以从备份节点或其他设备再次下载它们。";
 
 // MARK: - Spaces
-"Spaces.Accessibility.Public" = "公共空间";
+"Spaces.Accessibility.Shared" = "Shared Space";
 "Spaces.Accessibility.Private" = "私人空间";
 "Spaces.Accessibility.Personal" = "个人空间";
 "Spaces.Search.Title" = "搜索空间";

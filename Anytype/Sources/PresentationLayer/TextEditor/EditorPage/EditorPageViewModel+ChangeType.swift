@@ -3,7 +3,7 @@ import AnytypeCore
 
 
 extension EditorPageViewModel {
-    func onChangeType(typeSelection: TypeSelectionResult) {
+    func onChangeType(typeSelection: TypeSelectionResult) async throws {
         switch typeSelection {
         case .objectType(let type):
             onChangeType(type: type)
@@ -13,17 +13,13 @@ extension EditorPageViewModel {
                 anytypeAssertionFailure("Empty clipboard")
                 return
             case .url(let url):
-                Task {
-                    try await actionHandler.turnIntoBookmark(url: url)
-                }
+                try await actionHandler.turnIntoBookmark(url: url)
             case .string:
                 fallthrough
             case .otherContent:
-                Task {
-                    let type = try objectTypeProvider.defaultObjectType(spaceId: document.spaceId)
-                    try await actionHandler.applyTemplate(objectId: document.objectId, templateId: type.defaultTemplateId)
-                    actionHandler.pasteContent()
-                }
+                let type = try objectTypeProvider.defaultObjectType(spaceId: document.spaceId)
+                try await actionHandler.applyTemplate(objectId: document.objectId, templateId: type.defaultTemplateId)
+                actionHandler.pasteContent()
             }
         }
     }

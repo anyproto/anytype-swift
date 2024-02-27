@@ -1960,6 +1960,8 @@ internal enum Loc {
       internal static let spaceDeleted = Loc.tr("Localizable", "Space.Status.SpaceDeleted", fallback: "Deleted")
       /// Joining
       internal static let spaceJoining = Loc.tr("Localizable", "Space.Status.SpaceJoining", fallback: "Joining")
+      /// Removing
+      internal static let spaceRemoving = Loc.tr("Localizable", "Space.Status.SpaceRemoving", fallback: "Removing")
       /// Unknown
       internal static let unknown = Loc.tr("Localizable", "Space.Status.Unknown", fallback: "Unknown")
     }
@@ -2030,6 +2032,12 @@ internal enum Loc {
       }
       /// Join a space
       internal static let title = Loc.tr("Localizable", "SpaceShare.Join.Title", fallback: "Join a space")
+    }
+    internal enum JoinConfirmation {
+      /// You will receive a notification when the space owner will approve your request.
+      internal static let message = Loc.tr("Localizable", "SpaceShare.JoinConfirmation.Message", fallback: "You will receive a notification when the space owner will approve your request.")
+      /// Request sent
+      internal static let title = Loc.tr("Localizable", "SpaceShare.JoinConfirmation.Title", fallback: "Request sent")
     }
     internal enum Permissions {
       /// Owner

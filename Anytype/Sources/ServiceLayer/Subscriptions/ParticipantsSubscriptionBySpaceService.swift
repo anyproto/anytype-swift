@@ -2,17 +2,17 @@ import Foundation
 import Services
 
 @MainActor
-protocol ParticipantsSubscriptionServiceProtocol: AnyObject {
+protocol ParticipantsSubscriptionBySpaceServiceProtocol: AnyObject {
     func startSubscription(update: @escaping ([Participant]) -> Void) async
     func stopSubscription() async
 }
 
 @MainActor
-final class ParticipantsSubscriptionService: ParticipantsSubscriptionServiceProtocol {
+final class ParticipantsSubscriptionBySpaceService: ParticipantsSubscriptionBySpaceServiceProtocol {
     
     private let subscriptionStorage: SubscriptionStorageProtocol
     private let activeWorkspaceStorage: ActiveWorkpaceStorageProtocol
-    private let subscriptionId = "Participant-\(UUID().uuidString)"
+    private let subscriptionId = "SpaceParticipant-\(UUID().uuidString)"
     
     nonisolated init(
         subscriptionStorageProvider: SubscriptionStorageProviderProtocol,
@@ -44,12 +44,7 @@ final class ParticipantsSubscriptionService: ParticipantsSubscriptionServiceProt
                 filters: filters,
                 limit: 0,
                 offset: 0,
-                keys: .builder {
-                    BundledRelationKey.objectListKeys.map { $0.rawValue }
-                    BundledRelationKey.participantStatus.rawValue
-                    BundledRelationKey.participantPermissions.rawValue
-                    BundledRelationKey.identity.rawValue
-                }
+                keys: Participant.subscriptionKeys.map { $0.rawValue }
             )
         )
         

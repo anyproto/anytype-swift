@@ -15,7 +15,8 @@ final class SpaceJoinViewModel: ObservableObject {
     @Published var comment: String = ""
     @Published var state: ScreenState = .loading
     @Published var toast: ToastBarData = .empty
-    @Published var dismiss = false
+    @Published var showSuccessAlert = false
+    
     init(data: SpaceJoinModuleData, workspaceService: WorkspaceServiceProtocol) {
         self.data = data
         self.workspaceService = workspaceService
@@ -30,8 +31,7 @@ final class SpaceJoinViewModel: ObservableObject {
             throw CommonError.undefined
         }
         try await workspaceService.join(spaceId: inviteView.spaceId, cid: data.cid, key: data.key)
-        // TODO: Show success alert
-        dismiss.toggle()
+        showSuccessAlert.toggle()
     }
     
     // MARK: - Private

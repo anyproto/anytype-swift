@@ -58,6 +58,7 @@ struct AccessoryViewBuilder {
         )
         
         let accessoryViewSwitcher = AccessoryViewSwitcher(
+            document: document,
             mentionsView: mentionsView,
             slashMenuView: slashMenuView,
             cursorModeAccessoryView: cursorModeAccessoryView,
@@ -66,8 +67,7 @@ struct AccessoryViewBuilder {
         )
         
         slashMenuViewModel.resetSlashMenuHandler = { [weak accessoryViewSwitcher] in
-            accessoryViewSwitcher?.restoreDefaultState()
-            
+            accessoryViewSwitcher?.showDefaultView()
         }
         
         let stateManager = AccessoryViewStateManagerImpl(

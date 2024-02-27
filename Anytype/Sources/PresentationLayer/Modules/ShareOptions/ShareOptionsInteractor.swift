@@ -40,7 +40,7 @@ final class ShareOptionsInteractor: ShareOptionsInteractorProtocol {
         case .newObject(let spaceId, let linkToObject):
             await saveNewObject(spaceId: spaceId, linkToObject: linkToObject, content: content)
         case .blocks(let spaceId, let addToObject):
-            await saveNewBlock(spaceId: spaceId, addToObject: addToObject, content: content)
+            await saveNewBlock(spaceId: spaceId, addToObject: addToObject, content: content, logAnalytics: true)
         }
     }
     
@@ -57,10 +57,11 @@ final class ShareOptionsInteractor: ShareOptionsInteractorProtocol {
             origin: .sharingExtension,
             templateId: nil
         )
-        await saveNewBlock(spaceId: spaceId, addToObject: noteObject, content: content)
+        await saveNewBlock(spaceId: spaceId, addToObject: noteObject, content: content, logAnalytics: false)
         if let linkToObject {
             try await linkTo(object: linkToObject, newObjectId: noteObject.id, blockInformation: BlockInformation.emptyLink(targetId: noteObject.id))
         }
+        AnytypeAnalytics.instance().logCreateObject(objectType: noteObject.objectType.analyticsType, route: .sharingExtension)
     }
     
     private func saveNewObject(spaceId: String, linkToObject: ObjectDetails?, content: SharedContent) async {
@@ -90,16 +91,16 @@ final class ShareOptionsInteractor: ShareOptionsInteractorProtocol {
         }
     }
     
-    private func saveNewBlock(spaceId: String, addToObject: ObjectDetails, content: SharedContent) async {
+    private func saveNewBlock(spaceId: String, addToObject: ObjectDetails, content: SharedContent, logAnalytics: Bool) async {
         for contentItem in content.items {
             do {
                 switch contentItem {
                 case let .text(text):
-                    try await createTextBlock(text: text, addToObject: addToObject)
+                    try await createTextBlock(text: text, addToObject: addToObject, logAnalytics: logAnalytics)
                 case let .url(url):
-                    try await createBookmarkBlock(url: url, addToObject: addToObject)
+                    try await createBookmarkBlock(url: url, addToObject: addToObject, logAnalytics: logAnalytics)
                 case let .file(url):
-                    try await createFileBlock(fileURL: url, addToObject: addToObject)
+                    try await createFileBlock(fileURL: url, addToObject: addToObject, logAnalytics: logAnalytics)
                 }
             } catch {}
         }
@@ -141,7 +142,7 @@ final class ShareOptionsInteractor: ShareOptionsInteractorProtocol {
         return newObject
     }
     
-    private func createTextBlock(text: String, addToObject: ObjectDetails) async throws {
+    private func createTextBlock(text: String, addToObject: ObjectDetails, logAnalytics: Bool) async throws {
         let lastBlockInDocument = try await blockService.lastBlockId(from: addToObject.id)
         let newBlockId = try await blockService.add(
             contextId: addToObject.id,
@@ -150,10 +151,12 @@ final class ShareOptionsInteractor: ShareOptionsInteractorProtocol {
             position: .bottom
         )
         _ = try await pasteboardMiddlewareService.pasteText(text, objectId: addToObject.id, context: .selected(blockIds: [newBlockId]))
-        AnytypeAnalytics.instance().logCreateBlock(type: BlockInformation.emptyText.content.type, route: .sharingExtension)
+        if logAnalytics {
+            AnytypeAnalytics.instance().logCreateBlock(type: BlockInformation.emptyText.content.type, route: .sharingExtension)
+        }
     }
     
-    private func createBookmarkBlock(url: URL, addToObject: ObjectDetails) async throws {
+    private func createBookmarkBlock(url: URL, addToObject: ObjectDetails, logAnalytics: Bool) async throws {
         let blockInformation = url.attributedString.blockInformation
         let lastBlockInDocument = try await blockService.lastBlockId(from: addToObject.id)
         _ = try await blockService.add(
@@ -162,10 +165,12 @@ final class ShareOptionsInteractor: ShareOptionsInteractorProtocol {
             info: blockInformation,
             position: .bottom
         )
-        AnytypeAnalytics.instance().logCreateBlock(type: blockInformation.content.type, route: .sharingExtension)
+        if logAnalytics {
+            AnytypeAnalytics.instance().logCreateBlock(type: blockInformation.content.type, route: .sharingExtension)
+        }
     }
     
-    private func createFileBlock(fileURL: URL, addToObject: ObjectDetails) async throws {
+    private func createFileBlock(fileURL: URL, addToObject: ObjectDetails, logAnalytics: Bool) async throws {
         let lastBlockInDocument = try await blockService.lastBlockId(from: addToObject.id)
         let fileDetails = try await fileService.uploadFileObject(
             spaceId: addToObject.spaceId,
@@ -179,7 +184,9 @@ final class ShareOptionsInteractor: ShareOptionsInteractorProtocol {
             info: blockInformation,
             position: .bottom
         )
-        AnytypeAnalytics.instance().logCreateBlock(type: blockInformation.content.type, route: .sharingExtension)
+        if logAnalytics {
+            AnytypeAnalytics.instance().logCreateBlock(type: blockInformation.content.type, route: .sharingExtension)
+        }
     }
     
     private func linkTo(object linkToObject: ObjectDetails, newObjectId: String, blockInformation: BlockInformation) async throws {

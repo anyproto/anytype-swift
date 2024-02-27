@@ -14,8 +14,7 @@ struct SetSubscriptionData: Hashable {
     
     init(
         identifier: String,
-        source: [String]?,
-        view: DataviewView,
+        document: SetDocumentProtocol,
         groupFilter: DataviewFilter?,
         currentPage: Int,
         numberOfRowsPerPage: Int,
@@ -23,14 +22,26 @@ struct SetSubscriptionData: Hashable {
         objectOrderIds: [String]
     ) {
         self.identifier = identifier
-        self.source = source
+        self.source = document.details?.setOf
         
+        let view = document.activeView
+        
+        // Sorts
         var sorts = view.sorts
         if objectOrderIds.isNotEmpty {
             sorts.append(SearchHelper.customSort(ids: objectOrderIds))
         }
-        self.sorts = sorts
+        let setSorts = document.sorts(for: view.id)
+        self.sorts = sorts.map { sort in
+            guard let setSort = setSorts.first(where: { $0.sort.id == sort.id }) else {
+                return sort
+            }
+            var newSort = sort
+            newSort.format = setSort.relationDetails.format.asMiddleware
+            return newSort
+        }
         
+        // Filters
         var filters = view.filters
         if let groupFilter {
             filters.append(groupFilter)

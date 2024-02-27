@@ -8,6 +8,7 @@ struct AsyncStandardButton: View {
     let action: () async throws -> Void
     
     @State private var inProgress: Bool = false
+    @State private var toast = ToastBarData.empty
     
     var body: some View {
         StandardButton(.text(text), inProgress: inProgress, style: style) {
@@ -16,7 +17,9 @@ struct AsyncStandardButton: View {
             Task {
                 do {
                     try await action()
-                } catch {}
+                } catch {
+                    toast = ToastBarData(text: error.localizedDescription, showSnackBar: true, messageType: .failure)
+                }
                 inProgress = false
             }
         }

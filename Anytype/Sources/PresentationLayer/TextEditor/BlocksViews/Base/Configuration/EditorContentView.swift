@@ -156,8 +156,9 @@ final class EditorContentView<View: BlockContentView>: UIView & UIContentView, U
         item.localObject = dragConfiguration
         
         let dragPreview = UIDragPreview(view: self)
-        UIImpactFeedbackGenerator(style: .light).impactOccurred()
+        item.previewProvider = { dragPreview }
         
+        UIImpactFeedbackGenerator(style: .light).impactOccurred()
         return [item]
     }
 }

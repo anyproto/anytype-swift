@@ -284,8 +284,10 @@ final class EditorPageModuleAssembly: EditorPageModuleAssemblyProtocol {
             output: output
         )
 
-        accessoryState.1.onTypeSelected = { [weak viewModel] in
-            viewModel?.onChangeType(typeSelection: $0)
+        accessoryState.1.onTypeSelected = { [weak viewModel] typeSelection in
+            Task {
+                try await viewModel?.onChangeType(typeSelection: typeSelection)
+            }
         }
 
         return viewModel

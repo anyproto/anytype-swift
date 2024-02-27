@@ -212,6 +212,17 @@ public class SearchHelper {
         return filter
     }
     
+    public static func identityProfileLink(_ identityId: String) -> DataviewFilter {
+        var filter = DataviewFilter()
+        filter.condition = .equal
+        filter.value = identityId.protobufValue
+        
+        filter.relationKey = BundledRelationKey.identityProfileLink.rawValue
+        filter.operator = .and
+        
+        return filter
+    }
+    
     public static func spaceIds(_ spaceIds: [String]) -> DataviewFilter {
         var filter = DataviewFilter()
         filter.condition = .in
@@ -243,10 +254,10 @@ public class SearchHelper {
         return filter
     }
     
-    public static func spaceAccountStatusExcludeFilter(_ status: SpaceStatus) -> DataviewFilter {
+    public static func spaceAccountStatusExcludeFilter(_ statuses: SpaceStatus...) -> DataviewFilter {
         var filter = DataviewFilter()
-        filter.condition = .notEqual
-        filter.value = status.rawValue.protobufValue
+        filter.condition = .notIn
+        filter.value = statuses.map { $0.rawValue }.protobufValue
         filter.relationKey = BundledRelationKey.spaceAccountStatus.rawValue
         filter.operator = .and
         

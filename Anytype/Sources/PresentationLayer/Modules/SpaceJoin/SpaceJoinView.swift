@@ -15,10 +15,10 @@ struct SpaceJoinView: View {
         }
         .multilineTextAlignment(.center)
         .background(Color.Background.secondary)
-        .onChange(of: model.dismiss) { _ in
-            dismiss()
-        }
         .snackbar(toastBarData: $model.toast)
+        .anytypeSheet(isPresented: $model.showSuccessAlert, cancelAction: { dismiss() }) {
+            SpaceJoinConfirmationView(done: { dismiss() })
+        }
     }
     
     private var content: some View {

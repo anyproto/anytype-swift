@@ -43,7 +43,7 @@ final class PasteboardHelper: PasteboardHelperProtocol {
     var pasteboardContent: PasteboardContent? {
         guard numberOfItems != 0 else { return nil }
         
-        if numberOfItems == 1, let url = obtainUrl() {
+        if numberOfItems == 1, hasValidURL, let url = obtainUrl() {
             return .url(url)
         }
         

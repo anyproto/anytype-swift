@@ -27,6 +27,9 @@ class ShareViewController: SLComposeServiceViewController {
             return
         }
         Task {
+            // Dismiss keyboard fro fix layout in telegram app
+            try await Task.sleep(nanoseconds: UInt64(0.3 * 1_000_000_000))
+            view.endEditing(true)
             await storeSharedItems(extensionItem: extensionItem)
         }
     }
