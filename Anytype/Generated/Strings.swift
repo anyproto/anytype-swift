@@ -2031,6 +2031,12 @@ internal enum Loc {
       /// Join a space
       internal static let title = Loc.tr("Localizable", "SpaceShare.Join.Title", fallback: "Join a space")
     }
+    internal enum JoinConfirmation {
+      /// You will receive a notification when the space owner will approve your request.
+      internal static let message = Loc.tr("Localizable", "SpaceShare.JoinConfirmation.Message", fallback: "You will receive a notification when the space owner will approve your request.")
+      /// Request sent
+      internal static let title = Loc.tr("Localizable", "SpaceShare.JoinConfirmation.Title", fallback: "Request sent")
+    }
     internal enum Permissions {
       /// Owner
       internal static let owner = Loc.tr("Localizable", "SpaceShare.Permissions.Owner", fallback: "Owner")
