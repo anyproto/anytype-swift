@@ -528,6 +528,7 @@
 "Unsupported value" = "Unsupported value";
 "Select relation type" = "Select relation type";
 "CommonOpenErrorView.Message" = "No data found";
+"AreYouSure" = "Are you sure?";
 "Nothing found" = "Nothing found";
 "No type found text" = "No type “%@” found. Change your request or create new type.";
 "Create type" = "Create type";
@@ -864,6 +865,7 @@
 "Space.Status.SpaceDeleted" = "Deleted";
 "Space.Status.SpaceActive" = "Active";
 "Space.Status.SpaceJoining" = "Joining";
+"Space.Status.SpaceRemoving" = "Removing";
 
 // MARK: - Space Settings
 "SpaceSettings.Title" = "Space settings";
@@ -881,8 +883,8 @@
 "SpaceShare.Title" = "Share space";
 "SpaceShare.MembersSection" = "Members and requests";
 "SpaceShare.Permissions.Owner" = "Owner";
-"SpaceShare.Permissions.Reader" = "Can view";
-"SpaceShare.Permissions.Writer" = "Can edit";
+"SpaceShare.Permissions.Reader" = "Osoba przeglądająca";
+"SpaceShare.Permissions.Writer" = "Redaktor";
 "SpaceShare.Invite.Title" = "Invite link";
 "SpaceShare.Invite.Description" = "Send this link to invite others. Assign access rights upon their request approval";
 "SpaceShare.Invite.Button" = "Share invite link";
@@ -893,11 +895,16 @@
 "SpaceShare.ViewRequest.ViewAccess" = "Grand view access";
 "SpaceShare.ViewRequest.EditAccess" = "Grand edit access";
 "SpaceShare.ViewRequest.Reject" = "Reject";
+"SpaceShare.RemoveMember.Title" = "Usuń członka";
+"SpaceShare.RemoveMember.Message" = "%@ zostanie usunięty z przestrzeni.";
+"SpaceShare.ChangePermissions" = "Dostęp %@ do przestrzeni stanie się %@.";
 "SpaceShare.Join.Title" = "Dołącz do przestrzeni";
 "SpaceShare.Join.CommentPlaceholder" = "Pozostaw prywatny komentarz dla właściciela przestrzeni";
 "SpaceShare.Join.Button" = "Poproś o dołączenie";
 "SpaceShare.Join.Info" = "Gdy właściciel przestrzeni zatwierdzi Twoje żądanie, dołączysz do przestrzeni z określonym właścicielem praw dostępu.";
 "SpaceShare.Join.Message" = "Zostałeś zaproszony do dołączenia do %@ miejsca, utworzonego przez %@. Wyślij prośbę, aby właściciel przestrzeni mógł Ci pozwolić.";
+"SpaceShare.JoinConfirmation.Title" = "Request sent";
+"SpaceShare.JoinConfirmation.Message" = "You will receive a notification when the space owner will approve your request.";
 
 // MARK: - Space Create
 "SpaceCreate.Title" = "Create a space";
