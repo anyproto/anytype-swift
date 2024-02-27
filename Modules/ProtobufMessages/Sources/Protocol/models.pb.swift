@@ -3476,6 +3476,9 @@ public struct Anytype_Model_Restrictions {
 
     /// restricts duplicate object
     case duplicate // = 8
+
+    /// can be set only for types. Restricts creating objects of this type
+    case createObjectOfThisType // = 9
     case UNRECOGNIZED(Int)
 
     public init() {
@@ -3493,6 +3496,7 @@ public struct Anytype_Model_Restrictions {
       case 6: self = .layoutChange
       case 7: self = .template
       case 8: self = .duplicate
+      case 9: self = .createObjectOfThisType
       default: self = .UNRECOGNIZED(rawValue)
       }
     }
@@ -3508,6 +3512,7 @@ public struct Anytype_Model_Restrictions {
       case .layoutChange: return 6
       case .template: return 7
       case .duplicate: return 8
+      case .createObjectOfThisType: return 9
       case .UNRECOGNIZED(let i): return i
       }
     }
@@ -3579,6 +3584,7 @@ extension Anytype_Model_Restrictions.ObjectRestriction: CaseIterable {
     .layoutChange,
     .template,
     .duplicate,
+    .createObjectOfThisType,
   ]
 }
 
@@ -3669,6 +3675,9 @@ public struct Anytype_Model_ObjectType {
 
   /// revision of system objectType. Used to check if we should change type content or not
   public var revision: Int64 = 0
+
+  /// restricts creating objects of this type for users
+  public var restrictObjectCreation: Bool = false
 
   public var unknownFields = SwiftProtobuf.UnknownStorage()
 
@@ -8193,6 +8202,7 @@ extension Anytype_Model_Restrictions.ObjectRestriction: SwiftProtobuf._ProtoName
     6: .same(proto: "LayoutChange"),
     7: .same(proto: "Template"),
     8: .same(proto: "Duplicate"),
+    9: .same(proto: "CreateObjectOfThisType"),
   ]
 }
 
@@ -8354,6 +8364,7 @@ extension Anytype_Model_ObjectType: SwiftProtobuf.Message, SwiftProtobuf._Messag
     11: .same(proto: "installedByDefault"),
     12: .same(proto: "key"),
     13: .same(proto: "revision"),
+    14: .same(proto: "restrictObjectCreation"),
   ]
 
   public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
@@ -8375,6 +8386,7 @@ extension Anytype_Model_ObjectType: SwiftProtobuf.Message, SwiftProtobuf._Messag
       case 11: try { try decoder.decodeSingularBoolField(value: &self.installedByDefault) }()
       case 12: try { try decoder.decodeSingularStringField(value: &self.key) }()
       case 13: try { try decoder.decodeSingularInt64Field(value: &self.revision) }()
+      case 14: try { try decoder.decodeSingularBoolField(value: &self.restrictObjectCreation) }()
       default: break
       }
     }
@@ -8420,6 +8432,9 @@ extension Anytype_Model_ObjectType: SwiftProtobuf.Message, SwiftProtobuf._Messag
     if self.revision != 0 {
       try visitor.visitSingularInt64Field(value: self.revision, fieldNumber: 13)
     }
+    if self.restrictObjectCreation != false {
+      try visitor.visitSingularBoolField(value: self.restrictObjectCreation, fieldNumber: 14)
+    }
     try unknownFields.traverse(visitor: &visitor)
   }
 
@@ -8437,6 +8452,7 @@ extension Anytype_Model_ObjectType: SwiftProtobuf.Message, SwiftProtobuf._Messag
     if lhs.installedByDefault != rhs.installedByDefault {return false}
     if lhs.key != rhs.key {return false}
     if lhs.revision != rhs.revision {return false}
+    if lhs.restrictObjectCreation != rhs.restrictObjectCreation {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
