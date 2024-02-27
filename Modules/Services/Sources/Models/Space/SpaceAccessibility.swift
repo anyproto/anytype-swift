@@ -1,6 +1,4 @@
 import Foundation
+import ProtobufMessages
 
-public enum SpaceAccessibility: Int {
-    case `private` = 0
-    case personal = 1
-}
+public typealias SpaceAccessType = Anytype_Model_SpaceAccessType
