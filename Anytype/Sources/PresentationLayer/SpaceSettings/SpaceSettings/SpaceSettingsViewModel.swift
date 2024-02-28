@@ -32,6 +32,7 @@ final class SpaceSettingsViewModel: ObservableObject {
     @Published var info = [SettingsInfoModel]()
     @Published var snackBarData = ToastBarData.empty
     @Published var showSpaceDeleteAlert = false
+    @Published var showSpaceLeaveAlert = false
     @Published var dismiss: Bool = false
     @Published var allowDelete: Bool = false
     @Published var allowShare: Bool = false
@@ -95,7 +96,15 @@ final class SpaceSettingsViewModel: ObservableObject {
     }
     
     func onLeaveTap() {
-        
+        showSpaceLeaveAlert.toggle()
+    }
+    
+    func onLeaveConfirmationTap() async throws {
+        try await workspaceService.deleteSpace(spaceId: workspaceInfo.accountSpaceId)
+        if #unavailable(iOS 17.0) {
+            showSpaceLeaveAlert = false
+        }
+        dismiss.toggle()
     }
     
     // MARK: - Private

@@ -83,6 +83,11 @@ struct SpaceSettingsView: View {
                 model.onDeleteConfirmationTap()
             }
         }
+        .anytypeSheet(isPresented: $model.showSpaceLeaveAlert) {
+            SpaceLeaveAlertView(spaceName: model.spaceName) {
+                try await model.onLeaveConfirmationTap()
+            }
+        }
     }
 }
 

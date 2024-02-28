@@ -1997,6 +1997,14 @@ internal enum Loc {
         return Loc.tr("Localizable", "SpaceSettings.DeleteAlert.Title", String(describing: p1), fallback: "Delete ‘%@’ space")
       }
     }
+    internal enum LeaveAlert {
+      /// %@ space will be removed from your devices and you will no longer have access to it
+      internal static func message(_ p1: Any) -> String {
+        return Loc.tr("Localizable", "SpaceSettings.LeaveAlert.Message", String(describing: p1), fallback: "%@ space will be removed from your devices and you will no longer have access to it")
+      }
+      /// Leave and unjoin the space
+      internal static let title = Loc.tr("Localizable", "SpaceSettings.LeaveAlert.Title", fallback: "Leave and unjoin the space")
+    }
   }
   internal enum SpaceShare {
     /// %@ access to the space would become %@.
