@@ -108,7 +108,7 @@ final class SpaceShareViewModel: ObservableObject {
             })
         case .removing:
             return SpaceShareParticipantViewModel.Action(title: Loc.SpaceShare.Action.approve, action: { [weak self] in
-                self?.approveRemovingRequest(participant: participant)
+                try await self?.workspaceService.participantRemove(spaceId: participant.spaceId, identity: participant.identity)
             })
         case .active, .canceled, .declined, .removed, .UNRECOGNIZED:
             return nil
@@ -185,10 +185,6 @@ final class SpaceShareViewModel: ObservableObject {
                 try await self?.workspaceService.participantRemove(spaceId: participant.spaceId, identity: participant.identity)
             }
         )
-    }
-    
-    private func approveRemovingRequest(participant: Participant) {
-        
     }
 }
 
