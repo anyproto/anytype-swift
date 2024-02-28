@@ -10,9 +10,9 @@ struct SpaceShareParticipantViewModel: Identifiable {
     let contextActions: [ContextAction]
     
     enum Status {
-        case normal(permission: String)
+        case active(permission: String)
         case joining
-        case declined
+        case removing
     }
     
     struct Action {
@@ -55,15 +55,18 @@ struct SpaceShareParticipantView: View {
     @ViewBuilder
     private var status: some View {
         switch participant.status {
-        case .normal(let permission):
+        case .active(let permission):
             AnytypeText(permission, style: .relation3Regular, color: .Text.secondary)
         case .joining:
             AnytypeText(Loc.SpaceShare.Status.joining, style: .relation3Regular, color: .Dark.pink)
                 .padding(.horizontal, 3)
                 .background(Color.Light.pink)
                 .cornerRadius(3, style: .continuous)
-        case .declined:
-            AnytypeText(Loc.SpaceShare.Status.declined, style: .relation3Regular, color: .Text.secondary)
+        case .removing:
+            AnytypeText(Loc.SpaceShare.Status.removing, style: .relation3Regular, color: .Dark.red)
+                .padding(.horizontal, 3)
+                .background(Color.Light.red)
+                .cornerRadius(3, style: .continuous)
         case .none:
             EmptyView()
         }
