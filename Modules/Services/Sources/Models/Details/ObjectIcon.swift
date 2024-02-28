@@ -8,6 +8,8 @@ public enum ObjectIcon: Hashable {
     case space(Space)
     case todo(Bool)
     case placeholder(Character?)
+    case file(mimeType: String, name: String)
+    case deleted
 }
 
 // MARK: - ProfileIcon
@@ -16,14 +18,14 @@ public extension ObjectIcon {
     
     enum Profile: Hashable {
         case imageId(String)
-        case character(Character)
+        case name(String)
     }
     
 }
 
 public extension ObjectIcon {
     enum Space: Hashable {
-        case character(Character)
+        case name(String)
         case gradient(GradientId)
     }
 }
