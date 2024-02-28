@@ -534,6 +534,7 @@ extension EditorPageBlocksStateManager {
         router.showStyleMenu(informations: infos, restrictions: restrictions) { [weak self] presentedView in
             self?.viewInput?.adjustContentOffset(relatively: presentedView)
         } onDismiss: { [weak self] in
+            self?.editingState = .editing
             self?.bottomNavigationManager.styleViewActive(false)
             self?.viewInput?.restoreEditingState()
         }
