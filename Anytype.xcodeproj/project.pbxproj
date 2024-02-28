@@ -680,7 +680,6 @@
 		2AC434A22B7A0763006166BF /* SpaceShareCoordinatorAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AC434A12B7A0763006166BF /* SpaceShareCoordinatorAssembly.swift */; };
 		2AC434AA2B7A15B9006166BF /* SpaceShareParticipantView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AC434A92B7A15B9006166BF /* SpaceShareParticipantView.swift */; };
 		2AC434AC2B7A1D17006166BF /* CommonError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AC434AB2B7A1D17006166BF /* CommonError.swift */; };
-		2AC434AE2B7A1E3F006166BF /* Participant.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AC434AD2B7A1E3F006166BF /* Participant.swift */; };
 		2AC434B02B7A20EF006166BF /* Participant+Localization.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AC434AF2B7A20EF006166BF /* Participant+Localization.swift */; };
 		2AC750222AE7EB1A000CDD66 /* FloaterAlertView+DeleteSpace.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AC750212AE7EB1A000CDD66 /* FloaterAlertView+DeleteSpace.swift */; };
 		2AC906C129B5F8EF00209E39 /* WidgetInternalViewModelProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AC906C029B5F8EF00209E39 /* WidgetInternalViewModelProtocol.swift */; };
@@ -2445,7 +2444,6 @@
 		2AC434A12B7A0763006166BF /* SpaceShareCoordinatorAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpaceShareCoordinatorAssembly.swift; sourceTree = "<group>"; };
 		2AC434A92B7A15B9006166BF /* SpaceShareParticipantView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpaceShareParticipantView.swift; sourceTree = "<group>"; };
 		2AC434AB2B7A1D17006166BF /* CommonError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommonError.swift; sourceTree = "<group>"; };
-		2AC434AD2B7A1E3F006166BF /* Participant.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Participant.swift; sourceTree = "<group>"; };
 		2AC434AF2B7A20EF006166BF /* Participant+Localization.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Participant+Localization.swift"; sourceTree = "<group>"; };
 		2AC750212AE7EB1A000CDD66 /* FloaterAlertView+DeleteSpace.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "FloaterAlertView+DeleteSpace.swift"; sourceTree = "<group>"; };
 		2AC906C029B5F8EF00209E39 /* WidgetInternalViewModelProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WidgetInternalViewModelProtocol.swift; sourceTree = "<group>"; };
@@ -3767,7 +3765,6 @@
 		038FB5C922D8F32F002B90B8 /* Models */ = {
 			isa = PBXGroup;
 			children = (
-				2AC434AD2B7A1E3F006166BF /* Participant.swift */,
 				53D4089527ECCE9000495335 /* FieldConverters */,
 				5347854A2743C50C0097CA30 /* Relations */,
 				3D5A41652703170300F1F6A1 /* Blocks */,
@@ -11006,7 +11003,6 @@
 				3D155270264D8DB800B0E976 /* SeedPhraseView.swift in Sources */,
 				3DA626532657ADA700942249 /* PopupExtension.swift in Sources */,
 				3D00F1CF278D7CB700863D7C /* ObjectSearchData.swift in Sources */,
-				2AC434AE2B7A1E3F006166BF /* Participant.swift in Sources */,
 				2A64B6BB2B3DD54D000316E2 /* ObjectActionsServiceError+Localization.swift in Sources */,
 				2A4E5C8D296C0BFF002BB71B /* HomeBottomPanelViewModel.swift in Sources */,
 				2A66937D2A7104EA007747DD /* ObjectIconImageGuidelineSet.swift in Sources */,
