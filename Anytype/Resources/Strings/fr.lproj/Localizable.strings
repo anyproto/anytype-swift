@@ -846,7 +846,7 @@
 "ClearCacheAlert.Description" = "Tous les fichiers multimédias stockés dans Anytype seront supprimés de votre appareil actuel. Ils peuvent être téléchargés de nouveau à partir d'un nœud de sauvegarde ou d'un autre appareil.";
 
 // MARK: - Spaces
-"Spaces.Accessibility.Shared" = "Shared Space";
+"Spaces.Accessibility.Shared" = "Espace partagé";
 "Spaces.Accessibility.Private" = "Espace Privé";
 "Spaces.Accessibility.Personal" = "Paramètres";
 "Spaces.Search.Title" = "Rechercher des espaces";
@@ -865,7 +865,7 @@
 "Space.Status.SpaceDeleted" = "Supprimé";
 "Space.Status.SpaceActive" = "Actif";
 "Space.Status.SpaceJoining" = "Connexion";
-"Space.Status.SpaceRemoving" = "Removing";
+"Space.Status.SpaceRemoving" = "Suppression";
 
 // MARK: - Space Settings
 "SpaceSettings.Title" = "Paramètres de l'espace";
@@ -883,8 +883,8 @@
 "SpaceShare.Title" = "Partager l'espace";
 "SpaceShare.MembersSection" = "Membres et demandes";
 "SpaceShare.Permissions.Owner" = "Propriétaire";
-"SpaceShare.Permissions.Reader" = "Viewer";
-"SpaceShare.Permissions.Writer" = "Editor";
+"SpaceShare.Permissions.Reader" = "Visionneuse";
+"SpaceShare.Permissions.Writer" = "Éditeur";
 "SpaceShare.Invite.Title" = "Lien d'invitation";
 "SpaceShare.Invite.Description" = "Envoyez ce lien pour inviter d'autres personnes. Attribuez les droits d'accès lors de l'approbation de leur demande.\"";
 "SpaceShare.Invite.Button" = "Partager le lien d'invitation";
@@ -895,16 +895,16 @@
 "SpaceShare.ViewRequest.ViewAccess" = "Accorder l’accès en consultation";
 "SpaceShare.ViewRequest.EditAccess" = "Accorder un accès à l'édition";
 "SpaceShare.ViewRequest.Reject" = "Rejeter";
-"SpaceShare.RemoveMember.Title" = "Remove memeber";
-"SpaceShare.RemoveMember.Message" = "%@ will be removed from the space.";
-"SpaceShare.ChangePermissions" = "%@ access to the space would become %@.";
+"SpaceShare.RemoveMember.Title" = "Supprimer un membre";
+"SpaceShare.RemoveMember.Message" = "%@ sera retiré de l'espace.";
+"SpaceShare.ChangePermissions" = "%@ l’accès à l’espace deviendrait %@.";
 "SpaceShare.Join.Title" = "Rejoindre un espace";
 "SpaceShare.Join.CommentPlaceholder" = "Laisser un commentaire privé au propriétaire de l'espace";
 "SpaceShare.Join.Button" = "Demander à rejoindre";
 "SpaceShare.Join.Info" = "Une fois que le propriétaire de l'espace a approuvé votre demande, vous rejoindrez l'espace avec les droits d'accès déterminés par le propriétaire.";
 "SpaceShare.Join.Message" = "Vous avez été invité à rejoindre l'espace %@ créé par %@. Envoyez une demande afin que le propriétaire de l'espace puisse vous laisser entrer.";
-"SpaceShare.JoinConfirmation.Title" = "Request sent";
-"SpaceShare.JoinConfirmation.Message" = "You will receive a notification when the space owner will approve your request.";
+"SpaceShare.JoinConfirmation.Title" = "Demande envoyée";
+"SpaceShare.JoinConfirmation.Message" = "Vous recevrez une notification lorsque le propriétaire de l'espace approuvera votre demande.";
 
 // MARK: - Space Create
 "SpaceCreate.Title" = "Créer un espace";
