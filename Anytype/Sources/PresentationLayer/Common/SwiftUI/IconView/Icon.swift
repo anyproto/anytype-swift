@@ -23,3 +23,9 @@ extension Icon {
         case imageId(String)
     }
 }
+
+extension ObjectIcon {
+    var icon: Icon {
+        return .object(self)
+    }
+}

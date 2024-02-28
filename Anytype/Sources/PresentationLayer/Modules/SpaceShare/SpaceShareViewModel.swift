@@ -75,7 +75,7 @@ final class SpaceShareViewModel: ObservableObject {
         rows = participants.map { participant in
             SpaceShareParticipantViewModel(
                 id: participant.id,
-                icon: participant.icon,
+                icon: participant.icon?.icon,
                 name: participant.name,
                 status: participantStatus(participant),
                 action: participantAction(participant),
@@ -145,7 +145,7 @@ final class SpaceShareViewModel: ObservableObject {
         guard let spaceView = activeWorkspaceStorage.spaceView() else { return }
         
         requestAlertModel = SpaceRequestViewModel(
-            icon: participant.icon,
+            icon: participant.icon?.icon,
             title: Loc.SpaceShare.ViewRequest.title(participant.name, spaceView.name),
             onViewAccess: { [weak self] in
                 try await self?.workspaceService.requestApprove(spaceId: spaceView.targetSpaceId, identity: participant.identity, permissions: .reader)

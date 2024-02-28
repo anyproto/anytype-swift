@@ -1,7 +1,6 @@
 import Foundation
-import Services
 
-extension BundledRelationKey {
+public extension BundledRelationKey {
     
     // Keys for calculated properties
     
