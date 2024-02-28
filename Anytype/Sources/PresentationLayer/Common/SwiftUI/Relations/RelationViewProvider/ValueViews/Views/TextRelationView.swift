@@ -1,6 +1,6 @@
 import SwiftUI
 
-struct TextRelationViewSwiftUI: View {
+struct TextRelationView: View {
     let text: String?
     let style: RelationStyle
     let hint: String
@@ -20,12 +20,10 @@ struct TextRelationViewSwiftUI: View {
     }
 }
 
-struct TextRelationViewSwiftUI_Previews: PreviewProvider {
-    static var previews: some View {
-        TextRelationViewSwiftUI(
-            text: "nil",
-            style: .regular(allowMultiLine: false),
-            hint: "Hint"
-        )
-    }
+#Preview {
+    TextRelationView(
+        text: "nil",
+        style: .regular(allowMultiLine: false),
+        hint: "Hint"
+    )
 }
