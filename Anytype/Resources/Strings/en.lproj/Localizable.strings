@@ -980,6 +980,9 @@
 "Gallery.Notification.Button" = "Go to space";
 "Gallery.Notification.Error" = "Oops! \"%@\" wasn't installed. Please check your internet connection and try again or post a report on forum.";
 
+// MARK: - Membership
+"Membership" = "Membership";
+
 // MARK: - Debug
 "Debug.MimeTypes" = "Mime Types - %@";
 "Debug.Info" = "Debug Info";

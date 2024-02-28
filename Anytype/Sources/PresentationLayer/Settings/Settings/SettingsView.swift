@@ -51,6 +51,14 @@ struct SettingsView: View {
                         )
                     }
                     
+                    if FeatureFlags.membership {
+                        SettingsSectionItemView(
+                            name: Loc.membership,
+                            imageAsset: .Settings.membership,
+                            onTap: { model.onMembershipTap() }
+                        )
+                    }
+                    
                     #if DEBUG
                     SettingsSectionItemView(
                         name: "Debug",

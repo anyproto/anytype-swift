@@ -1236,6 +1236,7 @@
 		3D5D0C5C2B8CAEA2005DB879 /* TypeSearchForNewObjectCoordinatorAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D5D0C5B2B8CAEA2005DB879 /* TypeSearchForNewObjectCoordinatorAssembly.swift */; };
 		3D5D0C5E2B8CBC28005DB879 /* TypeSearchForNewObjectCoordinatorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D5D0C5D2B8CBC28005DB879 /* TypeSearchForNewObjectCoordinatorView.swift */; };
 		3D5D0C602B8CBC37005DB879 /* TypeSearchForNewObjectCoordinatorViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D5D0C5F2B8CBC37005DB879 /* TypeSearchForNewObjectCoordinatorViewModel.swift */; };
+		3D5D57792B8FDB8900EAE9A5 /* MembershipModuleAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D5D57782B8FDB8900EAE9A5 /* MembershipModuleAssembly.swift */; };
 		3D6381F72B6A61CF0026D071 /* WrappingHStack in Frameworks */ = {isa = PBXBuildFile; productRef = 3D6381F62B6A61CF0026D071 /* WrappingHStack */; };
 		3D68564226E0E1A000AA36A9 /* Spacer+FixedSize.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D68564126E0E1A000AA36A9 /* Spacer+FixedSize.swift */; };
 		3D68564D26E10D2500AA36A9 /* View+Placeholder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D68564C26E10D2500AA36A9 /* View+Placeholder.swift */; };
@@ -2991,6 +2992,7 @@
 		3D5D0C5B2B8CAEA2005DB879 /* TypeSearchForNewObjectCoordinatorAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TypeSearchForNewObjectCoordinatorAssembly.swift; sourceTree = "<group>"; };
 		3D5D0C5D2B8CBC28005DB879 /* TypeSearchForNewObjectCoordinatorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TypeSearchForNewObjectCoordinatorView.swift; sourceTree = "<group>"; };
 		3D5D0C5F2B8CBC37005DB879 /* TypeSearchForNewObjectCoordinatorViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TypeSearchForNewObjectCoordinatorViewModel.swift; sourceTree = "<group>"; };
+		3D5D57782B8FDB8900EAE9A5 /* MembershipModuleAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MembershipModuleAssembly.swift; sourceTree = "<group>"; };
 		3D68564126E0E1A000AA36A9 /* Spacer+FixedSize.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Spacer+FixedSize.swift"; sourceTree = "<group>"; };
 		3D68564C26E10D2500AA36A9 /* View+Placeholder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "View+Placeholder.swift"; sourceTree = "<group>"; };
 		3D6F2D712B87983500AA667B /* PasteboardBlockService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PasteboardBlockService.swift; sourceTree = "<group>"; };
@@ -6284,6 +6286,7 @@
 		2ABAF2B62938E53A003C4730 /* Modules */ = {
 			isa = PBXGroup;
 			children = (
+				3D5D57772B8FDB7100EAE9A5 /* Membership */,
 				2A9D2B342B85DFF10085EEFC /* SpacesManager */,
 				2AD48D502B7F57AD0077C53B /* SpaceJoin */,
 				2AC434952B7A064F006166BF /* SpaceShare */,
@@ -8364,6 +8367,14 @@
 				3D5D0C5F2B8CBC37005DB879 /* TypeSearchForNewObjectCoordinatorViewModel.swift */,
 			);
 			path = TypeSearchForNewObjectFlow;
+			sourceTree = "<group>";
+		};
+		3D5D57772B8FDB7100EAE9A5 /* Membership */ = {
+			isa = PBXGroup;
+			children = (
+				3D5D57782B8FDB8900EAE9A5 /* MembershipModuleAssembly.swift */,
+			);
+			path = Membership;
 			sourceTree = "<group>";
 		};
 		3D6E9A37270DD0D6001B0A07 /* Views */ = {
@@ -11202,6 +11213,7 @@
 				1215E8B426A860ED0089AF7E /* AppConfiguratorProtocol.swift in Sources */,
 				861E75F62A5C03E400F18552 /* EditableView.swift in Sources */,
 				2EAA140E2AA63C18000A712A /* SetRelationsCoordinatorAssembly.swift in Sources */,
+				3D5D57792B8FDB8900EAE9A5 /* MembershipModuleAssembly.swift in Sources */,
 				2A945D3E299E3E9D00C34C86 /* PlainList.swift in Sources */,
 				3DDC6A602627071E004F5EA4 /* BlockLinkState.swift in Sources */,
 				2E74AF0829CB4A5100AC3B91 /* SetContentViewItem.swift in Sources */,
