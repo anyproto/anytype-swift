@@ -20,12 +20,10 @@ struct TextRelationView: View {
     }
 }
 
-struct TextRelationView_Previews: PreviewProvider {
-    static var previews: some View {
-        TextRelationView(
-            text: "nil",
-            style: .regular(allowMultiLine: false),
-            hint: "Hint"
-        )
-    }
+#Preview {
+    TextRelationView(
+        text: "nil",
+        style: .regular(allowMultiLine: false),
+        hint: "Hint"
+    )
 }
