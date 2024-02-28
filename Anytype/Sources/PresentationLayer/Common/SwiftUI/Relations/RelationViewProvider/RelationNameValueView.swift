@@ -1,6 +1,6 @@
 import SwiftUI
 
-class RelationNameValueViewModel: ObservableObject {
+final class RelationNameValueViewModel: ObservableObject {
     @Published var relation: RelationItemModel
     @Published var isHighlighted: Bool = false
 

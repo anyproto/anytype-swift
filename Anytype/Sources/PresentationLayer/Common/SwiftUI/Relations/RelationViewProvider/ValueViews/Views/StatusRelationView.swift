@@ -55,8 +55,8 @@ struct StatusRelationView: View {
 extension StatusRelationView {
     private var maxOptions: Int {
         switch style {
-        case .set, .featuredRelationBlock: return 0
-        case .filter, .setCollection, .kanbanHeader, .regular: return 1
+        case .filter, .setCollection, .kanbanHeader, .regular, .featuredRelationBlock: return 1
+        case .set: return 0
         }
     }
 }
