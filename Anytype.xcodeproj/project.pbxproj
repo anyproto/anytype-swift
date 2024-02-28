@@ -1397,7 +1397,7 @@
 		538269F426F4E4D400040156 /* AudioPlaybackConfigurator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 538269F326F4E4D400040156 /* AudioPlaybackConfigurator.swift */; };
 		53856BCB2659B38F00CB1FAE /* CodeBlockViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53856BCA2659B38F00CB1FAE /* CodeBlockViewModel.swift */; };
 		5386E3C027B2DAEA004D8221 /* RelationValueViewUIKit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5386E3BF27B2DAEA004D8221 /* RelationValueViewUIKit.swift */; };
-		5386E3C227B3F63E004D8221 /* TextRelationViewSwiftUI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5386E3C127B3F63D004D8221 /* TextRelationViewSwiftUI.swift */; };
+		5386E3C227B3F63E004D8221 /* TextRelationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5386E3C127B3F63D004D8221 /* TextRelationView.swift */; };
 		538ABD4E284F9F88000D3CCC /* Collections in Frameworks */ = {isa = PBXBuildFile; productRef = 538ABD4D284F9F88000D3CCC /* Collections */; };
 		538ABD50284F9F88000D3CCC /* DequeModule in Frameworks */ = {isa = PBXBuildFile; productRef = 538ABD4F284F9F88000D3CCC /* DequeModule */; };
 		538ABD52284F9F88000D3CCC /* OrderedCollections in Frameworks */ = {isa = PBXBuildFile; productRef = 538ABD51284F9F88000D3CCC /* OrderedCollections */; };
@@ -3150,7 +3150,7 @@
 		538269F326F4E4D400040156 /* AudioPlaybackConfigurator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioPlaybackConfigurator.swift; sourceTree = "<group>"; };
 		53856BCA2659B38F00CB1FAE /* CodeBlockViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CodeBlockViewModel.swift; sourceTree = "<group>"; };
 		5386E3BF27B2DAEA004D8221 /* RelationValueViewUIKit.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RelationValueViewUIKit.swift; sourceTree = "<group>"; };
-		5386E3C127B3F63D004D8221 /* TextRelationViewSwiftUI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextRelationViewSwiftUI.swift; sourceTree = "<group>"; };
+		5386E3C127B3F63D004D8221 /* TextRelationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextRelationView.swift; sourceTree = "<group>"; };
 		538AE50E272C57300071DB0D /* LinkToObjectSearchViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LinkToObjectSearchViewModel.swift; sourceTree = "<group>"; };
 		538EF48625F831AA005C7438 /* NSAttributedStringExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NSAttributedStringExtension.swift; sourceTree = "<group>"; };
 		538F1727272C126F009528E7 /* SearchViewModelProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchViewModelProtocol.swift; sourceTree = "<group>"; };
@@ -4835,7 +4835,7 @@
 			isa = PBXGroup;
 			children = (
 				1289F5A32733C50500656EC2 /* TextRelationFactory.swift */,
-				5386E3BC27B2C86D004D8221 /* SwiftUI */,
+				5386E3BC27B2C86D004D8221 /* Views */,
 			);
 			path = ValueViews;
 			sourceTree = "<group>";
@@ -9103,17 +9103,17 @@
 			path = MarkupState;
 			sourceTree = "<group>";
 		};
-		5386E3BC27B2C86D004D8221 /* SwiftUI */ = {
+		5386E3BC27B2C86D004D8221 /* Views */ = {
 			isa = PBXGroup;
 			children = (
 				2EFD5C1E2B1E3E3A00799ECB /* Object */,
 				12461BFA2767835200D47708 /* Tag */,
-				5386E3C127B3F63D004D8221 /* TextRelationViewSwiftUI.swift */,
+				5386E3C127B3F63D004D8221 /* TextRelationView.swift */,
 				127EABA22734FD6E00C731F2 /* CheckboxRelationView.swift */,
 				127EABB62735254500C731F2 /* StatusRelationView.swift */,
 				12EB9B30277442BC00BA732F /* FileRelationView.swift */,
 			);
-			path = SwiftUI;
+			path = Views;
 			sourceTree = "<group>";
 		};
 		538F172A272C2F1E009528E7 /* SearchView */ = {
@@ -11278,7 +11278,7 @@
 				125B6EC526F235F400BCD7D6 /* MentionsViewController.swift in Sources */,
 				2EAA140C2AA63C0B000A712A /* SetRelationsCoordinatorViewModel.swift in Sources */,
 				12636CF6276A0DC70084D35D /* ListCreateButton.swift in Sources */,
-				5386E3C227B3F63E004D8221 /* TextRelationViewSwiftUI.swift in Sources */,
+				5386E3C227B3F63E004D8221 /* TextRelationView.swift in Sources */,
 				124E2BC2273020F500A2D534 /* RelationsListView.swift in Sources */,
 				2E31C9682B73C963006DB3E2 /* ObjectRelationOptionView.swift in Sources */,
 				2EE622FC29F2F57D004DBF3E /* SetItemProviderObject.swift in Sources */,
