@@ -15,3 +15,9 @@ extension ParticipantPermissions {
         }
     }
 }
+
+extension Participant {
+    var canLeave: Bool {
+        return permission == .reader || permission == .writer
+    }
+}

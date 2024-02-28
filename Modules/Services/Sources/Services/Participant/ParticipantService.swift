@@ -1,10 +1,10 @@
 import Foundation
 
-protocol ParticipantServiceProtocol: ParticipantService {
+public protocol ParticipantServiceProtocol: ParticipantService {
     func searchParticipant(spaceId: String, prifileObjectId: String) async throws -> Participant
 }
 
-final class ParticipantService: ParticipantServiceProtocol {
+public final class ParticipantService: ParticipantServiceProtocol {
     
     private let searchMiddleService: SearchMiddleServiceProtocol
     
@@ -14,7 +14,7 @@ final class ParticipantService: ParticipantServiceProtocol {
     
     // MARK: - ParticipantServiceProtocol
     
-    func searchParticipant(spaceId: String, prifileObjectId: String) async throws -> Participant {
+    public func searchParticipant(spaceId: String, prifileObjectId: String) async throws -> Participant {
         
         let filters: [DataviewFilter] = .builder {
             SearchHelper.layoutFilter([DetailsLayout.participant])
