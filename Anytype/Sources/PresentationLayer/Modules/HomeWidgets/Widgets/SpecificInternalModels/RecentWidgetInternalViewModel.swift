@@ -3,17 +3,20 @@ import Services
 import Combine
 
 @MainActor
-final class RecentWidgetInternalViewModel: CommonWidgetInternalViewModel, WidgetInternalViewModelProtocol {
+final class RecentWidgetInternalViewModel: WidgetInternalViewModelProtocol {
     
     // MARK: - DI
     
     private let type: RecentWidgetType
+    private let widgetBlockId: String
+    private let widgetObject: BaseDocumentProtocol
     private let recentSubscriptionService: RecentSubscriptionServiceProtocol
     
     // MARK: - State
     
     @Published private var details: [ObjectDetails]?
     @Published private var name: String
+    private var subscriptions = [AnyCancellable]()
     
     var detailsPublisher: AnyPublisher<[ObjectDetails]?, Never> { $details.eraseToAnyPublisher() }
     var namePublisher: AnyPublisher<String, Never> { $name.eraseToAnyPublisher() }
@@ -25,22 +28,34 @@ final class RecentWidgetInternalViewModel: CommonWidgetInternalViewModel, Widget
         recentSubscriptionService: RecentSubscriptionServiceProtocol
     ) {
         self.type = type
+        self.widgetBlockId = widgetBlockId
+        self.widgetObject = widgetObject
         self.name = type.title
         self.recentSubscriptionService = recentSubscriptionService
-        super.init(widgetBlockId: widgetBlockId, widgetObject: widgetObject)
     }
     
     // MARK: - WidgetInternalViewModelProtocol
     
-    override func startContentSubscription() async {
-        await super.startContentSubscription()
-        await updateSubscription()
+    func startContentSubscription() async {
+        widgetObject.blockWidgetInfoPublisher(widgetBlockId: widgetBlockId)
+            .receiveOnMain()
+            .sink { [weak self] widgetInfo in
+                guard let self else { return }
+                Task {
+                    await self.updateSubscription(widgetInfo: widgetInfo)
+                }
+            }
+            .store(in: &subscriptions)
     }
     
-    override func stopContentSubscription() async {
-        await super.stopContentSubscription()
+    func stopContentSubscription() async {
+        subscriptions.removeAll()
         await recentSubscriptionService.stopSubscription()
     }
+    
+    func startHeaderSubscription() {}
+    
+    func stopHeaderSubscription() {}
     
     func screenData() -> EditorScreenData? {
         return type.editorScreenData
@@ -50,19 +65,9 @@ final class RecentWidgetInternalViewModel: CommonWidgetInternalViewModel, Widget
         return type.analyticsSource
     }
     
-    // MARK: - CommonWidgetInternalViewModel oveerides
-    
-    override func widgetInfoUpdated() {
-        super.widgetInfoUpdated()
-        Task {
-            await updateSubscription()
-        }
-    }
-    
     // MARK: - Private func
     
-    private func updateSubscription() async {
-        guard let widgetInfo, contentIsAppear else { return }
+    private func updateSubscription(widgetInfo: BlockWidgetInfo) async {
         await recentSubscriptionService.startSubscription(
             type: type,
             objectLimit: widgetInfo.fixedLimit,
