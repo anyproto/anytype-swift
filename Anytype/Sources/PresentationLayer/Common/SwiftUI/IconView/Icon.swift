@@ -1,5 +1,6 @@
 import Foundation
 import UIKit
+import Services
 
 enum Icon: Hashable, Equatable {
     case object(ObjectIcon)
