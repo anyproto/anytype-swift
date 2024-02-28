@@ -97,16 +97,16 @@ final class EditorSetViewModel: ObservableObject {
         return group.header(with: activeView.groupRelationKey, document: setDocument.document)
     }
     
-    func contextMenuItems(for relation: Relation) -> [RelationValueView.MenuItem] {
+    func contextMenuItems(for relation: Relation) -> [RelationValueViewModel.MenuItem] {
         guard !setDocument.isCollection(), relation.key == BundledRelationKey.type.rawValue else {
             return []
         }
         return [
-            RelationValueView.MenuItem(
+            RelationValueViewModel.MenuItem(
                 title: Loc.Set.TypeRelation.ContextMenu.turnIntoCollection,
                 action: turnSetIntoCollection
             ),
-            RelationValueView.MenuItem(
+            RelationValueViewModel.MenuItem(
                 title: isEmptyQuery ?
                 Loc.Set.SourceType.selectQuery : Loc.Set.TypeRelation.ContextMenu.changeQuery,
                 action: showSetOfTypeSelection

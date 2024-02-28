@@ -874,6 +874,7 @@
 		2AFFFB9B292778B700A487E1 /* ObjectSettingModuleAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AFFFB9A292778B700A487E1 /* ObjectSettingModuleAssembly.swift */; };
 		2AFFFB9F2927B05700A487E1 /* AccountEventHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AFFFB9E2927B05700A487E1 /* AccountEventHandler.swift */; };
 		2E010C342B88DF0C00504735 /* EditorFeaturedRelationsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E010C332B88DF0C00504735 /* EditorFeaturedRelationsView.swift */; };
+		2E010C372B8CEF5500504735 /* RelationValueViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E010C362B8CEF5500504735 /* RelationValueViewModel.swift */; };
 		2E0797B32A0940F8006F0FD7 /* JoinFlowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E0797B12A0940F8006F0FD7 /* JoinFlowView.swift */; };
 		2E0797B42A0940F8006F0FD7 /* JoinFlowViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E0797B22A0940F8006F0FD7 /* JoinFlowViewModel.swift */; };
 		2E0797B82A0964BC006F0FD7 /* JoinFlowModuleAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E0797B72A0964BC006F0FD7 /* JoinFlowModuleAssembly.swift */; };
@@ -2639,6 +2640,7 @@
 		2AFFFB9A292778B700A487E1 /* ObjectSettingModuleAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObjectSettingModuleAssembly.swift; sourceTree = "<group>"; };
 		2AFFFB9E2927B05700A487E1 /* AccountEventHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountEventHandler.swift; sourceTree = "<group>"; };
 		2E010C332B88DF0C00504735 /* EditorFeaturedRelationsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditorFeaturedRelationsView.swift; sourceTree = "<group>"; };
+		2E010C362B8CEF5500504735 /* RelationValueViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RelationValueViewModel.swift; sourceTree = "<group>"; };
 		2E0797B12A0940F8006F0FD7 /* JoinFlowView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JoinFlowView.swift; sourceTree = "<group>"; };
 		2E0797B22A0940F8006F0FD7 /* JoinFlowViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JoinFlowViewModel.swift; sourceTree = "<group>"; };
 		2E0797B72A0964BC006F0FD7 /* JoinFlowModuleAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JoinFlowModuleAssembly.swift; sourceTree = "<group>"; };
@@ -6910,6 +6912,15 @@
 			path = Account;
 			sourceTree = "<group>";
 		};
+		2E010C352B8CEF4600504735 /* RelationValueView */ = {
+			isa = PBXGroup;
+			children = (
+				535E02AC274FF0B100E1AF8C /* RelationValueView.swift */,
+				2E010C362B8CEF5500504735 /* RelationValueViewModel.swift */,
+			);
+			path = RelationValueView;
+			sourceTree = "<group>";
+		};
 		2E0797B02A0940F8006F0FD7 /* JoinFlow */ = {
 			isa = PBXGroup;
 			children = (
@@ -9079,8 +9090,8 @@
 		535E02AE27501FC600E1AF8C /* RelationViewProvider */ = {
 			isa = PBXGroup;
 			children = (
+				2E010C352B8CEF4600504735 /* RelationValueView */,
 				539E019627582AA200067A24 /* RelationNameValueView.swift */,
-				535E02AC274FF0B100E1AF8C /* RelationValueView.swift */,
 				5386E3BF27B2DAEA004D8221 /* RelationValueViewUIKit.swift */,
 				C9099606281AD5220011682F /* RelationItemModel.swift */,
 				535E02AF275023B300E1AF8C /* RelationStyle.swift */,
@@ -11211,6 +11222,7 @@
 				EA3D1E6426D0091C001A31D9 /* MentionAttributeSelectionHandler.swift in Sources */,
 				2E9EFE72285B62E500C8E47A /* SetFilter.swift in Sources */,
 				1247BC8227FE0929005F2DB4 /* TransparencyEffectModifier.swift in Sources */,
+				2E010C372B8CEF5500504735 /* RelationValueViewModel.swift in Sources */,
 				2AAF343E29559DA600921320 /* HomeWidgetsRegistry.swift in Sources */,
 				3DB3EC5D2754CB0D002781DA /* ProgressBar.swift in Sources */,
 				2A7BD6E828D8599D008B735C /* RelationSubscriptionDataBuilderProtocol.swift in Sources */,

@@ -68,8 +68,8 @@ struct FileRelationView: View {
 extension FileRelationView {
     private var maxOptions: Int {
         switch style {
-        case .regular, .set: return 0
-        case .filter, .setCollection, .kanbanHeader, .featuredRelationBlock: return 1
+        case .filter, .setCollection, .kanbanHeader, .featuredRelationBlock, .regular: return 1
+        case .set: return 0
         }
     }
 }

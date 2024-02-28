@@ -22,15 +22,17 @@ struct EditorFeaturedRelationsView: View {
             relations: model.relations,
             view: { relation in
                 RelationValueView(
-                    relation: RelationItemModel(relation: relation),
-                    style: .featuredRelationBlock(
-                        FeaturedRelationSettings(
-                            allowMultiLine: false,
-                            error: RelationItemModel(relation: relation).isErrorState,
-                            links: relation.links
-                        )
-                    ),
-                    mode: .button(action: { model.onRelationTap(relation) })
+                    model: RelationValueViewModel(
+                        relation:  RelationItemModel(relation: relation),
+                        style: .featuredRelationBlock(
+                            FeaturedRelationSettings(
+                                allowMultiLine: false,
+                                error: RelationItemModel(relation: relation).isErrorState,
+                                links: relation.links
+                            )
+                        ),
+                        mode: .button(action: { model.onRelationTap(relation) })
+                    )
                 )
             }
         )
