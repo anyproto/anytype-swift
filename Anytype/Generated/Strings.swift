@@ -266,6 +266,8 @@ internal enum Loc {
   internal static let initializingSync = Loc.tr("Localizable", "Initializing sync", fallback: "Initializing sync")
   /// Into object
   internal static let intoObject = Loc.tr("Localizable", "Into object", fallback: "Into object")
+  /// Join
+  internal static let join = Loc.tr("Localizable", "Join", fallback: "Join")
   /// Layout
   internal static let layout = Loc.tr("Localizable", "Layout", fallback: "Layout")
   /// Limit object types
@@ -661,8 +663,6 @@ internal enum Loc {
   internal enum Auth {
     /// Please allow access
     internal static let cameraPermissionTitle = Loc.tr("Localizable", "Auth.CameraPermissionTitle", fallback: "Please allow access")
-    /// Join
-    internal static let join = Loc.tr("Localizable", "Auth.Join", fallback: "Join")
     /// Log In
     internal static let logIn = Loc.tr("Localizable", "Auth.LogIn", fallback: "Log In")
     /// Next
