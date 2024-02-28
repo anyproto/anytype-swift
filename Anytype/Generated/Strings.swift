@@ -1997,9 +1997,9 @@ internal enum Loc {
     }
   }
   internal enum SpaceShare {
-    /// %@ access to the space would become %@
+    /// %@ access to the space would become %@.
     internal static func changePermissions(_ p1: Any, _ p2: Any) -> String {
-      return Loc.tr("Localizable", "SpaceShare.ChangePermissions", String(describing: p1), String(describing: p2), fallback: "%@ access to the space would become %@")
+      return Loc.tr("Localizable", "SpaceShare.ChangePermissions", String(describing: p1), String(describing: p2), fallback: "%@ access to the space would become %@.")
     }
     /// Members and requests
     internal static let membersSection = Loc.tr("Localizable", "SpaceShare.MembersSection", fallback: "Members and requests")
@@ -2054,9 +2054,9 @@ internal enum Loc {
       internal static let writer = Loc.tr("Localizable", "SpaceShare.Permissions.Writer", fallback: "Editor")
     }
     internal enum RemoveMember {
-      /// %@ will be removed from the space
+      /// %@ will be removed from the space.
       internal static func message(_ p1: Any) -> String {
-        return Loc.tr("Localizable", "SpaceShare.RemoveMember.Message", String(describing: p1), fallback: "%@ will be removed from the space")
+        return Loc.tr("Localizable", "SpaceShare.RemoveMember.Message", String(describing: p1), fallback: "%@ will be removed from the space.")
       }
       /// Remove memeber
       internal static let title = Loc.tr("Localizable", "SpaceShare.RemoveMember.Title", fallback: "Remove memeber")
