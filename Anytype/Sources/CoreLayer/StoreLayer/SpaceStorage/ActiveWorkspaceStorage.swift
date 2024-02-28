@@ -12,7 +12,6 @@ protocol ActiveWorkpaceStorageProtocol: AnyObject {
     func setupActiveSpace() async
     func spaceView() -> SpaceView?
     func clearActiveSpace() async
-    func participant() -> Participant?
 }
 
 @MainActor
