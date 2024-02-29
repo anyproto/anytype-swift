@@ -217,7 +217,7 @@
 "Auth.CameraPermissionTitle" = "Lütfen erişime izin ver";
 "Restore secret phrase from keychain" = "Restore Recovery Phrase from the keychain";
 "Auth.LogIn" = "Giriş Yap";
-"Auth.Join" = "Join";
+"Join" = "Join";
 "Auth.Welcome.Subtitle" = "Anytype, önem verdiğin her şeyi yazman, planlaman, düşünmen ve organize etmen için güvenilir bir alandır.";
 "Auth.Caption.Privacy.Text" = "Devam ederek [Kullanım Şartlarımızı](%@) ve [Gizlilik Politikalarımızı](%@) kabul etmiş olursun";
 "Auth.Next" = "Sonraki";
@@ -878,6 +878,9 @@
 "SpaceSettings.DeleteButton" = "Delete space";
 "SpaceSettings.Sharing" = "Sharing";
 "SpaceSettings.Share" = "Paylaş";
+"SpaceSettings.LeaveButton" = "Leave and unjoin";
+"SpaceSettings.LeaveAlert.Title" = "Leave and unjoin the space";
+"SpaceSettings.LeaveAlert.Message" = "%@ space will be removed from your devices and you will no longer have access to it";
 
 // MARK: - Space Share
 
@@ -980,6 +983,9 @@
 "Gallery.Notification.Success" = "Experience was successfully installed to the \"%@\" space. You can now open and start using it.";
 "Gallery.Notification.Button" = "Go to space";
 "Gallery.Notification.Error" = "Oops! \"%@\" wasn't installed. Please check your internet connection and try again or post a report on forum.";
+
+// MARK: - Membership
+"Membership" = "Membership";
 
 // MARK: - Debug
 "Debug.MimeTypes" = "Mime Types - %@";
