@@ -217,7 +217,7 @@
 "Auth.CameraPermissionTitle" = "ଦୟାକରି ଆକସେସ୍ ଅନୁମତି ଦିଅନ୍ତୁ";
 "Restore secret phrase from keychain" = "କୀଚେନ୍ ରୁ ପୁନରୁଦ୍ଧାର ବାକ୍ୟ ପୁନରୁଦ୍ଧାର କରନ୍ତୁ";
 "Auth.LogIn" = "ଲଗ ଇନ";
-"Auth.Join" = "Join";
+"Join" = "Join";
 "Auth.Welcome.Subtitle" = "ଏନିଟାଇପ ଆପଣଙ୍କ ପାଇଁ ଗୁରୁତ୍ୱପୂର୍ଣ୍ଣ ସବୁ କିଛି ଲେଖିବା, ଯୋଜନା କରିବା, ଚିନ୍ତା କରିବା ଏବଂ ସଂଗଠିତ କରିବା ପାଇଁ ଆପଣଙ୍କର ସୁରକ୍ଷିତ ସ୍ଥାନ ଅଟେ ।";
 "Auth.Caption.Privacy.Text" = "ଜାରି ରଖିବା ଦ୍ୱାରା ଆପଣ [ବ୍ୟବହାର ସର୍ତ୍ତାବଳୀ](%@) ଏବଂ [ଗୋପନୀୟତା ନୀତି](%@) ସହ ରାଜି ହୁଅନ୍ତି।";
 "Auth.Next" = "ପରବର୍ତ୍ତୀ";
@@ -877,6 +877,9 @@
 "SpaceSettings.DeleteButton" = "Delete space";
 "SpaceSettings.Sharing" = "Sharing";
 "SpaceSettings.Share" = "Share";
+"SpaceSettings.LeaveButton" = "Leave and unjoin";
+"SpaceSettings.LeaveAlert.Title" = "Leave and unjoin the space";
+"SpaceSettings.LeaveAlert.Message" = "%@ space will be removed from your devices and you will no longer have access to it";
 
 // MARK: - Space Share
 
@@ -979,6 +982,9 @@
 "Gallery.Notification.Success" = "Experience was successfully installed to the \"%@\" space. You can now open and start using it.";
 "Gallery.Notification.Button" = "Go to space";
 "Gallery.Notification.Error" = "Oops! \"%@\" wasn't installed. Please check your internet connection and try again or post a report on forum.";
+
+// MARK: - Membership
+"Membership" = "Membership";
 
 // MARK: - Debug
 "Debug.MimeTypes" = "Mime Types - %@";

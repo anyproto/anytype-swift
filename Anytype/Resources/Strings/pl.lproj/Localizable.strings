@@ -217,7 +217,7 @@
 "Auth.CameraPermissionTitle" = "Zezwól na dostęp";
 "Restore secret phrase from keychain" = "Przywróć frazę odzyskiwania z pęku kluczy";
 "Auth.LogIn" = "Zaloguj się";
-"Auth.Join" = "Dołącz";
+"Join" = "Join";
 "Auth.Welcome.Subtitle" = "Anytype jest Twoim bezpiecznym miejscem do pisania, planowania, myślenia i organizowania wszystkiego, co jest dla Ciebie ważne.";
 "Auth.Caption.Privacy.Text" = "Kontynuując, zgadzasz się na [Warunki użytkowania](%@) i [Politykę prywatności](%@)";
 "Auth.Next" = "Dalej";
@@ -877,6 +877,9 @@
 "SpaceSettings.DeleteButton" = "Delete space";
 "SpaceSettings.Sharing" = "Sharing";
 "SpaceSettings.Share" = "Udostępnij";
+"SpaceSettings.LeaveButton" = "Leave and unjoin";
+"SpaceSettings.LeaveAlert.Title" = "Leave and unjoin the space";
+"SpaceSettings.LeaveAlert.Message" = "%@ space will be removed from your devices and you will no longer have access to it";
 
 // MARK: - Space Share
 
@@ -979,6 +982,9 @@
 "Gallery.Notification.Success" = "Doświadczenie zostało pomyślnie zainstalowane w przestrzeni \"%@\". Możesz teraz otworzyć i zacząć z niej korzystać.";
 "Gallery.Notification.Button" = "Przejdź do miejsca";
 "Gallery.Notification.Error" = "Ups! \"%@\" nie został zainstalowany. Sprawdź swoje połączenie internetowe i spróbuj ponownie lub opublikuj raport na forum.";
+
+// MARK: - Membership
+"Membership" = "Membership";
 
 // MARK: - Debug
 "Debug.MimeTypes" = "Mime Types - %@";

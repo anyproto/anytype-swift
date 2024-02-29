@@ -217,7 +217,7 @@
 "Auth.CameraPermissionTitle" = "Tolong izinkan akses";
 "Restore secret phrase from keychain" = "Mengembalikan Tahap Pemulihan dari rantai kunci";
 "Auth.LogIn" = "Masuk";
-"Auth.Join" = "Gabung";
+"Join" = "Join";
 "Auth.Welcome.Subtitle" = "Anytype adalah tempat aman bagimu untuk menulis, berpikir, merencanakan, dan mengorganisasikan apa pun yang penting bagimu.";
 "Auth.Caption.Privacy.Text" = "Dengan melanjutkan, kamu menyetujui [Syarat Penggunaan](%@) dan [Kebijakan Privasi](%@)";
 "Auth.Next" = "Lanjut";
@@ -877,6 +877,9 @@
 "SpaceSettings.DeleteButton" = "Hapus ruang";
 "SpaceSettings.Sharing" = "Berbagi";
 "SpaceSettings.Share" = "Bagikan";
+"SpaceSettings.LeaveButton" = "Leave and unjoin";
+"SpaceSettings.LeaveAlert.Title" = "Leave and unjoin the space";
+"SpaceSettings.LeaveAlert.Message" = "%@ space will be removed from your devices and you will no longer have access to it";
 
 // MARK: - Space Share
 
@@ -979,6 +982,9 @@
 "Gallery.Notification.Success" = "Experience was successfully installed to the \"%@\" space. You can now open and start using it.";
 "Gallery.Notification.Button" = "Kunjungi ruang";
 "Gallery.Notification.Error" = "Ups! \"%@\" tidak terpasang. Silakan cek koneksi internetmu lalu coba lagi, atau buatlah laporan di forum.";
+
+// MARK: - Membership
+"Membership" = "Membership";
 
 // MARK: - Debug
 "Debug.MimeTypes" = "Mime Types - %@";

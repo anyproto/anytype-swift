@@ -217,7 +217,7 @@
 "Auth.CameraPermissionTitle" = "Por favor, permita o acesso";
 "Restore secret phrase from keychain" = "Restaurar Frase de Recuperação a partir do Porta-chaves";
 "Auth.LogIn" = "Log In";
-"Auth.Join" = "Join";
+"Join" = "Join";
 "Auth.Welcome.Subtitle" = "O Anytype é o teu espaço seguro para escrever, planear, pensar e organizar tudo o que é importante para si.";
 "Auth.Caption.Privacy.Text" = "Ao continuar, está a concordar com os [Termos de Uso](%@) e com a [Política de Privacidade](%@)";
 "Auth.Next" = "Seguinte";
@@ -877,6 +877,9 @@
 "SpaceSettings.DeleteButton" = "Delete space";
 "SpaceSettings.Sharing" = "Sharing";
 "SpaceSettings.Share" = "Share";
+"SpaceSettings.LeaveButton" = "Leave and unjoin";
+"SpaceSettings.LeaveAlert.Title" = "Leave and unjoin the space";
+"SpaceSettings.LeaveAlert.Message" = "%@ space will be removed from your devices and you will no longer have access to it";
 
 // MARK: - Space Share
 
@@ -979,6 +982,9 @@
 "Gallery.Notification.Success" = "Experience was successfully installed to the \"%@\" space. You can now open and start using it.";
 "Gallery.Notification.Button" = "Go to space";
 "Gallery.Notification.Error" = "Oops! \"%@\" wasn't installed. Please check your internet connection and try again or post a report on forum.";
+
+// MARK: - Membership
+"Membership" = "Membership";
 
 // MARK: - Debug
 "Debug.MimeTypes" = "Mime Types - %@";

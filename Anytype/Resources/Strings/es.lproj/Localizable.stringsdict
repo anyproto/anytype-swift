@@ -109,9 +109,10 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>d</string>
         <key>one</key>
-        <string>File Object</string>
+        <string>Archivo del objeto
+%d Archivos del objeto</string>
         <key>other</key>
-        <string>%d File Objects</string>
+        <string>%d Objetos de Archivo</string>
       </dict>
     </dict>
     <key>Sharing.File.Block</key>
@@ -125,9 +126,9 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>d</string>
         <key>one</key>
-        <string>File Block</string>
+        <string>Bloque de archivo</string>
         <key>other</key>
-        <string>%d File Blocks</string>
+        <string>%d Bloques de archivo</string>
       </dict>
     </dict>
     <key>Sharing.URL.NewObject</key>
@@ -143,7 +144,7 @@
         <key>one</key>
         <string>Bookmark Object</string>
         <key>other</key>
-        <string>%d Bookmark Objects</string>
+        <string>Agregar %d marcadores a los objetos</string>
       </dict>
     </dict>
     <key>Sharing.URL.Block</key>
@@ -157,9 +158,9 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>d</string>
         <key>one</key>
-        <string>Link Block</string>
+        <string>Enlazar bloque</string>
         <key>other</key>
-        <string>Link %d Blocks</string>
+        <string>Enlazar %d bloques</string>
       </dict>
     </dict>
     <key>SpaceShare.Invite.Members</key>
@@ -173,9 +174,9 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>d</string>
         <key>one</key>
-        <string>You can add one more member</string>
+        <string>Puedes añadir un miembro más</string>
         <key>other</key>
-        <string>You can add %d more members</string>
+        <string>Puedes añadir %d miembros más</string>
       </dict>
     </dict>
     <key>SpaceShare.Invite.MaxLimit</key>
@@ -185,13 +186,13 @@
       <key>object</key>
       <dict>
         <key>one</key>
-        <string>You have reached the limit of %d members. New members will not be able to join.</string>
+        <string>Has alcanzado el límite de %d miembros. Los nuevos miembros no podrán unirse.</string>
         <key>NSStringFormatSpecTypeKey</key>
         <string>NSStringPluralRuleType</string>
         <key>NSStringFormatValueTypeKey</key>
         <string>d</string>
         <key>other</key>
-        <string>You have reached the limit of %d members. New members will not be able to join.</string>
+        <string>Has alcanzado el límite de %d miembros. Los nuevos miembros no podrán unirse.</string>
       </dict>
     </dict>
   </dict>
