@@ -463,7 +463,6 @@
 		2A5EC7802B7D166F00DD7D89 /* InviteLinkView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A5EC77F2B7D166F00DD7D89 /* InviteLinkView.swift */; };
 		2A617BCA2A49960500725152 /* Document+WidgetTargetSubscriptions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A617BC92A49960400725152 /* Document+WidgetTargetSubscriptions.swift */; };
 		2A617BCC2A49E5B400725152 /* BlockWidget+Limits.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A617BCB2A49E5B400725152 /* BlockWidget+Limits.swift */; };
-		2A617BCE2A49EC0B00725152 /* CommonWidgetInternalViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A617BCD2A49EC0B00725152 /* CommonWidgetInternalViewModel.swift */; };
 		2A64B6BB2B3DD54D000316E2 /* ObjectActionsServiceError+Localization.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A64B6BA2B3DD54D000316E2 /* ObjectActionsServiceError+Localization.swift */; };
 		2A6574682A4456F6002F568C /* ObjectIconExample.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A6574672A4456F6002F568C /* ObjectIconExample.swift */; };
 		2A65E9B22AE1290300D40657 /* InitialCoordinatorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A65E9B12AE1290300D40657 /* InitialCoordinatorView.swift */; };
@@ -2218,7 +2217,6 @@
 		2A5EC77F2B7D166F00DD7D89 /* InviteLinkView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InviteLinkView.swift; sourceTree = "<group>"; };
 		2A617BC92A49960400725152 /* Document+WidgetTargetSubscriptions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Document+WidgetTargetSubscriptions.swift"; sourceTree = "<group>"; };
 		2A617BCB2A49E5B400725152 /* BlockWidget+Limits.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "BlockWidget+Limits.swift"; sourceTree = "<group>"; };
-		2A617BCD2A49EC0B00725152 /* CommonWidgetInternalViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommonWidgetInternalViewModel.swift; sourceTree = "<group>"; };
 		2A64B6BA2B3DD54D000316E2 /* ObjectActionsServiceError+Localization.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ObjectActionsServiceError+Localization.swift"; sourceTree = "<group>"; };
 		2A6574672A4456F6002F568C /* ObjectIconExample.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObjectIconExample.swift; sourceTree = "<group>"; };
 		2A65E9B12AE1290300D40657 /* InitialCoordinatorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InitialCoordinatorView.swift; sourceTree = "<group>"; };
@@ -6426,7 +6424,6 @@
 				2AFCEB3629C89A7B00841E13 /* CollectionsWidgetInternalViewModel.swift */,
 				2A947B362A30CDCF00119140 /* WidgetDataviewInternalViewModelProtocol.swift */,
 				2A947B382A30CF2400119140 /* SetObjectWidgetInternalViewModel.swift */,
-				2A617BCD2A49EC0B00725152 /* CommonWidgetInternalViewModel.swift */,
 			);
 			path = SpecificInternalModels;
 			sourceTree = "<group>";
@@ -11427,7 +11424,6 @@
 				535FDE2027E8B63A0098DBFA /* PasteboardHelper.swift in Sources */,
 				126C46D726BD966700D31DBF /* ObjectHeaderIcon.swift in Sources */,
 				3D8A82D82656EDF400C4A9CD /* Popup.swift in Sources */,
-				2A617BCE2A49EC0B00725152 /* CommonWidgetInternalViewModel.swift in Sources */,
 				C9C49A82270499B500D86463 /* CameraPermissionVerifier.swift in Sources */,
 				C92DCD97272998D800A03D91 /* BaseDocument+Extensions.swift in Sources */,
 				2E92219F294B8CDE00968750 /* DataViewBlockConfiguration.swift in Sources */,
