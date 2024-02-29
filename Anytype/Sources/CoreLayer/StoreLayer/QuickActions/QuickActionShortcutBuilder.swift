@@ -76,17 +76,9 @@ final class QuickActionShortcutBuilder: QuickActionShortcutBuilderProtocol {
             
             // Migration fallback, legacy actions do not have type id
             guard let type = getDefaultObjectType() else { return nil }
-            logCreateObject(typeId: type.id)
             return .newObject(typeId: type.id)
         }
-        logCreateObject(typeId: typeId)
         return .newObject(typeId: typeId)
-    }
-    
-    // TODO: Move to HomeCoordinatorViewModel
-    private func logCreateObject(typeId: String) {
-        guard let type = try? objectTypeProvider.objectType(id: typeId) else { return }
-        AnytypeAnalytics.instance().logCreateObject(objectType: type.analyticsType, route: .homeScreen)
     }
     
     private func getDefaultObjectType() -> ObjectType? {
