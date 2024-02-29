@@ -76,10 +76,30 @@ extension ObjectType {
             recommendedLayout: details.recommendedLayoutValue
         )
     }
-    
 }
 
 extension ObjectType {
+    
+    public static var subscriptionKeys: [BundledRelationKey] {
+        return [
+            BundledRelationKey.id,
+            BundledRelationKey.name,
+            BundledRelationKey.iconEmoji,
+            BundledRelationKey.description,
+            BundledRelationKey.isHidden,
+            BundledRelationKey.isReadonly,
+            BundledRelationKey.isArchived,
+            BundledRelationKey.smartblockTypes,
+            BundledRelationKey.sourceObject,
+            BundledRelationKey.recommendedRelations,
+            BundledRelationKey.recommendedLayout,
+            BundledRelationKey.uniqueKey,
+            BundledRelationKey.spaceId,
+            BundledRelationKey.defaultTemplateId,
+            BundledRelationKey.restrictions
+        ]
+    }
+    
     public var isTemplateType: Bool {
         uniqueKey == .template
     }
