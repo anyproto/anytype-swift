@@ -5,7 +5,7 @@ extension SpaceStatus {
     var name: String {
         switch self {
         case .unknown:
-            return Loc.Space.Status.unknown
+            return Loc.Space.Status.spaceActive
         case .loading:
             return Loc.Space.Status.loading
         case .ok:

@@ -1979,6 +1979,8 @@ internal enum Loc {
     internal static let deleteButton = Loc.tr("Localizable", "SpaceSettings.DeleteButton", fallback: "Delete space")
     /// Space info
     internal static let info = Loc.tr("Localizable", "SpaceSettings.Info", fallback: "Space info")
+    /// Leave and unjoin
+    internal static let leaveButton = Loc.tr("Localizable", "SpaceSettings.LeaveButton", fallback: "Leave and unjoin")
     /// Network ID
     internal static let networkId = Loc.tr("Localizable", "SpaceSettings.NetworkId", fallback: "Network ID")
     /// Remote storage
@@ -1996,6 +1998,14 @@ internal enum Loc {
       internal static func title(_ p1: Any) -> String {
         return Loc.tr("Localizable", "SpaceSettings.DeleteAlert.Title", String(describing: p1), fallback: "Delete ‘%@’ space")
       }
+    }
+    internal enum LeaveAlert {
+      /// %@ space will be removed from your devices and you will no longer have access to it
+      internal static func message(_ p1: Any) -> String {
+        return Loc.tr("Localizable", "SpaceSettings.LeaveAlert.Message", String(describing: p1), fallback: "%@ space will be removed from your devices and you will no longer have access to it")
+      }
+      /// Leave and unjoin the space
+      internal static let title = Loc.tr("Localizable", "SpaceSettings.LeaveAlert.Title", fallback: "Leave and unjoin the space")
     }
   }
   internal enum SpaceShare {

@@ -877,6 +877,9 @@
 "SpaceSettings.DeleteButton" = "Delete space";
 "SpaceSettings.Sharing" = "Sharing";
 "SpaceSettings.Share" = "Share";
+"SpaceSettings.LeaveButton" = "Leave and unjoin";
+"SpaceSettings.LeaveAlert.Title" = "Leave and unjoin the space";
+"SpaceSettings.LeaveAlert.Message" = "%@ space will be removed from your devices and you will no longer have access to it";
 
 // MARK: - Space Share
 
