@@ -217,7 +217,7 @@
 "Auth.CameraPermissionTitle" = "Vennligst tillat tilgang";
 "Restore secret phrase from keychain" = "Gjenopprett gjenopprettingsfrasen fra nøkkelringen";
 "Auth.LogIn" = "Logg inn";
-"Auth.Join" = "Bli med";
+"Join" = "Join";
 "Auth.Welcome.Subtitle" = "Anytype er ditt sikre sted å skrive, planlegge, tenke og organisere alt som betyr for deg.";
 "Auth.Caption.Privacy.Text" = "Ved å fortsette godtar du [Brukervilkårene](%@) og [Personvernerklæringen](%@)";
 "Auth.Next" = "Neste";
@@ -846,7 +846,7 @@
 "ClearCacheAlert.Description" = "Alle mediefiler lagret i Anytype vil bli slettet fra din nåværende enhet. De kan lastes ned igjen fra en backup-node eller en annen enhet.";
 
 // MARK: - Spaces
-"Spaces.Accessibility.Shared" = "Shared Space";
+"Spaces.Accessibility.Shared" = "Delt rom";
 "Spaces.Accessibility.Private" = "Privat rom";
 "Spaces.Accessibility.Personal" = "Innstillinger";
 "Spaces.Search.Title" = "Søk etter rom";
@@ -865,7 +865,7 @@
 "Space.Status.SpaceDeleted" = "Slettet";
 "Space.Status.SpaceActive" = "Aktiv";
 "Space.Status.SpaceJoining" = "Kobler til";
-"Space.Status.SpaceRemoving" = "Removing";
+"Space.Status.SpaceRemoving" = "Fjerner";
 
 // MARK: - Space Settings
 "SpaceSettings.Title" = "Rominnstillinger";
@@ -877,6 +877,9 @@
 "SpaceSettings.DeleteButton" = "Slett rom";
 "SpaceSettings.Sharing" = "Deling";
 "SpaceSettings.Share" = "Del";
+"SpaceSettings.LeaveButton" = "Leave and unjoin";
+"SpaceSettings.LeaveAlert.Title" = "Leave and unjoin the space";
+"SpaceSettings.LeaveAlert.Message" = "%@ space will be removed from your devices and you will no longer have access to it";
 
 // MARK: - Space Share
 
@@ -979,6 +982,9 @@
 "Gallery.Notification.Success" = "Erfaringen ble vellykket installert i rommet \"%@\". Du kan nå åpne det og begynne å bruke det.";
 "Gallery.Notification.Button" = "Gå til rom";
 "Gallery.Notification.Error" = "Oops! \"%@\" ble ikke installert. Vennligst sjekk internettforbindelsen din og prøv igjen, eller legg ut en rapport på forumet.";
+
+// MARK: - Membership
+"Membership" = "Membership";
 
 // MARK: - Debug
 "Debug.MimeTypes" = "MIME-typer - %@";
