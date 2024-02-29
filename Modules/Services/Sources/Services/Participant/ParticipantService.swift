@@ -1,6 +1,6 @@
 import Foundation
 
-public protocol ParticipantServiceProtocol: ParticipantService {
+public protocol ParticipantServiceProtocol: AnyObject {
     func searchParticipant(spaceId: String, prifileObjectId: String) async throws -> Participant
 }
 
