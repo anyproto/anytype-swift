@@ -70,6 +70,10 @@ final class SettingsViewModel: ObservableObject {
         output?.onSpacesSelected()
     }
     
+    func onMembershipTap() {
+        output?.onMembershipSelected()
+    }
+    
     // MARK: - Private
     
     private func setupSubscription() async {

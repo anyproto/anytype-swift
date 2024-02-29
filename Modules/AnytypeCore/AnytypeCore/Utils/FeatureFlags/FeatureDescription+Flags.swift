@@ -72,6 +72,12 @@ public extension FeatureDescription {
         defaultValue: false
     )
     
+    static let membership = FeatureDescription(
+        title: "Membership 💸",
+        type: .feature(author: "vova@anytype.io", releaseVersion: "0.30.0"),
+        defaultValue: false
+    )
+    
     // MARK: - Debug
     
     static let rainbowViews = FeatureDescription(

@@ -75,6 +75,7 @@ internal extension ImageAsset {
     static let debug = ImageAsset.bundle(name: "Settings/Debug")
     static let fileStorage = ImageAsset.bundle(name: "Settings/FileStorage")
     static let keychainPhrase = ImageAsset.bundle(name: "Settings/KeychainPhrase")
+    static let membership = ImageAsset.bundle(name: "Settings/Membership")
     static let personalization = ImageAsset.bundle(name: "Settings/Personalization")
     static let pinCode = ImageAsset.bundle(name: "Settings/PinCode")
     static let spaces = ImageAsset.bundle(name: "Settings/Spaces")

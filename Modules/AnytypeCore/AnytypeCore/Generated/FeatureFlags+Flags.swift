@@ -50,6 +50,10 @@ public extension FeatureFlags {
         value(for: .multiplayer)
     }
 
+    static var membership: Bool {
+        value(for: .membership)
+    }
+
     static var rainbowViews: Bool {
         value(for: .rainbowViews)
     }
@@ -99,6 +103,7 @@ public extension FeatureFlags {
         .newObjectSelectRelationView,
         .newFileSelectRelationView,
         .multiplayer,
+        .membership,
         .rainbowViews,
         .showAlertOnAssert,
         .analytics,
