@@ -28,7 +28,7 @@ final class RelationsBuilder {
     func parsedRelations(
         relationsDetails: [RelationDetails],
         typeRelationsDetails: [RelationDetails],
-        objectId: BlockId,
+        objectId: String,
         relationValuesIsLocked: Bool,
         storage: ObjectDetailsStorage
     ) -> ParsedRelations {
@@ -435,7 +435,7 @@ private extension RelationsBuilder {
                         id: valueId,
                         icon: .object(.placeholder(nil)),
                         title: Loc.deleted,
-                        type: .empty,
+                        type: "",
                         isArchived: true,
                         isDeleted: true,
                         editorScreenData: objectDetail.editorScreenData()

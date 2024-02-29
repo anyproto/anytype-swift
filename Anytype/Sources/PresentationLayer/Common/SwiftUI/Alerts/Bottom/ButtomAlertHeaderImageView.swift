@@ -31,6 +31,7 @@ struct ButtomAlertHeaderImageView: View {
             Image(asset: icon)
         }
         .frame(height: 104)
+        .padding(.vertical, 4)
     }
     
     @ViewBuilder

@@ -22,7 +22,7 @@ struct SetFullHeader: View {
             VStack(alignment: .leading, spacing: 8) {
                 titleView
                 description
-                flowRelations
+                featuredRelationsView
             }
             .padding([.leading], 20)
         }
@@ -34,7 +34,7 @@ struct SetFullHeader: View {
             emptyCover
             VStack(alignment: .leading, spacing: 8) {
                 iconWithTitle
-                flowRelations
+                featuredRelationsView
             }
             .padding([.leading], 20)
         }
@@ -119,18 +119,11 @@ extension SetFullHeader {
         .disableAutocorrection(true)
     }
 
-    private var flowRelations: some View {
-        FlowLayout(
-            items: model.featuredRelations,
-            alignment: .leading,
-            spacing: .init(width: 6, height: 4),
-            cell: { item, index in
-                HStack(spacing: 0) {
-                    relationContent(for: item)
-                    if model.featuredRelations.count - 1 > index {
-                        dotImage
-                    }
-                }
+    private var featuredRelationsView: some View {
+        FeaturedRelationsView(
+            relations: model.featuredRelations,
+            view: { relation in
+                relationContent(for: relation)
             }
         )
     }
@@ -148,29 +141,17 @@ extension SetFullHeader {
             )
         )
         let contextMenuItems = model.contextMenuItems(for: relation)
-        if contextMenuItems.isNotEmpty {
-            RelationValueView(
+        let mode: RelationValueViewModel.Mode = contextMenuItems.isNotEmpty ? .contextMenu(contextMenuItems) : .button(action: { [weak model] in
+            UIApplication.shared.hideKeyboard()
+            model?.onRelationTap(relation: relation)
+        })
+        RelationValueView(
+            model: RelationValueViewModel(
                 relation: item,
                 style: style,
-                mode: .contextMenu(contextMenuItems)
+                mode: mode
             )
-        } else {
-            RelationValueView(
-                relation: item,
-                style: style,
-                mode: .button(action: { [weak model] in
-                    UIApplication.shared.hideKeyboard()
-                    model?.onRelationTap(relation: relation)
-                })
-            )
-        }
-    }
-
-    private var dotImage: some View {
-        Image(systemName: "circle.fill")
-            .resizable()
-            .foregroundColor(.Text.secondary)
-            .frame(width: 3, height: 3)
+        )
     }
 }
 

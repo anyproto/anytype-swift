@@ -528,9 +528,10 @@
 "Unsupported value" = "Valor não suportado";
 "Select relation type" = "Selecionar tipo de relação";
 "CommonOpenErrorView.Message" = "Dados não encontrados";
+"AreYouSure" = "Você tem certeza?";
 "Nothing found" = "Nada encontrado";
-"No type found text" = "No type “%@” found. Change your request or create new type.";
-"Create type" = "Create type";
+"No type found text" = "Nenhum tipo “%@\" foi encontrado. Altere sua solicitação ou crie um novo tipo.";
+"Create type" = "Criar tipo";
 
 
 "Limit object types" = "Limitar tipos de objeto";
@@ -554,6 +555,7 @@
 "Application icon" = "Ícone do aplicativo";
 "Mode" = "Modo";
 "copied to clipboard" = "%@ copiado para a área de transferência";
+"Create object from clipboard" = "Criar objeto a partir da área de transferência.";
 "Access to secret phrase from keychain" = "Acesso à frase secreta do keychain";
 "Back up your recovery phrase" = "Salve sua frase de recuperação";
 "Account" = "Conta";
@@ -601,8 +603,8 @@
 "Into object" = "Neste objeto";
 "Add below" = "Adicionar abaixo";
 "Change type" = "Alterar tipo";
-"Show types" = "Show types";
-"Hide types" = "Hide types";
+"Show types" = "Mostrar tipos";
+"Hide types" = "Ocultar tipos";
 "SlashMenu.LinkTo.Description" = "Criar vínculo com outro objeto";
 "Upload playable audio" = "Carregar áudio reproduzível";
 "Code snippet" = "Trecho de código";
@@ -662,7 +664,7 @@
 "DataviewType.gallery" = "Galeria";
 "DataviewType.kanban" = "Kanban";
 "DataviewType.calendar" = "Calendário";
-"DataviewType.graph" = "Graph";
+"DataviewType.graph" = "Gráfico";
 
 // MARK: - ObjectType
 "ObjectType.fallbackDescription" = "Tela em branco sem título";
@@ -844,10 +846,26 @@
 "ClearCacheAlert.Description" = "Todos os arquivos de mídia armazenados no Anytype serão excluídos do seu dispositivo atual. Eles podem ser baixados novamente de um nó de backup ou de outro dispositivo.";
 
 // MARK: - Spaces
-"Spaces.Accessibility.Public" = "Espaço Público";
+"Spaces.Accessibility.Shared" = "Shared Space";
 "Spaces.Accessibility.Private" = "Espaço Privado";
 "Spaces.Accessibility.Personal" = "Configurações";
 "Spaces.Search.Title" = "Pesquisar Espaços";
+"Spaces.Title" = "Spaces";
+"Spaces.Info.Network" = "Network:";
+"Spaces.Info.Device" = "Device:";
+
+// MARK: - Space
+"Space.Status.Unknown" = "Desconhecido";
+"Space.Status.Loading" = "Loading";
+"Space.Status.Ok" = "Ok";
+"Space.Status.Missing" = "Missing";
+"Space.Status.Error" = "Erro";
+"Space.Status.RemoteWaitingDeletion" = "Waiting Deletion";
+"Space.Status.RemoteDeleted" = "Remote Deleted";
+"Space.Status.SpaceDeleted" = "Apagado";
+"Space.Status.SpaceActive" = "Active";
+"Space.Status.SpaceJoining" = "Joining";
+"Space.Status.SpaceRemoving" = "Removing";
 
 // MARK: - Space Settings
 "SpaceSettings.Title" = "Configurações do espaço";
@@ -865,8 +883,28 @@
 "SpaceShare.Title" = "Compartilhar espaço";
 "SpaceShare.MembersSection" = "Membros e solicitações";
 "SpaceShare.Permissions.Owner" = "Proprietário";
-"SpaceShare.Permissions.Reader" = "Pode visualizar";
-"SpaceShare.Permissions.Writer" = "Pode editar";
+"SpaceShare.Permissions.Reader" = "Viewer";
+"SpaceShare.Permissions.Writer" = "Editor";
+"SpaceShare.Invite.Title" = "Link de convite";
+"SpaceShare.Invite.Description" = "Envie este link para convidar outras pessoas. Após a aprovação do acesso, você poderá atribuir direitos de acesso";
+"SpaceShare.Invite.Button" = "Compartilhar link de convite";
+"SpaceShare.Status.Joining" = "Requested";
+"SpaceShare.Status.Declined" = "Declined";
+"SpaceShare.Action.ViewRequest" = "View Request";
+"SpaceShare.ViewRequest.Title" = "%@ requested to join %@ space";
+"SpaceShare.ViewRequest.ViewAccess" = "Grand view access";
+"SpaceShare.ViewRequest.EditAccess" = "Grand edit access";
+"SpaceShare.ViewRequest.Reject" = "Reject";
+"SpaceShare.RemoveMember.Title" = "Remove memeber";
+"SpaceShare.RemoveMember.Message" = "%@ will be removed from the space.";
+"SpaceShare.ChangePermissions" = "%@ access to the space would become %@.";
+"SpaceShare.Join.Title" = "Join a space";
+"SpaceShare.Join.CommentPlaceholder" = "Leave a private comment for a space owner";
+"SpaceShare.Join.Button" = "Request to join";
+"SpaceShare.Join.Info" = "Once the space owner approves your request, you'll join the space with the access rights owner determined.";
+"SpaceShare.Join.Message" = "You’ve been invited to join %@ space, created by %@. Send a request so space owner can let you in.";
+"SpaceShare.JoinConfirmation.Title" = "Request sent";
+"SpaceShare.JoinConfirmation.Message" = "You will receive a notification when the space owner will approve your request.";
 
 // MARK: - Space Create
 "SpaceCreate.Title" = "Cria um Espaço";
@@ -893,6 +931,11 @@
 "Sharing.Tip.Steps.2" = "Role a tela para além do aplicativo e toque em Mais";
 "Sharing.Tip.Steps.3" = "Toque em Editar, encontre \"Anytype\" e toque";
 
+// MARK: - Swipe tips
+"Swipe.Tip.Title" = "Swipe to Create Objects";
+"Swipe.Tip.Subtitle" = "Create objects inside widgets by easily swiping them left.";
+
+
 // MARK: - Initial
 
 "Initial.UnstableMiddle.Title" = "Aviso";
@@ -911,9 +954,9 @@
 "Error.AnytypeNeedsUpgrate.Message" = "Este objeto foi atualizado em uma nova versão do Anytype. Por favor, atualize o aplicativo para abri-lo neste dispositivo";
 "Error.AnytypeNeedsUpgrate.Confirm" = "Atualização";
 "Error.UnableToConnect" = "Por favor, conecte-se à internet";
-"Error.Common.Title" = "Oops!";
-"Error.Common.Message" = "Please check your internet connection and try again or post a report on forum.";
-"Error.Common.TryAgain" = "Try again";
+"Error.Common.Title" = "Ops!";
+"Error.Common.Message" = "Por favor, verifique sua conexão com a internet e tente novamente ou publique seu problema no fórum.";
+"Error.Common.TryAgain" = "Tente novamente";
 
 // MARK: - Relative date formatter
 "RelativeFormatter.days7" = "Últimos 7 dias";
@@ -930,11 +973,11 @@
 // MARK: - Gallery
 "Gallery.Unavailable.Title" = "A Galeria estará disponível em breve";
 "Gallery.Unavailable.Message" = "Por favor, utilize o aplicativo para computador por enquanto";
-"Gallery.Author" = "Made by @%@";
-"Gallery.Install" = "Install";
-"Gallery.InstallToNew" = "Install to new space";
-"Gallery.Notification.Success" = "Experience was successfully installed to the \"%@\" space. You can now open and start using it.";
-"Gallery.Notification.Button" = "Go to space";
+"Gallery.Author" = "Feito por @%@";
+"Gallery.Install" = "Instalar";
+"Gallery.InstallToNew" = "Instalar no novo espaço";
+"Gallery.Notification.Success" = "Experiência instalada com sucesso no espaço \"%@\". Agora você pode abrir e começar a usá-la.";
+"Gallery.Notification.Button" = "Ir para espaço";
 "Gallery.Notification.Error" = "Oops! \"%@\" wasn't installed. Please check your internet connection and try again or post a report on forum.";
 
 // MARK: - Debug

@@ -62,7 +62,7 @@
 "BlockLink.PreviewSettings.Layout.Text.Title" = "Текст";
 
 // MARK: - Settings
-"Settings.Title" = "Личное пространство";
+"Settings.Title" = "Настройки";
 "Settings.SpaceName" = "Название пространства";
 
 // MARK: - Object
@@ -259,7 +259,7 @@
 
 "Auth.JoinFlow.Creating.Soul.Title" = "Создание нового аккаунта";
 "Auth.JoinFlow.Setting.Space.Title" = "Настройка вашего личного пространства";
-"Auth.JoinFlow.Personal.Space.Title" = "Личное пространство";
+"Auth.JoinFlow.Personal.Space.Title" = "Настройки";
 
 // Auth - Login flow
 "Auth.LoginFlow.Use.Keychain.Title" = "Использовать связку ключей";
@@ -528,6 +528,7 @@
 "Unsupported value" = "Неподдерживаемое значение";
 "Select relation type" = "Выберите тип свойства";
 "CommonOpenErrorView.Message" = "Данные не найдены";
+"AreYouSure" = "Вы уверены?";
 "Nothing found" = "Nothing found";
 "No type found text" = "No type “%@” found. Change your request or create new type.";
 "Create type" = "Create type";
@@ -554,6 +555,7 @@
 "Application icon" = "Значок приложения";
 "Mode" = "Режим";
 "copied to clipboard" = "Скопирован(о) в буфер обмена: %@";
+"Create object from clipboard" = "Создать объект из буфера обмена";
 "Access to secret phrase from keychain" = "Доступ к секретной фразе из связки ключей";
 "Back up your recovery phrase" = "Создайте резервную копию фразы восстановления";
 "Account" = "Учетная запись";
@@ -753,10 +755,6 @@
 "Content.DataView.InlineCollection.Untitled" = "Коллекция без названия";
 "Content.DataView.InlineSet.Toast.Failure" = "Этот набор не имеет источника";
 
-// MARK: - Widget extension
-"WidgetExtension.LockScreen.Title" = "Новый объект";
-"WidgetExtension.LockScreen.Description" = "Быстрое создание нового объекта";
-
 // MARK: - Toast
 "Editor.Toast.LinkedTo" = "связано с";
 "Editor.Toast.MovedTo" = "Блок перемещен в";
@@ -813,7 +811,7 @@
 "ClearCache.Error" = "Ошибка, повторите попытку позже";
 
 // MARK: - Settings
-"Settings.TitleLegacy" = "Личное пространство";
+"Settings.TitleLegacy" = "Настройки";
 "Settings.Title" = "Настройки";
 "Settings.SpaceName" = "Название пространства";
 "Settings.AccountAndAccess" = "Учетная запись и доступ";
@@ -849,10 +847,26 @@
 "ClearCacheAlert.Description" = "Все медиафайлы, сохраненные в Anytype, будут удалены с вашего текущего устройства. Их можно снова загрузить с резервного узла или другого устройства.";
 
 // MARK: - Spaces
-"Spaces.Accessibility.Public" = "Публичное пространство";
+"Spaces.Accessibility.Shared" = "Shared Space";
 "Spaces.Accessibility.Private" = "Личное Пространство";
-"Spaces.Accessibility.Personal" = "Личное пространство";
+"Spaces.Accessibility.Personal" = "Настройки";
 "Spaces.Search.Title" = "Поиск пространств";
+"Spaces.Title" = "Пространства";
+"Spaces.Info.Network" = "Network:";
+"Spaces.Info.Device" = "Device:";
+
+// MARK: - Space
+"Space.Status.Unknown" = "Неизвестно";
+"Space.Status.Loading" = "Loading";
+"Space.Status.Ok" = "Ок";
+"Space.Status.Missing" = "Missing";
+"Space.Status.Error" = "Ошибка";
+"Space.Status.RemoteWaitingDeletion" = "Waiting Deletion";
+"Space.Status.RemoteDeleted" = "Remote Deleted";
+"Space.Status.SpaceDeleted" = "Удалено";
+"Space.Status.SpaceActive" = "Active";
+"Space.Status.SpaceJoining" = "Joining";
+"Space.Status.SpaceRemoving" = "Removing";
 
 // MARK: - Space Settings
 "SpaceSettings.Title" = "Настройки пространства";
@@ -870,8 +884,28 @@
 "SpaceShare.Title" = "Share space";
 "SpaceShare.MembersSection" = "Members and requests";
 "SpaceShare.Permissions.Owner" = "Owner";
-"SpaceShare.Permissions.Reader" = "Can view";
-"SpaceShare.Permissions.Writer" = "Can edit";
+"SpaceShare.Permissions.Reader" = "Viewer";
+"SpaceShare.Permissions.Writer" = "Editor";
+"SpaceShare.Invite.Title" = "Invite link";
+"SpaceShare.Invite.Description" = "Send this link to invite others. Assign access rights upon their request approval";
+"SpaceShare.Invite.Button" = "Share invite link";
+"SpaceShare.Status.Joining" = "Requested";
+"SpaceShare.Status.Declined" = "Declined";
+"SpaceShare.Action.ViewRequest" = "View Request";
+"SpaceShare.ViewRequest.Title" = "%@ requested to join %@ space";
+"SpaceShare.ViewRequest.ViewAccess" = "Grand view access";
+"SpaceShare.ViewRequest.EditAccess" = "Grand edit access";
+"SpaceShare.ViewRequest.Reject" = "Reject";
+"SpaceShare.RemoveMember.Title" = "Remove memeber";
+"SpaceShare.RemoveMember.Message" = "%@ will be removed from the space.";
+"SpaceShare.ChangePermissions" = "%@ access to the space would become %@.";
+"SpaceShare.Join.Title" = "Join a space";
+"SpaceShare.Join.CommentPlaceholder" = "Leave a private comment for a space owner";
+"SpaceShare.Join.Button" = "Request to join";
+"SpaceShare.Join.Info" = "Once the space owner approves your request, you'll join the space with the access rights owner determined.";
+"SpaceShare.Join.Message" = "You’ve been invited to join %@ space, created by %@. Send a request so space owner can let you in.";
+"SpaceShare.JoinConfirmation.Title" = "Request sent";
+"SpaceShare.JoinConfirmation.Message" = "You will receive a notification when the space owner will approve your request.";
 
 // MARK: - Space Create
 "SpaceCreate.Title" = "Создать пространство";
@@ -897,6 +931,11 @@
 "Sharing.Tip.Steps.1" = "Нажмите на кнопку обмена iOS";
 "Sharing.Tip.Steps.2" = "Прокрутите приложение и нажмите ещё";
 "Sharing.Tip.Steps.3" = "Нажмите Отредактировать, чтобы найти «Anytype» и нажмите";
+
+// MARK: - Swipe tips
+"Swipe.Tip.Title" = "Swipe to Create Objects";
+"Swipe.Tip.Subtitle" = "Create objects inside widgets by easily swiping them left.";
+
 
 // MARK: - Initial
 

@@ -27,7 +27,15 @@
 			<string></string>
 			<key>CFBundleURLSchemes</key>
 			<array>
-				<string>$(APP_URL_SCHEME)</string>
+				<string>$(BUILD_APP_URL_SCHEME)</string>
+			</array>
+		</dict>
+		<dict>
+			<key>CFBundleTypeRole</key>
+			<string>Editor</string>
+			<key>CFBundleURLSchemes</key>
+			<array>
+				<string>anytype</string>
 			</array>
 		</dict>
 	</array>

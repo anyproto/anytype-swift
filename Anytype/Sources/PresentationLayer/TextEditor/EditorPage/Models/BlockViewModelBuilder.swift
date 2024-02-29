@@ -1,4 +1,3 @@
-import Foundation
 import Services
 import Combine
 import UniformTypeIdentifiers
@@ -7,9 +6,8 @@ import AnytypeCore
 final class BlockViewModelBuilder {
     private let document: BaseDocumentProtocol
     private let handler: BlockActionHandlerProtocol
-    private let pasteboardService: PasteboardServiceProtocol
+    private let pasteboardService: PasteboardBlockDocumentServiceProtocol
     private let router: EditorRouterProtocol
-    private let delegate: BlockDelegate
     private let subjectsHolder: FocusSubjectsHolder
     private let markdownListener: MarkdownListener
     private let simpleTableDependenciesBuilder: SimpleTableDependenciesBuilder
@@ -17,26 +15,44 @@ final class BlockViewModelBuilder {
     private let audioSessionService: AudioSessionServiceProtocol
     private let infoContainer: InfoContainerProtocol
     private let tableService: BlockTableServiceProtocol
-
+    private let objectTypeProvider: ObjectTypeProviderProtocol
+    private let modelsHolder: EditorMainItemModelsHolder
+    private let blockCollectionController: EditorBlockCollectionController
+    private let accessoryStateManager: AccessoryViewStateManager
+    private let cursorManager: EditorCursorManager
+    private let keyboardActionHandler: KeyboardActionHandlerProtocol
+    private let editorPageBlocksStateManager: EditorPageBlocksStateManager
+    private let linkToObjectCoordinator: LinkToObjectCoordinatorProtocol
+    private let markupChanger: BlockMarkupChangerProtocol
+    private let slashMenuActionHandler: SlashMenuActionHandler
+    
     init(
         document: BaseDocumentProtocol,
         handler: BlockActionHandlerProtocol,
-        pasteboardService: PasteboardServiceProtocol,
+        pasteboardService: PasteboardBlockDocumentServiceProtocol,
         router: EditorRouterProtocol,
-        delegate: BlockDelegate,
         markdownListener: MarkdownListener,
         simpleTableDependenciesBuilder: SimpleTableDependenciesBuilder,
         subjectsHolder: FocusSubjectsHolder,
         detailsService: DetailsServiceProtocol,
         audioSessionService: AudioSessionServiceProtocol,
         infoContainer: InfoContainerProtocol,
-        tableService: BlockTableServiceProtocol
+        tableService: BlockTableServiceProtocol,
+        objectTypeProvider: ObjectTypeProviderProtocol,
+        modelsHolder: EditorMainItemModelsHolder,
+        blockCollectionController: EditorBlockCollectionController,
+        accessoryStateManager: AccessoryViewStateManager,
+        cursorManager: EditorCursorManager,
+        keyboardActionHandler: KeyboardActionHandlerProtocol,
+        linkToObjectCoordinator: LinkToObjectCoordinatorProtocol,
+        markupChanger: BlockMarkupChangerProtocol,
+        slashMenuActionHandler: SlashMenuActionHandler,
+        editorPageBlocksStateManager: EditorPageBlocksStateManager
     ) {
         self.document = document
         self.handler = handler
         self.pasteboardService = pasteboardService
         self.router = router
-        self.delegate = delegate
         self.markdownListener = markdownListener
         self.simpleTableDependenciesBuilder = simpleTableDependenciesBuilder
         self.subjectsHolder = subjectsHolder
@@ -44,65 +60,92 @@ final class BlockViewModelBuilder {
         self.audioSessionService = audioSessionService
         self.infoContainer = infoContainer
         self.tableService = tableService
+        self.objectTypeProvider = objectTypeProvider
+        self.modelsHolder = modelsHolder
+        self.blockCollectionController = blockCollectionController
+        self.accessoryStateManager = accessoryStateManager
+        self.cursorManager = cursorManager
+        self.keyboardActionHandler = keyboardActionHandler
+        self.linkToObjectCoordinator = linkToObjectCoordinator
+        self.markupChanger = markupChanger
+        self.slashMenuActionHandler = slashMenuActionHandler
+        self.editorPageBlocksStateManager = editorPageBlocksStateManager
     }
-
-    func buildEditorItems(infos: [BlockInformation]) -> [EditorItem] {
+    
+    func buildEditorItems(infos: [String]) -> [EditorItem] {
         let blockViewModels = build(infos)
+        
+        
         var editorItems = blockViewModels.map (EditorItem.block)
-
+        
         let featureRelationsIndex = blockViewModels.firstIndex { $0.content == .featuredRelations }
-
+        
         if let featureRelationsIndex = featureRelationsIndex {
             let spacer = SpacerBlockViewModel(usage: .firstRowOffset)
             editorItems.insert(.system(spacer), at: featureRelationsIndex + 1)
         }
-
+        
         return editorItems
     }
-
+    
     func buildShimeringItem() -> EditorItem {
         let shimmeringViewModel = ShimmeringBlockViewModel()
-
+        
         return .system(shimmeringViewModel)
     }
-
-    private func build(_ infos: [BlockInformation]) -> [BlockViewModelProtocol] {
-        infos.compactMap(build(info:))
+    
+    private func build(_ ids: [String]) -> [BlockViewModelProtocol] {
+        ids.compactMap {
+            let block = build(id: $0)
+            return block
+        }
     }
-
-    func build(info: BlockInformation) -> BlockViewModelProtocol? {
+    
+    func build(id: String) -> BlockViewModelProtocol? {
+        if let model = modelsHolder.blocksMapping[id] {
+            return model
+        }
+        
+        guard let info = infoContainer.get(id: id) else {
+            return nil
+        }
+        
+        let blockInformationProvider = BlockModelInfomationProvider(infoContainer: infoContainer, info: info)
+  
         switch info.content {
         case let .text(content):
             switch content.contentType {
             case .code:
-                let codeLanguage = CodeLanguage.create(
-                    middleware: info.fields[CodeBlockFields.FieldName.codeLanguage]?.stringValue
-                )
                 return CodeBlockViewModel(
-                    info: info,
-                    content: content,
-                    anytypeText: content.anytypeText(document: document),
-                    codeLanguage: codeLanguage,
+                    infoProvider: blockInformationProvider,
+                    document: document,
                     becomeFirstResponder: { _ in },
-                    textDidChange: { [weak self] block, textView in
-                        self?.handler.changeText(textView.attributedText, info: info)
-                        self?.delegate.textBlockSetNeedsLayout()
-                    },
-                    showCodeSelection: { [weak self] info in
+                    handler: handler,
+                    editorCollectionController: blockCollectionController,
+                    showCodeSelection: { [weak self] info, codeLanguage in
                         self?.router.showCodeLanguage(blockId: info.id, selectedLanguage: codeLanguage)
                     }
                 )
             default:
-                let isCheckable = content.contentType == .title ? document.details?.layoutValue == .todo : false
-                let anytypeText = content.anytypeText(document: document)
-                
                 let textBlockActionHandler = TextBlockActionHandler(
                     info: info,
+                    focusSubject: subjectsHolder.focusSubject(for: info.id),
                     showPage: { [weak self] objectId in
                         self?.router.showPage(objectId: objectId)
                     },
                     openURL: { [weak router] url in
                         router?.openUrl(url)
+                    },
+                    onShowStyleMenu: { [weak self] blockInformation in
+                        Task { @MainActor [weak self] in
+                            self?.editorPageBlocksStateManager.didSelectStyleSelection(infos: [blockInformation])
+                        }
+                    },
+                    onEnterSelectionMode: { [weak self] blockInformation in
+                        Task { @MainActor [weak self] in
+                            self?.editorPageBlocksStateManager.didSelectEditingState(info: blockInformation)
+                        }
+                        
                     },
                     showTextIconPicker: { [weak router, weak document] in
                         guard let router, let document else { return }
@@ -117,32 +160,38 @@ final class BlockViewModelBuilder {
                     hideWaitingView: {  [weak router] in
                         router?.hideWaitingView()
                     },
-                    content: content,
-                    anytypeText: anytypeText,
                     showURLBookmarkPopup: { [weak router] parameters in
                         router?.showLinkContextualMenu(inputParameters: parameters)
                     },
                     actionHandler: handler,
                     pasteboardService: pasteboardService,
                     markdownListener: markdownListener,
-                    blockDelegate: delegate
+                    collectionController: blockCollectionController,
+                    cursorManager: cursorManager,
+                    accessoryViewStateManager: accessoryStateManager,
+                    keyboardHandler: keyboardActionHandler,
+                    linkToObjectCoordinator: linkToObjectCoordinator,
+                    markupChanger: markupChanger,
+                    slashMenuActionHandler: slashMenuActionHandler
                 )
-
-                return TextBlockViewModel(
-                    info: info,
-                    content: content,
-                    anytypeText: anytypeText,
-                    isCheckable: isCheckable,
-                    focusSubject: subjectsHolder.focusSubject(for: info.id),
-                    actionHandler: textBlockActionHandler
+                
+                let viewModel = TextBlockViewModel(
+                    document: document,
+                    blockInformationProvider: blockInformationProvider,
+                    stylePublisher: .empty(),
+                    actionHandler: textBlockActionHandler,
+                    cursorManager: cursorManager
                 )
+                
+                textBlockActionHandler.viewModel = viewModel
+                
+                return viewModel
             }
         case let .file(content):
             switch content.contentType {
             case .file, .none:
                 return BlockFileViewModel(
-                    info: info,
-                    fileData: content,
+                    informationProvider: blockInformationProvider,
                     handler: handler,
                     showFilePicker: { [weak self] blockId in
                         self?.showFilePicker(blockId: blockId)
@@ -153,20 +202,16 @@ final class BlockViewModelBuilder {
                 )
             case .image:
                 return BlockImageViewModel(
-                    info: info,
-                    fileData: content,
+                    blockInformationProvider: blockInformationProvider,
                     handler: handler,
                     showIconPicker: { [weak self] blockId in
                         self?.showMediaPicker(type: .images, blockId: blockId)
                     },
                     onImageOpen: router.openImage
                 )
-
-
             case .video:
                 return VideoBlockViewModel(
-                    info: info,
-                    fileData: content,
+                    informantionProvider: blockInformationProvider,
                     audioSessionService: audioSessionService,
                     showVideoPicker: { [weak self] blockId in
                         self?.showMediaPicker(type: .videos, blockId: blockId)
@@ -174,16 +219,15 @@ final class BlockViewModelBuilder {
                 )
             case .audio:
                 return AudioBlockViewModel(
-                    info: info,
-                    fileData: content,
+                    informationProvider: blockInformationProvider,
                     audioSessionService: audioSessionService,
                     showAudioPicker: { [weak self] blockId in
                         self?.showFilePicker(blockId: blockId, types: [.audio])
                     }
                 )
             }
-        case .divider(let content):
-            return DividerBlockViewModel(content: content, info: info)
+        case .divider:
+            return DividerBlockViewModel(blockInformationProvider: blockInformationProvider)
         case let .bookmark(data):
             
             let details = document.detailsStorage.get(id: data.targetObjectID)
@@ -193,9 +237,12 @@ final class BlockViewModelBuilder {
             }
             
             return BlockBookmarkViewModel(
-                info: info,
-                bookmarkData: data,
-                objectDetails: details,
+                editorCollectionController: blockCollectionController, objectDetailsProvider: ObjectDetailsInfomationProvider(
+                    detailsStorage: document.detailsStorage,
+                    targetObjectId: data.targetObjectID,
+                    details: details
+                ),
+                infoProvider: blockInformationProvider,
                 showBookmarkBar: { [weak self] info in
                     self?.showBookmarkBar(info: info)
                 },
@@ -211,25 +258,25 @@ final class BlockViewModelBuilder {
                 )
                 return nil
             }
-
+            
             return BlockLinkViewModel(
-                info: info,
-                content: content,
-                details: details,
+                informationProvider: blockInformationProvider,
+                objectDetailsProvider: ObjectDetailsInfomationProvider(
+                    detailsStorage: document.detailsStorage,
+                    targetObjectId: content.targetBlockID,
+                    details: details
+                ),
+                blocksController: blockCollectionController,
                 detailsService: detailsService,
                 openLink: { [weak self] data in
-                    self?.router.showPage(data: data)
+                    self?.router.showEditorScreen(data: data)
                 }
             )
         case .featuredRelations:
-            guard let objectType = document.details?.objectType else { return nil }
-            
-            let featuredRelationValues = document.featuredRelationsForEditor
             return FeaturedRelationsBlockViewModel(
-                info: info,
-                featuredRelationValues: featuredRelationValues,
-                type: objectType.name,
-                blockDelegate: delegate
+                infoProvider: blockInformationProvider,
+                document: document,
+                collectionController: blockCollectionController
             ) { [weak self] relation in
                 guard let self = self else { return }
 
@@ -251,14 +298,18 @@ final class BlockViewModelBuilder {
             let relation = document.parsedRelations.all.first {
                 $0.key == content.key
             }
-            
+
             guard let relation = relation else {
                 return nil
             }
-
+            
             return RelationBlockViewModel(
-                info: info,
-                relation: relation
+                blockInformationProvider: blockInformationProvider,
+                relationProvider: RelationProvider(
+                    relation: relation,
+                    relationPublisher: document.parsedRelationsPublisher
+                ),
+                collectionController: blockCollectionController
             ) { [weak self] in
                 self?.router.showRelationValueEditingView(key: relation.key)
             }
@@ -267,11 +318,9 @@ final class BlockViewModelBuilder {
                 info: info,
                 document: document,
                 onTap: { [weak self] blockId in
-                    self?.delegate.scrollToBlock(blockId: blockId)
+                    self?.blockCollectionController.scrollToTopBlock(blockId: blockId)
                 },
-                blockSetNeedsLayout: { [weak self] in
-                    self?.delegate.textBlockSetNeedsLayout()
-                }
+                editorCollectionController: blockCollectionController
             )
         case .smartblock, .layout, .tableRow, .tableColumn, .widget: return nil
         case .table:
@@ -281,23 +330,28 @@ final class BlockViewModelBuilder {
                 infoContainer: infoContainer,
                 tableService: tableService,
                 document: document,
+                editorCollectionController: blockCollectionController,
                 focusSubject: subjectsHolder.focusSubject(for: info.id)
             )
         case let .dataView(data):
-            let details = document.detailsStorage.get(id: data.targetObjectID)
+            let objectDetailsProvider = ObjectDetailsInfomationProvider(
+                detailsStorage: document.detailsStorage,
+                targetObjectId: data.targetObjectID,
+                details: document.detailsStorage.get(id: data.targetObjectID)
+            )
             
-            if details?.isDeleted ?? false {
-                return NonExistentBlockViewModel(info: info)
-            }
             return DataViewBlockViewModel(
-                info: info,
-                objectDetails: details,
-                isCollection: data.isCollection,
+                blockInformationProvider: BlockModelInfomationProvider(
+                    infoContainer: infoContainer,
+                    info: info
+                ),
+                objectDetailsProvider: objectDetailsProvider,
+                reloadable: blockCollectionController,
                 showFailureToast: { [weak self] message in
                     self?.router.showFailureToast(message: message)
                 },
                 openSet: { [weak self] data in
-                    self?.router.showPage(data: data)
+                    self?.router.showEditorScreen(data: data)
                 }
             )
         case .unsupported:
@@ -307,7 +361,7 @@ final class BlockViewModelBuilder {
             else {
                 return nil
             }
-
+            
             return UnsupportedBlockViewModel(info: info)
         }
     }
@@ -322,15 +376,14 @@ final class BlockViewModelBuilder {
             try await handler.applyTemplate(objectId: document.objectId, templateId: type.defaultTemplateId)
         }
     }
-
     // MARK: - Actions
-
+    
     private var subscriptions = [AnyCancellable]()
-
-    private func showMediaPicker(type: MediaPickerContentType, blockId: BlockId) {
+    
+    private func showMediaPicker(type: MediaPickerContentType, blockId: String) {
         router.showImagePicker(contentType: type) { [weak self] itemProvider in
             guard let itemProvider = itemProvider else { return }
-
+            
             self?.handler.uploadMediaFile(
                 uploadingSource: .itemProvider(itemProvider),
                 type: type,
@@ -338,16 +391,16 @@ final class BlockViewModelBuilder {
             )
         }
     }
-
-    private func showFilePicker(blockId: BlockId, types: [UTType] = [.item]) {
+    
+    private func showFilePicker(blockId: String, types: [UTType] = [.item]) {
         let model = Picker.ViewModel(types: types)
         model.$resultInformation.safelyUnwrapOptionals().sink { [weak self] result in
             self?.handler.uploadFileAt(localPath: result.filePath, blockId: blockId)
         }.store(in: &subscriptions)
-
+        
         router.showFilePicker(model: model)
     }
-
+    
     private func showBookmarkBar(info: BlockInformation) {
         router.showBookmarkBar() { [weak self] url in
             Task { [weak self] in

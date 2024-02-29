@@ -9,7 +9,7 @@ final class MarkupViewModel: MarkupViewModelProtocol {
 
     private var cancellable: AnyCancellable? = nil
     
-    private let blockIds: [BlockId]
+    private let blockIds: [String]
     private let actionHandler: BlockActionHandlerProtocol
     private let document: BaseDocumentProtocol
     private let linkToObjectCoordinator: LinkToObjectCoordinatorProtocol
@@ -19,7 +19,7 @@ final class MarkupViewModel: MarkupViewModelProtocol {
     
     init(
         document: BaseDocumentProtocol,
-        blockIds: [BlockId],
+        blockIds: [String],
         actionHandler: BlockActionHandlerProtocol,
         linkToObjectCoordinator: LinkToObjectCoordinatorProtocol
     ) {
@@ -93,7 +93,7 @@ final class MarkupViewModel: MarkupViewModelProtocol {
     }
     
     private func subscribeToPublishers() {
-        cancellable =  document.updatePublisher.sink { [weak self] _ in
+        cancellable =  document.syncPublisher.sink { [weak self] in
             self?.updateState()
         }
     }
@@ -140,7 +140,7 @@ fileprivate extension MarkupType {
         }
     }
     
-    var blokcLink: BlockId? {
+    var blokcLink: String? {
         switch self {
         case let .linkToObject(blokcId):
             return blokcId

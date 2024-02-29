@@ -5,16 +5,14 @@ import Combine
 extension BaseDocumentProtocol {
     
     var widgetsPublisher: AnyPublisher<[BlockInformation], Never> {
-       syncPublisher
-            .map { [weak self] _ -> [BlockInformation] in
-                guard let self = self else { return [] }
-                return self.children.filter(\.isWidget)
-            }
+        childrenPublisher.map {
+            $0.filter(\.isWidget)
+        }
             .receiveOnMain()
             .eraseToAnyPublisher()
     }
     
-    func targetObjectIdByLinkFor(widgetBlockId: BlockId) -> String? {
+    func targetObjectIdByLinkFor(widgetBlockId: String) -> String? {
         guard let block = infoContainer.get(id: widgetBlockId),
               let contentId = block.childrenIds.first,
               let contentInfo = infoContainer.get(id: contentId),

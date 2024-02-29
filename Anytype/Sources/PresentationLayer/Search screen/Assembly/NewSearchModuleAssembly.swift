@@ -139,7 +139,7 @@ final class NewSearchModuleAssembly: NewSearchModuleAssemblyProtocol {
         style: NewSearchView.Style,
         title: String,
         spaceId: String,
-        selectedObjectId: BlockId?,
+        selectedObjectId: String?,
         showSetAndCollection: Bool,
         showFiles: Bool,
         onSelect: @escaping (_ type: ObjectType) -> Void

@@ -127,6 +127,14 @@ extension AnytypeFont {
                 lineHeight: 24,
                 kern: -0.41
             )
+        case .uxTitle2Semibold:
+            return AnytypeFontConfig(
+                fontName: .inter,
+                size: 15,
+                weight: .semibold,
+                lineHeight: 20,
+                kern: -0.24
+            )
         case .uxTitle2Regular:
             return AnytypeFontConfig(
                 fontName: .inter,

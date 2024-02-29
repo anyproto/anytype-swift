@@ -62,7 +62,7 @@
 "BlockLink.PreviewSettings.Layout.Text.Title" = "ଲେଖା";
 
 // MARK: - Settings
-"Settings.Title" = "ବ୍ୟକ୍ତିଗତ ସ୍ଥାନ";
+"Settings.Title" = "ସେଟିଂସମୂହ";
 "Settings.SpaceName" = "ସ୍ଥାନ ନାମ";
 
 // MARK: - Object
@@ -259,7 +259,7 @@
 
 "Auth.JoinFlow.Creating.Soul.Title" = "ନୂତନ ଖାତା ସୃଷ୍ଟି କରୁଛି";
 "Auth.JoinFlow.Setting.Space.Title" = "ଆପଣଙ୍କର ବ୍ୟକ୍ତିଗତ ସ୍ଥାନ ସେଟ୍ ଅପ୍ କରୁଛି";
-"Auth.JoinFlow.Personal.Space.Title" = "ବ୍ୟକ୍ତିଗତ ସ୍ଥାନ";
+"Auth.JoinFlow.Personal.Space.Title" = "ସେଟିଂସମୂହ";
 
 // Auth - Login flow
 "Auth.LoginFlow.Use.Keychain.Title" = "କିଚେନ ବ୍ୟବହାର କରନ୍ତୁ";
@@ -528,6 +528,7 @@
 "Unsupported value" = "Unsupported value";
 "Select relation type" = "Select relation type";
 "CommonOpenErrorView.Message" = "No data found";
+"AreYouSure" = "Are you sure?";
 "Nothing found" = "Nothing found";
 "No type found text" = "No type “%@” found. Change your request or create new type.";
 "Create type" = "Create type";
@@ -554,6 +555,7 @@
 "Application icon" = "Application icon";
 "Mode" = "Mode";
 "copied to clipboard" = "%@ copied to clipboard";
+"Create object from clipboard" = "Create object from clipboard";
 "Access to secret phrase from keychain" = "Access to secret phrase from keychain";
 "Back up your recovery phrase" = "Back up your recovery phrase";
 "Account" = "Account";
@@ -753,10 +755,6 @@
 "Content.DataView.InlineCollection.Untitled" = "Untitled collection";
 "Content.DataView.InlineSet.Toast.Failure" = "This inline set doesn’t have a source";
 
-// MARK: - Widget extension
-"WidgetExtension.LockScreen.Title" = "New object";
-"WidgetExtension.LockScreen.Description" = "Create a new object on the fly";
-
 // MARK: - Toast
 "Editor.Toast.LinkedTo" = "linked to";
 "Editor.Toast.MovedTo" = "Block moved to";
@@ -813,7 +811,7 @@
 "ClearCache.Error" = "Error, try again later";
 
 // MARK: - Settings
-"Settings.TitleLegacy" = "ବ୍ୟକ୍ତିଗତ ସ୍ଥାନ";
+"Settings.TitleLegacy" = "ସେଟିଂସମୂହ";
 "Settings.Title" = "ସେଟିଂସମୂହ";
 "Settings.SpaceName" = "ସ୍ଥାନ ନାମ";
 "Settings.AccountAndAccess" = "Account and access";
@@ -848,10 +846,26 @@
 "ClearCacheAlert.Description" = "All media files stored in Anytype will be deleted from your current device. They can be downloaded again from a backup node or another device.";
 
 // MARK: - Spaces
-"Spaces.Accessibility.Public" = "Public Space";
+"Spaces.Accessibility.Shared" = "Shared Space";
 "Spaces.Accessibility.Private" = "Private Space";
-"Spaces.Accessibility.Personal" = "ବ୍ୟକ୍ତିଗତ ସ୍ଥାନ";
+"Spaces.Accessibility.Personal" = "ସେଟିଂସମୂହ";
 "Spaces.Search.Title" = "Search spaces";
+"Spaces.Title" = "Spaces";
+"Spaces.Info.Network" = "Network:";
+"Spaces.Info.Device" = "Device:";
+
+// MARK: - Space
+"Space.Status.Unknown" = "Unknown";
+"Space.Status.Loading" = "Loading";
+"Space.Status.Ok" = "Ok";
+"Space.Status.Missing" = "Missing";
+"Space.Status.Error" = "Error";
+"Space.Status.RemoteWaitingDeletion" = "Waiting Deletion";
+"Space.Status.RemoteDeleted" = "Remote Deleted";
+"Space.Status.SpaceDeleted" = "Deleted";
+"Space.Status.SpaceActive" = "Active";
+"Space.Status.SpaceJoining" = "Joining";
+"Space.Status.SpaceRemoving" = "Removing";
 
 // MARK: - Space Settings
 "SpaceSettings.Title" = "Space settings";
@@ -869,8 +883,28 @@
 "SpaceShare.Title" = "Share space";
 "SpaceShare.MembersSection" = "Members and requests";
 "SpaceShare.Permissions.Owner" = "Owner";
-"SpaceShare.Permissions.Reader" = "Can view";
-"SpaceShare.Permissions.Writer" = "Can edit";
+"SpaceShare.Permissions.Reader" = "Viewer";
+"SpaceShare.Permissions.Writer" = "Editor";
+"SpaceShare.Invite.Title" = "Invite link";
+"SpaceShare.Invite.Description" = "Send this link to invite others. Assign access rights upon their request approval";
+"SpaceShare.Invite.Button" = "Share invite link";
+"SpaceShare.Status.Joining" = "Requested";
+"SpaceShare.Status.Declined" = "Declined";
+"SpaceShare.Action.ViewRequest" = "View Request";
+"SpaceShare.ViewRequest.Title" = "%@ requested to join %@ space";
+"SpaceShare.ViewRequest.ViewAccess" = "Grand view access";
+"SpaceShare.ViewRequest.EditAccess" = "Grand edit access";
+"SpaceShare.ViewRequest.Reject" = "Reject";
+"SpaceShare.RemoveMember.Title" = "Remove memeber";
+"SpaceShare.RemoveMember.Message" = "%@ will be removed from the space.";
+"SpaceShare.ChangePermissions" = "%@ access to the space would become %@.";
+"SpaceShare.Join.Title" = "Join a space";
+"SpaceShare.Join.CommentPlaceholder" = "Leave a private comment for a space owner";
+"SpaceShare.Join.Button" = "Request to join";
+"SpaceShare.Join.Info" = "Once the space owner approves your request, you'll join the space with the access rights owner determined.";
+"SpaceShare.Join.Message" = "You’ve been invited to join %@ space, created by %@. Send a request so space owner can let you in.";
+"SpaceShare.JoinConfirmation.Title" = "Request sent";
+"SpaceShare.JoinConfirmation.Message" = "You will receive a notification when the space owner will approve your request.";
 
 // MARK: - Space Create
 "SpaceCreate.Title" = "Create a space";
@@ -896,6 +930,11 @@
 "Sharing.Tip.Steps.1" = "Tap the iOS sharing button";
 "Sharing.Tip.Steps.2" = "Scroll past the app and tap More";
 "Sharing.Tip.Steps.3" = "Tap Edit to find “Anytype” and tap";
+
+// MARK: - Swipe tips
+"Swipe.Tip.Title" = "Swipe to Create Objects";
+"Swipe.Tip.Subtitle" = "Create objects inside widgets by easily swiping them left.";
+
 
 // MARK: - Initial
 

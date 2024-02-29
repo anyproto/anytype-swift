@@ -3,7 +3,7 @@ import SwiftUI
 import Services
 
 protocol TextIconPickerModuleAssemblyProtocol: AnyObject {
-    func make(contextId: BlockId, objectId: BlockId, spaceId: String, onDismiss: @escaping () -> Void) -> AnyView
+    func make(contextId: String, objectId: String, spaceId: String, onDismiss: @escaping () -> Void) -> AnyView
 }
 
 final class TextIconPickerModuleAssembly: TextIconPickerModuleAssemblyProtocol {
@@ -16,7 +16,7 @@ final class TextIconPickerModuleAssembly: TextIconPickerModuleAssemblyProtocol {
     
     // MARK: - TextIconPickerModuleAssemblyProtocol
     
-    func make(contextId: BlockId, objectId: BlockId, spaceId: String, onDismiss: @escaping () -> Void) -> AnyView {
+    func make(contextId: String, objectId: String, spaceId: String, onDismiss: @escaping () -> Void) -> AnyView {
         let viewModel = TextIconPickerViewModel(
             fileService: serviceLocator.fileService(),
             textServiceHandler: serviceLocator.textServiceHandler(),

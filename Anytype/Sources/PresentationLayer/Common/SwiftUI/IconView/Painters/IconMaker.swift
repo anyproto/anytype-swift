@@ -89,8 +89,9 @@ final class IconMaker {
                 switch profile {
                 case .imageId(let imageId):
                     return CircleIconPainter(contentPainter: contentPainter(.imageId(imageId)))
-                case .character(let c):
-                    return CircleIconPainter(contentPainter: contentPainter(.char(String(c))))
+                case .name(let name):
+                    let painterName = name.isEmpty ? Loc.Object.Title.placeholder : name
+                    return CircleIconPainter(contentPainter: contentPainter(.char(name)))
                 }
             case .emoji(let emoji):
                 return SquircleIconPainter(contentPainter: contentPainter(.char(emoji.value)))
@@ -98,8 +99,9 @@ final class IconMaker {
                 return SmallImageIdPainter(imageId: imageId)
             case .space(let space):
                 switch space {
-                case .character(let c):
-                    return SquareIconPainter(contentPainter: contentPainter(.char(String(c))))
+                case .name(let name):
+                    let painterName = name.isEmpty ? Loc.Object.Title.placeholder : name
+                    return SquareIconPainter(contentPainter: contentPainter(.char(painterName)))
                 case .gradient(let gradientId):
                     return SquareGradientIconPainter(gradientId: gradientId.rawValue)
                 }
@@ -108,6 +110,11 @@ final class IconMaker {
             case .placeholder(let c):
                 let char = c.map { String($0) } ?? ""
                 return SquareIconPainter(contentPainter: contentPainter(.char(char)))
+            case .deleted:
+                return contentPainter(.asset(.ghost))
+            case .file(let mimeType, let name):
+                return contentPainter(.asset(FileIconBuilder.convert(mime: mimeType, fileName: name)))
+
             }
         case .asset(let imageAsset):
             return contentPainter(.asset(imageAsset))

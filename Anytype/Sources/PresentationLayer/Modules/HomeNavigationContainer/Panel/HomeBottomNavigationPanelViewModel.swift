@@ -65,8 +65,8 @@ final class HomeBottomNavigationPanelViewModel: ObservableObject {
         output?.onProfileSelected()
     }
     
-    func onTapCreateObjectWithType() {
-        output?.onCreateObjectWithTypeSelected()
+    func onPlusButtonLongtap() {
+        output?.onPickTypeForNewObjectSelected()
     }
         
     // MARK: - Private
@@ -93,7 +93,7 @@ final class HomeBottomNavigationPanelViewModel: ObservableObject {
     private func handleCreateObject() {
         Task { @MainActor in
             guard let details = try? await defaultObjectService.createDefaultObject(name: "", shouldDeleteEmptyObject: true, spaceId: activeWorkpaceStorage.workspaceInfo.accountSpaceId) else { return }
-            AnytypeAnalytics.instance().logCreateObject(objectType: details.analyticsType, route: .navigation, view: .home)
+            AnytypeAnalytics.instance().logCreateObject(objectType: details.analyticsType, route: .navigation)
             
             output?.onCreateObjectSelected(screenData: details.editorScreenData())
         }

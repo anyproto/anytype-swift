@@ -1,6 +1,7 @@
 import Foundation
 
+@MainActor
 protocol ObjectSettingsCoordinatorOutput: AnyObject {
     func closeEditor()
-    func showPage(data: EditorScreenData)
+    func showEditorScreen(data: EditorScreenData)
 }

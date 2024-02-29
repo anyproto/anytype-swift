@@ -27,12 +27,6 @@ internal extension ImageAsset {
   static let ghost = ImageAsset.bundle(name: "ghost")
   static let logo = ImageAsset.bundle(name: "logo")
   static let noImage = ImageAsset.bundle(name: "no_image")
-  enum Dashboard {
-    static let add = ImageAsset.bundle(name: "Dashboard/Add")
-    static let empty = ImageAsset.bundle(name: "Dashboard/Empty")
-    static let search = ImageAsset.bundle(name: "Dashboard/Search")
-    static let settings = ImageAsset.bundle(name: "Dashboard/Settings")
-  }
   enum FileTypes {
     static let archive = ImageAsset.bundle(name: "FileTypes/Archive")
     static let audio = ImageAsset.bundle(name: "FileTypes/Audio")
@@ -49,6 +43,13 @@ internal extension ImageAsset {
     static let note = ImageAsset.bundle(name: "Layout/Note")
     static let profile = ImageAsset.bundle(name: "Layout/Profile")
     static let task = ImageAsset.bundle(name: "Layout/Task")
+  }
+  enum NavigationBase {
+    static let add = ImageAsset.bundle(name: "NavigationBase/Add")
+    static let empty = ImageAsset.bundle(name: "NavigationBase/Empty")
+    static let search = ImageAsset.bundle(name: "NavigationBase/Search")
+    static let settings = ImageAsset.bundle(name: "NavigationBase/Settings")
+    static let sharedSpace = ImageAsset.bundle(name: "NavigationBase/Shared Space")
   }
   enum ObjectSettings {
     static let cover = ImageAsset.bundle(name: "ObjectSettings/Cover")
@@ -76,6 +77,7 @@ internal extension ImageAsset {
     static let keychainPhrase = ImageAsset.bundle(name: "Settings/KeychainPhrase")
     static let personalization = ImageAsset.bundle(name: "Settings/Personalization")
     static let pinCode = ImageAsset.bundle(name: "Settings/PinCode")
+    static let spaces = ImageAsset.bundle(name: "Settings/Spaces")
   }
   enum TaskLayout {
     static let done = ImageAsset.bundle(name: "TaskLayout/Done")
@@ -128,6 +130,7 @@ internal extension ImageAsset {
     }
     static let attachment = ImageAsset.bundle(name: "x24/Attachment")
     static let checkbox = ImageAsset.bundle(name: "x24/Checkbox")
+    static let clipboard = ImageAsset.bundle(name: "x24/Clipboard")
     static let close = ImageAsset.bundle(name: "x24/Close")
     static let copy = ImageAsset.bundle(name: "x24/Copy")
     static let customizeView = ImageAsset.bundle(name: "x24/Customize View")

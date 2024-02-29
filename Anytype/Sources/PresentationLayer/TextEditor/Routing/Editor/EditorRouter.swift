@@ -82,10 +82,10 @@ final class EditorRouter: NSObject, EditorRouterProtocol, ObjectSettingsCoordina
         }
         guard !details.isDeleted else { return }
         
-        showPage(data: details.editorScreenData())
+        showEditorScreen(data: details.editorScreenData())
     }
     
-    func showPage(data: EditorScreenData) {
+    func showEditorScreen(data: EditorScreenData) {
         Task { @MainActor in
             output?.showEditorScreen(data: data)
         }
@@ -160,14 +160,9 @@ final class EditorRouter: NSObject, EditorRouterProtocol, ObjectSettingsCoordina
         fileCoordinator.downloadFileAt(fileURL, withType: type)
     }
     
-    func showCodeLanguage(blockId: BlockId, selectedLanguage: CodeLanguage) {
-        if FeatureFlags.newCodeLanguages {
-            let module = codeLanguageListModuleAssembly.make(document: document, blockId: blockId, selectedLanguage: selectedLanguage)
-            navigationContext.present(module)
-        } else {
-            let moduleViewController = codeLanguageListModuleAssembly.makeLegacy(document: document, blockId: blockId)
-            navigationContext.present(moduleViewController)
-        }
+    func showCodeLanguage(blockId: String, selectedLanguage: CodeLanguage) {
+        let module = codeLanguageListModuleAssembly.make(document: document, blockId: blockId, selectedLanguage: selectedLanguage)
+        navigationContext.present(module)
     }
     
     @MainActor
@@ -247,7 +242,7 @@ final class EditorRouter: NSObject, EditorRouterProtocol, ObjectSettingsCoordina
         navigationContext.presentSwiftUIView(view: moduleView)
     }
 
-    func showTextIconPicker(contextId: BlockId, objectId: BlockId) {
+    func showTextIconPicker(contextId: String, objectId: String) {
         let moduleView = textIconPickerModuleAssembly.make(
             contextId: contextId,
             objectId: objectId,
@@ -275,27 +270,64 @@ final class EditorRouter: NSObject, EditorRouterProtocol, ObjectSettingsCoordina
         navigationContext.present(module)
     }
     
-    func showTypes(selectedObjectId: BlockId?, onSelect: @escaping (ObjectType) -> ()) {
-        showTypesSearch(
-            title: Loc.changeType,
-            selectedObjectId: selectedObjectId,
-            showPins: false,
-            showLists: false,
-            onSelect: onSelect
-        )
+    func showTypes(selectedObjectId: String?, onSelect: @escaping (ObjectType) -> ()) {
+        if FeatureFlags.newTypePicker {
+            let view = objectTypeSearchModuleAssembly.makeDefaultTypeSearch(
+                title: Loc.changeType,
+                spaceId: document.spaceId,
+                showPins: false,
+                showLists: false,
+                showFiles: false
+            ) { [weak self] type in
+                self?.navigationContext.dismissTopPresented()
+                onSelect(type)
+            }
+            
+            navigationContext.presentSwiftUIView(view: view)
+        } else {
+            let view = newSearchModuleAssembly.objectTypeSearchModule(
+                title: Loc.changeType,
+                spaceId: document.spaceId,
+                selectedObjectId: selectedObjectId,
+                excludedObjectTypeId: document.details?.type,
+                showSetAndCollection: false
+            ) { [weak self] type in
+                self?.navigationContext.dismissTopPresented()
+                onSelect(type)
+            }
+            
+            navigationContext.presentSwiftUIView(view: view)
+        }
     }
     
-    func showTypesForEmptyObject(
-        selectedObjectId: BlockId?,
-        onSelect: @escaping (ObjectType) -> ()
+    func showTypeSearchForObjectCreation(
+        selectedObjectId: String?,
+        onSelect: @escaping (TypeSelectionResult) -> ()
     ) {
-        showTypesSearch(
-            title: Loc.changeType,
-            selectedObjectId: selectedObjectId,
-            showPins: true,
-            showLists: true,
-            onSelect: onSelect
-        )
+        if FeatureFlags.newTypePicker {
+            let view = objectTypeSearchModuleAssembly.makeTypeSearchForNewObjectCreation(
+                title: Loc.changeType,
+                spaceId: document.spaceId
+            ) { [weak self] result in
+                self?.navigationContext.dismissTopPresented()
+                onSelect(result)
+            }
+            
+            navigationContext.presentSwiftUIView(view: view)
+        } else {
+            let view = newSearchModuleAssembly.objectTypeSearchModule(
+                title: Loc.changeType,
+                spaceId: document.spaceId,
+                selectedObjectId: selectedObjectId,
+                excludedObjectTypeId: document.details?.type,
+                showSetAndCollection: true
+            ) { [weak self] type in
+                self?.navigationContext.dismissTopPresented()
+                onSelect(.objectType(type: type))
+            }
+            
+            navigationContext.presentSwiftUIView(view: view)
+        }
     }
     
     func showWaitingView(text: String) {
@@ -414,7 +446,7 @@ final class EditorRouter: NSObject, EditorRouterProtocol, ObjectSettingsCoordina
 
     @MainActor
     func showMarkupBottomSheet(
-        selectedBlockIds: [BlockId],
+        selectedBlockIds: [String],
         viewDidClose: @escaping () -> Void
     ) {
         guard let controller = viewController else { return }
@@ -471,42 +503,6 @@ final class EditorRouter: NSObject, EditorRouterProtocol, ObjectSettingsCoordina
         controller.modalPresentationStyle = .overCurrentContext
         navigationContext.present(controller, animated: false)
     }
-    
-    private func showTypesSearch(
-        title: String,
-        selectedObjectId: BlockId?,
-        showPins: Bool,
-        showLists: Bool,
-        onSelect: @escaping (ObjectType) -> ()
-    ) {
-        if FeatureFlags.newTypePicker {
-            let view = objectTypeSearchModuleAssembly.make(
-                title: title,
-                spaceId: document.spaceId,
-                showPins: showPins,
-                showLists: showLists, 
-                showFiles: false
-            ) { [weak self] type in
-                self?.navigationContext.dismissTopPresented()
-                onSelect(type)
-            }
-            
-            navigationContext.presentSwiftUIView(view: view)
-        } else {
-            let view = newSearchModuleAssembly.objectTypeSearchModule(
-                title: title,
-                spaceId: document.spaceId,
-                selectedObjectId: selectedObjectId,
-                excludedObjectTypeId: document.details?.type,
-                showSetAndCollection: showLists
-            ) { [weak self] type in
-                self?.navigationContext.dismissTopPresented()
-                onSelect(type)
-            }
-            
-            navigationContext.presentSwiftUIView(view: view)
-        }
-    }
 }
 
 extension EditorRouter: AttachmentRouterProtocol {
@@ -530,7 +526,7 @@ extension EditorRouter {
     }
     
     @MainActor
-    func showRelationValueEditingView(objectId: BlockId, relation: Relation) {
+    func showRelationValueEditingView(objectId: String, relation: Relation) {
         guard let objectDetails = document.detailsStorage.get(id: objectId) else {
             anytypeAssertionFailure("Details not found")
             return
@@ -555,7 +551,7 @@ extension EditorRouter {
 extension EditorRouter: RelationValueCoordinatorOutput {
     func openObject(screenData: EditorScreenData) {
         navigationContext.dismissAllPresented()
-        showPage(data: screenData)
+        showEditorScreen(data: screenData)
     }
 }
 
@@ -564,12 +560,12 @@ extension EditorRouter: ObjectSettingsModuleDelegate {
         guard let objectId = data.objectId else { return }
         UIApplication.shared.hideKeyboard()
         toastPresenter.showObjectName(selfName, middleAction: Loc.Editor.Toast.linkedTo, secondObjectId: objectId) { [weak self] in
-            self?.showPage(data: data)
+            self?.showEditorScreen(data: data)
         }
     }
     
     @MainActor
-    func didCreateTemplate(templateId: BlockId) {
+    func didCreateTemplate(templateId: String) {
         guard let objectTypeId = document.details?.objectType.id else { return }
         let setting = ObjectCreationSetting(objectTypeId: objectTypeId, spaceId: document.spaceId, templateId: templateId)
         setObjectCreationSettingsCoordinator.showTemplateEditing(
@@ -588,7 +584,7 @@ extension EditorRouter: ObjectSettingsModuleDelegate {
         )
     }
     
-    func didTapUseTemplateAsDefault(templateId: BlockId) {
+    func didTapUseTemplateAsDefault(templateId: String) {
         guard let objectTypeId = document.details?.objectType.id else { return }
         Task { @MainActor in
             try? await templateService.setTemplateAsDefaultForType(objectTypeId: objectTypeId, templateId: templateId)

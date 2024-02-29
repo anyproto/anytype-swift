@@ -119,7 +119,7 @@ final class SpaceSettingsCoordinatorViewModel: ObservableObject, SpaceSettingsMo
     
     func onDefaultTypeSelected() {
         if FeatureFlags.newTypePicker {
-            let module = objectTypeSearchModuleAssembly.make(
+            let module = objectTypeSearchModuleAssembly.makeDefaultTypeSearch(
                 title: Loc.chooseDefaultObjectType,
                 spaceId: activeWorkspaceStorage.workspaceInfo.accountSpaceId,
                 showPins: false,

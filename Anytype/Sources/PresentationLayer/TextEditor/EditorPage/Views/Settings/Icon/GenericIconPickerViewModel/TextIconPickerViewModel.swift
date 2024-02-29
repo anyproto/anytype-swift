@@ -10,16 +10,16 @@ final class TextIconPickerViewModel: ObservableObject, ObjectIconPickerViewModel
 
     private let fileService: FileActionsServiceProtocol
     private let textServiceHandler: TextServiceProtocol
-    private let contextId: BlockId
-    private let objectId: BlockId
+    private let contextId: String
+    private let objectId: String
     private let spaceId: String
     private var cancellables = [AnyCancellable]()
 
     init(
         fileService: FileActionsServiceProtocol,
         textServiceHandler: TextServiceProtocol,
-        contextId: BlockId,
-        objectId: BlockId,
+        contextId: String,
+        objectId: String,
         spaceId: String
     ) {
         self.fileService = fileService

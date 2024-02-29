@@ -38,7 +38,7 @@ final class TreeWidgetViewModel: ObservableObject, WidgetContainerContentViewMod
     var allowCreateObject: Bool { internalModel.allowCreateObject }
     
     init(
-        widgetBlockId: BlockId,
+        widgetBlockId: String,
         internalModel: any WidgetInternalViewModelProtocol,
         subscriptionManager: TreeSubscriptionManagerProtocol,
         objectActionsService: ObjectActionsServiceProtocol,

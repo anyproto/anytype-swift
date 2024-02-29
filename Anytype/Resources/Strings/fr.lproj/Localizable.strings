@@ -528,6 +528,7 @@
 "Unsupported value" = "Valeur non prise en charge";
 "Select relation type" = "Sélectionner le type de relation";
 "CommonOpenErrorView.Message" = "Aucune donnée n’a été trouvée";
+"AreYouSure" = "Êtes-vous sûr ?";
 "Nothing found" = "Aucun résultat";
 "No type found text" = "Aucun type “%@” trouvé. Modifiez votre demande ou créez un nouveau type.";
 "Create type" = "Créer un type";
@@ -554,6 +555,7 @@
 "Application icon" = "Icône de l'application";
 "Mode" = "Mode";
 "copied to clipboard" = "%@ copié dans le presse-papier";
+"Create object from clipboard" = "Créer un objet depuis le presse-papiers";
 "Access to secret phrase from keychain" = "Accès à la phrase secrète depuis le trousseau";
 "Back up your recovery phrase" = "Sauvegardez votre phrase de récupération";
 "Account" = "Compte";
@@ -572,7 +574,7 @@
 "Other relations" = "Autres relations";
 "Collection of objects" = "Collection d'objets";
 "Designed to capture thoughts quickly" = "Conçu pour saisir rapidement les idées";
-"Action-focused layout with a checkbox" = "Action-focused layout with a checkbox";
+"Action-focused layout with a checkbox" = "Mise en page axée sur l'action avec une case à cocher";
 "Standard layout for canvas blocks" = "Disposition standard pour les toiles";
 "List of related objects" = "Liste des objets liés";
 "Lock" = "Verrouiller";
@@ -753,10 +755,6 @@
 "Content.DataView.InlineCollection.Untitled" = "Collection sans titre";
 "Content.DataView.InlineSet.Toast.Failure" = "Ce Set intégré n'a pas de source";
 
-// MARK: - Widget extension
-"WidgetExtension.LockScreen.Title" = "Nouvel objet";
-"WidgetExtension.LockScreen.Description" = "Créer un nouvel objet à la volée";
-
 // MARK: - Toast
 "Editor.Toast.LinkedTo" = "lié à";
 "Editor.Toast.MovedTo" = "Bloc déplacé vers";
@@ -848,10 +846,26 @@
 "ClearCacheAlert.Description" = "Tous les fichiers multimédias stockés dans Anytype seront supprimés de votre appareil actuel. Ils peuvent être téléchargés de nouveau à partir d'un nœud de sauvegarde ou d'un autre appareil.";
 
 // MARK: - Spaces
-"Spaces.Accessibility.Public" = "Espace Public";
+"Spaces.Accessibility.Shared" = "Espace partagé";
 "Spaces.Accessibility.Private" = "Espace Privé";
 "Spaces.Accessibility.Personal" = "Paramètres";
 "Spaces.Search.Title" = "Rechercher des espaces";
+"Spaces.Title" = "Espaces";
+"Spaces.Info.Network" = "Réseau :";
+"Spaces.Info.Device" = "Appareil :";
+
+// MARK: - Space
+"Space.Status.Unknown" = "Inconnu";
+"Space.Status.Loading" = "Chargement";
+"Space.Status.Ok" = "Ok";
+"Space.Status.Missing" = "Manquant";
+"Space.Status.Error" = "Erreur";
+"Space.Status.RemoteWaitingDeletion" = "En attente de suppression";
+"Space.Status.RemoteDeleted" = "Supprimé à distance ";
+"Space.Status.SpaceDeleted" = "Supprimé";
+"Space.Status.SpaceActive" = "Actif";
+"Space.Status.SpaceJoining" = "Connexion";
+"Space.Status.SpaceRemoving" = "Suppression";
 
 // MARK: - Space Settings
 "SpaceSettings.Title" = "Paramètres de l'espace";
@@ -861,16 +875,36 @@
 "SpaceSettings.DeleteAlert.Title" = "Supprimer l'espace '%@'";
 "SpaceSettings.DeleteAlert.Message" = "Cet espace sera supprimé définitivement. Vous ne pouvez pas annuler cette action.";
 "SpaceSettings.DeleteButton" = "Supprimer l'espace";
-"SpaceSettings.Sharing" = "Sharing";
+"SpaceSettings.Sharing" = "Partage";
 "SpaceSettings.Share" = "Partager";
 
 // MARK: - Space Share
 
-"SpaceShare.Title" = "Share space";
-"SpaceShare.MembersSection" = "Members and requests";
-"SpaceShare.Permissions.Owner" = "Owner";
-"SpaceShare.Permissions.Reader" = "Can view";
-"SpaceShare.Permissions.Writer" = "Can edit";
+"SpaceShare.Title" = "Partager l'espace";
+"SpaceShare.MembersSection" = "Membres et demandes";
+"SpaceShare.Permissions.Owner" = "Propriétaire";
+"SpaceShare.Permissions.Reader" = "Visionneuse";
+"SpaceShare.Permissions.Writer" = "Éditeur";
+"SpaceShare.Invite.Title" = "Lien d'invitation";
+"SpaceShare.Invite.Description" = "Envoyez ce lien pour inviter d'autres personnes. Attribuez les droits d'accès lors de l'approbation de leur demande.\"";
+"SpaceShare.Invite.Button" = "Partager le lien d'invitation";
+"SpaceShare.Status.Joining" = "Demandé";
+"SpaceShare.Status.Declined" = "Refusé";
+"SpaceShare.Action.ViewRequest" = "Voir la demande";
+"SpaceShare.ViewRequest.Title" = "%@ a demandé à rejoindre l'espace %@";
+"SpaceShare.ViewRequest.ViewAccess" = "Accorder l’accès en consultation";
+"SpaceShare.ViewRequest.EditAccess" = "Accorder un accès à l'édition";
+"SpaceShare.ViewRequest.Reject" = "Rejeter";
+"SpaceShare.RemoveMember.Title" = "Supprimer un membre";
+"SpaceShare.RemoveMember.Message" = "%@ sera retiré de l'espace.";
+"SpaceShare.ChangePermissions" = "%@ l’accès à l’espace deviendrait %@.";
+"SpaceShare.Join.Title" = "Rejoindre un espace";
+"SpaceShare.Join.CommentPlaceholder" = "Laisser un commentaire privé au propriétaire de l'espace";
+"SpaceShare.Join.Button" = "Demander à rejoindre";
+"SpaceShare.Join.Info" = "Une fois que le propriétaire de l'espace a approuvé votre demande, vous rejoindrez l'espace avec les droits d'accès déterminés par le propriétaire.";
+"SpaceShare.Join.Message" = "Vous avez été invité à rejoindre l'espace %@ créé par %@. Envoyez une demande afin que le propriétaire de l'espace puisse vous laisser entrer.";
+"SpaceShare.JoinConfirmation.Title" = "Demande envoyée";
+"SpaceShare.JoinConfirmation.Message" = "Vous recevrez une notification lorsque le propriétaire de l'espace approuvera votre demande.";
 
 // MARK: - Space Create
 "SpaceCreate.Title" = "Créer un espace";
@@ -896,6 +930,11 @@
 "Sharing.Tip.Steps.1" = "Appuyez sur le bouton de partage iOS";
 "Sharing.Tip.Steps.2" = "Défiler au-delà de l'application et appuyez sur Plus";
 "Sharing.Tip.Steps.3" = "Appuyez sur Modifier pour trouver « Anytype » et appuyez";
+
+// MARK: - Swipe tips
+"Swipe.Tip.Title" = "Glisser pour créer des objets";
+"Swipe.Tip.Subtitle" = "Créez des objets à l'intérieur de widgets en les glissant facilement à gauche.";
+
 
 // MARK: - Initial
 

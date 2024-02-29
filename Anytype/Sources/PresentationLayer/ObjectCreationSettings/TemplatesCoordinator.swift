@@ -7,7 +7,7 @@ import AnytypeCore
 protocol TemplatesCoordinatorProtocol {
     func showTemplatesPicker(
         document: BaseDocumentProtocol,
-        onSetAsDefaultTempalte: @escaping (BlockId) -> Void
+        onSetAsDefaultTempalte: @escaping (String) -> Void
     )
 }
 
@@ -28,7 +28,7 @@ final class TemplatesCoordinator: TemplatesCoordinatorProtocol {
     @MainActor
     func showTemplatesPicker(
         document: BaseDocumentProtocol,
-        onSetAsDefaultTempalte: @escaping (BlockId) -> Void
+        onSetAsDefaultTempalte: @escaping (String) -> Void
     ) {
         guard let rootViewController else { return }
 

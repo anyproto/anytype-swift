@@ -59,7 +59,7 @@ struct AuthView: View {
             Button {
                 model.showSettings.toggle()
             } label: {
-                Image(asset: .Dashboard.settings)
+                Image(asset: .NavigationBase.settings)
                     .foregroundColor(.Button.active)
             }
         }

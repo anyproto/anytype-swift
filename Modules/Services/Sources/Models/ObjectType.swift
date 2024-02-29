@@ -80,12 +80,16 @@ extension ObjectType {
         uniqueKey == .template
     }
     
+    public var isListType: Bool {
+        isSetType || isCollectionType
+    }
+    
     public var isSetType: Bool {
-        uniqueKey == .set
+        recommendedLayout == .set
     }
     
     public var isCollectionType: Bool {
-        uniqueKey == .collection
+        recommendedLayout == .collection
     }
     
     public var isNoteLayout: Bool {

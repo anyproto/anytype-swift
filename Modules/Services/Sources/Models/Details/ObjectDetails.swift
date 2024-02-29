@@ -8,10 +8,10 @@ enum ObjectDetailsError: Error {
 
 public struct ObjectDetails: Hashable, RelationValueProvider, BundledRelationsValueProvider {
     
-    public let id: BlockId
+    public let id: String
     public let values: [String: Google_Protobuf_Value]
     
-    public init(id: BlockId, values: [String: Google_Protobuf_Value]) {
+    public init(id: String, values: [String: Google_Protobuf_Value]) {
         self.id = id
         self.values = values
     }
@@ -20,7 +20,7 @@ public struct ObjectDetails: Hashable, RelationValueProvider, BundledRelationsVa
 
 public extension ObjectDetails {
     
-    init(id: BlockId) {
+    init(id: String) {
         self.id = id
         self.values = [:]
     }

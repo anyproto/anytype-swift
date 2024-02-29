@@ -1,40 +1,51 @@
-//
-//  ResponderScrollViewHelper.swift
-//  Anytype
-//
-//  Created by Dmitry Bilienko on 19.07.2022.
-//  Copyright © 2022 Anytype. All rights reserved.
-//
-
 import Foundation
 import UIKit
 
-final class ResponderScrollViewHelper: KeyboardHeightListener {
+final class ResponderScrollViewHelper {
 
+    private let keyboardListener: KeyboardHeightListener
     private weak var scrollView: UIScrollView?
 
-    init(scrollView: UIScrollView) {
+    init(scrollView: UIScrollView, keyboardListener: KeyboardHeightListener) {
         self.scrollView = scrollView
-
-        super.init()
+        self.keyboardListener = keyboardListener
     }
 
-    func textViewDidBeginEditing(textView: UITextView) {
-        guard let window = textView.window, let scrollView = scrollView else {
+    func scrollBlockToVisibleArea(textView: UITextView) {
+        guard let window = textView.window else {
             return
         }
 
         guard let position = textView.selectedTextRange?.end else { return }
         let cursorPosition = textView.caretRect(for: position)
 
-        let textViewFrame = textView.convert(cursorPosition, to: window)
-
-        let distance = textViewFrame.maxY - currentKeyboardFrame.minY
-
-        if distance > -Constants.minSpacingAboveKeyboard {
-            UIView.animate(withDuration: CATransaction.animationDuration()) { [weak scrollView] in
-                scrollView?.contentOffset.y += distance + Constants.minSpacingAboveKeyboard
+        let cursorViewFrame = textView.convert(cursorPosition, to: window)
+        
+        if cursorViewFrame.origin.y < Constants.minSpacingBelowTopAnchor {
+            
+            let offset = abs(cursorViewFrame.origin.y - Constants.minSpacingBelowTopAnchor)
+            
+            performContentOffsetChange(yDelta: -offset)
+            return
+        }
+        
+        if keyboardListener.currentKeyboardFrame == .zero {
+            // Check for attached keyboard scenarios
+        } else {
+            let distance = cursorViewFrame.maxY - keyboardListener.currentKeyboardFrame.minY
+        
+            if distance > -Constants.minSpacingAboveKeyboard {
+                performContentOffsetChange(yDelta: distance + Constants.minSpacingAboveKeyboard)
             }
+        }
+    }
+    
+    private func performContentOffsetChange(yDelta: CGFloat) {
+        UIView.animate(withDuration: CATransaction.animationDuration()) { [weak scrollView] in
+            guard let scrollView else  { return }
+            var contentOffset = scrollView.contentOffset
+            contentOffset.y = contentOffset.y + yDelta
+            scrollView.setContentOffset(contentOffset, animated: true)
         }
     }
 }
@@ -42,5 +53,6 @@ final class ResponderScrollViewHelper: KeyboardHeightListener {
 extension ResponderScrollViewHelper {
     private enum Constants {
         static let minSpacingAboveKeyboard: CGFloat = 30
+        static let minSpacingBelowTopAnchor: CGFloat = 44 + 60
     }
 }

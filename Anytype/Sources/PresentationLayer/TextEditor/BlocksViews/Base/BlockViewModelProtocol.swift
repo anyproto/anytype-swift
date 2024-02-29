@@ -47,6 +47,6 @@ protocol BlockInformationProvider {
 // MARK: - Extensions
 
 extension BlockInformationProvider {
-    var blockId: BlockId { info.id }
+    var blockId: String { info.id }
     var content: BlockContent { info.content }
 }

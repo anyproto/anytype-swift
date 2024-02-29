@@ -1,10 +1,10 @@
 import AnytypeCore
 
 public struct BlockInformation: Hashable {
-    public let id: BlockId
+    public let id: String
     public let content: BlockContent
     
-    public let childrenIds: [BlockId]
+    public let childrenIds: [String]
     
     public let fields: BlockFields
     
@@ -13,11 +13,11 @@ public struct BlockInformation: Hashable {
     public let configurationData: BlockInformationMetadata
     
     public init(
-        id: BlockId,
+        id: String,
         content: BlockContent,
         backgroundColor: MiddlewareColor?,
         horizontalAlignment: LayoutAlignment,
-        childrenIds: [BlockId],
+        childrenIds: [String],
         configurationData: BlockInformationMetadata,
         fields: BlockFields
     ) {
@@ -28,17 +28,5 @@ public struct BlockInformation: Hashable {
         self.childrenIds = childrenIds
         self.fields = fields
         self.configurationData = configurationData
-    }
-}
-
-public extension BlockInformation {
-    var relativeBackgroundColor: MiddlewareColor? {
-        if backgroundColor != nil { return backgroundColor }
-
-        if case let .text(text) = content, case .callout = text.contentType {
-            return backgroundColor ?? .grey
-        }
-
-        return backgroundColor
     }
 }

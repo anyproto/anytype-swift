@@ -133,7 +133,7 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>d</string>
         <key>one</key>
-        <string>File Object</string>
+        <string>Файл объекта</string>
         <key>few</key>
         <string>%d File Objects</string>
         <key>many</key>
@@ -153,7 +153,7 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>d</string>
         <key>one</key>
-        <string>File Block</string>
+        <string>Файл блока</string>
         <key>few</key>
         <string>%d File Blocks</string>
         <key>many</key>
@@ -173,7 +173,7 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>d</string>
         <key>one</key>
-        <string>Bookmark Object</string>
+        <string>Добавить объект в закладки</string>
         <key>few</key>
         <string>%d Bookmark Objects</string>
         <key>many</key>
@@ -200,6 +200,46 @@
         <string>Link %d Blocks</string>
         <key>other</key>
         <string>Link %d Blocks</string>
+      </dict>
+    </dict>
+    <key>SpaceShare.Invite.Members</key>
+    <dict>
+      <key>NSStringLocalizedFormatKey</key>
+      <string>%#@object@</string>
+      <key>object</key>
+      <dict>
+        <key>NSStringFormatSpecTypeKey</key>
+        <string>NSStringPluralRuleType</string>
+        <key>NSStringFormatValueTypeKey</key>
+        <string>d</string>
+        <key>one</key>
+        <string>Вы можете добавить ещё одного участника</string>
+        <key>few</key>
+        <string>You can add %d more members</string>
+        <key>many</key>
+        <string>You can add %d more members</string>
+        <key>other</key>
+        <string>You can add %d more members</string>
+      </dict>
+    </dict>
+    <key>SpaceShare.Invite.MaxLimit</key>
+    <dict>
+      <key>NSStringLocalizedFormatKey</key>
+      <string>%#@object@</string>
+      <key>object</key>
+      <dict>
+        <key>one</key>
+        <string>Вы достигли лимита участников %d . Новые участники не смогут присоединиться.</string>
+        <key>few</key>
+        <string>You have reached the limit of %d members. New members will not be able to join.</string>
+        <key>many</key>
+        <string>You have reached the limit of %d members. New members will not be able to join.</string>
+        <key>NSStringFormatSpecTypeKey</key>
+        <string>NSStringPluralRuleType</string>
+        <key>NSStringFormatValueTypeKey</key>
+        <string>d</string>
+        <key>other</key>
+        <string>You have reached the limit of %d members. New members will not be able to join.</string>
       </dict>
     </dict>
   </dict>

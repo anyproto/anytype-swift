@@ -217,7 +217,7 @@
 "Auth.CameraPermissionTitle" = "Geef toegang";
 "Restore secret phrase from keychain" = "Herstel de herstelzin vanuit de keychain";
 "Auth.LogIn" = "Inloggen";
-"Auth.Join" = "Neem deel";
+"Auth.Join" = "Sluit aan";
 "Auth.Welcome.Subtitle" = "Anytype is jouw veilige ruimte om te schrijven, te plannen, na te denken en te organiseren van de dingen die jij belangrijk vindt.";
 "Auth.Caption.Privacy.Text" = "Door verder te gaan ga je akkoord met onze [Algemene voorwaarden](%@) en [Privacybeleid](%@)";
 "Auth.Next" = "Volgende";
@@ -528,6 +528,7 @@
 "Unsupported value" = "Niet-ondersteunde waarde";
 "Select relation type" = "Selecteer relatie type";
 "CommonOpenErrorView.Message" = "Geen gegevens gevonden";
+"AreYouSure" = "Weet je het zeker?";
 "Nothing found" = "Niets gevonden";
 "No type found text" = "Geen type \"%@\" gevonden. Wijzig uw verzoek of maak een nieuw type aan.";
 "Create type" = "Maak type aan";
@@ -554,6 +555,7 @@
 "Application icon" = "App pictogram";
 "Mode" = "Instelling";
 "copied to clipboard" = "%@ gekopieerd naar klembord";
+"Create object from clipboard" = "Maak object aan vanaf klembord";
 "Access to secret phrase from keychain" = "Toegang tot geheime zin vanuit sleutelhanger";
 "Back up your recovery phrase" = "Back-up jouw herstelzin";
 "Account" = "Account";
@@ -753,10 +755,6 @@
 "Content.DataView.InlineCollection.Untitled" = "Naamloze collectie";
 "Content.DataView.InlineSet.Toast.Failure" = "Deze set in lijn heeft geen bron";
 
-// MARK: - Widget extension
-"WidgetExtension.LockScreen.Title" = "Nieuw object";
-"WidgetExtension.LockScreen.Description" = "Maak snel een nieuw object aan ";
-
 // MARK: - Toast
 "Editor.Toast.LinkedTo" = "gelinkt naar";
 "Editor.Toast.MovedTo" = "Blok verplaatst naar";
@@ -849,10 +847,26 @@
 "ClearCacheAlert.Description" = "Alle mediabestanden die in Anytype zijn opgeslagen, zullen van het huidige apparaat worden verwijderd. Ze kunnen opnieuw van een back-up node of een ander apparaat worden gedownload.";
 
 // MARK: - Spaces
-"Spaces.Accessibility.Public" = "Openbare ruimte";
+"Spaces.Accessibility.Shared" = "Shared Space";
 "Spaces.Accessibility.Private" = "Persoonlijke ruimte";
 "Spaces.Accessibility.Personal" = "Persoonlijke ruimte";
 "Spaces.Search.Title" = "Zoek ruimten";
+"Spaces.Title" = "Ruimtes";
+"Spaces.Info.Network" = "Netwerk:";
+"Spaces.Info.Device" = "Apparaat:";
+
+// MARK: - Space
+"Space.Status.Unknown" = "Onbekend";
+"Space.Status.Loading" = "Aan het laden";
+"Space.Status.Ok" = "Ok";
+"Space.Status.Missing" = "Ontbrekend";
+"Space.Status.Error" = "Foutmelding";
+"Space.Status.RemoteWaitingDeletion" = "Aan het wachten op verwijdering";
+"Space.Status.RemoteDeleted" = "Op afstand verwijderd";
+"Space.Status.SpaceDeleted" = "Verwijderd";
+"Space.Status.SpaceActive" = "Actief";
+"Space.Status.SpaceJoining" = "Aan het aansluiten";
+"Space.Status.SpaceRemoving" = "Removing";
 
 // MARK: - Space Settings
 "SpaceSettings.Title" = "Ruimte instellingen";
@@ -870,8 +884,28 @@
 "SpaceShare.Title" = "Deel ruimte";
 "SpaceShare.MembersSection" = "Leden en verzoeken";
 "SpaceShare.Permissions.Owner" = "Eigenaar";
-"SpaceShare.Permissions.Reader" = "Kan zien";
-"SpaceShare.Permissions.Writer" = "Kan bewerken";
+"SpaceShare.Permissions.Reader" = "Viewer";
+"SpaceShare.Permissions.Writer" = "Editor";
+"SpaceShare.Invite.Title" = "Uitnodigingslink";
+"SpaceShare.Invite.Description" = "Stuur deze link om anderen uit te nodigen. Wijs toegangsrechten toe na hun goedkeuring.";
+"SpaceShare.Invite.Button" = "Deel uitnodigingslink";
+"SpaceShare.Status.Joining" = "Aangevraagd";
+"SpaceShare.Status.Declined" = "Afgewezen";
+"SpaceShare.Action.ViewRequest" = "Bekijk verzoek";
+"SpaceShare.ViewRequest.Title" = "%@ heeft verzocht om zich aan te sluiten bij de ruimte %@";
+"SpaceShare.ViewRequest.ViewAccess" = "Geef leesrechten";
+"SpaceShare.ViewRequest.EditAccess" = "Geef bewerkingsrechten";
+"SpaceShare.ViewRequest.Reject" = "Weiger";
+"SpaceShare.RemoveMember.Title" = "Remove memeber";
+"SpaceShare.RemoveMember.Message" = "%@ will be removed from the space.";
+"SpaceShare.ChangePermissions" = "%@ access to the space would become %@.";
+"SpaceShare.Join.Title" = "Sluit je aan bij een ruimte";
+"SpaceShare.Join.CommentPlaceholder" = "Laat een persoonlijk bericht achter voor een eigenaar van de ruimte";
+"SpaceShare.Join.Button" = "Verzoek om aan te sluiten";
+"SpaceShare.Join.Info" = "Zodra de eigenaar van de ruimte jouw verzoek heeft goedgekeurd, zul je toetreden tot de ruimte met de toegangsrechten die door de eigenaar zijn bepaald.";
+"SpaceShare.Join.Message" = "Je bent uitgenodigd om je aan te sluiten bij  %@ ruimte, aangemaakt door %@ Stuur een verzoek zodat de eigenaar van de ruimte je kan toelaten. ";
+"SpaceShare.JoinConfirmation.Title" = "Request sent";
+"SpaceShare.JoinConfirmation.Message" = "You will receive a notification when the space owner will approve your request.";
 
 // MARK: - Space Create
 "SpaceCreate.Title" = "Maak een ruimte aan";
@@ -897,6 +931,11 @@
 "Sharing.Tip.Steps.1" = "Tik op de iOS deel knop";
 "Sharing.Tip.Steps.2" = "Scroll voorbij de app en tik op Meer";
 "Sharing.Tip.Steps.3" = "Tik op Bewerken om \"Anytype\" te vinden en tik op";
+
+// MARK: - Swipe tips
+"Swipe.Tip.Title" = "Swipe om objecten aan te maken";
+"Swipe.Tip.Subtitle" = "Maak objecten binnen widgets aan door ze naar links te swipen.";
+
 
 // MARK: - Initial
 

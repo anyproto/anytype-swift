@@ -33,7 +33,7 @@ final class EditorSetViewModel: ObservableObject {
     
     var isUpdating = false
 
-    var objectId: Services.BlockId {
+    var objectId: String {
         setDocument.objectId
     }
     
@@ -97,16 +97,16 @@ final class EditorSetViewModel: ObservableObject {
         return group.header(with: activeView.groupRelationKey, document: setDocument.document)
     }
     
-    func contextMenuItems(for relation: Relation) -> [RelationValueView.MenuItem] {
+    func contextMenuItems(for relation: Relation) -> [RelationValueViewModel.MenuItem] {
         guard !setDocument.isCollection(), relation.key == BundledRelationKey.type.rawValue else {
             return []
         }
         return [
-            RelationValueView.MenuItem(
+            RelationValueViewModel.MenuItem(
                 title: Loc.Set.TypeRelation.ContextMenu.turnIntoCollection,
                 action: turnSetIntoCollection
             ),
-            RelationValueView.MenuItem(
+            RelationValueViewModel.MenuItem(
                 title: isEmptyQuery ?
                 Loc.Set.SourceType.selectQuery : Loc.Set.TypeRelation.ContextMenu.changeQuery,
                 action: showSetOfTypeSelection
@@ -123,8 +123,7 @@ final class EditorSetViewModel: ObservableObject {
     
     let setDocument: SetDocumentProtocol
     let paginationHelper = EditorSetPaginationHelper()
-    
-    private var router: EditorSetRouterProtocol?
+
     private let subscriptionStorageProvider: SubscriptionStorageProviderProtocol
     private let dataviewService: DataviewServiceProtocol
     private let searchService: SearchServiceProtocol
@@ -138,7 +137,7 @@ final class EditorSetViewModel: ObservableObject {
     private var subscriptionStorages = [String: SubscriptionStorageProtocol]()
     private let activeWorkspaceStorage: ActiveWorkpaceStorageProtocol
     private var titleSubscription: AnyCancellable?
-    private let output: EditorSetModuleOutput?
+    private weak var output: EditorSetModuleOutput?
 
     init(
         setDocument: SetDocumentProtocol,
@@ -171,11 +170,10 @@ final class EditorSetViewModel: ObservableObject {
         self.activeWorkspaceStorage = activeWorkspaceStorage
         self.output = output
         self.syncStatusData = SyncStatusData(status: .unknown, networkId: activeWorkspaceStorage.workspaceInfo.networkId)
+        self.setup()
     }
     
-    func setup(router: EditorSetRouterProtocol) {
-        self.router = router
-        
+    private func setup() {
         setDocument.setUpdatePublisher.sink { [weak self] update in
             Task { [weak self] in
                 await self?.onDataChange(update)
@@ -222,7 +220,7 @@ final class EditorSetViewModel: ObservableObject {
 
     func onRelationTap(relation: Relation) {
         if relation.hasSelectedObjectsRelationType {
-            router?.showFailureToast(message: Loc.Set.SourceType.Cancel.Toast.title)
+            output?.showFailureToast(message: Loc.Set.SourceType.Cancel.Toast.title)
         } else {
             showRelationValueEditingView(key: relation.key)
         }
@@ -278,9 +276,8 @@ final class EditorSetViewModel: ObservableObject {
         // Show for empty state
         featuredRelations = setDocument.featuredRelationsForEditor
         
-        guard setDocument.dataviews.isNotEmpty else { return }
-        anytypeAssert(setDocument.dataviews.count < 2, "\(setDocument.dataviews.count) dataviews in set")
-        setDocument.dataviews.first.flatMap { dataView in
+        guard setDocument.blockDataview.isNotNil else { return }
+        setDocument.blockDataview.flatMap { dataView in
             anytypeAssert(dataView.views.isNotEmpty, "Empty views in dataview: \(dataView)")
         }
         
@@ -542,8 +539,8 @@ final class EditorSetViewModel: ObservableObject {
     
     @MainActor
     func onSecondaryCreateTap() {
-        router?.showSetObjectCreationSettings(
-            setDocument: setDocument,
+        output?.showSetObjectCreationSettings(
+            document: setDocument,
             viewId: activeView.id,
             onTemplateSelection: { [weak self] setting in
                 self?.createObject(setting: setting)
@@ -560,7 +557,7 @@ final class EditorSetViewModel: ObservableObject {
     }
     
     private func createObject(setting: ObjectCreationSetting? = nil) {
-        router?.showCreateObject(setting: setting)
+        output?.showCreateObject(document: setDocument, setting: setting)
     }
 
     private func defaultSubscriptionDetailsStorage(file: StaticString = #file, function: String = #function, line: UInt = #line) -> ObjectDetailsStorage? {
@@ -581,11 +578,11 @@ extension EditorSetViewModel {
             return
         }
 
-        router?.showRelationValueEditingView(key: key)
+        output?.showRelationValueEditingView(document: setDocument, key: key)
     }
     
     func showRelationValueEditingView(
-        objectId: BlockId,
+        objectId: String,
         relation: Relation
     ) {
         guard let detailsStorage = defaultSubscriptionDetailsStorage() else { return }
@@ -594,7 +591,7 @@ extension EditorSetViewModel {
             return
         }
         
-        router?.showRelationValueEditingView(
+        output?.showRelationValueEditingView(
             objectDetails: objectDetails,
             relation: relation
         )
@@ -602,16 +599,16 @@ extension EditorSetViewModel {
     
     func showViewPicker() {
         guard let detailsStorage = defaultSubscriptionDetailsStorage() else { return }
-        router?.showViewPicker(subscriptionDetailsStorage: detailsStorage)
+        output?.showSetViewPicker(document: setDocument, subscriptionDetailsStorage: detailsStorage)
     }
     
     func showSetSettings() {
         guard let detailsStorage = defaultSubscriptionDetailsStorage() else { return }
-        router?.showSetSettings(subscriptionDetailsStorage: detailsStorage)
+        output?.showSetViewSettings(document: setDocument, subscriptionDetailsStorage: detailsStorage)
     }
     
     func showObjectSettings() {
-        router?.showSettings { [weak self] action in
+        output?.showSettings { [weak self] action in
             switch action {
             case .cover(let objectCoverPickerAction):
                 self?.headerModel.handleCoverAction(action: objectCoverPickerAction)
@@ -636,7 +633,7 @@ extension EditorSetViewModel {
         let groupOrder = setDocument.dataView.groupOrders.first { [weak self] in $0.viewID == self?.activeView.id }
         let viewGroup = groupOrder?.viewGroups.first { $0.groupID == groupId }
         let selectedColor = MiddlewareColor(rawValue: viewGroup?.backgroundColor ?? "")?.backgroundColor
-        router?.showKanbanColumnSettings(
+        output?.showKanbanColumnSettings(
             hideColumn: viewGroup?.hidden ?? false,
             selectedColor: selectedColor,
             onSelect: { [weak self] hidden, backgroundColor in
@@ -650,13 +647,13 @@ extension EditorSetViewModel {
     }
     
     func showIconPicker() {
-        router?.showIconPicker(document: setDocument) { [weak self] action in
+        output?.showIconPicker(document: setDocument) { [weak self] action in
             self?.headerModel.handleIconAction(action: action)
         }
     }
     
     func showSetOfTypeSelection() {
-        router?.showQueries(selectedObjectId: setDocument.details?.setOf.first) { [weak self] typeObjectId in
+        output?.showQueries(document: setDocument, selectedObjectId: setDocument.details?.setOf.first) { [weak self] typeObjectId in
             guard let self else { return }
             Task { @MainActor in
                 try? await self.objectActionsService.setSource(objectId: self.objectId, source: [typeObjectId])

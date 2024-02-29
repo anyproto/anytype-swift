@@ -2,7 +2,7 @@ import Foundation
 import Services
 
 extension AuthServiceError: LocalizedError {
-    var errorDescription: String? {
+    public var errorDescription: String? {
         switch self {
         case .createWalletError: return Loc.errorCreatingWallet
         case .recoverWalletError: return Loc.errorWalletRecoverAccount

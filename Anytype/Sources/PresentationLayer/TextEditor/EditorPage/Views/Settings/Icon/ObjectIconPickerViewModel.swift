@@ -41,7 +41,7 @@ final class ObjectIconPickerViewModel: ObservableObject, ObjectIconPickerViewMod
     }
     
     private func updateState() {
-        isRemoveButtonAvailable = document.details?.icon != nil
+        isRemoveButtonAvailable = document.details?.objectIcon != nil
         detailsLayout = document.details?.layoutValue
         isRemoveEnabled = makeIsRemoveEnabled()
     }

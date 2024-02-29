@@ -303,7 +303,7 @@
 "Undo" = "Angre";
 "Actions.LinkItself" = "Koble til";
 "Actions.MakeAsTemplate" = "Lag mal";
-"Actions.TemplateMakeDefault" = "Make default";
+"Actions.TemplateMakeDefault" = "Angi som standard";
 "Actions.CreateWidget.Title" = "Til widgets";
 "Actions.CreateWidget.Success" = "Ny widget ble opprettet";
 
@@ -528,6 +528,7 @@
 "Unsupported value" = "Ikke-støttet verdi";
 "Select relation type" = "Velg relasjonstype";
 "CommonOpenErrorView.Message" = "Ingen data funnet";
+"AreYouSure" = "Er du sikker?";
 "Nothing found" = "Ingenting funnet";
 "No type found text" = "Ingen type “%@” funnet. Endre forespørselen din eller opprett ny type.";
 "Create type" = "Opprett type";
@@ -554,6 +555,7 @@
 "Application icon" = "Appikon";
 "Mode" = "Modus";
 "copied to clipboard" = "%@ kopiert til utklippstavlen";
+"Create object from clipboard" = "Create object from clipboard";
 "Access to secret phrase from keychain" = "Tilgang til gjenopprettingsfrasen fra nøkkelringen";
 "Back up your recovery phrase" = "Sikkerhetskopier din gjenopprettingsfrase";
 "Account" = "Konto";
@@ -753,10 +755,6 @@
 "Content.DataView.InlineCollection.Untitled" = "Navnløs samling";
 "Content.DataView.InlineSet.Toast.Failure" = "Dette innfelte settet har ingen kilde";
 
-// MARK: - Widget extension
-"WidgetExtension.LockScreen.Title" = "Nytt objekt";
-"WidgetExtension.LockScreen.Description" = "Opprett et nytt objekt på direkten";
-
 // MARK: - Toast
 "Editor.Toast.LinkedTo" = "koblet til";
 "Editor.Toast.MovedTo" = "Blokk flyttet til";
@@ -848,10 +846,26 @@
 "ClearCacheAlert.Description" = "Alle mediefiler lagret i Anytype vil bli slettet fra din nåværende enhet. De kan lastes ned igjen fra en backup-node eller en annen enhet.";
 
 // MARK: - Spaces
-"Spaces.Accessibility.Public" = "Offentlig rom";
+"Spaces.Accessibility.Shared" = "Shared Space";
 "Spaces.Accessibility.Private" = "Privat rom";
 "Spaces.Accessibility.Personal" = "Innstillinger";
 "Spaces.Search.Title" = "Søk etter rom";
+"Spaces.Title" = "Rom";
+"Spaces.Info.Network" = "Nettverk:";
+"Spaces.Info.Device" = "Enhet:";
+
+// MARK: - Space
+"Space.Status.Unknown" = "Ukjent";
+"Space.Status.Loading" = "Laster";
+"Space.Status.Ok" = "Ok";
+"Space.Status.Missing" = "Mangler";
+"Space.Status.Error" = "Feil";
+"Space.Status.RemoteWaitingDeletion" = "Venter sletting";
+"Space.Status.RemoteDeleted" = "Fjernslettet";
+"Space.Status.SpaceDeleted" = "Slettet";
+"Space.Status.SpaceActive" = "Aktiv";
+"Space.Status.SpaceJoining" = "Kobler til";
+"Space.Status.SpaceRemoving" = "Removing";
 
 // MARK: - Space Settings
 "SpaceSettings.Title" = "Rominnstillinger";
@@ -861,16 +875,36 @@
 "SpaceSettings.DeleteAlert.Title" = "Slett ’%@’ rommet";
 "SpaceSettings.DeleteAlert.Message" = "Dette rommet vil bli slettet ugjenkallelig. Du kan ikke angre denne handlingen.";
 "SpaceSettings.DeleteButton" = "Slett rom";
-"SpaceSettings.Sharing" = "Sharing";
+"SpaceSettings.Sharing" = "Deling";
 "SpaceSettings.Share" = "Del";
 
 // MARK: - Space Share
 
-"SpaceShare.Title" = "Share space";
-"SpaceShare.MembersSection" = "Members and requests";
-"SpaceShare.Permissions.Owner" = "Owner";
-"SpaceShare.Permissions.Reader" = "Can view";
-"SpaceShare.Permissions.Writer" = "Can edit";
+"SpaceShare.Title" = "Del rom";
+"SpaceShare.MembersSection" = "Medlemmer og forespørsler";
+"SpaceShare.Permissions.Owner" = "Eier";
+"SpaceShare.Permissions.Reader" = "Viewer";
+"SpaceShare.Permissions.Writer" = "Editor";
+"SpaceShare.Invite.Title" = "Invitasjonslenke";
+"SpaceShare.Invite.Description" = "Send denne lenken for å invitere andre. Tildel tilgangsrettigheter når deres forespørsel er godkjent";
+"SpaceShare.Invite.Button" = "Del invitasjonslenke";
+"SpaceShare.Status.Joining" = "Forespurt";
+"SpaceShare.Status.Declined" = "Avslått";
+"SpaceShare.Action.ViewRequest" = "Vis forespørsel";
+"SpaceShare.ViewRequest.Title" = "%@ ba om å bli med i %@-rommet";
+"SpaceShare.ViewRequest.ViewAccess" = "Grand view access";
+"SpaceShare.ViewRequest.EditAccess" = "Grand edit access";
+"SpaceShare.ViewRequest.Reject" = "Avvis";
+"SpaceShare.RemoveMember.Title" = "Remove memeber";
+"SpaceShare.RemoveMember.Message" = "%@ will be removed from the space.";
+"SpaceShare.ChangePermissions" = "%@ access to the space would become %@.";
+"SpaceShare.Join.Title" = "Bli med i et rom";
+"SpaceShare.Join.CommentPlaceholder" = "Legg igjen en privat kommentar til eieren av rommet";
+"SpaceShare.Join.Button" = "Be om å bli med";
+"SpaceShare.Join.Info" = "Når eieren av rommet godkjenner forespørselen din, vil du bli med i rommet med tilgangsrettigheter eieren har satt.";
+"SpaceShare.Join.Message" = "Du har blitt invitert til å bli med i %@ -rommet, opprettet av %@. Send en forespørsel slik at eieren av rommet kan slippe deg inn.";
+"SpaceShare.JoinConfirmation.Title" = "Request sent";
+"SpaceShare.JoinConfirmation.Message" = "You will receive a notification when the space owner will approve your request.";
 
 // MARK: - Space Create
 "SpaceCreate.Title" = "Opprett et rom";
@@ -896,6 +930,11 @@
 "Sharing.Tip.Steps.1" = "Trykk på knappen for deling i iOS";
 "Sharing.Tip.Steps.2" = "Bla forbi appen og trykk mer";
 "Sharing.Tip.Steps.3" = "Trykk på Rediger for å finne \"Anytype\" og trykk på";
+
+// MARK: - Swipe tips
+"Swipe.Tip.Title" = "Sveip for å lage objekter";
+"Swipe.Tip.Subtitle" = "Opprett objekter inne i widgets ved enkelt å sveipe dem til venstre.";
+
 
 // MARK: - Initial
 

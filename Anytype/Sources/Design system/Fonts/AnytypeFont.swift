@@ -22,6 +22,7 @@ enum AnytypeFont: CaseIterable {
 
     // UX fonts
     case uxTitle1Semibold
+    case uxTitle2Semibold
     case uxTitle2Regular
     case uxTitle2Medium
     case uxBodyRegular

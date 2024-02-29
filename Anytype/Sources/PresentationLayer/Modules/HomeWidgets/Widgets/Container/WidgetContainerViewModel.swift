@@ -9,7 +9,7 @@ final class WidgetContainerViewModel<ContentVM: WidgetContainerContentViewModelP
     
     // MARK: - DI
     
-    private let widgetBlockId: BlockId
+    private let widgetBlockId: String
     private let widgetObject: BaseDocumentProtocol
     private let blockWidgetService: BlockWidgetServiceProtocol
     private let stateManager: HomeWidgetsStateManagerProtocol
@@ -29,7 +29,7 @@ final class WidgetContainerViewModel<ContentVM: WidgetContainerContentViewModelP
     @Published var toastData = ToastBarData.empty
     
     init(
-        widgetBlockId: BlockId,
+        widgetBlockId: String,
         widgetObject: BaseDocumentProtocol,
         blockWidgetService: BlockWidgetServiceProtocol,
         stateManager: HomeWidgetsStateManagerProtocol,

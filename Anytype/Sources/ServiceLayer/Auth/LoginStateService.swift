@@ -20,7 +20,7 @@ final class LoginStateService: LoginStateServiceProtocol {
     private let relationDetailsStorage: RelationDetailsStorageProtocol
     private let workspacesStorage: WorkspacesStorageProtocol
     private let activeWorkpaceStorage: ActiveWorkpaceStorageProtocol
-    
+
     init(
         objectTypeProvider: ObjectTypeProviderProtocol,
         middlewareConfigurationProvider: MiddlewareConfigurationProviderProtocol,
