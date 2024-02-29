@@ -11,6 +11,8 @@ final class MembershipModuleAssembly: MembershipModuleAssemblyProtocol {
     nonisolated init() { }
     
     func make() -> AnyView {
-        Text("TBD 🫵🐷").eraseToAnyView()
+        MembershipModuleView(
+            model: MembershipModuleViewModel()
+        ).eraseToAnyView()
     }
 }

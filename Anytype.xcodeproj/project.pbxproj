@@ -1325,6 +1325,9 @@
 		3DCC549426D3B58E002517AC /* BlockBookmarkOnlyUrlView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DCC549326D3B58E002517AC /* BlockBookmarkOnlyUrlView.swift */; };
 		3DCEE135273C18FC00BC5565 /* BeginingOfTextMarkdown.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DCEE134273C18FC00BC5565 /* BeginingOfTextMarkdown.swift */; };
 		3DCEE13C273C1FAD00BC5565 /* TextViewExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DCEE13B273C1FAD00BC5565 /* TextViewExtension.swift */; };
+		3DD0CEB42B90A9C300657402 /* MembershipModuleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DD0CEB32B90A9C300657402 /* MembershipModuleView.swift */; };
+		3DD0CEB62B90AA0500657402 /* MembershipModuleViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DD0CEB52B90AA0500657402 /* MembershipModuleViewModel.swift */; };
+		3DD0CEB92B90ACED00657402 /* MembershipLegalButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DD0CEB82B90ACED00657402 /* MembershipLegalButton.swift */; };
 		3DDC6A602627071E004F5EA4 /* BlockLinkState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DDC6A5F2627071E004F5EA4 /* BlockLinkState.swift */; };
 		3DDC6A64262707CB004F5EA4 /* BlockLinkCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DDC6A63262707CB004F5EA4 /* BlockLinkCardView.swift */; };
 		3DDC6A6A26270998004F5EA4 /* BlockLinkContentConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DDC6A6926270998004F5EA4 /* BlockLinkContentConfiguration.swift */; };
@@ -3080,6 +3083,9 @@
 		3DCC549326D3B58E002517AC /* BlockBookmarkOnlyUrlView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlockBookmarkOnlyUrlView.swift; sourceTree = "<group>"; };
 		3DCEE134273C18FC00BC5565 /* BeginingOfTextMarkdown.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BeginingOfTextMarkdown.swift; sourceTree = "<group>"; };
 		3DCEE13B273C1FAD00BC5565 /* TextViewExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = TextViewExtension.swift; path = AnyTypeTests/Markdown/Mocks/TextViewExtension.swift; sourceTree = SOURCE_ROOT; };
+		3DD0CEB32B90A9C300657402 /* MembershipModuleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MembershipModuleView.swift; sourceTree = "<group>"; };
+		3DD0CEB52B90AA0500657402 /* MembershipModuleViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MembershipModuleViewModel.swift; sourceTree = "<group>"; };
+		3DD0CEB82B90ACED00657402 /* MembershipLegalButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MembershipLegalButton.swift; sourceTree = "<group>"; };
 		3DDC6A5F2627071E004F5EA4 /* BlockLinkState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlockLinkState.swift; sourceTree = "<group>"; };
 		3DDC6A63262707CB004F5EA4 /* BlockLinkCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlockLinkCardView.swift; sourceTree = "<group>"; };
 		3DDC6A6926270998004F5EA4 /* BlockLinkContentConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlockLinkContentConfiguration.swift; sourceTree = "<group>"; };
@@ -8372,7 +8378,10 @@
 		3D5D57772B8FDB7100EAE9A5 /* Membership */ = {
 			isa = PBXGroup;
 			children = (
+				3DD0CEB72B90ACBE00657402 /* Views */,
 				3D5D57782B8FDB8900EAE9A5 /* MembershipModuleAssembly.swift */,
+				3DD0CEB32B90A9C300657402 /* MembershipModuleView.swift */,
+				3DD0CEB52B90AA0500657402 /* MembershipModuleViewModel.swift */,
 			);
 			path = Membership;
 			sourceTree = "<group>";
@@ -8846,6 +8855,14 @@
 				862065542AB1E94D006E539B /* MockBaseDocument.swift */,
 			);
 			path = Models;
+			sourceTree = "<group>";
+		};
+		3DD0CEB72B90ACBE00657402 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				3DD0CEB82B90ACED00657402 /* MembershipLegalButton.swift */,
+			);
+			path = Views;
 			sourceTree = "<group>";
 		};
 		3DDC6A5E2627070C004F5EA4 /* Link */ = {
@@ -11217,6 +11234,7 @@
 				2A945D3E299E3E9D00C34C86 /* PlainList.swift in Sources */,
 				3DDC6A602627071E004F5EA4 /* BlockLinkState.swift in Sources */,
 				2E74AF0829CB4A5100AC3B91 /* SetContentViewItem.swift in Sources */,
+				3DD0CEB42B90A9C300657402 /* MembershipModuleView.swift in Sources */,
 				2A39DC4629FBC567003C43A9 /* FileStorageView.swift in Sources */,
 				12A52E2C26CAA1A2000F0333 /* ViewAnimator+Scale.swift in Sources */,
 				3D1B5F78274CF567007D97AE /* SetTableViewHeader.swift in Sources */,
@@ -11489,6 +11507,7 @@
 				2A673C1529B0D78F00E3D672 /* SettingsAccountModuleAssembly.swift in Sources */,
 				C9A4268C28489CC800F388FC /* SimpleTableBlockContentConfiguration.swift in Sources */,
 				2E9221A1294B8D4900968750 /* DataViewBlockView.swift in Sources */,
+				3DD0CEB92B90ACED00657402 /* MembershipLegalButton.swift in Sources */,
 				3D07ED6C261F49ED00C007E2 /* DividerBlockViewModel.swift in Sources */,
 				2A2B33272A7B9A40004BD906 /* SpaceSwitchModuleAssembly.swift in Sources */,
 				2E22F9EA2B6167AE001EFCF3 /* SelectRelationListCoordinatorView.swift in Sources */,
@@ -11784,6 +11803,7 @@
 				2AFEED0D2A72713500D7A45B /* Icon.swift in Sources */,
 				3D1CEC3127F5A8CA000D36BA /* DeletedAccountViewModel.swift in Sources */,
 				8673528D2AA8BF2C003F92DC /* WrappedSearchInteractor.swift in Sources */,
+				3DD0CEB62B90AA0500657402 /* MembershipModuleViewModel.swift in Sources */,
 				535F799A274705C30050A1B8 /* FlowRelationsViewModel.swift in Sources */,
 				2A1F949929795FEB00E25782 /* FavoriteSubscriptionService.swift in Sources */,
 				2ADFA9DC2949C61D00F64688 /* UIKitModule.swift in Sources */,

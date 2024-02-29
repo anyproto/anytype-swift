@@ -982,6 +982,15 @@
 
 // MARK: - Membership
 "Membership" = "Membership";
+"Membership.Ad.Title" = "Let’s build together";
+"Membership.Ad.Subtitle" = "Joining Anytype network means contributing to its story";
+
+"Membership.Legal.Details" = "Membership levels details";
+"Membership.Legal.Privacy" = "Privacy policy";
+"Membership.Legal.Terms" = "Terms and conditions";
+"Membership.Legal.WouldYouLike" = "Would you like to use Anytype for business, education, etc.?";
+"Membership.Legal.LetUsKnow" = "Please let us know here.";
+
 
 // MARK: - Debug
 "Debug.MimeTypes" = "Mime Types - %@";

@@ -1382,6 +1382,26 @@ internal enum Loc {
     /// Create Objects with specific Type
     internal static let title = Loc.tr("Localizable", "LongTapCreateTip.Title", fallback: "Create Objects with specific Type")
   }
+  internal enum Membership {
+    internal enum Ad {
+      /// Joining Anytype network means contributing to its story
+      internal static let subtitle = Loc.tr("Localizable", "Membership.Ad.Subtitle", fallback: "Joining Anytype network means contributing to its story")
+      /// Let’s build together
+      internal static let title = Loc.tr("Localizable", "Membership.Ad.Title", fallback: "Let’s build together")
+    }
+    internal enum Legal {
+      /// Membership levels details
+      internal static let details = Loc.tr("Localizable", "Membership.Legal.Details", fallback: "Membership levels details")
+      /// Please let us know here.
+      internal static let letUsKnow = Loc.tr("Localizable", "Membership.Legal.LetUsKnow", fallback: "Please let us know here.")
+      /// Privacy policy
+      internal static let privacy = Loc.tr("Localizable", "Membership.Legal.Privacy", fallback: "Privacy policy")
+      /// Terms and conditions
+      internal static let terms = Loc.tr("Localizable", "Membership.Legal.Terms", fallback: "Terms and conditions")
+      /// Would you like to use Anytype for business, education, etc.?
+      internal static let wouldYouLike = Loc.tr("Localizable", "Membership.Legal.WouldYouLike", fallback: "Would you like to use Anytype for business, education, etc.?")
+    }
+  }
   internal enum Mention {
     internal enum Subtitle {
       /// Object

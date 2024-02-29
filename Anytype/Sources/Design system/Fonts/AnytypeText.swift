@@ -45,6 +45,16 @@ struct AnytypeText: View {
             .padding(.vertical, spacing / 2)
     }
     
+    // MARK: - SwiftUI Text mimic methods
+    
+    func underline(_ isActive: Bool = true, color: Color? = nil) -> AnytypeText {
+        let textView = textView.underline(isActive, color: color)
+        return AnytypeText(textView: textView, spacing: spacing)
+    }
+    
+    
+    // MARK: - Private
+    
     private static func buildText(_ text: String, style: AnytypeFont, enableMarkdown: Bool) -> Text {
         let font = AnytypeFontBuilder.font(anytypeFont: style)
         
