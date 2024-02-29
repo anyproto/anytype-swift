@@ -217,7 +217,7 @@
 "Auth.CameraPermissionTitle" = "Будь ласка, дозвольте доступ";
 "Restore secret phrase from keychain" = "Відновити фразу відновлення з в'язки ключів";
 "Auth.LogIn" = "Log In";
-"Auth.Join" = "Join";
+"Join" = "Join";
 "Auth.Welcome.Subtitle" = "Anytype - це ваш безпечний простір, де ви можете писати, планувати, думати та організовувати все, що має для вас значення.";
 "Auth.Caption.Privacy.Text" = "Продовжуючи, ви погоджуєтесь з [Умовами використання](%@) і [Політикою конфіденційності](%@)";
 "Auth.Next" = "Далі";
@@ -878,6 +878,9 @@
 "SpaceSettings.DeleteButton" = "Видалити простір ";
 "SpaceSettings.Sharing" = "Sharing";
 "SpaceSettings.Share" = "Share";
+"SpaceSettings.LeaveButton" = "Leave and unjoin";
+"SpaceSettings.LeaveAlert.Title" = "Leave and unjoin the space";
+"SpaceSettings.LeaveAlert.Message" = "%@ space will be removed from your devices and you will no longer have access to it";
 
 // MARK: - Space Share
 
@@ -980,6 +983,9 @@
 "Gallery.Notification.Success" = "Experience was successfully installed to the \"%@\" space. You can now open and start using it.";
 "Gallery.Notification.Button" = "Go to space";
 "Gallery.Notification.Error" = "Oops! \"%@\" wasn't installed. Please check your internet connection and try again or post a report on forum.";
+
+// MARK: - Membership
+"Membership" = "Membership";
 
 // MARK: - Debug
 "Debug.MimeTypes" = "Mime Types - %@";
