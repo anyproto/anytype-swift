@@ -23,5 +23,6 @@ struct AsyncStandardButton: View {
                 inProgress = false
             }
         }
+        .snackbar(toastBarData: $toast)
     }
 }
