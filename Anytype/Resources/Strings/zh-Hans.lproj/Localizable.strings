@@ -217,7 +217,7 @@
 "Auth.CameraPermissionTitle" = "请允许访问";
 "Restore secret phrase from keychain" = "从钥匙串恢复恢复短语";
 "Auth.LogIn" = "登录";
-"Auth.Join" = "注册";
+"Join" = "Join";
 "Auth.Welcome.Subtitle" = "Anytype 是您编写、计划、思考和组织集于一身，对您重要的安全空间。";
 "Auth.Caption.Privacy.Text" = "继续即表示您同意 [使用条款](%@) 和 [隐私策略](%@)";
 "Auth.Next" = "下一步";
@@ -877,6 +877,9 @@
 "SpaceSettings.DeleteButton" = "删除空间";
 "SpaceSettings.Sharing" = "分享";
 "SpaceSettings.Share" = "分享";
+"SpaceSettings.LeaveButton" = "Leave and unjoin";
+"SpaceSettings.LeaveAlert.Title" = "Leave and unjoin the space";
+"SpaceSettings.LeaveAlert.Message" = "%@ space will be removed from your devices and you will no longer have access to it";
 
 // MARK: - Space Share
 
@@ -980,6 +983,9 @@
 "Gallery.Notification.Success" = "体验已成功安装到 “%@” 空间。您现在可以打开并开始使用它。";
 "Gallery.Notification.Button" = "转到空间";
 "Gallery.Notification.Error" = "哎呀！ “%@” 未安装。请检查您的互联网连接，然后重试或在论坛上反馈。";
+
+// MARK: - Membership
+"Membership" = "Membership";
 
 // MARK: - Debug
 "Debug.MimeTypes" = "媒体类型 - %@";
