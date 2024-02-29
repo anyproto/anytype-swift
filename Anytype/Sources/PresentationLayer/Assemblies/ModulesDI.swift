@@ -307,6 +307,6 @@ final class ModulesDI: ModulesDIProtocol {
     }
     
     func membership() -> MembershipModuleAssemblyProtocol {
-        MembershipModuleAssembly()
+        MembershipModuleAssembly(uiHelpersDI: uiHelpersDI)
     }
 }

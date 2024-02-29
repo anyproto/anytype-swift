@@ -26,11 +26,19 @@ struct MembershipModuleView: View {
     
     var legal: some View {
         VStack {
-            MembershipLegalButton(text: Loc.Membership.Legal.details) { }
-            MembershipLegalButton(text: Loc.Membership.Legal.privacy) { }
-            MembershipLegalButton(text: Loc.Membership.Legal.terms) { }
+            MembershipLegalButton(text: Loc.Membership.Legal.details) { 
+                model.onLegalDetailsTap()
+            }
+            MembershipLegalButton(text: Loc.Membership.Legal.privacy) { 
+                model.onLegalPrivacyTap()
+            }
+            MembershipLegalButton(text: Loc.Membership.Legal.terms) { 
+                model.onLegalTermsTap()
+            }
             
-            Button {} label: {
+            Button {
+                model.onLetUsKnowTap()
+            } label: {
                 AnytypeText(
                     "\(Loc.Membership.Legal.wouldYouLike) ",
                     style: .caption1Regular,
@@ -47,7 +55,11 @@ struct MembershipModuleView: View {
 }
 
 #Preview {
-    MembershipModuleView(
-        model: MembershipModuleViewModel()
-    )
+    NavigationView {
+        MembershipModuleView(
+            model: MembershipModuleViewModel(
+                urlOpener: DI.preview.uihelpersDI.urlOpener()
+            )
+        )
+    }
 }
