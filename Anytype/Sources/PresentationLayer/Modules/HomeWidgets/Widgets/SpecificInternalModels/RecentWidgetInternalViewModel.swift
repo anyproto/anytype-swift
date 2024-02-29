@@ -48,14 +48,7 @@ final class RecentWidgetInternalViewModel: WidgetInternalViewModelProtocol {
             .store(in: &subscriptions)
     }
     
-    func stopContentSubscription() async {
-        subscriptions.removeAll()
-        await recentSubscriptionService.stopSubscription()
-    }
-    
     func startHeaderSubscription() {}
-    
-    func stopHeaderSubscription() {}
     
     func screenData() -> EditorScreenData? {
         return type.editorScreenData

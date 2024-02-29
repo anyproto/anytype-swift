@@ -64,16 +64,8 @@ final class ObjectWidgetInternalViewModel: WidgetInternalViewModelProtocol {
         }
     }
     
-    func stopHeaderSubscription() {
-        subscriptions.removeAll()
-    }
-    
     func startContentSubscription() async {
         await updateLinksSubscriptions()
-    }
-    
-    func stopContentSubscription() async {
-        await subscriptionManager.stopAllSubscriptions()
     }
     
     func screenData() -> EditorScreenData? {

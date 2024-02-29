@@ -57,14 +57,7 @@ final class FavoriteWidgetInternalViewModel: WidgetInternalViewModelProtocol {
             .store(in: &subscriptions)
     }
     
-    func stopContentSubscription() async {
-        subscriptions.removeAll()
-        favoriteSubscriptionService.stopSubscription()
-    }
-    
     func startHeaderSubscription() {}
-    
-    func stopHeaderSubscription() {}
     
     func screenData() -> EditorScreenData? {
         return .favorites

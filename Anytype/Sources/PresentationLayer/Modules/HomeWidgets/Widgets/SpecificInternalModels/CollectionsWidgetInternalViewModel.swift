@@ -52,14 +52,7 @@ final class CollectionsWidgetInternalViewModel: WidgetInternalViewModelProtocol 
             .store(in: &subscriptions)
     }
     
-    func stopContentSubscription() async {
-        subscriptions.removeAll()
-        await subscriptionService.stopSubscription()
-    }
-    
     func startHeaderSubscription() {}
-    
-    func stopHeaderSubscription() {}
     
     func screenData() -> EditorScreenData? {
         return .collections
