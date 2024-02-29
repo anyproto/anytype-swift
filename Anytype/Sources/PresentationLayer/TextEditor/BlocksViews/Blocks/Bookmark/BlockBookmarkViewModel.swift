@@ -61,7 +61,7 @@ final class BlockBookmarkViewModel: BlockViewModelProtocol {
             return emptyViewConfiguration(text: Loc.Content.Bookmark.loading, state: .uploading)
         case .done:
             guard let objectDetails = objectDetailsProvider?.details else {
-                anytypeAssertionFailure("Coudn't find object details for bookmark") //
+                anytypeAssertionFailure("Coudn't find object details for bookmark")
                 return UnsupportedBlockViewModel(info: info).makeContentConfiguration(maxWidth: width)
             }
 
