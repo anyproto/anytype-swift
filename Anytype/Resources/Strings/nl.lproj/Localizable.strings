@@ -217,7 +217,7 @@
 "Auth.CameraPermissionTitle" = "Geef toegang";
 "Restore secret phrase from keychain" = "Herstel de herstelzin vanuit de keychain";
 "Auth.LogIn" = "Inloggen";
-"Auth.Join" = "Sluit aan";
+"Join" = "Join";
 "Auth.Welcome.Subtitle" = "Anytype is jouw veilige ruimte om te schrijven, te plannen, na te denken en te organiseren van de dingen die jij belangrijk vindt.";
 "Auth.Caption.Privacy.Text" = "Door verder te gaan ga je akkoord met onze [Algemene voorwaarden](%@) en [Privacybeleid](%@)";
 "Auth.Next" = "Volgende";
@@ -878,6 +878,9 @@
 "SpaceSettings.DeleteButton" = "Verwijder ruimte";
 "SpaceSettings.Sharing" = "Aan het delen";
 "SpaceSettings.Share" = "Deel";
+"SpaceSettings.LeaveButton" = "Leave and unjoin";
+"SpaceSettings.LeaveAlert.Title" = "Leave and unjoin the space";
+"SpaceSettings.LeaveAlert.Message" = "%@ space will be removed from your devices and you will no longer have access to it";
 
 // MARK: - Space Share
 
@@ -980,6 +983,9 @@
 "Gallery.Notification.Success" = "Experience werd succesvol geïnstalleerd in de \"%@\" ruimte. Je kunt het nu openen en gebruiken.";
 "Gallery.Notification.Button" = "Ga naar ruimte";
 "Gallery.Notification.Error" = "Oeps! \"%@\" werd niet geïnstalleerd. Controleer jouw internetverbinding en probeer het opnieuw of rapporteer het op het forum.";
+
+// MARK: - Membership
+"Membership" = "Membership";
 
 // MARK: - Debug
 "Debug.MimeTypes" = "Media types - %@";
