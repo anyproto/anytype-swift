@@ -8,12 +8,9 @@ struct MembershipModuleView: View {
             VStack {
                 AnytypeText(Loc.Membership.Ad.title, name: .inter, size: 48, weight: .medium).foregroundStyle(Color.Text.primary)
                 AnytypeText(Loc.Membership.Ad.subtitle, style: .relation2Regular, color: .Text.primary)
+                baners
                 
                 // Temp
-                Rectangle().foregroundStyle(Color.green).frame(idealHeight: 300)
-                    .overlay(alignment: .center) {
-                        AnytypeText("Co-create with us", style: .bodyRegular, color: .Text.primary)
-                    }
                 Rectangle().foregroundStyle(Color.red).frame(idealHeight: 300)
                     .overlay(alignment: .center) {
                         AnytypeText("Tiers list", style: .bodyRegular, color: .Text.primary)
@@ -22,6 +19,37 @@ struct MembershipModuleView: View {
                 legal
             }
         }
+    }
+    
+    var baners: some View {
+        TabView {
+            MembershipBannerView(
+                title: Loc.Membership.Banner.title1,
+                subtitle: Loc.Membership.Banner.subtitle1,
+                image: .Membership.banner1,
+                gradient: .green
+            )
+            MembershipBannerView(
+                title: Loc.Membership.Banner.title2,
+                subtitle: Loc.Membership.Banner.subtitle2,
+                image: .Membership.banner2,
+                gradient: .yellow
+            )
+            MembershipBannerView(
+                title: Loc.Membership.Banner.title3,
+                subtitle: Loc.Membership.Banner.subtitle3,
+                image: .Membership.banner3,
+                gradient: .pink
+            )
+            MembershipBannerView(
+                title: Loc.Membership.Banner.title4,
+                subtitle: Loc.Membership.Banner.subtitle4,
+                image: .Membership.banner4,
+                gradient: .purple
+            )
+        }
+        .tabViewStyle(.page)
+        .frame(height: 284)
     }
     
     var legal: some View {
