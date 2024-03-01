@@ -6,8 +6,14 @@ struct MembershipModuleView: View {
     var body: some View {
         ScrollView {
             VStack {
-                AnytypeText(Loc.Membership.Ad.title, name: .inter, size: 48, weight: .medium).foregroundStyle(Color.Text.primary)
+                DragIndicator()
+                Spacer.fixedHeight(40)
+                AnytypeText(Loc.Membership.Ad.title, name: .inter, size: 48, weight: .regular)
+                    .foregroundStyle(Color.Text.primary)
+                    .padding(.horizontal, 20)
                 AnytypeText(Loc.Membership.Ad.subtitle, style: .relation2Regular, color: .Text.primary)
+                    .padding(.horizontal, 60)
+                    .multilineTextAlignment(.center)
                 baners
                 
                 // Temp
