@@ -58,7 +58,6 @@ final class MentionsViewModel {
             guard let newBlockDetails = try? await defaultObjectService.createDefaultObject(name: searchString, shouldDeleteEmptyObject: false, spaceId: document.spaceId) else { return }
             
             AnytypeAnalytics.instance().logCreateObject(objectType: newBlockDetails.analyticsType, route: .mention)
-            let name = searchString.isEmpty ? Loc.Object.Title.placeholder : searchString
             let mention = MentionObject(details: newBlockDetails)
             didSelectMention(mention)
         }
