@@ -15,6 +15,7 @@ public struct ObjectType: Equatable, Hashable, Codable, Identifiable {
     public let spaceId: String
     public let uniqueKey: ObjectTypeUniqueKey
     public let defaultTemplateId: String
+    public let canCreateObjectOfThisType: Bool
     
     public let recommendedRelations: [ObjectId]
     public let recommendedLayout: DetailsLayout?
@@ -32,6 +33,7 @@ public struct ObjectType: Equatable, Hashable, Codable, Identifiable {
         spaceId: String,
         uniqueKey: ObjectTypeUniqueKey,
         defaultTemplateId: String,
+        canCreateObjectOfThisType: Bool,
         recommendedRelations: [ObjectId],
         recommendedLayout: DetailsLayout?
     ) {
@@ -47,6 +49,7 @@ public struct ObjectType: Equatable, Hashable, Codable, Identifiable {
         self.spaceId = spaceId
         self.uniqueKey = uniqueKey
         self.defaultTemplateId = defaultTemplateId
+        self.canCreateObjectOfThisType = canCreateObjectOfThisType
         self.recommendedRelations = recommendedRelations
         self.recommendedLayout = recommendedLayout
     }
@@ -68,14 +71,35 @@ extension ObjectType {
             spaceId: details.spaceId,
             uniqueKey: details.uniqueKeyValue,
             defaultTemplateId: details.defaultTemplateId,
+            canCreateObjectOfThisType: details.restrictionsList.contains(.createObjectOfThisType),
             recommendedRelations: details.recommendedRelations,
             recommendedLayout: details.recommendedLayoutValue
         )
     }
-    
 }
 
 extension ObjectType {
+    
+    public static var subscriptionKeys: [BundledRelationKey] {
+        return [
+            BundledRelationKey.id,
+            BundledRelationKey.name,
+            BundledRelationKey.iconEmoji,
+            BundledRelationKey.description,
+            BundledRelationKey.isHidden,
+            BundledRelationKey.isReadonly,
+            BundledRelationKey.isArchived,
+            BundledRelationKey.smartblockTypes,
+            BundledRelationKey.sourceObject,
+            BundledRelationKey.recommendedRelations,
+            BundledRelationKey.recommendedLayout,
+            BundledRelationKey.uniqueKey,
+            BundledRelationKey.spaceId,
+            BundledRelationKey.defaultTemplateId,
+            BundledRelationKey.restrictions
+        ]
+    }
+    
     public var isTemplateType: Bool {
         uniqueKey == .template
     }

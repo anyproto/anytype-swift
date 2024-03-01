@@ -1,14 +1,6 @@
-public enum ObjectRestriction: Int {
-    case none
-    case delete
-    case relations
-    case blocks
-    case details
-    case typechange
-    case layoutchange
-    case template
-    case duplicate
-}
+import ProtobufMessages
+
+public typealias ObjectRestriction = Anytype_Model_Restrictions.ObjectRestriction
 
 public enum DataViewRestriction: Int {
     case DVNone
