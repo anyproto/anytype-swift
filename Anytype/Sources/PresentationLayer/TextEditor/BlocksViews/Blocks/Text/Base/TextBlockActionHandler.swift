@@ -364,6 +364,7 @@ final class TextBlockActionHandler: TextBlockActionHandlerProtocol {
         }
     }
 
+    @MainActor
     private func textViewDidChangeText(textView: UITextView) {
         changeType.map { accessoryViewStateManager.textDidChange(changeType: $0) }
         
@@ -375,16 +376,19 @@ final class TextBlockActionHandler: TextBlockActionHandlerProtocol {
         }
     }
 
+    @MainActor
     private func textViewWillBeginEditing(textView: UITextView) {
         collectionController.textBlockWillBeginEditing()
         accessoryViewStateManager.willBeginEditing(with: accessoryConfiguration(using: textView))
     }
 
+    @MainActor
     private func textViewDidBeginEditing(textView: UITextView) {
         accessoryViewStateManager.didBeginEdition(with: accessoryConfiguration(using: textView))
         collectionController.textBlockDidBeginEditing(firstResponderView: textView)
     }
 
+    @MainActor
     private func textViewDidEndEditing(textView: UITextView) {
         let configuration = accessoryConfiguration(using: textView)
         
@@ -392,6 +396,7 @@ final class TextBlockActionHandler: TextBlockActionHandlerProtocol {
         accessoryViewStateManager.didEndEditing(with: configuration)
     }
 
+    @MainActor
     private func textViewDidChangeCaretPosition(textView: UITextView, range: NSRange) {
         accessoryViewStateManager.selectionDidChange(range: range)
 //        cursorManager.didChangeCursorPosition(at: data.info.id, position: .at(range)) // DO WE NEED IT? WHY?

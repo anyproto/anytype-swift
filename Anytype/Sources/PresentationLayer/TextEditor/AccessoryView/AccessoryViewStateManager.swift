@@ -2,6 +2,7 @@ import Foundation
 import Services
 import UIKit
 
+@MainActor
 protocol AccessoryViewStateManager {
     func willBeginEditing(with configuration: TextViewAccessoryConfiguration)
     func didBeginEdition(with configuration: TextViewAccessoryConfiguration)

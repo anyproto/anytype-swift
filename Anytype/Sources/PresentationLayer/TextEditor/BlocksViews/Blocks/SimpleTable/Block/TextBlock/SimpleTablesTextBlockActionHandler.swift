@@ -260,6 +260,7 @@ final class SimpleTablesTextBlockActionHandler: TextBlockActionHandlerProtocol {
     
     private func textBlockSetNeedsLayout(textView: UITextView) {}
     
+    @MainActor
     private func textViewDidChangeText(textView: UITextView) {
         changeType.map { accessoryViewStateManager.textDidChange(changeType: $0) }
         
@@ -273,6 +274,7 @@ final class SimpleTablesTextBlockActionHandler: TextBlockActionHandlerProtocol {
     
     private func textViewWillBeginEditing(textView: UITextView) {}
     
+    @MainActor
     private func textViewDidBeginEditing(textView: UITextView) {
         accessoryViewStateManager.didBeginEdition(with: accessoryConfiguration(using: textView))
         
@@ -281,10 +283,12 @@ final class SimpleTablesTextBlockActionHandler: TextBlockActionHandlerProtocol {
         }
     }
     
+    @MainActor
     private func textViewDidEndEditing(textView: UITextView) {
         accessoryViewStateManager.didEndEditing(with: accessoryConfiguration(using: textView))
     }
     
+    @MainActor
     private func textViewDidChangeCaretPosition(textView: UITextView, range: NSRange) {
         accessoryViewStateManager.selectionDidChange(range: range)
     }
