@@ -1,27 +1,12 @@
 import SwiftUI
 
-
-enum FadingGradient: String, CaseIterable, Identifiable {
+enum FadingGradient: String {
     case green
     case yellow
     case pink
     case purple
     
-    var id: String { rawValue }
-    
-    // do not make var - SwiftUI glitches
-    func gradientView() -> some View {
-        LinearGradient(
-            stops: [
-                Gradient.Stop(color: color, location: 0.0),
-                Gradient.Stop(color: .Shape.tertiary, location: 0.5)
-            ],
-            startPoint: .top,
-            endPoint: .bottom
-        )
-    }
-    
-    private var color: Color {
+    var color: Color {
         switch self {
         case .green:
             Color(hex: "#CFF6CF")
@@ -33,9 +18,21 @@ enum FadingGradient: String, CaseIterable, Identifiable {
             Color(hex: "#EBEDFE")
         }
     }
-    
+}
+
+extension FadingGradient: View {
+    var body: some View {
+        LinearGradient(
+            stops: [
+                Gradient.Stop(color: color, location: 0.0),
+                Gradient.Stop(color: .Shape.tertiary, location: 0.5)
+            ],
+            startPoint: .top,
+            endPoint: .bottom
+        )
+    }
 }
 
 #Preview {
-    FadingGradient.green.gradientView()
+    FadingGradient.green
 }

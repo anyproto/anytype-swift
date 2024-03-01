@@ -29,7 +29,7 @@ struct MembershipBannerView: View {
                 if colorScheme == .dark {
                     Color.Shape.tertiary
                 } else {
-                    gradient.gradientView()
+                    gradient
                 }
             }
         )
