@@ -2,13 +2,12 @@ import SwiftUI
 
 struct TagSearchRowView: View {
     
-    let viewModel: TagView.Model
-    let relationStyle: RelationStyle
+    let config: TagView.Config
     let selectionIndicatorViewModel: SelectionIndicatorView.Model?
     
     var body: some View {
         HStack(spacing: 0) {
-            TagView(viewModel: viewModel, style: relationStyle)
+            TagView(config: config)
             Spacer()
             selectionIndicatorViewModel.flatMap {
                 SelectionIndicatorView(model: $0)

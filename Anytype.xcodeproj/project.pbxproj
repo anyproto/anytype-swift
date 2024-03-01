@@ -1123,7 +1123,6 @@
 		2EE622FC29F2F57D004DBF3E /* SetItemProviderObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EE622FB29F2F57D004DBF3E /* SetItemProviderObject.swift */; };
 		2EED4F562B6A7B640076FAC6 /* RelationOptionSettingsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EED4F552B6A7B640076FAC6 /* RelationOptionSettingsViewModel.swift */; };
 		2EED4F592B6C31600076FAC6 /* RelationSelectedOptionsModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EED4F582B6C31600076FAC6 /* RelationSelectedOptionsModel.swift */; };
-		2EED4F5B2B6C42C60076FAC6 /* TagOptionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EED4F5A2B6C42C60076FAC6 /* TagOptionView.swift */; };
 		2EEFEADC2A93C39100AD5CDC /* SheetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EEFEADB2A93C39100AD5CDC /* SheetView.swift */; };
 		2EF1EE902B276BE2002AD836 /* SyncStatusData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EF1EE8F2B276BE2002AD836 /* SyncStatusData.swift */; };
 		2EFBBEFA2A41DBD900734A0B /* PhraseTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EFBBEF92A41DBD900734A0B /* PhraseTextView.swift */; };
@@ -2880,7 +2879,6 @@
 		2EE622FB29F2F57D004DBF3E /* SetItemProviderObject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetItemProviderObject.swift; sourceTree = "<group>"; };
 		2EED4F552B6A7B640076FAC6 /* RelationOptionSettingsViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RelationOptionSettingsViewModel.swift; sourceTree = "<group>"; };
 		2EED4F582B6C31600076FAC6 /* RelationSelectedOptionsModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RelationSelectedOptionsModel.swift; sourceTree = "<group>"; };
-		2EED4F5A2B6C42C60076FAC6 /* TagOptionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TagOptionView.swift; sourceTree = "<group>"; };
 		2EEFEADB2A93C39100AD5CDC /* SheetView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SheetView.swift; sourceTree = "<group>"; };
 		2EF1EE8F2B276BE2002AD836 /* SyncStatusData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SyncStatusData.swift; sourceTree = "<group>"; };
 		2EFBBEF92A41DBD900734A0B /* PhraseTextView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhraseTextView.swift; sourceTree = "<group>"; };
@@ -7166,7 +7164,6 @@
 		2E65276E2B5EEB9900F27126 /* Select */ = {
 			isa = PBXGroup;
 			children = (
-				2EE6160C2B6CFE5E000236A8 /* Tag */,
 				2E22F9E82B61667E001EFCF3 /* Coordinator */,
 				2E65276C2B5EEAA100F27126 /* SelectRelationListModuleAssembly.swift */,
 				2E6527622B5EBD9300F27126 /* SelectRelationListView.swift */,
@@ -7601,14 +7598,6 @@
 				2A4E99E72B0B5DB700C81584 /* SetObjectCreationCoordinatorOutput.swift */,
 			);
 			path = Creation;
-			sourceTree = "<group>";
-		};
-		2EE6160C2B6CFE5E000236A8 /* Tag */ = {
-			isa = PBXGroup;
-			children = (
-				2EED4F5A2B6C42C60076FAC6 /* TagOptionView.swift */,
-			);
-			path = Tag;
 			sourceTree = "<group>";
 		};
 		2EED4F572B6C31530076FAC6 /* RelationSelectedOptions */ = {
@@ -10355,7 +10344,6 @@
 				C9EA69D128C61D8A003F488C /* SimpleTableSelectionOptionHandler.swift in Sources */,
 				2E0797B42A0940F8006F0FD7 /* JoinFlowViewModel.swift in Sources */,
 				3DE0CFD626F8593D003A606A /* SlashMenuItemDisplayData.swift in Sources */,
-				2EED4F5B2B6C42C60076FAC6 /* TagOptionView.swift in Sources */,
 				2E1146D0293124ED0057C753 /* SetKanbanColumnSettingsViewModel.swift in Sources */,
 				3D34F20A27BE3B5300990C49 /* SettingsAppearanceView.swift in Sources */,
 				2A2B332B2A7BAEBA004BD906 /* SpaceSwitchViewModel.swift in Sources */,

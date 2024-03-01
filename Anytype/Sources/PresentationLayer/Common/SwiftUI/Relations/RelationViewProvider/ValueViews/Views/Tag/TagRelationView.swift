@@ -42,12 +42,13 @@ struct TagRelationView: View {
     private func contnetView(tags: [Relation.Tag.Option]) -> some View {
         ForEach(tags) { tag in
             TagView(
-                viewModel: TagView.Model(
+                config: TagView.Config(
                     text: tag.text,
                     textColor: tag.textColor,
-                    backgroundColor: tag.backgroundColor
-                ),
-                style: style
+                    backgroundColor: tag.backgroundColor,
+                    textFont: style.font,
+                    guidlines: style.tagViewGuidlines
+                )
             )
         }
     }

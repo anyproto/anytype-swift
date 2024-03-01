@@ -2,25 +2,19 @@ import SwiftUI
 
 struct TagRelationRowView: View {
 
-    let viewModel: TagView.Model
+    let config: TagView.Config
     
     var body: some View {
         HStack(spacing: 0) {
-            TagView(viewModel: viewModel, style: .regular(allowMultiLine: false))
+            TagView(config: config)
             Spacer()
         }
         .frame(height: 48)
     }
 }
 
-struct TagRelationRowView_Previews: PreviewProvider {
-    static var previews: some View {
-        TagRelationRowView(
-            viewModel: TagView.Model(
-                text: "text",
-                textColor: Color.Dark.amber,
-                backgroundColor: Color.VeryLight.amber
-            )
-        )
-    }
+#Preview {
+    TagRelationRowView(
+        config: TagView.Config.default
+    )
 }

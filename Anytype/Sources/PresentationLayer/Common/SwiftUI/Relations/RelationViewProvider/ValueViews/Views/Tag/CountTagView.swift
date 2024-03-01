@@ -7,12 +7,13 @@ struct CountTagView: View {
     
     var body: some View {
         TagView(
-            viewModel: TagView.Model(
+            config: TagView.Config(
                 text: "+\(count)",
                 textColor: .Text.secondary,
-                backgroundColor: .Shape.transperent
-            ),
-            style: style
+                backgroundColor: .Shape.transperent,
+                textFont: style.font,
+                guidlines: style.tagViewGuidlines
+            )
         )
     }
 }

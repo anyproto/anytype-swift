@@ -1,32 +1,40 @@
 import SwiftUI
 
 struct TagView: View {
-    
-    let viewModel: Model
-    let style: RelationStyle
+    let config: TagView.Config
     
     var body: some View {
-        AnytypeText(viewModel.text, style: style.font, color: viewModel.textColor)
+        AnytypeText(config.text, style: config.textFont, color: config.textColor)
             .lineLimit(1)
-            .padding(.horizontal, style.tagViewGuidlines.textPadding)
-            .background(viewModel.backgroundColor)
-            .cornerRadius(style.tagViewGuidlines.cornerRadius)
-            .if(viewModel.backgroundColor == Color.VeryLight.default) {
+            .padding(.horizontal, config.guidlines.textPadding)
+            .background(config.backgroundColor)
+            .cornerRadius(config.guidlines.cornerRadius)
+            .if(config.backgroundColor == Color.VeryLight.default) {
                 $0.overlay(
-                    RoundedRectangle(cornerRadius: style.tagViewGuidlines.cornerRadius)
+                    RoundedRectangle(cornerRadius: config.guidlines.cornerRadius)
                         .stroke(Color.Shape.primary, lineWidth: 1)
                 )
             }
-            .frame(height: style.tagViewGuidlines.tagHeight)
+            .frame(height: config.guidlines.tagHeight)
     }
 }
 
 extension TagView {
     
-    struct Model {
+    struct Config {
         let text: String
         let textColor: Color
         let backgroundColor: Color
+        let textFont: AnytypeFont
+        let guidlines: TagView.Guidlines
+        
+        static let `default` = TagView.Config(
+            text: "Tag",
+            textColor: Color.Dark.pink,
+            backgroundColor: Color.VeryLight.pink,
+            textFont: .bodyRegular,
+            guidlines: TagView.Guidlines(textPadding: 5, cornerRadius: 6, tagHeight: 20)
+        )
     }
     
     struct Guidlines: Hashable {
@@ -34,18 +42,8 @@ extension TagView {
         let cornerRadius: CGFloat
         let tagHeight: CGFloat
     }
-    
 }
 
-struct TagView_Previews: PreviewProvider {
-    static var previews: some View {
-        TagView(
-            viewModel: TagView.Model(
-                text: "text",
-                textColor: Color.VeryLight.amber,
-                backgroundColor: Color.Dark.amber
-            ),
-            style: .set
-        )
-    }
+#Preview {
+    TagView(config: TagView.Config.default)
 }
