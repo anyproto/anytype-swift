@@ -117,6 +117,30 @@ extension UIColor {
       internal static let white = UIColor(asset: Asset.Button.white)
     }
     
+    // MARK: - Gradients
+    enum Gradients {
+      
+      // MARK: - Cover
+      enum Cover {
+        internal static let blueEnd = UIColor(asset: Asset.Gradients.Cover.blueEnd)
+        internal static let bluePinkEnd = UIColor(asset: Asset.Gradients.Cover.bluePinkEnd)
+        internal static let bluePinkStart = UIColor(asset: Asset.Gradients.Cover.bluePinkStart)
+        internal static let blueStart = UIColor(asset: Asset.Gradients.Cover.blueStart)
+        internal static let greenOrangeEnd = UIColor(asset: Asset.Gradients.Cover.greenOrangeEnd)
+        internal static let greenOrangeStart = UIColor(asset: Asset.Gradients.Cover.greenOrangeStart)
+        internal static let pinkOrangeEnd = UIColor(asset: Asset.Gradients.Cover.pinkOrangeEnd)
+        internal static let pinkOrangeStart = UIColor(asset: Asset.Gradients.Cover.pinkOrangeStart)
+        internal static let redEnd = UIColor(asset: Asset.Gradients.Cover.redEnd)
+        internal static let redStart = UIColor(asset: Asset.Gradients.Cover.redStart)
+        internal static let skyEnd = UIColor(asset: Asset.Gradients.Cover.skyEnd)
+        internal static let skyStart = UIColor(asset: Asset.Gradients.Cover.skyStart)
+        internal static let tealEnd = UIColor(asset: Asset.Gradients.Cover.tealEnd)
+        internal static let tealStart = UIColor(asset: Asset.Gradients.Cover.tealStart)
+        internal static let yellowEnd = UIColor(asset: Asset.Gradients.Cover.yellowEnd)
+        internal static let yellowStart = UIColor(asset: Asset.Gradients.Cover.yellowStart)
+      }
+    }
+    
     // MARK: - ModalScreen
     enum ModalScreen {
       internal static let background = UIColor(asset: Asset.ModalScreen.background)

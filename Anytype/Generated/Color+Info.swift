@@ -34,6 +34,7 @@ extension UIColor {
                 UIColor.Background.collectionInfo, 
                 UIColor.BottomAlert.collectionInfo, 
                 UIColor.Button.collectionInfo, 
+                UIColor.Gradients.collectionInfo, 
                 UIColor.ModalScreen.collectionInfo, 
                 UIColor.Navigation.collectionInfo, 
                 UIColor.Shadow.collectionInfo, 
@@ -179,6 +180,13 @@ extension UIColor.Button {
             ColorInfo(name: "inactive", color: UIColor.Button.inactive), 
             ColorInfo(name: "white", color: UIColor.Button.white)
         ]
+    )
+}
+extension UIColor.Gradients {
+    static let collectionInfo = ColorCollectionInfo(
+        name: "Gradients",
+        colors: [
+            ]
     )
 }
 extension UIColor.ModalScreen {
