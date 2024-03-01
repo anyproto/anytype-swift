@@ -217,7 +217,7 @@
 "Auth.CameraPermissionTitle" = "Vennligst tillat tilgang";
 "Restore secret phrase from keychain" = "Gjenopprett gjenopprettingsfrasen fra nøkkelringen";
 "Auth.LogIn" = "Logg inn";
-"Auth.Join" = "Bli med";
+"Join" = "Join";
 "Auth.Welcome.Subtitle" = "Anytype er ditt sikre sted å skrive, planlegge, tenke og organisere alt som betyr for deg.";
 "Auth.Caption.Privacy.Text" = "Ved å fortsette godtar du [Brukervilkårene](%@) og [Personvernerklæringen](%@)";
 "Auth.Next" = "Neste";
@@ -846,7 +846,7 @@
 "ClearCacheAlert.Description" = "Alle mediefiler lagret i Anytype vil bli slettet fra din nåværende enhet. De kan lastes ned igjen fra en backup-node eller en annen enhet.";
 
 // MARK: - Spaces
-"Spaces.Accessibility.Shared" = "Shared Space";
+"Spaces.Accessibility.Shared" = "Delt rom";
 "Spaces.Accessibility.Private" = "Privat rom";
 "Spaces.Accessibility.Personal" = "Innstillinger";
 "Spaces.Search.Title" = "Søk etter rom";
@@ -865,7 +865,7 @@
 "Space.Status.SpaceDeleted" = "Slettet";
 "Space.Status.SpaceActive" = "Aktiv";
 "Space.Status.SpaceJoining" = "Kobler til";
-"Space.Status.SpaceRemoving" = "Removing";
+"Space.Status.SpaceRemoving" = "Fjerner";
 
 // MARK: - Space Settings
 "SpaceSettings.Title" = "Rominnstillinger";
@@ -877,6 +877,9 @@
 "SpaceSettings.DeleteButton" = "Slett rom";
 "SpaceSettings.Sharing" = "Deling";
 "SpaceSettings.Share" = "Del";
+"SpaceSettings.LeaveButton" = "Leave and unjoin";
+"SpaceSettings.LeaveAlert.Title" = "Leave and unjoin the space";
+"SpaceSettings.LeaveAlert.Message" = "%@ space will be removed from your devices and you will no longer have access to it";
 
 // MARK: - Space Share
 
@@ -889,8 +892,9 @@
 "SpaceShare.Invite.Description" = "Send denne lenken for å invitere andre. Tildel tilgangsrettigheter når deres forespørsel er godkjent";
 "SpaceShare.Invite.Button" = "Del invitasjonslenke";
 "SpaceShare.Status.Joining" = "Forespurt";
-"SpaceShare.Status.Declined" = "Avslått";
+"SpaceShare.Status.Removing" = "Unjoining requested";
 "SpaceShare.Action.ViewRequest" = "Vis forespørsel";
+"SpaceShare.Action.Approve" = "Approve";
 "SpaceShare.ViewRequest.Title" = "%@ ba om å bli med i %@-rommet";
 "SpaceShare.ViewRequest.ViewAccess" = "Grand view access";
 "SpaceShare.ViewRequest.EditAccess" = "Grand edit access";
@@ -979,6 +983,27 @@
 "Gallery.Notification.Success" = "Erfaringen ble vellykket installert i rommet \"%@\". Du kan nå åpne det og begynne å bruke det.";
 "Gallery.Notification.Button" = "Gå til rom";
 "Gallery.Notification.Error" = "Oops! \"%@\" ble ikke installert. Vennligst sjekk internettforbindelsen din og prøv igjen, eller legg ut en rapport på forumet.";
+
+// MARK: - Membership
+"Membership" = "Membership";
+"Membership.Ad.Title" = "Let’s build together";
+"Membership.Ad.Subtitle" = "Joining Anytype network means contributing to its story";
+
+"Membership.Legal.Details" = "Membership levels details";
+"Membership.Legal.Privacy" = "Privacy policy";
+"Membership.Legal.Terms" = "Terms and conditions";
+"Membership.Legal.WouldYouLike" = "Would you like to use Anytype for business, education, etc.?";
+"Membership.Legal.LetUsKnow" = "Please let us know here.";
+
+"Membership.Banner.Title1" = "Co-create with us";
+"Membership.Banner.Subtitle1" = "Stay closely connected with our team and community. Join calls with the team, influence Anytype's evolution, and have your say on features.";
+"Membership.Banner.Title2" = "Gain Benefits";
+"Membership.Banner.Subtitle2" = "Our members have unique identity on Anytype Network, more storage, shared spaces and members per space for extensive collaboration";
+"Membership.Banner.Title3" = "Support the Vision";
+"Membership.Banner.Subtitle3" = "Your contribution supports our independent team and endorses our vision︎ of a user-driven, secure, and collaborative digital environment.";
+"Membership.Banner.Title4" = "Invest in Connectivity";
+"Membership.Banner.Subtitle4" = "Our software is free by design, but we thrive on the network that connects us all. Support us, and you're investing in the very infrastructure that keeps us united";
+
 
 // MARK: - Debug
 "Debug.MimeTypes" = "MIME-typer - %@";

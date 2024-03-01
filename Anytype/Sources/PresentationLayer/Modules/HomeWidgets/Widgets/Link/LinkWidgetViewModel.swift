@@ -36,13 +36,7 @@ final class LinkWidgetViewModel: ObservableObject, WidgetContainerContentViewMod
         setupAllSubscriptions()
     }
     
-    func stopHeaderSubscription() {
-        subscriptions.removeAll()
-    }
-    
     func startContentSubscription() {}
-    
-    func stopContentSubscription() {}
     
     func onHeaderTap() {
         guard let linkedObjectDetails else { return }

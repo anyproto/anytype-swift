@@ -38,3 +38,17 @@ extension SpaceView: DetailsModel {
         BundledRelationKey.spaceLocalStatus
     }
 }
+
+extension SpaceView {
+    var canBeShared: Bool {
+        return spaceAccessType == .shared || spaceAccessType == .private
+    }
+    
+    var isShared: Bool {
+        return spaceAccessType == .shared
+    }
+    
+    var canBeDelete: Bool {
+        return spaceAccessType == .personal || spaceAccessType == .private
+    }
+}

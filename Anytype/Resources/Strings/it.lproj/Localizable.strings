@@ -217,7 +217,7 @@
 "Auth.CameraPermissionTitle" = "Per favore, consenti l’accesso";
 "Restore secret phrase from keychain" = "Ripristina la Frase di Recupero dal Portachiavi";
 "Auth.LogIn" = "Accedi";
-"Auth.Join" = "Unisciti";
+"Join" = "Unisciti";
 "Auth.Welcome.Subtitle" = "Anytype è il tuo spazio sicuro per scrivere, pianificare, pensare e organizzare tutto ciò che conta per te.";
 "Auth.Caption.Privacy.Text" = "Continuando accetti i [Termini d'uso](%@) e [Informativa sulla privacy](%@)";
 "Auth.Next" = "Avanti";
@@ -846,7 +846,7 @@
 "ClearCacheAlert.Description" = "Tutti i file multimediali memorizzati in Anytype verranno eliminati dal dispositivo corrente. Possono essere scaricati di nuovo da un nodo di backup o da un altro dispositivo.";
 
 // MARK: - Spaces
-"Spaces.Accessibility.Shared" = "Shared Space";
+"Spaces.Accessibility.Shared" = "Spazio condiviso";
 "Spaces.Accessibility.Private" = "Spazio privato";
 "Spaces.Accessibility.Personal" = "Impostazioni";
 "Spaces.Search.Title" = "Cerca spazi";
@@ -865,7 +865,7 @@
 "Space.Status.SpaceDeleted" = "Eliminato";
 "Space.Status.SpaceActive" = "Attivo";
 "Space.Status.SpaceJoining" = "Accesso in corso";
-"Space.Status.SpaceRemoving" = "Removing";
+"Space.Status.SpaceRemoving" = "Rimozione";
 
 // MARK: - Space Settings
 "SpaceSettings.Title" = "Impostazioni dello Spazio";
@@ -877,34 +877,38 @@
 "SpaceSettings.DeleteButton" = "Elimina spazio";
 "SpaceSettings.Sharing" = "Condivisione";
 "SpaceSettings.Share" = "Condividi";
+"SpaceSettings.LeaveButton" = "Lascia e abbandona";
+"SpaceSettings.LeaveAlert.Title" = "Lascia e abbandona lo spazio";
+"SpaceSettings.LeaveAlert.Message" = "Lo spazio %@ verrà rimosso dai tuoi dispositivi e non avrai più accesso ad esso";
 
 // MARK: - Space Share
 
 "SpaceShare.Title" = "Condividi lo spazio";
 "SpaceShare.MembersSection" = "Membri e richieste";
 "SpaceShare.Permissions.Owner" = "Proprietario";
-"SpaceShare.Permissions.Reader" = "Viewer";
+"SpaceShare.Permissions.Reader" = "Visualizzatore";
 "SpaceShare.Permissions.Writer" = "Editor";
 "SpaceShare.Invite.Title" = "Link di invito";
 "SpaceShare.Invite.Description" = "Invia questo link per invitare gli altri. Assegna i diritti di accesso al momento dell'approvazione della loro richiesta";
 "SpaceShare.Invite.Button" = "Condividi il link di invito";
 "SpaceShare.Status.Joining" = "Richiesto";
-"SpaceShare.Status.Declined" = "Rifiutato";
+"SpaceShare.Status.Removing" = "Richiesta di uscita";
 "SpaceShare.Action.ViewRequest" = "Visualizza richiesta";
+"SpaceShare.Action.Approve" = "Approva";
 "SpaceShare.ViewRequest.Title" = "%@ ha richiesto di unirsi allo spazio %@";
 "SpaceShare.ViewRequest.ViewAccess" = "Concedi accesso in lettura";
 "SpaceShare.ViewRequest.EditAccess" = "Concedi accesso alla modifica";
 "SpaceShare.ViewRequest.Reject" = "Rifiuta";
-"SpaceShare.RemoveMember.Title" = "Remove memeber";
-"SpaceShare.RemoveMember.Message" = "%@ will be removed from the space.";
-"SpaceShare.ChangePermissions" = "%@ access to the space would become %@.";
+"SpaceShare.RemoveMember.Title" = "Rimuovi membro";
+"SpaceShare.RemoveMember.Message" = "%@ sarà rimosso/a dallo spazio.";
+"SpaceShare.ChangePermissions" = "L'accesso allo spazio di %@ diventerà %@.";
 "SpaceShare.Join.Title" = "Unisciti a uno spazio";
 "SpaceShare.Join.CommentPlaceholder" = "Lascia un commento privato per il proprietario dello spazio";
 "SpaceShare.Join.Button" = "Richiesta di adesione";
 "SpaceShare.Join.Info" = "Una volta che il proprietario dello spazio approva la tua richiesta, entrerai nello spazio con i diritti di accesso determinati dal proprietario.";
 "SpaceShare.Join.Message" = "Sei stato invitato a unirti allo spazio %@, creato da %@. Invia una richiesta così il proprietario dello spazio può farti entrare.";
-"SpaceShare.JoinConfirmation.Title" = "Request sent";
-"SpaceShare.JoinConfirmation.Message" = "You will receive a notification when the space owner will approve your request.";
+"SpaceShare.JoinConfirmation.Title" = "Richiesta inviata";
+"SpaceShare.JoinConfirmation.Message" = "Riceverai una notifica quando il proprietario dello spazio approverà la tua richiesta.";
 
 // MARK: - Space Create
 "SpaceCreate.Title" = "Crea uno spazio";
@@ -939,7 +943,7 @@
 // MARK: - Initial
 
 "Initial.UnstableMiddle.Title" = "Attenzione";
-"Initial.UnstableMiddle.Message" = "You launch app with a unstable middleware. Don't use your production account. Your account may be broken.";
+"Initial.UnstableMiddle.Message" = "Hai avviato l'app con un middleware instabile. Non utilizzare il tuo account di produzione. Il tuo account potrebbe essere danneggiato.";
 "Initial.UnstableMiddle.Title" = "Attenzione";
 "Initial.UnstableMiddle.Logout" = "Disconnetti dall'account corrente";
 "Initial.UnstableMiddle.Continue" = "Continua con l'account corrente";
@@ -980,6 +984,27 @@
 "Gallery.Notification.Button" = "Vai allo spazio";
 "Gallery.Notification.Error" = "Oops! \"%@\" non è stato installato. Controlla la tua connessione internet e riprova o pubblica un rapporto sul forum.";
 
+// MARK: - Membership
+"Membership" = "Membership";
+"Membership.Ad.Title" = "Costruiamo insieme";
+"Membership.Ad.Subtitle" = "Unire alla rete di Anytype significa contribuire alla sua storia";
+
+"Membership.Legal.Details" = "Dettagli dei livelli di membership";
+"Membership.Legal.Privacy" = "Informativa sulla privacy";
+"Membership.Legal.Terms" = "Termini e condizioni";
+"Membership.Legal.WouldYouLike" = "Vorresti utilizzare Anytype per affari, educazione, ecc.?";
+"Membership.Legal.LetUsKnow" = "Per piacere, fatecelo sapere qui.";
+
+"Membership.Banner.Title1" = "Co-create with us";
+"Membership.Banner.Subtitle1" = "Stay closely connected with our team and community. Join calls with the team, influence Anytype's evolution, and have your say on features.";
+"Membership.Banner.Title2" = "Gain Benefits";
+"Membership.Banner.Subtitle2" = "Our members have unique identity on Anytype Network, more storage, shared spaces and members per space for extensive collaboration";
+"Membership.Banner.Title3" = "Support the Vision";
+"Membership.Banner.Subtitle3" = "Your contribution supports our independent team and endorses our vision︎ of a user-driven, secure, and collaborative digital environment.";
+"Membership.Banner.Title4" = "Invest in Connectivity";
+"Membership.Banner.Subtitle4" = "Our software is free by design, but we thrive on the network that connects us all. Support us, and you're investing in the very infrastructure that keeps us united";
+
+
 // MARK: - Debug
-"Debug.MimeTypes" = "Mime Types - %@";
+"Debug.MimeTypes" = "Tipi MIME - %@";
 "Debug.Info" = "Informazioni di Debug";

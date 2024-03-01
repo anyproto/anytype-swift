@@ -8,14 +8,16 @@ final class AnalyticsConfigurator: AppConfiguratorProtocol {
     func configure() {
         // Check analytics feature flag
         #if DEBUG
+        
         AnytypeAnalytics.instance().isEnabled = FeatureFlags.analytics
+        
+        #endif
         
         AnytypeAnalytics.instance().eventHandler = { [weak self] eventType, eventProperties in
             DispatchQueue.main.async {
                 self?.log(eventType: eventType, eventProperties: eventProperties)
             }
         }
-        #endif
         
         AnytypeAnalytics.instance().setEventConfiguartion(event: AnalyticsEventsName.blockSetTextText,
                                                           configuation: .init(threshold: .notInRow))
@@ -30,9 +32,12 @@ final class AnalyticsConfigurator: AppConfiguratorProtocol {
     private func log(eventType: String, eventProperties: [AnyHashable : Any]?) {
         
         // Log
+        #if DEBUG
         
         let info = eventProperties.map { Dictionary(uniqueKeysWithValues: $0.map { key, value in ("\(key)", "\(value)") } ) }
         AnalyticsLogger.shared.log(eventType, info: info)
+        
+        #endif
         
         // Show alert
         

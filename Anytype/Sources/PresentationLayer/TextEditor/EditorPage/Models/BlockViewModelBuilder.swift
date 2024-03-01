@@ -237,12 +237,9 @@ final class BlockViewModelBuilder {
             }
             
             return BlockBookmarkViewModel(
-                editorCollectionController: blockCollectionController, objectDetailsProvider: ObjectDetailsInfomationProvider(
-                    detailsStorage: document.detailsStorage,
-                    targetObjectId: data.targetObjectID,
-                    details: details
-                ),
-                infoProvider: blockInformationProvider,
+                editorCollectionController: blockCollectionController,
+                infoProvider: blockInformationProvider, 
+                detailsStorage: document.detailsStorage,
                 showBookmarkBar: { [weak self] info in
                     self?.showBookmarkBar(info: info)
                 },
@@ -280,7 +277,7 @@ final class BlockViewModelBuilder {
             ) { [weak self] relation in
                 guard let self = self else { return }
 
-                let allowTypeChange = !self.document.objectRestrictions.objectRestriction.contains(.typechange)
+                let allowTypeChange = !self.document.objectRestrictions.objectRestriction.contains(.typeChange)
                 
                 if relation.key == BundledRelationKey.type.rawValue && 
                     !self.document.isLocked && allowTypeChange {

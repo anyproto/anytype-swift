@@ -407,6 +407,10 @@ final class ServiceLocator {
         DebugService()
     }
     
+    func participantService() -> ParticipantServiceProtocol {
+        ParticipantService(searchMiddleService: searchMiddleService())
+    }
+    
     // MARK: - Private
     
     private func subscriptionToggler() -> SubscriptionTogglerProtocol {

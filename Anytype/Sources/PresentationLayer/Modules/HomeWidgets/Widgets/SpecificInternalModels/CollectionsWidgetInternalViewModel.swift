@@ -4,10 +4,12 @@ import Combine
 import UIKit
 
 @MainActor
-final class CollectionsWidgetInternalViewModel: CommonWidgetInternalViewModel, WidgetInternalViewModelProtocol {
+final class CollectionsWidgetInternalViewModel: WidgetInternalViewModelProtocol {
     
     // MARK: - DI
     
+    private let widgetBlockId: String
+    private let widgetObject: BaseDocumentProtocol
     private let subscriptionService: CollectionsSubscriptionServiceProtocol
     private let objectService: ObjectActionsServiceProtocol
     private weak var output: CommonWidgetModuleOutput?
@@ -16,6 +18,7 @@ final class CollectionsWidgetInternalViewModel: CommonWidgetInternalViewModel, W
     
     @Published private var details: [ObjectDetails]?
     @Published private var name: String = Loc.collections
+    private var subscriptions = [AnyCancellable]()
     
     var detailsPublisher: AnyPublisher<[ObjectDetails]?, Never> { $details.eraseToAnyPublisher() }
     var namePublisher: AnyPublisher<String, Never> { $name.eraseToAnyPublisher() }
@@ -28,23 +31,28 @@ final class CollectionsWidgetInternalViewModel: CommonWidgetInternalViewModel, W
         objectService: ObjectActionsServiceProtocol,
         output: CommonWidgetModuleOutput?
     ) {
+        self.widgetBlockId = widgetBlockId
+        self.widgetObject = widgetObject
         self.subscriptionService = subscriptionService
         self.objectService = objectService
         self.output = output
-        super.init(widgetBlockId: widgetBlockId, widgetObject: widgetObject)
     }
     
     // MARK: - WidgetInternalViewModelProtocol
     
-    override func startContentSubscription() async {
-        await super.startContentSubscription()
-        await updateSubscription()
+    func startContentSubscription() async {
+        widgetObject.blockWidgetInfoPublisher(widgetBlockId: widgetBlockId)
+            .receiveOnMain()
+            .sink { [weak self] widgetInfo in
+                guard let self else { return }
+                Task {
+                    await self.updateSubscription(widgetInfo: widgetInfo)
+                }
+            }
+            .store(in: &subscriptions)
     }
     
-    override func stopContentSubscription() async {
-        await super.stopContentSubscription()
-        await subscriptionService.stopSubscription()
-    }
+    func startHeaderSubscription() {}
     
     func screenData() -> EditorScreenData? {
         return .collections
@@ -72,19 +80,9 @@ final class CollectionsWidgetInternalViewModel: CommonWidgetInternalViewModel, W
         }
     }
     
-    // MARK: - CommonWidgetInternalViewModel oveerides
-    
-    override func widgetInfoUpdated() {
-        super.widgetInfoUpdated()
-        Task {
-            await updateSubscription()
-        }
-    }
-    
     // MARK: - Private func
     
-    private func updateSubscription() async {
-        guard let widgetInfo, contentIsAppear else { return }
+    private func updateSubscription(widgetInfo: BlockWidgetInfo) async {
         await subscriptionService.startSubscription(objectLimit: widgetInfo.fixedLimit) { [weak self] details in
             self?.details = details
         }

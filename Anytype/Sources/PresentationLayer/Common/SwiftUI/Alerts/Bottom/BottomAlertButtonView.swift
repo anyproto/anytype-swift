@@ -12,6 +12,7 @@ struct BottomAlertButton {
     
     var text: String
     var style: Style
+    var disable = false
     var action: () async throws -> Void
     
     fileprivate var standartStyle: StandardButtonStyle {
@@ -42,6 +43,7 @@ struct BottomAlertButtonView: View {
                         style: button.standartStyle,
                         action: button.action
                     )
+                    .disabled(button.disable)
                 }
             }
         } else {
@@ -53,6 +55,7 @@ struct BottomAlertButtonView: View {
                         style: button.standartStyle,
                         action: button.action
                     )
+                    .disabled(button.disable)
                 }
             }
         }

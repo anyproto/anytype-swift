@@ -217,7 +217,7 @@
 "Auth.CameraPermissionTitle" = "Veuillez autoriser l'accès";
 "Restore secret phrase from keychain" = "Restaurer la phrase de récupération à partir du trousseau";
 "Auth.LogIn" = "Se connecter";
-"Auth.Join" = "Rejoindre";
+"Join" = "Join";
 "Auth.Welcome.Subtitle" = "Anytype est votre lieu sûr pour écrire, planifier, penser et organiser tout ce qui compte pour vous.";
 "Auth.Caption.Privacy.Text" = "En continuant, vous acceptez [Conditions d'utilisation](%@) et [Politique de confidentialité](%@)";
 "Auth.Next" = "Suivant";
@@ -877,6 +877,9 @@
 "SpaceSettings.DeleteButton" = "Supprimer l'espace";
 "SpaceSettings.Sharing" = "Partage";
 "SpaceSettings.Share" = "Partager";
+"SpaceSettings.LeaveButton" = "Leave and unjoin";
+"SpaceSettings.LeaveAlert.Title" = "Leave and unjoin the space";
+"SpaceSettings.LeaveAlert.Message" = "%@ space will be removed from your devices and you will no longer have access to it";
 
 // MARK: - Space Share
 
@@ -889,8 +892,9 @@
 "SpaceShare.Invite.Description" = "Envoyez ce lien pour inviter d'autres personnes. Attribuez les droits d'accès lors de l'approbation de leur demande.\"";
 "SpaceShare.Invite.Button" = "Partager le lien d'invitation";
 "SpaceShare.Status.Joining" = "Demandé";
-"SpaceShare.Status.Declined" = "Refusé";
+"SpaceShare.Status.Removing" = "Désinscription demandée";
 "SpaceShare.Action.ViewRequest" = "Voir la demande";
+"SpaceShare.Action.Approve" = "Approuver";
 "SpaceShare.ViewRequest.Title" = "%@ a demandé à rejoindre l'espace %@";
 "SpaceShare.ViewRequest.ViewAccess" = "Accorder l’accès en consultation";
 "SpaceShare.ViewRequest.EditAccess" = "Accorder un accès à l'édition";
@@ -979,6 +983,27 @@
 "Gallery.Notification.Success" = "L'expérience a été installée avec succès dans l'espace \"%@\". Vous pouvez maintenant ouvrir et commencer à l'utiliser.";
 "Gallery.Notification.Button" = "Aller à l'espace";
 "Gallery.Notification.Error" = "Oups ! \"%@\" n'a pas été installé. Veuillez vérifier votre connexion internet et réessayer ou poster un rapport sur le forum.";
+
+// MARK: - Membership
+"Membership" = "Membership";
+"Membership.Ad.Title" = "Let’s build together";
+"Membership.Ad.Subtitle" = "Joining Anytype network means contributing to its story";
+
+"Membership.Legal.Details" = "Membership levels details";
+"Membership.Legal.Privacy" = "Privacy policy";
+"Membership.Legal.Terms" = "Terms and conditions";
+"Membership.Legal.WouldYouLike" = "Would you like to use Anytype for business, education, etc.?";
+"Membership.Legal.LetUsKnow" = "Please let us know here.";
+
+"Membership.Banner.Title1" = "Co-create with us";
+"Membership.Banner.Subtitle1" = "Stay closely connected with our team and community. Join calls with the team, influence Anytype's evolution, and have your say on features.";
+"Membership.Banner.Title2" = "Gain Benefits";
+"Membership.Banner.Subtitle2" = "Our members have unique identity on Anytype Network, more storage, shared spaces and members per space for extensive collaboration";
+"Membership.Banner.Title3" = "Support the Vision";
+"Membership.Banner.Subtitle3" = "Your contribution supports our independent team and endorses our vision︎ of a user-driven, secure, and collaborative digital environment.";
+"Membership.Banner.Title4" = "Invest in Connectivity";
+"Membership.Banner.Subtitle4" = "Our software is free by design, but we thrive on the network that connects us all. Support us, and you're investing in the very infrastructure that keeps us united";
+
 
 // MARK: - Debug
 "Debug.MimeTypes" = "Types Mime - %@";

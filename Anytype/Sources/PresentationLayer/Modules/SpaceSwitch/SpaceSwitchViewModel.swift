@@ -112,7 +112,7 @@ final class SpaceSwitchViewModel: ObservableObject {
                 title: spaceView.title,
                 icon: spaceView.objectIconImage,
                 isSelected: activeSpaceId == spaceView.targetSpaceId,
-                shared: spaceView.spaceAccessType?.isShared ?? false,
+                shared: spaceView.isShared,
                 onTap: { [weak self] in
                     self?.onTapWorkspace(workspace: spaceView)
                 },

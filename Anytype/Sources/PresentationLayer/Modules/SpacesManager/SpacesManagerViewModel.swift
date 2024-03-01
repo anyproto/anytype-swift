@@ -1,5 +1,6 @@
 import Foundation
 import Combine
+import Services
 
 @MainActor
 final class SpacesManagerViewModel: ObservableObject {

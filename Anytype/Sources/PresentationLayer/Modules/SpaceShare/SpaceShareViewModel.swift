@@ -21,7 +21,7 @@ final class SpaceShareViewModel: ObservableObject {
     @Published var inviteLink: URL?
     @Published var shareInviteLink: URL?
     @Published var limitTitle: String = ""
-    @Published var activeShareButton = false
+    @Published var allowToAddMembers = false
     @Published var toastBarData: ToastBarData = .empty
     @Published var requestAlertModel: SpaceRequestViewModel?
     @Published var changeAccessAlertModel: SpaceChangeAccessViewModel?
@@ -75,7 +75,7 @@ final class SpaceShareViewModel: ObservableObject {
         rows = participants.map { participant in
             SpaceShareParticipantViewModel(
                 id: participant.id,
-                icon: participant.icon,
+                icon: participant.icon?.icon,
                 name: participant.name,
                 status: participantStatus(participant),
                 action: participantAction(participant),
@@ -83,19 +83,19 @@ final class SpaceShareViewModel: ObservableObject {
             )
         }
         let limit = Constants.participantLimit - items.count
-        activeShareButton = Constants.participantLimit > items.count
-        limitTitle = activeShareButton ? Loc.SpaceShare.Invite.members(limit) : Loc.SpaceShare.Invite.maxLimit(Constants.participantLimit)
+        allowToAddMembers = Constants.participantLimit > items.count
+        limitTitle = allowToAddMembers ? Loc.SpaceShare.Invite.members(limit) : Loc.SpaceShare.Invite.maxLimit(Constants.participantLimit)
     }
     
     private func participantStatus(_ participant: Participant) -> SpaceShareParticipantViewModel.Status? {
         switch participant.status {
         case .active:
-            return .normal(permission: participant.permission.title)
+            return .active(permission: participant.permission.title)
         case .joining:
             return .joining
-        case .declined:
-            return .declined
-        case .canceled, .removing, .removed, .UNRECOGNIZED:
+        case .removing:
+            return .removing
+        case .declined, .canceled, .removed, .UNRECOGNIZED:
             return nil
         }
     }
@@ -106,7 +106,11 @@ final class SpaceShareViewModel: ObservableObject {
             return SpaceShareParticipantViewModel.Action(title: Loc.SpaceShare.Action.viewRequest, action: { [weak self] in
                 self?.showRequestAlert(participant: participant)
             })
-        case .active, .canceled, .declined, .removing, .removed, .UNRECOGNIZED:
+        case .removing:
+            return SpaceShareParticipantViewModel.Action(title: Loc.SpaceShare.Action.approve, action: { [weak self] in
+                try await self?.workspaceService.participantRemove(spaceId: participant.spaceId, identity: participant.identity)
+            })
+        case .active, .canceled, .declined, .removed, .UNRECOGNIZED:
             return nil
         }
     }
@@ -145,8 +149,9 @@ final class SpaceShareViewModel: ObservableObject {
         guard let spaceView = activeWorkspaceStorage.spaceView() else { return }
         
         requestAlertModel = SpaceRequestViewModel(
-            icon: participant.icon,
+            icon: participant.icon?.icon,
             title: Loc.SpaceShare.ViewRequest.title(participant.name, spaceView.name),
+            allowToAddMembers: allowToAddMembers,
             onViewAccess: { [weak self] in
                 try await self?.workspaceService.requestApprove(spaceId: spaceView.targetSpaceId, identity: participant.identity, permissions: .reader)
             },
