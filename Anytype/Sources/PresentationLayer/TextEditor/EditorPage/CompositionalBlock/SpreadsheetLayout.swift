@@ -159,23 +159,9 @@ final class SpreadsheetLayout: UICollectionViewLayout {
 extension SpreadsheetLayout {
     func setNeedsLayout(indexPath: IndexPath) {
         guard let dataSource = dataSource,
-              let item = dataSource.contentConfigurationProvider(at: indexPath) else { return }
+              dataSource.contentConfigurationProvider(at: indexPath).isNotNil else { return }
         cachedSectionHeights[indexPath.section] = nil
-
-        let existingCell = dataSource.dequeueCell(at: indexPath)
-
-        let columnWidth = itemWidths[indexPath.row]
-
-        let maxSize = CGSize(
-            width: columnWidth,
-            height: .greatestFiniteMagnitude
-        )
-        let size = existingCell.systemLayoutSizeFitting(
-            maxSize,
-            withHorizontalFittingPriority: .required,
-            verticalFittingPriority: .fittingSizeLevel
-        )
-
+        
         prepare()
         invalidateLayout()
     }
