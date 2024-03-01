@@ -991,6 +991,12 @@
 "Membership.Legal.WouldYouLike" = "Would you like to use Anytype for business, education, etc.?";
 "Membership.Legal.LetUsKnow" = "Please let us know here.";
 
+"Membership.Email.Subject" = "Special Pricing Request";
+"Membership.Email.Body" = "Please specify your request:
+- highlight if you represent an educational, governmental, or non-profit organization
+- tell us more about your organization: number of employees and future Anytype users, markets you're working on, etc.,
+- provide additional details about how your organization uses Anytype";
+
 "Membership.Banner.Title1" = "Co-create with us";
 "Membership.Banner.Subtitle1" = "Stay closely connected with our team and community. Join calls with the team, influence Anytype's evolution, and have your say on features.";
 "Membership.Banner.Title2" = "Gain Benefits";

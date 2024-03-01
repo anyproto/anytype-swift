@@ -8,12 +8,15 @@ struct MembershipModuleView: View {
             VStack {
                 DragIndicator()
                 Spacer.fixedHeight(40)
-                AnytypeText(Loc.Membership.Ad.title, name: .inter, size: 48, weight: .regular)
+                
+                AnytypeText(Loc.Membership.Ad.title, name: .inter, size: 48, weight: .light)
                     .foregroundStyle(Color.Text.primary)
                     .padding(.horizontal, 20)
+                    .multilineTextAlignment(.center)
                 AnytypeText(Loc.Membership.Ad.subtitle, style: .relation2Regular, color: .Text.primary)
                     .padding(.horizontal, 60)
                     .multilineTextAlignment(.center)
+                
                 baners
                 
                 // Temp
