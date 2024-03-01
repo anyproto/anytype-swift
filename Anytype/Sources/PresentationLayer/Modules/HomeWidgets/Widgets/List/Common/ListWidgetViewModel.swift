@@ -57,20 +57,9 @@ final class ListWidgetViewModel: WidgetContainerContentViewModelProtocol, Observ
         internalModel.startHeaderSubscription()
     }
     
-    func stopHeaderSubscription() {
-        subscriptions.removeAll()
-        internalModel.stopHeaderSubscription()
-    }
-    
     func startContentSubscription() {
         Task {
             await internalModel.startContentSubscription()
-        }
-    }
-
-    func stopContentSubscription() {
-        Task {
-            await internalModel.stopContentSubscription()
         }
     }
     

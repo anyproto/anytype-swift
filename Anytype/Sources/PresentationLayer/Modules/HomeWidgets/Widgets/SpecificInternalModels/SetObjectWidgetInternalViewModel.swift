@@ -73,20 +73,12 @@ final class SetObjectWidgetInternalViewModel: WidgetDataviewInternalViewModelPro
             .store(in: &subscriptions)
     }
     
-    func stopHeaderSubscription() {
-        subscriptions.removeAll()
-    }
-    
     func startContentSubscription() async {
         setDocument?.syncPublisher.sink { [weak self] in
             self?.updateDataviewState()
             Task { await self?.updateViewSubscription() }
         }
         .store(in: &contentSubscriptions)
-    }
-    
-    func stopContentSubscription() async {
-        contentSubscriptions.removeAll()
     }
     
     func screenData() -> EditorScreenData? {
@@ -113,6 +105,10 @@ final class SetObjectWidgetInternalViewModel: WidgetDataviewInternalViewModelPro
     }
     
     // MARK: - Private
+    
+    private func stopContentSubscription() async {
+        contentSubscriptions.removeAll()
+    }
         
     private func updateViewSubscription() async {
         guard let setDocument, let widgetInfo else {

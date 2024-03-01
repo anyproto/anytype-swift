@@ -65,19 +65,6 @@ final class TreeWidgetViewModel: ObservableObject, WidgetContainerContentViewMod
         }
     }
     
-    func stopHeaderSubscription() {
-        internalModel.stopHeaderSubscription()
-        subscriptions.removeAll()
-        subscriptionManager.handler = nil
-    }
-    
-    func stopContentSubscription() {
-        Task {
-            await internalModel.stopContentSubscription()
-            await subscriptionManager.stopAllSubscriptions()
-        }
-    }
-    
     func onHeaderTap() {
         guard let screenData = internalModel.screenData() else { return }
         AnytypeAnalytics.instance().logSelectHomeTab(source: internalModel.analyticsSource())
