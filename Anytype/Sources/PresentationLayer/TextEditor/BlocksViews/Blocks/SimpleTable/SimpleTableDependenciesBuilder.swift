@@ -77,13 +77,6 @@ final class SimpleTableDependenciesBuilder {
             mainEditorSelectionManager: mainEditorSelectionManager
         )
 
-        let simpleTablesAccessoryState = AccessoryViewBuilder.accessoryState(
-            actionHandler: handler,
-            router: router,
-            document: document,
-            typesService: typesService
-        )
-
         let cellsBuilder = SimpleTableCellsBuilder(
             document: document,
             router: router,
