@@ -9,13 +9,13 @@ enum FadingGradient: String {
     var color: Color {
         switch self {
         case .green:
-            .Gradients.Fading.green
+            .Gradients.fadingGreen
         case .yellow:
-            .Gradients.Fading.yellow
+            .Gradients.fadingYellow
         case .pink:
-            .Gradients.Fading.pink
+            .Gradients.fadingPink
         case .purple:
-            .Gradients.Fading.purple
+            .Gradients.fadingPurple
         }
     }
 }

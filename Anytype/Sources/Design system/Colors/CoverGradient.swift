@@ -45,21 +45,21 @@ enum CoverGradient: CaseIterable, Identifiable, Codable {
     var data: CoverGradientData {
         switch self {
         case .sky:
-            return CoverGradientData(name: "sky", startColor: .Gradients.Cover.skyStart, endColor: .Gradients.Cover.skyEnd)
+            return CoverGradientData(name: "sky", startColor: .Gradients.skyStart, endColor: .Gradients.skyEnd)
         case .pinkOrange:
-            return CoverGradientData(name: "pinkOrange", startColor: .Gradients.Cover.pinkOrangeStart, endColor: .Gradients.Cover.pinkOrangeEnd)
+            return CoverGradientData(name: "pinkOrange", startColor: .Gradients.pinkOrangeStart, endColor: .Gradients.pinkOrangeEnd)
         case .greenOrange:
-            return CoverGradientData(name: "greenOrange", startColor: .Gradients.Cover.greenOrangeStart, endColor: .Gradients.Cover.greenOrangeEnd)
+            return CoverGradientData(name: "greenOrange", startColor: .Gradients.greenOrangeStart, endColor: .Gradients.greenOrangeEnd)
         case .bluePink:
-            return CoverGradientData(name: "bluePink", startColor: .Gradients.Cover.bluePinkStart, endColor: .Gradients.Cover.bluePinkEnd)
+            return CoverGradientData(name: "bluePink", startColor: .Gradients.bluePinkStart, endColor: .Gradients.bluePinkEnd)
         case .yellow:
-            return CoverGradientData(name: "yellow", startColor: .Gradients.Cover.yellowStart, endColor: .Gradients.Cover.yellowEnd)
+            return CoverGradientData(name: "yellow", startColor: .Gradients.yellowStart, endColor: .Gradients.yellowEnd)
         case .red:
-            return CoverGradientData(name: "red", startColor: .Gradients.Cover.redStart, endColor: .Gradients.Cover.redEnd)
+            return CoverGradientData(name: "red", startColor: .Gradients.redStart, endColor: .Gradients.redEnd)
         case .blue:
-            return CoverGradientData(name: "blue", startColor: .Gradients.Cover.blueStart, endColor: .Gradients.Cover.blueEnd)
+            return CoverGradientData(name: "blue", startColor: .Gradients.blueStart, endColor: .Gradients.blueEnd)
         case .teal:
-            return CoverGradientData(name: "teal", startColor: .Gradients.Cover.tealStart, endColor: .Gradients.Cover.tealEnd)
+            return CoverGradientData(name: "teal", startColor: .Gradients.tealStart, endColor: .Gradients.tealEnd)
         }
     }
 }
