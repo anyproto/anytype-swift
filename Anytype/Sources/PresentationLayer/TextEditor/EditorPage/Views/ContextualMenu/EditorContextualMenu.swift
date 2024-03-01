@@ -1,11 +1,3 @@
-//
-//  EditorContextualMenu.swift
-//  Anytype
-//
-//  Created by Dmitry Bilienko on 10.02.2022.
-//  Copyright © 2022 Anytype. All rights reserved.
-//
-
 import SwiftUI
 
 enum EditorContextualOption: Int, Identifiable {

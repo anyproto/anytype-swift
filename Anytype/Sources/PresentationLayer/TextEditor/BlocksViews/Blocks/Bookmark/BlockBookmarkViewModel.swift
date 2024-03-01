@@ -8,13 +8,6 @@ final class BlockBookmarkViewModel: BlockViewModelProtocol {
     var hashable: AnyHashable { info.id }
     
     var info: BlockInformation { infoProvider.info }
-    let editorCollectionController: EditorCollectionReloadable
-    let objectDetailsProvider: ObjectDetailsInfomationProvider
-    let infoProvider: BlockModelInfomationProvider
-    var subscriptions = [AnyCancellable]()
-    
-    let showBookmarkBar: (BlockInformation) -> ()
-    let openUrl: (AnytypeURL) -> ()
     
     var bookmarkData: BlockBookmark {
         guard case let .bookmark(data) = info.content else {
@@ -25,48 +18,56 @@ final class BlockBookmarkViewModel: BlockViewModelProtocol {
         return data
     }
     
+    private let editorCollectionController: EditorCollectionReloadable
+    private var objectDetailsProvider: ObjectDetailsInfomationProvider?
+    private let infoProvider: BlockModelInfomationProvider
+    private let detailsStorage: ObjectDetailsStorage
+    private let showBookmarkBar: (BlockInformation) -> ()
+    private let openUrl: (AnytypeURL) -> ()
+    
+    private var subscriptions = [AnyCancellable]()
+    
     init(
         editorCollectionController: EditorCollectionReloadable,
-        objectDetailsProvider: ObjectDetailsInfomationProvider,
         infoProvider: BlockModelInfomationProvider,
+        detailsStorage: ObjectDetailsStorage,
         showBookmarkBar: @escaping (BlockInformation) -> (),
         openUrl: @escaping (AnytypeURL) -> ()
     ) {
         self.editorCollectionController = editorCollectionController
-        self.objectDetailsProvider = objectDetailsProvider
         self.infoProvider = infoProvider
+        self.detailsStorage = detailsStorage
         self.showBookmarkBar = showBookmarkBar
         self.openUrl = openUrl
-        
-        setup()
     }
     
-    private func setup() {
-        objectDetailsProvider
+    private func setupSubscription() {
+        objectDetailsProvider?
             .$details
             .receiveOnMain()
             .sink { [weak editorCollectionController, weak self] _ in
-            guard let self else { return }
-            editorCollectionController?.reconfigure(items: [.block(self)])
+                guard let self else { return }
+                editorCollectionController?.reconfigure(items: [.block(self)])
         }.store(in: &subscriptions)
     }
     
     func makeContentConfiguration(maxWidth width: CGFloat) -> UIContentConfiguration {
-        let backgroundColor = info.backgroundColor.map(UIColor.VeryLight.uiColor(from:)) ?? nil
+        setupSubscriptionIfNeeded()
         
-        guard let objectDetails = objectDetailsProvider.details else {
-            anytypeAssertionFailure("Coudn't find object details for bookmark")
-            return UnsupportedBlockViewModel(info: info).makeContentConfiguration(maxWidth: width)
-        }
-
-        let payload = BlockBookmarkPayload(bookmarkData: bookmarkData, objectDetails: objectDetails)
-
         switch bookmarkData.state {
         case .empty:
             return emptyViewConfiguration(text: Loc.Content.Bookmark.add, state: .default)
         case .fetching:
             return emptyViewConfiguration(text: Loc.Content.Bookmark.loading, state: .uploading)
         case .done:
+            guard let objectDetails = objectDetailsProvider?.details else {
+                anytypeAssertionFailure("Coudn't find object details for bookmark")
+                return UnsupportedBlockViewModel(info: info).makeContentConfiguration(maxWidth: width)
+            }
+
+            let backgroundColor = info.backgroundColor.map(UIColor.VeryLight.uiColor(from:)) ?? nil
+            let payload = BlockBookmarkPayload(bookmarkData: bookmarkData, objectDetails: objectDetails)
+            
             return BlockBookmarkConfiguration(
                 payload: payload,
                 backgroundColor: backgroundColor
@@ -88,7 +89,7 @@ final class BlockBookmarkViewModel: BlockViewModelProtocol {
         case .fetching:
             break
         case .done:
-            guard let objectDetails = objectDetailsProvider.details else {
+            guard let objectDetails = objectDetailsProvider?.details else {
                 return
             }
             let payload = BlockBookmarkPayload(bookmarkData: bookmarkData, objectDetails: objectDetails)
@@ -106,6 +107,18 @@ final class BlockBookmarkViewModel: BlockViewModelProtocol {
             dragConfiguration: .init(id: info.id),
             styleConfiguration: .init(backgroundColor: info.backgroundColor?.backgroundColor.color)
         )
+    }
+    
+    private func setupSubscriptionIfNeeded() {
+        guard objectDetailsProvider.isNil, bookmarkData.targetObjectID.isNotEmpty else {
+            return
+        }
+        objectDetailsProvider = ObjectDetailsInfomationProvider(
+            detailsStorage: detailsStorage,
+            targetObjectId: bookmarkData.targetObjectID,
+            details: detailsStorage.get(id: bookmarkData.targetObjectID)
+        )
+        setupSubscription()
     }
 }
 

@@ -78,7 +78,7 @@ final class SimpleTablesTextBlockActionHandler: TextBlockActionHandlerProtocol {
     }
     
     func textBlockActions() -> TextBlockContentConfiguration.Actions {
-        .init(
+        TextBlockContentConfiguration.Actions(
             shouldPaste: { [weak self] range, textView in
                 return self?.shouldPaste(range: range, textView: textView) ?? false
             },
