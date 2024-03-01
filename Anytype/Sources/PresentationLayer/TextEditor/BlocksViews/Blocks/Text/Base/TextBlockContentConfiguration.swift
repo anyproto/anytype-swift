@@ -17,16 +17,16 @@ struct TextBlockContentConfiguration: BlockConfiguration {
         let becomeFirstResponder: () -> Void
         let resignFirstResponder: () -> Void
         
-        let textBlockSetNeedsLayout: (UITextView) -> Void
+        let textBlockSetNeedsLayout: @MainActor (UITextView) -> Void
         
-        let textViewDidChangeText: (UITextView) -> Void
+        let textViewDidChangeText: @MainActor (UITextView) -> Void
         
-        let textViewWillBeginEditing: (UITextView) -> Void
-        let textViewDidBeginEditing: (UITextView) -> Void
-        let textViewDidEndEditing: (UITextView) -> Void
+        let textViewWillBeginEditing: @MainActor (UITextView) -> Void
+        let textViewDidBeginEditing: @MainActor (UITextView) -> Void
+        let textViewDidEndEditing: @MainActor (UITextView) -> Void
         
-        let textViewDidChangeCaretPosition: (UITextView, NSRange) -> Void
-        let textViewShouldReplaceText: (UITextView, String, NSRange) -> Bool
+        let textViewDidChangeCaretPosition: @MainActor (UITextView, NSRange) -> Void
+        let textViewShouldReplaceText: @MainActor (UITextView, String, NSRange) -> Bool
         
         let toggleCheckBox: () -> Void
         let toggleDropDown: () -> Void
