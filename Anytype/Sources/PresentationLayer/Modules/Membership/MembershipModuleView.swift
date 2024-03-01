@@ -26,25 +26,25 @@ struct MembershipModuleView: View {
             MembershipBannerView(
                 title: Loc.Membership.Banner.title1,
                 subtitle: Loc.Membership.Banner.subtitle1,
-                image: .membershipBanner1,
+                image: .Membership.banner1,
                 gradient: .green
             )
             MembershipBannerView(
                 title: Loc.Membership.Banner.title2,
                 subtitle: Loc.Membership.Banner.subtitle2,
-                image: .membershipBanner2,
+                image: .Membership.banner2,
                 gradient: .yellow
             )
             MembershipBannerView(
                 title: Loc.Membership.Banner.title3,
                 subtitle: Loc.Membership.Banner.subtitle3,
-                image: .membershipBanner3,
+                image: .Membership.banner3,
                 gradient: .pink
             )
             MembershipBannerView(
                 title: Loc.Membership.Banner.title4,
                 subtitle: Loc.Membership.Banner.subtitle4,
-                image: .membershipBanner4,
+                image: .Membership.banner4,
                 gradient: .purple
             )
         }

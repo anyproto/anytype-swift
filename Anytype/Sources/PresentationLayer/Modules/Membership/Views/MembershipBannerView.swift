@@ -40,7 +40,7 @@ struct MembershipBannerView: View {
     MembershipBannerView(
         title: "Invest in Connectivity",
         subtitle: "Our software is free by design, but we thrive on the network that connects us all. Support us, and you're investing in the very infrastructure that keeps us united",
-        image: .membershipBanner1,
+        image: .Membership.banner1,
         gradient: .green
     )
 }
