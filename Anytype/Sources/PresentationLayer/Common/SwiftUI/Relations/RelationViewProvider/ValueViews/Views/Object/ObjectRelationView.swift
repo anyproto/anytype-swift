@@ -11,7 +11,7 @@ struct ObjectRelationView: View {
             let title = links.title(with: options.count)
             linksView(with: title)
         } else if options.isEmpty {
-            RelationsListRowPlaceholderView(hint: hint, style: style)
+            RelationValuePlaceholderView(hint: hint, style: style)
         } else if maxOptions > 0 {
             moreObjectsView
         } else {
