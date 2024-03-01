@@ -39,7 +39,7 @@ struct SpaceShareView: View {
     }
     
     private var inviteView: some View {
-        InviteLinkView(invite: model.inviteLink, limitTitle: model.limitTitle, activeShareLink: model.activeShareButton) {
+        InviteLinkView(invite: model.inviteLink, limitTitle: model.limitTitle, activeShareLink: model.allowToAddMembers) {
             model.onUpdateLink()
         } onShareInvite: {
             model.onShareInvite()

@@ -21,7 +21,7 @@ final class SpaceShareViewModel: ObservableObject {
     @Published var inviteLink: URL?
     @Published var shareInviteLink: URL?
     @Published var limitTitle: String = ""
-    @Published var activeShareButton = false
+    @Published var allowToAddMembers = false
     @Published var toastBarData: ToastBarData = .empty
     @Published var requestAlertModel: SpaceRequestViewModel?
     @Published var changeAccessAlertModel: SpaceChangeAccessViewModel?
@@ -83,8 +83,8 @@ final class SpaceShareViewModel: ObservableObject {
             )
         }
         let limit = Constants.participantLimit - items.count
-        activeShareButton = Constants.participantLimit > items.count
-        limitTitle = activeShareButton ? Loc.SpaceShare.Invite.members(limit) : Loc.SpaceShare.Invite.maxLimit(Constants.participantLimit)
+        allowToAddMembers = Constants.participantLimit > items.count
+        limitTitle = allowToAddMembers ? Loc.SpaceShare.Invite.members(limit) : Loc.SpaceShare.Invite.maxLimit(Constants.participantLimit)
     }
     
     private func participantStatus(_ participant: Participant) -> SpaceShareParticipantViewModel.Status? {
@@ -151,6 +151,7 @@ final class SpaceShareViewModel: ObservableObject {
         requestAlertModel = SpaceRequestViewModel(
             icon: participant.icon?.icon,
             title: Loc.SpaceShare.ViewRequest.title(participant.name, spaceView.name),
+            allowToAddMembers: allowToAddMembers,
             onViewAccess: { [weak self] in
                 try await self?.workspaceService.requestApprove(spaceId: spaceView.targetSpaceId, identity: participant.identity, permissions: .reader)
             },
