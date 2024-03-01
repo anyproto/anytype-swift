@@ -1066,6 +1066,11 @@ extension Anytype_Rpc.Space.RequestDecline.Response.Error: ResponseError {
     public var isNull: Bool { code == .null }
 }
 
+extension Anytype_Rpc.Space.StopSharing.Response: ResultWithError {}
+extension Anytype_Rpc.Space.StopSharing.Response.Error: ResponseError {
+    public var isNull: Bool { code == .null }
+}
+
 extension Anytype_Rpc.Template.Clone.Response: ResultWithError {}
 extension Anytype_Rpc.Template.Clone.Response.Error: ResponseError {
     public var isNull: Bool { code == .null }
