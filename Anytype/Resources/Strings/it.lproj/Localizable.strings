@@ -217,7 +217,7 @@
 "Auth.CameraPermissionTitle" = "Per favore, consenti l’accesso";
 "Restore secret phrase from keychain" = "Ripristina la Frase di Recupero dal Portachiavi";
 "Auth.LogIn" = "Accedi";
-"Join" = "Join";
+"Join" = "Unisciti";
 "Auth.Welcome.Subtitle" = "Anytype è il tuo spazio sicuro per scrivere, pianificare, pensare e organizzare tutto ciò che conta per te.";
 "Auth.Caption.Privacy.Text" = "Continuando accetti i [Termini d'uso](%@) e [Informativa sulla privacy](%@)";
 "Auth.Next" = "Avanti";
@@ -877,9 +877,9 @@
 "SpaceSettings.DeleteButton" = "Elimina spazio";
 "SpaceSettings.Sharing" = "Condivisione";
 "SpaceSettings.Share" = "Condividi";
-"SpaceSettings.LeaveButton" = "Leave and unjoin";
-"SpaceSettings.LeaveAlert.Title" = "Leave and unjoin the space";
-"SpaceSettings.LeaveAlert.Message" = "%@ space will be removed from your devices and you will no longer have access to it";
+"SpaceSettings.LeaveButton" = "Lascia e abbandona";
+"SpaceSettings.LeaveAlert.Title" = "Lascia e abbandona lo spazio";
+"SpaceSettings.LeaveAlert.Message" = "Lo spazio %@ verrà rimosso dai tuoi dispositivi e non avrai più accesso ad esso";
 
 // MARK: - Space Share
 
@@ -892,8 +892,9 @@
 "SpaceShare.Invite.Description" = "Invia questo link per invitare gli altri. Assegna i diritti di accesso al momento dell'approvazione della loro richiesta";
 "SpaceShare.Invite.Button" = "Condividi il link di invito";
 "SpaceShare.Status.Joining" = "Richiesto";
-"SpaceShare.Status.Declined" = "Rifiutato";
+"SpaceShare.Status.Removing" = "Richiesta di uscita";
 "SpaceShare.Action.ViewRequest" = "Visualizza richiesta";
+"SpaceShare.Action.Approve" = "Approva";
 "SpaceShare.ViewRequest.Title" = "%@ ha richiesto di unirsi allo spazio %@";
 "SpaceShare.ViewRequest.ViewAccess" = "Concedi accesso in lettura";
 "SpaceShare.ViewRequest.EditAccess" = "Concedi accesso alla modifica";
@@ -985,6 +986,24 @@
 
 // MARK: - Membership
 "Membership" = "Membership";
+"Membership.Ad.Title" = "Costruiamo insieme";
+"Membership.Ad.Subtitle" = "Unire alla rete di Anytype significa contribuire alla sua storia";
+
+"Membership.Legal.Details" = "Dettagli dei livelli di membership";
+"Membership.Legal.Privacy" = "Informativa sulla privacy";
+"Membership.Legal.Terms" = "Termini e condizioni";
+"Membership.Legal.WouldYouLike" = "Vorresti utilizzare Anytype per affari, educazione, ecc.?";
+"Membership.Legal.LetUsKnow" = "Per piacere, fatecelo sapere qui.";
+
+"Membership.Banner.Title1" = "Co-create with us";
+"Membership.Banner.Subtitle1" = "Stay closely connected with our team and community. Join calls with the team, influence Anytype's evolution, and have your say on features.";
+"Membership.Banner.Title2" = "Gain Benefits";
+"Membership.Banner.Subtitle2" = "Our members have unique identity on Anytype Network, more storage, shared spaces and members per space for extensive collaboration";
+"Membership.Banner.Title3" = "Support the Vision";
+"Membership.Banner.Subtitle3" = "Your contribution supports our independent team and endorses our vision︎ of a user-driven, secure, and collaborative digital environment.";
+"Membership.Banner.Title4" = "Invest in Connectivity";
+"Membership.Banner.Subtitle4" = "Our software is free by design, but we thrive on the network that connects us all. Support us, and you're investing in the very infrastructure that keeps us united";
+
 
 // MARK: - Debug
 "Debug.MimeTypes" = "Tipi MIME - %@";
