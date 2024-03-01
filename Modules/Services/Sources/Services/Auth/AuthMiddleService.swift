@@ -25,9 +25,7 @@ public protocol AuthMiddleServiceProtocol: AnyObject {
     func mnemonicByEntropy(_ entropy: String) async throws -> String
 }
 
-public final class AuthMiddleService: AuthMiddleServiceProtocol {
-    
-    public init() {}
+final class AuthMiddleService: AuthMiddleServiceProtocol {
     
     public func logout(removeData: Bool)  async throws {
         try await ClientCommands.accountStop(.with {

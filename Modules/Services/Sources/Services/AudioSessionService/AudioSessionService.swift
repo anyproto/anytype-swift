@@ -14,9 +14,7 @@ public protocol AudioSessionServiceProtocol {
     func setCategorypPlaybackMixWithOthers()
 }
 
-public final class AudioSessionService: AudioSessionServiceProtocol {
-    
-    public init() {}
+final class AudioSessionService: AudioSessionServiceProtocol {
     
     public func setCategorypPlayback() {
         setCategorypPlayback(with: [])

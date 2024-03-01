@@ -5,6 +5,7 @@ import AnytypeCore
 import SecureService
 import SharedContentManager
 import DeepLinks
+import Factory
 
 // TODO: Migrate to ServicesDI
 final class ServiceLocator {
@@ -39,7 +40,7 @@ final class ServiceLocator {
             accountManager: accountManager(),
             appErrorLoggerConfiguration: appErrorLoggerConfiguration(),
             serverConfigurationStorage: serverConfigurationStorage(),
-            authMiddleService: authMiddleService()
+            authMiddleService: Container.shared.authMiddleService.resolve()
         )
     }
     
@@ -129,7 +130,7 @@ final class ServiceLocator {
     }
     
     func blockService() -> BlockServiceProtocol {
-        return BlockService()
+        return Container.shared.blockService.resolve()
     }
     
     func workspaceService() -> WorkspaceServiceProtocol {
@@ -157,7 +158,7 @@ final class ServiceLocator {
     }
         
     func blockWidgetService() -> BlockWidgetServiceProtocol {
-        return BlockWidgetService()
+        return Container.shared.blockWidgetService.resolve()
     }
     
     func favoriteSubscriptionService() -> FavoriteSubscriptionServiceProtocol {
@@ -302,9 +303,8 @@ final class ServiceLocator {
         _deviceSceneStateListener
     }
     
-    private lazy var _audioSessionService = AudioSessionService()
     func audioSessionService() -> AudioSessionServiceProtocol {
-        _audioSessionService
+        Container.shared.audioSessionService.resolve()
     }
     
     // In future lifecycle should be depend for screen
@@ -411,6 +411,10 @@ final class ServiceLocator {
         ParticipantService(searchMiddleService: searchMiddleService())
     }
     
+    func blockTableService() -> BlockTableServiceProtocol {
+        Container.shared.blockTableService.resolve()
+    }
+    
     // MARK: - Private
     
     private func subscriptionToggler() -> SubscriptionTogglerProtocol {
@@ -419,9 +423,5 @@ final class ServiceLocator {
     
     private func objectSubscriptionService() -> ObjectSubscriptionServiceProtocol {
         ObjectSubscriptionService()
-    }
-    
-    private func authMiddleService() -> AuthMiddleServiceProtocol {
-        AuthMiddleService()
     }
 }

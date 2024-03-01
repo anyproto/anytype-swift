@@ -669,6 +669,12 @@
 		2ABF8F5F2B7FB982004B8FB8 /* AsyncStandardButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2ABF8F5E2B7FB982004B8FB8 /* AsyncStandardButton.swift */; };
 		2ABFED9428C9D784008B5C03 /* RelationDetailsStorageProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2ABFED9328C9D784008B5C03 /* RelationDetailsStorageProtocol.swift */; };
 		2ABFED9628C9DAA4008B5C03 /* RelationDetails+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2ABFED9528C9DAA4008B5C03 /* RelationDetails+Extensions.swift */; };
+		2AC1262D2B90F65F003A4A8D /* Factory in Frameworks */ = {isa = PBXBuildFile; productRef = 2AC1262C2B90F65F003A4A8D /* Factory */; };
+		2AC126312B90F69E003A4A8D /* FactoryDI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AC126302B90F69E003A4A8D /* FactoryDI.swift */; };
+		2AC126342B90FE82003A4A8D /* WorkspacesStorageMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AC126332B90FE82003A4A8D /* WorkspacesStorageMock.swift */; };
+		2AC126362B9106E2003A4A8D /* SingleObjectSubscriptionServiceMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AC126352B9106E2003A4A8D /* SingleObjectSubscriptionServiceMock.swift */; };
+		2AC126382B9106EB003A4A8D /* ActiveWorkpaceStorageMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AC126372B9106EB003A4A8D /* ActiveWorkpaceStorageMock.swift */; };
+		2AC1263A2B910724003A4A8D /* setupPreviewMocks.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AC126392B910724003A4A8D /* setupPreviewMocks.swift */; };
 		2AC252282A26112500B89884 /* MiddlewareHandlerConfigurator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AC252272A26112500B89884 /* MiddlewareHandlerConfigurator.swift */; };
 		2AC3F9462A138263005EFEE9 /* FileLimitsStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AC3F9452A138263005EFEE9 /* FileLimitsStorage.swift */; };
 		2AC429A629B784280002AD05 /* BaseDocumentProtocol+Home.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AC429A529B784280002AD05 /* BaseDocumentProtocol+Home.swift */; };
@@ -2433,6 +2439,11 @@
 		2ABF8F5E2B7FB982004B8FB8 /* AsyncStandardButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AsyncStandardButton.swift; sourceTree = "<group>"; };
 		2ABFED9328C9D784008B5C03 /* RelationDetailsStorageProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RelationDetailsStorageProtocol.swift; sourceTree = "<group>"; };
 		2ABFED9528C9DAA4008B5C03 /* RelationDetails+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "RelationDetails+Extensions.swift"; sourceTree = "<group>"; };
+		2AC126302B90F69E003A4A8D /* FactoryDI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FactoryDI.swift; sourceTree = "<group>"; };
+		2AC126332B90FE82003A4A8D /* WorkspacesStorageMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkspacesStorageMock.swift; sourceTree = "<group>"; };
+		2AC126352B9106E2003A4A8D /* SingleObjectSubscriptionServiceMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SingleObjectSubscriptionServiceMock.swift; sourceTree = "<group>"; };
+		2AC126372B9106EB003A4A8D /* ActiveWorkpaceStorageMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActiveWorkpaceStorageMock.swift; sourceTree = "<group>"; };
+		2AC126392B910724003A4A8D /* setupPreviewMocks.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = setupPreviewMocks.swift; sourceTree = "<group>"; };
 		2AC252272A26112500B89884 /* MiddlewareHandlerConfigurator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MiddlewareHandlerConfigurator.swift; sourceTree = "<group>"; };
 		2AC3F9452A138263005EFEE9 /* FileLimitsStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileLimitsStorage.swift; sourceTree = "<group>"; };
 		2AC429A529B784280002AD05 /* BaseDocumentProtocol+Home.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "BaseDocumentProtocol+Home.swift"; sourceTree = "<group>"; };
@@ -3454,6 +3465,7 @@
 				2A41A6782B84E57B00EAE6E6 /* DeepLinks in Frameworks */,
 				5333421C262E249100238121 /* FloatingPanel in Frameworks */,
 				2A6ED16C285B44DB00AAA21C /* ProtobufMessages in Frameworks */,
+				2AC1262D2B90F65F003A4A8D /* Factory in Frameworks */,
 				2A6ED166285B44DB00AAA21C /* AnytypeCore in Frameworks */,
 				538ABD52284F9F88000D3CCC /* OrderedCollections in Frameworks */,
 				C9433E54293EA5EF001662EA /* SwiftEntryKit in Frameworks */,
@@ -3752,6 +3764,7 @@
 		038FB5C822D8F321002B90B8 /* ServiceLayer */ = {
 			isa = PBXGroup;
 			children = (
+				2AC126322B90FE3A003A4A8D /* Mocks */,
 				2A55F1EB2B73826E009DB80A /* Notifications */,
 				862065512AB1A974006E539B /* DocumentsProvider */,
 				2AB522062A14D08A007DEE53 /* File */,
@@ -3764,6 +3777,7 @@
 				03D1516423FB443E004027CE /* Configuration */,
 				03CB3F00230C104F003D5DFD /* Auth */,
 				3DE296462617439C00EADB0A /* ServiceLocator.swift */,
+				2AC126302B90F69E003A4A8D /* FactoryDI.swift */,
 			);
 			path = ServiceLayer;
 			sourceTree = "<group>";
@@ -6368,6 +6382,17 @@
 				3D1CEC2127F38871000D36BA /* DashboardAccountDeletionAlert.swift */,
 			);
 			path = DashboardAccountDeletionAlert;
+			sourceTree = "<group>";
+		};
+		2AC126322B90FE3A003A4A8D /* Mocks */ = {
+			isa = PBXGroup;
+			children = (
+				2AC126332B90FE82003A4A8D /* WorkspacesStorageMock.swift */,
+				2AC126352B9106E2003A4A8D /* SingleObjectSubscriptionServiceMock.swift */,
+				2AC126372B9106EB003A4A8D /* ActiveWorkpaceStorageMock.swift */,
+				2AC126392B910724003A4A8D /* setupPreviewMocks.swift */,
+			);
+			path = Mocks;
 			sourceTree = "<group>";
 		};
 		2AC3F9442A13824D005EFEE9 /* FileLimitsStorage */ = {
@@ -10148,6 +10173,7 @@
 				3D6381F62B6A61CF0026D071 /* WrappingHStack */,
 				2A685D592B7B855300456E08 /* ZIPFoundation */,
 				2A41A6772B84E57B00EAE6E6 /* DeepLinks */,
+				2AC1262C2B90F65F003A4A8D /* Factory */,
 			);
 			productName = Anytype;
 			productReference = 0303ECFB22D8EDAA005C552B /* Anytype.app */;
@@ -10281,6 +10307,7 @@
 				2A01A4F72A1FB4B7002042FB /* XCRemoteSwiftPackageReference "DeviceKit" */,
 				3D6381F52B6A61CF0026D071 /* XCRemoteSwiftPackageReference "WrappingHStack" */,
 				2A685D582B7B854200456E08 /* XCRemoteSwiftPackageReference "ZIPFoundation" */,
+				2AC1262B2B90F65F003A4A8D /* XCRemoteSwiftPackageReference "Factory" */,
 			);
 			productRefGroup = 0303ECFC22D8EDAA005C552B /* Products */;
 			projectDirPath = "";
@@ -10534,6 +10561,7 @@
 				2AE942C6294713F8005BAD1F /* KeyboardEvent.swift in Sources */,
 				2AEB0C262B7231B7007BB10C /* NotificationDismissEnvironment.swift in Sources */,
 				2A6693732A7104EA007747DD /* BasicIconImageGuideline.swift in Sources */,
+				2AC1263A2B910724003A4A8D /* setupPreviewMocks.swift in Sources */,
 				530470F62682046900C9EE78 /* TextBlockIconView.swift in Sources */,
 				3DE296472617439C00EADB0A /* ServiceLocator.swift in Sources */,
 				2A7DCDE2292E60BA001919B4 /* AddNewRelationCoordinatorAssembly.swift in Sources */,
@@ -10713,6 +10741,7 @@
 				2A93E1A82AE7DE90004438FD /* View+Sheet.swift in Sources */,
 				2A2C33212892BA36008BC326 /* RelationValueViewModelOutput.swift in Sources */,
 				2AECFD3E28993C67000E9CFB /* RelationValueCoordinatorAssemblyProtocol.swift in Sources */,
+				2AC126342B90FE82003A4A8D /* WorkspacesStorageMock.swift in Sources */,
 				53856BCB2659B38F00CB1FAE /* CodeBlockViewModel.swift in Sources */,
 				2A376F5F2B861D7100CF444A /* SpaceStatus+Localize.swift in Sources */,
 				2EAA14072AA63918000A712A /* SetRelationsViewModel.swift in Sources */,
@@ -11123,6 +11152,7 @@
 				5396534F2600D1B100A74C11 /* TextBlockLayoutManager.swift in Sources */,
 				2AD5EFCB2B17559D00FAA908 /* DocumentCommonOpenErrorView.swift in Sources */,
 				EAC5FD512657DC97006BB24E /* KeyboardState.swift in Sources */,
+				2AC126382B9106EB003A4A8D /* ActiveWorkpaceStorageMock.swift in Sources */,
 				1215E8BB26A8654C0089AF7E /* AnalyticsConfigurator.swift in Sources */,
 				2E1C80E52A2F6EF000217C47 /* AboutApp.swift in Sources */,
 				2A5B53B12A80DBA200BC993B /* SpaceSettingsView.swift in Sources */,
@@ -11482,6 +11512,7 @@
 				2A18929C2A8F6F5500A19740 /* NonFatalAlertConfigurator.swift in Sources */,
 				2A2C330528928A7C008BC326 /* RelationValueCoordinatorAssembly.swift in Sources */,
 				2AC429A629B784280002AD05 /* BaseDocumentProtocol+Home.swift in Sources */,
+				2AC126312B90F69E003A4A8D /* FactoryDI.swift in Sources */,
 				2EE33DC32B5582F300D0CDDB /* DateRelationCalendarView.swift in Sources */,
 				3DA414972B6BDF4400960748 /* ChangeTypeAccessoryView+Views.swift in Sources */,
 				2AA8108E29A6697A007DD64B /* HomeWidgetSubmoduleModel.swift in Sources */,
@@ -11510,6 +11541,7 @@
 				12136D5A2799A2BC00262FE7 /* TextRelationDetailsViewController.swift in Sources */,
 				2AD48D542B7F57CE0077C53B /* SpaceJoinViewModel.swift in Sources */,
 				2E0A57BA2A3C7C6800359110 /* UsecaseService.swift in Sources */,
+				2AC126362B9106E2003A4A8D /* SingleObjectSubscriptionServiceMock.swift in Sources */,
 				535FDE2027E8B63A0098DBFA /* PasteboardHelper.swift in Sources */,
 				126C46D726BD966700D31DBF /* ObjectHeaderIcon.swift in Sources */,
 				2A6476472B95B8B400389E62 /* SpaceMembersViewModel.swift in Sources */,
@@ -12858,6 +12890,14 @@
 				version = 8.8.0;
 			};
 		};
+		2AC1262B2B90F65F003A4A8D /* XCRemoteSwiftPackageReference "Factory" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/hmlongco/Factory";
+			requirement = {
+				kind = exactVersion;
+				version = 2.3.1;
+			};
+		};
 		3D6381F52B6A61CF0026D071 /* XCRemoteSwiftPackageReference "WrappingHStack" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/dkk/WrappingHStack";
@@ -12985,6 +13025,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 2A94B5D129B88E95009AE2A7 /* XCRemoteSwiftPackageReference "sentry-cocoa" */;
 			productName = Sentry;
+		};
+		2AC1262C2B90F65F003A4A8D /* Factory */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 2AC1262B2B90F65F003A4A8D /* XCRemoteSwiftPackageReference "Factory" */;
+			productName = Factory;
 		};
 		2ACDC9B02B553F7D0063BFBD /* SharedContentManager */ = {
 			isa = XCSwiftPackageProductDependency;

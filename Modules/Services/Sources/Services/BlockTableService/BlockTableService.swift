@@ -32,9 +32,7 @@ public protocol BlockTableServiceProtocol {
     func clearStyle(contextId: String, blocksIds: [String]) async throws
 }
 
-public final class BlockTableService: BlockTableServiceProtocol {
-    
-    public init() {}
+final class BlockTableService: BlockTableServiceProtocol {
     
     // MARK: - BlockTableServiceProtocol
     

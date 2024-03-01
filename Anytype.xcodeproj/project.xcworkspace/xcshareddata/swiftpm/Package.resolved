@@ -28,6 +28,15 @@
       }
     },
     {
+      "identity" : "factory",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/hmlongco/Factory",
+      "state" : {
+        "branch" : "2.3.1",
+        "revision" : "8ca11a7bd1ede031e8e6d7a912bb116e2e43961b"
+      }
+    },
+    {
       "identity" : "floatingpanel",
       "kind" : "remoteSourceControl",
       "location" : "git@github.com:scenee/FloatingPanel.git",
