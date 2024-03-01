@@ -2018,6 +2018,8 @@ internal enum Loc {
     /// Share space
     internal static let title = Loc.tr("Localizable", "SpaceShare.Title", fallback: "Share space")
     internal enum Action {
+      /// Approve
+      internal static let approve = Loc.tr("Localizable", "SpaceShare.Action.Approve", fallback: "Approve")
       /// View Request
       internal static let viewRequest = Loc.tr("Localizable", "SpaceShare.Action.ViewRequest", fallback: "View Request")
     }
@@ -2074,10 +2076,10 @@ internal enum Loc {
       internal static let title = Loc.tr("Localizable", "SpaceShare.RemoveMember.Title", fallback: "Remove memeber")
     }
     internal enum Status {
-      /// Declined
-      internal static let declined = Loc.tr("Localizable", "SpaceShare.Status.Declined", fallback: "Declined")
       /// Requested
       internal static let joining = Loc.tr("Localizable", "SpaceShare.Status.Joining", fallback: "Requested")
+      /// Unjoining requested
+      internal static let removing = Loc.tr("Localizable", "SpaceShare.Status.Removing", fallback: "Unjoining requested")
     }
     internal enum ViewRequest {
       /// Grand edit access

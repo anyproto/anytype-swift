@@ -90,12 +90,12 @@ final class SpaceShareViewModel: ObservableObject {
     private func participantStatus(_ participant: Participant) -> SpaceShareParticipantViewModel.Status? {
         switch participant.status {
         case .active:
-            return .normal(permission: participant.permission.title)
+            return .active(permission: participant.permission.title)
         case .joining:
             return .joining
-        case .declined:
-            return .declined
-        case .canceled, .removing, .removed, .UNRECOGNIZED:
+        case .removing:
+            return .removing
+        case .declined, .canceled, .removed, .UNRECOGNIZED:
             return nil
         }
     }
@@ -106,7 +106,11 @@ final class SpaceShareViewModel: ObservableObject {
             return SpaceShareParticipantViewModel.Action(title: Loc.SpaceShare.Action.viewRequest, action: { [weak self] in
                 self?.showRequestAlert(participant: participant)
             })
-        case .active, .canceled, .declined, .removing, .removed, .UNRECOGNIZED:
+        case .removing:
+            return SpaceShareParticipantViewModel.Action(title: Loc.SpaceShare.Action.approve, action: { [weak self] in
+                try await self?.workspaceService.participantRemove(spaceId: participant.spaceId, identity: participant.identity)
+            })
+        case .active, .canceled, .declined, .removed, .UNRECOGNIZED:
             return nil
         }
     }
