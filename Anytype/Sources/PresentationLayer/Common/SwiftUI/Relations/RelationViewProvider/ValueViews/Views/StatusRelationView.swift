@@ -28,7 +28,7 @@ struct StatusRelationView: View {
     }
     
     private func statusView(option: Relation.Status.Option) -> some View {
-        AnytypeText(option.text, style: style.font, color: option.color.suColor)
+        AnytypeText(option.text, style: style.font, color: option.color)
             .lineLimit(1)
     }
     
@@ -67,7 +67,7 @@ struct StatusRelationView_Previews: PreviewProvider {
             options: [Relation.Status.Option(
                 id: "id",
                 text: "text",
-                color: UIColor.Dark.amber
+                color: Color.Dark.amber
             )],
             hint: "hint",
             style: .regular(allowMultiLine: false)

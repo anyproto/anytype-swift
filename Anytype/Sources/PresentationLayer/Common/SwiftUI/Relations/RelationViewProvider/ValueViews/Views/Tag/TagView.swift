@@ -6,12 +6,12 @@ struct TagView: View {
     let style: RelationStyle
     
     var body: some View {
-        AnytypeText(viewModel.text, style: style.font, color: viewModel.textColor.suColor)
+        AnytypeText(viewModel.text, style: style.font, color: viewModel.textColor)
             .lineLimit(1)
             .padding(.horizontal, style.tagViewGuidlines.textPadding)
-            .background(viewModel.backgroundColor.suColor)
+            .background(viewModel.backgroundColor)
             .cornerRadius(style.tagViewGuidlines.cornerRadius)
-            .if(viewModel.backgroundColor == UIColor.Light.default) {
+            .if(viewModel.backgroundColor == Color.VeryLight.default) {
                 $0.overlay(
                     RoundedRectangle(cornerRadius: style.tagViewGuidlines.cornerRadius)
                         .stroke(Color.Shape.primary, lineWidth: 1)
@@ -25,8 +25,8 @@ extension TagView {
     
     struct Model {
         let text: String
-        let textColor: UIColor
-        let backgroundColor: UIColor
+        let textColor: Color
+        let backgroundColor: Color
     }
     
     struct Guidlines: Hashable {
@@ -42,8 +42,8 @@ struct TagView_Previews: PreviewProvider {
         TagView(
             viewModel: TagView.Model(
                 text: "text",
-                textColor: UIColor.VeryLight.amber,
-                backgroundColor: UIColor.Dark.amber
+                textColor: Color.VeryLight.amber,
+                backgroundColor: Color.Dark.amber
             ),
             style: .set
         )

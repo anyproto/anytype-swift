@@ -18,8 +18,8 @@ struct TagRelationRowView_Previews: PreviewProvider {
         TagRelationRowView(
             viewModel: TagView.Model(
                 text: "text",
-                textColor: UIColor.Dark.amber,
-                backgroundColor: UIColor.VeryLight.amber
+                textColor: Color.Dark.amber,
+                backgroundColor: Color.VeryLight.amber
             )
         )
     }
