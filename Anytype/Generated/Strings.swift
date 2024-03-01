@@ -1389,6 +1389,24 @@ internal enum Loc {
       /// Let’s build together
       internal static let title = Loc.tr("Localizable", "Membership.Ad.Title", fallback: "Let’s build together")
     }
+    internal enum Banner {
+      /// Stay closely connected with our team and community. Join calls with the team, influence Anytype's evolution, and have your say on features.
+      internal static let subtitle1 = Loc.tr("Localizable", "Membership.Banner.Subtitle1", fallback: "Stay closely connected with our team and community. Join calls with the team, influence Anytype's evolution, and have your say on features.")
+      /// Our members have unique identity on Anytype Network, more storage, shared spaces and members per space for extensive collaboration
+      internal static let subtitle2 = Loc.tr("Localizable", "Membership.Banner.Subtitle2", fallback: "Our members have unique identity on Anytype Network, more storage, shared spaces and members per space for extensive collaboration")
+      /// Your contribution supports our independent team and endorses our vision︎ of a user-driven, secure, and collaborative digital environment.
+      internal static let subtitle3 = Loc.tr("Localizable", "Membership.Banner.Subtitle3", fallback: "Your contribution supports our independent team and endorses our vision︎ of a user-driven, secure, and collaborative digital environment.")
+      /// Our software is free by design, but we thrive on the network that connects us all. Support us, and you're investing in the very infrastructure that keeps us united
+      internal static let subtitle4 = Loc.tr("Localizable", "Membership.Banner.Subtitle4", fallback: "Our software is free by design, but we thrive on the network that connects us all. Support us, and you're investing in the very infrastructure that keeps us united")
+      /// Co-create with us
+      internal static let title1 = Loc.tr("Localizable", "Membership.Banner.Title1", fallback: "Co-create with us")
+      /// Gain Benefits
+      internal static let title2 = Loc.tr("Localizable", "Membership.Banner.Title2", fallback: "Gain Benefits")
+      /// Support the Vision
+      internal static let title3 = Loc.tr("Localizable", "Membership.Banner.Title3", fallback: "Support the Vision")
+      /// Invest in Connectivity
+      internal static let title4 = Loc.tr("Localizable", "Membership.Banner.Title4", fallback: "Invest in Connectivity")
+    }
     internal enum Legal {
       /// Membership levels details
       internal static let details = Loc.tr("Localizable", "Membership.Legal.Details", fallback: "Membership levels details")

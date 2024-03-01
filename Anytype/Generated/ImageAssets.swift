@@ -316,6 +316,10 @@ internal extension ImageAsset {
   }
   enum Emoji {
     }
+  static let membershipBanner1 = ImageAsset.bundle(name: "membership_banner_1")
+  static let membershipBanner2 = ImageAsset.bundle(name: "membership_banner_2")
+  static let membershipBanner3 = ImageAsset.bundle(name: "membership_banner_3")
+  static let membershipBanner4 = ImageAsset.bundle(name: "membership_banner_4")
   static let createNewObject = ImageAsset.bundle(name: "createNewObject")
   static let linkToItself = ImageAsset.bundle(name: "link_to_itself")
   static let makeAsTemplate = ImageAsset.bundle(name: "make_as_template")

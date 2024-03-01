@@ -1328,6 +1328,8 @@
 		3DD0CEB42B90A9C300657402 /* MembershipModuleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DD0CEB32B90A9C300657402 /* MembershipModuleView.swift */; };
 		3DD0CEB62B90AA0500657402 /* MembershipModuleViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DD0CEB52B90AA0500657402 /* MembershipModuleViewModel.swift */; };
 		3DD0CEB92B90ACED00657402 /* MembershipLegalButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DD0CEB82B90ACED00657402 /* MembershipLegalButton.swift */; };
+		3DD0CEBB2B90E6BB00657402 /* MembershipBannerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DD0CEBA2B90E6BB00657402 /* MembershipBannerView.swift */; };
+		3DD0CEBD2B9106DB00657402 /* FadingGradient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DD0CEBC2B9106DB00657402 /* FadingGradient.swift */; };
 		3DDC6A602627071E004F5EA4 /* BlockLinkState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DDC6A5F2627071E004F5EA4 /* BlockLinkState.swift */; };
 		3DDC6A64262707CB004F5EA4 /* BlockLinkCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DDC6A63262707CB004F5EA4 /* BlockLinkCardView.swift */; };
 		3DDC6A6A26270998004F5EA4 /* BlockLinkContentConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DDC6A6926270998004F5EA4 /* BlockLinkContentConfiguration.swift */; };
@@ -3086,6 +3088,8 @@
 		3DD0CEB32B90A9C300657402 /* MembershipModuleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MembershipModuleView.swift; sourceTree = "<group>"; };
 		3DD0CEB52B90AA0500657402 /* MembershipModuleViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MembershipModuleViewModel.swift; sourceTree = "<group>"; };
 		3DD0CEB82B90ACED00657402 /* MembershipLegalButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MembershipLegalButton.swift; sourceTree = "<group>"; };
+		3DD0CEBA2B90E6BB00657402 /* MembershipBannerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MembershipBannerView.swift; sourceTree = "<group>"; };
+		3DD0CEBC2B9106DB00657402 /* FadingGradient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FadingGradient.swift; sourceTree = "<group>"; };
 		3DDC6A5F2627071E004F5EA4 /* BlockLinkState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlockLinkState.swift; sourceTree = "<group>"; };
 		3DDC6A63262707CB004F5EA4 /* BlockLinkCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlockLinkCardView.swift; sourceTree = "<group>"; };
 		3DDC6A6926270998004F5EA4 /* BlockLinkContentConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlockLinkContentConfiguration.swift; sourceTree = "<group>"; };
@@ -6507,13 +6511,6 @@
 			path = ShareOptions;
 			sourceTree = "<group>";
 		};
-		2ACDC9C42B5674210063BFBD /* Rows */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Rows;
-			sourceTree = "<group>";
-		};
 		2ACDC9D42B57C2650063BFBD /* Rows */ = {
 			isa = PBXGroup;
 			children = (
@@ -8861,6 +8858,7 @@
 			isa = PBXGroup;
 			children = (
 				3DD0CEB82B90ACED00657402 /* MembershipLegalButton.swift */,
+				3DD0CEBA2B90E6BB00657402 /* MembershipBannerView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -9065,6 +9063,7 @@
 			children = (
 				12A7B6BB26C3E47200544037 /* CoverColor.swift */,
 				12A7B6BD26C3E47200544037 /* CoverGradient.swift */,
+				3DD0CEBC2B9106DB00657402 /* FadingGradient.swift */,
 				039F6D79239591C80097560A /* Gradients.swift */,
 				127EABD8273745C000C731F2 /* AnytypeColorProtocol.swift */,
 				2A4919AD295333CF00FCEAC9 /* Color+ComponentColor.swift */,
@@ -9187,7 +9186,6 @@
 		53A46330262878710097C25E /* Design system */ = {
 			isa = PBXGroup;
 			children = (
-				2ACDC9C42B5674210063BFBD /* Rows */,
 				869B8DB82AA767EE00636B49 /* InlinePicker */,
 				2EEFEADD2A93C3B400AD5CDC /* SheetView */,
 				C9EF85152938E69A0001E6EC /* TappableLabel */,
@@ -10705,6 +10703,7 @@
 				2A7208B72AF3B67D006D88CF /* SegmentLine.swift in Sources */,
 				2ABF39402B8398FB00EF9DA1 /* BottomAlertButttonStack.swift in Sources */,
 				866B43082ABAE4C10028DDAE /* ObjectHeaderInteractor.swift in Sources */,
+				3DD0CEBB2B90E6BB00657402 /* MembershipBannerView.swift in Sources */,
 				2A6693712A7104EA007747DD /* SpaceIconImageGuideline.swift in Sources */,
 				12DE405E264AE455007B5074 /* LayoutAnchor.swift in Sources */,
 				53EA4A782637637200968B8E /* StyleColorCellView.swift in Sources */,
@@ -10751,6 +10750,7 @@
 				3D07ED76261F4D6500C007E2 /* DividerBlockContentView.swift in Sources */,
 				2AA8108C29A6686F007DD64B /* DragAndDropModels.swift in Sources */,
 				C9D23C80293E098D00244864 /* ToastPresenter+Extensions.swift in Sources */,
+				3DD0CEBD2B9106DB00657402 /* FadingGradient.swift in Sources */,
 				2E8E8D142A262CB6009BC3B0 /* CreatingSoulViewModel.swift in Sources */,
 				3D1B5F70274CF12C007D97AE /* SetFullHeader.swift in Sources */,
 				2A794B442AD53D4400BA160F /* SubscriptionStorage.swift in Sources */,
