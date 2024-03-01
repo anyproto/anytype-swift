@@ -139,6 +139,14 @@ extension Color {
         internal static let yellowEnd = Color(asset: Asset.Gradients.Cover.yellowEnd)
         internal static let yellowStart = Color(asset: Asset.Gradients.Cover.yellowStart)
       }
+      
+      // MARK: - Fading
+      enum Fading {
+        internal static let green = Color(asset: Asset.Gradients.Fading.green)
+        internal static let pink = Color(asset: Asset.Gradients.Fading.pink)
+        internal static let purple = Color(asset: Asset.Gradients.Fading.purple)
+        internal static let yellow = Color(asset: Asset.Gradients.Fading.yellow)
+      }
     }
     
     // MARK: - ModalScreen
