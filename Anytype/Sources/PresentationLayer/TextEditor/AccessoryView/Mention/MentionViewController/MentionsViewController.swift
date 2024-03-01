@@ -27,7 +27,7 @@ final class MentionsViewController: UITableViewController {
         
         viewModel.dismissSubject.sink { [weak self] _ in
             self?.dismiss()
-        }
+        }.store(in: &subsriptions)
     }
     
     private func setup() {
