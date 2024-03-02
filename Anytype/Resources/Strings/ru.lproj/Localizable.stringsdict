@@ -55,7 +55,7 @@
         <key>one</key>
         <string>%d выбранный блок</string>
         <key>few</key>
-        <string>%d selected blocks</string>
+        <string>%d выбрано блоков</string>
         <key>many</key>
         <string>%d selected blocks</string>
         <key>other</key>
@@ -193,7 +193,7 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>d</string>
         <key>one</key>
-        <string>Link Block</string>
+        <string>Блоки ссылок</string>
         <key>few</key>
         <string>Link %d Blocks</string>
         <key>many</key>
