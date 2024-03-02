@@ -1,15 +1,16 @@
 import SwiftUI
 
 struct MembershipTeirView: View {
-    let title: String = "Explorer"
-    let subtitle: String = "Dive into the network and enjoy the thrill of one-on-one collaboration"
-    let gradient: FadingGradient = .green
-    let onTap: () -> () = { }
+    let title: String
+    let subtitle: String
+    let image: ImageAsset
+    let gradient: MembershipTeirGradient
+    let onTap: () -> ()
     
     var body: some View {
         VStack(alignment: .leading, spacing: 0) {
             Spacer.fixedHeight(16)
-            Image(asset: .Membership.tierExplorer)
+            Image(asset: image)
                 .frame(width: 65, height: 64)
             Spacer.fixedHeight(10)
             AnytypeText(title, style: .bodySemibold, color: .Text.primary)
@@ -19,7 +20,7 @@ struct MembershipTeirView: View {
             
             info
             Spacer.fixedHeight(10)
-            StandardButton("Learn more", style: .primaryMedium, action: onTap)
+            StandardButton(Loc.learnMore, style: .primaryMedium, action: onTap)
             Spacer.fixedHeight(20)
         }
         .padding(.horizontal, 16)
@@ -29,16 +30,15 @@ struct MembershipTeirView: View {
     }
     
     var info: some View {
-        AnytypeText("Just e-mail", style: .bodySemibold, color: .Text.primary)
+        AnytypeText(Loc.justEMail, style: .bodySemibold, color: .Text.primary)
     }
 }
 
 #Preview {
-    ScrollView(.horizontal) {
-        HStack {
-            MembershipTeirView()
-            MembershipTeirView()
-            MembershipTeirView()
-        }
-    }.padding()
+    MembershipTeirView(
+        title: Loc.Membership.Explorer.title,
+        subtitle: Loc.Membership.Explorer.info,
+        image: .Membership.tierExplorer,
+        gradient: .teal
+    ) {  }
 }

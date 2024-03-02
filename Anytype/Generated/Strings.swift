@@ -268,8 +268,12 @@ internal enum Loc {
   internal static let intoObject = Loc.tr("Localizable", "Into object", fallback: "Into object")
   /// Join
   internal static let join = Loc.tr("Localizable", "Join", fallback: "Join")
+  /// Just e-mail
+  internal static let justEMail = Loc.tr("Localizable", "Just e-mail", fallback: "Just e-mail")
   /// Layout
   internal static let layout = Loc.tr("Localizable", "Layout", fallback: "Layout")
+  /// Learn more
+  internal static let learnMore = Loc.tr("Localizable", "Learn more", fallback: "Learn more")
   /// Limit object types
   internal static let limitObjectTypes = Loc.tr("Localizable", "Limit object types", fallback: "Limit object types")
   /// Link to
@@ -370,6 +374,12 @@ internal enum Loc {
   internal static let pasteProcessing = Loc.tr("Localizable", "Paste processing...", fallback: "Paste processing...")
   /// We're sorry to see you go. You have 30 days to cancel this request. After 30 days, your encrypted account data is permanently removed from the backup node.
   internal static let pendingDeletionText = Loc.tr("Localizable", "Pending deletion text", fallback: "We're sorry to see you go. You have 30 days to cancel this request. After 30 days, your encrypted account data is permanently removed from the backup node.")
+  /// per %@ years
+  internal static func perXYears(_ p1: Any) -> String {
+    return Loc.tr("Localizable", "per x years", String(describing: p1), fallback: "per %@ years")
+  }
+  /// per year
+  internal static let perYear = Loc.tr("Localizable", "per year", fallback: "per year")
   /// Personalization
   internal static let personalization = Loc.tr("Localizable", "Personalization", fallback: "Personalization")
   /// Picture
@@ -1407,6 +1417,18 @@ internal enum Loc {
       /// Invest in Connectivity
       internal static let title4 = Loc.tr("Localizable", "Membership.Banner.Title4", fallback: "Invest in Connectivity")
     }
+    internal enum Builder {
+      /// Unlock the magic of multi-party collaboration and enjoy top-notch support
+      internal static let info = Loc.tr("Localizable", "Membership.Builder.Info", fallback: "Unlock the magic of multi-party collaboration and enjoy top-notch support")
+      /// Builder
+      internal static let title = Loc.tr("Localizable", "Membership.Builder.Title", fallback: "Builder")
+    }
+    internal enum CoCreator {
+      /// Support our adventure and unlock exclusive access and perks
+      internal static let info = Loc.tr("Localizable", "Membership.CoCreator.Info", fallback: "Support our adventure and unlock exclusive access and perks")
+      /// Co-Creator
+      internal static let title = Loc.tr("Localizable", "Membership.CoCreator.Title", fallback: "Co-Creator")
+    }
     internal enum Email {
       /// Please specify your request:
       /// - highlight if you represent an educational, governmental, or non-profit organization
@@ -1415,6 +1437,12 @@ internal enum Loc {
       internal static let body = Loc.tr("Localizable", "Membership.Email.Body", fallback: "Please specify your request:\n- highlight if you represent an educational, governmental, or non-profit organization\n- tell us more about your organization: number of employees and future Anytype users, markets you're working on, etc.,\n- provide additional details about how your organization uses Anytype")
       /// Special Pricing Request
       internal static let subject = Loc.tr("Localizable", "Membership.Email.Subject", fallback: "Special Pricing Request")
+    }
+    internal enum Explorer {
+      /// Dive into the network and enjoy the thrill of one-on-one collaboration
+      internal static let info = Loc.tr("Localizable", "Membership.Explorer.Info", fallback: "Dive into the network and enjoy the thrill of one-on-one collaboration")
+      /// Explorer
+      internal static let title = Loc.tr("Localizable", "Membership.Explorer.Title", fallback: "Explorer")
     }
     internal enum Legal {
       /// Membership levels details

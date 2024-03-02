@@ -1130,7 +1130,7 @@
 		2EFFEB9629A52537002F5859 /* SetDragAndDropView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EFFEB9529A52537002F5859 /* SetDragAndDropView.swift */; };
 		3D00F1CF278D7CB700863D7C /* ObjectSearchData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D00F1CE278D7CB700863D7C /* ObjectSearchData.swift */; };
 		3D00F1D5278D84C400863D7C /* LinkToObjectSearchData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D00F1D4278D84C400863D7C /* LinkToObjectSearchData.swift */; };
-		3D05C8092B91E47E008E7252 /* FadingGradient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D05C8082B91E47E008E7252 /* FadingGradient.swift */; };
+		3D05C8092B91E47E008E7252 /* BannerFadingGradient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D05C8082B91E47E008E7252 /* BannerFadingGradient.swift */; };
 		3D07ECE9261B735300C007E2 /* UINavigationController+UIGestureRecognizerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D07ECE8261B735300C007E2 /* UINavigationController+UIGestureRecognizerDelegate.swift */; };
 		3D07ED6C261F49ED00C007E2 /* DividerBlockViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D07ED6B261F49ED00C007E2 /* DividerBlockViewModel.swift */; };
 		3D07ED72261F4B5A00C007E2 /* DividerBlockView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D07ED71261F4B5A00C007E2 /* DividerBlockView.swift */; };
@@ -1234,6 +1234,9 @@
 		3D5D0C602B8CBC37005DB879 /* TypeSearchForNewObjectCoordinatorViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D5D0C5F2B8CBC37005DB879 /* TypeSearchForNewObjectCoordinatorViewModel.swift */; };
 		3D5D57792B8FDB8900EAE9A5 /* MembershipModuleAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D5D57782B8FDB8900EAE9A5 /* MembershipModuleAssembly.swift */; };
 		3D611E8E2B936B8300B33305 /* MembershipTeirView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D611E8D2B936B8300B33305 /* MembershipTeirView.swift */; };
+		3D611E902B93727700B33305 /* MembershipTeirGradient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D611E8F2B93727700B33305 /* MembershipTeirGradient.swift */; };
+		3D611E932B93775B00B33305 /* MembershipTierListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D611E922B93775B00B33305 /* MembershipTierListView.swift */; };
+		3D611E962B93779900B33305 /* MembershipTier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D611E952B93779900B33305 /* MembershipTier.swift */; };
 		3D6381F72B6A61CF0026D071 /* WrappingHStack in Frameworks */ = {isa = PBXBuildFile; productRef = 3D6381F62B6A61CF0026D071 /* WrappingHStack */; };
 		3D68564226E0E1A000AA36A9 /* Spacer+FixedSize.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D68564126E0E1A000AA36A9 /* Spacer+FixedSize.swift */; };
 		3D68564D26E10D2500AA36A9 /* View+Placeholder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D68564C26E10D2500AA36A9 /* View+Placeholder.swift */; };
@@ -2887,7 +2890,7 @@
 		2EFFEB9529A52537002F5859 /* SetDragAndDropView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SetDragAndDropView.swift; sourceTree = "<group>"; };
 		3D00F1CE278D7CB700863D7C /* ObjectSearchData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObjectSearchData.swift; sourceTree = "<group>"; };
 		3D00F1D4278D84C400863D7C /* LinkToObjectSearchData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LinkToObjectSearchData.swift; sourceTree = "<group>"; };
-		3D05C8082B91E47E008E7252 /* FadingGradient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FadingGradient.swift; sourceTree = "<group>"; };
+		3D05C8082B91E47E008E7252 /* BannerFadingGradient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BannerFadingGradient.swift; sourceTree = "<group>"; };
 		3D07ECE8261B735300C007E2 /* UINavigationController+UIGestureRecognizerDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UINavigationController+UIGestureRecognizerDelegate.swift"; sourceTree = "<group>"; };
 		3D07ED6B261F49ED00C007E2 /* DividerBlockViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DividerBlockViewModel.swift; sourceTree = "<group>"; };
 		3D07ED71261F4B5A00C007E2 /* DividerBlockView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DividerBlockView.swift; sourceTree = "<group>"; };
@@ -2991,6 +2994,9 @@
 		3D5D0C5F2B8CBC37005DB879 /* TypeSearchForNewObjectCoordinatorViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TypeSearchForNewObjectCoordinatorViewModel.swift; sourceTree = "<group>"; };
 		3D5D57782B8FDB8900EAE9A5 /* MembershipModuleAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MembershipModuleAssembly.swift; sourceTree = "<group>"; };
 		3D611E8D2B936B8300B33305 /* MembershipTeirView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MembershipTeirView.swift; sourceTree = "<group>"; };
+		3D611E8F2B93727700B33305 /* MembershipTeirGradient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MembershipTeirGradient.swift; sourceTree = "<group>"; };
+		3D611E922B93775B00B33305 /* MembershipTierListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MembershipTierListView.swift; sourceTree = "<group>"; };
+		3D611E952B93779900B33305 /* MembershipTier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MembershipTier.swift; sourceTree = "<group>"; };
 		3D68564126E0E1A000AA36A9 /* Spacer+FixedSize.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Spacer+FixedSize.swift"; sourceTree = "<group>"; };
 		3D68564C26E10D2500AA36A9 /* View+Placeholder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "View+Placeholder.swift"; sourceTree = "<group>"; };
 		3D6F2D712B87983500AA667B /* PasteboardBlockService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PasteboardBlockService.swift; sourceTree = "<group>"; };
@@ -8363,12 +8369,31 @@
 		3D5D57772B8FDB7100EAE9A5 /* Membership */ = {
 			isa = PBXGroup;
 			children = (
+				3D611E942B93778E00B33305 /* Models */,
 				3DD0CEB72B90ACBE00657402 /* Views */,
 				3D5D57782B8FDB8900EAE9A5 /* MembershipModuleAssembly.swift */,
 				3DD0CEB32B90A9C300657402 /* MembershipModuleView.swift */,
 				3DD0CEB52B90AA0500657402 /* MembershipModuleViewModel.swift */,
 			);
 			path = Membership;
+			sourceTree = "<group>";
+		};
+		3D611E912B93738100B33305 /* Gradients */ = {
+			isa = PBXGroup;
+			children = (
+				3D611E8F2B93727700B33305 /* MembershipTeirGradient.swift */,
+				12A7B6BD26C3E47200544037 /* CoverGradient.swift */,
+				3D05C8082B91E47E008E7252 /* BannerFadingGradient.swift */,
+			);
+			path = Gradients;
+			sourceTree = "<group>";
+		};
+		3D611E942B93778E00B33305 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				3D611E952B93779900B33305 /* MembershipTier.swift */,
+			);
+			path = Models;
 			sourceTree = "<group>";
 		};
 		3D6E9A37270DD0D6001B0A07 /* Views */ = {
@@ -8848,6 +8873,7 @@
 				3DD0CEB82B90ACED00657402 /* MembershipLegalButton.swift */,
 				3DD0CEBA2B90E6BB00657402 /* MembershipBannerView.swift */,
 				3D611E8D2B936B8300B33305 /* MembershipTeirView.swift */,
+				3D611E922B93775B00B33305 /* MembershipTierListView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -9050,9 +9076,8 @@
 		535B56E42628767300D218E7 /* Colors */ = {
 			isa = PBXGroup;
 			children = (
+				3D611E912B93738100B33305 /* Gradients */,
 				12A7B6BB26C3E47200544037 /* CoverColor.swift */,
-				12A7B6BD26C3E47200544037 /* CoverGradient.swift */,
-				3D05C8082B91E47E008E7252 /* FadingGradient.swift */,
 				127EABD8273745C000C731F2 /* AnytypeColorProtocol.swift */,
 				2A4919AD295333CF00FCEAC9 /* Color+ComponentColor.swift */,
 			);
@@ -10491,6 +10516,7 @@
 				2E0E007F2A680D8600F1D95B /* PhraseTextValidator.swift in Sources */,
 				2E52DE692A1CDF5500F16815 /* LineProgressBarConfiguration.swift in Sources */,
 				86B473D82AD9454100422E47 /* SetObjectCreationSettingsCoordinator.swift in Sources */,
+				3D611E902B93727700B33305 /* MembershipTeirGradient.swift in Sources */,
 				C9C49A8527049D0200D86463 /* AlertsFactory.swift in Sources */,
 				2A96B5B42ABB454800B59A1D /* EditorPageView.swift in Sources */,
 				C98F6A6C27A90F210063DD7A /* BlockConfiguration.swift in Sources */,
@@ -11077,7 +11103,7 @@
 				2A28D04D297FCC1D00E55E15 /* WidgetContainerViewModel.swift in Sources */,
 				2E28BCEE2AAB55AD001E6306 /* SetViewPickerModuleAssembly.swift in Sources */,
 				2E999483293E490300FFBED9 /* Relation+Set.swift in Sources */,
-				3D05C8092B91E47E008E7252 /* FadingGradient.swift in Sources */,
+				3D05C8092B91E47E008E7252 /* BannerFadingGradient.swift in Sources */,
 				2A673C1129B0BC3E00E3D672 /* SettingsModuleOutput.swift in Sources */,
 				2A28723A2B4D8C30007B3D59 /* GalleryInstallationCoordinatorViewModel.swift in Sources */,
 				86C4B36B2B21CD63003B8C51 /* SharingTip.swift in Sources */,
@@ -11163,6 +11189,7 @@
 				2E0797B32A0940F8006F0FD7 /* JoinFlowView.swift in Sources */,
 				2A475F172AFE47BE00E8C6D5 /* AnytypeNavigationView.swift in Sources */,
 				3D5A41802704543300F1F6A1 /* SearchCell.swift in Sources */,
+				3D611E932B93775B00B33305 /* MembershipTierListView.swift in Sources */,
 				EA3D1E6426D0091C001A31D9 /* MentionAttributeSelectionHandler.swift in Sources */,
 				2E9EFE72285B62E500C8E47A /* SetFilter.swift in Sources */,
 				1247BC8227FE0929005F2DB4 /* TransparencyEffectModifier.swift in Sources */,
@@ -11369,6 +11396,7 @@
 				2EDC2AFB2A125BD60065E009 /* JoinFlowOutput.swift in Sources */,
 				53EA4A7F2637639F00968B8E /* StyleColorCellConfiguration.swift in Sources */,
 				2A7CCC1C2B6A92B200F2E98B /* GalleryInstallationPreviewManifestView.swift in Sources */,
+				3D611E962B93779900B33305 /* MembershipTier.swift in Sources */,
 				C920F7F92903082600360F01 /* BlockTextLinkView.swift in Sources */,
 				2E7C4461289184BA0062287C /* SetFiltersDateRowConfiguration.swift in Sources */,
 				2AF205BE2ABD8E660027F3EA /* HomeBottomNavigationPanelModuleOutput.swift in Sources */,

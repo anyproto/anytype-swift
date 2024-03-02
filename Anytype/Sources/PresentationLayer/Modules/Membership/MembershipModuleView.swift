@@ -19,23 +19,11 @@ struct MembershipModuleView: View {
                 Spacer.fixedHeight(32)
                 
                 baners
-                tiers
+                MembershipTierListView(onTierTap: { _ in })
+                    .padding(.vertical, 32)
                 legal
             }
         }
-    }
-    
-    var tiers: some View {
-        ScrollView(.horizontal, showsIndicators: false) {
-            HStack(spacing: 20) {
-                Spacer.fixedWidth(0)
-                MembershipTeirView()
-                MembershipTeirView()
-                MembershipTeirView()
-                Spacer.fixedWidth(0)
-            }
-        }
-        .padding(.vertical, 32)
     }
     
     var baners: some View {
