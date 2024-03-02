@@ -79,6 +79,14 @@ extension AnytypeFont {
                 lineHeight: 24,
                 kern: -0.41
             )
+        case .bodySemibold:
+            return AnytypeFontConfig(
+                fontName: .inter,
+                size: 17,
+                weight: .semibold,
+                lineHeight: 24,
+                kern: -0.41
+            )
         case .calloutRegular:
             return AnytypeFontConfig(
                 fontName: .inter,

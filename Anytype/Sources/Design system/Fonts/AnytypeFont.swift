@@ -11,6 +11,7 @@ enum AnytypeFont: CaseIterable {
     case previewTitle2Medium
 
     case bodyRegular
+    case bodySemibold
     
     case calloutRegular
 
