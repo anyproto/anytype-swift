@@ -892,9 +892,9 @@
 "SpaceShare.Invite.Description" = "Envie este link para convidar outras pessoas. Após a aprovação do acesso, você poderá atribuir direitos de acesso";
 "SpaceShare.Invite.Button" = "Compartilhar link de convite";
 "SpaceShare.Status.Joining" = "Requested";
-"SpaceShare.Status.Removing" = "Unjoining requested";
+"SpaceShare.Status.Removing" = "Desvinculação solicitada";
 "SpaceShare.Action.ViewRequest" = "View Request";
-"SpaceShare.Action.Approve" = "Approve";
+"SpaceShare.Action.Approve" = "Aprovar";
 "SpaceShare.ViewRequest.Title" = "%@ requested to join %@ space";
 "SpaceShare.ViewRequest.ViewAccess" = "Grand view access";
 "SpaceShare.ViewRequest.EditAccess" = "Grand edit access";
