@@ -15,7 +15,7 @@ final class RelationsListModuleAssembly: RelationsListModuleAssemblyProtocol {
         
         let viewModel = RelationsListViewModel(
             document: document,
-            relationsService: RelationsService(objectId: document.objectId),
+            relationsService: RelationsService(),
             output: output
         )
         

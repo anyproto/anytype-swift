@@ -97,7 +97,7 @@ struct RelationOptionSettingsView: View {
                 option: RelationOptionParameters(id: "", text: nil, color: nil),
                 mode: .edit
             ),
-            relationsService: DI.preview.serviceLocator.relationService(objectId: ""),
+            relationsService: DI.preview.serviceLocator.relationService(),
             completion: { _ in }
         )
     )

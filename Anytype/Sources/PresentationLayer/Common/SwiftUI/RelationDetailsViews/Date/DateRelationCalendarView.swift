@@ -86,8 +86,9 @@ struct DateCalendarView_Previews: PreviewProvider {
             viewModel: DateRelationCalendarViewModel(
                 title: "",
                 date: Date(),
+                objectId: "",
                 relationKey: "",
-                relationsService: RelationsService(objectId: ""), 
+                relationsService: RelationsService(), 
                 analyticsType: .block
             )
         )

@@ -18,6 +18,7 @@ final class RelationValueCoordinator:
     private let objectRelationListCoordinatorAssembly: ObjectRelationListCoordinatorAssemblyProtocol
     private let urlOpener: URLOpenerProtocol
     private let toastPresenter: ToastPresenterProtocol
+    private let relationsService: RelationsServiceProtocol
     private weak var output: RelationValueCoordinatorOutput?
     
     init(
@@ -27,7 +28,8 @@ final class RelationValueCoordinator:
         selectRelationListCoordinatorAssembly: SelectRelationListCoordinatorAssemblyProtocol,
         objectRelationListCoordinatorAssembly: ObjectRelationListCoordinatorAssemblyProtocol,
         urlOpener: URLOpenerProtocol,
-        toastPresenter: ToastPresenterProtocol
+        toastPresenter: ToastPresenterProtocol,
+        relationsService: RelationsServiceProtocol
     ) {
         self.navigationContext = navigationContext
         self.relationValueModuleAssembly = relationValueModuleAssembly
@@ -36,6 +38,7 @@ final class RelationValueCoordinator:
         self.objectRelationListCoordinatorAssembly = objectRelationListCoordinatorAssembly
         self.urlOpener = urlOpener
         self.toastPresenter = toastPresenter
+        self.relationsService = relationsService
     }
     
     // MARK: - RelationValueCoordinatorProtocol
@@ -79,9 +82,8 @@ final class RelationValueCoordinator:
         if case .checkbox(let checkbox) = relation {
             let newValue = !checkbox.value
             AnytypeAnalytics.instance().logChangeRelationValue(isEmpty: !newValue, type: analyticsType)
-            let relationsService = RelationsService(objectId: objectDetails.id)
             Task {
-                try await relationsService.updateRelation(relationKey: checkbox.key, value: newValue.protobufValue)
+                try await relationsService.updateRelation(objectId: objectDetails.id, relationKey: checkbox.key, value: newValue.protobufValue)
             }
             return
         }

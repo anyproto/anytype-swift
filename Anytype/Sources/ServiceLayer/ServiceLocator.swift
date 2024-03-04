@@ -108,8 +108,8 @@ final class ServiceLocator {
         GroupsSubscriptionsHandler(groupsSubscribeService: GroupsSubscribeService())
     }
     
-    func relationService(objectId: String) -> RelationsServiceProtocol {
-        return RelationsService(objectId: objectId)
+    func relationService() -> RelationsServiceProtocol {
+        return RelationsService()
     }
     
     // Sigletone
