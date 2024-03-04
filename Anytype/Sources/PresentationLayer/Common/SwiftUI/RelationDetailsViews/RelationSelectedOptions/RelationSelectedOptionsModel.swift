@@ -20,17 +20,20 @@ final class RelationSelectedOptionsModel: RelationSelectedOptionsModelProtocol {
     
     let selectionMode: RelationSelectionOptionsMode
     
+    private let objectId: String
     private let relationKey: String
     private let analyticsType: AnalyticsEventsRelationType
     private let relationsService: RelationsServiceProtocol
     
     init(
+        objectId: String,
         selectionMode: RelationSelectionOptionsMode,
         selectedOptionsIds: [String],
         relationKey: String,
         analyticsType: AnalyticsEventsRelationType,
         relationsService: RelationsServiceProtocol
     ) {
+        self.objectId = objectId
         self.selectionMode = selectionMode
         self.selectedOptionsIds = selectedOptionsIds
         self.relationKey = relationKey
@@ -40,7 +43,7 @@ final class RelationSelectedOptionsModel: RelationSelectedOptionsModelProtocol {
     
     func onClear() async throws {
         selectedOptionsIds = []
-        try await relationsService.updateRelation(relationKey: relationKey, value: nil)
+        try await relationsService.updateRelation(objectId: objectId, relationKey: relationKey, value: nil)
         logChanges()
     }
     
@@ -53,6 +56,7 @@ final class RelationSelectedOptionsModel: RelationSelectedOptionsModelProtocol {
         }
         
         try await relationsService.updateRelation(
+            objectId: objectId,
             relationKey: relationKey,
             value: selectedOptionsIds.protobufValue
         )
@@ -68,6 +72,7 @@ final class RelationSelectedOptionsModel: RelationSelectedOptionsModelProtocol {
         if let index = selectedOptionsIds.firstIndex(of: optionId) {
             selectedOptionsIds.remove(at: index)
             try await relationsService.updateRelation(
+                objectId: objectId,
                 relationKey: relationKey,
                 value: selectedOptionsIds.protobufValue
             )

@@ -34,8 +34,9 @@ final class DateRelationCalendarModuleAssembly: DateRelationCalendarModuleAssemb
             viewModel: DateRelationCalendarViewModel(
                 title: title,
                 date: date,
+                objectId: objectId,
                 relationKey: relationKey,
-                relationsService: self.serviceLocator.relationService(objectId: objectId),
+                relationsService: self.serviceLocator.relationService(),
                 analyticsType: analyticsType
             )
         )

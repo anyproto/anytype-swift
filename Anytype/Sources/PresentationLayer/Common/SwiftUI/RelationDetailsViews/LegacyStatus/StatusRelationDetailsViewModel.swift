@@ -60,7 +60,7 @@ extension StatusRelationDetailsViewModel {
     func didTapClearButton() {
         Task {
             selectedStatus = nil
-            try await service.updateRelation(relationKey: relation.key, value: nil)
+            try await service.updateRelation(objectId: details.id, relationKey: relation.key, value: nil)
             logChanges()
         }
     }
@@ -98,7 +98,7 @@ private extension StatusRelationDetailsViewModel {
         guard let newStatusId = ids.first else { return }
         
         Task {
-            try await service.updateRelation(relationKey: relation.key, value: newStatusId.protobufValue)
+            try await service.updateRelation(objectId: details.id, relationKey: relation.key, value: newStatusId.protobufValue)
             
             let newStatus = try await searchService.searchRelationOptions(optionIds: [newStatusId], spaceId: details.spaceId).first
                 .map { Relation.Status.Option(option: $0) }

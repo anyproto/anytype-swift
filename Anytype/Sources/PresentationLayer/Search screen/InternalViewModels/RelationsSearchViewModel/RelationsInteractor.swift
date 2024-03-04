@@ -9,13 +9,16 @@ protocol RelationsInteractorProtocol {
 
 final class RelationsInteractor: RelationsInteractorProtocol {
     
+    private let objectId: String
     private let relationsService: RelationsServiceProtocol
     private let dataviewService: DataviewServiceProtocol
     
     init(
+        objectId: String,
         relationsService: RelationsServiceProtocol,
         dataviewService: DataviewServiceProtocol
     ) {
+        self.objectId = objectId
         self.relationsService = relationsService
         self.dataviewService = dataviewService
     }
@@ -25,7 +28,7 @@ final class RelationsInteractor: RelationsInteractorProtocol {
     }
     
     func addRelationToObject(relation: RelationDetails) async throws {
-        try await relationsService.addRelations(relationsDetails: [relation])
+        try await relationsService.addRelations(objectId: objectId, relationsDetails: [relation])
     }
     
     func addRelationToDataview(objectId: String, relation: RelationDetails, activeViewId: String) async throws {

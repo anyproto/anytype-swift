@@ -64,6 +64,7 @@ final class CreateObjectViewModel: CreateObjectViewModelProtocol {
                 try await textServiceHandler.setText(contextId: objectId, blockId: blockId, middlewareString: middlewareString)
             case .writeToRelationName:
                 try await relationService.updateRelation(
+                    objectId: objectId,
                     relationKey: BundledRelationKey.name.rawValue,
                     value: text.protobufValue
                 )

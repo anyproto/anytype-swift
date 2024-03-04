@@ -19,7 +19,8 @@ final class CoordinatorsDI: CoordinatorsDIProtocol {
         return RelationValueCoordinatorAssembly(
             coordinatorsDI: self,
             modulesDI: modulesDI,
-            uiHelpersDI: uiHelpersDI
+            uiHelpersDI: uiHelpersDI,
+            serviceLocator: serviceLocator
         )
     }
     

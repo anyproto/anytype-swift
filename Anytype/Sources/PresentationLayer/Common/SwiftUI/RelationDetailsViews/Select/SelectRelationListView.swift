@@ -100,11 +100,12 @@ struct SelectRelationListView: View {
                 analyticsType: .block
             ), 
             relationSelectedOptionsModel: RelationSelectedOptionsModel(
+                objectId: "",
                 selectionMode: .single,
                 selectedOptionsIds: [],
                 relationKey: "",
                 analyticsType: .block,
-                relationsService: DI.preview.serviceLocator.relationService(objectId: "")
+                relationsService: DI.preview.serviceLocator.relationService()
             ),
             searchService: DI.preview.serviceLocator.searchService(),
             output: nil
@@ -125,11 +126,12 @@ struct SelectRelationListView: View {
                 analyticsType: .block
             ),
             relationSelectedOptionsModel: RelationSelectedOptionsModel(
+                objectId: "",
                 selectionMode: .multi,
                 selectedOptionsIds: [],
                 relationKey: "",
                 analyticsType: .block,
-                relationsService: DI.preview.serviceLocator.relationService(objectId: "")
+                relationsService: DI.preview.serviceLocator.relationService()
             ),
             searchService: DI.preview.serviceLocator.searchService(),
             output: nil

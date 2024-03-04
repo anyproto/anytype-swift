@@ -60,6 +60,7 @@ extension RelationOptionsListViewModel {
         selectedOptions.remove(atOffsets: indexSet)
         Task {
             try await service.updateRelation(
+                objectId: details.id,
                 relationKey: relationKey,
                 value: selectedOptions.map { $0.id }.protobufValue
             )
@@ -73,6 +74,7 @@ extension RelationOptionsListViewModel {
         
         Task {
             try await service.updateRelation(
+                objectId: details.id,
                 relationKey: relationKey,
                 value: selectedOptions.map { $0.id }.protobufValue
             )
@@ -105,6 +107,7 @@ private extension RelationOptionsListViewModel {
         Task {
             let newSelectedOptionsIds = selectedOptionIds + ids
             try await service.updateRelation(
+                objectId: details.id,
                 relationKey: relationKey,
                 value: newSelectedOptionsIds.protobufValue
             )
