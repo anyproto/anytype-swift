@@ -1333,6 +1333,7 @@
 		3DD112962B95EA24007682F4 /* MembershipCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DD112952B95EA24007682F4 /* MembershipCoordinator.swift */; };
 		3DD112982B95EA35007682F4 /* MembershipCoordinatorModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DD112972B95EA35007682F4 /* MembershipCoordinatorModel.swift */; };
 		3DD1129A2B95EA3F007682F4 /* MembershipCoordinatorAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DD112992B95EA3F007682F4 /* MembershipCoordinatorAssembly.swift */; };
+		3DD1129E2B95FE62007682F4 /* MembershipTierSelectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DD1129D2B95FE62007682F4 /* MembershipTierSelectionView.swift */; };
 		3DDC6A602627071E004F5EA4 /* BlockLinkState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DDC6A5F2627071E004F5EA4 /* BlockLinkState.swift */; };
 		3DDC6A64262707CB004F5EA4 /* BlockLinkCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DDC6A63262707CB004F5EA4 /* BlockLinkCardView.swift */; };
 		3DDC6A6A26270998004F5EA4 /* BlockLinkContentConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DDC6A6926270998004F5EA4 /* BlockLinkContentConfiguration.swift */; };
@@ -3096,6 +3097,7 @@
 		3DD112952B95EA24007682F4 /* MembershipCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MembershipCoordinator.swift; sourceTree = "<group>"; };
 		3DD112972B95EA35007682F4 /* MembershipCoordinatorModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MembershipCoordinatorModel.swift; sourceTree = "<group>"; };
 		3DD112992B95EA3F007682F4 /* MembershipCoordinatorAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MembershipCoordinatorAssembly.swift; sourceTree = "<group>"; };
+		3DD1129D2B95FE62007682F4 /* MembershipTierSelectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MembershipTierSelectionView.swift; sourceTree = "<group>"; };
 		3DDC6A5F2627071E004F5EA4 /* BlockLinkState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlockLinkState.swift; sourceTree = "<group>"; };
 		3DDC6A63262707CB004F5EA4 /* BlockLinkCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlockLinkCardView.swift; sourceTree = "<group>"; };
 		3DDC6A6926270998004F5EA4 /* BlockLinkContentConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlockLinkContentConfiguration.swift; sourceTree = "<group>"; };
@@ -8380,10 +8382,8 @@
 			isa = PBXGroup;
 			children = (
 				3D611E942B93778E00B33305 /* Models */,
-				3DD0CEB72B90ACBE00657402 /* Views */,
-				3D5D57782B8FDB8900EAE9A5 /* MembershipModuleAssembly.swift */,
-				3DD0CEB32B90A9C300657402 /* MembershipModuleView.swift */,
-				3DD0CEB52B90AA0500657402 /* MembershipModuleViewModel.swift */,
+				3DD1129C2B95FE14007682F4 /* TierSelection */,
+				3DD1129B2B95FE06007682F4 /* InitialScreen */,
 			);
 			path = Membership;
 			sourceTree = "<group>";
@@ -8896,6 +8896,25 @@
 				3DD112992B95EA3F007682F4 /* MembershipCoordinatorAssembly.swift */,
 			);
 			path = MembersipCoordinator;
+			sourceTree = "<group>";
+		};
+		3DD1129B2B95FE06007682F4 /* InitialScreen */ = {
+			isa = PBXGroup;
+			children = (
+				3DD0CEB72B90ACBE00657402 /* Views */,
+				3D5D57782B8FDB8900EAE9A5 /* MembershipModuleAssembly.swift */,
+				3DD0CEB32B90A9C300657402 /* MembershipModuleView.swift */,
+				3DD0CEB52B90AA0500657402 /* MembershipModuleViewModel.swift */,
+			);
+			path = InitialScreen;
+			sourceTree = "<group>";
+		};
+		3DD1129C2B95FE14007682F4 /* TierSelection */ = {
+			isa = PBXGroup;
+			children = (
+				3DD1129D2B95FE62007682F4 /* MembershipTierSelectionView.swift */,
+			);
+			path = TierSelection;
 			sourceTree = "<group>";
 		};
 		3DDC6A5E2627070C004F5EA4 /* Link */ = {
@@ -11964,6 +11983,7 @@
 				C9367AB7273153D2007D687A /* BlocksSelectionOverlayView.swift in Sources */,
 				2A6574682A4456F6002F568C /* ObjectIconExample.swift in Sources */,
 				125683D027DF14F5003A8251 /* TagsSearchInteractor.swift in Sources */,
+				3DD1129E2B95FE62007682F4 /* MembershipTierSelectionView.swift in Sources */,
 				533856B0263B22B8005A06A9 /* MarkupViewController.swift in Sources */,
 				2ECB34372A98FEA800E0F9BB /* SetFiltersListCoordinatorView.swift in Sources */,
 				12B691D327F4CB5D00A0C336 /* ImageCornersGuideline.swift in Sources */,

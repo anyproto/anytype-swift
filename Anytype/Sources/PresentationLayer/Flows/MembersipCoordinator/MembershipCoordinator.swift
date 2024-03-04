@@ -6,6 +6,9 @@ struct MembershipCoordinator: View {
     
     var body: some View {
         model.initialModule()
+            .sheet(item: $model.showTier) {
+                model.tierSelection(tier: $0)
+            }
     }
 }
 

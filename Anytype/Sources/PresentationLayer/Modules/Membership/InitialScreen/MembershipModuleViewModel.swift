@@ -2,9 +2,18 @@ import Foundation
 
 final class MembershipModuleViewModel: ObservableObject {
     private let urlOpener: URLOpenerProtocol
+    private let onTierTap: (MembershipTier) -> ()
     
-    init(urlOpener: URLOpenerProtocol) {
+    init(
+        urlOpener: URLOpenerProtocol,
+        onTierTap: @escaping (MembershipTier) -> ()
+    ) {
         self.urlOpener = urlOpener
+        self.onTierTap = onTierTap
+    }
+    
+    func onTierTap(tier: MembershipTier) {
+        onTierTap(tier)
     }
         
     func onLegalDetailsTap() {
