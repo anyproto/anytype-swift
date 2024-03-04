@@ -885,6 +885,7 @@
 
 "SpaceShare.Title" = "Share space";
 "SpaceShare.MembersSection" = "Members and requests";
+"SpaceShare.Members" = "Members";
 "SpaceShare.Permissions.Owner" = "Owner";
 "SpaceShare.Permissions.Reader" = "Viewer";
 "SpaceShare.Permissions.Writer" = "Editor";

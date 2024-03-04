@@ -74,4 +74,5 @@ protocol ModulesDIProtocol: AnyObject {
     func spaceJoin() -> SpaceJoinModuleAssemblyProtocol
     func spacesManager() -> SpacesManagerModuleAssemblyProtocol
     func membership() -> MembershipModuleAssemblyProtocol
+    func spaceMembers() -> SpaceMembersModuleAssemblyProtocol
 }

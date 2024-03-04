@@ -40,8 +40,8 @@ extension SpaceView: DetailsModel {
 }
 
 extension SpaceView {
-    var canBeShared: Bool {
-        return spaceAccessType == .shared || spaceAccessType == .private
+    func canBeShared(isOwner: Bool) -> Bool {
+        return isOwner && (spaceAccessType == .shared || spaceAccessType == .private)
     }
     
     var isShared: Bool {

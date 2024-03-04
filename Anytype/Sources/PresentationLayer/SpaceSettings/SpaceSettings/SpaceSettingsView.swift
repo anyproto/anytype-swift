@@ -27,6 +27,14 @@ struct SpaceSettingsView: View {
                                 onTap: { model.onShareTap() }
                             )
                         }
+                        
+                        if model.allowSpaceMembers {
+                            SectionHeaderView(title: Loc.SpaceSettings.sharing)
+                            SettingsSectionItemView(
+                                name: Loc.SpaceShare.members,
+                                onTap: { model.onMembersTap() }
+                            )
+                        }
                     } else {
                         SectionHeaderView(title: Loc.type)
                         
