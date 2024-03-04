@@ -1330,6 +1330,9 @@
 		3DD0CEB62B90AA0500657402 /* MembershipModuleViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DD0CEB52B90AA0500657402 /* MembershipModuleViewModel.swift */; };
 		3DD0CEB92B90ACED00657402 /* MembershipLegalButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DD0CEB82B90ACED00657402 /* MembershipLegalButton.swift */; };
 		3DD0CEBB2B90E6BB00657402 /* MembershipBannerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DD0CEBA2B90E6BB00657402 /* MembershipBannerView.swift */; };
+		3DD112962B95EA24007682F4 /* MembershipCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DD112952B95EA24007682F4 /* MembershipCoordinator.swift */; };
+		3DD112982B95EA35007682F4 /* MembershipCoordinatorModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DD112972B95EA35007682F4 /* MembershipCoordinatorModel.swift */; };
+		3DD1129A2B95EA3F007682F4 /* MembershipCoordinatorAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DD112992B95EA3F007682F4 /* MembershipCoordinatorAssembly.swift */; };
 		3DDC6A602627071E004F5EA4 /* BlockLinkState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DDC6A5F2627071E004F5EA4 /* BlockLinkState.swift */; };
 		3DDC6A64262707CB004F5EA4 /* BlockLinkCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DDC6A63262707CB004F5EA4 /* BlockLinkCardView.swift */; };
 		3DDC6A6A26270998004F5EA4 /* BlockLinkContentConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DDC6A6926270998004F5EA4 /* BlockLinkContentConfiguration.swift */; };
@@ -3090,6 +3093,9 @@
 		3DD0CEB52B90AA0500657402 /* MembershipModuleViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MembershipModuleViewModel.swift; sourceTree = "<group>"; };
 		3DD0CEB82B90ACED00657402 /* MembershipLegalButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MembershipLegalButton.swift; sourceTree = "<group>"; };
 		3DD0CEBA2B90E6BB00657402 /* MembershipBannerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MembershipBannerView.swift; sourceTree = "<group>"; };
+		3DD112952B95EA24007682F4 /* MembershipCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MembershipCoordinator.swift; sourceTree = "<group>"; };
+		3DD112972B95EA35007682F4 /* MembershipCoordinatorModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MembershipCoordinatorModel.swift; sourceTree = "<group>"; };
+		3DD112992B95EA3F007682F4 /* MembershipCoordinatorAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MembershipCoordinatorAssembly.swift; sourceTree = "<group>"; };
 		3DDC6A5F2627071E004F5EA4 /* BlockLinkState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlockLinkState.swift; sourceTree = "<group>"; };
 		3DDC6A63262707CB004F5EA4 /* BlockLinkCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlockLinkCardView.swift; sourceTree = "<group>"; };
 		3DDC6A6926270998004F5EA4 /* BlockLinkContentConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlockLinkContentConfiguration.swift; sourceTree = "<group>"; };
@@ -5913,6 +5919,7 @@
 		2A7DCDDB292E4A4E001919B4 /* Flows */ = {
 			isa = PBXGroup;
 			children = (
+				3DD112942B95EA0C007682F4 /* MembersipCoordinator */,
 				3D5D0C5A2B8CA6A3005DB879 /* TypeSearchForNewObjectFlow */,
 				2AC4349C2B7A0739006166BF /* SpaceShareCoordinator */,
 				2A2872382B4D8C0E007B3D59 /* GalleryInstallation */,
@@ -8881,6 +8888,16 @@
 			path = Views;
 			sourceTree = "<group>";
 		};
+		3DD112942B95EA0C007682F4 /* MembersipCoordinator */ = {
+			isa = PBXGroup;
+			children = (
+				3DD112952B95EA24007682F4 /* MembershipCoordinator.swift */,
+				3DD112972B95EA35007682F4 /* MembershipCoordinatorModel.swift */,
+				3DD112992B95EA3F007682F4 /* MembershipCoordinatorAssembly.swift */,
+			);
+			path = MembersipCoordinator;
+			sourceTree = "<group>";
+		};
 		3DDC6A5E2627070C004F5EA4 /* Link */ = {
 			isa = PBXGroup;
 			children = (
@@ -10702,6 +10719,7 @@
 				2E4D78B22A82907E00813A4F /* KeyPhraseMoreInfoView.swift in Sources */,
 				3D1CEC2B27F38CE3000D36BA /* DeletedAccountView.swift in Sources */,
 				3D8624482B738D6400A5FCF4 /* ObjectTypeProvider.swift in Sources */,
+				3DD1129A2B95EA3F007682F4 /* MembershipCoordinatorAssembly.swift in Sources */,
 				2AFFFB8A2926670E00A487E1 /* ObjectLayoutPickerModuleAssembly.swift in Sources */,
 				531629372632BD0B000D6780 /* StylePanelLayout.swift in Sources */,
 				2EAA14042AA63918000A712A /* SetViewSettingsRelation.swift in Sources */,
@@ -11361,6 +11379,7 @@
 				2A28D046297E8CAD00E55E15 /* SetsListWidgetModuleAssembly.swift in Sources */,
 				120E8171269F31A8006FE84E /* ObjectSettingsView.swift in Sources */,
 				2AF4260729AF402200753B17 /* WallpaperPickerViewModel.swift in Sources */,
+				3DD112982B95EA35007682F4 /* MembershipCoordinatorModel.swift in Sources */,
 				2A30734928ACEF58003673DF /* AlertOpener.swift in Sources */,
 				3DE0CFD826F8593D003A606A /* SlashAction.swift in Sources */,
 				2E9B46622A4F2723000541EA /* MiddlewareMerticsConfigurator.swift in Sources */,
@@ -11484,6 +11503,7 @@
 				1244793F27DC633700581174 /* NewSearchViewModel.swift in Sources */,
 				2ED9F4472A8FBC6400BE0A6B /* SetViewSettingsCoordinatorAssembly.swift in Sources */,
 				2ABFED9428C9D784008B5C03 /* RelationDetailsStorageProtocol.swift in Sources */,
+				3DD112962B95EA24007682F4 /* MembershipCoordinator.swift in Sources */,
 				531197E026430A9800FFC71E /* BlockActionHandler.swift in Sources */,
 				2AC906CE29B61B1F00209E39 /* RecentTreeWidgetModuleAssembly.swift in Sources */,
 				129D78952694AE6900DA6757 /* ObjectLayoutPicker.swift in Sources */,
