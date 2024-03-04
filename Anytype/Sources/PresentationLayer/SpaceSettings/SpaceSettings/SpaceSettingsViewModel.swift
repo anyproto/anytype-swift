@@ -37,6 +37,7 @@ final class SpaceSettingsViewModel: ObservableObject {
     @Published var allowDelete: Bool = false
     @Published var allowShare: Bool = false
     @Published var allowLeave: Bool = false
+    @Published var allowSpaceMembers: Bool = false
     
     init(
         activeWorkspaceStorage: ActiveWorkpaceStorageProtocol,
@@ -107,6 +108,10 @@ final class SpaceSettingsViewModel: ObservableObject {
         dismiss.toggle()
     }
     
+    func onMembersTap() {
+        output?.onSpaceMembersSelected()
+    }
+    
     // MARK: - Private
     
     private func setupData() async throws {
@@ -124,13 +129,14 @@ final class SpaceSettingsViewModel: ObservableObject {
     }
     
     private func updateViewState() {
-        guard let spaceView else { return }
+        guard let spaceView, let participant else { return }
         
         spaceIcon = spaceView.objectIconImage
         spaceAccessType = spaceView.spaceAccessType?.name ?? ""
         allowDelete = spaceView.canBeDelete
-        allowLeave = participant?.canLeave ?? false
-        allowShare = spaceView.canBeShared
+        allowLeave = participant.canLeave
+        allowShare = spaceView.canBeShared(isOwner: participant.isOwner)
+        allowSpaceMembers = !participant.isOwner
         buildInfoBlock(details: spaceView)
         
         if !dataLoaded {

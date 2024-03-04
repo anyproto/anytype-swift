@@ -2051,6 +2051,8 @@ internal enum Loc {
     internal static func changePermissions(_ p1: Any, _ p2: Any) -> String {
       return Loc.tr("Localizable", "SpaceShare.ChangePermissions", String(describing: p1), String(describing: p2), fallback: "%@ access to the space would become %@.")
     }
+    /// Members
+    internal static let members = Loc.tr("Localizable", "SpaceShare.Members", fallback: "Members")
     /// Members and requests
     internal static let membersSection = Loc.tr("Localizable", "SpaceShare.MembersSection", fallback: "Members and requests")
     /// Share space
