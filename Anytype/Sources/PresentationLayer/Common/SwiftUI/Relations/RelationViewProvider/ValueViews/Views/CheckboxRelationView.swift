@@ -19,7 +19,7 @@ struct CheckboxRelationView: View {
     private var featuredRelationBlock: some View {
         HStack(spacing: 6) {
             featuredRelationBlockIcon
-            AnytypeText(name, style: style.font, color: style.fontColor)
+            AnytypeText(name, style: style.font, color: isChecked ? style.fontColor : .Text.tertiary)
                 .multilineTextAlignment(.leading)
                 .lineLimit(style.allowMultiLine ? nil : 1)
         }
