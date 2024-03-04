@@ -64,7 +64,7 @@ final class SpaceShareViewModel: ObservableObject {
     
     private func startSubscriptions() {
         Task {
-            await participantSubscriptionService.startSubscription { [weak self] items in
+            await participantSubscriptionService.startSubscription(mode: .owner) { [weak self] items in
                 self?.updateParticipant(items: items)
             }
         }

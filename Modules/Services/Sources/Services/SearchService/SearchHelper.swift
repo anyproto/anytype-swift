@@ -119,6 +119,16 @@ public class SearchHelper {
         return filter
     }
     
+    public static func participantStatusFilter(_ status: ParticipantStatus...) -> DataviewFilter {
+        var filter = DataviewFilter()
+        filter.condition = .in
+        filter.value = status.map(\.rawValue).protobufValue
+        filter.relationKey = BundledRelationKey.participantStatus.rawValue
+        filter.operator = .and
+        
+        return filter
+    }
+    
     public static func excludedLayoutFilter(_ layouts: [DetailsLayout]) -> DataviewFilter {
         var filter = DataviewFilter()
         filter.condition = .notIn

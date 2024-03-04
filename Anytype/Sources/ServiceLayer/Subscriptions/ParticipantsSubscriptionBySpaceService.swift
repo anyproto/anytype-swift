@@ -1,9 +1,14 @@
 import Foundation
 import Services
 
+enum ParticipantsSubscriptionBySpaceServiceMode {
+    case owner
+    case member
+}
+
 @MainActor
 protocol ParticipantsSubscriptionBySpaceServiceProtocol: AnyObject {
-    func startSubscription(update: @escaping ([Participant]) -> Void) async
+    func startSubscription(mode: ParticipantsSubscriptionBySpaceServiceMode, update: @escaping ([Participant]) -> Void) async
     func stopSubscription() async
 }
 
@@ -22,21 +27,26 @@ final class ParticipantsSubscriptionBySpaceService: ParticipantsSubscriptionBySp
         self.activeWorkspaceStorage = activeWorkspaceStorage
     }
     
-    func startSubscription(update: @escaping ([Participant]) -> Void) async {
+    func startSubscription(mode: ParticipantsSubscriptionBySpaceServiceMode, update: @escaping ([Participant]) -> Void) async {
         
         let sort = SearchHelper.sort(
             relation: BundledRelationKey.name,
             type: .asc
         )
         
-        let filters = [
-            SearchHelper.notHiddenFilter(),
-            SearchHelper.isArchivedFilter(isArchived: false),
-            SearchHelper.isDeletedFilter(isDeleted: false),
-            SearchHelper.spaceId(activeWorkspaceStorage.workspaceInfo.accountSpaceId),
-            SearchHelper.layoutFilter([.participant]),
-            SearchHelper.participantStatusFilterExclude(.removed)
-        ]
+        let filters: [DataviewFilter] = .builder {
+            SearchHelper.notHiddenFilter()
+            SearchHelper.isArchivedFilter(isArchived: false)
+            SearchHelper.isDeletedFilter(isDeleted: false)
+            SearchHelper.spaceId(activeWorkspaceStorage.workspaceInfo.accountSpaceId)
+            SearchHelper.layoutFilter([.participant])
+            switch mode {
+            case .member:
+                SearchHelper.participantStatusFilter(.active)
+            case .owner:
+                SearchHelper.participantStatusFilter(.active, .joining, .removing)
+            }
+        }
         
         let searchData: SubscriptionData = .search(
             SubscriptionData.Search(

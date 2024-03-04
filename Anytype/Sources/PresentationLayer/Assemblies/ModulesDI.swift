@@ -311,6 +311,6 @@ final class ModulesDI: ModulesDIProtocol {
     }
     
     func spaceMembers() -> SpaceMembersModuleAssemblyProtocol {
-        SpaceMembersModuleAssembly()
+        SpaceMembersModuleAssembly(serviceLocator: serviceLocator)
     }
 }
