@@ -6,9 +6,7 @@ public protocol GalleryServiceProtocol: AnyObject {
     func importExperience(spaceId: String, isNewSpace: Bool, title: String, url: String) async throws
 }
 
-public final class GalleryService: GalleryServiceProtocol {
-    
-    public init() {}
+final class GalleryService: GalleryServiceProtocol {
     
     // MARK: - GalleryServiceProtocol
     

@@ -1,4 +1,5 @@
 import Services
+import Factory
 
 protocol DeviceSceneStateListenerProtocol {
     func start()
@@ -6,7 +7,8 @@ protocol DeviceSceneStateListenerProtocol {
 
 final class DeviceSceneStateListener: DeviceSceneStateListenerProtocol, SceneStateListener {
     
-    private let lifecycleStateService: SceneLifecycleStateServiceProtocol = SceneLifecycleStateService()
+    @Injected(\.sceneLifecycleStateService)
+    private var lifecycleStateService: SceneLifecycleStateServiceProtocol
     private let sceneStateNotifier = ServiceLocator.shared.sceneStateNotifier()
     
     // MARK: - DeviceSceneStateListenerProtocol

@@ -1,5 +1,6 @@
 import Foundation
-import Factory
+// Automatically export Factory when import Servies
+@_exported import Factory
 
 public extension Container {
     
@@ -33,5 +34,81 @@ public extension Container {
     
     var debugService: Factory<DebugServiceProtocol> {
         self { DebugService() }.shared
+    }
+    
+    var fileService: Factory<FileServiceProtocol> {
+        self { FileService() }.shared
+    }
+    
+    var galleryService: Factory<GalleryServiceProtocol> {
+        self { GalleryService() }.shared
+    }
+    
+    var groupsSubscribeService: Factory<GroupsSubscribeServiceProtocol> {
+        self { GroupsSubscribeService() }.shared
+    }
+    
+    var metricsService: Factory<MetricsServiceProtocol> {
+        self { MetricsService() }.shared
+    }
+    
+    var middlewareConfigurationService: Factory<MiddlewareConfigurationServiceProtocol> {
+        self { MiddlewareConfigurationService() }.shared
+    }
+    
+    var notificationsService: Factory<NotificationsServiceProtocol> {
+        self { NotificationsService() }.shared
+    }
+    
+    var notificationsSubscriptionService: Factory<NotificationsSubscriptionServiceProtocol> {
+        self { NotificationsSubscriptionService() }.shared
+    }
+    
+    var objectActionsService: Factory<ObjectActionsServiceProtocol> {
+        self { ObjectActionsService() }.shared
+    }
+    
+    var objectLifecycleService: Factory<ObjectLifecycleServiceProtocol> {
+        self { ObjectLifecycleService() }.shared
+    }
+    
+    var objectSubscriptionService: Factory<ObjectSubscriptionServiceProtocol> {
+        self { ObjectSubscriptionService() }.shared
+    }
+    
+    var participantService: Factory<ParticipantServiceProtocol> {
+        self { ParticipantService() }.shared
+    }
+    
+    var pasteboardMiddleService: Factory<PasteboardMiddlewareServiceProtocol> {
+        self { PasteboardMiddleService() }.shared
+    }
+    
+    var processSubscriptionService: Factory<ProcessSubscriptionServiceProtocol> {
+        self { ProcessSubscriptionService() }.shared
+    }
+    
+    var sceneLifecycleStateService: Factory<SceneLifecycleStateServiceProtocol> {
+        self { SceneLifecycleStateService() }.shared
+    }
+    
+    var searchMiddleService: Factory<SearchMiddleServiceProtocol> {
+        self { SearchMiddleService() }.shared
+    }
+    
+    var templatesService: Factory<TemplatesServiceProtocol> {
+        self { TemplatesService() }.shared
+    }
+    
+    var textService: Factory<TextServiceProtocol> {
+        self { TextService() }.shared
+    }
+    
+    var unsplashService: Factory<UnsplashServiceProtocol> {
+        self { UnsplashService() }.shared
+    }
+    
+    var workspaceService: Factory<WorkspaceServiceProtocol> {
+        self { WorkspaceService() }.shared
     }
 }

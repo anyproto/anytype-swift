@@ -5,16 +5,13 @@ import AnytypeCore
 import SecureService
 import SharedContentManager
 import DeepLinks
-import Factory
 
 // TODO: Migrate to ServicesDI
 final class ServiceLocator {
     static let shared = ServiceLocator()
 
-    let templatesService = TemplatesService()
     let sharedContentManager: SharedContentManagerProtocol = SharingDI.shared.sharedContentManager()
 
-    lazy private(set) var unsplashService: UnsplashServiceProtocol = UnsplashService()
     lazy private(set) var documentsProvider: DocumentsProviderProtocol = DocumentsProvider(
         relationDetailsStorage: relationDetailsStorage(),
         objectTypeProvider: objectTypeProvider(),
@@ -22,6 +19,15 @@ final class ServiceLocator {
     )
     
     // MARK: - Services
+    
+    var templatesService: TemplatesServiceProtocol {
+        Container.shared.templatesService.resolve()
+    }
+    
+    var unsplashService: UnsplashServiceProtocol {
+        Container.shared.unsplashService.resolve()
+    }
+    
     
     /// creates new localRepoService
     func localRepoService() -> LocalRepoServiceProtocol {
@@ -49,7 +55,7 @@ final class ServiceLocator {
     }
     
     func metricsService() -> MetricsServiceProtocol {
-        MetricsService()
+        Container.shared.metricsService.resolve()
     }
     
     private lazy var _loginStateService = LoginStateService(
@@ -65,15 +71,15 @@ final class ServiceLocator {
     }
     
     func objectLifecycleService() -> ObjectLifecycleServiceProtocol {
-        ObjectLifecycleService()
+        Container.shared.objectLifecycleService.resolve()
     }
     
     func objectActionsService() -> ObjectActionsServiceProtocol {
-        ObjectActionsService()
+        Container.shared.objectActionsService.resolve()
     }
     
     func fileService() -> FileActionsServiceProtocol {
-        FileActionsService(fileService: FileService())
+        FileActionsService(fileService: Container.shared.fileService.resolve())
     }
     
     func searchService() -> SearchServiceProtocol {
@@ -81,7 +87,7 @@ final class ServiceLocator {
     }
     
     func searchMiddleService() -> SearchMiddleServiceProtocol {
-        SearchMiddleService()
+        Container.shared.searchMiddleService.resolve()
     }
     
     func detailsService(objectId: String) -> DetailsServiceProtocol {
@@ -106,7 +112,7 @@ final class ServiceLocator {
     }
     
     func groupsSubscriptionsHandler() -> GroupsSubscriptionsHandlerProtocol {
-        GroupsSubscriptionsHandler(groupsSubscribeService: GroupsSubscribeService())
+        GroupsSubscriptionsHandler(groupsSubscribeService: Container.shared.groupsSubscribeService.resolve())
     }
     
     func relationService() -> RelationsServiceProtocol {
@@ -134,7 +140,7 @@ final class ServiceLocator {
     }
     
     func workspaceService() -> WorkspaceServiceProtocol {
-        return WorkspaceService()
+        return Container.shared.workspaceService.resolve()
     }
     
     func typesService() -> TypesServiceProtocol {
@@ -357,15 +363,15 @@ final class ServiceLocator {
     }
     
     func middlewareConfigurationService() -> MiddlewareConfigurationServiceProtocol {
-        MiddlewareConfigurationService()
+        Container.shared.middlewareConfigurationService.resolve()
     }
     
     func textServiceHandler() -> TextServiceProtocol {
-        TextServiceHandler(textService: TextService())
+        TextServiceHandler(textService: Container.shared.textService.resolve())
     }
     
     func pasteboardMiddlewareService() -> PasteboardMiddlewareServiceProtocol {
-        PasteboardMiddleService()
+        Container.shared.pasteboardMiddleService.resolve()
     }
     
     func pasteboardHelper() -> PasteboardHelperProtocol {
@@ -387,11 +393,11 @@ final class ServiceLocator {
     }
     
     func galleryService() -> GalleryServiceProtocol {
-        GalleryService()
+        Container.shared.galleryService.resolve()
     }
     
     func notificationSubscriptionService() -> NotificationsSubscriptionServiceProtocol {
-        NotificationsSubscriptionService()
+        Container.shared.notificationsSubscriptionService.resolve()
     }
     
     func deepLinkParser() -> DeepLinkParserProtocol {
@@ -399,7 +405,7 @@ final class ServiceLocator {
     }
     
     func processSubscriptionService() -> ProcessSubscriptionServiceProtocol {
-        ProcessSubscriptionService()
+        Container.shared.processSubscriptionService.resolve()
     }
     
     func debugService() -> DebugServiceProtocol {
@@ -407,7 +413,7 @@ final class ServiceLocator {
     }
     
     func participantService() -> ParticipantServiceProtocol {
-        ParticipantService(searchMiddleService: searchMiddleService())
+        Container.shared.participantService.resolve()
     }
     
     func blockTableService() -> BlockTableServiceProtocol {
@@ -421,6 +427,6 @@ final class ServiceLocator {
     }
     
     private func objectSubscriptionService() -> ObjectSubscriptionServiceProtocol {
-        ObjectSubscriptionService()
+        Container.shared.objectSubscriptionService.resolve()
     }
 }

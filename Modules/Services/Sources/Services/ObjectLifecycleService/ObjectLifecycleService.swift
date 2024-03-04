@@ -3,9 +3,13 @@ import ProtobufMessages
 import AnytypeCore
 import Foundation
 
-public final class ObjectLifecycleService: ObjectLifecycleServiceProtocol {
-    
-    public init() {}
+public protocol ObjectLifecycleServiceProtocol: AnyObject {
+    func close(contextId: String) async throws
+    func open(contextId: String) async throws -> ObjectViewModel
+    func openForPreview(contextId: String) async throws -> ObjectViewModel
+}
+
+final class ObjectLifecycleService: ObjectLifecycleServiceProtocol {
     
     public func open(contextId: String) async throws -> ObjectViewModel {
         do {

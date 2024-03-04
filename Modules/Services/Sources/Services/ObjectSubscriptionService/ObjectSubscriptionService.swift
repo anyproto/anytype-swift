@@ -6,9 +6,7 @@ public protocol ObjectSubscriptionServiceProtocol {
     func stopSubscriptions(ids: [String]) async throws
 }
 
-public final class ObjectSubscriptionService: ObjectSubscriptionServiceProtocol {
-    
-    public init() {}
+final class ObjectSubscriptionService: ObjectSubscriptionServiceProtocol {
     
     public func objectSubscribe(data: SubscriptionData.Object) async throws -> ObjectSubscriptionResponse {
         let result = try await ClientCommands.objectSubscribeIds(.with {
