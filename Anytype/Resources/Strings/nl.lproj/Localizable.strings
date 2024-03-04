@@ -217,7 +217,7 @@
 "Auth.CameraPermissionTitle" = "Geef toegang";
 "Restore secret phrase from keychain" = "Herstel de herstelzin vanuit de keychain";
 "Auth.LogIn" = "Inloggen";
-"Join" = "Join";
+"Join" = "Neem deel";
 "Auth.Welcome.Subtitle" = "Anytype is jouw veilige ruimte om te schrijven, te plannen, na te denken en te organiseren van de dingen die jij belangrijk vindt.";
 "Auth.Caption.Privacy.Text" = "Door verder te gaan ga je akkoord met onze [Algemene voorwaarden](%@) en [Privacybeleid](%@)";
 "Auth.Next" = "Volgende";
@@ -847,7 +847,7 @@
 "ClearCacheAlert.Description" = "Alle mediabestanden die in Anytype zijn opgeslagen, zullen van het huidige apparaat worden verwijderd. Ze kunnen opnieuw van een back-up node of een ander apparaat worden gedownload.";
 
 // MARK: - Spaces
-"Spaces.Accessibility.Shared" = "Shared Space";
+"Spaces.Accessibility.Shared" = "Gedeelde ruimte";
 "Spaces.Accessibility.Private" = "Persoonlijke ruimte";
 "Spaces.Accessibility.Personal" = "Persoonlijke ruimte";
 "Spaces.Search.Title" = "Zoek ruimten";
@@ -866,7 +866,7 @@
 "Space.Status.SpaceDeleted" = "Verwijderd";
 "Space.Status.SpaceActive" = "Actief";
 "Space.Status.SpaceJoining" = "Aan het aansluiten";
-"Space.Status.SpaceRemoving" = "Removing";
+"Space.Status.SpaceRemoving" = "Aan het verwijderen";
 
 // MARK: - Space Settings
 "SpaceSettings.Title" = "Ruimte instellingen";
@@ -878,38 +878,39 @@
 "SpaceSettings.DeleteButton" = "Verwijder ruimte";
 "SpaceSettings.Sharing" = "Aan het delen";
 "SpaceSettings.Share" = "Deel";
-"SpaceSettings.LeaveButton" = "Leave and unjoin";
-"SpaceSettings.LeaveAlert.Title" = "Leave and unjoin the space";
-"SpaceSettings.LeaveAlert.Message" = "%@ space will be removed from your devices and you will no longer have access to it";
+"SpaceSettings.LeaveButton" = "Verlaat en schrijf uit";
+"SpaceSettings.LeaveAlert.Title" = "Verlaat en schrijf uit van de ruimte";
+"SpaceSettings.LeaveAlert.Message" = "%@ ruimte zal worden verwijderd van jouw apparaten en je hebt er dan geen toegang meer toe";
 
 // MARK: - Space Share
 
 "SpaceShare.Title" = "Deel ruimte";
 "SpaceShare.MembersSection" = "Leden en verzoeken";
+"SpaceShare.Members" = "Leden";
 "SpaceShare.Permissions.Owner" = "Eigenaar";
-"SpaceShare.Permissions.Reader" = "Viewer";
-"SpaceShare.Permissions.Writer" = "Editor";
+"SpaceShare.Permissions.Reader" = "Lezer";
+"SpaceShare.Permissions.Writer" = "Bewerker";
 "SpaceShare.Invite.Title" = "Uitnodigingslink";
 "SpaceShare.Invite.Description" = "Stuur deze link om anderen uit te nodigen. Wijs toegangsrechten toe na hun goedkeuring.";
 "SpaceShare.Invite.Button" = "Deel uitnodigingslink";
 "SpaceShare.Status.Joining" = "Aangevraagd";
-"SpaceShare.Status.Removing" = "Unjoining requested";
+"SpaceShare.Status.Removing" = "Uitschrijven aangevraagd";
 "SpaceShare.Action.ViewRequest" = "Bekijk verzoek";
-"SpaceShare.Action.Approve" = "Approve";
+"SpaceShare.Action.Approve" = "Goedkeuren";
 "SpaceShare.ViewRequest.Title" = "%@ heeft verzocht om zich aan te sluiten bij de ruimte %@";
 "SpaceShare.ViewRequest.ViewAccess" = "Geef leesrechten";
 "SpaceShare.ViewRequest.EditAccess" = "Geef bewerkingsrechten";
 "SpaceShare.ViewRequest.Reject" = "Weiger";
-"SpaceShare.RemoveMember.Title" = "Remove memeber";
-"SpaceShare.RemoveMember.Message" = "%@ will be removed from the space.";
-"SpaceShare.ChangePermissions" = "%@ access to the space would become %@.";
+"SpaceShare.RemoveMember.Title" = "Verwijder lid";
+"SpaceShare.RemoveMember.Message" = "%@ zal worden verwijderd uit de ruimte.";
+"SpaceShare.ChangePermissions" = "%@ toegang tot de ruimte zou %@ worden.";
 "SpaceShare.Join.Title" = "Sluit je aan bij een ruimte";
 "SpaceShare.Join.CommentPlaceholder" = "Laat een persoonlijk bericht achter voor een eigenaar van de ruimte";
 "SpaceShare.Join.Button" = "Verzoek om aan te sluiten";
 "SpaceShare.Join.Info" = "Zodra de eigenaar van de ruimte jouw verzoek heeft goedgekeurd, zul je toetreden tot de ruimte met de toegangsrechten die door de eigenaar zijn bepaald.";
 "SpaceShare.Join.Message" = "Je bent uitgenodigd om je aan te sluiten bij  %@ ruimte, aangemaakt door %@ Stuur een verzoek zodat de eigenaar van de ruimte je kan toelaten. ";
-"SpaceShare.JoinConfirmation.Title" = "Request sent";
-"SpaceShare.JoinConfirmation.Message" = "You will receive a notification when the space owner will approve your request.";
+"SpaceShare.JoinConfirmation.Title" = "Verzoek verzonden";
+"SpaceShare.JoinConfirmation.Message" = "Je zult een melding ontvangen wanneer de eigenaar van de ruimte je verzoek zal goedkeuren.";
 
 // MARK: - Space Create
 "SpaceCreate.Title" = "Maak een ruimte aan";
@@ -986,24 +987,43 @@
 "Gallery.Notification.Error" = "Oeps! \"%@\" werd niet geïnstalleerd. Controleer jouw internetverbinding en probeer het opnieuw of rapporteer het op het forum.";
 
 // MARK: - Membership
-"Membership" = "Membership";
-"Membership.Ad.Title" = "Let’s build together";
-"Membership.Ad.Subtitle" = "Joining Anytype network means contributing to its story";
+"Membership" = "Lidmaatschap";
+"Just e-mail" = "Just e-mail";
+"Learn more" = "Learn more";
+"per year" = "per year";
+"per x years" = "per %@ years";
 
-"Membership.Legal.Details" = "Membership levels details";
-"Membership.Legal.Privacy" = "Privacy policy";
-"Membership.Legal.Terms" = "Terms and conditions";
-"Membership.Legal.WouldYouLike" = "Would you like to use Anytype for business, education, etc.?";
-"Membership.Legal.LetUsKnow" = "Please let us know here.";
+"Membership.Ad.Title" = "Laten we samen bouwen";
+"Membership.Ad.Subtitle" = "Deelnemen aan het Anytype netwerk betekent bijdragen aan het verhaal";
 
-"Membership.Banner.Title1" = "Co-create with us";
-"Membership.Banner.Subtitle1" = "Stay closely connected with our team and community. Join calls with the team, influence Anytype's evolution, and have your say on features.";
-"Membership.Banner.Title2" = "Gain Benefits";
-"Membership.Banner.Subtitle2" = "Our members have unique identity on Anytype Network, more storage, shared spaces and members per space for extensive collaboration";
-"Membership.Banner.Title3" = "Support the Vision";
-"Membership.Banner.Subtitle3" = "Your contribution supports our independent team and endorses our vision︎ of a user-driven, secure, and collaborative digital environment.";
-"Membership.Banner.Title4" = "Invest in Connectivity";
-"Membership.Banner.Subtitle4" = "Our software is free by design, but we thrive on the network that connects us all. Support us, and you're investing in the very infrastructure that keeps us united";
+"Membership.Legal.Details" = "Lidmaatschap niveaus details";
+"Membership.Legal.Privacy" = "Privacybeleid";
+"Membership.Legal.Terms" = "Algemene voorwaarden";
+"Membership.Legal.WouldYouLike" = "Wil je Anytype gebruiken voor werk, opleiding, etc.?";
+"Membership.Legal.LetUsKnow" = "Laat het ons hier weten.";
+
+"Membership.Email.Subject" = "Special Pricing Request";
+"Membership.Email.Body" = "Please specify your request:
+- highlight if you represent an educational, governmental, or non-profit organization
+- tell us more about your organization: number of employees and future Anytype users, markets you're working on, etc.,
+- provide additional details about how your organization uses Anytype";
+
+"Membership.Banner.Title1" = "Maak samen met ons";
+"Membership.Banner.Subtitle1" = "Blijf nauw verbonden met ons team en onze gemeenschap. Neem deel aan gesprekken met het team, beïnvloed de ontwikkeling van Anytype en geef je mening over functies.";
+"Membership.Banner.Title2" = "Verdien voordelen";
+"Membership.Banner.Subtitle2" = "Onze leden hebben een unieke identiteit op het Anytype netwerk, meer opslag, gedeelde ruimtes en leden per ruimte voor uitgebreide samenwerking";
+"Membership.Banner.Title3" = "Ondersteun de visie";
+"Membership.Banner.Subtitle3" = "Jouw bijdrage steunt ons onafhankelijke team en ondersteunt onze visie op een gebruiker-gestuurde, veilige en gezamenlijke digitale omgeving.";
+"Membership.Banner.Title4" = "Investeer in verbinding";
+"Membership.Banner.Subtitle4" = "Onze software is gratis, maar we bloeien op het netwerk dat ons allemaal verbindt. Steun ons, en je investeert in de infrastructuur die ons verenigt";
+
+"Membership.Explorer.Title" = "Explorer";
+"Membership.Explorer.Info" = "Dive into the network and enjoy the thrill of one-on-one collaboration";
+"Membership.Builder.Title" = "Builder";
+"Membership.Builder.Info" = "Unlock the magic of multi-party collaboration and enjoy top-notch support";
+"Membership.CoCreator.Title" = "Co-Creator";
+"Membership.CoCreator.Info" = "Support our adventure and unlock exclusive access and perks";
+
 
 
 // MARK: - Debug
