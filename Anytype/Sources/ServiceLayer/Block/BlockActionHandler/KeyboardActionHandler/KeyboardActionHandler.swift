@@ -96,7 +96,7 @@ final class KeyboardActionHandler: KeyboardActionHandlerProtocol {
             }
             onEnterAtTheEndOfContent(info: info, text: text, range: range, action: action, newString: string)
             editorCollectionController.scrollToTextViewIfNotVisible(textView: textView)
-        case let .enterAtTheBegining(_, range):
+        case .enterAtTheBegining:
             service.add(
                 info: .empty(content: .text(.empty(contentType: text.contentType))),
                 targetBlockId: info.id,
