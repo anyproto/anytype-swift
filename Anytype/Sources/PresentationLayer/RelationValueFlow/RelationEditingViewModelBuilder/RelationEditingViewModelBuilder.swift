@@ -140,6 +140,7 @@ extension RelationEditingViewModelBuilder: RelationEditingViewModelBuilderProtoc
                 analyticsType: analyticsType
             )
         case .tag(let tag):
+            let style = RelationStyle.regular(allowMultiLine: false)
             return RelationOptionsListViewModel(
                 details: objectDetails,
                 selectedOptions: tag.selectedTags.map { tag in
@@ -148,8 +149,15 @@ extension RelationEditingViewModelBuilder: RelationEditingViewModelBuilderProtoc
                         contentHash: tag.hashValue
                     ) {
                         TagRelationRowView(
-                            viewModel: TagView.Model(text: tag.text, textColor: tag.textColor, backgroundColor: tag.backgroundColor)
-                        ).eraseToAnyView()
+                            config: TagView.Config(
+                                text: tag.text,
+                                textColor: tag.textColor,
+                                backgroundColor: tag.backgroundColor,
+                                textFont: style.font,
+                                guidlines: style.tagViewGuidlines
+                            )
+                        )
+                        .eraseToAnyView()
                     }
                 },
                 emptyOptionsPlaceholder: Constants.tagsOrFilesOptionsPlaceholder,
