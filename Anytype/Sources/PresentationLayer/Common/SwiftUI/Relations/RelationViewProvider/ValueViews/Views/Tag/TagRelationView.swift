@@ -75,9 +75,8 @@ private extension TagRelationView {
     
     private var maxTags: Int {
         switch style {
+        case .filter, .setCollection, .kanbanHeader, .regular, .featuredRelationBlock: return 1
         case .set: return 0
-        case .featuredRelationBlock: return 3
-        case .filter, .setCollection, .kanbanHeader, .regular: return 1
         }
     }
     
