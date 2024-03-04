@@ -1,6 +1,6 @@
 import SwiftUI
 
-enum BannerFadingGradient: String {
+enum BannerGradient: String {
     case green
     case yellow
     case pink
@@ -20,7 +20,7 @@ enum BannerFadingGradient: String {
     }
 }
 
-extension BannerFadingGradient: View {
+extension BannerGradient: View {
     var body: some View {
         LinearGradient(
             stops: [
@@ -34,5 +34,5 @@ extension BannerFadingGradient: View {
 }
 
 #Preview {
-    BannerFadingGradient.green
+    BannerGradient.green
 }

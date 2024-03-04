@@ -4,26 +4,31 @@ struct MembershipModuleView: View {
     @StateObject var model: MembershipModuleViewModel
     
     var body: some View {
-        ScrollView {
-            VStack {
-                DragIndicator()
-                Spacer.fixedHeight(40)
-                
-                AnytypeText(Loc.Membership.Ad.title, name: .inter, size: 48, weight: .light)
-                    .foregroundStyle(Color.Text.primary)
-                    .padding(.horizontal, 20)
-                    .multilineTextAlignment(.center)
-                AnytypeText(Loc.Membership.Ad.subtitle, style: .relation2Regular, color: .Text.primary)
-                    .padding(.horizontal, 60)
-                    .multilineTextAlignment(.center)
-                Spacer.fixedHeight(32)
-                
-                baners
-                MembershipTierListView { model.onTierTap(tier: $0) }
-                .padding(.vertical, 32)
-                
-                
-                legal
+        VStack(spacing: 0) {
+            DragIndicator()
+            ScrollView {
+                VStack {
+                    Spacer.fixedHeight(40)
+                    
+                    AnytypeText(Loc.Membership.Ad.title, name: .inter, size: 48, weight: .light)
+                        .foregroundStyle(Color.Text.primary)
+                        .padding(.horizontal, 20)
+                        .multilineTextAlignment(.center)
+                    AnytypeText(Loc.Membership.Ad.subtitle, style: .relation2Regular, color: .Text.primary)
+                        .padding(.horizontal, 60)
+                        .multilineTextAlignment(.center)
+                    Spacer.fixedHeight(32)
+                    
+                    baners
+                    MembershipTierListView {
+                        UISelectionFeedbackGenerator().selectionChanged()
+                        model.onTierTap(tier: $0)
+                    }
+                    .padding(.vertical, 32)
+                    
+                    
+                    legal
+                }
             }
         }
     }

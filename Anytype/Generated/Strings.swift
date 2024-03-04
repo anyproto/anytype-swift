@@ -563,6 +563,8 @@ internal enum Loc {
   internal static let wallpaper = Loc.tr("Localizable", "Wallpaper", fallback: "Wallpaper")
   /// Web pages
   internal static let webPages = Loc.tr("Localizable", "Web pages", fallback: "Web pages")
+  /// What’s included
+  internal static let whatSIncluded = Loc.tr("Localizable", "What’s included", fallback: "What’s included")
   /// Yellow
   internal static let yellow = Loc.tr("Localizable", "Yellow", fallback: "Yellow")
   /// Yellow background
@@ -1418,14 +1420,32 @@ internal enum Loc {
       internal static let title4 = Loc.tr("Localizable", "Membership.Banner.Title4", fallback: "Invest in Connectivity")
     }
     internal enum Builder {
+      /// Unique name (from 7 characters)
+      internal static let benefit1 = Loc.tr("Localizable", "Membership.Builder.Benefit1", fallback: "Unique name (from 7 characters)")
+      /// 128 GB of network space
+      internal static let benefit2 = Loc.tr("Localizable", "Membership.Builder.Benefit2", fallback: "128 GB of network space")
+      /// 10 Guest collaborator seats
+      internal static let benefit3 = Loc.tr("Localizable", "Membership.Builder.Benefit3", fallback: "10 Guest collaborator seats")
+      /// Priority support
+      internal static let benefit4 = Loc.tr("Localizable", "Membership.Builder.Benefit4", fallback: "Priority support")
       /// Unlock the magic of multi-party collaboration and enjoy top-notch support
-      internal static let info = Loc.tr("Localizable", "Membership.Builder.Info", fallback: "Unlock the magic of multi-party collaboration and enjoy top-notch support")
+      internal static let subtitle = Loc.tr("Localizable", "Membership.Builder.Subtitle", fallback: "Unlock the magic of multi-party collaboration and enjoy top-notch support")
       /// Builder
       internal static let title = Loc.tr("Localizable", "Membership.Builder.Title", fallback: "Builder")
     }
     internal enum CoCreator {
+      /// Unique name (from 5 characters)
+      internal static let benefit1 = Loc.tr("Localizable", "Membership.CoCreator.Benefit1", fallback: "Unique name (from 5 characters)")
+      /// 256 GB of network space
+      internal static let benefit2 = Loc.tr("Localizable", "Membership.CoCreator.Benefit2", fallback: "256 GB of network space")
+      /// 25 Guest collaborator seats
+      internal static let benefit3 = Loc.tr("Localizable", "Membership.CoCreator.Benefit3", fallback: "25 Guest collaborator seats")
+      /// Chat with the team
+      internal static let benefit4 = Loc.tr("Localizable", "Membership.CoCreator.Benefit4", fallback: "Chat with the team")
+      /// Unique collectible
+      internal static let benefit5 = Loc.tr("Localizable", "Membership.CoCreator.Benefit5", fallback: "Unique collectible")
       /// Support our adventure and unlock exclusive access and perks
-      internal static let info = Loc.tr("Localizable", "Membership.CoCreator.Info", fallback: "Support our adventure and unlock exclusive access and perks")
+      internal static let subtitle = Loc.tr("Localizable", "Membership.CoCreator.Subtitle", fallback: "Support our adventure and unlock exclusive access and perks")
       /// Co-Creator
       internal static let title = Loc.tr("Localizable", "Membership.CoCreator.Title", fallback: "Co-Creator")
     }
@@ -1439,8 +1459,14 @@ internal enum Loc {
       internal static let subject = Loc.tr("Localizable", "Membership.Email.Subject", fallback: "Special Pricing Request")
     }
     internal enum Explorer {
+      /// 1 GB of network space
+      internal static let benefit1 = Loc.tr("Localizable", "Membership.Explorer.Benefit1", fallback: "1 GB of network space")
+      /// 10 one-to-one spaces
+      internal static let benefit2 = Loc.tr("Localizable", "Membership.Explorer.Benefit2", fallback: "10 one-to-one spaces")
+      /// Up to 10 shared spaces in read-only mode
+      internal static let benefit3 = Loc.tr("Localizable", "Membership.Explorer.Benefit3", fallback: "Up to 10 shared spaces in read-only mode")
       /// Dive into the network and enjoy the thrill of one-on-one collaboration
-      internal static let info = Loc.tr("Localizable", "Membership.Explorer.Info", fallback: "Dive into the network and enjoy the thrill of one-on-one collaboration")
+      internal static let subtitle = Loc.tr("Localizable", "Membership.Explorer.Subtitle", fallback: "Dive into the network and enjoy the thrill of one-on-one collaboration")
       /// Explorer
       internal static let title = Loc.tr("Localizable", "Membership.Explorer.Title", fallback: "Explorer")
     }

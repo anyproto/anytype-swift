@@ -4,7 +4,7 @@ struct MembershipBannerView: View {
     let title: String
     let subtitle: String
     let image: ImageAsset
-    let gradient: BannerFadingGradient
+    let gradient: BannerGradient
     
     @Environment(\.colorScheme) private var colorScheme
     

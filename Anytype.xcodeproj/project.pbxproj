@@ -1131,7 +1131,7 @@
 		2EFFEB9629A52537002F5859 /* SetDragAndDropView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EFFEB9529A52537002F5859 /* SetDragAndDropView.swift */; };
 		3D00F1CF278D7CB700863D7C /* ObjectSearchData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D00F1CE278D7CB700863D7C /* ObjectSearchData.swift */; };
 		3D00F1D5278D84C400863D7C /* LinkToObjectSearchData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D00F1D4278D84C400863D7C /* LinkToObjectSearchData.swift */; };
-		3D05C8092B91E47E008E7252 /* BannerFadingGradient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D05C8082B91E47E008E7252 /* BannerFadingGradient.swift */; };
+		3D05C8092B91E47E008E7252 /* BannerGradient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D05C8082B91E47E008E7252 /* BannerGradient.swift */; };
 		3D07ECE9261B735300C007E2 /* UINavigationController+UIGestureRecognizerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D07ECE8261B735300C007E2 /* UINavigationController+UIGestureRecognizerDelegate.swift */; };
 		3D07ED6C261F49ED00C007E2 /* DividerBlockViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D07ED6B261F49ED00C007E2 /* DividerBlockViewModel.swift */; };
 		3D07ED72261F4B5A00C007E2 /* DividerBlockView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D07ED71261F4B5A00C007E2 /* DividerBlockView.swift */; };
@@ -2896,7 +2896,7 @@
 		2EFFEB9529A52537002F5859 /* SetDragAndDropView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SetDragAndDropView.swift; sourceTree = "<group>"; };
 		3D00F1CE278D7CB700863D7C /* ObjectSearchData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObjectSearchData.swift; sourceTree = "<group>"; };
 		3D00F1D4278D84C400863D7C /* LinkToObjectSearchData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LinkToObjectSearchData.swift; sourceTree = "<group>"; };
-		3D05C8082B91E47E008E7252 /* BannerFadingGradient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BannerFadingGradient.swift; sourceTree = "<group>"; };
+		3D05C8082B91E47E008E7252 /* BannerGradient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BannerGradient.swift; sourceTree = "<group>"; };
 		3D07ECE8261B735300C007E2 /* UINavigationController+UIGestureRecognizerDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UINavigationController+UIGestureRecognizerDelegate.swift"; sourceTree = "<group>"; };
 		3D07ED6B261F49ED00C007E2 /* DividerBlockViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DividerBlockViewModel.swift; sourceTree = "<group>"; };
 		3D07ED71261F4B5A00C007E2 /* DividerBlockView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DividerBlockView.swift; sourceTree = "<group>"; };
@@ -8393,7 +8393,7 @@
 			children = (
 				3D611E8F2B93727700B33305 /* MembershipTeirGradient.swift */,
 				12A7B6BD26C3E47200544037 /* CoverGradient.swift */,
-				3D05C8082B91E47E008E7252 /* BannerFadingGradient.swift */,
+				3D05C8082B91E47E008E7252 /* BannerGradient.swift */,
 			);
 			path = Gradients;
 			sourceTree = "<group>";
@@ -11142,7 +11142,7 @@
 				2A28D04D297FCC1D00E55E15 /* WidgetContainerViewModel.swift in Sources */,
 				2E28BCEE2AAB55AD001E6306 /* SetViewPickerModuleAssembly.swift in Sources */,
 				2E999483293E490300FFBED9 /* Relation+Set.swift in Sources */,
-				3D05C8092B91E47E008E7252 /* BannerFadingGradient.swift in Sources */,
+				3D05C8092B91E47E008E7252 /* BannerGradient.swift in Sources */,
 				2A673C1129B0BC3E00E3D672 /* SettingsModuleOutput.swift in Sources */,
 				2A28723A2B4D8C30007B3D59 /* GalleryInstallationCoordinatorViewModel.swift in Sources */,
 				86C4B36B2B21CD63003B8C51 /* SharingTip.swift in Sources */,
