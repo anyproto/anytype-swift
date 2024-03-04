@@ -1407,6 +1407,15 @@ internal enum Loc {
       /// Invest in Connectivity
       internal static let title4 = Loc.tr("Localizable", "Membership.Banner.Title4", fallback: "Invest in Connectivity")
     }
+    internal enum Email {
+      /// Please specify your request:
+      /// - highlight if you represent an educational, governmental, or non-profit organization
+      /// - tell us more about your organization: number of employees and future Anytype users, markets you're working on, etc.,
+      /// - provide additional details about how your organization uses Anytype
+      internal static let body = Loc.tr("Localizable", "Membership.Email.Body", fallback: "Please specify your request:\n- highlight if you represent an educational, governmental, or non-profit organization\n- tell us more about your organization: number of employees and future Anytype users, markets you're working on, etc.,\n- provide additional details about how your organization uses Anytype")
+      /// Special Pricing Request
+      internal static let subject = Loc.tr("Localizable", "Membership.Email.Subject", fallback: "Special Pricing Request")
+    }
     internal enum Legal {
       /// Membership levels details
       internal static let details = Loc.tr("Localizable", "Membership.Legal.Details", fallback: "Membership levels details")

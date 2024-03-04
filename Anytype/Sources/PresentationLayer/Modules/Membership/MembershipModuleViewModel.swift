@@ -22,8 +22,8 @@ final class MembershipModuleViewModel: ObservableObject {
     func onLetUsKnowTap() {
         let mailLink = MailUrl(
             to: "license@anytype.io",
-            subject: "",
-            body: ""
+            subject: Loc.Membership.Email.subject,
+            body: Loc.Membership.Email.body
         )
         guard let mailUrl = mailLink.url else { return }
         urlOpener.openUrl(mailUrl, presentationStyle: .pageSheet)

@@ -113,6 +113,28 @@ internal enum Asset {
     static let inactive = ColorAsset(name: "Button/inactive")
     static let white = ColorAsset(name: "Button/white")
   }
+  internal enum Gradients {
+    static let blueEnd = ColorAsset(name: "Gradients/blueEnd")
+    static let bluePinkEnd = ColorAsset(name: "Gradients/bluePinkEnd")
+    static let bluePinkStart = ColorAsset(name: "Gradients/bluePinkStart")
+    static let blueStart = ColorAsset(name: "Gradients/blueStart")
+    static let fadingGreen = ColorAsset(name: "Gradients/fadingGreen")
+    static let fadingPink = ColorAsset(name: "Gradients/fadingPink")
+    static let fadingPurple = ColorAsset(name: "Gradients/fadingPurple")
+    static let fadingYellow = ColorAsset(name: "Gradients/fadingYellow")
+    static let greenOrangeEnd = ColorAsset(name: "Gradients/greenOrangeEnd")
+    static let greenOrangeStart = ColorAsset(name: "Gradients/greenOrangeStart")
+    static let pinkOrangeEnd = ColorAsset(name: "Gradients/pinkOrangeEnd")
+    static let pinkOrangeStart = ColorAsset(name: "Gradients/pinkOrangeStart")
+    static let redEnd = ColorAsset(name: "Gradients/redEnd")
+    static let redStart = ColorAsset(name: "Gradients/redStart")
+    static let skyEnd = ColorAsset(name: "Gradients/skyEnd")
+    static let skyStart = ColorAsset(name: "Gradients/skyStart")
+    static let tealEnd = ColorAsset(name: "Gradients/tealEnd")
+    static let tealStart = ColorAsset(name: "Gradients/tealStart")
+    static let yellowEnd = ColorAsset(name: "Gradients/yellowEnd")
+    static let yellowStart = ColorAsset(name: "Gradients/yellowStart")
+  }
   internal enum ModalScreen {
     static let background = ColorAsset(name: "ModalScreen/background")
     static let backgroundWithBlur = ColorAsset(name: "ModalScreen/backgroundWithBlur")
