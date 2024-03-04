@@ -217,7 +217,7 @@
 "Auth.CameraPermissionTitle" = "Tolong izinkan akses";
 "Restore secret phrase from keychain" = "Mengembalikan Tahap Pemulihan dari rantai kunci";
 "Auth.LogIn" = "Masuk";
-"Join" = "Join";
+"Join" = "Gabung";
 "Auth.Welcome.Subtitle" = "Anytype adalah tempat aman bagimu untuk menulis, berpikir, merencanakan, dan mengorganisasikan apa pun yang penting bagimu.";
 "Auth.Caption.Privacy.Text" = "Dengan melanjutkan, kamu menyetujui [Syarat Penggunaan](%@) dan [Kebijakan Privasi](%@)";
 "Auth.Next" = "Lanjut";
@@ -846,7 +846,7 @@
 "ClearCacheAlert.Description" = "Semua berkas media yang tersimpan di Anytype akan dihapus dari perangkatmu saat ini. Berkas - berkas ini dapat di unduh kembali dari sebuah simpul cadangan atau perangkat yang lain.";
 
 // MARK: - Spaces
-"Spaces.Accessibility.Shared" = "Shared Space";
+"Spaces.Accessibility.Shared" = "Ruang Terbagi";
 "Spaces.Accessibility.Private" = "Ruang Pribadi";
 "Spaces.Accessibility.Personal" = "Setelan";
 "Spaces.Search.Title" = "Cari ruang";
@@ -865,7 +865,7 @@
 "Space.Status.SpaceDeleted" = "Terhapus";
 "Space.Status.SpaceActive" = "Aktif";
 "Space.Status.SpaceJoining" = "Joining";
-"Space.Status.SpaceRemoving" = "Removing";
+"Space.Status.SpaceRemoving" = "Menghapus";
 
 // MARK: - Space Settings
 "SpaceSettings.Title" = "Setelan ruang";
@@ -877,38 +877,38 @@
 "SpaceSettings.DeleteButton" = "Hapus ruang";
 "SpaceSettings.Sharing" = "Berbagi";
 "SpaceSettings.Share" = "Bagikan";
-"SpaceSettings.LeaveButton" = "Leave and unjoin";
-"SpaceSettings.LeaveAlert.Title" = "Leave and unjoin the space";
-"SpaceSettings.LeaveAlert.Message" = "%@ space will be removed from your devices and you will no longer have access to it";
+"SpaceSettings.LeaveButton" = "Keluar dari ruang";
+"SpaceSettings.LeaveAlert.Title" = "Keluar dari ruang";
+"SpaceSettings.LeaveAlert.Message" = "Ruang %@ akan dihapus dari perangkat-perangkatmu dan kamu tidak akan bisa mengaksesnya lagi.";
 
 // MARK: - Space Share
 
 "SpaceShare.Title" = "Bagikan ruang";
 "SpaceShare.MembersSection" = "Members and requests";
 "SpaceShare.Permissions.Owner" = "Owner";
-"SpaceShare.Permissions.Reader" = "Viewer";
-"SpaceShare.Permissions.Writer" = "Editor";
+"SpaceShare.Permissions.Reader" = "Pembaca";
+"SpaceShare.Permissions.Writer" = "Penyunting";
 "SpaceShare.Invite.Title" = "Tautan undangan";
 "SpaceShare.Invite.Description" = "Kirimkan tautan ini untuk mengundang orang lain. Kamu bisa mengatur hak akses mereka setelah mereka menyetujui undangan";
 "SpaceShare.Invite.Button" = "Bagikan tautan undangan";
 "SpaceShare.Status.Joining" = "Diminta";
 "SpaceShare.Status.Removing" = "Unjoining requested";
 "SpaceShare.Action.ViewRequest" = "Lihat Permintaan";
-"SpaceShare.Action.Approve" = "Approve";
+"SpaceShare.Action.Approve" = "Terima";
 "SpaceShare.ViewRequest.Title" = "%@ meminta bergabung ke ruang %@";
 "SpaceShare.ViewRequest.ViewAccess" = "Izinkan akses baca";
 "SpaceShare.ViewRequest.EditAccess" = "Izinkan akses sunting";
 "SpaceShare.ViewRequest.Reject" = "Tolak";
-"SpaceShare.RemoveMember.Title" = "Remove memeber";
-"SpaceShare.RemoveMember.Message" = "%@ will be removed from the space.";
-"SpaceShare.ChangePermissions" = "%@ access to the space would become %@.";
+"SpaceShare.RemoveMember.Title" = "Hapus anggota";
+"SpaceShare.RemoveMember.Message" = "%@ akan dihapus dari ruang.";
+"SpaceShare.ChangePermissions" = "Akses %@ di ruang ini akan menjadi %@.";
 "SpaceShare.Join.Title" = "Bergabung dengan ruang";
 "SpaceShare.Join.CommentPlaceholder" = "Tinggalkan komentar untuk pemilik ruang";
 "SpaceShare.Join.Button" = "Permintaan bergabung";
 "SpaceShare.Join.Info" = "Ketika pemilik ruang menyetujui permintaanmu, kamu akan bergabung ke ruang ini dengan hak akses yang telah ditentukan.";
 "SpaceShare.Join.Message" = "Kamu diundang untuk bergabung dengan ruang %@ buatan %@. Kirimkan permintaan supaya pemilik ruang dapat mengizinkanmu bergabung.";
-"SpaceShare.JoinConfirmation.Title" = "Request sent";
-"SpaceShare.JoinConfirmation.Message" = "You will receive a notification when the space owner will approve your request.";
+"SpaceShare.JoinConfirmation.Title" = "Permintaan terkirim";
+"SpaceShare.JoinConfirmation.Message" = "Kamu akan menerima pemberitahuan ketika pemilik ruang menyetujui permintaanmu.";
 
 // MARK: - Space Create
 "SpaceCreate.Title" = "Buat ruang";
@@ -985,24 +985,24 @@
 "Gallery.Notification.Error" = "Ups! \"%@\" tidak terpasang. Silakan cek koneksi internetmu lalu coba lagi, atau buatlah laporan di forum.";
 
 // MARK: - Membership
-"Membership" = "Membership";
-"Membership.Ad.Title" = "Let’s build together";
-"Membership.Ad.Subtitle" = "Joining Anytype network means contributing to its story";
+"Membership" = "Langganan";
+"Membership.Ad.Title" = "Mari membangun bersama";
+"Membership.Ad.Subtitle" = "Bergabung dengan jaringan Anytype berarti turut berkontribusi pada kisahnya";
 
-"Membership.Legal.Details" = "Membership levels details";
-"Membership.Legal.Privacy" = "Privacy policy";
-"Membership.Legal.Terms" = "Terms and conditions";
-"Membership.Legal.WouldYouLike" = "Would you like to use Anytype for business, education, etc.?";
-"Membership.Legal.LetUsKnow" = "Please let us know here.";
+"Membership.Legal.Details" = "Detail level langganan";
+"Membership.Legal.Privacy" = "Kebijakan privasi";
+"Membership.Legal.Terms" = "Syarat dan ketentuan";
+"Membership.Legal.WouldYouLike" = "Apakah Anda ingin menggunakan Anytype untuk bisnis, pendidikan, dll.?";
+"Membership.Legal.LetUsKnow" = "Silakan beri tahu kami di sini.";
 
 "Membership.Banner.Title1" = "Co-create with us";
 "Membership.Banner.Subtitle1" = "Stay closely connected with our team and community. Join calls with the team, influence Anytype's evolution, and have your say on features.";
-"Membership.Banner.Title2" = "Gain Benefits";
-"Membership.Banner.Subtitle2" = "Our members have unique identity on Anytype Network, more storage, shared spaces and members per space for extensive collaboration";
-"Membership.Banner.Title3" = "Support the Vision";
-"Membership.Banner.Subtitle3" = "Your contribution supports our independent team and endorses our vision︎ of a user-driven, secure, and collaborative digital environment.";
-"Membership.Banner.Title4" = "Invest in Connectivity";
-"Membership.Banner.Subtitle4" = "Our software is free by design, but we thrive on the network that connects us all. Support us, and you're investing in the very infrastructure that keeps us united";
+"Membership.Banner.Title2" = "Dapatkan Keuntungan";
+"Membership.Banner.Subtitle2" = "Pelanggan akan mendapat identitas unik di Jaringan Anytype, lebih banyak penyimpanan, ruang terbagi, serta jumlah anggota per ruang untuk kolaborasi yang lebih luas";
+"Membership.Banner.Title3" = "Dukung Visi Kami";
+"Membership.Banner.Subtitle3" = "Kontribusimu akan mendukung tim independen kami dan juga visi kami meraih lingkungan digital yang berbasis pengguna, aman, dan kolaboratif.";
+"Membership.Banner.Title4" = "Berinvestasilah pada Konektivitas";
+"Membership.Banner.Subtitle4" = "Perangkat lunak kami gratis, namun kami juga bertumpu pada jaringan yang menghubungkan kita semua. Dukunglah kami, dan kamu akan berinvestasi pada infrastruktur yang menjaga kita tetap bersatu";
 
 
 // MARK: - Debug

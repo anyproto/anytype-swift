@@ -1,5 +1,5 @@
 // style menu
-"StyleMenu.Color.TextColor.Placeholder" = "";
+"StyleMenu.Color.TextColor.Placeholder" = "A";
 
 // MARK: Text Style in Slash and Style menu
 "TextStyle.Text.Title" = "Tekst";
