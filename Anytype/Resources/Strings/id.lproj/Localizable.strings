@@ -885,6 +885,7 @@
 
 "SpaceShare.Title" = "Bagikan ruang";
 "SpaceShare.MembersSection" = "Members and requests";
+"SpaceShare.Members" = "Anggota";
 "SpaceShare.Permissions.Owner" = "Owner";
 "SpaceShare.Permissions.Reader" = "Pembaca";
 "SpaceShare.Permissions.Writer" = "Penyunting";
@@ -986,6 +987,11 @@
 
 // MARK: - Membership
 "Membership" = "Langganan";
+"Just e-mail" = "Just e-mail";
+"Learn more" = "Learn more";
+"per year" = "per year";
+"per x years" = "per %@ years";
+
 "Membership.Ad.Title" = "Mari membangun bersama";
 "Membership.Ad.Subtitle" = "Bergabung dengan jaringan Anytype berarti turut berkontribusi pada kisahnya";
 
@@ -995,6 +1001,12 @@
 "Membership.Legal.WouldYouLike" = "Apakah Anda ingin menggunakan Anytype untuk bisnis, pendidikan, dll.?";
 "Membership.Legal.LetUsKnow" = "Silakan beri tahu kami di sini.";
 
+"Membership.Email.Subject" = "Special Pricing Request";
+"Membership.Email.Body" = "Please specify your request:
+- highlight if you represent an educational, governmental, or non-profit organization
+- tell us more about your organization: number of employees and future Anytype users, markets you're working on, etc.,
+- provide additional details about how your organization uses Anytype";
+
 "Membership.Banner.Title1" = "Co-create with us";
 "Membership.Banner.Subtitle1" = "Stay closely connected with our team and community. Join calls with the team, influence Anytype's evolution, and have your say on features.";
 "Membership.Banner.Title2" = "Dapatkan Keuntungan";
@@ -1003,6 +1015,14 @@
 "Membership.Banner.Subtitle3" = "Kontribusimu akan mendukung tim independen kami dan juga visi kami meraih lingkungan digital yang berbasis pengguna, aman, dan kolaboratif.";
 "Membership.Banner.Title4" = "Berinvestasilah pada Konektivitas";
 "Membership.Banner.Subtitle4" = "Perangkat lunak kami gratis, namun kami juga bertumpu pada jaringan yang menghubungkan kita semua. Dukunglah kami, dan kamu akan berinvestasi pada infrastruktur yang menjaga kita tetap bersatu";
+
+"Membership.Explorer.Title" = "Explorer";
+"Membership.Explorer.Info" = "Dive into the network and enjoy the thrill of one-on-one collaboration";
+"Membership.Builder.Title" = "Builder";
+"Membership.Builder.Info" = "Unlock the magic of multi-party collaboration and enjoy top-notch support";
+"Membership.CoCreator.Title" = "Co-Creator";
+"Membership.CoCreator.Info" = "Support our adventure and unlock exclusive access and perks";
+
 
 
 // MARK: - Debug
