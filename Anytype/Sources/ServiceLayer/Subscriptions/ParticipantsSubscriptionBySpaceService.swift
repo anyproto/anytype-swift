@@ -1,9 +1,14 @@
 import Foundation
 import Services
 
+enum ParticipantsSubscriptionBySpaceServiceMode {
+    case owner
+    case member
+}
+
 @MainActor
 protocol ParticipantsSubscriptionBySpaceServiceProtocol: AnyObject {
-    func startSubscription(onlyActive: Bool, update: @escaping ([Participant]) -> Void) async
+    func startSubscription(mode: ParticipantsSubscriptionBySpaceServiceMode, update: @escaping ([Participant]) -> Void) async
     func stopSubscription() async
 }
 
@@ -22,7 +27,7 @@ final class ParticipantsSubscriptionBySpaceService: ParticipantsSubscriptionBySp
         self.activeWorkspaceStorage = activeWorkspaceStorage
     }
     
-    func startSubscription(onlyActive: Bool, update: @escaping ([Participant]) -> Void) async {
+    func startSubscription(mode: ParticipantsSubscriptionBySpaceServiceMode, update: @escaping ([Participant]) -> Void) async {
         
         let sort = SearchHelper.sort(
             relation: BundledRelationKey.name,
@@ -35,10 +40,11 @@ final class ParticipantsSubscriptionBySpaceService: ParticipantsSubscriptionBySp
             SearchHelper.isDeletedFilter(isDeleted: false)
             SearchHelper.spaceId(activeWorkspaceStorage.workspaceInfo.accountSpaceId)
             SearchHelper.layoutFilter([.participant])
-            if onlyActive {
+            switch mode {
+            case .member:
                 SearchHelper.participantStatusFilter(.active)
-            } else {
-                SearchHelper.participantStatusFilterExclude(.removed)
+            case .owner:
+                SearchHelper.participantStatusFilter(.active, .joining, .removing)
             }
         }
         

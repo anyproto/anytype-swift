@@ -17,7 +17,7 @@ final class SpaceMembersViewModel: ObservableObject {
     }
     
     func onAppear() async {
-        await participantSubscriptionService.startSubscription(onlyActive: false) { [weak self] items in
+        await participantSubscriptionService.startSubscription(mode: .member) { [weak self] items in
             self?.updateParticipant(items: items)
         }
     }
