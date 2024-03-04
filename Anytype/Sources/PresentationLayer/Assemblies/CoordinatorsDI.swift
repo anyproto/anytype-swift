@@ -68,7 +68,7 @@ final class CoordinatorsDI: CoordinatorsDIProtocol {
     }
     
     func settings() -> SettingsCoordinatorAssemblyProtocol {
-        return SettingsCoordinatorAssembly(modulesDI: modulesDI, uiHelpersDI: uiHelpersDI, serviceLocator: serviceLocator)
+        return SettingsCoordinatorAssembly(modulesDI: modulesDI, uiHelpersDI: uiHelpersDI, coordinatorsDI: self, serviceLocator: serviceLocator)
     }
     
     func authorization() -> AuthCoordinatorAssemblyProtocol {
@@ -204,5 +204,9 @@ final class CoordinatorsDI: CoordinatorsDIProtocol {
             serviceLocator: serviceLocator,
             modulesDI: modulesDI
         )
+    }
+    
+    func membership() -> MembershipCoordinatorAssemblyProtocol {
+        MembershipCoordinatorAssembly(modulesDI: modulesDI)
     }
 }

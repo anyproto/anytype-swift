@@ -3,7 +3,7 @@ import SwiftUI
 
 @MainActor
 protocol MembershipModuleAssemblyProtocol: AnyObject {
-    func make() -> AnyView
+    func make(onTierSelection: @escaping ((MembershipTier) -> ())) -> AnyView
 }
 
 final class MembershipModuleAssembly: MembershipModuleAssemblyProtocol {
@@ -13,10 +13,11 @@ final class MembershipModuleAssembly: MembershipModuleAssemblyProtocol {
         self.uiHelpersDI = uiHelpersDI
     }
     
-    func make() -> AnyView {
+    func make(onTierSelection: @escaping ((MembershipTier) -> ())) -> AnyView {
         MembershipModuleView(
             model: MembershipModuleViewModel(
-                urlOpener: self.uiHelpersDI.urlOpener()
+                urlOpener: self.uiHelpersDI.urlOpener(),
+                onTierTap: onTierSelection
             )
         ).eraseToAnyView()
     }

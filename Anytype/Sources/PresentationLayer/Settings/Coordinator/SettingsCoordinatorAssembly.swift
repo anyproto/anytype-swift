@@ -9,15 +9,18 @@ final class SettingsCoordinatorAssembly: SettingsCoordinatorAssemblyProtocol {
     
     private let modulesDI: ModulesDIProtocol
     private let uiHelpersDI: UIHelpersDIProtocol
+    private let coordinatorsDI: CoordinatorsDIProtocol
     private let serviceLocator: ServiceLocator
     
     init(
         modulesDI: ModulesDIProtocol,
         uiHelpersDI: UIHelpersDIProtocol,
+        coordinatorsDI: CoordinatorsDIProtocol,
         serviceLocator: ServiceLocator
     ) {
         self.modulesDI = modulesDI
         self.uiHelpersDI = uiHelpersDI
+        self.coordinatorsDI = coordinatorsDI
         self.serviceLocator = serviceLocator
     }
     
@@ -41,7 +44,7 @@ final class SettingsCoordinatorAssembly: SettingsCoordinatorAssemblyProtocol {
             activeWorkspaceStorage: serviceLocator.activeWorkspaceStorage(),
             serviceLocator: serviceLocator,
             spacesManagerModuleAssembly: modulesDI.spacesManager(),
-            membershipModuleAssembly: modulesDI.membership()
+            membershipCoordinatorAssembly: coordinatorsDI.membership()
         )
     }
 }
