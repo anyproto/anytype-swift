@@ -4,7 +4,7 @@ struct MembershipBannerView: View {
     let title: String
     let subtitle: String
     let image: ImageAsset
-    let gradient: FadingGradient
+    let gradient: BannerFadingGradient
     
     @Environment(\.colorScheme) private var colorScheme
     
@@ -23,7 +23,8 @@ struct MembershipBannerView: View {
             ).multilineTextAlignment(.center)
         }
         .padding(.horizontal, 40)
-        .padding(.vertical, 30)
+        .padding(.top, 32)
+        .padding(.bottom, 46)
         .background(
             Group {
                 if colorScheme == .dark {

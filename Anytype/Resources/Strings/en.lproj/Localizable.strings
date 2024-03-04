@@ -987,6 +987,11 @@
 
 // MARK: - Membership
 "Membership" = "Membership";
+"Just e-mail" = "Just e-mail";
+"Learn more" = "Learn more";
+"per year" = "per year";
+"per x years" = "per %@ years";
+
 "Membership.Ad.Title" = "Let’s build together";
 "Membership.Ad.Subtitle" = "Joining Anytype network means contributing to its story";
 
@@ -1010,6 +1015,14 @@
 "Membership.Banner.Subtitle3" = "Your contribution supports our independent team and endorses our vision︎ of a user-driven, secure, and collaborative digital environment.";
 "Membership.Banner.Title4" = "Invest in Connectivity";
 "Membership.Banner.Subtitle4" = "Our software is free by design, but we thrive on the network that connects us all. Support us, and you're investing in the very infrastructure that keeps us united";
+
+"Membership.Explorer.Title" = "Explorer";
+"Membership.Explorer.Info" = "Dive into the network and enjoy the thrill of one-on-one collaboration";
+"Membership.Builder.Title" = "Builder";
+"Membership.Builder.Info" = "Unlock the magic of multi-party collaboration and enjoy top-notch support";
+"Membership.CoCreator.Title" = "Co-Creator";
+"Membership.CoCreator.Info" = "Support our adventure and unlock exclusive access and perks";
+
 
 
 // MARK: - Debug

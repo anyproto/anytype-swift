@@ -321,6 +321,9 @@ internal extension ImageAsset {
     static let banner2 = ImageAsset.bundle(name: "Membership/banner_2")
     static let banner3 = ImageAsset.bundle(name: "Membership/banner_3")
     static let banner4 = ImageAsset.bundle(name: "Membership/banner_4")
+    static let tierBuilder = ImageAsset.bundle(name: "Membership/tier_builder")
+    static let tierCocreator = ImageAsset.bundle(name: "Membership/tier_cocreator")
+    static let tierExplorer = ImageAsset.bundle(name: "Membership/tier_explorer")
   }
   static let createNewObject = ImageAsset.bundle(name: "createNewObject")
   static let linkToItself = ImageAsset.bundle(name: "link_to_itself")

@@ -16,15 +16,11 @@ struct MembershipModuleView: View {
                 AnytypeText(Loc.Membership.Ad.subtitle, style: .relation2Regular, color: .Text.primary)
                     .padding(.horizontal, 60)
                     .multilineTextAlignment(.center)
+                Spacer.fixedHeight(32)
                 
                 baners
-                
-                // Temp
-                Rectangle().foregroundStyle(Color.red).frame(idealHeight: 300)
-                    .overlay(alignment: .center) {
-                        AnytypeText("Tiers list", style: .bodyRegular, color: .Text.primary)
-                    }
-                
+                MembershipTierListView(onTierTap: { _ in })
+                    .padding(.vertical, 32)
                 legal
             }
         }
@@ -58,7 +54,7 @@ struct MembershipModuleView: View {
             )
         }
         .tabViewStyle(.page)
-        .frame(height: 284)
+        .frame(height: 300)
     }
     
     var legal: some View {
