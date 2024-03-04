@@ -89,7 +89,7 @@ final class ServiceLocator {
     }
     
     func bookmarkService() -> BookmarkServiceProtocol {
-        BookmarkService()
+        Container.shared.bookmarkService.resolve()
     }
     
     func systemURLService() -> SystemURLServiceProtocol {
@@ -289,9 +289,8 @@ final class ServiceLocator {
     }
     
     func dataviewService() -> DataviewServiceProtocol {
-        DataviewService()
+        Container.shared.dataviewService.resolve()
     }
-    
     
     private lazy var _sceneStateNotifier = SceneStateNotifier()
     func sceneStateNotifier() -> SceneStateNotifierProtocol {
@@ -404,7 +403,7 @@ final class ServiceLocator {
     }
     
     func debugService() -> DebugServiceProtocol {
-        DebugService()
+        Container.shared.debugService.resolve()
     }
     
     func participantService() -> ParticipantServiceProtocol {

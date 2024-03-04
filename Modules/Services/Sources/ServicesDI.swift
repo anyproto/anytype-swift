@@ -22,4 +22,16 @@ public extension Container {
     var blockWidgetService: Factory<BlockWidgetServiceProtocol> {
         self { BlockWidgetService() }.shared
     }
+    
+    var bookmarkService: Factory<BookmarkServiceProtocol> {
+        self { BookmarkService() }.shared
+    }
+    
+    var dataviewService: Factory<DataviewServiceProtocol> {
+        self { DataviewService() }.shared
+    }
+    
+    var debugService: Factory<DebugServiceProtocol> {
+        self { DebugService() }.shared
+    }
 }
