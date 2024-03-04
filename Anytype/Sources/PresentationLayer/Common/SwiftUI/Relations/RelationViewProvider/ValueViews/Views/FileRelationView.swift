@@ -13,7 +13,7 @@ struct FileRelationView: View {
                 objectsList
             }
         } else {
-            RelationsListRowPlaceholderView(hint: hint, style: style)
+            RelationValuePlaceholderView(hint: hint, style: style)
         }
     }
     

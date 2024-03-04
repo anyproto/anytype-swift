@@ -17,6 +17,16 @@ struct RelationValueViewModel {
         self.mode = mode
         self.leftAlign = leftAlign
     }
+    
+    func hint(for style: RelationStyle, relation: RelationItemModel) -> String {
+        switch style {
+        case .regular, .set, .setCollection, .filter, .kanbanHeader:
+            return relation.hint
+        case .featuredRelationBlock:
+            let maxLenght = TextRelationFactory.maxLength(style: style)
+            return TextRelationFactory.text(value: relation.name, maxLength: maxLenght) ?? relation.name
+        }
+    }
 }
 
 extension RelationValueViewModel {

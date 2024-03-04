@@ -200,7 +200,6 @@
 		127EABF42739440200C731F2 /* TagRelationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 127EABF32739440200C731F2 /* TagRelationView.swift */; };
 		127EABF92739587400C731F2 /* ObjectRelationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 127EABF82739587400C731F2 /* ObjectRelationView.swift */; };
 		127EAC0C273A353A00C731F2 /* Relation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 127EAC0B273A353A00C731F2 /* Relation.swift */; };
-		127EAC19273A438900C731F2 /* RelationsListRowHintView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 127EAC18273A438900C731F2 /* RelationsListRowHintView.swift */; };
 		1280E20B265C1A5700E5AEEE /* UIImageExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1280E20A265C1A5700E5AEEE /* UIImageExtensions.swift */; };
 		12870A2C26DE6A7400A6F46A /* ImageWidth.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12870A2B26DE6A7400A6F46A /* ImageWidth.swift */; };
 		12887F26274B94A600228330 /* DetailsServiceProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12887F25274B94A600228330 /* DetailsServiceProtocol.swift */; };
@@ -1156,7 +1155,7 @@
 		3D1CEC3127F5A8CA000D36BA /* DeletedAccountViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D1CEC3027F5A8CA000D36BA /* DeletedAccountViewModel.swift */; };
 		3D1CEC4527F5F566000D36BA /* Clock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D1CEC4427F5F566000D36BA /* Clock.swift */; };
 		3D1D840F26F4AC330091A78A /* TextTriggerSymbols.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D1D840E26F4AC330091A78A /* TextTriggerSymbols.swift */; };
-		3D210C142758CCE50007F558 /* RelationsListRowPlaceholderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D210C132758CCE50007F558 /* RelationsListRowPlaceholderView.swift */; };
+		3D210C142758CCE50007F558 /* RelationValuePlaceholderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D210C132758CCE50007F558 /* RelationValuePlaceholderView.swift */; };
 		3D22B20E2685DABD00C78C28 /* BlockImageViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D22B20D2685DABD00C78C28 /* BlockImageViewModel.swift */; };
 		3D24910B27BBD87200821595 /* CGFloat+OnePixel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D24910A27BBD87200821595 /* CGFloat+OnePixel.swift */; };
 		3D24912B27BD271900821595 /* MentionMarkupEventProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D24911B27BD271900821595 /* MentionMarkupEventProvider.swift */; };
@@ -1941,7 +1940,6 @@
 		127EABF32739440200C731F2 /* TagRelationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TagRelationView.swift; sourceTree = "<group>"; };
 		127EABF82739587400C731F2 /* ObjectRelationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObjectRelationView.swift; sourceTree = "<group>"; };
 		127EAC0B273A353A00C731F2 /* Relation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Relation.swift; sourceTree = "<group>"; };
-		127EAC18273A438900C731F2 /* RelationsListRowHintView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RelationsListRowHintView.swift; sourceTree = "<group>"; };
 		1280E20A265C1A5700E5AEEE /* UIImageExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = UIImageExtensions.swift; path = Anytype/Sources/PresentationLayer/Common/UIKit/Extensions/UIImageExtensions.swift; sourceTree = SOURCE_ROOT; };
 		12870A2B26DE6A7400A6F46A /* ImageWidth.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageWidth.swift; sourceTree = "<group>"; };
 		12887F25274B94A600228330 /* DetailsServiceProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailsServiceProtocol.swift; sourceTree = "<group>"; };
@@ -2912,7 +2910,7 @@
 		3D1CEC3027F5A8CA000D36BA /* DeletedAccountViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeletedAccountViewModel.swift; sourceTree = "<group>"; };
 		3D1CEC4427F5F566000D36BA /* Clock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Clock.swift; sourceTree = "<group>"; };
 		3D1D840E26F4AC330091A78A /* TextTriggerSymbols.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextTriggerSymbols.swift; sourceTree = "<group>"; };
-		3D210C132758CCE50007F558 /* RelationsListRowPlaceholderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RelationsListRowPlaceholderView.swift; sourceTree = "<group>"; };
+		3D210C132758CCE50007F558 /* RelationValuePlaceholderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RelationValuePlaceholderView.swift; sourceTree = "<group>"; };
 		3D22B20D2685DABD00C78C28 /* BlockImageViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = BlockImageViewModel.swift; path = Anytype/Sources/PresentationLayer/TextEditor/BlocksViews/Blocks/File/Image/BlockImageViewModel.swift; sourceTree = SOURCE_ROOT; };
 		3D24910A27BBD87200821595 /* CGFloat+OnePixel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CGFloat+OnePixel.swift"; sourceTree = "<group>"; };
 		3D24911B27BD271900821595 /* MentionMarkupEventProvider.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MentionMarkupEventProvider.swift; sourceTree = "<group>"; };
@@ -4750,8 +4748,7 @@
 		127EAC1A273A8A9300C731F2 /* Subviews */ = {
 			isa = PBXGroup;
 			children = (
-				127EAC18273A438900C731F2 /* RelationsListRowHintView.swift */,
-				3D210C132758CCE50007F558 /* RelationsListRowPlaceholderView.swift */,
+				3D210C132758CCE50007F558 /* RelationValuePlaceholderView.swift */,
 			);
 			path = Subviews;
 			sourceTree = "<group>";
@@ -10488,7 +10485,6 @@
 				3DE5121626728C0F00153962 /* BaseDocumentProtocol.swift in Sources */,
 				2EDC2B062A13E4E00065E009 /* KeyPhraseViewModel.swift in Sources */,
 				2EAA14062AA63918000A712A /* SetViewSettingsItem.swift in Sources */,
-				127EAC19273A438900C731F2 /* RelationsListRowHintView.swift in Sources */,
 				2EAA13FB2AA63918000A712A /* SetRelationsView.swift in Sources */,
 				C940A9A6286033C0008B500B /* SimpleTableViewModel.swift in Sources */,
 				8639E0142A6020E700F52ED2 /* TemplatesSubscriptionService.swift in Sources */,
@@ -10505,7 +10501,7 @@
 				12AF9986273A8B87004CBB80 /* RelationsBuilder.swift in Sources */,
 				EA57F41B26B99937007D4292 /* MarkupViewProtocol.swift in Sources */,
 				2A55F1F12B738484009DB80A /* NotificationPayload.swift in Sources */,
-				3D210C142758CCE50007F558 /* RelationsListRowPlaceholderView.swift in Sources */,
+				3D210C142758CCE50007F558 /* RelationValuePlaceholderView.swift in Sources */,
 				2A947B3E2A30E25600119140 /* WidgetObjectListRowView.swift in Sources */,
 				2AC906C529B5FFD600209E39 /* TreeWidgetModuleAssembly.swift in Sources */,
 				2E8387BD291A520C00506766 /* GroupObjectIds.swift in Sources */,

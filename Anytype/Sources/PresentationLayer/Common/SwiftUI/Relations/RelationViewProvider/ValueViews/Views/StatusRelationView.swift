@@ -13,7 +13,7 @@ struct StatusRelationView: View {
                 statusList
             }
         } else {
-            RelationsListRowPlaceholderView(hint: hint, style: style)
+            RelationValuePlaceholderView(hint: hint, style: style)
         }
     }
     
