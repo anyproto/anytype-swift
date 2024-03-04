@@ -546,8 +546,7 @@ class KeyboardActionHandlerTests: XCTestCase {
         let childInfo = info(id:"", style: .bulleted, hasChild: false, parent: nil, horizontalAlignment: .left)
 
         let string = NSAttributedString(string: "Title text")
-        handler.handle(info: blockInfo, textView: textView,
-                       action: .enterAtTheBegining(string: string, NSRange(location: 0, length: 0)))
+        handler.handle(info: blockInfo, textView: textView, action: .enterAtTheBegining)
         
         XCTAssertEqual(service.addNumberOfCalls, 1)
         XCTAssertEqual(service.addInfo, childInfo)
@@ -562,8 +561,7 @@ class KeyboardActionHandlerTests: XCTestCase {
         let childInfo = info(id:"", style: .toggle, hasChild: false, parent: nil, horizontalAlignment: .left)
         
         let string = NSAttributedString(string: "Toogle")
-        handler.handle(info: blockInfo, textView: textView,
-                       action: .enterAtTheBegining(string: string, NSRange(location: 0, length: 0)))
+        handler.handle(info: blockInfo, textView: textView, action: .enterAtTheBegining)
         
         XCTAssertEqual(service.addNumberOfCalls, 1)
         XCTAssertEqual(service.addInfo, childInfo)
@@ -578,8 +576,7 @@ class KeyboardActionHandlerTests: XCTestCase {
         let childInfo = info(id:"", style: .title, hasChild: false, parent: nil, horizontalAlignment: .left)
         
         let string = NSAttributedString(string: "Title text")
-        handler.handle(info: blockInfo, textView: textView,
-                       action: .enterAtTheBegining(string: string, NSRange(location: 0, length: 0)))
+        handler.handle(info: blockInfo, textView: textView, action: .enterAtTheBegining)
 
         XCTAssertEqual(service.addNumberOfCalls, 1)
         XCTAssertEqual(service.addInfo, childInfo)
@@ -595,8 +592,7 @@ class KeyboardActionHandlerTests: XCTestCase {
         let childInfo = info(id:"", style: .description, hasChild: false, parent: nil, horizontalAlignment: .left)
         
         let string = NSAttributedString(string: text)
-        handler.handle(info: blockInfo, textView: textView,
-                       action: .enterAtTheBegining(string: string, NSRange(location: 0, length: 0)))
+        handler.handle(info: blockInfo, textView: textView, action: .enterAtTheBegining)
 
         XCTAssertEqual(service.addNumberOfCalls, 1)
         XCTAssertEqual(service.addInfo, childInfo)
