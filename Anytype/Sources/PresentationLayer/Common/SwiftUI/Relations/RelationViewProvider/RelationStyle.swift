@@ -45,10 +45,6 @@ extension RelationStyle {
     }
 
     var fontColor: Color {
-        return Color(uiKitFontColor)
-    }
-
-    var uiKitFontColor: UIColor {
         switch self {
         case .regular, .set:
             return .Text.primary
@@ -57,17 +53,13 @@ extension RelationStyle {
         }
     }
     
-    var uiFontColorWithError: UIColor {
+    var fontColorWithError: Color {
         switch self {
         case let .featuredRelationBlock(settings):
-            return settings.error ? .Dark.red : uiKitFontColor
+            return settings.error ? .Dark.red : fontColor
         default:
-            return uiKitFontColor
+            return fontColor
         }
-    }
-    
-    var fontColorWithError: Color {
-        return Color(uiFontColorWithError)
     }
     
     var isError: Bool {
@@ -112,6 +104,9 @@ extension RelationStyle {
         }
     }
     
+    var hintColor: Color {
+        Color.Text.tertiary
+    }
     
     var tagViewGuidlines: TagView.Guidlines {
         switch self {
