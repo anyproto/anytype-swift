@@ -112,6 +112,7 @@ internal extension ImageAsset {
     static let lock = ImageAsset.bundle(name: "x18/Lock")
     static let search = ImageAsset.bundle(name: "x18/Search")
     static let slashMenuArrow = ImageAsset.bundle(name: "x18/Slash Menu Arrow")
+    static let webLink = ImageAsset.bundle(name: "x18/Web link")
   }
   enum X19 {
     static let more = ImageAsset.bundle(name: "x19/more")
