@@ -28,14 +28,13 @@ final class ServiceLocator {
         Container.shared.unsplashService.resolve()
     }
     
-    
     /// creates new localRepoService
     func localRepoService() -> LocalRepoServiceProtocol {
-        LocalRepoService()
+        Container.shared.localRepoService.resolve()
     }
     
     func seedService() -> SeedServiceProtocol {
-        SeedService(keychainStore: KeychainStore())
+        Container.shared.seedService.resolve()
     }
     
     /// creates new authService
@@ -51,7 +50,7 @@ final class ServiceLocator {
     }
     
     func usecaseService() -> UsecaseServiceProtocol {
-        UsecaseService()
+        Container.shared.usecaseService.resolve()
     }
     
     func metricsService() -> MetricsServiceProtocol {
@@ -79,11 +78,11 @@ final class ServiceLocator {
     }
     
     func fileService() -> FileActionsServiceProtocol {
-        FileActionsService(fileService: Container.shared.fileService.resolve())
+        Container.shared.fileActionsService.resolve()
     }
     
     func searchService() -> SearchServiceProtocol {
-        SearchService(searchMiddleService: searchMiddleService())
+        Container.shared.searchService.resolve()
     }
     
     func searchMiddleService() -> SearchMiddleServiceProtocol {
@@ -102,9 +101,8 @@ final class ServiceLocator {
         SystemURLService()
     }
     
-    private lazy var _accountManager = AccountManager()
     func accountManager() -> AccountManagerProtocol {
-        return _accountManager
+        return Container.shared.accountManager.resolve()
     }
     
     func objectTypeProvider() -> ObjectTypeProviderProtocol {
@@ -312,14 +310,8 @@ final class ServiceLocator {
         Container.shared.audioSessionService.resolve()
     }
     
-    // In future lifecycle should be depend for screen
-    private lazy var _activeWorkspaceStorage = ActiveWorkspaceStorage(
-        workspaceStorage: workspaceStorage(),
-        accountManager: accountManager(),
-        workspaceService: workspaceService()
-    )
     func activeWorkspaceStorage() -> ActiveWorkpaceStorageProtocol {
-        return _activeWorkspaceStorage
+        return Container.shared.activeWorkpaceStorage.resolve()
     }
 
     private lazy var _workspaceStorage = WorkspacesStorage(
@@ -338,9 +330,8 @@ final class ServiceLocator {
         )
     }
     
-    private lazy var _subscriptionStorageProvider = SubscriptionStorageProvider(toggler: subscriptionToggler())
     func subscriptionStorageProvider() -> SubscriptionStorageProviderProtocol {
-        return _subscriptionStorageProvider
+        return Container.shared.subscriptionStorageProvider.resolve()
     }
     
     func templatesSubscription() -> TemplatesSubscriptionServiceProtocol {
@@ -375,7 +366,7 @@ final class ServiceLocator {
     }
     
     func pasteboardHelper() -> PasteboardHelperProtocol {
-        PasteboardHelper()
+        Container.shared.pasteboardHelper.resolve()
     }
     
     func pasteboardBlockDocumentService(document: BaseDocumentProtocol) -> PasteboardBlockDocumentServiceProtocol {
@@ -386,10 +377,7 @@ final class ServiceLocator {
     }
     
     func pasteboardBlockService() -> PasteboardBlockServiceProtocol {
-        PasteboardBlockService(
-            pasteboardHelper: pasteboardHelper(),
-            pasteboardMiddlewareService: pasteboardMiddlewareService()
-        )
+        Container.shared.pasteboardBlockService.resolve()
     }
     
     func galleryService() -> GalleryServiceProtocol {
@@ -418,15 +406,5 @@ final class ServiceLocator {
     
     func blockTableService() -> BlockTableServiceProtocol {
         Container.shared.blockTableService.resolve()
-    }
-    
-    // MARK: - Private
-    
-    private func subscriptionToggler() -> SubscriptionTogglerProtocol {
-        SubscriptionToggler(objectSubscriptionService: objectSubscriptionService())
-    }
-    
-    private func objectSubscriptionService() -> ObjectSubscriptionServiceProtocol {
-        Container.shared.objectSubscriptionService.resolve()
     }
 }

@@ -4,7 +4,11 @@ import Services
 
 struct GalleryInstallationPreviewView: View {
     
-    @StateObject var model: GalleryInstallationPreviewViewModel
+    @StateObject private var model: GalleryInstallationPreviewViewModel
+    
+    init(data: GalleryInstallationData, output: GalleryInstallationPreviewModuleOutput?) {
+        _model = StateObject(wrappedValue: GalleryInstallationPreviewViewModel(data: data, output: output))
+    }
     
     var body: some View {
         ZStack(alignment: .top) {

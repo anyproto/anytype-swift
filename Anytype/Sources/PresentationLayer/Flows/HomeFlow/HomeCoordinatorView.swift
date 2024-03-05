@@ -62,7 +62,7 @@ struct HomeCoordinatorView: View {
         }
         .if(FeatureFlags.galleryInstallation, if: {
             $0.sheet(item: $model.showGalleryImport) { data in
-                model.createGalleryInstallationModule(data: data)
+                GalleryInstallationCoordinatorView(data: data)
             }
         }, else: {
             $0.anytypeSheet(item: $model.showGalleryImport) { _ in

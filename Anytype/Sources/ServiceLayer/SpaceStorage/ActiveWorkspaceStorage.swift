@@ -19,26 +19,20 @@ final class ActiveWorkspaceStorage: ActiveWorkpaceStorageProtocol {
     
     // MARK: - DI
     
-    private let workspaceStorage: WorkspacesStorageProtocol
-    private let accountManager: AccountManagerProtocol
-    private let workspaceService: WorkspaceServiceProtocol
+    @Injected(\.workspaceStorage)
+    private var workspaceStorage: WorkspacesStorageProtocol
+    @Injected(\.accountManager)
+    private var accountManager: AccountManagerProtocol
+    @Injected(\.workspaceService)
+    private var workspaceService: WorkspaceServiceProtocol
     
     // MARK: - State
     private var workspaceSubscription: AnyCancellable?
     @UserDefault("activeSpaceId", defaultValue: "")
     private var activeSpaceId: String
-    let workspaceInfoSubject: CurrentValueSubject<AccountInfo, Never>
+    lazy var workspaceInfoSubject = CurrentValueSubject<AccountInfo, Never>(accountManager.account.info)
     
-    nonisolated init(
-        workspaceStorage: WorkspacesStorageProtocol,
-        accountManager: AccountManagerProtocol,
-        workspaceService: WorkspaceServiceProtocol
-    ) {
-        self.workspaceStorage = workspaceStorage
-        self.accountManager = accountManager
-        self.workspaceService = workspaceService
-        self.workspaceInfoSubject = CurrentValueSubject(accountManager.account.info)
-    }
+    nonisolated init() {}
     
     var workspaceInfo: AccountInfo {
         workspaceInfoSubject.value

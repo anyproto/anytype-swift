@@ -8,11 +8,16 @@ final class SpaceSwitchViewModel: ObservableObject {
     
     // MARK: - DI
     
-    private let workspacesStorage: WorkspacesStorageProtocol
-    private let activeWorkspaceStorage: ActiveWorkpaceStorageProtocol
-    private let subscriptionService: SingleObjectSubscriptionServiceProtocol
-    private let accountManager: AccountManagerProtocol
-    private let workspaceService: WorkspaceServiceProtocol
+    @Injected(\.workspaceStorage)
+    private var workspacesStorage: WorkspacesStorageProtocol
+    @Injected(\.activeWorkpaceStorage)
+    private var activeWorkspaceStorage: ActiveWorkpaceStorageProtocol
+    @Injected(\.singleObjectSubscriptionService)
+    private var subscriptionService: SingleObjectSubscriptionServiceProtocol
+    @Injected(\.accountManager)
+    private var accountManager: AccountManagerProtocol
+    @Injected(\.workspaceService)
+    private var workspaceService: WorkspaceServiceProtocol
     private weak var output: SpaceSwitchModuleOutput?
     
     // MARK: - State
@@ -30,19 +35,7 @@ final class SpaceSwitchViewModel: ObservableObject {
     @Published var createSpaceAvailable: Bool = false
     @Published var spaceViewForDelete: SpaceView?
     
-    init(
-        workspacesStorage: WorkspacesStorageProtocol,
-        activeWorkspaceStorage: ActiveWorkpaceStorageProtocol,
-        subscriptionService: SingleObjectSubscriptionServiceProtocol,
-        accountManager: AccountManagerProtocol,
-        workspaceService: WorkspaceServiceProtocol,
-        output: SpaceSwitchModuleOutput?
-    ) {
-        self.workspacesStorage = workspacesStorage
-        self.activeWorkspaceStorage = activeWorkspaceStorage
-        self.subscriptionService = subscriptionService
-        self.accountManager = accountManager
-        self.workspaceService = workspaceService
+    init(output: SpaceSwitchModuleOutput?) {
         self.output = output
         Task {
             await startProfileSubscriotions()

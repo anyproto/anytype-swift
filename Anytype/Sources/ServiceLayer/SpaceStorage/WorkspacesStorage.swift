@@ -22,7 +22,7 @@ final class WorkspacesStorage: WorkspacesStorageProtocol {
     
     // MARK: - DI
     
-    private let subscriptionStorage: SubscriptionStorageProtocol
+    private var subscriptionStorage: SubscriptionStorageProtocol
     private let subscriptionBuilder: WorkspacesSubscriptionBuilderProtocol
     
     // MARK: - State

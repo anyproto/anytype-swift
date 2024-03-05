@@ -9,11 +9,8 @@ final class SearchService: SearchServiceProtocol {
         static let defaultLimit = 100
     }
     
-    private let searchMiddleService: SearchMiddleServiceProtocol
-    
-    init(searchMiddleService: SearchMiddleServiceProtocol) {
-        self.searchMiddleService = searchMiddleService
-    }
+    @Injected(\.searchMiddleService)
+    private var searchMiddleService: SearchMiddleServiceProtocol
     
     // MARK: - SearchServiceProtocol
     

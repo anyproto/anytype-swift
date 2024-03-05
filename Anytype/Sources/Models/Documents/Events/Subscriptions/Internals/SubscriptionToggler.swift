@@ -10,12 +10,9 @@ protocol SubscriptionTogglerProtocol {
 
 final class SubscriptionToggler: SubscriptionTogglerProtocol {
     
-    private let objectSubscriptionService: ObjectSubscriptionServiceProtocol
+    @Injected(\.objectSubscriptionService)
+    private var objectSubscriptionService: ObjectSubscriptionServiceProtocol
     
-    init(objectSubscriptionService: ObjectSubscriptionServiceProtocol) {
-        self.objectSubscriptionService = objectSubscriptionService
-    }
-
     func startSubscription(data: SubscriptionData) async throws -> SubscriptionTogglerResult {
         switch data {
         case let .search(data):
