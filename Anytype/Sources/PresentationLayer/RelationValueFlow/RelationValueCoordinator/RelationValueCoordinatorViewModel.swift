@@ -57,6 +57,11 @@ final class RelationValueCoordinatorViewModel:
     }
     
     func relationModule() -> AnyView {
+        guard RelationValueInteractor.canHandleRelation(relation) else {
+            anytypeAssertionFailure("There is no new module for this relation", info: ["relation": relation.name])
+            return EmptyView().eraseToAnyView()
+        }
+        
         if case .date(let date) = relation {
             let dateValue = date.value?.date
             return dateRelationCalendarModuleAssembly.make(
@@ -141,8 +146,6 @@ final class RelationValueCoordinatorViewModel:
                 output: self
             )
         }
-        
-        anytypeAssertionFailure("There is no new module for this relation", info: ["relation": relation.name])
         
         return EmptyView().eraseToAnyView()
     }
