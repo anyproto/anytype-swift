@@ -428,6 +428,8 @@ internal enum Loc {
   internal static let removePhoto = Loc.tr("Localizable", "Remove photo", fallback: "Remove photo")
   /// Removing cache
   internal static let removingCache = Loc.tr("Localizable", "Removing cache", fallback: "Removing cache")
+  /// Resend
+  internal static let resend = Loc.tr("Localizable", "Resend", fallback: "Resend")
   /// Restore
   internal static let restore = Loc.tr("Localizable", "Restore", fallback: "Restore")
   /// Restore from keychain
@@ -1399,6 +1401,8 @@ internal enum Loc {
     internal static let title = Loc.tr("Localizable", "LongTapCreateTip.Title", fallback: "Create Objects with specific Type")
   }
   internal enum Membership {
+    /// Enter the code sent to your email
+    internal static let emailValidation = Loc.tr("Localizable", "Membership.EmailValidation", fallback: "Enter the code sent to your email")
     internal enum Ad {
       /// Joining Anytype network means contributing to its story
       internal static let subtitle = Loc.tr("Localizable", "Membership.Ad.Subtitle", fallback: "Joining Anytype network means contributing to its story")
@@ -1408,12 +1412,12 @@ internal enum Loc {
     internal enum Banner {
       /// Stay closely connected with our team and community. Join calls with the team, influence Anytype's evolution, and have your say on features.
       internal static let subtitle1 = Loc.tr("Localizable", "Membership.Banner.Subtitle1", fallback: "Stay closely connected with our team and community. Join calls with the team, influence Anytype's evolution, and have your say on features.")
-      /// Our members have unique identity on Anytype Network, more storage, shared spaces and members per space for extensive collaboration
-      internal static let subtitle2 = Loc.tr("Localizable", "Membership.Banner.Subtitle2", fallback: "Our members have unique identity on Anytype Network, more storage, shared spaces and members per space for extensive collaboration")
+      /// Our members have unique identity on Anytype Network, more storage, shared spaces and members per space for extensive collaboration.
+      internal static let subtitle2 = Loc.tr("Localizable", "Membership.Banner.Subtitle2", fallback: "Our members have unique identity on Anytype Network, more storage, shared spaces and members per space for extensive collaboration.")
       /// Your contribution supports our independent team and endorses our vision︎ of a user-driven, secure, and collaborative digital environment.
       internal static let subtitle3 = Loc.tr("Localizable", "Membership.Banner.Subtitle3", fallback: "Your contribution supports our independent team and endorses our vision︎ of a user-driven, secure, and collaborative digital environment.")
-      /// Our software is free by design, but we thrive on the network that connects us all. Support us, and you're investing in the very infrastructure that keeps us united
-      internal static let subtitle4 = Loc.tr("Localizable", "Membership.Banner.Subtitle4", fallback: "Our software is free by design, but we thrive on the network that connects us all. Support us, and you're investing in the very infrastructure that keeps us united")
+      /// Our software is free by design, but we thrive on the network that connects us all. Support us, and you're investing in the very infrastructure that keeps us united.
+      internal static let subtitle4 = Loc.tr("Localizable", "Membership.Banner.Subtitle4", fallback: "Our software is free by design, but we thrive on the network that connects us all. Support us, and you're investing in the very infrastructure that keeps us united.")
       /// Co-create with us
       internal static let title1 = Loc.tr("Localizable", "Membership.Banner.Title1", fallback: "Co-create with us")
       /// Gain Benefits

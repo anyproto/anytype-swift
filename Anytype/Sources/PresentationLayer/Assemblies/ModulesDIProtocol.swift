@@ -75,5 +75,6 @@ protocol ModulesDIProtocol: AnyObject {
     func spacesManager() -> SpacesManagerModuleAssemblyProtocol
     func membership() -> MembershipModuleAssemblyProtocol
     func membershipTierSelection() -> MembershipTierSelectionAssemblyProtocol
+    func emailVerification() -> EmailVerificationAssemblyProtocol
     func spaceMembers() -> SpaceMembersModuleAssemblyProtocol
 }

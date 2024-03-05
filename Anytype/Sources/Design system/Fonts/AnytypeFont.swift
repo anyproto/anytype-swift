@@ -7,6 +7,8 @@ enum AnytypeFont: CaseIterable {
     case subheading
 
     case previewTitle1Medium
+    case previewTitle1Regular
+    
     case previewTitle2Regular
     case previewTitle2Medium
 

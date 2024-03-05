@@ -314,6 +314,10 @@ final class ModulesDI: ModulesDIProtocol {
         MembershipTierSelectionAssembly(serviceLocator: serviceLocator)
     }
     
+    func emailVerification() -> EmailVerificationAssemblyProtocol {
+        EmailVerificationAssembly(serviceLocator: serviceLocator)
+    }
+    
     func spaceMembers() -> SpaceMembersModuleAssemblyProtocol {
         SpaceMembersModuleAssembly(serviceLocator: serviceLocator)
     }
