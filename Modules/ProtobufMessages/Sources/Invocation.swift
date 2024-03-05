@@ -17,7 +17,7 @@ public struct Invocation<Request, Response> where Request: Message,
     }
     
     @discardableResult
-    public func invoke(ignoreLogErrors: Response.Error.ErrorCode..., file: StaticString = #file, function: String = #function, line: UInt = #line) async throws -> Response {
+    public func invoke(file: StaticString = #file, function: String = #function, line: UInt = #line, ignoreLogErrors: Response.Error.ErrorCode...) async throws -> Response {
         do {
             return try await internalInvoke()
         } catch let error as CancellationError {
