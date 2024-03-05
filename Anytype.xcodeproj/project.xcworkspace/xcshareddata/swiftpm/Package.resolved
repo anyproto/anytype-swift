@@ -3,7 +3,7 @@
     {
       "identity" : "amplitude-ios",
       "kind" : "remoteSourceControl",
-      "location" : "git@github.com:amplitude/Amplitude-iOS.git",
+      "location" : "https://github.com/amplitude/Amplitude-iOS",
       "state" : {
         "revision" : "83b6c60321e0d5a6824e89aa45699c557cca5531",
         "version" : "8.15.2"
@@ -21,7 +21,7 @@
     {
       "identity" : "devicekit",
       "kind" : "remoteSourceControl",
-      "location" : "git@github.com:devicekit/DeviceKit.git",
+      "location" : "https://github.com/devicekit/DeviceKit",
       "state" : {
         "revision" : "691fe8112cca20ebf0020a1709d4e0205400311c",
         "version" : "5.0.0"
@@ -30,7 +30,7 @@
     {
       "identity" : "floatingpanel",
       "kind" : "remoteSourceControl",
-      "location" : "git@github.com:scenee/FloatingPanel.git",
+      "location" : "https://github.com/scenee/FloatingPanel",
       "state" : {
         "revision" : "2a29cb5b3ecf4beb67cf524a030dd74a11b956c4",
         "version" : "2.6.1"
@@ -39,7 +39,7 @@
     {
       "identity" : "highlightr",
       "kind" : "remoteSourceControl",
-      "location" : "git@github.com:raspu/Highlightr.git",
+      "location" : "https://github.com/raspu/Highlightr",
       "state" : {
         "revision" : "93199b9e434f04bda956a613af8f571933f9f037",
         "version" : "2.1.2"
@@ -48,7 +48,7 @@
     {
       "identity" : "kingfisher",
       "kind" : "remoteSourceControl",
-      "location" : "git@github.com:onevcat/Kingfisher.git",
+      "location" : "https://github.com/onevcat/Kingfisher",
       "state" : {
         "revision" : "af4be924ad984cf4d16f4ae4df424e79a443d435",
         "version" : "7.6.2"
@@ -66,7 +66,7 @@
     {
       "identity" : "sentry-cocoa",
       "kind" : "remoteSourceControl",
-      "location" : "https://github.com/getsentry/sentry-cocoa.git",
+      "location" : "https://github.com/getsentry/sentry-cocoa",
       "state" : {
         "revision" : "d277532e1c8af813981ba01f591b15bbdd735615",
         "version" : "8.8.0"
@@ -84,7 +84,7 @@
     {
       "identity" : "swift-collections",
       "kind" : "remoteSourceControl",
-      "location" : "https://github.com/apple/swift-collections.git",
+      "location" : "https://github.com/apple/swift-collections",
       "state" : {
         "revision" : "937e904258d22af6e447a0b72c0bc67583ef64a2",
         "version" : "1.0.4"
@@ -111,7 +111,7 @@
     {
       "identity" : "swiftentrykit",
       "kind" : "remoteSourceControl",
-      "location" : "git@github.com:bududomasidet/SwiftEntryKit.git",
+      "location" : "https://github.com/bududomasidet/SwiftEntryKit",
       "state" : {
         "revision" : "371745f2f446a5ca5e2e12523db32a2169b501a0",
         "version" : "1.0.0"
@@ -120,7 +120,7 @@
     {
       "identity" : "swiftui-visual-effects",
       "kind" : "remoteSourceControl",
-      "location" : "git@github.com:lucasbrown/swiftui-visual-effects.git",
+      "location" : "https://github.com/lucasbrown/swiftui-visual-effects",
       "state" : {
         "revision" : "b26f8cebd55ff60ed8953768aa818dfb005b5838",
         "version" : "1.0.3"
