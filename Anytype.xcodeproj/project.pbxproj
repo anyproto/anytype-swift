@@ -1168,6 +1168,11 @@
 		3D24913127BD271900821595 /* SubscriptionToggler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D24912427BD271900821595 /* SubscriptionToggler.swift */; };
 		3D24913427BD271900821595 /* LocalEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D24912827BD271900821595 /* LocalEvent.swift */; };
 		3D24913627BD271900821595 /* DocumentUpdate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D24912A27BD271900821595 /* DocumentUpdate.swift */; };
+		3D26AA722B9725EF00D61479 /* MembershipEmailSheetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D26AA712B9725EF00D61479 /* MembershipEmailSheetView.swift */; };
+		3D26AA752B97391900D61479 /* AnytypeCheckbox.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D26AA742B97391900D61479 /* AnytypeCheckbox.swift */; };
+		3D26AA772B973E2200D61479 /* MembershipTierSelectionViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D26AA762B973E2200D61479 /* MembershipTierSelectionViewModel.swift */; };
+		3D26AA792B973E9D00D61479 /* MembershipTierSelectionAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D26AA782B973E9D00D61479 /* MembershipTierSelectionAssembly.swift */; };
+		3D26AA7B2B97505300D61479 /* MembershipTierInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D26AA7A2B97505300D61479 /* MembershipTierInfoView.swift */; };
 		3D2D4C5B27BA54030070A4C6 /* Divider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D2D4C5A27BA54030070A4C6 /* Divider.swift */; };
 		3D2D4C6327BA76270070A4C6 /* EditorRouterProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D2D4C6227BA76270070A4C6 /* EditorRouterProtocol.swift */; };
 		3D2D4C6527BAA2EF0070A4C6 /* SetConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D2D4C6427BAA2EF0070A4C6 /* SetConstants.swift */; };
@@ -2933,6 +2938,11 @@
 		3D24912427BD271900821595 /* SubscriptionToggler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SubscriptionToggler.swift; sourceTree = "<group>"; };
 		3D24912827BD271900821595 /* LocalEvent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LocalEvent.swift; sourceTree = "<group>"; };
 		3D24912A27BD271900821595 /* DocumentUpdate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DocumentUpdate.swift; sourceTree = "<group>"; };
+		3D26AA712B9725EF00D61479 /* MembershipEmailSheetView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MembershipEmailSheetView.swift; sourceTree = "<group>"; };
+		3D26AA742B97391900D61479 /* AnytypeCheckbox.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnytypeCheckbox.swift; sourceTree = "<group>"; };
+		3D26AA762B973E2200D61479 /* MembershipTierSelectionViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MembershipTierSelectionViewModel.swift; sourceTree = "<group>"; };
+		3D26AA782B973E9D00D61479 /* MembershipTierSelectionAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MembershipTierSelectionAssembly.swift; sourceTree = "<group>"; };
+		3D26AA7A2B97505300D61479 /* MembershipTierInfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MembershipTierInfoView.swift; sourceTree = "<group>"; };
 		3D2D4C5A27BA54030070A4C6 /* Divider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Divider.swift; sourceTree = "<group>"; };
 		3D2D4C6227BA76270070A4C6 /* EditorRouterProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditorRouterProtocol.swift; sourceTree = "<group>"; };
 		3D2D4C6427BAA2EF0070A4C6 /* SetConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetConstants.swift; sourceTree = "<group>"; };
@@ -7888,6 +7898,23 @@
 			path = Search;
 			sourceTree = "<group>";
 		};
+		3D26AA702B9725A900D61479 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				3D26AA712B9725EF00D61479 /* MembershipEmailSheetView.swift */,
+				3D26AA7A2B97505300D61479 /* MembershipTierInfoView.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		3D26AA732B9738F900D61479 /* Checkbox */ = {
+			isa = PBXGroup;
+			children = (
+				3D26AA742B97391900D61479 /* AnytypeCheckbox.swift */,
+			);
+			path = Checkbox;
+			sourceTree = "<group>";
+		};
 		3D29AFEF26A5D2640095BA18 /* Models */ = {
 			isa = PBXGroup;
 			children = (
@@ -8199,6 +8226,7 @@
 		3D486C162631726A00A9B625 /* SwiftUI */ = {
 			isa = PBXGroup;
 			children = (
+				3D26AA732B9738F900D61479 /* Checkbox */,
 				3DA414982B70FE9100960748 /* BasicComponents */,
 				2A8302B32B075885002D6655 /* NavigationView */,
 				2ADF008D2ACD5D96000D01F8 /* StatusBarStyle */,
@@ -8912,7 +8940,10 @@
 		3DD1129C2B95FE14007682F4 /* TierSelection */ = {
 			isa = PBXGroup;
 			children = (
+				3D26AA702B9725A900D61479 /* Views */,
 				3DD1129D2B95FE62007682F4 /* MembershipTierSelectionView.swift */,
+				3D26AA762B973E2200D61479 /* MembershipTierSelectionViewModel.swift */,
+				3D26AA782B973E9D00D61479 /* MembershipTierSelectionAssembly.swift */,
 			);
 			path = TierSelection;
 			sourceTree = "<group>";
@@ -11050,6 +11081,7 @@
 				2AD37D5829911FA50012409E /* WidgetObjectListSetsViewModel.swift in Sources */,
 				53CC99B3280DB6CC00C39CCF /* EventConfigurtion.swift in Sources */,
 				120F7D78267F873500327734 /* BlockBookmarkView.swift in Sources */,
+				3D26AA722B9725EF00D61479 /* MembershipEmailSheetView.swift in Sources */,
 				2A03039C28ABAC92002EFC46 /* TextRelationReloadContentActionViewModel.swift in Sources */,
 				1220670827314E210051A331 /* RelationsListViewModel.swift in Sources */,
 				2E2A22F92A9E448B00745D78 /* SetLayoutSettingsViewModel.swift in Sources */,
@@ -11129,6 +11161,7 @@
 				2A8302B52B075892002D6655 /* AnytypeNavigationViewBridge.swift in Sources */,
 				2AF4261A29AF50C900753B17 /* PersonalizationModuleOutput.swift in Sources */,
 				12136D5627996F3400262FE7 /* TextRelationDetailsService.swift in Sources */,
+				3D26AA752B97391900D61479 /* AnytypeCheckbox.swift in Sources */,
 				2E92219D294B8B5000968750 /* DataViewBlockViewModel.swift in Sources */,
 				2A6693812A71057D007747DD /* ObjectIconImageModel.swift in Sources */,
 				2AA2291E29C47F4F0047B245 /* HomeTopShadow.swift in Sources */,
@@ -11432,6 +11465,7 @@
 				2AB22A1F2A9F33B3000E1AA6 /* AnytypeRow.swift in Sources */,
 				535E02B227502ECF00E1AF8C /* RelationBlockViewModel.swift in Sources */,
 				3DAE1C84273E69AD009A72F3 /* Range+Mention.swift in Sources */,
+				3D26AA7B2B97505300D61479 /* MembershipTierInfoView.swift in Sources */,
 				861B0FDD2ADD43AA007E3A54 /* EditorCollectionFlowLayout.swift in Sources */,
 				3DB1CA6E272C0C19000D2779 /* WallpaperColorsGridView.swift in Sources */,
 				2EDC2AFB2A125BD60065E009 /* JoinFlowOutput.swift in Sources */,
@@ -11455,6 +11489,7 @@
 				2AD06B8328572A520006C255 /* TableOfContentsView.swift in Sources */,
 				1211AF6627F338EC00BACB88 /* AnytypeImageDownloader.swift in Sources */,
 				2AA8108A29A66854007DD64B /* View+DragAndDrop.swift in Sources */,
+				3D26AA772B973E2200D61479 /* MembershipTierSelectionViewModel.swift in Sources */,
 				2EED4F592B6C31600076FAC6 /* RelationSelectedOptionsModel.swift in Sources */,
 				2AF4260129AF3A6000753B17 /* SettingsAppearanceViewModel.swift in Sources */,
 				2EDC2AFD2A125C6A0065E009 /* JoinFlowStep.swift in Sources */,
@@ -11755,6 +11790,7 @@
 				2E0A6CD72A3773B800A28AF2 /* LoginFlowCoordinator.swift in Sources */,
 				2E975EDD287C2325004DE574 /* SetFiltersListView.swift in Sources */,
 				2A4C7FFA2A822BA000201946 /* SettingsInfoBlockView.swift in Sources */,
+				3D26AA792B973E9D00D61479 /* MembershipTierSelectionAssembly.swift in Sources */,
 				1206DB90267A303E000A48A7 /* MediaPickerView.swift in Sources */,
 				2A377E412A826FFD00EA856B /* RemoteStorageView.swift in Sources */,
 				2AC434972B7A0683006166BF /* SpaceShareView.swift in Sources */,

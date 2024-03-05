@@ -310,6 +310,10 @@ final class ModulesDI: ModulesDIProtocol {
         MembershipModuleAssembly(uiHelpersDI: uiHelpersDI)
     }
     
+    func membershipTierSelection() -> MembershipTierSelectionAssemblyProtocol {
+        MembershipTierSelectionAssembly(serviceLocator: serviceLocator)
+    }
+    
     func spaceMembers() -> SpaceMembersModuleAssemblyProtocol {
         SpaceMembersModuleAssembly(serviceLocator: serviceLocator)
     }

@@ -16,7 +16,8 @@ final class MembershipCoordinatorAssembly: MembershipCoordinatorAssemblyProtocol
     func make() -> AnyView {
         MembershipCoordinator(
             model: MembershipCoordinatorModel(
-                membershipAssembly: self.modulesDI.membership()
+                membershipAssembly: self.modulesDI.membership(),
+                tierSelectionAssembly: self.modulesDI.membershipTierSelection()
             )
         ).eraseToAnyView()
     }
