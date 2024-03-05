@@ -37,7 +37,7 @@ struct KeyPhraseView: View {
             
             AnytypeText(Loc.Auth.JoinFlow.Key.Button.Info.title, style: .uxBodyRegular, color: .Auth.inputText)
                 .padding(.vertical, 4)
-                .contentShape(Rectangle())
+                .fixTappableArea()
                 .onTapGesture {
                     model.showMoreInfo.toggle()
                 }

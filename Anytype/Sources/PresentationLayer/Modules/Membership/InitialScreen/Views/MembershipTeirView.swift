@@ -23,7 +23,7 @@ struct MembershipTeirView: View {
             StandardButton(Loc.learnMore, style: .primaryMedium, action: onTap)
             Spacer.fixedHeight(20)
         }
-        .contentShape(Rectangle())
+        .fixTappableArea()
         .onTapGesture(perform: onTap)
         .padding(.horizontal, 16)
         .frame(width: 192, height: 296)
