@@ -112,6 +112,7 @@ internal extension ImageAsset {
     static let lock = ImageAsset.bundle(name: "x18/Lock")
     static let search = ImageAsset.bundle(name: "x18/Search")
     static let slashMenuArrow = ImageAsset.bundle(name: "x18/Slash Menu Arrow")
+    static let webLink = ImageAsset.bundle(name: "x18/Web link")
   }
   enum X19 {
     static let more = ImageAsset.bundle(name: "x19/more")
@@ -321,9 +322,12 @@ internal extension ImageAsset {
     static let banner2 = ImageAsset.bundle(name: "Membership/banner_2")
     static let banner3 = ImageAsset.bundle(name: "Membership/banner_3")
     static let banner4 = ImageAsset.bundle(name: "Membership/banner_4")
-    static let tierBuilder = ImageAsset.bundle(name: "Membership/tier_builder")
-    static let tierCocreator = ImageAsset.bundle(name: "Membership/tier_cocreator")
-    static let tierExplorer = ImageAsset.bundle(name: "Membership/tier_explorer")
+    static let tierBuilderMedium = ImageAsset.bundle(name: "Membership/tier_builder_medium")
+    static let tierBuilderSmall = ImageAsset.bundle(name: "Membership/tier_builder_small")
+    static let tierCocreatorMedium = ImageAsset.bundle(name: "Membership/tier_cocreator_medium")
+    static let tierCocreatorSmall = ImageAsset.bundle(name: "Membership/tier_cocreator_small")
+    static let tierExplorerMedium = ImageAsset.bundle(name: "Membership/tier_explorer_medium")
+    static let tierExplorerSmall = ImageAsset.bundle(name: "Membership/tier_explorer_small")
   }
   static let createNewObject = ImageAsset.bundle(name: "createNewObject")
   static let linkToItself = ImageAsset.bundle(name: "link_to_itself")

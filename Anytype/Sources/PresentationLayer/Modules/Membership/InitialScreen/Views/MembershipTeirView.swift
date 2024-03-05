@@ -23,6 +23,8 @@ struct MembershipTeirView: View {
             StandardButton(Loc.learnMore, style: .primaryMedium, action: onTap)
             Spacer.fixedHeight(20)
         }
+        .contentShape(Rectangle())
+        .onTapGesture(perform: onTap)
         .padding(.horizontal, 16)
         .frame(width: 192, height: 296)
         .background(gradient)
@@ -37,8 +39,8 @@ struct MembershipTeirView: View {
 #Preview {
     MembershipTeirView(
         title: Loc.Membership.Explorer.title,
-        subtitle: Loc.Membership.Explorer.info,
-        image: .Membership.tierExplorer,
+        subtitle: Loc.Membership.Explorer.subtitle,
+        image: .Membership.tierExplorerSmall,
         gradient: .teal
     ) {  }
 }

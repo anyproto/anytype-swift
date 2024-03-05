@@ -12,8 +12,8 @@ struct MembershipLegalButton: View {
                 AnytypeText(text, style: .bodyRegular, color: .Text.primary)
                     .lineLimit(1)
                 Spacer()
-                IconView(icon: .asset(.X18.help))
-                    .frame(width: 16, height: 16)
+                IconView(icon: .asset(.X18.webLink))
+                    .frame(width: 18, height: 18)
             }
             .padding(.vertical, 14)
             .padding(.horizontal, 20)
