@@ -79,10 +79,10 @@ final class EditorPageCoordinatorViewModel: ObservableObject, EditorPageModuleOu
                 objectDetails: objectDetails
             )
         } else {
-            legacyRelationValueCoordinator.startFlow12(
+            legacyRelationValueCoordinator.startFlow(
                 objectDetails: objectDetails,
                 relation: relation,
-                analyticsType: .dataview,
+                analyticsType: .block,
                 output: self
             )
         }

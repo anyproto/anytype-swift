@@ -3,7 +3,7 @@ import Services
 
 @MainActor
 protocol LegacyRelationValueCoordinatorProtocol: AnyObject {
-    func startFlow12(
+    func startFlow(
         objectDetails: ObjectDetails,
         relation: Relation,
         analyticsType: AnalyticsEventsRelationType,

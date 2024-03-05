@@ -47,7 +47,7 @@ final class LegacyRelationValueCoordinator:
     // MARK: - RelationValueCoordinatorProtocol
     
     @MainActor
-    func startFlow12(
+    func startFlow(
         objectDetails: ObjectDetails,
         relation: Relation,
         analyticsType: AnalyticsEventsRelationType,

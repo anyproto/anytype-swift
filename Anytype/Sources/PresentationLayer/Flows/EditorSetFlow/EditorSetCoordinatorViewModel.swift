@@ -238,7 +238,7 @@ final class EditorSetCoordinatorViewModel:
                 objectDetails: objectDetails
             )
         } else {
-            legacyRelationValueCoordinator.startFlow12(
+            legacyRelationValueCoordinator.startFlow(
                 objectDetails: objectDetails,
                 relation: relation,
                 analyticsType: .dataview,
