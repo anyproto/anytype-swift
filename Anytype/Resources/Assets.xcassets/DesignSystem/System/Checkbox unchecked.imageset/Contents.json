@@ -1,0 +1,12 @@
+{
+  "images" : [
+    {
+      "filename" : "Property=unchecked.pdf",
+      "idiom" : "universal"
+    }
+  ],
+  "info" : {
+    "author" : "xcode",
+    "version" : 1
+  }
+}

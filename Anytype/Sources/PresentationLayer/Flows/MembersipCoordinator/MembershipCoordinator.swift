@@ -14,6 +14,9 @@ struct MembershipCoordinator: View {
 
 #Preview {
     MembershipCoordinator(
-        model: MembershipCoordinatorModel(membershipAssembly: DI.preview.modulesDI.membership())
+        model: MembershipCoordinatorModel(
+            membershipAssembly: DI.preview.modulesDI.membership(),
+            tierSelectionAssembly: DI.preview.modulesDI.membershipTierSelection()
+        )
     )
 }

@@ -198,6 +198,8 @@ internal enum Loc {
   internal static let downloadingOrUploadingDataToSomeNode = Loc.tr("Localizable", "Downloading or uploading data to some node", fallback: "Downloading or uploading data to some node")
   /// Duplicate
   internal static let duplicate = Loc.tr("Localizable", "Duplicate", fallback: "Duplicate")
+  /// E-mail
+  internal static let eMail = Loc.tr("Localizable", "E-mail", fallback: "E-mail")
   /// Edit
   internal static let edit = Loc.tr("Localizable", "Edit", fallback: "Edit")
   /// Emoji
@@ -489,6 +491,8 @@ internal enum Loc {
   internal static let start = Loc.tr("Localizable", "Start", fallback: "Start")
   /// Style
   internal static let style = Loc.tr("Localizable", "Style", fallback: "Style")
+  /// Submit
+  internal static let submit = Loc.tr("Localizable", "Submit", fallback: "Submit")
   /// Synced
   internal static let synced = Loc.tr("Localizable", "Synced", fallback: "Synced")
   /// Syncing...
@@ -1457,6 +1461,14 @@ internal enum Loc {
       internal static let body = Loc.tr("Localizable", "Membership.Email.Body", fallback: "Please specify your request:\n- highlight if you represent an educational, governmental, or non-profit organization\n- tell us more about your organization: number of employees and future Anytype users, markets you're working on, etc.,\n- provide additional details about how your organization uses Anytype")
       /// Special Pricing Request
       internal static let subject = Loc.tr("Localizable", "Membership.Email.Subject", fallback: "Special Pricing Request")
+    }
+    internal enum EmailForm {
+      /// I'd like to get updates on products and enjoy free perks!
+      internal static let newsletter = Loc.tr("Localizable", "Membership.EmailForm.Newsletter", fallback: "I'd like to get updates on products and enjoy free perks!")
+      /// We need your email to keep spam at bay and the fun in play!
+      internal static let subtitle = Loc.tr("Localizable", "Membership.EmailForm.Subtitle", fallback: "We need your email to keep spam at bay and the fun in play!")
+      /// Get your free membership
+      internal static let title = Loc.tr("Localizable", "Membership.EmailForm.Title", fallback: "Get your free membership")
     }
     internal enum Explorer {
       /// 1 GB of network space

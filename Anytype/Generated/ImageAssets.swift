@@ -80,6 +80,11 @@ internal extension ImageAsset {
     static let pinCode = ImageAsset.bundle(name: "Settings/PinCode")
     static let spaces = ImageAsset.bundle(name: "Settings/Spaces")
   }
+  enum System {
+    static let checkboxChecked = ImageAsset.bundle(name: "System/Checkbox checked")
+    static let checkboxUnchecked = ImageAsset.bundle(name: "System/Checkbox unchecked")
+    static let textCheckMark = ImageAsset.bundle(name: "System/Text check mark")
+  }
   enum TaskLayout {
     static let done = ImageAsset.bundle(name: "TaskLayout/Done")
     static let empty = ImageAsset.bundle(name: "TaskLayout/Empty")

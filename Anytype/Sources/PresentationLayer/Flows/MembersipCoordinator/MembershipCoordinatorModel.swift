@@ -6,9 +6,14 @@ final class MembershipCoordinatorModel: ObservableObject {
     @Published var showTier: MembershipTier?
     
     private let membershipAssembly: MembershipModuleAssemblyProtocol
+    private let tierSelectionAssembly: MembershipTierSelectionAssemblyProtocol
     
-    init(membershipAssembly: MembershipModuleAssemblyProtocol) {
+    init(
+        membershipAssembly: MembershipModuleAssemblyProtocol,
+        tierSelectionAssembly: MembershipTierSelectionAssemblyProtocol
+    ) {
         self.membershipAssembly = membershipAssembly
+        self.tierSelectionAssembly = tierSelectionAssembly
     }
     
     func initialModule() -> AnyView {
@@ -18,6 +23,6 @@ final class MembershipCoordinatorModel: ObservableObject {
     }
     
     func tierSelection(tier: MembershipTier) -> AnyView {
-        MembershipTierSelectionView(tier: tier).eraseToAnyView()
+        tierSelectionAssembly.make(tier: tier)
     }
 }
