@@ -1,14 +1,9 @@
 import Foundation
 import AnytypeCore
-import Services
 
-protocol RelationValueInteractorProtocol {
-    func canHandleRelation(_ relation: Relation) -> Bool
-}
-
-final class RelationValueInteractor: RelationValueInteractorProtocol {
+final class RelationValueInteractor {
     
-    func canHandleRelation(_ relation: Relation) -> Bool {
+    static func canHandleRelation(_ relation: Relation) -> Bool {
         if FeatureFlags.newDateRelationCalendarView, case .date = relation, relation.isEditable  {
             return true
         }

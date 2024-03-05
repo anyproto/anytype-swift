@@ -73,7 +73,7 @@ final class EditorPageCoordinatorViewModel: ObservableObject, EditorPageModuleOu
     }
     
     private func handleRelationValue(relation: Relation, objectDetails: ObjectDetails) {
-        if RelationValueInteractor().canHandleRelation(relation) {
+        if RelationValueInteractor.canHandleRelation(relation) {
             relationValueData = RelationValueData(
                 relation: relation,
                 objectDetails: objectDetails
