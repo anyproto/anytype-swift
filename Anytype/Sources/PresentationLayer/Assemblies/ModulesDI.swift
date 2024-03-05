@@ -19,7 +19,7 @@ final class ModulesDI: ModulesDIProtocol {
     }
     
     func relationsList() -> RelationsListModuleAssemblyProtocol {
-        return RelationsListModuleAssembly()
+        return RelationsListModuleAssembly(serviceLocator: serviceLocator)
     }
     
     func dateRelationCalendar() -> DateRelationCalendarModuleAssemblyProtocol {

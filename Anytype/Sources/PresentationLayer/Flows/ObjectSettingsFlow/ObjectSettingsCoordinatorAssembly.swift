@@ -35,9 +35,8 @@ final class ObjectSettingsCoordinatorAssembly: ObjectSettingsCoordinatorAssembly
             objectLayoutPickerModuleAssembly: modulesDI.objectLayoutPicker(),
             objectCoverPickerModuleAssembly: modulesDI.objectCoverPicker(),
             objectIconPickerModuleAssembly: modulesDI.objectIconPicker(),
-            relationsListModuleAssembly: modulesDI.relationsList(),
-            relationValueCoordinator: coordinatorsDI.relationValue().make(),
-            addNewRelationCoordinator: coordinatorsDI.addNewRelation().make(),
+            relationsListCoordinatorAssembly: coordinatorsDI.relationsList(),
+            legacyRelationValueCoordinator: coordinatorsDI.legacyRelationValue().make(),
             searchModuleAssembly: modulesDI.search(),
             newSearchModuleAssembly: modulesDI.newSearch(),
             documentsProvider: serviceLocator.documentsProvider

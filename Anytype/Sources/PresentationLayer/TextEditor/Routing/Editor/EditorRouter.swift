@@ -14,7 +14,6 @@ final class EditorRouter: NSObject, EditorRouterProtocol, ObjectSettingsCoordina
     private let templatesCoordinator: TemplatesCoordinatorProtocol
     private let setObjectCreationSettingsCoordinator: SetObjectCreationSettingsCoordinatorProtocol
     private let urlOpener: URLOpenerProtocol
-    private let relationValueCoordinator: RelationValueCoordinatorProtocol
     private let linkToObjectCoordinatorAssembly: LinkToObjectCoordinatorAssemblyProtocol
     private let objectCoverPickerModuleAssembly: ObjectCoverPickerModuleAssemblyProtocol
     private let objectIconPickerModuleAssembly: ObjectIconPickerModuleAssemblyProtocol
@@ -36,7 +35,6 @@ final class EditorRouter: NSObject, EditorRouterProtocol, ObjectSettingsCoordina
         templatesCoordinator: TemplatesCoordinatorProtocol,
         setObjectCreationSettingsCoordinator: SetObjectCreationSettingsCoordinatorProtocol,
         urlOpener: URLOpenerProtocol,
-        relationValueCoordinator: RelationValueCoordinatorProtocol,
         linkToObjectCoordinatorAssembly: LinkToObjectCoordinatorAssemblyProtocol,
         objectCoverPickerModuleAssembly: ObjectCoverPickerModuleAssemblyProtocol,
         objectIconPickerModuleAssembly: ObjectIconPickerModuleAssemblyProtocol,
@@ -58,7 +56,6 @@ final class EditorRouter: NSObject, EditorRouterProtocol, ObjectSettingsCoordina
         self.templatesCoordinator = templatesCoordinator
         self.setObjectCreationSettingsCoordinator = setObjectCreationSettingsCoordinator
         self.urlOpener = urlOpener
-        self.relationValueCoordinator = relationValueCoordinator
         self.linkToObjectCoordinatorAssembly = linkToObjectCoordinatorAssembly
         self.objectCoverPickerModuleAssembly = objectCoverPickerModuleAssembly
         self.objectIconPickerModuleAssembly = objectIconPickerModuleAssembly
@@ -522,16 +519,7 @@ extension EditorRouter {
         let relation = document.parsedRelations.installed.first { $0.key == key }
         guard let relation = relation else { return }
         
-        showRelationValueEditingView(objectId: document.objectId, relation: relation)
-    }
-    
-    @MainActor
-    func showRelationValueEditingView(objectId: String, relation: Relation) {
-        guard let objectDetails = document.detailsStorage.get(id: objectId) else {
-            anytypeAssertionFailure("Details not found")
-            return
-        }
-        relationValueCoordinator.startFlow(objectDetails: objectDetails, relation: relation, analyticsType: .block, output: self)
+        output?.showRelationValueEditingView(document: document, relation: relation)
     }
 
     @MainActor

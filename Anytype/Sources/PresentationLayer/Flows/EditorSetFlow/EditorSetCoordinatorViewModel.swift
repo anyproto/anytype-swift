@@ -11,7 +11,6 @@ final class EditorSetCoordinatorViewModel:
     ObjectSettingsCoordinatorOutput,
     RelationValueCoordinatorOutput
 {
-    
     private let data: EditorSetObject
     private let editorSetAssembly: EditorSetModuleAssemblyProtocol
     private let setViewPickerCoordinatorAssembly: SetViewPickerCoordinatorAssemblyProtocol
@@ -22,8 +21,9 @@ final class EditorSetCoordinatorViewModel:
     private let objectIconPickerModuleAssembly: ObjectIconPickerModuleAssemblyProtocol
     private let objectTypeSearchModuleAssembly: ObjectTypeSearchModuleAssemblyProtocol
     private let newSearchModuleAssembly: NewSearchModuleAssemblyProtocol
-    private let relationValueCoordinator: RelationValueCoordinatorProtocol
+    private let legacyRelationValueCoordinator: LegacyRelationValueCoordinatorProtocol
     private let setObjectCreationSettingsCoordinator: SetObjectCreationSettingsCoordinatorProtocol
+    private let relationValueCoordinatorAssembly: RelationValueCoordinatorAssemblyProtocol
     
     private let toastPresenter: ToastPresenterProtocol
     private let navigationContext: NavigationContextProtocol
@@ -34,6 +34,7 @@ final class EditorSetCoordinatorViewModel:
     @Published var setViewPickerData: SetViewData?
     @Published var setViewSettingsData: SetViewData?
     @Published var setQueryData: SetQueryData?
+    @Published var relationValueData: RelationValueData?
     
     init(
         data: EditorSetObject,
@@ -46,8 +47,9 @@ final class EditorSetCoordinatorViewModel:
         objectIconPickerModuleAssembly: ObjectIconPickerModuleAssemblyProtocol,
         objectTypeSearchModuleAssembly: ObjectTypeSearchModuleAssemblyProtocol,
         newSearchModuleAssembly: NewSearchModuleAssemblyProtocol,
-        relationValueCoordinator: RelationValueCoordinatorProtocol,
+        legacyRelationValueCoordinator: LegacyRelationValueCoordinatorProtocol,
         setObjectCreationSettingsCoordinator: SetObjectCreationSettingsCoordinatorProtocol,
+        relationValueCoordinatorAssembly: RelationValueCoordinatorAssemblyProtocol,
         toastPresenter: ToastPresenterProtocol,
         navigationContext: NavigationContextProtocol
     ) {
@@ -61,8 +63,9 @@ final class EditorSetCoordinatorViewModel:
         self.objectIconPickerModuleAssembly = objectIconPickerModuleAssembly
         self.objectTypeSearchModuleAssembly = objectTypeSearchModuleAssembly
         self.newSearchModuleAssembly = newSearchModuleAssembly
-        self.relationValueCoordinator = relationValueCoordinator
+        self.legacyRelationValueCoordinator = legacyRelationValueCoordinator
         self.setObjectCreationSettingsCoordinator = setObjectCreationSettingsCoordinator
+        self.relationValueCoordinatorAssembly = relationValueCoordinatorAssembly
         self.toastPresenter = toastPresenter
         self.navigationContext = navigationContext
     }
@@ -213,6 +216,10 @@ final class EditorSetCoordinatorViewModel:
         navigationContext.present(moduleViewController)
     }
     
+    func showRelationValueEditingView(objectDetails: ObjectDetails, relation: Relation) {
+        handleRelationValue(relation: relation, objectDetails: objectDetails)
+    }
+    
     func showRelationValueEditingView(document: SetDocumentProtocol, key: String) {
         let relation = document.parsedRelations.installed.first { $0.key == key }
         guard let relation = relation else { return }
@@ -220,14 +227,31 @@ final class EditorSetCoordinatorViewModel:
             anytypeAssertionFailure("Set document doesn't contains details")
             return
         }
-        showRelationValueEditingView(objectDetails: objectDetails, relation: relation)
+        
+        handleRelationValue(relation: relation, objectDetails: objectDetails)
     }
     
-    func showRelationValueEditingView(objectDetails: ObjectDetails, relation: Relation) {
-        relationValueCoordinator.startFlow(
-            objectDetails: objectDetails,
-            relation: relation,
-            analyticsType: .dataview,
+    private func handleRelationValue(relation: Relation, objectDetails: ObjectDetails) {
+        if RelationValueInteractor().canHandleRelation(relation) {
+            relationValueData = RelationValueData(
+                relation: relation,
+                objectDetails: objectDetails
+            )
+        } else {
+            legacyRelationValueCoordinator.startFlow12(
+                objectDetails: objectDetails,
+                relation: relation,
+                analyticsType: .dataview,
+                output: self
+            )
+        }
+    }
+    
+    func relationValueCoordinator(data: RelationValueData) -> AnyView {
+        relationValueCoordinatorAssembly.make(
+            relation: data.relation,
+            objectDetails: data.objectDetails,
+            analyticsType: .dataview, 
             output: self
         )
     }
@@ -281,5 +305,11 @@ extension EditorSetCoordinatorViewModel {
         let document: SetDocumentProtocol
         let selectedObjectId: String?
         let onSelect: (String) -> ()
+    }
+    
+    struct RelationValueData: Identifiable {
+        let id = UUID()
+        let relation: Relation
+        let objectDetails: ObjectDetails
     }
 }

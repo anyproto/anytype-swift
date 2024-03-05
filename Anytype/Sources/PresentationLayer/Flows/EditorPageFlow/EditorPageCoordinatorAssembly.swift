@@ -44,7 +44,9 @@ final class EditorPageCoordinatorAssembly: EditorPageCoordinatorAssemblyProtocol
                 data: data,
                 showHeader: showHeader,
                 setupEditorInput: setupEditorInput,
-                editorPageAssembly: self.coordinatorsID.editorPageModule()
+                editorPageAssembly: self.coordinatorsID.editorPageModule(), 
+                legacyRelationValueCoordinator: self.coordinatorsID.legacyRelationValue().make(), 
+                relationValueCoordinatorAssembly: self.coordinatorsID.relationValue()
             )
         ).eraseToAnyView()
     }

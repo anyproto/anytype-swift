@@ -2,7 +2,7 @@ import Foundation
 import UIKit
 
 @MainActor
-final class RelationValueCoordinatorAssembly: RelationValueCoordinatorAssemblyProtocol {
+final class LegacyRelationValueCoordinatorAssembly: LegacyRelationValueCoordinatorAssemblyProtocol {
     
     private let coordinatorsDI: CoordinatorsDIProtocol
     private let modulesDI: ModulesDIProtocol
@@ -18,14 +18,15 @@ final class RelationValueCoordinatorAssembly: RelationValueCoordinatorAssemblyPr
     
     // MARK: - RelationValueCoordinatorAssemblyProtocol
     
-    func make() -> RelationValueCoordinatorProtocol {
+    func make() -> LegacyRelationValueCoordinatorProtocol {
         
-        let coordinator = RelationValueCoordinator(
+        let coordinator = LegacyRelationValueCoordinator(
             navigationContext: uiHelpersDI.commonNavigationContext(),
             relationValueModuleAssembly: modulesDI.relationValue(), 
             dateRelationCalendarModuleAssembly: modulesDI.dateRelationCalendar(), 
             selectRelationListCoordinatorAssembly: coordinatorsDI.selectRelationList(), 
-            objectRelationListCoordinatorAssembly: coordinatorsDI.objectRelationList(),
+            objectRelationListCoordinatorAssembly: coordinatorsDI.objectRelationList(), 
+            relationValueCoordinatorAssembly: coordinatorsDI.relationValue(),
             urlOpener: uiHelpersDI.urlOpener(),
             toastPresenter: uiHelpersDI.toastPresenter(),
             relationsService: serviceLocator.relationService()

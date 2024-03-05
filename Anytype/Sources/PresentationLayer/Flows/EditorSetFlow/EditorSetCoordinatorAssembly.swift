@@ -41,8 +41,9 @@ final class EditorSetCoordinatorAssembly: EditorSetCoordinatorAssemblyProtocol {
                 objectIconPickerModuleAssembly: self.modulesDI.objectIconPicker(),
                 objectTypeSearchModuleAssembly: self.modulesDI.objectTypeSearch(),
                 newSearchModuleAssembly: self.modulesDI.newSearch(), 
-                relationValueCoordinator: self.coordinatorsID.relationValue().make(), 
-                setObjectCreationSettingsCoordinator: self.coordinatorsID.setObjectCreationSettings().make(with: nil),
+                legacyRelationValueCoordinator: self.coordinatorsID.legacyRelationValue().make(), 
+                setObjectCreationSettingsCoordinator: self.coordinatorsID.setObjectCreationSettings().make(with: nil), 
+                relationValueCoordinatorAssembly: self.coordinatorsID.relationValue(),
                 toastPresenter: self.uiHelpersDI.toastPresenter(),
                 navigationContext: self.uiHelpersDI.commonNavigationContext()
             )
