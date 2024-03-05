@@ -17,11 +17,14 @@ public struct Invocation<Request, Response> where Request: Message,
     }
     
     @discardableResult
-    public func invoke(file: StaticString = #file, function: String = #function, line: UInt = #line) async throws -> Response {
+    public func invoke(file: StaticString = #file, function: String = #function, line: UInt = #line, ignoreLogErrors: Response.Error.ErrorCode...) async throws -> Response {
         do {
             return try await internalInvoke()
         } catch let error as CancellationError {
             // Ignore try Task.checkCancellation()
+            throw error
+        } catch let error as Response.Error where ignoreLogErrors.map(\.rawValue).contains(error.code.rawValue) {
+            // Ignore some specific errors
             throw error
         } catch {
             InvocationSettings.handler?.assertationHandler(message: error.localizedDescription, info: [:], file: file, function: function, line: line)
