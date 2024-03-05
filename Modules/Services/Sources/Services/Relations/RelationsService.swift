@@ -6,10 +6,7 @@ enum RelationServiceError: Error {
     case unableToCreateRelationFromObject
 }
 
-public final class RelationsService: RelationsServiceProtocol {
-    
-    public init() {
-    }
+final class RelationsService: RelationsServiceProtocol {
     
     // MARK: - RelationsServiceProtocol
     

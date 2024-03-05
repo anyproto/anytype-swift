@@ -88,6 +88,10 @@ public extension Container {
         self { ProcessSubscriptionService() }.shared
     }
     
+    var relationsService: Factory<RelationsServiceProtocol> {
+        self { RelationsService() }.shared
+    }
+    
     var sceneLifecycleStateService: Factory<SceneLifecycleStateServiceProtocol> {
         self { SceneLifecycleStateService() }.shared
     }
