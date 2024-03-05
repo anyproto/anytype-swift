@@ -9,13 +9,19 @@ protocol RelationsListModuleAssemblyProtocol {
 
 final class RelationsListModuleAssembly: RelationsListModuleAssemblyProtocol {
     
+    private let serviceLocator: ServiceLocator
+    
+    init(serviceLocator: ServiceLocator) {
+        self.serviceLocator = serviceLocator
+    }
+    
     // MARK: - RelationsListModuleAssemblyProtocol
     @MainActor
     func make(document: BaseDocumentProtocol, output: RelationsListModuleOutput) -> UIViewController {
         
         let viewModel = RelationsListViewModel(
             document: document,
-            relationsService: RelationsService(),
+            relationsService: serviceLocator.relationService(),
             output: output
         )
         

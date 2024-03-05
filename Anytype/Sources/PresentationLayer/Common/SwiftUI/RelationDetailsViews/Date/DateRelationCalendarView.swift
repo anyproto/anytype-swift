@@ -88,7 +88,7 @@ struct DateCalendarView_Previews: PreviewProvider {
                 date: Date(),
                 objectId: "",
                 relationKey: "",
-                relationsService: RelationsService(), 
+                relationsService: DI.preview.serviceLocator.relationService(),
                 analyticsType: .block
             )
         )

@@ -116,7 +116,7 @@ final class ServiceLocator {
     }
     
     func relationService() -> RelationsServiceProtocol {
-        return RelationsService()
+        return Container.shared.relationsService.resolve()
     }
     
     // Sigletone
