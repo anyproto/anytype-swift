@@ -10,5 +10,6 @@ struct RelationsListCoordinatorView: View {
             .sheet(item: $model.relationValueData) {
                 model.relationValueCoordinator(data: $0)
             }
+            .snackbar(toastBarData: $model.toastBarData)
     }
 }

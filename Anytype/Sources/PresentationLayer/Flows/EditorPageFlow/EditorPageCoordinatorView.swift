@@ -19,5 +19,6 @@ struct EditorPageCoordinatorView: View {
             .sheet(item: $model.relationValueData) { data in
                 model.relationValueCoordinator(data: data)
             }
+            .snackbar(toastBarData: $model.toastBarData)
     }
 }

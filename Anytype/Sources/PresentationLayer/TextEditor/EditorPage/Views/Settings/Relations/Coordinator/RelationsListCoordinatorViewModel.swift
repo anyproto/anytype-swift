@@ -10,6 +10,7 @@ final class RelationsListCoordinatorViewModel:
     RelationValueCoordinatorOutput
 {
     @Published var relationValueData: RelationValueData?
+    @Published var toastBarData: ToastBarData = .empty
     
     private let document: BaseDocumentProtocol
     private let relationsListModuleAssembly: RelationsListModuleAssemblyProtocol
@@ -17,7 +18,6 @@ final class RelationsListCoordinatorViewModel:
     private let addNewRelationCoordinator: AddNewRelationCoordinatorProtocol
     private let legacyRelationValueCoordinator: LegacyRelationValueCoordinatorProtocol
     private let relationValueProcessingService: RelationValueProcessingServiceProtocol
-    private let toastPresenter: ToastPresenterProtocol
     private weak var output: RelationValueCoordinatorOutput?
 
     init(
@@ -27,7 +27,6 @@ final class RelationsListCoordinatorViewModel:
         addNewRelationCoordinator: AddNewRelationCoordinatorProtocol,
         legacyRelationValueCoordinator: LegacyRelationValueCoordinatorProtocol,
         relationValueProcessingService: RelationValueProcessingServiceProtocol,
-        toastPresenter: ToastPresenterProtocol,
         output: RelationValueCoordinatorOutput?
     ) {
         self.document = document
@@ -36,7 +35,6 @@ final class RelationsListCoordinatorViewModel:
         self.addNewRelationCoordinator = addNewRelationCoordinator
         self.legacyRelationValueCoordinator = legacyRelationValueCoordinator
         self.relationValueProcessingService = relationValueProcessingService
-        self.toastPresenter = toastPresenter
         self.output = output
     }
     
@@ -96,7 +94,7 @@ final class RelationsListCoordinatorViewModel:
             objectId: objectDetails.id,
             analyticsType: analyticsType,
             onToastShow: { [weak self] message in
-                self?.toastPresenter.show(message: message)
+                self?.toastBarData = ToastBarData(text: message, showSnackBar: true, messageType: .none)
             }
         )
         

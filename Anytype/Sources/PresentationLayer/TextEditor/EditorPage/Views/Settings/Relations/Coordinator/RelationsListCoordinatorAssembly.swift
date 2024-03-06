@@ -13,18 +13,15 @@ final class RelationsListCoordinatorAssembly: RelationsListCoordinatorAssemblyPr
     private let coordinatorsID: CoordinatorsDIProtocol
     private let modulesDI: ModulesDIProtocol
     private let serviceLocator: ServiceLocator
-    private let uiHelpersDI: UIHelpersDIProtocol
     
     nonisolated init(
         coordinatorsID: CoordinatorsDIProtocol,
         modulesDI: ModulesDIProtocol,
-        serviceLocator: ServiceLocator,
-        uiHelpersDI: UIHelpersDIProtocol
+        serviceLocator: ServiceLocator
     ) {
         self.coordinatorsID = coordinatorsID
         self.modulesDI = modulesDI
         self.serviceLocator = serviceLocator
-        self.uiHelpersDI = uiHelpersDI
     }
     
     // MARK: - RelationsListCoordinatorAssemblyProtocol
@@ -38,7 +35,6 @@ final class RelationsListCoordinatorAssembly: RelationsListCoordinatorAssemblyPr
                 addNewRelationCoordinator: self.coordinatorsID.addNewRelation().make(), 
                 legacyRelationValueCoordinator: self.coordinatorsID.legacyRelationValue().make(),
                 relationValueProcessingService: self.serviceLocator.relationValueProcessingService(),
-                toastPresenter: self.uiHelpersDI.toastPresenter(),
                 output: output
             )
         ).eraseToAnyView()
