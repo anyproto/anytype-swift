@@ -223,17 +223,6 @@ final class EditorSetCoordinatorViewModel:
         handleRelationValue(relation: relation, objectDetails: objectDetails)
     }
     
-    func showRelationValueEditingView(document: SetDocumentProtocol, key: String) {
-        let relation = document.parsedRelations.installed.first { $0.key == key }
-        guard let relation = relation else { return }
-        guard let objectDetails = document.details else {
-            anytypeAssertionFailure("Set document doesn't contains details")
-            return
-        }
-        
-        handleRelationValue(relation: relation, objectDetails: objectDetails)
-    }
-    
     private func handleRelationValue(relation: Relation, objectDetails: ObjectDetails) {
         let analyticsType = AnalyticsEventsRelationType.dataview
         if relationValueProcessingService.canOpenRelationInNewModule(relation) {

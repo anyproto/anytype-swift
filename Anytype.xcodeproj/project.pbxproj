@@ -380,7 +380,6 @@
 		2A2C33182892B3BB008BC326 /* DI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A2C33172892B3BB008BC326 /* DI.swift */; };
 		2A2C331D2892B627008BC326 /* RelationValueModuleAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A2C331C2892B627008BC326 /* RelationValueModuleAssembly.swift */; };
 		2A2C33212892BA36008BC326 /* RelationValueViewModelOutput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A2C33202892BA36008BC326 /* RelationValueViewModelOutput.swift */; };
-		2A2C33232892C63B008BC326 /* RelationValueCoordinatorOutput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A2C33222892C63B008BC326 /* RelationValueCoordinatorOutput.swift */; };
 		2A2DDBA12B67CC3C00EA3F47 /* CommonNotificationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A2DDBA02B67CC3C00EA3F47 /* CommonNotificationView.swift */; };
 		2A2DDBA32B67CE0E00EA3F47 /* CommonNotificationViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A2DDBA22B67CE0E00EA3F47 /* CommonNotificationViewModel.swift */; };
 		2A2DDBA52B67D0E400EA3F47 /* CommonNotificationAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A2DDBA42B67D0E400EA3F47 /* CommonNotificationAssembly.swift */; };
@@ -2160,7 +2159,6 @@
 		2A2C33172892B3BB008BC326 /* DI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DI.swift; sourceTree = "<group>"; };
 		2A2C331C2892B627008BC326 /* RelationValueModuleAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RelationValueModuleAssembly.swift; sourceTree = "<group>"; };
 		2A2C33202892BA36008BC326 /* RelationValueViewModelOutput.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RelationValueViewModelOutput.swift; sourceTree = "<group>"; };
-		2A2C33222892C63B008BC326 /* RelationValueCoordinatorOutput.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RelationValueCoordinatorOutput.swift; sourceTree = "<group>"; };
 		2A2DDBA02B67CC3C00EA3F47 /* CommonNotificationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommonNotificationView.swift; sourceTree = "<group>"; };
 		2A2DDBA22B67CE0E00EA3F47 /* CommonNotificationViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommonNotificationViewModel.swift; sourceTree = "<group>"; };
 		2A2DDBA42B67D0E400EA3F47 /* CommonNotificationAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommonNotificationAssembly.swift; sourceTree = "<group>"; };
@@ -5474,7 +5472,6 @@
 				2AECFD3C28993C57000E9CFB /* Assembly */,
 				2A2C330628928B24008BC326 /* RelationEditingViewModelBuilder */,
 				2A2C330228928668008BC326 /* LegacyRelationValueCoordinator.swift */,
-				2A2C33222892C63B008BC326 /* RelationValueCoordinatorOutput.swift */,
 				2AECFD3F28993C77000E9CFB /* LegacyRelationValueCoordinatorProtocol.swift */,
 				2A2C331B2892B601008BC326 /* RelationValueModule */,
 			);
@@ -11387,7 +11384,6 @@
 				2ADD556E2987CDDE009AFCB1 /* LinkWidgetViewModel.swift in Sources */,
 				C98282382850B3CF00C4E1D4 /* SpreadsheetInvalidationContext.swift in Sources */,
 				12A52E1B26CA88CD000F0333 /* UIEditorBarButtonItem.swift in Sources */,
-				2A2C33232892C63B008BC326 /* RelationValueCoordinatorOutput.swift in Sources */,
 				2A376F682B879CB000CF444A /* ParticipantsSubscriptionByAccountService.swift in Sources */,
 				538AE50F272C57300071DB0D /* LinkToObjectSearchViewModel.swift in Sources */,
 				2A5A898C29C8650600C170D6 /* SettingsAccountView.swift in Sources */,

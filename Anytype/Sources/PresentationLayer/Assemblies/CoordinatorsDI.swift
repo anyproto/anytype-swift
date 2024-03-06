@@ -17,19 +17,15 @@ final class CoordinatorsDI: CoordinatorsDIProtocol {
     
     func legacyRelationValue() -> LegacyRelationValueCoordinatorAssembly {
         return LegacyRelationValueCoordinatorAssembly(
-            coordinatorsDI: self,
             modulesDI: modulesDI,
-            uiHelpersDI: uiHelpersDI,
-            serviceLocator: serviceLocator
+            uiHelpersDI: uiHelpersDI
         )
     }
     
     func relationValue() -> RelationValueCoordinatorAssemblyProtocol {
         return RelationValueCoordinatorAssembly(
             coordinatorsID: self,
-            modulesDI: modulesDI,
-            serviceLocator: serviceLocator,
-            uiHelpersDI: uiHelpersDI
+            modulesDI: modulesDI
         )
     }
     

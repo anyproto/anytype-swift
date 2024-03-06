@@ -7,41 +7,22 @@ import AnytypeCore
 final class LegacyRelationValueCoordinator:
     LegacyRelationValueCoordinatorProtocol,
     TextRelationActionButtonViewModelDelegate,
-    RelationValueViewModelOutput,
-    ObjectRelationListCoordinatorModuleOutput
+    RelationValueViewModelOutput
 {
     
     private let navigationContext: NavigationContextProtocol
     private let relationValueModuleAssembly: RelationValueModuleAssemblyProtocol
-    private let dateRelationCalendarModuleAssembly: DateRelationCalendarModuleAssemblyProtocol
-    private let selectRelationListCoordinatorAssembly: SelectRelationListCoordinatorAssemblyProtocol
-    private let objectRelationListCoordinatorAssembly: ObjectRelationListCoordinatorAssemblyProtocol
-    private let relationValueCoordinatorAssembly: RelationValueCoordinatorAssemblyProtocol
     private let urlOpener: URLOpenerProtocol
-    private let toastPresenter: ToastPresenterProtocol
-    private let relationsService: RelationsServiceProtocol
     private weak var output: RelationValueCoordinatorOutput?
     
     init(
         navigationContext: NavigationContextProtocol,
         relationValueModuleAssembly: RelationValueModuleAssemblyProtocol,
-        dateRelationCalendarModuleAssembly: DateRelationCalendarModuleAssemblyProtocol,
-        selectRelationListCoordinatorAssembly: SelectRelationListCoordinatorAssemblyProtocol,
-        objectRelationListCoordinatorAssembly: ObjectRelationListCoordinatorAssemblyProtocol,
-        relationValueCoordinatorAssembly: RelationValueCoordinatorAssemblyProtocol,
-        urlOpener: URLOpenerProtocol,
-        toastPresenter: ToastPresenterProtocol,
-        relationsService: RelationsServiceProtocol
+        urlOpener: URLOpenerProtocol
     ) {
         self.navigationContext = navigationContext
         self.relationValueModuleAssembly = relationValueModuleAssembly
-        self.dateRelationCalendarModuleAssembly = dateRelationCalendarModuleAssembly
-        self.selectRelationListCoordinatorAssembly = selectRelationListCoordinatorAssembly
-        self.objectRelationListCoordinatorAssembly = objectRelationListCoordinatorAssembly
-        self.relationValueCoordinatorAssembly = relationValueCoordinatorAssembly
         self.urlOpener = urlOpener
-        self.toastPresenter = toastPresenter
-        self.relationsService = relationsService
     }
     
     // MARK: - RelationValueCoordinatorProtocol
@@ -81,12 +62,6 @@ final class LegacyRelationValueCoordinator:
     // MARK: - RelationValueViewModelOutput
     
     func onTapRelation(screenData: EditorScreenData) {
-        output?.showEditorScreen(data: screenData)
-    }
-    
-    // MARK: - ObjectRelationListCoordinatorModuleOutput
-    
-    func onObjectOpen(screenData: EditorScreenData) {
         output?.showEditorScreen(data: screenData)
     }
 }

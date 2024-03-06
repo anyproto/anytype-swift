@@ -17,19 +17,13 @@ final class RelationValueCoordinatorAssembly: RelationValueCoordinatorAssemblyPr
     
     private let coordinatorsID: CoordinatorsDIProtocol
     private let modulesDI: ModulesDIProtocol
-    private let serviceLocator: ServiceLocator
-    private let uiHelpersDI: UIHelpersDIProtocol
     
     nonisolated init(
         coordinatorsID: CoordinatorsDIProtocol,
-        modulesDI: ModulesDIProtocol,
-        serviceLocator: ServiceLocator,
-        uiHelpersDI: UIHelpersDIProtocol
+        modulesDI: ModulesDIProtocol
     ) {
         self.coordinatorsID = coordinatorsID
         self.modulesDI = modulesDI
-        self.serviceLocator = serviceLocator
-        self.uiHelpersDI = uiHelpersDI
     }
     
     // MARK: - EditorSetCoordinatorAssemblyProtocol
@@ -47,11 +41,7 @@ final class RelationValueCoordinatorAssembly: RelationValueCoordinatorAssemblyPr
                 dateRelationCalendarModuleAssembly: self.modulesDI.dateRelationCalendar(),
                 selectRelationListCoordinatorAssembly: self.coordinatorsID.selectRelationList(),
                 objectRelationListCoordinatorAssembly: self.coordinatorsID.objectRelationList(),
-                relationValueModuleAssembly: self.modulesDI.relationValue(),
-                newSearchModuleAssembly: self.modulesDI.newSearch(),
                 analyticsType: analyticsType,
-                toastPresenter: self.uiHelpersDI.toastPresenter(),
-                navigationContext: self.uiHelpersDI.commonNavigationContext(),
                 output: output
             )
         ).eraseToAnyView()

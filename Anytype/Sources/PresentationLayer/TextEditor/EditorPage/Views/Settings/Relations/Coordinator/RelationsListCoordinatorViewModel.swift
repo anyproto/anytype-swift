@@ -10,7 +10,6 @@ final class RelationsListCoordinatorViewModel:
     RelationValueCoordinatorOutput
 {
     @Published var relationValueData: RelationValueData?
-    @Published var dismiss: Bool = false
     
     private let document: BaseDocumentProtocol
     private let relationsListModuleAssembly: RelationsListModuleAssemblyProtocol

@@ -23,7 +23,6 @@ final class ObjectSettingsCoordinator: ObjectSettingsCoordinatorProtocol,
     private let objectCoverPickerModuleAssembly: ObjectCoverPickerModuleAssemblyProtocol
     private let objectIconPickerModuleAssembly: ObjectIconPickerModuleAssemblyProtocol
     private let relationsListCoordinatorAssembly: RelationsListCoordinatorAssemblyProtocol
-    private let legacyRelationValueCoordinator: LegacyRelationValueCoordinatorProtocol
     private let searchModuleAssembly: SearchModuleAssemblyProtocol
     private let newSearchModuleAssembly: NewSearchModuleAssemblyProtocol
     private let documentsProvider: DocumentsProviderProtocol
@@ -38,7 +37,6 @@ final class ObjectSettingsCoordinator: ObjectSettingsCoordinatorProtocol,
         objectCoverPickerModuleAssembly: ObjectCoverPickerModuleAssemblyProtocol,
         objectIconPickerModuleAssembly: ObjectIconPickerModuleAssemblyProtocol,
         relationsListCoordinatorAssembly: RelationsListCoordinatorAssemblyProtocol,
-        legacyRelationValueCoordinator: LegacyRelationValueCoordinatorProtocol,
         searchModuleAssembly: SearchModuleAssemblyProtocol,
         newSearchModuleAssembly: NewSearchModuleAssemblyProtocol,
         documentsProvider: DocumentsProviderProtocol
@@ -50,7 +48,6 @@ final class ObjectSettingsCoordinator: ObjectSettingsCoordinatorProtocol,
         self.objectCoverPickerModuleAssembly = objectCoverPickerModuleAssembly
         self.objectIconPickerModuleAssembly = objectIconPickerModuleAssembly
         self.relationsListCoordinatorAssembly = relationsListCoordinatorAssembly
-        self.legacyRelationValueCoordinator = legacyRelationValueCoordinator
         self.searchModuleAssembly = searchModuleAssembly
         self.newSearchModuleAssembly = newSearchModuleAssembly
         self.documentsProvider = documentsProvider

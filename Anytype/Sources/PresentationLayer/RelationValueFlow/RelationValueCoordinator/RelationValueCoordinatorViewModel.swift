@@ -12,10 +12,6 @@ final class RelationValueCoordinatorViewModel:
     ObservableObject,
     ObjectRelationListCoordinatorModuleOutput
 {
-    @Published var imagePreviewData: SheetData?
-    @Published var groupByData: SheetData?
-    @Published var dismiss: Bool = false
-    
     var mediumDetent: Bool = false
     
     private let relation: Relation
@@ -23,11 +19,7 @@ final class RelationValueCoordinatorViewModel:
     private let dateRelationCalendarModuleAssembly: DateRelationCalendarModuleAssemblyProtocol
     private let selectRelationListCoordinatorAssembly: SelectRelationListCoordinatorAssemblyProtocol
     private let objectRelationListCoordinatorAssembly: ObjectRelationListCoordinatorAssemblyProtocol
-    private let relationValueModuleAssembly: RelationValueModuleAssemblyProtocol
-    private let newSearchModuleAssembly: NewSearchModuleAssemblyProtocol
     private let analyticsType: AnalyticsEventsRelationType
-    private let toastPresenter: ToastPresenterProtocol
-    private let navigationContext: NavigationContextProtocol
     private weak var output: RelationValueCoordinatorOutput?
 
     init(
@@ -36,11 +28,7 @@ final class RelationValueCoordinatorViewModel:
         dateRelationCalendarModuleAssembly: DateRelationCalendarModuleAssemblyProtocol,
         selectRelationListCoordinatorAssembly: SelectRelationListCoordinatorAssemblyProtocol,
         objectRelationListCoordinatorAssembly: ObjectRelationListCoordinatorAssemblyProtocol,
-        relationValueModuleAssembly: RelationValueModuleAssemblyProtocol,
-        newSearchModuleAssembly: NewSearchModuleAssemblyProtocol,
         analyticsType: AnalyticsEventsRelationType,
-        toastPresenter: ToastPresenterProtocol,
-        navigationContext: NavigationContextProtocol,
         output: RelationValueCoordinatorOutput?
     ) {
         self.relation = relation
@@ -48,11 +36,7 @@ final class RelationValueCoordinatorViewModel:
         self.dateRelationCalendarModuleAssembly = dateRelationCalendarModuleAssembly
         self.selectRelationListCoordinatorAssembly = selectRelationListCoordinatorAssembly
         self.objectRelationListCoordinatorAssembly = objectRelationListCoordinatorAssembly
-        self.relationValueModuleAssembly = relationValueModuleAssembly
-        self.newSearchModuleAssembly = newSearchModuleAssembly
         self.analyticsType = analyticsType
-        self.toastPresenter = toastPresenter
-        self.navigationContext = navigationContext
         self.output = output
     }
     
@@ -153,11 +137,3 @@ final class RelationValueCoordinatorViewModel:
         output?.showEditorScreen(data: screenData)
     }
 }
-
-extension RelationValueCoordinatorViewModel {
-    struct SheetData: Identifiable {
-        let id = UUID()
-        let completion: (String) -> Void
-    }
-}
-
