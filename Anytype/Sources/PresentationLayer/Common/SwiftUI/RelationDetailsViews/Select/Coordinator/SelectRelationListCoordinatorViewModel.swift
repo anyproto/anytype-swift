@@ -105,7 +105,7 @@ final class SelectRelationListCoordinatorViewModel: ObservableObject, SelectRela
             title: data.title,
             message: data.description,
             icon: .BottomAlert.question,
-            style: .red
+            color: .red
         ) {
             BottomAlertButton(text: Loc.cancel, style: .secondary) { [weak self] in
                 data.completion(false)

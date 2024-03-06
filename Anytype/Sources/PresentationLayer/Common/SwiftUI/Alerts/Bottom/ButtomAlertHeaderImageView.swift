@@ -1,7 +1,7 @@
 import Foundation
 import SwiftUI
-    
-enum BottomAlertHeaderBackgroundStyle {
+
+enum BottomAlertHeaderBackgroundColor {
     case green
     case blue
     case red
@@ -17,6 +17,11 @@ enum BottomAlertHeaderBackgroundStyle {
         }
     }
 }
+    
+enum BottomAlertHeaderBackgroundStyle {
+    case color(BottomAlertHeaderBackgroundColor)
+    case plain
+}
 
 struct ButtomAlertHeaderImageView: View {
     
@@ -27,7 +32,7 @@ struct ButtomAlertHeaderImageView: View {
     
     var body: some View {
         ZStack {
-            gradient
+            background
             Image(asset: icon)
         }
         .frame(height: 104)
@@ -35,18 +40,23 @@ struct ButtomAlertHeaderImageView: View {
     }
     
     @ViewBuilder
-    private var gradient: some View {
+    private var background: some View {
         if colorScheme == .light {
-            GeometryReader { reader in
-                RadialGradient(
-                    colors: style.gradient,
-                    center: .center,
-                    startRadius: 0,
-                    endRadius: 50
-                )
-                .frame(width: reader.size.height, height: reader.size.height)
-                .scaleEffect(CGSize(width: reader.size.width / 104, height: 1.0))
-                .position(x: reader.frame(in: .local).midX, y: reader.frame(in: .local).midY)
+            switch style {
+            case .color(let color):
+                GeometryReader { reader in
+                    RadialGradient(
+                        colors: color.gradient,
+                        center: .center,
+                        startRadius: 0,
+                        endRadius: 50
+                    )
+                    .frame(width: reader.size.height, height: reader.size.height)
+                    .scaleEffect(CGSize(width: reader.size.width / 104, height: 1.0))
+                    .position(x: reader.frame(in: .local).midX, y: reader.frame(in: .local).midY)
+                }
+            case .plain:
+                EmptyView()
             }
         }
     }

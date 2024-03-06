@@ -81,6 +81,17 @@ extension BottomAlertView where Header == ButtomAlertHeaderImageView, Body == Em
         title: String,
         message: String? = nil,
         icon: ImageAsset,
+        color: BottomAlertHeaderBackgroundColor,
+        @ArrayBuilder<BottomAlertButton> buttons: () -> [BottomAlertButton]
+    ) {
+        self.init(title: title, icon: icon, style: .color(color), buttons: buttons)
+    }
+    
+    
+    init(
+        title: String,
+        message: String? = nil,
+        icon: ImageAsset,
         style: BottomAlertHeaderBackgroundStyle,
         @ArrayBuilder<BottomAlertButton> buttons: () -> [BottomAlertButton]
     ) {
@@ -110,7 +121,7 @@ extension BottomAlertView where Header == ButtomAlertHeaderImageView, Body == Em
         title: "Title",
         message: "The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog",
         icon: .BottomAlert.update,
-        style: .green) {
+        color: .green) {
             BottomAlertButton(text: "Button", style: .secondary, action: {})
             BottomAlertButton(text: "Button", style: .primary, action: {})
         }
@@ -121,7 +132,7 @@ extension BottomAlertView where Header == ButtomAlertHeaderImageView, Body == Em
         title: "Title",
         message: "Mes",
         icon: .BottomAlert.update,
-        style: .green) {
+        color: .green) {
             BottomAlertButton(text: "Button 1111111111 11111", style: .secondary, action: {})
             BottomAlertButton(text: "Button", style: .primary, action: {})
         }
