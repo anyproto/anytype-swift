@@ -10,7 +10,7 @@ struct MembershipTierSuccessView: View {
             title: Loc.Membership.Success.title(tier.title),
             message: Loc.Membership.Success.subitle,
             icon: .Membership.tierExplorerMedium,
-            style: .red // TODO: Update style in design system
+            style: .plain
         ) {
             BottomAlertButton(text: Loc.done, style: .secondary) {
                 dismiss()

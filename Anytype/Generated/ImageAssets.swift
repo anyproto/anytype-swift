@@ -327,13 +327,10 @@ internal extension ImageAsset {
     static let banner2 = ImageAsset.bundle(name: "Membership/banner_2")
     static let banner3 = ImageAsset.bundle(name: "Membership/banner_3")
     static let banner4 = ImageAsset.bundle(name: "Membership/banner_4")
-    static let tierBuilderLarge = ImageAsset.bundle(name: "Membership/tier_builder_large")
     static let tierBuilderMedium = ImageAsset.bundle(name: "Membership/tier_builder_medium")
     static let tierBuilderSmall = ImageAsset.bundle(name: "Membership/tier_builder_small")
-    static let tierCocreatorLarge = ImageAsset.bundle(name: "Membership/tier_cocreator_large")
     static let tierCocreatorMedium = ImageAsset.bundle(name: "Membership/tier_cocreator_medium")
     static let tierCocreatorSmall = ImageAsset.bundle(name: "Membership/tier_cocreator_small")
-    static let tierExplorerLarge = ImageAsset.bundle(name: "Membership/tier_explorer_large")
     static let tierExplorerMedium = ImageAsset.bundle(name: "Membership/tier_explorer_medium")
     static let tierExplorerSmall = ImageAsset.bundle(name: "Membership/tier_explorer_small")
   }
