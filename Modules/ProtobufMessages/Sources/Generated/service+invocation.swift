@@ -2124,6 +2124,16 @@ public struct ClientCommands {
         }
     }
 
+    public static func debugStat(
+        _ request: Anytype_Rpc.Debug.Stat.Request = .init()
+    ) -> Invocation<Anytype_Rpc.Debug.Stat.Request, Anytype_Rpc.Debug.Stat.Response> {
+        return Invocation(messageName: "DebugStat", request: request) { request in
+            let requestData = try request.serializedData()
+            let responseData = Lib.ServiceDebugStat(requestData) ?? Data()
+            return try Anytype_Rpc.Debug.Stat.Response(serializedData: responseData)
+        }
+    }
+
     public static func debugTree(
         _ request: Anytype_Rpc.Debug.Tree.Request = .init()
     ) -> Invocation<Anytype_Rpc.Debug.Tree.Request, Anytype_Rpc.Debug.Tree.Response> {
