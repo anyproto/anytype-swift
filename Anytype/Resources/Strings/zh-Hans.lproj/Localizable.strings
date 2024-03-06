@@ -217,7 +217,7 @@
 "Auth.CameraPermissionTitle" = "请允许访问";
 "Restore secret phrase from keychain" = "从钥匙串恢复恢复短语";
 "Auth.LogIn" = "登录";
-"Join" = "Join";
+"Join" = "加入";
 "Auth.Welcome.Subtitle" = "Anytype 是您编写、计划、思考和组织集于一身，对您重要的安全空间。";
 "Auth.Caption.Privacy.Text" = "继续即表示您同意 [使用条款](%@) 和 [隐私策略](%@)";
 "Auth.Next" = "下一步";
@@ -846,26 +846,26 @@
 "ClearCacheAlert.Description" = "存储在 Anytype 中的所有媒体文件将从您当前的设备中删除。可以从备份节点或其他设备再次下载它们。";
 
 // MARK: - Spaces
-"Spaces.Accessibility.Shared" = "Shared Space";
+"Spaces.Accessibility.Shared" = "共享空间";
 "Spaces.Accessibility.Private" = "私人空间";
 "Spaces.Accessibility.Personal" = "个人空间";
 "Spaces.Search.Title" = "搜索空间";
-"Spaces.Title" = "Spaces";
-"Spaces.Info.Network" = "Network:";
-"Spaces.Info.Device" = "Device:";
+"Spaces.Title" = "空间";
+"Spaces.Info.Network" = "网络:";
+"Spaces.Info.Device" = "设备:";
 
 // MARK: - Space
 "Space.Status.Unknown" = "未知";
-"Space.Status.Loading" = "Loading";
+"Space.Status.Loading" = "加载";
 "Space.Status.Ok" = "好的";
 "Space.Status.Missing" = "Missing";
 "Space.Status.Error" = "错误";
-"Space.Status.RemoteWaitingDeletion" = "Waiting Deletion";
-"Space.Status.RemoteDeleted" = "Remote Deleted";
+"Space.Status.RemoteWaitingDeletion" = "正等待删除";
+"Space.Status.RemoteDeleted" = "远程已删除";
 "Space.Status.SpaceDeleted" = "已删除";
-"Space.Status.SpaceActive" = "Active";
-"Space.Status.SpaceJoining" = "Joining";
-"Space.Status.SpaceRemoving" = "Removing";
+"Space.Status.SpaceActive" = "正在进行";
+"Space.Status.SpaceJoining" = "正在加入";
+"Space.Status.SpaceRemoving" = "删除中";
 
 // MARK: - Space Settings
 "SpaceSettings.Title" = "空间设置";
@@ -877,38 +877,38 @@
 "SpaceSettings.DeleteButton" = "删除空间";
 "SpaceSettings.Sharing" = "分享";
 "SpaceSettings.Share" = "分享";
-"SpaceSettings.LeaveButton" = "Leave and unjoin";
-"SpaceSettings.LeaveAlert.Title" = "Leave and unjoin the space";
-"SpaceSettings.LeaveAlert.Message" = "%@ space will be removed from your devices and you will no longer have access to it";
+"SpaceSettings.LeaveButton" = "离开并取消加入";
+"SpaceSettings.LeaveAlert.Title" = "离开并取消加入空间";
+"SpaceSettings.LeaveAlert.Message" = "%@ 空间将被从您的设备中删除，您将无法再访问它";
 
 // MARK: - Space Share
 
 "SpaceShare.Title" = "共享空间";
 "SpaceShare.MembersSection" = "成员和请求";
-"SpaceShare.Members" = "Members";
+"SpaceShare.Members" = "参与的人";
 "SpaceShare.Permissions.Owner" = "所有者";
-"SpaceShare.Permissions.Reader" = "Viewer";
-"SpaceShare.Permissions.Writer" = "Editor";
+"SpaceShare.Permissions.Reader" = "浏览者";
+"SpaceShare.Permissions.Writer" = "编辑";
 "SpaceShare.Invite.Title" = "邀请链接";
 "SpaceShare.Invite.Description" = "发送此链接来邀请他人。在他们的请求批准时分配访问权限。";
 "SpaceShare.Invite.Button" = "分享邀请链接";
-"SpaceShare.Status.Joining" = "Requested";
+"SpaceShare.Status.Joining" = "已申请";
 "SpaceShare.Status.Removing" = "Unjoining requested";
-"SpaceShare.Action.ViewRequest" = "View Request";
+"SpaceShare.Action.ViewRequest" = "查看请求";
 "SpaceShare.Action.Approve" = "Approve";
-"SpaceShare.ViewRequest.Title" = "%@ requested to join %@ space";
+"SpaceShare.ViewRequest.Title" = "%@ 请求加入 %@ 空间";
 "SpaceShare.ViewRequest.ViewAccess" = "Grand view access";
 "SpaceShare.ViewRequest.EditAccess" = "Grand edit access";
 "SpaceShare.ViewRequest.Reject" = "Reject";
-"SpaceShare.RemoveMember.Title" = "Remove memeber";
-"SpaceShare.RemoveMember.Message" = "%@ will be removed from the space.";
-"SpaceShare.ChangePermissions" = "%@ access to the space would become %@.";
-"SpaceShare.Join.Title" = "Join a space";
-"SpaceShare.Join.CommentPlaceholder" = "Leave a private comment for a space owner";
-"SpaceShare.Join.Button" = "Request to join";
-"SpaceShare.Join.Info" = "Once the space owner approves your request, you'll join the space with the access rights owner determined.";
+"SpaceShare.RemoveMember.Title" = "移除成员";
+"SpaceShare.RemoveMember.Message" = "%@ 将从空间中移除。";
+"SpaceShare.ChangePermissions" = "%@ 访问空间将变成 %@";
+"SpaceShare.Join.Title" = "加入空间";
+"SpaceShare.Join.CommentPlaceholder" = "为空间所有者留下一个私人评论";
+"SpaceShare.Join.Button" = "申请加入";
+"SpaceShare.Join.Info" = "一旦空间所有者批准您的请求，您将与访问权所有者一起加入该空间。";
 "SpaceShare.Join.Message" = "You’ve been invited to join %@ space, created by %@. Send a request so space owner can let you in.";
-"SpaceShare.JoinConfirmation.Title" = "Request sent";
+"SpaceShare.JoinConfirmation.Title" = "已发送申请";
 "SpaceShare.JoinConfirmation.Message" = "You will receive a notification when the space owner will approve your request.";
 
 // MARK: - Space Create
@@ -995,6 +995,8 @@
 "per x years" = "per %@ years";
 "What’s included" = "What’s included";
 "Submit" = "Submit";
+"Resend" = "Resend";
+"Resend in" = "Resend in %@ sec";
 
 "Membership.Ad.Title" = "Let’s build together";
 "Membership.Ad.Subtitle" = "Joining Anytype network means contributing to its story";
@@ -1014,15 +1016,20 @@
 "Membership.Banner.Title1" = "Co-create with us";
 "Membership.Banner.Subtitle1" = "Stay closely connected with our team and community. Join calls with the team, influence Anytype's evolution, and have your say on features.";
 "Membership.Banner.Title2" = "Gain Benefits";
-"Membership.Banner.Subtitle2" = "Our members have unique identity on Anytype Network, more storage, shared spaces and members per space for extensive collaboration";
+"Membership.Banner.Subtitle2" = "Our members have unique identity on Anytype Network, more storage, shared spaces and members per space for extensive collaboration.";
 "Membership.Banner.Title3" = "Support the Vision";
 "Membership.Banner.Subtitle3" = "Your contribution supports our independent team and endorses our vision︎ of a user-driven, secure, and collaborative digital environment.";
 "Membership.Banner.Title4" = "Invest in Connectivity";
-"Membership.Banner.Subtitle4" = "Our software is free by design, but we thrive on the network that connects us all. Support us, and you're investing in the very infrastructure that keeps us united";
+"Membership.Banner.Subtitle4" = "Our software is free by design, but we thrive on the network that connects us all. Support us, and you're investing in the very infrastructure that keeps us united.";
 
 "Membership.EmailForm.Title" = "Get your free membership";
 "Membership.EmailForm.Subtitle" = "We need your email to keep spam at bay and the fun in play!";
 "Membership.EmailForm.Newsletter" = "I'd like to get updates on products and enjoy free perks!";
+"Membership.EmailValidation" = "Enter the code sent to your email";
+
+"Membership.Success.Title" = "Welcome to the network, %@";
+"Membership.Success.Subitle" = "Big cheers for your curiosity!";
+
 
 // MARK: - Membership Tiers
 "Membership.Explorer.Title" = "Explorer";
