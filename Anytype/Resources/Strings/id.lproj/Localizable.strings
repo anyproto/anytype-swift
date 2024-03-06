@@ -994,6 +994,8 @@
 "per x years" = "per %@ tahun";
 "What’s included" = "Apa saja yang termasuk";
 "Submit" = "Kirim";
+"Resend" = "Resend";
+"Resend in" = "Resend in %@ sec";
 
 "Membership.Ad.Title" = "Mari membangun bersama";
 "Membership.Ad.Subtitle" = "Bergabung dengan jaringan Anytype berarti turut berkontribusi pada kisahnya";
@@ -1013,15 +1015,20 @@
 "Membership.Banner.Title1" = "Ciptakan bersama dengan kami";
 "Membership.Banner.Subtitle1" = "Tetap terhubung dengan tim dan komunitas kami. Bergabung dengan panggilan tim kami, buat evolusi Anytype berkembang, dan beri masukan fitur baru.";
 "Membership.Banner.Title2" = "Dapatkan Keuntungan";
-"Membership.Banner.Subtitle2" = "Pelanggan akan mendapat identitas unik di Jaringan Anytype, lebih banyak penyimpanan, ruang terbagi, serta jumlah anggota per ruang untuk kolaborasi yang lebih luas";
+"Membership.Banner.Subtitle2" = "Our members have unique identity on Anytype Network, more storage, shared spaces and members per space for extensive collaboration.";
 "Membership.Banner.Title3" = "Dukung Visi Kami";
 "Membership.Banner.Subtitle3" = "Kontribusimu akan mendukung tim independen kami dan juga visi kami meraih lingkungan digital yang berbasis pengguna, aman, dan kolaboratif.";
 "Membership.Banner.Title4" = "Berinvestasilah pada Konektivitas";
-"Membership.Banner.Subtitle4" = "Perangkat lunak kami gratis, namun kami juga bertumpu pada jaringan yang menghubungkan kita semua. Dukunglah kami, dan kamu akan berinvestasi pada infrastruktur yang menjaga kita tetap bersatu";
+"Membership.Banner.Subtitle4" = "Our software is free by design, but we thrive on the network that connects us all. Support us, and you're investing in the very infrastructure that keeps us united.";
 
 "Membership.EmailForm.Title" = "Dapatkan keanggotaan gratis Anda";
 "Membership.EmailForm.Subtitle" = "Kami memerlukan surel Anda untuk mencegah spam dan membuat keseruan!";
 "Membership.EmailForm.Newsletter" = "Saya ingin mendapatkan pembaruan pada produk-produk dan menikmati manfaat gratis!";
+"Membership.EmailValidation" = "Enter the code sent to your email";
+
+"Membership.Success.Title" = "Welcome to the network, %@";
+"Membership.Success.Subitle" = "Big cheers for your curiosity!";
+
 
 // MARK: - Membership Tiers
 "Membership.Explorer.Title" = "Penjelajah";
