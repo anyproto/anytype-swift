@@ -436,6 +436,7 @@
 		2A4FFBC4289D4B55004938DF /* InvocationMesagesHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A4FFBC3289D4B55004938DF /* InvocationMesagesHandler.swift */; };
 		2A55F1ED2B73827C009DB80A /* NotificationsSubscriptionService+SpecificHandlers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A55F1EC2B73827C009DB80A /* NotificationsSubscriptionService+SpecificHandlers.swift */; };
 		2A55F1F12B738484009DB80A /* NotificationPayload.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A55F1F02B738484009DB80A /* NotificationPayload.swift */; };
+		2A56112F2B98BFA200CE1A5C /* SpaceManagerSpacesSubscriptionService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A56112E2B98BFA200CE1A5C /* SpaceManagerSpacesSubscriptionService.swift */; };
 		2A56C1682ACB0BAE001677E1 /* EditorPageModuleAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A56C1672ACB0BAE001677E1 /* EditorPageModuleAssembly.swift */; };
 		2A56C16B2ACB0C50001677E1 /* EditorPageModuleOutput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A56C16A2ACB0C50001677E1 /* EditorPageModuleOutput.swift */; };
 		2A5A898C29C8650600C170D6 /* SettingsAccountView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A5A898B29C8650600C170D6 /* SettingsAccountView.swift */; };
@@ -2209,6 +2210,7 @@
 		2A4FFBC3289D4B55004938DF /* InvocationMesagesHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InvocationMesagesHandler.swift; sourceTree = "<group>"; };
 		2A55F1EC2B73827C009DB80A /* NotificationsSubscriptionService+SpecificHandlers.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "NotificationsSubscriptionService+SpecificHandlers.swift"; sourceTree = "<group>"; };
 		2A55F1F02B738484009DB80A /* NotificationPayload.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationPayload.swift; sourceTree = "<group>"; };
+		2A56112E2B98BFA200CE1A5C /* SpaceManagerSpacesSubscriptionService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpaceManagerSpacesSubscriptionService.swift; sourceTree = "<group>"; };
 		2A56C1672ACB0BAE001677E1 /* EditorPageModuleAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditorPageModuleAssembly.swift; sourceTree = "<group>"; };
 		2A56C16A2ACB0C50001677E1 /* EditorPageModuleOutput.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditorPageModuleOutput.swift; sourceTree = "<group>"; };
 		2A5A898B29C8650600C170D6 /* SettingsAccountView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsAccountView.swift; sourceTree = "<group>"; };
@@ -6173,6 +6175,7 @@
 				2A9D2B352B85DFFD0085EEFC /* SpacesManagerView.swift */,
 				2A9D2B372B85E0050085EEFC /* SpacesManagerViewModel.swift */,
 				2A9D2B392B85E00F0085EEFC /* SpacesManagerModuleAssembly.swift */,
+				2A56112E2B98BFA200CE1A5C /* SpaceManagerSpacesSubscriptionService.swift */,
 			);
 			path = SpacesManager;
 			sourceTree = "<group>";
@@ -10716,6 +10719,7 @@
 				2E5E066629943E20004A98CE /* RelationsModuleTarget.swift in Sources */,
 				0A2C0D56247144F4008ADD86 /* TextViewWithPlaceholder.swift in Sources */,
 				2AD741312993E28F004BD223 /* HomeWidgetCommonAssemblyProtocol.swift in Sources */,
+				2A56112F2B98BFA200CE1A5C /* SpaceManagerSpacesSubscriptionService.swift in Sources */,
 				2ECB34392A98FEB000E0F9BB /* SetFiltersListCoordinatorViewModel.swift in Sources */,
 				EAADB1BA2678FE01004B0AF2 /* CGSizeExtension.swift in Sources */,
 				C96B6C9D27B0F33100C453EB /* BlocksFileEmptyViewConfiguration.swift in Sources */,

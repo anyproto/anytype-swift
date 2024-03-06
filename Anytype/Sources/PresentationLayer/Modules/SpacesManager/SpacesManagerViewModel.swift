@@ -5,7 +5,7 @@ import Services
 @MainActor
 final class SpacesManagerViewModel: ObservableObject {
     
-    private let workspacesStorage: WorkspacesStorageProtocol
+    private let spacesSubscriptionService: SpaceManagerSpacesSubscriptionServiceProtocol
     private let participantsSubscriptionByAccountService: ParticipantsSubscriptionByAccountServiceProtocol
     
     private var spaces: [SpaceView] = []
@@ -13,8 +13,11 @@ final class SpacesManagerViewModel: ObservableObject {
     
     @Published var rows: [SpacesManagerRowViewModel] = []
     
-    init(workspacesStorage: WorkspacesStorageProtocol, participantsSubscriptionByAccountService: ParticipantsSubscriptionByAccountServiceProtocol) {
-        self.workspacesStorage = workspacesStorage
+    init(
+        spacesSubscriptionService: SpaceManagerSpacesSubscriptionServiceProtocol,
+        participantsSubscriptionByAccountService: ParticipantsSubscriptionByAccountServiceProtocol
+    ) {
+        self.spacesSubscriptionService = spacesSubscriptionService
         self.participantsSubscriptionByAccountService = participantsSubscriptionByAccountService
     }
     
@@ -26,9 +29,9 @@ final class SpacesManagerViewModel: ObservableObject {
     }
     
     func startWorkspacesTask() async {
-        for await spaces in workspacesStorage.workspsacesPublisher.values {
-            self.spaces = spaces.sorted { $0.createdDate ?? Date() < $1.createdDate ?? Date() }
-            updateRows()
+        await spacesSubscriptionService.startSubscription { [weak self] spaces in
+            self?.spaces = spaces
+            self?.updateRows()
         }
     }
     

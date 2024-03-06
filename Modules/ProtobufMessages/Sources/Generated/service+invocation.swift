@@ -394,6 +394,16 @@ public struct ClientCommands {
         }
     }
 
+    public static func spaceStopSharing(
+        _ request: Anytype_Rpc.Space.StopSharing.Request = .init()
+    ) -> Invocation<Anytype_Rpc.Space.StopSharing.Request, Anytype_Rpc.Space.StopSharing.Response> {
+        return Invocation(messageName: "SpaceStopSharing", request: request) { request in
+            let requestData = try request.serializedData()
+            let responseData = Lib.ServiceSpaceStopSharing(requestData) ?? Data()
+            return try Anytype_Rpc.Space.StopSharing.Response(serializedData: responseData)
+        }
+    }
+
     public static func spaceRequestApprove(
         _ request: Anytype_Rpc.Space.RequestApprove.Request = .init()
     ) -> Invocation<Anytype_Rpc.Space.RequestApprove.Request, Anytype_Rpc.Space.RequestApprove.Response> {

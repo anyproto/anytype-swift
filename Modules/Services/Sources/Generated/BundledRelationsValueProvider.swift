@@ -16,6 +16,7 @@ public protocol BundledRelationsValueProvider {
     var relationFormatObjectTypes: [ObjectId] { get }
     var relationKey: String { get }
     var relationOptionColor: String { get }
+    var latestAclHeadId: String { get }
     var instructions: String { get }
     var done: Bool { get }
     var mediaArtistURL: AnytypeURL? { get }
@@ -206,6 +207,10 @@ public extension BundledRelationsValueProvider where Self: RelationValueProvider
     /// Relation option color
     var relationOptionColor: String {
         return value(for: BundledRelationKey.relationOptionColor.rawValue)
+    }
+    /// Latest Acl head id
+    var latestAclHeadId: String {
+        return value(for: BundledRelationKey.latestAclHeadId.rawValue)
     }
     var instructions: String {
         return value(for: BundledRelationKey.instructions.rawValue)
