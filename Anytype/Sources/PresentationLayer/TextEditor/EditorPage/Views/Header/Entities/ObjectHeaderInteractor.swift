@@ -4,12 +4,13 @@ import AnytypeCore
 
 protocol ObjectHeaderInteractorProtocol {
     func handleCoverAction(
+        objectId: String,
         spaceId: String,
         action: ObjectCoverPickerAction,
         onCoverUpdate: @escaping (ObjectHeaderUpdate) -> Void
     )
     
-    func handleIconAction(spaceId: String, action: ObjectIconPickerAction)
+    func handleIconAction(objectId: String, spaceId: String, action: ObjectIconPickerAction)
 }
 
 final class ObjectHeaderInteractor: ObjectHeaderInteractorProtocol {
@@ -28,6 +29,7 @@ final class ObjectHeaderInteractor: ObjectHeaderInteractorProtocol {
     }
     
     func handleCoverAction(
+        objectId: String,
         spaceId: String,
         action: ObjectCoverPickerAction,
         onCoverUpdate: @escaping (ObjectHeaderUpdate) -> Void
@@ -39,14 +41,16 @@ final class ObjectHeaderInteractor: ObjectHeaderInteractorProtocol {
                 AnytypeAnalytics.instance().logEvent(AnalyticsEventsName.setCover)
                 Task {
                     try? await detailsService.updateBundledDetails(
-                        [.coverType(CoverType.color), .coverId(colorName)]
+                        objectId: objectId,
+                        bundledDetails: [.coverType(CoverType.color), .coverId(colorName)]
                     )
                 }
             case let .gradient(gradientName):
                 AnytypeAnalytics.instance().logEvent(AnalyticsEventsName.setCover)
                 Task {
                     try? await detailsService.updateBundledDetails(
-                        [.coverType(CoverType.gradient), .coverId(gradientName)]
+                        objectId: objectId,
+                        bundledDetails: [.coverType(CoverType.gradient), .coverId(gradientName)]
                     )
                 }
             case let .upload(itemProvider):
@@ -61,7 +65,11 @@ final class ObjectHeaderInteractor: ObjectHeaderInteractorProtocol {
 
                     AnytypeAnalytics.instance().logEvent(AnalyticsEventsName.setCover)
                     
-                    try await self?.detailsService.setCover(spaceId: spaceId, source: .itemProvider(safeSendableItemProvider.value))
+                    try await self?.detailsService.setCover(
+                        objectId: objectId,
+                        spaceId: spaceId,
+                        source: .itemProvider(safeSendableItemProvider.value)
+                    )
                 }
             case let .unsplash(unsplashItem):
                 AnytypeAnalytics.instance().logEvent(AnalyticsEventsName.setCover)
@@ -69,27 +77,31 @@ final class ObjectHeaderInteractor: ObjectHeaderInteractorProtocol {
                 onCoverUpdate(.coverUploading(.remotePreviewURL(unsplashItem.url)))
                 Task { @MainActor in
                     let imageObjectId = try await unsplashService.downloadImage(spaceId: spaceId, id: unsplashItem.id)
-                    try await detailsService.setCover(imageObjectId: imageObjectId)
+                    try await detailsService.setCover(objectId: objectId, imageObjectId: imageObjectId)
                 }
             }
         case .removeCover:
             AnytypeAnalytics.instance().logEvent(AnalyticsEventsName.removeCover)
             Task {
                 try? await detailsService.updateBundledDetails(
-                    [.coverType(CoverType.none), .coverId("")]
+                    objectId: objectId,
+                    bundledDetails: [.coverType(CoverType.none), .coverId("")]
                 )
             }
         }
     }
     
-    func handleIconAction(spaceId: String, action: ObjectIconPickerAction) {
+    func handleIconAction(objectId: String, spaceId: String, action: ObjectIconPickerAction) {
         switch action {
         case .setIcon(let iconSource):
             switch iconSource {
             case .emoji(let emojiUnicode):
                 AnytypeAnalytics.instance().logEvent(AnalyticsEventsName.setIcon)
                 Task {
-                    try await detailsService.updateBundledDetails([.iconEmoji(emojiUnicode), .iconObjectId("")])
+                    try await detailsService.updateBundledDetails(
+                        objectId: objectId,
+                        bundledDetails: [.iconEmoji(emojiUnicode), .iconObjectId("")]
+                    )
                 }
             case .upload(let itemProvider):
                 AnytypeAnalytics.instance().logEvent(AnalyticsEventsName.setIcon)
@@ -97,14 +109,15 @@ final class ObjectHeaderInteractor: ObjectHeaderInteractorProtocol {
                 Task {
                     let data = try await fileService.createFileData(source: .itemProvider(safeSendableItemProvider.value))
                     let fileDetails = try await fileService.uploadFileObject(spaceId: spaceId, data: data, origin: .none)
-                    try await detailsService.updateBundledDetails([.iconEmoji(""), .iconObjectId(fileDetails.id)])
+                    try await detailsService.updateBundledDetails(objectId: objectId, bundledDetails: [.iconEmoji(""), .iconObjectId(fileDetails.id)])
                 }
             }
         case .removeIcon:
             AnytypeAnalytics.instance().logEvent(AnalyticsEventsName.removeIcon)
             Task {
                 try await detailsService.updateBundledDetails(
-                    [.iconEmoji(""), .iconObjectId("")]
+                    objectId: objectId,
+                    bundledDetails: [.iconEmoji(""), .iconObjectId("")]
                 )
             }
         }

@@ -101,9 +101,9 @@ final class SettingsCoordinator: SettingsCoordinatorProtocol,
     
     func onChangeIconSelected(objectId: String) {
         let document = documentService.document(objectId: objectId, forPreview: true)
-        let interactor = serviceLocator.objectHeaderInteractor(objectId: objectId)
+        let interactor = serviceLocator.objectHeaderInteractor()
         let module = objectIconPickerModuleAssembly.make(document: document) { action in
-            interactor.handleIconAction(spaceId: document.spaceId, action: action)
+            interactor.handleIconAction(objectId: objectId, spaceId: document.spaceId, action: action)
         }
         navigationContext.present(module)
     }

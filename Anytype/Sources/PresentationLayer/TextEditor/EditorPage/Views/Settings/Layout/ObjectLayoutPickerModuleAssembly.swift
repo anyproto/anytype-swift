@@ -18,7 +18,7 @@ final class ObjectLayoutPickerModuleAssembly: ObjectLayoutPickerModuleAssemblyPr
     func make(document: BaseDocumentProtocol) -> UIViewController {
         let viewModel = ObjectLayoutPickerViewModel(
             document: document,
-            detailsService: serviceLocator.detailsService(objectId: document.objectId)
+            detailsService: serviceLocator.detailsService()
         )
         return AnytypePopup(contentView: ObjectLayoutPicker(viewModel: viewModel))
     }

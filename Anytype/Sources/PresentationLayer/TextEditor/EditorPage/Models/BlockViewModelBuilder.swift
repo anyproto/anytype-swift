@@ -128,6 +128,7 @@ final class BlockViewModelBuilder {
                 )
             default:
                 let textBlockActionHandler = TextBlockActionHandler(
+                    document: document,
                     info: info,
                     focusSubject: subjectsHolder.focusSubject(for: info.id),
                     showPage: { [weak self] objectId in
