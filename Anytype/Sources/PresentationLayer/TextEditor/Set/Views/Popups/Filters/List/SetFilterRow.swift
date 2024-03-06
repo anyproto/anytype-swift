@@ -61,17 +61,16 @@ struct SetFilterRow: View {
         }
     }
     
+    @ViewBuilder
     private func relationValueView(for relation: Relation?) -> some View {
-        Group {
-            if let relation = relation {
-                RelationValueView(
+        if let relation = relation {
+            RelationValueView(
+                model: RelationValueViewModel(
                     relation: RelationItemModel(relation: relation),
                     style: .filter(hasValues: configuration.hasValues),
                     mode: .button(action: nil)
                 )
-            } else {
-                EmptyView()
-            }
+            )
         }
     }
 }

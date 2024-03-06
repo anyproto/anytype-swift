@@ -9,6 +9,7 @@ final class DateRelationCalendarViewModel: ObservableObject {
     @Published var dismiss = false
     
     let title: String
+    private let objectId: String
     private let relationKey: String
     private let relationsService: RelationsServiceProtocol
     private let analyticsType: AnalyticsEventsRelationType
@@ -16,12 +17,14 @@ final class DateRelationCalendarViewModel: ObservableObject {
     init(
         title: String,
         date: Date?,
+        objectId: String,
         relationKey: String,
         relationsService: RelationsServiceProtocol,
         analyticsType: AnalyticsEventsRelationType
     ) {
         self.title = title
         self.date = date ?? Date()
+        self.objectId = objectId
         self.relationKey = relationKey
         self.relationsService = relationsService
         self.analyticsType = analyticsType
@@ -49,7 +52,7 @@ final class DateRelationCalendarViewModel: ObservableObject {
     
     private func updateDateRelation(with value: Double) {
         Task {
-            try await relationsService.updateRelation(relationKey: relationKey, value: value.protobufValue)
+            try await relationsService.updateRelation(objectId: objectId, relationKey: relationKey, value: value.protobufValue)
             AnytypeAnalytics.instance().logChangeRelationValue(isEmpty: value.isZero, type: analyticsType)
         }
     }

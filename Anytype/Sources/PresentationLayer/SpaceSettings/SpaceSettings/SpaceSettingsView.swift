@@ -20,16 +20,25 @@ struct SpaceSettingsView: View {
                     })
                     
                     if FeatureFlags.multiplayer {
-                        SectionHeaderView(title: Loc.SpaceSettings.sharing)
-                        SettingsSectionItemView(
-                            name: Loc.SpaceSettings.share,
-                            onTap: { model.onShareTap() }
-                        )
-
+                        if model.allowShare {
+                            SectionHeaderView(title: Loc.SpaceSettings.sharing)
+                            SettingsSectionItemView(
+                                name: Loc.SpaceSettings.share,
+                                onTap: { model.onShareTap() }
+                            )
+                        }
+                        
+                        if model.allowSpaceMembers {
+                            SectionHeaderView(title: Loc.SpaceSettings.sharing)
+                            SettingsSectionItemView(
+                                name: Loc.SpaceShare.members,
+                                onTap: { model.onMembersTap() }
+                            )
+                        }
                     } else {
                         SectionHeaderView(title: Loc.type)
                         
-                        SpaceTypeView(name: model.spaceType)
+                        SpaceTypeView(name: model.spaceAccessType)
                     }
                     
                     SectionHeaderView(title: Loc.settings)
@@ -52,17 +61,20 @@ struct SpaceSettingsView: View {
                         SettingsInfoBlockView(model: model.info[index])
                     }
                     
-                    if FeatureFlags.multiplayer {
-                        SpaceShareMVPView()
-                    }
-                    
-                    if model.allowDelete {
-                        StandardButton(Loc.SpaceSettings.deleteButton, style: .warningLarge) {
-                            model.onDeleteTap()
+                    VStack(spacing: 10) {
+                        if model.allowDelete {
+                            StandardButton(Loc.SpaceSettings.deleteButton, style: .warningLarge) {
+                                model.onDeleteTap()
+                            }
                         }
-                        .padding(.top, 20)
-                        .padding(.bottom, 10)
+                        if model.allowLeave {
+                            StandardButton(Loc.SpaceSettings.leaveButton, style: .warningLarge) {
+                                model.onLeaveTap()
+                            }
+                        }
                     }
+                    .padding(.top, 20)
+                    .padding(.bottom, 10)
                 }
             }
             .padding(.horizontal, 20)
@@ -77,6 +89,11 @@ struct SpaceSettingsView: View {
         .anytypeSheet(isPresented: $model.showSpaceDeleteAlert) {
             FloaterAlertView.deleteSpaceAlert(spaceName: model.spaceName) {
                 model.onDeleteConfirmationTap()
+            }
+        }
+        .anytypeSheet(isPresented: $model.showSpaceLeaveAlert) {
+            SpaceLeaveAlertView(spaceName: model.spaceName) {
+                try await model.onLeaveConfirmationTap()
             }
         }
     }

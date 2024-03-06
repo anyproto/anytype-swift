@@ -1,7 +1,7 @@
 import Services
 import AnytypeCore
 
-extension Array where Element == BlockId {
+extension Array where Element == String {
     mutating func applySubscriptionUpdate(_ update: SubscriptionUpdate) {
         switch update {
         case let  .remove(blockId):
@@ -17,14 +17,14 @@ extension Array where Element == BlockId {
         }
     }
     
-    private func indexInCollection(afterId: BlockId?) -> Int? {
+    private func indexInCollection(afterId: String?) -> Int? {
         guard let afterId = afterId else { return 0 }
         guard let index = indexInCollection(blockId: afterId) else { return nil }
         
         return index + 1
     }
 
-    private func indexInCollection(blockId: BlockId) -> Int? {
+    private func indexInCollection(blockId: String) -> Int? {
         guard let index = firstIndex(where: { $0 == blockId }) else {
             return nil
         }

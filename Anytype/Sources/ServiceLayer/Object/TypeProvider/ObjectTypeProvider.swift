@@ -108,6 +108,7 @@ final class ObjectTypeProvider: ObjectTypeProviderProtocol {
             spaceId: "",
             uniqueKey: .empty,
             defaultTemplateId: "",
+            canCreateObjectOfThisType: false,
             recommendedRelations: [],
             recommendedLayout: nil
         )

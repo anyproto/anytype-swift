@@ -25,11 +25,7 @@ final class BinLinkWidgetViewModel: ObservableObject, WidgetContainerContentView
 
     func startHeaderSubscription() {}
     
-    func stopHeaderSubscription() {}
-    
     func startContentSubscription() {}
-    
-    func stopContentSubscription() {}
     
     func onHeaderTap() {
         AnytypeAnalytics.instance().logSelectHomeTab(source: .bin)

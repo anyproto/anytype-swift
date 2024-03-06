@@ -87,7 +87,6 @@ final class SelectRelationListCoordinatorViewModel: ObservableObject, SelectRela
     
     func selectRelationCreate(data: RelationData) -> AnyView {
         relationOptionSettingsModuleAssembly.make(
-            objectId: objectId,
             configuration: data.configuration,
             completion: data.completion
         )

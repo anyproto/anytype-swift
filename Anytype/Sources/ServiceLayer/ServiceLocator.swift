@@ -4,6 +4,7 @@ import Services
 import AnytypeCore
 import SecureService
 import SharedContentManager
+import DeepLinks
 
 // TODO: Migrate to ServicesDI
 final class ServiceLocator {
@@ -82,7 +83,7 @@ final class ServiceLocator {
         SearchMiddleService()
     }
     
-    func detailsService(objectId: BlockId) -> DetailsServiceProtocol {
+    func detailsService(objectId: String) -> DetailsServiceProtocol {
         DetailsService(objectId: objectId, service: objectActionsService(), fileService: fileService())
     }
     
@@ -107,8 +108,8 @@ final class ServiceLocator {
         GroupsSubscriptionsHandler(groupsSubscribeService: GroupsSubscribeService())
     }
     
-    func relationService(objectId: String) -> RelationsServiceProtocol {
-        return RelationsService(objectId: objectId)
+    func relationService() -> RelationsServiceProtocol {
+        return RelationsService()
     }
     
     // Sigletone
@@ -208,8 +209,15 @@ final class ServiceLocator {
         )
     }
     
-    func participantSubscriptionService() -> ParticipantsSubscriptionServiceProtocol {
-        return ParticipantsSubscriptionService(
+    func participantSubscriptionBySpaceService() -> ParticipantsSubscriptionBySpaceServiceProtocol {
+        return ParticipantsSubscriptionBySpaceService(
+            subscriptionStorageProvider: subscriptionStorageProvider(),
+            activeWorkspaceStorage: activeWorkspaceStorage()
+        )
+    }
+    
+    func participantsSubscriptionByAccountService() -> ParticipantsSubscriptionByAccountServiceProtocol {
+        return ParticipantsSubscriptionByAccountService(
             subscriptionStorageProvider: subscriptionStorageProvider(),
             activeWorkspaceStorage: activeWorkspaceStorage()
         )
@@ -243,7 +251,7 @@ final class ServiceLocator {
         ObjectsCommonSubscriptionDataBuilder()
     }
     
-    func objectHeaderInteractor(objectId: BlockId) -> ObjectHeaderInteractorProtocol {
+    func objectHeaderInteractor(objectId: String) -> ObjectHeaderInteractorProtocol {
         ObjectHeaderInteractor(
             detailsService: detailsService(objectId: objectId),
             fileService: fileService(),
@@ -361,6 +369,24 @@ final class ServiceLocator {
         PasteboardMiddleService()
     }
     
+    func pasteboardHelper() -> PasteboardHelperProtocol {
+        PasteboardHelper()
+    }
+    
+    func pasteboardBlockDocumentService(document: BaseDocumentProtocol) -> PasteboardBlockDocumentServiceProtocol {
+        PasteboardBlockDocumentService(
+            document: document,
+            service: pasteboardBlockService()
+        )
+    }
+    
+    func pasteboardBlockService() -> PasteboardBlockServiceProtocol {
+        PasteboardBlockService(
+            pasteboardHelper: pasteboardHelper(),
+            pasteboardMiddlewareService: pasteboardMiddlewareService()
+        )
+    }
+    
     func galleryService() -> GalleryServiceProtocol {
         GalleryService()
     }
@@ -370,7 +396,7 @@ final class ServiceLocator {
     }
     
     func deepLinkParser() -> DeepLinkParserProtocol {
-        DeepLinkParser()
+        DeepLinkDI.shared.parser(isDebug: CoreEnvironment.isDebug)
     }
     
     func processSubscriptionService() -> ProcessSubscriptionServiceProtocol {
@@ -379,6 +405,14 @@ final class ServiceLocator {
     
     func debugService() -> DebugServiceProtocol {
         DebugService()
+    }
+    
+    func participantService() -> ParticipantServiceProtocol {
+        ParticipantService(searchMiddleService: searchMiddleService())
+    }
+    
+    func membershipService() -> MembershipServiceProtocol {
+        MembershipService()
     }
     
     // MARK: - Private

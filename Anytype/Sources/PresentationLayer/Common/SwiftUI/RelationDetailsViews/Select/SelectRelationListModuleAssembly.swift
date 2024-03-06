@@ -35,11 +35,12 @@ final class SelectRelationListModuleAssembly: SelectRelationListModuleAssemblyPr
                 style: style,
                 configuration: configuration,
                 relationSelectedOptionsModel: RelationSelectedOptionsModel(
+                    objectId: objectId,
                     selectionMode: configuration.selectionMode,
                     selectedOptionsIds: selectedOptionsIds,
                     relationKey: configuration.relationKey,
                     analyticsType: configuration.analyticsType,
-                    relationsService: self.serviceLocator.relationService(objectId: objectId)
+                    relationsService: self.serviceLocator.relationService()
                 ),
                 searchService: self.serviceLocator.searchService(),
                 output: output

@@ -44,7 +44,7 @@ extension RelationEditingViewModelBuilder: RelationEditingViewModelBuilderProtoc
                 value: text.value ?? "",
                 type: .text,
                 relation: relation,
-                service: TextRelationDetailsService(service: RelationsService(objectId: objectDetails.id)),
+                service: TextRelationDetailsService(objectId: objectDetails.id, service: RelationsService()),
                 analyticsType: analyticsType
             )
         case .number(let number):
@@ -52,7 +52,7 @@ extension RelationEditingViewModelBuilder: RelationEditingViewModelBuilderProtoc
                 value: number.value ?? "",
                 type: .number,
                 relation: relation,
-                service: TextRelationDetailsService(service: RelationsService(objectId: objectDetails.id)),
+                service: TextRelationDetailsService(objectId: objectDetails.id, service: RelationsService()),
                 analyticsType: analyticsType
             )
         case .phone(let phone):
@@ -60,7 +60,7 @@ extension RelationEditingViewModelBuilder: RelationEditingViewModelBuilderProtoc
                 value: phone.value ?? "",
                 type: .phone,
                 relation: relation,
-                service: TextRelationDetailsService(service: RelationsService(objectId: objectDetails.id)),
+                service: TextRelationDetailsService(objectId: objectDetails.id, service: RelationsService()),
                 analyticsType: analyticsType,
                 actionsViewModel: [
                     TextRelationURLActionViewModel(
@@ -80,7 +80,7 @@ extension RelationEditingViewModelBuilder: RelationEditingViewModelBuilderProtoc
                 value: email.value ?? "",
                 type: .email,
                 relation: relation,
-                service: TextRelationDetailsService(service: RelationsService(objectId: objectDetails.id)),
+                service: TextRelationDetailsService(objectId: objectDetails.id, service: RelationsService()),
                 analyticsType: analyticsType,
                 actionsViewModel: [
                     TextRelationURLActionViewModel(
@@ -118,15 +118,16 @@ extension RelationEditingViewModelBuilder: RelationEditingViewModelBuilderProtoc
                 value: url.value ?? "",
                 type: .url,
                 relation: relation,
-                service: TextRelationDetailsService(service: RelationsService(objectId: objectDetails.id)),
+                service: TextRelationDetailsService(objectId: objectDetails.id, service: RelationsService()),
                 analyticsType: analyticsType,
                 actionsViewModel: actions.compactMap { $0 }
             )
         case .date(let value):
             return DateRelationDetailsViewModel(
+                details: objectDetails,
                 value: value.value,
                 relation: relation,
-                service: RelationsService(objectId: objectDetails.id),
+                service: RelationsService(),
                 analyticsType: analyticsType
             )
         case .status(let status):
@@ -134,12 +135,13 @@ extension RelationEditingViewModelBuilder: RelationEditingViewModelBuilderProtoc
                 details: objectDetails,
                 selectedStatus: status.values.first,
                 relation: relation,
-                service: RelationsService(objectId: objectDetails.id),
+                service: RelationsService(),
                 newSearchModuleAssembly: newSearchModuleAssembly,
                 searchService: searchService,
                 analyticsType: analyticsType
             )
         case .tag(let tag):
+            let style = RelationStyle.regular(allowMultiLine: false)
             return RelationOptionsListViewModel(
                 details: objectDetails,
                 selectedOptions: tag.selectedTags.map { tag in
@@ -148,8 +150,15 @@ extension RelationEditingViewModelBuilder: RelationEditingViewModelBuilderProtoc
                         contentHash: tag.hashValue
                     ) {
                         TagRelationRowView(
-                            viewModel: TagView.Model(text: tag.text, textColor: tag.textColor, backgroundColor: tag.backgroundColor)
-                        ).eraseToAnyView()
+                            config: TagView.Config(
+                                text: tag.text,
+                                textColor: tag.textColor,
+                                backgroundColor: tag.backgroundColor,
+                                textFont: style.font,
+                                guidlines: style.tagViewGuidlines
+                            )
+                        )
+                        .eraseToAnyView()
                     }
                 },
                 emptyOptionsPlaceholder: Constants.tagsOrFilesOptionsPlaceholder,
@@ -158,7 +167,7 @@ extension RelationEditingViewModelBuilder: RelationEditingViewModelBuilderProtoc
                     relationKey: relation.key,
                     newSearcModuleAssembly: newSearchModuleAssembly
                 ),
-                service: RelationsService(objectId: objectDetails.id),
+                service: RelationsService(),
                 analyticsType: analyticsType
             )
         case .object(let object):
@@ -185,7 +194,7 @@ extension RelationEditingViewModelBuilder: RelationEditingViewModelBuilderProtoc
                     limitedObjectType: object.limitedObjectTypes,
                     newSearcModuleAssembly: newSearchModuleAssembly
                 ),
-                service: RelationsService(objectId: objectDetails.id),
+                service: RelationsService(),
                 analyticsType: analyticsType
             )
         case .file(let file):
@@ -205,7 +214,7 @@ extension RelationEditingViewModelBuilder: RelationEditingViewModelBuilderProtoc
                 emptyOptionsPlaceholder: Constants.tagsOrFilesOptionsPlaceholder,
                 relation: relation,
                 searchModuleBuilder: FilesOptionsSearchModuleBuilder(newSearcModuleAssembly: newSearchModuleAssembly),
-                service: RelationsService(objectId: objectDetails.id),
+                service: RelationsService(),
                 analyticsType: analyticsType
             )
         default:

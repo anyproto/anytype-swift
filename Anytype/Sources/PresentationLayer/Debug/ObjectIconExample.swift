@@ -20,7 +20,7 @@ struct ObjectIconExample: View {
                         AnytypeText("Profile Icon", style: .subheading, color: .Text.primary)
                         demoBlock { IconView(icon: .object(.profile(.imageId(iconId)))) }
                         AnytypeText("Profile Char", style: .subheading, color: .Text.primary)
-                        demoBlock { IconView(icon: .object(.profile(.character("A")))) }
+                        demoBlock { IconView(icon: .object(.profile(.name("A")))) }
                     }
                     Group {
                         AnytypeText("Emoji", style: .subheading, color: .Text.primary)
@@ -32,7 +32,7 @@ struct ObjectIconExample: View {
                         AnytypeText("Space gradient", style: .subheading, color: .Text.primary)
                         demoBlock { IconView(icon: .object(.space(.gradient(GradientId(2)!)))) }
                         AnytypeText("Space char", style: .subheading, color: .Text.primary)
-                        demoBlock { IconView(icon: .object(.space(.character("A")))) }
+                        demoBlock { IconView(icon: .object(.space(.name("A")))) }
                     }
                     
                     Group {

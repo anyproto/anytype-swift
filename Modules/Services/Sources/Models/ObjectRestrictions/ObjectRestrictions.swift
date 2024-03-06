@@ -1,14 +1,6 @@
-public enum ObjectRestriction: Int {
-    case none
-    case delete
-    case relations
-    case blocks
-    case details
-    case typechange
-    case layoutchange
-    case template
-    case duplicate
-}
+import ProtobufMessages
+
+public typealias ObjectRestriction = Anytype_Model_Restrictions.ObjectRestriction
 
 public enum DataViewRestriction: Int {
     case DVNone
@@ -19,14 +11,14 @@ public enum DataViewRestriction: Int {
 
 public struct ObjectRestrictions {
     public let objectRestriction: [ObjectRestriction]
-    public let dataViewRestriction: [BlockId: [DataViewRestriction]]
+    public let dataViewRestriction: [String: [DataViewRestriction]]
 
     public init() {
         objectRestriction = []
         dataViewRestriction = [:]
     }
 
-    public init(objectRestriction: [ObjectRestriction], dataViewRestriction: [BlockId: [DataViewRestriction]]) {
+    public init(objectRestriction: [ObjectRestriction], dataViewRestriction: [String: [DataViewRestriction]]) {
         self.objectRestriction = objectRestriction
         self.dataViewRestriction = dataViewRestriction
     }

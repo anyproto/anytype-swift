@@ -3,8 +3,8 @@ import UIKit
 
 protocol ObjectSettingsModuleDelegate: AnyObject {
     func didCreateLinkToItself(selfName: String, data: EditorScreenData)
-    func didCreateTemplate(templateId: BlockId)
-    func didTapUseTemplateAsDefault(templateId: BlockId)
+    func didCreateTemplate(templateId: String)
+    func didTapUseTemplateAsDefault(templateId: String)
 }
 
 @MainActor

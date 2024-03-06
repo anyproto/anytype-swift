@@ -1,17 +1,11 @@
 import UIKit
 import Services
-import AnytypeCore
+import Combine
 
 final class SlashMenuView: DismissableInputAccessoryView {
-    
-    private var menuItems = [SlashMenuItem]()
-    private var filterStringMismatchLength = 0
-    private var cachedFilterText = ""
-    
     private let viewModel: SlashMenuViewModel
-    private let cellDataBuilder = SlashMenuCellDataBuilder()
-    private let itemsBuilder = SlashMenuItemsBuilder()
-    private var searchMenuItemsTask: Task<(), Never>?
+
+    private var cancellables = [AnyCancellable]()
     
     init(frame: CGRect, viewModel: SlashMenuViewModel) {
         self.viewModel = viewModel
@@ -22,37 +16,17 @@ final class SlashMenuView: DismissableInputAccessoryView {
     
     private func setup() {
         addSubview(navigationController.view) {
-            if FeatureFlags.ipadIncreaseWidth {
-                $0.pinToSuperview(excluding: [.top])
-            } else {
-                $0.pinToSuperviewPreservingReadability(excluding: [.top])
-            }
+            $0.pinToSuperview(excluding: [.top])
             $0.top.equal(to: topSeparator?.bottomAnchor ?? topAnchor)
         }
-    }
-    
-    func update(spaceId: String, info: BlockInformation, relations: [Relation]) {
-        searchMenuItemsTask?.cancel()
-
-        viewModel.info = info
-        let restrictions = BlockRestrictionsBuilder.build(contentType: info.content.type)
-    
-        Task { @MainActor [weak self] in
-            self?.menuItems = (try? await self?.itemsBuilder.slashMenuItems(spaceId: spaceId, resrictions: restrictions, relations: relations)) ?? []
-            self?.restoreDefaultState()
-        }
-    }
-    
-    func restoreDefaultState() {
-        filterStringMismatchLength = 0
-        cachedFilterText = ""
-        popTooRoot()
         
-        controller.cellData = cellDataBuilder.build(menuItems: menuItems)
-    }
-    
-    override func didShow(from textView: UITextView) {
-        viewModel.didShowMenuView(from: textView)
+        viewModel.popToRootSubject.sink { [weak self] _ in
+            self?.popTooRoot()
+        }.store(in: &cancellables)
+        
+        viewModel.$detailsMenuItems.sink { [weak self] values in
+            self?.controller.cellData = values
+        }.store(in: &cancellables)
     }
     
     private func popTooRoot() {
@@ -81,29 +55,4 @@ final class SlashMenuView: DismissableInputAccessoryView {
     
     private lazy var controller = SlashMenuAssembly
         .menuController(viewModel: viewModel, dismissHandler: dismissHandler)
-}
-
-extension SlashMenuView: FilterableItemsView {
-    
-    func setFilterText(filterText: String) {
-        guard cachedFilterText != filterText else { return }
-        
-        popTooRoot()
-        
-        controller.cellData = cellDataBuilder.build(filter: filterText, menuItems: menuItems)
-        
-        if !controller.cellData.isEmpty {
-            filterStringMismatchLength = 0
-        } else {
-            filterStringMismatchLength += filterText.count - cachedFilterText.count
-        }
-        
-        cachedFilterText = filterText
-    }
-}
-
-extension SlashMenuView: DismissStatusProvider {
-    var shouldDismiss: Bool {
-        filterStringMismatchLength > 3
-    }
 }

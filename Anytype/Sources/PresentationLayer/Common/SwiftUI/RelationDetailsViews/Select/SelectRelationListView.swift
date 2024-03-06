@@ -74,10 +74,14 @@ struct SelectRelationListView: View {
         case .status:
             AnytypeText(option.text, style: .relation1Regular, color: option.color)
         case .tag:
-            TagOptionView(
-                text: option.text,
-                textColor: option.color,
-                backgroundColor: option.color.veryLightColor()
+            TagView(
+                config: TagView.Config(
+                    text: option.text,
+                    textColor: option.color,
+                    backgroundColor: option.color.veryLightColor(),
+                    textFont: .relation1Regular,
+                    guidlines: TagView.Guidlines(textPadding: 6, cornerRadius: 3, tagHeight: 20)
+                )
             )
         }
     }
@@ -96,11 +100,12 @@ struct SelectRelationListView: View {
                 analyticsType: .block
             ), 
             relationSelectedOptionsModel: RelationSelectedOptionsModel(
+                objectId: "",
                 selectionMode: .single,
                 selectedOptionsIds: [],
                 relationKey: "",
                 analyticsType: .block,
-                relationsService: DI.preview.serviceLocator.relationService(objectId: "")
+                relationsService: DI.preview.serviceLocator.relationService()
             ),
             searchService: DI.preview.serviceLocator.searchService(),
             output: nil
@@ -121,11 +126,12 @@ struct SelectRelationListView: View {
                 analyticsType: .block
             ),
             relationSelectedOptionsModel: RelationSelectedOptionsModel(
+                objectId: "",
                 selectionMode: .multi,
                 selectedOptionsIds: [],
                 relationKey: "",
                 analyticsType: .block,
-                relationsService: DI.preview.serviceLocator.relationService(objectId: "")
+                relationsService: DI.preview.serviceLocator.relationService()
             ),
             searchService: DI.preview.serviceLocator.searchService(),
             output: nil

@@ -48,11 +48,12 @@ final class ObjectRelationListModuleAssembly: ObjectRelationListModuleAssemblyPr
                     searchService: self.serviceLocator.searchService()
                 ),
                 relationSelectedOptionsModel: RelationSelectedOptionsModel(
+                    objectId: objectId,
                     selectionMode: configuration.selectionMode,
                     selectedOptionsIds: selectedOptionsIds,
                     relationKey: configuration.relationKey,
                     analyticsType: configuration.analyticsType,
-                    relationsService: self.serviceLocator.relationService(objectId: objectId)
+                    relationsService: self.serviceLocator.relationService()
                 ),
                 objectActionsService: self.serviceLocator.objectActionsService(),
                 output: output
@@ -74,11 +75,12 @@ final class ObjectRelationListModuleAssembly: ObjectRelationListModuleAssemblyPr
                     searchService: self.serviceLocator.searchService()
                 ),
                 relationSelectedOptionsModel: RelationSelectedOptionsModel(
+                    objectId: objectId,
                     selectionMode: configuration.selectionMode,
                     selectedOptionsIds: selectedOptionsIds,
                     relationKey: configuration.relationKey,
                     analyticsType: configuration.analyticsType,
-                    relationsService: self.serviceLocator.relationService(objectId: objectId)
+                    relationsService: self.serviceLocator.relationService()
                 ),
                 objectActionsService: self.serviceLocator.objectActionsService(),
                 output: output

@@ -19,7 +19,8 @@ final class CoordinatorsDI: CoordinatorsDIProtocol {
         return RelationValueCoordinatorAssembly(
             coordinatorsDI: self,
             modulesDI: modulesDI,
-            uiHelpersDI: uiHelpersDI
+            uiHelpersDI: uiHelpersDI,
+            serviceLocator: serviceLocator
         )
     }
     
@@ -67,7 +68,7 @@ final class CoordinatorsDI: CoordinatorsDIProtocol {
     }
     
     func settings() -> SettingsCoordinatorAssemblyProtocol {
-        return SettingsCoordinatorAssembly(modulesDI: modulesDI, uiHelpersDI: uiHelpersDI, serviceLocator: serviceLocator)
+        return SettingsCoordinatorAssembly(modulesDI: modulesDI, uiHelpersDI: uiHelpersDI, coordinatorsDI: self, serviceLocator: serviceLocator)
     }
     
     func authorization() -> AuthCoordinatorAssemblyProtocol {
@@ -196,5 +197,16 @@ final class CoordinatorsDI: CoordinatorsDIProtocol {
     
     func spaceShare() -> SpaceShareCoordinatorAssemblyProtocol {
         SpaceShareCoordinatorAssembly(modulesDI: modulesDI)
+    }
+    
+    func typeSearchForNewObject() -> TypeSearchForNewObjectCoordinatorAssemblyProtocol {
+        TypeSearchForNewObjectCoordinatorAssembly(
+            serviceLocator: serviceLocator,
+            modulesDI: modulesDI
+        )
+    }
+    
+    func membership() -> MembershipCoordinatorAssemblyProtocol {
+        MembershipCoordinatorAssembly(modulesDI: modulesDI)
     }
 }

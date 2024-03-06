@@ -23,14 +23,15 @@ final class ShimmeringBlockView: UIView, BlockContentView {
         shimmeringView.contentView = imageView
         
         addSubview(shimmeringView) {
-            $0.pinToSuperview()
+            $0.pinToSuperview(excluding: [.bottom])
+            $0.bottom.greaterThanOrEqual(to: bottomAnchor)
             heightConstraint = $0.height.equal(to: 20) // will be updated with configuration
         }
     }
 
     func update(with configuration: ShimmeringBlockConfiguration) {
         imageView.image = UIImage(asset: configuration.image)
-        heightConstraint?.constant = imageView.image?.size.height ?? 0
+        heightConstraint?.constant = imageView.image?.size.height ?? 20
 
         shimmeringView.isShimmering = true
         shimmeringView.shimmerSpeed = 120

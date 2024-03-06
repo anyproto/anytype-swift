@@ -3,7 +3,7 @@ import Services
 import AnytypeCore
 
 struct SetContentViewItemConfiguration: Identifiable, Hashable {
-    let id: BlockId
+    let id: String
     let title: String
     let description: String?
     let icon: Icon?
@@ -18,7 +18,7 @@ struct SetContentViewItemConfiguration: Identifiable, Hashable {
     @EquatableNoop var onItemTap: @MainActor () -> Void
     
     init(
-        id: BlockId,
+        id: String,
         title: String,
         description: String?,
         icon: Icon?,

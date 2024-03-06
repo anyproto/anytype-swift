@@ -2,6 +2,8 @@ import Foundation
 import UIKit
 
 protocol UIHelpersDIProtocol {
+    var keyboardListener: KeyboardHeightListener { get }
+    
     func toastPresenter() -> ToastPresenterProtocol
     func toastPresenter(using containerViewController: UIViewController?) -> ToastPresenterProtocol
     func viewControllerProvider() -> ViewControllerProviderProtocol
@@ -21,6 +23,7 @@ final class UIHelpersDI: UIHelpersDIProtocol {
     }
     
     // MARK: - UIHelpersDIProtocol
+    let keyboardListener = KeyboardHeightListener()
     
     func toastPresenter() -> ToastPresenterProtocol {
         toastPresenter(using: nil)

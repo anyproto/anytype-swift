@@ -4,7 +4,6 @@ import SwiftUI
 protocol RelationOptionSettingsModuleAssemblyProtocol: AnyObject {
     @MainActor
     func make(
-        objectId: String,
         configuration: RelationOptionSettingsConfiguration,
         completion: @escaping (_ optionParams: RelationOptionParameters) -> Void
     ) -> AnyView
@@ -22,14 +21,13 @@ final class RelationOptionSettingsModuleAssembly: RelationOptionSettingsModuleAs
     
     @MainActor
     func make(
-        objectId: String,
         configuration: RelationOptionSettingsConfiguration,
         completion: @escaping (_ optionParams: RelationOptionParameters) -> Void
     ) -> AnyView {
         RelationOptionSettingsView(
             model: RelationOptionSettingsViewModel(
                 configuration: configuration,
-                relationsService: self.serviceLocator.relationService(objectId: objectId),
+                relationsService: self.serviceLocator.relationService(),
                 completion: completion
             )
         ).eraseToAnyView()

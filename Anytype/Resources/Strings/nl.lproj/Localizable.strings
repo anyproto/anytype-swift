@@ -217,7 +217,7 @@
 "Auth.CameraPermissionTitle" = "Geef toegang";
 "Restore secret phrase from keychain" = "Herstel de herstelzin vanuit de keychain";
 "Auth.LogIn" = "Inloggen";
-"Auth.Join" = "Neem deel";
+"Join" = "Neem deel";
 "Auth.Welcome.Subtitle" = "Anytype is jouw veilige ruimte om te schrijven, te plannen, na te denken en te organiseren van de dingen die jij belangrijk vindt.";
 "Auth.Caption.Privacy.Text" = "Door verder te gaan ga je akkoord met onze [Algemene voorwaarden](%@) en [Privacybeleid](%@)";
 "Auth.Next" = "Volgende";
@@ -528,6 +528,7 @@
 "Unsupported value" = "Niet-ondersteunde waarde";
 "Select relation type" = "Selecteer relatie type";
 "CommonOpenErrorView.Message" = "Geen gegevens gevonden";
+"AreYouSure" = "Weet je het zeker?";
 "Nothing found" = "Niets gevonden";
 "No type found text" = "Geen type \"%@\" gevonden. Wijzig uw verzoek of maak een nieuw type aan.";
 "Create type" = "Maak type aan";
@@ -554,6 +555,7 @@
 "Application icon" = "App pictogram";
 "Mode" = "Instelling";
 "copied to clipboard" = "%@ gekopieerd naar klembord";
+"Create object from clipboard" = "Maak object aan vanaf klembord";
 "Access to secret phrase from keychain" = "Toegang tot geheime zin vanuit sleutelhanger";
 "Back up your recovery phrase" = "Back-up jouw herstelzin";
 "Account" = "Account";
@@ -753,10 +755,6 @@
 "Content.DataView.InlineCollection.Untitled" = "Naamloze collectie";
 "Content.DataView.InlineSet.Toast.Failure" = "Deze set in lijn heeft geen bron";
 
-// MARK: - Widget extension
-"WidgetExtension.LockScreen.Title" = "Nieuw object";
-"WidgetExtension.LockScreen.Description" = "Maak snel een nieuw object aan ";
-
 // MARK: - Toast
 "Editor.Toast.LinkedTo" = "gelinkt naar";
 "Editor.Toast.MovedTo" = "Blok verplaatst naar";
@@ -849,10 +847,26 @@
 "ClearCacheAlert.Description" = "Alle mediabestanden die in Anytype zijn opgeslagen, zullen van het huidige apparaat worden verwijderd. Ze kunnen opnieuw van een back-up node of een ander apparaat worden gedownload.";
 
 // MARK: - Spaces
-"Spaces.Accessibility.Public" = "Openbare ruimte";
+"Spaces.Accessibility.Shared" = "Gedeelde ruimte";
 "Spaces.Accessibility.Private" = "Persoonlijke ruimte";
 "Spaces.Accessibility.Personal" = "Persoonlijke ruimte";
 "Spaces.Search.Title" = "Zoek ruimten";
+"Spaces.Title" = "Ruimtes";
+"Spaces.Info.Network" = "Netwerk:";
+"Spaces.Info.Device" = "Apparaat:";
+
+// MARK: - Space
+"Space.Status.Unknown" = "Onbekend";
+"Space.Status.Loading" = "Aan het laden";
+"Space.Status.Ok" = "Ok";
+"Space.Status.Missing" = "Ontbrekend";
+"Space.Status.Error" = "Foutmelding";
+"Space.Status.RemoteWaitingDeletion" = "Aan het wachten op verwijdering";
+"Space.Status.RemoteDeleted" = "Op afstand verwijderd";
+"Space.Status.SpaceDeleted" = "Verwijderd";
+"Space.Status.SpaceActive" = "Actief";
+"Space.Status.SpaceJoining" = "Aan het aansluiten";
+"Space.Status.SpaceRemoving" = "Aan het verwijderen";
 
 // MARK: - Space Settings
 "SpaceSettings.Title" = "Ruimte instellingen";
@@ -864,14 +878,39 @@
 "SpaceSettings.DeleteButton" = "Verwijder ruimte";
 "SpaceSettings.Sharing" = "Aan het delen";
 "SpaceSettings.Share" = "Deel";
+"SpaceSettings.LeaveButton" = "Verlaat en schrijf uit";
+"SpaceSettings.LeaveAlert.Title" = "Verlaat en schrijf uit van de ruimte";
+"SpaceSettings.LeaveAlert.Message" = "%@ ruimte zal worden verwijderd van jouw apparaten en je hebt er dan geen toegang meer toe";
 
 // MARK: - Space Share
 
 "SpaceShare.Title" = "Deel ruimte";
 "SpaceShare.MembersSection" = "Leden en verzoeken";
+"SpaceShare.Members" = "Leden";
 "SpaceShare.Permissions.Owner" = "Eigenaar";
-"SpaceShare.Permissions.Reader" = "Kan zien";
-"SpaceShare.Permissions.Writer" = "Kan bewerken";
+"SpaceShare.Permissions.Reader" = "Lezer";
+"SpaceShare.Permissions.Writer" = "Bewerker";
+"SpaceShare.Invite.Title" = "Uitnodigingslink";
+"SpaceShare.Invite.Description" = "Stuur deze link om anderen uit te nodigen. Wijs toegangsrechten toe na hun goedkeuring.";
+"SpaceShare.Invite.Button" = "Deel uitnodigingslink";
+"SpaceShare.Status.Joining" = "Aangevraagd";
+"SpaceShare.Status.Removing" = "Uitschrijven aangevraagd";
+"SpaceShare.Action.ViewRequest" = "Bekijk verzoek";
+"SpaceShare.Action.Approve" = "Goedkeuren";
+"SpaceShare.ViewRequest.Title" = "%@ heeft verzocht om zich aan te sluiten bij de ruimte %@";
+"SpaceShare.ViewRequest.ViewAccess" = "Geef leesrechten";
+"SpaceShare.ViewRequest.EditAccess" = "Geef bewerkingsrechten";
+"SpaceShare.ViewRequest.Reject" = "Weiger";
+"SpaceShare.RemoveMember.Title" = "Verwijder lid";
+"SpaceShare.RemoveMember.Message" = "%@ zal worden verwijderd uit de ruimte.";
+"SpaceShare.ChangePermissions" = "%@ toegang tot de ruimte zou %@ worden.";
+"SpaceShare.Join.Title" = "Sluit je aan bij een ruimte";
+"SpaceShare.Join.CommentPlaceholder" = "Laat een persoonlijk bericht achter voor een eigenaar van de ruimte";
+"SpaceShare.Join.Button" = "Verzoek om aan te sluiten";
+"SpaceShare.Join.Info" = "Zodra de eigenaar van de ruimte jouw verzoek heeft goedgekeurd, zul je toetreden tot de ruimte met de toegangsrechten die door de eigenaar zijn bepaald.";
+"SpaceShare.Join.Message" = "Je bent uitgenodigd om je aan te sluiten bij  %@ ruimte, aangemaakt door %@ Stuur een verzoek zodat de eigenaar van de ruimte je kan toelaten. ";
+"SpaceShare.JoinConfirmation.Title" = "Verzoek verzonden";
+"SpaceShare.JoinConfirmation.Message" = "Je zult een melding ontvangen wanneer de eigenaar van de ruimte je verzoek zal goedkeuren.";
 
 // MARK: - Space Create
 "SpaceCreate.Title" = "Maak een ruimte aan";
@@ -897,6 +936,11 @@
 "Sharing.Tip.Steps.1" = "Tik op de iOS deel knop";
 "Sharing.Tip.Steps.2" = "Scroll voorbij de app en tik op Meer";
 "Sharing.Tip.Steps.3" = "Tik op Bewerken om \"Anytype\" te vinden en tik op";
+
+// MARK: - Swipe tips
+"Swipe.Tip.Title" = "Swipe om objecten aan te maken";
+"Swipe.Tip.Subtitle" = "Maak objecten binnen widgets aan door ze naar links te swipen.";
+
 
 // MARK: - Initial
 
@@ -941,6 +985,68 @@
 "Gallery.Notification.Success" = "Experience werd succesvol geïnstalleerd in de \"%@\" ruimte. Je kunt het nu openen en gebruiken.";
 "Gallery.Notification.Button" = "Ga naar ruimte";
 "Gallery.Notification.Error" = "Oeps! \"%@\" werd niet geïnstalleerd. Controleer jouw internetverbinding en probeer het opnieuw of rapporteer het op het forum.";
+
+// MARK: - Membership
+"Membership" = "Lidmaatschap";
+"Just e-mail" = "Alleen e-mail";
+"E-mail" = "E-mail";
+"Learn more" = "Ontdek meer";
+"per year" = "per jaar";
+"per x years" = "per %@ jaar";
+"What’s included" = "What’s included";
+"Submit" = "Submit";
+
+"Membership.Ad.Title" = "Laten we samen bouwen";
+"Membership.Ad.Subtitle" = "Deelnemen aan het Anytype netwerk betekent bijdragen aan het verhaal";
+
+"Membership.Legal.Details" = "Lidmaatschap niveaus details";
+"Membership.Legal.Privacy" = "Privacybeleid";
+"Membership.Legal.Terms" = "Algemene voorwaarden";
+"Membership.Legal.WouldYouLike" = "Wil je Anytype gebruiken voor werk, opleiding, etc.?";
+"Membership.Legal.LetUsKnow" = "Laat het ons hier weten.";
+
+"Membership.Email.Subject" = "Special Pricing Request";
+"Membership.Email.Body" = "Please specify your request:
+- highlight if you represent an educational, governmental, or non-profit organization
+- tell us more about your organization: number of employees and future Anytype users, markets you're working on, etc.,
+- provide additional details about how your organization uses Anytype";
+
+"Membership.Banner.Title1" = "Maak samen met ons";
+"Membership.Banner.Subtitle1" = "Blijf nauw verbonden met ons team en onze gemeenschap. Neem deel aan gesprekken met het team, beïnvloed de ontwikkeling van Anytype en geef je mening over functies.";
+"Membership.Banner.Title2" = "Verdien voordelen";
+"Membership.Banner.Subtitle2" = "Onze leden hebben een unieke identiteit op het Anytype netwerk, meer opslag, gedeelde ruimtes en leden per ruimte voor uitgebreide samenwerking";
+"Membership.Banner.Title3" = "Ondersteun de visie";
+"Membership.Banner.Subtitle3" = "Jouw bijdrage steunt ons onafhankelijke team en ondersteunt onze visie op een gebruiker-gestuurde, veilige en gezamenlijke digitale omgeving.";
+"Membership.Banner.Title4" = "Investeer in verbinding";
+"Membership.Banner.Subtitle4" = "Onze software is gratis, maar we bloeien op het netwerk dat ons allemaal verbindt. Steun ons, en je investeert in de infrastructuur die ons verenigt";
+
+"Membership.EmailForm.Title" = "Get your free membership";
+"Membership.EmailForm.Subtitle" = "We need your email to keep spam at bay and the fun in play!";
+"Membership.EmailForm.Newsletter" = "I'd like to get updates on products and enjoy free perks!";
+
+// MARK: - Membership Tiers
+"Membership.Explorer.Title" = "Verkenner";
+"Membership.Explorer.Subtitle" = "Dive into the network and enjoy the thrill of one-on-one collaboration";
+"Membership.Explorer.Benefit1" = "1 GB of network space";
+"Membership.Explorer.Benefit2" = "10 one-to-one spaces";
+"Membership.Explorer.Benefit3" = "Up to 10 shared spaces in read-only mode";
+
+"Membership.Builder.Title" = "Builder";
+"Membership.Builder.Subtitle" = "Unlock the magic of multi-party collaboration and enjoy top-notch support";
+"Membership.Builder.Benefit1" = "Unique name (from 7 characters)";
+"Membership.Builder.Benefit2" = "128 GB of network space";
+"Membership.Builder.Benefit3" = "10 Guest collaborator seats";
+"Membership.Builder.Benefit4" = "Priority support";
+
+
+"Membership.CoCreator.Title" = "Co-Creator";
+"Membership.CoCreator.Subtitle" = "Support our adventure and unlock exclusive access and perks";
+"Membership.CoCreator.Benefit1" = "Unique name (from 5 characters)";
+"Membership.CoCreator.Benefit2" = "256 GB of network space";
+"Membership.CoCreator.Benefit3" = "25 Guest collaborator seats";
+"Membership.CoCreator.Benefit4" = "Chat with the team";
+"Membership.CoCreator.Benefit5" = "Unique collectible";
+
 
 // MARK: - Debug
 "Debug.MimeTypes" = "Media types - %@";

@@ -1,19 +1,65 @@
-//
-//  PasteboardHelper.swift
-//  Anytype
-//
-//  Created by Denis Batvinkin on 21.03.2022.
-//  Copyright © 2022 Anytype. All rights reserved.
-//
-
 import UIKit
 import UniformTypeIdentifiers
+import Combine
+import AnytypeCore
 
-final class PasteboardHelper {
+
+enum PasteboardContent {
+    case string(String)
+    case url(AnytypeURL)
+    case otherContent
+}
+
+protocol PasteboardHelperProtocol {
+    var pasteboardContent: PasteboardContent? { get }
+    
+    func obtainString() -> String?
+    func obtainUrl() -> AnytypeURL?
+    func obtainBlocksSlots() -> [String]?
+    func obtainHTMLSlot() -> String?
+    func obtainTextSlot() -> String?
+    func obtainAsFiles() -> [NSItemProvider]
+    func obtainAllItems() -> [[String: Any]]
+    
+    func setItems(textSlot: String?, htmlSlot: String?, blocksSlots: [String]?)
+    
+    var isPasteboardEmpty: Bool { get }
+    var numberOfItems: Int { get }
+    var hasValidURL: Bool { get }
+    var hasStrings: Bool { get }
+    var hasSlots: Bool { get }
+    
+    func startSubscription(onChange: @escaping () -> Void)
+    func stopSubscription()
+}
+
+final class PasteboardHelper: PasteboardHelperProtocol {
     private lazy var pasteboard = UIPasteboard.general
+    
+    deinit {
+        stopSubscription()
+    }
+    
+    var pasteboardContent: PasteboardContent? {
+        guard numberOfItems != 0 else { return nil }
+        
+        if numberOfItems == 1, hasValidURL, let url = obtainUrl() {
+            return .url(url)
+        }
+        
+        if numberOfItems == 1, let string = obtainString() {
+            return .string(string)
+        }
+                    
+        return .otherContent
+    }
 
-    func obrainString() -> String? {
+    func obtainString() -> String? {
         return pasteboard.string
+    }
+    
+    func obtainUrl() -> AnytypeURL? {
+        obtainString().flatMap(AnytypeURL.init)
     }
     
     func obtainBlocksSlots() -> [String]? {
@@ -60,6 +106,10 @@ final class PasteboardHelper {
     func obtainAsFiles() -> [NSItemProvider] {
         return pasteboard.itemProviders
     }
+    
+    func obtainAllItems() -> [[String: Any]] {
+        pasteboard.items
+    }
 
     func setItems(textSlot: String?, htmlSlot: String?, blocksSlots: [String]?) {
         var textSlots: [String: Any] = [:]
@@ -79,6 +129,10 @@ final class PasteboardHelper {
         allSlots.append(textSlots)
         pasteboard.setItems(allSlots)
     }
+    
+    var numberOfItems: Int {
+        pasteboard.numberOfItems
+    }
 
     var hasValidURL: Bool {
         if let string = pasteboard.string, string.isValidURL(), !pasteboard.hasImages {
@@ -86,8 +140,38 @@ final class PasteboardHelper {
         }
         return false
     }
+    
+    var hasStrings: Bool {
+        pasteboard.hasStrings
+    }
 
     var hasSlots: Bool {
         pasteboard.hasSlots
+    }
+    
+    var isPasteboardEmpty: Bool {
+        let items = obtainAllItems()
+        
+        if items.isEmpty { return true }
+        if items.count == 1 && items[0].isEmpty { return true }
+        
+        return false
+    }
+    
+    // MARK: Subscriptions
+    private var subscription: AnyCancellable?
+    func startSubscription(onChange: @escaping () -> Void) {
+        subscription = NotificationCenter.Publisher(
+            center: .default,
+            name: UIPasteboard.changedNotification
+        )
+        .receiveOnMain()
+        .sink { _ in
+            onChange()
+        }
+    }
+    
+    func stopSubscription() {
+        NotificationCenter.default.removeObserver(self, name: UIPasteboard.changedNotification, object: nil)
     }
 }

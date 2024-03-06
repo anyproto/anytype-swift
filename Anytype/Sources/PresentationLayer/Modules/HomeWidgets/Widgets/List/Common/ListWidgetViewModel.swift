@@ -9,7 +9,7 @@ final class ListWidgetViewModel: WidgetContainerContentViewModelProtocol, Observ
     
     // MARK: - DI
     
-    private let widgetBlockId: BlockId
+    private let widgetBlockId: String
     private let widgetObject: BaseDocumentProtocol
     private let internalModel: any WidgetInternalViewModelProtocol
     private let internalHeaderModel: (any WidgetDataviewInternalViewModelProtocol)?
@@ -33,7 +33,7 @@ final class ListWidgetViewModel: WidgetContainerContentViewModelProtocol, Observ
     var allowCreateObject: Bool { internalModel.allowCreateObject }
     
     init(
-        widgetBlockId: BlockId,
+        widgetBlockId: String,
         widgetObject: BaseDocumentProtocol,
         style: ListWidgetStyle,
         internalModel: any WidgetInternalViewModelProtocol,
@@ -57,20 +57,9 @@ final class ListWidgetViewModel: WidgetContainerContentViewModelProtocol, Observ
         internalModel.startHeaderSubscription()
     }
     
-    func stopHeaderSubscription() {
-        subscriptions.removeAll()
-        internalModel.stopHeaderSubscription()
-    }
-    
     func startContentSubscription() {
         Task {
             await internalModel.startContentSubscription()
-        }
-    }
-
-    func stopContentSubscription() {
-        Task {
-            await internalModel.stopContentSubscription()
         }
     }
     

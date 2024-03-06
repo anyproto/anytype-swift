@@ -79,9 +79,11 @@ struct SetGalleryViewCell: View {
     
     private func row(_ relation: Relation) -> some View {
         RelationValueView(
-            relation: RelationItemModel(relation: relation),
-            style: .setCollection,
-            mode: .button(action: nil)
+            model: RelationValueViewModel(
+                relation:  RelationItemModel(relation: relation),
+                style: .setCollection,
+                mode: .button(action: nil)
+            )
         )
     }
 }

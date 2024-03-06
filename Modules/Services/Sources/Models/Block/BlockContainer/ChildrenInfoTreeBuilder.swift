@@ -1,5 +1,5 @@
 import AnytypeCore
-
+import Foundation
 /// Input:
 /// A -> [B, C, D]
 /// B -> [X]
@@ -26,9 +26,9 @@ final class ChildrenInfoTreeBuilder {
         while !stack.isEmpty {
             if let info = stack.pop() {
                 if info.kind == .block { result.append(info) } // Skip meta blocks
-
+                
                 let children = findChildren(info: info)
-
+                
                 for item in children.reversed() {
                     stack.push(item)
                 }
@@ -50,5 +50,16 @@ final class ChildrenInfoTreeBuilder {
         }
         
         return container.children(of: info.id)
+    }
+}
+
+public final class TreeList<T> {
+    
+    var value: T
+    var children: [TreeList<T>]
+    
+    internal init(value: T, children: [TreeList<T>]) {
+        self.value = value
+        self.children = children
     }
 }

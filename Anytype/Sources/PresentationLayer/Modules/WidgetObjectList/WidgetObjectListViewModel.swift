@@ -99,19 +99,19 @@ final class WidgetObjectListViewModel: ObservableObject, OptionsItemProvider, Wi
     
     // MARK: - WidgetObjectListMenuOutput
     
-    func setFavorite(objectIds: [BlockId], _ isFavorite: Bool) {
+    func setFavorite(objectIds: [String], _ isFavorite: Bool) {
         AnytypeAnalytics.instance().logAddToFavorites(isFavorite)
         Task { try? await objectActionService.setFavorite(objectIds: objectIds, isFavorite) }
         UISelectionFeedbackGenerator().selectionChanged()
     }
     
-    func setArchive(objectIds: [BlockId], _ isArchived: Bool) {
+    func setArchive(objectIds: [String], _ isArchived: Bool) {
         AnytypeAnalytics.instance().logMoveToBin(isArchived)
         Task { try? await objectActionService.setArchive(objectIds: objectIds, isArchived) }
         UISelectionFeedbackGenerator().selectionChanged()
     }
     
-    func delete(objectIds: [BlockId]) {
+    func delete(objectIds: [String]) {
         AnytypeAnalytics.instance().logShowDeletionWarning(route: .bin)
         let alert = BottomAlertLegacy.binConfirmation(count: objectIds.count) { [objectIds, weak self] in
             Task { [weak self] in
@@ -123,7 +123,7 @@ final class WidgetObjectListViewModel: ObservableObject, OptionsItemProvider, Wi
         UISelectionFeedbackGenerator().selectionChanged()
     }
     
-    func forceDelete(objectIds: [BlockId]) {
+    func forceDelete(objectIds: [String]) {
         AnytypeAnalytics.instance().logShowDeletionWarning(route: .settings)
         let alert = BottomAlertLegacy(
             title: internalModel.forceDeleteTitle,
@@ -139,7 +139,7 @@ final class WidgetObjectListViewModel: ObservableObject, OptionsItemProvider, Wi
     
     // MARK: - Private
     
-    private func forceDeleteConfirmed(objectIds: [BlockId]) {
+    private func forceDeleteConfirmed(objectIds: [String]) {
         Task {
             AnytypeAnalytics.instance().logMoveToBin(true)
             try await objectActionService.setArchive(objectIds: objectIds, true)

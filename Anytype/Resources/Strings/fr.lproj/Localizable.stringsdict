@@ -109,7 +109,7 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>d</string>
         <key>one</key>
-        <string>File Object</string>
+        <string>Objets fichiers</string>
         <key>other</key>
         <string>%d File Objects</string>
       </dict>
@@ -127,7 +127,7 @@
         <key>one</key>
         <string>File Block</string>
         <key>other</key>
-        <string>%d File Blocks</string>
+        <string>%d Blocs de fichiers</string>
       </dict>
     </dict>
     <key>Sharing.URL.NewObject</key>
@@ -160,6 +160,38 @@
         <string>Link Block</string>
         <key>other</key>
         <string>Link %d Blocks</string>
+      </dict>
+    </dict>
+    <key>SpaceShare.Invite.Members</key>
+    <dict>
+      <key>NSStringLocalizedFormatKey</key>
+      <string>%#@object@</string>
+      <key>object</key>
+      <dict>
+        <key>NSStringFormatSpecTypeKey</key>
+        <string>NSStringPluralRuleType</string>
+        <key>NSStringFormatValueTypeKey</key>
+        <string>d</string>
+        <key>one</key>
+        <string>Vous pouvez ajouter un autre membre</string>
+        <key>other</key>
+        <string>You can add %d more members</string>
+      </dict>
+    </dict>
+    <key>SpaceShare.Invite.MaxLimit</key>
+    <dict>
+      <key>NSStringLocalizedFormatKey</key>
+      <string>%#@object@</string>
+      <key>object</key>
+      <dict>
+        <key>one</key>
+        <string>Vous avez atteint la limite de %d membres. Les nouveaux membres ne pourront pas vous rejoindre.</string>
+        <key>NSStringFormatSpecTypeKey</key>
+        <string>NSStringPluralRuleType</string>
+        <key>NSStringFormatValueTypeKey</key>
+        <string>d</string>
+        <key>other</key>
+        <string>You have reached the limit of %d members. New members will not be able to join.</string>
       </dict>
     </dict>
   </dict>
