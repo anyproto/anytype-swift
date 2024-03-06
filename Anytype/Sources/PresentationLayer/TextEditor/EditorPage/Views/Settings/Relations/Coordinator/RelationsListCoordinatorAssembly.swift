@@ -27,7 +27,7 @@ final class RelationsListCoordinatorAssembly: RelationsListCoordinatorAssemblyPr
         self.uiHelpersDI = uiHelpersDI
     }
     
-    // MARK: - EditorSetCoordinatorAssemblyProtocol
+    // MARK: - RelationsListCoordinatorAssemblyProtocol
     
     func make(document: BaseDocumentProtocol, output: RelationValueCoordinatorOutput?) -> AnyView {
         RelationsListCoordinatorView(
@@ -37,6 +37,8 @@ final class RelationsListCoordinatorAssembly: RelationsListCoordinatorAssemblyPr
                 relationValueCoordinatorAssembly: self.coordinatorsID.relationValue(),
                 addNewRelationCoordinator: self.coordinatorsID.addNewRelation().make(), 
                 legacyRelationValueCoordinator: self.coordinatorsID.legacyRelationValue().make(),
+                relationValueProcessingService: self.serviceLocator.relationValueProcessingService(),
+                toastPresenter: self.uiHelpersDI.toastPresenter(),
                 output: output
             )
         ).eraseToAnyView()

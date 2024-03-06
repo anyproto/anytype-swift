@@ -43,7 +43,8 @@ final class EditorSetCoordinatorAssembly: EditorSetCoordinatorAssemblyProtocol {
                 newSearchModuleAssembly: self.modulesDI.newSearch(), 
                 legacyRelationValueCoordinator: self.coordinatorsID.legacyRelationValue().make(), 
                 setObjectCreationSettingsCoordinator: self.coordinatorsID.setObjectCreationSettings().make(with: nil), 
-                relationValueCoordinatorAssembly: self.coordinatorsID.relationValue(),
+                relationValueCoordinatorAssembly: self.coordinatorsID.relationValue(), 
+                relationValueProcessingService: self.serviceLocator.relationValueProcessingService(),
                 toastPresenter: self.uiHelpersDI.toastPresenter(),
                 navigationContext: self.uiHelpersDI.commonNavigationContext()
             )

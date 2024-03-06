@@ -55,21 +55,7 @@ final class LegacyRelationValueCoordinator:
     ) {
         self.output = output
         
-        if FeatureFlags.newDateRelationCalendarView, case .date = relation, !relation.isEditable {
-            toastPresenter.show(message: Loc.Relation.Date.Locked.Alert.title(relation.name))
-            return
-        }
-        
         guard relation.isEditable || relation.hasDetails else { return }
-        
-        if case .checkbox(let checkbox) = relation {
-            let newValue = !checkbox.value
-            AnytypeAnalytics.instance().logChangeRelationValue(isEmpty: !newValue, type: analyticsType)
-            Task {
-                try await relationsService.updateRelation(objectId: objectDetails.id, relationKey: checkbox.key, value: newValue.protobufValue)
-            }
-            return
-        }
         
         guard let moduleViewController = relationValueModuleAssembly.make(
             objectDetails: objectDetails,

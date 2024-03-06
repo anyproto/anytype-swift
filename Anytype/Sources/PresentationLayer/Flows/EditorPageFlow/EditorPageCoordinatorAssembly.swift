@@ -46,7 +46,9 @@ final class EditorPageCoordinatorAssembly: EditorPageCoordinatorAssemblyProtocol
                 setupEditorInput: setupEditorInput,
                 editorPageAssembly: self.coordinatorsID.editorPageModule(), 
                 legacyRelationValueCoordinator: self.coordinatorsID.legacyRelationValue().make(), 
-                relationValueCoordinatorAssembly: self.coordinatorsID.relationValue()
+                relationValueCoordinatorAssembly: self.coordinatorsID.relationValue(),
+                relationValueProcessingService: self.serviceLocator.relationValueProcessingService(),
+                toastPresenter: self.uiHelpersDI.toastPresenter()
             )
         ).eraseToAnyView()
     }

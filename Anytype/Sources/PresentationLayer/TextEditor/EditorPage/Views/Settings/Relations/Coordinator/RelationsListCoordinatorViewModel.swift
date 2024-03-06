@@ -17,6 +17,8 @@ final class RelationsListCoordinatorViewModel:
     private let relationValueCoordinatorAssembly: RelationValueCoordinatorAssemblyProtocol
     private let addNewRelationCoordinator: AddNewRelationCoordinatorProtocol
     private let legacyRelationValueCoordinator: LegacyRelationValueCoordinatorProtocol
+    private let relationValueProcessingService: RelationValueProcessingServiceProtocol
+    private let toastPresenter: ToastPresenterProtocol
     private weak var output: RelationValueCoordinatorOutput?
 
     init(
@@ -25,6 +27,8 @@ final class RelationsListCoordinatorViewModel:
         relationValueCoordinatorAssembly: RelationValueCoordinatorAssemblyProtocol,
         addNewRelationCoordinator: AddNewRelationCoordinatorProtocol,
         legacyRelationValueCoordinator: LegacyRelationValueCoordinatorProtocol,
+        relationValueProcessingService: RelationValueProcessingServiceProtocol,
+        toastPresenter: ToastPresenterProtocol,
         output: RelationValueCoordinatorOutput?
     ) {
         self.document = document
@@ -32,6 +36,8 @@ final class RelationsListCoordinatorViewModel:
         self.relationValueCoordinatorAssembly = relationValueCoordinatorAssembly
         self.addNewRelationCoordinator = addNewRelationCoordinator
         self.legacyRelationValueCoordinator = legacyRelationValueCoordinator
+        self.relationValueProcessingService = relationValueProcessingService
+        self.toastPresenter = toastPresenter
         self.output = output
     }
     
@@ -77,16 +83,29 @@ final class RelationsListCoordinatorViewModel:
     }
     
     private func handleRelationValue(relation: Relation, objectDetails: ObjectDetails) {
-        if RelationValueInteractor.canHandleRelation(relation) {
+        let analyticsType = AnalyticsEventsRelationType.menu
+        if relationValueProcessingService.canOpenRelationInNewModule(relation) {
             relationValueData = RelationValueData(
                 relation: relation,
                 objectDetails: objectDetails
             )
-        } else {
+            return
+        }
+        
+        let result = relationValueProcessingService.relationProcessedSeparately(
+            relation: relation,
+            objectId: objectDetails.id,
+            analyticsType: analyticsType,
+            onToastShow: { [weak self] message in
+                self?.toastPresenter.show(message: message)
+            }
+        )
+        
+        if !result {
             legacyRelationValueCoordinator.startFlow(
                 objectDetails: objectDetails,
                 relation: relation,
-                analyticsType: .menu,
+                analyticsType: analyticsType,
                 output: self
             )
         }
@@ -97,12 +116,3 @@ final class RelationsListCoordinatorViewModel:
         output?.showEditorScreen(data: data)
     }
 }
-
-extension RelationsListCoordinatorViewModel {
-    struct RelationValueData: Identifiable {
-        let id = UUID()
-        let relation: Relation
-        let objectDetails: ObjectDetails
-    }
-}
-
