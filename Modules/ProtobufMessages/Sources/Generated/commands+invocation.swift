@@ -587,6 +587,11 @@ extension Anytype_Rpc.Debug.StackGoroutines.Response.Error: ResponseError {
     public var isNull: Bool { code == .null }
 }
 
+extension Anytype_Rpc.Debug.Stat.Response: ResultWithError {}
+extension Anytype_Rpc.Debug.Stat.Response.Error: ResponseError {
+    public var isNull: Bool { code == .null }
+}
+
 extension Anytype_Rpc.Debug.Subscriptions.Response: ResultWithError {}
 extension Anytype_Rpc.Debug.Subscriptions.Response.Error: ResponseError {
     public var isNull: Bool { code == .null }
