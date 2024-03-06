@@ -16,7 +16,7 @@ struct SetTableViewRow: View {
             Spacer.fixedHeight(12)
             AnytypeDivider()
         }
-        .contentShape(Rectangle())
+        .fixTappableArea()
     }
     
     private var details: some View {

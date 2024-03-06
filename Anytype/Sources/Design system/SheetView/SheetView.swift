@@ -14,7 +14,7 @@ struct SheetView<Content: View>: View {
     var body: some View {
         ZStack {
             Color.clear
-                .contentShape(Rectangle())
+                .fixTappableArea()
                 .onTapGesture {
                     dismiss()
                     cancelAction?()
