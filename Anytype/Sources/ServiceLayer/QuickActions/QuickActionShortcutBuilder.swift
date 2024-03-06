@@ -12,19 +12,14 @@ protocol QuickActionShortcutBuilderProtocol {
 @MainActor
 final class QuickActionShortcutBuilder: QuickActionShortcutBuilderProtocol {
     
-    private let activeWorkspaceStorage: ActiveWorkpaceStorageProtocol
-    private let typesService: TypesServiceProtocol
-    private let objectTypeProvider: ObjectTypeProviderProtocol
+    @Injected(\.activeWorkpaceStorage)
+    private var activeWorkspaceStorage: ActiveWorkpaceStorageProtocol
+    @Injected(\.typesService)
+    private var typesService: TypesServiceProtocol
+    @Injected(\.objectTypeProvider)
+    private var objectTypeProvider: ObjectTypeProviderProtocol
     
-    nonisolated init(
-        activeWorkspaceStorage: ActiveWorkpaceStorageProtocol,
-        typesService: TypesServiceProtocol,
-        objectTypeProvider: ObjectTypeProviderProtocol
-    ) {
-        self.activeWorkspaceStorage = activeWorkspaceStorage
-        self.typesService = typesService
-        self.objectTypeProvider = objectTypeProvider
-    }
+    nonisolated init() {}
     
     // MARK: - QuickActionShortcutBuilderProtocol
     

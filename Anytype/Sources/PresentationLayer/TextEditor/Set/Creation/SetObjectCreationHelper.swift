@@ -13,25 +13,16 @@ protocol SetObjectCreationHelperProtocol {
 
 final class SetObjectCreationHelper: SetObjectCreationHelperProtocol {
     
-    private let dataviewService: DataviewServiceProtocol
-    private let objectTypeProvider: ObjectTypeProviderProtocol
-    private let objectActionsService: ObjectActionsServiceProtocol
-    private let prefilledFieldsBuilder: SetPrefilledFieldsBuilderProtocol
-    private let blockService: BlockServiceProtocol
-    
-    init(
-        objectTypeProvider: ObjectTypeProviderProtocol,
-        dataviewService: DataviewServiceProtocol,
-        objectActionsService: ObjectActionsServiceProtocol,
-        prefilledFieldsBuilder: SetPrefilledFieldsBuilderProtocol,
-        blockService: BlockServiceProtocol
-    ) {
-        self.objectTypeProvider = objectTypeProvider
-        self.dataviewService = dataviewService
-        self.objectActionsService = objectActionsService
-        self.prefilledFieldsBuilder = prefilledFieldsBuilder
-        self.blockService = blockService
-    }
+    @Injected(\.dataviewService)
+    private var dataviewService: DataviewServiceProtocol
+    @Injected(\.objectTypeProvider)
+    private var objectTypeProvider: ObjectTypeProviderProtocol
+    @Injected(\.objectActionsService)
+    private var objectActionsService: ObjectActionsServiceProtocol
+    @Injected(\.setPrefilledFieldsBuilder)
+    private var prefilledFieldsBuilder: SetPrefilledFieldsBuilderProtocol
+    @Injected(\.blockService)
+    private var blockService: BlockServiceProtocol
     
     // MARK: - SetObjectCreationHelperProtocol
     

@@ -9,20 +9,17 @@ protocol TreeSubscriptionManagerProtocol: AnyObject {
 
 final class TreeSubscriptionManager: TreeSubscriptionManagerProtocol {
     
-    private let subscriptionDataBuilder: TreeSubscriptionDataBuilderProtocol
-    private let subscriptionStorage: SubscriptionStorageProtocol
+    @Injected(\.treeSubscriptionDataBuilder)
+    private var subscriptionDataBuilder: TreeSubscriptionDataBuilderProtocol
+    @Injected(\.subscriptionStorageProvider)
+    private var subscriptionStorageProvider: SubscriptionStorageProviderProtocol
+    private lazy var subscriptionStorage: SubscriptionStorageProtocol = {
+        subscriptionStorageProvider.createSubscriptionStorage(subId: subscriptionDataBuilder.subscriptionId)
+    }()
     private var objectIds: [String] = []
     private var subscriptionStarted: Bool = false
 
     var handler: ((_ child: [ObjectDetails]) -> Void)?
-    
-    init(
-        subscriptionDataBuilder: TreeSubscriptionDataBuilderProtocol,
-        subscriptionStorageProvider: SubscriptionStorageProviderProtocol
-    ) {
-        self.subscriptionDataBuilder = subscriptionDataBuilder
-        self.subscriptionStorage = subscriptionStorageProvider.createSubscriptionStorage(subId: subscriptionDataBuilder.subscriptionId)
-    }
     
     // MARK: - TreeSubscriptionDataBuilderProtocol
         

@@ -13,7 +13,8 @@ final class FileLimitsStorage: FileLimitsStorageProtocol {
     
     // MAKR: - DI
     
-    private let fileService: FileActionsServiceProtocol
+    @Injected(\.fileActionsService)
+    private var fileService: FileActionsServiceProtocol
     
     // MARK: - State
     
@@ -21,8 +22,7 @@ final class FileLimitsStorage: FileLimitsStorageProtocol {
     private var data: CurrentValueSubject<NodeUsageInfo?, Never>
     let nodeUsage: AnyPublisher<NodeUsageInfo, Never>
     
-    nonisolated init(fileService: FileActionsServiceProtocol) {
-        self.fileService = fileService
+    nonisolated init() {
         self.data = CurrentValueSubject(nil)
         self.nodeUsage = data.compactMap { $0 }.eraseToAnyPublisher()
         Task {

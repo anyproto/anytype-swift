@@ -16,8 +16,13 @@ final class RelationDetailsStorage: RelationDetailsStorageProtocol {
     
     static let subscriptionId = "SubscriptionId.Relation"
     
-    private let subscriptionStorage: SubscriptionStorageProtocol
-    private let subscriptionDataBuilder: RelationSubscriptionDataBuilderProtocol
+    @Injected(\.subscriptionStorageProvider)
+    private var subscriptionStorageProvider: SubscriptionStorageProviderProtocol
+    @Injected(\.relationSubscriptionDataBuilder)
+    private var subscriptionDataBuilder: RelationSubscriptionDataBuilderProtocol
+    private lazy var subscriptionStorage: SubscriptionStorageProtocol = {
+        subscriptionStorageProvider.createSubscriptionStorage(subId: Self.subscriptionId)
+    }()
     
     private var details = [RelationDetails]()
     private var searchDetailsByKey = SynchronizedDictionary<RelationDetailsKey, RelationDetails>()
@@ -27,13 +32,6 @@ final class RelationDetailsStorage: RelationDetailsStorageProtocol {
         relationsDetailsSubject.eraseToAnyPublisher()
     }
     
-    init(
-        subscriptionStorageProvider: SubscriptionStorageProviderProtocol,
-        subscriptionDataBuilder: RelationSubscriptionDataBuilderProtocol
-    ) {
-        self.subscriptionStorage = subscriptionStorageProvider.createSubscriptionStorage(subId: Self.subscriptionId)
-        self.subscriptionDataBuilder = subscriptionDataBuilder
-    }
     // MARK: - RelationDetailsStorageProtocol
     
     func relationsDetails(for links: [RelationLink], spaceId: String) -> [RelationDetails] {

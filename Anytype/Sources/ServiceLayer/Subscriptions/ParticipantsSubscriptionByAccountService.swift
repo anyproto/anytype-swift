@@ -10,17 +10,16 @@ protocol ParticipantsSubscriptionByAccountServiceProtocol: AnyObject {
 @MainActor
 final class ParticipantsSubscriptionByAccountService: ParticipantsSubscriptionByAccountServiceProtocol {
     
-    private let subscriptionStorage: SubscriptionStorageProtocol
-    private let activeWorkspaceStorage: ActiveWorkpaceStorageProtocol
+    @Injected(\.activeWorkpaceStorage)
+    private var activeWorkspaceStorage: ActiveWorkpaceStorageProtocol
+    @Injected(\.subscriptionStorageProvider)
+    private var subscriptionStorageProvider: SubscriptionStorageProviderProtocol
+    private lazy var subscriptionStorage: SubscriptionStorageProtocol = {
+        subscriptionStorageProvider.createSubscriptionStorage(subId: subscriptionId)
+    }()
     private let subscriptionId = "AccountParticipant-\(UUID().uuidString)"
     
-    nonisolated init(
-        subscriptionStorageProvider: SubscriptionStorageProviderProtocol,
-        activeWorkspaceStorage: ActiveWorkpaceStorageProtocol
-    ) {
-        self.subscriptionStorage = subscriptionStorageProvider.createSubscriptionStorage(subId: subscriptionId)
-        self.activeWorkspaceStorage = activeWorkspaceStorage
-    }
+    nonisolated init() {}
     
     func startSubscription(update: @escaping ([Participant]) -> Void) async {
         

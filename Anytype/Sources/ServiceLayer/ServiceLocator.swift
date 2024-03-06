@@ -10,83 +10,68 @@ import DeepLinks
 final class ServiceLocator {
     static let shared = ServiceLocator()
 
-    let sharedContentManager: SharedContentManagerProtocol = SharingDI.shared.sharedContentManager()
+    var sharedContentManager: SharedContentManagerProtocol {
+        Container.shared.sharedContentManager()
+    }
 
-    lazy private(set) var documentsProvider: DocumentsProviderProtocol = DocumentsProvider(
-        relationDetailsStorage: relationDetailsStorage(),
-        objectTypeProvider: objectTypeProvider(),
-        objectLifecycleService: objectLifecycleService()
-    )
+    var documentsProvider: DocumentsProviderProtocol {
+        Container.shared.documentsProvider()
+    }
     
     // MARK: - Services
     
     var templatesService: TemplatesServiceProtocol {
-        Container.shared.templatesService.resolve()
+        Container.shared.templatesService()
     }
     
     var unsplashService: UnsplashServiceProtocol {
-        Container.shared.unsplashService.resolve()
+        Container.shared.unsplashService()
     }
     
     /// creates new localRepoService
     func localRepoService() -> LocalRepoServiceProtocol {
-        Container.shared.localRepoService.resolve()
+        Container.shared.localRepoService()
     }
     
     func seedService() -> SeedServiceProtocol {
-        Container.shared.seedService.resolve()
+        Container.shared.seedService()
     }
     
     /// creates new authService
     func authService() -> AuthServiceProtocol {
-        return AuthService(
-            localRepoService: localRepoService(),
-            loginStateService: loginStateService(),
-            accountManager: accountManager(),
-            appErrorLoggerConfiguration: appErrorLoggerConfiguration(),
-            serverConfigurationStorage: serverConfigurationStorage(),
-            authMiddleService: Container.shared.authMiddleService.resolve()
-        )
+        Container.shared.authService()
     }
     
     func usecaseService() -> UsecaseServiceProtocol {
-        Container.shared.usecaseService.resolve()
+        Container.shared.usecaseService()
     }
     
     func metricsService() -> MetricsServiceProtocol {
-        Container.shared.metricsService.resolve()
+        Container.shared.metricsService()
     }
     
-    private lazy var _loginStateService = LoginStateService(
-        objectTypeProvider: objectTypeProvider(),
-        middlewareConfigurationProvider: middlewareConfigurationProvider(),
-        blockWidgetExpandedService: blockWidgetExpandedService(),
-        relationDetailsStorage: relationDetailsStorage(),
-        workspacesStorage: workspaceStorage(),
-        activeWorkpaceStorage: activeWorkspaceStorage()
-    )
     func loginStateService() -> LoginStateServiceProtocol {
-        return _loginStateService
+        Container.shared.loginStateService()
     }
     
     func objectLifecycleService() -> ObjectLifecycleServiceProtocol {
-        Container.shared.objectLifecycleService.resolve()
+        Container.shared.objectLifecycleService()
     }
     
     func objectActionsService() -> ObjectActionsServiceProtocol {
-        Container.shared.objectActionsService.resolve()
+        Container.shared.objectActionsService()
     }
     
     func fileService() -> FileActionsServiceProtocol {
-        Container.shared.fileActionsService.resolve()
+        Container.shared.fileActionsService()
     }
     
     func searchService() -> SearchServiceProtocol {
-        Container.shared.searchService.resolve()
+        Container.shared.searchService()
     }
     
     func searchMiddleService() -> SearchMiddleServiceProtocol {
-        Container.shared.searchMiddleService.resolve()
+        Container.shared.searchMiddleService()
     }
     
     func detailsService(objectId: String) -> DetailsServiceProtocol {
@@ -94,163 +79,119 @@ final class ServiceLocator {
     }
     
     func bookmarkService() -> BookmarkServiceProtocol {
-        Container.shared.bookmarkService.resolve()
+        Container.shared.bookmarkService()
     }
     
     func systemURLService() -> SystemURLServiceProtocol {
-        Container.shared.systemURLService.resolve()
+        Container.shared.systemURLService()
     }
     
     func accountManager() -> AccountManagerProtocol {
-        return Container.shared.accountManager.resolve()
+        Container.shared.accountManager()
     }
     
     func objectTypeProvider() -> ObjectTypeProviderProtocol {
-        return Container.shared.objectTypeProvider.resolve()
+        Container.shared.objectTypeProvider()
     }
     
     func groupsSubscriptionsHandler() -> GroupsSubscriptionsHandlerProtocol {
-        Container.shared.groupsSubscriptionsHandler.resolve()
+        Container.shared.groupsSubscriptionsHandler()
     }
     
     func relationService() -> RelationsServiceProtocol {
-        return Container.shared.relationsService.resolve()
+        Container.shared.relationsService()
     }
     
-    // Sigletone
-    private lazy var _relationDetailsStorage = RelationDetailsStorage(
-        subscriptionStorageProvider: subscriptionStorageProvider(),
-        subscriptionDataBuilder: RelationSubscriptionDataBuilder(accountManager: accountManager())
-    )
     func relationDetailsStorage() -> RelationDetailsStorageProtocol {
-        return _relationDetailsStorage
+        Container.shared.relationDetailsStorage()
     }
     
     func accountEventHandler() -> AccountEventHandlerProtocol {
-        return Container.shared.accountEventHandler.resolve()
+        Container.shared.accountEventHandler()
     }
     
     func blockService() -> BlockServiceProtocol {
-        return Container.shared.blockService.resolve()
+        Container.shared.blockService()
     }
     
     func workspaceService() -> WorkspaceServiceProtocol {
-        return Container.shared.workspaceService.resolve()
+        Container.shared.workspaceService()
     }
     
     func typesService() -> TypesServiceProtocol {
-        return TypesService(
-            searchMiddleService: searchMiddleService(), 
-            actionsService: objectActionsService(),
-            pinsStorage: pinsStorage(),
-            typeProvider: objectTypeProvider()
-        )
+        Container.shared.typesService()
     }
     
     func pinsStorage() -> TypesPinStorageProtocol {
-        return TypesPinStorage(typeProvider: objectTypeProvider())
+        Container.shared.typesPinsStorage()
     }
     
     func defaultObjectCreationService() -> DefaultObjectCreationServiceProtocol {
-        return DefaultObjectCreationService(
-            objectTypeProvider: objectTypeProvider(),
-            objectService: objectActionsService()
-        )
+        Container.shared.defaultObjectCreationService()
     }
         
     func blockWidgetService() -> BlockWidgetServiceProtocol {
-        return Container.shared.blockWidgetService.resolve()
+        Container.shared.blockWidgetService()
     }
     
     func favoriteSubscriptionService() -> FavoriteSubscriptionServiceProtocol {
-        return FavoriteSubscriptionService()
+        Container.shared.favoriteSubscriptionService()
     }
     
     func recentSubscriptionService() -> RecentSubscriptionServiceProtocol {
-        return RecentSubscriptionService(
-            subscriptionStorageProvider: subscriptionStorageProvider(),
-            activeWorkspaceStorage: activeWorkspaceStorage(),
-            objectTypeProvider: objectTypeProvider()
-        )
+        Container.shared.recentSubscriptionService()
     }
     
     func setsSubscriptionService() -> SetsSubscriptionServiceProtocol {
-        return SetsSubscriptionService(
-            subscriptionStorageProvider: subscriptionStorageProvider(),
-            activeWorkspaceStorage: activeWorkspaceStorage(),
-            objectTypeProvider: objectTypeProvider()
-        )
+        Container.shared.setsSubscriptionService()
     }
     
     func collectionsSubscriptionService() -> CollectionsSubscriptionServiceProtocol {
-        return CollectionsSubscriptionService(
-            subscriptionStorageProvider: subscriptionStorageProvider(),
-            activeWorkspaceStorage: activeWorkspaceStorage(),
-            objectTypeProvider: objectTypeProvider()
-        )
+        Container.shared.collectionsSubscriptionService()
     }
     
     func binSubscriptionService() -> BinSubscriptionServiceProtocol {
-        return BinSubscriptionService(
-            subscriptionStorageProvider: subscriptionStorageProvider(),
-            activeWorkspaceStorage: activeWorkspaceStorage()
-        )
+        Container.shared.binSubscriptionService()
     }
     
     func treeSubscriptionManager() -> TreeSubscriptionManagerProtocol {
-        return TreeSubscriptionManager(
-            subscriptionDataBuilder: TreeSubscriptionDataBuilder(),
-            subscriptionStorageProvider: subscriptionStorageProvider()
-        )
+        Container.shared.treeSubscriptionManager()
     }
     
     func filesSubscriptionManager() -> FilesSubscriptionServiceProtocol {
-        return FilesSubscriptionService(
-            subscriptionStorageProvider: subscriptionStorageProvider(),
-            activeWorkspaceStorage: activeWorkspaceStorage()
-        )
+        Container.shared.filesSubscriptionManager()
     }
     
     func participantSubscriptionBySpaceService() -> ParticipantsSubscriptionBySpaceServiceProtocol {
-        return ParticipantsSubscriptionBySpaceService(
-            subscriptionStorageProvider: subscriptionStorageProvider(),
-            activeWorkspaceStorage: activeWorkspaceStorage()
-        )
+        Container.shared.participantSubscriptionBySpaceService()
     }
     
     func participantsSubscriptionByAccountService() -> ParticipantsSubscriptionByAccountServiceProtocol {
-        return ParticipantsSubscriptionByAccountService(
-            subscriptionStorageProvider: subscriptionStorageProvider(),
-            activeWorkspaceStorage: activeWorkspaceStorage()
-        )
+        Container.shared.participantsSubscriptionByAccountService()
     }
     
-    private lazy var _middlewareConfigurationProvider = MiddlewareConfigurationProvider(middlewareConfigurationService: middlewareConfigurationService())
     func middlewareConfigurationProvider() -> MiddlewareConfigurationProviderProtocol {
-        return _middlewareConfigurationProvider
+        Container.shared.middlewareConfigurationProvider()
     }
     
-    private lazy var _documentService = OpenedDocumentsProvider(documentsProvider: documentsProvider)
     func documentService() -> OpenedDocumentsProviderProtocol {
-        return _documentService
+        Container.shared.documentService()
     }
     
-    private lazy var _blockWidgetExpandedService = BlockWidgetExpandedService()
     func blockWidgetExpandedService() -> BlockWidgetExpandedServiceProtocol {
-        return _blockWidgetExpandedService
+        Container.shared.blockWidgetExpandedService()
     }
     
-    private lazy var _applicationStateService = ApplicationStateService()
     func applicationStateService() -> ApplicationStateServiceProtocol {
-        _applicationStateService
+        Container.shared.applicationStateService()
     }
     
     func appActionStorage() -> AppActionStorage {
-        AppActionStorage.shared
+        Container.shared.appActionStorage()
     }
     
     func objectsCommonSubscriptionDataBuilder() -> ObjectsCommonSubscriptionDataBuilderProtocol {
-        ObjectsCommonSubscriptionDataBuilder()
+        Container.shared.objectsCommonSubscriptionDataBuilder()
     }
     
     func objectHeaderInteractor(objectId: String) -> ObjectHeaderInteractorProtocol {
@@ -262,73 +203,59 @@ final class ServiceLocator {
     }
     
     func singleObjectSubscriptionService() -> SingleObjectSubscriptionServiceProtocol {
-        SingleObjectSubscriptionService(
-            subscriptionStorageProvider: subscriptionStorageProvider(),
-            subscriotionBuilder: objectsCommonSubscriptionDataBuilder()
-        )
+        Container.shared.singleObjectSubscriptionService()
     }
     
     func fileLimitsStorage() -> FileLimitsStorageProtocol {
-        return FileLimitsStorage(fileService: fileService())
+        Container.shared.fileLimitsStorage()
     }
     
-    private lazy var _fileErrorEventHandler = FileErrorEventHandler()
     func fileErrorEventHandler() -> FileErrorEventHandlerProtocol {
-        _fileErrorEventHandler
+        Container.shared.fileErrorEventHandler()
     }
     
     func appErrorLoggerConfiguration() -> AppErrorLoggerConfigurationProtocol {
-        AppErrorLoggerConfiguration()
+        Container.shared.appErrorLoggerConfiguration()
     }
     
     func localAuthService() -> LocalAuthServiceProtocol {
-        LocalAuthService()
+        Container.shared.localAuthService()
     }
     
     func cameraPermissionVerifier() -> CameraPermissionVerifierProtocol {
-        CameraPermissionVerifier()
+        Container.shared.cameraPermissionVerifier()
     }
     
     func dataviewService() -> DataviewServiceProtocol {
-        Container.shared.dataviewService.resolve()
+        Container.shared.dataviewService()
     }
     
-    private lazy var _sceneStateNotifier = SceneStateNotifier()
     func sceneStateNotifier() -> SceneStateNotifierProtocol {
-        _sceneStateNotifier
+        Container.shared.sceneStateNotifier()
     }
     
-    private lazy var _deviceSceneStateListener = DeviceSceneStateListener()
     func deviceSceneStateListener() -> DeviceSceneStateListenerProtocol {
-        _deviceSceneStateListener
+        Container.shared.deviceSceneStateListener()
     }
     
     func audioSessionService() -> AudioSessionServiceProtocol {
-        Container.shared.audioSessionService.resolve()
+        Container.shared.audioSessionService()
     }
     
     func activeWorkspaceStorage() -> ActiveWorkpaceStorageProtocol {
-        return Container.shared.activeWorkpaceStorage.resolve()
+        Container.shared.activeWorkpaceStorage()
     }
-
-    private lazy var _workspaceStorage = WorkspacesStorage(
-        subscriptionStorageProvider: subscriptionStorageProvider(),
-        subscriptionBuilder: WorkspacesSubscriptionBuilder()
-    )
+    
     func workspaceStorage() -> WorkspacesStorageProtocol {
-        return _workspaceStorage
+        Container.shared.workspaceStorage()
     }
     
     func quickActionShortcutBuilder() -> QuickActionShortcutBuilderProtocol {
-        return QuickActionShortcutBuilder(
-            activeWorkspaceStorage: activeWorkspaceStorage(),
-            typesService: typesService(),
-            objectTypeProvider: objectTypeProvider()
-        )
+        Container.shared.quickActionShortcutBuilder()
     }
     
     func subscriptionStorageProvider() -> SubscriptionStorageProviderProtocol {
-        return Container.shared.subscriptionStorageProvider.resolve()
+        Container.shared.subscriptionStorageProvider()
     }
     
     func templatesSubscription() -> TemplatesSubscriptionServiceProtocol {
@@ -336,34 +263,27 @@ final class ServiceLocator {
     }
     
     func setObjectCreationHelper() -> SetObjectCreationHelperProtocol {
-        SetObjectCreationHelper(
-            objectTypeProvider: objectTypeProvider(),
-            dataviewService: dataviewService(),
-            objectActionsService: objectActionsService(),
-            prefilledFieldsBuilder: SetPrefilledFieldsBuilder(), 
-            blockService: blockService()
-        )
+        Container.shared.setObjectCreationHelper()
     }
     
-    private lazy var _serverConfigurationStorage = ServerConfigurationStorage()
-    func serverConfigurationStorage() -> ServerConfigurationStorage {
-        return _serverConfigurationStorage
+    func serverConfigurationStorage() -> ServerConfigurationStorageProtocol {
+        Container.shared.serverConfigurationStorage()
     }
     
     func middlewareConfigurationService() -> MiddlewareConfigurationServiceProtocol {
-        Container.shared.middlewareConfigurationService.resolve()
+        Container.shared.middlewareConfigurationService()
     }
     
     func textServiceHandler() -> TextServiceProtocol {
-        TextServiceHandler()
+        Container.shared.textServiceHandler()
     }
     
     func pasteboardMiddlewareService() -> PasteboardMiddlewareServiceProtocol {
-        Container.shared.pasteboardMiddleService.resolve()
+        Container.shared.pasteboardMiddleService()
     }
     
     func pasteboardHelper() -> PasteboardHelperProtocol {
-        Container.shared.pasteboardHelper.resolve()
+        Container.shared.pasteboardHelper()
     }
     
     func pasteboardBlockDocumentService(document: BaseDocumentProtocol) -> PasteboardBlockDocumentServiceProtocol {
@@ -374,34 +294,34 @@ final class ServiceLocator {
     }
     
     func pasteboardBlockService() -> PasteboardBlockServiceProtocol {
-        Container.shared.pasteboardBlockService.resolve()
+        Container.shared.pasteboardBlockService()
     }
     
     func galleryService() -> GalleryServiceProtocol {
-        Container.shared.galleryService.resolve()
+        Container.shared.galleryService()
     }
     
     func notificationSubscriptionService() -> NotificationsSubscriptionServiceProtocol {
-        Container.shared.notificationsSubscriptionService.resolve()
+        Container.shared.notificationsSubscriptionService()
     }
     
     func deepLinkParser() -> DeepLinkParserProtocol {
-        DeepLinkDI.shared.parser(isDebug: CoreEnvironment.isDebug)
+        Container.shared.deepLinkParser()
     }
     
     func processSubscriptionService() -> ProcessSubscriptionServiceProtocol {
-        Container.shared.processSubscriptionService.resolve()
+        Container.shared.processSubscriptionService()
     }
     
     func debugService() -> DebugServiceProtocol {
-        Container.shared.debugService.resolve()
+        Container.shared.debugService()
     }
     
     func participantService() -> ParticipantServiceProtocol {
-        Container.shared.participantService.resolve()
+        Container.shared.participantService()
     }
     
     func blockTableService() -> BlockTableServiceProtocol {
-        Container.shared.blockTableService.resolve()
+        Container.shared.blockTableService()
     }
 }

@@ -22,21 +22,20 @@ final class WorkspacesStorage: WorkspacesStorageProtocol {
     
     // MARK: - DI
     
-    private let subscriptionStorage: SubscriptionStorageProtocol
-    private let subscriptionBuilder: WorkspacesSubscriptionBuilderProtocol
+    @Injected(\.workspacesSubscriptionBuilder)
+    private var subscriptionBuilder: WorkspacesSubscriptionBuilderProtocol
+    @Injected(\.subscriptionStorageProvider)
+    private var subscriptionStorageProvider: SubscriptionStorageProviderProtocol
+    private lazy var subscriptionStorage: SubscriptionStorageProtocol = {
+        subscriptionStorageProvider.createSubscriptionStorage(subId: subscriptionBuilder.subscriptionId)
+    }()
     
     // MARK: - State
     
     @Published private(set) var workspaces: [SpaceView] = []
     var workspsacesPublisher: AnyPublisher<[SpaceView], Never> { $workspaces.eraseToAnyPublisher() }
     
-    nonisolated init(
-        subscriptionStorageProvider: SubscriptionStorageProviderProtocol,
-        subscriptionBuilder: WorkspacesSubscriptionBuilderProtocol
-    ) {
-        self.subscriptionStorage = subscriptionStorageProvider.createSubscriptionStorage(subId: subscriptionBuilder.subscriptionId)
-        self.subscriptionBuilder = subscriptionBuilder
-    }
+    nonisolated init() {}
     
     func startSubscription() async {
         let data = subscriptionBuilder.build()

@@ -3,11 +3,8 @@ import Services
 
 final class RelationSubscriptionDataBuilder: RelationSubscriptionDataBuilderProtocol {
     
-    private let accountManager: AccountManagerProtocol
-    
-    init(accountManager: AccountManagerProtocol) {
-        self.accountManager = accountManager
-    }
+    @Injected(\.accountManager)
+    private var accountManager: AccountManagerProtocol
     
     // MARK: - RelationSubscriptionDataBuilderProtocol
     

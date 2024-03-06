@@ -9,6 +9,7 @@ protocol ServerConfigurationStorageProtocol: AnyObject {
     func configurations() -> [NetworkServerConfig]
     func currentConfiguration() -> NetworkServerConfig
     func currentConfigurationPath() -> URL?
+    func installedConfigurations() -> [NetworkServerConfig]
 }
 
 final class ServerConfigurationStorage: ServerConfigurationStorageProtocol {
