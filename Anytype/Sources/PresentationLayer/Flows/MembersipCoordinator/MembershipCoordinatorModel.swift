@@ -33,6 +33,9 @@ final class MembershipCoordinatorModel: ObservableObject {
     }
     
     func emailVerification() -> AnyView {
-        emailVerificationAssembly.make()
+        emailVerificationAssembly.make { [weak self] in
+            self?.showEmailVerification = false
+            self?.showTier = nil
+        }
     }
 }

@@ -14,9 +14,14 @@ final class EmailVerificationViewModel: ObservableObject {
     var number4: String { text.letterAtIndex(3) }
     
     private let membershipService: MembershipServiceProtocol
+    private let onSuccessfulValidation: () -> ()
     
-    init(membershipService: MembershipServiceProtocol) {
+    init(
+        membershipService: MembershipServiceProtocol,
+        onSuccessfulValidation: @escaping () -> ()
+    ) {
         self.membershipService = membershipService
+        self.onSuccessfulValidation = onSuccessfulValidation
     }
     
     func onTextChange() {
@@ -36,7 +41,7 @@ final class EmailVerificationViewModel: ObservableObject {
                 
                 do {
                     try await membershipService.verifyEmailCode(code: text)
-                    // TODO Navigation
+                    onSuccessfulValidation()
                 } catch let error {
                     self.error = error.localizedDescription
                 }

@@ -78,7 +78,8 @@ struct EmailVerificationView: View {
     VStack {
         EmailVerificationView(
             model: EmailVerificationViewModel(
-                membershipService: DI.preview.serviceLocator.membershipService()
+                membershipService: DI.preview.serviceLocator.membershipService(),
+                onSuccessfulValidation: {}
             )
         )
     }
