@@ -430,6 +430,10 @@ internal enum Loc {
   internal static let removingCache = Loc.tr("Localizable", "Removing cache", fallback: "Removing cache")
   /// Resend
   internal static let resend = Loc.tr("Localizable", "Resend", fallback: "Resend")
+  /// Resend in %@ sec
+  internal static func resendIn(_ p1: Any) -> String {
+    return Loc.tr("Localizable", "Resend in", String(describing: p1), fallback: "Resend in %@ sec")
+  }
   /// Restore
   internal static let restore = Loc.tr("Localizable", "Restore", fallback: "Restore")
   /// Restore from keychain
@@ -1497,6 +1501,14 @@ internal enum Loc {
       internal static let terms = Loc.tr("Localizable", "Membership.Legal.Terms", fallback: "Terms and conditions")
       /// Would you like to use Anytype for business, education, etc.?
       internal static let wouldYouLike = Loc.tr("Localizable", "Membership.Legal.WouldYouLike", fallback: "Would you like to use Anytype for business, education, etc.?")
+    }
+    internal enum Success {
+      /// Big cheers for your curiosity!
+      internal static let subitle = Loc.tr("Localizable", "Membership.Success.Subitle", fallback: "Big cheers for your curiosity!")
+      /// Welcome to the network, %@
+      internal static func title(_ p1: Any) -> String {
+        return Loc.tr("Localizable", "Membership.Success.Title", String(describing: p1), fallback: "Welcome to the network, %@")
+      }
     }
   }
   internal enum Mention {

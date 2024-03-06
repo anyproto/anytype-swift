@@ -101,6 +101,24 @@ extension StandardButtonStyle {
                 radius: 12,
                 loadingIndicatorSize: .ButtonLoadingIndicator.large
             )
+        case .borderlessLarge:
+            return StandardButtonConfig(
+                normal: StandardButtonConfig.Style(
+                    textColor: .Text.secondary,
+                    borderColor: .clear
+                ),
+                higlighted: StandardButtonConfig.Style(
+                    textColor: .Text.tertiary
+                ),
+                disabled: StandardButtonConfig.Style(
+                    textColor: .Text.tertiary
+                ),
+                textFont: .button1Regular,
+                height: 48,
+                stretchSize: true,
+                radius: 12,
+                loadingIndicatorSize: .ButtonLoadingIndicator.large
+            )
         case .primaryMedium:
             return StandardButtonConfig(
                 normal: StandardButtonStyle.primaryLarge.config.normal,

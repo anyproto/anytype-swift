@@ -1,9 +1,10 @@
 import SwiftUI
+import Services
 
 
 @MainActor
 protocol EmailVerificationAssemblyProtocol {
-    func make() -> AnyView
+    func make(data: EmailVerificationData, onSuccessfulValidation: @escaping () -> ()) -> AnyView
 }
 
 final class EmailVerificationAssembly: EmailVerificationAssemblyProtocol {
@@ -13,10 +14,12 @@ final class EmailVerificationAssembly: EmailVerificationAssemblyProtocol {
         self.serviceLocator = serviceLocator
     }
     
-    func make() -> AnyView {
+    func make(data: EmailVerificationData, onSuccessfulValidation: @escaping () -> ()) -> AnyView {
         EmailVerificationView(
             model: EmailVerificationViewModel(
-                membershipService: self.serviceLocator.membershipService()
+                data: data,
+                membershipService: self.serviceLocator.membershipService(),
+                onSuccessfulValidation: onSuccessfulValidation
             )
         ).eraseToAnyView()
     }
