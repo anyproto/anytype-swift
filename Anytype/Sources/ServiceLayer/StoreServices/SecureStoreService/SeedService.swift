@@ -1,10 +1,9 @@
 import SecureService
 
 final class SeedService: SeedServiceProtocol {
-    private let keychainStore: KeychainStoreProtocol
-    init(keychainStore: KeychainStoreProtocol) {
-        self.keychainStore = keychainStore
-    }
+    
+    @Injected(\.keychainStore)
+    private var keychainStore: KeychainStoreProtocol
     
     func removeSeed() throws {
         try keychainStore.removeItem(queryable: query())

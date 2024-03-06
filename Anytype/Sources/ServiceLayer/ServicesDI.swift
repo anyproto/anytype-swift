@@ -12,6 +12,10 @@ extension Container {
         self { AccountManager() }.singleton
     }
     
+    var accountEventHandler: Factory<AccountEventHandlerProtocol> {
+        self { AccountEventHandler() }.singleton
+    }
+    
     var workspaceStorage: Factory<WorkspacesStorageProtocol> {
         self { ServiceLocator.shared.workspaceStorage() }
     }
@@ -36,8 +40,12 @@ extension Container {
         self { LocalRepoService() }.shared
     }
     
+    var keychainStore: Factory<KeychainStoreProtocol> {
+        self { KeychainStore() }.shared
+    }
+    
     var seedService: Factory<SeedServiceProtocol> {
-        self { SeedService(keychainStore: KeychainStore()) }.shared
+        self { SeedService() }.shared
     }
     
     var usecaseService: Factory<UsecaseServiceProtocol> {
@@ -54,5 +62,17 @@ extension Container {
     
     var subscriptionStorageProvider: Factory<SubscriptionStorageProviderProtocol> {
         self { SubscriptionStorageProvider() }.singleton
+    }
+    
+    var systemURLService: Factory<SystemURLServiceProtocol> {
+        self { SystemURLService() }.shared
+    }
+    
+    var groupsSubscriptionsHandler: Factory<GroupsSubscriptionsHandlerProtocol> {
+        self { GroupsSubscriptionsHandler() }
+    }
+    
+    var objectTypeProvider: Factory<ObjectTypeProviderProtocol> {
+        self { ObjectTypeProvider.shared }
     }
 }

@@ -98,7 +98,7 @@ final class ServiceLocator {
     }
     
     func systemURLService() -> SystemURLServiceProtocol {
-        SystemURLService()
+        Container.shared.systemURLService.resolve()
     }
     
     func accountManager() -> AccountManagerProtocol {
@@ -106,11 +106,11 @@ final class ServiceLocator {
     }
     
     func objectTypeProvider() -> ObjectTypeProviderProtocol {
-        return ObjectTypeProvider.shared
+        return Container.shared.objectTypeProvider.resolve()
     }
     
     func groupsSubscriptionsHandler() -> GroupsSubscriptionsHandlerProtocol {
-        GroupsSubscriptionsHandler(groupsSubscribeService: Container.shared.groupsSubscribeService.resolve())
+        Container.shared.groupsSubscriptionsHandler.resolve()
     }
     
     func relationService() -> RelationsServiceProtocol {
@@ -126,11 +126,8 @@ final class ServiceLocator {
         return _relationDetailsStorage
     }
     
-    private lazy var _accountEventHandler = AccountEventHandler(
-        accountManager: accountManager()
-    )
     func accountEventHandler() -> AccountEventHandlerProtocol {
-        return _accountEventHandler
+        return Container.shared.accountEventHandler.resolve()
     }
     
     func blockService() -> BlockServiceProtocol {
@@ -358,7 +355,7 @@ final class ServiceLocator {
     }
     
     func textServiceHandler() -> TextServiceProtocol {
-        TextServiceHandler(textService: Container.shared.textService.resolve())
+        TextServiceHandler()
     }
     
     func pasteboardMiddlewareService() -> PasteboardMiddlewareServiceProtocol {
