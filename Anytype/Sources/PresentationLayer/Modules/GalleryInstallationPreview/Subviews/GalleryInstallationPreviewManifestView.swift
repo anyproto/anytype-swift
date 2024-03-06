@@ -19,13 +19,13 @@ struct GalleryInstallationPreviewManifestView: View {
                             content: { image in
                                 image.resizable()
                                     .aspectRatio(contentMode: .fit)
-                                    .cornerRadius(12, style: .continuous)
+                                    .cornerRadius(8, style: .continuous)
                             },
                             placeholder: {
                                 Image(asset: .X32.plus) // Any image for make placeholder
                                     .resizable()
                                     .redacted(reason: .placeholder)
-                                    .cornerRadius(12, style: .continuous)
+                                    .cornerRadius(8, style: .continuous)
                             }
                         )
                         .frame(height: 335)
@@ -33,7 +33,7 @@ struct GalleryInstallationPreviewManifestView: View {
                         .padding(.bottom, 50)
                     }
                 }
-                .tabViewStyle(.page(indexDisplayMode: .always))
+                .tabViewStyle(.page(indexDisplayMode: .automatic))
                 .indexViewStyle(.page(backgroundDisplayMode: .always))
                 .frame(height: 384)
                 .shadow(radius: 40, y: 4)
@@ -46,7 +46,7 @@ struct GalleryInstallationPreviewManifestView: View {
                         AnytypeText(category, style: .caption1Medium, color: .Text.secondary)
                             .padding(.horizontal, 6)
                             .padding(.vertical, 1)
-                            .background(Color.Shape.secondary)
+                            .background(Color.Shape.tertiary)
                             .cornerRadius(4, style: .continuous)
                     }
                     Spacer.fixedHeight(16)
