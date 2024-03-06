@@ -1,9 +1,12 @@
 import SwiftUI
+import Services
 
 
 struct EmailVerificationView: View {
     @StateObject var model: EmailVerificationViewModel
+    
     @State private var textFocused = true
+    private let timer = Timer.publish(every: 1, on: .main, in: .common).autoconnect()
     
     var body: some View {
         VStack(spacing: 0) {
@@ -15,30 +18,31 @@ struct EmailVerificationView: View {
             Spacer.fixedHeight(7)
             AnytypeText(model.error, style: .relation2Regular, color: .System.red)
             Spacer()
-            
-            if model.validating {
-                DotsView()
-                    .foregroundColor(.Text.secondary)
-                    .frame(width: 50, height: 6)
-            } else {
-                Button {
-                    // TODO
-                } label: {
-                    AnytypeText(Loc.resend, style: .previewTitle1Regular, color: .Text.secondary)
-                }
-            }
-            
-            
-            
+            resend
             Spacer.fixedHeight(30)
         }
         .padding(.horizontal, 20)
         .animation(.default, value: model.error)
-        .animation(.default, value: model.validating)
+        .animation(.default, value: model.loading)
         
         .onChange(of: model.text) { _ in
             model.onTextChange()
         }
+        .onReceive(timer) { time in
+            if model.timeRemaining > 0 {
+                model.timeRemaining -= 1
+            }
+        }
+    }
+    
+    var resend: some View {
+        StandardButton(
+            model.timeRemaining > 0 ?   Loc.resendIn(model.timeRemaining) : Loc.resend,
+            inProgress: model.loading,
+            style: .borderlessLarge
+        ) {
+            model.resendEmail()
+        }.disabled(model.timeRemaining > 0)
     }
     
     var textInput: some View {
@@ -78,6 +82,7 @@ struct EmailVerificationView: View {
     VStack {
         EmailVerificationView(
             model: EmailVerificationViewModel(
+                data: EmailVerificationData(email: "", subscribeToNewsletter: true),
                 membershipService: DI.preview.serviceLocator.membershipService(),
                 onSuccessfulValidation: {}
             )
