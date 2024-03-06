@@ -1,13 +1,6 @@
 import SwiftUI
+import Services
 
-
-enum MembershipTier: String, Identifiable, CaseIterable {
-    case explorer
-    case builder
-    case coCreator
-    
-    var id: String { rawValue }
-}
 
 extension MembershipTier {
     var title: String {
