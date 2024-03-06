@@ -8,6 +8,9 @@ struct MembershipCoordinator: View {
         model.initialModule()
             .sheet(item: $model.showTier) {
                 model.tierSelection(tier: $0)
+                    .sheet(isPresented: $model.showEmailVerification) {
+                        model.emailVerification()
+                    }
             }
     }
 }
@@ -16,7 +19,8 @@ struct MembershipCoordinator: View {
     MembershipCoordinator(
         model: MembershipCoordinatorModel(
             membershipAssembly: DI.preview.modulesDI.membership(),
-            tierSelectionAssembly: DI.preview.modulesDI.membershipTierSelection()
+            tierSelectionAssembly: DI.preview.modulesDI.membershipTierSelection(),
+            emailVerificationAssembly: DI.preview.modulesDI.emailVerification()
         )
     )
 }

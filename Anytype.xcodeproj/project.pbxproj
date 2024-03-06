@@ -1173,6 +1173,9 @@
 		3D26AA772B973E2200D61479 /* MembershipTierSelectionViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D26AA762B973E2200D61479 /* MembershipTierSelectionViewModel.swift */; };
 		3D26AA792B973E9D00D61479 /* MembershipTierSelectionAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D26AA782B973E9D00D61479 /* MembershipTierSelectionAssembly.swift */; };
 		3D26AA7B2B97505300D61479 /* MembershipTierInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D26AA7A2B97505300D61479 /* MembershipTierInfoView.swift */; };
+		3D26AA7E2B9768F500D61479 /* EmailVerificationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D26AA7D2B9768F500D61479 /* EmailVerificationView.swift */; };
+		3D26AA802B976AE400D61479 /* EmailVerificationViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D26AA7F2B976AE400D61479 /* EmailVerificationViewModel.swift */; };
+		3D26AA822B9780A400D61479 /* EmailVerificationAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D26AA812B9780A400D61479 /* EmailVerificationAssembly.swift */; };
 		3D2D4C5B27BA54030070A4C6 /* Divider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D2D4C5A27BA54030070A4C6 /* Divider.swift */; };
 		3D2D4C6327BA76270070A4C6 /* EditorRouterProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D2D4C6227BA76270070A4C6 /* EditorRouterProtocol.swift */; };
 		3D2D4C6527BAA2EF0070A4C6 /* SetConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D2D4C6427BAA2EF0070A4C6 /* SetConstants.swift */; };
@@ -2943,6 +2946,9 @@
 		3D26AA762B973E2200D61479 /* MembershipTierSelectionViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MembershipTierSelectionViewModel.swift; sourceTree = "<group>"; };
 		3D26AA782B973E9D00D61479 /* MembershipTierSelectionAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MembershipTierSelectionAssembly.swift; sourceTree = "<group>"; };
 		3D26AA7A2B97505300D61479 /* MembershipTierInfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MembershipTierInfoView.swift; sourceTree = "<group>"; };
+		3D26AA7D2B9768F500D61479 /* EmailVerificationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmailVerificationView.swift; sourceTree = "<group>"; };
+		3D26AA7F2B976AE400D61479 /* EmailVerificationViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmailVerificationViewModel.swift; sourceTree = "<group>"; };
+		3D26AA812B9780A400D61479 /* EmailVerificationAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmailVerificationAssembly.swift; sourceTree = "<group>"; };
 		3D2D4C5A27BA54030070A4C6 /* Divider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Divider.swift; sourceTree = "<group>"; };
 		3D2D4C6227BA76270070A4C6 /* EditorRouterProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditorRouterProtocol.swift; sourceTree = "<group>"; };
 		3D2D4C6427BAA2EF0070A4C6 /* SetConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetConstants.swift; sourceTree = "<group>"; };
@@ -7915,6 +7921,16 @@
 			path = Checkbox;
 			sourceTree = "<group>";
 		};
+		3D26AA7C2B9768DB00D61479 /* EmailVerification */ = {
+			isa = PBXGroup;
+			children = (
+				3D26AA7D2B9768F500D61479 /* EmailVerificationView.swift */,
+				3D26AA7F2B976AE400D61479 /* EmailVerificationViewModel.swift */,
+				3D26AA812B9780A400D61479 /* EmailVerificationAssembly.swift */,
+			);
+			path = EmailVerification;
+			sourceTree = "<group>";
+		};
 		3D29AFEF26A5D2640095BA18 /* Models */ = {
 			isa = PBXGroup;
 			children = (
@@ -8410,6 +8426,7 @@
 			isa = PBXGroup;
 			children = (
 				3D611E942B93778E00B33305 /* Models */,
+				3D26AA7C2B9768DB00D61479 /* EmailVerification */,
 				3DD1129C2B95FE14007682F4 /* TierSelection */,
 				3DD1129B2B95FE06007682F4 /* InitialScreen */,
 			);
@@ -10549,6 +10566,7 @@
 				2ECB34012A95041800E0F9BB /* View+Detents.swift in Sources */,
 				2ACE879729F2859800C2B2A9 /* EmptyNavigationLink.swift in Sources */,
 				2EC46DD92ABE081800DEA4BD /* InstalledObjectTypeView.swift in Sources */,
+				3D26AA7E2B9768F500D61479 /* EmailVerificationView.swift in Sources */,
 				3D22B20E2685DABD00C78C28 /* BlockImageViewModel.swift in Sources */,
 				2AAF343C29559BF700921320 /* TreeWidgetViewModel.swift in Sources */,
 				2AFF7AC4299CDA6900B7746B /* BinSubscriptionService.swift in Sources */,
@@ -10957,6 +10975,7 @@
 				535E02AD274FF0B100E1AF8C /* RelationValueView.swift in Sources */,
 				2EA9D72B2B3093FE001CF0DE /* EventsBunch.swift in Sources */,
 				867580042A58306A0008566A /* TemplatePreview.swift in Sources */,
+				3D26AA822B9780A400D61479 /* EmailVerificationAssembly.swift in Sources */,
 				2AB2C22428AD23FD000191F8 /* AlertOpenerProtocol.swift in Sources */,
 				2A0BAD3129E020A3005BC5D9 /* Task+Extensions.swift in Sources */,
 				2A816ACC2AD7E31F00975BCA /* DocumentPicker.swift in Sources */,
@@ -11701,6 +11720,7 @@
 				C9C283822864727C00F035C5 /* GenericCollectionViewCell.swift in Sources */,
 				2AECFD4228993CA2000E9CFB /* RelationValueModuleAssemblyProtocol.swift in Sources */,
 				3D3040CE27DF664600FFE0EB /* ObjectSettingBuilder.swift in Sources */,
+				3D26AA802B976AE400D61479 /* EmailVerificationViewModel.swift in Sources */,
 				3DB1C9E12727DAEF000D2779 /* UIView+SpookyShake.swift in Sources */,
 				2A56C1682ACB0BAE001677E1 /* EditorPageModuleAssembly.swift in Sources */,
 				2EA9D72E2B3097C7001CF0DE /* TextServiceHandler.swift in Sources */,

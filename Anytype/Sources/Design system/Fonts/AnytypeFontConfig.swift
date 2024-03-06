@@ -55,6 +55,14 @@ extension AnytypeFont {
                 lineHeight: 22,
                 kern: -0.41
             )
+        case .previewTitle1Regular:
+            return AnytypeFontConfig(
+                fontName: .inter,
+                size: 17,
+                weight: .regular,
+                lineHeight: 22,
+                kern: -0.41
+            )
         case .previewTitle2Regular:
             return AnytypeFontConfig(
                 fontName: .inter,

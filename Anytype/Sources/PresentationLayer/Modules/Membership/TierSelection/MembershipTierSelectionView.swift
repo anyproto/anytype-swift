@@ -9,8 +9,8 @@ struct MembershipTierSelectionView: View {
                 MembershipTierInfoView(tier: model.tier)
                 sheet
             }
-            .background(Color.Shape.tertiary)
         }
+        .background(Color.Background.primary)
     }
     
     var sheet: some View {
@@ -33,7 +33,8 @@ struct MembershipTierSelectionView: View {
     MembershipTierSelectionView(
         model: MembershipTierSelectionViewModel(
             tier: .explorer,
-            membershipService: DI.preview.serviceLocator.membershipService()
+            membershipService: DI.preview.serviceLocator.membershipService(),
+            showEmailVerification: {}
         )
     )
 }

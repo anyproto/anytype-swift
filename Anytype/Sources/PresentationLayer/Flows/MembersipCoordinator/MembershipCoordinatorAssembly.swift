@@ -17,7 +17,8 @@ final class MembershipCoordinatorAssembly: MembershipCoordinatorAssemblyProtocol
         MembershipCoordinator(
             model: MembershipCoordinatorModel(
                 membershipAssembly: self.modulesDI.membership(),
-                tierSelectionAssembly: self.modulesDI.membershipTierSelection()
+                tierSelectionAssembly: self.modulesDI.membershipTierSelection(), 
+                emailVerificationAssembly: self.modulesDI.emailVerification()
             )
         ).eraseToAnyView()
     }

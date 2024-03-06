@@ -4,6 +4,8 @@ import SwiftUI
 struct MembershipTierInfoView: View {
     let tier: MembershipTier
     
+    @Environment(\.colorScheme) private var colorScheme
+    
     var body: some View {
         VStack(alignment: .leading, spacing: 0) {
             Spacer.fixedHeight(36)
@@ -18,7 +20,15 @@ struct MembershipTierInfoView: View {
         }
         .frame(maxWidth: .infinity)
         .padding(.horizontal, 20)
-        .background(tier.gradient)
+        .background(
+            Group {
+                if colorScheme == .dark {
+                    Color.Shape.tertiary
+                } else {
+                    tier.gradient
+                }
+            }
+        )
     }
     
     var whatsIncluded: some View {
