@@ -129,6 +129,7 @@ final class EditorSetViewModel: ObservableObject {
     private let searchService: SearchServiceProtocol
     private let detailsService: DetailsServiceProtocol
     private let objectActionsService: ObjectActionsServiceProtocol
+    private let relationsService: RelationsServiceProtocol
     private let textServiceHandler: TextServiceProtocol
     private let groupsSubscriptionsHandler: GroupsSubscriptionsHandlerProtocol
     private let setSubscriptionDataBuilder: SetSubscriptionDataBuilderProtocol
@@ -147,6 +148,7 @@ final class EditorSetViewModel: ObservableObject {
         searchService: SearchServiceProtocol,
         detailsService: DetailsServiceProtocol,
         objectActionsService: ObjectActionsServiceProtocol,
+        relationsService: RelationsServiceProtocol,
         textServiceHandler: TextServiceProtocol,
         groupsSubscriptionsHandler: GroupsSubscriptionsHandlerProtocol,
         setSubscriptionDataBuilder: SetSubscriptionDataBuilderProtocol,
@@ -162,6 +164,7 @@ final class EditorSetViewModel: ObservableObject {
         self.searchService = searchService
         self.detailsService = detailsService
         self.objectActionsService = objectActionsService
+        self.relationsService = relationsService
         self.textServiceHandler = textServiceHandler
         self.groupsSubscriptionsHandler = groupsSubscriptionsHandler
         self.setSubscriptionDataBuilder = setSubscriptionDataBuilder
@@ -577,8 +580,15 @@ extension EditorSetViewModel {
             showSetOfTypeSelection()
             return
         }
-
-        output?.showRelationValueEditingView(document: setDocument, key: key)
+        
+        let relation = setDocument.parsedRelations.installed.first { $0.key == key }
+        guard let relation = relation else { return }
+        guard let objectDetails = setDocument.details else {
+            anytypeAssertionFailure("Set document doesn't contains details")
+            return
+        }
+        
+        output?.showRelationValueEditingView(objectDetails: objectDetails, relation: relation)
     }
     
     func showRelationValueEditingView(
@@ -738,7 +748,8 @@ extension EditorSetViewModel {
             service: DI.preview.serviceLocator.objectActionsService(),
             fileService: DI.preview.serviceLocator.fileService()
         ),
-        objectActionsService: DI.preview.serviceLocator.objectActionsService(),
+        objectActionsService: DI.preview.serviceLocator.objectActionsService(), 
+        relationsService: DI.preview.serviceLocator.relationService(),
         textServiceHandler: DI.preview.serviceLocator.textServiceHandler(),
         groupsSubscriptionsHandler: DI.preview.serviceLocator.groupsSubscriptionsHandler(),
         setSubscriptionDataBuilder: SetSubscriptionDataBuilder(activeWorkspaceStorage: DI.preview.serviceLocator.activeWorkspaceStorage()),

@@ -59,7 +59,6 @@ protocol EditorRouterProtocol:
     )
     
     func showRelationValueEditingView(key: String)
-    func showRelationValueEditingView(objectId: String, relation: Relation)
     func showAddNewRelationView(
         document: BaseDocumentProtocol,
         onSelect: ((RelationDetails, _ isNew: Bool) -> Void)?

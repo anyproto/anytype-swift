@@ -2,7 +2,7 @@ import Foundation
 import Services
 
 @MainActor
-protocol RelationValueCoordinatorProtocol: AnyObject {
+protocol LegacyRelationValueCoordinatorProtocol: AnyObject {
     func startFlow(
         objectDetails: ObjectDetails,
         relation: Relation,

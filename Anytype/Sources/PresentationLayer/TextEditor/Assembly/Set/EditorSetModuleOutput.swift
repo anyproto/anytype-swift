@@ -27,7 +27,6 @@ protocol EditorSetModuleOutput: AnyObject {
         document: BaseDocumentGeneralProtocol,
         onIconAction: @escaping (ObjectIconPickerAction) -> Void
     )
-    func showRelationValueEditingView(document: SetDocumentProtocol, key: String)
     func showRelationValueEditingView(objectDetails: ObjectDetails, relation: Relation)
     func showSetObjectCreationSettings(
         document: SetDocumentProtocol,

@@ -82,7 +82,6 @@ final class EditorPageModuleAssembly: EditorPageModuleAssemblyProtocol {
             templatesCoordinator: coordinatorsDI.templates().make(viewController: controller),
             setObjectCreationSettingsCoordinator: coordinatorsDI.setObjectCreationSettings().make(with: navigationContext),
             urlOpener: uiHelpersDI.urlOpener(),
-            relationValueCoordinator: coordinatorsDI.relationValue().make(),
             linkToObjectCoordinatorAssembly: coordinatorsDI.linkToObject(),
             objectCoverPickerModuleAssembly: modulesDI.objectCoverPicker(),
             objectIconPickerModuleAssembly: modulesDI.objectIconPicker(),
