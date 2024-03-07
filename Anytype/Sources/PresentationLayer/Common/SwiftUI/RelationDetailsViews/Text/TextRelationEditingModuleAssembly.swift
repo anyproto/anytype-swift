@@ -34,6 +34,7 @@ final class TextRelationEditingModuleAssembly: TextRelationEditingModuleAssembly
         output: TextRelationActionButtonViewModelDelegate?
     ) -> AnyView {
         let actionsViewModel = buildActionsViewModel(
+            text: text,
             for: type,
             relationKey: config.relationKey,
             objectDetails: objectDetails,
@@ -51,11 +52,15 @@ final class TextRelationEditingModuleAssembly: TextRelationEditingModuleAssembly
     }
     
     private func buildActionsViewModel(
+        text: String?,
         for type: TextRelationViewType,
         relationKey: String,
         objectDetails: ObjectDetails,
         output: TextRelationActionButtonViewModelDelegate?
     ) -> [TextRelationActionViewModelProtocol] {
+        
+        guard let text, text.isNotEmpty else { return [] }
+        
         let systemURLService = serviceLocator.systemURLService()
         let alertOpener = uiHelpersDI.alertOpener()
         switch type {
