@@ -201,7 +201,7 @@ extension Container {
     }
     
     var fileLimitsStorage: Factory<FileLimitsStorageProtocol> {
-        self { FileLimitsStorage() }
+        self { FileLimitsStorage() }.shared
     }
     
     var workspacesSubscriptionBuilder: Factory<WorkspacesSubscriptionBuilderProtocol> {
@@ -237,7 +237,7 @@ extension Container {
     }
     
     var relationValueProcessingService: Factory<RelationValueProcessingServiceProtocol> {
-        self { RelationValueProcessingService() }
+        self { RelationValueProcessingService() }.shared
     }
     
     var detailsService: Factory<DetailsServiceProtocol> {
@@ -249,6 +249,10 @@ extension Container {
     }
     
     var pasteboardBlockDocumentService: Factory<PasteboardBlockDocumentServiceProtocol> {
-        self { PasteboardBlockDocumentService() }
+        self { PasteboardBlockDocumentService() }.shared
+    }
+    
+    var audioSessionService: Factory<AudioSessionServiceProtocol> {
+        self { AudioSessionService() }.singleton
     }
 }

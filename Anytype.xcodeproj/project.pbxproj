@@ -318,6 +318,7 @@
 		2A0BAD3329E020D7005BC5D9 /* View+Autofocus.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A0BAD3229E020D7005BC5D9 /* View+Autofocus.swift */; };
 		2A12B77E2A6A754200CE1AFD /* GradientIconPainter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A12B77D2A6A754200CE1AFD /* GradientIconPainter.swift */; };
 		2A150BE028AA8E9700F2E569 /* TextRelationURLActionViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A150BDF28AA8E9700F2E569 /* TextRelationURLActionViewModel.swift */; };
+		2A1731BA2B9A0A8200FD990D /* AudioSessionService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A1731B92B9A0A6400FD990D /* AudioSessionService.swift */; };
 		2A176438283E2211002853D3 /* AnytypePopupProxy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A176437283E2211002853D3 /* AnytypePopupProxy.swift */; };
 		2A17643A283E2245002853D3 /* ContentUrlBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A176439283E2245002853D3 /* ContentUrlBuilder.swift */; };
 		2A18929C2A8F6F5500A19740 /* NonFatalAlertConfigurator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A18929B2A8F6F5500A19740 /* NonFatalAlertConfigurator.swift */; };
@@ -2087,6 +2088,7 @@
 		2A1331462B03681D00E8F3A5 /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/Localizable.strings; sourceTree = "<group>"; };
 		2A1331472B03682100E8F3A5 /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.stringsdict; name = de; path = de.lproj/Localizable.stringsdict; sourceTree = "<group>"; };
 		2A150BDF28AA8E9700F2E569 /* TextRelationURLActionViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextRelationURLActionViewModel.swift; sourceTree = "<group>"; };
+		2A1731B92B9A0A6400FD990D /* AudioSessionService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioSessionService.swift; sourceTree = "<group>"; };
 		2A176437283E2211002853D3 /* AnytypePopupProxy.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AnytypePopupProxy.swift; sourceTree = "<group>"; };
 		2A176439283E2245002853D3 /* ContentUrlBuilder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContentUrlBuilder.swift; sourceTree = "<group>"; };
 		2A18929B2A8F6F5500A19740 /* NonFatalAlertConfigurator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NonFatalAlertConfigurator.swift; sourceTree = "<group>"; };
@@ -3776,6 +3778,7 @@
 		038FB5C822D8F321002B90B8 /* ServiceLayer */ = {
 			isa = PBXGroup;
 			children = (
+				2A1731B82B9A0A6400FD990D /* AudioSessionService */,
 				3DE296462617439C00EADB0A /* ServiceLocator.swift */,
 				2A82AB372B9754CB00AA8E18 /* ServicesDI.swift */,
 				2AFFFB9D2927B02500A487E1 /* Account */,
@@ -5268,6 +5271,14 @@
 				3DB1CA5E272BF43F000D2779 /* DashboardWallpaper.swift */,
 			);
 			path = Views;
+			sourceTree = "<group>";
+		};
+		2A1731B82B9A0A6400FD990D /* AudioSessionService */ = {
+			isa = PBXGroup;
+			children = (
+				2A1731B92B9A0A6400FD990D /* AudioSessionService.swift */,
+			);
+			path = AudioSessionService;
 			sourceTree = "<group>";
 		};
 		2A18929D2A8F6F9C00A19740 /* NonFatalAlertConfigurator */ = {
@@ -11030,6 +11041,7 @@
 				2AA8107629A3BF90007DD64B /* WidgetObjectListMenuItem.swift in Sources */,
 				534785642743D4EC0097CA30 /* ParsedRelations.swift in Sources */,
 				3D30417227EA689F00FFE0EB /* SetContentViewDataBuilder.swift in Sources */,
+				2A1731BA2B9A0A8200FD990D /* AudioSessionService.swift in Sources */,
 				53F7441727F4A09B005C9BB0 /* ObjectPreviewModel.swift in Sources */,
 				2A947B392A30CF2400119140 /* SetObjectWidgetInternalViewModel.swift in Sources */,
 				2ECBD18F2B14F9BF007F47FC /* RelationsInteractor.swift in Sources */,

@@ -9,7 +9,7 @@ import Combine
  */
 //try AVAudioSession.sharedInstance().setPreferredSampleRate(4096)
 
-public protocol AudioSessionServiceProtocol {
+protocol AudioSessionServiceProtocol {
     func setCategorypPlayback()
     func setCategorypPlaybackMixWithOthers()
 }

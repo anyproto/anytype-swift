@@ -4,10 +4,6 @@ import Foundation
 
 public extension Container {
     
-    var audioSessionService: Factory<AudioSessionServiceProtocol> {
-        self { AudioSessionService() }.singleton
-    }
-    
     var authMiddleService: Factory<AuthMiddleServiceProtocol> {
         self { AuthMiddleService() }.shared
     }
