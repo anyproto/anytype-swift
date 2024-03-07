@@ -235,7 +235,8 @@ final class EditorSetRouter: EditorSetRouterProtocol, ObjectSettingsCoordinatorO
                 spaceId: setDocument.spaceId,
                 showPins: false,
                 showLists: false, 
-                showFiles: true
+                showFiles: true,
+                incudeNotForCreation: true
             ) { [weak self] type in
                 self?.navigationContext.dismissTopPresented()
                 onSelect(type.id)

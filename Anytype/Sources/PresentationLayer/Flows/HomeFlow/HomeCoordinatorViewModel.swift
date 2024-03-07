@@ -197,7 +197,8 @@ final class HomeCoordinatorViewModel: ObservableObject,
             spaceId: activeWorkspaceStorage.workspaceInfo.accountSpaceId,
             showPins: true,
             showLists: true, 
-            showFiles: false
+            showFiles: false,
+            incudeNotForCreation: false
         ) { [weak self] type in
             self?.showTypeSearch = false
             AnytypeAnalytics.instance().logSelectObjectType(type.analyticsType, route: .longTap)
