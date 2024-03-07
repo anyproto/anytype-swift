@@ -11,16 +11,16 @@ struct AnytypeText: View {
         self.spacing = spacing
     }
 
-    init(_ text: String, style: AnytypeFont, color: Color, enableMarkdown: Bool = false) {
+    init(_ text: String?, style: AnytypeFont, color: Color, enableMarkdown: Bool = false) {
         let spacing = style.lineSpacing
         
-        self.textView = Self.buildText(text, style: style, enableMarkdown: enableMarkdown)
+        self.textView = Self.buildText(text ?? "", style: style, enableMarkdown: enableMarkdown)
                  .foregroundColor(color)
         self.spacing = spacing
     }
     
     init(
-        _ text: String,
+        _ text: String?,
         name: AnytypeFontConfig.Name,
         size: CGFloat,
         weight: Font.Weight,
@@ -31,7 +31,7 @@ struct AnytypeText: View {
             "Custom plex font requires custom line spacing implementation"
         )
         let font = AnytypeFontBuilder.font(name: name, size: size, weight: weight)
-        
+        let text = text ?? ""
         textView = (enableMarkdown ? Text(markdown: text) : Text(verbatim: text)).font(font)
         self.spacing = 0
     }

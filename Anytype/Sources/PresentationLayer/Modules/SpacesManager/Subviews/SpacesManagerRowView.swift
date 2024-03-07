@@ -3,21 +3,10 @@ import SwiftUI
 import Services
 
 struct SpacesManagerRowViewModel: Identifiable {
-    let id: String
-    let name: String
-    let iconImage: Icon?
-    let accountStatus: String
-    let localStatus: String
-    let permission: String
+    let spaceView: SpaceView
+    let participant: Participant?
     
-    init (spaceView: SpaceView, participant: Participant?) {
-        self.id = spaceView.id
-        self.name = spaceView.name
-        self.iconImage = spaceView.iconImage
-        self.accountStatus = spaceView.accountStatus?.name ?? ""
-        self.localStatus = spaceView.localStatus?.name ?? ""
-        self.permission = participant?.permission.title ?? ""
-    }
+    var id: String { spaceView.id }
 }
 
 struct SpacesManagerRowView: View {
@@ -36,11 +25,11 @@ struct SpacesManagerRowView: View {
     
     private var spaceInfo: some View {
         HStack(spacing: 12) {
-            IconView(icon: model.iconImage)
+            IconView(icon: model.spaceView.iconImage)
                 .frame(width: 48, height: 48)
             VStack(alignment: .leading, spacing: 0) {
-                AnytypeText(model.name, style: .uxTitle2Semibold, color: .Text.primary)
-                AnytypeText(model.permission, style: .relation2Regular, color: .Text.secondary)
+                AnytypeText(model.spaceView.name, style: .uxTitle2Semibold, color: .Text.primary)
+                AnytypeText(model.participant?.permission.title, style: .relation2Regular, color: .Text.secondary)
             }
             Spacer()
             Button {
@@ -57,9 +46,9 @@ struct SpacesManagerRowView: View {
     private var spaceStateInfo: some View {
         GeometryReader { reader in
             HStack(spacing: 0) {
-                statusInfoBlock(title: Loc.Spaces.Info.network, name: model.accountStatus)
+                statusInfoBlock(title: Loc.Spaces.Info.network, name: model.spaceView.accountStatus?.name)
                     .frame(width: reader.size.width * 0.5)
-                statusInfoBlock(title: Loc.Spaces.Info.device, name: model.localStatus)
+                statusInfoBlock(title: Loc.Spaces.Info.device, name: model.spaceView.localStatus?.name)
                     .frame(width: reader.size.width * 0.5)
             }
             .frame(height: 44)
@@ -68,7 +57,7 @@ struct SpacesManagerRowView: View {
     }
     
     
-    private func statusInfoBlock(title: String, name: String) -> some View {
+    private func statusInfoBlock(title: String, name: String?) -> some View {
         HStack(spacing: 0) {
             Spacer.fixedWidth(6)
             AnytypeText(title, style: .relation3Regular, color: .Text.secondary)
