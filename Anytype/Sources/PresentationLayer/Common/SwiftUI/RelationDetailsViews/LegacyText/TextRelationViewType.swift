@@ -1,18 +1,16 @@
 import Foundation
 import UIKit
 
-enum TextRelationDetailsViewType {
-    
+enum TextRelationViewType {
     case text
     case number
     case numberOfDays
     case phone
     case email
     case url
-    
 }
 
-extension TextRelationDetailsViewType {
+extension TextRelationViewType {
     
     var keyboardType: UIKeyboardType {
         switch self {
@@ -26,12 +24,12 @@ extension TextRelationDetailsViewType {
     
     var placeholder: String {
         switch self {
-        case .text: return Loc.addText
-        case .number: return Loc.addNumber
+        case .text: return Loc.enterText
+        case .number: return Loc.enterNumber
         case .numberOfDays: return Loc.EditSet.Popup.Filters.TextView.placeholder
-        case .phone: return Loc.addPhoneNumber
-        case .email: return Loc.addEmail
-        case .url: return Loc.addURL
+        case .phone: return Loc.enterPhoneNumber
+        case .email: return Loc.enterEmail
+        case .url: return Loc.enterURL
         }
     }
     

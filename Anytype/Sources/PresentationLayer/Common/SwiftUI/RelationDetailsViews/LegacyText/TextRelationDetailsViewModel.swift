@@ -4,7 +4,7 @@ import SwiftUI
 import Combine
 import FloatingPanel
 
-@MainActor
+@MainActor //
 final class TextRelationDetailsViewModel: ObservableObject, TextRelationDetailsViewModelProtocol {
     weak var viewController: TextRelationDetailsViewController?
     
@@ -26,7 +26,7 @@ final class TextRelationDetailsViewModel: ObservableObject, TextRelationDetailsV
         relation.name
     }
     
-    let type: TextRelationDetailsViewType
+    let type: TextRelationViewType
     
     let actionsViewModel: [TextRelationActionViewModelProtocol]
     
@@ -43,7 +43,7 @@ final class TextRelationDetailsViewModel: ObservableObject, TextRelationDetailsV
     init(
         objectId: String,
         value: String,
-        type: TextRelationDetailsViewType,
+        type: TextRelationViewType,
         relation: Relation,
         service: TextRelationEditingServiceProtocol,
         analyticsType: AnalyticsEventsRelationType,

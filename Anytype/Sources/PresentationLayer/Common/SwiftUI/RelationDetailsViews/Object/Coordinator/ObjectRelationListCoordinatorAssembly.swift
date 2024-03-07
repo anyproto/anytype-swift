@@ -3,7 +3,6 @@ import SwiftUI
 protocol ObjectRelationListCoordinatorAssemblyProtocol {
     @MainActor
     func make(
-        objectId: String,
         mode: ObjectRelationListMode,
         configuration: RelationModuleConfiguration,
         selectedOptionsIds: [String],
@@ -25,7 +24,6 @@ final class ObjectRelationListCoordinatorAssembly: ObjectRelationListCoordinator
     
     @MainActor
     func make(
-        objectId: String,
         mode: ObjectRelationListMode,
         configuration: RelationModuleConfiguration,
         selectedOptionsIds: [String],
@@ -33,7 +31,6 @@ final class ObjectRelationListCoordinatorAssembly: ObjectRelationListCoordinator
     ) -> AnyView {
         ObjectRelationListCoordinatorView(
             model: ObjectRelationListCoordinatorViewModel(
-                objectId: objectId,
                 mode: mode,
                 configuration: configuration,
                 selectedOptionsIds: selectedOptionsIds,
