@@ -635,11 +635,11 @@
 "No date" = "Без дати";
 "Clear" = "Очистити";
 "Create option with" = "Create option ‘%@’";
-"Add URL" = "Додати URL";
-"Add email" = "Додати ел. пошту";
-"Add phone number" = "Додати номер телефону";
-"Add number" = "Додати номер";
-"Add text" = "Додати текст";
+"Enter URL" = "Enter URL";
+"Enter email" = "Enter email";
+"Enter phone number" = "Enter phone number";
+"Enter number" = "Введіть номер";
+"Enter text" = "Введіть текст";
 "Ok" = "Гаразд";
 "Error occurred. Please try again" = "Виникла помилка. Будь ласка, спробуйте ще раз";
 "Add" = "Додати";

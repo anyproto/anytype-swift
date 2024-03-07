@@ -635,11 +635,11 @@
 "No date" = "Geen datum";
 "Clear" = "Wis";
 "Create option with" = "Maak optie '%@' aan";
-"Add URL" = "Voeg URL toe";
-"Add email" = "Voeg e-mailadres toe";
-"Add phone number" = "Voeg telefoonnummer toe";
-"Add number" = "Voeg nummer toe";
-"Add text" = "Voeg tekst toe";
+"Enter URL" = "Enter URL";
+"Enter email" = "Enter email";
+"Enter phone number" = "Enter phone number";
+"Enter number" = "Voer nummer in";
+"Enter text" = "Voer tekst in";
 "Ok" = "Ok";
 "Error occurred. Please try again" = "Er is een fout opgetreden. Probeer het alsjeblieft opnieuw";
 "Add" = "Voeg toe";
