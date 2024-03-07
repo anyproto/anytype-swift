@@ -14,7 +14,7 @@ protocol RelationValueProcessingServiceProtocol {
 }
 
 @MainActor
-final class RelationValueProcessingService: RelationValueProcessingServiceProtocol {
+fileprivate final class RelationValueProcessingService: RelationValueProcessingServiceProtocol {
     
     @Injected(\.relationsService)
     private var relationsService: RelationsServiceProtocol
@@ -75,4 +75,10 @@ struct RelationValueData: Identifiable {
     let id = UUID()
     let relation: Relation
     let objectDetails: ObjectDetails
+}
+
+extension Container {
+    var relationValueProcessingService: Factory<RelationValueProcessingServiceProtocol> {
+        self { RelationValueProcessingService() }.shared
+    }
 }

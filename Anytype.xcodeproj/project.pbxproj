@@ -734,6 +734,8 @@
 		2AD37D5829911FA50012409E /* WidgetObjectListSetsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AD37D5729911FA50012409E /* WidgetObjectListSetsViewModel.swift */; };
 		2AD37D5A299121D30012409E /* WidgetObjectListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AD37D59299121D30012409E /* WidgetObjectListViewModel.swift */; };
 		2AD37D5C299145370012409E /* WidgetObjectListRecentViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AD37D5B299145370012409E /* WidgetObjectListRecentViewModel.swift */; };
+		2AD3A17A2B9A15FF007CB41B /* EditorSetDI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AD3A1792B9A15FF007CB41B /* EditorSetDI.swift */; };
+		2AD3A17C2B9A1663007CB41B /* EditorPageDI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AD3A17B2B9A1663007CB41B /* EditorPageDI.swift */; };
 		2AD48D4E2B7E65BB0077C53B /* SpaceRequestView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AD48D4D2B7E65BB0077C53B /* SpaceRequestView.swift */; };
 		2AD48D522B7F57B80077C53B /* SpaceJoinView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AD48D512B7F57B80077C53B /* SpaceJoinView.swift */; };
 		2AD48D542B7F57CE0077C53B /* SpaceJoinViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AD48D532B7F57CE0077C53B /* SpaceJoinViewModel.swift */; };
@@ -2511,6 +2513,8 @@
 		2AD37D5729911FA50012409E /* WidgetObjectListSetsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WidgetObjectListSetsViewModel.swift; sourceTree = "<group>"; };
 		2AD37D59299121D30012409E /* WidgetObjectListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WidgetObjectListViewModel.swift; sourceTree = "<group>"; };
 		2AD37D5B299145370012409E /* WidgetObjectListRecentViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WidgetObjectListRecentViewModel.swift; sourceTree = "<group>"; };
+		2AD3A1792B9A15FF007CB41B /* EditorSetDI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditorSetDI.swift; sourceTree = "<group>"; };
+		2AD3A17B2B9A1663007CB41B /* EditorPageDI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditorPageDI.swift; sourceTree = "<group>"; };
 		2AD48D4D2B7E65BB0077C53B /* SpaceRequestView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpaceRequestView.swift; sourceTree = "<group>"; };
 		2AD48D512B7F57B80077C53B /* SpaceJoinView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpaceJoinView.swift; sourceTree = "<group>"; };
 		2AD48D532B7F57CE0077C53B /* SpaceJoinViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpaceJoinViewModel.swift; sourceTree = "<group>"; };
@@ -3778,16 +3782,17 @@
 		038FB5C822D8F321002B90B8 /* ServiceLayer */ = {
 			isa = PBXGroup;
 			children = (
-				3D24912127BD271900821595 /* SubscriptionsToggler */,
-				2A1731B82B9A0A6400FD990D /* AudioSessionService */,
 				3DE296462617439C00EADB0A /* ServiceLocator.swift */,
 				2A82AB372B9754CB00AA8E18 /* ServicesDI.swift */,
 				2AFFFB9D2927B02500A487E1 /* Account */,
 				2A8A2DC82AB993E900105549 /* AppActions */,
 				2AD741322994F17F004BD223 /* ApplicationState */,
+				2A1731B82B9A0A6400FD990D /* AudioSessionService */,
 				03CB3F00230C104F003D5DFD /* Auth */,
 				0A66456924085A1E008392AF /* Block */,
+				C9C49A802704991100D86463 /* CameraPermissionVerifier */,
 				03D1516423FB443E004027CE /* Configuration */,
+				12EE02D42840EB2800223EB5 /* DeviceSceneStateListener */,
 				862065512AB1A974006E539B /* DocumentsProvider */,
 				2AB522062A14D08A007DEE53 /* File */,
 				2AC3F9442A13824D005EFEE9 /* FileLimitsStorage */,
@@ -3799,10 +3804,12 @@
 				3D2F9C14271EADC50043C326 /* Object */,
 				3D2F9C7627206CBE0043C326 /* QuickActions */,
 				2A8DCACF28C635B90029B914 /* RelationStorage */,
+				2E6F3E1B2A4DB160002F4278 /* SceneState */,
 				2A816AC52AD7DC0D00975BCA /* ServerConfigirationStorage */,
 				2A29FD2D2A701BBB007A8549 /* SpaceStorage */,
 				03AA488A22FA55E800D756AA /* StoreServices */,
 				2A1F949629795FB300E25782 /* Subscriptions */,
+				3D24912127BD271900821595 /* SubscriptionsToggler */,
 				2A03039D28ABD480002EFC46 /* URL */,
 			);
 			path = ServiceLayer;
@@ -4025,6 +4032,7 @@
 				2A96B5B32ABB454800B59A1D /* EditorPageView.swift */,
 				2AE85FF62B20D85900268E9D /* EditorPageViewState.swift */,
 				861B0FDC2ADD43AA007E3A54 /* EditorCollectionFlowLayout.swift */,
+				2AD3A17B2B9A1663007CB41B /* EditorPageDI.swift */,
 			);
 			path = EditorPage;
 			sourceTree = "<group>";
@@ -4798,7 +4806,6 @@
 		1280E205265C17CC00E5AEEE /* Utils */ = {
 			isa = PBXGroup;
 			children = (
-				C9C49A802704991100D86463 /* Permissions */,
 				12CAF32126D5386F001E56B2 /* ObjectIconImagePainter */,
 			);
 			path = Utils;
@@ -5193,10 +5200,8 @@
 		12EE02D32840EAFF00223EB5 /* SceneDelegates */ = {
 			isa = PBXGroup;
 			children = (
-				2E6F3E1B2A4DB160002F4278 /* SceneState */,
 				0303ED0022D8EDAA005C552B /* SceneDelegate.swift */,
 				C91B81B928E74222006AE9EB /* AnytypeWindow.swift */,
-				12EE02D42840EB2800223EB5 /* DeviceSceneStateListener */,
 			);
 			path = SceneDelegates;
 			sourceTree = "<group>";
@@ -5333,6 +5338,7 @@
 		2A1F949629795FB300E25782 /* Subscriptions */ = {
 			isa = PBXGroup;
 			children = (
+				2AC906BF29B5F7EE00209E39 /* Tree */,
 				2A6E04A5298D05AF0023B33D /* OpenedDocumentsProvider.swift */,
 				2A1F949829795FEB00E25782 /* FavoriteSubscriptionService.swift */,
 				2A971C05297E75D300D3D786 /* RecentSubscriptionService.swift */,
@@ -6441,7 +6447,6 @@
 		2AC906BD29B5F7C600209E39 /* Common */ = {
 			isa = PBXGroup;
 			children = (
-				2AC906BF29B5F7EE00209E39 /* Subscription */,
 				2AF4C3D7295C3E8300FD7153 /* Rows */,
 				2AAF34362954C86800921320 /* TreeWidgetView.swift */,
 				2AAF343B29559BF700921320 /* TreeWidgetViewModel.swift */,
@@ -6460,13 +6465,13 @@
 			path = Specific;
 			sourceTree = "<group>";
 		};
-		2AC906BF29B5F7EE00209E39 /* Subscription */ = {
+		2AC906BF29B5F7EE00209E39 /* Tree */ = {
 			isa = PBXGroup;
 			children = (
 				2AAF3451295B19DF00921320 /* TreeSubscriptionDataBuilder.swift */,
 				2AAF3453295B1B5F00921320 /* TreeSubscriptionManager.swift */,
 			);
-			path = Subscription;
+			path = Tree;
 			sourceTree = "<group>";
 		};
 		2AC906C829B6093A00209E39 /* SpecificInternalModels */ = {
@@ -8821,6 +8826,7 @@
 				3DAE1CAF273EA208009A72F3 /* EditorSetView.swift */,
 				3D8D41BA274297FF00F8EBF3 /* EditorSetViewModel.swift */,
 				3D7F718027A088B7003FE893 /* EditorSetViewModel+Pagination.swift */,
+				2AD3A1792B9A15FF007CB41B /* EditorSetDI.swift */,
 			);
 			path = Set;
 			sourceTree = "<group>";
@@ -9925,12 +9931,12 @@
 			path = Shared;
 			sourceTree = "<group>";
 		};
-		C9C49A802704991100D86463 /* Permissions */ = {
+		C9C49A802704991100D86463 /* CameraPermissionVerifier */ = {
 			isa = PBXGroup;
 			children = (
 				C9C49A81270499B500D86463 /* CameraPermissionVerifier.swift */,
 			);
-			path = Permissions;
+			path = CameraPermissionVerifier;
 			sourceTree = "<group>";
 		};
 		C9C49A8327049CEF00D86463 /* Factories */ = {
@@ -11426,6 +11432,7 @@
 				2A4E99E82B0B5DB700C81584 /* SetObjectCreationCoordinatorOutput.swift in Sources */,
 				C9767C0628193E2300AEF728 /* DynamicCollectionLayoutView.swift in Sources */,
 				2A85B0422AA637F100988ABD /* ApplicationCoordinatorView.swift in Sources */,
+				2AD3A17A2B9A15FF007CB41B /* EditorSetDI.swift in Sources */,
 				53EA4A7326371DAB00968B8E /* StyleColorViewController.swift in Sources */,
 				2A733A8D294082C200B7D27C /* RelationsSearchInteractor.swift in Sources */,
 				2AE7ECA4298816F30079F12B /* WidgetObjectListModuleAssembly.swift in Sources */,
@@ -11622,6 +11629,7 @@
 				2ED9F4472A8FBC6400BE0A6B /* SetViewSettingsCoordinatorAssembly.swift in Sources */,
 				2ABFED9428C9D784008B5C03 /* RelationDetailsStorageProtocol.swift in Sources */,
 				3DD112962B95EA24007682F4 /* MembershipCoordinator.swift in Sources */,
+				2AD3A17C2B9A1663007CB41B /* EditorPageDI.swift in Sources */,
 				531197E026430A9800FFC71E /* BlockActionHandler.swift in Sources */,
 				2AC906CE29B61B1F00209E39 /* RecentTreeWidgetModuleAssembly.swift in Sources */,
 				129D78952694AE6900DA6757 /* ObjectLayoutPicker.swift in Sources */,

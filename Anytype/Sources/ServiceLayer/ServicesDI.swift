@@ -224,28 +224,12 @@ extension Container {
         self { QuickActionShortcutBuilder() }.shared
     }
     
-    var setPrefilledFieldsBuilder: Factory<SetPrefilledFieldsBuilderProtocol> {
-        self { SetPrefilledFieldsBuilder() }.shared
-    }
-    
-    var setObjectCreationHelper: Factory<SetObjectCreationHelperProtocol> {
-        self { SetObjectCreationHelper() }.shared
-    }
-    
     var deepLinkParser: Factory<DeepLinkParserProtocol> {
         self { DeepLinkDI.shared.parser(isDebug: CoreEnvironment.isDebug) }
     }
     
-    var relationValueProcessingService: Factory<RelationValueProcessingServiceProtocol> {
-        self { RelationValueProcessingService() }.shared
-    }
-    
     var detailsService: Factory<DetailsServiceProtocol> {
         self { DetailsService() }.shared
-    }
-    
-    var objectHeaderInteractor: Factory<ObjectHeaderInteractorProtocol> {
-        self { ObjectHeaderInteractor() }
     }
     
     var pasteboardBlockDocumentService: Factory<PasteboardBlockDocumentServiceProtocol> {
