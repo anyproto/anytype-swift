@@ -58,7 +58,7 @@ final class EditorSetModuleAssembly: EditorSetModuleAssemblyProtocol {
             subscriptionStorageProvider: serviceLocator.subscriptionStorageProvider(),
             dataviewService: serviceLocator.dataviewService(),
             searchService: serviceLocator.searchService(),
-            detailsService: detailsService,
+            detailsService: serviceLocator.detailsService(),
             objectActionsService: serviceLocator.objectActionsService(), 
             relationsService: serviceLocator.relationService(),
             textServiceHandler: serviceLocator.textServiceHandler(),

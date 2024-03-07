@@ -745,7 +745,6 @@ extension EditorSetViewModel {
         dataviewService: DI.preview.serviceLocator.dataviewService(),
         searchService: DI.preview.serviceLocator.searchService(),
         detailsService: DetailsService(
-            objectId: "objectId",
             service: DI.preview.serviceLocator.objectActionsService(),
             fileService: DI.preview.serviceLocator.fileService()
         ),
