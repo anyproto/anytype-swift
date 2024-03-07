@@ -635,11 +635,11 @@
 "No date" = "Tarih yok";
 "Clear" = "Temizle";
 "Create option with" = "Create option ‘%@’";
-"Add URL" = "URL Ekle";
-"Add email" = "E-posta ekle";
-"Add phone number" = "Telefon numarası ekle";
-"Add number" = "Numara ekle";
-"Add text" = "Metin ekle";
+"Enter URL" = "Enter URL";
+"Enter email" = "Enter email";
+"Enter phone number" = "Enter phone number";
+"Enter number" = "Numara gir";
+"Enter text" = "Metin gir";
 "Ok" = "Tamam";
 "Error occurred. Please try again" = "Hata oluştu. Lütfen tekrar dene";
 "Add" = "Ekle";

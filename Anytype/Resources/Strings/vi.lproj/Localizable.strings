@@ -636,11 +636,11 @@
 "No date" = "Không có ngày";
 "Clear" = "Xoá hết";
 "Create option with" = "Create option ‘%@’";
-"Add URL" = "Thêm URL";
-"Add email" = "Thêm email";
-"Add phone number" = "Thêm số điện thoại";
-"Add number" = "Thêm số";
-"Add text" = "Thêm văn bản";
+"Enter URL" = "Enter URL";
+"Enter email" = "Enter email";
+"Enter phone number" = "Enter phone number";
+"Enter number" = "Nhập số";
+"Enter text" = "Nhập văn bản";
 "Ok" = "OK";
 "Error occurred. Please try again" = "Đã xảy ra lỗi. Vui lòng thử lại.";
 "Add" = "Thêm";
