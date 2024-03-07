@@ -84,16 +84,16 @@
 "Relation.EmptyState.Blocked.title" = "Отношение пустое";
 "Relation.Create.Row.title" = "Создать %@";
 "Relation.View.Create.title" = "Создать параметр";
-"Relation.View.Edit.title" = "Edit option";
-"Relation.Create.Textfield.placeholder" = "Enter name...";
+"Relation.View.Edit.title" = "Изменить вариант";
+"Relation.Create.Textfield.placeholder" = "Введите название...";
 "Relation.Edit.Button.title" = "Применить";
-"Relation.Date.Locked.Alert.title" = "Relation “%@” is locked";
-"Relation.ObjectTypes.Header.title" = "Object types:";
-"Relation.ObjectType.Header.title" = "Object type:";
+"Relation.Date.Locked.Alert.title" = "Отношение “%@” заблокировано";
+"Relation.ObjectTypes.Header.title" = "Типы объектов:";
+"Relation.ObjectType.Header.title" = "Тип объекта:";
 
 "Relation.Delete.Alert.Title" = "Вы уверены?";
-"Relation.Delete.Alert.Description" = "The option will be permanently removed from your space.";
-"Relation.Object.Delete.Alert.Description" = "The object will be moved to Bin.";
+"Relation.Delete.Alert.Description" = "Эта опция будет удалена из вашего рабочего пространства.";
+"Relation.Object.Delete.Alert.Description" = "Этот объект будет перемещен в корзину.";
 
 "Relation.Format.Object.Title" = "Объект";
 "Relation.Format.Text.Title" = "Текст";
@@ -110,7 +110,7 @@
 // Origin Relation
 
 "Relation.Origin.Clipboard" = "Буфер обмена";
-"Relation.Origin.DragAndDrop" = "Drag'n'Drop";
+"Relation.Origin.DragAndDrop" = "Перетащи";
 "Relation.Origin.Import" = "Imported object";
 "Relation.Origin.WebClipper" = "Web clipper";
 "Relation.Origin.SharingExtension" = "Mobile sharing extension";
@@ -217,7 +217,7 @@
 "Auth.CameraPermissionTitle" = "Пожалуйста, разрешите доступ";
 "Restore secret phrase from keychain" = "Восстановить фразу восстановления из связки ключей";
 "Auth.LogIn" = "Войти";
-"Join" = "Join";
+"Join" = "Присоединись";
 "Auth.Welcome.Subtitle" = "Anytype - это безопасное место для записи мыслей и заметок, планирования и организации всего что важно для вас.";
 "Auth.Caption.Privacy.Text" = "Продолжая, вы соглашаетесь с нашими [условиями пользования](%@) и [политикой конфиденциальности](%@) ";
 "Auth.Next" = "Далее";
@@ -530,8 +530,8 @@
 "CommonOpenErrorView.Message" = "Данные не найдены";
 "AreYouSure" = "Вы уверены?";
 "Nothing found" = "Nothing found";
-"No type found text" = "No type “%@” found. Change your request or create new type.";
-"Create type" = "Create type";
+"No type found text" = "Тип \"%@\" не найден. Измените ваш запрос или создайте новый тип.";
+"Create type" = "Создать тип";
 
 
 "Limit object types" = "Ограничить типы объектов";
@@ -603,8 +603,8 @@
 "Into object" = "В объект";
 "Add below" = "Добавить ниже";
 "Change type" = "Изменить тип";
-"Show types" = "Show types";
-"Hide types" = "Hide types";
+"Show types" = "Показать типы";
+"Hide types" = "Скрыть типы";
 "SlashMenu.LinkTo.Description" = "Создать ссылку на другой объект";
 "Upload playable audio" = "Загрузить воспроизводимое аудио";
 "Code snippet" = "Фрагмент кода";
@@ -634,7 +634,7 @@
 "Today" = "Сегодня";
 "No date" = "Нет даты";
 "Clear" = "Очистить";
-"Create option with" = "Create option ‘%@’";
+"Create option with" = "Создать опцию '%@'";
 "Add URL" = "Добавить URL-адрес";
 "Add email" = "Добавить электронную почту";
 "Add phone number" = "Добавить номер телефона";
@@ -664,7 +664,7 @@
 "DataviewType.gallery" = "Галерея";
 "DataviewType.kanban" = "Канбан";
 "DataviewType.calendar" = "Календарь";
-"DataviewType.graph" = "Graph";
+"DataviewType.graph" = "График";
 
 // MARK: - ObjectType
 "ObjectType.fallbackDescription" = "Пустой холст без заголовка";
@@ -847,26 +847,26 @@
 "ClearCacheAlert.Description" = "Все медиафайлы, сохраненные в Anytype, будут удалены с вашего текущего устройства. Их можно снова загрузить с резервного узла или другого устройства.";
 
 // MARK: - Spaces
-"Spaces.Accessibility.Shared" = "Shared Space";
+"Spaces.Accessibility.Shared" = "Общее пространство";
 "Spaces.Accessibility.Private" = "Личное Пространство";
 "Spaces.Accessibility.Personal" = "Настройки";
 "Spaces.Search.Title" = "Поиск пространств";
 "Spaces.Title" = "Пространства";
-"Spaces.Info.Network" = "Network:";
-"Spaces.Info.Device" = "Device:";
+"Spaces.Info.Network" = "Сеть:";
+"Spaces.Info.Device" = "Устройство:";
 
 // MARK: - Space
 "Space.Status.Unknown" = "Неизвестно";
-"Space.Status.Loading" = "Loading";
+"Space.Status.Loading" = "Загрузка";
 "Space.Status.Ok" = "Ок";
-"Space.Status.Missing" = "Missing";
+"Space.Status.Missing" = "Отсутствует ";
 "Space.Status.Error" = "Ошибка";
-"Space.Status.RemoteWaitingDeletion" = "Waiting Deletion";
-"Space.Status.RemoteDeleted" = "Remote Deleted";
+"Space.Status.RemoteWaitingDeletion" = "Ожидание удаления";
+"Space.Status.RemoteDeleted" = "Удаленно удалено";
 "Space.Status.SpaceDeleted" = "Удалено";
-"Space.Status.SpaceActive" = "Active";
-"Space.Status.SpaceJoining" = "Joining";
-"Space.Status.SpaceRemoving" = "Removing";
+"Space.Status.SpaceActive" = "Активно";
+"Space.Status.SpaceJoining" = "Присоединяется";
+"Space.Status.SpaceRemoving" = "Удаление";
 
 // MARK: - Space Settings
 "SpaceSettings.Title" = "Настройки пространства";
@@ -876,35 +876,35 @@
 "SpaceSettings.DeleteAlert.Title" = "Удалить пространство \"%@\"";
 "SpaceSettings.DeleteAlert.Message" = "Это пространство будет удалено безвозвратно. Вы не сможете отменить это действие.";
 "SpaceSettings.DeleteButton" = "Удалить пространство";
-"SpaceSettings.Sharing" = "Sharing";
+"SpaceSettings.Sharing" = "Поделится";
 "SpaceSettings.Share" = "Поделиться";
-"SpaceSettings.LeaveButton" = "Leave and unjoin";
-"SpaceSettings.LeaveAlert.Title" = "Leave and unjoin the space";
-"SpaceSettings.LeaveAlert.Message" = "%@ space will be removed from your devices and you will no longer have access to it";
+"SpaceSettings.LeaveButton" = "Выйти и отсоединится";
+"SpaceSettings.LeaveAlert.Title" = "Выйти и отсоединиться от пространства";
+"SpaceSettings.LeaveAlert.Message" = "%@ пространство будет удалено с ваших устройств и у вас больше не будет к ним доступа ";
 
 // MARK: - Space Share
 
-"SpaceShare.Title" = "Share space";
-"SpaceShare.MembersSection" = "Members and requests";
-"SpaceShare.Members" = "Members";
-"SpaceShare.Permissions.Owner" = "Owner";
-"SpaceShare.Permissions.Reader" = "Viewer";
-"SpaceShare.Permissions.Writer" = "Editor";
-"SpaceShare.Invite.Title" = "Invite link";
-"SpaceShare.Invite.Description" = "Send this link to invite others. Assign access rights upon their request approval";
-"SpaceShare.Invite.Button" = "Share invite link";
-"SpaceShare.Status.Joining" = "Requested";
+"SpaceShare.Title" = "Общее пространство ";
+"SpaceShare.MembersSection" = "Участники и запросы";
+"SpaceShare.Members" = "Участники";
+"SpaceShare.Permissions.Owner" = "Владелец";
+"SpaceShare.Permissions.Reader" = "Наблюдатель ";
+"SpaceShare.Permissions.Writer" = "Редактор";
+"SpaceShare.Invite.Title" = "Ссылка на приглашение ";
+"SpaceShare.Invite.Description" = "Отправьте эту ссылку чтобы пригласить друзей. Вы сможете назначить права после их присоединения";
+"SpaceShare.Invite.Button" = "Поделится ссылкой на приглашение ";
+"SpaceShare.Status.Joining" = "Запрошено";
 "SpaceShare.Status.Removing" = "Unjoining requested";
-"SpaceShare.Action.ViewRequest" = "View Request";
+"SpaceShare.Action.ViewRequest" = "Посмотреть запрос";
 "SpaceShare.Action.Approve" = "Approve";
-"SpaceShare.ViewRequest.Title" = "%@ requested to join %@ space";
-"SpaceShare.ViewRequest.ViewAccess" = "Grand view access";
-"SpaceShare.ViewRequest.EditAccess" = "Grand edit access";
-"SpaceShare.ViewRequest.Reject" = "Reject";
-"SpaceShare.RemoveMember.Title" = "Remove memeber";
-"SpaceShare.RemoveMember.Message" = "%@ will be removed from the space.";
-"SpaceShare.ChangePermissions" = "%@ access to the space would become %@.";
-"SpaceShare.Join.Title" = "Join a space";
+"SpaceShare.ViewRequest.Title" = "%@ запросил доступ к пространству \"%@\"";
+"SpaceShare.ViewRequest.ViewAccess" = "Предоставить доступ к просмотру";
+"SpaceShare.ViewRequest.EditAccess" = "Предоставить доступ к редактированию ";
+"SpaceShare.ViewRequest.Reject" = "Отклонить";
+"SpaceShare.RemoveMember.Title" = "Исключить участника";
+"SpaceShare.RemoveMember.Message" = "%@ будет удален из пространства.";
+"SpaceShare.ChangePermissions" = "доступ %@ к пространству станет %@.";
+"SpaceShare.Join.Title" = "Присоединиться к пространству";
 "SpaceShare.Join.CommentPlaceholder" = "Leave a private comment for a space owner";
 "SpaceShare.Join.Button" = "Request to join";
 "SpaceShare.Join.Info" = "Once the space owner approves your request, you'll join the space with the access rights owner determined.";
@@ -995,6 +995,8 @@
 "per x years" = "per %@ years";
 "What’s included" = "What’s included";
 "Submit" = "Submit";
+"Resend" = "Resend";
+"Resend in" = "Resend in %@ sec";
 
 "Membership.Ad.Title" = "Let’s build together";
 "Membership.Ad.Subtitle" = "Joining Anytype network means contributing to its story";
@@ -1014,15 +1016,20 @@
 "Membership.Banner.Title1" = "Co-create with us";
 "Membership.Banner.Subtitle1" = "Stay closely connected with our team and community. Join calls with the team, influence Anytype's evolution, and have your say on features.";
 "Membership.Banner.Title2" = "Gain Benefits";
-"Membership.Banner.Subtitle2" = "Our members have unique identity on Anytype Network, more storage, shared spaces and members per space for extensive collaboration";
+"Membership.Banner.Subtitle2" = "Our members have unique identity on Anytype Network, more storage, shared spaces and members per space for extensive collaboration.";
 "Membership.Banner.Title3" = "Support the Vision";
 "Membership.Banner.Subtitle3" = "Your contribution supports our independent team and endorses our vision︎ of a user-driven, secure, and collaborative digital environment.";
 "Membership.Banner.Title4" = "Invest in Connectivity";
-"Membership.Banner.Subtitle4" = "Our software is free by design, but we thrive on the network that connects us all. Support us, and you're investing in the very infrastructure that keeps us united";
+"Membership.Banner.Subtitle4" = "Our software is free by design, but we thrive on the network that connects us all. Support us, and you're investing in the very infrastructure that keeps us united.";
 
 "Membership.EmailForm.Title" = "Get your free membership";
 "Membership.EmailForm.Subtitle" = "We need your email to keep spam at bay and the fun in play!";
 "Membership.EmailForm.Newsletter" = "I'd like to get updates on products and enjoy free perks!";
+"Membership.EmailValidation" = "Enter the code sent to your email";
+
+"Membership.Success.Title" = "Welcome to the network, %@";
+"Membership.Success.Subitle" = "Big cheers for your curiosity!";
+
 
 // MARK: - Membership Tiers
 "Membership.Explorer.Title" = "Explorer";
