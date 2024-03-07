@@ -4,7 +4,7 @@ import SwiftUI
 import Combine
 import FloatingPanel
 
-@MainActor //
+@MainActor
 final class TextRelationDetailsViewModel: ObservableObject, TextRelationDetailsViewModelProtocol {
     weak var viewController: TextRelationDetailsViewController?
     

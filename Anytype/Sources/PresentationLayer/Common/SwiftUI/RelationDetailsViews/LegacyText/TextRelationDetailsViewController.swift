@@ -2,7 +2,7 @@ import Foundation
 import UIKit
 import AnytypeCore
 
-final class TextRelationDetailsViewController: UIViewController { //
+final class TextRelationDetailsViewController: UIViewController {
 
     private struct ButtonHolder {
         let button: UIButton
