@@ -7,6 +7,7 @@ protocol ModulesDIProtocol: AnyObject {
     func selectRelationList() -> SelectRelationListModuleAssemblyProtocol
     func relationOptionSettings() -> RelationOptionSettingsModuleAssemblyProtocol
     func objectRelationList() -> ObjectRelationListModuleAssemblyProtocol
+    func textRelationEditing() -> TextRelationEditingModuleAssemblyProtocol
     func undoRedo() -> UndoRedoModuleAssemblyProtocol
     func objectLayoutPicker() -> ObjectLayoutPickerModuleAssemblyProtocol
     func objectCoverPicker() -> ObjectCoverPickerModuleAssemblyProtocol
@@ -31,8 +32,6 @@ protocol ModulesDIProtocol: AnyObject {
     func debugMenu() -> DebugMenuModuleAssemblyProtocol
     func settingsAccount() -> SettingsAccountModuleAssemblyProtocol
     func fileStorage() -> FileStorageModuleAssemblyProtocol
-    func spaceSwitch() -> SpaceSwitchModuleAssemblyProtocol
-    func spaceCreate() -> SpaceCreateModuleAssemblyProtocol
     func authorization() -> AuthModuleAssemblyProtocol
     func joinFlow() -> JoinFlowModuleAssemblyProtocol
     func login() -> LoginViewModuleAssemblyProtocol
@@ -66,8 +65,6 @@ protocol ModulesDIProtocol: AnyObject {
     func serverDocumentPicker() -> ServerDocumentPickerModuleAssemblyProtocol
     func sharingTip() -> SharingTipModuleAssemblyProtocol
     func shareOptions() -> ShareOptionsModuleAssemblyProtocol
-    func galleryInstallationPreview() -> GalleryInstallationPreviewModuleAssemblyProtocol
-    func gallerySpaceSelectionModuleAssembly() -> GallerySpaceSelectionModuleAssemblyProtocol
     func commonNotification() -> CommonNotificationAssemblyProtocol
     func galleryNotification() -> GalleryNotificationAssemblyProtocol
     func spareShare() -> SpaceShareModuleAssemblyProtocol

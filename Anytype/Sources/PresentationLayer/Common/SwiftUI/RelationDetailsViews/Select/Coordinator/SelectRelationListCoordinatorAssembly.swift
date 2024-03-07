@@ -3,7 +3,6 @@ import SwiftUI
 protocol SelectRelationListCoordinatorAssemblyProtocol {
     @MainActor
     func make(
-        objectId: String,
         style: SelectRelationListStyle,
         configuration: RelationModuleConfiguration,
         selectedOptionsIds: [String]
@@ -24,14 +23,12 @@ final class SelectRelationListCoordinatorAssembly: SelectRelationListCoordinator
     
     @MainActor
     func make(
-        objectId: String,
         style: SelectRelationListStyle,
         configuration: RelationModuleConfiguration,
         selectedOptionsIds: [String]
     ) -> AnyView {
         SelectRelationListCoordinatorView(
             model: SelectRelationListCoordinatorViewModel(
-                objectId: objectId,
                 style: style,
                 configuration: configuration,
                 selectedOptionsIds: selectedOptionsIds,

@@ -32,7 +32,7 @@ final class SimpleTableCellsBuilder {
         stateManager: SimpleTableStateManager,
         accessoryStateManager: AccessoryViewStateManager,
         blockMarkupChanger: BlockMarkupChangerProtocol,
-        blockTableService: BlockTableServiceProtocol = BlockTableService()
+        blockTableService: BlockTableServiceProtocol
     ) {
         self.document = document
         self.router = router

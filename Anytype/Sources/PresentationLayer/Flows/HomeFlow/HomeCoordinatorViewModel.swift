@@ -36,7 +36,6 @@ final class HomeCoordinatorViewModel: ObservableObject,
     private let documentsProvider: DocumentsProviderProtocol
     private let setObjectCreationCoordinatorAssembly: SetObjectCreationCoordinatorAssemblyProtocol
     private let sharingTipCoordinator: SharingTipCoordinatorProtocol
-    private let galleryInstallationCoordinatorAssembly: GalleryInstallationCoordinatorAssemblyProtocol
     private let notificationCoordinator: NotificationCoordinatorProtocol
     private let spaceJoinModuleAssembly: SpaceJoinModuleAssemblyProtocol
     private let typeSearchCoordinatorAssembly: TypeSearchForNewObjectCoordinatorAssemblyProtocol
@@ -103,7 +102,6 @@ final class HomeCoordinatorViewModel: ObservableObject,
         documentsProvider: DocumentsProviderProtocol,
         setObjectCreationCoordinatorAssembly: SetObjectCreationCoordinatorAssemblyProtocol,
         sharingTipCoordinator: SharingTipCoordinatorProtocol,
-        galleryInstallationCoordinatorAssembly: GalleryInstallationCoordinatorAssemblyProtocol,
         notificationCoordinator: NotificationCoordinatorProtocol,
         spaceJoinModuleAssembly: SpaceJoinModuleAssemblyProtocol,
         typeSearchCoordinatorAssembly: TypeSearchForNewObjectCoordinatorAssemblyProtocol
@@ -131,7 +129,6 @@ final class HomeCoordinatorViewModel: ObservableObject,
         self.documentsProvider = documentsProvider
         self.setObjectCreationCoordinatorAssembly = setObjectCreationCoordinatorAssembly
         self.sharingTipCoordinator = sharingTipCoordinator
-        self.galleryInstallationCoordinatorAssembly = galleryInstallationCoordinatorAssembly
         self.notificationCoordinator = notificationCoordinator
         self.spaceJoinModuleAssembly = spaceJoinModuleAssembly
         self.typeSearchCoordinatorAssembly = typeSearchCoordinatorAssembly
@@ -210,10 +207,6 @@ final class HomeCoordinatorViewModel: ObservableObject,
             guard let self else { return }
             openObject(screenData: details.editorScreenData())
         }
-    }
-
-    func createGalleryInstallationModule(data: GalleryInstallationData) -> AnyView {
-        return galleryInstallationCoordinatorAssembly.make(data: data)
     }
     
     func spaceJoinModule(data: SpaceJoinModuleData) -> AnyView {

@@ -6,25 +6,31 @@ final class RelationEditingViewModelBuilder {
     private weak var delegate: TextRelationActionButtonViewModelDelegate?
     
     private let newSearchModuleAssembly: NewSearchModuleAssemblyProtocol
+    private let textRelationEditingService: TextRelationEditingServiceProtocol
     private let searchService: SearchServiceProtocol
     private let systemURLService: SystemURLServiceProtocol
     private let alertOpener: AlertOpenerProtocol
     private let bookmarkService: BookmarkServiceProtocol
+    private let relationsService: RelationsServiceProtocol
     
     init(
         delegate: TextRelationActionButtonViewModelDelegate?,
         newSearchModuleAssembly: NewSearchModuleAssemblyProtocol,
+        textRelationEditingService: TextRelationEditingServiceProtocol,
         searchService: SearchServiceProtocol,
         systemURLService: SystemURLServiceProtocol,
         alertOpener: AlertOpenerProtocol,
-        bookmarkService: BookmarkServiceProtocol
+        bookmarkService: BookmarkServiceProtocol,
+        relationsService: RelationsServiceProtocol
     ) {
         self.delegate = delegate
         self.newSearchModuleAssembly = newSearchModuleAssembly
+        self.textRelationEditingService = textRelationEditingService
         self.searchService = searchService
         self.systemURLService = systemURLService
         self.alertOpener = alertOpener
         self.bookmarkService = bookmarkService
+        self.relationsService = relationsService
     }
     
 }
@@ -41,26 +47,29 @@ extension RelationEditingViewModelBuilder: RelationEditingViewModelBuilderProtoc
         switch relation {
         case .text(let text):
             return TextRelationDetailsViewModel(
+                objectId: objectDetails.id,
                 value: text.value ?? "",
                 type: .text,
                 relation: relation,
-                service: TextRelationDetailsService(objectId: objectDetails.id, service: RelationsService()),
+                service: textRelationEditingService,
                 analyticsType: analyticsType
             )
         case .number(let number):
             return TextRelationDetailsViewModel(
+                objectId: objectDetails.id,
                 value: number.value ?? "",
                 type: .number,
                 relation: relation,
-                service: TextRelationDetailsService(objectId: objectDetails.id, service: RelationsService()),
+                service: textRelationEditingService,
                 analyticsType: analyticsType
             )
         case .phone(let phone):
             return TextRelationDetailsViewModel(
+                objectId: objectDetails.id,
                 value: phone.value ?? "",
                 type: .phone,
                 relation: relation,
-                service: TextRelationDetailsService(objectId: objectDetails.id, service: RelationsService()),
+                service: textRelationEditingService,
                 analyticsType: analyticsType,
                 actionsViewModel: [
                     TextRelationURLActionViewModel(
@@ -77,10 +86,11 @@ extension RelationEditingViewModelBuilder: RelationEditingViewModelBuilderProtoc
             )
         case .email(let email):
             return TextRelationDetailsViewModel(
+                objectId: objectDetails.id,
                 value: email.value ?? "",
                 type: .email,
                 relation: relation,
-                service: TextRelationDetailsService(objectId: objectDetails.id, service: RelationsService()),
+                service: textRelationEditingService,
                 analyticsType: analyticsType,
                 actionsViewModel: [
                     TextRelationURLActionViewModel(
@@ -115,10 +125,11 @@ extension RelationEditingViewModelBuilder: RelationEditingViewModelBuilderProtoc
                 )
             ]
             return TextRelationDetailsViewModel(
+                objectId: objectDetails.id,
                 value: url.value ?? "",
                 type: .url,
                 relation: relation,
-                service: TextRelationDetailsService(objectId: objectDetails.id, service: RelationsService()),
+                service: textRelationEditingService,
                 analyticsType: analyticsType,
                 actionsViewModel: actions.compactMap { $0 }
             )
@@ -127,7 +138,7 @@ extension RelationEditingViewModelBuilder: RelationEditingViewModelBuilderProtoc
                 details: objectDetails,
                 value: value.value,
                 relation: relation,
-                service: RelationsService(),
+                service: relationsService,
                 analyticsType: analyticsType
             )
         case .status(let status):
@@ -135,7 +146,7 @@ extension RelationEditingViewModelBuilder: RelationEditingViewModelBuilderProtoc
                 details: objectDetails,
                 selectedStatus: status.values.first,
                 relation: relation,
-                service: RelationsService(),
+                service: relationsService,
                 newSearchModuleAssembly: newSearchModuleAssembly,
                 searchService: searchService,
                 analyticsType: analyticsType
@@ -167,7 +178,7 @@ extension RelationEditingViewModelBuilder: RelationEditingViewModelBuilderProtoc
                     relationKey: relation.key,
                     newSearcModuleAssembly: newSearchModuleAssembly
                 ),
-                service: RelationsService(),
+                service: relationsService,
                 analyticsType: analyticsType
             )
         case .object(let object):
@@ -194,7 +205,7 @@ extension RelationEditingViewModelBuilder: RelationEditingViewModelBuilderProtoc
                     limitedObjectType: object.limitedObjectTypes,
                     newSearcModuleAssembly: newSearchModuleAssembly
                 ),
-                service: RelationsService(),
+                service: relationsService,
                 analyticsType: analyticsType
             )
         case .file(let file):
@@ -214,7 +225,7 @@ extension RelationEditingViewModelBuilder: RelationEditingViewModelBuilderProtoc
                 emptyOptionsPlaceholder: Constants.tagsOrFilesOptionsPlaceholder,
                 relation: relation,
                 searchModuleBuilder: FilesOptionsSearchModuleBuilder(newSearcModuleAssembly: newSearchModuleAssembly),
-                service: RelationsService(),
+                service: relationsService,
                 analyticsType: analyticsType
             )
         default:

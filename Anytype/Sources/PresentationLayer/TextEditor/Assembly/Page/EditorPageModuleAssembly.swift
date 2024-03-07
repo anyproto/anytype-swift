@@ -158,13 +158,12 @@ final class EditorPageModuleAssembly: EditorPageModuleAssemblyProtocol {
             editorCollectionController: .init(viewInput: viewInput)
         )
         
-        let blockTableService = BlockTableService()
         let actionHandler = BlockActionHandler(
             document: document,
             markupChanger: markupChanger,
             service: blockActionService,
             blockService: blockService,
-            blockTableService: blockTableService,
+            blockTableService: serviceLocator.blockTableService(),
             fileService: serviceLocator.fileService(),
             objectService: serviceLocator.objectActionsService(),
             pasteboardBlockService: serviceLocator.pasteboardBlockService(),
@@ -224,7 +223,8 @@ final class EditorPageModuleAssembly: EditorPageModuleAssemblyProtocol {
             defaultObjectService: serviceLocator.defaultObjectCreationService(),
             linkToObjectCoordinator: coordinatorsDI.linkToObject().make(output: router),
             typesService: serviceLocator.typesService(),
-            accessoryStateManager: accessoryState.0
+            accessoryStateManager: accessoryState.0,
+            tableService: serviceLocator.blockTableService()
         )
         
         let slashMenuActionHandler = SlashMenuActionHandler(
@@ -246,7 +246,7 @@ final class EditorPageModuleAssembly: EditorPageModuleAssemblyProtocol {
             detailsService: serviceLocator.detailsService(),
             audioSessionService: serviceLocator.audioSessionService(),
             infoContainer: document.infoContainer,
-            tableService: blockTableService,
+            tableService: serviceLocator.blockTableService(),
             objectTypeProvider: serviceLocator.objectTypeProvider(),
             modelsHolder: modelsHolder,
             blockCollectionController: .init(viewInput: viewInput),

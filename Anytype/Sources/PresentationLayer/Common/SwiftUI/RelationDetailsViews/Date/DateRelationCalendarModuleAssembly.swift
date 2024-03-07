@@ -4,11 +4,8 @@ import SwiftUI
 protocol DateRelationCalendarModuleAssemblyProtocol: AnyObject {
     @MainActor
     func make(
-        objectId: String,
-        title: String,
         date: Date?,
-        relationKey: String,
-        analyticsType: AnalyticsEventsRelationType
+        configuration: RelationModuleConfiguration
     ) -> AnyView
 }
 
@@ -24,22 +21,15 @@ final class DateRelationCalendarModuleAssembly: DateRelationCalendarModuleAssemb
     
     @MainActor
     func make(
-        objectId: String,
-        title: String,
         date: Date?,
-        relationKey: String,
-        analyticsType: AnalyticsEventsRelationType
+        configuration: RelationModuleConfiguration
     ) -> AnyView {
-        let view = DateRelationCalendarView(
+        DateRelationCalendarView(
             viewModel: DateRelationCalendarViewModel(
-                title: title,
                 date: date,
-                objectId: objectId,
-                relationKey: relationKey,
-                relationsService: self.serviceLocator.relationService(),
-                analyticsType: analyticsType
+                configuration: configuration,
+                relationsService: self.serviceLocator.relationService()
             )
-        )
-        return view.eraseToAnyView()
+        ).eraseToAnyView()
     }
 }

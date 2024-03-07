@@ -3,7 +3,11 @@ import SwiftUI
 
 struct GallerySpaceSelectionView: View {
     
-    @StateObject var model: GallerySpaceSelectionViewModel
+    @StateObject private var model: GallerySpaceSelectionViewModel
+    
+    init(output: GallerySpaceSelectionModuleOutput?) {
+        _model = StateObject(wrappedValue: GallerySpaceSelectionViewModel(output: output))
+    }
     
     var body: some View {
         VStack(spacing: 0) {

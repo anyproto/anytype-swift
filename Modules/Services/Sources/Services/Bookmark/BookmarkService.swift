@@ -2,10 +2,7 @@ import ProtobufMessages
 import SwiftProtobuf
 import AnytypeCore
 
-
-public final class BookmarkService: BookmarkServiceProtocol {
-    
-    public init() {}
+final class BookmarkService: BookmarkServiceProtocol {
     
     public func fetchBookmark(objectId: String, blockID: String, url: AnytypeURL) async throws {
         _ = try await ClientCommands.blockBookmarkFetch(.with {

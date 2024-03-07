@@ -7,7 +7,7 @@ final class ServerConfigurationViewModel: ObservableObject {
     
     // MARK: - DI
     
-    private let storage: ServerConfigurationStorage
+    private let storage: ServerConfigurationStorageProtocol
     private weak var output: ServerConfigurationModuleOutput?
     
     // MARK: - State
@@ -17,7 +17,7 @@ final class ServerConfigurationViewModel: ObservableObject {
     
     private var subscriptions = [AnyCancellable]()
     
-    init(storage: ServerConfigurationStorage, output: ServerConfigurationModuleOutput?) {
+    init(storage: ServerConfigurationStorageProtocol, output: ServerConfigurationModuleOutput?) {
         self.storage = storage
         self.output = output
         storage.installedConfigurationsPublisher.receiveOnMain().sink { [weak self] _ in

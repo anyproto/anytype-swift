@@ -35,7 +35,7 @@ struct DateRelationEditingView_Previews: PreviewProvider {
                 details: ObjectDetails(id: ""), 
                 value: nil,
                 relation: .date(Relation.Date(id: "", key: "", name: "name", isFeatured: false, isEditable: false, canBeRemovedFromObject: false, isDeleted: false, value: nil)),
-                service: RelationsService(),
+                service: DI.preview.serviceLocator.relationService(),
                 analyticsType: .block
             )
         )

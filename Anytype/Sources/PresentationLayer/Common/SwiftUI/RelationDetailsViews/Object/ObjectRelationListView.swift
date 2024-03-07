@@ -103,14 +103,7 @@ struct ObjectRelationListView: View {
     SelectRelationListView(
         viewModel: SelectRelationListViewModel(
             style: .status,
-            configuration: RelationModuleConfiguration(
-                title: "Object",
-                isEditable: true,
-                relationKey: "",
-                spaceId: "",
-                selectionMode: .multi,
-                analyticsType: .block
-            ),
+            configuration: RelationModuleConfiguration.default,
             relationSelectedOptionsModel: RelationSelectedOptionsModel(
                 objectId: "",
                 selectionMode: .multi,

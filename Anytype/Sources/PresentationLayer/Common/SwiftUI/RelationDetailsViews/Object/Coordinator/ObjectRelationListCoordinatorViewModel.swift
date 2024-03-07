@@ -14,7 +14,6 @@ enum ObjectRelationListMode {
 @MainActor
 final class ObjectRelationListCoordinatorViewModel: ObservableObject, ObjectRelationListModuleOutput {
 
-    private let objectId: String
     private let mode: ObjectRelationListMode
     private let configuration: RelationModuleConfiguration
     private let selectedOptionsIds: [String]
@@ -25,14 +24,12 @@ final class ObjectRelationListCoordinatorViewModel: ObservableObject, ObjectRela
     @Published var dismiss = false
     
     init(
-        objectId: String,
         mode: ObjectRelationListMode,
         configuration: RelationModuleConfiguration,
         selectedOptionsIds: [String],
         objectRelationListModuleAssembly: ObjectRelationListModuleAssemblyProtocol,
         output: ObjectRelationListCoordinatorModuleOutput?
     ) {
-        self.objectId = objectId
         self.mode = mode
         self.configuration = configuration
         self.selectedOptionsIds = selectedOptionsIds
@@ -44,7 +41,7 @@ final class ObjectRelationListCoordinatorViewModel: ObservableObject, ObjectRela
         switch mode {
         case let .object(limitedObjectTypes):
             return objectRelationListModuleAssembly.makeObjectModule(
-                objectId: objectId,
+                objectId: configuration.objectId,
                 limitedObjectTypes: limitedObjectTypes,
                 configuration: configuration,
                 selectedOptionsIds: selectedOptionsIds,
@@ -52,7 +49,7 @@ final class ObjectRelationListCoordinatorViewModel: ObservableObject, ObjectRela
             )
         case .file:
             return objectRelationListModuleAssembly.makeFileModule(
-                objectId: objectId,
+                objectId: configuration.objectId,
                 configuration: configuration,
                 selectedOptionsIds: selectedOptionsIds,
                 output: self

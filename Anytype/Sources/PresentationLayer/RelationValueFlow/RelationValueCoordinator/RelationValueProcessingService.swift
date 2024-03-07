@@ -14,13 +14,12 @@ protocol RelationValueProcessingServiceProtocol {
 }
 
 @MainActor
-final class RelationValueProcessingService: RelationValueProcessingServiceProtocol {
+fileprivate final class RelationValueProcessingService: RelationValueProcessingServiceProtocol {
     
-    private let relationsService: RelationsServiceProtocol
+    @Injected(\.relationsService)
+    private var relationsService: RelationsServiceProtocol
     
-    nonisolated init(relationsService: RelationsServiceProtocol) {
-        self.relationsService = relationsService
-    }
+    nonisolated init() {}
     
     func canOpenRelationInNewModule(_ relation: Relation) -> Bool {
         if FeatureFlags.newDateRelationCalendarView, case .date = relation, relation.isEditable {
@@ -40,6 +39,14 @@ final class RelationValueProcessingService: RelationValueProcessingServiceProtoc
         }
         
         if FeatureFlags.newFileSelectRelationView, case .file = relation {
+            return true
+        }
+        
+        if FeatureFlags.newTextEditingRelationView, case .text = relation {
+            return true
+        }
+        
+        if FeatureFlags.newTextEditingRelationView, case .number = relation {
             return true
         }
         
@@ -76,4 +83,10 @@ struct RelationValueData: Identifiable {
     let id = UUID()
     let relation: Relation
     let objectDetails: ObjectDetails
+}
+
+extension Container {
+    var relationValueProcessingService: Factory<RelationValueProcessingServiceProtocol> {
+        self { RelationValueProcessingService() }.shared
+    }
 }

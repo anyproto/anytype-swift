@@ -1,9 +1,7 @@
 import Foundation
 import ProtobufMessages
 
-public final class TextService: TextServiceProtocol {
-    
-    public init() {}
+final class TextService: TextServiceProtocol {
     
     public func setText(contextId: String, blockId: String, middlewareString: MiddlewareString) async throws {
         _ = try await ClientCommands.blockTextSetText(.with {

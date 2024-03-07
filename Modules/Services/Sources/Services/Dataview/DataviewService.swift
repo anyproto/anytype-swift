@@ -3,9 +3,7 @@ import SwiftProtobuf
 import Combine
 import AnytypeCore
 
-public final class DataviewService: DataviewServiceProtocol {
-  
-    public init() {}
+final class DataviewService: DataviewServiceProtocol {
     
     public func updateView(objectId: String, blockId: String, view: DataviewView) async throws {
         try await ClientCommands.blockDataviewViewUpdate(.with {

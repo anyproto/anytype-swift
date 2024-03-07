@@ -22,18 +22,12 @@ actor SingleObjectSubscriptionService: SingleObjectSubscriptionServiceProtocol {
     
     // MARK: - DI
     
-    private let subscriptionStorageProvider: SubscriptionStorageProviderProtocol
-    private let subscriotionBuilder: ObjectsCommonSubscriptionDataBuilderProtocol
+    @Injected(\.subscriptionStorageProvider)
+    private var subscriptionStorageProvider: SubscriptionStorageProviderProtocol
+    @Injected(\.objectsCommonSubscriptionDataBuilder)
+    private var subscriotionBuilder: ObjectsCommonSubscriptionDataBuilderProtocol
     
     private var subsctipyionStorages: [String: SubscriptionStorageProtocol] = [:]
-    
-    init(
-        subscriptionStorageProvider: SubscriptionStorageProviderProtocol,
-        subscriotionBuilder: ObjectsCommonSubscriptionDataBuilderProtocol
-    ) {
-        self.subscriptionStorageProvider = subscriptionStorageProvider
-        self.subscriotionBuilder = subscriotionBuilder
-    }
     
     // MARK: - SingleObjectSubscriptionServiceProtocol
     

@@ -5,13 +5,13 @@ final class ServerDocumentPickerViewModel: ObservableObject {
     
     // MARK: - DI
     
-    private let storage: ServerConfigurationStorage
+    private let storage: ServerConfigurationStorageProtocol
     
     // MARK: - State
     
     @Published var toast = ToastBarData.empty
     
-    init(storage: ServerConfigurationStorage) {
+    init(storage: ServerConfigurationStorageProtocol) {
         self.storage = storage
     }
     
