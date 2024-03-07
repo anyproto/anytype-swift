@@ -11,7 +11,6 @@ struct TextRelationEditingView: View {
             DragIndicator()
             content
         }
-        .frame(height: 140)
         .background(Color.Background.secondary)
         .onChange(of: viewModel.dismiss) { _ in
             dismiss()
@@ -19,13 +18,14 @@ struct TextRelationEditingView: View {
         .onChange(of: viewModel.text) { newText in
             viewModel.onTextChanged(newText)
         }
+        .frame(height: totalHeight())
         .fitPresentationDetents()
     }
     
     private var content: some View {
         NavigationView {
             contentView
-                .padding(.horizontal, 16)
+                .padding(.horizontal, 20)
                 .navigationTitle(viewModel.config.title)
                 .navigationBarTitleDisplayMode(.inline)
                 .if(viewModel.config.isEditable) {
@@ -50,6 +50,8 @@ struct TextRelationEditingView: View {
                 .font(AnytypeFontBuilder.font(anytypeFont: .uxBodyRegular))
                 .keyboardType(viewModel.type.keyboardType)
                 .disabled(!viewModel.config.isEditable)
+            buttons
+            Spacer()
         }
     }
     
@@ -71,6 +73,49 @@ struct TextRelationEditingView: View {
             AnytypeText(Loc.clear, style: .uxBodyRegular, color: .Button.active)
         }
     }
+    
+    private var buttons: some View {
+        VStack(spacing: 0) {
+            if viewModel.actionsViewModel.isNotEmpty {
+                Spacer.fixedHeight(Constants.innerSpace)
+            }
+            ForEach(viewModel.actionsViewModel, id: \.id) { model in
+                Divider()
+                Button {
+                    model.performAction()
+                } label: {
+                    HStack(spacing: 0) {
+                        Image(asset: model.iconAsset)
+                            .foregroundColor(model.isActionAvailable ? .Button.active : .Button.inactive)
+                        Spacer.fixedWidth(10)
+                        AnytypeText(
+                            model.title,
+                            style: .bodyRegular,
+                            color: model.isActionAvailable ? .Text.primary : .Text.tertiary
+                        ).lineLimit(1)
+                        Spacer()
+                    }
+                    .frame(height: 52)
+                    .fixTappableArea()
+                }
+                .disabled(!model.isActionAvailable)
+            }
+        }
+    }
+    
+    func totalHeight() -> CGFloat {
+        Constants.basicHeight + 
+        CGFloat(viewModel.actionsViewModel.count) * Constants.actionHeight +
+        Constants.innerSpace
+    }
+}
+
+extension TextRelationEditingView {
+    enum Constants {
+        static let basicHeight: CGFloat = 140
+        static let actionHeight: CGFloat = 52
+        static let innerSpace: CGFloat = 12
+    }
 }
 
 #Preview {
@@ -79,6 +124,7 @@ struct TextRelationEditingView: View {
             text: nil, 
             type: .text,
             config: RelationModuleConfiguration.default,
+            actionsViewModel: [],
             service: DI.preview.serviceLocator.textRelationEditingService()
         )
     )

@@ -15,6 +15,7 @@ final class TextRelationURLActionViewModel: TextRelationActionViewModelProtocol 
     private let systemURLService: SystemURLServiceProtocol
     private weak var delegate: TextRelationActionButtonViewModelDelegate?
     
+    let id = UUID().uuidString
     var inputText: String = ""
     var title: String { type.title }
     var iconAsset: ImageAsset { type.iconAsset }

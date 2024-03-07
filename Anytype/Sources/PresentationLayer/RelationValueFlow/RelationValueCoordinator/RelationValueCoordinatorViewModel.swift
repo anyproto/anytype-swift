@@ -10,7 +10,8 @@ protocol RelationValueCoordinatorOutput: AnyObject {
 @MainActor
 final class RelationValueCoordinatorViewModel: 
     ObservableObject,
-    ObjectRelationListCoordinatorModuleOutput
+    ObjectRelationListCoordinatorModuleOutput,
+    TextRelationActionButtonViewModelDelegate
 {
     var mediumDetent: Bool = false
     
@@ -20,6 +21,7 @@ final class RelationValueCoordinatorViewModel:
     private let selectRelationListCoordinatorAssembly: SelectRelationListCoordinatorAssemblyProtocol
     private let objectRelationListCoordinatorAssembly: ObjectRelationListCoordinatorAssemblyProtocol
     private let textRelationEditingModuleAssembly: TextRelationEditingModuleAssemblyProtocol
+    private let urlOpener: URLOpenerProtocol
     private let analyticsType: AnalyticsEventsRelationType
     private weak var output: RelationValueCoordinatorOutput?
 
@@ -30,6 +32,7 @@ final class RelationValueCoordinatorViewModel:
         selectRelationListCoordinatorAssembly: SelectRelationListCoordinatorAssemblyProtocol,
         objectRelationListCoordinatorAssembly: ObjectRelationListCoordinatorAssemblyProtocol,
         textRelationEditingModuleAssembly: TextRelationEditingModuleAssemblyProtocol,
+        urlOpener: URLOpenerProtocol,
         analyticsType: AnalyticsEventsRelationType,
         output: RelationValueCoordinatorOutput?
     ) {
@@ -39,6 +42,7 @@ final class RelationValueCoordinatorViewModel:
         self.selectRelationListCoordinatorAssembly = selectRelationListCoordinatorAssembly
         self.objectRelationListCoordinatorAssembly = objectRelationListCoordinatorAssembly
         self.textRelationEditingModuleAssembly = textRelationEditingModuleAssembly
+        self.urlOpener = urlOpener
         self.analyticsType = analyticsType
         self.output = output
     }
@@ -135,34 +139,47 @@ final class RelationValueCoordinatorViewModel:
         }
         
         if FeatureFlags.newTextEditingRelationView, case .text(let text) = relation {
-            let configuration = RelationModuleConfiguration(
-                title: text.name,
-                isEditable: relation.isEditable,
+            return textRelationEditingModule(
+                value: text.value,
+                name: text.name,
                 relationKey: text.key,
-                objectId: objectDetails.id,
-                spaceId: objectDetails.spaceId,
-                analyticsType: analyticsType
-            )
-            return textRelationEditingModuleAssembly.make(
-                text: text.value, 
-                type: .text,
-                config: configuration
+                type: .text
             )
         }
         
         if FeatureFlags.newTextEditingRelationView, case .number(let number) = relation {
-            let configuration = RelationModuleConfiguration(
-                title: number.name,
-                isEditable: relation.isEditable,
+            return textRelationEditingModule(
+                value: number.value,
+                name: number.name,
                 relationKey: number.key,
-                objectId: objectDetails.id,
-                spaceId: objectDetails.spaceId,
-                analyticsType: analyticsType
+                type: .number
             )
-            return textRelationEditingModuleAssembly.make(
-                text: number.value,
-                type: .number,
-                config: configuration
+        }
+        
+        if FeatureFlags.newTextEditingRelationView, case .email(let email) = relation {
+            return textRelationEditingModule(
+                value: email.value,
+                name: email.name,
+                relationKey: email.key,
+                type: .email
+            )
+        }
+        
+        if FeatureFlags.newTextEditingRelationView, case .phone(let phone) = relation {
+            return textRelationEditingModule(
+                value: phone.value,
+                name: phone.name,
+                relationKey: phone.key,
+                type: .phone
+            )
+        }
+        
+        if FeatureFlags.newTextEditingRelationView, case .url(let url) = relation {
+            return textRelationEditingModule(
+                value: url.value,
+                name: url.name,
+                relationKey: url.key,
+                type: .url
             )
         }
         
@@ -171,9 +188,42 @@ final class RelationValueCoordinatorViewModel:
         return EmptyView().eraseToAnyView()
     }
     
+    private func textRelationEditingModule(
+        value: String?,
+        name: String,
+        relationKey: String,
+        type: TextRelationViewType
+    ) -> AnyView {
+        let configuration = RelationModuleConfiguration(
+            title: name,
+            isEditable: relation.isEditable,
+            relationKey: relationKey,
+            objectId: objectDetails.id,
+            spaceId: objectDetails.spaceId,
+            analyticsType: analyticsType
+        )
+        return textRelationEditingModuleAssembly.make(
+            text: value,
+            type: type,
+            config: configuration,
+            objectDetails: objectDetails,
+            output: self
+        )
+    }
+    
     // MARK: - ObjectRelationListCoordinatorModuleOutput
     
     func onObjectOpen(screenData: EditorScreenData) {
         output?.showEditorScreen(data: screenData)
+    }
+    
+    // MARK: - TextRelationActionButtonViewModelDelegate
+    
+    func canOpenUrl(_ url: URL) -> Bool {
+        urlOpener.canOpenUrl(url)
+    }
+    
+    func openUrl(_ url: URL) {
+        urlOpener.openUrl(url)
     }
 }

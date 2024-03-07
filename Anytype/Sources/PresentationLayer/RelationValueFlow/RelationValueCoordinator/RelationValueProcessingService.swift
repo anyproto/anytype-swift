@@ -50,6 +50,18 @@ fileprivate final class RelationValueProcessingService: RelationValueProcessingS
             return true
         }
         
+        if FeatureFlags.newTextEditingRelationView, case .email = relation {
+            return true
+        }
+        
+        if FeatureFlags.newTextEditingRelationView, case .phone = relation {
+            return true
+        }
+        
+        if FeatureFlags.newTextEditingRelationView, case .url = relation {
+            return true
+        }
+        
         return false
     }
     
