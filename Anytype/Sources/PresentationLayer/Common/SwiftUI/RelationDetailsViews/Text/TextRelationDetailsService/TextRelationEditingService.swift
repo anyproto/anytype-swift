@@ -1,9 +1,12 @@
 import Foundation
 import Services
 
-final class TextRelationDetailsService: TextRelationDetailsServiceProtocol {
+protocol TextRelationEditingServiceProtocol: AnyObject {
+    func saveRelation(objectId: String, value: String, key: String, textType: TextRelationDetailsViewType)
+}
 
-    private let objectId: String
+final class TextRelationEditingService: TextRelationEditingServiceProtocol {
+
     private let service: RelationsServiceProtocol
     
     private let numberFormatter: NumberFormatter = {
@@ -15,14 +18,13 @@ final class TextRelationDetailsService: TextRelationDetailsServiceProtocol {
     
     // MARK: - Initializers
     
-    init(objectId: String, service: RelationsServiceProtocol) {
-        self.objectId = objectId
+    init(service: RelationsServiceProtocol) {
         self.service = service
     }
     
     // MARK: - TextRelationDetailsServiceProtocol
     
-    func saveRelation(value: String, key: String, textType: TextRelationDetailsViewType) {
+    func saveRelation(objectId: String, value: String, key: String, textType: TextRelationDetailsViewType) {
         Task {
             switch textType {
             case .text:

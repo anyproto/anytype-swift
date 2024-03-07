@@ -416,6 +416,10 @@ final class ServiceLocator {
         RelationValueProcessingService(relationsService: relationService())
     }
     
+    func textRelationEditingService() -> TextRelationEditingServiceProtocol {
+        TextRelationEditingService(service: relationService())
+    }
+    
     // MARK: - Private
     
     private func subscriptionToggler() -> SubscriptionTogglerProtocol {

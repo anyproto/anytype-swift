@@ -27,7 +27,8 @@ final class RelationValueModuleAssembly: RelationValueModuleAssemblyProtocol {
         
         let contentViewModel = RelationEditingViewModelBuilder(
             delegate: delegate,
-            newSearchModuleAssembly: modulesDI.newSearch(),
+            newSearchModuleAssembly: modulesDI.newSearch(), 
+            textRelationEditingService: serviceLocator.textRelationEditingService(),
             searchService: serviceLocator.searchService(),
             systemURLService: serviceLocator.systemURLService(),
             alertOpener: uiHelpersDI.alertOpener(),
