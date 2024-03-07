@@ -36,6 +36,7 @@ final class EditorSetCoordinatorViewModel:
     @Published var setViewSettingsData: SetViewData?
     @Published var setQueryData: SetQueryData?
     @Published var relationValueData: RelationValueData?
+    @Published var toastBarData: ToastBarData = .empty
     
     init(
         data: EditorSetObject,
@@ -238,7 +239,7 @@ final class EditorSetCoordinatorViewModel:
             objectId: objectDetails.id,
             analyticsType: analyticsType,
             onToastShow: { [weak self] message in
-                self?.toastPresenter.show(message: message)
+                self?.toastBarData = ToastBarData(text: message, showSnackBar: true, messageType: .none)
             }
         )
         
@@ -274,7 +275,7 @@ final class EditorSetCoordinatorViewModel:
     }
     
     func showFailureToast(message: String) {
-        toastPresenter.showFailureAlert(message: message)
+        toastBarData = ToastBarData(text: message, showSnackBar: true, messageType: .failure)
     }
 }
 

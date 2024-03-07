@@ -33,8 +33,7 @@ final class CoordinatorsDI: CoordinatorsDIProtocol {
         RelationsListCoordinatorAssembly(
             coordinatorsID: self,
             modulesDI: modulesDI,
-            serviceLocator: serviceLocator,
-            uiHelpersDI: uiHelpersDI
+            serviceLocator: serviceLocator
         )
     }
     
@@ -146,7 +145,7 @@ final class CoordinatorsDI: CoordinatorsDIProtocol {
     }
 
     func editorPage() -> EditorPageCoordinatorAssemblyProtocol {
-        EditorPageCoordinatorAssembly(coordinatorsID: self, modulesDI: modulesDI, serviceLocator: serviceLocator, uiHelpersDI: uiHelpersDI)
+        EditorPageCoordinatorAssembly(coordinatorsID: self, modulesDI: modulesDI, serviceLocator: serviceLocator)
     }
 
     func setObjectCreationSettings() -> SetObjectCreationSettingsCoordinatorAssemblyProtocol {

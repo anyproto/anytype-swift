@@ -13,11 +13,11 @@ final class EditorPageCoordinatorViewModel: ObservableObject, EditorPageModuleOu
     private let legacyRelationValueCoordinator: LegacyRelationValueCoordinatorProtocol
     private let relationValueCoordinatorAssembly: RelationValueCoordinatorAssemblyProtocol
     private let relationValueProcessingService: RelationValueProcessingServiceProtocol
-    private let toastPresenter: ToastPresenterProtocol
     
     var pageNavigation: PageNavigation?
     @Published var dismiss = false
     @Published var relationValueData: RelationValueData?
+    @Published var toastBarData: ToastBarData = .empty
     
     init(
         data: EditorPageObject,
@@ -26,8 +26,7 @@ final class EditorPageCoordinatorViewModel: ObservableObject, EditorPageModuleOu
         editorPageAssembly: EditorPageModuleAssemblyProtocol,
         legacyRelationValueCoordinator: LegacyRelationValueCoordinatorProtocol,
         relationValueCoordinatorAssembly: RelationValueCoordinatorAssemblyProtocol,
-        relationValueProcessingService: RelationValueProcessingServiceProtocol,
-        toastPresenter: ToastPresenterProtocol
+        relationValueProcessingService: RelationValueProcessingServiceProtocol
     ) {
         self.data = data
         self.showHeader = showHeader
@@ -36,7 +35,6 @@ final class EditorPageCoordinatorViewModel: ObservableObject, EditorPageModuleOu
         self.legacyRelationValueCoordinator = legacyRelationValueCoordinator
         self.relationValueCoordinatorAssembly = relationValueCoordinatorAssembly
         self.relationValueProcessingService = relationValueProcessingService
-        self.toastPresenter = toastPresenter
     }
     
     func pageModule() -> AnyView {
@@ -93,7 +91,7 @@ final class EditorPageCoordinatorViewModel: ObservableObject, EditorPageModuleOu
             objectId: objectDetails.id,
             analyticsType: analyticsType,
             onToastShow: { [weak self] message in
-                self?.toastPresenter.show(message: message)
+                self?.toastBarData = ToastBarData(text: message, showSnackBar: true, messageType: .none)
             }
         )
         

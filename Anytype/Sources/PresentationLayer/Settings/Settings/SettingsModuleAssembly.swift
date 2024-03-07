@@ -24,6 +24,7 @@ final class SettingsModuleAssembly: SettingsModuleAssemblyProtocol {
             activeWorkspaceStorage: serviceLocator.activeWorkspaceStorage(),
             subscriptionService: serviceLocator.singleObjectSubscriptionService(),
             objectActionsService: serviceLocator.objectActionsService(),
+            membershipService: serviceLocator.membershipService(),
             output: output
         )
 

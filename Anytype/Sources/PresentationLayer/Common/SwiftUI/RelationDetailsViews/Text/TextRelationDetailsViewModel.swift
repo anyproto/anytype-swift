@@ -30,8 +30,9 @@ final class TextRelationDetailsViewModel: ObservableObject, TextRelationDetailsV
     
     let actionsViewModel: [TextRelationActionViewModelProtocol]
     
+    private let objectId: String
     private let relation: Relation
-    private let service: TextRelationDetailsServiceProtocol
+    private let service: TextRelationEditingServiceProtocol
     private let analyticsType: AnalyticsEventsRelationType
     private var cancellable: AnyCancellable?
     
@@ -40,13 +41,15 @@ final class TextRelationDetailsViewModel: ObservableObject, TextRelationDetailsV
     // MARK: - Initializers
     
     init(
+        objectId: String,
         value: String,
         type: TextRelationDetailsViewType,
         relation: Relation,
-        service: TextRelationDetailsServiceProtocol,
+        service: TextRelationEditingServiceProtocol,
         analyticsType: AnalyticsEventsRelationType,
         actionsViewModel: [TextRelationActionViewModelProtocol] = []
     ) {
+        self.objectId = objectId
         self.value = value
         self.type = type
         self.relation = relation
@@ -99,7 +102,7 @@ extension TextRelationDetailsViewModel: AnytypePopupViewModelProtocol {
 private extension TextRelationDetailsViewModel {
     
     func saveValue() {
-        service.saveRelation(value: value, key: relation.key, textType: type)
+        service.saveRelation(objectId: objectId, value: value, key: relation.key, textType: type)
         logEvent()
     }
     

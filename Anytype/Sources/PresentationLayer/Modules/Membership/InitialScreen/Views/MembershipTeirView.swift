@@ -1,10 +1,9 @@
 import SwiftUI
+import Services
+
 
 struct MembershipTeirView: View {
-    let title: String
-    let subtitle: String
-    let image: ImageAsset
-    let gradient: MembershipTeirGradient
+    let tier: MembershipTier
     let onTap: () -> ()
     
     @Environment(\.colorScheme) private var colorScheme
@@ -12,12 +11,12 @@ struct MembershipTeirView: View {
     var body: some View {
         VStack(alignment: .leading, spacing: 0) {
             Spacer.fixedHeight(16)
-            Image(asset: image)
+            Image(asset: tier.smallIcon)
                 .frame(width: 65, height: 64)
             Spacer.fixedHeight(10)
-            AnytypeText(title, style: .bodySemibold, color: .Text.primary)
+            AnytypeText(tier.title, style: .bodySemibold, color: .Text.primary)
             Spacer.fixedHeight(5)
-            AnytypeText(subtitle, style: .caption1Regular, color: .Text.primary)
+            AnytypeText(tier.subtitle, style: .caption1Regular, color: .Text.primary)
             Spacer()
             
             info
@@ -34,7 +33,7 @@ struct MembershipTeirView: View {
                 if colorScheme == .dark {
                     Color.Shape.tertiary
                 } else {
-                    gradient
+                    tier.gradient
                 }
             }
         )
@@ -42,15 +41,25 @@ struct MembershipTeirView: View {
     }
     
     var info: some View {
-        AnytypeText(Loc.justEMail, style: .bodySemibold, color: .Text.primary)
+        switch tier {
+        case .explorer:
+            AnytypeText(Loc.justEMail, style: .bodySemibold, color: .Text.primary)
+        case .builder:
+            AnytypeText("$99 ", style: .bodySemibold, color: .Text.primary) +
+            AnytypeText(Loc.perYear, style: .caption1Regular, color: .Text.primary)
+        case .coCreator:
+            AnytypeText("$299 ", style: .bodySemibold, color: .Text.primary) +
+            AnytypeText(Loc.perXYears(3), style: .caption1Regular, color: .Text.primary)
+        }
     }
 }
 
 #Preview {
-    MembershipTeirView(
-        title: Loc.Membership.Explorer.title,
-        subtitle: Loc.Membership.Explorer.subtitle,
-        image: .Membership.tierExplorerSmall,
-        gradient: .teal
-    ) {  }
+    ScrollView(.horizontal) {
+        HStack {
+            MembershipTeirView(tier: .explorer) {  }
+            MembershipTeirView(tier: .builder) {  }
+            MembershipTeirView(tier: .coCreator) {  }
+        }
+    }
 }

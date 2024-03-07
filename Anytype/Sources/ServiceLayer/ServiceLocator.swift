@@ -325,4 +325,8 @@ final class ServiceLocator {
     func membershipService() -> MembershipServiceProtocol {
         Container.shared.membershipService()
     }
+    
+    func textRelationEditingService() -> TextRelationEditingServiceProtocol {
+        Container.shared.textRelationEditingService()
+    }
 }

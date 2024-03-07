@@ -1,10 +1,14 @@
 import Foundation
 import Services
 
-final class TextRelationDetailsService: TextRelationDetailsServiceProtocol {
+protocol TextRelationEditingServiceProtocol: AnyObject {
+    func saveRelation(objectId: String, value: String, key: String, textType: TextRelationDetailsViewType)
+}
 
-    private let objectId: String
-    private let service: RelationsServiceProtocol
+final class TextRelationEditingService: TextRelationEditingServiceProtocol {
+
+    @Injected(\.relationsService)
+    private var service: RelationsServiceProtocol
     
     private let numberFormatter: NumberFormatter = {
         let formatter = NumberFormatter()
@@ -13,16 +17,9 @@ final class TextRelationDetailsService: TextRelationDetailsServiceProtocol {
         return formatter
     }()
     
-    // MARK: - Initializers
-    
-    init(objectId: String, service: RelationsServiceProtocol) {
-        self.objectId = objectId
-        self.service = service
-    }
-    
     // MARK: - TextRelationDetailsServiceProtocol
     
-    func saveRelation(value: String, key: String, textType: TextRelationDetailsViewType) {
+    func saveRelation(objectId: String, value: String, key: String, textType: TextRelationDetailsViewType) {
         Task {
             switch textType {
             case .text:

@@ -40,6 +40,7 @@ final class EmailVerificationViewModel: ObservableObject {
         if text.count == 4 {
             asyncAction {
                 try await self.membershipService.verifyEmailCode(code: self.text)
+                UINotificationFeedbackGenerator().notificationOccurred(.success)
                 self.onSuccessfulValidation()
             }
         }
@@ -47,6 +48,7 @@ final class EmailVerificationViewModel: ObservableObject {
     
     func resendEmail() {
         asyncAction {
+            UISelectionFeedbackGenerator().selectionChanged()
             try await self.membershipService.getVerificationEmail(data: self.data)
             self.timeRemaining = 60
         }
@@ -62,6 +64,7 @@ final class EmailVerificationViewModel: ObservableObject {
             do {
                 try await action()
             } catch let error {
+                UINotificationFeedbackGenerator().notificationOccurred(.error)
                 self.error = error.localizedDescription
             }
         }

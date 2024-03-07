@@ -16,8 +16,10 @@ struct AsyncStandardButton: View {
             inProgress = true
             Task {
                 do {
+                    UISelectionFeedbackGenerator().selectionChanged()
                     try await action()
                 } catch {
+                    UINotificationFeedbackGenerator().notificationOccurred(.error)
                     toast = ToastBarData(text: error.localizedDescription, showSnackBar: true, messageType: .failure)
                 }
                 inProgress = false

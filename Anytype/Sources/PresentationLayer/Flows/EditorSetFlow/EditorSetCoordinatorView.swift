@@ -27,5 +27,6 @@ struct EditorSetCoordinatorView: View {
             .anytypeSheet(item: $model.setViewSettingsData) { data in
                 model.setViewSettings(data: data)
             }
+            .snackbar(toastBarData: $model.toastBarData)
     }
 }

@@ -239,4 +239,8 @@ extension Container {
     var audioSessionService: Factory<AudioSessionServiceProtocol> {
         self { AudioSessionService() }.singleton
     }
+    
+    var textRelationEditingService: Factory<TextRelationEditingServiceProtocol> {
+        self { TextRelationEditingService() }.shared
+    }
 }

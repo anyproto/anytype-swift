@@ -1,4 +1,6 @@
 import SwiftUI
+import Services
+
 
 struct MembershipTierListView: View {
     let onTierTap: (MembershipTier) -> ()
@@ -10,12 +12,7 @@ struct MembershipTierListView: View {
                     Spacer.fixedWidth(0)
                     
                     ForEach(MembershipTier.allCases) { tier in
-                        MembershipTeirView(
-                            title: tier.title,
-                            subtitle: tier.subtitle,
-                            image: tier.smallIcon,
-                            gradient: tier.gradient
-                        ) {
+                        MembershipTeirView(tier: tier) {
                             onTierTap(tier)
                         }
                         .id(tier)
