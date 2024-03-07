@@ -635,11 +635,11 @@
 "No date" = "No date";
 "Clear" = "Rensa";
 "Create option with" = "Create option ‘%@’";
-"Add URL" = "Lägg till URL";
-"Add email" = "Add email";
-"Add phone number" = "Lägg till telefonnummer";
-"Add number" = "Add number";
-"Add text" = "Add text";
+"Enter URL" = "Enter URL";
+"Enter email" = "Enter email";
+"Enter phone number" = "Enter phone number";
+"Enter number" = "Ange nummer";
+"Enter text" = "Ange text";
 "Ok" = "Ok";
 "Error occurred. Please try again" = "Ett fel uppstod. Vänligen försök igen";
 "Add" = "Lägg till";
