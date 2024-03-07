@@ -30,6 +30,10 @@ final class ModulesDI: ModulesDIProtocol {
         return SelectRelationListModuleAssembly(serviceLocator: serviceLocator)
     }
     
+    func textRelationEditing() -> TextRelationEditingModuleAssemblyProtocol {
+        TextRelationEditingModuleAssembly(serviceLocator: serviceLocator)
+    }
+    
     func relationOptionSettings() -> RelationOptionSettingsModuleAssemblyProtocol {
         return RelationOptionSettingsModuleAssembly(serviceLocator: serviceLocator)
     }

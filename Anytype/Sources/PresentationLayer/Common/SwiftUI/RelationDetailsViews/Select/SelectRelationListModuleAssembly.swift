@@ -4,7 +4,6 @@ import SwiftUI
 protocol SelectRelationListModuleAssemblyProtocol: AnyObject {
     @MainActor
     func make(
-        objectId: String,
         style: SelectRelationListStyle,
         configuration: RelationModuleConfiguration,
         selectedOptionsIds: [String],
@@ -24,7 +23,6 @@ final class SelectRelationListModuleAssembly: SelectRelationListModuleAssemblyPr
     
     @MainActor
     func make(
-        objectId: String,
         style: SelectRelationListStyle,
         configuration: RelationModuleConfiguration,
         selectedOptionsIds: [String],
@@ -35,7 +33,7 @@ final class SelectRelationListModuleAssembly: SelectRelationListModuleAssemblyPr
                 style: style,
                 configuration: configuration,
                 relationSelectedOptionsModel: RelationSelectedOptionsModel(
-                    objectId: objectId,
+                    objectId: configuration.objectId,
                     selectionMode: configuration.selectionMode,
                     selectedOptionsIds: selectedOptionsIds,
                     relationKey: configuration.relationKey,

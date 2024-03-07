@@ -91,14 +91,7 @@ struct SelectRelationListView: View {
     SelectRelationListView(
         viewModel: SelectRelationListViewModel(
             style: .status,
-            configuration: RelationModuleConfiguration(
-                title: "Status",
-                isEditable: true,
-                relationKey: "",
-                spaceId: "", 
-                selectionMode: .single,
-                analyticsType: .block
-            ), 
+            configuration: RelationModuleConfiguration.default,
             relationSelectedOptionsModel: RelationSelectedOptionsModel(
                 objectId: "",
                 selectionMode: .single,
@@ -117,14 +110,7 @@ struct SelectRelationListView: View {
     SelectRelationListView(
         viewModel: SelectRelationListViewModel(
             style: .tag,
-            configuration: RelationModuleConfiguration(
-                title: "Tag",
-                isEditable: true,
-                relationKey: "",
-                spaceId: "",
-                selectionMode: .multi,
-                analyticsType: .block
-            ),
+            configuration: RelationModuleConfiguration.default,
             relationSelectedOptionsModel: RelationSelectedOptionsModel(
                 objectId: "",
                 selectionMode: .multi,

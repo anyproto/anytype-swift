@@ -66,6 +66,12 @@ public extension FeatureDescription {
         defaultValue: true
     )
     
+    static let newTextEditingRelationView = FeatureDescription(
+        title: "New text relation editing view - 2438",
+        type: .feature(author: "joe_pusya@anytype.io", releaseVersion: "0.29.0"),
+        defaultValue: false
+    )
+    
     static let multiplayer = FeatureDescription(
         title: "Multiplayer",
         type: .feature(author: "m@anytype.io", releaseVersion: "0.29.0"),

@@ -43,6 +43,14 @@ final class RelationValueProcessingService: RelationValueProcessingServiceProtoc
             return true
         }
         
+        if FeatureFlags.newTextEditingRelationView, case .text = relation {
+            return true
+        }
+        
+        if FeatureFlags.newTextEditingRelationView, case .number = relation {
+            return true
+        }
+        
         return false
     }
     

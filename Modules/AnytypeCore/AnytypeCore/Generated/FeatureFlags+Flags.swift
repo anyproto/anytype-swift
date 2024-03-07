@@ -46,6 +46,10 @@ public extension FeatureFlags {
         value(for: .newFileSelectRelationView)
     }
 
+    static var newTextEditingRelationView: Bool {
+        value(for: .newTextEditingRelationView)
+    }
+
     static var multiplayer: Bool {
         value(for: .multiplayer)
     }
@@ -102,6 +106,7 @@ public extension FeatureFlags {
         .newMultiSelectRelationView,
         .newObjectSelectRelationView,
         .newFileSelectRelationView,
+        .newTextEditingRelationView,
         .multiplayer,
         .membership,
         .rainbowViews,

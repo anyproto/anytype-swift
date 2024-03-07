@@ -40,7 +40,8 @@ final class RelationValueCoordinatorAssembly: RelationValueCoordinatorAssemblyPr
                 objectDetails: objectDetails,
                 dateRelationCalendarModuleAssembly: self.modulesDI.dateRelationCalendar(),
                 selectRelationListCoordinatorAssembly: self.coordinatorsID.selectRelationList(),
-                objectRelationListCoordinatorAssembly: self.coordinatorsID.objectRelationList(),
+                objectRelationListCoordinatorAssembly: self.coordinatorsID.objectRelationList(), 
+                textRelationEditingModuleAssembly: self.modulesDI.textRelationEditing(),
                 analyticsType: analyticsType,
                 output: output
             )
