@@ -27,8 +27,7 @@ public protocol MembershipServiceProtocol {
     func verifyEmailCode(code: String) async throws
 }
 
-public final class MembershipService: MembershipServiceProtocol {
-    public init() { }
+final class MembershipService: MembershipServiceProtocol {
     
     public func getVerificationEmail(data: EmailVerificationData) async throws {
         try await Task.sleep(nanoseconds: 1_000_000_000)

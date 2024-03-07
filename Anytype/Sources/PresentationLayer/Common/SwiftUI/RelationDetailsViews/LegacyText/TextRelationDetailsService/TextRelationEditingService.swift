@@ -7,7 +7,8 @@ protocol TextRelationEditingServiceProtocol: AnyObject {
 
 final class TextRelationEditingService: TextRelationEditingServiceProtocol {
 
-    private let service: RelationsServiceProtocol
+    @Injected(\.relationsService)
+    private var service: RelationsServiceProtocol
     
     private let numberFormatter: NumberFormatter = {
         let formatter = NumberFormatter()
@@ -15,12 +16,6 @@ final class TextRelationEditingService: TextRelationEditingServiceProtocol {
         formatter.groupingSeparator = ""
         return formatter
     }()
-    
-    // MARK: - Initializers
-    
-    init(service: RelationsServiceProtocol) {
-        self.service = service
-    }
     
     // MARK: - TextRelationDetailsServiceProtocol
     

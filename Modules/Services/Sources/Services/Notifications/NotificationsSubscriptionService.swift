@@ -7,11 +7,11 @@ public protocol NotificationsSubscriptionServiceProtocol: AnyObject {
     func addHandler(handler: @escaping (_ events: [NotificationEvent]) async -> Void) async -> AnyCancellable
 }
 
-public actor NotificationsSubscriptionService: ServiceEventsHandlerProtocol, NotificationsSubscriptionServiceProtocol {
+actor NotificationsSubscriptionService: ServiceEventsHandlerProtocol, NotificationsSubscriptionServiceProtocol {
     
     private var handleStorage = HandlerStorage<(_ events: [NotificationEvent]) async -> Void>()
     
-    public init() {
+    init() {
         ServiceMessageHandlerAdapter.shared.addHandler(handler: self)
     }
     

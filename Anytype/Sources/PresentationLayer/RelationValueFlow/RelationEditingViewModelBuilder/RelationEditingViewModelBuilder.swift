@@ -11,6 +11,7 @@ final class RelationEditingViewModelBuilder {
     private let systemURLService: SystemURLServiceProtocol
     private let alertOpener: AlertOpenerProtocol
     private let bookmarkService: BookmarkServiceProtocol
+    private let relationsService: RelationsServiceProtocol
     
     init(
         delegate: TextRelationActionButtonViewModelDelegate?,
@@ -19,7 +20,8 @@ final class RelationEditingViewModelBuilder {
         searchService: SearchServiceProtocol,
         systemURLService: SystemURLServiceProtocol,
         alertOpener: AlertOpenerProtocol,
-        bookmarkService: BookmarkServiceProtocol
+        bookmarkService: BookmarkServiceProtocol,
+        relationsService: RelationsServiceProtocol
     ) {
         self.delegate = delegate
         self.newSearchModuleAssembly = newSearchModuleAssembly
@@ -28,6 +30,7 @@ final class RelationEditingViewModelBuilder {
         self.systemURLService = systemURLService
         self.alertOpener = alertOpener
         self.bookmarkService = bookmarkService
+        self.relationsService = relationsService
     }
     
 }
@@ -135,7 +138,7 @@ extension RelationEditingViewModelBuilder: RelationEditingViewModelBuilderProtoc
                 details: objectDetails,
                 value: value.value,
                 relation: relation,
-                service: RelationsService(),
+                service: relationsService,
                 analyticsType: analyticsType
             )
         case .status(let status):
@@ -143,7 +146,7 @@ extension RelationEditingViewModelBuilder: RelationEditingViewModelBuilderProtoc
                 details: objectDetails,
                 selectedStatus: status.values.first,
                 relation: relation,
-                service: RelationsService(),
+                service: relationsService,
                 newSearchModuleAssembly: newSearchModuleAssembly,
                 searchService: searchService,
                 analyticsType: analyticsType
@@ -175,7 +178,7 @@ extension RelationEditingViewModelBuilder: RelationEditingViewModelBuilderProtoc
                     relationKey: relation.key,
                     newSearcModuleAssembly: newSearchModuleAssembly
                 ),
-                service: RelationsService(),
+                service: relationsService,
                 analyticsType: analyticsType
             )
         case .object(let object):
@@ -202,7 +205,7 @@ extension RelationEditingViewModelBuilder: RelationEditingViewModelBuilderProtoc
                     limitedObjectType: object.limitedObjectTypes,
                     newSearcModuleAssembly: newSearchModuleAssembly
                 ),
-                service: RelationsService(),
+                service: relationsService,
                 analyticsType: analyticsType
             )
         case .file(let file):
@@ -222,7 +225,7 @@ extension RelationEditingViewModelBuilder: RelationEditingViewModelBuilderProtoc
                 emptyOptionsPlaceholder: Constants.tagsOrFilesOptionsPlaceholder,
                 relation: relation,
                 searchModuleBuilder: FilesOptionsSearchModuleBuilder(newSearcModuleAssembly: newSearchModuleAssembly),
-                service: RelationsService(),
+                service: relationsService,
                 analyticsType: analyticsType
             )
         default:

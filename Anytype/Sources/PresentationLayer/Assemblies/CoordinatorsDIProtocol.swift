@@ -34,7 +34,6 @@ protocol CoordinatorsDIProtocol: AnyObject {
     func setObjectCreation() -> SetObjectCreationCoordinatorAssemblyProtocol
     func serverConfiguration() -> ServerConfigurationCoordinatorAssemblyProtocol
     func sharingTip() -> SharingTipCoordinatorProtocol
-    func galleryInstallation() -> GalleryInstallationCoordinatorAssemblyProtocol
     func notificationCoordinator() -> NotificationCoordinatorProtocol // Global coordinator without root view
     func selectRelationList() -> SelectRelationListCoordinatorAssemblyProtocol
     func objectRelationList() -> ObjectRelationListCoordinatorAssemblyProtocol

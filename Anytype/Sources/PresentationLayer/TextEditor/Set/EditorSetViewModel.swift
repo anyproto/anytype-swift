@@ -744,11 +744,8 @@ extension EditorSetViewModel {
         subscriptionStorageProvider: DI.preview.serviceLocator.subscriptionStorageProvider(),
         dataviewService: DI.preview.serviceLocator.dataviewService(),
         searchService: DI.preview.serviceLocator.searchService(),
-        detailsService: DetailsService(
-            service: DI.preview.serviceLocator.objectActionsService(),
-            fileService: DI.preview.serviceLocator.fileService()
-        ),
-        objectActionsService: DI.preview.serviceLocator.objectActionsService(), 
+        detailsService: DI.preview.serviceLocator.detailsService(),
+        objectActionsService: DI.preview.serviceLocator.objectActionsService(),
         relationsService: DI.preview.serviceLocator.relationService(),
         textServiceHandler: DI.preview.serviceLocator.textServiceHandler(),
         groupsSubscriptionsHandler: DI.preview.serviceLocator.groupsSubscriptionsHandler(),

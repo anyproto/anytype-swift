@@ -142,14 +142,6 @@ final class ModulesDI: ModulesDIProtocol {
         return FileStorageModuleAssembly(serviceLocator: serviceLocator, uiHelpersDI: uiHelpersDI)
     }
     
-    func spaceSwitch() -> SpaceSwitchModuleAssemblyProtocol {
-        return SpaceSwitchModileAssembly(serviceLocator: serviceLocator)
-    }
-    
-    func spaceCreate() -> SpaceCreateModuleAssemblyProtocol {
-        return SpaceCreateModuleAssembly(serviceLocator: serviceLocator)
-    }
-    
     func authorization() -> AuthModuleAssemblyProtocol {
         return AuthModuleAssembly()
     }
@@ -280,14 +272,6 @@ final class ModulesDI: ModulesDIProtocol {
     
     func shareOptions() -> ShareOptionsModuleAssemblyProtocol {
         ShareOptionsModuleAssembly(serviceLocator: serviceLocator)
-    }
-    
-    func galleryInstallationPreview() -> GalleryInstallationPreviewModuleAssemblyProtocol {
-        GalleryInstallationPreviewModuleAssembly(serviceLocator: serviceLocator)
-    }
-    
-    func gallerySpaceSelectionModuleAssembly() -> GallerySpaceSelectionModuleAssemblyProtocol {
-        GallerySpaceSelectionModuleAssembly(serviceLocator: serviceLocator)
     }
     
     func commonNotification() -> CommonNotificationAssemblyProtocol {

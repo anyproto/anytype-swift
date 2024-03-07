@@ -4,13 +4,10 @@ import AnytypeCore
 
 final class DetailsService: DetailsServiceProtocol {
     
-    private let service: ObjectActionsServiceProtocol
-    private let fileService: FileActionsServiceProtocol
-        
-    init(service: ObjectActionsServiceProtocol, fileService: FileActionsServiceProtocol) {
-        self.service = service
-        self.fileService = fileService
-    }
+    @Injected(\.objectActionsService)
+    private var service: ObjectActionsServiceProtocol
+    @Injected(\.fileActionsService)
+    private var fileService: FileActionsServiceProtocol
     
     // MARK: - DetailsServiceProtocol
 

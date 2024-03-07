@@ -2,10 +2,12 @@ import Services
 import Foundation
 import Combine
 
-
 final class PasteboardBlockService: PasteboardBlockServiceProtocol {
-    private let pasteboardHelper: PasteboardHelperProtocol
-    private let pasteboardMiddlewareService: PasteboardMiddlewareServiceProtocol
+    
+    @Injected(\.pasteboardHelper)
+    private var pasteboardHelper: PasteboardHelperProtocol
+    @Injected(\.pasteboardMiddleService)
+    private var pasteboardMiddlewareService: PasteboardMiddlewareServiceProtocol
     
     private var tasks = [AnyCancellable]()
     
@@ -15,14 +17,6 @@ final class PasteboardBlockService: PasteboardBlockServiceProtocol {
     
     var pasteboardContent: PasteboardContent? {
         pasteboardHelper.pasteboardContent
-    }
-
-    init(
-        pasteboardHelper: PasteboardHelperProtocol,
-        pasteboardMiddlewareService: PasteboardMiddlewareServiceProtocol
-    ) {
-        self.pasteboardMiddlewareService = pasteboardMiddlewareService
-        self.pasteboardHelper = pasteboardHelper
     }
     
     func pasteInsideBlock(

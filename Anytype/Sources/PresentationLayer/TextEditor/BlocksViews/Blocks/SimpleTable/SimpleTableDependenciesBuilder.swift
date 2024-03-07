@@ -17,7 +17,7 @@ final class SimpleTableDependenciesBuilder {
     private let pasteboardService: PasteboardBlockDocumentServiceProtocol
     private let markdownListener: MarkdownListener
     private let focusSubjectHolder: FocusSubjectsHolder
-    private let tableService = BlockTableService()
+    private let tableService: BlockTableServiceProtocol
     private let responderScrollViewHelper: ResponderScrollViewHelper
     private let defaultObjectService: DefaultObjectCreationServiceProtocol
     private let linkToObjectCoordinator: LinkToObjectCoordinatorProtocol
@@ -39,7 +39,8 @@ final class SimpleTableDependenciesBuilder {
         defaultObjectService: DefaultObjectCreationServiceProtocol,
         linkToObjectCoordinator: LinkToObjectCoordinatorProtocol,
         typesService: TypesServiceProtocol,
-        accessoryStateManager: AccessoryViewStateManager
+        accessoryStateManager: AccessoryViewStateManager,
+        tableService: BlockTableServiceProtocol
     ) {
         self.document = document
         self.router = router
@@ -53,6 +54,7 @@ final class SimpleTableDependenciesBuilder {
         self.linkToObjectCoordinator = linkToObjectCoordinator
         self.typesService = typesService
         self.accessoryStateManager = accessoryStateManager
+        self.tableService = tableService
         
         self.cursorManager = EditorCursorManager(focusSubjectHolder: focusSubjectHolder)
     }
@@ -88,7 +90,8 @@ final class SimpleTableDependenciesBuilder {
             responderScrollViewHelper: responderScrollViewHelper, 
             stateManager: stateManager,
             accessoryStateManager: accessoryStateManager,
-            blockMarkupChanger: BlockMarkupChanger()
+            blockMarkupChanger: BlockMarkupChanger(),
+            blockTableService: tableService
         )
 
         let viewModel = SimpleTableViewModel(

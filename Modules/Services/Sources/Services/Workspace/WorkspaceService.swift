@@ -20,9 +20,7 @@ public protocol WorkspaceServiceProtocol {
     func participantRemove(spaceId: String, identity: String) async throws
 }
 
-public final class WorkspaceService: WorkspaceServiceProtocol {
-    
-    public init() {}
+final class WorkspaceService: WorkspaceServiceProtocol {
     
     // MARK: - WorkspaceServiceProtocol
     

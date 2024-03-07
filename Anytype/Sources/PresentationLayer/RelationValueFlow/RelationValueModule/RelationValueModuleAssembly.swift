@@ -32,7 +32,8 @@ final class RelationValueModuleAssembly: RelationValueModuleAssemblyProtocol {
             searchService: serviceLocator.searchService(),
             systemURLService: serviceLocator.systemURLService(),
             alertOpener: uiHelpersDI.alertOpener(),
-            bookmarkService: serviceLocator.bookmarkService()
+            bookmarkService: serviceLocator.bookmarkService(),
+            relationsService: serviceLocator.relationService()
         )
             .buildViewModel(
                 objectDetails: objectDetails,

@@ -9,8 +9,7 @@ public protocol TemplatesServiceProtocol {
     func setTemplateAsDefaultForType(objectTypeId: String, templateId: String) async throws
 }
 
-public final class TemplatesService: TemplatesServiceProtocol {
-    public init() {}
+final class TemplatesService: TemplatesServiceProtocol {
     
     public func cloneTemplate(blockId: String) async throws {
         _ = try await ClientCommands.objectListDuplicate(.with {
