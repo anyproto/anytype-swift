@@ -635,11 +635,11 @@
 "No date" = "Ingen dato";
 "Clear" = "Tøm";
 "Create option with" = "Opprett valg '%@'";
-"Add URL" = "Legg til URL";
-"Add email" = "Legg til e-post";
-"Add phone number" = "Legg til telefonnummer";
-"Add number" = "Legg til nummer";
-"Add text" = "Legge til tekst";
+"Enter URL" = "Enter URL";
+"Enter email" = "Enter email";
+"Enter phone number" = "Enter phone number";
+"Enter number" = "Skriv inn tall";
+"Enter text" = "Skriv inn tekst";
 "Ok" = "Ok";
 "Error occurred. Please try again" = "Det oppstod en feil. Vennligst prøv igjen";
 "Add" = "Legg til";
