@@ -635,11 +635,11 @@
 "No date" = "Nessuna data";
 "Clear" = "Cancella";
 "Create option with" = "Crea opzione ‘%@’";
-"Add URL" = "Aggiungi URL";
-"Add email" = "Aggiungi email";
-"Add phone number" = "Aggiungi numero di telefono";
-"Add number" = "Aggiungi numero";
-"Add text" = "Aggiungi testo";
+"Enter URL" = "Enter URL";
+"Enter email" = "Enter email";
+"Enter phone number" = "Enter phone number";
+"Enter number" = "Inserisci numero";
+"Enter text" = "Inserisci testo";
 "Ok" = "Ok";
 "Error occurred. Please try again" = "Si è verificato un errore. Riprova.";
 "Add" = "Aggiungi";
