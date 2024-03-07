@@ -255,7 +255,7 @@ final class ServiceLocator {
     }
     
     func templatesSubscription() -> TemplatesSubscriptionServiceProtocol {
-        TemplatesSubscriptionService(subscriptionStorageProvider: subscriptionStorageProvider())
+        Container.shared.templatesSubscription()
     }
     
     func setObjectCreationHelper() -> SetObjectCreationHelperProtocol {

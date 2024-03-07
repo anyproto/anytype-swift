@@ -116,6 +116,10 @@ extension Container {
         self { FilesSubscriptionService() }
     }
     
+    var templatesSubscription: Factory<TemplatesSubscriptionServiceProtocol> {
+        self { TemplatesSubscriptionService() }
+    }
+    
     var participantSubscriptionBySpaceService: Factory<ParticipantsSubscriptionBySpaceServiceProtocol> {
         self { ParticipantsSubscriptionBySpaceService() }
     }
