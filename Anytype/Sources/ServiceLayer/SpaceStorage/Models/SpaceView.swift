@@ -49,6 +49,6 @@ extension SpaceView {
     }
     
     var canBeDelete: Bool {
-        return spaceAccessType == .personal || spaceAccessType == .private
+        return spaceAccessType == .private
     }
 }

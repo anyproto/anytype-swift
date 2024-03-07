@@ -7,6 +7,8 @@ struct MembershipTeirView: View {
     let gradient: MembershipTeirGradient
     let onTap: () -> ()
     
+    @Environment(\.colorScheme) private var colorScheme
+    
     var body: some View {
         VStack(alignment: .leading, spacing: 0) {
             Spacer.fixedHeight(16)
@@ -23,11 +25,19 @@ struct MembershipTeirView: View {
             StandardButton(Loc.learnMore, style: .primaryMedium, action: onTap)
             Spacer.fixedHeight(20)
         }
-        .contentShape(Rectangle())
+        .fixTappableArea()
         .onTapGesture(perform: onTap)
         .padding(.horizontal, 16)
         .frame(width: 192, height: 296)
-        .background(gradient)
+        .background(
+            Group {
+                if colorScheme == .dark {
+                    Color.Shape.tertiary
+                } else {
+                    gradient
+                }
+            }
+        )
         .cornerRadius(16, style: .continuous)
     }
     

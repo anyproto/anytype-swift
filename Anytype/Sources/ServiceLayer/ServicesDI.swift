@@ -235,4 +235,8 @@ extension Container {
     var deepLinkParser: Factory<DeepLinkParserProtocol> {
         self { DeepLinkDI.shared.parser(isDebug: CoreEnvironment.isDebug) }
     }
+    
+    var relationValueProcessingService: Factory<RelationValueProcessingServiceProtocol> {
+        self { RelationValueProcessingService() }
+    }
 }

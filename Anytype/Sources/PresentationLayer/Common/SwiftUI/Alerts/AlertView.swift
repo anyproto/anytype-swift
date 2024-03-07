@@ -11,7 +11,7 @@ struct AlertView<Presenting>: View where Presenting: View {
         ZStack(alignment: .center) {
             presenting
             Color.clear
-                .contentShape(Rectangle())
+                .fixTappableArea()
                 .opacity(isShowing ? 1 : 0)
             content
         }

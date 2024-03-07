@@ -1,3 +1,6 @@
+import SwiftUI
+
+
 enum MembershipTier: String, Identifiable, CaseIterable {
     case explorer
     case builder
@@ -5,8 +8,6 @@ enum MembershipTier: String, Identifiable, CaseIterable {
     
     var id: String { rawValue }
 }
-
-import SwiftUI
 
 extension MembershipTier {
     var title: String {

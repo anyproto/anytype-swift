@@ -74,8 +74,8 @@ final class ServiceLocator {
         Container.shared.searchMiddleService()
     }
     
-    func detailsService(objectId: String) -> DetailsServiceProtocol {
-        DetailsService(objectId: objectId, service: objectActionsService(), fileService: fileService())
+    func detailsService() -> DetailsServiceProtocol {
+        DetailsService(service: objectActionsService(), fileService: fileService())
     }
     
     func bookmarkService() -> BookmarkServiceProtocol {
@@ -194,9 +194,9 @@ final class ServiceLocator {
         Container.shared.objectsCommonSubscriptionDataBuilder()
     }
     
-    func objectHeaderInteractor(objectId: String) -> ObjectHeaderInteractorProtocol {
+    func objectHeaderInteractor() -> ObjectHeaderInteractorProtocol {
         ObjectHeaderInteractor(
-            detailsService: detailsService(objectId: objectId),
+            detailsService: detailsService(),
             fileService: fileService(),
             unsplashService: unsplashService
         )
@@ -286,11 +286,8 @@ final class ServiceLocator {
         Container.shared.pasteboardHelper()
     }
     
-    func pasteboardBlockDocumentService(document: BaseDocumentProtocol) -> PasteboardBlockDocumentServiceProtocol {
-        PasteboardBlockDocumentService(
-            document: document,
-            service: pasteboardBlockService()
-        )
+    func pasteboardBlockDocumentService() -> PasteboardBlockDocumentServiceProtocol {
+        PasteboardBlockDocumentService(service: pasteboardBlockService())
     }
     
     func pasteboardBlockService() -> PasteboardBlockServiceProtocol {
@@ -323,5 +320,13 @@ final class ServiceLocator {
     
     func blockTableService() -> BlockTableServiceProtocol {
         Container.shared.blockTableService()
+    }
+    
+    func relationValueProcessingService() -> RelationValueProcessingServiceProtocol {
+        Container.shared.relationValueProcessingService()
+    }
+    
+    func membershipService() -> MembershipServiceProtocol {
+        Container.shared.membershipService()
     }
 }

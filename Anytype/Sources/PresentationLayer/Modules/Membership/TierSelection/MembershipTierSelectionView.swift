@@ -1,47 +1,40 @@
 import SwiftUI
 
 struct MembershipTierSelectionView: View {
-    let tier: MembershipTier
+    @State var model: MembershipTierSelectionViewModel
     
     var body: some View {
-        VStack(spacing: 0) {
-            info
-            Spacer()
+        ScrollView {
+            VStack(spacing: 0) {
+                MembershipTierInfoView(tier: model.tier)
+                sheet
+            }
         }
+        .background(Color.Background.primary)
     }
     
-    var info: some View {
-        VStack(alignment: .leading, spacing: 0) {
-            Spacer.fixedHeight(36)
-            Image(asset: tier.mediumIcon)
-            Spacer.fixedHeight(14)
-            AnytypeText(tier.title, style: .title, color: .Text.primary)
-            Spacer.fixedHeight(6)
-            AnytypeText(tier.subtitle, style: .calloutRegular, color: .Text.primary)
-            Spacer.fixedHeight(22)
-            whatsIncluded
-            Spacer.fixedHeight(30)
-        }
-        .frame(maxWidth: .infinity)
-        .padding(20)
-        .background(tier.gradient)
-    }
-    
-    var whatsIncluded: some View {
-        VStack(alignment: .leading, spacing: 0) {
-            AnytypeText(Loc.whatSIncluded, style: .calloutRegular, color: .Text.secondary)
-            Spacer.fixedHeight(6)
-            ForEach(tier.benefits, id: \.self) { benefit in
-                HStack(spacing: 8) {
-                    Image(asset: .X18.listArrow).frame(width: 16, height: 16)
-                    AnytypeText(benefit, style: .calloutRegular, color: .Text.secondary)
-                        .lineLimit(1)
+    var sheet: some View {
+        Group {
+            switch model.tier {
+            case .explorer:
+                MembershipEmailSheetView { email, subscribeToNewsletter in
+                    try await model.getVerificationEmail(email: email, subscribeToNewsletter: subscribeToNewsletter)
                 }
+            case .builder:
+                Color.blue.frame(height: 300)
+            case .coCreator:
+                Color.red.frame(height: 300)
             }
         }
     }
 }
 
 #Preview {
-    MembershipTierSelectionView(tier: .builder)
+    MembershipTierSelectionView(
+        model: MembershipTierSelectionViewModel(
+            tier: .explorer,
+            membershipService: DI.preview.serviceLocator.membershipService(),
+            showEmailVerification: { _ in }
+        )
+    )
 }

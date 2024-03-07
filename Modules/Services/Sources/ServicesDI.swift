@@ -115,4 +115,8 @@ public extension Container {
     var workspaceService: Factory<WorkspaceServiceProtocol> {
         self { WorkspaceService() }.shared
     }
+    
+    var membershipService: Factory<MembershipServiceProtocol> {
+        self { MembershipService() }.shared
+    }
 }

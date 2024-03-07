@@ -42,15 +42,14 @@ final class EditorSetModuleAssembly: EditorSetModuleAssemblyProtocol {
             inlineParameters: data.inline
         )
         
-        let detailsService = serviceLocator.detailsService(objectId: data.objectId)
-        
         let headerModel = ObjectHeaderViewModel(
             document: setDocument,
+            targetObjectId: setDocument.targetObjectId,
             configuration: .init(
                 isOpenedForPreview: false,
                 usecase: .editor
             ),
-            interactor: serviceLocator.objectHeaderInteractor(objectId: setDocument.targetObjectId)
+            interactor: serviceLocator.objectHeaderInteractor()
         )
         
         let model = EditorSetViewModel(
@@ -59,8 +58,9 @@ final class EditorSetModuleAssembly: EditorSetModuleAssemblyProtocol {
             subscriptionStorageProvider: serviceLocator.subscriptionStorageProvider(),
             dataviewService: serviceLocator.dataviewService(),
             searchService: serviceLocator.searchService(),
-            detailsService: detailsService,
-            objectActionsService: serviceLocator.objectActionsService(),
+            detailsService: serviceLocator.detailsService(),
+            objectActionsService: serviceLocator.objectActionsService(), 
+            relationsService: serviceLocator.relationService(),
             textServiceHandler: serviceLocator.textServiceHandler(),
             groupsSubscriptionsHandler: serviceLocator.groupsSubscriptionsHandler(),
             setSubscriptionDataBuilder: SetSubscriptionDataBuilder(activeWorkspaceStorage: serviceLocator.activeWorkspaceStorage()),

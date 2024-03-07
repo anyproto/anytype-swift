@@ -1,5 +1,7 @@
 import Foundation
 
+
+@MainActor
 final class MembershipModuleViewModel: ObservableObject {
     private let urlOpener: URLOpenerProtocol
     private let onTierTap: (MembershipTier) -> ()

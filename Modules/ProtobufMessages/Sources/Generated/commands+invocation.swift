@@ -587,6 +587,11 @@ extension Anytype_Rpc.Debug.StackGoroutines.Response.Error: ResponseError {
     public var isNull: Bool { code == .null }
 }
 
+extension Anytype_Rpc.Debug.Stat.Response: ResultWithError {}
+extension Anytype_Rpc.Debug.Stat.Response.Error: ResponseError {
+    public var isNull: Bool { code == .null }
+}
+
 extension Anytype_Rpc.Debug.Subscriptions.Response: ResultWithError {}
 extension Anytype_Rpc.Debug.Subscriptions.Response.Error: ResponseError {
     public var isNull: Bool { code == .null }
@@ -1063,6 +1068,11 @@ extension Anytype_Rpc.Space.RequestApprove.Response.Error: ResponseError {
 
 extension Anytype_Rpc.Space.RequestDecline.Response: ResultWithError {}
 extension Anytype_Rpc.Space.RequestDecline.Response.Error: ResponseError {
+    public var isNull: Bool { code == .null }
+}
+
+extension Anytype_Rpc.Space.StopSharing.Response: ResultWithError {}
+extension Anytype_Rpc.Space.StopSharing.Response.Error: ResponseError {
     public var isNull: Bool { code == .null }
 }
 

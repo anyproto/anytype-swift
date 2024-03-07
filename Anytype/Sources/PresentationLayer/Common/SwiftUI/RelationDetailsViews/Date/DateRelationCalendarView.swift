@@ -12,6 +12,8 @@ struct DateRelationCalendarView: View {
             content
         }
         .background(Color.Background.secondary)
+        .frame(height: 525)
+        .fitPresentationDetents()
         .onChange(of: viewModel.dismiss) { _ in
             dismiss()
         }

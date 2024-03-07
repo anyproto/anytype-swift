@@ -188,7 +188,7 @@ final class SlashMenuActionHandler {
             }
         case .copy:
             Task {
-                try await pasteboardService.copy(blocksIds: [blockId], selectedTextRange: NSRange())
+                try await pasteboardService.copy(document: document, blocksIds: [blockId], selectedTextRange: NSRange())
             }
         case .paste:
             textView?.paste(self)

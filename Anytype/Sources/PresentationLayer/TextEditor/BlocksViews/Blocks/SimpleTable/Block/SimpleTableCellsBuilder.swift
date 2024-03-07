@@ -104,6 +104,7 @@ final class SimpleTableCellsBuilder {
         }
         
         let textBlockActionHandler = SimpleTablesTextBlockActionHandler(
+            document: document,
             info: information,
             focusSubject: focusSubjectHolder.focusSubject(for: information.id),
             actionHandler: handler,

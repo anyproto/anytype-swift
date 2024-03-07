@@ -988,10 +988,15 @@
 
 // MARK: - Membership
 "Membership" = "Lidmaatschap";
-"Just e-mail" = "Just e-mail";
-"Learn more" = "Learn more";
-"per year" = "per year";
-"per x years" = "per %@ years";
+"Just e-mail" = "Alleen e-mail";
+"E-mail" = "E-mailadres";
+"Learn more" = "Ontdek meer";
+"per year" = "per jaar";
+"per x years" = "per %@ jaar";
+"What’s included" = "Wat is inbegrepen";
+"Submit" = "Verstuur";
+"Resend" = "Resend";
+"Resend in" = "Resend in %@ sec";
 
 "Membership.Ad.Title" = "Laten we samen bouwen";
 "Membership.Ad.Subtitle" = "Deelnemen aan het Anytype netwerk betekent bijdragen aan het verhaal";
@@ -1002,28 +1007,52 @@
 "Membership.Legal.WouldYouLike" = "Wil je Anytype gebruiken voor werk, opleiding, etc.?";
 "Membership.Legal.LetUsKnow" = "Laat het ons hier weten.";
 
-"Membership.Email.Subject" = "Special Pricing Request";
-"Membership.Email.Body" = "Please specify your request:
-- highlight if you represent an educational, governmental, or non-profit organization
-- tell us more about your organization: number of employees and future Anytype users, markets you're working on, etc.,
-- provide additional details about how your organization uses Anytype";
+"Membership.Email.Subject" = "Speciale prijsaanvraag";
+"Membership.Email.Body" = "Specificeer alsjeblieft jouw verzoek:
+- markeer als je een onderwijs-, overheids- of non-profit organisatie vertegenwoordigt
+- vertel ons meer over jouw organisatie: aantal medewerkers en toekomstige Anytype gebruikers, markten waar je in werkt, enz.
+- geef aanvulende informatie over hoe jouw organisatie Anytype gebruikt";
 
 "Membership.Banner.Title1" = "Maak samen met ons";
 "Membership.Banner.Subtitle1" = "Blijf nauw verbonden met ons team en onze gemeenschap. Neem deel aan gesprekken met het team, beïnvloed de ontwikkeling van Anytype en geef je mening over functies.";
 "Membership.Banner.Title2" = "Verdien voordelen";
-"Membership.Banner.Subtitle2" = "Onze leden hebben een unieke identiteit op het Anytype netwerk, meer opslag, gedeelde ruimtes en leden per ruimte voor uitgebreide samenwerking";
+"Membership.Banner.Subtitle2" = "Our members have unique identity on Anytype Network, more storage, shared spaces and members per space for extensive collaboration.";
 "Membership.Banner.Title3" = "Ondersteun de visie";
 "Membership.Banner.Subtitle3" = "Jouw bijdrage steunt ons onafhankelijke team en ondersteunt onze visie op een gebruiker-gestuurde, veilige en gezamenlijke digitale omgeving.";
 "Membership.Banner.Title4" = "Investeer in verbinding";
-"Membership.Banner.Subtitle4" = "Onze software is gratis, maar we bloeien op het netwerk dat ons allemaal verbindt. Steun ons, en je investeert in de infrastructuur die ons verenigt";
+"Membership.Banner.Subtitle4" = "Our software is free by design, but we thrive on the network that connects us all. Support us, and you're investing in the very infrastructure that keeps us united.";
 
-"Membership.Explorer.Title" = "Explorer";
-"Membership.Explorer.Info" = "Dive into the network and enjoy the thrill of one-on-one collaboration";
-"Membership.Builder.Title" = "Builder";
-"Membership.Builder.Info" = "Unlock the magic of multi-party collaboration and enjoy top-notch support";
-"Membership.CoCreator.Title" = "Co-Creator";
-"Membership.CoCreator.Info" = "Support our adventure and unlock exclusive access and perks";
+"Membership.EmailForm.Title" = "Verkrijg jouw gratis lidmaatschap";
+"Membership.EmailForm.Subtitle" = "We hebben je e-mail nodig om spam op afstand te houden en het plezier te behouden!";
+"Membership.EmailForm.Newsletter" = "Ik zou graag updates over producten willen ontvangen en genieten van gratis voordelen!";
+"Membership.EmailValidation" = "Enter the code sent to your email";
 
+"Membership.Success.Title" = "Welcome to the network, %@";
+"Membership.Success.Subitle" = "Big cheers for your curiosity!";
+
+
+// MARK: - Membership Tiers
+"Membership.Explorer.Title" = "Verkenner";
+"Membership.Explorer.Subtitle" = "Duik in het netwerk en geniet van de spanning van één-op-één samenwerking";
+"Membership.Explorer.Benefit1" = "1 GB aan netwerkruimte";
+"Membership.Explorer.Benefit2" = "10 één-op-één ruimtes";
+"Membership.Explorer.Benefit3" = "Tot 10 gedeelde ruimtes in alleen-lezen modus";
+
+"Membership.Builder.Title" = "Bouwer";
+"Membership.Builder.Subtitle" = "Ontgrendel de magie van de samenwerking tussen meerdere partijen en geniet van de hoogwaardige ondersteuning";
+"Membership.Builder.Benefit1" = "Unieke naam (van 7 tekens)";
+"Membership.Builder.Benefit2" = "128 GB aan netwerkruimte";
+"Membership.Builder.Benefit3" = "10 gast medwerker accounts";
+"Membership.Builder.Benefit4" = "Voorkeursondersteuning";
+
+
+"Membership.CoCreator.Title" = "Co-creator";
+"Membership.CoCreator.Subtitle" = "Ondersteun ons avontuur en ontgrendel exclusieve toegang en voordelen";
+"Membership.CoCreator.Benefit1" = "Unieke naam (van 5 tekens)";
+"Membership.CoCreator.Benefit2" = "256 GB aan netwerkruimte";
+"Membership.CoCreator.Benefit3" = "25 gast medewerker accounts";
+"Membership.CoCreator.Benefit4" = "Chat met het team";
+"Membership.CoCreator.Benefit5" = "Uniek verzamelstuk";
 
 
 // MARK: - Debug

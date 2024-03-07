@@ -10,6 +10,7 @@ struct TextBlockURLInputParameters {
 }
 
 final class TextBlockActionHandler: TextBlockActionHandlerProtocol {
+    private let document: BaseDocumentProtocol
     var info: BlockInformation
 
     let showPage: (String) -> Void
@@ -46,6 +47,7 @@ final class TextBlockActionHandler: TextBlockActionHandlerProtocol {
     var accessoryState: AccessoryViewInputState = .none
 
     init(
+        document: BaseDocumentProtocol,
         info: BlockInformation,
         focusSubject: PassthroughSubject<BlockFocusPosition, Never>,
         showPage: @escaping (String) -> Void,
@@ -67,6 +69,7 @@ final class TextBlockActionHandler: TextBlockActionHandlerProtocol {
         markupChanger: BlockMarkupChangerProtocol,
         slashMenuActionHandler: SlashMenuActionHandler
     ) {
+        self.document = document
         self.info = info
         self.focusSubject = focusSubject
         self.showPage = showPage
@@ -306,7 +309,7 @@ final class TextBlockActionHandler: TextBlockActionHandlerProtocol {
             return true
         }
 
-        pasteboardService.pasteInsideBlock(focusedBlockId: info.id, range: range) { [weak self] in
+        pasteboardService.pasteInsideBlock(objectId: document.objectId, focusedBlockId: info.id, range: range) { [weak self] in
             self?.showWaitingView(Loc.pasteProcessing)
         } completion: { [weak textView, weak self] pasteResult in
             guard let textView else { return }
@@ -332,13 +335,13 @@ final class TextBlockActionHandler: TextBlockActionHandlerProtocol {
     private func copy(range: NSRange) {
         AnytypeAnalytics.instance().logCopyBlock()
         Task {
-            try await pasteboardService?.copy(blocksIds: [info.id], selectedTextRange: range)
+            try await pasteboardService?.copy(document: document, blocksIds: [info.id], selectedTextRange: range)
         }
     }
     
     private func cut(range: NSRange) {
         Task {
-            try await pasteboardService?.cut(blocksIds: [info.id], selectedTextRange: range)
+            try await pasteboardService?.cut(document: document, blocksIds: [info.id], selectedTextRange: range)
         }
     }
 
