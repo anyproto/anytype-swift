@@ -51,6 +51,7 @@ final class TypesService: TypesServiceProtocol {
         includeLists: Bool,
         includeBookmark: Bool,
         includeFiles: Bool,
+        incudeNotForCreation: Bool,
         spaceId: String
     ) async throws -> [ObjectDetails] {
         let excludedTypeIds = includePins ? [] : try await searchPinnedTypes(text: "", spaceId: spaceId).map { $0.id }
@@ -76,6 +77,9 @@ final class TypesService: TypesServiceProtocol {
             SearchHelper.layoutFilter([DetailsLayout.objectType])
             SearchHelper.recomendedLayoutFilter(layouts)
             SearchHelper.excludedIdsFilter(excludedTypeIds)
+            if !incudeNotForCreation {
+                SearchHelper.excludeObjectRestriction(.createObjectOfThisType)
+            }
         }
         
         let result = try await searchMiddleService.search(filters: filters, sorts: [sort], fullText: text)

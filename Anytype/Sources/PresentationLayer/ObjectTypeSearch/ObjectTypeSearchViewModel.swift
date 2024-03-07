@@ -10,6 +10,7 @@ final class ObjectTypeSearchViewModel: ObservableObject {
     let showPins: Bool
     private let showLists: Bool
     private let showFiles: Bool
+    private let incudeNotForCreation: Bool
     
     private let spaceId: String
     private let workspaceService: WorkspaceServiceProtocol
@@ -24,6 +25,7 @@ final class ObjectTypeSearchViewModel: ObservableObject {
         showPins: Bool,
         showLists: Bool,
         showFiles: Bool,
+        incudeNotForCreation: Bool,
         spaceId: String,
         workspaceService: WorkspaceServiceProtocol,
         typesService: TypesServiceProtocol,
@@ -34,6 +36,7 @@ final class ObjectTypeSearchViewModel: ObservableObject {
         self.showPins = showPins
         self.showLists = showLists
         self.showFiles = showFiles
+        self.incudeNotForCreation = incudeNotForCreation
         self.spaceId = spaceId
         self.workspaceService = workspaceService
         self.typesService = typesService
@@ -56,6 +59,7 @@ final class ObjectTypeSearchViewModel: ObservableObject {
                 includeLists: false,
                 includeBookmark: true, 
                 includeFiles: showFiles,
+                incudeNotForCreation: incudeNotForCreation,
                 spaceId: spaceId
             ).map { ObjectType(details: $0) }
             let libraryTypes = text.isNotEmpty ? try await typesService.searchLibraryObjectTypes(

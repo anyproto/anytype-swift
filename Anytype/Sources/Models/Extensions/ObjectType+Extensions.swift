@@ -16,6 +16,7 @@ extension ObjectType {
         spaceId: "",
         uniqueKey: .empty,
         defaultTemplateId: "",
+        canCreateObjectOfThisType: false,
         recommendedRelations: [],
         recommendedLayout: nil
     )
