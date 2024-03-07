@@ -996,6 +996,9 @@
 "Submit" = "Submit";
 "Resend" = "Resend";
 "Resend in" = "Resend in %@ sec";
+"Current" = "Current";
+"Forever free" = "Forever free";
+"Valid until" = "Valid until %@";
 
 "Membership.Ad.Title" = "Let’s build together";
 "Membership.Ad.Subtitle" = "Joining Anytype network means contributing to its story";

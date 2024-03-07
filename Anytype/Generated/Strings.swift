@@ -160,6 +160,8 @@ internal enum Loc {
   }
   /// Create type
   internal static let createType = Loc.tr("Localizable", "Create type", fallback: "Create type")
+  /// Current
+  internal static let current = Loc.tr("Localizable", "Current", fallback: "Current")
   /// Plural format key: "This account will be deleted %#@days@"
   internal static func daysToDeletionAccount(_ p1: Int) -> String {
     return Loc.tr("Localizable", "Days to deletion account", p1, fallback: "Plural format key: \"This account will be deleted %#@days@\"")
@@ -238,6 +240,8 @@ internal enum Loc {
   internal static let fileBlockSubtitle = Loc.tr("Localizable", "File block subtitle", fallback: "Store file in original state")
   /// Filter
   internal static let filter = Loc.tr("Localizable", "Filter", fallback: "Filter")
+  /// Forever free
+  internal static let foreverFree = Loc.tr("Localizable", "Forever free", fallback: "Forever free")
   /// Gallery
   internal static let gallery = Loc.tr("Localizable", "Gallery", fallback: "Gallery")
   /// Go back
@@ -559,6 +563,10 @@ internal enum Loc {
   internal static let upload = Loc.tr("Localizable", "Upload", fallback: "Upload")
   /// Upload playable audio
   internal static let uploadPlayableAudio = Loc.tr("Localizable", "Upload playable audio", fallback: "Upload playable audio")
+  /// Valid until %@
+  internal static func validUntil(_ p1: Any) -> String {
+    return Loc.tr("Localizable", "Valid until", String(describing: p1), fallback: "Valid until %@")
+  }
   /// Video
   internal static let video = Loc.tr("Localizable", "Video", fallback: "Video")
   /// Upload playable video

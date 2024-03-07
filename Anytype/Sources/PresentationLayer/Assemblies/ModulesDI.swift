@@ -295,7 +295,7 @@ final class ModulesDI: ModulesDIProtocol {
     }
     
     func membership() -> MembershipModuleAssemblyProtocol {
-        MembershipModuleAssembly(uiHelpersDI: uiHelpersDI)
+        MembershipModuleAssembly(uiHelpersDI: uiHelpersDI, serviceLocator: serviceLocator)
     }
     
     func membershipTierSelection() -> MembershipTierSelectionAssemblyProtocol {

@@ -18,16 +18,18 @@ struct MembershipModuleView: View {
                     Spacer.fixedHeight(32)
                     
                     baners
-                    MembershipTierListView {
+                    MembershipTierListView(currentTier: model.tier) {
                         UISelectionFeedbackGenerator().selectionChanged()
                         model.onTierTap(tier: $0)
                     }
                     .padding(.vertical, 32)
                     
-                    
                     legal
                 }
             }
+        }
+        .task {
+            model.updateCurrentTier()
         }
     }
     
@@ -96,6 +98,7 @@ struct MembershipModuleView: View {
     NavigationView {
         MembershipModuleView(
             model: MembershipModuleViewModel(
+                membershipService: DI.preview.serviceLocator.membershipService(), 
                 urlOpener: DI.preview.uihelpersDI.urlOpener(),
                 onTierTap: { _ in }
             )
