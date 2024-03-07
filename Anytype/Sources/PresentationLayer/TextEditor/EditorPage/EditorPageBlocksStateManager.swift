@@ -445,7 +445,7 @@ final class EditorPageBlocksStateManager: EditorPageBlocksStateManagerProtocol {
         case .paste:
             let blockIds = elements.map(\.blockId)
 
-            pasteboardService.pasteInSelectedBlocks(selectedBlockIds: blockIds) { [weak self] in
+            pasteboardService.pasteInSelectedBlocks(objectId: document.objectId, selectedBlockIds: blockIds) { [weak self] in
                 self?.router.showWaitingView(text: Loc.pasteProcessing)
             } completion: { [weak self] _ in
                 self?.router.hideWaitingView()
@@ -464,9 +464,9 @@ final class EditorPageBlocksStateManager: EditorPageBlocksStateManagerProtocol {
             }
 
             AnytypeAnalytics.instance().logCopyBlock()
-            Task { @MainActor [weak self, blocksIds] in
-                try await self?.pasteboardService.copy(blocksIds: blocksIds, selectedTextRange: NSRange())
-                self?.toastPresenter.show(message: Loc.copied)
+            Task { @MainActor [blocksIds] in
+                try await pasteboardService.copy(document: document, blocksIds: blocksIds, selectedTextRange: NSRange())
+                toastPresenter.show(message: Loc.copied)
             }
         case .preview:
             elements.first.map {

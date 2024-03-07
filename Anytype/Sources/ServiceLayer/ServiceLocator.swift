@@ -83,8 +83,8 @@ final class ServiceLocator {
         SearchMiddleService()
     }
     
-    func detailsService(objectId: String) -> DetailsServiceProtocol {
-        DetailsService(objectId: objectId, service: objectActionsService(), fileService: fileService())
+    func detailsService() -> DetailsServiceProtocol {
+        DetailsService(service: objectActionsService(), fileService: fileService())
     }
     
     func bookmarkService() -> BookmarkServiceProtocol {
@@ -251,9 +251,9 @@ final class ServiceLocator {
         ObjectsCommonSubscriptionDataBuilder()
     }
     
-    func objectHeaderInteractor(objectId: String) -> ObjectHeaderInteractorProtocol {
+    func objectHeaderInteractor() -> ObjectHeaderInteractorProtocol {
         ObjectHeaderInteractor(
-            detailsService: detailsService(objectId: objectId),
+            detailsService: detailsService(),
             fileService: fileService(),
             unsplashService: unsplashService
         )
@@ -373,11 +373,8 @@ final class ServiceLocator {
         PasteboardHelper()
     }
     
-    func pasteboardBlockDocumentService(document: BaseDocumentProtocol) -> PasteboardBlockDocumentServiceProtocol {
-        PasteboardBlockDocumentService(
-            document: document,
-            service: pasteboardBlockService()
-        )
+    func pasteboardBlockDocumentService() -> PasteboardBlockDocumentServiceProtocol {
+        PasteboardBlockDocumentService(service: pasteboardBlockService())
     }
     
     func pasteboardBlockService() -> PasteboardBlockServiceProtocol {

@@ -36,7 +36,6 @@ final class ObjectSettingModuleAssembly: ObjectSettingModuleAssemblyProtocol {
     ) -> UIViewController {
         let viewModel = ObjectSettingsViewModel(
             document: document,
-            objectDetailsService: serviceLocator.detailsService(objectId: document.objectId),
             objectActionsService: serviceLocator.objectActionsService(),
             blockService: serviceLocator.blockService(),
             templatesService: serviceLocator.templatesService,

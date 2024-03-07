@@ -172,7 +172,7 @@ final class EditorPageModuleAssembly: EditorPageModuleAssemblyProtocol {
             objectTypeProvider: serviceLocator.objectTypeProvider()
         )
         
-        let pasteboardService = serviceLocator.pasteboardBlockDocumentService(document: document)
+        let pasteboardService = serviceLocator.pasteboardBlockDocumentService()
         let blocksStateManager = EditorPageBlocksStateManager(
             document: document,
             modelsHolder: modelsHolder,
@@ -204,8 +204,9 @@ final class EditorPageModuleAssembly: EditorPageModuleAssemblyProtocol {
         
         let headerModel = ObjectHeaderViewModel(
             document: document,
+            targetObjectId: document.objectId,
             configuration: configuration,
-            interactor: serviceLocator.objectHeaderInteractor(objectId: document.objectId)
+            interactor: serviceLocator.objectHeaderInteractor()
         )
         setupHeaderModelActions(headerModel: headerModel, using: router)
         
@@ -242,7 +243,7 @@ final class EditorPageModuleAssembly: EditorPageModuleAssemblyProtocol {
             markdownListener: markdownListener,
             simpleTableDependenciesBuilder: simpleTableDependenciesBuilder,
             subjectsHolder: focusSubjectHolder,
-            detailsService: serviceLocator.detailsService(objectId: document.objectId),
+            detailsService: serviceLocator.detailsService(),
             audioSessionService: serviceLocator.audioSessionService(),
             infoContainer: document.infoContainer,
             tableService: blockTableService,

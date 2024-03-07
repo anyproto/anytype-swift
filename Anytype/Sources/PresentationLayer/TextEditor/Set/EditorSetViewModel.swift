@@ -519,7 +519,7 @@ final class EditorSetViewModel: ObservableObject {
         guard details.layoutValue == .todo else { return }
         Task {
             try await detailsService.updateBundledDetails(
-                contextID: details.id,
+                objectId: details.id,
                 bundledDetails: [.done(!details.isDone)]
             )
             UIImpactFeedbackGenerator(style: .rigid).impactOccurred()
@@ -732,19 +732,19 @@ extension EditorSetViewModel {
             relationDetailsStorage: DI.preview.serviceLocator.relationDetailsStorage(),
             objectTypeProvider: DI.preview.serviceLocator.objectTypeProvider()
         ),
-        headerViewModel: .init(
+        headerViewModel: ObjectHeaderViewModel(
             document: MockBaseDocument(),
+            targetObjectId: "",
             configuration: .init(
                 isOpenedForPreview: false,
                 usecase: .editor
             ),
-            interactor: DI.preview.serviceLocator.objectHeaderInteractor(objectId: "objectId")
+            interactor: DI.preview.serviceLocator.objectHeaderInteractor()
         ),
         subscriptionStorageProvider: DI.preview.serviceLocator.subscriptionStorageProvider(),
         dataviewService: DI.preview.serviceLocator.dataviewService(),
         searchService: DI.preview.serviceLocator.searchService(),
         detailsService: DetailsService(
-            objectId: "objectId",
             service: DI.preview.serviceLocator.objectActionsService(),
             fileService: DI.preview.serviceLocator.fileService()
         ),
