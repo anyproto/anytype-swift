@@ -38,18 +38,10 @@ internal enum Loc {
   internal static let addEmail = Loc.tr("Localizable", "Add email", fallback: "Add email")
   /// Add link
   internal static let addLink = Loc.tr("Localizable", "Add link", fallback: "Add link")
-  /// Add number
-  internal static let addNumber = Loc.tr("Localizable", "Add number", fallback: "Add number")
   /// Add phone
   internal static let addPhone = Loc.tr("Localizable", "Add phone", fallback: "Add phone")
-  /// Add phone number
-  internal static let addPhoneNumber = Loc.tr("Localizable", "Add phone number", fallback: "Add phone number")
-  /// Add text
-  internal static let addText = Loc.tr("Localizable", "Add text", fallback: "Add text")
   /// Add To Favorite
   internal static let addToFavorite = Loc.tr("Localizable", "Add To Favorite", fallback: "Add To Favorite")
-  /// Add URL
-  internal static let addURL = Loc.tr("Localizable", "Add URL", fallback: "Add URL")
   /// Align center
   internal static let alignCenter = Loc.tr("Localizable", "Align center", fallback: "Align center")
   /// Align left
@@ -208,10 +200,16 @@ internal enum Loc {
   internal static let emojiOrImageForObject = Loc.tr("Localizable", "Emoji or image for object", fallback: "Emoji or image for object")
   /// Empty
   internal static let empty = Loc.tr("Localizable", "Empty", fallback: "Empty")
+  /// Enter email
+  internal static let enterEmail = Loc.tr("Localizable", "Enter email", fallback: "Enter email")
   /// Enter number
   internal static let enterNumber = Loc.tr("Localizable", "Enter number", fallback: "Enter number")
+  /// Enter phone number
+  internal static let enterPhoneNumber = Loc.tr("Localizable", "Enter phone number", fallback: "Enter phone number")
   /// Enter text
   internal static let enterText = Loc.tr("Localizable", "Enter text", fallback: "Enter text")
+  /// Enter URL
+  internal static let enterURL = Loc.tr("Localizable", "Enter URL", fallback: "Enter URL")
   /// Enter value
   internal static let enterValue = Loc.tr("Localizable", "Enter value", fallback: "Enter value")
   /// Error

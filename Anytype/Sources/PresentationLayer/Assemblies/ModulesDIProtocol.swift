@@ -7,6 +7,7 @@ protocol ModulesDIProtocol: AnyObject {
     func selectRelationList() -> SelectRelationListModuleAssemblyProtocol
     func relationOptionSettings() -> RelationOptionSettingsModuleAssemblyProtocol
     func objectRelationList() -> ObjectRelationListModuleAssemblyProtocol
+    func textRelationEditing() -> TextRelationEditingModuleAssemblyProtocol
     func undoRedo() -> UndoRedoModuleAssemblyProtocol
     func objectLayoutPicker() -> ObjectLayoutPickerModuleAssemblyProtocol
     func objectCoverPicker() -> ObjectCoverPickerModuleAssemblyProtocol

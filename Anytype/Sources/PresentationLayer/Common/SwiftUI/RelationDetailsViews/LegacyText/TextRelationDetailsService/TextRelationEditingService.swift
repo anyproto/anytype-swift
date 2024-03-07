@@ -2,7 +2,7 @@ import Foundation
 import Services
 
 protocol TextRelationEditingServiceProtocol: AnyObject {
-    func saveRelation(objectId: String, value: String, key: String, textType: TextRelationDetailsViewType)
+    func saveRelation(objectId: String, value: String, key: String, textType: TextRelationViewType)
 }
 
 final class TextRelationEditingService: TextRelationEditingServiceProtocol {
@@ -19,7 +19,7 @@ final class TextRelationEditingService: TextRelationEditingServiceProtocol {
     
     // MARK: - TextRelationDetailsServiceProtocol
     
-    func saveRelation(objectId: String, value: String, key: String, textType: TextRelationDetailsViewType) {
+    func saveRelation(objectId: String, value: String, key: String, textType: TextRelationViewType) {
         Task {
             switch textType {
             case .text:

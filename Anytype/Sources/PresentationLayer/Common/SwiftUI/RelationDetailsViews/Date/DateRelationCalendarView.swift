@@ -22,7 +22,7 @@ struct DateRelationCalendarView: View {
     private var content: some View {
         NavigationView {
             list
-                .navigationTitle(viewModel.title)
+                .navigationTitle(viewModel.config.title)
                 .navigationBarTitleDisplayMode(.inline)
         }
         .navigationViewStyle(.stack)
@@ -82,17 +82,12 @@ struct DateRelationCalendarView: View {
     }
 }
 
-struct DateCalendarView_Previews: PreviewProvider {
-    static var previews: some View {
-        DateRelationCalendarView(
-            viewModel: DateRelationCalendarViewModel(
-                title: "",
-                date: Date(),
-                objectId: "",
-                relationKey: "",
-                relationsService: DI.preview.serviceLocator.relationService(),
-                analyticsType: .block
-            )
+#Preview {
+    DateRelationCalendarView(
+        viewModel: DateRelationCalendarViewModel(
+            date: nil,
+            configuration: RelationModuleConfiguration.default,
+            relationsService: DI.preview.serviceLocator.relationService()
         )
-    }
+    )
 }

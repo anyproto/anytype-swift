@@ -4,7 +4,6 @@ import SwiftUI
 @MainActor
 final class SelectRelationListCoordinatorViewModel: ObservableObject, SelectRelationListModuleOutput {
 
-    private let objectId: String
     private let style: SelectRelationListStyle
     private let configuration: RelationModuleConfiguration
     private let selectedOptionsIds: [String]
@@ -16,14 +15,12 @@ final class SelectRelationListCoordinatorViewModel: ObservableObject, SelectRela
     @Published var dismiss = false
     
     init(
-        objectId: String,
         style: SelectRelationListStyle,
         configuration: RelationModuleConfiguration,
         selectedOptionsIds: [String],
         selectRelationListModuleAssembly: SelectRelationListModuleAssemblyProtocol,
         relationOptionSettingsModuleAssembly: RelationOptionSettingsModuleAssemblyProtocol
     ) {
-        self.objectId = objectId
         self.style = style
         self.configuration = configuration
         self.selectedOptionsIds = selectedOptionsIds
@@ -33,8 +30,7 @@ final class SelectRelationListCoordinatorViewModel: ObservableObject, SelectRela
     
     func selectRelationListModule() -> AnyView {
         selectRelationListModuleAssembly.make(
-            objectId: objectId,
-            style: style, 
+            style: style,
             configuration: configuration,
             selectedOptionsIds: selectedOptionsIds,
             output: self
