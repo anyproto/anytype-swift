@@ -6,6 +6,7 @@ final class RelationEditingViewModelBuilder {
     private weak var delegate: TextRelationActionButtonViewModelDelegate?
     
     private let newSearchModuleAssembly: NewSearchModuleAssemblyProtocol
+    private let textRelationEditingService: TextRelationEditingServiceProtocol
     private let searchService: SearchServiceProtocol
     private let systemURLService: SystemURLServiceProtocol
     private let alertOpener: AlertOpenerProtocol
@@ -14,6 +15,7 @@ final class RelationEditingViewModelBuilder {
     init(
         delegate: TextRelationActionButtonViewModelDelegate?,
         newSearchModuleAssembly: NewSearchModuleAssemblyProtocol,
+        textRelationEditingService: TextRelationEditingServiceProtocol,
         searchService: SearchServiceProtocol,
         systemURLService: SystemURLServiceProtocol,
         alertOpener: AlertOpenerProtocol,
@@ -21,6 +23,7 @@ final class RelationEditingViewModelBuilder {
     ) {
         self.delegate = delegate
         self.newSearchModuleAssembly = newSearchModuleAssembly
+        self.textRelationEditingService = textRelationEditingService
         self.searchService = searchService
         self.systemURLService = systemURLService
         self.alertOpener = alertOpener
@@ -41,26 +44,29 @@ extension RelationEditingViewModelBuilder: RelationEditingViewModelBuilderProtoc
         switch relation {
         case .text(let text):
             return TextRelationDetailsViewModel(
+                objectId: objectDetails.id,
                 value: text.value ?? "",
                 type: .text,
                 relation: relation,
-                service: TextRelationDetailsService(objectId: objectDetails.id, service: RelationsService()),
+                service: textRelationEditingService,
                 analyticsType: analyticsType
             )
         case .number(let number):
             return TextRelationDetailsViewModel(
+                objectId: objectDetails.id,
                 value: number.value ?? "",
                 type: .number,
                 relation: relation,
-                service: TextRelationDetailsService(objectId: objectDetails.id, service: RelationsService()),
+                service: textRelationEditingService,
                 analyticsType: analyticsType
             )
         case .phone(let phone):
             return TextRelationDetailsViewModel(
+                objectId: objectDetails.id,
                 value: phone.value ?? "",
                 type: .phone,
                 relation: relation,
-                service: TextRelationDetailsService(objectId: objectDetails.id, service: RelationsService()),
+                service: textRelationEditingService,
                 analyticsType: analyticsType,
                 actionsViewModel: [
                     TextRelationURLActionViewModel(
@@ -77,10 +83,11 @@ extension RelationEditingViewModelBuilder: RelationEditingViewModelBuilderProtoc
             )
         case .email(let email):
             return TextRelationDetailsViewModel(
+                objectId: objectDetails.id,
                 value: email.value ?? "",
                 type: .email,
                 relation: relation,
-                service: TextRelationDetailsService(objectId: objectDetails.id, service: RelationsService()),
+                service: textRelationEditingService,
                 analyticsType: analyticsType,
                 actionsViewModel: [
                     TextRelationURLActionViewModel(
@@ -115,10 +122,11 @@ extension RelationEditingViewModelBuilder: RelationEditingViewModelBuilderProtoc
                 )
             ]
             return TextRelationDetailsViewModel(
+                objectId: objectDetails.id,
                 value: url.value ?? "",
                 type: .url,
                 relation: relation,
-                service: TextRelationDetailsService(objectId: objectDetails.id, service: RelationsService()),
+                service: textRelationEditingService,
                 analyticsType: analyticsType,
                 actionsViewModel: actions.compactMap { $0 }
             )
