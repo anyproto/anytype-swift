@@ -3778,6 +3778,7 @@
 		038FB5C822D8F321002B90B8 /* ServiceLayer */ = {
 			isa = PBXGroup;
 			children = (
+				3D24912127BD271900821595 /* SubscriptionsToggler */,
 				2A1731B82B9A0A6400FD990D /* AudioSessionService */,
 				3DE296462617439C00EADB0A /* ServiceLocator.swift */,
 				2A82AB372B9754CB00AA8E18 /* ServicesDI.swift */,
@@ -7872,7 +7873,6 @@
 				3D24911C27BD271900821595 /* EventsListener.swift */,
 				3D24911D27BD271900821595 /* EventsListenerProtocol.swift */,
 				3D24911E27BD271900821595 /* EventConverters */,
-				3D24912127BD271900821595 /* Subscriptions */,
 				3D24912727BD271900821595 /* Model */,
 			);
 			path = Events;
@@ -7888,14 +7888,14 @@
 			path = EventConverters;
 			sourceTree = "<group>";
 		};
-		3D24912127BD271900821595 /* Subscriptions */ = {
+		3D24912127BD271900821595 /* SubscriptionsToggler */ = {
 			isa = PBXGroup;
 			children = (
 				2AA0209128D3502000321A66 /* Array+SubscriptionUpdate.swift */,
 				3D24912327BD271900821595 /* Internals */,
 				2EA098A62A697511009182C0 /* SubscriptionData+Info.swift */,
 			);
-			path = Subscriptions;
+			path = SubscriptionsToggler;
 			sourceTree = "<group>";
 		};
 		3D24912327BD271900821595 /* Internals */ = {
