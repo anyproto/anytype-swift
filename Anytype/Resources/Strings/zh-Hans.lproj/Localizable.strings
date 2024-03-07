@@ -635,11 +635,11 @@
 "No date" = "未注明日期";
 "Clear" = "清除";
 "Create option with" = "创建选项 “%@”";
-"Add URL" = "添加URL网址";
-"Add email" = "添加电子邮件";
-"Add phone number" = "添加电话号码";
-"Add number" = "添加数字";
-"Add text" = "添加文本";
+"Enter URL" = "Enter URL";
+"Enter email" = "Enter email";
+"Enter phone number" = "Enter phone number";
+"Enter number" = "输入号码";
+"Enter text" = "输入文本";
 "Ok" = "好的";
 "Error occurred. Please try again" = "发生错误。请重试";
 "Add" = "添加";
