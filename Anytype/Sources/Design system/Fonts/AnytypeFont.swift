@@ -50,4 +50,6 @@ enum AnytypeFont: CaseIterable {
     case authEmoji
     
     case navigationBarTitle
+    
+    case riccioneTitle
 }

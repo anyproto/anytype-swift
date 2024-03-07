@@ -9,9 +9,7 @@ struct MembershipModuleView: View {
             ScrollView {
                 VStack {
                     Spacer.fixedHeight(40)
-                    
-                    AnytypeText(Loc.Membership.Ad.title, name: .inter, size: 48, weight: .light)
-                        .foregroundStyle(Color.Text.primary)
+                    AnytypeText(Loc.Membership.Ad.title, style: .riccioneTitle, color: .Text.primary)
                         .padding(.horizontal, 20)
                         .multilineTextAlignment(.center)
                     AnytypeText(Loc.Membership.Ad.subtitle, style: .relation2Regular, color: .Text.primary)
