@@ -12,6 +12,7 @@ final class SettingsViewModel: ObservableObject {
     private let activeWorkspaceStorage: ActiveWorkpaceStorageProtocol
     private let subscriptionService: SingleObjectSubscriptionServiceProtocol
     private let objectActionsService: ObjectActionsServiceProtocol
+    private let membershipService: MembershipServiceProtocol
     private weak var output: SettingsModuleOutput?
     
     // MARK: - State
@@ -22,16 +23,19 @@ final class SettingsViewModel: ObservableObject {
     
     @Published var profileName: String = ""
     @Published var profileIcon: Icon?
+    @Published var membership: MembershipTier?
     
     init(
         activeWorkspaceStorage: ActiveWorkpaceStorageProtocol,
         subscriptionService: SingleObjectSubscriptionServiceProtocol,
         objectActionsService: ObjectActionsServiceProtocol,
+        membershipService: MembershipServiceProtocol,
         output: SettingsModuleOutput?
     ) {
         self.activeWorkspaceStorage = activeWorkspaceStorage
         self.subscriptionService = subscriptionService
         self.objectActionsService = objectActionsService
+        self.membershipService = membershipService
         self.output = output
         Task {
             await setupSubscription()
@@ -40,6 +44,10 @@ final class SettingsViewModel: ObservableObject {
     
     func onAppear() {
         AnytypeAnalytics.instance().logScreenSettingsAccount()
+        
+        Task {
+            membership = try await membershipService.getStatus()
+        }
     }
     
     func onAccountDataTap() {

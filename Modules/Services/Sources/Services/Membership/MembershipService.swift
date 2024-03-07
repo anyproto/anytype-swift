@@ -12,7 +12,17 @@ public struct EmailVerificationData: Identifiable {
     }
 }
 
+public enum MembershipTier: String, Identifiable, CaseIterable {
+    case explorer
+    case builder
+    case coCreator
+    
+    public var id: String { rawValue }
+}
+
+
 public protocol MembershipServiceProtocol {
+    func getStatus() async throws -> MembershipTier?
     func getVerificationEmail(data: EmailVerificationData) async throws
     func verifyEmailCode(code: String) async throws
 }
@@ -29,6 +39,14 @@ public final class MembershipService: MembershipServiceProtocol {
         
         if Int(code) != 1337 {
             throw CommonError.undefined
+        } else {
+            MembershipService.tier = .explorer
         }
     }
+    
+    private static var tier: MembershipTier?
+    public func getStatus() async throws -> MembershipTier? {
+        return MembershipService.tier
+    }
 }
+        
