@@ -34,7 +34,7 @@ struct MembershipTierSelectionView: View {
         model: MembershipTierSelectionViewModel(
             tier: .explorer,
             membershipService: DI.preview.serviceLocator.membershipService(),
-            showEmailVerification: {}
+            showEmailVerification: { _ in }
         )
     )
 }

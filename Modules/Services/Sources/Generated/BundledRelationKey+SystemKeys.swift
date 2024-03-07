@@ -78,6 +78,7 @@ public extension BundledRelationKey {
         .spaceInviteFileKey,
         .participantPermissions,
         .participantStatus,
+        .latestAclHeadId,
         .identity,
     ]
 }

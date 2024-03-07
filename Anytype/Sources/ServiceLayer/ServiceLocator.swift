@@ -412,6 +412,10 @@ final class ServiceLocator {
         MembershipService()
     }
     
+    func relationValueProcessingService() -> RelationValueProcessingServiceProtocol {
+        RelationValueProcessingService(relationsService: relationService())
+    }
+    
     // MARK: - Private
     
     private func subscriptionToggler() -> SubscriptionTogglerProtocol {

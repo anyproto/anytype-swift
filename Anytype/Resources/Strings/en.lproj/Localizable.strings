@@ -995,6 +995,7 @@
 "What’s included" = "What’s included";
 "Submit" = "Submit";
 "Resend" = "Resend";
+"Resend in" = "Resend in %@ sec";
 
 "Membership.Ad.Title" = "Let’s build together";
 "Membership.Ad.Subtitle" = "Joining Anytype network means contributing to its story";
@@ -1024,6 +1025,10 @@
 "Membership.EmailForm.Subtitle" = "We need your email to keep spam at bay and the fun in play!";
 "Membership.EmailForm.Newsletter" ="I'd like to get updates on products and enjoy free perks!";
 "Membership.EmailValidation" = "Enter the code sent to your email";
+
+"Membership.Success.Title" = "Welcome to the network, %@";
+"Membership.Success.Subitle" = "Big cheers for your curiosity!";
+
 
 // MARK: - Membership Tiers
 "Membership.Explorer.Title" = "Explorer";

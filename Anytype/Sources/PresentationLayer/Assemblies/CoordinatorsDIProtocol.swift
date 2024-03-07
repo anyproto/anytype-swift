@@ -1,7 +1,9 @@
 import Foundation
 
 protocol CoordinatorsDIProtocol: AnyObject {
+    func legacyRelationValue() -> LegacyRelationValueCoordinatorAssembly
     func relationValue() -> RelationValueCoordinatorAssemblyProtocol
+    func relationsList() -> RelationsListCoordinatorAssemblyProtocol
     func templates() -> TemplatesCoordinatorAssemblyProtocol
     func linkToObject() -> LinkToObjectCoordinatorAssemblyProtocol
     func objectSettings() -> ObjectSettingsCoordinatorAssemblyProtocol

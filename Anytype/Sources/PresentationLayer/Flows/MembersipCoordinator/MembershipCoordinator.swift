@@ -8,9 +8,13 @@ struct MembershipCoordinator: View {
         model.initialModule()
             .sheet(item: $model.showTier) {
                 model.tierSelection(tier: $0)
-                    .sheet(isPresented: $model.showEmailVerification) {
-                        model.emailVerification()
+                    .sheet(item: $model.emailVerificationData) {
+                        model.emailVerification(data: $0)
                     }
+            }
+        
+            .anytypeSheet(item: $model.showSuccess) {
+                MembershipTierSuccessView(tier: $0)
             }
     }
 }
