@@ -14,19 +14,12 @@ protocol ObjectHeaderInteractorProtocol {
 }
 
 final class ObjectHeaderInteractor: ObjectHeaderInteractorProtocol {
-    private let detailsService: DetailsServiceProtocol
-    private let fileService: FileActionsServiceProtocol
-    private let unsplashService: UnsplashServiceProtocol
-    
-    init(
-        detailsService: DetailsServiceProtocol,
-        fileService: FileActionsServiceProtocol,
-        unsplashService: UnsplashServiceProtocol
-    ) {
-        self.detailsService = detailsService
-        self.fileService = fileService
-        self.unsplashService = unsplashService
-    }
+    @Injected(\.detailsService)
+    private var detailsService: DetailsServiceProtocol
+    @Injected(\.fileActionsService)
+    private var fileService: FileActionsServiceProtocol
+    @Injected(\.unsplashService)
+    private var unsplashService: UnsplashServiceProtocol
     
     func handleCoverAction(
         objectId: String,

@@ -239,4 +239,16 @@ extension Container {
     var relationValueProcessingService: Factory<RelationValueProcessingServiceProtocol> {
         self { RelationValueProcessingService() }
     }
+    
+    var detailsService: Factory<DetailsServiceProtocol> {
+        self { DetailsService() }.shared
+    }
+    
+    var objectHeaderInteractor: Factory<ObjectHeaderInteractorProtocol> {
+        self { ObjectHeaderInteractor() }
+    }
+    
+    var pasteboardBlockDocumentService: Factory<PasteboardBlockDocumentServiceProtocol> {
+        self { PasteboardBlockDocumentService() }
+    }
 }

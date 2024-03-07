@@ -75,7 +75,7 @@ final class ServiceLocator {
     }
     
     func detailsService() -> DetailsServiceProtocol {
-        DetailsService(service: objectActionsService(), fileService: fileService())
+        Container.shared.detailsService()
     }
     
     func bookmarkService() -> BookmarkServiceProtocol {
@@ -195,11 +195,7 @@ final class ServiceLocator {
     }
     
     func objectHeaderInteractor() -> ObjectHeaderInteractorProtocol {
-        ObjectHeaderInteractor(
-            detailsService: detailsService(),
-            fileService: fileService(),
-            unsplashService: unsplashService
-        )
+        Container.shared.objectHeaderInteractor()
     }
     
     func singleObjectSubscriptionService() -> SingleObjectSubscriptionServiceProtocol {
@@ -287,7 +283,7 @@ final class ServiceLocator {
     }
     
     func pasteboardBlockDocumentService() -> PasteboardBlockDocumentServiceProtocol {
-        PasteboardBlockDocumentService(service: pasteboardBlockService())
+        Container.shared.pasteboardBlockDocumentService()
     }
     
     func pasteboardBlockService() -> PasteboardBlockServiceProtocol {
