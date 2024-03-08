@@ -17,7 +17,6 @@ final class RelationValueCoordinatorViewModel:
     
     private let relation: Relation
     private let objectDetails: ObjectDetails
-    private let selectRelationListCoordinatorAssembly: SelectRelationListCoordinatorAssemblyProtocol
     private let objectRelationListCoordinatorAssembly: ObjectRelationListCoordinatorAssemblyProtocol
     private let textRelationEditingModuleAssembly: TextRelationEditingModuleAssemblyProtocol
     private let urlOpener: URLOpenerProtocol
@@ -27,7 +26,6 @@ final class RelationValueCoordinatorViewModel:
     init(
         relation: Relation,
         objectDetails: ObjectDetails,
-        selectRelationListCoordinatorAssembly: SelectRelationListCoordinatorAssemblyProtocol,
         objectRelationListCoordinatorAssembly: ObjectRelationListCoordinatorAssemblyProtocol,
         textRelationEditingModuleAssembly: TextRelationEditingModuleAssemblyProtocol,
         urlOpener: URLOpenerProtocol,
@@ -36,7 +34,6 @@ final class RelationValueCoordinatorViewModel:
     ) {
         self.relation = relation
         self.objectDetails = objectDetails
-        self.selectRelationListCoordinatorAssembly = selectRelationListCoordinatorAssembly
         self.objectRelationListCoordinatorAssembly = objectRelationListCoordinatorAssembly
         self.textRelationEditingModuleAssembly = textRelationEditingModuleAssembly
         self.urlOpener = urlOpener
@@ -72,11 +69,11 @@ final class RelationValueCoordinatorViewModel:
                 analyticsType: analyticsType
             )
             mediumDetent = status.values.isNotEmpty || !relation.isEditable
-            return selectRelationListCoordinatorAssembly.make(
+            return SelectRelationListCoordinatorView(
                 style: .status,
                 configuration: configuration,
                 selectedOptionsIds: status.values.compactMap { $0.id }
-            )
+            ).eraseToAnyView()
         }
         
         if FeatureFlags.newMultiSelectRelationView, case .tag(let tag) = relation {
@@ -90,11 +87,11 @@ final class RelationValueCoordinatorViewModel:
                 analyticsType: analyticsType
             )
             mediumDetent = tag.selectedTags.isNotEmpty || !relation.isEditable
-            return selectRelationListCoordinatorAssembly.make(
+            return SelectRelationListCoordinatorView(
                 style: .tag,
                 configuration: configuration,
                 selectedOptionsIds: tag.selectedTags.compactMap { $0.id }
-            )
+            ).eraseToAnyView()
         }
         
         if FeatureFlags.newObjectSelectRelationView, case .object(let object) = relation {

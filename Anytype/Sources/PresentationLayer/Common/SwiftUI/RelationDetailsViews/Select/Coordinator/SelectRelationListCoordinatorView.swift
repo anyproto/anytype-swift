@@ -6,6 +6,20 @@ struct SelectRelationListCoordinatorView: View {
     @StateObject var model: SelectRelationListCoordinatorViewModel
     @Environment(\.dismiss) var dismiss
     
+    init(
+        style: SelectRelationListStyle,
+        configuration: RelationModuleConfiguration,
+        selectedOptionsIds: [String]
+    ) {
+        _model = StateObject(
+            wrappedValue: SelectRelationListCoordinatorViewModel(
+                style: style,
+                configuration: configuration,
+                selectedOptionsIds: selectedOptionsIds
+            )
+        )
+    }
+    
     var body: some View {
         SelectRelationListView(
             style: model.style,
