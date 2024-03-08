@@ -7,25 +7,26 @@ import AnytypeCore
 final class TextRelationReloadContentActionViewModel: TextRelationActionViewModelProtocol {
     
     private let objectDetails: ObjectDetails
-    private let relation: Relation
+    private let relationKey: String
     private let bookmarkService: BookmarkServiceProtocol
     private let alertOpener: AlertOpenerProtocol
     
+    let id = UUID().uuidString
     var inputText: String = ""
     let title: String = Loc.RelationAction.reloadContent
     let iconAsset = ImageAsset.X24.replace
     
     init?(
         objectDetails: ObjectDetails,
-        relation: Relation,
+        relationKey: String,
         bookmarkService: BookmarkServiceProtocol,
         alertOpener: AlertOpenerProtocol
     ) {
         guard objectDetails.layoutValue == .bookmark,
-              relation.isSource else { return nil }
+              relationKey == BundledRelationKey.source.rawValue else { return nil }
         
         self.objectDetails = objectDetails
-        self.relation = relation
+        self.relationKey = relationKey
         self.bookmarkService = bookmarkService
         self.alertOpener = alertOpener
     }

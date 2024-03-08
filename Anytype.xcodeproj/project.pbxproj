@@ -911,10 +911,8 @@
 		2E22F9E72B615053001EFCF3 /* SelectRelationOption.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E22F9E62B615053001EFCF3 /* SelectRelationOption.swift */; };
 		2E22F9EA2B6167AE001EFCF3 /* SelectRelationListCoordinatorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E22F9E92B6167AE001EFCF3 /* SelectRelationListCoordinatorView.swift */; };
 		2E22F9EC2B6167B7001EFCF3 /* SelectRelationListCoordinatorViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E22F9EB2B6167B7001EFCF3 /* SelectRelationListCoordinatorViewModel.swift */; };
-		2E22F9EE2B6167C4001EFCF3 /* SelectRelationListCoordinatorAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E22F9ED2B6167C4001EFCF3 /* SelectRelationListCoordinatorAssembly.swift */; };
 		2E22F9F02B616B6E001EFCF3 /* SelectRelationListModuleOutput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E22F9EF2B616B6E001EFCF3 /* SelectRelationListModuleOutput.swift */; };
 		2E22F9F32B617D5D001EFCF3 /* RelationOptionSettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E22F9F22B617D5D001EFCF3 /* RelationOptionSettingsView.swift */; };
-		2E22F9F72B617D7C001EFCF3 /* RelationOptionSettingsModuleAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E22F9F62B617D7C001EFCF3 /* RelationOptionSettingsModuleAssembly.swift */; };
 		2E22F9FB2B6193AF001EFCF3 /* RelationOptionSettingsConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E22F9FA2B6193AF001EFCF3 /* RelationOptionSettingsConfiguration.swift */; };
 		2E28BCEE2AAB55AD001E6306 /* SetViewPickerModuleAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E28BCED2AAB55AD001E6306 /* SetViewPickerModuleAssembly.swift */; };
 		2E28BCF12AAB58C6001E6306 /* SetViewPickerCoordinatorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E28BCF02AAB58C6001E6306 /* SetViewPickerCoordinatorView.swift */; };
@@ -958,7 +956,6 @@
 		2E3EF5CE2AFBC63E00A2D432 /* TemplatePickerData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E3EF5CD2AFBC63E00A2D432 /* TemplatePickerData.swift */; };
 		2E412CC8283BCA3E00C973FF /* MediaPickerContentType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E412CC7283BCA3E00C973FF /* MediaPickerContentType.swift */; };
 		2E412D152847B15C00C973FF /* SetSort.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E412D142847B15C00C973FF /* SetSort.swift */; };
-		2E43C6CF2B5843AD00F65DB9 /* DateRelationCalendarModuleAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E43C6CE2B5843AD00F65DB9 /* DateRelationCalendarModuleAssembly.swift */; };
 		2E4758922A1BC54F00A6FEB9 /* JoinFlowState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E4758912A1BC54F00A6FEB9 /* JoinFlowState.swift */; };
 		2E48ACA32A55D4EF0059CB5C /* CustomBackSwipe.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E48ACA22A55D4EF0059CB5C /* CustomBackSwipe.swift */; };
 		2E48D74328CF461400CEE69D /* TertiaryPressedBackgroundButtonStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E48D74228CF461400CEE69D /* TertiaryPressedBackgroundButtonStyle.swift */; };
@@ -986,7 +983,6 @@
 		2E6527632B5EBD9300F27126 /* SelectRelationListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E6527622B5EBD9300F27126 /* SelectRelationListView.swift */; };
 		2E6527652B5EBD9F00F27126 /* SelectRelationListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E6527642B5EBD9F00F27126 /* SelectRelationListViewModel.swift */; };
 		2E65276B2B5EE9BA00F27126 /* RelationListContainerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E65276A2B5EE9BA00F27126 /* RelationListContainerView.swift */; };
-		2E65276D2B5EEAA100F27126 /* SelectRelationListModuleAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E65276C2B5EEAA100F27126 /* SelectRelationListModuleAssembly.swift */; };
 		2E6F3E1A2A4C6828002F4278 /* AlertView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E6F3E192A4C6828002F4278 /* AlertView.swift */; };
 		2E6F3E1D2A4DB179002F4278 /* SceneStateNotifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E6F3E1C2A4DB179002F4278 /* SceneStateNotifier.swift */; };
 		2E6F3E1F2A4DF154002F4278 /* SceneStateListener.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E6F3E1E2A4DF154002F4278 /* SceneStateListener.swift */; };
@@ -1007,8 +1003,6 @@
 		2E7E50422B6D5C3A003867A3 /* ObjectRelationListModuleOutput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E7E50412B6D5C3A003867A3 /* ObjectRelationListModuleOutput.swift */; };
 		2E7E50452B6D65DF003867A3 /* ObjectRelationListCoordinatorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E7E50442B6D65DF003867A3 /* ObjectRelationListCoordinatorView.swift */; };
 		2E7E50472B6D65F6003867A3 /* ObjectRelationListCoordinatorViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E7E50462B6D65F6003867A3 /* ObjectRelationListCoordinatorViewModel.swift */; };
-		2E7E50492B6D6609003867A3 /* ObjectRelationListCoordinatorAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E7E50482B6D6609003867A3 /* ObjectRelationListCoordinatorAssembly.swift */; };
-		2E7E504B2B6D6727003867A3 /* ObjectRelationListModuleAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E7E504A2B6D6727003867A3 /* ObjectRelationListModuleAssembly.swift */; };
 		2E8387BA291A51A000506766 /* SetCardDropData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E8387B8291A51A000506766 /* SetCardDropData.swift */; };
 		2E8387BB291A51A000506766 /* SetCardDropInsideDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E8387B9291A51A000506766 /* SetCardDropInsideDelegate.swift */; };
 		2E8387BD291A520C00506766 /* GroupObjectIds.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E8387BC291A520C00506766 /* GroupObjectIds.swift */; };
@@ -2693,10 +2687,8 @@
 		2E22F9E62B615053001EFCF3 /* SelectRelationOption.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectRelationOption.swift; sourceTree = "<group>"; };
 		2E22F9E92B6167AE001EFCF3 /* SelectRelationListCoordinatorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectRelationListCoordinatorView.swift; sourceTree = "<group>"; };
 		2E22F9EB2B6167B7001EFCF3 /* SelectRelationListCoordinatorViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectRelationListCoordinatorViewModel.swift; sourceTree = "<group>"; };
-		2E22F9ED2B6167C4001EFCF3 /* SelectRelationListCoordinatorAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectRelationListCoordinatorAssembly.swift; sourceTree = "<group>"; };
 		2E22F9EF2B616B6E001EFCF3 /* SelectRelationListModuleOutput.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectRelationListModuleOutput.swift; sourceTree = "<group>"; };
 		2E22F9F22B617D5D001EFCF3 /* RelationOptionSettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RelationOptionSettingsView.swift; sourceTree = "<group>"; };
-		2E22F9F62B617D7C001EFCF3 /* RelationOptionSettingsModuleAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RelationOptionSettingsModuleAssembly.swift; sourceTree = "<group>"; };
 		2E22F9FA2B6193AF001EFCF3 /* RelationOptionSettingsConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RelationOptionSettingsConfiguration.swift; sourceTree = "<group>"; };
 		2E28BCED2AAB55AD001E6306 /* SetViewPickerModuleAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetViewPickerModuleAssembly.swift; sourceTree = "<group>"; };
 		2E28BCF02AAB58C6001E6306 /* SetViewPickerCoordinatorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetViewPickerCoordinatorView.swift; sourceTree = "<group>"; };
@@ -2740,7 +2732,6 @@
 		2E3EF5CD2AFBC63E00A2D432 /* TemplatePickerData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TemplatePickerData.swift; sourceTree = "<group>"; };
 		2E412CC7283BCA3E00C973FF /* MediaPickerContentType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MediaPickerContentType.swift; sourceTree = "<group>"; };
 		2E412D142847B15C00C973FF /* SetSort.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetSort.swift; sourceTree = "<group>"; };
-		2E43C6CE2B5843AD00F65DB9 /* DateRelationCalendarModuleAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateRelationCalendarModuleAssembly.swift; sourceTree = "<group>"; };
 		2E4758912A1BC54F00A6FEB9 /* JoinFlowState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JoinFlowState.swift; sourceTree = "<group>"; };
 		2E48ACA22A55D4EF0059CB5C /* CustomBackSwipe.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomBackSwipe.swift; sourceTree = "<group>"; };
 		2E48D74228CF461400CEE69D /* TertiaryPressedBackgroundButtonStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TertiaryPressedBackgroundButtonStyle.swift; sourceTree = "<group>"; };
@@ -2768,7 +2759,6 @@
 		2E6527622B5EBD9300F27126 /* SelectRelationListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectRelationListView.swift; sourceTree = "<group>"; };
 		2E6527642B5EBD9F00F27126 /* SelectRelationListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectRelationListViewModel.swift; sourceTree = "<group>"; };
 		2E65276A2B5EE9BA00F27126 /* RelationListContainerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RelationListContainerView.swift; sourceTree = "<group>"; };
-		2E65276C2B5EEAA100F27126 /* SelectRelationListModuleAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectRelationListModuleAssembly.swift; sourceTree = "<group>"; };
 		2E6F3E192A4C6828002F4278 /* AlertView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertView.swift; sourceTree = "<group>"; };
 		2E6F3E1C2A4DB179002F4278 /* SceneStateNotifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneStateNotifier.swift; sourceTree = "<group>"; };
 		2E6F3E1E2A4DF154002F4278 /* SceneStateListener.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneStateListener.swift; sourceTree = "<group>"; };
@@ -2789,8 +2779,6 @@
 		2E7E50412B6D5C3A003867A3 /* ObjectRelationListModuleOutput.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObjectRelationListModuleOutput.swift; sourceTree = "<group>"; };
 		2E7E50442B6D65DF003867A3 /* ObjectRelationListCoordinatorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObjectRelationListCoordinatorView.swift; sourceTree = "<group>"; };
 		2E7E50462B6D65F6003867A3 /* ObjectRelationListCoordinatorViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObjectRelationListCoordinatorViewModel.swift; sourceTree = "<group>"; };
-		2E7E50482B6D6609003867A3 /* ObjectRelationListCoordinatorAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObjectRelationListCoordinatorAssembly.swift; sourceTree = "<group>"; };
-		2E7E504A2B6D6727003867A3 /* ObjectRelationListModuleAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObjectRelationListModuleAssembly.swift; sourceTree = "<group>"; };
 		2E8387B8291A51A000506766 /* SetCardDropData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SetCardDropData.swift; sourceTree = "<group>"; };
 		2E8387B9291A51A000506766 /* SetCardDropInsideDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SetCardDropInsideDelegate.swift; sourceTree = "<group>"; };
 		2E8387BC291A520C00506766 /* GroupObjectIds.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GroupObjectIds.swift; sourceTree = "<group>"; };
@@ -7074,7 +7062,6 @@
 			children = (
 				2E22F9E92B6167AE001EFCF3 /* SelectRelationListCoordinatorView.swift */,
 				2E22F9EB2B6167B7001EFCF3 /* SelectRelationListCoordinatorViewModel.swift */,
-				2E22F9ED2B6167C4001EFCF3 /* SelectRelationListCoordinatorAssembly.swift */,
 			);
 			path = Coordinator;
 			sourceTree = "<group>";
@@ -7084,7 +7071,6 @@
 			children = (
 				2EED4F552B6A7B640076FAC6 /* RelationOptionSettingsViewModel.swift */,
 				2E22F9F22B617D5D001EFCF3 /* RelationOptionSettingsView.swift */,
-				2E22F9F62B617D7C001EFCF3 /* RelationOptionSettingsModuleAssembly.swift */,
 				2E22F9FA2B6193AF001EFCF3 /* RelationOptionSettingsConfiguration.swift */,
 			);
 			path = RelationOptionSettings;
@@ -7261,7 +7247,6 @@
 			isa = PBXGroup;
 			children = (
 				2E22F9E82B61667E001EFCF3 /* Coordinator */,
-				2E65276C2B5EEAA100F27126 /* SelectRelationListModuleAssembly.swift */,
 				2E6527622B5EBD9300F27126 /* SelectRelationListView.swift */,
 				2E6527642B5EBD9F00F27126 /* SelectRelationListViewModel.swift */,
 				2E22F9E62B615053001EFCF3 /* SelectRelationOption.swift */,
@@ -7315,7 +7300,6 @@
 				2E7E503D2B6D5756003867A3 /* ObjectRelationListView.swift */,
 				2E7E503F2B6D5771003867A3 /* ObjectRelationListViewModel.swift */,
 				2E7E50412B6D5C3A003867A3 /* ObjectRelationListModuleOutput.swift */,
-				2E7E504A2B6D6727003867A3 /* ObjectRelationListModuleAssembly.swift */,
 				2E31C9652B73C8C8006DB3E2 /* ObjectRelationOption.swift */,
 				2E31C9672B73C963006DB3E2 /* ObjectRelationOptionView.swift */,
 			);
@@ -7327,7 +7311,6 @@
 			children = (
 				2E7E50442B6D65DF003867A3 /* ObjectRelationListCoordinatorView.swift */,
 				2E7E50462B6D65F6003867A3 /* ObjectRelationListCoordinatorViewModel.swift */,
-				2E7E50482B6D6609003867A3 /* ObjectRelationListCoordinatorAssembly.swift */,
 			);
 			path = Coordinator;
 			sourceTree = "<group>";
@@ -7680,7 +7663,6 @@
 				2EE33DC22B5582F200D0CDDB /* DateRelationCalendarView.swift */,
 				2EE33DC42B55832300D0CDDB /* DateRelationCalendarViewModel.swift */,
 				2EE33DC82B5800A100D0CDDB /* DateRelationCalendarQuickOption.swift */,
-				2E43C6CE2B5843AD00F65DB9 /* DateRelationCalendarModuleAssembly.swift */,
 			);
 			path = Date;
 			sourceTree = "<group>";
@@ -10530,7 +10512,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				2A2DDBA12B67CC3C00EA3F47 /* CommonNotificationView.swift in Sources */,
-				2E22F9F72B617D7C001EFCF3 /* RelationOptionSettingsModuleAssembly.swift in Sources */,
 				2E7C44692892D73C0062287C /* SetFiltersDateType.swift in Sources */,
 				3D68564226E0E1A000AA36A9 /* Spacer+FixedSize.swift in Sources */,
 				2E63047D28AA69ED00BEF2E9 /* SwiftUIObjectHeaderCoverView.swift in Sources */,
@@ -10600,7 +10581,6 @@
 				C99DCEDE283D0E820051F99D /* TemplatePickerViewModel.swift in Sources */,
 				2A4DD28E2B8DFC32005D22CF /* SpaceParticipantRemoveView.swift in Sources */,
 				3D3A9C3F265BC9AC000F07DB /* Publisher+Sink.swift in Sources */,
-				2E7E50492B6D6609003867A3 /* ObjectRelationListCoordinatorAssembly.swift in Sources */,
 				2AAF3454295B1B5F00921320 /* TreeSubscriptionManager.swift in Sources */,
 				120E8177269F3474006FE84E /* ObjectSetting.swift in Sources */,
 				3D5A416A2703170300F1F6A1 /* BlockAction.swift in Sources */,
@@ -11224,7 +11204,6 @@
 				125B6ED026F235F400BCD7D6 /* SlashMenuAssembly.swift in Sources */,
 				2AFF7AC2299CDA4B00B7746B /* WidgetObjectListBinViewModel.swift in Sources */,
 				863776852A658B410040308E /* TemplateOptionAction.swift in Sources */,
-				2E7E504B2B6D6727003867A3 /* ObjectRelationListModuleAssembly.swift in Sources */,
 				125B6ECF26F235F400BCD7D6 /* SlashMenuViewController.swift in Sources */,
 				2A03039F28ABD4BD002EFC46 /* SystemURLService.swift in Sources */,
 				86E555372A7AB983000A8DC7 /* MockSetDocument.swift in Sources */,
@@ -11431,7 +11410,6 @@
 				3D5D0C5E2B8CBC28005DB879 /* TypeSearchForNewObjectCoordinatorView.swift in Sources */,
 				12B0FF6F274FD67F00CA35FE /* AppIcon.swift in Sources */,
 				2A6693782A7104EA007747DD /* ProfileIconImageGuideline.swift in Sources */,
-				2E43C6CF2B5843AD00F65DB9 /* DateRelationCalendarModuleAssembly.swift in Sources */,
 				C9A4268E28489D1F00F388FC /* SpreadsheetBlockView.swift in Sources */,
 				3DE0CFCD26F8591E003A606A /* SlashMenuCellData.swift in Sources */,
 				2AEAA48729F6A3D6009ACA00 /* ColorsExample.swift in Sources */,
@@ -11916,7 +11894,6 @@
 				03D1516623FB446A004027CE /* MiddlewareConfigurationProvider.swift in Sources */,
 				2AD8AFD72A851CC400F12D54 /* BlockWidgetExpandedService.swift in Sources */,
 				3D30408C27DA92F900FFE0EB /* ObjectHeaderLocalEvent.swift in Sources */,
-				2E22F9EE2B6167C4001EFCF3 /* SelectRelationListCoordinatorAssembly.swift in Sources */,
 				2ADF00932ACF0040000D01F8 /* HomePath.swift in Sources */,
 				124A60B727130EFD0012FD2D /* ObjectDetailsExtensions.swift in Sources */,
 				3D5D0C602B8CBC37005DB879 /* TypeSearchForNewObjectCoordinatorViewModel.swift in Sources */,
@@ -12043,7 +12020,6 @@
 				C96B6CA127B0F8DE00C453EB /* SpacerBlockViewModel.swift in Sources */,
 				12A52E2726CAA166000F0333 /* ViewAnimator.swift in Sources */,
 				3DB881362B9A7002009B294F /* MembershipOwnerInfoSheetView.swift in Sources */,
-				2E65276D2B5EEAA100F27126 /* SelectRelationListModuleAssembly.swift in Sources */,
 				869B8DBA2AA7680400636B49 /* AnytypeInlinePicker.swift in Sources */,
 				3D30418127EC878000FFE0EB /* SetRelation.swift in Sources */,
 				530F503626F0ECD100F76D03 /* AudioBlockContentConfiguration.swift in Sources */,
@@ -12414,7 +12390,7 @@
 				CODE_SIGN_ENTITLEMENTS = Anytype/Anytype.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 16;
+				CURRENT_PROJECT_VERSION = 17;
 				DEVELOPMENT_ASSET_PATHS = "Anytype/Resources/Preview\\ Content";
 				DEVELOPMENT_TEAM = J3NXTX3T5S;
 				ENABLE_BITCODE = NO;
@@ -12458,7 +12434,7 @@
 				CODE_SIGN_ENTITLEMENTS = Anytype/Anytype.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Distribution";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 16;
+				CURRENT_PROJECT_VERSION = 17;
 				DEVELOPMENT_ASSET_PATHS = "Anytype/Resources/Preview\\ Content";
 				DEVELOPMENT_TEAM = J3NXTX3T5S;
 				ENABLE_BITCODE = NO;
@@ -12614,7 +12590,7 @@
 				CODE_SIGN_ENTITLEMENTS = Anytype/Anytype.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Distribution";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 16;
+				CURRENT_PROJECT_VERSION = 17;
 				DEVELOPMENT_ASSET_PATHS = "Anytype/Resources/Preview\\ Content";
 				DEVELOPMENT_TEAM = J3NXTX3T5S;
 				ENABLE_BITCODE = NO;
@@ -12681,7 +12657,7 @@
 				CODE_SIGN_ENTITLEMENTS = AnytypeShareExtension/AnytypeShareExtension.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 16;
+				CURRENT_PROJECT_VERSION = 17;
 				DEVELOPMENT_TEAM = "";
 				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = J3NXTX3T5S;
 				GENERATE_INFOPLIST_FILE = YES;
@@ -12713,7 +12689,7 @@
 				CODE_SIGN_ENTITLEMENTS = AnytypeShareExtension/AnytypeShareExtension.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Distribution";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 16;
+				CURRENT_PROJECT_VERSION = 17;
 				DEVELOPMENT_TEAM = "";
 				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = J3NXTX3T5S;
 				GENERATE_INFOPLIST_FILE = YES;
@@ -12746,7 +12722,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Distribution";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 16;
+				CURRENT_PROJECT_VERSION = 17;
 				DEVELOPMENT_TEAM = "";
 				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = J3NXTX3T5S;
 				GENERATE_INFOPLIST_FILE = YES;
@@ -12780,7 +12756,7 @@
 				CODE_SIGN_IDENTITY = "Apple Development";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 16;
+				CURRENT_PROJECT_VERSION = 17;
 				DEVELOPMENT_TEAM = "";
 				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = J3NXTX3T5S;
 				GENERATE_INFOPLIST_FILE = YES;
@@ -12814,7 +12790,7 @@
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
 				CODE_SIGN_IDENTITY = "iPhone Distribution";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 16;
+				CURRENT_PROJECT_VERSION = 17;
 				DEVELOPMENT_TEAM = "";
 				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = J3NXTX3T5S;
 				GENERATE_INFOPLIST_FILE = YES;
@@ -12848,7 +12824,7 @@
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
 				CODE_SIGN_IDENTITY = "iPhone Distribution";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 16;
+				CURRENT_PROJECT_VERSION = 17;
 				DEVELOPMENT_TEAM = "";
 				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = J3NXTX3T5S;
 				GENERATE_INFOPLIST_FILE = YES;

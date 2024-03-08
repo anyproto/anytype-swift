@@ -9,16 +9,13 @@ final class DateRelationCalendarViewModel: ObservableObject {
     @Published var dismiss = false
     
     let config: RelationModuleConfiguration
-    private let relationsService: RelationsServiceProtocol
     
-    init(
-        date: Date?,
-        configuration: RelationModuleConfiguration,
-        relationsService: RelationsServiceProtocol
-    ) {
+    @Injected(\.relationsService)
+    private var relationsService: RelationsServiceProtocol
+    
+    init(date: Date?, configuration: RelationModuleConfiguration) {
         self.date = date ?? Date()
         self.config = configuration
-        self.relationsService = relationsService
         
         if date.isNil {
             dateChanged()

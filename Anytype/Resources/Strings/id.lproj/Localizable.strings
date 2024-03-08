@@ -635,11 +635,11 @@
 "No date" = "Tidak ada tanggal";
 "Clear" = "Bersihkan";
 "Create option with" = "Buat opsi ‘%@’";
-"Add URL" = "Tambahkan URL";
-"Add email" = "Tambahkan surel";
-"Add phone number" = "Tambahkan nomor telepon";
-"Add number" = "Tambahkan nomor";
-"Add text" = "Tambahkan teks";
+"Enter URL" = "Enter URL";
+"Enter email" = "Enter email";
+"Enter phone number" = "Enter phone number";
+"Enter number" = "Masukkan angka";
+"Enter text" = "Masukkan teks";
 "Ok" = "Oke";
 "Error occurred. Please try again" = "Terjadi kesalahan. Silahlan coba lagi";
 "Add" = "Tambah";

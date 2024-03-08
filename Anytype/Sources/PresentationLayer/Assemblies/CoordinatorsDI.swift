@@ -25,7 +25,8 @@ final class CoordinatorsDI: CoordinatorsDIProtocol {
     func relationValue() -> RelationValueCoordinatorAssemblyProtocol {
         return RelationValueCoordinatorAssembly(
             coordinatorsID: self,
-            modulesDI: modulesDI
+            modulesDI: modulesDI, 
+            uiHelpersDI: uiHelpersDI
         )
     }
     
@@ -194,14 +195,6 @@ final class CoordinatorsDI: CoordinatorsDIProtocol {
             commonNotificationAssembly: modulesDI.commonNotification(),
             galleryNotificationAssembly: modulesDI.galleryNotification()
         )
-    }
-    
-    func selectRelationList() -> SelectRelationListCoordinatorAssemblyProtocol {
-        SelectRelationListCoordinatorAssembly(modulesDI: modulesDI)
-    }
-    
-    func objectRelationList() -> ObjectRelationListCoordinatorAssemblyProtocol {
-        ObjectRelationListCoordinatorAssembly(modulesDI: modulesDI)
     }
     
     func spaceShare() -> SpaceShareCoordinatorAssemblyProtocol {
