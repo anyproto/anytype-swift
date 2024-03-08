@@ -240,6 +240,8 @@ internal enum Loc {
   internal static let fileBlockSubtitle = Loc.tr("Localizable", "File block subtitle", fallback: "Store file in original state")
   /// Filter
   internal static let filter = Loc.tr("Localizable", "Filter", fallback: "Filter")
+  /// Forever
+  internal static let forever = Loc.tr("Localizable", "Forever", fallback: "Forever")
   /// Forever free
   internal static let foreverFree = Loc.tr("Localizable", "Forever free", fallback: "Forever free")
   /// Gallery
@@ -370,6 +372,10 @@ internal enum Loc {
   internal static let other = Loc.tr("Localizable", "Other", fallback: "Other")
   /// Other relations
   internal static let otherRelations = Loc.tr("Localizable", "Other relations", fallback: "Other relations")
+  /// Paid by %@
+  internal static func paidBy(_ p1: Any) -> String {
+    return Loc.tr("Localizable", "Paid by", String(describing: p1), fallback: "Paid by %@")
+  }
   /// Paste
   internal static let paste = Loc.tr("Localizable", "Paste", fallback: "Paste")
   /// Paste or type URL
@@ -563,9 +569,11 @@ internal enum Loc {
   internal static let upload = Loc.tr("Localizable", "Upload", fallback: "Upload")
   /// Upload playable audio
   internal static let uploadPlayableAudio = Loc.tr("Localizable", "Upload playable audio", fallback: "Upload playable audio")
+  /// Valid until:
+  internal static let validUntil = Loc.tr("Localizable", "Valid until", fallback: "Valid until:")
   /// Valid until %@
-  internal static func validUntil(_ p1: Any) -> String {
-    return Loc.tr("Localizable", "Valid until", String(describing: p1), fallback: "Valid until %@")
+  internal static func validUntilDate(_ p1: Any) -> String {
+    return Loc.tr("Localizable", "Valid until date", String(describing: p1), fallback: "Valid until %@")
   }
   /// Video
   internal static let video = Loc.tr("Localizable", "Video", fallback: "Video")
@@ -587,6 +595,8 @@ internal enum Loc {
   internal static let yellowBackground = Loc.tr("Localizable", "Yellow background", fallback: "Yellow background")
   /// Yesterday
   internal static let yesterday = Loc.tr("Localizable", "Yesterday", fallback: "Yesterday")
+  /// Your current status:
+  internal static let yourCurrentStatus = Loc.tr("Localizable", "Your current status", fallback: "Your current status:")
   internal enum About {
     /// Account ID: %@
     internal static func accountId(_ p1: Any) -> String {

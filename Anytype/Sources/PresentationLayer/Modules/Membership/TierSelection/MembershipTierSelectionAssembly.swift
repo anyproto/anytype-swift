@@ -17,8 +17,8 @@ final class MembershipTierSelectionAssembly: MembershipTierSelectionAssemblyProt
     func make(tier: MembershipTier, showEmailVerification: @escaping (EmailVerificationData) -> ()) -> AnyView {
         MembershipTierSelectionView(
             model: MembershipTierSelectionViewModel(
-                tier: tier,
-                membershipService: serviceLocator.membershipService(),
+                tierToDisplay: tier,
+                membershipService: self.serviceLocator.membershipService(),
                 showEmailVerification: showEmailVerification
             )
         ).eraseToAnyView()

@@ -55,21 +55,21 @@ struct MembershipTeirView: View {
         Group {
             switch tierToDisplay {
             case .explorer:
-                if currentTier == .explorer {
+                if currentTier == tierToDisplay {
                     AnytypeText(Loc.foreverFree, style: .caption1Regular, color: .Text.primary)
                 } else {
                     AnytypeText(Loc.justEMail, style: .bodySemibold, color: .Text.primary)
                 }
             case .builder:
-                if currentTier == .builder {
-                    AnytypeText(Loc.validUntil("%Date%"), style: .caption1Regular, color: .Text.primary)
+                if currentTier == tierToDisplay {
+                    AnytypeText(Loc.validUntilDate("%Date%"), style: .caption1Regular, color: .Text.primary)
                 } else {
                     AnytypeText("$99 ", style: .bodySemibold, color: .Text.primary) +
                     AnytypeText(Loc.perYear, style: .caption1Regular, color: .Text.primary)
                 }
             case .coCreator:
-                if currentTier == .coCreator {
-                    AnytypeText(Loc.validUntil("%Date%"), style: .caption1Regular, color: .Text.primary)
+                if currentTier == tierToDisplay {
+                    AnytypeText(Loc.validUntilDate("%Date%"), style: .caption1Regular, color: .Text.primary)
                 } else {
                     AnytypeText("$299 ", style: .bodySemibold, color: .Text.primary) +
                     AnytypeText(Loc.perXYears(3), style: .caption1Regular, color: .Text.primary)

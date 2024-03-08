@@ -16,15 +16,21 @@ struct MembershipCoordinator: View {
             .anytypeSheet(item: $model.showSuccess) {
                 MembershipTierSuccessView(tier: $0)
             }
+            .task {
+                model.onAppear()
+            }
     }
 }
 
 #Preview {
-    MembershipCoordinator(
-        model: MembershipCoordinatorModel(
-            membershipAssembly: DI.preview.modulesDI.membership(),
-            tierSelectionAssembly: DI.preview.modulesDI.membershipTierSelection(),
-            emailVerificationAssembly: DI.preview.modulesDI.emailVerification()
+    NavigationView {
+        MembershipCoordinator(
+            model: MembershipCoordinatorModel(
+                membershipService: DI.preview.serviceLocator.membershipService(),
+                membershipAssembly: DI.preview.modulesDI.membership(),
+                tierSelectionAssembly: DI.preview.modulesDI.membershipTierSelection(),
+                emailVerificationAssembly: DI.preview.modulesDI.emailVerification()
+            )
         )
-    )
+    }
 }
