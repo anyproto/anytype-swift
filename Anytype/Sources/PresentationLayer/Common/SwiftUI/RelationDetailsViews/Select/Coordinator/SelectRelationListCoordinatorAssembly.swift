@@ -32,8 +32,7 @@ final class SelectRelationListCoordinatorAssembly: SelectRelationListCoordinator
                 style: style,
                 configuration: configuration,
                 selectedOptionsIds: selectedOptionsIds,
-                selectRelationListModuleAssembly: self.modulesDI.selectRelationList(),
-                relationOptionSettingsModuleAssembly: self.modulesDI.relationOptionSettings()
+                selectRelationListModuleAssembly: self.modulesDI.selectRelationList()
             )
         ).eraseToAnyView()
     }

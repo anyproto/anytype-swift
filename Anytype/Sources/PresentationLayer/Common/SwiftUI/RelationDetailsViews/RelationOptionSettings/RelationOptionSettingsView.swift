@@ -6,6 +6,16 @@ struct RelationOptionSettingsView: View {
     @StateObject var model: RelationOptionSettingsViewModel
     @Environment(\.dismiss) var dismiss
     
+    init(
+        configuration: RelationOptionSettingsConfiguration,
+        completion: @escaping (_ optionParams: RelationOptionParameters) -> Void
+    ) {
+        _model = StateObject(wrappedValue: RelationOptionSettingsViewModel(
+            configuration: configuration,
+            completion: completion
+        ))
+    }
+    
     var body: some View {
         VStack(spacing: 0) {
             DragIndicator()
@@ -92,13 +102,10 @@ struct RelationOptionSettingsView: View {
 
 #Preview {
     RelationOptionSettingsView(
-        model: RelationOptionSettingsViewModel(
-            configuration: RelationOptionSettingsConfiguration(
-                option: RelationOptionParameters(id: "", text: nil, color: nil),
-                mode: .edit
-            ),
-            relationsService: DI.preview.serviceLocator.relationService(),
-            completion: { _ in }
-        )
+        configuration: RelationOptionSettingsConfiguration(
+            option: RelationOptionParameters(id: "", text: nil, color: nil),
+            mode: .edit
+        ),
+        completion: { _ in }
     )
 }

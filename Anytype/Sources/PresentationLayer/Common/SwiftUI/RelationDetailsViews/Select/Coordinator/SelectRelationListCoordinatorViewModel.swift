@@ -8,7 +8,6 @@ final class SelectRelationListCoordinatorViewModel: ObservableObject, SelectRela
     private let configuration: RelationModuleConfiguration
     private let selectedOptionsIds: [String]
     private let selectRelationListModuleAssembly: SelectRelationListModuleAssemblyProtocol
-    private let relationOptionSettingsModuleAssembly: RelationOptionSettingsModuleAssemblyProtocol
 
     @Published var relationData: RelationData?
     @Published var deletionAlertData: DeletionAlertData?
@@ -18,14 +17,12 @@ final class SelectRelationListCoordinatorViewModel: ObservableObject, SelectRela
         style: SelectRelationListStyle,
         configuration: RelationModuleConfiguration,
         selectedOptionsIds: [String],
-        selectRelationListModuleAssembly: SelectRelationListModuleAssemblyProtocol,
-        relationOptionSettingsModuleAssembly: RelationOptionSettingsModuleAssemblyProtocol
+        selectRelationListModuleAssembly: SelectRelationListModuleAssemblyProtocol
     ) {
         self.style = style
         self.configuration = configuration
         self.selectedOptionsIds = selectedOptionsIds
         self.selectRelationListModuleAssembly = selectRelationListModuleAssembly
-        self.relationOptionSettingsModuleAssembly = relationOptionSettingsModuleAssembly
     }
     
     func selectRelationListModule() -> AnyView {
@@ -78,13 +75,6 @@ final class SelectRelationListCoordinatorViewModel: ObservableObject, SelectRela
                 completion(SelectRelationOption(optionParams: optionParams))
                 self?.relationData = nil
             }
-        )
-    }
-    
-    func selectRelationCreate(data: RelationData) -> AnyView {
-        relationOptionSettingsModuleAssembly.make(
-            configuration: data.configuration,
-            completion: data.completion
         )
     }
     

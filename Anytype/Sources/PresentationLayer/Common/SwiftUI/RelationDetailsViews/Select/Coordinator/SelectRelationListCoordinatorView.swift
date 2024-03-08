@@ -9,7 +9,10 @@ struct SelectRelationListCoordinatorView: View {
     var body: some View {
         model.selectRelationListModule()
             .sheet(item: $model.relationData) { data in
-                model.selectRelationCreate(data: data)
+                RelationOptionSettingsView(
+                    configuration: data.configuration,
+                    completion: data.completion
+                )
             }
             .anytypeSheet(item: $model.deletionAlertData, cancelAction: {
                 model.deletionAlertData?.completion(false)
