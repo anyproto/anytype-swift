@@ -22,24 +22,8 @@ final class ModulesDI: ModulesDIProtocol {
         return RelationsListModuleAssembly(serviceLocator: serviceLocator)
     }
     
-    func dateRelationCalendar() -> DateRelationCalendarModuleAssemblyProtocol {
-        return DateRelationCalendarModuleAssembly(serviceLocator: serviceLocator)
-    }
-    
-    func selectRelationList() -> SelectRelationListModuleAssemblyProtocol {
-        return SelectRelationListModuleAssembly(serviceLocator: serviceLocator)
-    }
-    
     func textRelationEditing() -> TextRelationEditingModuleAssemblyProtocol {
         TextRelationEditingModuleAssembly(serviceLocator: serviceLocator, uiHelpersDI: uiHelpersDI)
-    }
-    
-    func relationOptionSettings() -> RelationOptionSettingsModuleAssemblyProtocol {
-        return RelationOptionSettingsModuleAssembly(serviceLocator: serviceLocator)
-    }
-    
-    func objectRelationList() -> ObjectRelationListModuleAssemblyProtocol {
-        return ObjectRelationListModuleAssembly(serviceLocator: serviceLocator)
     }
     
     func undoRedo() -> UndoRedoModuleAssemblyProtocol {

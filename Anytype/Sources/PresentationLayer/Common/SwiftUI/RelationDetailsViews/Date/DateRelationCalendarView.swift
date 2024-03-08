@@ -6,6 +6,13 @@ struct DateRelationCalendarView: View {
     @StateObject var viewModel: DateRelationCalendarViewModel
     @Environment(\.dismiss) var dismiss
     
+    init(date: Date?, configuration: RelationModuleConfiguration) {
+        _viewModel = StateObject(wrappedValue: DateRelationCalendarViewModel(
+            date: date,
+            configuration: configuration
+        ))
+    }
+    
     var body: some View {
         VStack(spacing: 0) {
             DragIndicator()
@@ -84,10 +91,7 @@ struct DateRelationCalendarView: View {
 
 #Preview {
     DateRelationCalendarView(
-        viewModel: DateRelationCalendarViewModel(
-            date: nil,
-            configuration: RelationModuleConfiguration.default,
-            relationsService: DI.preview.serviceLocator.relationService()
-        )
+        date: nil,
+        configuration: RelationModuleConfiguration.default
     )
 }

@@ -17,9 +17,6 @@ final class RelationValueCoordinatorViewModel:
     
     private let relation: Relation
     private let objectDetails: ObjectDetails
-    private let dateRelationCalendarModuleAssembly: DateRelationCalendarModuleAssemblyProtocol
-    private let selectRelationListCoordinatorAssembly: SelectRelationListCoordinatorAssemblyProtocol
-    private let objectRelationListCoordinatorAssembly: ObjectRelationListCoordinatorAssemblyProtocol
     private let textRelationEditingModuleAssembly: TextRelationEditingModuleAssemblyProtocol
     private let urlOpener: URLOpenerProtocol
     private let analyticsType: AnalyticsEventsRelationType
@@ -28,9 +25,6 @@ final class RelationValueCoordinatorViewModel:
     init(
         relation: Relation,
         objectDetails: ObjectDetails,
-        dateRelationCalendarModuleAssembly: DateRelationCalendarModuleAssemblyProtocol,
-        selectRelationListCoordinatorAssembly: SelectRelationListCoordinatorAssemblyProtocol,
-        objectRelationListCoordinatorAssembly: ObjectRelationListCoordinatorAssemblyProtocol,
         textRelationEditingModuleAssembly: TextRelationEditingModuleAssemblyProtocol,
         urlOpener: URLOpenerProtocol,
         analyticsType: AnalyticsEventsRelationType,
@@ -38,9 +32,6 @@ final class RelationValueCoordinatorViewModel:
     ) {
         self.relation = relation
         self.objectDetails = objectDetails
-        self.dateRelationCalendarModuleAssembly = dateRelationCalendarModuleAssembly
-        self.selectRelationListCoordinatorAssembly = selectRelationListCoordinatorAssembly
-        self.objectRelationListCoordinatorAssembly = objectRelationListCoordinatorAssembly
         self.textRelationEditingModuleAssembly = textRelationEditingModuleAssembly
         self.urlOpener = urlOpener
         self.analyticsType = analyticsType
@@ -58,10 +49,10 @@ final class RelationValueCoordinatorViewModel:
                 spaceId: objectDetails.spaceId,
                 analyticsType: analyticsType
             )
-            return dateRelationCalendarModuleAssembly.make(
+            return DateRelationCalendarView(
                 date: dateValue,
                 configuration: configuration
-            )
+            ).eraseToAnyView()
         }
         
         if FeatureFlags.newSelectRelationView, case .status(let status) = relation {
@@ -75,11 +66,11 @@ final class RelationValueCoordinatorViewModel:
                 analyticsType: analyticsType
             )
             mediumDetent = status.values.isNotEmpty || !relation.isEditable
-            return selectRelationListCoordinatorAssembly.make(
+            return SelectRelationListCoordinatorView(
                 style: .status,
                 configuration: configuration,
                 selectedOptionsIds: status.values.compactMap { $0.id }
-            )
+            ).eraseToAnyView()
         }
         
         if FeatureFlags.newMultiSelectRelationView, case .tag(let tag) = relation {
@@ -93,11 +84,11 @@ final class RelationValueCoordinatorViewModel:
                 analyticsType: analyticsType
             )
             mediumDetent = tag.selectedTags.isNotEmpty || !relation.isEditable
-            return selectRelationListCoordinatorAssembly.make(
+            return SelectRelationListCoordinatorView(
                 style: .tag,
                 configuration: configuration,
                 selectedOptionsIds: tag.selectedTags.compactMap { $0.id }
-            )
+            ).eraseToAnyView()
         }
         
         if FeatureFlags.newObjectSelectRelationView, case .object(let object) = relation {
@@ -111,12 +102,12 @@ final class RelationValueCoordinatorViewModel:
                 analyticsType: analyticsType
             )
             mediumDetent = object.selectedObjects.isNotEmpty || !relation.isEditable
-            return objectRelationListCoordinatorAssembly.make(
+            return ObjectRelationListCoordinatorView(
                 mode: .object(limitedObjectTypes: object.limitedObjectTypes),
                 configuration: configuration,
                 selectedOptionsIds: object.selectedObjects.compactMap { $0.id },
                 output: self
-            )
+            ).eraseToAnyView()
         }
         
         if FeatureFlags.newObjectSelectRelationView, case .file(let file) = relation {
@@ -130,12 +121,12 @@ final class RelationValueCoordinatorViewModel:
                 analyticsType: analyticsType
             )
             mediumDetent = file.files.isNotEmpty || !relation.isEditable
-            return objectRelationListCoordinatorAssembly.make(
+            return ObjectRelationListCoordinatorView(
                 mode: .file,
                 configuration: configuration,
                 selectedOptionsIds: file.files.compactMap { $0.id },
                 output: self
-            )
+            ).eraseToAnyView()
         }
         
         if FeatureFlags.newTextEditingRelationView, case .text(let text) = relation {
