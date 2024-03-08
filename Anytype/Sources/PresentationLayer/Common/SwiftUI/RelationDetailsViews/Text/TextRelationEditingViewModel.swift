@@ -9,36 +9,57 @@ final class TextRelationEditingViewModel: ObservableObject {
     @Published var dismiss = false
     @Published var textFocused = true
     @Published var actionsViewModel: [TextRelationActionViewModelProtocol]
+    @Published var showPaste = false
     
     let config: RelationModuleConfiguration
     let type: TextRelationViewType
     private let service: TextRelationEditingServiceProtocol
+    private let pasteboardHelper: PasteboardHelperProtocol
     
     init(
         text: String?,
         type: TextRelationViewType,
         config: RelationModuleConfiguration,
         actionsViewModel: [TextRelationActionViewModelProtocol],
-        service: TextRelationEditingServiceProtocol
+        service: TextRelationEditingServiceProtocol,
+        pasteboardHelper: PasteboardHelperProtocol
     ) {
         self.text = text ?? ""
         self.config = config
         self.type = type
         self.actionsViewModel = actionsViewModel
         self.service = service
+        self.pasteboardHelper = pasteboardHelper
         self.textFocused = config.isEditable
         
+        pasteboardHelper.startSubscription { [weak self] in
+            self?.updatePasteState()
+        }
         self.handleTextUpdate(text: self.text)
     }
     
     func onClear() {
         text = ""
-        updateRelation(with: "")
+        updateText(with: "")
+    }
+    
+    func onPaste() {
+        text = pasteboardHelper.obtainTextSlot() ?? ""
+        updateText(with: text)
+    }
+    
+    func updatePasteState() {
+        showPaste = pasteboardHelper.hasSlots && text.isEmpty
     }
     
     func onTextChanged(_ text: String) {
+        updateText(with: text)
+    }
+    
+    private func updateText(with text: String) {
         updateRelation(with: text)
         handleTextUpdate(text: text)
+        updatePasteState()
     }
     
     private func updateRelation(with value: String) {

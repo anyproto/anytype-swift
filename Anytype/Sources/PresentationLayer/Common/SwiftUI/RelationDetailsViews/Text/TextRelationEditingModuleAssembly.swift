@@ -46,7 +46,8 @@ final class TextRelationEditingModuleAssembly: TextRelationEditingModuleAssembly
                 type: type,
                 config: config,
                 actionsViewModel: actionsViewModel,
-                service: self.serviceLocator.textRelationEditingService()
+                service: self.serviceLocator.textRelationEditingService(),
+                pasteboardHelper: self.serviceLocator.pasteboardHelper()
             )
         ).eraseToAnyView()
     }

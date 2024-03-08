@@ -20,6 +20,9 @@ struct TextRelationEditingView: View {
         }
         .frame(height: totalHeight())
         .fitPresentationDetents()
+        .task {
+            viewModel.updatePasteState()
+        }
     }
     
     private var content: some View {
@@ -30,9 +33,15 @@ struct TextRelationEditingView: View {
                 .navigationBarTitleDisplayMode(.inline)
                 .if(viewModel.config.isEditable) {
                     $0.toolbar {
-                        ToolbarItem(placement: .navigationBarLeading) {
+                        ToolbarItem(placement: .topBarLeading) {
                             if viewModel.text.isNotEmpty {
                                 clearButton
+                            }
+                        }
+                        
+                        ToolbarItem(placement: .topBarTrailing) {
+                            if viewModel.showPaste {
+                                pasteButton
                             }
                         }
                     }
@@ -71,6 +80,14 @@ struct TextRelationEditingView: View {
             viewModel.onClear()
         } label: {
             AnytypeText(Loc.clear, style: .uxBodyRegular, color: .Button.active)
+        }
+    }
+    
+    private var pasteButton: some View {
+        Button {
+            viewModel.onPaste()
+        } label: {
+            AnytypeText(Loc.paste, style: .uxBodyRegular, color: .Button.active)
         }
     }
     
@@ -125,7 +142,8 @@ extension TextRelationEditingView {
             type: .text,
             config: RelationModuleConfiguration.default,
             actionsViewModel: [],
-            service: DI.preview.serviceLocator.textRelationEditingService()
+            service: DI.preview.serviceLocator.textRelationEditingService(), 
+            pasteboardHelper: DI.preview.serviceLocator.pasteboardHelper()
         )
     )
 }
