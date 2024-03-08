@@ -885,7 +885,7 @@
 
 "SpaceShare.Title" = "Condividi lo spazio";
 "SpaceShare.MembersSection" = "Membri e richieste";
-"SpaceShare.Members" = "Members";
+"SpaceShare.Members" = "Membri";
 "SpaceShare.Permissions.Owner" = "Proprietario";
 "SpaceShare.Permissions.Reader" = "Visualizzatore";
 "SpaceShare.Permissions.Writer" = "Editor";
@@ -989,13 +989,21 @@
 "Membership" = "Membership";
 "Just e-mail" = "Just e-mail";
 "E-mail" = "E-mail";
-"Learn more" = "Learn more";
+"Learn more" = "Per saperne di più";
 "per year" = "per year";
 "per x years" = "per %@ years";
 "What’s included" = "What’s included";
-"Submit" = "Submit";
+"Submit" = "Invia";
 "Resend" = "Resend";
 "Resend in" = "Resend in %@ sec";
+"Current" = "Current";
+"Forever free" = "Forever free";
+"Forever" = "Forever";
+"Valid until date" = "Valid until %@";
+"Your current status" = "Your current status:";
+"Valid until" = "Valid until:";
+"Paid by" = "Paid by %@";
+
 
 "Membership.Ad.Title" = "Costruiamo insieme";
 "Membership.Ad.Subtitle" = "Unire alla rete di Anytype significa contribuire alla sua storia";
@@ -1021,9 +1029,9 @@
 "Membership.Banner.Title4" = "Investi nella connettività";
 "Membership.Banner.Subtitle4" = "Our software is free by design, but we thrive on the network that connects us all. Support us, and you're investing in the very infrastructure that keeps us united.";
 
-"Membership.EmailForm.Title" = "Get your free membership";
-"Membership.EmailForm.Subtitle" = "We need your email to keep spam at bay and the fun in play!";
-"Membership.EmailForm.Newsletter" = "I'd like to get updates on products and enjoy free perks!";
+"Membership.EmailForm.Title" = "Ottieni il tuo abbonamento gratuito";
+"Membership.EmailForm.Subtitle" = "Abbiamo bisogno della tua email per tenere lontano lo spam e mantenere vivo il divertimento!";
+"Membership.EmailForm.Newsletter" = "Vorrei ottenere aggiornamenti sui prodotti e godere di vantaggi gratuiti!";
 "Membership.EmailValidation" = "Enter the code sent to your email";
 
 "Membership.Success.Title" = "Welcome to the network, %@";
