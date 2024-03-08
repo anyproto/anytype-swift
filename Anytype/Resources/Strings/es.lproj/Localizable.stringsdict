@@ -142,7 +142,7 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>d</string>
         <key>one</key>
-        <string>Bookmark Object</string>
+        <string>%d objetos de marcador</string>
         <key>other</key>
         <string>Agregar %d marcadores a los objetos</string>
       </dict>
