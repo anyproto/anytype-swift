@@ -8,6 +8,7 @@ final class TextRelationEditingViewModel: ObservableObject {
     @Published var text: String
     @Published var dismiss = false
     @Published var textFocused = true
+    @Published var actionsViewModel: [TextRelationActionViewModelProtocol]
     
     let config: RelationModuleConfiguration
     let type: TextRelationViewType
@@ -17,13 +18,17 @@ final class TextRelationEditingViewModel: ObservableObject {
         text: String?,
         type: TextRelationViewType,
         config: RelationModuleConfiguration,
+        actionsViewModel: [TextRelationActionViewModelProtocol],
         service: TextRelationEditingServiceProtocol
     ) {
         self.text = text ?? ""
         self.config = config
         self.type = type
+        self.actionsViewModel = actionsViewModel
         self.service = service
         self.textFocused = config.isEditable
+        
+        self.handleTextUpdate(text: self.text)
     }
     
     func onClear() {
@@ -33,6 +38,7 @@ final class TextRelationEditingViewModel: ObservableObject {
     
     func onTextChanged(_ text: String) {
         updateRelation(with: text)
+        handleTextUpdate(text: text)
     }
     
     private func updateRelation(with value: String) {
@@ -43,6 +49,13 @@ final class TextRelationEditingViewModel: ObservableObject {
             textType: type
         )
         logEvent()
+    }
+    
+    func handleTextUpdate(text: String) {
+        for actionViewModel in actionsViewModel {
+            actionViewModel.inputText = text
+        }
+        self.actionsViewModel = actionsViewModel
     }
     
     private func logEvent() {

@@ -25,7 +25,8 @@ final class CoordinatorsDI: CoordinatorsDIProtocol {
     func relationValue() -> RelationValueCoordinatorAssemblyProtocol {
         return RelationValueCoordinatorAssembly(
             coordinatorsID: self,
-            modulesDI: modulesDI
+            modulesDI: modulesDI, 
+            uiHelpersDI: uiHelpersDI
         )
     }
     

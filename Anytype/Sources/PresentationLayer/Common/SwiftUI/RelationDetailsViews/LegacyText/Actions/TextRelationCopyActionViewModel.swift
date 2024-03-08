@@ -13,6 +13,7 @@ final class TextRelationCopyActionViewModel: TextRelationActionViewModelProtocol
     private let alertOpener: AlertOpenerProtocol
     private weak var delegate: TextRelationActionButtonViewModelDelegate?
     
+    let id = UUID().uuidString
     var inputText: String = ""
     var title: String { type.title }
     let iconAsset = ImageAsset.X24.copy

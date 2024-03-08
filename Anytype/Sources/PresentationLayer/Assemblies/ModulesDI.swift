@@ -31,7 +31,7 @@ final class ModulesDI: ModulesDIProtocol {
     }
     
     func textRelationEditing() -> TextRelationEditingModuleAssemblyProtocol {
-        TextRelationEditingModuleAssembly(serviceLocator: serviceLocator)
+        TextRelationEditingModuleAssembly(serviceLocator: serviceLocator, uiHelpersDI: uiHelpersDI)
     }
     
     func relationOptionSettings() -> RelationOptionSettingsModuleAssemblyProtocol {

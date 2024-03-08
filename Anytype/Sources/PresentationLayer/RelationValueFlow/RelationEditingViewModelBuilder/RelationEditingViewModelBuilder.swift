@@ -119,7 +119,7 @@ extension RelationEditingViewModelBuilder: RelationEditingViewModelBuilderProtoc
                 ),
                 TextRelationReloadContentActionViewModel(
                     objectDetails: objectDetails,
-                    relation: relation,
+                    relationKey: relation.key,
                     bookmarkService: bookmarkService,
                     alertOpener: alertOpener
                 )
