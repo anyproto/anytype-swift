@@ -3,7 +3,6 @@ import Foundation
 protocol ModulesDIProtocol: AnyObject {
     func relationValue() -> RelationValueModuleAssemblyProtocol
     func relationsList() -> RelationsListModuleAssemblyProtocol
-    func objectRelationList() -> ObjectRelationListModuleAssemblyProtocol
     func textRelationEditing() -> TextRelationEditingModuleAssemblyProtocol
     func undoRedo() -> UndoRedoModuleAssemblyProtocol
     func objectLayoutPicker() -> ObjectLayoutPickerModuleAssemblyProtocol

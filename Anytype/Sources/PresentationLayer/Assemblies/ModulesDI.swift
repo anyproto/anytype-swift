@@ -26,10 +26,6 @@ final class ModulesDI: ModulesDIProtocol {
         TextRelationEditingModuleAssembly(serviceLocator: serviceLocator, uiHelpersDI: uiHelpersDI)
     }
     
-    func objectRelationList() -> ObjectRelationListModuleAssemblyProtocol {
-        return ObjectRelationListModuleAssembly(serviceLocator: serviceLocator)
-    }
-    
     func undoRedo() -> UndoRedoModuleAssemblyProtocol {
         return UndoRedoModuleAssembly(serviceLocator: serviceLocator, uiHelpersDI: uiHelpersDI)
     }

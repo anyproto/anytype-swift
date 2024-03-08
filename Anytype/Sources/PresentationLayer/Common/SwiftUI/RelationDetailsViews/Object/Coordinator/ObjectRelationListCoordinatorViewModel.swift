@@ -1,5 +1,6 @@
 import Foundation
 import SwiftUI
+import Services
 
 @MainActor
 protocol ObjectRelationListCoordinatorModuleOutput: AnyObject {
@@ -14,11 +15,14 @@ enum ObjectRelationListMode {
 @MainActor
 final class ObjectRelationListCoordinatorViewModel: ObservableObject, ObjectRelationListModuleOutput {
 
-    private let mode: ObjectRelationListMode
-    private let configuration: RelationModuleConfiguration
-    private let selectedOptionsIds: [String]
-    private let objectRelationListModuleAssembly: ObjectRelationListModuleAssemblyProtocol
+    let mode: ObjectRelationListMode
+    let configuration: RelationModuleConfiguration
+    let selectedOptionsIds: [String]
+    
     private weak var output: ObjectRelationListCoordinatorModuleOutput?
+    
+    @Injected(\.objectTypeProvider)
+    private var objectTypeProvider: ObjectTypeProviderProtocol
     
     @Published var deletionAlertData: DeletionAlertData?
     @Published var dismiss = false
@@ -27,33 +31,17 @@ final class ObjectRelationListCoordinatorViewModel: ObservableObject, ObjectRela
         mode: ObjectRelationListMode,
         configuration: RelationModuleConfiguration,
         selectedOptionsIds: [String],
-        objectRelationListModuleAssembly: ObjectRelationListModuleAssemblyProtocol,
         output: ObjectRelationListCoordinatorModuleOutput?
     ) {
         self.mode = mode
         self.configuration = configuration
         self.selectedOptionsIds = selectedOptionsIds
-        self.objectRelationListModuleAssembly = objectRelationListModuleAssembly
         self.output = output
     }
     
-    func relationListModule() -> AnyView {
-        switch mode {
-        case let .object(limitedObjectTypes):
-            return objectRelationListModuleAssembly.makeObjectModule(
-                objectId: configuration.objectId,
-                limitedObjectTypes: limitedObjectTypes,
-                configuration: configuration,
-                selectedOptionsIds: selectedOptionsIds,
-                output: self
-            )
-        case .file:
-            return objectRelationListModuleAssembly.makeFileModule(
-                objectId: configuration.objectId,
-                configuration: configuration,
-                selectedOptionsIds: selectedOptionsIds,
-                output: self
-            )
+    func obtainLimitedObjectTypes(with typesIds: [String]) -> [ObjectType] {
+        typesIds.compactMap { [weak self] id in
+            self?.objectTypeProvider.objectTypes.first { $0.id == id }
         }
     }
 

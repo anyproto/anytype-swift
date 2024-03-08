@@ -34,7 +34,6 @@ final class ObjectRelationListCoordinatorAssembly: ObjectRelationListCoordinator
                 mode: mode,
                 configuration: configuration,
                 selectedOptionsIds: selectedOptionsIds,
-                objectRelationListModuleAssembly: self.modulesDI.objectRelationList(),
                 output: output
             )
         ).eraseToAnyView()
