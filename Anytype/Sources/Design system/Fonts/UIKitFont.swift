@@ -151,6 +151,8 @@ struct UIKitFontBuilder {
             return UIFontDescriptor.AttributeName.name
         case .inter:
             return UIFontDescriptor.AttributeName.family
+        case .riccione:
+            return UIFontDescriptor.AttributeName.family
         }
     }
 

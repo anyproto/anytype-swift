@@ -1,6 +1,23 @@
 import SwiftUI
 import Services
 
+extension Optional where Wrapped == MembershipTier {
+    var availableTiers: [MembershipTier] {
+        switch self {
+        case .none:
+            [.explorer, .builder, .coCreator ]
+        case .some(let tier):
+            switch tier {
+            case .explorer:
+                [.explorer, .builder, .coCreator ]
+            case .builder:
+                [.builder, .coCreator ]
+            case .coCreator:
+                [.coCreator ]
+            }
+        }
+    }
+}
 
 extension MembershipTier {
     var title: String {

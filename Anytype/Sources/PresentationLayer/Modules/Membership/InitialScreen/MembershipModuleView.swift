@@ -9,9 +9,7 @@ struct MembershipModuleView: View {
             ScrollView {
                 VStack {
                     Spacer.fixedHeight(40)
-                    
-                    AnytypeText(Loc.Membership.Ad.title, name: .inter, size: 48, weight: .light)
-                        .foregroundStyle(Color.Text.primary)
+                    AnytypeText(Loc.Membership.Ad.title, style: .riccioneTitle, color: .Text.primary)
                         .padding(.horizontal, 20)
                         .multilineTextAlignment(.center)
                     AnytypeText(Loc.Membership.Ad.subtitle, style: .relation2Regular, color: .Text.primary)
@@ -20,16 +18,18 @@ struct MembershipModuleView: View {
                     Spacer.fixedHeight(32)
                     
                     baners
-                    MembershipTierListView {
+                    MembershipTierListView(currentTier: model.tier) {
                         UISelectionFeedbackGenerator().selectionChanged()
                         model.onTierTap(tier: $0)
                     }
                     .padding(.vertical, 32)
                     
-                    
                     legal
                 }
             }
+        }
+        .task {
+            model.updateCurrentTier()
         }
     }
     
@@ -98,6 +98,7 @@ struct MembershipModuleView: View {
     NavigationView {
         MembershipModuleView(
             model: MembershipModuleViewModel(
+                membershipService: DI.preview.serviceLocator.membershipService(), 
                 urlOpener: DI.preview.uihelpersDI.urlOpener(),
                 onTierTap: { _ in }
             )
