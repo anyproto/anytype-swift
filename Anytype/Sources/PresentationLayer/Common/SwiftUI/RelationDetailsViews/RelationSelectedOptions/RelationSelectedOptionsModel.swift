@@ -23,22 +23,22 @@ final class RelationSelectedOptionsModel: RelationSelectedOptionsModelProtocol {
     private let objectId: String
     private let relationKey: String
     private let analyticsType: AnalyticsEventsRelationType
-    private let relationsService: RelationsServiceProtocol
+    
+    @Injected(\.relationsService)
+    private var relationsService: RelationsServiceProtocol
     
     init(
         objectId: String,
         selectionMode: RelationSelectionOptionsMode,
         selectedOptionsIds: [String],
         relationKey: String,
-        analyticsType: AnalyticsEventsRelationType,
-        relationsService: RelationsServiceProtocol
+        analyticsType: AnalyticsEventsRelationType
     ) {
         self.objectId = objectId
         self.selectionMode = selectionMode
         self.selectedOptionsIds = selectedOptionsIds
         self.relationKey = relationKey
         self.analyticsType = analyticsType
-        self.relationsService = relationsService
     }
     
     func onClear() async throws {

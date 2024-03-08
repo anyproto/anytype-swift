@@ -87,40 +87,45 @@ struct SelectRelationListView: View {
     }
 }
 
+extension SelectRelationListView {
+    init(
+        style: SelectRelationListStyle,
+        configuration: RelationModuleConfiguration,
+        selectedOptionsIds: [String],
+        output: SelectRelationListModuleOutput?
+    ) {
+        let relationSelectedOptionsModel = RelationSelectedOptionsModel(
+            objectId: configuration.objectId,
+            selectionMode: configuration.selectionMode,
+            selectedOptionsIds: selectedOptionsIds,
+            relationKey: configuration.relationKey,
+            analyticsType: configuration.analyticsType
+        )
+        _viewModel = StateObject(
+            wrappedValue: SelectRelationListViewModel(
+                style: style,
+                configuration: configuration,
+                relationSelectedOptionsModel: relationSelectedOptionsModel,
+                output: output
+            )
+        )
+    }
+}
+
 #Preview("Status list") {
     SelectRelationListView(
-        viewModel: SelectRelationListViewModel(
-            style: .status,
-            configuration: RelationModuleConfiguration.default,
-            relationSelectedOptionsModel: RelationSelectedOptionsModel(
-                objectId: "",
-                selectionMode: .single,
-                selectedOptionsIds: [],
-                relationKey: "",
-                analyticsType: .block,
-                relationsService: DI.preview.serviceLocator.relationService()
-            ),
-            searchService: DI.preview.serviceLocator.searchService(),
-            output: nil
-        )
+        style: .status,
+        configuration: RelationModuleConfiguration.default,
+        selectedOptionsIds: [],
+        output: nil
     )
 }
 
 #Preview("Tag list") {
     SelectRelationListView(
-        viewModel: SelectRelationListViewModel(
-            style: .tag,
-            configuration: RelationModuleConfiguration.default,
-            relationSelectedOptionsModel: RelationSelectedOptionsModel(
-                objectId: "",
-                selectionMode: .multi,
-                selectedOptionsIds: [],
-                relationKey: "",
-                analyticsType: .block,
-                relationsService: DI.preview.serviceLocator.relationService()
-            ),
-            searchService: DI.preview.serviceLocator.searchService(),
-            output: nil
-        )
+        style: .tag,
+        configuration: RelationModuleConfiguration.default,
+        selectedOptionsIds: [],
+        output: nil
     )
 }

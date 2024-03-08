@@ -4,10 +4,9 @@ import SwiftUI
 @MainActor
 final class SelectRelationListCoordinatorViewModel: ObservableObject, SelectRelationListModuleOutput {
 
-    private let style: SelectRelationListStyle
-    private let configuration: RelationModuleConfiguration
-    private let selectedOptionsIds: [String]
-    private let selectRelationListModuleAssembly: SelectRelationListModuleAssemblyProtocol
+    let style: SelectRelationListStyle
+    let configuration: RelationModuleConfiguration
+    let selectedOptionsIds: [String]
 
     @Published var relationData: RelationData?
     @Published var deletionAlertData: DeletionAlertData?
@@ -16,22 +15,11 @@ final class SelectRelationListCoordinatorViewModel: ObservableObject, SelectRela
     init(
         style: SelectRelationListStyle,
         configuration: RelationModuleConfiguration,
-        selectedOptionsIds: [String],
-        selectRelationListModuleAssembly: SelectRelationListModuleAssemblyProtocol
+        selectedOptionsIds: [String]
     ) {
         self.style = style
         self.configuration = configuration
         self.selectedOptionsIds = selectedOptionsIds
-        self.selectRelationListModuleAssembly = selectRelationListModuleAssembly
-    }
-    
-    func selectRelationListModule() -> AnyView {
-        selectRelationListModuleAssembly.make(
-            style: style,
-            configuration: configuration,
-            selectedOptionsIds: selectedOptionsIds,
-            output: self
-        )
     }
 
     // MARK: - SelectRelationListModuleOutput

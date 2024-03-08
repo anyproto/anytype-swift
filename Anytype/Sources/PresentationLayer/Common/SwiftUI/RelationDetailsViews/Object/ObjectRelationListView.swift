@@ -109,10 +109,8 @@ struct ObjectRelationListView: View {
                 selectionMode: .multi,
                 selectedOptionsIds: [],
                 relationKey: "",
-                analyticsType: .block,
-                relationsService: DI.preview.serviceLocator.relationService()
+                analyticsType: .block
             ),
-            searchService: DI.preview.serviceLocator.searchService(),
             output: nil
         )
     )

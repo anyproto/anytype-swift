@@ -52,8 +52,7 @@ final class ObjectRelationListModuleAssembly: ObjectRelationListModuleAssemblyPr
                     selectionMode: configuration.selectionMode,
                     selectedOptionsIds: selectedOptionsIds,
                     relationKey: configuration.relationKey,
-                    analyticsType: configuration.analyticsType,
-                    relationsService: self.serviceLocator.relationService()
+                    analyticsType: configuration.analyticsType
                 ),
                 objectActionsService: self.serviceLocator.objectActionsService(),
                 output: output
@@ -79,8 +78,7 @@ final class ObjectRelationListModuleAssembly: ObjectRelationListModuleAssemblyPr
                     selectionMode: configuration.selectionMode,
                     selectedOptionsIds: selectedOptionsIds,
                     relationKey: configuration.relationKey,
-                    analyticsType: configuration.analyticsType,
-                    relationsService: self.serviceLocator.relationService()
+                    analyticsType: configuration.analyticsType
                 ),
                 objectActionsService: self.serviceLocator.objectActionsService(),
                 output: output
