@@ -1179,11 +1179,9 @@
 		3D26AA722B9725EF00D61479 /* MembershipEmailSheetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D26AA712B9725EF00D61479 /* MembershipEmailSheetView.swift */; };
 		3D26AA752B97391900D61479 /* AnytypeCheckbox.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D26AA742B97391900D61479 /* AnytypeCheckbox.swift */; };
 		3D26AA772B973E2200D61479 /* MembershipTierSelectionViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D26AA762B973E2200D61479 /* MembershipTierSelectionViewModel.swift */; };
-		3D26AA792B973E9D00D61479 /* MembershipTierSelectionAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D26AA782B973E9D00D61479 /* MembershipTierSelectionAssembly.swift */; };
 		3D26AA7B2B97505300D61479 /* MembershipTierInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D26AA7A2B97505300D61479 /* MembershipTierInfoView.swift */; };
 		3D26AA7E2B9768F500D61479 /* EmailVerificationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D26AA7D2B9768F500D61479 /* EmailVerificationView.swift */; };
 		3D26AA802B976AE400D61479 /* EmailVerificationViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D26AA7F2B976AE400D61479 /* EmailVerificationViewModel.swift */; };
-		3D26AA822B9780A400D61479 /* EmailVerificationAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D26AA812B9780A400D61479 /* EmailVerificationAssembly.swift */; };
 		3D2D4C5B27BA54030070A4C6 /* Divider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D2D4C5A27BA54030070A4C6 /* Divider.swift */; };
 		3D2D4C6327BA76270070A4C6 /* EditorRouterProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D2D4C6227BA76270070A4C6 /* EditorRouterProtocol.swift */; };
 		3D2D4C6527BAA2EF0070A4C6 /* SetConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D2D4C6427BAA2EF0070A4C6 /* SetConstants.swift */; };
@@ -2961,11 +2959,9 @@
 		3D26AA712B9725EF00D61479 /* MembershipEmailSheetView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MembershipEmailSheetView.swift; sourceTree = "<group>"; };
 		3D26AA742B97391900D61479 /* AnytypeCheckbox.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnytypeCheckbox.swift; sourceTree = "<group>"; };
 		3D26AA762B973E2200D61479 /* MembershipTierSelectionViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MembershipTierSelectionViewModel.swift; sourceTree = "<group>"; };
-		3D26AA782B973E9D00D61479 /* MembershipTierSelectionAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MembershipTierSelectionAssembly.swift; sourceTree = "<group>"; };
 		3D26AA7A2B97505300D61479 /* MembershipTierInfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MembershipTierInfoView.swift; sourceTree = "<group>"; };
 		3D26AA7D2B9768F500D61479 /* EmailVerificationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmailVerificationView.swift; sourceTree = "<group>"; };
 		3D26AA7F2B976AE400D61479 /* EmailVerificationViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmailVerificationViewModel.swift; sourceTree = "<group>"; };
-		3D26AA812B9780A400D61479 /* EmailVerificationAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmailVerificationAssembly.swift; sourceTree = "<group>"; };
 		3D2D4C5A27BA54030070A4C6 /* Divider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Divider.swift; sourceTree = "<group>"; };
 		3D2D4C6227BA76270070A4C6 /* EditorRouterProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditorRouterProtocol.swift; sourceTree = "<group>"; };
 		3D2D4C6427BAA2EF0070A4C6 /* SetConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetConstants.swift; sourceTree = "<group>"; };
@@ -7977,7 +7973,6 @@
 			children = (
 				3D26AA7D2B9768F500D61479 /* EmailVerificationView.swift */,
 				3D26AA7F2B976AE400D61479 /* EmailVerificationViewModel.swift */,
-				3D26AA812B9780A400D61479 /* EmailVerificationAssembly.swift */,
 			);
 			path = EmailVerification;
 			sourceTree = "<group>";
@@ -9021,7 +9016,6 @@
 				3D26AA702B9725A900D61479 /* Views */,
 				3DD1129D2B95FE62007682F4 /* MembershipTierSelectionView.swift */,
 				3D26AA762B973E2200D61479 /* MembershipTierSelectionViewModel.swift */,
-				3D26AA782B973E9D00D61479 /* MembershipTierSelectionAssembly.swift */,
 			);
 			path = TierSelection;
 			sourceTree = "<group>";
@@ -11037,7 +11031,6 @@
 				3D547B852B988BDE000B030A /* MembershipTierSuccessView.swift in Sources */,
 				2EA9D72B2B3093FE001CF0DE /* EventsBunch.swift in Sources */,
 				867580042A58306A0008566A /* TemplatePreview.swift in Sources */,
-				3D26AA822B9780A400D61479 /* EmailVerificationAssembly.swift in Sources */,
 				2AB2C22428AD23FD000191F8 /* AlertOpenerProtocol.swift in Sources */,
 				2A0BAD3129E020A3005BC5D9 /* Task+Extensions.swift in Sources */,
 				2A816ACC2AD7E31F00975BCA /* DocumentPicker.swift in Sources */,
@@ -11881,7 +11874,6 @@
 				2E0A6CD72A3773B800A28AF2 /* LoginFlowCoordinator.swift in Sources */,
 				2E975EDD287C2325004DE574 /* SetFiltersListView.swift in Sources */,
 				2A4C7FFA2A822BA000201946 /* SettingsInfoBlockView.swift in Sources */,
-				3D26AA792B973E9D00D61479 /* MembershipTierSelectionAssembly.swift in Sources */,
 				1206DB90267A303E000A48A7 /* MediaPickerView.swift in Sources */,
 				2A377E412A826FFD00EA856B /* RemoteStorageView.swift in Sources */,
 				2AC434972B7A0683006166BF /* SpaceShareView.swift in Sources */,
