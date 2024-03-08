@@ -8,16 +8,15 @@ final class MembershipTierSelectionViewModel: ObservableObject {
     @Published var userTier: MembershipTier?
     let tierToDisplay: MembershipTier
     
-    private let membershipService: MembershipServiceProtocol
+    @Injected(\.membershipService)
+    private var membershipService: MembershipServiceProtocol
     private let showEmailVerification: (EmailVerificationData) -> ()
     
     init(
         tierToDisplay: MembershipTier,
-        membershipService: MembershipServiceProtocol,
         showEmailVerification: @escaping (EmailVerificationData) -> ()
     ) {
         self.tierToDisplay = tierToDisplay
-        self.membershipService = membershipService
         self.showEmailVerification = showEmailVerification
     }
     

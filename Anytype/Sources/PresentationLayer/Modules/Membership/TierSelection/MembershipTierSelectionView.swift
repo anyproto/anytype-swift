@@ -1,8 +1,15 @@
 import SwiftUI
+import Services
 
 
 struct MembershipTierSelectionView: View {
     @StateObject var model: MembershipTierSelectionViewModel
+    
+    init(tier: MembershipTier, showEmailVerification: @escaping (EmailVerificationData) -> ()) {
+        _model = StateObject(
+            wrappedValue: MembershipTierSelectionViewModel(tierToDisplay: tier, showEmailVerification: showEmailVerification)
+            )
+    }
     
     var body: some View {
         ScrollView {
@@ -52,10 +59,7 @@ struct MembershipTierSelectionView: View {
 
 #Preview {
     MembershipTierSelectionView(
-        model: MembershipTierSelectionViewModel(
-            tierToDisplay: .explorer,
-            membershipService: DI.preview.serviceLocator.membershipService(),
-            showEmailVerification: { _ in }
-        )
+        tier: .explorer,
+        showEmailVerification: { _ in }
     )
 }
