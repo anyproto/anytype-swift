@@ -28,7 +28,7 @@ struct MembershipOwnerInfoSheetView: View {
             case .builder, .coCreator:
                 AnytypeText("%Date%", style: .title, color: .Text.primary)
                 Spacer.fixedHeight(23)
-                AnytypeText(Loc.paidBy("%Card%"), style: .relation3Regular, color: .Text.secondary)
+                AnytypeText(Loc.paidBy("%Card%"), style: .relation2Regular, color: .Text.secondary)
                 Spacer.fixedHeight(15)
             }
         }

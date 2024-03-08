@@ -48,4 +48,3 @@ final class MembershipService: MembershipServiceProtocol {
         return MembershipService.tier
     }
 }
-        

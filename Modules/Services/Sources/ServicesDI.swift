@@ -115,4 +115,8 @@ public extension Container {
     var membershipService: Factory<MembershipServiceProtocol> {
         self { MembershipService() }.shared
     }
+    
+    var nameService: Factory<NameServiceProtocol> {
+        self { NameService() }.shared
+    }
 }
