@@ -17,7 +17,6 @@ final class RelationValueCoordinatorViewModel:
     
     private let relation: Relation
     private let objectDetails: ObjectDetails
-    private let objectRelationListCoordinatorAssembly: ObjectRelationListCoordinatorAssemblyProtocol
     private let textRelationEditingModuleAssembly: TextRelationEditingModuleAssemblyProtocol
     private let urlOpener: URLOpenerProtocol
     private let analyticsType: AnalyticsEventsRelationType
@@ -26,7 +25,6 @@ final class RelationValueCoordinatorViewModel:
     init(
         relation: Relation,
         objectDetails: ObjectDetails,
-        objectRelationListCoordinatorAssembly: ObjectRelationListCoordinatorAssemblyProtocol,
         textRelationEditingModuleAssembly: TextRelationEditingModuleAssemblyProtocol,
         urlOpener: URLOpenerProtocol,
         analyticsType: AnalyticsEventsRelationType,
@@ -34,7 +32,6 @@ final class RelationValueCoordinatorViewModel:
     ) {
         self.relation = relation
         self.objectDetails = objectDetails
-        self.objectRelationListCoordinatorAssembly = objectRelationListCoordinatorAssembly
         self.textRelationEditingModuleAssembly = textRelationEditingModuleAssembly
         self.urlOpener = urlOpener
         self.analyticsType = analyticsType
@@ -105,12 +102,12 @@ final class RelationValueCoordinatorViewModel:
                 analyticsType: analyticsType
             )
             mediumDetent = object.selectedObjects.isNotEmpty || !relation.isEditable
-            return objectRelationListCoordinatorAssembly.make(
+            return ObjectRelationListCoordinatorView(
                 mode: .object(limitedObjectTypes: object.limitedObjectTypes),
                 configuration: configuration,
                 selectedOptionsIds: object.selectedObjects.compactMap { $0.id },
                 output: self
-            )
+            ).eraseToAnyView()
         }
         
         if FeatureFlags.newObjectSelectRelationView, case .file(let file) = relation {
@@ -124,12 +121,12 @@ final class RelationValueCoordinatorViewModel:
                 analyticsType: analyticsType
             )
             mediumDetent = file.files.isNotEmpty || !relation.isEditable
-            return objectRelationListCoordinatorAssembly.make(
+            return ObjectRelationListCoordinatorView(
                 mode: .file,
                 configuration: configuration,
                 selectedOptionsIds: file.files.compactMap { $0.id },
                 output: self
-            )
+            ).eraseToAnyView()
         }
         
         if FeatureFlags.newTextEditingRelationView, case .text(let text) = relation {

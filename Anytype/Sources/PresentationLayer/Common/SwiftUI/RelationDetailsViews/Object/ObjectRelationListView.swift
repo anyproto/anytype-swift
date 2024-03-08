@@ -1,6 +1,5 @@
 import SwiftUI
 import WrappingHStack
-import Services
 
 struct ObjectRelationListView: View {
     
@@ -103,15 +102,11 @@ struct ObjectRelationListView: View {
 extension ObjectRelationListView {
     init(
         objectId: String,
-        limitedObjectTypes: [ObjectType],
         configuration: RelationModuleConfiguration,
         selectedOptionsIds: [String],
+        interactor: ObjectRelationListInteractorProtocol,
         output: ObjectRelationListModuleOutput?
     ) {
-        let interactor = ObjectRelationListInteractor(
-            spaceId: configuration.spaceId,
-            limitedObjectTypes: limitedObjectTypes
-        )
         let relationSelectedOptionsModel = RelationSelectedOptionsModel(
             objectId: objectId,
             selectionMode: configuration.selectionMode,

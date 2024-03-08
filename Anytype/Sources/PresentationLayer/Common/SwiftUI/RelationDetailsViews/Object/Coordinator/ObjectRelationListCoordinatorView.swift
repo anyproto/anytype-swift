@@ -21,21 +21,45 @@ struct ObjectRelationListCoordinatorView: View {
     private var relationList: some View {
         switch model.mode {
         case let .object(limitedObjectTypes):
-            ObjectRelationListView(
+            let limitedObjectTypes = model.obtainLimitedObjectTypes(with: limitedObjectTypes)
+            return ObjectRelationListView(
                 objectId: model.configuration.objectId,
-                limitedObjectTypes: model.obtainLimitedObjectTypes(with: limitedObjectTypes),
                 configuration: model.configuration,
-                selectedOptionsIds: model.selectedOptionsIds,
+                selectedOptionsIds: model.selectedOptionsIds, 
+                interactor: ObjectRelationListInteractor(
+                    spaceId: model.configuration.spaceId,
+                    limitedObjectTypes: limitedObjectTypes
+                ),
                 output: model
             )
         case .file:
-            ObjectRelationListView(
+            return ObjectRelationListView(
                 objectId: model.configuration.objectId,
-                limitedObjectTypes: [],
                 configuration: model.configuration,
                 selectedOptionsIds: model.selectedOptionsIds,
+                interactor: FileRelationListInteractor(
+                    spaceId: model.configuration.spaceId
+                ),
                 output: model
             )
         }
+    }
+}
+
+extension ObjectRelationListCoordinatorView {
+    init(
+        mode: ObjectRelationListMode,
+        configuration: RelationModuleConfiguration,
+        selectedOptionsIds: [String],
+        output: ObjectRelationListCoordinatorModuleOutput?
+    ) {
+        _model = StateObject(
+            wrappedValue: ObjectRelationListCoordinatorViewModel(
+                mode: mode,
+                configuration: configuration,
+                selectedOptionsIds: selectedOptionsIds,
+                output: output
+            )
+        )
     }
 }

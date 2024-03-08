@@ -197,10 +197,6 @@ final class CoordinatorsDI: CoordinatorsDIProtocol {
         )
     }
     
-    func objectRelationList() -> ObjectRelationListCoordinatorAssemblyProtocol {
-        ObjectRelationListCoordinatorAssembly(modulesDI: modulesDI)
-    }
-    
     func spaceShare() -> SpaceShareCoordinatorAssemblyProtocol {
         SpaceShareCoordinatorAssembly(modulesDI: modulesDI)
     }

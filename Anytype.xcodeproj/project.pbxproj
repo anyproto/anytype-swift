@@ -1003,7 +1003,6 @@
 		2E7E50422B6D5C3A003867A3 /* ObjectRelationListModuleOutput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E7E50412B6D5C3A003867A3 /* ObjectRelationListModuleOutput.swift */; };
 		2E7E50452B6D65DF003867A3 /* ObjectRelationListCoordinatorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E7E50442B6D65DF003867A3 /* ObjectRelationListCoordinatorView.swift */; };
 		2E7E50472B6D65F6003867A3 /* ObjectRelationListCoordinatorViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E7E50462B6D65F6003867A3 /* ObjectRelationListCoordinatorViewModel.swift */; };
-		2E7E50492B6D6609003867A3 /* ObjectRelationListCoordinatorAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E7E50482B6D6609003867A3 /* ObjectRelationListCoordinatorAssembly.swift */; };
 		2E8387BA291A51A000506766 /* SetCardDropData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E8387B8291A51A000506766 /* SetCardDropData.swift */; };
 		2E8387BB291A51A000506766 /* SetCardDropInsideDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E8387B9291A51A000506766 /* SetCardDropInsideDelegate.swift */; };
 		2E8387BD291A520C00506766 /* GroupObjectIds.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E8387BC291A520C00506766 /* GroupObjectIds.swift */; };
@@ -2779,7 +2778,6 @@
 		2E7E50412B6D5C3A003867A3 /* ObjectRelationListModuleOutput.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObjectRelationListModuleOutput.swift; sourceTree = "<group>"; };
 		2E7E50442B6D65DF003867A3 /* ObjectRelationListCoordinatorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObjectRelationListCoordinatorView.swift; sourceTree = "<group>"; };
 		2E7E50462B6D65F6003867A3 /* ObjectRelationListCoordinatorViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObjectRelationListCoordinatorViewModel.swift; sourceTree = "<group>"; };
-		2E7E50482B6D6609003867A3 /* ObjectRelationListCoordinatorAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObjectRelationListCoordinatorAssembly.swift; sourceTree = "<group>"; };
 		2E8387B8291A51A000506766 /* SetCardDropData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SetCardDropData.swift; sourceTree = "<group>"; };
 		2E8387B9291A51A000506766 /* SetCardDropInsideDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SetCardDropInsideDelegate.swift; sourceTree = "<group>"; };
 		2E8387BC291A520C00506766 /* GroupObjectIds.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GroupObjectIds.swift; sourceTree = "<group>"; };
@@ -7311,7 +7309,6 @@
 			children = (
 				2E7E50442B6D65DF003867A3 /* ObjectRelationListCoordinatorView.swift */,
 				2E7E50462B6D65F6003867A3 /* ObjectRelationListCoordinatorViewModel.swift */,
-				2E7E50482B6D6609003867A3 /* ObjectRelationListCoordinatorAssembly.swift */,
 			);
 			path = Coordinator;
 			sourceTree = "<group>";
@@ -10573,7 +10570,6 @@
 				C99DCEDE283D0E820051F99D /* TemplatePickerViewModel.swift in Sources */,
 				2A4DD28E2B8DFC32005D22CF /* SpaceParticipantRemoveView.swift in Sources */,
 				3D3A9C3F265BC9AC000F07DB /* Publisher+Sink.swift in Sources */,
-				2E7E50492B6D6609003867A3 /* ObjectRelationListCoordinatorAssembly.swift in Sources */,
 				2AAF3454295B1B5F00921320 /* TreeSubscriptionManager.swift in Sources */,
 				120E8177269F3474006FE84E /* ObjectSetting.swift in Sources */,
 				3D5A416A2703170300F1F6A1 /* BlockAction.swift in Sources */,
