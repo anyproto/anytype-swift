@@ -958,7 +958,6 @@
 		2E3EF5CE2AFBC63E00A2D432 /* TemplatePickerData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E3EF5CD2AFBC63E00A2D432 /* TemplatePickerData.swift */; };
 		2E412CC8283BCA3E00C973FF /* MediaPickerContentType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E412CC7283BCA3E00C973FF /* MediaPickerContentType.swift */; };
 		2E412D152847B15C00C973FF /* SetSort.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E412D142847B15C00C973FF /* SetSort.swift */; };
-		2E43C6CF2B5843AD00F65DB9 /* DateRelationCalendarModuleAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E43C6CE2B5843AD00F65DB9 /* DateRelationCalendarModuleAssembly.swift */; };
 		2E4758922A1BC54F00A6FEB9 /* JoinFlowState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E4758912A1BC54F00A6FEB9 /* JoinFlowState.swift */; };
 		2E48ACA32A55D4EF0059CB5C /* CustomBackSwipe.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E48ACA22A55D4EF0059CB5C /* CustomBackSwipe.swift */; };
 		2E48D74328CF461400CEE69D /* TertiaryPressedBackgroundButtonStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E48D74228CF461400CEE69D /* TertiaryPressedBackgroundButtonStyle.swift */; };
@@ -2739,7 +2738,6 @@
 		2E3EF5CD2AFBC63E00A2D432 /* TemplatePickerData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TemplatePickerData.swift; sourceTree = "<group>"; };
 		2E412CC7283BCA3E00C973FF /* MediaPickerContentType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MediaPickerContentType.swift; sourceTree = "<group>"; };
 		2E412D142847B15C00C973FF /* SetSort.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetSort.swift; sourceTree = "<group>"; };
-		2E43C6CE2B5843AD00F65DB9 /* DateRelationCalendarModuleAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateRelationCalendarModuleAssembly.swift; sourceTree = "<group>"; };
 		2E4758912A1BC54F00A6FEB9 /* JoinFlowState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JoinFlowState.swift; sourceTree = "<group>"; };
 		2E48ACA22A55D4EF0059CB5C /* CustomBackSwipe.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomBackSwipe.swift; sourceTree = "<group>"; };
 		2E48D74228CF461400CEE69D /* TertiaryPressedBackgroundButtonStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TertiaryPressedBackgroundButtonStyle.swift; sourceTree = "<group>"; };
@@ -7678,7 +7676,6 @@
 				2EE33DC22B5582F200D0CDDB /* DateRelationCalendarView.swift */,
 				2EE33DC42B55832300D0CDDB /* DateRelationCalendarViewModel.swift */,
 				2EE33DC82B5800A100D0CDDB /* DateRelationCalendarQuickOption.swift */,
-				2E43C6CE2B5843AD00F65DB9 /* DateRelationCalendarModuleAssembly.swift */,
 			);
 			path = Date;
 			sourceTree = "<group>";
@@ -11420,7 +11417,6 @@
 				3D5D0C5E2B8CBC28005DB879 /* TypeSearchForNewObjectCoordinatorView.swift in Sources */,
 				12B0FF6F274FD67F00CA35FE /* AppIcon.swift in Sources */,
 				2A6693782A7104EA007747DD /* ProfileIconImageGuideline.swift in Sources */,
-				2E43C6CF2B5843AD00F65DB9 /* DateRelationCalendarModuleAssembly.swift in Sources */,
 				C9A4268E28489D1F00F388FC /* SpreadsheetBlockView.swift in Sources */,
 				3DE0CFCD26F8591E003A606A /* SlashMenuCellData.swift in Sources */,
 				2AEAA48729F6A3D6009ACA00 /* ColorsExample.swift in Sources */,

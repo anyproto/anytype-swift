@@ -17,7 +17,6 @@ final class RelationValueCoordinatorViewModel:
     
     private let relation: Relation
     private let objectDetails: ObjectDetails
-    private let dateRelationCalendarModuleAssembly: DateRelationCalendarModuleAssemblyProtocol
     private let selectRelationListCoordinatorAssembly: SelectRelationListCoordinatorAssemblyProtocol
     private let objectRelationListCoordinatorAssembly: ObjectRelationListCoordinatorAssemblyProtocol
     private let textRelationEditingModuleAssembly: TextRelationEditingModuleAssemblyProtocol
@@ -28,7 +27,6 @@ final class RelationValueCoordinatorViewModel:
     init(
         relation: Relation,
         objectDetails: ObjectDetails,
-        dateRelationCalendarModuleAssembly: DateRelationCalendarModuleAssemblyProtocol,
         selectRelationListCoordinatorAssembly: SelectRelationListCoordinatorAssemblyProtocol,
         objectRelationListCoordinatorAssembly: ObjectRelationListCoordinatorAssemblyProtocol,
         textRelationEditingModuleAssembly: TextRelationEditingModuleAssemblyProtocol,
@@ -38,7 +36,6 @@ final class RelationValueCoordinatorViewModel:
     ) {
         self.relation = relation
         self.objectDetails = objectDetails
-        self.dateRelationCalendarModuleAssembly = dateRelationCalendarModuleAssembly
         self.selectRelationListCoordinatorAssembly = selectRelationListCoordinatorAssembly
         self.objectRelationListCoordinatorAssembly = objectRelationListCoordinatorAssembly
         self.textRelationEditingModuleAssembly = textRelationEditingModuleAssembly
@@ -58,10 +55,10 @@ final class RelationValueCoordinatorViewModel:
                 spaceId: objectDetails.spaceId,
                 analyticsType: analyticsType
             )
-            return dateRelationCalendarModuleAssembly.make(
+            return DateRelationCalendarView(
                 date: dateValue,
                 configuration: configuration
-            )
+            ).eraseToAnyView()
         }
         
         if FeatureFlags.newSelectRelationView, case .status(let status) = relation {

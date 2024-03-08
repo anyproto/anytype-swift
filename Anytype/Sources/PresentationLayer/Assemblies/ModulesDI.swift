@@ -22,10 +22,6 @@ final class ModulesDI: ModulesDIProtocol {
         return RelationsListModuleAssembly(serviceLocator: serviceLocator)
     }
     
-    func dateRelationCalendar() -> DateRelationCalendarModuleAssemblyProtocol {
-        return DateRelationCalendarModuleAssembly(serviceLocator: serviceLocator)
-    }
-    
     func selectRelationList() -> SelectRelationListModuleAssemblyProtocol {
         return SelectRelationListModuleAssembly(serviceLocator: serviceLocator)
     }

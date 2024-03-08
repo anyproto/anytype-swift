@@ -41,7 +41,6 @@ final class RelationValueCoordinatorAssembly: RelationValueCoordinatorAssemblyPr
             model: RelationValueCoordinatorViewModel(
                 relation: relation,
                 objectDetails: objectDetails,
-                dateRelationCalendarModuleAssembly: self.modulesDI.dateRelationCalendar(),
                 selectRelationListCoordinatorAssembly: self.coordinatorsID.selectRelationList(),
                 objectRelationListCoordinatorAssembly: self.coordinatorsID.objectRelationList(), 
                 textRelationEditingModuleAssembly: self.modulesDI.textRelationEditing(), 
