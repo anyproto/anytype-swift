@@ -8,6 +8,12 @@ struct EmailVerificationView: View {
     @State private var textFocused = true
     private let timer = Timer.publish(every: 1, on: .main, in: .common).autoconnect()
     
+    init(data: EmailVerificationData, onSuccessfulValidation: @escaping () -> ()) {
+        _model = StateObject(
+            wrappedValue: EmailVerificationViewModel(data: data, onSuccessfulValidation: onSuccessfulValidation)
+        )
+    }
+    
     var body: some View {
         VStack(spacing: 0) {
             DragIndicator()
@@ -81,11 +87,8 @@ struct EmailVerificationView: View {
 #Preview {
     VStack {
         EmailVerificationView(
-            model: EmailVerificationViewModel(
-                data: EmailVerificationData(email: "", subscribeToNewsletter: true),
-                membershipService: DI.preview.serviceLocator.membershipService(),
-                onSuccessfulValidation: {}
-            )
+            data: EmailVerificationData(email: "", subscribeToNewsletter: true),
+            onSuccessfulValidation: {}
         )
     }
 }
