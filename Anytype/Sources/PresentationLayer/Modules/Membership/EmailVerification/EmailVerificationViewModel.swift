@@ -14,18 +14,17 @@ final class EmailVerificationViewModel: ObservableObject {
     var number3: String { text.letterAtIndex(2) }
     var number4: String { text.letterAtIndex(3) }
     
+    @Injected(\.membershipService)
+    private var membershipService: MembershipServiceProtocol
     
     private let data: EmailVerificationData
-    private let membershipService: MembershipServiceProtocol
     private let onSuccessfulValidation: () -> ()
     
     init(
         data: EmailVerificationData,
-        membershipService: MembershipServiceProtocol,
         onSuccessfulValidation: @escaping () -> ()
     ) {
         self.data = data
-        self.membershipService = membershipService
         self.onSuccessfulValidation = onSuccessfulValidation
     }
     
