@@ -282,14 +282,6 @@ final class ModulesDI: ModulesDIProtocol {
         MembershipModuleAssembly(uiHelpersDI: uiHelpersDI, serviceLocator: serviceLocator)
     }
     
-    func membershipTierSelection() -> MembershipTierSelectionAssemblyProtocol {
-        MembershipTierSelectionAssembly(serviceLocator: serviceLocator)
-    }
-    
-    func emailVerification() -> EmailVerificationAssemblyProtocol {
-        EmailVerificationAssembly(serviceLocator: serviceLocator)
-    }
-    
     func spaceMembers() -> SpaceMembersModuleAssemblyProtocol {
         SpaceMembersModuleAssembly(serviceLocator: serviceLocator)
     }

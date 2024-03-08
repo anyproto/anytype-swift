@@ -4,18 +4,26 @@ import Services
 
 @MainActor
 final class MembershipTierSelectionViewModel: ObservableObject {
-    let tier: MembershipTier
-    private let membershipService: MembershipServiceProtocol
+    
+    @Published var userTier: MembershipTier?
+    let tierToDisplay: MembershipTier
+    
+    @Injected(\.membershipService)
+    private var membershipService: MembershipServiceProtocol
     private let showEmailVerification: (EmailVerificationData) -> ()
     
     init(
-        tier: MembershipTier,
-        membershipService: MembershipServiceProtocol,
+        tierToDisplay: MembershipTier,
         showEmailVerification: @escaping (EmailVerificationData) -> ()
     ) {
-        self.tier = tier
-        self.membershipService = membershipService
+        self.tierToDisplay = tierToDisplay
         self.showEmailVerification = showEmailVerification
+    }
+    
+    func onAppear() {
+        Task {
+            userTier = try await membershipService.getStatus()
+        }
     }
     
     func getVerificationEmail(email: String, subscribeToNewsletter: Bool) async throws {

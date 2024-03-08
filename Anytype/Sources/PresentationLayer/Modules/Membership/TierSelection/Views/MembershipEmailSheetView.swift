@@ -42,7 +42,7 @@ struct MembershipEmailSheetView: View {
             Spacer.fixedHeight(102)
         }
         .frame(maxWidth: .infinity)
-        .padding(20)
+        .padding(.horizontal, 20)
         .background(Color.Background.primary)
         .cornerRadius(16, corners: .top)
     }
