@@ -996,10 +996,10 @@
 "Submit" = "Invia";
 "Resend" = "Resend";
 "Resend in" = "Resend in %@ sec";
-"Current" = "Current";
-"Forever free" = "Forever free";
-"Forever" = "Forever";
-"Valid until date" = "Valid until %@";
+"Current" = "Attuale";
+"Forever free" = "Gratis per sempre";
+"Forever" = "Per sempre";
+"Valid until date" = "Valido fino al %@";
 "Your current status" = "Your current status:";
 "Valid until" = "Valid until:";
 "Paid by" = "Paid by %@";
