@@ -1,4 +1,6 @@
+import ProtobufMessages
 
+typealias MiddlewareMembershipStatus = Anytype_Rpc.Payments.Subscription.GetStatus.Response
 
 public protocol MembershipServiceProtocol {
     func getStatus() async throws -> MembershipTier?
@@ -9,21 +11,43 @@ public protocol MembershipServiceProtocol {
 final class MembershipService: MembershipServiceProtocol {
     
     public func getVerificationEmail(data: EmailVerificationData) async throws {
-        try await Task.sleep(nanoseconds: 1_000_000_000)
+        try await ClientCommands.paymentsSubscriptionGetVerificationEmail(.with {
+            $0.email = data.email
+            $0.subscribeToNewsletter = data.subscribeToNewsletter
+        }).invoke()
     }
     
     public func verifyEmailCode(code: String) async throws {
-        try await Task.sleep(nanoseconds: 1_000_000_000)
-        
-        if Int(code) != 1337 {
-            throw CommonError.undefined
-        } else {
-            MembershipService.tier = .explorer
-        }
+        try await ClientCommands.paymentsSubscriptionVerifyEmailCode(.with {
+            $0.code = code
+        }).invoke()
     }
     
-    private static var tier: MembershipTier?
     public func getStatus() async throws -> MembershipTier? {
-        return MembershipService.tier
+        let data: MiddlewareMembershipStatus = try await ClientCommands.paymentsSubscriptionGetStatus().invoke()
+        
+        return data.asModel().tier
+    }
+}
+
+
+extension MiddlewareMembershipStatus {
+    func asModel() -> MembershipStatus {
+        MembershipStatus(tier: membershipTier)
+    }
+    
+    var membershipTier: MembershipTier? {
+        switch tier {
+        case 0:
+            nil
+        case 1:
+            .explorer
+        case 4:
+            .builder
+        case 5:
+            .coCreator
+        default:
+            .custom(id: tier)
+        }
     }
 }

@@ -15,9 +15,7 @@ final class MembershipCoordinatorModel: ObservableObject {
     private var membershipService: MembershipServiceProtocol
     
     func onAppear() {
-        Task {
-            userTier = try await membershipService.getStatus()
-        }
+        updateStatus()
     }
     
     func onTierSelected(tier: MembershipTier) {
@@ -41,14 +39,22 @@ final class MembershipCoordinatorModel: ObservableObject {
     }
     
     func onSuccessfulValidation() {
+        updateStatus()
+        
         emailVerificationData = nil
         showTier = nil
-        userTier = .explorer
+        
         
         // https://linear.app/anytype/issue/IOS-2434/bottom-sheet-nesting
         Task {
             try await Task.sleep(seconds: 0.5)
             showSuccess = .explorer
+        }
+    }
+    
+    private func updateStatus() {
+        Task {
+            userTier = try await membershipService.getStatus()
         }
     }
 }
