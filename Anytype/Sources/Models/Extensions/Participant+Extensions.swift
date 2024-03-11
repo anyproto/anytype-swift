@@ -18,7 +18,7 @@ extension ParticipantPermissions {
 
 extension Participant {
     var canLeave: Bool {
-        return permission == .reader || permission == .writer
+        return (permission == .reader || permission == .writer) && status == .active
     }
     
     var isOwner: Bool {

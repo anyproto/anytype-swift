@@ -1,11 +1,13 @@
 import Foundation
 import Combine
 import Services
+import SwiftUI
 
 @MainActor
 final class SpacesManagerViewModel: ObservableObject {
     
-    private let workspacesStorage: WorkspacesStorageProtocol
+    private let spacesSubscriptionService: SpaceManagerSpacesSubscriptionServiceProtocol
+    private let workspaceService: WorkspaceServiceProtocol
     private let participantsSubscriptionByAccountService: ParticipantsSubscriptionByAccountServiceProtocol
     
     private var spaces: [SpaceView] = []
@@ -13,8 +15,13 @@ final class SpacesManagerViewModel: ObservableObject {
     
     @Published var rows: [SpacesManagerRowViewModel] = []
     
-    init(workspacesStorage: WorkspacesStorageProtocol, participantsSubscriptionByAccountService: ParticipantsSubscriptionByAccountServiceProtocol) {
-        self.workspacesStorage = workspacesStorage
+    init(
+        spacesSubscriptionService: SpaceManagerSpacesSubscriptionServiceProtocol,
+        workspaceService: WorkspaceServiceProtocol,
+        participantsSubscriptionByAccountService: ParticipantsSubscriptionByAccountServiceProtocol
+    ) {
+        self.spacesSubscriptionService = spacesSubscriptionService
+        self.workspaceService = workspaceService
         self.participantsSubscriptionByAccountService = participantsSubscriptionByAccountService
     }
     
@@ -26,11 +33,28 @@ final class SpacesManagerViewModel: ObservableObject {
     }
     
     func startWorkspacesTask() async {
-        for await spaces in workspacesStorage.workspsacesPublisher.values {
-            self.spaces = spaces.sorted { $0.createdDate ?? Date() < $1.createdDate ?? Date() }
-            updateRows()
+        await spacesSubscriptionService.startSubscription { [weak self] spaces in
+            guard let self else { return }
+            withAnimation(self.spaces.isEmpty ? nil : .default) {
+                self.spaces = spaces
+                self.updateRows()
+            }
         }
     }
+    
+    func onDelete(row: SpacesManagerRowViewModel) async throws {
+        try await workspaceService.deleteSpace(spaceId: row.spaceView.targetSpaceId)
+    }
+        
+    func onCancelRequest(row: SpacesManagerRowViewModel) async throws {
+        try await workspaceService.joinCancel(spaceId: row.spaceView.targetSpaceId)
+    }
+    
+    func onArchive(row: SpacesManagerRowViewModel) async throws {
+        // TODO: Implement it
+    }
+    
+    // MARK: - Private
     
     private func updateRows() {
         rows = spaces.map { spaceView in
