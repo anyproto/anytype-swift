@@ -911,6 +911,10 @@
 "SpaceShare.JoinConfirmation.Title" = "Permintaan terkirim";
 "SpaceShare.JoinConfirmation.Message" = "Kamu akan menerima pemberitahuan ketika pemilik ruang menyetujui permintaanmu.";
 
+// MARK: - Space manager
+"SpaceManager.CancelRequest" = "Batalkan permintaan";
+"SpaceManager.Archive" = "Arsip";
+
 // MARK: - Space Create
 "SpaceCreate.Title" = "Buat ruang";
 
@@ -1003,6 +1007,8 @@
 "Your current status" = "Statusmu saat ini:";
 "Valid until" = "Berlaku hingga:";
 "Paid by" = "Dibayar oleh %@";
+"Myself" = "Aku sendiri";
+"Pay by Card" = "Bayar via kartu";
 
 
 "Membership.Ad.Title" = "Mari membangun bersama";
@@ -1033,6 +1039,11 @@
 "Membership.EmailForm.Subtitle" = "Kami memerlukan surel Anda untuk mencegah spam dan membuat keseruan!";
 "Membership.EmailForm.Newsletter" = "Saya ingin mendapatkan pembaruan pada produk-produk dan menikmati manfaat gratis!";
 "Membership.EmailValidation" = "Masukkan kode yang dikirim ke surelmu";
+
+"Membership.NameForm.Title" = "Pilih nama unikmu";
+"Membership.NameForm.Subtitle" = "Nama ini berlaku sebagai domain pribadi yang mempermudah orang lain menemukanmu";
+"Membership.NameForm.Validating" = "Tunggu sebentar...";
+"Membership.NameForm.Validated" = "Nama ini boleh dipakai";
 
 "Membership.Success.Title" = "Selamat menjadi anggota, %@";
 "Membership.Success.Subitle" = "Big cheers for your curiosity!";
