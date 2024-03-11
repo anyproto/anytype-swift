@@ -1,6 +1,5 @@
 import XCTest
 @testable import DeepLinks
-import AnytypeCore
 
 final class DeepLinkParserTests: XCTestCase {
 
