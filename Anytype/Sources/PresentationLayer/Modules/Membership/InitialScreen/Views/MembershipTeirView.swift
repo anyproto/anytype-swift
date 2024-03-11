@@ -18,6 +18,7 @@ struct MembershipTeirView: View {
             AnytypeText(tierToDisplay.title, style: .bodySemibold, color: .Text.primary)
             Spacer.fixedHeight(5)
             AnytypeText(tierToDisplay.subtitle, style: .caption1Regular, color: .Text.primary)
+                .minimumScaleFactor(0.8)
             Spacer()
             
             info

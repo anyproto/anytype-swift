@@ -10,17 +10,8 @@ final class MembershipCoordinatorModel: ObservableObject {
     
     @Published var userTier: MembershipTier?
     
-    private let membershipService: MembershipServiceProtocol
-    
-    private let membershipAssembly: MembershipModuleAssemblyProtocol
-    
-    init(
-        membershipService: MembershipServiceProtocol,
-        membershipAssembly: MembershipModuleAssemblyProtocol
-    ) {
-        self.membershipService = membershipService
-        self.membershipAssembly = membershipAssembly
-    }
+    @Injected(\.membershipService)
+    private var membershipService: MembershipServiceProtocol
     
     func onAppear() {
         Task {
@@ -28,10 +19,8 @@ final class MembershipCoordinatorModel: ObservableObject {
         }
     }
     
-    func initialModule() -> AnyView {
-        membershipAssembly.make { [weak self] tier in
-            self?.showTier = tier
-        }
+    func onSuccessfulTierSelection(data: EmailVerificationData) {
+        emailVerificationData = data
     }
     
     func onSuccessfulValidation() {

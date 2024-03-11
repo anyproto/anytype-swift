@@ -1,7 +1,15 @@
 import SwiftUI
+import Services
+
 
 struct MembershipModuleView: View {
     @StateObject var model: MembershipModuleViewModel
+    
+    @Environment(\.openURL) private var openURL
+    
+    init(onTierTap: @escaping (MembershipTier) -> ()) {
+        _model = StateObject(wrappedValue: MembershipModuleViewModel(onTierTap: onTierTap))
+    }
     
     var body: some View {
         VStack(spacing: 0) {
@@ -66,18 +74,24 @@ struct MembershipModuleView: View {
     
     var legal: some View {
         VStack {
-            MembershipLegalButton(text: Loc.Membership.Legal.details) { 
-                model.onLegalDetailsTap()
+            MembershipLegalButton(text: Loc.Membership.Legal.details) {
+                openURL(URL(string: "https://anytype.io/pricing")!)
             }
             MembershipLegalButton(text: Loc.Membership.Legal.privacy) { 
-                model.onLegalPrivacyTap()
+                openURL(URL(string: "https://anytype.io/app_privacy")!)
             }
             MembershipLegalButton(text: Loc.Membership.Legal.terms) { 
-                model.onLegalTermsTap()
+                openURL(URL(string: "https://anytype.io/terms_of_use")!)
             }
             
             Button {
-                model.onLetUsKnowTap()
+                let mailLink = MailUrl(
+                    to: "license@anytype.io",
+                    subject: Loc.Membership.Email.subject,
+                    body: Loc.Membership.Email.body
+                )
+                guard let mailUrl = mailLink.url else { return }
+                openURL(mailUrl)
             } label: {
                 AnytypeText(
                     "\(Loc.Membership.Legal.wouldYouLike) ",
@@ -97,11 +111,7 @@ struct MembershipModuleView: View {
 #Preview {
     NavigationView {
         MembershipModuleView(
-            model: MembershipModuleViewModel(
-                membershipService: DI.preview.serviceLocator.membershipService(), 
-                urlOpener: DI.preview.uihelpersDI.urlOpener(),
-                onTierTap: { _ in }
-            )
+            onTierTap: { _ in }
         )
     }
 }
