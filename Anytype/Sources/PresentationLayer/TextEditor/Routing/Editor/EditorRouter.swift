@@ -274,7 +274,8 @@ final class EditorRouter: NSObject, EditorRouterProtocol, ObjectSettingsCoordina
                 spaceId: document.spaceId,
                 showPins: false,
                 showLists: false,
-                showFiles: false
+                showFiles: false,
+                incudeNotForCreation: false
             ) { [weak self] type in
                 self?.navigationContext.dismissTopPresented()
                 onSelect(type)

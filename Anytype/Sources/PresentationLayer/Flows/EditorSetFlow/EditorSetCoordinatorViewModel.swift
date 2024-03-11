@@ -141,7 +141,8 @@ final class EditorSetCoordinatorViewModel:
                 spaceId: data.spaceId,
                 showPins: false,
                 showLists: false,
-                showFiles: true
+                showFiles: true,
+                incudeNotForCreation: true
             ) { [weak self] type in
                 queryData.onSelect(type.id)
                 self?.setQueryData = nil

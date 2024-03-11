@@ -21,6 +21,7 @@ final class TypesPinStorage: TypesPinStorageProtocol {
             let objectTypeIds = typeProvider.objectTypes(spaceId: spaceId)
                 .filter { !$0.isArchived }
                 .filter { !$0.isDeleted }
+                .filter { !$0.canCreateObjectOfThisType }
                 .map { $0.id }
             
             return pins.filter {

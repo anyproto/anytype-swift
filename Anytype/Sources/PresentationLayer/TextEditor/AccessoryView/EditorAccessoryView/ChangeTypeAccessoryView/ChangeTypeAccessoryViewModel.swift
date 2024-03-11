@@ -72,6 +72,7 @@ final class ChangeTypeAccessoryViewModel {
                 includeLists: true,
                 includeBookmark: true, 
                 includeFiles: false,
+                incudeNotForCreation: false,
                 spaceId: document.spaceId
             ).map { type in
                 TypeItem(from: type, handler: { [weak self] in
