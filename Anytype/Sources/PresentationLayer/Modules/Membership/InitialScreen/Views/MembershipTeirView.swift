@@ -73,6 +73,12 @@ struct MembershipTeirView: View {
                     AnytypeText("$299 ", style: .bodySemibold, color: .Text.primary) +
                     AnytypeText(Loc.perXYears(3), style: .caption1Regular, color: .Text.primary)
                 }
+            case .custom:
+                if userTier == tierToDisplay {
+                    AnytypeText(Loc.validUntilDate("%Date%"), style: .caption1Regular, color: .Text.primary)
+                } else {
+                    AnytypeText(Loc.detailsUponRequest, style: .caption1Regular, color: .Text.primary)
+                }
             }
         }
     }

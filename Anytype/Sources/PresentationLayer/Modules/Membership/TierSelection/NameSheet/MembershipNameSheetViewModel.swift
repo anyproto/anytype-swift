@@ -36,7 +36,7 @@ final class MembershipNameSheetViewModel: ObservableObject {
         state = .default
 
         switch tier {
-        case .explorer:
+        case .explorer, .custom:
             return
         case .builder:
             if name.count >= 7 {

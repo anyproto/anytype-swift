@@ -184,6 +184,8 @@ internal enum Loc {
   internal static let deselectAll = Loc.tr("Localizable", "Deselect all", fallback: "Deselect all")
   /// Designed to capture thoughts quickly
   internal static let designedToCaptureThoughtsQuickly = Loc.tr("Localizable", "Designed to capture thoughts quickly", fallback: "Designed to capture thoughts quickly")
+  /// Details upon request
+  internal static let detailsUponRequest = Loc.tr("Localizable", "Details upon request", fallback: "Details upon request")
   /// Done
   internal static let done = Loc.tr("Localizable", "Done", fallback: "Done")
   /// Download
@@ -1480,6 +1482,12 @@ internal enum Loc {
       internal static let subtitle = Loc.tr("Localizable", "Membership.CoCreator.Subtitle", fallback: "Support our adventure and unlock exclusive access and perks")
       /// Co-Creator
       internal static let title = Loc.tr("Localizable", "Membership.CoCreator.Title", fallback: "Co-Creator")
+    }
+    internal enum Custom {
+      /// Membership tailored to your specific needs and preferences
+      internal static let subtitle = Loc.tr("Localizable", "Membership.Custom.Subtitle", fallback: "Membership tailored to your specific needs and preferences")
+      /// Custom
+      internal static let title = Loc.tr("Localizable", "Membership.Custom.Title", fallback: "Custom")
     }
     internal enum Email {
       /// Please specify your request:

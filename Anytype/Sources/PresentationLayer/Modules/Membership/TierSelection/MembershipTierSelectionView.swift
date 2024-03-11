@@ -42,6 +42,8 @@ struct MembershipTierSelectionView: View {
                     }
                 case .builder, .coCreator:
                     MembershipNameSheetView(tier: model.tierToDisplay)
+                case .custom:
+                    EmptyView() // TBD in future updates
                 }
             }
         }

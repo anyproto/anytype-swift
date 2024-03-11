@@ -195,6 +195,7 @@ extension UIColor.Gradients {
             ColorInfo(name: "fadingPink", color: UIColor.Gradients.fadingPink), 
             ColorInfo(name: "fadingPurple", color: UIColor.Gradients.fadingPurple), 
             ColorInfo(name: "fadingRed", color: UIColor.Gradients.fadingRed), 
+            ColorInfo(name: "fadingSky", color: UIColor.Gradients.fadingSky), 
             ColorInfo(name: "fadingTeal", color: UIColor.Gradients.fadingTeal), 
             ColorInfo(name: "fadingYellow", color: UIColor.Gradients.fadingYellow), 
             ColorInfo(name: "greenOrangeEnd", color: UIColor.Gradients.greenOrangeEnd), 

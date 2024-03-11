@@ -4,6 +4,7 @@ enum MembershipTeirGradient: String {
     case teal
     case blue
     case red
+    case purple
     
     var color: Color {
         switch self {
@@ -13,6 +14,8 @@ enum MembershipTeirGradient: String {
             .Gradients.fadingBlue
         case .red:
             .Gradients.fadingRed
+        case .purple:
+            .Gradients.fadingPurple
         }
     }
 }
