@@ -6,10 +6,10 @@ import AnytypeCore
 protocol BlockActionServiceProtocol {
 
     func upload(blockId: String, filePath: String) async throws
-    func turnInto(_ style: BlockText.Style, blockId: String)
+    func turnInto(_ style: BlockText.Style, blockId: String) async throws
     func turnIntoPage(blockId: String, spaceId: String) async throws -> String?
-    func add(info: BlockInformation, targetBlockId: String, position: BlockPosition, setFocus: Bool)
-    func addChild(info: BlockInformation, parentId: String)
+    func add(info: BlockInformation, targetBlockId: String, position: BlockPosition, setFocus: Bool) async throws
+    func addChild(info: BlockInformation, parentId: String) async throws
     func delete(blockIds: [String])
     func createPage(targetId: String, spaceId: String, typeUniqueKey: ObjectTypeUniqueKey, position: BlockPosition, templateId: String) async throws -> String
     func split(
@@ -18,7 +18,7 @@ protocol BlockActionServiceProtocol {
         mode: Anytype_Rpc.Block.Split.Request.Mode,
         range: NSRange,
         newBlockContentType: BlockText.Style
-    )
+    ) async throws
     
     func setBackgroundColor(blockIds: [String], color: BlockBackgroundColor)
     func setBackgroundColor(blockIds: [String], color: MiddlewareColor)
@@ -26,7 +26,7 @@ protocol BlockActionServiceProtocol {
     func duplicate(blockId: String)
     func setText(contextId: String, blockId: String, middlewareString: MiddlewareString) async throws
     func setTextForced(contextId: String, blockId: String, middlewareString: MiddlewareString) async throws
-    func merge(secondBlockId: String)
+    func merge(secondBlockId: String) async throws
     func setObjectType(type: ObjectType) async throws
     func setObjectSetType() async throws
     func setObjectCollectionType() async throws
@@ -41,7 +41,7 @@ protocol BlockActionServiceProtocol {
 }
 
 extension BlockActionServiceProtocol {
-    func add(info: BlockInformation, targetBlockId: String, position: BlockPosition) {
-        add(info: info, targetBlockId: targetBlockId, position: position, setFocus: true)
+    func add(info: BlockInformation, targetBlockId: String, position: BlockPosition) async throws {
+        try await add(info: info, targetBlockId: targetBlockId, position: position, setFocus: true)
     }
 }
