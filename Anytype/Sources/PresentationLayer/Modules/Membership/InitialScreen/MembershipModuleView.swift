@@ -3,17 +3,17 @@ import Services
 
 
 struct MembershipModuleView: View {
-    @Binding var userTier: MembershipTier?
-    
     @StateObject private var model: MembershipModuleViewModel
     @Environment(\.openURL) private var openURL
     
     init(
-        userTier: Binding<MembershipTier?>,
+        userTier: MembershipTier?,
         onTierTap: @escaping (MembershipTier) -> ()
     ) {
-        _userTier = userTier
-        _model = StateObject(wrappedValue: MembershipModuleViewModel(onTierTap: onTierTap))
+        _model = StateObject(wrappedValue: MembershipModuleViewModel(
+            userTier: userTier,
+            onTierTap: onTierTap
+        ))
     }
     
     var body: some View {
@@ -31,7 +31,7 @@ struct MembershipModuleView: View {
                     Spacer.fixedHeight(32)
                     
                     baners
-                    MembershipTierListView(currentTier: userTier) {
+                    MembershipTierListView(userTier: model.userTier) {
                         UISelectionFeedbackGenerator().selectionChanged()
                         model.onTierTap(tier: $0)
                     }
@@ -113,7 +113,7 @@ struct MembershipModuleView: View {
 #Preview {
     NavigationView {
         MembershipModuleView(
-            userTier: .constant(.builder),
+            userTier: .builder,
             onTierTap: { _ in }
         )
     }

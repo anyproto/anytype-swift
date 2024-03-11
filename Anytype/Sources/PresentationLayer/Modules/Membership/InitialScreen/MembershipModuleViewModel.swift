@@ -3,10 +3,12 @@ import Services
 
 
 @MainActor
-final class MembershipModuleViewModel: ObservableObject {    
+final class MembershipModuleViewModel: ObservableObject { 
+    let userTier: MembershipTier?
     private let onTierTap: (MembershipTier) -> ()
     
-    init(onTierTap: @escaping (MembershipTier) -> ()) {
+    init(userTier: MembershipTier?, onTierTap: @escaping (MembershipTier) -> ()) {
+        self.userTier = userTier
         self.onTierTap = onTierTap
     }
     

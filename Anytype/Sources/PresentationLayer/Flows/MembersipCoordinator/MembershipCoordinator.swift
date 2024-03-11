@@ -9,11 +9,11 @@ struct MembershipCoordinator: View {
     }
     
     var body: some View {
-        MembershipModuleView(userTier: $model.userTier) { tier in
+        MembershipModuleView(userTier: model.userTier) { tier in
             model.showTier = tier
         }
         .sheet(item: $model.showTier) { tier in
-            MembershipTierSelectionView(userTier: $model.userTier, tierToDisplay: tier) { data in
+            MembershipTierSelectionView(userTier: model.userTier, tierToDisplay: tier) { data in
                 model.onSuccessfulTierSelection(data: data)
             }
             .sheet(item: $model.emailVerificationData) { data in
