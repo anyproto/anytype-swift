@@ -34,14 +34,15 @@ final class NewRelationModuleAssembly: NewRelationModuleAssemblyProtocol {
     ) -> UIKitModule<NewRelationModuleInput> {
         
         let relationsInteractor = RelationsInteractor(
-            relationsService: serviceLocator.relationService(objectId: document.objectId),
+            objectId: document.objectId,
+            relationsService: serviceLocator.relationService(),
             dataviewService:  serviceLocator.dataviewService()
         )
         let viewModel = NewRelationViewModel(
             name: searchText,
             document: document, 
             target: target,
-            service: RelationsService(objectId: document.objectId),
+            service: serviceLocator.relationService(),
             toastPresenter: uiHelpersDI.toastPresenter(),
             objectTypeProvider: serviceLocator.objectTypeProvider(), 
             relationsInteractor: relationsInteractor,

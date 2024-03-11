@@ -1,27 +1,40 @@
 import Foundation
 import SwiftUI
+import AnytypeCore
+import Services
 
 @MainActor
-final class EditorPageCoordinatorViewModel: ObservableObject, EditorPageModuleOutput {
+final class EditorPageCoordinatorViewModel: ObservableObject, EditorPageModuleOutput, RelationValueCoordinatorOutput {
     
     private let data: EditorPageObject
     private let showHeader: Bool
     private let setupEditorInput: (EditorPageModuleInput, String) -> Void
     private let editorPageAssembly: EditorPageModuleAssemblyProtocol
+    private let legacyRelationValueCoordinator: LegacyRelationValueCoordinatorProtocol
+    private let relationValueCoordinatorAssembly: RelationValueCoordinatorAssemblyProtocol
+    private let relationValueProcessingService: RelationValueProcessingServiceProtocol
     
     var pageNavigation: PageNavigation?
     @Published var dismiss = false
+    @Published var relationValueData: RelationValueData?
+    @Published var toastBarData: ToastBarData = .empty
     
     init(
         data: EditorPageObject,
         showHeader: Bool,
         setupEditorInput: @escaping (EditorPageModuleInput, String) -> Void,
-        editorPageAssembly: EditorPageModuleAssemblyProtocol
+        editorPageAssembly: EditorPageModuleAssemblyProtocol,
+        legacyRelationValueCoordinator: LegacyRelationValueCoordinatorProtocol,
+        relationValueCoordinatorAssembly: RelationValueCoordinatorAssemblyProtocol,
+        relationValueProcessingService: RelationValueProcessingServiceProtocol
     ) {
         self.data = data
         self.showHeader = showHeader
         self.setupEditorInput = setupEditorInput
         self.editorPageAssembly = editorPageAssembly
+        self.legacyRelationValueCoordinator = legacyRelationValueCoordinator
+        self.relationValueCoordinatorAssembly = relationValueCoordinatorAssembly
+        self.relationValueProcessingService = relationValueProcessingService
     }
     
     func pageModule() -> AnyView {
@@ -44,5 +57,51 @@ final class EditorPageCoordinatorViewModel: ObservableObject, EditorPageModuleOu
     
     func setModuleInput(input: EditorPageModuleInput, objectId: String) {
         setupEditorInput(input, objectId)
+    }
+    
+    func showRelationValueEditingView(document: BaseDocumentProtocol, relation: Relation) {
+        guard let objectDetails = document.details else {
+            anytypeAssertionFailure("Details not found")
+            return
+        }
+        handleRelationValue(relation: relation, objectDetails: objectDetails)
+    }
+    
+    func relationValueCoordinator(data: RelationValueData) -> AnyView {
+        relationValueCoordinatorAssembly.make(
+            relation: data.relation,
+            objectDetails: data.objectDetails,
+            analyticsType: .dataview, 
+            output: self
+        )
+    }
+    
+    private func handleRelationValue(relation: Relation, objectDetails: ObjectDetails) {
+        let analyticsType = AnalyticsEventsRelationType.block
+        if relationValueProcessingService.canOpenRelationInNewModule(relation) {
+            relationValueData = RelationValueData(
+                relation: relation,
+                objectDetails: objectDetails
+            )
+            return
+        }
+        
+        let result = relationValueProcessingService.relationProcessedSeparately(
+            relation: relation,
+            objectId: objectDetails.id,
+            analyticsType: analyticsType,
+            onToastShow: { [weak self] message in
+                self?.toastBarData = ToastBarData(text: message, showSnackBar: true, messageType: .none)
+            }
+        )
+        
+        if !result {
+            legacyRelationValueCoordinator.startFlow(
+                objectDetails: objectDetails,
+                relation: relation,
+                analyticsType: analyticsType,
+                output: self
+            )
+        }
     }
 }

@@ -1,12 +1,16 @@
 import UIKit
 import SwiftUI
 import AnytypeCore
+import DeepLinks
 
 class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
     var window: UIWindow?
     private var di: DIProtocol?
     private var deepLinkParser: DeepLinkParserProtocol?
+
+    @Injected(\.appActionStorage)
+    private var appActionStorage: AppActionStorage
     
     // Use this method to optionally configure and attach the UIWindow `window` to the provided UIWindowScene `scene`.
     // If using a storyboard, the `window` property will automatically be initialized and attached to the scene.
@@ -58,16 +62,16 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         let quickActionShortcutBuilder = di?.serviceLocator.quickActionShortcutBuilder()
         guard let action = quickActionShortcutBuilder?.buildAction(shortcutItem: item) else { return false }
         
-        AppActionStorage.shared.action = action.toAppAction()
+        appActionStorage.action = action.toAppAction()
         return true
     }
 
     private func handleURLContext(openURLContexts: Set<UIOpenURLContext>) {
-        guard openURLContexts.count == 1, 
-                let context = openURLContexts.first else {
-            return
-        }
+        guard openURLContexts.count == 1,
+              let context = openURLContexts.first,
+              let deepLink = deepLinkParser?.parse(url: context.url)
+        else { return }
         
-        AppActionStorage.shared.action = deepLinkParser?.parse(url: context.url)
+        appActionStorage.action = .deepLink(deepLink)
     }
 }

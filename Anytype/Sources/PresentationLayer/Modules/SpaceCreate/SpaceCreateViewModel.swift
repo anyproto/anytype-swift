@@ -9,8 +9,10 @@ final class SpaceCreateViewModel: ObservableObject {
     
     // MARK: - DI
     
-    private let activeWorkspaceStorage: ActiveWorkpaceStorageProtocol
-    private let workspaceService: WorkspaceServiceProtocol
+    @Injected(\.activeWorkpaceStorage)
+    private var activeWorkspaceStorage: ActiveWorkpaceStorageProtocol
+    @Injected(\.workspaceService)
+    private var workspaceService: WorkspaceServiceProtocol
     private weak var output: SpaceCreateModuleOutput?
     
     // MARK: - State
@@ -18,17 +20,11 @@ final class SpaceCreateViewModel: ObservableObject {
     @Published var spaceName: String = ""
     let spaceGradient: GradientId = .random
     var spaceIcon: Icon { .object(.space(.gradient(spaceGradient))) }
-    @Published var spaceType: SpaceAccessType = .private
+    @Published var spaceAccessType: SpaceAccessType = .personal
     @Published var createLoadingState: Bool = false
     @Published var dismiss: Bool = false
     
-    init(
-        activeWorkspaceStorage: ActiveWorkpaceStorageProtocol,
-        workspaceService: WorkspaceServiceProtocol,
-        output: SpaceCreateModuleOutput?
-    ) {
-        self.activeWorkspaceStorage = activeWorkspaceStorage
-        self.workspaceService = workspaceService
+    init(output: SpaceCreateModuleOutput?) {
         self.output = output
     }
     
@@ -39,7 +35,7 @@ final class SpaceCreateViewModel: ObservableObject {
             defer {
                 createLoadingState = false
             }
-            let spaceId = try await workspaceService.createSpace(name: spaceName, gradient: spaceGradient, accessibility: spaceType, useCase: .empty)
+            let spaceId = try await workspaceService.createSpace(name: spaceName, gradient: spaceGradient, accessType: spaceAccessType, useCase: .empty)
             try await activeWorkspaceStorage.setActiveSpace(spaceId: spaceId)
             UINotificationFeedbackGenerator().notificationOccurred(.success)
             AnytypeAnalytics.instance().logCreateSpace()

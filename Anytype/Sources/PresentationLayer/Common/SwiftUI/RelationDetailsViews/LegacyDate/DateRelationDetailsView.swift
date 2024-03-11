@@ -32,9 +32,10 @@ struct DateRelationEditingView_Previews: PreviewProvider {
     static var previews: some View {
         DateRelationDetailsView(
             viewModel: DateRelationDetailsViewModel(
+                details: ObjectDetails(id: ""), 
                 value: nil,
                 relation: .date(Relation.Date(id: "", key: "", name: "name", isFeatured: false, isEditable: false, canBeRemovedFromObject: false, isDeleted: false, value: nil)),
-                service: RelationsService(objectId: ""),
+                service: DI.preview.serviceLocator.relationService(),
                 analyticsType: .block
             )
         )

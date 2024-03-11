@@ -3,7 +3,7 @@ import Foundation
 
 public final class SynchronizedDictionary<K, V> where K: Hashable {
 
-    private var dictionary: [K: V] = [:]
+    var dictionary: [K: V] = [:]
 
     // MARK: - Private variables
 
@@ -50,5 +50,13 @@ public final class SynchronizedDictionary<K, V> where K: Hashable {
         lock.lock()
         dictionary.removeAll()
         lock.unlock()
+    }
+    
+    public func dictionary<T>(using lockDictionary: (Dictionary<K, V>) -> T) -> T {
+        lock.lock()
+        let generic = lockDictionary(dictionary)
+        lock.unlock()
+        
+        return generic
     }
 }

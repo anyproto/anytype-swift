@@ -3,11 +3,12 @@ import Services
 
 struct RelationsListView: View {
     
-    @ObservedObject var viewModel: RelationsListViewModel
+    @StateObject var viewModel: RelationsListViewModel
     @State private var editingMode = false
     
     var body: some View {
         VStack(spacing: 0) {
+            DragIndicator()
             navigationBar
             relationsList
         }

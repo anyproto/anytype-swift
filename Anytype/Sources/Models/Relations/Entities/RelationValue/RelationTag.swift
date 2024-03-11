@@ -27,8 +27,8 @@ extension Relation.Tag {
     struct Option: Hashable, Identifiable {
         let id: String
         let text: String
-        let textColor: UIColor
-        let backgroundColor: UIColor
+        let textColor: Color
+        let backgroundColor: Color
     }
     
 }
@@ -39,9 +39,9 @@ extension Relation.Tag.Option {
         self.id = option.id
         self.text = option.text
         self.textColor = MiddlewareColor(rawValue: option.color)
-            .map { UIColor.Dark.uiColor(from: $0) } ?? .Text.secondary
+            .map { Color.Dark.color(from: $0) } ?? .Text.secondary
         self.backgroundColor = MiddlewareColor(rawValue: option.color)
-            .map { UIColor.Light.uiColor(from: $0) } ?? .Background.secondary
+            .map { Color.VeryLight.color(from: $0) } ?? .Background.secondary
     }
     
 }

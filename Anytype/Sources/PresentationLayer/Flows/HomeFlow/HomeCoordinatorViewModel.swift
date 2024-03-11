@@ -3,6 +3,7 @@ import SwiftUI
 import Combine
 import Services
 import AnytypeCore
+import DeepLinks
 
 @MainActor
 final class HomeCoordinatorViewModel: ObservableObject,
@@ -20,6 +21,8 @@ final class HomeCoordinatorViewModel: ObservableObject,
     private let newSearchModuleAssembly: NewSearchModuleAssemblyProtocol
     private let objectActionsService: ObjectActionsServiceProtocol
     private let defaultObjectService: DefaultObjectCreationServiceProtocol
+    private let blockService: BlockServiceProtocol
+    private let pasteboardBlockService: PasteboardBlockServiceProtocol
     private let typeProvider: ObjectTypeProviderProtocol
     private let appActionsStorage: AppActionStorage
     private let widgetTypeModuleAssembly: WidgetTypeModuleAssemblyProtocol
@@ -33,8 +36,9 @@ final class HomeCoordinatorViewModel: ObservableObject,
     private let documentsProvider: DocumentsProviderProtocol
     private let setObjectCreationCoordinatorAssembly: SetObjectCreationCoordinatorAssemblyProtocol
     private let sharingTipCoordinator: SharingTipCoordinatorProtocol
-    private let galleryInstallationCoordinatorAssembly: GalleryInstallationCoordinatorAssemblyProtocol
     private let notificationCoordinator: NotificationCoordinatorProtocol
+    private let spaceJoinModuleAssembly: SpaceJoinModuleAssemblyProtocol
+    private let typeSearchCoordinatorAssembly: TypeSearchForNewObjectCoordinatorAssemblyProtocol
     
     // MARK: - State
     
@@ -54,10 +58,11 @@ final class HomeCoordinatorViewModel: ObservableObject,
     @Published var editorPath = HomePath() {
         didSet { UserDefaultsConfig.lastOpenedPage = editorPath.lastPathElement as? EditorScreenData }
     }
-    @Published var showTypeSearch: Bool = false
+    @Published var showTypeSearchForObjectCreation: Bool = false
     @Published var toastBarData = ToastBarData.empty
     @Published var pathChanging: Bool = false
     @Published var keyboardToggle: Bool = false
+    @Published var spaceJoinData: SpaceJoinModuleData?
     
     private var currentSpaceId: String?
     
@@ -82,6 +87,8 @@ final class HomeCoordinatorViewModel: ObservableObject,
         newSearchModuleAssembly: NewSearchModuleAssemblyProtocol,
         objectActionsService: ObjectActionsServiceProtocol,
         defaultObjectService: DefaultObjectCreationServiceProtocol,
+        blockService: BlockServiceProtocol,
+        pasteboardBlockService: PasteboardBlockServiceProtocol,
         typeProvider: ObjectTypeProviderProtocol,
         appActionsStorage: AppActionStorage,
         widgetTypeModuleAssembly: WidgetTypeModuleAssemblyProtocol,
@@ -95,8 +102,9 @@ final class HomeCoordinatorViewModel: ObservableObject,
         documentsProvider: DocumentsProviderProtocol,
         setObjectCreationCoordinatorAssembly: SetObjectCreationCoordinatorAssemblyProtocol,
         sharingTipCoordinator: SharingTipCoordinatorProtocol,
-        galleryInstallationCoordinatorAssembly: GalleryInstallationCoordinatorAssemblyProtocol,
-        notificationCoordinator: NotificationCoordinatorProtocol
+        notificationCoordinator: NotificationCoordinatorProtocol,
+        spaceJoinModuleAssembly: SpaceJoinModuleAssemblyProtocol,
+        typeSearchCoordinatorAssembly: TypeSearchForNewObjectCoordinatorAssemblyProtocol
     ) {
         self.homeWidgetsModuleAssembly = homeWidgetsModuleAssembly
         self.activeWorkspaceStorage = activeWorkspaceStorage
@@ -106,6 +114,8 @@ final class HomeCoordinatorViewModel: ObservableObject,
         self.newSearchModuleAssembly = newSearchModuleAssembly
         self.objectActionsService = objectActionsService
         self.defaultObjectService = defaultObjectService
+        self.blockService = blockService
+        self.pasteboardBlockService = pasteboardBlockService
         self.typeProvider = typeProvider
         self.appActionsStorage = appActionsStorage
         self.widgetTypeModuleAssembly = widgetTypeModuleAssembly
@@ -119,8 +129,9 @@ final class HomeCoordinatorViewModel: ObservableObject,
         self.documentsProvider = documentsProvider
         self.setObjectCreationCoordinatorAssembly = setObjectCreationCoordinatorAssembly
         self.sharingTipCoordinator = sharingTipCoordinator
-        self.galleryInstallationCoordinatorAssembly = galleryInstallationCoordinatorAssembly
         self.notificationCoordinator = notificationCoordinator
+        self.spaceJoinModuleAssembly = spaceJoinModuleAssembly
+        self.typeSearchCoordinatorAssembly = typeSearchCoordinatorAssembly
     }
 
     func onAppear() {
@@ -191,23 +202,15 @@ final class HomeCoordinatorViewModel: ObservableObject,
         return editorCoordinatorAssembly.make(data: data)
     }
 
-    func createTypeSearchModule() -> AnyView {
-        return objectTypeSearchModuleAssembly.make(
-            title: Loc.createNewObject,
-            spaceId: activeWorkspaceStorage.workspaceInfo.accountSpaceId,
-            showPins: true,
-            showLists: true, 
-            showFiles: false,
-            incudeNotForCreation: false
-        ) { [weak self] type in
-            self?.showTypeSearch = false
-            AnytypeAnalytics.instance().logSelectObjectType(type.analyticsType, route: .longTap)
-            self?.createAndShowNewObject(type: type, route: .navigation)
+    func typeSearchForObjectCreationModule() -> AnyView {
+        typeSearchCoordinatorAssembly.make { [weak self] details in
+            guard let self else { return }
+            openObject(screenData: details.editorScreenData())
         }
     }
-
-    func createGalleryInstallationModule(data: GalleryInstallationData) -> AnyView {
-        return galleryInstallationCoordinatorAssembly.make(data: data)
+    
+    func spaceJoinModule(data: SpaceJoinModuleData) -> AnyView {
+        return spaceJoinModuleAssembly.make(data: data)
     }
     
     // MARK: - HomeWidgetsModuleOutput
@@ -309,9 +312,9 @@ final class HomeCoordinatorViewModel: ObservableObject,
         editorPath.pop()
     }
     
-    func onCreateObjectWithTypeSelected() {
+    func onPickTypeForNewObjectSelected() {
         UISelectionFeedbackGenerator().selectionChanged()
-        showTypeSearch.toggle()
+        showTypeSearchForObjectCreation.toggle()
     }
 
     // MARK: - SetObjectCreationCoordinatorOutput
@@ -362,8 +365,8 @@ final class HomeCoordinatorViewModel: ObservableObject,
                 origin: .none,
                 templateId: type.defaultTemplateId
             )
-
             AnytypeAnalytics.instance().logCreateObject(objectType: details.analyticsType, route: route)
+            
             openObject(screenData: details.editorScreenData())
         }
     }
@@ -373,6 +376,13 @@ final class HomeCoordinatorViewModel: ObservableObject,
         switch action {
         case .createObjectFromQuickAction(let typeId):
             createAndShowNewObject(typeId: typeId, route: .homeScreen)
+        case .deepLink(let deepLink):
+            handleDeepLink(deepLink: deepLink)
+        }
+    }
+    
+    private func handleDeepLink(deepLink: DeepLink) {
+        switch deepLink {
         case .createObjectFromWidget:
             createAndShowDefaultObject(route: .widget)
         case .showSharingExtension:
@@ -387,8 +397,12 @@ final class HomeCoordinatorViewModel: ObservableObject,
             navigationContext.dismissAllPresented(animated: true) { [weak self] in
                 self?.showGalleryImport = GalleryInstallationData(type: type, source: source)
             }
-        case .invite:
-            break
+        case .invite(let cid, let key):
+            if FeatureFlags.multiplayer {
+                navigationContext.dismissAllPresented(animated: true) { [weak self] in
+                    self?.spaceJoinData = SpaceJoinModuleData(cid: cid, key: key)
+                }
+            }
         }
     }
     

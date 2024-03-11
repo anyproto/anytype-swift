@@ -25,9 +25,7 @@ public protocol AuthMiddleServiceProtocol: AnyObject {
     func mnemonicByEntropy(_ entropy: String) async throws -> String
 }
 
-public final class AuthMiddleService: AuthMiddleServiceProtocol {
-    
-    public init() {}
+final class AuthMiddleService: AuthMiddleServiceProtocol {
     
     public func logout(removeData: Bool)  async throws {
         try await ClientCommands.accountStop(.with {
@@ -70,7 +68,7 @@ public final class AuthMiddleService: AuthMiddleServiceProtocol {
             try await ClientCommands.walletRecover(.with {
                 $0.rootPath = rootPath
                 $0.mnemonic = mnemonic
-            }).invoke()
+            }).invoke(ignoreLogErrors: .badInput)
         } catch let responseError as Anytype_Rpc.Wallet.Recover.Response.Error {
             throw responseError.asError
         }
@@ -108,7 +106,7 @@ public final class AuthMiddleService: AuthMiddleServiceProtocol {
     
     public func deleteAccount() async throws -> AccountStatus {
         do {
-            let result = try await ClientCommands.accountDelete().invoke()
+            let result = try await ClientCommands.accountDelete().invoke(ignoreLogErrors: .unableToConnect)
             return try result.status.asModel()
         } catch let error as Anytype_Rpc.Account.Delete.Response.Error {
             throw error.asError

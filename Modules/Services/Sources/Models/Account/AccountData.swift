@@ -2,7 +2,7 @@ import ProtobufMessages
 
 public struct AccountData {
     
-    public let id: BlockId
+    public let id: String
     public let name: String
     public let avatar: Anytype_Model_Account.Avatar
     public let config: AccountConfiguration

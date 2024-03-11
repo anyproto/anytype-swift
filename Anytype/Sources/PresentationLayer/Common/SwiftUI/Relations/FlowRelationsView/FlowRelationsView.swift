@@ -8,7 +8,7 @@ struct FlowRelationsView: View {
         VStack(alignment: .leading, spacing: 4) {
             header
             description
-            flowRelations
+            featuredRelationsView
         }
     }
 
@@ -38,35 +38,18 @@ struct FlowRelationsView: View {
         }
     }
 
-    @ViewBuilder
-    private var flowRelations: some View {
-        if viewModel.relations.isNotEmpty {
-            FlowLayout(
-                items: viewModel.relations,
-                alignment: .leading,
-                spacing: .init(width: 6, height: 4),
-                cell: { item, index in
-                    HStack(spacing: 0) {
-                        RelationValueView(
-                            relation: RelationItemModel(relation: item),
-                            style: .setCollection,
-                            mode: .button(action: nil)
-                        )
-                        if viewModel.relations.count - 1 > index {
-                            dotImage
-                        }
-                    }
-                }
-            )
-        } else {
-            EmptyView()
-        }
-    }
-
-    private var dotImage: some View {
-        Image(systemName: "circle.fill")
-            .resizable()
-            .foregroundColor(.Text.secondary)
-            .frame(width: 3, height: 3)
+    private var featuredRelationsView: some View {
+        FeaturedRelationsView(
+            relations: viewModel.relations,
+            view: { relation in
+                RelationValueView(
+                    model: RelationValueViewModel(
+                        relation:  RelationItemModel(relation: relation),
+                        style: .setCollection,
+                        mode: .button(action: nil)
+                    )
+                )
+            }
+        )
     }
 }

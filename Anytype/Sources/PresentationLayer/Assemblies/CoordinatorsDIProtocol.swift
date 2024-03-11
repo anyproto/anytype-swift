@@ -1,7 +1,9 @@
 import Foundation
 
 protocol CoordinatorsDIProtocol: AnyObject {
+    func legacyRelationValue() -> LegacyRelationValueCoordinatorAssembly
     func relationValue() -> RelationValueCoordinatorAssemblyProtocol
+    func relationsList() -> RelationsListCoordinatorAssemblyProtocol
     func templates() -> TemplatesCoordinatorAssemblyProtocol
     func linkToObject() -> LinkToObjectCoordinatorAssemblyProtocol
     func objectSettings() -> ObjectSettingsCoordinatorAssemblyProtocol
@@ -32,11 +34,10 @@ protocol CoordinatorsDIProtocol: AnyObject {
     func setObjectCreation() -> SetObjectCreationCoordinatorAssemblyProtocol
     func serverConfiguration() -> ServerConfigurationCoordinatorAssemblyProtocol
     func sharingTip() -> SharingTipCoordinatorProtocol
-    func galleryInstallation() -> GalleryInstallationCoordinatorAssemblyProtocol
     func notificationCoordinator() -> NotificationCoordinatorProtocol // Global coordinator without root view
-    func selectRelationList() -> SelectRelationListCoordinatorAssemblyProtocol
-    func objectRelationList() -> ObjectRelationListCoordinatorAssemblyProtocol
     func spaceShare() -> SpaceShareCoordinatorAssemblyProtocol
+    func typeSearchForNewObject() -> TypeSearchForNewObjectCoordinatorAssemblyProtocol
+    func membership() -> MembershipCoordinatorAssemblyProtocol
     
     // Now like a coordinator. Migrate to isolated modules
     func editorPageModule() -> EditorPageModuleAssemblyProtocol

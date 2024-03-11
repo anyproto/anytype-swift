@@ -6,10 +6,10 @@ import UIKit
 
 enum EditorEditingState {
     case editing
-    case selecting(blocks: [BlockId])
+    case selecting(blocks: [String])
     case moving(indexPaths: [IndexPath])
     case readonly(state: ReadonlyState)
-    case simpleTablesSelection(block: BlockId, selectedBlocks: [BlockId], simpleTableMenuModel: SimpleTableMenuModel)
+    case simpleTablesSelection(block: String, selectedBlocks: [String], simpleTableMenuModel: SimpleTableMenuModel)
     case loading
 }
 
@@ -51,24 +51,24 @@ protocol EditorPageBlocksStateManagerProtocol: EditorPageSelectionManagerProtoco
     
     var editingState: EditorEditingState { get }
     var editorEditingStatePublisher: AnyPublisher<EditorEditingState, Never> { get }
-    var editorSelectedBlocks: AnyPublisher<[BlockId], Never> { get }
+    var editorSelectedBlocks: AnyPublisher<[String], Never> { get }
 }
 
 @MainActor
 final class EditorPageBlocksStateManager: EditorPageBlocksStateManagerProtocol {
     private enum MovingDestination {
         case position(IndexPath)
-        case object(BlockId)
+        case object(String)
     }
 
     var editorEditingStatePublisher: AnyPublisher<EditorEditingState, Never> { $editingState.eraseToAnyPublisher() }
-    var editorSelectedBlocks: AnyPublisher<[BlockId], Never> { $selectedBlocks.eraseToAnyPublisher() }
+    var editorSelectedBlocks: AnyPublisher<[String], Never> { $selectedBlocks.eraseToAnyPublisher() }
 
     @Published var editingState: EditorEditingState = .editing
-    @Published var selectedBlocks = [BlockId]()
+    @Published var selectedBlocks = [String]()
 
     private(set) var selectedBlocksIndexPaths = [IndexPath]()
-    private(set) var movingBlocksIds = [BlockId]()
+    private(set) var movingBlocksIds = [String]()
     private var movingDestination: MovingDestination?
 
     // We need to store interspace between root and all childs to disable cursor moving between those indexPaths
@@ -79,7 +79,7 @@ final class EditorPageBlocksStateManager: EditorPageBlocksStateManagerProtocol {
     private let blockService: BlockServiceProtocol
     private let toastPresenter: ToastPresenterProtocol
     private let actionHandler: BlockActionHandlerProtocol
-    private let pasteboardService: PasteboardServiceProtocol
+    private let pasteboardService: PasteboardBlockDocumentServiceProtocol
     private let router: EditorRouterProtocol
     private let bottomNavigationManager: EditorBottomNavigationManagerProtocol
     private let documentsProvider: DocumentsProviderProtocol
@@ -97,7 +97,7 @@ final class EditorPageBlocksStateManager: EditorPageBlocksStateManagerProtocol {
         blockService: BlockServiceProtocol,
         toastPresenter: ToastPresenterProtocol,
         actionHandler: BlockActionHandlerProtocol,
-        pasteboardService: PasteboardServiceProtocol,
+        pasteboardService: PasteboardBlockDocumentServiceProtocol,
         router: EditorRouterProtocol,
         initialEditingState: EditorEditingState,
         viewInput: EditorPageViewInput,
@@ -299,7 +299,7 @@ final class EditorPageBlocksStateManager: EditorPageBlocksStateManagerProtocol {
                         prefixText: Loc.Editor.Toast.movedTo,
                         objectId: targetDocument.objectId,
                         tapHandler: { [weak self] in
-                            self?.router.showPage(data: details.editorScreenData())
+                            self?.router.showEditorScreen(data: details.editorScreenData())
                         }
                     )
                 }
@@ -308,7 +308,7 @@ final class EditorPageBlocksStateManager: EditorPageBlocksStateManagerProtocol {
             }
         case let .position(positionIndexPath):
             let position: BlockPosition
-            let dropTargetId: BlockId
+            let dropTargetId: String
             if let targetBlock = modelsHolder.blockViewModel(at: positionIndexPath.row) {
                 position = .top
                 dropTargetId = targetBlock.blockId
@@ -326,7 +326,7 @@ final class EditorPageBlocksStateManager: EditorPageBlocksStateManagerProtocol {
         }
     }
     
-    private func move(position: BlockPosition, targetId: BlockId, dropTargetId: BlockId) {
+    private func move(position: BlockPosition, targetId: String, dropTargetId: String) {
         guard !movingBlocksIds.contains(dropTargetId) else { return }
 
         UISelectionFeedbackGenerator().selectionChanged()
@@ -384,7 +384,7 @@ final class EditorPageBlocksStateManager: EditorPageBlocksStateManagerProtocol {
                     prefixText: Loc.Editor.Toast.movedTo,
                     objectId: details.id,
                     tapHandler: { [weak self] in
-                        self?.router.showPage(data: details.editorScreenData())
+                        self?.router.showEditorScreen(data: details.editorScreenData())
                     }
                 )
             }
@@ -437,14 +437,15 @@ final class EditorPageBlocksStateManager: EditorPageBlocksStateManagerProtocol {
             AnytypeAnalytics.instance().logEvent(AnalyticsEventsName.openAsSource)
             router.showPage(objectId: data.targetObjectID)
         case .style:
-            editingState = .editing
-            didSelectStyleSelection(infos: elements.map { $0.info })
+            let elements = elements.map { $0.info }
+            editingState = .selecting(blocks: elements.map { $0.id} )
+            didSelectStyleSelection(infos: elements)
 
             return
         case .paste:
             let blockIds = elements.map(\.blockId)
 
-            pasteboardService.pasteInSelectedBlocks(selectedBlockIds: blockIds) { [weak self] in
+            pasteboardService.pasteInSelectedBlocks(objectId: document.objectId, selectedBlockIds: blockIds) { [weak self] in
                 self?.router.showWaitingView(text: Loc.pasteProcessing)
             } completion: { [weak self] _ in
                 self?.router.hideWaitingView()
@@ -463,9 +464,9 @@ final class EditorPageBlocksStateManager: EditorPageBlocksStateManagerProtocol {
             }
 
             AnytypeAnalytics.instance().logCopyBlock()
-            Task { @MainActor [weak self, blocksIds] in
-                try await self?.pasteboardService.copy(blocksIds: blocksIds, selectedTextRange: NSRange())
-                self?.toastPresenter.show(message: Loc.copied)
+            Task { @MainActor [blocksIds] in
+                try await pasteboardService.copy(document: document, blocksIds: blocksIds, selectedTextRange: NSRange())
+                toastPresenter.show(message: Loc.copied)
             }
         case .preview:
             elements.first.map {
@@ -496,7 +497,7 @@ final class EditorPageBlocksStateManager: EditorPageBlocksStateManagerProtocol {
 }
 
 extension EditorPageBlocksStateManager: SimpleTableSelectionHandler {
-    func didStartSimpleTableSelectionMode(simpleTableBlockId: BlockId, selectedBlockIds: [BlockId], menuModel: SimpleTableMenuModel) {
+    func didStartSimpleTableSelectionMode(simpleTableBlockId: String, selectedBlockIds: [String], menuModel: SimpleTableMenuModel) {
         editingState = .simpleTablesSelection(
             block: simpleTableBlockId,
             selectedBlocks: selectedBlockIds,
@@ -509,7 +510,7 @@ extension EditorPageBlocksStateManager: SimpleTableSelectionHandler {
     }
 }
 
-extension EditorPageBlocksStateManager: BlockSelectionHandler {
+extension EditorPageBlocksStateManager {
     func didSelectSelection(from indexPath: IndexPath) {
         guard let blockViewModel = modelsHolder.blockViewModel(at: indexPath.row) else { return }
 
@@ -533,6 +534,7 @@ extension EditorPageBlocksStateManager: BlockSelectionHandler {
         router.showStyleMenu(informations: infos, restrictions: restrictions) { [weak self] presentedView in
             self?.viewInput?.adjustContentOffset(relatively: presentedView)
         } onDismiss: { [weak self] in
+            self?.editingState = .editing
             self?.bottomNavigationManager.styleViewActive(false)
             self?.viewInput?.restoreEditingState()
         }
@@ -544,7 +546,7 @@ extension EditorMainItemModelsHolder {
         allIndexes(for: viewModel.info.childrenIds.map { $0 })
     }
 
-    private func allIndexes(for childs: [BlockId]) -> [Int] {
+    private func allIndexes(for childs: [String]) -> [Int] {
         var indexes = [Int]()
 
         for child in childs {

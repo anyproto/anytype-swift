@@ -5,6 +5,7 @@ import UIKit
 import AnytypeCore
 import Combine
 
+@MainActor
 final class RelationsListViewModel: ObservableObject {
         
     @Published private(set) var navigationBarButtonsDisabled: Bool = false
@@ -59,7 +60,7 @@ extension RelationsListViewModel {
     func changeRelationFeaturedState(relation: Relation, addedToObject: Bool) {
         if !addedToObject {
             Task { @MainActor in
-                try await relationsService.addRelations(relationKeys: [relation.key])
+                try await relationsService.addRelations(objectId: document.objectId, relationKeys: [relation.key])
                 changeRelationFeaturedState(relation: relation)
             }
         } else {
@@ -71,10 +72,10 @@ extension RelationsListViewModel {
         Task {
             if relation.isFeatured {
                 AnytypeAnalytics.instance().logEvent(AnalyticsEventsName.removeFeatureRelation)
-                try await relationsService.removeFeaturedRelation(relationKey: relation.key)
+                try await relationsService.removeFeaturedRelation(objectId: document.objectId, relationKey: relation.key)
             } else {
                 AnytypeAnalytics.instance().logEvent(AnalyticsEventsName.addFeatureRelation)
-                try await relationsService.addFeaturedRelation(relationKey: relation.key)
+                try await relationsService.addFeaturedRelation(objectId: document.objectId, relationKey: relation.key)
             }
         }
         UISelectionFeedbackGenerator().selectionChanged()
@@ -87,7 +88,7 @@ extension RelationsListViewModel {
     func removeRelation(relation: Relation) {
         Task {
             AnytypeAnalytics.instance().logEvent(AnalyticsEventsName.deleteRelation)
-            try await relationsService.removeRelation(relationKey: relation.key)
+            try await relationsService.removeRelation(objectId: document.objectId, relationKey: relation.key)
         }
     }
     

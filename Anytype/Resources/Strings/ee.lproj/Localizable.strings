@@ -62,7 +62,7 @@
 "BlockLink.PreviewSettings.Layout.Text.Title" = "Text";
 
 // MARK: - Settings
-"Settings.Title" = "Personal Space";
+"Settings.Title" = "Settings";
 "Settings.SpaceName" = "Space name";
 
 // MARK: - Object
@@ -259,7 +259,7 @@
 
 "Auth.JoinFlow.Creating.Soul.Title" = "Generating new account";
 "Auth.JoinFlow.Setting.Space.Title" = "Setting up your personal space";
-"Auth.JoinFlow.Personal.Space.Title" = "Personal Space";
+"Auth.JoinFlow.Personal.Space.Title" = "Settings";
 
 // Auth - Login flow
 "Auth.LoginFlow.Use.Keychain.Title" = "Use keychain";
@@ -753,10 +753,6 @@
 "Content.DataView.InlineCollection.Untitled" = "Untitled collection";
 "Content.DataView.InlineSet.Toast.Failure" = "This inline set doesn’t have a source";
 
-// MARK: - Widget extension
-"WidgetExtension.LockScreen.Title" = "New object";
-"WidgetExtension.LockScreen.Description" = "Create a new object on the fly";
-
 // MARK: - Toast
 "Editor.Toast.LinkedTo" = "linked to";
 "Editor.Toast.MovedTo" = "Block moved to";
@@ -813,7 +809,7 @@
 "ClearCache.Error" = "Error, try again later";
 
 // MARK: - Settings
-"Settings.TitleLegacy" = "Personal Space";
+"Settings.TitleLegacy" = "Settings";
 "Settings.Title" = "Settings";
 "Settings.SpaceName" = "Space name";
 "Settings.AccountAndAccess" = "Account and access";
@@ -850,7 +846,7 @@
 // MARK: - Spaces
 "Spaces.Accessibility.Public" = "Public Space";
 "Spaces.Accessibility.Private" = "Private Space";
-"Spaces.Accessibility.Personal" = "Personal Space";
+"Spaces.Accessibility.Personal" = "Settings";
 "Spaces.Search.Title" = "Search spaces";
 
 // MARK: - Space Settings
@@ -871,6 +867,9 @@
 "SpaceShare.Permissions.Owner" = "Owner";
 "SpaceShare.Permissions.Reader" = "Can view";
 "SpaceShare.Permissions.Writer" = "Can edit";
+"SpaceShare.Invite.Title" = "Invite link";
+"SpaceShare.Invite.Description" = "Send this link to invite others. Assign access rights upon their request approval";
+"SpaceShare.Invite.Button" = "Share invite link";
 
 // MARK: - Space Create
 "SpaceCreate.Title" = "Create a space";

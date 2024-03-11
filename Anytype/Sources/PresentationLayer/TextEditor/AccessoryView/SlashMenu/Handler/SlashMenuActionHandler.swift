@@ -7,7 +7,7 @@ final class SlashMenuActionHandler {
     private let actionHandler: BlockActionHandlerProtocol
     private let router: EditorRouterProtocol
     private let document: BaseDocumentProtocol
-    private let pasteboardService: PasteboardServiceProtocol
+    private let pasteboardService: PasteboardBlockDocumentServiceProtocol
     private let cursorManager: EditorCursorManager
     private weak var textView: UITextView?
     
@@ -15,7 +15,7 @@ final class SlashMenuActionHandler {
         document: BaseDocumentProtocol,
         actionHandler: BlockActionHandlerProtocol,
         router: EditorRouterProtocol,
-        pasteboardService: PasteboardServiceProtocol,
+        pasteboardService: PasteboardBlockDocumentServiceProtocol,
         cursorManager: EditorCursorManager
     ) {
         self.document = document
@@ -25,31 +25,43 @@ final class SlashMenuActionHandler {
         self.cursorManager = cursorManager
     }
     
-    func handle(_ action: SlashAction, textView: UITextView?, blockId: BlockId, selectedRange: NSRange) {
+    func handle(
+        _ action: SlashAction,
+        textView: UITextView?,
+        blockInformation: BlockInformation,
+        modifiedStringHandler: (NSAttributedString) -> Void
+    ) {
         switch action {
         case let .actions(action):
-            handleActions(action, textView: textView, blockId: blockId, selectedRange: selectedRange)
+            handleActions(action, textView: textView, blockId: blockInformation.id)
         case let .alignment(alignmnet):
-            handleAlignment(alignmnet, blockIds: [blockId])
+            handleAlignment(alignmnet, blockIds: [blockInformation.id])
         case let .style(style):
-            handleStyle(style, blockId: blockId)
+            handleStyle(style, attributedString: textView?.attributedText, blockInformation: blockInformation, modifiedStringHandler: modifiedStringHandler)
         case let .media(media):
-            actionHandler.addBlock(media.blockViewsType, blockId: blockId, blockText: textView?.attributedText)
+            actionHandler.addBlock(media.blockViewsType, blockId: blockInformation.id, blockText: textView?.attributedText)
         case let .objects(action):
             switch action {
             case .linkTo:
                 router.showLinkTo { [weak self] details in
-                    self?.actionHandler.addLink(targetDetails: details, blockId: blockId)
+                    self?.actionHandler.addLink(targetDetails: details, blockId: blockInformation.id)
                 }
             case .objectType(let object):
+                let spaceId = document.spaceId
                 Task { @MainActor [weak self] in
                     AnytypeAnalytics.instance().logCreateLink()
                     try await self?.actionHandler
-                        .createPage(targetId: blockId, spaceId: object.spaceId, typeUniqueKey: object.uniqueKeyValue, templateId: object.defaultTemplateId)
-                        .flatMap { [weak self] objectId in
-                            guard let self else { return }
+                        .createPage(
+                            targetId: blockInformation.id,
+                            spaceId: spaceId,
+                            typeUniqueKey: object.uniqueKeyValue,
+                            templateId: object.defaultTemplateId
+                        )
+                        .flatMap { objectId in
                             AnytypeAnalytics.instance().logCreateObject(objectType: object.analyticsType, route: .powertool)
-                            router.showPage(data: editorScreenData(objectId: objectId, objectDetails: object))
+                            self?.router.showEditorScreen(
+                                data: .page(EditorPageObject(objectId: objectId, spaceId: object.spaceId, isOpenedForPreview: false))
+                            )
                         }
                 }
             }
@@ -57,12 +69,12 @@ final class SlashMenuActionHandler {
             switch action {
             case .newRealtion:
                 router.showAddNewRelationView(document: document) { [weak self] relation, isNew in
-                    self?.actionHandler.addBlock(.relation(key: relation.key), blockId: blockId, blockText: textView?.attributedText)
-
+                    self?.actionHandler.addBlock(.relation(key: relation.key), blockId: blockInformation.id, blockText: textView?.attributedText)
+                    
                     AnytypeAnalytics.instance().logAddRelation(format: relation.format, isNew: isNew, type: .block)
                 }
             case .relation(let relation):
-                actionHandler.addBlock(.relation(key: relation.key), blockId: blockId, blockText: textView?.attributedText)
+                actionHandler.addBlock(.relation(key: relation.key), blockId: blockInformation.id, blockText: textView?.attributedText)
             }
         case let .other(other):
             switch other {
@@ -70,7 +82,7 @@ final class SlashMenuActionHandler {
                 let safeSendableAttributedText = SafeSendable(value: textView?.attributedText)
                 Task { @MainActor in
                     guard let blockId = try? await actionHandler.createTable(
-                        blockId: blockId,
+                        blockId: blockInformation.id,
                         rowsCount: rowsCount,
                         columnsCount: columnsCount,
                         blockText: safeSendableAttributedText
@@ -80,29 +92,16 @@ final class SlashMenuActionHandler {
                 }
                 
             default:
-                actionHandler.addBlock(other.blockViewsType, blockId: blockId, blockText: textView?.attributedText)
+                actionHandler.addBlock(other.blockViewsType, blockId: blockInformation.id, blockText: textView?.attributedText)
             }
         case let .color(color):
-            actionHandler.setTextColor(color, blockIds: [blockId])
+            actionHandler.setTextColor(color, blockIds: [blockInformation.id])
         case let .background(color):
-            actionHandler.setBackgroundColor(color, blockIds: [blockId])
+            actionHandler.setBackgroundColor(color, blockIds: [blockInformation.id])
         }
     }
     
-    func changeText(_ text: NSAttributedString, info: BlockInformation) {
-        actionHandler.changeTextForced(text, blockId: info.id)
-    }
-    
-    private func editorScreenData(objectId: String, objectDetails: ObjectDetails) -> EditorScreenData {
-        let objectType = ObjectType(details: objectDetails)
-        if objectType.isSetType || objectType.isCollectionType {
-            return .set(EditorSetObject(objectId: objectId, spaceId: objectType.spaceId))
-        } else {
-            return .page(EditorPageObject(objectId: objectId, spaceId: objectType.spaceId, isOpenedForPreview: false))
-        }
-    }
-    
-    private func handleAlignment(_ alignment: SlashActionAlignment, blockIds: [BlockId]) {
+    private func handleAlignment(_ alignment: SlashActionAlignment, blockIds: [String]) {
         switch alignment {
         case .left :
             actionHandler.setAlignment(.left, blockIds: blockIds)
@@ -113,42 +112,71 @@ final class SlashMenuActionHandler {
         }
     }
     
-    private func handleStyle(_ style: SlashActionStyle, blockId: BlockId) {
+    private func handleStyle(
+        _ style: SlashActionStyle,
+        attributedString: NSAttributedString?,
+        blockInformation: BlockInformation,
+        modifiedStringHandler: (NSAttributedString) -> Void
+    ) {
         switch style {
         case .text:
-            actionHandler.turnInto(.text, blockId: blockId)
+            actionHandler.turnInto(.text, blockId: blockInformation.id)
         case .title:
-            actionHandler.turnInto(.header, blockId: blockId)
+            actionHandler.turnInto(.header, blockId: blockInformation.id)
         case .heading:
-            actionHandler.turnInto(.header2, blockId: blockId)
+            actionHandler.turnInto(.header2, blockId: blockInformation.id)
         case .subheading:
-            actionHandler.turnInto(.header3, blockId: blockId)
+            actionHandler.turnInto(.header3, blockId: blockInformation.id)
         case .highlighted:
-            actionHandler.turnInto(.quote, blockId: blockId)
+            actionHandler.turnInto(.quote, blockId: blockInformation.id)
         case .callout:
-            actionHandler.turnInto(.callout, blockId: blockId)
+            actionHandler.turnInto(.callout, blockId: blockInformation.id)
         case .checkbox:
-            actionHandler.turnInto(.checkbox, blockId: blockId)
+            actionHandler.turnInto(.checkbox, blockId: blockInformation.id)
         case .bulleted:
-            actionHandler.turnInto(.bulleted, blockId: blockId)
+            actionHandler.turnInto(.bulleted, blockId: blockInformation.id)
         case .numberedList:
-            actionHandler.turnInto(.numbered, blockId: blockId)
+            actionHandler.turnInto(.numbered, blockId: blockInformation.id)
         case .toggle:
-            actionHandler.turnInto(.toggle, blockId: blockId)
+            actionHandler.turnInto(.toggle, blockId: blockInformation.id)
         case .bold:
-            actionHandler.toggleWholeBlockMarkup(.bold, blockId: blockId)
+            let modifiedAttributedString = actionHandler.toggleWholeBlockMarkup(
+                attributedString,
+                markup: .bold,
+                info: blockInformation
+            )
+            
+            modifiedAttributedString.map(modifiedStringHandler)
         case .italic:
-            actionHandler.toggleWholeBlockMarkup(.italic, blockId: blockId)
+            let modifiedAttributedString = actionHandler.toggleWholeBlockMarkup(
+                attributedString,
+                markup: .italic,
+                info: blockInformation
+            )
+            
+            modifiedAttributedString.map(modifiedStringHandler)
         case .strikethrough:
-            actionHandler.toggleWholeBlockMarkup(.strikethrough, blockId: blockId)
+            let modifiedAttributedString = actionHandler.toggleWholeBlockMarkup(
+                attributedString,
+                markup: .strikethrough,
+                info: blockInformation
+            )
+            
+            modifiedAttributedString.map(modifiedStringHandler)
         case .code:
-            actionHandler.toggleWholeBlockMarkup(.keyboard, blockId: blockId)
+            let modifiedAttributedString = actionHandler.toggleWholeBlockMarkup(
+                attributedString,
+                markup: .keyboard,
+                info: blockInformation
+            )
+            
+            modifiedAttributedString.map(modifiedStringHandler)
         case .link:
             break
         }
     }
     
-    private func handleActions(_ action: BlockAction, textView: UITextView?, blockId: BlockId, selectedRange: NSRange) {
+    private func handleActions(_ action: BlockAction, textView: UITextView?, blockId: String) {
         switch action {
         case .delete:
             actionHandler.delete(blockIds: [blockId])
@@ -160,7 +188,7 @@ final class SlashMenuActionHandler {
             }
         case .copy:
             Task {
-                try await pasteboardService.copy(blocksIds: [blockId], selectedTextRange: NSRange())
+                try await pasteboardService.copy(document: document, blocksIds: [blockId], selectedTextRange: NSRange())
             }
         case .paste:
             textView?.paste(self)

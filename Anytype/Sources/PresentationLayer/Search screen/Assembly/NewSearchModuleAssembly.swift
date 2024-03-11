@@ -139,7 +139,7 @@ final class NewSearchModuleAssembly: NewSearchModuleAssemblyProtocol {
         style: NewSearchView.Style,
         title: String,
         spaceId: String,
-        selectedObjectId: BlockId?,
+        selectedObjectId: String?,
         showSetAndCollection: Bool,
         showFiles: Bool,
         onSelect: @escaping (_ type: ObjectType) -> Void
@@ -266,7 +266,8 @@ final class NewSearchModuleAssembly: NewSearchModuleAssemblyProtocol {
     ) -> NewSearchView {
         
         let relationsInteractor = RelationsInteractor(
-            relationsService: serviceLocator.relationService(objectId: document.objectId),
+            objectId: document.objectId,
+            relationsService: serviceLocator.relationService(),
             dataviewService: serviceLocator.dataviewService()
         )
         let interactor = RelationsSearchInteractor(

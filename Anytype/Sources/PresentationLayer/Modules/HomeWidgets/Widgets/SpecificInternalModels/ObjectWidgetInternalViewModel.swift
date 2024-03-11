@@ -4,10 +4,12 @@ import Combine
 import UIKit
 
 @MainActor
-final class ObjectWidgetInternalViewModel: CommonWidgetInternalViewModel, WidgetInternalViewModelProtocol {
+final class ObjectWidgetInternalViewModel: WidgetInternalViewModelProtocol {
     
     // MARK: - DI
     
+    private let widgetBlockId: String
+    private let widgetObject: BaseDocumentProtocol
     private let subscriptionManager: TreeSubscriptionManagerProtocol
     private let defaultObjectService: DefaultObjectCreationServiceProtocol
     private let documentsProvider: DocumentsProviderProtocol
@@ -26,7 +28,7 @@ final class ObjectWidgetInternalViewModel: CommonWidgetInternalViewModel, Widget
     var allowCreateObject = true
     
     init(
-        widgetBlockId: BlockId,
+        widgetBlockId: String,
         widgetObject: BaseDocumentProtocol,
         subscriptionManager: TreeSubscriptionManagerProtocol,
         defaultObjectService: DefaultObjectCreationServiceProtocol,
@@ -34,16 +36,16 @@ final class ObjectWidgetInternalViewModel: CommonWidgetInternalViewModel, Widget
         blockService: BlockServiceProtocol,
         output: CommonWidgetModuleOutput?
     ) {
+        self.widgetBlockId = widgetBlockId
+        self.widgetObject = widgetObject
         self.subscriptionManager = subscriptionManager
         self.defaultObjectService = defaultObjectService
         self.documentsProvider = documentsProvider
         self.blockService = blockService
         self.output = output
-        super.init(widgetBlockId: widgetBlockId, widgetObject: widgetObject)
     }
     
-    override func startHeaderSubscription() {
-        super.startHeaderSubscription()
+    func startHeaderSubscription() {
         widgetObject.widgetTargetDetailsPublisher(widgetBlockId: widgetBlockId)
             .receiveOnMain()
             .sink { [weak self] details in
@@ -62,19 +64,8 @@ final class ObjectWidgetInternalViewModel: CommonWidgetInternalViewModel, Widget
         }
     }
     
-    override func stopHeaderSubscription() {
-        super.stopHeaderSubscription()
-        subscriptions.removeAll()
-    }
-    
-    override func startContentSubscription() async {
-        await super.startContentSubscription()
+    func startContentSubscription() async {
         await updateLinksSubscriptions()
-    }
-    
-    override func stopContentSubscription() async {
-        await super.stopContentSubscription()
-        await subscriptionManager.stopAllSubscriptions()
     }
     
     func screenData() -> EditorScreenData? {
@@ -110,7 +101,7 @@ final class ObjectWidgetInternalViewModel: CommonWidgetInternalViewModel, Widget
     // MARK: - Private
     
     private func updateLinksSubscriptions() async {
-        guard let linkedObjectDetails, contentIsAppear else { return }
+        guard let linkedObjectDetails else { return }
         await _ = subscriptionManager.startOrUpdateSubscription(objectIds: linkedObjectDetails.links)
     }
 }

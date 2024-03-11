@@ -18,7 +18,7 @@ struct WidgetContainerView<Content: View, ContentVM: WidgetContainerContentViewM
         
     var body: some View {
         WidgetSwipeActionView(
-            isEnable: FeatureFlags.widgetsCreateObject ? contentModel.allowCreateObject : false,
+            isEnable: contentModel.allowCreateObject,
             showTitle: model.isExpanded,
             action: {
                 if #available(iOS 17.0, *) {

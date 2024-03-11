@@ -1,21 +1,25 @@
 import Services
 import Combine
 import AnytypeCore
-import Foundation
+import UIKit
 import ProtobufMessages
 
 protocol KeyboardActionHandlerProtocol {
-    func handle(info: BlockInformation, currentString: NSAttributedString, action: CustomTextView.KeyboardAction)
+    func handle(
+        info: BlockInformation,
+        textView: UITextView,
+        action: CustomTextView.KeyboardAction
+    )
 }
 
 final class KeyboardActionHandler: KeyboardActionHandlerProtocol {
-    
     private let documentId: String
     private let service: BlockActionServiceProtocol
     private let blockService: BlockServiceProtocol
     private let toggleStorage: ToggleStorage
     private let container: InfoContainerProtocol
     private weak var modelsHolder: EditorMainItemModelsHolder?
+    private let editorCollectionController: EditorBlockCollectionController
     
     init(
         documentId: String,
@@ -23,7 +27,8 @@ final class KeyboardActionHandler: KeyboardActionHandlerProtocol {
         blockService: BlockServiceProtocol,
         toggleStorage: ToggleStorage,
         container: InfoContainerProtocol,
-        modelsHolder: EditorMainItemModelsHolder
+        modelsHolder: EditorMainItemModelsHolder,
+        editorCollectionController: EditorBlockCollectionController
     ) {
         self.documentId = documentId
         self.service = service
@@ -31,9 +36,14 @@ final class KeyboardActionHandler: KeyboardActionHandlerProtocol {
         self.toggleStorage = toggleStorage
         self.container = container
         self.modelsHolder = modelsHolder
+        self.editorCollectionController = editorCollectionController
     }
 
-    func handle(info: BlockInformation, currentString: NSAttributedString, action: CustomTextView.KeyboardAction) {
+    func handle(
+        info: BlockInformation,
+        textView: UITextView,
+        action: CustomTextView.KeyboardAction
+    ) {
         guard case let .text(text) = info.content else {
             anytypeAssertionFailure("Only text block may send keyboard action")
             return
@@ -66,7 +76,9 @@ final class KeyboardActionHandler: KeyboardActionHandlerProtocol {
                 logCreateBlock(with: .text)
             }
         case let .enterInside(string, range):
+
             let newBlockContentType = contentTypeForSplit(text.contentType, blockId: info.id)
+
             service.split(
                 string,
                 blockId: info.id,
@@ -74,8 +86,8 @@ final class KeyboardActionHandler: KeyboardActionHandlerProtocol {
                 range: range,
                 newBlockContentType: newBlockContentType
             )
-            logCreateBlock(with: newBlockContentType)
 
+            logCreateBlock(with: newBlockContentType)
         case let .enterAtTheEnd(string, range):
             guard string.string.isNotEmpty else {
                 anytypeAssertionFailure("Empty sting in enterAtTheEnd")
@@ -83,19 +95,25 @@ final class KeyboardActionHandler: KeyboardActionHandlerProtocol {
                 return
             }
             onEnterAtTheEndOfContent(info: info, text: text, range: range, action: action, newString: string)
+            editorCollectionController.scrollToTextViewIfNotVisible(textView: textView)
+        case .enterAtTheBegining:
+            service.add(
+                info: .empty(content: .text(.empty(contentType: text.contentType))),
+                targetBlockId: info.id,
+                position: .top,
+                setFocus: false
+            )
             
-        case let .enterAtTheBegining(_, range):
-            service.split(currentString, blockId: info.id, mode: .bottom, range: range, newBlockContentType: text.contentType)
-            logCreateBlock(with: text.contentType)
+            editorCollectionController.scrollToTextViewIfNotVisible(textView: textView)
         case .delete:
             Task {
-                await onDelete(text: text, info: info, parent: parent)
+                await onDelete(text: text, info: info, parent: parent, textView: textView)
             }
         }
     }
     
     @MainActor
-    private func onDelete(text: BlockText, info: BlockInformation, parent: BlockInformation) async {
+    private func onDelete(text: BlockText, info: BlockInformation, parent: BlockInformation, textView: UITextView) async {
         if text.contentType.isList || text.contentType == .quote || text.contentType == .callout {
             service.turnInto(.text, blockId: info.id)
             logChangeBlockTextStyle()
@@ -116,7 +134,19 @@ final class KeyboardActionHandler: KeyboardActionHandlerProtocol {
             try? await blockService.move(objectId: documentId, blockId: info.id, targetId: parent.id, position: .bottom)
             return
         }
+        defer {
+            editorCollectionController.scrollToTextViewIfNotVisible(textView: textView)
+        }
         
+        let model = modelsHolder?.findModel(beforeBlockId: info.id, acceptingTypes: BlockContentType.allTextTypes)
+        
+        if let model, model.info.isTextAndEmpty { // Preventing weird animation when previous block is empty
+            service.delete(blockIds: [model.info.id])
+            return
+        }
+        
+        // Previous block
+        // If content -> merge previous block content + current content.
         service.merge(secondBlockId: info.id)
     }
     
@@ -182,7 +212,7 @@ final class KeyboardActionHandler: KeyboardActionHandlerProtocol {
 // MARK: - Extensions
 private extension KeyboardActionHandler {
     // We do want to create regular text block when splitting title block
-    func contentTypeForSplit(_ style: BlockText.Style, blockId: BlockId) -> BlockText.Style {
+    func contentTypeForSplit(_ style: BlockText.Style, blockId: String) -> BlockText.Style {
         if style == .title || style == .description {
             return .text
         }

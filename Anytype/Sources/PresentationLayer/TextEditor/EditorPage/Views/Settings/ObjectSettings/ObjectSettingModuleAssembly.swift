@@ -3,8 +3,8 @@ import UIKit
 
 protocol ObjectSettingsModuleDelegate: AnyObject {
     func didCreateLinkToItself(selfName: String, data: EditorScreenData)
-    func didCreateTemplate(templateId: BlockId)
-    func didTapUseTemplateAsDefault(templateId: BlockId)
+    func didCreateTemplate(templateId: String)
+    func didTapUseTemplateAsDefault(templateId: String)
 }
 
 @MainActor
@@ -36,7 +36,6 @@ final class ObjectSettingModuleAssembly: ObjectSettingModuleAssemblyProtocol {
     ) -> UIViewController {
         let viewModel = ObjectSettingsViewModel(
             document: document,
-            objectDetailsService: serviceLocator.detailsService(objectId: document.objectId),
             objectActionsService: serviceLocator.objectActionsService(),
             blockService: serviceLocator.blockService(),
             templatesService: serviceLocator.templatesService,

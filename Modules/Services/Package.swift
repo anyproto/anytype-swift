@@ -14,6 +14,7 @@ let package = Package(
     ],
     dependencies: [
         .package(url: "https://github.com/apple/swift-protobuf", revision: "1.21.0"),
+        .package(url: "https://github.com/hmlongco/Factory", revision: "2.3.1"),
         .package(path: "../ProtobufMessages"),
         .package(path: "../AnytypeCore")
     ],
@@ -22,6 +23,7 @@ let package = Package(
             name: "Services",
             dependencies: [
                 .product(name: "SwiftProtobuf", package: "swift-protobuf"),
+                "Factory",
                 "ProtobufMessages",
                 "AnytypeCore"
             ],

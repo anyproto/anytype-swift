@@ -25,7 +25,6 @@ struct AudioBlockContentConfiguration: BlockConfiguration {
 
     func hash(into hasher: inout Hasher) {
         hasher.combine(trackId)
-        hasher.combine(audioPlayerViewDelegate?.hashable)
     }
 }
 

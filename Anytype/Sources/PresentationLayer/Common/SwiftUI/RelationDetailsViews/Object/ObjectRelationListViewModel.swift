@@ -20,7 +20,9 @@ final class ObjectRelationListViewModel: ObservableObject {
     
     private let interactor: ObjectRelationListInteractorProtocol
     private let relationSelectedOptionsModel: RelationSelectedOptionsModelProtocol
-    private let objectActionsService: ObjectActionsServiceProtocol
+    
+    @Injected(\.objectActionsService)
+    private var objectActionsService: ObjectActionsServiceProtocol
     
     private weak var output: ObjectRelationListModuleOutput?
     
@@ -28,14 +30,12 @@ final class ObjectRelationListViewModel: ObservableObject {
         configuration: RelationModuleConfiguration,
         interactor: ObjectRelationListInteractorProtocol,
         relationSelectedOptionsModel: RelationSelectedOptionsModelProtocol,
-        objectActionsService: ObjectActionsServiceProtocol,
         output: ObjectRelationListModuleOutput?
     ) {
         self.configuration = configuration
         self.output = output
         self.interactor = interactor
         self.relationSelectedOptionsModel = relationSelectedOptionsModel
-        self.objectActionsService = objectActionsService
         self.relationSelectedOptionsModel.selectedOptionsIdsPublisher.assign(to: &$selectedOptionsIds)
     }
     

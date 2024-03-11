@@ -2,7 +2,7 @@ import ProtobufMessages
 import AnytypeCore
 
 public extension Anytype_Model_Block.Content.Bookmark {
-    var blockConten: BlockContent? {
+    var blockContent: BlockContent? {
         type.asModel.flatMap(
             {
                 .bookmark(

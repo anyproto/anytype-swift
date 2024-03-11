@@ -19,23 +19,11 @@ final class ModulesDI: ModulesDIProtocol {
     }
     
     func relationsList() -> RelationsListModuleAssemblyProtocol {
-        return RelationsListModuleAssembly()
+        return RelationsListModuleAssembly(serviceLocator: serviceLocator)
     }
     
-    func dateRelationCalendar() -> DateRelationCalendarModuleAssemblyProtocol {
-        return DateRelationCalendarModuleAssembly(serviceLocator: serviceLocator)
-    }
-    
-    func selectRelationList() -> SelectRelationListModuleAssemblyProtocol {
-        return SelectRelationListModuleAssembly(serviceLocator: serviceLocator)
-    }
-    
-    func relationOptionSettings() -> RelationOptionSettingsModuleAssemblyProtocol {
-        return RelationOptionSettingsModuleAssembly(serviceLocator: serviceLocator)
-    }
-    
-    func objectRelationList() -> ObjectRelationListModuleAssemblyProtocol {
-        return ObjectRelationListModuleAssembly(serviceLocator: serviceLocator)
+    func textRelationEditing() -> TextRelationEditingModuleAssemblyProtocol {
+        TextRelationEditingModuleAssembly(serviceLocator: serviceLocator, uiHelpersDI: uiHelpersDI)
     }
     
     func undoRedo() -> UndoRedoModuleAssemblyProtocol {
@@ -126,24 +114,12 @@ final class ModulesDI: ModulesDIProtocol {
         return SettingsModuleAssembly(serviceLocator: serviceLocator)
     }
     
-    func debugMenu() -> DebugMenuModuleAssemblyProtocol {
-        return DebugMenuModuleAssembly(serviceLocator: serviceLocator)
-    }
-    
     func settingsAccount() -> SettingsAccountModuleAssemblyProtocol {
         return SettingsAccountModuleAssembly(serviceLocator: serviceLocator, uiHelpersDI: uiHelpersDI)
     }
     
     func fileStorage() -> FileStorageModuleAssemblyProtocol {
         return FileStorageModuleAssembly(serviceLocator: serviceLocator, uiHelpersDI: uiHelpersDI)
-    }
-    
-    func spaceSwitch() -> SpaceSwitchModuleAssemblyProtocol {
-        return SpaceSwitchModileAssembly(serviceLocator: serviceLocator)
-    }
-    
-    func spaceCreate() -> SpaceCreateModuleAssemblyProtocol {
-        return SpaceCreateModuleAssembly(serviceLocator: serviceLocator)
     }
     
     func authorization() -> AuthModuleAssemblyProtocol {
@@ -278,14 +254,6 @@ final class ModulesDI: ModulesDIProtocol {
         ShareOptionsModuleAssembly(serviceLocator: serviceLocator)
     }
     
-    func galleryInstallationPreview() -> GalleryInstallationPreviewModuleAssemblyProtocol {
-        GalleryInstallationPreviewModuleAssembly(serviceLocator: serviceLocator)
-    }
-    
-    func gallerySpaceSelectionModuleAssembly() -> GallerySpaceSelectionModuleAssemblyProtocol {
-        GallerySpaceSelectionModuleAssembly(serviceLocator: serviceLocator)
-    }
-    
     func commonNotification() -> CommonNotificationAssemblyProtocol {
         CommonNotificationAssembly(serviceLocator: serviceLocator)
     }
@@ -296,5 +264,21 @@ final class ModulesDI: ModulesDIProtocol {
     
     func spareShare() -> SpaceShareModuleAssemblyProtocol {
         SpaceShareModuleAssembly(serviceLocator: serviceLocator)
+    }
+    
+    func spaceJoin() -> SpaceJoinModuleAssemblyProtocol {
+        SpaceJoinModuleAssembly(serviceLocator: serviceLocator)
+    }
+    
+    func spacesManager() -> SpacesManagerModuleAssemblyProtocol {
+        SpacesManagerModuleAssembly(serviceLocator: serviceLocator)
+    }
+    
+    func membership() -> MembershipModuleAssemblyProtocol {
+        MembershipModuleAssembly(uiHelpersDI: uiHelpersDI, serviceLocator: serviceLocator)
+    }
+    
+    func spaceMembers() -> SpaceMembersModuleAssemblyProtocol {
+        SpaceMembersModuleAssembly(serviceLocator: serviceLocator)
     }
 }

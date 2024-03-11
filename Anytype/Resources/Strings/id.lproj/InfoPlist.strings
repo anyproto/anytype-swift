@@ -1,4 +1,4 @@
-"NSFaceIDUsageDescription" = " ID wajah digunakan untuk mengembalikan Tahap Pemulihan secara aman tersimpan di dalam rantai kunci";
+"NSFaceIDUsageDescription" = "Face ID digunakan untuk mengembalikan Frasa Pemulihan secara aman tersimpan di dalam rantai kunci";
 "NSCameraUsageDescription" = "Kamera digunakan untuk memindai kode QR untuk pengalaman masuk yang aman dan nyaman";
-"NSLocalNetworkUsageDescription" = "Akses jaringan lokal digunakan untuk menghubungkan data secara langsung diantara perangkat terdekatmu";
-"NSPhotoLibraryAddUsageDescription" = "Izin dibutuhkan untuk menyimpan gambar terpilih ke perpustakaanmu";
+"NSLocalNetworkUsageDescription" = "Akses jaringan lokal digunakan untuk menghubungkan data secara langsung di antara perangkat terdekat Anda";
+"NSPhotoLibraryAddUsageDescription" = "Izin dibutuhkan untuk menyimpan gambar terpilih ke perpustakaan Anda";

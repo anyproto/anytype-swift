@@ -79,20 +79,20 @@
 "Relation.From.Type" = "Dari tipe %@";
 "Relation.LinksFrom.Title" = "dari";
 "Relation.LinksTo.Title" = "ke";
-"Relation.EmptyState.title" = "No options";
-"Relation.EmptyState.description" = "Nothing found. Create first option to start.";
-"Relation.EmptyState.Blocked.title" = "The relation is empty";
-"Relation.Create.Row.title" = "Create “%@”";
-"Relation.View.Create.title" = "Create option";
-"Relation.View.Edit.title" = "Edit option";
-"Relation.Create.Textfield.placeholder" = "Enter name...";
+"Relation.EmptyState.title" = "Tidak ada opsi";
+"Relation.EmptyState.description" = "Tidak ada yang ditemukan. Buat opsi pertama untuk memulai.";
+"Relation.EmptyState.Blocked.title" = "Relasi kosong";
+"Relation.Create.Row.title" = "Buat “%@”";
+"Relation.View.Create.title" = "Buat opsi";
+"Relation.View.Edit.title" = "Sunting opsi";
+"Relation.Create.Textfield.placeholder" = "Masukkan nama...";
 "Relation.Edit.Button.title" = "Terapkan";
-"Relation.Date.Locked.Alert.title" = "Relation “%@” is locked";
+"Relation.Date.Locked.Alert.title" = "Relasi “%@” terkunci";
 "Relation.ObjectTypes.Header.title" = "Tipe objek:";
 "Relation.ObjectType.Header.title" = "Tipe objek:";
 
 "Relation.Delete.Alert.Title" = "Apakah kamu yakin?";
-"Relation.Delete.Alert.Description" = "The option will be permanently removed from your space.";
+"Relation.Delete.Alert.Description" = "Opsi ini akan dihapus secara permanen dari ruang Anda.";
 "Relation.Object.Delete.Alert.Description" = "Objek ini akan dipindah ke Bak Sampah.";
 
 "Relation.Format.Object.Title" = "Objek";
@@ -110,11 +110,11 @@
 // Origin Relation
 
 "Relation.Origin.Clipboard" = "Papan kerani";
-"Relation.Origin.DragAndDrop" = "Drag'n'Drop";
+"Relation.Origin.DragAndDrop" = "Seret dan Lepas";
 "Relation.Origin.Import" = "Objek diimpor";
-"Relation.Origin.WebClipper" = "Web clipper";
-"Relation.Origin.SharingExtension" = "Mobile sharing extension";
-"Relation.Origin.UseCase" = "Use case";
+"Relation.Origin.WebClipper" = "Pemangkas web";
+"Relation.Origin.SharingExtension" = "Pengaya pembagian ponsel";
+"Relation.Origin.UseCase" = "Penggunaan";
 "Relation.Origin.Builtin" = "Pustaka terpasang";
 "Relation.Origin.Bookmark" = "Markah";
 
@@ -217,7 +217,7 @@
 "Auth.CameraPermissionTitle" = "Tolong izinkan akses";
 "Restore secret phrase from keychain" = "Mengembalikan Tahap Pemulihan dari rantai kunci";
 "Auth.LogIn" = "Masuk";
-"Auth.Join" = "Gabung";
+"Join" = "Gabung";
 "Auth.Welcome.Subtitle" = "Anytype adalah tempat aman bagimu untuk menulis, berpikir, merencanakan, dan mengorganisasikan apa pun yang penting bagimu.";
 "Auth.Caption.Privacy.Text" = "Dengan melanjutkan, kamu menyetujui [Syarat Penggunaan](%@) dan [Kebijakan Privasi](%@)";
 "Auth.Next" = "Lanjut";
@@ -303,7 +303,7 @@
 "Undo" = "Urungkan";
 "Actions.LinkItself" = "Tautkan ke";
 "Actions.MakeAsTemplate" = "Buat templat";
-"Actions.TemplateMakeDefault" = "Make default";
+"Actions.TemplateMakeDefault" = "Buat sebagai bawaan";
 "Actions.CreateWidget.Title" = "Ke widget";
 "Actions.CreateWidget.Success" = "Gawai baru telah dibuat";
 
@@ -527,7 +527,8 @@
 "Enter text" = "Masukkan teks";
 "Unsupported value" = "Nilai tak didukung";
 "Select relation type" = "Pilih jenis relasi";
-"CommonOpenErrorView.Message" = "No data found";
+"CommonOpenErrorView.Message" = "Tidak ada data yang ditemukan";
+"AreYouSure" = "Apakah kamu yakin?";
 "Nothing found" = "Nothing found";
 "No type found text" = "Tipe “%@” tidak ditemukan. Ubah permintaanmu atau buatlah tipe yang baru.";
 "Create type" = "Buat tipe";
@@ -554,6 +555,7 @@
 "Application icon" = "Ikon aplikasi";
 "Mode" = "Mode";
 "copied to clipboard" = "%@ tersalin ke papan klip";
+"Create object from clipboard" = "Buat objek dari papan kerani";
 "Access to secret phrase from keychain" = "Akses untuk tahap rahasia dari rantai kunci";
 "Back up your recovery phrase" = "Cadangkan untuk tahap pemulihan";
 "Account" = "Akun";
@@ -584,7 +586,7 @@
 "SyncStatus.LocalOnly.Title" = "Hanya Lokal";
 "SyncStatus.LocalOnly.Description" = "Hanya lokal";
 "SyncStatus.Synced.Anytype.Description" = "Tercadangkan ke Jaringan Anytype";
-"SyncStatus.Synced.AnytypeStaging.Description" = "Backed up on Anytype Staging";
+"SyncStatus.Synced.AnytypeStaging.Description" = "Tercadangkan ke Anytype Staging";
 "SyncStatus.Synced.SelfHosted.Description" = "Tercadangkan ke Jaringan Swaladen";
 "Downloading or uploading data to some node" = "Mengunduh atau mengunggah data ke simpul";
 "Node is not connected" = "Simpul tidak terhubung";
@@ -632,12 +634,12 @@
 "Today" = "Hari ini";
 "No date" = "Tidak ada tanggal";
 "Clear" = "Bersihkan";
-"Create option with" = "Create option ‘%@’";
-"Add URL" = "Tambahkan URL";
-"Add email" = "Tambahkan surel";
-"Add phone number" = "Tambahkan nomor telepon";
-"Add number" = "Tambahkan nomor";
-"Add text" = "Tambahkan teks";
+"Create option with" = "Buat opsi ‘%@’";
+"Enter URL" = "Masukkan URL";
+"Enter email" = "Masukkan surel";
+"Enter phone number" = "Masukkan nomor telepon";
+"Enter number" = "Masukkan angka";
+"Enter text" = "Masukkan teks";
 "Ok" = "Oke";
 "Error occurred. Please try again" = "Terjadi kesalahan. Silahlan coba lagi";
 "Add" = "Tambah";
@@ -662,7 +664,7 @@
 "DataviewType.gallery" = "Galeri";
 "DataviewType.kanban" = "Kanban";
 "DataviewType.calendar" = "Kalender";
-"DataviewType.graph" = "Graph";
+"DataviewType.graph" = "Grafik";
 
 // MARK: - ObjectType
 "ObjectType.fallbackDescription" = "Kanvas kosong tanpa judul";
@@ -752,10 +754,6 @@
 "Content.DataView.InlineSet.Untitled" = "Set tidak berjudul";
 "Content.DataView.InlineCollection.Untitled" = "Koleksi tidak berjudul";
 "Content.DataView.InlineSet.Toast.Failure" = "Set dalam-baris ini tidak memiliki sebuah sumber";
-
-// MARK: - Widget extension
-"WidgetExtension.LockScreen.Title" = "Objek baru";
-"WidgetExtension.LockScreen.Description" = "Buat sebuah objek baru dengan cepat";
 
 // MARK: - Toast
 "Editor.Toast.LinkedTo" = "ditautkan pada";
@@ -848,10 +846,26 @@
 "ClearCacheAlert.Description" = "Semua berkas media yang tersimpan di Anytype akan dihapus dari perangkatmu saat ini. Berkas - berkas ini dapat di unduh kembali dari sebuah simpul cadangan atau perangkat yang lain.";
 
 // MARK: - Spaces
-"Spaces.Accessibility.Public" = "Ruang Publik";
+"Spaces.Accessibility.Shared" = "Ruang Terbagi";
 "Spaces.Accessibility.Private" = "Ruang Pribadi";
 "Spaces.Accessibility.Personal" = "Setelan";
 "Spaces.Search.Title" = "Cari ruang";
+"Spaces.Title" = "Ruang";
+"Spaces.Info.Network" = "Jaringan:";
+"Spaces.Info.Device" = "Perangkat:";
+
+// MARK: - Space
+"Space.Status.Unknown" = "Tidak diketahui";
+"Space.Status.Loading" = "Memuat";
+"Space.Status.Ok" = "Oke";
+"Space.Status.Missing" = "Hilang";
+"Space.Status.Error" = "Galat";
+"Space.Status.RemoteWaitingDeletion" = "Menunggu Penghapusan";
+"Space.Status.RemoteDeleted" = "Remot Dihapus";
+"Space.Status.SpaceDeleted" = "Terhapus";
+"Space.Status.SpaceActive" = "Aktif";
+"Space.Status.SpaceJoining" = "Bergabung";
+"Space.Status.SpaceRemoving" = "Menghapus";
 
 // MARK: - Space Settings
 "SpaceSettings.Title" = "Setelan ruang";
@@ -861,16 +875,41 @@
 "SpaceSettings.DeleteAlert.Title" = "Hapus '%@' ruang";
 "SpaceSettings.DeleteAlert.Message" = "Ruang ini akan dihapus secara permanen. Kamu tidak bisa membatalkan tindakan ini.";
 "SpaceSettings.DeleteButton" = "Hapus ruang";
-"SpaceSettings.Sharing" = "Sharing";
+"SpaceSettings.Sharing" = "Berbagi";
 "SpaceSettings.Share" = "Bagikan";
+"SpaceSettings.LeaveButton" = "Keluar dari ruang";
+"SpaceSettings.LeaveAlert.Title" = "Keluar dari ruang";
+"SpaceSettings.LeaveAlert.Message" = "Ruang %@ akan dihapus dari perangkat-perangkatmu dan kamu tidak akan bisa mengaksesnya lagi.";
 
 // MARK: - Space Share
 
-"SpaceShare.Title" = "Share space";
-"SpaceShare.MembersSection" = "Members and requests";
-"SpaceShare.Permissions.Owner" = "Owner";
-"SpaceShare.Permissions.Reader" = "Can view";
-"SpaceShare.Permissions.Writer" = "Can edit";
+"SpaceShare.Title" = "Bagikan ruang";
+"SpaceShare.MembersSection" = "Anggota dan permintaan";
+"SpaceShare.Members" = "Anggota";
+"SpaceShare.Permissions.Owner" = "Pemilik";
+"SpaceShare.Permissions.Reader" = "Pembaca";
+"SpaceShare.Permissions.Writer" = "Penyunting";
+"SpaceShare.Invite.Title" = "Tautan undangan";
+"SpaceShare.Invite.Description" = "Kirimkan tautan ini untuk mengundang orang lain. Kamu bisa mengatur hak akses mereka setelah mereka menyetujui undangan";
+"SpaceShare.Invite.Button" = "Bagikan tautan undangan";
+"SpaceShare.Status.Joining" = "Diminta";
+"SpaceShare.Status.Removing" = "Pengeluaran diminta";
+"SpaceShare.Action.ViewRequest" = "Lihat Permintaan";
+"SpaceShare.Action.Approve" = "Terima";
+"SpaceShare.ViewRequest.Title" = "%@ meminta bergabung ke ruang %@";
+"SpaceShare.ViewRequest.ViewAccess" = "Izinkan akses baca";
+"SpaceShare.ViewRequest.EditAccess" = "Izinkan akses sunting";
+"SpaceShare.ViewRequest.Reject" = "Tolak";
+"SpaceShare.RemoveMember.Title" = "Hapus anggota";
+"SpaceShare.RemoveMember.Message" = "%@ akan dihapus dari ruang.";
+"SpaceShare.ChangePermissions" = "Akses %@ di ruang ini akan menjadi %@.";
+"SpaceShare.Join.Title" = "Bergabung dengan ruang";
+"SpaceShare.Join.CommentPlaceholder" = "Tinggalkan komentar untuk pemilik ruang";
+"SpaceShare.Join.Button" = "Permintaan bergabung";
+"SpaceShare.Join.Info" = "Ketika pemilik ruang menyetujui permintaanmu, kamu akan bergabung ke ruang ini dengan hak akses yang telah ditentukan.";
+"SpaceShare.Join.Message" = "Kamu diundang untuk bergabung dengan ruang %@ buatan %@. Kirimkan permintaan supaya pemilik ruang dapat mengizinkanmu bergabung.";
+"SpaceShare.JoinConfirmation.Title" = "Permintaan terkirim";
+"SpaceShare.JoinConfirmation.Message" = "Kamu akan menerima pemberitahuan ketika pemilik ruang menyetujui permintaanmu.";
 
 // MARK: - Space Create
 "SpaceCreate.Title" = "Buat ruang";
@@ -886,8 +925,8 @@
 "Sharing.LinkTo" = "Tautkan ke";
 
 "Sharing.Text.NoteObject" = "Catatan objek";
-"Sharing.Text.TextBlock" = "Blocks";
-"Sharing.Any.Block" = "Blocks";
+"Sharing.Text.TextBlock" = "Blok";
+"Sharing.Any.Block" = "Blok";
 
 // MARK: - Sharing tips
 "Sharing.Tip.Title" = "Bagikan Ekstensi";
@@ -895,7 +934,12 @@
 
 "Sharing.Tip.Steps.1" = "Ketuk tombol berbagi iOS";
 "Sharing.Tip.Steps.2" = "Gulir melewati aplikasi dan ketuk Lainnya";
-"Sharing.Tip.Steps.3" = "Tap Edit to find “Anytype” and tap";
+"Sharing.Tip.Steps.3" = "Ketuk Sunting untuk menemukan “Anytype” dan ketuk";
+
+// MARK: - Swipe tips
+"Swipe.Tip.Title" = "Usap untuk Membuat Objek";
+"Swipe.Tip.Subtitle" = "Buat objek dalam widget dengan mengusap ke kiri dengan mudah.";
+
 
 // MARK: - Initial
 
@@ -937,10 +981,87 @@
 "Gallery.Author" = "Dibuat oleh @%@";
 "Gallery.Install" = "Pasang";
 "Gallery.InstallToNew" = "Pasang ke ruang baru";
-"Gallery.Notification.Success" = "Experience was successfully installed to the \"%@\" space. You can now open and start using it.";
+"Gallery.Notification.Success" = "Pengalaman telah terpasang ke ruang \"%@\". Anda sekarang dapat membukanya dan mulai menggunakannya.";
 "Gallery.Notification.Button" = "Kunjungi ruang";
 "Gallery.Notification.Error" = "Ups! \"%@\" tidak terpasang. Silakan cek koneksi internetmu lalu coba lagi, atau buatlah laporan di forum.";
 
+// MARK: - Membership
+"Membership" = "Langganan";
+"Just e-mail" = "Kirim surel saja";
+"E-mail" = "Surel";
+"Learn more" = "Pelajari lebih lanjut";
+"per year" = "per tahun";
+"per x years" = "per %@ tahun";
+"What’s included" = "Apa saja yang termasuk";
+"Submit" = "Kirim";
+"Resend" = "Kirim ulang";
+"Resend in" = "Kirim ulang dalam %@ detik";
+"Current" = "Current";
+"Forever free" = "Forever free";
+"Forever" = "Selamanya";
+"Valid until date" = "Berlaku hingga %@";
+"Your current status" = "Statusmu saat ini:";
+"Valid until" = "Berlaku hingga:";
+"Paid by" = "Dibayar oleh %@";
+
+
+"Membership.Ad.Title" = "Mari membangun bersama";
+"Membership.Ad.Subtitle" = "Bergabung dengan jaringan Anytype berarti turut berkontribusi pada kisahnya";
+
+"Membership.Legal.Details" = "Detail level langganan";
+"Membership.Legal.Privacy" = "Kebijakan privasi";
+"Membership.Legal.Terms" = "Syarat dan ketentuan";
+"Membership.Legal.WouldYouLike" = "Apakah Anda ingin menggunakan Anytype untuk bisnis, pendidikan, dll.?";
+"Membership.Legal.LetUsKnow" = "Silakan beri tahu kami di sini.";
+
+"Membership.Email.Subject" = "Permintaan Harga Khusus";
+"Membership.Email.Body" = "Silakan jelaskan permintaan Anda:
+- jelaskan jika Anda mewakili organisasi pendidikan, pemerintah, atau nirlaba
+- ceritakan organisasi Anda: jumlah pegawai dan pengguna Anytype dalam waktu mendatang, pasaran yang sedang dikerjakan, dll.
+- jelaskan detail tambahan tentang bagaimana organisasi Anda menggunakan Anytype";
+
+"Membership.Banner.Title1" = "Ciptakan bersama dengan kami";
+"Membership.Banner.Subtitle1" = "Tetap terhubung dengan tim dan komunitas kami. Bergabung dengan panggilan tim kami, buat evolusi Anytype berkembang, dan beri masukan fitur baru.";
+"Membership.Banner.Title2" = "Dapatkan Keuntungan";
+"Membership.Banner.Subtitle2" = "Pelanggan akan mendapat identitas unik di Jaringan Anytype, lebih banyak penyimpanan, ruang terbagi, serta jumlah anggota per ruang untuk kolaborasi yang lebih luas.";
+"Membership.Banner.Title3" = "Dukung Visi Kami";
+"Membership.Banner.Subtitle3" = "Kontribusimu akan mendukung tim independen kami dan juga visi kami meraih lingkungan digital yang berbasis pengguna, aman, dan kolaboratif.";
+"Membership.Banner.Title4" = "Berinvestasilah pada Konektivitas";
+"Membership.Banner.Subtitle4" = "Perangkat lunak kami gratis, namun kami juga bertumpu pada jaringan yang menghubungkan kita semua. Dukunglah kami, dan kamu akan berinvestasi pada infrastruktur yang menjaga kita tetap bersatu.";
+
+"Membership.EmailForm.Title" = "Dapatkan keanggotaan gratis Anda";
+"Membership.EmailForm.Subtitle" = "Kami memerlukan surel Anda untuk mencegah spam dan membuat keseruan!";
+"Membership.EmailForm.Newsletter" = "Saya ingin mendapatkan pembaruan pada produk-produk dan menikmati manfaat gratis!";
+"Membership.EmailValidation" = "Masukkan kode yang dikirim ke surelmu";
+
+"Membership.Success.Title" = "Selamat menjadi anggota, %@";
+"Membership.Success.Subitle" = "Big cheers for your curiosity!";
+
+
+// MARK: - Membership Tiers
+"Membership.Explorer.Title" = "Penjelajah";
+"Membership.Explorer.Subtitle" = "Masuki dalam jaringan dan nikmati keseruan kolaborasi one-on-one";
+"Membership.Explorer.Benefit1" = "Ruang jaringan 1 GB";
+"Membership.Explorer.Benefit2" = "10 ruang satu ke satu";
+"Membership.Explorer.Benefit3" = "Sampai dengan 10 ruang terbagi dalam mode hanya baca";
+
+"Membership.Builder.Title" = "Pembangun";
+"Membership.Builder.Subtitle" = "Dapatkan keajaiban kolaborasi multi-party dan nikmati dukungan tertinggi";
+"Membership.Builder.Benefit1" = "Nama unik (dari 7 karakter)";
+"Membership.Builder.Benefit2" = "Ruang jaringan 128 GB";
+"Membership.Builder.Benefit3" = "Tempat duduk kolaborator untuk 10 Tamu";
+"Membership.Builder.Benefit4" = "Layanan prioritas";
+
+
+"Membership.CoCreator.Title" = "Pencipta Bersama";
+"Membership.CoCreator.Subtitle" = "Dukung petualangan kami dan dapatkan akses dan manfaat eksklusif";
+"Membership.CoCreator.Benefit1" = "Nama unik (dari 5 karakter)";
+"Membership.CoCreator.Benefit2" = "Ruang jaringan 256 GB";
+"Membership.CoCreator.Benefit3" = "Tempat duduk kolaborator untuk 25 Tamu";
+"Membership.CoCreator.Benefit4" = "Mengobrol dengan tim";
+"Membership.CoCreator.Benefit5" = "Koleksi yang unik";
+
+
 // MARK: - Debug
-"Debug.MimeTypes" = "Mime Types - %@";
+"Debug.MimeTypes" = "Jenis MIME - %@";
 "Debug.Info" = "Info awakutu";

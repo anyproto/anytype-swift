@@ -74,61 +74,58 @@ struct SelectRelationListView: View {
         case .status:
             AnytypeText(option.text, style: .relation1Regular, color: option.color)
         case .tag:
-            TagOptionView(
-                text: option.text,
-                textColor: option.color,
-                backgroundColor: option.color.veryLightColor()
+            TagView(
+                config: TagView.Config(
+                    text: option.text,
+                    textColor: option.color,
+                    backgroundColor: option.color.veryLightColor(),
+                    textFont: .relation1Regular,
+                    guidlines: TagView.Guidlines(textPadding: 6, cornerRadius: 3, tagHeight: 20)
+                )
             )
         }
     }
 }
 
+extension SelectRelationListView {
+    init(
+        style: SelectRelationListStyle,
+        configuration: RelationModuleConfiguration,
+        selectedOptionsIds: [String],
+        output: SelectRelationListModuleOutput?
+    ) {
+        let relationSelectedOptionsModel = RelationSelectedOptionsModel(
+            objectId: configuration.objectId,
+            selectionMode: configuration.selectionMode,
+            selectedOptionsIds: selectedOptionsIds,
+            relationKey: configuration.relationKey,
+            analyticsType: configuration.analyticsType
+        )
+        _viewModel = StateObject(
+            wrappedValue: SelectRelationListViewModel(
+                style: style,
+                configuration: configuration,
+                relationSelectedOptionsModel: relationSelectedOptionsModel,
+                output: output
+            )
+        )
+    }
+}
+
 #Preview("Status list") {
     SelectRelationListView(
-        viewModel: SelectRelationListViewModel(
-            style: .status,
-            configuration: RelationModuleConfiguration(
-                title: "Status",
-                isEditable: true,
-                relationKey: "",
-                spaceId: "", 
-                selectionMode: .single,
-                analyticsType: .block
-            ), 
-            relationSelectedOptionsModel: RelationSelectedOptionsModel(
-                selectionMode: .single,
-                selectedOptionsIds: [],
-                relationKey: "",
-                analyticsType: .block,
-                relationsService: DI.preview.serviceLocator.relationService(objectId: "")
-            ),
-            searchService: DI.preview.serviceLocator.searchService(),
-            output: nil
-        )
+        style: .status,
+        configuration: RelationModuleConfiguration.default,
+        selectedOptionsIds: [],
+        output: nil
     )
 }
 
 #Preview("Tag list") {
     SelectRelationListView(
-        viewModel: SelectRelationListViewModel(
-            style: .tag,
-            configuration: RelationModuleConfiguration(
-                title: "Tag",
-                isEditable: true,
-                relationKey: "",
-                spaceId: "",
-                selectionMode: .multi,
-                analyticsType: .block
-            ),
-            relationSelectedOptionsModel: RelationSelectedOptionsModel(
-                selectionMode: .multi,
-                selectedOptionsIds: [],
-                relationKey: "",
-                analyticsType: .block,
-                relationsService: DI.preview.serviceLocator.relationService(objectId: "")
-            ),
-            searchService: DI.preview.serviceLocator.searchService(),
-            output: nil
-        )
+        style: .tag,
+        configuration: RelationModuleConfiguration.default,
+        selectedOptionsIds: [],
+        output: nil
     )
 }

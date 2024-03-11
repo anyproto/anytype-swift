@@ -177,6 +177,7 @@ extension TextBlockIconView {
     private func createQuoteView() -> UIView {
         let quoteView = UIView()
         quoteView.backgroundColor = UIColor.System.amber100
+        setContentHuggingPriority(.defaultLow + 1, for: .horizontal)
 
         addSubview(quoteView) {
             $0.width.equal(to: 2)
@@ -185,7 +186,7 @@ extension TextBlockIconView {
             $0.bottom.equal(to: bottomAnchor)
         }
         layoutUsing.anchors {
-            $0.width.equal(to: Constants.size.width, priority: .defaultLow)
+            $0.width.equal(to: Constants.size.width)
         }
 
         return quoteView

@@ -11,7 +11,6 @@ final class AuthCoordinator: AuthCoordinatorProtocol, AuthViewModelOutput {
     // MARK: - DI
     
     private let authModuleAssembly: AuthModuleAssemblyProtocol
-    private let debugMenuModuleAssembly: DebugMenuModuleAssemblyProtocol
     private let joinFlowCoordinator: JoinFlowCoordinatorProtocol
     private let loginFlowCoordinator: LoginFlowCoordinatorProtocol
     private let serverConfigurationCoordinatorAssembly: ServerConfigurationCoordinatorAssemblyProtocol
@@ -19,14 +18,12 @@ final class AuthCoordinator: AuthCoordinatorProtocol, AuthViewModelOutput {
     
     init(
         authModuleAssembly: AuthModuleAssemblyProtocol,
-        debugMenuModuleAssembly: DebugMenuModuleAssemblyProtocol,
         joinFlowCoordinator: JoinFlowCoordinatorProtocol,
         loginFlowCoordinator: LoginFlowCoordinatorProtocol,
         serverConfigurationCoordinatorAssembly: ServerConfigurationCoordinatorAssemblyProtocol,
         urlOpener: URLOpenerProtocol
     ) {
         self.authModuleAssembly = authModuleAssembly
-        self.debugMenuModuleAssembly = debugMenuModuleAssembly
         self.joinFlowCoordinator = joinFlowCoordinator
         self.loginFlowCoordinator = loginFlowCoordinator
         self.serverConfigurationCoordinatorAssembly = serverConfigurationCoordinatorAssembly
@@ -51,10 +48,6 @@ final class AuthCoordinator: AuthCoordinatorProtocol, AuthViewModelOutput {
     
     func onUrlAction(_ url: URL) {
         urlOpener.openUrl(url, presentationStyle: .pageSheet, preferredColorScheme: .dark)
-    }
-    
-    func onDebugMenuAction() -> AnyView {
-        debugMenuModuleAssembly.make()
     }
     
     func onSettingsAction() -> AnyView {

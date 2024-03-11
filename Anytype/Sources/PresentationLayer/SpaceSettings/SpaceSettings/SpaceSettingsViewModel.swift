@@ -8,30 +8,36 @@ final class SpaceSettingsViewModel: ObservableObject {
     
     // MARK: - DI
     
-    private let activeWorkspaceStorage: ActiveWorkpaceStorageProtocol
     private let subscriptionService: SingleObjectSubscriptionServiceProtocol
     private let objectActionsService: ObjectActionsServiceProtocol
     private let relationDetailsStorage: RelationDetailsStorageProtocol
     private let workspaceService: WorkspaceServiceProtocol
     private let accountManager: AccountManagerProtocol
+    private let participantService: ParticipantServiceProtocol
     private let dateFormatter = DateFormatter.relationDateFormatter
     private weak var output: SpaceSettingsModuleOutput?
     
     // MARK: - State
     
+    private let workspaceInfo: AccountInfo
     private var subscriptions: [AnyCancellable] = []
     private var dataLoaded: Bool = false
     private let subSpaceId = "SpaceSettingsViewModel-Space-\(UUID())"
     private var spaceView: SpaceView?
+    private var participant: Participant?
     
     @Published var spaceName: String = ""
-    @Published var spaceType: String = ""
+    @Published var spaceAccessType: String = ""
     @Published var spaceIcon: Icon?
     @Published var info = [SettingsInfoModel]()
     @Published var snackBarData = ToastBarData.empty
     @Published var showSpaceDeleteAlert = false
+    @Published var showSpaceLeaveAlert = false
     @Published var dismiss: Bool = false
     @Published var allowDelete: Bool = false
+    @Published var allowShare: Bool = false
+    @Published var allowLeave: Bool = false
+    @Published var allowSpaceMembers: Bool = false
     
     init(
         activeWorkspaceStorage: ActiveWorkpaceStorageProtocol,
@@ -40,22 +46,24 @@ final class SpaceSettingsViewModel: ObservableObject {
         relationDetailsStorage: RelationDetailsStorageProtocol,
         workspaceService: WorkspaceServiceProtocol,
         accountManager: AccountManagerProtocol,
+        participantService: ParticipantServiceProtocol,
         output: SpaceSettingsModuleOutput?
     ) {
-        self.activeWorkspaceStorage = activeWorkspaceStorage
         self.subscriptionService = subscriptionService
         self.objectActionsService = objectActionsService
         self.relationDetailsStorage = relationDetailsStorage
         self.workspaceService = workspaceService
         self.accountManager = accountManager
+        self.participantService = participantService
         self.output = output
+        self.workspaceInfo = activeWorkspaceStorage.workspaceInfo
         Task {
-            await setupSubscription()
+            try await setupData()
         }
     }
     
     func onChangeIconTap() {
-        output?.onChangeIconSelected(objectId: activeWorkspaceStorage.workspaceInfo.spaceViewId)
+        output?.onChangeIconSelected(objectId: workspaceInfo.spaceViewId)
     }
     
     func onStorageTap() {
@@ -88,27 +96,51 @@ final class SpaceSettingsViewModel: ObservableObject {
         AnytypeAnalytics.instance().logScreenSettingsSpaceIndex()
     }
     
-    // MARK: - Private
-    
-    private func setupSubscription() async {
-        await subscriptionService.startSubscription(
-            subId: subSpaceId,
-            objectId: activeWorkspaceStorage.workspaceInfo.spaceViewId,
-            additionalKeys: SpaceView.subscriptionKeys
-        ) { [weak self] details in
-            self?.handleSpaceDetails(details: SpaceView(details: details))
-        }
+    func onLeaveTap() {
+        showSpaceLeaveAlert.toggle()
     }
     
-    private func handleSpaceDetails(details: SpaceView) {
-        spaceView = details
-        spaceIcon = details.objectIconImage
-        spaceType = details.spaceAccessType?.name ?? ""
-        allowDelete = details.spaceAccessType == .personal || details.spaceAccessType == .private
-        buildInfoBlock(details: details)
+    func onLeaveConfirmationTap() async throws {
+        try await workspaceService.deleteSpace(spaceId: workspaceInfo.accountSpaceId)
+        if #unavailable(iOS 17.0) {
+            showSpaceLeaveAlert = false
+        }
+        dismiss.toggle()
+    }
+    
+    func onMembersTap() {
+        output?.onSpaceMembersSelected()
+    }
+    
+    // MARK: - Private
+    
+    private func setupData() async throws {
+        await subscriptionService.startSubscription(
+            subId: subSpaceId,
+            objectId: workspaceInfo.spaceViewId,
+            additionalKeys: SpaceView.subscriptionKeys
+        ) { [weak self] details in
+            self?.spaceView = SpaceView(details: details)
+            self?.updateViewState()
+        }
+        
+        participant = try await participantService.searchParticipant(spaceId: workspaceInfo.accountSpaceId, prifileObjectId: workspaceInfo.profileObjectID)
+        updateViewState()
+    }
+    
+    private func updateViewState() {
+        guard let spaceView, let participant else { return }
+        
+        spaceIcon = spaceView.objectIconImage
+        spaceAccessType = spaceView.spaceAccessType?.name ?? ""
+        allowDelete = spaceView.canBeDelete
+        allowLeave = participant.canLeave
+        allowShare = spaceView.canBeShared(isOwner: participant.isOwner)
+        allowSpaceMembers = !participant.isOwner
+        buildInfoBlock(details: spaceView)
         
         if !dataLoaded {
-            spaceName = details.name
+            spaceName = spaceView.name
             dataLoaded = true
             $spaceName
                 .delay(for: 0.3, scheduler: DispatchQueue.main)
@@ -123,7 +155,7 @@ final class SpaceSettingsViewModel: ObservableObject {
         
         info.removeAll()
         
-        if let spaceRelationDetails = try? relationDetailsStorage.relationsDetails(for: .spaceId, spaceId: activeWorkspaceStorage.workspaceInfo.accountSpaceId) {
+        if let spaceRelationDetails = try? relationDetailsStorage.relationsDetails(for: .spaceId, spaceId: workspaceInfo.accountSpaceId) {
             info.append(
                 SettingsInfoModel(title: spaceRelationDetails.name, subtitle: details.targetSpaceId, onTap: { [weak self] in
                     UIPasteboard.general.string = details.targetSpaceId
@@ -132,7 +164,7 @@ final class SpaceSettingsViewModel: ObservableObject {
             )
         }
         
-        if let creatorDetails = try? relationDetailsStorage.relationsDetails(for: .creator, spaceId: activeWorkspaceStorage.workspaceInfo.accountSpaceId) {
+        if let creatorDetails = try? relationDetailsStorage.relationsDetails(for: .creator, spaceId: workspaceInfo.accountSpaceId) {
             info.append(
                 SettingsInfoModel(title: creatorDetails.name, subtitle: accountManager.account.id, onTap: { [weak self] in
                     guard let self else { return }
@@ -143,14 +175,14 @@ final class SpaceSettingsViewModel: ObservableObject {
         }
         
         info.append(
-            SettingsInfoModel(title: Loc.SpaceSettings.networkId, subtitle: activeWorkspaceStorage.workspaceInfo.networkId, onTap: { [weak self] in
+            SettingsInfoModel(title: Loc.SpaceSettings.networkId, subtitle: workspaceInfo.networkId, onTap: { [weak self] in
                 guard let self else { return }
-                UIPasteboard.general.string = activeWorkspaceStorage.workspaceInfo.networkId
+                UIPasteboard.general.string = workspaceInfo.networkId
                 snackBarData = .init(text: Loc.copiedToClipboard(Loc.SpaceSettings.networkId), showSnackBar: true)
             })
         )
         
-        if let createdDateDetails = try? relationDetailsStorage.relationsDetails(for: .createdDate, spaceId: activeWorkspaceStorage.workspaceInfo.accountSpaceId),
+        if let createdDateDetails = try? relationDetailsStorage.relationsDetails(for: .createdDate, spaceId: workspaceInfo.accountSpaceId),
            let date = details.createdDate.map({ dateFormatter.string(from: $0) }) {
             info.append(
                 SettingsInfoModel(title: createdDateDetails.name, subtitle: date)
@@ -161,7 +193,7 @@ final class SpaceSettingsViewModel: ObservableObject {
     private func updateSpaceName(name: String) {
         Task {
             try await workspaceService.workspaceSetDetails(
-                spaceId: activeWorkspaceStorage.workspaceInfo.accountSpaceId,
+                spaceId: workspaceInfo.accountSpaceId,
                 details: [.name(name)]
             )
         }

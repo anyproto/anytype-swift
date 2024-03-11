@@ -162,5 +162,37 @@
         <string>Link %d blokken</string>
       </dict>
     </dict>
+    <key>SpaceShare.Invite.Members</key>
+    <dict>
+      <key>NSStringLocalizedFormatKey</key>
+      <string>%#@object@</string>
+      <key>object</key>
+      <dict>
+        <key>NSStringFormatSpecTypeKey</key>
+        <string>NSStringPluralRuleType</string>
+        <key>NSStringFormatValueTypeKey</key>
+        <string>d</string>
+        <key>one</key>
+        <string>U kunt nog één lid toevoegen</string>
+        <key>other</key>
+        <string>U kunt nog %d leden toevoegen</string>
+      </dict>
+    </dict>
+    <key>SpaceShare.Invite.MaxLimit</key>
+    <dict>
+      <key>NSStringLocalizedFormatKey</key>
+      <string>%#@object@</string>
+      <key>object</key>
+      <dict>
+        <key>one</key>
+        <string>Je hebt de limiet van %d leden bereikt. Nieuwe leden zullen zich niet kunnen aanmelden.</string>
+        <key>NSStringFormatSpecTypeKey</key>
+        <string>NSStringPluralRuleType</string>
+        <key>NSStringFormatValueTypeKey</key>
+        <string>d</string>
+        <key>other</key>
+        <string>Je hebt de limiet bereikt van %d leden bereikt. Nieuwe leden zullen zich niet kunnen aanmelden.</string>
+      </dict>
+    </dict>
   </dict>
 </plist>

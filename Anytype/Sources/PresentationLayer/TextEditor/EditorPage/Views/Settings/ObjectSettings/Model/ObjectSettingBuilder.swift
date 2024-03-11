@@ -4,7 +4,7 @@ final class ObjectSettingBuilder {
     func build(details: ObjectDetails, restrictions: ObjectRestrictions, isReadonly: Bool) -> [ObjectSetting] {
         var settings = defaultSettings(details: details, isReadonly: isReadonly)
         
-        if restrictions.objectRestriction.contains(.layoutchange) {
+        if restrictions.objectRestriction.contains(.layoutChange) {
             settings = settings.filter { $0 != .layout }
         }
         

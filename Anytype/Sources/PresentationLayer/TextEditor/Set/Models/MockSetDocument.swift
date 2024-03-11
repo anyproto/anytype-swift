@@ -3,14 +3,15 @@ import Services
 import Combine
 
 final class MockSetDocument: SetDocumentProtocol {
+    var syncStatus: AnyPublisher<Services.SyncStatus, Never> { fatalError() }
     
     var document: BaseDocumentProtocol { fatalError() }
     
-    var objectId: BlockId { "" }
+    var objectId: String { "" }
     
-    var blockId: BlockId { "" }
+    var blockId: String { "" }
     
-    var targetObjectId: BlockId { "" }
+    var targetObjectId: String { "" }
     
     var spaceId: String { "" }
     
@@ -22,7 +23,7 @@ final class MockSetDocument: SetDocumentProtocol {
     
     var objectRestrictions: ObjectRestrictions { ObjectRestrictions(objectRestriction: [], dataViewRestriction: [:]) }
     
-    var dataviews: [BlockDataview] { [] }
+    var blockDataview: BlockDataview? { nil }
     
     var dataViewRelationsDetails: [Services.RelationDetails] { [] }
     
@@ -64,7 +65,7 @@ final class MockSetDocument: SetDocumentProtocol {
     
     func objectOrderIds(for groupId: String) -> [String] { [] }
     
-    func updateActiveViewId(_ id: Services.BlockId) { }
+    func updateActiveViewIdAndReload(_ id: String) { }
     
     func isTypeSet() -> Bool { false }
     

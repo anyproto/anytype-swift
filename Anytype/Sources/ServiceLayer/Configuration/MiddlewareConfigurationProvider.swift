@@ -11,19 +11,13 @@ protocol MiddlewareConfigurationProviderProtocol: AnyObject {
 }
 
 /// Service that handles middleware config
-final class MiddlewareConfigurationProvider {
+final class MiddlewareConfigurationProvider: MiddlewareConfigurationProviderProtocol {
     
     // MARK: - Private variables
     private var cachedConfiguration: MiddlewareConfiguration?
-    private let middlewareConfigurationService: MiddlewareConfigurationServiceProtocol
-    
-    init(middlewareConfigurationService: MiddlewareConfigurationServiceProtocol) {
-        self.middlewareConfigurationService = middlewareConfigurationService
-    }
-}
+    @Injected(\.middlewareConfigurationService)
+    private var middlewareConfigurationService: MiddlewareConfigurationServiceProtocol
 
-extension MiddlewareConfigurationProvider: MiddlewareConfigurationProviderProtocol {
-    
     var configuration: MiddlewareConfiguration {
         if let configuration = cachedConfiguration {
             return configuration

@@ -1,5 +1,4 @@
 import SwiftUI
-import AudioToolbox
 
 @MainActor
 final class AuthViewModel: ObservableObject {
@@ -51,11 +50,6 @@ final class AuthViewModel: ObservableObject {
     
     func onUrlTapAction(_ url: URL) {
         output?.onUrlAction(url)
-    }
-    
-    func onDebugMenuAction() -> AnyView? {
-        AudioServicesPlaySystemSound(1109)
-        return output?.onDebugMenuAction()
     }
     
     func onSettingsButtonTap() {

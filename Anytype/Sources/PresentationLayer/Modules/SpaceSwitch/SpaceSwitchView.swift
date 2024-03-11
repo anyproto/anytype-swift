@@ -8,11 +8,15 @@ struct SpaceSwitchView: View {
         static let itemWidth: CGFloat = SpaceRowView.width
     }
     
-    @StateObject var model: SpaceSwitchViewModel
-    @Environment(\.dismiss) var dismiss
+    @StateObject private var model: SpaceSwitchViewModel
+    @Environment(\.dismiss) private var dismiss
     
     @State private var headerSize: CGSize = .zero
     @State private var size: CGSize = .zero
+    
+    init(output: SpaceSwitchModuleOutput?) {
+        _model = StateObject(wrappedValue: SpaceSwitchViewModel(output: output))
+    }
     
     private var columns: [GridItem] {
         let freeSizeForContent = size.width - Constants.minExternalSpacing * 2
@@ -98,7 +102,7 @@ struct SpaceSwitchView: View {
             AnytypeText(model.profileName, style: .heading, color: .Text.white)
                 .lineLimit(1)
             Spacer()
-            Image(asset: .Dashboard.settings)
+            Image(asset: .NavigationBase.settings)
                 .foregroundColor(.Button.white)
         }
         .frame(height: 68)

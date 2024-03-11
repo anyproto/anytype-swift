@@ -6,7 +6,7 @@ final class CodeLanguageListViewModel: ObservableObject {
     // MARK: - DI
     
     private let document: BaseDocumentProtocol
-    private let blockId: BlockId
+    private let blockId: String
     private let blockService: BlockServiceProtocol
     private let selectedLanguage: CodeLanguage
     
@@ -15,7 +15,7 @@ final class CodeLanguageListViewModel: ObservableObject {
     @Published var rows: [CodeLanguageRowModel] = []
     @Published var dismiss: Bool = false
     
-    init(document: BaseDocumentProtocol, blockId: BlockId, selectedLanguage: CodeLanguage, blockService: BlockServiceProtocol) {
+    init(document: BaseDocumentProtocol, blockId: String, selectedLanguage: CodeLanguage, blockService: BlockServiceProtocol) {
         self.document = document
         self.blockId = blockId
         self.selectedLanguage = selectedLanguage

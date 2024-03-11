@@ -16,7 +16,7 @@ final class ObjectHeaderEmptyContentView: UIView, BlockContentView {
     required init?(coder: NSCoder) {
         super.init(coder: coder)
 
-        setupLayout()
+        setupView()
     }
 
     func update(with state: UICellConfigurationState) {
@@ -48,7 +48,7 @@ private extension ObjectHeaderEmptyContentView  {
     func setupLayout() {
         addSubview(emptyView) {
             $0.pinToSuperview(excluding: [.bottom])
-            $0.bottom.equal(to: bottomAnchor, priority: .init(rawValue: 999))
+            $0.bottom.greaterThanOrEqual(to: bottomAnchor, priority: .init(999))
             heightConstraint = $0.height.equal(to: ObjectHeaderConstants.emptyViewHeight)
         }
     }

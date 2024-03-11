@@ -2,17 +2,19 @@ import Foundation
 import Services
 import AnytypeCore
 
+@MainActor
 protocol ObjectSettingsCoordinatorProtocol {
     func startFlow(
-        objectId: BlockId,
+        objectId: String,
         delegate: ObjectSettingsModuleDelegate,
         output: ObjectSettingsCoordinatorOutput?,
         objectSettingsHandler: @escaping (ObjectSettingsAction) -> Void
     )
 }
 
+@MainActor
 final class ObjectSettingsCoordinator: ObjectSettingsCoordinatorProtocol,
-                                       ObjectSettingsModelOutput, RelationsListModuleOutput,
+                                       ObjectSettingsModelOutput,
                                        RelationValueCoordinatorOutput {
     private let navigationContext: NavigationContextProtocol
     private let objectSettingsModuleAssembly: ObjectSettingModuleAssemblyProtocol
@@ -20,9 +22,7 @@ final class ObjectSettingsCoordinator: ObjectSettingsCoordinatorProtocol,
     private let objectLayoutPickerModuleAssembly: ObjectLayoutPickerModuleAssemblyProtocol
     private let objectCoverPickerModuleAssembly: ObjectCoverPickerModuleAssemblyProtocol
     private let objectIconPickerModuleAssembly: ObjectIconPickerModuleAssemblyProtocol
-    private let relationsListModuleAssembly: RelationsListModuleAssemblyProtocol
-    private let relationValueCoordinator: RelationValueCoordinatorProtocol
-    private let addNewRelationCoordinator: AddNewRelationCoordinatorProtocol
+    private let relationsListCoordinatorAssembly: RelationsListCoordinatorAssemblyProtocol
     private let searchModuleAssembly: SearchModuleAssemblyProtocol
     private let newSearchModuleAssembly: NewSearchModuleAssemblyProtocol
     private let documentsProvider: DocumentsProviderProtocol
@@ -36,9 +36,7 @@ final class ObjectSettingsCoordinator: ObjectSettingsCoordinatorProtocol,
         objectLayoutPickerModuleAssembly: ObjectLayoutPickerModuleAssemblyProtocol,
         objectCoverPickerModuleAssembly: ObjectCoverPickerModuleAssemblyProtocol,
         objectIconPickerModuleAssembly: ObjectIconPickerModuleAssemblyProtocol,
-        relationsListModuleAssembly: RelationsListModuleAssemblyProtocol,
-        relationValueCoordinator: RelationValueCoordinatorProtocol,
-        addNewRelationCoordinator: AddNewRelationCoordinatorProtocol,
+        relationsListCoordinatorAssembly: RelationsListCoordinatorAssemblyProtocol,
         searchModuleAssembly: SearchModuleAssemblyProtocol,
         newSearchModuleAssembly: NewSearchModuleAssemblyProtocol,
         documentsProvider: DocumentsProviderProtocol
@@ -49,16 +47,14 @@ final class ObjectSettingsCoordinator: ObjectSettingsCoordinatorProtocol,
         self.objectLayoutPickerModuleAssembly = objectLayoutPickerModuleAssembly
         self.objectCoverPickerModuleAssembly = objectCoverPickerModuleAssembly
         self.objectIconPickerModuleAssembly = objectIconPickerModuleAssembly
-        self.relationsListModuleAssembly = relationsListModuleAssembly
-        self.relationValueCoordinator = relationValueCoordinator
-        self.addNewRelationCoordinator = addNewRelationCoordinator
+        self.relationsListCoordinatorAssembly = relationsListCoordinatorAssembly
         self.searchModuleAssembly = searchModuleAssembly
         self.newSearchModuleAssembly = newSearchModuleAssembly
         self.documentsProvider = documentsProvider
     }
     
     func startFlow(
-        objectId: BlockId,
+        objectId: String,
         delegate: ObjectSettingsModuleDelegate,
         output: ObjectSettingsCoordinatorOutput?,
         objectSettingsHandler: @escaping (ObjectSettingsAction) -> Void
@@ -114,15 +110,15 @@ final class ObjectSettingsCoordinator: ObjectSettingsCoordinatorProtocol,
     func relationsAction(document: BaseDocumentProtocol) {
         AnytypeAnalytics.instance().logEvent(AnalyticsEventsName.objectRelationShow)
         
-        let moduleViewController = relationsListModuleAssembly.make(document: document, output: self)
-        navigationContext.present(moduleViewController, animated: true, completion: nil)
+        let view = relationsListCoordinatorAssembly.make(document: document, output: self)
+        navigationContext.present(view)
     }
     
     func openPageAction(screenData: EditorScreenData) {
-        output?.showPage(data: screenData)
+        output?.showEditorScreen(data: screenData)
     }
     
-    func linkToAction(document: BaseDocumentProtocol, onSelect: @escaping (BlockId) -> ()) {
+    func linkToAction(document: BaseDocumentProtocol, onSelect: @escaping (String) -> ()) {
         let moduleView = newSearchModuleAssembly.blockObjectsSearchModule(
             title: Loc.linkTo,
             spaceId: document.spaceId,
@@ -141,46 +137,11 @@ final class ObjectSettingsCoordinator: ObjectSettingsCoordinatorProtocol,
         output?.closeEditor()
     }
     
-    // MARK: - RelationsListModuleOutput
-    
-    @MainActor
-    func addNewRelationAction(document: BaseDocumentProtocol) {
-        addNewRelationCoordinator.showAddNewRelationView(
-            document: document,
-            excludedRelationsIds: document.parsedRelations.installedInObject.map(\.id),
-            target: .object,
-            onCompletion: { relation, isNew in
-                AnytypeAnalytics.instance().logAddRelation(format: relation.format, isNew: isNew, type: .menu)
-            }
-        )
-    }
-    
-    @MainActor
-    func editRelationValueAction(document: BaseDocumentProtocol, relationKey: String) {
-        let relation = document.parsedRelations.installed.first { $0.key == relationKey }
-        guard let relation = relation else {
-            anytypeAssertionFailure("Relation not found")
-            return
-        }
-        
-        guard let objectDetails = document.details else {
-            anytypeAssertionFailure("Detaiils not found")
-            return
-        }
-        
-        relationValueCoordinator.startFlow(
-            objectDetails: objectDetails,
-            relation: relation,
-            analyticsType: .menu,
-            output: self
-        )
-    }
-    
     // MARK: - RelationValueCoordinatorOutput
     
-    func openObject(screenData: EditorScreenData) {
+    func showEditorScreen(data: EditorScreenData) {
         navigationContext.dismissAllPresented(animated: true) { [weak self] in
-            self?.output?.showPage(data: screenData)
+            self?.output?.showEditorScreen(data: data)
         }
     }
 }

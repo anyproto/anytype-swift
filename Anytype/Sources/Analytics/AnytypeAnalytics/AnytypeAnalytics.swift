@@ -24,7 +24,7 @@ final class AnytypeAnalytics: AnytypeAnalyticsProtocol {
     }()
 
     private var eventsConfiguration: [String: EventConfigurtion] = [:]
-    private var lastEvents: String = .empty
+    private var lastEvents: String = ""
     private var userProperties: [AnyHashable: Any] = [:]
     
     private init() {

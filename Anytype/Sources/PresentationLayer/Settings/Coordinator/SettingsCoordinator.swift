@@ -14,7 +14,6 @@ final class SettingsCoordinator: SettingsCoordinatorProtocol,
     
     private let navigationContext: NavigationContextProtocol
     private let settingsModuleAssembly: SettingsModuleAssemblyProtocol
-    private let debugMenuModuleAssembly: DebugMenuModuleAssemblyProtocol
     private let appearanceModuleAssembly: SettingsAppearanceModuleAssemblyProtocol
     private let aboutModuleAssembly: AboutModuleAssemblyProtocol
     private let accountModuleAssembly: SettingsAccountModuleAssemblyProtocol
@@ -27,11 +26,12 @@ final class SettingsCoordinator: SettingsCoordinatorProtocol,
     private let activeWorkspaceStorage: ActiveWorkpaceStorageProtocol
     private let serviceLocator: ServiceLocator
     private let applicationStateService: ApplicationStateServiceProtocol
+    private let spacesManagerModuleAssembly: SpacesManagerModuleAssemblyProtocol
+    private let membershipCoordinatorAssembly: MembershipCoordinatorAssemblyProtocol
     
     init(
         navigationContext: NavigationContextProtocol,
         settingsModuleAssembly: SettingsModuleAssemblyProtocol,
-        debugMenuModuleAssembly: DebugMenuModuleAssemblyProtocol,
         appearanceModuleAssembly: SettingsAppearanceModuleAssemblyProtocol,
         aboutModuleAssembly: AboutModuleAssemblyProtocol,
         accountModuleAssembly: SettingsAccountModuleAssemblyProtocol,
@@ -42,11 +42,12 @@ final class SettingsCoordinator: SettingsCoordinatorProtocol,
         documentService: OpenedDocumentsProviderProtocol,
         urlOpener: URLOpenerProtocol,
         activeWorkspaceStorage: ActiveWorkpaceStorageProtocol,
-        serviceLocator: ServiceLocator
+        serviceLocator: ServiceLocator,
+        spacesManagerModuleAssembly: SpacesManagerModuleAssemblyProtocol,
+        membershipCoordinatorAssembly: MembershipCoordinatorAssemblyProtocol
     ) {
         self.navigationContext = navigationContext
         self.settingsModuleAssembly = settingsModuleAssembly
-        self.debugMenuModuleAssembly = debugMenuModuleAssembly
         self.appearanceModuleAssembly = appearanceModuleAssembly
         self.aboutModuleAssembly = aboutModuleAssembly
         self.accountModuleAssembly = accountModuleAssembly
@@ -59,6 +60,8 @@ final class SettingsCoordinator: SettingsCoordinatorProtocol,
         self.activeWorkspaceStorage = activeWorkspaceStorage
         self.serviceLocator = serviceLocator
         self.applicationStateService = serviceLocator.applicationStateService()
+        self.spacesManagerModuleAssembly = spacesManagerModuleAssembly
+        self.membershipCoordinatorAssembly = membershipCoordinatorAssembly
     }
     
     func startFlow() {
@@ -69,8 +72,7 @@ final class SettingsCoordinator: SettingsCoordinatorProtocol,
     // MARK: - SettingsModuleOutput
     
     func onDebugMenuSelected() {
-        let module = debugMenuModuleAssembly.make()
-        navigationContext.present(module)
+        navigationContext.present(DebugMenuView())
     }
     
     func onAppearanceSelected() {
@@ -95,10 +97,20 @@ final class SettingsCoordinator: SettingsCoordinatorProtocol,
     
     func onChangeIconSelected(objectId: String) {
         let document = documentService.document(objectId: objectId, forPreview: true)
-        let interactor = serviceLocator.objectHeaderInteractor(objectId: objectId)
+        let interactor = serviceLocator.objectHeaderInteractor()
         let module = objectIconPickerModuleAssembly.make(document: document) { action in
-            interactor.handleIconAction(spaceId: document.spaceId, action: action)
+            interactor.handleIconAction(objectId: objectId, spaceId: document.spaceId, action: action)
         }
+        navigationContext.present(module)
+    }
+    
+    func onSpacesSelected() {
+        let module = spacesManagerModuleAssembly.make()
+        navigationContext.present(module)
+    }
+    
+    func onMembershipSelected() {
+        let module = membershipCoordinatorAssembly.make()
         navigationContext.present(module)
     }
     

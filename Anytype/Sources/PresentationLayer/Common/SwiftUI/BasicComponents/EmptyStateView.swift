@@ -9,7 +9,7 @@ struct EmptyStateView: View {
     var body: some View {
         VStack(spacing: 0) {
             Spacer()
-            ButtomAlertHeaderImageView(icon: .BottomAlert.error, style: .red)
+            ButtomAlertHeaderImageView(icon: .BottomAlert.error, style: .color(.red))
             Spacer.fixedHeight(12)
             AnytypeText(title, style: .uxCalloutMedium, color: .Text.primary)
                 .multilineTextAlignment(.center)

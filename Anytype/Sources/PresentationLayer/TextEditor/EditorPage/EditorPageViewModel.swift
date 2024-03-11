@@ -8,18 +8,17 @@ import AnytypeCore
 @MainActor
 final class EditorPageViewModel: EditorPageViewModelProtocol, EditorBottomNavigationManagerOutput, ObservableObject {
     weak private(set) var viewInput: EditorPageViewInput?
-
+    
     let blocksStateManager: EditorPageBlocksStateManagerProtocol
-
+    
     let document: BaseDocumentProtocol
     let modelsHolder: EditorMainItemModelsHolder
-    let blockDelegate: BlockDelegate
-    
     let router: EditorRouterProtocol
     
     let actionHandler: BlockActionHandlerProtocol
     let objectActionsService: ObjectActionsServiceProtocol
-
+    let objectTypeProvider: ObjectTypeProviderProtocol
+    
     private let searchService: SearchServiceProtocol
     private let cursorManager: EditorCursorManager
     private let blockBuilder: BlockViewModelBuilder
@@ -28,6 +27,7 @@ final class EditorPageViewModel: EditorPageViewModelProtocol, EditorBottomNaviga
     private let configuration: EditorPageViewModelConfiguration
     private let templatesSubscriptionService: TemplatesSubscriptionServiceProtocol
     private let activeWorkspaceStorage: ActiveWorkpaceStorageProtocol
+    
     private weak var output: EditorPageModuleOutput?
     lazy var subscriptions = [AnyCancellable]()
 
@@ -41,7 +41,6 @@ final class EditorPageViewModel: EditorPageViewModelProtocol, EditorBottomNaviga
     init(
         document: BaseDocumentProtocol,
         viewInput: EditorPageViewInput,
-        blockDelegate: BlockDelegate,
         router: EditorRouterProtocol,
         modelsHolder: EditorMainItemModelsHolder,
         blockBuilder: BlockViewModelBuilder,
@@ -55,6 +54,7 @@ final class EditorPageViewModel: EditorPageViewModelProtocol, EditorBottomNaviga
         configuration: EditorPageViewModelConfiguration,
         templatesSubscriptionService: TemplatesSubscriptionServiceProtocol,
         activeWorkspaceStorage: ActiveWorkpaceStorageProtocol,
+        objectTypeProvider: ObjectTypeProviderProtocol,
         output: EditorPageModuleOutput?
     ) {
         self.viewInput = viewInput
@@ -62,8 +62,6 @@ final class EditorPageViewModel: EditorPageViewModelProtocol, EditorBottomNaviga
         self.router = router
         self.modelsHolder = modelsHolder
         self.blockBuilder = blockBuilder
-        self.actionHandler = actionHandler
-        self.blockDelegate = blockDelegate
         self.headerModel = headerModel
         self.blocksStateManager = blocksStateManager
         self.cursorManager = cursorManager
@@ -73,148 +71,96 @@ final class EditorPageViewModel: EditorPageViewModelProtocol, EditorBottomNaviga
         self.configuration = configuration
         self.templatesSubscriptionService = templatesSubscriptionService
         self.activeWorkspaceStorage = activeWorkspaceStorage
+        self.objectTypeProvider = objectTypeProvider
         self.output = output
+        self.actionHandler = actionHandler
         
         setupLoadingState()
     }
-
+    
     func setupSubscriptions() {
         subscriptions = []
         
-        document.updatePublisher.sink { [weak self] in
-            self?.handleUpdate(updateResult: $0)
+        document.syncStatus.sink { [weak self] status in
+            self?.viewInput?.update(syncStatus: status)
+        }.store(in: &subscriptions)
+        
+        document.flattenBlockIds.receiveOnMain().sink { [weak self] ids in
+            self?.handleUpdate(ids: ids)
+        }.store(in: &subscriptions)
+        
+        document.detailsPublisher.sink { [weak self] _ in
+            self?.handleTemplatesIfNeeded()
         }.store(in: &subscriptions)
         
         headerModel.$header.sink { [weak self] value in
             guard let headerModel = value else { return }
             self?.updateHeaderIfNeeded(headerModel: headerModel)
         }.store(in: &subscriptions)
+        
+        document.resetBlocksSubject.sink { [weak self] blockIds in
+            guard let self else { return }
+            let filtered = Set(blockIds).intersection(modelsHolder.blocksMapping.keys)
+            
+            let items = blockBuilder.buildEditorItems(infos: Array(filtered))
+            viewInput?.reconfigure(items: items)
+        }.store(in: &subscriptions)
     }
-
+    
     private func setupLoadingState() {
         let shimmeringBlockViewModel = blockBuilder.buildShimeringItem()
-
+        
         viewInput?.update(
             changes: nil,
-            allModels: [shimmeringBlockViewModel]
+            allModels: [shimmeringBlockViewModel],
+            completion: { }
         )
     }
     
-    func showSettings(delegate: ObjectSettingsModuleDelegate, output: ObjectSettingsCoordinatorOutput?) {
-        router.showSettings(delegate: delegate, output: output) { [weak self] action in
-            self?.handleSettingsAction(action: action)
+    private func handleUpdate(ids: [String]) {
+        let blocksViewModels = blockBuilder.buildEditorItems(infos: ids)
+        
+        let difference = modelsHolder.difference(between: blocksViewModels)
+        if difference.insertions.isNotEmpty {
+            modelsHolder.applyDifference(difference: difference)
+        } else {
+            modelsHolder.items = blocksViewModels
+        }
+        
+        guard document.isOpened else { return }
+        
+        viewInput?.update(changes: difference, allModels: modelsHolder.items) { [weak self] in
+            guard let self else { return }
+
+            if !document.isLocked {
+                cursorManager.handleGeneralUpdate(with: modelsHolder.items, type: document.details?.type)
+            }
         }
     }
     
-    private func handleUpdate(updateResult: DocumentUpdate) {
-        switch updateResult {
-
-        case .general:
-            performGeneralUpdate()
-
-        case let .details(id):
-            guard id == document.objectId else {
-                performGeneralUpdate()
-                return
-            }
-
-            let allRelationsBlockViewModel = modelsHolder.items.allRelationViewModel
-            let relationIds = allRelationsBlockViewModel.map(\.blockId)
-            let diffrerence = difference(with: Set(relationIds))
-
-            guard !diffrerence.isEmpty else { return }
-            modelsHolder.applyDifference(difference: diffrerence)
-
-            guard document.isOpened else { return }
-            viewInput?.update(changes: diffrerence, allModels: modelsHolder.items)
-        case let .blocks(updatedIds):
-            guard !updatedIds.isEmpty else {
-                return
-            }
-            
-            let diffrerence = difference(with: updatedIds)
-
-            modelsHolder.applyDifference(difference: diffrerence)
-
-            guard document.isOpened else { return }
-            viewInput?.update(changes: diffrerence, allModels: modelsHolder.items)
-
-            updateCursorIfNeeded()
-        case .syncStatus(let status):
-            viewInput?.update(
-                syncStatusData: SyncStatusData(
-                    status: status,
-                    networkId: activeWorkspaceStorage.workspaceInfo.networkId
-                )
-            )
-        case .dataSourceUpdate:
-            let models = document.children
-
-            let items = blockBuilder.buildEditorItems(infos: models)
-            modelsHolder.items = items
-        }
-
-        if !configuration.isOpenedForPreview {
-            blocksStateManager.checkOpenedState()
-        }
-    }
-    
-    private func performGeneralUpdate() {
-        let models = document.children
-        
-        let blocksViewModels = blockBuilder.buildEditorItems(infos: models)
-        
-        handleGeneralUpdate(with: blocksViewModels)
-        handleTemplatesIfNeeded()
-        
-        if !document.isLocked {
-            cursorManager.handleGeneralUpdate(with: modelsHolder.items, type: document.details?.type)
-        }
-    }
 
     private func difference(
-        with blockIds: Set<BlockId>
+        with blockIds: Set<String>
     ) -> CollectionDifference<EditorItem> {
         var currentModels = modelsHolder.items
-
+        
         for (offset, model) in modelsHolder.items.enumerated() {
             guard case let .block(blockViewModel) = model else { continue }
             for blockId in blockIds {
-
+                
                 if blockViewModel.blockId == blockId {
-                    guard let model = document.infoContainer.get(id: blockId),
-                          let newViewModel = blockBuilder.build(info: model) else {
+                    guard let newViewModel = blockBuilder.build(id: blockId) else {
                         continue
                     }
-
-
+                    
                     currentModels[offset] = .block(newViewModel)
                 }
             }
         }
-
+        
         return modelsHolder.difference(between: currentModels)
     }
-
-    private func handleGeneralUpdate(with models: [EditorItem]) {
-        let difference = modelsHolder.difference(between: models)
-        if difference.insertions.isNotEmpty {
-            modelsHolder.applyDifference(difference: difference)
-        } else {
-            modelsHolder.items = models
-        }
-
-        guard document.isOpened else { return }
-        
-        viewInput?.update(changes: difference, allModels: modelsHolder.items)
-
-        updateCursorIfNeeded()
-    }
-
-    private func updateCursorIfNeeded() {
-        cursorManager.applyCurrentFocus()
-    }
-
+    
     // iOS 14 bug fix applying header section while editing
     private func updateHeaderIfNeeded(headerModel: ObjectHeader) {
         guard modelsHolder.header != headerModel else {
@@ -250,7 +196,7 @@ extension EditorPageViewModel {
     func viewDidLoad() {
         
         blocksStateManager.checkOpenedState()
-    
+        
         Task { @MainActor in
             do {
                 if configuration.isOpenedForPreview {
@@ -274,15 +220,17 @@ extension EditorPageViewModel {
     }
     
     func viewWillAppear() { }
-
+    
     func viewDidAppear() {
+        // document. simulate general update
+        
         cursorManager.didAppeared(with: modelsHolder.items, type: document.details?.type)
     }
-
+    
     func viewWillDisappear() {}
-
+    
     func viewDidDissapear() {}
-
+    
     func shakeMotionDidAppear() {
         router.showAlert(
             alertModel: .undoAlertModel(
@@ -312,12 +260,12 @@ extension EditorPageViewModel {
             .didSelectRowInTableView(editorEditingState: blocksStateManager.editingState)
     }
     
-    func didFinishEditing(blockId: BlockId) {
+    func didFinishEditing(blockId: String) {
         if blockId == BundledRelationKey.description.rawValue {
             AnytypeAnalytics.instance().logSetObjectDescription()
         }
     }
-
+    
     func element(at: IndexPath) -> BlockViewModelProtocol? {
         modelsHolder.blockViewModel(at: at.row)
     }
@@ -333,9 +281,14 @@ extension EditorPageViewModel {
 }
 
 extension EditorPageViewModel {
-    
     func showSettings() {
         router.showSettings { [weak self] action in
+            self?.handleSettingsAction(action: action)
+        }
+    }
+    
+    func showSettings(delegate: ObjectSettingsModuleDelegate, output: ObjectSettingsCoordinatorOutput?) {
+        router.showSettings(delegate: delegate, output: output) { [weak self] action in
             self?.handleSettingsAction(action: action)
         }
     }
@@ -348,7 +301,7 @@ extension EditorPageViewModel {
 
 // Cursor
 extension EditorPageViewModel {
-    func cursorFocus(blockId: BlockId) {
+    func cursorFocus(blockId: String) {
         cursorManager.restoreLastFocus(at: blockId)
     }
 }
