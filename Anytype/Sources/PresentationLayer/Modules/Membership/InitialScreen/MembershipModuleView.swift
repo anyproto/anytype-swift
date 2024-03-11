@@ -3,11 +3,16 @@ import Services
 
 
 struct MembershipModuleView: View {
-    @StateObject var model: MembershipModuleViewModel
+    @Binding var userTier: MembershipTier?
     
+    @StateObject private var model: MembershipModuleViewModel
     @Environment(\.openURL) private var openURL
     
-    init(onTierTap: @escaping (MembershipTier) -> ()) {
+    init(
+        userTier: Binding<MembershipTier?>,
+        onTierTap: @escaping (MembershipTier) -> ()
+    ) {
+        _userTier = userTier
         _model = StateObject(wrappedValue: MembershipModuleViewModel(onTierTap: onTierTap))
     }
     
@@ -26,7 +31,7 @@ struct MembershipModuleView: View {
                     Spacer.fixedHeight(32)
                     
                     baners
-                    MembershipTierListView(currentTier: model.tier) {
+                    MembershipTierListView(currentTier: userTier) {
                         UISelectionFeedbackGenerator().selectionChanged()
                         model.onTierTap(tier: $0)
                     }
@@ -35,9 +40,6 @@ struct MembershipModuleView: View {
                     legal
                 }
             }
-        }
-        .task {
-            model.updateCurrentTier()
         }
     }
     
@@ -111,6 +113,7 @@ struct MembershipModuleView: View {
 #Preview {
     NavigationView {
         MembershipModuleView(
+            userTier: .constant(.builder),
             onTierTap: { _ in }
         )
     }

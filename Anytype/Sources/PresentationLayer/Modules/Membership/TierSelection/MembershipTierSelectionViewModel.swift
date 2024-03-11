@@ -5,7 +5,6 @@ import Services
 @MainActor
 final class MembershipTierSelectionViewModel: ObservableObject {
     
-    @Published var userTier: MembershipTier?
     let tierToDisplay: MembershipTier
     
     @Injected(\.membershipService)
@@ -18,12 +17,6 @@ final class MembershipTierSelectionViewModel: ObservableObject {
     ) {
         self.tierToDisplay = tierToDisplay
         self.showEmailVerification = showEmailVerification
-    }
-    
-    func onAppear() {
-        Task {
-            userTier = try await membershipService.getStatus()
-        }
     }
     
     func getVerificationEmail(email: String, subscribeToNewsletter: Bool) async throws {
