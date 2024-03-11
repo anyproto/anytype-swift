@@ -24,8 +24,4 @@ extension Participant {
     var isOwner: Bool {
         return permission == .owner
     }
-    
-    var canCancelJoinRequest: Bool {
-        return status == .joining
-    }
 }

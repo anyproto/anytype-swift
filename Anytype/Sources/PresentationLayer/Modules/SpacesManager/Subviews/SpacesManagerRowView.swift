@@ -8,10 +8,6 @@ struct SpacesManagerRowViewModel: Identifiable {
     
     var id: String { spaceView.id }
     
-    var canCancelJoinRequest: Bool {
-        participant?.canCancelJoinRequest ?? false
-    }
-    
     var canLeave: Bool {
         participant?.canLeave ?? false
     }
@@ -77,12 +73,12 @@ struct SpacesManagerRowView: View {
     
     @ViewBuilder
     private var menu: some View {
-        if model.spaceView.canBeDelete || model.canCancelJoinRequest || model.spaceView.canBeArchive || model.canLeave {
+        if model.spaceView.canBeDelete || model.spaceView.canCancelJoinRequest || model.spaceView.canBeArchive || model.canLeave {
             Menu {
                 if model.spaceView.canBeDelete ||  model.canLeave {
                     AsyncButton(Loc.delete, role: .destructive, action: onDelete)
                 }
-                if model.canCancelJoinRequest {
+                if model.spaceView.canCancelJoinRequest {
                     AsyncButton(Loc.SpaceManager.cancelRequest, role: .destructive, action: onCancelRequest)
                 }
                 if model.spaceView.canBeArchive {
