@@ -37,7 +37,6 @@ protocol CoordinatorsDIProtocol: AnyObject {
     func notificationCoordinator() -> NotificationCoordinatorProtocol // Global coordinator without root view
     func spaceShare() -> SpaceShareCoordinatorAssemblyProtocol
     func typeSearchForNewObject() -> TypeSearchForNewObjectCoordinatorAssemblyProtocol
-    func membership() -> MembershipCoordinatorAssemblyProtocol
     
     // Now like a coordinator. Migrate to isolated modules
     func editorPageModule() -> EditorPageModuleAssemblyProtocol

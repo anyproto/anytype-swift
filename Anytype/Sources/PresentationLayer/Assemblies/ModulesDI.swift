@@ -278,10 +278,6 @@ final class ModulesDI: ModulesDIProtocol {
         SpacesManagerModuleAssembly(serviceLocator: serviceLocator)
     }
     
-    func membership() -> MembershipModuleAssemblyProtocol {
-        MembershipModuleAssembly(uiHelpersDI: uiHelpersDI, serviceLocator: serviceLocator)
-    }
-    
     func spaceMembers() -> SpaceMembersModuleAssemblyProtocol {
         SpaceMembersModuleAssembly(serviceLocator: serviceLocator)
     }

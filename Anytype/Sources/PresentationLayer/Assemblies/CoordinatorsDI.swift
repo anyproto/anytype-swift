@@ -207,8 +207,4 @@ final class CoordinatorsDI: CoordinatorsDIProtocol {
             modulesDI: modulesDI
         )
     }
-    
-    func membership() -> MembershipCoordinatorAssemblyProtocol {
-        MembershipCoordinatorAssembly(modulesDI: modulesDI, serviceLocator: serviceLocator)
-    }
 }

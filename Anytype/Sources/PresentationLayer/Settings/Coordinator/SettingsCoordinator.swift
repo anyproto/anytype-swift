@@ -28,7 +28,6 @@ final class SettingsCoordinator: SettingsCoordinatorProtocol,
     private let serviceLocator: ServiceLocator
     private let applicationStateService: ApplicationStateServiceProtocol
     private let spacesManagerModuleAssembly: SpacesManagerModuleAssemblyProtocol
-    private let membershipCoordinatorAssembly: MembershipCoordinatorAssemblyProtocol
     
     init(
         navigationContext: NavigationContextProtocol,
@@ -45,8 +44,7 @@ final class SettingsCoordinator: SettingsCoordinatorProtocol,
         urlOpener: URLOpenerProtocol,
         activeWorkspaceStorage: ActiveWorkpaceStorageProtocol,
         serviceLocator: ServiceLocator,
-        spacesManagerModuleAssembly: SpacesManagerModuleAssemblyProtocol,
-        membershipCoordinatorAssembly: MembershipCoordinatorAssemblyProtocol
+        spacesManagerModuleAssembly: SpacesManagerModuleAssemblyProtocol
     ) {
         self.navigationContext = navigationContext
         self.settingsModuleAssembly = settingsModuleAssembly
@@ -64,7 +62,6 @@ final class SettingsCoordinator: SettingsCoordinatorProtocol,
         self.serviceLocator = serviceLocator
         self.applicationStateService = serviceLocator.applicationStateService()
         self.spacesManagerModuleAssembly = spacesManagerModuleAssembly
-        self.membershipCoordinatorAssembly = membershipCoordinatorAssembly
     }
     
     func startFlow() {
@@ -114,8 +111,7 @@ final class SettingsCoordinator: SettingsCoordinatorProtocol,
     }
     
     func onMembershipSelected() {
-        let module = membershipCoordinatorAssembly.make()
-        navigationContext.present(module)
+        navigationContext.present(MembershipCoordinator())
     }
     
     // MARK: - SettingsAccountModuleOutput
