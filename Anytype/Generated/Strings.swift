@@ -314,6 +314,8 @@ internal enum Loc {
   internal static let moveTo = Loc.tr("Localizable", "Move to", fallback: "Move to")
   /// Move To Bin
   internal static let moveToBin = Loc.tr("Localizable", "Move To Bin", fallback: "Move To Bin")
+  /// Myself
+  internal static let myself = Loc.tr("Localizable", "Myself", fallback: "Myself")
   /// Name
   internal static let name = Loc.tr("Localizable", "Name", fallback: "Name")
   /// New
@@ -382,6 +384,8 @@ internal enum Loc {
   internal static let pasteOrTypeURL = Loc.tr("Localizable", "Paste or type URL", fallback: "Paste or type URL")
   /// Paste processing...
   internal static let pasteProcessing = Loc.tr("Localizable", "Paste processing...", fallback: "Paste processing...")
+  /// Pay by Card
+  internal static let payByCard = Loc.tr("Localizable", "Pay by Card", fallback: "Pay by Card")
   /// We're sorry to see you go. You have 30 days to cancel this request. After 30 days, your encrypted account data is permanently removed from the backup node.
   internal static let pendingDeletionText = Loc.tr("Localizable", "Pending deletion text", fallback: "We're sorry to see you go. You have 30 days to cancel this request. After 30 days, your encrypted account data is permanently removed from the backup node.")
   /// per %@ years
@@ -1517,6 +1521,16 @@ internal enum Loc {
       internal static let terms = Loc.tr("Localizable", "Membership.Legal.Terms", fallback: "Terms and conditions")
       /// Would you like to use Anytype for business, education, etc.?
       internal static let wouldYouLike = Loc.tr("Localizable", "Membership.Legal.WouldYouLike", fallback: "Would you like to use Anytype for business, education, etc.?")
+    }
+    internal enum NameForm {
+      /// This name acts like a personal domain, making it easier for others to find you
+      internal static let subtitle = Loc.tr("Localizable", "Membership.NameForm.Subtitle", fallback: "This name acts like a personal domain, making it easier for others to find you")
+      /// Pick your unique name
+      internal static let title = Loc.tr("Localizable", "Membership.NameForm.Title", fallback: "Pick your unique name")
+      /// This name is up for grabs
+      internal static let validated = Loc.tr("Localizable", "Membership.NameForm.Validated", fallback: "This name is up for grabs")
+      /// Wait a second...
+      internal static let validating = Loc.tr("Localizable", "Membership.NameForm.Validating", fallback: "Wait a second...")
     }
     internal enum Success {
       /// Big cheers for your curiosity!

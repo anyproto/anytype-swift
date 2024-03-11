@@ -1217,6 +1217,8 @@
 		3D44984D26D54A64005A3E06 /* BindableGestureRecognizer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D44984C26D54A64005A3E06 /* BindableGestureRecognizer.swift */; };
 		3D44985A26D57456005A3E06 /* ObjectIconPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D44985926D57456005A3E06 /* ObjectIconPicker.swift */; };
 		3D44985C26D57773005A3E06 /* DismissHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D44985B26D57773005A3E06 /* DismissHandler.swift */; };
+		3D4507BC2B9B398A00739EFC /* MembershipNameSheetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D4507BB2B9B398A00739EFC /* MembershipNameSheetView.swift */; };
+		3D4507BF2B9B3DE400739EFC /* MembershipNameSheetViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D4507BE2B9B3DE300739EFC /* MembershipNameSheetViewModel.swift */; };
 		3D471E1F26C3B60200457DE5 /* BlockLinkState+Icon.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D471E1E26C3B60200457DE5 /* BlockLinkState+Icon.swift */; };
 		3D4B8CE527C54FDC001A1F98 /* BlockListServiceMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D4B8CE427C54FDC001A1F98 /* BlockListServiceMock.swift */; };
 		3D513F0F27956E2B007850D5 /* SetViewPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D513F0E27956E2B007850D5 /* SetViewPicker.swift */; };
@@ -2991,6 +2993,8 @@
 		3D44984C26D54A64005A3E06 /* BindableGestureRecognizer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BindableGestureRecognizer.swift; sourceTree = "<group>"; };
 		3D44985926D57456005A3E06 /* ObjectIconPicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObjectIconPicker.swift; sourceTree = "<group>"; };
 		3D44985B26D57773005A3E06 /* DismissHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DismissHandler.swift; sourceTree = "<group>"; };
+		3D4507BB2B9B398A00739EFC /* MembershipNameSheetView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MembershipNameSheetView.swift; sourceTree = "<group>"; };
+		3D4507BE2B9B3DE300739EFC /* MembershipNameSheetViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MembershipNameSheetViewModel.swift; sourceTree = "<group>"; };
 		3D471E1E26C3B60200457DE5 /* BlockLinkState+Icon.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "BlockLinkState+Icon.swift"; sourceTree = "<group>"; };
 		3D4B8CE427C54FDC001A1F98 /* BlockListServiceMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = BlockListServiceMock.swift; path = AnyTypeTests/Markdown/Mocks/BlockListServiceMock.swift; sourceTree = SOURCE_ROOT; };
 		3D513F0E27956E2B007850D5 /* SetViewPicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetViewPicker.swift; sourceTree = "<group>"; };
@@ -8230,6 +8234,15 @@
 			path = Header;
 			sourceTree = "<group>";
 		};
+		3D4507BD2B9B3DCF00739EFC /* NameSheet */ = {
+			isa = PBXGroup;
+			children = (
+				3D4507BB2B9B398A00739EFC /* MembershipNameSheetView.swift */,
+				3D4507BE2B9B3DE300739EFC /* MembershipNameSheetViewModel.swift */,
+			);
+			path = NameSheet;
+			sourceTree = "<group>";
+		};
 		3D471E1D26C3B5D000457DE5 /* Support */ = {
 			isa = PBXGroup;
 			children = (
@@ -8995,6 +9008,7 @@
 		3DD1129C2B95FE14007682F4 /* TierSelection */ = {
 			isa = PBXGroup;
 			children = (
+				3D4507BD2B9B3DCF00739EFC /* NameSheet */,
 				3D26AA702B9725A900D61479 /* Views */,
 				3DD1129D2B95FE62007682F4 /* MembershipTierSelectionView.swift */,
 				3D26AA762B973E2200D61479 /* MembershipTierSelectionViewModel.swift */,
@@ -10711,6 +10725,7 @@
 				12E15B89270B2FAE0055EA01 /* BlockActionHandlerProtocol.swift in Sources */,
 				2E0A6CDB2A3775D900A28AF2 /* LoginFlowCoordinatorAssembly.swift in Sources */,
 				2E2A23002A9E463700745D78 /* SetLayoutSettingsCoordinatorViewModel.swift in Sources */,
+				3D4507BF2B9B3DE400739EFC /* MembershipNameSheetViewModel.swift in Sources */,
 				C9F0A47D28057D8F00FA16DD /* TextIconPickerViewModel.swift in Sources */,
 				120F7D58267D071400327734 /* PickerSectionHeaderView.swift in Sources */,
 				2A2C330D28928DA7008BC326 /* CoordinatorsDI.swift in Sources */,
@@ -11997,6 +12012,7 @@
 				125FD2FE26CE522700D21F5A /* EditorNavigationBarHelperProtocol.swift in Sources */,
 				534D19CB2623BDCC0080AEF0 /* ButtonWithImage.swift in Sources */,
 				2EAA140A2AA63BFF000A712A /* SetRelationsCoordinatorView.swift in Sources */,
+				3D4507BC2B9B398A00739EFC /* MembershipNameSheetView.swift in Sources */,
 				2A673C1929B0D7CD00E3D672 /* SettingsAccountViewModel.swift in Sources */,
 				3D68564D26E10D2500AA36A9 /* View+Placeholder.swift in Sources */,
 				2E0A6CD52A376F1300A28AF2 /* LoginViewModuleAssembly.swift in Sources */,

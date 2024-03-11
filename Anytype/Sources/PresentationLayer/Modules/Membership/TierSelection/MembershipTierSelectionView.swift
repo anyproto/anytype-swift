@@ -35,10 +35,8 @@ struct MembershipTierSelectionView: View {
                     MembershipEmailSheetView { email, subscribeToNewsletter in
                         try await model.getVerificationEmail(email: email, subscribeToNewsletter: subscribeToNewsletter)
                     }
-                case .builder:
-                    Color.blue.frame(height: 300)
-                case .coCreator:
-                    Color.red.frame(height: 300)
+                case .builder, .coCreator:
+                    MembershipNameSheetView(tier: model.tierToDisplay)
                 }
             }
         }
@@ -58,8 +56,10 @@ struct MembershipTierSelectionView: View {
 }
 
 #Preview {
-    MembershipTierSelectionView(
-        tier: .explorer,
-        showEmailVerification: { _ in }
-    )
+    ScrollView {
+        MembershipTierSelectionView(
+            tier: .builder,
+            showEmailVerification: { _ in }
+        )
+    }
 }
