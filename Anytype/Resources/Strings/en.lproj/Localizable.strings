@@ -910,6 +910,7 @@
 "SpaceShare.Join.Message" = "You’ve been invited to join %@ space, created by %@. Send a request so space owner can let you in.";
 "SpaceShare.JoinConfirmation.Title" = "Request sent";
 "SpaceShare.JoinConfirmation.Message" = "You will receive a notification when the space owner will approve your request.";
+"SpaceShare.YouSuffix" = "%@ (you)";
 
 // MARK: - Space manager
 "SpaceManager.CancelRequest" = "Cancel Request";

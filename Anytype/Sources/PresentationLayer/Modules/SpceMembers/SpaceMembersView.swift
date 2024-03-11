@@ -3,7 +3,11 @@ import SwiftUI
 
 struct SpaceMembersView: View {
     
-    @StateObject var model: SpaceMembersViewModel
+    @StateObject private var model: SpaceMembersViewModel
+    
+    init() {
+        _model = StateObject(wrappedValue: SpaceMembersViewModel())
+    }
     
     var body: some View {
         VStack(spacing: 0) {

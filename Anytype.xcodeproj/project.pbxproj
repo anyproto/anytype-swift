@@ -457,7 +457,6 @@
 		2A617BCC2A49E5B400725152 /* BlockWidget+Limits.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A617BCB2A49E5B400725152 /* BlockWidget+Limits.swift */; };
 		2A6476452B95B8A800389E62 /* SpaceMembersView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A6476442B95B8A800389E62 /* SpaceMembersView.swift */; };
 		2A6476472B95B8B400389E62 /* SpaceMembersViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A6476462B95B8B400389E62 /* SpaceMembersViewModel.swift */; };
-		2A6476492B95B8CA00389E62 /* SpaceMembersModuleAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A6476482B95B8CA00389E62 /* SpaceMembersModuleAssembly.swift */; };
 		2A64B6BB2B3DD54D000316E2 /* ObjectActionsServiceError+Localization.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A64B6BA2B3DD54D000316E2 /* ObjectActionsServiceError+Localization.swift */; };
 		2A6574682A4456F6002F568C /* ObjectIconExample.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A6574672A4456F6002F568C /* ObjectIconExample.swift */; };
 		2A65E9B22AE1290300D40657 /* InitialCoordinatorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A65E9B12AE1290300D40657 /* InitialCoordinatorView.swift */; };
@@ -2233,7 +2232,6 @@
 		2A617BCB2A49E5B400725152 /* BlockWidget+Limits.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "BlockWidget+Limits.swift"; sourceTree = "<group>"; };
 		2A6476442B95B8A800389E62 /* SpaceMembersView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpaceMembersView.swift; sourceTree = "<group>"; };
 		2A6476462B95B8B400389E62 /* SpaceMembersViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpaceMembersViewModel.swift; sourceTree = "<group>"; };
-		2A6476482B95B8CA00389E62 /* SpaceMembersModuleAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpaceMembersModuleAssembly.swift; sourceTree = "<group>"; };
 		2A64B6BA2B3DD54D000316E2 /* ObjectActionsServiceError+Localization.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ObjectActionsServiceError+Localization.swift"; sourceTree = "<group>"; };
 		2A6574672A4456F6002F568C /* ObjectIconExample.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObjectIconExample.swift; sourceTree = "<group>"; };
 		2A65E9B12AE1290300D40657 /* InitialCoordinatorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InitialCoordinatorView.swift; sourceTree = "<group>"; };
@@ -5785,7 +5783,6 @@
 			children = (
 				2A6476442B95B8A800389E62 /* SpaceMembersView.swift */,
 				2A6476462B95B8B400389E62 /* SpaceMembersViewModel.swift */,
-				2A6476482B95B8CA00389E62 /* SpaceMembersModuleAssembly.swift */,
 			);
 			path = SpceMembers;
 			sourceTree = "<group>";
@@ -11509,7 +11506,6 @@
 				C9F0A4772805702C00FA16DD /* ObjectIconPickerViewModelProtocol.swift in Sources */,
 				2A1F94802978381700E25782 /* ListWidgetRow.swift in Sources */,
 				538EF48725F831AA005C7438 /* NSAttributedStringExtension.swift in Sources */,
-				2A6476492B95B8CA00389E62 /* SpaceMembersModuleAssembly.swift in Sources */,
 				2A6C75C429FC03D4002BD440 /* SingleObjectSubscriptionService.swift in Sources */,
 				125E75E526CD199A000AF4E9 /* EditorNavigationBarTitleView.swift in Sources */,
 				539E019727582AA300067A24 /* RelationNameValueView.swift in Sources */,
