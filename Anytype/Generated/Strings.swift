@@ -2190,6 +2190,12 @@ internal enum Loc {
       /// View Request
       internal static let viewRequest = Loc.tr("Localizable", "SpaceShare.Action.ViewRequest", fallback: "View Request")
     }
+    internal enum Approve {
+      /// You approved %@'s request.
+      internal static func toast(_ p1: Any) -> String {
+        return Loc.tr("Localizable", "SpaceShare.Approve.Toast", String(describing: p1), fallback: "You approved %@'s request.")
+      }
+    }
     internal enum Invite {
       /// Share invite link
       internal static let button = Loc.tr("Localizable", "SpaceShare.Invite.Button", fallback: "Share invite link")
