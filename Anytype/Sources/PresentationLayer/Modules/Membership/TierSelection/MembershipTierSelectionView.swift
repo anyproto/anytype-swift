@@ -3,12 +3,20 @@ import Services
 
 
 struct MembershipTierSelectionView: View {
-    @StateObject var model: MembershipTierSelectionViewModel
+    @StateObject private var model: MembershipTierSelectionViewModel
     
-    init(tier: MembershipTier, showEmailVerification: @escaping (EmailVerificationData) -> ()) {
+    init(
+        userTier: MembershipTier?,
+        tierToDisplay: MembershipTier,
+        showEmailVerification: @escaping (EmailVerificationData) -> ()
+    ) {
         _model = StateObject(
-            wrappedValue: MembershipTierSelectionViewModel(tierToDisplay: tier, showEmailVerification: showEmailVerification)
+            wrappedValue: MembershipTierSelectionViewModel(
+                userTier: userTier,
+                tierToDisplay: tierToDisplay,
+                showEmailVerification: showEmailVerification
             )
+        )
     }
     
     var body: some View {
@@ -19,9 +27,6 @@ struct MembershipTierSelectionView: View {
                     .cornerRadius(12, corners: .top)
                     .background(sheetBackground)
             }
-        }
-        .task {
-            model.onAppear()
         }
     }
     
@@ -58,7 +63,8 @@ struct MembershipTierSelectionView: View {
 #Preview {
     ScrollView {
         MembershipTierSelectionView(
-            tier: .builder,
+            userTier: .builder,
+            tierToDisplay: .builder,
             showEmailVerification: { _ in }
         )
     }

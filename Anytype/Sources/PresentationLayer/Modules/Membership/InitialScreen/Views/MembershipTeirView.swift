@@ -4,7 +4,7 @@ import Services
 
 struct MembershipTeirView: View {
     let tierToDisplay: MembershipTier
-    let currentTier: MembershipTier?
+    let userTier: MembershipTier?
     let onTap: () -> ()
     
     @Environment(\.colorScheme) private var colorScheme
@@ -26,14 +26,12 @@ struct MembershipTeirView: View {
             StandardButton(Loc.learnMore, style: .primaryMedium, action: onTap)
             Spacer.fixedHeight(20)
         }
-        .if(currentTier == tierToDisplay) {
+        .if(userTier == tierToDisplay) {
             $0.overlay(alignment: .topTrailing) {
-                if currentTier == tierToDisplay {
-                    AnytypeText(Loc.current, style: .relation3Regular, color: .Text.primary)
-                        .padding(EdgeInsets(top: 2, leading: 8, bottom: 3, trailing: 8))
-                        .border(11, color: .Text.primary)
-                        .padding(.top, 16)
-                }
+                AnytypeText(Loc.current, style: .relation3Regular, color: .Text.primary)
+                    .padding(EdgeInsets(top: 2, leading: 8, bottom: 3, trailing: 8))
+                    .border(11, color: .Text.primary)
+                    .padding(.top, 16)
             }
         }
         .fixTappableArea()
@@ -56,20 +54,20 @@ struct MembershipTeirView: View {
         Group {
             switch tierToDisplay {
             case .explorer:
-                if currentTier == tierToDisplay {
+                if userTier == tierToDisplay {
                     AnytypeText(Loc.foreverFree, style: .caption1Regular, color: .Text.primary)
                 } else {
                     AnytypeText(Loc.justEMail, style: .bodySemibold, color: .Text.primary)
                 }
             case .builder:
-                if currentTier == tierToDisplay {
+                if userTier == tierToDisplay {
                     AnytypeText(Loc.validUntilDate("%Date%"), style: .caption1Regular, color: .Text.primary)
                 } else {
                     AnytypeText("$99 ", style: .bodySemibold, color: .Text.primary) +
                     AnytypeText(Loc.perYear, style: .caption1Regular, color: .Text.primary)
                 }
             case .coCreator:
-                if currentTier == tierToDisplay {
+                if userTier == tierToDisplay {
                     AnytypeText(Loc.validUntilDate("%Date%"), style: .caption1Regular, color: .Text.primary)
                 } else {
                     AnytypeText("$299 ", style: .bodySemibold, color: .Text.primary) +
@@ -83,9 +81,9 @@ struct MembershipTeirView: View {
 #Preview {
     ScrollView(.horizontal) {
         HStack {
-            MembershipTeirView(tierToDisplay: .explorer, currentTier: .explorer) {  }
-            MembershipTeirView(tierToDisplay: .builder, currentTier: .explorer) {  }
-            MembershipTeirView(tierToDisplay: .coCreator, currentTier: .explorer) {  }
+            MembershipTeirView(tierToDisplay: .explorer, userTier: .explorer) {  }
+            MembershipTeirView(tierToDisplay: .builder, userTier: .explorer) {  }
+            MembershipTeirView(tierToDisplay: .coCreator, userTier: .explorer) {  }
         }
     }
 }

@@ -1,24 +1,20 @@
 import Foundation
 import Services
+import Combine
 
 
 @MainActor
 final class MembershipModuleViewModel: ObservableObject {
-    @Published var tier: MembershipTier?
-    
-    @Injected(\.membershipService)
-    private var membershipService: MembershipServiceProtocol
+    @Published var userTier: MembershipTier?
     
     private let onTierTap: (MembershipTier) -> ()
     
-    init(onTierTap: @escaping (MembershipTier) -> ()) {
+    init(
+        userTierPublisher: AnyPublisher<MembershipTier?, Never>,
+        onTierTap: @escaping (MembershipTier) -> ()
+    ) {
         self.onTierTap = onTierTap
-    }
-    
-    func updateCurrentTier() {
-        Task {
-            tier = try await membershipService.getStatus()
-        }
+        userTierPublisher.assign(to: &$userTier)
     }
     
     func onTierTap(tier: MembershipTier) {

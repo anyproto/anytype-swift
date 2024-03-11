@@ -3,7 +3,7 @@ import Services
 
 
 struct MembershipTierListView: View {
-    let currentTier: MembershipTier?
+    let userTier: MembershipTier?
     let onTierTap: (MembershipTier) -> ()
     
     var body: some View {
@@ -12,8 +12,8 @@ struct MembershipTierListView: View {
                 HStack(spacing: 20) {
                     Spacer.fixedWidth(0)
                     
-                    ForEach(currentTier.availableTiers) { tier in
-                        MembershipTeirView(tierToDisplay: tier, currentTier: currentTier) {
+                    ForEach(userTier.availableTiers) { tier in
+                        MembershipTeirView(tierToDisplay: tier, userTier: userTier) {
                             onTierTap(tier)
                         }
                         .id(tier)
@@ -32,10 +32,10 @@ struct MembershipTierListView: View {
 #Preview {
     ScrollView {
         VStack {
-            MembershipTierListView(currentTier: nil) { _ in }
-            MembershipTierListView(currentTier: .explorer) { _ in }
-            MembershipTierListView(currentTier: .builder) { _ in }
-            MembershipTierListView(currentTier: .coCreator) { _ in }
+            MembershipTierListView(userTier: nil) { _ in }
+            MembershipTierListView(userTier: .explorer) { _ in }
+            MembershipTierListView(userTier: .builder) { _ in }
+            MembershipTierListView(userTier: .coCreator) { _ in }
         }
     }
 }
