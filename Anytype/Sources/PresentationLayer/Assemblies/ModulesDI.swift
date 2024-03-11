@@ -114,10 +114,6 @@ final class ModulesDI: ModulesDIProtocol {
         return SettingsModuleAssembly(serviceLocator: serviceLocator)
     }
     
-    func debugMenu() -> DebugMenuModuleAssemblyProtocol {
-        return DebugMenuModuleAssembly(serviceLocator: serviceLocator)
-    }
-    
     func settingsAccount() -> SettingsAccountModuleAssemblyProtocol {
         return SettingsAccountModuleAssembly(serviceLocator: serviceLocator, uiHelpersDI: uiHelpersDI)
     }

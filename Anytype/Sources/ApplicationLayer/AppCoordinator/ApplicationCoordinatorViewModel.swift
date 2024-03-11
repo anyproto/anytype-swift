@@ -17,7 +17,6 @@ final class ApplicationCoordinatorViewModel: ObservableObject {
     private let homeCoordinatorAssembly: HomeCoordinatorAssemblyProtocol
     private let deleteAccountModuleAssembly: DeleteAccountModuleAssemblyProtocol
     private let initialCoordinatorAssembly: InitialCoordinatorAssemblyProtocol
-    private let debugMenuModuleAssembly: DebugMenuModuleAssemblyProtocol
     private let navigationContext: NavigationContextProtocol
     
     private var authCoordinator: AuthCoordinatorProtocol?
@@ -40,7 +39,6 @@ final class ApplicationCoordinatorViewModel: ObservableObject {
         homeCoordinatorAssembly: HomeCoordinatorAssemblyProtocol,
         deleteAccountModuleAssembly: DeleteAccountModuleAssemblyProtocol,
         initialCoordinatorAssembly: InitialCoordinatorAssemblyProtocol,
-        debugMenuModuleAssembly: DebugMenuModuleAssemblyProtocol,
         navigationContext: NavigationContextProtocol
     ) {
         self.authService = authService
@@ -53,7 +51,6 @@ final class ApplicationCoordinatorViewModel: ObservableObject {
         self.homeCoordinatorAssembly = homeCoordinatorAssembly
         self.deleteAccountModuleAssembly = deleteAccountModuleAssembly
         self.initialCoordinatorAssembly = initialCoordinatorAssembly
-        self.debugMenuModuleAssembly = debugMenuModuleAssembly
         self.navigationContext = navigationContext
     }
     
@@ -87,10 +84,6 @@ final class ApplicationCoordinatorViewModel: ObservableObject {
             return nil
         }
 
-    }
-    
-    func debugView() -> AnyView {
-        debugMenuModuleAssembly.make()
     }
 
     // MARK: - Subscription

@@ -14,7 +14,6 @@ final class SettingsCoordinator: SettingsCoordinatorProtocol,
     
     private let navigationContext: NavigationContextProtocol
     private let settingsModuleAssembly: SettingsModuleAssemblyProtocol
-    private let debugMenuModuleAssembly: DebugMenuModuleAssemblyProtocol
     private let appearanceModuleAssembly: SettingsAppearanceModuleAssemblyProtocol
     private let aboutModuleAssembly: AboutModuleAssemblyProtocol
     private let accountModuleAssembly: SettingsAccountModuleAssemblyProtocol
@@ -33,7 +32,6 @@ final class SettingsCoordinator: SettingsCoordinatorProtocol,
     init(
         navigationContext: NavigationContextProtocol,
         settingsModuleAssembly: SettingsModuleAssemblyProtocol,
-        debugMenuModuleAssembly: DebugMenuModuleAssemblyProtocol,
         appearanceModuleAssembly: SettingsAppearanceModuleAssemblyProtocol,
         aboutModuleAssembly: AboutModuleAssemblyProtocol,
         accountModuleAssembly: SettingsAccountModuleAssemblyProtocol,
@@ -50,7 +48,6 @@ final class SettingsCoordinator: SettingsCoordinatorProtocol,
     ) {
         self.navigationContext = navigationContext
         self.settingsModuleAssembly = settingsModuleAssembly
-        self.debugMenuModuleAssembly = debugMenuModuleAssembly
         self.appearanceModuleAssembly = appearanceModuleAssembly
         self.aboutModuleAssembly = aboutModuleAssembly
         self.accountModuleAssembly = accountModuleAssembly
@@ -75,8 +72,7 @@ final class SettingsCoordinator: SettingsCoordinatorProtocol,
     // MARK: - SettingsModuleOutput
     
     func onDebugMenuSelected() {
-        let module = debugMenuModuleAssembly.make()
-        navigationContext.present(module)
+        navigationContext.present(DebugMenuView())
     }
     
     func onAppearanceSelected() {
