@@ -31,7 +31,6 @@ final class SettingsCoordinatorAssembly: SettingsCoordinatorAssemblyProtocol {
         return SettingsCoordinator(
             navigationContext: uiHelpersDI.commonNavigationContext(),
             settingsModuleAssembly: modulesDI.settings(),
-            debugMenuModuleAssembly: modulesDI.debugMenu(),
             appearanceModuleAssembly: modulesDI.settingsAppearance(),
             aboutModuleAssembly: modulesDI.about(),
             accountModuleAssembly: modulesDI.settingsAccount(),

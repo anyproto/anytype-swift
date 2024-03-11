@@ -23,7 +23,7 @@ struct ApplicationCoordinatorView: View {
                 .preferredColorScheme(.dark)
         case .login:
             LaunchView {
-                model.debugView()
+                DebugMenuView()
             }
         case .home:
             model.homeView()

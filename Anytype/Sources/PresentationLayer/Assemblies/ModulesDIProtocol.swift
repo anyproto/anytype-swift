@@ -25,7 +25,6 @@ protocol ModulesDIProtocol: AnyObject {
     func keychainPhrase() -> KeychainPhraseModuleAssemblyProtocol
     func dashboardAlerts() -> DashboardAlertsAssemblyProtocol
     func settings() -> SettingsModuleAssemblyProtocol
-    func debugMenu() -> DebugMenuModuleAssemblyProtocol
     func settingsAccount() -> SettingsAccountModuleAssemblyProtocol
     func fileStorage() -> FileStorageModuleAssemblyProtocol
     func authorization() -> AuthModuleAssemblyProtocol

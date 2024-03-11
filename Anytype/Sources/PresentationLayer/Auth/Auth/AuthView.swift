@@ -1,5 +1,6 @@
 import SwiftUI
 import AnytypeCore
+import AudioToolbox
 
 struct AuthView: View {
     
@@ -39,10 +40,11 @@ struct AuthView: View {
         VStack(alignment: .center, spacing: 0) {
             Image(asset: .theEverythingApp)
                 .onTapGesture(count: 10) {
+                    AudioServicesPlaySystemSound(1109)
                     model.showDebugMenu.toggle()
                 }
                 .sheet(isPresented: $model.showDebugMenu) {
-                    model.onDebugMenuAction()
+                    DebugMenuView()
                 }
             
             Spacer.fixedHeight(20)

@@ -485,7 +485,6 @@
 		2A673C0D29B0B2AA00E3D672 /* SettingsModuleAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A673C0C29B0B2AA00E3D672 /* SettingsModuleAssembly.swift */; };
 		2A673C0F29B0B39300E3D672 /* SettingsCoordinatorAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A673C0E29B0B39300E3D672 /* SettingsCoordinatorAssembly.swift */; };
 		2A673C1129B0BC3E00E3D672 /* SettingsModuleOutput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A673C1029B0BC3E00E3D672 /* SettingsModuleOutput.swift */; };
-		2A673C1329B0BD2100E3D672 /* DebugMenuModuleAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A673C1229B0BD2100E3D672 /* DebugMenuModuleAssembly.swift */; };
 		2A673C1529B0D78F00E3D672 /* SettingsAccountModuleAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A673C1429B0D78F00E3D672 /* SettingsAccountModuleAssembly.swift */; };
 		2A673C1729B0D7B700E3D672 /* SettingsAccountModuleOutput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A673C1629B0D7B700E3D672 /* SettingsAccountModuleOutput.swift */; };
 		2A673C1929B0D7CD00E3D672 /* SettingsAccountViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A673C1829B0D7CD00E3D672 /* SettingsAccountViewModel.swift */; };
@@ -1370,7 +1369,7 @@
 		3DE6926827302D5800A4CD4E /* AccessoryViewStateManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DE6926727302D5800A4CD4E /* AccessoryViewStateManager.swift */; };
 		3DE6E3C026542151008FB0AF /* UIVIewController+Child.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DE6E3BF26542151008FB0AF /* UIVIewController+Child.swift */; };
 		3DF418BB2B7CEF8B00C414D6 /* WidgetSwipeTip.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DF418BA2B7CEF8B00C414D6 /* WidgetSwipeTip.swift */; };
-		3DF6F628262EDA31000E05A5 /* DebugMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DF6F627262EDA31000E05A5 /* DebugMenu.swift */; };
+		3DF6F628262EDA31000E05A5 /* DebugMenuView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DF6F627262EDA31000E05A5 /* DebugMenuView.swift */; };
 		3DF80F3326EF8552000492F3 /* EmptyToggleButtonBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DF80F3226EF8552000492F3 /* EmptyToggleButtonBuilder.swift */; };
 		3DF80F3726EF8F5C000492F3 /* TextBlockLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DF80F3626EF8F5C000492F3 /* TextBlockLayout.swift */; };
 		3DF80F3B26EF9B37000492F3 /* TextBlockLeftViewStyler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DF80F3A26EF9B37000492F3 /* TextBlockLeftViewStyler.swift */; };
@@ -2264,7 +2263,6 @@
 		2A673C0C29B0B2AA00E3D672 /* SettingsModuleAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsModuleAssembly.swift; sourceTree = "<group>"; };
 		2A673C0E29B0B39300E3D672 /* SettingsCoordinatorAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsCoordinatorAssembly.swift; sourceTree = "<group>"; };
 		2A673C1029B0BC3E00E3D672 /* SettingsModuleOutput.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsModuleOutput.swift; sourceTree = "<group>"; };
-		2A673C1229B0BD2100E3D672 /* DebugMenuModuleAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DebugMenuModuleAssembly.swift; sourceTree = "<group>"; };
 		2A673C1429B0D78F00E3D672 /* SettingsAccountModuleAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsAccountModuleAssembly.swift; sourceTree = "<group>"; };
 		2A673C1629B0D7B700E3D672 /* SettingsAccountModuleOutput.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsAccountModuleOutput.swift; sourceTree = "<group>"; };
 		2A673C1829B0D7CD00E3D672 /* SettingsAccountViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsAccountViewModel.swift; sourceTree = "<group>"; };
@@ -3147,7 +3145,7 @@
 		3DE6926727302D5800A4CD4E /* AccessoryViewStateManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccessoryViewStateManager.swift; sourceTree = "<group>"; };
 		3DE6E3BF26542151008FB0AF /* UIVIewController+Child.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIVIewController+Child.swift"; sourceTree = "<group>"; };
 		3DF418BA2B7CEF8B00C414D6 /* WidgetSwipeTip.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WidgetSwipeTip.swift; sourceTree = "<group>"; };
-		3DF6F627262EDA31000E05A5 /* DebugMenu.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DebugMenu.swift; sourceTree = "<group>"; };
+		3DF6F627262EDA31000E05A5 /* DebugMenuView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DebugMenuView.swift; sourceTree = "<group>"; };
 		3DF80F3226EF8552000492F3 /* EmptyToggleButtonBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmptyToggleButtonBuilder.swift; sourceTree = "<group>"; };
 		3DF80F3626EF8F5C000492F3 /* TextBlockLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextBlockLayout.swift; sourceTree = "<group>"; };
 		3DF80F3A26EF9B37000492F3 /* TextBlockLeftViewStyler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextBlockLeftViewStyler.swift; sourceTree = "<group>"; };
@@ -4145,7 +4143,6 @@
 		0A996BAD23EDBC09000FDC9C /* FeatureFlags */ = {
 			isa = PBXGroup;
 			children = (
-				3DF6F627262EDA31000E05A5 /* DebugMenu.swift */,
 				2AA1652729D474D40093DB12 /* FeatureFlagView.swift */,
 				2ADA5EE928A292D000CD82A4 /* FeatureFlagViewModel.swift */,
 			);
@@ -9753,7 +9750,7 @@
 				0A996BAD23EDBC09000FDC9C /* FeatureFlags */,
 				1247BCA627FF3827005F2DB4 /* FeedbackGeneratorExamplesView.swift */,
 				1247BCAB27FF3A0C005F2DB4 /* FeedbackGeneratorExample.swift */,
-				2A673C1229B0BD2100E3D672 /* DebugMenuModuleAssembly.swift */,
+				3DF6F627262EDA31000E05A5 /* DebugMenuView.swift */,
 				2AA1652529D4711B0093DB12 /* DebugMenuViewModel.swift */,
 				2AE6E29229DDB62C00B5AAD3 /* GradientIconsExamples.swift */,
 				2A00A4E829E811FD00C5FCC3 /* ControlsExample.swift */,
@@ -11221,7 +11218,6 @@
 				2E2D256128880C8D00E3DFD1 /* SetFiltersSelectionViewState.swift in Sources */,
 				2AFA110E296C672A0055422F /* HomeBottomPanelProvider.swift in Sources */,
 				2E2A23022A9E46B100745D78 /* SetLayoutSettingsCoordinatorAssembly.swift in Sources */,
-				2A673C1329B0BD2100E3D672 /* DebugMenuModuleAssembly.swift in Sources */,
 				2AF4C3DE295D82A700FD7153 /* WidgetsSubmoduleDI.swift in Sources */,
 				2E1146D2293125610057C753 /* SetKanbanColumnSettingsView.swift in Sources */,
 				2A7BC2812B1E2C7100EB96EB /* ServerConfigurationRow.swift in Sources */,
@@ -11276,7 +11272,7 @@
 				2E52DE712A1CEAF700F16815 /* SoulView.swift in Sources */,
 				C9EA69D328C7412A003F488C /* SimpleTableBlockView+UICollectionViewDelegate.swift in Sources */,
 				2ACD86F229C2181B0082E861 /* NewSearchErrorView.swift in Sources */,
-				3DF6F628262EDA31000E05A5 /* DebugMenu.swift in Sources */,
+				3DF6F628262EDA31000E05A5 /* DebugMenuView.swift in Sources */,
 				2ACEAE4A2984115F00B467CE /* WidgetTypeRowView.swift in Sources */,
 				53F8211126529CC9003FEB0B /* TextViewManagingFocus.swift in Sources */,
 				2AA8108829A66831007DD64B /* DragAndDropVerticalDelegate.swift in Sources */,

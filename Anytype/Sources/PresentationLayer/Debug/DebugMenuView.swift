@@ -2,9 +2,9 @@ import SwiftUI
 import AnytypeCore
 import Logger
 
-struct DebugMenu: View {
+struct DebugMenuView: View {
     
-    @StateObject var model: DebugMenuViewModel
+    @StateObject private var model: DebugMenuViewModel
     
     @State private var showLogs = false
     @State private var showTypography = false
@@ -13,6 +13,10 @@ struct DebugMenu: View {
     @State private var showControls = false
     @State private var showColors = false
     @State private var showObjectIcons = false
+    
+    init() {
+        _model = StateObject(wrappedValue: DebugMenuViewModel())
+    }
     
     var body: some View {
         VStack {
@@ -101,6 +105,10 @@ struct DebugMenu: View {
                 UIImpactFeedbackGenerator(style: .heavy).impactOccurred()
                 model.getGoroutinesData()
             }
+            AsyncStandardButton(text: "Space debug 🪐", style: .secondaryLarge) {
+                UIImpactFeedbackGenerator(style: .heavy).impactOccurred()
+                try await model.onSpaceDebug()
+            }
             StandardButton("Export full directory 🤐", style: .secondaryLarge) {
                 UIImpactFeedbackGenerator(style: .heavy).impactOccurred()
                 model.zipWorkingDirectory()
@@ -126,13 +134,7 @@ struct DebugMenu: View {
         .sheet(isPresented: $showControls) { ControlsExample() }
         .sheet(isPresented: $showColors) { ColorsExample() }
         .sheet(isPresented: $showObjectIcons) { ObjectIconExample() }
-        .sheet(item: $model.localStoreURL) { url in
-            ActivityViewController(activityItems: [url], applicationActivities: nil)
-        }
-        .sheet(item: $model.stackGoroutinesURL) { url in
-            ActivityViewController(activityItems: [url], applicationActivities: nil)
-        }
-        .sheet(item: $model.workingDirectoryURL) { url in
+        .sheet(item: $model.shareUrlFile) { url in
             ActivityViewController(activityItems: [url], applicationActivities: nil)
         }
         .sheet(isPresented: $model.showZipPicker) {
