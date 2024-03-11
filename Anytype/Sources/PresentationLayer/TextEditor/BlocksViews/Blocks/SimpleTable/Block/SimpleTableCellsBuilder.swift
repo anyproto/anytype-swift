@@ -192,7 +192,7 @@ final class SimpleTableCellsBuilder {
                     targetIds: [cell.rowId]
                 )
                 
-                cursorManager.blockFocus = .init(id: "\(cell.rowId)-\(cell.columnId)", position: .beginning)
+                cursorManager.blockFocus = BlockFocus(id: "\(cell.rowId)-\(cell.columnId)", position: .beginning)
             }
         }
     }

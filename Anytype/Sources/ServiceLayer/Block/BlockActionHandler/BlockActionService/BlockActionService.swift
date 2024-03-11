@@ -50,7 +50,7 @@ final class BlockActionService: BlockActionServiceProtocol {
         let blockId = try await blockService.add(contextId: documentId, targetId: targetBlockId, info: info, position: position)
         
         if setFocus {
-            cursorManager.blockFocus = .init(id: blockId, position: .beginning)
+            cursorManager.blockFocus = BlockFocus(id: blockId, position: .beginning)
         }
     }
 
@@ -70,7 +70,7 @@ final class BlockActionService: BlockActionServiceProtocol {
         )
 
         cursorManager.focus(at: blockId, position: .beginning)
-        cursorManager.blockFocus = .init(id: blockId, position: .beginning)
+        cursorManager.blockFocus = BlockFocus(id: blockId, position: .beginning)
     }
 
     func duplicate(blockId: String) {
