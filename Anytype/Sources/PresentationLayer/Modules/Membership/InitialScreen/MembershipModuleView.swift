@@ -114,7 +114,7 @@ struct MembershipModuleView: View {
 #Preview {
     NavigationView {
         MembershipModuleView(
-            userTier: .empty(),
+            userTierPublisher: .empty(),
             onTierTap: { _ in }
         )
     }

@@ -10,13 +10,13 @@ struct MembershipCoordinator: View {
     
     var body: some View {
         MembershipModuleView(userTierPublisher: model.$userTier.eraseToAnyPublisher()) { tier in
-            model.showTier = tier
+            model.onTierSelected(tier: tier)
         }
         .animation(.default, value: model.userTier)
         
         .sheet(item: $model.showTier) { tier in
             MembershipTierSelectionView(userTier: model.userTier, tierToDisplay: tier) { data in
-                model.onSuccessfulTierSelection(data: data)
+                model.onEmailDataSubmit(data: data)
             }
             .sheet(item: $model.emailVerificationData) { data in
                 EmailVerificationView(data: data) {

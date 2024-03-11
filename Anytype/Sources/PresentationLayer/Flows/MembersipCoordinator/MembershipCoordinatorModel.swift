@@ -19,7 +19,11 @@ final class MembershipCoordinatorModel: ObservableObject {
         }
     }
     
-    func onSuccessfulTierSelection(data: EmailVerificationData) {
+    func onTierSelected(tier: MembershipTier) {
+        showTier = tier
+    }
+    
+    func onEmailDataSubmit(data: EmailVerificationData) {
         emailVerificationData = data
     }
     
