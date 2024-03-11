@@ -911,6 +911,10 @@
 "SpaceShare.JoinConfirmation.Title" = "Solicitud enviada";
 "SpaceShare.JoinConfirmation.Message" = "Recibirás una notificación cuando el propietario del espacio apruebe tu solicitud.";
 
+// MARK: - Space manager
+"SpaceManager.CancelRequest" = "¿Cancelar solicitud?";
+"SpaceManager.Archive" = "Archivar";
+
 // MARK: - Space Create
 "SpaceCreate.Title" = "Crear un espacio";
 
@@ -997,12 +1001,14 @@
 "Resend" = "Reenviar";
 "Resend in" = "Reenviar en %@ seg";
 "Current" = "Current";
-"Forever free" = "Forever free";
+"Forever free" = "Gratis para siempre";
 "Forever" = "Por siempre";
 "Valid until date" = "Válido hasta %@";
 "Your current status" = "Tu estado actual";
 "Valid until" = "Válido hasta:";
 "Paid by" = "Pagado por %@";
+"Myself" = "Yo mismo";
+"Pay by Card" = "Paga con tarjeta";
 
 
 "Membership.Ad.Title" = "Construyamos juntos";
@@ -1034,6 +1040,11 @@
 "Membership.EmailForm.Subtitle" = "Necesitamos tu email para mantener el spam en el cajón y el email en tu buzón!";
 "Membership.EmailForm.Newsletter" = "Me gustaría recibir actualizaciones de productos y disfrutar de cosas chulas ¡gratis!";
 "Membership.EmailValidation" = "Escribe el código que se te ha enviado al email.";
+
+"Membership.NameForm.Title" = "Elige tu nombre único";
+"Membership.NameForm.Subtitle" = "Este nombre actúa como un dominio personal, haciendo más fácil que otras personas te encuentren";
+"Membership.NameForm.Validating" = "Espera un segundo...";
+"Membership.NameForm.Validated" = "El nombre está listo para ser grabado";
 
 "Membership.Success.Title" = "Te damos la bienvenida a la red, %@";
 "Membership.Success.Subitle" = "¡Enhorabuena por tu curiosidad!";
