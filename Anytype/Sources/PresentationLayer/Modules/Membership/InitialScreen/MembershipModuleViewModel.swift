@@ -6,7 +6,6 @@ import Combine
 @MainActor
 final class MembershipModuleViewModel: ObservableObject {
     @Published var userTier: MembershipTier?
-    private var cancellable: AnyCancellable?
     
     private let onTierTap: (MembershipTier) -> ()
     
@@ -15,7 +14,7 @@ final class MembershipModuleViewModel: ObservableObject {
         onTierTap: @escaping (MembershipTier) -> ()
     ) {
         self.onTierTap = onTierTap
-        cancellable = userTierPublisher.assign(to: \.userTier, on: self)
+        userTierPublisher.assign(to: &$userTier)
     }
     
     func onTierTap(tier: MembershipTier) {
