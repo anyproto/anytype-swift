@@ -10,10 +10,8 @@ public protocol BlockWidgetServiceProtocol {
     func setViewId(contextId: String, widgetBlockId: String, viewId: String) async throws
 }
 
-public final class BlockWidgetService: BlockWidgetServiceProtocol {
-    
-    public init() {}
-    
+final class BlockWidgetService: BlockWidgetServiceProtocol {
+        
     // MARK: - BlockWidgetServiceProtocol
     
     public func createWidgetBlock(contextId: String, sourceId: String, layout: BlockWidget.Layout, limit: Int, position: WidgetPosition) async throws {

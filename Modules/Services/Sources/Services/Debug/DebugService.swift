@@ -6,9 +6,7 @@ public protocol DebugServiceProtocol: AnyObject {
     func exportStackGoroutines() async throws -> String
 }
 
-public final class DebugService: DebugServiceProtocol {
-    
-    public init() {}
+final class DebugService: DebugServiceProtocol {
     
     // MARK: - DebugServiceProtocol
     

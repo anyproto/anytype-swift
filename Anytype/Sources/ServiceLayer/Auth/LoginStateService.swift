@@ -14,28 +14,18 @@ final class LoginStateService: LoginStateServiceProtocol {
     var isFirstLaunchAfterRegistration: Bool = false
     var isFirstLaunchAfterAuthorization: Bool = false
     
-    private let objectTypeProvider: ObjectTypeProviderProtocol
-    private let middlewareConfigurationProvider: MiddlewareConfigurationProviderProtocol
-    private let blockWidgetExpandedService: BlockWidgetExpandedServiceProtocol
-    private let relationDetailsStorage: RelationDetailsStorageProtocol
-    private let workspacesStorage: WorkspacesStorageProtocol
-    private let activeWorkpaceStorage: ActiveWorkpaceStorageProtocol
-
-    init(
-        objectTypeProvider: ObjectTypeProviderProtocol,
-        middlewareConfigurationProvider: MiddlewareConfigurationProviderProtocol,
-        blockWidgetExpandedService: BlockWidgetExpandedServiceProtocol,
-        relationDetailsStorage: RelationDetailsStorageProtocol,
-        workspacesStorage: WorkspacesStorageProtocol,
-        activeWorkpaceStorage: ActiveWorkpaceStorageProtocol
-    ) {
-        self.objectTypeProvider = objectTypeProvider
-        self.middlewareConfigurationProvider = middlewareConfigurationProvider
-        self.blockWidgetExpandedService = blockWidgetExpandedService
-        self.relationDetailsStorage = relationDetailsStorage
-        self.workspacesStorage = workspacesStorage
-        self.activeWorkpaceStorage = activeWorkpaceStorage
-    }
+    @Injected(\.objectTypeProvider)
+    private var objectTypeProvider: ObjectTypeProviderProtocol
+    @Injected(\.middlewareConfigurationProvider)
+    private var middlewareConfigurationProvider: MiddlewareConfigurationProviderProtocol
+    @Injected(\.blockWidgetExpandedService)
+    private var blockWidgetExpandedService: BlockWidgetExpandedServiceProtocol
+    @Injected(\.relationDetailsStorage)
+    private var relationDetailsStorage: RelationDetailsStorageProtocol
+    @Injected(\.workspaceStorage)
+    private var workspacesStorage: WorkspacesStorageProtocol
+    @Injected(\.activeWorkpaceStorage)
+    private var activeWorkpaceStorage: ActiveWorkpaceStorageProtocol
     
     // MARK: - LoginStateServiceProtocol
     

@@ -99,27 +99,44 @@ struct ObjectRelationListView: View {
     }
 }
 
+extension ObjectRelationListView {
+    init(
+        objectId: String,
+        configuration: RelationModuleConfiguration,
+        selectedOptionsIds: [String],
+        interactor: ObjectRelationListInteractorProtocol,
+        output: ObjectRelationListModuleOutput?
+    ) {
+        let relationSelectedOptionsModel = RelationSelectedOptionsModel(
+            objectId: objectId,
+            selectionMode: configuration.selectionMode,
+            selectedOptionsIds: selectedOptionsIds,
+            relationKey: configuration.relationKey,
+            analyticsType: configuration.analyticsType
+        )
+        _viewModel = StateObject(
+            wrappedValue: ObjectRelationListViewModel(
+                configuration: configuration,
+                interactor: interactor,
+                relationSelectedOptionsModel: relationSelectedOptionsModel,
+                output: output
+            )
+        )
+    }
+}
+
 #Preview("Object") {
     SelectRelationListView(
         viewModel: SelectRelationListViewModel(
             style: .status,
-            configuration: RelationModuleConfiguration(
-                title: "Object",
-                isEditable: true,
-                relationKey: "",
-                spaceId: "",
-                selectionMode: .multi,
-                analyticsType: .block
-            ),
+            configuration: RelationModuleConfiguration.default,
             relationSelectedOptionsModel: RelationSelectedOptionsModel(
                 objectId: "",
                 selectionMode: .multi,
                 selectedOptionsIds: [],
                 relationKey: "",
-                analyticsType: .block,
-                relationsService: DI.preview.serviceLocator.relationService()
+                analyticsType: .block
             ),
-            searchService: DI.preview.serviceLocator.searchService(),
             output: nil
         )
     )

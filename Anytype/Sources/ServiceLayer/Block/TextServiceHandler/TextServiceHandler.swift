@@ -3,11 +3,8 @@ import Services
 
 final class TextServiceHandler: TextServiceProtocol {
     
-    private let textService: TextServiceProtocol
-    
-    init(textService: TextServiceProtocol) {
-        self.textService = textService
-    }
+    @Injected(\.textService)
+    private var textService: TextServiceProtocol
     
     func setText(contextId: String, blockId: String, middlewareString: MiddlewareString) async throws {
         try await textService.setText(contextId: contextId, blockId: blockId, middlewareString: middlewareString)

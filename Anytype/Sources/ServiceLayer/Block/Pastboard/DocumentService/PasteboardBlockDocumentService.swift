@@ -5,29 +5,23 @@ import Combine
 
 // Convenience wrapper of PasteboardBlockService
 final class PasteboardBlockDocumentService: PasteboardBlockDocumentServiceProtocol {
-    private let document: BaseDocumentProtocol
-    private let service: PasteboardBlockServiceProtocol
-
-    init(
-        document: BaseDocumentProtocol,
-        service: PasteboardBlockServiceProtocol
-    ) {
-        self.document = document
-        self.service = service
-    }
+    
+    @Injected(\.pasteboardBlockService)
+    private var service: PasteboardBlockServiceProtocol
     
     var hasValidURL: Bool {
         service.hasValidURL
     }
     
     func pasteInsideBlock(
+        objectId: String,
         focusedBlockId: String,
         range: NSRange,
         handleLongOperation:  @escaping () -> Void,
         completion: @escaping (_ pasteResult: PasteboardPasteResult?) -> Void
     ) {
         service.pasteInsideBlock(
-            objectId: document.objectId,
+            objectId: objectId,
             focusedBlockId: focusedBlockId,
             range: range,
             handleLongOperation: handleLongOperation,
@@ -36,19 +30,20 @@ final class PasteboardBlockDocumentService: PasteboardBlockDocumentServiceProtoc
     }
     
     func pasteInSelectedBlocks(
+        objectId: String,
         selectedBlockIds: [String],
         handleLongOperation:  @escaping () -> Void,
         completion: @escaping (_ pasteResult: PasteboardPasteResult?) -> Void
     ) {
         service.pasteInSelectedBlocks(
-            objectId: document.objectId,
+            objectId: objectId,
             selectedBlockIds: selectedBlockIds,
             handleLongOperation: handleLongOperation,
             completion: completion
         )
     }
     
-    func copy(blocksIds: [String], selectedTextRange: NSRange) async throws {
+    func copy(document: BaseDocumentProtocol, blocksIds: [String], selectedTextRange: NSRange) async throws {
         let blockInformations = blocksIds.compactMap { document.infoContainer.get(id: $0) }
         try await service.copy(
             objectId: document.objectId,
@@ -58,7 +53,7 @@ final class PasteboardBlockDocumentService: PasteboardBlockDocumentServiceProtoc
         )
     }
     
-    func cut(blocksIds: [String], selectedTextRange: NSRange) async throws {
+    func cut(document: BaseDocumentProtocol, blocksIds: [String], selectedTextRange: NSRange) async throws {
         let blockInformations = blocksIds.compactMap { document.infoContainer.get(id: $0) }
         try await service.cut(
             objectId: document.objectId,

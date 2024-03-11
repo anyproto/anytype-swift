@@ -45,10 +45,10 @@ final class FileActionsService: FileActionsServiceProtocol {
     
     // Clear file cache once for app launch
     private static var cacheCleared: Bool = false
-    private let fileService: FileServiceProtocol
+    @Injected(\.fileService)
+    private var fileService: FileServiceProtocol
     
-    init(fileService: FileServiceProtocol) {
-        self.fileService = fileService
+    init() {
         if !FileActionsService.cacheCleared {
             clearFileCache()
             FileActionsService.cacheCleared = true

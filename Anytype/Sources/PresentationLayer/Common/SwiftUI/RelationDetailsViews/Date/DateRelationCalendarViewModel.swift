@@ -8,26 +8,14 @@ final class DateRelationCalendarViewModel: ObservableObject {
     @Published var date: Date
     @Published var dismiss = false
     
-    let title: String
-    private let objectId: String
-    private let relationKey: String
-    private let relationsService: RelationsServiceProtocol
-    private let analyticsType: AnalyticsEventsRelationType
+    let config: RelationModuleConfiguration
     
-    init(
-        title: String,
-        date: Date?,
-        objectId: String,
-        relationKey: String,
-        relationsService: RelationsServiceProtocol,
-        analyticsType: AnalyticsEventsRelationType
-    ) {
-        self.title = title
+    @Injected(\.relationsService)
+    private var relationsService: RelationsServiceProtocol
+    
+    init(date: Date?, configuration: RelationModuleConfiguration) {
         self.date = date ?? Date()
-        self.objectId = objectId
-        self.relationKey = relationKey
-        self.relationsService = relationsService
-        self.analyticsType = analyticsType
+        self.config = configuration
         
         if date.isNil {
             dateChanged()
@@ -52,8 +40,8 @@ final class DateRelationCalendarViewModel: ObservableObject {
     
     private func updateDateRelation(with value: Double) {
         Task {
-            try await relationsService.updateRelation(objectId: objectId, relationKey: relationKey, value: value.protobufValue)
-            AnytypeAnalytics.instance().logChangeRelationValue(isEmpty: value.isZero, type: analyticsType)
+            try await relationsService.updateRelation(objectId: config.objectId, relationKey: config.relationKey, value: value.protobufValue)
+            AnytypeAnalytics.instance().logChangeRelationValue(isEmpty: value.isZero, type: config.analyticsType)
         }
     }
 }

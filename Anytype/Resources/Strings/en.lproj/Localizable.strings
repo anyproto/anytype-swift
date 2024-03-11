@@ -635,11 +635,11 @@
 "No date" = "No date";
 "Clear" = "Clear";
 "Create option with" = "Create option ‘%@’";
-"Add URL" = "Add URL";
-"Add email" = "Add email";
-"Add phone number" = "Add phone number";
-"Add number" = "Add number";
-"Add text" = "Add text";
+"Enter URL" = "Enter URL";
+"Enter email" = "Enter email";
+"Enter phone number" = "Enter phone number";
+"Enter number" = "Enter number";
+"Enter text" = "Enter text";
 "Ok" = "Ok";
 "Error occurred. Please try again" = "Error occurred. Please try again";
 "Add" = "Add";
@@ -999,6 +999,15 @@
 "What’s included" = "What’s included";
 "Submit" = "Submit";
 "Resend" = "Resend";
+"Resend in" = "Resend in %@ sec";
+"Current" = "Current";
+"Forever free" = "Forever free";
+"Forever" = "Forever";
+"Valid until date" = "Valid until %@";
+"Your current status" = "Your current status:";
+"Valid until" = "Valid until:";
+"Paid by" = "Paid by %@";
+
 
 "Membership.Ad.Title" = "Let’s build together";
 "Membership.Ad.Subtitle" = "Joining Anytype network means contributing to its story";
@@ -1028,6 +1037,10 @@
 "Membership.EmailForm.Subtitle" = "We need your email to keep spam at bay and the fun in play!";
 "Membership.EmailForm.Newsletter" ="I'd like to get updates on products and enjoy free perks!";
 "Membership.EmailValidation" = "Enter the code sent to your email";
+
+"Membership.Success.Title" = "Welcome to the network, %@";
+"Membership.Success.Subitle" = "Big cheers for your curiosity!";
+
 
 // MARK: - Membership Tiers
 "Membership.Explorer.Title" = "Explorer";

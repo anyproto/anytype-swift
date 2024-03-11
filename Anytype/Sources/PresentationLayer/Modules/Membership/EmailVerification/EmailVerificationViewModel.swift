@@ -6,17 +6,26 @@ final class EmailVerificationViewModel: ObservableObject {
     
     @Published var text = ""
     @Published var error = ""
-    @Published var validating = false
+    @Published var loading = false
+    @Published var timeRemaining = 60
     
     var number1: String { text.letterAtIndex(0) }
     var number2: String { text.letterAtIndex(1) }
     var number3: String { text.letterAtIndex(2) }
     var number4: String { text.letterAtIndex(3) }
     
-    private let membershipService: MembershipServiceProtocol
+    @Injected(\.membershipService)
+    private var membershipService: MembershipServiceProtocol
     
-    init(membershipService: MembershipServiceProtocol) {
-        self.membershipService = membershipService
+    private let data: EmailVerificationData
+    private let onSuccessfulValidation: () -> ()
+    
+    init(
+        data: EmailVerificationData,
+        onSuccessfulValidation: @escaping () -> ()
+    ) {
+        self.data = data
+        self.onSuccessfulValidation = onSuccessfulValidation
     }
     
     func onTextChange() {
@@ -28,18 +37,34 @@ final class EmailVerificationViewModel: ObservableObject {
         }
         
         if text.count == 4 {
-            validating = true
-            error = ""
+            asyncAction {
+                try await self.membershipService.verifyEmailCode(code: self.text)
+                UINotificationFeedbackGenerator().notificationOccurred(.success)
+                self.onSuccessfulValidation()
+            }
+        }
+    }
+    
+    func resendEmail() {
+        asyncAction {
+            UISelectionFeedbackGenerator().selectionChanged()
+            try await self.membershipService.getVerificationEmail(data: self.data)
+            self.timeRemaining = 60
+        }
+    }
+    
+    private func asyncAction(action: @escaping () async throws -> ()) {
+        loading = true
+        error = ""
+        
+        Task {
+            defer { loading = false }
             
-            Task {
-                defer { validating = false }
-                
-                do {
-                    try await membershipService.verifyEmailCode(code: text)
-                    // TODO Navigation
-                } catch let error {
-                    self.error = error.localizedDescription
-                }
+            do {
+                try await action()
+            } catch let error {
+                UINotificationFeedbackGenerator().notificationOccurred(.error)
+                self.error = error.localizedDescription
             }
         }
     }

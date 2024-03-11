@@ -38,18 +38,10 @@ internal enum Loc {
   internal static let addEmail = Loc.tr("Localizable", "Add email", fallback: "Add email")
   /// Add link
   internal static let addLink = Loc.tr("Localizable", "Add link", fallback: "Add link")
-  /// Add number
-  internal static let addNumber = Loc.tr("Localizable", "Add number", fallback: "Add number")
   /// Add phone
   internal static let addPhone = Loc.tr("Localizable", "Add phone", fallback: "Add phone")
-  /// Add phone number
-  internal static let addPhoneNumber = Loc.tr("Localizable", "Add phone number", fallback: "Add phone number")
-  /// Add text
-  internal static let addText = Loc.tr("Localizable", "Add text", fallback: "Add text")
   /// Add To Favorite
   internal static let addToFavorite = Loc.tr("Localizable", "Add To Favorite", fallback: "Add To Favorite")
-  /// Add URL
-  internal static let addURL = Loc.tr("Localizable", "Add URL", fallback: "Add URL")
   /// Align center
   internal static let alignCenter = Loc.tr("Localizable", "Align center", fallback: "Align center")
   /// Align left
@@ -168,6 +160,8 @@ internal enum Loc {
   }
   /// Create type
   internal static let createType = Loc.tr("Localizable", "Create type", fallback: "Create type")
+  /// Current
+  internal static let current = Loc.tr("Localizable", "Current", fallback: "Current")
   /// Plural format key: "This account will be deleted %#@days@"
   internal static func daysToDeletionAccount(_ p1: Int) -> String {
     return Loc.tr("Localizable", "Days to deletion account", p1, fallback: "Plural format key: \"This account will be deleted %#@days@\"")
@@ -208,10 +202,16 @@ internal enum Loc {
   internal static let emojiOrImageForObject = Loc.tr("Localizable", "Emoji or image for object", fallback: "Emoji or image for object")
   /// Empty
   internal static let empty = Loc.tr("Localizable", "Empty", fallback: "Empty")
+  /// Enter email
+  internal static let enterEmail = Loc.tr("Localizable", "Enter email", fallback: "Enter email")
   /// Enter number
   internal static let enterNumber = Loc.tr("Localizable", "Enter number", fallback: "Enter number")
+  /// Enter phone number
+  internal static let enterPhoneNumber = Loc.tr("Localizable", "Enter phone number", fallback: "Enter phone number")
   /// Enter text
   internal static let enterText = Loc.tr("Localizable", "Enter text", fallback: "Enter text")
+  /// Enter URL
+  internal static let enterURL = Loc.tr("Localizable", "Enter URL", fallback: "Enter URL")
   /// Enter value
   internal static let enterValue = Loc.tr("Localizable", "Enter value", fallback: "Enter value")
   /// Error
@@ -240,6 +240,10 @@ internal enum Loc {
   internal static let fileBlockSubtitle = Loc.tr("Localizable", "File block subtitle", fallback: "Store file in original state")
   /// Filter
   internal static let filter = Loc.tr("Localizable", "Filter", fallback: "Filter")
+  /// Forever
+  internal static let forever = Loc.tr("Localizable", "Forever", fallback: "Forever")
+  /// Forever free
+  internal static let foreverFree = Loc.tr("Localizable", "Forever free", fallback: "Forever free")
   /// Gallery
   internal static let gallery = Loc.tr("Localizable", "Gallery", fallback: "Gallery")
   /// Go back
@@ -368,6 +372,10 @@ internal enum Loc {
   internal static let other = Loc.tr("Localizable", "Other", fallback: "Other")
   /// Other relations
   internal static let otherRelations = Loc.tr("Localizable", "Other relations", fallback: "Other relations")
+  /// Paid by %@
+  internal static func paidBy(_ p1: Any) -> String {
+    return Loc.tr("Localizable", "Paid by", String(describing: p1), fallback: "Paid by %@")
+  }
   /// Paste
   internal static let paste = Loc.tr("Localizable", "Paste", fallback: "Paste")
   /// Paste or type URL
@@ -430,6 +438,10 @@ internal enum Loc {
   internal static let removingCache = Loc.tr("Localizable", "Removing cache", fallback: "Removing cache")
   /// Resend
   internal static let resend = Loc.tr("Localizable", "Resend", fallback: "Resend")
+  /// Resend in %@ sec
+  internal static func resendIn(_ p1: Any) -> String {
+    return Loc.tr("Localizable", "Resend in", String(describing: p1), fallback: "Resend in %@ sec")
+  }
   /// Restore
   internal static let restore = Loc.tr("Localizable", "Restore", fallback: "Restore")
   /// Restore from keychain
@@ -557,6 +569,12 @@ internal enum Loc {
   internal static let upload = Loc.tr("Localizable", "Upload", fallback: "Upload")
   /// Upload playable audio
   internal static let uploadPlayableAudio = Loc.tr("Localizable", "Upload playable audio", fallback: "Upload playable audio")
+  /// Valid until:
+  internal static let validUntil = Loc.tr("Localizable", "Valid until", fallback: "Valid until:")
+  /// Valid until %@
+  internal static func validUntilDate(_ p1: Any) -> String {
+    return Loc.tr("Localizable", "Valid until date", String(describing: p1), fallback: "Valid until %@")
+  }
   /// Video
   internal static let video = Loc.tr("Localizable", "Video", fallback: "Video")
   /// Upload playable video
@@ -577,6 +595,8 @@ internal enum Loc {
   internal static let yellowBackground = Loc.tr("Localizable", "Yellow background", fallback: "Yellow background")
   /// Yesterday
   internal static let yesterday = Loc.tr("Localizable", "Yesterday", fallback: "Yesterday")
+  /// Your current status:
+  internal static let yourCurrentStatus = Loc.tr("Localizable", "Your current status", fallback: "Your current status:")
   internal enum About {
     /// Account ID: %@
     internal static func accountId(_ p1: Any) -> String {
@@ -1497,6 +1517,14 @@ internal enum Loc {
       internal static let terms = Loc.tr("Localizable", "Membership.Legal.Terms", fallback: "Terms and conditions")
       /// Would you like to use Anytype for business, education, etc.?
       internal static let wouldYouLike = Loc.tr("Localizable", "Membership.Legal.WouldYouLike", fallback: "Would you like to use Anytype for business, education, etc.?")
+    }
+    internal enum Success {
+      /// Big cheers for your curiosity!
+      internal static let subitle = Loc.tr("Localizable", "Membership.Success.Subitle", fallback: "Big cheers for your curiosity!")
+      /// Welcome to the network, %@
+      internal static func title(_ p1: Any) -> String {
+        return Loc.tr("Localizable", "Membership.Success.Title", String(describing: p1), fallback: "Welcome to the network, %@")
+      }
     }
   }
   internal enum Mention {

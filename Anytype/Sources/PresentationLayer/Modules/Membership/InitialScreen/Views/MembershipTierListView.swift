@@ -1,6 +1,9 @@
 import SwiftUI
+import Services
+
 
 struct MembershipTierListView: View {
+    let currentTier: MembershipTier?
     let onTierTap: (MembershipTier) -> ()
     
     var body: some View {
@@ -9,13 +12,8 @@ struct MembershipTierListView: View {
                 HStack(spacing: 20) {
                     Spacer.fixedWidth(0)
                     
-                    ForEach(MembershipTier.allCases) { tier in
-                        MembershipTeirView(
-                            title: tier.title,
-                            subtitle: tier.subtitle,
-                            image: tier.smallIcon,
-                            gradient: tier.gradient
-                        ) {
+                    ForEach(currentTier.availableTiers) { tier in
+                        MembershipTeirView(tierToDisplay: tier, currentTier: currentTier) {
                             onTierTap(tier)
                         }
                         .id(tier)
@@ -32,5 +30,12 @@ struct MembershipTierListView: View {
 }
 
 #Preview {
-    MembershipTierListView { _ in }
+    ScrollView {
+        VStack {
+            MembershipTierListView(currentTier: nil) { _ in }
+            MembershipTierListView(currentTier: .explorer) { _ in }
+            MembershipTierListView(currentTier: .builder) { _ in }
+            MembershipTierListView(currentTier: .coCreator) { _ in }
+        }
+    }
 }

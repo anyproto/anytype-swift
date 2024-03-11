@@ -3,7 +3,7 @@ import SwiftUI
 
 struct MembershipEmailSheetView: View {
     @State var email = ""
-    @State var subscribeToNewsletter = false
+    @State var subscribeToNewsletter = true
     
     let action: (String, Bool) async throws -> Void
     
@@ -42,7 +42,7 @@ struct MembershipEmailSheetView: View {
             Spacer.fixedHeight(102)
         }
         .frame(maxWidth: .infinity)
-        .padding(20)
+        .padding(.horizontal, 20)
         .background(Color.Background.primary)
         .cornerRadius(16, corners: .top)
     }

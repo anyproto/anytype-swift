@@ -3,7 +3,11 @@ import SwiftUI
 
 struct GallerySpaceSelectionView: View {
     
-    @StateObject var model: GallerySpaceSelectionViewModel
+    @StateObject private var model: GallerySpaceSelectionViewModel
+    
+    init(output: GallerySpaceSelectionModuleOutput?) {
+        _model = StateObject(wrappedValue: GallerySpaceSelectionViewModel(output: output))
+    }
     
     var body: some View {
         VStack(spacing: 0) {
@@ -29,10 +33,9 @@ struct GallerySpaceSelectionView: View {
             } label: {
                 HStack(spacing: 12) {
                     ZStack {
-                        Color.Shape.secondary
-                            .opacity(0.04)
+                        Color.Background.highlightedOfSelected
                             .cornerRadius(8)
-                            .border(1, color: Color.Shape.secondary)
+                            .border(8, color: Color.Shape.secondary)
                         IconView(icon: .asset(.X24.plus))
                             .frame(width: 24, height: 24)
                     }
@@ -41,6 +44,7 @@ struct GallerySpaceSelectionView: View {
                         .lineLimit(1)
                     Spacer()
                 }
+                .frame(height: 64)
             }
         }
     }

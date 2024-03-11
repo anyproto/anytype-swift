@@ -4,9 +4,7 @@ import SwiftProtobuf
 import ProtobufMessages
 import AnytypeCore
 
-public final class ObjectActionsService: ObjectActionsServiceProtocol {
-    
-    public init() {}
+final class ObjectActionsService: ObjectActionsServiceProtocol {
     
     // MARK: - ObjectActionsServiceProtocol
     

@@ -6,9 +6,7 @@ public enum BlockServiceError: Error {
     case lastBlockIdNotFound
 }
 
-public final class BlockService: BlockServiceProtocol {
-    
-    public init() {}
+final class BlockService: BlockServiceProtocol {
     
     public func add(contextId: String, targetId: String, info: BlockInformation, position: BlockPosition) async throws -> String {
         guard let block = BlockInformationConverter.convert(information: info) else {

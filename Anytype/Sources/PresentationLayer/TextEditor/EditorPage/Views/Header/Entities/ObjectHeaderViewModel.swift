@@ -42,6 +42,7 @@ final class ObjectHeaderViewModel: ObservableObject {
     }
     
     private let document: BaseDocumentGeneralProtocol
+    private let targetObjectId: String
     private var subscription: AnyCancellable?
     private let configuration: EditorPageViewModelConfiguration
     private let objectHeaderInteractor: ObjectHeaderInteractorProtocol
@@ -54,10 +55,12 @@ final class ObjectHeaderViewModel: ObservableObject {
     
     init(
         document: BaseDocumentGeneralProtocol,
+        targetObjectId: String,
         configuration: EditorPageViewModelConfiguration,
         interactor: ObjectHeaderInteractorProtocol
     ) {
         self.document = document
+        self.targetObjectId = targetObjectId
         self.configuration = configuration
         self.objectHeaderInteractor = interactor
         
@@ -182,7 +185,7 @@ final class ObjectHeaderViewModel: ObservableObject {
 
 extension ObjectHeaderViewModel {
     func handleCoverAction(action: ObjectCoverPickerAction) {
-        objectHeaderInteractor.handleCoverAction(spaceId: document.spaceId, action: action) { [weak self] update in
+        objectHeaderInteractor.handleCoverAction(objectId: targetObjectId, spaceId: document.spaceId, action: action) { [weak self] update in
             if let loadingHeader = self?.buildLoadingHeader(update) {
                 self?.header = loadingHeader
             }
@@ -190,6 +193,6 @@ extension ObjectHeaderViewModel {
     }
     
     func handleIconAction(action: ObjectIconPickerAction) {
-        objectHeaderInteractor.handleIconAction(spaceId: document.spaceId, action: action)
+        objectHeaderInteractor.handleIconAction(objectId: targetObjectId, spaceId: document.spaceId, action: action)
     }
 }

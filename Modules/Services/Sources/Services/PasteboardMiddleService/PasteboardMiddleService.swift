@@ -2,10 +2,8 @@ import ProtobufMessages
 import AnytypeCore
 import Foundation
 
-public final class PasteboardMiddleService: PasteboardMiddlewareServiceProtocol {
+final class PasteboardMiddleService: PasteboardMiddlewareServiceProtocol {
     
-    public init() {}
-
     public func pasteText(_ text: String, objectId: String, context: PasteboardActionContext) async throws -> PasteboardPasteResult {
         try await paste(contextId: objectId,
               focusedBlockId: context.focusedBlockId,

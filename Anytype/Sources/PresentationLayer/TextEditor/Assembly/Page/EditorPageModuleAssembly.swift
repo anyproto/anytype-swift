@@ -82,7 +82,6 @@ final class EditorPageModuleAssembly: EditorPageModuleAssemblyProtocol {
             templatesCoordinator: coordinatorsDI.templates().make(viewController: controller),
             setObjectCreationSettingsCoordinator: coordinatorsDI.setObjectCreationSettings().make(with: navigationContext),
             urlOpener: uiHelpersDI.urlOpener(),
-            relationValueCoordinator: coordinatorsDI.relationValue().make(),
             linkToObjectCoordinatorAssembly: coordinatorsDI.linkToObject(),
             objectCoverPickerModuleAssembly: modulesDI.objectCoverPicker(),
             objectIconPickerModuleAssembly: modulesDI.objectIconPicker(),
@@ -159,13 +158,12 @@ final class EditorPageModuleAssembly: EditorPageModuleAssemblyProtocol {
             editorCollectionController: .init(viewInput: viewInput)
         )
         
-        let blockTableService = BlockTableService()
         let actionHandler = BlockActionHandler(
             document: document,
             markupChanger: markupChanger,
             service: blockActionService,
             blockService: blockService,
-            blockTableService: blockTableService,
+            blockTableService: serviceLocator.blockTableService(),
             fileService: serviceLocator.fileService(),
             objectService: serviceLocator.objectActionsService(),
             pasteboardBlockService: serviceLocator.pasteboardBlockService(),
@@ -173,7 +171,7 @@ final class EditorPageModuleAssembly: EditorPageModuleAssemblyProtocol {
             objectTypeProvider: serviceLocator.objectTypeProvider()
         )
         
-        let pasteboardService = serviceLocator.pasteboardBlockDocumentService(document: document)
+        let pasteboardService = serviceLocator.pasteboardBlockDocumentService()
         let blocksStateManager = EditorPageBlocksStateManager(
             document: document,
             modelsHolder: modelsHolder,
@@ -205,8 +203,9 @@ final class EditorPageModuleAssembly: EditorPageModuleAssemblyProtocol {
         
         let headerModel = ObjectHeaderViewModel(
             document: document,
+            targetObjectId: document.objectId,
             configuration: configuration,
-            interactor: serviceLocator.objectHeaderInteractor(objectId: document.objectId)
+            interactor: serviceLocator.objectHeaderInteractor()
         )
         setupHeaderModelActions(headerModel: headerModel, using: router)
         
@@ -224,7 +223,8 @@ final class EditorPageModuleAssembly: EditorPageModuleAssemblyProtocol {
             defaultObjectService: serviceLocator.defaultObjectCreationService(),
             linkToObjectCoordinator: coordinatorsDI.linkToObject().make(output: router),
             typesService: serviceLocator.typesService(),
-            accessoryStateManager: accessoryState.0
+            accessoryStateManager: accessoryState.0,
+            tableService: serviceLocator.blockTableService()
         )
         
         let slashMenuActionHandler = SlashMenuActionHandler(
@@ -243,10 +243,10 @@ final class EditorPageModuleAssembly: EditorPageModuleAssemblyProtocol {
             markdownListener: markdownListener,
             simpleTableDependenciesBuilder: simpleTableDependenciesBuilder,
             subjectsHolder: focusSubjectHolder,
-            detailsService: serviceLocator.detailsService(objectId: document.objectId),
+            detailsService: serviceLocator.detailsService(),
             audioSessionService: serviceLocator.audioSessionService(),
             infoContainer: document.infoContainer,
-            tableService: blockTableService,
+            tableService: serviceLocator.blockTableService(),
             objectTypeProvider: serviceLocator.objectTypeProvider(),
             modelsHolder: modelsHolder,
             blockCollectionController: .init(viewInput: viewInput),

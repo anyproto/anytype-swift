@@ -6,12 +6,21 @@ struct DateRelationCalendarView: View {
     @StateObject var viewModel: DateRelationCalendarViewModel
     @Environment(\.dismiss) var dismiss
     
+    init(date: Date?, configuration: RelationModuleConfiguration) {
+        _viewModel = StateObject(wrappedValue: DateRelationCalendarViewModel(
+            date: date,
+            configuration: configuration
+        ))
+    }
+    
     var body: some View {
         VStack(spacing: 0) {
             DragIndicator()
             content
         }
         .background(Color.Background.secondary)
+        .frame(height: 525)
+        .fitPresentationDetents()
         .onChange(of: viewModel.dismiss) { _ in
             dismiss()
         }
@@ -20,7 +29,7 @@ struct DateRelationCalendarView: View {
     private var content: some View {
         NavigationView {
             list
-                .navigationTitle(viewModel.title)
+                .navigationTitle(viewModel.config.title)
                 .navigationBarTitleDisplayMode(.inline)
         }
         .navigationViewStyle(.stack)
@@ -80,17 +89,9 @@ struct DateRelationCalendarView: View {
     }
 }
 
-struct DateCalendarView_Previews: PreviewProvider {
-    static var previews: some View {
-        DateRelationCalendarView(
-            viewModel: DateRelationCalendarViewModel(
-                title: "",
-                date: Date(),
-                objectId: "",
-                relationKey: "",
-                relationsService: RelationsService(), 
-                analyticsType: .block
-            )
-        )
-    }
+#Preview {
+    DateRelationCalendarView(
+        date: nil,
+        configuration: RelationModuleConfiguration.default
+    )
 }

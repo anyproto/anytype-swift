@@ -9,9 +9,7 @@ public protocol FileServiceProtocol: AnyObject {
     func nodeUsage() async throws -> NodeUsageInfo
 }
 
-public final class FileService: FileServiceProtocol {
-    
-    public init() {}
+final class FileService: FileServiceProtocol {
     
     // MARK: - FileServiceProtocol
     

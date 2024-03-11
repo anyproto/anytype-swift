@@ -41,7 +41,6 @@ final class ObjectSettingsViewModel: ObservableObject {
     let objectActionsViewModel: ObjectActionsViewModel
 
     private let document: BaseDocumentProtocol
-    private let objectDetailsService: DetailsServiceProtocol
     private let settingsBuilder = ObjectSettingBuilder()
     private let settingsActionHandler: (ObjectSettingsAction) -> Void
     
@@ -52,7 +51,6 @@ final class ObjectSettingsViewModel: ObservableObject {
     private weak var delegate: ObjectSettingsModuleDelegate?
     init(
         document: BaseDocumentProtocol,
-        objectDetailsService: DetailsServiceProtocol,
         objectActionsService: ObjectActionsServiceProtocol,
         blockService: BlockServiceProtocol,
         templatesService: TemplatesServiceProtocol,
@@ -64,7 +62,6 @@ final class ObjectSettingsViewModel: ObservableObject {
         documentsProvider: DocumentsProviderProtocol
     ) {
         self.document = document
-        self.objectDetailsService = objectDetailsService
         self.output = output
         self.delegate = delegate
         self.settingsActionHandler = settingsActionHandler

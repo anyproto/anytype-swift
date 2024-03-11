@@ -24,7 +24,7 @@ struct SpaceJoinView: View {
     private var content: some View {
         VStack(spacing: 0) {
             // TODO: Add icon
-            ButtomAlertHeaderImageView(icon: .BottomAlert.update, style: .blue)
+            ButtomAlertHeaderImageView(icon: .BottomAlert.update, style: .color(.blue))
             Spacer.fixedHeight(15)
             AnytypeText(Loc.SpaceShare.Join.title, style: .heading, color: .Text.primary)
             Spacer.fixedHeight(16)

@@ -635,11 +635,11 @@
 "No date" = "No date";
 "Clear" = "Rensa";
 "Create option with" = "Create option ‘%@’";
-"Add URL" = "Lägg till URL";
-"Add email" = "Add email";
-"Add phone number" = "Lägg till telefonnummer";
-"Add number" = "Add number";
-"Add text" = "Add text";
+"Enter URL" = "Enter URL";
+"Enter email" = "Enter email";
+"Enter phone number" = "Enter phone number";
+"Enter number" = "Ange nummer";
+"Enter text" = "Ange text";
 "Ok" = "Ok";
 "Error occurred. Please try again" = "Ett fel uppstod. Vänligen försök igen";
 "Add" = "Lägg till";
@@ -994,6 +994,8 @@
 "per x years" = "per %@ years";
 "What’s included" = "What’s included";
 "Submit" = "Submit";
+"Resend" = "Resend";
+"Resend in" = "Resend in %@ sec";
 
 "Membership.Ad.Title" = "Let’s build together";
 "Membership.Ad.Subtitle" = "Joining Anytype network means contributing to its story";
@@ -1013,15 +1015,20 @@
 "Membership.Banner.Title1" = "Co-create with us";
 "Membership.Banner.Subtitle1" = "Stay closely connected with our team and community. Join calls with the team, influence Anytype's evolution, and have your say on features.";
 "Membership.Banner.Title2" = "Gain Benefits";
-"Membership.Banner.Subtitle2" = "Our members have unique identity on Anytype Network, more storage, shared spaces and members per space for extensive collaboration";
+"Membership.Banner.Subtitle2" = "Our members have unique identity on Anytype Network, more storage, shared spaces and members per space for extensive collaboration.";
 "Membership.Banner.Title3" = "Support the Vision";
 "Membership.Banner.Subtitle3" = "Your contribution supports our independent team and endorses our vision︎ of a user-driven, secure, and collaborative digital environment.";
 "Membership.Banner.Title4" = "Invest in Connectivity";
-"Membership.Banner.Subtitle4" = "Our software is free by design, but we thrive on the network that connects us all. Support us, and you're investing in the very infrastructure that keeps us united";
+"Membership.Banner.Subtitle4" = "Our software is free by design, but we thrive on the network that connects us all. Support us, and you're investing in the very infrastructure that keeps us united.";
 
 "Membership.EmailForm.Title" = "Get your free membership";
 "Membership.EmailForm.Subtitle" = "We need your email to keep spam at bay and the fun in play!";
 "Membership.EmailForm.Newsletter" = "I'd like to get updates on products and enjoy free perks!";
+"Membership.EmailValidation" = "Enter the code sent to your email";
+
+"Membership.Success.Title" = "Welcome to the network, %@";
+"Membership.Success.Subitle" = "Big cheers for your curiosity!";
+
 
 // MARK: - Membership Tiers
 "Membership.Explorer.Title" = "Explorer";

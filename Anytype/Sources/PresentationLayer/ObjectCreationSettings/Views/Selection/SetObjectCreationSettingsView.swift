@@ -102,7 +102,7 @@ struct SetObjectCreationSettingsView_Previews: PreviewProvider {
             model: .init(
                 interactor: MockSetObjectCreationSettingsInteractor(),
                 setDocument: MockSetDocument(),
-                templatesService: TemplatesService(),
+                templatesService: DI.preview.serviceLocator.templatesService,
                 toastPresenter: ToastPresenter(
                     viewControllerProvider: ViewControllerProvider(sceneWindow: UIWindow()),
                     keyboardHeightListener: KeyboardHeightListener(),

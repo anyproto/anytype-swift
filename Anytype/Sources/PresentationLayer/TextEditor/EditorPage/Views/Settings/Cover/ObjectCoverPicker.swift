@@ -32,8 +32,7 @@ struct ObjectCoverPicker: View {
                     onItemSelect: { item in
                         viewModel.uploadUnplashCover(unsplashItem: item)
                         dismiss()
-                    },
-                    unsplashService: UnsplashService()
+                    }
                 )
             )
         }

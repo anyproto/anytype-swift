@@ -16,5 +16,9 @@ struct EditorPageCoordinatorView: View {
             .onChange(of: model.dismiss) { _ in
                 dismiss()
             }
+            .sheet(item: $model.relationValueData) { data in
+                model.relationValueCoordinator(data: data)
+            }
+            .snackbar(toastBarData: $model.toastBarData)
     }
 }

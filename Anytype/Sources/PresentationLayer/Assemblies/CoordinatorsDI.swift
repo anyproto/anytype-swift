@@ -15,11 +15,25 @@ final class CoordinatorsDI: CoordinatorsDIProtocol {
     
     // MARK: - CoordinatorsDIProtocol
     
+    func legacyRelationValue() -> LegacyRelationValueCoordinatorAssembly {
+        return LegacyRelationValueCoordinatorAssembly(
+            modulesDI: modulesDI,
+            uiHelpersDI: uiHelpersDI
+        )
+    }
+    
     func relationValue() -> RelationValueCoordinatorAssemblyProtocol {
         return RelationValueCoordinatorAssembly(
-            coordinatorsDI: self,
+            coordinatorsID: self,
+            modulesDI: modulesDI, 
+            uiHelpersDI: uiHelpersDI
+        )
+    }
+    
+    func relationsList() -> RelationsListCoordinatorAssemblyProtocol {
+        RelationsListCoordinatorAssembly(
+            coordinatorsID: self,
             modulesDI: modulesDI,
-            uiHelpersDI: uiHelpersDI,
             serviceLocator: serviceLocator
         )
     }
@@ -132,7 +146,7 @@ final class CoordinatorsDI: CoordinatorsDIProtocol {
     }
 
     func editorPage() -> EditorPageCoordinatorAssemblyProtocol {
-        EditorPageCoordinatorAssembly(coordinatorsID: self, modulesDI: modulesDI, serviceLocator: serviceLocator, uiHelpersDI: uiHelpersDI)
+        EditorPageCoordinatorAssembly(coordinatorsID: self, modulesDI: modulesDI, serviceLocator: serviceLocator)
     }
 
     func setObjectCreationSettings() -> SetObjectCreationSettingsCoordinatorAssemblyProtocol {
@@ -175,24 +189,12 @@ final class CoordinatorsDI: CoordinatorsDIProtocol {
         )
     }
     
-    func galleryInstallation() -> GalleryInstallationCoordinatorAssemblyProtocol {
-        GalleryInstallationCoordinatorAssembly(modulesDI: modulesDI, serviceLocator: serviceLocator)
-    }
-    
     func notificationCoordinator() -> NotificationCoordinatorProtocol {
         NotificationCoordinator(
             notificationSubscriptionService: serviceLocator.notificationSubscriptionService(),
             commonNotificationAssembly: modulesDI.commonNotification(),
             galleryNotificationAssembly: modulesDI.galleryNotification()
         )
-    }
-    
-    func selectRelationList() -> SelectRelationListCoordinatorAssemblyProtocol {
-        SelectRelationListCoordinatorAssembly(modulesDI: modulesDI)
-    }
-    
-    func objectRelationList() -> ObjectRelationListCoordinatorAssemblyProtocol {
-        ObjectRelationListCoordinatorAssembly(modulesDI: modulesDI)
     }
     
     func spaceShare() -> SpaceShareCoordinatorAssemblyProtocol {
@@ -207,6 +209,6 @@ final class CoordinatorsDI: CoordinatorsDIProtocol {
     }
     
     func membership() -> MembershipCoordinatorAssemblyProtocol {
-        MembershipCoordinatorAssembly(modulesDI: modulesDI)
+        MembershipCoordinatorAssembly(modulesDI: modulesDI, serviceLocator: serviceLocator)
     }
 }

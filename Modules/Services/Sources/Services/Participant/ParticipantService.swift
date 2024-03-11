@@ -1,16 +1,14 @@
 import Foundation
+import Factory
 
 public protocol ParticipantServiceProtocol: AnyObject {
     func searchParticipant(spaceId: String, prifileObjectId: String) async throws -> Participant
 }
 
-public final class ParticipantService: ParticipantServiceProtocol {
+final class ParticipantService: ParticipantServiceProtocol {
     
-    private let searchMiddleService: SearchMiddleServiceProtocol
-    
-    public init(searchMiddleService: SearchMiddleServiceProtocol) {
-        self.searchMiddleService = searchMiddleService
-    }
+    @Injected(\.searchMiddleService)
+    private var searchMiddleService: SearchMiddleServiceProtocol
     
     // MARK: - ParticipantServiceProtocol
     
