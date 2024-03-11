@@ -997,6 +997,14 @@
 "Submit" = "Verstuur";
 "Resend" = "Resend";
 "Resend in" = "Resend in %@ sec";
+"Current" = "Current";
+"Forever free" = "Forever free";
+"Forever" = "Forever";
+"Valid until date" = "Valid until %@";
+"Your current status" = "Your current status:";
+"Valid until" = "Valid until:";
+"Paid by" = "Paid by %@";
+
 
 "Membership.Ad.Title" = "Laten we samen bouwen";
 "Membership.Ad.Subtitle" = "Deelnemen aan het Anytype netwerk betekent bijdragen aan het verhaal";

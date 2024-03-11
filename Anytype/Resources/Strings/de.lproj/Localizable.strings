@@ -635,9 +635,9 @@
 "No date" = "Kein Datum";
 "Clear" = "Leeren";
 "Create option with" = "Option ‚%@‘ erstellen";
-"Enter URL" = "Enter URL";
-"Enter email" = "Enter email";
-"Enter phone number" = "Enter phone number";
+"Enter URL" = "URL eingeben";
+"Enter email" = "E-Mail-Adresse eingeben";
+"Enter phone number" = "Telefonnummer eingeben";
 "Enter number" = "Zahl eingeben";
 "Enter text" = "Text eingeben";
 "Ok" = "OK";
@@ -997,6 +997,14 @@
 "Submit" = "Absenden";
 "Resend" = "Erneut senden";
 "Resend in" = "Erneut senden in %@ Sek.";
+"Current" = "Aktuell";
+"Forever free" = "Für immer kostenlos";
+"Forever" = "Für immer";
+"Valid until date" = "Gültig bis %@";
+"Your current status" = "Dein aktueller Status:";
+"Valid until" = "Gültig bis:";
+"Paid by" = "Bezahlt von %@";
+
 
 "Membership.Ad.Title" = "Let’s build together";
 "Membership.Ad.Subtitle" = "Dem Anytype-Netzwerk beizutreten bedeutet, einen Beitrag zu seiner Geschichte zu leisten";
@@ -1039,18 +1047,18 @@
 "Membership.Explorer.Benefit3" = "Up to 10 shared spaces in read-only mode";
 
 "Membership.Builder.Title" = "Erbauer";
-"Membership.Builder.Subtitle" = "Unlock the magic of multi-party collaboration and enjoy top-notch support";
+"Membership.Builder.Subtitle" = "Entfessle die Magie der Zusammenarbeit mit mehreren Teilnehmern und genieße erstklassige Unterstützung";
 "Membership.Builder.Benefit1" = "Eindeutiger Name (ab 7 Zeichen)";
 "Membership.Builder.Benefit2" = "128 GB Netzwerkspeicher";
 "Membership.Builder.Benefit3" = "10 Guest collaborator seats";
-"Membership.Builder.Benefit4" = "Priority support";
+"Membership.Builder.Benefit4" = "Vorrangige Unterstützung";
 
 
 "Membership.CoCreator.Title" = "Mitersteller";
 "Membership.CoCreator.Subtitle" = "Support our adventure and unlock exclusive access and perks";
 "Membership.CoCreator.Benefit1" = "Eindeutiger Name (ab 5 Zeichen)";
 "Membership.CoCreator.Benefit2" = "256 GB Netzwerkspeicher";
-"Membership.CoCreator.Benefit3" = "25 Guest collaborator seats";
+"Membership.CoCreator.Benefit3" = "25 Plätze für Gastmitarbeiter";
 "Membership.CoCreator.Benefit4" = "Mit dem Team chatten";
 "Membership.CoCreator.Benefit5" = "Einzigartiges Sammlerstück";
 

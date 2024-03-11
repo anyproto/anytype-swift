@@ -635,9 +635,9 @@
 "No date" = "Pas de date";
 "Clear" = "Effacer";
 "Create option with" = "Créer une option '%@’";
-"Enter URL" = "Enter URL";
-"Enter email" = "Enter email";
-"Enter phone number" = "Enter phone number";
+"Enter URL" = "Entrez l'URL";
+"Enter email" = "Entrez l'email";
+"Enter phone number" = "Entrez le numéro de téléphone";
 "Enter number" = "Saisir un nombre";
 "Enter text" = "Saisir le texte";
 "Ok" = "Ok";
@@ -996,6 +996,14 @@
 "Submit" = "Soumettre";
 "Resend" = "Renvoyer";
 "Resend in" = "Renvoyer dans %@ sec";
+"Current" = "Actuel";
+"Forever free" = "Gratuit pour toujours";
+"Forever" = "Toujours";
+"Valid until date" = "Valide jusqu'à %@";
+"Your current status" = "Votre statut actuel :";
+"Valid until" = "Valide jusqu'au :";
+"Paid by" = "Payé par %@";
+
 
 "Membership.Ad.Title" = "Construisons ensemble";
 "Membership.Ad.Subtitle" = "Rejoindre le réseau Anytype signifie contribuer à son histoire";

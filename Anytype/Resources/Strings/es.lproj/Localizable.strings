@@ -635,9 +635,9 @@
 "No date" = "Sin fecha";
 "Clear" = "Limpiar";
 "Create option with" = "Crear opción ‘%@’";
-"Enter URL" = "Enter URL";
-"Enter email" = "Enter email";
-"Enter phone number" = "Enter phone number";
+"Enter URL" = "Introduce la URL";
+"Enter email" = "Introduce el email";
+"Enter phone number" = "Introduce el número de teléfono";
 "Enter number" = "Introducir número";
 "Enter text" = "Introducir texto";
 "Ok" = "Aceptar";
@@ -996,6 +996,14 @@
 "Submit" = "Enviar";
 "Resend" = "Reenviar";
 "Resend in" = "Reenviar en %@ seg";
+"Current" = "Current";
+"Forever free" = "Forever free";
+"Forever" = "Por siempre";
+"Valid until date" = "Válido hasta %@";
+"Your current status" = "Tu estado actual";
+"Valid until" = "Válido hasta:";
+"Paid by" = "Pagado por %@";
+
 
 "Membership.Ad.Title" = "Construyamos juntos";
 "Membership.Ad.Subtitle" = "Unirse a la red Anytype significa contribuir a su historia";
@@ -1007,38 +1015,39 @@
 "Membership.Legal.LetUsKnow" = "Por favor, háganoslo saber aquí.";
 
 "Membership.Email.Subject" = "Solicitar negociación de precios extraordinaria.";
-"Membership.Email.Body" = "Please specify your request:
-- highlight if you represent an educational, governmental, or non-profit organization
-- tell us more about your organization: number of employees and future Anytype users, markets you're working on, etc.,
-- provide additional details about how your organization uses Anytype";
+"Membership.Email.Body" = "Por favor, especifique su negociación:
+- Marque si representas a un una organización educativa, institucional o sin ánimo de lucro.
+- Cuéntanos sobre tu organización: número de empleados y futuros usuarios de Anytype, mercados en los que trabajas y otros posibles datos.
+- Indíquenos como tu organización va a usar Anytype.";
 
 "Membership.Banner.Title1" = "Co-construye con nosotr@s.";
-"Membership.Banner.Subtitle1" = "Stay closely connected with our team and community. Join calls with the team, influence Anytype's evolution, and have your say on features.";
+"Membership.Banner.Subtitle1" = "Conéctate con nuestro equipo y nuestra comunidad,
+Únete a las llamadas de nuestro equipo y ten voz en la evolución y nuevas características de Anytype.";
 "Membership.Banner.Title2" = "Gana Beneficios";
-"Membership.Banner.Subtitle2" = "Our members have unique identity on Anytype Network, more storage, shared spaces and members per space for extensive collaboration.";
+"Membership.Banner.Subtitle2" = "Nuestros miembros tienen un identificador único en la red de Anytype con más almacenamiento, espacios compartimentos y miembros en espacios para una colaboración impecable.";
 "Membership.Banner.Title3" = "Apoya la visión";
-"Membership.Banner.Subtitle3" = "Your contribution supports our independent team and endorses our vision︎ of a user-driven, secure, and collaborative digital environment.";
+"Membership.Banner.Subtitle3" = "Tu contribución ayudará a nuestro pequeño equipo independientemente y afianzará nuestra visión de un entorno digital centrado en el antropocentrismo, la seguridad y la colaboración humana.";
 "Membership.Banner.Title4" = "Invierte en conectividad ";
-"Membership.Banner.Subtitle4" = "Our software is free by design, but we thrive on the network that connects us all. Support us, and you're investing in the very infrastructure that keeps us united.";
+"Membership.Banner.Subtitle4" = "Nuestro software es libre por diseño, pero hay que mantener la red que nos conecta entre humanos. Contribuye e invertirás en la infraestructura que nos mantiene a tod@s unid@s.";
 
 "Membership.EmailForm.Title" = "Obtén tu membresía gratis";
-"Membership.EmailForm.Subtitle" = "We need your email to keep spam at bay and the fun in play!";
-"Membership.EmailForm.Newsletter" = "I'd like to get updates on products and enjoy free perks!";
+"Membership.EmailForm.Subtitle" = "Necesitamos tu email para mantener el spam en el cajón y el email en tu buzón!";
+"Membership.EmailForm.Newsletter" = "Me gustaría recibir actualizaciones de productos y disfrutar de cosas chulas ¡gratis!";
 "Membership.EmailValidation" = "Escribe el código que se te ha enviado al email.";
 
 "Membership.Success.Title" = "Te damos la bienvenida a la red, %@";
-"Membership.Success.Subitle" = "Big cheers for your curiosity!";
+"Membership.Success.Subitle" = "¡Enhorabuena por tu curiosidad!";
 
 
 // MARK: - Membership Tiers
 "Membership.Explorer.Title" = "Explorar";
-"Membership.Explorer.Subtitle" = "Dive into the network and enjoy the thrill of one-on-one collaboration";
+"Membership.Explorer.Subtitle" = "Entra en la red y disfruta del placer de la colaboración persona a persona.";
 "Membership.Explorer.Benefit1" = "1 GB de espacio en red";
-"Membership.Explorer.Benefit2" = "10 one-to-one spaces";
-"Membership.Explorer.Benefit3" = "Up to 10 shared spaces in read-only mode";
+"Membership.Explorer.Benefit2" = "Diez espacios persona a persona.";
+"Membership.Explorer.Benefit3" = "Hasta 10 espacios compartidos en modo de solo lectura.";
 
 "Membership.Builder.Title" = "Constructor";
-"Membership.Builder.Subtitle" = "Unlock the magic of multi-party collaboration and enjoy top-notch support";
+"Membership.Builder.Subtitle" = "Desbloquea la mágica de colaboración multi-partido y obtén un soporte de primera calidad.";
 "Membership.Builder.Benefit1" = "Identificador único (mínimo siete caracteres)";
 "Membership.Builder.Benefit2" = "128 GB de espacio en red";
 "Membership.Builder.Benefit3" = "10 plazas de colaborador invitado";
@@ -1046,12 +1055,12 @@
 
 
 "Membership.CoCreator.Title" = "Co-creadores";
-"Membership.CoCreator.Subtitle" = "Support our adventure and unlock exclusive access and perks";
+"Membership.CoCreator.Subtitle" = "Apoya nuestra misión y desbloquea ofertas y características exclusivas.";
 "Membership.CoCreator.Benefit1" = "Identificador único (mínimo cinco caracteres)";
 "Membership.CoCreator.Benefit2" = "256 GB de espacio en red";
 "Membership.CoCreator.Benefit3" = "25 plazas de colaborador invitado";
-"Membership.CoCreator.Benefit4" = "Chat with the team";
-"Membership.CoCreator.Benefit5" = "Unique collectible";
+"Membership.CoCreator.Benefit4" = "Chatea con el equipo.";
+"Membership.CoCreator.Benefit5" = "Colectable único";
 
 
 // MARK: - Debug
