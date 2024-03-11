@@ -911,6 +911,10 @@
 "SpaceShare.JoinConfirmation.Title" = "Request sent";
 "SpaceShare.JoinConfirmation.Message" = "You will receive a notification when the space owner will approve your request.";
 
+// MARK: - Space manager
+"SpaceManager.CancelRequest" = "Cancel Request";
+"SpaceManager.Archive" = "Archive";
+
 // MARK: - Space Create
 "SpaceCreate.Title" = "Create a space";
 

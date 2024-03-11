@@ -12,6 +12,7 @@ public protocol WorkspaceServiceProtocol {
     func deleteSpace(spaceId: String) async throws
     func inviteView(cid: String, key: String) async throws -> SpaceInviteView
     func join(spaceId: String, cid: String, key: String) async throws
+    func joinCancel(spaceId: String) async throws
     func generateInvite(spaceId: String) async throws -> SpaceInvite
     func getCurrentInvite(spaceId: String) async throws -> SpaceInvite
     func requestApprove(spaceId: String, identity: String, permissions: ParticipantPermissions) async throws
@@ -89,6 +90,12 @@ public final class WorkspaceService: WorkspaceServiceProtocol {
             $0.spaceID = spaceId
             $0.inviteCid = cid
             $0.inviteFileKey = key
+        }).invoke()
+    }
+    
+    public func joinCancel(spaceId: String) async throws {
+        try await ClientCommands.spaceJoinCancel(.with {
+            $0.spaceID = spaceId
         }).invoke()
     }
     

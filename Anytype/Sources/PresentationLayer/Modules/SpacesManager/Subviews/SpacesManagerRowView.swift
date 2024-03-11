@@ -7,11 +7,24 @@ struct SpacesManagerRowViewModel: Identifiable {
     let participant: Participant?
     
     var id: String { spaceView.id }
+    
+    var canCancelJoinRequest: Bool {
+        participant?.canCancelJoinRequest ?? false
+    }
+    
+    var canLeave: Bool {
+        participant?.canLeave ?? false
+    }
 }
 
 struct SpacesManagerRowView: View {
     
     let model: SpacesManagerRowViewModel
+    let onDelete: () async throws -> Void
+    let onCancelRequest: () async throws -> Void
+    let onArchive: () async throws -> Void
+
+    @State private var toast = ToastBarData.empty
     
     var body: some View {
         VStack(spacing: 0) {
@@ -32,12 +45,7 @@ struct SpacesManagerRowView: View {
                 AnytypeText(model.participant?.permission.title, style: .relation2Regular, color: .Text.secondary)
             }
             Spacer()
-            Button {
-                // TODO: Add actions
-            } label: {
-                IconView(icon: .asset(.X24.more))
-                    .frame(width: 24, height: 24)
-            }
+            menu
         }
         .frame(height: 80)
         .newDivider()
@@ -64,6 +72,26 @@ struct SpacesManagerRowView: View {
             Spacer.fixedWidth(4)
             AnytypeText(name, style: .relation3Regular, color: .Text.primary)
             Spacer()
+        }
+    }
+    
+    @ViewBuilder
+    private var menu: some View {
+        if model.spaceView.canBeDelete || model.canCancelJoinRequest || model.spaceView.canBeArchive || model.canLeave {
+            Menu {
+                if model.spaceView.canBeDelete ||  model.canLeave {
+                    AsyncButton(Loc.delete, role: .destructive, action: onDelete)
+                }
+                if model.canCancelJoinRequest {
+                    AsyncButton(Loc.SpaceManager.cancelRequest, role: .destructive, action: onCancelRequest)
+                }
+                if model.spaceView.canBeArchive {
+                    AsyncButton(Loc.SpaceManager.archive, action: onArchive)
+                }
+            } label: {
+                IconView(icon: .asset(.X24.more))
+                    .frame(width: 24, height: 24)
+            }
         }
     }
 }

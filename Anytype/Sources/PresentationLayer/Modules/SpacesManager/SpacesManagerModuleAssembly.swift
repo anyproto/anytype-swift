@@ -24,6 +24,7 @@ final class SpacesManagerModuleAssembly: SpacesManagerModuleAssemblyProtocol {
                     activeWorkspaceStorage: self.serviceLocator.activeWorkspaceStorage(),
                     objectTypeProvider: self.serviceLocator.objectTypeProvider()
                 ),
+                workspaceService: self.serviceLocator.workspaceService(),
                 participantsSubscriptionByAccountService: self.serviceLocator.participantsSubscriptionByAccountService()
             )
         ).eraseToAnyView()
