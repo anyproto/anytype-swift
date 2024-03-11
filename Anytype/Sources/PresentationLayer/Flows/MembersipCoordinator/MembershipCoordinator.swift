@@ -9,9 +9,11 @@ struct MembershipCoordinator: View {
     }
     
     var body: some View {
-        MembershipModuleView(userTier: model.userTier) { tier in
+        MembershipModuleView(userTierPublisher: model.$userTier.eraseToAnyPublisher()) { tier in
             model.showTier = tier
         }
+        .animation(.default, value: model.userTier)
+        
         .sheet(item: $model.showTier) { tier in
             MembershipTierSelectionView(userTier: model.userTier, tierToDisplay: tier) { data in
                 model.onSuccessfulTierSelection(data: data)

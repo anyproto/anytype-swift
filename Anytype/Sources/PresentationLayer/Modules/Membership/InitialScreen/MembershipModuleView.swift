@@ -1,5 +1,6 @@
 import SwiftUI
 import Services
+import Combine
 
 
 struct MembershipModuleView: View {
@@ -7,11 +8,11 @@ struct MembershipModuleView: View {
     @Environment(\.openURL) private var openURL
     
     init(
-        userTier: MembershipTier?,
+        userTierPublisher: AnyPublisher<MembershipTier?, Never>,
         onTierTap: @escaping (MembershipTier) -> ()
     ) {
         _model = StateObject(wrappedValue: MembershipModuleViewModel(
-            userTier: userTier,
+            userTierPublisher: userTierPublisher,
             onTierTap: onTierTap
         ))
     }
@@ -113,7 +114,7 @@ struct MembershipModuleView: View {
 #Preview {
     NavigationView {
         MembershipModuleView(
-            userTier: .builder,
+            userTier: .empty(),
             onTierTap: { _ in }
         )
     }
