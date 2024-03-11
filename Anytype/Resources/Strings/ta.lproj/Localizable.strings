@@ -5,13 +5,13 @@
 "TextStyle.Text.Title" = "Text";
 "TextStyle.Text.Subtitle" = "Just start writing with a plain text";
 
-"TextStyle.Title.Title" = "Title";
+"TextStyle.Title.Title" = "தலைப்பு";
 "TextStyle.Title.Subtitle" = "Big section heading";
 
-"TextStyle.Heading.Title" = "Heading";
+"TextStyle.Heading.Title" = "தலைப்பு";
 "TextStyle.Heading.Subtitle" = "Medium headline";
 
-"TextStyle.Subheading.Title" = "Subheading";
+"TextStyle.Subheading.Title" = "துணை தலைப்பு";
 "TextStyle.Subheading.Subtitle" = "Small headline";
 
 "TextStyle.Highlighted.Title" = "Highlighted";
@@ -48,17 +48,17 @@
 "BlockText.ContentType.Checkbox.Placeholder" = "Checkbox";
 "BlockText.ContentType.Numbered.Placeholder" = "Numbered list item";
 "BlockText.ContentType.Quote.Placeholder" = "Highlighted text";
-"BlockText.ContentType.Header.Placeholder" = "Title";
-"BlockText.ContentType.Header2.Placeholder" = "Heading";
-"BlockText.ContentType.Header3.Placeholder" = "Subheading";
+"BlockText.ContentType.Header.Placeholder" = "தலைப்பு";
+"BlockText.ContentType.Header2.Placeholder" = "தலைப்பு";
+"BlockText.ContentType.Header3.Placeholder" = "துணை தலைப்பு";
 
 // MARK: - Block Link
 
-"BlockLink.PreviewSettings.IconSize.None" = "None";
-"BlockLink.PreviewSettings.IconSize.Small" = "Small";
-"BlockLink.PreviewSettings.IconSize.Medium" = "Medium";
+"BlockLink.PreviewSettings.IconSize.None" = "ஒன்றுமில்லை";
+"BlockLink.PreviewSettings.IconSize.Small" = "சிறிய";
+"BlockLink.PreviewSettings.IconSize.Medium" = "நடுத்தர";
 
-"BlockLink.PreviewSettings.Layout.Card.Title" = "Card";
+"BlockLink.PreviewSettings.Layout.Card.Title" = "அட்டை";
 "BlockLink.PreviewSettings.Layout.Text.Title" = "Text";
 
 // MARK: - Settings
@@ -97,15 +97,15 @@
 
 "Relation.Format.Object.Title" = "Object";
 "Relation.Format.Text.Title" = "Text";
-"Relation.Format.Number.Title" = "Number";
-"Relation.Format.Status.Title" = "Select";
+"Relation.Format.Number.Title" = "எண்";
+"Relation.Format.Status.Title" = "தேர்ந்தெடு";
 "Relation.Format.Tag.Title" = "Multi-select";
-"Relation.Format.Date.Title" = "Date";
+"Relation.Format.Date.Title" = "தேதி";
 "Relation.Format.FileMedia.Title" = "File & Media";
 "Relation.Format.Checkbox.Title" = "Checkbox";
 "Relation.Format.Url.Title" = "URL";
-"Relation.Format.Email.Title" = "Email";
-"Relation.Format.Phone.Title" = "Phone number";
+"Relation.Format.Email.Title" = "மின்னஞ்சல்";
+"Relation.Format.Phone.Title" = "கைபேசி எண்";
 
 // Origin Relation
 
@@ -121,18 +121,18 @@
 // MARK: - Mention
 "Mention.Subtitle.Placeholder" = "Object";
 
-"None" = "None";
+"None" = "ஒன்றுமில்லை";
 "Callout" = "Callout";
 "Toggle empty. Tap to create block." = "Toggle empty. Tap to create block.";
 "Loading, please wait" = "Loading, please wait";
-"Done" = "Done";
+"Done" = "முடிந்தது";
 "Style" = "Style";
-"Color" = "Color";
+"Color" = "நிறம்";
 "Background" = "Background";
 "Other" = "Other";
 "Media" = "Media";
 "Alignment" = "Alignment";
-"Actions" = "Actions";
+"Actions" = "செயல்கள்";
 "Relations" = "Relations";
 "Objects" = "Objects";
 "Lists" = "Lists";
@@ -141,11 +141,11 @@
 "Duplicate" = "Duplicate";
 "Copy" = "Copy";
 "Preview" = "Preview";
-"View" = "View";
+"View" = "பார்வை";
 "Paste" = "Paste";
-"Move" = "Move";
-"Move to" = "Move to";
-"Back" = "Back";
+"Move" = "நகர்த்து";
+"Move to" = "இதற்கு நகர்த்து";
+"Back" = "பின்";
 "Unpin" = "Unpin";
 "Pin on top" = "Pin on top";
 "File block subtitle" = "Store file in original state";
@@ -370,7 +370,7 @@
 "Move To Bin" = "Move To Bin";
 
 
-"LinkAppearance.Description.None.Title" = "None";
+"LinkAppearance.Description.None.Title" = "ஒன்றுமில்லை";
 "LinkAppearance.Description.Object.Title" = "Object description";
 "LinkAppearance.Description.Content.Title" = "Content preview";
 "LinkAppearance.ObjectType.Title" = "Object type";
@@ -457,7 +457,7 @@
 // MARK: - Sets: View Settings
 "Set.View.Settings.ImageFit.Title" = "Fit image";
 "Set.View.Settings.CardSize.Title" = "Card size";
-"Set.View.Settings.CardSize.Small.Title" = "Small";
+"Set.View.Settings.CardSize.Small.Title" = "சிறிய";
 "Set.View.Settings.CardSize.Large.Title" = "Large";
 "Set.View.Settings.ImagePreview.Title" = "Image preview";
 "Set.View.Settings.GroupBy.Title" = "Group by";
@@ -621,7 +621,7 @@
 "Views" = "Views";
 "Filter" = "Filter";
 "Sort" = "Sort";
-"View" = "View";
+"View" = "பார்வை";
 "Home" = "Home";
 "Highlight" = "Highlight";
 "Create object" = "Create object";
@@ -691,7 +691,7 @@
 
 // MARK: - Simple tables
 "SimpleTableMenu.Item.clearContents" = "Clear";
-"SimpleTableMenu.Item.color" = "Color";
+"SimpleTableMenu.Item.color" = "நிறம்";
 "SimpleTableMenu.Item.style" = "Style";
 "SimpleTableMenu.Item.clearStyle" = "Reset style";
 
@@ -911,13 +911,17 @@
 "SpaceShare.JoinConfirmation.Title" = "Request sent";
 "SpaceShare.JoinConfirmation.Message" = "You will receive a notification when the space owner will approve your request.";
 
+// MARK: - Space manager
+"SpaceManager.CancelRequest" = "Cancel Request";
+"SpaceManager.Archive" = "Archive";
+
 // MARK: - Space Create
 "SpaceCreate.Title" = "Create a space";
 
 // MARK: - Sharing
 "Sharing.Navigation.title" = "Add to Anytype";
 "Sharing.Navigation.LeftButton.Title" = "Cancel";
-"Sharing.Navigation.RightButton.Title" = "Done";
+"Sharing.Navigation.RightButton.Title" = "முடிந்தது";
 
 "Sharing.SaveAs" = "SAVE AS";
 "Sharing.SelectSpace" = "Space";
@@ -1003,6 +1007,8 @@
 "Your current status" = "Your current status:";
 "Valid until" = "Valid until:";
 "Paid by" = "Paid by %@";
+"Myself" = "Myself";
+"Pay by Card" = "Pay by Card";
 
 
 "Membership.Ad.Title" = "Let’s build together";
@@ -1033,6 +1039,11 @@
 "Membership.EmailForm.Subtitle" = "We need your email to keep spam at bay and the fun in play!";
 "Membership.EmailForm.Newsletter" = "I'd like to get updates on products and enjoy free perks!";
 "Membership.EmailValidation" = "Enter the code sent to your email";
+
+"Membership.NameForm.Title" = "Pick your unique name";
+"Membership.NameForm.Subtitle" = "This name acts like a personal domain, making it easier for others to find you";
+"Membership.NameForm.Validating" = "Wait a second...";
+"Membership.NameForm.Validated" = "This name is up for grabs";
 
 "Membership.Success.Title" = "Welcome to the network, %@";
 "Membership.Success.Subitle" = "Big cheers for your curiosity!";

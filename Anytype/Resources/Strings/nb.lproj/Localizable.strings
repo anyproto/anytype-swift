@@ -911,6 +911,10 @@
 "SpaceShare.JoinConfirmation.Title" = "Forespørsel sendt";
 "SpaceShare.JoinConfirmation.Message" = "Du vil motta et varsel når eieren av rommet godkjenner forespørselen din.";
 
+// MARK: - Space manager
+"SpaceManager.CancelRequest" = "Cancel Request";
+"SpaceManager.Archive" = "Archive";
+
 // MARK: - Space Create
 "SpaceCreate.Title" = "Opprett et rom";
 
@@ -1003,6 +1007,8 @@
 "Your current status" = "Your current status:";
 "Valid until" = "Valid until:";
 "Paid by" = "Paid by %@";
+"Myself" = "Myself";
+"Pay by Card" = "Pay by Card";
 
 
 "Membership.Ad.Title" = "La oss bygge sammen";
@@ -1033,6 +1039,11 @@
 "Membership.EmailForm.Subtitle" = "We need your email to keep spam at bay and the fun in play!";
 "Membership.EmailForm.Newsletter" = "I'd like to get updates on products and enjoy free perks!";
 "Membership.EmailValidation" = "Enter the code sent to your email";
+
+"Membership.NameForm.Title" = "Pick your unique name";
+"Membership.NameForm.Subtitle" = "This name acts like a personal domain, making it easier for others to find you";
+"Membership.NameForm.Validating" = "Wait a second...";
+"Membership.NameForm.Validated" = "This name is up for grabs";
 
 "Membership.Success.Title" = "Welcome to the network, %@";
 "Membership.Success.Subitle" = "Big cheers for your curiosity!";
