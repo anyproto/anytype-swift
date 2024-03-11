@@ -1245,7 +1245,6 @@
 		3D5D0C5C2B8CAEA2005DB879 /* TypeSearchForNewObjectCoordinatorAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D5D0C5B2B8CAEA2005DB879 /* TypeSearchForNewObjectCoordinatorAssembly.swift */; };
 		3D5D0C5E2B8CBC28005DB879 /* TypeSearchForNewObjectCoordinatorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D5D0C5D2B8CBC28005DB879 /* TypeSearchForNewObjectCoordinatorView.swift */; };
 		3D5D0C602B8CBC37005DB879 /* TypeSearchForNewObjectCoordinatorViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D5D0C5F2B8CBC37005DB879 /* TypeSearchForNewObjectCoordinatorViewModel.swift */; };
-		3D5D57792B8FDB8900EAE9A5 /* MembershipModuleAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D5D57782B8FDB8900EAE9A5 /* MembershipModuleAssembly.swift */; };
 		3D611E8E2B936B8300B33305 /* MembershipTeirView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D611E8D2B936B8300B33305 /* MembershipTeirView.swift */; };
 		3D611E902B93727700B33305 /* MembershipTeirGradient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D611E8F2B93727700B33305 /* MembershipTeirGradient.swift */; };
 		3D611E932B93775B00B33305 /* MembershipTierListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D611E922B93775B00B33305 /* MembershipTierListView.swift */; };
@@ -1345,7 +1344,6 @@
 		3DD0CEBB2B90E6BB00657402 /* MembershipBannerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DD0CEBA2B90E6BB00657402 /* MembershipBannerView.swift */; };
 		3DD112962B95EA24007682F4 /* MembershipCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DD112952B95EA24007682F4 /* MembershipCoordinator.swift */; };
 		3DD112982B95EA35007682F4 /* MembershipCoordinatorModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DD112972B95EA35007682F4 /* MembershipCoordinatorModel.swift */; };
-		3DD1129A2B95EA3F007682F4 /* MembershipCoordinatorAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DD112992B95EA3F007682F4 /* MembershipCoordinatorAssembly.swift */; };
 		3DD1129E2B95FE62007682F4 /* MembershipTierSelectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DD1129D2B95FE62007682F4 /* MembershipTierSelectionView.swift */; };
 		3DDC6A602627071E004F5EA4 /* BlockLinkState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DDC6A5F2627071E004F5EA4 /* BlockLinkState.swift */; };
 		3DDC6A64262707CB004F5EA4 /* BlockLinkCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DDC6A63262707CB004F5EA4 /* BlockLinkCardView.swift */; };
@@ -3022,7 +3020,6 @@
 		3D5D0C5B2B8CAEA2005DB879 /* TypeSearchForNewObjectCoordinatorAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TypeSearchForNewObjectCoordinatorAssembly.swift; sourceTree = "<group>"; };
 		3D5D0C5D2B8CBC28005DB879 /* TypeSearchForNewObjectCoordinatorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TypeSearchForNewObjectCoordinatorView.swift; sourceTree = "<group>"; };
 		3D5D0C5F2B8CBC37005DB879 /* TypeSearchForNewObjectCoordinatorViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TypeSearchForNewObjectCoordinatorViewModel.swift; sourceTree = "<group>"; };
-		3D5D57782B8FDB8900EAE9A5 /* MembershipModuleAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MembershipModuleAssembly.swift; sourceTree = "<group>"; };
 		3D611E8D2B936B8300B33305 /* MembershipTeirView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MembershipTeirView.swift; sourceTree = "<group>"; };
 		3D611E8F2B93727700B33305 /* MembershipTeirGradient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MembershipTeirGradient.swift; sourceTree = "<group>"; };
 		3D611E922B93775B00B33305 /* MembershipTierListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MembershipTierListView.swift; sourceTree = "<group>"; };
@@ -3121,7 +3118,6 @@
 		3DD0CEBA2B90E6BB00657402 /* MembershipBannerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MembershipBannerView.swift; sourceTree = "<group>"; };
 		3DD112952B95EA24007682F4 /* MembershipCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MembershipCoordinator.swift; sourceTree = "<group>"; };
 		3DD112972B95EA35007682F4 /* MembershipCoordinatorModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MembershipCoordinatorModel.swift; sourceTree = "<group>"; };
-		3DD112992B95EA3F007682F4 /* MembershipCoordinatorAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MembershipCoordinatorAssembly.swift; sourceTree = "<group>"; };
 		3DD1129D2B95FE62007682F4 /* MembershipTierSelectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MembershipTierSelectionView.swift; sourceTree = "<group>"; };
 		3DDC6A5F2627071E004F5EA4 /* BlockLinkState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlockLinkState.swift; sourceTree = "<group>"; };
 		3DDC6A63262707CB004F5EA4 /* BlockLinkCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlockLinkCardView.swift; sourceTree = "<group>"; };
@@ -8992,7 +8988,6 @@
 			children = (
 				3DD112952B95EA24007682F4 /* MembershipCoordinator.swift */,
 				3DD112972B95EA35007682F4 /* MembershipCoordinatorModel.swift */,
-				3DD112992B95EA3F007682F4 /* MembershipCoordinatorAssembly.swift */,
 			);
 			path = MembersipCoordinator;
 			sourceTree = "<group>";
@@ -9001,7 +8996,6 @@
 			isa = PBXGroup;
 			children = (
 				3DD0CEB72B90ACBE00657402 /* Views */,
-				3D5D57782B8FDB8900EAE9A5 /* MembershipModuleAssembly.swift */,
 				3DD0CEB32B90A9C300657402 /* MembershipModuleView.swift */,
 				3DD0CEB52B90AA0500657402 /* MembershipModuleViewModel.swift */,
 			);
@@ -10843,7 +10837,6 @@
 				2E4D78B22A82907E00813A4F /* KeyPhraseMoreInfoView.swift in Sources */,
 				3D1CEC2B27F38CE3000D36BA /* DeletedAccountView.swift in Sources */,
 				3D8624482B738D6400A5FCF4 /* ObjectTypeProvider.swift in Sources */,
-				3DD1129A2B95EA3F007682F4 /* MembershipCoordinatorAssembly.swift in Sources */,
 				2AFFFB8A2926670E00A487E1 /* ObjectLayoutPickerModuleAssembly.swift in Sources */,
 				531629372632BD0B000D6780 /* StylePanelLayout.swift in Sources */,
 				2EAA14042AA63918000A712A /* SetViewSettingsRelation.swift in Sources */,
@@ -11394,7 +11387,6 @@
 				1215E8B426A860ED0089AF7E /* AppConfiguratorProtocol.swift in Sources */,
 				861E75F62A5C03E400F18552 /* EditableView.swift in Sources */,
 				2EAA140E2AA63C18000A712A /* SetRelationsCoordinatorAssembly.swift in Sources */,
-				3D5D57792B8FDB8900EAE9A5 /* MembershipModuleAssembly.swift in Sources */,
 				2A945D3E299E3E9D00C34C86 /* PlainList.swift in Sources */,
 				3DDC6A602627071E004F5EA4 /* BlockLinkState.swift in Sources */,
 				2E74AF0829CB4A5100AC3B91 /* SetContentViewItem.swift in Sources */,

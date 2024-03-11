@@ -4,7 +4,7 @@ import SwiftUI
 struct DocumentUpdateAlertView: View {
     
     @Environment(\.dismiss) private var dismiss
-    @Environment(\.openURL) var openURL
+    @Environment(\.openURL) private var openURL
     
     let cancel: () -> Void
     
