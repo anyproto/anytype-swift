@@ -19,7 +19,12 @@ final class SpacesManagerModuleAssembly: SpacesManagerModuleAssemblyProtocol {
     func make() -> AnyView {
         SpacesManagerView(
             model: SpacesManagerViewModel(
-                workspacesStorage: self.serviceLocator.workspaceStorage(),
+                spacesSubscriptionService: SpaceManagerSpacesSubscriptionService(
+                    subscriptionStorageProvider: self.serviceLocator.subscriptionStorageProvider(),
+                    activeWorkspaceStorage: self.serviceLocator.activeWorkspaceStorage(),
+                    objectTypeProvider: self.serviceLocator.objectTypeProvider()
+                ),
+                workspaceService: self.serviceLocator.workspaceService(),
                 participantsSubscriptionByAccountService: self.serviceLocator.participantsSubscriptionByAccountService()
             )
         ).eraseToAnyView()

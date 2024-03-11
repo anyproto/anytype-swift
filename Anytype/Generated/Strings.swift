@@ -2133,6 +2133,12 @@ internal enum Loc {
     /// Create a space
     internal static let title = Loc.tr("Localizable", "SpaceCreate.Title", fallback: "Create a space")
   }
+  internal enum SpaceManager {
+    /// Archive
+    internal static let archive = Loc.tr("Localizable", "SpaceManager.Archive", fallback: "Archive")
+    /// Cancel Request
+    internal static let cancelRequest = Loc.tr("Localizable", "SpaceManager.CancelRequest", fallback: "Cancel Request")
+  }
   internal enum SpaceSettings {
     /// Delete space
     internal static let deleteButton = Loc.tr("Localizable", "SpaceSettings.DeleteButton", fallback: "Delete space")

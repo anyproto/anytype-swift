@@ -41,14 +41,22 @@ extension SpaceView: DetailsModel {
 
 extension SpaceView {
     func canBeShared(isOwner: Bool) -> Bool {
-        return isOwner && (spaceAccessType == .shared || spaceAccessType == .private)
+        isOwner && (spaceAccessType == .shared || spaceAccessType == .private)
     }
     
     var isShared: Bool {
-        return spaceAccessType == .shared
+        spaceAccessType == .shared
     }
     
     var canBeDelete: Bool {
-        return spaceAccessType == .private
+        spaceAccessType == .private && accountStatus != .spaceRemoving
+    }
+    
+    var canBeArchive: Bool {
+        accountStatus == .spaceRemoving
+    }
+    
+    var canCancelJoinRequest: Bool {
+        accountStatus == .spaceJoining
     }
 }
