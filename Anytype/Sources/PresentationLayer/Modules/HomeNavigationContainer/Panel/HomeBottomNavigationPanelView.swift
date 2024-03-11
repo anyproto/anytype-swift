@@ -28,9 +28,6 @@ struct HomeBottomNavigationPanelView: View {
                             model.onTapCreateObjectWithType()
                         }
                 )
-                .if(homeMode) {
-                    $0.popoverHomeCreateObjectTip()
-                }
             
             if homeMode {
                 Button {
@@ -62,10 +59,28 @@ struct HomeBottomNavigationPanelView: View {
         }
         .padding(.horizontal, 20)
         .padding(.vertical, 10)
+        .background(progressView)
         .background(Color.Navigation.background)
         .background(.ultraThinMaterial)
         .cornerRadius(16, style: .continuous)
+        .overlay {
+            if #available(iOS 17.0, *) {
+                HomeTipView()
+            }
+        }
         .padding(.vertical, 10)
+        .if(FeatureFlags.homeTestSwipeGeature) { view in
+            view.gesture(
+                DragGesture(minimumDistance: 100)
+                    .onEnded { value in
+                        if value.translation.width > 150 {
+                            model.onTapBackward()
+                        } else if value.translation.width < -150 {
+                            model.onTapForward()
+                        }
+                    }
+            )
+        }
         .animation(.default, value: homeMode)
     }
     
@@ -112,5 +127,18 @@ struct HomeBottomNavigationPanelView: View {
     
     private var homeMode: Bool {
         return homePath.count <= 1
+    }
+    
+    @ViewBuilder
+    private var progressView: some View {
+        if let progress = model.progress {
+            GeometryReader { reader in
+                Color.VeryLight.amber
+                    .cornerRadius(2)
+                    .frame(width: max(reader.size.width * progress, 30), alignment: .leading)
+                    .animation(.linear, value: progress)
+            }
+            .transition(.opacity)
+        }
     }
 }

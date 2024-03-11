@@ -7,7 +7,7 @@ struct ProgressBarWithAnimation: View {
         ZStack(alignment: .center) {
             GeometryReader { geo in
                 Capsule()
-                    .foregroundColor(.Stroke.primary)
+                    .foregroundColor(.Shape.primary)
                 Capsule()
                     .foregroundColor(.Text.primary)
                     .offset(x: isAnimating ? geo.size.width : -geo.size.width)

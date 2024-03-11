@@ -6,6 +6,8 @@ protocol LocalRepoServiceProtocol {
     /// Returns local path to middleware files
     var middlewareRepoPath: String { get }
     
+    var middlewareRepoURL: URL { get }
+    
     /// Check if file exists on path
     /// - Parameter path: path where file should be
     func fileExists(on path: String) -> Bool
@@ -15,7 +17,11 @@ protocol LocalRepoServiceProtocol {
 class LocalRepoService: LocalRepoServiceProtocol {
     
     var middlewareRepoPath: String {
-        return applicationDirectory.appendingPathComponent(LocalRepoService.middlewareRepoName).path
+        return middlewareRepoURL.path
+    }
+    
+    var middlewareRepoURL: URL {
+        return applicationDirectory.appendingPathComponent(LocalRepoService.middlewareRepoName)
     }
     
     func fileExists(on path: String) -> Bool {

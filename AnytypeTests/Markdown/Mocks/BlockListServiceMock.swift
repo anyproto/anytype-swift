@@ -2,7 +2,7 @@
 import Services
 import ProtobufMessages
 
-final class BlockListServiceMock: BlockListServiceProtocol {
+final class BlockServiceMock: BlockServiceProtocol {
     var replaceStub = false
     var replaceNumberOfCalls = 0
     var replaceBlockIds: [BlockId]?
@@ -67,5 +67,32 @@ final class BlockListServiceMock: BlockListServiceProtocol {
     
     func lastBlockId(from objectId: Services.BlockId) async throws -> Services.BlockId {
         ""
+    }
+    
+    func add(contextId: String, targetId: Services.BlockId, info: Services.BlockInformation, position: Services.BlockPosition) async throws -> Services.BlockId {
+        assertionFailure()
+        return ""
+    }
+    
+    func delete(contextId: String, blockIds: [Services.BlockId]) async throws {
+        assertionFailure()
+    }
+    
+    func duplicate(contextId: String, targetId: Services.BlockId, blockIds: [Services.BlockId], position: Services.BlockPosition) async throws {
+        assertionFailure()
+    }
+    
+    func move(contextId: String, blockIds: [String], targetContextID: Services.BlockId, dropTargetID: String, position: Services.BlockPosition) async throws {
+        assertionFailure()
+    }
+    
+    func convertChildrenToPages(contextId: Services.BlockId, blocksIds: [Services.BlockId], typeUniqueKey: Services.ObjectTypeUniqueKey) async throws -> [Services.BlockId] {
+        assertionFailure()
+        return []
+    }
+    
+    func createBlockLink(contextId: Services.BlockId, targetId: Services.BlockId, spaceId: String, details: [Services.BundledDetails], typeUniqueKey: Services.ObjectTypeUniqueKey, position: Services.BlockPosition, templateId: String) async throws -> Services.BlockId {
+        assertionFailure()
+        return ""
     }
 }

@@ -131,7 +131,7 @@ enum BlockBackgroundColor: String, CaseIterable {
         UIImage.circleImage(
             size: .init(width: 22, height: 22),
             fillColor: color,
-            borderColor: .Stroke.primary,
+            borderColor: .Shape.primary,
             borderWidth: 1
         )
     }

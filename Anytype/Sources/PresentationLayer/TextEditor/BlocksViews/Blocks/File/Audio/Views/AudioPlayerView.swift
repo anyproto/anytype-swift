@@ -82,7 +82,7 @@ final class AudioPlayerView: UIView {
         layer.cornerRadius = 16
         layer.cornerCurve = .continuous
         layer.borderWidth = 0.5
-        dynamicBorderColor = UIColor.Stroke.primary
+        dynamicBorderColor = UIColor.Shape.primary
     }
     
     private func configurePlayButtonActivity(_ isActive: Bool = true) {

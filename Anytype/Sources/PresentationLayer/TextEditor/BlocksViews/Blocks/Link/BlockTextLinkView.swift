@@ -1,11 +1,13 @@
 import UIKit
 
 final class BlockTextLinkView: UIView, BlockContentView {
+    private let objectIcon = IconViewUIKit()
     private let titleLabel = AnytypeLabel(style: .previewTitle1Medium)
+    private let titleContaner = UIStackView()
     private let descriptionLabel = AnytypeLabel(style: .relation3Regular)
     private let objectTypeLabel = AnytypeLabel(style: .relation3Regular)
     private let taskButton = UIButton()
-
+    
     private let stackView = UIStackView()
 
     private var onTaskActionTap: (() -> Void)?
@@ -23,11 +25,12 @@ final class BlockTextLinkView: UIView, BlockContentView {
     }
 
     func update(with configuration: BlockLinkTextConfiguration) {
-        configuration.state.applyTitleState(
-            on: titleLabel,
-            font: .previewTitle1Medium
-        )
-
+        titleLabel.textColor = configuration.state.titleColor
+        titleLabel.setText(configuration.state.title)
+        
+        objectIcon.icon = configuration.state.archived ? .asset(.ghost) : configuration.state.icon
+        objectIcon.isHidden = objectIcon.icon.isNil
+        
         descriptionLabel.isHidden = configuration.state.description.isEmpty
         descriptionLabel.setText(configuration.state.attributedDescription)
 
@@ -65,16 +68,21 @@ final class BlockTextLinkView: UIView, BlockContentView {
         addSubview(stackView) {
             $0.pinToSuperview(insets: .init(top: 1, left: 4, bottom: 1, right: 4))
         }
-
-        stackView.addArrangedSubview(titleLabel)
+        
+        titleContaner.spacing = 4
+        titleContaner.addArrangedSubview(objectIcon)
+        titleContaner.addArrangedSubview(titleLabel)
+        
+        stackView.addArrangedSubview(titleContaner)
         stackView.addArrangedSubview(descriptionLabel)
         stackView.addArrangedSubview(objectTypeLabel)
 
-        addSubview(taskButton) {
-            $0.top.equal(to: titleLabel.topAnchor)
-            $0.leading.equal(to: titleLabel.leadingAnchor)
-            $0.width.equal(to: 24)
-            $0.height.equal(to: 24)
+        objectIcon.addSubview(taskButton) {
+            $0.pinToSuperview()
+        }
+        
+        objectIcon.layoutUsing.anchors {
+            $0.size(CGSize(width: 20, height: 20))
         }
     }
 }

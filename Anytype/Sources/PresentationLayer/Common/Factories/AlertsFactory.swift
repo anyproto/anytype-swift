@@ -12,8 +12,8 @@ final class AlertsFactory {
     // TODO: Remove with LegacyLoginView
     static func goToSettingsAlert(title: String) -> Alert {
         Alert(
-            title: Text(title),
-            message: Text(Loc.Alert.CameraPermissions.goToSettings),
+            title: Text(verbatim: title),
+            message: Text(verbatim: Loc.Alert.CameraPermissions.goToSettings),
             primaryButton:
                     .default(Text(Loc.Alert.CameraPermissions.settings)) {
                         UIApplication.shared.open(URL(string: UIApplication.openSettingsURLString)!)

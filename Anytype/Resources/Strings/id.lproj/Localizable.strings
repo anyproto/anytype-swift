@@ -79,18 +79,44 @@
 "Relation.From.Type" = "Dari tipe %@";
 "Relation.LinksFrom.Title" = "dari";
 "Relation.LinksTo.Title" = "ke";
+"Relation.EmptyState.title" = "No options";
+"Relation.EmptyState.description" = "Nothing found. Create first option to start.";
+"Relation.EmptyState.Blocked.title" = "The relation is empty";
+"Relation.Create.Row.title" = "Create “%@”";
+"Relation.View.Create.title" = "Create option";
+"Relation.View.Edit.title" = "Edit option";
+"Relation.Create.Textfield.placeholder" = "Enter name...";
+"Relation.Edit.Button.title" = "Terapkan";
+"Relation.Date.Locked.Alert.title" = "Relation “%@” is locked";
+"Relation.ObjectTypes.Header.title" = "Tipe objek:";
+"Relation.ObjectType.Header.title" = "Tipe objek:";
+
+"Relation.Delete.Alert.Title" = "Apakah kamu yakin?";
+"Relation.Delete.Alert.Description" = "The option will be permanently removed from your space.";
+"Relation.Object.Delete.Alert.Description" = "Objek ini akan dipindah ke Bak Sampah.";
 
 "Relation.Format.Object.Title" = "Objek";
 "Relation.Format.Text.Title" = "Teks";
 "Relation.Format.Number.Title" = "Angka";
-"Relation.Format.Status.Title" = "Status";
-"Relation.Format.Tag.Title" = "Label";
+"Relation.Format.Status.Title" = "Pilih";
+"Relation.Format.Tag.Title" = "Pilih jamak";
 "Relation.Format.Date.Title" = "Tanggal";
 "Relation.Format.FileMedia.Title" = "Berkas & Media";
 "Relation.Format.Checkbox.Title" = "Kotak centang";
 "Relation.Format.Url.Title" = "URL";
 "Relation.Format.Email.Title" = "Surel";
 "Relation.Format.Phone.Title" = "Nomor telepon";
+
+// Origin Relation
+
+"Relation.Origin.Clipboard" = "Papan kerani";
+"Relation.Origin.DragAndDrop" = "Drag'n'Drop";
+"Relation.Origin.Import" = "Objek diimpor";
+"Relation.Origin.WebClipper" = "Web clipper";
+"Relation.Origin.SharingExtension" = "Mobile sharing extension";
+"Relation.Origin.UseCase" = "Use case";
+"Relation.Origin.Builtin" = "Pustaka terpasang";
+"Relation.Origin.Bookmark" = "Markah";
 
 // MARK: - Mention
 "Mention.Subtitle.Placeholder" = "Objek";
@@ -109,6 +135,8 @@
 "Actions" = "Tindakan";
 "Relations" = "Relasi";
 "Objects" = "Objek";
+"Lists" = "Grup";
+"Pinned" = "Tersemat";
 "Delete" = "Hapus";
 "Duplicate" = "Gandakan";
 "Copy" = "Salin";
@@ -118,6 +146,8 @@
 "Move" = "Pindahkan";
 "Move to" = "Pindahkan ke";
 "Back" = "Kembali";
+"Unpin" = "Lepas sematan";
+"Pin on top" = "Sematkan di atas";
 "File block subtitle" = "Simpan berkas sebagaimana aslinya";
 "Picture block subtitle" = "Unggah dan perkaya halaman dengan gambar";
 "Video block subtitle" = "Unggah video yang dapat diputar";
@@ -187,7 +217,7 @@
 "Auth.CameraPermissionTitle" = "Tolong izinkan akses";
 "Restore secret phrase from keychain" = "Mengembalikan Tahap Pemulihan dari rantai kunci";
 "Auth.LogIn" = "Masuk";
-"Auth.Join" = "Buat Akun Baru";
+"Auth.Join" = "Gabung";
 "Auth.Welcome.Subtitle" = "Anytype adalah tempat aman bagimu untuk menulis, berpikir, merencanakan, dan mengorganisasikan apa pun yang penting bagimu.";
 "Auth.Caption.Privacy.Text" = "Dengan melanjutkan, kamu menyetujui [Syarat Penggunaan](%@) dan [Kebijakan Privasi](%@)";
 "Auth.Next" = "Lanjut";
@@ -199,6 +229,7 @@
 "Error creating wallet" = "Galat membuat wallet";
 "Error select account" = "Galat memilih akun";
 "Error wallet recover account" = "Galat wallet memulihkan akun";
+"Wallet.Recovery.Error.description" = "Frasa pemulihan tidak valid";
 
 "Search for language" = "Cari bahasa";
 
@@ -273,7 +304,7 @@
 "Actions.LinkItself" = "Tautkan ke";
 "Actions.MakeAsTemplate" = "Buat templat";
 "Actions.TemplateMakeDefault" = "Make default";
-"Actions.CreateWidget.Title" = "To widgets";
+"Actions.CreateWidget.Title" = "Ke widget";
 "Actions.CreateWidget.Success" = "Gawai baru telah dibuat";
 
 // Object Type
@@ -331,6 +362,7 @@
 "Templates.Popup.Default" = "Templat diatur sebagai bawaan";
 
 "To Bin" = "Ke Bak Sampah";
+"Set as default" = "Atur sebagai bawaan";
 
 // MARK: - Context Menu
 "Remove From Favorite" = "Hapus dari Favorit";
@@ -486,8 +518,8 @@
 "Enter value" = "Masukkan nilai";
 "Select object" = "Pilih objek";
 "Select file" = "Pilih berkas";
-"Select tag" = "Pilih tag";
-"Select status" = "Pilih status";
+"Select options" = "Pilih opsi";
+"Select option" = "Pilih opsi";
 "Select date" = "Pilih tanggal";
 "Add email" = "Tambahkan surel";
 "Add link" = "Tambahkan tautan";
@@ -495,6 +527,11 @@
 "Enter text" = "Masukkan teks";
 "Unsupported value" = "Nilai tak didukung";
 "Select relation type" = "Pilih jenis relasi";
+"CommonOpenErrorView.Message" = "No data found";
+"Nothing found" = "Nothing found";
+"No type found text" = "Tipe “%@” tidak ditemukan. Ubah permintaanmu atau buatlah tipe yang baru.";
+"Create type" = "Buat tipe";
+
 
 "Limit object types" = "Batasi tipe objek";
 "Type" = "Tipe";
@@ -544,9 +581,13 @@
 "Unfavorite" = "Batal favorit";
 "Unsplash" = "Unsplash";
 "Go back" = "Kembali";
-"Backed up on one node at least" = "Tercadangkan di minimal satu simpul";
+"SyncStatus.LocalOnly.Title" = "Hanya Lokal";
+"SyncStatus.LocalOnly.Description" = "Hanya lokal";
+"SyncStatus.Synced.Anytype.Description" = "Tercadangkan ke Jaringan Anytype";
+"SyncStatus.Synced.AnytypeStaging.Description" = "Backed up on Anytype Staging";
+"SyncStatus.Synced.SelfHosted.Description" = "Tercadangkan ke Jaringan Swaladen";
 "Downloading or uploading data to some node" = "Mengunduh atau mengunggah data ke simpul";
-"Anytype node is not connected" = "Simpul Anytype tidak terhubung";
+"Node is not connected" = "Simpul tidak terhubung";
 "Initializing sync" = "Memulai sinkron";
 "Not syncing" = "Tidak menyinkron";
 "Synced" = "Tersinkron";
@@ -560,8 +601,9 @@
 "Into object" = "Di dalam objek";
 "Add below" = "Tambah di bawah";
 "Change type" = "Ubah tipe";
-"Link to existing object" = "Tautkan ke objek yang telah ada";
-"Link to object" = "Tambahkan tautan";
+"Show types" = "Tampilkan tipe";
+"Hide types" = "Sembunyikan tipe";
+"SlashMenu.LinkTo.Description" = "Buat tautan ke objek lain";
 "Upload playable audio" = "Unggah audio yang dapat diputar";
 "Code snippet" = "Potongan kode";
 "Bookmark" = "Markah";
@@ -590,7 +632,7 @@
 "Today" = "Hari ini";
 "No date" = "Tidak ada tanggal";
 "Clear" = "Bersihkan";
-"Create option" = "Buat pilihan '%@'";
+"Create option with" = "Create option ‘%@’";
 "Add URL" = "Tambahkan URL";
 "Add email" = "Tambahkan surel";
 "Add phone number" = "Tambahkan nomor telepon";
@@ -620,6 +662,7 @@
 "DataviewType.gallery" = "Galeri";
 "DataviewType.kanban" = "Kanban";
 "DataviewType.calendar" = "Kalender";
+"DataviewType.graph" = "Graph";
 
 // MARK: - ObjectType
 "ObjectType.fallbackDescription" = "Kanvas kosong tanpa judul";
@@ -690,8 +733,8 @@
 "SetViewTypesPicker.Settings.Textfield.Placeholder.New.View" = "Tampilan baru";
 "SetViewTypesPicker.Settings.Textfield.Placeholder.Untitled" = "Nirjudul";
 
-// MARK: Select view picker
-"EditorSetViewPicker.View.Not.Supported.Title" = "Tidak didukung";
+// MARK: Select view
+"EditorSet.View.Not.Supported.Title" = "Tidak didukung";
 
 // BlockContent
 "Content.File.Upload" = "Unggah sebuah berkas";
@@ -791,7 +834,7 @@
 "FileStorage.LimitError" = "Kamu melewati batas unggah berkas";
 "FileStorage.LimitLegend.Current" = "%@ | %@";
 "FileStorage.LimitLegend.Other" = "Ruang lain | %@";
-"FileStorage.LimitLegend.Free" = "Free | %@";
+"FileStorage.LimitLegend.Free" = "Bebas | %@";
 
 // MARK: - Files List
 "FilesList.Title" = "Berkas tersinkronkan";
@@ -818,6 +861,16 @@
 "SpaceSettings.DeleteAlert.Title" = "Hapus '%@' ruang";
 "SpaceSettings.DeleteAlert.Message" = "Ruang ini akan dihapus secara permanen. Kamu tidak bisa membatalkan tindakan ini.";
 "SpaceSettings.DeleteButton" = "Hapus ruang";
+"SpaceSettings.Sharing" = "Sharing";
+"SpaceSettings.Share" = "Bagikan";
+
+// MARK: - Space Share
+
+"SpaceShare.Title" = "Share space";
+"SpaceShare.MembersSection" = "Members and requests";
+"SpaceShare.Permissions.Owner" = "Owner";
+"SpaceShare.Permissions.Reader" = "Can view";
+"SpaceShare.Permissions.Writer" = "Can edit";
 
 // MARK: - Space Create
 "SpaceCreate.Title" = "Buat ruang";
@@ -832,18 +885,17 @@
 "Sharing.AddTo" = "Tambah ke ";
 "Sharing.LinkTo" = "Tautkan ke";
 
-"Sharing.URL.Bookmark" = "Tandai objek";
-"Sharing.URL.Text" = "Blok teks";
 "Sharing.Text.NoteObject" = "Catatan objek";
-"Sharing.Text.TextBlock" = "Blok teks";
+"Sharing.Text.TextBlock" = "Blocks";
+"Sharing.Any.Block" = "Blocks";
 
 // MARK: - Sharing tips
 "Sharing.Tip.Title" = "Bagikan Ekstensi";
 "Sharing.Tip.Button.title" = "Tampilan menu berbagi";
 
 "Sharing.Tip.Steps.1" = "Ketuk tombol berbagi iOS";
-"Sharing.Tip.Steps.2" = "Scroll past the app and tap More";
-"Sharing.Tip.Steps.3" = "Tap Edit to find “Anytype” and  tap";
+"Sharing.Tip.Steps.2" = "Gulir melewati aplikasi dan ketuk Lainnya";
+"Sharing.Tip.Steps.3" = "Tap Edit to find “Anytype” and tap";
 
 // MARK: - Initial
 
@@ -862,6 +914,10 @@
 "Error.AnytypeNeedsUpgrate.Title" = "Perbarui Aplikasimu";
 "Error.AnytypeNeedsUpgrate.Message" = "Objek ini telah diubah pada versi terbaru Anytype. Perbaruilah aplikasimu untuk membuka objek ini di perangkat ini.";
 "Error.AnytypeNeedsUpgrate.Confirm" = "Perbarui";
+"Error.UnableToConnect" = "Tolong sambungkan ke internet";
+"Error.Common.Title" = "Waduh!";
+"Error.Common.Message" = "Silakan cek koneksi internetmu dan coba lagi, atau buatlah laporan di forum.";
+"Error.Common.TryAgain" = "Coba lagi";
 
 // MARK: - Relative date formatter
 "RelativeFormatter.days7" = "7 hari terakhir";
@@ -877,4 +933,14 @@
 
 // MARK: - Gallery
 "Gallery.Unavailable.Title" = "Galeri sedang dalam pengembangan";
-"Gallery.Unavailable.Message" = "Please use the desktop app for now";
+"Gallery.Unavailable.Message" = "Tolong gunakan aplikasi desktop untuk sekarang";
+"Gallery.Author" = "Dibuat oleh @%@";
+"Gallery.Install" = "Pasang";
+"Gallery.InstallToNew" = "Pasang ke ruang baru";
+"Gallery.Notification.Success" = "Experience was successfully installed to the \"%@\" space. You can now open and start using it.";
+"Gallery.Notification.Button" = "Kunjungi ruang";
+"Gallery.Notification.Error" = "Ups! \"%@\" tidak terpasang. Silakan cek koneksi internetmu lalu coba lagi, atau buatlah laporan di forum.";
+
+// MARK: - Debug
+"Debug.MimeTypes" = "Mime Types - %@";
+"Debug.Info" = "Info awakutu";

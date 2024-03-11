@@ -55,9 +55,9 @@ final class SetObjectWidgetInternalViewModel: CommonWidgetInternalViewModel, Wid
         widgetObject.widgetTargetDetailsPublisher(widgetBlockId: widgetBlockId)
             .receiveOnMain()
             .sink { [weak self] details in
-                self?.allowCreateObject = details.canCreateObject
-                self?.name = details.title
-                Task { await self?.updateSetDocument(objectId: details.id) }
+                Task {
+                    await self?.updateSetDocument(objectId: details.id)
+                }
             }
             .store(in: &subscriptions)
     }
@@ -124,13 +124,12 @@ final class SetObjectWidgetInternalViewModel: CommonWidgetInternalViewModel, Wid
         let subscriptionData = setSubscriptionDataBuilder.set(
             SetSubscriptionData(
                 identifier: subscriptionId,
-                source: setDocument.details?.setOf,
-                view: setDocument.activeView,
+                document: setDocument,
                 groupFilter: nil,
                 currentPage: 0,
                 numberOfRowsPerPage: widgetInfo.fixedLimit,
                 collectionId: setDocument.isCollection() ? setDocument.objectId : nil,
-                objectOrderIds: setDocument.objectOrderIds(for: SetSubscriptionData.setId)
+                objectOrderIds: setDocument.objectOrderIds(for: setSubscriptionDataBuilder.subscriptionId)
             )
         )
         
@@ -152,7 +151,7 @@ final class SetObjectWidgetInternalViewModel: CommonWidgetInternalViewModel, Wid
     }
     
     private func sortedRowDetails(_ details: [ObjectDetails]?) -> [ObjectDetails]? {
-        guard let objectOrderIds = setDocument?.objectOrderIds(for: SetSubscriptionData.setId),
+        guard let objectOrderIds = setDocument?.objectOrderIds(for: setSubscriptionDataBuilder.subscriptionId),
                 objectOrderIds.isNotEmpty else {
             return details
         }
@@ -162,13 +161,13 @@ final class SetObjectWidgetInternalViewModel: CommonWidgetInternalViewModel, Wid
     private func updateSetDocument(objectId: String) async {
         guard objectId != setDocument?.objectId else {
             try? await setDocument?.openForPreview()
-            setActiveViewId()
+            updateModelState()
             return
         }
         
         setDocument = documentService.setDocument(objectId: objectId, forPreview: true, inlineParameters: nil)
         try? await setDocument?.openForPreview()
-        setActiveViewId()
+        updateModelState()
         
         details = nil
         dataview = nil
@@ -177,6 +176,16 @@ final class SetObjectWidgetInternalViewModel: CommonWidgetInternalViewModel, Wid
         
         await stopContentSubscription()
         await startContentSubscription()
+    }
+    
+    private func updateModelState() {
+        setActiveViewId()
+        
+        guard let setDocument else { return }
+        allowCreateObject = setDocument.canCreateObject()
+        
+        guard let details = setDocument.details else { return }
+        name = details.title
     }
     
     

@@ -13,7 +13,7 @@ final class EditorPageViewState: ObservableObject {
     init(viewController: UIViewController, model: EditorPageViewModel) {
         self.viewController = viewController
         self.model = model
-        self.cancellable = model.objectWillChange.sink { [weak self] in
+        self.cancellable = model.objectWillChange.receiveOnMain().sink { [weak self] in
             self?.objectWillChange.send()
         }
     }

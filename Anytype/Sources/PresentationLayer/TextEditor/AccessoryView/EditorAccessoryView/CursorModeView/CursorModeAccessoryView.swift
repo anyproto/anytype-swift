@@ -88,7 +88,7 @@ class CursorModeAccessoryView: UIView {
             button.tintColor = .Button.active
         }
         button.setTitle(title, for: .normal)
-        button.setTitleColor(UIColor.System.amber100, for: .normal)
+        button.setTitleColor(.Text.primary, for: .normal)
         button.addAction(primaryAction, for: .touchUpInside)
         stackView.addArrangedSubview(button)
     }

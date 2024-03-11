@@ -18,7 +18,7 @@ final class ImagePreviewMedia: NSObject, PreviewRemoteItem {
     init(file: BlockFile, blockId: BlockId, previewImage: UIImage?) {
         self.file = file
 
-        let imageId = ImageMetadata(id: file.metadata.hash, width: .original)
+        let imageId = ImageMetadata(id: file.metadata.targetObjectId, width: .original)
         self.imageSource = .middleware(imageId)
         self.previewImage = previewImage
         self.blockId = blockId

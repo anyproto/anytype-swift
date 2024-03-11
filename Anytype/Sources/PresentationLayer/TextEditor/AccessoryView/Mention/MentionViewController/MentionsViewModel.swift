@@ -10,7 +10,7 @@ final class MentionsViewModel {
     
     private let document: BaseDocumentProtocol
     private let mentionService: MentionObjectsServiceProtocol
-    private let pageService: PageRepositoryProtocol
+    private let defaultObjectService: DefaultObjectCreationServiceProtocol
     private let onSelect: (MentionObject) -> Void
     
     private var searchTask: Task<(), Error>?
@@ -19,12 +19,12 @@ final class MentionsViewModel {
     init(
         document: BaseDocumentProtocol,
         mentionService: MentionObjectsServiceProtocol,
-        pageService: PageRepositoryProtocol,
+        defaultObjectService: DefaultObjectCreationServiceProtocol,
         onSelect: @escaping (MentionObject) -> Void
     ) {
         self.document = document
         self.mentionService = mentionService
-        self.pageService = pageService
+        self.defaultObjectService = defaultObjectService
         self.onSelect = onSelect
     }
     
@@ -48,7 +48,7 @@ final class MentionsViewModel {
     
     func didSelectCreateNewMention() {
         Task { @MainActor in
-            guard let newBlockDetails = try? await pageService.createDefaultPage(name: searchString, spaceId: document.spaceId) else { return }
+            guard let newBlockDetails = try? await defaultObjectService.createDefaultObject(name: searchString, shouldDeleteEmptyObject: false, spaceId: document.spaceId) else { return }
             
             AnytypeAnalytics.instance().logCreateObject(objectType: newBlockDetails.analyticsType, route: .mention)
             let name = searchString.isEmpty ? Loc.Object.Title.placeholder : searchString

@@ -48,7 +48,7 @@ struct DeletedAccountView: View {
         HStack(spacing: 0) {
             ZStack {
                 Circle()
-                    .stroke(Color.Stroke.primary, lineWidth: 2)
+                    .stroke(Color.Shape.primary, lineWidth: 2)
                     .frame(width: 52, height: 52)
                 Clock(progress: clockProgress)
                     .fill(Color.System.red)

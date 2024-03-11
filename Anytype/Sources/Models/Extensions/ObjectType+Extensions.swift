@@ -6,7 +6,7 @@ extension ObjectType {
     public static let emptyType: ObjectType = ObjectType(
         id: "",
         name: "",
-        iconEmoji: .default,
+        iconEmoji: nil,
         description: "",
         hidden: false,
         readonly: false,
@@ -16,6 +16,7 @@ extension ObjectType {
         spaceId: "",
         uniqueKey: .empty,
         defaultTemplateId: "",
+        canCreateObjectOfThisType: false,
         recommendedRelations: [],
         recommendedLayout: nil
     )

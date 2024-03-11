@@ -1,4 +1,5 @@
 import Foundation
+import Services
 
 extension MarkupType {
     var analyticsValue: String {

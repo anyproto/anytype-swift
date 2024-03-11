@@ -1,0 +1,18 @@
+import Foundation
+import Combine
+
+public actor HandlerKeyStorage<Key: Hashable, Handler> {
+    
+    private var cancellableHandlers = [Key: HandlerStorage<Handler>]()
+    
+    public init() {}
+    
+    public func addHandler(key: Key, handler: Handler) async -> AnyCancellable {
+        var keyStorage = cancellableHandlers[key] ?? HandlerStorage<Handler>()
+        return await keyStorage.addHandler(handler: handler)
+    }
+    
+    public func handlers(key: Key) async -> [Handler] {
+        return await cancellableHandlers[key]?.handlers() ?? []
+    }
+}

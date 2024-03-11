@@ -1,4 +1,4 @@
-"NSFaceIDUsageDescription" = "Face ID wird verwendet, um Ihre Wiederherstellungsphrase sicher im Schlüsselbund abzurufen";
+"NSFaceIDUsageDescription" = "Face ID wird verwendet, um deine sicher im Schlüsselbund gespeicherte Wiederherstellungsphrase abzurufen";
 "NSCameraUsageDescription" = "Kamera wird verwendet, um QR-Codes für ein sicheres und komfortables Anmeldeerlebnis zu scannen";
 "NSLocalNetworkUsageDescription" = "Lokaler Netzwerkzugriff wird verwendet, um Daten direkt zwischen deinen Geräten in der Nähe zu synchronisieren";
-"NSPhotoLibraryAddUsageDescription" = "Zugriff ist erforderlich um die ausgewählten Bilder in deiner Mediathek zu speichern";
+"NSPhotoLibraryAddUsageDescription" = "Zugriff ist erforderlich, um die ausgewählte Bilder in deiner Bibliothek zu speichern";

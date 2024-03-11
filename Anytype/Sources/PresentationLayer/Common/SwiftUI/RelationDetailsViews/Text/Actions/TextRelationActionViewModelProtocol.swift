@@ -1,5 +1,6 @@
 import Foundation
 
+@MainActor
 protocol TextRelationActionViewModelProtocol: AnyObject {
     var inputText: String { get set }
     var title: String { get }

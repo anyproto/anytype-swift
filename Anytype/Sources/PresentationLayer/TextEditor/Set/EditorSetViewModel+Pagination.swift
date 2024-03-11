@@ -6,9 +6,9 @@ extension EditorSetViewModel {
         update(data: paginationHelper.changePage(page, data: pagitationData, ignorePageLimit: true), groupId: groupId)
     }
     
-    func changePage(_ page: Int, groupId: String) {
-        guard let pagitationData = pagitationDataDict[groupId] else { return }
-        update(data: paginationHelper.changePage(page, data: pagitationData), groupId: groupId)
+    func changePage(_ page: Int) {
+        guard let pagitationData = pagitationDataDict[subscriptionId] else { return }
+        update(data: paginationHelper.changePage(page, data: pagitationData), groupId: subscriptionId)
     }
     
     func updatePageCount(_ count: Int, groupId: String, ignorePageLimit: Bool) {
@@ -16,14 +16,14 @@ extension EditorSetViewModel {
         update(data: paginationHelper.updatePageCount(count, data: pagitationData, ignorePageLimit: ignorePageLimit), groupId: groupId)
     }
     
-    func goForwardRow(groupId: String) {
-        guard let pagitationData = pagitationDataDict[groupId] else { return }
-        update(data: paginationHelper.goForwardRow(data: pagitationData), groupId: groupId)
+    func goForwardRow() {
+        guard let pagitationData = pagitationDataDict[subscriptionId] else { return }
+        update(data: paginationHelper.goForwardRow(data: pagitationData), groupId: subscriptionId)
     }
     
-    func goBackwardRow(groupId: String) {
-        guard let pagitationData = pagitationDataDict[groupId] else { return }
-        update(data: paginationHelper.goBackwardRow(data: pagitationData), groupId: groupId)
+    func goBackwardRow() {
+        guard let pagitationData = pagitationDataDict[subscriptionId] else { return }
+        update(data: paginationHelper.goBackwardRow(data: pagitationData), groupId: subscriptionId)
     }
     
     private func update(data: EditorSetPaginationHelperData?, groupId: String) {

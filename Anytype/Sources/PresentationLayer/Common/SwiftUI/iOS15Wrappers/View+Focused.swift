@@ -1,6 +1,6 @@
 import SwiftUI
 
-@available(iOS 15.0, *)
+
 struct FocusedModifier: ViewModifier {
     
     @FocusState var focusedField: Bool

@@ -36,7 +36,7 @@ final class ObjectActionsViewModel: ObservableObject {
     
     private let objectId: BlockId
     private let service: ObjectActionsServiceProtocol
-    private let blockActionsService: BlockActionsServiceSingleProtocol
+    private let blockService: BlockServiceProtocol
     private let templatesService: TemplatesServiceProtocol
     private let documentsProvider: DocumentsProviderProtocol
     private let blockWidgetService: BlockWidgetServiceProtocol
@@ -45,7 +45,7 @@ final class ObjectActionsViewModel: ObservableObject {
     init(
         objectId: BlockId,
         service: ObjectActionsServiceProtocol,
-        blockActionsService: BlockActionsServiceSingleProtocol,
+        blockService: BlockServiceProtocol,
         templatesService: TemplatesServiceProtocol,
         documentsProvider: DocumentsProviderProtocol,
         blockWidgetService: BlockWidgetServiceProtocol,
@@ -57,7 +57,7 @@ final class ObjectActionsViewModel: ObservableObject {
     ) {
         self.objectId = objectId
         self.service = service
-        self.blockActionsService = blockActionsService
+        self.blockService = blockService
         self.templatesService = templatesService
         self.documentsProvider = documentsProvider
         self.blockWidgetService = blockWidgetService
@@ -72,6 +72,7 @@ final class ObjectActionsViewModel: ObservableObject {
         
         let isArchived = !details.isArchived
         Task { @MainActor in
+            AnytypeAnalytics.instance().logMoveToBin(isArchived)
             try await service.setArchive(objectIds: [objectId], isArchived)
             if isArchived {
                 dismissSheet()
@@ -83,12 +84,14 @@ final class ObjectActionsViewModel: ObservableObject {
     func changeFavoriteSate() {
         guard let details = details else { return }
         Task {
+            AnytypeAnalytics.instance().logAddToFavorites(!details.isFavorite)
             try await service.setFavorite(objectIds: [objectId], !details.isFavorite)
         }
     }
 
     func changeLockState() {
         Task {
+            AnytypeAnalytics.instance().logLockPage(!isLocked)
             try await service.setLocked(!isLocked, objectId: objectId)
         }
     }
@@ -128,7 +131,7 @@ final class ObjectActionsViewModel: ObservableObject {
                 } else {
                     let info = BlockInformation.emptyLink(targetId: currentObjectId)
                     AnytypeAnalytics.instance().logCreateBlock(type: info.content.type)
-                    let _ = try await self.blockActionsService.add(
+                    let _ = try await self.blockService.add(
                         contextId: objectId,
                         targetId: id,
                         info: info,
@@ -161,8 +164,8 @@ final class ObjectActionsViewModel: ObservableObject {
     func deleteAction() {
         guard let details = details else { return }
         Task { @MainActor in
-            // TODO: Add new analytics route
-            try await service.delete(objectIds: [details.id], route: .bin)
+            AnytypeAnalytics.instance().logDeletion(count: 1, route: .bin)
+            try await service.delete(objectIds: [details.id])
             dismissSheet()
             closeEditorAction()
         }

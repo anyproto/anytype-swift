@@ -1,5 +1,6 @@
 import Foundation
 import SwiftUI
+import AnytypeCore
 
 struct SpaceSettingsView: View {
     
@@ -18,9 +19,18 @@ struct SpaceSettingsView: View {
                         model.onChangeIconTap()
                     })
                     
-                    SectionHeaderView(title: Loc.type)
-                    
-                    SpaceTypeView(name: model.spaceType)
+                    if FeatureFlags.multiplayer {
+                        SectionHeaderView(title: Loc.SpaceSettings.sharing)
+                        SettingsSectionItemView(
+                            name: Loc.SpaceSettings.share,
+                            onTap: { model.onShareTap() }
+                        )
+
+                    } else {
+                        SectionHeaderView(title: Loc.type)
+                        
+                        SpaceTypeView(name: model.spaceType)
+                    }
                     
                     SectionHeaderView(title: Loc.settings)
                     
@@ -40,6 +50,10 @@ struct SpaceSettingsView: View {
                     
                     ForEach(0..<model.info.count, id:\.self) { index in
                         SettingsInfoBlockView(model: model.info[index])
+                    }
+                    
+                    if FeatureFlags.multiplayer {
+                        SpaceShareMVPView()
                     }
                     
                     if model.allowDelete {

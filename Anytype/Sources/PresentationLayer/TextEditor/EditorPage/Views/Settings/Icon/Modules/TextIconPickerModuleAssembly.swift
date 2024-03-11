@@ -19,7 +19,7 @@ final class TextIconPickerModuleAssembly: TextIconPickerModuleAssemblyProtocol {
     func make(contextId: BlockId, objectId: BlockId, spaceId: String, onDismiss: @escaping () -> Void) -> AnyView {
         let viewModel = TextIconPickerViewModel(
             fileService: serviceLocator.fileService(),
-            textService: serviceLocator.textService,
+            textServiceHandler: serviceLocator.textServiceHandler(),
             contextId: contextId,
             objectId: objectId,
             spaceId: spaceId

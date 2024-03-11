@@ -1,17 +1,14 @@
 name: Anytype Dev
 
+permissions:
+  contents: 'write'
+
 on:
   schedule:
     # Triggers the workflow every weekdays at 00:00 UTC:
     - cron:  '0 0 * * 1-5'
-
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
-    inputs:
-      branch:
-        description: 'Branch'     
-        required: false
-        default: 'develop'
 
 jobs:
   main:
@@ -19,16 +16,15 @@ jobs:
     timeout-minutes: 40
 
     steps:
-      - name: Install SSH key for access to repository
-        uses: webfactory/ssh-agent@v0.6.0
-        with:
-          ssh-private-key: ${{ secrets.SSH_ACCESS_KEY }}
-
       - name: Checkout
         uses: actions/checkout@v3
         with:
            fetch-depth: 0
-           ref: ${{ github.event.inputs.branch }}
+
+      - name: Install SSH key for access to repository
+        uses: webfactory/ssh-agent@v0.9.0
+        with:
+          ssh-private-key: ${{ secrets.SSH_ACCESS_KEY }}
 
       - name: Update git config
         uses: ./.github/actions/update-git-config

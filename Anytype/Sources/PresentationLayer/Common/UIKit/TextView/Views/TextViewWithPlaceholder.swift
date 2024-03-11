@@ -2,6 +2,7 @@ import UIKit
 import Foundation
 import UniformTypeIdentifiers
 import AnytypeCore
+import Services
 
 final class TextViewWithPlaceholder: UITextView {
     private enum InsetEdgeType {

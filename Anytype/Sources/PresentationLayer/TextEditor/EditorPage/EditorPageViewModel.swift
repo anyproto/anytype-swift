@@ -31,8 +31,6 @@ final class EditorPageViewModel: EditorPageViewModelProtocol, EditorBottomNaviga
     private weak var output: EditorPageModuleOutput?
     lazy var subscriptions = [AnyCancellable]()
 
-    private let blockActionsService: BlockActionsServiceSingleProtocol
-
     @Published var bottomPanelHidden: Bool = false
     @Published var bottomPanelHiddenAnimated: Bool = true
     @Published var dismiss = false
@@ -49,7 +47,6 @@ final class EditorPageViewModel: EditorPageViewModelProtocol, EditorBottomNaviga
         blockBuilder: BlockViewModelBuilder,
         actionHandler: BlockActionHandler,
         headerModel: ObjectHeaderViewModel,
-        blockActionsService: BlockActionsServiceSingleProtocol,
         blocksStateManager: EditorPageBlocksStateManagerProtocol,
         cursorManager: EditorCursorManager,
         objectActionsService: ObjectActionsServiceProtocol,
@@ -68,7 +65,6 @@ final class EditorPageViewModel: EditorPageViewModelProtocol, EditorBottomNaviga
         self.actionHandler = actionHandler
         self.blockDelegate = blockDelegate
         self.headerModel = headerModel
-        self.blockActionsService = blockActionsService
         self.blocksStateManager = blocksStateManager
         self.cursorManager = cursorManager
         self.objectActionsService = objectActionsService

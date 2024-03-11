@@ -1,6 +1,7 @@
 import Foundation
 import SwiftUI
 import Combine
+import AnytypeCore
 
 @MainActor
 final class SpaceSettingsCoordinatorViewModel: ObservableObject, SpaceSettingsModuleOutput, RemoteStorageModuleOutput, PersonalizationModuleOutput {
@@ -13,7 +14,9 @@ final class SpaceSettingsCoordinatorViewModel: ObservableObject, SpaceSettingsMo
     private let personalizationModuleAssembly: PersonalizationModuleAssemblyProtocol
     private let activeWorkspaceStorage: ActiveWorkpaceStorageProtocol
     private let newSearchModuleAssembly: NewSearchModuleAssemblyProtocol
+    private let objectTypeSearchModuleAssembly: ObjectTypeSearchModuleAssemblyProtocol
     private let wallpaperPickerModuleAssembly: WallpaperPickerModuleAssemblyProtocol
+    private let spaceShareCoordinatorAssembly: SpaceShareCoordinatorAssemblyProtocol
     private let objectTypeProvider: ObjectTypeProviderProtocol
     private let urlOpener: URLOpenerProtocol
     private let documentService: OpenedDocumentsProviderProtocol
@@ -21,6 +24,7 @@ final class SpaceSettingsCoordinatorViewModel: ObservableObject, SpaceSettingsMo
     @Published var showRemoteStorage = false
     @Published var showPersonalization = false
     @Published var showWallpaperPicker = false
+    @Published var showSpaceShare = false
     @Published var dismiss = false
     
     private var accountSpaceId: String
@@ -35,7 +39,9 @@ final class SpaceSettingsCoordinatorViewModel: ObservableObject, SpaceSettingsMo
         personalizationModuleAssembly: PersonalizationModuleAssemblyProtocol,
         activeWorkspaceStorage: ActiveWorkpaceStorageProtocol,
         newSearchModuleAssembly: NewSearchModuleAssemblyProtocol,
+        objectTypeSearchModuleAssembly: ObjectTypeSearchModuleAssemblyProtocol,
         wallpaperPickerModuleAssembly: WallpaperPickerModuleAssemblyProtocol,
+        spaceShareCoordinatorAssembly: SpaceShareCoordinatorAssemblyProtocol,
         objectTypeProvider: ObjectTypeProviderProtocol,
         urlOpener: URLOpenerProtocol,
         documentService: OpenedDocumentsProviderProtocol
@@ -48,7 +54,9 @@ final class SpaceSettingsCoordinatorViewModel: ObservableObject, SpaceSettingsMo
         self.personalizationModuleAssembly = personalizationModuleAssembly
         self.activeWorkspaceStorage = activeWorkspaceStorage
         self.newSearchModuleAssembly = newSearchModuleAssembly
+        self.objectTypeSearchModuleAssembly = objectTypeSearchModuleAssembly
         self.wallpaperPickerModuleAssembly = wallpaperPickerModuleAssembly
+        self.spaceShareCoordinatorAssembly = spaceShareCoordinatorAssembly
         self.objectTypeProvider = objectTypeProvider
         self.urlOpener = urlOpener
         self.documentService = documentService
@@ -72,6 +80,10 @@ final class SpaceSettingsCoordinatorViewModel: ObservableObject, SpaceSettingsMo
         return wallpaperPickerModuleAssembly.make(spaceId: accountSpaceId)
     }
     
+    func spaceShareModule() -> AnyView {
+        return spaceShareCoordinatorAssembly.make()
+    }
+    
     // MARK: - SpaceSettingsModuleOutput
     
     func onChangeIconSelected(objectId: String) {
@@ -88,6 +100,10 @@ final class SpaceSettingsCoordinatorViewModel: ObservableObject, SpaceSettingsMo
         showPersonalization.toggle()
     }
     
+    func onSpaceShareSelected() {
+        showSpaceShare.toggle()
+    }
+    
     // MARK: - RemoteStorageModuleOutput
     
     func onManageFilesSelected() {
@@ -102,15 +118,29 @@ final class SpaceSettingsCoordinatorViewModel: ObservableObject, SpaceSettingsMo
     // MARK: - PersonalizationModuleOutput
     
     func onDefaultTypeSelected() {
-        let module = newSearchModuleAssembly.objectTypeSearchModule(
-            title: Loc.chooseDefaultObjectType,
-            spaceId: activeWorkspaceStorage.workspaceInfo.accountSpaceId,
-            showBookmark: true
-        ) { [weak self] type in
-            self?.objectTypeProvider.setDefaultObjectType(type: type, spaceId: type.spaceId)
-            self?.navigationContext.dismissTopPresented(animated: true)
+        if FeatureFlags.newTypePicker {
+            let module = objectTypeSearchModuleAssembly.make(
+                title: Loc.chooseDefaultObjectType,
+                spaceId: activeWorkspaceStorage.workspaceInfo.accountSpaceId,
+                showPins: false,
+                showLists: false, 
+                showFiles: false,
+                incudeNotForCreation: false
+            ) { [weak self] type in
+                self?.objectTypeProvider.setDefaultObjectType(type: type, spaceId: type.spaceId)
+                self?.navigationContext.dismissTopPresented(animated: true)
+            }
+            navigationContext.present(module)
+        } else {
+            let module = newSearchModuleAssembly.objectTypeSearchModule(
+                title: Loc.chooseDefaultObjectType,
+                spaceId: activeWorkspaceStorage.workspaceInfo.accountSpaceId
+            ) { [weak self] type in
+                self?.objectTypeProvider.setDefaultObjectType(type: type, spaceId: type.spaceId)
+                self?.navigationContext.dismissTopPresented(animated: true)
+            }
+            navigationContext.present(module)
         }
-        navigationContext.present(module)
     }
     
     func onWallpaperChangeSelected() {

@@ -31,7 +31,7 @@ final class BlockBookmarkInfoView: UIView {
     private func updateIcon(payload: BlockBookmarkPayload) {
         urlStackView.removeAllSubviews()
         
-        guard !payload.faviconHash.isEmpty else {
+        guard !payload.faviconObjectId.isEmpty else {
             iconView.icon = nil
             urlStackView.addSubview(urlView) {
                 $0.pinToSuperview()
@@ -48,7 +48,7 @@ final class BlockBookmarkInfoView: UIView {
             )
         }
         
-        iconView.icon = .object(.bookmark(payload.faviconHash))
+        iconView.icon = .object(.bookmark(payload.faviconObjectId))
     }
     
     // MARK: - Views

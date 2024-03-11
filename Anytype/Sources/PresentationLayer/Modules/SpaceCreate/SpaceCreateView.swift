@@ -1,5 +1,6 @@
 import Foundation
 import SwiftUI
+import AnytypeCore
 
 struct SpaceCreateView: View {
     
@@ -17,6 +18,10 @@ struct SpaceCreateView: View {
                     
                     SectionHeaderView(title: Loc.type)
                     SpaceTypeView(name: model.spaceType.name)
+                }
+                
+                if FeatureFlags.multiplayer {
+                    SpaceJoinMVPView()
                 }
             }
             .safeAreaInset(edge: .bottom) {

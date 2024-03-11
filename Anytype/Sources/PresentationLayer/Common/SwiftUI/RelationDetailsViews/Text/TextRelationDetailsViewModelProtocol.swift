@@ -1,5 +1,6 @@
 import UIKit
 
+@MainActor
 protocol TextRelationDetailsViewModelProtocol {
     var value: String { get }
     var title: String { get }

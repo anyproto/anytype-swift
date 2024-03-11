@@ -12,7 +12,7 @@ extension BundledRelationsValueProvider {
         guard
             let number = layout,
             let layout = DetailsLayout(rawValue: number)
-        else { return .unknown }
+        else { return .UNRECOGNIZED(layout ?? -1) }
         
         return layout
     }
@@ -57,8 +57,8 @@ extension BundledRelationsValueProvider {
         relationFormat.map { RelationFormat(rawValue: $0) } ?? .unrecognized
     }
     
-    public var spaceAccessibilityValue: SpaceAccessibility? {
-        return spaceAccessibility.flatMap { SpaceAccessibility(rawValue: $0) }
+    public var spaceAccessTypeValue: SpaceAccessType? {
+        return spaceAccessType.flatMap { SpaceAccessType(rawValue: $0) }
     }
     
     public var iconOptionValue: GradientId? {
@@ -72,5 +72,15 @@ extension BundledRelationsValueProvider {
     public var spaceAccountStatusMiddlewareValue: Anytype_Model_SpaceStatus? {
         guard let spaceAccountStatus else { return nil }
         return Anytype_Model_SpaceStatus(rawValue: spaceAccountStatus)
+    }
+    
+    public var participantPermissionsValue: ParticipantPermissions? {
+        guard let participantPermissions else { return nil }
+        return ParticipantPermissions(rawValue: participantPermissions)
+    }
+    
+    public var participantStatusValue: ParticipantStatus? {
+        guard let participantStatus else { return nil }
+        return ParticipantStatus(rawValue: participantStatus)
     }
 }

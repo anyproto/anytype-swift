@@ -1,0 +1,5 @@
+import Foundation
+import ProtobufMessages
+
+public typealias ParticipantPermissions = Anytype_Model_ParticipantPermissions
+public typealias ParticipantStatus = Anytype_Model_ParticipantStatus

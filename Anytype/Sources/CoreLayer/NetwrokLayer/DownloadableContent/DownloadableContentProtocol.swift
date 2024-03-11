@@ -14,9 +14,9 @@ extension BlockFile: DownloadableContentProtocol {
     var contentUrl: URL? {
         switch contentType {
         case .image:
-            return ImageMetadata(id: metadata.hash, width: .original).contentUrl
+            return ImageMetadata(id: metadata.targetObjectId, width: .original).contentUrl
         default:
-            return ContentUrlBuilder.fileUrl(fileId: metadata.hash)
+            return ContentUrlBuilder.fileUrl(fileId: metadata.targetObjectId)
         }
     }
 }

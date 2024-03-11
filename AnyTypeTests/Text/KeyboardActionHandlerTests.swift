@@ -6,19 +6,19 @@ import XCTest
 class KeyboardActionHandlerTests: XCTestCase {
     private var handler: KeyboardActionHandler!
     private var service: BlockActionServiceMock!
-    private var listService: BlockListServiceMock!
+    private var blockService: BlockServiceMock!
     private var infoContainer: InfoContainerMock!
     private var toggleStorage: ToggleStorage!
 
     override func setUpWithError() throws {
         service = BlockActionServiceMock()
         toggleStorage = ToggleStorage()
-        listService = BlockListServiceMock()
+        blockService = BlockServiceMock()
         infoContainer = InfoContainerMock()
         handler = KeyboardActionHandler(
             documentId: "",
             service: service,
-            listService: listService,
+            blockService: blockService,
             toggleStorage: toggleStorage,
             container: infoContainer,
             modelsHolder: .init()
@@ -27,7 +27,7 @@ class KeyboardActionHandlerTests: XCTestCase {
 
     override func tearDownWithError() throws {
         service = nil
-        listService = nil
+        blockService = nil
         handler = nil
         toggleStorage = nil
         infoContainer = nil
@@ -760,15 +760,15 @@ class KeyboardActionHandlerTests: XCTestCase {
     func test_deleteAtTheBegining_one_children() throws {
         let parent = info(id: "parentId", style: .toggle, hasChild: true)
         let child = info(id: "childId", style: .text, parent: parent)
-        listService.moveStub = true
+        blockService.moveStub = true
         
         handler.handle(info: child, currentString: .init(string: ""), action: .delete)
         
         eventually { [weak self] in
-            XCTAssertEqual(self?.listService.moveNumberOfCalls, 1)
-            XCTAssertEqual(self?.listService.moveBlockId, "childId")
-            XCTAssertEqual(self?.listService.moveTargetId, "parentId")
-            XCTAssertEqual(self?.listService.movePosition, .bottom)
+            XCTAssertEqual(self?.blockService.moveNumberOfCalls, 1)
+            XCTAssertEqual(self?.blockService.moveBlockId, "childId")
+            XCTAssertEqual(self?.blockService.moveTargetId, "parentId")
+            XCTAssertEqual(self?.blockService.movePosition, .bottom)
         }
     }
     
@@ -776,16 +776,16 @@ class KeyboardActionHandlerTests: XCTestCase {
         let parent = info(id: "parentId", style: .toggle, hasChild: true)
         let child1 = info(id: "childId1", style: .text, parent: parent)
         let child2 = info(id: "childId2", style: .text, parent: parent)
-        listService.moveStub = true
+        blockService.moveStub = true
         
         // when
         handler.handle(info: child2, currentString: .init(string: ""), action: .delete)
         
         eventually { [weak self] in
-            XCTAssertEqual(self?.listService.moveNumberOfCalls, 1)
-            XCTAssertEqual(self?.listService.moveBlockId, "childId2")
-            XCTAssertEqual(self?.listService.moveTargetId, "parentId")
-            XCTAssertEqual(self?.listService.movePosition, .bottom)
+            XCTAssertEqual(self?.blockService.moveNumberOfCalls, 1)
+            XCTAssertEqual(self?.blockService.moveBlockId, "childId2")
+            XCTAssertEqual(self?.blockService.moveTargetId, "parentId")
+            XCTAssertEqual(self?.blockService.movePosition, .bottom)
         }
     }
     

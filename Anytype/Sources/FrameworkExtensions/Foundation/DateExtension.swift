@@ -13,4 +13,10 @@ extension Date {
     init(milliseconds: Int64) {
         self = Date(timeIntervalSince1970: TimeInterval(milliseconds) / 1000)
     }
+    
+    func trimTime() -> Date? {
+        let components = Calendar.current.dateComponents([.year, .month, .day], from: self)
+        let date = Calendar.current.date(from: components)
+        return date
+    }
 }

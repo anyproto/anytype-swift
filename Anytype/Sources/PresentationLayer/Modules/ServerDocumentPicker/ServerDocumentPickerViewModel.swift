@@ -10,8 +10,7 @@ final class ServerDocumentPickerViewModel: ObservableObject {
     // MARK: - State
     
     @Published var toast = ToastBarData.empty
-    @Published var dismiss: Bool = false
-   
+    
     init(storage: ServerConfigurationStorage) {
         self.storage = storage
     }
@@ -24,6 +23,5 @@ final class ServerDocumentPickerViewModel: ObservableObject {
         } catch {
             toast = ToastBarData(text: Loc.error, showSnackBar: true, messageType: .failure)
         }
-        dismiss.toggle()
     }
 }

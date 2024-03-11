@@ -1,5 +1,6 @@
 import AnytypeCore
 import UIKit
+import Services
 
 final class MarkStyleModifier {
     let attributedString: NSMutableAttributedString
@@ -96,12 +97,14 @@ final class MarkStyleModifier {
 
         case .underscored:
             return AttributedStringChange(changeAttributes: [.anytypeUnderline : shouldApplyMarkup])
-        case let .textColor(color):
-            return AttributedStringChange(changeAttributes: [.foregroundColor : color as Any])
-
-        case let .backgroundColor(color):
-            return AttributedStringChange(changeAttributes: [.backgroundColor : color as Any])
-
+        case let .textColor(middlewareColor):
+            let uiColor = UIColor.Dark.uiColor(from: middlewareColor)
+            return AttributedStringChange(changeAttributes: [.foregroundColor : uiColor as Any])
+            
+        case let .backgroundColor(middlewareColor):
+            let uiColor = UIColor.VeryLight.uiColor(from: middlewareColor)
+            return AttributedStringChange(changeAttributes: [.backgroundColor : uiColor as Any])
+            
         case let .link(url):
             return AttributedStringChange(
                 changeAttributes: [.link : url as Any],
@@ -148,7 +151,7 @@ final class MarkStyleModifier {
         var iconAttributes = mentionAttributedString.attributes(at: 0, effectiveRange: nil)
         iconAttributes.removeValue(forKey: .anytypeLink) // no underline under icon
         
-        let mentionIcon = data.image
+        let mentionIcon = data.details.objectIconImage
         let mentionAttachment = IconTextAttachment(icon: mentionIcon, mentionType: font.mentionType)
         let mentionAttachmentString = NSMutableAttributedString(attachment: mentionAttachment)
         mentionAttachmentString.addAttributes(iconAttributes, range: mentionAttachmentString.wholeRange)

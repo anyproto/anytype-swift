@@ -25,7 +25,7 @@ final class LinkToObjectCoordinatorAssembly: LinkToObjectCoordinatorAssemblyProt
         
         let coordinator = LinkToObjectCoordinator(
             navigationContext: uiHelopersDI.commonNavigationContext(),
-            pageService: serviceLocator.pageRepository(),
+            defaultObjectService: serviceLocator.defaultObjectCreationService(),
             urlOpener: uiHelopersDI.urlOpener(),
             searchService: serviceLocator.searchService(),
             output: output

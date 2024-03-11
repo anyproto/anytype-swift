@@ -24,7 +24,7 @@ struct LoginView: View {
                 Button(Loc.Alert.CameraPermissions.settings, role: .cancel, action: { model.onSettingsTap() })
                 Button(Loc.cancel, action: {})
             }, message: {
-                Text(Loc.Alert.CameraPermissions.goToSettings)
+                Text(verbatim: Loc.Alert.CameraPermissions.goToSettings)
             })
             .ifLet(model.errorText) { view, errorText in
                 view.alertView(isShowing: $model.showError, errorText: errorText)

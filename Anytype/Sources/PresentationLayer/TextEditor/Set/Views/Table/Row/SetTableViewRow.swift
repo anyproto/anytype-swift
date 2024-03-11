@@ -57,7 +57,7 @@ struct SetTableViewRow: View {
                 cell(colum)
                 Rectangle()
                     .frame(width: 0.5, height: 18)
-                    .foregroundColor(.Stroke.primary)
+                    .foregroundColor(.Shape.primary)
             }
         }
         .frame(height: 18)

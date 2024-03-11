@@ -25,9 +25,9 @@ final class ObjectTreeWidgetModuleAssembly: HomeWidgetCommonAssemblyProtocol {
             widgetBlockId: widgetBlockId,
             widgetObject: widgetObject,
             subscriptionManager: serviceLocator.treeSubscriptionManager(),
-            pageRepository: serviceLocator.pageRepository(),
+            defaultObjectService: serviceLocator.defaultObjectCreationService(),
             documentsProvider: serviceLocator.documentsProvider,
-            blockActionsService: serviceLocator.blockActionsServiceSingle(),
+            blockService: serviceLocator.blockService(),
             output: output
         )
      

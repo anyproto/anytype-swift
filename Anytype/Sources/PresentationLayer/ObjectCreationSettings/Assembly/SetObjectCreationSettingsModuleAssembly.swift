@@ -31,6 +31,7 @@ final class SetObjectCreationSettingsModuleAssembly: SetObjectCreationSettingsMo
                     setDocument: setDocument,
                     viewId: viewId,
                     objectTypesProvider: serviceLocator.objectTypeProvider(),
+                    typesService: serviceLocator.typesService(),
                     subscriptionService: serviceLocator.templatesSubscription(),
                     dataviewService: serviceLocator.dataviewService()
                 ),

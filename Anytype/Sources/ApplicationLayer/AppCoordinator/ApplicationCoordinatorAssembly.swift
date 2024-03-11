@@ -38,7 +38,7 @@ final class ApplicationCoordinatorAssembly: ApplicationCoordinatorAssemblyProtoc
                 seedService: self.serviceLocator.seedService(),
                 fileErrorEventHandler: self.serviceLocator.fileErrorEventHandler(),
                 authCoordinatorAssembly: self.coordinatorsDI.authorization(),
-                homeWidgetsCoordinatorAssembly: self.coordinatorsDI.homeWidgets(),
+                homeCoordinatorAssembly: self.coordinatorsDI.home(),
                 deleteAccountModuleAssembly: self.modulesDI.deleteAccount(),
                 initialCoordinatorAssembly: self.coordinatorsDI.initial(), 
                 debugMenuModuleAssembly: self.modulesDI.debugMenu(),

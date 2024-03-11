@@ -22,7 +22,7 @@ final class CodeLanguageListModuleAssembly: CodeLanguageListModuleAssemblyProtoc
         let viewModel = CodeLanguageLegacyListViewModel(
             document: document,
             blockId: blockId,
-            blockListService: serviceLocator.blockListService()
+            blockService: serviceLocator.blockService()
         )
         return CodeLanguageLegacyListViewController(viewModel: viewModel)
     }
@@ -33,7 +33,7 @@ final class CodeLanguageListModuleAssembly: CodeLanguageListModuleAssemblyProtoc
                 document: document,
                 blockId: blockId,
                 selectedLanguage: selectedLanguage,
-                blockListService: serviceLocator.blockListService()
+                blockService: serviceLocator.blockService()
             )
         ).eraseToAnyView()
     }

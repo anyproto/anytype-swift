@@ -14,7 +14,8 @@ protocol SetDocumentProtocol: BaseDocumentGeneralProtocol {
     var inlineParameters: EditorInlineSetObject? { get }
     var dataviews: [BlockDataview] { get }
     var dataViewRelationsDetails: [RelationDetails] { get }
-    var isObjectLocked: Bool { get }
+    var viewRelationValueIsLocked: Bool { get }
+    var relationValuesIsLocked: Bool { get }
     var analyticsType: AnalyticsObjectType { get }
     // TODO Refactor this
     var dataBuilder: SetContentViewDataBuilder { get }
@@ -43,9 +44,11 @@ protocol SetDocumentProtocol: BaseDocumentGeneralProtocol {
     func objectOrderIds(for groupId: String) -> [String]
     func updateActiveViewId(_ id: BlockId)
     func isTypeSet() -> Bool
-    func isRelationsSet() -> Bool
+    func isSetByRelation() -> Bool
     func isBookmarksSet() -> Bool
     func isCollection() -> Bool
+    func canCreateObject() -> Bool
+    func isActiveHeader() -> Bool
     func defaultObjectTypeForActiveView() throws -> ObjectType
     func defaultObjectTypeForView(_ view: DataviewView) throws -> ObjectType
     var syncPublisher: AnyPublisher<Void, Never> { get }

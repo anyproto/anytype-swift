@@ -5,7 +5,7 @@ import AnytypeCore
 
 public protocol UnsplashServiceProtocol {
     func searchUnsplashImages(query: String) async throws -> [UnsplashItem]
-    func downloadImage(spaceId: String, id: String) async throws -> Hash
+    func downloadImage(spaceId: String, id: String) async throws -> ObjectId
 }
 
 public final class UnsplashService: UnsplashServiceProtocol {
@@ -21,11 +21,11 @@ public final class UnsplashService: UnsplashServiceProtocol {
         return result.pictures.compactMap(UnsplashItem.init)
     }
 
-    public func downloadImage(spaceId: String, id: String) async throws -> Hash {
+    public func downloadImage(spaceId: String, id: String) async throws -> String {
         let result = try await ClientCommands.unsplashDownload(.with {
             $0.pictureID = id
             $0.spaceID = spaceId
         }).invoke()
-        return try Hash(safeValue: result.hash)
+        return result.objectID
     }
 }

@@ -109,7 +109,8 @@ final class WidgetContainerViewModel<ContentVM: WidgetContainerContentViewModelP
            AnytypeAnalytics.instance().logShowDeletionWarning(route: .bin)
            let alert = BottomAlertLegacy.binConfirmation(count: binIds.count) { [binIds, weak self] in
                Task { [weak self] in
-                   try await self?.objectActionsService.delete(objectIds: binIds, route: .bin)
+                   AnytypeAnalytics.instance().logDeletion(count: binIds.count, route: .bin)
+                   try await self?.objectActionsService.delete(objectIds: binIds)
                    self?.toastData = ToastBarData(text: Loc.Widgets.Actions.binConfirm(binIds.count), showSnackBar: true)
                }
            }

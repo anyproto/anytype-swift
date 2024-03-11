@@ -72,7 +72,7 @@ struct WidgetObjectListRowView: View {
             ForEach(model.menu) { menu in
                 Button(menu.title, role: menu.negative ? .destructive : nil) {
                     Task { @MainActor in
-                        model.onTap()
+                        menu.onTap()
                     }
                 }
             }

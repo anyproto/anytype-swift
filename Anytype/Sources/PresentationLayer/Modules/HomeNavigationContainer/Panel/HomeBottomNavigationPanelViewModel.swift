@@ -3,6 +3,7 @@ import Services
 import Combine
 import UIKit
 import AnytypeCore
+import Services
 
 @MainActor
 final class HomeBottomNavigationPanelViewModel: ObservableObject {
@@ -11,24 +12,31 @@ final class HomeBottomNavigationPanelViewModel: ObservableObject {
     
     private let activeWorkpaceStorage: ActiveWorkpaceStorageProtocol
     private let subscriptionService: SingleObjectSubscriptionServiceProtocol
-    private let dashboardService: DashboardServiceProtocol
+    private let defaultObjectService: DefaultObjectCreationServiceProtocol
+    private var processSubscriptionService: ProcessSubscriptionServiceProtocol
     private weak var output: HomeBottomNavigationPanelModuleOutput?
     private let subId = "HomeBottomNavigationProfile-\(UUID().uuidString)"
+    
+    private var activeProcess: Process?
+    private var subscriptions: [AnyCancellable] = []
     
     // MARK: - Public properties
     
     @Published var isEditState: Bool = false
     @Published var profileIcon: Icon?
+    @Published var progress: Double? = nil
     
     init(
         activeWorkpaceStorage: ActiveWorkpaceStorageProtocol,
         subscriptionService: SingleObjectSubscriptionServiceProtocol,
-        dashboardService: DashboardServiceProtocol,
+        defaultObjectService: DefaultObjectCreationServiceProtocol,
+        processSubscriptionService: ProcessSubscriptionServiceProtocol,
         output: HomeBottomNavigationPanelModuleOutput?
     ) {
         self.activeWorkpaceStorage = activeWorkpaceStorage
         self.subscriptionService = subscriptionService
-        self.dashboardService = dashboardService
+        self.defaultObjectService = defaultObjectService
+        self.processSubscriptionService = processSubscriptionService
         self.output = output
         setupDataSubscription()
     }
@@ -71,6 +79,10 @@ final class HomeBottomNavigationPanelViewModel: ObservableObject {
             ) { [weak self] details in
                 self?.handleProfileDetails(details: details)
             }
+            
+            await processSubscriptionService.addHandler { [weak self] events in
+                self?.handleProcesses(events: events)
+            }.store(in: &subscriptions)
         }
     }
     
@@ -80,10 +92,36 @@ final class HomeBottomNavigationPanelViewModel: ObservableObject {
     
     private func handleCreateObject() {
         Task { @MainActor in
-            guard let details = try? await dashboardService.createNewPage(spaceId: activeWorkpaceStorage.workspaceInfo.accountSpaceId) else { return }
+            guard let details = try? await defaultObjectService.createDefaultObject(name: "", shouldDeleteEmptyObject: true, spaceId: activeWorkpaceStorage.workspaceInfo.accountSpaceId) else { return }
             AnytypeAnalytics.instance().logCreateObject(objectType: details.analyticsType, route: .navigation, view: .home)
             
             output?.onCreateObjectSelected(screenData: details.editorScreenData())
+        }
+    }
+    
+    private func handleProcesses(events: [ProcessEvent]) {
+        for event in events {
+            switch event {
+            case .new(let process):
+                guard activeProcess.isNil else { return }
+                activeProcess = process
+                progress = Double(process.progress.done) / Double(process.progress.total)
+            case .update(let process):
+                guard process.id == activeProcess?.id else { return }
+                activeProcess = process
+                progress = Double(process.progress.done) / Double(process.progress.total)
+            case .done(let process):
+                guard process.id == activeProcess?.id else { return }
+                activeProcess = nil
+                progress = Double(process.progress.done) / Double(process.progress.total)
+                Task {
+                    try await Task.sleep(seconds: 2)
+                    // If other process not executing
+                    if activeProcess.isNil {
+                        progress = nil
+                    }
+                }
+            }
         }
     }
 }

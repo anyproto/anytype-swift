@@ -30,8 +30,10 @@ enum AnytypeFont: CaseIterable {
     case uxCalloutMedium
 
 
+    case caption1Semibold
     case caption1Regular
     case caption1Medium
+    case caption2Semibold
     case caption2Regular
     case caption2Medium
 

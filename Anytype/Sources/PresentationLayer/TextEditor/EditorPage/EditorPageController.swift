@@ -648,14 +648,8 @@ private extension EditorPageController {
         _ snapshot: NSDiffableDataSourceSectionSnapshot<EditorItem>,
         animatingDifferences: Bool
     ) {
-        if #available(iOS 15.0, *) {
-            dataSource.apply(snapshot, to: .main, animatingDifferences: animatingDifferences)
-        } else {
-            UIView.performWithoutAnimation {
-                dataSource.apply(snapshot, to: .main, animatingDifferences: true)
-            }
-        }
-
+        dataSource.apply(snapshot, to: .main, animatingDifferences: animatingDifferences)
+   
         let selectedCells = collectionView.indexPathsForSelectedItems
         selectedCells?.forEach {
             self.collectionView.selectItem(at: $0, animated: false, scrollPosition: [])

@@ -1,6 +1,10 @@
+import AnytypeCore
+
 public extension DetailsLayout {
-    static var visibleLayouts: [DetailsLayout] = [.basic, .bookmark, .collection, .note, .profile, .set, .todo]
-    static var supportedForEditLayouts: [DetailsLayout] = [.basic, .bookmark, .collection, .file, .image, .note, .profile, .set, .todo]
+    static var visibleLayouts: [DetailsLayout] = pageLayouts + setLayouts
+    static var supportedForEditLayouts: [DetailsLayout] =  pageLayouts + fileLayouts + setLayouts
+    static var supportedForCreationInSets: [DetailsLayout] = pageLayouts - [.participant]
+    static var visibleLayoutsWithFiles = visibleLayouts + fileLayouts
 }
 
 
@@ -10,34 +14,36 @@ public extension DetailsLayout {
         .note,
         .basic,
         .profile,
-        .todo
+        .todo,
+        .participant
     ]
+    
+    static var pageLayouts: [DetailsLayout] = editorLayouts + [.bookmark]
     
     static var fileLayouts: [DetailsLayout] = [
         .file,
-        .image
+        .image,
+        .audio,
+        .video,
+        .pdf
+    ]
+    
+    static var setLayouts: [DetailsLayout] = [
+        .collection,
+        .set
     ]
     
     static var systemLayouts: [DetailsLayout] = [
         .objectType,
         .relation,
         .relationOption,
-        .relationOptionList,
+        .relationOptionsList,
         .dashboard,
-        .database
-    ]
-    
-    static var pageLayouts: [DetailsLayout] = [
-        .basic,
-        .profile,
-        .todo,
-        .note,
-        .bookmark
+        .space
     ]
     
     static var fileAndSystemLayouts: [DetailsLayout] = fileLayouts + systemLayouts
     static var layoutsWithoutTemplate: [DetailsLayout] = [
-        .note,
         .set,
         .collection,
         .bookmark

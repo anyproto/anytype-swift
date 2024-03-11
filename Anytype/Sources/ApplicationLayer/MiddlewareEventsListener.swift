@@ -5,10 +5,8 @@ import Logger
 /// receive events from middleware and broadcast throught notification center
 final class MiddlewareEventsListener: NSObject {
     
-    private let wrapper = ServiceMessageHandlerAdapter()
-
     func startListening() {
-        _ = wrapper.with(value: self)
+        ServiceMessageHandlerAdapter.shared.addHandler(handler: self)
     }
 }
 

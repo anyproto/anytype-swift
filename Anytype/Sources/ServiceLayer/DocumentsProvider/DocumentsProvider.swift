@@ -18,16 +18,16 @@ final class DocumentsProvider: DocumentsProviderProtocol {
     
     // MARK: DI for document
     
-    private let blockActionsService: BlockActionsServiceSingleProtocol
+    private let objectLifecycleService: ObjectLifecycleServiceProtocol
     
     init(
         relationDetailsStorage: RelationDetailsStorageProtocol,
         objectTypeProvider: ObjectTypeProviderProtocol,
-        blockActionsService: BlockActionsServiceSingleProtocol
+        objectLifecycleService: ObjectLifecycleServiceProtocol
     ) {
         self.relationDetailsStorage = relationDetailsStorage
         self.objectTypeProvider = objectTypeProvider
-        self.blockActionsService = blockActionsService
+        self.objectLifecycleService = objectLifecycleService
     }
     
     func document(objectId: String, forPreview: Bool) -> BaseDocumentProtocol {
@@ -71,7 +71,7 @@ final class DocumentsProvider: DocumentsProviderProtocol {
         return BaseDocument(
             objectId: objectId,
             forPreview: forPreview,
-            blockActionsService: blockActionsService,
+            objectLifecycleService: objectLifecycleService,
             relationDetailsStorage: relationDetailsStorage, 
             objectTypeProvider: objectTypeProvider
         )

@@ -108,7 +108,7 @@ final class URLInputView: UIView {
     private func addTopLine() {
         let line = UIView()
         line.translatesAutoresizingMaskIntoConstraints = false
-        line.backgroundColor = .Stroke.tertiary
+        line.backgroundColor = .Shape.tertiary
         addSubview(line)
         line.layoutUsing.anchors {
             $0.top.equal(to: topAnchor)

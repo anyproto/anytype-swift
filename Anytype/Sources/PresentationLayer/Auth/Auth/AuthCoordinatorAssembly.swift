@@ -23,7 +23,7 @@ final class AuthCoordinatorAssembly: AuthCoordinatorAssemblyProtocol {
         self.uiHelpersDI = uiHelpersDI
     }
     
-    // MARK: - HomeWidgetsCoordinatorAssemblyProtocol
+    // MARK: - HomeCoordinatorAssemblyProtocol
     
     @MainActor
     func make() -> AuthCoordinatorProtocol {

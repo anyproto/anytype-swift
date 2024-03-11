@@ -5,12 +5,15 @@ extension View {
     func anytypeSheet<Content>(
         isPresented: Binding<Bool>,
         onDismiss: (() -> Void)? = nil,
+        cancelAction: (() -> Void)? = nil,
         @ViewBuilder content: @escaping () -> Content
     ) -> some View where Content : View {
         fullScreenCover(isPresented: isPresented, onDismiss: onDismiss) {
             SheetContainerView {
                 SheetView {
                     content()
+                } cancelAction: {
+                    cancelAction?()
                 }
             }
         }
@@ -19,12 +22,15 @@ extension View {
     public func anytypeSheet<Item, Content>(
         item: Binding<Item?>,
         onDismiss: (() -> Void)? = nil,
+        cancelAction: (() -> Void)? = nil,
         @ViewBuilder content: @escaping (Item) -> Content
     ) -> some View where Item : Identifiable, Content : View {
         fullScreenCover(item: item, onDismiss: onDismiss) { item in
             SheetContainerView {
                 SheetView {
                     content(item)
+                } cancelAction: {
+                    cancelAction?()
                 }
             }
         }

@@ -41,6 +41,24 @@ public final class RelationsService: RelationsServiceProtocol {
             ]
         }).invoke()
     }
+    
+    public func updateRelationOption(id: String, text: String, color: String?) async throws {
+        try await ClientCommands.objectSetDetails(.with {
+            $0.contextID = id
+            $0.details = .builder {
+                Anytype_Rpc.Object.SetDetails.Detail.with {
+                    $0.key = BundledRelationKey.name.rawValue
+                    $0.value = text.protobufValue
+                }
+                if let color {
+                    Anytype_Rpc.Object.SetDetails.Detail.with {
+                        $0.key = BundledRelationKey.relationOptionColor.rawValue
+                        $0.value = color.protobufValue
+                    }
+                }
+            }
+        }).invoke()
+    }
 
     public func createRelation(spaceId: String, relationDetails: RelationDetails) async throws -> RelationDetails {
         let result = try await ClientCommands.objectCreateRelation(.with {
@@ -73,8 +91,8 @@ public final class RelationsService: RelationsServiceProtocol {
         }).invoke()
     }
     
-    public func addRelationOption(spaceId: String, relationKey: String, optionText: String) async throws -> String? {
-        let color = MiddlewareColor.allCases.randomElement()?.rawValue ?? MiddlewareColor.default.rawValue
+    public func addRelationOption(spaceId: String, relationKey: String, optionText: String, color: String?) async throws -> String? {
+        let color = color ?? MiddlewareColor.allCases.randomElement()?.rawValue ?? MiddlewareColor.default.rawValue
         
         let details = Google_Protobuf_Struct(
             fields: [
@@ -90,5 +108,11 @@ public final class RelationsService: RelationsServiceProtocol {
         }).invoke()
         
         return optionResult?.objectID
+    }
+    
+    public func removeRelationOptions(ids: [String]) async throws {
+        try await ClientCommands.relationListRemoveOption(.with {
+            $0.optionIds = ids
+        }).invoke()
     }
 }

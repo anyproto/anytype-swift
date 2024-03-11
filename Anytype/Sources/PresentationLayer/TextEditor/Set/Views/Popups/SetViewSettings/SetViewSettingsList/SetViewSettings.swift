@@ -35,6 +35,6 @@ enum SetViewSettings: CaseIterable {
     }
     
     func isPlaceholder(_ text: String) -> Bool {
-        self.placeholder == text
+        text == placeholder || text == Loc.EditorSet.View.Not.Supported.title
     }
 }

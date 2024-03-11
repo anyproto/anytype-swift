@@ -102,5 +102,99 @@
 			<string>%d objects deleted</string>
 		</dict>
 	</dict>
+	<key>Sharing.File.NewObject</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@object@</string>
+		<key>object</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>one</key>
+			<string>File Object</string>
+			<key>other</key>
+			<string>%d File Objects</string>
+		</dict>
+	</dict>
+	<key>Sharing.File.Block</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@object@</string>
+		<key>object</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>one</key>
+			<string>File Block</string>
+			<key>other</key>
+			<string>%d File Blocks</string>
+		</dict>
+	</dict>
+	<key>Sharing.URL.NewObject</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@object@</string>
+		<key>object</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>one</key>
+			<string>Bookmark Object</string>
+			<key>other</key>
+			<string>%d Bookmark Objects</string>
+		</dict>
+	</dict>
+	<key>Sharing.URL.Block</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@object@</string>
+		<key>object</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>one</key>
+			<string>Link Block</string>
+			<key>other</key>
+			<string>Link %d Blocks</string>
+		</dict>
+	</dict>
+	<key>SpaceShare.Invite.Members</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@object@</string>
+		<key>object</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>one</key>
+			<string>You can add one more member</string>
+			<key>other</key>
+			<string>You can add %d more members</string>
+		</dict>
+	</dict>
+	<key>SpaceShare.Invite.MaxLimit</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@object@</string>
+		<key>object</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>other</key>
+			<string>You have reached the limit of %d members. New members will not be able to join.</string>
+		</dict>
+	</dict>
 </dict>
 </plist>

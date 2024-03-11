@@ -1,19 +1,11 @@
-//
-//  ObjectType.swift
-//  Services
-//
-//  Created by Konstantin Mordan on 10.06.2022.
-//  Copyright © 2022 Anytype. All rights reserved.
-//
-
 import ProtobufMessages
 import AnytypeCore
 
-public struct ObjectType: Equatable, Hashable, Codable {
+public struct ObjectType: Equatable, Hashable, Codable, Identifiable {
     
     public let id: String
     public let name: String
-    public let iconEmoji: Emoji
+    public let iconEmoji: Emoji?
     public let description: String
     public let hidden: Bool
     public let readonly: Bool
@@ -23,6 +15,7 @@ public struct ObjectType: Equatable, Hashable, Codable {
     public let spaceId: String
     public let uniqueKey: ObjectTypeUniqueKey
     public let defaultTemplateId: String
+    public let canCreateObjectOfThisType: Bool
     
     public let recommendedRelations: [ObjectId]
     public let recommendedLayout: DetailsLayout?
@@ -30,7 +23,7 @@ public struct ObjectType: Equatable, Hashable, Codable {
     public init(
         id: String,
         name: String,
-        iconEmoji: Emoji,
+        iconEmoji: Emoji?,
         description: String,
         hidden: Bool,
         readonly: Bool,
@@ -40,6 +33,7 @@ public struct ObjectType: Equatable, Hashable, Codable {
         spaceId: String,
         uniqueKey: ObjectTypeUniqueKey,
         defaultTemplateId: String,
+        canCreateObjectOfThisType: Bool,
         recommendedRelations: [ObjectId],
         recommendedLayout: DetailsLayout?
     ) {
@@ -55,6 +49,7 @@ public struct ObjectType: Equatable, Hashable, Codable {
         self.spaceId = spaceId
         self.uniqueKey = uniqueKey
         self.defaultTemplateId = defaultTemplateId
+        self.canCreateObjectOfThisType = canCreateObjectOfThisType
         self.recommendedRelations = recommendedRelations
         self.recommendedLayout = recommendedLayout
     }
@@ -66,7 +61,7 @@ extension ObjectType {
         self.init(
             id: details.id,
             name: details.name,
-            iconEmoji: details.iconEmoji ?? Emoji.default,
+            iconEmoji: details.iconEmoji,
             description: details.description,
             hidden: details.isHidden,
             readonly: details.isReadonly,
@@ -76,6 +71,7 @@ extension ObjectType {
             spaceId: details.spaceId,
             uniqueKey: details.uniqueKeyValue,
             defaultTemplateId: details.defaultTemplateId,
+            canCreateObjectOfThisType: details.restrictionsList.contains(ObjectRestriction.createObjectOfThisType.rawValue),
             recommendedRelations: details.recommendedRelations,
             recommendedLayout: details.recommendedLayoutValue
         )
@@ -96,7 +92,7 @@ extension ObjectType {
         uniqueKey == .collection
     }
     
-    public var isNoteType: Bool {
-        uniqueKey == .note
+    public var isNoteLayout: Bool {
+        recommendedLayout == .note
     }
 }

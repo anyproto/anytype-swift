@@ -58,8 +58,8 @@ enum RelationItemModel: Hashable {
         case .url: return Loc.addLink
         case .email: return Loc.addEmail
         case .phone: return Loc.addPhone
-        case .status: return Loc.selectStatus
-        case .tag: return Loc.selectTag
+        case .status: return Loc.selectOption
+        case .tag: return Loc.selectOptions
         case .file: return Loc.selectFile
         case .checkbox: return ""
         case .unknown: return Loc.enterValue

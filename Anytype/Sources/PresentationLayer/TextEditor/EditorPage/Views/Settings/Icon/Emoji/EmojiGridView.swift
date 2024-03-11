@@ -95,7 +95,7 @@ struct EmojiGridView: View {
     
     private func emojiGridView(at index: Int, inEmojis emojis: [EmojiData]) -> some View {
         emojis[safe: index].flatMap { emoji in
-            Text(emoji.emoji)
+            Text(verbatim: emoji.emoji)
                 .font(.system(size: 40))
                 .if(index > columns.count - 1) {
                     $0.padding(.top, 12)

@@ -19,7 +19,7 @@ final class ShimmeringBlockView: UIView, BlockContentView {
     private func setupView() {
         backgroundColor = .clear
 
-        imageView.tintColor = .Stroke.tertiary
+        imageView.tintColor = .Shape.tertiary
         shimmeringView.contentView = imageView
         
         addSubview(shimmeringView) {

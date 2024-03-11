@@ -164,7 +164,7 @@ extension AnytypeAnalytics {
     func logAddRelation(format: RelationFormat, isNew: Bool, type: AnalyticsEventsRelationType) {
         let eventName = isNew ? AnalyticsEventsName.createRelation : AnalyticsEventsName.addExistingRelation
         logEvent(eventName,
-                 withEventProperties: [AnalyticsEventsPropertiesKey.format: format.name,
+                 withEventProperties: [AnalyticsEventsPropertiesKey.format: format.analyticsName,
                                        AnalyticsEventsPropertiesKey.type: type.rawValue])
     }
 
@@ -194,21 +194,23 @@ extension AnytypeAnalytics {
     }
     
     // MARK: - Collection
-    func logScreenCollection() {
+    func logScreenCollection(with type: String) {
         logEvent(
             AnalyticsEventsName.screenCollection,
             withEventProperties: [
-                AnalyticsEventsPropertiesKey.embedType: AnalyticsEventsSetCollectionEmbedType.object
+                AnalyticsEventsPropertiesKey.embedType: AnalyticsEventsSetCollectionEmbedType.object,
+                AnalyticsEventsPropertiesKey.type: type
             ]
         )
     }
     
     // MARK: - Set
-    func logScreenSet() {
+    func logScreenSet(with type: String) {
         logEvent(
             AnalyticsEventsName.screenSet,
             withEventProperties: [
-                AnalyticsEventsPropertiesKey.embedType: AnalyticsEventsSetCollectionEmbedType.object
+                AnalyticsEventsPropertiesKey.embedType: AnalyticsEventsSetCollectionEmbedType.object,
+                AnalyticsEventsPropertiesKey.type: type
             ]
         )
     }
@@ -503,6 +505,14 @@ extension AnytypeAnalytics {
         logEvent(AnalyticsEventsName.searchResult)
     }
     
+    func logLockPage(_ isLocked: Bool) {
+        if isLocked {
+            logLockPage()
+        } else {
+            logUnlockPage()
+        }
+    }
+    
     func logLockPage() {
         logEvent(AnalyticsEventsName.lockPage)
     }
@@ -753,4 +763,30 @@ extension AnytypeAnalytics {
     func logUploadNetworkConfiguration() {
         logEvent(AnalyticsEventsName.uploadNetworkConfiguration)
     }
+    
+    func logScreenGalleryInstall(name: String) {
+        logEvent(
+            AnalyticsEventsName.screenGalleryInstall,
+            withEventProperties: [AnalyticsEventsPropertiesKey.name: name]
+        )
+    }
+    
+    func logClickGalleryInstall() {
+        logEvent(AnalyticsEventsName.clickGalleryInstall)
+    }
+    
+    func logClickGalleryInstallSpace(type: ClickGalleryInstallSpaceType) {
+        logEvent(
+            AnalyticsEventsName.clickGalleryInstallSpace,
+            withEventProperties: [AnalyticsEventsPropertiesKey.type: type.rawValue]
+        )
+    }
+    
+    func logGalleryInstall(name: String) {
+        logEvent(
+            AnalyticsEventsName.galleryInstall,
+            withEventProperties: [AnalyticsEventsPropertiesKey.name: name]
+        )
+    }
+    
 }

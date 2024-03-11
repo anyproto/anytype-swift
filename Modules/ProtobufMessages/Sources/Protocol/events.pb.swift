@@ -83,6 +83,14 @@ public struct Anytype_Event {
       set {value = .accountUpdate(newValue)}
     }
 
+    public var accountLinkChallenge: Anytype_Event.Account.LinkChallenge {
+      get {
+        if case .accountLinkChallenge(let v)? = value {return v}
+        return Anytype_Event.Account.LinkChallenge()
+      }
+      set {value = .accountLinkChallenge(newValue)}
+    }
+
     public var objectDetailsSet: Anytype_Event.Object.Details.Set {
       get {
         if case .objectDetailsSet(let v)? = value {return v}
@@ -550,6 +558,14 @@ public struct Anytype_Event {
       set {value = .notificationUpdate(newValue)}
     }
 
+    public var payloadBroadcast: Anytype_Event.Payload.Broadcast {
+      get {
+        if case .payloadBroadcast(let v)? = value {return v}
+        return Anytype_Event.Payload.Broadcast()
+      }
+      set {value = .payloadBroadcast(newValue)}
+    }
+
     public var unknownFields = SwiftProtobuf.UnknownStorage()
 
     public enum OneOf_Value: Equatable {
@@ -557,6 +573,7 @@ public struct Anytype_Event {
       case accountDetails(Anytype_Event.Account.Details)
       case accountConfigUpdate(Anytype_Event.Account.Config.Update)
       case accountUpdate(Anytype_Event.Account.Update)
+      case accountLinkChallenge(Anytype_Event.Account.LinkChallenge)
       case objectDetailsSet(Anytype_Event.Object.Details.Set)
       case objectDetailsAmend(Anytype_Event.Object.Details.Amend)
       case objectDetailsUnset(Anytype_Event.Object.Details.Unset)
@@ -618,6 +635,7 @@ public struct Anytype_Event {
       case fileLocalUsage(Anytype_Event.File.LocalUsage)
       case notificationSend(Anytype_Event.Notification.Send)
       case notificationUpdate(Anytype_Event.Notification.Update)
+      case payloadBroadcast(Anytype_Event.Payload.Broadcast)
 
     #if !swift(>=4.1)
       public static func ==(lhs: Anytype_Event.Message.OneOf_Value, rhs: Anytype_Event.Message.OneOf_Value) -> Bool {
@@ -639,6 +657,10 @@ public struct Anytype_Event {
         }()
         case (.accountUpdate, .accountUpdate): return {
           guard case .accountUpdate(let l) = lhs, case .accountUpdate(let r) = rhs else { preconditionFailure() }
+          return l == r
+        }()
+        case (.accountLinkChallenge, .accountLinkChallenge): return {
+          guard case .accountLinkChallenge(let l) = lhs, case .accountLinkChallenge(let r) = rhs else { preconditionFailure() }
           return l == r
         }()
         case (.objectDetailsSet, .objectDetailsSet): return {
@@ -873,6 +895,10 @@ public struct Anytype_Event {
           guard case .notificationUpdate(let l) = lhs, case .notificationUpdate(let r) = rhs else { preconditionFailure() }
           return l == r
         }()
+        case (.payloadBroadcast, .payloadBroadcast): return {
+          guard case .payloadBroadcast(let l) = lhs, case .payloadBroadcast(let r) = rhs else { preconditionFailure() }
+          return l == r
+        }()
         default: return false
         }
       }
@@ -1009,6 +1035,45 @@ public struct Anytype_Event {
 
       fileprivate var _config: Anytype_Model_Account.Config? = nil
       fileprivate var _status: Anytype_Model_Account.Status? = nil
+    }
+
+    public struct LinkChallenge {
+      // SwiftProtobuf.Message conformance is added in an extension below. See the
+      // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+      // methods supported on all messages.
+
+      public var challenge: String = String()
+
+      public var clientInfo: Anytype_Event.Account.LinkChallenge.ClientInfo {
+        get {return _clientInfo ?? Anytype_Event.Account.LinkChallenge.ClientInfo()}
+        set {_clientInfo = newValue}
+      }
+      /// Returns true if `clientInfo` has been explicitly set.
+      public var hasClientInfo: Bool {return self._clientInfo != nil}
+      /// Clears the value of `clientInfo`. Subsequent reads from it will return its default value.
+      public mutating func clearClientInfo() {self._clientInfo = nil}
+
+      public var unknownFields = SwiftProtobuf.UnknownStorage()
+
+      public struct ClientInfo {
+        // SwiftProtobuf.Message conformance is added in an extension below. See the
+        // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+        // methods supported on all messages.
+
+        public var processName: String = String()
+
+        public var processPath: String = String()
+
+        public var signatureVerified: Bool = false
+
+        public var unknownFields = SwiftProtobuf.UnknownStorage()
+
+        public init() {}
+      }
+
+      public init() {}
+
+      fileprivate var _clientInfo: Anytype_Event.Account.LinkChallenge.ClientInfo? = nil
     }
 
     public init() {}
@@ -1881,6 +1946,15 @@ public struct Anytype_Event {
         /// Clears the value of `style`. Subsequent reads from it will return its default value.
         public mutating func clearStyle() {self._style = nil}
 
+        public var targetObjectID: Anytype_Event.Block.Set.File.TargetObjectId {
+          get {return _targetObjectID ?? Anytype_Event.Block.Set.File.TargetObjectId()}
+          set {_targetObjectID = newValue}
+        }
+        /// Returns true if `targetObjectID` has been explicitly set.
+        public var hasTargetObjectID: Bool {return self._targetObjectID != nil}
+        /// Clears the value of `targetObjectID`. Subsequent reads from it will return its default value.
+        public mutating func clearTargetObjectID() {self._targetObjectID = nil}
+
         public var unknownFields = SwiftProtobuf.UnknownStorage()
 
         public struct Name {
@@ -1979,6 +2053,18 @@ public struct Anytype_Event {
           public init() {}
         }
 
+        public struct TargetObjectId {
+          // SwiftProtobuf.Message conformance is added in an extension below. See the
+          // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+          // methods supported on all messages.
+
+          public var value: String = String()
+
+          public var unknownFields = SwiftProtobuf.UnknownStorage()
+
+          public init() {}
+        }
+
         public init() {}
 
         fileprivate var _type: Anytype_Event.Block.Set.File.TypeMessage? = nil
@@ -1988,6 +2074,7 @@ public struct Anytype_Event {
         fileprivate var _name: Anytype_Event.Block.Set.File.Name? = nil
         fileprivate var _size: Anytype_Event.Block.Set.File.Size? = nil
         fileprivate var _style: Anytype_Event.Block.Set.File.Style? = nil
+        fileprivate var _targetObjectID: Anytype_Event.Block.Set.File.TargetObjectId? = nil
       }
 
       public struct Link {
@@ -4516,6 +4603,28 @@ public struct Anytype_Event {
     public init() {}
   }
 
+  public struct Payload {
+    // SwiftProtobuf.Message conformance is added in an extension below. See the
+    // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+    // methods supported on all messages.
+
+    public var unknownFields = SwiftProtobuf.UnknownStorage()
+
+    public struct Broadcast {
+      // SwiftProtobuf.Message conformance is added in an extension below. See the
+      // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+      // methods supported on all messages.
+
+      public var payload: String = String()
+
+      public var unknownFields = SwiftProtobuf.UnknownStorage()
+
+      public init() {}
+    }
+
+    public init() {}
+  }
+
   public init() {}
 
   fileprivate var _initiator: Anytype_Model_Account? = nil
@@ -4731,6 +4840,8 @@ extension Anytype_Event.Account.Details: @unchecked Sendable {}
 extension Anytype_Event.Account.Config: @unchecked Sendable {}
 extension Anytype_Event.Account.Config.Update: @unchecked Sendable {}
 extension Anytype_Event.Account.Update: @unchecked Sendable {}
+extension Anytype_Event.Account.LinkChallenge: @unchecked Sendable {}
+extension Anytype_Event.Account.LinkChallenge.ClientInfo: @unchecked Sendable {}
 extension Anytype_Event.Object: @unchecked Sendable {}
 extension Anytype_Event.Object.Details: @unchecked Sendable {}
 extension Anytype_Event.Object.Details.Amend: @unchecked Sendable {}
@@ -4785,6 +4896,7 @@ extension Anytype_Event.Block.Set.File.Style: @unchecked Sendable {}
 extension Anytype_Event.Block.Set.File.Hash: @unchecked Sendable {}
 extension Anytype_Event.Block.Set.File.Mime: @unchecked Sendable {}
 extension Anytype_Event.Block.Set.File.Size: @unchecked Sendable {}
+extension Anytype_Event.Block.Set.File.TargetObjectId: @unchecked Sendable {}
 extension Anytype_Event.Block.Set.Link: @unchecked Sendable {}
 extension Anytype_Event.Block.Set.Link.TargetBlockId: @unchecked Sendable {}
 extension Anytype_Event.Block.Set.Link.Style: @unchecked Sendable {}
@@ -4906,6 +5018,8 @@ extension Anytype_Event.File.LocalUsage: @unchecked Sendable {}
 extension Anytype_Event.Notification: @unchecked Sendable {}
 extension Anytype_Event.Notification.Send: @unchecked Sendable {}
 extension Anytype_Event.Notification.Update: @unchecked Sendable {}
+extension Anytype_Event.Payload: @unchecked Sendable {}
+extension Anytype_Event.Payload.Broadcast: @unchecked Sendable {}
 extension Anytype_ResponseEvent: @unchecked Sendable {}
 extension Anytype_Model: @unchecked Sendable {}
 extension Anytype_Model.Process: @unchecked Sendable {}
@@ -4979,6 +5093,7 @@ extension Anytype_Event.Message: SwiftProtobuf.Message, SwiftProtobuf._MessageIm
     201: .same(proto: "accountDetails"),
     202: .same(proto: "accountConfigUpdate"),
     203: .same(proto: "accountUpdate"),
+    204: .same(proto: "accountLinkChallenge"),
     16: .same(proto: "objectDetailsSet"),
     50: .same(proto: "objectDetailsAmend"),
     51: .same(proto: "objectDetailsUnset"),
@@ -5037,6 +5152,7 @@ extension Anytype_Event.Message: SwiftProtobuf.Message, SwiftProtobuf._MessageIm
     113: .same(proto: "fileLocalUsage"),
     114: .same(proto: "notificationSend"),
     115: .same(proto: "notificationUpdate"),
+    116: .same(proto: "payloadBroadcast"),
   ]
 
   public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
@@ -5747,6 +5863,19 @@ extension Anytype_Event.Message: SwiftProtobuf.Message, SwiftProtobuf._MessageIm
           self.value = .notificationUpdate(v)
         }
       }()
+      case 116: try {
+        var v: Anytype_Event.Payload.Broadcast?
+        var hadOneofValue = false
+        if let current = self.value {
+          hadOneofValue = true
+          if case .payloadBroadcast(let m) = current {v = m}
+        }
+        try decoder.decodeSingularMessageField(value: &v)
+        if let v = v {
+          if hadOneofValue {try decoder.handleConflictingOneOf()}
+          self.value = .payloadBroadcast(v)
+        }
+      }()
       case 123: try {
         var v: Anytype_Event.Block.Dataview.RelationSet?
         var hadOneofValue = false
@@ -5849,6 +5978,19 @@ extension Anytype_Event.Message: SwiftProtobuf.Message, SwiftProtobuf._MessageIm
         if let v = v {
           if hadOneofValue {try decoder.handleConflictingOneOf()}
           self.value = .accountUpdate(v)
+        }
+      }()
+      case 204: try {
+        var v: Anytype_Event.Account.LinkChallenge?
+        var hadOneofValue = false
+        if let current = self.value {
+          hadOneofValue = true
+          if case .accountLinkChallenge(let m) = current {v = m}
+        }
+        try decoder.decodeSingularMessageField(value: &v)
+        if let v = v {
+          if hadOneofValue {try decoder.handleConflictingOneOf()}
+          self.value = .accountLinkChallenge(v)
         }
       }()
       default: break
@@ -6078,6 +6220,10 @@ extension Anytype_Event.Message: SwiftProtobuf.Message, SwiftProtobuf._MessageIm
       guard case .notificationUpdate(let v)? = self.value else { preconditionFailure() }
       try visitor.visitSingularMessageField(value: v, fieldNumber: 115)
     }()
+    case .payloadBroadcast?: try {
+      guard case .payloadBroadcast(let v)? = self.value else { preconditionFailure() }
+      try visitor.visitSingularMessageField(value: v, fieldNumber: 116)
+    }()
     case .blockDataviewRelationSet?: try {
       guard case .blockDataviewRelationSet(let v)? = self.value else { preconditionFailure() }
       try visitor.visitSingularMessageField(value: v, fieldNumber: 123)
@@ -6109,6 +6255,10 @@ extension Anytype_Event.Message: SwiftProtobuf.Message, SwiftProtobuf._MessageIm
     case .accountUpdate?: try {
       guard case .accountUpdate(let v)? = self.value else { preconditionFailure() }
       try visitor.visitSingularMessageField(value: v, fieldNumber: 203)
+    }()
+    case .accountLinkChallenge?: try {
+      guard case .accountLinkChallenge(let v)? = self.value else { preconditionFailure() }
+      try visitor.visitSingularMessageField(value: v, fieldNumber: 204)
     }()
     case nil: break
     }
@@ -6323,6 +6473,92 @@ extension Anytype_Event.Account.Update: SwiftProtobuf.Message, SwiftProtobuf._Me
   public static func ==(lhs: Anytype_Event.Account.Update, rhs: Anytype_Event.Account.Update) -> Bool {
     if lhs._config != rhs._config {return false}
     if lhs._status != rhs._status {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    return true
+  }
+}
+
+extension Anytype_Event.Account.LinkChallenge: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = Anytype_Event.Account.protoMessageName + ".LinkChallenge"
+  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    1: .same(proto: "challenge"),
+    2: .same(proto: "clientInfo"),
+  ]
+
+  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let fieldNumber = try decoder.nextFieldNumber() {
+      // The use of inline closures is to circumvent an issue where the compiler
+      // allocates stack space for every case branch when no optimizations are
+      // enabled. https://github.com/apple/swift-protobuf/issues/1034
+      switch fieldNumber {
+      case 1: try { try decoder.decodeSingularStringField(value: &self.challenge) }()
+      case 2: try { try decoder.decodeSingularMessageField(value: &self._clientInfo) }()
+      default: break
+      }
+    }
+  }
+
+  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    // The use of inline closures is to circumvent an issue where the compiler
+    // allocates stack space for every if/case branch local when no optimizations
+    // are enabled. https://github.com/apple/swift-protobuf/issues/1034 and
+    // https://github.com/apple/swift-protobuf/issues/1182
+    if !self.challenge.isEmpty {
+      try visitor.visitSingularStringField(value: self.challenge, fieldNumber: 1)
+    }
+    try { if let v = self._clientInfo {
+      try visitor.visitSingularMessageField(value: v, fieldNumber: 2)
+    } }()
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  public static func ==(lhs: Anytype_Event.Account.LinkChallenge, rhs: Anytype_Event.Account.LinkChallenge) -> Bool {
+    if lhs.challenge != rhs.challenge {return false}
+    if lhs._clientInfo != rhs._clientInfo {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    return true
+  }
+}
+
+extension Anytype_Event.Account.LinkChallenge.ClientInfo: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = Anytype_Event.Account.LinkChallenge.protoMessageName + ".ClientInfo"
+  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    1: .same(proto: "processName"),
+    2: .same(proto: "processPath"),
+    3: .same(proto: "signatureVerified"),
+  ]
+
+  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let fieldNumber = try decoder.nextFieldNumber() {
+      // The use of inline closures is to circumvent an issue where the compiler
+      // allocates stack space for every case branch when no optimizations are
+      // enabled. https://github.com/apple/swift-protobuf/issues/1034
+      switch fieldNumber {
+      case 1: try { try decoder.decodeSingularStringField(value: &self.processName) }()
+      case 2: try { try decoder.decodeSingularStringField(value: &self.processPath) }()
+      case 3: try { try decoder.decodeSingularBoolField(value: &self.signatureVerified) }()
+      default: break
+      }
+    }
+  }
+
+  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    if !self.processName.isEmpty {
+      try visitor.visitSingularStringField(value: self.processName, fieldNumber: 1)
+    }
+    if !self.processPath.isEmpty {
+      try visitor.visitSingularStringField(value: self.processPath, fieldNumber: 2)
+    }
+    if self.signatureVerified != false {
+      try visitor.visitSingularBoolField(value: self.signatureVerified, fieldNumber: 3)
+    }
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  public static func ==(lhs: Anytype_Event.Account.LinkChallenge.ClientInfo, rhs: Anytype_Event.Account.LinkChallenge.ClientInfo) -> Bool {
+    if lhs.processName != rhs.processName {return false}
+    if lhs.processPath != rhs.processPath {return false}
+    if lhs.signatureVerified != rhs.signatureVerified {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
@@ -7960,6 +8196,7 @@ extension Anytype_Event.Block.Set.File: SwiftProtobuf.Message, SwiftProtobuf._Me
     6: .same(proto: "name"),
     7: .same(proto: "size"),
     8: .same(proto: "style"),
+    9: .same(proto: "targetObjectId"),
   ]
 
   public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
@@ -7976,6 +8213,7 @@ extension Anytype_Event.Block.Set.File: SwiftProtobuf.Message, SwiftProtobuf._Me
       case 6: try { try decoder.decodeSingularMessageField(value: &self._name) }()
       case 7: try { try decoder.decodeSingularMessageField(value: &self._size) }()
       case 8: try { try decoder.decodeSingularMessageField(value: &self._style) }()
+      case 9: try { try decoder.decodeSingularMessageField(value: &self._targetObjectID) }()
       default: break
       }
     }
@@ -8010,6 +8248,9 @@ extension Anytype_Event.Block.Set.File: SwiftProtobuf.Message, SwiftProtobuf._Me
     try { if let v = self._style {
       try visitor.visitSingularMessageField(value: v, fieldNumber: 8)
     } }()
+    try { if let v = self._targetObjectID {
+      try visitor.visitSingularMessageField(value: v, fieldNumber: 9)
+    } }()
     try unknownFields.traverse(visitor: &visitor)
   }
 
@@ -8022,6 +8263,7 @@ extension Anytype_Event.Block.Set.File: SwiftProtobuf.Message, SwiftProtobuf._Me
     if lhs._name != rhs._name {return false}
     if lhs._size != rhs._size {return false}
     if lhs._style != rhs._style {return false}
+    if lhs._targetObjectID != rhs._targetObjectID {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
@@ -8277,6 +8519,38 @@ extension Anytype_Event.Block.Set.File.Size: SwiftProtobuf.Message, SwiftProtobu
   }
 
   public static func ==(lhs: Anytype_Event.Block.Set.File.Size, rhs: Anytype_Event.Block.Set.File.Size) -> Bool {
+    if lhs.value != rhs.value {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    return true
+  }
+}
+
+extension Anytype_Event.Block.Set.File.TargetObjectId: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = Anytype_Event.Block.Set.File.protoMessageName + ".TargetObjectId"
+  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    1: .same(proto: "value"),
+  ]
+
+  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let fieldNumber = try decoder.nextFieldNumber() {
+      // The use of inline closures is to circumvent an issue where the compiler
+      // allocates stack space for every case branch when no optimizations are
+      // enabled. https://github.com/apple/swift-protobuf/issues/1034
+      switch fieldNumber {
+      case 1: try { try decoder.decodeSingularStringField(value: &self.value) }()
+      default: break
+      }
+    }
+  }
+
+  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    if !self.value.isEmpty {
+      try visitor.visitSingularStringField(value: self.value, fieldNumber: 1)
+    }
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  public static func ==(lhs: Anytype_Event.Block.Set.File.TargetObjectId, rhs: Anytype_Event.Block.Set.File.TargetObjectId) -> Bool {
     if lhs.value != rhs.value {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
@@ -12975,6 +13249,57 @@ extension Anytype_Event.Notification.Update: SwiftProtobuf.Message, SwiftProtobu
 
   public static func ==(lhs: Anytype_Event.Notification.Update, rhs: Anytype_Event.Notification.Update) -> Bool {
     if lhs._notification != rhs._notification {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    return true
+  }
+}
+
+extension Anytype_Event.Payload: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = Anytype_Event.protoMessageName + ".Payload"
+  public static let _protobuf_nameMap = SwiftProtobuf._NameMap()
+
+  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let _ = try decoder.nextFieldNumber() {
+    }
+  }
+
+  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  public static func ==(lhs: Anytype_Event.Payload, rhs: Anytype_Event.Payload) -> Bool {
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    return true
+  }
+}
+
+extension Anytype_Event.Payload.Broadcast: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = Anytype_Event.Payload.protoMessageName + ".Broadcast"
+  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    1: .same(proto: "payload"),
+  ]
+
+  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let fieldNumber = try decoder.nextFieldNumber() {
+      // The use of inline closures is to circumvent an issue where the compiler
+      // allocates stack space for every case branch when no optimizations are
+      // enabled. https://github.com/apple/swift-protobuf/issues/1034
+      switch fieldNumber {
+      case 1: try { try decoder.decodeSingularStringField(value: &self.payload) }()
+      default: break
+      }
+    }
+  }
+
+  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    if !self.payload.isEmpty {
+      try visitor.visitSingularStringField(value: self.payload, fieldNumber: 1)
+    }
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  public static func ==(lhs: Anytype_Event.Payload.Broadcast, rhs: Anytype_Event.Payload.Broadcast) -> Bool {
+    if lhs.payload != rhs.payload {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }

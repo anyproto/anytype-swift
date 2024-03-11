@@ -9,7 +9,7 @@ final class SetsWidgetInternalViewModel: CommonWidgetInternalViewModel, WidgetIn
     // MARK: - DI
     
     private let setsSubscriptionService: SetsSubscriptionServiceProtocol
-    private let pageRepository: PageRepositoryProtocol
+    private let objectService: ObjectActionsServiceProtocol
     private weak var output: CommonWidgetModuleOutput?
     
     // MARK: - State
@@ -25,11 +25,11 @@ final class SetsWidgetInternalViewModel: CommonWidgetInternalViewModel, WidgetIn
         widgetBlockId: BlockId,
         widgetObject: BaseDocumentProtocol,
         setsSubscriptionService: SetsSubscriptionServiceProtocol,
-        pageRepository: PageRepositoryProtocol,
+        objectService: ObjectActionsServiceProtocol,
         output: CommonWidgetModuleOutput?
     ) {
         self.setsSubscriptionService = setsSubscriptionService
-        self.pageRepository = pageRepository
+        self.objectService = objectService
         self.output = output
         super.init(widgetBlockId: widgetBlockId, widgetObject: widgetObject)
     }
@@ -56,7 +56,7 @@ final class SetsWidgetInternalViewModel: CommonWidgetInternalViewModel, WidgetIn
     
     func onCreateObjectTap() {
         Task {
-            let details = try await pageRepository.createPage(
+            let details = try await objectService.createObject(
                 name: "",
                 typeUniqueKey: .set,
                 shouldDeleteEmptyObject: true,

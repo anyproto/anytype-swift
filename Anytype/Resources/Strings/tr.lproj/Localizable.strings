@@ -79,18 +79,44 @@
 "Relation.From.Type" = "%@ türünden";
 "Relation.LinksFrom.Title" = "from";
 "Relation.LinksTo.Title" = "to";
+"Relation.EmptyState.title" = "No options";
+"Relation.EmptyState.description" = "Nothing found. Create first option to start.";
+"Relation.EmptyState.Blocked.title" = "The relation is empty";
+"Relation.Create.Row.title" = "Create “%@”";
+"Relation.View.Create.title" = "Create option";
+"Relation.View.Edit.title" = "Edit option";
+"Relation.Create.Textfield.placeholder" = "Enter name...";
+"Relation.Edit.Button.title" = "Uygula";
+"Relation.Date.Locked.Alert.title" = "Relation “%@” is locked";
+"Relation.ObjectTypes.Header.title" = "Object types:";
+"Relation.ObjectType.Header.title" = "Object type:";
+
+"Relation.Delete.Alert.Title" = "Emin misin?";
+"Relation.Delete.Alert.Description" = "The option will be permanently removed from your space.";
+"Relation.Object.Delete.Alert.Description" = "The object will be moved to Bin.";
 
 "Relation.Format.Object.Title" = "Nesne";
 "Relation.Format.Text.Title" = "Metin";
 "Relation.Format.Number.Title" = "Sayı";
-"Relation.Format.Status.Title" = "Durum";
-"Relation.Format.Tag.Title" = "Etiket";
+"Relation.Format.Status.Title" = "Seç";
+"Relation.Format.Tag.Title" = "Multi-select";
 "Relation.Format.Date.Title" = "Tarih";
 "Relation.Format.FileMedia.Title" = "Dosya & Medya";
 "Relation.Format.Checkbox.Title" = "Onay kutusu";
 "Relation.Format.Url.Title" = "URL";
 "Relation.Format.Email.Title" = "E-Posta";
 "Relation.Format.Phone.Title" = "Telefon numarası";
+
+// Origin Relation
+
+"Relation.Origin.Clipboard" = "Pano";
+"Relation.Origin.DragAndDrop" = "Drag'n'Drop";
+"Relation.Origin.Import" = "İçeri aktarılan nesne";
+"Relation.Origin.WebClipper" = "Web yakalayıcı";
+"Relation.Origin.SharingExtension" = "Mobil paylaşma uzantısı";
+"Relation.Origin.UseCase" = "Kullanım Alanları";
+"Relation.Origin.Builtin" = "Kütüphane yüklü";
+"Relation.Origin.Bookmark" = "Yer imi";
 
 // MARK: - Mention
 "Mention.Subtitle.Placeholder" = "Nesne";
@@ -109,6 +135,8 @@
 "Actions" = "Eylemler";
 "Relations" = "Bağıntılar";
 "Objects" = "Nesneler";
+"Lists" = "Lists";
+"Pinned" = "Pinned";
 "Delete" = "Sil";
 "Duplicate" = "Çoğalt";
 "Copy" = "Kopyala";
@@ -118,6 +146,8 @@
 "Move" = "Taşı";
 "Move to" = "Şuraya taşı";
 "Back" = "Geri";
+"Unpin" = "Unpin";
+"Pin on top" = "Pin on top";
 "File block subtitle" = "Dosyayı orijinal halinde sakla";
 "Picture block subtitle" = "Resim yükle ve sayfayı zenginleştir";
 "Video block subtitle" = "Oynatılabilir video yükle";
@@ -187,7 +217,7 @@
 "Auth.CameraPermissionTitle" = "Lütfen erişime izin ver";
 "Restore secret phrase from keychain" = "Restore Recovery Phrase from the keychain";
 "Auth.LogIn" = "Giriş Yap";
-"Auth.Join" = "Yeni Hesap Oluştur";
+"Auth.Join" = "Join";
 "Auth.Welcome.Subtitle" = "Anytype, önem verdiğin her şeyi yazman, planlaman, düşünmen ve organize etmen için güvenilir bir alandır.";
 "Auth.Caption.Privacy.Text" = "Devam ederek [Kullanım Şartlarımızı](%@) ve [Gizlilik Politikalarımızı](%@) kabul etmiş olursun";
 "Auth.Next" = "Sonraki";
@@ -199,6 +229,7 @@
 "Error creating wallet" = "Cüzdan oluşturma hatası";
 "Error select account" = "Error select account";
 "Error wallet recover account" = "Error wallet recover account";
+"Wallet.Recovery.Error.description" = "Invalid recovery phrase";
 
 "Search for language" = "Dil ara";
 
@@ -331,6 +362,7 @@
 "Templates.Popup.Default" = "Şablon varsayılan olarak ayarlandı";
 
 "To Bin" = "Çöp kutusuna";
+"Set as default" = "Set as default";
 
 // MARK: - Context Menu
 "Remove From Favorite" = "Favoriden Kaldır";
@@ -486,8 +518,8 @@
 "Enter value" = "Değeri gir";
 "Select object" = "Nesne seç";
 "Select file" = "Dosya seç";
-"Select tag" = "Etiket seç";
-"Select status" = "Durum seç";
+"Select options" = "Select options";
+"Select option" = "Select option";
 "Select date" = "Tarih seç";
 "Add email" = "E-posta ekle";
 "Add link" = "Bağlantı ekle";
@@ -495,6 +527,11 @@
 "Enter text" = "Metin gir";
 "Unsupported value" = "Desteklenmeyen değer";
 "Select relation type" = "Bağıntı türünü seç";
+"CommonOpenErrorView.Message" = "No data found";
+"Nothing found" = "Hiçbir şey bulunamadı";
+"No type found text" = "No type “%@” found. Change your request or create new type.";
+"Create type" = "Create type";
+
 
 "Limit object types" = "Nesne türlerini sınırla";
 "Type" = "Tür";
@@ -544,9 +581,13 @@
 "Unfavorite" = "Favorilerden Çıkar";
 "Unsplash" = "Unsplash";
 "Go back" = "Geri git";
-"Backed up on one node at least" = "Backed up on one node at least";
+"SyncStatus.LocalOnly.Title" = "Local-only";
+"SyncStatus.LocalOnly.Description" = "Sadece yerel";
+"SyncStatus.Synced.Anytype.Description" = "Anytype Ağına yedeklendi";
+"SyncStatus.Synced.AnytypeStaging.Description" = "Backed up on Anytype Staging";
+"SyncStatus.Synced.SelfHosted.Description" = "Backed up on Self-hosted Network";
 "Downloading or uploading data to some node" = "Downloading or uploading data to some node";
-"Anytype node is not connected" = "Anytype node is not connected";
+"Node is not connected" = "Node is not connected";
 "Initializing sync" = "Senkronizasyon başlatılıyor";
 "Not syncing" = "Senkronize edilmiyor";
 "Synced" = "Senkronize edildi";
@@ -560,8 +601,9 @@
 "Into object" = "Into object";
 "Add below" = "Aşağıya ekleyin";
 "Change type" = "Türü değiştir";
-"Link to existing object" = "Link to existing object";
-"Link to object" = "Bağlantı ekle";
+"Show types" = "Show types";
+"Hide types" = "Hide types";
+"SlashMenu.LinkTo.Description" = "Create link to another object";
 "Upload playable audio" = "Oynatılabilir ses yükle";
 "Code snippet" = "Kod parçacığı";
 "Bookmark" = "Yer imi";
@@ -590,7 +632,7 @@
 "Today" = "Bugün";
 "No date" = "Tarih yok";
 "Clear" = "Temizle";
-"Create option" = "Create option ‘%@’";
+"Create option with" = "Create option ‘%@’";
 "Add URL" = "URL Ekle";
 "Add email" = "E-posta ekle";
 "Add phone number" = "Telefon numarası ekle";
@@ -602,7 +644,7 @@
 "Companies, contacts, friends and family" = "Companies, contacts, friends and family";
 "Failed to sync, trying again..." = "Failed to sync, trying again...";
 "Sync.Status.Version.Outdated.Description" = "Version outdated. Please update Anytype";
-"This object doesn't exist" = "This object doesn't exist";
+"This object doesn't exist" = "Bu nesne mevcut değil";
 "Setting up encrypted storage\nPlease wait" = "Setting up encrypted storage\nPlease wait";
 "These objects will be deleted irrevocably" = "These objects will be deleted irrevocably. You can’t undo this action.";
 "Delete account" = "Hesabı sil";
@@ -611,7 +653,7 @@
 "New" = "Yeni";
 
 // MARK: - DeletionAlert
-"DeletionAlert.title" = "Are you sure to delete account?";
+"DeletionAlert.title" = "Hesabınızı silmek istediğinizden emin misiniz?";
 "DeletionAlert.description" = "Diğer tüm cihazlarınızdan çıkış yapılacak, ve 30 gün içinde hesabı kurtarabileceksiniz. Sonrasında, hesabınız tamamen silinecek.";
 
 // MARK: - DataviewType
@@ -620,6 +662,7 @@
 "DataviewType.gallery" = "Galeri";
 "DataviewType.kanban" = "Kanban";
 "DataviewType.calendar" = "Takvim";
+"DataviewType.graph" = "Graph";
 
 // MARK: - ObjectType
 "ObjectType.fallbackDescription" = "Blank canvas with no title";
@@ -667,8 +710,8 @@
 
 // MARK: Link Past Actions
 "LinkPaste.text" = "Metin olarak yapıştır";
-"LinkPaste.link" = "Paste as link";
-"LinkPaste.bookmark" = "Create bookmark";
+"LinkPaste.link" = "Link olarak yapıştır";
+"LinkPaste.bookmark" = "Yer imi oluştur";
 
 // Relation Actions
 "RelationAction.CopyPhone" = "Copy phone numbler";
@@ -676,7 +719,7 @@
 "RelationAction.CopyLink" = "Bağlantıyı kopyala";
 "RelationAction.Copied" = "Kopyalandı";
 "RelationAction.ReloadingContent" = "İçerik yeniden yükleniyor";
-"RelationAction.ReloadContent" = "Reload object content";
+"RelationAction.ReloadContent" = "Nesne içeriğini yenile";
 "RelationAction.CallPhone" = "Call phone numbler";
 "RelationAction.SendEmail" = "E-posta gönder";
 "RelationAction.OpenLink" = "Bağlantıyı Aç";
@@ -690,8 +733,8 @@
 "SetViewTypesPicker.Settings.Textfield.Placeholder.New.View" = "Yeni görünüm";
 "SetViewTypesPicker.Settings.Textfield.Placeholder.Untitled" = "Başlıksız";
 
-// MARK: Select view picker
-"EditorSetViewPicker.View.Not.Supported.Title" = "Desteklenmiyor";
+// MARK: Select view
+"EditorSet.View.Not.Supported.Title" = "Unsupported";
 
 // BlockContent
 "Content.File.Upload" = "Dosya yükle";
@@ -819,6 +862,16 @@
 "SpaceSettings.DeleteAlert.Title" = "Delete ‘%@’ space";
 "SpaceSettings.DeleteAlert.Message" = "This space will be deleted irrevocably. You can’t undo this action.";
 "SpaceSettings.DeleteButton" = "Delete space";
+"SpaceSettings.Sharing" = "Sharing";
+"SpaceSettings.Share" = "Paylaş";
+
+// MARK: - Space Share
+
+"SpaceShare.Title" = "Share space";
+"SpaceShare.MembersSection" = "Members and requests";
+"SpaceShare.Permissions.Owner" = "Owner";
+"SpaceShare.Permissions.Reader" = "Can view";
+"SpaceShare.Permissions.Writer" = "Can edit";
 
 // MARK: - Space Create
 "SpaceCreate.Title" = "Alan oluştur";
@@ -833,10 +886,9 @@
 "Sharing.AddTo" = "Add to";
 "Sharing.LinkTo" = "Şuna bağla";
 
-"Sharing.URL.Bookmark" = "Bookmark object";
-"Sharing.URL.Text" = "Metin bloğu";
 "Sharing.Text.NoteObject" = "Note object";
-"Sharing.Text.TextBlock" = "Metin bloğu";
+"Sharing.Text.TextBlock" = "Blocks";
+"Sharing.Any.Block" = "Blocks";
 
 // MARK: - Sharing tips
 "Sharing.Tip.Title" = "Share Extension";
@@ -844,7 +896,7 @@
 
 "Sharing.Tip.Steps.1" = "Tap the iOS sharing button";
 "Sharing.Tip.Steps.2" = "Scroll past the app and tap More";
-"Sharing.Tip.Steps.3" = "Tap Edit to find “Anytype” and  tap";
+"Sharing.Tip.Steps.3" = "Tap Edit to find “Anytype” and tap";
 
 // MARK: - Initial
 
@@ -856,13 +908,17 @@
 "Initial.UnstableMiddle.WontUseProd" = "I won't be using my production account";
 
 // MARK: - Create tip
-"LongTapCreateTip.Title" = "Crete Objects with specific Type";
+"LongTapCreateTip.Title" = "Create Objects with specific Type";
 "LongTapCreateTip.Message" = "Long tap on Create Object button to open menu with types";
 
 // MARK: - Error
 "Error.AnytypeNeedsUpgrate.Title" = "Update Your App";
 "Error.AnytypeNeedsUpgrate.Message" = "This object was modified in a newer version of Anytype. Please update the app to open it on this device";
-"Error.AnytypeNeedsUpgrate.Confirm" = "Update";
+"Error.AnytypeNeedsUpgrate.Confirm" = "Güncelle";
+"Error.UnableToConnect" = "Please connect to the internet";
+"Error.Common.Title" = "Oops!";
+"Error.Common.Message" = "Please check your internet connection and try again or post a report on forum.";
+"Error.Common.TryAgain" = "Try again";
 
 // MARK: - Relative date formatter
 "RelativeFormatter.days7" = "Previous 7 days";
@@ -877,5 +933,15 @@
 "Server.LocalOnly" = "Local-only";
 
 // MARK: - Gallery
-"Gallery.Unavailable.Title" = "Gallery will be supported soon";
+"Gallery.Unavailable.Title" = "Galeri yakında destekelenecek";
 "Gallery.Unavailable.Message" = "Please use the desktop app for now";
+"Gallery.Author" = "Made by @%@";
+"Gallery.Install" = "Install";
+"Gallery.InstallToNew" = "Install to new space";
+"Gallery.Notification.Success" = "Experience was successfully installed to the \"%@\" space. You can now open and start using it.";
+"Gallery.Notification.Button" = "Go to space";
+"Gallery.Notification.Error" = "Oops! \"%@\" wasn't installed. Please check your internet connection and try again or post a report on forum.";
+
+// MARK: - Debug
+"Debug.MimeTypes" = "Mime Types - %@";
+"Debug.Info" = "Debug Info";

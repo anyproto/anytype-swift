@@ -7,7 +7,7 @@ final class CodeLanguageListViewModel: ObservableObject {
     
     private let document: BaseDocumentProtocol
     private let blockId: BlockId
-    private let blockListService: BlockListServiceProtocol
+    private let blockService: BlockServiceProtocol
     private let selectedLanguage: CodeLanguage
     
     // MARK: - State
@@ -15,11 +15,11 @@ final class CodeLanguageListViewModel: ObservableObject {
     @Published var rows: [CodeLanguageRowModel] = []
     @Published var dismiss: Bool = false
     
-    init(document: BaseDocumentProtocol, blockId: BlockId, selectedLanguage: CodeLanguage, blockListService: BlockListServiceProtocol) {
+    init(document: BaseDocumentProtocol, blockId: BlockId, selectedLanguage: CodeLanguage, blockService: BlockServiceProtocol) {
         self.document = document
         self.blockId = blockId
         self.selectedLanguage = selectedLanguage
-        self.blockListService = blockListService
+        self.blockService = blockService
         updateRows(searchText: "")
     }
     
@@ -51,7 +51,7 @@ final class CodeLanguageListViewModel: ObservableObject {
             guard let info = document.infoContainer.get(id: blockId) else { return }
             let fields = CodeBlockFields(language: language)
             let newInfo = info.addFields(fields.asMiddleware())
-            try await blockListService.setFields(objectId: document.objectId, blockId: blockId, fields: newInfo.fields)
+            try await blockService.setFields(objectId: document.objectId, blockId: blockId, fields: newInfo.fields)
             dismiss.toggle()
         }
     }

@@ -13,12 +13,11 @@ struct ObjectIconPicker: View {
                     viewModel: viewModel,
                     onDismiss: dismissHandler.onDismiss
                 )
-            case .space, .spaceView, .profile:
+            case .space, .spaceView, .profile, .participant:
                 ObjectProfileIconPicker(viewModel: viewModel, onDismiss: dismissHandler.onDismiss)
             case nil:
                 EmptyView()
-            case .todo, .note, .bookmark, .unknown, .relation, .relationOption, .dashboard, .relationOptionList,
-                    .database, .audio, .video, .date:
+            case .todo, .note, .bookmark, .UNRECOGNIZED, .relation, .relationOption, .dashboard, .relationOptionsList, .audio, .video, .pdf, .date:
                 EmptyView()
                     .onAppear {
                         anytypeAssertionFailure("Not supported layout")

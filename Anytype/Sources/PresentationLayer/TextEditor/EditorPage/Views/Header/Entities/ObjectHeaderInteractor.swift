@@ -68,8 +68,8 @@ final class ObjectHeaderInteractor: ObjectHeaderInteractorProtocol {
                 
                 onCoverUpdate(.coverUploading(.remotePreviewURL(unsplashItem.url)))
                 Task { @MainActor in
-                    let imageHash = try await unsplashService.downloadImage(spaceId: spaceId, id: unsplashItem.id)
-                    try await detailsService.setCover(imageHash: imageHash)
+                    let imageObjectId = try await unsplashService.downloadImage(spaceId: spaceId, id: unsplashItem.id)
+                    try await detailsService.setCover(imageObjectId: imageObjectId)
                 }
             }
         case .removeCover:
@@ -89,22 +89,22 @@ final class ObjectHeaderInteractor: ObjectHeaderInteractorProtocol {
             case .emoji(let emojiUnicode):
                 AnytypeAnalytics.instance().logEvent(AnalyticsEventsName.setIcon)
                 Task {
-                    try await detailsService.updateBundledDetails([.iconEmoji(emojiUnicode), .iconImageHash(nil)])
+                    try await detailsService.updateBundledDetails([.iconEmoji(emojiUnicode), .iconObjectId("")])
                 }
             case .upload(let itemProvider):
                 AnytypeAnalytics.instance().logEvent(AnalyticsEventsName.setIcon)
                 let safeSendableItemProvider = SafeSendable(value: itemProvider)
                 Task {
                     let data = try await fileService.createFileData(source: .itemProvider(safeSendableItemProvider.value))
-                    let imageHash = try await fileService.uploadImage(spaceId: spaceId, data: data)
-                    try await detailsService.updateBundledDetails([.iconEmoji(""), .iconImageHash(imageHash)])
+                    let fileDetails = try await fileService.uploadFileObject(spaceId: spaceId, data: data, origin: .none)
+                    try await detailsService.updateBundledDetails([.iconEmoji(""), .iconObjectId(fileDetails.id)])
                 }
             }
         case .removeIcon:
             AnytypeAnalytics.instance().logEvent(AnalyticsEventsName.removeIcon)
             Task {
                 try await detailsService.updateBundledDetails(
-                    [.iconEmoji(""), .iconImageHash(nil)]
+                    [.iconEmoji(""), .iconObjectId("")]
                 )
             }
         }

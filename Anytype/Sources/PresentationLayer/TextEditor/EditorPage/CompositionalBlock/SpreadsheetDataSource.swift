@@ -159,13 +159,7 @@ final class SpreadsheetViewDataSource {
     ) {
         let selectedIndexPath = collectionView.indexPathsForSelectedItems
 
-        if #available(iOS 15.0, *) {
-            dataSource.apply(snapshot, animatingDifferences: animatingDifferences)
-        } else {
-            UIView.performWithoutAnimation {
-                dataSource.apply(snapshot, animatingDifferences: true)
-            }
-        }
+        dataSource.apply(snapshot, animatingDifferences: animatingDifferences)
 
         selectedIndexPath?.forEach {
             self.collectionView.selectItem(at: $0, animated: false, scrollPosition: [])

@@ -25,7 +25,7 @@ final class CollectionsListWidgetModuleAssembly: HomeWidgetCommonAssemblyProtoco
             widgetBlockId: widgetBlockId,
             widgetObject: widgetObject,
             subscriptionService: serviceLocator.collectionsSubscriptionService(),
-            pageRepository: serviceLocator.pageRepository(),
+            objectService: serviceLocator.objectActionsService(),
             output: output
         )
      

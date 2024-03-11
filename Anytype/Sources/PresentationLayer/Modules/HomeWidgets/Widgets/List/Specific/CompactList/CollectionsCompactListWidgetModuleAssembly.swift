@@ -25,7 +25,7 @@ final class CollectionsCompactListWidgetModuleAssembly: HomeWidgetCommonAssembly
             widgetBlockId: widgetBlockId,
             widgetObject: widgetObject,
             subscriptionService: serviceLocator.collectionsSubscriptionService(),
-            pageRepository: serviceLocator.pageRepository(),
+            objectService: serviceLocator.objectActionsService(),
             output: output
         )
      

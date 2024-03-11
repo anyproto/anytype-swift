@@ -10,12 +10,8 @@ struct SetTableView: View {
     @State private var dropData = SetCardDropData()
 
     var body: some View {
-        if #available(iOS 15.0, *) {
-            SingleAxisGeometryReader { fullWidth in
-                scrollView(fullWidth: fullWidth)
-            }
-        } else {
-            scrollView(fullWidth: UIApplication.shared.keyWindow!.frame.width)
+        SingleAxisGeometryReader { fullWidth in
+            scrollView(fullWidth: fullWidth)
         }
     }
     
@@ -76,8 +72,7 @@ struct SetTableView: View {
     private var pagination: some View {
         EditorSetPaginationView(
             model: model,
-            paginationData: model.pagitationData(by: SetSubscriptionData.setId),
-            groupId: SetSubscriptionData.setId
+            paginationData: model.pagitationData()
         )
         .frame(width: tableHeaderSize.width)
         .offset(x: xOffset, y: 0)

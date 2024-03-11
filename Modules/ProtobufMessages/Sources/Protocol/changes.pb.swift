@@ -249,6 +249,14 @@ public struct Anytype_Change {
       set {value = .originalCreatedTimestampSet(newValue)}
     }
 
+    public var setFileInfo: Anytype_Change.SetFileInfo {
+      get {
+        if case .setFileInfo(let v)? = value {return v}
+        return Anytype_Change.SetFileInfo()
+      }
+      set {value = .setFileInfo(newValue)}
+    }
+
     public var unknownFields = SwiftProtobuf.UnknownStorage()
 
     public enum OneOf_Value: Equatable {
@@ -267,6 +275,7 @@ public struct Anytype_Change {
       case storeKeyUnset(Anytype_Change.StoreKeyUnset)
       case storeSliceUpdate(Anytype_Change.StoreSliceUpdate)
       case originalCreatedTimestampSet(Anytype_Change.OriginalCreatedTimestampSet)
+      case setFileInfo(Anytype_Change.SetFileInfo)
 
     #if !swift(>=4.1)
       public static func ==(lhs: Anytype_Change.Content.OneOf_Value, rhs: Anytype_Change.Content.OneOf_Value) -> Bool {
@@ -332,6 +341,10 @@ public struct Anytype_Change {
         }()
         case (.originalCreatedTimestampSet, .originalCreatedTimestampSet): return {
           guard case .originalCreatedTimestampSet(let l) = lhs, case .originalCreatedTimestampSet(let r) = rhs else { preconditionFailure() }
+          return l == r
+        }()
+        case (.setFileInfo, .setFileInfo): return {
+          guard case .setFileInfo(let l) = lhs, case .setFileInfo(let r) = rhs else { preconditionFailure() }
           return l == r
         }()
         default: return false
@@ -656,6 +669,27 @@ public struct Anytype_Change {
     public init() {}
   }
 
+  public struct SetFileInfo {
+    // SwiftProtobuf.Message conformance is added in an extension below. See the
+    // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+    // methods supported on all messages.
+
+    public var fileInfo: Anytype_Model_FileInfo {
+      get {return _fileInfo ?? Anytype_Model_FileInfo()}
+      set {_fileInfo = newValue}
+    }
+    /// Returns true if `fileInfo` has been explicitly set.
+    public var hasFileInfo: Bool {return self._fileInfo != nil}
+    /// Clears the value of `fileInfo`. Subsequent reads from it will return its default value.
+    public mutating func clearFileInfo() {self._fileInfo = nil}
+
+    public var unknownFields = SwiftProtobuf.UnknownStorage()
+
+    public init() {}
+
+    fileprivate var _fileInfo: Anytype_Model_FileInfo? = nil
+  }
+
   public init() {}
 
   fileprivate var _storage = _StorageClass.defaultInstance
@@ -686,6 +720,7 @@ extension Anytype_Change.StoreSliceUpdate.Add: @unchecked Sendable {}
 extension Anytype_Change.StoreSliceUpdate.Remove: @unchecked Sendable {}
 extension Anytype_Change.StoreSliceUpdate.Move: @unchecked Sendable {}
 extension Anytype_Change.OriginalCreatedTimestampSet: @unchecked Sendable {}
+extension Anytype_Change.SetFileInfo: @unchecked Sendable {}
 #endif  // swift(>=5.5) && canImport(_Concurrency)
 
 // MARK: - Code below here is support for the SwiftProtobuf runtime.
@@ -920,6 +955,7 @@ extension Anytype_Change.Content: SwiftProtobuf.Message, SwiftProtobuf._MessageI
     108: .same(proto: "storeKeyUnset"),
     109: .same(proto: "storeSliceUpdate"),
     110: .same(proto: "originalCreatedTimestampSet"),
+    111: .same(proto: "setFileInfo"),
   ]
 
   public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
@@ -1123,6 +1159,19 @@ extension Anytype_Change.Content: SwiftProtobuf.Message, SwiftProtobuf._MessageI
           self.value = .originalCreatedTimestampSet(v)
         }
       }()
+      case 111: try {
+        var v: Anytype_Change.SetFileInfo?
+        var hadOneofValue = false
+        if let current = self.value {
+          hadOneofValue = true
+          if case .setFileInfo(let m) = current {v = m}
+        }
+        try decoder.decodeSingularMessageField(value: &v)
+        if let v = v {
+          if hadOneofValue {try decoder.handleConflictingOneOf()}
+          self.value = .setFileInfo(v)
+        }
+      }()
       default: break
       }
     }
@@ -1193,6 +1242,10 @@ extension Anytype_Change.Content: SwiftProtobuf.Message, SwiftProtobuf._MessageI
     case .originalCreatedTimestampSet?: try {
       guard case .originalCreatedTimestampSet(let v)? = self.value else { preconditionFailure() }
       try visitor.visitSingularMessageField(value: v, fieldNumber: 110)
+    }()
+    case .setFileInfo?: try {
+      guard case .setFileInfo(let v)? = self.value else { preconditionFailure() }
+      try visitor.visitSingularMessageField(value: v, fieldNumber: 111)
     }()
     case nil: break
     }
@@ -1919,6 +1972,42 @@ extension Anytype_Change.OriginalCreatedTimestampSet: SwiftProtobuf.Message, Swi
 
   public static func ==(lhs: Anytype_Change.OriginalCreatedTimestampSet, rhs: Anytype_Change.OriginalCreatedTimestampSet) -> Bool {
     if lhs.ts != rhs.ts {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    return true
+  }
+}
+
+extension Anytype_Change.SetFileInfo: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = Anytype_Change.protoMessageName + ".SetFileInfo"
+  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    1: .same(proto: "fileInfo"),
+  ]
+
+  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let fieldNumber = try decoder.nextFieldNumber() {
+      // The use of inline closures is to circumvent an issue where the compiler
+      // allocates stack space for every case branch when no optimizations are
+      // enabled. https://github.com/apple/swift-protobuf/issues/1034
+      switch fieldNumber {
+      case 1: try { try decoder.decodeSingularMessageField(value: &self._fileInfo) }()
+      default: break
+      }
+    }
+  }
+
+  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    // The use of inline closures is to circumvent an issue where the compiler
+    // allocates stack space for every if/case branch local when no optimizations
+    // are enabled. https://github.com/apple/swift-protobuf/issues/1034 and
+    // https://github.com/apple/swift-protobuf/issues/1182
+    try { if let v = self._fileInfo {
+      try visitor.visitSingularMessageField(value: v, fieldNumber: 1)
+    } }()
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  public static func ==(lhs: Anytype_Change.SetFileInfo, rhs: Anytype_Change.SetFileInfo) -> Bool {
+    if lhs._fileInfo != rhs._fileInfo {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }

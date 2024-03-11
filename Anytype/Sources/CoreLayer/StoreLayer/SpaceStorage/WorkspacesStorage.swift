@@ -10,10 +10,15 @@ protocol WorkspacesStorageProtocol: AnyObject {
     func stopSubscription() async
     func spaceView(spaceViewId: String) -> SpaceView?
     func spaceView(spaceId: String) -> SpaceView?
+    func canCreateNewSpace() -> Bool
 }
 
 @MainActor
 final class WorkspacesStorage: WorkspacesStorageProtocol {
+    
+    private enum Constants {
+        static let maxSpaces = 10
+    }
     
     // MARK: - DI
     
@@ -51,5 +56,9 @@ final class WorkspacesStorage: WorkspacesStorageProtocol {
     
     func spaceView(spaceId: String) -> SpaceView? {
         return workspaces.first(where: { $0.targetSpaceId == spaceId })
+    }
+    
+    func canCreateNewSpace() -> Bool {
+        return workspaces.count < Constants.maxSpaces
     }
 }

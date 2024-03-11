@@ -9,9 +9,9 @@ final class ObjectWidgetInternalViewModel: CommonWidgetInternalViewModel, Widget
     // MARK: - DI
     
     private let subscriptionManager: TreeSubscriptionManagerProtocol
-    private let pageRepository: PageRepositoryProtocol
+    private let defaultObjectService: DefaultObjectCreationServiceProtocol
     private let documentsProvider: DocumentsProviderProtocol
-    private let blockActionsService: BlockActionsServiceSingleProtocol
+    private let blockService: BlockServiceProtocol
     private weak var output: CommonWidgetModuleOutput?
     
     // MARK: - State
@@ -29,15 +29,15 @@ final class ObjectWidgetInternalViewModel: CommonWidgetInternalViewModel, Widget
         widgetBlockId: BlockId,
         widgetObject: BaseDocumentProtocol,
         subscriptionManager: TreeSubscriptionManagerProtocol,
-        pageRepository: PageRepositoryProtocol,
+        defaultObjectService: DefaultObjectCreationServiceProtocol,
         documentsProvider: DocumentsProviderProtocol,
-        blockActionsService: BlockActionsServiceSingleProtocol,
+        blockService: BlockServiceProtocol,
         output: CommonWidgetModuleOutput?
     ) {
         self.subscriptionManager = subscriptionManager
-        self.pageRepository = pageRepository
+        self.defaultObjectService = defaultObjectService
         self.documentsProvider = documentsProvider
-        self.blockActionsService = blockActionsService
+        self.blockService = blockService
         self.output = output
         super.init(widgetBlockId: widgetBlockId, widgetObject: widgetObject)
     }
@@ -93,10 +93,10 @@ final class ObjectWidgetInternalViewModel: CommonWidgetInternalViewModel, Widget
             try await document.openForPreview()
             guard let lastBlockId = document.children.last?.id else { return }
                   
-            let details = try await pageRepository.createDefaultPage(name: "", shouldDeleteEmptyObject: true, spaceId: widgetObject.spaceId)
+            let details = try await defaultObjectService.createDefaultObject(name: "", shouldDeleteEmptyObject: true, spaceId: widgetObject.spaceId)
             AnytypeAnalytics.instance().logCreateObject(objectType: details.analyticsType, route: .widget)
             let info = BlockInformation.emptyLink(targetId: details.id)
-            let _ = try await self.blockActionsService.add(
+            let _ = try await self.blockService.add(
                 contextId: linkedObjectDetails.id,
                 targetId: lastBlockId,
                 info: info,

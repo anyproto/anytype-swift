@@ -9,7 +9,7 @@ final class CollectionsWidgetInternalViewModel: CommonWidgetInternalViewModel, W
     // MARK: - DI
     
     private let subscriptionService: CollectionsSubscriptionServiceProtocol
-    private let pageRepository: PageRepositoryProtocol
+    private let objectService: ObjectActionsServiceProtocol
     private weak var output: CommonWidgetModuleOutput?
 
     // MARK: - State
@@ -25,11 +25,11 @@ final class CollectionsWidgetInternalViewModel: CommonWidgetInternalViewModel, W
         widgetBlockId: BlockId,
         widgetObject: BaseDocumentProtocol,
         subscriptionService: CollectionsSubscriptionServiceProtocol,
-        pageRepository: PageRepositoryProtocol,
+        objectService: ObjectActionsServiceProtocol,
         output: CommonWidgetModuleOutput?
     ) {
         self.subscriptionService = subscriptionService
-        self.pageRepository = pageRepository
+        self.objectService = objectService
         self.output = output
         super.init(widgetBlockId: widgetBlockId, widgetObject: widgetObject)
     }
@@ -56,7 +56,7 @@ final class CollectionsWidgetInternalViewModel: CommonWidgetInternalViewModel, W
     
     func onCreateObjectTap() {
         Task {
-            let details = try await pageRepository.createPage(
+            let details = try await objectService.createObject(
                 name: "",
                 typeUniqueKey: .collection,
                 shouldDeleteEmptyObject: true,

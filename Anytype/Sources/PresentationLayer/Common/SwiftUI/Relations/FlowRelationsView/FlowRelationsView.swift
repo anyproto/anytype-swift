@@ -50,9 +50,7 @@ struct FlowRelationsView: View {
                         RelationValueView(
                             relation: RelationItemModel(relation: item),
                             style: .setCollection,
-                            mode: .button(action: {
-                                viewModel.onRelationTap(item)
-                            })
+                            mode: .button(action: nil)
                         )
                         if viewModel.relations.count - 1 > index {
                             dotImage

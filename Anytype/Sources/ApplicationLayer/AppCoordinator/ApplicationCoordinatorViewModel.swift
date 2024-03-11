@@ -14,7 +14,7 @@ final class ApplicationCoordinatorViewModel: ObservableObject {
     private let fileErrorEventHandler: FileErrorEventHandlerProtocol
     
     private let authCoordinatorAssembly: AuthCoordinatorAssemblyProtocol
-    private let homeWidgetsCoordinatorAssembly: HomeWidgetsCoordinatorAssemblyProtocol
+    private let homeCoordinatorAssembly: HomeCoordinatorAssemblyProtocol
     private let deleteAccountModuleAssembly: DeleteAccountModuleAssemblyProtocol
     private let initialCoordinatorAssembly: InitialCoordinatorAssemblyProtocol
     private let debugMenuModuleAssembly: DebugMenuModuleAssemblyProtocol
@@ -37,7 +37,7 @@ final class ApplicationCoordinatorViewModel: ObservableObject {
         seedService: SeedServiceProtocol,
         fileErrorEventHandler: FileErrorEventHandlerProtocol,
         authCoordinatorAssembly: AuthCoordinatorAssemblyProtocol,
-        homeWidgetsCoordinatorAssembly: HomeWidgetsCoordinatorAssemblyProtocol,
+        homeCoordinatorAssembly: HomeCoordinatorAssemblyProtocol,
         deleteAccountModuleAssembly: DeleteAccountModuleAssemblyProtocol,
         initialCoordinatorAssembly: InitialCoordinatorAssemblyProtocol,
         debugMenuModuleAssembly: DebugMenuModuleAssemblyProtocol,
@@ -50,7 +50,7 @@ final class ApplicationCoordinatorViewModel: ObservableObject {
         self.seedService = seedService
         self.fileErrorEventHandler = fileErrorEventHandler
         self.authCoordinatorAssembly = authCoordinatorAssembly
-        self.homeWidgetsCoordinatorAssembly = homeWidgetsCoordinatorAssembly
+        self.homeCoordinatorAssembly = homeCoordinatorAssembly
         self.deleteAccountModuleAssembly = deleteAccountModuleAssembly
         self.initialCoordinatorAssembly = initialCoordinatorAssembly
         self.debugMenuModuleAssembly = debugMenuModuleAssembly
@@ -76,7 +76,7 @@ final class ApplicationCoordinatorViewModel: ObservableObject {
     }
 
     func homeView() -> AnyView {
-        return homeWidgetsCoordinatorAssembly.make()
+        return homeCoordinatorAssembly.make()
     }
 
     func deleteAccount() -> AnyView? {
@@ -105,7 +105,7 @@ final class ApplicationCoordinatorViewModel: ObservableObject {
         Task { @MainActor [weak self, accountEventHandler] in
             for await status in accountEventHandler.accountStatusPublisher.values {
                 guard let self = self else { return }
-                self.handleAccountStatus(status)
+                await self.handleAccountStatus(status)
             }
         }
         Task { @MainActor [weak self, fileErrorEventHandler] in
@@ -124,7 +124,7 @@ final class ApplicationCoordinatorViewModel: ObservableObject {
     
     // MARK: - Subscription handler
 
-    private func handleAccountStatus(_ status: AccountStatus) {
+    private func handleAccountStatus(_ status: AccountStatus) async {
         switch status {
         case .active:
             break
@@ -132,7 +132,7 @@ final class ApplicationCoordinatorViewModel: ObservableObject {
             applicationStateService.state = .delete
         case .deleted:
             if UserDefaultsConfig.usersId.isNotEmpty {
-                authService.logout(removeData: true) { _ in }
+                try? await authService.logout(removeData: true)
                 applicationStateService.state = .auth
             }
         }
@@ -168,9 +168,9 @@ final class ApplicationCoordinatorViewModel: ObservableObject {
             do {
                 let seed = try seedService.obtainSeed()
                 try await authService.walletRecovery(mnemonic: seed)
-                let result = try await authService.selectAccount(id: userId)
+                let account = try await authService.selectAccount(id: userId)
                 
-                switch result {
+                switch account.status {
                 case .active:
                     applicationStateService.state = .home
                 case .pendingDeletion:

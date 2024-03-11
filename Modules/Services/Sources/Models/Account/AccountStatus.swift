@@ -9,7 +9,8 @@ public enum AccountStatus: Equatable {
 }
 
 public extension Anytype_Model_Account.Status {
-    var asModel: AccountStatus? {
+    
+    func asModel() throws -> AccountStatus {
         switch self.statusType {
         case .startedDeletion, .deleted:
             return .deleted
@@ -27,7 +28,7 @@ public extension Anytype_Model_Account.Status {
             
             return .pendingDeletion(deadline: deadline)
         case .UNRECOGNIZED:
-            return nil
+            throw CommonConvertError.commonError
         }
     }
 }

@@ -12,11 +12,13 @@ internal extension ImageAsset {
     static let appIcon = ImageAsset.bundle(name: "AppIconsPreview/AppIcon")
     static let appIconClassic = ImageAsset.bundle(name: "AppIconsPreview/AppIconClassic")
     static let appIconOldSchool = ImageAsset.bundle(name: "AppIconsPreview/AppIconOldSchool")
+    static let appIconSmile = ImageAsset.bundle(name: "AppIconsPreview/AppIconSmile")
   }
   static let authPhotoIcon = ImageAsset.bundle(name: "auth_photo_icon")
   static let theEverythingApp = ImageAsset.bundle(name: "the-everything-app")
   enum BottomAlert {
     static let error = ImageAsset.bundle(name: "BottomAlert/error")
+    static let question = ImageAsset.bundle(name: "BottomAlert/question")
     static let update = ImageAsset.bundle(name: "BottomAlert/update")
   }
   static let arrowDown = ImageAsset.bundle(name: "arrowDown")
@@ -141,6 +143,7 @@ internal extension ImageAsset {
     }
     static let folder = ImageAsset.bundle(name: "x24/Folder")
     static let more = ImageAsset.bundle(name: "x24/More")
+    static let multiselect = ImageAsset.bundle(name: "x24/Multiselect")
     static let name = ImageAsset.bundle(name: "x24/Name")
     static let number = ImageAsset.bundle(name: "x24/Number")
     static let object = ImageAsset.bundle(name: "x24/Object")
@@ -152,6 +155,8 @@ internal extension ImageAsset {
     static let relations = ImageAsset.bundle(name: "x24/Relations")
     static let removeRed = ImageAsset.bundle(name: "x24/Remove Red")
     static let replace = ImageAsset.bundle(name: "x24/Replace")
+    static let search = ImageAsset.bundle(name: "x24/Search")
+    static let select = ImageAsset.bundle(name: "x24/Select")
     static let status = ImageAsset.bundle(name: "x24/Status")
     static let tag = ImageAsset.bundle(name: "x24/Tag")
     static let text = ImageAsset.bundle(name: "x24/Text")

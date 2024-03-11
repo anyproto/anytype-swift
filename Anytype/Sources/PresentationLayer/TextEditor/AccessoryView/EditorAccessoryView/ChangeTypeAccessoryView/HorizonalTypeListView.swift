@@ -1,66 +1,60 @@
 import SwiftUI
 import UIKit
 import Combine
+import AnytypeCore
+
 
 struct HorizonalTypeListView: View {
     @StateObject var viewModel: HorizonalTypeListViewModel
 
     var body: some View {
         ScrollView(.horizontal, showsIndicators: false) {
-            LazyHStack(spacing: 28) {
+            LazyHStack(spacing: 6) {
+                searchButton
+                
                 ForEach(viewModel.items) { item in
                     Button {
                         item.action()
                     } label: {
-                        TypeView(image: item.image, title: item.title)
+                        TypeView(icon: item.icon, title: item.title)
                     }
                 }
             }
             .padding(.horizontal, 16)
+            .padding(.vertical, 6)
         }
-        .frame(height: 96)
+        .frame(height: 52)
         .ignoresSafeArea()
+    }
+    
+    var searchButton: some View {
+        Button {
+            viewModel.onSearchTap()
+        } label: {
+            IconView(icon: .asset(ImageAsset.X24.search))
+                .frame(width: 24, height: 24)
+                .padding(8)
+        }
+        .border(10, color: .Shape.secondary)
     }
 }
 
 private struct TypeView: View {
-    let image: Icon
+    let icon: Icon?
     let title: String
 
     var body: some View {
-        VStack(spacing: 5) {
-            imageView
-            Spacer.fixedHeight(14)
-        }
-        .overlay(
-            AnytypeText(title, style: .caption2Regular, color: .Text.secondary)
+        HStack(spacing: 5) {
+            if let icon {
+                IconView(icon: icon)
+                    .frame(width: 16, height: 16)
+            }
+            
+            AnytypeText(title, style: .caption1Medium, color: .Text.primary)
                 .lineLimit(1)
-                .padding(.horizontal, -9), // Max width 70
-            alignment: .bottom
-        )
-        .fixTappableArea()
-    }
-
-    private var imageView: some View {
-        IconView(icon: image)
-            .frame(width: 52, height: 52)
-    }
-}
-
-struct HorizonalTypeListView_Previews: PreviewProvider {
-    private final class ItemProvider: TypeListItemProvider {
-        var typesPublisher: AnyPublisher<[HorizontalListItem], Never> {
-            $items.eraseToAnyPublisher()
         }
-
-        @Published var items: [HorizontalListItem] =
-        [HorizontalListItem.searchItem {}]
-    }
-
-    static var previews: some View {
-        HorizonalTypeListView(
-            viewModel: .init(itemProvider: ItemProvider())
-        )
-        .previewLayout(.fixed(width: 300, height: 96))
+        .padding(.vertical, 11)
+        .padding(.horizontal, 12)
+        .border(10, color: .Shape.secondary)
     }
 }

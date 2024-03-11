@@ -11,10 +11,10 @@ struct AnytypeText: View {
         self.spacing = spacing
     }
 
-    init(_ text: String, style: AnytypeFont, color: Color) {
+    init(_ text: String, style: AnytypeFont, color: Color, enableMarkdown: Bool = false) {
         let spacing = style.lineSpacing
         
-        self.textView = Self.buildText(text, style: style)
+        self.textView = Self.buildText(text, style: style, enableMarkdown: enableMarkdown)
                  .foregroundColor(color)
         self.spacing = spacing
     }
@@ -23,7 +23,8 @@ struct AnytypeText: View {
         _ text: String,
         name: AnytypeFontConfig.Name,
         size: CGFloat,
-        weight: Font.Weight
+        weight: Font.Weight,
+        enableMarkdown: Bool = false
     ) {
         anytypeAssert(
             name != .plex,
@@ -31,7 +32,7 @@ struct AnytypeText: View {
         )
         let font = AnytypeFontBuilder.font(name: name, size: size, weight: weight)
         
-        textView = Text(text).font(font)
+        textView = (enableMarkdown ? Text(markdown: text) : Text(verbatim: text)).font(font)
         self.spacing = 0
     }
     
@@ -44,10 +45,10 @@ struct AnytypeText: View {
             .padding(.vertical, spacing / 2)
     }
     
-    private static func buildText(_ text: String, style: AnytypeFont) -> Text {
+    private static func buildText(_ text: String, style: AnytypeFont, enableMarkdown: Bool) -> Text {
         let font = AnytypeFontBuilder.font(anytypeFont: style)
         
-        return Text(.init(text)).font(font).kerning(style.config.kern)
+        return (enableMarkdown ? Text(markdown: text) : Text(verbatim: text)).font(font).kerning(style.config.kern)
     }
     
     public static func + (lhs: AnytypeText, rhs: AnytypeText) -> AnytypeText {

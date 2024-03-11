@@ -193,13 +193,13 @@ enum AttributedTextConverter {
             return ""
         case .textColor:
             guard let color = attributes[.foregroundColor] as? UIColor,
-                  let colorValue = color.middlewareString(background: false) else {
+                  let colorValue = color.middlewareString() else {
                 return nil
             }
             return colorValue
         case .backgroundColor:
             guard let color = attributes[.backgroundColor] as? UIColor,
-                  let colorValue = color.middlewareString(background: true) else {
+                  let colorValue = color.middlewareString() else {
                 return nil
             }
             return colorValue

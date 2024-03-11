@@ -1,5 +1,6 @@
 import UIKit
 import AnytypeCore
+import Services
 
 final class UndoRedoViewModel: ObservableObject {
     struct ButtonModel: Identifiable {

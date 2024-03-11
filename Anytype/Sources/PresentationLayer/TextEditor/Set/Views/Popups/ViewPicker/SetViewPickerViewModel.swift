@@ -80,7 +80,7 @@ final class SetViewPickerViewModel: ObservableObject {
     private func handleTap(with view: DataviewView) {
         setDocument.updateActiveViewId(view.id)
         AnytypeAnalytics.instance().logSwitchView(
-            type: view.type.stringValue,
+            type: view.type.analyticStringValue,
             objectType: setDocument.analyticsType
         )
     }
@@ -108,7 +108,7 @@ final class SetViewPickerViewModel: ObservableObject {
             )
             output?.onAddButtonTap(with: viewId)
             AnytypeAnalytics.instance().logAddView(
-                type: DataviewViewType.table.stringValue,
+                type: DataviewViewType.table.analyticStringValue,
                 objectType: setDocument.analyticsType
             )
         }

@@ -77,20 +77,46 @@
 "Relation.AddedToLibrary" = "Relation ‘%@’ added to your library";
 "Relation.Deleted" = "Deleted relation";
 "Relation.From.Type" = "From type %@";
-"Relation.LinksFrom.Title" = "from";
-"Relation.LinksTo.Title" = "to";
+"Relation.LinksFrom.Title" = "från";
+"Relation.LinksTo.Title" = "till";
+"Relation.EmptyState.title" = "No options";
+"Relation.EmptyState.description" = "Nothing found. Create first option to start.";
+"Relation.EmptyState.Blocked.title" = "The relation is empty";
+"Relation.Create.Row.title" = "Skapa “%@”";
+"Relation.View.Create.title" = "Skapa alternativ";
+"Relation.View.Edit.title" = "Edit option";
+"Relation.Create.Textfield.placeholder" = "Ange namn...";
+"Relation.Edit.Button.title" = "Apply";
+"Relation.Date.Locked.Alert.title" = "Relation “%@” is locked";
+"Relation.ObjectTypes.Header.title" = "Objekttyper:";
+"Relation.ObjectType.Header.title" = "Objekttyp:";
+
+"Relation.Delete.Alert.Title" = "Är du säker?";
+"Relation.Delete.Alert.Description" = "The option will be permanently removed from your space.";
+"Relation.Object.Delete.Alert.Description" = "The object will be moved to Bin.";
 
 "Relation.Format.Object.Title" = "Objekt";
 "Relation.Format.Text.Title" = "Text";
 "Relation.Format.Number.Title" = "Number";
-"Relation.Format.Status.Title" = "Status";
-"Relation.Format.Tag.Title" = "Tagg";
+"Relation.Format.Status.Title" = "Select";
+"Relation.Format.Tag.Title" = "Multi-select";
 "Relation.Format.Date.Title" = "Datum";
 "Relation.Format.FileMedia.Title" = "File & Media";
 "Relation.Format.Checkbox.Title" = "Checkbox";
 "Relation.Format.Url.Title" = "URL";
 "Relation.Format.Email.Title" = "Email";
 "Relation.Format.Phone.Title" = "Telefonnummer";
+
+// Origin Relation
+
+"Relation.Origin.Clipboard" = "Clipboard";
+"Relation.Origin.DragAndDrop" = "Drag'n'Drop";
+"Relation.Origin.Import" = "Imported object";
+"Relation.Origin.WebClipper" = "Web clipper";
+"Relation.Origin.SharingExtension" = "Mobile sharing extension";
+"Relation.Origin.UseCase" = "Use case";
+"Relation.Origin.Builtin" = "Library installed";
+"Relation.Origin.Bookmark" = "Bookmark";
 
 // MARK: - Mention
 "Mention.Subtitle.Placeholder" = "Objekt";
@@ -109,6 +135,8 @@
 "Actions" = "Actions";
 "Relations" = "Relations";
 "Objects" = "Objekt";
+"Lists" = "Listor";
+"Pinned" = "Pinned";
 "Delete" = "Radera";
 "Duplicate" = "Duplicate";
 "Copy" = "Kopiera";
@@ -118,6 +146,8 @@
 "Move" = "Flytta";
 "Move to" = "Flytta till";
 "Back" = "Tillbaka";
+"Unpin" = "Unpin";
+"Pin on top" = "Pin on top";
 "File block subtitle" = "Store file in original state";
 "Picture block subtitle" = "Upload and enrich the page with image";
 "Video block subtitle" = "Upload playable video";
@@ -187,7 +217,7 @@
 "Auth.CameraPermissionTitle" = "Please allow access";
 "Restore secret phrase from keychain" = "Restore Recovery Phrase from the keychain";
 "Auth.LogIn" = "Logga in";
-"Auth.Join" = "Skapa nytt konto";
+"Auth.Join" = "Join";
 "Auth.Welcome.Subtitle" = "Anytype är din trygga plats där du kan skriva, planera, tänka och organisera allt som är viktigt för dig.";
 "Auth.Caption.Privacy.Text" = "By continuing you agree to [Terms of Use](%@) and [Privacy Policy](%@)";
 "Auth.Next" = "Nästa";
@@ -199,6 +229,7 @@
 "Error creating wallet" = "Error creating wallet";
 "Error select account" = "Error select account";
 "Error wallet recover account" = "Error wallet recover account";
+"Wallet.Recovery.Error.description" = "Ogiltig återställningsfras";
 
 "Search for language" = "Sök efter språk";
 
@@ -331,6 +362,7 @@
 "Templates.Popup.Default" = "The template was set as default";
 
 "To Bin" = "To Bin";
+"Set as default" = "Set as default";
 
 // MARK: - Context Menu
 "Remove From Favorite" = "Remove From Favorite";
@@ -486,8 +518,8 @@
 "Enter value" = "Ange värde";
 "Select object" = "Välj objekt";
 "Select file" = "Välj fil";
-"Select tag" = "Välj tagg";
-"Select status" = "Select status";
+"Select options" = "Select options";
+"Select option" = "Select option";
 "Select date" = "Välj datum";
 "Add email" = "Add email";
 "Add link" = "Lägg till länk";
@@ -495,6 +527,11 @@
 "Enter text" = "Ange text";
 "Unsupported value" = "Unsupported value";
 "Select relation type" = "Select relation type";
+"CommonOpenErrorView.Message" = "No data found";
+"Nothing found" = "Nothing found";
+"No type found text" = "No type “%@” found. Change your request or create new type.";
+"Create type" = "Create type";
+
 
 "Limit object types" = "Begränsa objekttyper";
 "Type" = "Typ";
@@ -544,9 +581,13 @@
 "Unfavorite" = "Unfavorite";
 "Unsplash" = "Unsplash";
 "Go back" = "Go back";
-"Backed up on one node at least" = "Backed up on one node at least";
+"SyncStatus.LocalOnly.Title" = "Local-only";
+"SyncStatus.LocalOnly.Description" = "Local only";
+"SyncStatus.Synced.Anytype.Description" = "Backed up on Anytype Network";
+"SyncStatus.Synced.AnytypeStaging.Description" = "Backed up on Anytype Staging";
+"SyncStatus.Synced.SelfHosted.Description" = "Backed up on Self-hosted Network";
 "Downloading or uploading data to some node" = "Downloading or uploading data to some node";
-"Anytype node is not connected" = "Anytype node is not connected";
+"Node is not connected" = "Node is not connected";
 "Initializing sync" = "Initializing sync";
 "Not syncing" = "Not syncing";
 "Synced" = "Synced";
@@ -560,8 +601,9 @@
 "Into object" = "Into object";
 "Add below" = "Add below";
 "Change type" = "Ändra typ";
-"Link to existing object" = "Link to existing object";
-"Link to object" = "Lägg till länk";
+"Show types" = "Show types";
+"Hide types" = "Hide types";
+"SlashMenu.LinkTo.Description" = "Create link to another object";
 "Upload playable audio" = "Upload playable audio";
 "Code snippet" = "Code snippet";
 "Bookmark" = "Bookmark";
@@ -590,7 +632,7 @@
 "Today" = "Today";
 "No date" = "No date";
 "Clear" = "Rensa";
-"Create option" = "Create option ‘%@’";
+"Create option with" = "Create option ‘%@’";
 "Add URL" = "Lägg till URL";
 "Add email" = "Add email";
 "Add phone number" = "Lägg till telefonnummer";
@@ -620,6 +662,7 @@
 "DataviewType.gallery" = "Galleri";
 "DataviewType.kanban" = "Kanban";
 "DataviewType.calendar" = "Kalender";
+"DataviewType.graph" = "Graph";
 
 // MARK: - ObjectType
 "ObjectType.fallbackDescription" = "Blank canvas with no title";
@@ -630,7 +673,7 @@
 "ObjectType.DeletedName" = "Deleted type";
 
 // MARK: - QuickAction
-"QuickAction.create" = "Create %@";
+"QuickAction.create" = "Skapa %@";
 
 // MARK: - RedactedText
 "RedactedText.pageTitle" = "Wake up, Neo";
@@ -690,8 +733,8 @@
 "SetViewTypesPicker.Settings.Textfield.Placeholder.New.View" = "New view";
 "SetViewTypesPicker.Settings.Textfield.Placeholder.Untitled" = "Untitled";
 
-// MARK: Select view picker
-"EditorSetViewPicker.View.Not.Supported.Title" = "Unsupported";
+// MARK: Select view
+"EditorSet.View.Not.Supported.Title" = "Unsupported";
 
 // BlockContent
 "Content.File.Upload" = "Ladda upp en fil";
@@ -818,6 +861,16 @@
 "SpaceSettings.DeleteAlert.Title" = "Delete ‘%@’ space";
 "SpaceSettings.DeleteAlert.Message" = "This space will be deleted irrevocably. You can’t undo this action.";
 "SpaceSettings.DeleteButton" = "Delete space";
+"SpaceSettings.Sharing" = "Sharing";
+"SpaceSettings.Share" = "Dela";
+
+// MARK: - Space Share
+
+"SpaceShare.Title" = "Share space";
+"SpaceShare.MembersSection" = "Members and requests";
+"SpaceShare.Permissions.Owner" = "Owner";
+"SpaceShare.Permissions.Reader" = "Can view";
+"SpaceShare.Permissions.Writer" = "Can edit";
 
 // MARK: - Space Create
 "SpaceCreate.Title" = "Create a space";
@@ -832,10 +885,9 @@
 "Sharing.AddTo" = "Add to";
 "Sharing.LinkTo" = "Link to";
 
-"Sharing.URL.Bookmark" = "Bookmark object";
-"Sharing.URL.Text" = "Text block";
 "Sharing.Text.NoteObject" = "Note object";
-"Sharing.Text.TextBlock" = "Text block";
+"Sharing.Text.TextBlock" = "Blocks";
+"Sharing.Any.Block" = "Blocks";
 
 // MARK: - Sharing tips
 "Sharing.Tip.Title" = "Share Extension";
@@ -843,7 +895,7 @@
 
 "Sharing.Tip.Steps.1" = "Tap the iOS sharing button";
 "Sharing.Tip.Steps.2" = "Scroll past the app and tap More";
-"Sharing.Tip.Steps.3" = "Tap Edit to find “Anytype” and  tap";
+"Sharing.Tip.Steps.3" = "Tap Edit to find “Anytype” and tap";
 
 // MARK: - Initial
 
@@ -855,13 +907,17 @@
 "Initial.UnstableMiddle.WontUseProd" = "I won't be using my production account";
 
 // MARK: - Create tip
-"LongTapCreateTip.Title" = "Crete Objects with specific Type";
+"LongTapCreateTip.Title" = "Create Objects with specific Type";
 "LongTapCreateTip.Message" = "Long tap on Create Object button to open menu with types";
 
 // MARK: - Error
 "Error.AnytypeNeedsUpgrate.Title" = "Update Your App";
 "Error.AnytypeNeedsUpgrate.Message" = "This object was modified in a newer version of Anytype. Please update the app to open it on this device";
 "Error.AnytypeNeedsUpgrate.Confirm" = "Uppdatera";
+"Error.UnableToConnect" = "Please connect to the internet";
+"Error.Common.Title" = "Oops!";
+"Error.Common.Message" = "Please check your internet connection and try again or post a report on forum.";
+"Error.Common.TryAgain" = "Try again";
 
 // MARK: - Relative date formatter
 "RelativeFormatter.days7" = "Previous 7 days";
@@ -878,3 +934,13 @@
 // MARK: - Gallery
 "Gallery.Unavailable.Title" = "Gallery will be supported soon";
 "Gallery.Unavailable.Message" = "Please use the desktop app for now";
+"Gallery.Author" = "Made by @%@";
+"Gallery.Install" = "Installera";
+"Gallery.InstallToNew" = "Install to new space";
+"Gallery.Notification.Success" = "Experience was successfully installed to the \"%@\" space. You can now open and start using it.";
+"Gallery.Notification.Button" = "Go to space";
+"Gallery.Notification.Error" = "Oops! \"%@\" wasn't installed. Please check your internet connection and try again or post a report on forum.";
+
+// MARK: - Debug
+"Debug.MimeTypes" = "Mime Types - %@";
+"Debug.Info" = "Debug Info";

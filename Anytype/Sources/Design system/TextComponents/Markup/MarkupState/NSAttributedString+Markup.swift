@@ -63,11 +63,13 @@ extension NSAttributedString {
         case .strikethrough:
             return strikethroughState(range: range) ? .strikethrough : nil
         case .textColor:
-            return colorState(range: range).map { .textColor($0) }
+            guard let middlewareColor = colorState(range: range)?.middlewareColor() else { return nil }
+            return .textColor(middlewareColor)
         case .underscored:
             return isUnderscored(range: range) ? .underscored : nil
         case .backgroundColor:
-            return backgroundColor(range: range).map { .backgroundColor($0) }
+            guard let middlewareColor = backgroundColor(range: range)?.middlewareColor() else { return nil }
+            return .backgroundColor(middlewareColor)
         case .link:
             return linkState(range: range).map { .link($0) }
         case .linkToObject:

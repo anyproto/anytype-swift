@@ -27,7 +27,6 @@ final class SpaceSettingsViewModel: ObservableObject {
     @Published var spaceName: String = ""
     @Published var spaceType: String = ""
     @Published var spaceIcon: Icon?
-    @Published var profileIcon: Icon = .asset(.SettingsOld.accountAndData)
     @Published var info = [SettingsInfoModel]()
     @Published var snackBarData = ToastBarData.empty
     @Published var showSpaceDeleteAlert = false
@@ -72,6 +71,10 @@ final class SpaceSettingsViewModel: ObservableObject {
         showSpaceDeleteAlert.toggle()
     }
     
+    func onShareTap() {
+        output?.onSpaceShareSelected()
+    }
+    
     func onDeleteConfirmationTap() {
         guard let spaceView else { return }
         Task {
@@ -100,8 +103,8 @@ final class SpaceSettingsViewModel: ObservableObject {
     private func handleSpaceDetails(details: SpaceView) {
         spaceView = details
         spaceIcon = details.objectIconImage
-        spaceType = details.spaceAccessibility?.name ?? ""
-        allowDelete = accountManager.account.info.spaceViewId != details.id
+        spaceType = details.spaceAccessType?.name ?? ""
+        allowDelete = details.spaceAccessType == .personal || details.spaceAccessType == .private
         buildInfoBlock(details: details)
         
         if !dataLoaded {
@@ -122,7 +125,7 @@ final class SpaceSettingsViewModel: ObservableObject {
         
         if let spaceRelationDetails = try? relationDetailsStorage.relationsDetails(for: .spaceId, spaceId: activeWorkspaceStorage.workspaceInfo.accountSpaceId) {
             info.append(
-                SettingsInfoModel(title: spaceRelationDetails.name, subtitle: details.id, onTap: { [weak self] in
+                SettingsInfoModel(title: spaceRelationDetails.name, subtitle: details.targetSpaceId, onTap: { [weak self] in
                     UIPasteboard.general.string = details.targetSpaceId
                     self?.snackBarData = .init(text: Loc.copiedToClipboard(spaceRelationDetails.name), showSnackBar: true)
                 })

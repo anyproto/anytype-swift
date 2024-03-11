@@ -27,7 +27,7 @@ final class FavoriteCompactListWidgetModuleAssembly: HomeWidgetCommonAssemblyPro
             favoriteSubscriptionService: serviceLocator.favoriteSubscriptionService(),
             activeWorkspaceStorage: serviceLocator.activeWorkspaceStorage(),
             documentService: serviceLocator.documentService(),
-            pageRepository: serviceLocator.pageRepository(),
+            defaultObjectService: serviceLocator.defaultObjectCreationService(),
             objectActionsService: serviceLocator.objectActionsService(),
             output: output
         )

@@ -195,15 +195,16 @@ extension UIImage {
             
             let x = (size.width - imageSize.width) / 2
             let y = (size.height - imageSize.height) / 2
-            image.applyTint(color: foregroundColor)
-                .scaled(to: imageSize)
-                .draw(
-                    at: .init(x: x, y: y),
-                    blendMode: .normal,
-                    alpha: 1.0
-                )
             
-            return image
+            return renderer.image { _ in 
+                image.applyTint(color: foregroundColor)
+                    .scaled(to: imageSize)
+                    .draw(
+                        at: .init(x: x, y: y),
+                        blendMode: .normal,
+                        alpha: 1.0
+                    )
+            }
         }
     }
 

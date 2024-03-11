@@ -1,56 +1,56 @@
 // style menu
-"StyleMenu.Color.TextColor.Placeholder" = "A";
+"StyleMenu.Color.TextColor.Placeholder" = "ए";
 
 // MARK: Text Style in Slash and Style menu
-"TextStyle.Text.Title" = "Text";
-"TextStyle.Text.Subtitle" = "Just start writing with a plain text";
+"TextStyle.Text.Title" = "लेख";
+"TextStyle.Text.Subtitle" = " एक सादा टेक्स्ट लिखके शुरुआत करें";
 
-"TextStyle.Title.Title" = "Title";
-"TextStyle.Title.Subtitle" = "Big section heading";
+"TextStyle.Title.Title" = "शीर्षक";
+"TextStyle.Title.Subtitle" = "बड़ा अनुभाग शीर्षक";
 
-"TextStyle.Heading.Title" = "Heading";
-"TextStyle.Heading.Subtitle" = "Medium headline";
+"TextStyle.Heading.Title" = "शीर्षक";
+"TextStyle.Heading.Subtitle" = "मध्यम शीर्षक";
 
-"TextStyle.Subheading.Title" = "Subheading";
-"TextStyle.Subheading.Subtitle" = "Small headline";
+"TextStyle.Subheading.Title" = "उपशीर्षक";
+"TextStyle.Subheading.Subtitle" = "छोटी हेडलाइन";
 
-"TextStyle.Highlighted.Title" = "Highlighted";
-"TextStyle.Highlighted.Subtitle" = "Spotlight, that needs special attention";
+"TextStyle.Highlighted.Title" = "हाइलाइट";
+"TextStyle.Highlighted.Subtitle" = "स्पॉटलाइट, जिस पर विशेष ध्यान देने की आवश्यकता है";
 
-"TextStyle.Callout.Title" = "Callout";
-"TextStyle.Callout.Subtitle" = "Bordered text with icon";
+"TextStyle.Callout.Title" = "पुकारें";
+"TextStyle.Callout.Subtitle" = "आइकन के साथ बॉर्डरवाला टेक्स्ट";
 
-"TextStyle.Checkbox.Title" = "Checkbox";
-"TextStyle.Checkbox.Subtitle" = "Create and track task with to-do list";
+"TextStyle.Checkbox.Title" = "चेकबॉक्स";
+"TextStyle.Checkbox.Subtitle" = "टू-डू सूची के साथ कार्य बनाएं और ट्रैक करें";
 
-"TextStyle.Bulleted.Title" = "Bulleted";
-"TextStyle.Bulleted.Subtitle" = "Simple list";
+"TextStyle.Bulleted.Title" = "बुलेटेड";
+"TextStyle.Bulleted.Subtitle" = "सरल सूची";
 
-"TextStyle.Numbered.Title" = "Numbered list";
-"TextStyle.Numbered.Subtitle" = "Numbered list";
+"TextStyle.Numbered.Title" = "क्रमांकित सूची";
+"TextStyle.Numbered.Subtitle" = "क्रमांकित सूची";
 
-"TextStyle.Toggle.Title" = "Toggle";
-"TextStyle.Toggle.Subtitle" = "Hide and show content inside";
+"TextStyle.Toggle.Title" = "टॉगल";
+"TextStyle.Toggle.Subtitle" = "अंदर की सामग्री दिखाएं और छिपाएं";
 
-"TextStyle.Bold.Title" = "Bold";
-"TextStyle.Italic.Title" = "Italic";
-"TextStyle.Strikethrough.Title" = "Strikethrough";
-"TextStyle.Code.Title" = "Code";
-"TextStyle.Link.Title" = "Link";
+"TextStyle.Bold.Title" = "बोल्ड";
+"TextStyle.Italic.Title" = "इटालिक";
+"TextStyle.Strikethrough.Title" = "आरपार काटें";
+"TextStyle.Code.Title" = "कोड";
+"TextStyle.Link.Title" = "लिंक";
 
 // MARK: - Block Text
-"BlockText.Content.Placeholder" = "Untitled";
+"BlockText.Content.Placeholder" = "अशीर्षित";
 
-"BlockText.ContentType.Title.Placeholder" = "Untitled";
-"BlockText.ContentType.Description.Placeholder" = "Add a description";
-"BlockText.ContentType.Toggle.Placeholder" = "Toggle block";
+"BlockText.ContentType.Title.Placeholder" = "अशीर्षित";
+"BlockText.ContentType.Description.Placeholder" = "एक विवरण जोड़ें";
+"BlockText.ContentType.Toggle.Placeholder" = "ब्‍लॉक को टॉगल करें";
 "BlockText.ContentType.Bulleted.Placeholder" = "Bulleted list item";
-"BlockText.ContentType.Checkbox.Placeholder" = "Checkbox";
+"BlockText.ContentType.Checkbox.Placeholder" = "चेकबॉक्स";
 "BlockText.ContentType.Numbered.Placeholder" = "Numbered list item";
 "BlockText.ContentType.Quote.Placeholder" = "Highlighted text";
-"BlockText.ContentType.Header.Placeholder" = "Title";
-"BlockText.ContentType.Header2.Placeholder" = "Heading";
-"BlockText.ContentType.Header3.Placeholder" = "Subheading";
+"BlockText.ContentType.Header.Placeholder" = "शीर्षक";
+"BlockText.ContentType.Header2.Placeholder" = "शीर्षक";
+"BlockText.ContentType.Header3.Placeholder" = "उपशीर्षक";
 
 // MARK: - Block Link
 
@@ -59,14 +59,14 @@
 "BlockLink.PreviewSettings.IconSize.Medium" = "Medium";
 
 "BlockLink.PreviewSettings.Layout.Card.Title" = "Card";
-"BlockLink.PreviewSettings.Layout.Text.Title" = "Text";
+"BlockLink.PreviewSettings.Layout.Text.Title" = "लेख";
 
 // MARK: - Settings
 "Settings.Title" = "Settings";
 "Settings.SpaceName" = "Space name";
 
 // MARK: - Object
-"Object.Title.Placeholder" = "Untitled";
+"Object.Title.Placeholder" = "अशीर्षित";
 "Object.Deleted.Placeholder" = "Deleted object";
 
 // MARK: - Relation
@@ -79,24 +79,50 @@
 "Relation.From.Type" = "From type %@";
 "Relation.LinksFrom.Title" = "from";
 "Relation.LinksTo.Title" = "to";
+"Relation.EmptyState.title" = "No options";
+"Relation.EmptyState.description" = "Nothing found. Create first option to start.";
+"Relation.EmptyState.Blocked.title" = "The relation is empty";
+"Relation.Create.Row.title" = "Create “%@”";
+"Relation.View.Create.title" = "Create option";
+"Relation.View.Edit.title" = "Edit option";
+"Relation.Create.Textfield.placeholder" = "Enter name...";
+"Relation.Edit.Button.title" = "Apply";
+"Relation.Date.Locked.Alert.title" = "Relation “%@” is locked";
+"Relation.ObjectTypes.Header.title" = "Object types:";
+"Relation.ObjectType.Header.title" = "Object type:";
+
+"Relation.Delete.Alert.Title" = "Are you sure?";
+"Relation.Delete.Alert.Description" = "The option will be permanently removed from your space.";
+"Relation.Object.Delete.Alert.Description" = "The object will be moved to Bin.";
 
 "Relation.Format.Object.Title" = "Object";
-"Relation.Format.Text.Title" = "Text";
+"Relation.Format.Text.Title" = "लेख";
 "Relation.Format.Number.Title" = "Number";
-"Relation.Format.Status.Title" = "Status";
-"Relation.Format.Tag.Title" = "Tag";
-"Relation.Format.Date.Title" = "Date";
+"Relation.Format.Status.Title" = "Select";
+"Relation.Format.Tag.Title" = "Multi-select";
+"Relation.Format.Date.Title" = "दिनांक";
 "Relation.Format.FileMedia.Title" = "File & Media";
-"Relation.Format.Checkbox.Title" = "Checkbox";
+"Relation.Format.Checkbox.Title" = "चेकबॉक्स";
 "Relation.Format.Url.Title" = "URL";
 "Relation.Format.Email.Title" = "Email";
 "Relation.Format.Phone.Title" = "Phone number";
+
+// Origin Relation
+
+"Relation.Origin.Clipboard" = "Clipboard";
+"Relation.Origin.DragAndDrop" = "Drag'n'Drop";
+"Relation.Origin.Import" = "Imported object";
+"Relation.Origin.WebClipper" = "Web clipper";
+"Relation.Origin.SharingExtension" = "Mobile sharing extension";
+"Relation.Origin.UseCase" = "Use case";
+"Relation.Origin.Builtin" = "Library installed";
+"Relation.Origin.Bookmark" = "Bookmark";
 
 // MARK: - Mention
 "Mention.Subtitle.Placeholder" = "Object";
 
 "None" = "None";
-"Callout" = "Callout";
+"Callout" = "पुकारें";
 "Toggle empty. Tap to create block." = "Toggle empty. Tap to create block.";
 "Loading, please wait" = "Loading, please wait";
 "Done" = "Done";
@@ -109,6 +135,8 @@
 "Actions" = "Actions";
 "Relations" = "Relations";
 "Objects" = "Objects";
+"Lists" = "Lists";
+"Pinned" = "Pinned";
 "Delete" = "Delete";
 "Duplicate" = "Duplicate";
 "Copy" = "Copy";
@@ -118,43 +146,45 @@
 "Move" = "Move";
 "Move to" = "Move to";
 "Back" = "Back";
+"Unpin" = "Unpin";
+"Pin on top" = "Pin on top";
 "File block subtitle" = "Store file in original state";
 "Picture block subtitle" = "Upload and enrich the page with image";
 "Video block subtitle" = "Upload playable video";
 "Bookmark block subtitle" = "Save your favorite link with summary";
 "Code block subtitle" = "Capture code snippet";
-"Align right" = "Align right";
-"Align left" = "Align left";
-"Align center" = "Align center";
-"Black" = "Black";
-"Amber" = "Amber";
-"Red" = "Red";
-"Pink" = "Pink";
-"Purple" = "Purple";
-"Blue" = "Blue";
-"Teal" = "Teal";
-"Green" = "Green";
-"Default background" = "Default background";
-"Amber background" = "Amber background";
-"Red background" = "Red background";
-"Pink background" = "Pink background";
-"Purple background" = "Purple background";
-"Blue background" = "Blue background";
-"Green background" = "Green background";
-"Create new object" = "Create new object";
-"Cancel" = "Cancel";
-"Paste or type URL" = "Paste or type URL";
-"No items match filter" = "No items match filter";
-"Unsupported block" = "Unsupported block";
-"Name" = "Name";
-"Description" = "Description";
-"Paste processing..." = "Paste processing...";
-"Anytype Library" = "Anytype Library";
-"Copied" = "Copied";
+"Align right" = "दाहिना संरेखण";
+"Align left" = "बायें संरेखित करें";
+"Align center" = "मध्य संरेखण";
+"Black" = "काला";
+"Amber" = "एम्बर";
+"Red" = "लाल";
+"Pink" = "गुलाबी";
+"Purple" = "बैंगनी";
+"Blue" = "नीला";
+"Teal" = "टील";
+"Green" = "हरा";
+"Default background" = "डिफ़ॉल्ट बैकग्राउंड";
+"Amber background" = "एम्बर बैकग्राउंड";
+"Red background" = "लाल बैकग्राउंड";
+"Pink background" = "गुलाबी बैकग्राउंड";
+"Purple background" = "बैंगनी बैकग्राउंड";
+"Blue background" = "नीला बैकग्राउंड";
+"Green background" = "हरा बैकग्राउंड";
+"Create new object" = "नई वस्तु बनाएं";
+"Cancel" = "रद्द करें";
+"Paste or type URL" = "यूआरएल पेस्ट करें या टाइप करें";
+"No items match filter" = " कोई वस्तु फ़िल्टर से मेल नहीं खाती";
+"Unsupported block" = "असमर्थित खंड";
+"Name" = "नाम";
+"Description" = "विवरण";
+"Paste processing..." = "पेस्ट प्रक्रिया चल रही है";
+"Anytype Library" = "एनीटाइप लाइब्रेरी";
+"Copied" = "कॉपीड";
 
 // Home
-"Favorites" = "Favorites";
-"Recent" = "Recent";
+"Favorites" = "पसंदीदा";
+"Recent" = "हाल ही का";
 "Bin" = "Bin";
 
 // Settings
@@ -180,14 +210,14 @@
 "Keychain.SeedPhrasePlaceholder" = "witch collapse practice feed shame open despair creek road again ice least lake tree young address brain despair";
 
 // Auth
-"Sign up" = "Sign up";
+"Sign up" = "साइन अप करें";
 "Login" = "Log In";
-"Create" = "Create";
-"Scan QR code" = "Scan QR code";
-"Auth.CameraPermissionTitle" = "Please allow access";
+"Create" = "बनाएँ";
+"Scan QR code" = "क्यूआर कोड स्कैन करें";
+"Auth.CameraPermissionTitle" = "कृपया पहुंच की अनुमति दें";
 "Restore secret phrase from keychain" = "Restore Recovery Phrase from the keychain";
 "Auth.LogIn" = "Log In";
-"Auth.Join" = "Create New Account";
+"Auth.Join" = "Join";
 "Auth.Welcome.Subtitle" = "Anytype is your safe space to write, plan, think and organise everything that matters to you.";
 "Auth.Caption.Privacy.Text" = "By continuing you agree to [Terms of Use](%@) and [Privacy Policy](%@)";
 "Auth.Next" = "Next";
@@ -199,6 +229,7 @@
 "Error creating wallet" = "Error creating wallet";
 "Error select account" = "Error select account";
 "Error wallet recover account" = "Error wallet recover account";
+"Wallet.Recovery.Error.description" = "Invalid recovery phrase";
 
 "Search for language" = "Search for language";
 
@@ -224,7 +255,7 @@
 
 "Auth.JoinFlow.Soul.Title" = "Choose your name";
 "Auth.JoinFlow.Soul.Description" = "This is how you will appear in the app.";
-"Auth.JoinFlow.Soul.Placeholder" = "Untitled";
+"Auth.JoinFlow.Soul.Placeholder" = "अशीर्षित";
 
 "Auth.JoinFlow.Creating.Soul.Title" = "Generating new account";
 "Auth.JoinFlow.Setting.Space.Title" = "Setting up your personal space";
@@ -234,20 +265,20 @@
 "Auth.LoginFlow.Use.Keychain.Title" = "Use keychain";
 "Auth.LoginFlow.Or" = "OR";
 "Auth.LoginFlow.Textfield.Placeholder" = "Type your recovery phrase";
-"Auth.LoginFlow.Enter.Button.Title" = "Login";
-"Auth.LoginFlow.Entering.Void.Title" = "Entering the Void";
+"Auth.LoginFlow.Enter.Button.Title" = "लॉगिन";
+"Auth.LoginFlow.Entering.Void.Title" = "शून्य में प्रवेश करना";
 
 // Object settings
 
-"Icon" = "Icon";
+"Icon" = "आइकन";
 "Emoji or image for object" = "Emoji or image for object";
-"Cover" = "Cover";
-"Background picture" = "Background picture";
-"Layout" = "Layout";
-"Arrangement of objects on a canvas" = "Arrangement of objects on a canvas";
+"Cover" = "कवर";
+"Background picture" = "पृष्ठभूमि की तस्वीर";
+"Layout" = "विन्यास";
+"Arrangement of objects on a canvas" = "कैनवास पर वस्तुओं की व्यवस्था";
 
-"Search" = "Search";
-"There is no emoji named" = "There is no emoji named";
+"Search" = "खोजें";
+"There is no emoji named" = "नाम का कोई इमोजी नहीं है";
 "Try to find a new one or upload your image" = "Try to find a new one or upload your image";
 
 "Emoji" = "Emoji";
@@ -331,6 +362,7 @@
 "Templates.Popup.Default" = "The template was set as default";
 
 "To Bin" = "To Bin";
+"Set as default" = "Set as default";
 
 // MARK: - Context Menu
 "Remove From Favorite" = "Remove From Favorite";
@@ -407,7 +439,7 @@
 "EditSet.Popup.Filter.Date.Option.NumberOfDaysFromNow.Short" = "%@ days from now";
 
 // MARK: - Sets. Create object
-"Set.Create.ObjectTitle.Placeholder" = "Untitled";
+"Set.Create.ObjectTitle.Placeholder" = "अशीर्षित";
 
 // MARK: - Sets: Featured relations
 "Set.FeaturedRelations.Query" = "Query";
@@ -486,8 +518,8 @@
 "Enter value" = "Enter value";
 "Select object" = "Select object";
 "Select file" = "Select file";
-"Select tag" = "Select tag";
-"Select status" = "Select status";
+"Select options" = "Select options";
+"Select option" = "Select option";
 "Select date" = "Select date";
 "Add email" = "Add email";
 "Add link" = "Add link";
@@ -495,6 +527,11 @@
 "Enter text" = "Enter text";
 "Unsupported value" = "Unsupported value";
 "Select relation type" = "Select relation type";
+"CommonOpenErrorView.Message" = "No data found";
+"Nothing found" = "Nothing found";
+"No type found text" = "No type “%@” found. Change your request or create new type.";
+"Create type" = "Create type";
+
 
 "Limit object types" = "Limit object types";
 "Type" = "Type";
@@ -544,9 +581,13 @@
 "Unfavorite" = "Unfavorite";
 "Unsplash" = "Unsplash";
 "Go back" = "Go back";
-"Backed up on one node at least" = "Backed up on one node at least";
+"SyncStatus.LocalOnly.Title" = "Local-only";
+"SyncStatus.LocalOnly.Description" = "Local only";
+"SyncStatus.Synced.Anytype.Description" = "Backed up on Anytype Network";
+"SyncStatus.Synced.AnytypeStaging.Description" = "Backed up on Anytype Staging";
+"SyncStatus.Synced.SelfHosted.Description" = "Backed up on Self-hosted Network";
 "Downloading or uploading data to some node" = "Downloading or uploading data to some node";
-"Anytype node is not connected" = "Anytype node is not connected";
+"Node is not connected" = "Node is not connected";
 "Initializing sync" = "Initializing sync";
 "Not syncing" = "Not syncing";
 "Synced" = "Synced";
@@ -560,8 +601,9 @@
 "Into object" = "Into object";
 "Add below" = "Add below";
 "Change type" = "Change type";
-"Link to existing object" = "Link to existing object";
-"Link to object" = "Add link";
+"Show types" = "Show types";
+"Hide types" = "Hide types";
+"SlashMenu.LinkTo.Description" = "Create link to another object";
 "Upload playable audio" = "Upload playable audio";
 "Code snippet" = "Code snippet";
 "Bookmark" = "Bookmark";
@@ -590,7 +632,7 @@
 "Today" = "Today";
 "No date" = "No date";
 "Clear" = "Clear";
-"Create option" = "Create option ‘%@’";
+"Create option with" = "Create option ‘%@’";
 "Add URL" = "Add URL";
 "Add email" = "Add email";
 "Add phone number" = "Add phone number";
@@ -620,6 +662,7 @@
 "DataviewType.gallery" = "Gallery";
 "DataviewType.kanban" = "Kanban";
 "DataviewType.calendar" = "Calendar";
+"DataviewType.graph" = "Graph";
 
 // MARK: - ObjectType
 "ObjectType.fallbackDescription" = "Blank canvas with no title";
@@ -674,7 +717,7 @@
 "RelationAction.CopyPhone" = "Copy phone numbler";
 "RelationAction.CopyEmail" = "Copy email";
 "RelationAction.CopyLink" = "Copy link";
-"RelationAction.Copied" = "Copied";
+"RelationAction.Copied" = "कॉपीड";
 "RelationAction.ReloadingContent" = "Reloading content";
 "RelationAction.ReloadContent" = "Reload object content";
 "RelationAction.CallPhone" = "Call phone numbler";
@@ -688,10 +731,10 @@
 "SetViewTypesPicker.Settings.Duplicate.View" = "Duplicate";
 "SetViewTypesPicker.Settings.Delete.View" = "Delete view";
 "SetViewTypesPicker.Settings.Textfield.Placeholder.New.View" = "New view";
-"SetViewTypesPicker.Settings.Textfield.Placeholder.Untitled" = "Untitled";
+"SetViewTypesPicker.Settings.Textfield.Placeholder.Untitled" = "अशीर्षित";
 
-// MARK: Select view picker
-"EditorSetViewPicker.View.Not.Supported.Title" = "Unsupported";
+// MARK: Select view
+"EditorSet.View.Not.Supported.Title" = "Unsupported";
 
 // BlockContent
 "Content.File.Upload" = "Upload a file";
@@ -731,7 +774,7 @@
 "Widgets.Actions.AddBelow" = "Add Below";
 "Widgets.Actions.NewObject" = "New Object";
 "Widgets.Layout.Screen.Title" = "Widget type";
-"Widgets.Layout.Link.Title" = "Link";
+"Widgets.Layout.Link.Title" = "लिंक";
 "Widgets.Layout.Tree.Title" = "Tree";
 "Widgets.Layout.List.Title" = "List";
 "Widgets.Layout.CompactList.Title" = "Сompact list";
@@ -818,13 +861,23 @@
 "SpaceSettings.DeleteAlert.Title" = "Delete ‘%@’ space";
 "SpaceSettings.DeleteAlert.Message" = "This space will be deleted irrevocably. You can’t undo this action.";
 "SpaceSettings.DeleteButton" = "Delete space";
+"SpaceSettings.Sharing" = "Sharing";
+"SpaceSettings.Share" = "Share";
+
+// MARK: - Space Share
+
+"SpaceShare.Title" = "Share space";
+"SpaceShare.MembersSection" = "Members and requests";
+"SpaceShare.Permissions.Owner" = "Owner";
+"SpaceShare.Permissions.Reader" = "Can view";
+"SpaceShare.Permissions.Writer" = "Can edit";
 
 // MARK: - Space Create
 "SpaceCreate.Title" = "Create a space";
 
 // MARK: - Sharing
 "Sharing.Navigation.title" = "Add to Anytype";
-"Sharing.Navigation.LeftButton.Title" = "Cancel";
+"Sharing.Navigation.LeftButton.Title" = "रद्द करें";
 "Sharing.Navigation.RightButton.Title" = "Done";
 
 "Sharing.SaveAs" = "SAVE AS";
@@ -832,10 +885,9 @@
 "Sharing.AddTo" = "Add to";
 "Sharing.LinkTo" = "Link to";
 
-"Sharing.URL.Bookmark" = "Bookmark object";
-"Sharing.URL.Text" = "Text block";
 "Sharing.Text.NoteObject" = "Note object";
-"Sharing.Text.TextBlock" = "Text block";
+"Sharing.Text.TextBlock" = "Blocks";
+"Sharing.Any.Block" = "Blocks";
 
 // MARK: - Sharing tips
 "Sharing.Tip.Title" = "Share Extension";
@@ -843,7 +895,7 @@
 
 "Sharing.Tip.Steps.1" = "Tap the iOS sharing button";
 "Sharing.Tip.Steps.2" = "Scroll past the app and tap More";
-"Sharing.Tip.Steps.3" = "Tap Edit to find “Anytype” and  tap";
+"Sharing.Tip.Steps.3" = "Tap Edit to find “Anytype” and tap";
 
 // MARK: - Initial
 
@@ -855,13 +907,17 @@
 "Initial.UnstableMiddle.WontUseProd" = "I won't be using my production account";
 
 // MARK: - Create tip
-"LongTapCreateTip.Title" = "Crete Objects with specific Type";
+"LongTapCreateTip.Title" = "Create Objects with specific Type";
 "LongTapCreateTip.Message" = "Long tap on Create Object button to open menu with types";
 
 // MARK: - Error
 "Error.AnytypeNeedsUpgrate.Title" = "Update Your App";
 "Error.AnytypeNeedsUpgrate.Message" = "This object was modified in a newer version of Anytype. Please update the app to open it on this device";
 "Error.AnytypeNeedsUpgrate.Confirm" = "Update";
+"Error.UnableToConnect" = "Please connect to the internet";
+"Error.Common.Title" = "Oops!";
+"Error.Common.Message" = "Please check your internet connection and try again or post a report on forum.";
+"Error.Common.TryAgain" = "Try again";
 
 // MARK: - Relative date formatter
 "RelativeFormatter.days7" = "Previous 7 days";
@@ -878,3 +934,13 @@
 // MARK: - Gallery
 "Gallery.Unavailable.Title" = "Gallery will be supported soon";
 "Gallery.Unavailable.Message" = "Please use the desktop app for now";
+"Gallery.Author" = "Made by @%@";
+"Gallery.Install" = "Install";
+"Gallery.InstallToNew" = "Install to new space";
+"Gallery.Notification.Success" = "Experience was successfully installed to the \"%@\" space. You can now open and start using it.";
+"Gallery.Notification.Button" = "Go to space";
+"Gallery.Notification.Error" = "Oops! \"%@\" wasn't installed. Please check your internet connection and try again or post a report on forum.";
+
+// MARK: - Debug
+"Debug.MimeTypes" = "Mime Types - %@";
+"Debug.Info" = "Debug Info";

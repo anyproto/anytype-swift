@@ -51,6 +51,7 @@ final class EditorSetRouter: EditorSetRouterProtocol, ObjectSettingsCoordinatorO
     private let navigationContext: NavigationContextProtocol
     private let createObjectModuleAssembly: CreateObjectModuleAssemblyProtocol
     private let newSearchModuleAssembly: NewSearchModuleAssemblyProtocol
+    private let objectTypeSearchModuleAssembly: ObjectTypeSearchModuleAssemblyProtocol
     private let objectSettingCoordinator: ObjectSettingsCoordinatorProtocol
     private let relationValueCoordinator: RelationValueCoordinatorProtocol
     private let setObjectCreationCoordinator: SetObjectCreationCoordinatorProtocol
@@ -63,7 +64,6 @@ final class EditorSetRouter: EditorSetRouterProtocol, ObjectSettingsCoordinatorO
     private let setViewSettingsGroupByModuleAssembly: SetViewSettingsGroupByModuleAssemblyProtocol
     private let editorSetRelationsCoordinatorAssembly: SetRelationsCoordinatorAssemblyProtocol
     private let setViewPickerCoordinatorAssembly: SetViewPickerCoordinatorAssemblyProtocol
-    private let sharingTipCoordinator: SharingTipCoordinatorProtocol
     private let toastPresenter: ToastPresenterProtocol
     private let setObjectCreationSettingsCoordinator: SetObjectCreationSettingsCoordinatorProtocol
     private var output: EditorSetModuleOutput?
@@ -73,6 +73,7 @@ final class EditorSetRouter: EditorSetRouterProtocol, ObjectSettingsCoordinatorO
         navigationContext: NavigationContextProtocol,
         createObjectModuleAssembly: CreateObjectModuleAssemblyProtocol,
         newSearchModuleAssembly: NewSearchModuleAssemblyProtocol,
+        objectTypeSearchModuleAssembly: ObjectTypeSearchModuleAssemblyProtocol,
         objectSettingCoordinator: ObjectSettingsCoordinatorProtocol,
         relationValueCoordinator: RelationValueCoordinatorProtocol,
         setObjectCreationCoordinator: SetObjectCreationCoordinatorProtocol,
@@ -85,7 +86,6 @@ final class EditorSetRouter: EditorSetRouterProtocol, ObjectSettingsCoordinatorO
         setViewSettingsGroupByModuleAssembly: SetViewSettingsGroupByModuleAssemblyProtocol,
         editorSetRelationsCoordinatorAssembly: SetRelationsCoordinatorAssemblyProtocol,
         setViewPickerCoordinatorAssembly: SetViewPickerCoordinatorAssemblyProtocol,
-        sharingTipCoordinator: SharingTipCoordinatorProtocol,
         toastPresenter: ToastPresenterProtocol,
         setObjectCreationSettingsCoordinator: SetObjectCreationSettingsCoordinatorProtocol,
         output: EditorSetModuleOutput?
@@ -94,6 +94,7 @@ final class EditorSetRouter: EditorSetRouterProtocol, ObjectSettingsCoordinatorO
         self.navigationContext = navigationContext
         self.createObjectModuleAssembly = createObjectModuleAssembly
         self.newSearchModuleAssembly = newSearchModuleAssembly
+        self.objectTypeSearchModuleAssembly = objectTypeSearchModuleAssembly
         self.objectSettingCoordinator = objectSettingCoordinator
         self.relationValueCoordinator = relationValueCoordinator
         self.setObjectCreationCoordinator = setObjectCreationCoordinator
@@ -106,12 +107,9 @@ final class EditorSetRouter: EditorSetRouterProtocol, ObjectSettingsCoordinatorO
         self.setViewSettingsGroupByModuleAssembly = setViewSettingsGroupByModuleAssembly
         self.editorSetRelationsCoordinatorAssembly = editorSetRelationsCoordinatorAssembly
         self.setViewPickerCoordinatorAssembly = setViewPickerCoordinatorAssembly
-        self.sharingTipCoordinator = sharingTipCoordinator
         self.toastPresenter = toastPresenter
         self.setObjectCreationSettingsCoordinator = setObjectCreationSettingsCoordinator
-        self.output = output 
-        
-        Task { @MainActor in sharingTipCoordinator.startObservingTips() }
+        self.output = output
     }
     // MARK: - EditorSetRouterProtocol
     
@@ -150,11 +148,9 @@ final class EditorSetRouter: EditorSetRouterProtocol, ObjectSettingsCoordinatorO
                 }
             )
         )
-        if #available(iOS 15.0, *) {
-            if let sheet = vc.sheetPresentationController {
-                sheet.detents = [.medium(), .large()]
-                sheet.selectedDetentIdentifier = .large
-            }
+        if let sheet = vc.sheetPresentationController {
+            sheet.detents = [.medium(), .large()]
+            sheet.selectedDetentIdentifier = .large
         }
         navigationContext.present(vc)
     }
@@ -233,13 +229,35 @@ final class EditorSetRouter: EditorSetRouterProtocol, ObjectSettingsCoordinatorO
     }
     
     func showQueries(selectedObjectId: BlockId?, onSelect: @escaping (BlockId) -> ()) {
-        showTypesSearch(
-            title: Loc.Set.SourceType.selectQuery,
-            selectedObjectId: selectedObjectId,
-            showBookmark: true,
-            showSetAndCollection: false,
-            onSelect: onSelect
-        )
+        if FeatureFlags.newTypePicker {
+            let view = objectTypeSearchModuleAssembly.make(
+                title: Loc.Set.SourceType.selectQuery,
+                spaceId: setDocument.spaceId,
+                showPins: false,
+                showLists: false, 
+                showFiles: true,
+                incudeNotForCreation: true
+            ) { [weak self] type in
+                self?.navigationContext.dismissTopPresented()
+                onSelect(type.id)
+            }
+            
+            navigationContext.presentSwiftUIView(view: view)
+        } else {
+            let view = newSearchModuleAssembly.objectTypeSearchModule(
+                title: Loc.Set.SourceType.selectQuery,
+                spaceId: setDocument.spaceId,
+                selectedObjectId: selectedObjectId,
+                excludedObjectTypeId: setDocument.details?.type,
+                showSetAndCollection: false,
+                showFiles: true
+            ) { [weak self] type in
+                self?.navigationContext.dismissTopPresented()
+                onSelect(type.id)
+            }
+            
+            navigationContext.presentSwiftUIView(view: view)
+        }
     }
     
     func closeEditor() {
@@ -292,28 +310,6 @@ final class EditorSetRouter: EditorSetRouterProtocol, ObjectSettingsCoordinatorO
     }
 
     // MARK: - Private
-    
-    private func showTypesSearch(
-        title: String,
-        selectedObjectId: BlockId?,
-        showBookmark: Bool,
-        showSetAndCollection: Bool,
-        onSelect: @escaping (BlockId) -> ()
-    ) {
-        let view = newSearchModuleAssembly.objectTypeSearchModule(
-            title: title,
-            spaceId: setDocument.spaceId,
-            selectedObjectId: selectedObjectId,
-            excludedObjectTypeId: setDocument.details?.type,
-            showBookmark: showBookmark,
-            showSetAndCollection: showSetAndCollection
-        ) { [weak self] type in
-            self?.navigationContext.dismissTopPresented()
-            onSelect(type.id)
-        }
-        
-        navigationContext.presentSwiftUIView(view: view)
-    }
     
     private func presentSheet(
         _ vc: UIViewController,

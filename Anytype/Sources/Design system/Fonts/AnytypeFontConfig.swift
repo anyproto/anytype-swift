@@ -167,6 +167,14 @@ extension AnytypeFont {
                 lineHeight: 22,
                 kern: -0.24
             )
+        case .caption1Semibold:
+            return AnytypeFontConfig(
+                fontName: .inter,
+                size: 13,
+                weight: .bold,
+                lineHeight: 18,
+                kern: -0.08
+            )
         case .caption1Regular:
             return AnytypeFontConfig(
                 fontName: .inter,
@@ -182,6 +190,14 @@ extension AnytypeFont {
                 weight: .medium,
                 lineHeight: 18,
                 kern: -0.08
+            )
+        case .caption2Semibold:
+            return AnytypeFontConfig(
+                fontName: .inter,
+                size: 11,
+                weight: .bold,
+                lineHeight: 14,
+                kern: -0.07
             )
         case .caption2Regular:
             return AnytypeFontConfig(

@@ -11,16 +11,10 @@ struct PlainList<Content>: View where Content: View {
     
     var body: some View {
         List {
-            if #available(iOS 15.0, *) {
-                content()
-                    .listRowSeparator(.hidden)
-                    .listRowInsets(EdgeInsets())
-                    .listRowBackground(Color.clear)
-            } else {
-                content()
-                    .listRowInsets(EdgeInsets())
-                    .listRowBackground(Color.clear)
-            }
+            content()
+                .listRowSeparator(.hidden)
+                .listRowInsets(EdgeInsets())
+                .listRowBackground(Color.clear)
         }
         .listStyle(.plain)
     }

@@ -1,6 +1,7 @@
 import SwiftUI
 import LocalAuthentication
 
+@MainActor
 class KeychainPhraseViewModel: ObservableObject {
     
     // MARK: - DI
@@ -29,38 +30,26 @@ class KeychainPhraseViewModel: ObservableObject {
     }
     
     func onSeedViewTap() {
-        if recoveryPhrase.isNil {
-            obtainRecoveryPhrase(onTap: { [weak self] in self?.showToast() })
+        Task {
+            if recoveryPhrase.isNil {
+                try await obtainRecoveryPhrase()
+            }
+            
+            onSuccessfullRecovery()
+            showToast()
         }
-        
-        guard let recoveryPhrase = recoveryPhrase else {
-            return
-        }
-        
-        onSuccessfullRecovery(recoveryPhrase: recoveryPhrase, onTap: { [weak self] in self?.showToast() })
     }
     
     // MARK: - Private
     
-    private func obtainRecoveryPhrase(onTap: @escaping () -> ()) {
-        localAuthService.auth(reason: Loc.accessToSecretPhraseFromKeychain) { [weak self] didComplete in
-            guard didComplete,
-                  let phrase = try? self?.seedService.obtainSeed() else {
-                return
-            }
-            
-            DispatchQueue.main.async { [weak self] in
-                guard let self else { return }
-                recoveryPhrase = phrase
-                onSuccessfullRecovery(recoveryPhrase: phrase, onTap: onTap)
-            }
-        }
+    private func obtainRecoveryPhrase() async throws {
+        try await localAuthService.auth(reason: Loc.accessToSecretPhraseFromKeychain)
+        recoveryPhrase = try seedService.obtainSeed()
     }
     
-    private func onSuccessfullRecovery(recoveryPhrase: String, onTap: () -> ()) {
+    private func onSuccessfullRecovery() {
         UISelectionFeedbackGenerator().selectionChanged()
         UIPasteboard.general.string = recoveryPhrase
-        onTap()
     }
     
     private func showToast() {

@@ -24,6 +24,6 @@ struct LaunchView: View {
 struct LaunchView_Previews: PreviewProvider {
     
     static var previews: some View {
-        LaunchView(onDebugMenuAction: { DebugMenu().eraseToAnyView() })
+        LaunchView(onDebugMenuAction: { Color.red.eraseToAnyView() })
     }
 }

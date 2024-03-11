@@ -9,7 +9,7 @@ struct TemplatePreview: View, ContextualMenuItemsProvider {
         .border(
             16,
             color: viewModel.model.isDefault ?
-            Color.System.amber50 : .Stroke.primary,
+            Color.System.amber50 : .Shape.primary,
             lineWidth: viewModel.model.isDefault ? 2 : 1
         )
         .cornerRadius(16, corners: .top)
@@ -112,7 +112,7 @@ struct TemplatePreview: View, ContextualMenuItemsProvider {
     
     var shimmerRectangle: some View {
         Rectangle()
-            .fill(Color.Stroke.secondary)
+            .fill(Color.Shape.secondary)
             .border(1, color: .clear)
             .frame(height: 6)
     }

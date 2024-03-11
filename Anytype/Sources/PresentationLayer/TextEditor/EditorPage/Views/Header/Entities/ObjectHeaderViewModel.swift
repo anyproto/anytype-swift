@@ -22,6 +22,7 @@ final class ObjectHeaderViewModel: ObservableObject {
     
     private lazy var onIconTap = { [weak self] in
         guard let self = self, !self.configuration.isOpenedForPreview else { return }
+        guard !document.objectRestrictions.objectRestriction.contains(.details) else { return }
         UISelectionFeedbackGenerator().selectionChanged()
         self.onIconPickerTap?((document, { [weak self] action in
             self?.handleIconAction(action: action)
@@ -31,6 +32,7 @@ final class ObjectHeaderViewModel: ObservableObject {
     private lazy var onCoverTap = { [weak self] in
         guard let self = self, !self.configuration.isOpenedForPreview else { return }
         guard self.document.details?.layoutValue != .note else { return }
+        guard !document.objectRestrictions.objectRestriction.contains(.details) else { return }
         UISelectionFeedbackGenerator().selectionChanged()
         self.onCoverPickerTap?((document, { [weak self] action in
             self?.handleCoverAction(action: action)
@@ -77,7 +79,7 @@ final class ObjectHeaderViewModel: ObservableObject {
             cornerRadius: 0,
             side: imageSize.height,
             foregroundColor: nil,
-            backgroundColor: .Stroke.tertiary
+            backgroundColor: .Shape.tertiary
         )
         return .filled(
             state: .iconAndCover(
@@ -87,7 +89,7 @@ final class ObjectHeaderViewModel: ObservableObject {
                     onTap: {}
                 ),
                 cover: .init(
-                    coverType: .cover(.color(.Stroke.tertiary)),
+                    coverType: .cover(.color(.Shape.tertiary)),
                     onTap: {})
             ),
             isShimmering: true

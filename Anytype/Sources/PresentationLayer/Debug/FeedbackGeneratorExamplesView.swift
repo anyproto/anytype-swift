@@ -16,8 +16,8 @@ struct FeedbackGeneratorExamplesView: View {
     private var list: some View {
         List(sections) { section in
             Section(
-                header: Text(section.title),
-                footer: Text(section.description)
+                header: Text(verbatim: section.title),
+                footer: Text(verbatim: section.description)
             ) {
                 ForEach(section.examples) { example in
                     Button {

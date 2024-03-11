@@ -6,7 +6,7 @@ protocol CoordinatorsDIProtocol: AnyObject {
     func linkToObject() -> LinkToObjectCoordinatorAssemblyProtocol
     func objectSettings() -> ObjectSettingsCoordinatorAssemblyProtocol
     func addNewRelation() -> AddNewRelationCoordinatorAssemblyProtocol
-    func homeWidgets() -> HomeWidgetsCoordinatorAssemblyProtocol
+    func home() -> HomeCoordinatorAssemblyProtocol
     func createWidget() -> CreateWidgetCoordinatorAssemblyProtocol
     func application() -> ApplicationCoordinatorAssemblyProtocol
     func settings() -> SettingsCoordinatorAssemblyProtocol
@@ -31,6 +31,12 @@ protocol CoordinatorsDIProtocol: AnyObject {
     func spaceSwitch() -> SpaceSwitchCoordinatorAssemblyProtocol
     func setObjectCreation() -> SetObjectCreationCoordinatorAssemblyProtocol
     func serverConfiguration() -> ServerConfigurationCoordinatorAssemblyProtocol
+    func sharingTip() -> SharingTipCoordinatorProtocol
+    func galleryInstallation() -> GalleryInstallationCoordinatorAssemblyProtocol
+    func notificationCoordinator() -> NotificationCoordinatorProtocol // Global coordinator without root view
+    func selectRelationList() -> SelectRelationListCoordinatorAssemblyProtocol
+    func objectRelationList() -> ObjectRelationListCoordinatorAssemblyProtocol
+    func spaceShare() -> SpaceShareCoordinatorAssemblyProtocol
     
     // Now like a coordinator. Migrate to isolated modules
     func editorPageModule() -> EditorPageModuleAssemblyProtocol

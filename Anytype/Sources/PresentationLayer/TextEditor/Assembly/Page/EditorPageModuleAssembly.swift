@@ -94,11 +94,8 @@ final class EditorPageModuleAssembly: EditorPageModuleAssemblyProtocol {
             toastPresenter: uiHelpersDI.toastPresenter(using: nil),
             codeLanguageListModuleAssembly: modulesDI.codeLanguageList(),
             newSearchModuleAssembly: modulesDI.newSearch(),
+            objectTypeSearchModuleAssembly: modulesDI.objectTypeSearch(),
             textIconPickerModuleAssembly: modulesDI.textIconPicker(),
-            sharingTipCoordinator: SharingTipCoordinator(
-                sharingTipAssembly: modulesDI.sharingTip(),
-                navigationContext: navigationContext
-            ),
             templateService: serviceLocator.templatesService,
             output: output
         )
@@ -143,21 +140,22 @@ final class EditorPageModuleAssembly: EditorPageModuleAssemblyProtocol {
         let focusSubjectHolder = FocusSubjectsHolder()
 
         let cursorManager = EditorCursorManager(focusSubjectHolder: focusSubjectHolder)
-        let listService = serviceLocator.blockListService()
+        let blockService = serviceLocator.blockService()
         let blockActionService = BlockActionService(
             documentId: document.objectId,
-            listService: listService,
-            singleService: serviceLocator.blockActionsServiceSingle(),
+            blockService: blockService,
             objectActionService: serviceLocator.objectActionsService(),
+            textServiceHandler: serviceLocator.textServiceHandler(),
             modelsHolder: modelsHolder,
             bookmarkService: serviceLocator.bookmarkService(),
+            fileService: serviceLocator.fileService(),
             cursorManager: cursorManager,
             objectTypeProvider: serviceLocator.objectTypeProvider()
         )
         let keyboardHandler = KeyboardActionHandler(
             documentId: document.objectId,
             service: blockActionService,
-            listService: listService,
+            blockService: blockService,
             toggleStorage: ToggleStorage.shared,
             container: document.infoContainer,
             modelsHolder: modelsHolder
@@ -168,24 +166,23 @@ final class EditorPageModuleAssembly: EditorPageModuleAssemblyProtocol {
             document: document,
             markupChanger: markupChanger,
             service: blockActionService,
-            listService: listService,
+            blockService: blockService,
             keyboardHandler: keyboardHandler,
             blockTableService: blockTableService,
             fileService: serviceLocator.fileService(),
             objectService: serviceLocator.objectActionsService()
         )
 
-        let pasteboardMiddlewareService = PasteboardMiddleService(document: document)
         let pasteboardHelper = PasteboardHelper()
         let pasteboardService = PasteboardService(document: document,
                                                   pasteboardHelper: pasteboardHelper,
-                                                  pasteboardMiddlewareService: pasteboardMiddlewareService)
+                                                  pasteboardMiddlewareService: serviceLocator.pasteboardMiddlewareService())
         
         let blocksStateManager = EditorPageBlocksStateManager(
             document: document,
             modelsHolder: modelsHolder,
             blocksSelectionOverlayViewModel: blocksSelectionOverlayViewModel,
-            blockActionsServiceSingle: serviceLocator.blockActionsServiceSingle(),
+            blockService: serviceLocator.blockService(),
             toastPresenter: uiHelpersDI.toastPresenter(),
             actionHandler: actionHandler,
             pasteboardService: pasteboardService,
@@ -203,7 +200,6 @@ final class EditorPageModuleAssembly: EditorPageModuleAssemblyProtocol {
             document: document,
             onShowStyleMenu: blocksStateManager.didSelectStyleSelection(infos:),
             onBlockSelection: actionHandler.selectBlock(info:),
-            pageService: serviceLocator.pageRepository(),
             linkToObjectCoordinator: coordinatorsDI.linkToObject().make(output: router),
             cursorManager: cursorManager
         )
@@ -239,7 +235,7 @@ final class EditorPageModuleAssembly: EditorPageModuleAssemblyProtocol {
             viewInput: viewInput,
             mainEditorSelectionManager: blocksStateManager,
             responderScrollViewHelper: responderScrollViewHelper,
-            pageService: serviceLocator.pageRepository(),
+            defaultObjectService: serviceLocator.defaultObjectCreationService(),
             linkToObjectCoordinator: coordinatorsDI.linkToObject().make(output: router)
         )
 
@@ -252,7 +248,6 @@ final class EditorPageModuleAssembly: EditorPageModuleAssemblyProtocol {
             markdownListener: markdownListener,
             simpleTableDependenciesBuilder: simpleTableDependenciesBuilder,
             subjectsHolder: focusSubjectHolder,
-            pageService: serviceLocator.pageRepository(),
             detailsService: serviceLocator.detailsService(objectId: document.objectId),
             audioSessionService: serviceLocator.audioSessionService(),
             infoContainer: document.infoContainer,
@@ -275,7 +270,6 @@ final class EditorPageModuleAssembly: EditorPageModuleAssemblyProtocol {
             blockBuilder: blocksConverter,
             actionHandler: actionHandler,
             headerModel: headerModel,
-            blockActionsService: serviceLocator.blockActionsServiceSingle(),
             blocksStateManager: blocksStateManager,
             cursorManager: cursorManager,
             objectActionsService: serviceLocator.objectActionsService(),

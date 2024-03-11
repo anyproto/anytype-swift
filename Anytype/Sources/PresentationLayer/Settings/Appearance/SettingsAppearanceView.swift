@@ -69,7 +69,7 @@ struct SettingsAppearanceView: View {
         VStack(alignment: .center) {
             AnytypeText(Loc.applicationIcon, style: .caption1Medium, color: .Text.secondary).padding(.bottom, 6)
             HStack {
-                ForEach(AppIcon.allCases, id: \.self) { icon in
+                ForEach(AppIcon.availableCases, id: \.self) { icon in
                     appIcon(icon)
                 }
             }
@@ -89,7 +89,7 @@ struct SettingsAppearanceView: View {
                     .clipShape(RoundedRectangle(cornerRadius: 14))
                     .overlay(
                         RoundedRectangle(cornerRadius: 14)
-                            .stroke(Color.Stroke.tertiary, lineWidth: 1)
+                            .stroke(Color.Shape.tertiary, lineWidth: 1)
                     )
                     .overlay(
                         RoundedRectangle(cornerRadius: 16)

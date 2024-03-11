@@ -13,6 +13,9 @@ struct WidgetSwipeActionView<Content: View>: View {
     private let maxOffset: CGFloat = 130
     private let appyOffset: CGFloat = 110
     private let cancelOffset: CGFloat = 100
+    private let maxStubOffset: CGFloat = 5
+    private let extraMultiple: CGFloat = 0.15
+    private let extraStubMultiple: CGFloat = 0.04
     
     // MARK: - State
     
@@ -27,8 +30,10 @@ struct WidgetSwipeActionView<Content: View>: View {
     }
     
     private var contentOffset: CGFloat {
-        let extraOffset = max((dragOffsetX - maxOffset) * 0.15, 0)
-        return min(dragOffsetX, maxOffset) + extraOffset
+        let maxCurrentOffset = isEnable ? maxOffset : maxStubOffset
+        let multiple = isEnable ? extraMultiple : extraStubMultiple
+        let extraOffset = max((dragOffsetX - maxCurrentOffset) * multiple, 0)
+        return min(dragOffsetX, maxCurrentOffset) + extraOffset
     }
     
     let isEnable: Bool
@@ -44,31 +49,25 @@ struct WidgetSwipeActionView<Content: View>: View {
     }
     
     var body: some View {
-        if isEnable {
-            container
-        } else {
-            content
-        }
-    }
-    
-    private var container: some View {
         ZStack {
             if dragOffsetX > 0 {
                 ZStack(alignment: .trailing) {
                     Color.Widget.actionsBackground
                         .cornerRadius(16, style: .continuous)
                     
-                    VStack(spacing: 0) {
-                        Image(asset: .X32.plus)
-                            .foregroundColor(.Text.white)
-                        if showTitle {
-                            AnytypeText(Loc.Widgets.Actions.newObject, style: .caption2Medium, color: .Text.white)
+                    if isEnable {
+                        VStack(spacing: 0) {
+                            Image(asset: .X32.plus)
+                                .foregroundColor(.Text.white)
+                            if showTitle {
+                                AnytypeText(Loc.Widgets.Actions.newObject, style: .caption2Medium, color: .Text.white)
+                            }
                         }
+                        .frame(width: 96)
+                        .padding(.trailing, 18)
+                        .opacity(percent)
+                        .scaleEffect(CGSize(width: percent, height: percent))
                     }
-                    .frame(width: 96)
-                    .padding(.trailing, 18)
-                    .opacity(percent)
-                    .scaleEffect(CGSize(width: percent, height: percent))
                 }
             }
             
@@ -84,14 +83,16 @@ struct WidgetSwipeActionView<Content: View>: View {
                     // Only left
                     withAnimation(.linear(duration: 0.1)) {
                         dragOffsetX = abs(min(value.translation.width, 0))
-                        impact()
+                        if isEnable {
+                            impact()
+                        }
                     }
                 }
                 .onEnded { value in
                     withAnimation {
                         dragOffsetX = 0
                     }
-                    if dragState == .success {
+                    if dragState == .success, isEnable {
                         action()
                     }
                     dragState = .cancel

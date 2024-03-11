@@ -1,19 +1,26 @@
 import LocalAuthentication
 
 protocol LocalAuthServiceProtocol {
-    func auth(reason: String, completion: @escaping (Bool) -> Void)
+    func auth(reason: String) async throws
+}
+
+enum LocalAuthServiceError: Error {
+    case commonError
 }
 
 final class LocalAuthService: LocalAuthServiceProtocol {
-    func auth(reason: String, completion: @escaping (Bool) -> Void) {
+    func auth(reason: String) async throws {
         let permissionContext = LAContext()
         permissionContext.localizedCancelTitle = Loc.cancel
-
         var error: NSError?
-        if permissionContext.canEvaluatePolicy(.deviceOwnerAuthentication, error: &error) {
-            permissionContext.evaluatePolicy(.deviceOwnerAuthentication, localizedReason: reason) { didComplete, _ in
-                completion(didComplete)
-            }
+        
+        guard permissionContext.canEvaluatePolicy(.deviceOwnerAuthentication, error: &error) else {
+            throw LocalAuthServiceError.commonError
+        }
+        
+        let result = try await permissionContext.evaluatePolicy(.deviceOwnerAuthentication, localizedReason: reason)
+        if !result {
+            throw LocalAuthServiceError.commonError
         }
     }
 }

@@ -16,37 +16,42 @@ public protocol ServiceEventsHandlerProtocol: AnyObject {
 /// - Subscribes as event handler to library events stream.
 /// - Transfer events from library to a value.
 ///
-public class ServiceMessageHandlerAdapter: NSObject {
+public class ServiceMessageHandlerAdapter {
     
-    public typealias Adapter = ServiceEventsHandlerProtocol
-    private(set) weak var value: Adapter?
+    private var handlers: [WeakHandler] = []
+    private var listener: ServiceMessageHandler?
     
-    public init(value: Adapter) {
-        self.value = value
-        super.init()
-        self.listen()
+    public static let shared = ServiceMessageHandlerAdapter()
+    
+    private init() {
+        listen()
     }
     
-    public override init() {
-        super.init()
+    public func addHandler(handler: ServiceEventsHandlerProtocol) {
+        handlers.removeAll { $0.value == nil }
+        handlers.append(WeakHandler(handler))
     }
     
-    public func with(value: Adapter?) -> Self {
-        self.value = value
-        if value != nil {
-            self.listen()
+    private func listen() {
+        listener = ServiceMessageHandler { [weak self] event in
+            guard let self else { return }
+            for handler in handlers {
+                await handler.value?.handle(event)
+            }
         }
-        return self
-    }
-  
-    /// Don't forget to call it.
-    public func listen() {
-        Lib.ServiceSetEventHandlerMobile(self)
+        Lib.ServiceSetEventHandlerMobile(listener)
     }
 }
 
 /// Private `ServiceMessageHandlerProtocol` adoption.
-extension ServiceMessageHandlerAdapter: ServiceMessageHandlerProtocol {
+fileprivate class ServiceMessageHandler: NSObject, ServiceMessageHandlerProtocol {
+    
+    var handler: (_ event: Anytype_Event) async -> Void
+    
+    init(handler: @escaping (_: Anytype_Event) async -> Void) {
+        self.handler = handler
+    }
+    
     public func handle(_ data: Data?) {
         Task {
             guard let data = data,
@@ -54,7 +59,7 @@ extension ServiceMessageHandlerAdapter: ServiceMessageHandlerProtocol {
             else { return }
             
             log(event: event)
-            await self.value?.handle(event)
+            await self.handler(event)
         }
     }
     

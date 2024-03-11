@@ -160,7 +160,7 @@ final class BlockActionHandlerMock: BlockActionHandlerProtocol {
         assertionFailure()
     }
     
-    func setTextStyle(_ attribute: Anytype.MarkupType, range: NSRange, blockId: Services.BlockId, currentText: NSAttributedString?) {
+    func setTextStyle(_ attribute: MarkupType, range: NSRange, blockId: Services.BlockId, currentText: NSAttributedString?) {
         assertionFailure()
     }
     
@@ -200,7 +200,7 @@ final class BlockActionHandlerMock: BlockActionHandlerProtocol {
         assertionFailure()
     }
     
-    func changeMarkup(blockIds: [Services.BlockId], markType: Anytype.MarkupType) {
+    func changeMarkup(blockIds: [Services.BlockId], markType: MarkupType) {
         assertionFailure()
     }
 }

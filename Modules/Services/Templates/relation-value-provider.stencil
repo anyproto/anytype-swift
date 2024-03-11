@@ -8,7 +8,7 @@ import AnytypeCore
 public typealias ObjectId = String
 
 {% macro typeNameBlock type %}
-  {%- if type == "object" or type == "tag" or type == "status" -%}
+  {%- if type == "object" or type == "tag" or type == "status" or type == "file" -%}
     ObjectId
   {%- elif type == "longtext" or type == "shorttext" or type == "email" or type == "phone" -%}
     String
@@ -22,14 +22,12 @@ public typealias ObjectId = String
     Emoji
   {%- elif type == "date" -%}
     Date
-  {%- elif type == "file" -%}
-    Hash
   {%- else -%}
     {{type}}
   {%- endif -%}
 {% endmacro %}
 {% macro optionalBlock type %}
-  {%- if type != "longtext" and type != "shorttext" and type != "checkbox" and type != "object" -%}
+  {%- if type != "longtext" and type != "shorttext" and type != "checkbox" and type != "object" and type != "file" -%}
     ?
   {%- endif -%}
 {% endmacro %}

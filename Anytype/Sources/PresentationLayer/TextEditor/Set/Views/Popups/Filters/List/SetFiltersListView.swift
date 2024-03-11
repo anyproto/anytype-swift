@@ -70,14 +70,10 @@ struct SetFiltersListView: View {
     private var filtersList: some View {
         List {
             ForEach(viewModel.rows) {
-                if #available(iOS 15.0, *) {
-                    row(with: $0)
-                        .divider(leadingPadding: 60)
-                        .listRowSeparator(.hidden)
-                        .listRowInsets(.init(top: 0, leading: 20, bottom: 0, trailing: 20))
-                } else {
-                    row(with: $0)
-                }
+                row(with: $0)
+                    .divider(leadingPadding: 60)
+                    .listRowSeparator(.hidden)
+                    .listRowInsets(.init(top: 0, leading: 20, bottom: 0, trailing: 20))
             }
             .onDelete {
                 viewModel.delete($0)

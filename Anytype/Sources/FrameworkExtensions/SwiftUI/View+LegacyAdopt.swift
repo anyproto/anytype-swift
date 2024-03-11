@@ -37,6 +37,22 @@ extension View {
         }
     }
 
+    func presentationDetentsHeightAndLargeLegacy(height: CGFloat) -> some View {
+        if #available(iOS 16.0, *) {
+            return self.presentationDetents([.height(height), .large])
+        } else {
+            return self
+        }
+    }
+    
+    func presentationDragIndicatorHiddenLegacy() -> some View {
+        if #available(iOS 16.0, *) {
+            return self.presentationDragIndicator(.hidden)
+        } else {
+            return self
+        }
+    }
+    
     func bounceBehaviorBasedOnSize() -> some View {
         if #available(iOS 16.4, *) {
             return self.scrollBounceBehavior(.basedOnSize)

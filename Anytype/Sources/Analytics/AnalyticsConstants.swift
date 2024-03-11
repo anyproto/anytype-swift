@@ -181,6 +181,12 @@ enum AnalyticsEventsName {
     static let selectNetwork = "SelectNetwork"
     static let uploadNetworkConfiguration = "UploadNetworkConfiguration"
     
+    // Gallery
+    static let screenGalleryInstall = "ScreenGalleryInstall"
+    static let clickGalleryInstall = "ClickGalleryInstall"
+    static let clickGalleryInstallSpace = "ClickGalleryInstallSpace"
+    static let galleryInstall = "GalleryInstall"
+    
     // Keyboard bar actions
     enum KeyboardBarAction {
         static let slashMenu = "KeyboardBarSlashMenu"
@@ -254,6 +260,7 @@ enum AnalyticsEventsPropertiesKey {
     static let view = "view"
     static let context = "context"
     static let color = "color"
+    static let name = "name"
     
     static let middleTime = "middleTime"
 }
@@ -271,6 +278,7 @@ enum AnalyticsEventsRouteKind: String {
     case navigation = "Navigation"
     case widget = "Widget"
     case sharingExtension = "SharingExtension"
+    case homeScreen = "HomeScreen"
 }
 
 enum AnalyticsEventsRouteView: String {
@@ -409,6 +417,7 @@ enum SelectObjectTypeRoute: String {
 enum OnboardingTooltip: String {
     case selectType = "SelectType"
     case sharingExtension = "SharingExtension"
+    case swipeInWidgets = "ObjectCreationWidget"
 }
 
 enum ClickDeleteSpaceRoute: String {
@@ -438,4 +447,9 @@ enum SelectNetworkRoute: String {
 enum ClickOnboardingTooltipType: String {
     case showShareMenu = "ShareMenu"
     case close = "Close"
+}
+
+enum ClickGalleryInstallSpaceType: String {
+    case new = "New"
+    case existing = "Existing"
 }

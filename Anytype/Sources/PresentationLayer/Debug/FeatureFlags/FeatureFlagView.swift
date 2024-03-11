@@ -15,12 +15,12 @@ struct FeatureFlagView: View {
         VStack(alignment: .leading) {
             Toggle(isOn: $isOn) {
                 VStack(alignment: .leading) {
-                    Text(model.description.title)
+                    Text(verbatim: model.description.title)
                         .font(AnytypeFontBuilder.font(anytypeFont: .bodyRegular))
                         .foregroundColor(.Text.primary)
                     switch model.description.type {
                     case let .feature(author, releaseVersion):
-                        Text(Loc.DebugMenu.toggleAuthor(releaseVersion, author))
+                        Text(verbatim: Loc.DebugMenu.toggleAuthor(releaseVersion, author))
                             .font(AnytypeFontBuilder.font(anytypeFont: .calloutRegular))
                             .foregroundColor(.Text.secondary)
                     case .debug:

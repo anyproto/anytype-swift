@@ -19,20 +19,20 @@ protocol LinkToObjectCoordinatorProtocol: AnyObject {
 final class LinkToObjectCoordinator: LinkToObjectCoordinatorProtocol {
     
     private let navigationContext: NavigationContextProtocol
-    private let pageService: PageRepositoryProtocol
+    private let defaultObjectService: DefaultObjectCreationServiceProtocol
     private let urlOpener: URLOpenerProtocol
     private let searchService: SearchServiceProtocol
     private weak var output: LinkToObjectCoordinatorOutput?
     
     nonisolated init(
         navigationContext: NavigationContextProtocol,
-        pageService: PageRepositoryProtocol,
+        defaultObjectService: DefaultObjectCreationServiceProtocol,
         urlOpener: URLOpenerProtocol,
         searchService: SearchServiceProtocol,
         output: LinkToObjectCoordinatorOutput?
     ) {
         self.navigationContext = navigationContext
-        self.pageService = pageService
+        self.defaultObjectService = defaultObjectService
         self.urlOpener = urlOpener
         self.searchService = searchService
         self.output = output
@@ -55,7 +55,7 @@ final class LinkToObjectCoordinator: LinkToObjectCoordinatorProtocol {
                 setLinkToObject(linkBlockId)
             case let .createObject(name):
                 Task { @MainActor [weak self] in
-                    if let linkBlockDetails = try? await self?.pageService.createDefaultPage(name: name, spaceId: spaceId) {
+                    if let linkBlockDetails = try? await self?.defaultObjectService.createDefaultObject(name: name, shouldDeleteEmptyObject: false, spaceId: spaceId) {
                         AnytypeAnalytics.instance().logCreateObject(objectType: linkBlockDetails.analyticsType, route: .mention)
                         setLinkToObject(linkBlockDetails.id)
                     }

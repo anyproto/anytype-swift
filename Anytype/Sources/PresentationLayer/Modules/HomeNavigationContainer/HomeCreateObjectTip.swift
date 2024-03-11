@@ -8,11 +8,11 @@ struct HomeCreateObjectTip: Tip {
     static var objectTpeChanged: Bool = false
     
     var title: Text {
-        Text(Loc.LongTapCreateTip.title)
+        Text(verbatim: Loc.LongTapCreateTip.title)
     }
     
     var message: Text? {
-        Text(Loc.LongTapCreateTip.message)
+        Text(verbatim: Loc.LongTapCreateTip.message)
     }
     
     var options: [TipOption] {
@@ -29,22 +29,21 @@ struct HomeCreateObjectTip: Tip {
 }
 
 @available(iOS 17.0, *)
-fileprivate struct HomeCreateObjectTipModifier: ViewModifier {
+struct HomeTipView: View {
     
+    @State private var size: CGSize = .zero
     var tip = HomeCreateObjectTip()
     
-    func body(content: Content) -> some View {
-        content
-            .popoverTip(tip, arrowEdge: .bottom)
-    }
-}
-
-extension View {
-    func popoverHomeCreateObjectTip() -> some View {
-        if #available(iOS 17.0, *) {
-            return self.modifier(HomeCreateObjectTipModifier())
-        } else {
-            return self
+    var body: some View {
+        GeometryReader { reader in
+            TipView(tip, arrowEdge: .bottom)
+                .readSize { newSize in
+                    size = newSize
+                }
+                .position(x: reader.size.width * 0.5, y: -size.height*0.5)
+                .onAppear {
+                    AnytypeAnalytics.instance().logOnboardingTooltip(tooltip: .selectType)
+                }
         }
     }
 }
