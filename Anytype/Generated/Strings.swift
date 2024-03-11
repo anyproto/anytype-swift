@@ -308,6 +308,10 @@ internal enum Loc {
   internal static let media = Loc.tr("Localizable", "Media", fallback: "Media")
   /// Membership
   internal static let membership = Loc.tr("Localizable", "Membership", fallback: "Membership")
+  /// Min %@ characters
+  internal static func minXCharacters(_ p1: Any) -> String {
+    return Loc.tr("Localizable", "Min X characters", String(describing: p1), fallback: "Min %@ characters")
+  }
   /// Mode
   internal static let mode = Loc.tr("Localizable", "Mode", fallback: "Mode")
   /// Move
@@ -1432,8 +1436,8 @@ internal enum Loc {
     internal enum Ad {
       /// Joining Anytype network means contributing to its story
       internal static let subtitle = Loc.tr("Localizable", "Membership.Ad.Subtitle", fallback: "Joining Anytype network means contributing to its story")
-      /// Let’s build together
-      internal static let title = Loc.tr("Localizable", "Membership.Ad.Title", fallback: "Let’s build together")
+      /// Membership
+      internal static let title = Loc.tr("Localizable", "Membership.Ad.Title", fallback: "Membership")
     }
     internal enum Banner {
       /// Stay closely connected with our team and community. Join calls with the team, influence Anytype's evolution, and have your say on features.
