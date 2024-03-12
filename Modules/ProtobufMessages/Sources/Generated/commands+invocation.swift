@@ -691,6 +691,26 @@ extension Anytype_Rpc.Metrics.SetParameters.Response.Error: ResponseError {
     public var isNull: Bool { code == .null }
 }
 
+extension Anytype_Rpc.NameService.ResolveAnyId.Response: ResultWithError {}
+extension Anytype_Rpc.NameService.ResolveAnyId.Response.Error: ResponseError {
+    public var isNull: Bool { code == .null }
+}
+
+extension Anytype_Rpc.NameService.ResolveName.Response: ResultWithError {}
+extension Anytype_Rpc.NameService.ResolveName.Response.Error: ResponseError {
+    public var isNull: Bool { code == .null }
+}
+
+extension Anytype_Rpc.NameService.ResolveSpaceId.Response: ResultWithError {}
+extension Anytype_Rpc.NameService.ResolveSpaceId.Response.Error: ResponseError {
+    public var isNull: Bool { code == .null }
+}
+
+extension Anytype_Rpc.NameService.UserAccount.Get.Response: ResultWithError {}
+extension Anytype_Rpc.NameService.UserAccount.Get.Response.Error: ResponseError {
+    public var isNull: Bool { code == .null }
+}
+
 extension Anytype_Rpc.Navigation.GetObjectInfoWithLinks.Response: ResultWithError {}
 extension Anytype_Rpc.Navigation.GetObjectInfoWithLinks.Response.Error: ResponseError {
     public var isNull: Bool { code == .null }
@@ -993,6 +1013,41 @@ extension Anytype_Rpc.ObjectType.Relation.Add.Response.Error: ResponseError {
 
 extension Anytype_Rpc.ObjectType.Relation.Remove.Response: ResultWithError {}
 extension Anytype_Rpc.ObjectType.Relation.Remove.Response.Error: ResponseError {
+    public var isNull: Bool { code == .null }
+}
+
+extension Anytype_Rpc.Payments.Subscription.Finalize.Response: ResultWithError {}
+extension Anytype_Rpc.Payments.Subscription.Finalize.Response.Error: ResponseError {
+    public var isNull: Bool { code == .null }
+}
+
+extension Anytype_Rpc.Payments.Subscription.GetPaymentUrl.Response: ResultWithError {}
+extension Anytype_Rpc.Payments.Subscription.GetPaymentUrl.Response.Error: ResponseError {
+    public var isNull: Bool { code == .null }
+}
+
+extension Anytype_Rpc.Payments.Subscription.GetPortalLinkUrl.Response: ResultWithError {}
+extension Anytype_Rpc.Payments.Subscription.GetPortalLinkUrl.Response.Error: ResponseError {
+    public var isNull: Bool { code == .null }
+}
+
+extension Anytype_Rpc.Payments.Subscription.GetStatus.Response: ResultWithError {}
+extension Anytype_Rpc.Payments.Subscription.GetStatus.Response.Error: ResponseError {
+    public var isNull: Bool { code == .null }
+}
+
+extension Anytype_Rpc.Payments.Subscription.GetVerificationEmail.Response: ResultWithError {}
+extension Anytype_Rpc.Payments.Subscription.GetVerificationEmail.Response.Error: ResponseError {
+    public var isNull: Bool { code == .null }
+}
+
+extension Anytype_Rpc.Payments.Subscription.VerifyEmailCode.Response: ResultWithError {}
+extension Anytype_Rpc.Payments.Subscription.VerifyEmailCode.Response.Error: ResponseError {
+    public var isNull: Bool { code == .null }
+}
+
+extension Anytype_Rpc.Payments.Tiers.Get.Response: ResultWithError {}
+extension Anytype_Rpc.Payments.Tiers.Get.Response.Error: ResponseError {
     public var isNull: Bool { code == .null }
 }
 
