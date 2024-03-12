@@ -8,7 +8,7 @@ import AnytypeCore
 
 extension Container {
     
-    var activeWorkpaceStorage: Factory<ActiveWorkpaceStorageProtocol> {
+    var activeWorkspaceStorage: Factory<ActiveWorkpaceStorageProtocol> {
         self { ActiveWorkspaceStorage() }.singleton
     }
     

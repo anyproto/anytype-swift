@@ -7,10 +7,12 @@ final class SpaceWidgetViewModel: ObservableObject {
     
     // MARK: - DI
     
-    private let workspaceObjectId: String
-    private let subscriptionService: SingleObjectSubscriptionServiceProtocol
-    private weak var output: CommonWidgetModuleOutput?
+    @Injected(\.singleObjectSubscriptionService)
+    private var subscriptionService: SingleObjectSubscriptionServiceProtocol
+    @Injected(\.activeWorkspaceStorage)
+    private var activeWorkspaceStorage: ActiveWorkpaceStorageProtocol
     private let subSpaceId = "SpaceWidgetViewModel-\(UUID().uuidString)"
+    private let onSpaceSelected: () -> Void
     
     // MARK: - State
     
@@ -18,17 +20,11 @@ final class SpaceWidgetViewModel: ObservableObject {
     @Published var spaceIcon: Icon?
     @Published var spaceAccessType: String = ""
     
-    init(activeWorkspaceStorage: ActiveWorkpaceStorageProtocol, subscriptionService: SingleObjectSubscriptionServiceProtocol, output: CommonWidgetModuleOutput?) {
-        self.workspaceObjectId = activeWorkspaceStorage.workspaceInfo.spaceViewId
-        self.subscriptionService = subscriptionService
-        self.output = output
+    init(onSpaceSelected: @escaping () -> Void) {
+        self.onSpaceSelected = onSpaceSelected
         Task {
             await startSubscription()
         }
-    }
-    
-    func onTapWidget() {
-        output?.onSpaceSelected()
     }
     
     // MARK: - Private
@@ -36,11 +32,15 @@ final class SpaceWidgetViewModel: ObservableObject {
     private func startSubscription() async {
         await subscriptionService.startSubscription(
             subId: subSpaceId,
-            objectId: workspaceObjectId,
+            objectId: activeWorkspaceStorage.workspaceInfo.spaceViewId,
             additionalKeys: SpaceView.subscriptionKeys
         ) { [weak self] details in
             self?.handleSpaceDetails(details: SpaceView(details: details))
         }
+    }
+    
+    func onTapWidget() {
+        onSpaceSelected()
     }
     
     private func handleSpaceDetails(details: SpaceView) {

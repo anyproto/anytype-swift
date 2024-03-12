@@ -15,7 +15,7 @@ protocol ParticipantsSubscriptionBySpaceServiceProtocol: AnyObject {
 @MainActor
 final class ParticipantsSubscriptionBySpaceService: ParticipantsSubscriptionBySpaceServiceProtocol {
     
-    @Injected(\.activeWorkpaceStorage)
+    @Injected(\.activeWorkspaceStorage)
     private var activeWorkspaceStorage: ActiveWorkpaceStorageProtocol
     @Injected(\.subscriptionStorageProvider)
     private var subscriptionStorageProvider: SubscriptionStorageProviderProtocol

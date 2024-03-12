@@ -239,7 +239,7 @@ final class ServiceLocator {
     }
     
     func activeWorkspaceStorage() -> ActiveWorkpaceStorageProtocol {
-        Container.shared.activeWorkpaceStorage()
+        Container.shared.activeWorkspaceStorage()
     }
     
     func workspaceStorage() -> WorkspacesStorageProtocol {

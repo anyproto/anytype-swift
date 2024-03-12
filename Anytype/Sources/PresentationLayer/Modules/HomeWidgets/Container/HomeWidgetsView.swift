@@ -12,6 +12,9 @@ struct HomeWidgetsView: View {
                 HomeTopShadow()
             } content: {
                 VStack(spacing: 12) {
+                    SpaceWidgetView {
+                        model.onSpaceSelected()
+                    }
                     if #available(iOS 17.0, *) {
                         WidgetSwipeTipView()
                     }
