@@ -67,7 +67,7 @@ final class SimpleTableBlockViewModel: BlockViewModelProtocol {
                 targetIds: [firstRowId]
             )
             
-            dependenciesBuilder.cursorManager.blockFocus = .init(
+            dependenciesBuilder.cursorManager.blockFocus = BlockFocus(
                 id: "\(firstRowId)-\(firstColumnId)",
                 position: .beginning
             )

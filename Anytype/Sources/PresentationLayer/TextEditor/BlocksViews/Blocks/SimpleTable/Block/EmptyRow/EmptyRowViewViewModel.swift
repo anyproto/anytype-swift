@@ -62,7 +62,7 @@ struct EmptyRowViewViewModel: SystemContentConfiguationProvider {
                 targetIds: [rowId]
             )
             
-            cursorManager.blockFocus = .init(id: "\(rowId)-\(columnId)", position: .beginning)
+            cursorManager.blockFocus = BlockFocus(id: "\(rowId)-\(columnId)", position: .beginning)
         }
     }
 }

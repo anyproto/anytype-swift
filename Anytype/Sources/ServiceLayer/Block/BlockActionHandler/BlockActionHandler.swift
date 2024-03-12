@@ -48,17 +48,18 @@ final class BlockActionHandler: BlockActionHandlerProtocol {
     }
     
     func turnInto(_ style: BlockText.Style, blockId: String) {
-        defer { AnytypeAnalytics.instance().logChangeBlockStyle(style) }
-        
-        switch style {
-        case .toggle:
-            if let blockInformation = document.infoContainer.get(id: blockId),
-               blockInformation.childrenIds.count > 0, !blockInformation.isToggled {
-                blockInformation.toggle()
+        Task {
+            switch style {
+            case .toggle:
+                if let blockInformation = document.infoContainer.get(id: blockId),
+                   blockInformation.childrenIds.count > 0, !blockInformation.isToggled {
+                    blockInformation.toggle()
+                }
+                try await service.turnInto(style, blockId: blockId)
+            default:
+                try await service.turnInto(style, blockId: blockId)
             }
-            service.turnInto(style, blockId: blockId)
-        default:
-            service.turnInto(style, blockId: blockId)
+            AnytypeAnalytics.instance().logChangeBlockStyle(style)
         }
     }
     
@@ -144,19 +145,23 @@ final class BlockActionHandler: BlockActionHandlerProtocol {
     }
     
     func createEmptyBlock(parentId: String) {
-        let emptyBlock = BlockInformation.emptyText
-        AnytypeAnalytics.instance().logCreateBlock(type: emptyBlock.content.type)
-        service.addChild(info: emptyBlock, parentId: parentId)
+        Task {
+            let emptyBlock = BlockInformation.emptyText
+            AnytypeAnalytics.instance().logCreateBlock(type: emptyBlock.content.type)
+            try await service.addChild(info: emptyBlock, parentId: parentId)
+        }
     }
     
     func addLink(targetDetails: ObjectDetails, blockId: String) {
-        let isBookmarkType = targetDetails.layoutValue == .bookmark
-        AnytypeAnalytics.instance().logCreateLink()
-        service.add(
-            info: isBookmarkType ? .bookmark(targetId: targetDetails.id) : .emptyLink(targetId: targetDetails.id),
-            targetBlockId: blockId,
-            position: .replace
-        )
+        Task {
+            let isBookmarkType = targetDetails.layoutValue == .bookmark
+            AnytypeAnalytics.instance().logCreateLink()
+            try await service.add(
+                info: isBookmarkType ? .bookmark(targetId: targetDetails.id) : .emptyLink(targetId: targetDetails.id),
+                targetBlockId: blockId,
+                position: .replace
+            )
+        }
     }
     
     func changeMarkup(blockIds: [String], markType: MarkupType) {
@@ -297,7 +302,9 @@ final class BlockActionHandler: BlockActionHandlerProtocol {
         let position: BlockPosition = isTextAndEmpty ? .replace : (position ?? .bottom)
         
         AnytypeAnalytics.instance().logCreateBlock(type: newBlock.content.type)
-        service.add(info: newBlock, targetBlockId: blockId, position: position)
+        Task {
+            try await service.add(info: newBlock, targetBlockId: blockId, position: position)
+        }
     }
 
     func createAndFetchBookmark(
