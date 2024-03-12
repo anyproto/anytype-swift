@@ -35,28 +35,32 @@ struct MembershipTierListView: View {
             MembershipTierListView(
                 userMembership: MembershipStatus(
                     tier: nil,
-                    status: .statusUnknown
+                    status: .statusUnknown,
+                    dateEnds: .tomorrow
                 )
             ) { _ in }
             
             MembershipTierListView(
                 userMembership: MembershipStatus(
                     tier: .explorer,
-                    status: .statusPending
+                    status: .statusPending,
+                    dateEnds: .tomorrow
                 )
             ) { _ in }
             
             MembershipTierListView(
                 userMembership: MembershipStatus(
                     tier: .explorer,
-                    status: .statusActive
+                    status: .statusActive,
+                    dateEnds: .tomorrow
                 )
             ) { _ in }
             
             MembershipTierListView(
                 userMembership: MembershipStatus(
                     tier: .custom(id: 0),
-                    status: .statusActive
+                    status: .statusActive,
+                    dateEnds: .tomorrow
                 )
             ) { _ in }
 
@@ -64,14 +68,16 @@ struct MembershipTierListView: View {
             MembershipTierListView(
                 userMembership: MembershipStatus(
                     tier: .builder,
-                    status: .statusActive
+                    status: .statusActive,
+                    dateEnds: .tomorrow
                 )
             ) { _ in }
             
             MembershipTierListView(
                 userMembership: MembershipStatus(
                     tier: .coCreator,
-                    status: .statusPending
+                    status: .statusPending,
+                    dateEnds: .tomorrow
                 )
             ) { _ in }
         }

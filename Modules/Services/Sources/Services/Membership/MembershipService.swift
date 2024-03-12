@@ -1,4 +1,5 @@
 import ProtobufMessages
+import Foundation
 
 
 public protocol MembershipServiceProtocol {
@@ -33,7 +34,8 @@ extension MiddlewareMembershipStatus {
     func asModel() -> MembershipStatus {
         MembershipStatus(
             tier: membershipTier,
-            status: status
+            status: status,
+            dateEnds: Date(timeIntervalSince1970: TimeInterval(dateEnds))
         )
     }
     
