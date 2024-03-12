@@ -1,7 +1,8 @@
 import ProtobufMessages
-
+import Foundation
 
 public typealias MembershipSubscriptionStatus = Anytype_Rpc.Payments.Subscription.SubscriptionStatus
+public typealias MembershipPaymentMethod = Anytype_Rpc.Payments.Subscription.PaymentMethod
 
 public enum MembershipTier: Hashable, Identifiable {
     case explorer
@@ -18,18 +19,19 @@ public enum MembershipTier: Hashable, Identifiable {
 public struct MembershipStatus: Equatable {
     public let tier: MembershipTier?
     public let status: MembershipSubscriptionStatus
+    public let dateEnds: Date
+    public let paymentMethod: MembershipPaymentMethod
     
-    public init(tier: MembershipTier?, status: MembershipSubscriptionStatus) {
+    public init(
+        tier: MembershipTier?,
+        status: MembershipSubscriptionStatus,
+        dateEnds: Date,
+        paymentMethod: MembershipPaymentMethod
+    ) {
         self.tier = tier
         self.status = status
+        self.dateEnds = dateEnds
+        self.paymentMethod = paymentMethod
     }
 }
 
-public extension MembershipStatus {
-    static var empty: MembershipStatus {
-        MembershipStatus(
-            tier: nil,
-            status: .statusUnknown
-        )
-    }
-}

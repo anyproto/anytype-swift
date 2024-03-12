@@ -34,7 +34,7 @@ struct MembershipCoordinator: View {
     }
     
     func tierSelection(tier: MembershipTier) -> some View {
-        MembershipTierSelectionView(userTier: model.userMembership.tier, tierToDisplay: tier) { data in
+        MembershipTierSelectionView(userMembership: model.userMembership, tierToDisplay: tier) { data in
             model.onEmailDataSubmit(data: data)
         }
         .sheet(item: $model.emailVerificationData) { data in
