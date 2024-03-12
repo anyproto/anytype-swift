@@ -13,6 +13,8 @@ final class MembershipCoordinatorModel: ObservableObject {
     
     @Injected(\.membershipService)
     private var membershipService: MembershipServiceProtocol
+    @Injected(\.accountManager)
+    private var accountManager: AccountManagerProtocol
     
     func onAppear() {
         updateStatus()
@@ -21,11 +23,10 @@ final class MembershipCoordinatorModel: ObservableObject {
     func onTierSelected(tier: MembershipTier) {
         switch tier {
         case .custom:
-            // TODO
             let mailLink = MailUrl(
-                to: "hello@anytype.io",
-                subject: "Subject",
-                body: "Body"
+                to: "support@anytype.io",
+                subject: Loc.Membership.CustomTierEmail.subject(accountManager.account.id),
+                body: ""
             )
             emailUrl = mailLink.url
             
