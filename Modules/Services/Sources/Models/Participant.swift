@@ -13,6 +13,7 @@ public struct Participant: Identifiable, Equatable {
     public let status: ParticipantStatus
     public let permission: ParticipantPermissions
     public let identity: String
+    public let identityProfileLink: String
     public let spaceId: String
     
     public init(details: ObjectDetails) throws {
@@ -30,6 +31,7 @@ public struct Participant: Identifiable, Equatable {
         }
         self.permission = permission
         self.identity = details.identity
+        self.identityProfileLink = details.identityProfileLink
         self.spaceId = details.spaceId
     }
 }
@@ -41,6 +43,7 @@ public extension Participant {
             BundledRelationKey.participantStatus
             BundledRelationKey.participantPermissions
             BundledRelationKey.identity
+            BundledRelationKey.identityProfileLink
         }
     }
 }

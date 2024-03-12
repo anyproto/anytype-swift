@@ -21,7 +21,7 @@ struct SpaceSettingsCoordinatorView: View {
             model.spaceShareModule()
         }
         .sheet(isPresented: $model.showSpaceMembers) {
-            model.spaceMembersModule()
+            SpaceMembersView()
         }
         .onChange(of: model.dismiss) { _ in
             dismiss()

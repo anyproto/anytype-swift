@@ -17,7 +17,6 @@ final class SpaceSettingsCoordinatorViewModel: ObservableObject, SpaceSettingsMo
     private let objectTypeSearchModuleAssembly: ObjectTypeSearchModuleAssemblyProtocol
     private let wallpaperPickerModuleAssembly: WallpaperPickerModuleAssemblyProtocol
     private let spaceShareCoordinatorAssembly: SpaceShareCoordinatorAssemblyProtocol
-    private let spaceMemberModuleAssembly: SpaceMembersModuleAssemblyProtocol
     private let objectTypeProvider: ObjectTypeProviderProtocol
     private let urlOpener: URLOpenerProtocol
     private let documentService: OpenedDocumentsProviderProtocol
@@ -44,7 +43,6 @@ final class SpaceSettingsCoordinatorViewModel: ObservableObject, SpaceSettingsMo
         objectTypeSearchModuleAssembly: ObjectTypeSearchModuleAssemblyProtocol,
         wallpaperPickerModuleAssembly: WallpaperPickerModuleAssemblyProtocol,
         spaceShareCoordinatorAssembly: SpaceShareCoordinatorAssemblyProtocol,
-        spaceMemberModuleAssembly: SpaceMembersModuleAssemblyProtocol,
         objectTypeProvider: ObjectTypeProviderProtocol,
         urlOpener: URLOpenerProtocol,
         documentService: OpenedDocumentsProviderProtocol
@@ -60,7 +58,6 @@ final class SpaceSettingsCoordinatorViewModel: ObservableObject, SpaceSettingsMo
         self.objectTypeSearchModuleAssembly = objectTypeSearchModuleAssembly
         self.wallpaperPickerModuleAssembly = wallpaperPickerModuleAssembly
         self.spaceShareCoordinatorAssembly = spaceShareCoordinatorAssembly
-        self.spaceMemberModuleAssembly = spaceMemberModuleAssembly
         self.objectTypeProvider = objectTypeProvider
         self.urlOpener = urlOpener
         self.documentService = documentService
@@ -86,10 +83,6 @@ final class SpaceSettingsCoordinatorViewModel: ObservableObject, SpaceSettingsMo
     
     func spaceShareModule() -> AnyView {
         return spaceShareCoordinatorAssembly.make()
-    }
-    
-    func spaceMembersModule() -> AnyView {
-        return spaceMemberModuleAssembly.make()
     }
     
     // MARK: - SpaceSettingsModuleOutput

@@ -6,15 +6,14 @@ final class SpaceMembersViewModel: ObservableObject {
     
     // MARK: - DI
     
-    private let participantSubscriptionService: ParticipantsSubscriptionBySpaceServiceProtocol
+    @Injected(\.participantSubscriptionBySpaceService)
+    private var participantSubscriptionService: ParticipantsSubscriptionBySpaceServiceProtocol
+    @Injected(\.accountManager)
+    private var accountManager: AccountManagerProtocol
     
     // MARK: - State
     
     @Published var rows: [SpaceShareParticipantViewModel] = []
-    
-    init(participantSubscriptionService: ParticipantsSubscriptionBySpaceServiceProtocol) {
-        self.participantSubscriptionService = participantSubscriptionService
-    }
     
     func onAppear() async {
         await participantSubscriptionService.startSubscription(mode: .member) { [weak self] items in
@@ -24,10 +23,11 @@ final class SpaceMembersViewModel: ObservableObject {
     
     private func updateParticipant(items: [Participant]) {
         rows = items.map { participant in
-            SpaceShareParticipantViewModel(
+            let isYou = accountManager.account.info.profileObjectID == participant.identityProfileLink
+            return SpaceShareParticipantViewModel(
                 id: participant.id,
                 icon: participant.icon?.icon,
-                name: participant.name,
+                name: isYou ? Loc.SpaceShare.youSuffix(participant.name) :  participant.name,
                 status: .active(permission: participant.permission.title),
                 action: nil,
                 contextActions: []
