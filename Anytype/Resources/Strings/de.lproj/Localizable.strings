@@ -897,6 +897,7 @@
 "SpaceShare.Status.Removing" = "Austritt beantragt";
 "SpaceShare.Action.ViewRequest" = "Anfrage ansehen";
 "SpaceShare.Action.Approve" = "Genehmigen";
+"SpaceShare.Approve.Toast" = "You approved %@'s request.";
 "SpaceShare.ViewRequest.Title" = "%@ beantragte den Beitritt zu %@";
 "SpaceShare.ViewRequest.ViewAccess" = "Lesezugriff gewähren";
 "SpaceShare.ViewRequest.EditAccess" = "Bearbeitungszugriff gewähren";
@@ -911,6 +912,7 @@
 "SpaceShare.Join.Message" = "Sie wurden eingeladen, dem Space %@, erstellt von %@ beizutreten. Senden Sie eine Anfrage, damit der Spacebesitzer Sie einladen kann.";
 "SpaceShare.JoinConfirmation.Title" = "Anfrage gesendet";
 "SpaceShare.JoinConfirmation.Message" = "Sie erhalten eine Benachrichtigung, wenn der Spacebesitzer Ihre Anfrage angenommen hat.";
+"SpaceShare.YouSuffix" = "%@ (you)";
 
 // MARK: - Space manager
 "SpaceManager.CancelRequest" = "Cancel Request";
@@ -1010,9 +1012,11 @@
 "Paid by" = "Bezahlt von %@";
 "Myself" = "Myself";
 "Pay by Card" = "Pay by Card";
+"Details upon request" = "Details upon request";
+"Min X characters" = "Min %@ characters";
 
 
-"Membership.Ad.Title" = "Let’s build together";
+"Membership.Ad.Title" = "Mitgliedschaft";
 "Membership.Ad.Subtitle" = "Dem Anytype-Netzwerk beizutreten bedeutet, einen Beitrag zu seiner Geschichte zu leisten";
 
 "Membership.Legal.Details" = "Details zu den Mitgliedschaftsstufen";
@@ -1064,7 +1068,6 @@
 "Membership.Builder.Benefit3" = "10 Guest collaborator seats";
 "Membership.Builder.Benefit4" = "Vorrangige Unterstützung";
 
-
 "Membership.CoCreator.Title" = "Mitersteller";
 "Membership.CoCreator.Subtitle" = "Support our adventure and unlock exclusive access and perks";
 "Membership.CoCreator.Benefit1" = "Eindeutiger Name (ab 5 Zeichen)";
@@ -1072,6 +1075,9 @@
 "Membership.CoCreator.Benefit3" = "25 Plätze für Gastmitarbeiter";
 "Membership.CoCreator.Benefit4" = "Mit dem Team chatten";
 "Membership.CoCreator.Benefit5" = "Einzigartiges Sammlerstück";
+
+"Membership.Custom.Title" = "Custom";
+"Membership.Custom.Subtitle" = "Membership tailored to your specific needs and preferences";
 
 
 // MARK: - Debug
