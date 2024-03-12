@@ -4,7 +4,7 @@ import Services
 
 @MainActor
 final class MembershipCoordinatorModel: ObservableObject {
-    @Published var userTier: MembershipTier?
+    @Published var userMembership: MembershipStatus = .empty
     
     @Published var showTier: MembershipTier?
     @Published var showSuccess: MembershipTier?
@@ -54,7 +54,7 @@ final class MembershipCoordinatorModel: ObservableObject {
     
     private func updateStatus() {
         Task {
-            userTier = try await membershipService.getStatus()
+            userMembership = try await membershipService.getStatus()
         }
     }
 }

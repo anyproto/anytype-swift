@@ -11,10 +11,10 @@ struct MembershipCoordinator: View {
     }
     
     var body: some View {
-        MembershipModuleView(userTierPublisher: model.$userTier.eraseToAnyPublisher()) { tier in
+        MembershipModuleView(userMembershipPublisher: model.$userMembership.eraseToAnyPublisher()) { tier in
             model.onTierSelected(tier: tier)
         }
-        .animation(.default, value: model.userTier)
+        .animation(.default, value: model.userMembership)
         
         
         .sheet(item: $model.showTier) { tier in
@@ -34,7 +34,7 @@ struct MembershipCoordinator: View {
     }
     
     func tierSelection(tier: MembershipTier) -> some View {
-        MembershipTierSelectionView(userTier: model.userTier, tierToDisplay: tier) { data in
+        MembershipTierSelectionView(userTier: model.userMembership.tier, tierToDisplay: tier) { data in
             model.onEmailDataSubmit(data: data)
         }
         .sheet(item: $model.emailVerificationData) { data in

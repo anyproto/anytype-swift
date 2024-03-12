@@ -1,4 +1,9 @@
-public enum MembershipTier: Hashable, Identifiable {    
+import ProtobufMessages
+
+
+public typealias MembershipSubscriptionStatus = Anytype_Rpc.Payments.Subscription.SubscriptionStatus
+
+public enum MembershipTier: Hashable, Identifiable {
     case explorer
     case builder
     case coCreator
@@ -10,7 +15,21 @@ public enum MembershipTier: Hashable, Identifiable {
     }
 }
 
-public struct MembershipStatus {
-    let tier: MembershipTier?
+public struct MembershipStatus: Equatable {
+    public let tier: MembershipTier?
+    public let status: MembershipSubscriptionStatus
+    
+    public init(tier: MembershipTier?, status: MembershipSubscriptionStatus) {
+        self.tier = tier
+        self.status = status
+    }
 }
 
+public extension MembershipStatus {
+    static var empty: MembershipStatus {
+        MembershipStatus(
+            tier: nil,
+            status: .statusUnknown
+        )
+    }
+}
