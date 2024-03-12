@@ -24,7 +24,7 @@ final class LoginStateService: LoginStateServiceProtocol {
     private var relationDetailsStorage: RelationDetailsStorageProtocol
     @Injected(\.workspaceStorage)
     private var workspacesStorage: WorkspacesStorageProtocol
-    @Injected(\.activeWorkpaceStorage)
+    @Injected(\.activeWorkspaceStorage)
     private var activeWorkpaceStorage: ActiveWorkpaceStorageProtocol
     
     // MARK: - LoginStateServiceProtocol

@@ -10,7 +10,7 @@ protocol ParticipantsSubscriptionByAccountServiceProtocol: AnyObject {
 @MainActor
 final class ParticipantsSubscriptionByAccountService: ParticipantsSubscriptionByAccountServiceProtocol {
     
-    @Injected(\.activeWorkpaceStorage)
+    @Injected(\.activeWorkspaceStorage)
     private var activeWorkspaceStorage: ActiveWorkpaceStorageProtocol
     @Injected(\.subscriptionStorageProvider)
     private var subscriptionStorageProvider: SubscriptionStorageProviderProtocol

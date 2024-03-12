@@ -12,7 +12,7 @@ protocol QuickActionShortcutBuilderProtocol {
 @MainActor
 final class QuickActionShortcutBuilder: QuickActionShortcutBuilderProtocol {
     
-    @Injected(\.activeWorkpaceStorage)
+    @Injected(\.activeWorkspaceStorage)
     private var activeWorkspaceStorage: ActiveWorkpaceStorageProtocol
     @Injected(\.typesService)
     private var typesService: TypesServiceProtocol

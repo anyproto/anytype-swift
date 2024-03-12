@@ -3,7 +3,11 @@ import SwiftUI
 
 struct SpaceWidgetView: View {
     
-    @ObservedObject var model: SpaceWidgetViewModel
+    @StateObject private var model: SpaceWidgetViewModel
+    
+    init(onSpaceSelected: @escaping () -> Void) {
+        _model = StateObject(wrappedValue: SpaceWidgetViewModel(onSpaceSelected: onSpaceSelected))
+    }
     
     var body: some View {
         HStack(spacing: 15) {

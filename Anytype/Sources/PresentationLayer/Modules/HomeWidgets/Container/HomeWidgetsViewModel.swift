@@ -81,6 +81,10 @@ final class HomeWidgetsViewModel: ObservableObject {
         }
     }
     
+    func onSpaceSelected() {
+        output?.onSpaceSelected()
+    }
+    
     // MARK: - Private
     
     private func setupInitialState() {

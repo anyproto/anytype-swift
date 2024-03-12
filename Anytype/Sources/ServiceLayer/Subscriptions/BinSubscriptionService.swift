@@ -19,7 +19,7 @@ final class BinSubscriptionService: BinSubscriptionServiceProtocol {
         static let limit = 100
     }
     
-    @Injected(\.activeWorkpaceStorage)
+    @Injected(\.activeWorkspaceStorage)
     private var activeWorkspaceStorage: ActiveWorkpaceStorageProtocol
     @Injected(\.subscriptionStorageProvider)
     private var subscriptionStorageProvider: SubscriptionStorageProviderProtocol

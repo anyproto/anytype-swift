@@ -9,7 +9,7 @@ final class SpaceCreateViewModel: ObservableObject {
     
     // MARK: - DI
     
-    @Injected(\.activeWorkpaceStorage)
+    @Injected(\.activeWorkspaceStorage)
     private var activeWorkspaceStorage: ActiveWorkpaceStorageProtocol
     @Injected(\.workspaceService)
     private var workspaceService: WorkspaceServiceProtocol
