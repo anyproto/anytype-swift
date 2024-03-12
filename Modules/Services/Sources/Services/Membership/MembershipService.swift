@@ -1,9 +1,8 @@
 import ProtobufMessages
 
-typealias MiddlewareMembershipStatus = Anytype_Rpc.Payments.Subscription.GetStatus.Response
 
 public protocol MembershipServiceProtocol {
-    func getStatus() async throws -> MembershipTier?
+    func getStatus() async throws -> MembershipStatus
     func getVerificationEmail(data: EmailVerificationData) async throws
     func verifyEmailCode(code: String) async throws
 }
@@ -23,17 +22,19 @@ final class MembershipService: MembershipServiceProtocol {
         }).invoke()
     }
     
-    public func getStatus() async throws -> MembershipTier? {
-        let data: MiddlewareMembershipStatus = try await ClientCommands.paymentsSubscriptionGetStatus().invoke()
-        
-        return data.asModel().tier
+    public func getStatus() async throws -> MembershipStatus {
+        return try await ClientCommands.paymentsSubscriptionGetStatus().invoke().asModel()
     }
 }
 
 
+typealias MiddlewareMembershipStatus = Anytype_Rpc.Payments.Subscription.GetStatus.Response
 extension MiddlewareMembershipStatus {
     func asModel() -> MembershipStatus {
-        MembershipStatus(tier: membershipTier)
+        MembershipStatus(
+            tier: membershipTier,
+            status: status
+        )
     }
     
     var membershipTier: MembershipTier? {

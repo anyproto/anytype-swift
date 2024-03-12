@@ -1,9 +1,9 @@
-public struct EmailVerificationData: Identifiable {
+public struct EmailVerificationData: Hashable, Identifiable {
     let email: String
     let subscribeToNewsletter: Bool
     
-    public var id: String {
-        "\(email):\(subscribeToNewsletter)"
+    public var id: Self {
+        self
     }
     
     public init(email: String, subscribeToNewsletter: Bool) {

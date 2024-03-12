@@ -3,7 +3,7 @@ import Services
 
 
 struct MembershipTierListView: View {
-    let userTier: MembershipTier?
+    let userMembership: MembershipStatus
     let onTierTap: (MembershipTier) -> ()
     
     var body: some View {
@@ -12,8 +12,8 @@ struct MembershipTierListView: View {
                 HStack(spacing: 20) {
                     Spacer.fixedWidth(0)
                     
-                    ForEach(userTier.availableTiers) { tier in
-                        MembershipTeirView(tierToDisplay: tier, userTier: userTier) {
+                    ForEach(userMembership.tier.availableTiers) { tier in
+                        MembershipTeirView(tierToDisplay: tier, userMembership: userMembership) {
                             onTierTap(tier)
                         }
                         .id(tier)
@@ -32,10 +32,48 @@ struct MembershipTierListView: View {
 #Preview {
     ScrollView {
         VStack {
-            MembershipTierListView(userTier: nil) { _ in }
-            MembershipTierListView(userTier: .explorer) { _ in }
-            MembershipTierListView(userTier: .builder) { _ in }
-            MembershipTierListView(userTier: .coCreator) { _ in }
+            MembershipTierListView(
+                userMembership: MembershipStatus(
+                    tier: nil,
+                    status: .statusUnknown
+                )
+            ) { _ in }
+            
+            MembershipTierListView(
+                userMembership: MembershipStatus(
+                    tier: .explorer,
+                    status: .statusPending
+                )
+            ) { _ in }
+            
+            MembershipTierListView(
+                userMembership: MembershipStatus(
+                    tier: .explorer,
+                    status: .statusActive
+                )
+            ) { _ in }
+            
+            MembershipTierListView(
+                userMembership: MembershipStatus(
+                    tier: .custom(id: 0),
+                    status: .statusActive
+                )
+            ) { _ in }
+
+            
+            MembershipTierListView(
+                userMembership: MembershipStatus(
+                    tier: .builder,
+                    status: .statusActive
+                )
+            ) { _ in }
+            
+            MembershipTierListView(
+                userMembership: MembershipStatus(
+                    tier: .coCreator,
+                    status: .statusPending
+                )
+            ) { _ in }
         }
     }
 }

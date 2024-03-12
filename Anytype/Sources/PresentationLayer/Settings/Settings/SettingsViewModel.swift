@@ -46,7 +46,7 @@ final class SettingsViewModel: ObservableObject {
         AnytypeAnalytics.instance().logScreenSettingsAccount()
         
         Task {
-            membership = try await membershipService.getStatus()
+            membership = try await membershipService.getStatus().tier
         }
     }
     
