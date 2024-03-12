@@ -896,6 +896,7 @@
 "SpaceShare.Status.Removing" = "Unjoining requested";
 "SpaceShare.Action.ViewRequest" = "查看请求";
 "SpaceShare.Action.Approve" = "Approve";
+"SpaceShare.Approve.Toast" = "You approved %@'s request.";
 "SpaceShare.ViewRequest.Title" = "%@ 请求加入 %@ 空间";
 "SpaceShare.ViewRequest.ViewAccess" = "Grand view access";
 "SpaceShare.ViewRequest.EditAccess" = "Grand edit access";
@@ -910,6 +911,7 @@
 "SpaceShare.Join.Message" = "You’ve been invited to join %@ space, created by %@. Send a request so space owner can let you in.";
 "SpaceShare.JoinConfirmation.Title" = "已发送申请";
 "SpaceShare.JoinConfirmation.Message" = "You will receive a notification when the space owner will approve your request.";
+"SpaceShare.YouSuffix" = "%@ (you)";
 
 // MARK: - Space manager
 "SpaceManager.CancelRequest" = "Cancel Request";
@@ -1010,9 +1012,11 @@
 "Paid by" = "Paid by %@";
 "Myself" = "Myself";
 "Pay by Card" = "Pay by Card";
+"Details upon request" = "Details upon request";
+"Min X characters" = "Min %@ characters";
 
 
-"Membership.Ad.Title" = "Let’s build together";
+"Membership.Ad.Title" = "Membership";
 "Membership.Ad.Subtitle" = "Joining Anytype network means contributing to its story";
 
 "Membership.Legal.Details" = "Membership levels details";
@@ -1064,7 +1068,6 @@
 "Membership.Builder.Benefit3" = "10 Guest collaborator seats";
 "Membership.Builder.Benefit4" = "Priority support";
 
-
 "Membership.CoCreator.Title" = "Co-Creator";
 "Membership.CoCreator.Subtitle" = "Support our adventure and unlock exclusive access and perks";
 "Membership.CoCreator.Benefit1" = "Unique name (from 5 characters)";
@@ -1072,6 +1075,9 @@
 "Membership.CoCreator.Benefit3" = "25 Guest collaborator seats";
 "Membership.CoCreator.Benefit4" = "Chat with the team";
 "Membership.CoCreator.Benefit5" = "Unique collectible";
+
+"Membership.Custom.Title" = "Custom";
+"Membership.Custom.Subtitle" = "Membership tailored to your specific needs and preferences";
 
 
 // MARK: - Debug
