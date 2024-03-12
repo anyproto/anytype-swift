@@ -896,6 +896,7 @@
 "SpaceShare.Status.Removing" = "Ha solicitado salir";
 "SpaceShare.Action.ViewRequest" = "Ver Solicitud";
 "SpaceShare.Action.Approve" = "Aprobar";
+"SpaceShare.Approve.Toast" = "You approved %@'s request.";
 "SpaceShare.ViewRequest.Title" = "%@ ha solicitado unirse al espacio %@";
 "SpaceShare.ViewRequest.ViewAccess" = "Conceder permiso de lectura";
 "SpaceShare.ViewRequest.EditAccess" = "Conceder permiso de edición ";
@@ -910,6 +911,7 @@
 "SpaceShare.Join.Message" = "Has sido invitado a unirte al espacio %@, creado por %@. Envía una solicitud para que el propietario del espacio pueda dejarte entrar.";
 "SpaceShare.JoinConfirmation.Title" = "Solicitud enviada";
 "SpaceShare.JoinConfirmation.Message" = "Recibirás una notificación cuando el propietario del espacio apruebe tu solicitud.";
+"SpaceShare.YouSuffix" = "%@ (you)";
 
 // MARK: - Space manager
 "SpaceManager.CancelRequest" = "¿Cancelar solicitud?";
@@ -1009,9 +1011,11 @@
 "Paid by" = "Pagado por %@";
 "Myself" = "Yo mismo";
 "Pay by Card" = "Paga con tarjeta";
+"Details upon request" = "Details upon request";
+"Min X characters" = "Min %@ characters";
 
 
-"Membership.Ad.Title" = "Construyamos juntos";
+"Membership.Ad.Title" = "Membresía";
 "Membership.Ad.Subtitle" = "Unirse a la red Anytype significa contribuir a su historia";
 
 "Membership.Legal.Details" = "Ver niveles de miembro";
@@ -1064,7 +1068,6 @@
 "Membership.Builder.Benefit3" = "10 plazas de colaborador invitado";
 "Membership.Builder.Benefit4" = "Asistencia prioritaria";
 
-
 "Membership.CoCreator.Title" = "Co-creadores";
 "Membership.CoCreator.Subtitle" = "Apoya nuestra misión y desbloquea ofertas y características exclusivas.";
 "Membership.CoCreator.Benefit1" = "Identificador único (mínimo cinco caracteres)";
@@ -1072,6 +1075,9 @@
 "Membership.CoCreator.Benefit3" = "25 plazas de colaborador invitado";
 "Membership.CoCreator.Benefit4" = "Chatea con el equipo.";
 "Membership.CoCreator.Benefit5" = "Colectable único";
+
+"Membership.Custom.Title" = "Custom";
+"Membership.Custom.Subtitle" = "Membership tailored to your specific needs and preferences";
 
 
 // MARK: - Debug
