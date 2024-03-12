@@ -93,11 +93,7 @@ struct MembershipTeirView: View {
             case .explorer:
                 return AnytypeText(Loc.foreverFree, style: .caption1Regular, color: .Text.primary)
             case .builder, .coCreator, .custom:
-                let dateFormatter = DateFormatter()
-                dateFormatter.dateFormat = "d MMM y"
-                let date = dateFormatter.string(from: userMembership.dateEnds)
-                
-                return AnytypeText(Loc.validUntilDate(date), style: .caption1Regular, color: .Text.primary)
+                return AnytypeText(Loc.validUntilDate(userMembership.formattedDateEnds), style: .caption1Regular, color: .Text.primary)
             }
         }
     }
@@ -108,31 +104,66 @@ struct MembershipTeirView: View {
         HStack {
             MembershipTeirView(
                 tierToDisplay: .explorer,
-                userMembership: MembershipStatus(tier: nil, status: .statusUnknown, dateEnds: .tomorrow)
+                userMembership: MembershipStatus(
+                    tier: nil,
+                    status: .statusUnknown,
+                    dateEnds: .tomorrow,
+                    paymentMethod: .methodCard
+                )
             ) {  }
             MembershipTeirView(
                 tierToDisplay: .explorer,
-                userMembership: MembershipStatus(tier: .explorer, status: .statusPending, dateEnds: .tomorrow)
+                userMembership: MembershipStatus(
+                    tier: .explorer,
+                    status: .statusPending,
+                    dateEnds: .tomorrow,
+                    paymentMethod: .methodCard
+                )
             ) {  }
             MembershipTeirView(
                 tierToDisplay: .explorer,
-                userMembership: MembershipStatus(tier: .explorer, status: .statusActive, dateEnds: .tomorrow)
+                userMembership: MembershipStatus(
+                    tier: .explorer,
+                    status: .statusActive,
+                    dateEnds: .tomorrow,
+                    paymentMethod: .methodCard
+                )
             ) {  }
             MembershipTeirView(
                 tierToDisplay: .builder,
-                userMembership: MembershipStatus(tier: .explorer, status: .statusPending, dateEnds: .tomorrow)
+                userMembership: MembershipStatus(
+                    tier: .explorer,
+                    status: .statusPending,
+                    dateEnds: .tomorrow,
+                    paymentMethod: .methodCard
+                )
             ) {  }
             MembershipTeirView(
                 tierToDisplay: .builder,
-                userMembership: MembershipStatus(tier: .builder, status: .statusActive, dateEnds: .tomorrow)
+                userMembership: MembershipStatus(
+                    tier: .builder,
+                    status: .statusActive,
+                    dateEnds: .tomorrow,
+                    paymentMethod: .methodCard
+                )
             ) {  }
             MembershipTeirView(
                 tierToDisplay: .coCreator,
-                userMembership: MembershipStatus(tier: .explorer, status: .statusActive, dateEnds: .tomorrow)
+                userMembership: MembershipStatus(
+                    tier: .explorer,
+                    status: .statusActive,
+                    dateEnds: .tomorrow,
+                    paymentMethod: .methodCard
+                )
             ) {  }
             MembershipTeirView(
                 tierToDisplay: .custom(id: 0),
-                userMembership: MembershipStatus(tier: .custom(id: 0), status: .statusActive, dateEnds: .tomorrow)
+                userMembership: MembershipStatus(
+                    tier: .custom(id: 0),
+                    status: .statusActive,
+                    dateEnds: .tomorrow,
+                    paymentMethod: .methodCard
+                )
             ) {  }
         }
     }

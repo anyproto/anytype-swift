@@ -35,7 +35,8 @@ extension MiddlewareMembershipStatus {
         MembershipStatus(
             tier: membershipTier,
             status: status,
-            dateEnds: Date(timeIntervalSince1970: TimeInterval(dateEnds))
+            dateEnds: Date(timeIntervalSince1970: TimeInterval(dateEnds)),
+            paymentMethod: paymentMethod
         )
     }
     
