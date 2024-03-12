@@ -88,7 +88,7 @@ final class SlashMenuActionHandler {
                         blockText: safeSendableAttributedText
                     ) else { return }
                     
-                    cursorManager.blockFocus = .init(id: blockId, position: .beginning)
+                    cursorManager.blockFocus = BlockFocus(id: blockId, position: .beginning)
                 }
                 
             default:

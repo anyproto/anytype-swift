@@ -73,10 +73,11 @@ final class SpaceShareViewModel: ObservableObject {
     private func updateParticipant(items: [Participant]) {
         participants = items.sorted { $0.sortingWeight > $1.sortingWeight }
         rows = participants.map { participant in
-            SpaceShareParticipantViewModel(
+            let isYou = activeWorkspaceStorage.workspaceInfo.profileObjectID == participant.identityProfileLink
+            return SpaceShareParticipantViewModel(
                 id: participant.id,
                 icon: participant.icon?.icon,
-                name: participant.name,
+                name: isYou ? Loc.SpaceShare.youSuffix(participant.name) :  participant.name,
                 status: participantStatus(participant),
                 action: participantAction(participant),
                 contextActions: participantContextActions(participant)
@@ -109,6 +110,7 @@ final class SpaceShareViewModel: ObservableObject {
         case .removing:
             return SpaceShareParticipantViewModel.Action(title: Loc.SpaceShare.Action.approve, action: { [weak self] in
                 try await self?.workspaceService.participantRemove(spaceId: participant.spaceId, identity: participant.identity)
+                self?.toastBarData = ToastBarData(text: Loc.SpaceShare.Approve.toast(participant.name), showSnackBar: true)
             })
         case .active, .canceled, .declined, .removed, .UNRECOGNIZED:
             return nil

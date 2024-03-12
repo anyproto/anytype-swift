@@ -42,17 +42,15 @@ final class BlockActionService: BlockActionServiceProtocol {
 
     // MARK: Actions
 
-    func addChild(info: BlockInformation, parentId: String) {
-        add(info: info, targetBlockId: parentId, position: .inner)
+    func addChild(info: BlockInformation, parentId: String) async throws {
+        try await add(info: info, targetBlockId: parentId, position: .inner)
     }
 
-    func add(info: BlockInformation, targetBlockId: String, position: BlockPosition, setFocus: Bool) {
-        Task {
-            let blockId = try await blockService.add(contextId: documentId, targetId: targetBlockId, info: info, position: position)
-            
-            if setFocus {
-                cursorManager.blockFocus = .init(id: blockId, position: .beginning)
-            }
+    func add(info: BlockInformation, targetBlockId: String, position: BlockPosition, setFocus: Bool) async throws {
+        let blockId = try await blockService.add(contextId: documentId, targetId: targetBlockId, info: info, position: position)
+        
+        if setFocus {
+            cursorManager.blockFocus = BlockFocus(id: blockId, position: .beginning)
         }
     }
 
@@ -62,19 +60,17 @@ final class BlockActionService: BlockActionServiceProtocol {
         mode: Anytype_Rpc.Block.Split.Request.Mode,
         range: NSRange,
         newBlockContentType: BlockText.Style
-    ) {
-        Task {
-            let blockId = try await textServiceHandler.split(
-                contextId: documentId,
-                blockId: blockId,
-                range: range,
-                style: newBlockContentType,
-                mode: mode
-            )
+    ) async throws {
+        let blockId = try await textServiceHandler.split(
+            contextId: documentId,
+            blockId: blockId,
+            range: range,
+            style: newBlockContentType,
+            mode: mode
+        )
 
-            cursorManager.focus(at: blockId, position: .beginning)
-            cursorManager.blockFocus = .init(id: blockId, position: .beginning)
-        }
+        cursorManager.focus(at: blockId, position: .beginning)
+        cursorManager.blockFocus = BlockFocus(id: blockId, position: .beginning)
     }
 
     func duplicate(blockId: String) {
@@ -100,10 +96,8 @@ final class BlockActionService: BlockActionServiceProtocol {
         )
     }
 
-    func turnInto(_ style: BlockText.Style, blockId: String) {
-        Task {
-            try await textServiceHandler.setStyle(contextId: documentId, blockId: blockId, style: style)
-        }
+    func turnInto(_ style: BlockText.Style, blockId: String) async throws {
+        try await textServiceHandler.setStyle(contextId: documentId, blockId: blockId, style: style)
     }
     
     func turnIntoPage(blockId: String, spaceId: String) async throws -> String? {
@@ -123,31 +117,26 @@ final class BlockActionService: BlockActionServiceProtocol {
         }
     }
     
-    func merge(secondBlockId: String) {
-        Task { @MainActor [weak self, documentId] in
-            guard
-                let previousBlock = self?.modelsHolder?.findModel(
-                    beforeBlockId: secondBlockId,
-                    acceptingTypes: BlockContentType.allTextTypes
-                ),
-                previousBlock.content != .unsupported
-            else {
-                self?.delete(blockIds: [secondBlockId])
-                return
-            }
-            do {
-
-                if let textContent = previousBlock.info.textContent {
-                    self?.cursorManager.focus(
-                        at: previousBlock.blockId,
-                        position: .at(.init(location: Int(textContent.text.count), length: 0))
-                        )
-                }
-                try await self?.textServiceHandler.merge(contextId: documentId, firstBlockId: previousBlock.blockId, secondBlockId: secondBlockId)
-            } catch {
-                // Do not set focus to previous block
-            }
+    func merge(secondBlockId: String) async throws {
+        guard
+            let previousBlock = modelsHolder?.findModel(
+                beforeBlockId: secondBlockId,
+                acceptingTypes: BlockContentType.allTextTypes
+            ),
+            previousBlock.content != .unsupported
+        else {
+            delete(blockIds: [secondBlockId])
+            return
         }
+
+        if let textContent = previousBlock.info.textContent {
+            cursorManager.focus(
+                at: previousBlock.blockId,
+                position: .at(.init(location: Int(textContent.text.count), length: 0))
+            )
+            cursorManager.blockFocus = BlockFocus(id: previousBlock.blockId, position: .at(NSRange(location: textContent.text.count, length: 0)))
+        }
+        try await textServiceHandler.merge(contextId: documentId, firstBlockId: previousBlock.blockId, secondBlockId: secondBlockId)
     }
     
     func delete(blockIds: [String]) {

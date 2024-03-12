@@ -39,6 +39,7 @@ struct SpaceShareParticipantView: View {
                 .frame(width: 48, height: 48)
             VStack(alignment: .leading, spacing: 2) {
                 AnytypeText(participant.name, style: .uxTitle2Medium, color: .Text.primary)
+                    .truncationMode(.middle)
                 status
             }
             Spacer()

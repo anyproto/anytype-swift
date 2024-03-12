@@ -896,6 +896,7 @@
 "SpaceShare.Status.Removing" = "Unjoining requested";
 "SpaceShare.Action.ViewRequest" = "View Request";
 "SpaceShare.Action.Approve" = "Approve";
+"SpaceShare.Approve.Toast" = "You approved %@'s request.";
 "SpaceShare.ViewRequest.Title" = "%@ requested to join %@ space";
 "SpaceShare.ViewRequest.ViewAccess" = "Grand view access";
 "SpaceShare.ViewRequest.EditAccess" = "Grand edit access";
@@ -910,6 +911,7 @@
 "SpaceShare.Join.Message" = "You’ve been invited to join %@ space, created by %@. Send a request so space owner can let you in.";
 "SpaceShare.JoinConfirmation.Title" = "Request sent";
 "SpaceShare.JoinConfirmation.Message" = "You will receive a notification when the space owner will approve your request.";
+"SpaceShare.YouSuffix" = "%@ (you)";
 
 // MARK: - Space manager
 "SpaceManager.CancelRequest" = "Cancel Request";

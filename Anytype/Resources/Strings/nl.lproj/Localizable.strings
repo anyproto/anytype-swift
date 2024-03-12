@@ -912,6 +912,10 @@
 "SpaceShare.JoinConfirmation.Title" = "Verzoek verzonden";
 "SpaceShare.JoinConfirmation.Message" = "Je zult een melding ontvangen wanneer de eigenaar van de ruimte je verzoek zal goedkeuren.";
 
+// MARK: - Space manager
+"SpaceManager.CancelRequest" = "Cancel Request";
+"SpaceManager.Archive" = "Archive";
+
 // MARK: - Space Create
 "SpaceCreate.Title" = "Maak een ruimte aan";
 
@@ -1004,6 +1008,8 @@
 "Your current status" = "Your current status:";
 "Valid until" = "Valid until:";
 "Paid by" = "Paid by %@";
+"Myself" = "Myself";
+"Pay by Card" = "Pay by Card";
 
 
 "Membership.Ad.Title" = "Laten we samen bouwen";
@@ -1034,6 +1040,11 @@
 "Membership.EmailForm.Subtitle" = "We hebben je e-mail nodig om spam op afstand te houden en het plezier te behouden!";
 "Membership.EmailForm.Newsletter" = "Ik zou graag updates over producten willen ontvangen en genieten van gratis voordelen!";
 "Membership.EmailValidation" = "Enter the code sent to your email";
+
+"Membership.NameForm.Title" = "Pick your unique name";
+"Membership.NameForm.Subtitle" = "This name acts like a personal domain, making it easier for others to find you";
+"Membership.NameForm.Validating" = "Wait a second...";
+"Membership.NameForm.Validated" = "This name is up for grabs";
 
 "Membership.Success.Title" = "Welcome to the network, %@";
 "Membership.Success.Subitle" = "Big cheers for your curiosity!";

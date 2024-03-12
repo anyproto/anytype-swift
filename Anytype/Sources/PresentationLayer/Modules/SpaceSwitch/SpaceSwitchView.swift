@@ -123,3 +123,9 @@ struct SpaceSwitchView: View {
         }
     }
 }
+
+#Preview {
+    MockView {
+        SpaceSwitchView(output: nil)
+    }
+}

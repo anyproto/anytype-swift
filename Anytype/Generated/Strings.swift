@@ -2196,11 +2196,21 @@ internal enum Loc {
     internal static let membersSection = Loc.tr("Localizable", "SpaceShare.MembersSection", fallback: "Members and requests")
     /// Share space
     internal static let title = Loc.tr("Localizable", "SpaceShare.Title", fallback: "Share space")
+    /// %@ (you)
+    internal static func youSuffix(_ p1: Any) -> String {
+      return Loc.tr("Localizable", "SpaceShare.YouSuffix", String(describing: p1), fallback: "%@ (you)")
+    }
     internal enum Action {
       /// Approve
       internal static let approve = Loc.tr("Localizable", "SpaceShare.Action.Approve", fallback: "Approve")
       /// View Request
       internal static let viewRequest = Loc.tr("Localizable", "SpaceShare.Action.ViewRequest", fallback: "View Request")
+    }
+    internal enum Approve {
+      /// You approved %@'s request.
+      internal static func toast(_ p1: Any) -> String {
+        return Loc.tr("Localizable", "SpaceShare.Approve.Toast", String(describing: p1), fallback: "You approved %@'s request.")
+      }
     }
     internal enum Invite {
       /// Share invite link

@@ -36,13 +36,9 @@ final class DI: DIProtocol {
 
 extension DI {
     static var preview: DIProtocol {
-        if !isPreview {
+        if !AppContext.isPreview {
             anytypeAssertionFailure("Preview DI available only in debug")
         }
         return DI(viewControllerProvider: ViewControllerProvider(sceneWindow: UIWindow()))
-    }
-    
-    private static var isPreview: Bool {
-        return ProcessInfo.processInfo.environment["XCODE_RUNNING_FOR_PREVIEWS"] == "1"
     }
 }

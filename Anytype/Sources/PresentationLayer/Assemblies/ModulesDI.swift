@@ -273,8 +273,4 @@ final class ModulesDI: ModulesDIProtocol {
     func spacesManager() -> SpacesManagerModuleAssemblyProtocol {
         SpacesManagerModuleAssembly(serviceLocator: serviceLocator)
     }
-    
-    func spaceMembers() -> SpaceMembersModuleAssemblyProtocol {
-        SpaceMembersModuleAssembly(serviceLocator: serviceLocator)
-    }
 }

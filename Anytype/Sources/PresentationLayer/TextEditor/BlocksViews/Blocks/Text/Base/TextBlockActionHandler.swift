@@ -350,14 +350,14 @@ final class TextBlockActionHandler: TextBlockActionHandlerProtocol {
     }
 
     private func handleKeyboardAction(action: CustomTextView.KeyboardAction, textView: UITextView) {
-        keyboardHandler.handle(
-            info: info,
-            textView: textView,
-            action: action
-        )
-        
-        DispatchQueue.main.asyncAfter(deadline: .now() + 0.01) { [weak collectionController, weak viewModel] in
-            viewModel.map { collectionController?.reconfigure(items: [.block($0)]) }
+        Task { @MainActor in
+            try await keyboardHandler.handle(
+                info: info,
+                textView: textView,
+                action: action
+            )
+            
+            viewModel.map { collectionController.reconfigure(items: [.block($0)]) }
         }
     }
 
@@ -402,6 +402,7 @@ final class TextBlockActionHandler: TextBlockActionHandlerProtocol {
     @MainActor
     private func textViewDidChangeCaretPosition(textView: UITextView, range: NSRange) {
         accessoryViewStateManager.selectionDidChange(range: range)
+        cursorManager.blockFocus = BlockFocus(id: info.id, position: .at(range))
 //        cursorManager.didChangeCursorPosition(at: data.info.id, position: .at(range)) // DO WE NEED IT? WHY?
         collectionController.didSelectTextRangeSelection(blockId: info.id, textView: textView)
     }

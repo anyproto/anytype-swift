@@ -41,6 +41,7 @@ extension Legacy_ObjectTypeSearchInteractor {
             includeLists: showSetAndCollection,
             includeBookmark: showBookmark, 
             includeFiles: showFiles,
+            incudeNotForCreation: false,
             spaceId: spaceId
         )
     }

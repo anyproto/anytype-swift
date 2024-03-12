@@ -264,6 +264,16 @@ public class SearchHelper {
         return filter
     }
     
+    public static func excludeObjectRestriction(_ restriction: ObjectRestriction) -> DataviewFilter {
+        var filter = DataviewFilter()
+        filter.condition = .notIn
+        filter.value = restriction.rawValue.protobufValue
+        filter.relationKey = BundledRelationKey.restrictions.rawValue
+        filter.operator = .and
+        
+        return filter
+    }
+    
     public static func relationReadonlyValue(_ value: Bool) -> DataviewFilter {
         var filter = DataviewFilter()
         filter.condition = .equal

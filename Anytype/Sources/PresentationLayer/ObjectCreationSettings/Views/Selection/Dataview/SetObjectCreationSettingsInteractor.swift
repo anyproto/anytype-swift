@@ -159,6 +159,7 @@ final class SetObjectCreationSettingsInteractor: SetObjectCreationSettingsIntera
                 includeLists: true,
                 includeBookmark: true, 
                 includeFiles: false,
+                incudeNotForCreation: false,
                 spaceId: setDocument.spaceId
             ).map { ObjectType(details: $0) }
         }

@@ -22,6 +22,7 @@ protocol ObjectTypeSearchModuleAssemblyProtocol: AnyObject {
         showPins: Bool,
         showLists: Bool,
         showFiles: Bool,
+        incudeNotForCreation: Bool,
         onSelect: @escaping (_ type: ObjectType) -> Void
     ) -> AnyView
 }
@@ -47,6 +48,7 @@ final class ObjectTypeSearchModuleAssembly: ObjectTypeSearchModuleAssemblyProtoc
                 showPins: true,
                 showLists: true,
                 showFiles: false,
+                incudeNotForCreation: false,
                 allowPaste: true,
                 spaceId: spaceId,
                 workspaceService: self.serviceLocator.workspaceService(),
@@ -65,6 +67,7 @@ final class ObjectTypeSearchModuleAssembly: ObjectTypeSearchModuleAssemblyProtoc
         showPins: Bool,
         showLists: Bool,
         showFiles: Bool,
+        incudeNotForCreation: Bool,
         onSelect: @escaping (_ type: ObjectType) -> Void
     ) -> AnyView {
         if FeatureFlags.newTypePicker {
@@ -74,6 +77,7 @@ final class ObjectTypeSearchModuleAssembly: ObjectTypeSearchModuleAssemblyProtoc
                     showPins: showPins,
                     showLists: showLists,
                     showFiles: showFiles,
+                    incudeNotForCreation: incudeNotForCreation,
                     allowPaste: false,
                     spaceId: spaceId,
                     workspaceService: self.serviceLocator.workspaceService(),

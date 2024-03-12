@@ -91,7 +91,7 @@ final class IconMaker {
                     return CircleIconPainter(contentPainter: contentPainter(.imageId(imageId)))
                 case .name(let name):
                     let painterName = name.isEmpty ? Loc.Object.Title.placeholder : name
-                    return CircleIconPainter(contentPainter: contentPainter(.char(name)))
+                    return CircleIconPainter(contentPainter: contentPainter(.char(painterName)))
                 }
             case .emoji(let emoji):
                 return SquircleIconPainter(contentPainter: contentPainter(.char(emoji.value)))
