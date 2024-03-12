@@ -516,6 +516,10 @@
 		2A771F302AD6F0D8000ED2D4 /* SubscriptionUpdate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A771F2F2AD6F0D8000ED2D4 /* SubscriptionUpdate.swift */; };
 		2A785B452AFCDDB30020297E /* EditorCoordinatorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A785B442AFCDDB30020297E /* EditorCoordinatorView.swift */; };
 		2A785B472AFCDDED0020297E /* EditorCoordinatorViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A785B462AFCDDED0020297E /* EditorCoordinatorViewModel.swift */; };
+		2A78A9592B9F36D300396B82 /* SingleObjectSubscriptionServiceMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A78A9552B9F36D300396B82 /* SingleObjectSubscriptionServiceMock.swift */; };
+		2A78A95A2B9F36D300396B82 /* ActiveWorkpaceStorageMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A78A9562B9F36D300396B82 /* ActiveWorkpaceStorageMock.swift */; };
+		2A78A95B2B9F36D300396B82 /* WorkspacesStorageMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A78A9572B9F36D300396B82 /* WorkspacesStorageMock.swift */; };
+		2A78A95C2B9F36D300396B82 /* MockView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A78A9582B9F36D300396B82 /* MockView.swift */; };
 		2A794B422AD53D3A00BA160F /* SubscriptionStorageProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A794B412AD53D3A00BA160F /* SubscriptionStorageProvider.swift */; };
 		2A794B442AD53D4400BA160F /* SubscriptionStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A794B432AD53D4400BA160F /* SubscriptionStorage.swift */; };
 		2A7B124E2B19CC5600E14578 /* GalleryUnavailableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A7B124D2B19CC5600E14578 /* GalleryUnavailableView.swift */; };
@@ -812,6 +816,7 @@
 		2AECFD3E28993C67000E9CFB /* LegacyRelationValueCoordinatorAssemblyProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AECFD3D28993C67000E9CFB /* LegacyRelationValueCoordinatorAssemblyProtocol.swift */; };
 		2AECFD4028993C77000E9CFB /* LegacyRelationValueCoordinatorProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AECFD3F28993C77000E9CFB /* LegacyRelationValueCoordinatorProtocol.swift */; };
 		2AECFD4228993CA2000E9CFB /* RelationValueModuleAssemblyProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AECFD4128993CA2000E9CFB /* RelationValueModuleAssemblyProtocol.swift */; };
+		2AEDACC42B9F3A4600FA757A /* AppContext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AEDACC32B9F3A4600FA757A /* AppContext.swift */; };
 		2AEE49EE292E27FA00EA53AA /* ObjectSettingsCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AEE49ED292E27FA00EA53AA /* ObjectSettingsCoordinator.swift */; };
 		2AF109562A02639700EDDE26 /* FileIconBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AF109552A02639700EDDE26 /* FileIconBuilder.swift */; };
 		2AF109582A03C56600EDDE26 /* NSItemProvider+Async.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AF109572A03C56600EDDE26 /* NSItemProvider+Async.swift */; };
@@ -2287,6 +2292,10 @@
 		2A771F2F2AD6F0D8000ED2D4 /* SubscriptionUpdate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubscriptionUpdate.swift; sourceTree = "<group>"; };
 		2A785B442AFCDDB30020297E /* EditorCoordinatorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditorCoordinatorView.swift; sourceTree = "<group>"; };
 		2A785B462AFCDDED0020297E /* EditorCoordinatorViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditorCoordinatorViewModel.swift; sourceTree = "<group>"; };
+		2A78A9552B9F36D300396B82 /* SingleObjectSubscriptionServiceMock.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SingleObjectSubscriptionServiceMock.swift; sourceTree = "<group>"; };
+		2A78A9562B9F36D300396B82 /* ActiveWorkpaceStorageMock.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ActiveWorkpaceStorageMock.swift; sourceTree = "<group>"; };
+		2A78A9572B9F36D300396B82 /* WorkspacesStorageMock.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WorkspacesStorageMock.swift; sourceTree = "<group>"; };
+		2A78A9582B9F36D300396B82 /* MockView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MockView.swift; sourceTree = "<group>"; };
 		2A794B412AD53D3A00BA160F /* SubscriptionStorageProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubscriptionStorageProvider.swift; sourceTree = "<group>"; };
 		2A794B432AD53D4400BA160F /* SubscriptionStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubscriptionStorage.swift; sourceTree = "<group>"; };
 		2A7B124D2B19CC5600E14578 /* GalleryUnavailableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GalleryUnavailableView.swift; sourceTree = "<group>"; };
@@ -2587,6 +2596,7 @@
 		2AECFD3D28993C67000E9CFB /* LegacyRelationValueCoordinatorAssemblyProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LegacyRelationValueCoordinatorAssemblyProtocol.swift; sourceTree = "<group>"; };
 		2AECFD3F28993C77000E9CFB /* LegacyRelationValueCoordinatorProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LegacyRelationValueCoordinatorProtocol.swift; sourceTree = "<group>"; };
 		2AECFD4128993CA2000E9CFB /* RelationValueModuleAssemblyProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RelationValueModuleAssemblyProtocol.swift; sourceTree = "<group>"; };
+		2AEDACC32B9F3A4600FA757A /* AppContext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppContext.swift; sourceTree = "<group>"; };
 		2AEE49ED292E27FA00EA53AA /* ObjectSettingsCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObjectSettingsCoordinator.swift; sourceTree = "<group>"; };
 		2AF109552A02639700EDDE26 /* FileIconBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileIconBuilder.swift; sourceTree = "<group>"; };
 		2AF109572A03C56600EDDE26 /* NSItemProvider+Async.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSItemProvider+Async.swift"; sourceTree = "<group>"; };
@@ -3573,6 +3583,7 @@
 		0303ED1222D8F231005C552B /* Sources */ = {
 			isa = PBXGroup;
 			children = (
+				2A78A9542B9F36A800396B82 /* PreviewMocks */,
 				C9A7528128E3295800235BDE /* Shared */,
 				530A5426269FB8A4009016AE /* Analytics */,
 				53A46330262878710097C25E /* Design system */,
@@ -4153,6 +4164,7 @@
 				EAC5FD4A2657DC3D006BB24E /* UIScrollView */,
 				0A996BD023F0342A000FDC9C /* PlistReader.swift */,
 				2A4063622A5D480E00ECEA79 /* AsyncHelpers.swift */,
+				2AEDACC32B9F3A4600FA757A /* AppContext.swift */,
 			);
 			path = Utilities;
 			sourceTree = "<group>";
@@ -5915,6 +5927,25 @@
 				2ECBD18E2B14F9BF007F47FC /* RelationsInteractor.swift */,
 			);
 			path = RelationsSearchViewModel;
+			sourceTree = "<group>";
+		};
+		2A78A9542B9F36A800396B82 /* PreviewMocks */ = {
+			isa = PBXGroup;
+			children = (
+				2A78A95E2B9F36DC00396B82 /* Mocks */,
+				2A78A9582B9F36D300396B82 /* MockView.swift */,
+			);
+			path = PreviewMocks;
+			sourceTree = "<group>";
+		};
+		2A78A95E2B9F36DC00396B82 /* Mocks */ = {
+			isa = PBXGroup;
+			children = (
+				2A78A9562B9F36D300396B82 /* ActiveWorkpaceStorageMock.swift */,
+				2A78A9552B9F36D300396B82 /* SingleObjectSubscriptionServiceMock.swift */,
+				2A78A9572B9F36D300396B82 /* WorkspacesStorageMock.swift */,
+			);
+			path = Mocks;
 			sourceTree = "<group>";
 		};
 		2A7B124C2B19CC4700E14578 /* Views */ = {
@@ -11333,6 +11364,7 @@
 				2A475F172AFE47BE00E8C6D5 /* AnytypeNavigationView.swift in Sources */,
 				3D5A41802704543300F1F6A1 /* SearchCell.swift in Sources */,
 				3D611E932B93775B00B33305 /* MembershipTierListView.swift in Sources */,
+				2A78A95C2B9F36D300396B82 /* MockView.swift in Sources */,
 				EA3D1E6426D0091C001A31D9 /* MentionAttributeSelectionHandler.swift in Sources */,
 				2E9EFE72285B62E500C8E47A /* SetFilter.swift in Sources */,
 				1247BC8227FE0929005F2DB4 /* TransparencyEffectModifier.swift in Sources */,
@@ -11377,6 +11409,7 @@
 				2A3AFF552A7CEB9F004F7E09 /* SpaceAccessibility+Localization.swift in Sources */,
 				0303ED0122D8EDAA005C552B /* SceneDelegate.swift in Sources */,
 				2A2DDBA32B67CE0E00EA3F47 /* CommonNotificationViewModel.swift in Sources */,
+				2AEDACC42B9F3A4600FA757A /* AppContext.swift in Sources */,
 				2AE1558C2A31BB220049C387 /* ListWidgetStyle.swift in Sources */,
 				0A74E50023A90EF000B6C406 /* NotificationExtension.swift in Sources */,
 				2AF4260329AF3B1700753B17 /* SettingsAppearanceModuleAssembly.swift in Sources */,
@@ -11535,6 +11568,7 @@
 				125B6EC826F235F400BCD7D6 /* MentionsViewModel.swift in Sources */,
 				2AB22A1F2A9F33B3000E1AA6 /* AnytypeRow.swift in Sources */,
 				535E02B227502ECF00E1AF8C /* RelationBlockViewModel.swift in Sources */,
+				2A78A9592B9F36D300396B82 /* SingleObjectSubscriptionServiceMock.swift in Sources */,
 				3DAE1C84273E69AD009A72F3 /* Range+Mention.swift in Sources */,
 				3D26AA7B2B97505300D61479 /* MembershipTierInfoView.swift in Sources */,
 				861B0FDD2ADD43AA007E3A54 /* EditorCollectionFlowLayout.swift in Sources */,
@@ -11838,6 +11872,7 @@
 				539E019C2758423D00067A24 /* SlashMenuRealtionContentConfiguration.swift in Sources */,
 				1247BC7B27FDD7D8005F2DB4 /* Legacy_ObjectTypeSearchInteractor.swift in Sources */,
 				2A6693762A7104EA007747DD /* EmojiIconImageGuideline.swift in Sources */,
+				2A78A95B2B9F36D300396B82 /* WorkspacesStorageMock.swift in Sources */,
 				2ACF42A32A6A8C86001B5D2E /* UIImage+Draw.swift in Sources */,
 				2ED9F43D2A8E90A800BE0A6B /* SetViewSettingsCoordinatorView.swift in Sources */,
 				2AE7ECA3298816F30079F12B /* WidgetObjectListInternalViewModelProtocol.swift in Sources */,
@@ -12026,6 +12061,7 @@
 				3DC7862D265D251900498993 /* MiddlewareEventsListener.swift in Sources */,
 				2E9EFE62285B45C500C8E47A /* ExceptionalSetSort.swift in Sources */,
 				12C6343026600C2600E1DF6F /* TapGestureRecognizerWithClosure.swift in Sources */,
+				2A78A95A2B9F36D300396B82 /* ActiveWorkpaceStorageMock.swift in Sources */,
 				EA57F3D126B83DDF007D4292 /* AttributeState.swift in Sources */,
 				53A4633726287B970097C25E /* ImageExetension.swift in Sources */,
 				2AE85FF12B1F4BFA00268E9D /* ServerDocumentPickerViewModel.swift in Sources */,
