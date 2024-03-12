@@ -128,6 +128,7 @@ extension UIColor {
       internal static let fadingPink = UIColor(asset: Asset.Gradients.fadingPink)
       internal static let fadingPurple = UIColor(asset: Asset.Gradients.fadingPurple)
       internal static let fadingRed = UIColor(asset: Asset.Gradients.fadingRed)
+      internal static let fadingSky = UIColor(asset: Asset.Gradients.fadingSky)
       internal static let fadingTeal = UIColor(asset: Asset.Gradients.fadingTeal)
       internal static let fadingYellow = UIColor(asset: Asset.Gradients.fadingYellow)
       internal static let greenOrangeEnd = UIColor(asset: Asset.Gradients.greenOrangeEnd)

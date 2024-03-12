@@ -1,5 +1,7 @@
 import SwiftUI
 import Services
+import AnytypeCore
+
 
 extension Optional where Wrapped == MembershipTier {
     var availableTiers: [MembershipTier] {
@@ -8,6 +10,8 @@ extension Optional where Wrapped == MembershipTier {
             [.explorer, .builder, .coCreator ]
         case .some(let tier):
             switch tier {
+            case .custom(let id):
+                [.custom(id: id), .builder, .coCreator ]
             case .explorer:
                 [.explorer, .builder, .coCreator ]
             case .builder:
@@ -28,6 +32,8 @@ extension MembershipTier {
             return Loc.Membership.Builder.title
         case .coCreator:
             return Loc.Membership.CoCreator.title
+        case .custom:
+            return Loc.Membership.Custom.title
         }
     }
     
@@ -39,6 +45,8 @@ extension MembershipTier {
             return Loc.Membership.Builder.subtitle
         case .coCreator:
             return Loc.Membership.CoCreator.subtitle
+        case .custom:
+            return Loc.Membership.Custom.subtitle
         }
     }
     
@@ -65,17 +73,24 @@ extension MembershipTier {
                 Loc.Membership.CoCreator.benefit4,
                 Loc.Membership.CoCreator.benefit5
             ]
+        case .custom:
+            [
+                // TBD in future updates
+            ]
         }
     }
     
     var mediumIcon: ImageAsset {
         switch self {
         case .explorer:
-            .Membership.tierExplorerMedium
+            return .Membership.tierExplorerMedium
         case .builder:
-            .Membership.tierBuilderMedium
+            return .Membership.tierBuilderMedium
         case .coCreator:
-            .Membership.tierCocreatorMedium
+            return .Membership.tierCocreatorMedium
+        case .custom:
+            anytypeAssertionFailure("Unsupported asset mediumIcon for custom tier")
+            return .ghost
         }
     }
     
@@ -87,6 +102,8 @@ extension MembershipTier {
             .Membership.tierBuilderSmall
         case .coCreator:
             .Membership.tierCocreatorSmall
+        case .custom:
+            .Membership.tierCustomSmall
         }
     }
     
@@ -98,6 +115,8 @@ extension MembershipTier {
             .blue
         case .coCreator:
             .red
+        case .custom:
+            .purple
         }
     }
 }

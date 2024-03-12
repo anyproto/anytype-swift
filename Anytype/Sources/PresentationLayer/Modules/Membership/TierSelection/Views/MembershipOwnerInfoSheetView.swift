@@ -30,6 +30,8 @@ struct MembershipOwnerInfoSheetView: View {
                 Spacer.fixedHeight(23)
                 AnytypeText(Loc.paidBy("%Card%"), style: .relation2Regular, color: .Text.secondary)
                 Spacer.fixedHeight(15)
+            case .custom:
+                EmptyView() // TBD in future updates
             }
         }
         .frame(maxWidth: .infinity)

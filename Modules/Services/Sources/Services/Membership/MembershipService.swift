@@ -1,24 +1,3 @@
-public struct EmailVerificationData: Identifiable {
-    let email: String
-    let subscribeToNewsletter: Bool
-    
-    public var id: String {
-        "\(email):\(subscribeToNewsletter)"
-    }
-    
-    public init(email: String, subscribeToNewsletter: Bool) {
-        self.email = email
-        self.subscribeToNewsletter = subscribeToNewsletter
-    }
-}
-
-public enum MembershipTier: String, Identifiable {
-    case explorer
-    case builder
-    case coCreator
-    
-    public var id: String { rawValue }
-}
 
 
 public protocol MembershipServiceProtocol {

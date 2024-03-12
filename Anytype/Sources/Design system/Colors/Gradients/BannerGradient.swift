@@ -15,7 +15,7 @@ enum BannerGradient: String {
         case .pink:
             .Gradients.fadingPink
         case .purple:
-            .Gradients.fadingPurple
+            .Gradients.fadingSky
         }
     }
 }

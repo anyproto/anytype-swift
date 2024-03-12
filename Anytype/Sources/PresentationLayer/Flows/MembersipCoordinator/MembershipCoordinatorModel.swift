@@ -9,6 +9,7 @@ final class MembershipCoordinatorModel: ObservableObject {
     @Published var showTier: MembershipTier?
     @Published var showSuccess: MembershipTier?
     @Published var emailVerificationData: EmailVerificationData?
+    @Published var emailUrl: URL?
     
     @Injected(\.membershipService)
     private var membershipService: MembershipServiceProtocol
@@ -20,7 +21,19 @@ final class MembershipCoordinatorModel: ObservableObject {
     }
     
     func onTierSelected(tier: MembershipTier) {
-        showTier = tier
+        switch tier {
+        case .custom:
+            // TODO
+            let mailLink = MailUrl(
+                to: "hello@anytype.io",
+                subject: "Subject",
+                body: "Body"
+            )
+            emailUrl = mailLink.url
+            
+        case .explorer, .builder, .coCreator:
+            showTier = tier
+        }
     }
     
     func onEmailDataSubmit(data: EmailVerificationData) {
