@@ -53,22 +53,21 @@ struct MembershipNameSheetView: View {
     var status: some View {
         HStack {
             Spacer()
-            switch model.state {
-            case .default:
-                Spacer.fixedHeight(28)
-            case .validating:
-                AnytypeText(Loc.Membership.NameForm.validating, style: .relation2Regular, color: .Text.secondary)
-                    .padding(.top, 6)
-                    .padding(.bottom, 4)
-            case .error(text: let text):
-                AnytypeText(text, style: .relation2Regular, color: .Dark.red)
-                    .padding(.top, 6)
-                    .padding(.bottom, 4)
-            case .validated:
-                AnytypeText(Loc.Membership.NameForm.validated, style: .relation2Regular, color: .Dark.green)
-                    .padding(.top, 6)
-                    .padding(.bottom, 4)
+            Group {
+                switch model.state {
+                case .default:
+                    AnytypeText(Loc.minXCharacters(model.minimumNumberOfCharacters), style: .relation2Regular, color: .Text.secondary)
+                case .validating:
+                    AnytypeText(Loc.Membership.NameForm.validating, style: .relation2Regular, color: .Text.secondary)
+                case .error(text: let text):
+                    AnytypeText(text, style: .relation2Regular, color: .Dark.red)
+                case .validated:
+                    AnytypeText(Loc.Membership.NameForm.validated, style: .relation2Regular, color: .Dark.green)
+                }
             }
+            .padding(.top, 6)
+            .padding(.bottom, 4)
+            
             Spacer()
         }
         .lineLimit(1)

@@ -21,11 +21,22 @@ enum MembershipNameSheetViewState {
 final class MembershipNameSheetViewModel: ObservableObject {
     @Published var state = MembershipNameSheetViewState.default
     
+    // TODO: use middleware api
+    var minimumNumberOfCharacters: Int {
+        switch tier {
+        case .builder:
+            7
+        case .coCreator:
+            5
+        case .explorer, .custom:
+            .max
+        }
+    }
+    
     @Injected(\.nameService)
     private var nameService: NameServiceProtocol
     
     private let tier: MembershipTier
-    
     private var validationTask: Task<(), any Error>?
     
     init(tier: MembershipTier) {
@@ -34,18 +45,9 @@ final class MembershipNameSheetViewModel: ObservableObject {
     
     func validateName(name: String) {
         state = .default
-
-        switch tier {
-        case .explorer, .custom:
-            return
-        case .builder:
-            if name.count >= 7 {
-                resolveName(name: name)
-            }
-        case .coCreator:
-            if name.count >= 5 {
-                resolveName(name: name)
-            }
+        
+        if name.count >= minimumNumberOfCharacters {
+            resolveName(name: name)
         }
     }
     

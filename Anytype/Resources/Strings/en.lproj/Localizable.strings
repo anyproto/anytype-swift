@@ -1012,9 +1012,10 @@
 "Myself" = "Myself";
 "Pay by Card" = "Pay by Card";
 "Details upon request" = "Details upon request";
+"Min X characters" = "Min %@ characters";
 
 
-"Membership.Ad.Title" = "Let’s build together";
+"Membership.Ad.Title" = "Membership";
 "Membership.Ad.Subtitle" = "Joining Anytype network means contributing to its story";
 
 "Membership.Legal.Details" = "Membership levels details";
