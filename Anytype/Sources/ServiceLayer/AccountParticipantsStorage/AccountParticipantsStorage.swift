@@ -11,12 +11,12 @@ protocol AccountParticipantsStorageProtocol: AnyObject {
 }
 
 extension AccountParticipantsStorageProtocol {
-    func participantPublisher(spaceId: String) -> some Publisher<Participant, Never> {
-        participantsPublisher.compactMap { $0.first { $0.spaceId == spaceId } }
+    func participantPublisher(spaceId: String) -> AnyPublisher<Participant, Never> {
+        participantsPublisher.compactMap { $0.first { $0.spaceId == spaceId } }.eraseToAnyPublisher()
     }
     
-    func permissionPublisher(spaceId: String) -> some Publisher<ParticipantPermissions, Never> {
-        participantPublisher(spaceId: spaceId).map(\.permission).removeDuplicates()
+    func permissionPublisher(spaceId: String) -> AnyPublisher<ParticipantPermissions, Never> {
+        participantPublisher(spaceId: spaceId).map(\.permission).removeDuplicates().eraseToAnyPublisher()
     }
 }
 

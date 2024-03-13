@@ -8,6 +8,7 @@ final class HomeWidgetsViewModel: ObservableObject {
 
     // MARK: - DI
     
+    private let info: AccountInfo
     private let widgetObject: BaseDocumentProtocol
     private let registry: HomeWidgetsRegistryProtocol
     private let blockWidgetService: BlockWidgetServiceProtocol
@@ -16,13 +17,14 @@ final class HomeWidgetsViewModel: ObservableObject {
     private let recentStateManagerProtocol: HomeWidgetsRecentStateManagerProtocol
     private let documentService: OpenedDocumentsProviderProtocol
     private let activeWorkspaceStorage: ActiveWorkpaceStorageProtocol
+    private let accountParticipantStorage: AccountParticipantsStorageProtocol
     private weak var output: HomeWidgetsModuleOutput?
     
     // MARK: - State
     
     @Published var models: [HomeWidgetSubmoduleModel] = []
     @Published var bottomPanelProvider: HomeSubmoduleProviderProtocol
-    @Published var hideEditButton: Bool = false
+    @Published var homeState: HomeWidgetsState = .readonly
     @Published var dataLoaded: Bool = false
     @Published var wallpaper: BackgroundType = .default
     
@@ -38,8 +40,10 @@ final class HomeWidgetsViewModel: ObservableObject {
         recentStateManagerProtocol: HomeWidgetsRecentStateManagerProtocol,
         activeWorkspaceStorage: ActiveWorkpaceStorageProtocol,
         documentService: OpenedDocumentsProviderProtocol,
+        accountParticipantStorage: AccountParticipantsStorageProtocol,
         output: HomeWidgetsModuleOutput?
     ) {
+        self.info = info
         self.widgetObject = documentService.document(objectId: info.widgetsId)
         self.registry = registry
         self.blockWidgetService = blockWidgetService
@@ -49,8 +53,9 @@ final class HomeWidgetsViewModel: ObservableObject {
         self.recentStateManagerProtocol = recentStateManagerProtocol
         self.documentService = documentService
         self.activeWorkspaceStorage = activeWorkspaceStorage
+        self.accountParticipantStorage = accountParticipantStorage
         self.output = output
-        subscribeOnWallpaper(info: info)
+        subscribeOnWallpaper()
         setupInitialState()
     }
     
@@ -60,7 +65,7 @@ final class HomeWidgetsViewModel: ObservableObject {
     
     func onEditButtonTap() {
         AnytypeAnalytics.instance().logEditWidget()
-        stateManager.setEditState(true)
+        stateManager.setHomeState(.editWidgets)
     }
     
     func dropUpdate(from: DropDataElement<HomeWidgetSubmoduleModel>, to: DropDataElement<HomeWidgetSubmoduleModel>) {
@@ -102,12 +107,21 @@ final class HomeWidgetsViewModel: ObservableObject {
             }
             .store(in: &objectSubscriptions)
         
-        stateManager.isEditStatePublisher
+        stateManager.homeStatePublisher
             .receiveOnMain()
-            .assign(to: &$hideEditButton)
+            .assign(to: &$homeState)
+        
+        accountParticipantStorage.permissionPublisher(spaceId: info.accountSpaceId)
+            .map(\.canEdit)
+            .removeDuplicates()
+            .receiveOnMain()
+            .sink { [weak self] canEdit in
+                self?.stateManager.setHomeState(canEdit ? .readwrite : .readonly)
+            }
+            .store(in: &objectSubscriptions)
     }
     
-    private func subscribeOnWallpaper(info: AccountInfo) {
+    private func subscribeOnWallpaper() {
         UserDefaultsConfig.wallpaperPublisher(spaceId: info.accountSpaceId)
             .receiveOnMain()
             .assign(to: &$wallpaper)
