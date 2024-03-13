@@ -39,7 +39,7 @@ struct ObjectPermissions: Equatable {
                             && details.layoutValue != .collection
                             && details.layoutValue != .participant
         
-        self.canChangeType = !objectRestrictions.objectRestriction.contains(.typeChange) && canEdit
+        self.canChangeType = !objectRestrictions.objectRestriction.contains(.typeChange) && canEdit && !isTemplateType
         self.canDelete = isArchive && participantCanEdit
         self.canTemplateSetAsDefault = isTemplateType && canEdit
         self.canArchive = !objectRestrictions.objectRestriction.contains(.delete) && participantCanEdit
@@ -52,19 +52,19 @@ struct ObjectPermissions: Equatable {
                                 && canApplyUneditableActions
         
         self.canCreateWidget = details.isVisibleLayout
-                                && !details.isTemplateType
+                                && !isTemplateType
                                 && details.layoutValue != .participant
                                 && canApplyUneditableActions
         
-        self.canFavorite = canApplyUneditableActions
-        self.canLinkItself = canApplyUneditableActions
-        self.canLock = specificTypes && canApplyUneditableActions
+        self.canFavorite = canApplyUneditableActions && !isTemplateType
+        self.canLinkItself = canApplyUneditableActions && !isTemplateType
+        self.canLock = specificTypes && canApplyUneditableActions && !isTemplateType
         self.canChangeIcon = DetailsLayout.layoutsWithIcon.contains(details.layoutValue) && canEdit
         self.canChangeCover = DetailsLayout.layoutsWithCover.contains(details.layoutValue) && canEdit
         self.canChangeLayout = DetailsLayout.layoutsWithChangeLayout.contains(details.layoutValue) && canEdit
         self.canEditRelationValues = canEdit && !objectRestrictions.objectRestriction.contains(.details)
         self.canEditRelationsList = canEdit && !objectRestrictions.objectRestriction.contains(.relations)
-        self.canApplyTemplates = canEdit
+        self.canApplyTemplates = canEdit && !isTemplateType
         
         if isLocked {
             self.editBlocks = .readonly(.locked)
