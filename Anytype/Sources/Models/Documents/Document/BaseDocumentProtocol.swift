@@ -35,4 +35,5 @@ protocol BaseDocumentProtocol: AnyObject, BaseDocumentGeneralProtocol {
     var childrenPublisher: AnyPublisher<[BlockInformation], Never> { get }
     var syncPublisher: AnyPublisher<Void, Never> { get }
     var resetBlocksSubject: PassthroughSubject<Set<String>, Never> { get }
+    var permissionsPublisher: AnyPublisher<ObjectPermissions, Never> { get }
 }

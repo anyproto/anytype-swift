@@ -1,7 +1,7 @@
 import Foundation
 import Services
 
-struct ObjectPermissions {
+struct ObjectPermissions: Equatable {
     
     let canChangeType: Bool
     let canDelete: Bool

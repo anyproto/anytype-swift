@@ -102,7 +102,7 @@ extension EditorNavigationBarHelper: EditorNavigationBarHelperProtocol {
         updateBarButtonItemsBackground(opacity: 0)
     }
 
-    func configureNavigationTitle(using details: ObjectDetails?, permissions: ObjectPermissions, templatesCount: Int) {
+    func configureNavigationTitle(using details: ObjectDetails?, templatesCount: Int) {
         let mode: EditorNavigationBarTitleView.Mode
         if templatesCount >= Constants.minimumTemplatesAvailableToPick {
             let model = EditorNavigationBarTitleView.Mode.TemplatesModel(
@@ -121,7 +121,9 @@ extension EditorNavigationBarHelper: EditorNavigationBarHelperProtocol {
         navigationBarTitleView.configure(model: mode)
         updateNavigationBarAppearanceBasedOnContentOffset(currentScrollViewOffset)
         lastMode = mode
-        
+    }
+    
+    func updatePermissions(_ permissions: ObjectPermissions) {
         switch permissions.editBlocks {
         case .edit:
             readonlyReason = nil

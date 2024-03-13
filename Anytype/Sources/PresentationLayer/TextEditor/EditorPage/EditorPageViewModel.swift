@@ -93,6 +93,11 @@ final class EditorPageViewModel: EditorPageViewModelProtocol, EditorBottomNaviga
             self?.handleTemplatesIfNeeded()
         }.store(in: &subscriptions)
         
+        document.permissionsPublisher.sink { [weak self] permissions in
+            self?.viewInput?.update(permissions: permissions)
+            self?.blocksStateManager.checkOpenedState()
+        }.store(in: &subscriptions)
+        
         headerModel.$header.sink { [weak self] value in
             guard let headerModel = value else { return }
             self?.updateHeaderIfNeeded(headerModel: headerModel)
@@ -172,7 +177,7 @@ final class EditorPageViewModel: EditorPageViewModelProtocol, EditorBottomNaviga
         Task { @MainActor in
             guard document.permissions.canApplyTemplates, let details = document.details, details.isSelectTemplate else {
                 await templatesSubscriptionService.stopSubscription()
-                viewInput?.update(details: document.details, permissions: document.permissions, templatesCount: 0)
+                viewInput?.update(details: document.details, templatesCount: 0)
                 return
             }
             
@@ -181,7 +186,7 @@ final class EditorPageViewModel: EditorPageViewModelProtocol, EditorBottomNaviga
                 spaceId: document.spaceId
             ) { [weak self] details in
                 guard let self else { return }
-                viewInput?.update(details: document.details, permissions: document.permissions, templatesCount: details.count)
+                viewInput?.update(details: document.details, templatesCount: details.count)
             }
         }
     }

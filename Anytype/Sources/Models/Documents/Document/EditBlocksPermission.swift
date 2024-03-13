@@ -1,13 +1,13 @@
 import Foundation
 
-enum BlocksReadonlyReason {
+enum BlocksReadonlyReason: Equatable {
     case locked
     case archived
     case spaceIsReadonly
     case restrictions
 }
 
-enum EditBlocksPermission {
+enum EditBlocksPermission: Equatable {
     case edit
     case readonly(BlocksReadonlyReason)
 }

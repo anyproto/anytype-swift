@@ -69,6 +69,14 @@ final class BaseDocument: BaseDocumentProtocol {
             objectRestrictions: objectRestrictions
         )
     }
+    var permissionsPublisher: AnyPublisher<ObjectPermissions, Never> {
+        syncPublisher.compactMap {
+            [weak self] in self?.permissions
+        }
+        .removeDuplicates()
+        .receiveOnMain()
+        .eraseToAnyPublisher()
+    }
     
     var isLocked: Bool {
         return infoContainer.get(id: objectId)?.isLocked ?? false
