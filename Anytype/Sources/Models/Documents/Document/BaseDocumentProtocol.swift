@@ -28,8 +28,6 @@ protocol BaseDocumentProtocol: AnyObject, BaseDocumentGeneralProtocol {
     var parsedRelations: ParsedRelations { get }
     var isLocked: Bool { get }
     var permissions: ObjectPermissions { get }
-    var relationValuesIsLocked: Bool { get }
-    var relationsListIsLocked: Bool { get }
     var isEmpty: Bool { get }
     var isOpened: Bool { get }
     

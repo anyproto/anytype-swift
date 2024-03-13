@@ -56,7 +56,7 @@ final class BaseDocument: BaseDocumentProtocol {
             relationsDetails: objectRelationsDetails,
             typeRelationsDetails: typeRelationsDetails,
             objectId: objectId,
-            relationValuesIsLocked: relationValuesIsLocked,
+            relationValuesIsLocked: !permissions.canEditRelationValues,
             storage: detailsStorage
         )
     }
@@ -72,14 +72,6 @@ final class BaseDocument: BaseDocumentProtocol {
     
     var isLocked: Bool {
         return infoContainer.get(id: objectId)?.isLocked ?? false
-    }
-    
-    var relationValuesIsLocked: Bool {
-        return isLocked || isArchived || objectRestrictions.objectRestriction.contains(.details)
-    }
-    
-    var relationsListIsLocked: Bool {
-        return isLocked || isArchived || objectRestrictions.objectRestriction.contains(.relations)
     }
     
     private var isArchived: Bool {

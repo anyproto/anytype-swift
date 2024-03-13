@@ -17,8 +17,8 @@ struct ObjectPermissions {
     let canChangeIcon: Bool
     let canChangeCover: Bool
     let canChangeLayout: Bool
-    let canEditRelationValue: Bool
-    let canEditRelationList: Bool
+    let canEditRelationValues: Bool
+    let canEditRelationsList: Bool
     let canApplyTemplates: Bool
     
     // TODO: Refactoring header. Read state from document. This is visual state. Don't use in other places
@@ -33,7 +33,7 @@ struct ObjectPermissions {
         let isArchive = details.isArchived
         let isTemplateType = details.isTemplateType
         
-        let canEdit = !(isLocked || isArchive || participantCanEdit)
+        let canEdit = !isLocked && !isArchive && participantCanEdit
         
         let specificTypes = details.layoutValue != .set
                             && details.layoutValue != .collection
@@ -62,14 +62,14 @@ struct ObjectPermissions {
         self.canChangeIcon = DetailsLayout.layoutsWithIcon.contains(details.layoutValue) && canEdit
         self.canChangeCover = DetailsLayout.layoutsWithCover.contains(details.layoutValue) && canEdit
         self.canChangeLayout = DetailsLayout.layoutsWithChangeLayout.contains(details.layoutValue) && canEdit
-        self.canEditRelationValue = false
-        self.canEditRelationList = false
+        self.canEditRelationValues = canEdit && !objectRestrictions.objectRestriction.contains(.details)
+        self.canEditRelationsList = canEdit && !objectRestrictions.objectRestriction.contains(.relations)
         self.canApplyTemplates = canEdit
         
-        if isArchive || participantCanEdit {
-            self.headerReadonlyState = .archived
-        } else if isLocked {
+        if isLocked || !participantCanEdit {
             self.headerReadonlyState = .locked
+        } else if isLocked {
+            self.headerReadonlyState = .archived
         } else {
             self.headerReadonlyState = nil
         }

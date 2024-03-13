@@ -24,7 +24,7 @@ extension BaseDocumentProtocol {
                 }
                 
                 let setOfIndex = enhancedRelations.firstIndex { $0.key == BundledRelationKey.setOf.rawValue }
-                if permissions.canEditRelationValue,
+                if permissions.canEditRelationValues,
                    let setOfIndex,
                    let editableRelation = enhancedRelations[setOfIndex].editableRelation
                 {
@@ -52,7 +52,7 @@ extension BaseDocumentProtocol {
         }
         
         let setOfIndex = enhancedRelations.firstIndex { $0.key == BundledRelationKey.setOf.rawValue }
-        if permissions.canEditRelationValue,
+        if permissions.canEditRelationValues,
            let setOfIndex,
            let editableRelation = enhancedRelations[setOfIndex].editableRelation
         {

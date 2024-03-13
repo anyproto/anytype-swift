@@ -6,6 +6,14 @@ struct ObjectActionsView: View {
     @ObservedObject var viewModel: ObjectActionsViewModel
  
     var body: some View {
+        if viewModel.objectActions.isEmpty {
+            EmptyView()
+        } else {
+            content
+        }
+    }
+    
+    var content: some View {
         ScrollView(.horizontal, showsIndicators: false) {
             HStack(spacing: 20) {
                 ForEach(viewModel.objectActions) { setting in
