@@ -74,10 +74,6 @@ final class BaseDocument: BaseDocumentProtocol {
         return infoContainer.get(id: objectId)?.isLocked ?? false
     }
     
-    private var isArchived: Bool {
-        return details?.isArchived ?? false
-    }
-    
     var details: ObjectDetails? {
         detailsStorage.get(id: objectId)
     }

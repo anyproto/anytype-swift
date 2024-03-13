@@ -3267,7 +3267,6 @@
 		861B0FDC2ADD43AA007E3A54 /* EditorCollectionFlowLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditorCollectionFlowLayout.swift; sourceTree = "<group>"; };
 		861E75F52A5C03E400F18552 /* EditableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditableView.swift; sourceTree = "<group>"; };
 		862065522AB1A991006E539B /* DocumentsProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DocumentsProvider.swift; sourceTree = "<group>"; };
-		862065542AB1E94D006E539B /* MockBaseDocument.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockBaseDocument.swift; sourceTree = "<group>"; };
 		8624C8602A6E577E0065CBC0 /* EditorPageViewModelConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditorPageViewModelConfiguration.swift; sourceTree = "<group>"; };
 		862D55902A8F78330018103F /* AnytypeShareExtension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = AnytypeShareExtension.appex; sourceTree = BUILT_PRODUCTS_DIR; };
 		862D55922A8F78330018103F /* ShareViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShareViewController.swift; sourceTree = "<group>"; };
@@ -3304,7 +3303,6 @@
 		86C4B3772B246141003B8C51 /* SharingTipCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SharingTipCoordinator.swift; sourceTree = "<group>"; };
 		86D7255F2A94EDB0008DF702 /* Anytype.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Anytype.entitlements; sourceTree = "<group>"; };
 		86D725602A94EFB8008DF702 /* AnytypeShareExtension.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = AnytypeShareExtension.entitlements; sourceTree = "<group>"; };
-		86E555362A7AB983000A8DC7 /* MockSetDocument.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockSetDocument.swift; sourceTree = "<group>"; };
 		86E69DD42A9389DC009F2221 /* SecureService */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = SecureService; path = Modules/SecureService; sourceTree = "<group>"; };
 		95A38D392A03F17700D06C96 /* Riccione-Xlight.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Riccione-Xlight.ttf"; sourceTree = "<group>"; };
 		C90189A828338D2900F30853 /* TemplatesCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TemplatesCoordinator.swift; sourceTree = "<group>"; };
@@ -8998,8 +8996,6 @@
 				2E999482293E490300FFBED9 /* Relation+Set.swift */,
 				2E9994842940D1D500FFBED9 /* SetDocument.swift */,
 				2E999486294240C300FFBED9 /* SetDocumentProtocol.swift */,
-				86E555362A7AB983000A8DC7 /* MockSetDocument.swift */,
-				862065542AB1E94D006E539B /* MockBaseDocument.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
