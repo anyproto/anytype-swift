@@ -896,6 +896,7 @@
 "SpaceShare.Status.Removing" = "Pengeluaran diminta";
 "SpaceShare.Action.ViewRequest" = "Lihat Permintaan";
 "SpaceShare.Action.Approve" = "Terima";
+"SpaceShare.Approve.Toast" = "You approved %@'s request.";
 "SpaceShare.ViewRequest.Title" = "%@ meminta bergabung ke ruang %@";
 "SpaceShare.ViewRequest.ViewAccess" = "Izinkan akses baca";
 "SpaceShare.ViewRequest.EditAccess" = "Izinkan akses sunting";
@@ -910,6 +911,7 @@
 "SpaceShare.Join.Message" = "Kamu diundang untuk bergabung dengan ruang %@ buatan %@. Kirimkan permintaan supaya pemilik ruang dapat mengizinkanmu bergabung.";
 "SpaceShare.JoinConfirmation.Title" = "Permintaan terkirim";
 "SpaceShare.JoinConfirmation.Message" = "Kamu akan menerima pemberitahuan ketika pemilik ruang menyetujui permintaanmu.";
+"SpaceShare.YouSuffix" = "%@ (you)";
 
 // MARK: - Space manager
 "SpaceManager.CancelRequest" = "Batalkan permintaan";
@@ -1009,9 +1011,11 @@
 "Paid by" = "Dibayar oleh %@";
 "Myself" = "Aku sendiri";
 "Pay by Card" = "Bayar via kartu";
+"Details upon request" = "Details upon request";
+"Min X characters" = "Min %@ characters";
 
 
-"Membership.Ad.Title" = "Mari membangun bersama";
+"Membership.Ad.Title" = "Langganan";
 "Membership.Ad.Subtitle" = "Bergabung dengan jaringan Anytype berarti turut berkontribusi pada kisahnya";
 
 "Membership.Legal.Details" = "Detail level langganan";
@@ -1063,7 +1067,6 @@
 "Membership.Builder.Benefit3" = "Tempat duduk kolaborator untuk 10 Tamu";
 "Membership.Builder.Benefit4" = "Layanan prioritas";
 
-
 "Membership.CoCreator.Title" = "Pencipta Bersama";
 "Membership.CoCreator.Subtitle" = "Dukung petualangan kami dan dapatkan akses dan manfaat eksklusif";
 "Membership.CoCreator.Benefit1" = "Nama unik (dari 5 karakter)";
@@ -1071,6 +1074,9 @@
 "Membership.CoCreator.Benefit3" = "Tempat duduk kolaborator untuk 25 Tamu";
 "Membership.CoCreator.Benefit4" = "Mengobrol dengan tim";
 "Membership.CoCreator.Benefit5" = "Koleksi yang unik";
+
+"Membership.Custom.Title" = "Custom";
+"Membership.Custom.Subtitle" = "Membership tailored to your specific needs and preferences";
 
 
 // MARK: - Debug

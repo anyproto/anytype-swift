@@ -896,6 +896,7 @@
 "SpaceShare.Status.Removing" = "Richiesta di uscita";
 "SpaceShare.Action.ViewRequest" = "Visualizza richiesta";
 "SpaceShare.Action.Approve" = "Approva";
+"SpaceShare.Approve.Toast" = "You approved %@'s request.";
 "SpaceShare.ViewRequest.Title" = "%@ ha richiesto di unirsi allo spazio %@";
 "SpaceShare.ViewRequest.ViewAccess" = "Concedi accesso in lettura";
 "SpaceShare.ViewRequest.EditAccess" = "Concedi accesso alla modifica";
@@ -910,6 +911,7 @@
 "SpaceShare.Join.Message" = "Sei stato invitato a unirti allo spazio %@, creato da %@. Invia una richiesta così il proprietario dello spazio può farti entrare.";
 "SpaceShare.JoinConfirmation.Title" = "Richiesta inviata";
 "SpaceShare.JoinConfirmation.Message" = "Riceverai una notifica quando il proprietario dello spazio approverà la tua richiesta.";
+"SpaceShare.YouSuffix" = "%@ (you)";
 
 // MARK: - Space manager
 "SpaceManager.CancelRequest" = "Cancel Request";
@@ -1009,9 +1011,11 @@
 "Paid by" = "Pagato da %@";
 "Myself" = "Myself";
 "Pay by Card" = "Pay by Card";
+"Details upon request" = "Details upon request";
+"Min X characters" = "Min %@ characters";
 
 
-"Membership.Ad.Title" = "Costruiamo insieme";
+"Membership.Ad.Title" = "Membership";
 "Membership.Ad.Subtitle" = "Unire alla rete di Anytype significa contribuire alla sua storia";
 
 "Membership.Legal.Details" = "Dettagli dei livelli di membership";
@@ -1063,7 +1067,6 @@
 "Membership.Builder.Benefit3" = "10 posti per collaboratori ospiti";
 "Membership.Builder.Benefit4" = "Supporto prioritario";
 
-
 "Membership.CoCreator.Title" = "Co-Creator";
 "Membership.CoCreator.Subtitle" = "Supporta la nostra avventura e sblocca accessi esclusivi e vantaggi";
 "Membership.CoCreator.Benefit1" = "Nome unico (da 5 caratteri)";
@@ -1071,6 +1074,9 @@
 "Membership.CoCreator.Benefit3" = "25 posti per collaboratori ospiti";
 "Membership.CoCreator.Benefit4" = "Chatta con il team";
 "Membership.CoCreator.Benefit5" = "Collezionabile unico";
+
+"Membership.Custom.Title" = "Custom";
+"Membership.Custom.Subtitle" = "Membership tailored to your specific needs and preferences";
 
 
 // MARK: - Debug
