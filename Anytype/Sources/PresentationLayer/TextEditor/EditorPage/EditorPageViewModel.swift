@@ -172,7 +172,7 @@ final class EditorPageViewModel: EditorPageViewModelProtocol, EditorBottomNaviga
         Task { @MainActor in
             guard document.permissions.canApplyTemplates, let details = document.details, details.isSelectTemplate else {
                 await templatesSubscriptionService.stopSubscription()
-                viewInput?.update(details: document.details, templatesCount: 0)
+                viewInput?.update(details: document.details, permissions: document.permissions, templatesCount: 0)
                 return
             }
             
@@ -181,7 +181,7 @@ final class EditorPageViewModel: EditorPageViewModelProtocol, EditorBottomNaviga
                 spaceId: document.spaceId
             ) { [weak self] details in
                 guard let self else { return }
-                viewInput?.update(details: document.details, templatesCount: details.count)
+                viewInput?.update(details: document.details, permissions: document.permissions, templatesCount: details.count)
             }
         }
     }

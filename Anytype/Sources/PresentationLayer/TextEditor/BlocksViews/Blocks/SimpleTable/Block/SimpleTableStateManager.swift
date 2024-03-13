@@ -78,8 +78,8 @@ final class SimpleTableStateManager: SimpleTableStateManagerProtocol {
     func checkOpenedState() {
         if !document.isOpened {
             editingState = .loading
-        } else  if let readonlyState = document.permissions.headerReadonlyState {
-            editingState = .readonly(state: readonlyState)
+        } else  if !document.permissions.canEditBlocks {
+            editingState = .readonly
         } else if case .editing = editingState {
             // nothing
         } else {

@@ -26,6 +26,7 @@ final class EditorNavigationBarHelper {
 
     private var currentEditorState: EditorEditingState?
     private var lastMode: EditorNavigationBarTitleView.Mode?
+    private var readonlyReason: BlocksReadonlyReason?
 
     private let onTemplatesButtonTap: () -> Void
         
@@ -101,7 +102,7 @@ extension EditorNavigationBarHelper: EditorNavigationBarHelperProtocol {
         updateBarButtonItemsBackground(opacity: 0)
     }
 
-    func configureNavigationTitle(using details: ObjectDetails?, templatesCount: Int) {
+    func configureNavigationTitle(using details: ObjectDetails?, permissions: ObjectPermissions, templatesCount: Int) {
         let mode: EditorNavigationBarTitleView.Mode
         if templatesCount >= Constants.minimumTemplatesAvailableToPick {
             let model = EditorNavigationBarTitleView.Mode.TemplatesModel(
@@ -120,6 +121,13 @@ extension EditorNavigationBarHelper: EditorNavigationBarHelperProtocol {
         navigationBarTitleView.configure(model: mode)
         updateNavigationBarAppearanceBasedOnContentOffset(currentScrollViewOffset)
         lastMode = mode
+        
+        switch permissions.editBlocks {
+        case .edit:
+            readonlyReason = nil
+        case .readonly(let reason):
+            readonlyReason = reason
+        }
     }
     
     func updateSyncStatusData(_ statusData: SyncStatusData) {
@@ -151,12 +159,12 @@ extension EditorNavigationBarHelper: EditorNavigationBarHelperProtocol {
             navigationBarView.leftButton = nil
             navigationBarView.rightButton = nil
             navigationBarTitleView.setIsReadonly(nil)
-        case .readonly(let mode):
+        case .readonly:
             navigationBarView.titleView = navigationBarTitleView
             navigationBarView.rightButton = settingsItem
             navigationBarView.leftButton = syncStatusItem
             lastMode.map { navigationBarTitleView.configure(model: $0) }
-            navigationBarTitleView.setIsReadonly(mode)
+            navigationBarTitleView.setIsReadonly(readonlyReason)
             updateNavigationBarAppearanceBasedOnContentOffset(currentScrollViewOffset)
         case let .simpleTablesSelection(_, selectedBlocks, _):
             navigationBarTitleView.setAlphaForSubviews(1)

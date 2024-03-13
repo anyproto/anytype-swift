@@ -9,7 +9,7 @@ protocol EditorNavigationBarHelperProtocol {
     func handleViewWillDisappear()
     
     func configureNavigationBar(using header: ObjectHeader)
-    func configureNavigationTitle(using details: ObjectDetails?, templatesCount: Int)
+    func configureNavigationTitle(using details: ObjectDetails?, permissions: ObjectPermissions, templatesCount: Int)
     
     func editorEditingStateDidChange(_ state: EditorEditingState)
 }

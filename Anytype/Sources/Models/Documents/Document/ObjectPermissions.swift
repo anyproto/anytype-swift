@@ -20,9 +20,8 @@ struct ObjectPermissions {
     let canEditRelationValues: Bool
     let canEditRelationsList: Bool
     let canApplyTemplates: Bool
-    
-    // TODO: Refactoring header. Read state from document. This is visual state. Don't use in other places
-    let headerReadonlyState: EditorEditingState.ReadonlyState?
+    let canEditBlocks: Bool
+    let editBlocks: EditBlocksPermission
     
     init(
         details: ObjectDetails,
@@ -66,12 +65,18 @@ struct ObjectPermissions {
         self.canEditRelationsList = canEdit && !objectRestrictions.objectRestriction.contains(.relations)
         self.canApplyTemplates = canEdit
         
-        if isLocked || !participantCanEdit {
-            self.headerReadonlyState = .locked
-        } else if isLocked {
-            self.headerReadonlyState = .archived
+        if isLocked {
+            self.editBlocks = .readonly(.locked)
+        } else if isArchive {
+            self.editBlocks = .readonly(.archived)
+        } else if !participantCanEdit {
+            self.editBlocks = .readonly(.spaceIsReadonly)
+        } else if objectRestrictions.objectRestriction.contains(.blocks) {
+            self.editBlocks = .readonly(.restrictions)
         } else {
-            self.headerReadonlyState = nil
+            self.editBlocks = .edit
         }
+        
+        self.canEditBlocks = editBlocks.canEdit
     }
 }

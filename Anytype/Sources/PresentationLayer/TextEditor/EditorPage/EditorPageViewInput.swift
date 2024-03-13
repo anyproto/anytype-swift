@@ -19,7 +19,7 @@ protocol EditorCollectionReloadable: AnyObject {
 /// Input data for document view
 protocol EditorPageViewInput: EditorCollectionReloadable {
     func update(header: ObjectHeader)
-    func update(details: ObjectDetails?, templatesCount: Int)
+    func update(details: ObjectDetails?, permissions: ObjectPermissions, templatesCount: Int)
     func update(
         changes: CollectionDifference<EditorItem>?,
         allModels: [EditorItem],

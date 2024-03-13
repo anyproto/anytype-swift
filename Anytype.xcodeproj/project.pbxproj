@@ -603,6 +603,7 @@
 		2A971C08297E7BFD00D3D786 /* ListWidgetRowModel+ObjectDetails.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A971C07297E7BFD00D3D786 /* ListWidgetRowModel+ObjectDetails.swift */; };
 		2A9C187A2BA0A95900DFE560 /* AccountParticipantsStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A9C18792BA0A95900DFE560 /* AccountParticipantsStorage.swift */; };
 		2A9C187E2BA18A2400DFE560 /* ObjectPermissions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A9C187D2BA18A2400DFE560 /* ObjectPermissions.swift */; };
+		2A9C18802BA1B76D00DFE560 /* EditBlocksPermission.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A9C187F2BA1B76D00DFE560 /* EditBlocksPermission.swift */; };
 		2A9D299028BCC11A00789AC7 /* NonExistentBlockView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A9D298F28BCC11A00789AC7 /* NonExistentBlockView.swift */; };
 		2A9D299228BCC16E00789AC7 /* NonExistentBlockContentConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A9D299128BCC16E00789AC7 /* NonExistentBlockContentConfiguration.swift */; };
 		2A9D299428BCC78900789AC7 /* NonExistentBlockViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A9D299328BCC78900789AC7 /* NonExistentBlockViewModel.swift */; };
@@ -2369,6 +2370,7 @@
 		2A971C07297E7BFD00D3D786 /* ListWidgetRowModel+ObjectDetails.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ListWidgetRowModel+ObjectDetails.swift"; sourceTree = "<group>"; };
 		2A9C18792BA0A95900DFE560 /* AccountParticipantsStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountParticipantsStorage.swift; sourceTree = "<group>"; };
 		2A9C187D2BA18A2400DFE560 /* ObjectPermissions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObjectPermissions.swift; sourceTree = "<group>"; };
+		2A9C187F2BA1B76D00DFE560 /* EditBlocksPermission.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditBlocksPermission.swift; sourceTree = "<group>"; };
 		2A9D298F28BCC11A00789AC7 /* NonExistentBlockView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NonExistentBlockView.swift; sourceTree = "<group>"; };
 		2A9D299128BCC16E00789AC7 /* NonExistentBlockContentConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NonExistentBlockContentConfiguration.swift; sourceTree = "<group>"; };
 		2A9D299328BCC78900789AC7 /* NonExistentBlockViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NonExistentBlockViewModel.swift; sourceTree = "<group>"; };
@@ -4010,6 +4012,7 @@
 				0A09661725C0AB4F00C004BD /* BaseDocument.swift */,
 				C92DCD96272998D800A03D91 /* BaseDocument+Extensions.swift */,
 				2A9C187D2BA18A2400DFE560 /* ObjectPermissions.swift */,
+				2A9C187F2BA1B76D00DFE560 /* EditBlocksPermission.swift */,
 			);
 			path = Document;
 			sourceTree = "<group>";
@@ -11115,6 +11118,7 @@
 				2A6C75C629FC16D2002BD440 /* FileStorageModuleOutput.swift in Sources */,
 				2AD06B7C2857271D0006C255 /* TableOfContentsViewModel.swift in Sources */,
 				53A4878827D6AC0900A2E627 /* PasteboardBlockDocumentService.swift in Sources */,
+				2A9C18802BA1B76D00DFE560 /* EditBlocksPermission.swift in Sources */,
 				2E330C52286CB6A70099C7C3 /* CreateBookmarkViewModel.swift in Sources */,
 				12C2A5672754E1C400311854 /* DateRelationDetailsValue.swift in Sources */,
 				2E7C445D2891753B0062287C /* SetFiltersDateView.swift in Sources */,
