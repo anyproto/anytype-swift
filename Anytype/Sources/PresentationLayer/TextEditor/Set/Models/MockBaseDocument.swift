@@ -35,7 +35,8 @@ final class MockBaseDocument: BaseDocumentProtocol {
     
     var parsedRelations: ParsedRelations { .empty }
     
-    var isLocked: Bool { false }
+    
+//    var isLocked: Bool { false }
     
     var relationValuesIsLocked: Bool { false }
     
@@ -45,7 +46,7 @@ final class MockBaseDocument: BaseDocumentProtocol {
     
     var isOpened: Bool { true }
     
-    var isArchived: Bool { false }
+//    var isArchived: Bool { false }
     
     var parsedRelationsPublisher: AnyPublisher<ParsedRelations, Never> { .empty() }
     

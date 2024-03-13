@@ -26,13 +26,14 @@ final class LoginStateService: LoginStateServiceProtocol {
     private var workspacesStorage: WorkspacesStorageProtocol
     @Injected(\.activeWorkspaceStorage)
     private var activeWorkpaceStorage: ActiveWorkpaceStorageProtocol
+    @Injected(\.accountParticipantsStorage)
+    private var accountParticipantsStorage: AccountParticipantsStorageProtocol
     
     // MARK: - LoginStateServiceProtocol
     
     func setupStateAfterLoginOrAuth(account: AccountData) async {
         middlewareConfigurationProvider.setupConfiguration(account: account)
         await startSubscriptions()
-        await activeWorkpaceStorage.setupActiveSpace()
     }
     
     func setupStateAfterAuth() {
@@ -43,7 +44,6 @@ final class LoginStateService: LoginStateServiceProtocol {
         isFirstLaunchAfterRegistration = true
         middlewareConfigurationProvider.setupConfiguration(account: account)
         await startSubscriptions()
-        await activeWorkpaceStorage.setupActiveSpace()
     }
     
     func cleanStateAfterLogout() async {
@@ -51,7 +51,6 @@ final class LoginStateService: LoginStateServiceProtocol {
         blockWidgetExpandedService.clearData()
         middlewareConfigurationProvider.removeCachedConfiguration()
         await stopSubscriptions()
-        await activeWorkpaceStorage.clearActiveSpace()
     }
     
     // MARK: - Private
@@ -60,11 +59,15 @@ final class LoginStateService: LoginStateServiceProtocol {
         await workspacesStorage.startSubscription()
         await relationDetailsStorage.startSubscription()
         await objectTypeProvider.startSubscription()
+        await activeWorkpaceStorage.setupActiveSpace()
+        await accountParticipantsStorage.startSubscription()
     }
     
     private func stopSubscriptions() async {
         await workspacesStorage.stopSubscription()
         await relationDetailsStorage.stopSubscription()
         await objectTypeProvider.stopSubscription()
+        await activeWorkpaceStorage.clearActiveSpace()
+        await accountParticipantsStorage.stopSubscription()
     }
 }

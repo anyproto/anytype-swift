@@ -28,8 +28,10 @@ final class BaseDocument: BaseDocumentProtocol {
     private let relationBuilder: RelationsBuilder
     private let relationDetailsStorage: RelationDetailsStorageProtocol
     private let objectTypeProvider: ObjectTypeProviderProtocol
+    private let accountParticipantsStorage: AccountParticipantsStorageProtocol
     private let viewModelSetter: DocumentViewModelSetterProtocol
     
+    private var participantIsEditor: Bool = false
     private var subscriptions = [AnyCancellable]()
     
     @Published private var sync: Void?
@@ -59,6 +61,15 @@ final class BaseDocument: BaseDocumentProtocol {
         )
     }
     
+    var permissions: ObjectPermissions {
+        ObjectPermissions(
+            details: details ?? ObjectDetails(id: ""),
+            isLocked: isLocked,
+            participantCanEdit: participantIsEditor,
+            objectRestrictions: objectRestrictions
+        )
+    }
+    
     var isLocked: Bool {
         return infoContainer.get(id: objectId)?.isLocked ?? false
     }
@@ -71,7 +82,7 @@ final class BaseDocument: BaseDocumentProtocol {
         return isLocked || isArchived || objectRestrictions.objectRestriction.contains(.relations)
     }
     
-    var isArchived: Bool {
+    private var isArchived: Bool {
         return details?.isArchived ?? false
     }
     
@@ -94,7 +105,8 @@ final class BaseDocument: BaseDocumentProtocol {
         forPreview: Bool,
         objectLifecycleService: ObjectLifecycleServiceProtocol,
         relationDetailsStorage: RelationDetailsStorageProtocol,
-        objectTypeProvider: ObjectTypeProviderProtocol
+        objectTypeProvider: ObjectTypeProviderProtocol,
+        accountParticipantsStorage: AccountParticipantsStorageProtocol
     ) {
         self.objectId = objectId
         self.forPreview = forPreview
@@ -118,6 +130,7 @@ final class BaseDocument: BaseDocumentProtocol {
         self.relationBuilder = RelationsBuilder()
         self.relationDetailsStorage = relationDetailsStorage
         self.objectTypeProvider = objectTypeProvider
+        self.accountParticipantsStorage = accountParticipantsStorage
         
         setup()
     }
@@ -145,7 +158,7 @@ final class BaseDocument: BaseDocumentProtocol {
             return
         }
         let model = try await objectLifecycleService.open(contextId: objectId)
-        setupView(model)
+        await setupView(model)
     }
     
     @MainActor
@@ -155,7 +168,7 @@ final class BaseDocument: BaseDocumentProtocol {
             return
         }
         let model = try await objectLifecycleService.openForPreview(contextId: objectId)
-        setupView(model)
+        await setupView(model)
     }
     
     @MainActor
@@ -229,10 +242,17 @@ final class BaseDocument: BaseDocumentProtocol {
         sync = ()
     }
     
-    private func setupView(_ model: ObjectViewModel) {
+    private func setupView(_ model: ObjectViewModel) async {
         viewModelSetter.objectViewUpdate(model)
         isOpened = true
         triggerSync(updates: [.general])
+        await setupSubscriptions()
+    }
+    
+    private func setupSubscriptions() async {
+        await accountParticipantsStorage.permissionPublisher(spaceId: spaceId).sink { [weak self] permissions in
+            self?.participantIsEditor = permissions.canEdit
+        }.store(in: &subscriptions)
     }
 }
 

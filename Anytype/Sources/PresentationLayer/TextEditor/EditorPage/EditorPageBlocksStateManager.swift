@@ -14,6 +14,7 @@ enum EditorEditingState {
 }
 
 extension EditorEditingState {
+    // TODO: Move from state to baedocument handle
     enum ReadonlyState {
         case locked
         case archived
@@ -123,10 +124,8 @@ final class EditorPageBlocksStateManager: EditorPageBlocksStateManagerProtocol {
     func checkOpenedState() {
         if !document.isOpened {
             editingState = .loading
-        } else if document.isArchived {
-            editingState = .readonly(state: .archived)
-        } else if document.isLocked {
-            editingState = .readonly(state: .locked)
+        } else if let readonlyState = document.permissions.headerReadonlyState {
+            editingState = .readonly(state: readonlyState)
         } else if case .editing = editingState {
             // nothing
         } else {

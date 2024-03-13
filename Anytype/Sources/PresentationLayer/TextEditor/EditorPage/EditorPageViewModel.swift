@@ -131,10 +131,7 @@ final class EditorPageViewModel: EditorPageViewModelProtocol, EditorBottomNaviga
         
         viewInput?.update(changes: difference, allModels: modelsHolder.items) { [weak self] in
             guard let self else { return }
-
-            if !document.isLocked {
-                cursorManager.handleGeneralUpdate(with: modelsHolder.items, type: document.details?.type)
-            }
+            cursorManager.handleGeneralUpdate(with: modelsHolder.items, type: document.details?.type)
         }
     }
     
@@ -173,7 +170,7 @@ final class EditorPageViewModel: EditorPageViewModelProtocol, EditorBottomNaviga
     
     private func handleTemplatesIfNeeded() {
         Task { @MainActor in
-            guard !document.isLocked, let details = document.details, details.isSelectTemplate else {
+            guard document.permissions.canApplyTemplates, let details = document.details, details.isSelectTemplate else {
                 await templatesSubscriptionService.stopSubscription()
                 viewInput?.update(details: document.details, templatesCount: 0)
                 return
