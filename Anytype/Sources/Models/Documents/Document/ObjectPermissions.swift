@@ -33,31 +33,32 @@ struct ObjectPermissions: Equatable {
         let isTemplateType = details.isTemplateType
         
         let canEdit = !isLocked && !isArchive && participantCanEdit
+        let canApplyUneditableActions = participantCanEdit && !isArchive
         
         let specificTypes = details.layoutValue != .set
                             && details.layoutValue != .collection
                             && details.layoutValue != .participant
         
         self.canChangeType = !objectRestrictions.objectRestriction.contains(.typeChange) && canEdit
-        self.canDelete = !isArchive && participantCanEdit
+        self.canDelete = isArchive && participantCanEdit
         self.canTemplateSetAsDefault = isTemplateType && canEdit
         self.canArchive = !objectRestrictions.objectRestriction.contains(.delete) && participantCanEdit
-        self.canDuplicate = !objectRestrictions.objectRestriction.contains(.duplicate) && participantCanEdit
+        self.canDuplicate = !objectRestrictions.objectRestriction.contains(.duplicate) && canApplyUneditableActions
         
-        self.canUndoRedo = specificTypes && participantCanEdit
+        self.canUndoRedo = specificTypes && canEdit
         
         self.canMakeAsTemplate = details.canMakeTemplate
                                 && !objectRestrictions.objectRestriction.contains(.template)
-                                && participantCanEdit
+                                && canApplyUneditableActions
         
         self.canCreateWidget = details.isVisibleLayout
                                 && !details.isTemplateType
                                 && details.layoutValue != .participant
-                                && participantCanEdit
+                                && canApplyUneditableActions
         
-        self.canFavorite = participantCanEdit
-        self.canLinkItself = participantCanEdit
-        self.canLock = specificTypes && participantCanEdit
+        self.canFavorite = canApplyUneditableActions
+        self.canLinkItself = canApplyUneditableActions
+        self.canLock = specificTypes && canApplyUneditableActions
         self.canChangeIcon = DetailsLayout.layoutsWithIcon.contains(details.layoutValue) && canEdit
         self.canChangeCover = DetailsLayout.layoutsWithCover.contains(details.layoutValue) && canEdit
         self.canChangeLayout = DetailsLayout.layoutsWithChangeLayout.contains(details.layoutValue) && canEdit
