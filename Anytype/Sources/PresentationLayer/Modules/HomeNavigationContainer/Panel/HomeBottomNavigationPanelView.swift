@@ -17,17 +17,19 @@ struct HomeBottomNavigationPanelView: View {
             
             navigationButton
             
-            Image(asset: .X32.addNew)
-                .foregroundColor(.Navigation.buttonActive)
-                .onTapGesture {
-                    model.onTapNewObject()
-                }
-                .simultaneousGesture(
-                    LongPressGesture(minimumDuration: 0.3)
-                        .onEnded { _ in
-                            model.onPlusButtonLongtap()
-                        }
-                )
+            if model.canCreateObject {
+                Image(asset: .X32.addNew)
+                    .foregroundColor(.Navigation.buttonActive)
+                    .onTapGesture {
+                        model.onTapNewObject()
+                    }
+                    .simultaneousGesture(
+                        LongPressGesture(minimumDuration: 0.3)
+                            .onEnded { _ in
+                                model.onPlusButtonLongtap()
+                            }
+                    )
+            }
             
             if homeMode {
                 Button {
@@ -82,6 +84,9 @@ struct HomeBottomNavigationPanelView: View {
             )
         }
         .animation(.default, value: homeMode)
+        .task {
+            await model.onAppear()
+        }
     }
     
     @ViewBuilder
