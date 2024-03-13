@@ -68,7 +68,7 @@ final class AccountParticipantsStorage: AccountParticipantsStorageProtocol {
             SubscriptionData.Search(
                 identifier: subscriptionId,
                 filters: filters,
-                limit: 1,
+                limit: 0,
                 keys: Participant.subscriptionKeys.map { $0.rawValue }
             )
         )

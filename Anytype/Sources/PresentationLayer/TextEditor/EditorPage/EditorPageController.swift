@@ -535,7 +535,7 @@ private extension EditorPageController {
     
     @objc
     func tapOnListViewGestureRecognizerHandler() {
-        guard collectionView.isEditing && dividerCursorController.movingMode != .drum else { return }
+        guard collectionView.isEditing && !collectionView.isLocked && dividerCursorController.movingMode != .drum else { return }
         let location = self.listViewTapGestureRecognizer.location(in: collectionView)
         let cellIndexPath = collectionView.indexPathForItem(at: location)
         guard cellIndexPath == nil else { return }

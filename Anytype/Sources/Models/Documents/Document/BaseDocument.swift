@@ -244,6 +244,7 @@ final class BaseDocument: BaseDocumentProtocol {
     private func setupSubscriptions() async {
         await accountParticipantsStorage.permissionPublisher(spaceId: spaceId).sink { [weak self] permissions in
             self?.participantIsEditor = permissions.canEdit
+            self?.triggerSync(updates: [.general])
         }.store(in: &subscriptions)
     }
 }
