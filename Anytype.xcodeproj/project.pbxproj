@@ -483,7 +483,6 @@
 		2A673C0D29B0B2AA00E3D672 /* SettingsModuleAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A673C0C29B0B2AA00E3D672 /* SettingsModuleAssembly.swift */; };
 		2A673C0F29B0B39300E3D672 /* SettingsCoordinatorAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A673C0E29B0B39300E3D672 /* SettingsCoordinatorAssembly.swift */; };
 		2A673C1129B0BC3E00E3D672 /* SettingsModuleOutput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A673C1029B0BC3E00E3D672 /* SettingsModuleOutput.swift */; };
-		2A673C1529B0D78F00E3D672 /* SettingsAccountModuleAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A673C1429B0D78F00E3D672 /* SettingsAccountModuleAssembly.swift */; };
 		2A673C1729B0D7B700E3D672 /* SettingsAccountModuleOutput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A673C1629B0D7B700E3D672 /* SettingsAccountModuleOutput.swift */; };
 		2A673C1929B0D7CD00E3D672 /* SettingsAccountViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A673C1829B0D7CD00E3D672 /* SettingsAccountViewModel.swift */; };
 		2A673C1D29B0FA2800E3D672 /* AnytypeDismiss.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A673C1C29B0FA2800E3D672 /* AnytypeDismiss.swift */; };
@@ -2261,7 +2260,6 @@
 		2A673C0C29B0B2AA00E3D672 /* SettingsModuleAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsModuleAssembly.swift; sourceTree = "<group>"; };
 		2A673C0E29B0B39300E3D672 /* SettingsCoordinatorAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsCoordinatorAssembly.swift; sourceTree = "<group>"; };
 		2A673C1029B0BC3E00E3D672 /* SettingsModuleOutput.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsModuleOutput.swift; sourceTree = "<group>"; };
-		2A673C1429B0D78F00E3D672 /* SettingsAccountModuleAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsAccountModuleAssembly.swift; sourceTree = "<group>"; };
 		2A673C1629B0D7B700E3D672 /* SettingsAccountModuleOutput.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsAccountModuleOutput.swift; sourceTree = "<group>"; };
 		2A673C1829B0D7CD00E3D672 /* SettingsAccountViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsAccountViewModel.swift; sourceTree = "<group>"; };
 		2A673C1C29B0FA2800E3D672 /* AnytypeDismiss.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnytypeDismiss.swift; sourceTree = "<group>"; };
@@ -8174,7 +8172,6 @@
 			children = (
 				2A5A898B29C8650600C170D6 /* SettingsAccountView.swift */,
 				2A673C1829B0D7CD00E3D672 /* SettingsAccountViewModel.swift */,
-				2A673C1429B0D78F00E3D672 /* SettingsAccountModuleAssembly.swift */,
 				2A673C1629B0D7B700E3D672 /* SettingsAccountModuleOutput.swift */,
 			);
 			path = Account;
@@ -11691,7 +11688,6 @@
 				12FD9D2B2767180A00991886 /* RelationUnknown.swift in Sources */,
 				C91FAF5F2812C2510055BC4A /* AlertModel.swift in Sources */,
 				2AD7413729951C43004BD223 /* ApplicationCoordinatorAssembly.swift in Sources */,
-				2A673C1529B0D78F00E3D672 /* SettingsAccountModuleAssembly.swift in Sources */,
 				C9A4268C28489CC800F388FC /* SimpleTableBlockContentConfiguration.swift in Sources */,
 				2E9221A1294B8D4900968750 /* DataViewBlockView.swift in Sources */,
 				3DD0CEB92B90ACED00657402 /* MembershipLegalButton.swift in Sources */,

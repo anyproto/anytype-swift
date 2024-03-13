@@ -15,7 +15,6 @@ final class SettingsCoordinator: SettingsCoordinatorProtocol,
     private let navigationContext: NavigationContextProtocol
     private let settingsModuleAssembly: SettingsModuleAssemblyProtocol
     private let appearanceModuleAssembly: SettingsAppearanceModuleAssemblyProtocol
-    private let accountModuleAssembly: SettingsAccountModuleAssemblyProtocol
     private let keychainPhraseModuleAssembly: KeychainPhraseModuleAssemblyProtocol
     private let dashboardAlertsAssembly: DashboardAlertsAssemblyProtocol
     private let objectIconPickerModuleAssembly: ObjectIconPickerModuleAssemblyProtocol
@@ -31,7 +30,6 @@ final class SettingsCoordinator: SettingsCoordinatorProtocol,
         navigationContext: NavigationContextProtocol,
         settingsModuleAssembly: SettingsModuleAssemblyProtocol,
         appearanceModuleAssembly: SettingsAppearanceModuleAssemblyProtocol,
-        accountModuleAssembly: SettingsAccountModuleAssemblyProtocol,
         keychainPhraseModuleAssembly: KeychainPhraseModuleAssemblyProtocol,
         dashboardAlertsAssembly: DashboardAlertsAssemblyProtocol,
         objectIconPickerModuleAssembly: ObjectIconPickerModuleAssemblyProtocol,
@@ -45,7 +43,6 @@ final class SettingsCoordinator: SettingsCoordinatorProtocol,
         self.navigationContext = navigationContext
         self.settingsModuleAssembly = settingsModuleAssembly
         self.appearanceModuleAssembly = appearanceModuleAssembly
-        self.accountModuleAssembly = accountModuleAssembly
         self.keychainPhraseModuleAssembly = keychainPhraseModuleAssembly
         self.dashboardAlertsAssembly = dashboardAlertsAssembly
         self.objectIconPickerModuleAssembly = objectIconPickerModuleAssembly
@@ -84,8 +81,7 @@ final class SettingsCoordinator: SettingsCoordinatorProtocol,
     }
     
     func onAccountDataSelected() {
-        let module = accountModuleAssembly.make(output: self)
-        navigationContext.present(module)
+        navigationContext.present(SettingsAccountView(output: self))
     }
     
     func onChangeIconSelected(objectId: String) {

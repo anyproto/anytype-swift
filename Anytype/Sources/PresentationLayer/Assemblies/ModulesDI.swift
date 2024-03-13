@@ -110,10 +110,6 @@ final class ModulesDI: ModulesDIProtocol {
         return SettingsModuleAssembly(serviceLocator: serviceLocator)
     }
     
-    func settingsAccount() -> SettingsAccountModuleAssemblyProtocol {
-        return SettingsAccountModuleAssembly(serviceLocator: serviceLocator, uiHelpersDI: uiHelpersDI)
-    }
-    
     func fileStorage() -> FileStorageModuleAssemblyProtocol {
         return FileStorageModuleAssembly(serviceLocator: serviceLocator, uiHelpersDI: uiHelpersDI)
     }
