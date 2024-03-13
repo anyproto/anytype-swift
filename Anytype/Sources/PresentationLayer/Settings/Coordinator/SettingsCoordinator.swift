@@ -15,7 +15,6 @@ final class SettingsCoordinator: SettingsCoordinatorProtocol,
     private let navigationContext: NavigationContextProtocol
     private let settingsModuleAssembly: SettingsModuleAssemblyProtocol
     private let appearanceModuleAssembly: SettingsAppearanceModuleAssemblyProtocol
-    private let aboutModuleAssembly: AboutModuleAssemblyProtocol
     private let accountModuleAssembly: SettingsAccountModuleAssemblyProtocol
     private let keychainPhraseModuleAssembly: KeychainPhraseModuleAssemblyProtocol
     private let dashboardAlertsAssembly: DashboardAlertsAssemblyProtocol
@@ -32,7 +31,6 @@ final class SettingsCoordinator: SettingsCoordinatorProtocol,
         navigationContext: NavigationContextProtocol,
         settingsModuleAssembly: SettingsModuleAssemblyProtocol,
         appearanceModuleAssembly: SettingsAppearanceModuleAssemblyProtocol,
-        aboutModuleAssembly: AboutModuleAssemblyProtocol,
         accountModuleAssembly: SettingsAccountModuleAssemblyProtocol,
         keychainPhraseModuleAssembly: KeychainPhraseModuleAssemblyProtocol,
         dashboardAlertsAssembly: DashboardAlertsAssemblyProtocol,
@@ -47,7 +45,6 @@ final class SettingsCoordinator: SettingsCoordinatorProtocol,
         self.navigationContext = navigationContext
         self.settingsModuleAssembly = settingsModuleAssembly
         self.appearanceModuleAssembly = appearanceModuleAssembly
-        self.aboutModuleAssembly = aboutModuleAssembly
         self.accountModuleAssembly = accountModuleAssembly
         self.keychainPhraseModuleAssembly = keychainPhraseModuleAssembly
         self.dashboardAlertsAssembly = dashboardAlertsAssembly
@@ -83,8 +80,7 @@ final class SettingsCoordinator: SettingsCoordinatorProtocol,
     }
     
     func onAboutSelected() {
-        let model = aboutModuleAssembly.make(output: self)
-        navigationContext.present(model)
+        navigationContext.present(AboutView(output: self))
     }
     
     func onAccountDataSelected() {

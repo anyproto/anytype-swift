@@ -94,10 +94,6 @@ final class ModulesDI: ModulesDIProtocol {
         return WallpaperPickerModuleAssembly()
     }
     
-    func about() -> AboutModuleAssemblyProtocol {
-        return AboutModuleAssembly(serviceLocator: serviceLocator)
-    }
-    
     func personalization() -> PersonalizationModuleAssemblyProtocol {
         return PersonalizationModuleAssembly(serviceLocator: serviceLocator)
     }
