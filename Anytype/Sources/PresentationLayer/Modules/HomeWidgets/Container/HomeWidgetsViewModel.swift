@@ -59,9 +59,11 @@ final class HomeWidgetsViewModel: ObservableObject {
         setupInitialState()
     }
     
-    func onAppear() {}
-    
-    func onDisappear() {}
+    func startParticipantTask() async {
+        for await canEdit in accountParticipantStorage.canEditPublisher(spaceId: info.accountSpaceId).values {
+            stateManager.setHomeState(canEdit ? .readwrite : .readonly)
+        }
+    }
     
     func onEditButtonTap() {
         AnytypeAnalytics.instance().logEditWidget()
@@ -111,14 +113,7 @@ final class HomeWidgetsViewModel: ObservableObject {
             .receiveOnMain()
             .assign(to: &$homeState)
         
-        accountParticipantStorage.permissionPublisher(spaceId: info.accountSpaceId)
-            .map(\.canEdit)
-            .removeDuplicates()
-            .receiveOnMain()
-            .sink { [weak self] canEdit in
-                self?.stateManager.setHomeState(canEdit ? .readwrite : .readonly)
-            }
-            .store(in: &objectSubscriptions)
+
     }
     
     private func subscribeOnWallpaper() {

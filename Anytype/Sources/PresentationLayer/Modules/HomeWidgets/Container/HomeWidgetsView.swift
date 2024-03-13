@@ -39,11 +39,8 @@ struct HomeWidgetsView: View {
             model.bottomPanelProvider.view
                 .fitIPadToReadableContentGuide()
         }
-        .onAppear {
-            model.onAppear()
-        }
-        .onDisappear {
-            model.onDisappear()
+        .task {
+            await model.startParticipantTask()
         }
         .navigationBarHidden(true)
         .anytypeStatusBar(style: .lightContent)

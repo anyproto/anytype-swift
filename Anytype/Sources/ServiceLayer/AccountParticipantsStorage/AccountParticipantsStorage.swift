@@ -18,6 +18,10 @@ extension AccountParticipantsStorageProtocol {
     func permissionPublisher(spaceId: String) -> AnyPublisher<ParticipantPermissions, Never> {
         participantPublisher(spaceId: spaceId).map(\.permission).removeDuplicates().eraseToAnyPublisher()
     }
+    
+    func canEditPublisher(spaceId: String) -> AnyPublisher<Bool, Never> {
+        participantPublisher(spaceId: spaceId).map(\.permission.canEdit).removeDuplicates().eraseToAnyPublisher()
+    }
 }
 
 @MainActor

@@ -74,8 +74,8 @@ final class HomeBottomNavigationPanelViewModel: ObservableObject {
     }
     
     func onAppear() async {
-        for await permissions in accountParticipantStorage.permissionPublisher(spaceId: activeWorkpaceStorage.workspaceInfo.accountSpaceId).values {
-            canCreateObject = permissions.canEdit
+        for await canEdit in accountParticipantStorage.canEditPublisher(spaceId: activeWorkpaceStorage.workspaceInfo.accountSpaceId).values {
+            canCreateObject = canEdit
         }
     }
         
