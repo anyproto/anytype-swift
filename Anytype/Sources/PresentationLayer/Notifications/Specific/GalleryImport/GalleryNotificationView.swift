@@ -3,7 +3,7 @@ import SwiftUI
 
 struct GalleryNotificationView: View {
     
-    @StateObject var model: GalleryNotificationViewModel
+    @StateObject private var model: GalleryNotificationViewModel
     @Environment(\.notificationDismiss) private var dismiss
     
     init(notification: NotificationGalleryImport) {
