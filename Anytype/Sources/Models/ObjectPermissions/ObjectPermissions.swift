@@ -27,7 +27,7 @@ struct ObjectPermissions: Equatable {
         details: ObjectDetails,
         isLocked: Bool,
         participantCanEdit: Bool,
-        objectRestrictions: ObjectRestrictions
+        objectRestrictions: [ObjectRestriction]
     ) {
         let isArchive = details.isArchived
         let isTemplateType = details.isTemplateType
@@ -39,16 +39,16 @@ struct ObjectPermissions: Equatable {
                             && details.layoutValue != .collection
                             && details.layoutValue != .participant
         
-        self.canChangeType = !objectRestrictions.objectRestriction.contains(.typeChange) && canEdit && !isTemplateType
+        self.canChangeType = !objectRestrictions.contains(.typeChange) && canEdit && !isTemplateType
         self.canDelete = isArchive && participantCanEdit
         self.canTemplateSetAsDefault = isTemplateType && canEdit
-        self.canArchive = !objectRestrictions.objectRestriction.contains(.delete) && participantCanEdit
-        self.canDuplicate = !objectRestrictions.objectRestriction.contains(.duplicate) && canApplyUneditableActions
+        self.canArchive = !objectRestrictions.contains(.delete) && participantCanEdit
+        self.canDuplicate = !objectRestrictions.contains(.duplicate) && canApplyUneditableActions
         
         self.canUndoRedo = specificTypes && canEdit
         
         self.canMakeAsTemplate = details.canMakeTemplate
-                                && !objectRestrictions.objectRestriction.contains(.template)
+                                && !objectRestrictions.contains(.template)
                                 && canApplyUneditableActions
         
         self.canCreateWidget = details.isVisibleLayout
@@ -62,8 +62,8 @@ struct ObjectPermissions: Equatable {
         self.canChangeIcon = DetailsLayout.layoutsWithIcon.contains(details.layoutValue) && canEdit
         self.canChangeCover = DetailsLayout.layoutsWithCover.contains(details.layoutValue) && canEdit
         self.canChangeLayout = DetailsLayout.layoutsWithChangeLayout.contains(details.layoutValue) && canEdit
-        self.canEditRelationValues = canEdit && !objectRestrictions.objectRestriction.contains(.details)
-        self.canEditRelationsList = canEdit && !objectRestrictions.objectRestriction.contains(.relations)
+        self.canEditRelationValues = canEdit && !objectRestrictions.contains(.details)
+        self.canEditRelationsList = canEdit && !objectRestrictions.contains(.relations)
         self.canApplyTemplates = canEdit && !isTemplateType
         
         if isLocked {
@@ -72,12 +72,23 @@ struct ObjectPermissions: Equatable {
             self.editBlocks = .readonly(.archived)
         } else if !participantCanEdit {
             self.editBlocks = .readonly(.spaceIsReadonly)
-        } else if objectRestrictions.objectRestriction.contains(.blocks) {
+        } else if objectRestrictions.contains(.blocks) {
             self.editBlocks = .readonly(.restrictions)
         } else {
             self.editBlocks = .edit
         }
         
         self.canEditBlocks = editBlocks.canEdit
+    }
+}
+
+extension ObjectDetails {
+    func permissions(participantCanEdit: Bool) -> ObjectPermissions {
+        ObjectPermissions(
+            details: self,
+            isLocked: false,
+            participantCanEdit: participantCanEdit,
+            objectRestrictions: restrictionsList
+        )
     }
 }

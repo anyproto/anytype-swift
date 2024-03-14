@@ -66,7 +66,7 @@ final class BaseDocument: BaseDocumentProtocol {
             details: details ?? ObjectDetails(id: ""),
             isLocked: isLocked,
             participantCanEdit: participantIsEditor,
-            objectRestrictions: objectRestrictions
+            objectRestrictions: objectRestrictions.objectRestriction
         )
     }
     var permissionsPublisher: AnyPublisher<ObjectPermissions, Never> {

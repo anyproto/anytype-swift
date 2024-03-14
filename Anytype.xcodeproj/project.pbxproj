@@ -3820,6 +3820,7 @@
 		038FB5C922D8F32F002B90B8 /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				2AC5B3D02BA30070002584B8 /* ObjectPermissions */,
 				53D4089527ECCE9000495335 /* FieldConverters */,
 				5347854A2743C50C0097CA30 /* Relations */,
 				3D5A41652703170300F1F6A1 /* Blocks */,
@@ -4009,7 +4010,6 @@
 				3DE5121526728C0F00153962 /* BaseDocumentProtocol.swift */,
 				0A09661725C0AB4F00C004BD /* BaseDocument.swift */,
 				C92DCD96272998D800A03D91 /* BaseDocument+Extensions.swift */,
-				2A9C187D2BA18A2400DFE560 /* ObjectPermissions.swift */,
 				2A9C187F2BA1B76D00DFE560 /* EditBlocksPermission.swift */,
 			);
 			path = Document;
@@ -6464,6 +6464,14 @@
 				2A4DD28D2B8DFC32005D22CF /* SpaceParticipantRemoveView.swift */,
 			);
 			path = Subviews;
+			sourceTree = "<group>";
+		};
+		2AC5B3D02BA30070002584B8 /* ObjectPermissions */ = {
+			isa = PBXGroup;
+			children = (
+				2A9C187D2BA18A2400DFE560 /* ObjectPermissions.swift */,
+			);
+			path = ObjectPermissions;
 			sourceTree = "<group>";
 		};
 		2AC906BD29B5F7C600209E39 /* Common */ = {
