@@ -22,12 +22,24 @@ enum ObjectAction: Hashable, Identifiable {
     ) -> [Self] {
         .builder {
             
+            if permissions.canArchive {
+                ObjectAction.archive(isArchived: details.isArchived)
+            }
+            
+            if permissions.canCreateWidget {
+                ObjectAction.createWidget
+            }
+            
             if permissions.canFavorite {
                 ObjectAction.favorite(isFavorite: details.isFavorite)
             }
             
             if permissions.canDuplicate {
                 ObjectAction.duplicate
+            }
+            
+            if permissions.canUndoRedo {
+                ObjectAction.undoRedo
             }
             
             if permissions.canMakeAsTemplate {
@@ -38,24 +50,12 @@ enum ObjectAction: Hashable, Identifiable {
                 ObjectAction.templateSetAsDefault
             }
             
-            if permissions.canUndoRedo {
-                ObjectAction.undoRedo
-            }
-            
-            if permissions.canCreateWidget {
-                ObjectAction.createWidget
-            }
-            
             if permissions.canLinkItself {
                 ObjectAction.linkItself
             }
             
             if permissions.canLock {
                 ObjectAction.locked(isLocked: isLocked)
-            }
-            
-            if permissions.canArchive {
-                ObjectAction.archive(isArchived: details.isArchived)
             }
             
             if permissions.canDelete {
