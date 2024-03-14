@@ -896,7 +896,7 @@
 "SpaceShare.Status.Removing" = "Ha solicitado salir";
 "SpaceShare.Action.ViewRequest" = "Ver Solicitud";
 "SpaceShare.Action.Approve" = "Aprobar";
-"SpaceShare.Approve.Toast" = "You approved %@'s request.";
+"SpaceShare.Approve.Toast" = "Has aprobado la solicitud de %@.";
 "SpaceShare.ViewRequest.Title" = "%@ ha solicitado unirse al espacio %@";
 "SpaceShare.ViewRequest.ViewAccess" = "Conceder permiso de lectura";
 "SpaceShare.ViewRequest.EditAccess" = "Conceder permiso de edición ";
@@ -911,7 +911,7 @@
 "SpaceShare.Join.Message" = "Has sido invitado a unirte al espacio %@, creado por %@. Envía una solicitud para que el propietario del espacio pueda dejarte entrar.";
 "SpaceShare.JoinConfirmation.Title" = "Solicitud enviada";
 "SpaceShare.JoinConfirmation.Message" = "Recibirás una notificación cuando el propietario del espacio apruebe tu solicitud.";
-"SpaceShare.YouSuffix" = "%@ (you)";
+"SpaceShare.YouSuffix" = "%@ (tú)";
 
 // MARK: - Space manager
 "SpaceManager.CancelRequest" = "¿Cancelar solicitud?";
@@ -1002,7 +1002,7 @@
 "Submit" = "Enviar";
 "Resend" = "Reenviar";
 "Resend in" = "Reenviar en %@ seg";
-"Current" = "Current";
+"Current" = "Actual";
 "Forever free" = "Gratis para siempre";
 "Forever" = "Por siempre";
 "Valid until date" = "Válido hasta %@";
@@ -1011,8 +1011,8 @@
 "Paid by" = "Pagado por %@";
 "Myself" = "Yo mismo";
 "Pay by Card" = "Paga con tarjeta";
-"Details upon request" = "Details upon request";
-"Min X characters" = "Min %@ characters";
+"Details upon request" = "Detalles a petición";
+"Min X characters" = "Mín. %@ caracteres";
 
 
 "Membership.Ad.Title" = "Membresía";
@@ -1076,8 +1076,8 @@
 "Membership.CoCreator.Benefit4" = "Chatea con el equipo.";
 "Membership.CoCreator.Benefit5" = "Colectable único";
 
-"Membership.Custom.Title" = "Custom";
-"Membership.Custom.Subtitle" = "Membership tailored to your specific needs and preferences";
+"Membership.Custom.Title" = "Personalizado";
+"Membership.Custom.Subtitle" = "Membresía adaptada a sus necesidades y preferencias específicas";
 
 
 // MARK: - Debug

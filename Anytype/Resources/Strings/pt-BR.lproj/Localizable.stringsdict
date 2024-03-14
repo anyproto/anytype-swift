@@ -173,9 +173,9 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>d</string>
         <key>one</key>
-        <string>You can add one more member</string>
+        <string>Você pode adicionar mais um membro</string>
         <key>other</key>
-        <string>You can add %d more members</string>
+        <string>Você pode adicionar mais %d membros</string>
       </dict>
     </dict>
     <key>SpaceShare.Invite.MaxLimit</key>
@@ -185,13 +185,13 @@
       <key>object</key>
       <dict>
         <key>one</key>
-        <string>You have reached the limit of %d members. New members will not be able to join.</string>
+        <string>Você atingiu o limite de %d membros. Novos membros não poderão entrar.</string>
         <key>NSStringFormatSpecTypeKey</key>
         <string>NSStringPluralRuleType</string>
         <key>NSStringFormatValueTypeKey</key>
         <string>d</string>
         <key>other</key>
-        <string>You have reached the limit of %d members. New members will not be able to join.</string>
+        <string>Você atingiu o limite de %d membros. Novos membros não poderão entrar.</string>
       </dict>
     </dict>
   </dict>
