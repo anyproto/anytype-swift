@@ -94,6 +94,7 @@ final class EditorPageViewModel: EditorPageViewModelProtocol, EditorBottomNaviga
         }.store(in: &subscriptions)
         
         document.permissionsPublisher.sink { [weak self] permissions in
+            self?.handleTemplatesIfNeeded()
             self?.viewInput?.update(permissions: permissions)
             self?.blocksStateManager.checkOpenedState()
         }.store(in: &subscriptions)
