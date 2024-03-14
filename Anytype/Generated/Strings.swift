@@ -1585,6 +1585,12 @@ internal enum Loc {
     /// Search or install a new type
     internal static let searchOrInstall = Loc.tr("Localizable", "ObjectType.SearchOrInstall", fallback: "Search or install a new type")
   }
+  internal enum PermissionChangeNotification {
+    /// Your access rights were changed to **%@** in the **%@** space.
+    internal static func text(_ p1: Any, _ p2: Any) -> String {
+      return Loc.tr("Localizable", "PermissionChangeNotification.Text", String(describing: p1), String(describing: p2), fallback: "Your access rights were changed to **%@** in the **%@** space.")
+    }
+  }
   internal enum QuickAction {
     /// Create %@
     internal static func create(_ p1: Any) -> String {
@@ -2255,6 +2261,12 @@ internal enum Loc {
       internal static let reader = Loc.tr("Localizable", "SpaceShare.Permissions.Reader", fallback: "Viewer")
       /// Editor
       internal static let writer = Loc.tr("Localizable", "SpaceShare.Permissions.Writer", fallback: "Editor")
+      internal enum Grand {
+        /// Edit
+        internal static let edit = Loc.tr("Localizable", "SpaceShare.Permissions.Grand.Edit", fallback: "Edit")
+        /// View
+        internal static let view = Loc.tr("Localizable", "SpaceShare.Permissions.Grand.View", fallback: "View")
+      }
     }
     internal enum RemoveMember {
       /// %@ will be removed from the space.
