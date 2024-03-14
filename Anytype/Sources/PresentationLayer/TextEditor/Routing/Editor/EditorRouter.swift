@@ -490,10 +490,6 @@ final class EditorRouter: NSObject, EditorRouterProtocol, ObjectSettingsCoordina
             }
         )
     }
-    
-    func dismissAllPresented() {
-        navigationContext.dismissAllPresented(animated: true, completion: nil)
-    }
 
     // MARK: - Private
     

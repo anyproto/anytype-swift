@@ -99,14 +99,6 @@ final class EditorPageViewModel: EditorPageViewModelProtocol, EditorBottomNaviga
             self?.blocksStateManager.checkOpenedState()
         }.store(in: &subscriptions)
         
-        // Dismiss all modal screns when access changed. Because user can edit relation, cover or other.
-        document.permissionsPublisher
-            .map { $0.canEditBlocks }
-            .removeDuplicates()
-            .sink { [weak self] _ in
-                self?.router.dismissAllPresented()
-        }.store(in: &subscriptions)
-        
         headerModel.$header.sink { [weak self] value in
             guard let headerModel = value else { return }
             self?.updateHeaderIfNeeded(headerModel: headerModel)
