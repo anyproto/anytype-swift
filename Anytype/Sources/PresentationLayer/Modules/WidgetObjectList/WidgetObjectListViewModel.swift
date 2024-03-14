@@ -28,14 +28,14 @@ final class WidgetObjectListViewModel: ObservableObject, OptionsItemProvider, Wi
     var title: String { internalModel.title }
     var editorScreenData: EditorScreenData { internalModel.editorScreenData }
     @Published private(set) var data: WidgetObjectListData = .list([])
-    var editModel: WidgetObjectListEditMode { internalModel.editMode }
+    @Published private(set) var editMode: WidgetObjectListEditMode = .normal(allowDnd: false)
     @Published private(set) var selectButtonText: String = ""
     @Published private(set) var showActionPanel: Bool = false
     @Published private(set) var homeBottomPanelHiddel: Bool = false
     var contentIsNotEmpty: Bool { rowDetails.contains { $0.details.isNotEmpty } }
     var isSheet: Bool
     @Published var viewEditMode: EditMode = .inactive
-    @Published var canEdit = false
+    @Published private(set) var canEdit = false
     
     private var rowDetails: [WidgetObjectListDetailsData] = []
     private var searchText: String?
@@ -86,9 +86,10 @@ final class WidgetObjectListViewModel: ObservableObject, OptionsItemProvider, Wi
     }
     
     func startParticipantTask() async {
-        for await canEdit in accountParticipantStorage.canEditPublisher(spaceId: activeWorkspaceStorage.workspaceInfo.accountSpaceId).values {
-            self.canEdit = canEdit
-            viewEditMode = (internalModel.editMode == .editOnly) ? .active : .inactive
+        for await newCanEdit in accountParticipantStorage.canEditPublisher(spaceId: activeWorkspaceStorage.workspaceInfo.accountSpaceId).values {
+            canEdit = newCanEdit
+            editMode = canEdit ? internalModel.editMode : .normal(allowDnd: false)
+            viewEditMode = (editMode == .editOnly) ? .active : .inactive
         }
     }
     

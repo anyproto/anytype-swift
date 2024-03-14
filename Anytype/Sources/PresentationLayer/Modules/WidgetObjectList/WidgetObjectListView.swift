@@ -73,7 +73,7 @@ struct WidgetObjectListView: View {
     @ViewBuilder
     private var editButton: some View {
         if model.contentIsNotEmpty, model.canEdit {
-            switch model.editModel {
+            switch model.editMode {
             case .normal:
                 EditButton()
                     .foregroundColor(Color.Button.active)
@@ -100,7 +100,7 @@ struct WidgetObjectListView: View {
     }
     
     private var allowDnd: Bool {
-        switch model.editModel {
+        switch model.editMode {
         case let .normal(allowDnd):
             return allowDnd
         case .editOnly:
