@@ -78,6 +78,7 @@ protocol EditorRouterProtocol:
     )
     
     func showFailureToast(message: String)
+    func dismissAllPresented()
     
     @MainActor
     func showTemplatesPicker()
