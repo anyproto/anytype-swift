@@ -26,6 +26,9 @@ struct WidgetObjectListView: View {
         .onDisappear() {
             model.onDisappear()
         }
+        .task {
+            await model.startParticipantTask()
+        }
         .onChange(of: searchText) { model.didAskToSearch(text: $0) }
         .onChange(of: model.viewEditMode) { _ in model.onSwitchEditMode() }
         .navigationBarTitle("")
@@ -69,7 +72,7 @@ struct WidgetObjectListView: View {
     
     @ViewBuilder
     private var editButton: some View {
-        if model.contentIsNotEmpty {
+        if model.contentIsNotEmpty, model.canEdit {
             switch model.editModel {
             case .normal:
                 EditButton()

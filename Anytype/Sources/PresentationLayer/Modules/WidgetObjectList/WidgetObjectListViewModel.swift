@@ -17,6 +17,8 @@ final class WidgetObjectListViewModel: ObservableObject, OptionsItemProvider, Wi
     
     private let internalModel: WidgetObjectListInternalViewModelProtocol
     private let objectActionService: ObjectActionsServiceProtocol
+    private let activeWorkspaceStorage: ActiveWorkpaceStorageProtocol
+    private let accountParticipantStorage: AccountParticipantsStorageProtocol
     private let menuBuilder: WidgetObjectListMenuBuilderProtocol
     private let alertOpener: AlertOpenerProtocol
     private weak var output: WidgetObjectListCommonModuleOutput?
@@ -32,7 +34,8 @@ final class WidgetObjectListViewModel: ObservableObject, OptionsItemProvider, Wi
     @Published private(set) var homeBottomPanelHiddel: Bool = false
     var contentIsNotEmpty: Bool { rowDetails.contains { $0.details.isNotEmpty } }
     var isSheet: Bool
-    @Published var viewEditMode: EditMode
+    @Published var viewEditMode: EditMode = .inactive
+    @Published var canEdit = false
     
     private var rowDetails: [WidgetObjectListDetailsData] = []
     private var searchText: String?
@@ -49,6 +52,8 @@ final class WidgetObjectListViewModel: ObservableObject, OptionsItemProvider, Wi
     init(
         internalModel: WidgetObjectListInternalViewModelProtocol,
         objectActionService: ObjectActionsServiceProtocol,
+        activeWorkspaceStorage: ActiveWorkpaceStorageProtocol,
+        accountParticipantStorage: AccountParticipantsStorageProtocol,
         menuBuilder: WidgetObjectListMenuBuilderProtocol,
         alertOpener: AlertOpenerProtocol,
         output: WidgetObjectListCommonModuleOutput?,
@@ -56,11 +61,12 @@ final class WidgetObjectListViewModel: ObservableObject, OptionsItemProvider, Wi
     ) {
         self.internalModel = internalModel
         self.objectActionService = objectActionService
+        self.activeWorkspaceStorage = activeWorkspaceStorage
+        self.accountParticipantStorage = accountParticipantStorage
         self.menuBuilder = menuBuilder
         self.alertOpener = alertOpener
         self.output = output
         self.isSheet = isSheet
-        self.viewEditMode = (internalModel.editMode == .editOnly) ? .active : .inactive
         internalModel.rowDetailsPublisher
             .receiveOnMain()
             .sink { [weak self] data in
@@ -77,6 +83,13 @@ final class WidgetObjectListViewModel: ObservableObject, OptionsItemProvider, Wi
     
     func onDisappear() {
         internalModel.onDisappear()
+    }
+    
+    func startParticipantTask() async {
+        for await canEdit in accountParticipantStorage.canEditPublisher(spaceId: activeWorkspaceStorage.workspaceInfo.accountSpaceId).values {
+            self.canEdit = canEdit
+            viewEditMode = (internalModel.editMode == .editOnly) ? .active : .inactive
+        }
     }
     
     func didAskToSearch(text: String) {
