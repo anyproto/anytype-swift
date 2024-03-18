@@ -63,6 +63,9 @@ final class NotificationCoordinator: NotificationCoordinatorProtocol {
         case .participantRequestDecline(let data):
             let view = ParticipantDeclineNotificationView(notification: NotificationParticipantRequestDecline(common: notification, requestDecline: data))
             show(view: view)
+        case .requestToLeave(let data):
+            let view = RequestToLeaveNotificationView(notification: NotificationRequestToLeave(common: notification, requestToLeave: data))
+            show(view: view)
         default:
             break
         }

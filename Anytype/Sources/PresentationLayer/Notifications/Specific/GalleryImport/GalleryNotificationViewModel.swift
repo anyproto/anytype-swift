@@ -18,6 +18,7 @@ final class GalleryNotificationViewModel: ObservableObject {
     private var subscription: AnyCancellable?
     
     @Published var title: String = ""
+    @Published var dismiss = false
     
     init(
         notification: NotificationGalleryImport
@@ -29,10 +30,9 @@ final class GalleryNotificationViewModel: ObservableObject {
         }
     }
     
-    func onTapSpace() {
-        Task {
-            try await activeWorkspaceStorage.setActiveSpace(spaceId: notification.galleryImport.spaceID)
-        }
+    func onTapSpace() async throws {
+        try await activeWorkspaceStorage.setActiveSpace(spaceId: notification.galleryImport.spaceID)
+        dismiss.toggle()
     }
     
     private func startHandle() async {

@@ -1811,6 +1811,12 @@ internal enum Loc {
     /// Older
     internal static let older = Loc.tr("Localizable", "RelativeFormatter.older", fallback: "Older")
   }
+  internal enum RequestToLeaveNotification {
+    /// **%@** wants to leave the **%@** space.
+    internal static func text(_ p1: Any, _ p2: Any) -> String {
+      return Loc.tr("Localizable", "RequestToLeaveNotification.Text", String(describing: p1), String(describing: p2), fallback: "**%@** wants to leave the **%@** space.")
+    }
+  }
   internal enum Scanner {
     internal enum Error {
       /// Scanning not supported

@@ -13,9 +13,9 @@ struct GalleryNotificationView: View {
     var body: some View {
         TopNotificationView(title: model.title, buttons: [
             TopNotificationButton(title: Loc.Gallery.Notification.button, action: {
-                model.onTapSpace()
-                dismiss()
+                try await model.onTapSpace()
             })
         ])
+        .onChange(of: model.dismiss) { _ in dismiss() }
     }
 }
