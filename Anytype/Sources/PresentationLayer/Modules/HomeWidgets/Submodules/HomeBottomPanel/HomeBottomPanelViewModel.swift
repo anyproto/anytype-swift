@@ -18,7 +18,7 @@ final class HomeBottomPanelViewModel: ObservableObject {
     
     // MARK: - Public properties
     
-    @Published var isEditState: Bool = false
+    @Published var homeState: HomeWidgetsState = .readonly
     
     init(
         stateManager: HomeWidgetsStateManagerProtocol,
@@ -35,15 +35,15 @@ final class HomeBottomPanelViewModel: ObservableObject {
     }
     
     func onTapDone() {
-        stateManager.setEditState(false)
+        stateManager.setHomeState(.readwrite)
     }
     
     // MARK: - Private
     
     private func setupDataSubscription() {
-        stateManager.isEditStatePublisher
+        stateManager.homeStatePublisher
             .receiveOnMain()
-            .sink { [weak self] in self?.isEditState = $0 }
+            .sink { [weak self] in self?.homeState = $0 }
             .store(in: &dataSubscriptions)
     }
 }

@@ -896,7 +896,7 @@
 "SpaceShare.Status.Removing" = "Pengeluaran diminta";
 "SpaceShare.Action.ViewRequest" = "Lihat Permintaan";
 "SpaceShare.Action.Approve" = "Terima";
-"SpaceShare.Approve.Toast" = "You approved %@'s request.";
+"SpaceShare.Approve.Toast" = "Kamu menyetujui permintaan %@.";
 "SpaceShare.ViewRequest.Title" = "%@ meminta bergabung ke ruang %@";
 "SpaceShare.ViewRequest.ViewAccess" = "Izinkan akses baca";
 "SpaceShare.ViewRequest.EditAccess" = "Izinkan akses sunting";
@@ -911,7 +911,7 @@
 "SpaceShare.Join.Message" = "Kamu diundang untuk bergabung dengan ruang %@ buatan %@. Kirimkan permintaan supaya pemilik ruang dapat mengizinkanmu bergabung.";
 "SpaceShare.JoinConfirmation.Title" = "Permintaan terkirim";
 "SpaceShare.JoinConfirmation.Message" = "Kamu akan menerima pemberitahuan ketika pemilik ruang menyetujui permintaanmu.";
-"SpaceShare.YouSuffix" = "%@ (you)";
+"SpaceShare.YouSuffix" = "%@ (kamu)";
 
 // MARK: - Space manager
 "SpaceManager.CancelRequest" = "Batalkan permintaan";
@@ -1012,7 +1012,7 @@
 "Myself" = "Aku sendiri";
 "Pay by Card" = "Bayar via kartu";
 "Details upon request" = "Details upon request";
-"Min X characters" = "Min %@ characters";
+"Min X characters" = "Minimal %@ karakter";
 
 
 "Membership.Ad.Title" = "Langganan";

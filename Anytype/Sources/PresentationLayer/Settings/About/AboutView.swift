@@ -2,7 +2,11 @@ import SwiftUI
 
 struct AboutView: View {
     
-    @ObservedObject var model: AboutViewModel
+    @StateObject private var model: AboutViewModel
+    
+    init(output: AboutModuleOutput?) {
+        _model = StateObject(wrappedValue: AboutViewModel(output: output))
+    }
     
     var body: some View {
         VStack(spacing: 0) {

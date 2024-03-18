@@ -2,8 +2,12 @@ import SwiftUI
 import AnytypeCore
 
 struct SettingsAccountView: View {
-    @ObservedObject var model: SettingsAccountViewModel
+    @StateObject private var model: SettingsAccountViewModel
 
+    init(output: SettingsAccountModuleOutput?) {
+        _model = StateObject(wrappedValue: SettingsAccountViewModel(output: output))
+    }
+    
     var body: some View {
         VStack(spacing: 0) {
             header

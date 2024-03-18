@@ -23,6 +23,15 @@ extension ParticipantPermissions {
             return Loc.SpaceShare.Permissions.Grand.edit
         }
     }
+
+    var canEdit: Bool {
+        switch self {
+        case .reader, .noPermissions, .UNRECOGNIZED:
+            return false
+        case .writer, .owner:
+            return true
+        }
+    }
 }
 
 extension Participant {

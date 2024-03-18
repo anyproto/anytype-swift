@@ -86,7 +86,7 @@ struct SetHeaderSettings_Previews: PreviewProvider {
         SetHeaderSettingsView(
             model: SetHeaderSettingsViewModel(
                 setDocument: SetDocument(
-                    document: MockBaseDocument(),
+                    document: DI.preview.serviceLocator.documentsProvider.document(objectId: "", forPreview: false),
                     inlineParameters: nil,
                     relationDetailsStorage: DI.preview.serviceLocator.relationDetailsStorage(),
                     objectTypeProvider: DI.preview.serviceLocator.objectTypeProvider()

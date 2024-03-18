@@ -9,20 +9,18 @@ final class ObjectActionsViewModel: ObservableObject {
     var onLinkItselfToObjectHandler: RoutingAction<EditorScreenData>?
     
     var objectActions: [ObjectAction] {
-        guard let details = details else { return [] }
+        guard let details = details, let permissions = permissions else { return [] }
 
         return ObjectAction.allCasesWith(
             details: details,
-            objectRestrictions: objectRestrictions,
             isLocked: isLocked,
-            isArchived: isArchived
+            permissions: permissions
         )
     }
     
     @Published var details: ObjectDetails?
-    @Published var objectRestrictions: ObjectRestrictions = ObjectRestrictions()
+    @Published var permissions: ObjectPermissions?
     @Published var isLocked: Bool = false
-    @Published var isArchived: Bool = false
     @Published var toastData = ToastBarData.empty
     
     var onLinkItselfAction: RoutingAction<(String) -> Void>?
@@ -90,6 +88,7 @@ final class ObjectActionsViewModel: ObservableObject {
     }
 
     func changeLockState() {
+        guard let details = details else { return }
         Task {
             AnytypeAnalytics.instance().logLockPage(!isLocked)
             try await service.setLocked(!isLocked, objectId: objectId)

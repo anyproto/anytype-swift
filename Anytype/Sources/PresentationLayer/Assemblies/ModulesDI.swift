@@ -94,10 +94,6 @@ final class ModulesDI: ModulesDIProtocol {
         return WallpaperPickerModuleAssembly()
     }
     
-    func about() -> AboutModuleAssemblyProtocol {
-        return AboutModuleAssembly(serviceLocator: serviceLocator)
-    }
-    
     func personalization() -> PersonalizationModuleAssemblyProtocol {
         return PersonalizationModuleAssembly(serviceLocator: serviceLocator)
     }
@@ -112,10 +108,6 @@ final class ModulesDI: ModulesDIProtocol {
     
     func settings() -> SettingsModuleAssemblyProtocol {
         return SettingsModuleAssembly(serviceLocator: serviceLocator)
-    }
-    
-    func settingsAccount() -> SettingsAccountModuleAssemblyProtocol {
-        return SettingsAccountModuleAssembly(serviceLocator: serviceLocator, uiHelpersDI: uiHelpersDI)
     }
     
     func fileStorage() -> FileStorageModuleAssemblyProtocol {
