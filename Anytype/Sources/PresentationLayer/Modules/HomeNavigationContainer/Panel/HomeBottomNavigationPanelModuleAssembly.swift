@@ -26,6 +26,7 @@ final class HomeBottomNavigationPanelModuleAssembly: HomeBottomNavigationPanelMo
                 subscriptionService: self.serviceLocator.singleObjectSubscriptionService(),
                 defaultObjectService: self.serviceLocator.defaultObjectCreationService(),
                 processSubscriptionService: self.serviceLocator.processSubscriptionService(),
+                accountParticipantStorage: self.serviceLocator.accountParticipantStorage(),
                 output: output
             )
         ).eraseToAnyView()

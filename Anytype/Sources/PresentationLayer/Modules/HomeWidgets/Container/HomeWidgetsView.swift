@@ -25,8 +25,8 @@ struct HomeWidgetsView: View {
                         HomeEditButton(text: Loc.Widgets.Actions.editWidgets) {
                             model.onEditButtonTap()
                         }
-                        .opacity(model.hideEditButton ? 0 : 1)
-                        .animation(.default, value: model.hideEditButton)
+                        .opacity(model.homeState.isReadWrite ? 1 : 0)
+                        .animation(.default, value: model.homeState)
                     }
                     AnytypeNavigationSpacer()
                 }
@@ -39,16 +39,13 @@ struct HomeWidgetsView: View {
             model.bottomPanelProvider.view
                 .fitIPadToReadableContentGuide()
         }
-        .onAppear {
-            model.onAppear()
-        }
-        .onDisappear {
-            model.onDisappear()
+        .task {
+            await model.startParticipantTask()
         }
         .navigationBarHidden(true)
         .anytypeStatusBar(style: .lightContent)
         .ignoresSafeArea(.keyboard, edges: .bottom)
-        .homeBottomPanelHidden(model.hideEditButton)
+        .homeBottomPanelHidden(model.homeState.isEditWidgets)
         .anytypeVerticalDrop(data: model.models, state: $dndState) { from, to in
             model.dropUpdate(from: from, to: to)
         } dropFinish: { from, to in
