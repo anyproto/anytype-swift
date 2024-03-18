@@ -451,6 +451,10 @@
 		2A5EC7802B7D166F00DD7D89 /* InviteLinkView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A5EC77F2B7D166F00DD7D89 /* InviteLinkView.swift */; };
 		2A617BCA2A49960500725152 /* Document+WidgetTargetSubscriptions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A617BC92A49960400725152 /* Document+WidgetTargetSubscriptions.swift */; };
 		2A617BCC2A49E5B400725152 /* BlockWidget+Limits.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A617BCB2A49E5B400725152 /* BlockWidget+Limits.swift */; };
+		2A62B7132BA83942001EAD28 /* ParticipantApproveNotificationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A62B7122BA83942001EAD28 /* ParticipantApproveNotificationView.swift */; };
+		2A62B7152BA83965001EAD28 /* ParticipantApproveNotificationViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A62B7142BA83965001EAD28 /* ParticipantApproveNotificationViewModel.swift */; };
+		2A62B7192BA83AD6001EAD28 /* ParticipantDeclineNotificationViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A62B7172BA83AD6001EAD28 /* ParticipantDeclineNotificationViewModel.swift */; };
+		2A62B71A2BA83AD6001EAD28 /* ParticipantDeclineNotificationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A62B7182BA83AD6001EAD28 /* ParticipantDeclineNotificationView.swift */; };
 		2A6476452B95B8A800389E62 /* SpaceMembersView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A6476442B95B8A800389E62 /* SpaceMembersView.swift */; };
 		2A6476472B95B8B400389E62 /* SpaceMembersViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A6476462B95B8B400389E62 /* SpaceMembersViewModel.swift */; };
 		2A64B6BB2B3DD54D000316E2 /* ObjectActionsServiceError+Localization.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A64B6BA2B3DD54D000316E2 /* ObjectActionsServiceError+Localization.swift */; };
@@ -2227,6 +2231,10 @@
 		2A5EC77F2B7D166F00DD7D89 /* InviteLinkView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InviteLinkView.swift; sourceTree = "<group>"; };
 		2A617BC92A49960400725152 /* Document+WidgetTargetSubscriptions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Document+WidgetTargetSubscriptions.swift"; sourceTree = "<group>"; };
 		2A617BCB2A49E5B400725152 /* BlockWidget+Limits.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "BlockWidget+Limits.swift"; sourceTree = "<group>"; };
+		2A62B7122BA83942001EAD28 /* ParticipantApproveNotificationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ParticipantApproveNotificationView.swift; sourceTree = "<group>"; };
+		2A62B7142BA83965001EAD28 /* ParticipantApproveNotificationViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ParticipantApproveNotificationViewModel.swift; sourceTree = "<group>"; };
+		2A62B7172BA83AD6001EAD28 /* ParticipantDeclineNotificationViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ParticipantDeclineNotificationViewModel.swift; sourceTree = "<group>"; };
+		2A62B7182BA83AD6001EAD28 /* ParticipantDeclineNotificationView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ParticipantDeclineNotificationView.swift; sourceTree = "<group>"; };
 		2A6476442B95B8A800389E62 /* SpaceMembersView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpaceMembersView.swift; sourceTree = "<group>"; };
 		2A6476462B95B8B400389E62 /* SpaceMembersViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpaceMembersViewModel.swift; sourceTree = "<group>"; };
 		2A64B6BA2B3DD54D000316E2 /* ObjectActionsServiceError+Localization.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ObjectActionsServiceError+Localization.swift"; sourceTree = "<group>"; };
@@ -5765,6 +5773,24 @@
 			path = Helpers;
 			sourceTree = "<group>";
 		};
+		2A62B7112BA8392C001EAD28 /* ParticipantApprove */ = {
+			isa = PBXGroup;
+			children = (
+				2A62B7122BA83942001EAD28 /* ParticipantApproveNotificationView.swift */,
+				2A62B7142BA83965001EAD28 /* ParticipantApproveNotificationViewModel.swift */,
+			);
+			path = ParticipantApprove;
+			sourceTree = "<group>";
+		};
+		2A62B7162BA83ABE001EAD28 /* ParticipantDecline */ = {
+			isa = PBXGroup;
+			children = (
+				2A62B7182BA83AD6001EAD28 /* ParticipantDeclineNotificationView.swift */,
+				2A62B7172BA83AD6001EAD28 /* ParticipantDeclineNotificationViewModel.swift */,
+			);
+			path = ParticipantDecline;
+			sourceTree = "<group>";
+		};
 		2A6476432B95B88F00389E62 /* SpceMembers */ = {
 			isa = PBXGroup;
 			children = (
@@ -6535,6 +6561,8 @@
 		2ACA299C2B712F44009CD054 /* Specific */ = {
 			isa = PBXGroup;
 			children = (
+				2A62B7162BA83ABE001EAD28 /* ParticipantDecline */,
+				2A62B7112BA8392C001EAD28 /* ParticipantApprove */,
 				2AC5B3D12BA337F3002584B8 /* ParticipantPermissionChange */,
 				2ACA299F2B712F73009CD054 /* GalleryImport */,
 			);
@@ -11066,6 +11094,7 @@
 				1247BC6227FCA033005F2DB4 /* AddNewRelationCoordinator.swift in Sources */,
 				1247BC7E27FDEAAB005F2DB4 /* NewRelationRestrictionsSectionView.swift in Sources */,
 				3D93854C26FC3BB3001C137F /* UserDefaultsConfig.swift in Sources */,
+				2A62B7192BA83AD6001EAD28 /* ParticipantDeclineNotificationViewModel.swift in Sources */,
 				1211AF7927F4A79800BACB88 /* ImageCornersGuidelineRadius.swift in Sources */,
 				120E818726A0546F006FE84E /* ObjectCoverPickerViewModel.swift in Sources */,
 				2AA8107629A3BF90007DD64B /* WidgetObjectListMenuItem.swift in Sources */,
@@ -11090,6 +11119,7 @@
 				EA3D1E5626CFCE58001A31D9 /* LinkAttributeSelectionHandler.swift in Sources */,
 				2EE6160E2B6CFEBD000236A8 /* SelectRelationListStyle.swift in Sources */,
 				2AA8107A29A3D329007DD64B /* ListSectionData.swift in Sources */,
+				2A62B71A2BA83AD6001EAD28 /* ParticipantDeclineNotificationView.swift in Sources */,
 				2AD98618289AA23900F5DF73 /* SelectionOptionsViewModel.swift in Sources */,
 				2AFCEB3729C89A7B00841E13 /* CollectionsWidgetInternalViewModel.swift in Sources */,
 				2ABFED9628C9DAA4008B5C03 /* RelationDetails+Extensions.swift in Sources */,
@@ -11587,6 +11617,7 @@
 				2AF4260129AF3A6000753B17 /* SettingsAppearanceViewModel.swift in Sources */,
 				2EDC2AFD2A125C6A0065E009 /* JoinFlowStep.swift in Sources */,
 				12B691D227F4CB5D00A0C336 /* ImageGuideline.swift in Sources */,
+				2A62B7132BA83942001EAD28 /* ParticipantApproveNotificationView.swift in Sources */,
 				C9E939D428538B600089CB98 /* TextBlockActionHandler.swift in Sources */,
 				12FD9D29276717CF00991886 /* RelationTag.swift in Sources */,
 				53D4088827EC9EFE00495335 /* ObjectPreviewView.swift in Sources */,
@@ -11622,6 +11653,7 @@
 				53F7447627F71789005C9BB0 /* CheckPopupItem.swift in Sources */,
 				12DE4056264AE455007B5074 /* StackedLayout.swift in Sources */,
 				2A5B53B32A80DBAA00BC993B /* SpaceSettingsViewModel.swift in Sources */,
+				2A62B7152BA83965001EAD28 /* ParticipantApproveNotificationViewModel.swift in Sources */,
 				C99DCE95283B6D1F0051F99D /* TemplatePickerView.swift in Sources */,
 				120F7D44267CD1AC00327734 /* ObjectCoverPicker.swift in Sources */,
 				531F0DEA283CCD8D000A0B31 /* Debouncer.swift in Sources */,
