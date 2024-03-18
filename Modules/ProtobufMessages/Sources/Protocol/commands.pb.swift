@@ -2068,6 +2068,9 @@ public struct Anytype_Rpc {
         /// in case of mnemonic auth, need to be persisted by client
         public var appToken: String = String()
 
+        /// temp, should be replaced with AccountInfo message
+        public var accountID: String = String()
+
         public var unknownFields = SwiftProtobuf.UnknownStorage()
 
         public struct Error {
@@ -9740,6 +9743,7 @@ public struct Anytype_Rpc {
             case importIsCanceled // = 6
             case limitOfRowsOrRelationsExceeded // = 7
             case fileLoadError // = 8
+            case insufficientPermissions // = 9
             case UNRECOGNIZED(Int)
 
             public init() {
@@ -9756,6 +9760,7 @@ public struct Anytype_Rpc {
               case 6: self = .importIsCanceled
               case 7: self = .limitOfRowsOrRelationsExceeded
               case 8: self = .fileLoadError
+              case 9: self = .insufficientPermissions
               default: self = .UNRECOGNIZED(rawValue)
               }
             }
@@ -9770,6 +9775,7 @@ public struct Anytype_Rpc {
               case .importIsCanceled: return 6
               case .limitOfRowsOrRelationsExceeded: return 7
               case .fileLoadError: return 8
+              case .insufficientPermissions: return 9
               case .UNRECOGNIZED(let i): return i
               }
             }
@@ -10246,6 +10252,7 @@ public struct Anytype_Rpc {
             case null // = 0
             case unknownError // = 1
             case badInput // = 2
+            case insufficientPermission // = 3
             case UNRECOGNIZED(Int)
 
             public init() {
@@ -10257,6 +10264,7 @@ public struct Anytype_Rpc {
               case 0: self = .null
               case 1: self = .unknownError
               case 2: self = .badInput
+              case 3: self = .insufficientPermission
               default: self = .UNRECOGNIZED(rawValue)
               }
             }
@@ -10266,6 +10274,7 @@ public struct Anytype_Rpc {
               case .null: return 0
               case .unknownError: return 1
               case .badInput: return 2
+              case .insufficientPermission: return 3
               case .UNRECOGNIZED(let i): return i
               }
             }
@@ -27240,6 +27249,7 @@ extension Anytype_Rpc.Object.Import.Response.Error.Code: CaseIterable {
     .importIsCanceled,
     .limitOfRowsOrRelationsExceeded,
     .fileLoadError,
+    .insufficientPermissions,
   ]
 }
 
@@ -27305,6 +27315,7 @@ extension Anytype_Rpc.Object.ImportExperience.Response.Error.Code: CaseIterable 
     .null,
     .unknownError,
     .badInput,
+    .insufficientPermission,
   ]
 }
 
@@ -32876,6 +32887,7 @@ extension Anytype_Rpc.Wallet.CreateSession.Response: SwiftProtobuf.Message, Swif
     1: .same(proto: "error"),
     2: .same(proto: "token"),
     3: .same(proto: "appToken"),
+    4: .same(proto: "accountId"),
   ]
 
   public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
@@ -32887,6 +32899,7 @@ extension Anytype_Rpc.Wallet.CreateSession.Response: SwiftProtobuf.Message, Swif
       case 1: try { try decoder.decodeSingularMessageField(value: &self._error) }()
       case 2: try { try decoder.decodeSingularStringField(value: &self.token) }()
       case 3: try { try decoder.decodeSingularStringField(value: &self.appToken) }()
+      case 4: try { try decoder.decodeSingularStringField(value: &self.accountID) }()
       default: break
       }
     }
@@ -32906,6 +32919,9 @@ extension Anytype_Rpc.Wallet.CreateSession.Response: SwiftProtobuf.Message, Swif
     if !self.appToken.isEmpty {
       try visitor.visitSingularStringField(value: self.appToken, fieldNumber: 3)
     }
+    if !self.accountID.isEmpty {
+      try visitor.visitSingularStringField(value: self.accountID, fieldNumber: 4)
+    }
     try unknownFields.traverse(visitor: &visitor)
   }
 
@@ -32913,6 +32929,7 @@ extension Anytype_Rpc.Wallet.CreateSession.Response: SwiftProtobuf.Message, Swif
     if lhs._error != rhs._error {return false}
     if lhs.token != rhs.token {return false}
     if lhs.appToken != rhs.appToken {return false}
+    if lhs.accountID != rhs.accountID {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
@@ -43798,6 +43815,7 @@ extension Anytype_Rpc.Object.Import.Response.Error.Code: SwiftProtobuf._ProtoNam
     6: .same(proto: "IMPORT_IS_CANCELED"),
     7: .same(proto: "LIMIT_OF_ROWS_OR_RELATIONS_EXCEEDED"),
     8: .same(proto: "FILE_LOAD_ERROR"),
+    9: .same(proto: "INSUFFICIENT_PERMISSIONS"),
   ]
 }
 
@@ -44437,6 +44455,7 @@ extension Anytype_Rpc.Object.ImportExperience.Response.Error.Code: SwiftProtobuf
     0: .same(proto: "NULL"),
     1: .same(proto: "UNKNOWN_ERROR"),
     2: .same(proto: "BAD_INPUT"),
+    3: .same(proto: "INSUFFICIENT_PERMISSION"),
   ]
 }
 

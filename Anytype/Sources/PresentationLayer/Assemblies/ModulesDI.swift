@@ -246,14 +246,6 @@ final class ModulesDI: ModulesDIProtocol {
         ShareOptionsModuleAssembly(serviceLocator: serviceLocator)
     }
     
-    func commonNotification() -> CommonNotificationAssemblyProtocol {
-        CommonNotificationAssembly(serviceLocator: serviceLocator)
-    }
-    
-    func galleryNotification() -> GalleryNotificationAssemblyProtocol {
-        GalleryNotificationAssembly(serviceLocator: serviceLocator)
-    }
-    
     func spareShare() -> SpaceShareModuleAssemblyProtocol {
         SpaceShareModuleAssembly(serviceLocator: serviceLocator)
     }

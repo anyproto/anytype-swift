@@ -13,21 +13,13 @@ protocol NotificationCoordinatorProtocol: AnyObject {
 final class NotificationCoordinator: NotificationCoordinatorProtocol {
     
     private let notificationSubscriptionService: NotificationsSubscriptionServiceProtocol
-    // Common for show notifications without specific logic and buttons
-    private let commonNotificationAssembly: CommonNotificationAssemblyProtocol
-    // Specific View
-    private let galleryNotificationAssembly: GalleryNotificationAssemblyProtocol
     
     private var subscription: AnyCancellable?
     
     init(
-        notificationSubscriptionService: NotificationsSubscriptionServiceProtocol,
-        commonNotificationAssembly: CommonNotificationAssemblyProtocol,
-        galleryNotificationAssembly: GalleryNotificationAssemblyProtocol
+        notificationSubscriptionService: NotificationsSubscriptionServiceProtocol
     ) {
         self.notificationSubscriptionService = notificationSubscriptionService
-        self.commonNotificationAssembly = commonNotificationAssembly
-        self.galleryNotificationAssembly = galleryNotificationAssembly
     }
     
     func startHandle() async {
@@ -60,7 +52,10 @@ final class NotificationCoordinator: NotificationCoordinatorProtocol {
     private func handleSend(notification: Services.Notification) {
         switch notification.payload {
         case .galleryImport(let data):
-            let view = galleryNotificationAssembly.make(notification: NotificationGalleryImport(common: notification, galleryImport: data))
+            let view = GalleryNotificationView(notification: NotificationGalleryImport(common: notification, galleryImport: data))
+            show(view: view)
+        case .participantPermissionsChange(let data):
+            let view = PermissionChangeNotificationView(notification: NotificationParticipantPermissionsChange(common: notification, permissionChange: data))
             show(view: view)
         default:
             break
@@ -68,7 +63,7 @@ final class NotificationCoordinator: NotificationCoordinatorProtocol {
     }
     
     @MainActor
-    func show(view: AnyView) {
+    func show<T: View>(view: T) {
         
         let entryName = UUID().uuidString
         
