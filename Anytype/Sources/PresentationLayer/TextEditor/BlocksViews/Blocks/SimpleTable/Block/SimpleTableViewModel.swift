@@ -42,7 +42,8 @@ final class SimpleTableViewModel {
         document.resetBlocksSubject.sink { [weak self] blockIds in
             guard let self else { return }
             
-            guard let computedTable = ComputedTable(blockInformation: tableBlockInfoProvider.info, infoContainer: document.infoContainer) else {
+            let computedTable = ComputedTable(blockInformation: tableBlockInfoProvider.info, infoContainer: document.infoContainer)
+            guard computedTable.isNotNil else {
                 return
             }
             let allRelatedIds = [tableBlockInfoProvider.info.id] + document.infoContainer.recursiveChildren(of: tableBlockInfoProvider.info.id).map { $0.id }
