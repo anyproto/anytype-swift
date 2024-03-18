@@ -57,6 +57,12 @@ final class NotificationCoordinator: NotificationCoordinatorProtocol {
         case .participantPermissionsChange(let data):
             let view = PermissionChangeNotificationView(notification: NotificationParticipantPermissionsChange(common: notification, permissionChange: data))
             show(view: view)
+        case .participantRequestApproved(let data):
+            let view = ParticipantApproveNotificationView(notification: NotificationParticipantRequestApproved(common: notification, requestApprove: data))
+            show(view: view)
+        case .participantRequestDecline(let data):
+            let view = ParticipantDeclineNotificationView(notification: NotificationParticipantRequestDecline(common: notification, requestDecline: data))
+            show(view: view)
         default:
             break
         }

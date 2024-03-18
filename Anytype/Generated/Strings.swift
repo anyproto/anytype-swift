@@ -1585,6 +1585,18 @@ internal enum Loc {
     /// Search or install a new type
     internal static let searchOrInstall = Loc.tr("Localizable", "ObjectType.SearchOrInstall", fallback: "Search or install a new type")
   }
+  internal enum ParticipantRequestApprovedNotification {
+    /// Your request to join the **%@** space has been approved with **%@** access rights. The space will be available on your device soon.
+    internal static func text(_ p1: Any, _ p2: Any) -> String {
+      return Loc.tr("Localizable", "ParticipantRequestApprovedNotification.Text", String(describing: p1), String(describing: p2), fallback: "Your request to join the **%@** space has been approved with **%@** access rights. The space will be available on your device soon.")
+    }
+  }
+  internal enum ParticipantRequestDeclineNotification {
+    /// Your request to join the **%@** space has been declined.
+    internal static func text(_ p1: Any) -> String {
+      return Loc.tr("Localizable", "ParticipantRequestDeclineNotification.Text", String(describing: p1), fallback: "Your request to join the **%@** space has been declined.")
+    }
+  }
   internal enum PermissionChangeNotification {
     /// Your access rights were changed to **%@** in the **%@** space.
     internal static func text(_ p1: Any, _ p2: Any) -> String {
