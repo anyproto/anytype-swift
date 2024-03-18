@@ -181,7 +181,7 @@ final class EditorPageModuleAssembly: EditorPageModuleAssemblyProtocol {
             actionHandler: actionHandler,
             pasteboardService: pasteboardService,
             router: router,
-            initialEditingState: configuration.isOpenedForPreview ? .readonly(state: .locked) : .editing,
+            initialEditingState: configuration.isOpenedForPreview ? .readonly : .editing,
             viewInput: viewInput,
             bottomNavigationManager: bottomNavigationManager,
             documentsProvider: serviceLocator.documentsProvider

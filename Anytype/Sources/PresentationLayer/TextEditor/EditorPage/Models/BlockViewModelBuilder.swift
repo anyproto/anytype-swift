@@ -278,10 +278,7 @@ final class BlockViewModelBuilder {
             ) { [weak self] relation in
                 guard let self = self else { return }
 
-                let allowTypeChange = !self.document.objectRestrictions.objectRestriction.contains(.typeChange)
-                
-                if relation.key == BundledRelationKey.type.rawValue && 
-                    !self.document.isLocked && allowTypeChange {
+                if relation.key == BundledRelationKey.type.rawValue && document.permissions.canChangeType {
                     self.router.showTypes(
                         selectedObjectId: self.document.details?.type,
                         onSelect: { [weak self] type in

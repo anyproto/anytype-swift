@@ -247,4 +247,8 @@ extension Container {
     var textRelationEditingService: Factory<TextRelationEditingServiceProtocol> {
         self { TextRelationEditingService() }.shared
     }
+    
+    var accountParticipantsStorage: Factory<AccountParticipantsStorageProtocol> {
+        self { AccountParticipantsStorage() }.singleton
+    }
 }

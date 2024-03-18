@@ -343,7 +343,11 @@ extension EditorPageController: EditorPageViewInput {
     }
     
     func update(details: ObjectDetails?, templatesCount: Int) {
-        navigationBarHelper.configureNavigationTitle(using: details, templatesCount: templatesCount)
+        navigationBarHelper.configureNavigationTitle(using: details,templatesCount: templatesCount)
+    }
+    
+    func update(permissions: ObjectPermissions) {
+        navigationBarHelper.updatePermissions(permissions)
     }
     
     func update(syncStatusData: SyncStatusData) {
@@ -535,7 +539,7 @@ private extension EditorPageController {
     
     @objc
     func tapOnListViewGestureRecognizerHandler() {
-        guard collectionView.isEditing && dividerCursorController.movingMode != .drum else { return }
+        guard collectionView.isEditing && !collectionView.isLocked && dividerCursorController.movingMode != .drum else { return }
         let location = self.listViewTapGestureRecognizer.location(in: collectionView)
         let cellIndexPath = collectionView.indexPathForItem(at: location)
         guard cellIndexPath == nil else { return }

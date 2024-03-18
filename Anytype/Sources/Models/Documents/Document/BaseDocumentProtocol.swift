@@ -27,14 +27,13 @@ protocol BaseDocumentProtocol: AnyObject, BaseDocumentGeneralProtocol {
     var children: [BlockInformation] { get }
     var parsedRelations: ParsedRelations { get }
     var isLocked: Bool { get }
-    var relationValuesIsLocked: Bool { get }
-    var relationsListIsLocked: Bool { get }
+    var permissions: ObjectPermissions { get }
     var isEmpty: Bool { get }
     var isOpened: Bool { get }
-    var isArchived: Bool { get }
     
     var parsedRelationsPublisher: AnyPublisher<ParsedRelations, Never> { get }
     var childrenPublisher: AnyPublisher<[BlockInformation], Never> { get }
     var syncPublisher: AnyPublisher<Void, Never> { get }
     var resetBlocksSubject: PassthroughSubject<Set<String>, Never> { get }
+    var permissionsPublisher: AnyPublisher<ObjectPermissions, Never> { get }
 }
