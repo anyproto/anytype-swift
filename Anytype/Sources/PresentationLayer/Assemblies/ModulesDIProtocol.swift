@@ -20,7 +20,6 @@ protocol ModulesDIProtocol: AnyObject {
     func widgetObjectList() -> WidgetObjectListModuleAssemblyProtocol
     func settingsAppearance() -> SettingsAppearanceModuleAssemblyProtocol
     func wallpaperPicker() -> WallpaperPickerModuleAssemblyProtocol
-    func about() -> AboutModuleAssemblyProtocol
     func personalization() -> PersonalizationModuleAssemblyProtocol
     func keychainPhrase() -> KeychainPhraseModuleAssemblyProtocol
     func dashboardAlerts() -> DashboardAlertsAssemblyProtocol
