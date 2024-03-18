@@ -7,24 +7,26 @@ struct TopNotificationView: View {
     var icon: Icon? = nil
     var buttons: [TopNotificationButton]
     
+    @State private var taskButton: TopNotificationButton?
+    @State private var toast: ToastBarData = .empty
+    
     var body: some View {
-        VStack(alignment: .leading, spacing: 10) {
-            HStack(alignment: .top, spacing: 12) {
-                if let icon {
-                    IconView(icon: icon)
-                        .frame(width: 40, height: 40)
-                }
-                AnytypeText(title, style: .caption1Regular, color: .Text.labelInversion, enableMarkdown: true)
-                Spacer()
+        HStack(alignment: .top, spacing: 12) {
+            if let icon {
+                IconView(icon: icon)
+                    .frame(width: 40, height: 40)
             }
-            if buttons.isNotEmpty {
-                HStack(spacing: 24) {
-                    ForEach(0..<buttons.count, id: \.self) { index in
-                        let button = buttons[index]
-                        Button {
-                            button.action()
-                        } label: {
-                            AnytypeText(button.title, style: .caption1Semibold, color: .Text.labelInversion)
+            VStack(alignment: .leading, spacing: 10) {
+                AnytypeText(title, style: .caption1Regular, color: .Text.labelInversion, enableMarkdown: true)
+                if buttons.isNotEmpty {
+                    HStack(spacing: 24) {
+                        ForEach(0..<buttons.count, id: \.self) { index in
+                            let button = buttons[index]
+                            Button {
+                                taskButton = button
+                            } label: {
+                                AnytypeText(button.title, style: .caption1Semibold, color: .Text.labelInversion)
+                            }
                         }
                     }
                 }
@@ -34,13 +36,18 @@ struct TopNotificationView: View {
         .background(Color.Text.primary)
         .cornerRadius(16, style: .continuous)
         .ignoresSafeArea()
+        .snackbar(toastBarData: $toast)
+        .throwTask(id: taskButton) {
+            try await taskButton?.action()
+        }
         .environment(\.colorScheme, .light)
     }
 }
 
-struct TopNotificationButton {
+struct TopNotificationButton: Equatable {
     let title: String
-    let action: () -> Void
+    @EquatableNoop
+    var action: () async throws -> Void
 }
 
 #Preview("Single Line") {

@@ -455,6 +455,8 @@
 		2A62B7152BA83965001EAD28 /* ParticipantApproveNotificationViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A62B7142BA83965001EAD28 /* ParticipantApproveNotificationViewModel.swift */; };
 		2A62B7192BA83AD6001EAD28 /* ParticipantDeclineNotificationViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A62B7172BA83AD6001EAD28 /* ParticipantDeclineNotificationViewModel.swift */; };
 		2A62B71A2BA83AD6001EAD28 /* ParticipantDeclineNotificationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A62B7182BA83AD6001EAD28 /* ParticipantDeclineNotificationView.swift */; };
+		2A62B71D2BA8431F001EAD28 /* RequestToLeaveNotificationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A62B71C2BA8431F001EAD28 /* RequestToLeaveNotificationView.swift */; };
+		2A62B71F2BA84336001EAD28 /* RequestToLeaveNotificationViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A62B71E2BA84336001EAD28 /* RequestToLeaveNotificationViewModel.swift */; };
 		2A6476452B95B8A800389E62 /* SpaceMembersView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A6476442B95B8A800389E62 /* SpaceMembersView.swift */; };
 		2A6476472B95B8B400389E62 /* SpaceMembersViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A6476462B95B8B400389E62 /* SpaceMembersViewModel.swift */; };
 		2A64B6BB2B3DD54D000316E2 /* ObjectActionsServiceError+Localization.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A64B6BA2B3DD54D000316E2 /* ObjectActionsServiceError+Localization.swift */; };
@@ -2235,6 +2237,8 @@
 		2A62B7142BA83965001EAD28 /* ParticipantApproveNotificationViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ParticipantApproveNotificationViewModel.swift; sourceTree = "<group>"; };
 		2A62B7172BA83AD6001EAD28 /* ParticipantDeclineNotificationViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ParticipantDeclineNotificationViewModel.swift; sourceTree = "<group>"; };
 		2A62B7182BA83AD6001EAD28 /* ParticipantDeclineNotificationView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ParticipantDeclineNotificationView.swift; sourceTree = "<group>"; };
+		2A62B71C2BA8431F001EAD28 /* RequestToLeaveNotificationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestToLeaveNotificationView.swift; sourceTree = "<group>"; };
+		2A62B71E2BA84336001EAD28 /* RequestToLeaveNotificationViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestToLeaveNotificationViewModel.swift; sourceTree = "<group>"; };
 		2A6476442B95B8A800389E62 /* SpaceMembersView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpaceMembersView.swift; sourceTree = "<group>"; };
 		2A6476462B95B8B400389E62 /* SpaceMembersViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpaceMembersViewModel.swift; sourceTree = "<group>"; };
 		2A64B6BA2B3DD54D000316E2 /* ObjectActionsServiceError+Localization.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ObjectActionsServiceError+Localization.swift"; sourceTree = "<group>"; };
@@ -5791,6 +5795,15 @@
 			path = ParticipantDecline;
 			sourceTree = "<group>";
 		};
+		2A62B71B2BA84304001EAD28 /* RequestToLeave */ = {
+			isa = PBXGroup;
+			children = (
+				2A62B71C2BA8431F001EAD28 /* RequestToLeaveNotificationView.swift */,
+				2A62B71E2BA84336001EAD28 /* RequestToLeaveNotificationViewModel.swift */,
+			);
+			path = RequestToLeave;
+			sourceTree = "<group>";
+		};
 		2A6476432B95B88F00389E62 /* SpceMembers */ = {
 			isa = PBXGroup;
 			children = (
@@ -6561,6 +6574,7 @@
 		2ACA299C2B712F44009CD054 /* Specific */ = {
 			isa = PBXGroup;
 			children = (
+				2A62B71B2BA84304001EAD28 /* RequestToLeave */,
 				2A62B7162BA83ABE001EAD28 /* ParticipantDecline */,
 				2A62B7112BA8392C001EAD28 /* ParticipantApprove */,
 				2AC5B3D12BA337F3002584B8 /* ParticipantPermissionChange */,
@@ -10673,6 +10687,7 @@
 				2A8302BD2B07A058002D6655 /* AnytypeNavigationAdditionalSafeArea.swift in Sources */,
 				2A17643A283E2245002853D3 /* ContentUrlBuilder.swift in Sources */,
 				129C54C927FC4EA200C390C7 /* NewRelationView.swift in Sources */,
+				2A62B71F2BA84336001EAD28 /* RequestToLeaveNotificationViewModel.swift in Sources */,
 				2AA0209528D3523000321A66 /* SetSubscriptionDataBuilder.swift in Sources */,
 				2AE85FEB2B1F491900268E9D /* ServerConfigurationCoordinatorViewModel.swift in Sources */,
 				12426A2A26DCFA1300693B1F /* KFScalingType.swift in Sources */,
@@ -11041,6 +11056,7 @@
 				3D86244B2B738D6400A5FCF4 /* TypesService.swift in Sources */,
 				2A8A2DD52AB9A14300105549 /* ShareCoordinatorAssembly.swift in Sources */,
 				2AB5083B2AE9395600E1C986 /* SpaceCreateModuleOutput.swift in Sources */,
+				2A62B71D2BA8431F001EAD28 /* RequestToLeaveNotificationView.swift in Sources */,
 				1215E8B126A860D20089AF7E /* AppConfigurator.swift in Sources */,
 				2E975EDE287C2325004DE574 /* SetFilterRowConfiguration.swift in Sources */,
 				C91FAF5D2812865B0055BC4A /* UndoRedoViewModel.swift in Sources */,
