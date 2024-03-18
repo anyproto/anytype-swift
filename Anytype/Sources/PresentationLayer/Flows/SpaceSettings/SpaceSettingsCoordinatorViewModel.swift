@@ -124,7 +124,8 @@ final class SpaceSettingsCoordinatorViewModel: ObservableObject, SpaceSettingsMo
                 spaceId: activeWorkspaceStorage.workspaceInfo.accountSpaceId,
                 showPins: false,
                 showLists: false, 
-                showFiles: false
+                showFiles: false,
+                incudeNotForCreation: false
             ) { [weak self] type in
                 self?.objectTypeProvider.setDefaultObjectType(type: type, spaceId: type.spaceId)
                 self?.navigationContext.dismissTopPresented(animated: true)

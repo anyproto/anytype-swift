@@ -29,6 +29,9 @@ public enum BundledRelationKey: String {
     /// Relation option color
     case relationOptionColor = "relationOptionColor"
 
+    /// Latest Acl head id
+    case latestAclHeadId = "latestAclHeadId"
+
     case instructions = "instructions"
 
     /// Done checkbox used to render action layout. 
