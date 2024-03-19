@@ -794,16 +794,10 @@ internal enum Loc {
           internal static let placeholder = Loc.tr("Localizable", "Auth.JoinFlow.Key.TextField.Placeholder", fallback: "Type your recovery phrase")
         }
       }
-      internal enum Personal {
-        internal enum Space {
-          /// Personal Space
-          internal static let title = Loc.tr("Localizable", "Auth.JoinFlow.Personal.Space.Title", fallback: "Personal Space")
-        }
-      }
       internal enum Setting {
         internal enum Space {
-          /// Setting up your personal space
-          internal static let title = Loc.tr("Localizable", "Auth.JoinFlow.Setting.Space.Title", fallback: "Setting up your personal space")
+          /// Setting up your default space
+          internal static let title = Loc.tr("Localizable", "Auth.JoinFlow.Setting.Space.Title", fallback: "Setting up your default space")
         }
       }
       internal enum Soul {
@@ -2020,8 +2014,6 @@ internal enum Loc {
     internal static let spaceName = Loc.tr("Localizable", "Settings.SpaceName", fallback: "Space name")
     /// Settings
     internal static let title = Loc.tr("Localizable", "Settings.Title", fallback: "Settings")
-    /// Personal Space
-    internal static let titleLegacy = Loc.tr("Localizable", "Settings.TitleLegacy", fallback: "Personal Space")
   }
   internal enum Sharing {
     /// Add to
@@ -2317,8 +2309,8 @@ internal enum Loc {
     /// Spaces
     internal static let title = Loc.tr("Localizable", "Spaces.Title", fallback: "Spaces")
     internal enum Accessibility {
-      /// Personal Space
-      internal static let personal = Loc.tr("Localizable", "Spaces.Accessibility.Personal", fallback: "Personal Space")
+      /// Default Space
+      internal static let personal = Loc.tr("Localizable", "Spaces.Accessibility.Personal", fallback: "Default Space")
       /// Private Space
       internal static let `private` = Loc.tr("Localizable", "Spaces.Accessibility.Private", fallback: "Private Space")
       /// Shared Space
