@@ -890,6 +890,8 @@
 "SpaceShare.Permissions.Owner" = "Eigenaar";
 "SpaceShare.Permissions.Reader" = "Lezer";
 "SpaceShare.Permissions.Writer" = "Bewerker";
+"SpaceShare.Permissions.Grand.Edit" = "Bewerk";
+"SpaceShare.Permissions.Grand.View" = "Weergave";
 "SpaceShare.Invite.Title" = "Uitnodigingslink";
 "SpaceShare.Invite.Description" = "Stuur deze link om anderen uit te nodigen. Wijs toegangsrechten toe na hun goedkeuring.";
 "SpaceShare.Invite.Button" = "Deel uitnodigingslink";
@@ -897,7 +899,7 @@
 "SpaceShare.Status.Removing" = "Uitschrijven aangevraagd";
 "SpaceShare.Action.ViewRequest" = "Bekijk verzoek";
 "SpaceShare.Action.Approve" = "Goedkeuren";
-"SpaceShare.Approve.Toast" = "You approved %@'s request.";
+"SpaceShare.Approve.Toast" = "Je hebt het verzoek van %@ goedgekeurd.";
 "SpaceShare.ViewRequest.Title" = "%@ heeft verzocht om zich aan te sluiten bij de ruimte %@";
 "SpaceShare.ViewRequest.ViewAccess" = "Geef leesrechten";
 "SpaceShare.ViewRequest.EditAccess" = "Geef bewerkingsrechten";
@@ -912,7 +914,13 @@
 "SpaceShare.Join.Message" = "Je bent uitgenodigd om je aan te sluiten bij  %@ ruimte, aangemaakt door %@ Stuur een verzoek zodat de eigenaar van de ruimte je kan toelaten. ";
 "SpaceShare.JoinConfirmation.Title" = "Verzoek verzonden";
 "SpaceShare.JoinConfirmation.Message" = "Je zult een melding ontvangen wanneer de eigenaar van de ruimte je verzoek zal goedkeuren.";
-"SpaceShare.YouSuffix" = "%@ (you)";
+"SpaceShare.YouSuffix" = "%@ (jij)";
+
+// MARK: - Permission notification
+"PermissionChangeNotification.Text" = "Your access rights were changed to **%@** in the **%@** space.";
+"ParticipantRequestApprovedNotification.Text" = "Your request to join the **%@** space has been approved with **%@** access rights. The space will be available on your device soon.";
+"ParticipantRequestDeclineNotification.Text" = "Your request to join the **%@** space has been declined.";
+"RequestToLeaveNotification.Text" = "**%@** wants to leave the **%@** space.";
 
 // MARK: - Space manager
 "SpaceManager.CancelRequest" = "Annuleer verzoek";
@@ -1012,8 +1020,8 @@
 "Paid by" = "Betaald door %@";
 "Myself" = "Mijzelf";
 "Pay by Card" = "Betaal met kaart";
-"Details upon request" = "Details upon request";
-"Min X characters" = "Min %@ characters";
+"Details upon request" = "Details op verzoek";
+"Min X characters" = "Min %@ tekens";
 
 
 "Membership.Ad.Title" = "Lidmaatschap";
@@ -1076,8 +1084,8 @@
 "Membership.CoCreator.Benefit4" = "Chat met het team";
 "Membership.CoCreator.Benefit5" = "Uniek verzamelstuk";
 
-"Membership.Custom.Title" = "Custom";
-"Membership.Custom.Subtitle" = "Membership tailored to your specific needs and preferences";
+"Membership.Custom.Title" = "Aangepast";
+"Membership.Custom.Subtitle" = "Lidmaatschap afgestemd op jouw specifieke behoeften en voorkeuren";
 
 
 // MARK: - Debug
