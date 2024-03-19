@@ -13,7 +13,7 @@ final class SpaceSettingsViewModel: ObservableObject {
     private let relationDetailsStorage: RelationDetailsStorageProtocol
     private let workspaceService: WorkspaceServiceProtocol
     private let accountManager: AccountManagerProtocol
-    private let participantService: ParticipantServiceProtocol
+    private let accountParticipantsStorage: AccountParticipantsStorageProtocol
     private let dateFormatter = DateFormatter.relationDateFormatter
     private weak var output: SpaceSettingsModuleOutput?
     
@@ -21,23 +21,25 @@ final class SpaceSettingsViewModel: ObservableObject {
     
     private let workspaceInfo: AccountInfo
     private var subscriptions: [AnyCancellable] = []
-    private var dataLoaded: Bool = false
+    private var dataLoaded = false
     private let subSpaceId = "SpaceSettingsViewModel-Space-\(UUID())"
     private var spaceView: SpaceView?
     private var participant: Participant?
     
-    @Published var spaceName: String = ""
-    @Published var spaceAccessType: String = ""
+    @Published var spaceName = ""
+    @Published var spaceAccessType = ""
     @Published var spaceIcon: Icon?
     @Published var info = [SettingsInfoModel]()
     @Published var snackBarData = ToastBarData.empty
     @Published var showSpaceDeleteAlert = false
     @Published var showSpaceLeaveAlert = false
-    @Published var dismiss: Bool = false
-    @Published var allowDelete: Bool = false
-    @Published var allowShare: Bool = false
-    @Published var allowLeave: Bool = false
-    @Published var allowSpaceMembers: Bool = false
+    @Published var dismiss = false
+    @Published var allowDelete = false
+    @Published var allowShare = false
+    @Published var allowLeave = false
+    @Published var allowSpaceMembers = false
+    @Published var allowEditSpace = false
+    @Published var allowRemoteStorage = false
     
     init(
         activeWorkspaceStorage: ActiveWorkpaceStorageProtocol,
@@ -46,7 +48,7 @@ final class SpaceSettingsViewModel: ObservableObject {
         relationDetailsStorage: RelationDetailsStorageProtocol,
         workspaceService: WorkspaceServiceProtocol,
         accountManager: AccountManagerProtocol,
-        participantService: ParticipantServiceProtocol,
+        accountParticipantsStorage: AccountParticipantsStorageProtocol,
         output: SpaceSettingsModuleOutput?
     ) {
         self.subscriptionService = subscriptionService
@@ -54,7 +56,7 @@ final class SpaceSettingsViewModel: ObservableObject {
         self.relationDetailsStorage = relationDetailsStorage
         self.workspaceService = workspaceService
         self.accountManager = accountManager
-        self.participantService = participantService
+        self.accountParticipantsStorage = accountParticipantsStorage
         self.output = output
         self.workspaceInfo = activeWorkspaceStorage.workspaceInfo
         Task {
@@ -124,8 +126,14 @@ final class SpaceSettingsViewModel: ObservableObject {
             self?.updateViewState()
         }
         
-        participant = try await participantService.searchParticipant(spaceId: workspaceInfo.accountSpaceId, prifileObjectId: workspaceInfo.profileObjectID)
-        updateViewState()
+        accountParticipantsStorage
+            .participantPublisher(spaceId:  workspaceInfo.accountSpaceId)
+            .receiveOnMain()
+            .sink { [weak self] participant in
+                self?.participant = participant
+                self?.updateViewState()
+            }
+            .store(in: &subscriptions)
     }
     
     private func updateViewState() {
@@ -135,8 +143,10 @@ final class SpaceSettingsViewModel: ObservableObject {
         spaceAccessType = spaceView.spaceAccessType?.name ?? ""
         allowDelete = spaceView.canBeDelete
         allowLeave = participant.canLeave
-        allowShare = spaceView.canBeShared(isOwner: participant.isOwner)
-        allowSpaceMembers = !participant.isOwner
+        allowShare = spaceView.canBeShared(isOwner: participant.canShareSpace)
+        allowSpaceMembers = !participant.canShareSpace
+        allowEditSpace = participant.canEdit
+        allowRemoteStorage = participant.canEdit
         buildInfoBlock(details: spaceView)
         
         if !dataLoaded {

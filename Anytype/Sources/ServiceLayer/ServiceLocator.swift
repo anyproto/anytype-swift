@@ -306,10 +306,6 @@ final class ServiceLocator {
         Container.shared.processSubscriptionService()
     }
     
-    func participantService() -> ParticipantServiceProtocol {
-        Container.shared.participantService()
-    }
-    
     func blockTableService() -> BlockTableServiceProtocol {
         Container.shared.blockTableService()
     }

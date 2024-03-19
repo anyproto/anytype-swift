@@ -25,7 +25,7 @@ final class SpaceSettingsModuleAssembly: SpaceSettingsModuleAssemblyProtocol {
             relationDetailsStorage: self.serviceLocator.relationDetailsStorage(),
             workspaceService: self.serviceLocator.workspaceService(),
             accountManager: self.serviceLocator.accountManager(),
-            participantService: self.serviceLocator.participantService(),
+            accountParticipantsStorage: self.serviceLocator.accountParticipantStorage(),
             output: output
         )).eraseToAnyView()
     }
