@@ -889,6 +889,8 @@
 "SpaceShare.Permissions.Owner" = "所有者";
 "SpaceShare.Permissions.Reader" = "浏览者";
 "SpaceShare.Permissions.Writer" = "编辑";
+"SpaceShare.Permissions.Grand.Edit" = "编辑";
+"SpaceShare.Permissions.Grand.View" = "视图";
 "SpaceShare.Invite.Title" = "邀请链接";
 "SpaceShare.Invite.Description" = "发送此链接来邀请他人。在他们的请求批准时分配访问权限。";
 "SpaceShare.Invite.Button" = "分享邀请链接";
@@ -912,6 +914,12 @@
 "SpaceShare.JoinConfirmation.Title" = "已发送申请";
 "SpaceShare.JoinConfirmation.Message" = "You will receive a notification when the space owner will approve your request.";
 "SpaceShare.YouSuffix" = "%@ (you)";
+
+// MARK: - Permission notification
+"PermissionChangeNotification.Text" = "Your access rights were changed to **%@** in the **%@** space.";
+"ParticipantRequestApprovedNotification.Text" = "Your request to join the **%@** space has been approved with **%@** access rights. The space will be available on your device soon.";
+"ParticipantRequestDeclineNotification.Text" = "Your request to join the **%@** space has been declined.";
+"RequestToLeaveNotification.Text" = "**%@** wants to leave the **%@** space.";
 
 // MARK: - Space manager
 "SpaceManager.CancelRequest" = "Cancel Request";
