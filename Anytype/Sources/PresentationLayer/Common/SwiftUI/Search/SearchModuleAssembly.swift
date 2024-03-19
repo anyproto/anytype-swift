@@ -17,7 +17,7 @@ final class SearchModuleAssembly: SearchModuleAssemblyProtocol {
         data: SearchSpaceModel
     ) -> AnyView {
         let viewModel = SpaceSearchViewModel(
-            workspacesStorage: serviceLocator.workspaceStorage(),
+            participantSpacesStorage: serviceLocator.participantSpacesStorage(),
             onSelect: data.onSelect
         )
         let view = SearchView(title: Loc.Spaces.Search.title, viewModel: viewModel)

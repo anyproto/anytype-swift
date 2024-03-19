@@ -39,7 +39,7 @@ extension Participant {
         (permission == .reader || permission == .writer) && status == .active
     }
     
-    var canShareSpace: Bool {
+    var isOwner: Bool {
         permission == .owner
     }
     

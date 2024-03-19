@@ -8,12 +8,11 @@ final class SpaceSettingsViewModel: ObservableObject {
     
     // MARK: - DI
     
-    private let subscriptionService: SingleObjectSubscriptionServiceProtocol
     private let objectActionsService: ObjectActionsServiceProtocol
     private let relationDetailsStorage: RelationDetailsStorageProtocol
     private let workspaceService: WorkspaceServiceProtocol
     private let accountManager: AccountManagerProtocol
-    private let accountParticipantsStorage: AccountParticipantsStorageProtocol
+    private let participantSpacesStorage: ParticipantSpacesStorageProtocol
     private let dateFormatter = DateFormatter.relationDateFormatter
     private weak var output: SpaceSettingsModuleOutput?
     
@@ -22,9 +21,7 @@ final class SpaceSettingsViewModel: ObservableObject {
     private let workspaceInfo: AccountInfo
     private var subscriptions: [AnyCancellable] = []
     private var dataLoaded = false
-    private let subSpaceId = "SpaceSettingsViewModel-Space-\(UUID())"
-    private var spaceView: SpaceView?
-    private var participant: Participant?
+    private var participantSpaceView: ParticipantSpaceView?
     
     @Published var spaceName = ""
     @Published var spaceAccessType = ""
@@ -43,20 +40,18 @@ final class SpaceSettingsViewModel: ObservableObject {
     
     init(
         activeWorkspaceStorage: ActiveWorkpaceStorageProtocol,
-        subscriptionService: SingleObjectSubscriptionServiceProtocol,
         objectActionsService: ObjectActionsServiceProtocol,
         relationDetailsStorage: RelationDetailsStorageProtocol,
         workspaceService: WorkspaceServiceProtocol,
         accountManager: AccountManagerProtocol,
-        accountParticipantsStorage: AccountParticipantsStorageProtocol,
+        participantSpacesStorage: ParticipantSpacesStorageProtocol,
         output: SpaceSettingsModuleOutput?
     ) {
-        self.subscriptionService = subscriptionService
         self.objectActionsService = objectActionsService
         self.relationDetailsStorage = relationDetailsStorage
         self.workspaceService = workspaceService
         self.accountManager = accountManager
-        self.accountParticipantsStorage = accountParticipantsStorage
+        self.participantSpacesStorage = participantSpacesStorage
         self.output = output
         self.workspaceInfo = activeWorkspaceStorage.workspaceInfo
         Task {
@@ -86,7 +81,7 @@ final class SpaceSettingsViewModel: ObservableObject {
     }
     
     func onDeleteConfirmationTap() {
-        guard let spaceView else { return }
+        guard let spaceView = participantSpaceView?.spaceView else { return }
         Task {
             AnytypeAnalytics.instance().logDeleteSpace(type: .private)
             try await workspaceService.deleteSpace(spaceId: spaceView.targetSpaceId)
@@ -117,36 +112,30 @@ final class SpaceSettingsViewModel: ObservableObject {
     // MARK: - Private
     
     private func setupData() async throws {
-        await subscriptionService.startSubscription(
-            subId: subSpaceId,
-            objectId: workspaceInfo.spaceViewId,
-            additionalKeys: SpaceView.subscriptionKeys
-        ) { [weak self] details in
-            self?.spaceView = SpaceView(details: details)
-            self?.updateViewState()
-        }
-        
-        accountParticipantsStorage
-            .participantPublisher(spaceId:  workspaceInfo.accountSpaceId)
+        participantSpacesStorage
+            .participantSpacesPublisher
             .receiveOnMain()
-            .sink { [weak self] participant in
-                self?.participant = participant
+            .sink { [weak self] participantSpaceViews in
+                self?.participantSpaceView = participantSpaceViews.first { $0.spaceView.targetSpaceId == self?.workspaceInfo.accountSpaceId }
                 self?.updateViewState()
             }
             .store(in: &subscriptions)
     }
     
     private func updateViewState() {
-        guard let spaceView, let participant else { return }
+        guard let participantSpaceView else { return }
+        
+        let spaceView = participantSpaceView.spaceView
+        let participant = participantSpaceView.participant
         
         spaceIcon = spaceView.objectIconImage
         spaceAccessType = spaceView.spaceAccessType?.name ?? ""
         allowDelete = spaceView.canBeDelete
         allowLeave = participant.canLeave
-        allowShare = spaceView.canBeShared(isOwner: participant.canShareSpace)
-        allowSpaceMembers = !participant.canShareSpace
+        allowShare = participantSpaceView.canBeShared
+        allowSpaceMembers = !participant.isOwner
         allowEditSpace = participant.canEdit
-        allowRemoteStorage = participant.canEdit
+        allowRemoteStorage = participant.isOwner
         buildInfoBlock(details: spaceView)
         
         if !dataLoaded {

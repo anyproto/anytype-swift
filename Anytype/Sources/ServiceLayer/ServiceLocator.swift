@@ -325,4 +325,8 @@ final class ServiceLocator {
     func accountParticipantStorage() -> AccountParticipantsStorageProtocol {
         Container.shared.accountParticipantsStorage()
     }
+    
+    func participantSpacesStorage() -> ParticipantSpacesStorageProtocol {
+        Container.shared.participantSpacesStorage()
+    }
 }
