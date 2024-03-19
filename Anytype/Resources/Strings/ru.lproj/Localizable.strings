@@ -890,6 +890,8 @@
 "SpaceShare.Permissions.Owner" = "Владелец";
 "SpaceShare.Permissions.Reader" = "Наблюдатель ";
 "SpaceShare.Permissions.Writer" = "Редактор";
+"SpaceShare.Permissions.Grand.Edit" = "Изменить";
+"SpaceShare.Permissions.Grand.View" = "Вид";
 "SpaceShare.Invite.Title" = "Ссылка на приглашение ";
 "SpaceShare.Invite.Description" = "Отправьте эту ссылку чтобы пригласить друзей. Вы сможете назначить права после их присоединения";
 "SpaceShare.Invite.Button" = "Поделится ссылкой на приглашение ";
@@ -913,6 +915,12 @@
 "SpaceShare.JoinConfirmation.Title" = "Запрос отправлен";
 "SpaceShare.JoinConfirmation.Message" = "Вы получите уведомление, когда владелец сообщества одобрит ваш запрос.";
 "SpaceShare.YouSuffix" = "%@ (you)";
+
+// MARK: - Permission notification
+"PermissionChangeNotification.Text" = "Your access rights were changed to **%@** in the **%@** space.";
+"ParticipantRequestApprovedNotification.Text" = "Your request to join the **%@** space has been approved with **%@** access rights. The space will be available on your device soon.";
+"ParticipantRequestDeclineNotification.Text" = "Your request to join the **%@** space has been declined.";
+"RequestToLeaveNotification.Text" = "**%@** wants to leave the **%@** space.";
 
 // MARK: - Space manager
 "SpaceManager.CancelRequest" = "Cancel Request";
