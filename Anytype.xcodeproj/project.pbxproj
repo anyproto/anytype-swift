@@ -320,6 +320,8 @@
 		2A1731BA2B9A0A8200FD990D /* AudioSessionService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A1731B92B9A0A6400FD990D /* AudioSessionService.swift */; };
 		2A176438283E2211002853D3 /* AnytypePopupProxy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A176437283E2211002853D3 /* AnytypePopupProxy.swift */; };
 		2A17643A283E2245002853D3 /* ContentUrlBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A176439283E2245002853D3 /* ContentUrlBuilder.swift */; };
+		2A176C482BA9A52300F5036D /* ParticipantRemoveNotificationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A176C472BA9A52200F5036D /* ParticipantRemoveNotificationView.swift */; };
+		2A176C4A2BA9A57500F5036D /* ParticipantRemoveNotificationViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A176C492BA9A57500F5036D /* ParticipantRemoveNotificationViewModel.swift */; };
 		2A18929C2A8F6F5500A19740 /* NonFatalAlertConfigurator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A18929B2A8F6F5500A19740 /* NonFatalAlertConfigurator.swift */; };
 		2A18929F2A8F6FB000A19740 /* NonFatalLoggerHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A18929E2A8F6FB000A19740 /* NonFatalLoggerHandler.swift */; };
 		2A1AD7782B7118BF000EEBC0 /* TopNotificationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A1AD7772B7118BF000EEBC0 /* TopNotificationView.swift */; };
@@ -2096,6 +2098,8 @@
 		2A1731B92B9A0A6400FD990D /* AudioSessionService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioSessionService.swift; sourceTree = "<group>"; };
 		2A176437283E2211002853D3 /* AnytypePopupProxy.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AnytypePopupProxy.swift; sourceTree = "<group>"; };
 		2A176439283E2245002853D3 /* ContentUrlBuilder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContentUrlBuilder.swift; sourceTree = "<group>"; };
+		2A176C472BA9A52200F5036D /* ParticipantRemoveNotificationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ParticipantRemoveNotificationView.swift; sourceTree = "<group>"; };
+		2A176C492BA9A57500F5036D /* ParticipantRemoveNotificationViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ParticipantRemoveNotificationViewModel.swift; sourceTree = "<group>"; };
 		2A18929B2A8F6F5500A19740 /* NonFatalAlertConfigurator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NonFatalAlertConfigurator.swift; sourceTree = "<group>"; };
 		2A18929E2A8F6FB000A19740 /* NonFatalLoggerHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NonFatalLoggerHandler.swift; sourceTree = "<group>"; };
 		2A1AD7772B7118BF000EEBC0 /* TopNotificationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopNotificationView.swift; sourceTree = "<group>"; };
@@ -5290,6 +5294,15 @@
 			path = AudioSessionService;
 			sourceTree = "<group>";
 		};
+		2A176C462BA9A4F000F5036D /* ParticipantRemove */ = {
+			isa = PBXGroup;
+			children = (
+				2A176C472BA9A52200F5036D /* ParticipantRemoveNotificationView.swift */,
+				2A176C492BA9A57500F5036D /* ParticipantRemoveNotificationViewModel.swift */,
+			);
+			path = ParticipantRemove;
+			sourceTree = "<group>";
+		};
 		2A18929D2A8F6F9C00A19740 /* NonFatalAlertConfigurator */ = {
 			isa = PBXGroup;
 			children = (
@@ -6490,6 +6503,14 @@
 			path = Subviews;
 			sourceTree = "<group>";
 		};
+		2AC5B3D02BA30070002584B8 /* ObjectPermissions */ = {
+			isa = PBXGroup;
+			children = (
+				2A9C187D2BA18A2400DFE560 /* ObjectPermissions.swift */,
+			);
+			path = ObjectPermissions;
+			sourceTree = "<group>";
+		};
 		2AC5B3D12BA337F3002584B8 /* ParticipantPermissionChange */ = {
 			isa = PBXGroup;
 			children = (
@@ -6497,14 +6518,6 @@
 				2A7074A52BA33CFF0045EC4E /* PermissionChangeNotificationViewModel.swift */,
 			);
 			path = ParticipantPermissionChange;
-			sourceTree = "<group>";
-		};
-		2AC5B3D02BA30070002584B8 /* ObjectPermissions */ = {
-			isa = PBXGroup;
-			children = (
-				2A9C187D2BA18A2400DFE560 /* ObjectPermissions.swift */,
-			);
-			path = ObjectPermissions;
 			sourceTree = "<group>";
 		};
 		2AC906BD29B5F7C600209E39 /* Common */ = {
@@ -6578,6 +6591,7 @@
 		2ACA299C2B712F44009CD054 /* Specific */ = {
 			isa = PBXGroup;
 			children = (
+				2A176C462BA9A4F000F5036D /* ParticipantRemove */,
 				2A62B71B2BA84304001EAD28 /* RequestToLeave */,
 				2A62B7162BA83ABE001EAD28 /* ParticipantDecline */,
 				2A62B7112BA8392C001EAD28 /* ParticipantApprove */,
@@ -11215,6 +11229,7 @@
 				2A4E5C8D296C0BFF002BB71B /* HomeBottomPanelViewModel.swift in Sources */,
 				2A66937D2A7104EA007747DD /* ObjectIconImageGuidelineSet.swift in Sources */,
 				3D44984D26D54A64005A3E06 /* BindableGestureRecognizer.swift in Sources */,
+				2A176C482BA9A52300F5036D /* ParticipantRemoveNotificationView.swift in Sources */,
 				2ED9F4452A8FBB5400BE0A6B /* SetViewSettingsListModuleAssembly.swift in Sources */,
 				2A816AD42AD840F500975BCA /* SpaceViewIconInternalViewModel.swift in Sources */,
 				53EDA8802837EC4000887804 /* CreateObjectView.swift in Sources */,
@@ -11812,6 +11827,7 @@
 				2AE155922A31BDF50049C387 /* RecentCompactListWidgetModuleAssembly.swift in Sources */,
 				3D932D5826317EFC00C7D1EA /* BaseFilePickerViewModel.swift in Sources */,
 				12AB96362800867B008E32EA /* StandardButtonModel.swift in Sources */,
+				2A176C4A2BA9A57500F5036D /* ParticipantRemoveNotificationViewModel.swift in Sources */,
 				3D24913127BD271900821595 /* SubscriptionToggler.swift in Sources */,
 				2A9614932A6A60B400E50D0A /* IconPainter.swift in Sources */,
 				3DF80F3326EF8552000492F3 /* EmptyToggleButtonBuilder.swift in Sources */,

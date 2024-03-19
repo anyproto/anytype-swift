@@ -228,6 +228,8 @@ internal enum Loc {
   internal static let everywhere = Loc.tr("Localizable", "Everywhere", fallback: "Everywhere")
   /// Exact day
   internal static let exactDay = Loc.tr("Localizable", "Exact day", fallback: "Exact day")
+  /// Export
+  internal static let export = Loc.tr("Localizable", "Export", fallback: "Export")
   /// Failed to sync, trying again...
   internal static let failedToSyncTryingAgain = Loc.tr("Localizable", "Failed to sync, trying again...", fallback: "Failed to sync, trying again...")
   /// Favorite
@@ -1578,6 +1580,10 @@ internal enum Loc {
     internal static let search = Loc.tr("Localizable", "ObjectType.Search", fallback: "Search for Type")
     /// Search or install a new type
     internal static let searchOrInstall = Loc.tr("Localizable", "ObjectType.SearchOrInstall", fallback: "Search or install a new type")
+  }
+  internal enum ParticipantRemoveNotification {
+    /// You have been removed from the space, or the space was deleted by the owner.
+    internal static let text = Loc.tr("Localizable", "ParticipantRemoveNotification.Text", fallback: "You have been removed from the space, or the space was deleted by the owner.")
   }
   internal enum ParticipantRequestApprovedNotification {
     /// Your request to join the **%@** space has been approved with **%@** access rights. The space will be available on your device soon.

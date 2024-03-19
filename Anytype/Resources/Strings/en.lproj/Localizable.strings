@@ -137,6 +137,7 @@
 "Lists" = "Lists";
 "Pinned" = "Pinned";
 "Delete" = "Delete";
+"Export" = "Export";
 "Duplicate" = "Duplicate";
 "Copy" = "Copy";
 "Preview" = "Preview";
@@ -917,6 +918,7 @@
 "ParticipantRequestApprovedNotification.Text" = "Your request to join the **%@** space has been approved with **%@** access rights. The space will be available on your device soon.";
 "ParticipantRequestDeclineNotification.Text" = "Your request to join the **%@** space has been declined.";
 "RequestToLeaveNotification.Text" = "**%@** wants to leave the **%@** space.";
+"ParticipantRemoveNotification.Text" = "You have been removed from the space, or the space was deleted by the owner.";
 
 // MARK: - Space manager
 "SpaceManager.CancelRequest" = "Cancel Request";
