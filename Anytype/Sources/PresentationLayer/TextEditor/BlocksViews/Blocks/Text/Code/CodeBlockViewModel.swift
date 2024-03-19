@@ -29,7 +29,7 @@ struct CodeBlockViewModel: BlockViewModelProtocol {
             anytypeText: anytypeText,
             backgroundColor: info.backgroundColor,
             codeLanguage: codeLanguage,
-            actions: .init(
+            actions: CodeBlockContentConfiguration.Actions(
                 becomeFirstResponder: { becomeFirstResponder(info) },
                 textDidChange: { textView in
                     handler.changeText(textView.attributedText, blockId: info.id)
