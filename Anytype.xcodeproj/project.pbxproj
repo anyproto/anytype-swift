@@ -879,6 +879,8 @@
 		2AFFFB9F2927B05700A487E1 /* AccountEventHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AFFFB9E2927B05700A487E1 /* AccountEventHandler.swift */; };
 		2E010C342B88DF0C00504735 /* EditorFeaturedRelationsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E010C332B88DF0C00504735 /* EditorFeaturedRelationsView.swift */; };
 		2E010C372B8CEF5500504735 /* RelationValueViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E010C362B8CEF5500504735 /* RelationValueViewModel.swift */; };
+		2E04201A2BA894C500F36637 /* ObjectRelationListData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E0420192BA894C500F36637 /* ObjectRelationListData.swift */; };
+		2E04201E2BA899C500F36637 /* SelectRelationListData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E04201D2BA899C500F36637 /* SelectRelationListData.swift */; };
 		2E0797B32A0940F8006F0FD7 /* JoinFlowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E0797B12A0940F8006F0FD7 /* JoinFlowView.swift */; };
 		2E0797B42A0940F8006F0FD7 /* JoinFlowViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E0797B22A0940F8006F0FD7 /* JoinFlowViewModel.swift */; };
 		2E0797B82A0964BC006F0FD7 /* JoinFlowModuleAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E0797B72A0964BC006F0FD7 /* JoinFlowModuleAssembly.swift */; };
@@ -2660,6 +2662,8 @@
 		2AFFFB9E2927B05700A487E1 /* AccountEventHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountEventHandler.swift; sourceTree = "<group>"; };
 		2E010C332B88DF0C00504735 /* EditorFeaturedRelationsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditorFeaturedRelationsView.swift; sourceTree = "<group>"; };
 		2E010C362B8CEF5500504735 /* RelationValueViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RelationValueViewModel.swift; sourceTree = "<group>"; };
+		2E0420192BA894C500F36637 /* ObjectRelationListData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObjectRelationListData.swift; sourceTree = "<group>"; };
+		2E04201D2BA899C500F36637 /* SelectRelationListData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectRelationListData.swift; sourceTree = "<group>"; };
 		2E0797B12A0940F8006F0FD7 /* JoinFlowView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JoinFlowView.swift; sourceTree = "<group>"; };
 		2E0797B22A0940F8006F0FD7 /* JoinFlowViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JoinFlowViewModel.swift; sourceTree = "<group>"; };
 		2E0797B72A0964BC006F0FD7 /* JoinFlowModuleAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JoinFlowModuleAssembly.swift; sourceTree = "<group>"; };
@@ -7319,6 +7323,7 @@
 				2E22F9E62B615053001EFCF3 /* SelectRelationOption.swift */,
 				2E22F9EF2B616B6E001EFCF3 /* SelectRelationListModuleOutput.swift */,
 				2EE6160D2B6CFEBD000236A8 /* SelectRelationListStyle.swift */,
+				2E04201D2BA899C500F36637 /* SelectRelationListData.swift */,
 			);
 			path = Select;
 			sourceTree = "<group>";
@@ -7369,6 +7374,7 @@
 				2E7E50412B6D5C3A003867A3 /* ObjectRelationListModuleOutput.swift */,
 				2E31C9652B73C8C8006DB3E2 /* ObjectRelationOption.swift */,
 				2E31C9672B73C963006DB3E2 /* ObjectRelationOptionView.swift */,
+				2E0420192BA894C500F36637 /* ObjectRelationListData.swift */,
 			);
 			path = Object;
 			sourceTree = "<group>";
@@ -11259,6 +11265,7 @@
 				120EB4E326E8F618003A0C2B /* ObjectHeaderIconView.swift in Sources */,
 				86C4B3702B21DC61003B8C51 /* SharingTipView.swift in Sources */,
 				3DB1C9CA2726A6E7000D2779 /* BlockLinkState+Text.swift in Sources */,
+				2E04201E2BA899C500F36637 /* SelectRelationListData.swift in Sources */,
 				C99A53AE28A1411B00B3E5F4 /* ObjectHeaderEmptyData.swift in Sources */,
 				3DCC549226D3B568002517AC /* BlockBookmarkOnlyUrlConfiguration.swift in Sources */,
 				2ACA29A52B712F73009CD054 /* GalleryNotificationViewModel.swift in Sources */,
@@ -11569,6 +11576,7 @@
 				2A28D046297E8CAD00E55E15 /* SetsListWidgetModuleAssembly.swift in Sources */,
 				120E8171269F31A8006FE84E /* ObjectSettingsView.swift in Sources */,
 				2AF4260729AF402200753B17 /* WallpaperPickerViewModel.swift in Sources */,
+				2E04201A2BA894C500F36637 /* ObjectRelationListData.swift in Sources */,
 				3DD112982B95EA35007682F4 /* MembershipCoordinatorModel.swift in Sources */,
 				2A30734928ACEF58003673DF /* AlertOpener.swift in Sources */,
 				3DE0CFD826F8593D003A606A /* SlashAction.swift in Sources */,
