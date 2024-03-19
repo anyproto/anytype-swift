@@ -889,6 +889,8 @@
 "SpaceShare.Permissions.Owner" = "Propriétaire";
 "SpaceShare.Permissions.Reader" = "Visionneuse";
 "SpaceShare.Permissions.Writer" = "Éditeur";
+"SpaceShare.Permissions.Grand.Edit" = "Éditer";
+"SpaceShare.Permissions.Grand.View" = "Vue";
 "SpaceShare.Invite.Title" = "Lien d'invitation";
 "SpaceShare.Invite.Description" = "Envoyez ce lien pour inviter d'autres personnes. Attribuez les droits d'accès lors de l'approbation de leur demande.\"";
 "SpaceShare.Invite.Button" = "Partager le lien d'invitation";
@@ -912,6 +914,12 @@
 "SpaceShare.JoinConfirmation.Title" = "Demande envoyée";
 "SpaceShare.JoinConfirmation.Message" = "Vous recevrez une notification lorsque le propriétaire de l'espace approuvera votre demande.";
 "SpaceShare.YouSuffix" = "%@ (vous)";
+
+// MARK: - Permission notification
+"PermissionChangeNotification.Text" = "Your access rights were changed to **%@** in the **%@** space.";
+"ParticipantRequestApprovedNotification.Text" = "Your request to join the **%@** space has been approved with **%@** access rights. The space will be available on your device soon.";
+"ParticipantRequestDeclineNotification.Text" = "Your request to join the **%@** space has been declined.";
+"RequestToLeaveNotification.Text" = "**%@** wants to leave the **%@** space.";
 
 // MARK: - Space manager
 "SpaceManager.CancelRequest" = "Annuler la demande";

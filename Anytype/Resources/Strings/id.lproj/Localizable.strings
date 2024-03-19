@@ -889,6 +889,8 @@
 "SpaceShare.Permissions.Owner" = "Pemilik";
 "SpaceShare.Permissions.Reader" = "Pembaca";
 "SpaceShare.Permissions.Writer" = "Penyunting";
+"SpaceShare.Permissions.Grand.Edit" = "Sunting";
+"SpaceShare.Permissions.Grand.View" = "Tampilan";
 "SpaceShare.Invite.Title" = "Tautan undangan";
 "SpaceShare.Invite.Description" = "Kirimkan tautan ini untuk mengundang orang lain. Kamu bisa mengatur hak akses mereka setelah mereka menyetujui undangan";
 "SpaceShare.Invite.Button" = "Bagikan tautan undangan";
@@ -912,6 +914,12 @@
 "SpaceShare.JoinConfirmation.Title" = "Permintaan terkirim";
 "SpaceShare.JoinConfirmation.Message" = "Kamu akan menerima pemberitahuan ketika pemilik ruang menyetujui permintaanmu.";
 "SpaceShare.YouSuffix" = "%@ (kamu)";
+
+// MARK: - Permission notification
+"PermissionChangeNotification.Text" = "Your access rights were changed to **%@** in the **%@** space.";
+"ParticipantRequestApprovedNotification.Text" = "Your request to join the **%@** space has been approved with **%@** access rights. The space will be available on your device soon.";
+"ParticipantRequestDeclineNotification.Text" = "Your request to join the **%@** space has been declined.";
+"RequestToLeaveNotification.Text" = "**%@** wants to leave the **%@** space.";
 
 // MARK: - Space manager
 "SpaceManager.CancelRequest" = "Batalkan permintaan";

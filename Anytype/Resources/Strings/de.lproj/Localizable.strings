@@ -890,6 +890,8 @@
 "SpaceShare.Permissions.Owner" = "Eigentümer";
 "SpaceShare.Permissions.Reader" = "Viewer";
 "SpaceShare.Permissions.Writer" = "Editor";
+"SpaceShare.Permissions.Grand.Edit" = "Bearbeiten";
+"SpaceShare.Permissions.Grand.View" = "Ansicht";
 "SpaceShare.Invite.Title" = "Einladungslink";
 "SpaceShare.Invite.Description" = "Sende diesen Link, um andere einzuladen. Weise Zugriffsrechte zu, wenn deren Anfrage genehmigt wurde";
 "SpaceShare.Invite.Button" = "Einladungslink teilen";
@@ -914,8 +916,14 @@
 "SpaceShare.JoinConfirmation.Message" = "Sie erhalten eine Benachrichtigung, wenn der Spacebesitzer Ihre Anfrage angenommen hat.";
 "SpaceShare.YouSuffix" = "%@ (you)";
 
+// MARK: - Permission notification
+"PermissionChangeNotification.Text" = "Your access rights were changed to **%@** in the **%@** space.";
+"ParticipantRequestApprovedNotification.Text" = "Your request to join the **%@** space has been approved with **%@** access rights. The space will be available on your device soon.";
+"ParticipantRequestDeclineNotification.Text" = "Your request to join the **%@** space has been declined.";
+"RequestToLeaveNotification.Text" = "**%@** wants to leave the **%@** space.";
+
 // MARK: - Space manager
-"SpaceManager.CancelRequest" = "Cancel Request";
+"SpaceManager.CancelRequest" = "Anfrage stornieren";
 "SpaceManager.Archive" = "Archive";
 
 // MARK: - Space Create
@@ -1011,9 +1019,9 @@
 "Valid until" = "Gültig bis:";
 "Paid by" = "Bezahlt von %@";
 "Myself" = "Myself";
-"Pay by Card" = "Pay by Card";
+"Pay by Card" = "Mit Karte bezahlen";
 "Details upon request" = "Details upon request";
-"Min X characters" = "Min %@ characters";
+"Min X characters" = "Min. %@ Zeichen";
 
 
 "Membership.Ad.Title" = "Mitgliedschaft";
@@ -1048,7 +1056,7 @@
 "Membership.NameForm.Title" = "Pick your unique name";
 "Membership.NameForm.Subtitle" = "This name acts like a personal domain, making it easier for others to find you";
 "Membership.NameForm.Validating" = "Wait a second...";
-"Membership.NameForm.Validated" = "This name is up for grabs";
+"Membership.NameForm.Validated" = "Dieser Name ist noch zu vergeben";
 
 "Membership.Success.Title" = "Willkommen im Netzwerk, %@";
 "Membership.Success.Subitle" = "Ein Hoch auf deine Neugierde!";

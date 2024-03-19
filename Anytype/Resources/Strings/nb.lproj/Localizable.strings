@@ -889,6 +889,8 @@
 "SpaceShare.Permissions.Owner" = "Eier";
 "SpaceShare.Permissions.Reader" = "Viewer";
 "SpaceShare.Permissions.Writer" = "Redigering";
+"SpaceShare.Permissions.Grand.Edit" = "Rediger";
+"SpaceShare.Permissions.Grand.View" = "Visning";
 "SpaceShare.Invite.Title" = "Invitasjonslenke";
 "SpaceShare.Invite.Description" = "Send denne lenken for å invitere andre. Tildel tilgangsrettigheter når deres forespørsel er godkjent";
 "SpaceShare.Invite.Button" = "Del invitasjonslenke";
@@ -912,6 +914,12 @@
 "SpaceShare.JoinConfirmation.Title" = "Forespørsel sendt";
 "SpaceShare.JoinConfirmation.Message" = "Du vil motta et varsel når eieren av rommet godkjenner forespørselen din.";
 "SpaceShare.YouSuffix" = "%@ (you)";
+
+// MARK: - Permission notification
+"PermissionChangeNotification.Text" = "Your access rights were changed to **%@** in the **%@** space.";
+"ParticipantRequestApprovedNotification.Text" = "Your request to join the **%@** space has been approved with **%@** access rights. The space will be available on your device soon.";
+"ParticipantRequestDeclineNotification.Text" = "Your request to join the **%@** space has been declined.";
+"RequestToLeaveNotification.Text" = "**%@** wants to leave the **%@** space.";
 
 // MARK: - Space manager
 "SpaceManager.CancelRequest" = "Avbryt forespørsel";
