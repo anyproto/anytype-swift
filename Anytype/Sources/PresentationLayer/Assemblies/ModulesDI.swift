@@ -158,10 +158,6 @@ final class ModulesDI: ModulesDIProtocol {
         return SetViewSettingsListModuleAssembly(serviceLocator: serviceLocator)
     }
     
-    func setSortsList() -> SetSortsListModuleAssemblyProtocol {
-        return SetSortsListModuleAssembly(serviceLocator: serviceLocator)
-    }
-    
     func setSortTypesList() -> SetSortTypesListModuleAssemblyProtocol {
         SetSortTypesListModuleAssembly()
     }

@@ -22,7 +22,6 @@ final class SetSortsListCoordinatorAssembly: SetSortsListCoordinatorAssemblyProt
             model: SetSortsListCoordinatorViewModel(
                 setDocument: setDocument,
                 viewId: viewId,
-                setSortsListModuleAssembly: self.modulesDI.setSortsList(),
                 newSearchModuleAssembly: self.modulesDI.newSearch(),
                 setSortTypesListModuleAssembly: self.modulesDI.setSortTypesList()
             )

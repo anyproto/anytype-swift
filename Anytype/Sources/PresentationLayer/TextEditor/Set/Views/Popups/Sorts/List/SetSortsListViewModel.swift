@@ -11,18 +11,18 @@ final class SetSortsListViewModel: ObservableObject {
     private let viewId: String
     private var cancellable: Cancellable?
     
-    private let dataviewService: DataviewServiceProtocol
+    @Injected(\.dataviewService)
+    private var dataviewService: DataviewServiceProtocol
+    
     private weak var output: SetSortsListCoordinatorOutput?
     
     init(
         setDocument: SetDocumentProtocol,
         viewId: String,
-        dataviewService: DataviewServiceProtocol,
         output: SetSortsListCoordinatorOutput?
     ) {
         self.setDocument = setDocument
         self.viewId = viewId
-        self.dataviewService = dataviewService
         self.output = output
         self.setup()
     }
