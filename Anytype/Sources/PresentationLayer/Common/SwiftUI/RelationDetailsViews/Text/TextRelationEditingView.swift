@@ -77,7 +77,7 @@ struct TextRelationEditingView: View {
     
     @ViewBuilder
     private var clearButton: some View {
-        if viewModel.text.isNotEmpty {
+        if viewModel.text.isNotEmpty, viewModel.config.isEditable {
             Button {
                 viewModel.onClear()
             } label: {
@@ -90,7 +90,7 @@ struct TextRelationEditingView: View {
     
     @ViewBuilder
     private var pasteButton: some View {
-        if viewModel.showPaste {
+        if viewModel.showPaste, viewModel.config.isEditable {
             Button {
                 viewModel.onPaste()
             } label: {
