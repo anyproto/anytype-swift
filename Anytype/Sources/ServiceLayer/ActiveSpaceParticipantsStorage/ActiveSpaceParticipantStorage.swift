@@ -45,6 +45,7 @@ final class ActiveSpaceParticipantStorage: ActiveSpaceParticipantStorageProtocol
             .sink { [weak self] spaceId in
                 Task {
                     // TODO: Make different publisher for each space. Imrove subscriptions.
+                    // IOS-2518
                     // For prevent affest on screen when user switch, create a new subject
                     self?.participantsSubject = CurrentValueSubject<[Participant], Never>([])
                     try await self?.startOrUpdateSubscription(spaceId: spaceId)
