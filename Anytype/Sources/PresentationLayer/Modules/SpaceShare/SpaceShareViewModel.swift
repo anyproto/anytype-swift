@@ -17,15 +17,16 @@ final class SpaceShareViewModel: ObservableObject {
     
     private var participants: [Participant] = []
     
+    @Published var accountSpaceId: String
     @Published var rows: [SpaceShareParticipantViewModel] = []
     @Published var inviteLink: URL?
     @Published var shareInviteLink: URL?
-    @Published var limitTitle: String = ""
     @Published var allowToAddMembers = false
     @Published var toastBarData: ToastBarData = .empty
     @Published var requestAlertModel: SpaceRequestViewModel?
     @Published var changeAccessAlertModel: SpaceChangeAccessViewModel?
     @Published var removeParticipantAlertModel: SpaceParticipantRemoveViewModel?
+    @Published var showDeleteLinkAlert = false
     
     init(
         participantSubscriptionService: ParticipantsSubscriptionBySpaceServiceProtocol,
@@ -37,16 +38,10 @@ final class SpaceShareViewModel: ObservableObject {
         self.workspaceService = workspaceService
         self.activeWorkspaceStorage = activeWorkspaceStorage
         self.deppLinkParser = deppLinkParser
+        self.accountSpaceId = activeWorkspaceStorage.workspaceInfo.accountSpaceId
         startSubscriptions()
         Task {
-            let invite = try await workspaceService.generateInvite(spaceId: activeWorkspaceStorage.workspaceInfo.accountSpaceId)
-            inviteLink = deppLinkParser.createUrl(deepLink: .invite(cid: invite.cid, key: invite.fileKey), scheme: .main)
-        }
-    }
-    
-    func onUpdateLink() {
-        Task {
-            let invite = try await workspaceService.generateInvite(spaceId: activeWorkspaceStorage.workspaceInfo.accountSpaceId)
+            let invite = try await workspaceService.getCurrentInvite(spaceId: accountSpaceId)
             inviteLink = deppLinkParser.createUrl(deepLink: .invite(cid: invite.cid, key: invite.fileKey), scheme: .main)
         }
     }
@@ -58,6 +53,19 @@ final class SpaceShareViewModel: ObservableObject {
     func onCopyLink() {
         UIPasteboard.general.string = inviteLink?.absoluteString
         toastBarData = ToastBarData(text: Loc.copied, showSnackBar: true)
+    }
+    
+    func onDeleteSharingLink() {
+        showDeleteLinkAlert = true
+    }
+    
+    func onGenerateInvite() async throws {
+        let invite = try await workspaceService.generateInvite(spaceId: accountSpaceId)
+        inviteLink = deppLinkParser.createUrl(deepLink: .invite(cid: invite.cid, key: invite.fileKey), scheme: .main)
+    }
+    
+    func deleteSharingLinkAlertOnDismiss() {
+        inviteLink = nil
     }
     
     // MARK: - Private
@@ -83,9 +91,7 @@ final class SpaceShareViewModel: ObservableObject {
                 contextActions: participantContextActions(participant)
             )
         }
-        let limit = Constants.participantLimit - items.count
         allowToAddMembers = Constants.participantLimit > items.count
-        limitTitle = allowToAddMembers ? Loc.SpaceShare.Invite.members(limit) : Loc.SpaceShare.Invite.maxLimit(Constants.participantLimit)
     }
     
     private func participantStatus(_ participant: Participant) -> SpaceShareParticipantViewModel.Status? {
