@@ -62,7 +62,6 @@
 "BlockLink.PreviewSettings.Layout.Text.Title" = "Texte";
 
 // MARK: - Settings
-"Settings.Title" = "Paramètres";
 "Settings.SpaceName" = "Nom de l'espace";
 
 // MARK: - Object
@@ -138,6 +137,7 @@
 "Lists" = "Groups";
 "Pinned" = "Épinglé";
 "Delete" = "Supprimer";
+"Export" = "Export";
 "Duplicate" = "Dupliquer";
 "Copy" = "Copier";
 "Preview" = "Aperçu";
@@ -258,8 +258,7 @@
 "Auth.JoinFlow.Soul.Placeholder" = "Sans titre";
 
 "Auth.JoinFlow.Creating.Soul.Title" = "Génération d'un nouveau compte";
-"Auth.JoinFlow.Setting.Space.Title" = "Configuration de votre espace personnel";
-"Auth.JoinFlow.Personal.Space.Title" = "Paramètres";
+"Auth.JoinFlow.Setting.Space.Title" = "Configuration de votre espace par défaut";
 
 // Auth - Login flow
 "Auth.LoginFlow.Use.Keychain.Title" = "Utiliser le trousseau";
@@ -811,7 +810,6 @@
 "ClearCache.Error" = "Erreur, réessayez plus tard";
 
 // MARK: - Settings
-"Settings.TitleLegacy" = "Paramètres";
 "Settings.Title" = "Paramètres";
 "Settings.SpaceName" = "Nom de l'espace";
 "Settings.AccountAndAccess" = "Compte et accès";
@@ -848,7 +846,7 @@
 // MARK: - Spaces
 "Spaces.Accessibility.Shared" = "Espace partagé";
 "Spaces.Accessibility.Private" = "Espace Privé";
-"Spaces.Accessibility.Personal" = "Paramètres";
+"Spaces.Accessibility.Personal" = "Espace par défaut";
 "Spaces.Search.Title" = "Rechercher des espaces";
 "Spaces.Title" = "Espaces";
 "Spaces.Info.Network" = "Réseau :";
@@ -920,6 +918,7 @@
 "ParticipantRequestApprovedNotification.Text" = "Your request to join the **%@** space has been approved with **%@** access rights. The space will be available on your device soon.";
 "ParticipantRequestDeclineNotification.Text" = "Your request to join the **%@** space has been declined.";
 "RequestToLeaveNotification.Text" = "**%@** wants to leave the **%@** space.";
+"ParticipantRemoveNotification.Text" = "You have been removed from the space, or the space was deleted by the owner.";
 
 // MARK: - Space manager
 "SpaceManager.CancelRequest" = "Annuler la demande";
