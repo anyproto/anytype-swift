@@ -62,7 +62,6 @@
 "BlockLink.PreviewSettings.Layout.Text.Title" = "正文";
 
 // MARK: - Settings
-"Settings.Title" = "个人空间";
 "Settings.SpaceName" = "空间名称";
 
 // MARK: - Object
@@ -138,6 +137,7 @@
 "Lists" = "分组";
 "Pinned" = "固定";
 "Delete" = "删除";
+"Export" = "Export";
 "Duplicate" = "生成副本";
 "Copy" = "拷贝";
 "Preview" = "预览";
@@ -258,8 +258,7 @@
 "Auth.JoinFlow.Soul.Placeholder" = "无标题";
 
 "Auth.JoinFlow.Creating.Soul.Title" = "生成新的 Anytype 标识";
-"Auth.JoinFlow.Setting.Space.Title" = "设置您的个人空间";
-"Auth.JoinFlow.Personal.Space.Title" = "个人空间";
+"Auth.JoinFlow.Setting.Space.Title" = "Setting up your default space";
 
 // Auth - Login flow
 "Auth.LoginFlow.Use.Keychain.Title" = "使用钥匙串";
@@ -811,7 +810,6 @@
 "ClearCache.Error" = "错误，请稍后重试";
 
 // MARK: - Settings
-"Settings.TitleLegacy" = "个人空间";
 "Settings.Title" = "设置";
 "Settings.SpaceName" = "空间名称";
 "Settings.AccountAndAccess" = "账户与访问权限";
@@ -848,7 +846,7 @@
 // MARK: - Spaces
 "Spaces.Accessibility.Shared" = "共享空间";
 "Spaces.Accessibility.Private" = "私人空间";
-"Spaces.Accessibility.Personal" = "个人空间";
+"Spaces.Accessibility.Personal" = "Default Space";
 "Spaces.Search.Title" = "搜索空间";
 "Spaces.Title" = "空间";
 "Spaces.Info.Network" = "网络:";
@@ -920,6 +918,7 @@
 "ParticipantRequestApprovedNotification.Text" = "Your request to join the **%@** space has been approved with **%@** access rights. The space will be available on your device soon.";
 "ParticipantRequestDeclineNotification.Text" = "Your request to join the **%@** space has been declined.";
 "RequestToLeaveNotification.Text" = "**%@** wants to leave the **%@** space.";
+"ParticipantRemoveNotification.Text" = "You have been removed from the space, or the space was deleted by the owner.";
 
 // MARK: - Space manager
 "SpaceManager.CancelRequest" = "Cancel Request";
