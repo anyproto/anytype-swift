@@ -306,10 +306,6 @@ final class ServiceLocator {
         Container.shared.processSubscriptionService()
     }
     
-    func participantService() -> ParticipantServiceProtocol {
-        Container.shared.participantService()
-    }
-    
     func blockTableService() -> BlockTableServiceProtocol {
         Container.shared.blockTableService()
     }
@@ -328,5 +324,9 @@ final class ServiceLocator {
     
     func accountParticipantStorage() -> AccountParticipantsStorageProtocol {
         Container.shared.accountParticipantsStorage()
+    }
+    
+    func participantSpacesStorage() -> ParticipantSpacesStorageProtocol {
+        Container.shared.participantSpacesStorage()
     }
 }
