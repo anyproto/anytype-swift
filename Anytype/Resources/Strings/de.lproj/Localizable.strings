@@ -62,7 +62,6 @@
 "BlockLink.PreviewSettings.Layout.Text.Title" = "Text";
 
 // MARK: - Settings
-"Settings.Title" = "Einstellungen";
 "Settings.SpaceName" = "Space-Name";
 
 // MARK: - Object
@@ -138,6 +137,7 @@
 "Lists" = "Gruppen";
 "Pinned" = "Angeheftet";
 "Delete" = "Löschen";
+"Export" = "Exportieren";
 "Duplicate" = "Duplizieren";
 "Copy" = "Kopieren";
 "Preview" = "Vorschau";
@@ -258,8 +258,7 @@
 "Auth.JoinFlow.Soul.Placeholder" = "Unbenannt";
 
 "Auth.JoinFlow.Creating.Soul.Title" = "Neues Konto erstellen";
-"Auth.JoinFlow.Setting.Space.Title" = "Einrichtung deines persönlichen Spaces";
-"Auth.JoinFlow.Personal.Space.Title" = "Einstellungen";
+"Auth.JoinFlow.Setting.Space.Title" = "Setting up your default space";
 
 // Auth - Login flow
 "Auth.LoginFlow.Use.Keychain.Title" = "Schlüsselbund verwenden";
@@ -812,7 +811,6 @@
 "ClearCache.Error" = "Fehler. Versuchen Sie es später noch einmal";
 
 // MARK: - Settings
-"Settings.TitleLegacy" = "Einstellungen";
 "Settings.Title" = "Einstellungen";
 "Settings.SpaceName" = "Space-Name";
 "Settings.AccountAndAccess" = "Konto und Zugriff";
@@ -849,7 +847,7 @@
 // MARK: - Spaces
 "Spaces.Accessibility.Shared" = "Geteilter Space";
 "Spaces.Accessibility.Private" = "Privater Raum";
-"Spaces.Accessibility.Personal" = "Einstellungen";
+"Spaces.Accessibility.Personal" = "Default Space";
 "Spaces.Search.Title" = "Spaces suchen";
 "Spaces.Title" = "Spaces";
 "Spaces.Info.Network" = "Netzwerk:";
@@ -914,13 +912,14 @@
 "SpaceShare.Join.Message" = "Sie wurden eingeladen, dem Space %@, erstellt von %@ beizutreten. Senden Sie eine Anfrage, damit der Spacebesitzer Sie einladen kann.";
 "SpaceShare.JoinConfirmation.Title" = "Anfrage gesendet";
 "SpaceShare.JoinConfirmation.Message" = "Sie erhalten eine Benachrichtigung, wenn der Spacebesitzer Ihre Anfrage angenommen hat.";
-"SpaceShare.YouSuffix" = "%@ (you)";
+"SpaceShare.YouSuffix" = "%@ (du)";
 
 // MARK: - Permission notification
 "PermissionChangeNotification.Text" = "Your access rights were changed to **%@** in the **%@** space.";
 "ParticipantRequestApprovedNotification.Text" = "Your request to join the **%@** space has been approved with **%@** access rights. The space will be available on your device soon.";
 "ParticipantRequestDeclineNotification.Text" = "Your request to join the **%@** space has been declined.";
 "RequestToLeaveNotification.Text" = "**%@** wants to leave the **%@** space.";
+"ParticipantRemoveNotification.Text" = "You have been removed from the space, or the space was deleted by the owner.";
 
 // MARK: - Space manager
 "SpaceManager.CancelRequest" = "Anfrage stornieren";
@@ -1020,7 +1019,7 @@
 "Paid by" = "Bezahlt von %@";
 "Myself" = "Myself";
 "Pay by Card" = "Mit Karte bezahlen";
-"Details upon request" = "Details upon request";
+"Details upon request" = "Details auf Anfrage";
 "Min X characters" = "Min. %@ Zeichen";
 
 
@@ -1073,7 +1072,7 @@
 "Membership.Builder.Subtitle" = "Entfessle die Magie der Zusammenarbeit mit mehreren Teilnehmern und genieße erstklassige Unterstützung";
 "Membership.Builder.Benefit1" = "Eindeutiger Name (ab 7 Zeichen)";
 "Membership.Builder.Benefit2" = "128 GB Netzwerkspeicher";
-"Membership.Builder.Benefit3" = "10 Guest collaborator seats";
+"Membership.Builder.Benefit3" = "10 Plätze für Gastmitarbeiter";
 "Membership.Builder.Benefit4" = "Vorrangige Unterstützung";
 
 "Membership.CoCreator.Title" = "Mitersteller";

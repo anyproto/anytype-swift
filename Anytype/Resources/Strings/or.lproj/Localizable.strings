@@ -62,7 +62,6 @@
 "BlockLink.PreviewSettings.Layout.Text.Title" = "ଲେଖା";
 
 // MARK: - Settings
-"Settings.Title" = "ସେଟିଂସମୂହ";
 "Settings.SpaceName" = "ସ୍ଥାନ ନାମ";
 
 // MARK: - Object
@@ -138,6 +137,7 @@
 "Lists" = "Lists";
 "Pinned" = "Pinned";
 "Delete" = "ବିଲୋପ କରନ୍ତୁ";
+"Export" = "Export";
 "Duplicate" = "ନକଲ";
 "Copy" = "କପି କରନ୍ତୁ";
 "Preview" = "ପ୍ରିଭିଉ";
@@ -258,8 +258,7 @@
 "Auth.JoinFlow.Soul.Placeholder" = "ଶୀର୍ଷକ ନଥିବା";
 
 "Auth.JoinFlow.Creating.Soul.Title" = "ନୂତନ ଖାତା ସୃଷ୍ଟି କରୁଛି";
-"Auth.JoinFlow.Setting.Space.Title" = "ଆପଣଙ୍କର ବ୍ୟକ୍ତିଗତ ସ୍ଥାନ ସେଟ୍ ଅପ୍ କରୁଛି";
-"Auth.JoinFlow.Personal.Space.Title" = "ସେଟିଂସମୂହ";
+"Auth.JoinFlow.Setting.Space.Title" = "Setting up your default space";
 
 // Auth - Login flow
 "Auth.LoginFlow.Use.Keychain.Title" = "କିଚେନ ବ୍ୟବହାର କରନ୍ତୁ";
@@ -811,7 +810,6 @@
 "ClearCache.Error" = "Error, try again later";
 
 // MARK: - Settings
-"Settings.TitleLegacy" = "ସେଟିଂସମୂହ";
 "Settings.Title" = "ସେଟିଂସମୂହ";
 "Settings.SpaceName" = "ସ୍ଥାନ ନାମ";
 "Settings.AccountAndAccess" = "Account and access";
@@ -848,7 +846,7 @@
 // MARK: - Spaces
 "Spaces.Accessibility.Shared" = "Shared Space";
 "Spaces.Accessibility.Private" = "Private Space";
-"Spaces.Accessibility.Personal" = "ସେଟିଂସମୂହ";
+"Spaces.Accessibility.Personal" = "Default Space";
 "Spaces.Search.Title" = "Search spaces";
 "Spaces.Title" = "Spaces";
 "Spaces.Info.Network" = "Network:";
@@ -920,6 +918,7 @@
 "ParticipantRequestApprovedNotification.Text" = "Your request to join the **%@** space has been approved with **%@** access rights. The space will be available on your device soon.";
 "ParticipantRequestDeclineNotification.Text" = "Your request to join the **%@** space has been declined.";
 "RequestToLeaveNotification.Text" = "**%@** wants to leave the **%@** space.";
+"ParticipantRemoveNotification.Text" = "You have been removed from the space, or the space was deleted by the owner.";
 
 // MARK: - Space manager
 "SpaceManager.CancelRequest" = "Cancel Request";

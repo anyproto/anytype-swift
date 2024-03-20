@@ -62,7 +62,6 @@
 "BlockLink.PreviewSettings.Layout.Text.Title" = "Văn bản";
 
 // MARK: - Settings
-"Settings.Title" = "Cài đặt";
 "Settings.SpaceName" = "Tên Không gian";
 
 // MARK: - Object
@@ -138,6 +137,7 @@
 "Lists" = "Lists";
 "Pinned" = "Pinned";
 "Delete" = "Xoá";
+"Export" = "Export";
 "Duplicate" = "Nhân đôi";
 "Copy" = "Chép";
 "Preview" = "Xem trước";
@@ -259,8 +259,7 @@
 "Auth.JoinFlow.Soul.Placeholder" = "Không tên";
 
 "Auth.JoinFlow.Creating.Soul.Title" = "Đang khởi tạo tài khoản mới";
-"Auth.JoinFlow.Setting.Space.Title" = "Đang thiết lập không gian riêng của bạn";
-"Auth.JoinFlow.Personal.Space.Title" = "Cài đặt";
+"Auth.JoinFlow.Setting.Space.Title" = "Setting up your default space";
 
 // Auth - Login flow
 "Auth.LoginFlow.Use.Keychain.Title" = "Use keychain";
@@ -812,7 +811,6 @@
 "ClearCache.Error" = "Lỗi, hãy thử lại sau";
 
 // MARK: - Settings
-"Settings.TitleLegacy" = "Cài đặt";
 "Settings.Title" = "Cài đặt";
 "Settings.SpaceName" = "Tên Không gian";
 "Settings.AccountAndAccess" = "Account and access";
@@ -849,7 +847,7 @@
 // MARK: - Spaces
 "Spaces.Accessibility.Shared" = "Shared Space";
 "Spaces.Accessibility.Private" = "Private Space";
-"Spaces.Accessibility.Personal" = "Cài đặt";
+"Spaces.Accessibility.Personal" = "Default Space";
 "Spaces.Search.Title" = "Search spaces";
 "Spaces.Title" = "Spaces";
 "Spaces.Info.Network" = "Network:";
@@ -921,6 +919,7 @@
 "ParticipantRequestApprovedNotification.Text" = "Your request to join the **%@** space has been approved with **%@** access rights. The space will be available on your device soon.";
 "ParticipantRequestDeclineNotification.Text" = "Your request to join the **%@** space has been declined.";
 "RequestToLeaveNotification.Text" = "**%@** wants to leave the **%@** space.";
+"ParticipantRemoveNotification.Text" = "You have been removed from the space, or the space was deleted by the owner.";
 
 // MARK: - Space manager
 "SpaceManager.CancelRequest" = "Cancel Request";

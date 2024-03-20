@@ -18,6 +18,7 @@ struct SpaceSettingsView: View {
                     SettingsObjectHeader(name: $model.spaceName, nameTitle: Loc.Settings.spaceName, iconImage: model.spaceIcon, onTap: {
                         model.onChangeIconTap()
                     })
+                    .disabled(!model.allowEditSpace)
                     
                     if FeatureFlags.multiplayer {
                         if model.allowShare {
@@ -43,11 +44,13 @@ struct SpaceSettingsView: View {
                     
                     SectionHeaderView(title: Loc.settings)
                     
-                    SettingsSectionItemView(
-                        name: Loc.SpaceSettings.remoteStorage,
-                        imageAsset: .Settings.fileStorage,
-                        onTap: { model.onStorageTap() }
-                    )
+                    if model.allowRemoteStorage {
+                        SettingsSectionItemView(
+                            name: Loc.SpaceSettings.remoteStorage,
+                            imageAsset: .Settings.fileStorage,
+                            onTap: { model.onStorageTap() }
+                        )
+                    }
                     
                     SettingsSectionItemView(
                         name: Loc.personalization,

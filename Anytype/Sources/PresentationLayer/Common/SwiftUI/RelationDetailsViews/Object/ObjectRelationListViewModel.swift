@@ -26,16 +26,11 @@ final class ObjectRelationListViewModel: ObservableObject {
     
     private weak var output: ObjectRelationListModuleOutput?
     
-    init(
-        configuration: RelationModuleConfiguration,
-        interactor: ObjectRelationListInteractorProtocol,
-        relationSelectedOptionsModel: RelationSelectedOptionsModelProtocol,
-        output: ObjectRelationListModuleOutput?
-    ) {
-        self.configuration = configuration
+    init(data: ObjectRelationListData, output: ObjectRelationListModuleOutput?) {
+        self.configuration = data.configuration
         self.output = output
-        self.interactor = interactor
-        self.relationSelectedOptionsModel = relationSelectedOptionsModel
+        self.interactor = data.interactor
+        self.relationSelectedOptionsModel = data.relationSelectedOptionsModel
         self.relationSelectedOptionsModel.selectedOptionsIdsPublisher.assign(to: &$selectedOptionsIds)
     }
     

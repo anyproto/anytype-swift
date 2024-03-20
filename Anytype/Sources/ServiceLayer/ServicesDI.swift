@@ -251,4 +251,8 @@ extension Container {
     var activeSpaceParticipantStorage: Factory<ActiveSpaceParticipantStorageProtocol> {
         self { ActiveSpaceParticipantStorage() }.singleton
     }
+
+    var participantSpacesStorage: Factory<ParticipantSpacesStorageProtocol> {
+        self { ParticipantSpacesStorage() }.singleton
+    }
 }
