@@ -9,8 +9,7 @@ struct TextRelationEditingView: View {
     var body: some View {
         VStack(spacing: 0) {
             DragIndicator()
-            toolbar
-            contentView
+            content
         }
         .background(Color.Background.secondary)
         .onChange(of: viewModel.dismiss) { _ in
@@ -29,7 +28,11 @@ struct TextRelationEditingView: View {
     private var content: some View {
         VStack(spacing: 0) {
             toolbar
-            contentView
+            if viewModel.text.isEmpty, !viewModel.config.isEditable {
+                RelationListEmptyState()
+            } else {
+                contentView
+            }
         }
         .padding(.horizontal, 20)
     }
@@ -46,7 +49,6 @@ struct TextRelationEditingView: View {
                 .frame(maxWidth: .infinity, alignment: .trailing)
         }
         .frame(height: 48)
-        .padding(.horizontal, 20)
     }
     
     @ViewBuilder
@@ -61,7 +63,6 @@ struct TextRelationEditingView: View {
             buttons
             Spacer.fixedHeight(6)
         }
-        .padding(.horizontal, 20)
     }
     
     @ViewBuilder
