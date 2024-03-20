@@ -15,18 +15,15 @@ final class SetSortsListCoordinatorViewModel: ObservableObject, SetSortsListCoor
     let setDocument: SetDocumentProtocol
     let viewId: String
     private let newSearchModuleAssembly: NewSearchModuleAssemblyProtocol
-    private let setSortTypesListModuleAssembly: SetSortTypesListModuleAssemblyProtocol
     
     init(
         setDocument: SetDocumentProtocol,
         viewId: String,
-        newSearchModuleAssembly: NewSearchModuleAssemblyProtocol,
-        setSortTypesListModuleAssembly: SetSortTypesListModuleAssemblyProtocol
+        newSearchModuleAssembly: NewSearchModuleAssemblyProtocol
     ) {
         self.setDocument = setDocument
         self.viewId = viewId
         self.newSearchModuleAssembly = newSearchModuleAssembly
-        self.setSortTypesListModuleAssembly = setSortTypesListModuleAssembly
     }
     
     // MARK: - SetSortsListCoordinatorOutput
@@ -61,13 +58,6 @@ final class SetSortsListCoordinatorViewModel: ObservableObject, SetSortsListCoor
             }
         )
     }
-
-    func setSortTypesList(data: SortTypesData) -> AnyView {
-        setSortTypesListModuleAssembly.make(
-            with: data.setSort,
-            completion: data.completion
-        )
-    }
 }
 
 extension SetSortsListCoordinatorViewModel {
@@ -76,11 +66,5 @@ extension SetSortsListCoordinatorViewModel {
         let id = UUID()
         let relationDetails: [RelationDetails]
         let completion: (RelationDetails) -> Void
-    }
-    
-    struct SortTypesData: Identifiable {
-        var id: String { setSort.id }
-        let setSort: SetSort
-        let completion: (SetSort) -> Void
     }
 }

@@ -12,11 +12,11 @@ final class SetSortTypesListViewModel: CheckPopupViewViewModelProtocol {
 
     // MARK: - Initializer
 
-    init(sort: SetSort, completion: @escaping (SetSort) -> Void) {
-        self.title = sort.relationDetails.name
-        self.sort = sort
-        self.selectedSort = sort.sort
-        self.completion = completion
+    init(data: SortTypesData) {
+        self.title = data.setSort.relationDetails.name
+        self.sort = data.setSort
+        self.selectedSort = data.setSort.sort
+        self.completion = data.completion
         self.items = self.buildPopupItems()
     }
     
@@ -52,4 +52,10 @@ final class SetSortTypesListViewModel: CheckPopupViewViewModelProtocol {
         )
         items = buildPopupItems()
     }
+}
+
+struct SortTypesData: Identifiable {
+    var id: String { setSort.id }
+    let setSort: SetSort
+    let completion: (SetSort) -> Void
 }

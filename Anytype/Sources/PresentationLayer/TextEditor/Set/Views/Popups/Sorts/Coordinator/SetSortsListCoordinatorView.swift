@@ -13,7 +13,7 @@ struct SetSortsListCoordinatorView: View {
             model.setSortsSearch(data: data)
         }
         .sheet(item: $model.sortTypesData) { data in
-            model.setSortTypesList(data: data)
+            CheckPopupView(viewModel: SetSortTypesListViewModel(data: data))
                 .fitPresentationDetents()
                 .background(Color.Background.secondary)
         }

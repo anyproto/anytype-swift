@@ -1094,7 +1094,6 @@
 		2EC9425F2900351C00DE91E4 /* DataviewGroup+Filter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EC9425E2900351C00DE91E4 /* DataviewGroup+Filter.swift */; };
 		2EC9426C2901905900DE91E4 /* SetKanbanView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EC942692901905800DE91E4 /* SetKanbanView.swift */; };
 		2EC9426E2901946800DE91E4 /* SetKanbanColumn.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EC9426D2901946800DE91E4 /* SetKanbanColumn.swift */; };
-		2ECB33FD2A94F79C00E0F9BB /* SetSortTypesListModuleAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2ECB33FC2A94F79C00E0F9BB /* SetSortTypesListModuleAssembly.swift */; };
 		2ECB34012A95041800E0F9BB /* View+Detents.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2ECB34002A95041800E0F9BB /* View+Detents.swift */; };
 		2ECB34042A95130800E0F9BB /* SetSortsListCoordinatorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2ECB34032A95130800E0F9BB /* SetSortsListCoordinatorView.swift */; };
 		2ECB34062A95131100E0F9BB /* SetSortsListCoordinatorViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2ECB34052A95131100E0F9BB /* SetSortsListCoordinatorViewModel.swift */; };
@@ -2882,7 +2881,6 @@
 		2EC9425E2900351C00DE91E4 /* DataviewGroup+Filter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DataviewGroup+Filter.swift"; sourceTree = "<group>"; };
 		2EC942692901905800DE91E4 /* SetKanbanView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SetKanbanView.swift; sourceTree = "<group>"; };
 		2EC9426D2901946800DE91E4 /* SetKanbanColumn.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetKanbanColumn.swift; sourceTree = "<group>"; };
-		2ECB33FC2A94F79C00E0F9BB /* SetSortTypesListModuleAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetSortTypesListModuleAssembly.swift; sourceTree = "<group>"; };
 		2ECB34002A95041800E0F9BB /* View+Detents.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "View+Detents.swift"; sourceTree = "<group>"; };
 		2ECB34032A95130800E0F9BB /* SetSortsListCoordinatorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetSortsListCoordinatorView.swift; sourceTree = "<group>"; };
 		2ECB34052A95131100E0F9BB /* SetSortsListCoordinatorViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetSortsListCoordinatorViewModel.swift; sourceTree = "<group>"; };
@@ -7641,7 +7639,6 @@
 			isa = PBXGroup;
 			children = (
 				2E975EE8287C23DA004DE574 /* SetSortTypesListViewModel.swift */,
-				2ECB33FC2A94F79C00E0F9BB /* SetSortTypesListModuleAssembly.swift */,
 			);
 			path = Types;
 			sourceTree = "<group>";
@@ -10784,7 +10781,6 @@
 				2A2C330928928C02008BC326 /* UrlOpener.swift in Sources */,
 				3D88217C26F3722600A41E75 /* BlockText+AnytypeText.swift in Sources */,
 				3DA4149E2B72627D00960748 /* SearchServiceProtocol.swift in Sources */,
-				2ECB33FD2A94F79C00E0F9BB /* SetSortTypesListModuleAssembly.swift in Sources */,
 				12AF9986273A8B87004CBB80 /* RelationsBuilder.swift in Sources */,
 				EA57F41B26B99937007D4292 /* MarkupViewProtocol.swift in Sources */,
 				2A55F1F12B738484009DB80A /* NotificationPayload.swift in Sources */,

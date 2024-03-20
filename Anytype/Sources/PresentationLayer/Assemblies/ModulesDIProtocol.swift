@@ -36,7 +36,6 @@ protocol ModulesDIProtocol: AnyObject {
     func remoteStorage() -> RemoteStorageModuleAssemblyProtocol
     func setObjectCreationSettings() -> SetObjectCreationSettingsModuleAssemblyProtocol
     func setViewSettingsList() -> SetViewSettingsListModuleAssemblyProtocol
-    func setSortTypesList() -> SetSortTypesListModuleAssemblyProtocol
     func setTextView() -> SetTextViewModuleAssemblyProtocol
     func setFiltersDateView() -> SetFiltersDateViewModuleAssemblyProtocol
     func setFilterConditions() -> SetFilterConditionsModuleAssemblyProtocol
