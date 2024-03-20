@@ -16,9 +16,17 @@ struct SpaceWidgetView: View {
             VStack(alignment: .leading, spacing: 1) {
                 AnytypeText(model.spaceName, style: .previewTitle2Medium, color: .Text.primary)
                     .lineLimit(1)
-                AnytypeText(model.spaceAccessType, style: .relation3Regular, color: .Text.secondary)
+                if model.spaceWithMembers {
+                    AnytypeText(model.spaceMembers, style: .relation3Regular, color: .Text.secondary)
+                } else {
+                    AnytypeText(model.spaceAccessType, style: .relation3Regular, color: .Text.secondary)
+                }
             }
             Spacer()
+            if model.spaceWithMembers {
+                IconView(icon: .asset(.X24.privateSpace))
+                    .frame(width: 24, height: 24)
+            }
         }
         .padding(.horizontal, 16)
         .frame(height: 68)
@@ -26,6 +34,12 @@ struct SpaceWidgetView: View {
         .cornerRadius(16, style: .continuous)
         .onTapGesture {
             model.onTapWidget()
+        }
+        .task {
+            await model.startSpaceTask()
+        }
+        .task {
+            await model.startParticipantTask()
         }
     }
 }

@@ -4,7 +4,6 @@ import Combine
 
 @MainActor
 protocol ActiveSpaceParticipantStorageProtocol: AnyObject {
-    var participants: [Participant] { get }
     var participantsPublisher: AnyPublisher<[Participant], Never> { get }
     func startSubscription() async
     func stopSubscription() async
@@ -34,18 +33,24 @@ final class ActiveSpaceParticipantStorage: ActiveSpaceParticipantStorageProtocol
     
     // MARK: - State
     
-    @Published private(set) var participants: [Participant] = []
-    var participantsPublisher: AnyPublisher<[Participant], Never> { $participants.eraseToAnyPublisher() }
+    private var participantsSubject = CurrentValueSubject<[Participant], Never>([])
+    var participantsPublisher: AnyPublisher<[Participant], Never> { participantsSubject.eraseToAnyPublisher() }
     
     nonisolated init() {}
     
     func startSubscription() async {
-        activeWorkspaceStorage.workspaceInfoPublisher.sink { [weak self] accountInfo in
-            Task {
-                try await self?.startOrUpdateSubscription(info: accountInfo)
+        activeWorkspaceStorage.workspaceInfoPublisher
+            .map(\.accountSpaceId)
+            .removeDuplicates()
+            .sink { [weak self] spaceId in
+                Task {
+                    // TODO: Make different publisher for each space. Imrove subscriptions.
+                    // For prevent affest on screen when user switch, create a new subject
+                    self?.participantsSubject = CurrentValueSubject<[Participant], Never>([])
+                    try await self?.startOrUpdateSubscription(spaceId: spaceId)
+                }
             }
-        }
-        .store(in: &subscriptions)
+            .store(in: &subscriptions)
     }
     
     func stopSubscription() async {
@@ -55,7 +60,7 @@ final class ActiveSpaceParticipantStorage: ActiveSpaceParticipantStorageProtocol
     
     // MARK: - Private
     
-    private func startOrUpdateSubscription(info: AccountInfo) async throws {
+    private func startOrUpdateSubscription(spaceId: String) async throws {
         let sort = SearchHelper.sort(
             relation: BundledRelationKey.name,
             type: .asc
@@ -65,7 +70,7 @@ final class ActiveSpaceParticipantStorage: ActiveSpaceParticipantStorageProtocol
             SearchHelper.notHiddenFilter()
             SearchHelper.isArchivedFilter(isArchived: false)
             SearchHelper.isDeletedFilter(isDeleted: false)
-            SearchHelper.spaceId(info.accountSpaceId)
+            SearchHelper.spaceId(spaceId)
             SearchHelper.layoutFilter([.participant])
             SearchHelper.participantStatusFilter(.active, .joining, .removing)
 
@@ -83,7 +88,8 @@ final class ActiveSpaceParticipantStorage: ActiveSpaceParticipantStorageProtocol
         )
         
         try await subscriptionStorage.startOrUpdateSubscription(data: searchData) { [weak self] data in
-            self?.participants = data.items.compactMap { try? Participant(details: $0) }
+            let participants = data.items.compactMap { try? Participant(details: $0) }
+            self?.participantsSubject.send(participants)
         }
     }
 }
