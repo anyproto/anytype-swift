@@ -10,7 +10,7 @@ protocol SetSortsListCoordinatorOutput: AnyObject {
 @MainActor
 final class SetSortsListCoordinatorViewModel: ObservableObject, SetSortsListCoordinatorOutput {
     @Published var sortsSearchData: SortsSearchData?
-    @Published var sortTypesData: SortTypesData?
+    @Published var sortTypesData: SetSortTypesData?
     
     let setDocument: SetDocumentProtocol
     let viewId: String
@@ -50,7 +50,7 @@ final class SetSortsListCoordinatorViewModel: ObservableObject, SetSortsListCoor
     // MARK: - Sort types
     
     func onSetSortTap(_ setSort: SetSort, completion: @escaping (SetSort) -> Void) {
-        sortTypesData = SortTypesData(
+        sortTypesData = SetSortTypesData(
             setSort: setSort,
             completion: { [weak self] setSort in
                 completion(setSort)
