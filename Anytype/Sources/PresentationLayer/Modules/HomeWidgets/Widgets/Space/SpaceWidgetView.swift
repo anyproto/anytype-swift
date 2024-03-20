@@ -24,7 +24,7 @@ struct SpaceWidgetView: View {
             }
             Spacer()
             if model.spaceWithMembers {
-                IconView(icon: .asset(.X24.privateSpace))
+                IconView(icon: .asset(.X24.sharing))
                     .frame(width: 24, height: 24)
             }
         }
