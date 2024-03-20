@@ -34,7 +34,7 @@ final class SpaceWidgetViewModel: ObservableObject {
     }
     
     func startParticipantTask() async {
-        for await participants in activeSpaceParticipantStorage.participantsPublisher.values {
+        for await participants in activeSpaceParticipantStorage.activeParticipantsPublisher.values {
             spaceWithMembers = participants.count > 1
             spaceMembers = Loc.Space.membersCount(participants.count)
         }
