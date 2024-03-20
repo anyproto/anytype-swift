@@ -2187,6 +2187,8 @@ internal enum Loc {
     internal enum CancelRequestAlert {
       /// You will have to send request access again
       internal static let title = Loc.tr("Localizable", "SpaceManager.CancelRequestAlert.Title", fallback: "You will have to send request access again")
+      /// The request was canceled.
+      internal static let toast = Loc.tr("Localizable", "SpaceManager.CancelRequestAlert.Toast", fallback: "The request was canceled.")
     }
   }
   internal enum SpaceSettings {

@@ -21,5 +21,6 @@ struct SpaceCancelRequestAlert: View {
                     dismiss()
                 }
             }
+            .snackbar(toastBarData: $model.toast)
     }
 }
