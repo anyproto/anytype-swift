@@ -6,6 +6,7 @@ enum NotificationPayload {
     case galleryImport(NotificationGalleryImport)
     case participantRequestApproved(NotificationParticipantRequestApproved)
     case requestToLeave(NotificationRequestToLeave)
+    case requestToJoin(NotificationRequestToJoin)
     case participantRemove(NotificationParticipantRemove)
     case participantRequestDecline(NotificationParticipantRequestDecline)
     case participantPermissionsChange(NotificationParticipantPermissionsChange)
@@ -28,6 +29,11 @@ struct NotificationRequestToLeave {
     public let requestToLeave: Anytype_Model_Notification.RequestToLeave
 }
 
+struct NotificationRequestToJoin {
+    public let common: Services.Notification
+    public let requestToJoin: Anytype_Model_Notification.RequestToJoin
+}
+    
 struct NotificationParticipantRemove {
     public let common: Services.Notification
     public let remove: Anytype_Model_Notification.ParticipantRemove

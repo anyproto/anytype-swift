@@ -706,6 +706,8 @@
 		2AC906E029B6289A00209E39 /* FavoriteListWidgetModuleAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AC906DE29B6289A00209E39 /* FavoriteListWidgetModuleAssembly.swift */; };
 		2ACA29A32B712F73009CD054 /* GalleryNotificationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2ACA29A02B712F73009CD054 /* GalleryNotificationView.swift */; };
 		2ACA29A52B712F73009CD054 /* GalleryNotificationViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2ACA29A22B712F73009CD054 /* GalleryNotificationViewModel.swift */; };
+		2ACB798A2BAAD318003A2A56 /* RequestToJoinNotificationViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2ACB79882BAAD318003A2A56 /* RequestToJoinNotificationViewModel.swift */; };
+		2ACB798B2BAAD318003A2A56 /* RequestToJoinNotificationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2ACB79892BAAD318003A2A56 /* RequestToJoinNotificationView.swift */; };
 		2ACB79842BA9C363003A2A56 /* ParticipantSpaceView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2ACB79832BA9C363003A2A56 /* ParticipantSpaceView.swift */; };
 		2ACB79862BA9D4E4003A2A56 /* ParticipantSpacesStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2ACB79852BA9D4E4003A2A56 /* ParticipantSpacesStorage.swift */; };
 		2ACD26B72AFB9A1B00B19E50 /* DataviewView+View.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2ACD26B62AFB9A1B00B19E50 /* DataviewView+View.swift */; };
@@ -2495,6 +2497,8 @@
 		2AC906DE29B6289A00209E39 /* FavoriteListWidgetModuleAssembly.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FavoriteListWidgetModuleAssembly.swift; sourceTree = "<group>"; };
 		2ACA29A02B712F73009CD054 /* GalleryNotificationView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GalleryNotificationView.swift; sourceTree = "<group>"; };
 		2ACA29A22B712F73009CD054 /* GalleryNotificationViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GalleryNotificationViewModel.swift; sourceTree = "<group>"; };
+		2ACB79882BAAD318003A2A56 /* RequestToJoinNotificationViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RequestToJoinNotificationViewModel.swift; sourceTree = "<group>"; };
+		2ACB79892BAAD318003A2A56 /* RequestToJoinNotificationView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RequestToJoinNotificationView.swift; sourceTree = "<group>"; };
 		2ACB79832BA9C363003A2A56 /* ParticipantSpaceView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ParticipantSpaceView.swift; sourceTree = "<group>"; };
 		2ACB79852BA9D4E4003A2A56 /* ParticipantSpacesStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ParticipantSpacesStorage.swift; sourceTree = "<group>"; };
 		2ACD26B62AFB9A1B00B19E50 /* DataviewView+View.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DataviewView+View.swift"; sourceTree = "<group>"; };
@@ -6596,6 +6600,7 @@
 		2ACA299C2B712F44009CD054 /* Specific */ = {
 			isa = PBXGroup;
 			children = (
+				2ACB79872BAAD318003A2A56 /* RequestToJoin */,
 				2A176C462BA9A4F000F5036D /* ParticipantRemove */,
 				2A62B71B2BA84304001EAD28 /* RequestToLeave */,
 				2A62B7162BA83ABE001EAD28 /* ParticipantDecline */,
@@ -6625,6 +6630,15 @@
 				2A673C1029B0BC3E00E3D672 /* SettingsModuleOutput.swift */,
 			);
 			path = Settings;
+			sourceTree = "<group>";
+		};
+		2ACB79872BAAD318003A2A56 /* RequestToJoin */ = {
+			isa = PBXGroup;
+			children = (
+				2ACB79882BAAD318003A2A56 /* RequestToJoinNotificationViewModel.swift */,
+				2ACB79892BAAD318003A2A56 /* RequestToJoinNotificationView.swift */,
+			);
+			path = RequestToJoin;
 			sourceTree = "<group>";
 		};
 		2ACB79822BA9C333003A2A56 /* ParticipantSpacesStorage */ = {
@@ -10614,6 +10628,7 @@
 				2A66937A2A7104EA007747DD /* ObjectIconImageMentionType.swift in Sources */,
 				C9EA69D128C61D8A003F488C /* SimpleTableSelectionOptionHandler.swift in Sources */,
 				2E0797B42A0940F8006F0FD7 /* JoinFlowViewModel.swift in Sources */,
+				2ACB798A2BAAD318003A2A56 /* RequestToJoinNotificationViewModel.swift in Sources */,
 				3DE0CFD626F8593D003A606A /* SlashMenuItemDisplayData.swift in Sources */,
 				2E1146D0293124ED0057C753 /* SetKanbanColumnSettingsViewModel.swift in Sources */,
 				3D34F20A27BE3B5300990C49 /* SettingsAppearanceView.swift in Sources */,
@@ -11208,6 +11223,7 @@
 				53D6EE2E265D7DD600C47263 /* EditorViewListCell.swift in Sources */,
 				C9D3066B287431A7005BC877 /* SimpleTableMenuItem.swift in Sources */,
 				2ED9F4392A8E8F0900BE0A6B /* SetViewSettingsList.swift in Sources */,
+				2ACB798B2BAAD318003A2A56 /* RequestToJoinNotificationView.swift in Sources */,
 				2E975EEF287C23DA004DE574 /* SetSortTypesListViewModel.swift in Sources */,
 				3DB3EC6B275514E9002781DA /* ProgressBarWithAnimation.swift in Sources */,
 				2A617BCA2A49960500725152 /* Document+WidgetTargetSubscriptions.swift in Sources */,
