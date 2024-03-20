@@ -2180,8 +2180,14 @@ internal enum Loc {
   internal enum SpaceManager {
     /// Archive
     internal static let archive = Loc.tr("Localizable", "SpaceManager.Archive", fallback: "Archive")
-    /// Cancel Request
-    internal static let cancelRequest = Loc.tr("Localizable", "SpaceManager.CancelRequest", fallback: "Cancel Request")
+    /// Cancel Join Request
+    internal static let cancelRequest = Loc.tr("Localizable", "SpaceManager.CancelRequest", fallback: "Cancel Join Request")
+    /// Do Not Cancel
+    internal static let doNotCancel = Loc.tr("Localizable", "SpaceManager.DoNotCancel", fallback: "Do Not Cancel")
+    internal enum CancelRequestAlert {
+      /// You will have to send request access again
+      internal static let title = Loc.tr("Localizable", "SpaceManager.CancelRequestAlert.Title", fallback: "You will have to send request access again")
+    }
   }
   internal enum SpaceSettings {
     /// Delete space
