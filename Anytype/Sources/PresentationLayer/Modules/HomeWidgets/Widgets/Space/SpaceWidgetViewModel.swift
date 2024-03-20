@@ -27,7 +27,7 @@ final class SpaceWidgetViewModel: ObservableObject {
     @Published var spaceIcon: Icon?
     @Published var spaceAccessType = ""
     @Published var spaceMembers = ""
-    @Published var spaceWithMembers = false
+    @Published var sharedSpace = false
     
     init(onSpaceSelected: @escaping () -> Void) {
         self.onSpaceSelected = onSpaceSelected
@@ -35,7 +35,6 @@ final class SpaceWidgetViewModel: ObservableObject {
     
     func startParticipantTask() async {
         for await participants in activeSpaceParticipantStorage.activeParticipantsPublisher.values {
-            spaceWithMembers = participants.count > 1
             spaceMembers = Loc.Space.membersCount(participants.count)
         }
     }
@@ -46,6 +45,7 @@ final class SpaceWidgetViewModel: ObservableObject {
             spaceName = space.title
             spaceIcon = space.objectIconImage
             spaceAccessType = space.spaceAccessType?.name ?? ""
+            sharedSpace = space.isShared
         }
     }
     
