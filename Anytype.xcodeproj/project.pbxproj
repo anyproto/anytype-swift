@@ -708,6 +708,8 @@
 		2ACA29A52B712F73009CD054 /* GalleryNotificationViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2ACA29A22B712F73009CD054 /* GalleryNotificationViewModel.swift */; };
 		2ACB798A2BAAD318003A2A56 /* RequestToJoinNotificationViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2ACB79882BAAD318003A2A56 /* RequestToJoinNotificationViewModel.swift */; };
 		2ACB798B2BAAD318003A2A56 /* RequestToJoinNotificationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2ACB79892BAAD318003A2A56 /* RequestToJoinNotificationView.swift */; };
+		2ACB79842BA9C363003A2A56 /* ParticipantSpaceView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2ACB79832BA9C363003A2A56 /* ParticipantSpaceView.swift */; };
+		2ACB79862BA9D4E4003A2A56 /* ParticipantSpacesStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2ACB79852BA9D4E4003A2A56 /* ParticipantSpacesStorage.swift */; };
 		2ACD26B72AFB9A1B00B19E50 /* DataviewView+View.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2ACD26B62AFB9A1B00B19E50 /* DataviewView+View.swift */; };
 		2ACD86F229C2181B0082E861 /* NewSearchErrorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2ACD86F129C2181B0082E861 /* NewSearchErrorView.swift */; };
 		2ACD86F429C309AA0082E861 /* WidgetTypeChangeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2ACD86F329C309AA0082E861 /* WidgetTypeChangeViewModel.swift */; };
@@ -883,6 +885,8 @@
 		2AFFFB9F2927B05700A487E1 /* AccountEventHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AFFFB9E2927B05700A487E1 /* AccountEventHandler.swift */; };
 		2E010C342B88DF0C00504735 /* EditorFeaturedRelationsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E010C332B88DF0C00504735 /* EditorFeaturedRelationsView.swift */; };
 		2E010C372B8CEF5500504735 /* RelationValueViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E010C362B8CEF5500504735 /* RelationValueViewModel.swift */; };
+		2E04201A2BA894C500F36637 /* ObjectRelationListData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E0420192BA894C500F36637 /* ObjectRelationListData.swift */; };
+		2E04201E2BA899C500F36637 /* SelectRelationListData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E04201D2BA899C500F36637 /* SelectRelationListData.swift */; };
 		2E0797B32A0940F8006F0FD7 /* JoinFlowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E0797B12A0940F8006F0FD7 /* JoinFlowView.swift */; };
 		2E0797B42A0940F8006F0FD7 /* JoinFlowViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E0797B22A0940F8006F0FD7 /* JoinFlowViewModel.swift */; };
 		2E0797B82A0964BC006F0FD7 /* JoinFlowModuleAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E0797B72A0964BC006F0FD7 /* JoinFlowModuleAssembly.swift */; };
@@ -2495,6 +2499,8 @@
 		2ACA29A22B712F73009CD054 /* GalleryNotificationViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GalleryNotificationViewModel.swift; sourceTree = "<group>"; };
 		2ACB79882BAAD318003A2A56 /* RequestToJoinNotificationViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RequestToJoinNotificationViewModel.swift; sourceTree = "<group>"; };
 		2ACB79892BAAD318003A2A56 /* RequestToJoinNotificationView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RequestToJoinNotificationView.swift; sourceTree = "<group>"; };
+		2ACB79832BA9C363003A2A56 /* ParticipantSpaceView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ParticipantSpaceView.swift; sourceTree = "<group>"; };
+		2ACB79852BA9D4E4003A2A56 /* ParticipantSpacesStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ParticipantSpacesStorage.swift; sourceTree = "<group>"; };
 		2ACD26B62AFB9A1B00B19E50 /* DataviewView+View.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DataviewView+View.swift"; sourceTree = "<group>"; };
 		2ACD86F129C2181B0082E861 /* NewSearchErrorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewSearchErrorView.swift; sourceTree = "<group>"; };
 		2ACD86F329C309AA0082E861 /* WidgetTypeChangeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WidgetTypeChangeViewModel.swift; sourceTree = "<group>"; };
@@ -2668,6 +2674,8 @@
 		2AFFFB9E2927B05700A487E1 /* AccountEventHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountEventHandler.swift; sourceTree = "<group>"; };
 		2E010C332B88DF0C00504735 /* EditorFeaturedRelationsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditorFeaturedRelationsView.swift; sourceTree = "<group>"; };
 		2E010C362B8CEF5500504735 /* RelationValueViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RelationValueViewModel.swift; sourceTree = "<group>"; };
+		2E0420192BA894C500F36637 /* ObjectRelationListData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObjectRelationListData.swift; sourceTree = "<group>"; };
+		2E04201D2BA899C500F36637 /* SelectRelationListData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectRelationListData.swift; sourceTree = "<group>"; };
 		2E0797B12A0940F8006F0FD7 /* JoinFlowView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JoinFlowView.swift; sourceTree = "<group>"; };
 		2E0797B22A0940F8006F0FD7 /* JoinFlowViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JoinFlowViewModel.swift; sourceTree = "<group>"; };
 		2E0797B72A0964BC006F0FD7 /* JoinFlowModuleAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JoinFlowModuleAssembly.swift; sourceTree = "<group>"; };
@@ -3820,6 +3828,7 @@
 				2E6F3E1B2A4DB160002F4278 /* SceneState */,
 				2A816AC52AD7DC0D00975BCA /* ServerConfigirationStorage */,
 				2A9C18782BA0A92900DFE560 /* AccountParticipantsStorage */,
+				2ACB79822BA9C333003A2A56 /* ParticipantSpacesStorage */,
 				2A29FD2D2A701BBB007A8549 /* SpaceStorage */,
 				03AA488A22FA55E800D756AA /* StoreServices */,
 				2A1F949629795FB300E25782 /* Subscriptions */,
@@ -6632,6 +6641,15 @@
 			path = RequestToJoin;
 			sourceTree = "<group>";
 		};
+		2ACB79822BA9C333003A2A56 /* ParticipantSpacesStorage */ = {
+			isa = PBXGroup;
+			children = (
+				2ACB79832BA9C363003A2A56 /* ParticipantSpaceView.swift */,
+				2ACB79852BA9D4E4003A2A56 /* ParticipantSpacesStorage.swift */,
+			);
+			path = ParticipantSpacesStorage;
+			sourceTree = "<group>";
+		};
 		2ACDC9B62B56703C0063BFBD /* ShareOptions */ = {
 			isa = PBXGroup;
 			children = (
@@ -7347,6 +7365,7 @@
 				2E22F9E62B615053001EFCF3 /* SelectRelationOption.swift */,
 				2E22F9EF2B616B6E001EFCF3 /* SelectRelationListModuleOutput.swift */,
 				2EE6160D2B6CFEBD000236A8 /* SelectRelationListStyle.swift */,
+				2E04201D2BA899C500F36637 /* SelectRelationListData.swift */,
 			);
 			path = Select;
 			sourceTree = "<group>";
@@ -7397,6 +7416,7 @@
 				2E7E50412B6D5C3A003867A3 /* ObjectRelationListModuleOutput.swift */,
 				2E31C9652B73C8C8006DB3E2 /* ObjectRelationOption.swift */,
 				2E31C9672B73C963006DB3E2 /* ObjectRelationOptionView.swift */,
+				2E0420192BA894C500F36637 /* ObjectRelationListData.swift */,
 			);
 			path = Object;
 			sourceTree = "<group>";
@@ -11173,6 +11193,7 @@
 				2E2D256228880C8D00E3DFD1 /* SetFiltersSelectionHeaderConfiguration.swift in Sources */,
 				2A2C330028919576008BC326 /* RelationMetadataFormat+Extensions.swift in Sources */,
 				125B6EC426F235F400BCD7D6 /* MentionSection.swift in Sources */,
+				2ACB79842BA9C363003A2A56 /* ParticipantSpaceView.swift in Sources */,
 				125B6ED226F235F400BCD7D6 /* SlashMenuViewModel.swift in Sources */,
 				3DB92F85264BF69900E83276 /* View+CornerRadius.swift in Sources */,
 				530A542A269FB8FF009016AE /* AnalyticsConstants.swift in Sources */,
@@ -11290,6 +11311,7 @@
 				120EB4E326E8F618003A0C2B /* ObjectHeaderIconView.swift in Sources */,
 				86C4B3702B21DC61003B8C51 /* SharingTipView.swift in Sources */,
 				3DB1C9CA2726A6E7000D2779 /* BlockLinkState+Text.swift in Sources */,
+				2E04201E2BA899C500F36637 /* SelectRelationListData.swift in Sources */,
 				C99A53AE28A1411B00B3E5F4 /* ObjectHeaderEmptyData.swift in Sources */,
 				3DCC549226D3B568002517AC /* BlockBookmarkOnlyUrlConfiguration.swift in Sources */,
 				2ACA29A52B712F73009CD054 /* GalleryNotificationViewModel.swift in Sources */,
@@ -11519,6 +11541,7 @@
 				2A376F682B879CB000CF444A /* ParticipantsSubscriptionByAccountService.swift in Sources */,
 				538AE50F272C57300071DB0D /* LinkToObjectSearchViewModel.swift in Sources */,
 				2A5A898C29C8650600C170D6 /* SettingsAccountView.swift in Sources */,
+				2ACB79862BA9D4E4003A2A56 /* ParticipantSpacesStorage.swift in Sources */,
 				2EB97A1B28B64CDC002BBB39 /* SetListViewCell.swift in Sources */,
 				2EA18B092AF132A10096B137 /* SetObjectCreationHelper.swift in Sources */,
 				2A6693852A71168B007747DD /* Kingfisher+Async.swift in Sources */,
@@ -11600,6 +11623,7 @@
 				2A28D046297E8CAD00E55E15 /* SetsListWidgetModuleAssembly.swift in Sources */,
 				120E8171269F31A8006FE84E /* ObjectSettingsView.swift in Sources */,
 				2AF4260729AF402200753B17 /* WallpaperPickerViewModel.swift in Sources */,
+				2E04201A2BA894C500F36637 /* ObjectRelationListData.swift in Sources */,
 				3DD112982B95EA35007682F4 /* MembershipCoordinatorModel.swift in Sources */,
 				2A30734928ACEF58003673DF /* AlertOpener.swift in Sources */,
 				3DE0CFD826F8593D003A606A /* SlashAction.swift in Sources */,
@@ -12490,7 +12514,7 @@
 				CODE_SIGN_ENTITLEMENTS = Anytype/Anytype.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 24;
+				CURRENT_PROJECT_VERSION = 25;
 				DEVELOPMENT_ASSET_PATHS = "Anytype/Resources/Preview\\ Content";
 				DEVELOPMENT_TEAM = J3NXTX3T5S;
 				ENABLE_BITCODE = NO;
@@ -12534,7 +12558,7 @@
 				CODE_SIGN_ENTITLEMENTS = Anytype/Anytype.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Distribution";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 24;
+				CURRENT_PROJECT_VERSION = 25;
 				DEVELOPMENT_ASSET_PATHS = "Anytype/Resources/Preview\\ Content";
 				DEVELOPMENT_TEAM = J3NXTX3T5S;
 				ENABLE_BITCODE = NO;
@@ -12690,7 +12714,7 @@
 				CODE_SIGN_ENTITLEMENTS = Anytype/Anytype.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Distribution";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 24;
+				CURRENT_PROJECT_VERSION = 25;
 				DEVELOPMENT_ASSET_PATHS = "Anytype/Resources/Preview\\ Content";
 				DEVELOPMENT_TEAM = J3NXTX3T5S;
 				ENABLE_BITCODE = NO;
@@ -12757,7 +12781,7 @@
 				CODE_SIGN_ENTITLEMENTS = AnytypeShareExtension/AnytypeShareExtension.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 24;
+				CURRENT_PROJECT_VERSION = 25;
 				DEVELOPMENT_TEAM = "";
 				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = J3NXTX3T5S;
 				GENERATE_INFOPLIST_FILE = YES;
@@ -12789,7 +12813,7 @@
 				CODE_SIGN_ENTITLEMENTS = AnytypeShareExtension/AnytypeShareExtension.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Distribution";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 24;
+				CURRENT_PROJECT_VERSION = 25;
 				DEVELOPMENT_TEAM = "";
 				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = J3NXTX3T5S;
 				GENERATE_INFOPLIST_FILE = YES;
@@ -12822,7 +12846,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Distribution";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 24;
+				CURRENT_PROJECT_VERSION = 25;
 				DEVELOPMENT_TEAM = "";
 				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = J3NXTX3T5S;
 				GENERATE_INFOPLIST_FILE = YES;
@@ -12856,7 +12880,7 @@
 				CODE_SIGN_IDENTITY = "Apple Development";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 24;
+				CURRENT_PROJECT_VERSION = 25;
 				DEVELOPMENT_TEAM = "";
 				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = J3NXTX3T5S;
 				GENERATE_INFOPLIST_FILE = YES;
@@ -12890,7 +12914,7 @@
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
 				CODE_SIGN_IDENTITY = "iPhone Distribution";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 24;
+				CURRENT_PROJECT_VERSION = 25;
 				DEVELOPMENT_TEAM = "";
 				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = J3NXTX3T5S;
 				GENERATE_INFOPLIST_FILE = YES;
@@ -12924,7 +12948,7 @@
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
 				CODE_SIGN_IDENTITY = "iPhone Distribution";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 24;
+				CURRENT_PROJECT_VERSION = 25;
 				DEVELOPMENT_TEAM = "";
 				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = J3NXTX3T5S;
 				GENERATE_INFOPLIST_FILE = YES;

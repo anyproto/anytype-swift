@@ -62,7 +62,6 @@
 "BlockLink.PreviewSettings.Layout.Text.Title" = "Текст";
 
 // MARK: - Settings
-"Settings.Title" = "Настройки";
 "Settings.SpaceName" = "Название пространства";
 
 // MARK: - Object
@@ -138,6 +137,7 @@
 "Lists" = "Списки";
 "Pinned" = "Закреплённые";
 "Delete" = "Удалить";
+"Export" = "Export";
 "Duplicate" = "Дублировать";
 "Copy" = "Копировать";
 "Preview" = "Предпросмотр";
@@ -258,8 +258,7 @@
 "Auth.JoinFlow.Soul.Placeholder" = "Без названия";
 
 "Auth.JoinFlow.Creating.Soul.Title" = "Создание нового аккаунта";
-"Auth.JoinFlow.Setting.Space.Title" = "Настройка вашего личного пространства";
-"Auth.JoinFlow.Personal.Space.Title" = "Настройки";
+"Auth.JoinFlow.Setting.Space.Title" = "Setting up your default space";
 
 // Auth - Login flow
 "Auth.LoginFlow.Use.Keychain.Title" = "Использовать связку ключей";
@@ -811,7 +810,6 @@
 "ClearCache.Error" = "Ошибка, повторите попытку позже";
 
 // MARK: - Settings
-"Settings.TitleLegacy" = "Настройки";
 "Settings.Title" = "Настройки";
 "Settings.SpaceName" = "Название пространства";
 "Settings.AccountAndAccess" = "Учетная запись и доступ";
@@ -849,7 +847,7 @@
 // MARK: - Spaces
 "Spaces.Accessibility.Shared" = "Общее пространство";
 "Spaces.Accessibility.Private" = "Личное Пространство";
-"Spaces.Accessibility.Personal" = "Настройки";
+"Spaces.Accessibility.Personal" = "Default Space";
 "Spaces.Search.Title" = "Поиск пространств";
 "Spaces.Title" = "Пространства";
 "Spaces.Info.Network" = "Сеть:";
@@ -921,6 +919,7 @@
 "ParticipantRequestApprovedNotification.Text" = "Your request to join the **%@** space has been approved with **%@** access rights. The space will be available on your device soon.";
 "ParticipantRequestDeclineNotification.Text" = "Your request to join the **%@** space has been declined.";
 "RequestToLeaveNotification.Text" = "**%@** wants to leave the **%@** space.";
+"ParticipantRemoveNotification.Text" = "You have been removed from the space, or the space was deleted by the owner.";
 
 // MARK: - Space manager
 "SpaceManager.CancelRequest" = "Cancel Request";

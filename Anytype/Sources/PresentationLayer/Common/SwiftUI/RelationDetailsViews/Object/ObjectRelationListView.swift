@@ -5,6 +5,10 @@ struct ObjectRelationListView: View {
     
     @StateObject var viewModel: ObjectRelationListViewModel
     
+    init(data: ObjectRelationListData, output: ObjectRelationListModuleOutput?) {
+        _viewModel = StateObject(wrappedValue: ObjectRelationListViewModel(data: data, output: output))
+    }
+    
     var body: some View {
         RelationListContainerView(
             searchText: $viewModel.searchText,
@@ -99,45 +103,16 @@ struct ObjectRelationListView: View {
     }
 }
 
-extension ObjectRelationListView {
-    init(
-        objectId: String,
-        configuration: RelationModuleConfiguration,
-        selectedOptionsIds: [String],
-        interactor: ObjectRelationListInteractorProtocol,
-        output: ObjectRelationListModuleOutput?
-    ) {
-        let relationSelectedOptionsModel = RelationSelectedOptionsModel(
-            objectId: objectId,
-            selectionMode: configuration.selectionMode,
-            selectedOptionsIds: selectedOptionsIds,
-            relationKey: configuration.relationKey,
-            analyticsType: configuration.analyticsType
-        )
-        _viewModel = StateObject(
-            wrappedValue: ObjectRelationListViewModel(
-                configuration: configuration,
-                interactor: interactor,
-                relationSelectedOptionsModel: relationSelectedOptionsModel,
-                output: output
-            )
-        )
-    }
-}
-
 #Preview("Object") {
-    SelectRelationListView(
-        viewModel: SelectRelationListViewModel(
-            style: .status,
+    ObjectRelationListView(
+        data: ObjectRelationListData(
             configuration: RelationModuleConfiguration.default,
+            interactor: ObjectRelationListInteractor(spaceId: "spaceId", limitedObjectTypes: []),
             relationSelectedOptionsModel: RelationSelectedOptionsModel(
-                objectId: "",
-                selectionMode: .multi,
-                selectedOptionsIds: [],
-                relationKey: "",
-                analyticsType: .block
-            ),
-            output: nil
-        )
+                config: RelationModuleConfiguration.default,
+                selectedOptionsIds: []
+            )
+        ),
+        output: nil
     )
 }

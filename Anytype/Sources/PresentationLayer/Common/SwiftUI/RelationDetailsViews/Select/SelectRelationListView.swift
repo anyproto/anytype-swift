@@ -4,6 +4,10 @@ struct SelectRelationListView: View {
     
     @StateObject var viewModel: SelectRelationListViewModel
     
+    init(data: SelectRelationListData, output: SelectRelationListModuleOutput?) {
+        _viewModel = StateObject(wrappedValue: SelectRelationListViewModel(data: data, output: output))
+    }
+    
     var body: some View {
         RelationListContainerView(
             searchText: $viewModel.searchText,
@@ -87,45 +91,24 @@ struct SelectRelationListView: View {
     }
 }
 
-extension SelectRelationListView {
-    init(
-        style: SelectRelationListStyle,
-        configuration: RelationModuleConfiguration,
-        selectedOptionsIds: [String],
-        output: SelectRelationListModuleOutput?
-    ) {
-        let relationSelectedOptionsModel = RelationSelectedOptionsModel(
-            objectId: configuration.objectId,
-            selectionMode: configuration.selectionMode,
-            selectedOptionsIds: selectedOptionsIds,
-            relationKey: configuration.relationKey,
-            analyticsType: configuration.analyticsType
-        )
-        _viewModel = StateObject(
-            wrappedValue: SelectRelationListViewModel(
-                style: style,
-                configuration: configuration,
-                relationSelectedOptionsModel: relationSelectedOptionsModel,
-                output: output
-            )
-        )
-    }
-}
-
 #Preview("Status list") {
     SelectRelationListView(
-        style: .status,
-        configuration: RelationModuleConfiguration.default,
-        selectedOptionsIds: [],
+        data: SelectRelationListData(
+            style: .status,
+            configuration: RelationModuleConfiguration.default,
+            relationSelectedOptionsModel: RelationSelectedOptionsModel(config: RelationModuleConfiguration.default, selectedOptionsIds: [])
+        ),
         output: nil
     )
 }
 
 #Preview("Tag list") {
     SelectRelationListView(
-        style: .tag,
-        configuration: RelationModuleConfiguration.default,
-        selectedOptionsIds: [],
+        data: SelectRelationListData(
+            style: .tag,
+            configuration: RelationModuleConfiguration.default,
+            relationSelectedOptionsModel: RelationSelectedOptionsModel(config: RelationModuleConfiguration.default, selectedOptionsIds: [])
+        ),
         output: nil
     )
 }

@@ -62,7 +62,6 @@
 "BlockLink.PreviewSettings.Layout.Text.Title" = "Tekst";
 
 // MARK: - Settings
-"Settings.Title" = "Innstillinger";
 "Settings.SpaceName" = "Romnavn";
 
 // MARK: - Object
@@ -138,6 +137,7 @@
 "Lists" = "Groups";
 "Pinned" = "Festet";
 "Delete" = "Slett";
+"Export" = "Export";
 "Duplicate" = "Dupliser";
 "Copy" = "Kopier";
 "Preview" = "Forhåndsvisning";
@@ -258,8 +258,7 @@
 "Auth.JoinFlow.Soul.Placeholder" = "Uten tittel";
 
 "Auth.JoinFlow.Creating.Soul.Title" = "Genererer ny konto";
-"Auth.JoinFlow.Setting.Space.Title" = "Setter opp ditt personlige rom";
-"Auth.JoinFlow.Personal.Space.Title" = "Innstillinger";
+"Auth.JoinFlow.Setting.Space.Title" = "Setting up your default space";
 
 // Auth - Login flow
 "Auth.LoginFlow.Use.Keychain.Title" = "Bruk nøkkelring";
@@ -811,7 +810,6 @@
 "ClearCache.Error" = "Feil, prøv igjen senere";
 
 // MARK: - Settings
-"Settings.TitleLegacy" = "Innstillinger";
 "Settings.Title" = "Innstillinger";
 "Settings.SpaceName" = "Romnavn";
 "Settings.AccountAndAccess" = "Konto og tilgang";
@@ -848,7 +846,7 @@
 // MARK: - Spaces
 "Spaces.Accessibility.Shared" = "Delt rom";
 "Spaces.Accessibility.Private" = "Privat rom";
-"Spaces.Accessibility.Personal" = "Innstillinger";
+"Spaces.Accessibility.Personal" = "Default Space";
 "Spaces.Search.Title" = "Søk etter rom";
 "Spaces.Title" = "Rom";
 "Spaces.Info.Network" = "Nettverk:";
@@ -920,6 +918,7 @@
 "ParticipantRequestApprovedNotification.Text" = "Your request to join the **%@** space has been approved with **%@** access rights. The space will be available on your device soon.";
 "ParticipantRequestDeclineNotification.Text" = "Your request to join the **%@** space has been declined.";
 "RequestToLeaveNotification.Text" = "**%@** wants to leave the **%@** space.";
+"ParticipantRemoveNotification.Text" = "You have been removed from the space, or the space was deleted by the owner.";
 
 // MARK: - Space manager
 "SpaceManager.CancelRequest" = "Avbryt forespørsel";
