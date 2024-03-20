@@ -7,24 +7,19 @@ import AnytypeCore
 @MainActor
 final class FileStorageViewModel: ObservableObject {
     
-    private let fileLimitsStorage: FileLimitsStorageProtocol
+    @Injected(\.fileLimitsStorage)
+    private var fileLimitsStorage: FileLimitsStorageProtocol
     private weak var output: FileStorageModuleOutput?
+    
     private var subscriptions = [AnyCancellable]()
-    
     private let byteCountFormatter = ByteCountFormatter.fileFormatter
-    
     private var nodeUsage: NodeUsageInfo?
-    private let subSpaceId = "FileStorageSpace-\(UUID().uuidString)"
     
     let phoneName: String = UIDevice.current.name
     @Published var locaUsed: String = ""
     @Published var contentLoaded: Bool = false
     
-    init(
-        fileLimitsStorage: FileLimitsStorageProtocol,
-        output: FileStorageModuleOutput?
-    ) {
-        self.fileLimitsStorage = fileLimitsStorage
+    init(output: FileStorageModuleOutput?) {
         self.output = output
         setupPlaceholderState()
         Task {
