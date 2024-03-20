@@ -3,7 +3,7 @@ import SwiftUI
 
 struct SpacesManagerView: View {
     
-    @StateObject var model: SpacesManagerViewModel
+    @StateObject private var model = SpacesManagerViewModel()
     
     var body: some View {
         VStack(spacing: 0) {
