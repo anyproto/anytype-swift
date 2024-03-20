@@ -3,41 +3,33 @@ import Services
 import Combine
 
 @MainActor
-protocol AccountParticipantsStorageProtocol: AnyObject {
+protocol ActiveSpaceParticipantStorageProtocol: AnyObject {
     var participants: [Participant] { get }
     var participantsPublisher: AnyPublisher<[Participant], Never> { get }
     func startSubscription() async
     func stopSubscription() async
 }
 
-extension AccountParticipantsStorageProtocol {
-    func participantPublisher(spaceId: String) -> AnyPublisher<Participant, Never> {
-        participantsPublisher.compactMap { $0.first { $0.spaceId == spaceId } }.eraseToAnyPublisher()
-    }
-    
-    func permissionPublisher(spaceId: String) -> AnyPublisher<ParticipantPermissions, Never> {
-        participantPublisher(spaceId: spaceId).map(\.permission).removeDuplicates().eraseToAnyPublisher()
-    }
-    
-    func canEditPublisher(spaceId: String) -> AnyPublisher<Bool, Never> {
-        participantPublisher(spaceId: spaceId).map(\.permission.canEdit).removeDuplicates().eraseToAnyPublisher()
+extension ActiveSpaceParticipantStorageProtocol {
+    var activeParticipantsPublisher: AnyPublisher<[Participant], Never> {
+        participantsPublisher.map { $0.filter { $0.status == .active } }.eraseToAnyPublisher()
     }
 }
 
 @MainActor
-final class AccountParticipantsStorage: AccountParticipantsStorageProtocol {
+final class ActiveSpaceParticipantStorage: ActiveSpaceParticipantStorageProtocol {
     
     // MARK: - DI
     
-    @Injected(\.accountManager)
-    private var accountManager: AccountManagerProtocol
+    @Injected(\.activeWorkspaceStorage)
+    private var activeWorkspaceStorage: ActiveWorkpaceStorageProtocol
     @Injected(\.subscriptionStorageProvider)
     private var subscriptionStorageProvider: SubscriptionStorageProviderProtocol
     private lazy var subscriptionStorage: SubscriptionStorageProtocol = {
         subscriptionStorageProvider.createSubscriptionStorage(subId: subscriptionId)
     }()
     
-    private let subscriptionId = "AccountParticipant-\(UUID())"
+    private let subscriptionId = "ActiveSpaceParticipant-\(UUID())"
     private var subscriptions: [AnyCancellable] = []
     
     // MARK: - State
@@ -48,11 +40,12 @@ final class AccountParticipantsStorage: AccountParticipantsStorageProtocol {
     nonisolated init() {}
     
     func startSubscription() async {
-        accountManager.accountPublisher.sink { [weak self] data in
+        activeWorkspaceStorage.workspaceInfoPublisher.sink { [weak self] accountInfo in
             Task {
-                try await self?.startOrUpdateSubscription(info: data.info)
+                try await self?.startOrUpdateSubscription(info: accountInfo)
             }
-        }.store(in: &subscriptions)
+        }
+        .store(in: &subscriptions)
     }
     
     func stopSubscription() async {
@@ -63,16 +56,28 @@ final class AccountParticipantsStorage: AccountParticipantsStorageProtocol {
     // MARK: - Private
     
     private func startOrUpdateSubscription(info: AccountInfo) async throws {
+        let sort = SearchHelper.sort(
+            relation: BundledRelationKey.name,
+            type: .asc
+        )
+        
         let filters: [DataviewFilter] = .builder {
-            SearchHelper.identityProfileLink(info.profileObjectID)
+            SearchHelper.notHiddenFilter()
+            SearchHelper.isArchivedFilter(isArchived: false)
+            SearchHelper.isDeletedFilter(isDeleted: false)
+            SearchHelper.spaceId(info.accountSpaceId)
             SearchHelper.layoutFilter([.participant])
+            SearchHelper.participantStatusFilter(.active, .joining, .removing)
+
         }
         
         let searchData: SubscriptionData = .search(
             SubscriptionData.Search(
                 identifier: subscriptionId,
+                sorts: [sort],
                 filters: filters,
                 limit: 0,
+                offset: 0,
                 keys: Participant.subscriptionKeys.map { $0.rawValue }
             )
         )

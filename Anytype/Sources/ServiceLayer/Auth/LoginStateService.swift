@@ -28,6 +28,8 @@ final class LoginStateService: LoginStateServiceProtocol {
     private var activeWorkpaceStorage: ActiveWorkpaceStorageProtocol
     @Injected(\.accountParticipantsStorage)
     private var accountParticipantsStorage: AccountParticipantsStorageProtocol
+    @Injected(\.activeSpaceParticipantStorage)
+    private var activeSpaceParticipantStorage: ActiveSpaceParticipantStorageProtocol
     
     // MARK: - LoginStateServiceProtocol
     
@@ -61,6 +63,7 @@ final class LoginStateService: LoginStateServiceProtocol {
         await objectTypeProvider.startSubscription()
         await activeWorkpaceStorage.setupActiveSpace()
         await accountParticipantsStorage.startSubscription()
+        await activeSpaceParticipantStorage.startSubscription()
     }
     
     private func stopSubscriptions() async {
@@ -69,5 +72,6 @@ final class LoginStateService: LoginStateServiceProtocol {
         await objectTypeProvider.stopSubscription()
         await activeWorkpaceStorage.clearActiveSpace()
         await accountParticipantsStorage.stopSubscription()
+        await activeSpaceParticipantStorage.stopSubscription()
     }
 }

@@ -162,10 +162,6 @@ final class ServiceLocator {
         Container.shared.filesSubscriptionManager()
     }
     
-    func participantSubscriptionBySpaceService() -> ParticipantsSubscriptionBySpaceServiceProtocol {
-        Container.shared.participantSubscriptionBySpaceService()
-    }
-    
     func participantsSubscriptionByAccountService() -> ParticipantsSubscriptionByAccountServiceProtocol {
         Container.shared.participantsSubscriptionByAccountService()
     }
@@ -328,5 +324,9 @@ final class ServiceLocator {
     
     func accountParticipantStorage() -> AccountParticipantsStorageProtocol {
         Container.shared.accountParticipantsStorage()
+    }
+    
+    func activeSpaceParticipantStorage() -> ActiveSpaceParticipantStorageProtocol {
+        Container.shared.activeSpaceParticipantStorage()
     }
 }
