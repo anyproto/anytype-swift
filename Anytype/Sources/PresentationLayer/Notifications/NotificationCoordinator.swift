@@ -66,9 +66,9 @@ final class NotificationCoordinator: NotificationCoordinatorProtocol {
         case .requestToLeave(let data):
             let view = RequestToLeaveNotificationView(notification: NotificationRequestToLeave(common: notification, requestToLeave: data))
             show(view: view)
-        case .requestToJoin:
-            // TODO
-            break
+        case .requestToJoin(let data):
+            let view = RequestToJoinNotificationView(notification: NotificationRequestToJoin(common: notification, requestToJoin: data))
+            show(view: view)
         case .participantRemove(let data):
             let view = ParticipantRemoveNotificationView(notification: NotificationParticipantRemove(common: notification, remove: data))
             show(view: view)

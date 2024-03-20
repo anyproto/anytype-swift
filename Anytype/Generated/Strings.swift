@@ -1811,6 +1811,16 @@ internal enum Loc {
     /// Older
     internal static let older = Loc.tr("Localizable", "RelativeFormatter.older", fallback: "Older")
   }
+  internal enum RequestToJoinNotification {
+    /// Go to Space
+    internal static let goToSpace = Loc.tr("Localizable", "RequestToJoinNotification.GoToSpace", fallback: "Go to Space")
+    /// **%@** requested to join the **%@** space.
+    internal static func text(_ p1: Any, _ p2: Any) -> String {
+      return Loc.tr("Localizable", "RequestToJoinNotification.Text", String(describing: p1), String(describing: p2), fallback: "**%@** requested to join the **%@** space.")
+    }
+    /// View request
+    internal static let viewRequest = Loc.tr("Localizable", "RequestToJoinNotification.ViewRequest", fallback: "View request")
+  }
   internal enum RequestToLeaveNotification {
     /// **%@** wants to leave the **%@** space.
     internal static func text(_ p1: Any, _ p2: Any) -> String {
