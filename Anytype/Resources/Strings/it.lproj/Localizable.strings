@@ -62,7 +62,6 @@
 "BlockLink.PreviewSettings.Layout.Text.Title" = "Testo";
 
 // MARK: - Settings
-"Settings.Title" = "Impostazioni";
 "Settings.SpaceName" = "Nome dello Spazio";
 
 // MARK: - Object
@@ -138,6 +137,7 @@
 "Lists" = "Liste";
 "Pinned" = "Fissato";
 "Delete" = "Elimina";
+"Export" = "Export";
 "Duplicate" = "Duplica";
 "Copy" = "Copia";
 "Preview" = "Anteprima";
@@ -258,8 +258,7 @@
 "Auth.JoinFlow.Soul.Placeholder" = "Senza titolo";
 
 "Auth.JoinFlow.Creating.Soul.Title" = "Generazione di nuovo account";
-"Auth.JoinFlow.Setting.Space.Title" = "Configurazione del tuo spazio personale";
-"Auth.JoinFlow.Personal.Space.Title" = "Impostazioni";
+"Auth.JoinFlow.Setting.Space.Title" = "Setting up your default space";
 
 // Auth - Login flow
 "Auth.LoginFlow.Use.Keychain.Title" = "Usa portachiavi";
@@ -811,7 +810,6 @@
 "ClearCache.Error" = "Errore, riprova più tardi";
 
 // MARK: - Settings
-"Settings.TitleLegacy" = "Impostazioni";
 "Settings.Title" = "Impostazioni";
 "Settings.SpaceName" = "Nome dello Spazio";
 "Settings.AccountAndAccess" = "Account e accesso";
@@ -848,7 +846,7 @@
 // MARK: - Spaces
 "Spaces.Accessibility.Shared" = "Spazio condiviso";
 "Spaces.Accessibility.Private" = "Spazio privato";
-"Spaces.Accessibility.Personal" = "Impostazioni";
+"Spaces.Accessibility.Personal" = "Default Space";
 "Spaces.Search.Title" = "Cerca spazi";
 "Spaces.Title" = "Spazi";
 "Spaces.Info.Network" = "Rete:";
@@ -920,6 +918,7 @@
 "ParticipantRequestApprovedNotification.Text" = "Your request to join the **%@** space has been approved with **%@** access rights. The space will be available on your device soon.";
 "ParticipantRequestDeclineNotification.Text" = "Your request to join the **%@** space has been declined.";
 "RequestToLeaveNotification.Text" = "**%@** wants to leave the **%@** space.";
+"ParticipantRemoveNotification.Text" = "You have been removed from the space, or the space was deleted by the owner.";
 
 // MARK: - Space manager
 "SpaceManager.CancelRequest" = "Annulla richiesta";
