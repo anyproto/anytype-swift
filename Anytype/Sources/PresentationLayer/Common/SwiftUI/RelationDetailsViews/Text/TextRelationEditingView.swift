@@ -21,6 +21,9 @@ struct TextRelationEditingView: View {
         .task {
             viewModel.updatePasteState()
         }
+        .onDisappear {
+            viewModel.onDisappear()
+        }
         .fitPresentationDetents()
         .ignoresSafeArea()
     }
