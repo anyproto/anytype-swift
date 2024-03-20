@@ -62,7 +62,6 @@
 "BlockLink.PreviewSettings.Layout.Text.Title" = "Teks";
 
 // MARK: - Settings
-"Settings.Title" = "Setelan";
 "Settings.SpaceName" = "Nama Ruang";
 
 // MARK: - Object
@@ -138,6 +137,7 @@
 "Lists" = "Grup";
 "Pinned" = "Tersemat";
 "Delete" = "Hapus";
+"Export" = "Export";
 "Duplicate" = "Gandakan";
 "Copy" = "Salin";
 "Preview" = "Pratinjau";
@@ -258,8 +258,7 @@
 "Auth.JoinFlow.Soul.Placeholder" = "Nirjudul";
 
 "Auth.JoinFlow.Creating.Soul.Title" = "Membuat akun baru";
-"Auth.JoinFlow.Setting.Space.Title" = "Menyiapkan ruang pribadimu";
-"Auth.JoinFlow.Personal.Space.Title" = "Setelan";
+"Auth.JoinFlow.Setting.Space.Title" = "Setting up your default space";
 
 // Auth - Login flow
 "Auth.LoginFlow.Use.Keychain.Title" = "Gunakan rantai kunci";
@@ -811,7 +810,6 @@
 "ClearCache.Error" = "Terjadi kesalahan, silahkan coba lagi nanti";
 
 // MARK: - Settings
-"Settings.TitleLegacy" = "Setelan";
 "Settings.Title" = "Setelan";
 "Settings.SpaceName" = "Nama Ruang";
 "Settings.AccountAndAccess" = "Akun dan akses";
@@ -848,7 +846,7 @@
 // MARK: - Spaces
 "Spaces.Accessibility.Shared" = "Ruang Terbagi";
 "Spaces.Accessibility.Private" = "Ruang Pribadi";
-"Spaces.Accessibility.Personal" = "Setelan";
+"Spaces.Accessibility.Personal" = "Default Space";
 "Spaces.Search.Title" = "Cari ruang";
 "Spaces.Title" = "Ruang";
 "Spaces.Info.Network" = "Jaringan:";
@@ -920,6 +918,7 @@
 "ParticipantRequestApprovedNotification.Text" = "Your request to join the **%@** space has been approved with **%@** access rights. The space will be available on your device soon.";
 "ParticipantRequestDeclineNotification.Text" = "Your request to join the **%@** space has been declined.";
 "RequestToLeaveNotification.Text" = "**%@** wants to leave the **%@** space.";
+"ParticipantRemoveNotification.Text" = "You have been removed from the space, or the space was deleted by the owner.";
 
 // MARK: - Space manager
 "SpaceManager.CancelRequest" = "Batalkan permintaan";

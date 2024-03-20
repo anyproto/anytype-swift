@@ -62,7 +62,6 @@
 "BlockLink.PreviewSettings.Layout.Text.Title" = "Text";
 
 // MARK: - Settings
-"Settings.Title" = "Settings";
 "Settings.SpaceName" = "Názov priestoru";
 
 // MARK: - Object
@@ -139,6 +138,7 @@
 "Lists" = "Lists";
 "Pinned" = "Pinned";
 "Delete" = "Vymazať";
+"Export" = "Export";
 "Duplicate" = "Duplikovať";
 "Copy" = "Kopírovať";
 "Preview" = "Náhľad";
@@ -259,8 +259,7 @@
 "Auth.JoinFlow.Soul.Placeholder" = "Bez názvu";
 
 "Auth.JoinFlow.Creating.Soul.Title" = "Generating new account";
-"Auth.JoinFlow.Setting.Space.Title" = "Setting up your personal space";
-"Auth.JoinFlow.Personal.Space.Title" = "Settings";
+"Auth.JoinFlow.Setting.Space.Title" = "Setting up your default space";
 
 // Auth - Login flow
 "Auth.LoginFlow.Use.Keychain.Title" = "Use keychain";
@@ -812,7 +811,6 @@
 "ClearCache.Error" = "Error, try again later";
 
 // MARK: - Settings
-"Settings.TitleLegacy" = "Settings";
 "Settings.Title" = "Settings";
 "Settings.SpaceName" = "Názov priestoru";
 "Settings.AccountAndAccess" = "Account and access";
@@ -849,7 +847,7 @@
 // MARK: - Spaces
 "Spaces.Accessibility.Shared" = "Shared Space";
 "Spaces.Accessibility.Private" = "Private Space";
-"Spaces.Accessibility.Personal" = "Settings";
+"Spaces.Accessibility.Personal" = "Default Space";
 "Spaces.Search.Title" = "Search spaces";
 "Spaces.Title" = "Spaces";
 "Spaces.Info.Network" = "Network:";
@@ -921,6 +919,7 @@
 "ParticipantRequestApprovedNotification.Text" = "Your request to join the **%@** space has been approved with **%@** access rights. The space will be available on your device soon.";
 "ParticipantRequestDeclineNotification.Text" = "Your request to join the **%@** space has been declined.";
 "RequestToLeaveNotification.Text" = "**%@** wants to leave the **%@** space.";
+"ParticipantRemoveNotification.Text" = "You have been removed from the space, or the space was deleted by the owner.";
 
 // MARK: - Space manager
 "SpaceManager.CancelRequest" = "Cancel Request";

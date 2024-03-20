@@ -62,7 +62,6 @@
 "BlockLink.PreviewSettings.Layout.Text.Title" = "Текст";
 
 // MARK: - Settings
-"Settings.Title" = "Налаштування";
 "Settings.SpaceName" = "Назва простору";
 
 // MARK: - Object
@@ -138,6 +137,7 @@
 "Lists" = "Groups";
 "Pinned" = "Pinned";
 "Delete" = "Видалити";
+"Export" = "Export";
 "Duplicate" = "Дублювати";
 "Copy" = "Копіювати";
 "Preview" = "Попередній перегляд";
@@ -258,8 +258,7 @@
 "Auth.JoinFlow.Soul.Placeholder" = "Без назви";
 
 "Auth.JoinFlow.Creating.Soul.Title" = "Створення нового облікового запису";
-"Auth.JoinFlow.Setting.Space.Title" = "Налаштування вашого особистого простору";
-"Auth.JoinFlow.Personal.Space.Title" = "Налаштування";
+"Auth.JoinFlow.Setting.Space.Title" = "Setting up your default space";
 
 // Auth - Login flow
 "Auth.LoginFlow.Use.Keychain.Title" = "Використотати в'язку ключів";
@@ -812,7 +811,6 @@
 "ClearCache.Error" = "Помилка, повторіть спробу пізніше";
 
 // MARK: - Settings
-"Settings.TitleLegacy" = "Налаштування";
 "Settings.Title" = "Налаштування";
 "Settings.SpaceName" = "Назва простору";
 "Settings.AccountAndAccess" = "Обліковий запис та доступ";
@@ -849,7 +847,7 @@
 // MARK: - Spaces
 "Spaces.Accessibility.Shared" = "Shared Space";
 "Spaces.Accessibility.Private" = "Private Space";
-"Spaces.Accessibility.Personal" = "Налаштування";
+"Spaces.Accessibility.Personal" = "Default Space";
 "Spaces.Search.Title" = "Пошук просторів";
 "Spaces.Title" = "Spaces";
 "Spaces.Info.Network" = "Network:";
@@ -921,6 +919,7 @@
 "ParticipantRequestApprovedNotification.Text" = "Your request to join the **%@** space has been approved with **%@** access rights. The space will be available on your device soon.";
 "ParticipantRequestDeclineNotification.Text" = "Your request to join the **%@** space has been declined.";
 "RequestToLeaveNotification.Text" = "**%@** wants to leave the **%@** space.";
+"ParticipantRemoveNotification.Text" = "You have been removed from the space, or the space was deleted by the owner.";
 
 // MARK: - Space manager
 "SpaceManager.CancelRequest" = "Cancel Request";

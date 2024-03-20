@@ -62,7 +62,6 @@
 "BlockLink.PreviewSettings.Layout.Text.Title" = "Metin";
 
 // MARK: - Settings
-"Settings.Title" = "Ayarlar";
 "Settings.SpaceName" = "Alan Adı";
 
 // MARK: - Object
@@ -138,6 +137,7 @@
 "Lists" = "Lists";
 "Pinned" = "Pinned";
 "Delete" = "Sil";
+"Export" = "Export";
 "Duplicate" = "Çoğalt";
 "Copy" = "Kopyala";
 "Preview" = "Önizleme";
@@ -258,8 +258,7 @@
 "Auth.JoinFlow.Soul.Placeholder" = "Başlıksız";
 
 "Auth.JoinFlow.Creating.Soul.Title" = "Generating new account";
-"Auth.JoinFlow.Setting.Space.Title" = "Setting up your personal space";
-"Auth.JoinFlow.Personal.Space.Title" = "Ayarlar";
+"Auth.JoinFlow.Setting.Space.Title" = "Setting up your default space";
 
 // Auth - Login flow
 "Auth.LoginFlow.Use.Keychain.Title" = "Use keychain";
@@ -812,7 +811,6 @@
 "ClearCache.Error" = "Hata, daha sonra tekrar deneyin";
 
 // MARK: - Settings
-"Settings.TitleLegacy" = "Ayarlar";
 "Settings.Title" = "Ayarlar";
 "Settings.SpaceName" = "Alan Adı";
 "Settings.AccountAndAccess" = "Hesap ve erişim";
@@ -849,7 +847,7 @@
 // MARK: - Spaces
 "Spaces.Accessibility.Shared" = "Shared Space";
 "Spaces.Accessibility.Private" = "Private Space";
-"Spaces.Accessibility.Personal" = "Ayarlar";
+"Spaces.Accessibility.Personal" = "Default Space";
 "Spaces.Search.Title" = "Search spaces";
 "Spaces.Title" = "Spaces";
 "Spaces.Info.Network" = "Network:";
@@ -921,6 +919,7 @@
 "ParticipantRequestApprovedNotification.Text" = "Your request to join the **%@** space has been approved with **%@** access rights. The space will be available on your device soon.";
 "ParticipantRequestDeclineNotification.Text" = "Your request to join the **%@** space has been declined.";
 "RequestToLeaveNotification.Text" = "**%@** wants to leave the **%@** space.";
+"ParticipantRemoveNotification.Text" = "You have been removed from the space, or the space was deleted by the owner.";
 
 // MARK: - Space manager
 "SpaceManager.CancelRequest" = "Cancel Request";

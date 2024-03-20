@@ -62,7 +62,6 @@
 "BlockLink.PreviewSettings.Layout.Text.Title" = "Tekst";
 
 // MARK: - Settings
-"Settings.Title" = "Persoonlijke ruimte";
 "Settings.SpaceName" = "Naam ruimte";
 
 // MARK: - Object
@@ -138,6 +137,7 @@
 "Lists" = "Lijsten";
 "Pinned" = "Vastgezet";
 "Delete" = "Verwijder";
+"Export" = "Export";
 "Duplicate" = "Dupliceer";
 "Copy" = "Kopieer";
 "Preview" = "Voorvertoning";
@@ -258,8 +258,7 @@
 "Auth.JoinFlow.Soul.Placeholder" = "Naamloos";
 
 "Auth.JoinFlow.Creating.Soul.Title" = "Een nieuwe account wordt aangemaakt";
-"Auth.JoinFlow.Setting.Space.Title" = "Jouw persoonlijke ruimte wordt aangemaakt";
-"Auth.JoinFlow.Personal.Space.Title" = "Persoonlijke ruimte";
+"Auth.JoinFlow.Setting.Space.Title" = "Setting up your default space";
 
 // Auth - Login flow
 "Auth.LoginFlow.Use.Keychain.Title" = "Gebruik sleutelhanger";
@@ -812,7 +811,6 @@
 "ClearCache.Error" = "Fout, probeer het later opnieuw";
 
 // MARK: - Settings
-"Settings.TitleLegacy" = "Persoonlijke ruimte";
 "Settings.Title" = "Instellingen";
 "Settings.SpaceName" = "Naam ruimte";
 "Settings.AccountAndAccess" = "Account en toegang";
@@ -849,7 +847,7 @@
 // MARK: - Spaces
 "Spaces.Accessibility.Shared" = "Gedeelde ruimte";
 "Spaces.Accessibility.Private" = "Persoonlijke ruimte";
-"Spaces.Accessibility.Personal" = "Persoonlijke ruimte";
+"Spaces.Accessibility.Personal" = "Default Space";
 "Spaces.Search.Title" = "Zoek ruimten";
 "Spaces.Title" = "Ruimtes";
 "Spaces.Info.Network" = "Netwerk:";
@@ -921,6 +919,7 @@
 "ParticipantRequestApprovedNotification.Text" = "Your request to join the **%@** space has been approved with **%@** access rights. The space will be available on your device soon.";
 "ParticipantRequestDeclineNotification.Text" = "Your request to join the **%@** space has been declined.";
 "RequestToLeaveNotification.Text" = "**%@** wants to leave the **%@** space.";
+"ParticipantRemoveNotification.Text" = "You have been removed from the space, or the space was deleted by the owner.";
 
 // MARK: - Space manager
 "SpaceManager.CancelRequest" = "Annuleer verzoek";

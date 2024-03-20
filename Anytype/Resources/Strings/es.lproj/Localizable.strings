@@ -62,7 +62,6 @@
 "BlockLink.PreviewSettings.Layout.Text.Title" = "Texto";
 
 // MARK: - Settings
-"Settings.Title" = "Espacio personal";
 "Settings.SpaceName" = "Nombre del espacio";
 
 // MARK: - Object
@@ -138,6 +137,7 @@
 "Lists" = "Grupos";
 "Pinned" = "Anclado/a";
 "Delete" = "Borrar";
+"Export" = "Exportar";
 "Duplicate" = "Duplicar";
 "Copy" = "Copiar";
 "Preview" = "Vista previa";
@@ -259,7 +259,6 @@
 
 "Auth.JoinFlow.Creating.Soul.Title" = "Generando nueva cuenta";
 "Auth.JoinFlow.Setting.Space.Title" = "Configurando su espacio personal";
-"Auth.JoinFlow.Personal.Space.Title" = "Espacio personal";
 
 // Auth - Login flow
 "Auth.LoginFlow.Use.Keychain.Title" = "Usar llavero";
@@ -811,7 +810,6 @@
 "ClearCache.Error" = "Error, inténtelo de después";
 
 // MARK: - Settings
-"Settings.TitleLegacy" = "Espacio personal";
 "Settings.Title" = "Ajustes";
 "Settings.SpaceName" = "Nombre del espacio";
 "Settings.AccountAndAccess" = "Cuenta y acceso";
@@ -848,7 +846,7 @@
 // MARK: - Spaces
 "Spaces.Accessibility.Shared" = "Espacio compartido";
 "Spaces.Accessibility.Private" = "Espacio privado";
-"Spaces.Accessibility.Personal" = "Espacio personal";
+"Spaces.Accessibility.Personal" = "Espacio predeterminado";
 "Spaces.Search.Title" = "Buscar espacios";
 "Spaces.Title" = "Espacios";
 "Spaces.Info.Network" = "Red:";
@@ -916,10 +914,11 @@
 "SpaceShare.YouSuffix" = "%@ (tú)";
 
 // MARK: - Permission notification
-"PermissionChangeNotification.Text" = "Your access rights were changed to **%@** in the **%@** space.";
-"ParticipantRequestApprovedNotification.Text" = "Your request to join the **%@** space has been approved with **%@** access rights. The space will be available on your device soon.";
-"ParticipantRequestDeclineNotification.Text" = "Your request to join the **%@** space has been declined.";
-"RequestToLeaveNotification.Text" = "**%@** wants to leave the **%@** space.";
+"PermissionChangeNotification.Text" = "Tus derechos de acceso fueron cambiados a **%@** en el espacio **%@**.";
+"ParticipantRequestApprovedNotification.Text" = "Tu solicitud para unirte a un espacio \"%@\" ha sido aprobada con derechos de acceso %@ . El espacio estará disponible en tu cuenta pronto.";
+"ParticipantRequestDeclineNotification.Text" = "Tu solicitud para unirte al espacio \"%@\" ha sido rechazada.";
+"RequestToLeaveNotification.Text" = "**%@** quiere dejar el espacio **%@**.";
+"ParticipantRemoveNotification.Text" = "Fuiste eliminado del espacio o el espacio ha sido eliminado por el propietario.";
 
 // MARK: - Space manager
 "SpaceManager.CancelRequest" = "¿Cancelar solicitud?";

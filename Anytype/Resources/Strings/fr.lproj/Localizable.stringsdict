@@ -63,7 +63,7 @@
         <key>one</key>
         <string>%d lien</string>
         <key>other</key>
-        <string>%d links</string>
+        <string>%d liens</string>
       </dict>
     </dict>
     <key>Days to deletion account</key>
@@ -109,9 +109,9 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>d</string>
         <key>one</key>
-        <string>Objets fichiers</string>
+        <string>Objet de fichier</string>
         <key>other</key>
-        <string>%d File Objects</string>
+        <string>%d objets de fichiers</string>
       </dict>
     </dict>
     <key>Sharing.File.Block</key>
@@ -125,7 +125,7 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>d</string>
         <key>one</key>
-        <string>File Block</string>
+        <string>Bloc de fichier</string>
         <key>other</key>
         <string>%d Blocs de fichiers</string>
       </dict>
@@ -141,9 +141,9 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>d</string>
         <key>one</key>
-        <string>Bookmark Object</string>
+        <string>Objet de marque-page</string>
         <key>other</key>
-        <string>%d Bookmark Objects</string>
+        <string>%d Objets de marque-pages</string>
       </dict>
     </dict>
     <key>Sharing.URL.Block</key>
@@ -157,9 +157,9 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>d</string>
         <key>one</key>
-        <string>Link Block</string>
+        <string>Lier le bloc</string>
         <key>other</key>
-        <string>Link %d Blocks</string>
+        <string>Lier %d blocs</string>
       </dict>
     </dict>
     <key>SpaceShare.Invite.Members</key>
@@ -175,7 +175,7 @@
         <key>one</key>
         <string>Vous pouvez ajouter un autre membre</string>
         <key>other</key>
-        <string>You can add %d more members</string>
+        <string>Vous pouvez ajouter %d autres membres</string>
       </dict>
     </dict>
     <key>SpaceShare.Invite.MaxLimit</key>
