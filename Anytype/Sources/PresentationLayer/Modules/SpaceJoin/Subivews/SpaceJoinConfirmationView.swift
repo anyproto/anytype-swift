@@ -5,7 +5,8 @@ struct SpaceJoinConfirmationView: View {
     
     @Environment(\.dismiss) private var dismiss
     
-    let done: () -> Void
+    let onDone: () -> Void
+    let onManageSpaces: () -> Void
     
     var body: some View {
         BottomAlertView(
@@ -13,15 +14,21 @@ struct SpaceJoinConfirmationView: View {
             message: Loc.SpaceShare.JoinConfirmation.message
         ) {
             BottomAlertButton(text: Loc.done, style: .primary) {
-                if #available(iOS 17.0, *) {} else {
+                if #unavailable(iOS 17.0) {
                     dismiss()
                 }
-                done()
+                onDone()
+            }
+            BottomAlertButton(text: Loc.SpaceShare.manageSpaces, style: .secondary) {
+                if #unavailable(iOS 17.0) {
+                    dismiss()
+                }
+                onManageSpaces()
             }
         }
     }
 }
 
 #Preview {
-    SpaceJoinConfirmationView(done: {})
+    SpaceJoinConfirmationView(onDone: {}, onManageSpaces: {})
 }

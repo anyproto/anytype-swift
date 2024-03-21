@@ -53,6 +53,7 @@ final class HomeCoordinatorViewModel: ObservableObject,
     @Published var showCreateWidgetData: CreateWidgetCoordinatorModel?
     @Published var showSpaceSettings: Bool = false
     @Published var showSharing: Bool = false
+    @Published var showSpaceManager: Bool = false
     @Published var showGalleryImport: GalleryInstallationData?
     @Published var editorPath = HomePath() {
         didSet { UserDefaultsConfig.lastOpenedPage = editorPath.lastPathElement as? EditorScreenData }
@@ -252,6 +253,10 @@ final class HomeCoordinatorViewModel: ObservableObject,
     func onCreateObjectInSetDocument(setDocument: SetDocumentProtocol) {
         setObjectCreationCoordinator = setObjectCreationCoordinatorAssembly.make()
         setObjectCreationCoordinator?.startCreateObject(setDocument: setDocument, output: self, customAnalyticsRoute: .widget)
+    }
+    
+    func onManageSpacesSelected() {
+        showSpaceManager = true
     }
     
     // MARK: - HomeBottomPanelModuleOutput
