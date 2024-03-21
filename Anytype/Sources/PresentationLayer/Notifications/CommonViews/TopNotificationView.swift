@@ -7,7 +7,6 @@ struct TopNotificationView: View {
     var icon: Icon? = nil
     var buttons: [TopNotificationButton]
     
-    @State private var taskButton: TopNotificationButton?
     @State private var toast: ToastBarData = .empty
     
     var body: some View {
@@ -22,8 +21,8 @@ struct TopNotificationView: View {
                     HStack(spacing: 24) {
                         ForEach(0..<buttons.count, id: \.self) { index in
                             let button = buttons[index]
-                            Button {
-                                taskButton = button
+                            AsyncButton {
+                                try await button.action()
                             } label: {
                                 AnytypeText(button.title, style: .caption1Semibold, color: .Text.labelInversion)
                             }
@@ -37,9 +36,6 @@ struct TopNotificationView: View {
         .cornerRadius(16, style: .continuous)
         .ignoresSafeArea()
         .snackbar(toastBarData: $toast)
-        .throwTask(id: taskButton) {
-            try await taskButton?.action()
-        }
         .environment(\.colorScheme, .light)
     }
 }

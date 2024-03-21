@@ -110,10 +110,6 @@ final class ModulesDI: ModulesDIProtocol {
         return SettingsModuleAssembly(serviceLocator: serviceLocator)
     }
     
-    func fileStorage() -> FileStorageModuleAssemblyProtocol {
-        return FileStorageModuleAssembly(serviceLocator: serviceLocator, uiHelpersDI: uiHelpersDI)
-    }
-    
     func authorization() -> AuthModuleAssemblyProtocol {
         return AuthModuleAssembly()
     }
@@ -248,9 +244,5 @@ final class ModulesDI: ModulesDIProtocol {
     
     func spareShare() -> SpaceShareModuleAssemblyProtocol {
         SpaceShareModuleAssembly(serviceLocator: serviceLocator)
-    }
-    
-    func spacesManager() -> SpacesManagerModuleAssemblyProtocol {
-        SpacesManagerModuleAssembly(serviceLocator: serviceLocator)
     }
 }

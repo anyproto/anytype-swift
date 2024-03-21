@@ -2256,19 +2256,27 @@ internal enum Loc {
         return Loc.tr("Localizable", "SpaceShare.Approve.Toast", String(describing: p1), fallback: "You approved %@'s request.")
       }
     }
+    internal enum DeleteSharingLink {
+      /// Delete link
+      internal static let confirm = Loc.tr("Localizable", "SpaceShare.DeleteSharingLink.Confirm", fallback: "Delete link")
+      /// New members won’t be able to join the space. You can generate a new link anytype
+      internal static let message = Loc.tr("Localizable", "SpaceShare.DeleteSharingLink.Message", fallback: "New members won’t be able to join the space. You can generate a new link anytype")
+      /// Delete sharing link
+      internal static let title = Loc.tr("Localizable", "SpaceShare.DeleteSharingLink.Title", fallback: "Delete sharing link")
+    }
     internal enum Invite {
-      /// Share invite link
-      internal static let button = Loc.tr("Localizable", "SpaceShare.Invite.Button", fallback: "Share invite link")
-      /// Send this link to invite others. Assign access rights upon their request approval
-      internal static let description = Loc.tr("Localizable", "SpaceShare.Invite.Description", fallback: "Send this link to invite others. Assign access rights upon their request approval")
+      /// Share this invite link so that others can join your Space. Once they click your link and request access, you can set their access rights.
+      internal static let description = Loc.tr("Localizable", "SpaceShare.Invite.Description", fallback: "Share this invite link so that others can join your Space. Once they click your link and request access, you can set their access rights.")
+      /// Create invite link to share space and add new members
+      internal static let empty = Loc.tr("Localizable", "SpaceShare.Invite.Empty", fallback: "Create invite link to share space and add new members")
+      /// Generate invite link
+      internal static let generate = Loc.tr("Localizable", "SpaceShare.Invite.Generate", fallback: "Generate invite link")
       /// Plural format key: "%#@object@"
       internal static func maxLimit(_ p1: Int) -> String {
         return Loc.tr("Localizable", "SpaceShare.Invite.MaxLimit", p1, fallback: "Plural format key: \"%#@object@\"")
       }
-      /// Plural format key: "%#@object@"
-      internal static func members(_ p1: Int) -> String {
-        return Loc.tr("Localizable", "SpaceShare.Invite.Members", p1, fallback: "Plural format key: \"%#@object@\"")
-      }
+      /// Share invite link
+      internal static let share = Loc.tr("Localizable", "SpaceShare.Invite.Share", fallback: "Share invite link")
       /// Invite link
       internal static let title = Loc.tr("Localizable", "SpaceShare.Invite.Title", fallback: "Invite link")
     }

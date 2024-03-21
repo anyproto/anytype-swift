@@ -24,7 +24,6 @@ protocol ModulesDIProtocol: AnyObject {
     func keychainPhrase() -> KeychainPhraseModuleAssemblyProtocol
     func dashboardAlerts() -> DashboardAlertsAssemblyProtocol
     func settings() -> SettingsModuleAssemblyProtocol
-    func fileStorage() -> FileStorageModuleAssemblyProtocol
     func authorization() -> AuthModuleAssemblyProtocol
     func joinFlow() -> JoinFlowModuleAssemblyProtocol
     func login() -> LoginViewModuleAssemblyProtocol
@@ -59,5 +58,4 @@ protocol ModulesDIProtocol: AnyObject {
     func sharingTip() -> SharingTipModuleAssemblyProtocol
     func shareOptions() -> ShareOptionsModuleAssemblyProtocol
     func spareShare() -> SpaceShareModuleAssemblyProtocol
-    func spacesManager() -> SpacesManagerModuleAssemblyProtocol
 }

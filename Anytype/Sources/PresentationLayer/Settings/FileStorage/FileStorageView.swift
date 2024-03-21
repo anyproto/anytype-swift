@@ -3,7 +3,11 @@ import AnytypeCore
 
 struct FileStorageView: View {
     
-    @ObservedObject var model: FileStorageViewModel
+    @StateObject private var model: FileStorageViewModel
+    
+    init(output: FileStorageModuleOutput?) {
+        self._model = StateObject(wrappedValue: FileStorageViewModel(output: output))
+    }
     
     var body: some View {
         VStack(spacing: 0) {
