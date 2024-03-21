@@ -58,7 +58,7 @@ struct HomeCoordinatorView: View {
             model.typeSearchForObjectCreationModule()
         }
         .anytypeSheet(item: $model.spaceJoinData) {
-            model.spaceJoinModule(data: $0)
+            SpaceJoinView(data: $0)
         }
         .if(FeatureFlags.galleryInstallation, if: {
             $0.sheet(item: $model.showGalleryImport) { data in

@@ -755,7 +755,6 @@
 		2AD48D4E2B7E65BB0077C53B /* SpaceRequestView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AD48D4D2B7E65BB0077C53B /* SpaceRequestView.swift */; };
 		2AD48D522B7F57B80077C53B /* SpaceJoinView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AD48D512B7F57B80077C53B /* SpaceJoinView.swift */; };
 		2AD48D542B7F57CE0077C53B /* SpaceJoinViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AD48D532B7F57CE0077C53B /* SpaceJoinViewModel.swift */; };
-		2AD48D562B7F57D90077C53B /* SpaceJoinModuleAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AD48D552B7F57D90077C53B /* SpaceJoinModuleAssembly.swift */; };
 		2AD5EFC42B17490200FAA908 /* ButtomAlertHeaderImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AD5EFC32B17490200FAA908 /* ButtomAlertHeaderImageView.swift */; };
 		2AD5EFC62B17492500FAA908 /* BottomAlertButtonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AD5EFC52B17492500FAA908 /* BottomAlertButtonView.swift */; };
 		2AD5EFC92B1753E400FAA908 /* DocumentUpdateAlertView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AD5EFC82B1753E400FAA908 /* DocumentUpdateAlertView.swift */; };
@@ -11618,7 +11617,6 @@
 				538F172D272C2F75009528E7 /* ObjectSearchViewModel.swift in Sources */,
 				12DE405D264AE455007B5074 /* LayoutProperty.swift in Sources */,
 				3D5A415B2703132800F1F6A1 /* SlashActionOther.swift in Sources */,
-				2AD48D562B7F57D90077C53B /* SpaceJoinModuleAssembly.swift in Sources */,
 				125B6EC526F235F400BCD7D6 /* MentionsViewController.swift in Sources */,
 				2EAA140C2AA63C0B000A712A /* SetRelationsCoordinatorViewModel.swift in Sources */,
 				12636CF6276A0DC70084D35D /* ListCreateButton.swift in Sources */,

@@ -2,11 +2,18 @@ import Foundation
 import Services
 import AnytypeCore
 
+struct SpaceJoinModuleData: Identifiable {
+    let id = UUID()
+    let cid: String
+    let key: String
+}
+
 @MainActor
 final class SpaceJoinViewModel: ObservableObject {
     
     private let data: SpaceJoinModuleData
-    private let workspaceService: WorkspaceServiceProtocol
+    @Injected(\.workspaceService)
+    private var workspaceService: WorkspaceServiceProtocol
     
     private var inviteView: SpaceInviteView?
     
@@ -17,9 +24,8 @@ final class SpaceJoinViewModel: ObservableObject {
     @Published var toast: ToastBarData = .empty
     @Published var showSuccessAlert = false
     
-    init(data: SpaceJoinModuleData, workspaceService: WorkspaceServiceProtocol) {
+    init(data: SpaceJoinModuleData) {
         self.data = data
-        self.workspaceService = workspaceService
         Task {
             await updateView()
         }
