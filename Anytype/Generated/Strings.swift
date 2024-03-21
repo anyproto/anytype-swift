@@ -1722,6 +1722,20 @@ internal enum Loc {
         return Loc.tr("Localizable", "Relation.From.Type", String(describing: p1), fallback: "From type %@")
       }
     }
+    internal enum ImportType {
+      /// CSV
+      internal static let csv = Loc.tr("Localizable", "Relation.ImportType.Csv", fallback: "CSV")
+      /// HTML
+      internal static let html = Loc.tr("Localizable", "Relation.ImportType.Html", fallback: "HTML")
+      /// Markdown
+      internal static let markdown = Loc.tr("Localizable", "Relation.ImportType.Markdown", fallback: "Markdown")
+      /// Notion
+      internal static let notion = Loc.tr("Localizable", "Relation.ImportType.Notion", fallback: "Notion")
+      /// Any-Block
+      internal static let protobuf = Loc.tr("Localizable", "Relation.ImportType.Protobuf", fallback: "Any-Block")
+      /// TXT
+      internal static let text = Loc.tr("Localizable", "Relation.ImportType.Text", fallback: "TXT")
+    }
     internal enum LinksFrom {
       /// from
       internal static let title = Loc.tr("Localizable", "Relation.LinksFrom.Title", fallback: "from")
