@@ -20,7 +20,7 @@ final class SpaceCreateViewModel: ObservableObject {
     @Published var spaceName: String = ""
     let spaceGradient: GradientId = .random
     var spaceIcon: Icon { .object(.space(.gradient(spaceGradient))) }
-    @Published var spaceAccessType: SpaceAccessType = .personal
+    @Published var spaceAccessType: SpaceAccessType = .private
     @Published var createLoadingState: Bool = false
     @Published var dismiss: Bool = false
     
