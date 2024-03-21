@@ -14,6 +14,7 @@ final class SpacesManagerViewModel: ObservableObject {
     private var participants: [Participant] = []
     
     @Published var rows: [SpacesManagerRowViewModel] = []
+    @Published var spaceForCancelRequestAlert: SpaceView?
     
     init(
         spacesSubscriptionService: SpaceManagerSpacesSubscriptionServiceProtocol,
@@ -47,7 +48,7 @@ final class SpacesManagerViewModel: ObservableObject {
     }
         
     func onCancelRequest(row: SpacesManagerRowViewModel) async throws {
-        try await workspaceService.joinCancel(spaceId: row.spaceView.targetSpaceId)
+        spaceForCancelRequestAlert = row.spaceView
     }
     
     func onArchive(row: SpacesManagerRowViewModel) async throws {
