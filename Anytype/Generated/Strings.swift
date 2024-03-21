@@ -2236,6 +2236,8 @@ internal enum Loc {
     internal static let joinRequest = Loc.tr("Localizable", "SpaceShare.JoinRequest", fallback: "Join request")
     /// Leave request
     internal static let leaveRequest = Loc.tr("Localizable", "SpaceShare.LeaveRequest", fallback: "Leave request")
+    /// Manage Spaces
+    internal static let manageSpaces = Loc.tr("Localizable", "SpaceShare.ManageSpaces", fallback: "Manage Spaces")
     /// Members
     internal static let members = Loc.tr("Localizable", "SpaceShare.Members", fallback: "Members")
     /// Sharing

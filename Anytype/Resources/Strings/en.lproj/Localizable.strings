@@ -914,6 +914,7 @@
 "SpaceShare.JoinConfirmation.Title" = "Request sent";
 "SpaceShare.JoinConfirmation.Message" = "You will receive a notification when the space owner will approve your request.";
 "SpaceShare.YouSuffix" = "%@ (you)";
+"SpaceShare.ManageSpaces" = "Manage Spaces";
 
 // MARK: - Permission notification
 "PermissionChangeNotification.Text" = "Your access rights were changed to **%@** in the **%@** space.";

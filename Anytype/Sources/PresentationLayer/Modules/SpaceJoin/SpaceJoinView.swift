@@ -4,10 +4,10 @@ import SwiftUI
 struct SpaceJoinView: View {
     
     @StateObject private var model: SpaceJoinViewModel
-    @Environment(\.dismiss) var dismiss
+    @Environment(\.dismiss) private var dismiss
     
-    init(data: SpaceJoinModuleData) {
-        self._model = StateObject(wrappedValue: SpaceJoinViewModel(data: data))
+    init(data: SpaceJoinModuleData, onManageSpaces: @escaping () -> Void) {
+        self._model = StateObject(wrappedValue: SpaceJoinViewModel(data: data, onManageSpaces: onManageSpaces))
     }
     
     var body: some View {
@@ -20,8 +20,18 @@ struct SpaceJoinView: View {
         .multilineTextAlignment(.center)
         .background(Color.Background.secondary)
         .snackbar(toastBarData: $model.toast)
-        .anytypeSheet(isPresented: $model.showSuccessAlert, cancelAction: { dismiss() }) {
-            SpaceJoinConfirmationView(done: { dismiss() })
+        .anytypeSheet(isPresented: $model.showSuccessAlert, cancelAction: { model.onDismissSuccessAlert() }) {
+            SpaceJoinConfirmationView(onDone: {
+                model.onDismissSuccessAlert()
+            }, onManageSpaces: {
+                model.onTapManageSpaces()
+            })
+        }
+        .onChange(of: model.dismiss) { _ in
+            dismiss()
+        }
+        .onDisappear {
+            model.onDisappear()
         }
     }
     
@@ -47,11 +57,11 @@ struct SpaceJoinView: View {
 }
 
 #Preview("Default") {
-    SpaceJoinView(data: SpaceJoinModuleData(cid: "", key: ""))
+    SpaceJoinView(data: SpaceJoinModuleData(cid: "", key: ""), onManageSpaces: {})
 }
 
 #Preview("Sheet") {
     Color.black.anytypeSheet(isPresented: .constant(true)) {
-        SpaceJoinView(data: SpaceJoinModuleData(cid: "", key: ""))
+        SpaceJoinView(data: SpaceJoinModuleData(cid: "", key: ""), onManageSpaces: {})
     }
 }
