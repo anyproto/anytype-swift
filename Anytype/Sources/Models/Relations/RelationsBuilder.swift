@@ -219,7 +219,7 @@ private extension RelationsBuilder {
             } else {
                 return nil
             }
-        }  else if relationDetails.key == BundledRelationKey.importType.rawValue,
+        } else if relationDetails.key == BundledRelationKey.importType.rawValue,
                    let importType = details.intValue(for: relationDetails.key).flatMap({ ObjectImportType(rawValue: $0) }) {
             if let title = importType.title {
                 numberValue = title
