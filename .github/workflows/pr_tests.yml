@@ -6,6 +6,7 @@ on:
 
 jobs:
   main:
+    name: Test Checks
     runs-on: ios-self-hosted
     timeout-minutes: 35
 
