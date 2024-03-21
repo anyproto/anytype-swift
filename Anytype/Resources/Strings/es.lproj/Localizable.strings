@@ -919,6 +919,9 @@
 "ParticipantRequestDeclineNotification.Text" = "Tu solicitud para unirte al espacio \"%@\" ha sido rechazada.";
 "RequestToLeaveNotification.Text" = "**%@** quiere dejar el espacio **%@**.";
 "ParticipantRemoveNotification.Text" = "Fuiste eliminado del espacio o el espacio ha sido eliminado por el propietario.";
+"RequestToJoinNotification.Text" = "**%@** requested to join the **%@** space.";
+"RequestToJoinNotification.GoToSpace" = "Go to Space";
+"RequestToJoinNotification.ViewRequest" = "View request";
 
 // MARK: - Space manager
 "SpaceManager.CancelRequest" = "¿Cancelar solicitud?";
