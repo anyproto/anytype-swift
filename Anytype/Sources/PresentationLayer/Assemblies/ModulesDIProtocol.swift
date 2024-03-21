@@ -59,5 +59,4 @@ protocol ModulesDIProtocol: AnyObject {
     func shareOptions() -> ShareOptionsModuleAssemblyProtocol
     func spareShare() -> SpaceShareModuleAssemblyProtocol
     func spaceJoin() -> SpaceJoinModuleAssemblyProtocol
-    func spacesManager() -> SpacesManagerModuleAssemblyProtocol
 }

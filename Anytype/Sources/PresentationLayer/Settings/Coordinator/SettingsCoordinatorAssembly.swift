@@ -38,8 +38,7 @@ final class SettingsCoordinatorAssembly: SettingsCoordinatorAssemblyProtocol {
             documentService: serviceLocator.documentService(),
             urlOpener: uiHelpersDI.urlOpener(),
             activeWorkspaceStorage: serviceLocator.activeWorkspaceStorage(),
-            serviceLocator: serviceLocator,
-            spacesManagerModuleAssembly: modulesDI.spacesManager()
+            serviceLocator: serviceLocator
         )
     }
 }

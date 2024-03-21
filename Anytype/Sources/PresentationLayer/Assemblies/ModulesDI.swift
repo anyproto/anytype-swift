@@ -249,8 +249,4 @@ final class ModulesDI: ModulesDIProtocol {
     func spaceJoin() -> SpaceJoinModuleAssemblyProtocol {
         SpaceJoinModuleAssembly(serviceLocator: serviceLocator)
     }
-    
-    func spacesManager() -> SpacesManagerModuleAssemblyProtocol {
-        SpacesManagerModuleAssembly(serviceLocator: serviceLocator)
-    }
 }
