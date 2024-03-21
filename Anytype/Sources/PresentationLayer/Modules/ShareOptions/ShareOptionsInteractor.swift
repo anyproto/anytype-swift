@@ -14,7 +14,7 @@ final class ShareOptionsInteractor: ShareOptionsInteractorProtocol {
     private let fileService: FileActionsServiceProtocol
     private let documentProvider: DocumentsProviderProtocol
     private let pasteboardMiddlewareService: PasteboardMiddlewareServiceProtocol
-    private let objectTpeProvider: ObjectTypeProviderProtocol
+    private let objectTypeProvider: ObjectTypeProviderProtocol
     
     init(
         blockService: BlockServiceProtocol,
@@ -23,7 +23,7 @@ final class ShareOptionsInteractor: ShareOptionsInteractorProtocol {
         fileService: FileActionsServiceProtocol,
         documentProvider: DocumentsProviderProtocol,
         pasteboardMiddlewareService: PasteboardMiddlewareServiceProtocol,
-        objectTpeProvider: ObjectTypeProviderProtocol
+        objectTypeProvider: ObjectTypeProviderProtocol
     ) {
         self.blockService = blockService
         self.bookmarkService = bookmarkService
@@ -31,7 +31,7 @@ final class ShareOptionsInteractor: ShareOptionsInteractorProtocol {
         self.fileService = fileService
         self.documentProvider = documentProvider
         self.pasteboardMiddlewareService = pasteboardMiddlewareService
-        self.objectTpeProvider = objectTpeProvider
+        self.objectTypeProvider = objectTypeProvider
     }
     
     func saveContent(saveOptions: SharedSaveOptions, content: SharedContent) async throws {
@@ -147,7 +147,7 @@ final class ShareOptionsInteractor: ShareOptionsInteractorProtocol {
         let details = try await fileService.uploadFileObject(spaceId: spaceId, data: data, origin: .sharingExtension)
         
         AnytypeAnalytics.instance().logCreateObject(
-            objectType: objectTpeProvider.analyticsType(id: details.type),
+            objectType: objectTypeProvider.analyticsType(id: details.type),
             route: .sharingExtension
         )
         return details
