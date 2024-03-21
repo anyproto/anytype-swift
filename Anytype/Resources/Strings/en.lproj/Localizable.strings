@@ -873,7 +873,6 @@
 "SpaceSettings.DeleteAlert.Title" = "Delete ‘%@’ space";
 "SpaceSettings.DeleteAlert.Message" = "This space will be deleted irrevocably. You can’t undo this action.";
 "SpaceSettings.DeleteButton" = "Delete space";
-"SpaceSettings.Sharing" = "Sharing";
 "SpaceSettings.Share" = "Share";
 "SpaceSettings.LeaveButton" = "Leave and unjoin";
 "SpaceSettings.LeaveAlert.Title" = "Leave and unjoin the space";
@@ -881,8 +880,7 @@
 
 // MARK: - Space Share
 
-"SpaceShare.Title" = "Share space";
-"SpaceShare.MembersSection" = "Members and requests";
+"SpaceShare.Title" = "Sharing";
 "SpaceShare.Members" = "Members";
 "SpaceShare.Permissions.Owner" = "Owner";
 "SpaceShare.Permissions.Reader" = "Viewer";
@@ -894,13 +892,12 @@
 "SpaceShare.Invite.Share" = "Share invite link";
 "SpaceShare.Invite.Generate" = "Generate invite link";
 "SpaceShare.Invite.Empty" = "Create invite link to share space and add new members";
-"SpaceShare.Status.Joining" = "Requested";
-"SpaceShare.Status.Removing" = "Unjoining requested";
-"SpaceShare.Action.ViewRequest" = "View Request";
+"SpaceShare.JoinRequest" = "Join request";
+"SpaceShare.LeaveRequest" = "Leave request";
+"SpaceShare.Action.ViewRequest" = "View request";
 "SpaceShare.Action.Approve" = "Approve";
-"SpaceShare.DeleteSharingLink.Title" = "Delete sharing link";
+"SpaceShare.DeleteSharingLink.Title" = "Delete link";
 "SpaceShare.DeleteSharingLink.Message" = "New members won’t be able to join the space. You can generate a new link anytype";
-"SpaceShare.DeleteSharingLink.Confirm" = "Delete link";
 "SpaceShare.Approve.Toast" = "You approved %@'s request.";
 "SpaceShare.ViewRequest.Title" = "%@ requested to join %@ space";
 "SpaceShare.ViewRequest.ViewAccess" = "Grand view access";
