@@ -6,8 +6,8 @@ final class SpaceMembersViewModel: ObservableObject {
     
     // MARK: - DI
     
-    @Injected(\.participantSubscriptionBySpaceService)
-    private var participantSubscriptionService: ParticipantsSubscriptionBySpaceServiceProtocol
+    @Injected(\.activeSpaceParticipantStorage)
+    private var activeSpaceParticipantStorage: ActiveSpaceParticipantStorageProtocol
     @Injected(\.accountManager)
     private var accountManager: AccountManagerProtocol
     
@@ -15,9 +15,9 @@ final class SpaceMembersViewModel: ObservableObject {
     
     @Published var rows: [SpaceShareParticipantViewModel] = []
     
-    func onAppear() async {
-        await participantSubscriptionService.startSubscription(mode: .member) { [weak self] items in
-            self?.updateParticipant(items: items)
+    func startParticipantTask() async {
+        for await participants in activeSpaceParticipantStorage.activeParticipantsPublisher.values {
+            updateParticipant(items: participants)
         }
     }
     

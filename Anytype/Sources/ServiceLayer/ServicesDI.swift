@@ -120,10 +120,6 @@ extension Container {
         self { TemplatesSubscriptionService() }
     }
     
-    var participantSubscriptionBySpaceService: Factory<ParticipantsSubscriptionBySpaceServiceProtocol> {
-        self { ParticipantsSubscriptionBySpaceService() }
-    }
-    
     var participantsSubscriptionByAccountService: Factory<ParticipantsSubscriptionByAccountServiceProtocol> {
         self { ParticipantsSubscriptionByAccountService() }
     }
@@ -252,6 +248,10 @@ extension Container {
         self { AccountParticipantsStorage() }.singleton
     }
     
+    var activeSpaceParticipantStorage: Factory<ActiveSpaceParticipantStorageProtocol> {
+        self { ActiveSpaceParticipantStorage() }.singleton
+    }
+
     var participantSpacesStorage: Factory<ParticipantSpacesStorageProtocol> {
         self { ParticipantSpacesStorage() }.singleton
     }

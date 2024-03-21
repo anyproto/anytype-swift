@@ -2,6 +2,7 @@ import Foundation
 import Services
 import UIKit
 import DeepLinks
+import Combine
 
 @MainActor
 final class SpaceShareViewModel: ObservableObject {
@@ -10,12 +11,13 @@ final class SpaceShareViewModel: ObservableObject {
         static let participantLimit = 11 // 10 participants and 1 owner
     }
     
-    private let participantSubscriptionService: ParticipantsSubscriptionBySpaceServiceProtocol
+    private let activeSpaceParticipantStorage: ActiveSpaceParticipantStorageProtocol
     private let workspaceService: WorkspaceServiceProtocol
     private let activeWorkspaceStorage: ActiveWorkpaceStorageProtocol
     private let deppLinkParser: DeepLinkParserProtocol
     
     private var participants: [Participant] = []
+    private var subscriptions: [AnyCancellable] = []
     
     @Published var rows: [SpaceShareParticipantViewModel] = []
     @Published var inviteLink: URL?
@@ -28,12 +30,12 @@ final class SpaceShareViewModel: ObservableObject {
     @Published var removeParticipantAlertModel: SpaceParticipantRemoveViewModel?
     
     init(
-        participantSubscriptionService: ParticipantsSubscriptionBySpaceServiceProtocol,
+        activeSpaceParticipantStorage: ActiveSpaceParticipantStorageProtocol,
         workspaceService: WorkspaceServiceProtocol,
         activeWorkspaceStorage: ActiveWorkpaceStorageProtocol,
         deppLinkParser: DeepLinkParserProtocol
     ) {
-        self.participantSubscriptionService = participantSubscriptionService
+        self.activeSpaceParticipantStorage = activeSpaceParticipantStorage
         self.workspaceService = workspaceService
         self.activeWorkspaceStorage = activeWorkspaceStorage
         self.deppLinkParser = deppLinkParser
@@ -63,11 +65,10 @@ final class SpaceShareViewModel: ObservableObject {
     // MARK: - Private
     
     private func startSubscriptions() {
-        Task {
-            await participantSubscriptionService.startSubscription(mode: .owner) { [weak self] items in
-                self?.updateParticipant(items: items)
-            }
+        activeSpaceParticipantStorage.participantsPublisher.sink { [weak self] items in
+            self?.updateParticipant(items: items)
         }
+        .store(in: &subscriptions)
     }
     
     private func updateParticipant(items: [Participant]) {
