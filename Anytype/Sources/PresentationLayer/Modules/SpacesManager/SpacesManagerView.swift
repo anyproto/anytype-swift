@@ -31,5 +31,8 @@ struct SpacesManagerView: View {
         .task {
             await model.startWorkspacesTask()
         }
+        .anytypeSheet(item: $model.spaceForCancelRequestAlert) { space in
+            SpaceCancelRequestAlert(spaceId: space.targetSpaceId)
+        }
     }
 }
