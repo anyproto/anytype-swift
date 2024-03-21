@@ -18,7 +18,6 @@ final class SettingsCoordinator: SettingsCoordinatorProtocol,
     private let keychainPhraseModuleAssembly: KeychainPhraseModuleAssemblyProtocol
     private let dashboardAlertsAssembly: DashboardAlertsAssemblyProtocol
     private let objectIconPickerModuleAssembly: ObjectIconPickerModuleAssemblyProtocol
-    private let fileStorageModuleAssembly: FileStorageModuleAssemblyProtocol
     private let documentService: OpenedDocumentsProviderProtocol
     private let urlOpener: URLOpenerProtocol
     private let activeWorkspaceStorage: ActiveWorkpaceStorageProtocol
@@ -33,7 +32,6 @@ final class SettingsCoordinator: SettingsCoordinatorProtocol,
         keychainPhraseModuleAssembly: KeychainPhraseModuleAssemblyProtocol,
         dashboardAlertsAssembly: DashboardAlertsAssemblyProtocol,
         objectIconPickerModuleAssembly: ObjectIconPickerModuleAssemblyProtocol,
-        fileStorageModuleAssembly: FileStorageModuleAssemblyProtocol,
         documentService: OpenedDocumentsProviderProtocol,
         urlOpener: URLOpenerProtocol,
         activeWorkspaceStorage: ActiveWorkpaceStorageProtocol,
@@ -46,7 +44,6 @@ final class SettingsCoordinator: SettingsCoordinatorProtocol,
         self.keychainPhraseModuleAssembly = keychainPhraseModuleAssembly
         self.dashboardAlertsAssembly = dashboardAlertsAssembly
         self.objectIconPickerModuleAssembly = objectIconPickerModuleAssembly
-        self.fileStorageModuleAssembly = fileStorageModuleAssembly
         self.documentService = documentService
         self.urlOpener = urlOpener
         self.activeWorkspaceStorage = activeWorkspaceStorage
@@ -72,8 +69,7 @@ final class SettingsCoordinator: SettingsCoordinatorProtocol,
     }
     
     func onFileStorageSelected() {
-        let module = fileStorageModuleAssembly.make(output: self)
-        navigationContext.present(module)
+        navigationContext.present(FileStorageView(output: self))
     }
     
     func onAboutSelected() {
