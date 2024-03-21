@@ -9,7 +9,7 @@ struct AsyncButton<Label> : View where Label : View {
     
     @State private var toast: ToastBarData = .empty
     
-    init(action: @escaping () async throws -> Void, role: ButtonRole? = nil, @ViewBuilder label: () -> Label) {
+    init(role: ButtonRole? = nil, action: @escaping () async throws -> Void, @ViewBuilder label: () -> Label) {
         self.action = action
         self.role = role
         self.label = label()
@@ -32,7 +32,7 @@ struct AsyncButton<Label> : View where Label : View {
 
 extension AsyncButton where Label == Text {
     init(_ titleKey: String, role: ButtonRole? = nil, action: @escaping () async throws -> Void) {
-        self = AsyncButton(action: action, role: role, label: {
+        self = AsyncButton(role: role, action: action, label: {
             Text(titleKey)
         })
     }

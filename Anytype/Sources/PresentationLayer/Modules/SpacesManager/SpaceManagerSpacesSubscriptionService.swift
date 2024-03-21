@@ -12,20 +12,19 @@ protocol SpaceManagerSpacesSubscriptionServiceProtocol: AnyObject {
 @MainActor
 final class SpaceManagerSpacesSubscriptionService: SpaceManagerSpacesSubscriptionServiceProtocol {
     
-    private let subscriptionStorage: SubscriptionStorageProtocol
-    private let objectTypeProvider: ObjectTypeProviderProtocol
-    private let activeWorkspaceStorage: ActiveWorkpaceStorageProtocol
+    @Injected(\.subscriptionStorageProvider)
+    private var subscriptionStorageProvider: SubscriptionStorageProviderProtocol
+    @Injected(\.objectTypeProvider)
+    private var objectTypeProvider: ObjectTypeProviderProtocol
+    @Injected(\.activeWorkspaceStorage)
+    private var activeWorkspaceStorage: ActiveWorkpaceStorageProtocol
+    
+    private lazy var subscriptionStorage: SubscriptionStorageProtocol = {
+        subscriptionStorageProvider.createSubscriptionStorage(subId: subscriptionId)
+    }()
     private let subscriptionId = "AllSpaces-\(UUID().uuidString)"
     
-    nonisolated init(
-        subscriptionStorageProvider: SubscriptionStorageProviderProtocol,
-        activeWorkspaceStorage: ActiveWorkpaceStorageProtocol,
-        objectTypeProvider: ObjectTypeProviderProtocol
-    ) {
-        self.subscriptionStorage = subscriptionStorageProvider.createSubscriptionStorage(subId: subscriptionId)
-        self.activeWorkspaceStorage = activeWorkspaceStorage
-        self.objectTypeProvider = objectTypeProvider
-    }
+    nonisolated init() {}
     
     func startSubscription(update: @escaping ([SpaceView]) -> Void) async {
         
@@ -59,5 +58,11 @@ final class SpaceManagerSpacesSubscriptionService: SpaceManagerSpacesSubscriptio
     
     func stopSubscription() async {
         try? await subscriptionStorage.stopSubscription()
+    }
+}
+
+extension Container {
+    var spaceManagerSpacesSubscriptionService: Factory<SpaceManagerSpacesSubscriptionServiceProtocol> {
+        self { SpaceManagerSpacesSubscriptionService() }
     }
 }

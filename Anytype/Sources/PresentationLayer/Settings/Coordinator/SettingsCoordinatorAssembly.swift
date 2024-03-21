@@ -35,12 +35,10 @@ final class SettingsCoordinatorAssembly: SettingsCoordinatorAssemblyProtocol {
             keychainPhraseModuleAssembly: modulesDI.keychainPhrase(),
             dashboardAlertsAssembly: modulesDI.dashboardAlerts(),
             objectIconPickerModuleAssembly: modulesDI.objectIconPicker(),
-            fileStorageModuleAssembly: modulesDI.fileStorage(),
             documentService: serviceLocator.documentService(),
             urlOpener: uiHelpersDI.urlOpener(),
             activeWorkspaceStorage: serviceLocator.activeWorkspaceStorage(),
-            serviceLocator: serviceLocator,
-            spacesManagerModuleAssembly: modulesDI.spacesManager()
+            serviceLocator: serviceLocator
         )
     }
 }
