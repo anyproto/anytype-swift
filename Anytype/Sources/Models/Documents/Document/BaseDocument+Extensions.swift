@@ -20,7 +20,8 @@ extension BaseDocumentProtocol {
                 ) { $0.key }
                 
                 enhancedRelations.removeAll { relation in
-                    relation.key == BundledRelationKey.description.rawValue
+                    relation.key == BundledRelationKey.description.rawValue ||
+                    (relation.links.isNotNil && !relation.hasValue)
                 }
                 
                 let setOfIndex = enhancedRelations.firstIndex { $0.key == BundledRelationKey.setOf.rawValue }
