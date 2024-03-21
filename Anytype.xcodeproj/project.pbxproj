@@ -1148,6 +1148,7 @@
 		2EF1EE902B276BE2002AD836 /* SyncStatusData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EF1EE8F2B276BE2002AD836 /* SyncStatusData.swift */; };
 		2EFBBEFA2A41DBD900734A0B /* PhraseTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EFBBEF92A41DBD900734A0B /* PhraseTextView.swift */; };
 		2EFBBEFC2A42512300734A0B /* UIPhraseTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EFBBEFB2A42512300734A0B /* UIPhraseTextView.swift */; };
+		2EFFE5CF2BAB4597006DBE6D /* RelationListEmptyState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EFFE5CE2BAB4597006DBE6D /* RelationListEmptyState.swift */; };
 		2EFFEB9629A52537002F5859 /* SetDragAndDropView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EFFEB9529A52537002F5859 /* SetDragAndDropView.swift */; };
 		3D00F1CF278D7CB700863D7C /* ObjectSearchData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D00F1CE278D7CB700863D7C /* ObjectSearchData.swift */; };
 		3D00F1D5278D84C400863D7C /* LinkToObjectSearchData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D00F1D4278D84C400863D7C /* LinkToObjectSearchData.swift */; };
@@ -2941,6 +2942,7 @@
 		2EF1EE8F2B276BE2002AD836 /* SyncStatusData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SyncStatusData.swift; sourceTree = "<group>"; };
 		2EFBBEF92A41DBD900734A0B /* PhraseTextView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhraseTextView.swift; sourceTree = "<group>"; };
 		2EFBBEFB2A42512300734A0B /* UIPhraseTextView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIPhraseTextView.swift; sourceTree = "<group>"; };
+		2EFFE5CE2BAB4597006DBE6D /* RelationListEmptyState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RelationListEmptyState.swift; sourceTree = "<group>"; };
 		2EFFEB9529A52537002F5859 /* SetDragAndDropView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SetDragAndDropView.swift; sourceTree = "<group>"; };
 		3D00F1CE278D7CB700863D7C /* ObjectSearchData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObjectSearchData.swift; sourceTree = "<group>"; };
 		3D00F1D4278D84C400863D7C /* LinkToObjectSearchData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LinkToObjectSearchData.swift; sourceTree = "<group>"; };
@@ -6683,6 +6685,15 @@
 			path = ActiveSpaceParticipantsStorage;
 			sourceTree = "<group>";
 		};
+		2ACB79872BAAD318003A2A56 /* RequestToJoin */ = {
+			isa = PBXGroup;
+			children = (
+				2ACB79882BAAD318003A2A56 /* RequestToJoinNotificationViewModel.swift */,
+				2ACB79892BAAD318003A2A56 /* RequestToJoinNotificationView.swift */,
+			);
+			path = RequestToJoin;
+			sourceTree = "<group>";
+		};
 		2ACDC9B62B56703C0063BFBD /* ShareOptions */ = {
 			isa = PBXGroup;
 			children = (
@@ -7409,6 +7420,7 @@
 				2E65276A2B5EE9BA00F27126 /* RelationListContainerView.swift */,
 				2E22F9E22B600F91001EFCF3 /* RelationModuleConfiguration.swift */,
 				2E31C9612B7281CD006DB3E2 /* RelationListSelectionView.swift */,
+				2EFFE5CE2BAB4597006DBE6D /* RelationListEmptyState.swift */,
 			);
 			path = Container;
 			sourceTree = "<group>";
@@ -10718,6 +10730,7 @@
 				5338E7EC25DC723D008CB97D /* KeyboardActionHandler.swift in Sources */,
 				2ED9F4432A8F94D400BE0A6B /* SetViewSettings.swift in Sources */,
 				1244794127DC735A00581174 /* NewSearchView+ListModel.swift in Sources */,
+				2EFFE5CF2BAB4597006DBE6D /* RelationListEmptyState.swift in Sources */,
 				539E01922757CD0600067A24 /* SlashActionRelations.swift in Sources */,
 				2E2D255F28880C8D00E3DFD1 /* SetFilterConditionsViewModel.swift in Sources */,
 				2ACDC9BC2B5670710063BFBD /* ShareOptionsModuleAssembly.swift in Sources */,

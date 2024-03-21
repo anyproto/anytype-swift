@@ -6,9 +6,13 @@ struct RelationValueCoordinatorView: View {
     @StateObject var model: RelationValueCoordinatorViewModel
     
     var body: some View {
-        model.relationModule()
+        content
             .if(model.mediumDetent) {
                 $0.mediumPresentationDetents()
             }
+    }
+    
+    private var content: some View {
+        model.relationModule()
     }
 }

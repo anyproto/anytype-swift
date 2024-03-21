@@ -18,36 +18,40 @@ struct TextRelationEditingView: View {
         .onChange(of: viewModel.text) { newText in
             viewModel.onTextChanged(newText)
         }
-        .frame(height: totalHeight())
-        .fitPresentationDetents()
         .task {
             viewModel.updatePasteState()
         }
+        .onDisappear {
+            viewModel.onDisappear()
+        }
+        .fitPresentationDetents()
+        .ignoresSafeArea()
     }
     
     private var content: some View {
-        NavigationView {
-            contentView
-                .padding(.horizontal, 20)
-                .navigationTitle(viewModel.config.title)
-                .navigationBarTitleDisplayMode(.inline)
-                .if(viewModel.config.isEditable) {
-                    $0.toolbar {
-                        ToolbarItem(placement: .topBarLeading) {
-                            if viewModel.text.isNotEmpty {
-                                clearButton
-                            }
-                        }
-                        
-                        ToolbarItem(placement: .topBarTrailing) {
-                            if viewModel.showPaste {
-                                pasteButton
-                            }
-                        }
-                    }
-                }
+        VStack(spacing: 0) {
+            toolbar
+            if viewModel.text.isEmpty, !viewModel.config.isEditable {
+                RelationListEmptyState()
+            } else {
+                contentView
+            }
         }
-        .navigationViewStyle(.stack)
+        .padding(.horizontal, 20)
+    }
+    
+    private var toolbar: some View {
+        HStack(spacing: 0) {
+            clearButton
+                .frame(maxWidth: .infinity, alignment: .leading)
+            
+            TitleView(title: viewModel.config.title)
+                .frame(maxWidth: .infinity)
+            
+            pasteButton
+                .frame(maxWidth: .infinity, alignment: .trailing)
+        }
+        .frame(height: 48)
     }
     
     @ViewBuilder
@@ -60,7 +64,7 @@ struct TextRelationEditingView: View {
                 .keyboardType(viewModel.type.keyboardType)
                 .disabled(!viewModel.config.isEditable)
             buttons
-            Spacer()
+            Spacer.fixedHeight(6)
         }
     }
     
@@ -68,33 +72,43 @@ struct TextRelationEditingView: View {
     private var textField: some View {
         if #available(iOS 16.0, *) {
             TextField(viewModel.type.placeholder, text: $viewModel.text, axis: .vertical)
-                .lineLimit(3, reservesSpace: true)
+                .lineLimit(1...10)
         } else {
             TextField(viewModel.type.placeholder, text: $viewModel.text)
                 .frame(height: 48)
         }
     }
     
+    @ViewBuilder
     private var clearButton: some View {
-        Button {
-            viewModel.onClear()
-        } label: {
-            AnytypeText(Loc.clear, style: .uxBodyRegular, color: .Button.active)
+        if viewModel.text.isNotEmpty, viewModel.config.isEditable {
+            Button {
+                viewModel.onClear()
+            } label: {
+                AnytypeText(Loc.clear, style: .uxBodyRegular, color: .Button.active)
+            }
+        } else {
+            Spacer()
         }
     }
     
+    @ViewBuilder
     private var pasteButton: some View {
-        Button {
-            viewModel.onPaste()
-        } label: {
-            AnytypeText(Loc.paste, style: .uxBodyRegular, color: .Button.active)
+        if viewModel.showPaste, viewModel.config.isEditable {
+            Button {
+                viewModel.onPaste()
+            } label: {
+                AnytypeText(Loc.paste, style: .uxBodyRegular, color: .Button.active)
+            }
+        } else {
+            Spacer()
         }
     }
     
     private var buttons: some View {
         VStack(spacing: 0) {
             if viewModel.actionsViewModel.isNotEmpty {
-                Spacer.fixedHeight(Constants.innerSpace)
+                Spacer.fixedHeight(12)
             }
             ForEach(viewModel.actionsViewModel, id: \.id) { model in
                 Divider()
@@ -118,20 +132,6 @@ struct TextRelationEditingView: View {
                 .disabled(!model.isActionAvailable)
             }
         }
-    }
-    
-    func totalHeight() -> CGFloat {
-        Constants.basicHeight + 
-        CGFloat(viewModel.actionsViewModel.count) * Constants.actionHeight +
-        Constants.innerSpace
-    }
-}
-
-extension TextRelationEditingView {
-    enum Constants {
-        static let basicHeight: CGFloat = 140
-        static let actionHeight: CGFloat = 52
-        static let innerSpace: CGFloat = 12
     }
 }
 
