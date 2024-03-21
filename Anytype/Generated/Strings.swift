@@ -2148,6 +2148,10 @@ internal enum Loc {
     }
   }
   internal enum Space {
+    /// Plural format key: "%#@object@"
+    internal static func membersCount(_ p1: Int) -> String {
+      return Loc.tr("Localizable", "Space.MembersCount", p1, fallback: "Plural format key: \"%#@object@\"")
+    }
     internal enum Status {
       /// Error
       internal static let error = Loc.tr("Localizable", "Space.Status.Error", fallback: "Error")
