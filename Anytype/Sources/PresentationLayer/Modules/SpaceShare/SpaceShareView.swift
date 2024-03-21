@@ -13,7 +13,7 @@ struct SpaceShareView: View {
             ZStack(alignment: .bottom) {
                 ScrollView {
                     VStack(spacing: 0) {
-                        SectionHeaderView(title: Loc.SpaceShare.membersSection)
+                        SectionHeaderView(title: Loc.SpaceShare.members)
                         ForEach(model.rows) { participant in
                             SpaceShareParticipantView(participant: participant)
                         }

@@ -14,7 +14,7 @@ struct DeleteSharingLinkAlert: View {
         BottomAlertView(
             title: Loc.SpaceShare.DeleteSharingLink.title,
             message: Loc.SpaceShare.DeleteSharingLink.message) {
-                BottomAlertButton(text: Loc.SpaceShare.DeleteSharingLink.confirm, style: .warning) {
+                BottomAlertButton(text: Loc.SpaceShare.DeleteSharingLink.title, style: .warning) {
                     try await model.onTapDeleteLink()
                     dismiss()
                 }

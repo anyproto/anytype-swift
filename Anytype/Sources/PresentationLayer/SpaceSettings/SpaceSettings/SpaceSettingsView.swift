@@ -22,7 +22,7 @@ struct SpaceSettingsView: View {
                     
                     if FeatureFlags.multiplayer {
                         if model.allowShare {
-                            SectionHeaderView(title: Loc.SpaceSettings.sharing)
+                            SectionHeaderView(title: Loc.SpaceShare.title)
                             SettingsSectionItemView(
                                 name: Loc.SpaceSettings.share,
                                 onTap: { model.onShareTap() }
@@ -30,7 +30,7 @@ struct SpaceSettingsView: View {
                         }
                         
                         if model.allowSpaceMembers {
-                            SectionHeaderView(title: Loc.SpaceSettings.sharing)
+                            SectionHeaderView(title: Loc.SpaceSettings.title)
                             SettingsSectionItemView(
                                 name: Loc.SpaceShare.members,
                                 onTap: { model.onMembersTap() }
