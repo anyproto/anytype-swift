@@ -314,6 +314,8 @@
 		2A0BAD2F29E01E33005BC5D9 /* View+Focused.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A0BAD2E29E01E33005BC5D9 /* View+Focused.swift */; };
 		2A0BAD3129E020A3005BC5D9 /* Task+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A0BAD3029E020A3005BC5D9 /* Task+Extensions.swift */; };
 		2A0BAD3329E020D7005BC5D9 /* View+Autofocus.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A0BAD3229E020D7005BC5D9 /* View+Autofocus.swift */; };
+		2A0F40312BAC1EB1002D8D37 /* DeleteSharingLinkAlertModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A0F402F2BAC1EB1002D8D37 /* DeleteSharingLinkAlertModel.swift */; };
+		2A0F40322BAC1EB1002D8D37 /* DeleteSharingLinkAlert.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A0F40302BAC1EB1002D8D37 /* DeleteSharingLinkAlert.swift */; };
 		2A12B77E2A6A754200CE1AFD /* GradientIconPainter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A12B77D2A6A754200CE1AFD /* GradientIconPainter.swift */; };
 		2A150BE028AA8E9700F2E569 /* TextRelationURLActionViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A150BDF28AA8E9700F2E569 /* TextRelationURLActionViewModel.swift */; };
 		2A1731BA2B9A0A8200FD990D /* AudioSessionService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A1731B92B9A0A6400FD990D /* AudioSessionService.swift */; };
@@ -2095,6 +2097,8 @@
 		2A0BAD2E29E01E33005BC5D9 /* View+Focused.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "View+Focused.swift"; sourceTree = "<group>"; };
 		2A0BAD3029E020A3005BC5D9 /* Task+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Task+Extensions.swift"; sourceTree = "<group>"; };
 		2A0BAD3229E020D7005BC5D9 /* View+Autofocus.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "View+Autofocus.swift"; sourceTree = "<group>"; };
+		2A0F402F2BAC1EB1002D8D37 /* DeleteSharingLinkAlertModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DeleteSharingLinkAlertModel.swift; sourceTree = "<group>"; };
+		2A0F40302BAC1EB1002D8D37 /* DeleteSharingLinkAlert.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DeleteSharingLinkAlert.swift; sourceTree = "<group>"; };
 		2A12B77D2A6A754200CE1AFD /* GradientIconPainter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GradientIconPainter.swift; sourceTree = "<group>"; };
 		2A1331462B03681D00E8F3A5 /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/Localizable.strings; sourceTree = "<group>"; };
 		2A1331472B03682100E8F3A5 /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.stringsdict; name = de; path = de.lproj/Localizable.stringsdict; sourceTree = "<group>"; };
@@ -5298,6 +5302,15 @@
 			path = Views;
 			sourceTree = "<group>";
 		};
+		2A0F402E2BAC1EB1002D8D37 /* DeleteSharingLinkAlert */ = {
+			isa = PBXGroup;
+			children = (
+				2A0F402F2BAC1EB1002D8D37 /* DeleteSharingLinkAlertModel.swift */,
+				2A0F40302BAC1EB1002D8D37 /* DeleteSharingLinkAlert.swift */,
+			);
+			path = DeleteSharingLinkAlert;
+			sourceTree = "<group>";
+		};
 		2A1731B82B9A0A6400FD990D /* AudioSessionService */ = {
 			isa = PBXGroup;
 			children = (
@@ -6515,6 +6528,7 @@
 		2AC434A82B7A15AD006166BF /* Subviews */ = {
 			isa = PBXGroup;
 			children = (
+				2A0F402E2BAC1EB1002D8D37 /* DeleteSharingLinkAlert */,
 				2AC434A92B7A15B9006166BF /* SpaceShareParticipantView.swift */,
 				2A5EC77F2B7D166F00DD7D89 /* InviteLinkView.swift */,
 				2AD48D4D2B7E65BB0077C53B /* SpaceRequestView.swift */,
@@ -11014,6 +11028,7 @@
 				2A5BC4C32A78FAC7004FAABF /* CharIconPainter.swift in Sources */,
 				C922F692286205B300DF2EF5 /* SpreadsheetBlockConfiguration.swift in Sources */,
 				C9235F822862F573004D86BA /* SpreadsheetDataSource.swift in Sources */,
+				2A0F40322BAC1EB1002D8D37 /* DeleteSharingLinkAlert.swift in Sources */,
 				C9E939D9285390B70089CB98 /* TextBlockActionHandlerProtocol.swift in Sources */,
 				2AEABE0728C7559500BDE3AC /* RelationEventConverter.swift in Sources */,
 				2A2B332E2A7BB0AC004BD906 /* SpaceRowView.swift in Sources */,
@@ -11400,6 +11415,7 @@
 				0A0965EE25BEF5B000C004BD /* EditorPageViewModel.swift in Sources */,
 				0A996BD123F0342A000FDC9C /* PlistReader.swift in Sources */,
 				12AB9638280087E7008E32EA /* StandardButtonStyle.swift in Sources */,
+				2A0F40312BAC1EB1002D8D37 /* DeleteSharingLinkAlertModel.swift in Sources */,
 				2E56F1362A0D43BB00031167 /* LoopingPlayerView.swift in Sources */,
 				C99DCE8B283B5BDE0051F99D /* KeyboardHeightListener.swift in Sources */,
 				2E52DE712A1CEAF700F16815 /* SoulView.swift in Sources */,

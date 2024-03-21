@@ -30,7 +30,7 @@ final class ParticipantSpacesStorage: ParticipantSpacesStorageProtocol {
     nonisolated init() {}
     
     func startSubscription() async {
-        Publishers.Zip(workspaceStorage.workspsacesPublisher, accountParticipantsStorage.participantsPublisher)
+        Publishers.CombineLatest(workspaceStorage.workspsacesPublisher, accountParticipantsStorage.participantsPublisher)
             .sink { [weak self] spaces, participants in
                 self?.participantSpaces = spaces.compactMap { space in
                     guard let participant = participants.first(where:  { $0.spaceId == space.targetSpaceId }) else { return nil }
