@@ -48,27 +48,17 @@ struct SpacesManagerRowView: View {
     }
     
     private var spaceStateInfo: some View {
-        GeometryReader { reader in
-            HStack(spacing: 0) {
-                statusInfoBlock(title: Loc.Spaces.Info.network, name: model.spaceView.accountStatus?.name)
-                    .frame(width: reader.size.width * 0.5)
-                statusInfoBlock(title: Loc.Spaces.Info.device, name: model.spaceView.localStatus?.name)
-                    .frame(width: reader.size.width * 0.5)
-            }
-            .frame(height: 44)
-        }
-        .frame(height: 44)
-    }
-    
-    
-    private func statusInfoBlock(title: String, name: String?) -> some View {
         HStack(spacing: 0) {
+            Circle()
+                .fill(model.spaceView.accountStatus?.color ?? .black)
+                .frame(width: 8, height: 8)
             Spacer.fixedWidth(6)
-            AnytypeText(title, style: .relation3Regular, color: .Text.secondary)
+            AnytypeText(Loc.Spaces.Info.network, style: .relation3Regular, color: .Text.secondary)
             Spacer.fixedWidth(4)
-            AnytypeText(name, style: .relation3Regular, color: .Text.primary)
+            AnytypeText(model.spaceView.accountStatus?.name, style: .relation3Regular, color: .Text.primary)
             Spacer()
         }
+        .frame(height: 44)
     }
     
     @ViewBuilder
@@ -88,6 +78,19 @@ struct SpacesManagerRowView: View {
                 IconView(icon: .asset(.X24.more))
                     .frame(width: 24, height: 24)
             }
+        }
+    }
+}
+
+private extension SpaceStatus {
+    var color: Color {
+        switch self {
+        case .UNRECOGNIZED, .spaceJoining, .loading:
+            return .System.amber125
+        case .error, .missing, .remoteDeleted, .remoteWaitingDeletion, .spaceDeleted, .spaceRemoving:
+            return .System.red
+        case .unknown, .ok, .spaceActive:
+            return .System.green
         }
     }
 }

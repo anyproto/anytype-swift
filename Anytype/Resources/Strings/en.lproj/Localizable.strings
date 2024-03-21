@@ -850,7 +850,6 @@
 "Spaces.Search.Title" = "Search spaces";
 "Spaces.Title" = "Spaces";
 "Spaces.Info.Network" = "Network:";
-"Spaces.Info.Device" = "Device:";
 
 // MARK: - Space
 "Space.Status.Unknown" = "Unknown";
