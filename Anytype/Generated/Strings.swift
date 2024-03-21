@@ -2345,8 +2345,6 @@ internal enum Loc {
       internal static let shared = Loc.tr("Localizable", "Spaces.Accessibility.Shared", fallback: "Shared Space")
     }
     internal enum Info {
-      /// Device:
-      internal static let device = Loc.tr("Localizable", "Spaces.Info.Device", fallback: "Device:")
       /// Network:
       internal static let network = Loc.tr("Localizable", "Spaces.Info.Network", fallback: "Network:")
     }
