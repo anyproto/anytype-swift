@@ -61,7 +61,6 @@ final class HomeCoordinatorAssembly: HomeCoordinatorAssemblyProtocol {
             setObjectCreationCoordinatorAssembly: coordinatorsID.setObjectCreation(),
             sharingTipCoordinator: coordinatorsID.sharingTip(),
             notificationCoordinator: coordinatorsID.notificationCoordinator(),
-            spaceJoinModuleAssembly: modulesDI.spaceJoin(),
             typeSearchCoordinatorAssembly: coordinatorsID.typeSearchForNewObject()
         )
     }

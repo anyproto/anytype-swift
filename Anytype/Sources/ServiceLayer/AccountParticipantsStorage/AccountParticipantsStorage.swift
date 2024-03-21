@@ -37,7 +37,7 @@ final class AccountParticipantsStorage: AccountParticipantsStorageProtocol {
         subscriptionStorageProvider.createSubscriptionStorage(subId: subscriptionId)
     }()
     
-    private let subscriptionId = "ActiveParticipant-\(UUID())"
+    private let subscriptionId = "AccountParticipant-\(UUID())"
     private var subscriptions: [AnyCancellable] = []
     
     // MARK: - State

@@ -3,8 +3,12 @@ import SwiftUI
 
 struct SpaceJoinView: View {
     
-    @StateObject var model: SpaceJoinViewModel
+    @StateObject private var model: SpaceJoinViewModel
     @Environment(\.dismiss) var dismiss
+    
+    init(data: SpaceJoinModuleData) {
+        self._model = StateObject(wrappedValue: SpaceJoinViewModel(data: data))
+    }
     
     var body: some View {
         VStack(spacing: 0) {
@@ -43,11 +47,11 @@ struct SpaceJoinView: View {
 }
 
 #Preview("Default") {
-    DI.preview.modulesDI.spaceJoin().make(data: SpaceJoinModuleData(cid: "", key: ""))
+    SpaceJoinView(data: SpaceJoinModuleData(cid: "", key: ""))
 }
 
 #Preview("Sheet") {
     Color.black.anytypeSheet(isPresented: .constant(true)) {
-        DI.preview.modulesDI.spaceJoin().make(data: SpaceJoinModuleData(cid: "", key: ""))
+        SpaceJoinView(data: SpaceJoinModuleData(cid: "", key: ""))
     }
 }

@@ -3,7 +3,7 @@ import SwiftUI
 
 struct SpacesManagerView: View {
     
-    @StateObject var model: SpacesManagerViewModel
+    @StateObject private var model = SpacesManagerViewModel()
     
     var body: some View {
         VStack(spacing: 0) {
@@ -30,6 +30,9 @@ struct SpacesManagerView: View {
         }
         .task {
             await model.startWorkspacesTask()
+        }
+        .anytypeSheet(item: $model.spaceForCancelRequestAlert) { space in
+            SpaceCancelRequestAlert(spaceId: space.targetSpaceId)
         }
     }
 }

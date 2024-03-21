@@ -18,13 +18,11 @@ final class SettingsCoordinator: SettingsCoordinatorProtocol,
     private let keychainPhraseModuleAssembly: KeychainPhraseModuleAssemblyProtocol
     private let dashboardAlertsAssembly: DashboardAlertsAssemblyProtocol
     private let objectIconPickerModuleAssembly: ObjectIconPickerModuleAssemblyProtocol
-    private let fileStorageModuleAssembly: FileStorageModuleAssemblyProtocol
     private let documentService: OpenedDocumentsProviderProtocol
     private let urlOpener: URLOpenerProtocol
     private let activeWorkspaceStorage: ActiveWorkpaceStorageProtocol
     private let serviceLocator: ServiceLocator
     private let applicationStateService: ApplicationStateServiceProtocol
-    private let spacesManagerModuleAssembly: SpacesManagerModuleAssemblyProtocol
     
     init(
         navigationContext: NavigationContextProtocol,
@@ -33,12 +31,10 @@ final class SettingsCoordinator: SettingsCoordinatorProtocol,
         keychainPhraseModuleAssembly: KeychainPhraseModuleAssemblyProtocol,
         dashboardAlertsAssembly: DashboardAlertsAssemblyProtocol,
         objectIconPickerModuleAssembly: ObjectIconPickerModuleAssemblyProtocol,
-        fileStorageModuleAssembly: FileStorageModuleAssemblyProtocol,
         documentService: OpenedDocumentsProviderProtocol,
         urlOpener: URLOpenerProtocol,
         activeWorkspaceStorage: ActiveWorkpaceStorageProtocol,
-        serviceLocator: ServiceLocator,
-        spacesManagerModuleAssembly: SpacesManagerModuleAssemblyProtocol
+        serviceLocator: ServiceLocator
     ) {
         self.navigationContext = navigationContext
         self.settingsModuleAssembly = settingsModuleAssembly
@@ -46,13 +42,11 @@ final class SettingsCoordinator: SettingsCoordinatorProtocol,
         self.keychainPhraseModuleAssembly = keychainPhraseModuleAssembly
         self.dashboardAlertsAssembly = dashboardAlertsAssembly
         self.objectIconPickerModuleAssembly = objectIconPickerModuleAssembly
-        self.fileStorageModuleAssembly = fileStorageModuleAssembly
         self.documentService = documentService
         self.urlOpener = urlOpener
         self.activeWorkspaceStorage = activeWorkspaceStorage
         self.serviceLocator = serviceLocator
         self.applicationStateService = serviceLocator.applicationStateService()
-        self.spacesManagerModuleAssembly = spacesManagerModuleAssembly
     }
     
     func startFlow() {
@@ -72,8 +66,7 @@ final class SettingsCoordinator: SettingsCoordinatorProtocol,
     }
     
     func onFileStorageSelected() {
-        let module = fileStorageModuleAssembly.make(output: self)
-        navigationContext.present(module)
+        navigationContext.present(FileStorageView(output: self))
     }
     
     func onAboutSelected() {
@@ -94,8 +87,7 @@ final class SettingsCoordinator: SettingsCoordinatorProtocol,
     }
     
     func onSpacesSelected() {
-        let module = spacesManagerModuleAssembly.make()
-        navigationContext.present(module)
+        navigationContext.present(SpacesManagerView())
     }
     
     func onMembershipSelected() {

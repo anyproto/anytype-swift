@@ -6,24 +6,18 @@ import SwiftUI
 @MainActor
 final class SpacesManagerViewModel: ObservableObject {
     
-    private let spacesSubscriptionService: SpaceManagerSpacesSubscriptionServiceProtocol
-    private let workspaceService: WorkspaceServiceProtocol
-    private let participantsSubscriptionByAccountService: ParticipantsSubscriptionByAccountServiceProtocol
+    @Injected(\.spaceManagerSpacesSubscriptionService)
+    private var spacesSubscriptionService: SpaceManagerSpacesSubscriptionServiceProtocol
+    @Injected(\.workspaceService)
+    private var workspaceService: WorkspaceServiceProtocol
+    @Injected(\.participantsSubscriptionByAccountService)
+    private var participantsSubscriptionByAccountService: ParticipantsSubscriptionByAccountServiceProtocol
     
     private var spaces: [SpaceView] = []
     private var participants: [Participant] = []
     
     @Published var rows: [SpacesManagerRowViewModel] = []
-    
-    init(
-        spacesSubscriptionService: SpaceManagerSpacesSubscriptionServiceProtocol,
-        workspaceService: WorkspaceServiceProtocol,
-        participantsSubscriptionByAccountService: ParticipantsSubscriptionByAccountServiceProtocol
-    ) {
-        self.spacesSubscriptionService = spacesSubscriptionService
-        self.workspaceService = workspaceService
-        self.participantsSubscriptionByAccountService = participantsSubscriptionByAccountService
-    }
+    @Published var spaceForCancelRequestAlert: SpaceView?
     
     func onAppear() async {
         await participantsSubscriptionByAccountService.startSubscription { [weak self] items in
@@ -47,7 +41,7 @@ final class SpacesManagerViewModel: ObservableObject {
     }
         
     func onCancelRequest(row: SpacesManagerRowViewModel) async throws {
-        try await workspaceService.joinCancel(spaceId: row.spaceView.targetSpaceId)
+        spaceForCancelRequestAlert = row.spaceView
     }
     
     func onArchive(row: SpacesManagerRowViewModel) async throws {
