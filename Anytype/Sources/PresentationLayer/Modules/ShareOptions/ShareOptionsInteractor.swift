@@ -144,7 +144,7 @@ final class ShareOptionsInteractor: ShareOptionsInteractorProtocol {
         return newObject
     }
     
-    private func creatFileObject(url: URL, spaceId: BlockId) async throws -> FileDetails {
+    private func creatFileObject(url: URL, spaceId: String) async throws -> FileDetails {
         let data = FileData(path: url.relativePath, isTemporary: false)
         let details = try await fileService.uploadFileObject(spaceId: spaceId, data: data, origin: .sharingExtension)
         
