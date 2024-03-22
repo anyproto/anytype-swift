@@ -2,7 +2,7 @@
 "StyleMenu.Color.TextColor.Placeholder" = "A";
 
 // MARK: Text Style in Slash and Style menu
-"TextStyle.Text.Title" = "Text";
+"TextStyle.Text.Title" = "உரை";
 "TextStyle.Text.Subtitle" = "Just start writing with a plain text";
 
 "TextStyle.Title.Title" = "தலைப்பு";
@@ -36,12 +36,12 @@
 "TextStyle.Italic.Title" = "Italic";
 "TextStyle.Strikethrough.Title" = "Strikethrough";
 "TextStyle.Code.Title" = "Code";
-"TextStyle.Link.Title" = "Link";
+"TextStyle.Link.Title" = "இணைப்பு";
 
 // MARK: - Block Text
-"BlockText.Content.Placeholder" = "Untitled";
+"BlockText.Content.Placeholder" = "தலைப்பற்றது";
 
-"BlockText.ContentType.Title.Placeholder" = "Untitled";
+"BlockText.ContentType.Title.Placeholder" = "தலைப்பற்றது";
 "BlockText.ContentType.Description.Placeholder" = "Add a description";
 "BlockText.ContentType.Toggle.Placeholder" = "Toggle block";
 "BlockText.ContentType.Bulleted.Placeholder" = "Bulleted list item";
@@ -59,19 +59,19 @@
 "BlockLink.PreviewSettings.IconSize.Medium" = "நடுத்தர";
 
 "BlockLink.PreviewSettings.Layout.Card.Title" = "அட்டை";
-"BlockLink.PreviewSettings.Layout.Text.Title" = "Text";
+"BlockLink.PreviewSettings.Layout.Text.Title" = "உரை";
 
 // MARK: - Settings
 "Settings.SpaceName" = "Space name";
 
 // MARK: - Object
-"Object.Title.Placeholder" = "Untitled";
+"Object.Title.Placeholder" = "தலைப்பற்றது";
 "Object.Deleted.Placeholder" = "Deleted object";
 
 // MARK: - Relation
 "Featured relations" = "Featured relations";
 "Create relation" = "Create relation ‘%@’";
-"Relation.View.Hint.Empty" = "empty";
+"Relation.View.Hint.Empty" = "எதுவுமில்லை";
 "Relation.MyRelations" = "My relations";
 "Relation.AddedToLibrary" = "Relation ‘%@’ added to your library";
 "Relation.Deleted" = "Deleted relation";
@@ -81,10 +81,10 @@
 "Relation.EmptyState.title" = "No options";
 "Relation.EmptyState.description" = "Nothing found. Create first option to start.";
 "Relation.EmptyState.Blocked.title" = "The relation is empty";
-"Relation.Create.Row.title" = "Create “%@”";
+"Relation.Create.Row.title" = "“%@” -ஐ  உருவாக்கு";
 "Relation.View.Create.title" = "Create option";
 "Relation.View.Edit.title" = "Edit option";
-"Relation.Create.Textfield.placeholder" = "Enter name...";
+"Relation.Create.Textfield.placeholder" = "பெயரைத் திருத்து...";
 "Relation.Edit.Button.title" = "Apply";
 "Relation.Date.Locked.Alert.title" = "Relation “%@” is locked";
 "Relation.ObjectTypes.Header.title" = "Object types:";
@@ -95,7 +95,7 @@
 "Relation.Object.Delete.Alert.Description" = "The object will be moved to Bin.";
 
 "Relation.Format.Object.Title" = "Object";
-"Relation.Format.Text.Title" = "Text";
+"Relation.Format.Text.Title" = "உரை";
 "Relation.Format.Number.Title" = "எண்";
 "Relation.Format.Status.Title" = "தேர்ந்தெடு";
 "Relation.Format.Tag.Title" = "Multi-select";
@@ -134,15 +134,15 @@
 "Actions" = "செயல்கள்";
 "Relations" = "Relations";
 "Objects" = "Objects";
-"Lists" = "Lists";
+"Lists" = "பட்டியல்கள்";
 "Pinned" = "Pinned";
-"Delete" = "Delete";
+"Delete" = "அழி";
 "Export" = "Export";
 "Duplicate" = "Duplicate";
-"Copy" = "Copy";
+"Copy" = "நகல்";
 "Preview" = "Preview";
 "View" = "பார்வை";
-"Paste" = "Paste";
+"Paste" = "ஓட்டு";
 "Move" = "நகர்த்து";
 "Move to" = "இதற்கு நகர்த்து";
 "Back" = "பின்";
@@ -156,9 +156,9 @@
 "Align right" = "Align right";
 "Align left" = "Align left";
 "Align center" = "Align center";
-"Black" = "Black";
+"Black" = "கருப்பு";
 "Amber" = "Amber";
-"Red" = "Red";
+"Red" = "சிவப்பு";
 "Pink" = "Pink";
 "Purple" = "Purple";
 "Blue" = "Blue";
@@ -255,7 +255,7 @@
 
 "Auth.JoinFlow.Soul.Title" = "Choose your name";
 "Auth.JoinFlow.Soul.Description" = "This is how you will appear in the app.";
-"Auth.JoinFlow.Soul.Placeholder" = "Untitled";
+"Auth.JoinFlow.Soul.Placeholder" = "தலைப்பற்றது";
 
 "Auth.JoinFlow.Creating.Soul.Title" = "Generating new account";
 "Auth.JoinFlow.Setting.Space.Title" = "Setting up your default space";
@@ -351,7 +351,7 @@
 
 "TemplateOptions.Alert.EditTemplate" = "Edit template";
 "TemplateOptions.Alert.Duplicate" = "Duplicate";
-"TemplateOptions.Alert.Delete" = "Delete";
+"TemplateOptions.Alert.Delete" = "அழி";
 
 "TemplateEditing.Title" = "Edit template";
 
@@ -438,7 +438,7 @@
 "EditSet.Popup.Filter.Date.Option.NumberOfDaysFromNow.Short" = "%@ days from now";
 
 // MARK: - Sets. Create object
-"Set.Create.ObjectTitle.Placeholder" = "Untitled";
+"Set.Create.ObjectTitle.Placeholder" = "தலைப்பற்றது";
 
 // MARK: - Sets: Featured relations
 "Set.FeaturedRelations.Query" = "Query";
@@ -699,7 +699,7 @@
 "SimpleTableMenu.Item.MoveLeft" = "Move left";
 "SimpleTableMenu.Item.MoveRight" = "Move right";
 "SimpleTableMenu.Item.Duplicate" = "Duplicate";
-"SimpleTableMenu.Item.Delete" = "Delete";
+"SimpleTableMenu.Item.Delete" = "அழி";
 "SimpleTableMenu.Item.Sort" = "Sort";
 
 "SimpleTableMenu.Item.InsertAbove" = "Insert above";
@@ -732,7 +732,7 @@
 "SetViewTypesPicker.Settings.Duplicate.View" = "Duplicate";
 "SetViewTypesPicker.Settings.Delete.View" = "Delete view";
 "SetViewTypesPicker.Settings.Textfield.Placeholder.New.View" = "New view";
-"SetViewTypesPicker.Settings.Textfield.Placeholder.Untitled" = "Untitled";
+"SetViewTypesPicker.Settings.Textfield.Placeholder.Untitled" = "தலைப்பற்றது";
 
 // MARK: Select view
 "EditorSet.View.Not.Supported.Title" = "Unsupported";
@@ -771,7 +771,7 @@
 "Widgets.Actions.AddBelow" = "Add Below";
 "Widgets.Actions.NewObject" = "New Object";
 "Widgets.Layout.Screen.Title" = "Widget type";
-"Widgets.Layout.Link.Title" = "Link";
+"Widgets.Layout.Link.Title" = "இணைப்பு";
 "Widgets.Layout.Tree.Title" = "Tree";
 "Widgets.Layout.List.Title" = "List";
 "Widgets.Layout.CompactList.Title" = "Сompact list";
@@ -850,7 +850,6 @@
 "Spaces.Search.Title" = "Search spaces";
 "Spaces.Title" = "Spaces";
 "Spaces.Info.Network" = "Network:";
-"Spaces.Info.Device" = "Device:";
 
 // MARK: - Space
 "Space.Status.Unknown" = "Unknown";
@@ -873,7 +872,6 @@
 "SpaceSettings.DeleteAlert.Title" = "Delete ‘%@’ space";
 "SpaceSettings.DeleteAlert.Message" = "This space will be deleted irrevocably. You can’t undo this action.";
 "SpaceSettings.DeleteButton" = "Delete space";
-"SpaceSettings.Sharing" = "Sharing";
 "SpaceSettings.Share" = "Share";
 "SpaceSettings.LeaveButton" = "Leave and unjoin";
 "SpaceSettings.LeaveAlert.Title" = "Leave and unjoin the space";
@@ -881,8 +879,7 @@
 
 // MARK: - Space Share
 
-"SpaceShare.Title" = "Share space";
-"SpaceShare.MembersSection" = "Members and requests";
+"SpaceShare.Title" = "Sharing";
 "SpaceShare.Members" = "Members";
 "SpaceShare.Permissions.Owner" = "Owner";
 "SpaceShare.Permissions.Reader" = "Viewer";
@@ -890,12 +887,16 @@
 "SpaceShare.Permissions.Grand.Edit" = "Edit";
 "SpaceShare.Permissions.Grand.View" = "பார்வை";
 "SpaceShare.Invite.Title" = "Invite link";
-"SpaceShare.Invite.Description" = "Send this link to invite others. Assign access rights upon their request approval";
-"SpaceShare.Invite.Button" = "Share invite link";
-"SpaceShare.Status.Joining" = "Requested";
-"SpaceShare.Status.Removing" = "Unjoining requested";
-"SpaceShare.Action.ViewRequest" = "View Request";
+"SpaceShare.Invite.Description" = "Share this invite link so that others can join your Space. Once they click your link and request access, you can set their access rights.";
+"SpaceShare.Invite.Share" = "Share invite link";
+"SpaceShare.Invite.Generate" = "Generate invite link";
+"SpaceShare.Invite.Empty" = "Create invite link to share space and add new members";
+"SpaceShare.JoinRequest" = "Join request";
+"SpaceShare.LeaveRequest" = "Leave request";
+"SpaceShare.Action.ViewRequest" = "View request";
 "SpaceShare.Action.Approve" = "Approve";
+"SpaceShare.DeleteSharingLink.Title" = "Delete link";
+"SpaceShare.DeleteSharingLink.Message" = "New members won’t be able to join the space. You can generate a new link anytype";
 "SpaceShare.Approve.Toast" = "You approved %@'s request.";
 "SpaceShare.ViewRequest.Title" = "%@ requested to join %@ space";
 "SpaceShare.ViewRequest.ViewAccess" = "Grand view access";
@@ -912,6 +913,7 @@
 "SpaceShare.JoinConfirmation.Title" = "Request sent";
 "SpaceShare.JoinConfirmation.Message" = "You will receive a notification when the space owner will approve your request.";
 "SpaceShare.YouSuffix" = "%@ (you)";
+"SpaceShare.ManageSpaces" = "Manage Spaces";
 
 // MARK: - Permission notification
 "PermissionChangeNotification.Text" = "Your access rights were changed to **%@** in the **%@** space.";
@@ -924,8 +926,13 @@
 "RequestToJoinNotification.ViewRequest" = "View request";
 
 // MARK: - Space manager
-"SpaceManager.CancelRequest" = "Cancel Request";
+"SpaceManager.CancelRequest" = "Cancel Join Request";
+"SpaceManager.DoNotCancel" = "Do Not Cancel";
 "SpaceManager.Archive" = "Archive";
+"SpaceManager.CancelRequestAlert.Title" = "You will have to send request access again";
+"SpaceManager.CancelRequestAlert.Toast" = "The request was canceled.";
+
+
 
 // MARK: - Space Create
 "SpaceCreate.Title" = "Create a space";

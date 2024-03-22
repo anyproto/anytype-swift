@@ -850,7 +850,6 @@
 "Spaces.Search.Title" = "Rechercher des espaces";
 "Spaces.Title" = "Espaces";
 "Spaces.Info.Network" = "Réseau :";
-"Spaces.Info.Device" = "Appareil :";
 
 // MARK: - Space
 "Space.Status.Unknown" = "Inconnu";
@@ -873,7 +872,6 @@
 "SpaceSettings.DeleteAlert.Title" = "Supprimer l'espace '%@'";
 "SpaceSettings.DeleteAlert.Message" = "Cet espace sera supprimé définitivement. Vous ne pouvez pas annuler cette action.";
 "SpaceSettings.DeleteButton" = "Supprimer l'espace";
-"SpaceSettings.Sharing" = "Partage";
 "SpaceSettings.Share" = "Partager";
 "SpaceSettings.LeaveButton" = "Quitter et se désinscrire";
 "SpaceSettings.LeaveAlert.Title" = "Quitter et se déconnecter de l'espace";
@@ -881,8 +879,7 @@
 
 // MARK: - Space Share
 
-"SpaceShare.Title" = "Partager l'espace";
-"SpaceShare.MembersSection" = "Membres et demandes";
+"SpaceShare.Title" = "Sharing";
 "SpaceShare.Members" = "Membres";
 "SpaceShare.Permissions.Owner" = "Propriétaire";
 "SpaceShare.Permissions.Reader" = "Visionneuse";
@@ -890,12 +887,16 @@
 "SpaceShare.Permissions.Grand.Edit" = "Éditer";
 "SpaceShare.Permissions.Grand.View" = "Vue";
 "SpaceShare.Invite.Title" = "Lien d'invitation";
-"SpaceShare.Invite.Description" = "Envoyez ce lien pour inviter d'autres personnes. Attribuez les droits d'accès lors de l'approbation de leur demande.\"";
-"SpaceShare.Invite.Button" = "Partager le lien d'invitation";
-"SpaceShare.Status.Joining" = "Demandé";
-"SpaceShare.Status.Removing" = "Désinscription demandée";
-"SpaceShare.Action.ViewRequest" = "Voir la demande";
+"SpaceShare.Invite.Description" = "Share this invite link so that others can join your Space. Once they click your link and request access, you can set their access rights.";
+"SpaceShare.Invite.Share" = "Share invite link";
+"SpaceShare.Invite.Generate" = "Generate invite link";
+"SpaceShare.Invite.Empty" = "Create invite link to share space and add new members";
+"SpaceShare.JoinRequest" = "Join request";
+"SpaceShare.LeaveRequest" = "Leave request";
+"SpaceShare.Action.ViewRequest" = "View request";
 "SpaceShare.Action.Approve" = "Approuver";
+"SpaceShare.DeleteSharingLink.Title" = "Delete link";
+"SpaceShare.DeleteSharingLink.Message" = "New members won’t be able to join the space. You can generate a new link anytype";
 "SpaceShare.Approve.Toast" = "Vous avez approuvé la demande de %@";
 "SpaceShare.ViewRequest.Title" = "%@ a demandé à rejoindre l'espace %@";
 "SpaceShare.ViewRequest.ViewAccess" = "Accorder l’accès en consultation";
@@ -912,6 +913,7 @@
 "SpaceShare.JoinConfirmation.Title" = "Demande envoyée";
 "SpaceShare.JoinConfirmation.Message" = "Vous recevrez une notification lorsque le propriétaire de l'espace approuvera votre demande.";
 "SpaceShare.YouSuffix" = "%@ (vous)";
+"SpaceShare.ManageSpaces" = "Manage Spaces";
 
 // MARK: - Permission notification
 "PermissionChangeNotification.Text" = "Your access rights were changed to **%@** in the **%@** space.";
@@ -924,8 +926,13 @@
 "RequestToJoinNotification.ViewRequest" = "View request";
 
 // MARK: - Space manager
-"SpaceManager.CancelRequest" = "Annuler la demande";
+"SpaceManager.CancelRequest" = "Cancel Join Request";
+"SpaceManager.DoNotCancel" = "Do Not Cancel";
 "SpaceManager.Archive" = "Archiver";
+"SpaceManager.CancelRequestAlert.Title" = "You will have to send request access again";
+"SpaceManager.CancelRequestAlert.Toast" = "The request was canceled.";
+
+
 
 // MARK: - Space Create
 "SpaceCreate.Title" = "Créer un espace";

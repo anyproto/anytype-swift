@@ -851,7 +851,6 @@
 "Spaces.Search.Title" = "Zoek ruimten";
 "Spaces.Title" = "Ruimtes";
 "Spaces.Info.Network" = "Netwerk:";
-"Spaces.Info.Device" = "Apparaat:";
 
 // MARK: - Space
 "Space.Status.Unknown" = "Onbekend";
@@ -874,7 +873,6 @@
 "SpaceSettings.DeleteAlert.Title" = "Verwijder '%@' ruimte";
 "SpaceSettings.DeleteAlert.Message" = "Deze ruimte zal onherroepelijk worden verwijderd. Je kunt deze actie niet ongedaan maken.";
 "SpaceSettings.DeleteButton" = "Verwijder ruimte";
-"SpaceSettings.Sharing" = "Aan het delen";
 "SpaceSettings.Share" = "Deel";
 "SpaceSettings.LeaveButton" = "Verlaat en schrijf uit";
 "SpaceSettings.LeaveAlert.Title" = "Verlaat en schrijf uit van de ruimte";
@@ -882,8 +880,7 @@
 
 // MARK: - Space Share
 
-"SpaceShare.Title" = "Deel ruimte";
-"SpaceShare.MembersSection" = "Leden en verzoeken";
+"SpaceShare.Title" = "Sharing";
 "SpaceShare.Members" = "Leden";
 "SpaceShare.Permissions.Owner" = "Eigenaar";
 "SpaceShare.Permissions.Reader" = "Lezer";
@@ -891,12 +888,16 @@
 "SpaceShare.Permissions.Grand.Edit" = "Bewerk";
 "SpaceShare.Permissions.Grand.View" = "Weergave";
 "SpaceShare.Invite.Title" = "Uitnodigingslink";
-"SpaceShare.Invite.Description" = "Stuur deze link om anderen uit te nodigen. Wijs toegangsrechten toe na hun goedkeuring.";
-"SpaceShare.Invite.Button" = "Deel uitnodigingslink";
-"SpaceShare.Status.Joining" = "Aangevraagd";
-"SpaceShare.Status.Removing" = "Uitschrijven aangevraagd";
-"SpaceShare.Action.ViewRequest" = "Bekijk verzoek";
+"SpaceShare.Invite.Description" = "Share this invite link so that others can join your Space. Once they click your link and request access, you can set their access rights.";
+"SpaceShare.Invite.Share" = "Share invite link";
+"SpaceShare.Invite.Generate" = "Generate invite link";
+"SpaceShare.Invite.Empty" = "Create invite link to share space and add new members";
+"SpaceShare.JoinRequest" = "Join request";
+"SpaceShare.LeaveRequest" = "Leave request";
+"SpaceShare.Action.ViewRequest" = "View request";
 "SpaceShare.Action.Approve" = "Goedkeuren";
+"SpaceShare.DeleteSharingLink.Title" = "Delete link";
+"SpaceShare.DeleteSharingLink.Message" = "New members won’t be able to join the space. You can generate a new link anytype";
 "SpaceShare.Approve.Toast" = "Je hebt het verzoek van %@ goedgekeurd.";
 "SpaceShare.ViewRequest.Title" = "%@ heeft verzocht om zich aan te sluiten bij de ruimte %@";
 "SpaceShare.ViewRequest.ViewAccess" = "Geef leesrechten";
@@ -913,6 +914,7 @@
 "SpaceShare.JoinConfirmation.Title" = "Verzoek verzonden";
 "SpaceShare.JoinConfirmation.Message" = "Je zult een melding ontvangen wanneer de eigenaar van de ruimte je verzoek zal goedkeuren.";
 "SpaceShare.YouSuffix" = "%@ (jij)";
+"SpaceShare.ManageSpaces" = "Manage Spaces";
 
 // MARK: - Permission notification
 "PermissionChangeNotification.Text" = "Your access rights were changed to **%@** in the **%@** space.";
@@ -925,8 +927,13 @@
 "RequestToJoinNotification.ViewRequest" = "View request";
 
 // MARK: - Space manager
-"SpaceManager.CancelRequest" = "Annuleer verzoek";
+"SpaceManager.CancelRequest" = "Cancel Join Request";
+"SpaceManager.DoNotCancel" = "Do Not Cancel";
 "SpaceManager.Archive" = "Archiveer";
+"SpaceManager.CancelRequestAlert.Title" = "You will have to send request access again";
+"SpaceManager.CancelRequestAlert.Toast" = "The request was canceled.";
+
+
 
 // MARK: - Space Create
 "SpaceCreate.Title" = "Maak een ruimte aan";

@@ -850,7 +850,6 @@
 "Spaces.Search.Title" = "Søk etter rom";
 "Spaces.Title" = "Rom";
 "Spaces.Info.Network" = "Nettverk:";
-"Spaces.Info.Device" = "Enhet:";
 
 // MARK: - Space
 "Space.Status.Unknown" = "Ukjent";
@@ -873,7 +872,6 @@
 "SpaceSettings.DeleteAlert.Title" = "Slett ’%@’ rommet";
 "SpaceSettings.DeleteAlert.Message" = "Dette rommet vil bli slettet ugjenkallelig. Du kan ikke angre denne handlingen.";
 "SpaceSettings.DeleteButton" = "Slett rom";
-"SpaceSettings.Sharing" = "Deling";
 "SpaceSettings.Share" = "Del";
 "SpaceSettings.LeaveButton" = "Forlat og fjern sammenkobling";
 "SpaceSettings.LeaveAlert.Title" = "Forlat og fjern sammenkoblingen til rommet";
@@ -881,8 +879,7 @@
 
 // MARK: - Space Share
 
-"SpaceShare.Title" = "Del rom";
-"SpaceShare.MembersSection" = "Medlemmer og forespørsler";
+"SpaceShare.Title" = "Sharing";
 "SpaceShare.Members" = "Medlemmer";
 "SpaceShare.Permissions.Owner" = "Eier";
 "SpaceShare.Permissions.Reader" = "Viewer";
@@ -890,12 +887,16 @@
 "SpaceShare.Permissions.Grand.Edit" = "Rediger";
 "SpaceShare.Permissions.Grand.View" = "Visning";
 "SpaceShare.Invite.Title" = "Invitasjonslenke";
-"SpaceShare.Invite.Description" = "Send denne lenken for å invitere andre. Tildel tilgangsrettigheter når deres forespørsel er godkjent";
-"SpaceShare.Invite.Button" = "Del invitasjonslenke";
-"SpaceShare.Status.Joining" = "Forespurt";
-"SpaceShare.Status.Removing" = "Unjoining requested";
-"SpaceShare.Action.ViewRequest" = "Vis forespørsel";
+"SpaceShare.Invite.Description" = "Share this invite link so that others can join your Space. Once they click your link and request access, you can set their access rights.";
+"SpaceShare.Invite.Share" = "Share invite link";
+"SpaceShare.Invite.Generate" = "Generate invite link";
+"SpaceShare.Invite.Empty" = "Create invite link to share space and add new members";
+"SpaceShare.JoinRequest" = "Join request";
+"SpaceShare.LeaveRequest" = "Leave request";
+"SpaceShare.Action.ViewRequest" = "View request";
 "SpaceShare.Action.Approve" = "Godkjenn";
+"SpaceShare.DeleteSharingLink.Title" = "Delete link";
+"SpaceShare.DeleteSharingLink.Message" = "New members won’t be able to join the space. You can generate a new link anytype";
 "SpaceShare.Approve.Toast" = "You approved %@'s request.";
 "SpaceShare.ViewRequest.Title" = "%@ ba om å bli med i %@-rommet";
 "SpaceShare.ViewRequest.ViewAccess" = "Grand view access";
@@ -912,6 +913,7 @@
 "SpaceShare.JoinConfirmation.Title" = "Forespørsel sendt";
 "SpaceShare.JoinConfirmation.Message" = "Du vil motta et varsel når eieren av rommet godkjenner forespørselen din.";
 "SpaceShare.YouSuffix" = "%@ (you)";
+"SpaceShare.ManageSpaces" = "Manage Spaces";
 
 // MARK: - Permission notification
 "PermissionChangeNotification.Text" = "Your access rights were changed to **%@** in the **%@** space.";
@@ -924,8 +926,13 @@
 "RequestToJoinNotification.ViewRequest" = "View request";
 
 // MARK: - Space manager
-"SpaceManager.CancelRequest" = "Avbryt forespørsel";
+"SpaceManager.CancelRequest" = "Cancel Join Request";
+"SpaceManager.DoNotCancel" = "Do Not Cancel";
 "SpaceManager.Archive" = "Arkiv";
+"SpaceManager.CancelRequestAlert.Title" = "You will have to send request access again";
+"SpaceManager.CancelRequestAlert.Toast" = "The request was canceled.";
+
+
 
 // MARK: - Space Create
 "SpaceCreate.Title" = "Opprett et rom";

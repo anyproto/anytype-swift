@@ -850,7 +850,6 @@
 "Spaces.Search.Title" = "搜索空间";
 "Spaces.Title" = "空间";
 "Spaces.Info.Network" = "网络:";
-"Spaces.Info.Device" = "设备:";
 
 // MARK: - Space
 "Space.Status.Unknown" = "未知";
@@ -873,7 +872,6 @@
 "SpaceSettings.DeleteAlert.Title" = "删除 “%@” 空间";
 "SpaceSettings.DeleteAlert.Message" = "此空间将被不可撤销地删除。您无法撤消此操作。";
 "SpaceSettings.DeleteButton" = "删除空间";
-"SpaceSettings.Sharing" = "分享";
 "SpaceSettings.Share" = "分享";
 "SpaceSettings.LeaveButton" = "离开并取消加入";
 "SpaceSettings.LeaveAlert.Title" = "离开并取消加入空间";
@@ -881,8 +879,7 @@
 
 // MARK: - Space Share
 
-"SpaceShare.Title" = "共享空间";
-"SpaceShare.MembersSection" = "成员和请求";
+"SpaceShare.Title" = "Sharing";
 "SpaceShare.Members" = "参与的人";
 "SpaceShare.Permissions.Owner" = "所有者";
 "SpaceShare.Permissions.Reader" = "浏览者";
@@ -890,12 +887,16 @@
 "SpaceShare.Permissions.Grand.Edit" = "编辑";
 "SpaceShare.Permissions.Grand.View" = "视图";
 "SpaceShare.Invite.Title" = "邀请链接";
-"SpaceShare.Invite.Description" = "发送此链接来邀请他人。在他们的请求批准时分配访问权限。";
-"SpaceShare.Invite.Button" = "分享邀请链接";
-"SpaceShare.Status.Joining" = "已申请";
-"SpaceShare.Status.Removing" = "Unjoining requested";
-"SpaceShare.Action.ViewRequest" = "查看请求";
+"SpaceShare.Invite.Description" = "Share this invite link so that others can join your Space. Once they click your link and request access, you can set their access rights.";
+"SpaceShare.Invite.Share" = "Share invite link";
+"SpaceShare.Invite.Generate" = "Generate invite link";
+"SpaceShare.Invite.Empty" = "Create invite link to share space and add new members";
+"SpaceShare.JoinRequest" = "Join request";
+"SpaceShare.LeaveRequest" = "Leave request";
+"SpaceShare.Action.ViewRequest" = "View request";
 "SpaceShare.Action.Approve" = "Approve";
+"SpaceShare.DeleteSharingLink.Title" = "Delete link";
+"SpaceShare.DeleteSharingLink.Message" = "New members won’t be able to join the space. You can generate a new link anytype";
 "SpaceShare.Approve.Toast" = "You approved %@'s request.";
 "SpaceShare.ViewRequest.Title" = "%@ 请求加入 %@ 空间";
 "SpaceShare.ViewRequest.ViewAccess" = "Grand view access";
@@ -912,6 +913,7 @@
 "SpaceShare.JoinConfirmation.Title" = "已发送申请";
 "SpaceShare.JoinConfirmation.Message" = "You will receive a notification when the space owner will approve your request.";
 "SpaceShare.YouSuffix" = "%@ (you)";
+"SpaceShare.ManageSpaces" = "Manage Spaces";
 
 // MARK: - Permission notification
 "PermissionChangeNotification.Text" = "Your access rights were changed to **%@** in the **%@** space.";
@@ -924,8 +926,13 @@
 "RequestToJoinNotification.ViewRequest" = "View request";
 
 // MARK: - Space manager
-"SpaceManager.CancelRequest" = "Cancel Request";
+"SpaceManager.CancelRequest" = "Cancel Join Request";
+"SpaceManager.DoNotCancel" = "Do Not Cancel";
 "SpaceManager.Archive" = "Archive";
+"SpaceManager.CancelRequestAlert.Title" = "You will have to send request access again";
+"SpaceManager.CancelRequestAlert.Toast" = "The request was canceled.";
+
+
 
 // MARK: - Space Create
 "SpaceCreate.Title" = "创建空间";
