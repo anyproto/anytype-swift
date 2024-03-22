@@ -907,6 +907,7 @@
 		2E0A6CD72A3773B800A28AF2 /* LoginFlowCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E0A6CD62A3773B800A28AF2 /* LoginFlowCoordinator.swift */; };
 		2E0A6CD92A3773F200A28AF2 /* LoginFlowOutput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E0A6CD82A3773F200A28AF2 /* LoginFlowOutput.swift */; };
 		2E0A6CDB2A3775D900A28AF2 /* LoginFlowCoordinatorAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E0A6CDA2A3775D900A28AF2 /* LoginFlowCoordinatorAssembly.swift */; };
+		2E0A7D312BAC9F1800577AD6 /* ObjectImportType+Loc.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E0A7D302BAC9F1800577AD6 /* ObjectImportType+Loc.swift */; };
 		2E0B0D672B753B2A00ECC37F /* WalletRecoveryError+Localize.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E0B0D662B753B2A00ECC37F /* WalletRecoveryError+Localize.swift */; };
 		2E0C65B62B9786FF00D33F5F /* RelationValueCoordinatorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E0C65B52B9786FF00D33F5F /* RelationValueCoordinatorView.swift */; };
 		2E0C65B82B97870D00D33F5F /* RelationValueCoordinatorViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E0C65B72B97870D00D33F5F /* RelationValueCoordinatorViewModel.swift */; };
@@ -2700,6 +2701,7 @@
 		2E0A6CD62A3773B800A28AF2 /* LoginFlowCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginFlowCoordinator.swift; sourceTree = "<group>"; };
 		2E0A6CD82A3773F200A28AF2 /* LoginFlowOutput.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginFlowOutput.swift; sourceTree = "<group>"; };
 		2E0A6CDA2A3775D900A28AF2 /* LoginFlowCoordinatorAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginFlowCoordinatorAssembly.swift; sourceTree = "<group>"; };
+		2E0A7D302BAC9F1800577AD6 /* ObjectImportType+Loc.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ObjectImportType+Loc.swift"; sourceTree = "<group>"; };
 		2E0B0D662B753B2A00ECC37F /* WalletRecoveryError+Localize.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "WalletRecoveryError+Localize.swift"; sourceTree = "<group>"; };
 		2E0C65B52B9786FF00D33F5F /* RelationValueCoordinatorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RelationValueCoordinatorView.swift; sourceTree = "<group>"; };
 		2E0C65B72B97870D00D33F5F /* RelationValueCoordinatorViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RelationValueCoordinatorViewModel.swift; sourceTree = "<group>"; };
@@ -4812,6 +4814,7 @@
 				127EAC0B273A353A00C731F2 /* Relation.swift */,
 				12C2A57B2755F04E00311854 /* RelationValue */,
 				2A28722D2B4D3537007B3D59 /* ObjectOrigin+Loc.swift */,
+				2E0A7D302BAC9F1800577AD6 /* ObjectImportType+Loc.swift */,
 			);
 			path = Entities;
 			sourceTree = "<group>";
@@ -6681,15 +6684,6 @@
 				2ACB798D2BAAD7B0003A2A56 /* ActiveSpaceParticipantStorage.swift */,
 			);
 			path = ActiveSpaceParticipantsStorage;
-			sourceTree = "<group>";
-		};
-		2ACB79872BAAD318003A2A56 /* RequestToJoin */ = {
-			isa = PBXGroup;
-			children = (
-				2ACB79882BAAD318003A2A56 /* RequestToJoinNotificationViewModel.swift */,
-				2ACB79892BAAD318003A2A56 /* RequestToJoinNotificationView.swift */,
-			);
-			path = RequestToJoin;
 			sourceTree = "<group>";
 		};
 		2ACDC9B62B56703C0063BFBD /* ShareOptions */ = {
@@ -11626,6 +11620,7 @@
 				2E22F9F32B617D5D001EFCF3 /* RelationOptionSettingsView.swift in Sources */,
 				538F172D272C2F75009528E7 /* ObjectSearchViewModel.swift in Sources */,
 				12DE405D264AE455007B5074 /* LayoutProperty.swift in Sources */,
+				2E0A7D312BAC9F1800577AD6 /* ObjectImportType+Loc.swift in Sources */,
 				3D5A415B2703132800F1F6A1 /* SlashActionOther.swift in Sources */,
 				125B6EC526F235F400BCD7D6 /* MentionsViewController.swift in Sources */,
 				2EAA140C2AA63C0B000A712A /* SetRelationsCoordinatorViewModel.swift in Sources */,
