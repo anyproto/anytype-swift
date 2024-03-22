@@ -48,6 +48,12 @@ public enum BundledRelationKey: String {
     /// Object restrictions list
     case restrictions = "restrictions"
 
+    /// Readers limit
+    case readersLimit = "readersLimit"
+
+    /// Writers limit
+    case writersLimit = "writersLimit"
+
     /// Adds the object to the highlighted dataview in space
     case isHighlighted = "isHighlighted"
 
