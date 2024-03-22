@@ -50,7 +50,7 @@ final class AuthService: AuthServiceProtocol {
         AnytypeAnalytics.instance().setUserId(analyticsId)
         AnytypeAnalytics.instance().setNetworkId(account.info.networkId)
         AnytypeAnalytics.instance().logAccountCreate(analyticsId: analyticsId, middleTime: middleTime)
-        AnytypeAnalytics.instance().logCreateSpace()
+        AnytypeAnalytics.instance().logCreateSpace(route: .navigation)
         appErrorLoggerConfiguration.setUserId(analyticsId)
         
         UserDefaultsConfig.usersId = account.id
