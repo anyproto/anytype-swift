@@ -2225,6 +2225,10 @@ internal enum Loc {
       }
       /// Leave a space
       internal static let title = Loc.tr("Localizable", "SpaceSettings.LeaveAlert.Title", fallback: "Leave a space")
+      /// You left the %@.
+      internal static func toast(_ p1: Any) -> String {
+        return Loc.tr("Localizable", "SpaceSettings.LeaveAlert.Toast", String(describing: p1), fallback: "You left the %@.")
+      }
     }
   }
   internal enum SpaceShare {

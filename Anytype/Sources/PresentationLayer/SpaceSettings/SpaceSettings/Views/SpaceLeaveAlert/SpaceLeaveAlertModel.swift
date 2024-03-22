@@ -21,6 +21,6 @@ final class SpaceLeaveAlertModel: ObservableObject {
     
     func onTapLeave() async throws {
         try await workspaceService.deleteSpace(spaceId: spaceId)
-//        toast = ToastBarData(text: Loc.SpaceManager.CancelRequestAlert.toast, showSnackBar: true, messageType: .success)
+        toast = ToastBarData(text: Loc.SpaceSettings.LeaveAlert.toast(spaceName), showSnackBar: true, messageType: .success)
     }
 }
