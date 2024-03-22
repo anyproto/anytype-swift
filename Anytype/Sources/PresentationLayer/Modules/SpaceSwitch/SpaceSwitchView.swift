@@ -77,6 +77,9 @@ struct SpaceSwitchView: View {
                 model.onDeleteConfirmationTap(space: space)
             }
         }
+        .anytypeSheet(item: $model.spaceViewForLeave) { space in
+            SpaceLeaveAlert(spaceId: space.targetSpaceId)
+        }
     }
     
     private var content: some View {
