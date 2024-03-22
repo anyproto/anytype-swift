@@ -9,6 +9,7 @@ struct SpacesManagerRowView: View {
     let onLeave: () async throws -> Void
     let onCancelRequest: () async throws -> Void
     let onArchive: () async throws -> Void
+    let onStopSharing: () async throws -> Void
 
     @State private var toast = ToastBarData.empty
     
@@ -53,16 +54,19 @@ struct SpacesManagerRowView: View {
     
     @ViewBuilder
     private var menu: some View {
-        if model.spaceView.canBeDelete || model.spaceView.canCancelJoinRequest || model.spaceView.canBeArchive || (model.participant?.canLeave ?? false) {
+        if model.spaceView.canBeDelete || model.canLeave || model.spaceView.canCancelJoinRequest || model.canStopSharing || model.spaceView.canBeArchive {
             Menu {
                 if model.spaceView.canBeDelete {
                     AsyncButton(Loc.delete, role: .destructive, action: onDelete)
                 }
-                if model.participant?.canLeave ?? false {
+                if model.canLeave {
                     AsyncButton(Loc.SpaceSettings.leaveButton, role: .destructive, action: onLeave)
                 }
                 if model.spaceView.canCancelJoinRequest {
                     AsyncButton(Loc.SpaceManager.cancelRequest, role: .destructive, action: onCancelRequest)
+                }
+                if model.canStopSharing {
+                    AsyncButton(Loc.SpaceShare.StopSharing.action, role: .destructive, action: onStopSharing)
                 }
                 if model.spaceView.canBeArchive {
                     AsyncButton(Loc.SpaceManager.archive, action: onArchive)

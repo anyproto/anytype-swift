@@ -29,6 +29,7 @@ final class SpaceShareViewModel: ObservableObject {
     @Published var changeAccessAlertModel: SpaceChangeAccessViewModel?
     @Published var removeParticipantAlertModel: SpaceParticipantRemoveViewModel?
     @Published var showDeleteLinkAlert = false
+    @Published var showStopSharingAlert = false
     
     init(
         activeSpaceParticipantStorage: ActiveSpaceParticipantStorageProtocol,
@@ -68,6 +69,10 @@ final class SpaceShareViewModel: ObservableObject {
     
     func deleteSharingLinkAlertOnDismiss() {
         inviteLink = nil
+    }
+    
+    func onStopSharing() {
+        showStopSharingAlert = true
     }
     
     // MARK: - Private

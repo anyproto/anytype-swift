@@ -21,6 +21,8 @@ struct SpacesManagerView: View {
                             try await model.onCancelRequest(row: row)
                         } onArchive: {
                             try await model.onArchive(row: row)
+                        } onStopSharing: {
+                            model.onStopSharing(row: row)
                         }
                     }
                 }
@@ -33,6 +35,9 @@ struct SpacesManagerView: View {
         .background(Color.Background.primary)
         .anytypeSheet(item: $model.spaceForCancelRequestAlert) { space in
             SpaceCancelRequestAlert(spaceId: space.targetSpaceId)
+        }
+        .anytypeSheet(item: $model.spaceForStopSharingAlert) { space in
+            StopSharingAlert(spaceId: space.targetSpaceId)
         }
     }
 }

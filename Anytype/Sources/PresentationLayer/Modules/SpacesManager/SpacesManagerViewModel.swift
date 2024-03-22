@@ -13,6 +13,7 @@ final class SpacesManagerViewModel: ObservableObject {
     
     @Published var participantSpaces: [ParticipantSpaceView] = []
     @Published var spaceForCancelRequestAlert: SpaceView?
+    @Published var spaceForStopSharingAlert: SpaceView?
         
     func startWorkspacesTask() async {
         for await participantSpaces in participantSpacesStorage.allParticipantSpacesPublisher.values {
@@ -36,5 +37,9 @@ final class SpacesManagerViewModel: ObservableObject {
     
     func onArchive(row: ParticipantSpaceView) async throws {
         // TODO: Implement it
+    }
+    
+    func onStopSharing(row: ParticipantSpaceView) {
+        spaceForStopSharingAlert = row.spaceView
     }
 }

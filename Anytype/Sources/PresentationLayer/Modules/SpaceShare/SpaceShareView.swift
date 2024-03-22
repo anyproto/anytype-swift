@@ -8,7 +8,9 @@ struct SpaceShareView: View {
     var body: some View {
         VStack(spacing: 0) {
             DragIndicator()
-            TitleView(title: Loc.SpaceShare.title)
+            TitleView(title: Loc.SpaceShare.title) {
+                rightNavigationButton
+            }
             
             ZStack(alignment: .bottom) {
                 ScrollView {
@@ -39,6 +41,9 @@ struct SpaceShareView: View {
         .anytypeSheet(isPresented: $model.showDeleteLinkAlert, onDismiss: { model.deleteSharingLinkAlertOnDismiss() }) {
             DeleteSharingLinkAlert(spaceId: model.accountSpaceId)
         }
+        .anytypeSheet(isPresented: $model.showStopSharingAlert) {
+            StopSharingAlert(spaceId: model.accountSpaceId)
+        }
     }
     
     private var inviteView: some View {
@@ -50,6 +55,17 @@ struct SpaceShareView: View {
             model.onDeleteSharingLink()
         } onGenerateInvite: {
             try await model.onGenerateInvite()
+        }
+    }
+    
+    private var rightNavigationButton: some View {
+        Menu {
+            Button(Loc.SpaceShare.StopSharing.action, role: .destructive) {
+                model.onStopSharing()
+            }
+        } label: {
+            IconView(icon: .asset(.X24.more))
+                .frame(width: 24, height: 24)
         }
     }
 }
