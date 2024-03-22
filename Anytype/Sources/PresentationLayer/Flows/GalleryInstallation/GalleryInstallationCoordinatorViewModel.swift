@@ -2,6 +2,7 @@ import Foundation
 import SwiftUI
 import Services
 import AnytypeCore
+
 @MainActor
 final class GalleryInstallationCoordinatorViewModel: ObservableObject,
                                                      GalleryInstallationPreviewModuleOutput, GallerySpaceSelectionModuleOutput {
@@ -41,6 +42,7 @@ final class GalleryInstallationCoordinatorViewModel: ObservableObject,
                 try await galleryService.importExperience(spaceId: spaceId, isNewSpace: false, title: manifest.title, url: manifest.downloadLink)
             case .newSpace:
                 let spaceId = try await workspaceService.createSpace(name: manifest.title, gradient: .random, accessType: .personal, useCase: .none)
+                AnytypeAnalytics.instance().logCreateSpace(route: .gallery)
                 dismiss.toggle()
                 try await galleryService.importExperience(spaceId: spaceId, isNewSpace: true, title: manifest.title, url: manifest.downloadLink)
             }
