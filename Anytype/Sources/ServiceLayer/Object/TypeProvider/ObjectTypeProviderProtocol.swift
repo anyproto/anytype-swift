@@ -20,3 +20,9 @@ protocol ObjectTypeProviderProtocol: AnyObject {
     func startSubscription() async
     func stopSubscription() async
 }
+
+extension ObjectTypeProviderProtocol {
+    func analyticsType(id: String) -> AnalyticsObjectType {
+        (try? objectType(id: id))?.analyticsType ?? .custom
+    }
+}
