@@ -13,7 +13,7 @@ final class ActiveWorkpaceStorageMock: ActiveWorkpaceStorageProtocol {
     func setActiveSpace(spaceId: String) async throws {}
     func setupActiveSpace() async {}
     
-    var spaceViewValue: SpaceView? = WorkspacesStorageMock.shared.workspaces.first
+    var spaceViewValue: SpaceView? = WorkspacesStorageMock.shared.activeWorkspaces.first
     func spaceView() -> SpaceView? { return spaceViewValue }
     
     func clearActiveSpace() async {}

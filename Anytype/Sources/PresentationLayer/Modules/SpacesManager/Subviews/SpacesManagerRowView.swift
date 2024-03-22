@@ -28,7 +28,7 @@ struct SpacesManagerRowView: View {
                 .frame(width: 48, height: 48)
             VStack(alignment: .leading, spacing: 0) {
                 AnytypeText(model.spaceView.name, style: .uxTitle2Semibold, color: .Text.primary)
-                AnytypeText(model.participant.permission.title, style: .relation2Regular, color: .Text.secondary)
+                AnytypeText(model.participant?.permission.title, style: .relation2Regular, color: .Text.secondary)
             }
             Spacer()
             menu
@@ -53,12 +53,12 @@ struct SpacesManagerRowView: View {
     
     @ViewBuilder
     private var menu: some View {
-        if model.spaceView.canBeDelete || model.spaceView.canCancelJoinRequest || model.spaceView.canBeArchive || model.participant.canLeave {
+        if model.spaceView.canBeDelete || model.spaceView.canCancelJoinRequest || model.spaceView.canBeArchive || (model.participant?.canLeave ?? false) {
             Menu {
                 if model.spaceView.canBeDelete {
                     AsyncButton(Loc.delete, role: .destructive, action: onDelete)
                 }
-                if model.participant.canLeave {
+                if model.participant?.canLeave ?? false {
                     AsyncButton(Loc.SpaceSettings.leaveButton, role: .destructive, action: onLeave)
                 }
                 if model.spaceView.canCancelJoinRequest {

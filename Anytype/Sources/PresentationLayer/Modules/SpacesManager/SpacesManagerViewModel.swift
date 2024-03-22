@@ -15,7 +15,7 @@ final class SpacesManagerViewModel: ObservableObject {
     @Published var spaceForCancelRequestAlert: SpaceView?
         
     func startWorkspacesTask() async {
-        for await participantSpaces in participantSpacesStorage.participantSpacesPublisher.values {
+        for await participantSpaces in participantSpacesStorage.allParticipantSpacesPublisher.values {
             withAnimation(self.participantSpaces.isEmpty ? nil : .default) {
                 self.participantSpaces = participantSpaces
             }

@@ -21,7 +21,7 @@ final class SpaceSettingsViewModel: ObservableObject {
     private let workspaceInfo: AccountInfo
     private var subscriptions: [AnyCancellable] = []
     private var dataLoaded = false
-    private var participantSpaceView: ParticipantSpaceView?
+    private var participantSpaceView: ParticipantActiveSpaceView?
     
     @Published var spaceName = ""
     @Published var spaceAccessType = ""
@@ -113,7 +113,7 @@ final class SpaceSettingsViewModel: ObservableObject {
     
     private func setupData() async throws {
         participantSpacesStorage
-            .participantSpacesPublisher
+            .activeParticipantSpacesPublisher
             .receiveOnMain()
             .sink { [weak self] participantSpaceViews in
                 self?.participantSpaceView = participantSpaceViews.first { $0.spaceView.targetSpaceId == self?.workspaceInfo.accountSpaceId }
