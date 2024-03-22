@@ -219,6 +219,8 @@ public struct Anytype_Model_ObjectStoreChecksums {
 
   public var filestoreKeysForceReindexCounter: Int32 = 0
 
+  public var areOldFilesRemoved: Bool = false
+
   public var unknownFields = SwiftProtobuf.UnknownStorage()
 
   public init() {}
@@ -575,6 +577,7 @@ extension Anytype_Model_ObjectStoreChecksums: SwiftProtobuf.Message, SwiftProtob
     8: .same(proto: "bundledTemplates"),
     9: .same(proto: "bundledObjects"),
     10: .same(proto: "filestoreKeysForceReindexCounter"),
+    12: .same(proto: "areOldFilesRemoved"),
   ]
 
   public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
@@ -594,6 +597,7 @@ extension Anytype_Model_ObjectStoreChecksums: SwiftProtobuf.Message, SwiftProtob
       case 9: try { try decoder.decodeSingularInt32Field(value: &self.bundledObjects) }()
       case 10: try { try decoder.decodeSingularInt32Field(value: &self.filestoreKeysForceReindexCounter) }()
       case 11: try { try decoder.decodeSingularInt32Field(value: &self.fulltextErase) }()
+      case 12: try { try decoder.decodeSingularBoolField(value: &self.areOldFilesRemoved) }()
       default: break
       }
     }
@@ -633,6 +637,9 @@ extension Anytype_Model_ObjectStoreChecksums: SwiftProtobuf.Message, SwiftProtob
     if self.fulltextErase != 0 {
       try visitor.visitSingularInt32Field(value: self.fulltextErase, fieldNumber: 11)
     }
+    if self.areOldFilesRemoved != false {
+      try visitor.visitSingularBoolField(value: self.areOldFilesRemoved, fieldNumber: 12)
+    }
     try unknownFields.traverse(visitor: &visitor)
   }
 
@@ -648,6 +655,7 @@ extension Anytype_Model_ObjectStoreChecksums: SwiftProtobuf.Message, SwiftProtob
     if lhs.bundledTemplates != rhs.bundledTemplates {return false}
     if lhs.bundledObjects != rhs.bundledObjects {return false}
     if lhs.filestoreKeysForceReindexCounter != rhs.filestoreKeysForceReindexCounter {return false}
+    if lhs.areOldFilesRemoved != rhs.areOldFilesRemoved {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }

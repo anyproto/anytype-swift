@@ -292,8 +292,8 @@ extension Anytype_Rpc.BlockDataview.Sort.Replace.Response.Error: ResponseError {
     public var isNull: Bool { code == .null }
 }
 
-extension Anytype_Rpc.BlockDataview.Sort.Sort.Response: ResultWithError {}
-extension Anytype_Rpc.BlockDataview.Sort.Sort.Response.Error: ResponseError {
+extension Anytype_Rpc.BlockDataview.Sort.SSort.Response: ResultWithError {}
+extension Anytype_Rpc.BlockDataview.Sort.SSort.Response.Error: ResponseError {
     public var isNull: Bool { code == .null }
 }
 

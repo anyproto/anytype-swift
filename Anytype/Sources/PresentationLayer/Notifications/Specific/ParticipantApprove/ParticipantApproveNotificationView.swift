@@ -10,6 +10,6 @@ struct ParticipantApproveNotificationView: View {
     }
     
     var body: some View {
-        TopNotificationView(title: model.message, icon: model.icon, buttons: [])
+        TopNotificationView(title: model.message, buttons: [])
     }
 }

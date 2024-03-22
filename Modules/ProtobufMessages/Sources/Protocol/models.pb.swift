@@ -4704,6 +4704,8 @@ public struct Anytype_Model_Notification {
 
     public var identityIcon: String = String()
 
+    public var spaceName: String = String()
+
     public var unknownFields = SwiftProtobuf.UnknownStorage()
 
     public init() {}
@@ -4728,6 +4730,8 @@ public struct Anytype_Model_Notification {
 
     public var permissions: Anytype_Model_ParticipantPermissions = .reader
 
+    public var spaceName: String = String()
+
     public var unknownFields = SwiftProtobuf.UnknownStorage()
 
     public init() {}
@@ -4745,6 +4749,8 @@ public struct Anytype_Model_Notification {
     public var identityName: String = String()
 
     public var identityIcon: String = String()
+
+    public var spaceName: String = String()
 
     public var unknownFields = SwiftProtobuf.UnknownStorage()
 
@@ -4764,6 +4770,8 @@ public struct Anytype_Model_Notification {
 
     public var spaceID: String = String()
 
+    public var spaceName: String = String()
+
     public var unknownFields = SwiftProtobuf.UnknownStorage()
 
     public init() {}
@@ -4775,6 +4783,8 @@ public struct Anytype_Model_Notification {
     // methods supported on all messages.
 
     public var spaceID: String = String()
+
+    public var spaceName: String = String()
 
     public var unknownFields = SwiftProtobuf.UnknownStorage()
 
@@ -4789,6 +4799,8 @@ public struct Anytype_Model_Notification {
     public var spaceID: String = String()
 
     public var permissions: Anytype_Model_ParticipantPermissions = .reader
+
+    public var spaceName: String = String()
 
     public var unknownFields = SwiftProtobuf.UnknownStorage()
 
@@ -9900,6 +9912,7 @@ extension Anytype_Model_Notification.RequestToJoin: SwiftProtobuf.Message, Swift
     2: .same(proto: "identity"),
     3: .same(proto: "identityName"),
     4: .same(proto: "identityIcon"),
+    5: .same(proto: "spaceName"),
   ]
 
   public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
@@ -9912,6 +9925,7 @@ extension Anytype_Model_Notification.RequestToJoin: SwiftProtobuf.Message, Swift
       case 2: try { try decoder.decodeSingularStringField(value: &self.identity) }()
       case 3: try { try decoder.decodeSingularStringField(value: &self.identityName) }()
       case 4: try { try decoder.decodeSingularStringField(value: &self.identityIcon) }()
+      case 5: try { try decoder.decodeSingularStringField(value: &self.spaceName) }()
       default: break
       }
     }
@@ -9930,6 +9944,9 @@ extension Anytype_Model_Notification.RequestToJoin: SwiftProtobuf.Message, Swift
     if !self.identityIcon.isEmpty {
       try visitor.visitSingularStringField(value: self.identityIcon, fieldNumber: 4)
     }
+    if !self.spaceName.isEmpty {
+      try visitor.visitSingularStringField(value: self.spaceName, fieldNumber: 5)
+    }
     try unknownFields.traverse(visitor: &visitor)
   }
 
@@ -9938,6 +9955,7 @@ extension Anytype_Model_Notification.RequestToJoin: SwiftProtobuf.Message, Swift
     if lhs.identity != rhs.identity {return false}
     if lhs.identityName != rhs.identityName {return false}
     if lhs.identityIcon != rhs.identityIcon {return false}
+    if lhs.spaceName != rhs.spaceName {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
@@ -9967,6 +9985,7 @@ extension Anytype_Model_Notification.ParticipantRequestApproved: SwiftProtobuf.M
   public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
     1: .same(proto: "spaceId"),
     2: .same(proto: "permissions"),
+    5: .same(proto: "spaceName"),
   ]
 
   public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
@@ -9977,6 +9996,7 @@ extension Anytype_Model_Notification.ParticipantRequestApproved: SwiftProtobuf.M
       switch fieldNumber {
       case 1: try { try decoder.decodeSingularStringField(value: &self.spaceID) }()
       case 2: try { try decoder.decodeSingularEnumField(value: &self.permissions) }()
+      case 5: try { try decoder.decodeSingularStringField(value: &self.spaceName) }()
       default: break
       }
     }
@@ -9989,12 +10009,16 @@ extension Anytype_Model_Notification.ParticipantRequestApproved: SwiftProtobuf.M
     if self.permissions != .reader {
       try visitor.visitSingularEnumField(value: self.permissions, fieldNumber: 2)
     }
+    if !self.spaceName.isEmpty {
+      try visitor.visitSingularStringField(value: self.spaceName, fieldNumber: 5)
+    }
     try unknownFields.traverse(visitor: &visitor)
   }
 
   public static func ==(lhs: Anytype_Model_Notification.ParticipantRequestApproved, rhs: Anytype_Model_Notification.ParticipantRequestApproved) -> Bool {
     if lhs.spaceID != rhs.spaceID {return false}
     if lhs.permissions != rhs.permissions {return false}
+    if lhs.spaceName != rhs.spaceName {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
@@ -10007,6 +10031,7 @@ extension Anytype_Model_Notification.RequestToLeave: SwiftProtobuf.Message, Swif
     2: .same(proto: "identity"),
     3: .same(proto: "identityName"),
     4: .same(proto: "identityIcon"),
+    5: .same(proto: "spaceName"),
   ]
 
   public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
@@ -10019,6 +10044,7 @@ extension Anytype_Model_Notification.RequestToLeave: SwiftProtobuf.Message, Swif
       case 2: try { try decoder.decodeSingularStringField(value: &self.identity) }()
       case 3: try { try decoder.decodeSingularStringField(value: &self.identityName) }()
       case 4: try { try decoder.decodeSingularStringField(value: &self.identityIcon) }()
+      case 5: try { try decoder.decodeSingularStringField(value: &self.spaceName) }()
       default: break
       }
     }
@@ -10037,6 +10063,9 @@ extension Anytype_Model_Notification.RequestToLeave: SwiftProtobuf.Message, Swif
     if !self.identityIcon.isEmpty {
       try visitor.visitSingularStringField(value: self.identityIcon, fieldNumber: 4)
     }
+    if !self.spaceName.isEmpty {
+      try visitor.visitSingularStringField(value: self.spaceName, fieldNumber: 5)
+    }
     try unknownFields.traverse(visitor: &visitor)
   }
 
@@ -10045,6 +10074,7 @@ extension Anytype_Model_Notification.RequestToLeave: SwiftProtobuf.Message, Swif
     if lhs.identity != rhs.identity {return false}
     if lhs.identityName != rhs.identityName {return false}
     if lhs.identityIcon != rhs.identityIcon {return false}
+    if lhs.spaceName != rhs.spaceName {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
@@ -10057,6 +10087,7 @@ extension Anytype_Model_Notification.ParticipantRemove: SwiftProtobuf.Message, S
     2: .same(proto: "identityName"),
     3: .same(proto: "identityIcon"),
     4: .same(proto: "spaceId"),
+    5: .same(proto: "spaceName"),
   ]
 
   public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
@@ -10069,6 +10100,7 @@ extension Anytype_Model_Notification.ParticipantRemove: SwiftProtobuf.Message, S
       case 2: try { try decoder.decodeSingularStringField(value: &self.identityName) }()
       case 3: try { try decoder.decodeSingularStringField(value: &self.identityIcon) }()
       case 4: try { try decoder.decodeSingularStringField(value: &self.spaceID) }()
+      case 5: try { try decoder.decodeSingularStringField(value: &self.spaceName) }()
       default: break
       }
     }
@@ -10087,6 +10119,9 @@ extension Anytype_Model_Notification.ParticipantRemove: SwiftProtobuf.Message, S
     if !self.spaceID.isEmpty {
       try visitor.visitSingularStringField(value: self.spaceID, fieldNumber: 4)
     }
+    if !self.spaceName.isEmpty {
+      try visitor.visitSingularStringField(value: self.spaceName, fieldNumber: 5)
+    }
     try unknownFields.traverse(visitor: &visitor)
   }
 
@@ -10095,6 +10130,7 @@ extension Anytype_Model_Notification.ParticipantRemove: SwiftProtobuf.Message, S
     if lhs.identityName != rhs.identityName {return false}
     if lhs.identityIcon != rhs.identityIcon {return false}
     if lhs.spaceID != rhs.spaceID {return false}
+    if lhs.spaceName != rhs.spaceName {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
@@ -10104,6 +10140,7 @@ extension Anytype_Model_Notification.ParticipantRequestDecline: SwiftProtobuf.Me
   public static let protoMessageName: String = Anytype_Model_Notification.protoMessageName + ".ParticipantRequestDecline"
   public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
     1: .same(proto: "spaceId"),
+    3: .same(proto: "spaceName"),
   ]
 
   public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
@@ -10113,6 +10150,7 @@ extension Anytype_Model_Notification.ParticipantRequestDecline: SwiftProtobuf.Me
       // enabled. https://github.com/apple/swift-protobuf/issues/1034
       switch fieldNumber {
       case 1: try { try decoder.decodeSingularStringField(value: &self.spaceID) }()
+      case 3: try { try decoder.decodeSingularStringField(value: &self.spaceName) }()
       default: break
       }
     }
@@ -10122,11 +10160,15 @@ extension Anytype_Model_Notification.ParticipantRequestDecline: SwiftProtobuf.Me
     if !self.spaceID.isEmpty {
       try visitor.visitSingularStringField(value: self.spaceID, fieldNumber: 1)
     }
+    if !self.spaceName.isEmpty {
+      try visitor.visitSingularStringField(value: self.spaceName, fieldNumber: 3)
+    }
     try unknownFields.traverse(visitor: &visitor)
   }
 
   public static func ==(lhs: Anytype_Model_Notification.ParticipantRequestDecline, rhs: Anytype_Model_Notification.ParticipantRequestDecline) -> Bool {
     if lhs.spaceID != rhs.spaceID {return false}
+    if lhs.spaceName != rhs.spaceName {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
@@ -10137,6 +10179,7 @@ extension Anytype_Model_Notification.ParticipantPermissionsChange: SwiftProtobuf
   public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
     1: .same(proto: "spaceId"),
     2: .same(proto: "permissions"),
+    3: .same(proto: "spaceName"),
   ]
 
   public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
@@ -10147,6 +10190,7 @@ extension Anytype_Model_Notification.ParticipantPermissionsChange: SwiftProtobuf
       switch fieldNumber {
       case 1: try { try decoder.decodeSingularStringField(value: &self.spaceID) }()
       case 2: try { try decoder.decodeSingularEnumField(value: &self.permissions) }()
+      case 3: try { try decoder.decodeSingularStringField(value: &self.spaceName) }()
       default: break
       }
     }
@@ -10159,12 +10203,16 @@ extension Anytype_Model_Notification.ParticipantPermissionsChange: SwiftProtobuf
     if self.permissions != .reader {
       try visitor.visitSingularEnumField(value: self.permissions, fieldNumber: 2)
     }
+    if !self.spaceName.isEmpty {
+      try visitor.visitSingularStringField(value: self.spaceName, fieldNumber: 3)
+    }
     try unknownFields.traverse(visitor: &visitor)
   }
 
   public static func ==(lhs: Anytype_Model_Notification.ParticipantPermissionsChange, rhs: Anytype_Model_Notification.ParticipantPermissionsChange) -> Bool {
     if lhs.spaceID != rhs.spaceID {return false}
     if lhs.permissions != rhs.permissions {return false}
+    if lhs.spaceName != rhs.spaceName {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
