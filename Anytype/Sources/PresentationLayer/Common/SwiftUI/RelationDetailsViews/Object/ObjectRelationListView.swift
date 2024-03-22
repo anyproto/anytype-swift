@@ -40,8 +40,10 @@ struct ObjectRelationListView: View {
                 optionRow(with: option)
                     .deleteDisabled(option.disableDeletion)
             }
-            .onDelete {
-                viewModel.onOptionDelete(with: $0)
+            .if(viewModel.configuration.isEditable) {
+                $0.onDelete {
+                    viewModel.onOptionDelete(with: $0)
+                }
             }
         }
     }
@@ -65,7 +67,7 @@ struct ObjectRelationListView: View {
     
     private func optionRow(with option: ObjectRelationOption) -> some View {
         Button {
-            viewModel.optionSelected(option.id)
+            viewModel.optionSelected(option)
         } label: {
             HStack {
                 ObjectRelationOptionView(option: option)
@@ -83,20 +85,22 @@ struct ObjectRelationListView: View {
         .frame(height: 72)
         .newDivider()
         .padding(.horizontal, 20)
-        .contextMenu {
-            Button(Loc.openObject) {
-                viewModel.onObjectOpen(option)
-            }
-            
-            if !option.disableDuplication {
-                Button(Loc.duplicate) {
-                    viewModel.onObjectDuplicate(option)
+        .if(viewModel.configuration.isEditable) {
+            $0.contextMenu {
+                Button(Loc.openObject) {
+                    viewModel.onObjectOpen(option)
                 }
-            }
-            
-            if !option.disableDeletion {
-                Button(Loc.delete, role: .destructive) {
-                    viewModel.onOptionDelete(option)
+                
+                if !option.disableDuplication {
+                    Button(Loc.duplicate) {
+                        viewModel.onObjectDuplicate(option)
+                    }
+                }
+                
+                if !option.disableDeletion {
+                    Button(Loc.delete, role: .destructive) {
+                        viewModel.onOptionDelete(option)
+                    }
                 }
             }
         }

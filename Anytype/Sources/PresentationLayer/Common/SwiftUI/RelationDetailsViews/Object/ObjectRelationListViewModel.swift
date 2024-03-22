@@ -75,10 +75,14 @@ final class ObjectRelationListViewModel: ObservableObject {
         }
     }
     
-    func optionSelected(_ optionId: String) {
-        Task {
-            try await relationSelectedOptionsModel.optionSelected(optionId)
-            closeIfNeeded()
+    func optionSelected(_ option: ObjectRelationOption) {
+        if configuration.isEditable {
+            Task {
+                try await relationSelectedOptionsModel.optionSelected(option.id)
+                closeIfNeeded()
+            }
+        } else {
+            onObjectOpen(option)
         }
     }
     
