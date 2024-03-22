@@ -18,7 +18,7 @@ final class SpaceSettingsViewModel: ObservableObject {
     
     // MARK: - State
     
-    private let workspaceInfo: AccountInfo
+    let workspaceInfo: AccountInfo
     private var subscriptions: [AnyCancellable] = []
     private var dataLoaded = false
     private var participantSpaceView: ParticipantSpaceView?
@@ -95,14 +95,6 @@ final class SpaceSettingsViewModel: ObservableObject {
     
     func onLeaveTap() {
         showSpaceLeaveAlert.toggle()
-    }
-    
-    func onLeaveConfirmationTap() async throws {
-        try await workspaceService.deleteSpace(spaceId: workspaceInfo.accountSpaceId)
-        if #unavailable(iOS 17.0) {
-            showSpaceLeaveAlert = false
-        }
-        dismiss.toggle()
     }
     
     func onMembersTap() {

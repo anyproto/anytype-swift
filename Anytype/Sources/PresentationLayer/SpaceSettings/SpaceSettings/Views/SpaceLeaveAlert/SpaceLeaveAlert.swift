@@ -1,24 +1,26 @@
 import SwiftUI
 
-struct SpaceLeaveAlertView: View {
+struct SpaceLeaveAlert: View {
     
-    let spaceName: String
-    let onConfirm: () async throws -> Void
-    
+    @StateObject private var model: SpaceLeaveAlertModel
     @Environment(\.dismiss) private var dismiss
     
+    init(spaceId: String) {
+        self._model = StateObject(wrappedValue: SpaceLeaveAlertModel(spaceId: spaceId))
+    }
     
     var body: some View {
         BottomAlertView(
             title: Loc.SpaceSettings.LeaveAlert.title,
-            message: Loc.SpaceSettings.LeaveAlert.message(spaceName)) {
+            message: Loc.SpaceSettings.LeaveAlert.message(model.spaceName)) {
                 BottomAlertButton(text: Loc.SpaceSettings.leaveButton, style: .warning) {
-                    try await onConfirm()
+                    try await model.onTapLeave()
                     dismiss()
                 }
                 BottomAlertButton(text: Loc.cancel, style: .secondary) {
                     dismiss()
                 }
             }
+            .snackbar(toastBarData: $model.toast)
     }
 }

@@ -13,6 +13,7 @@ final class SpacesManagerViewModel: ObservableObject {
     
     @Published var participantSpaces: [ParticipantSpaceView] = []
     @Published var spaceForCancelRequestAlert: SpaceView?
+    @Published var spaceForLeaveAlert: SpaceView?
         
     func startWorkspacesTask() async {
         for await participantSpaces in participantSpacesStorage.allParticipantSpacesPublisher.values {
@@ -27,7 +28,7 @@ final class SpacesManagerViewModel: ObservableObject {
     }
     
     func onLeave(row: ParticipantSpaceView) async throws {
-        try await workspaceService.deleteSpace(spaceId: row.spaceView.targetSpaceId)
+        spaceForLeaveAlert = row.spaceView
     }
         
     func onCancelRequest(row: ParticipantSpaceView) async throws {
