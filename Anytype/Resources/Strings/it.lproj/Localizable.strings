@@ -137,7 +137,7 @@
 "Lists" = "Liste";
 "Pinned" = "Fissato";
 "Delete" = "Elimina";
-"Export" = "Export";
+"Export" = "Esporta";
 "Duplicate" = "Duplica";
 "Copy" = "Copia";
 "Preview" = "Anteprima";
@@ -258,7 +258,7 @@
 "Auth.JoinFlow.Soul.Placeholder" = "Senza titolo";
 
 "Auth.JoinFlow.Creating.Soul.Title" = "Generazione di nuovo account";
-"Auth.JoinFlow.Setting.Space.Title" = "Setting up your default space";
+"Auth.JoinFlow.Setting.Space.Title" = "Configurazione del tuo spazio predefinito";
 
 // Auth - Login flow
 "Auth.LoginFlow.Use.Keychain.Title" = "Usa portachiavi";
@@ -846,11 +846,10 @@
 // MARK: - Spaces
 "Spaces.Accessibility.Shared" = "Spazio condiviso";
 "Spaces.Accessibility.Private" = "Spazio privato";
-"Spaces.Accessibility.Personal" = "Default Space";
+"Spaces.Accessibility.Personal" = "Spazio Predefinito";
 "Spaces.Search.Title" = "Cerca spazi";
 "Spaces.Title" = "Spazi";
 "Spaces.Info.Network" = "Rete:";
-"Spaces.Info.Device" = "Dispositivo:";
 
 // MARK: - Space
 "Space.Status.Unknown" = "Sconosciuto";
@@ -873,7 +872,6 @@
 "SpaceSettings.DeleteAlert.Title" = "Elimina spazio ‘%@’ ";
 "SpaceSettings.DeleteAlert.Message" = "Questo spazio verrà eliminato irrevocabilmente. Non è possibile annullare questa azione.";
 "SpaceSettings.DeleteButton" = "Elimina spazio";
-"SpaceSettings.Sharing" = "Condivisione";
 "SpaceSettings.Share" = "Condividi";
 "SpaceSettings.LeaveButton" = "Lascia e abbandona";
 "SpaceSettings.LeaveAlert.Title" = "Lascia e abbandona lo spazio";
@@ -881,8 +879,7 @@
 
 // MARK: - Space Share
 
-"SpaceShare.Title" = "Condividi lo spazio";
-"SpaceShare.MembersSection" = "Membri e richieste";
+"SpaceShare.Title" = "Condivisione";
 "SpaceShare.Members" = "Membri";
 "SpaceShare.Permissions.Owner" = "Proprietario";
 "SpaceShare.Permissions.Reader" = "Visualizzatore";
@@ -890,12 +887,16 @@
 "SpaceShare.Permissions.Grand.Edit" = "Modifica";
 "SpaceShare.Permissions.Grand.View" = "Vista";
 "SpaceShare.Invite.Title" = "Link di invito";
-"SpaceShare.Invite.Description" = "Invia questo link per invitare gli altri. Assegna i diritti di accesso al momento dell'approvazione della loro richiesta";
-"SpaceShare.Invite.Button" = "Condividi il link di invito";
-"SpaceShare.Status.Joining" = "Richiesto";
-"SpaceShare.Status.Removing" = "Richiesta di uscita";
+"SpaceShare.Invite.Description" = "Condividi questo link di invito in modo che altri possano unirsi al tuo Spazio. Una volta che cliccano sul tuo link e richiedono l'accesso, puoi impostare i loro diritti di accesso.";
+"SpaceShare.Invite.Share" = "Condividi il link di invito";
+"SpaceShare.Invite.Generate" = "Genera link di invito";
+"SpaceShare.Invite.Empty" = "Crea un link di invito per condividere lo spazio e aggiungere nuovi membri";
+"SpaceShare.JoinRequest" = "Richiesta di partecipazione";
+"SpaceShare.LeaveRequest" = "Richiesta di uscita";
 "SpaceShare.Action.ViewRequest" = "Visualizza richiesta";
 "SpaceShare.Action.Approve" = "Approva";
+"SpaceShare.DeleteSharingLink.Title" = "Elimina link";
+"SpaceShare.DeleteSharingLink.Message" = "I nuovi membri non saranno in grado di unirsi allo spazio. È possibile generare un nuovo link in qualsiasi momento";
 "SpaceShare.Approve.Toast" = "Hai approvato la richiesta di %@.";
 "SpaceShare.ViewRequest.Title" = "%@ ha richiesto di unirsi allo spazio %@";
 "SpaceShare.ViewRequest.ViewAccess" = "Concedi accesso in lettura";
@@ -912,20 +913,26 @@
 "SpaceShare.JoinConfirmation.Title" = "Richiesta inviata";
 "SpaceShare.JoinConfirmation.Message" = "Riceverai una notifica quando il proprietario dello spazio approverà la tua richiesta.";
 "SpaceShare.YouSuffix" = "%@ (tu)";
+"SpaceShare.ManageSpaces" = "Gestisci Spazi";
 
 // MARK: - Permission notification
-"PermissionChangeNotification.Text" = "Your access rights were changed to **%@** in the **%@** space.";
-"ParticipantRequestApprovedNotification.Text" = "Your request to join the **%@** space has been approved with **%@** access rights. The space will be available on your device soon.";
-"ParticipantRequestDeclineNotification.Text" = "Your request to join the **%@** space has been declined.";
-"RequestToLeaveNotification.Text" = "**%@** wants to leave the **%@** space.";
-"ParticipantRemoveNotification.Text" = "You have been removed from the space, or the space was deleted by the owner.";
-"RequestToJoinNotification.Text" = "**%@** requested to join the **%@** space.";
-"RequestToJoinNotification.GoToSpace" = "Go to Space";
-"RequestToJoinNotification.ViewRequest" = "View request";
+"PermissionChangeNotification.Text" = "I tuoi diritti di accesso sono stati modificati in **%@** nello spazio **%@**.";
+"ParticipantRequestApprovedNotification.Text" = "La tua richiesta di unirti allo spazio **%@** è stata approvata con diritti di accesso **%@**. Lo spazio sarà disponibile nel tuo account a breve.";
+"ParticipantRequestDeclineNotification.Text" = "La tua richiesta di unirti allo spazio **%@** è stata rifiutata.";
+"RequestToLeaveNotification.Text" = "**%@** vuole lasciare lo spazio **%@**.";
+"ParticipantRemoveNotification.Text" = "Sei stato rimosso dallo spazio, oppure lo spazio è stato eliminato dal proprietario.";
+"RequestToJoinNotification.Text" = "**%@** ha richiesto di unirsi allo spazio **%@**.";
+"RequestToJoinNotification.GoToSpace" = "Vai allo Spazio";
+"RequestToJoinNotification.ViewRequest" = "Visualizza richiesta";
 
 // MARK: - Space manager
-"SpaceManager.CancelRequest" = "Annulla richiesta";
+"SpaceManager.CancelRequest" = "Annulla Richiesta Di Partecipazione";
+"SpaceManager.DoNotCancel" = "Non annullare";
 "SpaceManager.Archive" = "Archivia";
+"SpaceManager.CancelRequestAlert.Title" = "Dovrai inviare nuovamente la richiesta di accesso";
+"SpaceManager.CancelRequestAlert.Toast" = "La richiesta è stata annullata.";
+
+
 
 // MARK: - Space Create
 "SpaceCreate.Title" = "Crea uno spazio";
