@@ -162,10 +162,6 @@ final class ServiceLocator {
         Container.shared.filesSubscriptionManager()
     }
     
-    func participantsSubscriptionByAccountService() -> ParticipantsSubscriptionByAccountServiceProtocol {
-        Container.shared.participantsSubscriptionByAccountService()
-    }
-    
     func middlewareConfigurationProvider() -> MiddlewareConfigurationProviderProtocol {
         Container.shared.middlewareConfigurationProvider()
     }
