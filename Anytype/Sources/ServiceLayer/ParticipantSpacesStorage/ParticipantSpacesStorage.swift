@@ -12,12 +12,12 @@ protocol ParticipantSpacesStorageProtocol: AnyObject {
 
 extension ParticipantSpacesStorageProtocol {
     
-    var activeParticipantSpaces: [ParticipantActiveSpaceView] {
-        allParticipantSpaces.compactMap { $0.activeSpaceView() }
+    var activeParticipantSpaces: [ParticipantSpaceView] {
+        allParticipantSpaces.filter(\.spaceView.isActive)
     }
     
-    var activeParticipantSpacesPublisher: AnyPublisher<[ParticipantActiveSpaceView], Never> {
-        allParticipantSpacesPublisher.map { $0.compactMap { $0.activeSpaceView() } }
+    var activeParticipantSpacesPublisher: AnyPublisher<[ParticipantSpaceView], Never> {
+        allParticipantSpacesPublisher.map { $0.filter(\.spaceView.isActive) }
             .removeDuplicates()
             .eraseToAnyPublisher()
     }

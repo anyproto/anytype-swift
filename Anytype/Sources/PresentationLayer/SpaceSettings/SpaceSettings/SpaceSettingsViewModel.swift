@@ -21,7 +21,7 @@ final class SpaceSettingsViewModel: ObservableObject {
     private let workspaceInfo: AccountInfo
     private var subscriptions: [AnyCancellable] = []
     private var dataLoaded = false
-    private var participantSpaceView: ParticipantActiveSpaceView?
+    private var participantSpaceView: ParticipantSpaceView?
     
     @Published var spaceName = ""
     @Published var spaceAccessType = ""
@@ -131,11 +131,11 @@ final class SpaceSettingsViewModel: ObservableObject {
         spaceIcon = spaceView.objectIconImage
         spaceAccessType = spaceView.spaceAccessType?.name ?? ""
         allowDelete = spaceView.canBeDelete
-        allowLeave = participant.canLeave
+        allowLeave = participantSpaceView.canLeave
         allowShare = participantSpaceView.canBeShared
-        allowSpaceMembers = !participant.isOwner
-        allowEditSpace = participant.canEdit
-        allowRemoteStorage = participant.isOwner
+        allowSpaceMembers = !participantSpaceView.isOwner
+        allowEditSpace = participantSpaceView.canEdit
+        allowRemoteStorage = participantSpaceView.isOwner
         buildInfoBlock(details: spaceView)
         
         if !dataLoaded {

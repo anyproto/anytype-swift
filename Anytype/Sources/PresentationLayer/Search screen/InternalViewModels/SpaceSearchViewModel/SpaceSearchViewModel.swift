@@ -25,7 +25,7 @@ final class SpaceSearchViewModel: SearchViewModelProtocol {
     
     private func setupSubscription() {
         participantSpacesStorage.activeParticipantSpacesPublisher.sink { [weak self] participantSpaces in
-            self?.spaces = participantSpaces.filter(\.participant.canEdit).map(\.spaceView)
+            self?.spaces = participantSpaces.filter(\.canEdit).map(\.spaceView)
             self?.search(text: self?.lastSearchText ?? "")
         }.store(in: &cancellables)
     }
