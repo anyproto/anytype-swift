@@ -4,10 +4,12 @@ import Combine
 import UIKit
 
 @MainActor
-final class SetObjectWidgetInternalViewModel: CommonWidgetInternalViewModel, WidgetDataviewInternalViewModelProtocol {
+final class SetObjectWidgetInternalViewModel: WidgetDataviewInternalViewModelProtocol {
     
     // MARK: - DI
     
+    private let widgetBlockId: String
+    private let widgetObject: BaseDocumentProtocol
     private let setSubscriptionDataBuilder: SetSubscriptionDataBuilderProtocol
     private let subscriptionStorage: SubscriptionStorageProtocol
     private let documentService: DocumentsProviderProtocol
@@ -16,7 +18,7 @@ final class SetObjectWidgetInternalViewModel: CommonWidgetInternalViewModel, Wid
     private let subscriptionId = "SetWidget-\(UUID().uuidString)"
     
     // MARK: - State
-    
+    private var widgetInfo: BlockWidgetInfo?
     private var setDocument: SetDocumentProtocol?
     private var subscriptions = [AnyCancellable]()
     private var contentSubscriptions = [AnyCancellable]()
@@ -34,7 +36,7 @@ final class SetObjectWidgetInternalViewModel: CommonWidgetInternalViewModel, Wid
     var allowCreateObject = true
     
     init(
-        widgetBlockId: BlockId,
+        widgetBlockId: String,
         widgetObject: BaseDocumentProtocol,
         setSubscriptionDataBuilder: SetSubscriptionDataBuilderProtocol,
         subscriptionStorageProvider: SubscriptionStorageProviderProtocol,
@@ -42,16 +44,25 @@ final class SetObjectWidgetInternalViewModel: CommonWidgetInternalViewModel, Wid
         blockWidgetService: BlockWidgetServiceProtocol,
         output: CommonWidgetModuleOutput?
     ) {
+        self.widgetBlockId = widgetBlockId
+        self.widgetObject = widgetObject
         self.setSubscriptionDataBuilder = setSubscriptionDataBuilder
         self.subscriptionStorage = subscriptionStorageProvider.createSubscriptionStorage(subId: subscriptionId)
         self.documentService = documentService
         self.blockWidgetService = blockWidgetService
         self.output = output
-        super.init(widgetBlockId: widgetBlockId, widgetObject: widgetObject)
     }
     
-    override func startHeaderSubscription() {
-        super.startHeaderSubscription()
+    func startHeaderSubscription() {
+        widgetObject.blockWidgetInfoPublisher(widgetBlockId: widgetBlockId)
+            .receiveOnMain()
+            .sink { [weak self] widgetInfo in
+                guard let self else { return }
+                self.widgetInfo = widgetInfo
+                self.setActiveViewId()
+            }
+            .store(in: &subscriptions)
+        
         widgetObject.widgetTargetDetailsPublisher(widgetBlockId: widgetBlockId)
             .receiveOnMain()
             .sink { [weak self] details in
@@ -62,23 +73,12 @@ final class SetObjectWidgetInternalViewModel: CommonWidgetInternalViewModel, Wid
             .store(in: &subscriptions)
     }
     
-    override func stopHeaderSubscription() {
-        super.stopHeaderSubscription()
-        subscriptions.removeAll()
-    }
-    
-    override func startContentSubscription() async {
-        await super.startContentSubscription()
+    func startContentSubscription() async {
         setDocument?.syncPublisher.sink { [weak self] in
             self?.updateDataviewState()
             Task { await self?.updateViewSubscription() }
         }
         .store(in: &contentSubscriptions)
-    }
-    
-    override func stopContentSubscription() async {
-        await super.stopContentSubscription()
-        contentSubscriptions.removeAll()
     }
     
     func screenData() -> EditorScreenData? {
@@ -104,14 +104,11 @@ final class SetObjectWidgetInternalViewModel: CommonWidgetInternalViewModel, Wid
         UISelectionFeedbackGenerator().selectionChanged()
     }
     
-    // MARK: - CommonWidgetInternalViewModel oveerides
-    
-    override func widgetInfoUpdated() {
-        super.widgetInfoUpdated()
-        setActiveViewId()
-    }
-    
     // MARK: - Private
+    
+    private func stopContentSubscription() async {
+        contentSubscriptions.removeAll()
+    }
         
     private func updateViewSubscription() async {
         guard let setDocument, let widgetInfo else {
@@ -172,8 +169,6 @@ final class SetObjectWidgetInternalViewModel: CommonWidgetInternalViewModel, Wid
         details = nil
         dataview = nil
         
-        guard contentIsAppear else { return }
-        
         await stopContentSubscription()
         await startContentSubscription()
     }
@@ -191,6 +186,6 @@ final class SetObjectWidgetInternalViewModel: CommonWidgetInternalViewModel, Wid
     
     private func setActiveViewId() {
         guard let widgetInfo, setDocument?.activeView.id != widgetInfo.block.viewId else { return }
-        setDocument?.updateActiveViewId(widgetInfo.block.viewId)
+        setDocument?.updateActiveViewIdAndReload(widgetInfo.block.viewId)
     }
 }

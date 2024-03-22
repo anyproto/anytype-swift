@@ -109,9 +109,10 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>d</string>
         <key>one</key>
-        <string>File Object</string>
+        <string>Archivo del objeto
+%d Archivos del objeto</string>
         <key>other</key>
-        <string>%d File Objects</string>
+        <string>%d Objetos de Archivo</string>
       </dict>
     </dict>
     <key>Sharing.File.Block</key>
@@ -125,9 +126,9 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>d</string>
         <key>one</key>
-        <string>File Block</string>
+        <string>Bloque de archivo</string>
         <key>other</key>
-        <string>%d File Blocks</string>
+        <string>%d Bloques de archivo</string>
       </dict>
     </dict>
     <key>Sharing.URL.NewObject</key>
@@ -141,9 +142,9 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>d</string>
         <key>one</key>
-        <string>Bookmark Object</string>
+        <string>%d objetos de marcador</string>
         <key>other</key>
-        <string>%d Bookmark Objects</string>
+        <string>Agregar %d marcadores a los objetos</string>
       </dict>
     </dict>
     <key>Sharing.URL.Block</key>
@@ -157,9 +158,41 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>d</string>
         <key>one</key>
-        <string>Link Block</string>
+        <string>Enlazar bloque</string>
         <key>other</key>
-        <string>Link %d Blocks</string>
+        <string>Enlazar %d bloques</string>
+      </dict>
+    </dict>
+    <key>SpaceShare.Invite.MaxLimit</key>
+    <dict>
+      <key>NSStringLocalizedFormatKey</key>
+      <string>%#@object@</string>
+      <key>object</key>
+      <dict>
+        <key>one</key>
+        <string>Has alcanzado el límite de %d miembros. Los nuevos miembros no podrán unirse.</string>
+        <key>NSStringFormatSpecTypeKey</key>
+        <string>NSStringPluralRuleType</string>
+        <key>NSStringFormatValueTypeKey</key>
+        <string>d</string>
+        <key>other</key>
+        <string>Has alcanzado el límite de %d miembros. Los nuevos miembros no podrán unirse.</string>
+      </dict>
+    </dict>
+    <key>Space.MembersCount</key>
+    <dict>
+      <key>NSStringLocalizedFormatKey</key>
+      <string>%#@object@</string>
+      <key>object</key>
+      <dict>
+        <key>NSStringFormatSpecTypeKey</key>
+        <string>NSStringPluralRuleType</string>
+        <key>NSStringFormatValueTypeKey</key>
+        <string>d</string>
+        <key>other</key>
+        <string>%d members</string>
+        <key>one</key>
+        <string>%d member</string>
       </dict>
     </dict>
   </dict>

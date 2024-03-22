@@ -6,7 +6,7 @@ final class LinkToObjectSearchViewModel: SearchViewModelProtocol {
     enum SearchKind {
         case web(URL)
         case createObject(String)
-        case object(BlockId)
+        case object(String)
         case openURL(URL)
         case openObject(ObjectDetails)
         case removeLink
@@ -17,8 +17,8 @@ final class LinkToObjectSearchViewModel: SearchViewModelProtocol {
 
     private let spaceId: String
     private let searchService: SearchServiceProtocol
-    private let pasteboardHelper: PasteboardHelper
-    private let currentLink: Either<URL, BlockId>?
+    private let pasteboardHelper: PasteboardHelperProtocol
+    private let currentLink: Either<URL, String>?
 
     let descriptionTextColor: Color = .Text.primary
     let shouldShowCallout: Bool = true
@@ -32,9 +32,9 @@ final class LinkToObjectSearchViewModel: SearchViewModelProtocol {
 
     init(
         spaceId: String,
-        currentLink: Either<URL, BlockId>?,
+        currentLink: Either<URL, String>?,
         searchService: SearchServiceProtocol,
-        pasteboardHelper: PasteboardHelper = PasteboardHelper(),
+        pasteboardHelper: PasteboardHelperProtocol,
         onSelect: @escaping (SearchDataType) -> ()
     ) {
         self.spaceId = spaceId
@@ -79,7 +79,7 @@ final class LinkToObjectSearchViewModel: SearchViewModelProtocol {
         
         if text.isEmpty {
             if pasteboardHelper.hasValidURL,
-               let pasteboardString = pasteboardHelper.obrainString(),
+               let pasteboardString = pasteboardHelper.obtainString(),
                let url = AnytypeURL(string: pasteboardString) {
                 let webSearchData = LinkToObjectSearchData(
                     searchKind: .web(url.url),
@@ -94,7 +94,7 @@ final class LinkToObjectSearchViewModel: SearchViewModelProtocol {
         searchData.append(SearchDataSection(searchData: objectData, sectionName: Loc.objects))
     }
 
-    func buildExistingLinkSections(currentLink: Either<URL, BlockId>) async throws -> [SearchDataSection<SearchDataType>] {
+    func buildExistingLinkSections(currentLink: Either<URL, String>) async throws -> [SearchDataSection<SearchDataType>] {
         let linkedToData: LinkToObjectSearchData?
         let copyLink: LinkToObjectSearchData?
 

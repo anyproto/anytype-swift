@@ -13,16 +13,16 @@ final class PasteboardTask {
     
     private var alreadyStarted: Bool = false
     
-    private let objectId: BlockId
+    private let objectId: String
     private let context: PasteboardActionContext
-    private let pasteboardHelper: PasteboardHelper
+    private let pasteboardHelper: PasteboardHelperProtocol
     private let pasteboardMiddlewareService: PasteboardMiddlewareServiceProtocol
 
     // MARK: - Initializers
 
     init(
-        objectId: BlockId,
-        pasteboardHelper: PasteboardHelper,
+        objectId: String,
+        pasteboardHelper: PasteboardHelperProtocol,
         pasteboardMiddlewareService: PasteboardMiddlewareServiceProtocol,
         context: PasteboardActionContext
     ) {

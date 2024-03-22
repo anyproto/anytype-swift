@@ -1,5 +1,6 @@
 import SwiftUI
 import AnytypeCore
+import AudioToolbox
 
 struct AuthView: View {
     
@@ -39,10 +40,11 @@ struct AuthView: View {
         VStack(alignment: .center, spacing: 0) {
             Image(asset: .theEverythingApp)
                 .onTapGesture(count: 10) {
+                    AudioServicesPlaySystemSound(1109)
                     model.showDebugMenu.toggle()
                 }
                 .sheet(isPresented: $model.showDebugMenu) {
-                    model.onDebugMenuAction()
+                    DebugMenuView()
                 }
             
             Spacer.fixedHeight(20)
@@ -59,7 +61,7 @@ struct AuthView: View {
             Button {
                 model.showSettings.toggle()
             } label: {
-                Image(asset: .Dashboard.settings)
+                Image(asset: .NavigationBase.settings)
                     .foregroundColor(.Button.active)
             }
         }
@@ -71,7 +73,7 @@ struct AuthView: View {
     private var buttons: some View {
         VStack(spacing: 12) {
             StandardButton(
-                Loc.Auth.join,
+                Loc.join,
                 style: .primaryLarge,
                 action: {
                     model.onJoinButtonTap()

@@ -3,10 +3,7 @@ import Foundation
 protocol ModulesDIProtocol: AnyObject {
     func relationValue() -> RelationValueModuleAssemblyProtocol
     func relationsList() -> RelationsListModuleAssemblyProtocol
-    func dateRelationCalendar() -> DateRelationCalendarModuleAssemblyProtocol
-    func selectRelationList() -> SelectRelationListModuleAssemblyProtocol
-    func relationOptionSettings() -> RelationOptionSettingsModuleAssemblyProtocol
-    func objectRelationList() -> ObjectRelationListModuleAssemblyProtocol
+    func textRelationEditing() -> TextRelationEditingModuleAssemblyProtocol
     func undoRedo() -> UndoRedoModuleAssemblyProtocol
     func objectLayoutPicker() -> ObjectLayoutPickerModuleAssemblyProtocol
     func objectCoverPicker() -> ObjectCoverPickerModuleAssemblyProtocol
@@ -23,16 +20,10 @@ protocol ModulesDIProtocol: AnyObject {
     func widgetObjectList() -> WidgetObjectListModuleAssemblyProtocol
     func settingsAppearance() -> SettingsAppearanceModuleAssemblyProtocol
     func wallpaperPicker() -> WallpaperPickerModuleAssemblyProtocol
-    func about() -> AboutModuleAssemblyProtocol
     func personalization() -> PersonalizationModuleAssemblyProtocol
     func keychainPhrase() -> KeychainPhraseModuleAssemblyProtocol
     func dashboardAlerts() -> DashboardAlertsAssemblyProtocol
     func settings() -> SettingsModuleAssemblyProtocol
-    func debugMenu() -> DebugMenuModuleAssemblyProtocol
-    func settingsAccount() -> SettingsAccountModuleAssemblyProtocol
-    func fileStorage() -> FileStorageModuleAssemblyProtocol
-    func spaceSwitch() -> SpaceSwitchModuleAssemblyProtocol
-    func spaceCreate() -> SpaceCreateModuleAssemblyProtocol
     func authorization() -> AuthModuleAssemblyProtocol
     func joinFlow() -> JoinFlowModuleAssemblyProtocol
     func login() -> LoginViewModuleAssemblyProtocol
@@ -44,8 +35,6 @@ protocol ModulesDIProtocol: AnyObject {
     func remoteStorage() -> RemoteStorageModuleAssemblyProtocol
     func setObjectCreationSettings() -> SetObjectCreationSettingsModuleAssemblyProtocol
     func setViewSettingsList() -> SetViewSettingsListModuleAssemblyProtocol
-    func setSortsList() -> SetSortsListModuleAssemblyProtocol
-    func setSortTypesList() -> SetSortTypesListModuleAssemblyProtocol
     func setTextView() -> SetTextViewModuleAssemblyProtocol
     func setFiltersDateView() -> SetFiltersDateViewModuleAssemblyProtocol
     func setFilterConditions() -> SetFilterConditionsModuleAssemblyProtocol
@@ -66,9 +55,5 @@ protocol ModulesDIProtocol: AnyObject {
     func serverDocumentPicker() -> ServerDocumentPickerModuleAssemblyProtocol
     func sharingTip() -> SharingTipModuleAssemblyProtocol
     func shareOptions() -> ShareOptionsModuleAssemblyProtocol
-    func galleryInstallationPreview() -> GalleryInstallationPreviewModuleAssemblyProtocol
-    func gallerySpaceSelectionModuleAssembly() -> GallerySpaceSelectionModuleAssemblyProtocol
-    func commonNotification() -> CommonNotificationAssemblyProtocol
-    func galleryNotification() -> GalleryNotificationAssemblyProtocol
     func spareShare() -> SpaceShareModuleAssemblyProtocol
 }

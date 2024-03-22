@@ -25,6 +25,13 @@
         "identifier" : "03C5C53F22DFD90C00DD91DE",
         "name" : "AnytypeTests"
       }
+    },
+    {
+      "target" : {
+        "containerPath" : "container:Modules\/DeepLinks",
+        "identifier" : "DeepLinksTests",
+        "name" : "DeepLinksTests"
+      }
     }
   ],
   "version" : 1

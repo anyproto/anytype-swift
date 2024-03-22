@@ -20,22 +20,17 @@ final class ObjectRelationListViewModel: ObservableObject {
     
     private let interactor: ObjectRelationListInteractorProtocol
     private let relationSelectedOptionsModel: RelationSelectedOptionsModelProtocol
-    private let objectActionsService: ObjectActionsServiceProtocol
+    
+    @Injected(\.objectActionsService)
+    private var objectActionsService: ObjectActionsServiceProtocol
     
     private weak var output: ObjectRelationListModuleOutput?
     
-    init(
-        configuration: RelationModuleConfiguration,
-        interactor: ObjectRelationListInteractorProtocol,
-        relationSelectedOptionsModel: RelationSelectedOptionsModelProtocol,
-        objectActionsService: ObjectActionsServiceProtocol,
-        output: ObjectRelationListModuleOutput?
-    ) {
-        self.configuration = configuration
+    init(data: ObjectRelationListData, output: ObjectRelationListModuleOutput?) {
+        self.configuration = data.configuration
         self.output = output
-        self.interactor = interactor
-        self.relationSelectedOptionsModel = relationSelectedOptionsModel
-        self.objectActionsService = objectActionsService
+        self.interactor = data.interactor
+        self.relationSelectedOptionsModel = data.relationSelectedOptionsModel
         self.relationSelectedOptionsModel.selectedOptionsIdsPublisher.assign(to: &$selectedOptionsIds)
     }
     

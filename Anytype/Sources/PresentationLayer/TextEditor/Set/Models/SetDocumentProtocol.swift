@@ -8,14 +8,13 @@ enum SetDocumentUpdate {
 
 protocol SetDocumentProtocol: BaseDocumentGeneralProtocol {
     var document: BaseDocumentProtocol { get }
-    var objectId: BlockId { get }
-    var blockId: BlockId { get }
-    var targetObjectId: BlockId { get }
+    var objectId: String { get }
+    var blockId: String { get }
+    var targetObjectId: String { get }
     var inlineParameters: EditorInlineSetObject? { get }
-    var dataviews: [BlockDataview] { get }
+    var blockDataview: BlockDataview? { get }
     var dataViewRelationsDetails: [RelationDetails] { get }
     var viewRelationValueIsLocked: Bool { get }
-    var relationValuesIsLocked: Bool { get }
     var analyticsType: AnalyticsObjectType { get }
     // TODO Refactor this
     var dataBuilder: SetContentViewDataBuilder { get }
@@ -42,7 +41,7 @@ protocol SetDocumentProtocol: BaseDocumentGeneralProtocol {
     func canStartSubscription() -> Bool
     func viewRelations(viewId: String, excludeRelations: [RelationDetails]) -> [RelationDetails]
     func objectOrderIds(for groupId: String) -> [String]
-    func updateActiveViewId(_ id: BlockId)
+    func updateActiveViewIdAndReload(_ id: String)
     func isTypeSet() -> Bool
     func isSetByRelation() -> Bool
     func isBookmarksSet() -> Bool

@@ -2068,6 +2068,9 @@ public struct Anytype_Rpc {
         /// in case of mnemonic auth, need to be persisted by client
         public var appToken: String = String()
 
+        /// temp, should be replaced with AccountInfo message
+        public var accountID: String = String()
+
         public var unknownFields = SwiftProtobuf.UnknownStorage()
 
         public struct Error {
@@ -9740,6 +9743,7 @@ public struct Anytype_Rpc {
             case importIsCanceled // = 6
             case limitOfRowsOrRelationsExceeded // = 7
             case fileLoadError // = 8
+            case insufficientPermissions // = 9
             case UNRECOGNIZED(Int)
 
             public init() {
@@ -9756,6 +9760,7 @@ public struct Anytype_Rpc {
               case 6: self = .importIsCanceled
               case 7: self = .limitOfRowsOrRelationsExceeded
               case 8: self = .fileLoadError
+              case 9: self = .insufficientPermissions
               default: self = .UNRECOGNIZED(rawValue)
               }
             }
@@ -9770,6 +9775,7 @@ public struct Anytype_Rpc {
               case .importIsCanceled: return 6
               case .limitOfRowsOrRelationsExceeded: return 7
               case .fileLoadError: return 8
+              case .insufficientPermissions: return 9
               case .UNRECOGNIZED(let i): return i
               }
             }
@@ -10246,6 +10252,7 @@ public struct Anytype_Rpc {
             case null // = 0
             case unknownError // = 1
             case badInput // = 2
+            case insufficientPermission // = 3
             case UNRECOGNIZED(Int)
 
             public init() {
@@ -10257,6 +10264,7 @@ public struct Anytype_Rpc {
               case 0: self = .null
               case 1: self = .unknownError
               case 2: self = .badInput
+              case 3: self = .insufficientPermission
               default: self = .UNRECOGNIZED(rawValue)
               }
             }
@@ -10266,6 +10274,7 @@ public struct Anytype_Rpc {
               case .null: return 0
               case .unknownError: return 1
               case .badInput: return 2
+              case .insufficientPermission: return 3
               case .UNRECOGNIZED(let i): return i
               }
             }
@@ -23595,7 +23604,7 @@ public struct Anytype_Rpc {
         public init() {}
       }
 
-      public struct Sort {
+      public struct SSort {
         // SwiftProtobuf.Message conformance is added in an extension below. See the
         // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
         // methods supported on all messages.
@@ -23628,8 +23637,8 @@ public struct Anytype_Rpc {
           // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
           // methods supported on all messages.
 
-          public var error: Anytype_Rpc.BlockDataview.Sort.Sort.Response.Error {
-            get {return _error ?? Anytype_Rpc.BlockDataview.Sort.Sort.Response.Error()}
+          public var error: Anytype_Rpc.BlockDataview.Sort.SSort.Response.Error {
+            get {return _error ?? Anytype_Rpc.BlockDataview.Sort.SSort.Response.Error()}
             set {_error = newValue}
           }
           /// Returns true if `error` has been explicitly set.
@@ -23653,7 +23662,7 @@ public struct Anytype_Rpc {
             // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
             // methods supported on all messages.
 
-            public var code: Anytype_Rpc.BlockDataview.Sort.Sort.Response.Error.Code = .null
+            public var code: Anytype_Rpc.BlockDataview.Sort.SSort.Response.Error.Code = .null
 
             public var description_p: String = String()
 
@@ -23695,7 +23704,7 @@ public struct Anytype_Rpc {
 
           public init() {}
 
-          fileprivate var _error: Anytype_Rpc.BlockDataview.Sort.Sort.Response.Error? = nil
+          fileprivate var _error: Anytype_Rpc.BlockDataview.Sort.SSort.Response.Error? = nil
           fileprivate var _event: Anytype_ResponseEvent? = nil
         }
 
@@ -27240,6 +27249,7 @@ extension Anytype_Rpc.Object.Import.Response.Error.Code: CaseIterable {
     .importIsCanceled,
     .limitOfRowsOrRelationsExceeded,
     .fileLoadError,
+    .insufficientPermissions,
   ]
 }
 
@@ -27305,6 +27315,7 @@ extension Anytype_Rpc.Object.ImportExperience.Response.Error.Code: CaseIterable 
     .null,
     .unknownError,
     .badInput,
+    .insufficientPermission,
   ]
 }
 
@@ -28408,9 +28419,9 @@ extension Anytype_Rpc.BlockDataview.Sort.Replace.Response.Error.Code: CaseIterab
   ]
 }
 
-extension Anytype_Rpc.BlockDataview.Sort.Sort.Response.Error.Code: CaseIterable {
+extension Anytype_Rpc.BlockDataview.Sort.SSort.Response.Error.Code: CaseIterable {
   // The compiler won't synthesize support with the UNRECOGNIZED case.
-  public static let allCases: [Anytype_Rpc.BlockDataview.Sort.Sort.Response.Error.Code] = [
+  public static let allCases: [Anytype_Rpc.BlockDataview.Sort.SSort.Response.Error.Code] = [
     .null,
     .unknownError,
     .badInput,
@@ -29811,11 +29822,11 @@ extension Anytype_Rpc.BlockDataview.Sort.Replace.Request: @unchecked Sendable {}
 extension Anytype_Rpc.BlockDataview.Sort.Replace.Response: @unchecked Sendable {}
 extension Anytype_Rpc.BlockDataview.Sort.Replace.Response.Error: @unchecked Sendable {}
 extension Anytype_Rpc.BlockDataview.Sort.Replace.Response.Error.Code: @unchecked Sendable {}
-extension Anytype_Rpc.BlockDataview.Sort.Sort: @unchecked Sendable {}
-extension Anytype_Rpc.BlockDataview.Sort.Sort.Request: @unchecked Sendable {}
-extension Anytype_Rpc.BlockDataview.Sort.Sort.Response: @unchecked Sendable {}
-extension Anytype_Rpc.BlockDataview.Sort.Sort.Response.Error: @unchecked Sendable {}
-extension Anytype_Rpc.BlockDataview.Sort.Sort.Response.Error.Code: @unchecked Sendable {}
+extension Anytype_Rpc.BlockDataview.Sort.SSort: @unchecked Sendable {}
+extension Anytype_Rpc.BlockDataview.Sort.SSort.Request: @unchecked Sendable {}
+extension Anytype_Rpc.BlockDataview.Sort.SSort.Response: @unchecked Sendable {}
+extension Anytype_Rpc.BlockDataview.Sort.SSort.Response.Error: @unchecked Sendable {}
+extension Anytype_Rpc.BlockDataview.Sort.SSort.Response.Error.Code: @unchecked Sendable {}
 extension Anytype_Rpc.BlockDataview.ViewRelation: @unchecked Sendable {}
 extension Anytype_Rpc.BlockDataview.ViewRelation.Add: @unchecked Sendable {}
 extension Anytype_Rpc.BlockDataview.ViewRelation.Add.Request: @unchecked Sendable {}
@@ -32876,6 +32887,7 @@ extension Anytype_Rpc.Wallet.CreateSession.Response: SwiftProtobuf.Message, Swif
     1: .same(proto: "error"),
     2: .same(proto: "token"),
     3: .same(proto: "appToken"),
+    4: .same(proto: "accountId"),
   ]
 
   public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
@@ -32887,6 +32899,7 @@ extension Anytype_Rpc.Wallet.CreateSession.Response: SwiftProtobuf.Message, Swif
       case 1: try { try decoder.decodeSingularMessageField(value: &self._error) }()
       case 2: try { try decoder.decodeSingularStringField(value: &self.token) }()
       case 3: try { try decoder.decodeSingularStringField(value: &self.appToken) }()
+      case 4: try { try decoder.decodeSingularStringField(value: &self.accountID) }()
       default: break
       }
     }
@@ -32906,6 +32919,9 @@ extension Anytype_Rpc.Wallet.CreateSession.Response: SwiftProtobuf.Message, Swif
     if !self.appToken.isEmpty {
       try visitor.visitSingularStringField(value: self.appToken, fieldNumber: 3)
     }
+    if !self.accountID.isEmpty {
+      try visitor.visitSingularStringField(value: self.accountID, fieldNumber: 4)
+    }
     try unknownFields.traverse(visitor: &visitor)
   }
 
@@ -32913,6 +32929,7 @@ extension Anytype_Rpc.Wallet.CreateSession.Response: SwiftProtobuf.Message, Swif
     if lhs._error != rhs._error {return false}
     if lhs.token != rhs.token {return false}
     if lhs.appToken != rhs.appToken {return false}
+    if lhs.accountID != rhs.accountID {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
@@ -43798,6 +43815,7 @@ extension Anytype_Rpc.Object.Import.Response.Error.Code: SwiftProtobuf._ProtoNam
     6: .same(proto: "IMPORT_IS_CANCELED"),
     7: .same(proto: "LIMIT_OF_ROWS_OR_RELATIONS_EXCEEDED"),
     8: .same(proto: "FILE_LOAD_ERROR"),
+    9: .same(proto: "INSUFFICIENT_PERMISSIONS"),
   ]
 }
 
@@ -44437,6 +44455,7 @@ extension Anytype_Rpc.Object.ImportExperience.Response.Error.Code: SwiftProtobuf
     0: .same(proto: "NULL"),
     1: .same(proto: "UNKNOWN_ERROR"),
     2: .same(proto: "BAD_INPUT"),
+    3: .same(proto: "INSUFFICIENT_PERMISSION"),
   ]
 }
 
@@ -64111,8 +64130,8 @@ extension Anytype_Rpc.BlockDataview.Sort.Replace.Response.Error.Code: SwiftProto
   ]
 }
 
-extension Anytype_Rpc.BlockDataview.Sort.Sort: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
-  public static let protoMessageName: String = Anytype_Rpc.BlockDataview.Sort.protoMessageName + ".Sort"
+extension Anytype_Rpc.BlockDataview.Sort.SSort: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = Anytype_Rpc.BlockDataview.Sort.protoMessageName + ".SSort"
   public static let _protobuf_nameMap = SwiftProtobuf._NameMap()
 
   public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
@@ -64124,14 +64143,14 @@ extension Anytype_Rpc.BlockDataview.Sort.Sort: SwiftProtobuf.Message, SwiftProto
     try unknownFields.traverse(visitor: &visitor)
   }
 
-  public static func ==(lhs: Anytype_Rpc.BlockDataview.Sort.Sort, rhs: Anytype_Rpc.BlockDataview.Sort.Sort) -> Bool {
+  public static func ==(lhs: Anytype_Rpc.BlockDataview.Sort.SSort, rhs: Anytype_Rpc.BlockDataview.Sort.SSort) -> Bool {
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
 }
 
-extension Anytype_Rpc.BlockDataview.Sort.Sort.Request: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
-  public static let protoMessageName: String = Anytype_Rpc.BlockDataview.Sort.Sort.protoMessageName + ".Request"
+extension Anytype_Rpc.BlockDataview.Sort.SSort.Request: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = Anytype_Rpc.BlockDataview.Sort.SSort.protoMessageName + ".Request"
   public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
     1: .same(proto: "contextId"),
     2: .same(proto: "blockId"),
@@ -64170,7 +64189,7 @@ extension Anytype_Rpc.BlockDataview.Sort.Sort.Request: SwiftProtobuf.Message, Sw
     try unknownFields.traverse(visitor: &visitor)
   }
 
-  public static func ==(lhs: Anytype_Rpc.BlockDataview.Sort.Sort.Request, rhs: Anytype_Rpc.BlockDataview.Sort.Sort.Request) -> Bool {
+  public static func ==(lhs: Anytype_Rpc.BlockDataview.Sort.SSort.Request, rhs: Anytype_Rpc.BlockDataview.Sort.SSort.Request) -> Bool {
     if lhs.contextID != rhs.contextID {return false}
     if lhs.blockID != rhs.blockID {return false}
     if lhs.viewID != rhs.viewID {return false}
@@ -64180,8 +64199,8 @@ extension Anytype_Rpc.BlockDataview.Sort.Sort.Request: SwiftProtobuf.Message, Sw
   }
 }
 
-extension Anytype_Rpc.BlockDataview.Sort.Sort.Response: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
-  public static let protoMessageName: String = Anytype_Rpc.BlockDataview.Sort.Sort.protoMessageName + ".Response"
+extension Anytype_Rpc.BlockDataview.Sort.SSort.Response: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = Anytype_Rpc.BlockDataview.Sort.SSort.protoMessageName + ".Response"
   public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
     1: .same(proto: "error"),
     2: .same(proto: "event"),
@@ -64214,7 +64233,7 @@ extension Anytype_Rpc.BlockDataview.Sort.Sort.Response: SwiftProtobuf.Message, S
     try unknownFields.traverse(visitor: &visitor)
   }
 
-  public static func ==(lhs: Anytype_Rpc.BlockDataview.Sort.Sort.Response, rhs: Anytype_Rpc.BlockDataview.Sort.Sort.Response) -> Bool {
+  public static func ==(lhs: Anytype_Rpc.BlockDataview.Sort.SSort.Response, rhs: Anytype_Rpc.BlockDataview.Sort.SSort.Response) -> Bool {
     if lhs._error != rhs._error {return false}
     if lhs._event != rhs._event {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
@@ -64222,8 +64241,8 @@ extension Anytype_Rpc.BlockDataview.Sort.Sort.Response: SwiftProtobuf.Message, S
   }
 }
 
-extension Anytype_Rpc.BlockDataview.Sort.Sort.Response.Error: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
-  public static let protoMessageName: String = Anytype_Rpc.BlockDataview.Sort.Sort.Response.protoMessageName + ".Error"
+extension Anytype_Rpc.BlockDataview.Sort.SSort.Response.Error: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = Anytype_Rpc.BlockDataview.Sort.SSort.Response.protoMessageName + ".Error"
   public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
     1: .same(proto: "code"),
     2: .same(proto: "description"),
@@ -64252,7 +64271,7 @@ extension Anytype_Rpc.BlockDataview.Sort.Sort.Response.Error: SwiftProtobuf.Mess
     try unknownFields.traverse(visitor: &visitor)
   }
 
-  public static func ==(lhs: Anytype_Rpc.BlockDataview.Sort.Sort.Response.Error, rhs: Anytype_Rpc.BlockDataview.Sort.Sort.Response.Error) -> Bool {
+  public static func ==(lhs: Anytype_Rpc.BlockDataview.Sort.SSort.Response.Error, rhs: Anytype_Rpc.BlockDataview.Sort.SSort.Response.Error) -> Bool {
     if lhs.code != rhs.code {return false}
     if lhs.description_p != rhs.description_p {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
@@ -64260,7 +64279,7 @@ extension Anytype_Rpc.BlockDataview.Sort.Sort.Response.Error: SwiftProtobuf.Mess
   }
 }
 
-extension Anytype_Rpc.BlockDataview.Sort.Sort.Response.Error.Code: SwiftProtobuf._ProtoNameProviding {
+extension Anytype_Rpc.BlockDataview.Sort.SSort.Response.Error.Code: SwiftProtobuf._ProtoNameProviding {
   public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
     0: .same(proto: "NULL"),
     1: .same(proto: "UNKNOWN_ERROR"),

@@ -162,5 +162,37 @@
         <string>Lenke %d blokker</string>
       </dict>
     </dict>
+    <key>SpaceShare.Invite.MaxLimit</key>
+    <dict>
+      <key>NSStringLocalizedFormatKey</key>
+      <string>%#@object@</string>
+      <key>object</key>
+      <dict>
+        <key>one</key>
+        <string>Du har nådd grensen på %d medlemmer. Nye medlemmer vil ikke kunne bli med.</string>
+        <key>NSStringFormatSpecTypeKey</key>
+        <string>NSStringPluralRuleType</string>
+        <key>NSStringFormatValueTypeKey</key>
+        <string>d</string>
+        <key>other</key>
+        <string>Du har nådd grensen på %d medlemmer. Nye medlemmer vil ikke kunne bli med.</string>
+      </dict>
+    </dict>
+    <key>Space.MembersCount</key>
+    <dict>
+      <key>NSStringLocalizedFormatKey</key>
+      <string>%#@object@</string>
+      <key>object</key>
+      <dict>
+        <key>NSStringFormatSpecTypeKey</key>
+        <string>NSStringPluralRuleType</string>
+        <key>NSStringFormatValueTypeKey</key>
+        <string>d</string>
+        <key>other</key>
+        <string>%d members</string>
+        <key>one</key>
+        <string>%d member</string>
+      </dict>
+    </dict>
   </dict>
 </plist>

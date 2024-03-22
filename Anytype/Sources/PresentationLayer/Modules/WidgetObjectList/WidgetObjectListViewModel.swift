@@ -17,6 +17,8 @@ final class WidgetObjectListViewModel: ObservableObject, OptionsItemProvider, Wi
     
     private let internalModel: WidgetObjectListInternalViewModelProtocol
     private let objectActionService: ObjectActionsServiceProtocol
+    private let activeWorkspaceStorage: ActiveWorkpaceStorageProtocol
+    private let accountParticipantStorage: AccountParticipantsStorageProtocol
     private let menuBuilder: WidgetObjectListMenuBuilderProtocol
     private let alertOpener: AlertOpenerProtocol
     private weak var output: WidgetObjectListCommonModuleOutput?
@@ -26,13 +28,14 @@ final class WidgetObjectListViewModel: ObservableObject, OptionsItemProvider, Wi
     var title: String { internalModel.title }
     var editorScreenData: EditorScreenData { internalModel.editorScreenData }
     @Published private(set) var data: WidgetObjectListData = .list([])
-    var editModel: WidgetObjectListEditMode { internalModel.editMode }
+    @Published private(set) var editMode: WidgetObjectListEditMode = .normal(allowDnd: false)
     @Published private(set) var selectButtonText: String = ""
     @Published private(set) var showActionPanel: Bool = false
     @Published private(set) var homeBottomPanelHiddel: Bool = false
     var contentIsNotEmpty: Bool { rowDetails.contains { $0.details.isNotEmpty } }
     var isSheet: Bool
-    @Published var viewEditMode: EditMode
+    @Published var viewEditMode: EditMode = .inactive
+    @Published private(set) var canEdit = false
     
     private var rowDetails: [WidgetObjectListDetailsData] = []
     private var searchText: String?
@@ -49,6 +52,8 @@ final class WidgetObjectListViewModel: ObservableObject, OptionsItemProvider, Wi
     init(
         internalModel: WidgetObjectListInternalViewModelProtocol,
         objectActionService: ObjectActionsServiceProtocol,
+        activeWorkspaceStorage: ActiveWorkpaceStorageProtocol,
+        accountParticipantStorage: AccountParticipantsStorageProtocol,
         menuBuilder: WidgetObjectListMenuBuilderProtocol,
         alertOpener: AlertOpenerProtocol,
         output: WidgetObjectListCommonModuleOutput?,
@@ -56,11 +61,12 @@ final class WidgetObjectListViewModel: ObservableObject, OptionsItemProvider, Wi
     ) {
         self.internalModel = internalModel
         self.objectActionService = objectActionService
+        self.activeWorkspaceStorage = activeWorkspaceStorage
+        self.accountParticipantStorage = accountParticipantStorage
         self.menuBuilder = menuBuilder
         self.alertOpener = alertOpener
         self.output = output
         self.isSheet = isSheet
-        self.viewEditMode = (internalModel.editMode == .editOnly) ? .active : .inactive
         internalModel.rowDetailsPublisher
             .receiveOnMain()
             .sink { [weak self] data in
@@ -77,6 +83,14 @@ final class WidgetObjectListViewModel: ObservableObject, OptionsItemProvider, Wi
     
     func onDisappear() {
         internalModel.onDisappear()
+    }
+    
+    func startParticipantTask() async {
+        for await newCanEdit in accountParticipantStorage.canEditPublisher(spaceId: activeWorkspaceStorage.workspaceInfo.accountSpaceId).values {
+            canEdit = newCanEdit
+            editMode = canEdit ? internalModel.editMode : .normal(allowDnd: false)
+            viewEditMode = (editMode == .editOnly) ? .active : .inactive
+        }
     }
     
     func didAskToSearch(text: String) {
@@ -99,19 +113,19 @@ final class WidgetObjectListViewModel: ObservableObject, OptionsItemProvider, Wi
     
     // MARK: - WidgetObjectListMenuOutput
     
-    func setFavorite(objectIds: [BlockId], _ isFavorite: Bool) {
+    func setFavorite(objectIds: [String], _ isFavorite: Bool) {
         AnytypeAnalytics.instance().logAddToFavorites(isFavorite)
         Task { try? await objectActionService.setFavorite(objectIds: objectIds, isFavorite) }
         UISelectionFeedbackGenerator().selectionChanged()
     }
     
-    func setArchive(objectIds: [BlockId], _ isArchived: Bool) {
+    func setArchive(objectIds: [String], _ isArchived: Bool) {
         AnytypeAnalytics.instance().logMoveToBin(isArchived)
         Task { try? await objectActionService.setArchive(objectIds: objectIds, isArchived) }
         UISelectionFeedbackGenerator().selectionChanged()
     }
     
-    func delete(objectIds: [BlockId]) {
+    func delete(objectIds: [String]) {
         AnytypeAnalytics.instance().logShowDeletionWarning(route: .bin)
         let alert = BottomAlertLegacy.binConfirmation(count: objectIds.count) { [objectIds, weak self] in
             Task { [weak self] in
@@ -123,7 +137,7 @@ final class WidgetObjectListViewModel: ObservableObject, OptionsItemProvider, Wi
         UISelectionFeedbackGenerator().selectionChanged()
     }
     
-    func forceDelete(objectIds: [BlockId]) {
+    func forceDelete(objectIds: [String]) {
         AnytypeAnalytics.instance().logShowDeletionWarning(route: .settings)
         let alert = BottomAlertLegacy(
             title: internalModel.forceDeleteTitle,
@@ -139,7 +153,7 @@ final class WidgetObjectListViewModel: ObservableObject, OptionsItemProvider, Wi
     
     // MARK: - Private
     
-    private func forceDeleteConfirmed(objectIds: [BlockId]) {
+    private func forceDeleteConfirmed(objectIds: [String]) {
         Task {
             AnytypeAnalytics.instance().logMoveToBin(true)
             try await objectActionService.setArchive(objectIds: objectIds, true)

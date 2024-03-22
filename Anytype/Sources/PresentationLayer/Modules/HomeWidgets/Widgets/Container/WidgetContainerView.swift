@@ -18,7 +18,7 @@ struct WidgetContainerView<Content: View, ContentVM: WidgetContainerContentViewM
         
     var body: some View {
         WidgetSwipeActionView(
-            isEnable: FeatureFlags.widgetsCreateObject ? contentModel.allowCreateObject : false,
+            isEnable: contentModel.allowCreateObject && model.homeState.isReadWrite,
             showTitle: model.isExpanded,
             action: {
                 if #available(iOS 17.0, *) {
@@ -32,7 +32,7 @@ struct WidgetContainerView<Content: View, ContentVM: WidgetContainerContentViewM
                 icon: contentModel.icon,
                 isExpanded: $model.isExpanded,
                 dragId: contentModel.dragId,
-                isEditalbeMode: model.isEditState,
+                homeState: model.homeState,
                 allowMenuContent: contentModel.menuItems.isNotEmpty,
                 allowContent: contentModel.allowContent,
                 headerAction: {
@@ -46,8 +46,10 @@ struct WidgetContainerView<Content: View, ContentVM: WidgetContainerContentViewM
                     content
                 }
             )
-            .contextMenu {
-                contextMenuItems
+            .if(model.homeState.isReadWrite) {
+                $0.contextMenu {
+                    contextMenuItems
+                }
             }
             .snackbar(toastBarData: $model.toastData)
         }
@@ -55,7 +57,7 @@ struct WidgetContainerView<Content: View, ContentVM: WidgetContainerContentViewM
     
     @ViewBuilder
     private var contextMenuItems: some View {
-        if !model.isEditState {
+        if model.homeState.isReadWrite {
             ForEach(contentModel.menuItems, id: \.self) {
                 menuItemToView(item: $0)
             }

@@ -11,7 +11,11 @@ import Services
 
 struct CheckPopupView<ViewModel: CheckPopupViewViewModelProtocol>: View {
     @Environment(\.presentationMode) var presentationMode
-    @ObservedObject var viewModel: ViewModel
+    @StateObject private var viewModel: ViewModel
+    
+    init(viewModel: ViewModel) {
+        _viewModel = StateObject(wrappedValue: viewModel)
+    }
 
     var body: some View {
         VStack(spacing: 0) {

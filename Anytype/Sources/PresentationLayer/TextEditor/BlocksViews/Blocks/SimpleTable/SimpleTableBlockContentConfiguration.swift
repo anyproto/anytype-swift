@@ -6,6 +6,7 @@ struct SimpleTableBlockContentConfiguration: BlockConfiguration {
 
     let info: BlockInformation
     let dependenciesBuilder: SimpleTableDependenciesBuilder
+    let onChangeHeight: () -> Void
 
     static func == (
         lhs: SimpleTableBlockContentConfiguration,

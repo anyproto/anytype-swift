@@ -128,15 +128,11 @@ class ColorView: UIView {
     /// - Parameter color: Foreground color
     /// - Parameter backgroundColor: Background color
     init(
-        selectedColor: UIColor?,
-        selectedBackgroundColor: UIColor?,
         colorViewSelectedAction: @escaping (ColorItem) -> Void,
         viewDidClose: @escaping () -> Void
     ) {
         self.colorViewSelectedAction = colorViewSelectedAction
         self.viewDidCloseHandler = viewDidClose
-        self.selectedTextColor = selectedColor
-        self.selectedBackgroundColor = selectedBackgroundColor
 
         super.init(frame: .zero)
 

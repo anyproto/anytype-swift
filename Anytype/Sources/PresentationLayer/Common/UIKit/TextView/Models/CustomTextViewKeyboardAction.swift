@@ -6,7 +6,7 @@ extension CustomTextView {
         case enterForEmpty
         case enterInside(string: NSAttributedString, NSRange)
         case enterAtTheEnd(string: NSAttributedString, NSRange)
-        case enterAtTheBegining(string: NSAttributedString, NSRange)
+        case enterAtTheBegining
         
         case delete
     }
@@ -32,7 +32,7 @@ extension CustomTextView.KeyboardAction {
             }
             
             if text.startIndex == textRange.lowerBound {
-                return .enterAtTheBegining(string: attributedText, range)
+                return .enterAtTheBegining
             }
             
             return .enterInside(string: attributedText, range)

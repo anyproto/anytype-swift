@@ -51,6 +51,7 @@ public enum Anytype_Model_SmartBlockType: SwiftProtobuf.Enum {
   case participant // = 534
   case missingObject // = 519
   case fileObject // = 533
+  case notificationObject // = 535
   case UNRECOGNIZED(Int)
 
   public init() {
@@ -82,6 +83,7 @@ public enum Anytype_Model_SmartBlockType: SwiftProtobuf.Enum {
     case 532: self = .identity
     case 533: self = .fileObject
     case 534: self = .participant
+    case 535: self = .notificationObject
     default: self = .UNRECOGNIZED(rawValue)
     }
   }
@@ -111,6 +113,7 @@ public enum Anytype_Model_SmartBlockType: SwiftProtobuf.Enum {
     case .identity: return 532
     case .fileObject: return 533
     case .participant: return 534
+    case .notificationObject: return 535
     case .UNRECOGNIZED(let i): return i
     }
   }
@@ -145,6 +148,7 @@ extension Anytype_Model_SmartBlockType: CaseIterable {
     .participant,
     .missingObject,
     .fileObject,
+    .notificationObject,
   ]
 }
 
@@ -4435,7 +4439,49 @@ public struct Anytype_Model_Notification {
     set {payload = .test(newValue)}
   }
 
+  public var participantRequestApproved: Anytype_Model_Notification.ParticipantRequestApproved {
+    get {
+      if case .participantRequestApproved(let v)? = payload {return v}
+      return Anytype_Model_Notification.ParticipantRequestApproved()
+    }
+    set {payload = .participantRequestApproved(newValue)}
+  }
+
+  public var requestToLeave: Anytype_Model_Notification.RequestToLeave {
+    get {
+      if case .requestToLeave(let v)? = payload {return v}
+      return Anytype_Model_Notification.RequestToLeave()
+    }
+    set {payload = .requestToLeave(newValue)}
+  }
+
+  public var participantRemove: Anytype_Model_Notification.ParticipantRemove {
+    get {
+      if case .participantRemove(let v)? = payload {return v}
+      return Anytype_Model_Notification.ParticipantRemove()
+    }
+    set {payload = .participantRemove(newValue)}
+  }
+
+  public var participantRequestDecline: Anytype_Model_Notification.ParticipantRequestDecline {
+    get {
+      if case .participantRequestDecline(let v)? = payload {return v}
+      return Anytype_Model_Notification.ParticipantRequestDecline()
+    }
+    set {payload = .participantRequestDecline(newValue)}
+  }
+
+  public var participantPermissionsChange: Anytype_Model_Notification.ParticipantPermissionsChange {
+    get {
+      if case .participantPermissionsChange(let v)? = payload {return v}
+      return Anytype_Model_Notification.ParticipantPermissionsChange()
+    }
+    set {payload = .participantPermissionsChange(newValue)}
+  }
+
   public var space: String = String()
+
+  public var aclHeadID: String = String()
 
   public var unknownFields = SwiftProtobuf.UnknownStorage()
 
@@ -4445,6 +4491,11 @@ public struct Anytype_Model_Notification {
     case galleryImport(Anytype_Model_Notification.GalleryImport)
     case requestToJoin(Anytype_Model_Notification.RequestToJoin)
     case test(Anytype_Model_Notification.Test)
+    case participantRequestApproved(Anytype_Model_Notification.ParticipantRequestApproved)
+    case requestToLeave(Anytype_Model_Notification.RequestToLeave)
+    case participantRemove(Anytype_Model_Notification.ParticipantRemove)
+    case participantRequestDecline(Anytype_Model_Notification.ParticipantRequestDecline)
+    case participantPermissionsChange(Anytype_Model_Notification.ParticipantPermissionsChange)
 
   #if !swift(>=4.1)
     public static func ==(lhs: Anytype_Model_Notification.OneOf_Payload, rhs: Anytype_Model_Notification.OneOf_Payload) -> Bool {
@@ -4470,6 +4521,26 @@ public struct Anytype_Model_Notification {
       }()
       case (.test, .test): return {
         guard case .test(let l) = lhs, case .test(let r) = rhs else { preconditionFailure() }
+        return l == r
+      }()
+      case (.participantRequestApproved, .participantRequestApproved): return {
+        guard case .participantRequestApproved(let l) = lhs, case .participantRequestApproved(let r) = rhs else { preconditionFailure() }
+        return l == r
+      }()
+      case (.requestToLeave, .requestToLeave): return {
+        guard case .requestToLeave(let l) = lhs, case .requestToLeave(let r) = rhs else { preconditionFailure() }
+        return l == r
+      }()
+      case (.participantRemove, .participantRemove): return {
+        guard case .participantRemove(let l) = lhs, case .participantRemove(let r) = rhs else { preconditionFailure() }
+        return l == r
+      }()
+      case (.participantRequestDecline, .participantRequestDecline): return {
+        guard case .participantRequestDecline(let l) = lhs, case .participantRequestDecline(let r) = rhs else { preconditionFailure() }
+        return l == r
+      }()
+      case (.participantPermissionsChange, .participantPermissionsChange): return {
+        guard case .participantPermissionsChange(let l) = lhs, case .participantPermissionsChange(let r) = rhs else { preconditionFailure() }
         return l == r
       }()
       default: return false
@@ -4633,6 +4704,8 @@ public struct Anytype_Model_Notification {
 
     public var identityIcon: String = String()
 
+    public var spaceName: String = String()
+
     public var unknownFields = SwiftProtobuf.UnknownStorage()
 
     public init() {}
@@ -4642,6 +4715,92 @@ public struct Anytype_Model_Notification {
     // SwiftProtobuf.Message conformance is added in an extension below. See the
     // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
     // methods supported on all messages.
+
+    public var unknownFields = SwiftProtobuf.UnknownStorage()
+
+    public init() {}
+  }
+
+  public struct ParticipantRequestApproved {
+    // SwiftProtobuf.Message conformance is added in an extension below. See the
+    // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+    // methods supported on all messages.
+
+    public var spaceID: String = String()
+
+    public var permissions: Anytype_Model_ParticipantPermissions = .reader
+
+    public var spaceName: String = String()
+
+    public var unknownFields = SwiftProtobuf.UnknownStorage()
+
+    public init() {}
+  }
+
+  public struct RequestToLeave {
+    // SwiftProtobuf.Message conformance is added in an extension below. See the
+    // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+    // methods supported on all messages.
+
+    public var spaceID: String = String()
+
+    public var identity: String = String()
+
+    public var identityName: String = String()
+
+    public var identityIcon: String = String()
+
+    public var spaceName: String = String()
+
+    public var unknownFields = SwiftProtobuf.UnknownStorage()
+
+    public init() {}
+  }
+
+  public struct ParticipantRemove {
+    // SwiftProtobuf.Message conformance is added in an extension below. See the
+    // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+    // methods supported on all messages.
+
+    public var identity: String = String()
+
+    public var identityName: String = String()
+
+    public var identityIcon: String = String()
+
+    public var spaceID: String = String()
+
+    public var spaceName: String = String()
+
+    public var unknownFields = SwiftProtobuf.UnknownStorage()
+
+    public init() {}
+  }
+
+  public struct ParticipantRequestDecline {
+    // SwiftProtobuf.Message conformance is added in an extension below. See the
+    // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+    // methods supported on all messages.
+
+    public var spaceID: String = String()
+
+    public var spaceName: String = String()
+
+    public var unknownFields = SwiftProtobuf.UnknownStorage()
+
+    public init() {}
+  }
+
+  public struct ParticipantPermissionsChange {
+    // SwiftProtobuf.Message conformance is added in an extension below. See the
+    // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+    // methods supported on all messages.
+
+    public var spaceID: String = String()
+
+    public var permissions: Anytype_Model_ParticipantPermissions = .reader
+
+    public var spaceName: String = String()
 
     public var unknownFields = SwiftProtobuf.UnknownStorage()
 
@@ -4809,6 +4968,7 @@ public struct Anytype_Model_Import {
     case importIsCanceled // = 6
     case limitOfRowsOrRelationsExceeded // = 7
     case fileLoadError // = 8
+    case insufficientPermissions // = 9
     case UNRECOGNIZED(Int)
 
     public init() {
@@ -4825,6 +4985,7 @@ public struct Anytype_Model_Import {
       case 6: self = .importIsCanceled
       case 7: self = .limitOfRowsOrRelationsExceeded
       case 8: self = .fileLoadError
+      case 9: self = .insufficientPermissions
       default: self = .UNRECOGNIZED(rawValue)
       }
     }
@@ -4839,6 +5000,7 @@ public struct Anytype_Model_Import {
       case .importIsCanceled: return 6
       case .limitOfRowsOrRelationsExceeded: return 7
       case .fileLoadError: return 8
+      case .insufficientPermissions: return 9
       case .UNRECOGNIZED(let i): return i
       }
     }
@@ -4874,6 +5036,7 @@ extension Anytype_Model_Import.ErrorCode: CaseIterable {
     .importIsCanceled,
     .limitOfRowsOrRelationsExceeded,
     .fileLoadError,
+    .insufficientPermissions,
   ]
 }
 
@@ -5121,6 +5284,11 @@ extension Anytype_Model_Notification.Export.Code: @unchecked Sendable {}
 extension Anytype_Model_Notification.GalleryImport: @unchecked Sendable {}
 extension Anytype_Model_Notification.RequestToJoin: @unchecked Sendable {}
 extension Anytype_Model_Notification.Test: @unchecked Sendable {}
+extension Anytype_Model_Notification.ParticipantRequestApproved: @unchecked Sendable {}
+extension Anytype_Model_Notification.RequestToLeave: @unchecked Sendable {}
+extension Anytype_Model_Notification.ParticipantRemove: @unchecked Sendable {}
+extension Anytype_Model_Notification.ParticipantRequestDecline: @unchecked Sendable {}
+extension Anytype_Model_Notification.ParticipantPermissionsChange: @unchecked Sendable {}
 extension Anytype_Model_Export: @unchecked Sendable {}
 extension Anytype_Model_Export.Format: @unchecked Sendable {}
 extension Anytype_Model_Import: @unchecked Sendable {}
@@ -5163,6 +5331,7 @@ extension Anytype_Model_SmartBlockType: SwiftProtobuf._ProtoNameProviding {
     532: .same(proto: "Identity"),
     533: .same(proto: "FileObject"),
     534: .same(proto: "Participant"),
+    535: .same(proto: "NotificationObject"),
   ]
 }
 
@@ -9329,7 +9498,13 @@ extension Anytype_Model_Notification: SwiftProtobuf.Message, SwiftProtobuf._Mess
     9: .same(proto: "galleryImport"),
     10: .same(proto: "requestToJoin"),
     11: .same(proto: "test"),
+    13: .same(proto: "participantRequestApproved"),
+    15: .same(proto: "requestToLeave"),
+    16: .same(proto: "participantRemove"),
+    17: .same(proto: "participantRequestDecline"),
+    18: .same(proto: "participantPermissionsChange"),
     7: .same(proto: "space"),
+    14: .same(proto: "aclHeadId"),
   ]
 
   public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
@@ -9408,6 +9583,72 @@ extension Anytype_Model_Notification: SwiftProtobuf.Message, SwiftProtobuf._Mess
           self.payload = .test(v)
         }
       }()
+      case 13: try {
+        var v: Anytype_Model_Notification.ParticipantRequestApproved?
+        var hadOneofValue = false
+        if let current = self.payload {
+          hadOneofValue = true
+          if case .participantRequestApproved(let m) = current {v = m}
+        }
+        try decoder.decodeSingularMessageField(value: &v)
+        if let v = v {
+          if hadOneofValue {try decoder.handleConflictingOneOf()}
+          self.payload = .participantRequestApproved(v)
+        }
+      }()
+      case 14: try { try decoder.decodeSingularStringField(value: &self.aclHeadID) }()
+      case 15: try {
+        var v: Anytype_Model_Notification.RequestToLeave?
+        var hadOneofValue = false
+        if let current = self.payload {
+          hadOneofValue = true
+          if case .requestToLeave(let m) = current {v = m}
+        }
+        try decoder.decodeSingularMessageField(value: &v)
+        if let v = v {
+          if hadOneofValue {try decoder.handleConflictingOneOf()}
+          self.payload = .requestToLeave(v)
+        }
+      }()
+      case 16: try {
+        var v: Anytype_Model_Notification.ParticipantRemove?
+        var hadOneofValue = false
+        if let current = self.payload {
+          hadOneofValue = true
+          if case .participantRemove(let m) = current {v = m}
+        }
+        try decoder.decodeSingularMessageField(value: &v)
+        if let v = v {
+          if hadOneofValue {try decoder.handleConflictingOneOf()}
+          self.payload = .participantRemove(v)
+        }
+      }()
+      case 17: try {
+        var v: Anytype_Model_Notification.ParticipantRequestDecline?
+        var hadOneofValue = false
+        if let current = self.payload {
+          hadOneofValue = true
+          if case .participantRequestDecline(let m) = current {v = m}
+        }
+        try decoder.decodeSingularMessageField(value: &v)
+        if let v = v {
+          if hadOneofValue {try decoder.handleConflictingOneOf()}
+          self.payload = .participantRequestDecline(v)
+        }
+      }()
+      case 18: try {
+        var v: Anytype_Model_Notification.ParticipantPermissionsChange?
+        var hadOneofValue = false
+        if let current = self.payload {
+          hadOneofValue = true
+          if case .participantPermissionsChange(let m) = current {v = m}
+        }
+        try decoder.decodeSingularMessageField(value: &v)
+        if let v = v {
+          if hadOneofValue {try decoder.handleConflictingOneOf()}
+          self.payload = .participantPermissionsChange(v)
+        }
+      }()
       default: break
       }
     }
@@ -9453,6 +9694,32 @@ extension Anytype_Model_Notification: SwiftProtobuf.Message, SwiftProtobuf._Mess
       guard case .test(let v)? = self.payload else { preconditionFailure() }
       try visitor.visitSingularMessageField(value: v, fieldNumber: 11)
     }()
+    case .participantRequestApproved?: try {
+      guard case .participantRequestApproved(let v)? = self.payload else { preconditionFailure() }
+      try visitor.visitSingularMessageField(value: v, fieldNumber: 13)
+    }()
+    default: break
+    }
+    if !self.aclHeadID.isEmpty {
+      try visitor.visitSingularStringField(value: self.aclHeadID, fieldNumber: 14)
+    }
+    switch self.payload {
+    case .requestToLeave?: try {
+      guard case .requestToLeave(let v)? = self.payload else { preconditionFailure() }
+      try visitor.visitSingularMessageField(value: v, fieldNumber: 15)
+    }()
+    case .participantRemove?: try {
+      guard case .participantRemove(let v)? = self.payload else { preconditionFailure() }
+      try visitor.visitSingularMessageField(value: v, fieldNumber: 16)
+    }()
+    case .participantRequestDecline?: try {
+      guard case .participantRequestDecline(let v)? = self.payload else { preconditionFailure() }
+      try visitor.visitSingularMessageField(value: v, fieldNumber: 17)
+    }()
+    case .participantPermissionsChange?: try {
+      guard case .participantPermissionsChange(let v)? = self.payload else { preconditionFailure() }
+      try visitor.visitSingularMessageField(value: v, fieldNumber: 18)
+    }()
     default: break
     }
     try unknownFields.traverse(visitor: &visitor)
@@ -9465,6 +9732,7 @@ extension Anytype_Model_Notification: SwiftProtobuf.Message, SwiftProtobuf._Mess
     if lhs.isLocal != rhs.isLocal {return false}
     if lhs.payload != rhs.payload {return false}
     if lhs.space != rhs.space {return false}
+    if lhs.aclHeadID != rhs.aclHeadID {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
@@ -9644,6 +9912,7 @@ extension Anytype_Model_Notification.RequestToJoin: SwiftProtobuf.Message, Swift
     2: .same(proto: "identity"),
     3: .same(proto: "identityName"),
     4: .same(proto: "identityIcon"),
+    5: .same(proto: "spaceName"),
   ]
 
   public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
@@ -9656,6 +9925,7 @@ extension Anytype_Model_Notification.RequestToJoin: SwiftProtobuf.Message, Swift
       case 2: try { try decoder.decodeSingularStringField(value: &self.identity) }()
       case 3: try { try decoder.decodeSingularStringField(value: &self.identityName) }()
       case 4: try { try decoder.decodeSingularStringField(value: &self.identityIcon) }()
+      case 5: try { try decoder.decodeSingularStringField(value: &self.spaceName) }()
       default: break
       }
     }
@@ -9674,6 +9944,9 @@ extension Anytype_Model_Notification.RequestToJoin: SwiftProtobuf.Message, Swift
     if !self.identityIcon.isEmpty {
       try visitor.visitSingularStringField(value: self.identityIcon, fieldNumber: 4)
     }
+    if !self.spaceName.isEmpty {
+      try visitor.visitSingularStringField(value: self.spaceName, fieldNumber: 5)
+    }
     try unknownFields.traverse(visitor: &visitor)
   }
 
@@ -9682,6 +9955,7 @@ extension Anytype_Model_Notification.RequestToJoin: SwiftProtobuf.Message, Swift
     if lhs.identity != rhs.identity {return false}
     if lhs.identityName != rhs.identityName {return false}
     if lhs.identityIcon != rhs.identityIcon {return false}
+    if lhs.spaceName != rhs.spaceName {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
@@ -9701,6 +9975,244 @@ extension Anytype_Model_Notification.Test: SwiftProtobuf.Message, SwiftProtobuf.
   }
 
   public static func ==(lhs: Anytype_Model_Notification.Test, rhs: Anytype_Model_Notification.Test) -> Bool {
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    return true
+  }
+}
+
+extension Anytype_Model_Notification.ParticipantRequestApproved: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = Anytype_Model_Notification.protoMessageName + ".ParticipantRequestApproved"
+  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    1: .same(proto: "spaceId"),
+    2: .same(proto: "permissions"),
+    5: .same(proto: "spaceName"),
+  ]
+
+  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let fieldNumber = try decoder.nextFieldNumber() {
+      // The use of inline closures is to circumvent an issue where the compiler
+      // allocates stack space for every case branch when no optimizations are
+      // enabled. https://github.com/apple/swift-protobuf/issues/1034
+      switch fieldNumber {
+      case 1: try { try decoder.decodeSingularStringField(value: &self.spaceID) }()
+      case 2: try { try decoder.decodeSingularEnumField(value: &self.permissions) }()
+      case 5: try { try decoder.decodeSingularStringField(value: &self.spaceName) }()
+      default: break
+      }
+    }
+  }
+
+  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    if !self.spaceID.isEmpty {
+      try visitor.visitSingularStringField(value: self.spaceID, fieldNumber: 1)
+    }
+    if self.permissions != .reader {
+      try visitor.visitSingularEnumField(value: self.permissions, fieldNumber: 2)
+    }
+    if !self.spaceName.isEmpty {
+      try visitor.visitSingularStringField(value: self.spaceName, fieldNumber: 5)
+    }
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  public static func ==(lhs: Anytype_Model_Notification.ParticipantRequestApproved, rhs: Anytype_Model_Notification.ParticipantRequestApproved) -> Bool {
+    if lhs.spaceID != rhs.spaceID {return false}
+    if lhs.permissions != rhs.permissions {return false}
+    if lhs.spaceName != rhs.spaceName {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    return true
+  }
+}
+
+extension Anytype_Model_Notification.RequestToLeave: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = Anytype_Model_Notification.protoMessageName + ".RequestToLeave"
+  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    1: .same(proto: "spaceId"),
+    2: .same(proto: "identity"),
+    3: .same(proto: "identityName"),
+    4: .same(proto: "identityIcon"),
+    5: .same(proto: "spaceName"),
+  ]
+
+  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let fieldNumber = try decoder.nextFieldNumber() {
+      // The use of inline closures is to circumvent an issue where the compiler
+      // allocates stack space for every case branch when no optimizations are
+      // enabled. https://github.com/apple/swift-protobuf/issues/1034
+      switch fieldNumber {
+      case 1: try { try decoder.decodeSingularStringField(value: &self.spaceID) }()
+      case 2: try { try decoder.decodeSingularStringField(value: &self.identity) }()
+      case 3: try { try decoder.decodeSingularStringField(value: &self.identityName) }()
+      case 4: try { try decoder.decodeSingularStringField(value: &self.identityIcon) }()
+      case 5: try { try decoder.decodeSingularStringField(value: &self.spaceName) }()
+      default: break
+      }
+    }
+  }
+
+  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    if !self.spaceID.isEmpty {
+      try visitor.visitSingularStringField(value: self.spaceID, fieldNumber: 1)
+    }
+    if !self.identity.isEmpty {
+      try visitor.visitSingularStringField(value: self.identity, fieldNumber: 2)
+    }
+    if !self.identityName.isEmpty {
+      try visitor.visitSingularStringField(value: self.identityName, fieldNumber: 3)
+    }
+    if !self.identityIcon.isEmpty {
+      try visitor.visitSingularStringField(value: self.identityIcon, fieldNumber: 4)
+    }
+    if !self.spaceName.isEmpty {
+      try visitor.visitSingularStringField(value: self.spaceName, fieldNumber: 5)
+    }
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  public static func ==(lhs: Anytype_Model_Notification.RequestToLeave, rhs: Anytype_Model_Notification.RequestToLeave) -> Bool {
+    if lhs.spaceID != rhs.spaceID {return false}
+    if lhs.identity != rhs.identity {return false}
+    if lhs.identityName != rhs.identityName {return false}
+    if lhs.identityIcon != rhs.identityIcon {return false}
+    if lhs.spaceName != rhs.spaceName {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    return true
+  }
+}
+
+extension Anytype_Model_Notification.ParticipantRemove: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = Anytype_Model_Notification.protoMessageName + ".ParticipantRemove"
+  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    1: .same(proto: "identity"),
+    2: .same(proto: "identityName"),
+    3: .same(proto: "identityIcon"),
+    4: .same(proto: "spaceId"),
+    5: .same(proto: "spaceName"),
+  ]
+
+  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let fieldNumber = try decoder.nextFieldNumber() {
+      // The use of inline closures is to circumvent an issue where the compiler
+      // allocates stack space for every case branch when no optimizations are
+      // enabled. https://github.com/apple/swift-protobuf/issues/1034
+      switch fieldNumber {
+      case 1: try { try decoder.decodeSingularStringField(value: &self.identity) }()
+      case 2: try { try decoder.decodeSingularStringField(value: &self.identityName) }()
+      case 3: try { try decoder.decodeSingularStringField(value: &self.identityIcon) }()
+      case 4: try { try decoder.decodeSingularStringField(value: &self.spaceID) }()
+      case 5: try { try decoder.decodeSingularStringField(value: &self.spaceName) }()
+      default: break
+      }
+    }
+  }
+
+  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    if !self.identity.isEmpty {
+      try visitor.visitSingularStringField(value: self.identity, fieldNumber: 1)
+    }
+    if !self.identityName.isEmpty {
+      try visitor.visitSingularStringField(value: self.identityName, fieldNumber: 2)
+    }
+    if !self.identityIcon.isEmpty {
+      try visitor.visitSingularStringField(value: self.identityIcon, fieldNumber: 3)
+    }
+    if !self.spaceID.isEmpty {
+      try visitor.visitSingularStringField(value: self.spaceID, fieldNumber: 4)
+    }
+    if !self.spaceName.isEmpty {
+      try visitor.visitSingularStringField(value: self.spaceName, fieldNumber: 5)
+    }
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  public static func ==(lhs: Anytype_Model_Notification.ParticipantRemove, rhs: Anytype_Model_Notification.ParticipantRemove) -> Bool {
+    if lhs.identity != rhs.identity {return false}
+    if lhs.identityName != rhs.identityName {return false}
+    if lhs.identityIcon != rhs.identityIcon {return false}
+    if lhs.spaceID != rhs.spaceID {return false}
+    if lhs.spaceName != rhs.spaceName {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    return true
+  }
+}
+
+extension Anytype_Model_Notification.ParticipantRequestDecline: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = Anytype_Model_Notification.protoMessageName + ".ParticipantRequestDecline"
+  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    1: .same(proto: "spaceId"),
+    3: .same(proto: "spaceName"),
+  ]
+
+  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let fieldNumber = try decoder.nextFieldNumber() {
+      // The use of inline closures is to circumvent an issue where the compiler
+      // allocates stack space for every case branch when no optimizations are
+      // enabled. https://github.com/apple/swift-protobuf/issues/1034
+      switch fieldNumber {
+      case 1: try { try decoder.decodeSingularStringField(value: &self.spaceID) }()
+      case 3: try { try decoder.decodeSingularStringField(value: &self.spaceName) }()
+      default: break
+      }
+    }
+  }
+
+  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    if !self.spaceID.isEmpty {
+      try visitor.visitSingularStringField(value: self.spaceID, fieldNumber: 1)
+    }
+    if !self.spaceName.isEmpty {
+      try visitor.visitSingularStringField(value: self.spaceName, fieldNumber: 3)
+    }
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  public static func ==(lhs: Anytype_Model_Notification.ParticipantRequestDecline, rhs: Anytype_Model_Notification.ParticipantRequestDecline) -> Bool {
+    if lhs.spaceID != rhs.spaceID {return false}
+    if lhs.spaceName != rhs.spaceName {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    return true
+  }
+}
+
+extension Anytype_Model_Notification.ParticipantPermissionsChange: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = Anytype_Model_Notification.protoMessageName + ".ParticipantPermissionsChange"
+  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    1: .same(proto: "spaceId"),
+    2: .same(proto: "permissions"),
+    3: .same(proto: "spaceName"),
+  ]
+
+  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let fieldNumber = try decoder.nextFieldNumber() {
+      // The use of inline closures is to circumvent an issue where the compiler
+      // allocates stack space for every case branch when no optimizations are
+      // enabled. https://github.com/apple/swift-protobuf/issues/1034
+      switch fieldNumber {
+      case 1: try { try decoder.decodeSingularStringField(value: &self.spaceID) }()
+      case 2: try { try decoder.decodeSingularEnumField(value: &self.permissions) }()
+      case 3: try { try decoder.decodeSingularStringField(value: &self.spaceName) }()
+      default: break
+      }
+    }
+  }
+
+  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    if !self.spaceID.isEmpty {
+      try visitor.visitSingularStringField(value: self.spaceID, fieldNumber: 1)
+    }
+    if self.permissions != .reader {
+      try visitor.visitSingularEnumField(value: self.permissions, fieldNumber: 2)
+    }
+    if !self.spaceName.isEmpty {
+      try visitor.visitSingularStringField(value: self.spaceName, fieldNumber: 3)
+    }
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  public static func ==(lhs: Anytype_Model_Notification.ParticipantPermissionsChange, rhs: Anytype_Model_Notification.ParticipantPermissionsChange) -> Bool {
+    if lhs.spaceID != rhs.spaceID {return false}
+    if lhs.permissions != rhs.permissions {return false}
+    if lhs.spaceName != rhs.spaceName {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
@@ -9777,6 +10289,7 @@ extension Anytype_Model_Import.ErrorCode: SwiftProtobuf._ProtoNameProviding {
     6: .same(proto: "IMPORT_IS_CANCELED"),
     7: .same(proto: "LIMIT_OF_ROWS_OR_RELATIONS_EXCEEDED"),
     8: .same(proto: "FILE_LOAD_ERROR"),
+    9: .same(proto: "INSUFFICIENT_PERMISSIONS"),
   ]
 }
 

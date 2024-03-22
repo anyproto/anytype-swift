@@ -117,6 +117,34 @@ extension UIColor {
       internal static let white = UIColor(asset: Asset.Button.white)
     }
     
+    // MARK: - Gradients
+    enum Gradients {
+      internal static let blueEnd = UIColor(asset: Asset.Gradients.blueEnd)
+      internal static let bluePinkEnd = UIColor(asset: Asset.Gradients.bluePinkEnd)
+      internal static let bluePinkStart = UIColor(asset: Asset.Gradients.bluePinkStart)
+      internal static let blueStart = UIColor(asset: Asset.Gradients.blueStart)
+      internal static let fadingBlue = UIColor(asset: Asset.Gradients.fadingBlue)
+      internal static let fadingGreen = UIColor(asset: Asset.Gradients.fadingGreen)
+      internal static let fadingPink = UIColor(asset: Asset.Gradients.fadingPink)
+      internal static let fadingPurple = UIColor(asset: Asset.Gradients.fadingPurple)
+      internal static let fadingRed = UIColor(asset: Asset.Gradients.fadingRed)
+      internal static let fadingSky = UIColor(asset: Asset.Gradients.fadingSky)
+      internal static let fadingTeal = UIColor(asset: Asset.Gradients.fadingTeal)
+      internal static let fadingYellow = UIColor(asset: Asset.Gradients.fadingYellow)
+      internal static let greenOrangeEnd = UIColor(asset: Asset.Gradients.greenOrangeEnd)
+      internal static let greenOrangeStart = UIColor(asset: Asset.Gradients.greenOrangeStart)
+      internal static let pinkOrangeEnd = UIColor(asset: Asset.Gradients.pinkOrangeEnd)
+      internal static let pinkOrangeStart = UIColor(asset: Asset.Gradients.pinkOrangeStart)
+      internal static let redEnd = UIColor(asset: Asset.Gradients.redEnd)
+      internal static let redStart = UIColor(asset: Asset.Gradients.redStart)
+      internal static let skyEnd = UIColor(asset: Asset.Gradients.skyEnd)
+      internal static let skyStart = UIColor(asset: Asset.Gradients.skyStart)
+      internal static let tealEnd = UIColor(asset: Asset.Gradients.tealEnd)
+      internal static let tealStart = UIColor(asset: Asset.Gradients.tealStart)
+      internal static let yellowEnd = UIColor(asset: Asset.Gradients.yellowEnd)
+      internal static let yellowStart = UIColor(asset: Asset.Gradients.yellowStart)
+    }
+    
     // MARK: - ModalScreen
     enum ModalScreen {
       internal static let background = UIColor(asset: Asset.ModalScreen.background)

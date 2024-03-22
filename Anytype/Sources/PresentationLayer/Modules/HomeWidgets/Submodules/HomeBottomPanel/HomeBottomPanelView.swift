@@ -7,11 +7,11 @@ struct HomeBottomPanelView: View {
     
     var body: some View {
         VStack(spacing: 0) {
-            if model.isEditState {
+            if model.homeState.isEditWidgets {
                 editButtons
             }
         }
-        .animation(.default, value: model.isEditState)
+        .animation(.default, value: model.homeState)
     }
     
     private var editButtons: some View {

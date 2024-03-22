@@ -24,7 +24,7 @@ extension BlockLinkState {
 
     var attributedDescription: NSAttributedString {
         guard !deleted, descriptionState.hasDescription, description.isNotEmpty else {
-            return NSAttributedString(string: .empty)
+            return NSAttributedString(string: "")
         }
 
         return NSAttributedString(
@@ -35,7 +35,7 @@ extension BlockLinkState {
 
     var attributedType: NSAttributedString {
         guard !deleted, let type = type else {
-            return NSAttributedString(string: .empty)
+            return NSAttributedString(string: "")
         }
 
         return NSAttributedString(

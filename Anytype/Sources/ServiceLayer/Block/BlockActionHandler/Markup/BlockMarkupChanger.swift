@@ -3,67 +3,76 @@ import Services
 import Foundation
 
 final class BlockMarkupChanger: BlockMarkupChangerProtocol {
-    
-    private let document: BaseDocumentProtocol
-    
-    init(document: BaseDocumentProtocol) {
-        self.document = document
+    func toggleMarkup(
+        _ attributedString: NSAttributedString,
+        markup: MarkupType,
+        contentType: BlockContentType
+    ) -> NSAttributedString {
+
+        let range = attributedString.wholeRange
+        
+        return toggleMarkup(attributedString, markup: markup, range: range, contentType: contentType)
     }
     
-    func toggleMarkup(_ markup: MarkupType, blockId: BlockId)  -> NSAttributedString? {
-        guard let info = document.infoContainer.get(id: blockId) else { return nil }
-        guard case let .text(blockText) = info.content else { return nil }
-        
-        let range = blockText.anytypeText(document: document).attrString.wholeRange
-        
-        return toggleMarkup(markup, blockId: blockId, range: range)
-    }
-    
-    func toggleMarkup(_ markup: MarkupType, blockId: BlockId, range: NSRange) -> NSAttributedString? {
-        guard let content = blockData(blockId: blockId) else { return nil }
-
-        let restrictions = BlockRestrictionsBuilder.build(textContentType: content.contentType)
-
-        guard restrictions.isMarkupAvailable(markup) else { return nil }
-
-        let attributedText = content.anytypeText(document: document).attrString
-        let shouldApplyMarkup = !attributedText.hasMarkup(markup, range: range)
+    func toggleMarkup(
+        _ attributedString: NSAttributedString,
+        markup: MarkupType,
+        range: NSRange,
+        contentType: BlockContentType
+    ) -> NSAttributedString {
+        let shouldApplyMarkup = !attributedString.hasMarkup(markup, range: range)
 
         return apply(
             markup,
             shouldApplyMarkup: shouldApplyMarkup,
-            content: content,
-            attributedText: attributedText,
+            contentType: contentType,
+            attributedString: attributedString,
             range: range
         )
     }
 
     func setMarkup(
-        _ markup: MarkupType, blockId: BlockId, range: NSRange, currentText: NSAttributedString?
-    ) -> NSAttributedString? {
-        return updateMarkup(markup, shouldApplyMarkup: true, blockId: blockId, range: range, currentText: currentText)
+        _ markup: MarkupType,
+        range: NSRange,
+        attributedString: NSAttributedString,
+        contentType: BlockContentType
+    ) -> NSAttributedString {
+        updateMarkup(
+            markup,
+            shouldApplyMarkup: true,
+            contentType: contentType,
+            range: range,
+            attributedString: attributedString
+        )
     }
 
-    func removeMarkup(_ markup: MarkupType, blockId: BlockId, range: NSRange) -> NSAttributedString? {
-        return updateMarkup(markup, shouldApplyMarkup: false, blockId: blockId, range: range)
+    func removeMarkup(
+        _ markup: MarkupType,
+        range: NSRange,
+        contentType: BlockContentType,
+        attributedString: NSAttributedString
+    ) -> NSAttributedString {
+        updateMarkup(
+            markup,
+            shouldApplyMarkup: false,
+            contentType: contentType,
+            range: range,
+            attributedString: attributedString
+        )
     }
 
     private func updateMarkup(
-        _ markup: MarkupType, shouldApplyMarkup: Bool, blockId: BlockId, range: NSRange, currentText: NSAttributedString? = nil
-    ) -> NSAttributedString? {
-        guard let content = blockData(blockId: blockId) else { return nil }
-
-        let restrictions = BlockRestrictionsBuilder.build(textContentType: content.contentType)
-
-        guard restrictions.isMarkupAvailable(markup) else { return nil }
-
-        let attributedText = currentText ?? content.anytypeText(document: document).attrString
-
-        return apply(
+        _ markup: MarkupType,
+        shouldApplyMarkup: Bool,
+        contentType: BlockContentType,
+        range: NSRange,
+        attributedString: NSAttributedString
+    ) -> NSAttributedString {
+        apply(
             markup,
             shouldApplyMarkup: shouldApplyMarkup,
-            content: content,
-            attributedText: attributedText,
+            contentType: contentType,
+            attributedString: attributedString,
             range: range
         )
     }
@@ -72,16 +81,18 @@ final class BlockMarkupChanger: BlockMarkupChangerProtocol {
     private func apply(
         _ action: MarkupType,
         shouldApplyMarkup: Bool,
-        content: BlockText,
-        attributedText: NSAttributedString,
+        contentType: BlockContentType,
+        attributedString: NSAttributedString,
         range: NSRange
-    ) -> NSAttributedString? {
+    ) -> NSAttributedString {
         // Ignore changing markup in empty string
-        guard range.length != 0 else { return nil }
+        guard range.length != 0 else { return attributedString }
+        guard case let .text(style) = contentType else { return attributedString }
+        
         
         let modifier = MarkStyleModifier(
-            attributedString: attributedText,
-            anytypeFont: content.contentType.uiFont
+            attributedString: attributedString,
+            anytypeFont: style.uiFont
         )
         
         modifier.apply(action, shouldApplyMarkup: shouldApplyMarkup, range: range)
@@ -99,17 +110,5 @@ final class BlockMarkupChanger: BlockMarkupChangerProtocol {
         }
 
         return NSAttributedString(attributedString: modifier.attributedString)
-    }
-    
-    private func blockData(blockId: BlockId) -> BlockText? {
-        guard let info = document.infoContainer.get(id: blockId) else {
-            anytypeAssertionFailure("Can't find block", info: ["blockId": blockId])
-            return nil
-        }
-        guard case let .text(content) = info.content else {
-            anytypeAssertionFailure("Unexpected block type", info: ["type": "\(info.content.type)"])
-            return nil
-        }
-        return content
     }
 }

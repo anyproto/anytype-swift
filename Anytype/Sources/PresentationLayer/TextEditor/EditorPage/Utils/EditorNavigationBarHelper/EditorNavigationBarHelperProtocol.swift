@@ -10,6 +10,7 @@ protocol EditorNavigationBarHelperProtocol {
     
     func configureNavigationBar(using header: ObjectHeader)
     func configureNavigationTitle(using details: ObjectDetails?, templatesCount: Int)
+    func updatePermissions(_ permissions: ObjectPermissions)
     
     func editorEditingStateDidChange(_ state: EditorEditingState)
 }

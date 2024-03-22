@@ -15,5 +15,18 @@ struct EditorSetCoordinatorView: View {
             .onChange(of: model.dismiss) { _ in
                 dismiss()
             }
+            .sheet(item: $model.setQueryData) { data in
+                model.setQuery(data)
+            }
+            .sheet(item: $model.relationValueData) { data in
+                model.relationValueCoordinator(data: data)
+            }
+            .anytypeSheet(item: $model.setViewPickerData) { data in
+                model.setViewPicker(data: data)
+            }
+            .anytypeSheet(item: $model.setViewSettingsData) { data in
+                model.setViewSettings(data: data)
+            }
+            .snackbar(toastBarData: $model.toastBarData)
     }
 }

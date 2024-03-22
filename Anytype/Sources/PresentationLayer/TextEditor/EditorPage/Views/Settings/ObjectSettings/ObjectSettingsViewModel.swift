@@ -10,12 +10,13 @@ enum ObjectSettingsAction {
     case icon(ObjectIconPickerAction)
 }
 
+@MainActor
 protocol ObjectSettingsModelOutput: AnyObject, ObjectHeaderRouterProtocol {
     func undoRedoAction(document: BaseDocumentProtocol)
     func layoutPickerAction(document: BaseDocumentProtocol)
     func relationsAction(document: BaseDocumentProtocol)
     func openPageAction(screenData: EditorScreenData)
-    func linkToAction(document: BaseDocumentProtocol, onSelect: @escaping (BlockId) -> ())
+    func linkToAction(document: BaseDocumentProtocol, onSelect: @escaping (String) -> ())
     func closeEditorAction()
 }
 
@@ -32,15 +33,13 @@ final class ObjectSettingsViewModel: ObservableObject {
         guard let details = document.details else { return [] }
         return settingsBuilder.build(
             details: details,
-            restrictions: objectActionsViewModel.objectRestrictions,
-            isReadonly: document.isLocked || document.isArchived
+            permissions: document.permissions
         )
     }
     
     let objectActionsViewModel: ObjectActionsViewModel
 
     private let document: BaseDocumentProtocol
-    private let objectDetailsService: DetailsServiceProtocol
     private let settingsBuilder = ObjectSettingBuilder()
     private let settingsActionHandler: (ObjectSettingsAction) -> Void
     
@@ -51,7 +50,6 @@ final class ObjectSettingsViewModel: ObservableObject {
     private weak var delegate: ObjectSettingsModuleDelegate?
     init(
         document: BaseDocumentProtocol,
-        objectDetailsService: DetailsServiceProtocol,
         objectActionsService: ObjectActionsServiceProtocol,
         blockService: BlockServiceProtocol,
         templatesService: TemplatesServiceProtocol,
@@ -63,7 +61,6 @@ final class ObjectSettingsViewModel: ObservableObject {
         documentsProvider: DocumentsProviderProtocol
     ) {
         self.document = document
-        self.objectDetailsService = objectDetailsService
         self.output = output
         self.delegate = delegate
         self.settingsActionHandler = settingsActionHandler
@@ -132,7 +129,7 @@ final class ObjectSettingsViewModel: ObservableObject {
     
     // MARK: - Private
     private func setupSubscription() {
-        subscription = document.updatePublisher.sink { [weak self] _ in
+        subscription = document.syncPublisher.sink { [weak self] in
             self?.onDocumentUpdate()
         }
     }
@@ -143,7 +140,6 @@ final class ObjectSettingsViewModel: ObservableObject {
             objectActionsViewModel.details = details
         }
         objectActionsViewModel.isLocked = document.isLocked
-        objectActionsViewModel.isArchived = document.isArchived
-        objectActionsViewModel.objectRestrictions = document.objectRestrictions
+        objectActionsViewModel.permissions = document.permissions
     }
 }

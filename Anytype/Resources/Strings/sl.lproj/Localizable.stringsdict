@@ -202,5 +202,45 @@
         <string>Link %d Blocks</string>
       </dict>
     </dict>
+    <key>SpaceShare.Invite.MaxLimit</key>
+    <dict>
+      <key>NSStringLocalizedFormatKey</key>
+      <string>%#@object@</string>
+      <key>object</key>
+      <dict>
+        <key>one</key>
+        <string>You have reached the limit of %d members. New members will not be able to join.</string>
+        <key>two</key>
+        <string>You have reached the limit of %d members. New members will not be able to join.</string>
+        <key>few</key>
+        <string>You have reached the limit of %d members. New members will not be able to join.</string>
+        <key>NSStringFormatSpecTypeKey</key>
+        <string>NSStringPluralRuleType</string>
+        <key>NSStringFormatValueTypeKey</key>
+        <string>d</string>
+        <key>other</key>
+        <string>You have reached the limit of %d members. New members will not be able to join.</string>
+      </dict>
+    </dict>
+    <key>Space.MembersCount</key>
+    <dict>
+      <key>NSStringLocalizedFormatKey</key>
+      <string>%#@object@</string>
+      <key>object</key>
+      <dict>
+        <key>NSStringFormatSpecTypeKey</key>
+        <string>NSStringPluralRuleType</string>
+        <key>NSStringFormatValueTypeKey</key>
+        <string>d</string>
+        <key>other</key>
+        <string>%d members</string>
+        <key>one</key>
+        <string>%d member</string>
+        <key>two</key>
+        <string>%d members</string>
+        <key>few</key>
+        <string>%d members</string>
+      </dict>
+    </dict>
   </dict>
 </plist>

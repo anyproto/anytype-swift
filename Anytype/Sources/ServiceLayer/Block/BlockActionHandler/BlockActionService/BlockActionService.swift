@@ -6,7 +6,7 @@ import ProtobufMessages
 import AnytypeCore
 
 final class BlockActionService: BlockActionServiceProtocol {
-    private let documentId: BlockId
+    private let documentId: String
 
     private let objectActionService: ObjectActionsServiceProtocol
     private let textServiceHandler: TextServiceProtocol
@@ -42,41 +42,38 @@ final class BlockActionService: BlockActionServiceProtocol {
 
     // MARK: Actions
 
-    func addChild(info: BlockInformation, parentId: BlockId) {
-        add(info: info, targetBlockId: parentId, position: .inner)
+    func addChild(info: BlockInformation, parentId: String) async throws {
+        try await add(info: info, targetBlockId: parentId, position: .inner)
     }
 
-    func add(info: BlockInformation, targetBlockId: BlockId, position: BlockPosition, setFocus: Bool) {
-        Task {
-            let blockId = try await blockService.add(contextId: documentId, targetId: targetBlockId, info: info, position: position)
-            
-            if setFocus {
-                cursorManager.blockFocus = .init(id: blockId, position: .beginning)
-            }
+    func add(info: BlockInformation, targetBlockId: String, position: BlockPosition, setFocus: Bool) async throws {
+        let blockId = try await blockService.add(contextId: documentId, targetId: targetBlockId, info: info, position: position)
+        
+        if setFocus {
+            cursorManager.blockFocus = BlockFocus(id: blockId, position: .beginning)
         }
     }
 
     func split(
         _ string: NSAttributedString,
-        blockId: BlockId,
+        blockId: String,
         mode: Anytype_Rpc.Block.Split.Request.Mode,
         range: NSRange,
         newBlockContentType: BlockText.Style
-    ) {
-        Task {
-            let blockId = try await textServiceHandler.split(
-                contextId: documentId,
-                blockId: blockId,
-                range: range,
-                style: newBlockContentType,
-                mode: mode
-            )
-            
-            cursorManager.blockFocus = .init(id: blockId, position: .beginning)
-        }
+    ) async throws {
+        let blockId = try await textServiceHandler.split(
+            contextId: documentId,
+            blockId: blockId,
+            range: range,
+            style: newBlockContentType,
+            mode: mode
+        )
+
+        cursorManager.focus(at: blockId, position: .beginning)
+        cursorManager.blockFocus = BlockFocus(id: blockId, position: .beginning)
     }
 
-    func duplicate(blockId: BlockId) {
+    func duplicate(blockId: String) {
         Task {
             try await blockService.duplicate(
                 contextId: documentId,
@@ -87,7 +84,7 @@ final class BlockActionService: BlockActionServiceProtocol {
         }
     }
 
-    func createPage(targetId: BlockId, spaceId: String, typeUniqueKey: ObjectTypeUniqueKey, position: BlockPosition, templateId: String) async throws -> BlockId {
+    func createPage(targetId: String, spaceId: String, typeUniqueKey: ObjectTypeUniqueKey, position: BlockPosition, templateId: String) async throws -> String {
         try await blockService.createBlockLink(
             contextId: documentId,
             targetId: targetId,
@@ -99,13 +96,11 @@ final class BlockActionService: BlockActionServiceProtocol {
         )
     }
 
-    func turnInto(_ style: BlockText.Style, blockId: BlockId) {
-        Task {
-            try await textServiceHandler.setStyle(contextId: documentId, blockId: blockId, style: style)
-        }
+    func turnInto(_ style: BlockText.Style, blockId: String) async throws {
+        try await textServiceHandler.setStyle(contextId: documentId, blockId: blockId, style: style)
     }
     
-    func turnIntoPage(blockId: BlockId, spaceId: String) async throws -> BlockId? {
+    func turnIntoPage(blockId: String, spaceId: String) async throws -> String? {
         let pageType = try objectTypeProvider.objectType(uniqueKey: .page, spaceId: spaceId)
         AnytypeAnalytics.instance().logCreateObject(objectType: pageType.analyticsType, route: .turnInto)
 
@@ -116,45 +111,46 @@ final class BlockActionService: BlockActionServiceProtocol {
         ).first
     }
     
-    func checked(blockId: BlockId, newValue: Bool) {
+    func checked(blockId: String, newValue: Bool) {
         Task {
             try await textServiceHandler.checked(contextId: documentId, blockId: blockId, newValue: newValue)
         }
     }
     
-    func merge(secondBlockId: BlockId) {
-        Task { @MainActor [weak self, documentId] in
-            guard
-                let previousBlock = self?.modelsHolder?.findModel(
-                    beforeBlockId: secondBlockId,
-                    acceptingTypes: BlockContentType.allTextTypes
-                ),
-                previousBlock.content != .unsupported
-            else {
-                self?.delete(blockIds: [secondBlockId])
-                return
-            }
-            do {
-                self?.setFocus(model: previousBlock)
-                try await self?.textServiceHandler.merge(contextId: documentId, firstBlockId: previousBlock.blockId, secondBlockId: secondBlockId)
-            } catch {
-                // Do not set focus to previous block
-            }
+    func merge(secondBlockId: String) async throws {
+        guard
+            let previousBlock = modelsHolder?.findModel(
+                beforeBlockId: secondBlockId,
+                acceptingTypes: BlockContentType.allTextTypes
+            ),
+            previousBlock.content != .unsupported
+        else {
+            delete(blockIds: [secondBlockId])
+            return
         }
+
+        if let textContent = previousBlock.info.textContent {
+            cursorManager.focus(
+                at: previousBlock.blockId,
+                position: .at(.init(location: Int(textContent.text.count), length: 0))
+            )
+            cursorManager.blockFocus = BlockFocus(id: previousBlock.blockId, position: .at(NSRange(location: textContent.text.count, length: 0)))
+        }
+        try await textServiceHandler.merge(contextId: documentId, firstBlockId: previousBlock.blockId, secondBlockId: secondBlockId)
     }
     
-    func delete(blockIds: [BlockId]) {
+    func delete(blockIds: [String]) {
         AnytypeAnalytics.instance().logEvent(AnalyticsEventsName.blockDelete)
         Task {
             try await blockService.delete(contextId: documentId, blockIds: blockIds)
         }
     }
     
-    func setText(contextId: BlockId, blockId: BlockId, middlewareString: MiddlewareString) async throws {
+    func setText(contextId: String, blockId: String, middlewareString: MiddlewareString) async throws {
         try await textServiceHandler.setText(contextId: contextId, blockId: blockId, middlewareString: middlewareString)
     }
 
-    func setTextForced(contextId: BlockId, blockId: BlockId, middlewareString: MiddlewareString) async throws {
+    func setTextForced(contextId: String, blockId: String, middlewareString: MiddlewareString) async throws {
         try await textServiceHandler.setTextForced(contextId: contextId, blockId: blockId, middlewareString: middlewareString)
     }
     
@@ -171,33 +167,31 @@ final class BlockActionService: BlockActionServiceProtocol {
     }
 
     private func setFocus(model: BlockViewModelProtocol) {
-        if case let .text(text) = model.info.content {
-            model.set(focus: .at(text.endOfTextRangeWithMention))
-        }
+        model.set(focus: .end)
     }
 }
 
 // MARK: - BookmarkFetch
 
 extension BlockActionService {
-    func bookmarkFetch(blockId: BlockId, url: AnytypeURL) {
+    func bookmarkFetch(blockId: String, url: AnytypeURL) {
         Task {
-            try await bookmarkService.fetchBookmark(contextID: documentId, blockID: blockId, url: url.absoluteString)
+            try await bookmarkService.fetchBookmark(objectId: documentId, blockID: blockId, url: url)
         }
     }
 
     func createAndFetchBookmark(
-        contextID: BlockId,
-        targetID: BlockId,
+        contextID: String,
+        targetID: String,
         position: BlockPosition,
         url: AnytypeURL
     ) {
         Task {
             try await bookmarkService.createAndFetchBookmark(
-                contextID: contextID,
+                objectId: contextID,
                 targetID: targetID,
                 position: position,
-                url: url.absoluteString
+                url: url
             )
         }
     }
@@ -206,11 +200,11 @@ extension BlockActionService {
 // MARK: - SetBackgroundColor
 
 extension BlockActionService {
-    func setBackgroundColor(blockIds: [BlockId], color: BlockBackgroundColor) {
+    func setBackgroundColor(blockIds: [String], color: BlockBackgroundColor) {
         setBackgroundColor(blockIds: blockIds, color: color.middleware)
     }
     
-    func setBackgroundColor(blockIds: [BlockId], color: MiddlewareColor) {
+    func setBackgroundColor(blockIds: [String], color: MiddlewareColor) {
         Task {
             try await blockService.setBackgroundColor(objectId: documentId, blockIds: blockIds, color: color)
         }
@@ -220,7 +214,7 @@ extension BlockActionService {
 // MARK: - UploadFile
 
 extension BlockActionService {
-    func upload(blockId: BlockId, filePath: String) async throws {
+    func upload(blockId: String, filePath: String) async throws {
         try await fileService.uploadDataAt(source: .path(filePath), contextID: documentId, blockID: blockId)
     }
 }

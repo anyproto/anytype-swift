@@ -353,7 +353,7 @@ public struct Popup<Item: Equatable, PopupContent: View>: ViewModifier {
     private func popupBackground() -> some View {
         backgroundColor
             .applyIf(closeOnTapOutside) { view in
-                view.contentShape(Rectangle())
+                view.fixTappableArea()
             }
             .addTapIfNotTV(if: closeOnTapOutside) {
                 dismiss()

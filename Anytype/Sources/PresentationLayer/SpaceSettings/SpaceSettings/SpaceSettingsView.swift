@@ -18,27 +18,39 @@ struct SpaceSettingsView: View {
                     SettingsObjectHeader(name: $model.spaceName, nameTitle: Loc.Settings.spaceName, iconImage: model.spaceIcon, onTap: {
                         model.onChangeIconTap()
                     })
+                    .disabled(!model.allowEditSpace)
                     
                     if FeatureFlags.multiplayer {
-                        SectionHeaderView(title: Loc.SpaceSettings.sharing)
-                        SettingsSectionItemView(
-                            name: Loc.SpaceSettings.share,
-                            onTap: { model.onShareTap() }
-                        )
-
+                        if model.allowShare {
+                            SectionHeaderView(title: Loc.SpaceShare.title)
+                            SettingsSectionItemView(
+                                name: Loc.SpaceSettings.share,
+                                onTap: { model.onShareTap() }
+                            )
+                        }
+                        
+                        if model.allowSpaceMembers {
+                            SectionHeaderView(title: Loc.SpaceSettings.title)
+                            SettingsSectionItemView(
+                                name: Loc.SpaceShare.members,
+                                onTap: { model.onMembersTap() }
+                            )
+                        }
                     } else {
                         SectionHeaderView(title: Loc.type)
                         
-                        SpaceTypeView(name: model.spaceType)
+                        SpaceTypeView(name: model.spaceAccessType)
                     }
                     
                     SectionHeaderView(title: Loc.settings)
                     
-                    SettingsSectionItemView(
-                        name: Loc.SpaceSettings.remoteStorage,
-                        imageAsset: .Settings.fileStorage,
-                        onTap: { model.onStorageTap() }
-                    )
+                    if model.allowRemoteStorage {
+                        SettingsSectionItemView(
+                            name: Loc.SpaceSettings.remoteStorage,
+                            imageAsset: .Settings.fileStorage,
+                            onTap: { model.onStorageTap() }
+                        )
+                    }
                     
                     SettingsSectionItemView(
                         name: Loc.personalization,
@@ -52,17 +64,20 @@ struct SpaceSettingsView: View {
                         SettingsInfoBlockView(model: model.info[index])
                     }
                     
-                    if FeatureFlags.multiplayer {
-                        SpaceShareMVPView()
-                    }
-                    
-                    if model.allowDelete {
-                        StandardButton(Loc.SpaceSettings.deleteButton, style: .warningLarge) {
-                            model.onDeleteTap()
+                    VStack(spacing: 10) {
+                        if model.allowDelete {
+                            StandardButton(Loc.SpaceSettings.deleteButton, style: .warningLarge) {
+                                model.onDeleteTap()
+                            }
                         }
-                        .padding(.top, 20)
-                        .padding(.bottom, 10)
+                        if model.allowLeave {
+                            StandardButton(Loc.SpaceSettings.leaveButton, style: .warningLarge) {
+                                model.onLeaveTap()
+                            }
+                        }
                     }
+                    .padding(.top, 20)
+                    .padding(.bottom, 10)
                 }
             }
             .padding(.horizontal, 20)
@@ -78,6 +93,9 @@ struct SpaceSettingsView: View {
             FloaterAlertView.deleteSpaceAlert(spaceName: model.spaceName) {
                 model.onDeleteConfirmationTap()
             }
+        }
+        .anytypeSheet(isPresented: $model.showSpaceLeaveAlert) {
+            SpaceLeaveAlert(spaceId: model.workspaceInfo.accountSpaceId)
         }
     }
 }

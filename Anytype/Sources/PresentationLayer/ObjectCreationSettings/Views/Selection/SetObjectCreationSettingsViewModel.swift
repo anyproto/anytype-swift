@@ -5,9 +5,9 @@ import Combine
 import SwiftUI
 
 struct ObjectCreationSetting {
-    let objectTypeId: BlockId
+    let objectTypeId: String
     let spaceId: String
-    let templateId: BlockId
+    let templateId: String
 }
 
 @MainActor
@@ -78,7 +78,7 @@ final class SetObjectCreationSettingsViewModel: ObservableObject {
         }
     }
     
-    func onTemplateSelect(objectTypeId: BlockId, templateId: BlockId) {
+    func onTemplateSelect(objectTypeId: String, templateId: String) {
         setTemplateAsDefault(templateId: templateId)
         onTemplateSelection(
             ObjectCreationSetting(
@@ -116,7 +116,7 @@ final class SetObjectCreationSettingsViewModel: ObservableObject {
         setObjectTypeAsDefault(objectType: objectType)
     }
     
-    func setTemplateAsDefault(templateId: BlockId) {
+    func setTemplateAsDefault(templateId: String) {
         Task {
             do {
                 try await interactor.setDefaultTemplate(templateId: templateId)
@@ -124,7 +124,7 @@ final class SetObjectCreationSettingsViewModel: ObservableObject {
         }
     }
     
-    func setTemplateAsDefaultForType(templateId: BlockId) {
+    func setTemplateAsDefaultForType(templateId: String) {
         Task {
             do {
                 try await templatesService.setTemplateAsDefaultForType(objectTypeId: interactor.objectTypeId, templateId: templateId)

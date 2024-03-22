@@ -3,7 +3,7 @@ import AnytypeCore
 
 struct SetHeaderSettingsView: View {
     
-    @ObservedObject var model: SetHeaderSettingsViewModel
+    @StateObject var model: SetHeaderSettingsViewModel
     
     var body: some View {
         HStack(alignment: .center, spacing: 0) {
@@ -22,11 +22,7 @@ struct SetHeaderSettingsView: View {
     
     @ViewBuilder
     private var createView: some View {
-        if FeatureFlags.setTemplateSelection {
-            compositeCreateButtons
-        } else {
-            createObjectButton
-        }
+        compositeCreateButtons
     }
     
     private var settingButton: some View {
@@ -38,14 +34,6 @@ struct SetHeaderSettingsView: View {
                 .foregroundColor(model.isActiveHeader ? .Button.active : .Button.inactive)
         }
         .disabled(!model.isActiveHeader)
-    }
-    
-    private var createObjectButton: some View {
-        StandardButton(Loc.new, style: .primaryXSmall) {
-            UISelectionFeedbackGenerator().selectionChanged()
-            model.onCreateTap()
-        }
-        .disabled(!model.isActiveCreateButton)
     }
     
     private var compositeCreateButtons: some View {
@@ -98,7 +86,7 @@ struct SetHeaderSettings_Previews: PreviewProvider {
         SetHeaderSettingsView(
             model: SetHeaderSettingsViewModel(
                 setDocument: SetDocument(
-                    document: MockBaseDocument(),
+                    document: DI.preview.serviceLocator.documentsProvider.document(objectId: "", forPreview: false),
                     inlineParameters: nil,
                     relationDetailsStorage: DI.preview.serviceLocator.relationDetailsStorage(),
                     objectTypeProvider: DI.preview.serviceLocator.objectTypeProvider()

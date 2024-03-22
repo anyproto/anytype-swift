@@ -6,19 +6,16 @@ final class ObjectRelationListInteractor: ObjectRelationListInteractorProtocol {
     let limitedObjectTypes: [ObjectType]
     
     private let spaceId: String
-    private let searchService: SearchServiceProtocol
+    
+    @Injected(\.searchService)
+    private var searchService: SearchServiceProtocol
     
     init(
         spaceId: String,
-        limitedObjectTypes: [String],
-        objectTypeProvider: ObjectTypeProviderProtocol,
-        searchService: SearchServiceProtocol
+        limitedObjectTypes: [ObjectType]
     ) {
         self.spaceId = spaceId
-        self.limitedObjectTypes = limitedObjectTypes.compactMap { id in
-            objectTypeProvider.objectTypes.first { $0.id == id }
-        }
-        self.searchService = searchService
+        self.limitedObjectTypes = limitedObjectTypes
     }
     
     func searchOptions(text: String) async throws -> [ObjectRelationOption] {

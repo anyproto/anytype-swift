@@ -4,7 +4,7 @@ import SwiftUI
 struct DocumentUpdateAlertView: View {
     
     @Environment(\.dismiss) private var dismiss
-    @Environment(\.openURL) var openURL
+    @Environment(\.openURL) private var openURL
     
     let cancel: () -> Void
     
@@ -13,7 +13,7 @@ struct DocumentUpdateAlertView: View {
             title: Loc.Error.AnytypeNeedsUpgrate.title,
             message: Loc.Error.AnytypeNeedsUpgrate.message,
             icon: .BottomAlert.update,
-            style: .green
+            color: .green
         ) {
             BottomAlertButton(text: Loc.close, style: .secondary) {
                 dismiss()

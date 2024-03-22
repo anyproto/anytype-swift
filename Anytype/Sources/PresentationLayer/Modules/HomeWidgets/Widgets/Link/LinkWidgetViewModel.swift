@@ -7,7 +7,7 @@ final class LinkWidgetViewModel: ObservableObject, WidgetContainerContentViewMod
     
     // MARK: - DI
     
-    private let widgetBlockId: BlockId
+    private let widgetBlockId: String
     private let widgetObject: BaseDocumentProtocol
     private weak var output: CommonWidgetModuleOutput?
     
@@ -21,7 +21,7 @@ final class LinkWidgetViewModel: ObservableObject, WidgetContainerContentViewMod
     var dragId: String? { widgetBlockId }
     
     init(
-        widgetBlockId: BlockId,
+        widgetBlockId: String,
         widgetObject: BaseDocumentProtocol,
         output: CommonWidgetModuleOutput?
     ) {
@@ -36,13 +36,7 @@ final class LinkWidgetViewModel: ObservableObject, WidgetContainerContentViewMod
         setupAllSubscriptions()
     }
     
-    func stopHeaderSubscription() {
-        subscriptions.removeAll()
-    }
-    
     func startContentSubscription() {}
-    
-    func stopContentSubscription() {}
     
     func onHeaderTap() {
         guard let linkedObjectDetails else { return }

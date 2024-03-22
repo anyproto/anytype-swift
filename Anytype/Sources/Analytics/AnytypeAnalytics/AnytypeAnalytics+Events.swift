@@ -173,14 +173,11 @@ extension AnytypeAnalytics {
                  withEventProperties: [AnalyticsEventsPropertiesKey.type: type.rawValue])
     }
 
-    func logCreateObject(objectType: AnalyticsObjectType, route: AnalyticsEventsRouteKind, view: AnalyticsEventsRouteView? = nil) {
-        var properties = [
+    func logCreateObject(objectType: AnalyticsObjectType, route: AnalyticsEventsRouteKind) {
+        let properties = [
             AnalyticsEventsPropertiesKey.objectType: objectType.analyticsId,
             AnalyticsEventsPropertiesKey.route: route.rawValue
         ]
-        if let view {
-            properties[AnalyticsEventsPropertiesKey.view] = view.rawValue
-        }
         logEvent(AnalyticsEventsName.createObject, withEventProperties: properties)
     }
     
@@ -401,19 +398,13 @@ extension AnytypeAnalytics {
         logEvent(
             AnalyticsEventsName.selectHomeTab,
             withEventProperties: [
-                AnalyticsEventsPropertiesKey.view: AnalyticsView.widget.rawValue,
                 AnalyticsEventsPropertiesKey.tab: source.analyticsId
             ]
         )
     }
     
-    func logShowHome(view: AnalyticsView) {
-        logEvent(
-            AnalyticsEventsName.homeShow,
-            withEventProperties: [
-                AnalyticsEventsPropertiesKey.view: view.rawValue
-            ]
-        )
+    func logShowHome() {
+        logEvent(AnalyticsEventsName.homeShow)
     }
     
     func logChangeWidgetSource(source: AnalyticsWidgetSource, route: AnalyticsWidgetRoute, context: AnalyticsWidgetContext) {
@@ -457,8 +448,7 @@ extension AnytypeAnalytics {
         logEvent(
             AnalyticsEventsName.Sidebar.openGroupToggle,
             withEventProperties: [
-                AnalyticsEventsPropertiesKey.type: source.analyticsId,
-                AnalyticsEventsPropertiesKey.view: AnalyticsView.widget.rawValue
+                AnalyticsEventsPropertiesKey.type: source.analyticsId
             ]
         )
     }
@@ -467,8 +457,7 @@ extension AnytypeAnalytics {
         logEvent(
             AnalyticsEventsName.Sidebar.closeGroupToggle,
             withEventProperties: [
-                AnalyticsEventsPropertiesKey.type: source.analyticsId,
-                AnalyticsEventsPropertiesKey.view: AnalyticsView.widget.rawValue
+                AnalyticsEventsPropertiesKey.type: source.analyticsId
             ]
         )
     }
@@ -718,8 +707,13 @@ extension AnytypeAnalytics {
         logEvent(AnalyticsEventsName.screenSettingsSpaceCreate)
     }
     
-    func logCreateSpace() {
-        logEvent(AnalyticsEventsName.createSpace)
+    func logCreateSpace(route: CreateSpaceRoute) {
+        logEvent(
+            AnalyticsEventsName.createSpace,
+            withEventProperties: [
+                AnalyticsEventsPropertiesKey.route: route.rawValue
+            ]
+        )
     }
     
     func logSwitchSpace() {

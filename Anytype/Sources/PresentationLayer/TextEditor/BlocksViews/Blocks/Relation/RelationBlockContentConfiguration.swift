@@ -3,7 +3,7 @@ import UIKit
 struct RelationBlockContentConfiguration: BlockConfiguration {
     typealias View = RelationBlockView
     
-    @EquatableNoop private(set) var actionOnValue: ((_ relation: RelationItemModel) -> Void)?
+    @EquatableNoop private(set) var actionOnValue: (() -> Void)?
     let relation: RelationItemModel
 
     var contentInsets: UIEdgeInsets {

@@ -6,7 +6,7 @@ struct DeletedAccountView: View {
     
     var body: some View {
         ZStack {
-            Gradients.mainBackground()
+            CoverGradient.sky.data.asLinearGradient().ignoresSafeArea()
             contentView
         }
         .navigationBarHidden(true)

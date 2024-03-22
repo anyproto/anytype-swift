@@ -8,39 +8,36 @@ import AnytypeCore
 final class GalleryNotificationViewModel: ObservableObject {
     
     private var notification: NotificationGalleryImport
-    private let notificationSubscriptionService: NotificationsSubscriptionServiceProtocol
+    @Injected(\.notificationsSubscriptionService)
+    private var notificationSubscriptionService: NotificationsSubscriptionServiceProtocol
+    @Injected(\.workspaceStorage)
+    private var workspaceStorage: WorkspacesStorageProtocol
+    @Injected(\.activeWorkspaceStorage)
+    private var activeWorkspaceStorage: ActiveWorkpaceStorageProtocol
+    
     private var subscription: AnyCancellable?
-    private let workspaceStorage: WorkspacesStorageProtocol
-    private let activeWorkspaceStorage: ActiveWorkpaceStorageProtocol
     
     @Published var title: String = ""
+    @Published var dismiss = false
     
     init(
-        notification: NotificationGalleryImport,
-        notificationSubscriptionService: NotificationsSubscriptionServiceProtocol,
-        workspaceStorage: WorkspacesStorageProtocol,
-        activeWorkspaceStorage: ActiveWorkpaceStorageProtocol
+        notification: NotificationGalleryImport
     ) {
         self.notification = notification
-        self.notificationSubscriptionService = notificationSubscriptionService
-        self.workspaceStorage = workspaceStorage
-        self.activeWorkspaceStorage = activeWorkspaceStorage
         updateView(notification: notification)
         Task {
             await startHandle()
         }
     }
     
-    
-    func startHandle() async {
-        subscription = await notificationSubscriptionService.handleGalleryImportUpdate(notificationID: notification.common.id) { [weak self] notification in
-            self?.updateView(notification: notification)
-        }
+    func onTapSpace() async throws {
+        try await activeWorkspaceStorage.setActiveSpace(spaceId: notification.galleryImport.spaceID)
+        dismiss.toggle()
     }
     
-    func onTapSpace() {
-        Task {
-            try await activeWorkspaceStorage.setActiveSpace(spaceId: notification.galleryImport.spaceID)
+    private func startHandle() async {
+        subscription = await notificationSubscriptionService.handleGalleryImportUpdate(notificationID: notification.common.id) { [weak self] notification in
+            self?.updateView(notification: notification)
         }
     }
     

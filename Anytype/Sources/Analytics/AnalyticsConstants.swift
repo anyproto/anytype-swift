@@ -80,6 +80,11 @@ enum AnalyticsEventsName {
     static let redo = "Redo"
     static let duplicateObject = "DuplicateObject"
     static let moveBlock = "MoveBlock"
+    
+    // Type picker
+    static let pinObjectType = "PinObjectType"
+    static let unpinObjectType = "UnpinObjectType"
+    static let typeSearchResult = "TypeSearchResult"
 
     // Details events
     static let changeLayout = "ChangeLayout"
@@ -113,6 +118,7 @@ enum AnalyticsEventsName {
     static let settingsWallpaperSet = "SettingsWallpaperSet"
     static let screenSettingsStorageIndex = "ScreenSettingsStorageIndex"
     static let screenSettingsStorageManager = "ScreenSettingsStorageManager"
+    static let screenObjectTypeSearch = "ScreenObjectTypeSearch"
     
     static let showDeletionWarning = "ShowDeletionWarning"
 
@@ -257,7 +263,6 @@ enum AnalyticsEventsPropertiesKey {
     static let format = "format"
     static let condition = "condition"
     static let linkType = "linkType"
-    static let view = "view"
     static let context = "context"
     static let color = "color"
     static let name = "name"
@@ -279,11 +284,7 @@ enum AnalyticsEventsRouteKind: String {
     case widget = "Widget"
     case sharingExtension = "SharingExtension"
     case homeScreen = "HomeScreen"
-}
-
-enum AnalyticsEventsRouteView: String {
-    case navbar = "Navbar"
-    case home = "Home"
+    case clipboard = "Clipboard"
 }
 
 enum AnalyticsEventsRelationType: String {
@@ -355,10 +356,6 @@ enum AnalyticsObjectType {
     }
 }
 
-enum AnalyticsView: String {
-    case widget = "Widget"
-}
-
 enum AnalyticsWidgetRoute: String {
     case addWidget = "AddWidget"
     case inner = "Inner"
@@ -407,11 +404,13 @@ enum AnalyticsDefaultObjectTypeChangeRoute: String {
     case settings = "Settings"
     case set = "Set"
     case collection = "Collection"
+    case navigation = "Navigation"
 }
 
 enum SelectObjectTypeRoute: String {
     case longTap = "LongTap"
     case navigation = "Navigation"
+    case clipboard = "Clipboard"
 }
 
 enum OnboardingTooltip: String {
@@ -452,4 +451,9 @@ enum ClickOnboardingTooltipType: String {
 enum ClickGalleryInstallSpaceType: String {
     case new = "New"
     case existing = "Existing"
+}
+
+enum CreateSpaceRoute: String {
+    case navigation = "Navigation"
+    case gallery = "Gallery"
 }

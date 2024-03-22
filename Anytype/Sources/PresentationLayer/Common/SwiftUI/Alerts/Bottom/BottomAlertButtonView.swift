@@ -12,8 +12,8 @@ struct BottomAlertButton {
     
     var text: String
     var style: Style
-    var loading: Bool = false
-    var action: () -> Void
+    var disable = false
+    var action: () async throws -> Void
     
     fileprivate var standartStyle: StandardButtonStyle {
         switch style {
@@ -34,17 +34,32 @@ struct BottomAlertButtonView: View {
     let buttons: [BottomAlertButton]
     
     var body: some View {
-        HStack(spacing: 11) {
-            ForEach(0..<buttons.count, id: \.self) { index in
-                let button = buttons[index]
-                StandardButton(
-                    button.text,
-                    inProgress: button.loading,
-                    style: button.standartStyle,
-                    action: button.action
-                )
+        if #available(iOS 16.0, *) {
+            BottomAlertButttonStack {
+                ForEach(0..<buttons.count, id: \.self) { index in
+                    let button = buttons[index]
+                    AsyncStandardButton(
+                        text: button.text,
+                        style: button.standartStyle,
+                        action: button.action
+                    )
+                    .disabled(button.disable)
+                }
+            }
+        } else {
+            VStack(spacing: 10) {
+                ForEach(0..<buttons.count, id: \.self) { index in
+                    let button = buttons[index]
+                    AsyncStandardButton(
+                        text: button.text,
+                        style: button.standartStyle,
+                        action: button.action
+                    )
+                    .disabled(button.disable)
+                }
             }
         }
+        
     }
 }
 

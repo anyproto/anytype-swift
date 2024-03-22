@@ -6,10 +6,6 @@
 public extension FeatureFlags {
 
     // Static value reader
-    static var setTemplateSelection: Bool {
-        value(for: .setTemplateSelection)
-    }
-
     static var setKanbanView: Bool {
         value(for: .setKanbanView)
     }
@@ -20,34 +16,6 @@ public extension FeatureFlags {
 
     static var dndOnCollectionsAndSets: Bool {
         value(for: .dndOnCollectionsAndSets)
-    }
-
-    static var newCodeLanguages: Bool {
-        value(for: .newCodeLanguages)
-    }
-
-    static var ipadIncreaseWidth: Bool {
-        value(for: .ipadIncreaseWidth)
-    }
-
-    static var selectTypeByLongTap: Bool {
-        value(for: .selectTypeByLongTap)
-    }
-
-    static var widgetsCreateObject: Bool {
-        value(for: .widgetsCreateObject)
-    }
-
-    static var setAndCollectionInSlashMenu: Bool {
-        value(for: .setAndCollectionInSlashMenu)
-    }
-
-    static var setTextInFirstNoteBlock: Bool {
-        value(for: .setTextInFirstNoteBlock)
-    }
-
-    static var bottomNavigationAlwaysBackButton: Bool {
-        value(for: .bottomNavigationAlwaysBackButton)
     }
 
     static var galleryInstallation: Bool {
@@ -78,8 +46,16 @@ public extension FeatureFlags {
         value(for: .newFileSelectRelationView)
     }
 
+    static var newTextEditingRelationView: Bool {
+        value(for: .newTextEditingRelationView)
+    }
+
     static var multiplayer: Bool {
         value(for: .multiplayer)
+    }
+
+    static var membership: Bool {
+        value(for: .membership)
     }
 
     static var rainbowViews: Bool {
@@ -120,17 +96,9 @@ public extension FeatureFlags {
 
     // All toggles
     static let features: [FeatureDescription] = [
-        .setTemplateSelection,
         .setKanbanView,
         .fullInlineSetImpl,
         .dndOnCollectionsAndSets,
-        .newCodeLanguages,
-        .ipadIncreaseWidth,
-        .selectTypeByLongTap,
-        .widgetsCreateObject,
-        .setAndCollectionInSlashMenu,
-        .setTextInFirstNoteBlock,
-        .bottomNavigationAlwaysBackButton,
         .galleryInstallation,
         .newTypePicker,
         .newDateRelationCalendarView,
@@ -138,7 +106,9 @@ public extension FeatureFlags {
         .newMultiSelectRelationView,
         .newObjectSelectRelationView,
         .newFileSelectRelationView,
+        .newTextEditingRelationView,
         .multiplayer,
+        .membership,
         .rainbowViews,
         .showAlertOnAssert,
         .analytics,

@@ -6,50 +6,59 @@ final class SimpleTableCellsBuilder {
     private let document: BaseDocumentProtocol
     private let router: EditorRouterProtocol
     private let handler: BlockActionHandlerProtocol
-    private let pasteboardService: PasteboardServiceProtocol
+    private let pasteboardService: PasteboardBlockDocumentServiceProtocol
     private let markdownListener: MarkdownListener
     private let cursorManager: EditorCursorManager
     private let focusSubjectHolder: FocusSubjectsHolder
     private let infoContainer: InfoContainerProtocol
     private let blockTableService: BlockTableServiceProtocol
     private let responderScrollViewHelper: ResponderScrollViewHelper
-    private let delegate: BlockDelegate?
-
+    private let stateManager: SimpleTableStateManager
+    private let blockMarkupChanger: BlockMarkupChangerProtocol
+    private let accessoryStateManager: AccessoryViewStateManager
+    
+    private var textBlocksMapping = [String: EditorItem]()
+    private var emptyBlocksMapping = [String: EditorItem]()
+    
     init(
         document: BaseDocumentProtocol,
         router: EditorRouterProtocol,
         handler: BlockActionHandlerProtocol,
-        pasteboardService: PasteboardServiceProtocol,
-        delegate: BlockDelegate?,
+        pasteboardService: PasteboardBlockDocumentServiceProtocol,
         markdownListener: MarkdownListener,
         cursorManager: EditorCursorManager,
         focusSubjectHolder: FocusSubjectsHolder,
         responderScrollViewHelper: ResponderScrollViewHelper,
-        blockTableService: BlockTableServiceProtocol = BlockTableService()
+        stateManager: SimpleTableStateManager,
+        accessoryStateManager: AccessoryViewStateManager,
+        blockMarkupChanger: BlockMarkupChangerProtocol,
+        blockTableService: BlockTableServiceProtocol
     ) {
         self.document = document
         self.router = router
         self.handler = handler
         self.pasteboardService = pasteboardService
-        self.delegate = delegate
         self.markdownListener = markdownListener
         self.cursorManager = cursorManager
         self.focusSubjectHolder = focusSubjectHolder
         self.infoContainer = document.infoContainer
         self.responderScrollViewHelper = responderScrollViewHelper
+        self.stateManager = stateManager
+        self.blockMarkupChanger = blockMarkupChanger
         self.blockTableService = blockTableService
+        self.accessoryStateManager = accessoryStateManager
     }
-
+    
     func buildItems(
         from info: BlockInformation
     ) -> [[EditorItem]] {
         guard let computedTable = ComputedTable(blockInformation: info, infoContainer: infoContainer) else {
             return []
         }
-
+        
         return buildModels(computedTable: computedTable)
     }
-
+    
     private func buildModels(computedTable: ComputedTable) -> [[EditorItem]] {
         return computedTable.cells.map {
             $0.map { item in
@@ -66,13 +75,13 @@ final class SimpleTableCellsBuilder {
             }
         }
     }
-
+    
     private func makeEmptyContentCellConfiguration(
-        columnId: BlockId,
-        rowId: BlockId,
+        columnId: String,
+        rowId: String,
         isHeaderRow: Bool
     ) -> EditorItem {
-        .system(
+         .system(
             EmptyRowViewViewModel(
                 contextId: document.objectId,
                 rowId: rowId,
@@ -83,23 +92,43 @@ final class SimpleTableCellsBuilder {
             )
         )
     }
-
+    
     private func textBlockConfiguration(
         information: BlockInformation,
         content: BlockText,
         table: ComputedTable,
         isHeaderRow: Bool
     ) -> EditorItem {
-        let isCheckable = content.contentType == .title ? document.details?.layoutValue == .todo : false
-        let anytypeText = content.anytypeText(document: document)
+        if let textBlock = textBlocksMapping[information.id] {
+            return textBlock
+        }
         
         let textBlockActionHandler = SimpleTablesTextBlockActionHandler(
+            document: document,
             info: information,
+            focusSubject: focusSubjectHolder.focusSubject(for: information.id),
+            actionHandler: handler,
+            pasteboardService: pasteboardService,
+            markdownListener: markdownListener,
+            cursorManager: cursorManager,
+            accessoryViewStateManager: accessoryStateManager,
+            markupChanger: blockMarkupChanger,
+            responderScrollViewHelper: responderScrollViewHelper,
             showPage: { [weak self] objectId in
                 self?.router.showPage(objectId: objectId)
             },
             openURL: { [weak router] url in
                 router?.openUrl(url)
+            },
+            onShowStyleMenu: { [weak stateManager] info in
+                Task { @MainActor [weak stateManager] in
+                    stateManager?.didSelectStyleSelection(infos: [info])
+                }
+            },
+            onEnterSelectionMode: { [weak stateManager] info in
+                Task { @MainActor [weak stateManager] in
+                    stateManager?.didSelectEditingState(info: info)
+                }
             },
             showTextIconPicker: { [weak router, weak document] in
                 guard let router, let document else { return }
@@ -114,52 +143,45 @@ final class SimpleTableCellsBuilder {
             hideWaitingView: {  [weak router] in
                 router?.hideWaitingView()
             },
-            content: content,
-            anytypeText: anytypeText,
-            actionHandler: handler,
-            pasteboardService: pasteboardService,
-            markdownListener: markdownListener,
-            blockDelegate: delegate,
             onKeyboardAction: { [weak self] action in
                 self?.handleKeyboardAction(table: table, block: information, action: action)
-            },
-            responderScrollViewHelper: responderScrollViewHelper
+            }
         )
-
-        let viewModel = TextBlockViewModel(
-            info: information,
-            content: content,
-            anytypeText: anytypeText,
-            isCheckable: isCheckable,
-            focusSubject: focusSubjectHolder.focusSubject(for: information.id),
+        
+        let textBlockViewModel = TextBlockViewModel(
+            document: document,
+            blockInformationProvider: .init(infoContainer: document.infoContainer, info: information),
+            stylePublisher: .empty(),
             actionHandler: textBlockActionHandler,
-            customBackgroundColor: isHeaderRow ? UIColor.headerRowColor : nil
+            cursorManager: cursorManager
         )
+        
+        textBlocksMapping[information.id] = .block(textBlockViewModel)
 
-        return EditorItem.block(viewModel)
+        return EditorItem.block(textBlockViewModel)
     }
-
+    
     private func handleKeyboardAction(table: ComputedTable, block: BlockInformation, action: CustomTextView.KeyboardAction) {
         guard let newComputedTable = ComputedTable(blockInformation: table.info, infoContainer: infoContainer) else {
             return
         }
-
+        
         switch action {
         case .delete:
             guard let indexPath = newComputedTable.cells.indexPaths(for: block),
                   let newFocusingCell = newComputedTable.cells[safe: (indexPath.section - 1)]?[safe: indexPath.row]
             else { return }
-
+            
             focus(on: newFocusingCell, position: .end)
         case .enterAtTheBegining, .enterAtTheEnd, .enterForEmpty, .enterInside:
             guard let indexPath = newComputedTable.cells.indexPaths(for: block),
                   let newFocusingCell = newComputedTable.cells[safe: (indexPath.section + 1)]?[safe: indexPath.row]
             else { return }
-
+            
             focus(on: newFocusingCell, position: .end)
         }
     }
-
+    
     private func focus(on cell: ComputedTable.Cell, position: BlockFocusPosition) {
         if let blockInformation = cell.blockInformation {
             cursorManager.focus(at: blockInformation.id, position: position)
@@ -170,7 +192,7 @@ final class SimpleTableCellsBuilder {
                     targetIds: [cell.rowId]
                 )
                 
-                cursorManager.blockFocus = .init(id: "\(cell.rowId)-\(cell.columnId)", position: .beginning)
+                cursorManager.blockFocus = BlockFocus(id: "\(cell.rowId)-\(cell.columnId)", position: .beginning)
             }
         }
     }
@@ -178,16 +200,16 @@ final class SimpleTableCellsBuilder {
 
 struct ComputedTable {
     struct Cell {
-        var blockId: BlockId { "\(rowId)-\(columnId)" }
-        let rowId: BlockId
-        let columnId: BlockId
+        var blockId: String { "\(rowId)-\(columnId)" }
+        let rowId: String
+        let columnId: String
         let isHeaderRow: Bool
         let blockInformation: BlockInformation?
     }
-
+    
     let info: BlockInformation
     let cells: [[Cell]]
-
+    
     private init?(
         info: BlockInformation,
         infoContainer: InfoContainerProtocol,
@@ -196,28 +218,28 @@ struct ComputedTable {
     ) {
         let numberOfColumns = tableColumnsBlockInfo.childrenIds.count
         var blocks = [[Cell]]()
-
+        
         for rowId in tableRowsBlockInfo.childrenIds {
             guard let childInformation = infoContainer.get(id: rowId) else {
                 anytypeAssertionFailure("Missing column or rows information")
                 return nil
             }
-
+            
             if case let .tableRow(tableRow) = childInformation.content {
                 var rowBlocks = [Cell]()
-
+                
                 for columnIndex in 0..<numberOfColumns {
                     let columnId = tableColumnsBlockInfo.childrenIds[columnIndex]
-
+                    
                     let child = infoContainer.get(id: "\(rowId)-\(columnId)")
                     let cell = Cell(rowId: rowId, columnId: columnId, isHeaderRow: tableRow.isHeader, blockInformation: child)
                     rowBlocks.append(cell)
                 }
-
+                
                 blocks.append(rowBlocks)
             }
         }
-
+        
         self.cells = blocks
         self.info = info
     }
@@ -228,36 +250,36 @@ extension ComputedTable {
         guard let newBlockInformation = infoContainer.get(id: blockInformation.id) else { return nil }
         var tableColumnsBlockInfo: BlockInformation?
         var tableRowsBlockInfo: BlockInformation?
-
+        
         for childId in newBlockInformation.childrenIds {
             guard let childInformation = infoContainer.get(id: childId) else {
                 anytypeAssertionFailure("Can't find child of table view")
                 return nil
             }
-
+            
             if childInformation.content == .layout(.init(style: .tableRows)) {
                 tableRowsBlockInfo = childInformation
             } else if childInformation.content == .layout(.init(style: .tableColumns)) {
                 tableColumnsBlockInfo = childInformation
             }
         }
-
+        
         guard let tableColumnsBlockInfo = tableColumnsBlockInfo,
               let tableRowsBlockInfo = tableRowsBlockInfo else {
             anytypeAssertionFailure("Missing column or rows information")
             return nil
         }
-
+        
         self.init(info: blockInformation, infoContainer: infoContainer, tableColumnsBlockInfo: tableColumnsBlockInfo, tableRowsBlockInfo: tableRowsBlockInfo)
     }
 }
 
 extension ComputedTable {
-    var allColumnIds: [BlockId] {
+    var allColumnIds: [String] {
         cells.first?.compactMap { $0.columnId } ?? []
     }
-
-    var allRowIds: [BlockId] {
+    
+    var allRowIds: [String] {
         cells.compactMap {
             $0.first.map { $0.rowId }
         }

@@ -24,11 +24,13 @@ final class DateRelationDetailsViewModel: ObservableObject {
     
     let values = DateRelationDetailsValue.allCases
     
+    private let details: ObjectDetails
     private let relation: Relation
     private let service: RelationsServiceProtocol
     private let analyticsType: AnalyticsEventsRelationType
     
     init(
+        details: ObjectDetails,
         value: DateRelationValue?,
         relation: Relation,
         service: RelationsServiceProtocol,
@@ -37,6 +39,7 @@ final class DateRelationDetailsViewModel: ObservableObject {
         self.selectedValue = value?.dateRelationEditingValue ?? .noDate
         self.date = value?.date ?? Date()
         
+        self.details = details
         self.relation = relation
         self.service = service
         self.analyticsType = analyticsType
@@ -84,7 +87,7 @@ private extension DateRelationDetailsViewModel {
         }()
         
         Task {
-            try await service.updateRelation(relationKey: relation.key, value: value)
+            try await service.updateRelation(objectId: details.id, relationKey: relation.key, value: value)
             AnytypeAnalytics.instance().logChangeRelationValue(isEmpty: selectedValue == .noDate, type: analyticsType)
         }
     }

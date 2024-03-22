@@ -37,6 +37,23 @@ struct SettingsView: View {
                         onTap: { model.onFileStorageTap() }
                     )
                     
+                    if FeatureFlags.multiplayer {
+                        SettingsSectionItemView(
+                            name: Loc.Spaces.title,
+                            imageAsset: .Settings.spaces,
+                            onTap: { model.onSpacesTap() }
+                        )
+                    }
+                    
+                    if FeatureFlags.membership {
+                        SettingsSectionItemView(
+                            name: Loc.membership,
+                            imageAsset: .Settings.membership,
+                            decoration: model.membership.map { .arrow (text: $0.title) } ?? .button(text: Loc.join),
+                            onTap: { model.onMembershipTap() }
+                        )
+                    }
+                    
                     SettingsSectionItemView(
                         name: Loc.about,
                         imageAsset: .Settings.about,

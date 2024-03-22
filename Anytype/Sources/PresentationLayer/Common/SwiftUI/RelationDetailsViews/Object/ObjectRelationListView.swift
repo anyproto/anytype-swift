@@ -5,6 +5,10 @@ struct ObjectRelationListView: View {
     
     @StateObject var viewModel: ObjectRelationListViewModel
     
+    init(data: ObjectRelationListData, output: ObjectRelationListModuleOutput?) {
+        _viewModel = StateObject(wrappedValue: ObjectRelationListViewModel(data: data, output: output))
+    }
+    
     var body: some View {
         RelationListContainerView(
             searchText: $viewModel.searchText,
@@ -104,26 +108,15 @@ struct ObjectRelationListView: View {
 }
 
 #Preview("Object") {
-    SelectRelationListView(
-        viewModel: SelectRelationListViewModel(
-            style: .status,
-            configuration: RelationModuleConfiguration(
-                title: "Object",
-                isEditable: true,
-                relationKey: "",
-                spaceId: "",
-                selectionMode: .multi,
-                analyticsType: .block
-            ),
+    ObjectRelationListView(
+        data: ObjectRelationListData(
+            configuration: RelationModuleConfiguration.default,
+            interactor: ObjectRelationListInteractor(spaceId: "spaceId", limitedObjectTypes: []),
             relationSelectedOptionsModel: RelationSelectedOptionsModel(
-                selectionMode: .multi,
-                selectedOptionsIds: [],
-                relationKey: "",
-                analyticsType: .block,
-                relationsService: DI.preview.serviceLocator.relationService(objectId: "")
-            ),
-            searchService: DI.preview.serviceLocator.searchService(),
-            output: nil
-        )
+                config: RelationModuleConfiguration.default,
+                selectedOptionsIds: []
+            )
+        ),
+        output: nil
     )
 }

@@ -54,12 +54,20 @@ struct HomeCoordinatorView: View {
         .sheet(isPresented: $model.showSharing) {
             model.createSharingModule()
         }
-        .sheet(isPresented: $model.showTypeSearch) {
-            model.createTypeSearchModule()
+        .sheet(isPresented: $model.showTypeSearchForObjectCreation) {
+            model.typeSearchForObjectCreationModule()
+        }
+        .sheet(isPresented: $model.showSpaceManager) {
+            SpacesManagerView()
+        }
+        .anytypeSheet(item: $model.spaceJoinData) {
+            SpaceJoinView(data: $0, onManageSpaces: {
+                model.onManageSpacesSelected()
+            })
         }
         .if(FeatureFlags.galleryInstallation, if: {
             $0.sheet(item: $model.showGalleryImport) { data in
-                model.createGalleryInstallationModule(data: data)
+                GalleryInstallationCoordinatorView(data: data)
             }
         }, else: {
             $0.anytypeSheet(item: $model.showGalleryImport) { _ in

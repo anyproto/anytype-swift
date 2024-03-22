@@ -8,17 +8,24 @@ final class SpaceSwitchViewModel: ObservableObject {
     
     // MARK: - DI
     
-    private let workspacesStorage: WorkspacesStorageProtocol
-    private let activeWorkspaceStorage: ActiveWorkpaceStorageProtocol
-    private let subscriptionService: SingleObjectSubscriptionServiceProtocol
-    private let accountManager: AccountManagerProtocol
-    private let workspaceService: WorkspaceServiceProtocol
+    @Injected(\.workspaceStorage)
+    private var workspacesStorage: WorkspacesStorageProtocol
+    @Injected(\.activeWorkspaceStorage)
+    private var activeWorkspaceStorage: ActiveWorkpaceStorageProtocol
+    @Injected(\.participantSpacesStorage)
+    private var participantSpacesStorage: ParticipantSpacesStorageProtocol
+    @Injected(\.singleObjectSubscriptionService)
+    private var subscriptionService: SingleObjectSubscriptionServiceProtocol
+    @Injected(\.accountManager)
+    private var accountManager: AccountManagerProtocol
+    @Injected(\.workspaceService)
+    private var workspaceService: WorkspaceServiceProtocol
     private weak var output: SpaceSwitchModuleOutput?
     
     // MARK: - State
     
     private let profileSubId = "Profile-\(UUID().uuidString)"
-    private var spaces: [SpaceView]?
+    private var spaces: [ParticipantSpaceView]?
     private var activeWorkspaceInfo: AccountInfo?
     private var subscriptions = [AnyCancellable]()
     
@@ -29,20 +36,9 @@ final class SpaceSwitchViewModel: ObservableObject {
     @Published var scrollToRowId: String? = nil
     @Published var createSpaceAvailable: Bool = false
     @Published var spaceViewForDelete: SpaceView?
+    @Published var spaceViewForLeave: SpaceView?
     
-    init(
-        workspacesStorage: WorkspacesStorageProtocol,
-        activeWorkspaceStorage: ActiveWorkpaceStorageProtocol,
-        subscriptionService: SingleObjectSubscriptionServiceProtocol,
-        accountManager: AccountManagerProtocol,
-        workspaceService: WorkspaceServiceProtocol,
-        output: SpaceSwitchModuleOutput?
-    ) {
-        self.workspacesStorage = workspacesStorage
-        self.activeWorkspaceStorage = activeWorkspaceStorage
-        self.subscriptionService = subscriptionService
-        self.accountManager = accountManager
-        self.workspaceService = workspaceService
+    init(output: SpaceSwitchModuleOutput?) {
         self.output = output
         Task {
             await startProfileSubscriotions()
@@ -78,7 +74,7 @@ final class SpaceSwitchViewModel: ObservableObject {
     
     private func startSpacesSubscriotions() {
         
-        workspacesStorage.workspsacesPublisher
+        participantSpacesStorage.activeParticipantSpacesPublisher
             .receiveOnMain()
             .sink { [weak self] workspaces in
                 self?.spaces = workspaces
@@ -106,19 +102,24 @@ final class SpaceSwitchViewModel: ObservableObject {
         }
         let activeSpaceId = activeWorkspaceInfo.accountSpaceId
         
-        rows = spaces.map { spaceView -> SpaceRowModel in
-            SpaceRowModel(
+        rows = spaces.map { participantSpaceView -> SpaceRowModel in
+            let spaceView = participantSpaceView.spaceView
+            return SpaceRowModel(
                 id: spaceView.id,
                 title: spaceView.title,
                 icon: spaceView.objectIconImage,
                 isSelected: activeSpaceId == spaceView.targetSpaceId,
+                shared: spaceView.isShared,
                 onTap: { [weak self] in
                     self?.onTapWorkspace(workspace: spaceView)
                 },
-                onDelete: accountManager.account.info.spaceViewId == spaceView.id ? nil : { [weak self] in
+                onDelete: spaceView.canBeDelete ? { [weak self] in
                     AnytypeAnalytics.instance().logClickDeleteSpace(route: .navigation)
                     self?.spaceViewForDelete = spaceView
-                }
+                } : nil,
+                onLeave: participantSpaceView.canLeave ? { [weak self] in
+                    self?.spaceViewForLeave = spaceView
+                } : nil
             )
         }
         

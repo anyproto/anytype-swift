@@ -13,7 +13,7 @@ protocol EditorRouterProtocol:
 {
     func showAlert(alertModel: AlertModel)
     func showPage(objectId: String)
-    func showPage(data: EditorScreenData)
+    func showEditorScreen(data: EditorScreenData)
     func replaceCurrentPage(with data: EditorScreenData)
     
     func openUrl(_ url: URL)
@@ -25,7 +25,7 @@ protocol EditorRouterProtocol:
     
     func saveFile(fileURL: URL, type: FileContentType)
     
-    func showCodeLanguage(blockId: BlockId, selectedLanguage: CodeLanguage)
+    func showCodeLanguage(blockId: String, selectedLanguage: CodeLanguage)
     
     func showStyleMenu(
         informations: [BlockInformation],
@@ -35,7 +35,7 @@ protocol EditorRouterProtocol:
     )
 
     func showMarkupBottomSheet(
-        selectedBlockIds: [BlockId],
+        selectedBlockIds: [String],
         viewDidClose: @escaping () -> Void
     )
     
@@ -45,21 +45,20 @@ protocol EditorRouterProtocol:
         output: ObjectSettingsCoordinatorOutput?,
         actionHandler: @escaping (ObjectSettingsAction) -> Void
     )
-    func showTextIconPicker(contextId: BlockId, objectId: BlockId)
+    func showTextIconPicker(contextId: String, objectId: String)
     
     func showMoveTo(onSelect: @escaping (ObjectDetails) -> ())
     func showLinkTo(onSelect: @escaping (ObjectDetails) -> ())
     func showSearch(onSelect: @escaping (EditorScreenData) -> ())
 
-    func showTypes(selectedObjectId: BlockId?, onSelect: @escaping (ObjectType) -> ())
-    func showTypesForEmptyObject(selectedObjectId: BlockId?, onSelect: @escaping (ObjectType) -> ())
+    func showTypes(selectedObjectId: String?, onSelect: @escaping (ObjectType) -> ())
+    func showTypeSearchForObjectCreation(selectedObjectId: String?, onSelect: @escaping (TypeSelectionResult) -> ())
     func showObjectPreview(
         blockLinkState: BlockLinkState,
         onSelect: @escaping (BlockLink.Appearance) -> Void
     )
     
     func showRelationValueEditingView(key: String)
-    func showRelationValueEditingView(objectId: BlockId, relation: Relation)
     func showAddNewRelationView(
         document: BaseDocumentProtocol,
         onSelect: ((RelationDetails, _ isNew: Bool) -> Void)?

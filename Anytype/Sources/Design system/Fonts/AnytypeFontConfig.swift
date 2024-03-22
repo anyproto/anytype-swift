@@ -10,6 +10,7 @@ struct AnytypeFontConfig {
     enum Name: String {
         case plex = "IBMPlexMono"
         case inter = "Inter"
+        case riccione = "Riccione-Xlight"
     }
     
     enum Weight {
@@ -55,6 +56,14 @@ extension AnytypeFont {
                 lineHeight: 22,
                 kern: -0.41
             )
+        case .previewTitle1Regular:
+            return AnytypeFontConfig(
+                fontName: .inter,
+                size: 17,
+                weight: .regular,
+                lineHeight: 22,
+                kern: -0.41
+            )
         case .previewTitle2Regular:
             return AnytypeFontConfig(
                 fontName: .inter,
@@ -76,6 +85,14 @@ extension AnytypeFont {
                 fontName: .inter,
                 size: 17,
                 weight: .regular,
+                lineHeight: 24,
+                kern: -0.41
+            )
+        case .bodySemibold:
+            return AnytypeFontConfig(
+                fontName: .inter,
+                size: 17,
+                weight: .semibold,
                 lineHeight: 24,
                 kern: -0.41
             )
@@ -126,6 +143,14 @@ extension AnytypeFont {
                 weight: .semibold,
                 lineHeight: 24,
                 kern: -0.41
+            )
+        case .uxTitle2Semibold:
+            return AnytypeFontConfig(
+                fontName: .inter,
+                size: 15,
+                weight: .semibold,
+                lineHeight: 20,
+                kern: -0.24
             )
         case .uxTitle2Regular:
             return AnytypeFontConfig(
@@ -270,6 +295,14 @@ extension AnytypeFont {
                 weight: .regular,
                 lineHeight: 56,
                 kern: -0.48
+            )
+        case .riccioneTitle:
+            return AnytypeFontConfig(
+                fontName: .riccione,
+                size: 48,
+                weight: .regular,
+                lineHeight: 44,
+                kern: -0.52
             )
         }
     }

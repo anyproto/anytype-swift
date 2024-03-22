@@ -1,26 +1,29 @@
 import Foundation
-import UIKit
+import SwiftUI
 import Services
 
 protocol RelationsListModuleAssemblyProtocol {
- 
-    func make(document: BaseDocumentProtocol, output: RelationsListModuleOutput) -> UIViewController
+    @MainActor
+    func make(document: BaseDocumentProtocol, output: RelationsListModuleOutput) -> AnyView
 }
 
 final class RelationsListModuleAssembly: RelationsListModuleAssemblyProtocol {
     
-    // MARK: - RelationsListModuleAssemblyProtocol
+    private let serviceLocator: ServiceLocator
     
-    func make(document: BaseDocumentProtocol, output: RelationsListModuleOutput) -> UIViewController {
-        
-        let viewModel = RelationsListViewModel(
-            document: document,
-            relationsService: RelationsService(objectId: document.objectId),
-            output: output
-        )
-        
-        let view = RelationsListView(viewModel: viewModel)
-        
-        return AnytypePopup(contentView: view, popupLayout: .fullScreen)
+    init(serviceLocator: ServiceLocator) {
+        self.serviceLocator = serviceLocator
+    }
+    
+    // MARK: - RelationsListModuleAssemblyProtocol
+    @MainActor
+    func make(document: BaseDocumentProtocol, output: RelationsListModuleOutput) -> AnyView {
+        RelationsListView(
+            viewModel: RelationsListViewModel(
+                document: document,
+                relationsService: self.serviceLocator.relationService(),
+                output: output
+            )
+        ).eraseToAnyView()
     }
 }

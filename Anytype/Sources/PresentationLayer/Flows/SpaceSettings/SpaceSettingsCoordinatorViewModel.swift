@@ -25,6 +25,7 @@ final class SpaceSettingsCoordinatorViewModel: ObservableObject, SpaceSettingsMo
     @Published var showPersonalization = false
     @Published var showWallpaperPicker = false
     @Published var showSpaceShare = false
+    @Published var showSpaceMembers = false
     @Published var dismiss = false
     
     private var accountSpaceId: String
@@ -104,6 +105,10 @@ final class SpaceSettingsCoordinatorViewModel: ObservableObject, SpaceSettingsMo
         showSpaceShare.toggle()
     }
     
+    func onSpaceMembersSelected() {
+        showSpaceMembers.toggle()
+    }
+    
     // MARK: - RemoteStorageModuleOutput
     
     func onManageFilesSelected() {
@@ -119,7 +124,7 @@ final class SpaceSettingsCoordinatorViewModel: ObservableObject, SpaceSettingsMo
     
     func onDefaultTypeSelected() {
         if FeatureFlags.newTypePicker {
-            let module = objectTypeSearchModuleAssembly.make(
+            let module = objectTypeSearchModuleAssembly.makeDefaultTypeSearch(
                 title: Loc.chooseDefaultObjectType,
                 spaceId: activeWorkspaceStorage.workspaceInfo.accountSpaceId,
                 showPins: false,

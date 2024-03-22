@@ -28,7 +28,7 @@ final class RelationsBuilder {
     func parsedRelations(
         relationsDetails: [RelationDetails],
         typeRelationsDetails: [RelationDetails],
-        objectId: BlockId,
+        objectId: String,
         relationValuesIsLocked: Bool,
         storage: ObjectDetailsStorage
     ) -> ParsedRelations {
@@ -215,6 +215,13 @@ private extension RelationsBuilder {
         if relationDetails.key == BundledRelationKey.origin.rawValue,
            let origin = details.intValue(for: relationDetails.key).flatMap({ ObjectOrigin(rawValue: $0) }) {
             if let title = origin.title {
+                numberValue = title
+            } else {
+                return nil
+            }
+        } else if relationDetails.key == BundledRelationKey.importType.rawValue,
+                   let importType = details.intValue(for: relationDetails.key).flatMap({ ObjectImportType(rawValue: $0) }) {
+            if let title = importType.title {
                 numberValue = title
             } else {
                 return nil
@@ -435,7 +442,7 @@ private extension RelationsBuilder {
                         id: valueId,
                         icon: .object(.placeholder(nil)),
                         title: Loc.deleted,
-                        type: .empty,
+                        type: "",
                         isArchived: true,
                         isDeleted: true,
                         editorScreenData: objectDetail.editorScreenData()

@@ -19,23 +19,11 @@ final class ModulesDI: ModulesDIProtocol {
     }
     
     func relationsList() -> RelationsListModuleAssemblyProtocol {
-        return RelationsListModuleAssembly()
+        return RelationsListModuleAssembly(serviceLocator: serviceLocator)
     }
     
-    func dateRelationCalendar() -> DateRelationCalendarModuleAssemblyProtocol {
-        return DateRelationCalendarModuleAssembly(serviceLocator: serviceLocator)
-    }
-    
-    func selectRelationList() -> SelectRelationListModuleAssemblyProtocol {
-        return SelectRelationListModuleAssembly(serviceLocator: serviceLocator)
-    }
-    
-    func relationOptionSettings() -> RelationOptionSettingsModuleAssemblyProtocol {
-        return RelationOptionSettingsModuleAssembly(serviceLocator: serviceLocator)
-    }
-    
-    func objectRelationList() -> ObjectRelationListModuleAssemblyProtocol {
-        return ObjectRelationListModuleAssembly(serviceLocator: serviceLocator)
+    func textRelationEditing() -> TextRelationEditingModuleAssemblyProtocol {
+        TextRelationEditingModuleAssembly(serviceLocator: serviceLocator, uiHelpersDI: uiHelpersDI)
     }
     
     func undoRedo() -> UndoRedoModuleAssemblyProtocol {
@@ -106,10 +94,6 @@ final class ModulesDI: ModulesDIProtocol {
         return WallpaperPickerModuleAssembly()
     }
     
-    func about() -> AboutModuleAssemblyProtocol {
-        return AboutModuleAssembly(serviceLocator: serviceLocator)
-    }
-    
     func personalization() -> PersonalizationModuleAssemblyProtocol {
         return PersonalizationModuleAssembly(serviceLocator: serviceLocator)
     }
@@ -124,26 +108,6 @@ final class ModulesDI: ModulesDIProtocol {
     
     func settings() -> SettingsModuleAssemblyProtocol {
         return SettingsModuleAssembly(serviceLocator: serviceLocator)
-    }
-    
-    func debugMenu() -> DebugMenuModuleAssemblyProtocol {
-        return DebugMenuModuleAssembly(serviceLocator: serviceLocator)
-    }
-    
-    func settingsAccount() -> SettingsAccountModuleAssemblyProtocol {
-        return SettingsAccountModuleAssembly(serviceLocator: serviceLocator, uiHelpersDI: uiHelpersDI)
-    }
-    
-    func fileStorage() -> FileStorageModuleAssemblyProtocol {
-        return FileStorageModuleAssembly(serviceLocator: serviceLocator, uiHelpersDI: uiHelpersDI)
-    }
-    
-    func spaceSwitch() -> SpaceSwitchModuleAssemblyProtocol {
-        return SpaceSwitchModileAssembly(serviceLocator: serviceLocator)
-    }
-    
-    func spaceCreate() -> SpaceCreateModuleAssemblyProtocol {
-        return SpaceCreateModuleAssembly(serviceLocator: serviceLocator)
     }
     
     func authorization() -> AuthModuleAssemblyProtocol {
@@ -188,14 +152,6 @@ final class ModulesDI: ModulesDIProtocol {
     
     func setViewSettingsList() -> SetViewSettingsListModuleAssemblyProtocol {
         return SetViewSettingsListModuleAssembly(serviceLocator: serviceLocator)
-    }
-    
-    func setSortsList() -> SetSortsListModuleAssemblyProtocol {
-        return SetSortsListModuleAssembly(serviceLocator: serviceLocator)
-    }
-    
-    func setSortTypesList() -> SetSortTypesListModuleAssemblyProtocol {
-        SetSortTypesListModuleAssembly()
     }
     
     func setTextView() -> SetTextViewModuleAssemblyProtocol {
@@ -276,22 +232,6 @@ final class ModulesDI: ModulesDIProtocol {
     
     func shareOptions() -> ShareOptionsModuleAssemblyProtocol {
         ShareOptionsModuleAssembly(serviceLocator: serviceLocator)
-    }
-    
-    func galleryInstallationPreview() -> GalleryInstallationPreviewModuleAssemblyProtocol {
-        GalleryInstallationPreviewModuleAssembly(serviceLocator: serviceLocator)
-    }
-    
-    func gallerySpaceSelectionModuleAssembly() -> GallerySpaceSelectionModuleAssemblyProtocol {
-        GallerySpaceSelectionModuleAssembly(serviceLocator: serviceLocator)
-    }
-    
-    func commonNotification() -> CommonNotificationAssemblyProtocol {
-        CommonNotificationAssembly(serviceLocator: serviceLocator)
-    }
-    
-    func galleryNotification() -> GalleryNotificationAssemblyProtocol {
-        GalleryNotificationAssembly(serviceLocator: serviceLocator)
     }
     
     func spareShare() -> SpaceShareModuleAssemblyProtocol {

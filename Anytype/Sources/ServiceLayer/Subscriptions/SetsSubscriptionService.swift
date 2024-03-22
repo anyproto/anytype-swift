@@ -19,20 +19,18 @@ final class SetsSubscriptionService: SetsSubscriptionServiceProtocol {
         static let limit = 100
     }
     
-    private let subscriptionStorage: SubscriptionStorageProtocol
-    private let objectTypeProvider: ObjectTypeProviderProtocol
-    private let activeWorkspaceStorage: ActiveWorkpaceStorageProtocol
+    @Injected(\.objectTypeProvider)
+    private var objectTypeProvider: ObjectTypeProviderProtocol
+    @Injected(\.activeWorkspaceStorage)
+    private var activeWorkspaceStorage: ActiveWorkpaceStorageProtocol
+    @Injected(\.subscriptionStorageProvider)
+    private var subscriptionStorageProvider: SubscriptionStorageProviderProtocol
+    private lazy var subscriptionStorage: SubscriptionStorageProtocol = {
+        subscriptionStorageProvider.createSubscriptionStorage(subId: subscriptionId)
+    }()
     private let subscriptionId = "Sets-\(UUID().uuidString)"
     
-    nonisolated init(
-        subscriptionStorageProvider: SubscriptionStorageProviderProtocol,
-        activeWorkspaceStorage: ActiveWorkpaceStorageProtocol,
-        objectTypeProvider: ObjectTypeProviderProtocol
-    ) {
-        self.subscriptionStorage = subscriptionStorageProvider.createSubscriptionStorage(subId: subscriptionId)
-        self.activeWorkspaceStorage = activeWorkspaceStorage
-        self.objectTypeProvider = objectTypeProvider
-    }
+    nonisolated init() {}
     
     func startSubscription(
         objectLimit: Int?,

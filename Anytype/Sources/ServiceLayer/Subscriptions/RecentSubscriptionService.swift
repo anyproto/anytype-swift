@@ -20,20 +20,19 @@ final class RecentSubscriptionService: RecentSubscriptionServiceProtocol {
         static let limit = 100
     }
     
-    private let subscriptionStorage: SubscriptionStorageProtocol
-    private let objectTypeProvider: ObjectTypeProviderProtocol
-    private let activeWorkspaceStorage: ActiveWorkpaceStorageProtocol
-    private let subscriptionId = "Recent-\(UUID().uuidString)"
+    @Injected(\.objectTypeProvider)
+    private var objectTypeProvider: ObjectTypeProviderProtocol
+    @Injected(\.activeWorkspaceStorage)
+    private var activeWorkspaceStorage: ActiveWorkpaceStorageProtocol
+    @Injected(\.subscriptionStorageProvider)
+    private var subscriptionStorageProvider: SubscriptionStorageProviderProtocol
+    private lazy var subscriptionStorage: SubscriptionStorageProtocol = {
+        subscriptionStorageProvider.createSubscriptionStorage(subId: subscriptionId)
+    }()
     
-    nonisolated init(
-        subscriptionStorageProvider: SubscriptionStorageProviderProtocol,
-        activeWorkspaceStorage: ActiveWorkpaceStorageProtocol,
-        objectTypeProvider: ObjectTypeProviderProtocol
-    ) {
-        self.subscriptionStorage = subscriptionStorageProvider.createSubscriptionStorage(subId: subscriptionId)
-        self.activeWorkspaceStorage = activeWorkspaceStorage
-        self.objectTypeProvider = objectTypeProvider
-    }
+    nonisolated init() {}
+    
+    private let subscriptionId = "Recent-\(UUID().uuidString)"
     
     func startSubscription(
         type: RecentWidgetType,
