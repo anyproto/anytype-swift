@@ -71,7 +71,7 @@ final class SpaceSwitchViewModel: ObservableObject {
     
     private func startSpacesSubscriotions() {
         
-        workspacesStorage.workspsacesPublisher
+        workspacesStorage.activeWorkspsacesPublisher
             .receiveOnMain()
             .sink { [weak self] workspaces in
                 self?.spaces = workspaces

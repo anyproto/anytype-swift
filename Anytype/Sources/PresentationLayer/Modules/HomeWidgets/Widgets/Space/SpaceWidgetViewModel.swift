@@ -40,7 +40,7 @@ final class SpaceWidgetViewModel: ObservableObject {
     }
     
     func startSpaceTask() async {
-        for await spaces in workspaceStorage.workspsacesPublisher.values {
+        for await spaces in workspaceStorage.activeWorkspsacesPublisher.values {
             guard let space = spaces.first(where: { $0.targetSpaceId == accountSpaceId }) else { continue }
             spaceName = space.title
             spaceIcon = space.objectIconImage

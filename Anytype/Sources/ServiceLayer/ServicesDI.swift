@@ -120,10 +120,6 @@ extension Container {
         self { TemplatesSubscriptionService() }
     }
     
-    var participantsSubscriptionByAccountService: Factory<ParticipantsSubscriptionByAccountServiceProtocol> {
-        self { ParticipantsSubscriptionByAccountService() }
-    }
-    
     var defaultObjectCreationService: Factory<DefaultObjectCreationServiceProtocol> {
         self { DefaultObjectCreationService() }.shared
     }

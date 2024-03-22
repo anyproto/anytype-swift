@@ -15,7 +15,7 @@ final class GallerySpaceSelectionViewModel: ObservableObject {
     
     init(output: GallerySpaceSelectionModuleOutput?) {
         self.output = output
-        self.spaces = participantSpacesStorage.participantSpaces.filter(\.participant.canEdit).map(\.spaceView)
+        self.spaces = participantSpacesStorage.activeParticipantSpaces.filter(\.canEdit).map(\.spaceView)
         self.canCreateNewSpace = workspaceStorage.canCreateNewSpace()
     }
     

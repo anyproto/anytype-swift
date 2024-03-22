@@ -12,9 +12,11 @@ struct SpacesManagerView: View {
             ScrollView(showsIndicators: false) {
                 Spacer.fixedHeight(10)
                 VStack(spacing: 12) {
-                    ForEach(model.rows) { row in
+                    ForEach(model.participantSpaces) { row in
                         SpacesManagerRowView(model: row) {
                             try await model.onDelete(row: row)
+                        } onLeave: {
+                            try await model.onLeave(row: row)
                         } onCancelRequest: {
                             try await model.onCancelRequest(row: row)
                         } onArchive: {
@@ -24,9 +26,6 @@ struct SpacesManagerView: View {
                 }
                 .padding(.horizontal, 10)
             }
-        }
-        .task {
-            await model.onAppear()
         }
         .task {
             await model.startWorkspacesTask()

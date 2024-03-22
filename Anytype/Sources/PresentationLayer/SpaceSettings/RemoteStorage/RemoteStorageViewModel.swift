@@ -126,7 +126,7 @@ final class RemoteStorageViewModel: ObservableObject {
             segmentInfo.currentLegend = Loc.FileStorage.LimitLegend.current(spaceView.name, byteCountFormatter.string(fromByteCount: spaceBytesUsage))
         }
        
-        let otherSpaces = workspacesStorage.workspaces.filter { $0.targetSpaceId != spaceId }
+        let otherSpaces = workspacesStorage.activeWorkspaces.filter { $0.targetSpaceId != spaceId }
         
         if otherSpaces.isNotEmpty {
             segmentInfo.otherUsages = otherSpaces.map { spaceView in

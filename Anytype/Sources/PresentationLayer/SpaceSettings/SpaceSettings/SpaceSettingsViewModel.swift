@@ -113,7 +113,7 @@ final class SpaceSettingsViewModel: ObservableObject {
     
     private func setupData() async throws {
         participantSpacesStorage
-            .participantSpacesPublisher
+            .activeParticipantSpacesPublisher
             .receiveOnMain()
             .sink { [weak self] participantSpaceViews in
                 self?.participantSpaceView = participantSpaceViews.first { $0.spaceView.targetSpaceId == self?.workspaceInfo.accountSpaceId }
@@ -131,11 +131,11 @@ final class SpaceSettingsViewModel: ObservableObject {
         spaceIcon = spaceView.objectIconImage
         spaceAccessType = spaceView.spaceAccessType?.name ?? ""
         allowDelete = spaceView.canBeDelete
-        allowLeave = participant.canLeave
+        allowLeave = participantSpaceView.canLeave
         allowShare = participantSpaceView.canBeShared
-        allowSpaceMembers = !participant.isOwner
-        allowEditSpace = participant.canEdit
-        allowRemoteStorage = participant.isOwner
+        allowSpaceMembers = !participantSpaceView.isOwner
+        allowEditSpace = participantSpaceView.canEdit
+        allowRemoteStorage = participantSpaceView.isOwner
         buildInfoBlock(details: spaceView)
         
         if !dataLoaded {

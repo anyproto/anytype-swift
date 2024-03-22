@@ -1,7 +1,7 @@
 import Foundation
 import Services
 
-struct SpaceView: Identifiable {
+struct SpaceView: Identifiable, Equatable {
     let id: String
     let name: String
     let title: String
@@ -58,5 +58,9 @@ extension SpaceView {
     
     var canCancelJoinRequest: Bool {
         accountStatus == .spaceJoining
+    }
+    
+    var isActive: Bool {
+        localStatus == .ok && accountStatus != .spaceRemoving && accountStatus != .spaceDeleted
     }
 }
