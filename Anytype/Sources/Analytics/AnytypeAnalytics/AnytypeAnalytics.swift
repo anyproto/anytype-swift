@@ -29,12 +29,9 @@ final class AnytypeAnalytics: AnytypeAnalyticsProtocol {
     
     private init() {
         // Disable IDFA/IPAddress for Amplitude
-        if let trackingOptions = AMPTrackingOptions().disableIDFA().disableIPAddress(){
+        if let trackingOptions = AMPTrackingOptions().disableIDFA().disableIPAddress() {
             Amplitude.instance().setTrackingOptions(trackingOptions)
         }
-
-        // Enable sending automatic session events
-        Amplitude.instance().trackingSessionEvents = true
         
         userProperties[Keys.interfaceLang] = Locale.current.languageCode
     }
