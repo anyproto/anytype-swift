@@ -117,6 +117,15 @@
 "Relation.Origin.Builtin" = "Библиотеки установлены.";
 "Relation.Origin.Bookmark" = "Закладка";
 
+// MARK: - Import Type Relation
+
+"Relation.ImportType.Notion" = "Notion";
+"Relation.ImportType.Markdown" = "Markdown";
+"Relation.ImportType.Html" = "HTML";
+"Relation.ImportType.Text" = "TXT";
+"Relation.ImportType.Protobuf" = "Any-Block";
+"Relation.ImportType.Csv" = "CSV";
+
 // MARK: - Mention
 "Mention.Subtitle.Placeholder" = "Объект";
 
@@ -874,9 +883,10 @@
 "SpaceSettings.DeleteAlert.Message" = "Это пространство будет удалено безвозвратно. Вы не сможете отменить это действие.";
 "SpaceSettings.DeleteButton" = "Удалить пространство";
 "SpaceSettings.Share" = "Поделиться";
-"SpaceSettings.LeaveButton" = "Выйти и отсоединится";
-"SpaceSettings.LeaveAlert.Title" = "Выйти и отсоединиться от пространства";
+"SpaceSettings.LeaveButton" = "Leave";
+"SpaceSettings.LeaveAlert.Title" = "Leave a space";
 "SpaceSettings.LeaveAlert.Message" = "%@ пространство будет удалено с ваших устройств и у вас больше не будет к ним доступа ";
+"SpaceSettings.LeaveAlert.Toast" = "You left the %@.";
 
 // MARK: - Space Share
 
