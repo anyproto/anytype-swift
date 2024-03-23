@@ -117,6 +117,15 @@
 "Relation.Origin.Builtin" = "Bibliotek installert";
 "Relation.Origin.Bookmark" = "Bokmerke";
 
+// MARK: - Import Type Relation
+
+"Relation.ImportType.Notion" = "Notion";
+"Relation.ImportType.Markdown" = "Markdown";
+"Relation.ImportType.Html" = "HTML";
+"Relation.ImportType.Text" = "TXT";
+"Relation.ImportType.Protobuf" = "Any-Block";
+"Relation.ImportType.Csv" = "CSV";
+
 // MARK: - Mention
 "Mention.Subtitle.Placeholder" = "Objekt";
 
@@ -873,9 +882,10 @@
 "SpaceSettings.DeleteAlert.Message" = "Dette rommet vil bli slettet ugjenkallelig. Du kan ikke angre denne handlingen.";
 "SpaceSettings.DeleteButton" = "Slett rom";
 "SpaceSettings.Share" = "Del";
-"SpaceSettings.LeaveButton" = "Forlat og fjern sammenkobling";
-"SpaceSettings.LeaveAlert.Title" = "Forlat og fjern sammenkoblingen til rommet";
+"SpaceSettings.LeaveButton" = "Leave";
+"SpaceSettings.LeaveAlert.Title" = "Leave a space";
 "SpaceSettings.LeaveAlert.Message" = "%@-rommet vil bli fjernet fra enhetene dine og du vil ikke lenger ha tilgang til det";
+"SpaceSettings.LeaveAlert.Toast" = "You left the %@.";
 
 // MARK: - Space Share
 
