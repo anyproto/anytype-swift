@@ -117,6 +117,15 @@
 "Relation.Origin.Builtin" = "Biblioteca instalada";
 "Relation.Origin.Bookmark" = "Marcador";
 
+// MARK: - Import Type Relation
+
+"Relation.ImportType.Notion" = "Notion";
+"Relation.ImportType.Markdown" = "Markdown";
+"Relation.ImportType.Html" = "HTML";
+"Relation.ImportType.Text" = "TXT";
+"Relation.ImportType.Protobuf" = "Any-Block";
+"Relation.ImportType.Csv" = "CSV";
+
 // MARK: - Mention
 "Mention.Subtitle.Placeholder" = "Objeto";
 
@@ -874,9 +883,10 @@
 "SpaceSettings.DeleteAlert.Message" = "Este espaço será excluído irrevogavelmente. Você não pode desfazer esta ação.";
 "SpaceSettings.DeleteButton" = "Excluir Espaço";
 "SpaceSettings.Share" = "Compartilhar";
-"SpaceSettings.LeaveButton" = "Sair e desconectar";
-"SpaceSettings.LeaveAlert.Title" = "Sair e desconectar-se do espaço";
+"SpaceSettings.LeaveButton" = "Leave";
+"SpaceSettings.LeaveAlert.Title" = "Leave a space";
 "SpaceSettings.LeaveAlert.Message" = "%@ espaço será removido de seus dispositivos e você não terá mais acesso a ele";
+"SpaceSettings.LeaveAlert.Toast" = "You left the %@.";
 
 // MARK: - Space Share
 
