@@ -117,6 +117,15 @@
 "Relation.Origin.Builtin" = "Bibliothek installiert";
 "Relation.Origin.Bookmark" = "Lesezeichen";
 
+// MARK: - Import Type Relation
+
+"Relation.ImportType.Notion" = "Notion";
+"Relation.ImportType.Markdown" = "Markdown";
+"Relation.ImportType.Html" = "HTML";
+"Relation.ImportType.Text" = "TXT";
+"Relation.ImportType.Protobuf" = "Any-Block";
+"Relation.ImportType.Csv" = "CSV";
+
 // MARK: - Mention
 "Mention.Subtitle.Placeholder" = "Objekt";
 
@@ -874,9 +883,10 @@
 "SpaceSettings.DeleteAlert.Message" = "Dieser Space wird unwiderruflich gelöscht. Diese Aktion kann nicht rückgängig gemacht werden.";
 "SpaceSettings.DeleteButton" = "Space löschen";
 "SpaceSettings.Share" = "Teilen";
-"SpaceSettings.LeaveButton" = "Verlassen und entfernen";
-"SpaceSettings.LeaveAlert.Title" = "Verlassen und den Space entfernen";
+"SpaceSettings.LeaveButton" = "Verlassen";
+"SpaceSettings.LeaveAlert.Title" = "Leave a space";
 "SpaceSettings.LeaveAlert.Message" = "%@ Space wird von deinen Geräten entfernt und du hast dann keinen Zugriff mehr darauf";
+"SpaceSettings.LeaveAlert.Toast" = "You left the %@.";
 
 // MARK: - Space Share
 
@@ -889,14 +899,14 @@
 "SpaceShare.Permissions.Grand.View" = "Ansicht";
 "SpaceShare.Invite.Title" = "Einladungslink";
 "SpaceShare.Invite.Description" = "Share this invite link so that others can join your Space. Once they click your link and request access, you can set their access rights.";
-"SpaceShare.Invite.Share" = "Share invite link";
-"SpaceShare.Invite.Generate" = "Generate invite link";
+"SpaceShare.Invite.Share" = "Einladungslink teilen";
+"SpaceShare.Invite.Generate" = "Einladungslink generieren";
 "SpaceShare.Invite.Empty" = "Create invite link to share space and add new members";
 "SpaceShare.JoinRequest" = "Join request";
 "SpaceShare.LeaveRequest" = "Leave request";
-"SpaceShare.Action.ViewRequest" = "View request";
+"SpaceShare.Action.ViewRequest" = "Anfrage ansehen";
 "SpaceShare.Action.Approve" = "Genehmigen";
-"SpaceShare.DeleteSharingLink.Title" = "Delete link";
+"SpaceShare.DeleteSharingLink.Title" = "Link löschen";
 "SpaceShare.DeleteSharingLink.Message" = "New members won’t be able to join the space. You can generate a new link anytype";
 "SpaceShare.Approve.Toast" = "You approved %@'s request.";
 "SpaceShare.ViewRequest.Title" = "%@ beantragte den Beitritt zu %@";
@@ -924,14 +934,14 @@
 "ParticipantRemoveNotification.Text" = "You have been removed from the space, or the space was deleted by the owner.";
 "RequestToJoinNotification.Text" = "**%@** requested to join the **%@** space.";
 "RequestToJoinNotification.GoToSpace" = "Go to Space";
-"RequestToJoinNotification.ViewRequest" = "View request";
+"RequestToJoinNotification.ViewRequest" = "Anfrage ansehen";
 
 // MARK: - Space manager
 "SpaceManager.CancelRequest" = "Cancel Join Request";
 "SpaceManager.DoNotCancel" = "Do Not Cancel";
 "SpaceManager.Archive" = "Archive";
 "SpaceManager.CancelRequestAlert.Title" = "You will have to send request access again";
-"SpaceManager.CancelRequestAlert.Toast" = "The request was canceled.";
+"SpaceManager.CancelRequestAlert.Toast" = "Die Anfrage wurde storniert.";
 
 
 
@@ -1062,7 +1072,7 @@
 "Membership.EmailForm.Newsletter" = "Ich möchte über Neuigkeiten zu Produkten informiert werden und kostenlose Vergünstigungen erhalten!";
 "Membership.EmailValidation" = "Gib den an deine E-Mail-Adresse gesendeten Code ein";
 
-"Membership.NameForm.Title" = "Pick your unique name";
+"Membership.NameForm.Title" = "Wähle deinen einzigartigen Namen";
 "Membership.NameForm.Subtitle" = "This name acts like a personal domain, making it easier for others to find you";
 "Membership.NameForm.Validating" = "Wait a second...";
 "Membership.NameForm.Validated" = "Dieser Name ist noch zu vergeben";
