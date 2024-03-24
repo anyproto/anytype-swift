@@ -885,7 +885,7 @@
 "SpaceSettings.LeaveButton" = "Leave";
 "SpaceSettings.LeaveAlert.Title" = "Leave a space";
 "SpaceSettings.LeaveAlert.Message" = "L'espace %@ sera supprimé de votre appareil et vous ne pourrez plus y avoir accès";
-"SpaceSettings.LeaveAlert.Toast" = "You left the %@.";
+"SpaceSettings.LeaveAlert.Toast" = "Vous avez quitté le %@.";
 
 // MARK: - Space Share
 
