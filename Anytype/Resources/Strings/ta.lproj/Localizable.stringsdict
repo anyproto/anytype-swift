@@ -79,7 +79,7 @@
         <key>one</key>
         <string>நாளை</string>
         <key>other</key>
-        <string>in %d days</string>
+        <string>%d நாட்களில்</string>
       </dict>
     </dict>
     <key>Widgets.Actions.BinConfirm</key>
@@ -189,9 +189,9 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>d</string>
         <key>other</key>
-        <string>%d members</string>
+        <string>%d உறுப்பினர்கள்</string>
         <key>one</key>
-        <string>%d member</string>
+        <string>%d உறுப்பினர்</string>
       </dict>
     </dict>
   </dict>
