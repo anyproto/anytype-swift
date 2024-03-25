@@ -344,12 +344,15 @@ enum AnalyticsWidgetSource {
 
 enum AnalyticsObjectType {
     case object(typeId: String)
+    case file(ext: String)
     case custom
     
     var analyticsId: String {
         switch self {
         case .object(let typeId):
             return typeId
+        case .file(let ext):
+            return ext
         case .custom:
             return AnalyticsEventsTypeValues.customType
         }

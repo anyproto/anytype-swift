@@ -82,7 +82,7 @@ final class ShareOptionsInteractor: ShareOptionsInteractorProtocol {
                     newObjectId = try await createBookmarkObject(url: AnytypeURL(url: url), spaceId: spaceId).id
                     blockInformation = BlockInformation.bookmark(targetId: newObjectId)
                 case let .file(url):
-                    newObjectId = try await creatFileObject(url: url, spaceId: spaceId).id
+                    newObjectId = try await createFileObject(url: url, spaceId: spaceId).id
                     blockInformation = BlockInformation.emptyLink(targetId: newObjectId)
                 }
                 
@@ -144,12 +144,12 @@ final class ShareOptionsInteractor: ShareOptionsInteractorProtocol {
         return newObject
     }
     
-    private func creatFileObject(url: URL, spaceId: String) async throws -> FileDetails {
+    private func createFileObject(url: URL, spaceId: String) async throws -> FileDetails {
         let data = FileData(path: url.relativePath, isTemporary: false)
         let details = try await fileService.uploadFileObject(spaceId: spaceId, data: data, origin: .sharingExtension)
         
         AnytypeAnalytics.instance().logCreateObject(
-            objectType: objectTypeProvider.analyticsType(id: details.type),
+            objectType: details.analyticsType,
             route: .sharingExtension
         )
         return details
