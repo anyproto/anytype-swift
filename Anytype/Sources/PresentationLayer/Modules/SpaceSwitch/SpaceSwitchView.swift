@@ -80,6 +80,9 @@ struct SpaceSwitchView: View {
         .anytypeSheet(item: $model.spaceViewForLeave) { space in
             SpaceLeaveAlert(spaceId: space.targetSpaceId)
         }
+        .anytypeSheet(item: $model.spaceViewStopSharing) { space in
+            StopSharingAlert(spaceId: space.targetSpaceId)
+         }
     }
     
     private var content: some View {

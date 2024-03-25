@@ -10,7 +10,11 @@ struct ParticipantSpaceView: Equatable, Identifiable {
 
 extension ParticipantSpaceView {
     var canBeShared: Bool {
-        spaceView.canBeShared(isOwner: participant?.isOwner ?? false)
+        spaceView.canBeShared(isOwner: isOwner)
+    }
+    
+    var canStopSharing: Bool {
+        spaceView.canStopShating(isOwner: isOwner)
     }
     
     var canEdit: Bool {

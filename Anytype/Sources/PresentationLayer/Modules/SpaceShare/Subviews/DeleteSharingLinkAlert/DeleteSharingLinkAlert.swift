@@ -6,8 +6,8 @@ struct DeleteSharingLinkAlert: View {
     @StateObject private var model: DeleteSharingLinkAlertModel
     @Environment(\.dismiss) private var dismiss
     
-    init(spaceId: String) {
-        self._model = StateObject(wrappedValue: DeleteSharingLinkAlertModel(spaceId: spaceId))
+    init(spaceId: String, onDelete: (() -> Void)? = nil) {
+        self._model = StateObject(wrappedValue: DeleteSharingLinkAlertModel(spaceId: spaceId, onDelete: onDelete))
     }
     
     var body: some View {

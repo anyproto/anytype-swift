@@ -44,6 +44,10 @@ extension SpaceView {
         isOwner && (spaceAccessType == .shared || spaceAccessType == .private)
     }
     
+    func canStopShating(isOwner: Bool) -> Bool {
+        isOwner && (spaceAccessType == .shared)
+    }
+    
     var isShared: Bool {
         spaceAccessType == .shared
     }
