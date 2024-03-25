@@ -67,12 +67,16 @@ final class SpaceShareViewModel: ObservableObject {
         inviteLink = deppLinkParser.createUrl(deepLink: .invite(cid: invite.cid, key: invite.fileKey), scheme: .main)
     }
     
-    func deleteSharingLinkAlertOnDismiss() {
+    func onDeleteLinkCompleted() {
         inviteLink = nil
     }
     
     func onStopSharing() {
         showStopSharingAlert = true
+    }
+    
+    func onStopSharingCompleted() {
+        inviteLink = nil
     }
     
     // MARK: - Private

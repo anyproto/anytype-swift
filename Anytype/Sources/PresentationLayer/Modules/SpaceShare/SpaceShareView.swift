@@ -38,11 +38,15 @@ struct SpaceShareView: View {
         .anytypeSheet(item: $model.removeParticipantAlertModel) { model in
             SpaceParticipantRemoveView(model: model)
         }
-        .anytypeSheet(isPresented: $model.showDeleteLinkAlert, onDismiss: { model.deleteSharingLinkAlertOnDismiss() }) {
-            DeleteSharingLinkAlert(spaceId: model.accountSpaceId)
+        .anytypeSheet(isPresented: $model.showDeleteLinkAlert) {
+            DeleteSharingLinkAlert(spaceId: model.accountSpaceId) {
+                model.onDeleteLinkCompleted()
+            }
         }
         .anytypeSheet(isPresented: $model.showStopSharingAlert) {
-            StopSharingAlert(spaceId: model.accountSpaceId)
+            StopSharingAlert(spaceId: model.accountSpaceId) {
+                model.onStopSharingCompleted()
+            }
         }
     }
     
