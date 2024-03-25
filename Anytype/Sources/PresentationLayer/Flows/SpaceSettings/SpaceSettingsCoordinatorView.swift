@@ -7,7 +7,7 @@ struct SpaceSettingsCoordinatorView: View {
     @Environment(\.dismiss) var dismiss
     
     var body: some View {
-        model.settingsModule()
+        SpaceSettingsView(output: model)
         .sheet(isPresented: $model.showRemoteStorage) {
             model.remoteStorageModule()
         }

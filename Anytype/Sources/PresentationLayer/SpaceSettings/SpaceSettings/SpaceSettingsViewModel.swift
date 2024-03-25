@@ -8,17 +8,24 @@ final class SpaceSettingsViewModel: ObservableObject {
     
     // MARK: - DI
     
-    private let objectActionsService: ObjectActionsServiceProtocol
-    private let relationDetailsStorage: RelationDetailsStorageProtocol
-    private let workspaceService: WorkspaceServiceProtocol
-    private let accountManager: AccountManagerProtocol
-    private let participantSpacesStorage: ParticipantSpacesStorageProtocol
+    @Injected(\.objectActionsService)
+    private var objectActionsService: ObjectActionsServiceProtocol
+    @Injected(\.relationDetailsStorage)
+    private var relationDetailsStorage: RelationDetailsStorageProtocol
+    @Injected(\.workspaceService)
+    private var workspaceService: WorkspaceServiceProtocol
+    @Injected(\.accountManager)
+    private var accountManager: AccountManagerProtocol
+    @Injected(\.participantSpacesStorage)
+    private var participantSpacesStorage: ParticipantSpacesStorageProtocol
+    @Injected(\.activeWorkspaceStorage)
+    private var activeWorkspaceStorage: ActiveWorkpaceStorageProtocol
     private let dateFormatter = DateFormatter.relationDateFormatter
     private weak var output: SpaceSettingsModuleOutput?
     
     // MARK: - State
     
-    let workspaceInfo: AccountInfo
+    lazy var workspaceInfo: AccountInfo = activeWorkspaceStorage.workspaceInfo
     private var subscriptions: [AnyCancellable] = []
     private var dataLoaded = false
     private var participantSpaceView: ParticipantSpaceView?
@@ -38,22 +45,8 @@ final class SpaceSettingsViewModel: ObservableObject {
     @Published var allowEditSpace = false
     @Published var allowRemoteStorage = false
     
-    init(
-        activeWorkspaceStorage: ActiveWorkpaceStorageProtocol,
-        objectActionsService: ObjectActionsServiceProtocol,
-        relationDetailsStorage: RelationDetailsStorageProtocol,
-        workspaceService: WorkspaceServiceProtocol,
-        accountManager: AccountManagerProtocol,
-        participantSpacesStorage: ParticipantSpacesStorageProtocol,
-        output: SpaceSettingsModuleOutput?
-    ) {
-        self.objectActionsService = objectActionsService
-        self.relationDetailsStorage = relationDetailsStorage
-        self.workspaceService = workspaceService
-        self.accountManager = accountManager
-        self.participantSpacesStorage = participantSpacesStorage
+    init(output: SpaceSettingsModuleOutput?) {
         self.output = output
-        self.workspaceInfo = activeWorkspaceStorage.workspaceInfo
         Task {
             try await setupData()
         }
@@ -109,7 +102,6 @@ final class SpaceSettingsViewModel: ObservableObject {
         guard let participantSpaceView else { return }
         
         let spaceView = participantSpaceView.spaceView
-        let participant = participantSpaceView.participant
         
         spaceIcon = spaceView.objectIconImage
         spaceAccessType = spaceView.spaceAccessType?.name ?? ""
