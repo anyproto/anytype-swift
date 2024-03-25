@@ -23,8 +23,8 @@ struct BlockBuilder {
             return .bookmark(.empty())
         case let .divider(style):
             return .divider(.init(style: style))
-        case let .file(type):
-            return .file(.empty(contentType: type))
+        case let .file(data):
+            return .file(.empty(contentType: data.contentType))
         case .link:
             return .link(.empty())
         case let .relation(key: key):
