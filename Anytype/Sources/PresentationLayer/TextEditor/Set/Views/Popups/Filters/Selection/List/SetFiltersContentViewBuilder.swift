@@ -10,22 +10,19 @@ final class SetFiltersContentViewBuilder {
     private let setFiltersSelectionHeaderModuleAssembly: SetFiltersSelectionHeaderModuleAssemblyProtocol
     private let newSearchModuleAssembly: NewSearchModuleAssemblyProtocol
     private let setFiltersDateCoordinatorAssembly: SetFiltersDateCoordinatorAssemblyProtocol
-    private let setFiltersTextViewModuleAssembly: SetFiltersTextViewModuleAssemblyProtocol
     
     init(
         spaceId: String,
         filter: SetFilter,
         setFiltersSelectionHeaderModuleAssembly: SetFiltersSelectionHeaderModuleAssemblyProtocol,
         setFiltersDateCoordinatorAssembly: SetFiltersDateCoordinatorAssemblyProtocol,
-        newSearchModuleAssembly: NewSearchModuleAssemblyProtocol,
-        setFiltersTextViewModuleAssembly: SetFiltersTextViewModuleAssemblyProtocol
+        newSearchModuleAssembly: NewSearchModuleAssemblyProtocol
     ) {
         self.spaceId = spaceId
         self.filter = filter
         self.setFiltersSelectionHeaderModuleAssembly = setFiltersSelectionHeaderModuleAssembly
         self.setFiltersDateCoordinatorAssembly = setFiltersDateCoordinatorAssembly
         self.newSearchModuleAssembly = newSearchModuleAssembly
-        self.setFiltersTextViewModuleAssembly = setFiltersTextViewModuleAssembly
     }
     
     @MainActor
@@ -151,10 +148,10 @@ final class SetFiltersContentViewBuilder {
     func buildTextView(
         onApplyText: @escaping (_ text: String) -> Void
     ) -> AnyView {
-        setFiltersTextViewModuleAssembly.make(
-            with: filter,
+        SetFiltersTextView(
+            filter: filter,
             onApplyText: onApplyText
-        )
+        ).eraseToAnyView()
     }
     
     // MARK: - Private methods: Checkbox
