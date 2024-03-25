@@ -49,10 +49,6 @@ final class SetDocument: SetDocumentProtocol {
         (FeatureFlags.setKanbanView && activeView.type == .kanban)
     }
     
-    var relationValuesIsLocked: Bool {
-        return document.relationValuesIsLocked
-    }
-    
     var analyticsType: AnalyticsObjectType {
         details?.analyticsType ?? .object(typeId: "")
     }

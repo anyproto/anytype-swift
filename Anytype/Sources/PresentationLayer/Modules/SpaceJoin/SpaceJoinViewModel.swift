@@ -2,13 +2,22 @@ import Foundation
 import Services
 import AnytypeCore
 
+struct SpaceJoinModuleData: Identifiable {
+    let id = UUID()
+    let cid: String
+    let key: String
+}
+
 @MainActor
 final class SpaceJoinViewModel: ObservableObject {
     
     private let data: SpaceJoinModuleData
-    private let workspaceService: WorkspaceServiceProtocol
+    @Injected(\.workspaceService)
+    private var workspaceService: WorkspaceServiceProtocol
     
     private var inviteView: SpaceInviteView?
+    private var onManageSpaces: () -> Void
+    private var callManageSpaces = false
     
     @Published var errorMessage: String = ""
     @Published var message: String = ""
@@ -16,10 +25,11 @@ final class SpaceJoinViewModel: ObservableObject {
     @Published var state: ScreenState = .loading
     @Published var toast: ToastBarData = .empty
     @Published var showSuccessAlert = false
+    @Published var dismiss = false
     
-    init(data: SpaceJoinModuleData, workspaceService: WorkspaceServiceProtocol) {
+    init(data: SpaceJoinModuleData, onManageSpaces: @escaping () -> Void) {
         self.data = data
-        self.workspaceService = workspaceService
+        self.onManageSpaces = onManageSpaces
         Task {
             await updateView()
         }
@@ -32,6 +42,23 @@ final class SpaceJoinViewModel: ObservableObject {
         }
         try await workspaceService.join(spaceId: inviteView.spaceId, cid: data.cid, key: data.key)
         showSuccessAlert.toggle()
+    }
+    
+    func onDismissSuccessAlert() {
+        dismiss.toggle()
+    }
+    
+    func onTapManageSpaces() {
+        callManageSpaces = true
+        dismiss.toggle()
+    }
+    
+    func onDisappear() {
+        // Sheet open like form if at this time form sheet screen closes (anytypeSheet).
+        // Notify parent after dismiss.
+        if callManageSpaces {
+            onManageSpaces()
+        }
     }
     
     // MARK: - Private

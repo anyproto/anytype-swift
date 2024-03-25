@@ -15,50 +15,38 @@ final class SettingsCoordinator: SettingsCoordinatorProtocol,
     private let navigationContext: NavigationContextProtocol
     private let settingsModuleAssembly: SettingsModuleAssemblyProtocol
     private let appearanceModuleAssembly: SettingsAppearanceModuleAssemblyProtocol
-    private let aboutModuleAssembly: AboutModuleAssemblyProtocol
-    private let accountModuleAssembly: SettingsAccountModuleAssemblyProtocol
     private let keychainPhraseModuleAssembly: KeychainPhraseModuleAssemblyProtocol
     private let dashboardAlertsAssembly: DashboardAlertsAssemblyProtocol
     private let objectIconPickerModuleAssembly: ObjectIconPickerModuleAssemblyProtocol
-    private let fileStorageModuleAssembly: FileStorageModuleAssemblyProtocol
     private let documentService: OpenedDocumentsProviderProtocol
     private let urlOpener: URLOpenerProtocol
     private let activeWorkspaceStorage: ActiveWorkpaceStorageProtocol
     private let serviceLocator: ServiceLocator
     private let applicationStateService: ApplicationStateServiceProtocol
-    private let spacesManagerModuleAssembly: SpacesManagerModuleAssemblyProtocol
     
     init(
         navigationContext: NavigationContextProtocol,
         settingsModuleAssembly: SettingsModuleAssemblyProtocol,
         appearanceModuleAssembly: SettingsAppearanceModuleAssemblyProtocol,
-        aboutModuleAssembly: AboutModuleAssemblyProtocol,
-        accountModuleAssembly: SettingsAccountModuleAssemblyProtocol,
         keychainPhraseModuleAssembly: KeychainPhraseModuleAssemblyProtocol,
         dashboardAlertsAssembly: DashboardAlertsAssemblyProtocol,
         objectIconPickerModuleAssembly: ObjectIconPickerModuleAssemblyProtocol,
-        fileStorageModuleAssembly: FileStorageModuleAssemblyProtocol,
         documentService: OpenedDocumentsProviderProtocol,
         urlOpener: URLOpenerProtocol,
         activeWorkspaceStorage: ActiveWorkpaceStorageProtocol,
-        serviceLocator: ServiceLocator,
-        spacesManagerModuleAssembly: SpacesManagerModuleAssemblyProtocol
+        serviceLocator: ServiceLocator
     ) {
         self.navigationContext = navigationContext
         self.settingsModuleAssembly = settingsModuleAssembly
         self.appearanceModuleAssembly = appearanceModuleAssembly
-        self.aboutModuleAssembly = aboutModuleAssembly
-        self.accountModuleAssembly = accountModuleAssembly
         self.keychainPhraseModuleAssembly = keychainPhraseModuleAssembly
         self.dashboardAlertsAssembly = dashboardAlertsAssembly
         self.objectIconPickerModuleAssembly = objectIconPickerModuleAssembly
-        self.fileStorageModuleAssembly = fileStorageModuleAssembly
         self.documentService = documentService
         self.urlOpener = urlOpener
         self.activeWorkspaceStorage = activeWorkspaceStorage
         self.serviceLocator = serviceLocator
         self.applicationStateService = serviceLocator.applicationStateService()
-        self.spacesManagerModuleAssembly = spacesManagerModuleAssembly
     }
     
     func startFlow() {
@@ -78,18 +66,15 @@ final class SettingsCoordinator: SettingsCoordinatorProtocol,
     }
     
     func onFileStorageSelected() {
-        let module = fileStorageModuleAssembly.make(output: self)
-        navigationContext.present(module)
+        navigationContext.present(FileStorageView(output: self))
     }
     
     func onAboutSelected() {
-        let model = aboutModuleAssembly.make(output: self)
-        navigationContext.present(model)
+        navigationContext.present(AboutView(output: self))
     }
     
     func onAccountDataSelected() {
-        let module = accountModuleAssembly.make(output: self)
-        navigationContext.present(module)
+        navigationContext.present(SettingsAccountView(output: self))
     }
     
     func onChangeIconSelected(objectId: String) {
@@ -102,8 +87,7 @@ final class SettingsCoordinator: SettingsCoordinatorProtocol,
     }
     
     func onSpacesSelected() {
-        let module = spacesManagerModuleAssembly.make()
-        navigationContext.present(module)
+        navigationContext.present(SpacesManagerView())
     }
     
     func onMembershipSelected() {

@@ -9,23 +9,23 @@ final class SpaceSearchViewModel: SearchViewModelProtocol {
     var placeholder: String { Loc.Spaces.Search.title }
     var lastSearchText: String = ""
     
-    private let workspacesStorage: WorkspacesStorageProtocol
+    private let participantSpacesStorage: ParticipantSpacesStorageProtocol
     private var spaces = [SpaceView]()
     private var cancellables = [AnyCancellable]()
     
     init(
-        workspacesStorage: WorkspacesStorageProtocol,
+        participantSpacesStorage: ParticipantSpacesStorageProtocol,
         onSelect: @escaping (SpaceView) -> Void
     ) {
-        self.workspacesStorage = workspacesStorage
+        self.participantSpacesStorage = participantSpacesStorage
         self.onSelect = onSelect
         
         setupSubscription()
     }
     
     private func setupSubscription() {
-        workspacesStorage.workspsacesPublisher.sink { [weak self] spaces in
-            self?.spaces = spaces
+        participantSpacesStorage.activeParticipantSpacesPublisher.sink { [weak self] participantSpaces in
+            self?.spaces = participantSpaces.filter(\.canEdit).map(\.spaceView)
             self?.search(text: self?.lastSearchText ?? "")
         }.store(in: &cancellables)
     }

@@ -1,8 +1,8 @@
 import ProtobufMessages
 import Foundation
 
-public typealias MembershipSubscriptionStatus = Anytype_Rpc.Payments.Subscription.SubscriptionStatus
-public typealias MembershipPaymentMethod = Anytype_Rpc.Payments.Subscription.PaymentMethod
+public typealias MembershipSubscriptionStatus = Anytype_Model_Membership.Status
+public typealias MembershipPaymentMethod = Anytype_Model_Membership.PaymentMethod
 
 public enum MembershipTier: Hashable, Identifiable {
     case explorer

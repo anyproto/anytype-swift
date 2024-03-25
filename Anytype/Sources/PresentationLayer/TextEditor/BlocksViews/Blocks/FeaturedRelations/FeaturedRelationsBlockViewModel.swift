@@ -26,7 +26,7 @@ final class FeaturedRelationsBlockViewModel: BlockViewModelProtocol {
         self.collectionController = collectionController
         self.onRelationTap = onRelationValueTap
         
-        document.featuredRelationsForEditorPublisher.sink { [weak self] newFeaturedRelations in
+        document.featuredRelationsForEditorPublisher.receiveOnMain().sink { [weak self] newFeaturedRelations in
             guard let self else { return }
             if featuredRelationValues != newFeaturedRelations {
                 self.featuredRelationValues = newFeaturedRelations

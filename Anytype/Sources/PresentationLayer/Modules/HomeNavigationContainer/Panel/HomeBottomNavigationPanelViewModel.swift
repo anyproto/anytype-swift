@@ -14,6 +14,8 @@ final class HomeBottomNavigationPanelViewModel: ObservableObject {
     private let subscriptionService: SingleObjectSubscriptionServiceProtocol
     private let defaultObjectService: DefaultObjectCreationServiceProtocol
     private var processSubscriptionService: ProcessSubscriptionServiceProtocol
+    private let accountParticipantStorage: AccountParticipantsStorageProtocol
+        
     private weak var output: HomeBottomNavigationPanelModuleOutput?
     private let subId = "HomeBottomNavigationProfile-\(UUID().uuidString)"
     
@@ -22,21 +24,23 @@ final class HomeBottomNavigationPanelViewModel: ObservableObject {
     
     // MARK: - Public properties
     
-    @Published var isEditState: Bool = false
     @Published var profileIcon: Icon?
     @Published var progress: Double? = nil
+    @Published var canCreateObject: Bool = false
     
     init(
         activeWorkpaceStorage: ActiveWorkpaceStorageProtocol,
         subscriptionService: SingleObjectSubscriptionServiceProtocol,
         defaultObjectService: DefaultObjectCreationServiceProtocol,
         processSubscriptionService: ProcessSubscriptionServiceProtocol,
+        accountParticipantStorage: AccountParticipantsStorageProtocol,
         output: HomeBottomNavigationPanelModuleOutput?
     ) {
         self.activeWorkpaceStorage = activeWorkpaceStorage
         self.subscriptionService = subscriptionService
         self.defaultObjectService = defaultObjectService
         self.processSubscriptionService = processSubscriptionService
+        self.accountParticipantStorage = accountParticipantStorage
         self.output = output
         setupDataSubscription()
     }
@@ -67,6 +71,12 @@ final class HomeBottomNavigationPanelViewModel: ObservableObject {
     
     func onPlusButtonLongtap() {
         output?.onPickTypeForNewObjectSelected()
+    }
+    
+    func onAppear() async {
+        for await canEdit in accountParticipantStorage.canEditPublisher(spaceId: activeWorkpaceStorage.workspaceInfo.accountSpaceId).values {
+            canCreateObject = canEdit
+        }
     }
         
     // MARK: - Private

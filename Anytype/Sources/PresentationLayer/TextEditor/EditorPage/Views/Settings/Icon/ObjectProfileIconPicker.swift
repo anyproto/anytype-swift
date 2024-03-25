@@ -45,7 +45,7 @@ struct DocumentProfileIconPicker_Previews: PreviewProvider {
     static var previews: some View {
         ObjectProfileIconPicker(
             viewModel: ObjectIconPickerViewModel(
-                document: MockBaseDocument(),
+                document: DI.preview.serviceLocator.documentsProvider.document(objectId: "", forPreview: false),
                 onIconAction: { _ in }
             )
         )

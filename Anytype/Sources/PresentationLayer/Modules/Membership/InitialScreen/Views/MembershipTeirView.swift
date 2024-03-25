@@ -61,7 +61,7 @@ struct MembershipTeirView: View {
     var info: some View  {
         Group {
             if userMembership.tier == tierToDisplay {
-                if userMembership.status == .statusActive {
+                if userMembership.status == .active {
                     expirationText
                 } else {
                     AnytypeText(Loc.pending, style: .caption1Regular, color: .Text.primary)
@@ -106,7 +106,7 @@ struct MembershipTeirView: View {
                 tierToDisplay: .explorer,
                 userMembership: MembershipStatus(
                     tier: nil,
-                    status: .statusUnknown,
+                    status: .unknown,
                     dateEnds: .tomorrow,
                     paymentMethod: .methodCard
                 )
@@ -115,7 +115,7 @@ struct MembershipTeirView: View {
                 tierToDisplay: .explorer,
                 userMembership: MembershipStatus(
                     tier: .explorer,
-                    status: .statusPending,
+                    status: .pending,
                     dateEnds: .tomorrow,
                     paymentMethod: .methodCard
                 )
@@ -124,7 +124,7 @@ struct MembershipTeirView: View {
                 tierToDisplay: .explorer,
                 userMembership: MembershipStatus(
                     tier: .explorer,
-                    status: .statusActive,
+                    status: .active,
                     dateEnds: .tomorrow,
                     paymentMethod: .methodCard
                 )
@@ -133,7 +133,7 @@ struct MembershipTeirView: View {
                 tierToDisplay: .builder,
                 userMembership: MembershipStatus(
                     tier: .explorer,
-                    status: .statusPending,
+                    status: .pending,
                     dateEnds: .tomorrow,
                     paymentMethod: .methodCard
                 )
@@ -142,7 +142,7 @@ struct MembershipTeirView: View {
                 tierToDisplay: .builder,
                 userMembership: MembershipStatus(
                     tier: .builder,
-                    status: .statusActive,
+                    status: .active,
                     dateEnds: .tomorrow,
                     paymentMethod: .methodCard
                 )
@@ -151,7 +151,7 @@ struct MembershipTeirView: View {
                 tierToDisplay: .coCreator,
                 userMembership: MembershipStatus(
                     tier: .explorer,
-                    status: .statusActive,
+                    status: .active,
                     dateEnds: .tomorrow,
                     paymentMethod: .methodCard
                 )
@@ -160,7 +160,7 @@ struct MembershipTeirView: View {
                 tierToDisplay: .custom(id: 0),
                 userMembership: MembershipStatus(
                     tier: .custom(id: 0),
-                    status: .statusActive,
+                    status: .active,
                     dateEnds: .tomorrow,
                     paymentMethod: .methodCard
                 )

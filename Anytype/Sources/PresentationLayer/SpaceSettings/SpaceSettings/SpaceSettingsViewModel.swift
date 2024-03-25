@@ -8,53 +8,50 @@ final class SpaceSettingsViewModel: ObservableObject {
     
     // MARK: - DI
     
-    private let subscriptionService: SingleObjectSubscriptionServiceProtocol
     private let objectActionsService: ObjectActionsServiceProtocol
     private let relationDetailsStorage: RelationDetailsStorageProtocol
     private let workspaceService: WorkspaceServiceProtocol
     private let accountManager: AccountManagerProtocol
-    private let participantService: ParticipantServiceProtocol
+    private let participantSpacesStorage: ParticipantSpacesStorageProtocol
     private let dateFormatter = DateFormatter.relationDateFormatter
     private weak var output: SpaceSettingsModuleOutput?
     
     // MARK: - State
     
-    private let workspaceInfo: AccountInfo
+    let workspaceInfo: AccountInfo
     private var subscriptions: [AnyCancellable] = []
-    private var dataLoaded: Bool = false
-    private let subSpaceId = "SpaceSettingsViewModel-Space-\(UUID())"
-    private var spaceView: SpaceView?
-    private var participant: Participant?
+    private var dataLoaded = false
+    private var participantSpaceView: ParticipantSpaceView?
     
-    @Published var spaceName: String = ""
-    @Published var spaceAccessType: String = ""
+    @Published var spaceName = ""
+    @Published var spaceAccessType = ""
     @Published var spaceIcon: Icon?
     @Published var info = [SettingsInfoModel]()
     @Published var snackBarData = ToastBarData.empty
     @Published var showSpaceDeleteAlert = false
     @Published var showSpaceLeaveAlert = false
-    @Published var dismiss: Bool = false
-    @Published var allowDelete: Bool = false
-    @Published var allowShare: Bool = false
-    @Published var allowLeave: Bool = false
-    @Published var allowSpaceMembers: Bool = false
+    @Published var dismiss = false
+    @Published var allowDelete = false
+    @Published var allowShare = false
+    @Published var allowLeave = false
+    @Published var allowSpaceMembers = false
+    @Published var allowEditSpace = false
+    @Published var allowRemoteStorage = false
     
     init(
         activeWorkspaceStorage: ActiveWorkpaceStorageProtocol,
-        subscriptionService: SingleObjectSubscriptionServiceProtocol,
         objectActionsService: ObjectActionsServiceProtocol,
         relationDetailsStorage: RelationDetailsStorageProtocol,
         workspaceService: WorkspaceServiceProtocol,
         accountManager: AccountManagerProtocol,
-        participantService: ParticipantServiceProtocol,
+        participantSpacesStorage: ParticipantSpacesStorageProtocol,
         output: SpaceSettingsModuleOutput?
     ) {
-        self.subscriptionService = subscriptionService
         self.objectActionsService = objectActionsService
         self.relationDetailsStorage = relationDetailsStorage
         self.workspaceService = workspaceService
         self.accountManager = accountManager
-        self.participantService = participantService
+        self.participantSpacesStorage = participantSpacesStorage
         self.output = output
         self.workspaceInfo = activeWorkspaceStorage.workspaceInfo
         Task {
@@ -84,7 +81,7 @@ final class SpaceSettingsViewModel: ObservableObject {
     }
     
     func onDeleteConfirmationTap() {
-        guard let spaceView else { return }
+        guard let spaceView = participantSpaceView?.spaceView else { return }
         Task {
             AnytypeAnalytics.instance().logDeleteSpace(type: .private)
             try await workspaceService.deleteSpace(spaceId: spaceView.targetSpaceId)
@@ -100,14 +97,6 @@ final class SpaceSettingsViewModel: ObservableObject {
         showSpaceLeaveAlert.toggle()
     }
     
-    func onLeaveConfirmationTap() async throws {
-        try await workspaceService.deleteSpace(spaceId: workspaceInfo.accountSpaceId)
-        if #unavailable(iOS 17.0) {
-            showSpaceLeaveAlert = false
-        }
-        dismiss.toggle()
-    }
-    
     func onMembersTap() {
         output?.onSpaceMembersSelected()
     }
@@ -115,28 +104,30 @@ final class SpaceSettingsViewModel: ObservableObject {
     // MARK: - Private
     
     private func setupData() async throws {
-        await subscriptionService.startSubscription(
-            subId: subSpaceId,
-            objectId: workspaceInfo.spaceViewId,
-            additionalKeys: SpaceView.subscriptionKeys
-        ) { [weak self] details in
-            self?.spaceView = SpaceView(details: details)
-            self?.updateViewState()
-        }
-        
-        participant = try await participantService.searchParticipant(spaceId: workspaceInfo.accountSpaceId, prifileObjectId: workspaceInfo.profileObjectID)
-        updateViewState()
+        participantSpacesStorage
+            .activeParticipantSpacesPublisher
+            .receiveOnMain()
+            .sink { [weak self] participantSpaceViews in
+                self?.participantSpaceView = participantSpaceViews.first { $0.spaceView.targetSpaceId == self?.workspaceInfo.accountSpaceId }
+                self?.updateViewState()
+            }
+            .store(in: &subscriptions)
     }
     
     private func updateViewState() {
-        guard let spaceView, let participant else { return }
+        guard let participantSpaceView else { return }
+        
+        let spaceView = participantSpaceView.spaceView
+        let participant = participantSpaceView.participant
         
         spaceIcon = spaceView.objectIconImage
         spaceAccessType = spaceView.spaceAccessType?.name ?? ""
         allowDelete = spaceView.canBeDelete
-        allowLeave = participant.canLeave
-        allowShare = spaceView.canBeShared(isOwner: participant.isOwner)
-        allowSpaceMembers = !participant.isOwner
+        allowLeave = participantSpaceView.canLeave
+        allowShare = participantSpaceView.canBeShared
+        allowSpaceMembers = !participantSpaceView.isOwner
+        allowEditSpace = participantSpaceView.canEdit
+        allowRemoteStorage = participantSpaceView.isOwner
         buildInfoBlock(details: spaceView)
         
         if !dataLoaded {

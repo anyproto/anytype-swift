@@ -20,12 +20,11 @@ final class SpaceSettingsModuleAssembly: SpaceSettingsModuleAssemblyProtocol {
     func make(output: SpaceSettingsModuleOutput?) -> AnyView {
         return SpaceSettingsView(model: SpaceSettingsViewModel(
             activeWorkspaceStorage: self.serviceLocator.activeWorkspaceStorage(),
-            subscriptionService: self.serviceLocator.singleObjectSubscriptionService(),
             objectActionsService: self.serviceLocator.objectActionsService(),
             relationDetailsStorage: self.serviceLocator.relationDetailsStorage(),
             workspaceService: self.serviceLocator.workspaceService(),
             accountManager: self.serviceLocator.accountManager(),
-            participantService: self.serviceLocator.participantService(),
+            participantSpacesStorage: self.serviceLocator.participantSpacesStorage(),
             output: output
         )).eraseToAnyView()
     }

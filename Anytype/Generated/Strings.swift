@@ -228,6 +228,8 @@ internal enum Loc {
   internal static let everywhere = Loc.tr("Localizable", "Everywhere", fallback: "Everywhere")
   /// Exact day
   internal static let exactDay = Loc.tr("Localizable", "Exact day", fallback: "Exact day")
+  /// Export
+  internal static let export = Loc.tr("Localizable", "Export", fallback: "Export")
   /// Failed to sync, trying again...
   internal static let failedToSyncTryingAgain = Loc.tr("Localizable", "Failed to sync, trying again...", fallback: "Failed to sync, trying again...")
   /// Favorite
@@ -796,16 +798,10 @@ internal enum Loc {
           internal static let placeholder = Loc.tr("Localizable", "Auth.JoinFlow.Key.TextField.Placeholder", fallback: "Type your recovery phrase")
         }
       }
-      internal enum Personal {
-        internal enum Space {
-          /// Personal Space
-          internal static let title = Loc.tr("Localizable", "Auth.JoinFlow.Personal.Space.Title", fallback: "Personal Space")
-        }
-      }
       internal enum Setting {
         internal enum Space {
-          /// Setting up your personal space
-          internal static let title = Loc.tr("Localizable", "Auth.JoinFlow.Setting.Space.Title", fallback: "Setting up your personal space")
+          /// Setting up your default space
+          internal static let title = Loc.tr("Localizable", "Auth.JoinFlow.Setting.Space.Title", fallback: "Setting up your default space")
         }
       }
       internal enum Soul {
@@ -1607,6 +1603,28 @@ internal enum Loc {
     /// Search or install a new type
     internal static let searchOrInstall = Loc.tr("Localizable", "ObjectType.SearchOrInstall", fallback: "Search or install a new type")
   }
+  internal enum ParticipantRemoveNotification {
+    /// You have been removed from the space, or the space was deleted by the owner.
+    internal static let text = Loc.tr("Localizable", "ParticipantRemoveNotification.Text", fallback: "You have been removed from the space, or the space was deleted by the owner.")
+  }
+  internal enum ParticipantRequestApprovedNotification {
+    /// Your request to join the **%@** space has been approved with **%@** access rights. The space will be available on your device soon.
+    internal static func text(_ p1: Any, _ p2: Any) -> String {
+      return Loc.tr("Localizable", "ParticipantRequestApprovedNotification.Text", String(describing: p1), String(describing: p2), fallback: "Your request to join the **%@** space has been approved with **%@** access rights. The space will be available on your device soon.")
+    }
+  }
+  internal enum ParticipantRequestDeclineNotification {
+    /// Your request to join the **%@** space has been declined.
+    internal static func text(_ p1: Any) -> String {
+      return Loc.tr("Localizable", "ParticipantRequestDeclineNotification.Text", String(describing: p1), fallback: "Your request to join the **%@** space has been declined.")
+    }
+  }
+  internal enum PermissionChangeNotification {
+    /// Your access rights were changed to **%@** in the **%@** space.
+    internal static func text(_ p1: Any, _ p2: Any) -> String {
+      return Loc.tr("Localizable", "PermissionChangeNotification.Text", String(describing: p1), String(describing: p2), fallback: "Your access rights were changed to **%@** in the **%@** space.")
+    }
+  }
   internal enum QuickAction {
     /// Create %@
     internal static func create(_ p1: Any) -> String {
@@ -1726,6 +1744,20 @@ internal enum Loc {
         return Loc.tr("Localizable", "Relation.From.Type", String(describing: p1), fallback: "From type %@")
       }
     }
+    internal enum ImportType {
+      /// CSV
+      internal static let csv = Loc.tr("Localizable", "Relation.ImportType.Csv", fallback: "CSV")
+      /// HTML
+      internal static let html = Loc.tr("Localizable", "Relation.ImportType.Html", fallback: "HTML")
+      /// Markdown
+      internal static let markdown = Loc.tr("Localizable", "Relation.ImportType.Markdown", fallback: "Markdown")
+      /// Notion
+      internal static let notion = Loc.tr("Localizable", "Relation.ImportType.Notion", fallback: "Notion")
+      /// Any-Block
+      internal static let protobuf = Loc.tr("Localizable", "Relation.ImportType.Protobuf", fallback: "Any-Block")
+      /// TXT
+      internal static let text = Loc.tr("Localizable", "Relation.ImportType.Text", fallback: "TXT")
+    }
     internal enum LinksFrom {
       /// from
       internal static let title = Loc.tr("Localizable", "Relation.LinksFrom.Title", fallback: "from")
@@ -1814,6 +1846,22 @@ internal enum Loc {
     internal static let days7 = Loc.tr("Localizable", "RelativeFormatter.days7", fallback: "Previous 7 days")
     /// Older
     internal static let older = Loc.tr("Localizable", "RelativeFormatter.older", fallback: "Older")
+  }
+  internal enum RequestToJoinNotification {
+    /// Go to Space
+    internal static let goToSpace = Loc.tr("Localizable", "RequestToJoinNotification.GoToSpace", fallback: "Go to Space")
+    /// **%@** requested to join the **%@** space.
+    internal static func text(_ p1: Any, _ p2: Any) -> String {
+      return Loc.tr("Localizable", "RequestToJoinNotification.Text", String(describing: p1), String(describing: p2), fallback: "**%@** requested to join the **%@** space.")
+    }
+    /// View request
+    internal static let viewRequest = Loc.tr("Localizable", "RequestToJoinNotification.ViewRequest", fallback: "View request")
+  }
+  internal enum RequestToLeaveNotification {
+    /// **%@** wants to leave the **%@** space.
+    internal static func text(_ p1: Any, _ p2: Any) -> String {
+      return Loc.tr("Localizable", "RequestToLeaveNotification.Text", String(describing: p1), String(describing: p2), fallback: "**%@** wants to leave the **%@** space.")
+    }
   }
   internal enum Scanner {
     internal enum Error {
@@ -2018,8 +2066,6 @@ internal enum Loc {
     internal static let spaceName = Loc.tr("Localizable", "Settings.SpaceName", fallback: "Space name")
     /// Settings
     internal static let title = Loc.tr("Localizable", "Settings.Title", fallback: "Settings")
-    /// Personal Space
-    internal static let titleLegacy = Loc.tr("Localizable", "Settings.TitleLegacy", fallback: "Personal Space")
   }
   internal enum Sharing {
     /// Add to
@@ -2138,6 +2184,10 @@ internal enum Loc {
     }
   }
   internal enum Space {
+    /// Plural format key: "%#@object@"
+    internal static func membersCount(_ p1: Int) -> String {
+      return Loc.tr("Localizable", "Space.MembersCount", p1, fallback: "Plural format key: \"%#@object@\"")
+    }
     internal enum Status {
       /// Error
       internal static let error = Loc.tr("Localizable", "Space.Status.Error", fallback: "Error")
@@ -2170,24 +2220,30 @@ internal enum Loc {
   internal enum SpaceManager {
     /// Archive
     internal static let archive = Loc.tr("Localizable", "SpaceManager.Archive", fallback: "Archive")
-    /// Cancel Request
-    internal static let cancelRequest = Loc.tr("Localizable", "SpaceManager.CancelRequest", fallback: "Cancel Request")
+    /// Cancel Join Request
+    internal static let cancelRequest = Loc.tr("Localizable", "SpaceManager.CancelRequest", fallback: "Cancel Join Request")
+    /// Do Not Cancel
+    internal static let doNotCancel = Loc.tr("Localizable", "SpaceManager.DoNotCancel", fallback: "Do Not Cancel")
+    internal enum CancelRequestAlert {
+      /// You will have to send request access again
+      internal static let title = Loc.tr("Localizable", "SpaceManager.CancelRequestAlert.Title", fallback: "You will have to send request access again")
+      /// The request was canceled.
+      internal static let toast = Loc.tr("Localizable", "SpaceManager.CancelRequestAlert.Toast", fallback: "The request was canceled.")
+    }
   }
   internal enum SpaceSettings {
     /// Delete space
     internal static let deleteButton = Loc.tr("Localizable", "SpaceSettings.DeleteButton", fallback: "Delete space")
     /// Space info
     internal static let info = Loc.tr("Localizable", "SpaceSettings.Info", fallback: "Space info")
-    /// Leave and unjoin
-    internal static let leaveButton = Loc.tr("Localizable", "SpaceSettings.LeaveButton", fallback: "Leave and unjoin")
+    /// Leave
+    internal static let leaveButton = Loc.tr("Localizable", "SpaceSettings.LeaveButton", fallback: "Leave")
     /// Network ID
     internal static let networkId = Loc.tr("Localizable", "SpaceSettings.NetworkId", fallback: "Network ID")
     /// Remote storage
     internal static let remoteStorage = Loc.tr("Localizable", "SpaceSettings.RemoteStorage", fallback: "Remote storage")
     /// Share
     internal static let share = Loc.tr("Localizable", "SpaceSettings.Share", fallback: "Share")
-    /// Sharing
-    internal static let sharing = Loc.tr("Localizable", "SpaceSettings.Sharing", fallback: "Sharing")
     /// Space settings
     internal static let title = Loc.tr("Localizable", "SpaceSettings.Title", fallback: "Space settings")
     internal enum DeleteAlert {
@@ -2203,8 +2259,12 @@ internal enum Loc {
       internal static func message(_ p1: Any) -> String {
         return Loc.tr("Localizable", "SpaceSettings.LeaveAlert.Message", String(describing: p1), fallback: "%@ space will be removed from your devices and you will no longer have access to it")
       }
-      /// Leave and unjoin the space
-      internal static let title = Loc.tr("Localizable", "SpaceSettings.LeaveAlert.Title", fallback: "Leave and unjoin the space")
+      /// Leave a space
+      internal static let title = Loc.tr("Localizable", "SpaceSettings.LeaveAlert.Title", fallback: "Leave a space")
+      /// You left the %@.
+      internal static func toast(_ p1: Any) -> String {
+        return Loc.tr("Localizable", "SpaceSettings.LeaveAlert.Toast", String(describing: p1), fallback: "You left the %@.")
+      }
     }
   }
   internal enum SpaceShare {
@@ -2212,12 +2272,16 @@ internal enum Loc {
     internal static func changePermissions(_ p1: Any, _ p2: Any) -> String {
       return Loc.tr("Localizable", "SpaceShare.ChangePermissions", String(describing: p1), String(describing: p2), fallback: "%@ access to the space would become %@.")
     }
+    /// Join request
+    internal static let joinRequest = Loc.tr("Localizable", "SpaceShare.JoinRequest", fallback: "Join request")
+    /// Leave request
+    internal static let leaveRequest = Loc.tr("Localizable", "SpaceShare.LeaveRequest", fallback: "Leave request")
+    /// Manage Spaces
+    internal static let manageSpaces = Loc.tr("Localizable", "SpaceShare.ManageSpaces", fallback: "Manage Spaces")
     /// Members
     internal static let members = Loc.tr("Localizable", "SpaceShare.Members", fallback: "Members")
-    /// Members and requests
-    internal static let membersSection = Loc.tr("Localizable", "SpaceShare.MembersSection", fallback: "Members and requests")
-    /// Share space
-    internal static let title = Loc.tr("Localizable", "SpaceShare.Title", fallback: "Share space")
+    /// Sharing
+    internal static let title = Loc.tr("Localizable", "SpaceShare.Title", fallback: "Sharing")
     /// %@ (you)
     internal static func youSuffix(_ p1: Any) -> String {
       return Loc.tr("Localizable", "SpaceShare.YouSuffix", String(describing: p1), fallback: "%@ (you)")
@@ -2225,8 +2289,8 @@ internal enum Loc {
     internal enum Action {
       /// Approve
       internal static let approve = Loc.tr("Localizable", "SpaceShare.Action.Approve", fallback: "Approve")
-      /// View Request
-      internal static let viewRequest = Loc.tr("Localizable", "SpaceShare.Action.ViewRequest", fallback: "View Request")
+      /// View request
+      internal static let viewRequest = Loc.tr("Localizable", "SpaceShare.Action.ViewRequest", fallback: "View request")
     }
     internal enum Approve {
       /// You approved %@'s request.
@@ -2234,19 +2298,25 @@ internal enum Loc {
         return Loc.tr("Localizable", "SpaceShare.Approve.Toast", String(describing: p1), fallback: "You approved %@'s request.")
       }
     }
+    internal enum DeleteSharingLink {
+      /// New members won’t be able to join the space. You can generate a new link anytype
+      internal static let message = Loc.tr("Localizable", "SpaceShare.DeleteSharingLink.Message", fallback: "New members won’t be able to join the space. You can generate a new link anytype")
+      /// Delete link
+      internal static let title = Loc.tr("Localizable", "SpaceShare.DeleteSharingLink.Title", fallback: "Delete link")
+    }
     internal enum Invite {
-      /// Share invite link
-      internal static let button = Loc.tr("Localizable", "SpaceShare.Invite.Button", fallback: "Share invite link")
-      /// Send this link to invite others. Assign access rights upon their request approval
-      internal static let description = Loc.tr("Localizable", "SpaceShare.Invite.Description", fallback: "Send this link to invite others. Assign access rights upon their request approval")
+      /// Share this invite link so that others can join your Space. Once they click your link and request access, you can set their access rights.
+      internal static let description = Loc.tr("Localizable", "SpaceShare.Invite.Description", fallback: "Share this invite link so that others can join your Space. Once they click your link and request access, you can set their access rights.")
+      /// Create invite link to share space and add new members
+      internal static let empty = Loc.tr("Localizable", "SpaceShare.Invite.Empty", fallback: "Create invite link to share space and add new members")
+      /// Generate invite link
+      internal static let generate = Loc.tr("Localizable", "SpaceShare.Invite.Generate", fallback: "Generate invite link")
       /// Plural format key: "%#@object@"
       internal static func maxLimit(_ p1: Int) -> String {
         return Loc.tr("Localizable", "SpaceShare.Invite.MaxLimit", p1, fallback: "Plural format key: \"%#@object@\"")
       }
-      /// Plural format key: "%#@object@"
-      internal static func members(_ p1: Int) -> String {
-        return Loc.tr("Localizable", "SpaceShare.Invite.Members", p1, fallback: "Plural format key: \"%#@object@\"")
-      }
+      /// Share invite link
+      internal static let share = Loc.tr("Localizable", "SpaceShare.Invite.Share", fallback: "Share invite link")
       /// Invite link
       internal static let title = Loc.tr("Localizable", "SpaceShare.Invite.Title", fallback: "Invite link")
     }
@@ -2277,6 +2347,12 @@ internal enum Loc {
       internal static let reader = Loc.tr("Localizable", "SpaceShare.Permissions.Reader", fallback: "Viewer")
       /// Editor
       internal static let writer = Loc.tr("Localizable", "SpaceShare.Permissions.Writer", fallback: "Editor")
+      internal enum Grand {
+        /// Edit
+        internal static let edit = Loc.tr("Localizable", "SpaceShare.Permissions.Grand.Edit", fallback: "Edit")
+        /// View
+        internal static let view = Loc.tr("Localizable", "SpaceShare.Permissions.Grand.View", fallback: "View")
+      }
     }
     internal enum RemoveMember {
       /// %@ will be removed from the space.
@@ -2285,12 +2361,6 @@ internal enum Loc {
       }
       /// Remove memeber
       internal static let title = Loc.tr("Localizable", "SpaceShare.RemoveMember.Title", fallback: "Remove memeber")
-    }
-    internal enum Status {
-      /// Requested
-      internal static let joining = Loc.tr("Localizable", "SpaceShare.Status.Joining", fallback: "Requested")
-      /// Unjoining requested
-      internal static let removing = Loc.tr("Localizable", "SpaceShare.Status.Removing", fallback: "Unjoining requested")
     }
     internal enum ViewRequest {
       /// Grand edit access
@@ -2309,16 +2379,14 @@ internal enum Loc {
     /// Spaces
     internal static let title = Loc.tr("Localizable", "Spaces.Title", fallback: "Spaces")
     internal enum Accessibility {
-      /// Personal Space
-      internal static let personal = Loc.tr("Localizable", "Spaces.Accessibility.Personal", fallback: "Personal Space")
+      /// Default Space
+      internal static let personal = Loc.tr("Localizable", "Spaces.Accessibility.Personal", fallback: "Default Space")
       /// Private Space
       internal static let `private` = Loc.tr("Localizable", "Spaces.Accessibility.Private", fallback: "Private Space")
       /// Shared Space
       internal static let shared = Loc.tr("Localizable", "Spaces.Accessibility.Shared", fallback: "Shared Space")
     }
     internal enum Info {
-      /// Device:
-      internal static let device = Loc.tr("Localizable", "Spaces.Info.Device", fallback: "Device:")
       /// Network:
       internal static let network = Loc.tr("Localizable", "Spaces.Info.Network", fallback: "Network:")
     }

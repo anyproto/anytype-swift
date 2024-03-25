@@ -1,9 +1,13 @@
 import SwiftUI
 
 struct SetSortsListView: View {
-    @StateObject var viewModel: SetSortsListViewModel
+    @StateObject private var viewModel: SetSortsListViewModel
     
     @State private var editMode = EditMode.inactive
+    
+    init(setDocument: SetDocumentProtocol, viewId: String, output: SetSortsListCoordinatorOutput?) {
+        _viewModel = StateObject(wrappedValue: SetSortsListViewModel(setDocument: setDocument, viewId: viewId, output: output))
+    }
     
     var body: some View {
         VStack(spacing: 0) {

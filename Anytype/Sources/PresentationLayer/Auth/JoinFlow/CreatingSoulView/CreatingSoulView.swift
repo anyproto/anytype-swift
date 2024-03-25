@@ -74,7 +74,7 @@ struct CreatingSoulView: View {
         VStack(spacing: 8) {
             IconView(icon: model.spaceIcon)
                 .frame(width: Constants.imageDimension, height: Constants.imageDimension)
-            AnytypeText(Loc.Auth.JoinFlow.Personal.Space.title, style: .calloutRegular, color: .Auth.body)
+            AnytypeText(Loc.Spaces.Accessibility.personal, style: .calloutRegular, color: .Auth.body)
                 .multilineTextAlignment(.center)
         }
         .frame(width: Constants.itemWidth)

@@ -26,16 +26,11 @@ final class ObjectRelationListViewModel: ObservableObject {
     
     private weak var output: ObjectRelationListModuleOutput?
     
-    init(
-        configuration: RelationModuleConfiguration,
-        interactor: ObjectRelationListInteractorProtocol,
-        relationSelectedOptionsModel: RelationSelectedOptionsModelProtocol,
-        output: ObjectRelationListModuleOutput?
-    ) {
-        self.configuration = configuration
+    init(data: ObjectRelationListData, output: ObjectRelationListModuleOutput?) {
+        self.configuration = data.configuration
         self.output = output
-        self.interactor = interactor
-        self.relationSelectedOptionsModel = relationSelectedOptionsModel
+        self.interactor = data.interactor
+        self.relationSelectedOptionsModel = data.relationSelectedOptionsModel
         self.relationSelectedOptionsModel.selectedOptionsIdsPublisher.assign(to: &$selectedOptionsIds)
     }
     
@@ -80,10 +75,14 @@ final class ObjectRelationListViewModel: ObservableObject {
         }
     }
     
-    func optionSelected(_ optionId: String) {
-        Task {
-            try await relationSelectedOptionsModel.optionSelected(optionId)
-            closeIfNeeded()
+    func optionSelected(_ option: ObjectRelationOption) {
+        if configuration.isEditable {
+            Task {
+                try await relationSelectedOptionsModel.optionSelected(option.id)
+                closeIfNeeded()
+            }
+        } else {
+            onObjectOpen(option)
         }
     }
     

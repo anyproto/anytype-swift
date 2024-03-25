@@ -22,15 +22,13 @@ final class SelectRelationListViewModel: ObservableObject {
     private weak var output: SelectRelationListModuleOutput?
     
     init(
-        style: SelectRelationListStyle,
-        configuration: RelationModuleConfiguration,
-        relationSelectedOptionsModel: RelationSelectedOptionsModelProtocol,
+        data: SelectRelationListData,
         output: SelectRelationListModuleOutput?
     ) {
-        self.style = style
-        self.configuration = configuration
+        self.style = data.style
+        self.configuration = data.configuration
         self.output = output
-        self.relationSelectedOptionsModel = relationSelectedOptionsModel
+        self.relationSelectedOptionsModel = data.relationSelectedOptionsModel
         self.relationSelectedOptionsModel.selectedOptionsIdsPublisher.assign(to: &$selectedOptionsIds)
     }
     

@@ -3,22 +3,30 @@ import SwiftUI
 
 struct TopNotificationView: View {
     
-    let title: String
-    let buttons: [TopNotificationButton]
+    var title: String
+    var icon: Icon? = nil
+    var buttons: [TopNotificationButton]
+    
+    @State private var toast: ToastBarData = .empty
     
     var body: some View {
-        VStack(alignment: .leading, spacing: 10) {
-            HStack {
-                AnytypeText(title, style: .caption1Regular, color: .Text.labelInversion)
-                Spacer()
+        HStack(alignment: .top, spacing: 12) {
+            if let icon {
+                IconView(icon: icon)
+                    .frame(width: 40, height: 40)
             }
-            HStack(spacing: 24) {
-                ForEach(0..<buttons.count, id: \.self) { index in
-                    let button = buttons[index]
-                    Button {
-                        button.action()
-                    } label: {
-                        AnytypeText(button.title, style: .caption1Semibold, color: .Text.labelInversion)
+            VStack(alignment: .leading, spacing: 10) {
+                AnytypeText(title, style: .caption1Regular, color: .Text.labelInversion, enableMarkdown: true)
+                if buttons.isNotEmpty {
+                    HStack(spacing: 24) {
+                        ForEach(0..<buttons.count, id: \.self) { index in
+                            let button = buttons[index]
+                            AsyncButton {
+                                try await button.action()
+                            } label: {
+                                AnytypeText(button.title, style: .caption1Semibold, color: .Text.labelInversion)
+                            }
+                        }
                     }
                 }
             }
@@ -27,10 +35,23 @@ struct TopNotificationView: View {
         .background(Color.Text.primary)
         .cornerRadius(16, style: .continuous)
         .ignoresSafeArea()
+        .snackbar(toastBarData: $toast)
+        .environment(\.colorScheme, .light)
     }
 }
 
-struct TopNotificationButton {
+struct TopNotificationButton: Equatable {
     let title: String
-    let action: () -> Void
+    @EquatableNoop
+    var action: () async throws -> Void
+}
+
+#Preview("Single Line") {
+    TopNotificationView(title: "One **line**", icon: .asset(.X40.audio), buttons: [
+        TopNotificationButton(title: "Button 1", action: {})
+    ])
+}
+
+#Preview("Multi line") {
+    TopNotificationView(title: "Notification text Notification text Notification text Notification text Notification text Notification text Notification text", buttons: [])
 }

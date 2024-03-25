@@ -11,8 +11,7 @@ struct SpaceShareParticipantViewModel: Identifiable {
     
     enum Status {
         case active(permission: String)
-        case joining
-        case removing
+        case pending(message: String)
     }
     
     struct Action {
@@ -51,6 +50,7 @@ struct SpaceShareParticipantView: View {
         .lineLimit(1)
         .padding(.vertical, 9)
         .frame(height: 72)
+        .newDivider()
     }
     
     @ViewBuilder
@@ -58,15 +58,10 @@ struct SpaceShareParticipantView: View {
         switch participant.status {
         case .active(let permission):
             AnytypeText(permission, style: .relation3Regular, color: .Text.secondary)
-        case .joining:
-            AnytypeText(Loc.SpaceShare.Status.joining, style: .relation3Regular, color: .Dark.pink)
+        case .pending(let message):
+            AnytypeText(message, style: .relation3Regular, color: .Text.labelInversion)
                 .padding(.horizontal, 3)
-                .background(Color.Light.pink)
-                .cornerRadius(3, style: .continuous)
-        case .removing:
-            AnytypeText(Loc.SpaceShare.Status.removing, style: .relation3Regular, color: .Dark.red)
-                .padding(.horizontal, 3)
-                .background(Color.Light.red)
+                .background(Color.Button.button)
                 .cornerRadius(3, style: .continuous)
         case .none:
             EmptyView()

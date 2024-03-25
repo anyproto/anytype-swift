@@ -67,7 +67,7 @@ struct MembershipTierSelectionView: View {
         MembershipTierSelectionView(
             userMembership: MembershipStatus(
                 tier: .builder,
-                status: .statusActive,
+                status: .active,
                 dateEnds: .tomorrow,
                 paymentMethod: .methodCard
             ),

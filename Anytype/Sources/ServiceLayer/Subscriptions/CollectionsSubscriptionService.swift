@@ -21,7 +21,7 @@ final class CollectionsSubscriptionService: CollectionsSubscriptionServiceProtoc
     
     @Injected(\.objectTypeProvider)
     private var objectTypeProvider: ObjectTypeProviderProtocol
-    @Injected(\.activeWorkpaceStorage)
+    @Injected(\.activeWorkspaceStorage)
     private var activeWorkspaceStorage: ActiveWorkpaceStorageProtocol
     @Injected(\.subscriptionStorageProvider)
     private var subscriptionStorageProvider: SubscriptionStorageProviderProtocol

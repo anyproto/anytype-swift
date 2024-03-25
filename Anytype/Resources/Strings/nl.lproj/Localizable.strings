@@ -62,7 +62,6 @@
 "BlockLink.PreviewSettings.Layout.Text.Title" = "Tekst";
 
 // MARK: - Settings
-"Settings.Title" = "Persoonlijke ruimte";
 "Settings.SpaceName" = "Naam ruimte";
 
 // MARK: - Object
@@ -118,6 +117,15 @@
 "Relation.Origin.Builtin" = "Bibliotheek geïnstalleerd";
 "Relation.Origin.Bookmark" = "Bladwijzer";
 
+// MARK: - Import Type Relation
+
+"Relation.ImportType.Notion" = "Notion";
+"Relation.ImportType.Markdown" = "Markdown";
+"Relation.ImportType.Html" = "HTML";
+"Relation.ImportType.Text" = "TXT";
+"Relation.ImportType.Protobuf" = "Any-Block";
+"Relation.ImportType.Csv" = "CSV";
+
 // MARK: - Mention
 "Mention.Subtitle.Placeholder" = "Object";
 
@@ -138,6 +146,7 @@
 "Lists" = "Lijsten";
 "Pinned" = "Vastgezet";
 "Delete" = "Verwijder";
+"Export" = "Export";
 "Duplicate" = "Dupliceer";
 "Copy" = "Kopieer";
 "Preview" = "Voorvertoning";
@@ -258,8 +267,7 @@
 "Auth.JoinFlow.Soul.Placeholder" = "Naamloos";
 
 "Auth.JoinFlow.Creating.Soul.Title" = "Een nieuwe account wordt aangemaakt";
-"Auth.JoinFlow.Setting.Space.Title" = "Jouw persoonlijke ruimte wordt aangemaakt";
-"Auth.JoinFlow.Personal.Space.Title" = "Persoonlijke ruimte";
+"Auth.JoinFlow.Setting.Space.Title" = "Setting up your default space";
 
 // Auth - Login flow
 "Auth.LoginFlow.Use.Keychain.Title" = "Gebruik sleutelhanger";
@@ -635,9 +643,9 @@
 "No date" = "Geen datum";
 "Clear" = "Wis";
 "Create option with" = "Maak optie '%@' aan";
-"Enter URL" = "Enter URL";
-"Enter email" = "Enter email";
-"Enter phone number" = "Enter phone number";
+"Enter URL" = "Voer URL in";
+"Enter email" = "Voer e-mailadres in";
+"Enter phone number" = "Voer telefoonnummer in";
 "Enter number" = "Voer nummer in";
 "Enter text" = "Voer tekst in";
 "Ok" = "Ok";
@@ -812,7 +820,6 @@
 "ClearCache.Error" = "Fout, probeer het later opnieuw";
 
 // MARK: - Settings
-"Settings.TitleLegacy" = "Persoonlijke ruimte";
 "Settings.Title" = "Instellingen";
 "Settings.SpaceName" = "Naam ruimte";
 "Settings.AccountAndAccess" = "Account en toegang";
@@ -849,11 +856,10 @@
 // MARK: - Spaces
 "Spaces.Accessibility.Shared" = "Gedeelde ruimte";
 "Spaces.Accessibility.Private" = "Persoonlijke ruimte";
-"Spaces.Accessibility.Personal" = "Persoonlijke ruimte";
+"Spaces.Accessibility.Personal" = "Default Space";
 "Spaces.Search.Title" = "Zoek ruimten";
 "Spaces.Title" = "Ruimtes";
 "Spaces.Info.Network" = "Netwerk:";
-"Spaces.Info.Device" = "Apparaat:";
 
 // MARK: - Space
 "Space.Status.Unknown" = "Onbekend";
@@ -876,27 +882,33 @@
 "SpaceSettings.DeleteAlert.Title" = "Verwijder '%@' ruimte";
 "SpaceSettings.DeleteAlert.Message" = "Deze ruimte zal onherroepelijk worden verwijderd. Je kunt deze actie niet ongedaan maken.";
 "SpaceSettings.DeleteButton" = "Verwijder ruimte";
-"SpaceSettings.Sharing" = "Aan het delen";
 "SpaceSettings.Share" = "Deel";
-"SpaceSettings.LeaveButton" = "Verlaat en schrijf uit";
-"SpaceSettings.LeaveAlert.Title" = "Verlaat en schrijf uit van de ruimte";
+"SpaceSettings.LeaveButton" = "Leave";
+"SpaceSettings.LeaveAlert.Title" = "Leave a space";
 "SpaceSettings.LeaveAlert.Message" = "%@ ruimte zal worden verwijderd van jouw apparaten en je hebt er dan geen toegang meer toe";
+"SpaceSettings.LeaveAlert.Toast" = "You left the %@.";
 
 // MARK: - Space Share
 
-"SpaceShare.Title" = "Deel ruimte";
-"SpaceShare.MembersSection" = "Leden en verzoeken";
+"SpaceShare.Title" = "Sharing";
 "SpaceShare.Members" = "Leden";
 "SpaceShare.Permissions.Owner" = "Eigenaar";
 "SpaceShare.Permissions.Reader" = "Lezer";
 "SpaceShare.Permissions.Writer" = "Bewerker";
+"SpaceShare.Permissions.Grand.Edit" = "Bewerk";
+"SpaceShare.Permissions.Grand.View" = "Weergave";
 "SpaceShare.Invite.Title" = "Uitnodigingslink";
-"SpaceShare.Invite.Description" = "Stuur deze link om anderen uit te nodigen. Wijs toegangsrechten toe na hun goedkeuring.";
-"SpaceShare.Invite.Button" = "Deel uitnodigingslink";
-"SpaceShare.Status.Joining" = "Aangevraagd";
-"SpaceShare.Status.Removing" = "Uitschrijven aangevraagd";
-"SpaceShare.Action.ViewRequest" = "Bekijk verzoek";
+"SpaceShare.Invite.Description" = "Share this invite link so that others can join your Space. Once they click your link and request access, you can set their access rights.";
+"SpaceShare.Invite.Share" = "Share invite link";
+"SpaceShare.Invite.Generate" = "Generate invite link";
+"SpaceShare.Invite.Empty" = "Create invite link to share space and add new members";
+"SpaceShare.JoinRequest" = "Join request";
+"SpaceShare.LeaveRequest" = "Leave request";
+"SpaceShare.Action.ViewRequest" = "View request";
 "SpaceShare.Action.Approve" = "Goedkeuren";
+"SpaceShare.DeleteSharingLink.Title" = "Delete link";
+"SpaceShare.DeleteSharingLink.Message" = "New members won’t be able to join the space. You can generate a new link anytype";
+"SpaceShare.Approve.Toast" = "Je hebt het verzoek van %@ goedgekeurd.";
 "SpaceShare.ViewRequest.Title" = "%@ heeft verzocht om zich aan te sluiten bij de ruimte %@";
 "SpaceShare.ViewRequest.ViewAccess" = "Geef leesrechten";
 "SpaceShare.ViewRequest.EditAccess" = "Geef bewerkingsrechten";
@@ -911,10 +923,27 @@
 "SpaceShare.Join.Message" = "Je bent uitgenodigd om je aan te sluiten bij  %@ ruimte, aangemaakt door %@ Stuur een verzoek zodat de eigenaar van de ruimte je kan toelaten. ";
 "SpaceShare.JoinConfirmation.Title" = "Verzoek verzonden";
 "SpaceShare.JoinConfirmation.Message" = "Je zult een melding ontvangen wanneer de eigenaar van de ruimte je verzoek zal goedkeuren.";
+"SpaceShare.YouSuffix" = "%@ (jij)";
+"SpaceShare.ManageSpaces" = "Manage Spaces";
+
+// MARK: - Permission notification
+"PermissionChangeNotification.Text" = "Your access rights were changed to **%@** in the **%@** space.";
+"ParticipantRequestApprovedNotification.Text" = "Your request to join the **%@** space has been approved with **%@** access rights. The space will be available on your device soon.";
+"ParticipantRequestDeclineNotification.Text" = "Your request to join the **%@** space has been declined.";
+"RequestToLeaveNotification.Text" = "**%@** wants to leave the **%@** space.";
+"ParticipantRemoveNotification.Text" = "You have been removed from the space, or the space was deleted by the owner.";
+"RequestToJoinNotification.Text" = "**%@** requested to join the **%@** space.";
+"RequestToJoinNotification.GoToSpace" = "Go to Space";
+"RequestToJoinNotification.ViewRequest" = "View request";
 
 // MARK: - Space manager
-"SpaceManager.CancelRequest" = "Cancel Request";
-"SpaceManager.Archive" = "Archive";
+"SpaceManager.CancelRequest" = "Cancel Join Request";
+"SpaceManager.DoNotCancel" = "Do Not Cancel";
+"SpaceManager.Archive" = "Archiveer";
+"SpaceManager.CancelRequestAlert.Title" = "You will have to send request access again";
+"SpaceManager.CancelRequestAlert.Toast" = "The request was canceled.";
+
+
 
 // MARK: - Space Create
 "SpaceCreate.Title" = "Maak een ruimte aan";
@@ -999,20 +1028,22 @@
 "per x years" = "per %@ jaar";
 "What’s included" = "Wat is inbegrepen";
 "Submit" = "Verstuur";
-"Resend" = "Resend";
-"Resend in" = "Resend in %@ sec";
-"Current" = "Current";
-"Forever free" = "Forever free";
-"Forever" = "Forever";
-"Valid until date" = "Valid until %@";
-"Your current status" = "Your current status:";
-"Valid until" = "Valid until:";
-"Paid by" = "Paid by %@";
-"Myself" = "Myself";
-"Pay by Card" = "Pay by Card";
+"Resend" = "Verstuur opnieuw";
+"Resend in" = "Verstuur opnieuw over %@ seconden";
+"Current" = "Huidige";
+"Forever free" = "Voor altijd gratis";
+"Forever" = "Voor altijd";
+"Valid until date" = "Geldig tot %@";
+"Your current status" = "Je huidige status:";
+"Valid until" = "Geldig tot:";
+"Paid by" = "Betaald door %@";
+"Myself" = "Mijzelf";
+"Pay by Card" = "Betaal met kaart";
+"Details upon request" = "Details op verzoek";
+"Min X characters" = "Min %@ tekens";
 
 
-"Membership.Ad.Title" = "Laten we samen bouwen";
+"Membership.Ad.Title" = "Lidmaatschap";
 "Membership.Ad.Subtitle" = "Deelnemen aan het Anytype netwerk betekent bijdragen aan het verhaal";
 
 "Membership.Legal.Details" = "Lidmaatschap niveaus details";
@@ -1030,24 +1061,24 @@
 "Membership.Banner.Title1" = "Maak samen met ons";
 "Membership.Banner.Subtitle1" = "Blijf nauw verbonden met ons team en onze gemeenschap. Neem deel aan gesprekken met het team, beïnvloed de ontwikkeling van Anytype en geef je mening over functies.";
 "Membership.Banner.Title2" = "Verdien voordelen";
-"Membership.Banner.Subtitle2" = "Our members have unique identity on Anytype Network, more storage, shared spaces and members per space for extensive collaboration.";
+"Membership.Banner.Subtitle2" = "Onze leden hebben een unieke identiteit op het Anytype netwerk, meer opslag, gedeelde ruimtes en leden per ruimte voor uitgebreide samenwerking.";
 "Membership.Banner.Title3" = "Ondersteun de visie";
 "Membership.Banner.Subtitle3" = "Jouw bijdrage steunt ons onafhankelijke team en ondersteunt onze visie op een gebruiker-gestuurde, veilige en gezamenlijke digitale omgeving.";
 "Membership.Banner.Title4" = "Investeer in verbinding";
-"Membership.Banner.Subtitle4" = "Our software is free by design, but we thrive on the network that connects us all. Support us, and you're investing in the very infrastructure that keeps us united.";
+"Membership.Banner.Subtitle4" = "Onze software is in opzet gratis, maar we floreren op het netwerk dat ons allemaal verbindt. Ondersteun ons, en je investeert in de infrastructuur die ons verenigt.";
 
 "Membership.EmailForm.Title" = "Verkrijg jouw gratis lidmaatschap";
 "Membership.EmailForm.Subtitle" = "We hebben je e-mail nodig om spam op afstand te houden en het plezier te behouden!";
 "Membership.EmailForm.Newsletter" = "Ik zou graag updates over producten willen ontvangen en genieten van gratis voordelen!";
-"Membership.EmailValidation" = "Enter the code sent to your email";
+"Membership.EmailValidation" = "Voer de code in die naar jouw e-mailadres is verstuurd";
 
-"Membership.NameForm.Title" = "Pick your unique name";
-"Membership.NameForm.Subtitle" = "This name acts like a personal domain, making it easier for others to find you";
-"Membership.NameForm.Validating" = "Wait a second...";
-"Membership.NameForm.Validated" = "This name is up for grabs";
+"Membership.NameForm.Title" = "Kies jouw unieke naam";
+"Membership.NameForm.Subtitle" = "Deze naam dient als een persoonlijk domein, waardoor het gemakkelijker wordt voor anderen om je te vinden";
+"Membership.NameForm.Validating" = "Even geduld...";
+"Membership.NameForm.Validated" = "Deze naam is voor het grijpen";
 
-"Membership.Success.Title" = "Welcome to the network, %@";
-"Membership.Success.Subitle" = "Big cheers for your curiosity!";
+"Membership.Success.Title" = "Welkom bij het netwerk, %@";
+"Membership.Success.Subitle" = "Hulde voor jouw nieuwsgierigheid!";
 
 
 // MARK: - Membership Tiers
@@ -1064,7 +1095,6 @@
 "Membership.Builder.Benefit3" = "10 gast medwerker accounts";
 "Membership.Builder.Benefit4" = "Voorkeursondersteuning";
 
-
 "Membership.CoCreator.Title" = "Co-creator";
 "Membership.CoCreator.Subtitle" = "Ondersteun ons avontuur en ontgrendel exclusieve toegang en voordelen";
 "Membership.CoCreator.Benefit1" = "Unieke naam (van 5 tekens)";
@@ -1072,6 +1102,9 @@
 "Membership.CoCreator.Benefit3" = "25 gast medewerker accounts";
 "Membership.CoCreator.Benefit4" = "Chat met het team";
 "Membership.CoCreator.Benefit5" = "Uniek verzamelstuk";
+
+"Membership.Custom.Title" = "Aangepast";
+"Membership.Custom.Subtitle" = "Lidmaatschap afgestemd op jouw specifieke behoeften en voorkeuren";
 
 
 // MARK: - Debug

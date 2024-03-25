@@ -8,16 +8,9 @@ enum EditorEditingState {
     case editing
     case selecting(blocks: [String])
     case moving(indexPaths: [IndexPath])
-    case readonly(state: ReadonlyState)
+    case readonly
     case simpleTablesSelection(block: String, selectedBlocks: [String], simpleTableMenuModel: SimpleTableMenuModel)
     case loading
-}
-
-extension EditorEditingState {
-    enum ReadonlyState {
-        case locked
-        case archived
-    }
 }
 
 /// Blocks drag & drop protocol.
@@ -123,10 +116,8 @@ final class EditorPageBlocksStateManager: EditorPageBlocksStateManagerProtocol {
     func checkOpenedState() {
         if !document.isOpened {
             editingState = .loading
-        } else if document.isArchived {
-            editingState = .readonly(state: .archived)
-        } else if document.isLocked {
-            editingState = .readonly(state: .locked)
+        } else if !document.permissions.canEditBlocks {
+            editingState = .readonly
         } else if case .editing = editingState {
             // nothing
         } else {

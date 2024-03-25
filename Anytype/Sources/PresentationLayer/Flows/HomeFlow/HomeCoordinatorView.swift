@@ -57,8 +57,13 @@ struct HomeCoordinatorView: View {
         .sheet(isPresented: $model.showTypeSearchForObjectCreation) {
             model.typeSearchForObjectCreationModule()
         }
+        .sheet(isPresented: $model.showSpaceManager) {
+            SpacesManagerView()
+        }
         .anytypeSheet(item: $model.spaceJoinData) {
-            model.spaceJoinModule(data: $0)
+            SpaceJoinView(data: $0, onManageSpaces: {
+                model.onManageSpacesSelected()
+            })
         }
         .if(FeatureFlags.galleryInstallation, if: {
             $0.sheet(item: $model.showGalleryImport) { data in

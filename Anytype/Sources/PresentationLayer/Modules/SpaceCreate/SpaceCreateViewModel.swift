@@ -9,7 +9,7 @@ final class SpaceCreateViewModel: ObservableObject {
     
     // MARK: - DI
     
-    @Injected(\.activeWorkpaceStorage)
+    @Injected(\.activeWorkspaceStorage)
     private var activeWorkspaceStorage: ActiveWorkpaceStorageProtocol
     @Injected(\.workspaceService)
     private var workspaceService: WorkspaceServiceProtocol
@@ -20,7 +20,7 @@ final class SpaceCreateViewModel: ObservableObject {
     @Published var spaceName: String = ""
     let spaceGradient: GradientId = .random
     var spaceIcon: Icon { .object(.space(.gradient(spaceGradient))) }
-    @Published var spaceAccessType: SpaceAccessType = .personal
+    @Published var spaceAccessType: SpaceAccessType = .private
     @Published var createLoadingState: Bool = false
     @Published var dismiss: Bool = false
     
@@ -38,7 +38,7 @@ final class SpaceCreateViewModel: ObservableObject {
             let spaceId = try await workspaceService.createSpace(name: spaceName, gradient: spaceGradient, accessType: spaceAccessType, useCase: .empty)
             try await activeWorkspaceStorage.setActiveSpace(spaceId: spaceId)
             UINotificationFeedbackGenerator().notificationOccurred(.success)
-            AnytypeAnalytics.instance().logCreateSpace()
+            AnytypeAnalytics.instance().logCreateSpace(route: .navigation)
             output?.spaceCreateWillDismiss()
             dismissForLegacyOS()
         }

@@ -3,7 +3,11 @@ import SwiftUI
 
 struct SpaceWidgetView: View {
     
-    @ObservedObject var model: SpaceWidgetViewModel
+    @StateObject private var model: SpaceWidgetViewModel
+    
+    init(onSpaceSelected: @escaping () -> Void) {
+        _model = StateObject(wrappedValue: SpaceWidgetViewModel(onSpaceSelected: onSpaceSelected))
+    }
     
     var body: some View {
         HStack(spacing: 15) {
@@ -12,9 +16,17 @@ struct SpaceWidgetView: View {
             VStack(alignment: .leading, spacing: 1) {
                 AnytypeText(model.spaceName, style: .previewTitle2Medium, color: .Text.primary)
                     .lineLimit(1)
-                AnytypeText(model.spaceAccessType, style: .relation3Regular, color: .Text.secondary)
+                if model.sharedSpace {
+                    AnytypeText(model.spaceMembers, style: .relation3Regular, color: .Text.secondary)
+                } else {
+                    AnytypeText(model.spaceAccessType, style: .relation3Regular, color: .Text.secondary)
+                }
             }
             Spacer()
+            if model.sharedSpace {
+                IconView(icon: .asset(.X24.sharing))
+                    .frame(width: 24, height: 24)
+            }
         }
         .padding(.horizontal, 16)
         .frame(height: 68)
@@ -22,6 +34,12 @@ struct SpaceWidgetView: View {
         .cornerRadius(16, style: .continuous)
         .onTapGesture {
             model.onTapWidget()
+        }
+        .task {
+            await model.startSpaceTask()
+        }
+        .task {
+            await model.startParticipantTask()
         }
     }
 }

@@ -72,10 +72,6 @@ public extension Container {
         self { ObjectSubscriptionService() }.shared
     }
     
-    var participantService: Factory<ParticipantServiceProtocol> {
-        self { ParticipantService() }.shared
-    }
-    
     var pasteboardMiddleService: Factory<PasteboardMiddlewareServiceProtocol> {
         self { PasteboardMiddleService() }.shared
     }

@@ -5,6 +5,10 @@ struct ObjectRelationListView: View {
     
     @StateObject var viewModel: ObjectRelationListViewModel
     
+    init(data: ObjectRelationListData, output: ObjectRelationListModuleOutput?) {
+        _viewModel = StateObject(wrappedValue: ObjectRelationListViewModel(data: data, output: output))
+    }
+    
     var body: some View {
         RelationListContainerView(
             searchText: $viewModel.searchText,
@@ -36,8 +40,10 @@ struct ObjectRelationListView: View {
                 optionRow(with: option)
                     .deleteDisabled(option.disableDeletion)
             }
-            .onDelete {
-                viewModel.onOptionDelete(with: $0)
+            .if(viewModel.configuration.isEditable) {
+                $0.onDelete {
+                    viewModel.onOptionDelete(with: $0)
+                }
             }
         }
     }
@@ -61,7 +67,7 @@ struct ObjectRelationListView: View {
     
     private func optionRow(with option: ObjectRelationOption) -> some View {
         Button {
-            viewModel.optionSelected(option.id)
+            viewModel.optionSelected(option)
         } label: {
             HStack {
                 ObjectRelationOptionView(option: option)
@@ -79,65 +85,38 @@ struct ObjectRelationListView: View {
         .frame(height: 72)
         .newDivider()
         .padding(.horizontal, 20)
-        .contextMenu {
-            Button(Loc.openObject) {
-                viewModel.onObjectOpen(option)
-            }
-            
-            if !option.disableDuplication {
-                Button(Loc.duplicate) {
-                    viewModel.onObjectDuplicate(option)
+        .if(viewModel.configuration.isEditable) {
+            $0.contextMenu {
+                Button(Loc.openObject) {
+                    viewModel.onObjectOpen(option)
                 }
-            }
-            
-            if !option.disableDeletion {
-                Button(Loc.delete, role: .destructive) {
-                    viewModel.onOptionDelete(option)
+                
+                if !option.disableDuplication {
+                    Button(Loc.duplicate) {
+                        viewModel.onObjectDuplicate(option)
+                    }
+                }
+                
+                if !option.disableDeletion {
+                    Button(Loc.delete, role: .destructive) {
+                        viewModel.onOptionDelete(option)
+                    }
                 }
             }
         }
     }
 }
 
-extension ObjectRelationListView {
-    init(
-        objectId: String,
-        configuration: RelationModuleConfiguration,
-        selectedOptionsIds: [String],
-        interactor: ObjectRelationListInteractorProtocol,
-        output: ObjectRelationListModuleOutput?
-    ) {
-        let relationSelectedOptionsModel = RelationSelectedOptionsModel(
-            objectId: objectId,
-            selectionMode: configuration.selectionMode,
-            selectedOptionsIds: selectedOptionsIds,
-            relationKey: configuration.relationKey,
-            analyticsType: configuration.analyticsType
-        )
-        _viewModel = StateObject(
-            wrappedValue: ObjectRelationListViewModel(
-                configuration: configuration,
-                interactor: interactor,
-                relationSelectedOptionsModel: relationSelectedOptionsModel,
-                output: output
-            )
-        )
-    }
-}
-
 #Preview("Object") {
-    SelectRelationListView(
-        viewModel: SelectRelationListViewModel(
-            style: .status,
+    ObjectRelationListView(
+        data: ObjectRelationListData(
             configuration: RelationModuleConfiguration.default,
+            interactor: ObjectRelationListInteractor(spaceId: "spaceId", limitedObjectTypes: []),
             relationSelectedOptionsModel: RelationSelectedOptionsModel(
-                objectId: "",
-                selectionMode: .multi,
-                selectedOptionsIds: [],
-                relationKey: "",
-                analyticsType: .block
-            ),
-            output: nil
-        )
+                config: RelationModuleConfiguration.default,
+                selectedOptionsIds: []
+            )
+        ),
+        output: nil
     )
 }

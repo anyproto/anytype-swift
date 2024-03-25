@@ -1,22 +1,42 @@
 import Foundation
 import Combine
 
+enum HomeWidgetsState {
+    case readwrite
+    case readonly
+    case editWidgets
+}
+
+extension HomeWidgetsState {
+    var isEditWidgets: Bool {
+        self == .editWidgets
+    }
+    
+    var isReadWrite: Bool {
+        self == .readwrite
+    }
+    
+    var isReadOnly: Bool {
+        self == .readonly
+    }
+}
+
 protocol HomeWidgetsStateManagerProtocol: AnyObject {
-    var isEditState: Bool { get }
-    var isEditStatePublisher: AnyPublisher<Bool, Never> { get }
-    func setEditState(_ state: Bool)
+    var homeState: HomeWidgetsState { get }
+    var homeStatePublisher: AnyPublisher<HomeWidgetsState, Never> { get }
+    func setHomeState(_ state: HomeWidgetsState)
 }
 
 final class HomeWidgetsStateManager: HomeWidgetsStateManagerProtocol {
-    
-    @Published private(set) var isEditState: Bool = false
-    var isEditStatePublisher: AnyPublisher<Bool, Never> {
-        $isEditState.eraseToAnyPublisher()
+        
+    @Published private(set) var homeState: HomeWidgetsState = .readonly
+    var homeStatePublisher: AnyPublisher<HomeWidgetsState, Never> {
+        $homeState.eraseToAnyPublisher()
     }
     
     init() {}
     
-    func setEditState(_ state: Bool) {
-        isEditState = state
+    func setHomeState(_ state: HomeWidgetsState) {
+        homeState = state
     }
 }

@@ -2,21 +2,11 @@ import Foundation
 import SwiftUI
 import Services
 
-struct SpacesManagerRowViewModel: Identifiable {
-    let spaceView: SpaceView
-    let participant: Participant?
-    
-    var id: String { spaceView.id }
-    
-    var canLeave: Bool {
-        participant?.canLeave ?? false
-    }
-}
-
 struct SpacesManagerRowView: View {
     
-    let model: SpacesManagerRowViewModel
+    let model: ParticipantSpaceView
     let onDelete: () async throws -> Void
+    let onLeave: () async throws -> Void
     let onCancelRequest: () async throws -> Void
     let onArchive: () async throws -> Void
 
@@ -48,35 +38,28 @@ struct SpacesManagerRowView: View {
     }
     
     private var spaceStateInfo: some View {
-        GeometryReader { reader in
-            HStack(spacing: 0) {
-                statusInfoBlock(title: Loc.Spaces.Info.network, name: model.spaceView.accountStatus?.name)
-                    .frame(width: reader.size.width * 0.5)
-                statusInfoBlock(title: Loc.Spaces.Info.device, name: model.spaceView.localStatus?.name)
-                    .frame(width: reader.size.width * 0.5)
-            }
-            .frame(height: 44)
+        HStack(spacing: 0) {
+            Circle()
+                .fill(model.spaceView.accountStatus?.color ?? .black)
+                .frame(width: 8, height: 8)
+            Spacer.fixedWidth(6)
+            AnytypeText(Loc.Spaces.Info.network, style: .relation3Regular, color: .Text.secondary)
+            Spacer.fixedWidth(4)
+            AnytypeText(model.spaceView.accountStatus?.name, style: .relation3Regular, color: .Text.primary)
+            Spacer()
         }
         .frame(height: 44)
     }
     
-    
-    private func statusInfoBlock(title: String, name: String?) -> some View {
-        HStack(spacing: 0) {
-            Spacer.fixedWidth(6)
-            AnytypeText(title, style: .relation3Regular, color: .Text.secondary)
-            Spacer.fixedWidth(4)
-            AnytypeText(name, style: .relation3Regular, color: .Text.primary)
-            Spacer()
-        }
-    }
-    
     @ViewBuilder
     private var menu: some View {
-        if model.spaceView.canBeDelete || model.spaceView.canCancelJoinRequest || model.spaceView.canBeArchive || model.canLeave {
+        if model.spaceView.canBeDelete || model.spaceView.canCancelJoinRequest || model.spaceView.canBeArchive || (model.participant?.canLeave ?? false) {
             Menu {
-                if model.spaceView.canBeDelete ||  model.canLeave {
+                if model.spaceView.canBeDelete {
                     AsyncButton(Loc.delete, role: .destructive, action: onDelete)
+                }
+                if model.participant?.canLeave ?? false {
+                    AsyncButton(Loc.SpaceSettings.leaveButton, role: .destructive, action: onLeave)
                 }
                 if model.spaceView.canCancelJoinRequest {
                     AsyncButton(Loc.SpaceManager.cancelRequest, role: .destructive, action: onCancelRequest)
@@ -88,6 +71,19 @@ struct SpacesManagerRowView: View {
                 IconView(icon: .asset(.X24.more))
                     .frame(width: 24, height: 24)
             }
+        }
+    }
+}
+
+private extension SpaceStatus {
+    var color: Color {
+        switch self {
+        case .UNRECOGNIZED, .spaceJoining, .loading:
+            return .System.amber125
+        case .error, .missing, .remoteDeleted, .remoteWaitingDeletion, .spaceDeleted, .spaceRemoving:
+            return .System.red
+        case .unknown, .ok, .spaceActive:
+            return .System.green
         }
     }
 }

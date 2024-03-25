@@ -20,13 +20,10 @@ protocol ModulesDIProtocol: AnyObject {
     func widgetObjectList() -> WidgetObjectListModuleAssemblyProtocol
     func settingsAppearance() -> SettingsAppearanceModuleAssemblyProtocol
     func wallpaperPicker() -> WallpaperPickerModuleAssemblyProtocol
-    func about() -> AboutModuleAssemblyProtocol
     func personalization() -> PersonalizationModuleAssemblyProtocol
     func keychainPhrase() -> KeychainPhraseModuleAssemblyProtocol
     func dashboardAlerts() -> DashboardAlertsAssemblyProtocol
     func settings() -> SettingsModuleAssemblyProtocol
-    func settingsAccount() -> SettingsAccountModuleAssemblyProtocol
-    func fileStorage() -> FileStorageModuleAssemblyProtocol
     func authorization() -> AuthModuleAssemblyProtocol
     func joinFlow() -> JoinFlowModuleAssemblyProtocol
     func login() -> LoginViewModuleAssemblyProtocol
@@ -38,8 +35,6 @@ protocol ModulesDIProtocol: AnyObject {
     func remoteStorage() -> RemoteStorageModuleAssemblyProtocol
     func setObjectCreationSettings() -> SetObjectCreationSettingsModuleAssemblyProtocol
     func setViewSettingsList() -> SetViewSettingsListModuleAssemblyProtocol
-    func setSortsList() -> SetSortsListModuleAssemblyProtocol
-    func setSortTypesList() -> SetSortTypesListModuleAssemblyProtocol
     func setTextView() -> SetTextViewModuleAssemblyProtocol
     func setFiltersDateView() -> SetFiltersDateViewModuleAssemblyProtocol
     func setFilterConditions() -> SetFilterConditionsModuleAssemblyProtocol
@@ -60,9 +55,5 @@ protocol ModulesDIProtocol: AnyObject {
     func serverDocumentPicker() -> ServerDocumentPickerModuleAssemblyProtocol
     func sharingTip() -> SharingTipModuleAssemblyProtocol
     func shareOptions() -> ShareOptionsModuleAssemblyProtocol
-    func commonNotification() -> CommonNotificationAssemblyProtocol
-    func galleryNotification() -> GalleryNotificationAssemblyProtocol
     func spareShare() -> SpaceShareModuleAssemblyProtocol
-    func spaceJoin() -> SpaceJoinModuleAssemblyProtocol
-    func spacesManager() -> SpacesManagerModuleAssemblyProtocol
 }

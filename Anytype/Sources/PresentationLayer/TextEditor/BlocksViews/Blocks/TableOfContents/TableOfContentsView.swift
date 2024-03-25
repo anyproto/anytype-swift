@@ -33,6 +33,7 @@ final class TableOfContentsView: UIView, BlockContentView {
             .$content
             .dropFirst()
             .removeDuplicates()
+            .receiveOnMain()
             .sink { [weak self] content in
                 self?.updateView(content: content)
                 

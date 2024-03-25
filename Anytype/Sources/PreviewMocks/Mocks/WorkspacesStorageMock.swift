@@ -8,7 +8,7 @@ final class WorkspacesStorageMock: WorkspacesStorageProtocol {
     static let shared = WorkspacesStorageMock()
     
     private init() {
-        self.workspaces =  [
+        self.allWorkspaces =  [
             SpaceView(
                 id: "1",
                 name: "ABC",
@@ -23,9 +23,9 @@ final class WorkspacesStorageMock: WorkspacesStorageProtocol {
         ]
     }
     
-    var workspaces: [SpaceView] = []
-    var workspsacesPublisher: AnyPublisher<[SpaceView], Never> {
-        CurrentValueSubject(workspaces).eraseToAnyPublisher()
+    var allWorkspaces: [SpaceView] = []
+    var allWorkspsacesPublisher: AnyPublisher<[SpaceView], Never> {
+        CurrentValueSubject(allWorkspaces).eraseToAnyPublisher()
     }
     func startSubscription() async {}
     func stopSubscription() async {}

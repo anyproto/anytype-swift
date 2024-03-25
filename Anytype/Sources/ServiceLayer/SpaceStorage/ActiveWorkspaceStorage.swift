@@ -76,7 +76,7 @@ final class ActiveWorkspaceStorage: ActiveWorkpaceStorageProtocol {
     // MARK: - Private
     
     private func startSubscriotion() {
-        workspaceSubscription = workspaceStorage.workspsacesPublisher
+        workspaceSubscription = workspaceStorage.activeWorkspsacesPublisher
             .map { $0.map(\.targetSpaceId) }
             .receiveOnMain()
             .sink { [weak self] spaceIds in

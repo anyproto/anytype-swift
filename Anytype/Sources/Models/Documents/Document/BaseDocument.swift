@@ -28,8 +28,10 @@ final class BaseDocument: BaseDocumentProtocol {
     private let relationBuilder: RelationsBuilder
     private let relationDetailsStorage: RelationDetailsStorageProtocol
     private let objectTypeProvider: ObjectTypeProviderProtocol
+    private let accountParticipantsStorage: AccountParticipantsStorageProtocol
     private let viewModelSetter: DocumentViewModelSetterProtocol
     
+    private var participantIsEditor: Bool = false
     private var subscriptions = [AnyCancellable]()
     
     @Published private var sync: Void?
@@ -54,25 +56,30 @@ final class BaseDocument: BaseDocumentProtocol {
             relationsDetails: objectRelationsDetails,
             typeRelationsDetails: typeRelationsDetails,
             objectId: objectId,
-            relationValuesIsLocked: relationValuesIsLocked,
+            relationValuesIsLocked: !permissions.canEditRelationValues,
             storage: detailsStorage
         )
     }
     
+    var permissions: ObjectPermissions {
+        ObjectPermissions(
+            details: details ?? ObjectDetails(id: ""),
+            isLocked: isLocked,
+            participantCanEdit: participantIsEditor,
+            objectRestrictions: objectRestrictions.objectRestriction
+        )
+    }
+    var permissionsPublisher: AnyPublisher<ObjectPermissions, Never> {
+        syncPublisher.compactMap {
+            [weak self] in self?.permissions
+        }
+        .removeDuplicates()
+        .receiveOnMain()
+        .eraseToAnyPublisher()
+    }
+    
     var isLocked: Bool {
         return infoContainer.get(id: objectId)?.isLocked ?? false
-    }
-    
-    var relationValuesIsLocked: Bool {
-        return isLocked || isArchived || objectRestrictions.objectRestriction.contains(.details)
-    }
-    
-    var relationsListIsLocked: Bool {
-        return isLocked || isArchived || objectRestrictions.objectRestriction.contains(.relations)
-    }
-    
-    var isArchived: Bool {
-        return details?.isArchived ?? false
     }
     
     var details: ObjectDetails? {
@@ -94,7 +101,8 @@ final class BaseDocument: BaseDocumentProtocol {
         forPreview: Bool,
         objectLifecycleService: ObjectLifecycleServiceProtocol,
         relationDetailsStorage: RelationDetailsStorageProtocol,
-        objectTypeProvider: ObjectTypeProviderProtocol
+        objectTypeProvider: ObjectTypeProviderProtocol,
+        accountParticipantsStorage: AccountParticipantsStorageProtocol
     ) {
         self.objectId = objectId
         self.forPreview = forPreview
@@ -118,6 +126,7 @@ final class BaseDocument: BaseDocumentProtocol {
         self.relationBuilder = RelationsBuilder()
         self.relationDetailsStorage = relationDetailsStorage
         self.objectTypeProvider = objectTypeProvider
+        self.accountParticipantsStorage = accountParticipantsStorage
         
         setup()
     }
@@ -145,7 +154,7 @@ final class BaseDocument: BaseDocumentProtocol {
             return
         }
         let model = try await objectLifecycleService.open(contextId: objectId)
-        setupView(model)
+        await setupView(model)
     }
     
     @MainActor
@@ -155,7 +164,7 @@ final class BaseDocument: BaseDocumentProtocol {
             return
         }
         let model = try await objectLifecycleService.openForPreview(contextId: objectId)
-        setupView(model)
+        await setupView(model)
     }
     
     @MainActor
@@ -229,10 +238,18 @@ final class BaseDocument: BaseDocumentProtocol {
         sync = ()
     }
     
-    private func setupView(_ model: ObjectViewModel) {
+    private func setupView(_ model: ObjectViewModel) async {
         viewModelSetter.objectViewUpdate(model)
         isOpened = true
         triggerSync(updates: [.general])
+        await setupSubscriptions()
+    }
+    
+    private func setupSubscriptions() async {
+        await accountParticipantsStorage.canEditPublisher(spaceId: spaceId).sink { [weak self] canEdit in
+            self?.participantIsEditor = canEdit
+            self?.triggerSync(updates: [.general])
+        }.store(in: &subscriptions)
     }
 }
 

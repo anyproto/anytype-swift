@@ -8,7 +8,7 @@ import AnytypeCore
 
 extension Container {
     
-    var activeWorkpaceStorage: Factory<ActiveWorkpaceStorageProtocol> {
+    var activeWorkspaceStorage: Factory<ActiveWorkpaceStorageProtocol> {
         self { ActiveWorkspaceStorage() }.singleton
     }
     
@@ -118,14 +118,6 @@ extension Container {
     
     var templatesSubscription: Factory<TemplatesSubscriptionServiceProtocol> {
         self { TemplatesSubscriptionService() }
-    }
-    
-    var participantSubscriptionBySpaceService: Factory<ParticipantsSubscriptionBySpaceServiceProtocol> {
-        self { ParticipantsSubscriptionBySpaceService() }
-    }
-    
-    var participantsSubscriptionByAccountService: Factory<ParticipantsSubscriptionByAccountServiceProtocol> {
-        self { ParticipantsSubscriptionByAccountService() }
     }
     
     var defaultObjectCreationService: Factory<DefaultObjectCreationServiceProtocol> {
@@ -246,5 +238,17 @@ extension Container {
     
     var textRelationEditingService: Factory<TextRelationEditingServiceProtocol> {
         self { TextRelationEditingService() }.shared
+    }
+    
+    var accountParticipantsStorage: Factory<AccountParticipantsStorageProtocol> {
+        self { AccountParticipantsStorage() }.singleton
+    }
+    
+    var activeSpaceParticipantStorage: Factory<ActiveSpaceParticipantStorageProtocol> {
+        self { ActiveSpaceParticipantStorage() }.singleton
+    }
+
+    var participantSpacesStorage: Factory<ParticipantSpacesStorageProtocol> {
+        self { ParticipantSpacesStorage() }.singleton
     }
 }

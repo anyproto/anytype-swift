@@ -62,7 +62,6 @@
 "BlockLink.PreviewSettings.Layout.Text.Title" = "Text";
 
 // MARK: - Settings
-"Settings.Title" = "Einstellungen";
 "Settings.SpaceName" = "Space-Name";
 
 // MARK: - Object
@@ -118,6 +117,15 @@
 "Relation.Origin.Builtin" = "Bibliothek installiert";
 "Relation.Origin.Bookmark" = "Lesezeichen";
 
+// MARK: - Import Type Relation
+
+"Relation.ImportType.Notion" = "Notion";
+"Relation.ImportType.Markdown" = "Markdown";
+"Relation.ImportType.Html" = "HTML";
+"Relation.ImportType.Text" = "TXT";
+"Relation.ImportType.Protobuf" = "Any-Block";
+"Relation.ImportType.Csv" = "CSV";
+
 // MARK: - Mention
 "Mention.Subtitle.Placeholder" = "Objekt";
 
@@ -138,6 +146,7 @@
 "Lists" = "Gruppen";
 "Pinned" = "Angeheftet";
 "Delete" = "Löschen";
+"Export" = "Exportieren";
 "Duplicate" = "Duplizieren";
 "Copy" = "Kopieren";
 "Preview" = "Vorschau";
@@ -258,8 +267,7 @@
 "Auth.JoinFlow.Soul.Placeholder" = "Unbenannt";
 
 "Auth.JoinFlow.Creating.Soul.Title" = "Neues Konto erstellen";
-"Auth.JoinFlow.Setting.Space.Title" = "Einrichtung deines persönlichen Spaces";
-"Auth.JoinFlow.Personal.Space.Title" = "Einstellungen";
+"Auth.JoinFlow.Setting.Space.Title" = "Setting up your default space";
 
 // Auth - Login flow
 "Auth.LoginFlow.Use.Keychain.Title" = "Schlüsselbund verwenden";
@@ -812,7 +820,6 @@
 "ClearCache.Error" = "Fehler. Versuchen Sie es später noch einmal";
 
 // MARK: - Settings
-"Settings.TitleLegacy" = "Einstellungen";
 "Settings.Title" = "Einstellungen";
 "Settings.SpaceName" = "Space-Name";
 "Settings.AccountAndAccess" = "Konto und Zugriff";
@@ -849,11 +856,10 @@
 // MARK: - Spaces
 "Spaces.Accessibility.Shared" = "Geteilter Space";
 "Spaces.Accessibility.Private" = "Privater Raum";
-"Spaces.Accessibility.Personal" = "Einstellungen";
+"Spaces.Accessibility.Personal" = "Default Space";
 "Spaces.Search.Title" = "Spaces suchen";
 "Spaces.Title" = "Spaces";
 "Spaces.Info.Network" = "Netzwerk:";
-"Spaces.Info.Device" = "Gerät:";
 
 // MARK: - Space
 "Space.Status.Unknown" = "Unbekannt";
@@ -876,27 +882,33 @@
 "SpaceSettings.DeleteAlert.Title" = "Space '%@' löschen";
 "SpaceSettings.DeleteAlert.Message" = "Dieser Space wird unwiderruflich gelöscht. Diese Aktion kann nicht rückgängig gemacht werden.";
 "SpaceSettings.DeleteButton" = "Space löschen";
-"SpaceSettings.Sharing" = "Teilen";
 "SpaceSettings.Share" = "Teilen";
-"SpaceSettings.LeaveButton" = "Verlassen und entfernen";
-"SpaceSettings.LeaveAlert.Title" = "Verlassen und den Space entfernen";
+"SpaceSettings.LeaveButton" = "Verlassen";
+"SpaceSettings.LeaveAlert.Title" = "Leave a space";
 "SpaceSettings.LeaveAlert.Message" = "%@ Space wird von deinen Geräten entfernt und du hast dann keinen Zugriff mehr darauf";
+"SpaceSettings.LeaveAlert.Toast" = "You left the %@.";
 
 // MARK: - Space Share
 
-"SpaceShare.Title" = "Geteilter Space";
-"SpaceShare.MembersSection" = "Mitglieder und Anfragen";
+"SpaceShare.Title" = "Sharing";
 "SpaceShare.Members" = "Mitglieder";
 "SpaceShare.Permissions.Owner" = "Eigentümer";
 "SpaceShare.Permissions.Reader" = "Viewer";
 "SpaceShare.Permissions.Writer" = "Editor";
+"SpaceShare.Permissions.Grand.Edit" = "Bearbeiten";
+"SpaceShare.Permissions.Grand.View" = "Ansicht";
 "SpaceShare.Invite.Title" = "Einladungslink";
-"SpaceShare.Invite.Description" = "Sende diesen Link, um andere einzuladen. Weise Zugriffsrechte zu, wenn deren Anfrage genehmigt wurde";
-"SpaceShare.Invite.Button" = "Einladungslink teilen";
-"SpaceShare.Status.Joining" = "Angefragt";
-"SpaceShare.Status.Removing" = "Austritt beantragt";
+"SpaceShare.Invite.Description" = "Share this invite link so that others can join your Space. Once they click your link and request access, you can set their access rights.";
+"SpaceShare.Invite.Share" = "Einladungslink teilen";
+"SpaceShare.Invite.Generate" = "Einladungslink generieren";
+"SpaceShare.Invite.Empty" = "Create invite link to share space and add new members";
+"SpaceShare.JoinRequest" = "Join request";
+"SpaceShare.LeaveRequest" = "Leave request";
 "SpaceShare.Action.ViewRequest" = "Anfrage ansehen";
 "SpaceShare.Action.Approve" = "Genehmigen";
+"SpaceShare.DeleteSharingLink.Title" = "Link löschen";
+"SpaceShare.DeleteSharingLink.Message" = "New members won’t be able to join the space. You can generate a new link anytype";
+"SpaceShare.Approve.Toast" = "You approved %@'s request.";
 "SpaceShare.ViewRequest.Title" = "%@ beantragte den Beitritt zu %@";
 "SpaceShare.ViewRequest.ViewAccess" = "Lesezugriff gewähren";
 "SpaceShare.ViewRequest.EditAccess" = "Bearbeitungszugriff gewähren";
@@ -911,10 +923,27 @@
 "SpaceShare.Join.Message" = "Sie wurden eingeladen, dem Space %@, erstellt von %@ beizutreten. Senden Sie eine Anfrage, damit der Spacebesitzer Sie einladen kann.";
 "SpaceShare.JoinConfirmation.Title" = "Anfrage gesendet";
 "SpaceShare.JoinConfirmation.Message" = "Sie erhalten eine Benachrichtigung, wenn der Spacebesitzer Ihre Anfrage angenommen hat.";
+"SpaceShare.YouSuffix" = "%@ (du)";
+"SpaceShare.ManageSpaces" = "Manage Spaces";
+
+// MARK: - Permission notification
+"PermissionChangeNotification.Text" = "Your access rights were changed to **%@** in the **%@** space.";
+"ParticipantRequestApprovedNotification.Text" = "Your request to join the **%@** space has been approved with **%@** access rights. The space will be available on your device soon.";
+"ParticipantRequestDeclineNotification.Text" = "Your request to join the **%@** space has been declined.";
+"RequestToLeaveNotification.Text" = "**%@** wants to leave the **%@** space.";
+"ParticipantRemoveNotification.Text" = "You have been removed from the space, or the space was deleted by the owner.";
+"RequestToJoinNotification.Text" = "**%@** requested to join the **%@** space.";
+"RequestToJoinNotification.GoToSpace" = "Go to Space";
+"RequestToJoinNotification.ViewRequest" = "Anfrage ansehen";
 
 // MARK: - Space manager
-"SpaceManager.CancelRequest" = "Cancel Request";
+"SpaceManager.CancelRequest" = "Cancel Join Request";
+"SpaceManager.DoNotCancel" = "Do Not Cancel";
 "SpaceManager.Archive" = "Archive";
+"SpaceManager.CancelRequestAlert.Title" = "You will have to send request access again";
+"SpaceManager.CancelRequestAlert.Toast" = "Die Anfrage wurde storniert.";
+
+
 
 // MARK: - Space Create
 "SpaceCreate.Title" = "Space erstellen";
@@ -1009,10 +1038,12 @@
 "Valid until" = "Gültig bis:";
 "Paid by" = "Bezahlt von %@";
 "Myself" = "Myself";
-"Pay by Card" = "Pay by Card";
+"Pay by Card" = "Mit Karte bezahlen";
+"Details upon request" = "Details auf Anfrage";
+"Min X characters" = "Min. %@ Zeichen";
 
 
-"Membership.Ad.Title" = "Let’s build together";
+"Membership.Ad.Title" = "Mitgliedschaft";
 "Membership.Ad.Subtitle" = "Dem Anytype-Netzwerk beizutreten bedeutet, einen Beitrag zu seiner Geschichte zu leisten";
 
 "Membership.Legal.Details" = "Details zu den Mitgliedschaftsstufen";
@@ -1041,10 +1072,10 @@
 "Membership.EmailForm.Newsletter" = "Ich möchte über Neuigkeiten zu Produkten informiert werden und kostenlose Vergünstigungen erhalten!";
 "Membership.EmailValidation" = "Gib den an deine E-Mail-Adresse gesendeten Code ein";
 
-"Membership.NameForm.Title" = "Pick your unique name";
+"Membership.NameForm.Title" = "Wähle deinen einzigartigen Namen";
 "Membership.NameForm.Subtitle" = "This name acts like a personal domain, making it easier for others to find you";
 "Membership.NameForm.Validating" = "Wait a second...";
-"Membership.NameForm.Validated" = "This name is up for grabs";
+"Membership.NameForm.Validated" = "Dieser Name ist noch zu vergeben";
 
 "Membership.Success.Title" = "Willkommen im Netzwerk, %@";
 "Membership.Success.Subitle" = "Ein Hoch auf deine Neugierde!";
@@ -1061,9 +1092,8 @@
 "Membership.Builder.Subtitle" = "Entfessle die Magie der Zusammenarbeit mit mehreren Teilnehmern und genieße erstklassige Unterstützung";
 "Membership.Builder.Benefit1" = "Eindeutiger Name (ab 7 Zeichen)";
 "Membership.Builder.Benefit2" = "128 GB Netzwerkspeicher";
-"Membership.Builder.Benefit3" = "10 Guest collaborator seats";
+"Membership.Builder.Benefit3" = "10 Plätze für Gastmitarbeiter";
 "Membership.Builder.Benefit4" = "Vorrangige Unterstützung";
-
 
 "Membership.CoCreator.Title" = "Mitersteller";
 "Membership.CoCreator.Subtitle" = "Support our adventure and unlock exclusive access and perks";
@@ -1072,6 +1102,9 @@
 "Membership.CoCreator.Benefit3" = "25 Plätze für Gastmitarbeiter";
 "Membership.CoCreator.Benefit4" = "Mit dem Team chatten";
 "Membership.CoCreator.Benefit5" = "Einzigartiges Sammlerstück";
+
+"Membership.Custom.Title" = "Custom";
+"Membership.Custom.Subtitle" = "Membership tailored to your specific needs and preferences";
 
 
 // MARK: - Debug

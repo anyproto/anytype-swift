@@ -6,7 +6,7 @@ public extension MembershipStatus {
     static var empty: MembershipStatus {
         return MembershipStatus(
             tier: nil,
-            status: .statusUnknown,
+            status: .unknown,
             dateEnds: .distantFuture,
             paymentMethod: .methodCard
         )
@@ -14,7 +14,9 @@ public extension MembershipStatus {
     
     var formattedDateEnds: String {
         let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "d MMM y"
+        
+        dateFormatter.dateStyle = .medium
+        dateFormatter.timeStyle = .none
         
         return dateFormatter.string(from: dateEnds)
     }

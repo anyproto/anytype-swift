@@ -16,6 +16,7 @@ final class ShareOptionsInteractor: ShareOptionsInteractorProtocol {
     private let fileService: FileActionsServiceProtocol
     private let documentProvider: DocumentsProviderProtocol
     private let pasteboardMiddlewareService: PasteboardMiddlewareServiceProtocol
+    private let objectTypeProvider: ObjectTypeProviderProtocol
     
     init(
         blockService: BlockServiceProtocol,
@@ -23,7 +24,8 @@ final class ShareOptionsInteractor: ShareOptionsInteractorProtocol {
         objectActionsService: ObjectActionsServiceProtocol,
         fileService: FileActionsServiceProtocol,
         documentProvider: DocumentsProviderProtocol,
-        pasteboardMiddlewareService: PasteboardMiddlewareServiceProtocol
+        pasteboardMiddlewareService: PasteboardMiddlewareServiceProtocol,
+        objectTypeProvider: ObjectTypeProviderProtocol
     ) {
         self.blockService = blockService
         self.bookmarkService = bookmarkService
@@ -31,6 +33,7 @@ final class ShareOptionsInteractor: ShareOptionsInteractorProtocol {
         self.fileService = fileService
         self.documentProvider = documentProvider
         self.pasteboardMiddlewareService = pasteboardMiddlewareService
+        self.objectTypeProvider = objectTypeProvider
     }
     
     func saveContent(saveOptions: SharedSaveOptions, content: SharedContent) async throws {
@@ -79,8 +82,7 @@ final class ShareOptionsInteractor: ShareOptionsInteractorProtocol {
                     newObjectId = try await createBookmarkObject(url: AnytypeURL(url: url), spaceId: spaceId).id
                     blockInformation = BlockInformation.bookmark(targetId: newObjectId)
                 case let .file(url):
-                    let data = FileData(path: url.relativePath, isTemporary: false)
-                    newObjectId = try await fileService.uploadFileObject(spaceId: spaceId, data: data, origin: .sharingExtension).id
+                    newObjectId = try await creatFileObject(url: url, spaceId: spaceId).id
                     blockInformation = BlockInformation.emptyLink(targetId: newObjectId)
                 }
                 
@@ -115,7 +117,7 @@ final class ShareOptionsInteractor: ShareOptionsInteractorProtocol {
         try await bookmarkService.fetchBookmarkContent(bookmarkId: newBookmark.id, url: url)
         
         AnytypeAnalytics.instance().logCreateObject(
-            objectType: .object(typeId: ObjectTypeUniqueKey.bookmark.value),
+            objectType: newBookmark.objectType.analyticsType,
             route: .sharingExtension
         )
         return newBookmark
@@ -136,10 +138,21 @@ final class ShareOptionsInteractor: ShareOptionsInteractorProtocol {
         _ = try await pasteboardMiddlewareService.pasteText(text, objectId: newObject.id, context: .selected(blockIds: [lastBlockInDocument]))
         
         AnytypeAnalytics.instance().logCreateObject(
-            objectType: .object(typeId: ObjectTypeUniqueKey.note.value),
+            objectType: newObject.objectType.analyticsType,
             route: .sharingExtension
         )
         return newObject
+    }
+    
+    private func creatFileObject(url: URL, spaceId: String) async throws -> FileDetails {
+        let data = FileData(path: url.relativePath, isTemporary: false)
+        let details = try await fileService.uploadFileObject(spaceId: spaceId, data: data, origin: .sharingExtension)
+        
+        AnytypeAnalytics.instance().logCreateObject(
+            objectType: objectTypeProvider.analyticsType(id: details.type),
+            route: .sharingExtension
+        )
+        return details
     }
     
     private func createTextBlock(text: String, addToObject: ObjectDetails, logAnalytics: Bool) async throws {

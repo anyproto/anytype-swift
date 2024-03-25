@@ -19,6 +19,8 @@ final class DocumentsProvider: DocumentsProviderProtocol {
     private var objectTypeProvider: ObjectTypeProviderProtocol
     @Injected(\.objectLifecycleService)
     private var objectLifecycleService: ObjectLifecycleServiceProtocol
+    @Injected(\.accountParticipantsStorage)
+    private var accountParticipantsStorage: AccountParticipantsStorageProtocol
     
     func document(objectId: String, forPreview: Bool) -> BaseDocumentProtocol {
         internalDocument(objectId: objectId, forPreview: forPreview)
@@ -63,7 +65,8 @@ final class DocumentsProvider: DocumentsProviderProtocol {
             forPreview: forPreview,
             objectLifecycleService: objectLifecycleService,
             relationDetailsStorage: relationDetailsStorage, 
-            objectTypeProvider: objectTypeProvider
+            objectTypeProvider: objectTypeProvider,
+            accountParticipantsStorage: accountParticipantsStorage
         )
     }
 }

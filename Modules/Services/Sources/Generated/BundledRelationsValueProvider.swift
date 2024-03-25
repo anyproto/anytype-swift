@@ -22,7 +22,9 @@ public protocol BundledRelationsValueProvider {
     var mediaArtistURL: AnytypeURL? { get }
     var templateIsBundled: Bool { get }
     var dateOfBirth: Date? { get }
-    var restrictions: Int? { get }
+    var restrictions: [Int] { get }
+    var readersLimit: Int? { get }
+    var writersLimit: Int? { get }
     var isHighlighted: Bool { get }
     var thumbnailImage: [ObjectId] { get }
     var attachments: [ObjectId] { get }
@@ -174,6 +176,7 @@ public protocol BundledRelationsValueProvider {
     var revision: Int? { get }
     var imageKind: Int? { get }
     var importType: Int? { get }
+    var globalName: String { get }
 } 
 
 public extension BundledRelationsValueProvider where Self: RelationValueProvider {
@@ -231,8 +234,16 @@ public extension BundledRelationsValueProvider where Self: RelationValueProvider
         return value(for: BundledRelationKey.dateOfBirth.rawValue)
     }
     /// Object restrictions list
-    var restrictions: Int? {
+    var restrictions: [Int] {
         return value(for: BundledRelationKey.restrictions.rawValue)
+    }
+    /// Readers limit
+    var readersLimit: Int? {
+        return value(for: BundledRelationKey.readersLimit.rawValue)
+    }
+    /// Writers limit
+    var writersLimit: Int? {
+        return value(for: BundledRelationKey.writersLimit.rawValue)
     }
     /// Adds the object to the highlighted dataview in space
     var isHighlighted: Bool {
@@ -770,5 +781,9 @@ public extension BundledRelationsValueProvider where Self: RelationValueProvider
     /// Import type, used to create object (notion, md and etc)
     var importType: Int? {
         return value(for: BundledRelationKey.importType.rawValue)
+    }
+    /// Name of profile that the user could be mentioned by
+    var globalName: String {
+        return value(for: BundledRelationKey.globalName.rawValue)
     }
 }

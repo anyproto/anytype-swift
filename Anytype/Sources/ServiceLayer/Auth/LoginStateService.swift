@@ -24,15 +24,20 @@ final class LoginStateService: LoginStateServiceProtocol {
     private var relationDetailsStorage: RelationDetailsStorageProtocol
     @Injected(\.workspaceStorage)
     private var workspacesStorage: WorkspacesStorageProtocol
-    @Injected(\.activeWorkpaceStorage)
+    @Injected(\.activeWorkspaceStorage)
     private var activeWorkpaceStorage: ActiveWorkpaceStorageProtocol
+    @Injected(\.accountParticipantsStorage)
+    private var accountParticipantsStorage: AccountParticipantsStorageProtocol
+    @Injected(\.activeSpaceParticipantStorage)
+    private var activeSpaceParticipantStorage: ActiveSpaceParticipantStorageProtocol
+    @Injected(\.participantSpacesStorage)
+    private var participantSpacesStorage: ParticipantSpacesStorageProtocol
     
     // MARK: - LoginStateServiceProtocol
     
     func setupStateAfterLoginOrAuth(account: AccountData) async {
         middlewareConfigurationProvider.setupConfiguration(account: account)
         await startSubscriptions()
-        await activeWorkpaceStorage.setupActiveSpace()
     }
     
     func setupStateAfterAuth() {
@@ -43,7 +48,6 @@ final class LoginStateService: LoginStateServiceProtocol {
         isFirstLaunchAfterRegistration = true
         middlewareConfigurationProvider.setupConfiguration(account: account)
         await startSubscriptions()
-        await activeWorkpaceStorage.setupActiveSpace()
     }
     
     func cleanStateAfterLogout() async {
@@ -51,7 +55,6 @@ final class LoginStateService: LoginStateServiceProtocol {
         blockWidgetExpandedService.clearData()
         middlewareConfigurationProvider.removeCachedConfiguration()
         await stopSubscriptions()
-        await activeWorkpaceStorage.clearActiveSpace()
     }
     
     // MARK: - Private
@@ -60,11 +63,19 @@ final class LoginStateService: LoginStateServiceProtocol {
         await workspacesStorage.startSubscription()
         await relationDetailsStorage.startSubscription()
         await objectTypeProvider.startSubscription()
+        await activeWorkpaceStorage.setupActiveSpace()
+        await accountParticipantsStorage.startSubscription()
+        await activeSpaceParticipantStorage.startSubscription()
+        await participantSpacesStorage.startSubscription()
     }
     
     private func stopSubscriptions() async {
         await workspacesStorage.stopSubscription()
         await relationDetailsStorage.stopSubscription()
         await objectTypeProvider.stopSubscription()
+        await activeWorkpaceStorage.clearActiveSpace()
+        await accountParticipantsStorage.stopSubscription()
+        await activeSpaceParticipantStorage.stopSubscription()
+        await participantSpacesStorage.stopSubscription()
     }
 }

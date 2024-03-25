@@ -25,7 +25,7 @@ final class WidgetContainerViewModel<ContentVM: WidgetContainerContentViewModelP
     @Published var isExpanded: Bool {
         didSet { expandedDidChange() }
     }
-    @Published var isEditState: Bool = false
+    @Published var homeState: HomeWidgetsState = .readonly
     @Published var toastData = ToastBarData.empty
     
     init(
@@ -53,9 +53,9 @@ final class WidgetContainerViewModel<ContentVM: WidgetContainerContentViewModelP
         
         isExpanded = blockWidgetExpandedService.isExpanded(widgetBlockId: widgetBlockId)
         
-        stateManager.isEditStatePublisher
+        stateManager.homeStatePublisher
             .receiveOnMain()
-            .assign(to: &$isEditState)
+            .assign(to: &$homeState)
         
         contentModel.startHeaderSubscription()
         contentModel.startContentSubscription()
@@ -79,7 +79,7 @@ final class WidgetContainerViewModel<ContentVM: WidgetContainerContentViewModelP
     
     func onEditTap() {
         AnytypeAnalytics.instance().logEditWidget()
-        stateManager.setEditState(true)
+        stateManager.setHomeState(.editWidgets)
         UISelectionFeedbackGenerator().selectionChanged()
     }
     
@@ -134,6 +134,6 @@ final class WidgetContainerViewModel<ContentVM: WidgetContainerContentViewModelP
     }
     
     private func analyticsContext() -> AnalyticsWidgetContext {
-        return stateManager.isEditState ? .editor : .home
+        return stateManager.homeState.isEditWidgets ? .editor : .home
     }
 }

@@ -162,14 +162,6 @@ final class ServiceLocator {
         Container.shared.filesSubscriptionManager()
     }
     
-    func participantSubscriptionBySpaceService() -> ParticipantsSubscriptionBySpaceServiceProtocol {
-        Container.shared.participantSubscriptionBySpaceService()
-    }
-    
-    func participantsSubscriptionByAccountService() -> ParticipantsSubscriptionByAccountServiceProtocol {
-        Container.shared.participantsSubscriptionByAccountService()
-    }
-    
     func middlewareConfigurationProvider() -> MiddlewareConfigurationProviderProtocol {
         Container.shared.middlewareConfigurationProvider()
     }
@@ -239,7 +231,7 @@ final class ServiceLocator {
     }
     
     func activeWorkspaceStorage() -> ActiveWorkpaceStorageProtocol {
-        Container.shared.activeWorkpaceStorage()
+        Container.shared.activeWorkspaceStorage()
     }
     
     func workspaceStorage() -> WorkspacesStorageProtocol {
@@ -306,10 +298,6 @@ final class ServiceLocator {
         Container.shared.processSubscriptionService()
     }
     
-    func participantService() -> ParticipantServiceProtocol {
-        Container.shared.participantService()
-    }
-    
     func blockTableService() -> BlockTableServiceProtocol {
         Container.shared.blockTableService()
     }
@@ -324,5 +312,17 @@ final class ServiceLocator {
     
     func textRelationEditingService() -> TextRelationEditingServiceProtocol {
         Container.shared.textRelationEditingService()
+    }
+    
+    func accountParticipantStorage() -> AccountParticipantsStorageProtocol {
+        Container.shared.accountParticipantsStorage()
+    }
+    
+    func activeSpaceParticipantStorage() -> ActiveSpaceParticipantStorageProtocol {
+        Container.shared.activeSpaceParticipantStorage()
+    }
+
+    func participantSpacesStorage() -> ParticipantSpacesStorageProtocol {
+        Container.shared.participantSpacesStorage()
     }
 }
