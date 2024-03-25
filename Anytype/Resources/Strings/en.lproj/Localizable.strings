@@ -926,7 +926,7 @@
 "SpaceShare.ManageSpaces" = "Manage Spaces";
 "SpaceShare.StopSharing.Action" = "Stop sharing";
 "SpaceShare.StopSharing.Title" = "Stop sharing the space";
-"SpaceShare.StopSharing.Message" = "Participants will no longer sync to this space and the share link will be deactivated.";
+"SpaceShare.StopSharing.Message" = "Members will no longer sync to this space and the share link will be deactivated.";
 "SpaceShare.StopSharing.Toast" = "The space is no longer shared";
 
 // MARK: - Permission notification

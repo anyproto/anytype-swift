@@ -2343,8 +2343,8 @@ internal enum Loc {
     internal enum StopSharing {
       /// Stop sharing
       internal static let action = Loc.tr("Localizable", "SpaceShare.StopSharing.Action", fallback: "Stop sharing")
-      /// Participants will no longer sync to this space and the share link will be deactivated.
-      internal static let message = Loc.tr("Localizable", "SpaceShare.StopSharing.Message", fallback: "Participants will no longer sync to this space and the share link will be deactivated.")
+      /// Members will no longer sync to this space and the share link will be deactivated.
+      internal static let message = Loc.tr("Localizable", "SpaceShare.StopSharing.Message", fallback: "Members will no longer sync to this space and the share link will be deactivated.")
       /// Stop sharing the space
       internal static let title = Loc.tr("Localizable", "SpaceShare.StopSharing.Title", fallback: "Stop sharing the space")
       /// The space is no longer shared
