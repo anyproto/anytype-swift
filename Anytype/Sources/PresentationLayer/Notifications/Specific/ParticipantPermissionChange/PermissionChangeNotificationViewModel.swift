@@ -11,6 +11,6 @@ final class PermissionChangeNotificationViewModel: ObservableObject {
     
     init(notification: NotificationParticipantPermissionsChange) {
         self.notification = notification
-        message = Loc.PermissionChangeNotification.text(notification.permissionChange.permissions.grandTitle, notification.permissionChange.spaceName)
+        message = Loc.PermissionChangeNotification.text(notification.permissionChange.permissions.grandTitle, notification.permissionChange.spaceName.withPlaceholder)
     }
 }

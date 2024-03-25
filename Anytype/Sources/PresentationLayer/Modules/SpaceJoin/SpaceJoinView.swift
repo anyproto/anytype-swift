@@ -42,7 +42,7 @@ struct SpaceJoinView: View {
             Spacer.fixedHeight(15)
             AnytypeText(Loc.SpaceShare.Join.title, style: .heading, color: .Text.primary)
             Spacer.fixedHeight(16)
-            AnytypeText(model.message, style: .bodyRegular, color: .Text.primary)
+            AnytypeText(model.message, style: .bodyRegular, color: .Text.primary, enableMarkdown: true)
             Spacer.fixedHeight(16)
             AsyncStandardButton(text: Loc.SpaceShare.Join.button, style: .primaryLarge) {
                 try await model.onJoin()
