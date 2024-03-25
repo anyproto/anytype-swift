@@ -90,9 +90,7 @@ struct SpaceSettingsView: View {
             dismiss()
         }
         .anytypeSheet(isPresented: $model.showSpaceDeleteAlert) {
-            FloaterAlertView.deleteSpaceAlert(spaceName: model.spaceName) {
-                model.onDeleteConfirmationTap()
-            }
+            SpaceDeleteAlert(spaceId: model.workspaceInfo.accountSpaceId)
         }
         .anytypeSheet(isPresented: $model.showSpaceLeaveAlert) {
             SpaceLeaveAlert(spaceId: model.workspaceInfo.accountSpaceId)

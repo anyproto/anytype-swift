@@ -80,15 +80,6 @@ final class SpaceSettingsViewModel: ObservableObject {
         output?.onSpaceShareSelected()
     }
     
-    func onDeleteConfirmationTap() {
-        guard let spaceView = participantSpaceView?.spaceView else { return }
-        Task {
-            AnytypeAnalytics.instance().logDeleteSpace(type: .private)
-            try await workspaceService.deleteSpace(spaceId: spaceView.targetSpaceId)
-            dismiss.toggle()
-        }
-    }
-    
     func onAppear() {
         AnytypeAnalytics.instance().logScreenSettingsSpaceIndex()
     }
