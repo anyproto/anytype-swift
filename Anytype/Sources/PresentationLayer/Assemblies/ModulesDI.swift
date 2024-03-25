@@ -154,10 +154,6 @@ final class ModulesDI: ModulesDIProtocol {
         return SetViewSettingsListModuleAssembly(serviceLocator: serviceLocator)
     }
     
-    func setTextView() -> SetTextViewModuleAssemblyProtocol {
-        SetTextViewModuleAssembly()
-    }
-    
     func setFiltersDateView() -> SetFiltersDateViewModuleAssemblyProtocol {
         SetFiltersDateViewModuleAssembly()
     }

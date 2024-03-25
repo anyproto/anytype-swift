@@ -6,7 +6,7 @@ struct SetFiltersDateCoordinatorView: View {
     var body: some View {
         model.list()
             .sheet(item: $model.filtersDaysData) { data in
-                model.filtersDaysView(data)
+                SetTextView(data: data)
             }
     }
 }

@@ -10,8 +10,8 @@ struct SetFiltersDateView: View {
             button
         }
         .padding(.horizontal, 20)
-        .sheet(isPresented: $viewModel.showFiltersDaysView) {
-            viewModel.filtersDaysView()
+        .sheet(item: $viewModel.filtersDaysData) { data in
+            SetTextView(data: data)
         }
         .background(Color.Background.secondary)
     }
