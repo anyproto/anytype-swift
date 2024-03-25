@@ -30,6 +30,7 @@ struct TopNotificationView: View {
                     }
                 }
             }
+            Spacer()
         }
         .padding(EdgeInsets(horizontal: 20, vertical: 16))
         .background(Color.Text.primary)

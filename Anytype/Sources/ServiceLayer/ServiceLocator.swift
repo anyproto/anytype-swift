@@ -286,10 +286,6 @@ final class ServiceLocator {
         Container.shared.galleryService()
     }
     
-    func notificationSubscriptionService() -> NotificationsSubscriptionServiceProtocol {
-        Container.shared.notificationsSubscriptionService()
-    }
-    
     func deepLinkParser() -> DeepLinkParserProtocol {
         Container.shared.deepLinkParser()
     }

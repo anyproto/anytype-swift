@@ -60,7 +60,6 @@ final class HomeCoordinatorAssembly: HomeCoordinatorAssemblyProtocol {
             documentsProvider: serviceLocator.documentsProvider,
             setObjectCreationCoordinatorAssembly: coordinatorsID.setObjectCreation(),
             sharingTipCoordinator: coordinatorsID.sharingTip(),
-            notificationCoordinator: coordinatorsID.notificationCoordinator(),
             typeSearchCoordinatorAssembly: coordinatorsID.typeSearchForNewObject()
         )
     }
