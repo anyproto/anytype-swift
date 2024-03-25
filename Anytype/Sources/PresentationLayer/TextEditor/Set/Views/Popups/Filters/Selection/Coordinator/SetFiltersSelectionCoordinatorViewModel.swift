@@ -24,7 +24,6 @@ final class SetFiltersSelectionCoordinatorViewModel: ObservableObject, SetFilter
         setFiltersDateCoordinatorAssembly: SetFiltersDateCoordinatorAssemblyProtocol,
         setFilterConditionsModuleAssembly: SetFilterConditionsModuleAssemblyProtocol,
         newSearchModuleAssembly: NewSearchModuleAssemblyProtocol,
-        setFiltersTextViewModuleAssembly: SetFiltersTextViewModuleAssemblyProtocol,
         completion: @escaping (SetFilter) -> Void
     ) {
         self.filter = filter
@@ -35,8 +34,7 @@ final class SetFiltersSelectionCoordinatorViewModel: ObservableObject, SetFilter
             filter: filter,
             setFiltersSelectionHeaderModuleAssembly: setFiltersSelectionHeaderModuleAssembly,
             setFiltersDateCoordinatorAssembly: setFiltersDateCoordinatorAssembly,
-            newSearchModuleAssembly: newSearchModuleAssembly,
-            setFiltersTextViewModuleAssembly: setFiltersTextViewModuleAssembly
+            newSearchModuleAssembly: newSearchModuleAssembly
         )
         self.completion = completion
     }

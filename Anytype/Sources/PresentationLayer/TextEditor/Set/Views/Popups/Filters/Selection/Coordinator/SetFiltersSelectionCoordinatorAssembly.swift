@@ -29,7 +29,6 @@ final class SetFiltersSelectionCoordinatorAssembly: SetFiltersSelectionCoordinat
                 setFiltersDateCoordinatorAssembly: self.coordinatorsDI.setFiltersDate(),
                 setFilterConditionsModuleAssembly:  self.modulesDI.setFilterConditions(),
                 newSearchModuleAssembly: self.modulesDI.newSearch(),
-                setFiltersTextViewModuleAssembly: self.modulesDI.setFiltersTextView(),
                 completion: completion
             )
         ).eraseToAnyView()
