@@ -4,8 +4,12 @@ import AnytypeCore
 
 struct SpaceSettingsView: View {
     
-    @StateObject var model: SpaceSettingsViewModel
-    @Environment(\.dismiss) var dismiss
+    @StateObject private var model: SpaceSettingsViewModel
+    @Environment(\.dismiss) private var dismiss
+    
+    init(output: SpaceSettingsModuleOutput?) {
+        _model = StateObject(wrappedValue: SpaceSettingsViewModel(output: output))
+    }
     
     var body: some View {
         VStack(spacing: 0) {
