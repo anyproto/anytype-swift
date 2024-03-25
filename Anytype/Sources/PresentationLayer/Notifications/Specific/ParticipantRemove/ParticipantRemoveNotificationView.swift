@@ -6,7 +6,7 @@ struct ParticipantRemoveNotificationView: View {
     @StateObject private var model: ParticipantRemoveNotificationViewModel
     @Environment(\.notificationDismiss) private var dismiss
     
-    init(notification: NotificationParticipantRemove, onDelete: @escaping (_ spaceId: String) -> Void) {
+    init(notification: NotificationParticipantRemove, onDelete: @escaping (_ spaceId: String) async -> Void) {
         _model = StateObject(wrappedValue: ParticipantRemoveNotificationViewModel(notification: notification, onDelete: onDelete))
     }
     
@@ -18,7 +18,7 @@ struct ParticipantRemoveNotificationView: View {
                     model.onTapExport()
                 }),
                 TopNotificationButton(title: Loc.delete, action: {
-                    model.onTapDelete()
+                    await model.onTapDelete()
                 })
             ]
         )

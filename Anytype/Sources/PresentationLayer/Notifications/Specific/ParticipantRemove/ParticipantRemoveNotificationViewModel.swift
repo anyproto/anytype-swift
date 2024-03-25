@@ -7,12 +7,12 @@ final class ParticipantRemoveNotificationViewModel: ObservableObject {
     @Injected(\.workspaceStorage)
     private var workspaceStorage: WorkspacesStorageProtocol
     
-    private let onDelete: (_ spaceId: String) -> Void
+    private let onDelete: (_ spaceId: String) async -> Void
     
     @Published var message: String = ""
     @Published var dismiss = false
     
-    init(notification: NotificationParticipantRemove, onDelete: @escaping (_ spaceId: String) -> Void) {
+    init(notification: NotificationParticipantRemove, onDelete: @escaping (_ spaceId: String) async -> Void) {
         self.notification = notification
         self.onDelete = onDelete
         message = Loc.ParticipantRemoveNotification.text
@@ -23,8 +23,8 @@ final class ParticipantRemoveNotificationViewModel: ObservableObject {
         dismiss.toggle()
     }
     
-    func onTapDelete() {
-        onDelete(notification.remove.spaceID)
+    func onTapDelete() async {
+        await onDelete(notification.remove.spaceID)
         dismiss.toggle()
     }
 }

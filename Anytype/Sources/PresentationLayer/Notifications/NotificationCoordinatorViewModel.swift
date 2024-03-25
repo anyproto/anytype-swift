@@ -11,6 +11,7 @@ final class NotificationCoordinatorViewModel: ObservableObject {
     @Injected(\.notificationsSubscriptionService)
     private var notificationSubscriptionService: NotificationsSubscriptionServiceProtocol
     private var subscription: AnyCancellable?
+    private var dismissAllPresented: DismissAllPresented?
     
     @Published var spaceIdForDeleteAlert: StringIdentifiable?
     
@@ -29,6 +30,10 @@ final class NotificationCoordinatorViewModel: ObservableObject {
     func onDisappear() {
         subscription?.cancel()
         subscription = nil
+    }
+    
+    func setDismissAllPresented(dismissAllPresented: DismissAllPresented) {
+        self.dismissAllPresented = dismissAllPresented
     }
     
     // MARK: - Private
@@ -68,6 +73,7 @@ final class NotificationCoordinatorViewModel: ObservableObject {
             let view = ParticipantRemoveNotificationView(
                 notification: NotificationParticipantRemove(common: notification, remove: data),
                 onDelete: { [weak self] spaceId in
+                    await self?.dismissAllPresented?()
                     self?.spaceIdForDeleteAlert = spaceId.identifiable
                 }
             )
