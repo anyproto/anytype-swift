@@ -6,7 +6,7 @@ public extension MembershipStatus {
     static var empty: MembershipStatus {
         return MembershipStatus(
             tier: nil,
-            status: .statusUnknown,
+            status: .unknown,
             dateEnds: .distantFuture,
             paymentMethod: .methodCard
         )

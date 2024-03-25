@@ -35,7 +35,7 @@ struct MembershipTierListView: View {
             MembershipTierListView(
                 userMembership: MembershipStatus(
                     tier: nil,
-                    status: .statusUnknown,
+                    status: .unknown,
                     dateEnds: .tomorrow,
                     paymentMethod: .methodCard
                 )
@@ -44,7 +44,7 @@ struct MembershipTierListView: View {
             MembershipTierListView(
                 userMembership: MembershipStatus(
                     tier: .explorer,
-                    status: .statusPending,
+                    status: .pending,
                     dateEnds: .tomorrow,
                     paymentMethod: .methodCard
                 )
@@ -53,7 +53,7 @@ struct MembershipTierListView: View {
             MembershipTierListView(
                 userMembership: MembershipStatus(
                     tier: .explorer,
-                    status: .statusActive,
+                    status: .active,
                     dateEnds: .tomorrow,
                     paymentMethod: .methodCard
                 )
@@ -62,7 +62,7 @@ struct MembershipTierListView: View {
             MembershipTierListView(
                 userMembership: MembershipStatus(
                     tier: .custom(id: 0),
-                    status: .statusActive,
+                    status: .active,
                     dateEnds: .tomorrow,
                     paymentMethod: .methodCard
                 )
@@ -72,7 +72,7 @@ struct MembershipTierListView: View {
             MembershipTierListView(
                 userMembership: MembershipStatus(
                     tier: .builder,
-                    status: .statusActive,
+                    status: .active,
                     dateEnds: .tomorrow,
                     paymentMethod: .methodCard
                 )
@@ -81,7 +81,7 @@ struct MembershipTierListView: View {
             MembershipTierListView(
                 userMembership: MembershipStatus(
                     tier: .coCreator,
-                    status: .statusPending,
+                    status: .pending,
                     dateEnds: .tomorrow,
                     paymentMethod: .methodCard
                 )

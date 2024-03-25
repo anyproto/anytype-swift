@@ -11,26 +11,24 @@ public protocol MembershipServiceProtocol {
 final class MembershipService: MembershipServiceProtocol {
     
     public func getVerificationEmail(data: EmailVerificationData) async throws {
-        try await ClientCommands.paymentsSubscriptionGetVerificationEmail(.with {
+        try await ClientCommands.membershipGetVerificationEmail(.with {
             $0.email = data.email
             $0.subscribeToNewsletter = data.subscribeToNewsletter
         }).invoke()
     }
     
     public func verifyEmailCode(code: String) async throws {
-        try await ClientCommands.paymentsSubscriptionVerifyEmailCode(.with {
+        try await ClientCommands.membershipVerifyEmailCode(.with {
             $0.code = code
         }).invoke()
     }
     
     public func getStatus() async throws -> MembershipStatus {
-        return try await ClientCommands.paymentsSubscriptionGetStatus().invoke().asModel()
+        return try await ClientCommands.membershipGetStatus().invoke().data.asModel()
     }
 }
 
-
-typealias MiddlewareMembershipStatus = Anytype_Rpc.Payments.Subscription.GetStatus.Response
-extension MiddlewareMembershipStatus {
+extension Anytype_Model_Membership {
     func asModel() -> MembershipStatus {
         MembershipStatus(
             tier: membershipTier,

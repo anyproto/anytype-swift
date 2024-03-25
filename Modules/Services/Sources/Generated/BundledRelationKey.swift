@@ -48,6 +48,12 @@ public enum BundledRelationKey: String {
     /// Object restrictions list
     case restrictions = "restrictions"
 
+    /// Readers limit
+    case readersLimit = "readersLimit"
+
+    /// Writers limit
+    case writersLimit = "writersLimit"
+
     /// Adds the object to the highlighted dataview in space
     case isHighlighted = "isHighlighted"
 
@@ -433,4 +439,7 @@ public enum BundledRelationKey: String {
 
     /// Import type, used to create object (notion, md and etc)
     case importType = "importType"
+
+    /// Name of profile that the user could be mentioned by
+    case globalName = "globalName"
 }

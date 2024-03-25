@@ -1785,12 +1785,12 @@ public struct ClientCommands {
     }
 
     public static func blockDataviewSortSort(
-        _ request: Anytype_Rpc.BlockDataview.Sort.Sort.Request = .init()
-    ) -> Invocation<Anytype_Rpc.BlockDataview.Sort.Sort.Request, Anytype_Rpc.BlockDataview.Sort.Sort.Response> {
+        _ request: Anytype_Rpc.BlockDataview.Sort.SSort.Request = .init()
+    ) -> Invocation<Anytype_Rpc.BlockDataview.Sort.SSort.Request, Anytype_Rpc.BlockDataview.Sort.SSort.Response> {
         return Invocation(messageName: "BlockDataviewSortSort", request: request) { request in
             let requestData = try request.serializedData()
             let responseData = Lib.ServiceBlockDataviewSortSort(requestData) ?? Data()
-            return try Anytype_Rpc.BlockDataview.Sort.Sort.Response(serializedData: responseData)
+            return try Anytype_Rpc.BlockDataview.Sort.SSort.Response(serializedData: responseData)
         }
     }
 
@@ -2254,73 +2254,93 @@ public struct ClientCommands {
         }
     }
 
-    public static func paymentsSubscriptionGetStatus(
-        _ request: Anytype_Rpc.Payments.Subscription.GetStatus.Request = .init()
-    ) -> Invocation<Anytype_Rpc.Payments.Subscription.GetStatus.Request, Anytype_Rpc.Payments.Subscription.GetStatus.Response> {
-        return Invocation(messageName: "PaymentsSubscriptionGetStatus", request: request) { request in
+    public static func membershipGetStatus(
+        _ request: Anytype_Rpc.Membership.GetStatus.Request = .init()
+    ) -> Invocation<Anytype_Rpc.Membership.GetStatus.Request, Anytype_Rpc.Membership.GetStatus.Response> {
+        return Invocation(messageName: "MembershipGetStatus", request: request) { request in
             let requestData = try request.serializedData()
-            let responseData = Lib.ServicePaymentsSubscriptionGetStatus(requestData) ?? Data()
-            return try Anytype_Rpc.Payments.Subscription.GetStatus.Response(serializedData: responseData)
+            let responseData = Lib.ServiceMembershipGetStatus(requestData) ?? Data()
+            return try Anytype_Rpc.Membership.GetStatus.Response(serializedData: responseData)
         }
     }
 
-    public static func paymentsSubscriptionGetPaymentUrl(
-        _ request: Anytype_Rpc.Payments.Subscription.GetPaymentUrl.Request = .init()
-    ) -> Invocation<Anytype_Rpc.Payments.Subscription.GetPaymentUrl.Request, Anytype_Rpc.Payments.Subscription.GetPaymentUrl.Response> {
-        return Invocation(messageName: "PaymentsSubscriptionGetPaymentUrl", request: request) { request in
+    public static func membershipIsNameValid(
+        _ request:  Anytype_Rpc.Membership.IsNameValid.Request = .init()
+    ) -> Invocation< Anytype_Rpc.Membership.IsNameValid.Request, Anytype_Rpc.Membership.IsNameValid.Response> {
+        return Invocation(messageName: "MembershipIsNameValid", request: request) { request in
             let requestData = try request.serializedData()
-            let responseData = Lib.ServicePaymentsSubscriptionGetPaymentUrl(requestData) ?? Data()
-            return try Anytype_Rpc.Payments.Subscription.GetPaymentUrl.Response(serializedData: responseData)
+            let responseData = Lib.ServiceMembershipIsNameValid(requestData) ?? Data()
+            return try Anytype_Rpc.Membership.IsNameValid.Response(serializedData: responseData)
         }
     }
 
-    public static func paymentsSubscriptionGetPortalLinkUrl(
-        _ request: Anytype_Rpc.Payments.Subscription.GetPortalLinkUrl.Request = .init()
-    ) -> Invocation<Anytype_Rpc.Payments.Subscription.GetPortalLinkUrl.Request, Anytype_Rpc.Payments.Subscription.GetPortalLinkUrl.Response> {
-        return Invocation(messageName: "PaymentsSubscriptionGetPortalLinkUrl", request: request) { request in
+    public static func membershipGetPaymentUrl(
+        _ request: Anytype_Rpc.Membership.GetPaymentUrl.Request = .init()
+    ) -> Invocation<Anytype_Rpc.Membership.GetPaymentUrl.Request, Anytype_Rpc.Membership.GetPaymentUrl.Response> {
+        return Invocation(messageName: "MembershipGetPaymentUrl", request: request) { request in
             let requestData = try request.serializedData()
-            let responseData = Lib.ServicePaymentsSubscriptionGetPortalLinkUrl(requestData) ?? Data()
-            return try Anytype_Rpc.Payments.Subscription.GetPortalLinkUrl.Response(serializedData: responseData)
+            let responseData = Lib.ServiceMembershipGetPaymentUrl(requestData) ?? Data()
+            return try Anytype_Rpc.Membership.GetPaymentUrl.Response(serializedData: responseData)
         }
     }
 
-    public static func paymentsSubscriptionGetVerificationEmail(
-        _ request: Anytype_Rpc.Payments.Subscription.GetVerificationEmail.Request = .init()
-    ) -> Invocation<Anytype_Rpc.Payments.Subscription.GetVerificationEmail.Request, Anytype_Rpc.Payments.Subscription.GetVerificationEmail.Response> {
-        return Invocation(messageName: "PaymentsSubscriptionGetVerificationEmail", request: request) { request in
+    public static func membershipGetPortalLinkUrl(
+        _ request: Anytype_Rpc.Membership.GetPortalLinkUrl.Request = .init()
+    ) -> Invocation<Anytype_Rpc.Membership.GetPortalLinkUrl.Request, Anytype_Rpc.Membership.GetPortalLinkUrl.Response> {
+        return Invocation(messageName: "MembershipGetPortalLinkUrl", request: request) { request in
             let requestData = try request.serializedData()
-            let responseData = Lib.ServicePaymentsSubscriptionGetVerificationEmail(requestData) ?? Data()
-            return try Anytype_Rpc.Payments.Subscription.GetVerificationEmail.Response(serializedData: responseData)
+            let responseData = Lib.ServiceMembershipGetPortalLinkUrl(requestData) ?? Data()
+            return try Anytype_Rpc.Membership.GetPortalLinkUrl.Response(serializedData: responseData)
         }
     }
 
-    public static func paymentsSubscriptionVerifyEmailCode(
-        _ request: Anytype_Rpc.Payments.Subscription.VerifyEmailCode.Request = .init()
-    ) -> Invocation<Anytype_Rpc.Payments.Subscription.VerifyEmailCode.Request, Anytype_Rpc.Payments.Subscription.VerifyEmailCode.Response> {
-        return Invocation(messageName: "PaymentsSubscriptionVerifyEmailCode", request: request) { request in
+    public static func membershipGetVerificationEmail(
+        _ request: Anytype_Rpc.Membership.GetVerificationEmail.Request = .init()
+    ) -> Invocation<Anytype_Rpc.Membership.GetVerificationEmail.Request, Anytype_Rpc.Membership.GetVerificationEmail.Response> {
+        return Invocation(messageName: "MembershipGetVerificationEmail", request: request) { request in
             let requestData = try request.serializedData()
-            let responseData = Lib.ServicePaymentsSubscriptionVerifyEmailCode(requestData) ?? Data()
-            return try Anytype_Rpc.Payments.Subscription.VerifyEmailCode.Response(serializedData: responseData)
+            let responseData = Lib.ServiceMembershipGetVerificationEmail(requestData) ?? Data()
+            return try Anytype_Rpc.Membership.GetVerificationEmail.Response(serializedData: responseData)
         }
     }
 
-    public static func paymentsSubscriptionFinalize(
-        _ request: Anytype_Rpc.Payments.Subscription.Finalize.Request = .init()
-    ) -> Invocation<Anytype_Rpc.Payments.Subscription.Finalize.Request, Anytype_Rpc.Payments.Subscription.Finalize.Response> {
-        return Invocation(messageName: "PaymentsSubscriptionFinalize", request: request) { request in
+    public static func membershipVerifyEmailCode(
+        _ request: Anytype_Rpc.Membership.VerifyEmailCode.Request = .init()
+    ) -> Invocation<Anytype_Rpc.Membership.VerifyEmailCode.Request, Anytype_Rpc.Membership.VerifyEmailCode.Response> {
+        return Invocation(messageName: "MembershipVerifyEmailCode", request: request) { request in
             let requestData = try request.serializedData()
-            let responseData = Lib.ServicePaymentsSubscriptionFinalize(requestData) ?? Data()
-            return try Anytype_Rpc.Payments.Subscription.Finalize.Response(serializedData: responseData)
+            let responseData = Lib.ServiceMembershipVerifyEmailCode(requestData) ?? Data()
+            return try Anytype_Rpc.Membership.VerifyEmailCode.Response(serializedData: responseData)
         }
     }
 
-    public static func paymentsTiersGet(
-        _ request: Anytype_Rpc.Payments.Tiers.Get.Request = .init()
-    ) -> Invocation<Anytype_Rpc.Payments.Tiers.Get.Request, Anytype_Rpc.Payments.Tiers.Get.Response> {
-        return Invocation(messageName: "PaymentsTiersGet", request: request) { request in
+    public static func membershipFinalize(
+        _ request: Anytype_Rpc.Membership.Finalize.Request = .init()
+    ) -> Invocation<Anytype_Rpc.Membership.Finalize.Request, Anytype_Rpc.Membership.Finalize.Response> {
+        return Invocation(messageName: "MembershipFinalize", request: request) { request in
             let requestData = try request.serializedData()
-            let responseData = Lib.ServicePaymentsTiersGet(requestData) ?? Data()
-            return try Anytype_Rpc.Payments.Tiers.Get.Response(serializedData: responseData)
+            let responseData = Lib.ServiceMembershipFinalize(requestData) ?? Data()
+            return try Anytype_Rpc.Membership.Finalize.Response(serializedData: responseData)
+        }
+    }
+
+    public static func membershipGetTiers(
+        _ request: Anytype_Rpc.Membership.Tiers.Get.Request = .init()
+    ) -> Invocation<Anytype_Rpc.Membership.Tiers.Get.Request, Anytype_Rpc.Membership.Tiers.Get.Response> {
+        return Invocation(messageName: "MembershipGetTiers", request: request) { request in
+            let requestData = try request.serializedData()
+            let responseData = Lib.ServiceMembershipGetTiers(requestData) ?? Data()
+            return try Anytype_Rpc.Membership.Tiers.Get.Response(serializedData: responseData)
+        }
+    }
+
+    public static func nameServiceUserAccountGet(
+        _ request:  Anytype_Rpc.NameService.UserAccount.Get.Request = .init()
+    ) -> Invocation< Anytype_Rpc.NameService.UserAccount.Get.Request, Anytype_Rpc.NameService.UserAccount.Get.Response> {
+        return Invocation(messageName: "NameServiceUserAccountGet", request: request) { request in
+            let requestData = try request.serializedData()
+            let responseData = Lib.ServiceNameServiceUserAccountGet(requestData) ?? Data()
+            return try Anytype_Rpc.NameService.UserAccount.Get.Response(serializedData: responseData)
         }
     }
 
@@ -2341,26 +2361,6 @@ public struct ClientCommands {
             let requestData = try request.serializedData()
             let responseData = Lib.ServiceNameServiceResolveAnyId(requestData) ?? Data()
             return try Anytype_Rpc.NameService.ResolveAnyId.Response(serializedData: responseData)
-        }
-    }
-
-    public static func nameServiceResolveSpaceId(
-        _ request:  Anytype_Rpc.NameService.ResolveSpaceId.Request  = .init()
-    ) -> Invocation< Anytype_Rpc.NameService.ResolveSpaceId.Request , Anytype_Rpc.NameService.ResolveSpaceId.Response> {
-        return Invocation(messageName: "NameServiceResolveSpaceId", request: request) { request in
-            let requestData = try request.serializedData()
-            let responseData = Lib.ServiceNameServiceResolveSpaceId(requestData) ?? Data()
-            return try Anytype_Rpc.NameService.ResolveSpaceId.Response(serializedData: responseData)
-        }
-    }
-
-    public static func nameServiceUserAccountGet(
-        _ request:  Anytype_Rpc.NameService.UserAccount.Get.Request = .init()
-    ) -> Invocation< Anytype_Rpc.NameService.UserAccount.Get.Request, Anytype_Rpc.NameService.UserAccount.Get.Response> {
-        return Invocation(messageName: "NameServiceUserAccountGet", request: request) { request in
-            let requestData = try request.serializedData()
-            let responseData = Lib.ServiceNameServiceUserAccountGet(requestData) ?? Data()
-            return try Anytype_Rpc.NameService.UserAccount.Get.Response(serializedData: responseData)
         }
     }
 

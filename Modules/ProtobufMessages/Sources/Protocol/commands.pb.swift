@@ -2068,6 +2068,9 @@ public struct Anytype_Rpc {
         /// in case of mnemonic auth, need to be persisted by client
         public var appToken: String = String()
 
+        /// temp, should be replaced with AccountInfo message
+        public var accountID: String = String()
+
         public var unknownFields = SwiftProtobuf.UnknownStorage()
 
         public struct Error {
@@ -23601,7 +23604,7 @@ public struct Anytype_Rpc {
         public init() {}
       }
 
-      public struct Sort {
+      public struct SSort {
         // SwiftProtobuf.Message conformance is added in an extension below. See the
         // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
         // methods supported on all messages.
@@ -23634,8 +23637,8 @@ public struct Anytype_Rpc {
           // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
           // methods supported on all messages.
 
-          public var error: Anytype_Rpc.BlockDataview.Sort.Sort.Response.Error {
-            get {return _error ?? Anytype_Rpc.BlockDataview.Sort.Sort.Response.Error()}
+          public var error: Anytype_Rpc.BlockDataview.Sort.SSort.Response.Error {
+            get {return _error ?? Anytype_Rpc.BlockDataview.Sort.SSort.Response.Error()}
             set {_error = newValue}
           }
           /// Returns true if `error` has been explicitly set.
@@ -23659,7 +23662,7 @@ public struct Anytype_Rpc {
             // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
             // methods supported on all messages.
 
-            public var code: Anytype_Rpc.BlockDataview.Sort.Sort.Response.Error.Code = .null
+            public var code: Anytype_Rpc.BlockDataview.Sort.SSort.Response.Error.Code = .null
 
             public var description_p: String = String()
 
@@ -23701,7 +23704,7 @@ public struct Anytype_Rpc {
 
           public init() {}
 
-          fileprivate var _error: Anytype_Rpc.BlockDataview.Sort.Sort.Response.Error? = nil
+          fileprivate var _error: Anytype_Rpc.BlockDataview.Sort.SSort.Response.Error? = nil
           fileprivate var _event: Anytype_ResponseEvent? = nil
         }
 
@@ -26168,893 +26171,743 @@ public struct Anytype_Rpc {
     public init() {}
   }
 
-  public struct Payments {
+  ///* 
+  /// A Membership is a bundle of several "Features"
+  /// every user should have one and only one tier 
+  /// users can not have N tiers (no combining)
+  public struct Membership {
     // SwiftProtobuf.Message conformance is added in an extension below. See the
     // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
     // methods supported on all messages.
 
     public var unknownFields = SwiftProtobuf.UnknownStorage()
 
-    ///* 
-    /// A Subscription (a Tier) is a bundle of several "Features"
-    /// every user should have one and only one tier 
-    /// users can not have N tiers (no combining)
-    public struct Subscription {
+    ///*
+    /// Get the current status of the membership
+    /// including the tier, status, dates, etc
+    /// WARNING: this can be cached by Anytype heart
+    public struct GetStatus {
       // SwiftProtobuf.Message conformance is added in an extension below. See the
       // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
       // methods supported on all messages.
 
       public var unknownFields = SwiftProtobuf.UnknownStorage()
 
-      public enum SubscriptionTier: SwiftProtobuf.Enum {
-        public typealias RawValue = Int
-        case tierNewUser // = 0
-
-        /// "free" tier
-        case tierExplorer // = 1
-
-        /// this tier can be used just for testing in debug mode
-        /// it will still create an active subscription, but with NO features
-        case tierBuilder1WeekTest // = 2
-
-        /// this tier can be used just for testing in debug mode
-        /// it will still create an active subscription, but with NO features
-        case tierCoCreator1WeekTest // = 3
-        case tierBuilder // = 4
-        case tierCoCreator // = 5
-        case UNRECOGNIZED(Int)
-
-        public init() {
-          self = .tierNewUser
-        }
-
-        public init?(rawValue: Int) {
-          switch rawValue {
-          case 0: self = .tierNewUser
-          case 1: self = .tierExplorer
-          case 2: self = .tierBuilder1WeekTest
-          case 3: self = .tierCoCreator1WeekTest
-          case 4: self = .tierBuilder
-          case 5: self = .tierCoCreator
-          default: self = .UNRECOGNIZED(rawValue)
-          }
-        }
-
-        public var rawValue: Int {
-          switch self {
-          case .tierNewUser: return 0
-          case .tierExplorer: return 1
-          case .tierBuilder1WeekTest: return 2
-          case .tierCoCreator1WeekTest: return 3
-          case .tierBuilder: return 4
-          case .tierCoCreator: return 5
-          case .UNRECOGNIZED(let i): return i
-          }
-        }
-
-      }
-
-      public enum SubscriptionStatus: SwiftProtobuf.Enum {
-        public typealias RawValue = Int
-        case statusUnknown // = 0
-
-        /// please wait a bit more
-        case statusPending // = 1
-        case statusActive // = 2
-
-        /// in some cases we need to finalize the subscription:
-        /// - if user has bought a subscription directly without first calling
-        /// the BuySubscription method
-        /// 
-        /// in this case please call Finalize to finish the process
-        case statusPendingRequiresFinalization // = 3
-        case UNRECOGNIZED(Int)
-
-        public init() {
-          self = .statusUnknown
-        }
-
-        public init?(rawValue: Int) {
-          switch rawValue {
-          case 0: self = .statusUnknown
-          case 1: self = .statusPending
-          case 2: self = .statusActive
-          case 3: self = .statusPendingRequiresFinalization
-          default: self = .UNRECOGNIZED(rawValue)
-          }
-        }
-
-        public var rawValue: Int {
-          switch self {
-          case .statusUnknown: return 0
-          case .statusPending: return 1
-          case .statusActive: return 2
-          case .statusPendingRequiresFinalization: return 3
-          case .UNRECOGNIZED(let i): return i
-          }
-        }
-
-      }
-
-      public enum PaymentMethod: SwiftProtobuf.Enum {
-        public typealias RawValue = Int
-        case methodCard // = 0
-        case methodCrypto // = 1
-        case methodApplePay // = 2
-        case methodGooglePay // = 3
-        case methodAppleInapp // = 4
-        case methodGoogleInapp // = 5
-        case UNRECOGNIZED(Int)
-
-        public init() {
-          self = .methodCard
-        }
-
-        public init?(rawValue: Int) {
-          switch rawValue {
-          case 0: self = .methodCard
-          case 1: self = .methodCrypto
-          case 2: self = .methodApplePay
-          case 3: self = .methodGooglePay
-          case 4: self = .methodAppleInapp
-          case 5: self = .methodGoogleInapp
-          default: self = .UNRECOGNIZED(rawValue)
-          }
-        }
-
-        public var rawValue: Int {
-          switch self {
-          case .methodCard: return 0
-          case .methodCrypto: return 1
-          case .methodApplePay: return 2
-          case .methodGooglePay: return 3
-          case .methodAppleInapp: return 4
-          case .methodGoogleInapp: return 5
-          case .UNRECOGNIZED(let i): return i
-          }
-        }
-
-      }
-
-      ///*
-      /// Get the current status of the subscription
-      /// including the tier, status, dates, etc
-      /// WARNING: this can be cached by Anytype heart
-      public struct GetStatus {
+      public struct Request {
         // SwiftProtobuf.Message conformance is added in an extension below. See the
         // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
         // methods supported on all messages.
 
+        /// pass true to force the cache update
+        /// by default this is false
+        public var noCache: Bool = false
+
         public var unknownFields = SwiftProtobuf.UnknownStorage()
-
-        public struct Request {
-          // SwiftProtobuf.Message conformance is added in an extension below. See the
-          // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
-          // methods supported on all messages.
-
-          /// pass true to force the cache update
-          /// by default this is false
-          public var noCache: Bool = false
-
-          public var unknownFields = SwiftProtobuf.UnknownStorage()
-
-          public init() {}
-        }
-
-        public struct Response {
-          // SwiftProtobuf.Message conformance is added in an extension below. See the
-          // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
-          // methods supported on all messages.
-
-          public var error: Anytype_Rpc.Payments.Subscription.GetStatus.Response.Error {
-            get {return _error ?? Anytype_Rpc.Payments.Subscription.GetStatus.Response.Error()}
-            set {_error = newValue}
-          }
-          /// Returns true if `error` has been explicitly set.
-          public var hasError: Bool {return self._error != nil}
-          /// Clears the value of `error`. Subsequent reads from it will return its default value.
-          public mutating func clearError() {self._error = nil}
-
-          /// it was SubscriptionTier before, changed to int32 to allow dynamic values
-          public var tier: Int32 = 0
-
-          public var status: Anytype_Rpc.Payments.Subscription.SubscriptionStatus = .statusUnknown
-
-          public var dateStarted: UInt64 = 0
-
-          public var dateEnds: UInt64 = 0
-
-          public var isAutoRenew: Bool = false
-
-          public var paymentMethod: Anytype_Rpc.Payments.Subscription.PaymentMethod = .methodCard
-
-          /// can be empty if user did not ask for any name
-          public var requestedAnyName: String = String()
-
-          /// if the email was verified by the user or set during the checkout - it will be here
-          public var userEmail: String = String()
-
-          public var subscribeToNewsletter: Bool = false
-
-          public var unknownFields = SwiftProtobuf.UnknownStorage()
-
-          public struct Error {
-            // SwiftProtobuf.Message conformance is added in an extension below. See the
-            // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
-            // methods supported on all messages.
-
-            public var code: Anytype_Rpc.Payments.Subscription.GetStatus.Response.Error.Code = .null
-
-            public var description_p: String = String()
-
-            public var unknownFields = SwiftProtobuf.UnknownStorage()
-
-            public enum Code: SwiftProtobuf.Enum {
-              public typealias RawValue = Int
-              case null // = 0
-              case unknownError // = 1
-              case badInput // = 2
-              case notLoggedIn // = 3
-              case paymentNodeError // = 4
-              case UNRECOGNIZED(Int)
-
-              public init() {
-                self = .null
-              }
-
-              public init?(rawValue: Int) {
-                switch rawValue {
-                case 0: self = .null
-                case 1: self = .unknownError
-                case 2: self = .badInput
-                case 3: self = .notLoggedIn
-                case 4: self = .paymentNodeError
-                default: self = .UNRECOGNIZED(rawValue)
-                }
-              }
-
-              public var rawValue: Int {
-                switch self {
-                case .null: return 0
-                case .unknownError: return 1
-                case .badInput: return 2
-                case .notLoggedIn: return 3
-                case .paymentNodeError: return 4
-                case .UNRECOGNIZED(let i): return i
-                }
-              }
-
-            }
-
-            public init() {}
-          }
-
-          public init() {}
-
-          fileprivate var _error: Anytype_Rpc.Payments.Subscription.GetStatus.Response.Error? = nil
-        }
 
         public init() {}
       }
 
-      ///*
-      /// Generate a link to the payment provider
-      /// where user can pay for the subscription
-      public struct GetPaymentUrl {
+      public struct Response {
         // SwiftProtobuf.Message conformance is added in an extension below. See the
         // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
         // methods supported on all messages.
 
-        public var unknownFields = SwiftProtobuf.UnknownStorage()
-
-        public struct Request {
-          // SwiftProtobuf.Message conformance is added in an extension below. See the
-          // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
-          // methods supported on all messages.
-
-          public var requestedTier: Int32 = 0
-
-          public var paymentMethod: Anytype_Rpc.Payments.Subscription.PaymentMethod = .methodCard
-
-          /// if empty - then no name requested
-          /// if non-empty - PP node will register that name on behalf of the user
-          public var requestedAnyName: String = String()
-
-          public var unknownFields = SwiftProtobuf.UnknownStorage()
-
-          public init() {}
+        public var error: Anytype_Rpc.Membership.GetStatus.Response.Error {
+          get {return _error ?? Anytype_Rpc.Membership.GetStatus.Response.Error()}
+          set {_error = newValue}
         }
+        /// Returns true if `error` has been explicitly set.
+        public var hasError: Bool {return self._error != nil}
+        /// Clears the value of `error`. Subsequent reads from it will return its default value.
+        public mutating func clearError() {self._error = nil}
 
-        public struct Response {
-          // SwiftProtobuf.Message conformance is added in an extension below. See the
-          // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
-          // methods supported on all messages.
-
-          public var error: Anytype_Rpc.Payments.Subscription.GetPaymentUrl.Response.Error {
-            get {return _error ?? Anytype_Rpc.Payments.Subscription.GetPaymentUrl.Response.Error()}
-            set {_error = newValue}
-          }
-          /// Returns true if `error` has been explicitly set.
-          public var hasError: Bool {return self._error != nil}
-          /// Clears the value of `error`. Subsequent reads from it will return its default value.
-          public mutating func clearError() {self._error = nil}
-
-          /// will feature current billing ID
-          /// stripe.com/?client_reference_id=1234
-          public var paymentURL: String = String()
-
-          public var unknownFields = SwiftProtobuf.UnknownStorage()
-
-          public struct Error {
-            // SwiftProtobuf.Message conformance is added in an extension below. See the
-            // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
-            // methods supported on all messages.
-
-            public var code: Anytype_Rpc.Payments.Subscription.GetPaymentUrl.Response.Error.Code = .null
-
-            public var description_p: String = String()
-
-            public var unknownFields = SwiftProtobuf.UnknownStorage()
-
-            public enum Code: SwiftProtobuf.Enum {
-              public typealias RawValue = Int
-              case null // = 0
-              case unknownError // = 1
-              case badInput // = 2
-              case notLoggedIn // = 3
-              case paymentNodeError // = 4
-              case UNRECOGNIZED(Int)
-
-              public init() {
-                self = .null
-              }
-
-              public init?(rawValue: Int) {
-                switch rawValue {
-                case 0: self = .null
-                case 1: self = .unknownError
-                case 2: self = .badInput
-                case 3: self = .notLoggedIn
-                case 4: self = .paymentNodeError
-                default: self = .UNRECOGNIZED(rawValue)
-                }
-              }
-
-              public var rawValue: Int {
-                switch self {
-                case .null: return 0
-                case .unknownError: return 1
-                case .badInput: return 2
-                case .notLoggedIn: return 3
-                case .paymentNodeError: return 4
-                case .UNRECOGNIZED(let i): return i
-                }
-              }
-
-            }
-
-            public init() {}
-          }
-
-          public init() {}
-
-          fileprivate var _error: Anytype_Rpc.Payments.Subscription.GetPaymentUrl.Response.Error? = nil
+        public var data: Anytype_Model_Membership {
+          get {return _data ?? Anytype_Model_Membership()}
+          set {_data = newValue}
         }
-
-        public init() {}
-      }
-
-      ///* 
-      /// Generate a link to the portal where user can:
-      /// a) change his billing details
-      /// b) see payment info, invoices, etc
-      /// c) cancel the subscription
-      public struct GetPortalLinkUrl {
-        // SwiftProtobuf.Message conformance is added in an extension below. See the
-        // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
-        // methods supported on all messages.
+        /// Returns true if `data` has been explicitly set.
+        public var hasData: Bool {return self._data != nil}
+        /// Clears the value of `data`. Subsequent reads from it will return its default value.
+        public mutating func clearData() {self._data = nil}
 
         public var unknownFields = SwiftProtobuf.UnknownStorage()
 
-        public struct Request {
+        public struct Error {
           // SwiftProtobuf.Message conformance is added in an extension below. See the
           // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
           // methods supported on all messages.
 
-          public var unknownFields = SwiftProtobuf.UnknownStorage()
+          public var code: Anytype_Rpc.Membership.GetStatus.Response.Error.Code = .null
 
-          public init() {}
-        }
-
-        public struct Response {
-          // SwiftProtobuf.Message conformance is added in an extension below. See the
-          // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
-          // methods supported on all messages.
-
-          public var error: Anytype_Rpc.Payments.Subscription.GetPortalLinkUrl.Response.Error {
-            get {return _error ?? Anytype_Rpc.Payments.Subscription.GetPortalLinkUrl.Response.Error()}
-            set {_error = newValue}
-          }
-          /// Returns true if `error` has been explicitly set.
-          public var hasError: Bool {return self._error != nil}
-          /// Clears the value of `error`. Subsequent reads from it will return its default value.
-          public mutating func clearError() {self._error = nil}
-
-          public var portalURL: String = String()
+          public var description_p: String = String()
 
           public var unknownFields = SwiftProtobuf.UnknownStorage()
 
-          public struct Error {
-            // SwiftProtobuf.Message conformance is added in an extension below. See the
-            // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
-            // methods supported on all messages.
+          public enum Code: SwiftProtobuf.Enum {
+            public typealias RawValue = Int
+            case null // = 0
+            case unknownError // = 1
+            case badInput // = 2
+            case notLoggedIn // = 3
+            case paymentNodeError // = 4
+            case UNRECOGNIZED(Int)
 
-            public var code: Anytype_Rpc.Payments.Subscription.GetPortalLinkUrl.Response.Error.Code = .null
-
-            public var description_p: String = String()
-
-            public var unknownFields = SwiftProtobuf.UnknownStorage()
-
-            public enum Code: SwiftProtobuf.Enum {
-              public typealias RawValue = Int
-              case null // = 0
-              case unknownError // = 1
-              case badInput // = 2
-              case notLoggedIn // = 3
-              case paymentNodeError // = 4
-              case UNRECOGNIZED(Int)
-
-              public init() {
-                self = .null
-              }
-
-              public init?(rawValue: Int) {
-                switch rawValue {
-                case 0: self = .null
-                case 1: self = .unknownError
-                case 2: self = .badInput
-                case 3: self = .notLoggedIn
-                case 4: self = .paymentNodeError
-                default: self = .UNRECOGNIZED(rawValue)
-                }
-              }
-
-              public var rawValue: Int {
-                switch self {
-                case .null: return 0
-                case .unknownError: return 1
-                case .badInput: return 2
-                case .notLoggedIn: return 3
-                case .paymentNodeError: return 4
-                case .UNRECOGNIZED(let i): return i
-                }
-              }
-
+            public init() {
+              self = .null
             }
 
-            public init() {}
+            public init?(rawValue: Int) {
+              switch rawValue {
+              case 0: self = .null
+              case 1: self = .unknownError
+              case 2: self = .badInput
+              case 3: self = .notLoggedIn
+              case 4: self = .paymentNodeError
+              default: self = .UNRECOGNIZED(rawValue)
+              }
+            }
+
+            public var rawValue: Int {
+              switch self {
+              case .null: return 0
+              case .unknownError: return 1
+              case .badInput: return 2
+              case .notLoggedIn: return 3
+              case .paymentNodeError: return 4
+              case .UNRECOGNIZED(let i): return i
+              }
+            }
+
           }
 
           public init() {}
-
-          fileprivate var _error: Anytype_Rpc.Payments.Subscription.GetPortalLinkUrl.Response.Error? = nil
         }
 
         public init() {}
-      }
 
-      public struct Finalize {
-        // SwiftProtobuf.Message conformance is added in an extension below. See the
-        // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
-        // methods supported on all messages.
-
-        public var unknownFields = SwiftProtobuf.UnknownStorage()
-
-        public struct Request {
-          // SwiftProtobuf.Message conformance is added in an extension below. See the
-          // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
-          // methods supported on all messages.
-
-          /// if empty - then no name requested
-          /// if non-empty - PP node will register that name on behalf of the user
-          public var requestedAnyName: String = String()
-
-          public var unknownFields = SwiftProtobuf.UnknownStorage()
-
-          public init() {}
-        }
-
-        public struct Response {
-          // SwiftProtobuf.Message conformance is added in an extension below. See the
-          // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
-          // methods supported on all messages.
-
-          public var error: Anytype_Rpc.Payments.Subscription.Finalize.Response.Error {
-            get {return _error ?? Anytype_Rpc.Payments.Subscription.Finalize.Response.Error()}
-            set {_error = newValue}
-          }
-          /// Returns true if `error` has been explicitly set.
-          public var hasError: Bool {return self._error != nil}
-          /// Clears the value of `error`. Subsequent reads from it will return its default value.
-          public mutating func clearError() {self._error = nil}
-
-          public var unknownFields = SwiftProtobuf.UnknownStorage()
-
-          public struct Error {
-            // SwiftProtobuf.Message conformance is added in an extension below. See the
-            // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
-            // methods supported on all messages.
-
-            public var code: Anytype_Rpc.Payments.Subscription.Finalize.Response.Error.Code = .null
-
-            public var description_p: String = String()
-
-            public var unknownFields = SwiftProtobuf.UnknownStorage()
-
-            public enum Code: SwiftProtobuf.Enum {
-              public typealias RawValue = Int
-              case null // = 0
-              case unknownError // = 1
-              case badInput // = 2
-              case notLoggedIn // = 3
-              case paymentNodeError // = 4
-              case UNRECOGNIZED(Int)
-
-              public init() {
-                self = .null
-              }
-
-              public init?(rawValue: Int) {
-                switch rawValue {
-                case 0: self = .null
-                case 1: self = .unknownError
-                case 2: self = .badInput
-                case 3: self = .notLoggedIn
-                case 4: self = .paymentNodeError
-                default: self = .UNRECOGNIZED(rawValue)
-                }
-              }
-
-              public var rawValue: Int {
-                switch self {
-                case .null: return 0
-                case .unknownError: return 1
-                case .badInput: return 2
-                case .notLoggedIn: return 3
-                case .paymentNodeError: return 4
-                case .UNRECOGNIZED(let i): return i
-                }
-              }
-
-            }
-
-            public init() {}
-          }
-
-          public init() {}
-
-          fileprivate var _error: Anytype_Rpc.Payments.Subscription.Finalize.Response.Error? = nil
-        }
-
-        public init() {}
-      }
-
-      ///*
-      /// Send an e-mail with verification code to the user
-      /// can be called multiple times but with some timeout (N seconds) between calls
-      public struct GetVerificationEmail {
-        // SwiftProtobuf.Message conformance is added in an extension below. See the
-        // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
-        // methods supported on all messages.
-
-        public var unknownFields = SwiftProtobuf.UnknownStorage()
-
-        public struct Request {
-          // SwiftProtobuf.Message conformance is added in an extension below. See the
-          // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
-          // methods supported on all messages.
-
-          public var email: String = String()
-
-          public var subscribeToNewsletter: Bool = false
-
-          public var unknownFields = SwiftProtobuf.UnknownStorage()
-
-          public init() {}
-        }
-
-        public struct Response {
-          // SwiftProtobuf.Message conformance is added in an extension below. See the
-          // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
-          // methods supported on all messages.
-
-          public var error: Anytype_Rpc.Payments.Subscription.GetVerificationEmail.Response.Error {
-            get {return _error ?? Anytype_Rpc.Payments.Subscription.GetVerificationEmail.Response.Error()}
-            set {_error = newValue}
-          }
-          /// Returns true if `error` has been explicitly set.
-          public var hasError: Bool {return self._error != nil}
-          /// Clears the value of `error`. Subsequent reads from it will return its default value.
-          public mutating func clearError() {self._error = nil}
-
-          public var unknownFields = SwiftProtobuf.UnknownStorage()
-
-          public struct Error {
-            // SwiftProtobuf.Message conformance is added in an extension below. See the
-            // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
-            // methods supported on all messages.
-
-            public var code: Anytype_Rpc.Payments.Subscription.GetVerificationEmail.Response.Error.Code = .null
-
-            public var description_p: String = String()
-
-            public var unknownFields = SwiftProtobuf.UnknownStorage()
-
-            public enum Code: SwiftProtobuf.Enum {
-              public typealias RawValue = Int
-              case null // = 0
-              case unknownError // = 1
-              case badInput // = 2
-              case notLoggedIn // = 3
-              case paymentNodeError // = 4
-              case UNRECOGNIZED(Int)
-
-              public init() {
-                self = .null
-              }
-
-              public init?(rawValue: Int) {
-                switch rawValue {
-                case 0: self = .null
-                case 1: self = .unknownError
-                case 2: self = .badInput
-                case 3: self = .notLoggedIn
-                case 4: self = .paymentNodeError
-                default: self = .UNRECOGNIZED(rawValue)
-                }
-              }
-
-              public var rawValue: Int {
-                switch self {
-                case .null: return 0
-                case .unknownError: return 1
-                case .badInput: return 2
-                case .notLoggedIn: return 3
-                case .paymentNodeError: return 4
-                case .UNRECOGNIZED(let i): return i
-                }
-              }
-
-            }
-
-            public init() {}
-          }
-
-          public init() {}
-
-          fileprivate var _error: Anytype_Rpc.Payments.Subscription.GetVerificationEmail.Response.Error? = nil
-        }
-
-        public init() {}
-      }
-
-      ///*
-      /// Verify the e-mail address of the user 
-      /// need a correct code that was sent to the user when calling GetVerificationEmail
-      public struct VerifyEmailCode {
-        // SwiftProtobuf.Message conformance is added in an extension below. See the
-        // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
-        // methods supported on all messages.
-
-        public var unknownFields = SwiftProtobuf.UnknownStorage()
-
-        public struct Request {
-          // SwiftProtobuf.Message conformance is added in an extension below. See the
-          // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
-          // methods supported on all messages.
-
-          public var code: String = String()
-
-          public var unknownFields = SwiftProtobuf.UnknownStorage()
-
-          public init() {}
-        }
-
-        public struct Response {
-          // SwiftProtobuf.Message conformance is added in an extension below. See the
-          // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
-          // methods supported on all messages.
-
-          public var error: Anytype_Rpc.Payments.Subscription.VerifyEmailCode.Response.Error {
-            get {return _error ?? Anytype_Rpc.Payments.Subscription.VerifyEmailCode.Response.Error()}
-            set {_error = newValue}
-          }
-          /// Returns true if `error` has been explicitly set.
-          public var hasError: Bool {return self._error != nil}
-          /// Clears the value of `error`. Subsequent reads from it will return its default value.
-          public mutating func clearError() {self._error = nil}
-
-          public var unknownFields = SwiftProtobuf.UnknownStorage()
-
-          public struct Error {
-            // SwiftProtobuf.Message conformance is added in an extension below. See the
-            // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
-            // methods supported on all messages.
-
-            public var code: Anytype_Rpc.Payments.Subscription.VerifyEmailCode.Response.Error.Code = .null
-
-            public var description_p: String = String()
-
-            public var unknownFields = SwiftProtobuf.UnknownStorage()
-
-            public enum Code: SwiftProtobuf.Enum {
-              public typealias RawValue = Int
-              case null // = 0
-              case unknownError // = 1
-              case badInput // = 2
-              case notLoggedIn // = 3
-              case paymentNodeError // = 4
-              case UNRECOGNIZED(Int)
-
-              public init() {
-                self = .null
-              }
-
-              public init?(rawValue: Int) {
-                switch rawValue {
-                case 0: self = .null
-                case 1: self = .unknownError
-                case 2: self = .badInput
-                case 3: self = .notLoggedIn
-                case 4: self = .paymentNodeError
-                default: self = .UNRECOGNIZED(rawValue)
-                }
-              }
-
-              public var rawValue: Int {
-                switch self {
-                case .null: return 0
-                case .unknownError: return 1
-                case .badInput: return 2
-                case .notLoggedIn: return 3
-                case .paymentNodeError: return 4
-                case .UNRECOGNIZED(let i): return i
-                }
-              }
-
-            }
-
-            public init() {}
-          }
-
-          public init() {}
-
-          fileprivate var _error: Anytype_Rpc.Payments.Subscription.VerifyEmailCode.Response.Error? = nil
-        }
-
-        public init() {}
+        fileprivate var _error: Anytype_Rpc.Membership.GetStatus.Response.Error? = nil
+        fileprivate var _data: Anytype_Model_Membership? = nil
       }
 
       public init() {}
     }
 
+    ///*
+    /// Check if the requested name is valid for the requested tier
+    /// before requesting a payment link and paying
+    public struct IsNameValid {
+      // SwiftProtobuf.Message conformance is added in an extension below. See the
+      // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+      // methods supported on all messages.
+
+      public var unknownFields = SwiftProtobuf.UnknownStorage()
+
+      public struct Request {
+        // SwiftProtobuf.Message conformance is added in an extension below. See the
+        // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+        // methods supported on all messages.
+
+        public var requestedTier: Int32 = 0
+
+        /// full name including .any suffix
+        public var requestedAnyName: String = String()
+
+        public var unknownFields = SwiftProtobuf.UnknownStorage()
+
+        public init() {}
+      }
+
+      public struct Response {
+        // SwiftProtobuf.Message conformance is added in an extension below. See the
+        // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+        // methods supported on all messages.
+
+        public var error: Anytype_Rpc.Membership.IsNameValid.Response.Error {
+          get {return _error ?? Anytype_Rpc.Membership.IsNameValid.Response.Error()}
+          set {_error = newValue}
+        }
+        /// Returns true if `error` has been explicitly set.
+        public var hasError: Bool {return self._error != nil}
+        /// Clears the value of `error`. Subsequent reads from it will return its default value.
+        public mutating func clearError() {self._error = nil}
+
+        public var unknownFields = SwiftProtobuf.UnknownStorage()
+
+        public struct Error {
+          // SwiftProtobuf.Message conformance is added in an extension below. See the
+          // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+          // methods supported on all messages.
+
+          public var code: Anytype_Rpc.Membership.IsNameValid.Response.Error.Code = .null
+
+          public var description_p: String = String()
+
+          public var unknownFields = SwiftProtobuf.UnknownStorage()
+
+          public enum Code: SwiftProtobuf.Enum {
+            public typealias RawValue = Int
+            case null // = 0
+            case unknownError // = 1
+            case badInput // = 2
+            case tooShort // = 3
+            case tooLong // = 4
+            case hasInvalidChars // = 5
+
+            /// if everything is fine - "name is already taken" check should be done in the NS
+            /// see IsNameAvailable()
+            case tierFeaturesNoName // = 6
+            case UNRECOGNIZED(Int)
+
+            public init() {
+              self = .null
+            }
+
+            public init?(rawValue: Int) {
+              switch rawValue {
+              case 0: self = .null
+              case 1: self = .unknownError
+              case 2: self = .badInput
+              case 3: self = .tooShort
+              case 4: self = .tooLong
+              case 5: self = .hasInvalidChars
+              case 6: self = .tierFeaturesNoName
+              default: self = .UNRECOGNIZED(rawValue)
+              }
+            }
+
+            public var rawValue: Int {
+              switch self {
+              case .null: return 0
+              case .unknownError: return 1
+              case .badInput: return 2
+              case .tooShort: return 3
+              case .tooLong: return 4
+              case .hasInvalidChars: return 5
+              case .tierFeaturesNoName: return 6
+              case .UNRECOGNIZED(let i): return i
+              }
+            }
+
+          }
+
+          public init() {}
+        }
+
+        public init() {}
+
+        fileprivate var _error: Anytype_Rpc.Membership.IsNameValid.Response.Error? = nil
+      }
+
+      public init() {}
+    }
+
+    ///*
+    /// Generate a link to the payment provider
+    /// where user can pay for the membership
+    public struct GetPaymentUrl {
+      // SwiftProtobuf.Message conformance is added in an extension below. See the
+      // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+      // methods supported on all messages.
+
+      public var unknownFields = SwiftProtobuf.UnknownStorage()
+
+      public struct Request {
+        // SwiftProtobuf.Message conformance is added in an extension below. See the
+        // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+        // methods supported on all messages.
+
+        public var requestedTier: Int32 = 0
+
+        public var paymentMethod: Anytype_Model_Membership.PaymentMethod = .methodCard
+
+        /// if empty - then no name requested
+        /// if non-empty - PP node will register that name on behalf of the user
+        public var requestedAnyName: String = String()
+
+        public var unknownFields = SwiftProtobuf.UnknownStorage()
+
+        public init() {}
+      }
+
+      public struct Response {
+        // SwiftProtobuf.Message conformance is added in an extension below. See the
+        // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+        // methods supported on all messages.
+
+        public var error: Anytype_Rpc.Membership.GetPaymentUrl.Response.Error {
+          get {return _error ?? Anytype_Rpc.Membership.GetPaymentUrl.Response.Error()}
+          set {_error = newValue}
+        }
+        /// Returns true if `error` has been explicitly set.
+        public var hasError: Bool {return self._error != nil}
+        /// Clears the value of `error`. Subsequent reads from it will return its default value.
+        public mutating func clearError() {self._error = nil}
+
+        /// will feature current billing ID
+        /// stripe.com/?client_reference_id=1234
+        public var paymentURL: String = String()
+
+        public var unknownFields = SwiftProtobuf.UnknownStorage()
+
+        public struct Error {
+          // SwiftProtobuf.Message conformance is added in an extension below. See the
+          // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+          // methods supported on all messages.
+
+          public var code: Anytype_Rpc.Membership.GetPaymentUrl.Response.Error.Code = .null
+
+          public var description_p: String = String()
+
+          public var unknownFields = SwiftProtobuf.UnknownStorage()
+
+          public enum Code: SwiftProtobuf.Enum {
+            public typealias RawValue = Int
+            case null // = 0
+            case unknownError // = 1
+            case badInput // = 2
+            case notLoggedIn // = 3
+            case paymentNodeError // = 4
+            case UNRECOGNIZED(Int)
+
+            public init() {
+              self = .null
+            }
+
+            public init?(rawValue: Int) {
+              switch rawValue {
+              case 0: self = .null
+              case 1: self = .unknownError
+              case 2: self = .badInput
+              case 3: self = .notLoggedIn
+              case 4: self = .paymentNodeError
+              default: self = .UNRECOGNIZED(rawValue)
+              }
+            }
+
+            public var rawValue: Int {
+              switch self {
+              case .null: return 0
+              case .unknownError: return 1
+              case .badInput: return 2
+              case .notLoggedIn: return 3
+              case .paymentNodeError: return 4
+              case .UNRECOGNIZED(let i): return i
+              }
+            }
+
+          }
+
+          public init() {}
+        }
+
+        public init() {}
+
+        fileprivate var _error: Anytype_Rpc.Membership.GetPaymentUrl.Response.Error? = nil
+      }
+
+      public init() {}
+    }
+
+    ///* 
+    /// Generate a link to the portal where user can:
+    /// a) change his billing details
+    /// b) see payment info, invoices, etc
+    /// c) cancel membership
+    public struct GetPortalLinkUrl {
+      // SwiftProtobuf.Message conformance is added in an extension below. See the
+      // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+      // methods supported on all messages.
+
+      public var unknownFields = SwiftProtobuf.UnknownStorage()
+
+      public struct Request {
+        // SwiftProtobuf.Message conformance is added in an extension below. See the
+        // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+        // methods supported on all messages.
+
+        public var unknownFields = SwiftProtobuf.UnknownStorage()
+
+        public init() {}
+      }
+
+      public struct Response {
+        // SwiftProtobuf.Message conformance is added in an extension below. See the
+        // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+        // methods supported on all messages.
+
+        public var error: Anytype_Rpc.Membership.GetPortalLinkUrl.Response.Error {
+          get {return _error ?? Anytype_Rpc.Membership.GetPortalLinkUrl.Response.Error()}
+          set {_error = newValue}
+        }
+        /// Returns true if `error` has been explicitly set.
+        public var hasError: Bool {return self._error != nil}
+        /// Clears the value of `error`. Subsequent reads from it will return its default value.
+        public mutating func clearError() {self._error = nil}
+
+        public var portalURL: String = String()
+
+        public var unknownFields = SwiftProtobuf.UnknownStorage()
+
+        public struct Error {
+          // SwiftProtobuf.Message conformance is added in an extension below. See the
+          // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+          // methods supported on all messages.
+
+          public var code: Anytype_Rpc.Membership.GetPortalLinkUrl.Response.Error.Code = .null
+
+          public var description_p: String = String()
+
+          public var unknownFields = SwiftProtobuf.UnknownStorage()
+
+          public enum Code: SwiftProtobuf.Enum {
+            public typealias RawValue = Int
+            case null // = 0
+            case unknownError // = 1
+            case badInput // = 2
+            case notLoggedIn // = 3
+            case paymentNodeError // = 4
+            case UNRECOGNIZED(Int)
+
+            public init() {
+              self = .null
+            }
+
+            public init?(rawValue: Int) {
+              switch rawValue {
+              case 0: self = .null
+              case 1: self = .unknownError
+              case 2: self = .badInput
+              case 3: self = .notLoggedIn
+              case 4: self = .paymentNodeError
+              default: self = .UNRECOGNIZED(rawValue)
+              }
+            }
+
+            public var rawValue: Int {
+              switch self {
+              case .null: return 0
+              case .unknownError: return 1
+              case .badInput: return 2
+              case .notLoggedIn: return 3
+              case .paymentNodeError: return 4
+              case .UNRECOGNIZED(let i): return i
+              }
+            }
+
+          }
+
+          public init() {}
+        }
+
+        public init() {}
+
+        fileprivate var _error: Anytype_Rpc.Membership.GetPortalLinkUrl.Response.Error? = nil
+      }
+
+      public init() {}
+    }
+
+    public struct Finalize {
+      // SwiftProtobuf.Message conformance is added in an extension below. See the
+      // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+      // methods supported on all messages.
+
+      public var unknownFields = SwiftProtobuf.UnknownStorage()
+
+      public struct Request {
+        // SwiftProtobuf.Message conformance is added in an extension below. See the
+        // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+        // methods supported on all messages.
+
+        /// if empty - then no name requested
+        /// if non-empty - PP node will register that name on behalf of the user
+        public var requestedAnyName: String = String()
+
+        public var unknownFields = SwiftProtobuf.UnknownStorage()
+
+        public init() {}
+      }
+
+      public struct Response {
+        // SwiftProtobuf.Message conformance is added in an extension below. See the
+        // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+        // methods supported on all messages.
+
+        public var error: Anytype_Rpc.Membership.Finalize.Response.Error {
+          get {return _error ?? Anytype_Rpc.Membership.Finalize.Response.Error()}
+          set {_error = newValue}
+        }
+        /// Returns true if `error` has been explicitly set.
+        public var hasError: Bool {return self._error != nil}
+        /// Clears the value of `error`. Subsequent reads from it will return its default value.
+        public mutating func clearError() {self._error = nil}
+
+        public var unknownFields = SwiftProtobuf.UnknownStorage()
+
+        public struct Error {
+          // SwiftProtobuf.Message conformance is added in an extension below. See the
+          // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+          // methods supported on all messages.
+
+          public var code: Anytype_Rpc.Membership.Finalize.Response.Error.Code = .null
+
+          public var description_p: String = String()
+
+          public var unknownFields = SwiftProtobuf.UnknownStorage()
+
+          public enum Code: SwiftProtobuf.Enum {
+            public typealias RawValue = Int
+            case null // = 0
+            case unknownError // = 1
+            case badInput // = 2
+            case notLoggedIn // = 3
+            case paymentNodeError // = 4
+            case UNRECOGNIZED(Int)
+
+            public init() {
+              self = .null
+            }
+
+            public init?(rawValue: Int) {
+              switch rawValue {
+              case 0: self = .null
+              case 1: self = .unknownError
+              case 2: self = .badInput
+              case 3: self = .notLoggedIn
+              case 4: self = .paymentNodeError
+              default: self = .UNRECOGNIZED(rawValue)
+              }
+            }
+
+            public var rawValue: Int {
+              switch self {
+              case .null: return 0
+              case .unknownError: return 1
+              case .badInput: return 2
+              case .notLoggedIn: return 3
+              case .paymentNodeError: return 4
+              case .UNRECOGNIZED(let i): return i
+              }
+            }
+
+          }
+
+          public init() {}
+        }
+
+        public init() {}
+
+        fileprivate var _error: Anytype_Rpc.Membership.Finalize.Response.Error? = nil
+      }
+
+      public init() {}
+    }
+
+    ///*
+    /// Send an e-mail with verification code to the user
+    /// can be called multiple times but with some timeout (N seconds) between calls
+    public struct GetVerificationEmail {
+      // SwiftProtobuf.Message conformance is added in an extension below. See the
+      // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+      // methods supported on all messages.
+
+      public var unknownFields = SwiftProtobuf.UnknownStorage()
+
+      public struct Request {
+        // SwiftProtobuf.Message conformance is added in an extension below. See the
+        // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+        // methods supported on all messages.
+
+        public var email: String = String()
+
+        public var subscribeToNewsletter: Bool = false
+
+        public var unknownFields = SwiftProtobuf.UnknownStorage()
+
+        public init() {}
+      }
+
+      public struct Response {
+        // SwiftProtobuf.Message conformance is added in an extension below. See the
+        // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+        // methods supported on all messages.
+
+        public var error: Anytype_Rpc.Membership.GetVerificationEmail.Response.Error {
+          get {return _error ?? Anytype_Rpc.Membership.GetVerificationEmail.Response.Error()}
+          set {_error = newValue}
+        }
+        /// Returns true if `error` has been explicitly set.
+        public var hasError: Bool {return self._error != nil}
+        /// Clears the value of `error`. Subsequent reads from it will return its default value.
+        public mutating func clearError() {self._error = nil}
+
+        public var unknownFields = SwiftProtobuf.UnknownStorage()
+
+        public struct Error {
+          // SwiftProtobuf.Message conformance is added in an extension below. See the
+          // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+          // methods supported on all messages.
+
+          public var code: Anytype_Rpc.Membership.GetVerificationEmail.Response.Error.Code = .null
+
+          public var description_p: String = String()
+
+          public var unknownFields = SwiftProtobuf.UnknownStorage()
+
+          public enum Code: SwiftProtobuf.Enum {
+            public typealias RawValue = Int
+            case null // = 0
+            case unknownError // = 1
+            case badInput // = 2
+            case notLoggedIn // = 3
+            case paymentNodeError // = 4
+            case UNRECOGNIZED(Int)
+
+            public init() {
+              self = .null
+            }
+
+            public init?(rawValue: Int) {
+              switch rawValue {
+              case 0: self = .null
+              case 1: self = .unknownError
+              case 2: self = .badInput
+              case 3: self = .notLoggedIn
+              case 4: self = .paymentNodeError
+              default: self = .UNRECOGNIZED(rawValue)
+              }
+            }
+
+            public var rawValue: Int {
+              switch self {
+              case .null: return 0
+              case .unknownError: return 1
+              case .badInput: return 2
+              case .notLoggedIn: return 3
+              case .paymentNodeError: return 4
+              case .UNRECOGNIZED(let i): return i
+              }
+            }
+
+          }
+
+          public init() {}
+        }
+
+        public init() {}
+
+        fileprivate var _error: Anytype_Rpc.Membership.GetVerificationEmail.Response.Error? = nil
+      }
+
+      public init() {}
+    }
+
+    ///*
+    /// Verify the e-mail address of the user 
+    /// need a correct code that was sent to the user when calling GetVerificationEmail
+    public struct VerifyEmailCode {
+      // SwiftProtobuf.Message conformance is added in an extension below. See the
+      // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+      // methods supported on all messages.
+
+      public var unknownFields = SwiftProtobuf.UnknownStorage()
+
+      public struct Request {
+        // SwiftProtobuf.Message conformance is added in an extension below. See the
+        // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+        // methods supported on all messages.
+
+        public var code: String = String()
+
+        public var unknownFields = SwiftProtobuf.UnknownStorage()
+
+        public init() {}
+      }
+
+      public struct Response {
+        // SwiftProtobuf.Message conformance is added in an extension below. See the
+        // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+        // methods supported on all messages.
+
+        public var error: Anytype_Rpc.Membership.VerifyEmailCode.Response.Error {
+          get {return _error ?? Anytype_Rpc.Membership.VerifyEmailCode.Response.Error()}
+          set {_error = newValue}
+        }
+        /// Returns true if `error` has been explicitly set.
+        public var hasError: Bool {return self._error != nil}
+        /// Clears the value of `error`. Subsequent reads from it will return its default value.
+        public mutating func clearError() {self._error = nil}
+
+        public var unknownFields = SwiftProtobuf.UnknownStorage()
+
+        public struct Error {
+          // SwiftProtobuf.Message conformance is added in an extension below. See the
+          // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+          // methods supported on all messages.
+
+          public var code: Anytype_Rpc.Membership.VerifyEmailCode.Response.Error.Code = .null
+
+          public var description_p: String = String()
+
+          public var unknownFields = SwiftProtobuf.UnknownStorage()
+
+          public enum Code: SwiftProtobuf.Enum {
+            public typealias RawValue = Int
+            case null // = 0
+            case unknownError // = 1
+            case badInput // = 2
+            case notLoggedIn // = 3
+            case paymentNodeError // = 4
+            case UNRECOGNIZED(Int)
+
+            public init() {
+              self = .null
+            }
+
+            public init?(rawValue: Int) {
+              switch rawValue {
+              case 0: self = .null
+              case 1: self = .unknownError
+              case 2: self = .badInput
+              case 3: self = .notLoggedIn
+              case 4: self = .paymentNodeError
+              default: self = .UNRECOGNIZED(rawValue)
+              }
+            }
+
+            public var rawValue: Int {
+              switch self {
+              case .null: return 0
+              case .unknownError: return 1
+              case .badInput: return 2
+              case .notLoggedIn: return 3
+              case .paymentNodeError: return 4
+              case .UNRECOGNIZED(let i): return i
+              }
+            }
+
+          }
+
+          public init() {}
+        }
+
+        public init() {}
+
+        fileprivate var _error: Anytype_Rpc.Membership.VerifyEmailCode.Response.Error? = nil
+      }
+
+      public init() {}
+    }
+
+    ///*
+    /// Tiers can change on the backend so if you want to show users the latest data
+    /// you can call this method to get the latest tiers
     public struct Tiers {
       // SwiftProtobuf.Message conformance is added in an extension below. See the
       // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
       // methods supported on all messages.
 
       public var unknownFields = SwiftProtobuf.UnknownStorage()
-
-      public enum PeriodType: SwiftProtobuf.Enum {
-        public typealias RawValue = Int
-        case unknown // = 0
-        case unlimited // = 1
-        case days // = 2
-        case weeks // = 3
-        case months // = 4
-        case years // = 5
-        case UNRECOGNIZED(Int)
-
-        public init() {
-          self = .unknown
-        }
-
-        public init?(rawValue: Int) {
-          switch rawValue {
-          case 0: self = .unknown
-          case 1: self = .unlimited
-          case 2: self = .days
-          case 3: self = .weeks
-          case 4: self = .months
-          case 5: self = .years
-          default: self = .UNRECOGNIZED(rawValue)
-          }
-        }
-
-        public var rawValue: Int {
-          switch self {
-          case .unknown: return 0
-          case .unlimited: return 1
-          case .days: return 2
-          case .weeks: return 3
-          case .months: return 4
-          case .years: return 5
-          case .UNRECOGNIZED(let i): return i
-          }
-        }
-
-      }
-
-      public struct Feature {
-        // SwiftProtobuf.Message conformance is added in an extension below. See the
-        // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
-        // methods supported on all messages.
-
-        /// "invites"
-        /// "GBs"
-        /// "spaces"
-        /// ...
-        public var valueStr: String = String()
-
-        /// each uint is a value of the feature
-        public var valueUint: UInt32 = 0
-
-        public var unknownFields = SwiftProtobuf.UnknownStorage()
-
-        public init() {}
-      }
-
-      public struct DataMessage {
-        // SwiftProtobuf.Message conformance is added in an extension below. See the
-        // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
-        // methods supported on all messages.
-
-        /// this is a unique ID of the tier
-        /// you should hardcode this in your app and provide icon, graphics, etc for each tier 
-        /// (even for old/historical/inactive/hidden tiers)
-        public var id: UInt32 = 0
-
-        /// localazied name of the tier
-        public var name: String = String()
-
-        /// just a short technical description
-        /// you don't have to use it, you can use your own UI-friendly texts
-        public var description_p: String = String()
-
-        /// can you buy it (ON ALL PLATFORMS, without clarification)?
-        public var isActive: Bool = false
-
-        /// is this tier for debugging only?
-        public var isTest: Bool = false
-
-        /// hidden tiers are only visible once user got them
-        public var isHiddenTier: Bool = false
-
-        /// how long is the period of the subscription
-        public var periodType: Anytype_Rpc.Payments.Tiers.PeriodType = .unknown
-
-        /// i.e. "5 days" or "3 years"
-        public var periodValue: UInt32 = 0
-
-        /// this one is a price we use ONLY on Stripe platform
-        public var priceStripeUsdCents: UInt32 = 0
-
-        /// number of ANY NS names that this tier includes 
-        /// (not counted as a "feature" and not in the features list)
-        public var anyNamesCountIncluded: UInt32 = 0
-
-        /// somename.any - len of 8
-        public var anyNameMinLength: UInt32 = 0
-
-        /// each tier has a set of features
-        /// each feature has a unique key: "storage", "invites", etc
-        /// not using enum here to provide dynamic feature list
-        public var features: Dictionary<String,Anytype_Rpc.Payments.Tiers.Feature> = [:]
-
-        public var unknownFields = SwiftProtobuf.UnknownStorage()
-
-        public init() {}
-      }
 
       public struct Get {
         // SwiftProtobuf.Message conformance is added in an extension below. See the
@@ -27086,8 +26939,8 @@ public struct Anytype_Rpc {
           // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
           // methods supported on all messages.
 
-          public var error: Anytype_Rpc.Payments.Tiers.Get.Response.Error {
-            get {return _error ?? Anytype_Rpc.Payments.Tiers.Get.Response.Error()}
+          public var error: Anytype_Rpc.Membership.Tiers.Get.Response.Error {
+            get {return _error ?? Anytype_Rpc.Membership.Tiers.Get.Response.Error()}
             set {_error = newValue}
           }
           /// Returns true if `error` has been explicitly set.
@@ -27095,7 +26948,7 @@ public struct Anytype_Rpc {
           /// Clears the value of `error`. Subsequent reads from it will return its default value.
           public mutating func clearError() {self._error = nil}
 
-          public var tiers: [Anytype_Rpc.Payments.Tiers.DataMessage] = []
+          public var tiers: [Anytype_Model_MembershipTierData] = []
 
           public var unknownFields = SwiftProtobuf.UnknownStorage()
 
@@ -27104,7 +26957,7 @@ public struct Anytype_Rpc {
             // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
             // methods supported on all messages.
 
-            public var code: Anytype_Rpc.Payments.Tiers.Get.Response.Error.Code = .null
+            public var code: Anytype_Rpc.Membership.Tiers.Get.Response.Error.Code = .null
 
             public var description_p: String = String()
 
@@ -27152,7 +27005,7 @@ public struct Anytype_Rpc {
 
           public init() {}
 
-          fileprivate var _error: Anytype_Rpc.Payments.Tiers.Get.Response.Error? = nil
+          fileprivate var _error: Anytype_Rpc.Membership.Tiers.Get.Response.Error? = nil
         }
 
         public init() {}
@@ -29830,9 +29683,9 @@ extension Anytype_Rpc.BlockDataview.Sort.Replace.Response.Error.Code: CaseIterab
   ]
 }
 
-extension Anytype_Rpc.BlockDataview.Sort.Sort.Response.Error.Code: CaseIterable {
+extension Anytype_Rpc.BlockDataview.Sort.SSort.Response.Error.Code: CaseIterable {
   // The compiler won't synthesize support with the UNRECOGNIZED case.
-  public static var allCases: [Anytype_Rpc.BlockDataview.Sort.Sort.Response.Error.Code] = [
+  public static var allCases: [Anytype_Rpc.BlockDataview.Sort.SSort.Response.Error.Code] = [
     .null,
     .unknownError,
     .badInput,
@@ -30070,43 +29923,9 @@ extension Anytype_Rpc.Notification.Test.Response.Error.Code: CaseIterable {
   ]
 }
 
-extension Anytype_Rpc.Payments.Subscription.SubscriptionTier: CaseIterable {
+extension Anytype_Rpc.Membership.GetStatus.Response.Error.Code: CaseIterable {
   // The compiler won't synthesize support with the UNRECOGNIZED case.
-  public static var allCases: [Anytype_Rpc.Payments.Subscription.SubscriptionTier] = [
-    .tierNewUser,
-    .tierExplorer,
-    .tierBuilder1WeekTest,
-    .tierCoCreator1WeekTest,
-    .tierBuilder,
-    .tierCoCreator,
-  ]
-}
-
-extension Anytype_Rpc.Payments.Subscription.SubscriptionStatus: CaseIterable {
-  // The compiler won't synthesize support with the UNRECOGNIZED case.
-  public static var allCases: [Anytype_Rpc.Payments.Subscription.SubscriptionStatus] = [
-    .statusUnknown,
-    .statusPending,
-    .statusActive,
-    .statusPendingRequiresFinalization,
-  ]
-}
-
-extension Anytype_Rpc.Payments.Subscription.PaymentMethod: CaseIterable {
-  // The compiler won't synthesize support with the UNRECOGNIZED case.
-  public static var allCases: [Anytype_Rpc.Payments.Subscription.PaymentMethod] = [
-    .methodCard,
-    .methodCrypto,
-    .methodApplePay,
-    .methodGooglePay,
-    .methodAppleInapp,
-    .methodGoogleInapp,
-  ]
-}
-
-extension Anytype_Rpc.Payments.Subscription.GetStatus.Response.Error.Code: CaseIterable {
-  // The compiler won't synthesize support with the UNRECOGNIZED case.
-  public static var allCases: [Anytype_Rpc.Payments.Subscription.GetStatus.Response.Error.Code] = [
+  public static var allCases: [Anytype_Rpc.Membership.GetStatus.Response.Error.Code] = [
     .null,
     .unknownError,
     .badInput,
@@ -30115,9 +29934,22 @@ extension Anytype_Rpc.Payments.Subscription.GetStatus.Response.Error.Code: CaseI
   ]
 }
 
-extension Anytype_Rpc.Payments.Subscription.GetPaymentUrl.Response.Error.Code: CaseIterable {
+extension Anytype_Rpc.Membership.IsNameValid.Response.Error.Code: CaseIterable {
   // The compiler won't synthesize support with the UNRECOGNIZED case.
-  public static var allCases: [Anytype_Rpc.Payments.Subscription.GetPaymentUrl.Response.Error.Code] = [
+  public static var allCases: [Anytype_Rpc.Membership.IsNameValid.Response.Error.Code] = [
+    .null,
+    .unknownError,
+    .badInput,
+    .tooShort,
+    .tooLong,
+    .hasInvalidChars,
+    .tierFeaturesNoName,
+  ]
+}
+
+extension Anytype_Rpc.Membership.GetPaymentUrl.Response.Error.Code: CaseIterable {
+  // The compiler won't synthesize support with the UNRECOGNIZED case.
+  public static var allCases: [Anytype_Rpc.Membership.GetPaymentUrl.Response.Error.Code] = [
     .null,
     .unknownError,
     .badInput,
@@ -30126,9 +29958,9 @@ extension Anytype_Rpc.Payments.Subscription.GetPaymentUrl.Response.Error.Code: C
   ]
 }
 
-extension Anytype_Rpc.Payments.Subscription.GetPortalLinkUrl.Response.Error.Code: CaseIterable {
+extension Anytype_Rpc.Membership.GetPortalLinkUrl.Response.Error.Code: CaseIterable {
   // The compiler won't synthesize support with the UNRECOGNIZED case.
-  public static var allCases: [Anytype_Rpc.Payments.Subscription.GetPortalLinkUrl.Response.Error.Code] = [
+  public static var allCases: [Anytype_Rpc.Membership.GetPortalLinkUrl.Response.Error.Code] = [
     .null,
     .unknownError,
     .badInput,
@@ -30137,9 +29969,9 @@ extension Anytype_Rpc.Payments.Subscription.GetPortalLinkUrl.Response.Error.Code
   ]
 }
 
-extension Anytype_Rpc.Payments.Subscription.Finalize.Response.Error.Code: CaseIterable {
+extension Anytype_Rpc.Membership.Finalize.Response.Error.Code: CaseIterable {
   // The compiler won't synthesize support with the UNRECOGNIZED case.
-  public static var allCases: [Anytype_Rpc.Payments.Subscription.Finalize.Response.Error.Code] = [
+  public static var allCases: [Anytype_Rpc.Membership.Finalize.Response.Error.Code] = [
     .null,
     .unknownError,
     .badInput,
@@ -30148,9 +29980,9 @@ extension Anytype_Rpc.Payments.Subscription.Finalize.Response.Error.Code: CaseIt
   ]
 }
 
-extension Anytype_Rpc.Payments.Subscription.GetVerificationEmail.Response.Error.Code: CaseIterable {
+extension Anytype_Rpc.Membership.GetVerificationEmail.Response.Error.Code: CaseIterable {
   // The compiler won't synthesize support with the UNRECOGNIZED case.
-  public static var allCases: [Anytype_Rpc.Payments.Subscription.GetVerificationEmail.Response.Error.Code] = [
+  public static var allCases: [Anytype_Rpc.Membership.GetVerificationEmail.Response.Error.Code] = [
     .null,
     .unknownError,
     .badInput,
@@ -30159,9 +29991,9 @@ extension Anytype_Rpc.Payments.Subscription.GetVerificationEmail.Response.Error.
   ]
 }
 
-extension Anytype_Rpc.Payments.Subscription.VerifyEmailCode.Response.Error.Code: CaseIterable {
+extension Anytype_Rpc.Membership.VerifyEmailCode.Response.Error.Code: CaseIterable {
   // The compiler won't synthesize support with the UNRECOGNIZED case.
-  public static var allCases: [Anytype_Rpc.Payments.Subscription.VerifyEmailCode.Response.Error.Code] = [
+  public static var allCases: [Anytype_Rpc.Membership.VerifyEmailCode.Response.Error.Code] = [
     .null,
     .unknownError,
     .badInput,
@@ -30170,21 +30002,9 @@ extension Anytype_Rpc.Payments.Subscription.VerifyEmailCode.Response.Error.Code:
   ]
 }
 
-extension Anytype_Rpc.Payments.Tiers.PeriodType: CaseIterable {
+extension Anytype_Rpc.Membership.Tiers.Get.Response.Error.Code: CaseIterable {
   // The compiler won't synthesize support with the UNRECOGNIZED case.
-  public static var allCases: [Anytype_Rpc.Payments.Tiers.PeriodType] = [
-    .unknown,
-    .unlimited,
-    .days,
-    .weeks,
-    .months,
-    .years,
-  ]
-}
-
-extension Anytype_Rpc.Payments.Tiers.Get.Response.Error.Code: CaseIterable {
-  // The compiler won't synthesize support with the UNRECOGNIZED case.
-  public static var allCases: [Anytype_Rpc.Payments.Tiers.Get.Response.Error.Code] = [
+  public static var allCases: [Anytype_Rpc.Membership.Tiers.Get.Response.Error.Code] = [
     .null,
     .unknownError,
     .badInput,
@@ -31394,11 +31214,11 @@ extension Anytype_Rpc.BlockDataview.Sort.Replace.Request: @unchecked Sendable {}
 extension Anytype_Rpc.BlockDataview.Sort.Replace.Response: @unchecked Sendable {}
 extension Anytype_Rpc.BlockDataview.Sort.Replace.Response.Error: @unchecked Sendable {}
 extension Anytype_Rpc.BlockDataview.Sort.Replace.Response.Error.Code: @unchecked Sendable {}
-extension Anytype_Rpc.BlockDataview.Sort.Sort: @unchecked Sendable {}
-extension Anytype_Rpc.BlockDataview.Sort.Sort.Request: @unchecked Sendable {}
-extension Anytype_Rpc.BlockDataview.Sort.Sort.Response: @unchecked Sendable {}
-extension Anytype_Rpc.BlockDataview.Sort.Sort.Response.Error: @unchecked Sendable {}
-extension Anytype_Rpc.BlockDataview.Sort.Sort.Response.Error.Code: @unchecked Sendable {}
+extension Anytype_Rpc.BlockDataview.Sort.SSort: @unchecked Sendable {}
+extension Anytype_Rpc.BlockDataview.Sort.SSort.Request: @unchecked Sendable {}
+extension Anytype_Rpc.BlockDataview.Sort.SSort.Response: @unchecked Sendable {}
+extension Anytype_Rpc.BlockDataview.Sort.SSort.Response.Error: @unchecked Sendable {}
+extension Anytype_Rpc.BlockDataview.Sort.SSort.Response.Error.Code: @unchecked Sendable {}
 extension Anytype_Rpc.BlockDataview.ViewRelation: @unchecked Sendable {}
 extension Anytype_Rpc.BlockDataview.ViewRelation.Add: @unchecked Sendable {}
 extension Anytype_Rpc.BlockDataview.ViewRelation.Add.Request: @unchecked Sendable {}
@@ -31526,50 +31346,48 @@ extension Anytype_Rpc.Notification.Test.Request: @unchecked Sendable {}
 extension Anytype_Rpc.Notification.Test.Response: @unchecked Sendable {}
 extension Anytype_Rpc.Notification.Test.Response.Error: @unchecked Sendable {}
 extension Anytype_Rpc.Notification.Test.Response.Error.Code: @unchecked Sendable {}
-extension Anytype_Rpc.Payments: @unchecked Sendable {}
-extension Anytype_Rpc.Payments.Subscription: @unchecked Sendable {}
-extension Anytype_Rpc.Payments.Subscription.SubscriptionTier: @unchecked Sendable {}
-extension Anytype_Rpc.Payments.Subscription.SubscriptionStatus: @unchecked Sendable {}
-extension Anytype_Rpc.Payments.Subscription.PaymentMethod: @unchecked Sendable {}
-extension Anytype_Rpc.Payments.Subscription.GetStatus: @unchecked Sendable {}
-extension Anytype_Rpc.Payments.Subscription.GetStatus.Request: @unchecked Sendable {}
-extension Anytype_Rpc.Payments.Subscription.GetStatus.Response: @unchecked Sendable {}
-extension Anytype_Rpc.Payments.Subscription.GetStatus.Response.Error: @unchecked Sendable {}
-extension Anytype_Rpc.Payments.Subscription.GetStatus.Response.Error.Code: @unchecked Sendable {}
-extension Anytype_Rpc.Payments.Subscription.GetPaymentUrl: @unchecked Sendable {}
-extension Anytype_Rpc.Payments.Subscription.GetPaymentUrl.Request: @unchecked Sendable {}
-extension Anytype_Rpc.Payments.Subscription.GetPaymentUrl.Response: @unchecked Sendable {}
-extension Anytype_Rpc.Payments.Subscription.GetPaymentUrl.Response.Error: @unchecked Sendable {}
-extension Anytype_Rpc.Payments.Subscription.GetPaymentUrl.Response.Error.Code: @unchecked Sendable {}
-extension Anytype_Rpc.Payments.Subscription.GetPortalLinkUrl: @unchecked Sendable {}
-extension Anytype_Rpc.Payments.Subscription.GetPortalLinkUrl.Request: @unchecked Sendable {}
-extension Anytype_Rpc.Payments.Subscription.GetPortalLinkUrl.Response: @unchecked Sendable {}
-extension Anytype_Rpc.Payments.Subscription.GetPortalLinkUrl.Response.Error: @unchecked Sendable {}
-extension Anytype_Rpc.Payments.Subscription.GetPortalLinkUrl.Response.Error.Code: @unchecked Sendable {}
-extension Anytype_Rpc.Payments.Subscription.Finalize: @unchecked Sendable {}
-extension Anytype_Rpc.Payments.Subscription.Finalize.Request: @unchecked Sendable {}
-extension Anytype_Rpc.Payments.Subscription.Finalize.Response: @unchecked Sendable {}
-extension Anytype_Rpc.Payments.Subscription.Finalize.Response.Error: @unchecked Sendable {}
-extension Anytype_Rpc.Payments.Subscription.Finalize.Response.Error.Code: @unchecked Sendable {}
-extension Anytype_Rpc.Payments.Subscription.GetVerificationEmail: @unchecked Sendable {}
-extension Anytype_Rpc.Payments.Subscription.GetVerificationEmail.Request: @unchecked Sendable {}
-extension Anytype_Rpc.Payments.Subscription.GetVerificationEmail.Response: @unchecked Sendable {}
-extension Anytype_Rpc.Payments.Subscription.GetVerificationEmail.Response.Error: @unchecked Sendable {}
-extension Anytype_Rpc.Payments.Subscription.GetVerificationEmail.Response.Error.Code: @unchecked Sendable {}
-extension Anytype_Rpc.Payments.Subscription.VerifyEmailCode: @unchecked Sendable {}
-extension Anytype_Rpc.Payments.Subscription.VerifyEmailCode.Request: @unchecked Sendable {}
-extension Anytype_Rpc.Payments.Subscription.VerifyEmailCode.Response: @unchecked Sendable {}
-extension Anytype_Rpc.Payments.Subscription.VerifyEmailCode.Response.Error: @unchecked Sendable {}
-extension Anytype_Rpc.Payments.Subscription.VerifyEmailCode.Response.Error.Code: @unchecked Sendable {}
-extension Anytype_Rpc.Payments.Tiers: @unchecked Sendable {}
-extension Anytype_Rpc.Payments.Tiers.PeriodType: @unchecked Sendable {}
-extension Anytype_Rpc.Payments.Tiers.Feature: @unchecked Sendable {}
-extension Anytype_Rpc.Payments.Tiers.DataMessage: @unchecked Sendable {}
-extension Anytype_Rpc.Payments.Tiers.Get: @unchecked Sendable {}
-extension Anytype_Rpc.Payments.Tiers.Get.Request: @unchecked Sendable {}
-extension Anytype_Rpc.Payments.Tiers.Get.Response: @unchecked Sendable {}
-extension Anytype_Rpc.Payments.Tiers.Get.Response.Error: @unchecked Sendable {}
-extension Anytype_Rpc.Payments.Tiers.Get.Response.Error.Code: @unchecked Sendable {}
+extension Anytype_Rpc.Membership: @unchecked Sendable {}
+extension Anytype_Rpc.Membership.GetStatus: @unchecked Sendable {}
+extension Anytype_Rpc.Membership.GetStatus.Request: @unchecked Sendable {}
+extension Anytype_Rpc.Membership.GetStatus.Response: @unchecked Sendable {}
+extension Anytype_Rpc.Membership.GetStatus.Response.Error: @unchecked Sendable {}
+extension Anytype_Rpc.Membership.GetStatus.Response.Error.Code: @unchecked Sendable {}
+extension Anytype_Rpc.Membership.IsNameValid: @unchecked Sendable {}
+extension Anytype_Rpc.Membership.IsNameValid.Request: @unchecked Sendable {}
+extension Anytype_Rpc.Membership.IsNameValid.Response: @unchecked Sendable {}
+extension Anytype_Rpc.Membership.IsNameValid.Response.Error: @unchecked Sendable {}
+extension Anytype_Rpc.Membership.IsNameValid.Response.Error.Code: @unchecked Sendable {}
+extension Anytype_Rpc.Membership.GetPaymentUrl: @unchecked Sendable {}
+extension Anytype_Rpc.Membership.GetPaymentUrl.Request: @unchecked Sendable {}
+extension Anytype_Rpc.Membership.GetPaymentUrl.Response: @unchecked Sendable {}
+extension Anytype_Rpc.Membership.GetPaymentUrl.Response.Error: @unchecked Sendable {}
+extension Anytype_Rpc.Membership.GetPaymentUrl.Response.Error.Code: @unchecked Sendable {}
+extension Anytype_Rpc.Membership.GetPortalLinkUrl: @unchecked Sendable {}
+extension Anytype_Rpc.Membership.GetPortalLinkUrl.Request: @unchecked Sendable {}
+extension Anytype_Rpc.Membership.GetPortalLinkUrl.Response: @unchecked Sendable {}
+extension Anytype_Rpc.Membership.GetPortalLinkUrl.Response.Error: @unchecked Sendable {}
+extension Anytype_Rpc.Membership.GetPortalLinkUrl.Response.Error.Code: @unchecked Sendable {}
+extension Anytype_Rpc.Membership.Finalize: @unchecked Sendable {}
+extension Anytype_Rpc.Membership.Finalize.Request: @unchecked Sendable {}
+extension Anytype_Rpc.Membership.Finalize.Response: @unchecked Sendable {}
+extension Anytype_Rpc.Membership.Finalize.Response.Error: @unchecked Sendable {}
+extension Anytype_Rpc.Membership.Finalize.Response.Error.Code: @unchecked Sendable {}
+extension Anytype_Rpc.Membership.GetVerificationEmail: @unchecked Sendable {}
+extension Anytype_Rpc.Membership.GetVerificationEmail.Request: @unchecked Sendable {}
+extension Anytype_Rpc.Membership.GetVerificationEmail.Response: @unchecked Sendable {}
+extension Anytype_Rpc.Membership.GetVerificationEmail.Response.Error: @unchecked Sendable {}
+extension Anytype_Rpc.Membership.GetVerificationEmail.Response.Error.Code: @unchecked Sendable {}
+extension Anytype_Rpc.Membership.VerifyEmailCode: @unchecked Sendable {}
+extension Anytype_Rpc.Membership.VerifyEmailCode.Request: @unchecked Sendable {}
+extension Anytype_Rpc.Membership.VerifyEmailCode.Response: @unchecked Sendable {}
+extension Anytype_Rpc.Membership.VerifyEmailCode.Response.Error: @unchecked Sendable {}
+extension Anytype_Rpc.Membership.VerifyEmailCode.Response.Error.Code: @unchecked Sendable {}
+extension Anytype_Rpc.Membership.Tiers: @unchecked Sendable {}
+extension Anytype_Rpc.Membership.Tiers.Get: @unchecked Sendable {}
+extension Anytype_Rpc.Membership.Tiers.Get.Request: @unchecked Sendable {}
+extension Anytype_Rpc.Membership.Tiers.Get.Response: @unchecked Sendable {}
+extension Anytype_Rpc.Membership.Tiers.Get.Response.Error: @unchecked Sendable {}
+extension Anytype_Rpc.Membership.Tiers.Get.Response.Error.Code: @unchecked Sendable {}
 extension Anytype_Rpc.NameService: @unchecked Sendable {}
 extension Anytype_Rpc.NameService.ResolveName: @unchecked Sendable {}
 extension Anytype_Rpc.NameService.ResolveName.Request: @unchecked Sendable {}
@@ -34525,6 +34343,7 @@ extension Anytype_Rpc.Wallet.CreateSession.Response: SwiftProtobuf.Message, Swif
     1: .same(proto: "error"),
     2: .same(proto: "token"),
     3: .same(proto: "appToken"),
+    4: .same(proto: "accountId"),
   ]
 
   public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
@@ -34536,6 +34355,7 @@ extension Anytype_Rpc.Wallet.CreateSession.Response: SwiftProtobuf.Message, Swif
       case 1: try { try decoder.decodeSingularMessageField(value: &self._error) }()
       case 2: try { try decoder.decodeSingularStringField(value: &self.token) }()
       case 3: try { try decoder.decodeSingularStringField(value: &self.appToken) }()
+      case 4: try { try decoder.decodeSingularStringField(value: &self.accountID) }()
       default: break
       }
     }
@@ -34555,6 +34375,9 @@ extension Anytype_Rpc.Wallet.CreateSession.Response: SwiftProtobuf.Message, Swif
     if !self.appToken.isEmpty {
       try visitor.visitSingularStringField(value: self.appToken, fieldNumber: 3)
     }
+    if !self.accountID.isEmpty {
+      try visitor.visitSingularStringField(value: self.accountID, fieldNumber: 4)
+    }
     try unknownFields.traverse(visitor: &visitor)
   }
 
@@ -34562,6 +34385,7 @@ extension Anytype_Rpc.Wallet.CreateSession.Response: SwiftProtobuf.Message, Swif
     if lhs._error != rhs._error {return false}
     if lhs.token != rhs.token {return false}
     if lhs.appToken != rhs.appToken {return false}
+    if lhs.accountID != rhs.accountID {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
@@ -65762,8 +65586,8 @@ extension Anytype_Rpc.BlockDataview.Sort.Replace.Response.Error.Code: SwiftProto
   ]
 }
 
-extension Anytype_Rpc.BlockDataview.Sort.Sort: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
-  public static let protoMessageName: String = Anytype_Rpc.BlockDataview.Sort.protoMessageName + ".Sort"
+extension Anytype_Rpc.BlockDataview.Sort.SSort: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = Anytype_Rpc.BlockDataview.Sort.protoMessageName + ".SSort"
   public static let _protobuf_nameMap = SwiftProtobuf._NameMap()
 
   public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
@@ -65775,14 +65599,14 @@ extension Anytype_Rpc.BlockDataview.Sort.Sort: SwiftProtobuf.Message, SwiftProto
     try unknownFields.traverse(visitor: &visitor)
   }
 
-  public static func ==(lhs: Anytype_Rpc.BlockDataview.Sort.Sort, rhs: Anytype_Rpc.BlockDataview.Sort.Sort) -> Bool {
+  public static func ==(lhs: Anytype_Rpc.BlockDataview.Sort.SSort, rhs: Anytype_Rpc.BlockDataview.Sort.SSort) -> Bool {
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
 }
 
-extension Anytype_Rpc.BlockDataview.Sort.Sort.Request: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
-  public static let protoMessageName: String = Anytype_Rpc.BlockDataview.Sort.Sort.protoMessageName + ".Request"
+extension Anytype_Rpc.BlockDataview.Sort.SSort.Request: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = Anytype_Rpc.BlockDataview.Sort.SSort.protoMessageName + ".Request"
   public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
     1: .same(proto: "contextId"),
     2: .same(proto: "blockId"),
@@ -65821,7 +65645,7 @@ extension Anytype_Rpc.BlockDataview.Sort.Sort.Request: SwiftProtobuf.Message, Sw
     try unknownFields.traverse(visitor: &visitor)
   }
 
-  public static func ==(lhs: Anytype_Rpc.BlockDataview.Sort.Sort.Request, rhs: Anytype_Rpc.BlockDataview.Sort.Sort.Request) -> Bool {
+  public static func ==(lhs: Anytype_Rpc.BlockDataview.Sort.SSort.Request, rhs: Anytype_Rpc.BlockDataview.Sort.SSort.Request) -> Bool {
     if lhs.contextID != rhs.contextID {return false}
     if lhs.blockID != rhs.blockID {return false}
     if lhs.viewID != rhs.viewID {return false}
@@ -65831,8 +65655,8 @@ extension Anytype_Rpc.BlockDataview.Sort.Sort.Request: SwiftProtobuf.Message, Sw
   }
 }
 
-extension Anytype_Rpc.BlockDataview.Sort.Sort.Response: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
-  public static let protoMessageName: String = Anytype_Rpc.BlockDataview.Sort.Sort.protoMessageName + ".Response"
+extension Anytype_Rpc.BlockDataview.Sort.SSort.Response: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = Anytype_Rpc.BlockDataview.Sort.SSort.protoMessageName + ".Response"
   public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
     1: .same(proto: "error"),
     2: .same(proto: "event"),
@@ -65865,7 +65689,7 @@ extension Anytype_Rpc.BlockDataview.Sort.Sort.Response: SwiftProtobuf.Message, S
     try unknownFields.traverse(visitor: &visitor)
   }
 
-  public static func ==(lhs: Anytype_Rpc.BlockDataview.Sort.Sort.Response, rhs: Anytype_Rpc.BlockDataview.Sort.Sort.Response) -> Bool {
+  public static func ==(lhs: Anytype_Rpc.BlockDataview.Sort.SSort.Response, rhs: Anytype_Rpc.BlockDataview.Sort.SSort.Response) -> Bool {
     if lhs._error != rhs._error {return false}
     if lhs._event != rhs._event {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
@@ -65873,8 +65697,8 @@ extension Anytype_Rpc.BlockDataview.Sort.Sort.Response: SwiftProtobuf.Message, S
   }
 }
 
-extension Anytype_Rpc.BlockDataview.Sort.Sort.Response.Error: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
-  public static let protoMessageName: String = Anytype_Rpc.BlockDataview.Sort.Sort.Response.protoMessageName + ".Error"
+extension Anytype_Rpc.BlockDataview.Sort.SSort.Response.Error: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = Anytype_Rpc.BlockDataview.Sort.SSort.Response.protoMessageName + ".Error"
   public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
     1: .same(proto: "code"),
     2: .same(proto: "description"),
@@ -65903,7 +65727,7 @@ extension Anytype_Rpc.BlockDataview.Sort.Sort.Response.Error: SwiftProtobuf.Mess
     try unknownFields.traverse(visitor: &visitor)
   }
 
-  public static func ==(lhs: Anytype_Rpc.BlockDataview.Sort.Sort.Response.Error, rhs: Anytype_Rpc.BlockDataview.Sort.Sort.Response.Error) -> Bool {
+  public static func ==(lhs: Anytype_Rpc.BlockDataview.Sort.SSort.Response.Error, rhs: Anytype_Rpc.BlockDataview.Sort.SSort.Response.Error) -> Bool {
     if lhs.code != rhs.code {return false}
     if lhs.description_p != rhs.description_p {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
@@ -65911,7 +65735,7 @@ extension Anytype_Rpc.BlockDataview.Sort.Sort.Response.Error: SwiftProtobuf.Mess
   }
 }
 
-extension Anytype_Rpc.BlockDataview.Sort.Sort.Response.Error.Code: SwiftProtobuf._ProtoNameProviding {
+extension Anytype_Rpc.BlockDataview.Sort.SSort.Response.Error.Code: SwiftProtobuf._ProtoNameProviding {
   public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
     0: .same(proto: "NULL"),
     1: .same(proto: "UNKNOWN_ERROR"),
@@ -69513,8 +69337,8 @@ extension Anytype_Rpc.Notification.Test.Response.Error.Code: SwiftProtobuf._Prot
   ]
 }
 
-extension Anytype_Rpc.Payments: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
-  public static let protoMessageName: String = Anytype_Rpc.protoMessageName + ".Payments"
+extension Anytype_Rpc.Membership: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = Anytype_Rpc.protoMessageName + ".Membership"
   public static let _protobuf_nameMap = SwiftProtobuf._NameMap()
 
   public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
@@ -69526,14 +69350,14 @@ extension Anytype_Rpc.Payments: SwiftProtobuf.Message, SwiftProtobuf._MessageImp
     try unknownFields.traverse(visitor: &visitor)
   }
 
-  public static func ==(lhs: Anytype_Rpc.Payments, rhs: Anytype_Rpc.Payments) -> Bool {
+  public static func ==(lhs: Anytype_Rpc.Membership, rhs: Anytype_Rpc.Membership) -> Bool {
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
 }
 
-extension Anytype_Rpc.Payments.Subscription: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
-  public static let protoMessageName: String = Anytype_Rpc.Payments.protoMessageName + ".Subscription"
+extension Anytype_Rpc.Membership.GetStatus: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = Anytype_Rpc.Membership.protoMessageName + ".GetStatus"
   public static let _protobuf_nameMap = SwiftProtobuf._NameMap()
 
   public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
@@ -69545,64 +69369,14 @@ extension Anytype_Rpc.Payments.Subscription: SwiftProtobuf.Message, SwiftProtobu
     try unknownFields.traverse(visitor: &visitor)
   }
 
-  public static func ==(lhs: Anytype_Rpc.Payments.Subscription, rhs: Anytype_Rpc.Payments.Subscription) -> Bool {
+  public static func ==(lhs: Anytype_Rpc.Membership.GetStatus, rhs: Anytype_Rpc.Membership.GetStatus) -> Bool {
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
 }
 
-extension Anytype_Rpc.Payments.Subscription.SubscriptionTier: SwiftProtobuf._ProtoNameProviding {
-  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
-    0: .same(proto: "TierNewUser"),
-    1: .same(proto: "TierExplorer"),
-    2: .same(proto: "TierBuilder1WeekTEST"),
-    3: .same(proto: "TierCoCreator1WeekTEST"),
-    4: .same(proto: "TierBuilder"),
-    5: .same(proto: "TierCoCreator"),
-  ]
-}
-
-extension Anytype_Rpc.Payments.Subscription.SubscriptionStatus: SwiftProtobuf._ProtoNameProviding {
-  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
-    0: .same(proto: "StatusUnknown"),
-    1: .same(proto: "StatusPending"),
-    2: .same(proto: "StatusActive"),
-    3: .same(proto: "StatusPendingRequiresFinalization"),
-  ]
-}
-
-extension Anytype_Rpc.Payments.Subscription.PaymentMethod: SwiftProtobuf._ProtoNameProviding {
-  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
-    0: .same(proto: "MethodCard"),
-    1: .same(proto: "MethodCrypto"),
-    2: .same(proto: "MethodApplePay"),
-    3: .same(proto: "MethodGooglePay"),
-    4: .same(proto: "MethodAppleInapp"),
-    5: .same(proto: "MethodGoogleInapp"),
-  ]
-}
-
-extension Anytype_Rpc.Payments.Subscription.GetStatus: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
-  public static let protoMessageName: String = Anytype_Rpc.Payments.Subscription.protoMessageName + ".GetStatus"
-  public static let _protobuf_nameMap = SwiftProtobuf._NameMap()
-
-  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
-    while let _ = try decoder.nextFieldNumber() {
-    }
-  }
-
-  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
-    try unknownFields.traverse(visitor: &visitor)
-  }
-
-  public static func ==(lhs: Anytype_Rpc.Payments.Subscription.GetStatus, rhs: Anytype_Rpc.Payments.Subscription.GetStatus) -> Bool {
-    if lhs.unknownFields != rhs.unknownFields {return false}
-    return true
-  }
-}
-
-extension Anytype_Rpc.Payments.Subscription.GetStatus.Request: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
-  public static let protoMessageName: String = Anytype_Rpc.Payments.Subscription.GetStatus.protoMessageName + ".Request"
+extension Anytype_Rpc.Membership.GetStatus.Request: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = Anytype_Rpc.Membership.GetStatus.protoMessageName + ".Request"
   public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
     1: .same(proto: "noCache"),
   ]
@@ -69626,26 +69400,18 @@ extension Anytype_Rpc.Payments.Subscription.GetStatus.Request: SwiftProtobuf.Mes
     try unknownFields.traverse(visitor: &visitor)
   }
 
-  public static func ==(lhs: Anytype_Rpc.Payments.Subscription.GetStatus.Request, rhs: Anytype_Rpc.Payments.Subscription.GetStatus.Request) -> Bool {
+  public static func ==(lhs: Anytype_Rpc.Membership.GetStatus.Request, rhs: Anytype_Rpc.Membership.GetStatus.Request) -> Bool {
     if lhs.noCache != rhs.noCache {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
 }
 
-extension Anytype_Rpc.Payments.Subscription.GetStatus.Response: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
-  public static let protoMessageName: String = Anytype_Rpc.Payments.Subscription.GetStatus.protoMessageName + ".Response"
+extension Anytype_Rpc.Membership.GetStatus.Response: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = Anytype_Rpc.Membership.GetStatus.protoMessageName + ".Response"
   public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
     1: .same(proto: "error"),
-    2: .same(proto: "tier"),
-    3: .same(proto: "status"),
-    4: .same(proto: "dateStarted"),
-    5: .same(proto: "dateEnds"),
-    6: .same(proto: "isAutoRenew"),
-    7: .same(proto: "paymentMethod"),
-    8: .same(proto: "requestedAnyName"),
-    9: .same(proto: "userEmail"),
-    10: .same(proto: "subscribeToNewsletter"),
+    2: .same(proto: "data"),
   ]
 
   public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
@@ -69655,15 +69421,7 @@ extension Anytype_Rpc.Payments.Subscription.GetStatus.Response: SwiftProtobuf.Me
       // enabled. https://github.com/apple/swift-protobuf/issues/1034
       switch fieldNumber {
       case 1: try { try decoder.decodeSingularMessageField(value: &self._error) }()
-      case 2: try { try decoder.decodeSingularInt32Field(value: &self.tier) }()
-      case 3: try { try decoder.decodeSingularEnumField(value: &self.status) }()
-      case 4: try { try decoder.decodeSingularUInt64Field(value: &self.dateStarted) }()
-      case 5: try { try decoder.decodeSingularUInt64Field(value: &self.dateEnds) }()
-      case 6: try { try decoder.decodeSingularBoolField(value: &self.isAutoRenew) }()
-      case 7: try { try decoder.decodeSingularEnumField(value: &self.paymentMethod) }()
-      case 8: try { try decoder.decodeSingularStringField(value: &self.requestedAnyName) }()
-      case 9: try { try decoder.decodeSingularStringField(value: &self.userEmail) }()
-      case 10: try { try decoder.decodeSingularBoolField(value: &self.subscribeToNewsletter) }()
+      case 2: try { try decoder.decodeSingularMessageField(value: &self._data) }()
       default: break
       }
     }
@@ -69677,54 +69435,22 @@ extension Anytype_Rpc.Payments.Subscription.GetStatus.Response: SwiftProtobuf.Me
     try { if let v = self._error {
       try visitor.visitSingularMessageField(value: v, fieldNumber: 1)
     } }()
-    if self.tier != 0 {
-      try visitor.visitSingularInt32Field(value: self.tier, fieldNumber: 2)
-    }
-    if self.status != .statusUnknown {
-      try visitor.visitSingularEnumField(value: self.status, fieldNumber: 3)
-    }
-    if self.dateStarted != 0 {
-      try visitor.visitSingularUInt64Field(value: self.dateStarted, fieldNumber: 4)
-    }
-    if self.dateEnds != 0 {
-      try visitor.visitSingularUInt64Field(value: self.dateEnds, fieldNumber: 5)
-    }
-    if self.isAutoRenew != false {
-      try visitor.visitSingularBoolField(value: self.isAutoRenew, fieldNumber: 6)
-    }
-    if self.paymentMethod != .methodCard {
-      try visitor.visitSingularEnumField(value: self.paymentMethod, fieldNumber: 7)
-    }
-    if !self.requestedAnyName.isEmpty {
-      try visitor.visitSingularStringField(value: self.requestedAnyName, fieldNumber: 8)
-    }
-    if !self.userEmail.isEmpty {
-      try visitor.visitSingularStringField(value: self.userEmail, fieldNumber: 9)
-    }
-    if self.subscribeToNewsletter != false {
-      try visitor.visitSingularBoolField(value: self.subscribeToNewsletter, fieldNumber: 10)
-    }
+    try { if let v = self._data {
+      try visitor.visitSingularMessageField(value: v, fieldNumber: 2)
+    } }()
     try unknownFields.traverse(visitor: &visitor)
   }
 
-  public static func ==(lhs: Anytype_Rpc.Payments.Subscription.GetStatus.Response, rhs: Anytype_Rpc.Payments.Subscription.GetStatus.Response) -> Bool {
+  public static func ==(lhs: Anytype_Rpc.Membership.GetStatus.Response, rhs: Anytype_Rpc.Membership.GetStatus.Response) -> Bool {
     if lhs._error != rhs._error {return false}
-    if lhs.tier != rhs.tier {return false}
-    if lhs.status != rhs.status {return false}
-    if lhs.dateStarted != rhs.dateStarted {return false}
-    if lhs.dateEnds != rhs.dateEnds {return false}
-    if lhs.isAutoRenew != rhs.isAutoRenew {return false}
-    if lhs.paymentMethod != rhs.paymentMethod {return false}
-    if lhs.requestedAnyName != rhs.requestedAnyName {return false}
-    if lhs.userEmail != rhs.userEmail {return false}
-    if lhs.subscribeToNewsletter != rhs.subscribeToNewsletter {return false}
+    if lhs._data != rhs._data {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
 }
 
-extension Anytype_Rpc.Payments.Subscription.GetStatus.Response.Error: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
-  public static let protoMessageName: String = Anytype_Rpc.Payments.Subscription.GetStatus.Response.protoMessageName + ".Error"
+extension Anytype_Rpc.Membership.GetStatus.Response.Error: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = Anytype_Rpc.Membership.GetStatus.Response.protoMessageName + ".Error"
   public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
     1: .same(proto: "code"),
     2: .same(proto: "description"),
@@ -69753,7 +69479,7 @@ extension Anytype_Rpc.Payments.Subscription.GetStatus.Response.Error: SwiftProto
     try unknownFields.traverse(visitor: &visitor)
   }
 
-  public static func ==(lhs: Anytype_Rpc.Payments.Subscription.GetStatus.Response.Error, rhs: Anytype_Rpc.Payments.Subscription.GetStatus.Response.Error) -> Bool {
+  public static func ==(lhs: Anytype_Rpc.Membership.GetStatus.Response.Error, rhs: Anytype_Rpc.Membership.GetStatus.Response.Error) -> Bool {
     if lhs.code != rhs.code {return false}
     if lhs.description_p != rhs.description_p {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
@@ -69761,7 +69487,7 @@ extension Anytype_Rpc.Payments.Subscription.GetStatus.Response.Error: SwiftProto
   }
 }
 
-extension Anytype_Rpc.Payments.Subscription.GetStatus.Response.Error.Code: SwiftProtobuf._ProtoNameProviding {
+extension Anytype_Rpc.Membership.GetStatus.Response.Error.Code: SwiftProtobuf._ProtoNameProviding {
   public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
     0: .same(proto: "NULL"),
     1: .same(proto: "UNKNOWN_ERROR"),
@@ -69771,8 +69497,8 @@ extension Anytype_Rpc.Payments.Subscription.GetStatus.Response.Error.Code: Swift
   ]
 }
 
-extension Anytype_Rpc.Payments.Subscription.GetPaymentUrl: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
-  public static let protoMessageName: String = Anytype_Rpc.Payments.Subscription.protoMessageName + ".GetPaymentUrl"
+extension Anytype_Rpc.Membership.IsNameValid: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = Anytype_Rpc.Membership.protoMessageName + ".IsNameValid"
   public static let _protobuf_nameMap = SwiftProtobuf._NameMap()
 
   public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
@@ -69784,14 +69510,157 @@ extension Anytype_Rpc.Payments.Subscription.GetPaymentUrl: SwiftProtobuf.Message
     try unknownFields.traverse(visitor: &visitor)
   }
 
-  public static func ==(lhs: Anytype_Rpc.Payments.Subscription.GetPaymentUrl, rhs: Anytype_Rpc.Payments.Subscription.GetPaymentUrl) -> Bool {
+  public static func ==(lhs: Anytype_Rpc.Membership.IsNameValid, rhs: Anytype_Rpc.Membership.IsNameValid) -> Bool {
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
 }
 
-extension Anytype_Rpc.Payments.Subscription.GetPaymentUrl.Request: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
-  public static let protoMessageName: String = Anytype_Rpc.Payments.Subscription.GetPaymentUrl.protoMessageName + ".Request"
+extension Anytype_Rpc.Membership.IsNameValid.Request: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = Anytype_Rpc.Membership.IsNameValid.protoMessageName + ".Request"
+  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    1: .same(proto: "requestedTier"),
+    2: .same(proto: "requestedAnyName"),
+  ]
+
+  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let fieldNumber = try decoder.nextFieldNumber() {
+      // The use of inline closures is to circumvent an issue where the compiler
+      // allocates stack space for every case branch when no optimizations are
+      // enabled. https://github.com/apple/swift-protobuf/issues/1034
+      switch fieldNumber {
+      case 1: try { try decoder.decodeSingularInt32Field(value: &self.requestedTier) }()
+      case 2: try { try decoder.decodeSingularStringField(value: &self.requestedAnyName) }()
+      default: break
+      }
+    }
+  }
+
+  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    if self.requestedTier != 0 {
+      try visitor.visitSingularInt32Field(value: self.requestedTier, fieldNumber: 1)
+    }
+    if !self.requestedAnyName.isEmpty {
+      try visitor.visitSingularStringField(value: self.requestedAnyName, fieldNumber: 2)
+    }
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  public static func ==(lhs: Anytype_Rpc.Membership.IsNameValid.Request, rhs: Anytype_Rpc.Membership.IsNameValid.Request) -> Bool {
+    if lhs.requestedTier != rhs.requestedTier {return false}
+    if lhs.requestedAnyName != rhs.requestedAnyName {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    return true
+  }
+}
+
+extension Anytype_Rpc.Membership.IsNameValid.Response: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = Anytype_Rpc.Membership.IsNameValid.protoMessageName + ".Response"
+  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    1: .same(proto: "error"),
+  ]
+
+  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let fieldNumber = try decoder.nextFieldNumber() {
+      // The use of inline closures is to circumvent an issue where the compiler
+      // allocates stack space for every case branch when no optimizations are
+      // enabled. https://github.com/apple/swift-protobuf/issues/1034
+      switch fieldNumber {
+      case 1: try { try decoder.decodeSingularMessageField(value: &self._error) }()
+      default: break
+      }
+    }
+  }
+
+  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    // The use of inline closures is to circumvent an issue where the compiler
+    // allocates stack space for every if/case branch local when no optimizations
+    // are enabled. https://github.com/apple/swift-protobuf/issues/1034 and
+    // https://github.com/apple/swift-protobuf/issues/1182
+    try { if let v = self._error {
+      try visitor.visitSingularMessageField(value: v, fieldNumber: 1)
+    } }()
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  public static func ==(lhs: Anytype_Rpc.Membership.IsNameValid.Response, rhs: Anytype_Rpc.Membership.IsNameValid.Response) -> Bool {
+    if lhs._error != rhs._error {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    return true
+  }
+}
+
+extension Anytype_Rpc.Membership.IsNameValid.Response.Error: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = Anytype_Rpc.Membership.IsNameValid.Response.protoMessageName + ".Error"
+  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    1: .same(proto: "code"),
+    2: .same(proto: "description"),
+  ]
+
+  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let fieldNumber = try decoder.nextFieldNumber() {
+      // The use of inline closures is to circumvent an issue where the compiler
+      // allocates stack space for every case branch when no optimizations are
+      // enabled. https://github.com/apple/swift-protobuf/issues/1034
+      switch fieldNumber {
+      case 1: try { try decoder.decodeSingularEnumField(value: &self.code) }()
+      case 2: try { try decoder.decodeSingularStringField(value: &self.description_p) }()
+      default: break
+      }
+    }
+  }
+
+  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    if self.code != .null {
+      try visitor.visitSingularEnumField(value: self.code, fieldNumber: 1)
+    }
+    if !self.description_p.isEmpty {
+      try visitor.visitSingularStringField(value: self.description_p, fieldNumber: 2)
+    }
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  public static func ==(lhs: Anytype_Rpc.Membership.IsNameValid.Response.Error, rhs: Anytype_Rpc.Membership.IsNameValid.Response.Error) -> Bool {
+    if lhs.code != rhs.code {return false}
+    if lhs.description_p != rhs.description_p {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    return true
+  }
+}
+
+extension Anytype_Rpc.Membership.IsNameValid.Response.Error.Code: SwiftProtobuf._ProtoNameProviding {
+  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    0: .same(proto: "NULL"),
+    1: .same(proto: "UNKNOWN_ERROR"),
+    2: .same(proto: "BAD_INPUT"),
+    3: .same(proto: "TOO_SHORT"),
+    4: .same(proto: "TOO_LONG"),
+    5: .same(proto: "HAS_INVALID_CHARS"),
+    6: .same(proto: "TIER_FEATURES_NO_NAME"),
+  ]
+}
+
+extension Anytype_Rpc.Membership.GetPaymentUrl: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = Anytype_Rpc.Membership.protoMessageName + ".GetPaymentUrl"
+  public static let _protobuf_nameMap = SwiftProtobuf._NameMap()
+
+  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let _ = try decoder.nextFieldNumber() {
+    }
+  }
+
+  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  public static func ==(lhs: Anytype_Rpc.Membership.GetPaymentUrl, rhs: Anytype_Rpc.Membership.GetPaymentUrl) -> Bool {
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    return true
+  }
+}
+
+extension Anytype_Rpc.Membership.GetPaymentUrl.Request: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = Anytype_Rpc.Membership.GetPaymentUrl.protoMessageName + ".Request"
   public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
     1: .same(proto: "requestedTier"),
     2: .same(proto: "paymentMethod"),
@@ -69825,7 +69694,7 @@ extension Anytype_Rpc.Payments.Subscription.GetPaymentUrl.Request: SwiftProtobuf
     try unknownFields.traverse(visitor: &visitor)
   }
 
-  public static func ==(lhs: Anytype_Rpc.Payments.Subscription.GetPaymentUrl.Request, rhs: Anytype_Rpc.Payments.Subscription.GetPaymentUrl.Request) -> Bool {
+  public static func ==(lhs: Anytype_Rpc.Membership.GetPaymentUrl.Request, rhs: Anytype_Rpc.Membership.GetPaymentUrl.Request) -> Bool {
     if lhs.requestedTier != rhs.requestedTier {return false}
     if lhs.paymentMethod != rhs.paymentMethod {return false}
     if lhs.requestedAnyName != rhs.requestedAnyName {return false}
@@ -69834,8 +69703,8 @@ extension Anytype_Rpc.Payments.Subscription.GetPaymentUrl.Request: SwiftProtobuf
   }
 }
 
-extension Anytype_Rpc.Payments.Subscription.GetPaymentUrl.Response: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
-  public static let protoMessageName: String = Anytype_Rpc.Payments.Subscription.GetPaymentUrl.protoMessageName + ".Response"
+extension Anytype_Rpc.Membership.GetPaymentUrl.Response: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = Anytype_Rpc.Membership.GetPaymentUrl.protoMessageName + ".Response"
   public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
     1: .same(proto: "error"),
     2: .same(proto: "paymentUrl"),
@@ -69868,7 +69737,7 @@ extension Anytype_Rpc.Payments.Subscription.GetPaymentUrl.Response: SwiftProtobu
     try unknownFields.traverse(visitor: &visitor)
   }
 
-  public static func ==(lhs: Anytype_Rpc.Payments.Subscription.GetPaymentUrl.Response, rhs: Anytype_Rpc.Payments.Subscription.GetPaymentUrl.Response) -> Bool {
+  public static func ==(lhs: Anytype_Rpc.Membership.GetPaymentUrl.Response, rhs: Anytype_Rpc.Membership.GetPaymentUrl.Response) -> Bool {
     if lhs._error != rhs._error {return false}
     if lhs.paymentURL != rhs.paymentURL {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
@@ -69876,8 +69745,8 @@ extension Anytype_Rpc.Payments.Subscription.GetPaymentUrl.Response: SwiftProtobu
   }
 }
 
-extension Anytype_Rpc.Payments.Subscription.GetPaymentUrl.Response.Error: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
-  public static let protoMessageName: String = Anytype_Rpc.Payments.Subscription.GetPaymentUrl.Response.protoMessageName + ".Error"
+extension Anytype_Rpc.Membership.GetPaymentUrl.Response.Error: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = Anytype_Rpc.Membership.GetPaymentUrl.Response.protoMessageName + ".Error"
   public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
     1: .same(proto: "code"),
     2: .same(proto: "description"),
@@ -69906,7 +69775,7 @@ extension Anytype_Rpc.Payments.Subscription.GetPaymentUrl.Response.Error: SwiftP
     try unknownFields.traverse(visitor: &visitor)
   }
 
-  public static func ==(lhs: Anytype_Rpc.Payments.Subscription.GetPaymentUrl.Response.Error, rhs: Anytype_Rpc.Payments.Subscription.GetPaymentUrl.Response.Error) -> Bool {
+  public static func ==(lhs: Anytype_Rpc.Membership.GetPaymentUrl.Response.Error, rhs: Anytype_Rpc.Membership.GetPaymentUrl.Response.Error) -> Bool {
     if lhs.code != rhs.code {return false}
     if lhs.description_p != rhs.description_p {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
@@ -69914,7 +69783,7 @@ extension Anytype_Rpc.Payments.Subscription.GetPaymentUrl.Response.Error: SwiftP
   }
 }
 
-extension Anytype_Rpc.Payments.Subscription.GetPaymentUrl.Response.Error.Code: SwiftProtobuf._ProtoNameProviding {
+extension Anytype_Rpc.Membership.GetPaymentUrl.Response.Error.Code: SwiftProtobuf._ProtoNameProviding {
   public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
     0: .same(proto: "NULL"),
     1: .same(proto: "UNKNOWN_ERROR"),
@@ -69924,8 +69793,8 @@ extension Anytype_Rpc.Payments.Subscription.GetPaymentUrl.Response.Error.Code: S
   ]
 }
 
-extension Anytype_Rpc.Payments.Subscription.GetPortalLinkUrl: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
-  public static let protoMessageName: String = Anytype_Rpc.Payments.Subscription.protoMessageName + ".GetPortalLinkUrl"
+extension Anytype_Rpc.Membership.GetPortalLinkUrl: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = Anytype_Rpc.Membership.protoMessageName + ".GetPortalLinkUrl"
   public static let _protobuf_nameMap = SwiftProtobuf._NameMap()
 
   public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
@@ -69937,14 +69806,14 @@ extension Anytype_Rpc.Payments.Subscription.GetPortalLinkUrl: SwiftProtobuf.Mess
     try unknownFields.traverse(visitor: &visitor)
   }
 
-  public static func ==(lhs: Anytype_Rpc.Payments.Subscription.GetPortalLinkUrl, rhs: Anytype_Rpc.Payments.Subscription.GetPortalLinkUrl) -> Bool {
+  public static func ==(lhs: Anytype_Rpc.Membership.GetPortalLinkUrl, rhs: Anytype_Rpc.Membership.GetPortalLinkUrl) -> Bool {
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
 }
 
-extension Anytype_Rpc.Payments.Subscription.GetPortalLinkUrl.Request: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
-  public static let protoMessageName: String = Anytype_Rpc.Payments.Subscription.GetPortalLinkUrl.protoMessageName + ".Request"
+extension Anytype_Rpc.Membership.GetPortalLinkUrl.Request: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = Anytype_Rpc.Membership.GetPortalLinkUrl.protoMessageName + ".Request"
   public static let _protobuf_nameMap = SwiftProtobuf._NameMap()
 
   public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
@@ -69956,14 +69825,14 @@ extension Anytype_Rpc.Payments.Subscription.GetPortalLinkUrl.Request: SwiftProto
     try unknownFields.traverse(visitor: &visitor)
   }
 
-  public static func ==(lhs: Anytype_Rpc.Payments.Subscription.GetPortalLinkUrl.Request, rhs: Anytype_Rpc.Payments.Subscription.GetPortalLinkUrl.Request) -> Bool {
+  public static func ==(lhs: Anytype_Rpc.Membership.GetPortalLinkUrl.Request, rhs: Anytype_Rpc.Membership.GetPortalLinkUrl.Request) -> Bool {
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
 }
 
-extension Anytype_Rpc.Payments.Subscription.GetPortalLinkUrl.Response: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
-  public static let protoMessageName: String = Anytype_Rpc.Payments.Subscription.GetPortalLinkUrl.protoMessageName + ".Response"
+extension Anytype_Rpc.Membership.GetPortalLinkUrl.Response: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = Anytype_Rpc.Membership.GetPortalLinkUrl.protoMessageName + ".Response"
   public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
     1: .same(proto: "error"),
     2: .same(proto: "portalUrl"),
@@ -69996,7 +69865,7 @@ extension Anytype_Rpc.Payments.Subscription.GetPortalLinkUrl.Response: SwiftProt
     try unknownFields.traverse(visitor: &visitor)
   }
 
-  public static func ==(lhs: Anytype_Rpc.Payments.Subscription.GetPortalLinkUrl.Response, rhs: Anytype_Rpc.Payments.Subscription.GetPortalLinkUrl.Response) -> Bool {
+  public static func ==(lhs: Anytype_Rpc.Membership.GetPortalLinkUrl.Response, rhs: Anytype_Rpc.Membership.GetPortalLinkUrl.Response) -> Bool {
     if lhs._error != rhs._error {return false}
     if lhs.portalURL != rhs.portalURL {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
@@ -70004,8 +69873,8 @@ extension Anytype_Rpc.Payments.Subscription.GetPortalLinkUrl.Response: SwiftProt
   }
 }
 
-extension Anytype_Rpc.Payments.Subscription.GetPortalLinkUrl.Response.Error: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
-  public static let protoMessageName: String = Anytype_Rpc.Payments.Subscription.GetPortalLinkUrl.Response.protoMessageName + ".Error"
+extension Anytype_Rpc.Membership.GetPortalLinkUrl.Response.Error: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = Anytype_Rpc.Membership.GetPortalLinkUrl.Response.protoMessageName + ".Error"
   public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
     1: .same(proto: "code"),
     2: .same(proto: "description"),
@@ -70034,7 +69903,7 @@ extension Anytype_Rpc.Payments.Subscription.GetPortalLinkUrl.Response.Error: Swi
     try unknownFields.traverse(visitor: &visitor)
   }
 
-  public static func ==(lhs: Anytype_Rpc.Payments.Subscription.GetPortalLinkUrl.Response.Error, rhs: Anytype_Rpc.Payments.Subscription.GetPortalLinkUrl.Response.Error) -> Bool {
+  public static func ==(lhs: Anytype_Rpc.Membership.GetPortalLinkUrl.Response.Error, rhs: Anytype_Rpc.Membership.GetPortalLinkUrl.Response.Error) -> Bool {
     if lhs.code != rhs.code {return false}
     if lhs.description_p != rhs.description_p {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
@@ -70042,7 +69911,7 @@ extension Anytype_Rpc.Payments.Subscription.GetPortalLinkUrl.Response.Error: Swi
   }
 }
 
-extension Anytype_Rpc.Payments.Subscription.GetPortalLinkUrl.Response.Error.Code: SwiftProtobuf._ProtoNameProviding {
+extension Anytype_Rpc.Membership.GetPortalLinkUrl.Response.Error.Code: SwiftProtobuf._ProtoNameProviding {
   public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
     0: .same(proto: "NULL"),
     1: .same(proto: "UNKNOWN_ERROR"),
@@ -70052,8 +69921,8 @@ extension Anytype_Rpc.Payments.Subscription.GetPortalLinkUrl.Response.Error.Code
   ]
 }
 
-extension Anytype_Rpc.Payments.Subscription.Finalize: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
-  public static let protoMessageName: String = Anytype_Rpc.Payments.Subscription.protoMessageName + ".Finalize"
+extension Anytype_Rpc.Membership.Finalize: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = Anytype_Rpc.Membership.protoMessageName + ".Finalize"
   public static let _protobuf_nameMap = SwiftProtobuf._NameMap()
 
   public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
@@ -70065,14 +69934,14 @@ extension Anytype_Rpc.Payments.Subscription.Finalize: SwiftProtobuf.Message, Swi
     try unknownFields.traverse(visitor: &visitor)
   }
 
-  public static func ==(lhs: Anytype_Rpc.Payments.Subscription.Finalize, rhs: Anytype_Rpc.Payments.Subscription.Finalize) -> Bool {
+  public static func ==(lhs: Anytype_Rpc.Membership.Finalize, rhs: Anytype_Rpc.Membership.Finalize) -> Bool {
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
 }
 
-extension Anytype_Rpc.Payments.Subscription.Finalize.Request: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
-  public static let protoMessageName: String = Anytype_Rpc.Payments.Subscription.Finalize.protoMessageName + ".Request"
+extension Anytype_Rpc.Membership.Finalize.Request: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = Anytype_Rpc.Membership.Finalize.protoMessageName + ".Request"
   public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
     1: .same(proto: "requestedAnyName"),
   ]
@@ -70096,15 +69965,15 @@ extension Anytype_Rpc.Payments.Subscription.Finalize.Request: SwiftProtobuf.Mess
     try unknownFields.traverse(visitor: &visitor)
   }
 
-  public static func ==(lhs: Anytype_Rpc.Payments.Subscription.Finalize.Request, rhs: Anytype_Rpc.Payments.Subscription.Finalize.Request) -> Bool {
+  public static func ==(lhs: Anytype_Rpc.Membership.Finalize.Request, rhs: Anytype_Rpc.Membership.Finalize.Request) -> Bool {
     if lhs.requestedAnyName != rhs.requestedAnyName {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
 }
 
-extension Anytype_Rpc.Payments.Subscription.Finalize.Response: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
-  public static let protoMessageName: String = Anytype_Rpc.Payments.Subscription.Finalize.protoMessageName + ".Response"
+extension Anytype_Rpc.Membership.Finalize.Response: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = Anytype_Rpc.Membership.Finalize.protoMessageName + ".Response"
   public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
     1: .same(proto: "error"),
   ]
@@ -70132,15 +70001,15 @@ extension Anytype_Rpc.Payments.Subscription.Finalize.Response: SwiftProtobuf.Mes
     try unknownFields.traverse(visitor: &visitor)
   }
 
-  public static func ==(lhs: Anytype_Rpc.Payments.Subscription.Finalize.Response, rhs: Anytype_Rpc.Payments.Subscription.Finalize.Response) -> Bool {
+  public static func ==(lhs: Anytype_Rpc.Membership.Finalize.Response, rhs: Anytype_Rpc.Membership.Finalize.Response) -> Bool {
     if lhs._error != rhs._error {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
 }
 
-extension Anytype_Rpc.Payments.Subscription.Finalize.Response.Error: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
-  public static let protoMessageName: String = Anytype_Rpc.Payments.Subscription.Finalize.Response.protoMessageName + ".Error"
+extension Anytype_Rpc.Membership.Finalize.Response.Error: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = Anytype_Rpc.Membership.Finalize.Response.protoMessageName + ".Error"
   public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
     1: .same(proto: "code"),
     2: .same(proto: "description"),
@@ -70169,7 +70038,7 @@ extension Anytype_Rpc.Payments.Subscription.Finalize.Response.Error: SwiftProtob
     try unknownFields.traverse(visitor: &visitor)
   }
 
-  public static func ==(lhs: Anytype_Rpc.Payments.Subscription.Finalize.Response.Error, rhs: Anytype_Rpc.Payments.Subscription.Finalize.Response.Error) -> Bool {
+  public static func ==(lhs: Anytype_Rpc.Membership.Finalize.Response.Error, rhs: Anytype_Rpc.Membership.Finalize.Response.Error) -> Bool {
     if lhs.code != rhs.code {return false}
     if lhs.description_p != rhs.description_p {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
@@ -70177,7 +70046,7 @@ extension Anytype_Rpc.Payments.Subscription.Finalize.Response.Error: SwiftProtob
   }
 }
 
-extension Anytype_Rpc.Payments.Subscription.Finalize.Response.Error.Code: SwiftProtobuf._ProtoNameProviding {
+extension Anytype_Rpc.Membership.Finalize.Response.Error.Code: SwiftProtobuf._ProtoNameProviding {
   public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
     0: .same(proto: "NULL"),
     1: .same(proto: "UNKNOWN_ERROR"),
@@ -70187,8 +70056,8 @@ extension Anytype_Rpc.Payments.Subscription.Finalize.Response.Error.Code: SwiftP
   ]
 }
 
-extension Anytype_Rpc.Payments.Subscription.GetVerificationEmail: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
-  public static let protoMessageName: String = Anytype_Rpc.Payments.Subscription.protoMessageName + ".GetVerificationEmail"
+extension Anytype_Rpc.Membership.GetVerificationEmail: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = Anytype_Rpc.Membership.protoMessageName + ".GetVerificationEmail"
   public static let _protobuf_nameMap = SwiftProtobuf._NameMap()
 
   public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
@@ -70200,14 +70069,14 @@ extension Anytype_Rpc.Payments.Subscription.GetVerificationEmail: SwiftProtobuf.
     try unknownFields.traverse(visitor: &visitor)
   }
 
-  public static func ==(lhs: Anytype_Rpc.Payments.Subscription.GetVerificationEmail, rhs: Anytype_Rpc.Payments.Subscription.GetVerificationEmail) -> Bool {
+  public static func ==(lhs: Anytype_Rpc.Membership.GetVerificationEmail, rhs: Anytype_Rpc.Membership.GetVerificationEmail) -> Bool {
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
 }
 
-extension Anytype_Rpc.Payments.Subscription.GetVerificationEmail.Request: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
-  public static let protoMessageName: String = Anytype_Rpc.Payments.Subscription.GetVerificationEmail.protoMessageName + ".Request"
+extension Anytype_Rpc.Membership.GetVerificationEmail.Request: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = Anytype_Rpc.Membership.GetVerificationEmail.protoMessageName + ".Request"
   public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
     1: .same(proto: "email"),
     2: .same(proto: "subscribeToNewsletter"),
@@ -70236,7 +70105,7 @@ extension Anytype_Rpc.Payments.Subscription.GetVerificationEmail.Request: SwiftP
     try unknownFields.traverse(visitor: &visitor)
   }
 
-  public static func ==(lhs: Anytype_Rpc.Payments.Subscription.GetVerificationEmail.Request, rhs: Anytype_Rpc.Payments.Subscription.GetVerificationEmail.Request) -> Bool {
+  public static func ==(lhs: Anytype_Rpc.Membership.GetVerificationEmail.Request, rhs: Anytype_Rpc.Membership.GetVerificationEmail.Request) -> Bool {
     if lhs.email != rhs.email {return false}
     if lhs.subscribeToNewsletter != rhs.subscribeToNewsletter {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
@@ -70244,8 +70113,8 @@ extension Anytype_Rpc.Payments.Subscription.GetVerificationEmail.Request: SwiftP
   }
 }
 
-extension Anytype_Rpc.Payments.Subscription.GetVerificationEmail.Response: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
-  public static let protoMessageName: String = Anytype_Rpc.Payments.Subscription.GetVerificationEmail.protoMessageName + ".Response"
+extension Anytype_Rpc.Membership.GetVerificationEmail.Response: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = Anytype_Rpc.Membership.GetVerificationEmail.protoMessageName + ".Response"
   public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
     1: .same(proto: "error"),
   ]
@@ -70273,15 +70142,15 @@ extension Anytype_Rpc.Payments.Subscription.GetVerificationEmail.Response: Swift
     try unknownFields.traverse(visitor: &visitor)
   }
 
-  public static func ==(lhs: Anytype_Rpc.Payments.Subscription.GetVerificationEmail.Response, rhs: Anytype_Rpc.Payments.Subscription.GetVerificationEmail.Response) -> Bool {
+  public static func ==(lhs: Anytype_Rpc.Membership.GetVerificationEmail.Response, rhs: Anytype_Rpc.Membership.GetVerificationEmail.Response) -> Bool {
     if lhs._error != rhs._error {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
 }
 
-extension Anytype_Rpc.Payments.Subscription.GetVerificationEmail.Response.Error: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
-  public static let protoMessageName: String = Anytype_Rpc.Payments.Subscription.GetVerificationEmail.Response.protoMessageName + ".Error"
+extension Anytype_Rpc.Membership.GetVerificationEmail.Response.Error: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = Anytype_Rpc.Membership.GetVerificationEmail.Response.protoMessageName + ".Error"
   public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
     1: .same(proto: "code"),
     2: .same(proto: "description"),
@@ -70310,7 +70179,7 @@ extension Anytype_Rpc.Payments.Subscription.GetVerificationEmail.Response.Error:
     try unknownFields.traverse(visitor: &visitor)
   }
 
-  public static func ==(lhs: Anytype_Rpc.Payments.Subscription.GetVerificationEmail.Response.Error, rhs: Anytype_Rpc.Payments.Subscription.GetVerificationEmail.Response.Error) -> Bool {
+  public static func ==(lhs: Anytype_Rpc.Membership.GetVerificationEmail.Response.Error, rhs: Anytype_Rpc.Membership.GetVerificationEmail.Response.Error) -> Bool {
     if lhs.code != rhs.code {return false}
     if lhs.description_p != rhs.description_p {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
@@ -70318,7 +70187,7 @@ extension Anytype_Rpc.Payments.Subscription.GetVerificationEmail.Response.Error:
   }
 }
 
-extension Anytype_Rpc.Payments.Subscription.GetVerificationEmail.Response.Error.Code: SwiftProtobuf._ProtoNameProviding {
+extension Anytype_Rpc.Membership.GetVerificationEmail.Response.Error.Code: SwiftProtobuf._ProtoNameProviding {
   public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
     0: .same(proto: "NULL"),
     1: .same(proto: "UNKNOWN_ERROR"),
@@ -70328,8 +70197,8 @@ extension Anytype_Rpc.Payments.Subscription.GetVerificationEmail.Response.Error.
   ]
 }
 
-extension Anytype_Rpc.Payments.Subscription.VerifyEmailCode: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
-  public static let protoMessageName: String = Anytype_Rpc.Payments.Subscription.protoMessageName + ".VerifyEmailCode"
+extension Anytype_Rpc.Membership.VerifyEmailCode: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = Anytype_Rpc.Membership.protoMessageName + ".VerifyEmailCode"
   public static let _protobuf_nameMap = SwiftProtobuf._NameMap()
 
   public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
@@ -70341,14 +70210,14 @@ extension Anytype_Rpc.Payments.Subscription.VerifyEmailCode: SwiftProtobuf.Messa
     try unknownFields.traverse(visitor: &visitor)
   }
 
-  public static func ==(lhs: Anytype_Rpc.Payments.Subscription.VerifyEmailCode, rhs: Anytype_Rpc.Payments.Subscription.VerifyEmailCode) -> Bool {
+  public static func ==(lhs: Anytype_Rpc.Membership.VerifyEmailCode, rhs: Anytype_Rpc.Membership.VerifyEmailCode) -> Bool {
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
 }
 
-extension Anytype_Rpc.Payments.Subscription.VerifyEmailCode.Request: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
-  public static let protoMessageName: String = Anytype_Rpc.Payments.Subscription.VerifyEmailCode.protoMessageName + ".Request"
+extension Anytype_Rpc.Membership.VerifyEmailCode.Request: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = Anytype_Rpc.Membership.VerifyEmailCode.protoMessageName + ".Request"
   public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
     1: .same(proto: "code"),
   ]
@@ -70372,15 +70241,15 @@ extension Anytype_Rpc.Payments.Subscription.VerifyEmailCode.Request: SwiftProtob
     try unknownFields.traverse(visitor: &visitor)
   }
 
-  public static func ==(lhs: Anytype_Rpc.Payments.Subscription.VerifyEmailCode.Request, rhs: Anytype_Rpc.Payments.Subscription.VerifyEmailCode.Request) -> Bool {
+  public static func ==(lhs: Anytype_Rpc.Membership.VerifyEmailCode.Request, rhs: Anytype_Rpc.Membership.VerifyEmailCode.Request) -> Bool {
     if lhs.code != rhs.code {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
 }
 
-extension Anytype_Rpc.Payments.Subscription.VerifyEmailCode.Response: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
-  public static let protoMessageName: String = Anytype_Rpc.Payments.Subscription.VerifyEmailCode.protoMessageName + ".Response"
+extension Anytype_Rpc.Membership.VerifyEmailCode.Response: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = Anytype_Rpc.Membership.VerifyEmailCode.protoMessageName + ".Response"
   public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
     1: .same(proto: "error"),
   ]
@@ -70408,15 +70277,15 @@ extension Anytype_Rpc.Payments.Subscription.VerifyEmailCode.Response: SwiftProto
     try unknownFields.traverse(visitor: &visitor)
   }
 
-  public static func ==(lhs: Anytype_Rpc.Payments.Subscription.VerifyEmailCode.Response, rhs: Anytype_Rpc.Payments.Subscription.VerifyEmailCode.Response) -> Bool {
+  public static func ==(lhs: Anytype_Rpc.Membership.VerifyEmailCode.Response, rhs: Anytype_Rpc.Membership.VerifyEmailCode.Response) -> Bool {
     if lhs._error != rhs._error {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
 }
 
-extension Anytype_Rpc.Payments.Subscription.VerifyEmailCode.Response.Error: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
-  public static let protoMessageName: String = Anytype_Rpc.Payments.Subscription.VerifyEmailCode.Response.protoMessageName + ".Error"
+extension Anytype_Rpc.Membership.VerifyEmailCode.Response.Error: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = Anytype_Rpc.Membership.VerifyEmailCode.Response.protoMessageName + ".Error"
   public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
     1: .same(proto: "code"),
     2: .same(proto: "description"),
@@ -70445,7 +70314,7 @@ extension Anytype_Rpc.Payments.Subscription.VerifyEmailCode.Response.Error: Swif
     try unknownFields.traverse(visitor: &visitor)
   }
 
-  public static func ==(lhs: Anytype_Rpc.Payments.Subscription.VerifyEmailCode.Response.Error, rhs: Anytype_Rpc.Payments.Subscription.VerifyEmailCode.Response.Error) -> Bool {
+  public static func ==(lhs: Anytype_Rpc.Membership.VerifyEmailCode.Response.Error, rhs: Anytype_Rpc.Membership.VerifyEmailCode.Response.Error) -> Bool {
     if lhs.code != rhs.code {return false}
     if lhs.description_p != rhs.description_p {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
@@ -70453,7 +70322,7 @@ extension Anytype_Rpc.Payments.Subscription.VerifyEmailCode.Response.Error: Swif
   }
 }
 
-extension Anytype_Rpc.Payments.Subscription.VerifyEmailCode.Response.Error.Code: SwiftProtobuf._ProtoNameProviding {
+extension Anytype_Rpc.Membership.VerifyEmailCode.Response.Error.Code: SwiftProtobuf._ProtoNameProviding {
   public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
     0: .same(proto: "NULL"),
     1: .same(proto: "UNKNOWN_ERROR"),
@@ -70463,8 +70332,8 @@ extension Anytype_Rpc.Payments.Subscription.VerifyEmailCode.Response.Error.Code:
   ]
 }
 
-extension Anytype_Rpc.Payments.Tiers: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
-  public static let protoMessageName: String = Anytype_Rpc.Payments.protoMessageName + ".Tiers"
+extension Anytype_Rpc.Membership.Tiers: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = Anytype_Rpc.Membership.protoMessageName + ".Tiers"
   public static let _protobuf_nameMap = SwiftProtobuf._NameMap()
 
   public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
@@ -70476,161 +70345,14 @@ extension Anytype_Rpc.Payments.Tiers: SwiftProtobuf.Message, SwiftProtobuf._Mess
     try unknownFields.traverse(visitor: &visitor)
   }
 
-  public static func ==(lhs: Anytype_Rpc.Payments.Tiers, rhs: Anytype_Rpc.Payments.Tiers) -> Bool {
+  public static func ==(lhs: Anytype_Rpc.Membership.Tiers, rhs: Anytype_Rpc.Membership.Tiers) -> Bool {
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
 }
 
-extension Anytype_Rpc.Payments.Tiers.PeriodType: SwiftProtobuf._ProtoNameProviding {
-  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
-    0: .same(proto: "PeriodTypeUnknown"),
-    1: .same(proto: "PeriodTypeUnlimited"),
-    2: .same(proto: "PeriodTypeDays"),
-    3: .same(proto: "PeriodTypeWeeks"),
-    4: .same(proto: "PeriodTypeMonths"),
-    5: .same(proto: "PeriodTypeYears"),
-  ]
-}
-
-extension Anytype_Rpc.Payments.Tiers.Feature: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
-  public static let protoMessageName: String = Anytype_Rpc.Payments.Tiers.protoMessageName + ".Feature"
-  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
-    1: .same(proto: "valueStr"),
-    2: .same(proto: "valueUint"),
-  ]
-
-  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
-    while let fieldNumber = try decoder.nextFieldNumber() {
-      // The use of inline closures is to circumvent an issue where the compiler
-      // allocates stack space for every case branch when no optimizations are
-      // enabled. https://github.com/apple/swift-protobuf/issues/1034
-      switch fieldNumber {
-      case 1: try { try decoder.decodeSingularStringField(value: &self.valueStr) }()
-      case 2: try { try decoder.decodeSingularUInt32Field(value: &self.valueUint) }()
-      default: break
-      }
-    }
-  }
-
-  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
-    if !self.valueStr.isEmpty {
-      try visitor.visitSingularStringField(value: self.valueStr, fieldNumber: 1)
-    }
-    if self.valueUint != 0 {
-      try visitor.visitSingularUInt32Field(value: self.valueUint, fieldNumber: 2)
-    }
-    try unknownFields.traverse(visitor: &visitor)
-  }
-
-  public static func ==(lhs: Anytype_Rpc.Payments.Tiers.Feature, rhs: Anytype_Rpc.Payments.Tiers.Feature) -> Bool {
-    if lhs.valueStr != rhs.valueStr {return false}
-    if lhs.valueUint != rhs.valueUint {return false}
-    if lhs.unknownFields != rhs.unknownFields {return false}
-    return true
-  }
-}
-
-extension Anytype_Rpc.Payments.Tiers.DataMessage: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
-  public static let protoMessageName: String = Anytype_Rpc.Payments.Tiers.protoMessageName + ".Data"
-  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
-    1: .same(proto: "id"),
-    2: .same(proto: "name"),
-    3: .same(proto: "description"),
-    4: .same(proto: "isActive"),
-    5: .same(proto: "isTest"),
-    6: .same(proto: "isHiddenTier"),
-    7: .same(proto: "periodType"),
-    8: .same(proto: "periodValue"),
-    9: .same(proto: "priceStripeUsdCents"),
-    10: .same(proto: "anyNamesCountIncluded"),
-    11: .same(proto: "anyNameMinLength"),
-    12: .same(proto: "features"),
-  ]
-
-  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
-    while let fieldNumber = try decoder.nextFieldNumber() {
-      // The use of inline closures is to circumvent an issue where the compiler
-      // allocates stack space for every case branch when no optimizations are
-      // enabled. https://github.com/apple/swift-protobuf/issues/1034
-      switch fieldNumber {
-      case 1: try { try decoder.decodeSingularUInt32Field(value: &self.id) }()
-      case 2: try { try decoder.decodeSingularStringField(value: &self.name) }()
-      case 3: try { try decoder.decodeSingularStringField(value: &self.description_p) }()
-      case 4: try { try decoder.decodeSingularBoolField(value: &self.isActive) }()
-      case 5: try { try decoder.decodeSingularBoolField(value: &self.isTest) }()
-      case 6: try { try decoder.decodeSingularBoolField(value: &self.isHiddenTier) }()
-      case 7: try { try decoder.decodeSingularEnumField(value: &self.periodType) }()
-      case 8: try { try decoder.decodeSingularUInt32Field(value: &self.periodValue) }()
-      case 9: try { try decoder.decodeSingularUInt32Field(value: &self.priceStripeUsdCents) }()
-      case 10: try { try decoder.decodeSingularUInt32Field(value: &self.anyNamesCountIncluded) }()
-      case 11: try { try decoder.decodeSingularUInt32Field(value: &self.anyNameMinLength) }()
-      case 12: try { try decoder.decodeMapField(fieldType: SwiftProtobuf._ProtobufMessageMap<SwiftProtobuf.ProtobufString,Anytype_Rpc.Payments.Tiers.Feature>.self, value: &self.features) }()
-      default: break
-      }
-    }
-  }
-
-  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
-    if self.id != 0 {
-      try visitor.visitSingularUInt32Field(value: self.id, fieldNumber: 1)
-    }
-    if !self.name.isEmpty {
-      try visitor.visitSingularStringField(value: self.name, fieldNumber: 2)
-    }
-    if !self.description_p.isEmpty {
-      try visitor.visitSingularStringField(value: self.description_p, fieldNumber: 3)
-    }
-    if self.isActive != false {
-      try visitor.visitSingularBoolField(value: self.isActive, fieldNumber: 4)
-    }
-    if self.isTest != false {
-      try visitor.visitSingularBoolField(value: self.isTest, fieldNumber: 5)
-    }
-    if self.isHiddenTier != false {
-      try visitor.visitSingularBoolField(value: self.isHiddenTier, fieldNumber: 6)
-    }
-    if self.periodType != .unknown {
-      try visitor.visitSingularEnumField(value: self.periodType, fieldNumber: 7)
-    }
-    if self.periodValue != 0 {
-      try visitor.visitSingularUInt32Field(value: self.periodValue, fieldNumber: 8)
-    }
-    if self.priceStripeUsdCents != 0 {
-      try visitor.visitSingularUInt32Field(value: self.priceStripeUsdCents, fieldNumber: 9)
-    }
-    if self.anyNamesCountIncluded != 0 {
-      try visitor.visitSingularUInt32Field(value: self.anyNamesCountIncluded, fieldNumber: 10)
-    }
-    if self.anyNameMinLength != 0 {
-      try visitor.visitSingularUInt32Field(value: self.anyNameMinLength, fieldNumber: 11)
-    }
-    if !self.features.isEmpty {
-      try visitor.visitMapField(fieldType: SwiftProtobuf._ProtobufMessageMap<SwiftProtobuf.ProtobufString,Anytype_Rpc.Payments.Tiers.Feature>.self, value: self.features, fieldNumber: 12)
-    }
-    try unknownFields.traverse(visitor: &visitor)
-  }
-
-  public static func ==(lhs: Anytype_Rpc.Payments.Tiers.DataMessage, rhs: Anytype_Rpc.Payments.Tiers.DataMessage) -> Bool {
-    if lhs.id != rhs.id {return false}
-    if lhs.name != rhs.name {return false}
-    if lhs.description_p != rhs.description_p {return false}
-    if lhs.isActive != rhs.isActive {return false}
-    if lhs.isTest != rhs.isTest {return false}
-    if lhs.isHiddenTier != rhs.isHiddenTier {return false}
-    if lhs.periodType != rhs.periodType {return false}
-    if lhs.periodValue != rhs.periodValue {return false}
-    if lhs.priceStripeUsdCents != rhs.priceStripeUsdCents {return false}
-    if lhs.anyNamesCountIncluded != rhs.anyNamesCountIncluded {return false}
-    if lhs.anyNameMinLength != rhs.anyNameMinLength {return false}
-    if lhs.features != rhs.features {return false}
-    if lhs.unknownFields != rhs.unknownFields {return false}
-    return true
-  }
-}
-
-extension Anytype_Rpc.Payments.Tiers.Get: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
-  public static let protoMessageName: String = Anytype_Rpc.Payments.Tiers.protoMessageName + ".Get"
+extension Anytype_Rpc.Membership.Tiers.Get: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = Anytype_Rpc.Membership.Tiers.protoMessageName + ".Get"
   public static let _protobuf_nameMap = SwiftProtobuf._NameMap()
 
   public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
@@ -70642,14 +70364,14 @@ extension Anytype_Rpc.Payments.Tiers.Get: SwiftProtobuf.Message, SwiftProtobuf._
     try unknownFields.traverse(visitor: &visitor)
   }
 
-  public static func ==(lhs: Anytype_Rpc.Payments.Tiers.Get, rhs: Anytype_Rpc.Payments.Tiers.Get) -> Bool {
+  public static func ==(lhs: Anytype_Rpc.Membership.Tiers.Get, rhs: Anytype_Rpc.Membership.Tiers.Get) -> Bool {
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
 }
 
-extension Anytype_Rpc.Payments.Tiers.Get.Request: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
-  public static let protoMessageName: String = Anytype_Rpc.Payments.Tiers.Get.protoMessageName + ".Request"
+extension Anytype_Rpc.Membership.Tiers.Get.Request: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = Anytype_Rpc.Membership.Tiers.Get.protoMessageName + ".Request"
   public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
     1: .same(proto: "noCache"),
     2: .same(proto: "locale"),
@@ -70683,7 +70405,7 @@ extension Anytype_Rpc.Payments.Tiers.Get.Request: SwiftProtobuf.Message, SwiftPr
     try unknownFields.traverse(visitor: &visitor)
   }
 
-  public static func ==(lhs: Anytype_Rpc.Payments.Tiers.Get.Request, rhs: Anytype_Rpc.Payments.Tiers.Get.Request) -> Bool {
+  public static func ==(lhs: Anytype_Rpc.Membership.Tiers.Get.Request, rhs: Anytype_Rpc.Membership.Tiers.Get.Request) -> Bool {
     if lhs.noCache != rhs.noCache {return false}
     if lhs.locale != rhs.locale {return false}
     if lhs.paymentMethod != rhs.paymentMethod {return false}
@@ -70692,8 +70414,8 @@ extension Anytype_Rpc.Payments.Tiers.Get.Request: SwiftProtobuf.Message, SwiftPr
   }
 }
 
-extension Anytype_Rpc.Payments.Tiers.Get.Response: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
-  public static let protoMessageName: String = Anytype_Rpc.Payments.Tiers.Get.protoMessageName + ".Response"
+extension Anytype_Rpc.Membership.Tiers.Get.Response: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = Anytype_Rpc.Membership.Tiers.Get.protoMessageName + ".Response"
   public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
     1: .same(proto: "error"),
     2: .same(proto: "tiers"),
@@ -70726,7 +70448,7 @@ extension Anytype_Rpc.Payments.Tiers.Get.Response: SwiftProtobuf.Message, SwiftP
     try unknownFields.traverse(visitor: &visitor)
   }
 
-  public static func ==(lhs: Anytype_Rpc.Payments.Tiers.Get.Response, rhs: Anytype_Rpc.Payments.Tiers.Get.Response) -> Bool {
+  public static func ==(lhs: Anytype_Rpc.Membership.Tiers.Get.Response, rhs: Anytype_Rpc.Membership.Tiers.Get.Response) -> Bool {
     if lhs._error != rhs._error {return false}
     if lhs.tiers != rhs.tiers {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
@@ -70734,8 +70456,8 @@ extension Anytype_Rpc.Payments.Tiers.Get.Response: SwiftProtobuf.Message, SwiftP
   }
 }
 
-extension Anytype_Rpc.Payments.Tiers.Get.Response.Error: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
-  public static let protoMessageName: String = Anytype_Rpc.Payments.Tiers.Get.Response.protoMessageName + ".Error"
+extension Anytype_Rpc.Membership.Tiers.Get.Response.Error: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = Anytype_Rpc.Membership.Tiers.Get.Response.protoMessageName + ".Error"
   public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
     1: .same(proto: "code"),
     2: .same(proto: "description"),
@@ -70764,7 +70486,7 @@ extension Anytype_Rpc.Payments.Tiers.Get.Response.Error: SwiftProtobuf.Message, 
     try unknownFields.traverse(visitor: &visitor)
   }
 
-  public static func ==(lhs: Anytype_Rpc.Payments.Tiers.Get.Response.Error, rhs: Anytype_Rpc.Payments.Tiers.Get.Response.Error) -> Bool {
+  public static func ==(lhs: Anytype_Rpc.Membership.Tiers.Get.Response.Error, rhs: Anytype_Rpc.Membership.Tiers.Get.Response.Error) -> Bool {
     if lhs.code != rhs.code {return false}
     if lhs.description_p != rhs.description_p {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
@@ -70772,7 +70494,7 @@ extension Anytype_Rpc.Payments.Tiers.Get.Response.Error: SwiftProtobuf.Message, 
   }
 }
 
-extension Anytype_Rpc.Payments.Tiers.Get.Response.Error.Code: SwiftProtobuf._ProtoNameProviding {
+extension Anytype_Rpc.Membership.Tiers.Get.Response.Error.Code: SwiftProtobuf._ProtoNameProviding {
   public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
     0: .same(proto: "NULL"),
     1: .same(proto: "UNKNOWN_ERROR"),
