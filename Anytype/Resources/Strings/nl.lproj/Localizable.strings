@@ -117,6 +117,15 @@
 "Relation.Origin.Builtin" = "Bibliotheek geïnstalleerd";
 "Relation.Origin.Bookmark" = "Bladwijzer";
 
+// MARK: - Import Type Relation
+
+"Relation.ImportType.Notion" = "Notion";
+"Relation.ImportType.Markdown" = "Markdown";
+"Relation.ImportType.Html" = "HTML";
+"Relation.ImportType.Text" = "TXT";
+"Relation.ImportType.Protobuf" = "Any-Block";
+"Relation.ImportType.Csv" = "CSV";
+
 // MARK: - Mention
 "Mention.Subtitle.Placeholder" = "Object";
 
@@ -874,9 +883,10 @@
 "SpaceSettings.DeleteAlert.Message" = "Deze ruimte zal onherroepelijk worden verwijderd. Je kunt deze actie niet ongedaan maken.";
 "SpaceSettings.DeleteButton" = "Verwijder ruimte";
 "SpaceSettings.Share" = "Deel";
-"SpaceSettings.LeaveButton" = "Verlaat en schrijf uit";
-"SpaceSettings.LeaveAlert.Title" = "Verlaat en schrijf uit van de ruimte";
+"SpaceSettings.LeaveButton" = "Leave";
+"SpaceSettings.LeaveAlert.Title" = "Leave a space";
 "SpaceSettings.LeaveAlert.Message" = "%@ ruimte zal worden verwijderd van jouw apparaten en je hebt er dan geen toegang meer toe";
+"SpaceSettings.LeaveAlert.Toast" = "You left the %@.";
 
 // MARK: - Space Share
 

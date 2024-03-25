@@ -117,6 +117,15 @@
 "Relation.Origin.Builtin" = "Pustaka terpasang";
 "Relation.Origin.Bookmark" = "Markah";
 
+// MARK: - Import Type Relation
+
+"Relation.ImportType.Notion" = "Notion";
+"Relation.ImportType.Markdown" = "Markdown";
+"Relation.ImportType.Html" = "HTML";
+"Relation.ImportType.Text" = "TXT";
+"Relation.ImportType.Protobuf" = "Any-Block";
+"Relation.ImportType.Csv" = "CSV";
+
 // MARK: - Mention
 "Mention.Subtitle.Placeholder" = "Objek";
 
@@ -137,7 +146,7 @@
 "Lists" = "Grup";
 "Pinned" = "Tersemat";
 "Delete" = "Hapus";
-"Export" = "Export";
+"Export" = "Ekspor";
 "Duplicate" = "Gandakan";
 "Copy" = "Salin";
 "Preview" = "Pratinjau";
@@ -258,7 +267,7 @@
 "Auth.JoinFlow.Soul.Placeholder" = "Nirjudul";
 
 "Auth.JoinFlow.Creating.Soul.Title" = "Membuat akun baru";
-"Auth.JoinFlow.Setting.Space.Title" = "Setting up your default space";
+"Auth.JoinFlow.Setting.Space.Title" = "Menyiapkan ruang bawaanmu";
 
 // Auth - Login flow
 "Auth.LoginFlow.Use.Keychain.Title" = "Gunakan rantai kunci";
@@ -846,7 +855,7 @@
 // MARK: - Spaces
 "Spaces.Accessibility.Shared" = "Ruang Terbagi";
 "Spaces.Accessibility.Private" = "Ruang Pribadi";
-"Spaces.Accessibility.Personal" = "Default Space";
+"Spaces.Accessibility.Personal" = "Ruang Bawaan";
 "Spaces.Search.Title" = "Cari ruang";
 "Spaces.Title" = "Ruang";
 "Spaces.Info.Network" = "Jaringan:";
@@ -873,13 +882,14 @@
 "SpaceSettings.DeleteAlert.Message" = "Ruang ini akan dihapus secara permanen. Kamu tidak bisa membatalkan tindakan ini.";
 "SpaceSettings.DeleteButton" = "Hapus ruang";
 "SpaceSettings.Share" = "Bagikan";
-"SpaceSettings.LeaveButton" = "Keluar dari ruang";
-"SpaceSettings.LeaveAlert.Title" = "Keluar dari ruang";
+"SpaceSettings.LeaveButton" = "Keluar";
+"SpaceSettings.LeaveAlert.Title" = "Tinggalkan ruang";
 "SpaceSettings.LeaveAlert.Message" = "Ruang %@ akan dihapus dari perangkat-perangkatmu dan kamu tidak akan bisa mengaksesnya lagi.";
+"SpaceSettings.LeaveAlert.Toast" = "Kamu keluar dari %@.";
 
 // MARK: - Space Share
 
-"SpaceShare.Title" = "Sharing";
+"SpaceShare.Title" = "Berbagi";
 "SpaceShare.Members" = "Anggota";
 "SpaceShare.Permissions.Owner" = "Pemilik";
 "SpaceShare.Permissions.Reader" = "Pembaca";
@@ -887,16 +897,16 @@
 "SpaceShare.Permissions.Grand.Edit" = "Sunting";
 "SpaceShare.Permissions.Grand.View" = "Tampilan";
 "SpaceShare.Invite.Title" = "Tautan undangan";
-"SpaceShare.Invite.Description" = "Share this invite link so that others can join your Space. Once they click your link and request access, you can set their access rights.";
-"SpaceShare.Invite.Share" = "Share invite link";
-"SpaceShare.Invite.Generate" = "Generate invite link";
-"SpaceShare.Invite.Empty" = "Create invite link to share space and add new members";
-"SpaceShare.JoinRequest" = "Join request";
-"SpaceShare.LeaveRequest" = "Leave request";
-"SpaceShare.Action.ViewRequest" = "View request";
+"SpaceShare.Invite.Description" = "Bagikan tautan undangan ini agar orang lain dapat bergabung ke Ruangmu. Begitu mereka mengeklik tautan dan meminta akses, kamu bisa mengatur hak akses mereka.";
+"SpaceShare.Invite.Share" = "Bagikan tautan undangan";
+"SpaceShare.Invite.Generate" = "Buat tautan undangan";
+"SpaceShare.Invite.Empty" = "Buat tautan undangan untuk membagikan ruang dan menambah anggota baru";
+"SpaceShare.JoinRequest" = "Permintaan bergabung";
+"SpaceShare.LeaveRequest" = "Permintaan keluar";
+"SpaceShare.Action.ViewRequest" = "Lihat permintaan";
 "SpaceShare.Action.Approve" = "Terima";
-"SpaceShare.DeleteSharingLink.Title" = "Delete link";
-"SpaceShare.DeleteSharingLink.Message" = "New members won’t be able to join the space. You can generate a new link anytype";
+"SpaceShare.DeleteSharingLink.Title" = "Hapus tautan";
+"SpaceShare.DeleteSharingLink.Message" = "Anggota baru tidak akan dapat bergabung ke ruang ini. Kamu bisa membuat tautan batu kapan saja";
 "SpaceShare.Approve.Toast" = "Kamu menyetujui permintaan %@.";
 "SpaceShare.ViewRequest.Title" = "%@ meminta bergabung ke ruang %@";
 "SpaceShare.ViewRequest.ViewAccess" = "Izinkan akses baca";
@@ -913,24 +923,24 @@
 "SpaceShare.JoinConfirmation.Title" = "Permintaan terkirim";
 "SpaceShare.JoinConfirmation.Message" = "Kamu akan menerima pemberitahuan ketika pemilik ruang menyetujui permintaanmu.";
 "SpaceShare.YouSuffix" = "%@ (kamu)";
-"SpaceShare.ManageSpaces" = "Manage Spaces";
+"SpaceShare.ManageSpaces" = "Kelola Ruang";
 
 // MARK: - Permission notification
-"PermissionChangeNotification.Text" = "Your access rights were changed to **%@** in the **%@** space.";
-"ParticipantRequestApprovedNotification.Text" = "Your request to join the **%@** space has been approved with **%@** access rights. The space will be available on your device soon.";
-"ParticipantRequestDeclineNotification.Text" = "Your request to join the **%@** space has been declined.";
-"RequestToLeaveNotification.Text" = "**%@** wants to leave the **%@** space.";
-"ParticipantRemoveNotification.Text" = "You have been removed from the space, or the space was deleted by the owner.";
-"RequestToJoinNotification.Text" = "**%@** requested to join the **%@** space.";
-"RequestToJoinNotification.GoToSpace" = "Go to Space";
-"RequestToJoinNotification.ViewRequest" = "View request";
+"PermissionChangeNotification.Text" = "Hak aksesmu telah diganti menjadi **%@** di ruang **%@**.";
+"ParticipantRequestApprovedNotification.Text" = "Permintaanmu bergabung ke ruang **%@** telah disetujui dengan hak akses **%@**. Ruang ini akan tersedia di akunmu sebentar lagi.";
+"ParticipantRequestDeclineNotification.Text" = "Permintaanmu bergabung ke ruang **%@** telah ditolak.";
+"RequestToLeaveNotification.Text" = "**%@** ingin meninggalkan ruang **%@**.";
+"ParticipantRemoveNotification.Text" = "Kamu telah dikeluarkan dari ruang ini, atau ruang tersebut telah dihapus oleh pemiliknya.";
+"RequestToJoinNotification.Text" = "**%@** meminta bergabung ke ruang **%@**.";
+"RequestToJoinNotification.GoToSpace" = "Kunjungi Ruang";
+"RequestToJoinNotification.ViewRequest" = "Lihat permintaan";
 
 // MARK: - Space manager
-"SpaceManager.CancelRequest" = "Cancel Join Request";
-"SpaceManager.DoNotCancel" = "Do Not Cancel";
+"SpaceManager.CancelRequest" = "Batalkan Permintaan Bergabung";
+"SpaceManager.DoNotCancel" = "Jangan Batalkan";
 "SpaceManager.Archive" = "Arsip";
-"SpaceManager.CancelRequestAlert.Title" = "You will have to send request access again";
-"SpaceManager.CancelRequestAlert.Toast" = "The request was canceled.";
+"SpaceManager.CancelRequestAlert.Title" = "Kamu akan perlu mengirimkan permintaan bergabung lagi";
+"SpaceManager.CancelRequestAlert.Toast" = "Permintaanmu telah dibatalkan.";
 
 
 

@@ -112,10 +112,19 @@
 "Relation.Origin.DragAndDrop" = "Dra og slipp";
 "Relation.Origin.Import" = "Importert objekt";
 "Relation.Origin.WebClipper" = "Webklipper";
-"Relation.Origin.SharingExtension" = "Mobile sharing extension";
+"Relation.Origin.SharingExtension" = "Utvidelse for mobildeling";
 "Relation.Origin.UseCase" = "Eksempel";
 "Relation.Origin.Builtin" = "Bibliotek installert";
 "Relation.Origin.Bookmark" = "Bokmerke";
+
+// MARK: - Import Type Relation
+
+"Relation.ImportType.Notion" = "Notion";
+"Relation.ImportType.Markdown" = "Markdown";
+"Relation.ImportType.Html" = "HTML";
+"Relation.ImportType.Text" = "TXT";
+"Relation.ImportType.Protobuf" = "Any-blokk";
+"Relation.ImportType.Csv" = "CSV";
 
 // MARK: - Mention
 "Mention.Subtitle.Placeholder" = "Objekt";
@@ -137,7 +146,7 @@
 "Lists" = "Groups";
 "Pinned" = "Festet";
 "Delete" = "Slett";
-"Export" = "Export";
+"Export" = "Eksport";
 "Duplicate" = "Dupliser";
 "Copy" = "Kopier";
 "Preview" = "Forhåndsvisning";
@@ -258,7 +267,7 @@
 "Auth.JoinFlow.Soul.Placeholder" = "Uten tittel";
 
 "Auth.JoinFlow.Creating.Soul.Title" = "Genererer ny konto";
-"Auth.JoinFlow.Setting.Space.Title" = "Setting up your default space";
+"Auth.JoinFlow.Setting.Space.Title" = "Setter opp ditt standard rom";
 
 // Auth - Login flow
 "Auth.LoginFlow.Use.Keychain.Title" = "Bruk nøkkelring";
@@ -604,7 +613,7 @@
 "Change type" = "Endre type";
 "Show types" = "Vis typer";
 "Hide types" = "Skjul typer";
-"SlashMenu.LinkTo.Description" = "Create link to another object";
+"SlashMenu.LinkTo.Description" = "Opprett lenke til et annet objekt";
 "Upload playable audio" = "Last opp spillbar lyd";
 "Code snippet" = "Kodesnutt";
 "Bookmark" = "Bokmerke";
@@ -846,7 +855,7 @@
 // MARK: - Spaces
 "Spaces.Accessibility.Shared" = "Delt rom";
 "Spaces.Accessibility.Private" = "Privat rom";
-"Spaces.Accessibility.Personal" = "Default Space";
+"Spaces.Accessibility.Personal" = "Standard rom";
 "Spaces.Search.Title" = "Søk etter rom";
 "Spaces.Title" = "Rom";
 "Spaces.Info.Network" = "Nettverk:";
@@ -873,13 +882,14 @@
 "SpaceSettings.DeleteAlert.Message" = "Dette rommet vil bli slettet ugjenkallelig. Du kan ikke angre denne handlingen.";
 "SpaceSettings.DeleteButton" = "Slett rom";
 "SpaceSettings.Share" = "Del";
-"SpaceSettings.LeaveButton" = "Forlat og fjern sammenkobling";
-"SpaceSettings.LeaveAlert.Title" = "Forlat og fjern sammenkoblingen til rommet";
+"SpaceSettings.LeaveButton" = "Forlat";
+"SpaceSettings.LeaveAlert.Title" = "Forlat et rom";
 "SpaceSettings.LeaveAlert.Message" = "%@-rommet vil bli fjernet fra enhetene dine og du vil ikke lenger ha tilgang til det";
+"SpaceSettings.LeaveAlert.Toast" = "Du forlot %@.";
 
 // MARK: - Space Share
 
-"SpaceShare.Title" = "Sharing";
+"SpaceShare.Title" = "Deling";
 "SpaceShare.Members" = "Medlemmer";
 "SpaceShare.Permissions.Owner" = "Eier";
 "SpaceShare.Permissions.Reader" = "Viewer";
@@ -888,16 +898,16 @@
 "SpaceShare.Permissions.Grand.View" = "Visning";
 "SpaceShare.Invite.Title" = "Invitasjonslenke";
 "SpaceShare.Invite.Description" = "Share this invite link so that others can join your Space. Once they click your link and request access, you can set their access rights.";
-"SpaceShare.Invite.Share" = "Share invite link";
-"SpaceShare.Invite.Generate" = "Generate invite link";
+"SpaceShare.Invite.Share" = "Del invitasjonslenke";
+"SpaceShare.Invite.Generate" = "Generer invitasjonslenke";
 "SpaceShare.Invite.Empty" = "Create invite link to share space and add new members";
-"SpaceShare.JoinRequest" = "Join request";
+"SpaceShare.JoinRequest" = "Medlemsforespørsel";
 "SpaceShare.LeaveRequest" = "Leave request";
-"SpaceShare.Action.ViewRequest" = "View request";
+"SpaceShare.Action.ViewRequest" = "Vis forespørsel";
 "SpaceShare.Action.Approve" = "Godkjenn";
-"SpaceShare.DeleteSharingLink.Title" = "Delete link";
-"SpaceShare.DeleteSharingLink.Message" = "New members won’t be able to join the space. You can generate a new link anytype";
-"SpaceShare.Approve.Toast" = "You approved %@'s request.";
+"SpaceShare.DeleteSharingLink.Title" = "Slett lenke";
+"SpaceShare.DeleteSharingLink.Message" = "Nye medlemmer vil ikke kunne bli medlem av rommet. Du kan generere en ny lenke når som helst";
+"SpaceShare.Approve.Toast" = "Du har godkjent %@s forespørsel.";
 "SpaceShare.ViewRequest.Title" = "%@ ba om å bli med i %@-rommet";
 "SpaceShare.ViewRequest.ViewAccess" = "Grand view access";
 "SpaceShare.ViewRequest.EditAccess" = "Grand edit access";
@@ -912,8 +922,8 @@
 "SpaceShare.Join.Message" = "Du har blitt invitert til å bli med i %@ -rommet, opprettet av %@. Send en forespørsel slik at eieren av rommet kan slippe deg inn.";
 "SpaceShare.JoinConfirmation.Title" = "Forespørsel sendt";
 "SpaceShare.JoinConfirmation.Message" = "Du vil motta et varsel når eieren av rommet godkjenner forespørselen din.";
-"SpaceShare.YouSuffix" = "%@ (you)";
-"SpaceShare.ManageSpaces" = "Manage Spaces";
+"SpaceShare.YouSuffix" = "%@ (du)";
+"SpaceShare.ManageSpaces" = "Administrer rom";
 
 // MARK: - Permission notification
 "PermissionChangeNotification.Text" = "Your access rights were changed to **%@** in the **%@** space.";
@@ -921,16 +931,16 @@
 "ParticipantRequestDeclineNotification.Text" = "Your request to join the **%@** space has been declined.";
 "RequestToLeaveNotification.Text" = "**%@** wants to leave the **%@** space.";
 "ParticipantRemoveNotification.Text" = "You have been removed from the space, or the space was deleted by the owner.";
-"RequestToJoinNotification.Text" = "**%@** requested to join the **%@** space.";
-"RequestToJoinNotification.GoToSpace" = "Go to Space";
-"RequestToJoinNotification.ViewRequest" = "View request";
+"RequestToJoinNotification.Text" = "**%@** ba om å bli med i **%@**-rommet.";
+"RequestToJoinNotification.GoToSpace" = "Gå til rom";
+"RequestToJoinNotification.ViewRequest" = "Vis forespørsel";
 
 // MARK: - Space manager
 "SpaceManager.CancelRequest" = "Cancel Join Request";
-"SpaceManager.DoNotCancel" = "Do Not Cancel";
+"SpaceManager.DoNotCancel" = "Ikke avbryt";
 "SpaceManager.Archive" = "Arkiv";
 "SpaceManager.CancelRequestAlert.Title" = "You will have to send request access again";
-"SpaceManager.CancelRequestAlert.Toast" = "The request was canceled.";
+"SpaceManager.CancelRequestAlert.Toast" = "Forespørselen ble avbrutt.";
 
 
 
@@ -1035,13 +1045,13 @@
 "Membership.Ad.Title" = "Medlemskap";
 "Membership.Ad.Subtitle" = "Joining Anytype network means contributing to its story";
 
-"Membership.Legal.Details" = "Membership levels details";
+"Membership.Legal.Details" = "Detaljer om medlemskap";
 "Membership.Legal.Privacy" = "Personvernregler";
 "Membership.Legal.Terms" = "Vilkår og betingelser";
-"Membership.Legal.WouldYouLike" = "Would you like to use Anytype for business, education, etc.?";
+"Membership.Legal.WouldYouLike" = "Ønsker du å bruke Anytype for virksomhet, utdanning osv.?";
 "Membership.Legal.LetUsKnow" = "Vennligst gi oss beskjed her.";
 
-"Membership.Email.Subject" = "Special Pricing Request";
+"Membership.Email.Subject" = "Forespørsel om spesialpris";
 "Membership.Email.Body" = "Please specify your request:
 - highlight if you represent an educational, governmental, or non-profit organization
 - tell us more about your organization: number of employees and future Anytype users, markets you're working on, etc.,
@@ -1064,7 +1074,7 @@
 "Membership.NameForm.Title" = "Velg ditt unike navn";
 "Membership.NameForm.Subtitle" = "Dette navnet fungerer som et personlig domene, noe som gjør det enklere for andre å finne deg";
 "Membership.NameForm.Validating" = "Vent et øyeblikk...";
-"Membership.NameForm.Validated" = "This name is up for grabs";
+"Membership.NameForm.Validated" = "Dette navnet er ledig";
 
 "Membership.Success.Title" = "Velkommen til nettverket, %@";
 "Membership.Success.Subitle" = "Big cheers for your curiosity!";
@@ -1082,7 +1092,7 @@
 "Membership.Builder.Benefit1" = "Unikt navn (fra 7 tegn)";
 "Membership.Builder.Benefit2" = "128 GB of network space";
 "Membership.Builder.Benefit3" = "10 Guest collaborator seats";
-"Membership.Builder.Benefit4" = "Priority support";
+"Membership.Builder.Benefit4" = "Prioritert support";
 
 "Membership.CoCreator.Title" = "Co-Creator";
 "Membership.CoCreator.Subtitle" = "Support our adventure and unlock exclusive access and perks";

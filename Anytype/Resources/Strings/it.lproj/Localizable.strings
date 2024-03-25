@@ -117,6 +117,15 @@
 "Relation.Origin.Builtin" = "Libreria installata";
 "Relation.Origin.Bookmark" = "Segnalibro";
 
+// MARK: - Import Type Relation
+
+"Relation.ImportType.Notion" = "Notion";
+"Relation.ImportType.Markdown" = "Markdown";
+"Relation.ImportType.Html" = "HTML";
+"Relation.ImportType.Text" = "TXT";
+"Relation.ImportType.Protobuf" = "Any-Block";
+"Relation.ImportType.Csv" = "CSV";
+
 // MARK: - Mention
 "Mention.Subtitle.Placeholder" = "Oggetto";
 
@@ -873,9 +882,10 @@
 "SpaceSettings.DeleteAlert.Message" = "Questo spazio verrà eliminato irrevocabilmente. Non è possibile annullare questa azione.";
 "SpaceSettings.DeleteButton" = "Elimina spazio";
 "SpaceSettings.Share" = "Condividi";
-"SpaceSettings.LeaveButton" = "Lascia e abbandona";
-"SpaceSettings.LeaveAlert.Title" = "Lascia e abbandona lo spazio";
+"SpaceSettings.LeaveButton" = "Leave";
+"SpaceSettings.LeaveAlert.Title" = "Leave a space";
 "SpaceSettings.LeaveAlert.Message" = "Lo spazio %@ verrà rimosso dai tuoi dispositivi e non avrai più accesso ad esso";
+"SpaceSettings.LeaveAlert.Toast" = "You left the %@.";
 
 // MARK: - Space Share
 

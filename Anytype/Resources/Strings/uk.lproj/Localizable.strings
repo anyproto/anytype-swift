@@ -117,6 +117,15 @@
 "Relation.Origin.Builtin" = "Library installed";
 "Relation.Origin.Bookmark" = "Закладка";
 
+// MARK: - Import Type Relation
+
+"Relation.ImportType.Notion" = "Notion";
+"Relation.ImportType.Markdown" = "Markdown";
+"Relation.ImportType.Html" = "HTML";
+"Relation.ImportType.Text" = "TXT";
+"Relation.ImportType.Protobuf" = "Any-Block";
+"Relation.ImportType.Csv" = "CSV";
+
 // MARK: - Mention
 "Mention.Subtitle.Placeholder" = "Об'єкт";
 
@@ -874,9 +883,10 @@
 "SpaceSettings.DeleteAlert.Message" = "Цей простір буде видалено безповоротно. Ви не можете скасувати цю дію.";
 "SpaceSettings.DeleteButton" = "Видалити простір ";
 "SpaceSettings.Share" = "Share";
-"SpaceSettings.LeaveButton" = "Leave and unjoin";
-"SpaceSettings.LeaveAlert.Title" = "Leave and unjoin the space";
+"SpaceSettings.LeaveButton" = "Leave";
+"SpaceSettings.LeaveAlert.Title" = "Leave a space";
 "SpaceSettings.LeaveAlert.Message" = "%@ space will be removed from your devices and you will no longer have access to it";
+"SpaceSettings.LeaveAlert.Toast" = "You left the %@.";
 
 // MARK: - Space Share
 
