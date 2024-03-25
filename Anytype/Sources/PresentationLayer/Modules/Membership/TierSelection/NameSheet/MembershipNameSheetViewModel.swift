@@ -33,8 +33,8 @@ final class MembershipNameSheetViewModel: ObservableObject {
         }
     }
     
-    @Injected(\.nameService)
-    private var nameService: NameServiceProtocol
+    @Injected(\.membershipService)
+    private var memberhsipService: MembershipServiceProtocol
     
     private let tier: MembershipTier
     private var validationTask: Task<(), any Error>?
@@ -60,8 +60,10 @@ final class MembershipNameSheetViewModel: ObservableObject {
             try Task.checkCancellation()
             
             do {
-                try await nameService.resolveName(name: name)
+                try await memberhsipService.validateName(name: "\(name).any", tier: tier)
                 state = .validated
+            } catch let error as MembershipServiceProtocol.ValidateNameError {
+                state = .error(text: error.validateNameSheetError)
             } catch let error {
                 state = .error(text: error.localizedDescription)
             }

@@ -6,6 +6,9 @@ public protocol MembershipServiceProtocol {
     func getStatus() async throws -> MembershipStatus
     func getVerificationEmail(data: EmailVerificationData) async throws
     func verifyEmailCode(code: String) async throws
+    
+    typealias ValidateNameError = Anytype_Rpc.Membership.IsNameValid.Response.Error
+    func validateName(name: String, tier: MembershipTier) async throws
 }
 
 final class MembershipService: MembershipServiceProtocol {
@@ -25,6 +28,13 @@ final class MembershipService: MembershipServiceProtocol {
     
     public func getStatus() async throws -> MembershipStatus {
         return try await ClientCommands.membershipGetStatus().invoke().data.asModel()
+    }
+    
+    public func validateName(name: String, tier: MembershipTier) async throws {        
+        try await ClientCommands.membershipIsNameValid(.with {
+            $0.requestedAnyName = name
+            $0.requestedTier = tier.middlewareId
+        }).invoke(ignoreLogErrors: .hasInvalidChars, .tooLong, .tooShort)
     }
 }
 
@@ -50,6 +60,22 @@ extension Anytype_Model_Membership {
             .coCreator
         default:
             .custom(id: tier)
+        }
+    }
+}
+
+// TODO: Use API
+extension MembershipTier {
+    var middlewareId: Int32 {
+        switch self {
+        case .explorer:
+            1
+        case .builder:
+            4
+        case .coCreator:
+            5
+        case .custom(let id):
+            id
         }
     }
 }

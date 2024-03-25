@@ -1272,6 +1272,7 @@
 		3D6F2D722B87983500AA667B /* PasteboardBlockService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D6F2D712B87983500AA667B /* PasteboardBlockService.swift */; };
 		3D6F2D752B87A00B00AA667B /* PasteboardBlockServiceProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D6F2D742B87A00B00AA667B /* PasteboardBlockServiceProtocol.swift */; };
 		3D7C08212684B68600E2168D /* BlockFileViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D7C08202684B68600E2168D /* BlockFileViewModel.swift */; };
+		3D7DC2C02BB1D21F00A4F114 /* ValidateNameErrorExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D7DC2BF2BB1D21F00A4F114 /* ValidateNameErrorExtension.swift */; };
 		3D7EA8A6268EF38D00C76974 /* BlockFileConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D7EA8A5268EF38D00C76974 /* BlockFileConfiguration.swift */; };
 		3D7EA8D0268F636300C76974 /* BlockBookmarkConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D7EA8CF268F636300C76974 /* BlockBookmarkConfiguration.swift */; };
 		3D7F7173279F0829003FE893 /* EditorSetPaginationData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D7F7172279F0829003FE893 /* EditorSetPaginationData.swift */; };
@@ -3063,6 +3064,7 @@
 		3D6F2D712B87983500AA667B /* PasteboardBlockService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PasteboardBlockService.swift; sourceTree = "<group>"; };
 		3D6F2D742B87A00B00AA667B /* PasteboardBlockServiceProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PasteboardBlockServiceProtocol.swift; sourceTree = "<group>"; };
 		3D7C08202684B68600E2168D /* BlockFileViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = BlockFileViewModel.swift; path = Anytype/Sources/PresentationLayer/TextEditor/BlocksViews/Blocks/File/File/BlockFileViewModel.swift; sourceTree = SOURCE_ROOT; };
+		3D7DC2BF2BB1D21F00A4F114 /* ValidateNameErrorExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ValidateNameErrorExtension.swift; sourceTree = "<group>"; };
 		3D7EA8A5268EF38D00C76974 /* BlockFileConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = BlockFileConfiguration.swift; path = Anytype/Sources/PresentationLayer/TextEditor/BlocksViews/Blocks/File/File/BlockFileConfiguration.swift; sourceTree = SOURCE_ROOT; };
 		3D7EA8CF268F636300C76974 /* BlockBookmarkConfiguration.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = BlockBookmarkConfiguration.swift; path = Anytype/Sources/PresentationLayer/TextEditor/BlocksViews/Blocks/Bookmark/View/FullData/BlockBookmarkConfiguration.swift; sourceTree = SOURCE_ROOT; };
 		3D7F7172279F0829003FE893 /* EditorSetPaginationData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditorSetPaginationData.swift; sourceTree = "<group>"; };
@@ -8400,6 +8402,7 @@
 			children = (
 				3D4507BB2B9B398A00739EFC /* MembershipNameSheetView.swift */,
 				3D4507BE2B9B3DE300739EFC /* MembershipNameSheetViewModel.swift */,
+				3D7DC2BF2BB1D21F00A4F114 /* ValidateNameErrorExtension.swift */,
 			);
 			path = NameSheet;
 			sourceTree = "<group>";
@@ -11824,7 +11827,6 @@
 				2E2A23042A9F746D00745D78 /* SetLayoutSettings.swift in Sources */,
 				3DB1CA5A272BEF3B000D2779 /* WallpaperPickerView.swift in Sources */,
 				539168852632DD5200AD5C5F /* StyleCellView.swift in Sources */,
-				2A376F662B879BE600CF444A /* ParticipantsSubscriptionBySpaceService.swift in Sources */,
 				3DFD50A42BA0B114002E51F7 /* MembershipStatusExtension.swift in Sources */,
 				3D8624492B738D6400A5FCF4 /* ObjectTypeProviderProtocol.swift in Sources */,
 				C9BFBA8B28A12E980003D9E6 /* ShimmeringBlockView.swift in Sources */,
@@ -12144,6 +12146,7 @@
 				3D1CEC3127F5A8CA000D36BA /* DeletedAccountViewModel.swift in Sources */,
 				8673528D2AA8BF2C003F92DC /* WrappedSearchInteractor.swift in Sources */,
 				3DD0CEB62B90AA0500657402 /* MembershipModuleViewModel.swift in Sources */,
+				3D7DC2C02BB1D21F00A4F114 /* ValidateNameErrorExtension.swift in Sources */,
 				535F799A274705C30050A1B8 /* FlowRelationsViewModel.swift in Sources */,
 				2A1F949929795FEB00E25782 /* FavoriteSubscriptionService.swift in Sources */,
 				2ADFA9DC2949C61D00F64688 /* UIKitModule.swift in Sources */,
