@@ -34,6 +34,7 @@ struct SelectRelationListView: View {
                 viewModel.searchTextChanged(text)
             }
         )
+        .disabled(!viewModel.configuration.isEditable)
         .onAppear {
             viewModel.onAppear()
         }

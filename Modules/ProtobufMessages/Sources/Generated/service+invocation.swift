@@ -1785,12 +1785,12 @@ public struct ClientCommands {
     }
 
     public static func blockDataviewSortSort(
-        _ request: Anytype_Rpc.BlockDataview.Sort.Sort.Request = .init()
-    ) -> Invocation<Anytype_Rpc.BlockDataview.Sort.Sort.Request, Anytype_Rpc.BlockDataview.Sort.Sort.Response> {
+        _ request: Anytype_Rpc.BlockDataview.Sort.SSort.Request = .init()
+    ) -> Invocation<Anytype_Rpc.BlockDataview.Sort.SSort.Request, Anytype_Rpc.BlockDataview.Sort.SSort.Response> {
         return Invocation(messageName: "BlockDataviewSortSort", request: request) { request in
             let requestData = try request.serializedData()
             let responseData = Lib.ServiceBlockDataviewSortSort(requestData) ?? Data()
-            return try Anytype_Rpc.BlockDataview.Sort.Sort.Response(serializedData: responseData)
+            return try Anytype_Rpc.BlockDataview.Sort.SSort.Response(serializedData: responseData)
         }
     }
 

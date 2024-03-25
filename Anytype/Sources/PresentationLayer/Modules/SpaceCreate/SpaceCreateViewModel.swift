@@ -38,7 +38,7 @@ final class SpaceCreateViewModel: ObservableObject {
             let spaceId = try await workspaceService.createSpace(name: spaceName, gradient: spaceGradient, accessType: spaceAccessType, useCase: .empty)
             try await activeWorkspaceStorage.setActiveSpace(spaceId: spaceId)
             UINotificationFeedbackGenerator().notificationOccurred(.success)
-            AnytypeAnalytics.instance().logCreateSpace()
+            AnytypeAnalytics.instance().logCreateSpace(route: .navigation)
             output?.spaceCreateWillDismiss()
             dismissForLegacyOS()
         }

@@ -9,6 +9,7 @@ struct SpaceRowModel: Identifiable {
     let shared: Bool
     let onTap: () -> Void
     let onDelete: (() -> Void)?
+    let onLeave: (() -> Void)?
 }
 
 struct SpaceRowView: View {
@@ -46,6 +47,11 @@ struct SpaceRowView: View {
                         if let onDelete = model.onDelete {
                             Button(Loc.SpaceSettings.deleteButton, role: .destructive) {
                                 onDelete()
+                            }
+                        }
+                        if let onLeave = model.onLeave {
+                            Button(Loc.SpaceSettings.leaveButton, role: .destructive) {
+                                onLeave()
                             }
                         }
                     }

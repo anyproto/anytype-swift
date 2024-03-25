@@ -117,6 +117,15 @@
 "Relation.Origin.Builtin" = "Kütüphane yüklü";
 "Relation.Origin.Bookmark" = "Yer imi";
 
+// MARK: - Import Type Relation
+
+"Relation.ImportType.Notion" = "Notion";
+"Relation.ImportType.Markdown" = "Markdown";
+"Relation.ImportType.Html" = "HTML";
+"Relation.ImportType.Text" = "TXT";
+"Relation.ImportType.Protobuf" = "Any-Block";
+"Relation.ImportType.Csv" = "CSV";
+
 // MARK: - Mention
 "Mention.Subtitle.Placeholder" = "Nesne";
 
@@ -874,9 +883,10 @@
 "SpaceSettings.DeleteAlert.Message" = "This space will be deleted irrevocably. You can’t undo this action.";
 "SpaceSettings.DeleteButton" = "Delete space";
 "SpaceSettings.Share" = "Paylaş";
-"SpaceSettings.LeaveButton" = "Leave and unjoin";
-"SpaceSettings.LeaveAlert.Title" = "Leave and unjoin the space";
+"SpaceSettings.LeaveButton" = "Leave";
+"SpaceSettings.LeaveAlert.Title" = "Leave a space";
 "SpaceSettings.LeaveAlert.Message" = "%@ space will be removed from your devices and you will no longer have access to it";
+"SpaceSettings.LeaveAlert.Toast" = "You left the %@.";
 
 // MARK: - Space Share
 

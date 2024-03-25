@@ -5,21 +5,16 @@ import Services
 final class RequestToLeaveNotificationViewModel: ObservableObject {
     
     private let notification: NotificationRequestToLeave
-    @Injected(\.workspaceStorage)
-    private var workspaceStorage: WorkspacesStorageProtocol
     @Injected(\.workspaceService)
     private var workspaceService: WorkspaceServiceProtocol
     
     @Published var message: String = ""
-    @Published var icon: Icon?
     @Published var toast: ToastBarData = .empty
     @Published var dismiss = false
     
     init(notification: NotificationRequestToLeave) {
         self.notification = notification
-        let spaceView = workspaceStorage.spaceView(spaceId: notification.requestToLeave.spaceID)
-        icon = spaceView?.iconImage
-        message = Loc.RequestToLeaveNotification.text(notification.requestToLeave.identityName, spaceView?.name ?? "")
+        message = Loc.RequestToLeaveNotification.text(notification.requestToLeave.identityName, notification.requestToLeave.spaceName)
     }
     
     func onTapApprove() async throws {

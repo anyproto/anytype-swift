@@ -72,7 +72,6 @@ struct RelationListContainerView<Content>: View where Content: View {
         }
         .buttonStyle(BorderlessButtonStyle())
         .bounceBehaviorBasedOnSize()
-        .disabled(!isEditable)
     }
     
     private var clearButton: some View {

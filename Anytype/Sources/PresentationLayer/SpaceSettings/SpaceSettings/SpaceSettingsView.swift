@@ -95,9 +95,7 @@ struct SpaceSettingsView: View {
             }
         }
         .anytypeSheet(isPresented: $model.showSpaceLeaveAlert) {
-            SpaceLeaveAlertView(spaceName: model.spaceName) {
-                try await model.onLeaveConfirmationTap()
-            }
+            SpaceLeaveAlert(spaceId: model.workspaceInfo.accountSpaceId)
         }
     }
 }

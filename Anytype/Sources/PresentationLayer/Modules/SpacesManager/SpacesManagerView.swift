@@ -39,5 +39,8 @@ struct SpacesManagerView: View {
         .anytypeSheet(item: $model.spaceForStopSharingAlert) { space in
             StopSharingAlert(spaceId: space.targetSpaceId)
         }
+        .anytypeSheet(item: $model.spaceForLeaveAlert) { space in
+            SpaceLeaveAlert(spaceId: space.targetSpaceId)
+        }
     }
 }

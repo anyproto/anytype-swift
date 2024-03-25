@@ -71,6 +71,6 @@ final class WorkspacesStorage: WorkspacesStorageProtocol {
     }
     
     func canCreateNewSpace() -> Bool {
-        return allWorkspaces.count < Constants.maxSpaces
+        return activeWorkspaces.count < Constants.maxSpaces
     }
 }

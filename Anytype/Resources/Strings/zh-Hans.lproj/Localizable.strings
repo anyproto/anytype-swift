@@ -117,6 +117,15 @@
 "Relation.Origin.Builtin" = "库已安装";
 "Relation.Origin.Bookmark" = "书签";
 
+// MARK: - Import Type Relation
+
+"Relation.ImportType.Notion" = "Notion";
+"Relation.ImportType.Markdown" = "Markdown";
+"Relation.ImportType.Html" = "HTML";
+"Relation.ImportType.Text" = "TXT";
+"Relation.ImportType.Protobuf" = "Any-Block";
+"Relation.ImportType.Csv" = "CSV";
+
 // MARK: - Mention
 "Mention.Subtitle.Placeholder" = "对象";
 
@@ -873,9 +882,10 @@
 "SpaceSettings.DeleteAlert.Message" = "此空间将被不可撤销地删除。您无法撤消此操作。";
 "SpaceSettings.DeleteButton" = "删除空间";
 "SpaceSettings.Share" = "分享";
-"SpaceSettings.LeaveButton" = "离开并取消加入";
-"SpaceSettings.LeaveAlert.Title" = "离开并取消加入空间";
+"SpaceSettings.LeaveButton" = "Leave";
+"SpaceSettings.LeaveAlert.Title" = "Leave a space";
 "SpaceSettings.LeaveAlert.Message" = "%@ 空间将被从您的设备中删除，您将无法再访问它";
+"SpaceSettings.LeaveAlert.Toast" = "You left the %@.";
 
 // MARK: - Space Share
 

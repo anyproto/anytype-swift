@@ -189,9 +189,9 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>d</string>
         <key>other</key>
-        <string>%d members</string>
+        <string>%d Mitglieder</string>
         <key>one</key>
-        <string>%d member</string>
+        <string>%d Mitglied</string>
       </dict>
     </dict>
   </dict>

@@ -452,3 +452,8 @@ enum ClickGalleryInstallSpaceType: String {
     case new = "New"
     case existing = "Existing"
 }
+
+enum CreateSpaceRoute: String {
+    case navigation = "Navigation"
+    case gallery = "Gallery"
+}
