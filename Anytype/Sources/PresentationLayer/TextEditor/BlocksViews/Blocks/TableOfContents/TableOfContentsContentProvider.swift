@@ -62,7 +62,7 @@ final class TableOfContentsContentProvider {
                 for index in position+1..<hasHeader.count {
                     hasHeader[index] = false
                 }
-                let title = content.text.isEmpty ? Loc.Object.Title.placeholder : content.text
+                let title = content.text.withPlaceholder
                 let item = TableOfContentItem(blockId: child.id, title: title, level: depth)
                 setupSubsriptionFor(item: item)
                 items.append(item)

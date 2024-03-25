@@ -19,7 +19,7 @@ extension BundledRelationsValueProvider {
             return Loc.nonExistentObject
         }
 
-        return objectName.isEmpty ? Loc.Object.Title.placeholder : objectName
+        return objectName.withPlaceholder
     }
 
     var subtitle: String {

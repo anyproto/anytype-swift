@@ -440,6 +440,7 @@
 		2A590ECA2BB16AF0009D0A7C /* SpaceDeleteAlert.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A590EC92BB16AF0009D0A7C /* SpaceDeleteAlert.swift */; };
 		2A590ECD2BB16B0E009D0A7C /* SpaceDeleteAlertModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A590ECC2BB16B0E009D0A7C /* SpaceDeleteAlertModel.swift */; };
 		2A590ED12BB1731F009D0A7C /* NotificationCoordinatorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A590ED02BB1731F009D0A7C /* NotificationCoordinatorView.swift */; };
+		2A590EC82BB16790009D0A7C /* String+Name.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A590EC72BB16790009D0A7C /* String+Name.swift */; };
 		2A5A898C29C8650600C170D6 /* SettingsAccountView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A5A898B29C8650600C170D6 /* SettingsAccountView.swift */; };
 		2A5A898E29C866FF00C170D6 /* SettingsObjectHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A5A898D29C866FF00C170D6 /* SettingsObjectHeader.swift */; };
 		2A5B53B12A80DBA200BC993B /* SpaceSettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A5B53B02A80DBA200BC993B /* SpaceSettingsView.swift */; };
@@ -2237,6 +2238,7 @@
 		2A590EC92BB16AF0009D0A7C /* SpaceDeleteAlert.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpaceDeleteAlert.swift; sourceTree = "<group>"; };
 		2A590ECC2BB16B0E009D0A7C /* SpaceDeleteAlertModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpaceDeleteAlertModel.swift; sourceTree = "<group>"; };
 		2A590ED02BB1731F009D0A7C /* NotificationCoordinatorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationCoordinatorView.swift; sourceTree = "<group>"; };
+		2A590EC72BB16790009D0A7C /* String+Name.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Name.swift"; sourceTree = "<group>"; };
 		2A5A898B29C8650600C170D6 /* SettingsAccountView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsAccountView.swift; sourceTree = "<group>"; };
 		2A5A898D29C866FF00C170D6 /* SettingsObjectHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsObjectHeader.swift; sourceTree = "<group>"; };
 		2A5B53B02A80DBA200BC993B /* SpaceSettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpaceSettingsView.swift; sourceTree = "<group>"; };
@@ -4993,6 +4995,7 @@
 				2AAE455728A5307C00E538C8 /* BlockBookmark+Extensions.swift */,
 				2A64B6BA2B3DD54D000316E2 /* ObjectActionsServiceError+Localization.swift */,
 				2AC434AF2B7A20EF006166BF /* Participant+Extensions.swift */,
+				2A590EC72BB16790009D0A7C /* String+Name.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -11663,6 +11666,7 @@
 				2E22F9F32B617D5D001EFCF3 /* RelationOptionSettingsView.swift in Sources */,
 				538F172D272C2F75009528E7 /* ObjectSearchViewModel.swift in Sources */,
 				12DE405D264AE455007B5074 /* LayoutProperty.swift in Sources */,
+				2A590EC82BB16790009D0A7C /* String+Name.swift in Sources */,
 				2E0A7D312BAC9F1800577AD6 /* ObjectImportType+Loc.swift in Sources */,
 				3D5A415B2703132800F1F6A1 /* SlashActionOther.swift in Sources */,
 				125B6EC526F235F400BCD7D6 /* MentionsViewController.swift in Sources */,
