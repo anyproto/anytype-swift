@@ -34,13 +34,10 @@ protocol ModulesDIProtocol: AnyObject {
     func remoteStorage() -> RemoteStorageModuleAssemblyProtocol
     func setObjectCreationSettings() -> SetObjectCreationSettingsModuleAssemblyProtocol
     func setViewSettingsList() -> SetViewSettingsListModuleAssemblyProtocol
-    func setTextView() -> SetTextViewModuleAssemblyProtocol
     func setFiltersDateView() -> SetFiltersDateViewModuleAssemblyProtocol
     func setFilterConditions() -> SetFilterConditionsModuleAssemblyProtocol
     func setFiltersSelectionHeader() -> SetFiltersSelectionHeaderModuleAssemblyProtocol
     func setFiltersSelectionView() -> SetFiltersSelectionViewModuleAssemblyProtocol
-    func setFiltersTextView() -> SetFiltersTextViewModuleAssemblyProtocol
-    func setFiltersCheckboxView() -> SetFiltersCheckboxViewModuleAssemblyProtocol
     func setFiltersListModule() -> SetFiltersListModuleAssemblyProtocol
     func setViewSettingsImagePreview() -> SetViewSettingsImagePreviewModuleAssemblyProtocol
     func setLayoutSettingsView() -> SetLayoutSettingsViewAssemblyProtocol

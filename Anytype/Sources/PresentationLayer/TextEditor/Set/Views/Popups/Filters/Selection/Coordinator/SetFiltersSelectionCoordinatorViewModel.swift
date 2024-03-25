@@ -24,8 +24,6 @@ final class SetFiltersSelectionCoordinatorViewModel: ObservableObject, SetFilter
         setFiltersDateCoordinatorAssembly: SetFiltersDateCoordinatorAssemblyProtocol,
         setFilterConditionsModuleAssembly: SetFilterConditionsModuleAssemblyProtocol,
         newSearchModuleAssembly: NewSearchModuleAssemblyProtocol,
-        setFiltersTextViewModuleAssembly: SetFiltersTextViewModuleAssemblyProtocol,
-        setFiltersCheckboxViewModuleAssembly: SetFiltersCheckboxViewModuleAssemblyProtocol,
         completion: @escaping (SetFilter) -> Void
     ) {
         self.filter = filter
@@ -36,9 +34,7 @@ final class SetFiltersSelectionCoordinatorViewModel: ObservableObject, SetFilter
             filter: filter,
             setFiltersSelectionHeaderModuleAssembly: setFiltersSelectionHeaderModuleAssembly,
             setFiltersDateCoordinatorAssembly: setFiltersDateCoordinatorAssembly,
-            newSearchModuleAssembly: newSearchModuleAssembly,
-            setFiltersTextViewModuleAssembly: setFiltersTextViewModuleAssembly,
-            setFiltersCheckboxViewModuleAssembly: setFiltersCheckboxViewModuleAssembly
+            newSearchModuleAssembly: newSearchModuleAssembly
         )
         self.completion = completion
     }
