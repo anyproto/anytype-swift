@@ -406,6 +406,7 @@
 		2A3AFF552A7CEB9F004F7E09 /* SpaceAccessibility+Localization.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A3AFF542A7CEB9F004F7E09 /* SpaceAccessibility+Localization.swift */; };
 		2A4063632A5D480E00ECEA79 /* AsyncHelpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A4063622A5D480E00ECEA79 /* AsyncHelpers.swift */; };
 		2A4063652A5D9D8A00ECEA79 /* EventBunchSubscribtion.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A4063642A5D9D8A00ECEA79 /* EventBunchSubscribtion.swift */; };
+		2A40F59F2BB1997D00F0220E /* PresentedDismiss.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A40F59E2BB1997D00F0220E /* PresentedDismiss.swift */; };
 		2A41A6782B84E57B00EAE6E6 /* DeepLinks in Frameworks */ = {isa = PBXBuildFile; productRef = 2A41A6772B84E57B00EAE6E6 /* DeepLinks */; };
 		2A41A67A2B84E59B00EAE6E6 /* DeepLinks in Frameworks */ = {isa = PBXBuildFile; productRef = 2A41A6792B84E59B00EAE6E6 /* DeepLinks */; };
 		2A41A68D2B84EBBC00EAE6E6 /* DeepLinks in Frameworks */ = {isa = PBXBuildFile; productRef = 2A41A68C2B84EBBC00EAE6E6 /* DeepLinks */; };
@@ -436,6 +437,8 @@
 		2A55F1F12B738484009DB80A /* NotificationPayload.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A55F1F02B738484009DB80A /* NotificationPayload.swift */; };
 		2A56C1682ACB0BAE001677E1 /* EditorPageModuleAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A56C1672ACB0BAE001677E1 /* EditorPageModuleAssembly.swift */; };
 		2A56C16B2ACB0C50001677E1 /* EditorPageModuleOutput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A56C16A2ACB0C50001677E1 /* EditorPageModuleOutput.swift */; };
+		2A590ECA2BB16AF0009D0A7C /* SpaceDeleteAlert.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A590EC92BB16AF0009D0A7C /* SpaceDeleteAlert.swift */; };
+		2A590ECD2BB16B0E009D0A7C /* SpaceDeleteAlertModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A590ECC2BB16B0E009D0A7C /* SpaceDeleteAlertModel.swift */; };
 		2A590ED12BB1731F009D0A7C /* NotificationCoordinatorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A590ED02BB1731F009D0A7C /* NotificationCoordinatorView.swift */; };
 		2A5A898C29C8650600C170D6 /* SettingsAccountView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A5A898B29C8650600C170D6 /* SettingsAccountView.swift */; };
 		2A5A898E29C866FF00C170D6 /* SettingsObjectHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A5A898D29C866FF00C170D6 /* SettingsObjectHeader.swift */; };
@@ -694,7 +697,6 @@
 		2AC434B02B7A20EF006166BF /* Participant+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AC434AF2B7A20EF006166BF /* Participant+Extensions.swift */; };
 		2AC5B3D32BA3380F002584B8 /* PermissionChangeNotificationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AC5B3D22BA3380F002584B8 /* PermissionChangeNotificationView.swift */; };
 		2AC6B2112B99C931000C6C88 /* AsyncButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AC6B2102B99C931000C6C88 /* AsyncButton.swift */; };
-		2AC750222AE7EB1A000CDD66 /* FloaterAlertView+DeleteSpace.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AC750212AE7EB1A000CDD66 /* FloaterAlertView+DeleteSpace.swift */; };
 		2AC906C129B5F8EF00209E39 /* WidgetInternalViewModelProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AC906C029B5F8EF00209E39 /* WidgetInternalViewModelProtocol.swift */; };
 		2AC906C329B5FA3300209E39 /* ObjectWidgetInternalViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AC906C229B5FA3300209E39 /* ObjectWidgetInternalViewModel.swift */; };
 		2AC906C529B5FFD600209E39 /* TreeWidgetModuleAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AC906C429B5FFD600209E39 /* TreeWidgetModuleAssembly.swift */; };
@@ -769,9 +771,10 @@
 		2AD741312993E28F004BD223 /* HomeWidgetCommonAssemblyProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AD741302993E28F004BD223 /* HomeWidgetCommonAssemblyProtocol.swift */; };
 		2AD741352994F19B004BD223 /* ApplicationStateService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AD741342994F19B004BD223 /* ApplicationStateService.swift */; };
 		2AD7413729951C43004BD223 /* ApplicationCoordinatorAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AD7413629951C43004BD223 /* ApplicationCoordinatorAssembly.swift */; };
+		2AD7E2E52BB1768600F2CDA1 /* StringIdentifiable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AD7E2E42BB1768600F2CDA1 /* StringIdentifiable.swift */; };
 		2AD8AFD52A83E60400F12D54 /* SpaceSwitchModuleOutput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AD8AFD42A83E60400F12D54 /* SpaceSwitchModuleOutput.swift */; };
 		2AD8AFD72A851CC400F12D54 /* BlockWidgetExpandedService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AD8AFD62A851CC400F12D54 /* BlockWidgetExpandedService.swift */; };
-		2AD8E94F2B679D2800AADB9E /* NotificationCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AD8E94E2B679D2800AADB9E /* NotificationCoordinator.swift */; };
+		2AD8E94F2B679D2800AADB9E /* NotificationCoordinatorViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AD8E94E2B679D2800AADB9E /* NotificationCoordinatorViewModel.swift */; };
 		2AD934082A8F5C880093B6BF /* SwiftEntryKit+DebugError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AD934072A8F5C880093B6BF /* SwiftEntryKit+DebugError.swift */; };
 		2AD98618289AA23900F5DF73 /* SelectionOptionsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AD98617289AA23900F5DF73 /* SelectionOptionsViewModel.swift */; };
 		2ADA5EEA28A292D000CD82A4 /* FeatureFlagViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2ADA5EE928A292D000CD82A4 /* FeatureFlagViewModel.swift */; };
@@ -2204,6 +2207,7 @@
 		2A3AFF542A7CEB9F004F7E09 /* SpaceAccessibility+Localization.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SpaceAccessibility+Localization.swift"; sourceTree = "<group>"; };
 		2A4063622A5D480E00ECEA79 /* AsyncHelpers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AsyncHelpers.swift; sourceTree = "<group>"; };
 		2A4063642A5D9D8A00ECEA79 /* EventBunchSubscribtion.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventBunchSubscribtion.swift; sourceTree = "<group>"; };
+		2A40F59E2BB1997D00F0220E /* PresentedDismiss.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PresentedDismiss.swift; sourceTree = "<group>"; };
 		2A41A6762B84D43C00EAE6E6 /* DeepLinks */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = DeepLinks; path = Modules/DeepLinks; sourceTree = "<group>"; };
 		2A4373712906808700A1C4D6 /* InlineMarkdownListener.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InlineMarkdownListener.swift; sourceTree = "<group>"; };
 		2A43EAC62A98A18500DA4AAE /* QuickActionShortcutBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuickActionShortcutBuilder.swift; sourceTree = "<group>"; };
@@ -2231,6 +2235,8 @@
 		2A55F1F02B738484009DB80A /* NotificationPayload.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationPayload.swift; sourceTree = "<group>"; };
 		2A56C1672ACB0BAE001677E1 /* EditorPageModuleAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditorPageModuleAssembly.swift; sourceTree = "<group>"; };
 		2A56C16A2ACB0C50001677E1 /* EditorPageModuleOutput.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditorPageModuleOutput.swift; sourceTree = "<group>"; };
+		2A590EC92BB16AF0009D0A7C /* SpaceDeleteAlert.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpaceDeleteAlert.swift; sourceTree = "<group>"; };
+		2A590ECC2BB16B0E009D0A7C /* SpaceDeleteAlertModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpaceDeleteAlertModel.swift; sourceTree = "<group>"; };
 		2A590ED02BB1731F009D0A7C /* NotificationCoordinatorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationCoordinatorView.swift; sourceTree = "<group>"; };
 		2A5A898B29C8650600C170D6 /* SettingsAccountView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsAccountView.swift; sourceTree = "<group>"; };
 		2A5A898D29C866FF00C170D6 /* SettingsObjectHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsObjectHeader.swift; sourceTree = "<group>"; };
@@ -2490,7 +2496,6 @@
 		2AC434AF2B7A20EF006166BF /* Participant+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Participant+Extensions.swift"; sourceTree = "<group>"; };
 		2AC5B3D22BA3380F002584B8 /* PermissionChangeNotificationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PermissionChangeNotificationView.swift; sourceTree = "<group>"; };
 		2AC6B2102B99C931000C6C88 /* AsyncButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AsyncButton.swift; sourceTree = "<group>"; };
-		2AC750212AE7EB1A000CDD66 /* FloaterAlertView+DeleteSpace.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "FloaterAlertView+DeleteSpace.swift"; sourceTree = "<group>"; };
 		2AC906C029B5F8EF00209E39 /* WidgetInternalViewModelProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WidgetInternalViewModelProtocol.swift; sourceTree = "<group>"; };
 		2AC906C229B5FA3300209E39 /* ObjectWidgetInternalViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObjectWidgetInternalViewModel.swift; sourceTree = "<group>"; };
 		2AC906C429B5FFD600209E39 /* TreeWidgetModuleAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TreeWidgetModuleAssembly.swift; sourceTree = "<group>"; };
@@ -2563,9 +2568,10 @@
 		2AD741302993E28F004BD223 /* HomeWidgetCommonAssemblyProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeWidgetCommonAssemblyProtocol.swift; sourceTree = "<group>"; };
 		2AD741342994F19B004BD223 /* ApplicationStateService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApplicationStateService.swift; sourceTree = "<group>"; };
 		2AD7413629951C43004BD223 /* ApplicationCoordinatorAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApplicationCoordinatorAssembly.swift; sourceTree = "<group>"; };
+		2AD7E2E42BB1768600F2CDA1 /* StringIdentifiable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StringIdentifiable.swift; sourceTree = "<group>"; };
 		2AD8AFD42A83E60400F12D54 /* SpaceSwitchModuleOutput.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpaceSwitchModuleOutput.swift; sourceTree = "<group>"; };
 		2AD8AFD62A851CC400F12D54 /* BlockWidgetExpandedService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlockWidgetExpandedService.swift; sourceTree = "<group>"; };
-		2AD8E94E2B679D2800AADB9E /* NotificationCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationCoordinator.swift; sourceTree = "<group>"; };
+		2AD8E94E2B679D2800AADB9E /* NotificationCoordinatorViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationCoordinatorViewModel.swift; sourceTree = "<group>"; };
 		2AD934072A8F5C880093B6BF /* SwiftEntryKit+DebugError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SwiftEntryKit+DebugError.swift"; sourceTree = "<group>"; };
 		2AD98617289AA23900F5DF73 /* SelectionOptionsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectionOptionsViewModel.swift; sourceTree = "<group>"; };
 		2ADA5EE928A292D000CD82A4 /* FeatureFlagViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeatureFlagViewModel.swift; sourceTree = "<group>"; };
@@ -3862,6 +3868,7 @@
 				12426A2B26DD006500693B1F /* ImageMetadata.swift */,
 				12870A2B26DE6A7400A6F46A /* ImageWidth.swift */,
 				2AC434AB2B7A1D17006166BF /* CommonError.swift */,
+				2AD7E2E42BB1768600F2CDA1 /* StringIdentifiable.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -5516,6 +5523,7 @@
 		2A2B33252A7B9A01004BD906 /* SpaceSwitch */ = {
 			isa = PBXGroup;
 			children = (
+				2A590ECB2BB16AF4009D0A7C /* SpaceDeleteAlert */,
 				2A2B332C2A7BB09D004BD906 /* Components */,
 				2A2B332A2A7BAEBA004BD906 /* SpaceSwitchViewModel.swift */,
 				2A2B33282A7B9C5E004BD906 /* SpaceSwitchView.swift */,
@@ -5529,7 +5537,6 @@
 			children = (
 				2A2B332D2A7BB0AC004BD906 /* SpaceRowView.swift */,
 				2A2B332F2A7BB6BF004BD906 /* SpacePlusRow.swift */,
-				2AC750212AE7EB1A000CDD66 /* FloaterAlertView+DeleteSpace.swift */,
 			);
 			path = Components;
 			sourceTree = "<group>";
@@ -5778,6 +5785,15 @@
 				2A56C16A2ACB0C50001677E1 /* EditorPageModuleOutput.swift */,
 			);
 			path = Page;
+			sourceTree = "<group>";
+		};
+		2A590ECB2BB16AF4009D0A7C /* SpaceDeleteAlert */ = {
+			isa = PBXGroup;
+			children = (
+				2A590EC92BB16AF0009D0A7C /* SpaceDeleteAlert.swift */,
+				2A590ECC2BB16B0E009D0A7C /* SpaceDeleteAlertModel.swift */,
+			);
+			path = SpaceDeleteAlert;
 			sourceTree = "<group>";
 		};
 		2A5B53AE2A80DB8900BC993B /* SpaceSettings */ = {
@@ -6848,7 +6864,7 @@
 			children = (
 				2ACA299C2B712F44009CD054 /* Specific */,
 				2A1AD7762B7118A4000EEBC0 /* CommonViews */,
-				2AD8E94E2B679D2800AADB9E /* NotificationCoordinator.swift */,
+				2AD8E94E2B679D2800AADB9E /* NotificationCoordinatorViewModel.swift */,
 				2A590ED02BB1731F009D0A7C /* NotificationCoordinatorView.swift */,
 			);
 			path = Notifications;
@@ -7067,6 +7083,7 @@
 			isa = PBXGroup;
 			children = (
 				2AFD7E172B626C2D003B16EB /* KeyboardDismiss.swift */,
+				2A40F59E2BB1997D00F0220E /* PresentedDismiss.swift */,
 			);
 			path = GlobalEnv;
 			sourceTree = "<group>";
@@ -10784,7 +10801,6 @@
 				2ECB34182A97B45B00E0F9BB /* SetFiltersDateCoordinatorViewModel.swift in Sources */,
 				53FF7C5226F7E49900A5A592 /* AudioPlayerView.swift in Sources */,
 				2A685D572B7B694800456E08 /* Text+Markdown.swift in Sources */,
-				2AC750222AE7EB1A000CDD66 /* FloaterAlertView+DeleteSpace.swift in Sources */,
 				2AC906E029B6289A00209E39 /* FavoriteListWidgetModuleAssembly.swift in Sources */,
 				1289C518281159DE005085E2 /* FileDownloadingModuleOutput.swift in Sources */,
 				12DE4057264AE455007B5074 /* UIView+Layout.swift in Sources */,
@@ -11062,6 +11078,7 @@
 				2AEABE0728C7559500BDE3AC /* RelationEventConverter.swift in Sources */,
 				2A2B332E2A7BB0AC004BD906 /* SpaceRowView.swift in Sources */,
 				2E975EEC287C23DA004DE574 /* SetSortsSearchInteractor.swift in Sources */,
+				2A590ECD2BB16B0E009D0A7C /* SpaceDeleteAlertModel.swift in Sources */,
 				2E7C445F2891755A0062287C /* SetFiltersDateViewModel.swift in Sources */,
 				2A27F9B82B8DDB1F00BA1303 /* AsyncThrowsTask.swift in Sources */,
 				2A8302B92B0758D9002D6655 /* AnytypeDestinationBuilderHolder.swift in Sources */,
@@ -11089,6 +11106,7 @@
 				2AB7AAED2AF537AB00ED3E02 /* RemoteStorageSegmentInfo.swift in Sources */,
 				2AF109562A02639700EDDE26 /* FileIconBuilder.swift in Sources */,
 				2AF109582A03C56600EDDE26 /* NSItemProvider+Async.swift in Sources */,
+				2AD7E2E52BB1768600F2CDA1 /* StringIdentifiable.swift in Sources */,
 				123FDAD026C1505700F6F44B /* EditorPageController+UICollectionViewDelegate.swift in Sources */,
 				3D5A417A2704541900F1F6A1 /* SearchBar.swift in Sources */,
 				2A590ED12BB1731F009D0A7C /* NotificationCoordinatorView.swift in Sources */,
@@ -11689,6 +11707,7 @@
 				2AD239092A8A05C800F7697A /* SpaceCreateViewModel.swift in Sources */,
 				2A28D046297E8CAD00E55E15 /* SetsListWidgetModuleAssembly.swift in Sources */,
 				120E8171269F31A8006FE84E /* ObjectSettingsView.swift in Sources */,
+				2A40F59F2BB1997D00F0220E /* PresentedDismiss.swift in Sources */,
 				2AF4260729AF402200753B17 /* WallpaperPickerViewModel.swift in Sources */,
 				2E04201A2BA894C500F36637 /* ObjectRelationListData.swift in Sources */,
 				3DD112982B95EA35007682F4 /* MembershipCoordinatorModel.swift in Sources */,
@@ -12015,6 +12034,7 @@
 				C9CD66AC27EB3BDE001F1860 /* UnsplashItemsViewModel.swift in Sources */,
 				3DAE1C89273E6A59009A72F3 /* String+Range.swift in Sources */,
 				2A5BC4C92A791AED004FAABF /* ViewProvidersConfigurator.swift in Sources */,
+				2A590ECA2BB16AF0009D0A7C /* SpaceDeleteAlert.swift in Sources */,
 				5386E3C027B2DAEA004D8221 /* RelationValueViewUIKit.swift in Sources */,
 				2E0A6CD12A376B4600A28AF2 /* LoginView.swift in Sources */,
 				3DB1C9DC2726C248000D2779 /* DeletedLabel.swift in Sources */,
@@ -12069,7 +12089,7 @@
 				1244791C27D8A63D00581174 /* StatusSearchInteractor.swift in Sources */,
 				2A816AC92AD7DFC700975BCA /* ServerConfigurationView.swift in Sources */,
 				12A7B6C126C3E47200544037 /* DocumentCover.swift in Sources */,
-				2AD8E94F2B679D2800AADB9E /* NotificationCoordinator.swift in Sources */,
+				2AD8E94F2B679D2800AADB9E /* NotificationCoordinatorViewModel.swift in Sources */,
 				2E7E50472B6D65F6003867A3 /* ObjectRelationListCoordinatorViewModel.swift in Sources */,
 				53D408AC27F0B7EE00495335 /* CodeBlockFields.swift in Sources */,
 				86579BC42AF4ED7A00D65714 /* EditorBlockCollectionController.swift in Sources */,

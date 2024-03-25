@@ -11,6 +11,9 @@ final class NotificationCoordinatorViewModel: ObservableObject {
     @Injected(\.notificationsSubscriptionService)
     private var notificationSubscriptionService: NotificationsSubscriptionServiceProtocol
     private var subscription: AnyCancellable?
+    private var dismissAllPresented: DismissAllPresented?
+    
+    @Published var spaceIdForDeleteAlert: StringIdentifiable?
     
     func onAppear() {
         Task {
@@ -27,6 +30,10 @@ final class NotificationCoordinatorViewModel: ObservableObject {
     func onDisappear() {
         subscription?.cancel()
         subscription = nil
+    }
+    
+    func setDismissAllPresented(dismissAllPresented: DismissAllPresented) {
+        self.dismissAllPresented = dismissAllPresented
     }
     
     // MARK: - Private
@@ -63,7 +70,13 @@ final class NotificationCoordinatorViewModel: ObservableObject {
             let view = RequestToJoinNotificationView(notification: NotificationRequestToJoin(common: notification, requestToJoin: data))
             show(view: view)
         case .participantRemove(let data):
-            let view = ParticipantRemoveNotificationView(notification: NotificationParticipantRemove(common: notification, remove: data))
+            let view = ParticipantRemoveNotificationView(
+                notification: NotificationParticipantRemove(common: notification, remove: data),
+                onDelete: { [weak self] spaceId in
+                    await self?.dismissAllPresented?()
+                    self?.spaceIdForDeleteAlert = spaceId.identifiable
+                }
+            )
             show(view: view)
         case .import, .export, .test, .none:
             // Ignore

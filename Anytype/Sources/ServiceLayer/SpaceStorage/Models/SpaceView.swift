@@ -53,7 +53,7 @@ extension SpaceView {
     }
     
     var canBeDelete: Bool {
-        spaceAccessType == .private && accountStatus != .spaceRemoving
+        spaceAccessType == .private
     }
     
     var canBeArchive: Bool {

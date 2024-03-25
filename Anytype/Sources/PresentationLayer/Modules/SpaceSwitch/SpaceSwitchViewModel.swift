@@ -55,13 +55,6 @@ final class SpaceSwitchViewModel: ObservableObject {
         output?.onSettingsSelected()
     }
     
-    func onDeleteConfirmationTap(space: SpaceView) {
-        Task {
-            AnytypeAnalytics.instance().logDeleteSpace(type: .private)
-            try await workspaceService.deleteSpace(spaceId: space.targetSpaceId)
-        }
-    }
-    
     // MARK: - Private
     
     private func startProfileSubscriotions() async {

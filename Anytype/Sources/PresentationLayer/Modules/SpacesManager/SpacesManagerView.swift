@@ -42,5 +42,8 @@ struct SpacesManagerView: View {
         .anytypeSheet(item: $model.spaceForLeaveAlert) { space in
             SpaceLeaveAlert(spaceId: space.targetSpaceId)
         }
+        .anytypeSheet(item: $model.spaceViewForDelete) { space in
+            SpaceDeleteAlert(spaceId: space.targetSpaceId)
+        }
     }
 }
