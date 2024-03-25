@@ -1079,6 +1079,11 @@
 "Membership.NameForm.Validating" = "Wait a second...";
 "Membership.NameForm.Validated" = "This name is up for grabs";
 
+"Membership.NameForm.Error.TooShort" = "Name is too short";
+"Membership.NameForm.Error.TooLong" = "Name is too long";
+"Membership.NameForm.Error.HasInvalidChars" = "Name has invalid characters";
+
+
 "Membership.Success.Title" = "Welcome to the network, %@";
 "Membership.Success.Subitle" = "Big cheers for your curiosity!";
 

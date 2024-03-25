@@ -1547,6 +1547,14 @@ internal enum Loc {
       internal static let validated = Loc.tr("Localizable", "Membership.NameForm.Validated", fallback: "This name is up for grabs")
       /// Wait a second...
       internal static let validating = Loc.tr("Localizable", "Membership.NameForm.Validating", fallback: "Wait a second...")
+      internal enum Error {
+        /// Name has invalid characters
+        internal static let hasInvalidChars = Loc.tr("Localizable", "Membership.NameForm.Error.HasInvalidChars", fallback: "Name has invalid characters")
+        /// Name is too long
+        internal static let tooLong = Loc.tr("Localizable", "Membership.NameForm.Error.TooLong", fallback: "Name is too long")
+        /// Name is too short
+        internal static let tooShort = Loc.tr("Localizable", "Membership.NameForm.Error.TooShort", fallback: "Name is too short")
+      }
     }
     internal enum Payment {
       /// Apple subscription
