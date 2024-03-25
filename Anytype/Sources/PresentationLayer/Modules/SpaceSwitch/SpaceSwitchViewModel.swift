@@ -37,6 +37,7 @@ final class SpaceSwitchViewModel: ObservableObject {
     @Published var createSpaceAvailable: Bool = false
     @Published var spaceViewForDelete: SpaceView?
     @Published var spaceViewForLeave: SpaceView?
+    @Published var spaceViewStopSharing: SpaceView?
     
     init(output: SpaceSwitchModuleOutput?) {
         self.output = output
@@ -119,6 +120,9 @@ final class SpaceSwitchViewModel: ObservableObject {
                 } : nil,
                 onLeave: participantSpaceView.canLeave ? { [weak self] in
                     self?.spaceViewForLeave = spaceView
+                } : nil,
+                onStopShare: participantSpaceView.canStopSharing ? { [weak self] in
+                    self?.spaceViewStopSharing = spaceView
                 } : nil
             )
         }
